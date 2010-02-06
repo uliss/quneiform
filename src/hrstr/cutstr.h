@@ -72,7 +72,7 @@ typedef struct v_v v_val;
 
 struct save_vers {
     int16_t nvers;
-    version vers[VERS_IN_CELL];
+    CIF::version vers[VERS_IN_CELL];
     char flg;
     char pos;
     uchar source;
@@ -84,7 +84,7 @@ struct save_vers {
     int16_t clink; // Nick  18.6.99
     uint16_t clu_attr; // Nick  18.6.99
     int16_t nClust;
-    version pr_vers;
+    CIF::version pr_vers;
 };
 typedef struct save_vers SVERS;
 

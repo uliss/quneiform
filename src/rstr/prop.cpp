@@ -309,7 +309,7 @@ int16_t  wi,             /* proportional index of the letter */
 
  wi = prop_index (glp->BC->h, glp->BC->w);
  wi*=7;       /* the proprtional index of the letter */
- clet=glp->BC->vers[0].let;   /* first version */
+ clet=glp->BC->vers[0].let;   /* first CIF::version */
  glp->ptab=letters_pidx_table;   /* get the address of the beginning of PROPTAB */
  glp->ptab=glp->ptab+(clet*sizeof(prop_tab_el));
 			  /* the offset in the table = (letter value * 2) */

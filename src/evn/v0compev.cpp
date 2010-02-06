@@ -68,7 +68,7 @@ extern uchar save_event_txt[], save_event_txts[];
 extern Bool32 enable_save_stat;
 // Oleg
 extern c_comp wcomp;
-extern version * start_rec, *rec_ptr;
+extern CIF::version * start_rec, *rec_ptr;
 extern uchar recors_change;
 extern uchar lpool[];
 extern uchar* events_tree;
@@ -113,7 +113,7 @@ uint16_t events_recog()
     int16_t nv;
     uint16_t i, k;
     uchar* p;
-    version *v;
+    CIF::version *v;
 
     //snap_keep (snap_stright,NULL,0);
     if ((wcomp.nl > NET_COMPONENT) && (net_comp_count() > NET_COMPONENT)) {/*snap_keep (snap_vers,NULL,0);*/

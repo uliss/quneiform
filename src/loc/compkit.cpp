@@ -74,7 +74,7 @@ extern BOX * boxchain, *dl_last_in_chain;
 extern uchar lpool[];
 extern uint16_t lpool_lth;
 extern uchar work_raster[];
-extern version * start_rec, *rec_ptr;
+extern CIF::version * start_rec, *rec_ptr;
 extern uchar records_change;
 extern uchar *events_tree, *events_tree_rt;
 static void boxes_to_line();
@@ -467,7 +467,7 @@ uchar byte_seg_size[256] = {
 
 uint16_t sort_events_vers()
 {
-    version * v, *a;
+    CIF::version * v, *a;
     uint16_t n;
     uchar let, prob;
 

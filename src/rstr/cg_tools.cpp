@@ -380,7 +380,7 @@ static void mark_own_dust(cell *B) {
 /*--------------------------------------------------------------
  --------------------------------------------------------------*/
 static int16_t discr_vers(cell *B1, int16_t mon, char all_vers) {
-	version * v;
+	CIF::version * v;
 	uchar c, chg = 0;
 	if (B1->nvers == 0)
 		return 0;

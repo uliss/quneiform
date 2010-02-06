@@ -72,7 +72,7 @@ main_memory_str& Q()
     return g_Q;
 }
 
-version * start_rec, *rec_ptr;
+CIF::version * start_rec, *rec_ptr;
 uchar lpool_lth;
 uchar lpool[6000 * 10];
 

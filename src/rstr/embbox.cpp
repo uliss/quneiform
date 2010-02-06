@@ -437,7 +437,7 @@ void embBOX(servBOX *SBOX, SVERS *tvers, Bool erection)
 //
 {
 	int16_t i, hyp, fll, cnt;
-	version *hypa;
+	CIF::version *hypa;
 	uint16_t probest;
 	uchar ocurlet;
 	uint16_t vect[16];
@@ -457,7 +457,7 @@ void embBOX(servBOX *SBOX, SVERS *tvers, Bool erection)
 	fll = 0; // all hypotesa not in BOX tab
 	best_answer_BOX = 0;
 
-	for (hyp = 0, hypa = (version*) &tvers->vers, ans_ptr = SBOX->best_BOX; //AK 04.03.97 ? for address
+	for (hyp = 0, hypa = tvers->vers, ans_ptr = SBOX->best_BOX; //AK 04.03.97 ? for address
 	hyp < tvers->nvers; hyp++, hypa++, ans_ptr++) {
 		ocurlet = curlet = hypa->let;
 		ans_ptr->ltr = ocurlet;

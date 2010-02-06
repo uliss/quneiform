@@ -514,7 +514,7 @@ static void Livers(cell *NC)
 {
 	int16_t i, j, kc, kv, kt;
 	cell * W;
-	version *v, *w;
+	CIF::version *v, *w;
 
 	i = 0;
 	W = use_word_flags[0];
@@ -566,7 +566,7 @@ static void negspace()
 //
 {
 	cell *C,*D,*E;
-	version *v;
+	CIF::version *v;
 	char fl;
 	int16_t i;
 
@@ -758,7 +758,7 @@ static void estimate_chain(int16_t word_pos) {
 }
 
 static void estimate_letter(cell *C, int16_t pos) {
-	version * v;
+	CIF::version * v;
 	int16_t i, p, pm;
 
 	cdv->class_ = (cdv + 1)->class_ = (cdv + 2)->class_ = L_EMPTY;
@@ -831,7 +831,7 @@ static void setup_complex() {
 }
 
 static int16_t make_best_choice(int16_t num_var) {
-	version *v, wi;
+	CIF::version *v, wi;
 	int16_t n;
 
 	v = (cdv + num_var)->C->vers;

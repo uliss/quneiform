@@ -138,7 +138,7 @@ struct nose_struct {
 	int16_t y;
 };
 
-version oa_src_vers[MAX_VERS];
+CIF::version oa_src_vers[MAX_VERS];
 uchar oa_src_nvers;
 int16_t oa_accent_existing_flag;
 
@@ -285,8 +285,8 @@ static void oacell(cell *C) {
 static int16_t oa_accent_removing(cell *srC) {
 	int16_t new_nvers, i, ret_code;
 	uchar flag;
-	version subst_vers[MAX_VERS];
-	version *wpv;
+	CIF::version subst_vers[MAX_VERS];
+	CIF::version *wpv;
 
 	ret_code = ACCENT_NOT_FOUND;
 	flag = 0;
@@ -343,7 +343,7 @@ static int16_t oa_accent_removing(cell *srC) {
 		oa_src_nvers = (uchar) srC->nvers;
 		srC->nvers = new_nvers;
 		memcpy(oa_src_vers, srC->vers, sizeof(srC->vers));
-		memset(wpv, 0, sizeof(version)); // end of versions list
+		memset(wpv, 0, sizeof(CIF::version)); // end of versions list
 		memcpy(srC->vers, subst_vers, sizeof(subst_vers));
 		ret_code = ACCENT_IS_FOUND;
 	}
@@ -682,7 +682,7 @@ static void set_mem() {
 
 static int16_t check_two_case(cell *C, pchar c) {
 	int16_t i, n;
-	version * v;
+	CIF::version * v;
 #define TWO_CASE_THRESH 140
 
 	maxprob = 0;
@@ -895,7 +895,7 @@ static Bool not_AvanGard_a() {
  static void put_two_case(cell *C, pchar pair)
  {
  int16_t     i, m, n;
- version *v, *v1;
+ CIF::version *v, *v1;
  version vers [16];
  pchar   c;
 
@@ -1374,7 +1374,7 @@ static void oa_accent_restoring(cell *resC) {
 	int16_t i, j;
 	int16_t recogAccent_o = 0; // 14.08.2001 E.P.
 
-	version *srcv, *resv;
+	CIF::version *srcv, *resv;
 	for (resv = resC->vers, i = 0; i < resC->nvers; i++, resv++) {
 		for (srcv = oa_src_vers, j = 0; j < oa_src_nvers; j++, srcv++) {
 			if (resv->let == 'o') {

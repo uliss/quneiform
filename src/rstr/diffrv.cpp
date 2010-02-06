@@ -273,7 +273,7 @@ static uchar let_stick[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 void r_criteria(cell *c, const s_glue * gl) //10.02.97
 {
 	extern Bool TM_check_active;
-	version *v0;
+	CIF::version *v0;
 	int32_t d, d_ang, d_cun, d_abris, i, dd; //change from int16_t
 	char snap[380], *s = snap;
 	struct rst _rst;
@@ -281,12 +281,12 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 	cell * cc = NULL;
 	uchar pen_m = 0, flag_m = 0, maxprob;
 	int32_t inc = 0; //change from int16_t
-	version save[VERS_IN_CELL];
+	CIF::version save[VERS_IN_CELL];
 	int16_t snvers;
 
 	// Nick 20.02.2001 - add *sizeof(version) !!!
 	if (c->nvers > 0)
-		memcpy(save, c->vers, c->nvers * sizeof(version));
+		memcpy(save, c->vers, c->nvers * sizeof(CIF::version));
 	snvers = c->nvers;
 
 	*s = 0;

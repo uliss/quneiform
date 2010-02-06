@@ -582,7 +582,7 @@ Bool russian_dictionary_word(cell * first, cell * last, puchar BadWord) {
 
 	for (roll = first; roll != last; roll = roll->nextl) // loop through letters
 	{
-		version * v;
+		CIF::version * v;
 		for (v = (roll == first) ? roll->vers : roll->vers + 1; v - roll->vers
 				< roll->nvers && roll->vers[0].prob - v->prob <= DELTA; v++) // vers
 		{
@@ -754,7 +754,7 @@ uchar change_Il1(cell *b, cell *e) {
 	cell *c;
 	int16_t upper, n, digit, ret = FALSE, rc;
 	uchar let;
-	uchar saveN, saveV[VERS_IN_CELL * sizeof(version)];
+	uchar saveN, saveV[VERS_IN_CELL * sizeof(CIF::version)];
 
 	for (n = digit = upper = 0, c = b; c != e; c = c->next, n++) {
 		let = c->vers[0].let;
@@ -773,7 +773,7 @@ uchar change_Il1(cell *b, cell *e) {
 		if ((c->flg & c_f_let) && c->nvers > 0 && memchr("1!¼", c->vers[0].let,
 				3)) {
 			saveN = (uchar) c->nvers;
-			memcpy(saveV, c->vers, VERS_IN_CELL * sizeof(version));
+			memcpy(saveV, c->vers, VERS_IN_CELL * sizeof(CIF::version));
 			if (upper || c == b)
 				let = 'I';
 			else
@@ -784,7 +784,7 @@ uchar change_Il1(cell *b, cell *e) {
 			stick_center_study(c, NULL, 1);
 			rc = c->vers[0].prob;
 			c->nvers = saveN;
-			memcpy(c->vers, saveV, VERS_IN_CELL * sizeof(version));
+			memcpy(c->vers, saveV, VERS_IN_CELL * sizeof(CIF::version));
 			if (rc > 254 - 30)
 				ret = TRUE;
 		}

@@ -1260,7 +1260,7 @@ static int16_t analeg(char *l) {
 }
 
 void del_vers(cell *c, uchar x, uchar pen) {
-	version *dv1;
+	CIF::version *dv1;
 	uchar cx, cx_acc, fld, fla;
 	int16_t p;
 	fld = 0;

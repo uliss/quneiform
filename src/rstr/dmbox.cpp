@@ -93,8 +93,8 @@ extern uchar db_pass; // current pass letter
 extern int16_t best_answer_BOX;
 
 static int16_t Proi[][6] = { { 255, 230, 190, 110, 50, 0 }, // all   DEFAULT
-    { 255, 180, 100, 70, 40, 0 }, // wM@  VERY BAD
-    { 255, 220, 160, 100, 60, 0 }, // 1il   NOT VERY BAD
+        { 255, 180, 100, 70, 40, 0 }, // wM@  VERY BAD
+        { 255, 220, 160, 100, 60, 0 }, // 1il   NOT VERY BAD
         };
 
 static uint16_t prob[7] = { 32768, 32113, 31455, 30475, 29200, 0, 0 };
@@ -111,15 +111,13 @@ static void make_box_raster5x3(uint16_t* matr, c_comp * cp, int16_t row, int16_t
         int16_t w, lnhead * lp);
 
 static void comp_to_box5x3(uint16_t* matr, c_comp * cp, uint16_t row, uint16_t col, uint16_t h,
-        uint16_t w)
-{
+        uint16_t w) {
     make_box_raster5x3(matr, cp, row, (int16_t) ((cp->left - col) * 5), h, w,
             (lnhead *) ((puchar) cp + cp->lines + sizeof(uint16_t)));
 }
 
 static void make_box_raster5x3(uint16_t* matr, c_comp * cp, int16_t row, int16_t add_col,
-        int16_t h, int16_t w, lnhead * lp)
-{
+        int16_t h, int16_t w, lnhead * lp) {
     int16_t r3, row_rest, w2, w3, w4;
     uint16_t* pm;
     uint16_t *p;
@@ -173,8 +171,7 @@ static void make_box_raster5x3(uint16_t* matr, c_comp * cp, int16_t row, int16_t
             }
             s4 = w4 - xs;
             s5 = xe - w4;
-        }
-        else
+        } else
             s5 = xe - xs;
         fint: ;
 
@@ -229,8 +226,7 @@ static void make_box_raster5x3(uint16_t* matr, c_comp * cp, int16_t row, int16_t
         goto next_line;
 }/*make_box_raster5x3*/
 
-int16_t crecell5x3(cell *B1, s_glue *GL)
-{
+int16_t crecell5x3(cell *B1, s_glue *GL) {
     servBOX save;
 
     if (bool5x3) {
@@ -243,8 +239,7 @@ int16_t crecell5x3(cell *B1, s_glue *GL)
     return GL->ncell;
 }/*crecell5x3*/
 
-int16_t isWideLetter(uchar let)
-{
+int16_t isWideLetter(uchar let) {
     if ((language == LANGUAGE_RUSSIAN) && memchr(wide_let, to_lower(let), sizeof(wide_let)))
         return 1;
 
@@ -253,8 +248,7 @@ int16_t isWideLetter(uchar let)
 
 int16_t isKlasterFull(int16_t typl);
 
-static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC)
-{
+static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC) {
     int16_t typl, svr, svh, svw, svc, svmr, svmc, pa, pA, py;
     uchar c1, c2, c3;
     uchar p1, p2, p3;
@@ -281,8 +275,7 @@ static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC)
             BC->vers[0].let = (uchar) ' ';
             BC->vers[1].let = (uchar) '€';
             BC->vers[2].let = (uchar) 'ã';
-        }
-        else {
+        } else {
             BC->vers[0].let = 'a';
             BC->vers[1].let = 'A';
             BC->vers[2].let = 'y';
@@ -320,8 +313,7 @@ static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC)
                 pA = p3;
             if (c3 == (uchar) 'ã')
                 py = p3;
-        }
-        else {
+        } else {
             if (c1 == 'a')
                 pa = p1;
             if (c1 == 'A')
@@ -349,8 +341,7 @@ static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC)
             typl |= 4;
         if (!typl)
             typl = 8; // all other types
-    }
-    else
+    } else
         reco2_cell(BC);
     BC->r_row = svr;
     BC->h = svh;
@@ -362,14 +353,13 @@ static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC)
 }
 extern uchar db_trace_flag;
 
-int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2)
-{
+int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
     cell *BC;
     t_answer * v;
     int16_t i, ps, typl, fvers, ffull, fBOXvers, ftv, w1, w1max, upper, lower;
     int16_t *pi1, *pi2;
     SVERS svers, fsvers;
-    version *dv1, *dv2;
+    CIF::version *dv1, *dv2;
     uint16_t wcos, beste, best3, *pb1, *pb2;
     uchar c, c_acc, pb, wc;
     int16_t flit;
@@ -682,7 +672,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2)
             }
             // else : sticks were a dream of EVENTS; retain BOX best list
             best3 = beste = 0;
-            for (dv2 = (version*) &(svers.vers); //AK 04.03.97 ? for address
+            for (dv2 = svers.vers; //AK 04.03.97 ? for address
             (((wc = dv2->let) != 0) && ((w1 = dv2->prob) != 0)); dv2++)
                 if (beste < w1)
                     beste = w1; // beste - best tiger stick
@@ -734,8 +724,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2)
                 dv2++;
                 dv2->let = dv2->prob = 0;
                 BC->nvers++;
-            }
-            else // list of versions is full; try to replace weakest
+            } else // list of versions is full; try to replace weakest
             {
                 sort_vers(BC);
                 if (fBOXvers) // version killed
@@ -927,8 +916,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2)
 
 #include "p2libr.h"
 extern int32_t all_probs, good_probs, zero_probs;
-int16_t dmBOX(cell *BC, s_glue *GL)
-{
+int16_t dmBOX(cell *BC, s_glue *GL) {
     int16_t ret = 0;
     if (pass4_in) {// OLEG : SERBIAN PASS4
         extern uchar langSer;
@@ -937,8 +925,7 @@ int16_t dmBOX(cell *BC, s_glue *GL)
                 && ij_dot(BC) <= 0)
             ret -= 100;
         return ret;
-    }
-    else
+    } else
         ret = dmiBOX(BC, GL, 1);
     /*
      if( 0&&spec_camera )
@@ -968,8 +955,7 @@ int16_t dmBOX(cell *BC, s_glue *GL)
 }
 
 char dust_in_pattern;
-int16_t crepat(cell *A, s_glue *GL, int16_t var, int16_t flag)
-{
+int16_t crepat(cell *A, s_glue *GL, int16_t var, int16_t flag) {
     cell *BC, *DC;
     int16_t d1, e3, e4;
     uchar pc;
@@ -1004,8 +990,7 @@ int16_t crepat(cell *A, s_glue *GL, int16_t var, int16_t flag)
         {
             if (d1 * 100 > e3)
                 continue;
-        }
-        else // close cells
+        } else // close cells
         {
             if (d1 > 0)
                 continue;
@@ -1059,8 +1044,7 @@ int16_t crepat(cell *A, s_glue *GL, int16_t var, int16_t flag)
         {
             if (d1 * 100 > e4)
                 continue;
-        }
-        else // close cells
+        } else // close cells
         {
             if (d1 > 0)
                 continue;
@@ -1097,8 +1081,7 @@ int16_t crepat(cell *A, s_glue *GL, int16_t var, int16_t flag)
 
 static int16_t sv_w, sv_h, sv_r, sv_c, sv_mr, sv_mc, sv_dens;
 static int16_t sc_w, sc_h, sc_r, sc_c, sc_mr, sc_mc, sc_dens;
-void SBOX_to_static()
-{
+void SBOX_to_static() {
     sv_r = SBOX.up_row;
     sv_c = SBOX.left_col;
     sv_w = SBOX.rast_w;
@@ -1107,8 +1090,7 @@ void SBOX_to_static()
     sv_mc = SBOX.math_col;
     sv_dens = SBOX.dens;
 }
-void SBOX_to_GL(s_glue *g)
-{
+void SBOX_to_GL(s_glue *g) {
     g->c_r = SBOX.up_row;
     g->c_c = SBOX.left_col;
     g->c_w = SBOX.rast_w;
@@ -1118,8 +1100,7 @@ void SBOX_to_GL(s_glue *g)
     g->c_dens = SBOX.dens;
 }
 
-void static_to_SBOX()
-{
+void static_to_SBOX() {
     SBOX.up_row = sv_r;
     SBOX.left_col = sv_c;
     SBOX.rast_w = sv_w;
@@ -1128,8 +1109,7 @@ void static_to_SBOX()
     SBOX.math_col = sv_mc;
     SBOX.dens = (char) sv_dens;
 }
-void GL_to_SBOX(s_glue *g)
-{
+void GL_to_SBOX(s_glue *g) {
     SBOX.up_row = g->c_r;
     SBOX.left_col = g->c_c;
     SBOX.rast_w = g->c_w;
@@ -1139,13 +1119,11 @@ void GL_to_SBOX(s_glue *g)
     SBOX.dens = (char) g->c_dens;
 }
 
-void dens_to_cell(cell *c)
-{
+void dens_to_cell(cell *c) {
     c->dens = (uchar) sv_dens;
 }
 
-void static_to_cell(cell *c)
-{
+void static_to_cell(cell *c) {
     c->r_row = sv_r;
     c->r_col = sv_c;
     c->w = sv_w;
@@ -1155,8 +1133,7 @@ void static_to_cell(cell *c)
     c->dens = (uchar) sv_dens;
 }
 
-void svcell_to_cell(cell *c)
-{
+void svcell_to_cell(cell *c) {
     c->r_row = sc_r;
     c->r_col = sc_c;
     c->w = sc_w;
@@ -1166,8 +1143,7 @@ void svcell_to_cell(cell *c)
     c->dens = (uchar) sc_dens;
 }
 
-void cell_to_svcell(cell *c)
-{
+void cell_to_svcell(cell *c) {
     sc_r = c->r_row;
     sc_c = c->r_col;
     sc_w = c->w;
@@ -1177,8 +1153,7 @@ void cell_to_svcell(cell *c)
     sc_dens = c->dens;
 }
 
-int16_t crecell(cell *B1, s_glue *GL, int16_t var)
-{
+int16_t crecell(cell *B1, s_glue *GL, int16_t var) {
     int16_t wr, wc, ww, wh, wmr, wmc;
     // make raster and (if var & 2) calculate new width,height
     if (!make_broken_raster(GL, var))
@@ -1211,8 +1186,7 @@ int16_t crecell(cell *B1, s_glue *GL, int16_t var)
     return GL->ncell;
 }
 
-static int16_t many_legs(s_glue *GL)
-{
+static int16_t many_legs(s_glue *GL) {
     cell *A;
     lnhead *Lp1;
     char n1, h1, h2;
@@ -1303,8 +1277,7 @@ servBOX *make_broken_raster(s_glue *GL, int16_t rq)
                 + 6) + *(mBOX + 7) + *(mBOX + 8) + *(mBOX + 9) + *(mBOX + 10) + *(mBOX + 11)
                 + *(mBOX + 12) + *(mBOX + 13) + *(mBOX + 14);
         s = (uint16_t) i;
-    }
-    else
+    } else
         for (s = 0, p = mBOX; p != mBOX + 15; p++)
             s += *p;
 
@@ -1319,8 +1292,7 @@ servBOX *make_broken_raster(s_glue *GL, int16_t rq)
     return &SBOX;
 }
 
-void snBOX(cell *b)
-{
+void snBOX(cell *b) {
     s_glue GL;
     GL.arg = GABOXt;
     crepat(b, &GL, 0, 0);

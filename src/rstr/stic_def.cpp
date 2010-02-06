@@ -741,7 +741,7 @@ static int16_t study_typ_of_center_line(cell *c, int16_t typ_snap, int16_t typ, 
         break;
     }
     return (ret); /* -2 - all right, 0 - add braces, 1 - no sticks */
-} /* anothe ret-code used TC-version               */
+} /* anothe ret-code used TC-CIF::version               */
 
 static void filtrate_abris(uchar left[], uchar right[], int16_t dy, int16_t dx, int16_t wide,
         int16_t hooks[], int16_t ul, int16_t ur, int16_t dl, int16_t dr, int16_t inc)

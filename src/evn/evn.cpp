@@ -94,7 +94,7 @@ uchar *events_treeh = NULL, *events_tree_rth = NULL; // event tables hnd
 uchar *events_treep = NULL, *events_tree_rtp = NULL; // event tables prn
 uchar *events_tree = NULL, *events_tree_rt = NULL; // event tables
 extern c_comp wcomp; // working component structure
-extern version* start_rec; // ptr to answer
+extern CIF::version* start_rec; // ptr to answer
 extern uchar lpool[];
 extern uchar evline[], evline1[];
 

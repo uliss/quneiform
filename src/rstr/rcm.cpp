@@ -170,7 +170,7 @@ uchar convert_eng_liga(uchar c);
 Bool32 enable_pass2 = TRUE;
 static Bool32 stop_user = FALSE;
 uchar valid_word_number = 0;
-version * start_rec, *rec_ptr;
+CIF::version * start_rec, *rec_ptr;
 int16_t text_findstat(char * w);
 uchar db_pass;
 uchar string[8192];

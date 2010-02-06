@@ -21,6 +21,8 @@
 
 const int VERS_IN_CELL = 16;
 
+namespace CIF {
+
 /*
  * versions with probabilities
  */
@@ -31,5 +33,7 @@ struct version
         // probability
         unsigned char prob;
 };
+
+}
 
 #endif /* VERSION_H_ */

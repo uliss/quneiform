@@ -150,7 +150,7 @@ static int32_t inc(CutPoint **cutp, int32_t i, int32_t ie, int32_t set);
 static int32_t dec(CutPoint **cutp, int32_t i, int32_t ie, int32_t set);
 static int32_t add_sect(int32_t il, int32_t ir, uchar nlet, Bool rerecog,
 		uchar *p);
-static version *find_in_vers(SVERS *svers, uchar let);
+static CIF::version *find_in_vers(SVERS *svers, uchar let);
 static Bool equal(uchar let1, uchar let2);
 static int32_t select_cells(int32_t il, int32_t ir, uchar cut_fl, cell **cells);
 static void set_bad_vers(SVERS *c);
@@ -703,7 +703,7 @@ static void save_alpha_vers(cell *C, SVERS *svers)
 static int16_t cut_by_alpha(int16_t n, version vers[])
 //remove not alphabet versions
 {
-	version *vo = vers, *vn = vers;
+	CIF::version *vo = vers, *vn = vers;
 	int16_t i;
 
 	if (n == 0)
@@ -918,7 +918,7 @@ static int32_t dec(CutPoint **cutp, int32_t i, int32_t ie, int32_t set) {
 static int32_t add_sect(int32_t il, int32_t ir, uchar nlet, Bool rerecog,
 		uchar *p) {
 	uchar let = templ[nlet];
-	version * v;
+	CIF::version * v;
 	void *kit; //указатель стека kit
 	cell *cells[MAX_CUTS];
 	cell **cp, *lc;
@@ -1028,8 +1028,8 @@ static int32_t add_sect(int32_t il, int32_t ir, uchar nlet, Bool rerecog,
 	return 0;
 }
 
-static version *find_in_vers(SVERS *svers, uchar let) {
-	version *v = &svers->vers[0];
+static CIF::version *find_in_vers(SVERS *svers, uchar let) {
+	CIF::version *v = &svers->vers[0];
 	int32_t i;
 	for (i = 0; i < svers->nvers; i++, v++)
 		if (equal(v->let, let))

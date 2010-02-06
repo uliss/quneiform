@@ -1312,7 +1312,7 @@ static char tabpos[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 static uchar keg_word(cell *c1, cell *c2, int16_t n, B_LINES *bl) {
 	int16_t s[4], m[4], i, ss, bm1, bm2;
 	cell *c;
-	version * v;
+	CIF::version * v;
 
 	if (!n)
 		return 0;

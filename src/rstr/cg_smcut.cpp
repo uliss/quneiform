@@ -283,7 +283,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp, seg_vers **versp,
 			if (cut_list[ie2].versm.vers[0].prob >= 190)
 				goto finish;
 		if (il == ir) {
-			version *vers0;
+			CIF::version *vers0;
 			char *ilet;
 			if (connect_ && cut_list[il].dh == 0) {
 				addij(LC, r, cut_list, vers_list, ncut, ib2, ie2, 0);
@@ -512,7 +512,7 @@ static char l2r(int16_t *ib1, int16_t *ib2, int16_t *il) {
 		//режем
 		*il = *ib2;
 		while (*il < iec) {
-			version *vers0;
+			CIF::version *vers0;
 			char *ilet;
 			int16_t ib1p = *ib1;
 			if (*ib2 < ie2 && ie2 <= iec && cut_list[ie2].x - cut_list[*ib2].x
@@ -769,7 +769,7 @@ static char r2l(int16_t *ir, int16_t *ie2, int16_t *ie1, int16_t mode) {
 		//режем
 		*ir = *ie2;
 		while (*ir > ibc) {
-			version *vers0;
+			CIF::version *vers0;
 			char *ilet;
 			int16_t ie1p = *ie1;
 			if (ib2 < *ie2 && ibc <= ib2 && cut_list[*ie2].x - cut_list[ib2].x

@@ -577,7 +577,7 @@ void p2_CellsToCSTR(CSTR_line lino) {
 /////////////
 int p2_checkLeoCase(void) {
 	cell* c;
-	version save_vers[2];
+	CIF::version save_vers[2];
 	int i, j;
 
 	// для цифрового алфавита не удаляем версии!
@@ -650,7 +650,7 @@ static const char turkishAccent[] = "AaCcGgIl\xfdOorSsUu"; // 0xfd=i_sans_accent
 static void p2_TestAccent() {
 	cell *c;
 	const char *accents;
-	version vers[VERS_IN_CELL];
+	CIF::version vers[VERS_IN_CELL];
 	int savNum;
 	uint16_t savFlg;
 
@@ -678,7 +678,7 @@ static void p2_TestAccent() {
 				&& !strchr(accents, c->vers[0].let))
 			continue;
 
-		memcpy(vers, c->vers, VERS_IN_CELL * sizeof(version));
+		memcpy(vers, c->vers, VERS_IN_CELL * sizeof(CIF::version));
 		savNum = c->nvers;
 		savFlg = c->flg;
 
@@ -688,13 +688,13 @@ static void p2_TestAccent() {
 		) {
 			c->nvers = savNum;
 			c->flg = savFlg;
-			memcpy(c->vers, vers, VERS_IN_CELL * sizeof(version));
+			memcpy(c->vers, vers, VERS_IN_CELL * sizeof(CIF::version));
 		}
 	}
 
 }
 ///////////////////
-// from crit_vers in old version (Version)
+// from crit_vers in old CIF::version (Version)
 // int16_t crit_vers(Version v,cell * c,const s_glue * gl); // difrv
 static int32_t CritVers(cell * BC, s_glue * GL, uchar let, uchar prob) {
 	void r_criteria(cell *c, const s_glue * gl); // difrv

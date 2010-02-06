@@ -74,7 +74,7 @@ extern BOX * boxchain, *dl_last_in_chain;
 extern uchar lpool[];
 extern uint16_t lpool_lth;
 extern uchar work_raster[];
-extern version * start_rec, *rec_ptr;
+extern CIF::version * start_rec, *rec_ptr;
 extern uchar records_change;
 extern uint16_t comp_max_h, comp_max_w, comp_min_h, comp_min_w; // defined in extrcomp.c
 
@@ -537,7 +537,7 @@ int16_t read_dust_comp(dust_comp *cp, uchar *p)
 
 uint16_t sort_events_vers()
 {
-    version * v, *a;
+    CIF::version * v, *a;
     uint16_t n;
     uchar let, prob;
 

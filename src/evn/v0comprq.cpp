@@ -72,8 +72,8 @@ extern uint16_t lpool_lth;
 extern c_comp wcomp;
 extern uchar records_change;
 extern int16_t evfulln;
-extern version *start_rec, *rec_ptr;
-static version records[128];
+extern CIF::version *start_rec, *rec_ptr;
+static CIF::version records[128];
 extern uchar work_raster[];
 extern uchar language;
 
@@ -87,7 +87,7 @@ uint16_t events_recog_rt();
 uint16_t sort_events_vers();
 void pidx_crit();
 void save_wcomp();
-//void sort_events_box(version *p, uint16_t n);
+//void sort_events_box(CIF::version *p, uint16_t n);
 int16_t stick_w_4();
 
 //------------------ Internal functions
@@ -331,7 +331,7 @@ not_letter:
 
 static void setvers(uchar* p)
 {
-    version *v = start_rec;
+    CIF::version *v = start_rec;
     wcomp.type = *p++;
     wcomp.cs = *p++;
 
@@ -369,7 +369,7 @@ int32_t recog_letter_lp(CCOM_comp *ec, uchar * lp,
 uint32_t check_iIl1()
 {
     // Выдает количество палочных версий iIl1
-    version *p = start_rec;
+    CIF::version *p = start_rec;
     long n = 0;
 
     while (p < rec_ptr) {
@@ -385,7 +385,7 @@ uint32_t check_iIl1()
 uint32_t check_letter(uchar let)
 {
     // Проверяет наличие версии. 18.06.2002 E.P.
-    version *p = start_rec;
+    CIF::version *p = start_rec;
 
     while (p < rec_ptr) {
         if (p->let == let)

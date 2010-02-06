@@ -127,7 +127,7 @@ typedef struct {                    // l->xxx, r->xxx;
     num_long_flags,  /* num of long flags           */
     num_concs,  /* num of concaves              */
     max_flag,   /* 06.01.1994               */
-    main_ear;   /* NOT USED in this version         */
+    main_ear;   /* NOT USED in this CIF::version         */
 }  STICK_CHARS;     /* left or right characteristics of stick   */
 /*----------------------------------------------------------------------*/
 typedef struct {                        // s->xxx;

@@ -82,7 +82,7 @@ static puchar kit_start, kit_curr;
 static cell first_cell, last_cell;
 static cell * empty_cell, *free_cell_chain, *cell_boundary;
 extern c_comp wcomp;
-extern version * start_rec, *rec_ptr;
+extern CIF::version * start_rec, *rec_ptr;
 extern int16_t lpool_lth;
 extern uchar lpool[];
 
@@ -295,8 +295,8 @@ void set_bad_cell(cell *c) {
 		c->flg = c_f_bad;
 }
 
-void sort_v_vect(int16_t n, version *v0) {
-	version *v, *vs, *vm;
+void sort_v_vect(int16_t n, CIF::version *v0) {
+	CIF::version *v, *vs, *vm;
 	uchar l;
 
 	for (vs = v0 + 1, vm = v0 + n; vs < vm; vs++)
@@ -311,7 +311,7 @@ void sort_v_vect(int16_t n, version *v0) {
 }
 
 void sort_vers(cell *c) {
-	version *v, *vs, *vm;
+	CIF::version *v, *vs, *vm;
 	uchar l;
 
 	if (c->nvers <= 0) {
@@ -335,9 +335,9 @@ void sort_vers(cell *c) {
 
 #define MAX_PROB 254
 
-void cell_bonus(cell *C, version *pVer, int16_t BonVal) {
+void cell_bonus(cell *C, CIF::version *pVer, int16_t BonVal) {
 	int16_t resp;
-	version *pv;
+	CIF::version *pv;
 	int16_t wp, wp1;
 
 	if (pVer->prob != 0) {
@@ -360,7 +360,7 @@ void cell_bonus(cell *C, version *pVer, int16_t BonVal) {
 }
 
 void cell_bonus_let(cell *C, char Let, int16_t BonVal) {
-	version *pv;
+	CIF::version *pv;
 	for (pv = C->vers; pv->let != 0; pv++) {
 		if (let_sans_acc[pv->let] == Let)
 			cell_bonus(C, pv, BonVal);
@@ -492,10 +492,10 @@ c_comp * comp_vers_to_kit(MN * mn, c_comp *c) {
 		kit_curr += lpool_lth;
 		return (c_comp *) sv;
 	}
-	lth = sizeof(c_comp) + lpool_lth + (c->nvers + 1) * sizeof(version);
+	lth = sizeof(c_comp) + lpool_lth + (c->nvers + 1) * sizeof(CIF::version);
 	if (ED_file_end - kit_curr < lth)
 		ErrorExit(RSTR_ERR_NOPLACE);
-	memcpy(kit_curr, c, sizeof(wcomp) + (c->nvers + 1) * sizeof(version));
+	memcpy(kit_curr, c, sizeof(wcomp) + (c->nvers + 1) * sizeof(CIF::version));
 	{
 		c_comp * cc = (c_comp *) kit_curr;
 		cc->upper = wcomp.upper;
@@ -510,7 +510,7 @@ c_comp * comp_vers_to_kit(MN * mn, c_comp *c) {
 		cc->begs = wcomp.begs;
 		cc->ends = wcomp.ends;
 	}
-	kit_curr += sizeof(wcomp) + (c->nvers + 1) * sizeof(version);
+	kit_curr += sizeof(wcomp) + (c->nvers + 1) * sizeof(CIF::version);
 	*(int16_t *) kit_curr = lpool_lth;
 	memcpy(kit_curr + sizeof(lpool_lth), lpool, lpool_lth);
 	kit_curr += sizeof(lpool_lth) + lpool_lth;
@@ -977,7 +977,7 @@ static int16_t vers_to_cell(cell *c) {
 	int16_t i;
 	c->recsource = 0;
 	if ((i = rec_ptr - start_rec) != 0) {
-		memcpy(c->vers, start_rec, i * sizeof(version));
+		memcpy(c->vers, start_rec, i * sizeof(CIF::version));
 		c->nvers = i;
 		c->vers[i].let = 0;
 		c->flg = c_f_let;
@@ -1109,7 +1109,7 @@ puchar save_raster_align8(cell *c) {
 	return make_raster();
 }
 
-void add_vers(cell *bc, version *wv) {
+void add_vers(cell *bc, CIF::version *wv) {
 	int16_t nv;
 	nv = bc->nvers;
 	if (nv == VERS_IN_CELL - 1) {
@@ -1127,7 +1127,7 @@ void add_vers(cell *bc, version *wv) {
 	}
 }
 
-Bool comp_versions(version *v, version *w, int16_t n, int16_t snvers) {
+Bool comp_versions(CIF::version *v, CIF::version *w, int16_t n, int16_t snvers) {
 	int16_t i;
 
 	if (n != snvers)
@@ -1141,7 +1141,7 @@ Bool comp_versions(version *v, version *w, int16_t n, int16_t snvers) {
 
 void del_version(cell *c, uchar let) {
 	int16_t i, nvers;
-	version * v;
+	CIF::version * v;
 
 	if (c->nvers < 1)
 		return;

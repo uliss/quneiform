@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //		Common variables
 
 extern c_comp wcomp;
-//extern version * start_rec;
+//extern CIF::version * start_rec;
 //extern uchar records_change;
 
 //
@@ -79,7 +79,7 @@ void pidx_crit ()
 {
 	/*
  int16_t pidx;
- version *v;
+ CIF::version *v;
  int16_t i;
  uint16_t let;
  pidx = prop_index (wcomp.h, wcomp.w);
@@ -102,7 +102,7 @@ false:
 void v2_pidx_crit (cell *c)
 {
  int16_t pidx;
- version *v, *wv;
+ CIF::version *v, *wv;
  uint16_t let;
  // Paul 07-12-99
  if (c->nvers==0)
