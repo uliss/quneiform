@@ -53,7 +53,8 @@ void TestPoint::testInit() {
     CPPUNIT_ASSERT_EQUAL(p2, Point(-80, 100));
 
     p3 -= p3;
-    CPPUNIT_ASSERT_EQUAL(p3, Point());
+    Point null_pt;
+    CPPUNIT_ASSERT_EQUAL(p3, null_pt);
 
     CPPUNIT_ASSERT_EQUAL(PointXDistance(Point(20, 0), Point(30, 0)), 10);
     CPPUNIT_ASSERT_EQUAL(PointXDelta(Point(20, 0), Point(30, 0)), -10);

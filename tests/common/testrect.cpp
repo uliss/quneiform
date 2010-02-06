@@ -32,13 +32,14 @@ void TestRect::testInit() {
     CPPUNIT_ASSERT_EQUAL(r.left(), 0);
     CPPUNIT_ASSERT_EQUAL(r.right(), 0);
     CPPUNIT_ASSERT_EQUAL(r.bottom(), 0);
-    CPPUNIT_ASSERT_EQUAL(r.center(), Point());
+    const Point p;
+    CPPUNIT_ASSERT_EQUAL(r.center(), p);
     CPPUNIT_ASSERT_EQUAL(r.centerX(), 0);
     CPPUNIT_ASSERT_EQUAL(r.centerY(), 0);
     CPPUNIT_ASSERT_EQUAL(r.perimeter(), 0);
     //    CPPUNIT_ASSERT_EQUAL(r.size(), Size());
-    CPPUNIT_ASSERT_EQUAL(r.pt0(), Point());
-    CPPUNIT_ASSERT_EQUAL(r.pt1(), Point());
+    CPPUNIT_ASSERT_EQUAL(r.pt0(), p);
+    CPPUNIT_ASSERT_EQUAL(r.pt1(), p);
     CPPUNIT_ASSERT_EQUAL(r, r);
 
     Rect r1(Point(10, 15), 30, 40);
