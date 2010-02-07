@@ -25,9 +25,11 @@ class TestComponentRecognizer: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestComponentRecognizer);
     CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testAlphabetInit);
     CPPUNIT_TEST_SUITE_END();
     public:
         void testInit();
+        void testAlphabetInit();
 };
 
 #endif /* TESTCOMPONENTRECOGNIZER_H_ */

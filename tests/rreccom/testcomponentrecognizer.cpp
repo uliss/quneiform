@@ -16,13 +16,26 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 #include "testcomponentrecognizer.h"
+#define private public
 #include "rreccom/componentrecognizer.h"
+#include "common/language.h"
+#include "alphabets/alphabetfactory.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestComponentRecognizer);
 using namespace CIF;
 
-void TestComponentRecognizer::testInit()
-{
+void TestComponentRecognizer::testInit() {
     ComponentRecognizer r;
     CPPUNIT_ASSERT_THROW(r.recognize(0, LANG_TOTAL), ComponentRecognizer::Exception);
     r.recognize(0, LANGUAGE_ENGLISH);
+}
+
+void TestComponentRecognizer::testAlphabetInit() {
+    ComponentRecognizer r;
+    LanguageList lst = AlphabetFactory::instance().supportedLanguages();
+    for (LanguageList::iterator it = lst.begin(), end = lst.end(); it != end; ++it) {
+        r.alphabetInit(*it);
+        r.loadAlphabetTables(*it);
+    }
+    CPPUNIT_ASSERT_THROW(r.alphabetInit(LANGUAGE_UNKNOWN), ComponentRecognizer::Exception);
+    CPPUNIT_ASSERT_THROW(r.loadAlphabetTables(LANGUAGE_UNKNOWN), AlphabetException);
 }
