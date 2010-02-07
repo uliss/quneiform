@@ -126,9 +126,11 @@ Bool16 GetScanRes_LenPrs(char *ImageName);
 /* ‘®®ЎйҐ­Ёп Ё ЇаҐ¤гЇаҐ¦¤Ґ­Ёп */
 extern char NameFuncErr[100], Buff[60];
 extern short NumErr;
-void PutMess(int num, char *str), ClearERR(void),
-WAR(int num, const char *str), ERRO(int num, char *str);
-void ERR(int num, const char *str);
+void PutMess(int num, char *str);
+void ClearERR(void);
+void WAR(int num, const char *str);
+void ERRO(int num, char *str);
+void Error(int num, const char *str);
 int GetERR(char *NameFunc);
 
 #endif

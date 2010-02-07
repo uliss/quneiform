@@ -89,7 +89,7 @@ void heapstat(char *mess)
             n = -1;
     }
 
-    ERR(n, "Heapstat");
+    Error(n, "Heapstat");
 #endif
 }
 
@@ -107,7 +107,7 @@ char * PASC malloc_m(unsigned long size)
         return NULL;
 
     if ((p = GlobalLock(h)) == NULL)
-        ERR(2, err);
+        Error(2, err);
 
     return p;
 #else
@@ -122,12 +122,12 @@ char * PASC malloc_m(unsigned long size)
     char *p, *err = "malloc_m";
 
     if (!size)
-        ERR(1, err);
+        Error(1, err);
 
     heapstat("malloc_m bef");
 
     if ((p = (char*)malloc(size)) == NULL)
-        ERR(2, err);
+        Error(2, err);
 
     heapstat("malloc_m aft");
     return p;
@@ -140,15 +140,15 @@ char * PASC malloc_m(unsigned long size)
     char *p, *err = "malloc_m";
 
     if (!size)
-        ERR(1, err);
+        Error(1, err);
 
     if (size > 0xFFFF)
-        ERR(3, err);
+        Error(3, err);
 
     heapstat("malloc_m bef");
 
     if ((p = (char*)malloc((size_t)size)) == NULL)
-        ERR(2, err);
+        Error(2, err);
 
     heapstat("malloc_m aft");
     return p;
@@ -173,7 +173,7 @@ char * PASC halloc_m(long n, uint size)
 #ifdef DEBUG_MEM
     char * p;
 
-    if (!size)ERR(1, err);
+    if (!size)Error(1, err);
 
     heapstat("halloc_m bef");
     p = (char*)malloc(n * size);
@@ -204,13 +204,13 @@ void PASC free_m(void *ptr)
 #endif
 
         if ( h1 = (Handle) GlobalFree(h) )
-            ERR(1, "free_m");
+            Error(1, "free_m");
 
 #else
 #ifdef DEBUG_MEM
 
         if (!ptr)
-            ERR(2, "free_m");
+            Error(2, "free_m");
 
         heapstat("free_m bef");
         free(ptr);
@@ -225,7 +225,7 @@ void PASC free_m(void *ptr)
 #ifdef DEBUG_MEM
 
     if (!ptr)
-        ERR(2, "free_m");
+        Error(2, "free_m");
 
     heapstat("free_m bef");
     free(ptr);
@@ -252,14 +252,14 @@ void PASC hfree_m(void *ptr)
 #endif
 
         if (h1 = (Handle) GlobalFree(h))
-            ERR(1, "hfree_m");
+            Error(1, "hfree_m");
     }
 
 #else
 #ifdef DEBUG_MEM
 
     if (ptr == NULL)
-        ERR(2, "hfree_m");
+        Error(2, "hfree_m");
 
     heapstat("hfree_m bef");
     free(ptr);
@@ -290,7 +290,7 @@ void free_c(void *ptr)
 #endif
 
         if ( h1 = (Handle) GlobalFree(h) )
-            ERR(1, "free_c");
+            Error(1, "free_c");
     }
 #else
     {   free(ptr);
@@ -310,7 +310,7 @@ void * realloc_m(void *ptr_old, uint size_old, uint size_new)
 
     if (!size_old)
 #ifdef DEBUG_MEM
-        ERR(1, "realloc_m");
+        Error(1, "realloc_m");
 
 #else
         /* ’ Є ваҐЎгҐв бв ­¤ ав realloc'  */
@@ -330,7 +330,7 @@ void * realloc_m(void *ptr_old, uint size_old, uint size_new)
 }
 
 //== ‘ЋЋЃ™…Ќ€џ ЋЃ Ћ�€ЃЉЂ• ==
-void ERR(int num, const char *str)
+void Error(int num, const char *str)
 {
     char str1[60];
     WAR(num, str);

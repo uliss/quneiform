@@ -335,7 +335,7 @@ void TestKNOTT1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK,
             || LineHK[r1.top].beg >= LineHK[r1.bottom].beg || ptr->InBegFrm
             < (up ? up->InBegFrm : 0) || ptr->InBegFrm + ptr->NumFrm
             > (up ? up->InBegFrm + up->NumFrm : NumFrm))
-        ERR(1, "TestKNOTT1");
+        Error(1, "TestKNOTT1");
 }
 
 //===Для нераспознан.знакоместа Return=0
@@ -1949,7 +1949,7 @@ int16_t CalcNumDau(KNOTT *Knot)
     KNOTT *ptr;
 
     if (!Knot)
-        ERR(1, errRtf);
+        Error(1, errRtf);
 
     for (ptr = Knot->down; ptr; ptr = ptr->next)
         n++;

@@ -842,10 +842,10 @@ int FreeStructFull(void)
 
                 if ((sp = TitleWord[nc][ns][nw].W_Gen.W_Spell) == SPELL_CORR) {
 #ifndef FUL
-                    ERR(1, err);
+                    Error(1, err);
 #endif
 
-                    if ((num = TitleWord[nc][ns][nw].NumAltSpell) <= 0) ERR(1, err);
+                    if ((num = TitleWord[nc][ns][nw].NumAltSpell) <= 0) Error(1, err);
 
                     do0(i, 0, num - 1) free(TitleWord[nc][ns][nw].AltSpell[i].Alt);
                     free(TitleWord[nc][ns][nw].AltSpell);

@@ -95,7 +95,7 @@ KNOT *inc_after_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free)
     KNOT *beg_free_old = *beg_free, *next;
 
     if (ptr == NULL)
-        ERR(1, "inc_after_lst");
+        Error(1, "inc_after_lst");
 
     if (*beg_free == NULL)
         return NULL; /*в списке свобод. нет памяти */
@@ -738,7 +738,7 @@ char *Submalloc(uint size, SUB_ALLOC *s)
     const char *err = "Submalloc";
 #ifdef DEBUG_MEM
 
-    if (size == 0 || size > SIZE_SEGL) ERR(2, err);
+    if (size == 0 || size > SIZE_SEGL) Error(2, err);
 
 #endif
 
@@ -764,7 +764,7 @@ char *Submalloc(uint size, SUB_ALLOC *s)
     }
 
     if ((pos = s->CurrPos) < 0 || pos + (long) size > s->SizePtr[s->CurrPtr])
-        ERR(1, err);
+        Error(1, err);
 
     s->CurrPos += size;
     return &s->Ptr[s->CurrPtr][pos];
@@ -993,7 +993,7 @@ int EstIntrvlHor(FRAME **frm, int num, BOUND *bnd, int dxAS, int dyAS,
                 arr[nn] = f->right - f->left;
                 arrY[nn] = f->down - f->up;
 
-                if (pp->beg == NULL) ERR(124, err);
+                if (pp->beg == NULL) Error(124, err);
 
                 ff = pp->beg->f;
                 pp->beg = NULL;
