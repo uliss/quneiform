@@ -54,8 +54,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "common/point.h"
 #include "lnslang.h"
-
 #include "fararray.h"
 #include "lnscheck.h"
 #include "skew1024.h"
@@ -344,7 +344,7 @@ Bool IsHCloseCovering(Point16 S, int n) // expanding S1 covers S2
     return FALSE;
 }
 
-Bool IsVCloseCovering(Point16 S, int n) // expanding S1 covers S2
+Bool IsVCloseCovering(const CIF::Point16& S, int n) // expanding S1 covers S2
 { // where |S1|>|S2|
     int S1Ay = v_lns[S.x()].A.y();
     int S1By = v_lns[S.y()].B.y();
@@ -398,7 +398,8 @@ Bool HExp(int& counter, int nl)
 {
     int StripCount = 0;
     int r, num;
-    Point16 P, SS;
+    Point16 Pt;
+    Point16 SSp;
     XSEGM S;
     int NHL = h_count - 1;
     int order = YLnsOrder[nl];
@@ -451,20 +452,20 @@ Bool HExp(int& counter, int nl)
         }
 
         h1_lns[counter].set(nl, nl);
-        SS.set(nl, nl);
+        SSp.set(nl, nl);
         r = order;
 
         while (r > 0) {
             r--;
             num = StripLine[r].x();
 
-            if (IsHCloseCovering(SS, num)) {
-                SS.rx() = num;
+            if (IsHCloseCovering(SSp, num)) {
+                SSp.rx() = num;
                 HMarkedNoise[num] = FALSE;
 
                 if ((hlink[num]).x() == 0) {
-                    P.set(1, num);
-                    hlink[StripLine[r + 1].x()] = P;
+                    Pt.set(1, num);
+                    hlink[StripLine[r + 1].x()] = Pt;
                     h1_lns[counter].rx() = num;
                 }
             }
@@ -476,19 +477,19 @@ Bool HExp(int& counter, int nl)
             r++;
             num = StripLine[r].x();
 
-            if (IsHCloseCovering(SS, num)) {
-                SS.ry() = num;
+            if (IsHCloseCovering(SSp, num)) {
+                SSp.ry() = num;
                 HMarkedNoise[num] = FALSE;
 
                 if (hlink[num].x() == 0) {
-                    P.set(1, StripLine[r - 1].x());
-                    hlink[num] = P;
+                    Pt.set(1, StripLine[r - 1].x());
+                    hlink[num] = Pt;
                     h1_lns[counter].ry() = num;
                 }
             }
         }
 
-        if (SS.x() != SS.y()) {
+        if (SSp.x() != SSp.y()) {
             counter++;
             return TRUE;
         }
@@ -505,7 +506,7 @@ Bool VExp(int& counter, int nl)
 {
     int StripCount = 0;
     int r, num;
-    Point16 P, SS;
+    CIF::Point16 P, SSp;
     XSEGM S;
     int NVL = v_count - 1;
     int order = XLnsOrder[nl];
@@ -555,15 +556,15 @@ Bool VExp(int& counter, int nl)
         }
 
         v1_lns[counter].set(nl, nl);
-        SS.set(nl, nl);
+        SSp.set(nl, nl);
         r = order;
 
         while (r > 0) {
             r--;
             num = StripLine[r].x();
 
-            if (IsVCloseCovering(SS, num)) {
-                SS.rx() = num;
+            if (IsVCloseCovering(SSp, num)) {
+                SSp.rx() = num;
                 VMarkedNoise[num] = FALSE;
 
                 if (vlink[num].x() == 0) {
@@ -580,8 +581,8 @@ Bool VExp(int& counter, int nl)
             r++;
             num = StripLine[r].x();
 
-            if (IsVCloseCovering(SS, num)) {
-                SS.ry() = num;
+            if (IsVCloseCovering(SSp, num)) {
+                SSp.ry() = num;
                 VMarkedNoise[num] = FALSE;
 
                 if (vlink[num].x() == 0) {
@@ -592,7 +593,7 @@ Bool VExp(int& counter, int nl)
             }
         }
 
-        if (SS.x() != SS.y()) {
+        if (SSp.x() != SSp.y()) {
             counter++;
             return TRUE;
         }
