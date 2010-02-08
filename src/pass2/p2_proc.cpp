@@ -994,7 +994,7 @@ int32_t p2_proc(CSTR_line lineRaw, CSTR_line lineOne, P2GLOBALS *p2glob)
     // с уникальным номером версии
     for (linVers = CSTR_LINVERS_PASS2; linVers < CSTR_LINVERS_PASS2 + 60; linVers
             += 10) {
-        lineFon = CSTR_NewLine(linNumber, linVers, -1);
+        lineFon = CSTR_NewLine(linNumber, linVers);
 
         if (lineFon)
             break;
@@ -1008,7 +1008,7 @@ int32_t p2_proc(CSTR_line lineRaw, CSTR_line lineOne, P2GLOBALS *p2glob)
     // for snap
     for (linVers = CSTR_LINVERS_PASS2SNAP; linVers < CSTR_LINVERS_PASS2SNAP
             + 60; linVers += 10) {
-        lineSnap = CSTR_NewLine(linNumber, linVers, -1);
+        lineSnap = CSTR_NewLine(linNumber, linVers);
 
         if (lineSnap)
             break;

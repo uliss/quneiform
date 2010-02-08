@@ -78,7 +78,7 @@ static int IsInPoly(Point16 a, void * pPoly);
 void RotatePageToIdeal(void);
 void RotatePageToReal(void);
 
-void PageLayoutStrings(Handle hCCOM, Handle hCPAGE)
+void PageLayoutStrings(CCOM_handle hCCOM, Handle hCPAGE)
 {
     if (ReadRoots(hCCOM, FALSE)) {
         run_options = FORCE_ONE_COLUMN;
@@ -109,7 +109,7 @@ void file_string(STRING * s)
         LDPUMA_DrawRect(NULL, &r, nIncline / 2, __RGB__(0, 127, 0), 1,
                         PUMA_MODULE_RBLOCK);
 
-    lin_in = CSTR_NewLine(nStrings, 0, -1);
+    lin_in = CSTR_NewLine(nStrings, 0);
 
     if (lin_in == (CSTR_line) NULL) {
         SetReturnCode_rblock(CSTR_GetReturnCode());

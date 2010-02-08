@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RVERLINE_H
 
 #include "globus.h"
+#include "ccom/ccom.h"
 
 #ifdef __RVERLINE__
 #define RVERLINE_FUNC  FUN_EXPO
@@ -89,7 +90,7 @@ typedef enum {
 } RVERLINE_EXPORT_ENTRIES;
 /*  Описание функций  */
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RVERLINE_FUNC(a) b c
-DEC_FUN(Bool32, RVERLINE_MarkLines, (Handle hCComp, Handle hCPage));
+DEC_FUN(Bool32, RVERLINE_MarkLines, (CCOM_handle hCComp, Handle hCPage));
 #undef DEC_FUN
 
 /*  Описание данных  */

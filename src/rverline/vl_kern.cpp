@@ -104,18 +104,18 @@ Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, CLINE_handle hCLINE,
 		char *pStr);
 Bool MyReSetLines(void *vLti, int MaxNumLin, CLINE_handle hCLINE);
 void MySetNegative(void *vB, Handle hCPage);
-Bool MyGetComp(Handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter);
+Bool MyGetComp(CCOM_handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter);
 void New_MarkVerifiedLines(void *vLti, Handle hCPage, Rect16 *pRc,
 		int *pWhatDo, int nComp, int *nZher, int *iZher, int MaxZher,
 		Bool AbleShortVert);
 void AnyWarning(char *pStr);
-Bool MyFormZhertvy(Handle hCCOM, void **vvZher, int *iZher, int nZher,
+Bool MyFormZhertvy(CCOM_handle hCCOM, void **vvZher, int *iZher, int nZher,
 		int Filter);
 void WriteResForLines(void *vLti);
 Bool MySetZher(void **vvZher, int nZher, Handle hCPage);
 Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage);
 
-Bool32 RVERLINE_MarkLines(Handle hCComp, Handle hCPage) {
+Bool32 RVERLINE_MarkLines(CCOM_handle hCComp, Handle hCPage) {
 	uchar err8;
 	uint16_t Code;
 	//	uint32_t HoriType, VertType;

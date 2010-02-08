@@ -194,7 +194,7 @@ Bool MyGetLines(
 /*CLINE_handle linecontainer,Handle hCPage,*/CLINE_handle hCLINE,
 		int32_t* CountLines);
 void PrintLines(CLINE_handle hContainer, const char* FileName);
-Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM);
+Bool32 GlueLines(CLINE_handle hContainer, CCOM_handle hCCOM);
 Bool32 FindExtLines(CLINE_handle* hLinesMass, int32_t CountLines,
 		CLINE_handle hExtContainer, Bool32 IsHor, CCOM_comp *pCompMass,
 		int32_t CountMass, CLINE_handle hContainer);
@@ -204,7 +204,7 @@ Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor,
 		int32_t nIncline, CLINE_handle* hLinesMass, int32_t CountLines,
 		int32_t interval, int32_t long_line);
 int32_t getLineComps(CCOM_comp** pCompMass, int32_t max_width,
-		int32_t max_height, Handle hCCOM);
+		int32_t max_height, CCOM_handle hCCOM);
 int32_t countCompLen(CCOM_comp* pCompMass, int32_t CountComp, CPDLine pLine,
 		CPDLine pLineExt, Bool32 IsHor);
 int32_t findFirstComp(CCOM_comp* pCompMass, int32_t CountComp, Rect32 RastRect,
@@ -1305,7 +1305,7 @@ static int CompareCompByUpper(const void *elem1, const void *elem2) {
 	return pcomp1->upper - pcomp2->upper;
 }
 
-Bool32 RLINE_LinesPass2(Handle hCCOM, void* phCLINE, Handle hCPAGE) {
+Bool32 RLINE_LinesPass2(CCOM_handle hCCOM, void* phCLINE, Handle hCPAGE) {
 	if (!LDPUMA_Skip(hLinesPass2))
 		return TRUE;
 
@@ -1473,7 +1473,7 @@ Bool32 CorrectDoubleLines(CLINE_handle hContainer) {
 }
 
 /***********************************************************************************************/
-Bool32 GlueLines(CLINE_handle hContainer, Handle hCCOM) {
+Bool32 GlueLines(CLINE_handle hContainer, CCOM_handle hCCOM) {
 	if (!LDPUMA_Skip(hLinesPass2DebugSkipGlue))
 		return TRUE;
 
@@ -2103,7 +2103,7 @@ Bool32 CheckAllLines(Rect32* CurrLine, const Rect32* pLine, Bool32 IsHor,
 
 /**********************************************************************************************/
 int32_t getLineComps(CCOM_comp** pCompMass, int32_t max_width,
-		int32_t max_height, Handle hCCOM) {
+		int32_t max_height, CCOM_handle hCCOM) {
 	int32_t CountComps = 0;
 	CCOM_comp *hcomp;
 	const int size_comp = sizeof(CCOM_comp);

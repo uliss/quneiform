@@ -420,12 +420,12 @@ void pass3(CSTR_line ln, CSTR_line lout) {
 
     if (pass2) {
         lnout = lout;
-        lne = CSTR_NewLine(line_number, CSTR_LINVERS_ENG, -1);
+        lne = CSTR_NewLine(line_number, CSTR_LINVERS_ENG);
         if (!lne) {
             ErrorExit( RSTR_ERR_CSTR);
             return;
         }
-        lneout = CSTR_NewLine(line_number, CSTR_LINVERS_ENGOUT, -1);
+        lneout = CSTR_NewLine(line_number, CSTR_LINVERS_ENGOUT);
         if (!lneout) {
             ErrorExit( RSTR_ERR_CSTR);
             return;
@@ -631,7 +631,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
         clear_dust_alternates();
         if (!Step && !p2_active) {
             if (line_scale) {
-                lnsave = CSTR_NewLine(line_number, CSTR_LINVERS_SAVE, -1);
+                lnsave = CSTR_NewLine(line_number, CSTR_LINVERS_SAVE);
                 if (!lnsave) {
                     ErrorExit( RSTR_ERR_CSTR);
                     return;

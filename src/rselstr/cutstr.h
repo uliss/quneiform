@@ -104,7 +104,7 @@ void StrMoveMas(Rect16*, int&, int);
 void StrMoveMas(int*, int&, int);
 void StrMoveMasR(Rect16*, int&, int);
 Bool GetMasP(Handle, uchar*, Rect16, uchar**);
-Handle GetStrCCOM(Handle, uchar*, Rect16, Bool, Bool);
+CCOM_handle GetStrCCOM(Handle, uchar*, Rect16, Bool, Bool);
 Bool InitStrMas(Rect16**, int);
 void InitRc(Rect16*, int, CCOM_comp *);
 //void DelStrMas(Rect16*);

@@ -125,6 +125,7 @@ typedef struct eltab {
 } elmBOX;
 
 struct _Root;
+struct CCOM_comp;
 typedef struct _Root ROOT;
 typedef struct _Root *PROOT;
 struct _Root {
@@ -146,7 +147,7 @@ struct _Root {
     uchar bReached;
     int16_t nBlock;
     int16_t nUserNum;
-    void *pComp;
+    CCOM_comp *pComp;
 };
 
 #endif  //#ifndef __TIGER_EMULATION_H__

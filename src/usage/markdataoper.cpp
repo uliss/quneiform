@@ -125,7 +125,7 @@ Bool CompIsGood(CCOM_comp * pcomp, int16_t Filter) {
 	}
 }
 /*---------------------------------------------------------------------------*/
-Bool LoadComps_rv(Handle hC, void *vB, char *pStr, int Filter) {
+Bool LoadComps_rv(CCOM_handle hC, void *vB, char *pStr, int Filter) {
 	CCOM_comp * pcomp;
 	Bool GoodComp, Fir;
 	int SizeCurr, Deficit, nTeor, nRc;

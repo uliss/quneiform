@@ -564,7 +564,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
 			Hstr.ImageName[0] = '\0';
 			Hstr.type_neg = NEGATIVE;
 			Hstr.type_vert = VERTICALE;
-			RSELSTR_PutObjects(hCPage, (void*) hCCOM, &Hstr, 1);
+			RSELSTR_PutObjects(hCPage, hCCOM, &Hstr, 1);
 		}
 	}
 

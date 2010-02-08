@@ -381,7 +381,7 @@ typedef struct strucCSTR_cell {
 
 typedef struct _strucCSTR_head {
     CSTR_attr attr;
-    CCOM_handle container;
+    CCOM_cont * container;
     Bool32 private_container;
     uint32_t Properties;
 #define CSTR_LN_NO          0x00000000

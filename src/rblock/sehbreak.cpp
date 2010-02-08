@@ -64,14 +64,14 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdlib.h>
+#include <stdlib.h>
 
-# include   "extract.h"
-# include   "func.h"
-# include   "struct.h"
-#include    "ccom/ccom.h"
-#include    "evn/evn.h"
-#include    "newfunc.h"
+#include "extract.h"
+#include "func.h"
+#include "struct.h"
+#include "ccom/ccom.h"
+#include "evn/evn.h"
+#include "newfunc.h"
 #include "minmax.h"
 
 #include "new_c.h" /* FIXME: to build in MS VC++ */
@@ -291,7 +291,7 @@ Bool GluedLettersProcess(ROOT *pRoot)
         }
     }
 
-    CCOM_Delete(exthCCOM, (CCOM_comp*) pRoot->pComp);
+    CCOM_Delete(exthCCOM, pRoot->pComp);
 
     if (pCurrentBlock -> pRoots == pRoot) {
         pCurrentBlock -> pRoots = pRoot-> u1.pNext;

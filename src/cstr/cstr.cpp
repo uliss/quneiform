@@ -169,7 +169,7 @@ char* CSTR_GetReturnString(uint32_t dwError)
 //////////////////////////////////
 // alloc / free & access lines to
 //////////////////////////////////
-CSTR_line CSTR_NewLine(int32_t lineno, int32_t version, int32_t container)
+CSTR_line CSTR_NewLine(int32_t lineno, int32_t version)
 {
     CSTR_head *line = head.next, *lineins = 0, *prev, *next;
 
@@ -217,16 +217,8 @@ CSTR_line CSTR_NewLine(int32_t lineno, int32_t version, int32_t container)
     line->last .prev = &line->first;
     line->number = lineno;
     line->version = version;
-
-    if (container == -1) {
-        line->private_container = TRUE;
-        line->container = CCOM_CreateContainer();
-    }
-
-    else {
-        line->private_container = FALSE;
-        line->container = (CCOM_handle) container;
-    }
+    line->private_container = TRUE;
+    line->container = CCOM_CreateContainer();
 
     if (lineno > num_lines && lineno < 10000)
         num_lines = lineno;
@@ -1705,7 +1697,7 @@ CSTR_rast CSTR_SaveRaster(CSTR_rast c)
     ln = CSTR_GetLineHandle(0xFFFFFFFF, 0xFFFFFFFF);
 
     if (!ln) {
-        if (!CSTR_NewLine(0xFFFFFFFF, 0xFFFFFFFF, -1))
+        if (!CSTR_NewLine(0xFFFFFFFF, 0xFFFFFFFF))
             return 0;
 
         ln = CSTR_GetLineHandle(0xFFFFFFFF, 0xFFFFFFFF);

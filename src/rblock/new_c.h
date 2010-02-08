@@ -133,6 +133,6 @@ EXTERN char tmp_str[200];
 EXTERN uint32_t nComps;
 EXTERN uint32_t page_count VAL1(0);
 EXTERN const char* file_name;
-EXTERN Handle exthCCOM;
+EXTERN CCOM_handle exthCCOM;
 
 #endif

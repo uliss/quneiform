@@ -145,7 +145,7 @@ Bool32 ClearLogRes(void) {
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-Bool32 LastCheck(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
+Bool32 LastCheck(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPAGE) {
 	uint32_t i, j;
 	CCOM_comp pic;
 	CCOM_comp * comp;
@@ -321,7 +321,7 @@ Bool32 IsNotGoodComp(PAGEINFO pInfo, CCOM_comp *comp) {
 /*                              Main function                                 */
 /******************************************************************************/
 
-Bool32 RPIC_SearchPictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
+Bool32 RPIC_SearchPictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPAGE) {
 	CCOM_comp * comp = NULL;
 	CCOM_comp common;
 	PAGEINFO pInfo;

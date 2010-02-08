@@ -112,7 +112,7 @@ class CPrepHstr
         int top;
         int w;
         int h;
-        CCOM_handle hStrCCOM;
+        CCOM_cont * hStrCCOM;
         Rect16* pRc;
         Rect16 prc[MAX_STR_COUNT];
         int nRc;

@@ -62,6 +62,7 @@
 #include "c_types.h"
 
 #include "status.h"
+#include "ccom/ccom.h"
 
 #define IS_IN_TABLE 111
 
@@ -74,13 +75,13 @@ Edef FNRBLOCK_ProgressFinish fnProgressFinish_rblock VAL(NULL);
 void InitDebug(void);
 void DoneDebug(void);
 
-Bool32 ReadRoots(Handle hCCOM, Bool32 BLOCK);
+Bool32 ReadRoots(CCOM_handle hCCOM, Bool32 BLOCK);
 
 void PageLayoutPart1(void);
 void PageLayoutPart2(void);
 
-void PageLayoutBlocks(Handle hCCOM);
-void PageLayoutStrings(Handle hCCOM, Handle hCPAGE);
+void PageLayoutBlocks(CCOM_handle hCCOM);
+void PageLayoutStrings(CCOM_handle hCCOM, Handle hCPAGE);
 
 void SetReturnCode_rblock(uint32_t rc);
 uint32_t GetReturnCode_rblock(void);

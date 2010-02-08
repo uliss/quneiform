@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RNEG_H
 
 #include "globus.h"
+#include "ccom/ccom.h"
 
 #ifdef __RNEG__
 #define RNEG_FUNC  FUN_EXPO
@@ -75,7 +76,7 @@ struct NegTemp {
     int top;
     int w;
     int h;
-    Handle hStrCCOM;
+    CCOM_handle hStrCCOM;
     Rect16 prc[Max_Str_Count];
     int nRc;
     int fl_rotate;
@@ -98,7 +99,6 @@ typedef enum {
     RNEG_FNRNEG_TestForNegative
 } RNEG_EXPORT_ENTRIES;
 
-typedef void*  CCOM_handle;
 
 /*  Описание функций  */
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RNEG_FUNC(a) b c

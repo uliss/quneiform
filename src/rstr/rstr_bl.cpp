@@ -913,7 +913,7 @@ void basedraft(CSTR_line ln) {
 	CSTR_GetLineAttr(ln, &lattr);
 
 	for (i = 0; i < 5; i++) {
-		line_bal = CSTR_NewLine(line_number, CSTR_LINVERS_BAL + i * 10, -1);
+		line_bal = CSTR_NewLine(line_number, CSTR_LINVERS_BAL + i * 10);
 		if (line_bal)
 			break;
 	}
@@ -1057,7 +1057,7 @@ void basefin(CSTR_line ln) {
 	lin_str = ln;
 
 	for (i = 0; i < 5; i++) {
-		line_bal = CSTR_NewLine(line_number, CSTR_LINVERS_BAL + i * 10, -1);
+		line_bal = CSTR_NewLine(line_number, CSTR_LINVERS_BAL + i * 10);
 		if (line_bal)
 			break;
 	}
@@ -1106,7 +1106,7 @@ void linpos(CSTR_line ln) {
 	lin_str = ln;
 
 	for (i = 0; i < 5; i++) {
-		line_bal = CSTR_NewLine(line_number, CSTR_LINVERS_BAL + i * 10, -1);
+		line_bal = CSTR_NewLine(line_number, CSTR_LINVERS_BAL + i * 10);
 		if (line_bal)
 			break;
 	}

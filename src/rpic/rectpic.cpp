@@ -68,7 +68,7 @@
 extern Handle hShowCheckLetters;
 /******************************************************************************/
 
-Bool32 CheckAreaForComps(Handle hCCOM, Handle hCCOM_big, Rect32 rect,
+Bool32 CheckAreaForComps(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Rect32 rect,
 		int32_t Height, uint32_t *Result1, uint32_t *Result2) {
 	CCOM_comp * comp;
 	uint32_t i;
@@ -211,7 +211,7 @@ if(!LDPUMA_Skip(hShowCheckLetters))
 return TRUE;
 }
 
-Bool32 SearchRectanglePictures(Handle hCCOM, Handle hCCOM_big, Handle hCPAGE) {
+Bool32 SearchRectanglePictures(CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPAGE) {
 	uint32_t i, j;
 	CCOM_comp pic;
 	CCOM_comp * comp;

@@ -109,8 +109,8 @@ typedef enum {
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RSELSTR_FUNC(a) b c
 
-DEC_FUN(Bool32, RSELSTR_ExtractTextStrings, (Handle hCCOM, Handle hCPAGE));
-DEC_FUN(Bool32, RSELSTR_PutObjects, (Handle hCPage, Handle hCCOM, CHSTR_Objects* pObjects, int nObjects));
+DEC_FUN(Bool32, RSELSTR_ExtractTextStrings, (CCOM_handle hCCOM, Handle hCPAGE));
+DEC_FUN(Bool32, RSELSTR_PutObjects, (Handle hCPage, CCOM_handle hCCOM, CHSTR_Objects* pObjects, int nObjects));
 DEC_FUN(Bool32, RSELSTR_CutStr, (Rect16** ppRc, int& nRc, int& len_mas_Rc, uchar* pRast, int DPIX, int DPIY, int str_w));
 DEC_FUN(Bool32, RSELSTR_RotateRaster, (uchar* pmasp, int skew, Rect16* Rc, int16_t* begx, int16_t* movey, uchar* flmovey, int betw_str));
 DEC_FUN(Bool32, RSELSTR_UnRotateRect, (int skew, Rect16* pRc, int nRc, Rect16 Rc, int16_t* begx, int16_t* movey, uchar* flmovey, int* hi));

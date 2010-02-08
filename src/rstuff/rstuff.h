@@ -77,6 +77,8 @@
 #define RSTUFF_FUNC  FUN_IMPO
 #endif
 
+struct CCOM_cont;
+
 typedef struct tagRSPreProcessImage {
     puchar *pgpRecogDIB;
     Bool32 gbAutoRotate;
@@ -96,7 +98,7 @@ typedef struct tagRSPreProcessImage {
     Handle hDebugCancelAutoTemplate;
     Handle hDebugEnableSearchSegment;
     const char ** pglpRecogName;
-    Handle* phCCOM;
+    CCOM_cont ** phCCOM;
     void * pinfo;
     Handle* phLinesCCOM;
     void * phCLINE;

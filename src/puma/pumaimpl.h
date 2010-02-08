@@ -33,6 +33,7 @@
 #include "cimage/imageinfo.h"
 
 class CTIControl;
+struct CCOM_cont;
 
 namespace CIF
 {
@@ -138,7 +139,7 @@ class PumaImpl
         void * input_dib_;
         void * recog_dib_;
         int tables_num_;
-        Handle ccom_;
+        CCOM_cont * ccom_;
         Handle cpage_;
         Handle lines_ccom_;
         Handle cline_;

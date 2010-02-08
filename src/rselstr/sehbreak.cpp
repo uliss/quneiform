@@ -336,7 +336,7 @@ Bool GluedLettersProcess (ROOT *pRoot)
            }
     }
 
-	CCOM_Delete(exthCCOM, (CCOM_comp*)(pRoot->pComp));
+	CCOM_Delete(exthCCOM, pRoot->pComp);
 
 	if (pCurrentBlock -> pRoots == pRoot)
 	{

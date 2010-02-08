@@ -129,7 +129,7 @@ extern Handle hWndTurn;
 extern Handle hDebugPrintResolution;
 
 Bool32 AutoTemplate(PRSPreProcessImage);
-void checkResolution(Handle hCCOM, Handle hCPAGE);
+void checkResolution(CCOM_handle hCCOM, Handle hCPAGE);
 
 // Нормализация сырь
 // (07.07.2000) Изначально взято из puma.dll без изменений
@@ -335,7 +335,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom,
 	}
 
 	if (rc) {
-		*Image->phCCOM = (Handle) REXCGetContainer();
+		*Image->phCCOM = REXCGetContainer();
 		if (*Image->phCCOM == 0) {
 			SetReturnCode_rstuff(REXC_GetReturnCode());
 			rc = FALSE;
@@ -493,7 +493,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 
 			if (rc) {
 
-				*Image->phCCOM = (Handle) REXCGetContainer();
+				*Image->phCCOM = REXCGetContainer();
 				if (*Image->phCCOM == 0) {
 					SetReturnCode_rstuff(REXC_GetReturnCode());
 					rc = FALSE;
@@ -806,7 +806,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image) {
 	return TRUE;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void checkResolution(Handle hCCOM, Handle hCPAGE) {
+void checkResolution(CCOM_handle hCCOM, Handle hCPAGE) {
 	PAGEINFO page_info = { 0 };
 	const int min_res = 99;
 	CCOM_comp* pcomp = NULL;

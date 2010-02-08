@@ -106,6 +106,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define REMOVED_BLOCK_NUMBER   ((int16_t)-1)
 
 struct _Root;
+struct CCOM_comp;
 typedef struct _Root ROOT;
 typedef struct _Root *PROOT;
 
@@ -128,7 +129,7 @@ struct _Root {
     uchar  bReached;
     int16_t   nBlock;   // тип блока: "дустовый" али какой
     int16_t   nUserNum;
-    void * pComp;
+    CCOM_comp * pComp;
 };
 
 struct _RootExt;

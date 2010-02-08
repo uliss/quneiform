@@ -24,6 +24,7 @@
 #include "globus.h"
 #include "common/exception.h"
 
+struct CCOM_cont;
 struct CCOM_comp;
 
 namespace CIF
@@ -35,7 +36,7 @@ class CLA_EXPO ComponentRecognizer
         ComponentRecognizer();
         ~ComponentRecognizer();
 
-        void recognize(Handle ccom, language_t language);
+        void recognize(CCOM_cont * ccom, language_t language);
         void setMaxComponentHeight(uint height);
         void setMaxComponentWidth(uint width);
         void setMinComponentHeight(uint height);
@@ -57,7 +58,7 @@ class CLA_EXPO ComponentRecognizer
         uint maxComponentHeight() const;
         uint maxScale() const;
         uint maxComponentWidth() const;
-        void recognizeComponents(Handle ccom);
+        void recognizeComponents(CCOM_cont * ccom);
         void recognizeComponent(CCOM_comp* pcomp);
 };
 

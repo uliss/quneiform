@@ -98,14 +98,14 @@ Bool32 CCOM_Init(uint16_t wHeightCode)
     return TRUE;
 }
 
-CCOM_handle CCOM_CreateContainer(void)
+CCOM_cont * CCOM_CreateContainer(void)
 {
     CCOM_cont *new_cont, *prev = tail.prev, *next = &tail;
     new_cont = static_cast<CCOM_cont*> (calloc(1, sizeof(CCOM_cont)));
 
     if (!new_cont) {
         wLowRC = CCOM_ERR_NOMEMORY;
-        return (CCOM_handle) NULL;
+        return NULL;
     }
 
     prev->next = new_cont;
@@ -122,7 +122,7 @@ CCOM_handle CCOM_CreateContainer(void)
 
     new_cont->kill_dust_mode = FALSE;
     new_cont->language = -1;
-    return (CCOM_handle) new_cont;
+    return new_cont;
 }
 
 Bool32 CCOM_GetContainerVolume(CCOM_handle hcont)
@@ -131,9 +131,9 @@ Bool32 CCOM_GetContainerVolume(CCOM_handle hcont)
     return cont->nall;
 }
 
-Bool32 CCOM_DeleteContainer(CCOM_handle hcont)
+Bool32 CCOM_DeleteContainer(CCOM_cont * hcont)
 {
-    CCOM_cont *curr, *cont = (CCOM_cont*) hcont, *prev, *next;
+    CCOM_cont *curr, *cont = hcont, *prev, *next;
     CCOM_comp * next_comp, *current;
 
     for (curr = top.next; curr != &tail && curr != cont; curr = curr->next)
@@ -164,7 +164,7 @@ void CCOM_DeleteAll(void)
 
     for (i = top.next; i && i != &tail; i = inext) {
         inext = i->next;
-        CCOM_DeleteContainer((CCOM_handle) i);
+        CCOM_DeleteContainer(i);
     }
 
     wLowRC = CCOM_ERR_NO;
@@ -526,7 +526,7 @@ static CCOM_comp * CCOM_DeleteComp(CCOM_handle hcont, CCOM_comp * comp)
 Bool32 CCOM_Delete(CCOM_handle hcont, CCOM_comp * comp)
 {
     CCOM_comp * curr;
-    CCOM_cont * cont = (CCOM_cont *) hcont;
+    CCOM_cont * cont = hcont;
 
     if (!comp || !cont) {
         wLowRC = CCOM_ERR_NULL;

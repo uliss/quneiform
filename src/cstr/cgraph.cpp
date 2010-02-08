@@ -798,7 +798,7 @@ Bool32 CSTR_RestoreCont(char *filename)
             fread(&i, sizeof(i), 1, in);
             fread(&j, sizeof(j), 1, in);
 
-            if (!(linx = CSTR_NewLine(i, j, -1))) {
+            if (!(linx = CSTR_NewLine(i, j))) {
                 fclose(in);
                 wLowRC = CGRAPH_ERR_PARAM;
                 return FALSE;

@@ -87,7 +87,7 @@
 
 static Rect16 merge_frame;
 static Bool32 is_merge_frame = FALSE;
-static CCOM_handle NumContainer = 0;
+static CCOM_cont * NumContainer = 0;
 static int32_t curr_line = 0, original_density;
 static uchar original_begends;
 static uchar * rasterDIB4 = NULL;
@@ -772,7 +772,7 @@ Bool32 REXCExtraDIB(ExcControl ExCW, uchar *lp_DIB, int32_t TemplCol, int32_t Te
             foto_metric);
 }
 
-Handle REXCGetContainer(void)
+CCOM_cont * REXCGetContainer(void)
 {
     return NumContainer;
 }

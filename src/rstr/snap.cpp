@@ -671,7 +671,7 @@ Bool snap_monitor(void) {
     hnd = (curr_pass == -1 || curr_pass >= snap_clients) ? hSnapMain : hSnapPass[curr_pass];
     if (LDPUMA_SkipEx(hnd, TRUE, TRUE, 1))
         return FALSE;
-    snap_line = CSTR_NewLine(999999, 0, -1);
+    snap_line = CSTR_NewLine(999999, 0);
     if (!snap_line)
         return FALSE;
     Cells2CSTR((CSTR_line) NULL, snap_line, (cell *) (currcell.complist), 1);

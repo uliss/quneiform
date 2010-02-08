@@ -164,8 +164,7 @@ enum CSTRFunctionsExt {
 // 1    CSTR_FNNEWLINE      Образовать новую строку
 typedef CSTR_line (*FNCSTR_NewLine)(int32_t lineno, int32_t version,
                                     int32_t container);
-CSTR_FUNC CSTR_line CSTR_NewLine(int32_t lineno, int32_t version,
-                                 int32_t container);
+CSTR_FUNC CSTR_line CSTR_NewLine(int32_t lineno, int32_t version);
 // 2    CSTR_FNDELLINE      Удалить строку
 typedef Bool32 (*FNCSTR_DeleteLine)(CSTR_line line);
 CSTR_FUNC Bool32 CSTR_DeleteLine(CSTR_line line);

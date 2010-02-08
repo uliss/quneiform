@@ -67,7 +67,7 @@ using namespace CIF;
 extern Handle hNotUseAntonCross;
 static int IsInPoly(Point a, POLY_ * pPoly);
 
-Handle hCcom;
+CCOM_handle hCcom;
 uint32_t NumberOfLettersInArea(Rect32 rect, int Number)
 {
     uint32_t Result = 0;
@@ -508,7 +508,7 @@ Bool32 PageRoatateBlocks(Handle hPage)
     return TRUE;
 }
 
-void PageLayoutBlocks(Handle hCCOM)
+void PageLayoutBlocks(CCOM_handle hCCOM)
 {
     Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     file_name = LDPUMA_GetFileName(NULL);

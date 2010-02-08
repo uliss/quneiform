@@ -170,7 +170,7 @@ Bool32 MyFiltrateIn(int32_t upper, int32_t left, int32_t w, int32_t h)
     return TRUE;
 }
 
-Bool32 PicturesSecondStage(Handle hCCOM, Handle hCPAGE)
+Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
 {
     /************** final union all crossed and included pictures ******************/
     CCOM_comp common;
@@ -521,7 +521,7 @@ Bool32 IsNotBigLetter(CCOM_comp *comp)
     return TRUE;
 }
 
-Bool32 ReadRoots(Handle hCCOM, Bool32 BLOCKS)
+Bool32 ReadRoots(CCOM_handle hCCOM, Bool32 BLOCKS)
 {
     CCOM_comp * comp = NULL;
     Handle pPage;

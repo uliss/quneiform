@@ -94,7 +94,7 @@ uint ComponentRecognizer::maxScale() const
     return (max_scale_ > 0) ? max_scale_ : DEFAULT_SCALE;
 }
 
-void ComponentRecognizer::recognize(Handle ccom, language_t language)
+void ComponentRecognizer::recognize(CCOM_cont * ccom, language_t language)
 {
     alphabetInit(language);
     loadAlphabetTables(language);
@@ -164,7 +164,7 @@ void ComponentRecognizer::recognizeComponent(CCOM_comp* pcomp)
     }
 }
 
-void ComponentRecognizer::recognizeComponents(Handle ccom)
+void ComponentRecognizer::recognizeComponents(CCOM_cont * ccom)
 {
     CCOM_comp* pcomp = CCOM_GetFirst(ccom, NULL);
 

@@ -139,7 +139,7 @@ struct CCOM_cont
         Bool16 kill_dust_mode, language, style_new;
 };
 
-typedef void* CCOM_handle;
+typedef CCOM_cont* CCOM_handle;
 #pragma pack (pop)
 #endif
 

@@ -107,6 +107,6 @@ EXTERN uint32_t nPics;
 EXTERN CCOM_comp * pPics VAL1(NULL);
 EXTERN uint16_t pBlockHystogram[MaxHeightOfLetter];
 EXTERN uint32_t nComps;
-EXTERN Handle exthCCOM;
+EXTERN CCOM_handle exthCCOM;
 
 #endif

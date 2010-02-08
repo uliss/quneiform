@@ -264,7 +264,7 @@ Bool32 IsNotBigLetter(CCOM_comp *comp)
 
 /************************************************************************/
 
-Bool32 ReadRoots(Handle hCCOM)
+Bool32 ReadRoots(CCOM_handle hCCOM)
 {
     CCOM_comp * comp = NULL;
     Handle pPage;

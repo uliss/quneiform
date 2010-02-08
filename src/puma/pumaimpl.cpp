@@ -237,7 +237,7 @@ void PumaImpl::extractComponents()
 
     ExcControl exc;
     memset(&exc, 0, sizeof(exc));
-    CCOM_DeleteContainer((CCOM_handle) ccom_);
+    CCOM_DeleteContainer(ccom_);
     ccom_ = NULL;
     // будет распознавания эвентами
     exc.Control = Ex_ExtraComp | Ex_Picture;
@@ -864,7 +864,7 @@ void PumaImpl::recognizePass1()
 {
     // распознавание строк
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
-        CSTR_line lin_out = CSTR_NewLine(i, CSTR_LINVERS_MAINOUT, -1); // OLEG
+        CSTR_line lin_out = CSTR_NewLine(i, CSTR_LINVERS_MAINOUT); // OLEG
 
         if (!lin_out)
             throw PumaException("CSTR_NewLine failed");

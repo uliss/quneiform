@@ -113,7 +113,7 @@ void StrDrawRect(Handle wnd, uint32_t OperCode, uint32_t color, Rect16 Rc) {
 
 }
 
-Handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
+CCOM_handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
 		Bool vertical) {
 	int min_h, min_w, max_h, max_w;
 	int j;

@@ -110,7 +110,7 @@ EXC_FUNC(Bool32) REXCExtra(ExcControl Control, uchar *lpRaster, int32_t BWid, Bo
 EXC_FUNC(Bool32) REXCExtraDIB(ExcControl ExCW, uchar *lpDIB, int32_t TemplCol, int32_t TemplRow,
         int32_t TemplWid, int32_t TemplHei);
 // REXC_FNGETCONTAINER   Получить код контейнера с компонентами
-EXC_FUNC(Handle) REXCGetContainer(void);
+EXC_FUNC(CCOM_cont*) REXCGetContainer(void);
 // REXC_FNGETLENEREP     Получить интервальное представление
 EXC_FUNC(Bool32) REXCMakeLP(RecRaster *rRaster, uchar *lp, int16_t *lp_size, int16_t *numcomp);
 // REXC_FNMN2CCOM      из MN в CCOM_comp

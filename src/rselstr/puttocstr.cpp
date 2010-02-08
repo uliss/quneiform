@@ -84,7 +84,7 @@ int DPIY;
 
 /*-------------------------------------------------------------------------------------*/
 
-Bool32 GetObjects(Handle hCCOM, Handle hCPage)
+Bool32 GetObjects(CCOM_handle hCCOM, Handle hCPage)
 {
     if (list == NULL)
         return FALSE;
@@ -317,7 +317,7 @@ Bool32 GetObjects(Handle hCCOM, Handle hCPage)
             delete[] pmasp;
         }
 
-        Handle hStrCCOM;
+        CCOM_handle hStrCCOM;
         CCOM_comp * pcomp;
         oldleft = my_str->left;
         Rect16* pN = NULL;
@@ -346,14 +346,14 @@ Bool32 GetObjects(Handle hCCOM, Handle hCPage)
                 if (my_str->neg)
                     hStrCCOM = GetStrCCOM(hCPage, ImageName, Rc, my_str->neg, my_str->vertical);
                 else
-                    hStrCCOM = (CCOM_handle) hCCOM;
+                    hStrCCOM = hCCOM;
             }
             else {
                 if (!my_prep_str->hStrCCOM) {
                     if (my_str->neg)
                         hStrCCOM = GetStrCCOM(hCPage, ImageName, Rc, my_str->neg, my_str->vertical);
                     else
-                        hStrCCOM = (CCOM_handle) hCCOM;
+                        hStrCCOM = hCCOM;
                 }
                 else {
                     hStrCCOM = my_prep_str->hStrCCOM;
@@ -453,7 +453,7 @@ Bool32 GetObjects(Handle hCCOM, Handle hCPage)
 
             //Заполнение в CSTR:
 
-            string = CSTR_NewLine(max_str, 0, -1);
+            string = CSTR_NewLine(max_str, 0);
             if (string == NULL) {
                 CleanCont();
                 // GF: killed memory leak on 2004.01.29

@@ -77,6 +77,7 @@
 #include "rshelllines.h"
 #include "rsl.h"
 #include "rverline/rverline.h"
+#include "rstuff/rstuff.h"
 #include "un_buff.h"
 #include "cfcompat.h"
 
@@ -115,39 +116,6 @@ Handle hDebugFragOwnerControl = NULL;
 
 typedef Bool32 (*FNPUMA_XSetTemplate)(Rect32 rect);
 typedef Bool32 (*FNPUMA_XGetTemplate)(Rect32 *pRect);
-typedef struct tagRSPreProcessImage
-{
-        puchar *pgpRecogDIB;
-        Bool32 gbAutoRotate;
-        Bool32 gbDotMatrix;
-        Bool32 gbFax100;
-        uint32_t gnLanguage;
-        uint32_t gnTables;
-        Handle hCPAGE;
-        Handle hDebugCancelSearchPictures;
-        Handle hDebugCancelComponent;
-        Handle hDebugCancelTurn;
-        Handle hDebugCancelSearchLines;
-        Handle hDebugCancelVerifyLines;
-        Handle hDebugCancelSearchDotLines;
-        Handle hDebugCancelRemoveLines;
-        Handle hDebugCancelSearchTables;
-        Handle hDebugCancelAutoTemplate;
-        Handle hDebugEnableSearchSegment;
-        char ** pglpRecogName;
-        Handle* phCCOM;
-        void * pinfo;
-        Handle* phLinesCCOM;
-        void * phCLINE;
-        PBool32 pgneed_clean_line;
-        int32_t * pgnNumberTables;
-        uint32_t gnPictures;
-        Bool32* pgrc_line;
-        Rect32 gRectTemplate;
-        FNPUMA_XSetTemplate fnXSetTemplate;
-        FNPUMA_XGetTemplate fnXGetTemplate;
-        char *szLayoutFileName;
-} RSPreProcessImage, *PRSPreProcessImage;
 
 Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual);
 

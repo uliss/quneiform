@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RBLOCK_H
 
 #include "globus.h"
+#include "ccom/ccom.h"
 
 #ifdef __RBLOCK__
 #define RBLOCK_FUNC  FUN_EXPO
@@ -94,8 +95,8 @@ typedef enum {
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RBLOCK_FUNC(a) b c
 
-DEC_FUN(Bool32, RBLOCK_ExtractTextBlocks, (Handle hCCOM, Handle hCPAGE, Handle hCLINE));
-DEC_FUN(Bool32, RBLOCK_ExtractTextStrings, (Handle hCCOM, Handle hCPAGE));
+DEC_FUN(Bool32, RBLOCK_ExtractTextBlocks, (CCOM_handle hCCOM, Handle hCPAGE, Handle hCLINE));
+DEC_FUN(Bool32, RBLOCK_ExtractTextStrings, (CCOM_handle hCCOM, Handle hCPAGE));
 DEC_FUN(Bool32, RBLOCK_GetAnglePage, (Handle hCCOM, int32_t * lpNominator, int32_t * lpDenominator));
 #undef DEC_FUN
 

@@ -101,7 +101,7 @@ struct Negativ
         double p_rec;
         int Flags;
         Rotating rot;
-        Handle hCCOM[MAX_STR];
+        CCOM_handle hCCOM[MAX_STR];
         Negativ(Rect16 init);
         ~Negativ()
         {

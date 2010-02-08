@@ -169,10 +169,10 @@ typedef Bool32 (*FNCCOM_GetUserBlock)(CCOM_comp * comp, CCOM_USER_BLOCK *ub);
 CCOM_FUNC Bool32 CCOM_GetUserBlock(CCOM_comp * comp, CCOM_USER_BLOCK *ub);
 // 11   CCOM_FNCREATECONT   Создать новый контейнер
 typedef CCOM_handle (*FNCCOM_CreateContainer)(void);
-CCOM_FUNC CCOM_handle CCOM_CreateContainer(void);
+CCOM_FUNC CCOM_cont * CCOM_CreateContainer(void);
 // 12   CCOM_FNDELETECONT   Уничтожить контейнер
 typedef Bool32 (*FNCCOM_DeleteContainer)(CCOM_handle con);
-CCOM_FUNC Bool32 CCOM_DeleteContainer(CCOM_handle con);
+CCOM_FUNC Bool32 CCOM_DeleteContainer(CCOM_cont * con);
 // 13   CCOM_FNADDLPTORS    Добавить ЛП к растру
 typedef Bool32 (*FNCCOM_AddLPToRaster)(CCOM_comp * comp, RecRaster *rec);
 CCOM_FUNC Bool32 CCOM_AddLPToRaster(CCOM_comp * comp, RecRaster *rec);

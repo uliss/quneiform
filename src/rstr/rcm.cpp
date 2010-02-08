@@ -1179,7 +1179,7 @@ void rstr_make_second_line(CSTR_line lin, int32_t vers) {
 	CSTR_rast r, re, rr, dup, dupend, start;
 
 	CSTR_GetLineAttr(lin, &la);
-	le = CSTR_NewLine(la.number, vers, -1);
+	le = CSTR_NewLine(la.number, vers);
 	re = CSTR_GetFirstRaster(le);
 	for (dup = 0, r = CSTR_GetNext(CSTR_GetFirstRaster(lin)); r; r
 			= CSTR_GetNext(r)) {
@@ -2126,7 +2126,7 @@ static Bool32 RecognizeStringsPass1(void) {
 				LDPUMA_WaitUserInput(hSnapMain, NULL);
 			}
 
-			lin_out = CSTR_NewLine(i, CSTR_LINVERS_MAINOUT, -1); // OLEG
+			lin_out = CSTR_NewLine(i, CSTR_LINVERS_MAINOUT); // OLEG
 			if (lin_out == (CSTR_line) NULL) {
 				wLowRC = RSTR_ERR_NOINITRSTR;
 				rc = FALSE;

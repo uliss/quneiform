@@ -120,7 +120,7 @@ extern Handle hDrawComp;
 extern BLOCK** pBlockPointer;
 
 //////////////////////////////////
-static void LayoutFromCPAGE(Handle hCPAGE, Handle hCCOM);
+static void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM);
 int IsInPoly(const CIF::Point16& a, POLY_* pPoly);
 Bool dphShowString;
 
@@ -129,7 +129,7 @@ void RotatePageToReal(void);
 void LayoutPart2(void);
 void LayoutPart1(void);
 void BlocksExtract(void);
-Bool32 ReadRoots(Handle hCCOM);
+Bool32 ReadRoots(CCOM_handle hCCOM);
 void EnableDebug(void);
 void progress_finish(void);
 void DrawRect(Handle wnd, uint32_t OperCode, uint32_t color, int top, int bottom, int left,
@@ -142,7 +142,7 @@ Bool LineInCell(Rect32* CellRect, PL* po_li);
 void SomeDraw(void);
 void DrawComps(Handle hCCOM);
 
-RSELSTR_FUNC(Bool32) RSELSTR_ExtractTextStrings(Handle hCCOM, Handle hCPAGE)
+RSELSTR_FUNC(Bool32) RSELSTR_ExtractTextStrings(CCOM_handle hCCOM, Handle hCPAGE)
 {
     LDPUMA_Skip(RselstrTime);
     int t;
@@ -189,7 +189,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_ExtractTextStrings(Handle hCCOM, Handle hCPAGE)
     return TRUE;
 }
 
-void PageLayoutStrings(Handle hCCOM, Handle hCPAGE)
+void PageLayoutStrings(CCOM_handle hCCOM, Handle hCPAGE)
 {
     if (ReadRoots(hCCOM)) {
         run_options = FORCE_ONE_COLUMN;
@@ -211,7 +211,7 @@ void PageLayoutStrings(Handle hCCOM, Handle hCPAGE)
     }
 }
 
-void LayoutFromCPAGE(Handle hCPAGE, Handle hCCOM)
+void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
 {
     Handle h = NULL;
     POLY_ block;
@@ -390,7 +390,7 @@ void file_string(STRING * s)
     if (dphShowString)
         LDPUMA_DrawRect(NULL, &r, nIncline / 2, __RGB__(0,127,0), -100, PUMA_MODULE_RBLOCK);
 
-    lin_in = CSTR_NewLine(nStrings, 0, -1);
+    lin_in = CSTR_NewLine(nStrings, 0);
     if (lin_in == (CSTR_line) NULL) {
         SetReturnCode_rselstr(CSTR_GetReturnCode());
         longjmp(fatal_error_exit, -1);

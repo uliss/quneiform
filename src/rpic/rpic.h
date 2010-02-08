@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __RPIC_H
 
 #include "globus.h"
+#include "ccom/ccom.h"
 
 #ifdef __RPIC__
 #define RPIC_FUNC  FUN_EXPO
@@ -80,7 +81,7 @@ typedef enum {
 
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; RPIC_FUNC(a) b c
-DEC_FUN(Bool32, RPIC_SearchPictures, (Handle hCCOM, Handle hCCOM_big, Handle hCPAGE));
+DEC_FUN(Bool32, RPIC_SearchPictures, (CCOM_handle hCCOM, CCOM_handle hCCOM_big, Handle hCPAGE));
 #undef DEC_FUN
 
 struct _RPIC_Comp_Rect {

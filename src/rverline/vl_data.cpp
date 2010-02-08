@@ -90,9 +90,9 @@ void SetReturnCode_rverline(uint16_t rc);
 Bool MyInit_CPage();
 Bool MyGetLines(LinesTotalInfo *pLti, int MaxNumLin, Handle hCPage,
 		uint32_t *pHoriType, uint32_t *pVertType, char *pStr);
-Bool MyGetComp(Handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter);
+Bool MyGetComp(CCOM_handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter);
 void Error_CPage(const char *str);
-Bool MyFormZhertvy(Handle hCCOM, void **vvZher, int *iZher, int nZher,
+Bool MyFormZhertvy(CCOM_handle hCCOM, void **vvZher, int *iZher, int nZher,
 		int Filter);
 Bool MySetZher(void **vvZher, int nZher, Handle hCPage);
 Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage);
@@ -467,7 +467,7 @@ Bool CompIsGood(CCOM_comp * pcomp, int Filter) {
 	}
 }
 /*----------------------------------------------------------------------------*/
-Bool MyGetComp(Handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter) {
+Bool MyGetComp(CCOM_handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter) {
 	CCOM_comp * pcomp;
 	Bool GoodComp;
 	pcomp = CCOM_GetFirst(hCCOM, NULL);
@@ -500,7 +500,7 @@ Bool MyGetComp(Handle hCCOM, Rect16 *pRc, int *nRC, int MyMaxC, int Filter) {
 	return TRUE;
 }
 /*----------------------------------------------------------------------------*/
-Bool MyFormZhertvy(Handle hCCOM, void **vvZher, int *iZher, int nZher,
+Bool MyFormZhertvy(CCOM_handle hCCOM, void **vvZher, int *iZher, int nZher,
 		int Filter) {
 	CCOM_comp * pcomp;
 	int nC, nX, i, nZ;

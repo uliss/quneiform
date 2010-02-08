@@ -103,6 +103,8 @@ class CLA_EXPO RMarker
 
 }
 
+struct CCOM_cont;
+
 struct RMPreProcessImage
 {
         Bool32 gbFax100;
@@ -110,7 +112,7 @@ struct RMPreProcessImage
         Bool32 gKillVSLComponents;
         uint32_t gnLanguage;
         Handle hCPAGE;
-        Handle hCCOM;
+        CCOM_cont * hCCOM;
         Handle hCLINE;
         Handle hDebugCancelSearchPictures;
         Handle hDebugLayoutFromFile;
