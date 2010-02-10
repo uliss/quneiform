@@ -64,17 +64,16 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-
-# include "c_memory.h"
-# include "layout.h"
-# include "func.h"
-# include "my_mem.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "tech.h"
+#include "layout.h"
+#include "func.h"
+#include "my_mem.h"
 #include "lterrors.h"
 
-# include "dpuma.h"
+#include "dpuma.h"
 #include "minmax.h"
 
 extern Handle hBlocksBreaking;

@@ -66,14 +66,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *                                                                          *
  ***************************************************************************/
 
-# include <string.h>
+#include <string.h>
+#include <cstdlib>
+#include "tech.h"
+#include "layout.h"
+#include "my_mem.h"
 
-# include "c_memory.h"
-# include "layout.h"
-# include "my_mem.h"
-
-
-# define MAX_BACKUP_STACK_DEPTH   10
+#define MAX_BACKUP_STACK_DEPTH   10
 
 BACKUP_COPY *pBC_First   = NULL;
 BACKUP_COPY *pBC_Last    = NULL;

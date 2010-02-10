@@ -64,20 +64,19 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdlib.h>
-# include <string.h>
-
-# include "c_memory.h"
-# include "cpage/cpage.h"
-# include "layout.h"
-# include "my_mem.h"
-# include "cline/cline.h"
+#include <stdlib.h>
+#include <string.h>
+#include "tech.h"
+#include "cpage/cpage.h"
+#include "layout.h"
+#include "my_mem.h"
+#include "cline/cline.h"
 
 #include "dpuma.h"
 #include "minmax.h"
 
-# ifndef LT_STAND_ALONE
-# include "struct.h"
+#ifndef LT_STAND_ALONE
+#include "struct.h"
 extern FRAME frames[];
 extern int16_t nf;
 extern STRLN lines[];

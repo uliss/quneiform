@@ -65,16 +65,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *                                                                          *
  ***************************************************************************/
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "tech.h"
+#include "layout.h"
+#include "func.h"
+#include "my_mem.h"
 
-# include "c_memory.h"
-# include "layout.h"
-# include "func.h"
-# include "my_mem.h"
-
-# include "dpuma.h"
+#include "dpuma.h"
 
 extern Handle hNotWholeLine ;
 extern Handle hHystogramNull ;

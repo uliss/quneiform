@@ -67,8 +67,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ***************************************************************************/
 
 #include <cstring>
+#include <cstdlib>
 #include "extract.h"
-#include "c_memory.h"
+#include "tech.h"
 #include "my_mem.h"
 
 

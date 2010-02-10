@@ -65,17 +65,17 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-
-# include "c_memory.h"
-# include "layout.h"
-# include "my_mem.h"
-# include "tuner.h"
-# include "sheet.h"
-# include "cpage/cpage.h" // Rom
-# include "cttypes.h" // Piter
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <cstdlib>
+#include "tech.h"
+#include "layout.h"
+#include "my_mem.h"
+#include "tuner.h"
+#include "sheet.h"
+#include "cpage/cpage.h" // Rom
+#include "cttypes.h" // Piter
 
 int16_t nIncline;
 

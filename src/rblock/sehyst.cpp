@@ -68,8 +68,8 @@
 #include <string.h>
 #include <time.h>
 #include <cstdio>
-
-#include "c_memory.h"
+#include <cstdlib>
+#include "tech.h"
 #include "extract.h"
 #include "lterrors.h"
 #include "my_mem.h"

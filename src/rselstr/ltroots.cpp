@@ -69,8 +69,9 @@
 #include <stdio.h>
 #include <assert.h>
 #include <cstring>
+#include <cstdlib>
 
-#include "c_memory.h"
+#include "tech.h"
 #include "iolib.h"
 #include "layout.h"
 #include "my_mem.h"

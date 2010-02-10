@@ -64,15 +64,14 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "tech.h"
+#include "layout.h"
+#include "my_mem.h"
 
-# include "c_memory.h"
-# include "layout.h"
-# include "my_mem.h"
-
-# include "dpuma.h"
+#include "dpuma.h"
 
 extern Handle hBlocksBreaking;
 uchar *pSB_Matrix = NULL;

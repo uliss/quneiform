@@ -64,13 +64,12 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-
-# include "c_memory.h"
-# include "layout.h"
-# include "my_mem.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "tech.h"
+#include "layout.h"
+#include "my_mem.h"
 
 int *pHystogram = NULL;
 int *pHystVertHeightesSum = NULL;

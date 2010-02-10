@@ -71,7 +71,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __MADEBUG_H_INCLUDE
 #define __MADEBUG_H_INCLUDE
 
-#include "c_memory.h"
+#include <cstdlib>
+#include "tech.h"
 #include "ltconfig.h"
 
 void HeapCheck (char *pFilename, int nLine);

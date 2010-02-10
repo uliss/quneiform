@@ -69,9 +69,10 @@
 #include <stdio.h>
 #include <assert.h>
 #include <cstring>
+#include <cstdlib>
 
 #include "compat/filefunc.h"
-#include "c_memory.h"
+#include "tech.h"
 #include "lterrors.h"
 #include "iolib.h"
 #include "layout.h"

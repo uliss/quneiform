@@ -67,8 +67,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "c_memory.h"
+#include "tech.h"
 #include "extract.h"
 #include "my_mem.h"
 

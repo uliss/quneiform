@@ -65,11 +65,11 @@
  *                                                                          *
  ***************************************************************************/
 
+#include <cstring>
 #include "extract.h"
-#include "c_memory.h"
+#include "tech.h"
 #include "my_mem.h"
 #include "lterrors.h"
-#include <cstring>
 
 BLOCK **pBlockPointer = NULL;
 int nBlocks;

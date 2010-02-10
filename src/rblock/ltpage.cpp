@@ -68,8 +68,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-
-#include "c_memory.h"
+#include "tech.h"
 #include "layout.h"
 #include "struct.h"
 #include "box.h"

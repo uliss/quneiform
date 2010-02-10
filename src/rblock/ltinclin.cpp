@@ -69,8 +69,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "tech.h"
 #include "lterrors.h"
-#include "c_memory.h"
 #include "layout.h"
 #include "my_mem.h"
 #include "tuner.h"

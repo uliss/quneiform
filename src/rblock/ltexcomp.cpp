@@ -64,14 +64,14 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-# include "c_memory.h"
+#include "tech.h"
 #include "lterrors.h"
-# include "layout.h"
-# include "my_mem.h"
+#include "layout.h"
+#include "my_mem.h"
 #include "minmax.h"
 
 static uchar *pMatrix = NULL;

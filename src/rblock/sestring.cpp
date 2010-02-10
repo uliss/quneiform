@@ -64,17 +64,16 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "tech.h"
+#include "extract.h"
+#include "my_mem.h"
 
-# include "c_memory.h"
-# include "extract.h"
-# include "my_mem.h"
-
-# define DUST_LIST_MEMORY_ALLOCATION_QUANTUM 128
-# define DUST_LIST_MEMORY_ALLOCATION_MASK    127
-# define DUST_LIST_MEMORY_ALLOCATION_SHIFT   7
+#define DUST_LIST_MEMORY_ALLOCATION_QUANTUM 128
+#define DUST_LIST_MEMORY_ALLOCATION_MASK    127
+#define DUST_LIST_MEMORY_ALLOCATION_SHIFT   7
 
 STRING String;
 Bool bNeedFreeString = FALSE;
