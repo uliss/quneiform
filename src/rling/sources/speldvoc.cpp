@@ -60,17 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*                                                                       */
 /*************************************************************************/
 #include "spelmode.h"
-
-#if defined(TURBO_C)
-#include "tc_types.h"
-#elif defined(WATCOM)
 #include "spelwatc.h"
-#elif defined (BC_FOR_WIN)
-#include "bcwtypes.h"
-typedef long signed int  int32_t;
-#else
-#error   NO TOOOL SPECIFIED
-#endif
 
 #include <ctype.h>
 

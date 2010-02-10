@@ -59,14 +59,7 @@
  */
 
 #include "spelmode.h"
-
-#if defined(TURBO_C)
-#include "tc_types.h"
-#elif defined(WATCOM)
 #include "spelwatc.h"
-#else
-#error   NO TOOOL SPECIFIED
-#endif
 
 #include <stdlib.h>
 #include <ctype.h>

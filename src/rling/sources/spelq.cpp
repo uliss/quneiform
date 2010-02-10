@@ -56,14 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "spelmode.h"
-
-#if defined(TURBO_C)
-#include "tc_types.h"
-#include <dir.h>
-#elif defined(WATCOM)
 #include "spelwatc.h"
-#endif
-
 #include "speldefs.h"
 
 dQ SPQ;

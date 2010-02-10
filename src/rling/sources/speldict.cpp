@@ -66,17 +66,7 @@
  ***********************************************************************/
 
 #include "spelmode.h"
-
-#if defined(TURBO_C)
-#include "tc_types.h"
-#elif defined(WATCOM) || defined(THINK_C_5)
 #include "spelwatc.h"
-#elif defined(THINK_C)
-#include "spelthin.h"
-#else
-#error   NO TOOOL SPECIFIED
-#endif
-
 #include "speldefs.h"
 #include "spelfunc.h"
 #include "tigeremulate.h"

@@ -94,11 +94,11 @@
 #include <ctype.h>
 #include <setjmp.h>
 #include <sys/types.h>
-#include <unistd.h>
 
+#include "compat/filefunc.h"
 #include "speldefs.h"
 #include "spelfunc.h"
-#include  "tigeremulate.h"
+#include "tigeremulate.h"
 
 #include "compat_defs.h"
 

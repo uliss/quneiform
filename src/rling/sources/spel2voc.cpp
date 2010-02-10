@@ -59,17 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*      access to dictionary from program "edconv"                       */
 /*************************************************************************/
 #include "spelmode.h"
-
-#if defined(TURBO_C)
-#include "tc_types.h"
-#elif defined(WATCOM)
 #include "spelwatc.h"
-#elif defined(THINK_C)
-#include "spelthin.h"
-#else
-#error   NO TOOOL SPECIFIED
-#endif
-
 #include "speldefs.h"
 #include "spelfunc.h"
 
