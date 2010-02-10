@@ -65,6 +65,7 @@
  ***************************************************************************/
 
 #include <stdlib.h>
+#include <cstring>
 
 #include "extract.h"
 #include "func.h"

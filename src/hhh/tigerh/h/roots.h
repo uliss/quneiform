@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define __ROOTS_H_INCLUDE
 
 # include "ltconfig.h"
-# include "c_types.h"
+# include "cttypes.h"
 
 # define ROOT_NULL           0x00
 # define ROOT_LETTER         0x01

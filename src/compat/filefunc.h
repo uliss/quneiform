@@ -21,6 +21,7 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <cstdio>
 
 #ifndef _MSC_VER
 #include <unistd.h>

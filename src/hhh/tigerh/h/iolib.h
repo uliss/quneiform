@@ -62,7 +62,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //    This function is needed at the modules SPELABC.C & SPELSPEC.C.
 //
 
-#include "c_types.h"
+#include <cstdio>
+#include "cttypes.h"
 
 #define TG_STREAM  1
 #define TB_STREAM  2
@@ -91,10 +92,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define BO_WRITE      O_WRONLY|O_BINARY
 #define DIRSEP        '/'
 
-# else
-
-#include <stdlib.h>
-#include <fcntl.h>
+#else
 
 #define BO_CREAT      O_CREAT|O_TRUNC|O_BINARY|O_RDWR,0
 #define BO_READ       O_RDONLY|O_BINARY
@@ -105,8 +103,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define BO_RDWR_FL    O_RDWR|O_BINARY
 #define BO_I_FL       0
 #define BO_WRITE      O_WRONLY|O_BINARY
-#define S_IREAD       0
-#define S_IWRITE      0
 #define DIRSEP        ':'
 #define O_TEXT        0
 

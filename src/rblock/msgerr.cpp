@@ -57,8 +57,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <setjmp.h>
+#include <cstring>
 
-#include "c_types.h"
+#include "cttypes.h"
 #include "msgerr.h"
 #include "kernel.h"
 #include "face_lng.h"

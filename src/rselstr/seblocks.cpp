@@ -66,9 +66,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *                                                                          *
  ***************************************************************************/
 
-# include "extract.h"
-# include "c_memory.h"
-# include "my_mem.h"
+#include <cstring>
+#include "extract.h"
+#include "c_memory.h"
+#include "my_mem.h"
 
 
 BLOCK **pBlockPointer = NULL;

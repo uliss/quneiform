@@ -79,7 +79,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # define __LAYOUT_H_INCLUDE
 
 # include "ltconfig.h"
-# include "c_types.h"
+# include "cttypes.h"
 # include "lterrors.h"
 # include "roots.h"
 # include "madebug.h"

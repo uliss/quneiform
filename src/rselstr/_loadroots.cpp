@@ -54,17 +54,20 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-# include <setjmp.h>
-# include <string.h>
+#include <setjmp.h>
+#include <string.h>
 #include  <assert.h>
+#include <cstdio>
+
+#include "compat/filefunc.h"
 #include "compat_defs.h"
 #include "lterrors.h"
 
-# define __LOAD_ROOTS_C__
+#define __LOAD_ROOTS_C__
 
-# include "new_c.h"
+#include "new_c.h"
 
-# undef __LOAD_ROOTS_C__
+#undef __LOAD_ROOTS_C__
 
 extern Handle hDebugCancelGreatComp;
 extern Handle hDebugCancelPicturesAndTables;

@@ -59,7 +59,7 @@
 
 #include "globus.h"
 #include "rblock.h"
-#include "c_types.h"
+#include "cttypes.h"
 
 #include "status.h"
 #include "ccom/ccom.h"

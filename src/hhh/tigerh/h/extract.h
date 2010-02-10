@@ -80,13 +80,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # include "ltconfig.h"
 
-# include "c_types.h"
+# include "cttypes.h"
 # include "lterrors.h"
 # include "roots.h"
 # include "strings.h"
 # include "madebug.h"
 # include "layout.h"
-
+
 /****************************************************************************
  *   Blocks access table                                                    *
  ***************************************************************************/

@@ -56,6 +56,9 @@
 
 #include <math.h>
 #include <time.h>
+#include <cstdio>
+#include <cstring>
+
 #include "rselstr.h"
 #include "roots.h"
 #include "layout.h"

@@ -54,12 +54,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-# include <setjmp.h>
-# include <string.h>
+#include <setjmp.h>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
 
-# include <stdlib.h>
-
-# include "new_c.h"
+#include "new_c.h"
 #include "minmax.h"
 
 using namespace CIF;

@@ -67,10 +67,10 @@
 
 #include <fcntl.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <assert.h>
-#include <unistd.h>
+#include <cstring>
 
+#include "compat/filefunc.h"
 #include "c_memory.h"
 #include "lterrors.h"
 #include "iolib.h"

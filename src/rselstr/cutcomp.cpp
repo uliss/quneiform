@@ -54,7 +54,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include "cpage/cpage.h"
 #include "ccom/ccom.h"

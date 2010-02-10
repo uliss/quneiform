@@ -67,6 +67,7 @@
 
 #include <string.h>
 #include <time.h>
+#include <cstdio>
 
 #include "c_memory.h"
 #include "extract.h"

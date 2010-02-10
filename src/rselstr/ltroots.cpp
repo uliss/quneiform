@@ -65,15 +65,15 @@
  *                                                                          *
  ***************************************************************************/
 
-# include <fcntl.h>
-# include <stdio.h>
-/*# include <crtdbg.h>*/
+#include <fcntl.h>
+#include <stdio.h>
 #include <assert.h>
+#include <cstring>
 
-# include "c_memory.h"
-# include "iolib.h"
-# include "layout.h"
-# include "my_mem.h"
+#include "c_memory.h"
+#include "iolib.h"
+#include "layout.h"
+#include "my_mem.h"
 
 #include "compat_defs.h"
 

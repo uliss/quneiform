@@ -60,7 +60,7 @@
 #include "globus.h"
 #include "rselstr.h"
 
-#include "c_types.h"
+#include "cttypes.h"
 #include "status.h"
 
 #define IS_IN_TABLE 111
