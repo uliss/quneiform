@@ -16,13 +16,13 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <unistd.h>
 #include <cstdlib>
 #include <cstring>
 #include <memory>
 #include "componentrecognizer.h"
 #include "alphabets/alphabetfactory.h"
 #include "common/language.h"
+#include "compat/filefunc.h"
 #include "evn/evn.h"
 #include "ccom/ccom.h"
 #include "struct.h"

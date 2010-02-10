@@ -58,11 +58,12 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
+
+#include "compat/filefunc.h"
 
 /*************************************************************************/
 /* tg_spell.c -  general spelling loop. It scans ED-file,

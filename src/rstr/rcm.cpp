@@ -66,9 +66,9 @@
 #include <stdlib.h>
 #include <setjmp.h>
 #include <time.h>
-#include <unistd.h>
 #include <fcntl.h>
 
+#include "compat/filefunc.h"
 #include "evn/evn.h"
 #include "charsets.h"
 #include "leo/leo.h"

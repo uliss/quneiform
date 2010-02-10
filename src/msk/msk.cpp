@@ -58,7 +58,6 @@
 #include <cctype>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <algorithm> // for std::min/max
 
 #include <fcntl.h>
@@ -69,6 +68,7 @@
 #include <ctime>
 #include <cmath>
 
+#include "compat/filefunc.h"
 #include "mskdef.h"
 #include "msk.h"
 #include "mmx/mmx.h"

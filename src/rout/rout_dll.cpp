@@ -58,13 +58,7 @@
 #include "rout_own.h"
 
 #include "resource.h"
-
-#ifdef _MSC_VER
-#include <crtdbg.h>
-#include <io.h>
-#else
-#include <unistd.h>
-#endif
+#include "compat/filefunc.h"
 
 #include <stdio.h>
 #include <string.h>

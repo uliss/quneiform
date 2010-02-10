@@ -62,7 +62,6 @@
 //
 // ============================================================================
 
-#include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "resource.h"
@@ -76,6 +75,8 @@
 #include <cassert>
 #include <vector>
 #include <climits>
+
+#include "compat/filefunc.h"
 
 #define  USE_NONE             0x0040   // no formatting
 #define  USE_FRAME_AND_COLUMN 0x0001   // use columns & frames

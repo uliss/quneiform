@@ -58,7 +58,6 @@
 #include <fcntl.h>
 #include <cstring>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <cstdio>
 #include <cmath>
 #include <algorithm>
@@ -67,6 +66,7 @@
 #include <malloc.h>
 #endif
 
+#include "compat/filefunc.h"
 #include "r35.h"
 #include "mmx/mmx.h"
 #include "std/std.h"

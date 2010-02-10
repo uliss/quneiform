@@ -67,11 +67,9 @@
 //                    started at 25 may 1998                                    //
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
-#ifndef _MSC_VER
-#include <unistd.h>
-#endif
 
 #include <cstdlib>
+#include "compat/filefunc.h"
 #include "ctccontrol.h"
 #include "cfcompat.h"
 void SetReturnCode_cfio(uint16_t rc);
