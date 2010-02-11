@@ -4,3 +4,5 @@ add_executable(test_rreccom
 )
 
 target_link_libraries(test_rreccom cuneiform-rreccom ${CPPUNIT_LIBRARIES})
+
+add_test(RReccom ${EXECUTABLE_OUTPUT_PATH}/test_rreccom)

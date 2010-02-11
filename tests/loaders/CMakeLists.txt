@@ -16,3 +16,5 @@ add_executable(test_loaders
 )
 
 target_link_libraries(test_loaders cuneiform-rdib ${CPPUNIT_LIBRARIES} ${magicklib})
+
+add_test(Loaders ${EXECUTABLE_OUTPUT_PATH}/test_loaders)
