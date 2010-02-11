@@ -19,6 +19,7 @@
 #define private public
 #include "rreccom/componentrecognizer.h"
 #include "common/language.h"
+#include "ccom/ccom.h"
 #include "alphabets/alphabetfactory.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestComponentRecognizer);
 using namespace CIF;
@@ -38,4 +39,18 @@ void TestComponentRecognizer::testAlphabetInit() {
     }
     CPPUNIT_ASSERT_THROW(r.alphabetInit(LANGUAGE_UNKNOWN), ComponentRecognizer::Exception);
     CPPUNIT_ASSERT_THROW(r.loadAlphabetTables(LANGUAGE_UNKNOWN), AlphabetException);
+}
+
+void TestComponentRecognizer::testRecognizeComponents() {
+    CCOM_Init(0);
+    ComponentRecognizer r;
+    CCOM_handle cont = CCOM_CreateContainer();
+    r.recognizeComponents(cont);
+    CCOM_DeleteContainer(cont);
+    CCOM_Done();
+}
+
+void TestComponentRecognizer::testRecognizeComponent() {
+    ComponentRecognizer r;
+    CPPUNIT_ASSERT_THROW(r.recognizeComponent(NULL), ComponentRecognizer::Exception);
 }

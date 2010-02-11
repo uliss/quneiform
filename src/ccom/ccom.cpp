@@ -236,11 +236,11 @@ static Bool32 ccom_small_dust(CCOM_comp * comp, CCOM_handle hcont)
 CCOM_comp * CCOM_New(CCOM_handle hcont, int32_t upper, int32_t left, int32_t w, int32_t h)
 {
     CCOM_comp * new_comp;
-    CCOM_cont * cont = (CCOM_cont *) hcont;
+    CCOM_cont * cont = hcont;
 
     if (w < 1 || h < 1 || !cont) {
         wLowRC = CCOM_ERR_VALUE;
-        return FALSE;
+        return NULL;
     }
 
     new_comp = static_cast<CCOM_comp*> (calloc(1, sizeof(CCOM_comp)));

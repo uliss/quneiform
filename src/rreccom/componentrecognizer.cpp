@@ -22,7 +22,6 @@
 #include "componentrecognizer.h"
 #include "alphabets/alphabetfactory.h"
 #include "common/language.h"
-#include "compat/filefunc.h"
 #include "evn/evn.h"
 #include "ccom/ccom.h"
 #include "struct.h"
@@ -103,7 +102,8 @@ void ComponentRecognizer::recognize(CCOM_cont * ccom, language_t language)
 
 void ComponentRecognizer::recognizeComponent(CCOM_comp* pcomp)
 {
-    assert(pcomp);
+    if(!pcomp)
+        throw Exception("[ComponentRecognizer::recognizeComponent] Invalid component pointer given");
 
     unsigned char evn_res[17] = "";
     int32_t nvers = 0;
