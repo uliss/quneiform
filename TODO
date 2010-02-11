@@ -1,0 +1,11 @@
+Main goals are:
+    1. code cleanup and such refactoring as removing tons of global variables, cast to void* etc.
+    
+    2. make cuneiform work on NetBSD, OpenBSD and OpenSolaris platforms (now it compiles, but segfaults)
+    
+    3. compiling with MSVC
+    
+    4. remove a lot of duplicated code
+    
+    5. add multilanguage support
+    

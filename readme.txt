@@ -12,7 +12,10 @@ platforms.
 Linux
 FreeBSD
 OS X
-Windows using MSVC, MinGW, and Cygwin
+Windows using MinGW, MSVC build is broken
+
+Also Cuneiform compiles on NetBSD, OpenBSD and OpenSolaris, but crashes
+on recognition
 
 The following people have sent patches or have otherwise helped the
 project. If someone is missing, please let me know, so I can add them.
