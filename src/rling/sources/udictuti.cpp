@@ -73,7 +73,6 @@
 //
 
 #include "spelmode.h"
-#include "spelwatc.h"
 
 #include <ctype.h>
 

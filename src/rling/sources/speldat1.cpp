@@ -55,7 +55,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "spelmode.h"
-#include "spelwatc.h"
 
 #include <fcntl.h>
 #include <ctype.h>

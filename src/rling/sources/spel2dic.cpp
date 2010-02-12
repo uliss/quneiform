@@ -65,14 +65,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*************************************************************************/
 
 #include "spelmode.h"
-
-#if defined(TURBO_C)
-#include "tc_types.h"
-#elif defined(WATCOM)
-#include "spelwatc.h"
-#else
-#error   NO TOOOL SPECIFIED
-#endif
 #include "speldefs.h"
 #include "spelfunc.h"
 

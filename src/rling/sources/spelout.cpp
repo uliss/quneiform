@@ -59,7 +59,6 @@
  */
 #include "tuner.h"
 #include "spelmode.h"
-#include "spelwatc.h"
 
 #include <stdlib.h>
 #include <ctype.h>

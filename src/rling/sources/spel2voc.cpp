@@ -59,7 +59,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*      access to dictionary from program "edconv"                       */
 /*************************************************************************/
 #include "spelmode.h"
-#include "spelwatc.h"
 #include "speldefs.h"
 #include "spelfunc.h"
 

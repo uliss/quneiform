@@ -66,7 +66,6 @@
  ***********************************************************************/
 
 #include "spelmode.h"
-#include "spelwatc.h"
 #include "speldefs.h"
 #include "spelfunc.h"
 #include "tigeremulate.h"
