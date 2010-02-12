@@ -21,7 +21,6 @@
 
 #include <string>
 #include <iosfwd>
-#include <stdexcept>
 #include <memory>
 
 #include "pumadef.h"
@@ -29,8 +28,10 @@
 #include "rfrmt/formatoptions.h"
 #include "specprj.h"
 #include "common/rect.h"
+#include "common/exception.h"
 #include "common/memorybuffer.h"
 #include "cimage/imageinfo.h"
+#include "rdib/image.h"
 
 class CTIControl;
 struct CCOM_cont;
@@ -40,16 +41,9 @@ namespace CIF
 
 class RMarker;
 class ComponentExtractor;
-class Image;
 
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
-
-struct PumaException: std::runtime_error {
-    PumaException(const std::string& msg) :
-            std::runtime_error(msg) {
-    }
-};
 
 class PumaImpl
 {
@@ -59,7 +53,7 @@ class PumaImpl
 
         void close();
         FormatOptions formatOptions() const;
-        void open(Image * img);
+        void open(ImagePtr img);
         Rect pageTemplate() const;
         void recognize();
         void save(const std::string& outputFilename, int format) const;
@@ -150,6 +144,8 @@ class PumaImpl
         const char * recog_name_;
         special_project_t special_project_;
 };
+
+typedef RuntimeExceptionImpl<PumaImpl> PumaException;
 
 }
 

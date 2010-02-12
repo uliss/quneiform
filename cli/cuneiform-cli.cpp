@@ -354,7 +354,7 @@ int main(int argc, char **argv)
 
         //  Puma::instance().setOptionTables(puma_table_t mode);
 
-        Puma::instance().open(image.get());
+        Puma::instance().open(image);
         Puma::instance().recognize();
         Puma::instance().save(outfilename, outputformat);
         Puma::instance().close();

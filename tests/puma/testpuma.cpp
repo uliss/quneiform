@@ -23,3 +23,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestPuma);
 void TestPuma::testInit() {
     Puma::instance().pageTemplate();
 }
+
+void TestPuma::testOpen() {
+    ImagePtr null_ptr;
+    CPPUNIT_ASSERT_THROW(Puma::instance().open(null_ptr), PumaException);
+}

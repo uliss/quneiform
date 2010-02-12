@@ -543,9 +543,11 @@ void PumaImpl::modulesInit()
     }
 }
 
-void PumaImpl::open(Image * img)
+void PumaImpl::open(ImagePtr img)
 {
-    assert(img && img->data());
+    if(!img || !img->data())
+        throw PumaException("[PumaImpl::open] invalid image given");
+
     if (Config::instance().debug())
         Debug() << "Puma open\n";
     input_filename_ = img->fileName();
