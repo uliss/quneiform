@@ -556,7 +556,7 @@ void PumaImpl::open(ImagePtr img)
 
     // write image
     if (!CIMAGE_WriteDIB(PUMA_IMAGE_USER, input_dib_, 1))
-        throw PumaException("PumaImpl::open can't write DIB");
+        throw PumaException("[PumaImpl::open] can't write DIB");
 
     postOpenInitialize();
     cpage_ = CreateEmptyPage();
