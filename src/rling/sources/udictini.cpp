@@ -85,7 +85,7 @@ uint32_t LoadUserDict(char *DictName, char *pool, uint32_t pool_size,
         pool = ALI_PR(pool);
 
 #endif
-    user_dict -> vocseg = (uchar *) SET_VOC_ROOT(pool);
+    user_dict -> vocseg = (uchar *) pool;
     {
         int16_t Fh;
         char nm[128];
@@ -129,7 +129,7 @@ uint32_t InitializeNewUserDict(char *pool, uint32_t pool_size,
     if (pool_size < MAX_VOC_SIZE)
         return 0;
 
-    user_dict -> vocseg = (uchar*) SET_VOC_ROOT(pool);
+    user_dict -> vocseg = (uchar*) pool;
     voc_init(user_dict);
     return MAX_VOC_SIZE;
 }

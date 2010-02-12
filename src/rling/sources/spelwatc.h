@@ -57,24 +57,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __SPEL_WATC_H__
 #define __SPEL_WATC_H__
 
-//---------------------Turbo large pointers---------------------------
+////---------------------Turbo large pointers---------------------------
 #define V_OFF(a,b) (int)((long int)a-(long int)b)
 #define V_POINT(a,b) (uchar *)(a+b)
-#define TEST_PRPH(a) 0
-#define ALI_PR(a) (((long int)a)/16+1)*16
-#define SET_VOC_ROOT(a) a
-
-
-/************************* Bitfield types *****************************/
-#define BIT_BYTE    uchar
-#define BIT_WORD    uint16_t
-#define BIT_DWORD   DWORD
-
-//--------------- Allocation memory stuff ------------------------------
-//AK added next changes:
-#define ALLOC_MEMORY(a)       alloc_memory(a) //wc_alloc(a)
-#define FARREAD               TGREAD
-#define MOVEFARTONEAR         memcpy
-#define MOVENEARTOFAR         memcpy
 
 #endif

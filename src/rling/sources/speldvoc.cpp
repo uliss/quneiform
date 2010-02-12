@@ -162,7 +162,7 @@ int16_t voc_init (
 {
     vert  * currvert;        /* serv pointer to current vertex in RAM   */
     voc_open(voc);
-    MOVENEARTOFAR ( V_POINT(voc -> vocseg, 0), DYN_DICT_HEADER,
+    memcpy( V_POINT(voc -> vocseg, 0), DYN_DICT_HEADER,
                     strlen(DYN_DICT_HEADER ));
     voc->vocfree = sizeof(DYN_DICT_HEADER);
     /*
