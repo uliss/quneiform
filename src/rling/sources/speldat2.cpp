@@ -55,18 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "spelmode.h"
-
-#include <fcntl.h>
-#include <ctype.h>
-#include <time.h>
-
-
 #include "speldefs.h"
 #include "spelfunc.h"
 
-
-/* ------------------------------------------------------------------ */
-
 SOBJ obj;   /* basic structure of the whole object being considered */
-
-/* ------------------------------------------------------------------ */
