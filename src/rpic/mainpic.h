@@ -94,7 +94,7 @@
 #endif
 ////////////////////////////////////////////////////////////////////////////////
 EXTERN uint32_t nComps;
-EXTERN uint16_t pHystogram[MaxHeightOfLetter];
+EXTERN int pHystogram[MaxHeightOfLetter];
 EXTERN uint32_t nPics;
 EXTERN CCOM_comp * pPics;
 EXTERN uint32_t nAverageHeight;
