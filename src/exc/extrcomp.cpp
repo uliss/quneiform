@@ -124,7 +124,7 @@ uint16_t image_disp_byte, image_disp_end;
 uchar image_disp_mask;
 int16_t image_blth; // pixels per line
 int16_t image_height; // lines in file number
-int16_t image_lth; // bytes per line
+int image_lth; // bytes per line
 uchar image_black; // mask for black pixels adding
 uchar image_white; // mask for wite pixels adding
 

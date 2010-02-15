@@ -71,7 +71,7 @@ static uchar *grim1 = NULL, *grim2; // Pointer to internal buffer
 static int16_t ls, nsb1; // Length of string and strings per buffer
 static uint16_t rest; // Length of rest in the buffer after previous read
 static uchar reserv[2048];
-extern int16_t image_lth; // bytes per line
+extern int image_lth; // bytes per line
 static void matrix_process();
 
 void matrix_open()

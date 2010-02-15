@@ -74,7 +74,7 @@ extern uint16_t image_disp_byte;
 
 extern int16_t image_blth; // pixels per line
 extern int16_t image_height; // lines in file number
-extern int16_t image_lth; // bytes per line
+extern int image_lth; // bytes per line
 extern uchar image_black; // mask for black pixels adding
 extern uchar image_white; // mask for wite pixels adding
 
