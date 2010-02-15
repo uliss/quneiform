@@ -527,7 +527,7 @@ int16_t glue_to_o(uchar c2, uchar c3, cell *BC, cell *EC) {
 	return 0;
 }
 
-uchar broken_ii; // broken '¯','­','¨'
+int broken_ii; // broken '¯','­','¨'
 
 static void glue_let_bad() {
 	int16_t i, j, dist, ndist, wdg, bdiff, trsuccess;

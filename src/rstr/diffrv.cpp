@@ -191,7 +191,7 @@ extern uchar db_trace_flag; // snap-detail presence byte
 extern uchar db_pass; // snap-pass indicator
 
 extern uchar broken_flag; // broken raster discrim safety
-extern uchar broken_ii; // two sticks flag for rus discr
+extern int broken_ii; // two sticks flag for rus discr
 
 extern uchar work_raster[];
 extern uchar work_raster_1[];
