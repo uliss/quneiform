@@ -74,7 +74,7 @@
 
 #include "new_c.h" /* FIXME: to compile in MS VC++, Handle exthCCOM */
 
-extern int16_t nIncline;
+extern int nIncline;
 
 PROOT root_file = NULL;
 uint16_t run_options = 0;

@@ -91,7 +91,7 @@ static Bool badglue(cell **, int16_t);
 #define GARBLETMAX  3
 #define DEFBASE    10
 
-extern int16_t nIncline;
+extern int nIncline;
 extern int16_t page_nIncline;
 
 int16_t delgarb() {

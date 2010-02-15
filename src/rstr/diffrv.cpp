@@ -2872,7 +2872,7 @@ static Bool valid_inc(uint16_t inc) {
 	return ret;
 }
 
-extern int16_t nIncline;
+extern int nIncline;
 
 int16_t sym_italic(cell * c, uchar let) {
 	int16_t i, cs = 0;

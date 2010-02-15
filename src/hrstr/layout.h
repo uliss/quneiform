@@ -185,7 +185,7 @@ extern int  *pnHeightesCounter;
 extern int  nHeightesAllocated;
 extern int  nHeightes;
 
-extern int16_t nIncline;
+extern int nIncline;
 
 Bool InclinesAccount (void);
 void InclinesFreeData (void);

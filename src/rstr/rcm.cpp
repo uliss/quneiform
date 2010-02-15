@@ -405,7 +405,7 @@ void correct_letters_pidx_table(void);
 //=============== Global data ==============
 Err16 rcmErr;
 
-int16_t nIncline; // setup in RcmSetup
+int nIncline; // setup in RcmSetup
 int16_t current_fragment; // setup in RSTR_SetOptions
 int16_t iFont = 0;
 int16_t line_number;

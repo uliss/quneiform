@@ -68,8 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   #include "stick.h"
 #include "minmax.h"
 
-//////  #include "inc_tab_rstr.h"
-extern int16_t nIncline  ;
+extern int nIncline  ;
 
 extern uchar fax1x2;	// MK NEW 14.01.1993
 

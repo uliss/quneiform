@@ -157,7 +157,7 @@ Handle hSnapGarbageLine = 0;
 Handle hSnapTable = 0;
 
 static Handle hCPAGE;
-static int32_t nIncline;
+static int nIncline;
 static KegTab keg_tab;
 static int32_t num_keg, num_keg_opt; //количество кеглей на странице исходное и оптимальное
 static KegStat keg_stats; //статистика кеглей на исходной странице

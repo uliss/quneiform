@@ -225,7 +225,7 @@ void trade_marks(void) {
 	return;
 }/*trade_marks*/
 
-extern int16_t nIncline;
+extern int nIncline;
 int16_t is_square(cell *a) {
 	lnhead *Lp1, *Lp2;
 	interval * int1;

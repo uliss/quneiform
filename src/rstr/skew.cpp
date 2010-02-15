@@ -70,7 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct pairs {int16_t x,y; char f;};
 typedef struct pairs pairs;
 
-extern int16_t nIncline;
+extern int nIncline;
 extern int16_t page_nIncline;
 extern int16_t line_number;
 extern uchar fax1x2;

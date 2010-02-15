@@ -96,7 +96,7 @@ using namespace CIF;
 //IGOR
 extern uchar language;
 extern CSTR_line lin_str;
-extern int32_t nIncline;
+extern int nIncline;
 //IGOR
 
 int16_t obtain_diff(int16_t arg);

@@ -69,7 +69,7 @@
 #include "dpuma.h"
 #include "newfunc.h"
 
-extern int16_t nIncline;
+extern int nIncline;
 
 Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime);
 

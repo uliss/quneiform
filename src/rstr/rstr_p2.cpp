@@ -108,7 +108,7 @@ extern uchar line_alphabet;
 extern int16_t line_number;
 extern uchar line_scale;
 extern uchar line_tabcell;//OLEG
-extern int16_t nIncline; //
+extern int nIncline; //
 ////////////
 
 static Bool32 p2_twin(uchar ch);

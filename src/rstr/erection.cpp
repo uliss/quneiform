@@ -100,7 +100,7 @@ extern uchar db_status; // snap presence byte
 extern uchar langSer, langUkr;
 extern uchar db_trace_flag; // snap-detail presence byte
 extern uchar db_pass; // snap-pass indicator
-extern int16_t nIncline; // global page incline
+extern int nIncline; // global page incline
 extern int16_t pitchsize; // string pitch
 extern uchar erection_enable;
 extern uchar decode_ASCII_to_[256][4];

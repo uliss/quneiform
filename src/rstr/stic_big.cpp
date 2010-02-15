@@ -77,7 +77,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern uchar multy_language;
 
 extern int16_t pitchsize ;
-extern int16_t nIncline  ;
+extern int nIncline  ;
 extern uchar fax1x2;	// MK NEW 05.01.1993
 extern int  dis_LIMIT_EEM;	// in ST_TOOLS.C;
 extern int  mk_dis_for_liga_exm;	// 06.01.1994

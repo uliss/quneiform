@@ -94,7 +94,7 @@ static int16_t kill_version(uchar prob);
 extern uchar db_status; // snap presence byte
 extern uchar db_trace_flag; // snap-detail presence byte
 extern uchar db_pass; // snap-pass indicator
-extern int16_t nIncline;
+extern int nIncline;
 extern int16_t pitchsize;
 extern uchar line_tabcell;
 

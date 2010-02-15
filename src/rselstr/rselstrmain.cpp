@@ -82,7 +82,7 @@ typedef uint32_t COLORREF;
 jmp_buf fatal_error_exit;
 
 int16_t nStrings;
-extern int16_t nIncline;
+extern int nIncline;
 Handle HCCOM;
 Handle HCPAGE;
 

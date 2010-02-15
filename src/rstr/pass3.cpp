@@ -114,7 +114,7 @@ extern uchar line_scale, line_alphabet, line_minus, line_handfragment, line_poin
 extern Bool line_readyBL, line_BL;
 extern uchar line_tabcell;
 extern uchar db_trace_flag;
-extern int16_t nIncline;
+extern int nIncline;
 // PASSe.C functions
 extern void set_spell_solid(void);
 extern uchar english_word_recognize(void);
@@ -2463,8 +2463,6 @@ void Cells2CSTR(CSTR_line lin, CSTR_line lino, cell *cur, Bool32 enable_scaled) 
 }
 
 void accept_cell(cell *c, c_comp *cmp) {
-    extern int16_t nIncline;
-
     c->env = cmp;
     c->h = cmp->h;
     c->w = cmp->w;

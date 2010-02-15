@@ -76,7 +76,7 @@ extern void EnableDebug(void);
 extern jmp_buf fatal_error_exit; // For error handling
 extern int16_t nStrings;
 extern CLINE_handle HCLINE = 0;
-extern int16_t nIncline;
+extern int nIncline;
 
 Handle MainWindowD;
 

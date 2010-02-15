@@ -207,7 +207,7 @@ GL_right0[LIMIT_HEIGHT]; // NO STATIC from 19.01.1993
 
 static int16_t GL_tab_angle[LIMIT_HEIGHT]; /* optimal center inc line */
 static int16_t num_lines;
-int16_t nIncline = 0;
+int nIncline = 0;
 extern uchar language;
 
 ////////////////////Functions prototypes/////////////////////////////

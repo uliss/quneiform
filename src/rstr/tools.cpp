@@ -73,7 +73,7 @@
 extern uchar db_status; // snap presence byte
 extern uchar db_trace_flag; // 2 - more detailed estimate (ALT-F7)
 extern char db_pass;
-extern int16_t nIncline;
+extern int nIncline;
 extern void ErrorExit(int Code);
 //#define NUMBER_OF_CELLS (0x30000/sizeof (cell))
 extern puchar ED_file_bound, ED_file_end/* memory_pool_end*/;

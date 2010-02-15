@@ -65,7 +65,7 @@
 #include "lang.h"
 #include "inc_tab_rstr.h"
 #include "minmax.h"
-extern int16_t nIncline;
+extern int nIncline;
 
 extern uchar fax1x2; // MK NEW 14.01.1993
 extern int inc_num_EEM; // in ST_TOOLS.C;

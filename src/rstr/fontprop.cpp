@@ -74,7 +74,7 @@
 
 extern Bool line_readyBL;
 extern uchar p2_active;
-extern int16_t nIncline;
+extern int nIncline;
 extern int16_t page_nIncline;
 extern uchar line_scale;
 extern uint16_t actual_resolution;

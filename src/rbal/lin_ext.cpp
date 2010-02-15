@@ -109,7 +109,7 @@ uint16_t actual_resolution = 300;
 uchar fEdCode = 0; // ASCII
 Bool line_BL = FALSE;
 uchar spec_camera = 0;
-int32_t nIncline = 0;
+int nIncline = 0;
 uchar no_linpen = 0;
 int16_t prop_l_delta = 0, prop_r_delta = 0;
 
