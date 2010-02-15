@@ -25,8 +25,13 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
     SET_COMPILER_DEBUG_FLAG(-Wextra)
     SET_COMPILER_DEBUG_FLAG(-Wconversion)
     SET_COMPILER_DEBUG_FLAG(-fno-inline)
+
+    # setting linker warning flags
+    if(CMAKE_SYSTEM_NAME STREQUAL LINUX)
+        set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--warn-common")
+    endif()
+
     message(STATUS "Compiler flags are: ${CMAKE_CXX_FLAGS_DEBUG}")
-    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--warn-common")
 endif()
 
 add_definitions("-D_USE_RVERLINE_")
