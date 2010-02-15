@@ -77,7 +77,7 @@ int16_t search(KEYTYPE *word, int16_t *wordsize, LTIMG * wrddef[],
                struct dict_state * dict);
 
 /* -- Data -- */
-extern uchar alphabet[2][ABCSIZE];
+extern uchar alphabet[3][ABCSIZE];
 extern KEYTYPE codetable[256];
 
 #ifdef S_COMMENTS

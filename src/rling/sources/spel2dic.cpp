@@ -68,9 +68,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "speldefs.h"
 #include "spelfunc.h"
 
-extern  uchar alphabet[][ABCSIZE];
-
-
 extern KEYTYPE codetable[256];
 extern KEYTYPE codepermit[256];
 /*************************************************************************/

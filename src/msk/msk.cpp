@@ -76,7 +76,7 @@
 
 #include "cfcompat.h"
 
-int16_t err;
+int msk_error;
 static uint32_t bit_cnt_msk[66000];
 uint16_t Limii;
 short initiated = 0;
@@ -468,7 +468,7 @@ Bool32 MSKRecogChar(int HndTab, RecRaster *recraster, // raster description
     if (MSKSetHndTab(HndTab) == -1)
         return FALSE;
 
-    err = 0;
+    msk_error = 0;
     hor = (short) (recraster->lnPixWidth);
     ver = (short) (recraster->lnPixHeight);
     lett_coo[0] = lett_coo[1] = (short) (0);
@@ -477,7 +477,7 @@ Bool32 MSKRecogChar(int HndTab, RecRaster *recraster, // raster description
     hor = ((hor + 63) >> 6) << 6;
     buff_image = (uint16_t *) (recraster->Raster);
     nm = 0;
-    err = (int16_t) recindex(0, (uchar)(0), hor, ver, lett_coo, (uchar)(0),
+    msk_error = (int16_t) recindex(0, (uchar)(0), hor, ver, lett_coo, (uchar)(0),
                              buff_image, p1616, &io_char, TRUE);
 
     //Indres->lnAltCnt=nm;
@@ -505,7 +505,7 @@ Bool32 MSKRecogCharExp(int HndTab, RecRaster *recraster, // raster description
     if (MSKSetHndTab(HndTab) == -1)
         return FALSE;
 
-    err = 0;
+    msk_error = 0;
     hor = (short) (recraster->lnPixWidth);
     ver = (short) (recraster->lnPixHeight);
     lett_coo[0] = lett_coo[1] = (short) (0);
@@ -523,10 +523,10 @@ Bool32 MSKRecogCharExp(int HndTab, RecRaster *recraster, // raster description
             Indres->Alt[i].Prob = 1;
 
         else {
-            err = (int16_t) recindex(257, (uchar)(0), hor, ver, lett_coo,
+            msk_error = (int16_t) recindex(257, (uchar)(0), hor, ver, lett_coo,
                                      (uchar)(0), buff_image, p1616, &io_char, TRUE);
 
-            if (err != -1)
+            if (msk_error != -1)
                 Indres->Alt[i].Prob = ((LIMI - ms[0]) * 255) / LIMI;
 
             else
@@ -550,7 +550,7 @@ Bool32 MSKRecogCharExpPuma(int HndTab, RecRaster *recraster, // raster descripti
     if (MSKSetHndTab(HndTab) == -1)
         return FALSE;
 
-    err = 0;
+    msk_error = 0;
     hor = (short) (recraster->lnPixWidth);
     ver = (short) (recraster->lnPixHeight);
     lett_coo[0] = lett_coo[1] = 0;
@@ -568,11 +568,11 @@ Bool32 MSKRecogCharExpPuma(int HndTab, RecRaster *recraster, // raster descripti
             Indres->Alt[i].Prob = 1;
 
         else {
-            err = (int16_t) recindex(257, (uchar)(0), hor, ver, lett_coo,
+            msk_error = (int16_t) recindex(257, (uchar)(0), hor, ver, lett_coo,
                                      (uchar)(0), buff_image, p1616, &io_char, (uchar)(
                                          (Flags & 1) ? FALSE : TRUE));
 
-            if (err != -1)
+            if (msk_error != -1)
                 Indres->Alt[i].Prob = ((LIMI - ms[0]) * 255) / LIMI;
 
             else
@@ -616,9 +616,9 @@ Bool32 MSKSetHndTab(int hndTab)
 Bool32 MSKRecogNDX(RecRaster *recraster, // raster description
                    RecVersions *Indres)
 {
-    short hor, ver, lett_coo[4], i, err;
+    short hor, ver, lett_coo[4], i, msk_error;
     uint16_t *buff_image;
-    err = 0;
+    msk_error = 0;
     hor = (short) (recraster->lnPixWidth);
     ver = (short) (recraster->lnPixHeight);
     lett_coo[0] = lett_coo[1] = 0;
@@ -627,9 +627,9 @@ Bool32 MSKRecogNDX(RecRaster *recraster, // raster description
     hor = ((hor + 63) >> 6) << 6;
     buff_image = (uint16_t*) recraster->Raster;
     nm = 0;
-    err = (int16_t) recindexNDX(hor, ver, lett_coo, (uchar)(0), buff_image);
+    msk_error = (int16_t) recindexNDX(hor, ver, lett_coo, (uchar)(0), buff_image);
 
-    if (err != 0)
+    if (msk_error != 0)
         return FALSE;
 
     Indres->lnAltCnt = nm;
@@ -728,15 +728,15 @@ short recindex(short ptr_char, uchar get_put, short hor, // input
             || lett_coo[2] >= hor || lett_coo[3] >= ver)
         return -1;
 
-    err = new_reco(ptr_char, hor, buff_image, p1616, buff_col, get_put,
+    msk_error = new_reco(ptr_char, hor, buff_image, p1616, buff_col, get_put,
                    lett_coo[0], lett_coo[1], lett_coo[2], lett_coo[3], io_char,
                    enable_1);
 
-    if (err == 1)
+    if (msk_error == 1)
         return 0;
 
     else
-        return err ? err : 99;
+        return msk_error ? msk_error : 99;
 }
 
 short recindexNDX(short hor, // input
@@ -756,7 +756,7 @@ short recindexNDX(short hor, // input
         return -1;
 
     if (lett_coo[2] - lett_coo[0] >= 200 || lett_coo[3] - lett_coo[1] >= 300) {
-        err = 5;
+        msk_error = 5;
         goto ret;
     }
 
@@ -766,14 +766,14 @@ short recindexNDX(short hor, // input
     j2 = lett_coo[2];
     chn_mat1(hor, buff_image, buff_col, i1, j1, i2, j2, iob, 16, 0, 0, 15, 15);
     det_symn(iob, list, meas);
-    err = 1;
+    msk_error = 1;
 ret:
 
-    if (err == 1)
+    if (msk_error == 1)
         return 0;
 
     else
-        return err ? err : 99;
+        return msk_error ? msk_error : 99;
 }
 
 #define MIN_WID_PERC  33

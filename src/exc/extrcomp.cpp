@@ -171,7 +171,6 @@ int32_t box_number = BOX_NUMBER;
 uchar fax1x2 = 0, matrix = 0;
 uint16_t actual_resolution;
 uint16_t comp_max_h, comp_max_w, comp_min_h, comp_min_w;
-uchar alphabet[256];
 int16_t nBlack, nAll, nWid;
 int32_t ExControl;
 //========== Local data

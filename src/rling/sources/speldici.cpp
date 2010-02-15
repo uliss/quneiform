@@ -165,9 +165,6 @@ puchar seq_nam(int16_t seqn);
 pchar full_name(puchar w, puchar n);
 
 /* -- Data -- */
-
-extern uchar alphabet[][ABCSIZE];
-
 extern char tiger_dir[40];
 
 /**************************************************************************/
