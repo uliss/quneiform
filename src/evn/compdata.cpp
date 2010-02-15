@@ -70,5 +70,4 @@ CIF::version * start_rec, *rec_ptr;
 uint16_t lpool_lth;
 uchar lpool[6000];
 uchar records_change;
-int16_t evfulln;
 uchar double_fax;

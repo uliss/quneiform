@@ -69,5 +69,4 @@ uchar string[8192];
 uint16_t lpool_lth;
 uchar lpool[6000];
 uchar records_change;
-uchar evfulln;
 uchar double_fax;

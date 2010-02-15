@@ -98,7 +98,7 @@ VAR evvars[64], *evendvar;
 uint16_t evrow_b1, evrow_b2, evrow_b3, evrow_b4;
 uint16_t evcol_b1, evcol_b2, evcol_b3, evcol_b4, evcol_b5;
 uchar* seek_responce;
-extern int16_t evfulln;
+int evfulln;
 static uchar ev;
 static VAR * vp;
 

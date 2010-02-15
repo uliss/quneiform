@@ -77,5 +77,4 @@ uchar lpool_lth;
 uchar lpool[6000 * 10];
 
 uchar records_change;
-uchar evfulln;
 uchar double_fax;

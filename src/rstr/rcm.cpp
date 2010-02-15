@@ -177,7 +177,6 @@ uchar string[8192];
 uint16_t lpool_lth;
 uchar lpool[LPOOL_SIZE];
 int32_t Flag_Courier = FALSE;
-uchar evfulln;
 uchar double_fax; // setup in RSTR_SetOptions
 uchar db_trace_flag;
 uint16_t actual_resolution = 300; // setup in RSTR_SetOptions

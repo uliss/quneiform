@@ -71,7 +71,6 @@ extern uint16_t lpool_lth;
 //------------------ Common working fields
 extern c_comp wcomp;
 extern uchar records_change;
-extern int16_t evfulln;
 extern CIF::version *start_rec, *rec_ptr;
 static CIF::version records[128];
 extern uchar work_raster[];
