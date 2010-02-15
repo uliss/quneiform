@@ -61,7 +61,7 @@
 #include "version.h"
 #include "comp.h"
 extern uchar lpool[];
-extern uint16_t lpool_lth;
+extern uint lpool_lth;
 
 #include "lang_def.h"
 #include "ligas.h"  // 04.06.2002 E.P.

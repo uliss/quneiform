@@ -122,8 +122,8 @@ uint32_t progress_set_percent(uint32_t step)
 //------------------ Image attributes ---------------------
 uint16_t image_disp_byte, image_disp_end;
 uchar image_disp_mask;
-int16_t image_blth; // pixels per line
-int16_t image_height; // lines in file number
+int image_blth; // pixels per line
+int image_height; // lines in file number
 int image_lth; // bytes per line
 uchar image_black; // mask for black pixels adding
 uchar image_white; // mask for wite pixels adding
@@ -154,7 +154,7 @@ static Bool write_dump(void * pool, int32_t size);
 static Bool extrcomp_setup_memory(void);
 
 extern ExtComponent wcomp;
-extern uint16_t lpool_lth;
+extern uint lpool_lth;
 extern uchar lpool[];
 extern uchar work_raster[];
 extern int32_t sz_work_raster, sz_work_raster_1;

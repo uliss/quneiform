@@ -82,7 +82,6 @@ extern c_comp wcomp;
 extern uchar work_raster[], work_raster_1[];
 extern CIF::version * start_rec, *rec_ptr;
 extern uchar recors_change;
-extern uchar lpool[];
 extern uchar* events_tree_rt;
 extern uchar evline[], evline1[];
 extern VAR evvars[64], *evendvar;

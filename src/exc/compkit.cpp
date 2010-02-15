@@ -72,7 +72,7 @@ extern c_comp wcomp;
 extern MN * main_number_ptr;
 extern BOX * boxchain, *dl_last_in_chain;
 extern uchar lpool[];
-extern uint16_t lpool_lth;
+extern uint lpool_lth;
 extern uchar work_raster[];
 extern CIF::version * start_rec, *rec_ptr;
 extern uchar records_change;

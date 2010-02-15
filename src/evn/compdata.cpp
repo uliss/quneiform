@@ -67,7 +67,7 @@ uchar work_raster[2048*4], work_raster_1[2048*4];
 struct main_memory_str Q;
 CIF::version * start_rec, *rec_ptr;
 //uchar string[8192];
-uint16_t lpool_lth;
+uint lpool_lth;
 uchar lpool[6000];
 uchar records_change;
 uchar double_fax;

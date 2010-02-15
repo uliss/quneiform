@@ -174,7 +174,7 @@ CIF::version * start_rec, *rec_ptr;
 int16_t text_findstat(char * w);
 uchar db_pass;
 uchar string[8192];
-uint16_t lpool_lth;
+uint lpool_lth;
 uchar lpool[LPOOL_SIZE];
 int32_t Flag_Courier = FALSE;
 uchar double_fax; // setup in RSTR_SetOptions

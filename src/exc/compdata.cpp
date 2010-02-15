@@ -73,8 +73,7 @@ main_memory_str& Q()
 }
 
 CIF::version * start_rec, *rec_ptr;
-uchar lpool_lth;
+uint lpool_lth;
 uchar lpool[6000 * 10];
-
 uchar records_change;
 uchar double_fax;
