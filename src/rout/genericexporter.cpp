@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <cassert>
+#include <cstring>
 #include "genericexporter.h"
 #include "ced/ced.h"
 #include "ced/cedint.h"
@@ -26,19 +27,21 @@ namespace CIF
 {
 
 GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
-    Exporter(opts), page_(page), num_chars_(0), num_columns_(0), num_frames_(0), num_lines_(0),
-            num_paragraphs_(0), num_pictures_(0), num_sections_(0) {
+    Exporter(opts), page_(page), no_pictures_(false), num_chars_(0), num_columns_(0),
+            num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
+            num_tables_(0), table_nesting_level_(0) {
 
 }
 
 void GenericExporter::doExport(std::ostream& os) {
+    no_pictures_ = true;
     os_ = &os;
-    writeHeader(os);
     exportPage();
-    writeFooter(os);
 }
 
 void GenericExporter::exportChar(CEDChar * chr) {
+    assert(chr);
+
     if (CED_IsPicture(chr))
         exportPicture(chr);
     else {
@@ -48,100 +51,102 @@ void GenericExporter::exportChar(CEDChar * chr) {
         // Скрытый ли символ
         //gEdCharHidden = CED_GetCharFontAttribs(charHandle) & ED_HIDDEN;
 
-        //BROWSE_FUNCTION(charHandle, BROWSE_CHAR);
+        writeCharacter(*os_, chr);
     }
 }
 
 void GenericExporter::exportColumn(CEDParagraph * col) {
+    assert(col);
     num_columns_++;
+
+    writeColumnBegin(*os_, col);
+
     // Цикл по всем объектам
-    for (CEDParagraph * object = col->GetFirstObject(); object != NULL; object
-            = object->GetNextObject()) {
+    exportObjects(col);
+
+    writeColumnEnd(*os_, col);
+}
+
+void GenericExporter::exportFrame(CEDParagraph * frame) {
+    assert(frame);
+    // Начало фрейма
+    num_frames_++;
+
+    writeFrameBegin(*os_, frame);
+
+    // Обход абзацев и таблиц внутри фрейма
+    exportObjects(frame);
+
+    writeFrameEnd(*os_, frame);
+}
+
+void GenericExporter::exportLine(CEDLine * line) {
+    assert(line);
+    num_lines_++;
+    //gEdLineHardBreak = CED_GetLineHardBreak(gLineHandle);
+    writeLineBegin(*os_, line);
+
+    // Обход символов в строке
+    for (int i = 0, max_chars = line->GetCountChar(); i < max_chars; i++)
+        exportChar(line->GetChar(i));
+
+    writeLineEnd(*os_, line);
+}
+
+void GenericExporter::exportObjects(CEDParagraph * objects) {
+    for (CEDParagraph * obj = objects->GetFirstObject(); obj != NULL; obj = obj->GetNextObject()) {
         // Определить тип объекта
-        if (CED_IsFrame(object))
-            exportFrame(object);
-        else if (CED_IsTable(object))
-            exportTable(object);
-        else if (CED_IsParagraph(object))
-            exportParagraph(object);
+        if (CED_IsFrame(obj))
+            exportFrame(obj);
+        else if (CED_IsTable(obj))
+            exportTable(obj);
+        else if (CED_IsParagraph(obj))
+            exportParagraph(obj);
         else {
             Debug() << "[GenericExporter::exportColumn] Skipping fictive paragraph in ED\n";
         }
     }
 }
 
-void GenericExporter::exportFrame(CEDParagraph * frame) {
-    // Начало фрейма
-    num_frames_++;
-    //BROWSE_FUNCTION(gFrameHandle, BROWSE_FRAME_START);
-
-    // Обход абзацев и таблиц внутри фрейма
-    //if (!BrowseParagraphs(gFrameHandle, BrowseFunction, wantSkipTableCells, wantSkipParagraphs))
-    //  return FALSE;
-
-    // Конец фрейма
-    //BROWSE_FUNCTION(gFrameHandle, BROWSE_FRAME_END);
-    //gFrameHandle = NULL;
-}
-
-void GenericExporter::exportLine(CEDLine * line) {
-    num_lines_++;
-    //gEdLineHardBreak = CED_GetLineHardBreak(gLineHandle);
-    //BROWSE_FUNCTION(gLineHandle, BROWSE_LINE_START);
-
-    // Обход символов в строке
-    int chars = line->GetCountChar();
-    for (int i = 0; i < chars; i++) {
-        CEDChar * charPtr = line->GetChar(i);
-        exportChar(charPtr);
-    }
-
-    // Конец строки
-    //BROWSE_FUNCTION(gLineHandle, BROWSE_LINE_END);
-    //gLineHandle = NULL;
-}
-
 void GenericExporter::exportPage() {
+    writePageBegin(*os_);
+
     for (int i = 0, max = page_->GetNumberOfSections(); i < max; i++) {
         CEDSection * section = page_->GetSection(i);
         assert(section);
         exportSection(section);
     }
+
+    writePageEnd(*os_);
 }
 
 void GenericExporter::exportParagraph(CEDParagraph * par) {
-    writeParagraph(*os_, par);
     // Пропускать абзацы?
     //if (wantSkipParagraphs)
     //  return;
 
-    // Абзац
-    // gParagraphHandle = hObject;
-
-    // Начало абзаца
+    assert(par);
     num_paragraphs_++;
 
-    // BROWSE_FUNCTION(gParagraphHandle, BROWSE_PARAGRAPH_START);
+    writeParagraphBegin(*os_, par);
 
     // Обход строк в абзаце
-    int lines = par->GetCountLine();
-    for (int i = 0; i < lines; i++) {
-        CEDLine * line = par->GetLine(i);
-        exportLine(line);
-    }
+    for (int i = 0, max_lines = par->GetCountLine(); i < max_lines; i++)
+        exportLine(par->GetLine(i));
 
-    // Конец абзаца
-    //BROWSE_FUNCTION(gParagraphHandle, BROWSE_PARAGRAPH_END);
-    //gParagraphHandle = NULL;
+    writeParagraphEnd(*os_, par);
 }
 
 void GenericExporter::exportPicture(CEDChar * picture) {
+    if (no_pictures_)
+        return;
     // Картинка
     // Прочесть описание картинки
     //if (!PictureFromChar(picture))
     //               return FALSE;
 
-    num_pictures_;
+    assert(picture);
+    num_pictures_++;
     //BROWSE_FUNCTION(charHandle, BROWSE_PICTURE);
 
     // gPictureNumber = 0;
@@ -150,64 +155,167 @@ void GenericExporter::exportPicture(CEDChar * picture) {
 }
 
 void GenericExporter::exportSection(CEDSection * sect) {
-    writeSection(*os_, sect);
+    assert(sect);
     num_sections_++;
+
+    writeSectionBegin(*os_, sect);
 
     for (int i = 0; i < sect->numberOfColumns; i++)
         exportColumn(sect->GetColumn(i));
+
+    writeSectionEnd(*os_, sect);
 }
 
 void GenericExporter::exportTable(CEDParagraph * table) {
-    // Таблица
-    //               if (gTableHandle) {
-    //                   DEBUG_PRINT("Skipping table inside table");
-    //                   continue;
-    //               }
-    //
-    //               gTableHandle = hObject;
-    //
-    //               // Количество строк и столбцов таблицы
-    //               EDSIZE dim = CED_GetSize(gTableHandle);
-    //               gTableRows = dim.cy;
-    //               gTableCols = dim.cx;
-    //
-    //               // Количество логических ячеек
-    //               gTableCells = CED_GetCountLogicalCell(gTableHandle);
-    //
-    //               // Массив логических номеров ячеек
-    //               gLogicalCells = (long*) CED_GetTableOfCells(gTableHandle);
-    //
-    //               // Начало таблицы
-    //               gHitTables++;
-    //               BROWSE_FUNCTION(gTableHandle, BROWSE_TABLE_START);
-    //
-    //               // Обход ячеек таблицы
-    //               if (!wantSkipTableCells && !BrowseCells(BrowseFunction))
-    //                   return FALSE;
-    //
-    //               // Конец таблицы
-    //               BROWSE_FUNCTION(gTableHandle, BROWSE_TABLE_END);
-    //               gTableHandle = NULL;
-    //               gTableRows = 0;
-    //               gTableCols = 0;
-    //               gTableCells = 0;
-    //               gLogicalCells = NULL;
+    assert(table);
+    if (table_nesting_level_ > 0) {
+        Debug() << "[GenericExporter::exportTable] Skipping table inside table\n";
+        return;
+    }
+
+    num_tables_++;
+    table_nesting_level_++;
+
+    writeTableBegin(*os_, table);
+    exportTableCells(table);
+    writeTableEnd(*os_, table);
+    table_nesting_level_--;
 }
 
-void GenericExporter::writeFooter(std::ostream& /*os*/) {
-    Debug() << "[GenericExporter::writeFooter] not implemented\n";
+void GenericExporter::exportTableCells(CEDParagraph * table) {
+    assert(table);
+    // Количество строк и столбцов таблицы
+    EDSIZE dim = CED_GetSize(table);
+    const int table_rows = dim.cy;
+    const int table_cols = dim.cx;
+
+    // Количество логических ячеек
+    const int num_table_cells = CED_GetCountLogicalCell(table);
+
+    // Массив логических номеров ячеек
+    //gLogicalCells = (long*) CED_GetTableOfCells(gTableHandle);
+
+    // Справочная обхода ячеек
+    const int MAX_TABLE_CELLS = 10000;
+    char sprav[MAX_TABLE_CELLS];
+    assert(num_table_cells < sizeof(sprav));
+    memset(&sprav, 0, sizeof(sprav));
+
+    // Цикл по строкам таблицы
+    for (int row_index = 0; row_index < table_rows; row_index++) {
+        CEDParagraph * row = table->GetRow(row_index);
+        exportTableRow(row);
+    }
 }
 
-void GenericExporter::writeHeader(std::ostream& /*os*/) {
-    Debug() << "[GenericExporter::writeHeader] not implemented\n";
+void GenericExporter::exportTableRow(CEDParagraph * row) {
+    assert(row);
+
+    writeTableRowBegin(*os_, row);
+
+    //    // Цикл по столбцам таблицы
+    //    for (gIndexTableCol = 0; gIndexTableCol < gTableCols; gIndexTableCol++) {
+    //        // Логический номер ячейки
+    //        gIndexTableCell = gLogicalCells[gIndexTableRow * gTableCols + gIndexTableCol];
+    //
+    //        // Проверить по справочной
+    //        if (gIndexTableCell < 0 || sprav[gIndexTableCell]) {
+    //            // В этой логической ячейке уже были
+    //            gCellHandle = NULL;
+    //            continue;
+    //        }
+    //
+    //        sprav[gIndexTableCell] = 1;
+    //
+    //        // Начало ячейки
+    //        gCellHandle = CED_GetLogicalCell(gTableHandle, gIndexTableCell);
+    //        ASSERT(gCellHandle);
+    //
+    //        gHitCells++;
+    //        BROWSE_FUNCTION(gCellHandle, BROWSE_CELL_START);
+    //
+    //        // Обход абзацев в ячейке
+    //        if (!BrowseParagraphs(gCellHandle, BrowseFunction, FALSE, // wantSkipTableCells
+    //                FALSE // wantSkipParagraphs
+    //        ))
+    //            return FALSE;
+    //
+    //        // Конец ячейки
+    //        BROWSE_FUNCTION(gCellHandle, BROWSE_CELL_END);
+    //        gCellHandle = NULL;
+    //    }
+
+    writeTableRowEnd(*os_, row);
 }
 
-void GenericExporter::writeParagraph(std::ostream& os, CEDParagraph * par) {
-    Debug() << "[GenericExporter::writeParagraph] not implemented\n";
+void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
+    letterEx *alt = chr->alternatives;
+    assert(alt);
+    os << alt->alternative;
 }
 
-void GenericExporter::writeSection(std::ostream& /*os*/, CEDSection * /*sect*/) {
-    Debug() << "[GenericExporter::writeSection] not implemented\n";
+void GenericExporter::writeColumnBegin(std::ostream& /*os*/, CEDParagraph * /*col*/) {
+
+}
+
+void GenericExporter::writeColumnEnd(std::ostream& /*os*/, CEDParagraph * /*col*/) {
+
+}
+
+void GenericExporter::writeFrameBegin(std::ostream& /*os*/, CEDParagraph * /*frame*/) {
+
+}
+
+void GenericExporter::writeFrameEnd(std::ostream& /*os*/, CEDParagraph * /*frame*/) {
+
+}
+
+void GenericExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * /*line*/) {
+
+}
+
+void GenericExporter::writeLineEnd(std::ostream& /*os*/, CEDLine * /*line*/) {
+
+}
+
+void GenericExporter::writePageBegin(std::ostream& /*os*/) {
+
+}
+
+void GenericExporter::writePageEnd(std::ostream& /*os*/) {
+
+}
+
+void GenericExporter::writeParagraphBegin(std::ostream& /*os*/, CEDParagraph * /*par*/) {
+
+}
+
+void GenericExporter::writeParagraphEnd(std::ostream& /*os*/, CEDParagraph * /*par*/) {
+
+}
+
+void GenericExporter::writeSectionBegin(std::ostream& /*os*/, CEDSection * /*sect*/) {
+
+}
+
+void GenericExporter::writeSectionEnd(std::ostream& /*os*/, CEDSection * /*sect*/) {
+
+}
+
+void GenericExporter::writeTableBegin(std::ostream& /*os*/, CEDParagraph * /*table*/) {
+
+}
+
+void GenericExporter::writeTableEnd(std::ostream& /*os*/, CEDParagraph * /*table*/) {
+
+}
+
+void GenericExporter::writeTableRowBegin(std::ostream& /*os*/, CEDParagraph * /*row*/) {
+
+}
+
+void GenericExporter::writeTableRowEnd(std::ostream& /*os*/, CEDParagraph * /*row*/) {
+
 }
 
 }

@@ -40,19 +40,36 @@ class GenericExporter: public Exporter
         void exportColumn(CEDParagraph * col);
         void exportFrame(CEDParagraph * frame);
         void exportLine(CEDLine * line);
+        void exportObjects(CEDParagraph * objects);
         void exportPage();
         void exportParagraph(CEDParagraph* par);
         void exportPicture(CEDChar * picture);
         void exportSection(CEDSection * sect);
         void exportTable(CEDParagraph * table);
+        void exportTableCells(CEDParagraph * table);
+        void exportTableRow(CEDParagraph * row);
     private:
-        virtual void writeFooter(std::ostream& os);
-        virtual void writeHeader(std::ostream& os);
-        virtual void writeParagraph(std::ostream& os, CEDParagraph * par);
-        virtual void writeSection(std::ostream& os, CEDSection * sect);
+        virtual void writeCharacter(std::ostream& os, CEDChar * chr);
+        virtual void writeColumnBegin(std::ostream& os, CEDParagraph * col);
+        virtual void writeColumnEnd(std::ostream& os, CEDParagraph * col);
+        virtual void writeFrameBegin(std::ostream& os, CEDParagraph * frame);
+        virtual void writeFrameEnd(std::ostream& os, CEDParagraph * frame);
+        virtual void writeLineBegin(std::ostream& os, CEDLine * line);
+        virtual void writeLineEnd(std::ostream& os, CEDLine * line);
+        virtual void writePageBegin(std::ostream& os);
+        virtual void writePageEnd(std::ostream& os);
+        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+        virtual void writeSectionBegin(std::ostream& os, CEDSection * sect);
+        virtual void writeSectionEnd(std::ostream& os, CEDSection * sect);
+        virtual void writeTableBegin(std::ostream& os, CEDParagraph * table);
+        virtual void writeTableEnd(std::ostream& os, CEDParagraph * table);
+        virtual void writeTableRowBegin(std::ostream& os, CEDParagraph * row);
+        virtual void writeTableRowEnd(std::ostream& os, CEDParagraph * row);
     private:
         CEDPage * page_;
         bool first_paragraph_;
+        bool no_pictures_;
         std::ostream * os_;
         int num_chars_;
         int num_columns_;
@@ -61,6 +78,8 @@ class GenericExporter: public Exporter
         int num_paragraphs_;
         int num_pictures_;
         int num_sections_;
+        int num_tables_;
+        int table_nesting_level_;
 };
 
 }
