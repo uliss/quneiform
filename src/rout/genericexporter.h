@@ -34,6 +34,7 @@ class GenericExporter: public Exporter
 {
     public:
         GenericExporter(CEDPage * page, const FormatOptions& opts);
+        CEDPage * page();
     private:
         void doExport(std::ostream& os);
         void exportChar(CEDChar * chr);
@@ -60,6 +61,7 @@ class GenericExporter: public Exporter
         virtual void writePageEnd(std::ostream& os);
         virtual void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
         virtual void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+        virtual void writePicture(CEDChar * pict);
         virtual void writeSectionBegin(std::ostream& os, CEDSection * sect);
         virtual void writeSectionEnd(std::ostream& os, CEDSection * sect);
         virtual void writeTableBegin(std::ostream& os, CEDParagraph * table);

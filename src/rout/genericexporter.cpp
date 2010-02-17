@@ -27,13 +27,16 @@ namespace CIF
 {
 
 GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
-    Exporter(opts), page_(page), no_pictures_(false), num_chars_(0), num_columns_(0),
+    Exporter(opts), page_(page), no_pictures_(false), os_(NULL), num_chars_(0), num_columns_(0),
             num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
             num_tables_(0), table_nesting_level_(0) {
 
 }
 
 void GenericExporter::doExport(std::ostream& os) {
+    if(os.fail())
+        throw Exception("[GenericExporter::doExport] invalid stream given");
+
     no_pictures_ = true;
     os_ = &os;
     exportPage();
@@ -109,6 +112,11 @@ void GenericExporter::exportObjects(CEDParagraph * objects) {
 }
 
 void GenericExporter::exportPage() {
+    if(!page_) {
+        Debug() << "[GenericExporter::exportPage] nothing to export: empty page given\n";
+        return;
+    }
+
     writePageBegin(*os_);
 
     for (int i = 0, max = page_->GetNumberOfSections(); i < max; i++) {
@@ -147,11 +155,7 @@ void GenericExporter::exportPicture(CEDChar * picture) {
 
     assert(picture);
     num_pictures_++;
-    //BROWSE_FUNCTION(charHandle, BROWSE_PICTURE);
-
-    // gPictureNumber = 0;
-    //gPictureData = 0;
-    //gPictureLength = 0;
+    writePicture(picture);
 }
 
 void GenericExporter::exportSection(CEDSection * sect) {
@@ -248,6 +252,10 @@ void GenericExporter::exportTableRow(CEDParagraph * row) {
     writeTableRowEnd(*os_, row);
 }
 
+CEDPage * GenericExporter::page() {
+    return page_;
+}
+
 void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     letterEx *alt = chr->alternatives;
     assert(alt);
@@ -291,6 +299,10 @@ void GenericExporter::writeParagraphBegin(std::ostream& /*os*/, CEDParagraph * /
 }
 
 void GenericExporter::writeParagraphEnd(std::ostream& /*os*/, CEDParagraph * /*par*/) {
+
+}
+
+void GenericExporter::writePicture(CEDChar * /*pict*/) {
 
 }
 

@@ -80,6 +80,9 @@ void Exporter::exportTo(const std::string& filename)
 
 void Exporter::exportTo(std::ostream& os)
 {
+    if(os.fail())
+        throw Exception("[GenericExporter] invalid output stream given");
+
     doExport(os);
 }
 
