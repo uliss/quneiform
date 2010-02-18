@@ -74,7 +74,7 @@ if(ICONV_FOUND)
     set(USE_ICONV TRUE)
 endif()
 
-find_package(Boost 1.35)
+find_package(Boost 1.33)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 else()

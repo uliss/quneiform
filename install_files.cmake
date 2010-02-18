@@ -28,7 +28,7 @@ endif()
 
 macro(library_hook name)
   set_target_properties(${name} PROPERTIES VERSION
-  "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}.${CF_VERSION_PATCH}")
+  "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}")
   install(
     TARGETS "${name}"
     ARCHIVE DESTINATION ${LIBDIR}
