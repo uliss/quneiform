@@ -22,6 +22,7 @@
 #include "ced/ced.h"
 #include "ced/cedint.h"
 #include "common/debug.h"
+#include "common/cifconfig.h"
 
 namespace CIF
 {
@@ -29,12 +30,23 @@ namespace CIF
 GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
     Exporter(opts), page_(page), no_pictures_(false), os_(NULL), num_chars_(0), num_columns_(0),
             num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
-            num_tables_(0), table_nesting_level_(0) {
+            num_tables_(0), table_nesting_level_(0), skip_empty_paragraphs_(false),
+            skip_empty_lines_(false) {
 
 }
 
+int GenericExporter::charNumInParagraph(CEDParagraph * par) {
+    if (!par)
+        return 0;
+    int num_of_chars = 0;
+    for (int i = 0, num_lines = par->GetCountLine(); i < num_lines; i++)
+        num_of_chars += par->GetLine(i)->GetCountChar();
+
+    return num_of_chars;
+}
+
 void GenericExporter::doExport(std::ostream& os) {
-    if(os.fail())
+    if (os.fail())
         throw Exception("[GenericExporter::doExport] invalid stream given");
 
     no_pictures_ = true;
@@ -85,8 +97,11 @@ void GenericExporter::exportFrame(CEDParagraph * frame) {
 
 void GenericExporter::exportLine(CEDLine * line) {
     assert(line);
+    if (skip_empty_lines_ && (line->GetCountChar() < 1)) {
+        return;
+    }
+
     num_lines_++;
-    //gEdLineHardBreak = CED_GetLineHardBreak(gLineHandle);
     writeLineBegin(*os_, line);
 
     // Обход символов в строке
@@ -112,7 +127,7 @@ void GenericExporter::exportObjects(CEDParagraph * objects) {
 }
 
 void GenericExporter::exportPage() {
-    if(!page_) {
+    if (!page_) {
         Debug() << "[GenericExporter::exportPage] nothing to export: empty page given\n";
         return;
     }
@@ -129,17 +144,19 @@ void GenericExporter::exportPage() {
 }
 
 void GenericExporter::exportParagraph(CEDParagraph * par) {
-    // Пропускать абзацы?
-    //if (wantSkipParagraphs)
-    //  return;
-
     assert(par);
+    if (skip_empty_paragraphs_ && isEmptyParagraph(par)) {
+        if (Config::instance().debugHigh())
+            Debug() << "[GenericExporter::exportParagraph] skipping empty paragraph\n";
+        return;
+    }
+
     num_paragraphs_++;
 
     writeParagraphBegin(*os_, par);
 
     // Обход строк в абзаце
-    for (int i = 0, max_lines = par->GetCountLine(); i < max_lines; i++)
+    for (int i = 0, num_lines = par->GetCountLine(); i < num_lines; i++)
         exportLine(par->GetLine(i));
 
     writeParagraphEnd(*os_, par);
@@ -252,8 +269,28 @@ void GenericExporter::exportTableRow(CEDParagraph * row) {
     writeTableRowEnd(*os_, row);
 }
 
+bool GenericExporter::isEmptyParagraph(CEDParagraph * par) {
+    return charNumInParagraph(par) < 1;
+}
+
 CEDPage * GenericExporter::page() {
     return page_;
+}
+
+void GenericExporter::setSkipEmptyLines(bool value) {
+    skip_empty_lines_ = value;
+}
+
+void GenericExporter::setSkipEmptyParagraphhs(bool value) {
+    skip_empty_paragraphs_ = value;
+}
+
+bool GenericExporter::skipEmptyLines() const {
+    return skip_empty_lines_;
+}
+
+bool GenericExporter::skipEmptyParagraphs() const {
+    return skip_empty_paragraphs_;
 }
 
 void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {

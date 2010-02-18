@@ -24,16 +24,26 @@
 namespace CIF
 {
 
+class Iconv;
+
 class HtmlExporter: public GenericExporter
 {
     public:
         HtmlExporter(CEDPage * page, const FormatOptions& opts);
         ~HtmlExporter();
     private:
+        void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeDoctype(std::ostream& os);
         virtual void writeMeta(std::ostream& os);
         void writePageBegin(std::ostream& os);
         void writePageEnd(std::ostream& os);
+        void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+        void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+        virtual void writeTitle(std::ostream& os);
+        std::string escapeHtmlSpecialChar(unsigned char code);
+    private:
+        Iconv * converter_;
+        std::streampos par_pos_;
 };
 
 }

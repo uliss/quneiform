@@ -35,6 +35,13 @@ class GenericExporter: public Exporter
     public:
         GenericExporter(CEDPage * page, const FormatOptions& opts);
         CEDPage * page();
+        void setSkipEmptyLines(bool value);
+        void setSkipEmptyParagraphhs(bool value);
+        bool skipEmptyLines() const;
+        bool skipEmptyParagraphs() const;
+    protected:
+        int charNumInParagraph(CEDParagraph * par);
+        bool isEmptyParagraph(CEDParagraph * par);
     private:
         void doExport(std::ostream& os);
         void exportChar(CEDChar * chr);
@@ -82,6 +89,8 @@ class GenericExporter: public Exporter
         int num_sections_;
         int num_tables_;
         int table_nesting_level_;
+        bool skip_empty_paragraphs_;
+        bool skip_empty_lines_;
 };
 
 }
