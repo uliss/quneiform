@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,61 +16,38 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "exporterfactory.h"
 #include "htmlexporter.h"
-#include "debugexporter.h"
-#include "rtfexporter.h"
-#include "edexporter.h"
-#include "textexporter.h"
-#include "puma/pumadef.h"
-#include "common/outputformat.h"
 
 namespace CIF
 {
 
-ExporterFactoryImpl::ExporterFactoryImpl() :
-    page_(NULL)
-{
+HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
+    GenericExporter(page, opts) {
+
 }
 
-ExporterFactoryImpl::~ExporterFactoryImpl()
-{
+HtmlExporter::~HtmlExporter() {
+
 }
 
-void ExporterFactoryImpl::setFormatOptions(const FormatOptions& opts)
-{
-    format_options_ = opts;
+void HtmlExporter::writeDoctype(std::ostream& os) {
+    os << "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" "
+        "\"http://www.w3.org/TR/html4/loose.dtd\">\n";
 }
 
-void ExporterFactoryImpl::setPage(Handle page)
-{
-    page_ = page;
+void HtmlExporter::writeMeta(std::ostream& os) {
+    os << "  <meta name=\"Generator\" conetent=\"Cuneiform\"/>\n";
 }
 
-Exporter * ExporterFactoryImpl::make(int format)
-{
-    //return new HtmlExporter((CEDPage*) page_, format_options_);
-    switch (format) {
-    case FORMAT_DEBUG:
-        return new DebugExporter(format_options_);
-        break;
-    case FORMAT_RTF:
-        return new RtfExporter(page_);
-        break;
-    case FORMAT_EDNATIVE:
-        return new EdExporter(page_);
-        break;
-    case FORMAT_TEXT:
-    case FORMAT_SMARTTEXT:
-    case FORMAT_TABLETXT:
-    case FORMAT_TABLEDBF:
-    case FORMAT_HTML:
-    case FORMAT_HOCR:
-        return new TextExporter(page_, format, format_options_);
-        break;
-    default:
-        throw Exception("Unsupported export format");
-    }
+void HtmlExporter::writePageBegin(std::ostream& os) {
+    writeDoctype(os);
+    os << "<html>\n<head>\n";
+    writeMeta(os);
+    os << "</head>\n<body>\n";
+}
+
+void HtmlExporter::writePageEnd(std::ostream& os) {
+    os << "</body>\n</html>\n";
 }
 
 }

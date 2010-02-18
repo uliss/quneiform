@@ -10,6 +10,7 @@ exporterfactory.cpp
 edexporter.cpp
 debugexporter.cpp
 genericexporter.cpp
+htmlexporter.cpp
 rtfexporter.cpp
 textexporter.cpp
 html.cpp

@@ -79,9 +79,15 @@ Bool MakeText() {
 	 Концы строк сохраняются, если gPreserveLineBreaks = TRUE.
 	 */
 
+#ifdef __APPLE__
+    // inserting UTF-8 BOM
+    *gMemCur++ = '\xEF';
+    *gMemCur++ = '\xBB';
+    *gMemCur++ = '\xBF';
+#endif
+
 	return BrowsePage(Static_MakeText, TRUE, // wantSkipTableCells
 			FALSE); // wantSkipParagraphs
-
 }
 //********************************************************************
 Bool Static_MakeText(Handle hObject, long reason // См. enum BROWSE_REASON
