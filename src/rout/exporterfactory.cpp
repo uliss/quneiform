@@ -17,7 +17,7 @@
  ***************************************************************************/
 
 #include "exporterfactory.h"
-#include "genericexporter.h"
+#include "htmlexporter.h"
 #include "debugexporter.h"
 #include "rtfexporter.h"
 #include "edexporter.h"
@@ -49,7 +49,7 @@ void ExporterFactoryImpl::setPage(Handle page)
 
 Exporter * ExporterFactoryImpl::make(int format)
 {
- //   return new GenericExporter((CEDPage*) page_, format_options_);
+    //return new HtmlExporter((CEDPage*) page_, format_options_);
     switch (format) {
     case FORMAT_DEBUG:
         return new DebugExporter(format_options_);
