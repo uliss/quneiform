@@ -58,7 +58,6 @@
 #include <cctype>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <algorithm> // for std::min/max
 
 #include <fcntl.h>
 #include <float.h>
@@ -73,6 +72,7 @@
 #include "msk.h"
 #include "mmx/mmx.h"
 #include "msk32fun.h"
+#include "minmax.h"
 
 #include "cfcompat.h"
 
@@ -291,7 +291,7 @@ int det_sym_sort(short ptr_char, uint16_t pri, uint16_t abc_n1,
                 if (nm < MAX_NM)
                     nm++;
 
-                L = std::min(L, (uint32_t)(ms[0] + 4));
+                L = MIN(L, (uint32_t)(ms[0] + 4));
 
                 for (m1 = nm - 1; m1 > 0; m1--)
                     if ((uint32_t) ms[m1] >= L)
@@ -1043,7 +1043,7 @@ int chn_mat1(short coo, uint16_t *bgfff, char buff_col, short i1, short j1,
 
                         else {
                             jjold++;
-                            jj1 = std::min(jj - 1, jj1);
+                            jj1 = MIN(jj - 1, jj1);
                         }
                     }
 

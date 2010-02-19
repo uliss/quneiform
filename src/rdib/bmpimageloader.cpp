@@ -192,7 +192,7 @@ void BmpImageLoader::readBitFieldData(std::istream& stream) {
 
         for (uint i = 0; i < imageWidth(); ++i, rgb_ptr += 3) {
             int val = 0;
-            for (int bits = 0; bits < imageBitCount(); bits += 8)
+            for (uint bits = 0; bits < imageBitCount(); bits += 8)
                 val |= (*bf_ptr++) << bits;
 
             if (r_shift > 0)

@@ -208,7 +208,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define VOC_ACCNT_ZERO         -5
 #define VOC_TOO_SMALL          -6      /* MAX_VOC_SIZE less then sizeof(vert) */
 /**************************************************************************/
-typedef uchar byte;
+typedef unsigned char byte;
 
 struct bit_map_ref {
     byte code;

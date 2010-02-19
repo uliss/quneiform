@@ -58,6 +58,7 @@
 
 #include "lnslang.h"
 #include "cfcompat.h"
+#include "compat/filefunc.h"
 #include "lns.h"
 
 char* ChangEx(char* szPath, char* szEx)

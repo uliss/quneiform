@@ -445,8 +445,8 @@ inline Bool Overlap(int a1, int a2, int b1, int b2) // two ranges intersection
 template<class T, class U>
 double PointDistance(const CIF::PointImpl<T>& p0, const CIF::PointImpl<U>& p1)
 {
-    return ::sqrt((p0.x() - p1.x()) * (p0.x() - p1.x())
-                  + (p0.y() - p1.y()) * (p0.y() - p1.y()));
+    return ::sqrt(static_cast<float>((p0.x() - p1.x()) * (p0.x() - p1.x())
+                  + (p0.y() - p1.y()) * (p0.y() - p1.y())));
 }
 
 #endif

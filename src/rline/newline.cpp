@@ -63,6 +63,7 @@
 #include <climits>
 
 #include "cfcompat.h"
+#include "compat/filefunc.h"
 #include "linedefs.h"
 #include "lns/lnsdefs.h"
 #include "cpage/cpage.h"

@@ -58,7 +58,8 @@
 
 void MMX_addshab_cykl(int * src, int cg, signed char * dst, int num)
 {
-#ifdef _MSC_VER
+// uliss: VS2008 fix
+#if _MSC_VER < 1500
     _asm {
         mov edx, cg
         movd mm6, edx
@@ -135,7 +136,8 @@ void MMX_addshab_cykl(int * src, int cg, signed char * dst, int num)
 
 void MMX_addshab(int * src, int cg, signed char * dst)
 {
-#ifdef _MSC_VER
+// uliss: VS2008 fix
+#if _MSC_VER < 1500
     _asm {
         mov edx, cg
         movd mm6, edx
