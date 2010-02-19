@@ -41,6 +41,7 @@
 #include "cpage/cpage.h"
 #include "dpuma.h"
 #include "exc/exc.h"
+#include "export/exporterfactory.h"
 #include "rdib/image.h"
 #include "rblock/rblock.h"
 #include "rcorrkegl/rcorrkegl.h"
@@ -55,7 +56,6 @@
 #include "rstr/rstr.h"
 #include "rstuff/rstuff.h"
 #include "rverline/rverline.h"
-#include "rout/exporterfactory.h"
 
 // 1. Отладочная информаци
 static Handle hDebugCancelRemoveLines = NULL;

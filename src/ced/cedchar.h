@@ -23,6 +23,8 @@
 #include "ced_struct.h"
 #include "common/rect.h"
 
+struct text_ref;
+
 namespace CIF
 {
 
@@ -30,12 +32,6 @@ class FUN_EXPO__ CEDChar
 {
     public:
         CEDChar();
-    protected:
-        friend class CEDLine;
-        friend class CEDPage;
-        friend void FormattedTR(const text_ref* pt);
-        friend void StripLines();
-    public:
         Rect boundingRect() const;
         Rect& rBoundingRect();
         void setBoundingRect(const Rect& bbox);
