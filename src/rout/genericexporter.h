@@ -42,9 +42,7 @@ class GenericExporter: public Exporter
         bool skipEmptyParagraphs() const;
         bool skipPictures() const;
     protected:
-        typedef std::pair<std::string, std::string> Charset;
         int charNumInParagraph(CEDParagraph * par);
-        virtual Charset fromToCharset() const;
         bool isCharsetConversionNeeded()const;
         bool isEmptyParagraph(CEDParagraph * par);
         void savePicture(CEDChar * picture);

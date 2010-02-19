@@ -269,13 +269,8 @@ void GenericExporter::exportTableRow(CEDParagraph * row) {
     writeTableRowEnd(*os_, row);
 }
 
-GenericExporter::Charset GenericExporter::fromToCharset() const {
-    return Charset();
-}
-
 bool GenericExporter::isCharsetConversionNeeded()const {
-    Charset set = fromToCharset();
-    return set.first != set.second;
+    return inputEncoding() != outputEncoding();
 }
 
 bool GenericExporter::isEmptyParagraph(CEDParagraph * par) {

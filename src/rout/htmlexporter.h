@@ -32,6 +32,8 @@ class HtmlExporter: public GenericExporter
         HtmlExporter(CEDPage * page, const FormatOptions& opts);
         ~HtmlExporter();
     private:
+        std::string escapeHtmlSpecialChar(unsigned char code);
+        void setEncodings();
         void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeDoctype(std::ostream& os);
         void writeLineEnd(std::ostream& os, CEDLine * line);
@@ -42,12 +44,9 @@ class HtmlExporter: public GenericExporter
         void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
         void writePicture(std::ostream& os, CEDChar * picture);
         virtual void writeTitle(std::ostream& os);
-        std::string escapeHtmlSpecialChar(unsigned char code);
     private:
         Iconv * converter_;
         int num_lines_;
-    protected:
-        Charset fromToCharset() const;
 };
 
 }

@@ -28,13 +28,13 @@ namespace CIF
 
 Exporter::Exporter()
 {
-    autoDetectOutputEncoding();
+    //autoDetectOutputEncoding();
 }
 
 Exporter::Exporter(const FormatOptions& opts) :
     format_options_(opts)
 {
-    autoDetectOutputEncoding();
+    //autoDetectOutputEncoding();
 }
 
 Exporter::~Exporter()

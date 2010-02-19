@@ -30,11 +30,12 @@ namespace CIF
 
 HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
     GenericExporter(page, opts), converter_(0) {
+
+    setEncodings();
+
 #ifdef USE_ICONV
     if(isCharsetConversionNeeded()) {
-        Charset cset = fromToCharset();
-        converter_ = new Iconv;
-        converter_->open(cset.first, cset.second);
+        converter_ = new Iconv(inputEncoding(), outputEncoding());
     }
 #endif
 
@@ -63,13 +64,14 @@ std::string HtmlExporter::escapeHtmlSpecialChar(uchar code) {
     }
 }
 
-HtmlExporter::Charset HtmlExporter::fromToCharset() const {
+void HtmlExporter::setEncodings() {
     switch (formatOptions().language()) {
     case LANGUAGE_RUSSIAN:
     case LANGUAGE_RUS_ENG:
-        return Charset("cp1251", "utf-8");
+        setInputEncoding("cp1251");
+        setOutputEncoding("utf-8");
     default:
-        return Charset();
+        ;
     }
 }
 
@@ -88,8 +90,8 @@ void HtmlExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
 
 void HtmlExporter::writeDoctype(std::ostream& os) {
     os << "<!DOCTYPE html PUBLIC "
-            "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
-            "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
+        "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
+        "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
 }
 
 void HtmlExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
@@ -105,7 +107,9 @@ void HtmlExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
 void HtmlExporter::writeMeta(std::ostream& os) {
     os << "  <meta name=\"Generator\" content=\"CuneiForm\"/>\n";
 #ifdef USE_ICONV
-    os << "  <meta name=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n";
+    if(isCharsetConversionNeeded())
+    os << "  <meta name=\"Content-Type\" content=\"text/html; charset="
+    << outputEncoding() << "\"/>\n";
 #endif
 }
 
