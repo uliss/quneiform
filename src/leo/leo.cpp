@@ -360,7 +360,7 @@ void leo_over(RecVersions *ver, RecVersions *alph)
     ver->lnAltCnt = k;
 }
 
-int leo_expert_recog(uchar Code, uint16_t *v3x5, RecRaster */*r*/,
+int leo_expert_recog(uchar Code, uint16_t *v3x5, RecRaster *,
                      uchar prob_3x5, uchar /*prob_iva*/)
 {
     RecVersions loc;

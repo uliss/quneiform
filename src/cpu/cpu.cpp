@@ -64,7 +64,7 @@ static const int FAMILY_SHIFT  = 8;
 
 int GetCPUName()
 {
-#ifdef _MSC_VER
+#if _MSC_VER < 1500
     short int retu;
     _asm {
         ;
@@ -237,7 +237,7 @@ return retu;
 
 static int get_CPUID_EDX_BIT(int mask)
 {
-#ifdef _MSC_VER
+#if _MSC_VER < 1500
     int retu = 0;
     _asm {
         ;

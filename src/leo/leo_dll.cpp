@@ -61,6 +61,7 @@
 #include <algorithm> // for std::min/max
 #include "leo_tune.h"
 #include "compat/filefunc.h"
+#include "cfcompat.h"
 #include "cpu/cpu.h"
 #define PC_TYPE 0
 #define MAX_FIELDS 1000

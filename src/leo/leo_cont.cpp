@@ -62,6 +62,7 @@
 #include "std/std.h"
 #include "leo.h"
 #include "leo_func.h"
+#include "cfcompat.h"
 
 static char cont_name[256];
 static CTB_handle this_ctb = { 0 };

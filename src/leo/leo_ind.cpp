@@ -69,6 +69,7 @@
 #include "msk/msk.h"
 #include "std/std.h"
 #include "snptools.h"
+#include "cfcompat.h"
 
 using namespace CIF;
 

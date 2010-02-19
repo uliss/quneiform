@@ -100,6 +100,10 @@ CFCOMPAT_FUNC Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRec
 
 #ifdef WIN32 
 CFCOMPAT_FUNC char* mkdtemp(char *tmpl);
+
+#ifdef _MSC_VER
+#define snprintf _snprintf
+#endif
 #endif
 
 CFCOMPAT_FUNC int open_data_file(const char *basename, int mode);

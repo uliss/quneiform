@@ -156,8 +156,8 @@ LEO_FUNC int32_t LEO_AddStat(int32_t name, int32_t width, int32_t height,
                              int32_t valid);
 LEO_FUNC int32_t LEO_AddStatLetter(int32_t name, int32_t width, int32_t height,
                                    int32_t valid);
-LEO_FUNC int32_t LEO_GetCommonStat(int32_t *sizes, int32_t *ocenka);
-LEO_FUNC int32_t LEO_GetLetStat(int32_t name, int32_t *sizes, int32_t *ocenka);
+LEO_FUNC int LEO_GetCommonStat(int *sizes, int *ocenka);
+LEO_FUNC int32_t LEO_GetLetStat(int name, int *sizes, int *ocenka);
 
 LEO_FUNC int16_t LEO_GetNoCutPoint(uchar *RASTER, int16_t WB, uchar NWIDTH,
                                    uchar NLENGTH);

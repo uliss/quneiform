@@ -322,7 +322,7 @@ int GetStat(int *sizes, int allCount, int *allWidthes, int *allHeights,
     return allCount;
 }
 
-int32_t LEO_GetCommonStat(int32_t *sizes, int32_t *ocenka)
+int LEO_GetCommonStat(int *sizes, int *ocenka)
 {
     return GetStat(sizes, allCount, allWidthes, allHeights, ocenka);
 }
@@ -534,7 +534,7 @@ static int ClusterSet(int name, int all, LetInfo *lInfo, int *mysteck)
 //
 //  sizes4 - [0]=heiBig,[1]=widBig,[2]=heiSmall,[3]=widSmall
 //
-int32_t LEO_GetLetStat(int32_t name, int32_t *sizes4, int32_t *ocenka2)
+int32_t LEO_GetLetStat(int name, int *sizes4, int *ocenka2)
 {
     int i;
     int *mysteck;
@@ -815,7 +815,8 @@ void leo_sizes_init_stat(void)
 
 uchar leo_proport_penalty(uchar let, uchar prolet, int32_t w, int32_t h)
 {
-    int32_t comSizes[4], prob[4], wid, hei, pr, pr1, prop, prp;
+    int comSizes[4], prob[4];
+    int wid, hei, pr, pr1, prop, prp;
     uchar name;
     int32_t pmin = 0, pmax = 255;
 #ifdef NO_SIZES
@@ -834,7 +835,7 @@ uchar leo_proport_penalty(uchar let, uchar prolet, int32_t w, int32_t h)
         pmin = letters_prop_table_rus[name].pmin;
         pmax = letters_prop_table_rus[name].pmax;
 
-        if (LEO_GetLetStat((int32_t) let, comSizes, prob) >= 0 && comSizes[0]
+        if (LEO_GetLetStat((int) let, comSizes, prob) >= 0 && comSizes[0]
                 && comSizes[2]) { //   normal statistic                             && not empty
             hei = std::min(comSizes[0], comSizes[2]);
             wid = std::max(comSizes[1], comSizes[3]);
@@ -962,7 +963,7 @@ uchar leo_proport_penalty(uchar let, uchar prolet, int32_t w, int32_t h)
 
 uchar leo_sizes_penalty(int32_t w, int32_t h)
 {
-    int32_t comSizes[4], prob[4], wid, hei, pr;
+    int comSizes[4], prob[4], wid, hei, pr;
 #ifdef NO_SIZES
     return 0;
 #endif

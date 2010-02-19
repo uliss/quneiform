@@ -650,7 +650,7 @@ static Bool32 leo_wide_stick(RecVector *vSticks, int Cnt, int h, int w)
 
     for (n = i = 0; i < Cnt; i++)
         if (vSticks[i].len * 3 > h * 2) {
-            s = vSticks[i].len * vSticks[i].My / sqrt(vSticks[i].Mx
+            s = vSticks[i].len * vSticks[i].My / sqrt((float) vSticks[i].Mx
                                                       * vSticks[i].Mx + vSticks[i].My * vSticks[i].My);
 
             if (s > w / 2) // Oleg : 06-08-1998 : wide, but not small
