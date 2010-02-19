@@ -43,7 +43,9 @@ HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
 }
 
 HtmlExporter::~HtmlExporter() {
+#ifdef USE_ICONV
     delete converter_;
+#endif
 }
 
 std::string HtmlExporter::escapeHtmlSpecialChar(uchar code) {
@@ -102,7 +104,9 @@ void HtmlExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
 
 void HtmlExporter::writeMeta(std::ostream& os) {
     os << "  <meta name=\"Generator\" content=\"CuneiForm\"/>\n";
+#ifdef USE_ICONV
     os << "  <meta name=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n";
+#endif
 }
 
 void HtmlExporter::writePageBegin(std::ostream& os) {
