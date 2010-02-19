@@ -34,16 +34,20 @@ class HtmlExporter: public GenericExporter
     private:
         void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeDoctype(std::ostream& os);
+        void writeLineEnd(std::ostream& os, CEDLine * line);
         virtual void writeMeta(std::ostream& os);
         void writePageBegin(std::ostream& os);
         void writePageEnd(std::ostream& os);
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
         void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+        void writePicture(std::ostream& os, CEDChar * picture);
         virtual void writeTitle(std::ostream& os);
         std::string escapeHtmlSpecialChar(unsigned char code);
     private:
         Iconv * converter_;
-        std::streampos par_pos_;
+        int num_lines_;
+    protected:
+        Charset fromToCharset() const;
 };
 
 }

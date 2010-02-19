@@ -49,7 +49,6 @@ void ExporterFactoryImpl::setPage(Handle page)
 
 Exporter * ExporterFactoryImpl::make(int format)
 {
-    //return new HtmlExporter((CEDPage*) page_, format_options_);
     switch (format) {
     case FORMAT_DEBUG:
         return new DebugExporter(format_options_);
@@ -60,11 +59,13 @@ Exporter * ExporterFactoryImpl::make(int format)
     case FORMAT_EDNATIVE:
         return new EdExporter(page_);
         break;
+    case FORMAT_XHTML:
+        return new HtmlExporter((CEDPage*) page_, format_options_);
+    case FORMAT_HTML:
     case FORMAT_TEXT:
     case FORMAT_SMARTTEXT:
     case FORMAT_TABLETXT:
     case FORMAT_TABLEDBF:
-    case FORMAT_HTML:
     case FORMAT_HOCR:
         return new TextExporter(page_, format, format_options_);
         break;

@@ -172,7 +172,7 @@ void GenericExporter::exportPicture(CEDChar * picture) {
 
     assert(picture);
     num_pictures_++;
-    writePicture(picture);
+    writePicture(*os_, picture);
 }
 
 void GenericExporter::exportSection(CEDSection * sect) {
@@ -269,12 +269,25 @@ void GenericExporter::exportTableRow(CEDParagraph * row) {
     writeTableRowEnd(*os_, row);
 }
 
+GenericExporter::Charset GenericExporter::fromToCharset() const {
+    return Charset();
+}
+
+bool GenericExporter::isCharsetConversionNeeded()const {
+    Charset set = fromToCharset();
+    return set.first != set.second;
+}
+
 bool GenericExporter::isEmptyParagraph(CEDParagraph * par) {
     return charNumInParagraph(par) < 1;
 }
 
 CEDPage * GenericExporter::page() {
     return page_;
+}
+
+void GenericExporter::savePicture(CEDChar * /*picture*/) {
+    Debug() << "[GenericExporter::savePicture] implement me\n";
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {
@@ -285,12 +298,20 @@ void GenericExporter::setSkipEmptyParagraphhs(bool value) {
     skip_empty_paragraphs_ = value;
 }
 
+void GenericExporter::setSkipPictures(bool value) {
+    no_pictures_ = value;
+}
+
 bool GenericExporter::skipEmptyLines() const {
     return skip_empty_lines_;
 }
 
 bool GenericExporter::skipEmptyParagraphs() const {
     return skip_empty_paragraphs_;
+}
+
+bool GenericExporter::skipPictures() const {
+    return no_pictures_;
 }
 
 void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
@@ -339,7 +360,7 @@ void GenericExporter::writeParagraphEnd(std::ostream& /*os*/, CEDParagraph * /*p
 
 }
 
-void GenericExporter::writePicture(CEDChar * /*pict*/) {
+void GenericExporter::writePicture(std::ostream& /*os*/, CEDChar * /*pict*/) {
 
 }
 

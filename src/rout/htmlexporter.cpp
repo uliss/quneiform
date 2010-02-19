@@ -20,15 +20,24 @@
 #include "htmlexporter.h"
 #include "edfile.h"
 #include "ced/cedint.h"
+
+#ifdef USE_ICONV
 #include "common/iconv_local.h"
+#endif
 
 namespace CIF
 {
 
 HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts) {
-    converter_ = new Iconv;
-    converter_->open("cp1251", "utf-8");
+    GenericExporter(page, opts), converter_(0) {
+#ifdef USE_ICONV
+    if(isCharsetConversionNeeded()) {
+        Charset cset = fromToCharset();
+        converter_ = new Iconv;
+        converter_->open(cset.first, cset.second);
+    }
+#endif
+
     setSkipEmptyLines(true);
     setSkipEmptyParagraphhs(true);
 }
@@ -46,24 +55,53 @@ std::string HtmlExporter::escapeHtmlSpecialChar(uchar code) {
     case '&':
         return "&amp;";
     case '"':
-        return "&quot";
+        return "&quot;";
     default:
         return std::string(1, code);
     }
 }
 
+HtmlExporter::Charset HtmlExporter::fromToCharset() const {
+    switch (formatOptions().language()) {
+    case LANGUAGE_RUSSIAN:
+    case LANGUAGE_RUS_ENG:
+        return Charset("cp1251", "utf-8");
+    default:
+        return Charset();
+    }
+}
+
 void HtmlExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     assert(chr && chr->alternatives);
+
+#ifdef USE_ICONV
+    if(isCharsetConversionNeeded())
     os << converter_->convert(escapeHtmlSpecialChar(chr->alternatives->alternative));
+    else
+    os << escapeHtmlSpecialChar(chr->alternatives->alternative);
+#else
+    os << escapeHtmlSpecialChar(chr->alternatives->alternative);
+#endif
 }
 
 void HtmlExporter::writeDoctype(std::ostream& os) {
-    os << "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" "
-        "\"http://www.w3.org/TR/html4/loose.dtd\">\n";
+    os << "<!DOCTYPE html PUBLIC "
+            "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
+            "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
+}
+
+void HtmlExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
+    num_lines_--;
+    if (num_lines_ < 1)
+        return;
+
+    if (formatOptions().preserveLineBreaks() || line->hardBreak)
+        os << "<br/>";
+    os << "\n";
 }
 
 void HtmlExporter::writeMeta(std::ostream& os) {
-    os << "  <meta name=\"Generator\" content=\"Cuneiform\"/>\n";
+    os << "  <meta name=\"Generator\" content=\"CuneiForm\"/>\n";
     os << "  <meta name=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n";
 }
 
@@ -82,12 +120,12 @@ void HtmlExporter::writePageEnd(std::ostream& os) {
 void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     assert(par);
     os << "<p";
-    const int ALIGN_MASK = (TP_LEFT_ALLIGN || TP_RIGHT_ALLIGN || TP_CENTER);
+    const int ALIGN_MASK = (TP_LEFT_ALLIGN | TP_RIGHT_ALLIGN | TP_CENTER);
     switch (par->alignment & ALIGN_MASK) {
     case TP_CENTER:
         os << " align=\"center\"";
         break;
-    case (TP_LEFT_ALLIGN || TP_RIGHT_ALLIGN):
+    case (TP_LEFT_ALLIGN | TP_RIGHT_ALLIGN):
         os << " align=\"justify\"";
         break;
     default:
@@ -95,11 +133,18 @@ void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
         break;
     }
     os << ">";
-    par_pos_ = os.tellp();
+
+    num_lines_ = par->GetCountLine();
 }
 
-void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * par) {
+void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
     os << "</p>\n";
+}
+
+void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
+    savePicture(picture);
+    os << "<img src=\"\" alt=\"\"";
+    os << "/>";
 }
 
 void HtmlExporter::writeTitle(std::ostream& os) {

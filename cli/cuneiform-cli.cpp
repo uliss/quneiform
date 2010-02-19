@@ -340,6 +340,8 @@ int main(int argc, char **argv)
         if (preserve_line_breaks)
             opt.setPreserveLineBreaks(true);
 
+        opt.setLanguage(langcode);
+
         //  opt.useBold(true);
         //  opt.useItalic(true);
         //  opt.useFontSize(true);

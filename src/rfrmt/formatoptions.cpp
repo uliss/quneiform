@@ -18,6 +18,7 @@
 #include <iomanip>
 
 #include "formatoptions.h"
+#include "common/language.h"
 
 namespace CIF
 {
@@ -149,6 +150,7 @@ std::ostream & operator <<(std::ostream & os, const FormatOptions & fmt)
     os << setw(25) << "   Use font size: " << fmt.isFontSizeUsed() << "\n";
     os << setw(25) << "   Unrecognized char: " << (char) (fmt.unrecognizedChar()) << "\n";
     os << setw(25) << "   Line breaks: " << fmt.preserveLineBreaks() << "\n";
+    os << setw(25) << "   Language: " << Language::isoName(fmt.language()) << "\n";
     return os;
 }
 

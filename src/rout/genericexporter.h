@@ -37,11 +37,17 @@ class GenericExporter: public Exporter
         CEDPage * page();
         void setSkipEmptyLines(bool value);
         void setSkipEmptyParagraphhs(bool value);
+        void setSkipPictures(bool value);
         bool skipEmptyLines() const;
         bool skipEmptyParagraphs() const;
+        bool skipPictures() const;
     protected:
+        typedef std::pair<std::string, std::string> Charset;
         int charNumInParagraph(CEDParagraph * par);
+        virtual Charset fromToCharset() const;
+        bool isCharsetConversionNeeded()const;
         bool isEmptyParagraph(CEDParagraph * par);
+        void savePicture(CEDChar * picture);
     private:
         void doExport(std::ostream& os);
         void exportChar(CEDChar * chr);
@@ -68,7 +74,7 @@ class GenericExporter: public Exporter
         virtual void writePageEnd(std::ostream& os);
         virtual void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
         virtual void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
-        virtual void writePicture(CEDChar * pict);
+        virtual void writePicture(std::ostream& os, CEDChar * pict);
         virtual void writeSectionBegin(std::ostream& os, CEDSection * sect);
         virtual void writeSectionEnd(std::ostream& os, CEDSection * sect);
         virtual void writeTableBegin(std::ostream& os, CEDParagraph * table);
