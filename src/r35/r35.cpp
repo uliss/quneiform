@@ -574,7 +574,7 @@ void ALL_normalize_res(uint32_t res_comp[], uint16_t res[], int32_t numx)
     if (!amax)
         return;
 
-    amax = sqrt(amax);
+    amax = (uint32_t) sqrt(static_cast<float>(amax));
     div = 32767l / amax;
     memset(res, 0, numx * sizeof(res[0]));
 
@@ -604,7 +604,7 @@ void normalize_res_3x5(uint32_t res_comp[], uint16_t res[], int32_t numx)
     if (!amax)
         return;
 
-    amax = sqrt(amax);
+    amax = (uint32_t)sqrt((float)amax);
     div = 32767l / amax;
     mod = (32767l - div * amax) * 256l / amax;
 
@@ -629,7 +629,7 @@ void MMX_normalize_res(uint32_t res_comp[], uint16_t res[], int32_t numx)
     if (!amax)
         return;
 
-    amax = sqrt(amax);
+    amax = static_cast<uint32_t>(sqrt(static_cast<float>(amax)));
     div = 32767l / amax;
     MMX_scale(res, numx, div);
     return;
@@ -1638,7 +1638,7 @@ Bool32 R35RecogCharIm3x5_expert(uint16_t* Im3x5, // image 3x5
     }
 
     memset(vers, 0, sizeof(vers));
-    nvers = std::min(static_cast<size_t> (res->lnAltCnt), sizeof(vers) / sizeof(vers[0]));
+    nvers = MIN(static_cast<size_t> (res->lnAltCnt), (sizeof(vers) / sizeof(vers[0])));
 
     for (i = 0; i < nvers; i++) {
         vers[i].let = res->Alt[i].Code;
@@ -1677,7 +1677,7 @@ Bool32 R35RecogNdxIm3x5_expert(uint16_t* Im3x5, // image 3x5
     }
 
     memset(vers, 0, sizeof(vers));
-    nvers = std::min(static_cast<size_t> (res->lnAltCnt), sizeof(vers) / sizeof(vers[0]));
+    nvers = MIN(static_cast<size_t> (res->lnAltCnt), (sizeof(vers) / sizeof(vers[0])));
 
     for (i = 0; i < nvers; i++) {
         vers[i].let = res->Alt[i].Code;
@@ -1715,7 +1715,7 @@ Bool32 R35RecogPrintCharIm3x5_expert(uint16_t* Im3x5, RecVersions* res, Bool32 r
     }
 
     memset(vers, 0, sizeof(vers));
-    nvers = std::min((size_t) res->lnAltCnt, sizeof(vers) / sizeof(vers[0]));
+    nvers = MIN((size_t) res->lnAltCnt, (sizeof(vers) / sizeof(vers[0])));
 
     for (i = 0; i < nvers; i++) {
         vers[i].let = res->Alt[i].Code;
@@ -1808,7 +1808,7 @@ void ClusterAdd(Cluster *clu, uint16_t vect[])
 
     // accuracy normalize
     sq = scalar_all((int16_t*) clu->vect, (int16_t*) clu->vect);
-    sq = sqrt(sq);
+    sq = (uint32_t)sqrt((float)sq);
 
     for (i = 0; i < 15; i++)
         clu->vect[i] = (uint16_t) ((((int) (clu->vect[i])) * 32767l) / sq);
