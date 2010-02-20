@@ -45,7 +45,7 @@ class GenericExporter: public Exporter
         int charNumInParagraph(CEDParagraph * par);
         bool isCharsetConversionNeeded()const;
         bool isEmptyParagraph(CEDParagraph * par);
-        void savePicture(CEDChar * picture);
+        std::string savePicture(CEDChar * picture);
     private:
         void doExport(std::ostream& os);
         void exportChar(CEDChar * chr);

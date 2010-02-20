@@ -19,6 +19,7 @@
 #ifndef HTMLEXPORTER_H_
 #define HTMLEXPORTER_H_
 
+#include <map>
 #include "genericexporter.h"
 
 namespace CIF
@@ -44,6 +45,12 @@ class HtmlExporter: public GenericExporter
         void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
         void writePicture(std::ostream& os, CEDChar * picture);
         virtual void writeTitle(std::ostream& os);
+    protected:
+        typedef std::map<std::string, std::string> Attributes;
+        void writeAttributes(std::ostream& os, const Attributes& attr);
+        void writeSingleTag(std::ostream& os, const std::string& tagName, const Attributes& attrs);
+        void writeStartTag(std::ostream& os, const std::string&  tagName);
+        void writeStartTag(std::ostream& os, const std::string&  tagName, const Attributes& attr);
     private:
         Iconv * converter_;
         int num_lines_;

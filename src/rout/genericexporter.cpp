@@ -281,8 +281,9 @@ CEDPage * GenericExporter::page() {
     return page_;
 }
 
-void GenericExporter::savePicture(CEDChar * /*picture*/) {
+std::string GenericExporter::savePicture(CEDChar * /*picture*/) {
     Debug() << "[GenericExporter::savePicture] implement me\n";
+    return std::string();
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {

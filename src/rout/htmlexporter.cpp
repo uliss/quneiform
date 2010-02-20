@@ -105,11 +105,19 @@ void HtmlExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
 }
 
 void HtmlExporter::writeMeta(std::ostream& os) {
-    os << "  <meta name=\"Generator\" content=\"CuneiForm\"/>\n";
+    Attributes attrs;
+    attrs["name"] = "Generator";
+    attrs["content"] = "Cuneiform";
+    writeSingleTag(os, "meta", attrs);
+    os << "\n";
+
 #ifdef USE_ICONV
-    if(isCharsetConversionNeeded())
-    os << "  <meta name=\"Content-Type\" content=\"text/html; charset="
-    << outputEncoding() << "\"/>\n";
+    if(isCharsetConversionNeeded()) {
+        attrs["name"] = "Content-Type";
+        attrs["content"] = "text/html;charset=" + outputEncoding();
+        writeSingleTag(os, "meta", attrs);
+        os << "\n";
+    }
 #endif
 }
 
@@ -127,20 +135,22 @@ void HtmlExporter::writePageEnd(std::ostream& os) {
 
 void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     assert(par);
-    os << "<p";
+
+    Attributes attrs;
     const int ALIGN_MASK = (TP_LEFT_ALLIGN | TP_RIGHT_ALLIGN | TP_CENTER);
     switch (par->alignment & ALIGN_MASK) {
     case TP_CENTER:
-        os << " align=\"center\"";
+        attrs["align"] = "center";
         break;
     case (TP_LEFT_ALLIGN | TP_RIGHT_ALLIGN):
-        os << " align=\"justify\"";
+        attrs["align"] = "justify";
         break;
     default:
         // "left" by default
         break;
     }
-    os << ">";
+
+    writeStartTag(os, "p", attrs);
 
     num_lines_ = par->GetCountLine();
 }
@@ -150,13 +160,38 @@ void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
 }
 
 void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
-    savePicture(picture);
-    os << "<img src=\"\" alt=\"\"";
+    std::string path = savePicture(picture);
+    Attributes attrs;
+    attrs["src"] = path;
+    attrs["alt"] = "";
+    writeSingleTag(os, "img", attrs);
+}
+
+void HtmlExporter::writeAttributes(std::ostream& os, const Attributes& attrs) {
+    for (Attributes::const_iterator it = attrs.begin(), end = attrs.end(); it != end; ++it)
+        os << " " << it->first << "=\"" << it->second << "\"";
+}
+
+void HtmlExporter::writeSingleTag(std::ostream& os, const std::string& tagName,
+        const Attributes& attrs) {
+    os << "<" << tagName;
+    writeAttributes(os, attrs);
     os << "/>";
 }
 
+void HtmlExporter::writeStartTag(std::ostream& os, const std::string& tagName) {
+    os << "<" << tagName << ">";
+}
+
+void HtmlExporter::writeStartTag(std::ostream& os, const std::string& tagName,
+        const Attributes& attrs) {
+    os << "<" << tagName;
+    writeAttributes(os, attrs);
+    os << ">";
+}
+
 void HtmlExporter::writeTitle(std::ostream& os) {
-    os << "  <title>Cuneiform output</title>\n";
+    os << "<title>Cuneiform output</title>\n";
 }
 
 }
