@@ -37,6 +37,7 @@ class HtmlExporter: public GenericExporter
         void setEncodings();
         void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeDoctype(std::ostream& os);
+        virtual void writeFontStyle(std::ostream& os, long style);
         void writeLineEnd(std::ostream& os, CEDLine * line);
         virtual void writeMeta(std::ostream& os);
         void writePageBegin(std::ostream& os);
@@ -44,6 +45,8 @@ class HtmlExporter: public GenericExporter
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
         void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
         void writePicture(std::ostream& os, CEDChar * picture);
+        void writeTableBegin(std::ostream& os, CEDParagraph * table);
+        void writeTableEnd(std::ostream& os, CEDParagraph * table);
         virtual void writeTitle(std::ostream& os);
     protected:
         typedef std::map<std::string, std::string> Attributes;
@@ -54,6 +57,7 @@ class HtmlExporter: public GenericExporter
     private:
         Iconv * converter_;
         int num_lines_;
+        long current_font_style_;
 };
 
 }

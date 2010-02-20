@@ -18,8 +18,8 @@
 
 #include <cassert>
 #include "htmlexporter.h"
-#include "edfile.h"
 #include "ced/cedint.h"
+#include "rout_own.h"
 
 #ifdef USE_ICONV
 #include "common/iconv_local.h"
@@ -29,7 +29,7 @@ namespace CIF
 {
 
 HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts), converter_(0) {
+    GenericExporter(page, opts), converter_(0), current_font_style_(0) {
 
     setEncodings();
 
@@ -68,6 +68,7 @@ void HtmlExporter::setEncodings() {
     switch (formatOptions().language()) {
     case LANGUAGE_RUSSIAN:
     case LANGUAGE_RUS_ENG:
+    case LANGUAGE_UKRAINIAN:
         setInputEncoding("cp1251");
         setOutputEncoding("utf-8");
     default:
@@ -77,6 +78,8 @@ void HtmlExporter::setEncodings() {
 
 void HtmlExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     assert(chr && chr->alternatives);
+
+    writeFontStyle(os, chr->fontAttribs);
 
 #ifdef USE_ICONV
     if(isCharsetConversionNeeded())
@@ -92,6 +95,31 @@ void HtmlExporter::writeDoctype(std::ostream& os) {
     os << "<!DOCTYPE html PUBLIC "
         "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
         "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
+}
+
+void HtmlExporter::writeFontStyle(std::ostream& os, long newStyle) {
+    if ((newStyle & FONT_BOLD) && (!(current_font_style_ & FONT_BOLD) || (current_font_style_
+            & FONT_LIGHT))) {
+        os << "<b>";
+    } else if ((current_font_style_ & FONT_BOLD) && (!(newStyle & FONT_BOLD) || (newStyle
+            & FONT_LIGHT))) {
+        os << "</b>";
+    }
+
+    if ((newStyle & FONT_ITALIC) && (!(current_font_style_ & FONT_ITALIC))) {
+        os << "<i>";
+    } else if ((current_font_style_ & FONT_ITALIC) && (!(newStyle & FONT_ITALIC))) {
+        os << "</i>";
+    }
+
+    if ((newStyle & FONT_UNDERLINE) && !(current_font_style_ & FONT_UNDERLINE)) {
+        os << "<u>";
+    } else if ((current_font_style_ & FONT_UNDERLINE) && !(newStyle & FONT_UNDERLINE)) {
+        os << "</u>";
+    }
+
+    // save font style
+    current_font_style_ = newStyle;
 }
 
 void HtmlExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
@@ -127,9 +155,11 @@ void HtmlExporter::writePageBegin(std::ostream& os) {
     writeTitle(os);
     writeMeta(os);
     os << "</head>\n<body>\n";
+    writeFontStyle(os, 0);
 }
 
 void HtmlExporter::writePageEnd(std::ostream& os) {
+    writeFontStyle(os, 0);
     os << "</body>\n</html>\n";
 }
 
@@ -137,12 +167,11 @@ void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     assert(par);
 
     Attributes attrs;
-    const int ALIGN_MASK = (TP_LEFT_ALLIGN | TP_RIGHT_ALLIGN | TP_CENTER);
     switch (par->alignment & ALIGN_MASK) {
     case TP_CENTER:
         attrs["align"] = "center";
         break;
-    case (TP_LEFT_ALLIGN | TP_RIGHT_ALLIGN):
+    case (ALIGN_LEFT | ALIGN_RIGHT):
         attrs["align"] = "justify";
         break;
     default:
@@ -150,12 +179,14 @@ void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
         break;
     }
 
+    writeFontStyle(os, 0);
     writeStartTag(os, "p", attrs);
 
     num_lines_ = par->GetCountLine();
 }
 
 void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
+    writeFontStyle(os, 0);
     os << "</p>\n";
 }
 
@@ -165,6 +196,15 @@ void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
     attrs["src"] = path;
     attrs["alt"] = "";
     writeSingleTag(os, "img", attrs);
+}
+
+void HtmlExporter::writeTableBegin(std::ostream& os, CEDParagraph * /*table*/) {
+    writeFontStyle(os, 0);
+    os << "<table>";
+}
+
+void HtmlExporter::writeTableEnd(std::ostream& os, CEDParagraph * /*table*/) {
+    os << "</table>";
 }
 
 void HtmlExporter::writeAttributes(std::ostream& os, const Attributes& attrs) {
