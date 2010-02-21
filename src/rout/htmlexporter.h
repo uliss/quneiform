@@ -30,7 +30,7 @@ class Iconv;
 class HtmlExporter: public GenericExporter
 {
     public:
-        HtmlExporter(CEDPage * page, const FormatOptions& opts);
+        HtmlExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
         ~HtmlExporter();
     private:
         std::string escapeHtmlSpecialChar(unsigned char code);
@@ -56,7 +56,7 @@ class HtmlExporter: public GenericExporter
         void writeStartTag(std::ostream& os, const std::string&  tagName, const Attributes& attr);
     private:
         Iconv * converter_;
-        int num_lines_;
+        int lines_left_;
         long current_font_style_;
 };
 

@@ -54,17 +54,18 @@ int GenericExporter::charNumInParagraph(CEDParagraph * par) {
 }
 
 void GenericExporter::createPicturesFolder() {
-    if(outputFilename().empty())
+    if (outputFilename().empty())
         throw Exception("Page name not specified");
     std::string path = picturesFolderPath(outputFilename());
 
     // check if folder already exists
-    if(_access(path.c_str(), 0) == 0) {
-        Debug() << "[GenericExporter::createPicturesFolder]: folder \"" << path << "\" already exists.";
+    if (_access(path.c_str(), 0) == 0) {
+        Debug() << "[GenericExporter::createPicturesFolder]: folder \"" << path
+                << "\" already exists.";
         return;
     }
 
-    if(!CreateDirectory(path.c_str(), 0))
+    if (!CreateDirectory(path.c_str(), 0))
         throw Exception("Can't create folder for pictures: " + path);
 }
 
@@ -121,6 +122,8 @@ void GenericExporter::exportFrame(CEDParagraph * frame) {
 void GenericExporter::exportLine(CEDLine * line) {
     assert(line);
     if (skip_empty_lines_ && (line->GetCountChar() < 1)) {
+        if (Config::instance().debugHigh())
+            Debug() << "[GenericExporter::exportLine] skipping empty line\n";
         return;
     }
 
@@ -313,7 +316,7 @@ void GenericExporter::setSkipEmptyLines(bool value) {
     skip_empty_lines_ = value;
 }
 
-void GenericExporter::setSkipEmptyParagraphhs(bool value) {
+void GenericExporter::setSkipEmptyParagraphs(bool value) {
     skip_empty_paragraphs_ = value;
 }
 

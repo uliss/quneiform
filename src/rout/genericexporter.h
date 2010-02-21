@@ -36,7 +36,7 @@ class GenericExporter: public Exporter
         GenericExporter(CEDPage * page, const FormatOptions& opts);
         CEDPage * page();
         void setSkipEmptyLines(bool value);
-        void setSkipEmptyParagraphhs(bool value);
+        void setSkipEmptyParagraphs(bool value);
         void setSkipPictures(bool value);
         bool skipEmptyLines() const;
         bool skipEmptyParagraphs() const;

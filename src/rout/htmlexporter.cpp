@@ -29,7 +29,7 @@ namespace CIF
 {
 
 HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts), converter_(0), current_font_style_(0) {
+    GenericExporter(page, opts), converter_(0), lines_left_(0), current_font_style_(0) {
 
     setEncodings();
 
@@ -40,7 +40,7 @@ HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
 #endif
 
     setSkipEmptyLines(true);
-    setSkipEmptyParagraphhs(true);
+    setSkipEmptyParagraphs(true);
 }
 
 HtmlExporter::~HtmlExporter() {
@@ -123,8 +123,8 @@ void HtmlExporter::writeFontStyle(std::ostream& os, long newStyle) {
 }
 
 void HtmlExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
-    num_lines_--;
-    if (num_lines_ < 1)
+    lines_left_--;
+    if (lines_left_ < 1)
         return;
 
     if (formatOptions().preserveLineBreaks() || line->hardBreak)
@@ -156,6 +156,9 @@ void HtmlExporter::writePageBegin(std::ostream& os) {
     writeMeta(os);
     os << "</head>\n<body>\n";
     writeFontStyle(os, 0);
+
+    if (os.fail())
+        throw Exception("HtmlExporter failed");
 }
 
 void HtmlExporter::writePageEnd(std::ostream& os) {
@@ -168,12 +171,14 @@ void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
 
     Attributes attrs;
     switch (par->alignment & ALIGN_MASK) {
-    case TP_CENTER:
+    case ALIGN_CENTER:
         attrs["align"] = "center";
         break;
     case (ALIGN_LEFT | ALIGN_RIGHT):
         attrs["align"] = "justify";
         break;
+    case ALIGN_RIGHT:
+        attrs["align"] = "right";
     default:
         // "left" by default
         break;
@@ -182,7 +187,7 @@ void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     writeFontStyle(os, 0);
     writeStartTag(os, "p", attrs);
 
-    num_lines_ = par->GetCountLine();
+    lines_left_ = par->GetCountLine();
 }
 
 void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {

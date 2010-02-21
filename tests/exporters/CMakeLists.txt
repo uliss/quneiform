@@ -1,6 +1,7 @@
 add_executable(test_exporters
     test_exporters.cpp
     testgenericexporter.cpp
+    testhtmlexporter.cpp
 )
 
 target_link_libraries(test_exporters 
