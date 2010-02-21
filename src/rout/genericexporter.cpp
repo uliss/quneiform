@@ -53,7 +53,7 @@ int GenericExporter::charNumInParagraph(CEDParagraph * par) {
     return num_of_chars;
 }
 
-void GenericExporter::createPicturesFolder() {
+std::string GenericExporter::createPicturesFolder() {
     if (outputFilename().empty())
         throw Exception("Page name not specified");
     std::string path = picturesFolderPath(outputFilename());
@@ -62,11 +62,13 @@ void GenericExporter::createPicturesFolder() {
     if (_access(path.c_str(), 0) == 0) {
         Debug() << "[GenericExporter::createPicturesFolder]: folder \"" << path
                 << "\" already exists.";
-        return;
+        return path;
     }
 
     if (!CreateDirectory(path.c_str(), 0))
         throw Exception("Can't create folder for pictures: " + path);
+
+    return path;
 }
 
 void GenericExporter::doExport(std::ostream& os) {
@@ -191,10 +193,6 @@ void GenericExporter::exportParagraph(CEDParagraph * par) {
 void GenericExporter::exportPicture(CEDChar * picture) {
     if (no_pictures_)
         return;
-    // Картинка
-    // Прочесть описание картинки
-    //if (!PictureFromChar(picture))
-    //               return FALSE;
 
     assert(picture);
     num_pictures_++;
@@ -307,9 +305,58 @@ CEDPage * GenericExporter::page() {
     return page_;
 }
 
-std::string GenericExporter::savePicture(CEDChar * /*picture*/) {
-    Debug() << "[GenericExporter::savePicture] implement me\n";
-    return std::string();
+std::string GenericExporter::pictureName(CEDChar * picture, const std::string& extension) {
+    assert(picture);
+    std::ostringstream buf;
+    buf << "image_" << pictureNumber(picture) << "." << extension;
+    return buf.str();
+}
+
+int GenericExporter::pictureNumber(CEDChar * picture) {
+    assert(picture);
+    if (picture->fontNum < ED_PICT_BASE)
+        throw Exception("[GenericExporter::pictureNumber] not valid picture");
+
+    return picture->fontNum - ED_PICT_BASE;
+}
+
+std::string GenericExporter::savePicture(CEDChar * picture, const std::string& extension) {
+    std::string dir = createPicturesFolder();
+    std::string path = dir + "/" + pictureName(picture, extension);
+    savePictureData(picture, path);
+    return path;
+}
+
+void GenericExporter::savePictureData(CEDChar * picture, const std::string& path) {
+    int pict_user_num = 0;
+    int pict_align = 0;
+    int pict_type = 0;
+    int pict_length = 0;
+    EDSIZE pict_size;
+    EDSIZE pict_goal;
+    void * pict_data;
+
+    for (int i = 0; i < page_->picsUsed; i++) {
+        if (CED_GetPicture(page_, i, &pict_user_num, // Пользовательский номер
+                &pict_size, // Размер картинки в TIFF-файле в пикселах
+                &pict_goal, // Размер картинки на экране в twips
+                &pict_align, // Вертикальное расположение
+                &pict_type, // Тип = 1 (DIB)
+                &pict_data, // Адрес DIB включая заголовок
+                &pict_length // Длина DIB включая заголовок
+        ) && pict_user_num == pictureNumber(picture)) {
+            if (!pict_data || pict_length < 0) {
+                throw Exception("[GenericExporter::savePicture] failed");
+            }
+        }
+    }
+
+    if (image_exporter_.get())
+        image_exporter_->save(pict_data, pict_length, path);
+}
+
+void GenericExporter::setImageExporter(ImageExporterPtr exporter) {
+    image_exporter_ = exporter;
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {

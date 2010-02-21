@@ -274,7 +274,7 @@ void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
 }
 
 void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
-    std::string path = savePicture(picture);
+    std::string path = savePicture(picture, "jpg");
     Attributes attrs;
     attrs["src"] = path;
     attrs["alt"] = "";

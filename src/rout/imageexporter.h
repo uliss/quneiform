@@ -16,54 +16,34 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTHTMLEXPORTER_H_
-#define TESTHTMLEXPORTER_H_
+#ifndef IMAGEEXPORTER_H_
+#define IMAGEEXPORTER_H_
 
-#include <cppunit/extensions/HelperMacros.h>
+#include <string>
+#include <iostream>
+#include <boost/shared_ptr.hpp>
+#include "common/exception.h"
 
-class CEDPage;
-
-namespace CIF {
-class HtmlExporter;
-}
-
-class TestHtmlExporter: public CppUnit::TestFixture
+namespace CIF
 {
-    CPPUNIT_TEST_SUITE(TestHtmlExporter);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testExport);
-    CPPUNIT_TEST(testExportParagraph);
-    CPPUNIT_TEST(testExportLine);
-    CPPUNIT_TEST(testExportCharacter);
-    CPPUNIT_TEST(testBold);
-    CPPUNIT_TEST(testItalic);
-    CPPUNIT_TEST(testUnderlined);
-    CPPUNIT_TEST(testSub);
-    CPPUNIT_TEST(testSuper);
-    CPPUNIT_TEST(testMixed);
-    CPPUNIT_TEST(testFontStyleClose);
-    CPPUNIT_TEST(testExportPicture);
-    CPPUNIT_TEST_SUITE_END();
-    public:
-        void setUp();
-        void tearDown();
 
-        void testInit();
-        void testExport();
-        void testExportParagraph();
-        void testExportLine();
-        void testExportCharacter();
-        void testBold();
-        void testItalic();
-        void testUnderlined();
-        void testSub();
-        void testSuper();
-        void testMixed();
-        void testFontStyleClose();
-        void testExportPicture();
+class ImageExporter
+{
+    public:
+        virtual ~ImageExporter();
+
+        typedef RuntimeExceptionImpl<ImageExporter> Exception;
+
+        std::string outputFilename() const;
+        virtual void save(void * data, size_t dataSize, const std::string& path);
+        virtual void save(void * data, size_t dataSize, std::ostream& os) = 0;
+        void setOutputFilename(const std::string& filename);
     private:
-        CEDPage * page_;
-        CIF::HtmlExporter * exp_;
+        std::string output_filename_;
 };
 
-#endif /* TESTHTMLEXPORTER_H_ */
+typedef boost::shared_ptr<ImageExporter> ImageExporterPtr;
+
+}
+
+#endif /* IMAGEEXPORTER_H_ */

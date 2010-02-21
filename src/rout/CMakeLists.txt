@@ -11,6 +11,7 @@ edexporter.cpp
 debugexporter.cpp
 genericexporter.cpp
 htmlexporter.cpp
+imageexporter.cpp
 rtfexporter.cpp
 textexporter.cpp
 html.cpp

@@ -410,6 +410,20 @@ void TestHtmlExporter::testFontStyleClose() {
         CPPUNIT_ASSERT(exp_->font_styles_.size() == 1);
         CPPUNIT_ASSERT(exp_->font_styles_[0] = FONT_BOLD);
     }
+}
 
+void TestHtmlExporter::testExportPicture() {
+    CEDChar * pict = new CEDChar;
+    pict->fontNum = ED_PICT_BASE;
+
+    std::stringstream buf;
+    exp_->os_ = &buf;
+    // no page name
+    CPPUNIT_ASSERT_THROW(exp_->exportPicture(pict), Exporter::Exception);
+
+    exp_->output_filename_ = "output.html";
+    exp_->exportPicture(pict);
+
+    CPPUNIT_ASSERT_EQUAL(std::string("<img alt=\"\" src=\"output_files/image_0.jpg\"/>"), buf.str());
 }
 

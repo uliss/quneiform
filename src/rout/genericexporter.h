@@ -20,6 +20,7 @@
 #define GENERICEXPORTER_H_
 
 #include "exporter.h"
+#include "imageexporter.h"
 
 class CEDPage;
 class CEDSection;
@@ -35,6 +36,7 @@ class GenericExporter: public Exporter
     public:
         GenericExporter(CEDPage * page, const FormatOptions& opts);
         CEDPage * page();
+        void setImageExporter(ImageExporterPtr exporter);
         void setSkipEmptyLines(bool value);
         void setSkipEmptyParagraphs(bool value);
         void setSkipPictures(bool value);
@@ -45,7 +47,8 @@ class GenericExporter: public Exporter
         int charNumInParagraph(CEDParagraph * par);
         bool isCharsetConversionNeeded()const;
         bool isEmptyParagraph(CEDParagraph * par);
-        std::string savePicture(CEDChar * picture);
+        std::string savePicture(CEDChar * picture, const std::string& extension);
+        void savePictureData(CEDChar * picture, const std::string&);
     private:
         void doExport(std::ostream& os);
         void exportChar(CEDChar * chr);
@@ -60,8 +63,10 @@ class GenericExporter: public Exporter
         void exportTable(CEDParagraph * table);
         void exportTableCells(CEDParagraph * table);
         void exportTableRow(CEDParagraph * row);
+        std::string pictureName(CEDChar * picture, const std::string& extension);
+        int pictureNumber(CEDChar * picture);
     private:
-        virtual void createPicturesFolder();
+        virtual std::string createPicturesFolder();
         virtual void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeColumnBegin(std::ostream& os, CEDParagraph * col);
         virtual void writeColumnEnd(std::ostream& os, CEDParagraph * col);
@@ -82,6 +87,7 @@ class GenericExporter: public Exporter
         virtual void writeTableRowEnd(std::ostream& os, CEDParagraph * row);
     private:
         CEDPage * page_;
+        ImageExporterPtr image_exporter_;
         bool first_paragraph_;
         bool no_pictures_;
         std::ostream * os_;
