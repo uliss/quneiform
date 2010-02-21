@@ -39,7 +39,8 @@ public:
     virtual bool encodeNeeded() const;
     virtual void exportTo(const std::string& filename);
     void exportTo(std::ostream& os);
-    FormatOptions formatOptions() const;
+    const FormatOptions& formatOptions() const;
+    FormatOptions& formatOptions();
     std::string inputEncoding() const;
     std::string outputEncoding() const;
     std::string outputFilename() const;

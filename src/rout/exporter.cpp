@@ -80,7 +80,11 @@ void Exporter::exportTo(std::ostream& os) {
     doExport(os);
 }
 
-FormatOptions Exporter::formatOptions() const {
+const FormatOptions& Exporter::formatOptions() const {
+    return format_options_;
+}
+
+FormatOptions& Exporter::formatOptions() {
     return format_options_;
 }
 

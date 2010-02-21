@@ -20,6 +20,7 @@
 #define HTMLEXPORTER_H_
 
 #include <map>
+#include <vector>
 #include "genericexporter.h"
 
 namespace CIF
@@ -38,6 +39,8 @@ class HtmlExporter: public GenericExporter
         void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeDoctype(std::ostream& os);
         virtual void writeFontStyle(std::ostream& os, long style);
+        void writeFontStyleBegin(std::ostream& os, long newStyle, int style);
+        void writeFontStyleClose(std::ostream& os, long newStyle, int style);
         void writeLineEnd(std::ostream& os, CEDLine * line);
         virtual void writeMeta(std::ostream& os);
         void writePageBegin(std::ostream& os);
@@ -50,6 +53,9 @@ class HtmlExporter: public GenericExporter
         virtual void writeTitle(std::ostream& os);
     protected:
         typedef std::map<std::string, std::string> Attributes;
+        std::string fontStyleBegin(int style);
+        std::string fontStyleEnd(int style);
+        void closeFontStyle();
         void writeAttributes(std::ostream& os, const Attributes& attr);
         void writeSingleTag(std::ostream& os, const std::string& tagName, const Attributes& attrs);
         void writeStartTag(std::ostream& os, const std::string&  tagName);
@@ -58,6 +64,8 @@ class HtmlExporter: public GenericExporter
         Iconv * converter_;
         int lines_left_;
         long current_font_style_;
+        typedef std::vector<int> FontStyleStack;
+        FontStyleStack font_styles_;
 };
 
 }

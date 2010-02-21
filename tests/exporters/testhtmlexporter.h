@@ -21,6 +21,12 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+class CEDPage;
+
+namespace CIF {
+class HtmlExporter;
+}
+
 class TestHtmlExporter: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestHtmlExporter);
@@ -28,12 +34,34 @@ class TestHtmlExporter: public CppUnit::TestFixture
     CPPUNIT_TEST(testExport);
     CPPUNIT_TEST(testExportParagraph);
     CPPUNIT_TEST(testExportLine);
+    CPPUNIT_TEST(testExportCharacter);
+    CPPUNIT_TEST(testBold);
+    CPPUNIT_TEST(testItalic);
+    CPPUNIT_TEST(testUnderlined);
+    CPPUNIT_TEST(testSub);
+    CPPUNIT_TEST(testSuper);
+    CPPUNIT_TEST(testMixed);
+    CPPUNIT_TEST(testFontStyleClose);
     CPPUNIT_TEST_SUITE_END();
     public:
+        void setUp();
+        void tearDown();
+
         void testInit();
         void testExport();
         void testExportParagraph();
         void testExportLine();
+        void testExportCharacter();
+        void testBold();
+        void testItalic();
+        void testUnderlined();
+        void testSub();
+        void testSuper();
+        void testMixed();
+        void testFontStyleClose();
+    private:
+        CEDPage * page_;
+        CIF::HtmlExporter * exp_;
 };
 
 #endif /* TESTHTMLEXPORTER_H_ */

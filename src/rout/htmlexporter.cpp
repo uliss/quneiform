@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <cassert>
+#include <algorithm>
 #include "htmlexporter.h"
 #include "ced/cedint.h"
 #include "rout_own.h"
@@ -49,6 +50,41 @@ HtmlExporter::~HtmlExporter() {
 #endif
 }
 
+void HtmlExporter::writeFontStyleBegin(std::ostream& os, long newStyle, int style) {
+    if (newStyle & style && !(current_font_style_ & style)) {
+        font_styles_.push_back(style);
+        os << fontStyleBegin(style);
+    }
+}
+
+void HtmlExporter::writeFontStyleClose(std::ostream& os, long newStyle, int style) {
+    if (!(newStyle & style) && (current_font_style_ & style)) {
+        if (font_styles_.empty())
+            return;
+
+        int tag_pos = font_styles_.size() - 1;
+        int tag_found = -1;
+
+        while (tag_pos >= 0) {
+            os << fontStyleEnd(font_styles_[tag_pos]);
+            if (font_styles_[tag_pos] == style) {
+                tag_found = tag_pos;
+                break;
+            }
+            tag_pos--;
+        }
+
+        tag_pos++;
+        while (tag_pos < font_styles_.size()) {
+            os << fontStyleBegin(font_styles_[tag_pos]);
+            tag_pos++;
+        }
+
+        if (tag_found >= 0)
+            font_styles_.erase(font_styles_.begin() + tag_found);
+    }
+}
+
 std::string HtmlExporter::escapeHtmlSpecialChar(uchar code) {
     switch (code) {
     case '>':
@@ -64,6 +100,40 @@ std::string HtmlExporter::escapeHtmlSpecialChar(uchar code) {
     }
 }
 
+std::string HtmlExporter::fontStyleBegin(int style) {
+    switch (style) {
+    case FONT_BOLD:
+        return "<b>";
+    case FONT_ITALIC:
+        return "<i>";
+    case FONT_UNDERLINE:
+        return "<u>";
+    case FONT_SUB:
+        return "<sub>";
+    case FONT_SUPER:
+        return "<sup>";
+    default:
+        return "";
+    }
+}
+
+std::string HtmlExporter::fontStyleEnd(int style) {
+    switch (style) {
+    case FONT_BOLD:
+        return "</b>";
+    case FONT_ITALIC:
+        return "</i>";
+    case FONT_UNDERLINE:
+        return "</u>";
+    case FONT_SUB:
+        return "</sub>";
+    case FONT_SUPER:
+        return "</sup>";
+    default:
+        return "";
+    }
+}
+
 void HtmlExporter::setEncodings() {
     switch (formatOptions().language()) {
     case LANGUAGE_RUSSIAN:
@@ -72,7 +142,8 @@ void HtmlExporter::setEncodings() {
         setInputEncoding("cp1251");
         setOutputEncoding("utf-8");
     default:
-        ;
+        setInputEncoding("");
+        setOutputEncoding("");
     }
 }
 
@@ -98,25 +169,32 @@ void HtmlExporter::writeDoctype(std::ostream& os) {
 }
 
 void HtmlExporter::writeFontStyle(std::ostream& os, long newStyle) {
-    if ((newStyle & FONT_BOLD) && (!(current_font_style_ & FONT_BOLD) || (current_font_style_
-            & FONT_LIGHT))) {
-        os << "<b>";
-    } else if ((current_font_style_ & FONT_BOLD) && (!(newStyle & FONT_BOLD) || (newStyle
-            & FONT_LIGHT))) {
-        os << "</b>";
+    if (current_font_style_ == newStyle)
+        return;
+
+    if (formatOptions().isBoldUsed())
+        writeFontStyleClose(os, newStyle, FONT_BOLD);
+
+    if (formatOptions().isItalicUsed())
+        writeFontStyleClose(os, newStyle, FONT_ITALIC);
+
+    writeFontStyleClose(os, newStyle, FONT_UNDERLINE);
+
+    if (formatOptions().isFontSizeUsed()) {
+        writeFontStyleClose(os, newStyle, FONT_SUB);
+        writeFontStyleClose(os, newStyle, FONT_SUPER);
+
+        writeFontStyleBegin(os, newStyle, FONT_SUPER);
+        writeFontStyleBegin(os, newStyle, FONT_SUB);
     }
 
-    if ((newStyle & FONT_ITALIC) && (!(current_font_style_ & FONT_ITALIC))) {
-        os << "<i>";
-    } else if ((current_font_style_ & FONT_ITALIC) && (!(newStyle & FONT_ITALIC))) {
-        os << "</i>";
-    }
+    writeFontStyleBegin(os, newStyle, FONT_UNDERLINE);
 
-    if ((newStyle & FONT_UNDERLINE) && !(current_font_style_ & FONT_UNDERLINE)) {
-        os << "<u>";
-    } else if ((current_font_style_ & FONT_UNDERLINE) && !(newStyle & FONT_UNDERLINE)) {
-        os << "</u>";
-    }
+    if (formatOptions().isItalicUsed())
+        writeFontStyleBegin(os, newStyle, FONT_ITALIC);
+
+    if (formatOptions().isBoldUsed())
+        writeFontStyleBegin(os, newStyle, FONT_BOLD);
 
     // save font style
     current_font_style_ = newStyle;
