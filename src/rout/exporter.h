@@ -42,15 +42,18 @@ public:
     FormatOptions formatOptions() const;
     std::string inputEncoding() const;
     std::string outputEncoding() const;
+    std::string outputFilename() const;
     void setFormatOptions(const FormatOptions& opts);
     void setInputEncoding(const std::string& enc);
     void setOutputEncoding(const std::string& enc);
+    void setOutputFilename(const std::string& filename);
 private:
     virtual void doExport(std::ostream& os) = 0;
     void autoDetectOutputEncoding();
     FormatOptions format_options_;
     std::string input_encoding_;
     std::string output_encoding_;
+    std::string output_filename_;
 };
 
 }

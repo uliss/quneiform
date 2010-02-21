@@ -61,6 +61,7 @@ class GenericExporter: public Exporter
         void exportTableCells(CEDParagraph * table);
         void exportTableRow(CEDParagraph * row);
     private:
+        virtual void createPicturesFolder();
         virtual void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeColumnBegin(std::ostream& os, CEDParagraph * col);
         virtual void writeColumnEnd(std::ostream& os, CEDParagraph * col);

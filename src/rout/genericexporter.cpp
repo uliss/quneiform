@@ -23,9 +23,17 @@
 #include "ced/cedint.h"
 #include "common/debug.h"
 #include "common/cifconfig.h"
+#include "cfcompat.h"
+#include "common/helper.h"
 
 namespace CIF
 {
+
+std::string picturesFolderPath(const std::string& path) {
+    std::string res = removeFileExt(path);
+    res += "_files";
+    return res;
+}
 
 GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
     Exporter(opts), page_(page), no_pictures_(false), os_(NULL), num_chars_(0), num_columns_(0),
@@ -43,6 +51,21 @@ int GenericExporter::charNumInParagraph(CEDParagraph * par) {
         num_of_chars += par->GetLine(i)->GetCountChar();
 
     return num_of_chars;
+}
+
+void GenericExporter::createPicturesFolder() {
+    if(outputFilename().empty())
+        throw Exception("Page name not specified");
+    std::string path = picturesFolderPath(outputFilename());
+
+    // check if folder already exists
+    if(_access(path.c_str(), 0) == 0) {
+        Debug() << "[GenericExporter::createPicturesFolder]: folder \"" << path << "\" already exists.";
+        return;
+    }
+
+    if(!CreateDirectory(path.c_str(), 0))
+        throw Exception("Can't create folder for pictures: " + path);
 }
 
 void GenericExporter::doExport(std::ostream& os) {
@@ -211,7 +234,7 @@ void GenericExporter::exportTableCells(CEDParagraph * table) {
     const int table_cols = dim.cx;
 
     // Количество логических ячеек
-    const int num_table_cells = CED_GetCountLogicalCell(table);
+    const unsigned int num_table_cells = CED_GetCountLogicalCell(table);
 
     // Массив логических номеров ячеек
     //gLogicalCells = (long*) CED_GetTableOfCells(gTableHandle);
@@ -269,7 +292,7 @@ void GenericExporter::exportTableRow(CEDParagraph * row) {
     writeTableRowEnd(*os_, row);
 }
 
-bool GenericExporter::isCharsetConversionNeeded()const {
+bool GenericExporter::isCharsetConversionNeeded() const {
     return inputEncoding() != outputEncoding();
 }
 

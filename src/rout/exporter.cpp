@@ -26,23 +26,19 @@ using namespace std;
 namespace CIF
 {
 
-Exporter::Exporter()
-{
+Exporter::Exporter() {
     //autoDetectOutputEncoding();
 }
 
 Exporter::Exporter(const FormatOptions& opts) :
-    format_options_(opts)
-{
+    format_options_(opts) {
     //autoDetectOutputEncoding();
 }
 
-Exporter::~Exporter()
-{
+Exporter::~Exporter() {
 }
 
-void Exporter::autoDetectOutputEncoding()
-{
+void Exporter::autoDetectOutputEncoding() {
     char * lc = ::getenv("LC_ALL");
     std::string locale;
     if (!lc)
@@ -62,58 +58,58 @@ void Exporter::autoDetectOutputEncoding()
     output_encoding_ = locale.substr(dot_pos + 1);
 }
 
-bool Exporter::encodeNeeded() const
-{
+bool Exporter::encodeNeeded() const {
     if (output_encoding_.empty() || input_encoding_.empty())
         return false;
     return output_encoding_ == input_encoding_ ? false : true;
 }
 
-void Exporter::exportTo(const std::string& filename)
-{
+void Exporter::exportTo(const std::string& filename) {
     ofstream f;
     f.open(filename.c_str(), std::ios::out | std::ios::binary | std::ios::trunc);
     if (!f)
         throw Exception("Can't write to file: " + filename);
+    setOutputFilename(filename);
     exportTo(f);
 }
 
-void Exporter::exportTo(std::ostream& os)
-{
-    if(os.fail())
+void Exporter::exportTo(std::ostream& os) {
+    if (os.fail())
         throw Exception("[GenericExporter] invalid output stream given");
 
     doExport(os);
 }
 
-FormatOptions Exporter::formatOptions() const
-{
+FormatOptions Exporter::formatOptions() const {
     return format_options_;
 }
 
-std::string Exporter::inputEncoding() const
-{
+std::string Exporter::inputEncoding() const {
     return input_encoding_;
 }
 
-void Exporter::setFormatOptions(const FormatOptions& opts)
-{
-    format_options_ = opts;
-}
-
-std::string Exporter::outputEncoding() const
-{
+std::string Exporter::outputEncoding() const {
     return output_encoding_;
 }
 
-void Exporter::setInputEncoding(const std::string& enc)
-{
+std::string Exporter::outputFilename() const {
+    return output_filename_;
+}
+
+void Exporter::setFormatOptions(const FormatOptions& opts) {
+    format_options_ = opts;
+}
+
+void Exporter::setInputEncoding(const std::string& enc) {
     input_encoding_ = enc;
 }
 
-void Exporter::setOutputEncoding(const std::string& enc)
-{
+void Exporter::setOutputEncoding(const std::string& enc) {
     output_encoding_ = enc;
+}
+
+void Exporter::setOutputFilename(const std::string& filename) {
+    output_filename_ = filename;
 }
 
 }
