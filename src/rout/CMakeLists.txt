@@ -3,6 +3,7 @@ if(USE_ICONV)
 endif()
 
 add_library(cuneiform-rout ${LIBTYPE}
+bmpimageexporter.cpp
 browse.cpp
 codetables.cpp
 exporter.cpp
