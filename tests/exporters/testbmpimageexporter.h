@@ -16,45 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "bmpimageexporter.h"
-#include "compat_defs.h"
+#ifndef TESTBMPIMAGEEXPORTER_H_
+#define TESTBMPIMAGEEXPORTER_H_
 
-namespace CIF
+#include <cppunit/extensions/HelperMacros.h>
+
+#ifndef EXPORTER_TEST_IMAGE_DIR
+#define EXPORTER_TEST_IMAGE_DIR "./"
+#endif
+
+class TestBmpImageExporter: public CppUnit::TestFixture
 {
+    CPPUNIT_TEST_SUITE(TestBmpImageExporter);
+    CPPUNIT_TEST(testSave);
+    CPPUNIT_TEST_SUITE_END();
+    public:
+        void testSave();
+};
 
-BmpImageExporter::BmpImageExporter() {
-
-}
-
-BmpImageExporter::~BmpImageExporter() {
-
-}
-
-void BmpImageExporter::save(void * data, size_t dataSize, std::ostream& os) {
-    if (!data)
-        throw Exception("[BmpImageExporter::save] invalid image data given");
-
-    if (dataSize <= 0)
-        throw Exception("[BmpImageExporter::save] invalid image size");
-
-    BITMAPFILEHEADER bf; //  bmp fileheader
-    BITMAPINFOHEADER * bfinfo = (BITMAPINFOHEADER *) data;
-
-    // uliss: TODO! check for endianness
-    bf.bfType = 0x4d42; // 'BM'
-    bf.bfSize = sizeof(BITMAPFILEHEADER) + dataSize;
-    // fileheader + infoheader + palette
-    bf.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + bfinfo->biClrUsed
-            * sizeof(RGBQUAD);
-
-    os.write((char*) &bf, sizeof(bf));
-
-    if (os.fail())
-        throw Exception("[BmpImageExporter::save] failed");
-
-    os.write((char*) data, dataSize);
-    if (os.fail())
-        throw Exception("[BmpImageExporter::save] failed");
-}
-
-}
+#endif /* TESTBMPIMAGEEXPORTER_H_ */

@@ -21,6 +21,7 @@
 #include "htmlexporter.h"
 #include "ced/cedint.h"
 #include "rout_own.h"
+#include "bmpimageexporter.h"
 
 #ifdef USE_ICONV
 #include "common/iconv_local.h"
@@ -42,6 +43,7 @@ HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
 
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
+    setSkipPictures(false);
 }
 
 HtmlExporter::~HtmlExporter() {
@@ -274,7 +276,9 @@ void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
 }
 
 void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
-    std::string path = savePicture(picture, "jpg");
+    ImageExporterPtr im_exp(new BmpImageExporter);
+    setImageExporter(im_exp);
+    std::string path = savePicture(picture, "bmp");
     Attributes attrs;
     attrs["src"] = path;
     attrs["alt"] = "";

@@ -1,5 +1,8 @@
+add_definitions(-DEXPORTER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/")
+
 add_executable(test_exporters
     test_exporters.cpp
+    testbmpimageexporter.cpp
     testgenericexporter.cpp
     testhtmlexporter.cpp
 )

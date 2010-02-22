@@ -61,7 +61,7 @@ std::string GenericExporter::createPicturesFolder() {
     // check if folder already exists
     if (_access(path.c_str(), 0) == 0) {
         Debug() << "[GenericExporter::createPicturesFolder]: folder \"" << path
-                << "\" already exists.";
+                << "\" already exists.\n";
         return path;
     }
 
@@ -75,7 +75,8 @@ void GenericExporter::doExport(std::ostream& os) {
     if (os.fail())
         throw Exception("[GenericExporter::doExport] invalid stream given");
 
-    no_pictures_ = true;
+    if (outputFilename().empty())
+        no_pictures_ = true;
     os_ = &os;
     exportPage();
 }
@@ -334,7 +335,7 @@ void GenericExporter::savePictureData(CEDChar * picture, const std::string& path
     int pict_length = 0;
     EDSIZE pict_size;
     EDSIZE pict_goal;
-    void * pict_data;
+    void * pict_data = 0;
 
     for (int i = 0; i < page_->picsUsed; i++) {
         if (CED_GetPicture(page_, i, &pict_user_num, // Пользовательский номер
@@ -345,11 +346,14 @@ void GenericExporter::savePictureData(CEDChar * picture, const std::string& path
                 &pict_data, // Адрес DIB включая заголовок
                 &pict_length // Длина DIB включая заголовок
         ) && pict_user_num == pictureNumber(picture)) {
-            if (!pict_data || pict_length < 0) {
+            if (!pict_data || pict_length <= 0) {
                 throw Exception("[GenericExporter::savePicture] failed");
             }
         }
     }
+
+    if(!pict_data || pict_length <= 0)
+        throw Exception("[GenericExporter::savePictureData] failed");
 
     if (image_exporter_.get())
         image_exporter_->save(pict_data, pict_length, path);
