@@ -13,6 +13,7 @@ debugexporter.cpp
 genericexporter.cpp
 htmlexporter.cpp
 imageexporter.cpp
+magickimageexporter.cpp
 rtfexporter.cpp
 textexporter.cpp
 html.cpp
