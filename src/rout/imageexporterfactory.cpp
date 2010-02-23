@@ -17,14 +17,22 @@
  ***************************************************************************/
 
 #include "imageexporterfactory.h"
+#include "config.h"
 #include "bmpimageexporter.h"
+
+#ifdef USE_IMAGE_MAGICK
 #include "magickimageexporter.h"
+#endif
 
 namespace CIF
 {
 
 ImageExporterPtr ImageExporterFactoryImpl::make() {
+#ifdef USE_IMAGE_MAGICK
     return ImageExporterPtr(new MagickImageExporter);
+#else
+    return ImageExporterPtr(new BmpImageExporter);
+#endif
 }
 
 }
