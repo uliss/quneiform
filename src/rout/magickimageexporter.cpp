@@ -16,15 +16,47 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <Magick++.h>
 #include "magickimageexporter.h"
+#include "config.h"
 
 namespace CIF
 {
 
-MagickImageExporter::~MagickImageExporter() {
+MagickImageExporter::MagickImageExporter(image_format_t format) {
+    setFormat(format);
 }
 
-MagickImageExporter::MagickImageExporter() {
+void MagickImageExporter::save(void * data, size_t dataSize, std::ostream& os) {
+    if (!data || !dataSize)
+        throw Exception("[MagickImageExporter::save] bad image given");
+
+    if (os.fail())
+        throw Exception("[MagickImageExporter::save] invalid stream");
+
+    Magick::Blob blob(data, dataSize);
+    try {
+
+        Magick::Image image;
+        image.verbose(true);
+        image.magick("DIB");
+        image.read(blob);
+        image.magick(formatToString(format()));
+        image.write(&blob);
+        os.write((char*) blob.data(), blob.length());
+    } catch (Magick::Exception &e) {
+        std::cerr << e.what() << "\n";
+        throw Exception("MagickImageExporter::load failed");
+    }
+}
+
+ImageExporter::FormatList MagickImageExporter::supportedFormats() const {
+    // uliss: FIXME this is stupid
+    FormatList formats;
+    formats.push_back(FORMAT_GIF);
+    formats.push_back(FORMAT_JPEG);
+    formats.push_back(FORMAT_PNG);
+    return formats;
 }
 
 }

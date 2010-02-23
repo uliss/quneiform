@@ -1,19 +1,28 @@
+set(image_exporters 
+    imageexporter.cpp
+    nullimageexporter.cpp
+    bmpimageexporter.cpp)
+
+if(USE_IMAGE_MAGICK) 
+    set(image_exporters ${image_exporters} magickimageexporter.cpp)
+    set(image_exporters_libs ${ImageMagick_Magick++_LIBRARY})
+    message(STATUS "ImageMagick exporter will be build")
+endif()
+
 if(USE_ICONV)
     include_directories(${ICONV_INCLUDE_DIR})
 endif()
 
 add_library(cuneiform-rout ${LIBTYPE}
-bmpimageexporter.cpp
 browse.cpp
 codetables.cpp
 exporter.cpp
 exporterfactory.cpp
 edexporter.cpp
 debugexporter.cpp
+imageexporterfactory.cpp
 genericexporter.cpp
 htmlexporter.cpp
-imageexporter.cpp
-magickimageexporter.cpp
 rtfexporter.cpp
 textexporter.cpp
 html.cpp
@@ -24,12 +33,14 @@ tabledbf.cpp
 tabletext.cpp
 text.cpp
 words.cpp
+${image_exporters}
 )
 
 set_property(TARGET cuneiform-rout PROPERTY COMPILE_DEFINITIONS __ROUT__)
 
 target_link_libraries(cuneiform-rout 
     cuneiform-ced 
-    cuneiform-rfrmt)
+    cuneiform-rfrmt
+    ${image_exporters_libs})
 
 library_hook(cuneiform-rout)

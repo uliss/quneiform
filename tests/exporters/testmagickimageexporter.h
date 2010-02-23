@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,35 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef EXPORTERFACTORY_H_
-#define EXPORTERFACTORY_H_
+#ifndef TESTMAGICKIMAGEEXPORTER_H_
+#define TESTMAGICKIMAGEEXPORTER_H_
 
-#include "cttypes.h"
-#include "common/singleton.h"
-#include "common/exception.h"
-#include "common/outputformat.h"
-#include "rfrmt/formatoptions.h"
-#include "exporter.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-namespace CIF {
+#ifndef EXPORTER_TEST_IMAGE_DIR
+#define EXPORTER_TEST_IMAGE_DIR "./"
+#endif
 
-class ExporterFactoryImpl
+class TestMagickImageExporter: public CppUnit::TestFixture
 {
-public:
-    ExporterFactoryImpl();
-    ~ExporterFactoryImpl();
-    Exporter * make(format_t format);
-    void setFormatOptions(const FormatOptions& opts);
-    void setPage(Handle page);
-
-    typedef RuntimeExceptionImpl<ExporterFactoryImpl> Exception;
-private:
-    Handle page_;
-    FormatOptions format_options_;
+    CPPUNIT_TEST_SUITE(TestMagickImageExporter);
+    CPPUNIT_TEST(testSave);
+    CPPUNIT_TEST_SUITE_END();
+    public:
+        void testSave();
 };
 
-typedef Singleton<ExporterFactoryImpl> ExporterFactory;
-
-}
-
-#endif /* EXPORTERFACTORY_H_ */
+#endif /* TESTMAGICKIMAGEEXPORTER_H_ */

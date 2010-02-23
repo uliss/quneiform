@@ -17,15 +17,75 @@
  ***************************************************************************/
 
 #include <fstream>
+#include <algorithm>
 #include "imageexporter.h"
+#include "common/debug.h"
 
 using namespace std;
 
 namespace CIF
 {
 
-ImageExporter::~ImageExporter() {
+ImageExporter::ImageExporter() :
+    format_(FORMAT_UNKNOWN) {
 
+}
+
+ImageExporter::~ImageExporter() {
+}
+
+std::string ImageExporter::extension() const {
+    switch (format_) {
+    case FORMAT_BMP:
+        return "bmp";
+    case FORMAT_GIF:
+        return "gif";
+    case FORMAT_JPEG:
+        return "jpg";
+    case FORMAT_PNG:
+        return "png";
+    case FORMAT_PNM:
+        return "pnm";
+    case FORMAT_TIFF:
+        return "tif";
+    case FORMAT_XPM:
+        return "xmp";
+    default:
+        return "";
+    }
+}
+
+std::string ImageExporter::formatToString(image_format_t format) {
+    switch (format) {
+    case FORMAT_GIF:
+        return "GIF";
+    case FORMAT_JPEG:
+        return "JPG";
+    case FORMAT_PNG:
+        return "PNG";
+    case FORMAT_PNM:
+        return "PNM";
+    case FORMAT_TIFF:
+        return "TIF";
+    case FORMAT_XPM:
+        return "XPM";
+    default:
+        return "???";
+    }
+}
+
+image_format_t ImageExporter::format() const {
+    return format_;
+}
+
+bool ImageExporter::isSupportedFormat(image_format_t format) {
+    FormatList formats = supportedFormats();
+    return std::find(formats.begin(), formats.end(), format) != formats.end();
+}
+
+void ImageExporter::setFormat(image_format_t format) {
+    if (isSupportedFormat(format))
+        format_ = format;
 }
 
 string ImageExporter::outputFilename() const {

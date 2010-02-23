@@ -1043,7 +1043,7 @@ void PumaImpl::rotate(void * dib, Point * p)
     SetPageInfo(cpage_, PInfo);
 }
 
-void PumaImpl::save(const std::string& filename, int Format) const
+void PumaImpl::save(const std::string& filename, format_t Format) const
 {
     if (!ed_page_)
         throw PumaException("Puma save failed");

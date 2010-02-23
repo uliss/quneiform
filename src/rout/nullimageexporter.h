@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,35 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef EXPORTERFACTORY_H_
-#define EXPORTERFACTORY_H_
+#ifndef NULLIMAGEEXPORTER_H_
+#define NULLIMAGEEXPORTER_H_
 
-#include "cttypes.h"
-#include "common/singleton.h"
-#include "common/exception.h"
-#include "common/outputformat.h"
-#include "rfrmt/formatoptions.h"
-#include "exporter.h"
+#include "imageexporter.h"
 
-namespace CIF {
-
-class ExporterFactoryImpl
+namespace CIF
 {
-public:
-    ExporterFactoryImpl();
-    ~ExporterFactoryImpl();
-    Exporter * make(format_t format);
-    void setFormatOptions(const FormatOptions& opts);
-    void setPage(Handle page);
 
-    typedef RuntimeExceptionImpl<ExporterFactoryImpl> Exception;
-private:
-    Handle page_;
-    FormatOptions format_options_;
+class NullImageExporter: public ImageExporter
+{
+    public:
+        NullImageExporter();
+        void save(void *, size_t, std::ostream&);
+        FormatList supportedFormats() const;
 };
-
-typedef Singleton<ExporterFactoryImpl> ExporterFactory;
 
 }
 
-#endif /* EXPORTERFACTORY_H_ */
+#endif /* NULLIMAGEEXPORTER_H_ */

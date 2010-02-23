@@ -20,6 +20,7 @@
 #include <cstdlib>
 
 #include "exporter.h"
+#include "nullimageexporter.h"
 
 using namespace std;
 
@@ -28,11 +29,13 @@ namespace CIF
 
 Exporter::Exporter() {
     //autoDetectOutputEncoding();
+    image_exporter_.reset(new NullImageExporter);
 }
 
 Exporter::Exporter(const FormatOptions& opts) :
     format_options_(opts) {
     //autoDetectOutputEncoding();
+    image_exporter_.reset(new NullImageExporter);
 }
 
 Exporter::~Exporter() {
@@ -88,6 +91,10 @@ FormatOptions& Exporter::formatOptions() {
     return format_options_;
 }
 
+ImageExporterPtr Exporter::imageExporter() {
+    return image_exporter_;
+}
+
 std::string Exporter::inputEncoding() const {
     return input_encoding_;
 }
@@ -102,10 +109,16 @@ std::string Exporter::outputFilename() const {
 
 void Exporter::setFormatOptions(const FormatOptions& opts) {
     format_options_ = opts;
+    image_exporter_->setFormat(format_options_.imageExportFormat());
 }
 
 void Exporter::setInputEncoding(const std::string& enc) {
     input_encoding_ = enc;
+}
+
+void Exporter::setImageExporter(ImageExporterPtr exporter) {
+    image_exporter_ = exporter;
+    image_exporter_->setFormat(format_options_.imageExportFormat());
 }
 
 void Exporter::setOutputEncoding(const std::string& enc) {

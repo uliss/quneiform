@@ -21,7 +21,8 @@
 #include "htmlexporter.h"
 #include "ced/cedint.h"
 #include "rout_own.h"
-#include "bmpimageexporter.h"
+#include "imageexporterfactory.h"
+#include "config.h"
 
 #ifdef USE_ICONV
 #include "common/iconv_local.h"
@@ -32,6 +33,9 @@ namespace CIF
 
 HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
     GenericExporter(page, opts), converter_(0), lines_left_(0), current_font_style_(0) {
+
+    ImageExporterPtr exp = ImageExporterFactory::instance().make();
+    setImageExporter(exp);
 
     setEncodings();
 
@@ -276,9 +280,7 @@ void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
 }
 
 void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
-    ImageExporterPtr im_exp(new BmpImageExporter);
-    setImageExporter(im_exp);
-    std::string path = savePicture(picture, "bmp");
+    std::string path = savePicture(picture);
     Attributes attrs;
     attrs["src"] = path;
     attrs["alt"] = "";

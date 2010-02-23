@@ -23,11 +23,7 @@ namespace CIF
 {
 
 BmpImageExporter::BmpImageExporter() {
-
-}
-
-BmpImageExporter::~BmpImageExporter() {
-
+    setFormat(FORMAT_BMP);
 }
 
 void BmpImageExporter::save(void * data, size_t dataSize, std::ostream& os) {
@@ -55,6 +51,10 @@ void BmpImageExporter::save(void * data, size_t dataSize, std::ostream& os) {
     os.write((char*) data, dataSize);
     if (os.fail())
         throw Exception("[BmpImageExporter::save] failed");
+}
+
+ImageExporter::FormatList BmpImageExporter::supportedFormats() const {
+    return FormatList(1, FORMAT_BMP);
 }
 
 }

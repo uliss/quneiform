@@ -28,9 +28,8 @@ class BmpImageExporter : public ImageExporter
 {
     public:
         BmpImageExporter();
-        ~BmpImageExporter();
-
         void save(void * data, size_t dataSize, std::ostream& os);
+        FormatList supportedFormats() const;
 };
 
 }

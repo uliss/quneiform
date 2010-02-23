@@ -341,6 +341,7 @@ int main(int argc, char **argv)
             opt.setPreserveLineBreaks(true);
 
         opt.setLanguage(langcode);
+        opt.setImageExportFormat(FORMAT_PNG);
 
         //  opt.useBold(true);
         //  opt.useItalic(true);

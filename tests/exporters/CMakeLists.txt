@@ -5,6 +5,7 @@ add_executable(test_exporters
     testbmpimageexporter.cpp
     testgenericexporter.cpp
     testhtmlexporter.cpp
+    testmagickimageexporter.cpp
 )
 
 target_link_libraries(test_exporters 

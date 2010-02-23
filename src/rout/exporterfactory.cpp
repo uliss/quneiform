@@ -47,7 +47,7 @@ void ExporterFactoryImpl::setPage(Handle page)
     page_ = page;
 }
 
-Exporter * ExporterFactoryImpl::make(int format)
+Exporter * ExporterFactoryImpl::make(format_t format)
 {
     switch (format) {
     case FORMAT_DEBUG:

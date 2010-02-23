@@ -40,7 +40,6 @@ GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
             num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
             num_tables_(0), table_nesting_level_(0), skip_empty_paragraphs_(false),
             skip_empty_lines_(false) {
-
 }
 
 int GenericExporter::charNumInParagraph(CEDParagraph * par) {
@@ -306,10 +305,10 @@ CEDPage * GenericExporter::page() {
     return page_;
 }
 
-std::string GenericExporter::pictureName(CEDChar * picture, const std::string& extension) {
+std::string GenericExporter::pictureName(CEDChar * picture) {
     assert(picture);
     std::ostringstream buf;
-    buf << "image_" << pictureNumber(picture) << "." << extension;
+    buf << "image_" << pictureNumber(picture) << "." << imageExporter()->extension();
     return buf.str();
 }
 
@@ -321,9 +320,9 @@ int GenericExporter::pictureNumber(CEDChar * picture) {
     return picture->fontNum - ED_PICT_BASE;
 }
 
-std::string GenericExporter::savePicture(CEDChar * picture, const std::string& extension) {
+std::string GenericExporter::savePicture(CEDChar * picture) {
     std::string dir = createPicturesFolder();
-    std::string path = dir + "/" + pictureName(picture, extension);
+    std::string path = dir + "/" + pictureName(picture);
     savePictureData(picture, path);
     return path;
 }
@@ -352,15 +351,10 @@ void GenericExporter::savePictureData(CEDChar * picture, const std::string& path
         }
     }
 
-    if(!pict_data || pict_length <= 0)
+    if (!pict_data || pict_length <= 0)
         throw Exception("[GenericExporter::savePictureData] failed");
 
-    if (image_exporter_.get())
-        image_exporter_->save(pict_data, pict_length, path);
-}
-
-void GenericExporter::setImageExporter(ImageExporterPtr exporter) {
-    image_exporter_ = exporter;
+    imageExporter()->save(pict_data, pict_length, path);
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {

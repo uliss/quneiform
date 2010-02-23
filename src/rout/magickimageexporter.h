@@ -20,6 +20,7 @@
 #define MAGICKIMAGEEXPORTER_H_
 
 #include "imageexporter.h"
+#include "rdib/imageformats.h"
 
 namespace CIF
 {
@@ -27,8 +28,9 @@ namespace CIF
 class MagickImageExporter: public ImageExporter
 {
     public:
-        virtual ~MagickImageExporter();
-        MagickImageExporter();
+        MagickImageExporter(image_format_t format = FORMAT_PNG);
+        void save(void * data, size_t dataSize, std::ostream& os);
+        FormatList supportedFormats() const;
 };
 
 }

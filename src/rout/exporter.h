@@ -23,38 +23,44 @@
 #include <string>
 #include <stdexcept>
 
+#include "imageexporter.h"
 #include "rfrmt/formatoptions.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class Exporter
 {
-public:
-    Exporter();
-    Exporter(const FormatOptions& opts);
-    virtual ~Exporter();
+    public:
+        Exporter();
+        Exporter(const FormatOptions& opts);
+        virtual ~Exporter();
 
-    typedef std::runtime_error Exception;
+        typedef std::runtime_error Exception;
 
-    virtual bool encodeNeeded() const;
-    virtual void exportTo(const std::string& filename);
-    void exportTo(std::ostream& os);
-    const FormatOptions& formatOptions() const;
-    FormatOptions& formatOptions();
-    std::string inputEncoding() const;
-    std::string outputEncoding() const;
-    std::string outputFilename() const;
-    void setFormatOptions(const FormatOptions& opts);
-    void setInputEncoding(const std::string& enc);
-    void setOutputEncoding(const std::string& enc);
-    void setOutputFilename(const std::string& filename);
-private:
-    virtual void doExport(std::ostream& os) = 0;
-    void autoDetectOutputEncoding();
-    FormatOptions format_options_;
-    std::string input_encoding_;
-    std::string output_encoding_;
-    std::string output_filename_;
+        virtual bool encodeNeeded() const;
+        virtual void exportTo(const std::string& filename);
+        void exportTo(std::ostream& os);
+        const FormatOptions& formatOptions() const;
+        FormatOptions& formatOptions();
+        ImageExporterPtr imageExporter();
+        std::string inputEncoding() const;
+        std::string outputEncoding() const;
+        std::string outputFilename() const;
+        void setFormatOptions(const FormatOptions& opts);
+        void setImageExporter(ImageExporterPtr exporter);
+        void setInputEncoding(const std::string& enc);
+        void setOutputEncoding(const std::string& enc);
+        void setOutputFilename(const std::string& filename);
+    private:
+        virtual void doExport(std::ostream& os) = 0;
+        void autoDetectOutputEncoding();
+    private:
+        ImageExporterPtr image_exporter_;
+        FormatOptions format_options_;
+        std::string input_encoding_;
+        std::string output_encoding_;
+        std::string output_filename_;
 };
 
 }
