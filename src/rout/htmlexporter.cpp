@@ -147,6 +147,7 @@ void HtmlExporter::setEncodings() {
     case LANGUAGE_UKRAINIAN:
         setInputEncoding("cp1251");
         setOutputEncoding("utf-8");
+        break;
     default:
         setInputEncoding("");
         setOutputEncoding("");
