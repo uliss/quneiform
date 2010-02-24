@@ -502,7 +502,7 @@ int CEDPage::GetFontByNum(uchar fontNumber)
     return 0;
 }
 
-Bool32 CEDPage::CreatePicture(int pictNumber, EDSIZE pictSize, EDSIZE pictGoal,
+Bool32 CEDPage::CreatePicture(int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal,
                               int pictAlign, int type, void * data, int len)
 {
     if (picsUsed >= picsCreated) {

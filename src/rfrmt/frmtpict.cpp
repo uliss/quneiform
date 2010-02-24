@@ -152,7 +152,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
 #ifdef EdWrite
     Handle hParagraph = NULL;
     Handle hString = NULL;
-    EDSIZE pictSize;
+    CIF::Size pictSize;
     EDSIZE pictGoal;
     EDRECT indent;
     EDBOX playout;
@@ -364,8 +364,8 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
             LDPUMA_Skip(hTestWriteED);
             PCTDIB pTmpDIB = new CTDIB;
             pTmpDIB->SetDIBbyPtr(pOutDIB);
-            pictSize.cx = Wh.x();
-            pictSize.cy = Wh.y();
+            pictSize.rwidth() = Wh.x();
+            pictSize.rheight() = Wh.y();
             pictGoal.cx = (uint32_t) (Twips * pTmpDIB->GetLineWidth());
             pictGoal.cy = (uint32_t) (Twips * pTmpDIB->GetLinesNumber());
             int32_t iDIBSize = pTmpDIB->GetDIBSize();

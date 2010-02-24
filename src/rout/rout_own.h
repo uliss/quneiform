@@ -362,7 +362,7 @@ EXTERN Byte *gPictureData VAL(0);
 EXTERN long gPictureLength VAL(0);
 // Длина DIB включая заголовок
 // Размер картинки в TIFF-файле в пикселах
-EXTERN EDSIZE gPictureSize VAL( {0});
+EXTERN CIF::Size gPictureSize;
 // Размер картинки на экране в twips
 EXTERN EDSIZE gPictureGoal VAL( {0});
 

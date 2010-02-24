@@ -126,10 +126,10 @@ CED_FUNC(Bool32) CED_CreateFont(Handle hEdPage, uchar fontNumber, uchar fontPitc
     return ret;
 }
 
-CED_FUNC(Bool32) CED_CreatePicture(Handle hEdPage, int pictNumber, EDSIZE pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len)
+CED_FUNC(Bool32) CED_CreatePicture(Handle hEdPage, int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len)
 {
     if (logStream) {
-        fprintf(logStream, "CreatePicture params: %x,%i,(%i,%i),(%i,%i),%i,%i,%x,%i\n", hEdPage, pictNumber, pictSize.cx, pictSize.cy, pictGoal.cx, pictGoal.cy, pictAlign, type, data, len);
+        fprintf(logStream, "CreatePicture params: %x,%i,(%i,%i),(%i,%i),%i,%i,%x,%i\n", hEdPage, pictNumber, pictSize.width(), pictSize.height(), pictGoal.cx, pictGoal.cy, pictAlign, type, data, len);
         fflush(logStream);
     }
 
@@ -594,7 +594,7 @@ CED_FUNC(uint32_t) CED_GetNumOfFonts(Handle hEdPage)
     return ((CEDPage*)hEdPage)->fontsUsed;
 }
 
-CED_FUNC(Bool32) CED_GetPicture(Handle hEdPage, int number, int* pictNumber, EDSIZE* pictSize, EDSIZE* pictGoal, int* pictAlign , int* type, void ** data, int* len)
+CED_FUNC(Bool32) CED_GetPicture(Handle hEdPage, int number, int* pictNumber, CIF::Size& pictSize, EDSIZE* pictGoal, int* pictAlign , int* type, void ** data, int* len)
 {
     CEDPage * pg = (CEDPage*)hEdPage;
 
@@ -606,8 +606,7 @@ CED_FUNC(Bool32) CED_GetPicture(Handle hEdPage, int number, int* pictNumber, EDS
     if (pictNumber)
         *pictNumber = tmp->pictNumber;
 
-    if (pictSize)
-        *pictSize = tmp->pictSize;
+    pictSize = tmp->pictSize;
 
     if (pictGoal)
         *pictGoal = tmp->pictGoal;

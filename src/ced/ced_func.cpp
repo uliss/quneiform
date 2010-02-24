@@ -1231,8 +1231,7 @@ Bool32 WritePictTable(Handle hFile, CEDPage* page)
         picd.pictGoal.cx = page->picsTable[q].pictGoal.cx;
         picd.pictGoal.cy = page->picsTable[q].pictGoal.cy;
         picd.pictNumber = page->picsTable[q].pictNumber;
-        picd.pictSize.cx = page->picsTable[q].pictSize.cx;
-        picd.pictSize.cy = page->picsTable[q].pictSize.cy;
+        picd.pictSize = page->picsTable[q].pictSize;
         picd.len = page->picsTable[q].len;
         picd.type = page->picsTable[q].type;
         picd.size = page->picsTable[q].len + sizeof(picd);

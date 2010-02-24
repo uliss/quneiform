@@ -60,9 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _CED_STRUCT_
 #define _CED_STRUCT_
 
-
-/*#include <windows.h>*/
-//#include "edfile.h"
+#include "common/size.h"
 #include "ced.h"
 
 #define     FICTIVE         0xf000
@@ -137,15 +135,17 @@ typedef struct fontEntry {
     uchar fontCharset;
     char* fontName;
 } FONTENTRY;
+
 typedef struct pictEntry {
     uint16_t pictNumber;
-    EDSIZE pictSize;
+    CIF::Size pictSize;
     EDSIZE pictGoal;
     uchar pictAlign;
     uchar type;
     uint32_t len;
     void* data;
 } PICTENTRY;
+
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c
 
 DEC_FUN(Bool32, CED_FormattedWrite, ( const char * fileName, CEDPage *page));
@@ -210,7 +210,7 @@ class CED_FUNC(CEDPage)
 
         int GetFontByNum(uchar fontNumber);
 
-        Bool32 CreatePicture(int pictNumber, EDSIZE pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len);
+        Bool32 CreatePicture(int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len);
 
         CEDSection * InsertSection();   //inserts new section after current one. inserted one becomes current
         //sets pointer to the inserted one

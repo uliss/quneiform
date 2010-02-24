@@ -167,7 +167,7 @@ struct fontDiscr {
 struct pictDescr {
     uint32_t size;
     uint16_t pictNumber;
-    EDSIZE pictSize;
+    CIF::Size pictSize;
     EDSIZE pictGoal;
     uchar pictAlign;
     uchar type;

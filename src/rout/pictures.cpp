@@ -92,7 +92,7 @@ Bool PictureFromChar(Handle charHandle)
 			gPageHandle,
 			index,
 			(int*)&pictUserNumber, // Пользовательский номер
-			&gPictureSize, // Размер картинки в TIFF-файле в пикселах
+			gPictureSize, // Размер картинки в TIFF-файле в пикселах
 			&gPictureGoal, // Размер картинки на экране в twips
 			(int*)&pictAlign,	   // Вертикальное расположение
 			(int*)&type,		   // Тип = 1 (DIB)

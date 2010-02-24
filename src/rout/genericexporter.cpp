@@ -332,13 +332,12 @@ void GenericExporter::savePictureData(CEDChar * picture, const std::string& path
     int pict_align = 0;
     int pict_type = 0;
     int pict_length = 0;
-    EDSIZE pict_size;
     EDSIZE pict_goal;
     void * pict_data = 0;
 
     for (int i = 0; i < page_->picsUsed; i++) {
         if (CED_GetPicture(page_, i, &pict_user_num, // Пользовательский номер
-                &pict_size, // Размер картинки в TIFF-файле в пикселах
+                last_picture_size_, // Размер картинки в TIFF-файле в пикселах
                 &pict_goal, // Размер картинки на экране в twips
                 &pict_align, // Вертикальное расположение
                 &pict_type, // Тип = 1 (DIB)
@@ -353,9 +352,6 @@ void GenericExporter::savePictureData(CEDChar * picture, const std::string& path
 
     if (!pict_data || pict_length <= 0)
         throw Exception("[GenericExporter::savePictureData] failed");
-
-    last_picture_size_.setWidth(pict_size.cx);
-    last_picture_size_.setHeight(pict_size.cy);
 
     imageExporter()->save(pict_data, pict_length, path);
 }

@@ -59,6 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "globus.h"
 #include "lang_def.h"
+#include "common/size.h"
 
 #ifdef __CED__
 #define CED_FUNC  FUN_EXPO
@@ -388,7 +389,7 @@ DEC_FUN(Handle, CED_CreatePage, (char * _imageName, EDSIZE _sizeOfImage, EDSIZE 
 DEC_FUN(Bool32, CED_SetPageRecogLang, (Handle hEdPage, char _recogLang));
 DEC_FUN(char, CED_GetPageRecogLang, (Handle hEdPage));
 DEC_FUN(Bool32, CED_CreateFont, (Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset, char* fontName));
-DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, EDSIZE pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len));
+DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len));
 DEC_FUN(Handle, CED_CreateSection, (Handle hEdPage, EDRECT border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY));
 DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol));
 DEC_FUN(Handle, CED_CreateColumn, ( Handle hEdSection));
@@ -417,7 +418,7 @@ DEC_FUN(char, CED_GetPageUnrecogChar, (Handle hEdPage));
 DEC_FUN(Bool32, CED_GetPageResize, (Handle hEdPage));
 DEC_FUN(uint32_t, CED_GetNumberOfParagraphs, (Handle hEdPage));
 DEC_FUN(uint32_t, CED_GetNumOfFonts, (Handle hEdPage));
-DEC_FUN(Bool32, CED_GetPicture, (Handle hEdPage, int number, int* pictNumber, EDSIZE* pictSize, EDSIZE* pictGoal, int* pictAlign , int* type, void ** data, int* len));
+DEC_FUN(Bool32, CED_GetPicture, (Handle hEdPage, int number, int* pictNumber, CIF::Size& pictSize, EDSIZE* pictGoal, int* pictAlign , int* type, void ** data, int* len));
 DEC_FUN(uint32_t, CED_GetNumOfPics, (Handle hEdPage));
 DEC_FUN(Handle, CED_GetParagraph, (Handle hEdPage, int _num));
 DEC_FUN(Bool32, CED_GetFont, (Handle hEdPage, int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset, char** fontName));

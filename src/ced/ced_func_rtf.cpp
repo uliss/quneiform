@@ -1886,10 +1886,10 @@ Bool WriteRtfDIB(struct StrRtfOut far *rtf, int pict)
         return FALSE; // write picture format
 
     // write picture height/width in HIMETRIC
-    if (!WriteRtfControl(rtf, "picw", PARAM_INT, rtf->page->picsTable[pict].pictSize.cx))
+    if (!WriteRtfControl(rtf, "picw", PARAM_INT, rtf->page->picsTable[pict].pictSize.width()))
         return FALSE; // write picture format
 
-    if (!WriteRtfControl(rtf, "pich", PARAM_INT, rtf->page->picsTable[pict].pictSize.cy))
+    if (!WriteRtfControl(rtf, "pich", PARAM_INT, rtf->page->picsTable[pict].pictSize.height()))
         return FALSE; // write picture format
 
     // write picture height/width in twips
