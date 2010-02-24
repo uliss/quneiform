@@ -27,8 +27,7 @@
 namespace
 {
 
-CIF::ImageLoader * create()
-{
+CIF::ImageLoader * create() {
     return new CIF::MagickImageLoader;
 }
 
@@ -46,16 +45,13 @@ bool xpm = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_XPM, 
 namespace CIF
 {
 
-MagickImageLoader::MagickImageLoader()
-{
+const int MIN_DPI_FOR_VECTOR_FORMAT = 300;
+
+MagickImageLoader::MagickImageLoader() :
+    dpi_(0) {
 }
 
-MagickImageLoader::~MagickImageLoader()
-{
-}
-
-ImagePtr MagickImageLoader::load(Magick::Image& image, Magick::Blob& blob)
-{
+void MagickImageLoader::convertColorSpace(Magick::Image& image) {
     switch (image.type()) {
     case Magick::BilevelType:
     case Magick::TrueColorType:
@@ -63,52 +59,70 @@ ImagePtr MagickImageLoader::load(Magick::Image& image, Magick::Blob& blob)
     default:
         image.type(Magick::TrueColorType);
     }
-
-    if (CIF::Config::instance().debugHigh())
-        image.verbose(true);
-
-    // Write to BLOB in BMP format
-    image.magick("DIB");
-    image.write(&blob);
-
-    char * new_data = new char[blob.length()];
-    memcpy(new_data, blob.data(), blob.length());
-    return ImagePtr(new Image(new_data, blob.length(), Image::AllocatorNew));
 }
 
-ImagePtr MagickImageLoader::load(std::istream& stream)
-{
-    if(stream.fail())
-        throw Exception("MagickImageLoader::load invalid stream given");
+void MagickImageLoader::convertImageToDib(Magick::Image& image, Magick::Blob& blob) {
+    image.magick("DIB");
+    image.write(&blob);
+}
+
+void MagickImageLoader::convertImageDpi(Magick::Image& image) {
+    if (image.magick() == "PDF" or image.magick() == "SVG" or image.magick() == "DJVU") {
+        //change from default 72 dpi
+        image.density(Magick::Geometry(MIN_DPI_FOR_VECTOR_FORMAT, MIN_DPI_FOR_VECTOR_FORMAT));
+    }
+}
+
+ImagePtr MagickImageLoader::load(Magick::Image& image) {
+    Magick::Blob blob;
+    convertColorSpace(image);
+    convertImageToDib(image, blob);
+    return makeImage(blob);
+}
+
+ImagePtr MagickImageLoader::load(std::istream& stream) {
+    if (stream.fail())
+        throw Exception("[MagickImageLoader::load] invalid stream given");
 
     std::streampos stream_size = streamSize(stream);
-    if(stream_size < 1)
-        throw Exception("MagickImageLoader::load empty stream given");
+    if (stream_size < 1)
+        throw Exception("[MagickImageLoader::load] empty stream given");
 
     boost::scoped_array<char> tmp(new char[stream_size]);
     Magick::Blob blob;
-    blob.updateNoCopy(tmp.get(), static_cast<size_t>(stream_size));
+    blob.updateNoCopy(tmp.get(), static_cast<size_t> (stream_size));
     try {
-        Magick::Image image(blob);
-        return load(image, blob);
-    }
-    catch (Magick::Exception &e) {
+        Magick::Image image;
+        image.density("10");
+        image.ping(blob);
+        convertImageDpi(image);
+        image.read(blob);
+
+        return load(image);
+    } catch (Magick::Exception &e) {
         std::cerr << e.what() << "\n";
-        throw Exception("MagickImageLoader::load failed");
+        throw Exception("[MagickImageLoader::load] failed");
     }
 }
 
-ImagePtr MagickImageLoader::load(const std::string& fname)
-{
-    Magick::Blob blob;
+ImagePtr MagickImageLoader::load(const std::string& fname) {
     try {
-        Magick::Image image(fname);
-        return load(image, blob);
-    }
-    catch (Magick::Exception &e) {
+        Magick::Image image;
+        image.density("10");
+        image.ping(fname);
+        convertImageDpi(image);
+        image.read(fname);
+        return load(image);
+    } catch (Magick::Exception &e) {
         std::cerr << e.what() << "\n";
-        throw Exception("MagickImageLoader::load faild");
+        throw Exception("[MagickImageLoader::load] faild");
     }
+}
+
+ImagePtr MagickImageLoader::makeImage(Magick::Blob& blob) {
+    char * new_data = new char[blob.length()];
+    memcpy(new_data, blob.data(), blob.length());
+    return ImagePtr(new Image(new_data, blob.length(), Image::AllocatorNew));
 }
 
 }
