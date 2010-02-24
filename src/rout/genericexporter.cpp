@@ -354,6 +354,9 @@ void GenericExporter::savePictureData(CEDChar * picture, const std::string& path
     if (!pict_data || pict_length <= 0)
         throw Exception("[GenericExporter::savePictureData] failed");
 
+    last_picture_size_.setWidth(pict_size.cx);
+    last_picture_size_.setHeight(pict_size.cy);
+
     imageExporter()->save(pict_data, pict_length, path);
 }
 

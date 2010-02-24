@@ -20,6 +20,7 @@
 #define GENERICEXPORTER_H_
 
 #include "exporter.h"
+#include "common/size.h"
 
 class CEDPage;
 class CEDSection;
@@ -99,6 +100,8 @@ class GenericExporter: public Exporter
         int table_nesting_level_;
         bool skip_empty_paragraphs_;
         bool skip_empty_lines_;
+    protected:
+        Size last_picture_size_;
 };
 
 }

@@ -19,6 +19,7 @@
 #include <cassert>
 #include <algorithm>
 #include "htmlexporter.h"
+#include "common/helper.h"
 #include "ced/cedint.h"
 #include "rout_own.h"
 #include "imageexporterfactory.h"
@@ -285,6 +286,8 @@ void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
     Attributes attrs;
     attrs["src"] = path;
     attrs["alt"] = "";
+    attrs["height"] = toString(last_picture_size_.height());
+    attrs["width"] = toString(last_picture_size_.width());
     writeSingleTag(os, "img", attrs);
 }
 
