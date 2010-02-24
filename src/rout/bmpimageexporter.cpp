@@ -17,7 +17,7 @@
  ***************************************************************************/
 
 #include "bmpimageexporter.h"
-#include "compat_defs.h"
+#include "cfcompat.h"
 
 namespace CIF
 {
