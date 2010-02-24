@@ -115,7 +115,7 @@ OutputFormatList OutputFormat::formats()
 
 bool OutputFormat::isValid() const
 {
-    return (0 < format_) ? true : false;
+    return (FORMAT_EDNATIVE <= format_) ? true : false;
 }
 
 std::string OutputFormat::name(format_t format)
