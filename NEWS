@@ -1,3 +1,7 @@
+2010-02-24
+Cuneiform now supports recognition of PDF, SVG and DJVU formats.
+
+
 2010-02-11
 You can specify language name instead of ISO code, when using --language (or -l) option
 For example: cuneiform -l English IMAGE_NAME
