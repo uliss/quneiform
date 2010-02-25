@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,51 +16,37 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "exporterfactory.h"
+#ifndef HOCREXPORTER_H_
+#define HOCREXPORTER_H_
+
+#include <vector>
 #include "htmlexporter.h"
-#include "debugexporter.h"
-#include "rtfexporter.h"
-#include "edexporter.h"
-#include "textexporter.h"
-#include "hocrexporter.h"
-#include "puma/pumadef.h"
-#include "common/outputformat.h"
+#include "common/rect.h"
 
 namespace CIF
 {
 
-ExporterFactoryImpl::ExporterFactoryImpl() :
-    page_(NULL) {
-}
-
-void ExporterFactoryImpl::setFormatOptions(const FormatOptions& opts) {
-    format_options_ = opts;
-}
-
-void ExporterFactoryImpl::setPage(Handle page) {
-    page_ = page;
-}
-
-Exporter * ExporterFactoryImpl::make(format_t format) {
-    switch (format) {
-    case FORMAT_DEBUG:
-        return new DebugExporter(format_options_);
-    case FORMAT_RTF:
-        return new RtfExporter(page_);
-    case FORMAT_EDNATIVE:
-        return new EdExporter(page_);
-    case FORMAT_HOCR:
-        return new HocrExporter((CEDPage*) page_, format_options_);
-    case FORMAT_XHTML:
-    case FORMAT_HTML:
-        return new HtmlExporter((CEDPage*) page_, format_options_);
-    case FORMAT_SMARTTEXT:
-        format_options_.setPreserveLineBreaks(true);
-    case FORMAT_TEXT:
-        return new TextExporter((CEDPage*) page_, format_options_);
-    default:
-        throw Exception("Unsupported export format");
-    }
-}
+class HocrExporter: public HtmlExporter
+{
+    public:
+        HocrExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+    protected:
+        void writeCharacter(std::ostream& os, CEDChar * chr);
+        void writeLineBegin(std::ostream& os, CEDLine * line);
+        void writeLineEnd(std::ostream& os, CEDLine * line);
+        void writeMeta(std::ostream& os);
+        void writePageBegin(std::ostream& os);
+        void writePageEnd(std::ostream& os);
+        void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+        void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+    private:
+        typedef std::vector<Rect> RectList;
+        RectList rects_;
+        // true if last none-space character was in line (i.e had a valid bbox).
+        bool is_in_line_;
+        Rect line_rect_;
+};
 
 }
+
+#endif /* HOCREXPORTER_H_ */

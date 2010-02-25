@@ -36,6 +36,14 @@ class GenericExporter: public Exporter
 {
     public:
         GenericExporter(CEDPage * page, const FormatOptions& opts);
+        int numChars() const;
+        int numColumns() const;
+        int numFrames() const;
+        int numLines() const;
+        int numParagraphs() const;
+        int numPictures() const;
+        int numSections() const;
+        int numTables() const;
         CEDPage * page();
         void setSkipEmptyLines(bool value);
         void setSkipEmptyParagraphs(bool value);
@@ -45,7 +53,7 @@ class GenericExporter: public Exporter
         bool skipPictures() const;
     protected:
         int charNumInParagraph(CEDParagraph * par);
-        bool isCharsetConversionNeeded()const;
+        bool isCharsetConversionNeeded() const;
         bool isEmptyParagraph(CEDParagraph * par);
         std::string savePicture(CEDChar * picture);
         void savePictureData(CEDChar * picture, const std::string&);

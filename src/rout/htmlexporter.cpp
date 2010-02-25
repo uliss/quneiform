@@ -23,6 +23,7 @@
 #include "ced/cedint.h"
 #include "rout_own.h"
 #include "imageexporterfactory.h"
+#include "config.h" // for CF_VERSION
 
 namespace CIF
 {
@@ -187,7 +188,7 @@ void HtmlExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
 void HtmlExporter::writeMeta(std::ostream& os) {
     Attributes attrs;
     attrs["name"] = "Generator";
-    attrs["content"] = "Cuneiform";
+    attrs["content"] = "cuneiform-linux-" CF_VERSION;
     writeSingleTag(os, "meta", attrs);
     os << "\n";
 

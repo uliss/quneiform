@@ -307,6 +307,38 @@ bool GenericExporter::isEmptyParagraph(CEDParagraph * par) {
     return charNumInParagraph(par) < 1;
 }
 
+int GenericExporter::numChars() const {
+    return num_chars_;
+}
+
+int GenericExporter::numColumns() const {
+    return num_columns_;
+}
+
+int GenericExporter::numFrames() const {
+    return num_frames_;
+}
+
+int GenericExporter::numLines() const {
+    return num_lines_;
+}
+
+int GenericExporter::numParagraphs() const {
+    return num_paragraphs_;
+}
+
+int GenericExporter::numPictures() const {
+    return num_pictures_;
+}
+
+int GenericExporter::numSections() const {
+    return num_sections_;
+}
+
+int GenericExporter::numTables() const {
+    return num_tables_;
+}
+
 CEDPage * GenericExporter::page() {
     return page_;
 }

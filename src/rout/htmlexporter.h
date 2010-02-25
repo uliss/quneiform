@@ -31,7 +31,7 @@ class HtmlExporter: public GenericExporter
     public:
         HtmlExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
         ~HtmlExporter();
-    private:
+    protected:
         std::string escapeHtmlSpecialChar(unsigned char code);
         void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeDoctype(std::ostream& os);

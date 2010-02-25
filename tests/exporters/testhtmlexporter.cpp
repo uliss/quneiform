@@ -20,6 +20,7 @@
 #include <sstream>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #define private public
+#define protected public
 
 #include <rout/htmlexporter.h>
 #include <rout/rout_own.h>
