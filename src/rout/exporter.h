@@ -40,7 +40,7 @@ class Exporter
 
         virtual bool encodeNeeded() const;
         virtual void exportTo(const std::string& filename);
-        void exportTo(std::ostream& os);
+        virtual void exportTo(std::ostream& os);
         const FormatOptions& formatOptions() const;
         FormatOptions& formatOptions();
         ImageExporterPtr imageExporter();

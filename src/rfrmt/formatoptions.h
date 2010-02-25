@@ -45,6 +45,7 @@ class CLA_EXPO FormatOptions
         language_t language() const;
         std::string monospaceName() const;
         bool preserveLineBreaks() const;
+        bool preserveLineHyphens() const;
         std::string sansSerifName() const;
         std::string serifName() const;
         void setFormatMode(puma_format_mode_t format);
@@ -52,6 +53,7 @@ class CLA_EXPO FormatOptions
         void setLanguage(language_t lang);
         void setMonospaceName(const std::string& name);
         void setPreserveLineBreaks(bool val = true);
+        void setPreserveLineHyphens(bool val = true);
         void setSansSerifName(const std::string& name);
         void setSerifName(const std::string& name);
         void setUnrecognizedChar(wchar_t ch);
@@ -72,6 +74,7 @@ class CLA_EXPO FormatOptions
         wchar_t unrecognized_char_;
         language_t language_;
         image_format_t image_format_;
+        bool preserve_line_hyphens_;
 };
 
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const FormatOptions& fmt);

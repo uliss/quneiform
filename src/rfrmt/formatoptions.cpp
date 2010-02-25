@@ -27,7 +27,7 @@ FormatOptions::FormatOptions() :
     serif_name_("Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
             use_bold_(true), use_italic_(true), use_font_size_(true), preserve_line_breaks_(false),
             format_mode_(PUMA_FORMAT_ALL), unrecognized_char_('~'), language_(LANGUAGE_RUS_ENG),
-            image_format_(FORMAT_UNKNOWN) {
+            image_format_(FORMAT_UNKNOWN), preserve_line_hyphens_(false) {
 }
 
 FormatOptions::~FormatOptions() {
@@ -65,6 +65,10 @@ bool FormatOptions::preserveLineBreaks() const {
     return preserve_line_breaks_;
 }
 
+bool FormatOptions::preserveLineHyphens() const {
+    return preserve_line_hyphens_;
+}
+
 std::string FormatOptions::sansSerifName() const {
     return sans_serif_name_;
 }
@@ -91,6 +95,10 @@ void FormatOptions::setMonospaceName(const std::string & name) {
 
 void FormatOptions::setPreserveLineBreaks(bool val) {
     preserve_line_breaks_ = val;
+}
+
+void FormatOptions::setPreserveLineHyphens(bool val) {
+    preserve_line_hyphens_ = val;
 }
 
 void FormatOptions::setSansSerifName(const std::string & name) {

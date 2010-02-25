@@ -19,6 +19,7 @@
 #include "textexporter.h"
 #include "ced/ced.h"
 #include "ced/cedint.h"
+#include "common/helper.h"
 
 #include <cstdlib>
 #include <cstring>
@@ -27,23 +28,59 @@ namespace CIF
 {
 
 TextExporter::TextExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts) {
+    GenericExporter(page, opts), line_hard_break_flag_(false) {
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
     setSkipPictures(true);
 }
 
-void TextExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
-    assert(chr && chr->alternatives);
-    if (isCharsetConversionNeeded())
-        os << converter_.convert(std::string(1, chr->alternatives->alternative));
-    else
-        os << chr->alternatives->alternative;
+std::string TextExporter::convertLineBuffer() {
+    preprocessLine(line_buffer_);
+    return isCharsetConversionNeeded() ? converter_.convert(line_buffer_) : line_buffer_;
 }
 
-void TextExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
-    if (formatOptions().preserveLineBreaks() or line->hardBreak)
-        os << "\n";
+void TextExporter::exportTo(std::ostream& os) {
+    writeBOM(os);
+    GenericExporter::exportTo(os);
+}
+
+void TextExporter::preprocessLine(std::string& line) {
+    replaceAll(line, "--", "\u2013");
+}
+
+void TextExporter::removeHyphens() {
+    if (line_buffer_.empty())
+        return;
+
+    size_t len = line_buffer_.size();
+    if (len > 1 and line_buffer_[len - 1] == '-')
+        line_buffer_.erase(len - 1, 1);
+}
+
+void TextExporter::writeBOM(std::ostream& os) {
+#ifdef __APPLE__
+    os << "\xEF\xBB\xBF";
+#endif
+}
+
+void TextExporter::writeCharacter(std::ostream& /*os*/, CEDChar * chr) {
+    assert(chr && chr->alternatives);
+    line_buffer_.append(1, chr->alternatives->alternative);
+}
+
+void TextExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * line) {
+    line_hard_break_flag_ = line->hardBreak ? true : false;
+    line_buffer_.clear();
+}
+
+void TextExporter::writeLineEnd(std::ostream& os, CEDLine * /*line*/) {
+    if (formatOptions().preserveLineBreaks() or line_hard_break_flag_) {
+        os << convertLineBuffer() << "\n";
+    } else {
+        if (!formatOptions().preserveLineHyphens())
+            removeHyphens();
+        os << convertLineBuffer();
+    }
 }
 
 void TextExporter::writePageBegin(std::ostream& os) {
@@ -54,22 +91,22 @@ void TextExporter::writePageEnd(std::ostream& os) {
     os << std::endl;
 }
 
-void TextExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
+void TextExporter::writeParagraphBegin(std::ostream& /*os*/, CEDParagraph * /*par*/) {
 }
 
-void TextExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * par) {
+void TextExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
     os << "\n";
 }
 
-void TextExporter::writePicture(std::ostream& os, CEDChar * picture) {
+void TextExporter::writePicture(std::ostream& os, CEDChar * /*picture*/) {
     os << "[picture]\n";
 }
 
-void TextExporter::writeTableBegin(std::ostream& os, CEDParagraph * table) {
+void TextExporter::writeTableBegin(std::ostream& os, CEDParagraph * /*table*/) {
     os << "[table]\n";
 }
 
-void TextExporter::writeTableEnd(std::ostream& os, CEDParagraph * table) {
+void TextExporter::writeTableEnd(std::ostream& /*os*/, CEDParagraph * /*table*/) {
 }
 
 }

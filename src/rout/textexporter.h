@@ -28,8 +28,14 @@ class TextExporter: public GenericExporter
 {
     public:
         TextExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+        void exportTo(std::ostream& os);
     private:
+        std::string convertLineBuffer();
+        void preprocessLine(std::string& line);
+        void removeHyphens();
+        void writeBOM(std::ostream& os);
         void writeCharacter(std::ostream& os, CEDChar * chr);
+        void writeLineBegin(std::ostream& os, CEDLine * line);
         void writeLineEnd(std::ostream& os, CEDLine * line);
         void writePageBegin(std::ostream& os);
         void writePageEnd(std::ostream& os);
@@ -38,6 +44,9 @@ class TextExporter: public GenericExporter
         void writePicture(std::ostream& os, CEDChar * picture);
         void writeTableBegin(std::ostream& os, CEDParagraph * table);
         void writeTableEnd(std::ostream& os, CEDParagraph * table);
+    private:
+        std::string line_buffer_;
+        bool line_hard_break_flag_;
 };
 
 }
