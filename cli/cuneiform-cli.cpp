@@ -138,6 +138,7 @@ static string usage()
         "       --nopictures             Do not search pictures \n"
         "  Export options:                                      \n"
         "       --preserve-line-breaks   Preserves line-breaking\n"
+        "       --preserve-hyphens       Preserves line hyphenation\n"
         "       --unrecognized CHAR      Set symbol, that shown instead of unrecognized characters.\n"
         "                                    Default is '~'.\n"
         "       --no-bold                Use normal font for bold text\n"
@@ -205,7 +206,8 @@ int main(int argc, char **argv)
 
     int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller = FALSE,
             do_singlecolumn = FALSE, do_pictures = TRUE, do_tables = FALSE, do_autorotate = FALSE,
-            preserve_line_breaks = FALSE, do_dump = FALSE, no_bold = FALSE, no_italic = FALSE;
+            preserve_line_breaks = FALSE, preserve_hyphens = FALSE, do_dump = FALSE, no_bold = FALSE,
+            no_italic = FALSE;
 
     const char * const short_options = ":ho:vVl:f:d:u:";
     const struct option long_options[] = {
@@ -225,6 +227,7 @@ int main(int argc, char **argv)
         { "output", required_argument, NULL, 'o' },//
         { "pictures", no_argument, &do_pictures, 1 },//
         { "preserve-line-breaks", no_argument, &preserve_line_breaks, 1 },//
+        { "preserve-hyphens", no_argument, &preserve_hyphens, 1 },
         { "sansserif-name", required_argument, NULL, 'y' },
         { "serif-name", required_argument, NULL, 'z' },
         { "onecolumn", no_argument, &do_singlecolumn, 1 },//
@@ -344,6 +347,8 @@ int main(int argc, char **argv)
             opt.setUnrecognizedChar(unrecognized_char);
         if (preserve_line_breaks)
             opt.setPreserveLineBreaks(true);
+        if(preserve_hyphens)
+            opt.setPreserveLineHyphens(true);
 
         opt.setLanguage(langcode);
         opt.setImageExportFormat(FORMAT_PNG);
