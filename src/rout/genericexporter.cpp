@@ -18,6 +18,7 @@
 
 #include <cassert>
 #include <cstring>
+
 #include "genericexporter.h"
 #include "ced/ced.h"
 #include "ced/cedint.h"
@@ -25,6 +26,7 @@
 #include "common/cifconfig.h"
 #include "cfcompat.h"
 #include "common/helper.h"
+#include "common/iconv_local.h"
 
 namespace CIF
 {
@@ -40,6 +42,10 @@ GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
             num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
             num_tables_(0), table_nesting_level_(0), skip_empty_paragraphs_(false),
             skip_empty_lines_(false) {
+
+    setEncodings();
+    if (isCharsetConversionNeeded())
+        converter_.open(inputEncoding(), outputEncoding());
 }
 
 int GenericExporter::charNumInParagraph(CEDParagraph * par) {
@@ -356,6 +362,55 @@ void GenericExporter::savePictureData(CEDChar * picture, const std::string& path
     imageExporter()->save(pict_data, pict_length, path);
 }
 
+void GenericExporter::setEncodings() {
+    switch (formatOptions().language()) {
+    case LANGUAGE_CROATIAN:
+    case LANGUAGE_HUNGARIAN:
+    case LANGUAGE_POLISH:
+    case LANGUAGE_ROMANIAN:
+    case LANGUAGE_SERBIAN:
+    case LANGUAGE_SLOVENIAN:
+        setInputEncoding("cp1250");
+        setOutputEncoding("utf-8");
+        break;
+    case LANGUAGE_BULGARIAN:
+    case LANGUAGE_KAZAKH:
+    case LANGUAGE_KAZ_ENG:
+    case LANGUAGE_RUSSIAN:
+    case LANGUAGE_RUS_ENG:
+    case LANGUAGE_UKRAINIAN:
+    case LANGUAGE_UZBEK:
+        setInputEncoding("cp1251");
+        setOutputEncoding("utf-8");
+        break;
+    case LANGUAGE_DANISH:
+    case LANGUAGE_DUTCH:
+    case LANGUAGE_ENGLISH:
+    case LANGUAGE_FRENCH:
+    case LANGUAGE_GERMAN:
+    case LANGUAGE_ITALIAN:
+    case LANGUAGE_PORTUGUESE:
+    case LANGUAGE_SPANISH:
+    case LANGUAGE_SWEDISH:
+        setInputEncoding("cp1252");
+        setOutputEncoding("utf-8");
+        break;
+    case LANGUAGE_TURKISH:
+        setInputEncoding("cp1254");
+        setOutputEncoding("utf-8");
+        break;
+    case LANGUAGE_ESTONIAN:
+    case LANGUAGE_LATVIAN:
+    case LANGUAGE_LITHUANIAN:
+        setInputEncoding("cp1257");
+        setOutputEncoding("utf-8");
+        break;
+    default:
+        setInputEncoding("");
+        setOutputEncoding("");
+    }
+}
+
 void GenericExporter::setSkipEmptyLines(bool value) {
     skip_empty_lines_ = value;
 }
@@ -381,9 +436,8 @@ bool GenericExporter::skipPictures() const {
 }
 
 void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
-    letterEx *alt = chr->alternatives;
-    assert(alt);
-    os << alt->alternative;
+    assert(chr and chr->alternatives);
+    os << chr->alternatives->alternative;
 }
 
 void GenericExporter::writeColumnBegin(std::ostream& /*os*/, CEDParagraph * /*col*/) {

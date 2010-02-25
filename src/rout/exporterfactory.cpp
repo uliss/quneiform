@@ -29,46 +29,33 @@ namespace CIF
 {
 
 ExporterFactoryImpl::ExporterFactoryImpl() :
-    page_(NULL)
-{
+    page_(NULL) {
 }
 
-ExporterFactoryImpl::~ExporterFactoryImpl()
-{
-}
-
-void ExporterFactoryImpl::setFormatOptions(const FormatOptions& opts)
-{
+void ExporterFactoryImpl::setFormatOptions(const FormatOptions& opts) {
     format_options_ = opts;
 }
 
-void ExporterFactoryImpl::setPage(Handle page)
-{
+void ExporterFactoryImpl::setPage(Handle page) {
     page_ = page;
 }
 
-Exporter * ExporterFactoryImpl::make(format_t format)
-{
+Exporter * ExporterFactoryImpl::make(format_t format) {
     switch (format) {
     case FORMAT_DEBUG:
         return new DebugExporter(format_options_);
-        break;
     case FORMAT_RTF:
         return new RtfExporter(page_);
-        break;
     case FORMAT_EDNATIVE:
         return new EdExporter(page_);
-        break;
-    case FORMAT_XHTML:
-        return new HtmlExporter((CEDPage*) page_, format_options_);
-    case FORMAT_HTML:
-    case FORMAT_TEXT:
-    case FORMAT_SMARTTEXT:
-    case FORMAT_TABLETXT:
-    case FORMAT_TABLEDBF:
     case FORMAT_HOCR:
-        return new TextExporter(page_, format, format_options_);
-        break;
+    case FORMAT_XHTML:
+    case FORMAT_HTML:
+        return new HtmlExporter((CEDPage*) page_, format_options_);
+    case FORMAT_SMARTTEXT:
+        format_options_.setPreserveLineBreaks(true);
+    case FORMAT_TEXT:
+        return new TextExporter((CEDPage*) page_, format_options_);
     default:
         throw Exception("Unsupported export format");
     }

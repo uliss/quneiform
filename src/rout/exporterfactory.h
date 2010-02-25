@@ -32,7 +32,6 @@ class ExporterFactoryImpl
 {
 public:
     ExporterFactoryImpl();
-    ~ExporterFactoryImpl();
     Exporter * make(format_t format);
     void setFormatOptions(const FormatOptions& opts);
     void setPage(Handle page);

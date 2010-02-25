@@ -21,6 +21,7 @@
 
 #include "exporter.h"
 #include "common/size.h"
+#include "common/iconv_local.h"
 
 class CEDPage;
 class CEDSection;
@@ -48,6 +49,7 @@ class GenericExporter: public Exporter
         bool isEmptyParagraph(CEDParagraph * par);
         std::string savePicture(CEDChar * picture);
         void savePictureData(CEDChar * picture, const std::string&);
+        void setEncodings();
     private:
         void doExport(std::ostream& os);
         void exportChar(CEDChar * chr);
@@ -101,6 +103,7 @@ class GenericExporter: public Exporter
         bool skip_empty_paragraphs_;
         bool skip_empty_lines_;
     protected:
+        Iconv converter_;
         Size last_picture_size_;
 };
 

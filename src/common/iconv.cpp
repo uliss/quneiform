@@ -24,53 +24,52 @@ namespace CIF
 {
 
 Iconv::Iconv() :
-        iconv_(iconv_t(-1))
-{
+    iconv_(iconv_t(-1)) {
 }
 
 Iconv::Iconv(const std::string &from, const std::string &to) :
-        iconv_(iconv_t(-1))
-{
+    iconv_(iconv_t(-1)) {
     if (!open(from, to))
         throw Exception("Can't convert from " + from + " to " + to);
 }
 
-Iconv::~Iconv()
-{
+Iconv::~Iconv() {
     close();
 }
 
-bool Iconv::close()
-{
+bool Iconv::close() {
     bool result = true;
 
+#ifdef USE_ICONV
     if (iconv_ != iconv_t(-1)) {
         if (::iconv_close(iconv_) == -1)
-            result = false;
+        result = false;
 
         iconv_ = iconv_t(-1);
     }
+#endif
 
     return result;
 }
 
-void throwException()
-{
+void throwException() {
+#ifdef USE_ICONV
     switch (errno) {
         case E2BIG:
-            break;
+        break;
         case EILSEQ:
-            throw Iconv::Exception("Invalid character or multibyte sequence in the input");
-            break;
+        throw Iconv::Exception("Invalid character or multibyte sequence in the input");
+        break;
         case EINVAL:
         default:
-            throw Iconv::Exception("Incomplete multibyte sequence in the input");
-            break;
+        throw Iconv::Exception("Incomplete multibyte sequence in the input");
+        break;
     }
+#endif
 }
 
-std::string Iconv::convert(const std::string& src)
-{
+std::string Iconv::convert(const std::string& src) {
+#ifdef USE_ICONV
     std::string result;
 
     if (src.empty())
@@ -93,22 +92,28 @@ std::string Iconv::convert(const std::string& src)
     }
 
     return result;
-}
-
-size_t Iconv::convert(const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft)
-{
-    return ::iconv(iconv_, 
-#if !defined(ICONV_SECOND_ARGUMENT_IS_CONST)
-                  (char**)
 #endif
-		   inbuf, inbytesleft, outbuf, outbytesleft);
+    return src;
 }
 
-bool Iconv::open(const std::string &from, const std::string &to)
-{
+size_t Iconv::convert(const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft) {
+#ifdef USE_ICONV
+    return ::iconv(iconv_,
+#if !defined(ICONV_SECOND_ARGUMENT_IS_CONST)
+            (char**)
+#endif
+            inbuf, inbytesleft, outbuf, outbytesleft);
+#else
+    return -1;
+#endif
+}
+
+bool Iconv::open(const std::string &from, const std::string &to) {
+#ifdef USE_ICONV
     close();
     iconv_ = ::iconv_open(to.c_str(), from.c_str());
     return iconv_ != iconv_t(-1);
+#endif
 }
 
 }

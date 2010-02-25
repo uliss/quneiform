@@ -17,7 +17,8 @@
  ***************************************************************************/
 
 #include "textexporter.h"
-#include "rout.h"
+#include "ced/ced.h"
+#include "ced/cedint.h"
 
 #include <cstdlib>
 #include <cstring>
@@ -25,66 +26,50 @@
 namespace CIF
 {
 
-TextExporter::TextExporter(Handle page, int format, const FormatOptions& opt) :
-    Exporter(opt), format_(format), page_(page)
-{
-    if (!ROUT_Init(PUMA_MODULE_ROUT, 0))
-        throw std::runtime_error("ROUT_Init failed.");
-
-    if (!ROUT_LoadRec6List("rec6all.dat"))
-        throw std::runtime_error("ROUT_LoadRec6List failed.");
+TextExporter::TextExporter(CEDPage * page, const FormatOptions& opts) :
+    GenericExporter(page, opts) {
+    setSkipEmptyLines(true);
+    setSkipEmptyParagraphs(true);
+    setSkipPictures(true);
 }
 
-TextExporter::~TextExporter()
-{
-    ROUT_Done();
+void TextExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
+    assert(chr && chr->alternatives);
+    if (isCharsetConversionNeeded())
+        os << converter_.convert(std::string(1, chr->alternatives->alternative));
+    else
+        os << chr->alternatives->alternative;
 }
 
-void TextExporter::exportTo(const std::string& filename)
-{
-    char szName[260];
-    strcpy(szName, filename.c_str());
-    char * str = strrchr(szName, '.');
-    if (str)
-        *(str) = '\0';
-
-    Bool line_breaks = formatOptions().preserveLineBreaks();
-    if (line_breaks) {
-        if (!ROUT_SetImportData(ROUT_BOOL_PreserveLineBreaks, &line_breaks))
-            throw Exception("ROUT_SetImportData failed");
-    }
-
-    char unrecog = formatOptions().unrecognizedChar();
-    if (!ROUT_SetImportData(ROUT_PCHAR_PageName, szName) || !ROUT_SetImportData(
-            ROUT_HANDLE_PageHandle, page_)
-            || !ROUT_SetImportData(ROUT_LONG_Format, (void*) format_) || !ROUT_SetImportData(
-            ROUT_LONG_Code, (void*) PUMA_CODE_UTF8) || !ROUT_SetImportData(ROUT_PCHAR_BAD_CHAR,
-            (void*) &unrecog))
-        throw Exception("ROUT_SetImportData failed");
-
-    // Количество объектов
-    long countObjects = ROUT_CountObjects();
-    if (countObjects == -1)
-        return;
-
-    // Цикл по объектам на странице
-    for (long objIndex = 1; objIndex <= countObjects; objIndex++) {
-        std::string path(filename);
-
-        if (countObjects != 1) {
-            path = ROUT_GetDefaultObjectName(objIndex);
-            if (!path.empty())
-                throw Exception("ROUT_GetDefaultObjectName failed");
-        }
-
-        if (!ROUT_SaveObject(objIndex, path.c_str(), FALSE))
-            throw Exception("ROUT_SaveObject failed");
-    }
+void TextExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
+    if (formatOptions().preserveLineBreaks() or line->hardBreak)
+        os << "\n";
 }
 
-void TextExporter::doExport(std::ostream&)
-{
-    throw Exception("Export to stream for text format not supported yet");
+void TextExporter::writePageBegin(std::ostream& os) {
+    os << "\n";
+}
+
+void TextExporter::writePageEnd(std::ostream& os) {
+    os << std::endl;
+}
+
+void TextExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
+}
+
+void TextExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * par) {
+    os << "\n";
+}
+
+void TextExporter::writePicture(std::ostream& os, CEDChar * picture) {
+    os << "[picture]\n";
+}
+
+void TextExporter::writeTableBegin(std::ostream& os, CEDParagraph * table) {
+    os << "[table]\n";
+}
+
+void TextExporter::writeTableEnd(std::ostream& os, CEDParagraph * table) {
 }
 
 }

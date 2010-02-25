@@ -26,7 +26,11 @@
 
 #include <string>
 #include <stdexcept>
+#include "config.h"
+
+#ifdef USE_ICONV
 #include <iconv.h>
+#endif
 
 namespace CIF
 {
@@ -41,11 +45,17 @@ class Iconv
         typedef std::runtime_error Exception;
 
         bool close();
-        size_t convert(const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
         std::string convert(const std::string& src);
         bool open(const std::string &from, const std::string &to);
     private:
+        size_t convert(const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
+    private:
+#ifdef USE_ICONV
         iconv_t iconv_;
+#else
+        typedef int iconv_t;
+        iconv_t iconv_;
+#endif
 };
 
 }

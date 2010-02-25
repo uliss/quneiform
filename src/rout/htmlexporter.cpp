@@ -23,28 +23,15 @@
 #include "ced/cedint.h"
 #include "rout_own.h"
 #include "imageexporterfactory.h"
-#include "config.h"
-
-#ifdef USE_ICONV
-#include "common/iconv_local.h"
-#endif
 
 namespace CIF
 {
 
 HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts), converter_(0), lines_left_(0), current_font_style_(0) {
+    GenericExporter(page, opts), lines_left_(0), current_font_style_(0) {
 
     ImageExporterPtr exp = ImageExporterFactory::instance().make();
     setImageExporter(exp);
-
-    setEncodings();
-
-#ifdef USE_ICONV
-    if(isCharsetConversionNeeded()) {
-        converter_ = new Iconv(inputEncoding(), outputEncoding());
-    }
-#endif
 
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
@@ -52,9 +39,6 @@ HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
 }
 
 HtmlExporter::~HtmlExporter() {
-#ifdef USE_ICONV
-    delete converter_;
-#endif
 }
 
 void HtmlExporter::writeFontStyleBegin(std::ostream& os, long newStyle, int style) {
@@ -141,33 +125,15 @@ std::string HtmlExporter::fontStyleEnd(int style) {
     }
 }
 
-void HtmlExporter::setEncodings() {
-    switch (formatOptions().language()) {
-    case LANGUAGE_RUSSIAN:
-    case LANGUAGE_RUS_ENG:
-    case LANGUAGE_UKRAINIAN:
-        setInputEncoding("cp1251");
-        setOutputEncoding("utf-8");
-        break;
-    default:
-        setInputEncoding("");
-        setOutputEncoding("");
-    }
-}
-
 void HtmlExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     assert(chr && chr->alternatives);
 
     writeFontStyle(os, chr->fontAttribs);
 
-#ifdef USE_ICONV
-    if(isCharsetConversionNeeded())
-    os << converter_->convert(escapeHtmlSpecialChar(chr->alternatives->alternative));
+    if (isCharsetConversionNeeded())
+        os << converter_.convert(escapeHtmlSpecialChar(chr->alternatives->alternative));
     else
-    os << escapeHtmlSpecialChar(chr->alternatives->alternative);
-#else
-    os << escapeHtmlSpecialChar(chr->alternatives->alternative);
-#endif
+        os << escapeHtmlSpecialChar(chr->alternatives->alternative);
 }
 
 void HtmlExporter::writeDoctype(std::ostream& os) {
@@ -225,14 +191,12 @@ void HtmlExporter::writeMeta(std::ostream& os) {
     writeSingleTag(os, "meta", attrs);
     os << "\n";
 
-#ifdef USE_ICONV
-    if(isCharsetConversionNeeded()) {
+    if (isCharsetConversionNeeded()) {
         attrs["name"] = "Content-Type";
         attrs["content"] = "text/html;charset=" + outputEncoding();
         writeSingleTag(os, "meta", attrs);
         os << "\n";
     }
-#endif
 }
 
 void HtmlExporter::writePageBegin(std::ostream& os) {

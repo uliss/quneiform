@@ -26,8 +26,6 @@
 namespace CIF
 {
 
-class Iconv;
-
 class HtmlExporter: public GenericExporter
 {
     public:
@@ -35,7 +33,6 @@ class HtmlExporter: public GenericExporter
         ~HtmlExporter();
     private:
         std::string escapeHtmlSpecialChar(unsigned char code);
-        void setEncodings();
         void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeDoctype(std::ostream& os);
         virtual void writeFontStyle(std::ostream& os, long style);
@@ -61,7 +58,6 @@ class HtmlExporter: public GenericExporter
         void writeStartTag(std::ostream& os, const std::string&  tagName);
         void writeStartTag(std::ostream& os, const std::string&  tagName, const Attributes& attr);
     private:
-        Iconv * converter_;
         int lines_left_;
         long current_font_style_;
         typedef std::vector<int> FontStyleStack;

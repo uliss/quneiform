@@ -19,21 +19,25 @@
 #ifndef TEXTEXPORTER_H_
 #define TEXTEXPORTER_H_
 
-#include "exporter.h"
-#include "cttypes.h"
+#include "genericexporter.h"
 
-namespace CIF {
-
-class TextExporter : public Exporter
+namespace CIF
 {
-public:
-    TextExporter(Handle page, int format, const FormatOptions& opts);
-    ~TextExporter();
-    void exportTo(const std::string& filename);
-private:
-    void doExport(std::ostream& os);
-    int format_;
-    Handle page_;
+
+class TextExporter: public GenericExporter
+{
+    public:
+        TextExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+    private:
+        void writeCharacter(std::ostream& os, CEDChar * chr);
+        void writeLineEnd(std::ostream& os, CEDLine * line);
+        void writePageBegin(std::ostream& os);
+        void writePageEnd(std::ostream& os);
+        void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+        void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+        void writePicture(std::ostream& os, CEDChar * picture);
+        void writeTableBegin(std::ostream& os, CEDParagraph * table);
+        void writeTableEnd(std::ostream& os, CEDParagraph * table);
 };
 
 }
