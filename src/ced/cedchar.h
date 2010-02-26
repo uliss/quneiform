@@ -30,7 +30,6 @@ class FUN_EXPO__ CEDChar
     public:
         CEDChar();
         ~CEDChar();
-        CEDChar * prev, *next; //pointer to neibor elements in connected list
     protected:
         int parentNumber; //number of parent in a file
         friend class CEDLine;
@@ -38,6 +37,7 @@ class FUN_EXPO__ CEDChar
         friend void FormattedTR(const text_ref* pt);
         friend void StripLines();
     public:
+        CEDChar * prev, *next; //pointer to neibor elements in connected list
         edRect layout; //layout of symbol in input image (in pixel)
         int fontHeight, fontAttribs; //font parameters
         int fontNum;

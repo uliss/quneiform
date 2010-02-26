@@ -68,6 +68,7 @@
 
 #include "ced.h"
 #include "cedchar.h"
+#include "cedparagraph.h"
 #include "ced_struct.h"
 #include "compat_defs.h"
 #include "compat/filefunc.h"

@@ -4,6 +4,7 @@ add_library(cuneiform-ced ${LIBTYPE}
 ced.cpp
 cedchar.cpp
 cedline.cpp
+cedparagraph.cpp
 ced_func.cpp
 ced_func_old.cpp
 ced_func_rtf.cpp
