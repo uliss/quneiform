@@ -23,7 +23,8 @@
 #include "ced_struct.h"
 #include "common/rect.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class FUN_EXPO__ CEDChar
 {
@@ -35,9 +36,13 @@ class FUN_EXPO__ CEDChar
         friend void FormattedTR(const text_ref* pt);
         friend void StripLines();
     public:
+        Rect boundingRect() const;
+        Rect& rBoundingRect();
+        void setBoundingRect(const Rect& bbox);
+        void setBoundingRect(const EDBOX& bbox);
+
         int parentNumber; //number of parent in a file
         CEDChar * prev, *next; //pointer to neibor elements in connected list
-        edRect layout; //layout of symbol in input image (in pixel)
         int fontHeight, fontAttribs; //font parameters
         int fontNum;
         int fontLang;
@@ -47,7 +52,29 @@ class FUN_EXPO__ CEDChar
         int numOfAltern;
         char * extData; //data to be written in file after header
         int extDataLen; //their length
+    private:
+        //layout of symbol in input image (in pixel)
+        Rect bbox_;
 };
+
+inline Rect CEDChar::boundingRect() const {
+    return bbox_;
+}
+
+inline Rect& CEDChar::rBoundingRect() {
+    return bbox_;
+}
+
+inline void CEDChar::setBoundingRect(const Rect& bbox) {
+    bbox_ = bbox;
+}
+
+inline void CEDChar::setBoundingRect(const EDBOX& bbox) {
+    bbox_.rleft() = bbox.x;
+    bbox_.rtop() = bbox.y;
+    bbox_.setWidth(bbox.w);
+    bbox_.setHeight(bbox.h);
+}
 
 }
 

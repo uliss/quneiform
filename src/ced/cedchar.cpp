@@ -22,7 +22,6 @@ namespace CIF
 {
 
 CEDChar::CEDChar() {
-    layout.top = layout.bottom = layout.left = layout.right = 0;
     fontHeight = fontNum = fontAttribs = fontNum = fontLang = 0;
     foregroundColor = backgroundColor = 0;
     alternatives = 0;

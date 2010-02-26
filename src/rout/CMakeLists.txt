@@ -13,9 +13,10 @@ if(USE_ICONV)
     include_directories(${ICONV_INCLUDE_DIR})
 endif()
 
+# TODO, uliss: delete commented files
 add_library(cuneiform-rout ${LIBTYPE}
-browse.cpp
-codetables.cpp
+#browse.cpp
+#codetables.cpp
 exporter.cpp
 exporterfactory.cpp
 edexporter.cpp
@@ -26,14 +27,14 @@ hocrexporter.cpp
 htmlexporter.cpp
 rtfexporter.cpp
 textexporter.cpp
-html.cpp
-pictures.cpp
-rout.cpp
-rout_dll.cpp
-tabledbf.cpp
-tabletext.cpp
-text.cpp
-words.cpp
+#html.cpp
+#pictures.cpp
+#rout.cpp
+#rout_dll.cpp
+#tabledbf.cpp
+#tabletext.cpp
+#text.cpp
+#words.cpp
 ${image_exporters}
 )
 

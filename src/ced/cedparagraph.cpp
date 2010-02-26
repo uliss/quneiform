@@ -28,7 +28,6 @@ CEDParagraph::CEDParagraph() {
     type = 0;
     alignment = 0;
     layout.x = layout.w = layout.y = layout.h = 0;
-    indent.left = indent.bottom = indent.right = indent.top = 0;
     userNumber = 0;
     border = 0;
     interval.cx = interval.cy = 0;

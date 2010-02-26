@@ -1223,16 +1223,10 @@ Bool WriteRtfParaFmt(struct StrRtfOut far *rtf, CEDParagraph* NewPfmt, CEDParagr
 
     // extract value for comparison
     if (PrevPfmt) {
-        PrevLeftIndent = PrevPfmt->indent.left;
-        PrevRightIndent = PrevPfmt->indent.right;
-        PrevFirstIndent = PrevPfmt->indent.top;
-        //       PrevFlags=ResetUintFlag(PfmtId[PrevPfmt].flags,PAGE_HDR_FTR);
-        //       PrevTabId=PfmtId[PrevPfmt].TabId;
-        //      PrevCellId=PrevCell;
-        //       PrevRowId=cell[PrevCellId].row;
+        PrevLeftIndent = PrevPfmt->indent.left();
+        PrevRightIndent = PrevPfmt->indent.right();
+        PrevFirstIndent = PrevPfmt->indent.top();
         PrevShading = PrevPfmt->shading;
-        //       PrevParaFID=PrevFID;
-        //       PrevParaSID=PfmtId[PrevPfmt].StyId;
         PrevSpaceBefore = PrevPfmt->interval.cx;
         PrevSpaceAfter = PrevPfmt->interval.cy;
         PrevSpaceBetween = PrevPfmt->spaceBetweenLines;
@@ -1250,16 +1244,10 @@ Bool WriteRtfParaFmt(struct StrRtfOut far *rtf, CEDParagraph* NewPfmt, CEDParagr
         PrevBrdrBtw = PrevPfmt->brdrBtw;
     }
 
-    CurLeftIndent = NewPfmt->indent.left;
-    CurRightIndent = NewPfmt->indent.right;
-    CurFirstIndent = NewPfmt->indent.top;
-    //    CurFlags=ResetUintFlag(PfmtId[NewPfmt].flags,PAGE_HDR_FTR);
-    //    CurTabId=PfmtId[NewPfmt].TabId;
-    //    CurCellId=NewCell;
-    //    CurRowId=cell[CurCellId].row;
+    CurLeftIndent = NewPfmt->indent.left();
+    CurRightIndent = NewPfmt->indent.right();
+    CurFirstIndent = NewPfmt->indent.top();
     CurShading = NewPfmt->shading;
-    //    CurParaFID=NewFID;
-    //    CurParaSID=PfmtId[NewPfmt].StyId;
     CurSpaceBefore = NewPfmt->interval.cx;
     CurSpaceAfter = NewPfmt->interval.cy;
     CurSpaceBetween = NewPfmt->spaceBetweenLines;

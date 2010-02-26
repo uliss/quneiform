@@ -114,7 +114,7 @@ uint32_t GetPictCount(void)
 }
 
 //=====================     Размер картинки     ===================================
-uchar GetPictRect(uint32_t NumberPict, Rect16* RectPict, uint32_t* UserNumber)
+uchar GetPictRect(uint32_t NumberPict, ::Rect16* RectPict, uint32_t* UserNumber)
 {
     uint32_t PictCount = 0;
     Point Lr, Wh;
@@ -154,9 +154,9 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     Handle hString = NULL;
     CIF::Size pictSize;
     EDSIZE pictGoal;
-    EDRECT indent;
+    CIF::Rect indent;
     EDBOX playout;
-    EDRECT slayout;
+    CIF::Rect slayout;
     EDSIZE interval;
     EDBOX EdFragmRect;
     letterEx Letter;
@@ -370,10 +370,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
             pictGoal.cy = (uint32_t) (Twips * pTmpDIB->GetLinesNumber());
             int32_t iDIBSize = pTmpDIB->GetDIBSize();
             delete pTmpDIB;
-            indent.left = 0;
-            indent.right = 0;
-            indent.top = 0;
-            indent.bottom = 0;
+            indent = CIF::Rect();
             interval.cx = 0;
             interval.cy = 0;
             playout.x = -1;
@@ -382,10 +379,10 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
             playout.h = -1;
             Lr.rx() = MAX(0, Lr.x());
             Lr.ry() = MAX(0, Lr.y());
-            slayout.left = Lr.x();
-            slayout.right = Lr.x() + Wh.x();
-            slayout.top = Lr.y();
-            slayout.bottom = Lr.y() + Wh.y();
+            slayout.rleft() = Lr.x();
+            slayout.rright() = Lr.x() + Wh.x();
+            slayout.rtop() = Lr.y();
+            slayout.rbottom() = Lr.y() + Wh.y();
             hPrevObject = SectorInfo->hObject;
 
             if (SectorInfo->FlagInColumn || (OutPutTypeFrame && SectorInfo->FlagFictiveParagraph)) {

@@ -39,11 +39,7 @@ HocrExporter::HocrExporter(CEDPage * page, const FormatOptions& opts) :
 
 void HocrExporter::addCharBBox(CEDChar * chr) {
     assert(chr);
-    Rect r;
-    r.rleft() = chr->layout.left;
-    r.rtop() = chr->layout.top;
-    r.rright() = chr->layout.right;
-    r.rbottom() = chr->layout.bottom;
+    Rect r = chr->boundingRect();
 
     // spaces have not valid bounding rectangle
     if (goodCharRect(r)) {

@@ -29,7 +29,7 @@ class FUN_EXPO__ CEDParagraph
     public:
         int type; // Type paragraph
         int alignment; // Alignment abzattsa
-        EDRECT indent; // Indentation: left = left, right = width, top = red.line (in twip)
+        Rect indent; // Indentation: left = left, right = width, top = red.line (in twip)
         int userNumber; // ID number, the user at the stage of fragmentation
         int border; //  frame around abzattsa
         EDSIZE interval; //  cx-upper indentation, cy-bottom

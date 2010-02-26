@@ -256,9 +256,9 @@ void NewFormattedE(const edExtention* pt, const void* ptExt)
             hPara->interval.cx = pard->spaceBefore;
             hPara->interval.cy = pard->spaceAfter;
             hPara->alignment = pard->alignment;
-            hPara->indent.top = pard->firstIndent;
-            hPara->indent.left = pard->leftIndent;
-            hPara->indent.right = pard->rightIndent;
+            hPara->indent.rtop() = pard->firstIndent;
+            hPara->indent.rleft() = pard->leftIndent;
+            hPara->indent.rright() = pard->rightIndent;
             hPara->keep = pard->keep;
             hPara->shading = (signed short) pard->shading;
             hPara->spaceBetweenLines = pard->spaceBetweenLines;
@@ -493,11 +493,7 @@ void NewFormattedL(const letter* pt, const uint32_t alternatives)
     memcpy(lpData, (void*) pt, alternatives * sizeof(letterEx));
     chr->alternatives = /*(letter*)*/lpData;
     chr->numOfAltern = alternatives;
-    chr->layout.left = refBox.x;
-    chr->layout.top = refBox.y;
-    chr->layout.right = refBox.x + refBox.w;
-    chr->layout.bottom = refBox.y + refBox.h;
-    //  memcpy(&(chr->layout),&refBox,sizeof(edBox));
+    chr->setBoundingRect(refBox);
     chr->fontHeight = kegl;
     chr->fontAttribs = font;
     chr->fontNum = fontNum;
@@ -1064,11 +1060,11 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
                     line->SetCurChar(chr);
                     bit_map_ref bmr;
                     bmr.code = SS_BITMAP_REF;
-                    bmr.col = (uint16_t) chr->layout.left;
-                    bmr.row = (uint16_t) chr->layout.top;
-                    bmr.height = (uint16_t) (chr->layout.bottom
-                                             - chr->layout.top);
-                    bmr.width = uint16_t(chr->layout.right - chr->layout.left);
+                    Rect bbox = chr->boundingRect();
+                    bmr.col = bbox.left();
+                    bmr.row = bbox.top();
+                    bmr.height = bbox.height();
+                    bmr.width = bbox.width();
 
                     if (!CFIO_WriteToFile(hFile, (pchar)(&bmr), sizeof(bmr)))
                         goto ED_WRITE_END;
@@ -1266,9 +1262,9 @@ Bool32 WritePara(Handle hFile, CEDParagraph* hPara)
     pard.spaceBefore = hPara->interval.cx;
     pard.spaceAfter = hPara->interval.cy;
     pard.alignment = hPara->alignment;
-    pard.firstIndent = hPara->indent.top;
-    pard.leftIndent = hPara->indent.left;
-    pard.rightIndent = hPara->indent.right;
+    pard.firstIndent = hPara->indent.top();
+    pard.leftIndent = hPara->indent.left();
+    pard.rightIndent = hPara->indent.right();
     pard.keep = hPara->keep;
     pard.shading = hPara->shading;
     pard.spaceBetweenLines = hPara->spaceBetweenLines;

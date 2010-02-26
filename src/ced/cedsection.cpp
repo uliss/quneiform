@@ -350,7 +350,7 @@ CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow, int cellX, int merging
     return para;
 }
 
-CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, int align, EDRECT indent,
+CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, int align, const Rect& indent,
         int UserNum, int FlagBorder, EDSIZE interval, edBox layout, int color, int shading,
         int spaceBetweenLines, char spcBtwLnsMult, char keep) {
     if (hObject->type != TAB_CELL_BEGIN && hObject->type != FRAME_BEGIN && hObject->type

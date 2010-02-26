@@ -45,7 +45,7 @@ class FUN_EXPO__ CEDSection
         CEDParagraph * CreateColumn();
         CEDParagraph * CreateFrame(CEDParagraph* hObject, edBox rect, char position = -1,
                 int borderSpace = -1, int dxfrtextx = -1, int dxfrtexty = -1);
-        CEDParagraph * CreateParagraph(CEDParagraph * hObject, int align, EDRECT indent,
+        CEDParagraph * CreateParagraph(CEDParagraph * hObject, int align, const Rect& indent,
                 int UserNum, int FlagBorder, EDSIZE interval, edBox layout, int color, int shading,
                 int spaceBetweenLines, char spcBtwLnsMult, char keep);
 
