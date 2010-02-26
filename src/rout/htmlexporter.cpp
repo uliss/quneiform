@@ -249,7 +249,7 @@ void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
     try {
         std::string path = savePicture(picture);
         Attributes attrs;
-        attrs["src"] = path;
+        attrs["src"] = escapeHtmlSpecialChars(path);
         attrs["alt"] = "";
         attrs["height"] = toString(last_picture_size_.height());
         attrs["width"] = toString(last_picture_size_.width());
