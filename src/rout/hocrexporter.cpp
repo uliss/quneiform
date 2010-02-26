@@ -37,7 +37,7 @@ HocrExporter::HocrExporter(CEDPage * page, const FormatOptions& opts) :
     formatOptions().setPreserveLineHyphens(true);
 }
 
-void HocrExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
+void HocrExporter::addCharBBox(CEDChar * chr) {
     assert(chr);
     Rect r;
     r.rleft() = chr->layout.left;
@@ -58,8 +58,18 @@ void HocrExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
             is_in_line_ = true;
         }
     }
+}
 
+void HocrExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
+    addCharBBox(chr);
     HtmlExporter::writeCharacter(os, chr);
+}
+
+void HocrExporter::writeCharBBoxesInfo(std::ostream& os) {
+    os << "\n  <span class=\"ocr_info\" title=\"x_bboxes";
+    for (RectList::iterator it = rects_.begin(), end = rects_.end(); it != end; ++it)
+        os << " " << it->left() << " " << it->top() << " " << it->right() << " " << it->bottom();
+    os << "\"></span>\n";
 }
 
 void HocrExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * /*line*/) {
@@ -68,9 +78,10 @@ void HocrExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * /*line*/) {
 
 void HocrExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
     os << "  <span class=\"ocr_line\" id=\"line_" << numLines() << "\" " << "title=\"bbox "
-                << line_rect_.left() << " " << line_rect_.top() << " " << line_rect_.right() << " "
-                << line_rect_.bottom() << "\">";
+            << line_rect_.left() << " " << line_rect_.top() << " " << line_rect_.right() << " "
+            << line_rect_.bottom() << "\">";
 
+    writeCharBBoxesInfo(os);
     writeFontStyle(lineBuffer(), 0);
     HtmlExporter::writeLineEnd(os, line);
     os << "</span>\n";

@@ -33,6 +33,7 @@ class HtmlExporter: public TextExporter
         ~HtmlExporter();
     protected:
         std::string escapeHtmlSpecialChar(unsigned char code);
+        std::string lineBufferString();
         void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeDoctype(std::ostream& os);
         virtual void writeFontStyle(std::ostream& os, long style);

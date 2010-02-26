@@ -125,6 +125,10 @@ std::string HtmlExporter::fontStyleEnd(int style) {
     }
 }
 
+std::string HtmlExporter::lineBufferString() {
+    return lineBuffer().str();
+}
+
 void HtmlExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     assert(chr and chr->alternatives);
     writeFontStyle(os, chr->fontAttribs);

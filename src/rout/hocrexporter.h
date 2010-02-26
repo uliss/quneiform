@@ -32,12 +32,15 @@ class HocrExporter: public HtmlExporter
         HocrExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
     protected:
         void writeCharacter(std::ostream& os, CEDChar * chr);
+        void writeCharBBoxesInfo(std::ostream& os);
         void writeLineBegin(std::ostream& os, CEDLine * line);
         void writeLineEnd(std::ostream& os, CEDLine * line);
         void writeMeta(std::ostream& os);
         void writePageBegin(std::ostream& os);
         void writePageEnd(std::ostream& os);
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+    private:
+        void addCharBBox(CEDChar * chr);
     private:
         typedef std::vector<Rect> RectList;
         RectList rects_;

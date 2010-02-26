@@ -34,7 +34,7 @@ class TextExporter: public GenericExporter
     protected:
         bool isLineBreak() const;
         std::ostringstream& lineBuffer();
-        std::string lineBufferString();
+        virtual std::string lineBufferString();
         void writeBOM(std::ostream& os);
         void writeCharacter(std::ostream& os, CEDChar * chr);
         void writeLineBegin(std::ostream& os, CEDLine * line);
