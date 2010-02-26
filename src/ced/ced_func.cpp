@@ -61,6 +61,7 @@
 #include "minmax.h"
 #include "ced_struct.h"
 #include "cedint.h"
+#include "cedline.h"
 #include "resource.h"
 #include "cfio/cfio.h"
 

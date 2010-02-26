@@ -59,6 +59,7 @@
 
 #include "ced_struct.h"
 #include "cedint.h"
+#include "cedline.h"
 
 //define variables and stubs
 FNRDProc RDProced = 0;//points to unstructured data processor

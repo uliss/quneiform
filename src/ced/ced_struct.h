@@ -381,46 +381,6 @@ class CED_FUNC(CEDParagraph)
         friend class CEDPage;
 };
 
-class CED_FUNC(CEDLine)
-{
-    public:
-        char *  extData;            //data to be written in file after header
-        int     extDataLen;         //their length
-        Bool32  hardBreak;
-        int defChrFontHeight;
-
-        CEDLine();
-        ~CEDLine();
-
-        CEDChar*    GetChar(int _num);
-        int GetCountChar();
-
-        CEDChar * InsertChar(); //inserts new symbol after current one. new symbol becomes current
-        //returns pointer to new symbol
-//  CEDChar * DeleteChar(Bool32 _deleteSubItems);   //deletes current symbol. previous one becomes current
-        //return it
-        //_deleteSubItems - either delete all daughter elements or attach it to previous object
-        void    SetCurChar(CEDChar* _char);//set new value of current symbol
-        CEDChar * SetCurChar(int _number);//set new value of current symbol
-
-        CEDChar * GetCurChar(); //return current symbol
-        int     GetNumOfCurChar();  //return current symbol
-
-        CEDChar * NextChar(Bool32 _goThroughLines); //returns next symbol, 0 if last
-        CEDChar * PrevChar(Bool32 _goThroughLines); //returns previous symbol, 0 if first
-        //if _goThroughSect = TRUE, then we consider last symbol in file, otherwise in line
-
-        CEDChar * chars;    //connected list of symbols
-        int     numOfChars;
-
-        CEDChar * curChar;          //current symbol
-        CEDLine * prev, *next;      //pointer to neibor elements in connected list
-        int internalNumber;         //number of line from start of file
-        int parentNumber;           //number of parent in a file
-        friend class CEDParagraph;
-        friend class CEDPage;
-};
-
 class CED_FUNC(CEDChar)
 {
     public:

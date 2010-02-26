@@ -59,6 +59,7 @@
 #include <cstring>
 #include "ced_struct.h"
 #include "cedint.h"
+#include "cedline.h"
 
 char logName[PATH_MAX];
 FILE *logStream;

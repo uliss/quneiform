@@ -22,6 +22,7 @@
 #include "genericexporter.h"
 #include "ced/ced.h"
 #include "ced/cedint.h"
+#include "ced/cedline.h"
 #include "common/debug.h"
 #include "common/cifconfig.h"
 #include "cfcompat.h"
