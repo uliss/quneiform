@@ -90,7 +90,7 @@ void TextExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
 }
 
 void TextExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * line) {
-    line_hard_break_flag_ = line->hardBreak ? true : false;
+    line_hard_break_flag_ = line->hardBreak();
 }
 
 void TextExporter::writeLineBreak(std::ostream& os) {

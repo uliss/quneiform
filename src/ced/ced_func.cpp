@@ -450,7 +450,7 @@ void NewFormattedTR(const text_ref* pt)
 void NewFormattedLB(const line_beg* pt)
 {
     curEdLine->defChrFontHeight = pt->height;
-    curEdLine->hardBreak = !pt->base_line;
+    curEdLine->setHardBreak(!pt->base_line);
 }
 
 void NewFormattedBMR(const bit_map_ref * pt)
@@ -1121,10 +1121,10 @@ Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page)
                 while (chr);
             }
 
-            if (line->hardBreak || line->defChrFontHeight > 0) {
+            if (line->hardBreak() || line->defChrFontHeight > 0) {
                 line_beg lb;
                 lb.code = SS_LINE_BEG;
-                lb.base_line = !line->hardBreak;
+                lb.base_line = !line->hardBreak();
                 lb.height = line->defChrFontHeight;
 
                 if (!CFIO_WriteToFile(hFile, (pchar) & lb, sizeof(line_beg)))

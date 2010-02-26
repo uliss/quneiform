@@ -133,7 +133,7 @@ void TestHtmlExporter::testExportLine() {
     std::stringstream buf4;
     exp_->os_ = &buf4;
     exp_->formatOptions().setPreserveLineBreaks(false);
-    line->hardBreak = TRUE;
+    line->setHardBreak(true);
     exp_->lines_left_ = 2;
     exp_->exportLine(line);
     CPPUNIT_ASSERT_EQUAL(std::string("<br/>\n"), buf4.str());

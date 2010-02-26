@@ -18,7 +18,8 @@
 
 #include "cedline.h"
 
-CEDLine::CEDLine() {
+CEDLine::CEDLine() :
+    hard_break_(FALSE) {
     extData = 0;
     extDataLen = 0;
     chars = 0;
@@ -27,11 +28,18 @@ CEDLine::CEDLine() {
     parentNumber = 0;
     prev = next = 0;
     numOfChars = 0;
-    hardBreak = FALSE;
     defChrFontHeight = -1;
 }
 
 CEDLine::~CEDLine() {
+}
+
+bool CEDLine::hardBreak() const {
+    return hard_break_ == TRUE;
+}
+
+void CEDLine::setHardBreak(bool value) {
+    hard_break_ = value ? TRUE : FALSE;
 }
 
 CEDChar * CEDLine::InsertChar() {

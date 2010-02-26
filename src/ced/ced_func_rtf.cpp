@@ -467,7 +467,7 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf, CEDParagraph* p, Bool brk)
 
         // Write EOL in non-wordwrap mode
         //If line is not last one in paragraph
-        if (l->next && l->next->parentNumber == parent && l->hardBreak)
+        if (l->next && l->next->parentNumber == parent && l->hardBreak())
             if (!WriteRtfControl(rtf, "line", PARAM_NONE, 0))
                 return FALSE;
     }

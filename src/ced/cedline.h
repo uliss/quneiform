@@ -31,6 +31,16 @@ class FUN_EXPO__ CEDLine
         CEDChar* GetChar(int _num);
         int GetCountChar();
 
+        /**
+         * Returns true if line have hard break
+         */
+        bool hardBreak() const;
+
+        /**
+         * Sets line hard breaking
+         */
+        void setHardBreak(bool value);
+
         CEDChar * InsertChar(); //inserts new symbol after current one. new symbol becomes current
         //returns pointer to new symbol
         //  CEDChar * DeleteChar(Bool32 _deleteSubItems);   //deletes current symbol. previous one becomes current
@@ -58,8 +68,9 @@ class FUN_EXPO__ CEDLine
     public:
         char * extData; //data to be written in file after header
         int extDataLen; //their length
-        Bool32 hardBreak;
         int defChrFontHeight;
+    private:
+        Bool32 hard_break_;
 };
 
 #endif /* CEDLINE_H_ */

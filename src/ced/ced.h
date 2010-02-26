@@ -189,7 +189,6 @@ CED_FUNC(Bool32) CED_Init(uint16_t wHeightCode, Handle hStorage);
 CED_FUNC(Bool32) CED_Done();
 CED_FUNC(uint32_t) CED_GetReturnCode();
 CED_FUNC(char *) CED_GetReturnString(uint32_t dwError);
-CED_FUNC(Bool32) CED_GetExportData(uint32_t dwType, void * pData);
 CED_FUNC(Bool32) CED_SetImportData(uint32_t dwType, void * pData);
 char * GetModulesString(uint32_t dwError);
 /////////////////////////////////////////////////////////////
@@ -395,8 +394,7 @@ DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol));
 DEC_FUN(Handle, CED_CreateColumn, ( Handle hEdSection));
 DEC_FUN(Handle, CED_CreateParagraph, (Handle hEdSection, Handle hObject, int align, EDRECT indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, int  color, int  shading, int spaceBetweenLines, char spcBtwLnsMult, char  keep));
 DEC_FUN(Bool32, CED_SetParaBorders, (Handle hEdParagraph, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int brdrBtw));
-DEC_FUN(Handle, CED_CreateLine, (Handle hEdParagraph, Bool32 hardBreak, int defChrFontHeight));
-DEC_FUN(Bool32, CED_SetLineParams, (Handle hEdLine, Bool32 hardBreak, int defChrFontHeight));
+DEC_FUN(Handle, CED_CreateLine, (Handle hEdParagraph, bool hardBreak, int defChrFontHeight));
 DEC_FUN(Handle, CED_CreateChar, (Handle hEdLine, EDRECT layout, LETTER* alternatives, int fontHeight, int fontNum, int fontAttribs, int fontLang, int foregroundColor, int backgroundColor));
 DEC_FUN(Handle, CED_CreateFrame, (Handle hEdSection, Handle hEdColumn, EDBOX rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty));
 DEC_FUN(Bool32, CED_SetFrameFlag, (Handle hEdFrame, int flag));

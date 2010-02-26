@@ -401,7 +401,7 @@ CED_FUNC(Bool32) CED_SetParaBorders(Handle hEdParagraph,
 }
 
 //create line
-CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, Bool32 hardBreak, int defChrFontHeight)
+CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, bool hardBreak, int defChrFontHeight)
 {
     if (logStream) {
         fprintf(logStream, "CreateLine params: %x,%i,%i\n",
@@ -410,7 +410,7 @@ CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, Bool32 hardBreak, int defCh
     }
 
     CEDLine * lin = ((CEDParagraph*)hEdParagraph)->InsertLine();
-    lin->hardBreak = hardBreak;
+    lin->setHardBreak(hardBreak);
     lin->defChrFontHeight = defChrFontHeight;
 
     if (logStream) {
@@ -419,29 +419,6 @@ CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, Bool32 hardBreak, int defCh
     }
 
     return (Handle)lin;
-}
-
-CED_FUNC(Bool32) CED_SetLineParams(Handle hEdLine, Bool32 hardBreak, int defChrFontHeight)
-{
-    if (logStream) {
-        fprintf(logStream, "SetLineParams params: %x,%i,%i\n",
-                hEdLine, hardBreak, defChrFontHeight);
-        fflush(logStream);
-    }
-
-    CEDLine * lin = ((CEDLine*)hEdLine);
-
-    if (!lin) return FALSE;
-
-    lin->hardBreak = hardBreak;
-    lin->defChrFontHeight = defChrFontHeight;
-
-    if (logStream) {
-        fprintf(logStream, "SetLineParams returned %i\n", TRUE);
-        fflush(logStream);
-    }
-
-    return TRUE;
 }
 
 //create symbol
@@ -1062,7 +1039,7 @@ CED_FUNC(Bool32) CED_GetParaBorders(Handle hEdParagraph,
 ////////////////////////////////////////////////////////////////////////////////////
 CED_FUNC(Bool32) CED_GetLineHardBreak (Handle hEdLine)
 {
-    return ((CEDLine*)hEdLine)->hardBreak;
+    return ((CEDLine*)hEdLine)->hardBreak();
 }
 
 CED_FUNC(int32_t) CED_GetLineDefChrFontHeight(Handle hEdLine)
