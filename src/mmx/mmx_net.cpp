@@ -60,7 +60,7 @@
 uint32_t MMX_scalarUni(int16_t * _EAX, int16_t * _EDX, int32_t num)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
         mov eax, _EAX
         mov edx, _EDX
@@ -125,7 +125,7 @@ uint32_t MMX_scalarUni(int16_t * _EAX, int16_t * _EDX, int32_t num)
       uint32_t MMX_scalar16(int16_t * _EAX, int16_t * _EDX)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
         mov eax, _EAX
         mov edx, _EDX
@@ -181,7 +181,7 @@ uint32_t MMX_scalarUni(int16_t * _EAX, int16_t * _EDX, int32_t num)
       uint32_t MMX_scalar36(int16_t * _EAX, int16_t * _EDX)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
         mov eax, _EAX
         mov edx, _EDX

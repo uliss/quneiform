@@ -61,7 +61,7 @@ extern uint32_t bit_cnt_mmx[];
 Bool32 MMX_anding(int32_t *image, uint16_t *etalons, int32_t L)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
 
         mov edx, etalons
@@ -477,7 +477,7 @@ Bool32 MMX_anding(int32_t *image, uint16_t *etalons, int32_t L)
 void MMX_open(int32_t *image)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
         mov edx, image
         movq mm2, [edx];
@@ -499,7 +499,7 @@ void MMX_open(int32_t *image)
       void MMX_close(void)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm EMMS
 #endif
 }

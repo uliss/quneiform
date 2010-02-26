@@ -59,8 +59,7 @@
 uint32_t MMX_scalar(uint32_t _EAX, uint32_t _EDX)
 {
     // uliss: compile fails in VS2008
-#if (_MSC_VER < 1500)
-
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
         mov eax, _EAX
         mov edx, _EDX
@@ -122,7 +121,7 @@ uint32_t MMX_scalar(uint32_t _EAX, uint32_t _EDX)
       uint32_t MMX_scalar16_(uint32_t _EAX, uint32_t _EDX)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
         mov edx, _EDX
 
@@ -169,7 +168,7 @@ uint32_t MMX_scalar(uint32_t _EAX, uint32_t _EDX)
       void MMX_open_image(uint16_t *_EAX)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
         mov eax, _EAX
 
@@ -190,7 +189,7 @@ uint32_t MMX_scalar(uint32_t _EAX, uint32_t _EDX)
       void MMX_close_image(void)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
         EMMS
         //RET
@@ -201,7 +200,7 @@ uint32_t MMX_scalar(uint32_t _EAX, uint32_t _EDX)
 uint32_t MMX_scalar_sq(uint16_t *_EAX, int32_t _ECX)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
         mov eax, _EAX
         mov ecx, _ECX
@@ -244,7 +243,7 @@ uint32_t MMX_scalar_sq(uint16_t *_EAX, int32_t _ECX)
 void MMX_scale(uint16_t *_EAX, int32_t _ECX, int32_t _EDX)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
         mov eax, _EAX
         mov ecx, _ECX
@@ -280,7 +279,7 @@ void MMX_scale(uint16_t *_EAX, int32_t _ECX, int32_t _EDX)
 void MMX_binarize_16x16(uint16_t *rin, uchar *rout)
 {
 // uliss: VS2008 fix
-#if _MSC_VER < 1500
+#if defined(_MSC_VER) && _MSC_VER < 1500
     _asm {
         mov eax, rin
 
