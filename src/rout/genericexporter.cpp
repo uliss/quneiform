@@ -238,7 +238,7 @@ void GenericExporter::exportTableCells(CEDParagraph * table) {
     // Количество строк и столбцов таблицы
     EDSIZE dim = CED_GetSize(table);
     const int table_rows = dim.cy;
-    const int table_cols = dim.cx;
+    //const int table_cols = dim.cx;
 
     // Количество логических ячеек
     const unsigned int num_table_cells = CED_GetCountLogicalCell(table);
@@ -359,8 +359,7 @@ int GenericExporter::pictureNumber(CEDChar * picture) {
 }
 
 std::string GenericExporter::savePicture(CEDChar * picture) {
-    std::string dir = createPicturesFolder();
-    std::string path = dir + "/" + pictureName(picture);
+    std::string path = createPicturesFolder() + "/" + pictureName(picture);
     savePictureData(picture, path);
     return path;
 }

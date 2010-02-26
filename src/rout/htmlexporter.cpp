@@ -20,6 +20,7 @@
 #include <algorithm>
 #include "htmlexporter.h"
 #include "common/helper.h"
+#include "common/debug.h"
 #include "ced/cedint.h"
 #include "rout_own.h"
 #include "imageexporterfactory.h"
@@ -66,7 +67,7 @@ void HtmlExporter::writeFontStyleClose(std::ostream& os, long newStyle, int styl
         }
 
         tag_pos++;
-        while (tag_pos < font_styles_.size()) {
+        while (tag_pos < (int) font_styles_.size()) {
             os << fontStyleBegin(font_styles_[tag_pos]);
             tag_pos++;
         }
@@ -245,13 +246,17 @@ void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
 }
 
 void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
-    std::string path = savePicture(picture);
-    Attributes attrs;
-    attrs["src"] = path;
-    attrs["alt"] = "";
-    attrs["height"] = toString(last_picture_size_.height());
-    attrs["width"] = toString(last_picture_size_.width());
-    writeSingleTag(os, "img", attrs);
+    try {
+        std::string path = savePicture(picture);
+        Attributes attrs;
+        attrs["src"] = path;
+        attrs["alt"] = "";
+        attrs["height"] = toString(last_picture_size_.height());
+        attrs["width"] = toString(last_picture_size_.width());
+        writeSingleTag(os, "img", attrs);
+    } catch (Exception& e) {
+        Debug() << "[HtmlExporter::writePicture] failed: " << e.what() << std::endl;
+    }
 }
 
 void HtmlExporter::writeTableBegin(std::ostream& os, CEDParagraph * /*table*/) {
