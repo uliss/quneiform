@@ -70,6 +70,7 @@
 #include "cedchar.h"
 #include "cedparagraph.h"
 #include "cedsection.h"
+#include "cedpage.h"
 #include "ced_struct.h"
 #include "compat_defs.h"
 #include "compat/filefunc.h"
