@@ -32,13 +32,12 @@ namespace CIF
 class Exporter
 {
     public:
-        Exporter();
         Exporter(const FormatOptions& opts);
         virtual ~Exporter();
 
         typedef std::runtime_error Exception;
 
-        virtual bool encodeNeeded() const;
+        bool isCharsetConversionNeeded() const;
         virtual void exportTo(const std::string& filename);
         virtual void exportTo(std::ostream& os);
         const FormatOptions& formatOptions() const;
@@ -55,6 +54,8 @@ class Exporter
     private:
         virtual void doExport(std::ostream& os) = 0;
         void autoDetectOutputEncoding();
+    protected:
+        void setEncodings();
     private:
         ImageExporterPtr image_exporter_;
         FormatOptions format_options_;

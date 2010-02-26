@@ -28,7 +28,6 @@ class RtfExporter: public Exporter
 {
 public:
     RtfExporter(Handle page);
-    virtual ~RtfExporter();
     void exportTo(const std::string& filename);
 private:
     Handle page_;

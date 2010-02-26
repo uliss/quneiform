@@ -53,12 +53,10 @@ class GenericExporter: public Exporter
         bool skipPictures() const;
     protected:
         int charNumInParagraph(CEDParagraph * par);
-        bool isCharsetConversionNeeded() const;
         bool isEmptyParagraph(CEDParagraph * par);
         std::ostream * outputStream();
         std::string savePicture(CEDChar * picture);
         void savePictureData(CEDChar * picture, const std::string&);
-        void setEncodings();
         void setOutputStream(std::ostream * os);
     private:
         void doExport(std::ostream& os);

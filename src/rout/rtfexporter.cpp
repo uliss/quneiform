@@ -19,13 +19,11 @@
 #include "rtfexporter.h"
 #include "ced/ced.h"
 
-namespace CIF {
+namespace CIF
+{
 
 RtfExporter::RtfExporter(Handle page) :
-    page_(page) {
-}
-
-RtfExporter::~RtfExporter() {
+    Exporter(FormatOptions()), page_(page) {
 }
 
 void RtfExporter::exportTo(const std::string& filename) {

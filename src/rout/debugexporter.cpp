@@ -25,16 +25,11 @@ namespace CIF
 
 DebugExporter::DebugExporter(const FormatOptions& opts) :
     Exporter(opts) {
-    // FIXME!
-    setInputEncoding("CP1251");
-}
-
-DebugExporter::~DebugExporter() {
 }
 
 void DebugExporter::doExport(std::ostream& os) {
     Iconv converter(inputEncoding(), outputEncoding());
-    bool do_encode = encodeNeeded();
+    bool do_encode = isCharsetConversionNeeded();
 
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
         CSTR_line lin_out = CSTR_GetLineHandle(i, 1);

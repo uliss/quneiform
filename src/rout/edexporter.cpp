@@ -19,10 +19,11 @@
 #include "edexporter.h"
 #include "ced/ced.h"
 
-namespace CIF {
+namespace CIF
+{
 
 EdExporter::EdExporter(Handle page) :
-    page_(page) {
+    Exporter(FormatOptions()), page_(page) {
 }
 
 void EdExporter::exportTo(const std::string& filename) {

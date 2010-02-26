@@ -27,15 +27,11 @@ using namespace std;
 namespace CIF
 {
 
-Exporter::Exporter() {
-    //autoDetectOutputEncoding();
-    image_exporter_.reset(new NullImageExporter);
-}
-
 Exporter::Exporter(const FormatOptions& opts) :
     format_options_(opts) {
     //autoDetectOutputEncoding();
     image_exporter_.reset(new NullImageExporter);
+    setEncodings();
 }
 
 Exporter::~Exporter() {
@@ -61,10 +57,10 @@ void Exporter::autoDetectOutputEncoding() {
     output_encoding_ = locale.substr(dot_pos + 1);
 }
 
-bool Exporter::encodeNeeded() const {
-    if (output_encoding_.empty() || input_encoding_.empty())
+bool Exporter::isCharsetConversionNeeded() const {
+    if (output_encoding_.empty() or input_encoding_.empty())
         return false;
-    return output_encoding_ == input_encoding_ ? false : true;
+    return output_encoding_ != input_encoding_;
 }
 
 void Exporter::exportTo(const std::string& filename) {
@@ -105,6 +101,55 @@ std::string Exporter::outputEncoding() const {
 
 std::string Exporter::outputFilename() const {
     return output_filename_;
+}
+
+void Exporter::setEncodings() {
+    switch (formatOptions().language()) {
+    case LANGUAGE_CROATIAN:
+    case LANGUAGE_HUNGARIAN:
+    case LANGUAGE_POLISH:
+    case LANGUAGE_ROMANIAN:
+    case LANGUAGE_SERBIAN:
+    case LANGUAGE_SLOVENIAN:
+        setInputEncoding("cp1250");
+        setOutputEncoding("utf-8");
+        break;
+    case LANGUAGE_BULGARIAN:
+    case LANGUAGE_KAZAKH:
+    case LANGUAGE_KAZ_ENG:
+    case LANGUAGE_RUSSIAN:
+    case LANGUAGE_RUS_ENG:
+    case LANGUAGE_UKRAINIAN:
+    case LANGUAGE_UZBEK:
+        setInputEncoding("cp1251");
+        setOutputEncoding("utf-8");
+        break;
+    case LANGUAGE_DANISH:
+    case LANGUAGE_DUTCH:
+    case LANGUAGE_ENGLISH:
+    case LANGUAGE_FRENCH:
+    case LANGUAGE_GERMAN:
+    case LANGUAGE_ITALIAN:
+    case LANGUAGE_PORTUGUESE:
+    case LANGUAGE_SPANISH:
+    case LANGUAGE_SWEDISH:
+        setInputEncoding("cp1252");
+        setOutputEncoding("utf-8");
+        break;
+    case LANGUAGE_TURKISH:
+        setInputEncoding("cp1254");
+        setOutputEncoding("utf-8");
+        break;
+    case LANGUAGE_ESTONIAN:
+    case LANGUAGE_LATVIAN:
+    case LANGUAGE_LITHUANIAN:
+        setInputEncoding("cp1257");
+        setOutputEncoding("utf-8");
+        break;
+    default:
+        setInputEncoding("");
+        setOutputEncoding("");
+    }
 }
 
 void Exporter::setFormatOptions(const FormatOptions& opts) {

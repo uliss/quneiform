@@ -21,15 +21,15 @@
 
 #include "exporter.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class DebugExporter: public Exporter
 {
-public:
-    DebugExporter(const FormatOptions& opts);
-    ~DebugExporter();
-private:
-    void doExport(std::ostream& os);
+    public:
+        DebugExporter(const FormatOptions& opts);
+    private:
+        void doExport(std::ostream& os);
 };
 
 }

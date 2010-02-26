@@ -44,7 +44,6 @@ GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
             num_tables_(0), table_nesting_level_(0), skip_empty_paragraphs_(false),
             skip_empty_lines_(false) {
 
-    setEncodings();
     if (isCharsetConversionNeeded())
         converter_.open(inputEncoding(), outputEncoding());
 }
@@ -300,10 +299,6 @@ void GenericExporter::exportTableRow(CEDParagraph * row) {
     writeTableRowEnd(*os_, row);
 }
 
-bool GenericExporter::isCharsetConversionNeeded() const {
-    return inputEncoding() != outputEncoding();
-}
-
 bool GenericExporter::isEmptyParagraph(CEDParagraph * par) {
     return charNumInParagraph(par) < 1;
 }
@@ -397,55 +392,6 @@ void GenericExporter::savePictureData(CEDChar * picture, const std::string& path
         throw Exception("[GenericExporter::savePictureData] failed");
 
     imageExporter()->save(pict_data, pict_length, path);
-}
-
-void GenericExporter::setEncodings() {
-    switch (formatOptions().language()) {
-    case LANGUAGE_CROATIAN:
-    case LANGUAGE_HUNGARIAN:
-    case LANGUAGE_POLISH:
-    case LANGUAGE_ROMANIAN:
-    case LANGUAGE_SERBIAN:
-    case LANGUAGE_SLOVENIAN:
-        setInputEncoding("cp1250");
-        setOutputEncoding("utf-8");
-        break;
-    case LANGUAGE_BULGARIAN:
-    case LANGUAGE_KAZAKH:
-    case LANGUAGE_KAZ_ENG:
-    case LANGUAGE_RUSSIAN:
-    case LANGUAGE_RUS_ENG:
-    case LANGUAGE_UKRAINIAN:
-    case LANGUAGE_UZBEK:
-        setInputEncoding("cp1251");
-        setOutputEncoding("utf-8");
-        break;
-    case LANGUAGE_DANISH:
-    case LANGUAGE_DUTCH:
-    case LANGUAGE_ENGLISH:
-    case LANGUAGE_FRENCH:
-    case LANGUAGE_GERMAN:
-    case LANGUAGE_ITALIAN:
-    case LANGUAGE_PORTUGUESE:
-    case LANGUAGE_SPANISH:
-    case LANGUAGE_SWEDISH:
-        setInputEncoding("cp1252");
-        setOutputEncoding("utf-8");
-        break;
-    case LANGUAGE_TURKISH:
-        setInputEncoding("cp1254");
-        setOutputEncoding("utf-8");
-        break;
-    case LANGUAGE_ESTONIAN:
-    case LANGUAGE_LATVIAN:
-    case LANGUAGE_LITHUANIAN:
-        setInputEncoding("cp1257");
-        setOutputEncoding("utf-8");
-        break;
-    default:
-        setInputEncoding("");
-        setOutputEncoding("");
-    }
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {
