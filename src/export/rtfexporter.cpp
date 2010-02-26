@@ -16,22 +16,23 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef DEBUGEXPORTER_H_
-#define DEBUGEXPORTER_H_
+#include "rtfexporter.h"
+#include "ced/ced.h"
 
-#include "exporter.h"
-
-namespace CIF {
-
-class DebugExporter: public Exporter
+namespace CIF
 {
-public:
-    DebugExporter(const FormatOptions& opts);
-    ~DebugExporter();
-private:
-    void doExport(std::ostream& os);
-};
 
+RtfExporter::RtfExporter(Handle page) :
+    Exporter(FormatOptions()), page_(page) {
 }
 
-#endif /* DEBUGEXPORTER_H_ */
+void RtfExporter::exportTo(const std::string& filename) {
+    if (!CED_WriteFormattedRtf(filename.c_str(), page_))
+        throw Exception("Export to RTF failed");
+}
+
+void RtfExporter::doExport(std::ostream&) {
+    throw Exception("Export to stream for RTF format is not supported");
+}
+
+}

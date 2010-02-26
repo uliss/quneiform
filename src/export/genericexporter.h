@@ -20,6 +20,11 @@
 #define GENERICEXPORTER_H_
 
 #include "exporter.h"
+#include "common/size.h"
+#include "common/iconv_local.h"
+
+namespace CIF
+{
 
 class CEDPage;
 class CEDSection;
@@ -27,28 +32,34 @@ class CEDParagraph;
 class CEDLine;
 class CEDChar;
 
-namespace CIF
-{
-
 class GenericExporter: public Exporter
 {
     public:
         GenericExporter(CEDPage * page, const FormatOptions& opts);
+        int numChars() const;
+        int numColumns() const;
+        int numFrames() const;
+        int numLines() const;
+        int numParagraphs() const;
+        int numPictures() const;
+        int numSections() const;
+        int numTables() const;
         CEDPage * page();
         void setSkipEmptyLines(bool value);
-        void setSkipEmptyParagraphhs(bool value);
+        void setSkipEmptyParagraphs(bool value);
         void setSkipPictures(bool value);
         bool skipEmptyLines() const;
         bool skipEmptyParagraphs() const;
         bool skipPictures() const;
     protected:
         int charNumInParagraph(CEDParagraph * par);
-        bool isCharsetConversionNeeded()const;
         bool isEmptyParagraph(CEDParagraph * par);
-        void savePicture(CEDChar * picture);
+        std::ostream * outputStream();
+        std::string savePicture(CEDChar * picture);
+        void savePictureData(CEDChar * picture, const std::string&);
+        void setOutputStream(std::ostream * os);
     private:
         void doExport(std::ostream& os);
-        void exportChar(CEDChar * chr);
         void exportColumn(CEDParagraph * col);
         void exportFrame(CEDParagraph * frame);
         void exportLine(CEDLine * line);
@@ -60,7 +71,11 @@ class GenericExporter: public Exporter
         void exportTable(CEDParagraph * table);
         void exportTableCells(CEDParagraph * table);
         void exportTableRow(CEDParagraph * row);
-    private:
+        std::string pictureName(CEDChar * picture);
+        int pictureNumber(CEDChar * picture);
+    protected:
+        virtual std::string createPicturesFolder();
+        virtual void exportChar(CEDChar * chr);
         virtual void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeColumnBegin(std::ostream& os, CEDParagraph * col);
         virtual void writeColumnEnd(std::ostream& os, CEDParagraph * col);
@@ -95,6 +110,9 @@ class GenericExporter: public Exporter
         int table_nesting_level_;
         bool skip_empty_paragraphs_;
         bool skip_empty_lines_;
+    protected:
+        Iconv converter_;
+        Size last_picture_size_;
 };
 
 }

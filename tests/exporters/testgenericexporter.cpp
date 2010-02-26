@@ -19,8 +19,10 @@
 #include <fstream>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestGenericExporter);
 #define private public
-#include <rout/genericexporter.h>
+#define protected public
+#include <export/genericexporter.h>
 #include <ced/cedint.h>
+#include "cfcompat.h"
 using namespace CIF;
 
 void TestGenericExporter::testInit() {
@@ -63,3 +65,25 @@ void TestGenericExporter::testExportPage() {
     delete page;
 }
 
+void TestGenericExporter::testCreatePicturesFolder() {
+    FormatOptions opt;
+    GenericExporter * p = new GenericExporter(NULL, opt);
+
+    CPPUNIT_ASSERT_THROW(p->createPicturesFolder(), Exporter::Exception);
+
+    p->setOutputFilename("test_page_1.html");
+    p->createPicturesFolder();
+    CPPUNIT_ASSERT_EQUAL(0, _access("test_page_1_files", 0));
+    RemoveDirectory("test_page_1_files");
+
+    p->setOutputFilename("./test_page_2.html");
+    p->createPicturesFolder();
+    CPPUNIT_ASSERT_EQUAL(0, _access("test_page_2_files", 0));
+    RemoveDirectory("test_page_2_files");
+
+    // assumed that tests not runs under root))))))))
+    p->setOutputFilename("/test");
+    CPPUNIT_ASSERT_THROW(p->createPicturesFolder(), Exporter::Exception);
+
+    delete p;
+}

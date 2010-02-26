@@ -59,6 +59,9 @@
 
 #include "ced_struct.h"
 #include "cedint.h"
+#include "cedline.h"
+
+using namespace CIF;
 
 //define variables and stubs
 FNRDProc RDProced = 0;//points to unstructured data processor
@@ -395,10 +398,9 @@ void FormattedL(const letter* pt, const uint32_t alternatives)
     memcpy(lpData, (void*) pt, alternatives * sizeof(letterEx));
     chr->alternatives = /*(letter*)*/lpData;
     chr->numOfAltern = alternatives;
-    memcpy(&(chr->layout), &refBox, sizeof(edBox));
+    chr->setBoundingRect(refBox);
     chr->fontHeight = kegl;
     chr->fontAttribs = font;
-    //  chr->fontLang=lang;
 }
 
 void FormattedBMR(const bit_map_ref * pt)
@@ -621,9 +623,9 @@ void RecreateFrames()
                                                     & TP_BRACKET) == 0)) {
             edSize sz;
             edBox bx;
-            EDRECT rct;
+            Rect rct;
             int j;
-            rct.left = rct.right = rct.top = -1;
+            rct.rleft() = rct.rright() = rct.rtop() = -1;
             sz.cx = sz.cy = -1;
             bx.h = bx.w = bx.x = bx.y = -1;
 
@@ -678,14 +680,14 @@ void RecreateFrames()
     int inc = 0;
     int fn = array[0].frameNum;
     CEDParagraph * par = mainPage->GetParagraph(array[0].frameNum);
-    par->indent.left = par->indent.top = (array[0].x - par->layout.x) * 1440
+    par->indent.rleft() = par->indent.rtop() = (array[0].x - par->layout.x) * 1440
                                          / mainPage->dpi.cx;
 
     for (i = 0; i < arPosition; i++) {
         if (array[i].frameNum != fn) {
             fn = array[i].frameNum;
             par = mainPage->GetParagraph(array[i].frameNum + inc);
-            par->indent.left = par->indent.top = (array[i].x - par->layout.x)
+            par->indent.rleft() = par->indent.rtop() = (array[i].x - par->layout.x)
                                                  * 1440 / mainPage->dpi.cx;
         }
 
@@ -694,7 +696,7 @@ void RecreateFrames()
             mainPage->SetCurSection(par->parentNumber)->SetCurParagraph(par);
             par = mainPage->GetCurSection()->InsertParagraph(FALSE);
             par->lines = par->curLine = array[i].line;
-            par->indent.top = array[i].ident * 1440 / mainPage->dpi.cx;
+            par->indent.rtop() = array[i].ident * 1440 / mainPage->dpi.cx;
             //          par->indent.left=(array[i].x-par->layout.x)*1440/mainPage->dpi;
             inc++;
         }

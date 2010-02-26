@@ -16,55 +16,34 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "debugexporter.h"
-#include "cstr/cstr.h"
+#ifndef EXPORTERFACTORY_H_
+#define EXPORTERFACTORY_H_
 
-#ifdef USE_ICONV
-#include "common/iconv_local.h"
-#endif
+#include "cttypes.h"
+#include "common/singleton.h"
+#include "common/exception.h"
+#include "common/outputformat.h"
+#include "rfrmt/formatoptions.h"
+#include "exporter.h"
 
-namespace CIF
+namespace CIF {
+
+class ExporterFactoryImpl
 {
+public:
+    ExporterFactoryImpl();
+    Exporter * make(format_t format);
+    void setFormatOptions(const FormatOptions& opts);
+    void setPage(Handle page);
 
-DebugExporter::DebugExporter(const FormatOptions& opts) :
-    Exporter(opts)
-{
-    // FIXME!
-    setInputEncoding("CP1251");
+    typedef RuntimeExceptionImpl<ExporterFactoryImpl> Exception;
+private:
+    Handle page_;
+    FormatOptions format_options_;
+};
+
+typedef Singleton<ExporterFactoryImpl> ExporterFactory;
+
 }
 
-DebugExporter::~DebugExporter()
-{
-}
-
-void DebugExporter::doExport(std::ostream& os)
-{
-#ifdef USE_ICONV
-    Iconv converter(inputEncoding(), outputEncoding());
-    bool do_encode = encodeNeeded();
-#endif
-
-    for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
-        CSTR_line lin_out = CSTR_GetLineHandle(i, 1);
-        if (!lin_out)
-            throw Exception("CSTR_GetLineHandle failed");
-
-        // uliss: FIXME
-        char unrec[2] = { 0, 0 };
-        unrec[0] = (char) formatOptions().unrecognizedChar();
-
-#ifdef USE_ICONV
-        if (do_encode) {
-            os << converter.convert(CSTR_LineToTxt(lin_out, unrec));
-        }
-        else
-#endif
-        {
-            os << CSTR_LineToTxt(lin_out, unrec);
-        }
-        if (formatOptions().preserveLineBreaks())
-            os << "\n";
-    }
-}
-
-}
+#endif /* EXPORTERFACTORY_H_ */

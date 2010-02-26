@@ -61,8 +61,14 @@
 #include "minmax.h"
 #include "ced_struct.h"
 #include "cedint.h"
+#include "cedline.h"
+#include "cedsection.h"
+#include "cedparagraph.h"
+#include "cedpage.h"
 #include "resource.h"
 #include "cfio/cfio.h"
+
+using namespace CIF;
 
 //First of all, we define all .dib as metafiles since word does not know about .dib
 static CEDPage * mainPage;
@@ -84,14 +90,14 @@ void NewFormattedE(const edExtention* pt, const void* ptExt);
 void NewFormattedENew(const edExtentionNew* pt, const void* ptExt);
 void NewFormattedLang(const EdTagLanguage* pt);
 
-void CED_DeleteTree(CEDPage * pg)
+void CED_DeleteTree(CIF::CEDPage * pg)
 {
     delete pg;
 }
 
 void RepairStructure();
 
-CEDPage * CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufLen)
+CIF::CEDPage * CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufLen)
 {
     CED_SetRawDataProc(ExtDataProc);
 
@@ -250,9 +256,9 @@ void NewFormattedE(const edExtention* pt, const void* ptExt)
             hPara->interval.cx = pard->spaceBefore;
             hPara->interval.cy = pard->spaceAfter;
             hPara->alignment = pard->alignment;
-            hPara->indent.top = pard->firstIndent;
-            hPara->indent.left = pard->leftIndent;
-            hPara->indent.right = pard->rightIndent;
+            hPara->indent.rtop() = pard->firstIndent;
+            hPara->indent.rleft() = pard->leftIndent;
+            hPara->indent.rright() = pard->rightIndent;
             hPara->keep = pard->keep;
             hPara->shading = (signed short) pard->shading;
             hPara->spaceBetweenLines = pard->spaceBetweenLines;
@@ -449,7 +455,7 @@ void NewFormattedTR(const text_ref* pt)
 void NewFormattedLB(const line_beg* pt)
 {
     curEdLine->defChrFontHeight = pt->height;
-    curEdLine->hardBreak = !pt->base_line;
+    curEdLine->setHardBreak(!pt->base_line);
 }
 
 void NewFormattedBMR(const bit_map_ref * pt)
@@ -487,11 +493,7 @@ void NewFormattedL(const letter* pt, const uint32_t alternatives)
     memcpy(lpData, (void*) pt, alternatives * sizeof(letterEx));
     chr->alternatives = /*(letter*)*/lpData;
     chr->numOfAltern = alternatives;
-    chr->layout.left = refBox.x;
-    chr->layout.top = refBox.y;
-    chr->layout.right = refBox.x + refBox.w;
-    chr->layout.bottom = refBox.y + refBox.h;
-    //  memcpy(&(chr->layout),&refBox,sizeof(edBox));
+    chr->setBoundingRect(refBox);
     chr->fontHeight = kegl;
     chr->fontAttribs = font;
     chr->fontNum = fontNum;
@@ -767,12 +769,12 @@ void PrintPara(FILE *stream, Handle para)
 Bool32 WriteRemark(Handle hFile, int type, int object);
 Bool32 WriteExtCode(Handle hFile, int Ecode, void* object, int lenOfObj,
                     int etraLen = 0);
-Bool32 WriteFontTable(Handle hFile, CEDPage *page);
-Bool32 WriteTiffDescr(Handle hFile, CEDPage* page);
-Bool32 WritePictTable(Handle hFile, CEDPage* page);
+Bool32 WriteFontTable(Handle hFile, CIF::CEDPage *page);
+Bool32 WriteTiffDescr(Handle hFile, CIF::CEDPage* page);
+Bool32 WritePictTable(Handle hFile, CIF::CEDPage* page);
 Bool32 WritePara(Handle hFile, CEDParagraph* hPara);
 
-Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page)
+Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
 {
     int ret;
     int fn;
@@ -1058,11 +1060,11 @@ Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page)
                     line->SetCurChar(chr);
                     bit_map_ref bmr;
                     bmr.code = SS_BITMAP_REF;
-                    bmr.col = (uint16_t) chr->layout.left;
-                    bmr.row = (uint16_t) chr->layout.top;
-                    bmr.height = (uint16_t) (chr->layout.bottom
-                                             - chr->layout.top);
-                    bmr.width = uint16_t(chr->layout.right - chr->layout.left);
+                    Rect bbox = chr->boundingRect();
+                    bmr.col = bbox.left();
+                    bmr.row = bbox.top();
+                    bmr.height = bbox.height();
+                    bmr.width = bbox.width();
 
                     if (!CFIO_WriteToFile(hFile, (pchar)(&bmr), sizeof(bmr)))
                         goto ED_WRITE_END;
@@ -1120,10 +1122,10 @@ Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page)
                 while (chr);
             }
 
-            if (line->hardBreak || line->defChrFontHeight > 0) {
+            if (line->hardBreak() || line->defChrFontHeight > 0) {
                 line_beg lb;
                 lb.code = SS_LINE_BEG;
-                lb.base_line = !line->hardBreak;
+                lb.base_line = !line->hardBreak();
                 lb.height = line->defChrFontHeight;
 
                 if (!CFIO_WriteToFile(hFile, (pchar) & lb, sizeof(line_beg)))
@@ -1146,7 +1148,7 @@ FINAL:
     return ret;
 }
 
-Bool32 WriteFontTable(Handle hFile, CEDPage* page)
+Bool32 WriteFontTable(Handle hFile, CIF::CEDPage* page)
 {
     char* ch = 0;
     //define the sum of lengths of all names of fonts
@@ -1231,8 +1233,7 @@ Bool32 WritePictTable(Handle hFile, CEDPage* page)
         picd.pictGoal.cx = page->picsTable[q].pictGoal.cx;
         picd.pictGoal.cy = page->picsTable[q].pictGoal.cy;
         picd.pictNumber = page->picsTable[q].pictNumber;
-        picd.pictSize.cx = page->picsTable[q].pictSize.cx;
-        picd.pictSize.cy = page->picsTable[q].pictSize.cy;
+        picd.pictSize = page->picsTable[q].pictSize;
         picd.len = page->picsTable[q].len;
         picd.type = page->picsTable[q].type;
         picd.size = page->picsTable[q].len + sizeof(picd);
@@ -1261,9 +1262,9 @@ Bool32 WritePara(Handle hFile, CEDParagraph* hPara)
     pard.spaceBefore = hPara->interval.cx;
     pard.spaceAfter = hPara->interval.cy;
     pard.alignment = hPara->alignment;
-    pard.firstIndent = hPara->indent.top;
-    pard.leftIndent = hPara->indent.left;
-    pard.rightIndent = hPara->indent.right;
+    pard.firstIndent = hPara->indent.top();
+    pard.leftIndent = hPara->indent.left();
+    pard.rightIndent = hPara->indent.right();
     pard.keep = hPara->keep;
     pard.shading = hPara->shading;
     pard.spaceBetweenLines = hPara->spaceBetweenLines;

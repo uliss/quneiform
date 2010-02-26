@@ -63,10 +63,13 @@
 #include "minmax.h"
 #include "ced_struct.h"
 #include "cedint.h"
+#include "cedline.h"
 #include "resource.h"
 #include "cfcompat.h"
 #include "cfio/cfio.h"
 #include "compat/cfstring.h"
+
+using namespace CIF;
 
 #define MAX_LEN 500
 #define MAX_RTF_COLORS     200
@@ -466,7 +469,7 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf, CEDParagraph* p, Bool brk)
 
         // Write EOL in non-wordwrap mode
         //If line is not last one in paragraph
-        if (l->next && l->next->parentNumber == parent && l->hardBreak)
+        if (l->next && l->next->parentNumber == parent && l->hardBreak())
             if (!WriteRtfControl(rtf, "line", PARAM_NONE, 0))
                 return FALSE;
     }
@@ -859,7 +862,7 @@ Bool WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect)
  Write the character formatting info when the attributes change from
  the previsous font selection
  ******************************************************************************/
-Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CEDChar* curChar)
+Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CIF::CEDChar* curChar)
 {
     //    uchar CurTypeFace[32],PrevTypeFace[32];
     uchar CurFamily, PrevFamily;
@@ -1220,16 +1223,10 @@ Bool WriteRtfParaFmt(struct StrRtfOut far *rtf, CEDParagraph* NewPfmt, CEDParagr
 
     // extract value for comparison
     if (PrevPfmt) {
-        PrevLeftIndent = PrevPfmt->indent.left;
-        PrevRightIndent = PrevPfmt->indent.right;
-        PrevFirstIndent = PrevPfmt->indent.top;
-        //       PrevFlags=ResetUintFlag(PfmtId[PrevPfmt].flags,PAGE_HDR_FTR);
-        //       PrevTabId=PfmtId[PrevPfmt].TabId;
-        //      PrevCellId=PrevCell;
-        //       PrevRowId=cell[PrevCellId].row;
+        PrevLeftIndent = PrevPfmt->indent.left();
+        PrevRightIndent = PrevPfmt->indent.right();
+        PrevFirstIndent = PrevPfmt->indent.top();
         PrevShading = PrevPfmt->shading;
-        //       PrevParaFID=PrevFID;
-        //       PrevParaSID=PfmtId[PrevPfmt].StyId;
         PrevSpaceBefore = PrevPfmt->interval.cx;
         PrevSpaceAfter = PrevPfmt->interval.cy;
         PrevSpaceBetween = PrevPfmt->spaceBetweenLines;
@@ -1247,16 +1244,10 @@ Bool WriteRtfParaFmt(struct StrRtfOut far *rtf, CEDParagraph* NewPfmt, CEDParagr
         PrevBrdrBtw = PrevPfmt->brdrBtw;
     }
 
-    CurLeftIndent = NewPfmt->indent.left;
-    CurRightIndent = NewPfmt->indent.right;
-    CurFirstIndent = NewPfmt->indent.top;
-    //    CurFlags=ResetUintFlag(PfmtId[NewPfmt].flags,PAGE_HDR_FTR);
-    //    CurTabId=PfmtId[NewPfmt].TabId;
-    //    CurCellId=NewCell;
-    //    CurRowId=cell[CurCellId].row;
+    CurLeftIndent = NewPfmt->indent.left();
+    CurRightIndent = NewPfmt->indent.right();
+    CurFirstIndent = NewPfmt->indent.top();
     CurShading = NewPfmt->shading;
-    //    CurParaFID=NewFID;
-    //    CurParaSID=PfmtId[NewPfmt].StyId;
     CurSpaceBefore = NewPfmt->interval.cx;
     CurSpaceAfter = NewPfmt->interval.cy;
     CurSpaceBetween = NewPfmt->spaceBetweenLines;
@@ -1886,10 +1877,10 @@ Bool WriteRtfDIB(struct StrRtfOut far *rtf, int pict)
         return FALSE; // write picture format
 
     // write picture height/width in HIMETRIC
-    if (!WriteRtfControl(rtf, "picw", PARAM_INT, rtf->page->picsTable[pict].pictSize.cx))
+    if (!WriteRtfControl(rtf, "picw", PARAM_INT, rtf->page->picsTable[pict].pictSize.width()))
         return FALSE; // write picture format
 
-    if (!WriteRtfControl(rtf, "pich", PARAM_INT, rtf->page->picsTable[pict].pictSize.cy))
+    if (!WriteRtfControl(rtf, "pich", PARAM_INT, rtf->page->picsTable[pict].pictSize.height()))
         return FALSE; // write picture format
 
     // write picture height/width in twips

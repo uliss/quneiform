@@ -1,19 +1,16 @@
 if(USE_ICONV)
     include_directories(${ICONV_INCLUDE_DIR})
-    set(iconv_local "iconv.cpp")
     if(ICONV_SECOND_ARGUMENT_IS_CONST)
         add_definitions(-DICONV_SECOND_ARGUMENT_IS_CONST)
     endif()
-else()
-    set(iconv_local "")
 endif()
 
 add_library(cuneiform-common ${LIBTYPE}
     cifconfig.cpp
     helper.cpp
+    iconv.cpp
     language.cpp
     outputformat.cpp
-    ${iconv_local}
 )
 
 set(COMMON_HEADER_INSTALL "common")

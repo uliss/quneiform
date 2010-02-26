@@ -30,6 +30,7 @@
 #include "common/rect.h"
 #include "common/exception.h"
 #include "common/memorybuffer.h"
+#include "common/outputformat.h"
 #include "cimage/imageinfo.h"
 #include "rdib/image.h"
 
@@ -56,7 +57,7 @@ class PumaImpl
         void open(ImagePtr img);
         Rect pageTemplate() const;
         void recognize();
-        void save(const std::string& outputFilename, int format) const;
+        void save(const std::string& outputFilename, format_t format) const;
         void setFormatOptions(const FormatOptions& opt);
         void setOptionAutoRotate(bool val);
         void setOptionDotMatrix(bool val);

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,25 +16,28 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RTFEXPORTER_H_
-#define RTFEXPORTER_H_
+#include "testbmpimageexporter.h"
+#include <fstream>
+#include <export/imageexporter.h>
+#include <export/bmpimageexporter.h>
+#include <rdib/bmpimageloader.h>
+using namespace CIF;
+CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpImageExporter);
 
-#include "cttypes.h"
-#include "exporter.h"
+void TestBmpImageExporter::testSave() {
+    std::fstream os;
 
-namespace CIF {
+    ImageExporterPtr exp(new BmpImageExporter);
 
-class RtfExporter: public Exporter
-{
-public:
-    RtfExporter(Handle page);
-    virtual ~RtfExporter();
-    void exportTo(const std::string& filename);
-private:
-    Handle page_;
-    void doExport(std::ostream&);
-};
+    // bad image data
+    CPPUNIT_ASSERT_THROW(exp->save(NULL, 0, os), ImageExporter::Exception);
 
+    // bad stream
+    char data[1000];
+    CPPUNIT_ASSERT_THROW(exp->save(data, 1000, os), ImageExporter::Exception);
+
+    BmpImageLoader loader;
+    ImagePtr image = loader.load(EXPORTER_TEST_IMAGE_DIR + std::string("test_in.bmp"));
+
+    exp->save(image->data(), image->size(), "test_out.bmp");
 }
-
-#endif /* RTFEXPORTER_H_ */

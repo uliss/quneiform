@@ -16,35 +16,51 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef EXPORTERFACTORY_H_
-#define EXPORTERFACTORY_H_
+#include "exporterfactory.h"
+#include "htmlexporter.h"
+#include "debugexporter.h"
+#include "rtfexporter.h"
+#include "edexporter.h"
+#include "textexporter.h"
+#include "hocrexporter.h"
+#include "puma/pumadef.h"
+#include "common/outputformat.h"
 
-#include "cttypes.h"
-#include "common/singleton.h"
-#include "rfrmt/formatoptions.h"
-#include "exporter.h"
-
-#include <stdexcept>
-
-namespace CIF {
-
-class ExporterFactoryImpl
+namespace CIF
 {
-public:
-    ExporterFactoryImpl();
-    ~ExporterFactoryImpl();
-    Exporter * make(int format);
-    void setFormatOptions(const FormatOptions& opts);
-    void setPage(Handle page);
 
-    typedef std::runtime_error Exception;
-private:
-    Handle page_;
-    FormatOptions format_options_;
-};
-
-typedef Singleton<ExporterFactoryImpl> ExporterFactory;
-
+ExporterFactoryImpl::ExporterFactoryImpl() :
+    page_(NULL) {
 }
 
-#endif /* EXPORTERFACTORY_H_ */
+void ExporterFactoryImpl::setFormatOptions(const FormatOptions& opts) {
+    format_options_ = opts;
+}
+
+void ExporterFactoryImpl::setPage(Handle page) {
+    page_ = page;
+}
+
+Exporter * ExporterFactoryImpl::make(format_t format) {
+    switch (format) {
+    case FORMAT_DEBUG:
+        return new DebugExporter(format_options_);
+    case FORMAT_RTF:
+        return new RtfExporter(page_);
+    case FORMAT_EDNATIVE:
+        return new EdExporter(page_);
+    case FORMAT_HOCR:
+        return new HocrExporter((CEDPage*) page_, format_options_);
+    case FORMAT_XHTML:
+    case FORMAT_HTML:
+        return new HtmlExporter((CEDPage*) page_, format_options_);
+    case FORMAT_SMARTTEXT:
+        format_options_.setPreserveLineBreaks(true);
+    case FORMAT_TEXT:
+        return new TextExporter((CEDPage*) page_, format_options_);
+    default:
+        throw Exception("Unsupported export format");
+    }
+}
+
+}

@@ -59,6 +59,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "globus.h"
 #include "lang_def.h"
+#include "common/size.h"
+#include "common/rect.h"
 
 #ifdef __CED__
 #define CED_FUNC  FUN_EXPO
@@ -188,7 +190,6 @@ CED_FUNC(Bool32) CED_Init(uint16_t wHeightCode, Handle hStorage);
 CED_FUNC(Bool32) CED_Done();
 CED_FUNC(uint32_t) CED_GetReturnCode();
 CED_FUNC(char *) CED_GetReturnString(uint32_t dwError);
-CED_FUNC(Bool32) CED_GetExportData(uint32_t dwType, void * pData);
 CED_FUNC(Bool32) CED_SetImportData(uint32_t dwType, void * pData);
 char * GetModulesString(uint32_t dwError);
 /////////////////////////////////////////////////////////////
@@ -388,15 +389,14 @@ DEC_FUN(Handle, CED_CreatePage, (char * _imageName, EDSIZE _sizeOfImage, EDSIZE 
 DEC_FUN(Bool32, CED_SetPageRecogLang, (Handle hEdPage, char _recogLang));
 DEC_FUN(char, CED_GetPageRecogLang, (Handle hEdPage));
 DEC_FUN(Bool32, CED_CreateFont, (Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset, char* fontName));
-DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, EDSIZE pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len));
+DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len));
 DEC_FUN(Handle, CED_CreateSection, (Handle hEdPage, EDRECT border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY));
 DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol));
 DEC_FUN(Handle, CED_CreateColumn, ( Handle hEdSection));
-DEC_FUN(Handle, CED_CreateParagraph, (Handle hEdSection, Handle hObject, int align, EDRECT indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, int  color, int  shading, int spaceBetweenLines, char spcBtwLnsMult, char  keep));
+DEC_FUN(Handle, CED_CreateParagraph, (Handle hEdSection, Handle hObject, int align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, int  color, int  shading, int spaceBetweenLines, char spcBtwLnsMult, char  keep));
 DEC_FUN(Bool32, CED_SetParaBorders, (Handle hEdParagraph, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int brdrBtw));
-DEC_FUN(Handle, CED_CreateLine, (Handle hEdParagraph, Bool32 hardBreak, int defChrFontHeight));
-DEC_FUN(Bool32, CED_SetLineParams, (Handle hEdLine, Bool32 hardBreak, int defChrFontHeight));
-DEC_FUN(Handle, CED_CreateChar, (Handle hEdLine, EDRECT layout, LETTER* alternatives, int fontHeight, int fontNum, int fontAttribs, int fontLang, int foregroundColor, int backgroundColor));
+DEC_FUN(Handle, CED_CreateLine, (Handle hEdParagraph, bool hardBreak, int defChrFontHeight));
+DEC_FUN(Handle, CED_CreateChar, (Handle hEdLine, const CIF::Rect& layout, LETTER* alternatives, int fontHeight, int fontNum, int fontAttribs, int fontLang, int foregroundColor, int backgroundColor));
 DEC_FUN(Handle, CED_CreateFrame, (Handle hEdSection, Handle hEdColumn, EDBOX rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty));
 DEC_FUN(Bool32, CED_SetFrameFlag, (Handle hEdFrame, int flag));
 DEC_FUN(Handle, CED_CreateTable, (Handle hEdSection, Handle hObject));
@@ -417,7 +417,7 @@ DEC_FUN(char, CED_GetPageUnrecogChar, (Handle hEdPage));
 DEC_FUN(Bool32, CED_GetPageResize, (Handle hEdPage));
 DEC_FUN(uint32_t, CED_GetNumberOfParagraphs, (Handle hEdPage));
 DEC_FUN(uint32_t, CED_GetNumOfFonts, (Handle hEdPage));
-DEC_FUN(Bool32, CED_GetPicture, (Handle hEdPage, int number, int* pictNumber, EDSIZE* pictSize, EDSIZE* pictGoal, int* pictAlign , int* type, void ** data, int* len));
+DEC_FUN(Bool32, CED_GetPicture, (Handle hEdPage, int number, int* pictNumber, CIF::Size& pictSize, EDSIZE* pictGoal, int* pictAlign , int* type, void ** data, int* len));
 DEC_FUN(uint32_t, CED_GetNumOfPics, (Handle hEdPage));
 DEC_FUN(Handle, CED_GetParagraph, (Handle hEdPage, int _num));
 DEC_FUN(Bool32, CED_GetFont, (Handle hEdPage, int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset, char** fontName));
@@ -458,7 +458,6 @@ DEC_FUN(uint32_t*, CED_GetTableOfCells, (Handle hEdTable));
 DEC_FUN(EDSIZE, CED_GetSize, (Handle hEdTable));
 DEC_FUN(Handle, CED_GetLogicalCell, (Handle hEdTable, int number));
 DEC_FUN(int, CED_GetCountLogicalCell, (Handle hEdTable));
-DEC_FUN(EDRECT, CED_GetIndent, (Handle hEdParagraph));
 DEC_FUN(uint32_t, CED_GetAlignment, (Handle hEdParagraph));
 DEC_FUN(EDBOX, CED_GetLayout, (Handle hEdParagraph));
 DEC_FUN(uint32_t, CED_GetUserNumber, (Handle hEdParagraph));
@@ -476,7 +475,6 @@ DEC_FUN(LETTER*, CED_GetAlternatives, (Handle hEdChar));
 DEC_FUN(int32_t, CED_GetCharFontHeight, (Handle hEdChar));
 DEC_FUN(int32_t, CED_GetCharFontAttribs, (Handle hEdChar));
 DEC_FUN(int32_t, CED_GetCharFontNum, (Handle hEdChar));
-DEC_FUN(EDRECT, CED_GetCharLayout, (Handle hEdChar));
 DEC_FUN(int32_t, CED_GetCharFontLang, (Handle hEdChar));
 DEC_FUN(int32_t, CED_GetCharBackgroundColor, (Handle hEdChar));
 DEC_FUN(int32_t, CED_GetCharForegroundColor, (Handle hEdChar));

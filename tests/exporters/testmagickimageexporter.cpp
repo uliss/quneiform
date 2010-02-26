@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,43 +16,36 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef EXPORTER_H_
-#define EXPORTER_H_
+#include "testmagickimageexporter.h"
+#include <fstream>
+#include <export/magickimageexporter.h>
+#include <rdib/bmpimageloader.h>
+#include <rdib/magickimageloader.h>
 
-#include <iostream>
-#include <string>
-#include <stdexcept>
+using namespace CIF;
+CPPUNIT_TEST_SUITE_REGISTRATION(TestMagickImageExporter);
 
-#include "rfrmt/formatoptions.h"
+void TestMagickImageExporter::testSave() {
+    std::fstream os;
 
-namespace CIF {
+    ImageExporterPtr exp(new MagickImageExporter);
 
-class Exporter
-{
-public:
-    Exporter();
-    Exporter(const FormatOptions& opts);
-    virtual ~Exporter();
+    // bad image data
+    CPPUNIT_ASSERT_THROW(exp->save(NULL, 0, os), ImageExporter::Exception);
 
-    typedef std::runtime_error Exception;
+    // bad stream
+    os << 1;
+    char data[1000];
+    CPPUNIT_ASSERT_THROW(exp->save(data, 1000, os), ImageExporter::Exception);
 
-    virtual bool encodeNeeded() const;
-    virtual void exportTo(const std::string& filename);
-    void exportTo(std::ostream& os);
-    FormatOptions formatOptions() const;
-    std::string inputEncoding() const;
-    std::string outputEncoding() const;
-    void setFormatOptions(const FormatOptions& opts);
-    void setInputEncoding(const std::string& enc);
-    void setOutputEncoding(const std::string& enc);
-private:
-    virtual void doExport(std::ostream& os) = 0;
-    void autoDetectOutputEncoding();
-    FormatOptions format_options_;
-    std::string input_encoding_;
-    std::string output_encoding_;
-};
+    os.clear();
+    data[0] = 'B';
+    data[1] = 'M';
+    CPPUNIT_ASSERT_THROW(exp->save(data, 1000, os), ImageExporter::Exception);
 
+    MagickImageLoader loader;
+    ImagePtr image = loader.load(EXPORTER_TEST_IMAGE_DIR + std::string("test_in.bmp"));
+
+    exp->save(image->data(), image->size(), "test_out.png");
 }
 
-#endif /* EXPORTER_H_ */

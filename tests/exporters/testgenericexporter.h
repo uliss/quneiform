@@ -27,11 +27,13 @@ class TestGenericExporter: public CppUnit::TestFixture
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testDoExport);
     CPPUNIT_TEST(testExportPage);
+    CPPUNIT_TEST(testCreatePicturesFolder);
     CPPUNIT_TEST_SUITE_END();
     public:
         void testInit();
         void testDoExport();
         void testExportPage();
+        void testCreatePicturesFolder();
 };
 
 #endif /* TESTGENERICEXPORTER_H_ */

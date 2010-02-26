@@ -103,6 +103,7 @@ ImagePtr BmpImageLoader::load(std::istream& stream) {
 
     readData(stream);
 
+    assert(data_size_);
     return ImagePtr(new Image(data_, data_size_, Image::AllocatorNew));
 }
 

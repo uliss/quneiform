@@ -16,62 +16,23 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "exporterfactory.h"
-#include "htmlexporter.h"
-#include "debugexporter.h"
-#include "rtfexporter.h"
 #include "edexporter.h"
-#include "textexporter.h"
-#include "puma/pumadef.h"
-#include "common/outputformat.h"
+#include "ced/ced.h"
 
 namespace CIF
 {
 
-ExporterFactoryImpl::ExporterFactoryImpl() :
-    page_(NULL)
-{
+EdExporter::EdExporter(Handle page) :
+    Exporter(FormatOptions()), page_(page) {
 }
 
-ExporterFactoryImpl::~ExporterFactoryImpl()
-{
+void EdExporter::exportTo(const std::string& filename) {
+    if (!CED_WriteFormattedEd(filename.c_str(), page_))
+        throw Exception("Save to native format failed");
 }
 
-void ExporterFactoryImpl::setFormatOptions(const FormatOptions& opts)
-{
-    format_options_ = opts;
-}
-
-void ExporterFactoryImpl::setPage(Handle page)
-{
-    page_ = page;
-}
-
-Exporter * ExporterFactoryImpl::make(int format)
-{
-    switch (format) {
-    case FORMAT_DEBUG:
-        return new DebugExporter(format_options_);
-        break;
-    case FORMAT_RTF:
-        return new RtfExporter(page_);
-        break;
-    case FORMAT_EDNATIVE:
-        return new EdExporter(page_);
-        break;
-    case FORMAT_XHTML:
-        return new HtmlExporter((CEDPage*) page_, format_options_);
-    case FORMAT_HTML:
-    case FORMAT_TEXT:
-    case FORMAT_SMARTTEXT:
-    case FORMAT_TABLETXT:
-    case FORMAT_TABLEDBF:
-    case FORMAT_HOCR:
-        return new TextExporter(page_, format, format_options_);
-        break;
-    default:
-        throw Exception("Unsupported export format");
-    }
+void EdExporter::doExport(std::ostream& os) {
+    throw Exception("Export to stream for native format not supported");
 }
 
 }

@@ -18,14 +18,25 @@
 
 #include <cassert>
 #include <cstring>
+
 #include "genericexporter.h"
 #include "ced/ced.h"
 #include "ced/cedint.h"
+#include "ced/cedline.h"
 #include "common/debug.h"
 #include "common/cifconfig.h"
+#include "cfcompat.h"
+#include "common/helper.h"
+#include "common/iconv_local.h"
 
 namespace CIF
 {
+
+std::string picturesFolderPath(const std::string& path) {
+    std::string res = removeFileExt(path);
+    res += "_files";
+    return res;
+}
 
 GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
     Exporter(opts), page_(page), no_pictures_(false), os_(NULL), num_chars_(0), num_columns_(0),
@@ -33,6 +44,8 @@ GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
             num_tables_(0), table_nesting_level_(0), skip_empty_paragraphs_(false),
             skip_empty_lines_(false) {
 
+    if (isCharsetConversionNeeded())
+        converter_.open(inputEncoding(), outputEncoding());
 }
 
 int GenericExporter::charNumInParagraph(CEDParagraph * par) {
@@ -45,11 +58,30 @@ int GenericExporter::charNumInParagraph(CEDParagraph * par) {
     return num_of_chars;
 }
 
+std::string GenericExporter::createPicturesFolder() {
+    if (outputFilename().empty())
+        throw Exception("Page name not specified");
+    std::string path = picturesFolderPath(outputFilename());
+
+    // check if folder already exists
+    if (_access(path.c_str(), 0) == 0) {
+        Debug() << "[GenericExporter::createPicturesFolder]: folder \"" << path
+                << "\" already exists.\n";
+        return path;
+    }
+
+    if (!CreateDirectory(path.c_str(), 0))
+        throw Exception("Can't create folder for pictures: " + path);
+
+    return path;
+}
+
 void GenericExporter::doExport(std::ostream& os) {
     if (os.fail())
         throw Exception("[GenericExporter::doExport] invalid stream given");
 
-    no_pictures_ = true;
+    if (outputFilename().empty())
+        no_pictures_ = true;
     os_ = &os;
     exportPage();
 }
@@ -98,6 +130,8 @@ void GenericExporter::exportFrame(CEDParagraph * frame) {
 void GenericExporter::exportLine(CEDLine * line) {
     assert(line);
     if (skip_empty_lines_ && (line->GetCountChar() < 1)) {
+        if (Config::instance().debugHigh())
+            Debug() << "[GenericExporter::exportLine] skipping empty line\n";
         return;
     }
 
@@ -165,10 +199,6 @@ void GenericExporter::exportParagraph(CEDParagraph * par) {
 void GenericExporter::exportPicture(CEDChar * picture) {
     if (no_pictures_)
         return;
-    // Картинка
-    // Прочесть описание картинки
-    //if (!PictureFromChar(picture))
-    //               return FALSE;
 
     assert(picture);
     num_pictures_++;
@@ -208,10 +238,10 @@ void GenericExporter::exportTableCells(CEDParagraph * table) {
     // Количество строк и столбцов таблицы
     EDSIZE dim = CED_GetSize(table);
     const int table_rows = dim.cy;
-    const int table_cols = dim.cx;
+    //const int table_cols = dim.cx;
 
     // Количество логических ячеек
-    const int num_table_cells = CED_GetCountLogicalCell(table);
+    const unsigned int num_table_cells = CED_GetCountLogicalCell(table);
 
     // Массив логических номеров ячеек
     //gLogicalCells = (long*) CED_GetTableOfCells(gTableHandle);
@@ -269,27 +299,105 @@ void GenericExporter::exportTableRow(CEDParagraph * row) {
     writeTableRowEnd(*os_, row);
 }
 
-bool GenericExporter::isCharsetConversionNeeded()const {
-    return inputEncoding() != outputEncoding();
-}
-
 bool GenericExporter::isEmptyParagraph(CEDParagraph * par) {
     return charNumInParagraph(par) < 1;
+}
+
+int GenericExporter::numChars() const {
+    return num_chars_;
+}
+
+int GenericExporter::numColumns() const {
+    return num_columns_;
+}
+
+int GenericExporter::numFrames() const {
+    return num_frames_;
+}
+
+int GenericExporter::numLines() const {
+    return num_lines_;
+}
+
+int GenericExporter::numParagraphs() const {
+    return num_paragraphs_;
+}
+
+int GenericExporter::numPictures() const {
+    return num_pictures_;
+}
+
+int GenericExporter::numSections() const {
+    return num_sections_;
+}
+
+int GenericExporter::numTables() const {
+    return num_tables_;
+}
+
+std::ostream * GenericExporter::outputStream() {
+    return os_;
 }
 
 CEDPage * GenericExporter::page() {
     return page_;
 }
 
-void GenericExporter::savePicture(CEDChar * /*picture*/) {
-    Debug() << "[GenericExporter::savePicture] implement me\n";
+std::string GenericExporter::pictureName(CEDChar * picture) {
+    assert(picture);
+    std::ostringstream buf;
+    buf << "image_" << pictureNumber(picture) << "." << imageExporter()->extension();
+    return buf.str();
+}
+
+int GenericExporter::pictureNumber(CEDChar * picture) {
+    assert(picture);
+    if (picture->fontNum < ED_PICT_BASE)
+        throw Exception("[GenericExporter::pictureNumber] not valid picture");
+
+    return picture->fontNum - ED_PICT_BASE;
+}
+
+std::string GenericExporter::savePicture(CEDChar * picture) {
+    std::string path = createPicturesFolder() + "/" + pictureName(picture);
+    savePictureData(picture, path);
+    return path;
+}
+
+void GenericExporter::savePictureData(CEDChar * picture, const std::string& path) {
+    int pict_user_num = 0;
+    int pict_align = 0;
+    int pict_type = 0;
+    int pict_length = 0;
+    EDSIZE pict_goal;
+    void * pict_data = 0;
+
+    for (int i = 0; i < page_->picsUsed; i++) {
+        if (CED_GetPicture(page_, i, &pict_user_num, // Пользовательский номер
+                last_picture_size_, // Размер картинки в TIFF-файле в пикселах
+                &pict_goal, // Размер картинки на экране в twips
+                &pict_align, // Вертикальное расположение
+                &pict_type, // Тип = 1 (DIB)
+                &pict_data, // Адрес DIB включая заголовок
+                &pict_length // Длина DIB включая заголовок
+        ) && pict_user_num == pictureNumber(picture)) {
+            if (!pict_data || pict_length <= 0) {
+                throw Exception("[GenericExporter::savePicture] failed");
+            }
+        }
+    }
+
+    if (!pict_data || pict_length <= 0)
+        throw Exception("[GenericExporter::savePictureData] failed");
+
+    imageExporter()->save(pict_data, pict_length, path);
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {
     skip_empty_lines_ = value;
 }
 
-void GenericExporter::setSkipEmptyParagraphhs(bool value) {
+void GenericExporter::setSkipEmptyParagraphs(bool value) {
     skip_empty_paragraphs_ = value;
 }
 
@@ -309,10 +417,13 @@ bool GenericExporter::skipPictures() const {
     return no_pictures_;
 }
 
+void GenericExporter::setOutputStream(std::ostream * os) {
+    os_ = os;
+}
+
 void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
-    letterEx *alt = chr->alternatives;
-    assert(alt);
-    os << alt->alternative;
+    assert(chr and chr->alternatives);
+    os << chr->alternatives->alternative;
 }
 
 void GenericExporter::writeColumnBegin(std::ostream& /*os*/, CEDParagraph * /*col*/) {
