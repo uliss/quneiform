@@ -68,7 +68,7 @@
 
 Bool16 boxes_account();
 
-extern c_comp wcomp;
+extern ExtComponent wcomp;
 extern MN * main_number_ptr;
 extern BOX * boxchain, *dl_last_in_chain;
 extern uchar lpool[];

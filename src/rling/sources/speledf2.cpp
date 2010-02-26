@@ -151,7 +151,7 @@ uchar *next_symb(int16_t i, int16_t j, int16_t k, struct segm *cur_segm,
                 SPQ.ns_symb = SPQ.ns_symb + sizeof(struct bit_map_ref);
                 break;
             case SS_STEP_BACK:
-                SPQ.ns_symb = SPQ.ns_symb + sizeof(struct step_back);
+                SPQ.ns_symb = SPQ.ns_symb + sizeof(struct tag_step_back);
                 break;
             case SS_TEXT_REF:
                 SPQ.h_text_ref_ptr = (struct text_ref *) SPQ.ns_symb;

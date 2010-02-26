@@ -19,10 +19,12 @@
 #ifndef CIFCONFIG_H_
 #define CIFCONFIG_H_
 
+#include "globus.h"
+
 namespace CIF
 {
 
-class Config
+class FUN_EXPO__ Config
 {
         Config();
     public:

@@ -55,6 +55,9 @@
  */
 
 #include "sys_prog.h"
+#ifdef _MSC_VER
+#include <malloc.h>
+#endif
 
 using namespace CIF;
 

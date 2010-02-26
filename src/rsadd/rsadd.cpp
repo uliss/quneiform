@@ -74,6 +74,7 @@ static const char etap_name = 'g';
 
 #include "ligas.h"
 #include "cfcompat.h"
+#include "minmax.h"
 
 static int16_t crsadd_rus1 = 10;
 static int16_t crsadd_rus2 = 10;
@@ -125,7 +126,7 @@ static Bool16 my_snap_activity(uchar a) {
 	return FALSE;
 }
 
-static Bool16 my_snap_show_text(const char */*txt*/) {
+static Bool16 my_snap_show_text(const char * /*txt*/) {
 	return FALSE;
 }
 
@@ -294,13 +295,13 @@ static CSTR_rast rsadd_end_word(CSTR_rast cs, uchar *str, uchar *word_len,
 		if (nattr.flg & (CSTR_f_let | CSTR_f_bad | CSTR_f_punct)) {
 			int16_t dist = 16000;
 			if (attr.h)
-				dist = std::min(dist, attr.h);
+				dist = MIN(dist, attr.h);
 			if (nattr.h)
-				dist = std::min(dist, nattr.h);
+				dist = MIN(dist, nattr.h);
 			if (attr.w)
-				dist = std::min(dist, attr.w);
+				dist = MIN(dist, attr.w);
 			if (nattr.w)
-				dist = std::min(dist, nattr.w);
+				dist = MIN(dist, nattr.w);
 			if (dist != 16000 && !strchr((char*) true_terms, vers.Alt[0].Code)
 					&& nattr.col - (attr.col + attr.w) > 0 && nattr.col
 					- (attr.col + attr.w) < dist / 3)
@@ -342,10 +343,10 @@ static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, int32_t engCol,
 		if (!(rattr.flg & CSTR_f_bad))
 			IsGood = TRUE;
 
-		rect.top = std::min(rect.top, static_cast<int32_t> (rattr.row));
-		rect.bottom = std::max(rect.bottom, rattr.row + rattr.h);
-		rect.left = std::min(rect.left, static_cast<int32_t> (rattr.col));
-		rect.right = std::max(rect.right, rattr.col + rattr.w);
+		rect.top = MIN(rect.top, static_cast<int32_t> (rattr.row));
+		rect.bottom = MAX(rect.bottom, rattr.row + rattr.h);
+		rect.left = MIN(rect.left, static_cast<int32_t> (rattr.col));
+		rect.right = MAX(rect.right, rattr.col + rattr.w);
 
 		iUp++;
 	}
@@ -362,7 +363,7 @@ static Bool32 GoodWordBounds(CSTR_rast cs, CSTR_rast best, int32_t engCol,
 	iUp = (rect.bottom + rect.top) / 2 - 1;
 	iDn = (rect.bottom + rect.top) / 2 + 1;
 
-	porog = std::max(3, (rect.bottom - rect.top) / 4);
+	porog = MAX(3, (rect.bottom - rect.top) / 4);
 
 	if (best) {
 
@@ -740,9 +741,9 @@ static CSTR_rast rsadd_get_left_coord(CSTR_line ln, int16_t left, int16_t right)
 		leftn = attr.col;
 		rightn = attr.col + attr.w;
 		if (rightn >= left && right >= leftn) {
-			int16_t dist = std::min(attr.h, pattr.h);
-			dist = std::min(dist, attr.w);
-			dist = std::min(dist, pattr.w);
+			int16_t dist = MIN(attr.h, pattr.h);
+			dist = MIN(dist, attr.w);
+			dist = MIN(dist, pattr.w);
 			if (!strchr((char*) true_terms, vers.Alt[0].Code)
 					&& vers.Alt[0].Code != liga_TM_usual && // Nick 12.01.2001
 					vers.Alt[0].Code != liga_CC_usual && vers.Alt[0].Code
@@ -1140,7 +1141,7 @@ Bool32 RSADD_take(CSTR_line lrus, CSTR_line leng) {
 
 	// Nick 29.10.00
 	CSTR_GetLineAttr(leng, &lattr);
-	BL_small = std::min(BL_small, lattr.bs3 - lattr.bs2);
+	BL_small = MIN(BL_small, lattr.bs3 - lattr.bs2);
 
 	tables = (lattr.tab_column > 0);
 	num_word = nall = neng = 0;
@@ -1626,44 +1627,3 @@ char* RSADD_GetReturnString(uint32_t dwError) {
 	return szBuffer;
 }
 
-Bool32 RSADD_SetImportData(uint32_t dwType, void * pData) {
-
-	wLowRC = RSADD_ERR_NO;
-	switch (dwType) {
-
-	default:
-		wLowRC = RSADD_ERR_NOTIMPLEMENT;
-		return FALSE;
-	}
-	return TRUE;
-}
-
-Bool32 RSADD_GetExportData(uint32_t dwType, void * pData) {
-	Bool32 rc = TRUE;
-
-#define EXPORT(a) *(uint32_t*)(pData)=          (uint32_t)a;
-	wLowRC = RSADD_ERR_NO;
-	switch (dwType) {
-	case RSADD_TAKE: // главная функция слияния двух строк
-		*(FNRSADD_take*) (pData) = RSADD_take;
-		break;
-	case RSADD_GETALIASES: // список родственных символов
-		*(FNRSADD_get_aliases*) (pData) = RSADD_get_aliases;
-		break;
-	case RSADD_GETALIASCLASS: // класс родственных символов
-		*(FNRSADD_get_alias_class*) (pData) = RSADD_get_alias_class;
-		break;
-	case RSADD_KILL_DUSTS: // уничтожить лишние дусты
-		*(FNRSADD_kill_dusts*) (pData) = RSADD_kill_dusts;
-		break;
-	case RSADD_SETRSTR: // приём информации и функций из б-ки RSTR
-		*(FNRSADD_SetRSTR*) (pData) = RSADD_SetRSTR;
-		break;
-
-	default:
-		wLowRC = RSADD_ERR_NOTIMPLEMENT;
-		rc = FALSE;
-	}
-#undef EXPORT
-	return rc;
-}

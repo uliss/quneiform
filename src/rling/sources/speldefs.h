@@ -208,11 +208,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define VOC_ACCNT_ZERO         -5
 #define VOC_TOO_SMALL          -6      /* MAX_VOC_SIZE less then sizeof(vert) */
 /**************************************************************************/
-typedef unsigned char byte;
+typedef unsigned char uchar;
 
 struct bit_map_ref {
-    byte code;
-    byte reserv;
+    uchar code;
+    uchar reserv;
     int16_t row;
     int16_t col;
     int16_t width;
@@ -220,31 +220,31 @@ struct bit_map_ref {
 };
 
 struct text_ref {                      /*type 0- letter     */
-    byte code;
-    byte type;                            /*     2- word       */
+    uchar code;
+    uchar type;                            /*     2- word       */
     int16_t object;                           /*     3-string      */
 };
 
 struct font_kegl {
-    byte code;
-    byte new_kegl;
+    uchar code;
+    uchar new_kegl;
     int16_t  new_font;
 };
 
 struct kegl {
-    byte code;
-    byte new_kegl;
+    uchar code;
+    uchar new_kegl;
 };
 
 struct shift_struct {
-    byte code;
-    byte kegl;
+    uchar code;
+    uchar kegl;
     int16_t clearance;                         /*value of lift or descent */
 };                                     /*  lift positive          */
 /* descent negative*/
 struct retrieve_level {
-    byte code;
-    byte kegl;
+    uchar code;
+    uchar kegl;
 };
 
 /* 0 - thin straight */
@@ -264,59 +264,59 @@ struct EdTagLanguage { //for russian-english recognize
 
 struct underline                       /* 0 - straight font            */
 {                                      /* 1 - half fat or fat straight */
-    byte code;                            /* 2 - thin cursiv              */
-    byte type;                            /* 3 -  thick straight          */
+    uchar code;                            /* 2 - thin cursiv              */
+    uchar type;                            /* 3 -  thick straight          */
 };                                     /* 4- beg of underline          */
 /* 5- end of underline          */
 struct dens_print {
-    byte code;
-    byte dens_atr;                         /*attribute of print's
+    uchar code;
+    uchar dens_atr;                         /*attribute of print's
                      density*/
 };
 
 struct  tabul {
-    byte code;
-    byte numb_in_tab_tabul;               /*number of position in*/
+    uchar code;
+    uchar numb_in_tab_tabul;               /*number of position in*/
 };
 /* table of tabulation*/
 struct tabl_tabul {
-    byte code;
-    byte lth;                              /* lth- scale of arow*/
+    uchar code;
+    uchar lth;                              /* lth- scale of arow*/
     int16_t arow_pos[1] ;                      /* tabl_tabul->lth ????????*/
 };
 
-struct  step_back {
-    byte code;                                       /* step_back-value of backstep*/
-    byte step_back;
+struct tag_step_back {
+    uchar code;                                       /* step_back-value of backstep*/
+    uchar step_back;
 };
 
 struct  line_beg {
-    byte code;
-    byte store;
+    uchar code;
+    uchar store;
     int16_t displacement;                     /*displacement -displ. for cur.*/
 };                                     /* line to upper frame of fragm*/
 
 struct  position {
-    byte code;
-    byte store;
+    uchar code;
+    uchar store;
     int16_t pos;                              /* pos-position in line for*/
 };                                     /* left frame of  fragm*/
 
 struct  tabl_conform_sizes {
-    byte code;
-    byte store;
+    uchar code;
+    uchar store;
     char tab_val_A [9*2];                 /*tab_val_A-table of sizes*/
 };                                      /*   of letter A for kegles */
 /*  from 4 to 12 */
 struct fragm_disk {
-    byte code;
-    byte fragm_numb;
+    uchar code;
+    uchar fragm_numb;
     int16_t depth;                           /*depth -displ. for cur.       */
 };                                /*line to upper frame of fragm*/
 
 struct group_words {
-    byte code;
-    byte  gr_wd_type;                     /*type-
+    uchar code;
+    uchar  gr_wd_type;                     /*type-
                           0-beg of group
                           1-cur. word of group
                           2-end
@@ -324,23 +324,23 @@ struct group_words {
 };
 
 struct  group_symbols {
-    byte code;
-    byte  gr_sb_type;
+    uchar code;
+    uchar  gr_sb_type;
 };
 
 struct  aksant {
-    byte code1;
-    byte code;
+    uchar code1;
+    uchar code;
 };
 
 struct  neg_half_space {
-    byte code;
-    byte  authenticity_degree;
+    uchar code;
+    uchar  authenticity_degree;
 };
 
 struct pos_half_space {
-    byte code;
-    byte authenticity_degree;
+    uchar code;
+    uchar authenticity_degree;
 };
 
 struct segm {                                    /* dynamic memory segment's header */
@@ -390,7 +390,7 @@ struct file_descr {                                    /* file header */
 };
 
 struct sheet_disk_descr {
-    byte code;
+    uchar code;
     uchar quant_fragm;
     int16_t sheet_numb;
     int16_t descr_lth;
@@ -410,24 +410,24 @@ struct fragm_descr {                                    /* fragment header */
     int16_t height;                          /* height of fragment */
     int16_t w_width;                         /* Q.w_width of fragment */
     char type;                           /* fragment's type */
-    byte kegl;
-    byte font;
-    byte font_type;
+    uchar kegl;
+    uchar font;
+    uchar font_type;
     struct segm  *first_segm;        /* address of first segm (line) */
     struct segm  *last_segm;         /* address of last segm */
 };
 
 struct fragm_disk_descr {
-    byte code;
+    uchar code;
     int16_t row;                             /* coordinates of left upper */
     int16_t col;                             /* angle of fragment's frame */
     int16_t height;                          /* height of fragment */
     int16_t w_width;                         /* Q.w_width of fragment */
     char type;
-    byte kegl;                           /*kegl for following fragm*/
-    byte font;                            /*font name number~~~~~~~~*/
-    byte language;                        // 03-29-94 02:42pm,Pit
-    byte  font_type;                     /*type specifications of font
+    uchar kegl;                           /*kegl for following fragm*/
+    uchar font;                            /*font name number~~~~~~~~*/
+    uchar language;                        // 03-29-94 02:42pm,Pit
+    uchar  font_type;                     /*type specifications of font
                      for additional information
                      look at underline */
 };
@@ -441,8 +441,8 @@ struct state_stack_elem {                                    /* element of state
     char stack_type;                     /* ??????? */
     int16_t line_row;                        /* ??????? */
     int16_t position;
-    byte font;                            /* font */
-    byte language;                        // language for fragment
+    uchar font;                            /* font */
+    uchar language;                        // language for fragment
     char kegl;                           /* kegl */
     char font_type;                      /* font type */
     char density;                        /* printing density */
@@ -457,8 +457,8 @@ struct state_stack_elem {                                    /* element of state
 };
 
 struct letter {
-    byte code;
-    byte attr;
+    uchar code;
+    uchar attr;
 };
 
 typedef struct state {                       /* description of state characteristics */

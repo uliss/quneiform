@@ -38,4 +38,7 @@ library_hook(cuneiform-alphabets)
 set(ALPHABET_HEADER_INSTALL "alphabets")
 install(FILES alphabetfactory.h alphabet.h DESTINATION include/${CF_HEADER_INSTALL}/${ALPHABET_HEADER_INSTALL})
 
-target_link_libraries(cuneiform-alphabets cuneiform-compat cuneiform-common)
+target_link_libraries(cuneiform-alphabets 
+    cuneiform-compat 
+    cuneiform-common
+)

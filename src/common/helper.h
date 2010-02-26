@@ -24,10 +24,12 @@
 #include <algorithm>
 #include <cctype>
 
+#include "globus.h"
+
 namespace CIF
 {
 
-std::string escapeHtmlSpecialChars(const std::string& path);
+FUN_EXPO__ std::string escapeHtmlSpecialChars(const std::string& path);
 
 inline std::string getFileExt(const std::string& filename)
 {

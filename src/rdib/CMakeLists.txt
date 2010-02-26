@@ -1,4 +1,5 @@
 set(loaders bmpimageloader.cpp)
+set(loader_libs "")
 
 if(USE_IMAGE_MAGICK) 
     set(loaders ${loaders} magickimageloader.cpp)
@@ -17,8 +18,8 @@ ${loaders}
 
 set_property(TARGET cuneiform-rdib PROPERTY COMPILE_DEFINITIONS __RDIB__)
 target_link_libraries(cuneiform-rdib 
-    cuneiform-compat
     cuneiform-common 
+    cuneiform-compat 
     ${loaders_libs})
 
 library_hook(cuneiform-rdib)

@@ -58,7 +58,7 @@ void Exporter::autoDetectOutputEncoding() {
 }
 
 bool Exporter::isCharsetConversionNeeded() const {
-    if (output_encoding_.empty() or input_encoding_.empty())
+    if (output_encoding_.empty() || input_encoding_.empty())
         return false;
     return output_encoding_ != input_encoding_;
 }

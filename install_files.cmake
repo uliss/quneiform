@@ -27,8 +27,10 @@ if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
 endif()
 
 macro(library_hook name)
-  set_target_properties(${name} PROPERTIES VERSION
-  "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}")
+  if(NOT WIN32)
+    set_target_properties(${name} PROPERTIES VERSION "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}")
+  endif()
+  
   install(
     TARGETS "${name}"
     ARCHIVE DESTINATION ${LIBDIR}

@@ -33,7 +33,7 @@ inline void removeHyphens(std::string& line) {
         return;
 
     size_t len = line.size();
-    if (len > 1 and line[len - 1] == '-')
+    if (len > 1 && line[len - 1] == '-')
         line.erase(len - 1, 1);
 }
 
@@ -65,7 +65,7 @@ void TextExporter::exportTo(std::ostream& os) {
 }
 
 bool TextExporter::isLineBreak() const {
-    return formatOptions().preserveLineBreaks() or line_hard_break_flag_;
+    return formatOptions().preserveLineBreaks() || line_hard_break_flag_;
 }
 
 std::ostringstream& TextExporter::lineBuffer() {
@@ -101,7 +101,7 @@ void TextExporter::writeLineBreak(std::ostream& os) {
 void TextExporter::writeLineEnd(std::ostream& os, CEDLine * /*line*/) {
     std::string line = lineBufferString();
 
-    if (not isLineBreak() and not formatOptions().preserveLineHyphens())
+    if (!isLineBreak() && !formatOptions().preserveLineHyphens())
         removeHyphens(line);
 
     if (isCharsetConversionNeeded())

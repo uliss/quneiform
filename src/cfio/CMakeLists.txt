@@ -10,6 +10,8 @@ dll_main.cpp
 ctcglobalheader.cpp
 )
 
-target_link_libraries(cuneiform-cfio cuneiform-compat)
+target_link_libraries(cuneiform-cfio 
+	cuneiform-common 
+	cuneiform-compat )
 
 library_hook(cuneiform-cfio)

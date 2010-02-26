@@ -81,6 +81,7 @@
 #include "sys_prog.h"
 #include "ced/ced.h"
 #include "rfrmt_prot.h"
+#include "compat/filefunc.h"
 
 #include "minmax.h"
 

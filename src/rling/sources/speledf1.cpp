@@ -244,13 +244,13 @@ int16_t processEdSymb(void)
             ret = do_fragm();
             break;
         case SS_STEP_BACK:
-            ret = mvbuf(sizeof(struct step_back));
+            ret = mvbuf(sizeof(struct tag_step_back));
             break;
         case SS_LINE_BEG:
             ret = set_descr(LINE);
             break;
         case SS_POSITION:
-            ret = mvbuf(sizeof(struct step_back));
+            ret = mvbuf(sizeof(struct tag_step_back));
             break;
         case SS_TABL_CONFORM_SIZES:
             ret = mvbuf(sizeof(struct tabl_conform_sizes));

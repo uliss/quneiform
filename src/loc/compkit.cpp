@@ -72,14 +72,65 @@ extern c_comp wcomp;
 extern MN * main_number_ptr;
 extern BOX * boxchain, *dl_last_in_chain;
 extern uchar lpool[];
-extern uint16_t lpool_lth;
+extern uint lpool_lth;
 extern uchar work_raster[];
 extern CIF::version * start_rec, *rec_ptr;
 extern uchar records_change;
 extern uchar *events_tree, *events_tree_rt;
-static void boxes_to_line();
 Bool16 init_event_trees(void);
 void event_close(void);
+
+static void boxes_to_line()
+{
+    BOX *bp;
+    lnhead *lnp;
+    LNSTRT *lsp;
+    interval * ip;
+    BOXINT * bip;
+    int16_t x, n;
+    bp = boxchain;
+    lnp = (lnhead *) lpool;
+    goto enter_loop;
+next_line:
+    bp = bp->boxnext;
+enter_loop:
+    lsp = (LNSTRT *) (bp + 1);
+    lnp->row = lsp->y - wcomp.upper;
+    lnp->flg = bp->boxflag;
+    ip = (interval *) (lnp + 1);
+    ip->l = (unsigned char) lsp->l;
+    x = lsp->x - wcomp.left;
+    (ip++)->e = (unsigned char) x;
+    bip = (BOXINT *) (lsp + 1);
+    n = (bp->boxptr - sizeof(BOX) - sizeof(LNSTRT)) / sizeof(BOXINT);
+cont_box:
+
+    while (n--) {
+        ip->l = (unsigned char) bip->l;
+        x += (bip++)->d;
+        (ip++)->e = (unsigned char) x;
+    }
+
+    if ((bp->boxflag & BOXEND) == 0) {
+        bp = bp->boxnext;
+        bip = (BOXINT *) (bp + 1);
+        n = (bp->boxptr - sizeof(BOX)) / sizeof(BOXINT);
+        goto cont_box;
+    }
+
+    ip->e = 0; // Vald for compability with asm prototype
+    (ip++)->l = 0;
+    lnp->lth = (uchar*) ip - (uchar*) lnp;
+    lnp->h = (lnp->lth - sizeof(*lnp) - sizeof(*ip)) / sizeof(*ip);
+    lnp->flg |= bp->boxflag;
+    lnp = (lnhead *) ip;
+
+    if (bp != dl_last_in_chain)
+        goto next_line;
+
+    lnp->lth = 0;
+    lpool_lth = (uchar*) lnp - lpool + sizeof(lnp->lth);
+}
 
 Bool16 component_account()
 {
@@ -150,58 +201,6 @@ Bool16 boxes_account()
 
     else
         return TRUE;
-}
-
-static void boxes_to_line()
-{
-    BOX *bp;
-    lnhead *lnp;
-    LNSTRT *lsp;
-    interval * ip;
-    BOXINT * bip;
-    int16_t x, n;
-    bp = boxchain;
-    lnp = (lnhead *) lpool;
-    goto enter_loop;
-next_line:
-    bp = bp->boxnext;
-enter_loop:
-    lsp = (LNSTRT *) (bp + 1);
-    lnp->row = lsp->y - wcomp.upper;
-    lnp->flg = bp->boxflag;
-    ip = (interval *) (lnp + 1);
-    ip->l = (unsigned char) lsp->l;
-    x = lsp->x - wcomp.left;
-    (ip++)->e = (unsigned char) x;
-    bip = (BOXINT *) (lsp + 1);
-    n = (bp->boxptr - sizeof(BOX) - sizeof(LNSTRT)) / sizeof(BOXINT);
-cont_box:
-
-    while (n--) {
-        ip->l = (unsigned char) bip->l;
-        x += (bip++)->d;
-        (ip++)->e = (unsigned char) x;
-    }
-
-    if ((bp->boxflag & BOXEND) == 0) {
-        bp = bp->boxnext;
-        bip = (BOXINT *) (bp + 1);
-        n = (bp->boxptr - sizeof(BOX)) / sizeof(BOXINT);
-        goto cont_box;
-    }
-
-    ip->e = 0; // Vald for compability with asm prototype
-    (ip++)->l = 0;
-    lnp->lth = (uchar*) ip - (uchar*) lnp;
-    lnp->h = (lnp->lth - sizeof(*lnp) - sizeof(*ip)) / sizeof(*ip);
-    lnp->flg |= bp->boxflag;
-    lnp = (lnhead *) ip;
-
-    if (bp != dl_last_in_chain)
-        goto next_line;
-
-    lnp->lth = 0;
-    lpool_lth = (uchar*) lnp - lpool + sizeof(lnp->lth);
 }
 
 static const uchar make_fill[] = { 0, 1, 3, 7, 15, 31, 63, 127, 255 };

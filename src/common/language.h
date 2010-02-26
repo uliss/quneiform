@@ -24,6 +24,7 @@
 #include <map>
 #include <list>
 #include <iostream>
+#include "globus.h"
 
 namespace CIF
 {
@@ -32,7 +33,7 @@ typedef std::pair<std::string, std::string> LanguageCodeName;
 typedef std::map<language_t, LanguageCodeName> LanguageMap;
 typedef std::list<language_t> LanguageList;
 
-class Language
+class FUN_EXPO__ Language
 {
     public:
         Language(language_t language);
@@ -64,7 +65,7 @@ inline language_t Language::get() const {
     return language_;
 }
 
-std::ostream& operator<<(std::ostream& os, const Language& language);
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const Language& language);
 
 }
 

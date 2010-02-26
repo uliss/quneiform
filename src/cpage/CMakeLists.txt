@@ -17,6 +17,8 @@ tableclass.cpp
 )
 set_property(TARGET cuneiform-cpage PROPERTY COMPILE_DEFINITIONS __CPAGE__)
 
-target_link_libraries(cuneiform-cpage cuneiform-compat)
+target_link_libraries(cuneiform-cpage 
+    cuneiform-compat
+)
 
 library_hook(cuneiform-cpage)

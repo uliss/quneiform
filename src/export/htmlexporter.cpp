@@ -131,7 +131,7 @@ std::string HtmlExporter::lineBufferString() {
 }
 
 void HtmlExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
-    assert(chr and chr->alternatives);
+    assert(chr && chr->alternatives);
     writeFontStyle(os, chr->fontAttribs);
     os << escapeHtmlSpecialChar(chr->alternatives->alternative);
 }

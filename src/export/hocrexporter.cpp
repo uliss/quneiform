@@ -27,8 +27,8 @@ const int BOXES_TO_RESERVE = 200;
 const int BAD_RECT_VALUE = 65535;
 
 inline bool goodCharRect(const Rect& rc) {
-    return rc.left() != -1 and rc.left() != BAD_RECT_VALUE and rc.right() != BAD_RECT_VALUE
-            and rc.top() != BAD_RECT_VALUE and rc.bottom() != BAD_RECT_VALUE;
+    return rc.left() != -1 && rc.left() != BAD_RECT_VALUE && rc.right() != BAD_RECT_VALUE
+            && rc.top() != BAD_RECT_VALUE && rc.bottom() != BAD_RECT_VALUE;
 }
 
 HocrExporter::HocrExporter(CEDPage * page, const FormatOptions& opts) :
@@ -97,7 +97,7 @@ void HocrExporter::writeMeta(std::ostream& os) {
 }
 
 void HocrExporter::writePageBegin(std::ostream& os) {
-    assert(page() and page()->imageName);
+    assert(page() && page()->imageName);
     HtmlExporter::writePageBegin(os);
     static int num_pages = 1;
     // example: <div class="ocr_page" title="image 'page-000.pbm'; bbox 0 0 4306 6064">

@@ -26,6 +26,7 @@
 
 #include <string>
 #include <stdexcept>
+#include "globus.h"
 #include "config.h"
 
 #ifdef USE_ICONV
@@ -35,7 +36,7 @@
 namespace CIF
 {
 
-class Iconv
+class FUN_EXPO__ Iconv
 {
     public:
         Iconv();

@@ -422,7 +422,7 @@ void GenericExporter::setOutputStream(std::ostream * os) {
 }
 
 void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
-    assert(chr and chr->alternatives);
+    assert(chr && chr->alternatives);
     os << chr->alternatives->alternative;
 }
 
