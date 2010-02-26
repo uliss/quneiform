@@ -114,6 +114,7 @@ bool Iconv::open(const std::string &from, const std::string &to) {
     iconv_ = ::iconv_open(to.c_str(), from.c_str());
     return iconv_ != iconv_t(-1);
 #endif
+    return true;
 }
 
 }

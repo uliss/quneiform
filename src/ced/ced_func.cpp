@@ -645,10 +645,11 @@ void CED_ShowTree(char * name, Handle hEdPage)
 
     for (unsigned int p = 0; p < CED_GetNumOfPics(hEdPage); p++) {
         int pictNumber, pictAlign , type, length;
-        EDSIZE pictSize, pictGoal;
-        CED_GetPicture(hEdPage, p, &pictNumber, &pictSize, &pictGoal, &pictAlign , &type, 0, &length);
+		CIF::Size pictSize;
+		EDSIZE pictGoal;
+        CED_GetPicture(hEdPage, p, &pictNumber, pictSize, &pictGoal, &pictAlign , &type, 0, &length);
         fprintf(stream, "\npictNumber=%d, type=%d, length=%d, pictSize.x=%d, pictSize.y=%d,\npictGoal.x=%d, pictGoal.y=%d, pictAlign=%d\n",
-                pictNumber, type, length, pictSize.cx, pictSize.cy, pictGoal.cx, pictGoal.cy, pictAlign);
+                pictNumber, type, length, pictSize.width(), pictSize.height(), pictGoal.cx, pictGoal.cy, pictAlign);
     }
 
     for (unsigned int i = 0; i < CED_GetCountSection(hEdPage); i++) {
@@ -744,8 +745,9 @@ void CED_ShowTree(char * name, Handle hEdPage)
 
 void PrintPara(FILE *stream, Handle para)
 {
+	CIF::Rect indent = (static_cast<CIF::CEDParagraph*>(para))->indent;
     fprintf(stream, "\nparagraph,alig=%i,FInd=%d,LInd=%i,RInd=%d",
-            CED_GetAlignment(para), CED_GetIndent(para).top, CED_GetIndent(para).left, CED_GetIndent(para).right);
+            CED_GetAlignment(para), indent.top(), indent.left(), indent.right());
     fprintf(stream, ",usNum=%i,sb=%i,sa=%i\n", CED_GetUserNumber(para), CED_GetInterval(para).cx, CED_GetInterval(para).cy);
 
     for (unsigned l = 0; l < CED_GetCountLine(para); l++) {

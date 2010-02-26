@@ -18,6 +18,7 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <iostream>
 #include "cedsection.h"
 #include "cedparagraph.h"
 
