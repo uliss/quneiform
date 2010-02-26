@@ -67,6 +67,7 @@
 #define CFIOHightCode 0x0001
 
 #include "ced.h"
+#include "cedchar.h"
 #include "ced_struct.h"
 #include "compat_defs.h"
 #include "compat/filefunc.h"

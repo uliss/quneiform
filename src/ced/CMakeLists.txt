@@ -2,6 +2,7 @@ add_definitions(-D__CED__)
 
 add_library(cuneiform-ced ${LIBTYPE}
 ced.cpp
+cedchar.cpp
 cedline.cpp
 ced_func.cpp
 ced_func_old.cpp

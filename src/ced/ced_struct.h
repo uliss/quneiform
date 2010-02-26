@@ -381,31 +381,4 @@ class CED_FUNC(CEDParagraph)
         friend class CEDPage;
 };
 
-class CED_FUNC(CEDChar)
-{
-    public:
-        edRect      layout;         //layout of symbol in input image (in pixel)
-        int     fontHeight, fontAttribs; //font parameters
-        int fontNum;
-        int fontLang;
-        int foregroundColor;
-        int backgroundColor;
-        letterEx * alternatives;    //array of alternatives
-        int     numOfAltern;
-        char *  extData;            //data to be written in file after header
-        int     extDataLen;         //their length
-
-        CEDChar();
-        ~CEDChar();
-        CEDChar * prev, *next;      //pointer to neibor elements in connected list
-    protected:
-//  int internalNumber;         //number of lines from start of file
-        int parentNumber;           //number of parent in a file
-        friend class CEDLine;
-        friend class CEDPage;
-        friend void FormattedTR(const text_ref* pt);
-        friend void StripLines();
-};
-
-
 #endif// _CED_STRUCT_
