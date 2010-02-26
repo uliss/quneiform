@@ -35,7 +35,7 @@ CEDLine::~CEDLine() {
 }
 
 bool CEDLine::hardBreak() const {
-    return hard_break_;
+    return (hard_break_ == TRUE);
 }
 
 void CEDLine::setHardBreak(bool value) {
