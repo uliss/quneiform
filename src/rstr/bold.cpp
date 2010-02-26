@@ -73,6 +73,8 @@ uchar *SHAVE_FLAGS;
 int16_t SHAVE_HEIGHT;
 int16_t SHAVE_WIDTH;
 
+#define c_locomp EVN_CLocomp
+
 Bool boldshave(cell *C, int16_t method)
 //
 //  This procedure shaves skin from image in cell *C.

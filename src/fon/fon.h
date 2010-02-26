@@ -114,9 +114,9 @@ FON_FUNC int32_t FONSetAlphaColumn(int32_t column, Bool32 onlyDigits);
 FON_FUNC int32_t FONFontInfo(FontInfo *fontinfo);
 FON_FUNC int32_t FONSizesInfo(SizesInfo *sizeinfo, int num);
 
-int32_t FONRecog2Glue(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
+FON_FUNC int32_t FONRecog2Glue(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
                       CSTR_rast lasOut, int lang, int porog, int nNaklon, int countRazmaz);
-int32_t FONRecogBroken(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
+FON_FUNC int32_t FONRecogBroken(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firOut,
                        CSTR_rast lasOut, int lang, int porog, int nNaklon, int nRazmaz);
 
 // 3.12.98

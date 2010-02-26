@@ -127,7 +127,7 @@
 
 /****** Global Variables: *************/
 extern uchar fax1x2;
-extern char db_pass;
+extern uchar db_pass;
 extern char fbg;
 extern int16_t line_number;
 /***** Common variables and functions **********/

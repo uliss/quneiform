@@ -147,7 +147,7 @@ static const uchar *specVeryBadLeo = specBadNon;
 //======== EXTERN FUNCTIONS
 int p2_rotateRecRaster(RecRaster *rec, int ninc);
 // p2_tools.c
-int32_t p2_setOddEvenFlag(CSTR_rast first, CSTR_rast last);
+int p2_setOddEvenFlag(CSTR_rast first, CSTR_rast last);
 
 //////// local variables    //////////
 P2GLOBALS p2globals;
@@ -1842,10 +1842,6 @@ static int FindEqualLine(CSTR_line lineRaw, CSTR_rast *firOld,
 static int RerecogInRect(Rect32 *rect, CSTR_line lineRaw, CSTR_rast firstNew,
                          CSTR_rast lastNew, int lang)
 {
-    int32_t
-    FONRecog2Glue(CSTR_rast firLeo, CSTR_rast lasLeo, CSTR_rast firNew,
-                  CSTR_rast lasNew, int lang, int porog, int nNaklon,
-                  int countRazmaz);
     int nOld;
     CSTR_rast firOld, lasOld;
     int ret;

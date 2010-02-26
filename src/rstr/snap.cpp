@@ -621,7 +621,7 @@ uint32_t myMonitorProc(Handle wnd, Handle hwnd, uint32_t message, uint32_t wPara
     uint32_t pos;
     char buf[256];
 
-    pos = LDPUMA_CSTR_GetPosition((uint *) &r);
+    pos = LDPUMA_CSTR_GetPosition((uint32_t *) &r);
     if (r)
         c = snap_CSTR2cell(r); // for any call
     if (no_process && cutpoints_cell) {

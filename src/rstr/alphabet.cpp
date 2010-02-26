@@ -765,7 +765,7 @@ int16_t GetColumn(int16_t *VertLines, int16_t VertNum) {
 }
 
 void make_simples_diff(int16_t lang) {
-	extern char db_pass;
+	extern uchar db_pass;
 	cell *c, *e = cell_l();
 	int16_t dbp = db_pass;
 

@@ -74,6 +74,7 @@
 #include "cstr/cstr.h"
 #include "alphabet.h"
 #include "common/point.h"
+#include "evn/evn.h"
 
 /* FIXME: to compile in MS VC++ */
 #define c_locomp EVN_CLocomp

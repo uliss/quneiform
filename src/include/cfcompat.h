@@ -103,6 +103,8 @@ CFCOMPAT_FUNC char* mkdtemp(char *tmpl);
 
 #ifdef _MSC_VER
 #define snprintf _snprintf
+#define strncasecmp _strnicmp
+#define strcasecmp _stricmp
 #endif
 #endif
 
