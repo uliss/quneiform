@@ -27,6 +27,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #include <ced/ced.h>
 #include <ced/cedint.h>
 #include <ced/cedline.h>
+#include <ced/cedpage.h>
 using namespace CIF;
 
 void TestHtmlExporter::setUp() {

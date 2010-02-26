@@ -22,8 +22,7 @@
 #include "globus.h"
 #include "ced_struct.h"
 
-class CEDPage;
-class CEDParagraph;
+namespace CIF {
 
 class FUN_EXPO__ CEDSection
 {
@@ -90,5 +89,7 @@ class FUN_EXPO__ CEDSection
 
         friend class CEDPage;
 };
+
+}
 
 #endif /* CEDSECTION_H_ */

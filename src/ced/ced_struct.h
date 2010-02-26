@@ -72,22 +72,26 @@
 #define     TAB_CELL_BEGIN  (6|FICTIVE)
 #define     TAB_END         (7|FICTIVE)
 #define     TAB_ROW_BEGIN   (8|FICTIVE)
+
+
+namespace CIF {
+class CEDChar;
 class CEDPage;
 class CEDSection;
 class CEDParagraph;
 class CEDLine;
-class CEDChar;
+}
 
 //all structures of ed... first field of Descr  is CEDParagraph* next, (in order to go along them
 
 typedef struct edColDescr
 {
-        CEDParagraph* next;
+        CIF::CEDParagraph* next;
 } EDCOLDESCR;
 
 typedef struct edFrameDescr
 {
-        CEDParagraph* last;
+        CIF::CEDParagraph* last;
         EDBOX rec;
         uchar position;
         int borderSpace;
@@ -98,14 +102,14 @@ typedef struct edFrameDescr
 
 typedef struct edTabDescr
 {
-        CEDParagraph* next, *last, *cur;
+        CIF::CEDParagraph* next, *last, *cur;
         int numOfRows;
         int *table, *linesX, *linesY;
         edSize size;
 } EDTABDESCR;
 typedef struct edCellDescr
 {
-        CEDParagraph* next;
+        CIF::CEDParagraph* next;
         int cellX;
         int merging;
         int vertTextAlign;
@@ -120,7 +124,7 @@ typedef struct edCellDescr
 } EDCELLDESCR;
 typedef struct edRowDescr
 {
-        CEDParagraph* next, *last, *cur;//first cell, next paragraph with type RowBeg or TabEnd, cur - last of input cells
+        CIF::CEDParagraph* next, *last, *cur;//first cell, next paragraph with type RowBeg or TabEnd, cur - last of input cells
         int numOfCells;
         int left;
         int rowHeight;
@@ -153,9 +157,9 @@ typedef struct pictEntry
 } PICTENTRY;
 
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c
-DEC_FUN(Bool32, CED_FormattedWrite, ( const char * fileName, CEDPage *page));
-DEC_FUN(CEDPage*, CED_FormattedLoad, (char * file, Bool32 readFromFile, uint32_t bufLen));
-DEC_FUN(void, CED_DeleteTree, (CEDPage * pg));
+DEC_FUN(Bool32, CED_FormattedWrite, ( const char * fileName, CIF::CEDPage *page));
+DEC_FUN(CIF::CEDPage*, CED_FormattedLoad, (char * file, Bool32 readFromFile, uint32_t bufLen));
+DEC_FUN(void, CED_DeleteTree, (CIF::CEDPage * pg));
 #undef DEC_FUN
 
 #endif// _CED_STRUCT_

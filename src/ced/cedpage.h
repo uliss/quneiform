@@ -22,10 +22,8 @@
 #include "globus.h"
 #include "ced_struct.h"
 
-class CEDSection;
-class CEDChar;
-class CEDLine;
-class CEDParagraph;
+namespace CIF
+{
 
 class FUN_EXPO__ CEDPage
 {
@@ -104,5 +102,7 @@ class FUN_EXPO__ CEDPage
         CEDSection * sections; //connected list of sections
         CEDSection * curSect; //current section
 };
+
+}
 
 #endif /* CEDPAGE_H_ */

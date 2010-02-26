@@ -17,6 +17,10 @@
  ***************************************************************************/
 
 #include "cedline.h"
+#include "cedchar.h"
+
+namespace CIF
+{
 
 CEDLine::CEDLine() :
     hard_break_(FALSE) {
@@ -153,3 +157,6 @@ CEDChar* CEDLine::GetChar(int _num) {
 int CEDLine::GetCountChar() {
     return numOfChars;
 }
+
+}
+

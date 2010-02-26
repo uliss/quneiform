@@ -21,22 +21,21 @@
 
 #include "globus.h"
 #include "ced_struct.h"
+#include "common/rect.h"
 
-class CEDLine;
-class CEDPage;
+namespace CIF {
 
 class FUN_EXPO__ CEDChar
 {
     public:
         CEDChar();
-        ~CEDChar();
     protected:
-        int parentNumber; //number of parent in a file
         friend class CEDLine;
         friend class CEDPage;
         friend void FormattedTR(const text_ref* pt);
         friend void StripLines();
     public:
+        int parentNumber; //number of parent in a file
         CEDChar * prev, *next; //pointer to neibor elements in connected list
         edRect layout; //layout of symbol in input image (in pixel)
         int fontHeight, fontAttribs; //font parameters
@@ -49,5 +48,7 @@ class FUN_EXPO__ CEDChar
         char * extData; //data to be written in file after header
         int extDataLen; //their length
 };
+
+}
 
 #endif /* CEDCHAR_H_ */

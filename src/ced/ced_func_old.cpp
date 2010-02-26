@@ -61,6 +61,8 @@
 #include "cedint.h"
 #include "cedline.h"
 
+using namespace CIF;
+
 //define variables and stubs
 FNRDProc RDProced = 0;//points to unstructured data processor
 #define DEC_FUN(a,b,c)  FN##b b; a My##b c {} a MyRawData##b c {RDProced((uchar*)pt,sizeof(*pt));}

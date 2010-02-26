@@ -21,6 +21,8 @@
 #include "cedsection.h"
 #include "cedparagraph.h"
 
+namespace CIF {
+
 CEDSection::CEDSection() {
     numberOfColumns = 0;
     borders.top = borders.bottom = borders.right = borders.left = 0;
@@ -515,4 +517,6 @@ CEDParagraph * CEDSection::PrevParagraph(Bool32 _goThroughSect) {
 
     else
         return 0;
+}
+
 }

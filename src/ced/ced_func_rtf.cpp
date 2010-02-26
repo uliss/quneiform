@@ -69,6 +69,8 @@
 #include "cfio/cfio.h"
 #include "compat/cfstring.h"
 
+using namespace CIF;
+
 #define MAX_LEN 500
 #define MAX_RTF_COLORS     200
 #define TextDefBkColor  RGB(255,255,255)
@@ -860,7 +862,7 @@ Bool WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect)
  Write the character formatting info when the attributes change from
  the previsous font selection
  ******************************************************************************/
-Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CEDChar* curChar)
+Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CIF::CEDChar* curChar)
 {
     //    uchar CurTypeFace[32],PrevTypeFace[32];
     uchar CurFamily, PrevFamily;

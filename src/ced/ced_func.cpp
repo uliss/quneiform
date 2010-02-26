@@ -62,8 +62,13 @@
 #include "ced_struct.h"
 #include "cedint.h"
 #include "cedline.h"
+#include "cedsection.h"
+#include "cedparagraph.h"
+#include "cedpage.h"
 #include "resource.h"
 #include "cfio/cfio.h"
+
+using namespace CIF;
 
 //First of all, we define all .dib as metafiles since word does not know about .dib
 static CEDPage * mainPage;
@@ -85,14 +90,14 @@ void NewFormattedE(const edExtention* pt, const void* ptExt);
 void NewFormattedENew(const edExtentionNew* pt, const void* ptExt);
 void NewFormattedLang(const EdTagLanguage* pt);
 
-void CED_DeleteTree(CEDPage * pg)
+void CED_DeleteTree(CIF::CEDPage * pg)
 {
     delete pg;
 }
 
 void RepairStructure();
 
-CEDPage * CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufLen)
+CIF::CEDPage * CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufLen)
 {
     CED_SetRawDataProc(ExtDataProc);
 
@@ -768,12 +773,12 @@ void PrintPara(FILE *stream, Handle para)
 Bool32 WriteRemark(Handle hFile, int type, int object);
 Bool32 WriteExtCode(Handle hFile, int Ecode, void* object, int lenOfObj,
                     int etraLen = 0);
-Bool32 WriteFontTable(Handle hFile, CEDPage *page);
-Bool32 WriteTiffDescr(Handle hFile, CEDPage* page);
-Bool32 WritePictTable(Handle hFile, CEDPage* page);
+Bool32 WriteFontTable(Handle hFile, CIF::CEDPage *page);
+Bool32 WriteTiffDescr(Handle hFile, CIF::CEDPage* page);
+Bool32 WritePictTable(Handle hFile, CIF::CEDPage* page);
 Bool32 WritePara(Handle hFile, CEDParagraph* hPara);
 
-Bool32 CED_FormattedWrite(const char * fileName, CEDPage *page)
+Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
 {
     int ret;
     int fn;
@@ -1147,7 +1152,7 @@ FINAL:
     return ret;
 }
 
-Bool32 WriteFontTable(Handle hFile, CEDPage* page)
+Bool32 WriteFontTable(Handle hFile, CIF::CEDPage* page)
 {
     char* ch = 0;
     //define the sum of lengths of all names of fonts

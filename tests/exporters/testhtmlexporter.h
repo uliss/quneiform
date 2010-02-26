@@ -21,9 +21,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-class CEDPage;
-
 namespace CIF {
+class CEDPage;
 class HtmlExporter;
 }
 
@@ -62,7 +61,7 @@ class TestHtmlExporter: public CppUnit::TestFixture
         void testFontStyleClose();
         void testExportPicture();
     private:
-        CEDPage * page_;
+        CIF::CEDPage * page_;
         CIF::HtmlExporter * exp_;
 };
 

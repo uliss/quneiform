@@ -20,7 +20,9 @@
 #define CEDLINE_H_
 
 #include "globus.h"
-#include "cedint.h"
+#include "ced_struct.h"
+
+namespace CIF {
 
 class FUN_EXPO__ CEDLine
 {
@@ -72,5 +74,7 @@ class FUN_EXPO__ CEDLine
     private:
         Bool32 hard_break_;
 };
+
+}
 
 #endif /* CEDLINE_H_ */

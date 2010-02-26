@@ -19,14 +19,18 @@
 #include <cstdlib>
 #include <cstring>
 #include "cedpage.h"
+#include "cedchar.h"
 #include "cedline.h"
-#include "ced_struct.h"
+#include "cedsection.h"
 #include "cedparagraph.h"
 
 //step of expansion of font table
 #define FONTS_STEPPING 5
 //step of expansion of picture table
 #define PICS_STEPPING  3
+
+namespace CIF {
+
 CEDPage::CEDPage()
 {
     sizeOfImage.cx = sizeOfImage.cy = 0;
@@ -497,3 +501,6 @@ Bool32 CEDPage::CreatePicture(int pictNumber, const CIF::Size& pictSize, EDSIZE 
     picsUsed++;
     return TRUE;
 }
+
+}
+

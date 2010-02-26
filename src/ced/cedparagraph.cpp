@@ -22,6 +22,8 @@
 #include "cedline.h"
 #include "ced_struct.h"
 
+namespace CIF {
+
 CEDParagraph::CEDParagraph() {
     type = 0;
     alignment = 0;
@@ -435,3 +437,4 @@ int CEDParagraph::GetCountLine() {
     return numOfLines;
 }
 
+}

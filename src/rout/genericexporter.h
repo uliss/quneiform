@@ -23,14 +23,14 @@
 #include "common/size.h"
 #include "common/iconv_local.h"
 
+namespace CIF
+{
+
 class CEDPage;
 class CEDSection;
 class CEDParagraph;
 class CEDLine;
 class CEDChar;
-
-namespace CIF
-{
 
 class GenericExporter: public Exporter
 {

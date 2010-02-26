@@ -61,6 +61,8 @@
 #include "cedint.h"
 #include "cedline.h"
 
+using namespace CIF;
+
 char logName[PATH_MAX];
 FILE *logStream;
 
