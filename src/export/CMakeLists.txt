@@ -14,7 +14,7 @@ if(USE_ICONV)
 endif()
 
 # TODO, uliss: delete commented files
-add_library(cuneiform-rout ${LIBTYPE}
+add_library(cuneiform-export ${LIBTYPE}
 exporter.cpp
 exporterfactory.cpp
 edexporter.cpp
@@ -28,11 +28,11 @@ textexporter.cpp
 ${image_exporters}
 )
 
-set_property(TARGET cuneiform-rout PROPERTY COMPILE_DEFINITIONS __ROUT__)
+set_property(TARGET cuneiform-export PROPERTY COMPILE_DEFINITIONS __ROUT__)
 
-target_link_libraries(cuneiform-rout 
+target_link_libraries(cuneiform-export 
     cuneiform-ced 
     cuneiform-rfrmt
     ${image_exporters_libs})
 
-library_hook(cuneiform-rout)
+library_hook(cuneiform-export)

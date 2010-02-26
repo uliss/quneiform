@@ -16,7 +16,7 @@ target_link_libraries(test_exporters
     cuneiform-common 
     cuneiform-ced 
     cuneiform-rfrmt 
-    cuneiform-rout
+    cuneiform-export
     ${CPPUNIT_LIBRARIES})
 
 add_test(Exporters ${EXECUTABLE_OUTPUT_PATH}/test_exporters)

@@ -8,13 +8,13 @@ target_link_libraries(cuneiform
     cuneiform-cimage
     cuneiform-cline
     cuneiform-cpage
+    cuneiform-export
     cuneiform-rblock
     cuneiform-rcorrkegl
     cuneiform-rfrmt
     cuneiform-rimage
     cuneiform-rline
     cuneiform-rmarker
-    cuneiform-rout
     cuneiform-rpic
     cuneiform-rselstr
     cuneiform-rsl
