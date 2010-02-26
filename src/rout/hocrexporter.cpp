@@ -87,6 +87,7 @@ void HocrExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
     os << "</span>\n";
     is_in_line_ = false;
     rects_.clear();
+
 }
 
 void HocrExporter::writeMeta(std::ostream& os) {
@@ -118,6 +119,8 @@ void HocrExporter::writePageEnd(std::ostream& os) {
 void HocrExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     HtmlExporter::writeParagraphBegin(os, par);
     os << "\n";
+    rects_.clear();
+    line_rect_ = Rect();
 }
 
 }
