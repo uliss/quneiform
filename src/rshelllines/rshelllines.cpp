@@ -64,6 +64,8 @@
 
 #include <cstdlib>
 #include "resource.h"
+#include "common/debug.h"
+#include "common/cifconfig.h"
 #define __RSL__
 #define __RSL_EXTERN__
 #include "dsnap.h"
@@ -136,8 +138,7 @@ RSHELLLINES_FUNC(Bool32) FindLineAttr(CLINE_handle line, DLine* pCLine, Bool32 A
 }
 
 ///////////////////////////////////////////////////////////////
-RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode, Handle hStorage)
-{
+RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode, Handle hStorage) {
     LDPUMA_Init(0, NULL);
     LDPUMA_Registry(&hDebugRSL, SNAP_STUFF_RSL, NULL);
     LDPUMA_Registry(&hPreRSL_Root, "Предварительная обработка линий", hDebugRSL);
@@ -219,23 +220,20 @@ RSL_FUNC(Bool32) RSL_Init(uint16_t wHeightCode, Handle hStorage)
     return RESULT;
 }
 
-void SetReturnCode_rshelllines(uint16_t rc)
-{
+void SetReturnCode_rshelllines(uint16_t rc) {
     gwLowRC = rc;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(Bool32) RSL_Done()
-{
+RSL_FUNC(Bool32) RSL_Done() {
     LDPUMA_Done();
     return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(uint32_t) RSL_GetReturnCode()
-{
+RSL_FUNC(uint32_t) RSL_GetReturnCode() {
     uint32_t rc = 0;
     if ((gwLowRC - IDS_ERR_NO) > 0)
         rc = (uint32_t) (gwHeightRC << 16) | (gwLowRC - IDS_ERR_NO);
@@ -243,16 +241,14 @@ RSL_FUNC(uint32_t) RSL_GetReturnCode()
     return rc;
 }
 
-char * RSL_GetReturnString(uint32_t dwError)
-{
+char * RSL_GetReturnString(uint32_t dwError) {
     if (dwError >> 16 != gwHeightRC)
         gwLowRC = IDS_ERR_NOTIMPLEMENT;
 
     return NULL;
 }
 
-RSL_FUNC(Bool32) RSL_GetExportData(uint32_t dwType, void * pData)
-{
+RSL_FUNC(Bool32) RSL_GetExportData(uint32_t dwType, void * pData) {
     Bool32 rc = TRUE;
 
     return rc;
@@ -260,8 +256,7 @@ RSL_FUNC(Bool32) RSL_GetExportData(uint32_t dwType, void * pData)
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData)
-{
+RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData) {
     Bool32 rc = RESULT;
 
     if (dwType != RSL_HANDLE)
@@ -288,18 +283,17 @@ RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData)
                     || !RVERLINE_MarkLines(*Image->phCCOM, Image->hCPAGE)) {
                 SetReturnCode_rshelllines((uint16_t) RVERLINE_GetReturnCode());
                 rc = FALSE;
-            }
-            else {
+            } else {
                 Bool32 BadScan = FALSE;
                 int32_t ScanQual = 0;
                 AboutLines(Image, &BadScan, &ScanQual);
             }
 
-            if (!*Image->pgneed_clean_line)
-                LDPUMA_Console(
-                        "Warning: RSL said that the lines don't need to be erased from the picture.\n");
-        }
-        else
+            if (!*Image->pgneed_clean_line) {
+                if (Config::instance().debug())
+                    Debug() << "Warning: RSL said that the lines don't need to be erased from the picture.\n";
+            }
+        } else
             LDPUMA_Console("Missing stage of the evaluation lines.\n");
     }
 
@@ -308,18 +302,15 @@ RSL_FUNC(Bool32) RSL_SetImportData(uint32_t dwType, void * pData)
     return rc;
 }
 
-void * RSLAlloc(uint32_t stAllocateBlock)
-{
+void * RSLAlloc(uint32_t stAllocateBlock) {
     return calloc(stAllocateBlock, 1);
 }
 
-void RSLFree(void * mem)
-{
+void RSLFree(void * mem) {
     free(mem);
 }
 
-Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
-{
+Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual) {
     int SizeMain, SizeWork;
 
     UN_BUFF MainBuff = { 0 };
@@ -386,8 +377,7 @@ Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
                 *BadScan = TRUE;
                 *ScanQual = 100;
             }
-        }
-        while (false);
+        } while (false);
 
     RSLFree(Buffer);
     RSLFree(WorkMem);
@@ -397,8 +387,7 @@ Bool32 AboutLines(PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-uint16_t GetReturnCode_rshelllines()
-{
+uint16_t GetReturnCode_rshelllines() {
     return gwLowRC;
 }
 
@@ -443,8 +432,7 @@ struct FictInterval
         int32_t RelIndex;
 };
 
-static int mycompare(const void *elem1, const void *elem2)
-{
+static int mycompare(const void *elem1, const void *elem2) {
 
     FictInterval *a = (FictInterval*) elem1;
     FictInterval *b = (FictInterval*) elem2;
@@ -464,103 +452,81 @@ static int mycompare(const void *elem1, const void *elem2)
 // 	int32_t VoteResult;
 // };
 
-void DeleteNoiseEvents(CLINE_handle hLine, DLine* pLine)
-{
+void DeleteNoiseEvents(CLINE_handle hLine, DLine* pLine) {
     return;
 }
 
-void CheckUnderlining(CLINE_handle hLine, DLine* pLine, char* pSourceRaster)
-{
+void CheckUnderlining(CLINE_handle hLine, DLine* pLine, char* pSourceRaster) {
     return;
 }
 
-Bool32 CompareRasterParts(CPDLine pLine, char* pSourceRaster, Bool32 CheckSerif)
-{
+Bool32 CompareRasterParts(CPDLine pLine, char* pSourceRaster, Bool32 CheckSerif) {
     return TRUE;
 }
 
-RSHELLLINES_FUNC( Bool32) RSL_CorrectDoubleLines(CLINE_handle hLine1, CLINE_handle hLine2)
-{
+RSHELLLINES_FUNC( Bool32) RSL_CorrectDoubleLines(CLINE_handle hLine1, CLINE_handle hLine2) {
     return TRUE;
 }
 
-RSHELLLINES_FUNC( Bool32) RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContainer)
-{
+RSHELLLINES_FUNC( Bool32) RSL_SplitLine(CLINE_handle hLine, CLINE_handle hContainer) {
     return TRUE;
 }
 
-int SL_IsInPoly(Point* a, CLINE_SL_POLY* p)
-{
+int SL_IsInPoly(Point* a, CLINE_SL_POLY* p) {
     return 0;
 }
 
-Bool SL_IsPointInAB(Point *P, Point *A, Point *B)
-{
+Bool SL_IsPointInAB(Point *P, Point *A, Point *B) {
     return FALSE;
 }
 
-void CalculateRectForRaster(DLine* pCLine, PAGEINFO* page_info)
-{
+void CalculateRectForRaster(DLine* pCLine, PAGEINFO* page_info) {
 }
 
-void CalculatePolynomia(DLine* pCLine, PAGEINFO* page_info)
-{
+void CalculatePolynomia(DLine* pCLine, PAGEINFO* page_info) {
 }
 
-void DrowRectForRaster(Rect32* rect)
-{
+void DrowRectForRaster(Rect32* rect) {
 }
 
-void DrowPolynomia(DLine* pCLine)
-{
+void DrowPolynomia(DLine* pCLine) {
 }
 
-void DrowVerticalLineStripesIntervals(CLINE_handle line, Handle HndMyWindow)
-{
+void DrowVerticalLineStripesIntervals(CLINE_handle line, Handle HndMyWindow) {
 }
 
-void CleaningRaster(DLine* pCLine, char* Buffer)
-{
+void CleaningRaster(DLine* pCLine, char* Buffer) {
 }
 
 void DrowCleanedRaster(DLine* pCLine, char* Buffer, BitmapInfoHeader* image_info,
-        Handle* HndMyWindow)
-{
+        Handle* HndMyWindow) {
 }
 
 void DrowVerticalLineRaster(DLine* pCLine, char* Buffer, BitmapInfoHeader* image_info,
-        Handle* HndMyWindow)
-{
+        Handle* HndMyWindow) {
 }
 
-void Transpose_bit_matrixes(pchar buf_in, pchar buf_out, Rect32* rect)
-{
+void Transpose_bit_matrixes(pchar buf_in, pchar buf_out, Rect32* rect) {
 }
 
-Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar pRaster, Bool FlagVerticalLine)
-{
+Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar pRaster, Bool FlagVerticalLine) {
     return TRUE;
 }
 
 void FillingStripes(CLINE_handle line, int y, int16_t Count, uint16_t* pIntervals,
-        Bool FlagVerticalLine, DLine* pCLine)
-{
+        Bool FlagVerticalLine, DLine* pCLine) {
 }
 
-void CheckDotLines(DLine* pCLine, Bool FlagVerticalLine)
-{
+void CheckDotLines(DLine* pCLine, Bool FlagVerticalLine) {
 }
 
-void TypeIntervals(int y, int16_t Count, uint16_t* pIntervals)
-{
+void TypeIntervals(int y, int16_t Count, uint16_t* pIntervals) {
 }
 
-void TypeStripe(CLINE_handle hStripe, DEvent* pStripe)
-{
+void TypeStripe(CLINE_handle hStripe, DEvent* pStripe) {
 }
 
-Bool GetLineFragments(CLINE_handle line, DLine* pCLine)
-{
+Bool GetLineFragments(CLINE_handle line, DLine* pCLine) {
     return TRUE;
 }
 
@@ -570,83 +536,66 @@ Handle DrawLineFragments(CLINE_handle line, CPDLine pCLine, Handle HndMyWindow, 
     return NULL;
 }
 
-RSHELLLINES_FUNC( void) DrawFriendLines(CLINE_handle hContainer, GLM* friendlinesmass)
-{
+RSHELLLINES_FUNC( void) DrawFriendLines(CLINE_handle hContainer, GLM* friendlinesmass) {
 }
 
-void DrawGroupOfExtensibleLines(CLINE_handle hContainer, GLM* hGroup, int CountLines)
-{
+void DrawGroupOfExtensibleLines(CLINE_handle hContainer, GLM* hGroup, int CountLines) {
 }
 
-RSHELLLINES_FUNC( void) DrawLosedVerticalLines(GLM* friendlinesmass, int CountLines)
-{
+RSHELLLINES_FUNC( void) DrawLosedVerticalLines(GLM* friendlinesmass, int CountLines) {
 }
 
-RSHELLLINES_FUNC( void) DrowAllLines(CLINE_handle hContainer, Handle hDrowAllLines)
-{
+RSHELLLINES_FUNC( void) DrowAllLines(CLINE_handle hContainer, Handle hDrowAllLines) {
 }
 
-RSHELLLINES_FUNC( void) DrawBigComps(CLINE_handle hContainer)
-{
+RSHELLLINES_FUNC( void) DrawBigComps(CLINE_handle hContainer) {
 }
 
 RSHELLLINES_FUNC( void) DrawFragsForAllLines(CLINE_handle hContainer,
-        Handle hDebugDrawAllLineFragments)
-{
+        Handle hDebugDrawAllLineFragments) {
 }
 
-RSHELLLINES_FUNC( void) InitLine(DLine* linedata)
-{
+RSHELLLINES_FUNC( void) InitLine(DLine* linedata) {
 }
 
-RSHELLLINES_FUNC( void) FindDotLines(Handle hCCOM, Handle hCPAGE, CLINE_handle hContainer)
-{
+RSHELLLINES_FUNC( void) FindDotLines(Handle hCCOM, Handle hCPAGE, CLINE_handle hContainer) {
 }
 
-RSHELLLINES_FUNC( Bool32) CheckSeparationPoints(CLINE_handle hLine, CLINE_handle hComp)
-{
+RSHELLLINES_FUNC( Bool32) CheckSeparationPoints(CLINE_handle hLine, CLINE_handle hComp) {
     return FALSE;
 }
 
-RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info)
-{
+RSHELLLINES_FUNC( Bool) SL_GetRaster(Rect32* rect, uchar** ppData, PAGEINFO* page_info) {
     return TRUE;
 }
 
 RSHELLLINES_FUNC( void) SetLinesAndCompsRelationship(CLINE_handle hContainer,
-        CLINE_handle hFictContainer)
-{
+        CLINE_handle hFictContainer) {
 }
 
-RSHELLLINES_FUNC(void) FindFriendLines(CLINE_handle hContainer, GLM* friendlinesmass)
-{
+RSHELLLINES_FUNC(void) FindFriendLines(CLINE_handle hContainer, GLM* friendlinesmass) {
 }
 
 RSHELLLINES_FUNC(void) FindGroupOfExtensibleLines(CLINE_handle hContainer, GLM* friendlinesmass,
-        Bool32 IfDrawResult)
-{
+        Bool32 IfDrawResult) {
 }
 
 RSHELLLINES_FUNC(int32_t) RSL_VerifyShortLine(CPDLine pLine, Handle hCCOM, PAGEINFO* page_info,
-        uchar lang, uchar debug_flags, int32_t *cross_point)
-{
+        uchar lang, uchar debug_flags, int32_t *cross_point) {
     return 0;
 }
 
-RSHELLLINES_FUNC(Bool32) GetNextPartOfLine(CLINE_handle hContainer, CLINE_handle hLine)
-{
+RSHELLLINES_FUNC(Bool32) GetNextPartOfLine(CLINE_handle hContainer, CLINE_handle hLine) {
     return FALSE;
 }
 
 Bool32 SetExtLines(CLINE_handle hExtContainer, CLINE_handle hContainer, CLINE_handle* hLinesMass,
-        int32_t CountLines)
-{
+        int32_t CountLines) {
     return FALSE;
 }
 
 int32_t CountBlackRaster(CPDLine pLine, CPDLine pLineExt, Bool32 IsHor, int32_t delta,
-        Handle hDrawRaster)
-{
+        Handle hDrawRaster) {
     return 0;
 }
 
