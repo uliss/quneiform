@@ -38,7 +38,6 @@ class HocrExporter: public HtmlExporter
         void writePageBegin(std::ostream& os);
         void writePageEnd(std::ostream& os);
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
-        void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
     private:
         typedef std::vector<Rect> RectList;
         RectList rects_;

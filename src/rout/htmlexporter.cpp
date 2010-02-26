@@ -179,10 +179,6 @@ void HtmlExporter::writeLineBreak(std::ostream& os) {
         os << "<br/>\n";
 }
 
-void HtmlExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
-    TextExporter::writeLineEnd(os, line);
-}
-
 void HtmlExporter::writeMeta(std::ostream& os) {
     Attributes attrs;
     attrs["name"] = "Generator";

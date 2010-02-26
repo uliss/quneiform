@@ -62,17 +62,15 @@ void HocrExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     HtmlExporter::writeCharacter(os, chr);
 }
 
-void HocrExporter::writeLineBegin(std::ostream& os, CEDLine * line) {
-    assert(line);
-
+void HocrExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * /*line*/) {
     writeFontStyle(lineBuffer(), 0);
-
-    os << "  <span class=\"ocr_line\" id=\"line_" << numLines() << "\" " << "title=\"bbox "
-            << line_rect_.left() << " " << line_rect_.top() << " " << line_rect_.right() << " "
-            << line_rect_.bottom() << "\">";
 }
 
 void HocrExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
+    os << "  <span class=\"ocr_line\" id=\"line_" << numLines() << "\" " << "title=\"bbox "
+                << line_rect_.left() << " " << line_rect_.top() << " " << line_rect_.right() << " "
+                << line_rect_.bottom() << "\">";
+
     writeFontStyle(lineBuffer(), 0);
     HtmlExporter::writeLineEnd(os, line);
     os << "</span>\n";
@@ -109,11 +107,6 @@ void HocrExporter::writePageEnd(std::ostream& os) {
 void HocrExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     HtmlExporter::writeParagraphBegin(os, par);
     os << "\n";
-}
-
-void HocrExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * par) {
-    os << "\n";
-    HtmlExporter::writeParagraphEnd(os, par);
 }
 
 }

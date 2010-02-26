@@ -39,7 +39,6 @@ class HtmlExporter: public TextExporter
         void writeFontStyleBegin(std::ostream& os, long newStyle, int style);
         void writeFontStyleClose(std::ostream& os, long newStyle, int style);
         void writeLineBreak(std::ostream& os);
-        void writeLineEnd(std::ostream& os, CEDLine * line);
         virtual void writeMeta(std::ostream& os);
         void writePageBegin(std::ostream& os);
         void writePageEnd(std::ostream& os);
