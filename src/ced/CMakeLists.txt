@@ -5,6 +5,7 @@ ced.cpp
 cedchar.cpp
 cedline.cpp
 cedparagraph.cpp
+cedsection.cpp
 ced_func.cpp
 ced_func_old.cpp
 ced_func_rtf.cpp
