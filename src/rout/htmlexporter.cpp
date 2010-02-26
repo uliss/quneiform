@@ -24,12 +24,11 @@
 #include "rout_own.h"
 #include "imageexporterfactory.h"
 #include "config.h" // for CF_VERSION
-
 namespace CIF
 {
 
 HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts), lines_left_(0), current_font_style_(0) {
+    TextExporter(page, opts), lines_left_(0), current_font_style_(0) {
 
     ImageExporterPtr exp = ImageExporterFactory::instance().make();
     setImageExporter(exp);
@@ -127,14 +126,9 @@ std::string HtmlExporter::fontStyleEnd(int style) {
 }
 
 void HtmlExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
-    assert(chr && chr->alternatives);
-
+    assert(chr and chr->alternatives);
     writeFontStyle(os, chr->fontAttribs);
-
-    if (isCharsetConversionNeeded())
-        os << converter_.convert(escapeHtmlSpecialChar(chr->alternatives->alternative));
-    else
-        os << escapeHtmlSpecialChar(chr->alternatives->alternative);
+    os << escapeHtmlSpecialChar(chr->alternatives->alternative);
 }
 
 void HtmlExporter::writeDoctype(std::ostream& os) {
@@ -175,14 +169,18 @@ void HtmlExporter::writeFontStyle(std::ostream& os, long newStyle) {
     current_font_style_ = newStyle;
 }
 
-void HtmlExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
+void HtmlExporter::writeLineBreak(std::ostream& os) {
+    // skip last line break
     lines_left_--;
     if (lines_left_ < 1)
         return;
 
-    if (formatOptions().preserveLineBreaks() || line->hardBreak)
-        os << "<br/>";
-    os << "\n";
+    if (isLineBreak())
+        os << "<br/>\n";
+}
+
+void HtmlExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
+    TextExporter::writeLineEnd(os, line);
 }
 
 void HtmlExporter::writeMeta(std::ostream& os) {

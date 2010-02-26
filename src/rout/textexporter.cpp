@@ -27,6 +27,15 @@
 namespace CIF
 {
 
+inline void removeHyphens(std::string& line) {
+    if (line.empty())
+        return;
+
+    size_t len = line.size();
+    if (len > 1 and line[len - 1] == '-')
+        line.erase(len - 1, 1);
+}
+
 TextExporter::TextExporter(CEDPage * page, const FormatOptions& opts) :
     GenericExporter(page, opts), line_hard_break_flag_(false) {
     setSkipEmptyLines(true);
@@ -34,9 +43,19 @@ TextExporter::TextExporter(CEDPage * page, const FormatOptions& opts) :
     setSkipPictures(true);
 }
 
-std::string TextExporter::convertLineBuffer() {
-    preprocessLine(line_buffer_);
-    return isCharsetConversionNeeded() ? converter_.convert(line_buffer_) : line_buffer_;
+void TextExporter::clearLineBuffer() {
+    assert(line_buffer_.rdbuf());
+    line_buffer_.rdbuf()->str("");
+}
+
+void TextExporter::exportChar(CEDChar * chr) {
+    if (CED_IsPicture(chr))
+        return GenericExporter::exportChar(chr);
+
+    std::ostream * old_stream = outputStream();
+    setOutputStream(&line_buffer_);
+    GenericExporter::exportChar(chr);
+    setOutputStream(old_stream);
 }
 
 void TextExporter::exportTo(std::ostream& os) {
@@ -44,17 +63,18 @@ void TextExporter::exportTo(std::ostream& os) {
     GenericExporter::exportTo(os);
 }
 
-void TextExporter::preprocessLine(std::string& line) {
-    replaceAll(line, "--", "\u2013");
+bool TextExporter::isLineBreak() const {
+    return formatOptions().preserveLineBreaks() or line_hard_break_flag_;
 }
 
-void TextExporter::removeHyphens() {
-    if (line_buffer_.empty())
-        return;
+std::ostringstream& TextExporter::lineBuffer() {
+    return line_buffer_;
+}
 
-    size_t len = line_buffer_.size();
-    if (len > 1 and line_buffer_[len - 1] == '-')
-        line_buffer_.erase(len - 1, 1);
+std::string TextExporter::lineBufferString() {
+    std::string res(line_buffer_.str());
+    replaceAll(res, "--", "\u2013");
+    return res;
 }
 
 void TextExporter::writeBOM(std::ostream& os) {
@@ -63,24 +83,33 @@ void TextExporter::writeBOM(std::ostream& os) {
 #endif
 }
 
-void TextExporter::writeCharacter(std::ostream& /*os*/, CEDChar * chr) {
+void TextExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     assert(chr && chr->alternatives);
-    line_buffer_.append(1, chr->alternatives->alternative);
+    os << std::string(1, chr->alternatives->alternative);
 }
 
 void TextExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * line) {
     line_hard_break_flag_ = line->hardBreak ? true : false;
-    line_buffer_.clear();
+}
+
+void TextExporter::writeLineBreak(std::ostream& os) {
+    if (isLineBreak())
+        os << "\n";
 }
 
 void TextExporter::writeLineEnd(std::ostream& os, CEDLine * /*line*/) {
-    if (formatOptions().preserveLineBreaks() or line_hard_break_flag_) {
-        os << convertLineBuffer() << "\n";
-    } else {
-        if (!formatOptions().preserveLineHyphens())
-            removeHyphens();
-        os << convertLineBuffer();
-    }
+    std::string line = lineBufferString();
+
+    if (not isLineBreak() and not formatOptions().preserveLineHyphens())
+        removeHyphens(line);
+
+    if (isCharsetConversionNeeded())
+        os << converter_.convert(line);
+    else
+        os << line;
+
+    writeLineBreak(os);
+    clearLineBuffer();
 }
 
 void TextExporter::writePageBegin(std::ostream& os) {

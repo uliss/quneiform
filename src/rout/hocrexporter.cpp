@@ -34,6 +34,7 @@ inline bool goodCharRect(const Rect& rc) {
 HocrExporter::HocrExporter(CEDPage * page, const FormatOptions& opts) :
     HtmlExporter(page, opts), is_in_line_(false) {
     rects_.reserve(BOXES_TO_RESERVE);
+    formatOptions().setPreserveLineHyphens(true);
 }
 
 void HocrExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
@@ -64,7 +65,7 @@ void HocrExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
 void HocrExporter::writeLineBegin(std::ostream& os, CEDLine * line) {
     assert(line);
 
-    writeFontStyle(os, 0);
+    writeFontStyle(lineBuffer(), 0);
 
     os << "  <span class=\"ocr_line\" id=\"line_" << numLines() << "\" " << "title=\"bbox "
             << line_rect_.left() << " " << line_rect_.top() << " " << line_rect_.right() << " "
@@ -72,9 +73,9 @@ void HocrExporter::writeLineBegin(std::ostream& os, CEDLine * line) {
 }
 
 void HocrExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
-    writeFontStyle(os, 0);
-    os << "</span>";
+    writeFontStyle(lineBuffer(), 0);
     HtmlExporter::writeLineEnd(os, line);
+    os << "</span>\n";
     is_in_line_ = false;
     rects_.clear();
 }

@@ -339,6 +339,10 @@ int GenericExporter::numTables() const {
     return num_tables_;
 }
 
+std::ostream * GenericExporter::outputStream() {
+    return os_;
+}
+
 CEDPage * GenericExporter::page() {
     return page_;
 }
@@ -465,6 +469,10 @@ bool GenericExporter::skipEmptyParagraphs() const {
 
 bool GenericExporter::skipPictures() const {
     return no_pictures_;
+}
+
+void GenericExporter::setOutputStream(std::ostream * os) {
+    os_ = os;
 }
 
 void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {

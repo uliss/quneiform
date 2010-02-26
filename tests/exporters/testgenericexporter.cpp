@@ -19,6 +19,7 @@
 #include <fstream>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestGenericExporter);
 #define private public
+#define protected public
 #include <rout/genericexporter.h>
 #include <ced/cedint.h>
 #include "cfcompat.h"

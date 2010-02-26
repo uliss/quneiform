@@ -146,25 +146,25 @@ void TestHtmlExporter::testExportCharacter() {
     c->alternatives->alternative = '&';
     std::stringstream buf1;
     exp_->os_ = &buf1;
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf1, c);
     CPPUNIT_ASSERT_EQUAL(std::string("&amp;"), buf1.str());
 
     c->alternatives->alternative = '>';
     std::stringstream buf2;
     exp_->os_ = &buf2;
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf2, c);
     CPPUNIT_ASSERT_EQUAL(std::string("&gt;"), buf2.str());
 
     c->alternatives->alternative = '<';
     std::stringstream buf3;
     exp_->os_ = &buf3;
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf3, c);
     CPPUNIT_ASSERT_EQUAL(std::string("&lt;"), buf3.str());
 
     c->alternatives->alternative = '"';
     std::stringstream buf4;
     exp_->os_ = &buf4;
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf4, c);
     CPPUNIT_ASSERT_EQUAL(std::string("&quot;"), buf4.str());
 
     std::string chars("abcdefghijklmnopqstuvwxyz123456789!@#$%^*(-+");
@@ -172,7 +172,7 @@ void TestHtmlExporter::testExportCharacter() {
         c->alternatives->alternative = chars[i];
         std::stringstream buf;
         exp_->os_ = &buf;
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string(1, chars[i]), buf.str());
     }
 
@@ -190,11 +190,11 @@ void TestHtmlExporter::testBold() {
         c->fontAttribs = FONT_BOLD;
         std::stringstream buf;
         exp_->os_ = &buf;
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string("<b>d"), buf.str());
         c->fontAttribs = 0;
         c->alternatives->alternative = 'e';
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string("<b>d</b>e"), buf.str());
     }
 
@@ -205,11 +205,11 @@ void TestHtmlExporter::testBold() {
         c->fontAttribs = FONT_BOLD;
         std::stringstream buf;
         exp_->os_ = &buf;
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string("d"), buf.str());
         c->fontAttribs = 0;
         c->alternatives->alternative = 'e';
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string("de"), buf.str());
     }
 
@@ -229,11 +229,11 @@ void TestHtmlExporter::testItalic() {
         c->fontAttribs = FONT_ITALIC;
         std::stringstream buf;
         exp_->os_ = &buf;
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string("<i>1"), buf.str());
         c->fontAttribs = 0;
         c->alternatives->alternative = '2';
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string("<i>1</i>2"), buf.str());
     }
 
@@ -244,11 +244,11 @@ void TestHtmlExporter::testItalic() {
         c->fontAttribs = FONT_ITALIC;
         std::stringstream buf;
         exp_->os_ = &buf;
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string("1"), buf.str());
         c->fontAttribs = 0;
         c->alternatives->alternative = '2';
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string("12"), buf.str());
     }
 
@@ -266,11 +266,11 @@ void TestHtmlExporter::testUnderlined() {
     c->fontAttribs = FONT_UNDERLINE;
     std::stringstream buf;
     exp_->os_ = &buf;
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf, c);
     CPPUNIT_ASSERT_EQUAL(std::string("<u>1"), buf.str());
     c->fontAttribs = 0;
     c->alternatives->alternative = '2';
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf, c);
     CPPUNIT_ASSERT_EQUAL(std::string("<u>1</u>2"), buf.str());
 
     delete c->alternatives;
@@ -286,11 +286,11 @@ void TestHtmlExporter::testSub() {
     c->fontAttribs = FONT_SUB;
     std::stringstream buf;
     exp_->os_ = &buf;
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf, c);
     CPPUNIT_ASSERT_EQUAL(std::string("<sub>1"), buf.str());
     c->fontAttribs = 0;
     c->alternatives->alternative++;
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf, c);
     CPPUNIT_ASSERT_EQUAL(std::string("<sub>1</sub>2"), buf.str());
 
     delete c->alternatives;
@@ -306,11 +306,11 @@ void TestHtmlExporter::testSuper() {
     c->fontAttribs = FONT_SUPER;
     std::stringstream buf;
     exp_->os_ = &buf;
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf, c);
     CPPUNIT_ASSERT_EQUAL(std::string("<sup>1"), buf.str());
     c->fontAttribs = 0;
     c->alternatives->alternative++;
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf, c);
     CPPUNIT_ASSERT_EQUAL(std::string("<sup>1</sup>2"), buf.str());
 
     delete c->alternatives;
@@ -326,11 +326,11 @@ void TestHtmlExporter::testMixed() {
     c->fontAttribs = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB;
     std::stringstream buf;
     exp_->os_ = &buf;
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf, c);
     CPPUNIT_ASSERT_EQUAL(std::string("<sub><u><i>1"), buf.str());
     c->fontAttribs = 0;
     c->alternatives->alternative = '2';
-    exp_->exportChar(c);
+    exp_->writeCharacter(buf, c);
     CPPUNIT_ASSERT_EQUAL(std::string("<sub><u><i>1</i></u></sub>2"), buf.str());
 
     {
@@ -338,14 +338,14 @@ void TestHtmlExporter::testMixed() {
         c->fontAttribs = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB | FONT_SUPER;
         std::stringstream buf;
         exp_->os_ = &buf;
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string("<sup><sub><u><i>1"), buf.str());
         c->fontAttribs = 0;
         c->alternatives->alternative = '2';
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         c->alternatives->alternative++;
         c->fontAttribs = FONT_UNDERLINE;
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string("<sup><sub><u><i>1</i></u></sub></sup>2<u>3"), buf.str());
     }
 
@@ -355,14 +355,14 @@ void TestHtmlExporter::testMixed() {
         std::stringstream buf;
         exp_->font_styles_.clear();
         exp_->os_ = &buf;
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         CPPUNIT_ASSERT_EQUAL(std::string("<i><b>1"), buf.str());
         c->fontAttribs = FONT_SUB | FONT_ITALIC;
         c->alternatives->alternative++;
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         c->alternatives->alternative++;
         c->fontAttribs = FONT_UNDERLINE;
-        exp_->exportChar(c);
+        exp_->writeCharacter(buf, c);
         //CPPUNIT_ASSERT_EQUAL(std::string("<i><b>1</b><sub>2</sub></i><u>3"), buf.str());
     }
 

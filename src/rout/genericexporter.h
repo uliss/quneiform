@@ -55,12 +55,13 @@ class GenericExporter: public Exporter
         int charNumInParagraph(CEDParagraph * par);
         bool isCharsetConversionNeeded() const;
         bool isEmptyParagraph(CEDParagraph * par);
+        std::ostream * outputStream();
         std::string savePicture(CEDChar * picture);
         void savePictureData(CEDChar * picture, const std::string&);
         void setEncodings();
+        void setOutputStream(std::ostream * os);
     private:
         void doExport(std::ostream& os);
-        void exportChar(CEDChar * chr);
         void exportColumn(CEDParagraph * col);
         void exportFrame(CEDParagraph * frame);
         void exportLine(CEDLine * line);
@@ -74,8 +75,9 @@ class GenericExporter: public Exporter
         void exportTableRow(CEDParagraph * row);
         std::string pictureName(CEDChar * picture);
         int pictureNumber(CEDChar * picture);
-    private:
+    protected:
         virtual std::string createPicturesFolder();
+        virtual void exportChar(CEDChar * chr);
         virtual void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeColumnBegin(std::ostream& os, CEDParagraph * col);
         virtual void writeColumnEnd(std::ostream& os, CEDParagraph * col);

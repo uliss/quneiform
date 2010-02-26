@@ -21,12 +21,12 @@
 
 #include <map>
 #include <vector>
-#include "genericexporter.h"
+#include "textexporter.h"
 
 namespace CIF
 {
 
-class HtmlExporter: public GenericExporter
+class HtmlExporter: public TextExporter
 {
     public:
         HtmlExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
@@ -38,6 +38,7 @@ class HtmlExporter: public GenericExporter
         virtual void writeFontStyle(std::ostream& os, long style);
         void writeFontStyleBegin(std::ostream& os, long newStyle, int style);
         void writeFontStyleClose(std::ostream& os, long newStyle, int style);
+        void writeLineBreak(std::ostream& os);
         void writeLineEnd(std::ostream& os, CEDLine * line);
         virtual void writeMeta(std::ostream& os);
         void writePageBegin(std::ostream& os);
