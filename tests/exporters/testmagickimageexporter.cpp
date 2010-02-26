@@ -18,7 +18,7 @@
 
 #include "testmagickimageexporter.h"
 #include <fstream>
-#include <rout/magickimageexporter.h>
+#include <export/magickimageexporter.h>
 #include <rdib/bmpimageloader.h>
 #include <rdib/magickimageloader.h>
 

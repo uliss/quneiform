@@ -18,8 +18,8 @@
 
 #include "testbmpimageexporter.h"
 #include <fstream>
-#include <rout/imageexporter.h>
-#include <rout/bmpimageexporter.h>
+#include <export/imageexporter.h>
+#include <export/bmpimageexporter.h>
 #include <rdib/bmpimageloader.h>
 using namespace CIF;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpImageExporter);

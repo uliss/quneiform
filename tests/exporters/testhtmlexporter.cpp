@@ -22,8 +22,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #define private public
 #define protected public
 
-#include <rout/htmlexporter.h>
-#include <rout/rout_own.h>
+#include <export/htmlexporter.h>
+#include <export/rout_own.h>
 #include <ced/ced.h>
 #include <ced/cedint.h>
 #include <ced/cedline.h>
