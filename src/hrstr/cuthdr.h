@@ -160,7 +160,7 @@ struct edik {
     char e_adj_matrix[MAX_LINES][MAX_LINES];
 };
 
-union Work {
+union tagWork {
     struct {
         uchar w_rast[1024];
         uchar a_sum[32];
@@ -178,7 +178,8 @@ union Work {
     } cp;
 };
 
-extern union Work string;
+typedef union tagWork Work;
+extern Work string;
 #define W string
 
 // atlant's memory
@@ -285,6 +286,6 @@ extern union Work string;
 
 #define prot_dum        W.cp.c.dum
 
-static union Work *Z;
+static Work *Z;
 
 #endif

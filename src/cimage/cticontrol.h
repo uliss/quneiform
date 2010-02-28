@@ -65,12 +65,13 @@
 #include "ctimask.h"
 #include "ctiimagelist.h"
 #include "ctiimageheader.h"
+#include "globus.h"
 
 #include "minmax.h"
 
 //#define CIMAGE_CBR_ONE_LINE
 
-class CTIControl
+class CLA_EXPO CTIControl
 {
     protected:
         CTIImageList mlImages;

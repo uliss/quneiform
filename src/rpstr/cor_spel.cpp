@@ -71,6 +71,7 @@
 #include "std/std.h"
 #include "rstr/rstr.h"
 #include "dpuma.h"
+#include "cfcompat.h"
 
 #pragma pack(push, 1)
 #include "cor_spel.h"

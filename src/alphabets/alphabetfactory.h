@@ -24,13 +24,14 @@
 #include "common/language.h"
 #include "alphabet.h"
 #include "lang_def.h"
+#include "globus.h"
 
 namespace CIF
 {
 
 typedef boost::shared_ptr<Alphabet> AlphabetPtr;
 
-class AlphabetFactory
+class CLA_EXPO AlphabetFactory
 {
     public:
         typedef Alphabet * (*alphabetCreate)();

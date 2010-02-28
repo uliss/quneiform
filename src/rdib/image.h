@@ -22,11 +22,12 @@
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <string>
+#include "globus.h"
 
 namespace CIF
 {
 
-class Image: public boost::noncopyable
+class CLA_EXPO Image: public boost::noncopyable
 {
     public:
         enum allocator_t

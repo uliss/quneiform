@@ -33,6 +33,7 @@
 #include "common/outputformat.h"
 #include "cimage/imageinfo.h"
 #include "rdib/image.h"
+#include "globus.h"
 
 class CTIControl;
 struct CCOM_cont;
@@ -46,7 +47,7 @@ class ComponentExtractor;
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
 
-class PumaImpl
+class CLA_EXPO PumaImpl
 {
     public:
         PumaImpl();

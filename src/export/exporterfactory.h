@@ -25,10 +25,11 @@
 #include "common/outputformat.h"
 #include "rfrmt/formatoptions.h"
 #include "exporter.h"
+#include "globus.h"
 
 namespace CIF {
 
-class ExporterFactoryImpl
+class CLA_EXPO ExporterFactoryImpl
 {
 public:
     ExporterFactoryImpl();

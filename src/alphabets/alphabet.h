@@ -23,11 +23,12 @@
 #include <iostream>
 #include "common/exception.h"
 #include "lang_def.h"
+#include "globus.h"
 
 namespace CIF
 {
 
-class Alphabet
+class CLA_EXPO Alphabet
 {
     public:
         Alphabet();

@@ -62,7 +62,7 @@
 #include "common/point.h"
 
 #ifdef __DPUMA__
-#define DPUMA_FUNC  //FUN_EXPO__
+#define DPUMA_FUNC //FUN_EXPO__
 #else
 #define DPUMA_FUNC  //FUN_IMPO__
 #endif

@@ -1,5 +1,6 @@
 add_library(cuneiform ${LIBTYPE}
-pumaimpl.cpp
+    pumaimpl.cpp
+    ${SNP_SRC}
 )
 
 target_link_libraries(cuneiform
