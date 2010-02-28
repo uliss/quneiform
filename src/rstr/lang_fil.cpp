@@ -76,7 +76,7 @@ extern uchar langBul;
 extern uchar langSer;
 extern c_comp wcomp;
 extern uchar multy_language ;
-extern uchar alphabet[];
+extern char alphabet[];
 extern uchar alpha_used_mode;
 extern uchar line_tabcell;
 //////////////////////////////////////////////////////////////////////////////////////

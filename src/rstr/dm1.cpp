@@ -125,7 +125,7 @@ static int16_t forbid_stick_cut(cell *, cut_pos *, int16_t);
 extern uchar db_status; // snap presence byte
 extern uchar db_trace_flag; // 2 - more detailed estimate (ALT-F7)
 extern uchar fax1x2;
-extern char db_pass;
+extern uchar db_pass;
 extern uchar language;
 static int16_t dust_monus;
 static uchar dust_mon_flag;
@@ -1503,7 +1503,7 @@ void make_all_cuts()
 //
 {
 #ifdef NEW_TM        //10.4.95
-    extern int16_t TM_check_active;
+    extern Bool TM_check_active;
 #endif
 
     void *CK1, *KITA, *KITA1;

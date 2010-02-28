@@ -86,7 +86,7 @@ static uchar digital_mode; // see in module pass3.c
 static uchar plusminus_mode;
 static uchar alphabet_set[32];
 static cell *clist[2];
-int16_t digital_string_penalty;
+short digital_string_penalty;
 extern uchar CodePages[];
 
 Bool isLikeDigit(uchar c) {

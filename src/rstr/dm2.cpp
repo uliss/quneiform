@@ -153,7 +153,7 @@ static char *ltoi;
 static int16_t lton;
 static int16_t glue_pass;
 static char percgot; // percent was got as result of a glue
-extern char db_pass;
+extern uchar db_pass;
 
 void collect_pat(cell *BC, s_glue *GL, cell *EC);
 cell * finpat(cell *BC, s_glue *GL, int16_t var, uchar flag, uchar pen);

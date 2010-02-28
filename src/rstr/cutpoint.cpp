@@ -74,7 +74,7 @@
 //  snap globals
 extern uchar db_status; // snap presence byte
 extern uchar db_trace_flag; // 2 - more detailed estimate (ALT-F7)
-extern char db_pass;
+extern uchar db_pass;
 
 extern uchar *ForRaster1;
 

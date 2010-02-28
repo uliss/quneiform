@@ -79,7 +79,7 @@
 #define pen_roof_itun 32
 #define pen_roof_itm  64
 extern uchar db_trace_flag; // 2 - more detailed estimate (ALT-F7)
-extern char db_status;
+extern uchar db_status;
 extern uchar db_pass;
 static int fl_sort_vers;
 static char leg_midw, leg_uneven, leg_maxpos, leg_minpos, leg_botw, pen_ne,

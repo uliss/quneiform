@@ -76,7 +76,7 @@
 #include "compat_defs.h"
 #include "minmax.h"
 
-extern uchar digital_string_penalty;
+extern short digital_string_penalty;
 //AK for debug
 static int32_t * AK_deb;
 /*============ Import functions ==================*/
@@ -93,7 +93,7 @@ Bool snap_show_raster(puchar raster, int16_t height, int16_t width);
 int16_t SumIntervalBits(uchar *r, int16_t bx, int16_t ex);
 int16_t NumHorizInterval(uchar *r, int16_t);
 int16_t corner_type(uchar crn);
-int16_t cut_by_pos_ii(s_glue * gl, uchar let);
+int16_t cut_by_pos_ii(s_glue * const gl, uchar let);
 
 /*============ Export functions ==================*/
 

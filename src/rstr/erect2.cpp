@@ -71,10 +71,10 @@
 #include "compat_defs.h"
 
 // SMAP.C
-extern Bool16 snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines);
-extern Bool16 snap_activity(uchar a);
+extern Bool snap_monitor_ori(CSTR_line *snap_line, int32_t num_lines);
+extern Bool snap_activity(uchar a);
 extern uchar db_status;
-extern Bool16 snap_show_text(const char *txt);
+extern Bool snap_show_text(const char *txt);
 // ERECTION.C
 extern int16_t erect_get_global(void);
 extern int16_t erect_get_represent(void);

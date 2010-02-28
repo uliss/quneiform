@@ -72,7 +72,7 @@
 
 extern uchar db_status; // snap presence byte
 extern uchar db_trace_flag; // 2 - more detailed estimate (ALT-F7)
-extern char db_pass;
+extern uchar db_pass;
 extern int nIncline;
 extern void ErrorExit(int Code);
 //#define NUMBER_OF_CELLS (0x30000/sizeof (cell))
@@ -83,7 +83,7 @@ static cell first_cell, last_cell;
 static cell * empty_cell, *free_cell_chain, *cell_boundary;
 extern c_comp wcomp;
 extern CIF::version * start_rec, *rec_ptr;
-extern int lpool_lth;
+extern uint lpool_lth;
 extern uchar lpool[];
 
 static puchar save_kit(puchar c, int16_t l);

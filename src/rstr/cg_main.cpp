@@ -3897,7 +3897,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 	char wrk[32];
 	char *pmsg, madeBOX;
 	extern int16_t best_answer_BOX;
-	extern char db_pass;
+	extern uchar db_pass;
 
 	static char ms220ready[] = { "m > 220 --> ready" };
 	static char msw3ready[] = { "w <= 3  --> ready" };

@@ -428,15 +428,16 @@ static jmp_buf jumper;
 static int32_t nResolutionY = 300; // setup in RSTR_SetOptions
 
 //=============== Code implementation ======
-puchar tableBOX = NULL; /* BOX table memory start */
+pchar tableBOX = NULL; /* BOX table memory start */
 puchar box_pool = NULL; /* boxes pool for extr_comp */
 puchar memory_pool = NULL, memory_pool_end = NULL;
 extern puchar load_BOX(puchar end);
 int32_t memory_length;
 puchar fontBOX = NULL;
 uchar line_scale = 0, line_alphabet = 0, line_minus = 0, line_pointsusp = 0; // need setup after calculation in ExStr
-Bool line_readyBL = FALSE, line_BL = FALSE, line_handfragment = FALSE,
-		line_rerecog = FALSE;
+Bool line_readyBL = FALSE, line_BL = FALSE;
+Bool line_handfragment = FALSE;
+Bool line_rerecog = FALSE;
 uchar line_tabcell = 0;
 
 #define MEMORY                  0x50000 //500000        //0x450000
@@ -470,7 +471,7 @@ Bool32 trees_load(void) {
 	//if( !EVNInitLanguage( tabevn1[lang], tabevn2[lang],language) )
 	//   return FALSE;
 
-	if (!read_rec_file((uchar) lang, tableBOX, &box_pool))
+	if (!read_rec_file((uchar) lang, (puchar) tableBOX, &box_pool))
 		return FALSE;
 	memset(tableBOX, 0, 32);
 	box_pool_save = box_pool;
@@ -612,7 +613,7 @@ Bool32 RSTRInit(MemFunc* mem) {
 		return FALSE;
 	}
 	memory_pool_end = (puchar)(memory_pool + memory_length);
-	tableBOX = memory_pool;
+	tableBOX = (pchar)memory_pool;
 	cell_f()->next = cell_l();
 	cell_f()->nextl = cell_l();
 	cell_l()->prev = cell_f();

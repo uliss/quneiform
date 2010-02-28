@@ -78,7 +78,7 @@ struct local_extremum
  };
 
 extern int16_t n_peak[NFUNC];
-extern pchar peak_vect[NFUNC];
+extern puchar peak_vect[NFUNC];
 
 void extremum (pchar func, int16_t n_func, int16_t from, int16_t to, int16_t threshold,
 	       char f2, char fbound)
