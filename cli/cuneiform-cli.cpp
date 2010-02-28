@@ -77,7 +77,7 @@
 #include <iomanip>
 #include <cstdlib>
 #include <cstring>
-#include <getopt.h>
+#include "getopt.h"
 #include <fstream>
 #include "config.h"
 

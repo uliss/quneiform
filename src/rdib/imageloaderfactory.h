@@ -28,11 +28,12 @@
 #include "imageloader.h"
 #include "image.h"
 #include "imageformats.h"
+#include "globus.h"
 
 namespace CIF
 {
 
-class ImageLoaderFactory : boost::noncopyable
+class CLA_EXPO ImageLoaderFactory : boost::noncopyable
 {
     public:
         static ImageLoaderFactory& instance();

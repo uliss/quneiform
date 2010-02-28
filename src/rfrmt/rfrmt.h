@@ -56,11 +56,7 @@
 #ifndef __RFRMT_H
 #define __RFRMT_H
 #include "globus.h"
-#ifdef __RFRMT__
 #define RFRMT_FUNC  FUN_EXPO__
-#else
-#define RFRMT_FUNC  FUN_IMPO__
-#endif
 
 #define RFRMT_MAXNAME 260
 RFRMT_FUNC Bool32 RFRMT_Init(uint16_t wHeightCode, Handle hStorage);

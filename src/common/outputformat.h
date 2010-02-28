@@ -21,6 +21,7 @@
 
 #include <string>
 #include <list>
+#include "globus.h"
 
 namespace CIF
 {
@@ -44,7 +45,7 @@ enum format_t
 
 typedef std::list<format_t> OutputFormatList;
 
-class OutputFormat
+class CLA_EXPO OutputFormat
 {
     public:
         OutputFormat(format_t format);

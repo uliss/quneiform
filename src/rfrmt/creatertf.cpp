@@ -353,7 +353,6 @@ Bool CRtfPage::OpenOutputFile(const char* FileNameOut)
         }
 
         else {
-            Bisy = FALSE;
             Count = 0;
         }
 

@@ -121,9 +121,6 @@ Bool32 conv_bits_to_bytes(int16_t colors, uchar *text, uchar *bin, int16_t len);
 //********************************************************************
 //**************** open/close CTB-files ******************************
 //********************************************************************
-#ifdef _MSC_VER
-#define snprintf(a, b, c, d, e) _snprintf(a, b, c, d, e)
-#endif
 
 void CTB_done(void)
 {
