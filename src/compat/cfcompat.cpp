@@ -332,6 +332,8 @@ Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect, int nBottom
 
 #else /* WIN32 */
 
+#include <stdlib.h>
+#include <time.h>
 #include <io.h>
 #include <direct.h>
 #include <windows.h>
@@ -355,17 +357,15 @@ char* mkdtemp(char *tmpl)
     static const unsigned int charset_len = sizeof(charset) - 1;
     const int len = strlen (tmpl);
     char* x_tail = tmpl + len - 6;
-    LARGE_INTEGER rand_seed;
-    uint64_t value = rand_seed.QuadPart ^ GetCurrentThreadId();
+    srand((unsigned int) time(NULL));
+    long int value = rand();
     unsigned int cnt = 0;
 
     if (len < 6)
-    return NULL;
+    	return NULL;
 
     if (memcmp(x_tail, "XXXXXX", 6))
-    return NULL;
-
-    QueryPerformanceCounter(&rand_seed);
+    	return NULL;
 
     do {
         uint64_t val = value;

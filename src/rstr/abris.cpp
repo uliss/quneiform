@@ -1654,7 +1654,10 @@ uchar ss_filt() {
 
 uchar k_filt() {
 	uchar wi, wi1, fl;
-	int16_t pen, degree, numi_mode_val;
+	int16_t pen, degree;
+	// uliss: added default value to prevent MSVC fault with uninitialized value
+	// TODO: check that default value is correct
+	int16_t numi_mode_val = 0;
 
 	pen = 0;
 	wi = test_bottom_corner(l_abr, &degree);
