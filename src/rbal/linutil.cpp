@@ -1125,10 +1125,12 @@ int16_t def_upper_side(void)
 {
     CSTR_rast c;
     CSTR_rast_attr attr;
-    int16_t i, max, max_sn, ind, ind_sn;
-    uint16_t h_size, n_def, n_sn;
-    int16_t h_top[RASTER_MAX_HEIGHT * 2] = { 0 }, h_sunk[RASTER_MAX_HEIGHT * 2] = { 0 };
-    h_size = RASTER_MAX_HEIGHT * 2;
+    int16_t max, max_sn, ind_sn;
+	uint ind = 0;
+    uint16_t n_def, n_sn;
+    int16_t h_top[RASTER_MAX_HEIGHT * 2] = { 0 };
+	const uint h_size = sizeof(h_top) / sizeof(h_top[0]);
+    int16_t h_sunk[RASTER_MAX_HEIGHT * 2] = { 0 };
     c = cell_f();
     n_def = n_sn = 0;
 
@@ -1145,8 +1147,11 @@ int16_t def_upper_side(void)
         b_top = attr.row - minrow;
         sn = (b_top + attr.h) - (df + bbs3);
 
-        if (b_top - df >= RASTER_MAX_HEIGHT * 2)
+        if (b_top - df >= h_size)
             continue; // Oleg : for trash lines
+
+        if(b_top - df < 0)
+        	continue; // uliss: for trash line
 
         if (abs(sn) > ((attr.h + 2) / 5 - 2)) { // far from b3
             if (sn > attr.h >> 2) {
@@ -1157,12 +1162,15 @@ int16_t def_upper_side(void)
             continue;
         }
 
+        assert(0 <= (b_top - df));
+        assert((b_top - df) <  h_size);
         h_top[b_top - df]++;
         n_def++;
     }
 
     //  find peak tops
-    for (i = max = ind = 0; i < h_size; i++) {
+	max = 0;
+    for (uint i = 0; i < h_size; i++) {
         if (max < h_top[i]) {
             max = h_top[i];
             ind = i;
@@ -1171,17 +1179,25 @@ int16_t def_upper_side(void)
 
     max *= 2;
 
-    if (ind > 0)
+    if (ind > 0) {
+    	assert(ind - 1 < h_size);
         max += h_top[ind - 1] * 2;
+    }
 
-    if (ind < h_size - 1)
+    if (ind < h_size - 1) {
+    	assert(0 < ind);
         max += h_top[ind + 1] * 2;
+    }
 
-    if (ind < h_size - 2)
+    if (ind < h_size - 2) {
+    	assert(0 < ind);
         max += h_top[ind + 2];
+    }
 
-    if (ind > 1)
+    if (ind > 1) {
+    	assert((ind - 2) < h_size);
         max += h_top[ind - 2];
+    }
 
     max /= 2;
 
@@ -1192,7 +1208,8 @@ int16_t def_upper_side(void)
         return FALSE; // flooded tops
 
     // find peak tops of sunked
-    for (i = max_sn = ind_sn = 0; i < h_size; i++) {
+	max_sn = ind_sn = 0;
+    for (uint i = 0; i < h_size; i++) {
         if (max_sn < h_sunk[i]) {
             max_sn = h_sunk[i];
             ind_sn = i;
@@ -1221,7 +1238,7 @@ int16_t def_upper_side(void)
     if (!max_sn || n_sn >> 1 > max_sn)
         return FALSE; // flooded sunk tops
 
-    return (abs(ind - ind_sn) <= 3) ? bbs3 - ind : FALSE;
+    return (abs((int) ind - ind_sn) <= 3) ? bbs3 - ind : FALSE;
 }
 
 void tell_for_b3(int16_t hist_array[])
