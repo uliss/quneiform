@@ -966,7 +966,9 @@ Bool32 recog_cluster(uint16_t Im3x5[], uchar let, VERSION *v)
 
 Bool32 recog_cluster5x3(uint16_t Im3x5[], uchar let, VERSION *v)
 {
-    int jold, jm, rm, res;
+    int jm, rm, res;
+	// uliss: added init value
+	int jold = 0;
     elm3x5 *curr;
     curr = &tab3x5[(jm = header3x5[let].numel)];
 

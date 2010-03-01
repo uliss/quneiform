@@ -2134,8 +2134,11 @@ int16_t check_cursiv_inp(uchar *raster, int16_t w, int16_t h, int16_t foot_wid,
 	int16_t lim, n_long, n_3, pen = 0, p, n_1, n_long_p;
 	int16_t up_n_signum = 0, down_n_signum = 0, dop = h > 22 ? 3 : 2;
 	int16_t stair = 0, old, new_, similar_n = 0, similar_i = 0, min_dest;
-	int16_t lstairs, rstairs, n_empty;
+	int16_t rstairs, n_empty;
 	int16_t up_stair = 0;
+	// uliss: added default value
+	// TODO check that default value is correct
+	int16_t lstairs = 0;
 
 	if (dest_foot == 0)
 		return 0;/* ноги на расстоянии 0 */

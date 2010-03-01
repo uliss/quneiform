@@ -95,7 +95,8 @@ void context_proc_line() {
 	//	This procedure changes alternatives using context.
 	//
 	cell * C;
-	int16_t lang_ret_code;
+
+	int16_t lang_ret_code = NO_ACTION;
 
 	pDotComCell = NULL;
 	after_word_flag = 0;
