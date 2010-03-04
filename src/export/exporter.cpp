@@ -109,11 +109,12 @@ void Exporter::setEncodings() {
     case LANGUAGE_HUNGARIAN:
     case LANGUAGE_POLISH:
     case LANGUAGE_ROMANIAN:
-    case LANGUAGE_SERBIAN:
     case LANGUAGE_SLOVENIAN:
         setInputEncoding("cp1250");
         setOutputEncoding("utf-8");
         break;
+    // for serbian cyrillic
+    case LANGUAGE_SERBIAN:
     case LANGUAGE_BULGARIAN:
     case LANGUAGE_KAZAKH:
     case LANGUAGE_KAZ_ENG:

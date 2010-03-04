@@ -1185,12 +1185,12 @@ int16_t def_upper_side(void)
     }
 
     if (ind < h_size - 1) {
-    	assert(0 < ind);
+    	assert(0 <= ind);
         max += h_top[ind + 1] * 2;
     }
 
     if (ind < h_size - 2) {
-    	assert(0 < ind);
+    	assert(0 <= ind);
         max += h_top[ind + 2];
     }
 
