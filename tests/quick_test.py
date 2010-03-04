@@ -23,9 +23,11 @@ DATA = {'bul' : 'Bulgarian',
         'por' : 'Portuguese',
         'rum' : 'Romanian',
         'rus' : 'Russian',
+        'srp' : 'Serbian',
         'slo' : 'Slovenian',
         'spa' : 'Spanish',
         'swe' : 'Swedish',
+        'tur' : 'Turkish',
         'ukr' : 'Ukrainian'                 
          }
 OUTPUT = "tmp.txt"
@@ -39,14 +41,11 @@ for key, v in sorted(DATA.iteritems()):
     cmd = CMD % (key, OUTPUT, v.lower())
     # print cmd
     retcode = subprocess.call(cmd, shell=True)
-    if retcode > 0:
+    if retcode != 0:
         print "%s failed" % v
 	tests_failed = tests_failed + 1
         print cmd
         continue
-        #sys.exit(1)
-    elif retcode < 0:
-        sys.exit(1)
         
     tests_passed = tests_passed + 1
 
