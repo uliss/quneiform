@@ -71,6 +71,14 @@ if(ImageMagick_Magick++_FOUND)
 endif()
 endif()
 
+# Libzip
+find_package(ZIP)
+if(ZIP_FOUND)
+    set(CF_USE_ZIP TRUE)
+    set(CF_USE_ODF TRUE)
+endif()
+    
+
 find_package(Iconv)
 if(ICONV_FOUND)
     set(USE_ICONV TRUE)

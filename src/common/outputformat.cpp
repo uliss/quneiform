@@ -59,9 +59,9 @@ bool initOutputFormatData()
     addFormat(FORMAT_TEXT, "text", "plain text", "txt");
     addFormat(FORMAT_SMARTTEXT, "smarttext", "plain text with TeX paragraphs", "txt");
     addFormat(FORMAT_HTML, "html", "HTML format", "html");
-    addFormat(FORMAT_XHTML, "xhtml", "XHTML format", "html");
     addFormat(FORMAT_HOCR, "hocr", "hOCR HTML format", "html");
     addFormat(FORMAT_RTF, "rtf", "RTF format", "rtf");
+    addFormat(FORMAT_ODF, "odf", "OpenDocument Format", "odt");
     addFormat(FORMAT_EDNATIVE, "native", "Cuneiform 2000 format", "ed");
     addFormat(FORMAT_DEBUG, "textdebug", "for debugging purposes", "txt");
     return true;

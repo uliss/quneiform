@@ -25,6 +25,11 @@
 #include "hocrexporter.h"
 #include "puma/pumadef.h"
 #include "common/outputformat.h"
+#include "config-user.h"
+
+#ifdef CF_USE_ODF
+#include "odfexporter.h"
+#endif
 
 namespace CIF
 {
@@ -51,15 +56,18 @@ Exporter * ExporterFactoryImpl::make(format_t format) {
         return new EdExporter(page_);
     case FORMAT_HOCR:
         return new HocrExporter((CEDPage*) page_, format_options_);
-    case FORMAT_XHTML:
     case FORMAT_HTML:
         return new HtmlExporter((CEDPage*) page_, format_options_);
     case FORMAT_SMARTTEXT:
         format_options_.setPreserveLineBreaks(true);
     case FORMAT_TEXT:
         return new TextExporter((CEDPage*) page_, format_options_);
+#ifdef CF_USE_ODT
+    case FORMAT_ODF:
+        return new OdfExporter((CEDPage*) page_, format_options_);
+#endif
     default:
-        throw Exception("Unsupported export format");
+        throw Exception("[ExporterFactoryImpl::make] Unsupported export format: " + OutputFormat::name(format), format);
     }
 }
 

@@ -16,16 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "odtexporter.h"
+#ifndef ODTEXPORTER_H_
+#define ODTEXPORTER_H_
+
+#include "genericexporter.h"
+#include "zip.h"
 
 namespace CIF
 {
 
-OdtExporter::OdtExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts) {
+class OdfExporter: public CIF::GenericExporter
+{
+    public:
+        OdfExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+        ~OdfExporter();
+};
+
 }
 
-OdtExporter::~OdtExporter() {
-}
-
-}
+#endif /* ODTEXPORTER_H_ */

@@ -40,7 +40,7 @@ enum format_t
     FORMAT_HTML = 0x2000,
     FORMAT_HOCR = 0x4000,
     FORMAT_DEBUG = 0x8000,
-    FORMAT_XHTML = 0x10000
+    FORMAT_ODF   = 0x10000
 };
 
 typedef std::list<format_t> OutputFormatList;

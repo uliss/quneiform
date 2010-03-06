@@ -5,6 +5,7 @@
 
 #cmakedefine USE_IMAGE_MAGICK
 #cmakedefine USE_ICONV
-#cmakedefine USE_ZIP
+#cmakedefine CF_USE_ZIP
+#cmakedefine CF_USE_ODF
 
 #endif
