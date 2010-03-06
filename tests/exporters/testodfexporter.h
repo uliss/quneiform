@@ -16,33 +16,19 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef ODTEXPORTER_H_
-#define ODTEXPORTER_H_
+#ifndef TESTODFEXPORTER_H_
+#define TESTODFEXPORTER_H_
 
-#include "genericexporter.h"
-#include "zip.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-namespace CIF
+class TestOdfExporter: public CppUnit::TestFixture
 {
-
-class OdfExporter: public CIF::GenericExporter
-{
+    CPPUNIT_TEST_SUITE(TestOdfExporter);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST_SUITE_END();
     public:
-        OdfExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
-        ~OdfExporter();
+        void testInit();
 
-        void exportTo(const std::string& fname);
-        void exportTo(std::ostream& os);
-    private:
-        void addOdfMeta();
-        void addOdfMime();
-        void odfClose();
-        void odfOpen(const std::string& fname);
-        void odfWrite(const std::string& fname, const std::string& data);
-    private:
-        zip * zip_;
 };
 
-}
-
-#endif /* ODTEXPORTER_H_ */
+#endif /* TESTODFEXPORTER_H_ */

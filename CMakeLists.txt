@@ -18,18 +18,14 @@ macro(SET_COMPILER_DEBUG_FLAG flag)
 endmacro()
 
 if(CMAKE_BUILD_TYPE STREQUAL Debug)
-    #SET_COMPILER_DEBUG_FLAG(/Wall)
-    if(Linux)
+    # setting linker warning flags
+    if(CMAKE_SYSTEM_NAME STREQUAL Linux)
         SET_COMPILER_DEBUG_FLAG(-O0)
         SET_COMPILER_DEBUG_FLAG(-fvisibility=default)
         SET_COMPILER_DEBUG_FLAG(-Wall)
         SET_COMPILER_DEBUG_FLAG(-Wextra)
         SET_COMPILER_DEBUG_FLAG(-Wconversion)
         SET_COMPILER_DEBUG_FLAG(-fno-inline)
-    endif()
-
-    # setting linker warning flags
-    if(CMAKE_SYSTEM_NAME STREQUAL LINUX)
         set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--warn-common")
     endif()
 

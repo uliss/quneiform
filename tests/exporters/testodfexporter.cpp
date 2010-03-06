@@ -16,33 +16,17 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef ODTEXPORTER_H_
-#define ODTEXPORTER_H_
+#include "testodfexporter.h"
+CPPUNIT_TEST_SUITE_REGISTRATION(TestOdfExporter);
 
-#include "genericexporter.h"
-#include "zip.h"
+#include "export/odfexporter.h"
+using namespace CIF;
 
-namespace CIF
-{
-
-class OdfExporter: public CIF::GenericExporter
-{
-    public:
-        OdfExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
-        ~OdfExporter();
-
-        void exportTo(const std::string& fname);
-        void exportTo(std::ostream& os);
-    private:
-        void addOdfMeta();
-        void addOdfMime();
-        void odfClose();
-        void odfOpen(const std::string& fname);
-        void odfWrite(const std::string& fname, const std::string& data);
-    private:
-        zip * zip_;
-};
-
+void TestOdfExporter::testInit() {
+    Exporter * e = new OdfExporter(NULL);
+    CPPUNIT_ASSERT_NO_THROW(e->exportTo("tmp.odt"));
+    CPPUNIT_ASSERT_THROW(e->exportTo(std::cout), Exporter::Exception);
+    delete e;
 }
 
-#endif /* ODTEXPORTER_H_ */
+

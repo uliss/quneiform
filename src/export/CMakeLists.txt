@@ -23,7 +23,7 @@ endif()
 if(CF_USE_ZIP)
     include_directories(${ZIP_INCLUDE_DIR})
     set(exporters ${exporters} odfexporter.cpp)
-    set(exporters_libs ${LIBZIP_LIBRARIES})
+    set(exporters_libs ${ZIP_LIBRARIES})
     message(STATUS "OpenDocument Format exporter will be build")
 endif()
 
@@ -45,7 +45,7 @@ target_link_libraries(cuneiform-export
     cuneiform-ced 
     cuneiform-common
     cuneiform-rfrmt
-    ${exporter_libs}
+    ${exporters_libs}
     ${image_exporters_libs})
 
 library_hook(cuneiform-export)
