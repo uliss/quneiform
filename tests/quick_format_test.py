@@ -6,7 +6,7 @@ import sys
 import subprocess
 
 CMD = "./cuneiform -l ger -o tmp.%s -f %s '../../cifocr/images/lang.diftest/german.bmp'"
-DATA = ['text', 'textdebug', 'smarttext', 'html', 'hocr', 'rtf', 'native']
+DATA = ['text', 'textdebug', 'smarttext', 'html', 'hocr', 'odf', 'rtf', 'native']
 
 CMD += " 2>/dev/null"
 
