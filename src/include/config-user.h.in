@@ -1,0 +1,10 @@
+#ifndef USER_CONFIG_H_CF
+#define USER_CONFIG_H_CF
+
+#include "config.h"
+
+#cmakedefine USE_IMAGE_MAGICK
+#cmakedefine USE_ICONV
+#cmakedefine USE_ZIP
+
+#endif

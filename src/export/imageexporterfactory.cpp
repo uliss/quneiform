@@ -17,7 +17,7 @@
  ***************************************************************************/
 
 #include "imageexporterfactory.h"
-#include "config.h"
+#include "config-user.h"
 #include "bmpimageexporter.h"
 
 #ifdef USE_IMAGE_MAGICK

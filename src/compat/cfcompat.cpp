@@ -58,8 +58,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "config.h"
-
+#include "config.h" // for INSTALL_PREFIX
 #include "cfcompat.hpp"
 #include "cfcompat.h"
 

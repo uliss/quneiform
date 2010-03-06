@@ -18,7 +18,6 @@
 
 #include <Magick++.h>
 #include "magickimageexporter.h"
-#include "config.h"
 
 namespace CIF
 {
@@ -36,7 +35,6 @@ void MagickImageExporter::save(void * data, size_t dataSize, std::ostream& os) {
 
     Magick::Blob blob(data, dataSize);
     try {
-
         Magick::Image image;
         image.verbose(true);
         image.magick("DIB");

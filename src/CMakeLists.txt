@@ -80,6 +80,7 @@ install(FILES
     include/minmax.h
     include/filestuff.h
     ${CMAKE_BINARY_DIR}/src/include/config.h
+    ${CMAKE_BINARY_DIR}/src/include/config-user.h
     DESTINATION include/${CF_HEADER_INSTALL})
 
 

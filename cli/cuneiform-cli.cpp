@@ -79,8 +79,8 @@
 #include <cstring>
 #include "getopt.h"
 #include <fstream>
-#include "config.h"
 
+#include "config.h" // for CF_VERSION
 #include "cuneiform.h"
 
 using namespace std;

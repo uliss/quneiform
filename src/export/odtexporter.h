@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,49 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef ICONV_H_
-#define ICONV_H_
+#ifndef ODTEXPORTER_H_
+#define ODTEXPORTER_H_
 
-#ifdef __FreeBSD__
-#undef __BSD_VISIBLE
-#endif
-
-
-#include <string>
-#include <stdexcept>
-#include "globus.h"
-#include "config-user.h"
-
-#ifdef USE_ICONV
-#include <iconv.h>
-#endif
+#include "genericexporter.h"
 
 namespace CIF
 {
 
-class FUN_EXPO__ Iconv
+class OdtExporter: public CIF::GenericExporter
 {
     public:
-        Iconv();
-        Iconv(const std::string &from, const std::string &to);
-        ~Iconv();
-
-        typedef std::runtime_error Exception;
-
-        bool close();
-        std::string convert(const std::string& src);
-        bool open(const std::string &from, const std::string &to);
-    private:
-        size_t convert(const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
-    private:
-#ifdef USE_ICONV
-        iconv_t iconv_;
-#else
-        typedef int iconv_t;
-        iconv_t iconv_;
-#endif
+        OdtExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+        ~OdtExporter();
 };
 
 }
 
-#endif /* ICONV_H_ */
+#endif /* ODTEXPORTER_H_ */
