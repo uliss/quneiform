@@ -29,7 +29,7 @@ namespace CIF
 {
 
 HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
-    TextExporter(page, opts), lines_left_(0), current_font_style_(0) {
+    XmlExporter(page, opts), lines_left_(0), current_font_style_(0) {
 
     ImageExporterPtr exp = ImageExporterFactory::instance().make();
     setImageExporter(exp);
@@ -37,6 +37,7 @@ HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
     setSkipPictures(false);
+//    useIndents(true);
 }
 
 HtmlExporter::~HtmlExporter() {
@@ -118,7 +119,7 @@ std::string HtmlExporter::lineBufferString() {
 void HtmlExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     assert(chr && chr->alternatives);
     writeFontStyle(os, chr->fontAttribs);
-    os << escapeXmlSpecialChar(chr->alternatives->alternative);
+    os << escapeSpecialChar(chr->alternatives->alternative);
 }
 
 void HtmlExporter::writeDoctype(std::ostream& os) {
@@ -166,30 +167,30 @@ void HtmlExporter::writeLineBreak(std::ostream& os) {
         return;
 
     if (isLineBreak())
-        os << "<br/>\n";
+        writeSingleTag(os, "br", Attributes(), "\n");
 }
 
 void HtmlExporter::writeMeta(std::ostream& os) {
     Attributes attrs;
     attrs["name"] = "Generator";
     attrs["content"] = "cuneiform-linux-" CF_VERSION;
-    writeSingleTag(os, "meta", attrs);
-    os << "\n";
+    writeSingleTag(os, "meta", attrs, "\n");
 
     if (isCharsetConversionNeeded()) {
         attrs["name"] = "Content-Type";
         attrs["content"] = "text/html;charset=" + outputEncoding();
-        writeSingleTag(os, "meta", attrs);
-        os << "\n";
+        writeSingleTag(os, "meta", attrs, "\n");
     }
 }
 
 void HtmlExporter::writePageBegin(std::ostream& os) {
     writeDoctype(os);
-    os << "<html>\n<head>\n";
+    writeStartTag(os, "html", "\n");
+    writeStartTag(os, "head", "\n");
     writeTitle(os);
     writeMeta(os);
-    os << "</head>\n<body>\n";
+    writeCloseTag(os, "head", "\n");
+    writeStartTag(os, "body", "\n");
     writeFontStyle(os, 0);
 
     if (os.fail())
@@ -198,7 +199,8 @@ void HtmlExporter::writePageBegin(std::ostream& os) {
 
 void HtmlExporter::writePageEnd(std::ostream& os) {
     writeFontStyle(os, 0);
-    os << "</body>\n</html>\n";
+    writeCloseTag(os, "body", "\n");
+    writeCloseTag(os, "html", "\n");
 }
 
 void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
@@ -227,7 +229,7 @@ void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
 
 void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
     writeFontStyle(os, 0);
-    os << "</p>\n";
+    writeCloseTag(os, "p", "\n");
 }
 
 void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
@@ -238,7 +240,7 @@ void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
         attrs["alt"] = "";
         attrs["height"] = toString(last_picture_size_.height());
         attrs["width"] = toString(last_picture_size_.width());
-        writeSingleTag(os, "img", attrs);
+        writeSingleTag(os, "img", attrs, "\n");
     } catch (Exception& e) {
         Debug() << "[HtmlExporter::writePicture] failed: " << e.what() << std::endl;
     }
@@ -246,38 +248,15 @@ void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
 
 void HtmlExporter::writeTableBegin(std::ostream& os, CEDParagraph * /*table*/) {
     writeFontStyle(os, 0);
-    os << "<table>";
+    writeStartTag(os, "table");
 }
 
 void HtmlExporter::writeTableEnd(std::ostream& os, CEDParagraph * /*table*/) {
-    os << "</table>";
-}
-
-void HtmlExporter::writeAttributes(std::ostream& os, const Attributes& attrs) {
-    for (Attributes::const_iterator it = attrs.begin(), end = attrs.end(); it != end; ++it)
-        os << " " << it->first << "=\"" << it->second << "\"";
-}
-
-void HtmlExporter::writeSingleTag(std::ostream& os, const std::string& tagName,
-        const Attributes& attrs) {
-    os << "<" << tagName;
-    writeAttributes(os, attrs);
-    os << "/>";
-}
-
-void HtmlExporter::writeStartTag(std::ostream& os, const std::string& tagName) {
-    os << "<" << tagName << ">";
-}
-
-void HtmlExporter::writeStartTag(std::ostream& os, const std::string& tagName,
-        const Attributes& attrs) {
-    os << "<" << tagName;
-    writeAttributes(os, attrs);
-    os << ">";
+    writeCloseTag(os, "table");
 }
 
 void HtmlExporter::writeTitle(std::ostream& os) {
-    os << "<title>Cuneiform output</title>\n";
+    writeTag(os, "title", "Cuneiform output", Attributes(), "\n");
 }
 
 }

@@ -21,12 +21,12 @@
 
 #include <map>
 #include <vector>
-#include "textexporter.h"
+#include "xmlexporter.h"
 
 namespace CIF
 {
 
-class HtmlExporter: public TextExporter
+class HtmlExporter: public XmlExporter
 {
     public:
         HtmlExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
@@ -49,14 +49,9 @@ class HtmlExporter: public TextExporter
         void writeTableEnd(std::ostream& os, CEDParagraph * table);
         virtual void writeTitle(std::ostream& os);
     protected:
-        typedef std::map<std::string, std::string> Attributes;
         std::string fontStyleBegin(int style);
         std::string fontStyleEnd(int style);
         void closeFontStyle();
-        void writeAttributes(std::ostream& os, const Attributes& attr);
-        void writeSingleTag(std::ostream& os, const std::string& tagName, const Attributes& attrs);
-        void writeStartTag(std::ostream& os, const std::string&  tagName);
-        void writeStartTag(std::ostream& os, const std::string&  tagName, const Attributes& attr);
     private:
         int lines_left_;
         long current_font_style_;

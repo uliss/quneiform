@@ -30,6 +30,7 @@ class HocrExporter: public HtmlExporter
 {
     public:
         HocrExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+        typedef std::vector<Rect> RectList;
     protected:
         void writeCharacter(std::ostream& os, CEDChar * chr);
         void writeCharBBoxesInfo(std::ostream& os);
@@ -42,7 +43,6 @@ class HocrExporter: public HtmlExporter
     private:
         void addCharBBox(CEDChar * chr);
     private:
-        typedef std::vector<Rect> RectList;
         RectList rects_;
         // true if last none-space character was in line (i.e had a valid bbox).
         bool is_in_line_;

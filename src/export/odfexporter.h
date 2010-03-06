@@ -23,12 +23,12 @@
 #include <vector>
 #include <string>
 
-#include "textexporter.h"
+#include "xmlexporter.h"
 
 namespace CIF
 {
 
-class OdfExporter: public TextExporter
+class OdfExporter: public XmlExporter
 {
     public:
         OdfExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
@@ -38,6 +38,7 @@ class OdfExporter: public TextExporter
         void exportTo(std::ostream& os);
     protected:
         void writeCharacter(std::ostream& os, CEDChar * chr);
+        void writeLineBreak(std::ostream& os);
         void writePageBegin(std::ostream& os);
         void writePageEnd(std::ostream& os);
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
@@ -56,6 +57,7 @@ class OdfExporter: public TextExporter
         zip * zip_;
         typedef std::vector<std::string> BufList;
         BufList buffers_;
+        int lines_left_ ;
 };
 
 }

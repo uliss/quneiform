@@ -12,6 +12,7 @@ set(exporters
     htmlexporter.cpp
     rtfexporter.cpp
     textexporter.cpp
+    xmlexporter.cpp
 )
 
 if(USE_IMAGE_MAGICK) 

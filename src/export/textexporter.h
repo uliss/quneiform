@@ -32,7 +32,6 @@ class TextExporter: public GenericExporter
         void exportChar(CEDChar * chr);
         void exportTo(std::ostream& os);
     protected:
-        std::string escapeXmlSpecialChar(uchar code);
         bool isLineBreak() const;
         std::ostringstream& lineBuffer();
         virtual std::string lineBufferString();

@@ -31,6 +31,28 @@ inline bool goodCharRect(const Rect& rc) {
             && rc.top() != BAD_RECT_VALUE && rc.bottom() != BAD_RECT_VALUE;
 }
 
+inline std::string rectBBox(const Rect& rc) {
+    std::ostringstream buf;
+    buf << "bbox " << rc.left() << " " << rc.top() << " " << rc.right() << " " << rc.bottom();
+    return buf.str();
+}
+
+inline std::string rectBBoxes(const HocrExporter::RectList& lst) {
+    std::ostringstream buf;
+    buf << "x_bboxes";
+    for (HocrExporter::RectList::const_iterator it = lst.begin(), end = lst.end(); it != end; ++it)
+        buf << " " << it->left() << " " << it->top() << " " << it->right() << " " << it->bottom();
+    return buf.str();
+}
+
+inline std::string pageBBox(CEDPage * p) {
+    assert(p);
+    std::ostringstream buf;
+    buf << "image '" << escapeHtmlSpecialChars(p->imageName) << "'; bbox 0 0 " << p->sizeOfImage.cx
+            << " " << p->sizeOfImage.cy;
+    return buf.str();
+}
+
 HocrExporter::HocrExporter(CEDPage * page, const FormatOptions& opts) :
     HtmlExporter(page, opts), is_in_line_(false) {
     rects_.reserve(BOXES_TO_RESERVE);
@@ -62,10 +84,10 @@ void HocrExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
 }
 
 void HocrExporter::writeCharBBoxesInfo(std::ostream& os) {
-    os << "\n  <span class=\"ocr_info\" title=\"x_bboxes";
-    for (RectList::iterator it = rects_.begin(), end = rects_.end(); it != end; ++it)
-        os << " " << it->left() << " " << it->top() << " " << it->right() << " " << it->bottom();
-    os << "\"></span>\n";
+    Attributes attrs;
+    attrs["class"] = "ocr_info";
+    attrs["title"] = rectBBoxes(rects_);
+    writeSingleTag(os, "span", attrs, "\n");
 }
 
 void HocrExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * /*line*/) {
@@ -73,14 +95,16 @@ void HocrExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * /*line*/) {
 }
 
 void HocrExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
-    os << "  <span class=\"ocr_line\" id=\"line_" << numLines() << "\" " << "title=\"bbox "
-            << line_rect_.left() << " " << line_rect_.top() << " " << line_rect_.right() << " "
-            << line_rect_.bottom() << "\">";
+    Attributes attrs;
+    attrs["class"] = "ocr_line";
+    attrs["id"] = "line_" + toString(numLines());
+    attrs["title"] = rectBBox(line_rect_);
+    writeStartTag(os, "span", attrs, "\n");
 
     writeCharBBoxesInfo(os);
     writeFontStyle(lineBuffer(), 0);
     HtmlExporter::writeLineEnd(os, line);
-    os << "</span>\n";
+    writeCloseTag(os, "span", "\n");
     is_in_line_ = false;
     rects_.clear();
 
@@ -92,8 +116,7 @@ void HocrExporter::writeMeta(std::ostream& os) {
     Attributes attrs;
     attrs["name"] = "ocr-system";
     attrs["content"] = "cuneiform";
-    writeSingleTag(os, "meta", attrs);
-    os << "\n";
+    writeSingleTag(os, "meta", attrs, "\n");
 }
 
 void HocrExporter::writePageBegin(std::ostream& os) {
@@ -101,14 +124,16 @@ void HocrExporter::writePageBegin(std::ostream& os) {
     HtmlExporter::writePageBegin(os);
     static int num_pages = 1;
     // example: <div class="ocr_page" title="image 'page-000.pbm'; bbox 0 0 4306 6064">
-    os << "<div class=\"ocr_page\" id=\"page_" << num_pages << "\" " << "title=\"image '"
-            << escapeHtmlSpecialChars(page()->imageName) << "'; bbox 0 0 "
-            << page()->sizeOfImage.cx << " " << page()->sizeOfImage.cy << "\">\n";
+    Attributes attrs;
+    attrs["class"] = "ocr_page";
+    attrs["id"] = "page_" + toString(num_pages);
+    attrs["title"] = pageBBox(page());
+    writeStartTag(os, "div", attrs, "\n");
     num_pages++;
 }
 
 void HocrExporter::writePageEnd(std::ostream& os) {
-    os << "</div>\n";
+    writeCloseTag(os, "div", "\n");
     HtmlExporter::writePageEnd(os);
 }
 
