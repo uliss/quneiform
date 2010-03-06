@@ -49,6 +49,23 @@ void TextExporter::clearLineBuffer() {
     line_buffer_.rdbuf()->str("");
 }
 
+std::string TextExporter::escapeXmlSpecialChar(uchar code) {
+    switch (code) {
+    case '>':
+        return "&gt;";
+    case '<':
+        return "&lt;";
+    case '&':
+        return "&amp;";
+    case '"':
+        return "&quot;";
+    case '\'':
+        return "&apos;";
+    default:
+        return std::string(1, code);
+    }
+}
+
 void TextExporter::exportChar(CEDChar * chr) {
     if (CED_IsPicture(chr))
         return GenericExporter::exportChar(chr);

@@ -62,7 +62,7 @@ Exporter * ExporterFactoryImpl::make(format_t format) {
         format_options_.setPreserveLineBreaks(true);
     case FORMAT_TEXT:
         return new TextExporter((CEDPage*) page_, format_options_);
-#ifdef CF_USE_ODT
+#ifdef CF_USE_ODF
     case FORMAT_ODF:
         return new OdfExporter((CEDPage*) page_, format_options_);
 #endif

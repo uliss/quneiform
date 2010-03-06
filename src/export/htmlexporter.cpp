@@ -77,21 +77,6 @@ void HtmlExporter::writeFontStyleClose(std::ostream& os, long newStyle, int styl
     }
 }
 
-std::string HtmlExporter::escapeHtmlSpecialChar(uchar code) {
-    switch (code) {
-    case '>':
-        return "&gt;";
-    case '<':
-        return "&lt;";
-    case '&':
-        return "&amp;";
-    case '"':
-        return "&quot;";
-    default:
-        return std::string(1, code);
-    }
-}
-
 std::string HtmlExporter::fontStyleBegin(int style) {
     switch (style) {
     case FONT_BOLD:
@@ -133,7 +118,7 @@ std::string HtmlExporter::lineBufferString() {
 void HtmlExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     assert(chr && chr->alternatives);
     writeFontStyle(os, chr->fontAttribs);
-    os << escapeHtmlSpecialChar(chr->alternatives->alternative);
+    os << escapeXmlSpecialChar(chr->alternatives->alternative);
 }
 
 void HtmlExporter::writeDoctype(std::ostream& os) {

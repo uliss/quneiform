@@ -59,7 +59,6 @@ class GenericExporter: public Exporter
         void savePictureData(CEDChar * picture, const std::string&);
         void setOutputStream(std::ostream * os);
     private:
-        void doExport(std::ostream& os);
         void exportColumn(CEDParagraph * col);
         void exportFrame(CEDParagraph * frame);
         void exportLine(CEDLine * line);
@@ -75,6 +74,7 @@ class GenericExporter: public Exporter
         int pictureNumber(CEDChar * picture);
     protected:
         virtual std::string createPicturesFolder();
+        void doExport(std::ostream& os);
         virtual void exportChar(CEDChar * chr);
         virtual void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeColumnBegin(std::ostream& os, CEDParagraph * col);

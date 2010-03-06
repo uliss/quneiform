@@ -69,7 +69,7 @@ void Exporter::exportTo(const std::string& filename) {
     if (!f)
         throw Exception("Can't write to file: " + filename);
     setOutputFilename(filename);
-    exportTo(f);
+    doExport(f);
 }
 
 void Exporter::exportTo(std::ostream& os) {

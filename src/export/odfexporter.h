@@ -19,13 +19,16 @@
 #ifndef ODTEXPORTER_H_
 #define ODTEXPORTER_H_
 
-#include "genericexporter.h"
-#include "zip.h"
+#include <zip.h>
+#include <vector>
+#include <string>
+
+#include "textexporter.h"
 
 namespace CIF
 {
 
-class OdfExporter: public CIF::GenericExporter
+class OdfExporter: public TextExporter
 {
     public:
         OdfExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
@@ -33,14 +36,26 @@ class OdfExporter: public CIF::GenericExporter
 
         void exportTo(const std::string& fname);
         void exportTo(std::ostream& os);
+    protected:
+        void writeCharacter(std::ostream& os, CEDChar * chr);
+        void writePageBegin(std::ostream& os);
+        void writePageEnd(std::ostream& os);
+        void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+        void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
     private:
+        void addOdfContent();
+        void addOdfManifest();
         void addOdfMeta();
         void addOdfMime();
+        void addOdfSettings();
+        void addOdfStyles();
         void odfClose();
         void odfOpen(const std::string& fname);
         void odfWrite(const std::string& fname, const std::string& data);
     private:
         zip * zip_;
+        typedef std::vector<std::string> BufList;
+        BufList buffers_;
 };
 
 }
