@@ -53,10 +53,13 @@ class OdfExporter: public XmlExporter
         void odfClose();
         void odfOpen(const std::string& fname);
         void odfWrite(const std::string& fname, const std::string& data);
+        void setCommonOdfNamespaces(Attributes& attrs);
     private:
         zip * zip_;
         typedef std::vector<std::string> BufList;
+        typedef std::vector<std::string> ManifestList;
         BufList buffers_;
+        ManifestList files_;
         int lines_left_ ;
 };
 
