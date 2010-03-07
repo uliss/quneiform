@@ -23,6 +23,7 @@
 
 namespace CIF {
 class CEDPage;
+class CEDChar;
 class HtmlExporter;
 }
 
@@ -63,6 +64,7 @@ class TestHtmlExporter: public CppUnit::TestFixture
     private:
         CIF::CEDPage * page_;
         CIF::HtmlExporter * exp_;
+        CIF::CEDChar * c_;
 };
 
 #endif /* TESTHTMLEXPORTER_H_ */

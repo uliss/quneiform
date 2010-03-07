@@ -29,15 +29,49 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #include <ced/cedline.h>
 #include <ced/cedpage.h>
 using namespace CIF;
+using namespace std;
+
+inline void clearBuffer(HtmlExporter * exp) {
+    exp->lineBuffer().rdbuf()->str("");
+}
+
+inline string buffer(HtmlExporter * exp) {
+    return exp->lineBuffer().str();
+}
+
+#define CHECK_BUFFER(str)  { \
+    CPPUNIT_ASSERT_EQUAL(string(str), buffer(exp_));\
+}
+
+#define CHECK_BUFFER_CLEAR(str)  { \
+    CPPUNIT_ASSERT_EQUAL(string(str), buffer(exp_));\
+    clearBuffer(exp_);\
+}
+
+#define ASSERT_CHAR_WRITE(src, dest) {\
+    c_->alternatives->alternative = src;\
+    exp_->writeCharacter(cerr, c_);\
+    CHECK_BUFFER(dest);\
+}
+
+#define ASSERT_CHAR_WRITE_CLEAR(src, dest) {\
+    c_->alternatives->alternative = src;\
+    exp_->writeCharacter(cerr, c_);\
+    CHECK_BUFFER_CLEAR(dest);\
+}
 
 void TestHtmlExporter::setUp() {
     page_ = new CEDPage;
     exp_ = new HtmlExporter(page_);
+    c_ = new CEDChar;
+    c_->alternatives = new LETTER;
 }
 
 void TestHtmlExporter::tearDown() {
     delete exp_;
     delete page_;
+    delete c_->alternatives;
+    delete c_;
 }
 
 void TestHtmlExporter::testInit() {
@@ -142,234 +176,108 @@ void TestHtmlExporter::testExportLine() {
 }
 
 void TestHtmlExporter::testExportCharacter() {
-    CEDChar * c = new CEDChar;
-    c->alternatives = new LETTER;
+    // check special chars escaping
+    ASSERT_CHAR_WRITE_CLEAR('&', "&amp;");
+    ASSERT_CHAR_WRITE_CLEAR('>', "&gt;");
+    ASSERT_CHAR_WRITE_CLEAR('<', "&lt;");
+    ASSERT_CHAR_WRITE_CLEAR('"', "&quot;");
+    ASSERT_CHAR_WRITE_CLEAR('\'', "&apos;");
 
-    c->alternatives->alternative = '&';
-    std::stringstream buf1;
-    exp_->os_ = &buf1;
-    exp_->writeCharacter(buf1, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("&amp;"), buf1.str());
-
-    c->alternatives->alternative = '>';
-    std::stringstream buf2;
-    exp_->os_ = &buf2;
-    exp_->writeCharacter(buf2, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("&gt;"), buf2.str());
-
-    c->alternatives->alternative = '<';
-    std::stringstream buf3;
-    exp_->os_ = &buf3;
-    exp_->writeCharacter(buf3, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("&lt;"), buf3.str());
-
-    c->alternatives->alternative = '"';
-    std::stringstream buf4;
-    exp_->os_ = &buf4;
-    exp_->writeCharacter(buf4, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("&quot;"), buf4.str());
-
-    std::string chars("abcdefghijklmnopqstuvwxyz123456789!@#$%^*(-+");
+    string chars("abcdefghijklmnopqstuvwxyz123456789!@#$%^*(-+");
     for (uint i = 0; i < chars.size(); i++) {
-        c->alternatives->alternative = chars[i];
-        std::stringstream buf;
-        exp_->os_ = &buf;
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string(1, chars[i]), buf.str());
+        c_->alternatives->alternative = chars[i];
+        exp_->writeCharacter(cerr, c_);
+        CPPUNIT_ASSERT_EQUAL(string(1, chars[i]), buffer(exp_));
+        clearBuffer(exp_);
     }
-
-    delete c->alternatives;
-    delete c;
 }
 
 void TestHtmlExporter::testBold() {
-    CEDChar * c = new CEDChar;
-    c->alternatives = new LETTER;
-
-    {
-        exp_->formatOptions().useBold(true);
-        c->alternatives->alternative = 'd';
-        c->fontAttribs = FONT_BOLD;
-        std::stringstream buf;
-        exp_->os_ = &buf;
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string("<b>d"), buf.str());
-        c->fontAttribs = 0;
-        c->alternatives->alternative = 'e';
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string("<b>d</b>e"), buf.str());
-    }
-
-    {
-        exp_->formatOptions().useBold(false);
-        CPPUNIT_ASSERT(!exp_->formatOptions().isBoldUsed());
-        c->alternatives->alternative = 'd';
-        c->fontAttribs = FONT_BOLD;
-        std::stringstream buf;
-        exp_->os_ = &buf;
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string("d"), buf.str());
-        c->fontAttribs = 0;
-        c->alternatives->alternative = 'e';
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string("de"), buf.str());
-    }
-
     exp_->formatOptions().useBold(true);
 
-    delete c->alternatives;
-    delete c;
+    c_->fontAttribs = FONT_BOLD;
+    ASSERT_CHAR_WRITE('d', "<b>d");
+    c_->fontAttribs = 0;
+    ASSERT_CHAR_WRITE_CLEAR('e', "<b>d</b>e");
+
+    exp_->formatOptions().useBold(false);
+    CPPUNIT_ASSERT(!exp_->formatOptions().isBoldUsed());
+
+    c_->fontAttribs = FONT_BOLD;
+    ASSERT_CHAR_WRITE('d', "d");
+    c_->fontAttribs = 0;
+    ASSERT_CHAR_WRITE('e', "de");
+
+    exp_->formatOptions().useBold(true);
 }
 
 void TestHtmlExporter::testItalic() {
-    CEDChar * c = new CEDChar;
-    c->alternatives = new LETTER;
-
-    {
-        exp_->formatOptions().useItalic(true);
-        c->alternatives->alternative = '1';
-        c->fontAttribs = FONT_ITALIC;
-        std::stringstream buf;
-        exp_->os_ = &buf;
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string("<i>1"), buf.str());
-        c->fontAttribs = 0;
-        c->alternatives->alternative = '2';
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string("<i>1</i>2"), buf.str());
-    }
-
-    {
-        exp_->formatOptions().useItalic(false);
-        CPPUNIT_ASSERT(!exp_->formatOptions().isItalicUsed());
-        c->alternatives->alternative = '1';
-        c->fontAttribs = FONT_ITALIC;
-        std::stringstream buf;
-        exp_->os_ = &buf;
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string("1"), buf.str());
-        c->fontAttribs = 0;
-        c->alternatives->alternative = '2';
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string("12"), buf.str());
-    }
-
     exp_->formatOptions().useItalic(true);
 
-    delete c->alternatives;
-    delete c;
+    c_->fontAttribs = FONT_ITALIC;
+    ASSERT_CHAR_WRITE('1', "<i>1");
+    c_->fontAttribs = 0;
+    ASSERT_CHAR_WRITE_CLEAR('2', "<i>1</i>2");
+
+    exp_->formatOptions().useItalic(false);
+    CPPUNIT_ASSERT(!exp_->formatOptions().isItalicUsed());
+
+    c_->fontAttribs = FONT_ITALIC;
+    ASSERT_CHAR_WRITE('1', "1");
+    c_->fontAttribs = 0;
+    ASSERT_CHAR_WRITE('2', "12");
+
+    exp_->formatOptions().useItalic(true);
 }
 
 void TestHtmlExporter::testUnderlined() {
-    CEDChar * c = new CEDChar;
-    c->alternatives = new LETTER;
-
-    c->alternatives->alternative = '1';
-    c->fontAttribs = FONT_UNDERLINE;
-    std::stringstream buf;
-    exp_->os_ = &buf;
-    exp_->writeCharacter(buf, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("<u>1"), buf.str());
-    c->fontAttribs = 0;
-    c->alternatives->alternative = '2';
-    exp_->writeCharacter(buf, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("<u>1</u>2"), buf.str());
-
-    delete c->alternatives;
-    delete c;
+    c_->fontAttribs = FONT_UNDERLINE;
+    ASSERT_CHAR_WRITE('1', "<u>1");
+    c_->fontAttribs = 0;
+    ASSERT_CHAR_WRITE('2', "<u>1</u>2");
 }
 
 void TestHtmlExporter::testSub() {
-    CEDChar * c = new CEDChar;
-    c->alternatives = new LETTER;
-
     exp_->formatOptions().useFontSize(true);
-    c->alternatives->alternative = '1';
-    c->fontAttribs = FONT_SUB;
-    std::stringstream buf;
-    exp_->os_ = &buf;
-    exp_->writeCharacter(buf, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("<sub>1"), buf.str());
-    c->fontAttribs = 0;
-    c->alternatives->alternative++;
-    exp_->writeCharacter(buf, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("<sub>1</sub>2"), buf.str());
-
-    delete c->alternatives;
-    delete c;
+    c_->fontAttribs = FONT_SUB;
+    ASSERT_CHAR_WRITE('1', "<sub>1");
+    c_->fontAttribs = 0;
+    ASSERT_CHAR_WRITE('2', "<sub>1</sub>2");
 }
 
 void TestHtmlExporter::testSuper() {
-    CEDChar * c = new CEDChar;
-    c->alternatives = new LETTER;
-
     exp_->formatOptions().useFontSize(true);
-    c->alternatives->alternative = '1';
-    c->fontAttribs = FONT_SUPER;
-    std::stringstream buf;
-    exp_->os_ = &buf;
-    exp_->writeCharacter(buf, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("<sup>1"), buf.str());
-    c->fontAttribs = 0;
-    c->alternatives->alternative++;
-    exp_->writeCharacter(buf, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("<sup>1</sup>2"), buf.str());
-
-    delete c->alternatives;
-    delete c;
+    c_->fontAttribs = FONT_SUPER;
+    ASSERT_CHAR_WRITE('1', "<sup>1");
+    c_->fontAttribs = 0;
+    ASSERT_CHAR_WRITE('2', "<sup>1</sup>2");
 }
 
 void TestHtmlExporter::testMixed() {
-    CEDChar * c = new CEDChar;
-    c->alternatives = new LETTER;
-
     exp_->formatOptions().useFontSize(true);
-    c->alternatives->alternative = '1';
-    c->fontAttribs = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB;
-    std::stringstream buf;
-    exp_->os_ = &buf;
-    exp_->writeCharacter(buf, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("<sub><u><i>1"), buf.str());
-    c->fontAttribs = 0;
-    c->alternatives->alternative = '2';
-    exp_->writeCharacter(buf, c);
-    CPPUNIT_ASSERT_EQUAL(std::string("<sub><u><i>1</i></u></sub>2"), buf.str());
+    c_->fontAttribs = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB;
+    ASSERT_CHAR_WRITE('1', "<sub><u><i>1");
+    c_->fontAttribs = 0;
+    ASSERT_CHAR_WRITE_CLEAR('2', "<sub><u><i>1</i></u></sub>2");
+
+    c_->fontAttribs = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB | FONT_SUPER;
+    ASSERT_CHAR_WRITE('1', "<sup><sub><u><i>1");
+    c_->fontAttribs = 0;
+    ASSERT_CHAR_WRITE('2', "<sup><sub><u><i>1</i></u></sub></sup>2");
+    c_->fontAttribs = FONT_UNDERLINE;
+    ASSERT_CHAR_WRITE_CLEAR('3', "<sup><sub><u><i>1</i></u></sub></sup>2<u>3");
 
     {
-        c->alternatives->alternative = '1';
-        c->fontAttribs = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB | FONT_SUPER;
-        std::stringstream buf;
-        exp_->os_ = &buf;
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string("<sup><sub><u><i>1"), buf.str());
-        c->fontAttribs = 0;
-        c->alternatives->alternative = '2';
-        exp_->writeCharacter(buf, c);
-        c->alternatives->alternative++;
-        c->fontAttribs = FONT_UNDERLINE;
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string("<sup><sub><u><i>1</i></u></sub></sup>2<u>3"), buf.str());
-    }
 
-    {
-        c->alternatives->alternative = '1';
-        c->fontAttribs = FONT_BOLD | FONT_ITALIC;
-        std::stringstream buf;
+        c_->fontAttribs = FONT_BOLD | FONT_ITALIC;
         exp_->font_styles_.clear();
-        exp_->os_ = &buf;
-        exp_->writeCharacter(buf, c);
-        CPPUNIT_ASSERT_EQUAL(std::string("<i><b>1"), buf.str());
-        c->fontAttribs = FONT_SUB | FONT_ITALIC;
-        c->alternatives->alternative++;
-        exp_->writeCharacter(buf, c);
-        c->alternatives->alternative++;
-        c->fontAttribs = FONT_UNDERLINE;
-        exp_->writeCharacter(buf, c);
-        //CPPUNIT_ASSERT_EQUAL(std::string("<i><b>1</b><sub>2</sub></i><u>3"), buf.str());
+        ASSERT_CHAR_WRITE('1', "<i><b>1");
+        c_->fontAttribs = FONT_SUB | FONT_ITALIC;
+        ASSERT_CHAR_WRITE('2', "<i><b>1</b><sub>2");
+        c_->fontAttribs = FONT_UNDERLINE;
+        //ASSERT_CHAR_WRITE('3', "<i><b>1</b><sub>2</sub></i><u>3");
     }
 
-    delete c->alternatives;
-    delete c;
 }
 
 void TestHtmlExporter::testFontStyleClose() {

@@ -112,14 +112,10 @@ std::string HtmlExporter::fontStyleEnd(int style) {
     }
 }
 
-std::string HtmlExporter::lineBufferString() {
-    return lineBuffer().str();
-}
-
 void HtmlExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     assert(chr && chr->alternatives);
-    writeFontStyle(os, chr->fontAttribs);
-    os << escapeSpecialChar(chr->alternatives->alternative);
+    writeFontStyle(lineBuffer(), chr->fontAttribs);
+    lineBuffer() << escapeSpecialChar(chr->alternatives->alternative);
 }
 
 void HtmlExporter::writeDoctype(std::ostream& os) {

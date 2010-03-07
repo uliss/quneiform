@@ -49,16 +49,6 @@ void TextExporter::clearLineBuffer() {
     line_buffer_.rdbuf()->str("");
 }
 
-void TextExporter::exportChar(CEDChar * chr) {
-    if (CED_IsPicture(chr))
-        return GenericExporter::exportChar(chr);
-
-    std::ostream * old_stream = outputStream();
-    setOutputStream(&line_buffer_);
-    GenericExporter::exportChar(chr);
-    setOutputStream(old_stream);
-}
-
 void TextExporter::exportTo(std::ostream& os) {
 #ifdef __APPLE__
     writeBOM(os);
@@ -78,6 +68,10 @@ std::string TextExporter::lineBufferPrepared() {
 
 void TextExporter::writeBOM(std::ostream& os) {
     os << "\xEF\xBB\xBF";
+}
+
+void TextExporter::writeCharacter(std::ostream& /*os*/, CEDChar * chr) {
+    GenericExporter::writeCharacter(line_buffer_, chr);
 }
 
 void TextExporter::writeLineBreak(std::ostream& os, CEDLine * line) {

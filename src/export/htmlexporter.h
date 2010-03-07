@@ -32,7 +32,6 @@ class HtmlExporter: public XmlExporter
         HtmlExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
         ~HtmlExporter();
     protected:
-        std::string lineBufferString();
         void writeCharacter(std::ostream& os, CEDChar * chr);
         virtual void writeDoctype(std::ostream& os);
         virtual void writeFontStyle(std::ostream& os, long style);

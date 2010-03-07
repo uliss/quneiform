@@ -29,13 +29,17 @@ class TextExporter: public GenericExporter
 {
     public:
         TextExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
-        void exportChar(CEDChar * chr);
         void exportTo(std::ostream& os);
     protected:
         /**
          * Returns prepared line content
          */
         virtual std::string lineBufferPrepared();
+
+        /**
+         * Writes character to line buffer
+         */
+        virtual void writeCharacter(std::ostream& os, CEDChar * chr);
 
         /**
          * Writes line break if needed
