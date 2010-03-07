@@ -37,8 +37,8 @@ class HocrExporter: public HtmlExporter
         void writeLineBegin(std::ostream& os, CEDLine * line);
         void writeLineEnd(std::ostream& os, CEDLine * line);
         void writeMeta(std::ostream& os);
-        void writePageBegin(std::ostream& os);
-        void writePageEnd(std::ostream& os);
+        void writePageBegin(std::ostream& os, CEDPage * page);
+        void writePageEnd(std::ostream& os, CEDPage * page);
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
     private:
         void addCharBBox(CEDChar * chr);

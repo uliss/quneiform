@@ -38,7 +38,7 @@ inline void removeHyphens(std::string& line) {
 }
 
 TextExporter::TextExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts), line_hard_break_flag_(false) {
+    GenericExporter(page, opts) {
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
     setSkipPictures(true);
@@ -64,8 +64,9 @@ void TextExporter::exportTo(std::ostream& os) {
     GenericExporter::exportTo(os);
 }
 
-bool TextExporter::isLineBreak() const {
-    return formatOptions().preserveLineBreaks() || line_hard_break_flag_;
+bool TextExporter::isLineBreak(CEDLine * line) const {
+    assert(line);
+    return line->hardBreak() || formatOptions().preserveLineBreaks();
 }
 
 std::ostringstream& TextExporter::lineBuffer() {
@@ -84,44 +85,28 @@ void TextExporter::writeBOM(std::ostream& os) {
 #endif
 }
 
-void TextExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
-    assert(chr && chr->alternatives);
-    os << std::string(1, chr->alternatives->alternative);
-}
-
-void TextExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * line) {
-    line_hard_break_flag_ = line->hardBreak();
-}
-
-void TextExporter::writeLineBreak(std::ostream& os) {
-    if (isLineBreak())
+void TextExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
+    if (isLineBreak(line))
         os << "\n";
 }
 
-void TextExporter::writeLineEnd(std::ostream& os, CEDLine * /*line*/) {
-    std::string line = lineBufferString();
+void TextExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
+    std::string output_line = lineBufferString();
 
-    if (!isLineBreak() && !formatOptions().preserveLineHyphens())
-        removeHyphens(line);
+    if (!isLineBreak(line) && !formatOptions().preserveLineHyphens())
+        removeHyphens(output_line);
 
     if (isCharsetConversionNeeded())
-        os << converter_.convert(line);
+        os << converter_.convert(output_line);
     else
-        os << line;
+        os << output_line;
 
-    writeLineBreak(os);
     clearLineBuffer();
+    writeLineBreak(os, line);
 }
 
-void TextExporter::writePageBegin(std::ostream& os) {
-    os << "\n";
-}
-
-void TextExporter::writePageEnd(std::ostream& os) {
+void TextExporter::writePageEnd(std::ostream& os, CEDPage*) {
     os << std::endl;
-}
-
-void TextExporter::writeParagraphBegin(std::ostream& /*os*/, CEDParagraph * /*par*/) {
 }
 
 void TextExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
@@ -130,13 +115,6 @@ void TextExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
 
 void TextExporter::writePicture(std::ostream& os, CEDChar * /*picture*/) {
     os << "[picture]\n";
-}
-
-void TextExporter::writeTableBegin(std::ostream& os, CEDParagraph * /*table*/) {
-    os << "[table]\n";
-}
-
-void TextExporter::writeTableEnd(std::ostream& /*os*/, CEDParagraph * /*table*/) {
 }
 
 }

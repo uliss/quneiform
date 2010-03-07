@@ -229,21 +229,21 @@ void OdfExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     os << escapeSpecialChar(chr->alternatives->alternative);
 }
 
-void OdfExporter::writeLineBreak(std::ostream& os) {
+void OdfExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
     // skip last line break
     lines_left_--;
     if (lines_left_ < 1)
         return;
 
-    if (isLineBreak())
+    if (isLineBreak(line))
         writeSingleTag(os, "text:line-break");
 }
 
-void OdfExporter::writePageBegin(std::ostream& os) {
+void OdfExporter::writePageBegin(std::ostream& os, CEDPage*) {
     writeStartTag(os, "office:text", "\n");
 }
 
-void OdfExporter::writePageEnd(std::ostream& os) {
+void OdfExporter::writePageEnd(std::ostream& os, CEDPage*) {
     writeCloseTag(os, "office:text", "\n");
 }
 

@@ -38,9 +38,9 @@ class OdfExporter: public XmlExporter
         void exportTo(std::ostream& os);
     protected:
         void writeCharacter(std::ostream& os, CEDChar * chr);
-        void writeLineBreak(std::ostream& os);
-        void writePageBegin(std::ostream& os);
-        void writePageEnd(std::ostream& os);
+        void writeLineBreak(std::ostream& os, CEDLine * line);
+        void writePageBegin(std::ostream& os, CEDPage * page);
+        void writePageEnd(std::ostream& os, CEDPage * page);
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
         void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
     private:

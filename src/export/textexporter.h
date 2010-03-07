@@ -32,26 +32,31 @@ class TextExporter: public GenericExporter
         void exportChar(CEDChar * chr);
         void exportTo(std::ostream& os);
     protected:
-        bool isLineBreak() const;
+        bool isLineBreak(CEDLine * line) const;
         std::ostringstream& lineBuffer();
         virtual std::string lineBufferString();
         void writeBOM(std::ostream& os);
-        void writeCharacter(std::ostream& os, CEDChar * chr);
-        void writeLineBegin(std::ostream& os, CEDLine * line);
-        virtual void writeLineBreak(std::ostream& os);
+        virtual void writeLineBreak(std::ostream& os, CEDLine * line);
         void writeLineEnd(std::ostream& os, CEDLine * line);
-        void writePageBegin(std::ostream& os);
-        void writePageEnd(std::ostream& os);
-        void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+
+        /**
+         * Writes new line after page
+         */
+        void writePageEnd(std::ostream& os, CEDPage * page);
+
+        /**
+         * Writes new line after paragraph
+         */
         void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+
+        /**
+         * Writes stub "[picture]" on picture place
+         */
         void writePicture(std::ostream& os, CEDChar * picture);
-        void writeTableBegin(std::ostream& os, CEDParagraph * table);
-        void writeTableEnd(std::ostream& os, CEDParagraph * table);
     private:
         void clearLineBuffer();
     private:
         std::ostringstream line_buffer_;
-        bool line_hard_break_flag_;
 };
 
 }

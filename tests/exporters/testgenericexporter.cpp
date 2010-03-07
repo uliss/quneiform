@@ -29,7 +29,7 @@ void TestGenericExporter::testInit() {
     FormatOptions opt;
     GenericExporter * p = new GenericExporter(NULL, opt);
 
-    CPPUNIT_ASSERT(p->page() == NULL);
+    CPPUNIT_ASSERT(p->page_ == NULL);
     CPPUNIT_ASSERT(p->os_ == NULL);
     delete p;
 }
@@ -59,7 +59,7 @@ void TestGenericExporter::testExportPage() {
     GenericExporter * p = new GenericExporter(page, opt);
 
     p->os_ = &std::cout;
-    p->exportPage();
+    p->exportPage(page);
 
     delete p;
     delete page;

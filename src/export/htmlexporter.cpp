@@ -160,13 +160,13 @@ void HtmlExporter::writeFontStyle(std::ostream& os, long newStyle) {
     current_font_style_ = newStyle;
 }
 
-void HtmlExporter::writeLineBreak(std::ostream& os) {
+void HtmlExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
     // skip last line break
     lines_left_--;
     if (lines_left_ < 1)
         return;
 
-    if (isLineBreak())
+    if (isLineBreak(line))
         writeSingleTag(os, "br", Attributes(), "\n");
 }
 
@@ -183,7 +183,7 @@ void HtmlExporter::writeMeta(std::ostream& os) {
     }
 }
 
-void HtmlExporter::writePageBegin(std::ostream& os) {
+void HtmlExporter::writePageBegin(std::ostream& os, CEDPage*) {
     writeDoctype(os);
     writeStartTag(os, "html", "\n");
     writeStartTag(os, "head", "\n");
@@ -197,7 +197,7 @@ void HtmlExporter::writePageBegin(std::ostream& os) {
         throw Exception("HtmlExporter failed");
 }
 
-void HtmlExporter::writePageEnd(std::ostream& os) {
+void HtmlExporter::writePageEnd(std::ostream& os, CEDPage*) {
     writeFontStyle(os, 0);
     writeCloseTag(os, "body", "\n");
     writeCloseTag(os, "html", "\n");

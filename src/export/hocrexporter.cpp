@@ -119,22 +119,22 @@ void HocrExporter::writeMeta(std::ostream& os) {
     writeSingleTag(os, "meta", attrs, "\n");
 }
 
-void HocrExporter::writePageBegin(std::ostream& os) {
-    assert(page() && page()->imageName);
-    HtmlExporter::writePageBegin(os);
+void HocrExporter::writePageBegin(std::ostream& os, CEDPage * page) {
+    assert(page && page->imageName);
+    HtmlExporter::writePageBegin(os, page);
     static int num_pages = 1;
     // example: <div class="ocr_page" title="image 'page-000.pbm'; bbox 0 0 4306 6064">
     Attributes attrs;
     attrs["class"] = "ocr_page";
     attrs["id"] = "page_" + toString(num_pages);
-    attrs["title"] = pageBBox(page());
+    attrs["title"] = pageBBox(page);
     writeStartTag(os, "div", attrs, "\n");
     num_pages++;
 }
 
-void HocrExporter::writePageEnd(std::ostream& os) {
+void HocrExporter::writePageEnd(std::ostream& os, CEDPage * page) {
     writeCloseTag(os, "div", "\n");
-    HtmlExporter::writePageEnd(os);
+    HtmlExporter::writePageEnd(os, page);
 }
 
 void HocrExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {

@@ -81,9 +81,10 @@ void GenericExporter::doExport(std::ostream& os) {
         throw Exception("[GenericExporter::doExport] invalid stream given");
 
     if (outputFilename().empty())
-        no_pictures_ = true;
-    os_ = &os;
-    exportPage();
+        setSkipPictures(true);
+
+    setOutputStream(&os);
+    exportPage(page_);
 }
 
 void GenericExporter::exportChar(CEDChar * chr) {
@@ -107,29 +108,22 @@ void GenericExporter::exportColumn(CEDParagraph * col) {
     num_columns_++;
 
     writeColumnBegin(*os_, col);
-
-    // Цикл по всем объектам
-    exportObjects(col);
-
+    writeColumn(*os_, col);
     writeColumnEnd(*os_, col);
 }
 
 void GenericExporter::exportFrame(CEDParagraph * frame) {
     assert(frame);
-    // Начало фрейма
     num_frames_++;
 
     writeFrameBegin(*os_, frame);
-
-    // Обход абзацев и таблиц внутри фрейма
-    exportObjects(frame);
-
+    writeFrame(*os_, frame);
     writeFrameEnd(*os_, frame);
 }
 
 void GenericExporter::exportLine(CEDLine * line) {
     assert(line);
-    if (skip_empty_lines_ && (line->GetCountChar() < 1)) {
+    if (skipLine(line)) {
         if (Config::instance().debugHigh())
             Debug() << "[GenericExporter::exportLine] skipping empty line\n";
         return;
@@ -137,11 +131,7 @@ void GenericExporter::exportLine(CEDLine * line) {
 
     num_lines_++;
     writeLineBegin(*os_, line);
-
-    // Обход символов в строке
-    for (int i = 0, max_chars = line->GetCountChar(); i < max_chars; i++)
-        exportChar(line->GetChar(i));
-
+    writeLine(*os_, line);
     writeLineEnd(*os_, line);
 }
 
@@ -160,26 +150,20 @@ void GenericExporter::exportObjects(CEDParagraph * objects) {
     }
 }
 
-void GenericExporter::exportPage() {
-    if (!page_) {
+void GenericExporter::exportPage(CEDPage * page) {
+    if (!page) {
         Debug() << "[GenericExporter::exportPage] nothing to export: empty page given\n";
         return;
     }
 
-    writePageBegin(*os_);
-
-    for (int i = 0, max = page_->GetNumberOfSections(); i < max; i++) {
-        CEDSection * section = page_->GetSection(i);
-        assert(section);
-        exportSection(section);
-    }
-
-    writePageEnd(*os_);
+    writePageBegin(*os_, page);
+    writePage(*os_, page);
+    writePageEnd(*os_, page);
 }
 
 void GenericExporter::exportParagraph(CEDParagraph * par) {
     assert(par);
-    if (skip_empty_paragraphs_ && isEmptyParagraph(par)) {
+    if (skipParagraph(par)) {
         if (Config::instance().debugHigh())
             Debug() << "[GenericExporter::exportParagraph] skipping empty paragraph\n";
         return;
@@ -188,16 +172,12 @@ void GenericExporter::exportParagraph(CEDParagraph * par) {
     num_paragraphs_++;
 
     writeParagraphBegin(*os_, par);
-
-    // Обход строк в абзаце
-    for (int i = 0, num_lines = par->GetCountLine(); i < num_lines; i++)
-        exportLine(par->GetLine(i));
-
+    writeParagraph(*os_, par);
     writeParagraphEnd(*os_, par);
 }
 
 void GenericExporter::exportPicture(CEDChar * picture) {
-    if (no_pictures_)
+    if (skipPictures())
         return;
 
     assert(picture);
@@ -210,10 +190,7 @@ void GenericExporter::exportSection(CEDSection * sect) {
     num_sections_++;
 
     writeSectionBegin(*os_, sect);
-
-    for (int i = 0; i < sect->numberOfColumns; i++)
-        exportColumn(sect->GetColumn(i));
-
+    writeSection(*os_, sect);
     writeSectionEnd(*os_, sect);
 }
 
@@ -339,10 +316,6 @@ std::ostream * GenericExporter::outputStream() {
     return os_;
 }
 
-CEDPage * GenericExporter::page() {
-    return page_;
-}
-
 std::string GenericExporter::pictureName(CEDChar * picture) {
     assert(picture);
     std::ostringstream buf;
@@ -413,6 +386,14 @@ bool GenericExporter::skipEmptyParagraphs() const {
     return skip_empty_paragraphs_;
 }
 
+bool GenericExporter::skipLine(CEDLine * line) const {
+    return line == NULL || (skip_empty_lines_ && (line->GetCountChar() < 1));
+}
+
+bool GenericExporter::skipParagraph(CEDParagraph * par) const {
+    return par == NULL || (skip_empty_paragraphs_ && isEmptyParagraph(par));
+}
+
 bool GenericExporter::skipPictures() const {
     return no_pictures_;
 }
@@ -426,12 +407,21 @@ void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     os << chr->alternatives->alternative;
 }
 
+void GenericExporter::writeColumn(std::ostream& /*os*/, CEDParagraph * col) {
+    exportObjects(col);
+}
+
 void GenericExporter::writeColumnBegin(std::ostream& /*os*/, CEDParagraph * /*col*/) {
 
 }
 
 void GenericExporter::writeColumnEnd(std::ostream& /*os*/, CEDParagraph * /*col*/) {
 
+}
+
+void GenericExporter::writeFrame(std::ostream& /*os*/, CEDParagraph * frame) {
+    // Обход абзацев и таблиц внутри фрейма
+    exportObjects(frame);
 }
 
 void GenericExporter::writeFrameBegin(std::ostream& /*os*/, CEDParagraph * /*frame*/) {
@@ -442,55 +432,81 @@ void GenericExporter::writeFrameEnd(std::ostream& /*os*/, CEDParagraph * /*frame
 
 }
 
-void GenericExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * /*line*/) {
+void GenericExporter::writeLine(std::ostream&, CEDLine * line) {
+    assert(line);
+    for (int i = 0, max_chars = line->GetCountChar(); i < max_chars; i++)
+        exportChar(line->GetChar(i));
+}
+
+void GenericExporter::writeLineBegin(std::ostream&, CEDLine*) {
 
 }
 
-void GenericExporter::writeLineEnd(std::ostream& /*os*/, CEDLine * /*line*/) {
+void GenericExporter::writeLineEnd(std::ostream&, CEDLine*) {
 
 }
 
-void GenericExporter::writePageBegin(std::ostream& /*os*/) {
+void GenericExporter::writePage(std::ostream&, CEDPage * page) {
+    assert(page);
+    for (int i = 0, max = page->GetNumberOfSections(); i < max; i++) {
+        CEDSection * section = page->GetSection(i);
+        exportSection(section);
+    }
+}
+
+void GenericExporter::writePageBegin(std::ostream&, CEDPage*) {
 
 }
 
-void GenericExporter::writePageEnd(std::ostream& /*os*/) {
+void GenericExporter::writePageEnd(std::ostream&, CEDPage*) {
 
 }
 
-void GenericExporter::writeParagraphBegin(std::ostream& /*os*/, CEDParagraph * /*par*/) {
+void GenericExporter::writeParagraph(std::ostream&, CEDParagraph * par) {
+    assert(par);
+    for (int i = 0, num_lines = par->GetCountLine(); i < num_lines; i++)
+        exportLine(par->GetLine(i));
+}
+
+void GenericExporter::writeParagraphBegin(std::ostream&, CEDParagraph*) {
 
 }
 
-void GenericExporter::writeParagraphEnd(std::ostream& /*os*/, CEDParagraph * /*par*/) {
+void GenericExporter::writeParagraphEnd(std::ostream&, CEDParagraph*) {
 
 }
 
-void GenericExporter::writePicture(std::ostream& /*os*/, CEDChar * /*pict*/) {
+void GenericExporter::writePicture(std::ostream&, CEDChar*) {
 
 }
 
-void GenericExporter::writeSectionBegin(std::ostream& /*os*/, CEDSection * /*sect*/) {
+void GenericExporter::writeSection(std::ostream&, CEDSection * sect) {
+    assert(sect);
+    for (int i = 0; i < sect->numberOfColumns; i++)
+        exportColumn(sect->GetColumn(i));
+}
+
+void GenericExporter::writeSectionBegin(std::ostream&, CEDSection*) {
 
 }
 
-void GenericExporter::writeSectionEnd(std::ostream& /*os*/, CEDSection * /*sect*/) {
+void GenericExporter::writeSectionEnd(std::ostream&, CEDSection *) {
 
 }
 
-void GenericExporter::writeTableBegin(std::ostream& /*os*/, CEDParagraph * /*table*/) {
+void GenericExporter::writeTableBegin(std::ostream&, CEDParagraph*) {
 
 }
 
-void GenericExporter::writeTableEnd(std::ostream& /*os*/, CEDParagraph * /*table*/) {
+void GenericExporter::writeTableEnd(std::ostream&, CEDParagraph*) {
 
 }
 
-void GenericExporter::writeTableRowBegin(std::ostream& /*os*/, CEDParagraph * /*row*/) {
+void GenericExporter::writeTableRowBegin(std::ostream&, CEDParagraph*) {
 
 }
 
-void GenericExporter::writeTableRowEnd(std::ostream& /*os*/, CEDParagraph * /*row*/) {
+void GenericExporter::writeTableRowEnd(std::ostream&, CEDParagraph*) {
 
 }
 

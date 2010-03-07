@@ -38,10 +38,10 @@ class HtmlExporter: public XmlExporter
         virtual void writeFontStyle(std::ostream& os, long style);
         void writeFontStyleBegin(std::ostream& os, long newStyle, int style);
         void writeFontStyleClose(std::ostream& os, long newStyle, int style);
-        void writeLineBreak(std::ostream& os);
+        void writeLineBreak(std::ostream& os, CEDLine * line);
         virtual void writeMeta(std::ostream& os);
-        void writePageBegin(std::ostream& os);
-        void writePageEnd(std::ostream& os);
+        void writePageBegin(std::ostream& os, CEDPage * page);
+        void writePageEnd(std::ostream& os, CEDPage * page);
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
         void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
         void writePicture(std::ostream& os, CEDChar * picture);
