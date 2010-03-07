@@ -32,11 +32,30 @@ class TextExporter: public GenericExporter
         void exportChar(CEDChar * chr);
         void exportTo(std::ostream& os);
     protected:
-        bool isLineBreak(CEDLine * line) const;
-        std::ostringstream& lineBuffer();
-        virtual std::string lineBufferString();
-        void writeBOM(std::ostream& os);
+        /**
+         * Returns prepared line content
+         */
+        virtual std::string lineBufferPrepared();
+
+        /**
+         * Writes line break if needed
+         */
         virtual void writeLineBreak(std::ostream& os, CEDLine * line);
+    protected:
+        /**
+         * Returns raw line content
+         */
+        std::ostringstream& lineBuffer();
+
+        /**
+         * Writes BOM mark before text document if needed
+         */
+        void writeBOM(std::ostream& os);
+
+        /**
+         * Writes line and optional line break if needed
+         * @see writeLineBreak
+         */
         void writeLineEnd(std::ostream& os, CEDLine * line);
 
         /**
@@ -54,7 +73,15 @@ class TextExporter: public GenericExporter
          */
         void writePicture(std::ostream& os, CEDChar * picture);
     private:
+        /**
+         * Clears line buffer
+         */
         void clearLineBuffer();
+
+        /**
+         * Writes line buffer content to output stream
+         */
+        void writeLineBuffer(std::ostream& os, CEDLine * line);
     private:
         std::ostringstream line_buffer_;
 };

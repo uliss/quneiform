@@ -131,6 +131,11 @@ class GenericExporter: public Exporter
         static bool isEmptyParagraph(CEDParagraph * par);
 
         /**
+         * Checks if line break needed
+         */
+        bool isLineBreak(CEDLine * line) const;
+
+        /**
          * Returns pointer to default output stream
          */
         std::ostream * outputStream();

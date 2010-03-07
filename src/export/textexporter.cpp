@@ -60,29 +60,24 @@ void TextExporter::exportChar(CEDChar * chr) {
 }
 
 void TextExporter::exportTo(std::ostream& os) {
+#ifdef __APPLE__
     writeBOM(os);
+#endif
     GenericExporter::exportTo(os);
-}
-
-bool TextExporter::isLineBreak(CEDLine * line) const {
-    assert(line);
-    return line->hardBreak() || formatOptions().preserveLineBreaks();
 }
 
 std::ostringstream& TextExporter::lineBuffer() {
     return line_buffer_;
 }
 
-std::string TextExporter::lineBufferString() {
+std::string TextExporter::lineBufferPrepared() {
     std::string res(line_buffer_.str());
     replaceAll(res, "--", "\u2013");
     return res;
 }
 
 void TextExporter::writeBOM(std::ostream& os) {
-#ifdef __APPLE__
     os << "\xEF\xBB\xBF";
-#endif
 }
 
 void TextExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
@@ -90,8 +85,8 @@ void TextExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
         os << "\n";
 }
 
-void TextExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
-    std::string output_line = lineBufferString();
+void TextExporter::writeLineBuffer(std::ostream& os, CEDLine * line) {
+    std::string output_line = lineBufferPrepared();
 
     if (!isLineBreak(line) && !formatOptions().preserveLineHyphens())
         removeHyphens(output_line);
@@ -102,6 +97,10 @@ void TextExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
         os << output_line;
 
     clearLineBuffer();
+}
+
+void TextExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
+    writeLineBuffer(os, line);
     writeLineBreak(os, line);
 }
 

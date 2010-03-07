@@ -280,6 +280,11 @@ bool GenericExporter::isEmptyParagraph(CEDParagraph * par) {
     return charNumInParagraph(par) < 1;
 }
 
+bool GenericExporter::isLineBreak(CEDLine * line) const {
+    assert(line);
+    return line->hardBreak() || formatOptions().preserveLineBreaks();
+}
+
 int GenericExporter::numChars() const {
     return num_chars_;
 }
