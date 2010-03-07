@@ -88,10 +88,10 @@ void TextExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
 void TextExporter::writeLineBuffer(std::ostream& os, CEDLine * line) {
     std::string output_line = lineBufferPrepared();
 
-    if (!isLineBreak(line) && !formatOptions().preserveLineHyphens())
+    if (isRemoveHyphens(line))
         removeHyphens(output_line);
 
-    if (isCharsetConversionNeeded())
+    if (isCharsetConversion())
         os << converter_.convert(output_line);
     else
         os << output_line;

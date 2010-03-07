@@ -37,7 +37,7 @@ class Exporter
 
         typedef std::runtime_error Exception;
 
-        bool isCharsetConversionNeeded() const;
+        bool isCharsetConversion() const;
         virtual void exportTo(const std::string& filename);
         virtual void exportTo(std::ostream& os);
         const FormatOptions& formatOptions() const;

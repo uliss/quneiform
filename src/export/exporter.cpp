@@ -57,7 +57,7 @@ void Exporter::autoDetectOutputEncoding() {
     output_encoding_ = locale.substr(dot_pos + 1);
 }
 
-bool Exporter::isCharsetConversionNeeded() const {
+bool Exporter::isCharsetConversion() const {
     if (output_encoding_.empty() || input_encoding_.empty())
         return false;
     return output_encoding_ != input_encoding_;

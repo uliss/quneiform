@@ -176,7 +176,7 @@ void HtmlExporter::writeMeta(std::ostream& os) {
     attrs["content"] = "cuneiform-linux-" CF_VERSION;
     writeSingleTag(os, "meta", attrs, "\n");
 
-    if (isCharsetConversionNeeded()) {
+    if (isCharsetConversion()) {
         attrs["name"] = "Content-Type";
         attrs["content"] = "text/html;charset=" + outputEncoding();
         writeSingleTag(os, "meta", attrs, "\n");

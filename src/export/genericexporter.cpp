@@ -44,7 +44,7 @@ GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
             num_tables_(0), table_nesting_level_(0), skip_empty_paragraphs_(false),
             skip_empty_lines_(false) {
 
-    if (isCharsetConversionNeeded())
+    if (isCharsetConversion())
         converter_.open(inputEncoding(), outputEncoding());
 }
 
@@ -283,6 +283,11 @@ bool GenericExporter::isEmptyParagraph(CEDParagraph * par) {
 bool GenericExporter::isLineBreak(CEDLine * line) const {
     assert(line);
     return line->hardBreak() || formatOptions().preserveLineBreaks();
+}
+
+bool GenericExporter::isRemoveHyphens(CEDLine * line) const {
+    assert(line);
+    return !isLineBreak(line) && !formatOptions().preserveLineHyphens();
 }
 
 int GenericExporter::numChars() const {

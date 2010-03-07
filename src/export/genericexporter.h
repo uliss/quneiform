@@ -136,6 +136,11 @@ class GenericExporter: public Exporter
         bool isLineBreak(CEDLine * line) const;
 
         /**
+         * Checks if hyphens removal is needed
+         */
+        bool isRemoveHyphens(CEDLine * line) const;
+
+        /**
          * Returns pointer to default output stream
          */
         std::ostream * outputStream();

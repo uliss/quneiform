@@ -29,7 +29,7 @@ DebugExporter::DebugExporter(const FormatOptions& opts) :
 
 void DebugExporter::doExport(std::ostream& os) {
     Iconv converter(inputEncoding(), outputEncoding());
-    bool do_encode = isCharsetConversionNeeded();
+    bool do_encode = isCharsetConversion();
 
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
         CSTR_line lin_out = CSTR_GetLineHandle(i, 1);
