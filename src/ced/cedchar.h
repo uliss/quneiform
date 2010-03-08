@@ -32,9 +32,25 @@ class FUN_EXPO__ CEDChar
 {
     public:
         CEDChar();
+
+        /**
+         * Returns character bounding rectangle
+         */
         Rect boundingRect() const;
+
+        /**
+         * Returns reference to character bounding rectangle
+         */
         Rect& rBoundingRect();
+
+        /**
+         * Sets bounding rectangle
+         */
         void setBoundingRect(const Rect& bbox);
+
+        /**
+         * Sets bounding rectabgle
+         */
         void setBoundingRect(const EDBOX& bbox);
 
         int parentNumber; //number of parent in a file
