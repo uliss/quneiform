@@ -37,6 +37,10 @@
 namespace CIF
 {
 
+const std::string ODF_STYLE_JUSTIFY = "P1";
+const std::string ODF_STYLE_BOLD = "BOLD";
+const std::string ODF_STYLE_ITALIC = "ITALIC";
+
 std::string datetime(const std::string& format = "%Y-%m-%dT%H:%M:%S") {
     time_t rawtime;
     struct tm * timeinfo;
@@ -58,6 +62,28 @@ OdfExporter::~OdfExporter() {
     odfClose();
 }
 
+void OdfExporter::addOdfAutomaticStyles(std::ostream& os) {
+    XmlTag automatic_styles("office:automatic-styles");
+    automatic_styles.writeBeginNL(os);
+
+    os << "<style:style style:name=\"" << ODF_STYLE_JUSTIFY << "\" "
+        "style:family=\"paragraph\" "
+        "style:parent-style-name=\"Standard\">\n"
+        "<style:paragraph-properties "
+        "fo:text-align=\"start\" "
+        "style:justify-single-word=\"false\"/>\n"
+        "</style:style>\n";
+
+    os << "<style:style style:name=\"" << ODF_STYLE_BOLD << "\" style:family=\"text\">\n"
+        "<style:text-properties "
+        "fo:font-weight=\"bold\" "
+        "style:font-weight-asian=\"bold\" "
+        "style:font-weight-complex=\"bold\"/>\n"
+        "</style:style>\n";
+
+    automatic_styles.writeEndNL(os);
+}
+
 void OdfExporter::addOdfContent() {
     std::ostringstream buf;
     writeXmlDeclaration(buf);
@@ -65,6 +91,8 @@ void OdfExporter::addOdfContent() {
     XmlTag doc_content("office:document-content");
     setCommonOdfNamespaces(doc_content);
     doc_content.writeBeginNL(buf);
+
+    addOdfAutomaticStyles(buf);
 
     XmlTag body("office:body");
     body.writeBeginNL(buf);
@@ -189,7 +217,25 @@ void OdfExporter::exportTo(std::ostream& os) {
 }
 
 std::string OdfExporter::fontStyleTag(int style) const {
-    return "";
+    switch (style) {
+    case FONT_ITALIC:
+        return ODF_STYLE_ITALIC;
+    case FONT_BOLD:
+        return ODF_STYLE_BOLD;
+    default:
+        return "";
+    }
+}
+
+void OdfExporter::writeFontStyleBegin(std::ostream& os, int style) {
+    //    XmlTag span("text:span");
+    //    span["text:style-name"] = fontStyleTag(style);
+    //    span.writeBegin(os);
+}
+
+void OdfExporter::writeFontStyleEnd(std::ostream& os, int style) {
+    //    XmlTag span("text:span");
+    //    span.writeEnd(os);
 }
 
 void OdfExporter::odfClose() {
@@ -256,20 +302,21 @@ void OdfExporter::writePageEnd(std::ostream& os, CEDPage*) {
 }
 
 void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
-    Attributes attrs;
+    XmlTag p("text:p");
     switch (par->alignment & ALIGN_MASK) {
     case (ALIGN_LEFT | ALIGN_RIGHT):
-        attrs["text:style-name"] = "cif-p-align-justify";
+        p["text:style-name"] = ODF_STYLE_JUSTIFY;
         break;
     }
 
-    writeStartTag(os, "text:p", attrs);
+    p.writeBegin(os);
     XmlExporter::writeParagraphBegin(os, par);
 }
 
 void OdfExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
+    resetFontStyle(os);
+    writeLineBufferRaw(os);
     writeCloseTag(os, "text:p", "\n\n");
-
 }
 
 }

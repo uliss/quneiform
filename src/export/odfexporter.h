@@ -40,12 +40,15 @@ class OdfExporter: public XmlExporter
         void exportTo(std::ostream& os);
     protected:
         std::string fontStyleTag(int style) const;
+        void writeFontStyleBegin(std::ostream& os, int style);
+        void writeFontStyleEnd(std::ostream& os, int style);
         void writeLineBreak(std::ostream& os, CEDLine * line);
         void writePageBegin(std::ostream& os, CEDPage * page);
         void writePageEnd(std::ostream& os, CEDPage * page);
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
         void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
     private:
+        void addOdfAutomaticStyles(std::ostream& os);
         void addOdfContent();
         void addOdfManifest();
         void addOdfMeta();
