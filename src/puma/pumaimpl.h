@@ -43,6 +43,7 @@ namespace CIF
 
 class RMarker;
 class ComponentExtractor;
+class CEDPage;
 
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
@@ -139,7 +140,7 @@ class CLA_EXPO PumaImpl
         Handle cpage_;
         Handle lines_ccom_;
         Handle cline_;
-        Handle ed_page_;
+        CEDPage * ed_page_;
         Bool32 rc_line_;
         Bool32 kill_vsl_components_;
         Bool32 need_clean_line_;

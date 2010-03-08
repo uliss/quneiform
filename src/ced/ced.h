@@ -395,7 +395,6 @@ DEC_FUN(Handle, CED_CreateTable, (Handle hEdSection, Handle hObject));
 DEC_FUN(Handle, CED_CreateTableRow, (Handle hEdSection, Handle hEdTable, int left, int rowHeight, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int gaph, int position, Bool32 header));
 DEC_FUN(Handle, CED_CreateCell, (Handle hEdSection, Handle hEdRow, int cellX, int merging, int vertTextAlign, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, EDBOX layout, int shading, int color));
 DEC_FUN(Bool32, CED_SetCellFlag, (Handle hEdCell, int flag));
-DEC_FUN(void, CED_DeletePage, (Handle hEdPage));
 DEC_FUN(Handle, CED_ReadFormattedEd, (char * lpEdFile, Bool32 readFromFile, uint32_t bufLen));
 DEC_FUN(Bool32, CED_WriteFormattedEd, (const char * lpEdFileName, Handle hEdPage));
 DEC_FUN(char*, CED_GetPageImageName, (Handle hEdPage));

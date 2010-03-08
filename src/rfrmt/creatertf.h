@@ -74,6 +74,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <cassert>
 #include <climits>
 
+namespace CIF {
+class CEDPage;
+}
+
 typedef std::vector<uint16_t> vectorWord;
 
 #define TIRE                  0x97        //'-'
@@ -241,7 +245,7 @@ class CRtfPage //: public CObject
         int                       m_nIndex;
         int                  m_nCurSectorNumber;
         int                  m_nPrevSectorNumber;
-        Handle               m_hED;
+        CIF::CEDPage *       m_hED;
 };
 
 /////////////////////////////////////////////////////////////////////////////

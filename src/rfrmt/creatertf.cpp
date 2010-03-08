@@ -267,10 +267,7 @@ void CRtfPage::Rtf_CED_CreatePage(void) {
     else
         resizeToFit = TRUE;
 
-#ifdef _DEBUG
-    //  CED_SetLogFileName("ced.log");
-#endif
-    m_hED = CED_CreatePage((char*) WriteRtfImageName, sizeOfImage, dpi, (int) PageInfo.Incline2048,
+    m_hED = (CIF::CEDPage*) CED_CreatePage((char*) WriteRtfImageName, sizeOfImage, dpi, (int) PageInfo.Incline2048,
             PageNumber, sizeInTwips, pageBordersInTwips, UnRecogSymbol, resizeToFit);
     CED_SetPageRecogLang(m_hED, (char) gnLanguage);
 #endif
@@ -291,7 +288,7 @@ void CRtfPage::Rtf_CED_WriteFormattedEd(const char* RtfFileName, Handle* hEdTree
         strcpy((char*) lpEdTestFileName, RtfFileName);
         strncpy((char*) lpEdTestFileName + strlen((char*) lpEdTestFileName) - 3, "txt", 3);
         CED_WriteFormattedEd((char*) lpEdFileName, m_hED);
-        CED_DeletePage(m_hED);
+        delete m_hED;
     }
 
     else

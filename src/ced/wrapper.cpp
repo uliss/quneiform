@@ -455,17 +455,6 @@ CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterE
     return (Handle) chr;
 }
 
-//delete all
-CED_FUNC(void) CED_DeletePage(Handle hEdPage) {
-    delete (CEDPage*) hEdPage;
-
-    if (logStream) {
-        fprintf(logStream, "DeletePage params %x\n", hEdPage);
-        fclose(logStream);
-        logStream = 0;
-    }
-}
-
 //get description of page
 
 CED_FUNC(Handle) CED_ReadFormattedEd(char * lpEdFile, Bool32 readFromFile, uint32_t bufLen) {

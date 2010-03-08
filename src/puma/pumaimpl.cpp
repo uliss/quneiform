@@ -34,6 +34,7 @@
 #include "ligas.h"      // 12.06.2002 E.P.
 #include "ccom/ccom.h"
 #include "ced/ced.h"
+#include "ced/cedpage.h"
 #include "cfio/cfio.h"
 #include "cimage/cticontrol.h"
 #include "cline/cline.h"
@@ -183,7 +184,7 @@ void PumaImpl::clearAll()
 {
     // Сохраним последенне состояние и очистим контейнер
     if (ed_page_) {
-        CED_DeletePage(ed_page_);
+        delete ed_page_;
         ed_page_ = NULL;
     }
 
@@ -292,11 +293,11 @@ void PumaImpl::formatResult()
     RFRMT_SetFormatOptions(format_options_);
 
     if (ed_page_) {
-        CED_DeletePage(ed_page_);
+        delete ed_page_;
         ed_page_ = NULL;
     }
 
-    if (!RFRMT_Formatter(input_filename_.c_str(), &ed_page_))
+    if (!RFRMT_Formatter(input_filename_.c_str(), (void**)&ed_page_))
         throw PumaException("RFRMT_Formatter failed");
 
     if (Config::instance().debugDump()) {
