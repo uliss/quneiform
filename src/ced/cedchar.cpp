@@ -22,8 +22,8 @@ namespace CIF
 {
 
 CEDChar::CEDChar() :
-    parent_number_(0) {
-    fontHeight = fontNum = fontAttribs = fontNum = fontLang = 0;
+    parent_number_(0), font_height_(0) {
+    fontNum = fontAttribs = fontNum = fontLang = 0;
     foregroundColor = backgroundColor = 0;
     alternatives = 0;
     numOfAltern = 0;

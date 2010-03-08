@@ -77,8 +77,7 @@ using namespace CIF;
 
 #define far
 
-Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
-{
+Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
     Bool ret;
     struct StrRtfColor *color = NULL;
     CEDSection* sect;
@@ -120,7 +119,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
     rtf->RtfInHdrFtr = 0;
     rtf->RtfInTable = FALSE;
     rtf->page = this;
-    rtf->PrevChar.fontHeight = 24;
+    rtf->PrevChar.setFontHeight(24);
     rtf->PrevChar.fontNum = -1;
     rtf->PrevChar.foregroundColor = -1;
     rtf->PrevChar.backgroundColor = -1;
@@ -217,9 +216,8 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
                                     goto WRITE_END;
 
                                 while (para1) {
-                                    if (!WriteRtfPara(rtf, para1, para1->GetNextObject()
-                                                      ? TRUE
-                                                      : FALSE))
+                                    if (!WriteRtfPara(rtf, para1, para1->GetNextObject() ? TRUE
+                                            : FALSE))
                                         goto WRITE_END;
 
                                     para1 = para1->GetNextObject();
@@ -264,8 +262,8 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
                                 CEDChar * c = l->chars;
 
                                 //the same for symbol
-                                if (c && ((!c->next) || c->next->parentNumber() != c->parentNumber())
-                                        && c->isPicture())
+                                if (c && ((!c->next) || c->next->parentNumber()
+                                        != c->parentNumber()) && c->isPicture())
                                     rtf->wrtFrmSz = FALSE;
                             }
                         }
@@ -290,7 +288,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
                         if (!WriteRtfControl(rtf, "fs", PARAM_INT, 2))
                             goto WRITE_END;
 
-                        rtf->PrevChar.fontHeight = 2;
+                        rtf->PrevChar.setFontHeight(2);
 
                         if (!WriteRtfControl(rtf, "par", PARAM_NONE, 0))
                             goto WRITE_END;
@@ -356,10 +354,9 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
     ret = TRUE;
     SetReturnCode_ced(IDS_ERR_NO);
     goto FINAL;
-WRITE_END:
-    SetReturnCode_ced(CFIO_GetReturnCode());
+    WRITE_END: SetReturnCode_ced(CFIO_GetReturnCode());
     ret = FALSE;
-FINAL:
+    FINAL:
     // flush text buffer
     FlushRtfLine(rtf); // flush the rtf line to the output
     CFIO_CloseFreeFile(rtf->hFile, CSF_SAVEDISK);
@@ -381,8 +378,7 @@ FINAL:
 
 char* GetLiteralBorderType(int type);
 
-Bool WriteRtfPara(struct StrRtfOut far *rtf, CEDParagraph* p, Bool brk)
-{
+Bool WriteRtfPara(struct StrRtfOut far *rtf, CEDParagraph* p, Bool brk) {
     CEDLine * lastLin = 0;
     CEDLine* l;
     CEDChar* chr;
@@ -420,15 +416,15 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf, CEDParagraph* p, Bool brk)
 
             //in the next if we primarily need last call check
             // since it is the symbol outside of a line
-            if (j == LastCol || len == MAX_LEN || (prvCh && (prvCh->fontHeight != chr->fontHeight
-                                                             || prvCh->fontAttribs != chr->fontAttribs || prvCh->fontNum != chr->fontNum))
-                    || chr->isPicture()) {
+            if (j == LastCol || len == MAX_LEN || (prvCh && (prvCh->fontHeight()
+                    != chr->fontHeight() || prvCh->fontAttribs != chr->fontAttribs
+                    || prvCh->fontNum != chr->fontNum)) || chr->isPicture()) {
                 if (!WriteRtfText(rtf, ptr, len))
                     return FALSE; // write text
 
-                if (j < LastCol && prvCh && (!chr->isPicture()) && (prvCh->fontHeight
-                                                                      != chr->fontHeight || prvCh->fontAttribs != chr->fontAttribs
-                                                                      || prvCh->fontNum != chr->fontNum)) { // write font change
+                if (j < LastCol && prvCh && (!chr->isPicture()) && (prvCh->fontHeight()
+                        != chr->fontHeight() || prvCh->fontAttribs != chr->fontAttribs
+                        || prvCh->fontNum != chr->fontNum)) { // write font change
                     if (!WriteRtfCharFmt(rtf, chr))
                         return FALSE;
                 }
@@ -465,7 +461,7 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf, CEDParagraph* p, Bool brk)
             }
         }
 
-    LINE_END:
+        LINE_END:
 
         // Write EOL in non-wordwrap mode
         //If line is not last one in paragraph
@@ -477,12 +473,12 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf, CEDParagraph* p, Bool brk)
     if (brk) {
         if (lastLin && lastLin->defChrFontHeight > 0) {
             memcpy(&lastChar, &(rtf->PrevChar), sizeof(CEDChar));
-            lastChar.fontHeight = lastLin->defChrFontHeight;
+            lastChar.setFontHeight(lastLin->defChrFontHeight);
 
             if (!WriteRtfCharFmt(rtf, &lastChar))
                 return FALSE; // write the font change
 
-            rtf->PrevChar.fontHeight = lastLin->defChrFontHeight;
+            rtf->PrevChar.setFontHeight(lastLin->defChrFontHeight);
         }
 
         if (!WriteRtfControl(rtf, "par", PARAM_NONE, 0))
@@ -496,8 +492,7 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf, CEDParagraph* p, Bool brk)
  BeginRtfGroup:
  Write the rtf 'begin group' character to output
  ******************************************************************************/
-Bool BeginRtfGroup(struct StrRtfOut far *rtf)
-{
+Bool BeginRtfGroup(struct StrRtfOut far *rtf) {
     rtf->SpacePending = FALSE; // delimit the last control by '{' character
     rtf->GroupLevel++;
     return PutRtfChar(rtf, '{');
@@ -507,8 +502,7 @@ Bool BeginRtfGroup(struct StrRtfOut far *rtf)
  PutRtfChar:
  Write a character to rtf output
  ******************************************************************************/
-Bool PutRtfChar(struct StrRtfOut far *rtf, uchar CurChar)
-{
+Bool PutRtfChar(struct StrRtfOut far *rtf, uchar CurChar) {
     Bool IgnoreSlash = rtf->flags & ROFLAG_IGNORE_SLASH;
 
     if (rtf->SpacePending) {
@@ -540,8 +534,7 @@ Bool PutRtfChar(struct StrRtfOut far *rtf, uchar CurChar)
  Write the rtf control text to rtf output device.  The control text should
  be NULL terminated.  The next argument provide control parameter type.
  ******************************************************************************/
-Bool WriteRtfControl(struct StrRtfOut far *rtf, const char* control, int type, double val)
-{
+Bool WriteRtfControl(struct StrRtfOut far *rtf, const char* control, int type, double val) {
     char string[20];
     rtf->SpacePending = FALSE; // no need to write the space after the last control
     rtf->WritingControl = TRUE; // beginning of a control word
@@ -578,8 +571,7 @@ Bool WriteRtfControl(struct StrRtfOut far *rtf, const char* control, int type, d
  FlustRtfLine:
  Write the current line to the RTF file or output buffer
  ******************************************************************************/
-Bool FlushRtfLine(struct StrRtfOut far *rtf)
-{
+Bool FlushRtfLine(struct StrRtfOut far *rtf) {
     if (rtf->TextLen == 0)
         return TRUE; // nothing to flush
 
@@ -603,8 +595,7 @@ Bool FlushRtfLine(struct StrRtfOut far *rtf)
  WriteRtfFont:
  Write the font table to the rtf output device.
  ******************************************************************************/
-Bool WriteRtfFont(struct StrRtfOut far *rtf, Bool head)
-{
+Bool WriteRtfFont(struct StrRtfOut far *rtf, Bool head) {
     char family[32];
 
     if (head) {
@@ -636,24 +627,24 @@ Bool WriteRtfFont(struct StrRtfOut far *rtf, Bool head)
         rtf->SpacePending = FALSE; // no need to write the space after the last control
 
         switch (fond.fontPitchAndFamily & 0xf0) {
-            case FF_DECORATIVE:
-                strcpy(family, "decor");
-                break;
-            case FF_DONTCARE:
-                strcpy(family, "nil");
-                break;
-            case FF_MODERN:
-                strcpy(family, "modern");
-                break;
-            case FF_ROMAN:
-                strcpy(family, "roman");
-                break;
-            case FF_SCRIPT:
-                strcpy(family, "script");
-                break;
-            case FF_SWISS:
-                strcpy(family, "swiss");
-                break;
+        case FF_DECORATIVE:
+            strcpy(family, "decor");
+            break;
+        case FF_DONTCARE:
+            strcpy(family, "nil");
+            break;
+        case FF_MODERN:
+            strcpy(family, "modern");
+            break;
+        case FF_ROMAN:
+            strcpy(family, "roman");
+            break;
+        case FF_SCRIPT:
+            strcpy(family, "script");
+            break;
+        case FF_SWISS:
+            strcpy(family, "swiss");
+            break;
         }
 
         if (!PutRtfChar(rtf, '\\'))
@@ -666,15 +657,15 @@ Bool WriteRtfFont(struct StrRtfOut far *rtf, Bool head)
             return FALSE; // write font family
 
         switch (fond.fontPitchAndFamily & 0xf) {
-            case DEFAULT_PITCH:
-                strcpy(family, "prq0");
-                break;
-            case FIXED_PITCH:
-                strcpy(family, "prq1");
-                break;
-            case VARIABLE_PITCH:
-                strcpy(family, "prq2");
-                break;
+        case DEFAULT_PITCH:
+            strcpy(family, "prq0");
+            break;
+        case FIXED_PITCH:
+            strcpy(family, "prq1");
+            break;
+        case VARIABLE_PITCH:
+            strcpy(family, "prq2");
+            break;
         }
 
         if (!PutRtfChar(rtf, '\\'))
@@ -700,23 +691,23 @@ Bool WriteRtfFont(struct StrRtfOut far *rtf, Bool head)
             return FALSE; // write font typeface
 
         switch (fond.fontCharset) {
-            case 204:// Cyrillic
+        case 204:// Cyrillic
 
-                if (memcmp(ch + strlen(ch) - strlen(" Cyr"), " Cyr", strlen(" Cyr")) != 0)
-                    if (!WriteRtfText(rtf, " Cyr", 4))
-                        return FALSE;
+            if (memcmp(ch + strlen(ch) - strlen(" Cyr"), " Cyr", strlen(" Cyr")) != 0)
+                if (!WriteRtfText(rtf, " Cyr", 4))
+                    return FALSE;
 
-                break;
-            case 238:// Central Europe
+            break;
+        case 238:// Central Europe
 
-                if (memcmp(ch + strlen(ch) - strlen(" CE"), " CE", strlen(" CE")) != 0)
-                    if (!WriteRtfText(rtf, " CE", 3))
-                        return FALSE;
+            if (memcmp(ch + strlen(ch) - strlen(" CE"), " CE", strlen(" CE")) != 0)
+                if (!WriteRtfText(rtf, " CE", 3))
+                    return FALSE;
 
-                break;
-            case 0:// Default
-            default:
-                ;
+            break;
+        case 0:// Default
+        default:
+            ;
         }
 
         if (!WriteRtfText(rtf, ";", 1))
@@ -738,8 +729,7 @@ Bool WriteRtfFont(struct StrRtfOut far *rtf, Bool head)
  WriteRtfMargin:
  Write default document margins
  ******************************************************************************/
-Bool WriteRtfMargin(struct StrRtfOut far *rtf)
-{
+Bool WriteRtfMargin(struct StrRtfOut far *rtf) {
     //    float PaperHeight,PaperWidth;
     CEDPage * page = rtf->page;
 
@@ -774,8 +764,7 @@ Bool WriteRtfMargin(struct StrRtfOut far *rtf)
  WriteRtfSection:
  Write the section properties for a given section
  ******************************************************************************/
-Bool WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect)
-{
+Bool WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect) {
     if (!WriteRtfControl(rtf, "sectd", PARAM_NONE, 0))
         return FALSE; // set to default
 
@@ -862,8 +851,7 @@ Bool WriteRtfSection(struct StrRtfOut far *rtf, CEDSection* sect)
  Write the character formatting info when the attributes change from
  the previsous font selection
  ******************************************************************************/
-Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CIF::CEDChar* curChar)
-{
+Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CIF::CEDChar* curChar) {
     //    uchar CurTypeFace[32],PrevTypeFace[32];
     uchar CurFamily, PrevFamily;
     uint CurStyle, PrevStyle;
@@ -887,10 +875,7 @@ Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CIF::CEDChar* curChar)
         PrevStyle = prevChar->fontAttribs;
         PrevTextColor = prevChar->foregroundColor;
         PrevTextBkColor = prevChar->backgroundColor;
-        //       PrevFieldId=TerFont[PrevFont].FieldId;
-        //       PrevCharSID=TerFont[PrevFont].CharStyId;
-        PrevPointSize = prevChar->fontHeight; // store as twice the point size
-        //     PrevCharSet =    TerFont[PrevFont].CharSet; // Piter CharSet
+        PrevPointSize = prevChar->fontHeight(); // store as twice the point size
     }
 
     else {
@@ -913,7 +898,7 @@ Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CIF::CEDChar* curChar)
     CurTextBkColor = curChar->backgroundColor;
     //    CurFieldId=TerFont[CurFont].FieldId;
     //    CurCharSID=TerFont[CurFont].CharStyId;
-    CurPointSize = curChar->fontHeight; // store as twice the point size
+    CurPointSize = curChar->fontHeight(); // store as twice the point size
     //  CurCharSet=TerFont[CurFont].CharSet; // Piter CharSet
 
     // end superscript/subscript groups
@@ -993,10 +978,10 @@ Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CIF::CEDChar* curChar)
     // check for default properties
     if (CurFamily == 0 && CurPointSize == 24 && (CurTextColor == 0 || CurTextColor == -1)
             && (CurTextBkColor == TextDefBkColor || CurTextBkColor == -1) && CurStyle
-            /*&(~((uint)(FNOTEALL)))*/ == 0
-            //      && CurFieldId==0
-            //      && CurCharSID==1
-            /*    && CurCharSet==0*/) { // Piter CharSet
+    /*&(~((uint)(FNOTEALL)))*/== 0
+    //      && CurFieldId==0
+    //      && CurCharSID==1
+    /*    && CurCharSet==0*/) { // Piter CharSet
         if (!WriteRtfControl(rtf, "plain", PARAM_NONE, 0))
             return FALSE;
 
@@ -1177,8 +1162,7 @@ Bool WriteRtfCharFmt(struct StrRtfOut far *rtf, CIF::CEDChar* curChar)
  EndRtfGroup:
  Write the rtf 'end group' character to output
  ******************************************************************************/
-Bool EndRtfGroup(struct StrRtfOut far *rtf)
-{
+Bool EndRtfGroup(struct StrRtfOut far *rtf) {
     rtf->SpacePending = FALSE; // delimit the last control by '}' character
     rtf->GroupLevel--;
     return PutRtfChar(rtf, '}');
@@ -1189,8 +1173,7 @@ Bool EndRtfGroup(struct StrRtfOut far *rtf)
  Write the paragraph formatting info when the attributes change from
  the previsous paragraph selection
  ******************************************************************************/
-Bool WriteRtfParaFmt(struct StrRtfOut far *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPfmt/*, int NewCell, int PrevCell, int NewFID, int PrevFID*/)
-{
+Bool WriteRtfParaFmt(struct StrRtfOut far *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPfmt/*, int NewCell, int PrevCell, int NewFID, int PrevFID*/) {
     int CurLeftIndent, PrevLeftIndent = 0;
     int CurRightIndent, PrevRightIndent = 0;
     int CurFirstIndent, PrevFirstIndent = 0;
@@ -1270,10 +1253,10 @@ Bool WriteRtfParaFmt(struct StrRtfOut far *rtf, CEDParagraph* NewPfmt, CEDParagr
 
     // check for default para
     if (CurLeftIndent == 0 && CurRightIndent == 0 && CurFirstIndent == 0
-            /*&& CurFlags==0 && CurTabId==0 && CurCellId==0 */
-            && CurShading == 0 /*&& CurParaFID==0 && PrevParaFID==0 */
-            && CurSpaceBefore == 0 && CurSpaceAfter == 0 && CurSpaceBetween == 0
-            /*&& CurParaSID==0*/ && !rtf->RtfInFrame && !rtf->RtfInTable && CurAlignment == 0) {
+    /*&& CurFlags==0 && CurTabId==0 && CurCellId==0 */
+    && CurShading == 0 /*&& CurParaFID==0 && PrevParaFID==0 */
+    && CurSpaceBefore == 0 && CurSpaceAfter == 0 && CurSpaceBetween == 0
+    /*&& CurParaSID==0*/&& !rtf->RtfInFrame && !rtf->RtfInTable && CurAlignment == 0) {
         return WriteRtfControl(rtf, "pard", PARAM_NONE, 0);
     }
 
@@ -1288,7 +1271,7 @@ Bool WriteRtfParaFmt(struct StrRtfOut far *rtf, CEDParagraph* NewPfmt, CEDParagr
 
         // reset previous variable to force write any changes
         PrevLeftIndent = PrevRightIndent = PrevFirstIndent
-                                           /*=PrevTabId=PrevParaFID*/ = 0;
+        /*=PrevTabId=PrevParaFID*/= 0;
         PrevSpaceBefore = PrevSpaceAfter = PrevSpaceBetween = PrevSpaceBetweenMult = 0;
         PrevAlignment = TP_LEFT_ALLIGN;
         //       PrevFlags=0;
@@ -1476,8 +1459,7 @@ Bool WriteRtfParaFmt(struct StrRtfOut far *rtf, CEDParagraph* NewPfmt, CEDParagr
  Write the rtf text to output.  This routine scans the text stream. If
  any special character are found, they are preceede with a '\' character.
  ******************************************************************************/
-Bool WriteRtfText(struct StrRtfOut far *rtf, const char* text, int TextLen)
-{
+Bool WriteRtfText(struct StrRtfOut far *rtf, const char* text, int TextLen) {
     int i;
     uchar CurChar;
     Bool IgnoreSlash = rtf->flags & ROFLAG_IGNORE_SLASH;
@@ -1516,8 +1498,7 @@ Bool WriteRtfText(struct StrRtfOut far *rtf, const char* text, int TextLen)
  WriteRtfRow:
  Write the table row information to the file
  ******************************************************************************/
-Bool WriteRtfRow(struct StrRtfOut far *rtf, CEDParagraph* NewCell, CEDParagraph * prevRow)
-{
+Bool WriteRtfRow(struct StrRtfOut far *rtf, CEDParagraph* NewCell, CEDParagraph * prevRow) {
     Bool result;
     CEDParagraph* CellId, *PrevCellId;
     int c;
@@ -1569,7 +1550,7 @@ Bool WriteRtfRow(struct StrRtfOut far *rtf, CEDParagraph* NewCell, CEDParagraph 
 
     rtf->RtfInTable = TRUE; // to ensure that table is terminated properly.
     return TRUE; // the current row has identical properties as the previous row
-WRITE_ROW:
+    WRITE_ROW:
 
     if (!WriteRtfControl(rtf, "trowd", PARAM_NONE, 0))
         return FALSE;
@@ -1663,8 +1644,7 @@ WRITE_ROW:
  WriteRtfCell:
  Write the table cell information to the file
  ******************************************************************************/
-Bool WriteRtfCell(struct StrRtfOut far *rtf, CEDParagraph* NewCell)
-{
+Bool WriteRtfCell(struct StrRtfOut far *rtf, CEDParagraph* NewCell) {
     EDCELLDESCR* cd = (EDCELLDESCR*) NewCell->descriptor;
 
     //write merging
@@ -1768,8 +1748,7 @@ Bool WriteRtfCell(struct StrRtfOut far *rtf, CEDParagraph* NewCell)
  WriteFrmPos:
  Write the frame position information to the file
  ******************************************************************************/
-Bool WriteFrmPos(struct StrRtfOut far *rtf, CEDParagraph* frm, Bool writeWidth)
-{
+Bool WriteFrmPos(struct StrRtfOut far *rtf, CEDParagraph* frm, Bool writeWidth) {
     EDFRAMEDESCR* fd = (EDFRAMEDESCR*) (frm->descriptor);
     EDBOX bx = fd->rec;
 
@@ -1845,8 +1824,7 @@ Bool WriteFrmPos(struct StrRtfOut far *rtf, CEDParagraph* frm, Bool writeWidth)
  (see ter_def.h), the function imbeds the DIB into a metafile, and
  then writes the metafile to the rtf file.
  ******************************************************************************/
-Bool WriteRtfDIB(struct StrRtfOut far *rtf, int pict)
-{
+Bool WriteRtfDIB(struct StrRtfOut far *rtf, int pict) {
     Bool result = TRUE;
     // Write the actual DIB to the rtf file
     long height, width, width_bytes;
@@ -1911,8 +1889,7 @@ Bool WriteRtfDIB(struct StrRtfOut far *rtf, int pict)
  PutRtfHexChar:
  Write a character to rtf output in hex format
  ******************************************************************************/
-Bool PutRtfHexChar(struct StrRtfOut far *rtf, uchar CurChar)
-{
+Bool PutRtfHexChar(struct StrRtfOut far *rtf, uchar CurChar) {
     uchar HiChar, LoChar, HexChar;
     int SaveFlag;
     HiChar = (char) ((CurChar & 0xF0) >> 4);
@@ -1949,8 +1926,7 @@ Bool PutRtfHexChar(struct StrRtfOut far *rtf, uchar CurChar)
  WriteRtfMetafile:
  Write the metafile group and picture data for the specified picture.
  ******************************************************************************/
-Bool WriteRtfMetafile(struct StrRtfOut far *rtf, int pict)
-{
+Bool WriteRtfMetafile(struct StrRtfOut far *rtf, int pict) {
     long l;//,bmHeight,bmWidth;
     //   HGLOBAL hMem;
     uchar *pMem;
@@ -1973,11 +1949,11 @@ Bool WriteRtfMetafile(struct StrRtfOut far *rtf, int pict)
     //   if (!WriteRtfControl(rtf,"pich",PARAM_INT,((float)rtf->page->picsTable[pict].pictSize.cy)*8.3))/*((bmHeight*2500)/1440) ))*/ return FALSE;  // write picture format
     //this seems to be more or less correct
     if (!WriteRtfControl(rtf, "picw", PARAM_INT,
-                         ((double) (rtf->page->picsTable[pict].pictGoal.cx)) * 1.7641))
+            ((double) (rtf->page->picsTable[pict].pictGoal.cx)) * 1.7641))
         return FALSE; // write picture format
 
     if (!WriteRtfControl(rtf, "pich", PARAM_INT,
-                         ((double) (rtf->page->picsTable[pict].pictGoal.cy)) * 1.7641))
+            ((double) (rtf->page->picsTable[pict].pictGoal.cy)) * 1.7641))
         return FALSE; // write picture format
 
     // write picture width
@@ -2035,8 +2011,7 @@ Bool WriteRtfMetafile(struct StrRtfOut far *rtf, int pict)
 
 int ReadRtfFontTable(struct StrRtfOut far *rtf, int * maxFontNum);
 int ReadRtfColorTable(struct StrRtfOut far *rtf);
-Bool WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
-{
+Bool WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name) {
     int oldIndex;
     Bool head;
     char * ptr = rtf->oldFile;
@@ -2118,7 +2093,7 @@ Bool WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
     }
 
     if (HFILE_ERROR == (HFILE) CFIO_WriteToFile(rtf->hFile, (rtf->oldFile) + oldIndex - 1,
-                                                rtf->TextIndex - oldIndex))
+            rtf->TextIndex - oldIndex))
         goto END_HDR;
 
     if (!WriteRtfColor(rtf, head))
@@ -2128,7 +2103,7 @@ Bool WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
         goto END_HDR; // flush the rtf line to the output
 
     if (HFILE_ERROR == (HFILE) CFIO_WriteToFile(rtf->hFile, ((char*) rtf->oldFile) + rtf->TextIndex
-                                                - 1, rtf->oldFileLen - (rtf->TextIndex + 2)))
+            - 1, rtf->oldFileLen - (rtf->TextIndex + 2)))
         goto END_HDR;
 
     // end the previous section
@@ -2145,11 +2120,9 @@ Bool WriteRtfMergedHeader(struct StrRtfOut far *rtf, const char * name)
     rtf->GroupLevel = 1;
     rtf->SpacePending = FALSE; // delimit the last control by '{' character
     goto OK;
-END_HDR:
-    SetReturnCode_ced(CFIO_GetReturnCode());
+    END_HDR: SetReturnCode_ced(CFIO_GetReturnCode());
     ret = FALSE;
-OK:
-    return ret;
+    OK: return ret;
 }
 
 Bool GetRtfWord(struct StrRtfOut far *rtf);
@@ -2186,7 +2159,7 @@ int ReadRtfFontTable(struct StrRtfOut far *rtf, int * maxFontNum)//PTERWND w,str
 
                 for (int i = 0; i < rtf->page->fontsUsed; i++) {
                     if (rtf->page->fontTable[i].fontCharset == font.CharSet && nameCmp(
-                                rtf->page->fontTable[i].fontName, font.name) == 0)
+                            rtf->page->fontTable[i].fontName, font.name) == 0)
                         rtf->table[i] = font.FontId;
                 }
 
@@ -2320,8 +2293,7 @@ int ReadRtfFontTable(struct StrRtfOut far *rtf, int * maxFontNum)//PTERWND w,str
 }
 
 //compare fonts names
-int nameCmp(char* s1, char* s2)
-{
+int nameCmp(char* s1, char* s2) {
     if (strcmp(s1, s2) == 0)
         return 0;
 
@@ -2349,15 +2321,14 @@ Bool PushRtfChar(struct StrRtfOut far *rtf);
  GetRtfWord:
  Reads the next word from the input file or the input buffer.
  ******************************************************************************/
-Bool GetRtfWord(struct StrRtfOut far *rtf)
-{
+Bool GetRtfWord(struct StrRtfOut far *rtf) {
     uchar CurChar, TempChar;
     uchar line[MAX_WIDTH + 1];
     char TempString[MAX_WIDTH + 1];
     int len, i, j, k, temp, GroupLevel;
     Bool SpecialChar, NumParamFound, NumFound;
     //    Bool IgnoreSlash=rtf->flags&RFLAG_IGNORE_SLASH;
-NEXT_WORD:
+    NEXT_WORD:
 
     if (rtf->eof)
         return FALSE; // end of file
@@ -2437,71 +2408,71 @@ NEXT_WORD:
 
         if (SpecialChar) {
             switch (CurChar) {
-                case '\\':
-                case '{':
-                case '}':
+            case '\\':
+            case '{':
+            case '}':
+                rtf->CurWord[j] = CurChar;
+                j++;
+                break;
+            case '\'': // hexadecimal value follows
+
+                if (i + 2 < len) {
+                    TempChar = (char) toupper(line[i + 1]); // convert to decimal
+
+                    if (TempChar >= 'A')
+                        temp = 10 + TempChar - 'A';
+
+                    else
+                        temp = TempChar - '0';
+
+                    temp = temp << 4;
+                    rtf->CurWord[j] = (char) temp;
+                    TempChar = (char) toupper(line[i + 2]); // second byte
+
+                    if (TempChar >= 'A')
+                        temp = 10 + TempChar - 'A';
+
+                    else
+                        temp = TempChar - '0';
+
+                    rtf->CurWord[j] += (char) temp;
+                    i = i + 2;
+                    j++;
+                }
+
+                break;
+            case '|': // special characters to be ignored, Formula character
+                break;
+            case '-': // optional hyphen
+            case '_': // non-breaking hyphen
+                rtf->CurWord[j] = '-';
+                j++;
+                break;
+            default: // control word found
+
+                if (rtf->IsControlWord) { // a control word already active
+                    //                 wsprintf(NULL,line,"Cannot understand this RTF syntax!",MB_OK);
+                    rtf->eof = TRUE;
+                    return FALSE;
+                }
+
+                rtf->IsControlWord = TRUE;
+                NumParamFound = FALSE; // will be set to TRUE when a numeric parameter is found
+
+                if (CurChar == 10 || CurChar == 13) { // treat as paragraph
+                    rtf->CurWord[j] = 'p';
+                    j++;
+                    rtf->CurWord[j] = 'a';
+                    j++;
+                    rtf->CurWord[j] = 'r';
+                    j++;
+                    break;
+                }
+
+                else {
                     rtf->CurWord[j] = CurChar;
                     j++;
-                    break;
-                case '\'': // hexadecimal value follows
-
-                    if (i + 2 < len) {
-                        TempChar = (char) toupper(line[i + 1]); // convert to decimal
-
-                        if (TempChar >= 'A')
-                            temp = 10 + TempChar - 'A';
-
-                        else
-                            temp = TempChar - '0';
-
-                        temp = temp << 4;
-                        rtf->CurWord[j] = (char) temp;
-                        TempChar = (char) toupper(line[i + 2]); // second byte
-
-                        if (TempChar >= 'A')
-                            temp = 10 + TempChar - 'A';
-
-                        else
-                            temp = TempChar - '0';
-
-                        rtf->CurWord[j] += (char) temp;
-                        i = i + 2;
-                        j++;
-                    }
-
-                    break;
-                case '|': // special characters to be ignored, Formula character
-                    break;
-                case '-': // optional hyphen
-                case '_': // non-breaking hyphen
-                    rtf->CurWord[j] = '-';
-                    j++;
-                    break;
-                default: // control word found
-
-                    if (rtf->IsControlWord) { // a control word already active
-                        //                 wsprintf(NULL,line,"Cannot understand this RTF syntax!",MB_OK);
-                        rtf->eof = TRUE;
-                        return FALSE;
-                    }
-
-                    rtf->IsControlWord = TRUE;
-                    NumParamFound = FALSE; // will be set to TRUE when a numeric parameter is found
-
-                    if (CurChar == 10 || CurChar == 13) { // treat as paragraph
-                        rtf->CurWord[j] = 'p';
-                        j++;
-                        rtf->CurWord[j] = 'a';
-                        j++;
-                        rtf->CurWord[j] = 'r';
-                        j++;
-                        break;
-                    }
-
-                    else {
-                        rtf->CurWord[j] = CurChar;
-                        j++;
-                    }
+                }
             }
 
             SpecialChar = FALSE;//Turnoff special character flag
@@ -2635,8 +2606,7 @@ void rTrim(char* string);
  StrTrim:
  Remove spaces from the left and right of a NULL terminated string.
  ******************************************************************************/
-void StrTrim(char* string)
-{
+void StrTrim(char* string) {
     rTrim(string);
     lTrim(string);
 }
@@ -2644,8 +2614,7 @@ void StrTrim(char* string)
  rTrim:
  Remove spaces on the right of a string.
  *****************************************************************************/
-void rTrim(char* string)
-{
+void rTrim(char* string) {
     int i, TempLen;
     TempLen = strlen(string);
 
@@ -2659,8 +2628,7 @@ void rTrim(char* string)
  lTrim:
  Trim initial spaces from the string.
  *******************************************************************************/
-void lTrim(char* string)
-{
+void lTrim(char* string) {
     int i, TempLen, BeginPoint;
     char TempStr[MAX_WIDTH];
     TempLen = strlen(string);
@@ -2682,8 +2650,7 @@ void lTrim(char* string)
  When the InSteam is NULL, the characters are read from the buffer.
  Returns FALSE when no more characters available.
  ******************************************************************************/
-Bool GetRtfChar(struct StrRtfOut far *rtf)
-{
+Bool GetRtfChar(struct StrRtfOut far *rtf) {
     // get the character from the character stack if available
     if (rtf->StackLen > 0) {
         rtf->StackLen--;
@@ -2736,8 +2703,7 @@ Bool GetRtfChar(struct StrRtfOut far *rtf)
  PushRtfChar:
  Push the lastly read character onto stack.
  ******************************************************************************/
-Bool PushRtfChar(struct StrRtfOut far *rtf)
-{
+Bool PushRtfChar(struct StrRtfOut far *rtf) {
     if (rtf->StackLen >= MAX_WIDTH)
         return FALSE;//PrintError(w,MSG_OUT_OF_CHAR_STACK,"PushRtfChar");
 
@@ -2751,8 +2717,7 @@ Bool PushRtfChar(struct StrRtfOut far *rtf)
  WriteRtfParaBorder:
  Write paragraph border controls
  ******************************************************************************/
-Bool WriteRtfParaBorder(struct StrRtfOut far *rtf, CEDParagraph * para)
-{
+Bool WriteRtfParaBorder(struct StrRtfOut far *rtf, CEDParagraph * para) {
     if (para->leftBrdrType != 0 && para->leftBrdrType == para->rightBrdrType && para->rightBrdrType
             == para->topBrdrType && para->topBrdrType == para->bottomBrdrType
             && para->leftBrdrWidth == para->rightBrdrWidth && para->rightBrdrWidth
@@ -2770,7 +2735,7 @@ Bool WriteRtfParaBorder(struct StrRtfOut far *rtf, CEDParagraph * para)
 
         //       if (CurFlags&PARA_BOX_DOUBLE && !WriteRtfControl(w,rtf,"brdrdb",PARAM_NONE,0)) return FALSE;
         if (/*!(CurFlags&PARA_BOX_DOUBLE) &&*/!WriteRtfControl(rtf, GetLiteralBorderType(
-                                                                   para->leftBrdrType), PARAM_NONE, 0))
+                para->leftBrdrType), PARAM_NONE, 0))
             return FALSE;
     }
 
@@ -2847,8 +2812,7 @@ Bool WriteRtfParaBorder(struct StrRtfOut far *rtf, CEDParagraph * para)
  WriteRtfColor:
  Fill the RTF color table and write the color table to the rtf output device.
  ******************************************************************************/
-Bool WriteRtfColor(struct StrRtfOut far *rtf, Bool head)
-{
+Bool WriteRtfColor(struct StrRtfOut far *rtf, Bool head) {
     int i, j, TotalColors;
     uchar red, green, blue;
     struct StrRtfColor far *color;
@@ -2953,8 +2917,7 @@ Bool WriteRtfColor(struct StrRtfOut far *rtf, Bool head)
  it returns an error code (RTF_FILE_INCOMPLETE or RTF_SYNTAX_ERROR)
  ******************************************************************************/
 
-int ReadRtfColorTable(struct StrRtfOut far *rtf)
-{
+int ReadRtfColorTable(struct StrRtfOut far *rtf) {
     struct StrRtfColor far *color;
     int i, CurColor = 0, ControlGroupLevel = 0;
     uchar red, green, blue;
@@ -3017,24 +2980,23 @@ char brdDot[] = "brdrdot";
 char brdDash[] = "brdrdash";
 char brdDb[] = "brdrdb";
 
-char* GetLiteralBorderType(int type)
-{
+char* GetLiteralBorderType(int type) {
     switch (type) {
-        case ED_BRDR_SINGLE:
-            return brdS;
-            break;
-        case ED_BRDR_SHADOWED:
-            return brdSh;
-            break;
-        case ED_BRDR_DOTTED:
-            return brdDot;
-            break;
-        case ED_BRDR_DASHED:
-            return brdDash;
-            break;
-        case ED_BRDR_DOUBLE:
-            return brdDb;
-            break;
+    case ED_BRDR_SINGLE:
+        return brdS;
+        break;
+    case ED_BRDR_SHADOWED:
+        return brdSh;
+        break;
+    case ED_BRDR_DOTTED:
+        return brdDot;
+        break;
+    case ED_BRDR_DASHED:
+        return brdDash;
+        break;
+    case ED_BRDR_DOUBLE:
+        return brdDb;
+        break;
     }
 
     return brdS;

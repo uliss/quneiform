@@ -39,6 +39,11 @@ class FUN_EXPO__ CEDChar
         Rect boundingRect() const;
 
         /**
+         * Returns font height
+         */
+        int fontHeight() const;
+
+        /**
          * Checks if picture
          */
         bool isPicture() const;
@@ -64,12 +69,17 @@ class FUN_EXPO__ CEDChar
         void setBoundingRect(const EDBOX& bbox);
 
         /**
+         * Sets font height
+         */
+        void setFontHeight(int height);
+
+        /**
          * Sets character parent number
          */
         void setParentNumber(int number);
 
         CEDChar * prev, *next; //pointer to neibor elements in connected list
-        int fontHeight, fontAttribs; //font parameters
+        int fontAttribs; //font parameters
         int fontNum;
         int fontLang;
         int foregroundColor;
@@ -80,10 +90,15 @@ class FUN_EXPO__ CEDChar
         //layout of symbol in input image (in pixel)
         Rect bbox_;
         int parent_number_;
+        int font_height_;
 };
 
 inline Rect CEDChar::boundingRect() const {
     return bbox_;
+}
+
+inline int CEDChar::fontHeight() const {
+    return font_height_;
 }
 
 inline int CEDChar::parentNumber() const {
@@ -103,6 +118,10 @@ inline void CEDChar::setBoundingRect(const EDBOX& bbox) {
     bbox_.rtop() = bbox.y;
     bbox_.setWidth(bbox.w);
     bbox_.setHeight(bbox.h);
+}
+
+inline void CEDChar::setFontHeight(int height) {
+    font_height_ = height;
 }
 
 inline void CEDChar::setParentNumber(int number) {

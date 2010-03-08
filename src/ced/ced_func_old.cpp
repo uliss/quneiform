@@ -399,7 +399,7 @@ void FormattedL(const letter* pt, const uint32_t alternatives)
     chr->alternatives = /*(letter*)*/lpData;
     chr->numOfAltern = alternatives;
     chr->setBoundingRect(refBox);
-    chr->fontHeight = kegl;
+    chr->setFontHeight(kegl);
     chr->fontAttribs = font;
 }
 
