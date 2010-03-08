@@ -39,8 +39,6 @@ CEDPage::CEDPage() {
     pageSizeInTwips.cx = pageSizeInTwips.cy = 0;
     pageBordersInTwips.top = pageBordersInTwips.bottom = pageBordersInTwips.left
             = pageBordersInTwips.right = 0;
-    extData = 0;
-    extDataLen = 0;
     sections = 0;
     curSect = 0;
     unrecogChar = 0;

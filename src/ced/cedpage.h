@@ -68,9 +68,6 @@ class FUN_EXPO__ CEDPage
         int picsCreated; //РљNumber of images created in the table
         pictEntry* picsTable; // pointer to a table of images
 
-        char * extData; // Data cat. will be recorded in the file after the title
-        int extDataLen; // Its size
-
         CEDPage();
         ~CEDPage();
 
