@@ -104,6 +104,7 @@ class Tag
     private:
         std::string tag_name_;
         std::string content_;
+    protected:
         Attributes attrs_;
 };
 
