@@ -22,6 +22,7 @@
 #include <zip.h>
 #include <vector>
 #include <string>
+#include <map>
 
 #include "xmlexporter.h"
 
@@ -33,7 +34,7 @@ class Tag;
 class OdfExporter: public XmlExporter
 {
     public:
-        OdfExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+        OdfExporter(CEDPage * page, const FormatOptions& opts);
         ~OdfExporter();
 
         void exportTo(const std::string& fname);
@@ -47,10 +48,12 @@ class OdfExporter: public XmlExporter
         void writePageEnd(std::ostream& os, CEDPage * page);
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
         void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+        void writePicture(std::ostream& os, CEDChar * picture);
     private:
         void addOdfAutomaticStyles(std::ostream& os);
         void addOdfContent();
         void addOdfManifest();
+        void addOdfManifestFile(const std::string& path, const std::string& type);
         void addOdfMeta();
         void addOdfMime();
         void addOdfSettings();
@@ -62,7 +65,7 @@ class OdfExporter: public XmlExporter
     private:
         zip * zip_;
         typedef std::vector<std::string> BufList;
-        typedef std::vector<std::string> ManifestList;
+        typedef std::map<std::string, std::string> ManifestList;
         BufList buffers_;
         ManifestList files_;
 };

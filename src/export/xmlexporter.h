@@ -29,7 +29,7 @@ namespace CIF
 class XmlExporter: public TextExporter
 {
     public:
-        XmlExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+        XmlExporter(CEDPage * page, const FormatOptions& opts);
 
         typedef std::map<std::string, std::string> Attributes;
 

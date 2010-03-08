@@ -25,6 +25,10 @@ NullImageExporter::NullImageExporter() {
     setFormat(FORMAT_UNKNOWN);
 }
 
+std::string NullImageExporter::mime() const {
+    return std::string();
+}
+
 ImageExporter::FormatList NullImageExporter::supportedFormats() const {
     return FormatList();
 }

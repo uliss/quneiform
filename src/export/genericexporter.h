@@ -161,6 +161,11 @@ class GenericExporter: public Exporter
         void savePictureData(CEDChar * picture, const std::string& filepath);
 
         /**
+         * Saves picture to stream
+         */
+        void savePictureData(CEDChar * picture, std::ostream& os);
+
+        /**
          * Sets pointer to default output stream
          */
         void setOutputStream(std::ostream * os);
@@ -232,16 +237,20 @@ class GenericExporter: public Exporter
         void exportTable(CEDParagraph * table);
         void exportTableCells(CEDParagraph * table);
         void exportTableRow(CEDParagraph * row);
+    protected:
+        virtual std::string createPicturesFolder();
+        void doExport(std::ostream& os);
+        virtual void exportChar(CEDChar * chr);
+
+        /**
+         * Makes picture filename
+         */
         std::string pictureName(CEDChar * picture);
 
         /**
          * Returns picture number
          */
         static int pictureNumber(CEDChar * picture);
-    protected:
-        virtual std::string createPicturesFolder();
-        void doExport(std::ostream& os);
-        virtual void exportChar(CEDChar * chr);
 
         /**
          * Resets font styles

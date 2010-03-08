@@ -26,6 +26,19 @@ MagickImageExporter::MagickImageExporter(image_format_t format) {
     setFormat(format);
 }
 
+std::string MagickImageExporter::mime() const {
+    switch (format()) {
+    case FORMAT_PNG:
+        return "image/png";
+    case FORMAT_GIF:
+        return "image/gif";
+    case FORMAT_JPEG:
+        return "image/jpeg";
+    default:
+        return "";
+    }
+}
+
 void MagickImageExporter::save(void * data, size_t dataSize, std::ostream& os) {
     if (!data || !dataSize)
         throw Exception("[MagickImageExporter::save] bad image given");

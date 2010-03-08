@@ -56,6 +56,11 @@ class ImageExporter
         bool isSupportedFormat(image_format_t format);
 
         /**
+         * Returns mime type of exported image
+         */
+        virtual std::string mime() const = 0;
+
+        /**
          * Returns name of exported image
          */
         std::string outputFilename() const;

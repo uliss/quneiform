@@ -23,11 +23,14 @@
 #include <cstring>
 #include <ctime>
 #include "odfexporter.h"
+#include "imageexporterfactory.h"
 #include "rout_own.h"
 #include "xmltag.h"
 #include "ced/cedchar.h"
 #include "ced/cedparagraph.h"
 #include "common/tostring.h"
+#include "common/helper.h"
+#include "common/debug.h"
 #include "compat/filefunc.h"
 #include "config.h" // for CF_VERSION
 #ifndef CF_VERSION
@@ -40,6 +43,7 @@ namespace CIF
 const std::string ODF_STYLE_JUSTIFY = "P1";
 const std::string ODF_STYLE_BOLD = "BOLD";
 const std::string ODF_STYLE_ITALIC = "ITALIC";
+const std::string ODF_PICT_DIR = "Pictures/";
 
 std::string datetime(const std::string& format = "%Y-%m-%dT%H:%M:%S") {
     time_t rawtime;
@@ -55,7 +59,12 @@ std::string datetime(const std::string& format = "%Y-%m-%dT%H:%M:%S") {
 
 OdfExporter::OdfExporter(CEDPage * page, const FormatOptions& opts) :
     XmlExporter(page, opts), zip_(NULL) {
+
+    ImageExporterPtr exp = ImageExporterFactory::instance().make();
+    setImageExporter(exp);
+
     //useIndents(true);
+    setSkipPictures(false);
 }
 
 OdfExporter::~OdfExporter() {
@@ -103,7 +112,7 @@ void OdfExporter::addOdfContent() {
     doc_content.writeEndNL(buf);
 
     odfWrite("content.xml", buf.str());
-    files_.push_back("content.xml");
+    addOdfManifestFile("content.xml", "text/xml");
 }
 
 void OdfExporter::addOdfManifest() {
@@ -113,26 +122,27 @@ void OdfExporter::addOdfManifest() {
     writeXmlDeclaration(buf);
 
     XmlTag manifest("manifest:manifest");
-    setCommonOdfNamespaces(manifest);
+    manifest["xmlns:manifest"] = "urn:oasis:names:tc:opendocument:xmlns:manifest:1.0";
     manifest.writeBeginNL(buf);
 
-    {
-        XmlTag file_entry("manifest:file-entry");
-        file_entry["manifest:media-type"] = "application/vnd.oasis.opendocument.text";
-        file_entry["manifest:full-path"] = "/";
-        file_entry["manifest:version"] = "1.0";
-        buf << file_entry << "\n";
+    addOdfManifestFile("/", "application/vnd.oasis.opendocument.text");
 
-        file_entry.clear();
-        file_entry["manifest:media-type"] = "text/xml";
-        for (size_t i = 0; i < files_.size(); i++) {
-            file_entry["manifest:full-path"] = files_[i];
-            buf << file_entry << "\n";
-        }
+    for (ManifestList::iterator it = files_.begin(), end = files_.end(); it != end; ++it) {
+        XmlTag file_entry("manifest:file-entry");
+        if (it->first == "/")
+            file_entry["manifest:version"] = "1.0";
+
+        file_entry["manifest:full-path"] = it->first;
+        file_entry["manifest:media-type"] = it->second;
+        buf << file_entry << "\n";
     }
 
     manifest.writeEndNL(buf);
     odfWrite("META-INF/manifest.xml", buf.str());
+}
+
+void OdfExporter::addOdfManifestFile(const std::string& path, const std::string& type) {
+    files_[path] = type;
 }
 
 void OdfExporter::addOdfMeta() {
@@ -167,7 +177,7 @@ void OdfExporter::addOdfMeta() {
     document_meta.writeEndNL(buf);
 
     odfWrite("meta.xml", buf.str());
-    files_.push_back("meta.xml");
+    addOdfManifestFile("meta.xml", "text/xml");
 }
 
 void OdfExporter::addOdfMime() {
@@ -182,7 +192,7 @@ void OdfExporter::addOdfSettings() {
     buf << settings << "\n";
 
     odfWrite("settings.xml", buf.str());
-    files_.push_back("settings.xml");
+    addOdfManifestFile("settings.xml", "text/xml");
 }
 
 void OdfExporter::addOdfStyles() {
@@ -193,10 +203,11 @@ void OdfExporter::addOdfStyles() {
     buf << style << "\n";
 
     odfWrite("styles.xml", buf.str());
-    files_.push_back("styles.xml");
+    addOdfManifestFile("styles.xml", "text/xml");
 }
 
 void OdfExporter::exportTo(const std::string& fname) {
+    setOutputFilename(fname);
     unlink(fname.c_str());
     odfOpen(fname);
     addOdfMime();
@@ -255,6 +266,9 @@ void OdfExporter::odfOpen(const std::string& fname) {
             throw Exception("[OdfExporter::odfOpen] can't open file: " + fname);
         }
     }
+
+    zip_add_dir(zip_, ODF_PICT_DIR.c_str());
+    addOdfManifestFile(ODF_PICT_DIR, "");
 }
 
 void OdfExporter::odfWrite(const std::string& fname, const std::string& data) {
@@ -265,7 +279,7 @@ void OdfExporter::odfWrite(const std::string& fname, const std::string& data) {
     if (!src)
         throw Exception("[OdfExporter::odfWrite] error: " + std::string(zip_strerror(zip_)));
 
-    if (zip_add(zip_, fname.c_str(), src) < 0) {
+    if (zip_add(zip_, fname.data(), src) < 0) {
         zip_source_free(src);
         throw Exception("[OdfExporter::addOdfMime] error: " + std::string(zip_strerror(zip_)));
     }
@@ -281,6 +295,9 @@ void OdfExporter::setCommonOdfNamespaces(Tag& tag) const {
     tag["xmlns:dc"] = "http://purl.org/dc/elements/1.1/";
     tag["xmlns:meta"] = "urn:oasis:names:tc:opendocument:xmlns:meta:1.0";
     tag["xmlns:number"] = "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0";
+    tag["xmlns:draw"] = "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0";
+    tag["xmlns:svg"] = "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0";
+    tag["xmlns:fo"] = "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0";
     tag["office:version"] = "1.2";
 }
 
@@ -316,7 +333,38 @@ void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
 void OdfExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
     resetFontStyle(os);
     writeLineBufferRaw(os);
-    writeCloseTag(os, "text:p", "\n\n");
+    writeCloseTag(os, "text:p", "");
+}
+
+void OdfExporter::writePicture(std::ostream& os, CEDChar * picture) {
+    try {
+        std::ostringstream img_buf;
+        savePictureData(picture, img_buf);
+        // uliss: TODO seems not optimal copying
+        std::string path = ODF_PICT_DIR + pictureName(picture);
+        odfWrite(path, img_buf.str());
+        addOdfManifestFile(path, imageExporter()->mime());
+
+        XmlTag img("draw:image");
+        img["xlink:href"] = escapeHtmlSpecialChars(path);
+        img["xlink:type"] = "simple";
+        img["xlink:show"] = "embed";
+        img["xlink:actuate"] = "onLoad";
+
+        XmlTag frame("draw:frame");
+        frame["text:anchor-type"] = "paragraph";
+        frame["draw:name"] = pictureName(picture);
+        frame["draw:z-index"] = "0";
+        frame["svg:width"] = toString(last_picture_size_.width()/150.0) + "in";
+        frame["svg:height"] = toString(last_picture_size_.height()/150.0) + "in";
+
+        frame.writeBeginNL(os);
+        os << img << "\n";
+        frame.writeEndNL(os);
+
+    } catch (Exception& e) {
+        Debug() << "[OdfExporter::writePicture] failed: " << e.what() << std::endl;
+    }
 }
 
 }

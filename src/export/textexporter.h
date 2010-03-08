@@ -28,7 +28,7 @@ namespace CIF
 class TextExporter: public GenericExporter
 {
     public:
-        TextExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+        TextExporter(CEDPage * page, const FormatOptions& opts);
 
         /**
          * Exports to stream

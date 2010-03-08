@@ -145,6 +145,7 @@ std::ostream & operator <<(std::ostream & os, const FormatOptions & fmt) {
     os << setw(25) << "   Unrecognized char: " << (char) (fmt.unrecognizedChar()) << "\n";
     os << setw(25) << "   Line breaks: " << fmt.preserveLineBreaks() << "\n";
     os << setw(25) << "   Language: " << Language::isoName(fmt.language()) << "\n";
+    os << setw(25) << "   Image export format: " << fmt.imageExportFormat() << "\n";
     return os;
 }
 

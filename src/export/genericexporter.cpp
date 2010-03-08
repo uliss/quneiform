@@ -96,8 +96,11 @@ void GenericExporter::doExport(std::ostream& os) {
     if (os.fail())
         throw Exception("[GenericExporter::doExport] invalid stream given");
 
-    if (outputFilename().empty())
+    if (outputFilename().empty()) {
+        Debug()
+                << "[GenericExporter::doExport] output filename is empty. Skipping picture export\n";
         setSkipPictures(true);
+    }
 
     setOutputStream(&os);
     exportPage(page_);
@@ -197,8 +200,10 @@ void GenericExporter::exportParagraph(CEDParagraph * par) {
 }
 
 void GenericExporter::exportPicture(CEDChar * picture) {
-    if (skipPictures())
+    if (skipPictures()) {
+        Debug() << "picture skipped\n";
         return;
+    }
 
     assert(picture);
     num_pictures_++;
@@ -401,6 +406,35 @@ void GenericExporter::savePictureData(CEDChar * picture, const std::string& path
         throw Exception("[GenericExporter::savePictureData] failed");
 
     imageExporter()->save(pict_data, pict_length, path);
+}
+
+void GenericExporter::savePictureData(CEDChar * picture, std::ostream& os) {
+    int pict_user_num = 0;
+    int pict_align = 0;
+    int pict_type = 0;
+    int pict_length = 0;
+    EDSIZE pict_goal;
+    void * pict_data = 0;
+
+    for (int i = 0; i < page_->picsUsed; i++) {
+        if (CED_GetPicture(page_, i, &pict_user_num, // Пользовательский номер
+                last_picture_size_, // Размер картинки в TIFF-файле в пикселах
+                &pict_goal, // Размер картинки на экране в twips
+                &pict_align, // Вертикальное расположение
+                &pict_type, // Тип = 1 (DIB)
+                &pict_data, // Адрес DIB включая заголовок
+                &pict_length // Длина DIB включая заголовок
+        ) && pict_user_num == pictureNumber(picture)) {
+            if (!pict_data || pict_length <= 0) {
+                throw Exception("[GenericExporter::savePicture] failed");
+            }
+        }
+    }
+
+    if (!pict_data || pict_length <= 0)
+        throw Exception("[GenericExporter::savePictureData] failed");
+
+    imageExporter()->save(pict_data, pict_length, os);
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {

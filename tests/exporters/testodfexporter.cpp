@@ -24,7 +24,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestOdfExporter);
 using namespace CIF;
 
 void TestOdfExporter::testInit() {
-    Exporter * e = new OdfExporter(NULL);
+    Exporter * e = new OdfExporter(NULL, FormatOptions());
     unlink("tmp.odt");
     CPPUNIT_ASSERT_NO_THROW(e->exportTo("tmp.odt"));
     CPPUNIT_ASSERT_NO_THROW(e->exportTo(std::cerr));

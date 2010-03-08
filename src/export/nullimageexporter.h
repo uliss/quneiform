@@ -28,6 +28,7 @@ class NullImageExporter: public ImageExporter
 {
     public:
         NullImageExporter();
+        std::string mime() const;
         void save(void *, size_t, std::ostream&);
         FormatList supportedFormats() const;
 };

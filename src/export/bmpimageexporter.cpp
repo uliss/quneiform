@@ -26,6 +26,10 @@ BmpImageExporter::BmpImageExporter() {
     setFormat(FORMAT_BMP);
 }
 
+std::string BmpImageExporter::mime() const {
+    return "image/x-ms-bmp";
+}
+
 void BmpImageExporter::save(void * data, size_t dataSize, std::ostream& os) {
     if (!data)
         throw Exception("[BmpImageExporter::save] invalid image data given");
