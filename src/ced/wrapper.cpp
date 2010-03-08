@@ -982,28 +982,6 @@ CED_FUNC(struct) letterEx* CED_GetAlternatives(Handle hEdChar) {
     return ((CEDChar*) hEdChar)->alternatives;
 }
 
-CED_FUNC(int32_t) CED_GetCharFontHeight(Handle hEdChar) {
-    return ((CEDChar*) hEdChar)->fontHeight;
-}
-
-CED_FUNC(int32_t) CED_GetCharFontAttribs(Handle hEdChar) {
-    return ((CEDChar*) hEdChar)->fontAttribs;
-}
-
-CED_FUNC(int32_t) CED_GetCharFontNum(Handle hEdChar) {
-    return ((CEDChar*) hEdChar)->fontNum;
-}
-
-CED_FUNC(int32_t) CED_GetCharForegroundColor(Handle hEdChar) {
-    return ((CEDChar*) hEdChar)->foregroundColor;
-}
-
-CED_FUNC(int32_t) CED_GetCharBackgroundColor(Handle hEdChar) {
-    return ((CEDChar*) hEdChar)->backgroundColor;
-}
-CED_FUNC(int32_t) CED_GetCharFontLang(Handle hEdChar) {
-    return ((CEDChar*) hEdChar)->fontLang;
-}
 CED_FUNC(Bool32) CED_WriteFormattedRtf(const char * fileName, Handle hEdPage) {
     if (logStream) {
         fprintf(logStream, "WriteFormattedRtf params: %s,%x\n", fileName, hEdPage);

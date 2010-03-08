@@ -471,14 +471,8 @@ DEC_FUN(int32_t, CED_GetLineDefChrFontHeight, (Handle hEdLine));
 DEC_FUN(uint32_t, CED_GetCountChar, (Handle hEdLine));
 DEC_FUN(Handle, CED_GetChar, (Handle hEdLine, int number));
 DEC_FUN(Bool32, CED_IsPicture, (Handle hEdChar));
-DEC_FUN(LETTER*, CED_GetAlternatives, (Handle hEdChar));
-DEC_FUN(int32_t, CED_GetCharFontHeight, (Handle hEdChar));
+DEC_FUN(LETTER*, CED_GetAlternatives, (Handle hEdChar));;
 DEC_FUN(int32_t, CED_GetCharFontAttribs, (Handle hEdChar));
-DEC_FUN(int32_t, CED_GetCharFontNum, (Handle hEdChar));
-DEC_FUN(int32_t, CED_GetCharFontLang, (Handle hEdChar));
-DEC_FUN(int32_t, CED_GetCharBackgroundColor, (Handle hEdChar));
-DEC_FUN(int32_t, CED_GetCharForegroundColor, (Handle hEdChar));
-
 
 DEC_FUN(Bool32, CED_WriteFormattedRtf, (const char * fileName, Handle hEdPage));
 DEC_FUN(Bool32, CED_MergeFormattedRtf, (const char * fileName, Handle hEdPage));
