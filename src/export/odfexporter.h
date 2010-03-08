@@ -44,6 +44,9 @@ class OdfExporter: public XmlExporter
         void writeFontStyleBegin(std::ostream& os, int style);
         void writeFontStyleEnd(std::ostream& os, int style);
         void writeLineBreak(std::ostream& os, CEDLine * line);
+        void writeMeta(std::ostream& os);
+        void writeMetaDate(std::ostream& os);
+        void writeMetaStatistics(std::ostream& os);
         void writePageBegin(std::ostream& os, CEDPage * page);
         void writePageEnd(std::ostream& os, CEDPage * page);
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);

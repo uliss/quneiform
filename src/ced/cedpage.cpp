@@ -33,7 +33,6 @@ namespace CIF
 {
 
 CEDPage::CEDPage() {
-    dpi.cx = dpi.cy = 0;
     turn = 0;
     imageName = 0;
     pageNumber = 0;
@@ -136,8 +135,16 @@ CEDPage::~CEDPage() {
         free(imageName);
 }
 
+Size CEDPage::imageDpi() const {
+    return image_dpi_;
+}
+
 Size CEDPage::imageSize() const {
     return image_size_;
+}
+
+void CEDPage::setImageDpi(const Size& dpi) {
+    image_dpi_ = dpi;
 }
 
 void CEDPage::setImageSize(const Size& size) {

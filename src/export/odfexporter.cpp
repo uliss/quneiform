@@ -26,6 +26,7 @@
 #include "imageexporterfactory.h"
 #include "rout_own.h"
 #include "xmltag.h"
+#include "ced/cedpage.h"
 #include "ced/cedchar.h"
 #include "ced/cedparagraph.h"
 #include "common/tostring.h"
@@ -147,35 +148,8 @@ void OdfExporter::addOdfManifestFile(const std::string& path, const std::string&
 
 void OdfExporter::addOdfMeta() {
     std::ostringstream buf;
-    std::string time = datetime();
     writeXmlDeclaration(buf);
-
-    XmlTag document_meta("office:document-meta");
-    setCommonOdfNamespaces(document_meta);
-    document_meta.writeBeginNL(buf);
-
-    XmlTag office_meta("office:meta");
-    office_meta.writeBeginNL(buf);
-
-    buf << XmlTag("meta:creation-date", time) << "\n";
-    buf << XmlTag("dc:date", time) << "\n";
-
-    XmlTag stat("meta:document-statistic");
-    stat["meta:table-count"] = "0";
-    stat["meta:image-count"] = "0";
-    stat["meta:object-count"] = "0";
-    stat["meta:page-count"] = "1";
-    stat["meta:paragraph-count"] = "0";
-    stat["meta:word-count"] = "0";
-    stat["meta:character-count"] = "0";
-
-    buf << stat << "\n";
-
-    buf << XmlTag("meta:generator", "Cuneiform-" CF_VERSION) << "\n";
-
-    office_meta.writeEndNL(buf);
-    document_meta.writeEndNL(buf);
-
+    writeMeta(buf);
     odfWrite("meta.xml", buf.str());
     addOdfManifestFile("meta.xml", "text/xml");
 }
@@ -310,6 +284,40 @@ void OdfExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
         writeSingleTag(os, "text:line-break", Attributes(), "\n");
 }
 
+void OdfExporter::writeMeta(std::ostream& os) {
+    XmlTag document_meta("office:document-meta");
+    setCommonOdfNamespaces(document_meta);
+    document_meta.writeBeginNL(os);
+
+    XmlTag office_meta("office:meta");
+    office_meta.writeBeginNL(os);
+
+    os << XmlTag("meta:generator", "Cuneiform-" CF_VERSION) << "\n";
+    writeMetaDate(os);
+    writeMetaStatistics(os);
+
+    office_meta.writeEndNL(os);
+    document_meta.writeEndNL(os);
+}
+
+void OdfExporter::writeMetaDate(std::ostream& os) {
+    std::string time = datetime();
+    os << XmlTag("meta:creation-date", time) << "\n";
+    os << XmlTag("dc:date", time) << "\n";
+}
+
+void OdfExporter::writeMetaStatistics(std::ostream& os) {
+    XmlTag stat("meta:document-statistic");
+    stat["meta:table-count"] = toString(numTables());
+    stat["meta:image-count"] = toString(numPictures());
+    stat["meta:object-count"] = "0";
+    stat["meta:page-count"] = "1";
+    stat["meta:paragraph-count"] = toString(numParagraphs());
+    stat["meta:word-count"] = "0";
+    stat["meta:character-count"] = toString(numChars());
+    os << stat << "\n";
+}
+
 void OdfExporter::writePageBegin(std::ostream& os, CEDPage*) {
     writeStartTag(os, "office:text", "\n");
 }
@@ -355,8 +363,11 @@ void OdfExporter::writePicture(std::ostream& os, CEDChar * picture) {
         frame["text:anchor-type"] = "paragraph";
         frame["draw:name"] = pictureName(picture);
         frame["draw:z-index"] = "0";
-        frame["svg:width"] = toString(last_picture_size_.width()/150.0) + "in";
-        frame["svg:height"] = toString(last_picture_size_.height()/150.0) + "in";
+        float xdpi = (float) page()->imageDpi().width();
+        float ydpi = (float) page()->imageDpi().height();
+        assert(0 < xdpi && xdpi < 3000 && 0 < ydpi && ydpi < 3000);
+        frame["svg:width"] = toString((float) last_picture_size_.width() / xdpi) + "in";
+        frame["svg:height"] = toString((float) last_picture_size_.height() / ydpi) + "in";
 
         frame.writeBeginNL(os);
         os << img << "\n";

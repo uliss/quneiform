@@ -185,7 +185,7 @@ void FormattedLang(const EdTagLanguage* pt)
 void FormattedSDD(const sheet_disk_descr* pt)
 {
     level = 0;
-    mainPage->dpi.cx = mainPage->dpi.cy = pt->resolution;
+    mainPage->setImageDpi(CIF::Size(pt->resolution, pt->resolution));
     mainPage->pageNumber = pt->sheet_numb;
     mainPage->turn = pt->incline;
     mainPage->NumberOfParagraphs = pt->quant_fragm;
@@ -681,14 +681,14 @@ void RecreateFrames()
     int fn = array[0].frameNum;
     CEDParagraph * par = mainPage->GetParagraph(array[0].frameNum);
     par->indent.rleft() = par->indent.rtop() = (array[0].x - par->layout.x) * 1440
-                                         / mainPage->dpi.cx;
+                                         / mainPage->imageDpi().width();
 
     for (i = 0; i < arPosition; i++) {
         if (array[i].frameNum != fn) {
             fn = array[i].frameNum;
             par = mainPage->GetParagraph(array[i].frameNum + inc);
             par->indent.rleft() = par->indent.rtop() = (array[i].x - par->layout.x)
-                                                 * 1440 / mainPage->dpi.cx;
+                                                 * 1440 / mainPage->imageDpi().width();
         }
 
         if (array[i].ParaBegin) {
@@ -696,7 +696,7 @@ void RecreateFrames()
             mainPage->SetCurSection(par->parentNumber)->SetCurParagraph(par);
             par = mainPage->GetCurSection()->InsertParagraph(FALSE);
             par->lines = par->curLine = array[i].line;
-            par->indent.rtop() = array[i].ident * 1440 / mainPage->dpi.cx;
+            par->indent.rtop() = array[i].ident * 1440 / mainPage->imageDpi().width();
             //          par->indent.left=(array[i].x-par->layout.x)*1440/mainPage->dpi;
             inc++;
         }

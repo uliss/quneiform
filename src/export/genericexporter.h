@@ -243,6 +243,11 @@ class GenericExporter: public Exporter
         virtual void exportChar(CEDChar * chr);
 
         /**
+         * Returns pointer to exported page
+         */
+        CEDPage * page();
+
+        /**
          * Makes picture filename
          */
         std::string pictureName(CEDChar * picture);

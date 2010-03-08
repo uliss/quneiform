@@ -30,9 +30,19 @@ class FUN_EXPO__ CEDPage
 {
     public:
         /**
+         * Returns image dpi
+         */
+        Size imageDpi() const;
+
+        /**
          * Returns size of the original image in pixels
          */
         Size imageSize() const;
+
+        /**
+         * Sets image dpi
+         */
+        void setImageDpi(const Size& dpi);
 
         /**
          * Sets image size in pixels
@@ -40,7 +50,6 @@ class FUN_EXPO__ CEDPage
         void setImageSize(const Size& size);
 
         //picture data
-        EDSIZE dpi; //scanner resolution for this picture
         int turn; // Tangent angle on the vertical images * 2048
         char* imageName; // Filename image. If the path is not specified, is searched in one
         // Directory with the file ed
@@ -112,6 +121,7 @@ class FUN_EXPO__ CEDPage
         CEDSection * curSect; //current section
     private:
         Size image_size_;
+        Size image_dpi_;
 };
 
 }

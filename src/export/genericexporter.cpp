@@ -351,6 +351,10 @@ std::ostream * GenericExporter::outputStream() {
     return os_;
 }
 
+CEDPage * GenericExporter::page() {
+    return page_;
+}
+
 std::string GenericExporter::pictureName(CEDChar * picture) {
     assert(picture);
     std::ostringstream buf;
