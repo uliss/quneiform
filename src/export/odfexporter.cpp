@@ -247,7 +247,9 @@ void OdfExporter::writePageEnd(std::ostream& os, CEDPage*) {
 void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     Attributes attrs;
     switch (par->alignment & ALIGN_MASK) {
-
+    case (ALIGN_LEFT | ALIGN_RIGHT):
+        attrs["text:style-name"] = "cif-p-align-justify";
+        break;
     }
 
     writeStartTag(os, "text:p", attrs);

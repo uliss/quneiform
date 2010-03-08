@@ -36,6 +36,7 @@ endif()
 add_library(cuneiform-export ${LIBTYPE}
     exporterfactory.cpp
     imageexporterfactory.cpp
+    tag.cpp
     ${exporters}
     ${image_exporters}
 )
