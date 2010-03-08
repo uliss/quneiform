@@ -702,10 +702,6 @@ CED_FUNC(Bool32) CED_IsTable(Handle hObject) {
     return ((CEDParagraph*) hObject)->type == TAB_BEGIN ? TRUE : FALSE;
 }
 
-/*CED_FUNC(Bool32) CED_IsPicture(Handle hObject)
- {
- return FALSE;
- }*/
 CED_FUNC(Bool32) CED_IsFrame(Handle hObject) {
     return ((CEDParagraph*) hObject)->type == FRAME_BEGIN ? TRUE : FALSE;
 }
@@ -971,11 +967,6 @@ CED_FUNC(uint32_t) CED_GetCountChar(Handle hEdLine) {
 
 CED_FUNC(Handle) CED_GetChar(Handle hEdLine, int number) {
     return ((CEDLine*) hEdLine)->GetChar(number);
-}
-
-CED_FUNC(Bool32) CED_IsPicture(Handle hEdChar) {
-    int n = ((CEDChar*) hEdChar)->fontNum;
-    return (n >= ED_PICT_BASE) && (n != 0xffffffff) && (n != 0xfffffffe);
 }
 
 CED_FUNC(struct) letterEx* CED_GetAlternatives(Handle hEdChar) {

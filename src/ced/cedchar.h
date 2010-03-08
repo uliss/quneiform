@@ -39,6 +39,11 @@ class FUN_EXPO__ CEDChar
         Rect boundingRect() const;
 
         /**
+         * Checks if picture
+         */
+        bool isPicture() const;
+
+        /**
          * Returns reference to character bounding rectangle
          */
         Rect& rBoundingRect();
@@ -68,22 +73,22 @@ class FUN_EXPO__ CEDChar
 };
 
 inline Rect CEDChar::boundingRect() const {
-    return bbox_;
+return bbox_;
 }
 
 inline Rect& CEDChar::rBoundingRect() {
-    return bbox_;
+return bbox_;
 }
 
 inline void CEDChar::setBoundingRect(const Rect& bbox) {
-    bbox_ = bbox;
+bbox_ = bbox;
 }
 
 inline void CEDChar::setBoundingRect(const EDBOX& bbox) {
-    bbox_.rleft() = bbox.x;
-    bbox_.rtop() = bbox.y;
-    bbox_.setWidth(bbox.w);
-    bbox_.setHeight(bbox.h);
+bbox_.rleft() = bbox.x;
+bbox_.rtop() = bbox.y;
+bbox_.setWidth(bbox.w);
+bbox_.setHeight(bbox.h);
 }
 
 }

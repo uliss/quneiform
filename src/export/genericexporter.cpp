@@ -109,7 +109,7 @@ void GenericExporter::doExport(std::ostream& os) {
 void GenericExporter::exportChar(CEDChar * chr) {
     assert(chr);
 
-    if (CED_IsPicture(chr))
+    if (chr->isPicture())
         exportPicture(chr);
     else {
         // Обычный символ

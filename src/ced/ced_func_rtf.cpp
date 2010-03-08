@@ -265,7 +265,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
 
                                 //the same for symbol
                                 if (c && ((!c->next) || c->next->parentNumber != c->parentNumber)
-                                        && CED_IsPicture(c))
+                                        && c->isPicture())
                                     rtf->wrtFrmSz = FALSE;
                             }
                         }
@@ -422,11 +422,11 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf, CEDParagraph* p, Bool brk)
             // since it is the symbol outside of a line
             if (j == LastCol || len == MAX_LEN || (prvCh && (prvCh->fontHeight != chr->fontHeight
                                                              || prvCh->fontAttribs != chr->fontAttribs || prvCh->fontNum != chr->fontNum))
-                    || CED_IsPicture(chr)) {
+                    || chr->isPicture()) {
                 if (!WriteRtfText(rtf, ptr, len))
                     return FALSE; // write text
 
-                if (j < LastCol && prvCh && (!CED_IsPicture(chr)) && (prvCh->fontHeight
+                if (j < LastCol && prvCh && (!chr->isPicture()) && (prvCh->fontHeight
                                                                       != chr->fontHeight || prvCh->fontAttribs != chr->fontAttribs
                                                                       || prvCh->fontNum != chr->fontNum)) { // write font change
                     if (!WriteRtfCharFmt(rtf, chr))
@@ -440,7 +440,7 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf, CEDParagraph* p, Bool brk)
             }
 
             // write picture and parabreak
-            if (chr && CED_IsPicture(chr)) {
+            if (chr && chr->isPicture()) {
                 for (int pict = 0; pict < rtf->page->picsUsed; pict++) {
                     if (rtf->page->picsTable[pict].pictNumber == chr->fontNum - ED_PICT_BASE) {
                         if (rtf->page->picsTable[pict].type == 1) {
@@ -459,7 +459,7 @@ Bool WriteRtfPara(struct StrRtfOut far *rtf, CEDParagraph* p, Bool brk)
                 continue;
             }
 
-            if (!CED_IsPicture(chr)) {
+            if (!chr->isPicture()) {
                 ptr[len] = chr->alternatives[0].alternative;
                 len++;
             }

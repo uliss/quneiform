@@ -30,4 +30,8 @@ CEDChar::CEDChar() {
     prev = next = 0;
 }
 
+bool CEDChar::isPicture() const {
+    return (fontNum >= ED_PICT_BASE) && (fontNum != 0xffffffff) && (fontNum != 0xfffffffe);
+}
+
 }

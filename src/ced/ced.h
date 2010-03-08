@@ -302,15 +302,11 @@ typedef enum {
     CED_FNCED_GetColumn,
     CED_FNCED_GetSnakeColumnWidth,
     CED_FNCED_GetSnakeColumnSpacing,
-//      CED_FNCED_GetCountFrame,
-//      CED_FNCED_GetFrame,
-//      CED_FNCED_GetFramePoint,
     CED_FNCED_GetFrameRect,
     CED_FNCED_GetFirstObject,
     CED_FNCED_GetNextObject,
     CED_FNCED_IsTable,
     CED_FNCED_IsFrame,
-    CED_FNCED_IsPicture,
     CED_FNCED_IsParagraph,
     CED_FNCED_IsFictive,
     CED_FNCED_GetCountCell,
@@ -329,8 +325,6 @@ typedef enum {
     CED_FNCED_GetCountChar,
     CED_FNCED_GetChar,
     CED_FNCED_GetAlternatives,
-    CED_FNCED_GetCharFontHeight,
-    CED_FNCED_GetCharFontAttribs,
     CED_FNCED_GetCharFontLang,
     CED_FNCED_IsEdFile,
     CED_FNCED_GetCharLayout,
@@ -351,8 +345,6 @@ typedef enum {
     CED_FNCED_GetFrameDxfrtextx,
     CED_FNCED_GetFrameDxfrtexty,
     CED_FNCED_GetLineHardBreak,
-    CED_FNCED_GetCharBackgroundColor,
-    CED_FNCED_GetCharForegroundColor,
     CED_FNCED_GetCharFontNum,
     CED_FNCED_GetLogicalCell,
     CED_FNCED_GetCountLogicalCell,
@@ -470,7 +462,6 @@ DEC_FUN(Bool32, CED_GetLineHardBreak, (Handle hEdLine));
 DEC_FUN(int32_t, CED_GetLineDefChrFontHeight, (Handle hEdLine));
 DEC_FUN(uint32_t, CED_GetCountChar, (Handle hEdLine));
 DEC_FUN(Handle, CED_GetChar, (Handle hEdLine, int number));
-DEC_FUN(Bool32, CED_IsPicture, (Handle hEdChar));
 DEC_FUN(LETTER*, CED_GetAlternatives, (Handle hEdChar));;
 DEC_FUN(int32_t, CED_GetCharFontAttribs, (Handle hEdChar));
 
