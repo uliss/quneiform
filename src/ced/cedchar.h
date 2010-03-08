@@ -46,8 +46,6 @@ class FUN_EXPO__ CEDChar
         int backgroundColor;
         letterEx * alternatives; //array of alternatives
         int numOfAltern;
-        char * extData; //data to be written in file after header
-        int extDataLen; //their length
     private:
         //layout of symbol in input image (in pixel)
         Rect bbox_;

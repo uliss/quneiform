@@ -26,8 +26,6 @@ CEDChar::CEDChar() {
     foregroundColor = backgroundColor = 0;
     alternatives = 0;
     numOfAltern = 0;
-    extData = 0;
-    extDataLen = 0;
     parentNumber = 0;
     prev = next = 0;
 }
