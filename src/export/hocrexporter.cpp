@@ -49,8 +49,8 @@ inline std::string rectBBoxes(const HocrExporter::RectList& lst) {
 inline std::string pageBBox(CEDPage * p) {
     assert(p);
     std::ostringstream buf;
-    buf << "image '" << escapeHtmlSpecialChars(p->imageName) << "'; bbox 0 0 " << p->sizeOfImage.cx
-            << " " << p->sizeOfImage.cy;
+    buf << "image '" << escapeHtmlSpecialChars(p->imageName) << "'; bbox 0 0 "
+            << p->imageSize().width() << " " << p->imageSize().height();
     return buf.str();
 }
 

@@ -183,8 +183,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
     }
     case EDEXT_TIFF_DESC: {
         originalImageDesc* fond = (originalImageDesc*) ptExt;
-        mainPage->sizeOfImage.cy = fond->height;
-        mainPage->sizeOfImage.cx = fond->width;
+        mainPage->setImageSize(CIF::Size(fond->width, fond->height));
         mainPage->pageNumber = fond->pageNum;
         mainPage->turn = fond->inclune;
         mainPage->dpi.cx = fond->resolutionX;
@@ -1154,8 +1153,8 @@ Bool32 WriteFontTable(Handle hFile, CIF::CEDPage* page) {
 
 Bool32 WriteTiffDescr(Handle hFile, CEDPage* page) {
     originalImageDesc fond;
-    fond.height = page->sizeOfImage.cy;
-    fond.width = page->sizeOfImage.cx;
+    fond.height = page->imageSize().height();
+    fond.width = page->imageSize().width();
     fond.pageNum = page->pageNumber;
     fond.inclune = page->turn;
     fond.resolutionX = (uint16_t) page->dpi.cx;

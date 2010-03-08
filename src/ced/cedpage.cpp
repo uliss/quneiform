@@ -33,7 +33,6 @@ namespace CIF
 {
 
 CEDPage::CEDPage() {
-    sizeOfImage.cx = sizeOfImage.cy = 0;
     dpi.cx = dpi.cy = 0;
     turn = 0;
     imageName = 0;
@@ -135,6 +134,14 @@ CEDPage::~CEDPage() {
 
     if (imageName)
         free(imageName);
+}
+
+Size CEDPage::imageSize() const {
+    return image_size_;
+}
+
+void CEDPage::setImageSize(const Size& size) {
+    image_size_ = size;
 }
 
 CEDSection * CEDPage::InsertSection() {

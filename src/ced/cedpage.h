@@ -21,6 +21,7 @@
 
 #include "globus.h"
 #include "ced_struct.h"
+#include <common/size.h>
 
 namespace CIF
 {
@@ -28,9 +29,17 @@ namespace CIF
 class FUN_EXPO__ CEDPage
 {
     public:
+        /**
+         * Returns size of the original image in pixels
+         */
+        Size imageSize() const;
+
+        /**
+         * Sets image size in pixels
+         */
+        void setImageSize(const Size& size);
 
         //picture data
-        EDSIZE sizeOfImage; // The size of the original image in pixels
         EDSIZE dpi; //scanner resolution for this picture
         int turn; // Tangent angle on the vertical images * 2048
         char* imageName; // Filename image. If the path is not specified, is searched in one
@@ -101,6 +110,8 @@ class FUN_EXPO__ CEDPage
 
         CEDSection * sections; //connected list of sections
         CEDSection * curSect; //current section
+    private:
+        Size image_size_;
 };
 
 }
