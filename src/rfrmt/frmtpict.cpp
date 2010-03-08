@@ -421,7 +421,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
             hString = CED_CreateLine(hParagraph, 0, 6);
             Letter.alternative = ' ';
             Letter.probability = 0;
-            CED_CreateChar(hString, slayout, &Letter, 12, ED_PICT_BASE + (int) IndexPict, -1, -1,
+            CED_CreateChar(hString, slayout, &Letter, 12, ED_PICT_BASE + (int) IndexPict, -1, LANGUAGE_UNKNOWN,
                            -1, -1);
 
             if (!CED_CreatePicture(SectorInfo->hEDPage, (int) IndexPict, pictSize, pictGoal,

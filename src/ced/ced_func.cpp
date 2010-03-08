@@ -90,15 +90,13 @@ void NewFormattedE(const edExtention* pt, const void* ptExt);
 void NewFormattedENew(const edExtentionNew* pt, const void* ptExt);
 void NewFormattedLang(const EdTagLanguage* pt);
 
-void CED_DeleteTree(CIF::CEDPage * pg)
-{
+void CED_DeleteTree(CIF::CEDPage * pg) {
     delete pg;
 }
 
 void RepairStructure();
 
-CIF::CEDPage * CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufLen)
-{
+CIF::CEDPage * CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufLen) {
     CED_SetRawDataProc(ExtDataProc);
 
     if (CED_IsEdFile(file, readFromFile, bufLen) == 96) {
@@ -139,12 +137,10 @@ CIF::CEDPage * CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufL
 }
 
 //Put non-recognized codes to the corresponding field of extData
-void ExtDataProc(uchar* /*_ptr*/, uint32_t /*lth*/)
-{
+void ExtDataProc(uchar* /*_ptr*/, uint32_t /*lth*/) {
 }
 
-void NewFormattedSDD(const sheet_disk_descr* pt)
-{
+void NewFormattedSDD(const sheet_disk_descr* pt) {
     mainPage->dpi.cx = mainPage->dpi.cy = pt->resolution;
     mainPage->pageNumber = pt->sheet_numb;
     mainPage->turn = pt->incline;
@@ -152,54 +148,51 @@ void NewFormattedSDD(const sheet_disk_descr* pt)
     mainPage->turn = pt->incline;
 }
 
-void NewFormattedE(const edExtention* pt, const void* ptExt)
-{
+void NewFormattedE(const edExtention* pt, const void* ptExt) {
     switch (pt->Ecode) {
-        case EDEXT_VERSION:
-            verInfo = new char[pt->length - sizeof(edExtention)];
-            memcpy(verInfo, ptExt, pt->length - sizeof(edExtention));
-            break;
-        case EDEXT_FONTS: {
-            fontDiscr *fond = (fontDiscr *) ptExt;
+    case EDEXT_VERSION:
+        verInfo = new char[pt->length - sizeof(edExtention)];
+        memcpy(verInfo, ptExt, pt->length - sizeof(edExtention));
+        break;
+    case EDEXT_FONTS: {
+        fontDiscr *fond = (fontDiscr *) ptExt;
 
-            while ((char*) fond - (char*) ptExt < signed(pt->length
-                                                         - sizeof(edExtention))) {
-                mainPage->CreateFont(fond->fontNumber, fond->fontPitchAndFamily,
-                                     fond->fontCharset, (char*) fond + sizeof(fontDiscr));
-                fond = (fontDiscr *) ((char*) fond + fond->size);
-            }
-
-            break;
+        while ((char*) fond - (char*) ptExt < signed(pt->length - sizeof(edExtention))) {
+            mainPage->CreateFont(fond->fontNumber, fond->fontPitchAndFamily, fond->fontCharset,
+                    (char*) fond + sizeof(fontDiscr));
+            fond = (fontDiscr *) ((char*) fond + fond->size);
         }
-        case EDEXT_BORDERS: {
-            pageDescr* pd = (pageDescr*) ptExt;
-            mainPage->pageSizeInTwips.cx = pd->paperw;
-            mainPage->pageSizeInTwips.cy = pd->paperh;
-            mainPage->pageBordersInTwips.top = pd->margt;
-            mainPage->pageBordersInTwips.left = pd->margl;
-            mainPage->pageBordersInTwips.bottom = pd->margb;
-            mainPage->pageBordersInTwips.right = pd->margr;
-            mainPage->resizeToFit = pd->resizeToFit;
 
-            //for backward compatibility
-            if (unsigned((&(pd->recogLang)) - ((uchar*) pd)) < pt->length
-                    - sizeof(edExtention))
-                mainPage->recogLang = pd->recogLang;
+        break;
+    }
+    case EDEXT_BORDERS: {
+        pageDescr* pd = (pageDescr*) ptExt;
+        mainPage->pageSizeInTwips.cx = pd->paperw;
+        mainPage->pageSizeInTwips.cy = pd->paperh;
+        mainPage->pageBordersInTwips.top = pd->margt;
+        mainPage->pageBordersInTwips.left = pd->margl;
+        mainPage->pageBordersInTwips.bottom = pd->margb;
+        mainPage->pageBordersInTwips.right = pd->margr;
+        mainPage->resizeToFit = pd->resizeToFit;
 
-            break;
-        }
-        case EDEXT_TIFF_DESC: {
-            originalImageDesc* fond = (originalImageDesc*) ptExt;
-            mainPage->sizeOfImage.cy = fond->height;
-            mainPage->sizeOfImage.cx = fond->width;
-            mainPage->pageNumber = fond->pageNum;
-            mainPage->turn = fond->inclune;
-            mainPage->dpi.cx = fond->resolutionX;
-            mainPage->dpi.cy = fond->resolutionY;
-            mainPage->unrecogChar = fond->unrecogSymbol;
-            mainPage->imageName = strdup((char*) ptExt + sizeof(originalImageDesc));
-            break;
-        }
+        //for backward compatibility
+        if (unsigned((&(pd->recogLang)) - ((uchar*) pd)) < pt->length - sizeof(edExtention))
+            mainPage->recogLang = pd->recogLang;
+
+        break;
+    }
+    case EDEXT_TIFF_DESC: {
+        originalImageDesc* fond = (originalImageDesc*) ptExt;
+        mainPage->sizeOfImage.cy = fond->height;
+        mainPage->sizeOfImage.cx = fond->width;
+        mainPage->pageNumber = fond->pageNum;
+        mainPage->turn = fond->inclune;
+        mainPage->dpi.cx = fond->resolutionX;
+        mainPage->dpi.cy = fond->resolutionY;
+        mainPage->unrecogChar = fond->unrecogSymbol;
+        mainPage->imageName = strdup((char*) ptExt + sizeof(originalImageDesc));
+        break;
+    }
         /*  case EDEXT_PICS:
          {
          pictDescr *picd=(pictDescr *)ptExt;
@@ -211,273 +204,258 @@ void NewFormattedE(const edExtention* pt, const void* ptExt)
          break;
          }
          */case EDEXT_SECTION: {
-            CEDSection * sect = mainPage->InsertSection();
-            sectParams1* sp = (sectParams1*) ptExt;
-            sect->borders.bottom = sp->bottomMargin;
-            sect->borders.top = sp->topMargin;
-            sect->borders.left = sp->leftMargin;
-            sect->borders.right = sp->rightMargin;
-            sect->numberOfColumns = 0;//  sp->columns       ;
-            sect->colInterval = sp->colInterval;
-            sect->numSnakeCols = sp->numSnakeCols;
-            sect->colInfo = new EDCOL[sect->numSnakeCols];
-            char * c = (char*) ptExt + sizeof(sectParams1);
-            int i;
+        CEDSection * sect = mainPage->InsertSection();
+        sectParams1* sp = (sectParams1*) ptExt;
+        sect->borders.bottom = sp->bottomMargin;
+        sect->borders.top = sp->topMargin;
+        sect->borders.left = sp->leftMargin;
+        sect->borders.right = sp->rightMargin;
+        sect->numberOfColumns = 0;//  sp->columns       ;
+        sect->colInterval = sp->colInterval;
+        sect->numSnakeCols = sp->numSnakeCols;
+        sect->colInfo = new EDCOL[sect->numSnakeCols];
+        char * c = (char*) ptExt + sizeof(sectParams1);
+        int i;
 
-            for (i = 0; i < sect->numSnakeCols; i++) {
-                sect->colInfo[i].width = *((int32_t*) c);
-                c += 4;
-            }
-
-            for (i = 0; i < sect->numSnakeCols; i++) {
-                sect->colInfo[i].space = *((int32_t*) c);
-                c += 4;
-            }
-
-            sectParams2* sp2 = (sectParams2*) c;
-            sect->footerY = sp2->footerY;
-            sect->headerY = sp2->headerY;
-            sect->width = sp2->width;
-            sect->height = sp2->height;
-            sect->orientation = sp2->orientation;
-            sect->sectionBreak = sp2->sectionBreak;
-
-            //for backward compatibility
-            if (unsigned((&(sp2->lineBetCol)) - ((uchar*) sp)) < pt->length
-                    - sizeof(edExtention))
-                sect->lineBetCol = sp2->lineBetCol;
-
-            break;
+        for (i = 0; i < sect->numSnakeCols; i++) {
+            sect->colInfo[i].width = *((int32_t*) c);
+            c += 4;
         }
-        case EDEXT_PARAGRAPH: {
-            paraParams * pard = (paraParams *) ptExt;
-            CEDParagraph* hPara = mainPage->GetCurSection()->GetCurParagraph();
-            hPara->color = (signed short) pard->color;
-            hPara->interval.cx = pard->spaceBefore;
-            hPara->interval.cy = pard->spaceAfter;
-            hPara->alignment = pard->alignment;
-            hPara->indent.rtop() = pard->firstIndent;
-            hPara->indent.rleft() = pard->leftIndent;
-            hPara->indent.rright() = pard->rightIndent;
-            hPara->keep = pard->keep;
-            hPara->shading = (signed short) pard->shading;
-            hPara->spaceBetweenLines = pard->spaceBetweenLines;
-            hPara->spcBtwLnsMult = pard->spcBtwLnsMult;
-            hPara->userNumber = (signed short) pard->userNum;
 
-            //for backward compatibility
-            if (unsigned((&(pard->topBrdrType)) - ((uchar*) pard)) < pt->length
-                    - sizeof(edExtention))
-                hPara->topBrdrType = pard->topBrdrType;
-
-            if (unsigned((uchar*) (&(pard->topBrdrWidth)) - ((uchar*) pard))
-                    < pt->length - sizeof(edExtention))
-                hPara->topBrdrWidth = pard->topBrdrWidth;
-
-            if (unsigned((&(pard->bottomBrdrType)) - ((uchar*) pard)) < pt->length
-                    - sizeof(edExtention))
-                hPara->bottomBrdrType = pard->bottomBrdrType;
-
-            if (unsigned((uchar*) (&(pard->bottomBrdrWidth)) - ((uchar*) pard))
-                    < pt->length - sizeof(edExtention))
-                hPara->bottomBrdrWidth = pard->bottomBrdrWidth;
-
-            if (unsigned((&(pard->leftBrdrType)) - ((uchar*) pard)) < pt->length
-                    - sizeof(edExtention))
-                hPara->leftBrdrType = pard->leftBrdrType;
-
-            if (unsigned((uchar*) (&(pard->leftBrdrWidth)) - ((uchar*) pard))
-                    < pt->length - sizeof(edExtention))
-                hPara->leftBrdrWidth = pard->leftBrdrWidth;
-
-            if (unsigned((&(pard->rightBrdrType)) - ((uchar*) pard)) < pt->length
-                    - sizeof(edExtention))
-                hPara->rightBrdrType = pard->rightBrdrType;
-
-            if (unsigned((uchar*) (&(pard->rightBrdrWidth)) - ((uchar*) pard))
-                    < pt->length - sizeof(edExtention))
-                hPara->rightBrdrWidth = pard->rightBrdrWidth;
-
-            break;
+        for (i = 0; i < sect->numSnakeCols; i++) {
+            sect->colInfo[i].space = *((int32_t*) c);
+            c += 4;
         }
-        case EDEXT_TABLE_ROW: {
-            CEDParagraph *hPara = mainPage->GetCurSection()->GetCurParagraph();
-            edRowDescr *rd = (edRowDescr*) (hPara)->descriptor;
-            rowParam* rp = (rowParam*) ptExt;
-            rd->topBrdrType = rp->topBrdrType;
-            rd->topBrdrWidth = rp->topBrdrWidth;
-            rd->bottomBrdrType = rp->bottomBrdrType;
-            rd->bottomBrdrWidth = rp->bottomBrdrWidth;
-            rd->leftBrdrType = rp->leftBrdrType;
-            rd->leftBrdrWidth = rp->leftBrdrWidth;
-            rd->rightBrdrType = rp->rightBrdrType;
-            rd->rightBrdrWidth = rp->rightBrdrWidth;
-            rd->gaph = rp->gaph;
-            rd->header = rp->header;
-            rd->header = rp->left;
-            rd->position = rp->position;
-            rd->rowHeight = rp->rowHeight;
-            rd->left = rp->left;
-            break;
-        }
-        case EDEXT_TABLE_CELL: {
-            CEDParagraph *hPara = mainPage->GetCurSection()->GetCurParagraph();
-            cellParam *cp = (cellParam *) ptExt;
-            edCellDescr *cd = (edCellDescr*) (hPara)->descriptor;
-            cd->topBrdrType = cp->topBrdrType;
-            cd->topBrdrWidth = cp->topBrdrWidth;
-            cd->bottomBrdrType = cp->bottomBrdrType;
-            cd->bottomBrdrWidth = cp->bottomBrdrWidth;
-            cd->leftBrdrType = cp->leftBrdrType;
-            cd->leftBrdrWidth = cp->leftBrdrWidth;
-            cd->rightBrdrType = cp->rightBrdrType;
-            cd->rightBrdrWidth = cp->rightBrdrWidth;
-            cd->cellX = cp->cellX;
-            cd->color = (signed short) cp->color;
-            cd->shading = (signed short) cp->shading;
-            cd->merging = cp->merging;
-            cd->vertTextAlign = cp->vertTextAlign;
 
-            //for backward compatibility
-            if (unsigned((&(cp->flag)) - ((uchar*) cp)) < pt->length
-                    - sizeof(edExtention))
-                cd->flag = cp->flag;
+        sectParams2* sp2 = (sectParams2*) c;
+        sect->footerY = sp2->footerY;
+        sect->headerY = sp2->headerY;
+        sect->width = sp2->width;
+        sect->height = sp2->height;
+        sect->orientation = sp2->orientation;
+        sect->sectionBreak = sp2->sectionBreak;
 
-            break;
-        }
-        case EDEXT_FRAME: {
-            CEDParagraph *hPara = mainPage->GetCurSection()->GetCurParagraph();
-            edFrameDescr *fd = (edFrameDescr*) (hPara)->descriptor;
-            frameParam* fp = (frameParam*) ptExt;
-            fd->rec.x = fp->posx;
-            fd->rec.y = fp->posy;
-            fd->rec.w = fp->absw;
-            fd->rec.h = fp->absh;
-            fd->borderSpace = fp->borderSpace;
-            fd->dxfrtextx = fp->dxfrtextx;
-            fd->dxfrtexty = fp->dxfrtexty;
-            fd->position = fp->position;
+        //for backward compatibility
+        if (unsigned((&(sp2->lineBetCol)) - ((uchar*) sp)) < pt->length - sizeof(edExtention))
+            sect->lineBetCol = sp2->lineBetCol;
 
-            //for backward compatiility
-            if (unsigned((&(fp->flag)) - ((uchar*) fp)) < pt->length
-                    - sizeof(edExtention))
-                fd->flag = fp->flag;
+        break;
+    }
+    case EDEXT_PARAGRAPH: {
+        paraParams * pard = (paraParams *) ptExt;
+        CEDParagraph* hPara = mainPage->GetCurSection()->GetCurParagraph();
+        hPara->color = (signed short) pard->color;
+        hPara->interval.cx = pard->spaceBefore;
+        hPara->interval.cy = pard->spaceAfter;
+        hPara->alignment = pard->alignment;
+        hPara->indent.rtop() = pard->firstIndent;
+        hPara->indent.rleft() = pard->leftIndent;
+        hPara->indent.rright() = pard->rightIndent;
+        hPara->keep = pard->keep;
+        hPara->shading = (signed short) pard->shading;
+        hPara->spaceBetweenLines = pard->spaceBetweenLines;
+        hPara->spcBtwLnsMult = pard->spcBtwLnsMult;
+        hPara->userNumber = (signed short) pard->userNum;
 
-            break;
-        }
-        case EDEXT_CHAR: {
-            charParams* chp = (charParams*) ptExt;
-            fontNum = chp->fontNumber;
-            foregroundColor = chp->foregroundColor;
+        //for backward compatibility
+        if (unsigned((&(pard->topBrdrType)) - ((uchar*) pard)) < pt->length - sizeof(edExtention))
+            hPara->topBrdrType = pard->topBrdrType;
 
-            //for backward compatibility
-            if (unsigned((uchar*) (&(chp->backgroundColor)) - ((uchar*) chp))
-                    < pt->length - sizeof(edExtention))
-                backgroundColor = chp->backgroundColor;
+        if (unsigned((uchar*) (&(pard->topBrdrWidth)) - ((uchar*) pard)) < pt->length
+                - sizeof(edExtention))
+            hPara->topBrdrWidth = pard->topBrdrWidth;
 
-            else
-                backgroundColor = -1;
+        if (unsigned((&(pard->bottomBrdrType)) - ((uchar*) pard)) < pt->length
+                - sizeof(edExtention))
+            hPara->bottomBrdrType = pard->bottomBrdrType;
 
-            break;
-        }
+        if (unsigned((uchar*) (&(pard->bottomBrdrWidth)) - ((uchar*) pard)) < pt->length
+                - sizeof(edExtention))
+            hPara->bottomBrdrWidth = pard->bottomBrdrWidth;
+
+        if (unsigned((&(pard->leftBrdrType)) - ((uchar*) pard)) < pt->length - sizeof(edExtention))
+            hPara->leftBrdrType = pard->leftBrdrType;
+
+        if (unsigned((uchar*) (&(pard->leftBrdrWidth)) - ((uchar*) pard)) < pt->length
+                - sizeof(edExtention))
+            hPara->leftBrdrWidth = pard->leftBrdrWidth;
+
+        if (unsigned((&(pard->rightBrdrType)) - ((uchar*) pard)) < pt->length - sizeof(edExtention))
+            hPara->rightBrdrType = pard->rightBrdrType;
+
+        if (unsigned((uchar*) (&(pard->rightBrdrWidth)) - ((uchar*) pard)) < pt->length
+                - sizeof(edExtention))
+            hPara->rightBrdrWidth = pard->rightBrdrWidth;
+
+        break;
+    }
+    case EDEXT_TABLE_ROW: {
+        CEDParagraph *hPara = mainPage->GetCurSection()->GetCurParagraph();
+        edRowDescr *rd = (edRowDescr*) (hPara)->descriptor;
+        rowParam* rp = (rowParam*) ptExt;
+        rd->topBrdrType = rp->topBrdrType;
+        rd->topBrdrWidth = rp->topBrdrWidth;
+        rd->bottomBrdrType = rp->bottomBrdrType;
+        rd->bottomBrdrWidth = rp->bottomBrdrWidth;
+        rd->leftBrdrType = rp->leftBrdrType;
+        rd->leftBrdrWidth = rp->leftBrdrWidth;
+        rd->rightBrdrType = rp->rightBrdrType;
+        rd->rightBrdrWidth = rp->rightBrdrWidth;
+        rd->gaph = rp->gaph;
+        rd->header = rp->header;
+        rd->header = rp->left;
+        rd->position = rp->position;
+        rd->rowHeight = rp->rowHeight;
+        rd->left = rp->left;
+        break;
+    }
+    case EDEXT_TABLE_CELL: {
+        CEDParagraph *hPara = mainPage->GetCurSection()->GetCurParagraph();
+        cellParam *cp = (cellParam *) ptExt;
+        edCellDescr *cd = (edCellDescr*) (hPara)->descriptor;
+        cd->topBrdrType = cp->topBrdrType;
+        cd->topBrdrWidth = cp->topBrdrWidth;
+        cd->bottomBrdrType = cp->bottomBrdrType;
+        cd->bottomBrdrWidth = cp->bottomBrdrWidth;
+        cd->leftBrdrType = cp->leftBrdrType;
+        cd->leftBrdrWidth = cp->leftBrdrWidth;
+        cd->rightBrdrType = cp->rightBrdrType;
+        cd->rightBrdrWidth = cp->rightBrdrWidth;
+        cd->cellX = cp->cellX;
+        cd->color = (signed short) cp->color;
+        cd->shading = (signed short) cp->shading;
+        cd->merging = cp->merging;
+        cd->vertTextAlign = cp->vertTextAlign;
+
+        //for backward compatibility
+        if (unsigned((&(cp->flag)) - ((uchar*) cp)) < pt->length - sizeof(edExtention))
+            cd->flag = cp->flag;
+
+        break;
+    }
+    case EDEXT_FRAME: {
+        CEDParagraph *hPara = mainPage->GetCurSection()->GetCurParagraph();
+        edFrameDescr *fd = (edFrameDescr*) (hPara)->descriptor;
+        frameParam* fp = (frameParam*) ptExt;
+        fd->rec.x = fp->posx;
+        fd->rec.y = fp->posy;
+        fd->rec.w = fp->absw;
+        fd->rec.h = fp->absh;
+        fd->borderSpace = fp->borderSpace;
+        fd->dxfrtextx = fp->dxfrtextx;
+        fd->dxfrtexty = fp->dxfrtexty;
+        fd->position = fp->position;
+
+        //for backward compatiility
+        if (unsigned((&(fp->flag)) - ((uchar*) fp)) < pt->length - sizeof(edExtention))
+            fd->flag = fp->flag;
+
+        break;
+    }
+    case EDEXT_CHAR: {
+        charParams* chp = (charParams*) ptExt;
+        fontNum = chp->fontNumber;
+        foregroundColor = chp->foregroundColor;
+
+        //for backward compatibility
+        if (unsigned((uchar*) (&(chp->backgroundColor)) - ((uchar*) chp)) < pt->length
+                - sizeof(edExtention))
+            backgroundColor = chp->backgroundColor;
+
+        else
+            backgroundColor = -1;
+
+        break;
+    }
     }
 }
-void NewFormattedENew(const edExtentionNew* pt, const void* ptExt)
-{
+void NewFormattedENew(const edExtentionNew* pt, const void* ptExt) {
     switch (pt->Ecode) {
-        case EDEXT_PICS: {
-            pictDescr *picd = (pictDescr *) ptExt;
+    case EDEXT_PICS: {
+        pictDescr *picd = (pictDescr *) ptExt;
 
-            while ((char*) picd - (char*) ptExt < signed(pt->length
-                                                         - sizeof(edExtentionNew))) {
-                mainPage->CreatePicture(picd->pictNumber, picd->pictSize,
-                                        picd->pictGoal, picd->pictAlign, picd->type, (char*) picd
-                                        + sizeof(pictDescr), picd->len);
-                picd = (pictDescr *) ((char*) picd + picd->size);
-            }
-
-            break;
+        while ((char*) picd - (char*) ptExt < signed(pt->length - sizeof(edExtentionNew))) {
+            mainPage->CreatePicture(picd->pictNumber, picd->pictSize, picd->pictGoal,
+                    picd->pictAlign, picd->type, (char*) picd + sizeof(pictDescr), picd->len);
+            picd = (pictDescr *) ((char*) picd + picd->size);
         }
+
+        break;
+    }
     }
 }
-void NewFormattedTR(const text_ref* pt)
-{
+void NewFormattedTR(const text_ref* pt) {
     switch (pt->type) {
-        case SSR_FRAG_TYPE: {
-            CEDParagraph * para = mainPage->GetCurSection()->InsertParagraph();
+    case SSR_FRAG_TYPE: {
+        CEDParagraph * para = mainPage->GetCurSection()->InsertParagraph();
 
-            switch (pt->object) {
-                case TP_MCOL_BEG:
-                    para->type = COLUMN_BEGIN;
-                    para->descriptor = malloc(sizeof(EDCOLDESCR));
-                    break;
-                case TP_NEW_COL:
-                    para->type = COLUMN_BEGIN;
-                    para->descriptor = malloc(sizeof(EDCOLDESCR));
-                    break;
-                case TP_MCOL_END:
-                    para->type = LAST_IN_COLUMN;
-                    break;
-                case TP_NEW_TAB_BEG:
-                    para->type = TAB_BEGIN;
-                    para->descriptor = malloc(sizeof(EDTABDESCR));
-                    break;
-                case TP_NEW_ROW_BEG:
-                    para->type = TAB_ROW_BEGIN;
-                    para->descriptor = malloc(sizeof(EDROWDESCR));
-                    break;
-                case TP_NEW_CELL_BEG:
-                    para->type = TAB_CELL_BEGIN;
-                    para->descriptor = malloc(sizeof(EDCELLDESCR));
-                    break;
-                case TP_NEW_TAB_END:
-                    para->type = TAB_END;
-                    break;
-                case TP_FRAME_BEG:
-                    para->type = FRAME_BEGIN;
-                    para->descriptor = malloc(sizeof(EDFRAMEDESCR));
-                    break;
-                case TP_FRAME_END:
-                    para->type = FRAME_END;
-                    break;
-            }
-
+        switch (pt->object) {
+        case TP_MCOL_BEG:
+            para->type = COLUMN_BEGIN;
+            para->descriptor = malloc(sizeof(EDCOLDESCR));
+            break;
+        case TP_NEW_COL:
+            para->type = COLUMN_BEGIN;
+            para->descriptor = malloc(sizeof(EDCOLDESCR));
+            break;
+        case TP_MCOL_END:
+            para->type = LAST_IN_COLUMN;
+            break;
+        case TP_NEW_TAB_BEG:
+            para->type = TAB_BEGIN;
+            para->descriptor = malloc(sizeof(EDTABDESCR));
+            break;
+        case TP_NEW_ROW_BEG:
+            para->type = TAB_ROW_BEGIN;
+            para->descriptor = malloc(sizeof(EDROWDESCR));
+            break;
+        case TP_NEW_CELL_BEG:
+            para->type = TAB_CELL_BEGIN;
+            para->descriptor = malloc(sizeof(EDCELLDESCR));
+            break;
+        case TP_NEW_TAB_END:
+            para->type = TAB_END;
+            break;
+        case TP_FRAME_BEG:
+            para->type = FRAME_BEGIN;
+            para->descriptor = malloc(sizeof(EDFRAMEDESCR));
+            break;
+        case TP_FRAME_END:
+            para->type = FRAME_END;
             break;
         }
-        case SSR_LINE_FN: {
-            CEDParagraph *hPara = mainPage->GetParagraph(pt->object);
-            curEdLine = hPara->InsertLine();
-            break;
-        }
+
+        break;
+    }
+    case SSR_LINE_FN: {
+        CEDParagraph *hPara = mainPage->GetParagraph(pt->object);
+        curEdLine = hPara->InsertLine();
+        break;
+    }
     }
 }
 
-void NewFormattedLB(const line_beg* pt)
-{
+void NewFormattedLB(const line_beg* pt) {
     curEdLine->defChrFontHeight = pt->height;
     curEdLine->setHardBreak(!pt->base_line);
 }
 
-void NewFormattedBMR(const bit_map_ref * pt)
-{
+void NewFormattedBMR(const bit_map_ref * pt) {
     refBox.h = pt->height;
     refBox.w = pt->width;
     refBox.x = pt->col;
     refBox.y = pt->row;
 }
 
-void NewFormattedFK(const font_kegl * pt)
-{
+void NewFormattedFK(const font_kegl * pt) {
     font = pt->new_font;
     kegl = pt->new_kegl;
 }
 
-void NewFormattedLang(const EdTagLanguage* pt)
-{
+void NewFormattedLang(const EdTagLanguage* pt) {
     lang = pt->language;
 }
-void NewFormattedL(const letter* pt, const uint32_t alternatives)
-{
+void NewFormattedL(const letter* pt, const uint32_t alternatives) {
     if (!curEdLine)
         return;
 
@@ -497,130 +475,128 @@ void NewFormattedL(const letter* pt, const uint32_t alternatives)
     chr->setFontHeight(kegl);
     chr->fontAttribs = font;
     chr->fontNum = fontNum;
-    chr->fontLang = lang;
+    chr->setFontLanguage(static_cast<language_t> (lang));
     chr->backgroundColor = backgroundColor;
     chr->foregroundColor = foregroundColor;
 }
 
-void RepairStructure()
-{
-    CEDParagraph * tabBeg = 0, *rowBeg = 0, *cellBeg = 0, *colBeg = 0, *frmBeg =
-                                                                        0;
+void RepairStructure() {
+    CEDParagraph * tabBeg = 0, *rowBeg = 0, *cellBeg = 0, *colBeg = 0, *frmBeg = 0;
     CEDParagraph *hPara = mainPage->GetParagraph(0);
 
     while (hPara) {
         switch (hPara->type) {
-            case TAB_BEGIN: {
-                //Memorized beginning of table
-                tabBeg = hPara;
-                EDTABDESCR *td = (EDTABDESCR*) (tabBeg->descriptor);
-                td->numOfRows = 0;
-                td->cur = hPara;
-                td->next = hPara;
-                td->table = 0;
-                break;
-            }
-            case TAB_ROW_BEGIN: {
-                //If it is not a first line - refer to the current one
-                if (rowBeg) {
-                    EDROWDESCR *rd = (EDROWDESCR*) (rowBeg->descriptor);
-                    rd->last = hPara;
-                }
-
-                //In a table of lines+1
-                if (tabBeg) {
-                    EDTABDESCR *td = (EDTABDESCR*) (tabBeg->descriptor);
-                    td->numOfRows++;
-
-                    //If it is a first line
-                    if (!rowBeg)
-                        td->next = hPara;
-
-                    td->cur = hPara;
-                }
-
-                rowBeg = hPara;
+        case TAB_BEGIN: {
+            //Memorized beginning of table
+            tabBeg = hPara;
+            EDTABDESCR *td = (EDTABDESCR*) (tabBeg->descriptor);
+            td->numOfRows = 0;
+            td->cur = hPara;
+            td->next = hPara;
+            td->table = 0;
+            break;
+        }
+        case TAB_ROW_BEGIN: {
+            //If it is not a first line - refer to the current one
+            if (rowBeg) {
                 EDROWDESCR *rd = (EDROWDESCR*) (rowBeg->descriptor);
-                rd->numOfCells = 0;
-                rd->next = hPara;
+                rd->last = hPara;
+            }
+
+            //In a table of lines+1
+            if (tabBeg) {
+                EDTABDESCR *td = (EDTABDESCR*) (tabBeg->descriptor);
+                td->numOfRows++;
+
+                //If it is a first line
+                if (!rowBeg)
+                    td->next = hPara;
+
+                td->cur = hPara;
+            }
+
+            rowBeg = hPara;
+            EDROWDESCR *rd = (EDROWDESCR*) (rowBeg->descriptor);
+            rd->numOfCells = 0;
+            rd->next = hPara;
+            rd->cur = hPara;
+            cellBeg = 0;
+            break;
+        }
+        case TAB_CELL_BEGIN: {
+            if (cellBeg) {
+                EDCELLDESCR *cd = (EDCELLDESCR*) (cellBeg->descriptor);
+                cd->next = hPara;
+            }
+
+            if (rowBeg) {
+                EDROWDESCR *rd = (EDROWDESCR*) (rowBeg->descriptor);
+                rd->numOfCells++;
+
+                if (!cellBeg)
+                    rd->next = hPara;
+
                 rd->cur = hPara;
-                cellBeg = 0;
-                break;
             }
-            case TAB_CELL_BEGIN: {
-                if (cellBeg) {
-                    EDCELLDESCR *cd = (EDCELLDESCR*) (cellBeg->descriptor);
-                    cd->next = hPara;
-                }
 
-                if (rowBeg) {
-                    EDROWDESCR *rd = (EDROWDESCR*) (rowBeg->descriptor);
-                    rd->numOfCells++;
-
-                    if (!cellBeg)
-                        rd->next = hPara;
-
-                    rd->cur = hPara;
-                }
-
-                cellBeg = hPara;
-                break;
+            cellBeg = hPara;
+            break;
+        }
+        case TAB_END: {
+            if (rowBeg) {
+                EDROWDESCR *rd = (EDROWDESCR*) (rowBeg->descriptor);
+                rd->last = hPara;
             }
-            case TAB_END: {
-                if (rowBeg) {
-                    EDROWDESCR *rd = (EDROWDESCR*) (rowBeg->descriptor);
-                    rd->last = hPara;
-                }
 
-                if (tabBeg) {
-                    EDTABDESCR *td = (EDTABDESCR*) (tabBeg->descriptor);
-                    td->last = hPara;
-                }
-
-                if (cellBeg) {
-                    EDCELLDESCR *cd = (EDCELLDESCR*) (cellBeg->descriptor);
-                    cd->next = hPara;
-                }
-
-                cellBeg = tabBeg = rowBeg = 0;
-                break;
+            if (tabBeg) {
+                EDTABDESCR *td = (EDTABDESCR*) (tabBeg->descriptor);
+                td->last = hPara;
             }
-            case FRAME_BEGIN: {
-                frmBeg = hPara;
-                break;
-            }
-            case FRAME_END: {
-                EDFRAMEDESCR *fd = (EDFRAMEDESCR*) (frmBeg->descriptor);
-                fd->last = hPara;
-                frmBeg = 0;
-                break;
-            }
-            case COLUMN_BEGIN: {
-                CEDSection * sec = mainPage->GetSection(hPara->parentNumber);
 
-                if (colBeg) {
-                    EDCOLDESCR *cd = (EDCOLDESCR*) (colBeg->descriptor);
-                    cd->next = hPara;
-                }
-
-                else
-                    sec->columnsBeg = hPara;
-
-                colBeg = hPara;
-                sec->numberOfColumns++;
-                sec->columnsCur = hPara;
-                break;
+            if (cellBeg) {
+                EDCELLDESCR *cd = (EDCELLDESCR*) (cellBeg->descriptor);
+                cd->next = hPara;
             }
-            case LAST_IN_COLUMN: {
-                if (colBeg) {
-                    EDCOLDESCR *cd = (EDCOLDESCR*) (colBeg->descriptor);
-                    cd->next = hPara;
-                }
 
-                colBeg = 0;
-                mainPage->GetSection(hPara->parentNumber)->columnsEnd = hPara;
-                break;
+            cellBeg = tabBeg = rowBeg = 0;
+            break;
+        }
+        case FRAME_BEGIN: {
+            frmBeg = hPara;
+            break;
+        }
+        case FRAME_END: {
+            EDFRAMEDESCR *fd = (EDFRAMEDESCR*) (frmBeg->descriptor);
+            fd->last = hPara;
+            frmBeg = 0;
+            break;
+        }
+        case COLUMN_BEGIN: {
+            CEDSection * sec = mainPage->GetSection(hPara->parentNumber);
+
+            if (colBeg) {
+                EDCOLDESCR *cd = (EDCOLDESCR*) (colBeg->descriptor);
+                cd->next = hPara;
             }
+
+            else
+                sec->columnsBeg = hPara;
+
+            colBeg = hPara;
+            sec->numberOfColumns++;
+            sec->columnsCur = hPara;
+            break;
+        }
+        case LAST_IN_COLUMN: {
+            if (colBeg) {
+                EDCOLDESCR *cd = (EDCOLDESCR*) (colBeg->descriptor);
+                cd->next = hPara;
+            }
+
+            colBeg = 0;
+            mainPage->GetSection(hPara->parentNumber)->columnsEnd = hPara;
+            break;
+        }
         }
 
         hPara = hPara->next;
@@ -645,8 +621,8 @@ void CED_ShowTree(char * name, Handle hEdPage)
 
     for (unsigned int p = 0; p < CED_GetNumOfPics(hEdPage); p++) {
         int pictNumber, pictAlign , type, length;
-		CIF::Size pictSize;
-		EDSIZE pictGoal;
+        CIF::Size pictSize;
+        EDSIZE pictGoal;
         CED_GetPicture(hEdPage, p, &pictNumber, pictSize, &pictGoal, &pictAlign , &type, 0, &length);
         fprintf(stream, "\npictNumber=%d, type=%d, length=%d, pictSize.x=%d, pictSize.y=%d,\npictGoal.x=%d, pictGoal.y=%d, pictAlign=%d\n",
                 pictNumber, type, length, pictSize.width(), pictSize.height(), pictGoal.cx, pictGoal.cy, pictAlign);
@@ -660,8 +636,8 @@ void CED_ShowTree(char * name, Handle hEdPage)
         fprintf(stream, "\ncolumns:");
 
         for (unsigned int c = 0; c < CED_GetNumSnakeCols(sect); c++)
-            fprintf(stream, "\ncolumn %i,wd=%i,sp=%i", c,
-                    CED_GetSnakeColumnWidth(sect, c), CED_GetSnakeColumnSpacing(sect, c));
+        fprintf(stream, "\ncolumn %i,wd=%i,sp=%i", c,
+                CED_GetSnakeColumnWidth(sect, c), CED_GetSnakeColumnSpacing(sect, c));
 
         for (unsigned int j = 0; j < CED_GetCountColumn(sect); j++) {
             Handle col = CED_GetColumn(sect, j);
@@ -694,10 +670,10 @@ void CED_ShowTree(char * name, Handle hEdPage)
                                 ss[0] = 0;
 
                                 if (flag&ED_TDIR_UP)
-                                    strcpy(ss, ",ED_TDIR_UP");
+                                strcpy(ss, ",ED_TDIR_UP");
 
                                 if (flag&ED_TDIR_DOWN)
-                                    strcpy(ss, ",ED_TDIR_DOWN");
+                                strcpy(ss, ",ED_TDIR_DOWN");
 
                                 fprintf(stream, "\nCellX:%d,mrg:%d,vAlign:%d%s", cx, mg, va, ss);
                                 Handle para1 = CED_GetFirstObject(hPara);
@@ -745,7 +721,7 @@ void CED_ShowTree(char * name, Handle hEdPage)
 
 void PrintPara(FILE *stream, Handle para)
 {
-	CIF::Rect indent = (static_cast<CIF::CEDParagraph*>(para))->indent;
+    CIF::Rect indent = (static_cast<CIF::CEDParagraph*>(para))->indent;
     fprintf(stream, "\nparagraph,alig=%i,FInd=%d,LInd=%i,RInd=%d",
             CED_GetAlignment(para), indent.top(), indent.left(), indent.right());
     fprintf(stream, ",usNum=%i,sb=%i,sa=%i\n", CED_GetUserNumber(para), CED_GetInterval(para).cx, CED_GetInterval(para).cy);
@@ -757,10 +733,10 @@ void PrintPara(FILE *stream, Handle para)
             Handle chr = CED_GetChar(line, c);
 
             if (!CED_IsPicture(chr))
-                fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
+            fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
 
             else
-                fprintf(stream, "\\pict%d\\", CED_GetCharFontNum(chr) - ED_PICT_BASE);
+            fprintf(stream, "\\pict%d\\", CED_GetCharFontNum(chr) - ED_PICT_BASE);
         }
 
         fprintf(stream, "\n");
@@ -769,21 +745,18 @@ void PrintPara(FILE *stream, Handle para)
 #endif
 
 Bool32 WriteRemark(Handle hFile, int type, int object);
-Bool32 WriteExtCode(Handle hFile, int Ecode, void* object, int lenOfObj,
-                    int etraLen = 0);
+Bool32 WriteExtCode(Handle hFile, int Ecode, void* object, int lenOfObj, int etraLen = 0);
 Bool32 WriteFontTable(Handle hFile, CIF::CEDPage *page);
 Bool32 WriteTiffDescr(Handle hFile, CIF::CEDPage* page);
 Bool32 WritePictTable(Handle hFile, CIF::CEDPage* page);
 Bool32 WritePara(Handle hFile, CEDParagraph* hPara);
 
-Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
-{
+Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
     int ret;
     int fn;
     int sec;
     CEDChar *tmpChr;
-    Handle hFile = CFIO_OpenFreeFile(0, fileName, OSF_CREATE | OSF_BINARY
-                                     | OSF_WRITE);
+    Handle hFile = CFIO_OpenFreeFile(0, fileName, OSF_CREATE | OSF_BINARY | OSF_WRITE);
 
     if (!hFile) {
         SetReturnCode_ced(CFIO_GetReturnCode());
@@ -800,20 +773,19 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
     sdd.incline = page->turn;
     sdd.version = 2000;
 
-    if (!CFIO_WriteToFile(hFile, (pchar) & sdd, sizeof(sdd)))
+    if (!CFIO_WriteToFile(hFile, (pchar) &sdd, sizeof(sdd)))
         goto ED_WRITE_END;
 
     fragm_disk_descr fdd;
     memset((void*) &fdd, 0, sizeof(fdd));
     fdd.code = SS_FRAGMENT;
 
-    if (!CFIO_WriteToFile(hFile, (pchar) & fdd, sizeof(fdd)))
+    if (!CFIO_WriteToFile(hFile, (pchar) &fdd, sizeof(fdd)))
         goto ED_WRITE_END;
 
     //Write text description of version
-    if (!WriteExtCode(hFile, EDEXT_VERSION,
-                      (void*) "CuneiForm2000 file format", strlen(
-                          "CuneiForm2000 file format") + 1))
+    if (!WriteExtCode(hFile, EDEXT_VERSION, (void*) "CuneiForm2000 file format", strlen(
+            "CuneiForm2000 file format") + 1))
         goto ED_WRITE_END;
 
     //Write table of fonts
@@ -855,16 +827,16 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
         sp.colInterval = sect->colInterval;
         sp.numSnakeCols = sect->numSnakeCols;
 
-        if (!WriteExtCode(hFile, EDEXT_SECTION, &sp, sizeof(sp),
-                          sizeof(sectParams2) + sect->numSnakeCols * 8))
+        if (!WriteExtCode(hFile, EDEXT_SECTION, &sp, sizeof(sp), sizeof(sectParams2)
+                + sect->numSnakeCols * 8))
             goto ED_WRITE_END;
 
         for (i = 0; i < sect->numSnakeCols; i++)
-            if (!CFIO_WriteToFile(hFile, (pchar) & (sect->colInfo[i].width), 4))
+            if (!CFIO_WriteToFile(hFile, (pchar) &(sect->colInfo[i].width), 4))
                 goto ED_WRITE_END;
 
         for (i = 0; i < sect->numSnakeCols; i++)
-            if (!CFIO_WriteToFile(hFile, (pchar) & (sect->colInfo[i].space), 4))
+            if (!CFIO_WriteToFile(hFile, (pchar) &(sect->colInfo[i].space), 4))
                 goto ED_WRITE_END;
 
         sectParams2 sp2;
@@ -876,7 +848,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
         sp2.sectionBreak = sect->sectionBreak;
         sp2.lineBetCol = sect->lineBetCol;
 
-        if (!CFIO_WriteToFile(hFile, (pchar) & sp2, sizeof(sp2)))
+        if (!CFIO_WriteToFile(hFile, (pchar) &sp2, sizeof(sp2)))
             goto ED_WRITE_END;
 
         if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_MCOL_BEG))
@@ -898,111 +870,111 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
             frameParam fp;
 
             switch (hPara->type) {
-                default:
+            default:
 
-                    if (!WritePara(hFile, hPara))
+                if (!WritePara(hFile, hPara))
+                    goto ED_WRITE_END;
+
+                break;
+            case TAB_BEGIN:
+
+                if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_NEW_TAB_BEG))
+                    goto ED_WRITE_END;
+
+                break;
+            case TAB_ROW_BEGIN:
+
+                if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_NEW_ROW_BEG))
+                    goto ED_WRITE_END;
+
+                rd = (edRowDescr*) (hPara)->descriptor;
+                rp.topBrdrType = rd->topBrdrType;
+                rp.topBrdrWidth = rd->topBrdrWidth;
+                rp.bottomBrdrType = rd->bottomBrdrType;
+                rp.bottomBrdrWidth = rd->bottomBrdrWidth;
+                rp.leftBrdrType = rd->leftBrdrType;
+                rp.leftBrdrWidth = rd->leftBrdrWidth;
+                rp.rightBrdrType = rd->rightBrdrType;
+                rp.rightBrdrWidth = rd->rightBrdrWidth;
+                rp.gaph = rd->gaph;
+                rp.header = uchar(rd->header);
+                rp.left = rd->header;
+                rp.position = rd->position;
+                rp.rowHeight = rd->rowHeight;
+                rp.left = rd->left;
+
+                if (!WriteExtCode(hFile, EDEXT_TABLE_ROW, &rp, sizeof(rp)))
+                    goto ED_WRITE_END;
+
+                break;
+            case TAB_CELL_BEGIN:
+
+                if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_NEW_CELL_BEG))
+                    goto ED_WRITE_END;
+
+                cd = (edCellDescr*) (hPara)->descriptor;
+                cp.topBrdrType = cd->topBrdrType;
+                cp.topBrdrWidth = cd->topBrdrWidth;
+                cp.bottomBrdrType = cd->bottomBrdrType;
+                cp.bottomBrdrWidth = cd->bottomBrdrWidth;
+                cp.leftBrdrType = cd->leftBrdrType;
+                cp.leftBrdrWidth = cd->leftBrdrWidth;
+                cp.rightBrdrType = cd->rightBrdrType;
+                cp.rightBrdrWidth = cd->rightBrdrWidth;
+                cp.cellX = cd->cellX;
+                cp.color = cd->color;
+                cp.shading = cd->shading;
+                cp.merging = cd->merging;
+                cp.vertTextAlign = cd->vertTextAlign;
+                cp.flag = cd->flag;
+                memcpy(&(cp.layout), &(cd->layout), sizeof(edBox));
+
+                if (!WriteExtCode(hFile, EDEXT_TABLE_CELL, &cp, sizeof(cp)))
+                    goto ED_WRITE_END;
+
+                break;
+            case TAB_END:
+
+                if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_NEW_TAB_END))
+                    goto ED_WRITE_END;
+
+                break;
+            case FRAME_BEGIN:
+
+                if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_FRAME_BEG))
+                    goto ED_WRITE_END;
+
+                fd = (edFrameDescr*) (hPara)->descriptor;
+                fp.posx = fd->rec.x;
+                fp.posy = fd->rec.y;
+                fp.absw = fd->rec.w;
+                fp.absh = fd->rec.h;
+                fp.borderSpace = fd->borderSpace;
+                fp.dxfrtextx = fd->dxfrtextx;
+                fp.dxfrtexty = fd->dxfrtexty;
+                fp.position = fd->position;
+                fp.flag = fd->flag;
+
+                if (!WriteExtCode(hFile, EDEXT_FRAME, &fp, sizeof(fp), 0))
+                    goto ED_WRITE_END;
+
+                break;
+            case FRAME_END:
+
+                if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_FRAME_END))
+                    goto ED_WRITE_END;
+
+                break;
+            case COLUMN_BEGIN:
+
+                if (!fisrtCol)
+                    if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_NEW_COL))
                         goto ED_WRITE_END;
 
-                    break;
-                case TAB_BEGIN:
-
-                    if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_NEW_TAB_BEG))
-                        goto ED_WRITE_END;
-
-                    break;
-                case TAB_ROW_BEGIN:
-
-                    if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_NEW_ROW_BEG))
-                        goto ED_WRITE_END;
-
-                    rd = (edRowDescr*) (hPara)->descriptor;
-                    rp.topBrdrType = rd->topBrdrType;
-                    rp.topBrdrWidth = rd->topBrdrWidth;
-                    rp.bottomBrdrType = rd->bottomBrdrType;
-                    rp.bottomBrdrWidth = rd->bottomBrdrWidth;
-                    rp.leftBrdrType = rd->leftBrdrType;
-                    rp.leftBrdrWidth = rd->leftBrdrWidth;
-                    rp.rightBrdrType = rd->rightBrdrType;
-                    rp.rightBrdrWidth = rd->rightBrdrWidth;
-                    rp.gaph = rd->gaph;
-                    rp.header = uchar(rd->header);
-                    rp.left = rd->header;
-                    rp.position = rd->position;
-                    rp.rowHeight = rd->rowHeight;
-                    rp.left = rd->left;
-
-                    if (!WriteExtCode(hFile, EDEXT_TABLE_ROW, &rp, sizeof(rp)))
-                        goto ED_WRITE_END;
-
-                    break;
-                case TAB_CELL_BEGIN:
-
-                    if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_NEW_CELL_BEG))
-                        goto ED_WRITE_END;
-
-                    cd = (edCellDescr*) (hPara)->descriptor;
-                    cp.topBrdrType = cd->topBrdrType;
-                    cp.topBrdrWidth = cd->topBrdrWidth;
-                    cp.bottomBrdrType = cd->bottomBrdrType;
-                    cp.bottomBrdrWidth = cd->bottomBrdrWidth;
-                    cp.leftBrdrType = cd->leftBrdrType;
-                    cp.leftBrdrWidth = cd->leftBrdrWidth;
-                    cp.rightBrdrType = cd->rightBrdrType;
-                    cp.rightBrdrWidth = cd->rightBrdrWidth;
-                    cp.cellX = cd->cellX;
-                    cp.color = cd->color;
-                    cp.shading = cd->shading;
-                    cp.merging = cd->merging;
-                    cp.vertTextAlign = cd->vertTextAlign;
-                    cp.flag = cd->flag;
-                    memcpy(&(cp.layout), &(cd->layout), sizeof(edBox));
-
-                    if (!WriteExtCode(hFile, EDEXT_TABLE_CELL, &cp, sizeof(cp)))
-                        goto ED_WRITE_END;
-
-                    break;
-                case TAB_END:
-
-                    if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_NEW_TAB_END))
-                        goto ED_WRITE_END;
-
-                    break;
-                case FRAME_BEGIN:
-
-                    if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_FRAME_BEG))
-                        goto ED_WRITE_END;
-
-                    fd = (edFrameDescr*) (hPara)->descriptor;
-                    fp.posx = fd->rec.x;
-                    fp.posy = fd->rec.y;
-                    fp.absw = fd->rec.w;
-                    fp.absh = fd->rec.h;
-                    fp.borderSpace = fd->borderSpace;
-                    fp.dxfrtextx = fd->dxfrtextx;
-                    fp.dxfrtexty = fd->dxfrtexty;
-                    fp.position = fd->position;
-                    fp.flag = fd->flag;
-
-                    if (!WriteExtCode(hFile, EDEXT_FRAME, &fp, sizeof(fp), 0))
-                        goto ED_WRITE_END;
-
-                    break;
-                case FRAME_END:
-
-                    if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_FRAME_END))
-                        goto ED_WRITE_END;
-
-                    break;
-                case COLUMN_BEGIN:
-
-                    if (!fisrtCol)
-                        if (!WriteRemark(hFile, SSR_FRAG_TYPE, TP_NEW_COL))
-                            goto ED_WRITE_END;
-
-                    fisrtCol = FALSE;
-                    break;
-                case LAST_IN_COLUMN:
-                    break;
+                fisrtCol = FALSE;
+                break;
+            case LAST_IN_COLUMN:
+                break;
             }
 
             hPara = hPara->next;
@@ -1024,7 +996,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
         font = fk.new_font = tmpChr->fontAttribs;
         kegl = fk.new_kegl = tmpChr->fontHeight();
 
-        if (!CFIO_WriteToFile(hFile, (pchar) & fk, sizeof(fk)))
+        if (!CFIO_WriteToFile(hFile, (pchar) &fk, sizeof(fk)))
             goto ED_WRITE_END;
 
         charParams chp;
@@ -1037,9 +1009,9 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
 
         EdTagLanguage fl;
         fl.code = SS_LANGUAGE;
-        fl.language = lang = tmpChr->fontLang;
+        fl.language = lang = tmpChr->fontLanguage();
 
-        if (!CFIO_WriteToFile(hFile, (pchar) & fl, sizeof(fl)))
+        if (!CFIO_WriteToFile(hFile, (pchar) &fl, sizeof(fl)))
             goto ED_WRITE_END;
     }
 
@@ -1068,7 +1040,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
                     bmr.height = bbox.height();
                     bmr.width = bbox.width();
 
-                    if (!CFIO_WriteToFile(hFile, (pchar)(&bmr), sizeof(bmr)))
+                    if (!CFIO_WriteToFile(hFile, (pchar) (&bmr), sizeof(bmr)))
                         goto ED_WRITE_END;
 
                     if (chr->fontHeight() != kegl || chr->fontAttribs != font) {
@@ -1077,36 +1049,33 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
                         font = fk.new_font = chr->fontAttribs;
                         kegl = fk.new_kegl = chr->fontHeight();
 
-                        if (!CFIO_WriteToFile(hFile, (pchar) & fk, sizeof(fk)))
+                        if (!CFIO_WriteToFile(hFile, (pchar) &fk, sizeof(fk)))
                             goto ED_WRITE_END;
                     }
 
-                    if (chr->fontNum != fontNum || chr->foregroundColor
-                            != foregroundColor || chr->backgroundColor
-                            != backgroundColor) {
+                    if (chr->fontNum != fontNum || chr->foregroundColor != foregroundColor
+                            || chr->backgroundColor != backgroundColor) {
                         charParams chp;
                         chp.fontNumber = fontNum = chr->fontNum;
-                        chp.foregroundColor = foregroundColor
-                                              = chr->foregroundColor;
-                        chp.backgroundColor = backgroundColor
-                                              = chr->backgroundColor;
+                        chp.foregroundColor = foregroundColor = chr->foregroundColor;
+                        chp.backgroundColor = backgroundColor = chr->backgroundColor;
 
                         if (!WriteExtCode(hFile, EDEXT_CHAR, &chp, sizeof(chp)))
                             goto ED_WRITE_END;
                     }
 
-                    if (chr->fontLang != lang) {
+                    if (chr->fontLanguage() != lang) {
                         EdTagLanguage fl;
                         fl.code = SS_LANGUAGE;
-                        fl.language = lang = chr->fontLang;
+                        fl.language = lang = chr->fontLanguage();
 
-                        if (!CFIO_WriteToFile(hFile, (pchar) & fl, sizeof(fl)))
+                        if (!CFIO_WriteToFile(hFile, (pchar) &fl, sizeof(fl)))
                             goto ED_WRITE_END;
                     }
 
                     if (chr->alternatives) {
-                        if (!CFIO_WriteToFile(hFile, (pchar) chr->alternatives,
-                                              chr->numOfAltern * sizeof(letterEx)))
+                        if (!CFIO_WriteToFile(hFile, (pchar) chr->alternatives, chr->numOfAltern
+                                * sizeof(letterEx)))
                             goto ED_WRITE_END;
                     }
 
@@ -1115,13 +1084,12 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
                         l.alternative = ' ';
                         l.probability = 254;
 
-                        if (!CFIO_WriteToFile(hFile, (pchar) & l, sizeof(letterEx)))
+                        if (!CFIO_WriteToFile(hFile, (pchar) &l, sizeof(letterEx)))
                             goto ED_WRITE_END;
                     }
 
                     chr = line->NextChar(FALSE);
-                }
-                while (chr);
+                } while (chr);
             }
 
             if (line->hardBreak() || line->defChrFontHeight > 0) {
@@ -1130,28 +1098,24 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page)
                 lb.base_line = !line->hardBreak();
                 lb.height = line->defChrFontHeight;
 
-                if (!CFIO_WriteToFile(hFile, (pchar) & lb, sizeof(line_beg)))
+                if (!CFIO_WriteToFile(hFile, (pchar) &lb, sizeof(line_beg)))
                     goto ED_WRITE_END;
             }
 
             line = line->next;//para->NextLine(FALSE);
-        }
-        while (line);
+        } while (line);
     }
 
     SetReturnCode_ced(IDS_ERR_NO);
     ret = TRUE;
     goto FINAL;
-ED_WRITE_END:
-    SetReturnCode_ced(CFIO_GetReturnCode());
+    ED_WRITE_END: SetReturnCode_ced(CFIO_GetReturnCode());
     ret = FALSE;
-FINAL:
-    CFIO_CloseFreeFile(hFile, CSF_SAVEDISK);
+    FINAL: CFIO_CloseFreeFile(hFile, CSF_SAVEDISK);
     return ret;
 }
 
-Bool32 WriteFontTable(Handle hFile, CIF::CEDPage* page)
-{
+Bool32 WriteFontTable(Handle hFile, CIF::CEDPage* page) {
     char* ch = 0;
     //define the sum of lengths of all names of fonts
     int len = 0;
@@ -1167,19 +1131,17 @@ Bool32 WriteFontTable(Handle hFile, CIF::CEDPage* page)
             len += strlen(ch) + 1;
     }
 
-    if (!WriteExtCode(hFile, EDEXT_FONTS, 0, 0, len + sizeof(fontDiscr)
-                      * page->fontsUsed))
+    if (!WriteExtCode(hFile, EDEXT_FONTS, 0, 0, len + sizeof(fontDiscr) * page->fontsUsed))
         return FALSE;
 
     fontDiscr fond;
 
     for (q = 0; q < page->fontsUsed; q++) {
-        page->GetFont(q, &(fond.fontNumber), &(fond.fontPitchAndFamily),
-                      &(fond.fontCharset), &ch);
+        page->GetFont(q, &(fond.fontNumber), &(fond.fontPitchAndFamily), &(fond.fontCharset), &ch);
         fond.size = strlen(ch) + 1 + sizeof(fontDiscr);
 
         //write info about font
-        if (!CFIO_WriteToFile(hFile, (pchar) & fond, sizeof(fontDiscr)))
+        if (!CFIO_WriteToFile(hFile, (pchar) &fond, sizeof(fontDiscr)))
             return FALSE;
 
         //write font's name
@@ -1190,8 +1152,7 @@ Bool32 WriteFontTable(Handle hFile, CIF::CEDPage* page)
     return TRUE;
 }
 
-Bool32 WriteTiffDescr(Handle hFile, CEDPage* page)
-{
+Bool32 WriteTiffDescr(Handle hFile, CEDPage* page) {
     originalImageDesc fond;
     fond.height = page->sizeOfImage.cy;
     fond.width = page->sizeOfImage.cx;
@@ -1201,8 +1162,7 @@ Bool32 WriteTiffDescr(Handle hFile, CEDPage* page)
     fond.resolutionY = (uint16_t) page->dpi.cy;
     fond.unrecogSymbol = page->unrecogChar;
 
-    if (!WriteExtCode(hFile, EDEXT_TIFF_DESC, &fond, sizeof(fond), strlen(
-                          page->imageName) + 1))
+    if (!WriteExtCode(hFile, EDEXT_TIFF_DESC, &fond, sizeof(fond), strlen(page->imageName) + 1))
         return FALSE;
 
     if (!CFIO_WriteToFile(hFile, (pchar) page->imageName, strlen(page->imageName) + 1))
@@ -1211,8 +1171,7 @@ Bool32 WriteTiffDescr(Handle hFile, CEDPage* page)
     return TRUE;
 }
 
-Bool32 WritePictTable(Handle hFile, CEDPage* page)
-{
+Bool32 WritePictTable(Handle hFile, CEDPage* page) {
     //define sum of lengths of all pictures
     int len = 0;
     int q;
@@ -1224,8 +1183,7 @@ Bool32 WritePictTable(Handle hFile, CEDPage* page)
         len += page->picsTable[q].len;
     }
 
-    if (!WriteExtCode(hFile, EDEXT_PICS, 0, 0, len + sizeof(pictDescr)
-                      * page->picsUsed))
+    if (!WriteExtCode(hFile, EDEXT_PICS, 0, 0, len + sizeof(pictDescr) * page->picsUsed))
         return FALSE;
 
     pictDescr picd;
@@ -1241,20 +1199,18 @@ Bool32 WritePictTable(Handle hFile, CEDPage* page)
         picd.size = page->picsTable[q].len + sizeof(picd);
 
         //write picture info.
-        if (!CFIO_WriteToFile(hFile, (pchar) & picd, sizeof(picd)))
+        if (!CFIO_WriteToFile(hFile, (pchar) &picd, sizeof(picd)))
             return FALSE;
 
         //write picture
-        if (!CFIO_WriteToFile(hFile, (pchar) page->picsTable[q].data,
-                              page->picsTable[q].len))
+        if (!CFIO_WriteToFile(hFile, (pchar) page->picsTable[q].data, page->picsTable[q].len))
             return FALSE;
     }
 
     return TRUE;
 }
 
-Bool32 WritePara(Handle hFile, CEDParagraph* hPara)
-{
+Bool32 WritePara(Handle hFile, CEDParagraph* hPara) {
     paraParams pard;
 
     if (!WriteRemark(hFile, SSR_FRAG_TYPE, hPara->alignment))
@@ -1289,16 +1245,14 @@ Bool32 WritePara(Handle hFile, CEDParagraph* hPara)
 }
 
 //write lenOfObj+extraLen to the field corresponding to length
-Bool32 WriteExtCode(Handle hFile, int Ecode, void* object, int lenOfObj,
-                    int extraLen)
-{
+Bool32 WriteExtCode(Handle hFile, int Ecode, void* object, int lenOfObj, int extraLen) {
     if (!(Ecode & 0x8000)) {
         edExtention ext;
         ext.code = SS_EXTENTION;
         ext.Ecode = Ecode;
         ext.length = lenOfObj + extraLen + sizeof(ext);
 
-        if (!CFIO_WriteToFile(hFile, (pchar) & ext, sizeof(ext)))
+        if (!CFIO_WriteToFile(hFile, (pchar) &ext, sizeof(ext)))
             return FALSE;
     }
 
@@ -1308,7 +1262,7 @@ Bool32 WriteExtCode(Handle hFile, int Ecode, void* object, int lenOfObj,
         ext.Ecode = Ecode;
         ext.length = lenOfObj + extraLen + sizeof(ext);
 
-        if (!CFIO_WriteToFile(hFile, (pchar) & ext, sizeof(ext)))
+        if (!CFIO_WriteToFile(hFile, (pchar) &ext, sizeof(ext)))
             return FALSE;
     }
 
@@ -1319,21 +1273,19 @@ Bool32 WriteExtCode(Handle hFile, int Ecode, void* object, int lenOfObj,
     return TRUE;
 }
 
-Bool32 WriteRemark(Handle hFile, int type, int object)
-{
+Bool32 WriteRemark(Handle hFile, int type, int object) {
     text_ref tr;
     tr.code = SS_REMARK;
     tr.type = type;
     tr.object = object;
 
-    if (!CFIO_WriteToFile(hFile, (pchar) & tr, sizeof(tr)))
+    if (!CFIO_WriteToFile(hFile, (pchar) &tr, sizeof(tr)))
         return FALSE;
 
     return TRUE;
 }
 
-uint32_t CED_IsEdFile(char * file, Bool32 readFromFile, uint32_t bufLen)
-{
+uint32_t CED_IsEdFile(char * file, Bool32 readFromFile, uint32_t bufLen) {
     Handle PedHandle;
     uint32_t len;
     puchar start;
@@ -1383,7 +1335,7 @@ uint32_t CED_IsEdFile(char * file, Bool32 readFromFile, uint32_t bufLen)
     if (((sheet_disk_descr*) start)->version = 2000)
         ret = 2000;
 
-END:
+    END:
 
     if (readFromFile) {
         CFIO_UnlockMemory(PedHandle);

@@ -19,6 +19,7 @@
 #ifndef CEDCHAR_H_
 #define CEDCHAR_H_
 
+#include <iostream>
 #include "globus.h"
 #include "ced_struct.h"
 #include "common/rect.h"
@@ -42,6 +43,11 @@ class FUN_EXPO__ CEDChar
          * Returns font height
          */
         int fontHeight() const;
+
+        /**
+         * Returns font language
+         */
+        language_t fontLanguage() const;
 
         /**
          * Checks if picture
@@ -74,14 +80,18 @@ class FUN_EXPO__ CEDChar
         void setFontHeight(int height);
 
         /**
+         * Sets font language
+         */
+        void setFontLanguage(language_t lang);
+
+        /**
          * Sets character parent number
          */
         void setParentNumber(int number);
 
-        CEDChar * prev, *next; //pointer to neibor elements in connected list
+        CEDChar * prev, *next; //pointer to neighbor elements in connected list
         int fontAttribs; //font parameters
         int fontNum;
-        int fontLang;
         int foregroundColor;
         int backgroundColor;
         letterEx * alternatives; //array of alternatives
@@ -91,42 +101,10 @@ class FUN_EXPO__ CEDChar
         Rect bbox_;
         int parent_number_;
         int font_height_;
+        language_t font_lang_;
 };
 
-inline Rect CEDChar::boundingRect() const {
-    return bbox_;
-}
-
-inline int CEDChar::fontHeight() const {
-    return font_height_;
-}
-
-inline int CEDChar::parentNumber() const {
-    return parent_number_;
-}
-
-inline Rect& CEDChar::rBoundingRect() {
-    return bbox_;
-}
-
-inline void CEDChar::setBoundingRect(const Rect& bbox) {
-    bbox_ = bbox;
-}
-
-inline void CEDChar::setBoundingRect(const EDBOX& bbox) {
-    bbox_.rleft() = bbox.x;
-    bbox_.rtop() = bbox.y;
-    bbox_.setWidth(bbox.w);
-    bbox_.setHeight(bbox.h);
-}
-
-inline void CEDChar::setFontHeight(int height) {
-    font_height_ = height;
-}
-
-inline void CEDChar::setParentNumber(int number) {
-    parent_number_ = number;
-}
+std::ostream& operator<<(std::ostream& os, const CEDChar& chr);
 
 }
 

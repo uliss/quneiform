@@ -68,6 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "rtfedwrite.h"
 #include "recdefs.h"
 #include "cfcompat.h"
+#include "lang_def.h"
 
 #include <vector>
 #include <cassert>
@@ -584,7 +585,7 @@ class CRtfChar//:public CObject
         } m_chrVersions[REC_MAX_VERS];//!!! Art
         RECT                 m_Idealrect;
         RECT                 m_Realrect;
-        uchar                 m_blanguage;
+        language_t                 m_blanguage;
         uchar                 m_bFlg_spell;
         uchar                 m_bFlg_spell_nocarrying;
         uchar                 m_bFlg_cup_drop;

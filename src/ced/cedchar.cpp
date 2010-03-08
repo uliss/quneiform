@@ -22,8 +22,8 @@ namespace CIF
 {
 
 CEDChar::CEDChar() :
-    parent_number_(0), font_height_(0) {
-    fontNum = fontAttribs = fontNum = fontLang = 0;
+    parent_number_(0), font_height_(0), font_lang_(LANGUAGE_ENGLISH) {
+    fontNum = fontAttribs = fontNum = 0;
     foregroundColor = backgroundColor = 0;
     alternatives = 0;
     numOfAltern = 0;
@@ -32,6 +32,54 @@ CEDChar::CEDChar() :
 
 bool CEDChar::isPicture() const {
     return (fontNum >= ED_PICT_BASE) && (fontNum != 0xffffffff) && (fontNum != 0xfffffffe);
+}
+
+Rect CEDChar::boundingRect() const {
+    return bbox_;
+}
+
+int CEDChar::fontHeight() const {
+    return font_height_;
+}
+
+language_t CEDChar::fontLanguage() const {
+    return font_lang_;
+}
+
+int CEDChar::parentNumber() const {
+    return parent_number_;
+}
+
+Rect& CEDChar::rBoundingRect() {
+    return bbox_;
+}
+
+void CEDChar::setBoundingRect(const Rect& bbox) {
+    bbox_ = bbox;
+}
+
+void CEDChar::setBoundingRect(const EDBOX& bbox) {
+    bbox_.rleft() = bbox.x;
+    bbox_.rtop() = bbox.y;
+    bbox_.setWidth(bbox.w);
+    bbox_.setHeight(bbox.h);
+}
+
+void CEDChar::setFontHeight(int height) {
+    font_height_ = height;
+}
+
+void CEDChar::setFontLanguage(language_t lang) {
+    font_lang_ = lang;
+}
+
+void CEDChar::setParentNumber(int number) {
+    parent_number_ = number;
+}
+
+std::ostream& operator<<(std::ostream& os, const CEDChar& chr) {
+    os << "char: parentNumber=" << chr.parentNumber() << ";fontheight=" << chr.fontHeight();
+    return os;
 }
 
 }

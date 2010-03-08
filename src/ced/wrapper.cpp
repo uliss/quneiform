@@ -419,7 +419,7 @@ CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, bool hardBreak, int defChrF
 
 //create symbol
 CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterEx* alternatives,
-        int fontHeight, int fontNum, int fontAttribs, int fontLang, int foregroundColor,
+        int fontHeight, int fontNum, int fontAttribs, language_t fontLang, int foregroundColor,
         int backgroundColor) {
     CEDChar *chr = ((CEDLine*) hEdLine)->InsertChar();
     chr->setFontHeight(fontHeight);
@@ -427,7 +427,7 @@ CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterE
     chr->fontAttribs = fontAttribs;
     chr->foregroundColor = foregroundColor;
     chr->backgroundColor = backgroundColor;
-    chr->fontLang = fontLang;
+    chr->setFontLanguage(fontLang);
     chr->setBoundingRect(layout);
 
     int i = 0;
