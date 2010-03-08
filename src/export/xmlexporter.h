@@ -56,11 +56,6 @@ class XmlExporter: public TextExporter
                 const std::string& newline = "");
 
         /**
-         * Writes xml declaration: <?xml ... ?>
-         */
-        void writeXmlDeclaration(std::ostream& os, const std::string& encoding = "UTF-8");
-
-        /**
          * If use indent is set writes appropriate indent to output stream
          */
         void writeIndent(std::ostream& os);
@@ -68,8 +63,8 @@ class XmlExporter: public TextExporter
         /**
          * Writes single tag to output stream
          */
-        void writeSingleTag(std::ostream& os, const std::string& tagName, const Attributes& attrs = Attributes(),
-                const std::string& newline = "");
+        void writeSingleTag(std::ostream& os, const std::string& tagName, const Attributes& attrs =
+                Attributes(), const std::string& newline = "");
 
         /**
          * Writes start tag to output stream
@@ -89,6 +84,32 @@ class XmlExporter: public TextExporter
          */
         void writeTag(std::ostream& os, const std::string& tagName, const std::string& tagText,
                 const Attributes& attrs = Attributes(), const std::string& newline = "");
+
+    protected:
+        /**
+         * Returns name of font style tag by given style type
+         */
+        virtual std::string fontStyleTag(int style) const;
+
+        /**
+         * Writes escaped character to line buffer
+         */
+        virtual void writeCharacter(std::ostream& os, CEDChar * chr);
+
+        /**
+         * Writes font style open tag
+         */
+        virtual void writeFontStyleBegin(std::ostream& os, int style);
+
+        /**
+         * Writes font style close tag
+         */
+        virtual void writeFontStyleEnd(std::ostream& os, int style);
+
+        /**
+         * Writes xml declaration: <?xml ... ?>
+         */
+        virtual void writeXmlDeclaration(std::ostream& os, const std::string& encoding = "UTF-8");
     private:
         int indent_level_;
         bool use_indent_;

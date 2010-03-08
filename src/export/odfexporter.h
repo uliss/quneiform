@@ -37,7 +37,7 @@ class OdfExporter: public XmlExporter
         void exportTo(const std::string& fname);
         void exportTo(std::ostream& os);
     protected:
-        void writeCharacter(std::ostream& os, CEDChar * chr);
+        std::string fontStyleTag(int style) const;
         void writeLineBreak(std::ostream& os, CEDLine * line);
         void writePageBegin(std::ostream& os, CEDPage * page);
         void writePageEnd(std::ostream& os, CEDPage * page);
@@ -60,7 +60,6 @@ class OdfExporter: public XmlExporter
         typedef std::vector<std::string> ManifestList;
         BufList buffers_;
         ManifestList files_;
-        int lines_left_ ;
 };
 
 }

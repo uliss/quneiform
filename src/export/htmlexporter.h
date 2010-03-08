@@ -30,32 +30,63 @@ class HtmlExporter: public XmlExporter
 {
     public:
         HtmlExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
-        ~HtmlExporter();
     protected:
-        void writeCharacter(std::ostream& os, CEDChar * chr);
+        virtual std::string fontStyleTag(int style) const;
+
+        /**
+         * Writes HTML document type
+         */
         virtual void writeDoctype(std::ostream& os);
-        virtual void writeFontStyle(std::ostream& os, long style);
-        void writeFontStyleBegin(std::ostream& os, long newStyle, int style);
-        void writeFontStyleClose(std::ostream& os, long newStyle, int style);
-        void writeLineBreak(std::ostream& os, CEDLine * line);
+
+        /**
+         * Writes <br/> tag if needed
+         */
+        virtual void writeLineBreak(std::ostream& os, CEDLine * line);
+
+        /**
+         * Writes HTML meta information in <meta> tags
+         */
         virtual void writeMeta(std::ostream& os);
-        void writePageBegin(std::ostream& os, CEDPage * page);
-        void writePageEnd(std::ostream& os, CEDPage * page);
-        void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
-        void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
-        void writePicture(std::ostream& os, CEDChar * picture);
-        void writeTableBegin(std::ostream& os, CEDParagraph * table);
-        void writeTableEnd(std::ostream& os, CEDParagraph * table);
+
+        /**
+         * Writes HTML header, meta info and <body> tag
+         */
+        virtual void writePageBegin(std::ostream& os, CEDPage * page);
+
+        /**
+         * Writes </body> and </html> tags
+         */
+        virtual void writePageEnd(std::ostream& os, CEDPage * page);
+
+        /**
+         * Writes <p> tag
+         */
+        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+
+        /**
+         * Writes </p> tag
+         */
+        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+
+        /**
+         * Writes <img tag
+         */
+        virtual void writePicture(std::ostream& os, CEDChar * picture);
+
+        /**
+         * Writes <table> tag
+         */
+        virtual void writeTableBegin(std::ostream& os, CEDParagraph * table);
+
+        /**
+         * Writes </table> tag
+         */
+        virtual void writeTableEnd(std::ostream& os, CEDParagraph * table);
+
+        /**
+         * Writes HTML title in header
+         */
         virtual void writeTitle(std::ostream& os);
-    protected:
-        std::string fontStyleBegin(int style);
-        std::string fontStyleEnd(int style);
-        void closeFontStyle();
-    private:
-        int lines_left_;
-        long current_font_style_;
-        typedef std::vector<int> FontStyleStack;
-        FontStyleStack font_styles_;
 };
 
 }

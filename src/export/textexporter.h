@@ -29,12 +29,19 @@ class TextExporter: public GenericExporter
 {
     public:
         TextExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+
+        /**
+         * Exports to stream
+         * @note BOM will be inserted on __APPLE__ platform
+         * @see writeBom
+         */
         void exportTo(std::ostream& os);
     protected:
         /**
-         * Returns prepared line content
+         * Preprocess line buffer
+         * if overloaded can be used for character replacement
          */
-        virtual std::string lineBufferPrepared();
+        virtual void bufferPreprocess(std::string& buffer);
 
         /**
          * Writes character to line buffer
@@ -45,11 +52,56 @@ class TextExporter: public GenericExporter
          * Writes line break if needed
          */
         virtual void writeLineBreak(std::ostream& os, CEDLine * line);
+
+        /**
+         * Writes preprocessed line buffer content to output stream
+         * after that line buffer is cleared
+         * @see clearLineBuffer
+         */
+        virtual void writeLineBuffer(std::ostream& os, CEDLine * line);
+
+        /**
+         * Writes line and optional line break if needed
+         * @see writeLineBreak
+         */
+        virtual void writeLineEnd(std::ostream& os, CEDLine * line);
+
+        /**
+         * Writes new line after page
+         */
+        virtual void writePageEnd(std::ostream& os, CEDPage * page);
+
+        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+
+        /**
+         * Writes new line after paragraph
+         */
+        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+
+        /**
+         * Writes stub "[picture]" on picture place
+         */
+        virtual void writePicture(std::ostream& os, CEDChar * picture);
     protected:
+        /**
+         * Clears line buffer
+         */
+        void clearLineBuffer();
+
         /**
          * Returns raw line content
          */
         std::ostringstream& lineBuffer();
+
+        /**
+         * Returns prepared line content
+         */
+        std::string lineBufferPrepared();
+
+        /**
+         * Returns number of line in paragraph that not exported yet
+         */
+        int lineLeftInParagraph() const;
 
         /**
          * Writes BOM mark before text document if needed
@@ -57,37 +109,13 @@ class TextExporter: public GenericExporter
         void writeBOM(std::ostream& os);
 
         /**
-         * Writes line and optional line break if needed
-         * @see writeLineBreak
+         * Writes raw line buffer content to output stream
+         * after that line buffer is cleared
          */
-        void writeLineEnd(std::ostream& os, CEDLine * line);
-
-        /**
-         * Writes new line after page
-         */
-        void writePageEnd(std::ostream& os, CEDPage * page);
-
-        /**
-         * Writes new line after paragraph
-         */
-        void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
-
-        /**
-         * Writes stub "[picture]" on picture place
-         */
-        void writePicture(std::ostream& os, CEDChar * picture);
-    private:
-        /**
-         * Clears line buffer
-         */
-        void clearLineBuffer();
-
-        /**
-         * Writes line buffer content to output stream
-         */
-        void writeLineBuffer(std::ostream& os, CEDLine * line);
+        void writeLineBufferRaw(std::ostream& os);
     private:
         std::ostringstream line_buffer_;
+        int lines_left_in_paragraph_;
 };
 
 }

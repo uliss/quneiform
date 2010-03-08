@@ -38,10 +38,15 @@ inline void removeHyphens(std::string& line) {
 }
 
 TextExporter::TextExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts) {
+    GenericExporter(page, opts), lines_left_in_paragraph_(0) {
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
     setSkipPictures(true);
+}
+
+void TextExporter::bufferPreprocess(std::string& buffer) {
+    // replaces -- to Unicode mdash character
+    replaceAll(buffer, "--", "\u2013");
 }
 
 void TextExporter::clearLineBuffer() {
@@ -62,8 +67,12 @@ std::ostringstream& TextExporter::lineBuffer() {
 
 std::string TextExporter::lineBufferPrepared() {
     std::string res(line_buffer_.str());
-    replaceAll(res, "--", "\u2013");
+    bufferPreprocess(res);
     return res;
+}
+
+int TextExporter::lineLeftInParagraph() const {
+    return lines_left_in_paragraph_;
 }
 
 void TextExporter::writeBOM(std::ostream& os) {
@@ -93,16 +102,26 @@ void TextExporter::writeLineBuffer(std::ostream& os, CEDLine * line) {
     clearLineBuffer();
 }
 
+void TextExporter::writeLineBufferRaw(std::ostream& os) {
+    os << lineBuffer().str();
+    clearLineBuffer();
+}
+
 void TextExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
     writeLineBuffer(os, line);
     writeLineBreak(os, line);
+    lines_left_in_paragraph_--;
 }
 
 void TextExporter::writePageEnd(std::ostream& os, CEDPage*) {
     os << std::endl;
 }
 
-void TextExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
+void TextExporter::writeParagraphBegin(std::ostream&, CEDParagraph * par) {
+    lines_left_in_paragraph_ = par->GetCountLine();
+}
+
+void TextExporter::writeParagraphEnd(std::ostream& os, CEDParagraph*) {
     os << "\n";
 }
 

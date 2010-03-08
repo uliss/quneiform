@@ -18,6 +18,7 @@
 
 #include "xmlexporter.h"
 #include "common/helper.h"
+#include "ced/cedchar.h"
 
 namespace CIF
 {
@@ -52,12 +53,27 @@ std::string XmlExporter::escapeSpecialChar(uchar code) {
     }
 }
 
+std::string XmlExporter::fontStyleTag(int) const {
+    return std::string();
+}
+
 void XmlExporter::writeCloseTag(std::ostream& os, const std::string& tagName,
         const std::string& newline) {
+    if (tagName.empty())
+        return;
+
     indent_level_--;
     writeIndent(os);
     os << "</" << tagName << ">" << newline;
-    line_break_ = newline == "\n" ? true : false;
+    line_break_ = newline.empty() ? false : true;
+}
+
+void XmlExporter::writeFontStyleBegin(std::ostream& os, int style) {
+    writeStartTag(lineBuffer(), fontStyleTag(style));
+}
+
+void XmlExporter::writeFontStyleEnd(std::ostream& os, int style) {
+    writeCloseTag(lineBuffer(), fontStyleTag(style));
 }
 
 void XmlExporter::writeXmlDeclaration(std::ostream& os, const std::string& encoding) {
@@ -71,11 +87,14 @@ void XmlExporter::writeIndent(std::ostream& os) {
 
 void XmlExporter::writeSingleTag(std::ostream& os, const std::string& tagName,
         const Attributes& attrs, const std::string& newline) {
+    if (tagName.empty())
+        return;
+
     writeIndent(os);
     os << "<" << tagName;
     writeAttributes(os, attrs);
     os << "/>" << newline;
-    line_break_ = newline == "\n" ? true : false;
+    line_break_ = newline.empty() ? false : true;
 }
 
 void XmlExporter::writeAttributes(std::ostream& os, const Attributes& attrs) {
@@ -85,28 +104,42 @@ void XmlExporter::writeAttributes(std::ostream& os, const Attributes& attrs) {
 
 void XmlExporter::writeStartTag(std::ostream& os, const std::string& tagName,
         const std::string& newline) {
+    if (tagName.empty())
+        return;
+
     writeIndent(os);
     os << "<" << tagName << ">" << newline;
     indent_level_++;
-    line_break_ = newline == "\n" ? true : false;
+    line_break_ = newline.empty() ? false : true;
 }
 
 void XmlExporter::writeStartTag(std::ostream& os, const std::string& tagName,
         const Attributes& attrs, const std::string& newline) {
+    if (tagName.empty())
+        return;
+
     writeIndent(os);
     os << "<" << tagName;
     writeAttributes(os, attrs);
     os << ">" << newline;
     indent_level_++;
-    line_break_ = newline == "\n" ? true : false;
+    line_break_ = newline.empty() ? false : true;
 }
 
 void XmlExporter::writeTag(std::ostream& os, const std::string& tagName,
         const std::string& tagText, const Attributes& attrs, const std::string& newline) {
+    if (tagName.empty())
+        return;
+
     writeStartTag(os, tagName, attrs);
     os << escapeHtmlSpecialChars(tagText);
     writeCloseTag(os, tagName, newline);
-    line_break_ = newline == "\n" ? true : false;
+    line_break_ = newline.empty() ? false : true;
+}
+
+void XmlExporter::writeCharacter(std::ostream& /*os*/, CEDChar * chr) {
+    assert(chr && chr->alternatives);
+    lineBuffer() << escapeSpecialChar(chr->alternatives->alternative);
 }
 
 void XmlExporter::useIndents(bool value) {

@@ -65,6 +65,7 @@ class TestHtmlExporter: public CppUnit::TestFixture
         CIF::CEDPage * page_;
         CIF::HtmlExporter * exp_;
         CIF::CEDChar * c_;
+        CIF::CEDChar * prev_c_;
 };
 
 #endif /* TESTHTMLEXPORTER_H_ */

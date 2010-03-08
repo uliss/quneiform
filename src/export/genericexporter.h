@@ -19,6 +19,7 @@
 #ifndef GENERICEXPORTER_H_
 #define GENERICEXPORTER_H_
 
+#include <vector>
 #include "exporter.h"
 #include "common/size.h"
 #include "common/iconv_local.h"
@@ -119,6 +120,8 @@ class GenericExporter: public Exporter
          * Checks if pictures skipped
          */
         bool skipPictures() const;
+
+        typedef std::vector<int> styleList;
     protected:
         /**
          * Returns number of characters in given paragraph
@@ -241,6 +244,11 @@ class GenericExporter: public Exporter
         virtual void exportChar(CEDChar * chr);
 
         /**
+         * Resets font styles
+         */
+        void resetFontStyle(std::ostream& os);
+
+        /**
          * Writes character to output stream
          */
         virtual void writeCharacter(std::ostream& os, CEDChar * chr);
@@ -262,6 +270,21 @@ class GenericExporter: public Exporter
          * @see writeColumn
          */
         virtual void writeColumnEnd(std::ostream& os, CEDParagraph * col);
+
+        /**
+         * Writes font styles
+         */
+        void writeFontStyle(std::ostream& os, CEDChar * chr);
+
+        /**
+         * Writes style begin to output stream
+         */
+        virtual void writeFontStyleBegin(std::ostream& os, int style);
+
+        /**
+         * Writes font style end to output stream
+         */
+        virtual void writeFontStyleEnd(std::ostream& os, int style);
 
         /**
          * Exports frame content
@@ -353,6 +376,9 @@ class GenericExporter: public Exporter
         virtual void writeTableEnd(std::ostream& os, CEDParagraph * table);
         virtual void writeTableRowBegin(std::ostream& os, CEDParagraph * row);
         virtual void writeTableRowEnd(std::ostream& os, CEDParagraph * row);
+
+        static styleList styleEnd(int style_prev, int style_current);
+        static styleList styleBegin(int style_prev, int style_current);
     private:
         CEDPage * page_;
         bool first_paragraph_;
@@ -369,6 +395,7 @@ class GenericExporter: public Exporter
         int table_nesting_level_;
         bool skip_empty_paragraphs_;
         bool skip_empty_lines_;
+        int previous_style_;
     protected:
         Iconv converter_;
         Size last_picture_size_;

@@ -49,7 +49,7 @@ std::string datetime(const std::string& format = "%Y-%m-%dT%H:%M:%S") {
 }
 
 OdfExporter::OdfExporter(CEDPage * page, const FormatOptions& opts) :
-    XmlExporter(page, opts), zip_(NULL), lines_left_(0) {
+    XmlExporter(page, opts), zip_(NULL) {
     //useIndents(true);
 }
 
@@ -64,12 +64,12 @@ void OdfExporter::addOdfContent() {
     setCommonOdfNamespaces(attrs);
 
     writeStartTag(buf, "office:document-content", attrs, "\n");
-    writeStartTag(buf, "office:body");
+    writeStartTag(buf, "office:body", "\n");
 
     doExport(buf);
 
-    writeCloseTag(buf, "office:body");
-    writeCloseTag(buf, "office:document-content");
+    writeCloseTag(buf, "office:body", "\n");
+    writeCloseTag(buf, "office:document-content", "\n");
 
     odfWrite("content.xml", buf.str());
     files_.push_back("content.xml");
@@ -177,6 +177,10 @@ void OdfExporter::exportTo(std::ostream& os) {
     unlink(tmpfile.c_str());
 }
 
+std::string OdfExporter::fontStyleTag(int style) const {
+    return "";
+}
+
 void OdfExporter::odfClose() {
     zip_close(zip_);
     zip_ = NULL;
@@ -223,20 +227,13 @@ void OdfExporter::setCommonOdfNamespaces(Attributes& attrs) {
     attrs["office:version"] = "1.2";
 }
 
-void OdfExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
-    assert(chr && chr->alternatives);
-    // writeFontStyle(os, chr->fontAttribs);
-    os << escapeSpecialChar(chr->alternatives->alternative);
-}
-
 void OdfExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
     // skip last line break
-    lines_left_--;
-    if (lines_left_ < 1)
+    if (lineLeftInParagraph() <= 1)
         return;
 
     if (isLineBreak(line))
-        writeSingleTag(os, "text:line-break");
+        writeSingleTag(os, "text:line-break", Attributes(), "\n");
 }
 
 void OdfExporter::writePageBegin(std::ostream& os, CEDPage*) {
@@ -254,11 +251,12 @@ void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     }
 
     writeStartTag(os, "text:p", attrs);
-    lines_left_ = par->GetCountLine();
+    XmlExporter::writeParagraphBegin(os, par);
 }
 
 void OdfExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
-    writeCloseTag(os, "text:p", "\n");
+    writeCloseTag(os, "text:p", "\n\n");
+
 }
 
 }

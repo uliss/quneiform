@@ -90,10 +90,6 @@ void HocrExporter::writeCharBBoxesInfo(std::ostream& os) {
     writeSingleTag(os, "span", attrs, "\n");
 }
 
-void HocrExporter::writeLineBegin(std::ostream& /*os*/, CEDLine * /*line*/) {
-    writeFontStyle(lineBuffer(), 0);
-}
-
 void HocrExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
     Attributes attrs;
     attrs["class"] = "ocr_line";
@@ -102,12 +98,11 @@ void HocrExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
     writeStartTag(os, "span", attrs, "\n");
 
     writeCharBBoxesInfo(os);
-    writeFontStyle(lineBuffer(), 0);
+    resetFontStyle(os);
     HtmlExporter::writeLineEnd(os, line);
     writeCloseTag(os, "span", "\n");
     is_in_line_ = false;
     rects_.clear();
-
 }
 
 void HocrExporter::writeMeta(std::ostream& os) {
