@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "hocrexporter.h"
+#include "xmltag.h"
 #include "ced/cedint.h"
 #include "common/helper.h"
 
@@ -84,23 +85,24 @@ void HocrExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
 }
 
 void HocrExporter::writeCharBBoxesInfo(std::ostream& os) {
-    Attributes attrs;
-    attrs["class"] = "ocr_info";
-    attrs["title"] = rectBBoxes(rects_);
-    writeSingleTag(os, "span", attrs, "\n");
+    XmlTag span("span");
+    span["class"] = "ocr_info";
+    span["title"] = rectBBoxes(rects_);
+    os << span << "\n";
 }
 
 void HocrExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
-    Attributes attrs;
-    attrs["class"] = "ocr_line";
-    attrs["id"] = "line_" + toString(numLines());
-    attrs["title"] = rectBBox(line_rect_);
-    writeStartTag(os, "span", attrs, "\n");
+    XmlTag span("span");
+    span["class"] = "ocr_line";
+    span["id"] = "line_" + toString(numLines());
+    span["title"] = rectBBox(line_rect_);
+    span.writeBeginNL(os);
 
     writeCharBBoxesInfo(os);
     resetFontStyle(os);
     HtmlExporter::writeLineEnd(os, line);
-    writeCloseTag(os, "span", "\n");
+
+    span.writeEndNL(os);
     is_in_line_ = false;
     rects_.clear();
 }
@@ -108,10 +110,10 @@ void HocrExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
 void HocrExporter::writeMeta(std::ostream& os) {
     HtmlExporter::writeMeta(os);
 
-    Attributes attrs;
-    attrs["name"] = "ocr-system";
-    attrs["content"] = "cuneiform";
-    writeSingleTag(os, "meta", attrs, "\n");
+    XmlTag meta("meta");
+    meta["name"] = "ocr-system";
+    meta["content"] = "cuneiform";
+    os << meta << "\n";
 }
 
 void HocrExporter::writePageBegin(std::ostream& os, CEDPage * page) {
@@ -119,11 +121,11 @@ void HocrExporter::writePageBegin(std::ostream& os, CEDPage * page) {
     HtmlExporter::writePageBegin(os, page);
     static int num_pages = 1;
     // example: <div class="ocr_page" title="image 'page-000.pbm'; bbox 0 0 4306 6064">
-    Attributes attrs;
-    attrs["class"] = "ocr_page";
-    attrs["id"] = "page_" + toString(num_pages);
-    attrs["title"] = pageBBox(page);
-    writeStartTag(os, "div", attrs, "\n");
+    XmlTag div("div");
+    div["class"] = "ocr_page";
+    div["id"] = "page_" + toString(num_pages);
+    div["title"] = pageBBox(page);
+    div.writeBeginNL(os);
     num_pages++;
 }
 

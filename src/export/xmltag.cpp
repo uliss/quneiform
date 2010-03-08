@@ -23,17 +23,13 @@ namespace CIF
 {
 
 XmlTag::XmlTag(const std::string& name, const std::string& content) :
-    Tag(name, content), new_line_(false) {
+    Tag(name, content) {
 
 }
 
 XmlTag::XmlTag(const std::string& name, const Attributes& attrs) :
-    Tag(name, attrs), new_line_(false) {
+    Tag(name, attrs) {
 
-}
-
-void XmlTag::setNewline(bool value) {
-    new_line_ = value;
 }
 
 void XmlTag::writeAttributes(std::ostream& os) const {
@@ -53,14 +49,12 @@ void XmlTag::writeContent(std::ostream& os) const {
 
 void XmlTag::writeEnd(std::ostream& os) const {
     os << "</" << name() << ">";
-    if (new_line_)
-        os << std::endl;
 }
 
 void XmlTag::writeSingle(std::ostream& os) const {
-    os << "<" << name() << "/>";
-    if (new_line_)
-        os << std::endl;
+    os << "<" << name();
+    writeAttributes(os);
+    os << "/>";
 }
 
 }

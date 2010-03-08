@@ -24,6 +24,7 @@
 #include <ctime>
 #include "odfexporter.h"
 #include "rout_own.h"
+#include "xmltag.h"
 #include "ced/cedchar.h"
 #include "ced/cedparagraph.h"
 #include "common/tostring.h"
@@ -60,16 +61,18 @@ OdfExporter::~OdfExporter() {
 void OdfExporter::addOdfContent() {
     std::ostringstream buf;
     writeXmlDeclaration(buf);
-    Attributes attrs;
-    setCommonOdfNamespaces(attrs);
 
-    writeStartTag(buf, "office:document-content", attrs, "\n");
-    writeStartTag(buf, "office:body", "\n");
+    XmlTag doc_content("office:document-content");
+    setCommonOdfNamespaces(doc_content);
+    doc_content.writeBeginNL(buf);
+
+    XmlTag body("office:body");
+    body.writeBeginNL(buf);
 
     doExport(buf);
 
-    writeCloseTag(buf, "office:body", "\n");
-    writeCloseTag(buf, "office:document-content", "\n");
+    body.writeEndNL(buf);
+    doc_content.writeEndNL(buf);
 
     odfWrite("content.xml", buf.str());
     files_.push_back("content.xml");
@@ -80,26 +83,27 @@ void OdfExporter::addOdfManifest() {
 
     std::ostringstream buf;
     writeXmlDeclaration(buf);
-    Attributes attrs;
-    setCommonOdfNamespaces(attrs);
-    writeStartTag(buf, "manifest:manifest", attrs, "\n");
+
+    XmlTag manifest("manifest:manifest");
+    setCommonOdfNamespaces(manifest);
+    manifest.writeBeginNL(buf);
 
     {
-        Attributes attrs;
-        attrs["manifest:media-type"] = "application/vnd.oasis.opendocument.text";
-        attrs["manifest:full-path"] = "/";
-        attrs["manifest:version"] = "1.0";
-        writeSingleTag(buf, "manifest:file-entry", attrs, "\n");
+        XmlTag file_entry("manifest:file-entry");
+        file_entry["manifest:media-type"] = "application/vnd.oasis.opendocument.text";
+        file_entry["manifest:full-path"] = "/";
+        file_entry["manifest:version"] = "1.0";
+        buf << file_entry << "\n";
 
-        attrs["manifest:media-type"] = "text/xml";
-
+        file_entry.clear();
+        file_entry["manifest:media-type"] = "text/xml";
         for (size_t i = 0; i < files_.size(); i++) {
-            attrs["manifest:full-path"] = files_[i];
-            writeSingleTag(buf, "manifest:file-entry", attrs, "\n");
+            file_entry["manifest:full-path"] = files_[i];
+            buf << file_entry << "\n";
         }
     }
 
-    writeCloseTag(buf, "manifest:manifest", "\n");
+    manifest.writeEndNL(buf);
     odfWrite("META-INF/manifest.xml", buf.str());
 }
 
@@ -107,14 +111,18 @@ void OdfExporter::addOdfMeta() {
     std::ostringstream buf;
     std::string time = datetime();
     writeXmlDeclaration(buf);
-    Attributes attrs;
-    setCommonOdfNamespaces(attrs);
-    writeStartTag(buf, "office:document-meta", attrs, "\n");
-    writeStartTag(buf, "office:meta", "\n");
-    writeTag(buf, "meta:creation-date", time, Attributes(), "\n");
-    writeTag(buf, "dc:date", time, Attributes(), "\n");
 
-    Attributes stat;
+    XmlTag document_meta("office:document-meta");
+    setCommonOdfNamespaces(document_meta);
+    document_meta.writeBeginNL(buf);
+
+    XmlTag office_meta("office:meta");
+    office_meta.writeBeginNL(buf);
+
+    buf << XmlTag("meta:creation-date", time) << "\n";
+    buf << XmlTag("dc:date", time) << "\n";
+
+    XmlTag stat("meta:document-statistic");
     stat["meta:table-count"] = "0";
     stat["meta:image-count"] = "0";
     stat["meta:object-count"] = "0";
@@ -122,10 +130,13 @@ void OdfExporter::addOdfMeta() {
     stat["meta:paragraph-count"] = "0";
     stat["meta:word-count"] = "0";
     stat["meta:character-count"] = "0";
-    writeSingleTag(buf, "meta:document-statistic", stat, "\n");
-    writeTag(buf, "meta:generator", "Cuneiform-" CF_VERSION, Attributes(), "\n");
-    writeCloseTag(buf, "office:meta", "\n");
-    writeCloseTag(buf, "office:document-meta", "\n");
+
+    buf << stat << "\n";
+
+    buf << XmlTag("meta:generator", "Cuneiform-" CF_VERSION) << "\n";
+
+    office_meta.writeEndNL(buf);
+    document_meta.writeEndNL(buf);
 
     odfWrite("meta.xml", buf.str());
     files_.push_back("meta.xml");
@@ -138,9 +149,9 @@ void OdfExporter::addOdfMime() {
 void OdfExporter::addOdfSettings() {
     std::ostringstream buf;
     writeXmlDeclaration(buf);
-    Attributes attrs;
-    setCommonOdfNamespaces(attrs);
-    writeSingleTag(buf, "office:document-settings", attrs);
+    XmlTag settings("office:document-settings");
+    setCommonOdfNamespaces(settings);
+    buf << settings << "\n";
 
     odfWrite("settings.xml", buf.str());
     files_.push_back("settings.xml");
@@ -149,9 +160,9 @@ void OdfExporter::addOdfSettings() {
 void OdfExporter::addOdfStyles() {
     std::ostringstream buf;
     writeXmlDeclaration(buf);
-    Attributes attrs;
-    setCommonOdfNamespaces(attrs);
-    writeSingleTag(buf, "office:document-style", attrs);
+    XmlTag style("office:document-style");
+    setCommonOdfNamespaces(style);
+    buf << style << "\n";
 
     odfWrite("styles.xml", buf.str());
     files_.push_back("styles.xml");
@@ -214,17 +225,17 @@ void OdfExporter::odfWrite(const std::string& fname, const std::string& data) {
     }
 }
 
-void OdfExporter::setCommonOdfNamespaces(Attributes& attrs) {
-    attrs["xmlns:manifest"] = "urn:oasis:names:tc:opendocument:xmlns:manifest:1.0";
-    attrs["xmlns:office"] = "urn:oasis:names:tc:opendocument:xmlns:office:1.0";
-    attrs["xmlns:style"] = "urn:oasis:names:tc:opendocument:xmlns:style:1.0";
-    attrs["xmlns:text"] = "urn:oasis:names:tc:opendocument:xmlns:text:1.0";
-    attrs["xmlns:table"] = "urn:oasis:names:tc:opendocument:xmlns:table:1.0";
-    attrs["xmlns:xlink"] = "http://www.w3.org/1999/xlink";
-    attrs["xmlns:dc"] = "http://purl.org/dc/elements/1.1/";
-    attrs["xmlns:meta"] = "urn:oasis:names:tc:opendocument:xmlns:meta:1.0";
-    attrs["xmlns:number"] = "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0";
-    attrs["office:version"] = "1.2";
+void OdfExporter::setCommonOdfNamespaces(Tag& tag) const {
+    tag["xmlns:manifest"] = "urn:oasis:names:tc:opendocument:xmlns:manifest:1.0";
+    tag["xmlns:office"] = "urn:oasis:names:tc:opendocument:xmlns:office:1.0";
+    tag["xmlns:style"] = "urn:oasis:names:tc:opendocument:xmlns:style:1.0";
+    tag["xmlns:text"] = "urn:oasis:names:tc:opendocument:xmlns:text:1.0";
+    tag["xmlns:table"] = "urn:oasis:names:tc:opendocument:xmlns:table:1.0";
+    tag["xmlns:xlink"] = "http://www.w3.org/1999/xlink";
+    tag["xmlns:dc"] = "http://purl.org/dc/elements/1.1/";
+    tag["xmlns:meta"] = "urn:oasis:names:tc:opendocument:xmlns:meta:1.0";
+    tag["xmlns:number"] = "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0";
+    tag["office:version"] = "1.2";
 }
 
 void OdfExporter::writeLineBreak(std::ostream& os, CEDLine * line) {

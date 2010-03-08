@@ -23,6 +23,7 @@
 #include "common/debug.h"
 #include "ced/cedint.h"
 #include "rout_own.h"
+#include "xmltag.h"
 #include "imageexporterfactory.h"
 #include "config.h" // for CF_VERSION
 namespace CIF
@@ -76,19 +77,20 @@ void HtmlExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
         return;
 
     if (isLineBreak(line))
-        writeSingleTag(os, "br", Attributes(), "\n");
+        os << XmlTag("br") << "\n";
 }
 
 void HtmlExporter::writeMeta(std::ostream& os) {
-    Attributes attrs;
-    attrs["name"] = "Generator";
-    attrs["content"] = "cuneiform-linux-" CF_VERSION;
-    writeSingleTag(os, "meta", attrs, "\n");
+    XmlTag meta_generator("meta");
+    meta_generator["name"] = "Generator";
+    meta_generator["content"] = "cuneiform-linux-" CF_VERSION;
+    os << meta_generator << "\n";
 
     if (isCharsetConversion()) {
-        attrs["name"] = "Content-Type";
-        attrs["content"] = "text/html;charset=" + outputEncoding();
-        writeSingleTag(os, "meta", attrs, "\n");
+        XmlTag meta_charset("meta");
+        meta_charset["name"] = "Content-Type";
+        meta_charset["content"] = "text/html;charset=" + outputEncoding();
+        os << meta_charset << "\n";
     }
 }
 
@@ -113,22 +115,22 @@ void HtmlExporter::writePageEnd(std::ostream& os, CEDPage*) {
 void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     assert(par);
 
-    Attributes attrs;
+    XmlTag p("p");
     switch (par->alignment & ALIGN_MASK) {
     case ALIGN_CENTER:
-        attrs["align"] = "center";
+        p["align"] = "center";
         break;
     case (ALIGN_LEFT | ALIGN_RIGHT):
-        attrs["align"] = "justify";
+        p["align"] = "justify";
         break;
     case ALIGN_RIGHT:
-        attrs["align"] = "right";
+        p["align"] = "right";
     default:
         // "left" by default
         break;
     }
 
-    writeStartTag(os, "p", attrs);
+    p.writeBegin(os);
     TextExporter::writeParagraphBegin(os, par);
 }
 
@@ -143,12 +145,13 @@ void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
 void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
     try {
         std::string path = savePicture(picture);
-        Attributes attrs;
-        attrs["src"] = escapeHtmlSpecialChars(path);
-        attrs["alt"] = "";
-        attrs["height"] = toString(last_picture_size_.height());
-        attrs["width"] = toString(last_picture_size_.width());
-        writeSingleTag(os, "img", attrs, "\n");
+        XmlTag img("img");
+        img["src"] = escapeHtmlSpecialChars(path);
+        img["alt"] = "";
+        img["height"] = toString(last_picture_size_.height());
+        img["width"] = toString(last_picture_size_.width());
+        os << img << "\n";
+
     } catch (Exception& e) {
         Debug() << "[HtmlExporter::writePicture] failed: " << e.what() << std::endl;
     }
@@ -164,7 +167,7 @@ void HtmlExporter::writeTableEnd(std::ostream& os, CEDParagraph * /*table*/) {
 }
 
 void HtmlExporter::writeTitle(std::ostream& os) {
-    writeTag(os, "title", "Cuneiform output", Attributes(), "\n");
+    os << XmlTag("title", "Cuneiform output") << "\n";
 }
 
 }

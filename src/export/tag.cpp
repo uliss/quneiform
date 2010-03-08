@@ -43,6 +43,11 @@ std::string Tag::attribute(const std::string& name) const {
     return it == attrs_.end() ? "" : it->second;
 }
 
+void Tag::clear() {
+    content_.clear();
+    attrs_.clear();
+}
+
 std::string Tag::content() const {
     return content_;
 }
@@ -55,12 +60,26 @@ void Tag::setAttribute(const std::string& name, const std::string& value) {
     attrs_[name] = value;
 }
 
+void Tag::setAttributes(const Attributes& attrs) {
+    attrs_ = attrs;
+}
+
 void Tag::setContent(const std::string& content) {
     content_ = content;
 }
 
 void Tag::setName(const std::string& tagName) {
     tag_name_ = tagName;
+}
+
+void Tag::writeBeginNL(std::ostream& os) const {
+    writeBegin(os);
+    os << "\n";
+}
+
+void Tag::writeEndNL(std::ostream& os) const {
+    writeEnd(os);
+    os << "\n";
 }
 
 std::ostream& operator<<(std::ostream& os, const Tag& tag) {

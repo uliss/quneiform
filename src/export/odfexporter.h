@@ -28,6 +28,8 @@
 namespace CIF
 {
 
+class Tag;
+
 class OdfExporter: public XmlExporter
 {
     public:
@@ -53,7 +55,7 @@ class OdfExporter: public XmlExporter
         void odfClose();
         void odfOpen(const std::string& fname);
         void odfWrite(const std::string& fname, const std::string& data);
-        void setCommonOdfNamespaces(Attributes& attrs);
+        void setCommonOdfNamespaces(Tag& tag) const;
     private:
         zip * zip_;
         typedef std::vector<std::string> BufList;

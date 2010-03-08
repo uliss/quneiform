@@ -31,11 +31,6 @@ class XmlTag: public Tag
         XmlTag(const std::string& name, const Attributes& attrs);
 
         /**
-         * Set write new line after tag
-         */
-        void setNewline(bool value);
-
-        /**
          * Writes attributes
          */
         virtual void writeAttributes(std::ostream& os) const;
@@ -59,9 +54,6 @@ class XmlTag: public Tag
          * Writes single tag
          */
         virtual void writeSingle(std::ostream& os) const;
-
-    private:
-        bool new_line_;
 };
 
 }

@@ -43,6 +43,11 @@ class Tag
         std::string attribute(const std::string& name) const;
 
         /**
+         * Clears tag name and attributes
+         */
+        void clear();
+
+        /**
          * Returns tag text content
          */
         std::string content() const;
@@ -73,6 +78,11 @@ class Tag
         void setAttribute(const std::string& name, const std::string& value);
 
         /**
+         * Sets tag attributes
+         */
+        void setAttributes(const Attributes& attrs);
+
+        /**
          * Sets tag content
          */
         void setContent(const std::string& content);
@@ -88,6 +98,11 @@ class Tag
         virtual void writeBegin(std::ostream& os) const = 0;
 
         /**
+         * Writes tag begin and new line after it
+         */
+        void writeBeginNL(std::ostream& os) const;
+
+        /**
          * Writes tag content
          */
         virtual void writeContent(std::ostream& os) const = 0;
@@ -96,6 +111,11 @@ class Tag
          * Writes tag end
          */
         virtual void writeEnd(std::ostream& os) const = 0;
+
+        /**
+         * Writes ta end and new line after it
+         */
+        virtual void writeEndNL(std::ostream& os) const;
 
         /**
          * Writes single tag
