@@ -264,7 +264,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge)
                                 CEDChar * c = l->chars;
 
                                 //the same for symbol
-                                if (c && ((!c->next) || c->next->parentNumber != c->parentNumber)
+                                if (c && ((!c->next) || c->next->parentNumber() != c->parentNumber())
                                         && c->isPicture())
                                     rtf->wrtFrmSz = FALSE;
                             }

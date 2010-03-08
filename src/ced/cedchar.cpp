@@ -21,12 +21,12 @@
 namespace CIF
 {
 
-CEDChar::CEDChar() {
+CEDChar::CEDChar() :
+    parent_number_(0) {
     fontHeight = fontNum = fontAttribs = fontNum = fontLang = 0;
     foregroundColor = backgroundColor = 0;
     alternatives = 0;
     numOfAltern = 0;
-    parentNumber = 0;
     prev = next = 0;
 }
 

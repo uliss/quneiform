@@ -49,7 +49,7 @@ void CEDLine::setHardBreak(bool value) {
 CEDChar * CEDLine::InsertChar() {
     CEDChar * chr = new CEDChar;
     numOfChars++;
-    chr->parentNumber = internalNumber;
+    chr->setParentNumber(internalNumber);
 
     if (curChar) {
         chr->next = curChar->next;
@@ -126,7 +126,7 @@ CEDChar * CEDLine::NextChar(Bool32 _goThroughLines) {
     if (_goThroughLines)
         return curChar->next;
 
-    if (curChar->next && curChar->next->parentNumber == curChar->parentNumber)
+    if (curChar->next && curChar->next->parentNumber() == curChar->parentNumber())
         return curChar->next;
 
     else
@@ -137,7 +137,7 @@ CEDChar * CEDLine::PrevChar(Bool32 _goThroughLines) {
     if (_goThroughLines)
         return curChar->prev;
 
-    if (curChar->prev && curChar->prev->parentNumber == curChar->parentNumber)
+    if (curChar->prev && curChar->prev->parentNumber() == curChar->parentNumber())
         return curChar->prev;
 
     else

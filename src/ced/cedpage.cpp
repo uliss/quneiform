@@ -29,18 +29,18 @@
 //step of expansion of picture table
 #define PICS_STEPPING  3
 
-namespace CIF {
-
-CEDPage::CEDPage()
+namespace CIF
 {
+
+CEDPage::CEDPage() {
     sizeOfImage.cx = sizeOfImage.cy = 0;
     dpi.cx = dpi.cy = 0;
     turn = 0;
     imageName = 0;
     pageNumber = 0;
     pageSizeInTwips.cx = pageSizeInTwips.cy = 0;
-    pageBordersInTwips.top = pageBordersInTwips.bottom
-                             = pageBordersInTwips.left = pageBordersInTwips.right = 0;
+    pageBordersInTwips.top = pageBordersInTwips.bottom = pageBordersInTwips.left
+            = pageBordersInTwips.right = 0;
     extData = 0;
     extDataLen = 0;
     sections = 0;
@@ -57,8 +57,7 @@ CEDPage::CEDPage()
     recogLang = LANGUAGE_RUS_ENG;
 }
 
-CEDPage::~CEDPage()
-{
+CEDPage::~CEDPage() {
     CEDChar * ch1, *ch;
     ch1 = ch = GetChar(0);
 
@@ -138,8 +137,7 @@ CEDPage::~CEDPage()
         free(imageName);
 }
 
-CEDSection * CEDPage::InsertSection()
-{
+CEDSection * CEDPage::InsertSection() {
     NumberOfSections++;
     CEDSection * sect = new CEDSection;
 
@@ -184,45 +182,37 @@ CEDSection * CEDPage::InsertSection()
  sect->internalNumber--;
  */
 
-CEDSection * CEDPage::SetCurSection(CEDSection* _sect)
-{
+CEDSection * CEDPage::SetCurSection(CEDSection* _sect) {
     return curSect = _sect;
 }
 
-CEDSection * CEDPage::SetCurSection(int _number)
-{
+CEDSection * CEDPage::SetCurSection(int _number) {
     CEDSection* sect;
 
-    for (sect = sections; sect && sect->internalNumber != _number; sect
-            = sect->next)
+    for (sect = sections; sect && sect->internalNumber != _number; sect = sect->next)
         ;
 
     curSect = sect;
     return sect;
 }
 
-CEDSection * CEDPage::GetCurSection()
-{
+CEDSection * CEDPage::GetCurSection() {
     return curSect;
 }
 
-int CEDPage::GetNumOfCurSection()
-{
+int CEDPage::GetNumOfCurSection() {
     return curSect->internalNumber;
 }
 
-CEDSection * CEDPage::NextSection()
-{
+CEDSection * CEDPage::NextSection() {
     return curSect->next;
 }
 
-CEDSection * CEDPage::PrevSection()
-{
+CEDSection * CEDPage::PrevSection() {
     return curSect->prev;
 }
 
-CEDSection * CEDPage::GetSection(int _num)
-{
+CEDSection * CEDPage::GetSection(int _num) {
     CEDSection* ss;
 
     for (ss = sections; ss && ss->internalNumber != _num; ss = ss->next)
@@ -230,8 +220,7 @@ CEDSection * CEDPage::GetSection(int _num)
 
     return ss;
 }
-CEDParagraph * CEDPage::GetParagraph(int _num)
-{
+CEDParagraph * CEDPage::GetParagraph(int _num) {
     CEDSection * qq = sections;
 
     while (qq && !qq->paragraphs)
@@ -239,14 +228,12 @@ CEDParagraph * CEDPage::GetParagraph(int _num)
 
     CEDParagraph* ss;
 
-    for (ss = qq ? qq->paragraphs : 0; ss && ss->internalNumber != _num; ss
-            = ss->next)
+    for (ss = qq ? qq->paragraphs : 0; ss && ss->internalNumber != _num; ss = ss->next)
         ;
 
     return ss;
 }
-CEDLine * CEDPage::GetLine(int _num)
-{
+CEDLine * CEDPage::GetLine(int _num) {
     CEDParagraph *qq = GetParagraph(0);
 
     while (qq && !qq->lines)
@@ -254,14 +241,12 @@ CEDLine * CEDPage::GetLine(int _num)
 
     CEDLine* ss;
 
-    for (ss = qq ? qq->lines : 0; ss && ss->internalNumber != _num; ss
-            = ss->next)
+    for (ss = qq ? qq->lines : 0; ss && ss->internalNumber != _num; ss = ss->next)
         ;
 
     return ss;
 }
-CEDChar * CEDPage::GetChar(int _num)
-{
+CEDChar * CEDPage::GetChar(int _num) {
     CEDLine *qq = GetLine(0);
 
     while (qq && !qq->chars)
@@ -276,8 +261,7 @@ CEDChar * CEDPage::GetChar(int _num)
     return ss;
 }
 
-Bool32 CEDPage::GoToNextSection()
-{
+Bool32 CEDPage::GoToNextSection() {
     if (curSect && curSect->next) {
         curSect = curSect->next;
         return TRUE;
@@ -287,24 +271,20 @@ Bool32 CEDPage::GoToNextSection()
         return FALSE;
 }
 
-Bool32 CEDPage::GoToNextParagraph(Bool32 NonFictiveOnly)
-{
+Bool32 CEDPage::GoToNextParagraph(Bool32 NonFictiveOnly) {
     if (curSect && curSect->curPara && curSect->curPara->next) {
         CEDParagraph * para = curSect->curPara;
         CEDSection* sect = curSect;
 
         do {
-            if (curSect->curPara->next->parentNumber
-                    == curSect->curPara->parentNumber)
+            if (curSect->curPara->next->parentNumber == curSect->curPara->parentNumber)
                 curSect->curPara = curSect->curPara->next;
 
             else {
                 curSect = curSect->next;
                 curSect->curPara = curSect->paragraphs;
             }
-        }
-        while (NonFictiveOnly && (curSect->curPara->type & FICTIVE)
-                && curSect->curPara->next);
+        } while (NonFictiveOnly && (curSect->curPara->type & FICTIVE) && curSect->curPara->next);
 
         if (NonFictiveOnly && (curSect->curPara->type & FICTIVE)) {
             curSect = sect;
@@ -320,14 +300,12 @@ Bool32 CEDPage::GoToNextParagraph(Bool32 NonFictiveOnly)
         return FALSE;
 }
 
-Bool32 CEDPage::GoToNextLine()
-{
+Bool32 CEDPage::GoToNextLine() {
     CEDLine * aa;
 
     if (curSect && curSect->curPara && curSect->curPara->curLine && (aa
-                                                                     = curSect->curPara->curLine->next)) {
-        CEDParagraph *qq = GetParagraph(
-                               curSect->curPara->curLine->next->parentNumber);
+            = curSect->curPara->curLine->next)) {
+        CEDParagraph *qq = GetParagraph(curSect->curPara->curLine->next->parentNumber);
         CEDSection * ss = GetSection(qq->parentNumber);
         curSect = ss;
         curSect->curPara = qq;
@@ -339,15 +317,13 @@ Bool32 CEDPage::GoToNextLine()
         return FALSE;
 }
 
-Bool32 CEDPage::GoToNextChar()
-{
+Bool32 CEDPage::GoToNextChar() {
     CEDChar * ww;
 
     if (curSect && curSect->curPara && curSect->curPara->curLine
-            && curSect->curPara->curLine->curChar && (ww
-                                                      = curSect->curPara->curLine->curChar->next)) {
-        CEDLine * aa = GetLine(
-                           curSect->curPara->curLine->curChar->next->parentNumber);
+            && curSect->curPara->curLine->curChar
+            && (ww = curSect->curPara->curLine->curChar->next)) {
+        CEDLine * aa = GetLine(curSect->curPara->curLine->curChar->next->parentNumber());
         CEDParagraph *qq = GetParagraph(aa->parentNumber);
         CEDSection * ss = GetSection(qq->parentNumber);
         curSect = ss;
@@ -361,12 +337,10 @@ Bool32 CEDPage::GoToNextChar()
         return FALSE;
 }
 
-int CEDPage::GetNumberOfSections()
-{
+int CEDPage::GetNumberOfSections() {
     return NumberOfSections;
 }
-int CEDPage::GetNumberOfParagraphs()
-{
+int CEDPage::GetNumberOfParagraphs() {
     if (!GetParagraph(0))
         return 0;
 
@@ -377,8 +351,7 @@ int CEDPage::GetNumberOfParagraphs()
 
     return i + 1;
 }
-int CEDPage::GetNumberOfLines()
-{
+int CEDPage::GetNumberOfLines() {
     if (!GetLine(0))
         return 0;
 
@@ -389,8 +362,7 @@ int CEDPage::GetNumberOfLines()
 
     return i + 1;
 }
-int CEDPage::GetNumberOfChars()
-{
+int CEDPage::GetNumberOfChars() {
     if (!GetChar(0))
         return 0;
 
@@ -402,9 +374,8 @@ int CEDPage::GetNumberOfChars()
     return i + 1;
 }
 
-Bool32 CEDPage::CreateFont(uchar fontNumber, uchar fontPitchAndFamily,
-                           uchar fontCharset, char* fontName)
-{
+Bool32 CEDPage::CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
+        char* fontName) {
     if (fontsUsed >= fontsCreated) {
         fontEntry* tmp;
         tmp = new fontEntry[fontsCreated + FONTS_STEPPING];
@@ -437,9 +408,8 @@ Bool32 CEDPage::CreateFont(uchar fontNumber, uchar fontPitchAndFamily,
     return TRUE;
 }
 
-Bool32 CEDPage::GetFont(int number, uchar* fontNumber,
-                        uchar* fontPitchAndFamily, uchar* fontCharset, char** fontName)
-{
+Bool32 CEDPage::GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily,
+        uchar* fontCharset, char** fontName) {
     if (number >= fontsUsed)
         return FALSE;
 
@@ -458,8 +428,7 @@ Bool32 CEDPage::GetFont(int number, uchar* fontNumber,
     return TRUE;
 }
 
-int CEDPage::GetFontByNum(uchar fontNumber)
-{
+int CEDPage::GetFontByNum(uchar fontNumber) {
     for (int i = 0; i < fontsUsed; i++)
         if (fontTable[i].fontNumber == fontNumber)
             return i;
@@ -468,8 +437,7 @@ int CEDPage::GetFontByNum(uchar fontNumber)
 }
 
 Bool32 CEDPage::CreatePicture(int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal,
-                              int pictAlign, int type, void * data, int len)
-{
+        int pictAlign, int type, void * data, int len) {
     if (picsUsed >= picsCreated) {
         pictEntry* tmp;
         tmp = new pictEntry[picsCreated + PICS_STEPPING];
