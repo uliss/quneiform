@@ -37,24 +37,83 @@ class Exporter
 
         typedef std::runtime_error Exception;
 
+        /**
+         * Returns true if charset conversion needed
+         * it happens when input encoding no equal output encoding
+         */
         bool isCharsetConversion() const;
+
+        /**
+         * Exports document to file
+         * By default, file is truncated
+         */
         virtual void exportTo(const std::string& filename);
+
+        /**
+         * Exports document to output stream
+         * @note not all exporter can do this kind of export
+         * in full manner
+         */
         virtual void exportTo(std::ostream& os);
+
+        /**
+         * Returns export options
+         */
         const FormatOptions& formatOptions() const;
         FormatOptions& formatOptions();
+
+        /**
+         * Returns pointer to image exporter
+         */
         ImageExporterPtr imageExporter();
+
+        /**
+         * Returns document encoding
+         */
         std::string inputEncoding() const;
+
+        /**
+         * Returns destination encoding
+         */
         std::string outputEncoding() const;
+
+        /**
+         * Returns export filename
+         * @return empty string, when exporting to stream
+         */
         std::string outputFilename() const;
+
+        /**
+         * Sets format options
+         */
         void setFormatOptions(const FormatOptions& opts);
+
+        /**
+         * Sets image exporter
+         */
         void setImageExporter(ImageExporterPtr exporter);
+
+        /**
+         * Sets source document encoding
+         */
         void setInputEncoding(const std::string& enc);
+
+        /**
+         * Sets desired encoding
+         */
         void setOutputEncoding(const std::string& enc);
+
+        /**
+         * Sets export filename
+         */
         void setOutputFilename(const std::string& filename);
     private:
         virtual void doExport(std::ostream& os) = 0;
         void autoDetectOutputEncoding();
     protected:
+        /**
+         * Sets input/output encoding by language
+         */
         void setEncodings();
     private:
         ImageExporterPtr image_exporter_;
