@@ -52,3 +52,6 @@ target_link_libraries(cuneiform-export
     ${exporters_libs})
 
 library_hook(cuneiform-export)
+
+set(EXPORT_HEADER_INSTALL "export")
+install(FILES exporter.h imageexporter.h DESTINATION include/${CF_HEADER_INSTALL}/${EXPORT_HEADER_INSTALL})

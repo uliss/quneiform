@@ -24,8 +24,9 @@
 #include "textexporter.h"
 #include "hocrexporter.h"
 #include "puma/pumadef.h"
+#include "ced/cedpage.h"
 #include "common/outputformat.h"
-#include "config-user.h"
+#include "config-user.h" // for CF_USE_ODF
 
 #ifdef CF_USE_ODF
 #include "odfexporter.h"
@@ -42,33 +43,42 @@ void ExporterFactoryImpl::setFormatOptions(const FormatOptions& opts) {
     format_options_ = opts;
 }
 
-void ExporterFactoryImpl::setPage(Handle page) {
+void ExporterFactoryImpl::setPage(CEDPage * page) {
     page_ = page;
 }
 
-Exporter * ExporterFactoryImpl::make(format_t format) {
+ExporterPtr ExporterFactoryImpl::make(format_t format) {
+    ExporterPtr exp;
     switch (format) {
     case FORMAT_DEBUG:
-        return new DebugExporter(format_options_);
+        exp.reset(new DebugExporter(format_options_));
+        break;
     case FORMAT_RTF:
-        return new RtfExporter(page_);
+        exp.reset(new RtfExporter(page_));
+        break;
     case FORMAT_EDNATIVE:
-        return new EdExporter(page_);
+        exp.reset(new EdExporter(page_));
+        break;
     case FORMAT_HOCR:
-        return new HocrExporter((CEDPage*) page_, format_options_);
+        exp.reset(new HocrExporter(page_, format_options_));
+        break;
     case FORMAT_HTML:
-        return new HtmlExporter((CEDPage*) page_, format_options_);
+        exp.reset(new HtmlExporter(page_, format_options_));
     case FORMAT_SMARTTEXT:
         format_options_.setPreserveLineBreaks(true);
     case FORMAT_TEXT:
-        return new TextExporter((CEDPage*) page_, format_options_);
+        exp.reset(new TextExporter(page_, format_options_));
+        break;
 #ifdef CF_USE_ODF
-    case FORMAT_ODF:
-        return new OdfExporter((CEDPage*) page_, format_options_);
+        case FORMAT_ODF:
+        exp.reset(new OdfExporter(page_, format_options_));
+        break;
 #endif
     default:
-        throw Exception("[ExporterFactoryImpl::make] Unsupported export format: " + OutputFormat::name(format), format);
+        throw Exception("[ExporterFactoryImpl::make] Unsupported export format: "
+                + OutputFormat::name(format), format);
     }
+    return exp;
 }
 
 }

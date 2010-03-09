@@ -32,6 +32,7 @@
 #include "common/memorybuffer.h"
 #include "common/outputformat.h"
 #include "cimage/imageinfo.h"
+#include "export/exporter.h"
 #include "rdib/image.h"
 #include "globus.h"
 
@@ -53,6 +54,13 @@ class CLA_EXPO PumaImpl
     public:
         PumaImpl();
         ~PumaImpl();
+
+        /**
+         * Append recognition results to specified file
+         * @note not all formats support this type of saving
+         * @throw PumaException on error
+         */
+        void append(const std::string& filename, format_t format) const;
 
         /**
          * Make some cleanup after recognition
@@ -80,11 +88,18 @@ class CLA_EXPO PumaImpl
         void recognize();
 
         /**
-         * Saves recognition result to specified format
+         * Saves to file recognition result in specified format
          * @param filename - file to save
          * @param format - document format
          */
         void save(const std::string& filename, format_t format) const;
+
+        /**
+         * Saves to stream recognition result in specified format
+         * @note not all export abilities are available in this mode
+         * (such as saving pictures) it depends from format
+         */
+        void save(std::ostream& os, format_t format) const;
 
         /**
          * Sets format options
@@ -132,6 +147,7 @@ class CLA_EXPO PumaImpl
         void getImageInfo(const std::string& image_name);
         void layout();
         void loadLayoutFromFile(const std::string& fname);
+        ExporterPtr makeExporter(format_t format) const;
         void modulesDone();
         void modulesInit();
         const char * modulePath() const;

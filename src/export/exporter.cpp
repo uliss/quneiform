@@ -57,6 +57,10 @@ void Exporter::autoDetectOutputEncoding() {
     output_encoding_ = locale.substr(dot_pos + 1);
 }
 
+void Exporter::appendTo(const std::string& filename) {
+    throw Exception("[Exporter::appendTo] method not implemented for this format");
+}
+
 bool Exporter::isCharsetConversion() const {
     if (output_encoding_.empty() || input_encoding_.empty())
         return false;
@@ -113,7 +117,7 @@ void Exporter::setEncodings() {
         setInputEncoding("cp1250");
         setOutputEncoding("utf-8");
         break;
-    // for serbian cyrillic
+        // for serbian cyrillic
     case LANGUAGE_SERBIAN:
     case LANGUAGE_BULGARIAN:
     case LANGUAGE_KAZAKH:

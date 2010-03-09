@@ -21,9 +21,10 @@
 
 #include <iostream>
 #include <string>
-#include <stdexcept>
+#include <boost/shared_ptr.hpp>
 
 #include "imageexporter.h"
+#include "common/exception.h"
 #include "rfrmt/formatoptions.h"
 
 namespace CIF
@@ -35,7 +36,12 @@ class Exporter
         Exporter(const FormatOptions& opts);
         virtual ~Exporter();
 
-        typedef std::runtime_error Exception;
+        typedef RuntimeExceptionImpl<Exporter> Exception;
+
+        /**
+         * Appends export result to existing document
+         */
+        virtual void appendTo(const std::string& filename);
 
         /**
          * Returns true if charset conversion needed
@@ -122,6 +128,8 @@ class Exporter
         std::string output_encoding_;
         std::string output_filename_;
 };
+
+typedef boost::shared_ptr<Exporter> ExporterPtr;
 
 }
 

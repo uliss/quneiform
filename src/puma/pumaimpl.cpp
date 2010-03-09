@@ -77,8 +77,7 @@ static Handle hDebugSVLinesData = NULL;
 static Handle hDebugLayoutFromFile = NULL;
 static Handle hDebugCancelTurn = NULL;
 
-static double portion_of_rus_letters(CSTR_line lin_ruseng)
-{
+static double portion_of_rus_letters(CSTR_line lin_ruseng) {
     if (!lin_ruseng)
         return 0;
 
@@ -126,13 +125,11 @@ static uint32_t g_flgUpdate = 0;
 FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
-Bool32 IsUpdate(uint32_t flg)
-{
+Bool32 IsUpdate(uint32_t flg) {
     return (g_flgUpdate & flg) > 0;
 }
 
-void SetUpdate(uint32_t flgAdd, uint32_t flgRemove)
-{
+void SetUpdate(uint32_t flgAdd, uint32_t flgRemove) {
     g_flgUpdate = (g_flgUpdate | flgAdd) & ~flgRemove;
 }
 
@@ -143,19 +140,20 @@ PumaImpl::PumaImpl() :
             pictures_(PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
                     NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
                     NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(TRUE),
-            need_clean_line_(FALSE), recog_name_(NULL), special_project_(SPEC_PRJ_NO)
-{
+            need_clean_line_(FALSE), recog_name_(NULL), special_project_(SPEC_PRJ_NO) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
 
-PumaImpl::~PumaImpl()
-{
+PumaImpl::~PumaImpl() {
     modulesDone();
 }
 
-void PumaImpl::binarizeImage()
-{
+void PumaImpl::append(const std::string& filename, format_t format) const {
+    makeExporter(format)->appendTo(filename);
+}
+
+void PumaImpl::binarizeImage() {
     recog_dib_ = input_dib_;
     recog_name_ = PUMA_IMAGE_USER;
 
@@ -180,8 +178,7 @@ void PumaImpl::binarizeImage()
     }
 }
 
-void PumaImpl::clearAll()
-{
+void PumaImpl::clearAll() {
     // Сохраним последенне состояние и очистим контейнер
     if (ed_page_) {
         delete ed_page_;
@@ -214,8 +211,7 @@ void PumaImpl::clearAll()
     CIMAGE_DeleteImage(PUMA_IMAGE_TURN);
 }
 
-void PumaImpl::close()
-{
+void PumaImpl::close() {
     if (Config::instance().debug())
         Debug() << "Puma::close\n";
 
@@ -229,8 +225,7 @@ void PumaImpl::close()
     recog_dib_ = input_dib_ = NULL;
 }
 
-void PumaImpl::extractComponents()
-{
+void PumaImpl::extractComponents() {
     PAGEINFO info;
 
     if (!GetPageInfo(cpage_, &info))
@@ -270,8 +265,7 @@ void PumaImpl::extractComponents()
     SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
 }
 
-void PumaImpl::extractStrings()
-{
+void PumaImpl::extractStrings() {
     if (LDPUMA_Skip(hDebugStrings)) {
         if (!RSELSTR_ExtractTextStrings(ccom_, cpage_))
             throw PumaException("RSELSTR_ExtractTextStrings failed");
@@ -283,13 +277,11 @@ void PumaImpl::extractStrings()
     }
 }
 
-FormatOptions PumaImpl::formatOptions() const
-{
+FormatOptions PumaImpl::formatOptions() const {
     return format_options_;
 }
 
-void PumaImpl::formatResult()
-{
+void PumaImpl::formatResult() {
     RFRMT_SetFormatOptions(format_options_);
 
     if (ed_page_) {
@@ -297,7 +289,7 @@ void PumaImpl::formatResult()
         ed_page_ = NULL;
     }
 
-    if (!RFRMT_Formatter(input_filename_.c_str(), (void**)&ed_page_))
+    if (!RFRMT_Formatter(input_filename_.c_str(), (void**) &ed_page_))
         throw PumaException("RFRMT_Formatter failed");
 
     if (Config::instance().debugDump()) {
@@ -309,25 +301,21 @@ void PumaImpl::formatResult()
     }
 }
 
-void PumaImpl::getImageInfo(const std::string& image_name)
-{
+void PumaImpl::getImageInfo(const std::string& image_name) {
     if (!CIMAGE_GetImageInfo(image_name.c_str(), &info_))
         throw PumaException("CIMAGE_GetImageInfo failed");
 }
 
 // Allex
 // добавлены для обратной связи из RStuff
-Bool32 DPumaSkipComponent(void)
-{
+Bool32 DPumaSkipComponent(void) {
     return LDPUMA_Skip(hDebugCancelComponent);
 }
-Bool32 DPumaSkipTurn(void)
-{
+Bool32 DPumaSkipTurn(void) {
     return LDPUMA_Skip(hDebugCancelTurn);
 }
 
-void PumaImpl::layout()
-{
+void PumaImpl::layout() {
     clearAll();
     binarizeImage();
     RSCBProgressPoints CBforRS;
@@ -416,8 +404,7 @@ void PumaImpl::layout()
     SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
 }
 
-void PumaImpl::loadLayoutFromFile(const std::string& fname)
-{
+void PumaImpl::loadLayoutFromFile(const std::string& fname) {
     cpage_ = CPAGE_RestorePage(TRUE, fname.c_str());
 
     if (cpage_ == NULL) {
@@ -429,8 +416,16 @@ void PumaImpl::loadLayoutFromFile(const std::string& fname)
     CPAGE_SetCurrentPage(CPAGE_GetNumberPage(cpage_));
 }
 
-void PumaImpl::modulesDone()
-{
+ExporterPtr PumaImpl::makeExporter(format_t format) const {
+    if (!ed_page_)
+        throw PumaException("[PumaImpl::makeExporter] export failed");
+
+    ExporterFactory::instance().setPage(ed_page_);
+    ExporterFactory::instance().setFormatOptions(format_options_);
+    return ExporterFactory::instance().make(format);
+}
+
+void PumaImpl::modulesDone() {
     CED_Done();
     RCORRKEGL_Done();
     RPIC_Done();
@@ -456,8 +451,7 @@ void PumaImpl::modulesDone()
     CFIO_Done();
 }
 
-void PumaImpl::modulesInit()
-{
+void PumaImpl::modulesInit() {
     try {
         // CONTEINERS
         if (!CLINE_Init(PUMA_MODULE_CLINE, NULL))
@@ -544,9 +538,8 @@ void PumaImpl::modulesInit()
     }
 }
 
-void PumaImpl::open(ImagePtr img)
-{
-    if(!img || !img->data())
+void PumaImpl::open(ImagePtr img) {
+    if (!img || !img->data())
         throw PumaException("[PumaImpl::open] invalid image given");
 
     if (Config::instance().debug())
@@ -563,37 +556,31 @@ void PumaImpl::open(ImagePtr img)
     cpage_ = CreateEmptyPage();
 }
 
-const char * PumaImpl::modulePath() const
-{
+const char * PumaImpl::modulePath() const {
     return ".";
 }
 
-const char * PumaImpl::moduleTmpPath() const
-{
+const char * PumaImpl::moduleTmpPath() const {
     return ".";
 }
 
-void PumaImpl::normalize()
-{
+void PumaImpl::normalize() {
     //Нормализуем вертикальные строки
     RPSTR_NormalizeVertStr();
 }
 
-Rect PumaImpl::pageTemplate() const
-{
+Rect PumaImpl::pageTemplate() const {
     return rect_template_;
 }
 
-void PumaImpl::pass1()
-{
+void PumaImpl::pass1() {
     if (Config::instance().debugDump())
         saveCSTR(1);
 
     recognizePass1();
 }
 
-void PumaImpl::pass2()
-{
+void PumaImpl::pass2() {
     if (Config::instance().debugDump())
         saveCSTR(2);
 
@@ -606,8 +593,7 @@ void PumaImpl::pass2()
         Debug() << "RSTR said that second pass is not needed.\n";
 }
 
-void PumaImpl::pass2special()
-{
+void PumaImpl::pass2special() {
     double s = 0;
     int n = CSTR_GetMaxNumber();
     for (int i = 1; i <= n; i++) {
@@ -634,8 +620,7 @@ void PumaImpl::pass2special()
     }
 }
 
-void PumaImpl::spellCorrection()
-{
+void PumaImpl::spellCorrection() {
     if (Config::instance().debugDump())
         saveCSTR(3);
 
@@ -650,14 +635,12 @@ void PumaImpl::spellCorrection()
         throw PumaException("RPSTR_CorrectSpell failed");
 }
 
-void PumaImpl::preOpenInitialize()
-{
+void PumaImpl::preOpenInitialize() {
     PumaImpl::close();
     SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
 }
 
-void PumaImpl::preprocessImage()
-{
+void PumaImpl::preprocessImage() {
     uint32_t Angle = 0;
 
     // Выделим компоненты
@@ -682,26 +665,23 @@ void PumaImpl::preprocessImage()
     SetPageInfo(cpage_, PInfo);
 }
 
-void PumaImpl::printRecognizeOptions()
-{
+void PumaImpl::printRecognizeOptions() {
     Debug() << "##################################################################\n"
             << " Recognize options:\n" << boolalpha << std::left << setw(25) << "  Spell: "
             << do_spell_corretion_ << "\n" << setw(25) << "  Fax:   " << fax100_ << "\n"
             << setw(25) << "  Single column layout: " << one_column_ << "\n" << setw(25)
             << "  Dot matix: " << dot_matrix_ << "\n" << setw(25) << "  Autorotate: "
-            << auto_rotate_ << "\n" << setw(25) << "  Language: " << Language(language_)
-            << "\n" << setw(10) << "  Page: " << rect_template_ << "\n" << "  " << format_options_
+            << auto_rotate_ << "\n" << setw(25) << "  Language: " << Language(language_) << "\n"
+            << setw(10) << "  Page: " << rect_template_ << "\n" << "  " << format_options_
             << "##################################################################\n";
 }
 
-void PumaImpl::printResult(std::ostream& os)
-{
+void PumaImpl::printResult(std::ostream& os) {
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++)
         printResultLine(os, i);
 }
 
-void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber)
-{
+void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
     CSTR_line lout = CSTR_GetLineHandle(lineNumber, CSTR_LINVERS_MAINOUT);
     CSTR_rast start = CSTR_GetFirstRaster(lout);
     CSTR_rast stop = CSTR_GetLastRaster(lout);
@@ -749,14 +729,12 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber)
     os << ">\n";
 }
 
-void PumaImpl::postOpenInitialize()
-{
+void PumaImpl::postOpenInitialize() {
     getImageInfo(PUMA_IMAGE_USER);
     rect_template_.set(Point(), info_.biWidth, info_.biHeight);
 }
 
-void PumaImpl::recognize()
-{
+void PumaImpl::recognize() {
     assert(cpage_);
     // Проверим: выделены ли фрагменты.
     if (!CPAGE_GetCountBlock(cpage_) || IsUpdate(FLG_UPDATE_CPAGE))
@@ -826,8 +804,7 @@ void PumaImpl::recognize()
                             CSTR_SetLineAttr(ln, &attr);
                         }
                     }
-                }
-                while (ln);
+                } while (ln);
             }
         }
     }
@@ -848,8 +825,7 @@ void PumaImpl::recognize()
     formatResult();
 }
 
-void PumaImpl::recognizeCorrection()
-{
+void PumaImpl::recognizeCorrection() {
     // Скорректируем результат распознавани
     CSTR_SortFragm(1);
 
@@ -863,8 +839,7 @@ void PumaImpl::recognizeCorrection()
         saveCSTR(4);
 }
 
-void PumaImpl::recognizePass1()
-{
+void PumaImpl::recognizePass1() {
     // распознавание строк
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
         CSTR_line lin_out = CSTR_NewLine(i, CSTR_LINVERS_MAINOUT); // OLEG
@@ -909,8 +884,7 @@ void PumaImpl::recognizePass1()
         throw PumaException("RSTR_EndPage failed");
 }
 
-void PumaImpl::recognizePass2()
-{
+void PumaImpl::recognizePass2() {
     // рапознавание строк
     uchar w8 = 1;
     RSTR_SetImportData(RSTR_Word8_P2_active, &w8);
@@ -935,8 +909,7 @@ void PumaImpl::recognizePass2()
         throw PumaException("RSTR_EndPage failed");
 }
 
-void PumaImpl::recognizeSetup()
-{
+void PumaImpl::recognizeSetup() {
     // распознавание строк
     PAGEINFO info;
     GetPageInfo(cpage_, &info);
@@ -980,8 +953,7 @@ void PumaImpl::recognizeSetup()
     }
 }
 
-void PumaImpl::recognizeSpecial()
-{
+void PumaImpl::recognizeSpecial() {
     char * buf = &global_buf[0], buf_str[1024];
     char * pb = buf;
     global_buf_len = 0;
@@ -999,8 +971,7 @@ void PumaImpl::recognizeSpecial()
     global_buf_len++;
 }
 
-void PumaImpl::rotate(void * dib, Point * p)
-{
+void PumaImpl::rotate(void * dib, Point * p) {
     // Определим угол поворота страницы
     PAGEINFO PInfo;
     assert(p);
@@ -1044,30 +1015,21 @@ void PumaImpl::rotate(void * dib, Point * p)
     SetPageInfo(cpage_, PInfo);
 }
 
-void PumaImpl::save(const std::string& filename, format_t Format) const
-{
-    if (!ed_page_)
-        throw PumaException("Puma save failed");
-
-    if (Config::instance().debug())
-        Debug() << "Puma save to: " << filename << endl;
-
-    ExporterFactory::instance().setPage(ed_page_);
-    ExporterFactory::instance().setFormatOptions(format_options_);
-    Exporter * exp = ExporterFactory::instance().make(Format);
-    exp->exportTo(filename);
-    delete exp;
+void PumaImpl::save(const std::string& filename, format_t format) const {
+    makeExporter(format)->exportTo(filename);
 }
 
-void PumaImpl::saveCSTR(int pass)
-{
+void PumaImpl::save(std::ostream& os, format_t format) const {
+    makeExporter(format)->exportTo(os);
+}
+
+void PumaImpl::saveCSTR(int pass) {
     ostringstream os;
     os << "cuneiform_pass_" << pass << ".cst";
     CSTR_SaveCont(os.str().c_str());
 }
 
-void PumaImpl::saveLayoutToFile(const std::string& fname)
-{
+void PumaImpl::saveLayoutToFile(const std::string& fname) {
     CPAGE_ClearBackUp(cpage_);
 
     if (!CPAGE_SavePage(cpage_, fname.c_str())) {
@@ -1077,8 +1039,7 @@ void PumaImpl::saveLayoutToFile(const std::string& fname)
     }
 }
 
-void PumaImpl::saveToText(ostream& os) const
-{
+void PumaImpl::saveToText(ostream& os) const {
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++) {
         CSTR_line lin_out = CSTR_GetLineHandle(i, 1); // OLEG
 
@@ -1089,8 +1050,7 @@ void PumaImpl::saveToText(ostream& os) const
     }
 }
 
-void PumaImpl::saveToText(const std::string& filename) const
-{
+void PumaImpl::saveToText(const std::string& filename) const {
     ofstream of(filename.c_str());
 
     if (!of)
@@ -1099,65 +1059,54 @@ void PumaImpl::saveToText(const std::string& filename) const
     saveToText(of);
 }
 
-void PumaImpl::setFormatOptions(const FormatOptions& opt)
-{
+void PumaImpl::setFormatOptions(const FormatOptions& opt) {
     format_options_ = opt;
 }
 
-void PumaImpl::setOptionAutoRotate(bool val)
-{
+void PumaImpl::setOptionAutoRotate(bool val) {
     auto_rotate_ = val;
     SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionDotMatrix(bool val)
-{
+void PumaImpl::setOptionDotMatrix(bool val) {
     dot_matrix_ = val;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionFax100(bool val)
-{
+void PumaImpl::setOptionFax100(bool val) {
     fax100_ = val;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionLanguage(language_t lang)
-{
+void PumaImpl::setOptionLanguage(language_t lang) {
     language_ = lang;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionOneColumn(bool val)
-{
+void PumaImpl::setOptionOneColumn(bool val) {
     one_column_ = val;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionPictures(puma_picture_t type)
-{
+void PumaImpl::setOptionPictures(puma_picture_t type) {
     pictures_ = type;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionTable(puma_table_t mode)
-{
+void PumaImpl::setOptionTable(puma_table_t mode) {
     tables_ = mode;
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
-void PumaImpl::setOptionUserDictionaryName(const char * name)
-{
+void PumaImpl::setOptionUserDictionaryName(const char * name) {
     user_dict_name_ = name;
 }
 
-void PumaImpl::setOptionUseSpeller(bool value)
-{
+void PumaImpl::setOptionUseSpeller(bool value) {
     do_spell_corretion_ = value;
 }
 
-void PumaImpl::setPageTemplate(const Rect& r)
-{
+void PumaImpl::setPageTemplate(const Rect& r) {
     Rect old_rect = rect_template_;
     Rect rect = r;
     BitmapInfoHeader info;
@@ -1203,20 +1152,17 @@ void PumaImpl::setPageTemplate(const Rect& r)
     }
 }
 
-void PumaImpl::setSpecialProject(special_project_t SpecialProject)
-{
+void PumaImpl::setSpecialProject(special_project_t SpecialProject) {
     special_project_ = SpecialProject;
     RSTUFF_RSSetSpecPrj(SpecialProject);
     RSTR_SetSpecPrj(SpecialProject);
 }
 
-unsigned char * PumaImpl::mainBuffer()
-{
+unsigned char * PumaImpl::mainBuffer() {
     return main_buffer_.begin();
 }
 
-unsigned char * PumaImpl::workBuffer()
-{
+unsigned char * PumaImpl::workBuffer() {
     return work_buffer_.begin();
 }
 

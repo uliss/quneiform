@@ -18,6 +18,7 @@
 
 #include <map>
 #include "outputformat.h"
+#include "config-user.h" // for CF_USE_ODF
 
 namespace CIF
 {
@@ -61,9 +62,13 @@ bool initOutputFormatData()
     addFormat(FORMAT_HTML, "html", "HTML format", "html");
     addFormat(FORMAT_HOCR, "hocr", "hOCR HTML format", "html");
     addFormat(FORMAT_RTF, "rtf", "RTF format", "rtf");
-    addFormat(FORMAT_ODF, "odf", "OpenDocument Format", "odt");
     addFormat(FORMAT_EDNATIVE, "native", "Cuneiform 2000 format", "ed");
     addFormat(FORMAT_DEBUG, "textdebug", "for debugging purposes", "txt");
+
+#ifdef CF_USE_ODF
+    addFormat(FORMAT_ODF, "odf", "OpenDocument Format", "odt");
+#endif
+
     return true;
 }
 

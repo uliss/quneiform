@@ -27,20 +27,35 @@
 #include "exporter.h"
 #include "globus.h"
 
-namespace CIF {
+namespace CIF
+{
+
+class CEDPage;
 
 class CLA_EXPO ExporterFactoryImpl
 {
-public:
-    ExporterFactoryImpl();
-    Exporter * make(format_t format);
-    void setFormatOptions(const FormatOptions& opts);
-    void setPage(Handle page);
+    public:
+        ExporterFactoryImpl();
 
-    typedef RuntimeExceptionImpl<ExporterFactoryImpl> Exception;
-private:
-    Handle page_;
-    FormatOptions format_options_;
+        /**
+         * Returns pointer to exporter for given format
+         */
+        ExporterPtr make(format_t format);
+
+        /**
+         * Sets export options
+         */
+        void setFormatOptions(const FormatOptions& opts);
+
+        /**
+         * Sets pointer to document
+         */
+        void setPage(CEDPage * page);
+
+        typedef RuntimeExceptionImpl<ExporterFactoryImpl> Exception;
+    private:
+        CEDPage * page_;
+        FormatOptions format_options_;
 };
 
 typedef Singleton<ExporterFactoryImpl> ExporterFactory;
