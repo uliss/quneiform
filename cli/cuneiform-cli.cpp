@@ -118,34 +118,37 @@ static string usage()
     ostringstream os;
     os << "Usage: " << program_name << " [options] imagefile\n";
     os << ""
-        "  -h   --help                   Print this help message\n"
-        "  -v   --verbose                Print verbose debugging messages\n"
-        "  -V   --version                Print program version and exit\n"
-        "       --debug-dump             Dumps various temporary recognition data\n"
-        "                                   to current directory\n"
-        "       --autorotate             Automatically rotate input image\n"
-        "  -f   --format   FORMAT        Sets output format\n"
-        "                                   type --format help to get full list\n"
-        "  -l   --language LANGUAGE      Sets recognition language\n"
-        "                                   type --language help to gel full list\n"
-        "  -o   --output   FILENAME      Sets output filename\n"
-        "       --spell                  Use spell correction\n"
-        "       --onecolumn              Use one column layout\n"
-        "       --dotmatrix                               \n"
-        "       --fax                                     \n"
-        "       --tables   MODE\n"
-        "       --pictures               Search pictures (default)\n"
-        "       --nopictures             Do not search pictures \n"
-        "  Export options:                                      \n"
-        "       --preserve-line-breaks   Preserves line-breaking\n"
-        "       --preserve-hyphens       Preserves line hyphenation\n"
-        "       --unrecognized CHAR      Set symbol, that shown instead of unrecognized characters.\n"
-        "                                    Default is '~'.\n"
-        "       --no-bold                Use normal font for bold text\n"
-        "       --no-italic              Use normal font for italic text\n"
-        "       --monospace-name         Use specified monospace font in RTF output\n"
-        "       --serif-name             Use specified serif font in RTF output\n"
-        "       --sansserif-name         Use seecified sans-serif font in RTF output\n";
+        "  -h   --help                   Print this help message                     \n"
+        "  -v   --verbose                Print verbose debugging messages            \n"
+        "  -V   --version                Print program version and exit              \n"
+        "       --debug-dump             Dumps various temporary recognition data    \n"
+        "                                   to current directory                     \n"
+        "       --autorotate             Automatically rotate input image            \n"
+        "  -f   --format   FORMAT        Sets output format                          \n"
+        "                                   type --format help to get full list      \n"
+        "  -l   --language LANGUAGE      Sets recognition language                   \n"
+        "                                   type --language help to gel full list    \n"
+        "       --spell                  Use spell correction                        \n"
+        "       --onecolumn              Use one column layout                       \n"
+        "       --dotmatrix                                                          \n"
+        "       --fax                                                                \n"
+        "       --tables   MODE                                                      \n"
+        "       --pictures               Search pictures (default)                   \n"
+        "       --nopictures             Do not search pictures                      \n"
+        "  Output options:                                                           \n"
+        "  -o   --output   FILENAME      Sets output filename                        \n"
+        "       --stdout                 Puts result to standard output              \n"
+        "  Export options:                                                           \n"
+        "       --preserve-line-breaks   Preserves line-breaking                     \n"
+        "       --preserve-hyphens       Preserves line hyphenation                  \n"
+        "       --unrecognized CHAR      Set symbol, that shown instead of           \n"
+        "                                    unrecognized characters.                \n"
+        "                                    Default is '~'.                         \n"
+        "       --no-bold                Use normal font for bold text               \n"
+        "       --no-italic              Use normal font for italic text             \n"
+        "       --monospace-name         Use specified monospace font in RTF output  \n"
+        "       --serif-name             Use specified serif font in RTF output      \n"
+        "       --sansserif-name         Use seecified sans-serif font in RTF output \n";
     return os.str();
 }
 
@@ -207,11 +210,12 @@ int main(int argc, char **argv)
     int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller = FALSE,
             do_singlecolumn = FALSE, do_pictures = TRUE, do_tables = FALSE, do_autorotate = FALSE,
             preserve_line_breaks = FALSE, preserve_hyphens = FALSE, do_dump = FALSE, no_bold = FALSE,
-            no_italic = FALSE, stdout_output = FALSE;
+            no_italic = FALSE, stdout_output = FALSE, do_append = FALSE;
 
-    const char * const short_options = ":ho:vVl:f:d:u:";
+    const char * const short_options = ":aho:vVl:f:d:u:";
     const struct option long_options[] = {
     //
+        { "append", no_argument, &do_append, 'a' },//
         { "autorotate", no_argument, &do_autorotate, 1 },//
         { "debug-dump", no_argument, &do_dump, 1 },//
         { "dictionary", required_argument, NULL, 'd' }, //
@@ -245,6 +249,9 @@ int main(int argc, char **argv)
     int code;
     while ((code = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
         switch (code) {
+        case 'a':
+            do_append = TRUE;
+            break;
         case 'd':
             dictionaries = optarg;
             break;
@@ -375,7 +382,10 @@ int main(int argc, char **argv)
             Puma::instance().save(std::cout, outputformat);
         }
         else {
-            Puma::instance().save(outfilename, outputformat);
+            if(do_append)
+                Puma::instance().append(outfilename, outputformat);
+            else
+                Puma::instance().save(outfilename, outputformat);
         }
 
         Puma::instance().close();
