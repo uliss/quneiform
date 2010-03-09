@@ -61,6 +61,7 @@ class OdfExporter: public XmlExporter
         void addOdfMime();
         void addOdfSettings();
         void addOdfStyles();
+        void makePicturesDir();
         void odfClose();
         void odfOpen(const std::string& fname);
         void odfWrite(const std::string& fname, const std::string& data);

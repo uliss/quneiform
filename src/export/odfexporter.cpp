@@ -63,8 +63,6 @@ OdfExporter::OdfExporter(CEDPage * page, const FormatOptions& opts) :
 
     ImageExporterPtr exp = ImageExporterFactory::instance().make();
     setImageExporter(exp);
-
-    //useIndents(true);
     setSkipPictures(false);
 }
 
@@ -95,6 +93,8 @@ void OdfExporter::addOdfAutomaticStyles(std::ostream& os) {
 }
 
 void OdfExporter::addOdfContent() {
+    makePicturesDir();
+
     std::ostringstream buf;
     writeXmlDeclaration(buf);
 
@@ -128,11 +128,8 @@ void OdfExporter::addOdfManifest() {
 
     addOdfManifestFile("/", "application/vnd.oasis.opendocument.text");
 
+    XmlTag file_entry("manifest:file-entry");
     for (ManifestList::iterator it = files_.begin(), end = files_.end(); it != end; ++it) {
-        XmlTag file_entry("manifest:file-entry");
-        if (it->first == "/")
-            file_entry["manifest:version"] = "1.0";
-
         file_entry["manifest:full-path"] = it->first;
         file_entry["manifest:media-type"] = it->second;
         buf << file_entry << "\n";
@@ -170,14 +167,14 @@ void OdfExporter::addOdfSettings() {
 }
 
 void OdfExporter::addOdfStyles() {
-    std::ostringstream buf;
-    writeXmlDeclaration(buf);
-    XmlTag style("office:document-style");
-    setCommonOdfNamespaces(style);
-    buf << style << "\n";
+    //std::ostringstream buf;
+    //writeXmlDeclaration(buf);
+    //XmlTag style("office:document-style");
+    //setCommonOdfNamespaces(style);
+    //buf << style << "\n";
 
-    odfWrite("styles.xml", buf.str());
-    addOdfManifestFile("styles.xml", "text/xml");
+    //odfWrite("styles.xml", buf.str());
+    //addOdfManifestFile("styles.xml", "text/xml");
 }
 
 void OdfExporter::exportTo(const std::string& fname) {
@@ -212,15 +209,9 @@ std::string OdfExporter::fontStyleTag(int style) const {
     }
 }
 
-void OdfExporter::writeFontStyleBegin(std::ostream& os, int style) {
-    //    XmlTag span("text:span");
-    //    span["text:style-name"] = fontStyleTag(style);
-    //    span.writeBegin(os);
-}
-
-void OdfExporter::writeFontStyleEnd(std::ostream& os, int style) {
-    //    XmlTag span("text:span");
-    //    span.writeEnd(os);
+void OdfExporter::makePicturesDir() {
+    zip_add_dir(zip_, ODF_PICT_DIR.c_str());
+    addOdfManifestFile(ODF_PICT_DIR, "");
 }
 
 void OdfExporter::odfClose() {
@@ -240,9 +231,6 @@ void OdfExporter::odfOpen(const std::string& fname) {
             throw Exception("[OdfExporter::odfOpen] can't open file: " + fname);
         }
     }
-
-    zip_add_dir(zip_, ODF_PICT_DIR.c_str());
-    addOdfManifestFile(ODF_PICT_DIR, "");
 }
 
 void OdfExporter::odfWrite(const std::string& fname, const std::string& data) {
@@ -274,6 +262,19 @@ void OdfExporter::setCommonOdfNamespaces(Tag& tag) const {
     tag["xmlns:fo"] = "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0";
     tag["office:version"] = "1.2";
 }
+
+
+void OdfExporter::writeFontStyleBegin(std::ostream& os, int style) {
+    //    XmlTag span("text:span");
+    //    span["text:style-name"] = fontStyleTag(style);
+    //    span.writeBegin(os);
+}
+
+void OdfExporter::writeFontStyleEnd(std::ostream& os, int style) {
+    //    XmlTag span("text:span");
+    //    span.writeEnd(os);
+}
+
 
 void OdfExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
     // skip last line break
