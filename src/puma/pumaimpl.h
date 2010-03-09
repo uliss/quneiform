@@ -54,23 +54,68 @@ class CLA_EXPO PumaImpl
         PumaImpl();
         ~PumaImpl();
 
+        /**
+         * Make some cleanup after recognition
+         */
         void close();
+
+        /**
+         * Returns format options
+         */
         FormatOptions formatOptions() const;
+
+        /**
+         * Opens image for recognition
+         */
         void open(ImagePtr img);
+
+        /**
+         * Returns image working area
+         */
         Rect pageTemplate() const;
+
+        /**
+         * Recognizes image
+         */
         void recognize();
-        void save(const std::string& outputFilename, format_t format) const;
+
+        /**
+         * Saves recognition result to specified format
+         * @param filename - file to save
+         * @param format - document format
+         */
+        void save(const std::string& filename, format_t format) const;
+
+        /**
+         * Sets format options
+         */
         void setFormatOptions(const FormatOptions& opt);
         void setOptionAutoRotate(bool val);
         void setOptionDotMatrix(bool val);
         void setOptionFax100(bool val);
         void setOptionFormatMode(puma_format_mode_t format);
+
+        /**
+         * Sets recognition language
+         */
         void setOptionLanguage(language_t language);
+
+        /**
+         * Sets one column layout
+         */
         void setOptionOneColumn(bool val);
         void setOptionPictures(puma_picture_t type);
         void setOptionTable(puma_table_t mode);
         void setOptionUserDictionaryName(const char * name);
+
+        /**
+         * Sets use speller after recognition process
+         */
         void setOptionUseSpeller(bool value = true);
+
+        /**
+         * Sets working region on input image
+         */
         void setPageTemplate(const Rect& r);
         void setSpecialProject(special_project_t SpecialProject);
     public:
