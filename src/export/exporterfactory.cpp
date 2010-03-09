@@ -64,6 +64,7 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
         break;
     case FORMAT_HTML:
         exp.reset(new HtmlExporter(page_, format_options_));
+        break;
     case FORMAT_SMARTTEXT:
         format_options_.setPreserveLineBreaks(true);
     case FORMAT_TEXT:

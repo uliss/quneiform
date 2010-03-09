@@ -207,7 +207,7 @@ int main(int argc, char **argv)
     int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller = FALSE,
             do_singlecolumn = FALSE, do_pictures = TRUE, do_tables = FALSE, do_autorotate = FALSE,
             preserve_line_breaks = FALSE, preserve_hyphens = FALSE, do_dump = FALSE, no_bold = FALSE,
-            no_italic = FALSE;
+            no_italic = FALSE, stdout_output = FALSE;
 
     const char * const short_options = ":ho:vVl:f:d:u:";
     const struct option long_options[] = {
@@ -231,6 +231,7 @@ int main(int argc, char **argv)
         { "sansserif-name", required_argument, NULL, 'y' },
         { "serif-name", required_argument, NULL, 'z' },
         { "onecolumn", no_argument, &do_singlecolumn, 1 },//
+        { "stdout", no_argument, &stdout_output, 1 }, //
         { "spell", no_argument, &do_speller, 1 },//
         { "tables", required_argument, &do_tables, 1 },//
         { "unrecognized", required_argument, NULL, 'u' },//
@@ -369,7 +370,14 @@ int main(int argc, char **argv)
 
         Puma::instance().open(image);
         Puma::instance().recognize();
-        Puma::instance().save(outfilename, outputformat);
+
+        if(stdout_output) {
+            Puma::instance().save(std::cout, outputformat);
+        }
+        else {
+            Puma::instance().save(outfilename, outputformat);
+        }
+
         Puma::instance().close();
     }
     catch (std::runtime_error& e) {
