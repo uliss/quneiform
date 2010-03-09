@@ -16,6 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <fstream>
 #include "debugexporter.h"
 #include "cstr/cstr.h"
 #include "common/iconv_local.h"
@@ -25,6 +26,15 @@ namespace CIF
 
 DebugExporter::DebugExporter(const FormatOptions& opts) :
     Exporter(opts) {
+}
+
+void DebugExporter::appendTo(const std::string& filename) {
+    std::ofstream f;
+    f.open(filename.c_str(), std::ios::out | std::ios::binary | std::ios::app);
+    if (!f)
+        throw Exception("[DebugExporter::appendTo] append failed to: " + filename);
+    setOutputFilename(filename);
+    doExport(f);
 }
 
 void DebugExporter::doExport(std::ostream& os) {
@@ -48,6 +58,8 @@ void DebugExporter::doExport(std::ostream& os) {
         if (formatOptions().preserveLineBreaks())
             os << "\n";
     }
+
+    os << std::endl;
 }
 
 }

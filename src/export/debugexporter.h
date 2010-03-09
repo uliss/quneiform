@@ -28,6 +28,11 @@ class DebugExporter: public Exporter
 {
     public:
         DebugExporter(const FormatOptions& opts);
+
+        /**
+         * Appends to the end of existing file
+         */
+        virtual void appendTo(const std::string& filename);
     private:
         void doExport(std::ostream& os);
 };
