@@ -1,5 +1,10 @@
+2010-03-10
+Appending to the end of existing documents added for text, smartext and textdebug formats
+
+
 2010-03-04
 Cuneiform compiles with MSVC and passes tests.
+
 
 2010-02-26
 Cuneiform now works under NetBSD

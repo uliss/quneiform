@@ -136,6 +136,8 @@ static string usage()
         "       --pictures               Search pictures (default)                   \n"
         "       --nopictures             Do not search pictures                      \n"
         "  Output options:                                                           \n"
+        "  -a   --append                 Appends output to existing document         \n"
+        "                                   (supported not for all formats)          \n"
         "  -o   --output   FILENAME      Sets output filename                        \n"
         "       --stdout                 Puts result to standard output              \n"
         "  Export options:                                                           \n"
