@@ -31,6 +31,11 @@ class TextExporter: public GenericExporter
         TextExporter(CEDPage * page, const FormatOptions& opts);
 
         /**
+         * Appends to the end of existing file
+         */
+        void appendTo(const std::string& filename);
+
+        /**
          * Exports to stream
          * @note BOM will be inserted on __APPLE__ platform
          * @see writeBom

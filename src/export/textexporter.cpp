@@ -16,14 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <cstdlib>
+#include <cstring>
+#include <fstream>
+
 #include "textexporter.h"
 #include "ced/ced.h"
 #include "ced/cedint.h"
 #include "ced/cedline.h"
 #include "common/helper.h"
-
-#include <cstdlib>
-#include <cstring>
 
 namespace CIF
 {
@@ -42,6 +43,15 @@ TextExporter::TextExporter(CEDPage * page, const FormatOptions& opts) :
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
     setSkipPictures(true);
+}
+
+void TextExporter::appendTo(const std::string& filename) {
+    std::ofstream f;
+    f.open(filename.c_str(), std::ios::out | std::ios::binary | std::ios::app);
+    if (!f)
+        throw Exception("[TextExporter::appendTo] append failed to: " + filename);
+    setOutputFilename(filename);
+    doExport(f);
 }
 
 void TextExporter::bufferPreprocess(std::string& buffer) {
