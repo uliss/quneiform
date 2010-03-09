@@ -31,6 +31,12 @@ class XmlExporter: public TextExporter
     public:
         XmlExporter(CEDPage * page, const FormatOptions& opts);
 
+        /**
+         * Append to the end of existing XML document
+         * @note not supported yet
+         */
+        void appendTo(const std::string& filename);
+
         typedef std::map<std::string, std::string> Attributes;
 
         /**

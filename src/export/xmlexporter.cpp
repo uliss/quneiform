@@ -36,6 +36,10 @@ XmlExporter::XmlExporter(CEDPage * page, const FormatOptions& opts) :
     TextExporter(page, opts), indent_level_(0), use_indent_(false), line_break_(false) {
 }
 
+void XmlExporter::appendTo(const std::string& filename) {
+    Exporter::appendTo(filename);
+}
+
 std::string XmlExporter::escapeSpecialChar(uchar code) {
     switch (code) {
     case '>':
