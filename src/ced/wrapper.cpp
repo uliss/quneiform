@@ -100,7 +100,7 @@ CED_FUNC(Handle) CED_CreatePage(char * _imageName, EDSIZE _sizeOfImage, EDSIZE _
     borders.rright() = _pageBordersInTwips.right;
     ret->setPageBorder(borders);
     ret->setUnrecognizedChar(_unrecogChar);
-    ret->resizeToFit = _resizeToFit;
+    ret->setResizeToFit(_resizeToFit);
     ret->setLanguage(LANGUAGE_RUS_ENG);
 
     if (logStream) {
@@ -474,10 +474,6 @@ CED_FUNC(Bool32) CED_WriteFormattedEd(const char * lpEdFileName, Handle hEdPage)
     }
 
     return ret;
-}
-
-CED_FUNC(Bool32) CED_GetPageResize(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->resizeToFit;
 }
 
 CED_FUNC(uint32_t) CED_GetNumberOfParagraphs(Handle hEdPage) {

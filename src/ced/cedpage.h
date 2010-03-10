@@ -48,6 +48,8 @@ class FUN_EXPO__ CEDPage
          */
         Size imageSize() const;
 
+        bool isResizeToFit() const;
+
         /**
          * Returns page language
          * @see setLanguage
@@ -116,6 +118,8 @@ class FUN_EXPO__ CEDPage
          */
         void setPageSize(const Size& size);
 
+        void setResizeToFit(bool value);
+
         /**
          * Sets page turn
          * @see turn()
@@ -140,8 +144,6 @@ class FUN_EXPO__ CEDPage
          * @see setUnrecognizedChar()
          */
         char unrecognizedChar() const;
-
-        Bool32 resizeToFit;
 
         int fontsUsed; //РљThe number of fonts used in table
         int fontsCreated; //РљThe number of fonts created in the table
@@ -203,11 +205,12 @@ class FUN_EXPO__ CEDPage
         Size image_dpi_;
         Size page_size_in_twips_;
         Rect page_borders_in_twips_;
+        std::string image_name_;
         int turn_;
         int page_number_;
         language_t language_;
         char unrecognized_char_;
-        std::string image_name_;
+        bool resize_to_fit_;
 };
 
 }

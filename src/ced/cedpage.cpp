@@ -33,7 +33,8 @@ namespace CIF
 {
 
 CEDPage::CEDPage() :
-    turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG), unrecognized_char_(0) {
+    turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG), unrecognized_char_(0), resize_to_fit_(
+            false) {
     sections = 0;
     curSect = 0;
     NumberOfSections = 0;
@@ -43,7 +44,6 @@ CEDPage::CEDPage() :
     picsUsed = 0; //number of picture used in table
     picsCreated = 0; //number of pictures created in table
     picsTable = 0; //pointer to picture table
-    resizeToFit = 0;
 }
 
 CEDPage::~CEDPage() {
@@ -135,6 +135,10 @@ Size CEDPage::imageSize() const {
     return image_size_;
 }
 
+bool CEDPage::isResizeToFit() const {
+    return resize_to_fit_;
+}
+
 language_t CEDPage::language() const {
     return language_;
 }
@@ -177,6 +181,10 @@ void CEDPage::setPageNumber(int number) {
 
 void CEDPage::setPageSize(const Size& size) {
     page_size_in_twips_ = size;
+}
+
+void CEDPage::setResizeToFit(bool value) {
+    resize_to_fit_ = value;
 }
 
 void CEDPage::setTurn(int angle) {
