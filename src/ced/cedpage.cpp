@@ -34,7 +34,6 @@ namespace CIF
 
 CEDPage::CEDPage() :
     turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG), unrecognized_char_(0) {
-    imageName = 0;
     pageSizeInTwips.cx = pageSizeInTwips.cy = 0;
     pageBordersInTwips.top = pageBordersInTwips.bottom = pageBordersInTwips.left
             = pageBordersInTwips.right = 0;
@@ -125,13 +124,14 @@ CEDPage::~CEDPage() {
         free(picsTable[i].data);
 
     delete[] picsTable;
-
-    if (imageName)
-        free(imageName);
 }
 
 Size CEDPage::imageDpi() const {
     return image_dpi_;
+}
+
+std::string CEDPage::imageName() const {
+    return image_name_;
 }
 
 Size CEDPage::imageSize() const {
@@ -148,6 +148,10 @@ int CEDPage::pageNumber() const {
 
 void CEDPage::setImageDpi(const Size& dpi) {
     image_dpi_ = dpi;
+}
+
+void CEDPage::setImageName(const std::string& filename) {
+    image_name_ = filename;
 }
 
 void CEDPage::setImageSize(const Size& size) {

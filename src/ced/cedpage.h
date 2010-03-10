@@ -19,9 +19,10 @@
 #ifndef CEDPAGE_H_
 #define CEDPAGE_H_
 
+#include <string>
 #include "globus.h"
 #include "ced_struct.h"
-#include <common/size.h>
+#include "common/size.h"
 
 namespace CIF
 {
@@ -31,31 +32,50 @@ class FUN_EXPO__ CEDPage
     public:
         /**
          * Returns image dpi
+         * @see setImageDpi()
          */
         Size imageDpi() const;
 
         /**
+         * Returns image name
+         * @see setImageName()
+         */
+        std::string imageName() const;
+
+        /**
          * Returns size of the original image in pixels
+         * @see setImageSize()
          */
         Size imageSize() const;
 
         /**
          * Returns page language
+         * @see setLanguage
          */
         language_t language() const;
 
         /**
          * Number of Pages (= 0 not in batch mode)
+         * @see setPageNumber()
          */
         int pageNumber() const;
 
         /**
          * Sets image dpi
+         * @see imageDpi()
          */
         void setImageDpi(const Size& dpi);
 
         /**
+         * Sets image path
+         * If the path is not specified, is searched in one
+         * Directory with the file ed
+         */
+        void setImageName(const std::string& filename);
+
+        /**
          * Sets image size in pixels
+         * @see imageSize()
          */
         void setImageSize(const Size& size);
 
@@ -92,10 +112,6 @@ class FUN_EXPO__ CEDPage
          * Returns unrecognized char
          */
         char unrecognizedChar() const;
-
-        //picture data
-        char* imageName; // Filename image. If the path is not specified, is searched in one
-        // Directory with the file ed
 
         EDSIZE pageSizeInTwips; // The width of the page in twip (1dyuym = 1440tvipov) for text editor
         EDRECT pageBordersInTwips;
@@ -163,6 +179,7 @@ class FUN_EXPO__ CEDPage
         int page_number_;
         language_t language_;
         char unrecognized_char_;
+        std::string image_name_;
 };
 
 }

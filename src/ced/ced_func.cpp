@@ -188,7 +188,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
         mainPage->setTurn(fond->inclune);
         mainPage->setImageDpi(CIF::Size(fond->resolutionX, fond->resolutionY));
         mainPage->setUnrecognizedChar(fond->unrecogSymbol);
-        mainPage->imageName = strdup((char*) ptExt + sizeof(originalImageDesc));
+        mainPage->setImageName((char*) ptExt + sizeof(originalImageDesc));
         break;
     }
         /*  case EDEXT_PICS:
@@ -1160,10 +1160,10 @@ Bool32 WriteTiffDescr(Handle hFile, CEDPage* page) {
     fond.resolutionY = (uint16_t) page->imageDpi().height();
     fond.unrecogSymbol = page->unrecognizedChar();
 
-    if (!WriteExtCode(hFile, EDEXT_TIFF_DESC, &fond, sizeof(fond), strlen(page->imageName) + 1))
+    if (!WriteExtCode(hFile, EDEXT_TIFF_DESC, &fond, sizeof(fond), page->imageName().length() + 1))
         return FALSE;
 
-    if (!CFIO_WriteToFile(hFile, (pchar) page->imageName, strlen(page->imageName) + 1))
+    if (!CFIO_WriteToFile(hFile, const_cast<char*>(page->imageName().c_str()), page->imageName().length() + 1))
         return FALSE;
 
     return TRUE;

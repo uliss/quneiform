@@ -87,7 +87,7 @@ CED_FUNC(Handle) CED_CreatePage(char * _imageName, EDSIZE _sizeOfImage, EDSIZE _
     }
 
     CEDPage * ret = new CEDPage;
-    ret->imageName = strdup(_imageName);
+    ret->setImageName(_imageName);
     ret->setImageSize(CIF::Size(_sizeOfImage.cx, _sizeOfImage.cy));
     ret->setImageDpi(CIF::Size(_dpi.cx, _dpi.cy));
     ret->setTurn(_turn);
@@ -473,10 +473,6 @@ CED_FUNC(Bool32) CED_WriteFormattedEd(const char * lpEdFileName, Handle hEdPage)
     }
 
     return ret;
-}
-////////////////////////////////////////////////////////////////////////////////
-CED_FUNC(char*) CED_GetPageImageName(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->imageName;
 }
 
 CED_FUNC(EDSIZE) CED_GetPageSize(Handle hEdPage) {

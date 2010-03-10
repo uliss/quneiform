@@ -49,7 +49,7 @@ inline std::string rectBBoxes(const HocrExporter::RectList& lst) {
 inline std::string pageBBox(CEDPage * p) {
     assert(p);
     std::ostringstream buf;
-    buf << "image '" << escapeHtmlSpecialChars(p->imageName) << "'; bbox 0 0 "
+    buf << "image '" << escapeHtmlSpecialChars(p->imageName()) << "'; bbox 0 0 "
             << p->imageSize().width() << " " << p->imageSize().height();
     return buf.str();
 }
@@ -117,7 +117,7 @@ void HocrExporter::writeMeta(std::ostream& os) {
 }
 
 void HocrExporter::writePageBegin(std::ostream& os, CEDPage * page) {
-    assert(page && page->imageName);
+    assert(page);
     HtmlExporter::writePageBegin(os, page);
     static int num_pages = 1;
     // example: <div class="ocr_page" title="image 'page-000.pbm'; bbox 0 0 4306 6064">
