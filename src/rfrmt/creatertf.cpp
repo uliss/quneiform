@@ -71,6 +71,7 @@
 #include "lst3_win.h"
 #include "cfio/cfio.h"
 #include "ced/ced.h"
+#include "ced/cedpage.h"
 #include "edfile.h"
 #include "dpuma.h"
 #include "rtfedwrite.h"
@@ -269,7 +270,7 @@ void CRtfPage::Rtf_CED_CreatePage(void) {
 
     m_hED = (CIF::CEDPage*) CED_CreatePage((char*) WriteRtfImageName, sizeOfImage, dpi, (int) PageInfo.Incline2048,
             PageNumber, sizeInTwips, pageBordersInTwips, UnRecogSymbol, resizeToFit);
-    CED_SetPageRecogLang(m_hED, (char) gnLanguage);
+    m_hED->setLanguage(static_cast<language_t>(gnLanguage));
 #endif
 }
 

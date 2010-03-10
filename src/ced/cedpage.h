@@ -40,6 +40,11 @@ class FUN_EXPO__ CEDPage
         Size imageSize() const;
 
         /**
+         * Returns page language
+         */
+        language_t language() const;
+
+        /**
          * Number of Pages (= 0 not in batch mode)
          */
         int pageNumber() const;
@@ -53,6 +58,12 @@ class FUN_EXPO__ CEDPage
          * Sets image size in pixels
          */
         void setImageSize(const Size& size);
+
+        /**
+         * Sets page language
+         * @see language
+         */
+        void setLanguage(language_t language);
 
         /**
          * Sets page number
@@ -79,7 +90,6 @@ class FUN_EXPO__ CEDPage
         EDSIZE pageSizeInTwips; // The width of the page in twip (1dyuym = 1440tvipov) for text editor
         EDRECT pageBordersInTwips;
         char unrecogChar;
-        char recogLang;
         Bool32 resizeToFit;
 
         int fontsUsed; //РљThe number of fonts used in table
@@ -142,6 +152,7 @@ class FUN_EXPO__ CEDPage
         Size image_dpi_;
         int turn_;
         int page_number_;
+        language_t language_;
 };
 
 }

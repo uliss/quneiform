@@ -177,7 +177,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
 
         //for backward compatibility
         if (unsigned((&(pd->recogLang)) - ((uchar*) pd)) < pt->length - sizeof(edExtention))
-            mainPage->recogLang = pd->recogLang;
+            mainPage->setLanguage(static_cast<language_t>(pd->recogLang));
 
         break;
     }
@@ -799,7 +799,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
     pd.margb = page->pageBordersInTwips.bottom;
     pd.margr = page->pageBordersInTwips.right;
     pd.resizeToFit = uchar(page->resizeToFit);
-    pd.recogLang = page->recogLang;
+    pd.recogLang = page->language();
 
     if (!WriteExtCode(hFile, EDEXT_BORDERS, &pd, sizeof(pd)))
         goto ED_WRITE_END;
