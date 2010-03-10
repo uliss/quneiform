@@ -608,10 +608,6 @@ void CED_ShowTree(char * name, Handle hEdPage)
     Handle tblRow;
     unsigned int tblRowNum = 0, tblCellNum = 0;
     FILE *stream = fopen( name, "w" );
-    fprintf(stream, "Page,dpi=%i,imName=%s,\ntw.x=%i,tw.y=%i,sz.x=%i,sz.y=%i,turn=%i,char=%c\n",
-            CED_GetPageDpi(hEdPage).cx, CED_GetPageImageName(hEdPage), CED_GetPageSize(hEdPage).cx,
-            CED_GetPageSize(hEdPage).cy, CED_GetPageImageSize(hEdPage).cx,
-            CED_GetPageImageSize(hEdPage).cy, CED_GetPageTurn(hEdPage), CED_GetPageUnrecogChar(hEdPage));
     fprintf(stream, "\nTable of pictures:\nTotal pictures:%d", CED_GetNumOfPics(hEdPage));
 
     for (unsigned int p = 0; p < CED_GetNumOfPics(hEdPage); p++) {
@@ -725,13 +721,12 @@ void PrintPara(FILE *stream, Handle para)
         Handle line = CED_GetLine(para, l);
 
         for (unsigned c = 0; c < CED_GetCountChar(line); c++) {
-            Handle chr = CED_GetChar(line, c);
+            CEDChar * chr = (CEDChar*) CED_GetChar(line, c);
 
-            if (!CED_IsPicture(chr))
-            fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
-
+			if (!chr->isPicture())
+				fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
             else
-            fprintf(stream, "\\pict%d\\", CED_GetCharFontNum(chr) - ED_PICT_BASE);
+				fprintf(stream, "\\pict%d\\", chr->fontNum - ED_PICT_BASE);
         }
 
         fprintf(stream, "\n");
