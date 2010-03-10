@@ -741,20 +741,20 @@ Bool WriteRtfMargin(struct StrRtfOut far *rtf) {
         if (!WriteRtfControl(rtf, "paperh", PARAM_INT, page->pageSize().height()))
             return FALSE;
 
-    if (page->pageBorders().left() >= 0)
-        if (!WriteRtfControl(rtf, "margl", PARAM_INT, page->pageBorders().left()))
+    if (page->pageBorder().left() >= 0)
+        if (!WriteRtfControl(rtf, "margl", PARAM_INT, page->pageBorder().left()))
             return FALSE;
 
-    if (page->pageBorders().right() >= 0)
-        if (!WriteRtfControl(rtf, "margr", PARAM_INT, page->pageBorders().right()))
+    if (page->pageBorder().right() >= 0)
+        if (!WriteRtfControl(rtf, "margr", PARAM_INT, page->pageBorder().right()))
             return FALSE;
 
-    if (page->pageBorders().top() >= 0)
-        if (!WriteRtfControl(rtf, "margt", PARAM_INT, page->pageBorders().top()))
+    if (page->pageBorder().top() >= 0)
+        if (!WriteRtfControl(rtf, "margt", PARAM_INT, page->pageBorder().top()))
             return FALSE;
 
-    if (page->pageBorders().bottom() >= 0)
-        if (!WriteRtfControl(rtf, "margb", PARAM_INT, page->pageBorders().bottom()))
+    if (page->pageBorder().bottom() >= 0)
+        if (!WriteRtfControl(rtf, "margb", PARAM_INT, page->pageBorder().bottom()))
             return FALSE;
 
     return TRUE;

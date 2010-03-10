@@ -139,7 +139,7 @@ language_t CEDPage::language() const {
     return language_;
 }
 
-Rect CEDPage::pageBorders() const {
+Rect CEDPage::pageBorder() const {
     return page_borders_in_twips_;
 }
 
@@ -167,7 +167,7 @@ void CEDPage::setLanguage(language_t language) {
     language_ = language;
 }
 
-void CEDPage::setPageBorders(const Rect& borders) {
+void CEDPage::setPageBorder(const Rect& borders) {
     page_borders_in_twips_ = borders;
 }
 

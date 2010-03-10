@@ -56,9 +56,9 @@ class FUN_EXPO__ CEDPage
 
         /**
          * Returns page borders in twips
-         * @see pageSize(), setPageBorders()
+         * @see pageSize(), setPageBorder()
          */
-        Rect pageBorders() const;
+        Rect pageBorder() const;
 
         /**
          * Number of Pages (= 0 not in batch mode)
@@ -100,8 +100,9 @@ class FUN_EXPO__ CEDPage
 
         /**
          * Sets page borders in twips
+         * @see pageBorder()
          */
-        void setPageBorders(const Rect& borders);
+        void setPageBorder(const Rect& borders);
 
         /**
          * Sets page number

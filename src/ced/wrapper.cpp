@@ -98,7 +98,7 @@ CED_FUNC(Handle) CED_CreatePage(char * _imageName, EDSIZE _sizeOfImage, EDSIZE _
     borders.rleft() = _pageBordersInTwips.left;
     borders.rtop() = _pageBordersInTwips.top;
     borders.rright() = _pageBordersInTwips.right;
-    ret->setPageBorders(borders);
+    ret->setPageBorder(borders);
     ret->setUnrecognizedChar(_unrecogChar);
     ret->resizeToFit = _resizeToFit;
     ret->setLanguage(LANGUAGE_RUS_ENG);
