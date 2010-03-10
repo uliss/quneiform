@@ -142,7 +142,7 @@ void ExtDataProc(uchar* /*_ptr*/, uint32_t /*lth*/) {
 
 void NewFormattedSDD(const sheet_disk_descr* pt) {
     mainPage->setImageDpi(CIF::Size(pt->resolution, pt->resolution));
-    mainPage->pageNumber = pt->sheet_numb;
+    mainPage->setPageNumber(pt->sheet_numb);
     mainPage->setTurn(pt->incline);
     mainPage->NumberOfParagraphs = pt->quant_fragm;
     mainPage->setTurn(pt->incline);
@@ -184,7 +184,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
     case EDEXT_TIFF_DESC: {
         originalImageDesc* fond = (originalImageDesc*) ptExt;
         mainPage->setImageSize(CIF::Size(fond->width, fond->height));
-        mainPage->pageNumber = fond->pageNum;
+        mainPage->setPageNumber(fond->pageNum);
         mainPage->setTurn(fond->inclune);
         mainPage->setImageDpi(CIF::Size(fond->resolutionX, fond->resolutionY));
         mainPage->unrecogChar = fond->unrecogSymbol;
@@ -765,7 +765,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
     sheet_disk_descr sdd;
     sdd.code = SS_SHEET_DESCR;
     sdd.quant_fragm = 1;
-    sdd.sheet_numb = page->pageNumber;
+    sdd.sheet_numb = page->pageNumber();
     sdd.descr_lth = sizeof(sdd) + sizeof(fragm_disk_descr);
     sdd.resolution = (uint16_t) page->imageDpi().height();
     sdd.incline = page->turn();
@@ -1154,7 +1154,7 @@ Bool32 WriteTiffDescr(Handle hFile, CEDPage* page) {
     originalImageDesc fond;
     fond.height = page->imageSize().height();
     fond.width = page->imageSize().width();
-    fond.pageNum = page->pageNumber;
+    fond.pageNum = page->pageNumber();
     fond.inclune = page->turn();
     fond.resolutionX = (uint16_t) page->imageDpi().width();
     fond.resolutionY = (uint16_t) page->imageDpi().height();

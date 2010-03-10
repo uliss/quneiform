@@ -40,6 +40,11 @@ class FUN_EXPO__ CEDPage
         Size imageSize() const;
 
         /**
+         * Number of Pages (= 0 not in batch mode)
+         */
+        int pageNumber() const;
+
+        /**
          * Sets image dpi
          */
         void setImageDpi(const Size& dpi);
@@ -48,6 +53,12 @@ class FUN_EXPO__ CEDPage
          * Sets image size in pixels
          */
         void setImageSize(const Size& size);
+
+        /**
+         * Sets page number
+         * @see pageNumber
+         */
+        void setPageNumber(int number);
 
         /**
          * Sets page turn
@@ -65,7 +76,6 @@ class FUN_EXPO__ CEDPage
         char* imageName; // Filename image. If the path is not specified, is searched in one
         // Directory with the file ed
 
-        int pageNumber; // Number of Pages (= 0 not in batch mode)
         EDSIZE pageSizeInTwips; // The width of the page in twip (1dyuym = 1440tvipov) for text editor
         EDRECT pageBordersInTwips;
         char unrecogChar;
@@ -131,6 +141,7 @@ class FUN_EXPO__ CEDPage
         Size image_size_;
         Size image_dpi_;
         int turn_;
+        int page_number_;
 };
 
 }

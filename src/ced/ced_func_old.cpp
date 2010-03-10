@@ -186,7 +186,7 @@ void FormattedSDD(const sheet_disk_descr* pt)
 {
     level = 0;
     mainPage->setImageDpi(CIF::Size(pt->resolution, pt->resolution));
-    mainPage->pageNumber = pt->sheet_numb;
+    mainPage->setPageNumber(pt->sheet_numb);
     mainPage->setTurn(pt->incline);
     mainPage->NumberOfParagraphs = pt->quant_fragm;
     mainPage->InsertSection();
