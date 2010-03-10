@@ -79,9 +79,19 @@ class FUN_EXPO__ CEDPage
         void setTurn(int angle);
 
         /**
+         * Sets unrecognized char
+         */
+        void setUnrecognizedChar(char chr);
+
+        /**
          * Returns tangent angle on the vertical images * 2048
          */
         int turn() const;
+
+        /**
+         * Returns unrecognized char
+         */
+        char unrecognizedChar() const;
 
         //picture data
         char* imageName; // Filename image. If the path is not specified, is searched in one
@@ -89,7 +99,6 @@ class FUN_EXPO__ CEDPage
 
         EDSIZE pageSizeInTwips; // The width of the page in twip (1dyuym = 1440tvipov) for text editor
         EDRECT pageBordersInTwips;
-        char unrecogChar;
         Bool32 resizeToFit;
 
         int fontsUsed; //РљThe number of fonts used in table
@@ -153,6 +162,7 @@ class FUN_EXPO__ CEDPage
         int turn_;
         int page_number_;
         language_t language_;
+        char unrecognized_char_;
 };
 
 }

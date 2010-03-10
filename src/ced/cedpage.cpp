@@ -33,14 +33,13 @@ namespace CIF
 {
 
 CEDPage::CEDPage() :
-    turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG) {
+    turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG), unrecognized_char_(0) {
     imageName = 0;
     pageSizeInTwips.cx = pageSizeInTwips.cy = 0;
     pageBordersInTwips.top = pageBordersInTwips.bottom = pageBordersInTwips.left
             = pageBordersInTwips.right = 0;
     sections = 0;
     curSect = 0;
-    unrecogChar = 0;
     NumberOfSections = 0;
     fontsUsed = 0; //number of fonts used in table
     fontsCreated = 0; //number of fonts created in table
@@ -167,8 +166,16 @@ void CEDPage::setTurn(int angle) {
     turn_ = angle;
 }
 
+void CEDPage::setUnrecognizedChar(char chr) {
+    unrecognized_char_ = chr;
+}
+
 int CEDPage::turn() const {
     return turn_;
+}
+
+char CEDPage::unrecognizedChar() const {
+    return unrecognized_char_;
 }
 
 CEDSection * CEDPage::InsertSection() {

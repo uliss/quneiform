@@ -98,7 +98,7 @@ CED_FUNC(Handle) CED_CreatePage(char * _imageName, EDSIZE _sizeOfImage, EDSIZE _
     ret->pageBordersInTwips.top = _pageBordersInTwips.top;
     ret->pageBordersInTwips.left = _pageBordersInTwips.left;
     ret->pageBordersInTwips.right = _pageBordersInTwips.right;
-    ret->unrecogChar = _unrecogChar;
+    ret->setUnrecognizedChar(_unrecogChar);
     ret->resizeToFit = _resizeToFit;
     ret->setLanguage(LANGUAGE_RUS_ENG);
 
@@ -485,9 +485,6 @@ CED_FUNC(EDSIZE) CED_GetPageSize(Handle hEdPage) {
 
 CED_FUNC(EDRECT) CED_GetPageBorders(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->pageBordersInTwips;
-}
-CED_FUNC(char) CED_GetPageUnrecogChar(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->unrecogChar;
 }
 
 CED_FUNC(Bool32) CED_GetPageResize(Handle hEdPage) {
