@@ -32,8 +32,8 @@
 namespace CIF
 {
 
-CEDPage::CEDPage() {
-    turn = 0;
+CEDPage::CEDPage() :
+    turn_(0) {
     imageName = 0;
     pageNumber = 0;
     pageSizeInTwips.cx = pageSizeInTwips.cy = 0;
@@ -147,6 +147,14 @@ void CEDPage::setImageDpi(const Size& dpi) {
 
 void CEDPage::setImageSize(const Size& size) {
     image_size_ = size;
+}
+
+void CEDPage::setTurn(int angle) {
+    turn_ = angle;
+}
+
+int CEDPage::turn() const {
+    return turn_;
 }
 
 CEDSection * CEDPage::InsertSection() {

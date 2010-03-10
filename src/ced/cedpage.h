@@ -49,8 +49,19 @@ class FUN_EXPO__ CEDPage
          */
         void setImageSize(const Size& size);
 
+        /**
+         * Sets page turn
+         * @see turn()
+         * @param angle  - tangent angle on the vertical images * 2048
+         */
+        void setTurn(int angle);
+
+        /**
+         * Returns tangent angle on the vertical images * 2048
+         */
+        int turn() const;
+
         //picture data
-        int turn; // Tangent angle on the vertical images * 2048
         char* imageName; // Filename image. If the path is not specified, is searched in one
         // Directory with the file ed
 
@@ -119,6 +130,7 @@ class FUN_EXPO__ CEDPage
     private:
         Size image_size_;
         Size image_dpi_;
+        int turn_;
 };
 
 }
