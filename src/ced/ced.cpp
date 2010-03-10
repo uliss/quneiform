@@ -54,7 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "resource.h"
 #include "ced_struct.h"
 #include "cedint.h"
 #include "cfio/cfio.h"

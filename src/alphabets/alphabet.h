@@ -21,6 +21,7 @@
 
 #include <bitset>
 #include <iostream>
+#include <boost/shared_ptr.hpp>
 #include "common/exception.h"
 #include "lang_def.h"
 #include "globus.h"
@@ -36,7 +37,7 @@ class CLA_EXPO Alphabet
 
         /**
          * Adds symbol in alphabet
-         * @param pos
+         * @param code
          */
         void addSymbol(size_t code);
 
@@ -83,7 +84,12 @@ class CLA_EXPO Alphabet
         friend std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet);
 };
 
+
+/** Shared pointer to Alphabet */
+typedef boost::shared_ptr<Alphabet> AlphabetPtr;
+
 std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet);
+
 typedef RuntimeExceptionImpl<Alphabet> AlphabetException;
 
 }

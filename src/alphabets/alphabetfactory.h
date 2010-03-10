@@ -20,7 +20,7 @@
 #define ALPHABETFACTORY_H_
 
 #include <map>
-#include <boost/shared_ptr.hpp>
+#include <boost/noncopyable.hpp>
 #include "common/language.h"
 #include "alphabet.h"
 #include "lang_def.h"
@@ -29,18 +29,25 @@
 namespace CIF
 {
 
-typedef boost::shared_ptr<Alphabet> AlphabetPtr;
-
-class CLA_EXPO AlphabetFactory
+class CLA_EXPO AlphabetFactory : public boost::noncopyable
 {
     public:
         typedef Alphabet * (*alphabetCreate)();
+
+        /**
+         * defines a pair of alphabet data tables
+         * filename1 amd filename2
+         */
         typedef std::pair<std::string, std::string> AlphabetTables;
+
+        /**
+         * Returns reference to alphabet factory instance
+         */
         static AlphabetFactory& instance();
     public:
         /**
          * Returns pair of alphabets tables by given language
-         * @param lang language type
+         * @param language language type
          * @return pair of language data alphabet table
          * @throw AlphabetException if can't find data
          */
@@ -48,8 +55,8 @@ class CLA_EXPO AlphabetFactory
 
         /**
          * Checks if data files for given language exists
-         * @param lang
-         * @return true if datas file for given language exists
+         * @param language
+         * @return true if datafile for given language exists
          */
         bool isLanguageData(language_t language);
 
@@ -94,8 +101,6 @@ class CLA_EXPO AlphabetFactory
         typedef std::map<language_t, AlphabetTables> AlphabetTablesMap;
         AlphabetTablesMap alphabet_tables_map_;
         AlphabetFactory();
-        AlphabetFactory(const AlphabetFactory&);
-        void operator=(const AlphabetFactory&);
 };
 
 }
