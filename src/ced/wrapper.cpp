@@ -66,52 +66,7 @@ using namespace CIF;
 char logName[PATH_MAX];
 FILE *logStream;
 
-//create page
-CED_FUNC(Handle) CED_CreatePage(char * _imageName, EDSIZE _sizeOfImage, EDSIZE _dpi, int _turn,
-        int _pageNumber, EDSIZE _sizeInTwips, EDRECT _pageBordersInTwips, char _unrecogChar,
-        Bool32 _resizeToFit) {
-    if (logName[0] && (!logStream))
-        logStream = fopen(logName, "at");
-
-    else if (logStream)
-        fprintf(logStream, "ERROR: Page Was Not Deleted Properly\n");
-
-    if (logStream) {
-        fprintf(logStream,
-                "\n\nCreatePage params: %s,(%d,%d),(%d,%d),%d,%d,(%d,%d),(%d,%d,%d,%d),%c,%d\n",
-                _imageName, _sizeOfImage.cx, _sizeOfImage.cy, _dpi.cx, _dpi.cy, _turn, _pageNumber,
-                _sizeInTwips.cx, _sizeInTwips.cy, _pageBordersInTwips.left,
-                _pageBordersInTwips.top, _pageBordersInTwips.right, _pageBordersInTwips.bottom,
-                _unrecogChar, _resizeToFit);
-        fflush(logStream);
-    }
-
-    CEDPage * ret = new CEDPage;
-    ret->setImageName(_imageName);
-    ret->setImageSize(CIF::Size(_sizeOfImage.cx, _sizeOfImage.cy));
-    ret->setImageDpi(CIF::Size(_dpi.cx, _dpi.cy));
-    ret->setTurn(_turn);
-    ret->setPageNumber(_pageNumber);
-    ret->setPageSize(CIF::Size(_sizeInTwips.cx, _sizeInTwips.cy));
-    CIF::Rect borders;
-    borders.rbottom() = _pageBordersInTwips.bottom;
-    borders.rleft() = _pageBordersInTwips.left;
-    borders.rtop() = _pageBordersInTwips.top;
-    borders.rright() = _pageBordersInTwips.right;
-    ret->setPageBorder(borders);
-    ret->setUnrecognizedChar(_unrecogChar);
-    ret->setResizeToFit(_resizeToFit);
-    ret->setLanguage(LANGUAGE_RUS_ENG);
-
-    if (logStream) {
-        fprintf(logStream, "CreatePage returned %x\n", ret);
-        fflush(logStream);
-    }
-
-    return (Handle) ret;
-}
-
-//create foont
+//create font
 CED_FUNC(Bool32) CED_CreateFont(Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily,
         uchar fontCharset, char* fontName) {
     if (logStream) {

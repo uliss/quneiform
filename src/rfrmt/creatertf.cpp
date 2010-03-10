@@ -241,36 +241,28 @@ void CRtfPage::Rtf_CED_CreatePage(void) {
         return;
 
 #ifdef EdWrite
-    int PageNumber;
-    EDSIZE sizeOfImage;
-    EDSIZE sizeInTwips;
-    EDSIZE dpi;
-    EDRECT pageBordersInTwips;
-    PAGEINFO PageInfo = { 0 };
-    Bool resizeToFit = FALSE;
+    using namespace CIF;
+
+    m_hED = new CEDPage;
+    m_hED->setImageName(WriteRtfImageName);
+    m_hED->setUnrecognizedChar(UnRecogSymbol);
+    m_hED->setLanguage(static_cast<language_t> (gnLanguage));
+    m_hED->setPageSize(Size(PaperW, PaperH));
+    m_hED->setPageBorder(Rect(Point(MargT, MargL), Point(MargB, MargR)));
+
+    // setting page number
+    int PageNumber = 1;
+    PageNumber = atoi(WriteRtfPageNumber);
+    m_hED->setPageNumber(PageNumber);
+
+    // setting page info
+    PAGEINFO PageInfo;
     Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     GetPageInfo(hCPAGE, &PageInfo);
-    PageNumber = atoi((char*) WriteRtfPageNumber);
-    sizeOfImage.cx = (int32_t) PageInfo.Width;
-    sizeOfImage.cy = (int32_t) PageInfo.Height;
-    sizeInTwips.cx = PaperW;
-    sizeInTwips.cy = PaperH;
-    dpi.cx = (int32_t) PageInfo.DPIX;
-    dpi.cy = (int32_t) PageInfo.DPIY;
-    pageBordersInTwips.left = MargL;
-    pageBordersInTwips.top = MargT;
-    pageBordersInTwips.right = MargR;
-    pageBordersInTwips.bottom = MargB;
-
-    if (FlagMode & /*==*/USE_NONE) //VMK1
-        resizeToFit = FALSE;
-
-    else
-        resizeToFit = TRUE;
-
-    m_hED = (CIF::CEDPage*) CED_CreatePage((char*) WriteRtfImageName, sizeOfImage, dpi, (int) PageInfo.Incline2048,
-            PageNumber, sizeInTwips, pageBordersInTwips, UnRecogSymbol, resizeToFit);
-    m_hED->setLanguage(static_cast<language_t>(gnLanguage));
+    m_hED->setTurn(PageInfo.Incline2048);
+    m_hED->setImageSize(Size(PageInfo.Width, PageInfo.Height));
+    m_hED->setImageDpi(Size(PageInfo.DPIX, PageInfo.DPIY));
+    m_hED->setResizeToFit(!(FlagMode & USE_NONE));
 #endif
 }
 
