@@ -34,7 +34,6 @@ namespace CIF
 
 CEDPage::CEDPage() :
     turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG), unrecognized_char_(0) {
-    pageSizeInTwips.cx = pageSizeInTwips.cy = 0;
     pageBordersInTwips.top = pageBordersInTwips.bottom = pageBordersInTwips.left
             = pageBordersInTwips.right = 0;
     sections = 0;
@@ -146,6 +145,10 @@ int CEDPage::pageNumber() const {
     return page_number_;
 }
 
+Size CEDPage::pageSize() const {
+    return page_size_in_twips_;
+}
+
 void CEDPage::setImageDpi(const Size& dpi) {
     image_dpi_ = dpi;
 }
@@ -164,6 +167,10 @@ void CEDPage::setLanguage(language_t language) {
 
 void CEDPage::setPageNumber(int number) {
     page_number_ = number;
+}
+
+void CEDPage::setPageSize(const Size& size) {
+    page_size_in_twips_ = size;
 }
 
 void CEDPage::setTurn(int angle) {

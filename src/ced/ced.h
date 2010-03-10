@@ -395,7 +395,6 @@ DEC_FUN(Handle, CED_CreateCell, (Handle hEdSection, Handle hEdRow, int cellX, in
 DEC_FUN(Bool32, CED_SetCellFlag, (Handle hEdCell, int flag));
 DEC_FUN(Handle, CED_ReadFormattedEd, (char * lpEdFile, Bool32 readFromFile, uint32_t bufLen));
 DEC_FUN(Bool32, CED_WriteFormattedEd, (const char * lpEdFileName, Handle hEdPage));
-DEC_FUN(EDSIZE, CED_GetPageSize, (Handle hEdPage));
 DEC_FUN(EDRECT, CED_GetPageBorders, (Handle hEdPage));;;
 DEC_FUN(Bool32, CED_GetPageResize, (Handle hEdPage));
 DEC_FUN(uint32_t, CED_GetNumberOfParagraphs, (Handle hEdPage));

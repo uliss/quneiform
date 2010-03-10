@@ -167,8 +167,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
     }
     case EDEXT_BORDERS: {
         pageDescr* pd = (pageDescr*) ptExt;
-        mainPage->pageSizeInTwips.cx = pd->paperw;
-        mainPage->pageSizeInTwips.cy = pd->paperh;
+        mainPage->setPageSize(CIF::Size(pd->paperw, pd->paperh));
         mainPage->pageBordersInTwips.top = pd->margt;
         mainPage->pageBordersInTwips.left = pd->margl;
         mainPage->pageBordersInTwips.bottom = pd->margb;
@@ -792,8 +791,8 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
 
     //Write the boundaries of the page
     pageDescr pd;
-    pd.paperw = page->pageSizeInTwips.cx;
-    pd.paperh = page->pageSizeInTwips.cy;
+    pd.paperw = page->pageSize().width();
+    pd.paperh = page->pageSize().height();
     pd.margt = page->pageBordersInTwips.top;
     pd.margl = page->pageBordersInTwips.left;
     pd.margb = page->pageBordersInTwips.bottom;

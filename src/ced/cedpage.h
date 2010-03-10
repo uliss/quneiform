@@ -61,6 +61,13 @@ class FUN_EXPO__ CEDPage
         int pageNumber() const;
 
         /**
+         * Returns page size in twips
+         * @note 1 inch == 1440 twips for text editor
+         * @see setPageSize()
+         */
+        Size pageSize() const;
+
+        /**
          * Sets image dpi
          * @see imageDpi()
          */
@@ -92,6 +99,12 @@ class FUN_EXPO__ CEDPage
         void setPageNumber(int number);
 
         /**
+         * Sets page size in twips
+         * @see pageSize
+         */
+        void setPageSize(const Size& size);
+
+        /**
          * Sets page turn
          * @see turn()
          * @param angle  - tangent angle on the vertical images * 2048
@@ -113,7 +126,6 @@ class FUN_EXPO__ CEDPage
          */
         char unrecognizedChar() const;
 
-        EDSIZE pageSizeInTwips; // The width of the page in twip (1dyuym = 1440tvipov) for text editor
         EDRECT pageBordersInTwips;
         Bool32 resizeToFit;
 
@@ -175,6 +187,7 @@ class FUN_EXPO__ CEDPage
     private:
         Size image_size_;
         Size image_dpi_;
+        Size page_size_in_twips_;
         int turn_;
         int page_number_;
         language_t language_;

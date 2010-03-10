@@ -733,12 +733,12 @@ Bool WriteRtfMargin(struct StrRtfOut far *rtf) {
     //    float PaperHeight,PaperWidth;
     CEDPage * page = rtf->page;
 
-    if (page->pageSizeInTwips.cx >= 0)
-        if (!WriteRtfControl(rtf, "paperw", PARAM_INT, page->pageSizeInTwips.cx))
+    if (page->pageSize().width() >= 0)
+        if (!WriteRtfControl(rtf, "paperw", PARAM_INT, page->pageSize().width()))
             return FALSE;
 
-    if (page->pageSizeInTwips.cy >= 0)
-        if (!WriteRtfControl(rtf, "paperh", PARAM_INT, page->pageSizeInTwips.cy))
+    if (page->pageSize().height() >= 0)
+        if (!WriteRtfControl(rtf, "paperh", PARAM_INT, page->pageSize().height()))
             return FALSE;
 
     if (page->pageBordersInTwips.left >= 0)

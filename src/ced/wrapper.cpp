@@ -92,8 +92,7 @@ CED_FUNC(Handle) CED_CreatePage(char * _imageName, EDSIZE _sizeOfImage, EDSIZE _
     ret->setImageDpi(CIF::Size(_dpi.cx, _dpi.cy));
     ret->setTurn(_turn);
     ret->setPageNumber(_pageNumber);
-    ret->pageSizeInTwips.cx = _sizeInTwips.cx;
-    ret->pageSizeInTwips.cy = _sizeInTwips.cy;
+    ret->setPageSize(CIF::Size(_sizeInTwips.cx, _sizeInTwips.cy));
     ret->pageBordersInTwips.bottom = _pageBordersInTwips.bottom;
     ret->pageBordersInTwips.top = _pageBordersInTwips.top;
     ret->pageBordersInTwips.left = _pageBordersInTwips.left;
@@ -473,10 +472,6 @@ CED_FUNC(Bool32) CED_WriteFormattedEd(const char * lpEdFileName, Handle hEdPage)
     }
 
     return ret;
-}
-
-CED_FUNC(EDSIZE) CED_GetPageSize(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->pageSizeInTwips;
 }
 
 CED_FUNC(EDRECT) CED_GetPageBorders(Handle hEdPage) {
