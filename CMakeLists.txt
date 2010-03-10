@@ -74,18 +74,22 @@ if(ZIP_FOUND)
     set(CF_USE_ODF TRUE)
 endif()
     
-
+# Iconv
 find_package(Iconv)
 if(ICONV_FOUND)
     set(USE_ICONV TRUE)
 endif()
 
+# Boost
 find_package(Boost 1.33)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 else()
     message(FATAL_ERROR "Boost library required")
 endif()
+
+# Doxygen
+include(UseDoxygen)
 
 # Making config headers
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/include/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/include/config.h)
