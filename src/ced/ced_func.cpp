@@ -168,10 +168,8 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
     case EDEXT_BORDERS: {
         pageDescr* pd = (pageDescr*) ptExt;
         mainPage->setPageSize(CIF::Size(pd->paperw, pd->paperh));
-        mainPage->pageBordersInTwips.top = pd->margt;
-        mainPage->pageBordersInTwips.left = pd->margl;
-        mainPage->pageBordersInTwips.bottom = pd->margb;
-        mainPage->pageBordersInTwips.right = pd->margr;
+        CIF::Rect borders(CIF::Point(pd->margt, pd->margl), CIF::Point(pd->margb, pd->margr));
+        mainPage->setPageBorders(borders);
         mainPage->resizeToFit = pd->resizeToFit;
 
         //for backward compatibility
@@ -793,10 +791,10 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
     pageDescr pd;
     pd.paperw = page->pageSize().width();
     pd.paperh = page->pageSize().height();
-    pd.margt = page->pageBordersInTwips.top;
-    pd.margl = page->pageBordersInTwips.left;
-    pd.margb = page->pageBordersInTwips.bottom;
-    pd.margr = page->pageBordersInTwips.right;
+    pd.margt = page->pageBorders().top();
+    pd.margl = page->pageBorders().left();
+    pd.margb = page->pageBorders().bottom();
+    pd.margr = page->pageBorders().right();
     pd.resizeToFit = uchar(page->resizeToFit);
     pd.recogLang = page->language();
 

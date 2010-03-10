@@ -93,10 +93,12 @@ CED_FUNC(Handle) CED_CreatePage(char * _imageName, EDSIZE _sizeOfImage, EDSIZE _
     ret->setTurn(_turn);
     ret->setPageNumber(_pageNumber);
     ret->setPageSize(CIF::Size(_sizeInTwips.cx, _sizeInTwips.cy));
-    ret->pageBordersInTwips.bottom = _pageBordersInTwips.bottom;
-    ret->pageBordersInTwips.top = _pageBordersInTwips.top;
-    ret->pageBordersInTwips.left = _pageBordersInTwips.left;
-    ret->pageBordersInTwips.right = _pageBordersInTwips.right;
+    CIF::Rect borders;
+    borders.rbottom() = _pageBordersInTwips.bottom;
+    borders.rleft() = _pageBordersInTwips.left;
+    borders.rtop() = _pageBordersInTwips.top;
+    borders.rright() = _pageBordersInTwips.right;
+    ret->setPageBorders(borders);
     ret->setUnrecognizedChar(_unrecogChar);
     ret->resizeToFit = _resizeToFit;
     ret->setLanguage(LANGUAGE_RUS_ENG);
@@ -472,10 +474,6 @@ CED_FUNC(Bool32) CED_WriteFormattedEd(const char * lpEdFileName, Handle hEdPage)
     }
 
     return ret;
-}
-
-CED_FUNC(EDRECT) CED_GetPageBorders(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->pageBordersInTwips;
 }
 
 CED_FUNC(Bool32) CED_GetPageResize(Handle hEdPage) {

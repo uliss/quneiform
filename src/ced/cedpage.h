@@ -55,6 +55,12 @@ class FUN_EXPO__ CEDPage
         language_t language() const;
 
         /**
+         * Returns page borders in twips
+         * @see pageSize(), setPageBorders()
+         */
+        Rect pageBorders() const;
+
+        /**
          * Number of Pages (= 0 not in batch mode)
          * @see setPageNumber()
          */
@@ -88,19 +94,24 @@ class FUN_EXPO__ CEDPage
 
         /**
          * Sets page language
-         * @see language
+         * @see language()
          */
         void setLanguage(language_t language);
 
         /**
+         * Sets page borders in twips
+         */
+        void setPageBorders(const Rect& borders);
+
+        /**
          * Sets page number
-         * @see pageNumber
+         * @see pageNumber()
          */
         void setPageNumber(int number);
 
         /**
          * Sets page size in twips
-         * @see pageSize
+         * @see pageSize()
          */
         void setPageSize(const Size& size);
 
@@ -113,20 +124,22 @@ class FUN_EXPO__ CEDPage
 
         /**
          * Sets unrecognized char
+         * @see unrecongizedChar()
          */
         void setUnrecognizedChar(char chr);
 
         /**
          * Returns tangent angle on the vertical images * 2048
+         * @see setTurn()
          */
         int turn() const;
 
         /**
          * Returns unrecognized char
+         * @see setUnrecognizedChar()
          */
         char unrecognizedChar() const;
 
-        EDRECT pageBordersInTwips;
         Bool32 resizeToFit;
 
         int fontsUsed; //РљThe number of fonts used in table
@@ -188,6 +201,7 @@ class FUN_EXPO__ CEDPage
         Size image_size_;
         Size image_dpi_;
         Size page_size_in_twips_;
+        Rect page_borders_in_twips_;
         int turn_;
         int page_number_;
         language_t language_;
