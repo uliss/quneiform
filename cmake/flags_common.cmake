@@ -1,0 +1,1 @@
+add_definitions("-D_USE_RVERLINE_")
