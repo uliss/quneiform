@@ -1,6 +1,8 @@
 project(cuneiform C CXX)
 cmake_minimum_required(VERSION 2.6.2)
 
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
+
 set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 if(WIN32)
@@ -46,7 +48,6 @@ set(CF_HEADER_INSTALL "cuneiform")
 set(CF_VERSION "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}.${CF_VERSION_PATCH}")
 
 include(install_files.cmake)
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules/")
 
 # Stop MSVC complaints about POSIX functions.
 if(MSVC)
