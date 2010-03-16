@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 2.6.2)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
 
+include(version)
+include(outtree)
+
 set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 if(WIN32)
@@ -36,16 +39,8 @@ endif()
 
 add_definitions("-D_USE_RVERLINE_")
 
-if(PROJECT_BINARY_DIR STREQUAL PROJECT_SOURCE_DIR)
-   message(FATAL_ERROR "In-tree build attempt detected, aborting. Set your build dir outside your source dir, delete CMakeCache.txt from source root and try again.")
-endif()
 
-set(CF_VERSION_MAJOR "0")
-set(CF_VERSION_MINOR "8")
-set(CF_VERSION_PATCH "9999")
 set(CF_HEADER_INSTALL "cuneiform")
-
-set(CF_VERSION "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}.${CF_VERSION_PATCH}")
 
 include(install_files.cmake)
 
