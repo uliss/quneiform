@@ -31,7 +31,7 @@ void EdExporter::exportTo(const std::string& filename) {
         throw Exception("Save to native format failed");
 }
 
-void EdExporter::doExport(std::ostream& os) {
+void EdExporter::doExport(std::ostream&) {
     throw Exception("Export to stream for native format not supported");
 }
 

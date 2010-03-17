@@ -72,11 +72,11 @@ void XmlExporter::writeCloseTag(std::ostream& os, const std::string& tagName,
     line_break_ = newline.empty() ? false : true;
 }
 
-void XmlExporter::writeFontStyleBegin(std::ostream& os, int style) {
+void XmlExporter::writeFontStyleBegin(std::ostream& /*os*/, int style) {
     writeStartTag(lineBuffer(), fontStyleTag(style));
 }
 
-void XmlExporter::writeFontStyleEnd(std::ostream& os, int style) {
+void XmlExporter::writeFontStyleEnd(std::ostream& /*os*/, int style) {
     writeCloseTag(lineBuffer(), fontStyleTag(style));
 }
 
