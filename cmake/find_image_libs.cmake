@@ -48,7 +48,7 @@ endif()
 if(CF_USE_IMAGE_LIBRARY_QT)
     # try to find Qt        
     message(STATUS "Image library: try to find Qt.")
-    find_package(Qt4 4.4.1 COMPONENTS QtCore QtGui REQUIRED)
+    find_package(Qt4 4.4.1 COMPONENTS QtCore QtGui)
     if (QT_FOUND)
         message(STATUS "Image library: Qt found.")
         #include(${QT_USE_FILE})
