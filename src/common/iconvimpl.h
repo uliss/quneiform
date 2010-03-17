@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,40 +16,37 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef ICONV_H_
-#define ICONV_H_
-
-#ifdef __FreeBSD__
-#undef __BSD_VISIBLE
-#endif
-
+#ifndef ICONVIMPL_H_
+#define ICONVIMPL_H_
 
 #include <string>
-#include <memory>
-#include <boost/noncopyable.hpp>
-#include "globus.h"
-#include "common/exception.h"
+#include "config-user.h"
+
+#ifdef CF_USE_ICONV
+#include <iconv.h>
+#endif
 
 namespace CIF
 {
 
-class IconvImpl;
-
-class FUN_EXPO__ Iconv : public boost::noncopyable
+class IconvImpl
 {
     public:
-        Iconv();
-        Iconv(const std::string &from, const std::string &to);
-
-        typedef RuntimeExceptionImpl<Iconv> Exception;
+        IconvImpl();
+        IconvImpl(const std::string &from, const std::string &to);
+        ~IconvImpl();
 
         bool close();
         std::string convert(const std::string& src);
         bool open(const std::string &from, const std::string &to);
+        size_t convert(const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
     private:
-        std::auto_ptr<IconvImpl> impl_;
+#ifndef CF_USE_ICONV
+        typedef int iconv_t;
+#endif
+        iconv_t iconv_;
 };
 
 }
 
-#endif /* ICONV_H_ */
+#endif /* ICONV_IMPL_H_ */

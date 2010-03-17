@@ -1,9 +1,7 @@
 #ifndef CONFIG_H_CF
 #define CONFIG_H_CF
 
-#cmakedefine USE_IMAGE_MAGICK
 #cmakedefine HAVE_STDINT_H
-#cmakedefine USE_ICONV
 
 #define CF_VERSION "@CF_VERSION@"
 

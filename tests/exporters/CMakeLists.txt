@@ -1,6 +1,6 @@
 add_definitions(-DEXPORTER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/")
 
-if(USE_IMAGE_MAGICK)
+if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK)
     set(magick_test testmagickimageexporter.cpp)
 endif()
 
@@ -24,6 +24,8 @@ target_link_libraries(test_exporters
     cuneiform-rfrmt 
     cuneiform-export
     ${ZIP_LIBRARIES}
-    ${CPPUNIT_LIBRARIES})
+    ${CPPUNIT_LIBRARIES}
+    ${CF_IMAGE_LIBRARIES}
+)
 
 add_test(Exporters ${EXECUTABLE_OUTPUT_PATH}/test_exporters)

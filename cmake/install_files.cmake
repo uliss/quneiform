@@ -1,4 +1,4 @@
-
+set(CF_HEADER_INSTALL "cuneiform")
 set(RELATIVE_DATADIR "share/cuneiform")
 set(INSTALL_DATADIR "${CMAKE_INSTALL_PREFIX}/${RELATIVE_DATADIR}")
 

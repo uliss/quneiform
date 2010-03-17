@@ -15,9 +15,9 @@ set(exporters
     xmlexporter.cpp
 )
 
-if(USE_IMAGE_MAGICK) 
+if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK) 
+    include_directories(${CF_IMAGE_INCLUDE})
     set(image_exporters ${image_exporters} magickimageexporter.cpp)
-    set(image_exporters_libs ${ImageMagick_Magick++_LIBRARY})
     message(STATUS "ImageMagick exporter will be build")
 endif()
 
@@ -28,11 +28,10 @@ if(CF_USE_ZIP)
     message(STATUS "OpenDocument Format exporter will be build")
 endif()
 
-if(USE_ICONV)
+if(CF_USE_ICONV)
     include_directories(${ICONV_INCLUDE_DIR})
 endif()
 
-# TODO, uliss: delete commented files
 add_library(cuneiform-export ${LIBTYPE}
     exporterfactory.cpp
     imageexporterfactory.cpp
@@ -48,7 +47,7 @@ target_link_libraries(cuneiform-export
     cuneiform-ced 
     cuneiform-common
     cuneiform-rfrmt
-    ${image_exporters_libs}
+    ${CF_IMAGE_LIBRARIES}
     ${exporters_libs})
 
 library_hook(cuneiform-export)
