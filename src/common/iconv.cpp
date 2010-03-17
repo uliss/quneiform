@@ -24,12 +24,16 @@ namespace CIF
 {
 
 Iconv::Iconv() {
-    impl_.reset(new IconvImpl);
+    impl_ = new IconvImpl;
 }
 
 Iconv::Iconv(const std::string &from, const std::string &to) {
-    impl_.reset(new IconvImpl);
+    impl_ = new IconvImpl;
     impl_->open(from, to);
+}
+
+Iconv::~Iconv() {
+    delete impl_;
 }
 
 bool Iconv::close() {

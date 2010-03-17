@@ -25,7 +25,6 @@
 
 
 #include <string>
-#include <memory>
 #include <boost/noncopyable.hpp>
 #include "globus.h"
 #include "common/exception.h"
@@ -40,6 +39,7 @@ class FUN_EXPO__ Iconv : public boost::noncopyable
     public:
         Iconv();
         Iconv(const std::string &from, const std::string &to);
+        ~Iconv();
 
         typedef RuntimeExceptionImpl<Iconv> Exception;
 
@@ -47,7 +47,7 @@ class FUN_EXPO__ Iconv : public boost::noncopyable
         std::string convert(const std::string& src);
         bool open(const std::string &from, const std::string &to);
     private:
-        std::auto_ptr<IconvImpl> impl_;
+        IconvImpl * impl_;
 };
 
 }
