@@ -282,7 +282,7 @@ uint32_t CTDIB::GetPixelSize()
 Handle CTDIB::CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount, uint32_t UseColors,
                              CTDIBVersion dVersion)
 {
-#define DELETE_PHEADER(a)                if ( a )  delete a;
+#define DELETE_PHEADER(a)  delete a;
     PCTDIBBITMAPINFOHEADER pV3Header = NULL;
     PCTDIBBITMAPV4HEADER pV4Header = NULL;
     PCTDIBBITMAPV5HEADER pV5Header = NULL;

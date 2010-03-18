@@ -96,16 +96,12 @@ CTIMaskLineSegment::CTIMaskLineSegment(PCTIMaskLineSegment pSegm)
 uint32_t CTIMaskLineSegment::IsIntersectWith(PCTIMaskLineSegment pSegm)
 {
     uint32_t Intrsct = 0;
-    uint32_t S;
-    uint32_t E;
-    int32_t  iDS;
-    int32_t  iDE;
 
     if ( pSegm ) {
-        S = pSegm->GetStart();
-        E = pSegm->GetEnd();
-        iDS = GetPointDirect(S);
-        iDE = GetPointDirect(E);
+        uint32_t S = pSegm->GetStart();
+        uint32_t E = pSegm->GetEnd();
+        int32_t iDS = GetPointDirect(S);
+        int32_t iDE = GetPointDirect(E);
 
         if ( IsEqual(pSegm) )
             Intrsct = CTIMLSEGMINTERSECTEQUAL;

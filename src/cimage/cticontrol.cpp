@@ -116,22 +116,10 @@ CTIControl::~CTIControl()
 void CTIControl::clear()
 {
     FreeBuffers();
-
-    if (mCBSourceDIB != NULL) {
-        delete mCBSourceDIB;
-    }
-
-    if (mCBWSourceDIB != NULL) {
-        delete mCBWSourceDIB;
-    }
-
-    if (mCBDestianationDIB != NULL) {
-        delete mCBDestianationDIB;
-    }
-
-    if (mCBWDestianationDIB != NULL) {
-        delete mCBWDestianationDIB;
-    }
+    delete mCBSourceDIB;
+    delete mCBWSourceDIB;
+    delete mCBDestianationDIB;
+    delete mCBWDestianationDIB;
 }
 
 void CTIControl::Reset()
@@ -144,13 +132,9 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk)
 {
     Handle hNewDIB;
     Bool32 Ret;
-    uint32_t Readed;
-    uint32_t i;
     Bool32 bInvert = false;
     CIMAGE_InfoDataInReplace FrameToReplace;
     CIMAGE_ImageInfo ImageInfo;
-    CTDIBRGBQUAD cdFQuad;
-    CTDIBRGBQUAD cdSQuad;
 
     //////////////////////////////////////////////////////////////////////
     //проверка имени картинки
@@ -213,6 +197,8 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk)
 
             if (mCBWSourceDIB->CreateDIBBegin(ImageInfo.wImageWidth, 1, 1)
                     && mCBWSourceDIB->CreateDIBEnd()) {
+                CTDIBRGBQUAD cdFQuad;
+                CTDIBRGBQUAD cdSQuad;
                 cdFQuad.rgbBlue = cdFQuad.rgbGreen = cdFQuad.rgbRed = 0x00;
                 cdSQuad.rgbBlue = cdSQuad.rgbGreen = cdSQuad.rgbRed = 0xff;
 
@@ -235,9 +221,9 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk)
                 FrameToReplace.MaskFlag = 0;
 
                 // Заполняем его
-                for (i = 0; i < ImageInfo.wImageHeight; i++) {
+                for (uint i = 0; i < ImageInfo.wImageHeight; i++) {
                     // вызываем второй калбэк
-                    Readed = Cbk.CIMAGE_ImageRead((pchar) mCBWSourceDIB->GetPtrToLine(0),
+                    uint Readed = Cbk.CIMAGE_ImageRead((pchar) mCBWSourceDIB->GetPtrToLine(0),
                                                   (uint16_t) mCBWSourceDIB->GetLineWidthInBytes());
 
                     //инвертируем битовое поле, ежели надо
@@ -394,14 +380,12 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
                             CIMAGE_InfoDataOutGet * lplpOut)
 {
     Bool32 bRet = FALSE;
-    PCTDIB pDscDIB;
     void* pDIBMemory;
-    int32_t iY;
     FreeBuffers();
 
     // берем кусок диба оттедова
     if (GetDIBFromImage(lpName, lpIn, &pDIBMemory)) {
-        pDscDIB = new CTDIB;
+        PCTDIB pDscDIB = new CTDIB;
 
         if (pDscDIB->SetDIBbyPtr(pDIBMemory)) {
 #ifdef CIMAGE_DUMP_ENABLE
@@ -434,7 +418,7 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
                 }
 
                 lplpOut->lpData = pOutLine = mpBitFildFromImage;
-                iY = (int32_t) lpIn->dwY;
+
                 // для Almi - заполняем белым пикселом
                 /*
                  for ( ;iY < 0; iY++, lplpOut->dwHeight++ )
@@ -760,12 +744,12 @@ Bool32 CTIControl::ApplayBitMaskToDIB(puchar pMask, PCTDIB pDIB)
         //Allex 28.01.2000
         //ввиду неоднократных ошибок, связанных с  выделением памяти под передаваемую мне маску
         //ввожу следующую проверку:
-        uchar TestByte;
         uint32_t MaskLenght = ((Pixels + 7) / 8) * Lines;
         puchar pMaskBegin = pMask;
         puchar pMaskEnd = pMaskBegin + MaskLenght - 1;
 
         try {
+            uchar TestByte;
             TestByte = *pMaskBegin;
             *pMaskBegin = TestByte;
             TestByte = *pMaskEnd;
@@ -914,8 +898,6 @@ Bool32 CTIControl::CBImageOpen(CIMAGE_ImageInfo * lpImageInfo)
 {
     uint32_t wFrgb;
     uint32_t wSrgb;
-    Handle hDescDIB;
-    //CTDIBRGBQUAD tmpQ;
 #if defined( _TRASING ) & defined ( _DEBUG )
 
     if ( wCBStep != 0 ) {
@@ -951,6 +933,8 @@ Bool32 CTIControl::CBImageOpen(CIMAGE_ImageInfo * lpImageInfo)
         wCBStep++;
         CIMAGEComment("Temporary DIB - CBImageOpen");
 
+        Handle hDescDIB;
+
         if (mCBDestianationDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)
                 && (hDescDIB = mCBDestianationDIB->CreateDIBBegin(wCBWidth, 1,
                                                                   mCBSourceDIB->GetPixelSize())) && mCBDestianationDIB->CreateDIBEnd()) {
@@ -977,8 +961,6 @@ uint32_t CTIControl::CBImageRead(char * lpBuff, uint32_t wMaxSize)
 {
     CIMAGE_InfoDataInGet InFrame;
     uint32_t LinesAtOnce;
-    uint32_t nOutLine;
-    uint32_t CopiedBytes = 0;
     char* pNextLineInBuffer = lpBuff;
 #ifndef CIMAGE_CBR_ONE_LINE
     LinesAtOnce = wMaxSize / wCBBufferSize;
@@ -994,7 +976,9 @@ uint32_t CTIControl::CBImageRead(char * lpBuff, uint32_t wMaxSize)
             InFrame.wByteWidth = (uint16_t) (wCBBufferSize);
             InFrame.MaskFlag = 0;
 
-            for (nOutLine = 0; nOutLine < LinesAtOnce; nOutLine++) {
+            uint CopiedBytes = 0;
+
+            for (uint nOutLine = 0; nOutLine < LinesAtOnce; nOutLine++) {
                 InFrame.dwY = wCBLine;
 
                 if (mCBDestianationDIB->GetPtrToLine(0) != NULL) {

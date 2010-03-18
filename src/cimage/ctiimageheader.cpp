@@ -111,13 +111,8 @@ CTIImageHeader::~CTIImageHeader()
         CIMAGEFree(GetImageHandle());
     }
 
-    if (ReadMask) {
-        delete ReadMask;
-    }
-
-    if (WriteMask) {
-        delete WriteMask;
-    }
+    delete ReadMask;
+    delete WriteMask;
 }
 
 Bool32 CTIImageHeader::CheckName(const char *Name)
