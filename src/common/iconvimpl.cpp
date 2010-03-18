@@ -104,7 +104,8 @@ size_t IconvImpl::convert(const char **inbuf, size_t *inbytesleft, char **outbuf
 #endif
             inbuf, inbytesleft, outbuf, outbytesleft);
 #else
-    return -1;
+    // see man 3 iconv regarding return value
+    return static_cast<size_t>(-1);
 #endif
 }
 

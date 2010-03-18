@@ -298,7 +298,6 @@ Bool32 CCOM_StoreLarge(CCOM_comp * comp, int16_t numcomp, int32_t size_lrep, uch
 {
     CCOM_lnhead * ln;
     uchar comptype;
-    int32_t size;
 
     if (!comp) {
         wLowRC = CCOM_ERR_NULL;
@@ -318,8 +317,10 @@ Bool32 CCOM_StoreLarge(CCOM_comp * comp, int16_t numcomp, int32_t size_lrep, uch
         comp->size_linerep += 2;
 
         if (numcomp < 2 && (nl == 0 || free_beg == 0 || free_end == 0)) {
-            for (size = 2, ln = (CCOM_lnhead*) ((uchar*) lines + 2), free_beg = free_end = 0, nl
-                    = 0; size < size_lrep && ln->lth; nl++, ln = (CCOM_lnhead *) ((uchar*) ln
+            ln = (CCOM_lnhead*) ((uchar*) lines + 2);
+            free_beg = free_end = 0;
+            nl = 0;
+            for (int size = 2; size < size_lrep && ln->lth; nl++, ln = (CCOM_lnhead *) ((uchar*) ln
                                                                                   + ln->lth)) {
                 if (ln->flg & LNHEAD_FREE_BEGIN)
                     free_beg++;
@@ -410,7 +411,6 @@ Bool32 CCOM_Store(CCOM_comp * comp, int16_t numcomp, int32_t size_lrep, uchar *l
 {
     CCOM_lnhead* ln;
     uchar comptype;
-    int32_t size;
 
     if (!comp) {
         wLowRC = CCOM_ERR_NULL;
@@ -430,8 +430,10 @@ Bool32 CCOM_Store(CCOM_comp * comp, int16_t numcomp, int32_t size_lrep, uchar *l
         comp->size_linerep += 2;
 
         if (numcomp < 2 && (nl == 0 || free_beg == 0 || free_end == 0)) {
-            for (size = 2, ln = (CCOM_lnhead*) ((uchar*) lines + 2), free_beg = free_end = 0, nl
-                    = 0; size < size_lrep && ln->lth; nl++, ln = (CCOM_lnhead *) ((uchar*) ln
+            ln = (CCOM_lnhead*) ((uchar*) lines + 2);
+            free_beg = free_end = 0;
+            nl = 0;
+            for (int size = 2; size < size_lrep && ln->lth; nl++, ln = (CCOM_lnhead *) ((uchar*) ln
                                                                                   + ln->lth)) {
                 if (ln->flg & LNHEAD_FREE_BEGIN)
                     free_beg++;
@@ -506,9 +508,7 @@ static CCOM_comp * CCOM_DeleteComp(CCOM_handle hcont, CCOM_comp * comp)
             cont->nsmall[sz]--;
     }
     free(comp->linerep);
-
-    if (comp->vers)
-        free(comp->vers);
+    free(comp->vers);
 
     ub = comp->user_block;
 
@@ -1086,24 +1086,35 @@ Bool32 ccom_save_comp(CCOM_comp *cur)
     if (!fp)
         return FALSE;
 
-    if (fwrite(cur, sizeof(CCOM_comp), 1, fp) != 1)
+    if (fwrite(cur, sizeof(CCOM_comp), 1, fp) != 1) {
+        fclose(fp);
         return FALSE;
+    }
 
-    if (fwrite(cur->linerep, cur->size_linerep, 1, fp) != 1)
+
+    if (fwrite(cur->linerep, cur->size_linerep, 1, fp) != 1) {
+        fclose(fp);
         return FALSE;
+    }
 
     while (ub) {
-        if (fwrite(ub, 8, 1, fp) != 1)
+        if (fwrite(ub, 8, 1, fp) != 1) {
+            fclose(fp);
             return FALSE;
+        }
 
-        if (fwrite(ub->data, ub->size, 1, fp) != 1)
+        if (fwrite(ub->data, ub->size, 1, fp) != 1) {
+            fclose(fp);
             return FALSE;
+        }
 
         ub = ub->next_block;
     }
 
-    if (fwrite(&zub, 4, 1, fp) != 1)
-        return FALSE; // last zero ub
+    if (fwrite(&zub, 4, 1, fp) != 1) {
+        fclose(fp);
+        return FALSE;
+    }
 
     fclose(fp);
     return TRUE;

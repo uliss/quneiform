@@ -253,14 +253,13 @@ int16_t set_stick_char(uchar left[], uchar right[], int16_t hooks[],
 
 static int16_t fun_ge(uchar fun[], int16_t n, int16_t level)
 {
-    int16_t i, s, f;
+    int sum = 0;
 
-    for (s = i = 0; i < n; i++) {
-        f = fun[i];
-        s += (f >= level) && (f < level + 4);
+    for (int i = 0; i < n; i++) {
+        sum += (fun[i] >= level) && (fun[i] < level + 4);
     }
 
-    return (s);
+    return sum;
 }
 
 static int16_t fun_le(uchar fun[], int16_t n, int16_t level)
