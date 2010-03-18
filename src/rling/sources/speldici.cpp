@@ -359,7 +359,7 @@ void load_user_dicts_kzl(char * list_name, char * point)
     unload_user_dicts();
     lst = fopen(list_name, "rt");
 
-    if (lst < 0) {
+    if (!lst) {
         return;
     }
 

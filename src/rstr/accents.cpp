@@ -341,7 +341,7 @@ int16_t bottom_accent(cell *c) {
 int16_t accent(cell *c) {
 	int16_t acc_type, i, n;
 	CIF::version *v1, *v2, vers[VERS_IN_CELL];
-	char str[15];
+	char str[40];
 
 	if (!(acc_type = type_acc(c, TRUE)))
 		return bottom_accent(c); // Try to find bottom accent. 17.10.97 E.P.

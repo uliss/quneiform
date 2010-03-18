@@ -615,28 +615,31 @@ Bool32 CGRAPH_RestoreLoop(CSTR_rast rast, FILE *in)
 
                 if (!(rst = CSTR_InsertRaster(curr_rst))) {
                     wLowRC = CGRAPH_ERR_PARAM;
+                    free(lp);
                     return FALSE;
                 }
 
                 if (!CSTR_SetAttr(rst, &rast_attr)) {
                     wLowRC = CGRAPH_ERR_PARAM;
+                    free(lp);
                     return FALSE;
                 }
 
                 if (!CSTR_StoreComp(rst, (uchar*) ((uchar*) lp), 1, cstr.scale)) {
                     wLowRC = CGRAPH_ERR_PARAM;
+                    free(lp);
                     return FALSE;
                 }
 
                 if (cstr.uvers) {
                     if (!CSTR_StoreCollectionUni(rst, &uvers)) {
                         wLowRC = CGRAPH_ERR_PARAM;
+                        free(lp);
                         return FALSE;
                     }
                 }
 
-                if (lp)
-                    free(lp);
+                free(lp);
             }
 
             else {
@@ -721,6 +724,7 @@ Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in)
         if (flg) {
             if (!(rst = CSTR_NewRaster(*lin, cstr.left, cstr.upper, cstr.w))) {
                 wLowRC = CGRAPH_ERR_PARAM;
+                free(lp);
                 return FALSE;
             }
 
@@ -730,18 +734,21 @@ Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in)
         else {
             if (!(rst = CSTR_InsertRaster(curr_rast))) {
                 wLowRC = CGRAPH_ERR_PARAM;
+                free(lp);
                 return FALSE;
             }
         }
 
         if (!(CSTR_SetAttr(rst, &rast_attr))) {
             wLowRC = CGRAPH_ERR_PARAM;
+            free(lp);
             return FALSE;
         }
 
         if (cstr.env) {
             if (!CSTR_StoreComp(rst, (uchar*) ((uchar*) lp), 1, cstr.scale)) {
                 wLowRC = CGRAPH_ERR_PARAM;
+                free(lp);
                 return FALSE;
             }
         }
@@ -749,12 +756,12 @@ Bool32 CGRAPH_RestoreCSTR(CSTR_line *lin, FILE *in)
         if (cstr.uvers) {
             if (!CSTR_StoreCollectionUni(rst, &uvers)) {
                 wLowRC = CGRAPH_ERR_PARAM;
+                free(lp);
                 return FALSE;
             }
         }
 
-        if (lp)
-            free(lp);
+        free(lp);
 
         curr_rast = rst;
     }
@@ -832,6 +839,8 @@ Bool32 CSTR_RestoreCont(char *filename)
             }
         }
     }
+
+    fclose(in);
 
     return TRUE;
 }

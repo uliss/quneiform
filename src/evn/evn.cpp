@@ -406,7 +406,8 @@ uchar evn_multy_lpool[6000 + 2];
 uchar * EVNMakeLine(RecRaster *rRaster, int32_t parm)
 {
     MN *mn = NULL;
-    uchar *lp, *lpin, *lpend = (uchar*) (evn_multy_lpool + 6000);
+    uchar *lp = NULL;
+    uchar *lpin, *lpend = (uchar*) (evn_multy_lpool + 6000);
     uint16_t len, lall;
     mn = c_locomp(rRaster->Raster, REC_GW_WORD8(rRaster->lnPixWidth), rRaster->lnPixHeight, 0, 0);
 

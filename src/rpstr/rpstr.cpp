@@ -101,7 +101,8 @@ static uchar set_lang4page(const uchar lang) {
 }
 
 static void show_spell(CSTR_rast c) {
-    uchar wrd[80], *w = wrd, lang;
+    uchar wrd[80] = {0};
+    uchar *w = wrd, lang;
     char buf[160];
     Bool32 nonrec = FALSE;
     CSTR_rast_attr attr;

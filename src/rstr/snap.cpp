@@ -492,7 +492,7 @@ static void store_spell(cell *c) {
 }
 
 static void show_spell(cell *c) {
-    uchar wrd[80];
+    uchar wrd[80] = { 0 };
     char buf[160];
     uchar *w = wrd, lang;
     Bool32 nonrec = FALSE;

@@ -86,7 +86,8 @@ uchar CTB_BestLevelInGray(uchar *image, int wx, int wy)
             GrayHist16Buf[ i ] = 0;
     }
 
-    GrayHist16Buf[ 255 ] = (GrayHist16[14] + 2 * GrayHist16[15]) / 4;
+    // uliss check for  GrayHist16Buf[255]
+    GrayHist16Buf[15] = (GrayHist16[14] + 2 * GrayHist16[15]) / 4;
 
     for (i = 0; i < 16; i++) {
         GrayHist16Buf1[ i ] = GrayHist16[i];
