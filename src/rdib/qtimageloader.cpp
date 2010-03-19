@@ -89,4 +89,8 @@ ImagePtr QtImageLoader::load(const std::string& path) {
     return ImagePtr(new Image(pDib, dib_size, Image::AllocatorNew));
 }
 
+ImagePtr QtImageLoader::load(std::istream& is) {
+    throw Exception("[QtImageLoader::load] loading from stream is not supported yet");
+}
+
 }

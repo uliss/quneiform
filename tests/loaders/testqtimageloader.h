@@ -16,24 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef QTIMAGELOADER_H_
-#define QTIMAGELOADER_H_
+#ifndef TESTQTIMAGELOADER_H_
+#define TESTQTIMAGELOADER_H_
 
-#include "imageloader.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-namespace CIF
+class TestQtImageLoader: public CppUnit::TestFixture
 {
-
-class QtImageLoader : public ImageLoader
-{
-    public:
-        QtImageLoader();
-        ~QtImageLoader();
-
-        ImagePtr load(const std::string& path);
-        ImagePtr load(std::istream& is);
+    CPPUNIT_TEST_SUITE(TestQtImageLoader);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testLoad);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testInit();
+    void testLoad();
 };
 
-}
-
-#endif /* QTIMAGELOADER_H_ */
+#endif /* TESTQTIMAGELOADER_H_ */

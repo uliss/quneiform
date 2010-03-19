@@ -15,25 +15,37 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-
-#ifndef QTIMAGELOADER_H_
-#define QTIMAGELOADER_H_
-
-#include "imageloader.h"
-
-namespace CIF
-{
-
-class QtImageLoader : public ImageLoader
-{
-    public:
-        QtImageLoader();
-        ~QtImageLoader();
-
-        ImagePtr load(const std::string& path);
-        ImagePtr load(std::istream& is);
-};
-
+#include "testqtimageloader.h"
+CPPUNIT_TEST_SUITE_REGISTRATION(TestQtImageLoader);
+#include <rdib/qtimageloader.h>
+#include <memory>
+#include <fstream>
+using namespace CIF;
+void TestQtImageLoader::testInit() {
+    std::auto_ptr<QtImageLoader> loader(new QtImageLoader);
 }
 
-#endif /* QTIMAGELOADER_H_ */
+void TestQtImageLoader::testLoad() {
+    std::string path = LOADER_TEST_IMAGE_DIR;
+    std::auto_ptr<QtImageLoader> loader(new QtImageLoader);
+    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.xpm"));
+    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.gif"));
+    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.tif"));
+    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.jpg"));
+    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.png"));
+    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.pbm"));
+    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.pgm"));
+    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.ppm"));
+    //CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.bmp"));
+
+
+    // throw
+    CPPUNIT_ASSERT_THROW(loader->load("not-exists"), ImageLoader::Exception);
+    std::ifstream is_empty;
+    CPPUNIT_ASSERT_THROW(loader->load(is_empty), ImageLoader::Exception);
+    std::ifstream is_bad;
+    int tmp;
+    is_bad >> tmp;
+    CPPUNIT_ASSERT_THROW(loader->load(is_bad), ImageLoader::Exception);
+
+}
