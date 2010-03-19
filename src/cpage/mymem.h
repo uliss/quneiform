@@ -57,13 +57,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __MYMEM_H__
 #define __MYMEM_H__
 
-/*#include <crtdbg.h>*/
 #include <stdlib.h>
 #include "cttypes.h"
 
 #ifdef _DEBUG
 #ifndef IS_VALID
-#define IS_VALID(a) assert(_CrtIsValidPointer(a, 1, TRUE ))
+#define IS_VALID(a) assert(a)
 #endif
 #else
 #ifndef IS_VALID

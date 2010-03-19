@@ -84,6 +84,7 @@
 #include "common/size.h"
 #include "minmax.h"
 #include "common/rect.h"
+#include "common/debug.h"
 
 extern Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, Handle* hEdTree);
 extern Bool PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage, const char *FileNameOut);
@@ -329,9 +330,7 @@ Bool CRtfPage::OpenOutputFile(const char* FileNameOut) {
 
     while (TRUE) {
         if ((out = fopen(FileNameOut, "w")) == NULL) {
-            MessageBoxA(NULL, "Can not open RTF file.\nPlease close file.",
-                    "RTF", MB_ICONSTOP | MB_OK);
-            SetFocus(NULL);
+            CIF::Debug()  << "Can not open RTF file.\nPlease close file.\n";
         }
 
         else {

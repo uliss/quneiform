@@ -66,7 +66,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #ifdef _DEBUG
 
-#include <crtdbg.h>
 #define CHECK_PMASP(nowbyte) \
 { \
 	if (nowbyte < 0 || nowbyte >= size_pmasp) \

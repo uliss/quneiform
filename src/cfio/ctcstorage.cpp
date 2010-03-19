@@ -70,6 +70,7 @@
 //
 #include "ctccontrol.h"
 #include "compat/filefunc.h"
+#include "common/debug.h"
 #include "cfcompat.h"
 using namespace CIF::CTC;
 //////////////////////////////////////////////////////////////////////////////////
@@ -121,29 +122,7 @@ CTCStorageHeader::CTCStorageHeader(CTCGlobalFile * pNewStorage,
         }
 
         else {
-#ifdef _DEBUG
-            uint32_t Err = GetLastError();
-            // попробуем сообщить об ошибке  №№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
-            pvoid lpMsgBuf;
-            FormatMessage(
-                FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-                NULL,
-                Err, //GetLastError(),
-                MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-                (char*) &lpMsgBuf,
-                0,
-                NULL
-            );
-            // Display the string.
-            MessageBox ( NULL,
-                         ( char* ) lpMsgBuf,
-                         "CFIO: Storage can't create own unpack folder",
-                         MB_OK | MB_ICONINFORMATION );
-            // Free the buffer.
-            LocalFree( lpMsgBuf );
-            Control_ctc->GetFolder(CFIO_STORAGE_FOLDER, ShFile);
-            //  кончаем пробовать №№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
-#endif      // _DEBUG
+            CIF::Debug() << "CFIO: Storage can't create own unpack folder\n";
             CFIO_STRCPY(pcFolder, ShFile);
             //MAKEPATH(pcFolder,NULL,ShFolder,ShFile,ShExtension);
         }

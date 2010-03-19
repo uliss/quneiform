@@ -61,6 +61,7 @@
 #define __SNAP_C
 #include "dpuma.h"
 #include "cfcompat.h"
+#include "common/debug.h"
 
 using namespace CIF;
 
@@ -150,8 +151,7 @@ Bool32 LDPUMA_Init(uint16_t wHightCode, Handle hStorage)
 {
     Bool32 rc = FALSE;
 #ifdef _DEBUG
-    _CrtDbgReport( _CRT_WARN, NULL, __LINE__, __FILE__,
-                   "LDPUMA_Init(%i,%x)\n", wHightCode, hStorage);
+    Debug() << "LDPUMA_Init(" <<  wHightCode << "," << hStorage << ")\n";
 #endif
 
     if (Init && GetExportData) {
@@ -263,8 +263,7 @@ Bool32 LDPUMA_GetExportData(uint32_t wType, void * pData)
 void LDPUMA_DestroySnap()
 {
 #ifdef _DEBUG
-    _CrtDbgReport( _CRT_WARN, NULL, __LINE__, __FILE__,
-                   "LDPUMA_DestroySnap()\n");
+    Debug() << "LDPUMA_DestroySnap()\n";
 #endif
 
     if (DestroySnap)
@@ -275,8 +274,7 @@ uint32_t LDPUMA_CreateSnap()
 {
     uint32_t rc = 0;
 #ifdef _DEBUG
-    _CrtDbgReport( _CRT_WARN, NULL, __LINE__, __FILE__,
-                   "LDPUMA_CreateSnap()\n");
+    Debug() << "LDPUMA_CreateSnap()\n";
 #endif
 
     if (CreateSnap)
