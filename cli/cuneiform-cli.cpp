@@ -88,22 +88,20 @@ using namespace CIF;
 
 static const char * program_name = "";
 
-static string supported_languages()
-{
+static string supported_languages() {
     ostringstream os;
     os << "Supported languages:\n";
 
     LanguageList langs = AlphabetFactory::instance().supportedLanguages();
     Language::sortByName(langs);
     for (LanguageList::iterator it = langs.begin(), end = langs.end(); it != end; ++it)
-        os << "    " << left << setw(12) << Language::isoCode3(*it) << " " << Language::isoName(*it)
-                << "\n";
+        os << "    " << left << setw(12) << Language::isoCode3(*it) << " " << setw(12)
+                << Language::isoCode2(*it) << Language::isoName(*it) << "\n";
 
     return os.str();
 }
 
-static string supported_formats()
-{
+static string supported_formats() {
     ostringstream os;
     os << "Supported formats:\n";
     OutputFormatList formats = OutputFormat::formats();
@@ -113,8 +111,7 @@ static string supported_formats()
     return os.str();
 }
 
-static string usage()
-{
+static string usage() {
     ostringstream os;
     os << "Usage: " << program_name << " [options] imagefile\n";
     os << ""
@@ -127,6 +124,7 @@ static string usage()
         "  -f   --format   FORMAT        Sets output format                          \n"
         "                                   type --format help to get full list      \n"
         "  -l   --language LANGUAGE      Sets recognition language                   \n"
+        "                                   (iso code or language name)              \n"
         "                                   type --language help to gel full list    \n"
         "       --spell                  Use spell correction                        \n"
         "       --onecolumn              Use one column layout                       \n"
@@ -154,39 +152,41 @@ static string usage()
     return os.str();
 }
 
-static string default_output_name(format_t format)
-{
+static string default_output_name(format_t format) {
     string extension = OutputFormat::extension(format);
     if (extension.empty())
         throw std::runtime_error("Invalid format");
     return "cuneiform-out." + extension;
 }
 
-static language_t process_lang_options(const char *optarg)
-{
+static language_t process_lang_options(const char *optarg) {
     if (strcmp(optarg, "help") == 0) {
         cout << supported_languages();
         exit(EXIT_SUCCESS);
     }
 
-    Language lang = Language::byCode3(optarg);
-    // second try get language by name
-    if (!lang.isValid()) {
-        lang = Language::byName(optarg);
-    }
+    // first try 2-character iso language code
+    Language lang = Language::byCode2(optarg);
 
-    if (lang.isValid()) {
-        return lang.get();
-    }
-    else {
+    // if fail try 3-character iso language code
+    if (!lang.isValid())
+        lang = Language::byCode3(optarg);
+
+    // if still not found try get language by name
+    if (!lang.isValid())
+        lang = Language::byName(optarg);
+
+    // nothing found - error message
+    if (!lang.isValid()) {
         cerr << "Unknown language: " << optarg << "\n";
         cerr << supported_languages();
         exit(EXIT_FAILURE);
     }
+
+    return lang.get();
 }
 
-static format_t process_format_options(const char * optarg)
-{
+static format_t process_format_options(const char * optarg) {
     if (strcmp(optarg, "help") == 0) {
         cout << supported_formats();
         exit(EXIT_SUCCESS);
@@ -195,55 +195,51 @@ static format_t process_format_options(const char * optarg)
     OutputFormat format = OutputFormat::byName(optarg);
     if (format.isValid()) {
         return format.get();
-    }
-    else {
+    } else {
         cerr << "Unknown output format: " << optarg << "\n";
         cerr << supported_formats();
         exit(EXIT_FAILURE);
     }
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     program_name = argv[0];
     std::string dictionaries;
     char unrecognized_char = 0;
 
     int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller = FALSE,
             do_singlecolumn = FALSE, do_pictures = TRUE, do_tables = FALSE, do_autorotate = FALSE,
-            preserve_line_breaks = FALSE, preserve_hyphens = FALSE, do_dump = FALSE, no_bold = FALSE,
-            no_italic = FALSE, stdout_output = FALSE, do_append = FALSE;
+            preserve_line_breaks = FALSE, preserve_hyphens = FALSE, do_dump = FALSE, no_bold =
+                    FALSE, no_italic = FALSE, stdout_output = FALSE, do_append = FALSE;
 
     const char * const short_options = ":aho:vVl:f:d:u:";
     const struct option long_options[] = {
-    //
-        { "append", no_argument, &do_append, 'a' },//
-        { "autorotate", no_argument, &do_autorotate, 1 },//
-        { "debug-dump", no_argument, &do_dump, 1 },//
-        { "dictionary", required_argument, NULL, 'd' }, //
-        { "dotmatrix", no_argument, &do_dotmatrix, 1 },//
-        { "fax", no_argument, &do_fax, 1 },//
-        { "format", required_argument, NULL, 'f' },//
-        { "help", no_argument, NULL, 'h' },//
-        { "language", required_argument, NULL, 'l' },//
-        { "monospace-name", required_argument, NULL, 'x' },
-        { "no-bold", no_argument, &no_bold, 1 },
-        { "no-italic", no_argument, &no_italic, 1 },
-        { "nopictures", no_argument, &do_pictures, 0 },//
-        { "output", required_argument, NULL, 'o' },//
-        { "pictures", no_argument, &do_pictures, 1 },//
-        { "preserve-line-breaks", no_argument, &preserve_line_breaks, 1 },//
-        { "preserve-hyphens", no_argument, &preserve_hyphens, 1 },
-        { "sansserif-name", required_argument, NULL, 'y' },
-        { "serif-name", required_argument, NULL, 'z' },
-        { "onecolumn", no_argument, &do_singlecolumn, 1 },//
-        { "stdout", no_argument, &stdout_output, 1 }, //
-        { "spell", no_argument, &do_speller, 1 },//
-        { "tables", required_argument, &do_tables, 1 },//
-        { "unrecognized", required_argument, NULL, 'u' },//
-        { "verbose", no_argument, &do_verbose, 1 },//
-        { "version", no_argument, NULL, 'V' },//
-        { NULL, 0, NULL, 0 } };
+            //
+            { "append", no_argument, &do_append, 'a' },//
+            { "autorotate", no_argument, &do_autorotate, 1 },//
+            { "debug-dump", no_argument, &do_dump, 1 },//
+            { "dictionary", required_argument, NULL, 'd' }, //
+            { "dotmatrix", no_argument, &do_dotmatrix, 1 },//
+            { "fax", no_argument, &do_fax, 1 },//
+            { "format", required_argument, NULL, 'f' },//
+            { "help", no_argument, NULL, 'h' },//
+            { "language", required_argument, NULL, 'l' },//
+            { "monospace-name", required_argument, NULL, 'x' }, { "no-bold", no_argument, &no_bold,
+                    1 }, { "no-italic", no_argument, &no_italic, 1 },
+            { "nopictures", no_argument, &do_pictures, 0 },//
+            { "output", required_argument, NULL, 'o' },//
+            { "pictures", no_argument, &do_pictures, 1 },//
+            { "preserve-line-breaks", no_argument, &preserve_line_breaks, 1 },//
+            { "preserve-hyphens", no_argument, &preserve_hyphens, 1 }, { "sansserif-name",
+                    required_argument, NULL, 'y' }, { "serif-name", required_argument, NULL, 'z' },
+            { "onecolumn", no_argument, &do_singlecolumn, 1 },//
+            { "stdout", no_argument, &stdout_output, 1 }, //
+            { "spell", no_argument, &do_speller, 1 },//
+            { "tables", required_argument, &do_tables, 1 },//
+            { "unrecognized", required_argument, NULL, 'u' },//
+            { "verbose", no_argument, &do_verbose, 1 },//
+            { "version", no_argument, NULL, 'V' },//
+            { NULL, 0, NULL, 0 } };
 
     string outfilename, infilename, monospace, serif, sansserif;
     format_t outputformat = FORMAT_TEXT;
@@ -313,8 +309,7 @@ int main(int argc, char **argv)
         cerr << "Input file not specified\n";
         cerr << usage();
         return EXIT_FAILURE;
-    }
-    else
+    } else
         infilename = argv[optind];
 
     if (outfilename.empty())
@@ -324,8 +319,7 @@ int main(int argc, char **argv)
         if (do_verbose == 1) {
             Config::instance().setDebug(true);
             Config::instance().setDebugLevel(100);
-        }
-        else {
+        } else {
             Config::instance().setDebug(false);
         }
 
@@ -357,7 +351,7 @@ int main(int argc, char **argv)
             opt.setUnrecognizedChar(unrecognized_char);
         if (preserve_line_breaks)
             opt.setPreserveLineBreaks(true);
-        if(preserve_hyphens)
+        if (preserve_hyphens)
             opt.setPreserveLineHyphens(true);
 
         opt.setLanguage(langcode);
@@ -380,19 +374,17 @@ int main(int argc, char **argv)
         Puma::instance().open(image);
         Puma::instance().recognize();
 
-        if(stdout_output) {
+        if (stdout_output) {
             Puma::instance().save(std::cout, outputformat);
-        }
-        else {
-            if(do_append)
+        } else {
+            if (do_append)
                 Puma::instance().append(outfilename, outputformat);
             else
                 Puma::instance().save(outfilename, outputformat);
         }
 
         Puma::instance().close();
-    }
-    catch (std::runtime_error& e) {
+    } catch (std::runtime_error& e) {
         cerr << e.what() << endl;
         return EXIT_FAILURE;
     }
