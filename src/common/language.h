@@ -19,41 +19,113 @@
 #ifndef LANGUAGE_H_
 #define LANGUAGE_H_
 
-#include "lang_def.h"
 #include <string>
 #include <map>
 #include <list>
 #include <iostream>
+
+#include "lang_def.h"
 #include "globus.h"
 
 namespace CIF
 {
 
-typedef std::pair<std::string, std::string> LanguageCodeName;
-typedef std::map<language_t, LanguageCodeName> LanguageMap;
 typedef std::list<language_t> LanguageList;
 
 class FUN_EXPO__ Language
 {
     public:
         Language(language_t language);
+
+        /**
+         * Returns language type
+         */
         language_t get() const;
-        std::string isoCode() const;
+
+        /**
+         * Returns ISO 639-1 language code (2-character)
+         * @return empty string if unknown language
+         */
+        std::string isoCode2() const;
+
+        /**
+         * Returns ISO 639-2 language code (3-character)
+         * @return empty string if unknown language
+         */
+        std::string isoCode3() const;
+
+        /**
+         * Returns language name
+         */
         std::string isoName() const;
+
+        /**
+         * Checks if language is valid
+         */
         bool isValid() const;
 
-        enum sort_t {
-            SORT_NONE,
-            SORT_BY_CODE,
-            SORT_BY_NAME
+        enum sort_t
+        {
+            SORT_NONE, SORT_BY_CODE2, SORT_BY_CODE3, SORT_BY_NAME
         };
     public:
-        static Language byCode(const std::string& code);
+        /**
+         * Returns list of known language
+         * @param sort - sorts returned list
+         */
+        static LanguageList allLanguages(sort_t sort = SORT_NONE);
+
+        /**
+         * Returns language instance by given language iso code
+         * @param code - ISO 639-1 language code (2-characters)
+         * @return Language(LANGUAGE_UNKNOWN) if unknown code given
+         */
+        static Language byCode2(const std::string& code);
+
+        /**
+         * Returns language instance by given language iso code
+         * @param code - ISO 639-2 language code
+         * @return Language(LANGUAGE_UNKNOWN) if unknown code given
+         */
+        static Language byCode3(const std::string& code);
+
+        /**
+         * Returns language instance by given language name
+         * @return Language(LANGUAGE_UNKNOWN) if unknown code given
+         */
         static Language byName(const std::string& name);
-        static LanguageList languages(sort_t sort = SORT_NONE);
-        static std::string isoCode(language_t language);
+
+        /**
+         * Returns ISO 639-1 language code (2-character)
+         */
+        static std::string isoCode2(language_t language);
+
+        /**
+         * Returns ISO 639-2 language code (3-character)
+         */
+        static std::string isoCode3(language_t language);
+
+        /**
+         * Returns language name by given type
+         * If language type is invalid returns empty string
+         */
         static std::string isoName(language_t language);
-        static void sortByCode(LanguageList& lst);
+
+        /**
+         * Sorts given language list by ISO 639-1 iso code
+         * (2-characters)
+         */
+        static void sortByCode2(LanguageList& lst);
+
+        /**
+         * Sorts given language list by ISO 639-2 iso code
+         * (3-characters)
+         */
+        static void sortByCode3(LanguageList& lst);
+
+        /**
+         * Sorts given language list by language name
+         */
         static void sortByName(LanguageList& lst);
     private:
         language_t language_;
@@ -64,7 +136,6 @@ class FUN_EXPO__ Language
 inline language_t Language::get() const {
     return language_;
 }
-
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const Language& language);
 
 }

@@ -96,7 +96,7 @@ static string supported_languages()
     LanguageList langs = AlphabetFactory::instance().supportedLanguages();
     Language::sortByName(langs);
     for (LanguageList::iterator it = langs.begin(), end = langs.end(); it != end; ++it)
-        os << "    " << left << setw(12) << Language::isoCode(*it) << " " << Language::isoName(*it)
+        os << "    " << left << setw(12) << Language::isoCode3(*it) << " " << Language::isoName(*it)
                 << "\n";
 
     return os.str();
@@ -169,7 +169,7 @@ static language_t process_lang_options(const char *optarg)
         exit(EXIT_SUCCESS);
     }
 
-    Language lang = Language::byCode(optarg);
+    Language lang = Language::byCode3(optarg);
     // second try get language by name
     if (!lang.isValid()) {
         lang = Language::byName(optarg);

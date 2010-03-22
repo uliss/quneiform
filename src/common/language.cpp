@@ -21,47 +21,62 @@
 namespace CIF
 {
 
+struct LanguageData
+{
+        LanguageData() {}
+        LanguageData(const std::string& isoCode2, const std::string& isoCode3,
+                const std::string& isoName) :
+            code2(isoCode2), code3(isoCode3), name(isoName) {
+        }
+
+        std::string code2;
+        std::string code3;
+        std::string name;
+};
+
+typedef std::map<language_t, LanguageData> LanguageMap;
+
 static LanguageMap lang_map;
 
-static inline void addCodeName(language_t language, const std::string& code,
-        const std::string& name)
-{
-    lang_map[language] = LanguageCodeName(code, name);
+static inline void addCodeName(language_t language, const std::string& code2,
+        const std::string& code3, const std::string& name) {
+    LanguageData lang_data(code2, code3, name);
+    lang_map[language] = lang_data;
 }
 
 namespace
 {
 
-bool languageNamesInit()
-{
-    addCodeName(LANGUAGE_BULGARIAN, "bul", "Bulgarian");
-    addCodeName(LANGUAGE_CROATIAN, "hrv", "Croatian");
-    addCodeName(LANGUAGE_CZECH, "cze", "Czech");
-    addCodeName(LANGUAGE_DANISH, "dan", "Danish");
-    addCodeName(LANGUAGE_DIGITS, "dig", "Digits");
-    addCodeName(LANGUAGE_DUTCH, "dut", "Dutch");
-    addCodeName(LANGUAGE_ENGLISH, "eng", "English");
-    addCodeName(LANGUAGE_ESTONIAN, "est", "Estonian");
-    addCodeName(LANGUAGE_FRENCH, "fra", "French");
-    addCodeName(LANGUAGE_GERMAN, "ger", "German");
-    addCodeName(LANGUAGE_HUNGARIAN, "hun", "Hungarian");
-    addCodeName(LANGUAGE_ITALIAN, "ita", "Italian");
-    addCodeName(LANGUAGE_KAZAKH, "kaz", "Kazakh");
-    addCodeName(LANGUAGE_KAZ_ENG, "kazeng", "Kazakh-English");
-    addCodeName(LANGUAGE_LATVIAN, "lav", "Latvian");
-    addCodeName(LANGUAGE_LITHUANIAN, "lit", "Lithuanian");
-    addCodeName(LANGUAGE_POLISH, "pol", "Polish");
-    addCodeName(LANGUAGE_PORTUGUESE, "por", "Portuguese");
-    addCodeName(LANGUAGE_ROMANIAN, "rum", "Romanian");
-    addCodeName(LANGUAGE_RUSSIAN, "rus", "Russian");
-    addCodeName(LANGUAGE_RUS_ENG, "ruseng", "Russian-English");
-    addCodeName(LANGUAGE_SERBIAN, "srp", "Serbian");
-    addCodeName(LANGUAGE_SLOVENIAN, "slo", "Slovenian");
-    addCodeName(LANGUAGE_SPANISH, "spa", "Spanish");
-    addCodeName(LANGUAGE_SWEDISH, "swe", "Swedish");
-    addCodeName(LANGUAGE_TURKISH, "tur", "Turkish");
-    addCodeName(LANGUAGE_UKRAINIAN, "ukr", "Ukrainian");
-    addCodeName(LANGUAGE_UZBEK, "uzb", "Uzbek");
+// sets language data according to ISO 639-1 and 639-2
+bool languageNamesInit() {
+    addCodeName(LANGUAGE_BULGARIAN, "bg", "bul", "Bulgarian");
+    addCodeName(LANGUAGE_CROATIAN, "hr", "hrv", "Croatian");
+    addCodeName(LANGUAGE_CZECH, "cs", "cze", "Czech");
+    addCodeName(LANGUAGE_DANISH, "da", "dan", "Danish");
+    addCodeName(LANGUAGE_DIGITS, "di", "dig", "Digits");
+    addCodeName(LANGUAGE_DUTCH, "nl", "dut", "Dutch");
+    addCodeName(LANGUAGE_ENGLISH, "en", "eng", "English");
+    addCodeName(LANGUAGE_ESTONIAN, "et", "est", "Estonian");
+    addCodeName(LANGUAGE_FRENCH, "fr", "fra", "French");
+    addCodeName(LANGUAGE_GERMAN, "de", "ger", "German");
+    addCodeName(LANGUAGE_HUNGARIAN, "hu", "hun", "Hungarian");
+    addCodeName(LANGUAGE_ITALIAN, "it", "ita", "Italian");
+    addCodeName(LANGUAGE_KAZAKH, "kk", "kaz", "Kazakh");
+    addCodeName(LANGUAGE_KAZ_ENG, "kken", "kazeng", "Kazakh-English");
+    addCodeName(LANGUAGE_LATVIAN, "lv", "lav", "Latvian");
+    addCodeName(LANGUAGE_LITHUANIAN, "lt", "lit", "Lithuanian");
+    addCodeName(LANGUAGE_POLISH, "pl", "pol", "Polish");
+    addCodeName(LANGUAGE_PORTUGUESE, "pt", "por", "Portuguese");
+    addCodeName(LANGUAGE_ROMANIAN, "ro", "rum", "Romanian");
+    addCodeName(LANGUAGE_RUSSIAN, "ru", "rus", "Russian");
+    addCodeName(LANGUAGE_RUS_ENG, "ruen", "ruseng", "Russian-English");
+    addCodeName(LANGUAGE_SERBIAN, "sr", "srp", "Serbian");
+    addCodeName(LANGUAGE_SLOVENIAN, "sk", "slo", "Slovak");
+    addCodeName(LANGUAGE_SPANISH, "es", "spa", "Spanish");
+    addCodeName(LANGUAGE_SWEDISH, "sw", "swe", "Swedish");
+    addCodeName(LANGUAGE_TURKISH, "tr", "tur", "Turkish");
+    addCodeName(LANGUAGE_UKRAINIAN, "uk", "ukr", "Ukrainian");
+    addCodeName(LANGUAGE_UZBEK, "uz", "uzb", "Uzbek");
     return true;
 }
 
@@ -69,99 +84,111 @@ const bool init = languageNamesInit();
 }
 
 Language::Language(language_t language) :
-    language_(language)
-{
+    language_(language) {
 }
 
-std::string Language::isoCode(language_t language)
-{
+std::string Language::isoCode2() const {
+    return isoCode2(language_);
+}
+
+std::string Language::isoCode2(language_t language) {
     LanguageMap::iterator it = lang_map.find(language);
-    return it != lang_map.end() ? it->second.first : "???";
+    return it != lang_map.end() ? it->second.code2 : std::string();
 }
 
-std::string Language::isoCode() const
-{
-    return isoCode(language_);
+std::string Language::isoCode3() const {
+    return isoCode3(language_);
 }
 
-std::string Language::isoName() const
-{
+std::string Language::isoCode3(language_t language) {
+    LanguageMap::iterator it = lang_map.find(language);
+    return it != lang_map.end() ? it->second.code3 : std::string();
+}
+
+std::string Language::isoName() const {
     return isoName(language_);
 }
 
-bool Language::isValid() const
-{
-	return (language_ < 0 || language_ >= LANG_TOTAL) ? false : true;
+bool Language::isValid() const {
+    return (language_ < 0 || language_ >= LANG_TOTAL) ? false : true;
 }
 
-std::string Language::isoName(language_t language)
-{
+std::string Language::isoName(language_t language) {
     LanguageMap::iterator it = lang_map.find(language);
-    return it != lang_map.end() ? it->second.second : "Unknown";
+    return it != lang_map.end() ? it->second.name : "";
 }
 
-Language Language::byCode(const std::string& code)
-{
+Language Language::byCode2(const std::string& code) {
     for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it) {
-        if (it->second.first == code)
+        if (it->second.code2 == code)
             return Language(it->first);
     }
     return Language(LANGUAGE_UNKNOWN);
 }
 
-Language Language::byName(const std::string& name)
-{
-	for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it) {
-        if (it->second.second == name)
+Language Language::byCode3(const std::string& code) {
+    for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it) {
+        if (it->second.code3 == code)
             return Language(it->first);
     }
     return Language(LANGUAGE_UNKNOWN);
 }
 
-LanguageList Language::languages(sort_t sort_mode)
-{
-	LanguageList ret = languagesAll();
-    switch(sort_mode) {
-    case SORT_BY_CODE:
-    	sortByCode(ret);
+Language Language::byName(const std::string& name) {
+    for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it) {
+        if (it->second.name == name)
+            return Language(it->first);
+    }
+    return Language(LANGUAGE_UNKNOWN);
+}
+
+LanguageList Language::allLanguages(sort_t sort_mode) {
+    LanguageList ret = languagesAll();
+    switch (sort_mode) {
+    case SORT_BY_CODE2:
+        sortByCode2(ret);
+    case SORT_BY_CODE3:
+        sortByCode3(ret);
     case SORT_BY_NAME:
-    	sortByName(ret);
+        sortByName(ret);
     default:
-    	break;
+        break;
     }
     return ret;
 }
 
-LanguageList Language::languagesAll()
-{
-	LanguageList ret;
-	for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it)
-		ret.push_back(it->first);
-	return ret;
+LanguageList Language::languagesAll() {
+    LanguageList ret;
+    for (LanguageMap::iterator it = lang_map.begin(), end = lang_map.end(); it != end; ++it)
+        ret.push_back(it->first);
+    return ret;
 }
 
-inline bool cmpByCode(language_t one, language_t two)
-{
-	return lang_map[one].first.compare(lang_map[two].first) < 0;
+inline bool cmpByCode2(language_t one, language_t two) {
+    return lang_map[one].code2.compare(lang_map[two].code2) < 0;
 }
 
-void Language::sortByCode(LanguageList& lst)
-{
-	lst.sort(cmpByCode);
+inline bool cmpByCode3(language_t one, language_t two) {
+    return lang_map[one].code3.compare(lang_map[two].code3) < 0;
 }
 
-inline bool cmpByName(language_t one, language_t two)
-{
-	return lang_map[one].second.compare(lang_map[two].second) < 0;
+void Language::sortByCode2(LanguageList& lst) {
+    lst.sort(cmpByCode2);
 }
 
-void Language::sortByName(LanguageList& lst)
-{
-	lst.sort(cmpByName);
+void Language::sortByCode3(LanguageList& lst) {
+    lst.sort(cmpByCode3);
 }
 
-std::ostream& operator<<(std::ostream& os, const Language& language)
-{
+inline bool cmpByName(language_t one, language_t two) {
+    return lang_map[one].name.compare(lang_map[two].name) < 0;
+}
+
+void Language::sortByName(LanguageList& lst) {
+    lst.sort(cmpByName);
+}
+
+std::ostream& operator<<(std::ostream& os, const Language& language) {
     os << language.isoName();
     return os;
 }

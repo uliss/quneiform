@@ -21,123 +21,54 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestLanguage);
 
 using namespace CIF;
 
-void TestLanguage::testInit()
-{
+void TestLanguage::testInit() {
     Language l(LANGUAGE_RUSSIAN);
     CPPUNIT_ASSERT_EQUAL(LANGUAGE_RUSSIAN, l.get());
 }
 
-void TestLanguage::testIsoNames()
-{
-    static language_t langs[] = {
-        LANGUAGE_ENGLISH,
-        LANGUAGE_GERMAN,
-        LANGUAGE_FRENCH,
-        LANGUAGE_RUSSIAN,
-        LANGUAGE_SWEDISH,
-        LANGUAGE_SPANISH,
-        LANGUAGE_ITALIAN,
-        LANGUAGE_RUS_ENG,
-        LANGUAGE_UKRAINIAN,
-        LANGUAGE_SERBIAN,
-        LANGUAGE_CROATIAN,
-        LANGUAGE_POLISH,
-        LANGUAGE_DANISH,
-        LANGUAGE_PORTUGUESE,
-        LANGUAGE_DUTCH,
-        LANGUAGE_DIGITS,
-        LANGUAGE_UZBEK,
-        LANGUAGE_KAZAKH,
-        LANGUAGE_KAZ_ENG,
-        LANGUAGE_CZECH,
-        LANGUAGE_ROMANIAN,
-        LANGUAGE_HUNGARIAN,
-        LANGUAGE_BULGARIAN,
-        LANGUAGE_SLOVENIAN,
-        LANGUAGE_LATVIAN,
-        LANGUAGE_LITHUANIAN,
-        LANGUAGE_ESTONIAN,
-        LANGUAGE_TURKISH };
+void TestLanguage::testIsoNames() {
+    static language_t langs[] = { LANGUAGE_ENGLISH, LANGUAGE_GERMAN, LANGUAGE_FRENCH,
+            LANGUAGE_RUSSIAN, LANGUAGE_SWEDISH, LANGUAGE_SPANISH, LANGUAGE_ITALIAN,
+            LANGUAGE_RUS_ENG, LANGUAGE_UKRAINIAN, LANGUAGE_SERBIAN, LANGUAGE_CROATIAN,
+            LANGUAGE_POLISH, LANGUAGE_DANISH, LANGUAGE_PORTUGUESE, LANGUAGE_DUTCH, LANGUAGE_DIGITS,
+            LANGUAGE_UZBEK, LANGUAGE_KAZAKH, LANGUAGE_KAZ_ENG, LANGUAGE_CZECH, LANGUAGE_ROMANIAN,
+            LANGUAGE_HUNGARIAN, LANGUAGE_BULGARIAN, LANGUAGE_SLOVENIAN, LANGUAGE_LATVIAN,
+            LANGUAGE_LITHUANIAN, LANGUAGE_ESTONIAN, LANGUAGE_TURKISH };
 
     static const int num_langs = sizeof(langs) / sizeof(langs[0]);
 
-    static const char * iso_names[] = {
-        "English",
-        "German",
-        "French",
-        "Russian",
-        "Swedish",
-        "Spanish",
-        "Italian",
-        "Russian-English",
-        "Ukrainian",
-        "Serbian",
-        "Croatian",
-        "Polish",
-        "Danish",
-        "Portuguese",
-        "Dutch",
-        "Digits",
-        "Uzbek",
-        "Kazakh",
-        "Kazakh-English",
-        "Czech",
-        "Romanian",
-        "Hungarian",
-        "Bulgarian",
-        "Slovenian",
-        "Latvian",
-        "Lithuanian",
-        "Estonian",
-        "Turkish" };
+    static const char * iso_names[] = { "English", "German", "French", "Russian", "Swedish",
+            "Spanish", "Italian", "Russian-English", "Ukrainian", "Serbian", "Croatian", "Polish",
+            "Danish", "Portuguese", "Dutch", "Digits", "Uzbek", "Kazakh", "Kazakh-English",
+            "Czech", "Romanian", "Hungarian", "Bulgarian", "Slovak", "Latvian", "Lithuanian",
+            "Estonian", "Turkish" };
 
     static const int num_names = sizeof(iso_names) / sizeof(iso_names[0]);
 
-    static const char * iso_codes[] = {
-        "eng",
-        "ger",
-        "fra",
-        "rus",
-        "swe",
-        "spa",
-        "ita",
-        "ruseng",
-        "ukr",
-        "srp",
-        "hrv",
-        "pol",
-        "dan",
-        "por",
-        "dut",
-        "dig",
-        "uzb",
-        "kaz",
-        "kazeng",
-        "cze",
-        "rum",
-        "hun",
-        "bul",
-        "slo",
-        "lav",
-        "lit",
-        "est",
-        "tur" };
-    static const int num_codes = sizeof(iso_codes) / sizeof(iso_codes[0]);
+    static const char * iso_codes3[] = { "eng", "ger", "fra", "rus", "swe", "spa", "ita", "ruseng",
+            "ukr", "srp", "hrv", "pol", "dan", "por", "dut", "dig", "uzb", "kaz", "kazeng", "cze",
+            "rum", "hun", "bul", "slo", "lav", "lit", "est", "tur" };
+
+    static const char * iso_codes2[] = { "en", "de", "fr", "ru", "sw", "es", "it", "ruen", "uk",
+            "sr", "hr", "pl", "da", "pt", "nl", "di", "uz", "kk", "kken", "cs", "ro", "hu", "bg",
+            "sk", "lv", "lt", "et", "tr" };
+
+    static const int num_codes = sizeof(iso_codes3) / sizeof(iso_codes3[0]);
 
     CPPUNIT_ASSERT(num_langs == num_names && num_langs == num_codes);
     for (int i = 0; i < num_langs; i++) {
         Language lang(langs[i]);
-        CPPUNIT_ASSERT(lang.isoCode() == iso_codes[i]);
-        CPPUNIT_ASSERT(lang.isoName() == iso_names[i]);
+        CPPUNIT_ASSERT_EQUAL(std::string(iso_codes2[i]), lang.isoCode2());
+        CPPUNIT_ASSERT_EQUAL(std::string(iso_codes3[i]), lang.isoCode3());
+        CPPUNIT_ASSERT_EQUAL(std::string(iso_names[i]), lang.isoName());
     }
 
     Language l(LANG_TOTAL);
-    CPPUNIT_ASSERT(l.isoCode() == "???");
-    CPPUNIT_ASSERT(l.isoName() == "Unknown");
+    CPPUNIT_ASSERT(l.isoCode3() == "");
+    CPPUNIT_ASSERT(l.isoName() == "");
 }
 
-void TestLanguage::testNamesSort()
-{
+void TestLanguage::testNamesSort() {
     LanguageList lst;
 
     lst.push_back(LANGUAGE_CROATIAN);
@@ -155,7 +86,7 @@ void TestLanguage::testNamesSort()
     it++;
     CPPUNIT_ASSERT_EQUAL(*it, LANGUAGE_UKRAINIAN);
 
-    Language::sortByCode(lst);
+    Language::sortByCode3(lst);
     it = lst.begin();
     CPPUNIT_ASSERT_EQUAL(*it, LANGUAGE_DUTCH);
     it++;
@@ -166,9 +97,8 @@ void TestLanguage::testNamesSort()
     CPPUNIT_ASSERT_EQUAL(*it, LANGUAGE_UKRAINIAN);
 }
 
-void TestLanguage::testIsValid()
-{
-    for(language_t lang = LANGUAGE_ENGLISH; lang < LANG_TOTAL; lang = (language_t) (lang + 1)) {
+void TestLanguage::testIsValid() {
+    for (language_t lang = LANGUAGE_ENGLISH; lang < LANG_TOTAL; lang = (language_t) (lang + 1)) {
         Language l(lang);
         CPPUNIT_ASSERT(l.isValid());
     }
@@ -179,18 +109,23 @@ void TestLanguage::testIsValid()
     CPPUNIT_ASSERT(!l.isValid());
 }
 
-void TestLanguage::testByCode()
-{
-    CPPUNIT_ASSERT_EQUAL(LANGUAGE_ENGLISH, Language::byCode("eng").get());
-    CPPUNIT_ASSERT_EQUAL(LANGUAGE_RUS_ENG, Language::byCode("ruseng").get());
-    CPPUNIT_ASSERT_EQUAL(LANGUAGE_UNKNOWN, Language::byCode("?????").get());
-    CPPUNIT_ASSERT_EQUAL(LANGUAGE_DIGITS, Language::byCode("dig").get());
-    CPPUNIT_ASSERT_EQUAL(LANGUAGE_GERMAN, Language::byCode("ger").get());
-    CPPUNIT_ASSERT_EQUAL(LANGUAGE_DUTCH, Language::byCode("dut").get());
+void TestLanguage::testByCode() {
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_ENGLISH, Language::byCode3("eng").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_RUS_ENG, Language::byCode3("ruseng").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_UNKNOWN, Language::byCode3("?????").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_DIGITS, Language::byCode3("dig").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_GERMAN, Language::byCode3("ger").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_DUTCH, Language::byCode3("dut").get());
+
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_ENGLISH, Language::byCode2("en").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_RUS_ENG, Language::byCode2("ruen").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_UNKNOWN, Language::byCode2("?????").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_DIGITS, Language::byCode2("di").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_GERMAN, Language::byCode2("de").get());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_DUTCH, Language::byCode2("nl").get());
 }
 
-void TestLanguage::testByName()
-{
+void TestLanguage::testByName() {
     CPPUNIT_ASSERT_EQUAL(LANGUAGE_ENGLISH, Language::byName("English").get());
     CPPUNIT_ASSERT_EQUAL(LANGUAGE_RUS_ENG, Language::byName("Russian-English").get());
     CPPUNIT_ASSERT_EQUAL(LANGUAGE_UNKNOWN, Language::byName("?????").get());
