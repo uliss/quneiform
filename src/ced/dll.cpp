@@ -72,7 +72,6 @@
 //GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
 static uint32_t gwRC = 0;
-static HINSTANCE ghInst = NULL;
 
 Bool32 CED_Init(uint16_t wHeightCode, Handle /*hStorage*/)
 {
@@ -107,77 +106,9 @@ Bool32 CED_Init(uint16_t wHeightCode, Handle /*hStorage*/)
     DEC_FUN(void, CED_Aksant, (const aksant* pt));
     DEC_FUN(void, CED_Letter, (const letter* pt, const uint32_t alternatives));
 #undef DEC_FUN
-    /// ????
-#define ReadFunction(a,b) if(!CFIO_GetExportData(a, &b)) \
-        SetReturnCode_ced((uint16_t)CFIO_GetReturnCode());
-    //  ReadFunction(CFIO_FNReadMemoryFromFile,CFIO_ReadMemoryFromFile);
-    //  ReadFunction(CFIO_FNLockMemory,CFIO_LockMemory);
-    //  ReadFunction(CFIO_FNUnlockMemory,CFIO_UnlockMemory);
-    //  ReadFunction(CFIO_FNFreeMemory,CFIO_FreeMemory);
-    //  ReadFunction(CFIO_FNOpenFreeFile,CFIO_OpenFreeFile);
-    //  ReadFunction(CFIO_FNCloseFreeFile,CFIO_CloseFreeFile);
-    //  ReadFunction(CFIO_FNWriteToFile, CFIO_WriteToFile);
     logName[0] = 0;
     logStream = 0;
     return GetReturnCode_ced() == 0 ? 1 : GetReturnCode_ced();
-}
-
-CED_FUNC(Bool32) CED_Done()
-{
-    return 0;
-}
-
-CED_FUNC(uint32_t) CED_GetReturnCode()
-{
-    return gwRC;
-}
-
-char * CED_GetReturnString(uint32_t /*dwError*/)
-{
-    return 0;
-}
-
-CED_FUNC(Bool32) CED_SetImportData(uint32_t dwType, void * pData)
-{
-#define CASE_FUNCTION(a)    case CED_FN##a: a=(FN##a)pData; break
-    Bool32 rc = TRUE;
-    gwRC = 0;
-
-    switch (dwType) {
-            CASE_FUNCTION(CED_BitmapRef);
-            CASE_FUNCTION(CED_TextRef);
-            CASE_FUNCTION(CED_FontKegl);
-            CASE_FUNCTION(CED_Kegl);
-            CASE_FUNCTION(CED_Shift);
-            CASE_FUNCTION(CED_RetrieveLevel);
-            CASE_FUNCTION(CED_Underline);
-            CASE_FUNCTION(CED_DensPrint);
-            CASE_FUNCTION(CED_Tabul);
-            CASE_FUNCTION(CED_TablTabul);
-            CASE_FUNCTION(CED_SheetDiskDescr);
-            CASE_FUNCTION(CED_FragmDiskDescr);
-            CASE_FUNCTION(CED_FragmDisk);
-            CASE_FUNCTION(CED_StepBack);
-            CASE_FUNCTION(CED_LineBeg);
-            CASE_FUNCTION(CED_Position);
-            CASE_FUNCTION(CED_EdTagLanguage);
-            CASE_FUNCTION(CED_TableConformSizes);
-            CASE_FUNCTION(CED_GroupWords);
-            CASE_FUNCTION(CED_GroupSymbols);
-            CASE_FUNCTION(CED_Border);
-            CASE_FUNCTION(CED_TableHeader);
-            CASE_FUNCTION(CED_ListOfFragments);
-            CASE_FUNCTION(CED_Extention);
-            CASE_FUNCTION(CED_ExtentionNew);
-            CASE_FUNCTION(CED_Aksant);
-            CASE_FUNCTION(CED_Letter);
-        default:
-            SetReturnCode_ced(IDS_ERR_NOTIMPLEMENT);
-            rc = FALSE;
-    }
-
-#undef CASE_FUNCTION
-    return rc;
 }
 
 void SetReturnCode_ced(uint32_t rc)
@@ -207,19 +138,4 @@ uint32_t GetReturnCode_ced()
         rc = low + IDS_ERR_NO;
 
     return rc;
-}
-
-char * GetModulesString(uint32_t dwError)
-{
-    uint16_t hei = (uint16_t) (dwError >> 16);
-    static char szString[512];
-    sprintf(szString, "Unknown code error 0x%X", dwError);
-
-    switch (hei) {
-        case PUMA_MODULE_CFIO:
-            sprintf(szString, "%s", CFIO_GetReturnString(dwError));
-            return szString;
-    }
-
-    return szString;
 }

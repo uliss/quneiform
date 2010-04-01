@@ -184,15 +184,7 @@ typedef struct edCol {
 #define ED_BRDR_DASHED  4
 #define ED_BRDR_DOUBLE  5
 
-//#include "ced_struct.h" //Структуры, обрабатываемые CED_FormattedLoad
-
 CED_FUNC(Bool32) CED_Init(uint16_t wHeightCode, Handle hStorage);
-CED_FUNC(Bool32) CED_Done();
-CED_FUNC(uint32_t) CED_GetReturnCode();
-CED_FUNC(char *) CED_GetReturnString(uint32_t dwError);
-CED_FUNC(Bool32) CED_SetImportData(uint32_t dwType, void * pData);
-char * GetModulesString(uint32_t dwError);
-/////////////////////////////////////////////////////////////
 
 //Импорт
 enum CED_IMPORT_ENTRIES {

@@ -426,7 +426,6 @@ ExporterPtr PumaImpl::makeExporter(format_t format) const {
 }
 
 void PumaImpl::modulesDone() {
-    CED_Done();
     RCORRKEGL_Done();
     RPIC_Done();
     RIMAGE_Done();
