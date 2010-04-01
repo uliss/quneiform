@@ -63,7 +63,6 @@
 
 using namespace CIF;
 
-char logName[PATH_MAX];
 FILE *logStream;
 
 //create font

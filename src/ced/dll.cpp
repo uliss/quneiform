@@ -106,7 +106,6 @@ Bool32 CED_Init(uint16_t wHeightCode, Handle /*hStorage*/)
     DEC_FUN(void, CED_Aksant, (const aksant* pt));
     DEC_FUN(void, CED_Letter, (const letter* pt, const uint32_t alternatives));
 #undef DEC_FUN
-    logName[0] = 0;
     logStream = 0;
     return GetReturnCode_ced() == 0 ? 1 : GetReturnCode_ced();
 }
