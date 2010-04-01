@@ -24,8 +24,6 @@ namespace CIF
 
 CEDLine::CEDLine() :
     hard_break_(FALSE) {
-    extData = 0;
-    extDataLen = 0;
     chars = 0;
     curChar = 0;
     internalNumber = 0;

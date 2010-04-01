@@ -68,8 +68,6 @@ class FUN_EXPO__ CEDLine
         friend class CEDParagraph;
         friend class CEDPage;
     public:
-        char * extData; //data to be written in file after header
-        int extDataLen; //their length
         int defChrFontHeight;
     private:
         Bool32 hard_break_;
