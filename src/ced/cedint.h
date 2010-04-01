@@ -63,7 +63,6 @@
 
 #pragma pack (push,8)
 
-#define CED_MAXNAME 260
 #define CFIOHightCode 0x0001
 
 #include "ced.h"

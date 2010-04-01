@@ -893,7 +893,3 @@ CED_FUNC(Bool32) CED_WriteFormattedRtf(const char * fileName, Handle hEdPage) {
 CED_FUNC(Bool32) CED_MergeFormattedRtf(const char * fileName, Handle hEdPage) {
     return ((CEDPage*) hEdPage)->FormattedWriteRtf(fileName, TRUE);
 }
-
-CED_FUNC(void) CED_SetLogFileName(const char * name) {
-    strcpy(logName, name);
-}
