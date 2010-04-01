@@ -23,9 +23,9 @@ namespace CIF
 {
 
 CEDLine::CEDLine() :
-    hard_break_(FALSE) {
+    hard_break_(false) {
     chars = 0;
-    curChar = 0;
+    current_char_ = 0;
     internalNumber = 0;
     parentNumber = 0;
     prev = next = 0;
@@ -33,15 +33,20 @@ CEDLine::CEDLine() :
     defChrFontHeight = -1;
 }
 
-CEDLine::~CEDLine() {
+CEDChar * CEDLine::currentChar() {
+    return current_char_;
 }
 
 bool CEDLine::hardBreak() const {
-    return (hard_break_ == TRUE);
+    return hard_break_;
+}
+
+void CEDLine::setCurrentChar(CEDChar * chr) {
+    current_char_ = chr;
 }
 
 void CEDLine::setHardBreak(bool value) {
-    hard_break_ = value ? TRUE : FALSE;
+    hard_break_ = value;
 }
 
 CEDChar * CEDLine::InsertChar() {
@@ -49,14 +54,14 @@ CEDChar * CEDLine::InsertChar() {
     numOfChars++;
     chr->setParentNumber(internalNumber);
 
-    if (curChar) {
-        chr->next = curChar->next;
+    if (current_char_) {
+        chr->next = current_char_->next;
 
         if (chr->next)
             (chr->next)->prev = chr;
 
-        curChar->next = chr;
-        chr->prev = curChar;
+        current_char_->next = chr;
+        chr->prev = current_char_;
     }
 
     else {
@@ -88,12 +93,8 @@ CEDChar * CEDLine::InsertChar() {
         }
     }
 
-    curChar = chr;
+    current_char_ = chr;
     return chr;
-}
-
-void CEDLine::SetCurChar(CEDChar* _char) {
-    curChar = _char;
 }
 
 CEDChar * CEDLine::SetCurChar(int _number) {
@@ -103,18 +104,14 @@ CEDChar * CEDLine::SetCurChar(int _number) {
     for (chr = chars; chr && num != _number; chr = chr->next)
         num++;
 
-    curChar = chr;
+    current_char_ = chr;
     return chr;
-}
-
-CEDChar * CEDLine::GetCurChar() {
-    return curChar;
 }
 
 int CEDLine::GetNumOfCurChar() {
     int num = 0;
 
-    for (CEDChar* chr = chars; chr && chr != curChar; chr = chr->next)
+    for (CEDChar* chr = chars; chr && chr != current_char_; chr = chr->next)
         num++;
 
     return num;
@@ -122,10 +119,10 @@ int CEDLine::GetNumOfCurChar() {
 
 CEDChar * CEDLine::NextChar(Bool32 _goThroughLines) {
     if (_goThroughLines)
-        return curChar->next;
+        return current_char_->next;
 
-    if (curChar->next && curChar->next->parentNumber() == curChar->parentNumber())
-        return curChar->next;
+    if (current_char_->next && current_char_->next->parentNumber() == current_char_->parentNumber())
+        return current_char_->next;
 
     else
         return 0;
@@ -133,10 +130,10 @@ CEDChar * CEDLine::NextChar(Bool32 _goThroughLines) {
 
 CEDChar * CEDLine::PrevChar(Bool32 _goThroughLines) {
     if (_goThroughLines)
-        return curChar->prev;
+        return current_char_->prev;
 
-    if (curChar->prev && curChar->prev->parentNumber() == curChar->parentNumber())
-        return curChar->prev;
+    if (current_char_->prev && current_char_->prev->parentNumber() == current_char_->parentNumber())
+        return current_char_->prev;
 
     else
         return 0;

@@ -22,13 +22,18 @@
 #include "globus.h"
 #include "ced_struct.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class FUN_EXPO__ CEDLine
 {
     public:
         CEDLine();
-        ~CEDLine();
+
+        /**
+         * Returns pointer current symbol
+         */
+        CEDChar * currentChar();
 
         CEDChar* GetChar(int _num);
         int GetCountChar();
@@ -39,19 +44,19 @@ class FUN_EXPO__ CEDLine
         bool hardBreak() const;
 
         /**
+         * Sets current char
+         */
+        void setCurrentChar(CEDChar * chr);
+
+        /**
          * Sets line hard breaking
          */
         void setHardBreak(bool value);
 
         CEDChar * InsertChar(); //inserts new symbol after current one. new symbol becomes current
         //returns pointer to new symbol
-        //  CEDChar * DeleteChar(Bool32 _deleteSubItems);   //deletes current symbol. previous one becomes current
-        //return it
-        //_deleteSubItems - either delete all daughter elements or attach it to previous object
-        void SetCurChar(CEDChar* _char);//set new value of current symbol
         CEDChar * SetCurChar(int _number);//set new value of current symbol
 
-        CEDChar * GetCurChar(); //return current symbol
         int GetNumOfCurChar(); //return current symbol
 
         CEDChar * NextChar(Bool32 _goThroughLines); //returns next symbol, 0 if last
@@ -61,7 +66,6 @@ class FUN_EXPO__ CEDLine
         CEDChar * chars; //connected list of symbols
         int numOfChars;
 
-        CEDChar * curChar; //current symbol
         CEDLine * prev, *next; //pointer to neibor elements in connected list
         int internalNumber; //number of line from start of file
         int parentNumber; //number of parent in a file
@@ -70,7 +74,8 @@ class FUN_EXPO__ CEDLine
     public:
         int defChrFontHeight;
     private:
-        Bool32 hard_break_;
+        bool hard_break_;
+        CEDChar * current_char_; //current symbol
 };
 
 }

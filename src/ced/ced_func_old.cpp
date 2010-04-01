@@ -304,8 +304,8 @@ void FormattedTR(const text_ref* pt)
                 mainPage->GetCurSection()->GetCurParagraph()->GetCurLine();
             array[arPosition].beg = 0;
 
-            if (line->curChar)
-                array[arPosition].beg = line->curChar;
+            if (line->currentChar())
+                array[arPosition].beg = line->currentChar();
 
             else {
                 if (line->internalNumber != 0) {
@@ -471,7 +471,8 @@ void StripLines()
         CEDLine *ll =
             mainPage->GetCurSection()->GetCurParagraph()->InsertLine();
         array[i].line = ll;
-        ll->curChar = ll->chars = array[i].beg;
+        ll->setCurrentChar(array[i].beg);
+        ll->chars = array[i].beg;
 
         for (CEDChar * cc = array[i].beg; cc && cc != array[i].end->next; cc
                 = cc->next) {

@@ -387,15 +387,15 @@ Bool32 CEDPage::GoToNextChar() {
     CEDChar * ww;
 
     if (curSect && curSect->curPara && curSect->curPara->curLine
-            && curSect->curPara->curLine->curChar
-            && (ww = curSect->curPara->curLine->curChar->next)) {
-        CEDLine * aa = GetLine(curSect->curPara->curLine->curChar->next->parentNumber());
+            && curSect->curPara->curLine->current_char_
+            && (ww = curSect->curPara->curLine->current_char_->next)) {
+        CEDLine * aa = GetLine(curSect->curPara->curLine->current_char_->next->parentNumber());
         CEDParagraph *qq = GetParagraph(aa->parentNumber);
         CEDSection * ss = GetSection(qq->parentNumber);
         curSect = ss;
         curSect->curPara = qq;
         curSect->curPara->curLine = aa;
-        curSect->curPara->curLine->curChar = ww;
+        curSect->curPara->curLine->current_char_ = ww;
         return TRUE;
     }
 

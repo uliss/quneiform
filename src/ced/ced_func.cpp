@@ -1018,10 +1018,10 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
                 goto ED_WRITE_END;
 
             if (line->SetCurChar(0)) {
-                CEDChar *chr = line->GetCurChar();
+                CEDChar *chr = line->currentChar();
 
                 do {
-                    line->SetCurChar(chr);
+                    line->setCurrentChar(chr);
                     bit_map_ref bmr;
                     bmr.code = SS_BITMAP_REF;
                     Rect bbox = chr->boundingRect();
