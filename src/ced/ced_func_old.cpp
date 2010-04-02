@@ -702,7 +702,7 @@ void RecreateFrames()
             inc++;
         }
 
-        array[i].line->parentNumber = array[i].frameNum + inc;
+        array[i].line->setParentNumber(array[i].frameNum + inc);
         par->numOfLines++;
     }
 

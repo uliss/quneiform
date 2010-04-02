@@ -371,7 +371,7 @@ Bool32 CEDPage::GoToNextLine() {
 
     if (curSect && curSect->curPara && curSect->curPara->curLine && (aa
             = curSect->curPara->curLine->next)) {
-        CEDParagraph *qq = GetParagraph(curSect->curPara->curLine->next->parentNumber);
+        CEDParagraph *qq = GetParagraph(curSect->curPara->curLine->next->parent_number_);
         CEDSection * ss = GetSection(qq->parentNumber);
         curSect = ss;
         curSect->curPara = qq;
@@ -390,7 +390,7 @@ Bool32 CEDPage::GoToNextChar() {
             && curSect->curPara->curLine->current_char_
             && (ww = curSect->curPara->curLine->current_char_->next)) {
         CEDLine * aa = GetLine(curSect->curPara->curLine->current_char_->next->parentNumber());
-        CEDParagraph *qq = GetParagraph(aa->parentNumber);
+        CEDParagraph *qq = GetParagraph(aa->parent_number_);
         CEDSection * ss = GetSection(qq->parentNumber);
         curSect = ss;
         curSect->curPara = qq;

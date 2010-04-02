@@ -49,6 +49,11 @@ class FUN_EXPO__ CEDLine
         int internalNumber() const;
 
         /**
+         * Returns number of parent in a file
+         */
+        int parentNumber() const;
+
+        /**
          * Sets current char
          */
         void setCurrentChar(CEDChar * chr);
@@ -57,6 +62,11 @@ class FUN_EXPO__ CEDLine
          * Sets line hard breaking
          */
         void setHardBreak(bool value);
+
+        /**
+         * Sets parent number
+         */
+        void setParentNumber(int number);
 
         CEDChar * InsertChar(); //inserts new symbol after current one. new symbol becomes current
         //returns pointer to new symbol
@@ -72,7 +82,6 @@ class FUN_EXPO__ CEDLine
         int numOfChars;
 
         CEDLine * prev, *next; //pointer to neibor elements in connected list
-        int parentNumber; //number of parent in a file
         friend class CEDParagraph;
         friend class CEDPage;
     public:
@@ -81,6 +90,7 @@ class FUN_EXPO__ CEDLine
         bool hard_break_;
         CEDChar * current_char_; //current symbol
         int internal_number_;
+        int parent_number_;
 };
 
 }

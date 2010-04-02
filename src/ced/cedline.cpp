@@ -27,7 +27,7 @@ CEDLine::CEDLine() :
     chars = 0;
     current_char_ = 0;
     internal_number_ = 0;
-    parentNumber = 0;
+    parent_number_ = 0;
     prev = next = 0;
     numOfChars = 0;
     defChrFontHeight = -1;
@@ -45,12 +45,20 @@ int CEDLine::internalNumber() const {
     return internal_number_;
 }
 
+int CEDLine::parentNumber() const {
+    return parent_number_;
+}
+
 void CEDLine::setCurrentChar(CEDChar * chr) {
     current_char_ = chr;
 }
 
 void CEDLine::setHardBreak(bool value) {
     hard_break_ = value;
+}
+
+void CEDLine::setParentNumber(int number) {
+    parent_number_ = number;
 }
 
 CEDChar * CEDLine::InsertChar() {

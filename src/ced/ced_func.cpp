@@ -1014,7 +1014,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
     if (line = page->GetLine(0)) {
         do {
             //CFIO_WriteToFile(hFile,(char*)&lb,sizeof(lb));
-            if (!WriteRemark(hFile, SSR_LINE_FN, line->parentNumber))
+            if (!WriteRemark(hFile, SSR_LINE_FN, line->parentNumber()))
                 goto ED_WRITE_END;
 
             if (line->SetCurChar(0)) {
