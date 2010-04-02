@@ -44,6 +44,11 @@ class FUN_EXPO__ CEDLine
         bool hardBreak() const;
 
         /**
+         * Returns number of line from start of file
+         */
+        int internalNumber() const;
+
+        /**
          * Sets current char
          */
         void setCurrentChar(CEDChar * chr);
@@ -67,7 +72,6 @@ class FUN_EXPO__ CEDLine
         int numOfChars;
 
         CEDLine * prev, *next; //pointer to neibor elements in connected list
-        int internalNumber; //number of line from start of file
         int parentNumber; //number of parent in a file
         friend class CEDParagraph;
         friend class CEDPage;
@@ -76,6 +80,7 @@ class FUN_EXPO__ CEDLine
     private:
         bool hard_break_;
         CEDChar * current_char_; //current symbol
+        int internal_number_;
 };
 
 }

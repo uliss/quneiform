@@ -307,7 +307,7 @@ CEDLine * CEDPage::GetLine(int _num) {
 
     CEDLine* ss;
 
-    for (ss = qq ? qq->lines : 0; ss && ss->internalNumber != _num; ss = ss->next)
+    for (ss = qq ? qq->lines : 0; ss && ss->internal_number_ != _num; ss = ss->next)
         ;
 
     return ss;

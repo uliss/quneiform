@@ -308,7 +308,7 @@ void FormattedTR(const text_ref* pt)
                 array[arPosition].beg = line->currentChar();
 
             else {
-                if (line->internalNumber != 0) {
+                if (line->internalNumber() != 0) {
                     CEDLine *ww = line->prev;
 
                     while (ww && !ww->chars)

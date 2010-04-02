@@ -26,7 +26,7 @@ CEDLine::CEDLine() :
     hard_break_(false) {
     chars = 0;
     current_char_ = 0;
-    internalNumber = 0;
+    internal_number_ = 0;
     parentNumber = 0;
     prev = next = 0;
     numOfChars = 0;
@@ -41,6 +41,10 @@ bool CEDLine::hardBreak() const {
     return hard_break_;
 }
 
+int CEDLine::internalNumber() const {
+    return internal_number_;
+}
+
 void CEDLine::setCurrentChar(CEDChar * chr) {
     current_char_ = chr;
 }
@@ -52,7 +56,7 @@ void CEDLine::setHardBreak(bool value) {
 CEDChar * CEDLine::InsertChar() {
     CEDChar * chr = new CEDChar;
     numOfChars++;
-    chr->setParentNumber(internalNumber);
+    chr->setParentNumber(internal_number_);
 
     if (current_char_) {
         chr->next = current_char_->next;
