@@ -477,7 +477,7 @@ void StripLines()
         for (CEDChar * cc = array[i].beg; cc && cc != array[i].end->next; cc
                 = cc->next) {
             cc->setParentNumber(i);
-            ll->numOfChars++;
+            ll->char_number_++;
         }
     }
 }

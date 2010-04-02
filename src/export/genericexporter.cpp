@@ -69,7 +69,7 @@ int GenericExporter::charNumInParagraph(CEDParagraph * par) {
         return 0;
     int num_of_chars = 0;
     for (int i = 0, num_lines = par->GetCountLine(); i < num_lines; i++)
-        num_of_chars += par->GetLine(i)->GetCountChar();
+        num_of_chars += par->GetLine(i)->charCount();
 
     return num_of_chars;
 }
@@ -462,7 +462,7 @@ bool GenericExporter::skipEmptyParagraphs() const {
 }
 
 bool GenericExporter::skipLine(CEDLine * line) const {
-    return line == NULL || (skip_empty_lines_ && (line->GetCountChar() < 1));
+    return line == NULL || (skip_empty_lines_ && (line->charCount() < 1));
 }
 
 bool GenericExporter::skipParagraph(CEDParagraph * par) const {
@@ -527,8 +527,8 @@ void GenericExporter::writeFrameEnd(std::ostream& /*os*/, CEDParagraph * /*frame
 
 void GenericExporter::writeLine(std::ostream&, CEDLine * line) {
     assert(line);
-    for (int i = 0, max_chars = line->GetCountChar(); i < max_chars; i++)
-        exportChar(line->GetChar(i));
+    for (int i = 0, max_chars = line->charCount(); i < max_chars; i++)
+        exportChar(line->charAt(i));
 }
 
 void GenericExporter::writeLineBegin(std::ostream&, CEDLine*) {

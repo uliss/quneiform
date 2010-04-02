@@ -862,11 +862,11 @@ CED_FUNC(int32_t) CED_GetLineDefChrFontHeight(Handle hEdLine) {
     return ((CEDLine*) hEdLine)->defChrFontHeight;
 }
 CED_FUNC(uint32_t) CED_GetCountChar(Handle hEdLine) {
-    return ((CEDLine*) hEdLine)->GetCountChar();
+    return ((CEDLine*) hEdLine)->charCount();
 }
 
 CED_FUNC(Handle) CED_GetChar(Handle hEdLine, int number) {
-    return ((CEDLine*) hEdLine)->GetChar(number);
+    return ((CEDLine*) hEdLine)->charAt(number);
 }
 
 CED_FUNC(struct) letterEx* CED_GetAlternatives(Handle hEdChar) {

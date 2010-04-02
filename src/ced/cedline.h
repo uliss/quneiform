@@ -30,14 +30,18 @@ class FUN_EXPO__ CEDLine
     public:
         CEDLine();
 
+        CEDChar* charAt(int num);
+
+        /**
+         * Returns number of chars in line
+         */
+        int charCount();
+
         /**
          * Returns pointer to current symbol
          * @see setCurrentChar()
          */
         CEDChar * currentChar();
-
-        CEDChar* GetChar(int _num);
-        int GetCountChar();
 
         /**
          * Returns true if line have hard break
@@ -92,11 +96,11 @@ class FUN_EXPO__ CEDLine
         //if _goThroughSect = TRUE, then we consider last symbol in file, otherwise in line
 
         CEDChar * chars; //connected list of symbols
-        int numOfChars;
 
         CEDLine * prev, *next; //pointer to neibor elements in connected list
         friend class CEDParagraph;
         friend class CEDPage;
+        int char_number_;
     public:
         int defChrFontHeight;
     private:

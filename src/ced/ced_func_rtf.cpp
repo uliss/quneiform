@@ -407,7 +407,7 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
         len = 0; // length of the segment
 
         for (j = 0; j <= LastCol; j++) {
-            chr = l->GetChar(j);//this construction is correct
+            chr = l->charAt(j);//this construction is correct
             //!!Warning  - cycle is longer then a line (length of line +1), so be careful
             //this one is also correct
             CEDChar * prvCh = &(rtf->PrevChar);

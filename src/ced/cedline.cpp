@@ -29,7 +29,7 @@ CEDLine::CEDLine() :
     internal_number_ = 0;
     parent_number_ = 0;
     prev = next = 0;
-    numOfChars = 0;
+    char_number_ = 0;
     defChrFontHeight = -1;
 }
 
@@ -63,7 +63,7 @@ void CEDLine::setParentNumber(int number) {
 
 CEDChar * CEDLine::insertChar() {
     CEDChar * chr = new CEDChar;
-    numOfChars++;
+    char_number_++;
     chr->setParentNumber(internal_number_);
 
     if (current_char_) {
@@ -151,7 +151,7 @@ CEDChar * CEDLine::PrevChar(Bool32 _goThroughLines) {
         return 0;
 }
 
-CEDChar* CEDLine::GetChar(int _num) {
+CEDChar* CEDLine::charAt(int _num) {
     int num = 0;
     CEDChar* chr;
 
@@ -161,8 +161,8 @@ CEDChar* CEDLine::GetChar(int _num) {
     return chr;
 }
 
-int CEDLine::GetCountChar() {
-    return numOfChars;
+int CEDLine::charCount() {
+    return char_number_;
 }
 
 }
