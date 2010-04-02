@@ -61,7 +61,7 @@ void CEDLine::setParentNumber(int number) {
     parent_number_ = number;
 }
 
-CEDChar * CEDLine::InsertChar() {
+CEDChar * CEDLine::insertChar() {
     CEDChar * chr = new CEDChar;
     numOfChars++;
     chr->setParentNumber(internal_number_);
@@ -109,15 +109,15 @@ CEDChar * CEDLine::InsertChar() {
     return chr;
 }
 
-CEDChar * CEDLine::SetCurChar(int _number) {
+CEDChar * CEDLine::setCurrentChar(int _number) {
     int num = 0;
-    CEDChar* chr;
+    CEDChar* chr = chars;
 
-    for (chr = chars; chr && num != _number; chr = chr->next)
+    for (; chr && num != _number; chr = chr->next)
         num++;
 
-    current_char_ = chr;
-    return chr;
+    setCurrentChar(chr);
+    return current_char_;
 }
 
 int CEDLine::GetNumOfCurChar() {

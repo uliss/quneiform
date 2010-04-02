@@ -392,7 +392,7 @@ void FormattedL(const letter* pt, const uint32_t alternatives)
     if (!lin)
         lin = mainPage->GetCurSection()->GetCurParagraph()->InsertLine();//In case of wrong 'ed', such that symbols are before the definition of line
 
-    CEDChar *chr = lin->InsertChar();
+    CEDChar *chr = lin->insertChar();
     //  char * lpData = (char *)malloc(alternatives*sizeof(letter));
     letterEx * lpData = new letterEx[alternatives];
     memcpy(lpData, (void*) pt, alternatives * sizeof(letterEx));

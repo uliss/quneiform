@@ -374,7 +374,7 @@ CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, bool hardBreak, int defChrF
 CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterEx* alternatives,
         int fontHeight, int fontNum, int fontAttribs, language_t fontLang, int foregroundColor,
         int backgroundColor) {
-    CEDChar *chr = ((CEDLine*) hEdLine)->InsertChar();
+    CEDChar *chr = ((CEDLine*) hEdLine)->insertChar();
     chr->setFontHeight(fontHeight);
     chr->fontNum = fontNum;
     chr->fontAttribs = fontAttribs;

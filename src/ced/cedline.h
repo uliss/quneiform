@@ -31,7 +31,8 @@ class FUN_EXPO__ CEDLine
         CEDLine();
 
         /**
-         * Returns pointer current symbol
+         * Returns pointer to current symbol
+         * @see setCurrentChar()
          */
         CEDChar * currentChar();
 
@@ -40,8 +41,15 @@ class FUN_EXPO__ CEDLine
 
         /**
          * Returns true if line have hard break
+         * @see setHardBreak()
          */
         bool hardBreak() const;
+
+        /**
+         * Inserts new symbol after current one. new symbol becomes current
+         * @return pointer to new symbol
+         */
+        CEDChar * insertChar();
 
         /**
          * Returns number of line from start of file
@@ -50,27 +58,32 @@ class FUN_EXPO__ CEDLine
 
         /**
          * Returns number of parent in a file
+         * @see setParentNumber()
          */
         int parentNumber() const;
 
         /**
          * Sets current char
+         * @see currentChar()
          */
         void setCurrentChar(CEDChar * chr);
 
         /**
+         * Sets new value of current symbol
+         */
+        CEDChar * setCurrentChar(int number);
+
+        /**
          * Sets line hard breaking
+         * @see hardBreak()
          */
         void setHardBreak(bool value);
 
         /**
          * Sets parent number
+         * @see parentNumber()
          */
         void setParentNumber(int number);
-
-        CEDChar * InsertChar(); //inserts new symbol after current one. new symbol becomes current
-        //returns pointer to new symbol
-        CEDChar * SetCurChar(int _number);//set new value of current symbol
 
         int GetNumOfCurChar(); //return current symbol
 

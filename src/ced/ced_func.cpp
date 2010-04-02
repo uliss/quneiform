@@ -461,7 +461,7 @@ void NewFormattedL(const letter* pt, const uint32_t alternatives) {
      if (!lin)
      lin=mainPage->GetCurSection()->GetCurParagraph()->InsertLine();//In case of wrong 'ed', such that symbols are before the definition of line
      */
-    CEDChar *chr = lin->InsertChar();
+    CEDChar *chr = lin->insertChar();
     letterEx * lpData = new letterEx[alternatives];
     memcpy(lpData, (void*) pt, alternatives * sizeof(letterEx));
     chr->alternatives = /*(letter*)*/lpData;
@@ -1017,7 +1017,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
             if (!WriteRemark(hFile, SSR_LINE_FN, line->parentNumber()))
                 goto ED_WRITE_END;
 
-            if (line->SetCurChar(0)) {
+            if (line->setCurrentChar(0)) {
                 CEDChar *chr = line->currentChar();
 
                 do {
