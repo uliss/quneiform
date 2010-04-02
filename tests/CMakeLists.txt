@@ -11,6 +11,7 @@ if(CPPUNIT_FOUND)
     message(STATUS "CppUnit library found: " ${CPPUNIT_LIBRARIES})
     
     add_subdirectory(alphabets)
+    add_subdirectory(ced)
     add_subdirectory(common)
     add_subdirectory(loaders)
     add_subdirectory(puma)
