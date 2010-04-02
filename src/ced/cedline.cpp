@@ -30,11 +30,15 @@ CEDLine::CEDLine() :
     parent_number_ = 0;
     prev_ = next_ = 0;
     char_number_ = 0;
-    defChrFontHeight = -1;
+    default_font_height_ = -1;
 }
 
 CEDChar * CEDLine::currentChar() {
     return current_char_;
+}
+
+int CEDLine::defaultFontHeight() const {
+    return default_font_height_;
 }
 
 CEDChar * CEDLine::first() {
@@ -63,6 +67,10 @@ CEDLine * CEDLine::prev() {
 
 void CEDLine::setCurrentChar(CEDChar * chr) {
     current_char_ = chr;
+}
+
+void CEDLine::setDefaultFontHeight(int height) {
+    default_font_height_ = height;
 }
 
 void CEDLine::setHardBreak(bool value) {

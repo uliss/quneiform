@@ -431,7 +431,7 @@ void NewFormattedTR(const text_ref* pt) {
 }
 
 void NewFormattedLB(const line_beg* pt) {
-    curEdLine->defChrFontHeight = pt->height;
+    curEdLine->setDefaultFontHeight(pt->height);
     curEdLine->setHardBreak(!pt->base_line);
 }
 
@@ -1082,11 +1082,11 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
                 } while (chr);
             }
 
-            if (line->hardBreak() || line->defChrFontHeight > 0) {
+            if (line->hardBreak() || line->defaultFontHeight() > 0) {
                 line_beg lb;
                 lb.code = SS_LINE_BEG;
                 lb.base_line = !line->hardBreak();
-                lb.height = line->defChrFontHeight;
+                lb.height = line->defaultFontHeight();
 
                 if (!CFIO_WriteToFile(hFile, (pchar) &lb, sizeof(line_beg)))
                     goto ED_WRITE_END;

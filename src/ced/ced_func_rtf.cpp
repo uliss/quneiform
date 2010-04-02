@@ -469,14 +469,14 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
     }
 
     if (brk) {
-        if (lastLin && lastLin->defChrFontHeight > 0) {
+        if (lastLin && lastLin->defaultFontHeight() > 0) {
             memcpy(&lastChar, &(rtf->PrevChar), sizeof(CEDChar));
-            lastChar.setFontHeight(lastLin->defChrFontHeight);
+            lastChar.setFontHeight(lastLin->defaultFontHeight());
 
             if (!WriteRtfCharFmt(rtf, &lastChar))
                 return FALSE; // write the font change
 
-            rtf->PrevChar.setFontHeight(lastLin->defChrFontHeight);
+            rtf->PrevChar.setFontHeight(lastLin->defaultFontHeight());
         }
 
         if (!WriteRtfControl(rtf, "par", PARAM_NONE, 0))

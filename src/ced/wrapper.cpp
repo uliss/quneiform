@@ -360,7 +360,7 @@ CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, bool hardBreak, int defChrF
 
     CEDLine * lin = ((CEDParagraph*) hEdParagraph)->InsertLine();
     lin->setHardBreak(hardBreak);
-    lin->defChrFontHeight = defChrFontHeight;
+    lin->setDefaultFontHeight(defChrFontHeight);
 
     if (logStream) {
         fprintf(logStream, "CreateLine returned %x\n", lin);
@@ -859,7 +859,7 @@ CED_FUNC(Bool32) CED_GetLineHardBreak(Handle hEdLine) {
 }
 
 CED_FUNC(int32_t) CED_GetLineDefChrFontHeight(Handle hEdLine) {
-    return ((CEDLine*) hEdLine)->defChrFontHeight;
+    return ((CEDLine*) hEdLine)->defaultFontHeight();
 }
 CED_FUNC(uint32_t) CED_GetCountChar(Handle hEdLine) {
     return ((CEDLine*) hEdLine)->charCount();

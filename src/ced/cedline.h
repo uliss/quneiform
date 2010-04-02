@@ -44,6 +44,11 @@ class FUN_EXPO__ CEDLine
         CEDChar * currentChar();
 
         /**
+         * Returns default font height
+         */
+        int defaultFontHeight() const;
+
+        /**
          * Returns pointer to first char in line
          */
         CEDChar * first();
@@ -92,6 +97,11 @@ class FUN_EXPO__ CEDLine
          */
         CEDChar * setCurrentChar(int number);
 
+        /**
+         * Sets default font height
+         */
+        void setDefaultFontHeight(int height);
+
         void setFirst(CEDChar * chr);
 
         /**
@@ -113,8 +123,6 @@ class FUN_EXPO__ CEDLine
         friend class CEDParagraph;
         friend class CEDPage;
         int char_number_;
-    public:
-        int defChrFontHeight;
     private:
         bool hard_break_;
         //current symbol
@@ -126,6 +134,7 @@ class FUN_EXPO__ CEDLine
         //pointer to neighbor elements in connected list
         CEDLine * prev_;
         CEDLine *next_;
+        int default_font_height_;
 };
 
 }
