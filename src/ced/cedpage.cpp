@@ -64,7 +64,7 @@ CEDPage::~CEDPage() {
     li1 = li = GetLine(0);
 
     while (li1) {
-        li = li1->next_;
+        li = li1->next();
         delete li1;
         li1 = li;
     }
@@ -307,7 +307,7 @@ CEDLine * CEDPage::GetLine(int _num) {
 
     CEDLine* ss;
 
-    for (ss = qq ? qq->lines : 0; ss && ss->internal_number_ != _num; ss = ss->next_)
+    for (ss = qq ? qq->lines : 0; ss && ss->internalNumber() != _num; ss = ss->next())
         ;
 
     return ss;
@@ -316,7 +316,7 @@ CEDChar * CEDPage::GetChar(int _num) {
     CEDLine *qq = GetLine(0);
 
     while (qq && !qq->chars)
-        qq = qq->next_;
+        qq = qq->next();
 
     int num = 0;
     CEDChar* ss;
@@ -370,8 +370,8 @@ Bool32 CEDPage::GoToNextLine() {
     CEDLine * aa;
 
     if (curSect && curSect->curPara && curSect->curPara->curLine && (aa
-            = curSect->curPara->curLine->next_)) {
-        CEDParagraph *qq = GetParagraph(curSect->curPara->curLine->next_->parent_number_);
+            = curSect->curPara->curLine->next())) {
+        CEDParagraph *qq = GetParagraph(curSect->curPara->curLine->next()->parentNumber());
         CEDSection * ss = GetSection(qq->parentNumber);
         curSect = ss;
         curSect->curPara = qq;
@@ -387,15 +387,15 @@ Bool32 CEDPage::GoToNextChar() {
     CEDChar * ww;
 
     if (curSect && curSect->curPara && curSect->curPara->curLine
-            && curSect->curPara->curLine->current_char_
-            && (ww = curSect->curPara->curLine->current_char_->next)) {
-        CEDLine * aa = GetLine(curSect->curPara->curLine->current_char_->next->parentNumber());
-        CEDParagraph *qq = GetParagraph(aa->parent_number_);
+            && curSect->curPara->curLine->currentChar() && (ww
+            = curSect->curPara->curLine->currentChar()->next)) {
+        CEDLine * aa = GetLine(curSect->curPara->curLine->currentChar()->next->parentNumber());
+        CEDParagraph *qq = GetParagraph(aa->parentNumber());
         CEDSection * ss = GetSection(qq->parentNumber);
         curSect = ss;
         curSect->curPara = qq;
         curSect->curPara->curLine = aa;
-        curSect->curPara->curLine->current_char_ = ww;
+        curSect->curPara->curLine->setCurrentChar(ww);
         return TRUE;
     }
 
@@ -423,7 +423,7 @@ int CEDPage::GetNumberOfLines() {
 
     int i = 0;
 
-    for (CEDLine *qq = GetLine(0); qq->next_; qq = qq->next_)
+    for (CEDLine *qq = GetLine(0); qq->next(); qq = qq->next())
         i++;
 
     return i + 1;
