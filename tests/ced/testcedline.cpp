@@ -18,6 +18,7 @@
 #include "testcedline.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCedLine);
 #define private public
+#include <ced/cedchar.h>
 #include <ced/cedline.h>
 using namespace CIF;
 
@@ -30,4 +31,13 @@ void TestCedLine::testInit() {
     CPPUNIT_ASSERT(0 == ln.chars);
     CPPUNIT_ASSERT(0 == ln.next);
     CPPUNIT_ASSERT(0 == ln.prev);
+}
+
+void TestCedLine::testInsertChar() {
+    CEDLine ln;
+    CEDChar * chr = ln.insertChar();
+    CPPUNIT_ASSERT(chr);
+    CPPUNIT_ASSERT_EQUAL(1, ln.numOfChars);
+    CPPUNIT_ASSERT_EQUAL(chr->parentNumber(), ln.internalNumber());
+    CPPUNIT_ASSERT_EQUAL(chr, ln.chars);
 }

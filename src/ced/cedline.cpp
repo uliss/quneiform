@@ -105,7 +105,7 @@ CEDChar * CEDLine::insertChar() {
         }
     }
 
-    current_char_ = chr;
+    setCurrentChar(chr);
     return chr;
 }
 
