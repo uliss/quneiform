@@ -35,9 +35,60 @@ void TestCedLine::testInit() {
 
 void TestCedLine::testInsertChar() {
     CEDLine ln;
+    ln.internal_number_ = 1234;
     CEDChar * chr = ln.insertChar();
+
     CPPUNIT_ASSERT(chr);
     CPPUNIT_ASSERT_EQUAL(1, ln.charCount());
-    CPPUNIT_ASSERT_EQUAL(chr->parentNumber(), ln.internalNumber());
+    CPPUNIT_ASSERT_EQUAL(ln.internalNumber(), chr->parentNumber());
     CPPUNIT_ASSERT_EQUAL(chr, ln.first());
+    CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
+    CPPUNIT_ASSERT(0 == chr->next);
+    CPPUNIT_ASSERT(0 == chr->prev);
+
+    CEDChar * chr2 = ln.insertChar();
+    CPPUNIT_ASSERT(chr2);
+    CPPUNIT_ASSERT_EQUAL(2, ln.charCount());
+    CPPUNIT_ASSERT_EQUAL(chr2->parentNumber(), ln.internalNumber());
+    CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
+    CPPUNIT_ASSERT_EQUAL(chr2, ln.charAt(1));
+    CPPUNIT_ASSERT_EQUAL(chr2, ln.currentChar());
+    CPPUNIT_ASSERT_EQUAL(chr, ln.first());
+    CPPUNIT_ASSERT_EQUAL(chr2, chr->next);
+    CPPUNIT_ASSERT_EQUAL(chr, chr2->prev);
+    CPPUNIT_ASSERT(0 == chr2->next);
+    CPPUNIT_ASSERT(0 == chr->prev);
+
+    delete chr;
+    delete chr2;
+}
+
+void TestCedLine::testCharAt() {
+    CEDLine ln;
+    CEDChar * chr = ln.insertChar();
+    CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
+    CPPUNIT_ASSERT(0 == ln.charAt(-1));
+    CPPUNIT_ASSERT(0 == ln.charAt(19));
+
+    delete chr;
+}
+
+void TestCedLine::testNextChar() {
+    CEDLine ln;
+    ln.internal_number_ = 1234;
+    CPPUNIT_ASSERT(0 == ln.nextChar());
+    ln.insertChar();
+
+    CPPUNIT_ASSERT(0 == ln.nextChar());
+    ln.insertChar();
+    ln.setCurrentChar(0);
+    CPPUNIT_ASSERT_EQUAL(ln.charAt(1), ln.nextChar());
+
+    ln.charAt(1)->setParentNumber(123);
+    CPPUNIT_ASSERT(ln.charAt(1) != ln.nextChar());
+}
+
+void TestCedLine::testPrevChar() {
+    CEDLine ln;
+    CPPUNIT_ASSERT(0 == ln.prevChar());
 }

@@ -30,7 +30,10 @@ class FUN_EXPO__ CEDLine
     public:
         CEDLine();
 
-        CEDChar* charAt(int num);
+        /**
+         * Returns char at given position
+         */
+        CEDChar* charAt(unsigned int pos);
 
         /**
          * Returns number of chars in line
@@ -76,6 +79,11 @@ class FUN_EXPO__ CEDLine
         CEDLine * next();
 
         /**
+         * returns next symbol, 0 if last
+         */
+        CEDChar * nextChar();
+
+        /**
          * Returns number of parent in a file
          * @see setParentNumber()
          */
@@ -85,6 +93,11 @@ class FUN_EXPO__ CEDLine
          * Returns pointer to previous line
          */
         CEDLine * prev();
+
+        /**
+         * returns previous symbol, 0 if first
+         */
+        CEDChar * prevChar();
 
         /**
          * Sets current char
@@ -115,10 +128,6 @@ class FUN_EXPO__ CEDLine
          * @see parentNumber()
          */
         void setParentNumber(int number);
-
-        CEDChar * NextChar(Bool32 _goThroughLines); //returns next symbol, 0 if last
-        CEDChar * PrevChar(Bool32 _goThroughLines); //returns previous symbol, 0 if first
-        //if _goThroughSect = TRUE, then we consider last symbol in file, otherwise in line
 
         friend class CEDParagraph;
         friend class CEDPage;

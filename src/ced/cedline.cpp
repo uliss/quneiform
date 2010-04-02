@@ -144,33 +144,31 @@ CEDChar * CEDLine::setCurrentChar(int _number) {
     return current_char_;
 }
 
-CEDChar * CEDLine::NextChar(Bool32 _goThroughLines) {
-    if (_goThroughLines)
-        return current_char_->next;
+CEDChar * CEDLine::nextChar() {
+    if (!current_char_ || !current_char_->next)
+        return NULL;
 
-    if (current_char_->next && current_char_->next->parentNumber() == current_char_->parentNumber())
+    if (current_char_->next->parentNumber() == current_char_->parentNumber())
         return current_char_->next;
-
     else
-        return 0;
+        return NULL;
 }
 
-CEDChar * CEDLine::PrevChar(Bool32 _goThroughLines) {
-    if (_goThroughLines)
-        return current_char_->prev;
+CEDChar * CEDLine::prevChar() {
+    if (!current_char_ || !current_char_->prev)
+        return NULL;
 
-    if (current_char_->prev && current_char_->prev->parentNumber() == current_char_->parentNumber())
+    if (current_char_->prev->parentNumber() == current_char_->parentNumber())
         return current_char_->prev;
-
     else
-        return 0;
+        return NULL;
 }
 
-CEDChar* CEDLine::charAt(int _num) {
-    int num = 0;
-    CEDChar* chr;
+CEDChar* CEDLine::charAt(unsigned int _num) {
+    unsigned int num = 0;
+    CEDChar* chr = chars;
 
-    for (chr = chars; chr && num != _num; chr = chr->next)
+    for (; chr && num != _num; chr = chr->next)
         num++;
 
     return chr;
