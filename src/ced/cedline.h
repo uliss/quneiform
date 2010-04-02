@@ -44,6 +44,11 @@ class FUN_EXPO__ CEDLine
         CEDChar * currentChar();
 
         /**
+         * Returns pointer to first char in line
+         */
+        CEDChar * first();
+
+        /**
          * Returns true if line have hard break
          * @see setHardBreak()
          */
@@ -61,10 +66,20 @@ class FUN_EXPO__ CEDLine
         int internalNumber() const;
 
         /**
+         * Returns pointer to next line
+         */
+        CEDLine * next();
+
+        /**
          * Returns number of parent in a file
          * @see setParentNumber()
          */
         int parentNumber() const;
+
+        /**
+         * Returns pointer to previous line
+         */
+        CEDLine * prev();
 
         /**
          * Sets current char
@@ -76,6 +91,8 @@ class FUN_EXPO__ CEDLine
          * Sets new value of current symbol
          */
         CEDChar * setCurrentChar(int number);
+
+        void setFirst(CEDChar * chr);
 
         /**
          * Sets line hard breaking
@@ -89,15 +106,10 @@ class FUN_EXPO__ CEDLine
          */
         void setParentNumber(int number);
 
-        int GetNumOfCurChar(); //return current symbol
-
         CEDChar * NextChar(Bool32 _goThroughLines); //returns next symbol, 0 if last
         CEDChar * PrevChar(Bool32 _goThroughLines); //returns previous symbol, 0 if first
         //if _goThroughSect = TRUE, then we consider last symbol in file, otherwise in line
 
-        CEDChar * chars; //connected list of symbols
-
-        CEDLine * prev, *next; //pointer to neibor elements in connected list
         friend class CEDParagraph;
         friend class CEDPage;
         int char_number_;
@@ -105,9 +117,15 @@ class FUN_EXPO__ CEDLine
         int defChrFontHeight;
     private:
         bool hard_break_;
-        CEDChar * current_char_; //current symbol
+        //current symbol
+        CEDChar * current_char_;
         int internal_number_;
         int parent_number_;
+        //connected list of symbols
+        CEDChar * chars;
+        //pointer to neighbor elements in connected list
+        CEDLine * prev_;
+        CEDLine *next_;
 };
 
 }

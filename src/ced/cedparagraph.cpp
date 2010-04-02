@@ -60,16 +60,16 @@ CEDLine * CEDParagraph::InsertLine() {
     line->parent_number_ = internalNumber;
 
     if (curLine) {
-        line->next = curLine->next;
+        line->next_ = curLine->next_;
 
-        if (line->next)
-            (line->next)->prev = line;
+        if (line->next_)
+            (line->next_)->prev_ = line;
 
-        curLine->next = line;
-        line->prev = curLine;
+        curLine->next_ = line;
+        line->prev_ = curLine;
         line->internal_number_ = curLine->internal_number_ + 1;
 
-        for (CEDLine * line1 = line->next; line1; line1 = line1->next)
+        for (CEDLine * line1 = line->next_; line1; line1 = line1->next_)
             line1->internal_number_++;
     }
 
@@ -84,11 +84,11 @@ CEDLine * CEDParagraph::InsertLine() {
         if (ww) {
             CEDLine *qq = ww->lines;
 
-            while (qq->next && qq->next->parent_number_ == ww->internalNumber)
-                qq = qq->next;
+            while (qq->next_ && qq->next_->parent_number_ == ww->internalNumber)
+                qq = qq->next_;
 
-            qq->next = line;
-            line->prev = qq;
+            qq->next_ = line;
+            line->prev_ = qq;
             line->internal_number_ = qq->internal_number_ + 1;
         }
 
@@ -99,12 +99,12 @@ CEDLine * CEDParagraph::InsertLine() {
 
         if (ww) {
             CEDLine *qq = ww->lines;
-            qq->prev = line;
-            line->next = qq;
+            qq->prev_ = line;
+            line->next_ = qq;
 
             while (qq) {
                 qq->internal_number_++;
-                qq = qq->next;
+                qq = qq->next_;
             }
         }
 
@@ -128,7 +128,7 @@ CEDLine * CEDParagraph::SetCurLine(int _number) {
 
     CEDLine* line;
 
-    for (line = lines; line && line->internal_number_ - i != _number; line = line->next)
+    for (line = lines; line && line->internal_number_ - i != _number; line = line->next_)
         ;
 
     curLine = line;
@@ -145,10 +145,10 @@ int CEDParagraph::GetNumOfCurLine() {
 
 CEDLine * CEDParagraph::NextLine(Bool32 _goThroughPara) {
     if (_goThroughPara)
-        return curLine->next;
+        return curLine->next_;
 
-    if (curLine->next && curLine->next->parent_number_ == curLine->parent_number_)
-        return curLine->next;
+    if (curLine->next_ && curLine->next_->parent_number_ == curLine->parent_number_)
+        return curLine->next_;
 
     else
         return 0;
@@ -156,10 +156,10 @@ CEDLine * CEDParagraph::NextLine(Bool32 _goThroughPara) {
 
 CEDLine * CEDParagraph::PrevLine(Bool32 _goThroughPara) {
     if (_goThroughPara)
-        return curLine->prev;
+        return curLine->prev_;
 
-    if (curLine->prev && curLine->prev->parent_number_ == curLine->parent_number_)
-        return curLine->prev;
+    if (curLine->prev_ && curLine->prev_->parent_number_ == curLine->parent_number_)
+        return curLine->prev_;
 
     else
         return 0;
@@ -426,7 +426,7 @@ CEDLine* CEDParagraph::GetLine(int _num) {
 
     CEDLine* line;
 
-    for (line = lines; line && line->internal_number_ - i != _num; line = line->next)
+    for (line = lines; line && line->internal_number_ - i != _num; line = line->next_)
         ;
 
     return line;

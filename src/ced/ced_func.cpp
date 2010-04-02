@@ -1092,7 +1092,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
                     goto ED_WRITE_END;
             }
 
-            line = line->next;//para->NextLine(FALSE);
+            line = line->next();//para->NextLine(FALSE);
         } while (line);
     }
 

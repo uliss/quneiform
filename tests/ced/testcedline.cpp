@@ -25,12 +25,12 @@ using namespace CIF;
 void TestCedLine::testInit() {
     CEDLine ln;
     CPPUNIT_ASSERT(0 == ln.currentChar());
-    CPPUNIT_ASSERT(0 == ln.char_number_);
+    CPPUNIT_ASSERT(0 == ln.charCount());
     CPPUNIT_ASSERT(0 == ln.internalNumber());
     CPPUNIT_ASSERT(0 == ln.parentNumber());
-    CPPUNIT_ASSERT(0 == ln.chars);
-    CPPUNIT_ASSERT(0 == ln.next);
-    CPPUNIT_ASSERT(0 == ln.prev);
+    CPPUNIT_ASSERT(0 == ln.first());
+    CPPUNIT_ASSERT(0 == ln.next());
+    CPPUNIT_ASSERT(0 == ln.prev());
 }
 
 void TestCedLine::testInsertChar() {
@@ -39,5 +39,5 @@ void TestCedLine::testInsertChar() {
     CPPUNIT_ASSERT(chr);
     CPPUNIT_ASSERT_EQUAL(1, ln.charCount());
     CPPUNIT_ASSERT_EQUAL(chr->parentNumber(), ln.internalNumber());
-    CPPUNIT_ASSERT_EQUAL(chr, ln.chars);
+    CPPUNIT_ASSERT_EQUAL(chr, ln.first());
 }

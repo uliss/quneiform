@@ -256,7 +256,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
                             CEDLine * l = para->lines;
 
                             //if there is only one line in a paragraph
-                            if (l && ((!l->next) || l->next->parent_number_ != l->parent_number_)) {
+                            if (l && ((!l->next_) || l->next_->parent_number_ != l->parent_number_)) {
                                 CEDChar * c = l->chars;
 
                                 //the same for symbol
@@ -395,7 +395,7 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
     // Write character formats and para break
     int parent = p->lines ? p->lines->parentNumber() : 0;
 
-    for (l = p->lines; l && l->parentNumber() == parent; l = l->next) {
+    for (l = p->lines; l && l->parentNumber() == parent; l = l->next()) {
         lastLin = l;
         // determine the column range to write
         FirstCol = 0;
@@ -463,7 +463,7 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
 
         // Write EOL in non-wordwrap mode
         //If line is not last one in paragraph
-        if (l->next && l->next->parentNumber() == parent && l->hardBreak())
+        if (l->next() && l->next()->parentNumber() == parent && l->hardBreak())
             if (!WriteRtfControl(rtf, "line", PARAM_NONE, 0))
                 return FALSE;
     }

@@ -309,13 +309,13 @@ void FormattedTR(const text_ref* pt)
 
             else {
                 if (line->internalNumber() != 0) {
-                    CEDLine *ww = line->prev;
+                    CEDLine *ww = line->prev();
 
-                    while (ww && !ww->chars)
-                        ww = ww->prev;
+                    while (ww && !ww->first())
+                        ww = ww->prev();
 
                     if (ww) {
-                        CEDChar *qq = ww->chars;
+                        CEDChar *qq = ww->first();
 
                         while (qq->next)
                             qq = qq->next;
@@ -459,7 +459,7 @@ void StripLines()
     li1 = li = mainPage->GetLine(0);
 
     while (li1) {
-        li = li1->next;
+        li = li1->next();
         delete li1;
         li1 = li;
     }
@@ -472,7 +472,7 @@ void StripLines()
             mainPage->GetCurSection()->GetCurParagraph()->InsertLine();
         array[i].line = ll;
         ll->setCurrentChar(array[i].beg);
-        ll->chars = array[i].beg;
+        ll->setFirst(array[i].beg);
 
         for (CEDChar * cc = array[i].beg; cc && cc != array[i].end->next; cc
                 = cc->next) {
@@ -674,7 +674,7 @@ void RecreateFrames()
             mainPage->GetParagraph(last)->lines = ll;
         }
 
-        ll = ll->next;
+        ll = ll->next();
     }
 
     //fill in info about parent, number of lines in paragraph and create new paragraphs for lines with attribute ParaBegin

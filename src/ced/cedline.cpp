@@ -28,13 +28,17 @@ CEDLine::CEDLine() :
     current_char_ = 0;
     internal_number_ = 0;
     parent_number_ = 0;
-    prev = next = 0;
+    prev_ = next_ = 0;
     char_number_ = 0;
     defChrFontHeight = -1;
 }
 
 CEDChar * CEDLine::currentChar() {
     return current_char_;
+}
+
+CEDChar * CEDLine::first() {
+    return chars;
 }
 
 bool CEDLine::hardBreak() const {
@@ -45,8 +49,16 @@ int CEDLine::internalNumber() const {
     return internal_number_;
 }
 
+CEDLine * CEDLine::next() {
+    return next_;
+}
+
 int CEDLine::parentNumber() const {
     return parent_number_;
+}
+
+CEDLine * CEDLine::prev() {
+    return prev_;
 }
 
 void CEDLine::setCurrentChar(CEDChar * chr) {
@@ -55,6 +67,10 @@ void CEDLine::setCurrentChar(CEDChar * chr) {
 
 void CEDLine::setHardBreak(bool value) {
     hard_break_ = value;
+}
+
+void CEDLine::setFirst(CEDChar * chr) {
+    chars = chr;
 }
 
 void CEDLine::setParentNumber(int number) {
@@ -78,10 +94,10 @@ CEDChar * CEDLine::insertChar() {
 
     else {
         chars = chr;
-        CEDLine *ww = prev;
+        CEDLine *ww = prev_;
 
         while (ww && !ww->chars)
-            ww = ww->prev;
+            ww = ww->prev_;
 
         if (ww) {
             CEDChar *qq = ww->chars;
@@ -93,10 +109,10 @@ CEDChar * CEDLine::insertChar() {
             chr->prev = qq;
         }
 
-        ww = next;
+        ww = next_;
 
         while (ww && !ww->chars)
-            ww = ww->next;
+            ww = ww->next_;
 
         if (ww) {
             CEDChar *qq = ww->chars;
@@ -118,15 +134,6 @@ CEDChar * CEDLine::setCurrentChar(int _number) {
 
     setCurrentChar(chr);
     return current_char_;
-}
-
-int CEDLine::GetNumOfCurChar() {
-    int num = 0;
-
-    for (CEDChar* chr = chars; chr && chr != current_char_; chr = chr->next)
-        num++;
-
-    return num;
 }
 
 CEDChar * CEDLine::NextChar(Bool32 _goThroughLines) {
