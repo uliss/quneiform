@@ -69,6 +69,7 @@ class FUN_EXPO__ CEDParagraph
         CEDParagraph* GetLogicalCell(int number);
         int GetCountLogicalCell();
         void CreateTableOfCells();
+        CEDLine * insertLine(CEDLine * line);
         CEDLine * InsertLine(); //inserts new line after current one. new line becomes current
         //returns pointer to new line
         //CEDLine * DeleteLine(Bool32 _deleteSubItems); //deletes current line. previous one becomes current

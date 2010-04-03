@@ -55,8 +55,9 @@ CEDParagraph::CEDParagraph() {
 CEDParagraph::~CEDParagraph() {
 }
 
-CEDLine * CEDParagraph::InsertLine() {
-    CEDLine * line = new CEDLine;
+CEDLine * CEDParagraph::insertLine(CEDLine * line) {
+    assert(line);
+
     numOfLines++;
     line->parent_number_ = internalNumber;
 
@@ -72,9 +73,7 @@ CEDLine * CEDParagraph::InsertLine() {
 
         for (CEDLine * line1 = line->next(); line1; line1 = line1->next())
             line1->internal_number_++;
-    }
-
-    else {
+    } else {
         //      if(internalNumber!=0)
         //      {
         CEDParagraph *ww = prev;
@@ -115,6 +114,10 @@ CEDLine * CEDParagraph::InsertLine() {
 
     curLine = line;
     return line;
+}
+
+CEDLine * CEDParagraph::InsertLine() {
+    return insertLine(new CEDLine);
 }
 
 void CEDParagraph::SetCurLine(CEDLine* _line) {
@@ -186,15 +189,15 @@ CEDParagraph* CEDParagraph::GetNextObject() {
         ret = (((edFrameDescr*) descriptor)->last)->next;
 
     //if this is a start of table/frame
-    if (ret)
-
+    if (ret) {
         //if it is last in column or frame
         if (ret->type == LAST_IN_COLUMN || ret->type == COLUMN_BEGIN || ret->type == FRAME_END)
             return 0;
-
         //if it is not last
         else
             return ret;
+    }
+
 
     //if there is next frame, which is simple one/table/frame --- return it
     if (next && ((next->type & FICTIVE) == 0 || next->type == TAB_BEGIN || next->type

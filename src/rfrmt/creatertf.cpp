@@ -72,6 +72,8 @@
 #include "cfio/cfio.h"
 #include "ced/ced.h"
 #include "ced/cedpage.h"
+#include "ced/cedline.h"
+#include "ced/cedparagraph.h"
 #include "edfile.h"
 #include "dpuma.h"
 #include "rtfedwrite.h"
@@ -1088,7 +1090,6 @@ Bool CRtfPage::Write_USE_FRAME() {
 #ifdef EdWrite
     EDBOX EdFragmRect;
     Handle hParagraph = NULL;
-    Handle hString = NULL;
     int align;
     CIF::Rect indent;
     EDSIZE interval;
@@ -1114,7 +1115,8 @@ Bool CRtfPage::Write_USE_FRAME() {
         align = TP_LEFT_ALLIGN;
         hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, align, indent,
                 SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-        hString = CED_CreateLine(hParagraph, FALSE, 6);
+        CIF::CEDLine * hString = new CIF::CEDLine(false, 6);
+        ((CIF::CEDParagraph*) hParagraph)->insertLine(hString);
     }
 
 #endif

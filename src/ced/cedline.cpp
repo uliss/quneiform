@@ -23,14 +23,14 @@ namespace CIF
 {
 
 CEDLine::CEDLine() :
-    hard_break_(false) {
-    chars = 0;
-    current_char_ = 0;
-    internal_number_ = 0;
-    parent_number_ = 0;
-    prev_ = next_ = 0;
-    char_number_ = 0;
-    default_font_height_ = -1;
+    char_number_(0), hard_break_(false), current_char_(NULL), internal_number_(0),
+            parent_number_(0), chars(NULL), prev_(NULL), next_(NULL), default_font_height_(-1) {
+}
+
+CEDLine::CEDLine(bool hardBreak, int fontHeight) :
+    char_number_(0), hard_break_(hardBreak), current_char_(NULL), internal_number_(0),
+            parent_number_(0), chars(NULL), prev_(NULL), next_(NULL), default_font_height_(
+                    fontHeight) {
 }
 
 CEDChar * CEDLine::currentChar() {

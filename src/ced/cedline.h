@@ -29,6 +29,7 @@ class FUN_EXPO__ CEDLine
 {
     public:
         CEDLine();
+        CEDLine(bool hardBreak, int fontHeight);
 
         /**
          * Returns char at given position
