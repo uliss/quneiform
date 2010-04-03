@@ -142,7 +142,7 @@ void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
     writeCloseTag(os, "p", "\n");
 }
 
-void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
+void HtmlExporter::writePicture(std::ostream& /*os*/, CEDChar * picture) {
     try {
         std::string path = savePicture(picture);
         XmlTag img("img");
@@ -150,7 +150,7 @@ void HtmlExporter::writePicture(std::ostream& os, CEDChar * picture) {
         img["alt"] = "";
         img["height"] = toString(last_picture_size_.height());
         img["width"] = toString(last_picture_size_.width());
-        os << img << "\n";
+        lineBuffer() << img << "\n";
 
     } catch (Exception& e) {
         Debug() << "[HtmlExporter::writePicture] failed: " << e.what() << std::endl;

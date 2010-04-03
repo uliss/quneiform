@@ -852,10 +852,6 @@ CED_FUNC(Bool32) CED_GetParaBorders(Handle hEdParagraph, int* leftBrdrType, int*
 
     return TRUE;
 }
-////////////////////////////////////////////////////////////////////////////////////
-CED_FUNC(Bool32) CED_GetLineHardBreak(Handle hEdLine) {
-    return ((CEDLine*) hEdLine)->hardBreak();
-}
 
 CED_FUNC(int32_t) CED_GetLineDefChrFontHeight(Handle hEdLine) {
     return ((CEDLine*) hEdLine)->defaultFontHeight();
