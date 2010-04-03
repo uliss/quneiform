@@ -85,11 +85,6 @@ typedef struct edSize
         int32_t cx, cy;
 } EDSIZE;
 
-typedef struct edRect
-{
-        int32_t left, top, right, bottom;
-} EDRECT;
-
 typedef struct edCol
 {
         int32_t width, space;
@@ -362,7 +357,7 @@ DEC_FUN(uint32_t, CED_ReadED, (char * file, Bool32 readFromFile, uint32_t bufLen
 DEC_FUN(void, CED_SetRawDataProc, (FNRDProc proc))
 DEC_FUN(Bool32, CED_CreateFont, (Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset, char* fontName))
 DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len))
-DEC_FUN(Handle, CED_CreateSection, (Handle hEdPage, EDRECT border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY))
+DEC_FUN(Handle, CED_CreateSection, (Handle hEdPage, const CIF::Rect& border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY))
 DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol))
 DEC_FUN(Handle, CED_CreateColumn, ( Handle hEdSection))
 DEC_FUN(Handle, CED_CreateParagraph, (Handle hEdSection, Handle hObject, int align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, int color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep))
@@ -386,13 +381,13 @@ DEC_FUN(Bool32, CED_GetFont, (Handle hEdPage, int number, uchar* fontNumber, uch
 DEC_FUN(uint32_t, CED_GetCountSection, (Handle hEdPage))
 DEC_FUN(Handle, CED_GetSection, (Handle hEdPage, uint32_t number))
 DEC_FUN(Bool32, CED_GetSectLineBetCol, (Handle hEdSection))
-DEC_FUN(EDRECT, CED_GetSectionBorder, (Handle hEdSection))
+DEC_FUN(CIF::Rect, CED_GetSectionBorder, (Handle hEdSection))
 DEC_FUN(uint32_t, CED_GetCountColumn, (Handle hEdSection))
 DEC_FUN(uint32_t, CED_GetNumSnakeCols, (Handle hEdSection))
 DEC_FUN(Handle, CED_GetColumn, (Handle hEdSection, int number))
 DEC_FUN(int32_t, CED_GetSnakeColumnWidth, (Handle hEdSection, int number))
 DEC_FUN(int32_t, CED_GetSnakeColumnSpacing, (Handle hEdSection, int number))
-DEC_FUN(Bool32, CED_GetSectionParams, (Handle hEdSection, EDRECT* border, int* colInterval, char* sectionBreak, int* width, int* height, char* orientation, int* headerY, int* footerY))
+DEC_FUN(Bool32, CED_GetSectionParams, (Handle hEdSection, CIF::Rect& border, int* colInterval, char* sectionBreak, int* width, int* height, char* orientation, int* headerY, int* footerY))
 //DEC_FUN(uint32_t, CED_GetCountFrame,(Handle hEdSection));
 //DEC_FUN(Handle, CED_GetFrame,(Handle hEdSection,int number));
 DEC_FUN(EDBOX, CED_GetFrameRect, (Handle hEdFrame))

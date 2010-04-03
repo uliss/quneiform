@@ -174,7 +174,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
 
         //for backward compatibility
         if (unsigned((&(pd->recogLang)) - ((uchar*) pd)) < pt->length - sizeof(edExtention))
-            mainPage->setLanguage(static_cast<language_t>(pd->recogLang));
+            mainPage->setLanguage(static_cast<language_t> (pd->recogLang));
 
         break;
     }
@@ -201,10 +201,10 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
          */case EDEXT_SECTION: {
         CEDSection * sect = mainPage->InsertSection();
         sectParams1* sp = (sectParams1*) ptExt;
-        sect->borders.bottom = sp->bottomMargin;
-        sect->borders.top = sp->topMargin;
-        sect->borders.left = sp->leftMargin;
-        sect->borders.right = sp->rightMargin;
+        sect->borders.setBottom(sp->bottomMargin);
+        sect->borders.setTop(sp->topMargin);
+        sect->borders.setLeft(sp->leftMargin);
+        sect->borders.setRight(sp->rightMargin);
         sect->numberOfColumns = 0;//  sp->columns       ;
         sect->colInterval = sp->colInterval;
         sect->numSnakeCols = sp->numSnakeCols;
@@ -622,8 +622,8 @@ void CED_ShowTree(char * name, Handle hEdPage)
     for (unsigned int i = 0; i < CED_GetCountSection(hEdPage); i++) {
         Handle sect = CED_GetSection(hEdPage, i);
         fprintf(stream, "\nSection %i,borders:l=%i,r=%i,t=%i,b=%i\n", i,
-                CED_GetSectionBorder(sect).left, CED_GetSectionBorder(sect).right,
-                CED_GetSectionBorder(sect).top, CED_GetSectionBorder(sect).bottom);
+                CED_GetSectionBorder(sect).left(), CED_GetSectionBorder(sect).right(),
+                CED_GetSectionBorder(sect).top(), CED_GetSectionBorder(sect).bottom());
         fprintf(stream, "\ncolumns:");
 
         for (unsigned int c = 0; c < CED_GetNumSnakeCols(sect); c++)
@@ -723,10 +723,10 @@ void PrintPara(FILE *stream, Handle para)
         for (unsigned c = 0; c < CED_GetCountChar(line); c++) {
             CEDChar * chr = (CEDChar*) CED_GetChar(line, c);
 
-			if (!chr->isPicture())
-				fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
+            if (!chr->isPicture())
+            fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
             else
-				fprintf(stream, "\\pict%d\\", chr->fontNum - ED_PICT_BASE);
+            fprintf(stream, "\\pict%d\\", chr->fontNum - ED_PICT_BASE);
         }
 
         fprintf(stream, "\n");
@@ -809,10 +809,10 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
         CEDSection * sect = page->GetSection(sec);
         int i;
         sectParams1 sp;
-        sp.bottomMargin = sect->borders.bottom;
-        sp.topMargin = sect->borders.top;
-        sp.leftMargin = sect->borders.left;
-        sp.rightMargin = sect->borders.right;
+        sp.bottomMargin = sect->borders.bottom();
+        sp.topMargin = sect->borders.top();
+        sp.leftMargin = sect->borders.left();
+        sp.rightMargin = sect->borders.right();
         sp.columns = sect->numberOfColumns;
         sp.colInterval = sect->colInterval;
         sp.numSnakeCols = sect->numSnakeCols;
@@ -1155,7 +1155,8 @@ Bool32 WriteTiffDescr(Handle hFile, CEDPage* page) {
     if (!WriteExtCode(hFile, EDEXT_TIFF_DESC, &fond, sizeof(fond), page->imageName().length() + 1))
         return FALSE;
 
-    if (!CFIO_WriteToFile(hFile, const_cast<char*>(page->imageName().c_str()), page->imageName().length() + 1))
+    if (!CFIO_WriteToFile(hFile, const_cast<char*> (page->imageName().c_str()),
+            page->imageName().length() + 1))
         return FALSE;
 
     return TRUE;

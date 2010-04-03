@@ -56,6 +56,7 @@ class FUN_EXPO__ CEDChar
 
         /**
          * Returns character parent number
+         * @see setParentNumber()
          */
         int parentNumber() const;
 
@@ -86,6 +87,7 @@ class FUN_EXPO__ CEDChar
 
         /**
          * Sets character parent number
+         * @see parentNumber()
          */
         void setParentNumber(int number);
 

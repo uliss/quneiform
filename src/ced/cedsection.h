@@ -21,6 +21,7 @@
 
 #include "globus.h"
 #include "ced_struct.h"
+#include "common/rect.h"
 
 namespace CIF {
 
@@ -28,7 +29,7 @@ class FUN_EXPO__ CEDSection
 {
     public:
         int numberOfColumns; // The number of columns in the section (n pieces)
-        EDRECT borders; // padding from the edge of paper
+        Rect borders; // padding from the edge of paper
         int colInterval;
         char sectionBreak;
         int width;

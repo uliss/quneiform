@@ -26,7 +26,6 @@ namespace CIF {
 
 CEDSection::CEDSection() {
     numberOfColumns = 0;
-    borders.top = borders.bottom = borders.right = borders.left = 0;
     sectionBreak = 0;
     width = 0;
     height = 0;

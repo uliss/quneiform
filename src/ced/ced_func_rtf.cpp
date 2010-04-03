@@ -781,20 +781,20 @@ Bool WriteRtfSection(StrRtfOut *rtf, CEDSection* sect) {
             return FALSE;
 
     // write margins
-    if (sect->borders.left >= 0)
-        if (!WriteRtfControl(rtf, "marglsxn", PARAM_INT, sect->borders.left))
+    if (sect->borders.left() >= 0)
+        if (!WriteRtfControl(rtf, "marglsxn", PARAM_INT, sect->borders.left()))
             return FALSE;
 
-    if (sect->borders.right >= 0)
-        if (!WriteRtfControl(rtf, "margrsxn", PARAM_INT, sect->borders.right))
+    if (sect->borders.right() >= 0)
+        if (!WriteRtfControl(rtf, "margrsxn", PARAM_INT, sect->borders.right()))
             return FALSE;
 
-    if (sect->borders.top >= 0)
-        if (!WriteRtfControl(rtf, "margtsxn", PARAM_INT, sect->borders.top))
+    if (sect->borders.top() >= 0)
+        if (!WriteRtfControl(rtf, "margtsxn", PARAM_INT, sect->borders.top()))
             return FALSE;
 
-    if (sect->borders.bottom >= 0)
-        if (!WriteRtfControl(rtf, "margbsxn", PARAM_INT, sect->borders.bottom))
+    if (sect->borders.bottom() >= 0)
+        if (!WriteRtfControl(rtf, "margbsxn", PARAM_INT, sect->borders.bottom()))
             return FALSE;
 
     if (sect->headerY >= 0)

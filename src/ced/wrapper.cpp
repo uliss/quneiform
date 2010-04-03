@@ -106,12 +106,12 @@ CED_FUNC(Bool32) CED_CreatePicture(Handle hEdPage, int pictNumber, const CIF::Si
 }
 //create section
 
-CED_FUNC(Handle) CED_CreateSection(Handle hEdPage, EDRECT border, int colInterval, int numOfCols,
-        EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY,
-        int footerY) {
+CED_FUNC(Handle) CED_CreateSection(Handle hEdPage, const CIF::Rect& border, int colInterval,
+        int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation,
+        int headerY, int footerY) {
     if (logStream) {
         fprintf(logStream, "CreateSection params: %x,(%i,%i,%i,%i),%i,%i,%x,%hd,%i,%i,%hd,%i,%i\n",
-                hEdPage, border.left, border.top, border.right, border.bottom, colInterval,
+                hEdPage, border.left(), border.top(), border.right(), border.bottom(), colInterval,
                 numOfCols, colInfo, sectionBreak, width, height, orientation, headerY, footerY);
         fflush(logStream);
     }
@@ -491,19 +491,18 @@ CED_FUNC(Handle) CED_GetSection(Handle hEdPage, uint32_t number) {
     return (Handle) ((CEDPage*) hEdPage)->GetSection(number);
 }
 
-CED_FUNC(EDRECT) CED_GetSectionBorder(Handle hEdSection) {
+CED_FUNC(CIF::Rect) CED_GetSectionBorder(Handle hEdSection) {
     return ((CEDSection*) hEdSection)->borders;
 }
 
-CED_FUNC(Bool32) CED_GetSectionParams(Handle hEdSection, EDRECT* border, int* colInterval,
+CED_FUNC(Bool32) CED_GetSectionParams(Handle hEdSection, CIF::Rect& border, int* colInterval,
         char* sectionBreak, int* width, int* height, char* orientation, int* headerY, int* footerY) {
     if (!hEdSection)
         return FALSE;
 
     CEDSection *sect = (CEDSection*) hEdSection;
 
-    if (border)
-        memcpy(border, &(sect->borders), sizeof(EDRECT));
+    border = sect->borders;
 
     if (colInterval)
         (*colInterval) = sect->colInterval;

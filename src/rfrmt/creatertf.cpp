@@ -330,7 +330,7 @@ Bool CRtfPage::OpenOutputFile(const char* FileNameOut) {
 
     while (TRUE) {
         if ((out = fopen(FileNameOut, "w")) == NULL) {
-            CIF::Debug()  << "Can not open RTF file.\nPlease close file.\n";
+            CIF::Debug() << "Can not open RTF file.\nPlease close file.\n";
         }
 
         else {
@@ -1430,7 +1430,7 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
 #ifdef EdWrite
     int j;
     int EDCountHTerminalColumns;
-    EDRECT border;
+    CIF::Rect border;
     EDCOL *pEDColumnFirst, *pEDColumn;
 #endif
 
@@ -1514,10 +1514,10 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
         return;
 
 #ifdef EdWrite
-    border.left = MargL;
-    border.right = MargR;
-    border.top = MargT;
-    border.bottom = MargB;
+    border.setLeft(MargL);
+    border.setTop(MargT);
+    border.setRight(MargR);
+    border.setBottom(MargB);
 
     if (FlagMode & USE_FRAME_AND_COLUMN)
         pRtfSector->SectorInfo.userNum = -1;
