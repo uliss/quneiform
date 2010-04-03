@@ -399,7 +399,7 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
         lastLin = l;
         // determine the column range to write
         FirstCol = 0;
-        LastCol = CED_GetCountChar(l); // last uchar not included
+        LastCol = l->charCount();// last uchar not included
 
         if (FirstCol >= LastCol)
             goto LINE_END; // nothing to write

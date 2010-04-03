@@ -853,10 +853,6 @@ CED_FUNC(Bool32) CED_GetParaBorders(Handle hEdParagraph, int* leftBrdrType, int*
     return TRUE;
 }
 
-CED_FUNC(uint32_t) CED_GetCountChar(Handle hEdLine) {
-    return ((CEDLine*) hEdLine)->charCount();
-}
-
 CED_FUNC(Handle) CED_GetChar(Handle hEdLine, int number) {
     return ((CEDLine*) hEdLine)->charAt(number);
 }

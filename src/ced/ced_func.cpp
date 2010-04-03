@@ -718,9 +718,9 @@ void PrintPara(FILE *stream, Handle para)
     fprintf(stream, ",usNum=%i,sb=%i,sa=%i\n", CED_GetUserNumber(para), CED_GetInterval(para).cx, CED_GetInterval(para).cy);
 
     for (unsigned l = 0; l < CED_GetCountLine(para); l++) {
-        Handle line = CED_GetLine(para, l);
+        CIF::CEDLine * line = (CIF::CEDLine*)CED_GetLine(para, l);
 
-        for (unsigned c = 0; c < CED_GetCountChar(line); c++) {
+        for (unsigned c = 0; c < line->charCount(); c++) {
             CEDChar * chr = (CEDChar*) CED_GetChar(line, c);
 
             if (!chr->isPicture())
