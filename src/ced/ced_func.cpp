@@ -721,12 +721,12 @@ void PrintPara(FILE *stream, Handle para)
         CIF::CEDLine * line = (CIF::CEDLine*)CED_GetLine(para, l);
 
         for (unsigned c = 0; c < line->charCount(); c++) {
-            CEDChar * chr = (CEDChar*) CED_GetChar(line, c);
+            CEDChar * chr = line->charAt(c);
 
             if (!chr->isPicture())
-            fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
+                fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
             else
-            fprintf(stream, "\\pict%d\\", chr->fontNum - ED_PICT_BASE);
+                fprintf(stream, "\\pict%d\\", chr->fontNum - ED_PICT_BASE);
         }
 
         fprintf(stream, "\n");

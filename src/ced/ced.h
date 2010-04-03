@@ -423,7 +423,6 @@ DEC_FUN(Bool32, CED_GetParaParams, (Handle hEdParagraph, int* color, int* shadin
 DEC_FUN(Bool32, CED_GetParaBorders, (Handle hEdParagraph, int* leftBrdrType, int* leftBrdrWidth, int* rightBrdrType, int* rightBrdrWidth, int* topBrdrType, int* topBrdrWidth, int* bottomBrdrType, int* bottomBrdrWidth, int* brdrBtw))
 DEC_FUN(uint32_t, CED_GetCountLine, (Handle hEdParagraph))
 DEC_FUN(Handle, CED_GetLine, (Handle hEdParagraph, int number))
-DEC_FUN(Handle, CED_GetChar, (Handle hEdLine, int number))
 DEC_FUN(LETTER*, CED_GetAlternatives, (Handle hEdChar))
 DEC_FUN(int32_t, CED_GetCharFontAttribs, (Handle hEdChar))
 DEC_FUN(Bool32, CED_WriteFormattedRtf, (const char * fileName, Handle hEdPage))
