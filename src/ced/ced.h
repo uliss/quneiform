@@ -424,7 +424,6 @@ DEC_FUN(Bool32, CED_GetParaBorders, (Handle hEdParagraph, int* leftBrdrType, int
 DEC_FUN(uint32_t, CED_GetCountLine, (Handle hEdParagraph))
 DEC_FUN(Handle, CED_GetLine, (Handle hEdParagraph, int number))
 DEC_FUN(LETTER*, CED_GetAlternatives, (Handle hEdChar))
-DEC_FUN(int32_t, CED_GetCharFontAttribs, (Handle hEdChar))
 DEC_FUN(Bool32, CED_WriteFormattedRtf, (const char * fileName, Handle hEdPage))
 DEC_FUN(Bool32, CED_MergeFormattedRtf, (const char * fileName, Handle hEdPage))
 #ifdef _DEBUG
