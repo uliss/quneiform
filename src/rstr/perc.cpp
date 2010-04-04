@@ -119,6 +119,7 @@
 
 #include "compat_defs.h"
 #include "minmax.h"
+#include "common/endianess.h"
 
 #define NUMBER      '#'
 #define PRO_NUMBER  0xC3
@@ -717,22 +718,6 @@ static void improve_proN() {
 
 static RecRaster workRaster;
 
-/* swapbytes takes a 32 bit value and does an endianness change.
- * Since it was only used on Windows (not Mac) I'm assuming it means
- * "swap 32 bytes between big endian and current byte order".
- */
-#if defined(WIN32) && defined(_MSC_VER) && (_MSC_VER > 800)
-#define   swapbytes(a) __asm {                      \
-                                 __asm   mov   EAX,a  \
-                                 __asm   bswap EAX    \
-                                 __asm   mov   a,EAX  \
-                               }
-#elif defined(__GNUC__) /* FIXME: also check that we are on x86. And little-endian. */
-#define swapbytes(a) asm ("bswap %0;" :"=r"(a) :"0"(a));
-#else
-#error You must define swapbytes for your platform
-#endif
-
 Bool makeRasterC(c_comp* comp, RecRaster** rast) {
     int i, cInter, beg, end, beg31, end31, beg32, end32, width32;
     uint32_t tmp;
@@ -767,14 +752,14 @@ Bool makeRasterC(c_comp* comp, RecRaster** rast) {
                 rast32[i] = 0xFFFFFFFF;
             if (beg32 == end32) {
                 tmp = ((uint32_t) 0xFFFFFFFF >> beg31) & ((uint32_t) 0xFFFFFFFF << (31 - end31));
-                swapbytes(tmp);
+                bswap_32(tmp);
                 rast32[beg32] |= tmp;
             } else {
                 tmp = (uint32_t) 0xFFFFFFFF >> beg31;
-                swapbytes(tmp);
+                bswap_32(tmp);
                 rast32[beg32] |= tmp;
                 tmp = (uint32_t) 0xFFFFFFFF << (31 - end31);
-                swapbytes(tmp);
+                bswap_32(tmp);
                 rast32[end32] |= tmp;
             }
 
