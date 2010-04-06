@@ -16,6 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <fstream>
 #include "testcedpage.h"
 #include <ced/cedpage.h>
 #include <ced/cedarchive.h>
