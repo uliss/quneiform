@@ -98,8 +98,7 @@
  *
  ************************************************************************/
 
-char* WINAPI FindDIBBits(char* lpbi)
-{
+char* FindDIBBits(char* lpbi) {
     return (lpbi + *(LPDWORD) lpbi + ::PaletteSize(lpbi));
 }
 
@@ -123,8 +122,7 @@ char* WINAPI FindDIBBits(char* lpbi)
  *
  ************************************************************************/
 
-uint32_t WINAPI DIBWidth(char* lpDIB)
-{
+uint32_t DIBWidth(char* lpDIB) {
     LPBITMAPINFOHEADER lpbmi; // pointer to a Win 3.0-style DIB
     LPBITMAPCOREHEADER lpbmc; // pointer to an other-style DIB
     /* point to the header (whether Win 3.0 and old) */
@@ -160,8 +158,7 @@ uint32_t WINAPI DIBWidth(char* lpDIB)
  *
  ************************************************************************/
 
-uint32_t WINAPI DIBHeight(char* lpDIB)
-{
+uint32_t DIBHeight(char* lpDIB) {
     LPBITMAPINFOHEADER lpbmi; // pointer to a Win 3.0-style DIB
     LPBITMAPCOREHEADER lpbmc; // pointer to an other-style DIB
     /* point to the header (whether old or Win 3.0 */
@@ -198,8 +195,7 @@ uint32_t WINAPI DIBHeight(char* lpDIB)
  *
  ************************************************************************/
 
-uint16_t WINAPI PaletteSize(char* lpbi)
-{
+uint16_t PaletteSize(char* lpbi) {
     /* calculate the size required by the palette */
     if (IS_WIN30_DIB(lpbi))
         return (uint16_t) (::DIBNumColors(lpbi) * sizeof(RGBQUAD));
@@ -229,8 +225,7 @@ uint16_t WINAPI PaletteSize(char* lpbi)
  *
  ************************************************************************/
 
-uint16_t WINAPI DIBNumColors(char* lpbi)
-{
+uint16_t DIBNumColors(char* lpbi) {
     uint16_t wBitCount; // DIB bit count
     /*  If this is a Windows-style DIB, the number of colors in the
      *  color table can be less than the number of bits per pixel
@@ -257,14 +252,14 @@ uint16_t WINAPI DIBNumColors(char* lpbi)
 
     /* return number of colors based on bits per pixel */
     switch (wBitCount) {
-        case 1:
-            return 2;
-        case 4:
-            return 16;
-        case 8:
-            return 256;
-        default:
-            return 0;
+    case 1:
+        return 2;
+    case 4:
+        return 16;
+    case 8:
+        return 256;
+    default:
+        return 0;
     }
 }
 
@@ -286,8 +281,7 @@ uint16_t WINAPI DIBNumColors(char* lpbi)
 //
 //---------------------------------------------------------------------
 
-HGLOBAL WINAPI CopyHandle(HGLOBAL h)
-{
+HGLOBAL CopyHandle(HGLOBAL h) {
     if (h == NULL)
         return NULL;
 

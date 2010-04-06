@@ -80,14 +80,6 @@ typedef int (* _CRT_ALLOC_HOOK)(int, void *, size_t, int, long, const unsigned c
 
 #ifndef WIN32
 
-#ifndef APIENTRY /* Not currently used in Linux. */
-#define APIENTRY
-#endif
-
-#ifndef WINAPI
-#define WINAPI
-#endif
-
 #ifndef DECLARE_HANDLE
 #define DECLARE_HANDLE(a)
 #endif
