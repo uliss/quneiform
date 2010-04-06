@@ -75,12 +75,12 @@ class Tester:
         
         retcode = self.cuneiform(self.makeArgs(img), stdout=PIPE, stderr=PIPE)
         if retcode != 0:
-            print "%-35s OCR failed" % os.path.basename(img)
+            print "%-35s %-15s FAIL" % (os.path.basename(img), "OCR")
             self._tests_failed += 1
             return False
             
         if os.path.getsize(self._output) == 0:
-            print "%-35s OCR failed. No output" % os.path.basename(img)
+            print "%-35s %-15s FAIL. No output" % (os.path.basename(img), "OCR")
             self._tests_failed += 1
             return False
         else:
@@ -156,7 +156,7 @@ class Tester:
         return self._tests_failed == 0
     
     def printTestStat(self):
-        print "Tests passed: %d, failed: %d, total: %d" % (self._tests_passed, self._tests_failed, self.total())
+        print "Tests total: %d, passed: %d, failed: %d" % (self.total(), self._tests_passed, self._tests_failed)
             
     def runDiffTest(self):
         for img in self._images:

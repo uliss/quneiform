@@ -29,3 +29,6 @@ lang_regression.test()
 header("Image formats test")
 import image_formats
 image_formats.test()
+
+#header("Summary:")
+#print "Test total: %d, passed: %d, failed: %d" % ()
