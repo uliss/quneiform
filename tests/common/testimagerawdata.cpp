@@ -17,6 +17,7 @@
  ***************************************************************************/
 #include "testimagerawdata.h"
 #include <cstring>
+#include <fstream>
 #include <common/tostring.h>
 #include <ced/cedarchive.h>
 #define private public
