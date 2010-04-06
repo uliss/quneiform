@@ -211,9 +211,14 @@ enum CED_IMPORT_ENTRIES
 typedef void (*FNRDProc)(uchar* ptr, uint32_t lth);
 
 //Для CreatePicture
-#define ED_ALIGN_BOT            0        // align picture bottom to base line
-#define ED_ALIGN_MIDDLE         1        // center picture vertically to baseline
-#define ED_ALIGN_TOP            2        // align picture top to base line
+enum ed_align_t
+{
+    ED_ALIGN_BOT = 0, // align picture bottom to base line
+    ED_ALIGN_MIDDLE = 1, // center picture vertically to baseline
+    ED_ALIGN_TOP = 2
+// align picture top to base line
+};
+
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c
 
 DEC_FUN(void, CED_BitmapRef, (const struct bit_map_ref* pt));
@@ -379,7 +384,6 @@ DEC_FUN(uint32_t, CED_GetNumOfPics, (Handle hEdPage))
 DEC_FUN(Handle, CED_GetParagraph, (Handle hEdPage, int _num))
 DEC_FUN(Bool32, CED_GetFont, (Handle hEdPage, int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset, char** fontName))
 DEC_FUN(uint32_t, CED_GetCountSection, (Handle hEdPage))
-DEC_FUN(Handle, CED_GetSection, (Handle hEdPage, uint32_t number))
 DEC_FUN(Bool32, CED_GetSectLineBetCol, (Handle hEdSection))
 DEC_FUN(CIF::Rect, CED_GetSectionBorder, (Handle hEdSection))
 DEC_FUN(uint32_t, CED_GetCountColumn, (Handle hEdSection))
@@ -426,8 +430,14 @@ DEC_FUN(Handle, CED_GetLine, (Handle hEdParagraph, int number))
 DEC_FUN(LETTER*, CED_GetAlternatives, (Handle hEdChar))
 DEC_FUN(Bool32, CED_WriteFormattedRtf, (const char * fileName, Handle hEdPage))
 DEC_FUN(Bool32, CED_MergeFormattedRtf, (const char * fileName, Handle hEdPage))
+
+namespace CIF
+{
+class CEDPage;
+}
+
 #ifdef _DEBUG
-DEC_FUN(void, CED_ShowTree, (char * name, Handle hEdPage));
+CED_FUNC(void) CED_ShowTree(char * name, CIF::CEDPage * EdPage);
 #endif
 
 #undef DEC_FUN

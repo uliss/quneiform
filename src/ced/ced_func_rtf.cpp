@@ -179,7 +179,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
         }
     }
 
-    sect = GetSection(0);
+    sect = section(0);
     rtf->PrevPfmt = DEFAULT_PFMT;
 
     // write the text lines

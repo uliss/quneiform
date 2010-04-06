@@ -76,6 +76,11 @@ class FUN_EXPO__ CEDPage
         Size pageSize() const;
 
         /**
+         * Returns pointer to section with given number
+         */
+        CEDSection * section(int num);
+
+        /**
          * Sets image dpi
          * @see imageDpi()
          */
@@ -157,7 +162,6 @@ class FUN_EXPO__ CEDPage
 
         Bool32 FormattedWriteRtf(const char * fileName, Bool merge);
 
-        CEDSection * GetSection(int _num);
         CEDParagraph * GetParagraph(int _num);
         CEDLine * GetLine(int _num);
         CEDChar * GetChar(int _num);

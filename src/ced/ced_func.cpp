@@ -567,7 +567,7 @@ void RepairStructure() {
             break;
         }
         case COLUMN_BEGIN: {
-            CEDSection * sec = mainPage->GetSection(hPara->parentNumber);
+            CEDSection * sec = mainPage->section(hPara->parentNumber);
 
             if (colBeg) {
                 EDCOLDESCR *cd = (EDCOLDESCR*) (colBeg->descriptor);
@@ -589,7 +589,7 @@ void RepairStructure() {
             }
 
             colBeg = 0;
-            mainPage->GetSection(hPara->parentNumber)->columnsEnd = hPara;
+            mainPage->section(hPara->parentNumber)->columnsEnd = hPara;
             break;
         }
         }
@@ -600,7 +600,7 @@ void RepairStructure() {
 
 #ifdef _DEBUG
 void PrintPara(FILE *stream, Handle para);
-void CED_ShowTree(char * name, Handle hEdPage)
+void CED_ShowTree(char * name, CIF::CEDPage * hEdPage)
 {
     //  CEDPage * page=(CEDPage *)hEdPage;
     Bool32 inFrm = FALSE, inTbl = FALSE;
@@ -620,7 +620,7 @@ void CED_ShowTree(char * name, Handle hEdPage)
     }
 
     for (unsigned int i = 0; i < CED_GetCountSection(hEdPage); i++) {
-        Handle sect = CED_GetSection(hEdPage, i);
+        CIF::CEDSection * sect = hEdPage->section(i);
         fprintf(stream, "\nSection %i,borders:l=%i,r=%i,t=%i,b=%i\n", i,
                 CED_GetSectionBorder(sect).left(), CED_GetSectionBorder(sect).right(),
                 CED_GetSectionBorder(sect).top(), CED_GetSectionBorder(sect).bottom());
@@ -724,9 +724,9 @@ void PrintPara(FILE *stream, Handle para)
             CEDChar * chr = line->charAt(c);
 
             if (!chr->isPicture())
-                fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
+            fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
             else
-                fprintf(stream, "\\pict%d\\", chr->fontNum - ED_PICT_BASE);
+            fprintf(stream, "\\pict%d\\", chr->fontNum - ED_PICT_BASE);
         }
 
         fprintf(stream, "\n");
@@ -806,7 +806,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
 
     //Write descriptions of sections and paragraphs.
     for (sec = 0; sec < page->GetNumberOfSections(); sec++) {
-        CEDSection * sect = page->GetSection(sec);
+        CEDSection * sect = page->section(sec);
         int i;
         sectParams1 sp;
         sp.bottomMargin = sect->borders.bottom();

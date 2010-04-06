@@ -97,7 +97,7 @@ CEDPage::~CEDPage() {
     }
 
     CEDSection * se1, *se;
-    se1 = se = GetSection(0);
+    se1 = se = section(0);
 
     while (se1) {
         if (se1->colInfo)
@@ -278,11 +278,10 @@ CEDSection * CEDPage::PrevSection() {
     return curSect->prev;
 }
 
-CEDSection * CEDPage::GetSection(int _num) {
-    CEDSection* ss;
-
-    for (ss = sections; ss && ss->internalNumber != _num; ss = ss->next)
-        ;
+CEDSection * CEDPage::section(int _num) {
+    CEDSection* ss = sections;
+    for (; ss && ss->internalNumber != _num; ss = ss->next) {
+    }
 
     return ss;
 }
@@ -372,7 +371,7 @@ Bool32 CEDPage::GoToNextLine() {
     if (curSect && curSect->curPara && curSect->curPara->curLine && (aa
             = curSect->curPara->curLine->next())) {
         CEDParagraph *qq = GetParagraph(curSect->curPara->curLine->next()->parentNumber());
-        CEDSection * ss = GetSection(qq->parentNumber);
+        CEDSection * ss = section(qq->parentNumber);
         curSect = ss;
         curSect->curPara = qq;
         curSect->curPara->curLine = aa;
@@ -391,7 +390,7 @@ Bool32 CEDPage::GoToNextChar() {
             = curSect->curPara->curLine->currentChar()->next)) {
         CEDLine * aa = GetLine(curSect->curPara->curLine->currentChar()->next->parentNumber());
         CEDParagraph *qq = GetParagraph(aa->parentNumber());
-        CEDSection * ss = GetSection(qq->parentNumber);
+        CEDSection * ss = section(qq->parentNumber);
         curSect = ss;
         curSect->curPara = qq;
         curSect->curPara->curLine = aa;
