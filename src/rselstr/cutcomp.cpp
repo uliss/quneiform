@@ -66,11 +66,9 @@
 #include "exc/exc.h"
 #include "cpage/cpagetyps.h"
 #include "polyblock.h"
+#include "cfcompat.h"
 
 using namespace CIF;
-
-#define RGB(r,g,b)          ((COLORREF)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
-typedef uint32_t COLORREF;
 
 int inf_cut_h = 15;
 int sup_cut_h;

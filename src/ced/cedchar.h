@@ -22,6 +22,7 @@
 #include <iostream>
 #include "globus.h"
 #include "ced_struct.h"
+#include "common/color.h"
 #include "common/rect.h"
 
 struct text_ref;
@@ -33,6 +34,11 @@ class FUN_EXPO__ CEDChar
 {
     public:
         CEDChar();
+
+        /**
+         * Returns char background color
+         */
+        Color backgroundColor() const;
 
         /**
          * Returns character bounding rectangle
@@ -50,6 +56,11 @@ class FUN_EXPO__ CEDChar
         language_t fontLanguage() const;
 
         /**
+         * Returns char foreground color
+         */
+        Color foregroundColor() const;
+
+        /**
          * Checks if picture
          */
         bool isPicture() const;
@@ -64,6 +75,17 @@ class FUN_EXPO__ CEDChar
          * Returns reference to character bounding rectangle
          */
         Rect& rBoundingRect();
+
+        /**
+         * Sets background color
+         * @see backgroundColor()
+         */
+        void setBackgroundColor(const Color& color);
+
+        /**
+         * Sets background color
+         */
+        void setBackgroundColor(int color);
 
         /**
          * Sets bounding rectangle
@@ -86,6 +108,17 @@ class FUN_EXPO__ CEDChar
         void setFontLanguage(language_t lang);
 
         /**
+         * Sets foreground color
+         * @see foregroundColor()
+         */
+        void setForegroundColor(const Color& color);
+
+        /**
+         * Sets foreground color
+         */
+        void setForegroundColor(int color);
+
+        /**
          * Sets character parent number
          * @see parentNumber()
          */
@@ -94,8 +127,6 @@ class FUN_EXPO__ CEDChar
         CEDChar * prev, *next; //pointer to neighbor elements in connected list
         int fontAttribs; //font parameters
         int fontNum;
-        int foregroundColor;
-        int backgroundColor;
         letterEx * alternatives; //array of alternatives
         int numOfAltern;
     private:
@@ -104,6 +135,8 @@ class FUN_EXPO__ CEDChar
         int parent_number_;
         int font_height_;
         language_t font_lang_;
+        Color fground_color_;
+        Color bground_color_;
 };
 
 std::ostream& operator<<(std::ostream& os, const CEDChar& chr);

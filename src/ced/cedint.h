@@ -280,7 +280,7 @@ struct charParams
 
 struct StrRtfColor
 { // color table in an rtf file
-        uint32_t color; // color
+        CIF::Color color; // color
 };
 
 struct StrRtfOut

@@ -73,7 +73,7 @@ using namespace CIF;
 
 #define MAX_LEN 500
 #define MAX_RTF_COLORS     200
-#define TextDefBkColor  RGB(255,255,255)
+#define TextDefBkColor  Color(255,255,255)
 
 Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
     Bool ret;
@@ -119,8 +119,8 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
     rtf->page = this;
     rtf->PrevChar.setFontHeight(24);
     rtf->PrevChar.fontNum = -1;
-    rtf->PrevChar.foregroundColor = -1;
-    rtf->PrevChar.backgroundColor = -1;
+    rtf->PrevChar.setForegroundColor(Color::null());
+    rtf->PrevChar.setBackgroundColor(Color::null());
     rtf->table = new int[rtf->page->fontsUsed];
     memset(rtf->table, -1, sizeof(int) * rtf->page->fontsUsed);
     // allocate color table
@@ -853,13 +853,11 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
     //    uchar CurTypeFace[32],PrevTypeFace[32];
     uchar CurFamily, PrevFamily;
     uint CurStyle, PrevStyle;
-    //    int  CurCharSID,PrevCharSID;
-    int /*i,*/CurPointSize, PrevPointSize/*,CurFieldId,PrevFieldId*/;
+    int CurPointSize, PrevPointSize;
     Bool result;
-    COLORREF PrevTextColor, CurTextColor;
-    COLORREF PrevTextBkColor, CurTextBkColor;
-    //  uchar CurCharSet,PrevCharSet;
-    CEDChar* prevChar = &(rtf->PrevChar);//curChar->prev;
+    Color PrevTextColor, CurTextColor;
+    Color PrevTextBkColor, CurTextBkColor;
+    CEDChar* prevChar = &(rtf->PrevChar);
 
     if (curChar == 0)
         return TRUE;
@@ -871,8 +869,8 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
         //       strcpy(PrevTypeFace,TerFont[PrevFont].TypeFace);
         PrevFamily = rtf->table[rtf->page->GetFontByNum(prevChar->fontNum)];
         PrevStyle = prevChar->fontAttribs;
-        PrevTextColor = prevChar->foregroundColor;
-        PrevTextBkColor = prevChar->backgroundColor;
+        PrevTextColor = prevChar->foregroundColor();
+        PrevTextBkColor = prevChar->backgroundColor();
         PrevPointSize = prevChar->fontHeight(); // store as twice the point size
     }
 
@@ -880,8 +878,8 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
         //       strcpy(PrevTypeFace,"");
         PrevFamily = -1;
         PrevStyle = 0;
-        PrevTextColor = -1;
-        PrevTextBkColor = -1;
+        PrevTextColor = Color::null();
+        PrevTextBkColor = Color::null();
         PrevPointSize = 0;
         //       PrevFieldId=0;
         //       PrevCharSID=1;          // default style id
@@ -892,8 +890,8 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
     //    strcpy(CurTypeFace,TerFont[CurFont].TypeFace);
     CurFamily = rtf->table[rtf->page->GetFontByNum(curChar->fontNum)];
     CurStyle = curChar->fontAttribs;
-    CurTextColor = curChar->foregroundColor;
-    CurTextBkColor = curChar->backgroundColor;
+    CurTextColor = curChar->foregroundColor();
+    CurTextBkColor = curChar->backgroundColor();
     //    CurFieldId=TerFont[CurFont].FieldId;
     //    CurCharSID=TerFont[CurFont].CharStyId;
     CurPointSize = curChar->fontHeight(); // store as twice the point size
@@ -974,8 +972,8 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
     //       if (!WriteRtfControl(w,rtf,"footnote",PARAM_NONE,0)) return FALSE;
     //    }
     // check for default properties
-    if (CurFamily == 0 && CurPointSize == 24 && (CurTextColor == 0 || CurTextColor == -1)
-            && (CurTextBkColor == TextDefBkColor || CurTextBkColor == -1) && CurStyle
+    if (CurFamily == 0 && CurPointSize == 24 && (CurTextColor.isBlack() || CurTextColor.isNull())
+            && (CurTextBkColor == TextDefBkColor || CurTextBkColor.isNull()) && CurStyle
     /*&(~((uint)(FNOTEALL)))*/== 0
     //      && CurFieldId==0
     //      && CurCharSID==1
@@ -2813,11 +2811,11 @@ Bool WriteRtfParaBorder(StrRtfOut *rtf, CEDParagraph * para) {
 Bool WriteRtfColor(StrRtfOut*rtf, Bool head) {
     int i, j, TotalColors;
     uchar red, green, blue;
-    struct StrRtfColor*color;
+    struct StrRtfColor * color;
     int oldColors = rtf->TotalColors;
     // Fill the rtf color table
     color = rtf->color;
-    color[0].color = -1; // default color
+    color[0].color = Color::null(); // default color
 
     if (head)
         TotalColors = 1;
@@ -2829,23 +2827,23 @@ Bool WriteRtfColor(StrRtfOut*rtf, Bool head) {
     for (CEDChar * ch = rtf->page->GetChar(0); ch; ch = ch->next) {
         // fill the text foreground color
         for (j = 0; j < TotalColors; j++) { // scan the color table
-            if (ch->foregroundColor == (int) color[j].color)
+            if (ch->foregroundColor() == color[j].color)
                 break; // color found
         }
 
         if (j == TotalColors && TotalColors < MAX_RTF_COLORS) {
-            color[TotalColors].color = ch->foregroundColor;
+            color[TotalColors].color = ch->foregroundColor();
             TotalColors++;
         }
 
         // fill the text background color
         for (j = 0; j < TotalColors; j++) { // scan the color table
-            if (ch->backgroundColor == (int) color[j].color)
+            if (ch->backgroundColor() == color[j].color)
                 break; // color found
         }
 
         if (j == TotalColors && TotalColors < MAX_RTF_COLORS) {
-            color[TotalColors].color = ch->backgroundColor;
+            color[TotalColors].color = ch->backgroundColor();
             TotalColors++;
         }
     }
@@ -2883,10 +2881,10 @@ Bool WriteRtfColor(StrRtfOut*rtf, Bool head) {
     }
 
     for (i = oldColors; i < TotalColors; i++) { // write colors from the font table
-        if (color[i].color != -1) {
-            red = GetRValue(color[i].color);
-            green = GetGValue(color[i].color);
-            blue = GetBValue(color[i].color);
+        if (!color[i].color.isNull()) {
+            red = color[i].color.red();
+            green = color[i].color.green();
+            blue = color[i].color.blue();
 
             if (!WriteRtfControl(rtf, "red", PARAM_INT, red))
                 return FALSE;
@@ -2922,7 +2920,7 @@ int ReadRtfColorTable(StrRtfOut *rtf) {
     color = rtf->color;
 
     for (i = 0; i < MAX_RTF_COLORS; i++)
-        color->color = -1; // initialize colors
+        color->color = Color::null(); // initialize colors
 
     ControlGroupLevel = rtf->GroupLevel = 2;
     //    rtf->IgnoreCrLfInControlWord=TRUE;     // ignore cr/lf in control word
@@ -2946,9 +2944,9 @@ int ReadRtfColorTable(StrRtfOut *rtf) {
         }
 
         if (rtf->IsControlWord) { // extract color component
-            red = GetRValue(color[CurColor].color); // break existing color components
-            green = GetGValue(color[CurColor].color);
-            blue = GetBValue(color[CurColor].color);
+            red = color[CurColor].color.red(); // break existing color components
+            green = color[CurColor].color.green();
+            blue = color[CurColor].color.blue();
 
             if (strcasecmp(rtf->CurWord, "red") == 0)
                 red = (uchar) (rtf->IntParam);
@@ -2959,7 +2957,7 @@ int ReadRtfColorTable(StrRtfOut *rtf) {
             else if (strcasecmp(rtf->CurWord, "blue") == 0)
                 blue = (uchar) (rtf->IntParam);
 
-            color[CurColor].color = RGB(red, green, blue); // extracted color
+            color[CurColor].color = Color(red, green, blue); // extracted color
         }
 
         else {

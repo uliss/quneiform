@@ -88,6 +88,7 @@ CFCOMPAT_FUNC void OutputDebugString(const char * lpOutputString);
 #define GetGValue(rgb) ((uchar) (((uint16_t) (rgb)) >> 8))
 #define GetBValue(rgb) ((uchar) ((rgb) >> 16))
 #define GetRValue(rgb) ((uchar) (rgb))
+#define RGB(r,g,b) ((COLORREF)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 
 CFCOMPAT_FUNC int MessageBox(HWND hWnd, const char * lpText, const char * lpCaption, uint uType);
 CFCOMPAT_FUNC int wsprintf(char* lpOut, const char * lpFmt, ...);

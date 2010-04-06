@@ -71,11 +71,9 @@
 #include "polyblock.h"
 #include "rcutp/rcutp.h"
 #include "minmax.h"
+#include "cfcompat.h"
 
 using namespace CIF;
-
-#define RGB(r,g,b)          ((COLORREF)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
-typedef uint32_t COLORREF;
 
 #define TYPE_NormalZone		CPAGE_GetInternalType("TYPE_NormalZone")
 #define TYPE_NormalRazrezZone		CPAGE_GetInternalType("TYPE_NormalRazrezZone")

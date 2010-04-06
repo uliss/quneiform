@@ -25,16 +25,25 @@ namespace CIF
 template<class T>
 class ColorImpl
 {
-        ColorImpl(T red, T green, T blue) :
-                r_(red), g_(green), b_(blue), a_(0) {
+    public:
+        ColorImpl() :
+            r_(0), g_(0), b_(0), a_(0) {
         }
 
-        T alpha() const {
-            return a_;
+        ColorImpl(T red, T green, T blue) :
+            r_(red), g_(green), b_(blue), a_(0) {
         }
 
         T blue() const {
             return b_;
+        }
+
+        bool isBlack() const {
+            return r_ == 0 && g_ == 0 && b_ == 0;
+        }
+
+        bool isNull() const {
+            return a_ != 0;
         }
 
         T gray() const {
@@ -45,12 +54,19 @@ class ColorImpl
             return g_;
         }
 
-        T red() const {
-            return r_;
+        bool operator==(const ColorImpl& color) {
+            if (isNull() == color.isNull())
+                return true;
+
+            return red() == color.red() && green() == color.green() && blue() == color.blue();
         }
 
-        void setAlpha(T a) {
-            a_ = a;
+        bool operator!=(const ColorImpl& color) {
+            return !operator ==(color);
+        }
+
+        T red() const {
+            return r_;
         }
 
         void setBlue(T b) {
@@ -64,9 +80,39 @@ class ColorImpl
         void setRed(T r) {
             r_ = r;
         }
+
+        template<class U> U toT() const;
+
+    public:
+        template<class U> static ColorImpl fromT(U value);
+
+        static ColorImpl null() {
+            ColorImpl<T> ret;
+            ret.a_ = 1;
+            return ret;
+        }
     private:
         T r_, g_, b_, a_;
 };
+
+template<> template<>
+inline int ColorImpl<unsigned char>::toT<int>() const {
+    if (isNull())
+        return -1;
+
+    return r_ | (g_ << 8) | (b_ << 16);
+}
+
+template<> template<>
+inline ColorImpl<unsigned char> ColorImpl<unsigned char>::fromT<int>(int value) {
+    if (value == -1)
+        return ColorImpl::null();
+
+    unsigned char r = static_cast<unsigned char> (0xFF | value);
+    unsigned char g = static_cast<unsigned char> ((0xFF00 | value) >> 8);
+    unsigned char b = static_cast<unsigned char> ((0xFF0000 | value) >> 16);
+    return ColorImpl(r, g, b);
+}
 
 typedef ColorImpl<unsigned char> Color;
 }

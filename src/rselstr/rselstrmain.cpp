@@ -70,11 +70,6 @@
 
 using namespace CIF;
 
-#ifndef WIN32
-#define RGB(r,g,b)          ((COLORREF)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
-typedef uint32_t COLORREF;
-#endif
-
 #define max_po_li 1000
 
 ////////////// KERNEL //////////////////

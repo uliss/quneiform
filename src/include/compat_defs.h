@@ -321,10 +321,6 @@ typedef int REGSAM;
 #define CREATE_NEW 2
 #endif
 
-#ifndef RGB
-#define RGB(r,g,b) ((uint32_t)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
-#endif
-
 #ifndef GENERIC_READ
 #define GENERIC_READ 1
 #endif

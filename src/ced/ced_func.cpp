@@ -75,7 +75,8 @@ static CEDPage * mainPage;
 static CEDLine * curEdLine;
 static edBox refBox;
 static int font, kegl, lang;
-static int foregroundColor, backgroundColor, fontNum;
+static Color foregroundColor, backgroundColor;
+static int fontNum;
 static char * verInfo;
 
 static void ExtDataProc(uchar* _ptr, uint32_t lth);
@@ -121,7 +122,9 @@ CIF::CEDPage * CED_FormattedLoad(char * file, Bool32 readFromFile, uint32_t bufL
     mainPage = new (CEDPage);
     refBox.x = refBox.y = refBox.h = refBox.w = 0;
     font = kegl = lang = -1;
-    foregroundColor = backgroundColor = fontNum = -1;
+    foregroundColor = Color::null();
+    backgroundColor = Color::null();
+    fontNum = -1;
     verInfo = 0;
     CED_ReadED(file, readFromFile, bufLen);
 
@@ -350,15 +353,15 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
     case EDEXT_CHAR: {
         charParams* chp = (charParams*) ptExt;
         fontNum = chp->fontNumber;
-        foregroundColor = chp->foregroundColor;
+        foregroundColor = Color::fromT<int>(chp->foregroundColor);
 
         //for backward compatibility
         if (unsigned((uchar*) (&(chp->backgroundColor)) - ((uchar*) chp)) < pt->length
                 - sizeof(edExtention))
-            backgroundColor = chp->backgroundColor;
+            backgroundColor = Color::fromT<int>(chp->backgroundColor);
 
         else
-            backgroundColor = -1;
+            backgroundColor = Color::null();
 
         break;
     }
@@ -471,8 +474,8 @@ void NewFormattedL(const letter* pt, const uint32_t alternatives) {
     chr->fontAttribs = font;
     chr->fontNum = fontNum;
     chr->setFontLanguage(static_cast<language_t> (lang));
-    chr->backgroundColor = backgroundColor;
-    chr->foregroundColor = foregroundColor;
+    chr->setBackgroundColor(backgroundColor);
+    chr->setForegroundColor(foregroundColor);
 }
 
 void RepairStructure() {
@@ -991,8 +994,10 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
 
         charParams chp;
         chp.fontNumber = fontNum = tmpChr->fontNum;
-        chp.foregroundColor = foregroundColor = tmpChr->foregroundColor;
-        chp.backgroundColor = backgroundColor = tmpChr->backgroundColor;
+        foregroundColor = tmpChr->foregroundColor();
+        chp.foregroundColor = foregroundColor.toT<int> ();
+        backgroundColor = tmpChr->backgroundColor();
+        chp.backgroundColor = backgroundColor.toT<int> ();
 
         if (!WriteExtCode(hFile, EDEXT_CHAR, &chp, sizeof(chp)))
             goto ED_WRITE_END;
@@ -1043,12 +1048,14 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
                             goto ED_WRITE_END;
                     }
 
-                    if (chr->fontNum != fontNum || chr->foregroundColor != foregroundColor
-                            || chr->backgroundColor != backgroundColor) {
+                    if (chr->fontNum != fontNum || chr->foregroundColor() != foregroundColor
+                            || chr->backgroundColor() != backgroundColor) {
                         charParams chp;
                         chp.fontNumber = fontNum = chr->fontNum;
-                        chp.foregroundColor = foregroundColor = chr->foregroundColor;
-                        chp.backgroundColor = backgroundColor = chr->backgroundColor;
+                        foregroundColor = chr->foregroundColor();
+                        chp.foregroundColor = foregroundColor.toT<int> ();
+                        backgroundColor = chr->backgroundColor();
+                        chp.backgroundColor = backgroundColor.toT<int> ();
 
                         if (!WriteExtCode(hFile, EDEXT_CHAR, &chp, sizeof(chp)))
                             goto ED_WRITE_END;

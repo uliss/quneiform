@@ -24,10 +24,17 @@ namespace CIF
 CEDChar::CEDChar() :
     parent_number_(0), font_height_(0), font_lang_(LANGUAGE_ENGLISH) {
     fontNum = fontAttribs = fontNum = 0;
-    foregroundColor = backgroundColor = 0;
     alternatives = 0;
     numOfAltern = 0;
     prev = next = 0;
+}
+
+Color CEDChar::backgroundColor() const {
+    return bground_color_;
+}
+
+Color CEDChar::foregroundColor() const {
+    return fground_color_;
 }
 
 bool CEDChar::isPicture() const {
@@ -54,6 +61,10 @@ Rect& CEDChar::rBoundingRect() {
     return bbox_;
 }
 
+void CEDChar::setBackgroundColor(const Color& color) {
+    bground_color_ = color;
+}
+
 void CEDChar::setBoundingRect(const Rect& bbox) {
     bbox_ = bbox;
 }
@@ -71,6 +82,10 @@ void CEDChar::setFontHeight(int height) {
 
 void CEDChar::setFontLanguage(language_t lang) {
     font_lang_ = lang;
+}
+
+void CEDChar::setForegroundColor(const Color& color) {
+    fground_color_ = color;
 }
 
 void CEDChar::setParentNumber(int number) {
