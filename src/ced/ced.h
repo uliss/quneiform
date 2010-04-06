@@ -391,8 +391,6 @@ DEC_FUN(Handle, CED_GetColumn, (Handle hEdSection, int number))
 DEC_FUN(int32_t, CED_GetSnakeColumnWidth, (Handle hEdSection, int number))
 DEC_FUN(int32_t, CED_GetSnakeColumnSpacing, (Handle hEdSection, int number))
 DEC_FUN(Bool32, CED_GetSectionParams, (Handle hEdSection, CIF::Rect& border, int* colInterval, char* sectionBreak, int* width, int* height, char* orientation, int* headerY, int* footerY))
-//DEC_FUN(uint32_t, CED_GetCountFrame,(Handle hEdSection));
-//DEC_FUN(Handle, CED_GetFrame,(Handle hEdSection,int number));
 DEC_FUN(EDBOX, CED_GetFrameRect, (Handle hEdFrame))
 DEC_FUN(int32_t, CED_GetFramePosition, (Handle hEdFrame))
 DEC_FUN(int32_t, CED_GetFrameBorderSpace, (Handle hEdFrame))

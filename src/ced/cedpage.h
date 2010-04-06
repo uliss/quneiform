@@ -30,6 +30,8 @@ namespace CIF
 class FUN_EXPO__ CEDPage
 {
     public:
+        void clearSections();
+
         /**
          * Returns image dpi
          * @see setImageDpi()
@@ -84,6 +86,16 @@ class FUN_EXPO__ CEDPage
          * Returns number of sections
          */
         int sectionCount() const;
+
+        /**
+         * sets new value of current section
+         */
+        CEDSection * setCurrentSection(CEDSection* sect);
+
+        /**
+         * sets new value of current section
+         */
+        CEDSection * setCurrentSection(int number);
 
         /**
          * Sets image dpi
@@ -192,11 +204,6 @@ class FUN_EXPO__ CEDPage
 
         CEDSection * InsertSection(); //inserts new section after current one. inserted one becomes current
         //sets pointer to the inserted one
-        //  CEDSection * DeleteSection(Bool32 _deleteSubItems); //deletes current section. previous one becomes current
-        //return it
-        //_deleteSubItems - either delete all daughter elements or attach it to previous object
-        CEDSection * SetCurSection(CEDSection* _sect);//sets new value of current section
-        CEDSection * SetCurSection(int _number);//sets new value of current section
 
         CEDSection * GetCurSection(); //returns current section
         int GetNumOfCurSection(); //returns current section
@@ -206,9 +213,6 @@ class FUN_EXPO__ CEDPage
 
         int NumberOfParagraphs, NumberOfLines, NumberOfChars;
         int section_num_;
-
-        CEDSection * sections; //connected list of sections
-        CEDSection * curSect; //current section
     private:
         Size image_size_;
         Size image_dpi_;
@@ -220,6 +224,8 @@ class FUN_EXPO__ CEDPage
         language_t language_;
         char unrecognized_char_;
         bool resize_to_fit_;
+        CEDSection * sections; //connected list of sections
+        CEDSection * curSect; //current section
 };
 
 }

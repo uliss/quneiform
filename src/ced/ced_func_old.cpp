@@ -512,9 +512,8 @@ void RecreateFrames()
     }
 
     //delete the only existing section
-    delete mainPage->sections;
-    mainPage->curSect = 0;
-    mainPage->section_num_ = 0;
+    // uliss TODO check this
+    mainPage->clearSections();
     Bool32 inTable = FALSE;//is table processing now?
     int numOfCols = 0;//number of columns in a table
     int borNum = 0;//number of cells of rows in a table, multiplied by 2
@@ -694,7 +693,7 @@ void RecreateFrames()
 
         if (array[i].ParaBegin) {
             par = mainPage->GetParagraph(array[i].frameNum + 1 + inc);
-            mainPage->SetCurSection(par->parentNumber)->SetCurParagraph(par);
+            mainPage->setCurrentSection(par->parentNumber)->SetCurParagraph(par);
             par = mainPage->GetCurSection()->InsertParagraph(FALSE);
             par->lines = par->curLine = array[i].line;
             par->indent.rtop() = array[i].ident * 1440 / mainPage->imageDpi().width();
@@ -710,7 +709,7 @@ void RecreateFrames()
     int dec = 0, paraNum, numOfSect = mainPage->sectionCount();
 
     if (mainPage->sectionCount() != 1) {
-        CEDSection *sec = mainPage->SetCurSection(0);
+        CEDSection *sec = mainPage->setCurrentSection(0);
         CEDSection *sec1;
 
         for (i = 1; i < numOfSect; i++) {
@@ -764,7 +763,7 @@ void RecreateFrames()
             }
 
             else {
-                sec = mainPage->SetCurSection(sec1);
+                sec = mainPage->setCurrentSection(sec1);
             }
 
             if (dec != 0)

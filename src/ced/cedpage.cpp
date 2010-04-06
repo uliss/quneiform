@@ -123,6 +123,12 @@ CEDPage::~CEDPage() {
     delete[] picsTable;
 }
 
+void CEDPage::clearSections() {
+    delete sections;
+    curSect = NULL;
+    section_num_ = 0;
+}
+
 Size CEDPage::imageDpi() const {
     return image_dpi_;
 }
@@ -227,32 +233,12 @@ CEDSection * CEDPage::InsertSection() {
     curSect = sect;
     return sect;
 }
-/*
- CEDSection * CEDPage::DeleteSection(Bool32 _deleteSubItems)
- {
- if (!curSect)
- return 0;
- if (curSect->prev)
- {
- (curSect->prev)->next=curSect->next;
- (curSect->next)->prev=curSect->prev;
- if (!_deleteSubItems)
- {
- for(CEDParagraph* para = curSect->paragraphs;para;para=para->next)
- para->internalNumber--;
- }
- else
- {
 
- for(CEDSection * sect=curSect->next;sect;sect=sect->next)
- sect->internalNumber--;
- */
-
-CEDSection * CEDPage::SetCurSection(CEDSection* _sect) {
+CEDSection * CEDPage::setCurrentSection(CEDSection* _sect) {
     return curSect = _sect;
 }
 
-CEDSection * CEDPage::SetCurSection(int _number) {
+CEDSection * CEDPage::setCurrentSection(int _number) {
     CEDSection* sect;
 
     for (sect = sections; sect && sect->internalNumber != _number; sect = sect->next)
