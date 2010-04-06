@@ -514,7 +514,7 @@ void RecreateFrames()
     //delete the only existing section
     delete mainPage->sections;
     mainPage->curSect = 0;
-    mainPage->NumberOfSections = 0;
+    mainPage->section_num_ = 0;
     Bool32 inTable = FALSE;//is table processing now?
     int numOfCols = 0;//number of columns in a table
     int borNum = 0;//number of cells of rows in a table, multiplied by 2
@@ -707,9 +707,9 @@ void RecreateFrames()
     }
 
     //delete useless section separators
-    int dec = 0, paraNum, numOfSect = mainPage->GetNumberOfSections();
+    int dec = 0, paraNum, numOfSect = mainPage->sectionCount();
 
-    if (mainPage->GetNumberOfSections() != 1) {
+    if (mainPage->sectionCount() != 1) {
         CEDSection *sec = mainPage->SetCurSection(0);
         CEDSection *sec1;
 
@@ -725,7 +725,7 @@ void RecreateFrames()
                 if (sec->next)
                     sec->next->prev = sec;
 
-                mainPage->NumberOfSections--;
+                mainPage->section_num_--;
                 dec++;
                 para = para->next;
                 paraNum--;

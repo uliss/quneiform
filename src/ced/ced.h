@@ -383,7 +383,6 @@ DEC_FUN(Bool32, CED_GetPicture, (Handle hEdPage, int number, int* pictNumber, CI
 DEC_FUN(uint32_t, CED_GetNumOfPics, (Handle hEdPage))
 DEC_FUN(Handle, CED_GetParagraph, (Handle hEdPage, int _num))
 DEC_FUN(Bool32, CED_GetFont, (Handle hEdPage, int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset, char** fontName))
-DEC_FUN(uint32_t, CED_GetCountSection, (Handle hEdPage))
 DEC_FUN(Bool32, CED_GetSectLineBetCol, (Handle hEdSection))
 DEC_FUN(CIF::Rect, CED_GetSectionBorder, (Handle hEdSection))
 DEC_FUN(uint32_t, CED_GetCountColumn, (Handle hEdSection))

@@ -81,6 +81,11 @@ class FUN_EXPO__ CEDPage
         CEDSection * section(int num);
 
         /**
+         * Returns number of sections
+         */
+        int sectionCount() const;
+
+        /**
          * Sets image dpi
          * @see imageDpi()
          */
@@ -171,7 +176,6 @@ class FUN_EXPO__ CEDPage
         Bool32 GoToNextLine();
         Bool32 GoToNextChar();
 
-        int GetNumberOfSections();
         int GetNumberOfParagraphs();
         int GetNumberOfLines();
         int GetNumberOfChars();
@@ -200,7 +204,8 @@ class FUN_EXPO__ CEDPage
         CEDSection * NextSection(); //returns next section, 0 if last
         CEDSection * PrevSection(); //return previous section, 0 if first
 
-        int NumberOfSections, NumberOfParagraphs, NumberOfLines, NumberOfChars;
+        int NumberOfParagraphs, NumberOfLines, NumberOfChars;
+        int section_num_;
 
         CEDSection * sections; //connected list of sections
         CEDSection * curSect; //current section

@@ -619,7 +619,7 @@ void CED_ShowTree(char * name, CIF::CEDPage * hEdPage)
                 pictNumber, type, length, pictSize.width(), pictSize.height(), pictGoal.cx, pictGoal.cy, pictAlign);
     }
 
-    for (unsigned int i = 0; i < CED_GetCountSection(hEdPage); i++) {
+    for (unsigned int i = 0; i < hEdPage->sectionCount(); i++) {
         CIF::CEDSection * sect = hEdPage->section(i);
         fprintf(stream, "\nSection %i,borders:l=%i,r=%i,t=%i,b=%i\n", i,
                 CED_GetSectionBorder(sect).left(), CED_GetSectionBorder(sect).right(),
@@ -805,7 +805,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
         goto ED_WRITE_END;
 
     //Write descriptions of sections and paragraphs.
-    for (sec = 0; sec < page->GetNumberOfSections(); sec++) {
+    for (sec = 0; sec < page->sectionCount(); sec++) {
         CEDSection * sect = page->section(sec);
         int i;
         sectParams1 sp;

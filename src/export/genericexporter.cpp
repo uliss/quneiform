@@ -541,7 +541,7 @@ void GenericExporter::writeLineEnd(std::ostream&, CEDLine*) {
 
 void GenericExporter::writePage(std::ostream&, CEDPage * page) {
     assert(page);
-    for (int i = 0, max = page->GetNumberOfSections(); i < max; i++) {
+    for (int i = 0, max = page->sectionCount(); i < max; i++) {
         CEDSection * section = page->section(i);
         exportSection(section);
     }

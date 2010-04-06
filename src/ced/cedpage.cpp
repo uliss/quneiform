@@ -37,7 +37,7 @@ CEDPage::CEDPage() :
             false) {
     sections = 0;
     curSect = 0;
-    NumberOfSections = 0;
+    section_num_ = 0;
     fontsUsed = 0; //number of fonts used in table
     fontsCreated = 0; //number of fonts created in table
     fontTable = 0; //pointer to font table
@@ -204,7 +204,7 @@ char CEDPage::unrecognizedChar() const {
 }
 
 CEDSection * CEDPage::InsertSection() {
-    NumberOfSections++;
+    section_num_++;
     CEDSection * sect = new CEDSection;
 
     if (curSect) {
@@ -402,9 +402,10 @@ Bool32 CEDPage::GoToNextChar() {
         return FALSE;
 }
 
-int CEDPage::GetNumberOfSections() {
-    return NumberOfSections;
+int CEDPage::sectionCount() const {
+    return section_num_;
 }
+
 int CEDPage::GetNumberOfParagraphs() {
     if (!GetParagraph(0))
         return 0;

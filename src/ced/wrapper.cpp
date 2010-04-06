@@ -482,10 +482,6 @@ CED_FUNC(Bool32) CED_GetPicture(Handle hEdPage, int number, int* pictNumber, CIF
 CED_FUNC(uint32_t) CED_GetNumOfPics(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->picsUsed;
 }
-////////////////////////////////////////////////////////////////////////////////////////
-CED_FUNC(uint32_t) CED_GetCountSection(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->GetNumberOfSections();
-}
 
 CED_FUNC(CIF::Rect) CED_GetSectionBorder(Handle hEdSection) {
     return ((CEDSection*) hEdSection)->borders;
