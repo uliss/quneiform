@@ -454,7 +454,8 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
             }
 
             if (!chr->isPicture()) {
-                ptr[len] = chr->alternatives[0].alternative;
+                // TODO uliss: check this
+                ptr[len] = ' ';
                 len++;
             }
         }
@@ -470,7 +471,7 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
 
     if (brk) {
         if (lastLin && lastLin->defaultFontHeight() > 0) {
-            memcpy(&lastChar, &(rtf->PrevChar), sizeof(CEDChar));
+            lastChar = rtf->PrevChar;
             lastChar.setFontHeight(lastLin->defaultFontHeight());
 
             if (!WriteRtfCharFmt(rtf, &lastChar))
@@ -1150,7 +1151,7 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
      if (!WriteRtfControl(w,rtf,"sub",PARAM_NONE,0)) return TRUE; // turn on
      }
      */
-    memcpy(&rtf->PrevChar, curChar, sizeof(CEDChar));
+    rtf->PrevChar = *curChar;
     return TRUE;
 }
 

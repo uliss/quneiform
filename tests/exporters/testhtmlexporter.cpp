@@ -49,13 +49,13 @@ inline string buffer(HtmlExporter * exp) {
 }
 
 #define ASSERT_CHAR_WRITE(src, dest) {\
-    c_->alternatives->alternative = src;\
+    c_->setAlternative(LETTER(src), 0);\
     exp_->exportChar(c_);\
     CHECK_BUFFER(dest);\
 }
 
 #define ASSERT_CHAR_WRITE_CLEAR(src, dest) {\
-    c_->alternatives->alternative = src;\
+	c_->setAlternative(LETTER(src), 0);\
     exp_->exportChar(c_);\
     CHECK_BUFFER_CLEAR(dest);\
 }
@@ -64,13 +64,12 @@ void TestHtmlExporter::setUp() {
     page_ = new CEDPage;
     exp_ = new HtmlExporter(page_);
     c_ = new CEDChar;
-    c_->alternatives = new LETTER;
+    c_->addAlternative(LETTER());
 }
 
 void TestHtmlExporter::tearDown() {
     delete exp_;
     delete page_;
-    delete c_->alternatives;
     delete c_;
 }
 
@@ -181,8 +180,10 @@ void TestHtmlExporter::testExportCharacter() {
     ASSERT_CHAR_WRITE_CLEAR('\'', "&apos;");
 
     string chars("abcdefghijklmnopqstuvwxyz123456789!@#$%^*(-+");
+    LETTER lt;
     for (uint i = 0; i < chars.size(); i++) {
-        c_->alternatives->alternative = chars[i];
+        lt.alternative = chars[i];
+        c_->setAlternative(lt, 0);
         exp_->writeCharacter(cerr, c_);
         CPPUNIT_ASSERT_EQUAL(string(1, chars[i]), buffer(exp_));
         clearBuffer(exp_);

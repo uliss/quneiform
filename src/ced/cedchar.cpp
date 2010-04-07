@@ -24,9 +24,19 @@ namespace CIF
 CEDChar::CEDChar() :
     parent_number_(0), font_lang_(LANGUAGE_ENGLISH), font_height_(0), font_style_(0), font_number_(
             0) {
-    alternatives = 0;
-    numOfAltern = 0;
     prev = next = 0;
+}
+
+void CEDChar::addAlternative(const LETTER& letter) {
+    alternatives_.push_back(letter);
+}
+
+LETTER CEDChar::alternativeAt(size_t pos) const {
+    return alternatives_.at(pos);
+}
+
+size_t CEDChar::alternativeCount() const {
+    return alternatives_.size();
 }
 
 Color CEDChar::backgroundColor() const {
@@ -35,6 +45,10 @@ Color CEDChar::backgroundColor() const {
 
 Color CEDChar::foregroundColor() const {
     return fground_color_;
+}
+
+bool CEDChar::hasAlternatives() const {
+    return !alternatives_.empty();
 }
 
 bool CEDChar::isPicture() const {
@@ -67,7 +81,7 @@ int CEDChar::parentNumber() const {
 }
 
 int CEDChar::pictureNumber() const {
-    if(!isPicture())
+    if (!isPicture())
         return -1;
     assert(fontNumber() >= ED_PICT_BASE);
     return fontNumber() - ED_PICT_BASE;
@@ -75,6 +89,10 @@ int CEDChar::pictureNumber() const {
 
 Rect& CEDChar::rBoundingRect() {
     return bbox_;
+}
+
+void CEDChar::setAlternative(const LETTER& letter, size_t pos) {
+    alternatives_.at(pos) = letter;
 }
 
 void CEDChar::setBackgroundColor(const Color& color) {

@@ -20,6 +20,8 @@
 #define CEDCHAR_H_
 
 #include <iostream>
+#include <vector>
+
 #include "globus.h"
 #include "ced_struct.h"
 #include "common/color.h"
@@ -34,6 +36,22 @@ class FUN_EXPO__ CEDChar
 {
     public:
         CEDChar();
+
+        /**
+         * Adds alternative to char
+         */
+        void addAlternative(const LETTER& alt);
+
+        /**
+         * Returns alternative at given position
+         * @throw std::out_of_range - if @a pos is wrong
+         */
+        LETTER alternativeAt(size_t pos) const;
+
+        /**
+         * Returns number of alternatives
+         */
+        size_t alternativeCount() const;
 
         /**
          * Returns char background color
@@ -71,6 +89,11 @@ class FUN_EXPO__ CEDChar
         Color foregroundColor() const;
 
         /**
+         * Checks if char has alternative
+         */
+        bool hasAlternatives() const;
+
+        /**
          * Checks if picture
          */
         bool isPicture() const;
@@ -90,6 +113,12 @@ class FUN_EXPO__ CEDChar
          * Returns reference to character bounding rectangle
          */
         Rect& rBoundingRect();
+
+        /**
+         * Sets character alternative
+         * @throw std::out_of_range - if @a pos invalid
+         */
+        void setAlternative(const LETTER& letter, size_t pos);
 
         /**
          * Sets background color
@@ -150,8 +179,6 @@ class FUN_EXPO__ CEDChar
         void setParentNumber(int number);
 
         CEDChar * prev, *next; //pointer to neighbor elements in connected list
-        letterEx * alternatives; //array of alternatives
-        int numOfAltern;
     private:
         //layout of symbol in input image (in pixel)
         Rect bbox_;
@@ -163,6 +190,8 @@ class FUN_EXPO__ CEDChar
         int font_height_;
         int font_style_;
         int font_number_;
+        typedef std::vector<LETTER> AlternativeList;
+        AlternativeList alternatives_;
 };
 
 std::ostream& operator<<(std::ostream& os, const CEDChar& chr);

@@ -465,10 +465,14 @@ void NewFormattedL(const letter* pt, const uint32_t alternatives) {
      lin=mainPage->GetCurSection()->GetCurParagraph()->InsertLine();//In case of wrong 'ed', such that symbols are before the definition of line
      */
     CEDChar *chr = lin->insertChar();
-    letterEx * lpData = new letterEx[alternatives];
-    memcpy(lpData, (void*) pt, alternatives * sizeof(letterEx));
-    chr->alternatives = /*(letter*)*/lpData;
-    chr->numOfAltern = alternatives;
+
+    for (uint i = 0; i < alternatives; i++) {
+        LETTER lt;
+        lt.alternative = pt[i].bType;
+        lt.probability = pt[i].bAttrib;
+        chr->addAlternative(lt);
+    }
+
     chr->setBoundingRect(refBox);
     chr->setFontHeight(kegl);
     chr->setFontStyle(font);
@@ -727,9 +731,9 @@ void PrintPara(FILE *stream, Handle para)
             CEDChar * chr = line->charAt(c);
 
             if (!chr->isPicture())
-                fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
+                fprintf(stream, "%c", chr->alternativeAt(0).alternative);
             else
-                fprintf(stream, "\\pict%d\\", chr->fontNumber() - ED_PICT_BASE);
+                fprintf(stream, "\\pict%d\\", chr->pictureNumber());
         }
 
         fprintf(stream, "\n");
@@ -1070,10 +1074,13 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
                             goto ED_WRITE_END;
                     }
 
-                    if (chr->alternatives) {
-                        if (!CFIO_WriteToFile(hFile, (pchar) chr->alternatives, chr->numOfAltern
-                                * sizeof(letterEx)))
-                            goto ED_WRITE_END;
+                    if (chr->hasAlternatives()) {
+                        for (size_t i = 0; i < chr->alternativeCount(); i++) {
+                            LETTER letter = chr->alternativeAt(i);
+
+                            if (!CFIO_WriteToFile(hFile, (pchar) &letter, sizeof(letter)))
+                                goto ED_WRITE_END;
+                        }
                     }
 
                     else {

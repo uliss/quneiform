@@ -102,11 +102,12 @@ DEC_FUN(void, CED_Extention, (const edExtention* pt, const void* ptExt))
 DEC_FUN(void, CED_ExtentionNew, (const edExtentionNew* pt, const void* ptExt))
 #undef DEC_FUN
 
-struct lin {
-    CEDChar * beg, *end;
-    int number, frameNum, x, ident;
-    Bool32 ParaBegin;
-    CEDLine * line;
+struct lin
+{
+        CEDChar * beg, *end;
+        int number, frameNum, x, ident;
+        Bool32 ParaBegin;
+        CEDLine * line;
 };
 
 static CEDPage * mainPage;
@@ -136,8 +137,7 @@ void FormattedLang(const EdTagLanguage* pt);
 void StripLines();
 void RecreateFrames();
 
-CEDPage * Formattedload_96(char * file, Bool32 readFromFile, uint32_t bufLen)
-{
+CEDPage * Formattedload_96(char * file, Bool32 readFromFile, uint32_t bufLen) {
     return 0;
     CED_SheetDiskDescr = FormattedSDD;
     CED_TextRef = FormattedTR;
@@ -162,8 +162,7 @@ CEDPage * Formattedload_96(char * file, Bool32 readFromFile, uint32_t bufLen)
     verInfo = 0;
     CED_ReadED(file, readFromFile, bufLen);
 
-    if (verInfo && memcmp(verInfo,
-                          "\nVer 96.2 (C) Cognitive Technologies Ltd.\n", 40) == 0) {
+    if (verInfo && memcmp(verInfo, "\nVer 96.2 (C) Cognitive Technologies Ltd.\n", 40) == 0) {
         StripLines();
         RecreateFrames();
         delete[] verInfo;
@@ -177,13 +176,11 @@ CEDPage * Formattedload_96(char * file, Bool32 readFromFile, uint32_t bufLen)
     return mainPage;
 }
 
-void FormattedLang(const EdTagLanguage* pt)
-{
+void FormattedLang(const EdTagLanguage* pt) {
     lang = pt->language;
 }
 
-void FormattedSDD(const sheet_disk_descr* pt)
-{
+void FormattedSDD(const sheet_disk_descr* pt) {
     level = 0;
     mainPage->setImageDpi(CIF::Size(pt->resolution, pt->resolution));
     mainPage->setPageNumber(pt->sheet_numb);
@@ -192,8 +189,7 @@ void FormattedSDD(const sheet_disk_descr* pt)
     mainPage->InsertSection();
 }
 
-void FormattedFDD(const fragm_disk_descr* pt)
-{
+void FormattedFDD(const fragm_disk_descr* pt) {
     edBox bx;
     bx.x = pt->col;
     bx.y = pt->row;
@@ -207,17 +203,15 @@ void FormattedFDD(const fragm_disk_descr* pt)
     sect->CreateFrame(sect->columnsCur, bx);
 }
 
-void FormattedE(const edExtention* pt, const void* ptExt)
-{
+void FormattedE(const edExtention* pt, const void* ptExt) {
     switch (pt->Ecode) {
-        case 0:
-            verInfo = new char[pt->length - sizeof(edExtention)];
-            memcpy(verInfo, ptExt, pt->length - sizeof(edExtention));
-            break;
+    case 0:
+        verInfo = new char[pt->length - sizeof(edExtention)];
+        memcpy(verInfo, ptExt, pt->length - sizeof(edExtention));
+        break;
     }
 }
-void FormattedTR(const text_ref* pt)
-{
+void FormattedTR(const text_ref* pt) {
     if (TRPosition == TRLen) {
         text_ref * qq = new text_ref[TRLen + 1000];
         memcpy(qq, TRarray, TRLen * sizeof(text_ref));
@@ -231,159 +225,155 @@ void FormattedTR(const text_ref* pt)
     TRPosition++;
 
     switch (pt->type) {
-            /*  case SSR_FRAG_TYPE:
-             level=2;
-             {
-             if(pt->object==TP_MCOL_BEG||pt->object==TP_MCOL_END)
-             {
-             if(mainPage->GetCurSection()&&
-             mainPage->GetCurSection()->numberOfColumns==1&&
-             mainPage->GetCurSection()->GetColumn(0)->GetFirstObject()==0)
-             break;
-             (mainPage->InsertSection())->CreateColumn(0,0);
-             break;
-             }
-             if (pt->object==TP_NEW_COL)
-             {
-             if (mainPage->GetCurSection())
-             mainPage->GetCurSection()->CreateColumn(0,0);
-             break;
-             }
-             if(mainPage->GetSection(0)==0)
-             (mainPage->InsertSection())->CreateColumn(0,0);;
-             mainPage->GetCurSection()->InsertParagraph();
-             if (pt->object&(TP_LEFT_ALLIGN|TP_RIGHT_ALLIGN|TP_CENTER))
-             mainPage->GetCurSection()->GetCurParagraph()->alignment=pt->object;
-             break;
+    /*  case SSR_FRAG_TYPE:
+     level=2;
+     {
+     if(pt->object==TP_MCOL_BEG||pt->object==TP_MCOL_END)
+     {
+     if(mainPage->GetCurSection()&&
+     mainPage->GetCurSection()->numberOfColumns==1&&
+     mainPage->GetCurSection()->GetColumn(0)->GetFirstObject()==0)
+     break;
+     (mainPage->InsertSection())->CreateColumn(0,0);
+     break;
+     }
+     if (pt->object==TP_NEW_COL)
+     {
+     if (mainPage->GetCurSection())
+     mainPage->GetCurSection()->CreateColumn(0,0);
+     break;
+     }
+     if(mainPage->GetSection(0)==0)
+     (mainPage->InsertSection())->CreateColumn(0,0);;
+     mainPage->GetCurSection()->InsertParagraph();
+     if (pt->object&(TP_LEFT_ALLIGN|TP_RIGHT_ALLIGN|TP_CENTER))
+     mainPage->GetCurSection()->GetCurParagraph()->alignment=pt->object;
+     break;
 
-             }
-             case SSR_FRAG_PNUM:
-             level=2;
-             //     mainPage->GetCurSection()->numberOfColumns=pt->object-1;
-             break;
-             case SSR_FRAG_N:
-             level=2;
-             mainPage->GetCurSection()->GetCurParagraph()->userNumber=pt->object;
-             break;
-             case SSR_FRAG_X:
-             level=2;
-             mainPage->GetCurSection()->GetCurParagraph()->layout.x=pt->object;
-             break;
-             case SSR_FRAG_W:
-             level=2;
-             mainPage->GetCurSection()->GetCurParagraph()->layout.w=pt->object;
-             break;
-             case SSR_FRAG_Y:
-             level=2;
-             mainPage->GetCurSection()->GetCurParagraph()->layout.y=pt->object;
-             break;
-             case SSR_FRAG_H:
-             level=2;
-             mainPage->GetCurSection()->GetCurParagraph()->layout.h=pt->object;
-             break;
+     }
+     case SSR_FRAG_PNUM:
+     level=2;
+     //     mainPage->GetCurSection()->numberOfColumns=pt->object-1;
+     break;
+     case SSR_FRAG_N:
+     level=2;
+     mainPage->GetCurSection()->GetCurParagraph()->userNumber=pt->object;
+     break;
+     case SSR_FRAG_X:
+     level=2;
+     mainPage->GetCurSection()->GetCurParagraph()->layout.x=pt->object;
+     break;
+     case SSR_FRAG_W:
+     level=2;
+     mainPage->GetCurSection()->GetCurParagraph()->layout.w=pt->object;
+     break;
+     case SSR_FRAG_Y:
+     level=2;
+     mainPage->GetCurSection()->GetCurParagraph()->layout.y=pt->object;
+     break;
+     case SSR_FRAG_H:
+     level=2;
+     mainPage->GetCurSection()->GetCurParagraph()->layout.h=pt->object;
+     break;
 
-             case SSR_LINE_INDENT:
-             mainPage->GetCurSection()->GetCurParagraph()->ident.top=pt->object;
-             break;
+     case SSR_LINE_INDENT:
+     mainPage->GetCurSection()->GetCurParagraph()->ident.top=pt->object;
+     break;
 
-             case SSR_FRAG_END:
-             mainPage->SetCurSection(0);
-             mainPage->GetCurSection()->SetCurParagraph(0);
-             */
-        case SSR_LINE_NUMBER:
+     case SSR_FRAG_END:
+     mainPage->SetCurSection(0);
+     mainPage->GetCurSection()->SetCurParagraph(0);
+     */
+    case SSR_LINE_NUMBER:
 
-            if (arPosition == arLen) {
-                lin * qq = new lin[arLen + 1000];
-                memcpy(qq, array, arLen * sizeof(lin));
-                delete[] array;
-                array = qq;
-                arLen += 1000;
-            }
+        if (arPosition == arLen) {
+            lin * qq = new lin[arLen + 1000];
+            memcpy(qq, array, arLen * sizeof(lin));
+            delete[] array;
+            array = qq;
+            arLen += 1000;
+        }
 
-            CEDLine *line =
-                mainPage->GetCurSection()->GetCurParagraph()->GetCurLine();
-            array[arPosition].beg = 0;
+        CEDLine *line = mainPage->GetCurSection()->GetCurParagraph()->GetCurLine();
+        array[arPosition].beg = 0;
 
-            if (line->currentChar())
-                array[arPosition].beg = line->currentChar();
+        if (line->currentChar())
+            array[arPosition].beg = line->currentChar();
 
-            else {
-                if (line->internalNumber() != 0) {
-                    CEDLine *ww = line->prev();
+        else {
+            if (line->internalNumber() != 0) {
+                CEDLine *ww = line->prev();
 
-                    while (ww && !ww->first())
-                        ww = ww->prev();
+                while (ww && !ww->first())
+                    ww = ww->prev();
 
-                    if (ww) {
-                        CEDChar *qq = ww->first();
+                if (ww) {
+                    CEDChar *qq = ww->first();
 
-                        while (qq->next)
-                            qq = qq->next;
+                    while (qq->next)
+                        qq = qq->next;
 
-                        array[arPosition].beg = qq;
-                    }
+                    array[arPosition].beg = qq;
                 }
             }
+        }
 
-            array[arPosition].number = pt->object;
-            int i;
+        array[arPosition].number = pt->object;
+        int i;
 
-            for (i = TRPosition - 1; i >= 0 && TRarray[i].type != SSR_LINE_FN; i--)
+        for (i = TRPosition - 1; i >= 0 && TRarray[i].type != SSR_LINE_FN; i--)
+            ;
+
+        if (i >= 0 && TRarray[i].type == SSR_LINE_FN)
+            array[arPosition].frameNum = TRarray[i].object;
+
+        for (i = TRPosition - 1; i >= 0 && TRarray[i].type != SSR_LINE_FN && TRarray[i].type
+                != SSR_LINE_X; i--)
+            ;
+
+        if (i >= 0 && TRarray[i].type == SSR_LINE_X)
+            array[arPosition].x = /*(signed short int)*/TRarray[i].object;
+
+        else
+            array[arPosition].x = 0;
+
+        for (i = TRPosition - 1; i >= 0 && TRarray[i].type != SSR_LINE_FN && TRarray[i].type
+                != SSR_LINE_PARAGRAPH; i--)
+            ;
+
+        if (i >= 0 && TRarray[i].type == SSR_LINE_PARAGRAPH) {
+            array[arPosition].ParaBegin = TRarray[i].object;
+
+            for (i = TRPosition - 1; i >= 0 && TRarray[i].type != SSR_LINE_FN && TRarray[i].type
+                    != SSR_LINE_INDENT; i--)
                 ;
 
-            if (i >= 0 && TRarray[i].type == SSR_LINE_FN)
-                array[arPosition].frameNum = TRarray[i].object;
-
-            for (i = TRPosition - 1; i >= 0 && TRarray[i].type != SSR_LINE_FN
-                    && TRarray[i].type != SSR_LINE_X; i--)
-                ;
-
-            if (i >= 0 && TRarray[i].type == SSR_LINE_X)
-                array[arPosition].x = /*(signed short int)*/TRarray[i].object;
+            if (i >= 0 && TRarray[i].type == SSR_LINE_INDENT)
+                array[arPosition].ident = TRarray[i].object;
 
             else
-                array[arPosition].x = 0;
+                array[arPosition].ident = 0;
+        }
 
-            for (i = TRPosition - 1; i >= 0 && TRarray[i].type != SSR_LINE_FN
-                    && TRarray[i].type != SSR_LINE_PARAGRAPH; i--)
-                ;
+        else
+            array[arPosition].ParaBegin = FALSE;
 
-            if (i >= 0 && TRarray[i].type == SSR_LINE_PARAGRAPH) {
-                array[arPosition].ParaBegin = TRarray[i].object;
-
-                for (i = TRPosition - 1; i >= 0 && TRarray[i].type != SSR_LINE_FN
-                        && TRarray[i].type != SSR_LINE_INDENT; i--)
-                    ;
-
-                if (i >= 0 && TRarray[i].type == SSR_LINE_INDENT)
-                    array[arPosition].ident = TRarray[i].object;
-
-                else
-                    array[arPosition].ident = 0;
-            }
-
-            else
-                array[arPosition].ParaBegin = FALSE;
-
-            arPosition++;
-            break;
+        arPosition++;
+        break;
     }
 }
 
-void FormattedFD(const fragm_disk* pt)
-{
+void FormattedFD(const fragm_disk* pt) {
 }
 
-void FormattedLB(const line_beg* pt)
-{
+void FormattedLB(const line_beg* pt) {
     if (!mainPage->GetCurSection())
         mainPage->InsertSection()->CreateColumn();//In case of wrong 'ed', such that symbols are before the definition of fragment
 
     mainPage->GetCurSection()->GetCurParagraph()->InsertLine();
 }
 
-void FormattedL(const letter* pt, const uint32_t alternatives)
-{
+void FormattedL(const letter* pt, const uint32_t alternatives) {
     if (!mainPage->GetCurSection())
         mainPage->InsertSection()->CreateColumn();//In case of wrong 'ed', such that symbols are before the definition of fragment
 
@@ -393,34 +383,33 @@ void FormattedL(const letter* pt, const uint32_t alternatives)
         lin = mainPage->GetCurSection()->GetCurParagraph()->InsertLine();//In case of wrong 'ed', such that symbols are before the definition of line
 
     CEDChar *chr = lin->insertChar();
-    //  char * lpData = (char *)malloc(alternatives*sizeof(letter));
-    letterEx * lpData = new letterEx[alternatives];
-    memcpy(lpData, (void*) pt, alternatives * sizeof(letterEx));
-    chr->alternatives = /*(letter*)*/lpData;
-    chr->numOfAltern = alternatives;
+    for (size_t i = 0; i < alternatives; i++) {
+        LETTER letter;
+        letter.alternative = pt[i].bType;
+        letter.probability = pt[i].bAttrib;
+        chr->addAlternative(letter);
+    }
+
     chr->setBoundingRect(refBox);
     chr->setFontHeight(kegl);
     chr->setFontStyle(font);
 }
 
-void FormattedBMR(const bit_map_ref * pt)
-{
+void FormattedBMR(const bit_map_ref * pt) {
     refBox.h = pt->height;
     refBox.w = pt->width;
     refBox.x = pt->col;
     refBox.y = pt->row;
 }
 
-void FormattedFK(const font_kegl * pt)
-{
+void FormattedFK(const font_kegl * pt) {
     font = pt->new_font;
     kegl = pt->new_kegl;
 }
 
 int compare(const void *arg1, const void *arg2);
 
-void StripLines()
-{
+void StripLines() {
     int i;
     CEDChar* ch;
 
@@ -468,29 +457,25 @@ void StripLines()
     mainPage->GetCurSection()->GetCurParagraph()->numOfLines = 0;
 
     for (i = 0; i < arPosition; i++) {
-        CEDLine *ll =
-            mainPage->GetCurSection()->GetCurParagraph()->InsertLine();
+        CEDLine *ll = mainPage->GetCurSection()->GetCurParagraph()->InsertLine();
         array[i].line = ll;
         ll->setCurrentChar(array[i].beg);
         ll->setFirst(array[i].beg);
 
-        for (CEDChar * cc = array[i].beg; cc && cc != array[i].end->next; cc
-                = cc->next) {
+        for (CEDChar * cc = array[i].beg; cc && cc != array[i].end->next; cc = cc->next) {
             cc->setParentNumber(i);
             ll->char_number_++;
         }
     }
 }
-int compare(const void *arg1, const void *arg2)
-{
+int compare(const void *arg1, const void *arg2) {
     if (((lin*) arg1)->frameNum == ((lin*) arg2)->frameNum)
         return ((lin*) arg1)->number - ((lin*) arg2)->number;
 
     else
         return ((lin*) arg1)->frameNum - ((lin*) arg2)->frameNum;
 }
-void RecreateFrames()
-{
+void RecreateFrames() {
     //save first line
     CEDLine *ll = mainPage->GetLine(0);
 
@@ -524,29 +509,25 @@ void RecreateFrames()
 
     //cycle over all text_remark-s up to the end of file description
     for (i = 0; i < TRPosition && TRarray[i].type != SSR_FRAG_END; i++) {
-        if (TRarray[i].type == SSR_FRAG_TYPE && (TRarray[i].object
-                                                 == TP_MCOL_BEG))
+        if (TRarray[i].type == SSR_FRAG_TYPE && (TRarray[i].object == TP_MCOL_BEG))
             (mainPage->InsertSection())->CreateColumn();
 
-        if (TRarray[i].type == SSR_FRAG_TYPE && TRarray[i].object == TP_NEW_COL
-                && !inTable)
+        if (TRarray[i].type == SSR_FRAG_TYPE && TRarray[i].object == TP_NEW_COL && !inTable)
             (mainPage->GetCurSection())->CreateColumn();
 
-        if (TRarray[i].type == SSR_FRAG_TYPE && (TRarray[i].object
-                                                 == TP_TAB_BEG)) {
+        if (TRarray[i].type == SSR_FRAG_TYPE && (TRarray[i].object == TP_TAB_BEG)) {
             inTable = TRUE;
             edBox bx;
             bx.h = bx.w = bx.x = bx.y = -1;
             //          if (!mainPage->GetCurSection())
             //new table is always in a new section
             mainPage->InsertSection()->CreateColumn();
-            table = mainPage->GetCurSection()->CreateTable(
-                        mainPage->GetCurSection()->columnsCur/*,
+            table = mainPage->GetCurSection()->CreateTable(mainPage->GetCurSection()->columnsCur/*,
              sz,q1,q2,q3,q4,q5*/);
-            row = mainPage->GetCurSection()->CreateTableRow(table, 0, 0, -1,
-                                                            -1, -1, -1, -1, -1, -1, -1, -1, 0, FALSE);
-            cell = mainPage->GetCurSection()->CreateCell(row, -1, -1, -1, -1,
-                                                         -1, -1, -1, -1, -1, -1, -1, bx, -1, -1);
+            row = mainPage->GetCurSection()->CreateTableRow(table, 0, 0, -1, -1, -1, -1, -1, -1,
+                    -1, -1, -1, 0, FALSE);
+            cell = mainPage->GetCurSection()->CreateCell(row, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                    -1, -1, bx, -1, -1);
             firstCell = TRUE;//in order to change its width
             numOfCols = -1;//this means: when we find relevant amount of columns, we memorize them
         }
@@ -562,24 +543,21 @@ void RecreateFrames()
             borders[borNum++] = (int16_t) TRarray[i].object;
         }
 
-        if (TRarray[i].type == SSR_FRAG_TYPE && TRarray[i].object == TP_NEW_ROW
-                && inTable) {
+        if (TRarray[i].type == SSR_FRAG_TYPE && TRarray[i].object == TP_NEW_ROW && inTable) {
             edBox bx;
             bx.h = bx.w = bx.x = bx.y = -1;
-            cell = mainPage->GetCurSection()->CreateTableRow(table, 0, 0, -1,
-                                                             -1, -1, -1, -1, -1, -1, -1, -1, 0, FALSE);
+            cell = mainPage->GetCurSection()->CreateTableRow(table, 0, 0, -1, -1, -1, -1, -1, -1,
+                    -1, -1, -1, 0, FALSE);
         }
 
-        if (TRarray[i].type == SSR_FRAG_TYPE && TRarray[i].object == TP_NEW_COL
-                && inTable) {
+        if (TRarray[i].type == SSR_FRAG_TYPE && TRarray[i].object == TP_NEW_COL && inTable) {
             edBox bx;
             bx.h = bx.w = bx.x = bx.y = -1;
-            cell = mainPage->GetCurSection()->CreateCell(row, -1, -1, -1, -1,
-                                                         -1, -1, -1, -1, -1, -1, -1, bx, -1, -1);
+            cell = mainPage->GetCurSection()->CreateCell(row, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                    -1, -1, bx, -1, -1);
         }
 
-        if (TRarray[i].type == SSR_FRAG_TYPE && (TRarray[i].object
-                                                 == TP_MCOL_END) && inTable) {
+        if (TRarray[i].type == SSR_FRAG_TYPE && (TRarray[i].object == TP_MCOL_END) && inTable) {
             int k;
             //renew info in a table header
             edSize sz;
@@ -611,16 +589,14 @@ void RecreateFrames()
             CEDParagraph* para;
 
             //force paragraphs bounding a section to be invisible to function GetParagraph( in order for them to coincide with a file by paragraph number)
-            for (para = table->prev; para
-                    != ((edTabDescr*) (table->descriptor))->last->next; para
+            for (para = table->prev; para != ((edTabDescr*) (table->descriptor))->last->next; para
                     = para->next)
                 para->internalNumber--;
 
             para->internalNumber -= 2;
         }
 
-        if ((TRarray[i].type == SSR_FRAG_TYPE) && ((TRarray[i].object
-                                                    & TP_BRACKET) == 0)) {
+        if ((TRarray[i].type == SSR_FRAG_TYPE) && ((TRarray[i].object & TP_BRACKET) == 0)) {
             edSize sz;
             edBox bx;
             Rect rct;
@@ -654,13 +630,12 @@ void RecreateFrames()
                 bx.w = TRarray[j].object;
 
             if (!inTable)
-                mainPage->GetCurSection()->CreateParagraph(
-                    mainPage->GetCurSection()->columnsCur, -1, rct, -1, -1,
-                    sz, bx, -1, -1, -1, -1, -1);
+                mainPage->GetCurSection()->CreateParagraph(mainPage->GetCurSection()->columnsCur,
+                        -1, rct, -1, -1, sz, bx, -1, -1, -1, -1, -1);
 
             else
-                mainPage->GetCurSection()->CreateParagraph(cell, -1, rct, -1,
-                                                           -1, sz, bx, -1, -1, -1, -1, -1);
+                mainPage->GetCurSection()->CreateParagraph(cell, -1, rct, -1, -1, sz, bx, -1, -1,
+                        -1, -1, -1);
         }
     }
 
@@ -681,14 +656,14 @@ void RecreateFrames()
     int fn = array[0].frameNum;
     CEDParagraph * par = mainPage->GetParagraph(array[0].frameNum);
     par->indent.rleft() = par->indent.rtop() = (array[0].x - par->layout.x) * 1440
-                                         / mainPage->imageDpi().width();
+            / mainPage->imageDpi().width();
 
     for (i = 0; i < arPosition; i++) {
         if (array[i].frameNum != fn) {
             fn = array[i].frameNum;
             par = mainPage->GetParagraph(array[i].frameNum + inc);
-            par->indent.rleft() = par->indent.rtop() = (array[i].x - par->layout.x)
-                                                 * 1440 / mainPage->imageDpi().width();
+            par->indent.rleft() = par->indent.rtop() = (array[i].x - par->layout.x) * 1440
+                    / mainPage->imageDpi().width();
         }
 
         if (array[i].ParaBegin) {

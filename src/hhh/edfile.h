@@ -275,6 +275,9 @@ struct letter {
 };
 
 typedef struct letterEx {
+    public:
+        letterEx(uchar alt = 0, uchar prob = 0): alternative(alt), probability(prob) {}
+
     uchar alternative; //  ASCII code.  >= ' '.
     uchar probability;
 } LETTER;

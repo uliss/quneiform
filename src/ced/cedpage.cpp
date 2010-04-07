@@ -52,10 +52,6 @@ CEDPage::~CEDPage() {
 
     while (ch1) {
         ch = ch1->next;
-
-        if (ch1->alternatives)
-            delete[] ch1->alternatives;
-
         delete ch1;
         ch1 = ch;
     }

@@ -383,9 +383,9 @@ CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterE
     chr->setFontHeight(fontHeight);
     chr->setBoundingRect(layout);
 
-    int i = 0;
-
     if (alternatives != 0) {
+        int i = 0;
+
         while (alternatives[i].probability & 1 == 1) {
             if (alternatives[i].alternative < ' ')
                 alternatives[i].alternative = ' ';
@@ -393,19 +393,20 @@ CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterE
             i++;
         }
 
-        chr->numOfAltern = i + 1;
-        chr->alternatives = new letterEx[i + 1];
-        memcpy(chr->alternatives, alternatives, (i + 1) * sizeof(letterEx));
+        for (int j = 0; j < (i + 1); j++) {
+            LETTER lt = alternatives[j];
+            chr->addAlternative(lt);
+        }
     }
 
     else {
-        chr->numOfAltern = 1;
-        chr->alternatives = new letterEx[1];
-        chr->alternatives[0].alternative = ' ';
-        chr->alternatives[0].probability = 254;
+        LETTER lt;
+        lt.alternative = ' ';
+        lt.probability = 254;
+        chr->addAlternative(lt);
     }
 
-    return (Handle) chr;
+    return chr;
 }
 
 //get description of page
@@ -843,10 +844,6 @@ CED_FUNC(Bool32) CED_GetParaBorders(Handle hEdParagraph, int* leftBrdrType, int*
         *brdrBtw = ((CEDParagraph*) hEdParagraph)->brdrBtw;
 
     return TRUE;
-}
-
-CED_FUNC(struct) letterEx* CED_GetAlternatives(Handle hEdChar) {
-    return ((CEDChar*) hEdChar)->alternatives;
 }
 
 CED_FUNC(Bool32) CED_WriteFormattedRtf(const char * fileName, Handle hEdPage) {
