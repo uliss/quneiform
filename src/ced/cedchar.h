@@ -56,6 +56,11 @@ class FUN_EXPO__ CEDChar
         language_t fontLanguage() const;
 
         /**
+         * Returns font number in page table of fonts
+         */
+        int fontNumber() const;
+
+        /**
          * Returns font style
          */
         int fontStyle() const;
@@ -75,6 +80,11 @@ class FUN_EXPO__ CEDChar
          * @see setParentNumber()
          */
         int parentNumber() const;
+
+        /**
+         * Returns picture number or -1 is it not a picture
+         */
+        int pictureNumber() const;
 
         /**
          * Returns reference to character bounding rectangle
@@ -113,6 +123,11 @@ class FUN_EXPO__ CEDChar
         void setFontLanguage(language_t lang);
 
         /**
+         * Sets font number
+         */
+        void setFontNumber(int number);
+
+        /**
          * Sets font style
          */
         void setFontStyle(int style);
@@ -135,19 +150,19 @@ class FUN_EXPO__ CEDChar
         void setParentNumber(int number);
 
         CEDChar * prev, *next; //pointer to neighbor elements in connected list
-        int fontNum;
         letterEx * alternatives; //array of alternatives
         int numOfAltern;
     private:
         //layout of symbol in input image (in pixel)
         Rect bbox_;
         int parent_number_;
-        int font_height_;
-        language_t font_lang_;
         Color fground_color_;
         Color bground_color_;
         //font parameters
+        language_t font_lang_;
+        int font_height_;
         int font_style_;
+        int font_number_;
 };
 
 std::ostream& operator<<(std::ostream& os, const CEDChar& chr);

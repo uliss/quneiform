@@ -253,11 +253,6 @@ class GenericExporter: public Exporter
         std::string pictureName(CEDChar * picture);
 
         /**
-         * Returns picture number
-         */
-        static int pictureNumber(CEDChar * picture);
-
-        /**
          * Resets font styles
          */
         void resetFontStyle(std::ostream& os);

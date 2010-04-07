@@ -472,7 +472,7 @@ void NewFormattedL(const letter* pt, const uint32_t alternatives) {
     chr->setBoundingRect(refBox);
     chr->setFontHeight(kegl);
     chr->setFontStyle(font);
-    chr->fontNum = fontNum;
+    chr->setFontNumber(fontNum);
     chr->setFontLanguage(static_cast<language_t> (lang));
     chr->setBackgroundColor(backgroundColor);
     chr->setForegroundColor(foregroundColor);
@@ -727,9 +727,9 @@ void PrintPara(FILE *stream, Handle para)
             CEDChar * chr = line->charAt(c);
 
             if (!chr->isPicture())
-            fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
+                fprintf(stream, "%c", CED_GetAlternatives(chr)[0].alternative);
             else
-            fprintf(stream, "\\pict%d\\", chr->fontNum - ED_PICT_BASE);
+                fprintf(stream, "\\pict%d\\", chr->fontNumber() - ED_PICT_BASE);
         }
 
         fprintf(stream, "\n");
@@ -993,7 +993,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
             goto ED_WRITE_END;
 
         charParams chp;
-        chp.fontNumber = fontNum = tmpChr->fontNum;
+        chp.fontNumber = fontNum = tmpChr->fontNumber();
         foregroundColor = tmpChr->foregroundColor();
         chp.foregroundColor = foregroundColor.toT<int> ();
         backgroundColor = tmpChr->backgroundColor();
@@ -1048,10 +1048,10 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
                             goto ED_WRITE_END;
                     }
 
-                    if (chr->fontNum != fontNum || chr->foregroundColor() != foregroundColor
+                    if (chr->fontNumber() != fontNum || chr->foregroundColor() != foregroundColor
                             || chr->backgroundColor() != backgroundColor) {
                         charParams chp;
-                        chp.fontNumber = fontNum = chr->fontNum;
+                        chp.fontNumber = fontNum = chr->fontNumber();
                         foregroundColor = chr->foregroundColor();
                         chp.foregroundColor = foregroundColor.toT<int> ();
                         backgroundColor = chr->backgroundColor();

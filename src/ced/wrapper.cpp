@@ -375,7 +375,7 @@ CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterE
         int fontHeight, int fontNum, int fontAttribs, language_t fontLang, int foregroundColor,
         int backgroundColor) {
     CEDChar *chr = ((CEDLine*) hEdLine)->insertChar();
-    chr->fontNum = fontNum;
+    chr->setFontNumber(fontNum);
     chr->setForegroundColor(Color::fromT<int>(foregroundColor));
     chr->setBackgroundColor(Color::fromT<int>(backgroundColor));
     chr->setFontLanguage(fontLang);

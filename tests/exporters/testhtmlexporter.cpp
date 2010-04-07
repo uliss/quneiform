@@ -286,7 +286,7 @@ void TestHtmlExporter::testFontStyleClose() {
 
 void TestHtmlExporter::testExportPicture() {
     CEDChar * pict = new CEDChar;
-    pict->fontNum = ED_PICT_BASE;
+    pict->font_number_ = ED_PICT_BASE;
 
     std::stringstream buf;
     exp_->os_ = &buf;

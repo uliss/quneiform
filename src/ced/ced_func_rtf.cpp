@@ -118,7 +118,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
     rtf->RtfInTable = FALSE;
     rtf->page = this;
     rtf->PrevChar.setFontHeight(24);
-    rtf->PrevChar.fontNum = -1;
+    rtf->PrevChar.setFontNumber(-1);
     rtf->PrevChar.setForegroundColor(Color::null());
     rtf->PrevChar.setBackgroundColor(Color::null());
     rtf->table = new int[rtf->page->fontsUsed];
@@ -416,13 +416,13 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
             // since it is the symbol outside of a line
             if (j == LastCol || len == MAX_LEN || (prvCh && (prvCh->fontHeight()
                     != chr->fontHeight() || prvCh->fontStyle() != chr->fontStyle()
-                    || prvCh->fontNum != chr->fontNum)) || chr->isPicture()) {
+                    || prvCh->fontNumber() != chr->fontNumber())) || chr->isPicture()) {
                 if (!WriteRtfText(rtf, ptr, len))
                     return FALSE; // write text
 
                 if (j < LastCol && prvCh && (!chr->isPicture()) && (prvCh->fontHeight()
                         != chr->fontHeight() || prvCh->fontStyle() != chr->fontStyle()
-                        || prvCh->fontNum != chr->fontNum)) { // write font change
+                        || prvCh->fontNumber() != chr->fontNumber())) { // write font change
                     if (!WriteRtfCharFmt(rtf, chr))
                         return FALSE;
                 }
@@ -436,7 +436,7 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
             // write picture and parabreak
             if (chr && chr->isPicture()) {
                 for (int pict = 0; pict < rtf->page->picsUsed; pict++) {
-                    if (rtf->page->picsTable[pict].pictNumber == chr->fontNum - ED_PICT_BASE) {
+                    if (rtf->page->picsTable[pict].pictNumber == chr->fontNumber() - ED_PICT_BASE) {
                         if (rtf->page->picsTable[pict].type == 1) {
                             if (!WriteRtfDIB(rtf, pict))
                                 return FALSE;
@@ -867,7 +867,7 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
     // extract value for comparison
     if (prevChar > 0) {
         //       strcpy(PrevTypeFace,TerFont[PrevFont].TypeFace);
-        PrevFamily = rtf->table[rtf->page->GetFontByNum(prevChar->fontNum)];
+        PrevFamily = rtf->table[rtf->page->GetFontByNum(prevChar->fontNumber())];
         PrevStyle = prevChar->fontStyle();
         PrevTextColor = prevChar->foregroundColor();
         PrevTextBkColor = prevChar->backgroundColor();
@@ -888,7 +888,7 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
     }
 
     //    strcpy(CurTypeFace,TerFont[CurFont].TypeFace);
-    CurFamily = rtf->table[rtf->page->GetFontByNum(curChar->fontNum)];
+    CurFamily = rtf->table[rtf->page->GetFontByNum(curChar->fontNumber())];
     CurStyle = curChar->fontStyle();
     CurTextColor = curChar->foregroundColor();
     CurTextBkColor = curChar->backgroundColor();

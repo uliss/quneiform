@@ -358,16 +358,8 @@ CEDPage * GenericExporter::page() {
 std::string GenericExporter::pictureName(CEDChar * picture) {
     assert(picture);
     std::ostringstream buf;
-    buf << "image_" << pictureNumber(picture) << "." << imageExporter()->extension();
+    buf << "image_" << picture->pictureNumber() << "." << imageExporter()->extension();
     return buf.str();
-}
-
-int GenericExporter::pictureNumber(CEDChar * picture) {
-    assert(picture);
-    if (picture->fontNum < ED_PICT_BASE)
-        throw Exception("[GenericExporter::pictureNumber] not valid picture");
-
-    return picture->fontNum - ED_PICT_BASE;
 }
 
 void GenericExporter::resetFontStyle(std::ostream& os) {
@@ -399,7 +391,7 @@ void GenericExporter::savePictureData(CEDChar * picture, const std::string& path
                 &pict_type, // Тип = 1 (DIB)
                 &pict_data, // Адрес DIB включая заголовок
                 &pict_length // Длина DIB включая заголовок
-        ) && pict_user_num == pictureNumber(picture)) {
+        ) && pict_user_num == picture->pictureNumber()) {
             if (!pict_data || pict_length <= 0) {
                 throw Exception("[GenericExporter::savePicture] failed");
             }
@@ -428,7 +420,7 @@ void GenericExporter::savePictureData(CEDChar * picture, std::ostream& os) {
                 &pict_type, // Тип = 1 (DIB)
                 &pict_data, // Адрес DIB включая заголовок
                 &pict_length // Длина DIB включая заголовок
-        ) && pict_user_num == pictureNumber(picture)) {
+        ) && pict_user_num == picture->pictureNumber()) {
             if (!pict_data || pict_length <= 0) {
                 throw Exception("[GenericExporter::savePicture] failed");
             }
