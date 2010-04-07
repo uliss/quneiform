@@ -99,6 +99,11 @@ class FUN_EXPO__ CEDChar
         bool isPicture() const;
 
         /**
+         * Returns pointer to next char
+         */
+        CEDChar * next();
+
+        /**
          * Returns character parent number
          * @see setParentNumber()
          */
@@ -173,12 +178,25 @@ class FUN_EXPO__ CEDChar
         void setForegroundColor(int color);
 
         /**
+         * Sets pointer to next char
+         * In next char pointer to previous set to @b this
+         */
+        void setNext(CEDChar * next);
+
+        /**
          * Sets character parent number
          * @see parentNumber()
          */
         void setParentNumber(int number);
 
-        CEDChar * prev, *next; //pointer to neighbor elements in connected list
+        /**
+         * Sets pointer to previous char
+         * In pointed char member next set to this
+         */
+        void setPrev(CEDChar * prev);
+
+        //pointer to neighbor elements in connected list
+        CEDChar * prev;
     private:
         //layout of symbol in input image (in pixel)
         Rect bbox_;
@@ -192,6 +210,7 @@ class FUN_EXPO__ CEDChar
         int font_number_;
         typedef std::vector<LETTER> AlternativeList;
         AlternativeList alternatives_;
+        CEDChar *next_;
 };
 
 std::ostream& operator<<(std::ostream& os, const CEDChar& chr);

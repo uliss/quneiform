@@ -310,8 +310,8 @@ void FormattedTR(const text_ref* pt) {
                 if (ww) {
                     CEDChar *qq = ww->first();
 
-                    while (qq->next)
-                        qq = qq->next;
+                    while (qq->next())
+                        qq = qq->next();
 
                     array[arPosition].beg = qq;
                 }
@@ -415,13 +415,13 @@ void StripLines() {
 
     for (i = 0; i < arPosition - 1; i++) {
         array[i].end = array[i + 1].beg;
-        array[i].beg = array[i].beg != 0 ? array[i].beg->next : 0;
+        array[i].beg = array[i].beg != 0 ? array[i].beg->next() : 0;
     }
 
-    for (ch = array[i].beg; ch && ch->next; ch = ch->next)
+    for (ch = array[i].beg; ch && ch->next(); ch = ch->next())
         ;
 
-    array[i].beg = array[i].beg != 0 ? array[i].beg->next : 0;
+    array[i].beg = array[i].beg != 0 ? array[i].beg->next() : 0;
     array[i].end = ch;
 
     //If line started before the first symbol (or even some amount of empty lines):
@@ -439,11 +439,10 @@ void StripLines() {
     qsort((void *) array, (size_t) arPosition, sizeof(lin), compare);
 
     for (i = 0; i < arPosition - 1; i++) {
-        (array[i].end)->next = array[i + 1].beg;
-        array[i + 1].beg->prev = array[i].end;
+        array[i].end->setNext(array[i + 1].beg);
     }
 
-    array[i].end->next = 0;
+    array[i].end->setNext(NULL);
     CEDLine * li1, *li;
     li1 = li = mainPage->GetLine(0);
 
@@ -462,7 +461,7 @@ void StripLines() {
         ll->setCurrentChar(array[i].beg);
         ll->setFirst(array[i].beg);
 
-        for (CEDChar * cc = array[i].beg; cc && cc != array[i].end->next; cc = cc->next) {
+        for (CEDChar * cc = array[i].beg; cc && cc != array[i].end->next(); cc = cc->next()) {
             cc->setParentNumber(i);
             ll->char_number_++;
         }

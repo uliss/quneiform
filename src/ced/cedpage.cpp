@@ -51,7 +51,7 @@ CEDPage::~CEDPage() {
     ch1 = ch = GetChar(0);
 
     while (ch1) {
-        ch = ch1->next;
+        ch = ch1->next();
         delete ch1;
         ch1 = ch;
     }
@@ -302,7 +302,7 @@ CEDChar * CEDPage::GetChar(int _num) {
     int num = 0;
     CEDChar* ss;
 
-    for (ss = qq ? qq->chars : 0; ss && num != _num; ss = ss->next)
+    for (ss = qq ? qq->chars : 0; ss && num != _num; ss = ss->next())
         num++;
 
     return ss;
@@ -369,8 +369,8 @@ Bool32 CEDPage::GoToNextChar() {
 
     if (curSect && curSect->curPara && curSect->curPara->curLine
             && curSect->curPara->curLine->currentChar() && (ww
-            = curSect->curPara->curLine->currentChar()->next)) {
-        CEDLine * aa = GetLine(curSect->curPara->curLine->currentChar()->next->parentNumber());
+            = curSect->curPara->curLine->currentChar()->next())) {
+        CEDLine * aa = GetLine(curSect->curPara->curLine->currentChar()->next()->parentNumber());
         CEDParagraph *qq = GetParagraph(aa->parentNumber());
         CEDSection * ss = section(qq->parentNumber);
         curSect = ss;
@@ -416,7 +416,7 @@ int CEDPage::GetNumberOfChars() {
 
     int i = 0;
 
-    for (CEDChar *qq = GetChar(0); qq->next; qq = qq->next)
+    for (CEDChar *qq = GetChar(0); qq->next(); qq = qq->next())
         i++;
 
     return i + 1;

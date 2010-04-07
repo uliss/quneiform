@@ -91,13 +91,8 @@ CEDChar * CEDLine::insertChar() {
     chr->setParentNumber(internal_number_);
 
     if (current_char_) {
-        chr->next = current_char_->next;
-
-        if (chr->next)
-            (chr->next)->prev = chr;
-
-        current_char_->next = chr;
-        chr->prev = current_char_;
+        chr->setNext(current_char_->next());
+        chr->setPrev(current_char_);
     }
 
     else {
@@ -110,11 +105,10 @@ CEDChar * CEDLine::insertChar() {
         if (ww) {
             CEDChar *qq = ww->chars;
 
-            while (qq->next)
-                qq = qq->next;
+            while (qq->next())
+                qq = qq->next();
 
-            qq->next = chr;
-            chr->prev = qq;
+            qq->setNext(chr);
         }
 
         ww = next_;
@@ -124,8 +118,8 @@ CEDChar * CEDLine::insertChar() {
 
         if (ww) {
             CEDChar *qq = ww->chars;
-            qq->prev = chr;
-            chr->next = qq;
+
+            qq->setPrev(chr);
         }
     }
 
@@ -137,7 +131,7 @@ CEDChar * CEDLine::setCurrentChar(int _number) {
     int num = 0;
     CEDChar* chr = chars;
 
-    for (; chr && num != _number; chr = chr->next)
+    for (; chr && num != _number; chr = chr->next())
         num++;
 
     setCurrentChar(chr);
@@ -145,11 +139,11 @@ CEDChar * CEDLine::setCurrentChar(int _number) {
 }
 
 CEDChar * CEDLine::nextChar() {
-    if (!current_char_ || !current_char_->next)
+    if (!current_char_ || !current_char_->next())
         return NULL;
 
-    if (current_char_->next->parentNumber() == current_char_->parentNumber())
-        return current_char_->next;
+    if (current_char_->next()->parentNumber() == current_char_->parentNumber())
+        return current_char_->next();
     else
         return NULL;
 }
@@ -168,7 +162,7 @@ CEDChar* CEDLine::charAt(unsigned int _num) {
     unsigned int num = 0;
     CEDChar* chr = chars;
 
-    for (; chr && num != _num; chr = chr->next)
+    for (; chr && num != _num; chr = chr->next())
         num++;
 
     return chr;

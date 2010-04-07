@@ -260,7 +260,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
                                 CEDChar * c = l->chars;
 
                                 //the same for symbol
-                                if (c && ((!c->next) || c->next->parentNumber()
+                                if (c && ((!c->next()) || c->next()->parentNumber()
                                         != c->parentNumber()) && c->isPicture())
                                     rtf->wrtFrmSz = FALSE;
                             }
@@ -2825,7 +2825,7 @@ Bool WriteRtfColor(StrRtfOut*rtf, Bool head) {
         TotalColors = rtf->TotalColors; // total number of colors in the table
 
     // scan the font table
-    for (CEDChar * ch = rtf->page->GetChar(0); ch; ch = ch->next) {
+    for (CEDChar * ch = rtf->page->GetChar(0); ch; ch = ch->next()) {
         // fill the text foreground color
         for (j = 0; j < TotalColors; j++) { // scan the color table
             if (ch->foregroundColor() == color[j].color)
