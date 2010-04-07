@@ -415,13 +415,13 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
             //in the next if we primarily need last call check
             // since it is the symbol outside of a line
             if (j == LastCol || len == MAX_LEN || (prvCh && (prvCh->fontHeight()
-                    != chr->fontHeight() || prvCh->fontAttribs != chr->fontAttribs
+                    != chr->fontHeight() || prvCh->fontStyle() != chr->fontStyle()
                     || prvCh->fontNum != chr->fontNum)) || chr->isPicture()) {
                 if (!WriteRtfText(rtf, ptr, len))
                     return FALSE; // write text
 
                 if (j < LastCol && prvCh && (!chr->isPicture()) && (prvCh->fontHeight()
-                        != chr->fontHeight() || prvCh->fontAttribs != chr->fontAttribs
+                        != chr->fontHeight() || prvCh->fontStyle() != chr->fontStyle()
                         || prvCh->fontNum != chr->fontNum)) { // write font change
                     if (!WriteRtfCharFmt(rtf, chr))
                         return FALSE;
@@ -868,7 +868,7 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
     if (prevChar > 0) {
         //       strcpy(PrevTypeFace,TerFont[PrevFont].TypeFace);
         PrevFamily = rtf->table[rtf->page->GetFontByNum(prevChar->fontNum)];
-        PrevStyle = prevChar->fontAttribs;
+        PrevStyle = prevChar->fontStyle();
         PrevTextColor = prevChar->foregroundColor();
         PrevTextBkColor = prevChar->backgroundColor();
         PrevPointSize = prevChar->fontHeight(); // store as twice the point size
@@ -889,7 +889,7 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
 
     //    strcpy(CurTypeFace,TerFont[CurFont].TypeFace);
     CurFamily = rtf->table[rtf->page->GetFontByNum(curChar->fontNum)];
-    CurStyle = curChar->fontAttribs;
+    CurStyle = curChar->fontStyle();
     CurTextColor = curChar->foregroundColor();
     CurTextBkColor = curChar->backgroundColor();
     //    CurFieldId=TerFont[CurFont].FieldId;

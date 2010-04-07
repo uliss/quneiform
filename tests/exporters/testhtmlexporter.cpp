@@ -192,17 +192,17 @@ void TestHtmlExporter::testExportCharacter() {
 void TestHtmlExporter::testBold() {
     exp_->formatOptions().useBold(true);
 
-    c_->fontAttribs = FONT_BOLD;
+    c_->font_style_ = FONT_BOLD;
     ASSERT_CHAR_WRITE('d', "<b>d");
-    c_->fontAttribs = 0;
+    c_->font_style_ = 0;
     ASSERT_CHAR_WRITE_CLEAR('e', "<b>d</b>e");
 
     exp_->formatOptions().useBold(false);
     CPPUNIT_ASSERT(!exp_->formatOptions().isBoldUsed());
 
-    c_->fontAttribs = FONT_BOLD;
+    c_->font_style_ = FONT_BOLD;
     ASSERT_CHAR_WRITE('d', "d");
-    c_->fontAttribs = 0;
+    c_->font_style_ = 0;
     ASSERT_CHAR_WRITE('e', "de");
 
     exp_->formatOptions().useBold(true);
@@ -211,68 +211,68 @@ void TestHtmlExporter::testBold() {
 void TestHtmlExporter::testItalic() {
     exp_->formatOptions().useItalic(true);
 
-    c_->fontAttribs = FONT_ITALIC;
+    c_->font_style_ = FONT_ITALIC;
     ASSERT_CHAR_WRITE('1', "<i>1");
-    c_->fontAttribs = 0;
+    c_->font_style_ = 0;
     ASSERT_CHAR_WRITE_CLEAR('2', "<i>1</i>2");
 
     exp_->formatOptions().useItalic(false);
     CPPUNIT_ASSERT(!exp_->formatOptions().isItalicUsed());
 
-    c_->fontAttribs = FONT_ITALIC;
+    c_->font_style_ = FONT_ITALIC;
     ASSERT_CHAR_WRITE('1', "1");
-    c_->fontAttribs = 0;
+    c_->font_style_ = 0;
     ASSERT_CHAR_WRITE('2', "12");
 
     exp_->formatOptions().useItalic(true);
 }
 
 void TestHtmlExporter::testUnderlined() {
-    c_->fontAttribs = FONT_UNDERLINE;
+    c_->font_style_ = FONT_UNDERLINE;
     ASSERT_CHAR_WRITE('1', "<u>1");
-    c_->fontAttribs = 0;
+    c_->font_style_ = 0;
     ASSERT_CHAR_WRITE('2', "<u>1</u>2");
 }
 
 void TestHtmlExporter::testSub() {
     exp_->formatOptions().useFontSize(true);
-    c_->fontAttribs = FONT_SUB;
+    c_->font_style_ = FONT_SUB;
     ASSERT_CHAR_WRITE('1', "<sub>1");
-    c_->fontAttribs = 0;
+    c_->font_style_ = 0;
     ASSERT_CHAR_WRITE('2', "<sub>1</sub>2");
 }
 
 void TestHtmlExporter::testSuper() {
     exp_->formatOptions().useFontSize(true);
-    c_->fontAttribs = FONT_SUPER;
+    c_->font_style_ = FONT_SUPER;
     ASSERT_CHAR_WRITE('1', "<sup>1");
-    c_->fontAttribs = 0;
+    c_->font_style_ = 0;
     ASSERT_CHAR_WRITE('2', "<sup>1</sup>2");
 }
 
 void TestHtmlExporter::testMixed() {
     exp_->formatOptions().useFontSize(true);
-    c_->fontAttribs = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB;
+    c_->font_style_ = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB;
     ASSERT_CHAR_WRITE('1', "<i><u><sub>1");
-    c_->fontAttribs = 0;
+    c_->font_style_ = 0;
     ASSERT_CHAR_WRITE_CLEAR('2', "<i><u><sub>1</sub></u></i>2");
 
-    c_->fontAttribs = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB | FONT_SUPER;
+    c_->font_style_ = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB | FONT_SUPER;
     ASSERT_CHAR_WRITE('1', "<i><u><sub><sup>1");
-    c_->fontAttribs = 0;
+    c_->font_style_ = 0;
     ASSERT_CHAR_WRITE('2', "<i><u><sub><sup>1</sup></sub></u></i>2");
-    c_->fontAttribs = FONT_UNDERLINE;
+    c_->font_style_ = FONT_UNDERLINE;
     ASSERT_CHAR_WRITE_CLEAR('3', "<i><u><sub><sup>1</sup></sub></u></i>2<u>3");
 
     {
         exp_->previous_style_ = 0;
-        c_->fontAttribs = FONT_BOLD | FONT_ITALIC;
+        c_->font_style_ = FONT_BOLD | FONT_ITALIC;
         ASSERT_CHAR_WRITE('1', "<b><i>1");
-        c_->fontAttribs = FONT_SUB | FONT_ITALIC;
+        c_->font_style_ = FONT_SUB | FONT_ITALIC;
 
         // TODO uliss
         //ASSERT_CHAR_WRITE('2', "<b><i>1</i></b><i><sub>2");
-        c_->fontAttribs = FONT_UNDERLINE;
+        c_->font_style_ = FONT_UNDERLINE;
         //ASSERT_CHAR_WRITE('3', "<i><b>1</b><sub>2</sub></i><u>3");
     }
 

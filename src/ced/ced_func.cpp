@@ -471,7 +471,7 @@ void NewFormattedL(const letter* pt, const uint32_t alternatives) {
     chr->numOfAltern = alternatives;
     chr->setBoundingRect(refBox);
     chr->setFontHeight(kegl);
-    chr->fontAttribs = font;
+    chr->setFontStyle(font);
     chr->fontNum = fontNum;
     chr->setFontLanguage(static_cast<language_t> (lang));
     chr->setBackgroundColor(backgroundColor);
@@ -986,7 +986,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
     if (tmpChr) {
         font_kegl fk;
         fk.code = SS_FONT_KEGL;
-        font = fk.new_font = tmpChr->fontAttribs;
+        font = fk.new_font = tmpChr->fontStyle();
         kegl = fk.new_kegl = tmpChr->fontHeight();
 
         if (!CFIO_WriteToFile(hFile, (pchar) &fk, sizeof(fk)))
@@ -1038,10 +1038,10 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
                     if (!CFIO_WriteToFile(hFile, (pchar) (&bmr), sizeof(bmr)))
                         goto ED_WRITE_END;
 
-                    if (chr->fontHeight() != kegl || chr->fontAttribs != font) {
+                    if (chr->fontHeight() != kegl || chr->fontStyle() != font) {
                         font_kegl fk;
                         fk.code = SS_FONT_KEGL;
-                        font = fk.new_font = chr->fontAttribs;
+                        font = fk.new_font = chr->fontStyle();
                         kegl = fk.new_kegl = chr->fontHeight();
 
                         if (!CFIO_WriteToFile(hFile, (pchar) &fk, sizeof(fk)))

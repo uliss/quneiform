@@ -400,7 +400,7 @@ void FormattedL(const letter* pt, const uint32_t alternatives)
     chr->numOfAltern = alternatives;
     chr->setBoundingRect(refBox);
     chr->setFontHeight(kegl);
-    chr->fontAttribs = font;
+    chr->setFontStyle(font);
 }
 
 void FormattedBMR(const bit_map_ref * pt)

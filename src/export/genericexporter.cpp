@@ -120,7 +120,7 @@ void GenericExporter::exportChar(CEDChar * chr) {
 
         writeFontStyle(*os_, chr);
         writeCharacter(*os_, chr);
-        previous_style_ = chr->fontAttribs;
+        previous_style_ = chr->fontStyle();
     }
 }
 
@@ -496,8 +496,8 @@ void GenericExporter::writeColumnEnd(std::ostream& /*os*/, CEDParagraph * /*col*
 
 void GenericExporter::writeFontStyle(std::ostream& os, CEDChar * c) {
     assert(c);
-    styleList style_off = styleEnd(previous_style_, c->fontAttribs);
-    styleList style_on = styleBegin(previous_style_, c->fontAttribs);
+    styleList style_off = styleEnd(previous_style_, c->fontStyle());
+    styleList style_on = styleBegin(previous_style_, c->fontStyle());
 
     for (styleList::iterator it = style_off.begin(), end = style_off.end(); it != end; ++it)
         writeFontStyleEnd(os, *it);

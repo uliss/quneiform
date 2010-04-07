@@ -56,6 +56,11 @@ class FUN_EXPO__ CEDChar
         language_t fontLanguage() const;
 
         /**
+         * Returns font style
+         */
+        int fontStyle() const;
+
+        /**
          * Returns char foreground color
          */
         Color foregroundColor() const;
@@ -108,6 +113,11 @@ class FUN_EXPO__ CEDChar
         void setFontLanguage(language_t lang);
 
         /**
+         * Sets font style
+         */
+        void setFontStyle(int style);
+
+        /**
          * Sets foreground color
          * @see foregroundColor()
          */
@@ -125,7 +135,6 @@ class FUN_EXPO__ CEDChar
         void setParentNumber(int number);
 
         CEDChar * prev, *next; //pointer to neighbor elements in connected list
-        int fontAttribs; //font parameters
         int fontNum;
         letterEx * alternatives; //array of alternatives
         int numOfAltern;
@@ -137,6 +146,8 @@ class FUN_EXPO__ CEDChar
         language_t font_lang_;
         Color fground_color_;
         Color bground_color_;
+        //font parameters
+        int font_style_;
 };
 
 std::ostream& operator<<(std::ostream& os, const CEDChar& chr);

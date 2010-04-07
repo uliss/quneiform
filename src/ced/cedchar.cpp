@@ -23,7 +23,7 @@ namespace CIF
 
 CEDChar::CEDChar() :
     parent_number_(0), font_height_(0), font_lang_(LANGUAGE_ENGLISH) {
-    fontNum = fontAttribs = fontNum = 0;
+    fontNum = font_style_ = fontNum = 0;
     alternatives = 0;
     numOfAltern = 0;
     prev = next = 0;
@@ -51,6 +51,10 @@ int CEDChar::fontHeight() const {
 
 language_t CEDChar::fontLanguage() const {
     return font_lang_;
+}
+
+int CEDChar::fontStyle() const {
+    return font_style_;
 }
 
 int CEDChar::parentNumber() const {
@@ -82,6 +86,10 @@ void CEDChar::setFontHeight(int height) {
 
 void CEDChar::setFontLanguage(language_t lang) {
     font_lang_ = lang;
+}
+
+void CEDChar::setFontStyle(int style) {
+    font_style_ = style;
 }
 
 void CEDChar::setForegroundColor(const Color& color) {
