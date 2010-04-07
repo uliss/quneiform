@@ -115,6 +115,11 @@ class FUN_EXPO__ CEDChar
         int pictureNumber() const;
 
         /**
+         * Returns pointer to previous char
+         */
+        CEDChar * prev();
+
+        /**
          * Returns reference to character bounding rectangle
          */
         Rect& rBoundingRect();
@@ -194,9 +199,6 @@ class FUN_EXPO__ CEDChar
          * In pointed char member next set to this
          */
         void setPrev(CEDChar * prev);
-
-        //pointer to neighbor elements in connected list
-        CEDChar * prev;
     private:
         //layout of symbol in input image (in pixel)
         Rect bbox_;
@@ -210,7 +212,9 @@ class FUN_EXPO__ CEDChar
         int font_number_;
         typedef std::vector<LETTER> AlternativeList;
         AlternativeList alternatives_;
+        //pointers to neighbor elements in connected list
         CEDChar *next_;
+        CEDChar * prev_;
 };
 
 std::ostream& operator<<(std::ostream& os, const CEDChar& chr);

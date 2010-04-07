@@ -44,7 +44,7 @@ void TestCedLine::testInsertChar() {
     CPPUNIT_ASSERT_EQUAL(chr, ln.first());
     CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
     CPPUNIT_ASSERT(0 == chr->next());
-    CPPUNIT_ASSERT(0 == chr->prev);
+    CPPUNIT_ASSERT(0 == chr->prev());
 
     CEDChar * chr2 = ln.insertChar();
     CPPUNIT_ASSERT(chr2);
@@ -55,9 +55,9 @@ void TestCedLine::testInsertChar() {
     CPPUNIT_ASSERT_EQUAL(chr2, ln.currentChar());
     CPPUNIT_ASSERT_EQUAL(chr, ln.first());
     CPPUNIT_ASSERT_EQUAL(chr2, chr->next());
-    CPPUNIT_ASSERT_EQUAL(chr, chr2->prev);
+    CPPUNIT_ASSERT_EQUAL(chr, chr2->prev());
     CPPUNIT_ASSERT(0 == chr2->next());
-    CPPUNIT_ASSERT(0 == chr->prev);
+    CPPUNIT_ASSERT(0 == chr->prev());
 
     ln.setCurrentChar(0);
 
@@ -71,8 +71,8 @@ void TestCedLine::testInsertChar() {
     CPPUNIT_ASSERT_EQUAL(chr3, ln.currentChar());
     CPPUNIT_ASSERT_EQUAL(chr, ln.first());
     CPPUNIT_ASSERT_EQUAL(chr3, chr->next());
-    CPPUNIT_ASSERT_EQUAL(chr, chr3->prev);
-    CPPUNIT_ASSERT_EQUAL(chr3, chr2->prev);
+    CPPUNIT_ASSERT_EQUAL(chr, chr3->prev());
+    CPPUNIT_ASSERT_EQUAL(chr3, chr2->prev());
     CPPUNIT_ASSERT_EQUAL(chr2, chr3->next());
 
     delete chr;

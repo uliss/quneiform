@@ -149,11 +149,11 @@ CEDChar * CEDLine::nextChar() {
 }
 
 CEDChar * CEDLine::prevChar() {
-    if (!current_char_ || !current_char_->prev)
+    if (!current_char_ || !current_char_->prev())
         return NULL;
 
-    if (current_char_->prev->parentNumber() == current_char_->parentNumber())
-        return current_char_->prev;
+    if (current_char_->prev()->parentNumber() == current_char_->parentNumber())
+        return current_char_->prev();
     else
         return NULL;
 }
