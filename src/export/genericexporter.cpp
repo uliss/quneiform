@@ -24,6 +24,7 @@
 #include "ced/cedint.h"
 #include "ced/cedline.h"
 #include "ced/cedchar.h"
+#include "ced/ced_struct.h"
 #include "common/debug.h"
 #include "common/cifconfig.h"
 #include "cfcompat.h"
@@ -58,7 +59,7 @@ GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
     Exporter(opts), page_(page), no_pictures_(false), os_(NULL), num_chars_(0), num_columns_(0),
             num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
             num_tables_(0), table_nesting_level_(0), skip_empty_paragraphs_(false),
-            skip_empty_lines_(false), previous_style_(0) {
+            skip_empty_lines_(false), previous_style_(0), current_picture_(NULL) {
 
     if (isCharsetConversion())
         converter_.open(inputEncoding(), outputEncoding());
@@ -355,6 +356,30 @@ CEDPage * GenericExporter::page() {
     return page_;
 }
 
+pictEntry * GenericExporter::pictureEntry(CEDChar * picture) const {
+    assert(page_);
+    assert(picture);
+
+    int picture_num = picture->pictureNumber();
+
+    if (picture_num < 0)
+        throw Exception("[CEDPage::pictureEntry] not a picture given");
+
+    pictEntry * res = page_->findPictureByNumber(picture_num);
+
+    if (!res) {
+        std::ostringstream msg;
+        msg << "[GenericExporter::savePictureData] picture with number " << picture_num
+                << " not found\n";
+        throw Exception(msg.str());
+    }
+
+    if (!res->data || res->len <= 0)
+        throw Exception("[GenericExporter::savePicture] failed");
+
+    return res;
+}
+
 std::string GenericExporter::pictureName(CEDChar * picture) {
     assert(picture);
     std::ostringstream buf;
@@ -376,61 +401,15 @@ std::string GenericExporter::savePicture(CEDChar * picture) {
 }
 
 void GenericExporter::savePictureData(CEDChar * picture, const std::string& path) {
-    int pict_user_num = 0;
-    int pict_align = 0;
-    int pict_type = 0;
-    int pict_length = 0;
-    EDSIZE pict_goal;
-    void * pict_data = 0;
-
-    for (int i = 0; i < page_->picsUsed; i++) {
-        if (CED_GetPicture(page_, i, &pict_user_num, // Пользовательский номер
-                last_picture_size_, // Размер картинки в TIFF-файле в пикселах
-                &pict_goal, // Размер картинки на экране в twips
-                &pict_align, // Вертикальное расположение
-                &pict_type, // Тип = 1 (DIB)
-                &pict_data, // Адрес DIB включая заголовок
-                &pict_length // Длина DIB включая заголовок
-        ) && pict_user_num == picture->pictureNumber()) {
-            if (!pict_data || pict_length <= 0) {
-                throw Exception("[GenericExporter::savePicture] failed");
-            }
-        }
-    }
-
-    if (!pict_data || pict_length <= 0)
-        throw Exception("[GenericExporter::savePictureData] failed");
-
-    imageExporter()->save(pict_data, pict_length, path);
+    current_picture_ = pictureEntry(picture);
+    assert(current_picture_);
+    imageExporter()->save(current_picture_->data, current_picture_->len, path);
 }
 
 void GenericExporter::savePictureData(CEDChar * picture, std::ostream& os) {
-    int pict_user_num = 0;
-    int pict_align = 0;
-    int pict_type = 0;
-    int pict_length = 0;
-    EDSIZE pict_goal;
-    void * pict_data = 0;
-
-    for (int i = 0; i < page_->picsUsed; i++) {
-        if (CED_GetPicture(page_, i, &pict_user_num, // Пользовательский номер
-                last_picture_size_, // Размер картинки в TIFF-файле в пикселах
-                &pict_goal, // Размер картинки на экране в twips
-                &pict_align, // Вертикальное расположение
-                &pict_type, // Тип = 1 (DIB)
-                &pict_data, // Адрес DIB включая заголовок
-                &pict_length // Длина DIB включая заголовок
-        ) && pict_user_num == picture->pictureNumber()) {
-            if (!pict_data || pict_length <= 0) {
-                throw Exception("[GenericExporter::savePicture] failed");
-            }
-        }
-    }
-
-    if (!pict_data || pict_length <= 0)
-        throw Exception("[GenericExporter::savePictureData] failed");
-
-    imageExporter()->save(pict_data, pict_length, os);
+    current_picture_ = pictureEntry(picture);
+    assert(current_picture_);
+    imageExporter()->save(current_picture_->data, current_picture_->len, os);
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {

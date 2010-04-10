@@ -73,8 +73,8 @@
 #define     TAB_END         (7|FICTIVE)
 #define     TAB_ROW_BEGIN   (8|FICTIVE)
 
-
-namespace CIF {
+namespace CIF
+{
 class CEDChar;
 class CEDPage;
 class CEDSection;
@@ -145,8 +145,9 @@ typedef struct fontEntry
         char* fontName;
 } FONTENTRY;
 
-typedef struct pictEntry
+class pictEntry
 {
+    public:
         uint16_t pictNumber;
         CIF::Size pictSize;
         EDSIZE pictGoal;
@@ -154,8 +155,7 @@ typedef struct pictEntry
         uchar type;
         uint32_t len;
         void* data;
-} PICTENTRY;
-
+};
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c
 DEC_FUN(Bool32, CED_FormattedWrite, ( const char * fileName, CIF::CEDPage *page));
 DEC_FUN(CIF::CEDPage*, CED_FormattedLoad, (char * file, Bool32 readFromFile, uint32_t bufLen));

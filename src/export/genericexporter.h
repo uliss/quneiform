@@ -24,6 +24,8 @@
 #include "common/size.h"
 #include "common/iconv_local.h"
 
+class pictEntry;
+
 namespace CIF
 {
 
@@ -248,6 +250,12 @@ class GenericExporter: public Exporter
         CEDPage * page();
 
         /**
+         * Returns pointer to picture entry
+         * @throw Exception if entry not founds
+         */
+        pictEntry * pictureEntry(CEDChar * picture) const;
+
+        /**
          * Makes picture filename
          */
         std::string pictureName(CEDChar * picture);
@@ -407,7 +415,7 @@ class GenericExporter: public Exporter
         int previous_style_;
     protected:
         Iconv converter_;
-        Size last_picture_size_;
+        pictEntry * current_picture_;
 };
 
 }

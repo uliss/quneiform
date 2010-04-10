@@ -125,6 +125,15 @@ void CEDPage::clearSections() {
     section_num_ = 0;
 }
 
+pictEntry * CEDPage::findPictureByNumber(int number) const {
+    for (size_t i = 0; i < picsCreated; i++) {
+        if (picsTable[i].pictNumber == number)
+            return &picsTable[i];
+    }
+
+    return NULL;
+}
+
 Size CEDPage::imageDpi() const {
     return image_dpi_;
 }
@@ -155,6 +164,17 @@ int CEDPage::pageNumber() const {
 
 Size CEDPage::pageSize() const {
     return page_size_in_twips_;
+}
+
+size_t CEDPage::pictureCount() const {
+    assert(picsCreated >= 0);
+    return picsCreated;
+}
+
+pictEntry * CEDPage::pictureAt(size_t pos) const {
+    if (pos >= pictureCount())
+        throw std::out_of_range("[CEDPage::pictureAt] wrong picture number");
+    return &picsTable[pos];
 }
 
 void CEDPage::setImageDpi(const Size& dpi) {

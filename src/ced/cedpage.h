@@ -33,6 +33,12 @@ class FUN_EXPO__ CEDPage
         void clearSections();
 
         /**
+         * Returns pointer to picture by given picture number
+         * @return NULL if nothing found
+         */
+        pictEntry * findPictureByNumber(int number) const;
+
+        /**
          * Returns image dpi
          * @see setImageDpi()
          */
@@ -76,6 +82,17 @@ class FUN_EXPO__ CEDPage
          * @see setPageSize()
          */
         Size pageSize() const;
+
+        /**
+         * Returns pointer to picture with given number
+         * @throw std::out_of_range if invalid number is given
+         */
+        pictEntry * pictureAt(size_t pos) const;
+
+        /**
+         * Returns count of pictures
+         */
+        size_t pictureCount() const;
 
         /**
          * Returns pointer to section with given number

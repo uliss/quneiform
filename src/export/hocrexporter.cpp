@@ -141,4 +141,9 @@ void HocrExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     line_rect_ = Rect();
 }
 
+void HocrExporter::writePicture(std::ostream& os, CEDChar * picture) {
+    addCharBBox(picture);
+    HtmlExporter::writePicture(os, picture);
+}
+
 }

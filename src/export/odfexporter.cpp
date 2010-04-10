@@ -263,7 +263,6 @@ void OdfExporter::setCommonOdfNamespaces(Tag& tag) const {
     tag["office:version"] = "1.2";
 }
 
-
 void OdfExporter::writeFontStyleBegin(std::ostream& os, int style) {
     //    XmlTag span("text:span");
     //    span["text:style-name"] = fontStyleTag(style);
@@ -274,7 +273,6 @@ void OdfExporter::writeFontStyleEnd(std::ostream& os, int style) {
     //    XmlTag span("text:span");
     //    span.writeEnd(os);
 }
-
 
 void OdfExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
     // skip last line break
@@ -367,8 +365,8 @@ void OdfExporter::writePicture(std::ostream& os, CEDChar * picture) {
         float xdpi = (float) page()->imageDpi().width();
         float ydpi = (float) page()->imageDpi().height();
         assert(0 < xdpi && xdpi < 3000 && 0 < ydpi && ydpi < 3000);
-        frame["svg:width"] = toString((float) last_picture_size_.width() / xdpi) + "in";
-        frame["svg:height"] = toString((float) last_picture_size_.height() / ydpi) + "in";
+        frame["svg:width"] = toString((float) current_picture_->pictSize.width() / xdpi) + "in";
+        frame["svg:height"] = toString((float) current_picture_->pictSize.height() / ydpi) + "in";
 
         frame.writeBeginNL(os);
         os << img << "\n";
