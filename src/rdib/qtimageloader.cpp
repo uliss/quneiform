@@ -85,7 +85,9 @@ ImagePtr QtImageLoader::load(const std::string& path) {
     uchar* pRaster = pDib + sizePalete + sizeInfo;
     memcpy(pRaster, raster.bits(), sizeRaster);
 
-    return ImagePtr(new Image(pDib, dib_size, Image::AllocatorNew));
+    Image * img = new Image(pDib, dib_size, Image::AllocatorNew);
+    img->setSize(Size(image.width(), image.height()));
+    return ImagePtr(img);
 }
 
 ImagePtr QtImageLoader::load(std::istream& is) {

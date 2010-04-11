@@ -23,27 +23,32 @@
 #include <sstream>
 #include "point.h"
 #include "rect.h"
+#include "size.h"
 
 namespace CIF
 {
 
 template<class T>
-std::ostream& operator<<(std::ostream& os, const PointImpl<T>& point)
-{
+std::ostream& operator<<(std::ostream& os, const PointImpl<T>& point) {
     os << "Point(" << point.x() << "," << point.y() << ")";
     return os;
 }
 
 template<class T>
-std::ostream& operator<<(std::ostream& os, const RectImpl<T>& rect)
-{
-    os << "Rect(" << rect.pt0() << ", " << rect.pt1() << ")" << " width:" << rect.width() << "; height:" << rect.height();
+std::ostream& operator<<(std::ostream& os, const RectImpl<T>& rect) {
+    os << "Rect(" << rect.pt0() << ", " << rect.pt1() << ")" << " width:" << rect.width()
+            << "; height:" << rect.height();
     return os;
 }
 
 template<class T>
-std::string toBBox(const RectImpl<T>& rect)
-{
+std::ostream& operator<<(std::ostream& os, const SizeImpl<T>& size) {
+   // os << "Size(" << size.width() << "," << size.height();
+    return os;
+}
+
+template<class T>
+std::string toBBox(const RectImpl<T>& rect) {
     std::ostringstream os;
     os << rect.left() << " " << rect.top() << " " << rect.right() << " " << rect.bottom();
     return os.str();

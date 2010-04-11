@@ -28,7 +28,9 @@ void TestQtImageLoader::testInit() {
 void TestQtImageLoader::testLoad() {
     std::string path = LOADER_TEST_IMAGE_DIR;
     std::auto_ptr<QtImageLoader> loader(new QtImageLoader);
-    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.xpm"));
+    ImagePtr img;
+    CPPUNIT_ASSERT_NO_THROW(img = loader->load(path + "test.xpm"));
+    CPPUNIT_ASSERT(Size(1, 1) == img->size());
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.gif"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.tif"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.jpg"));

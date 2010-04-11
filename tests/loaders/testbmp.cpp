@@ -19,12 +19,15 @@
 #define private public
 #include <rdib/bmpimageloader.h>
 #include <rdib/bmp.h>
+#include <common/tostring.h>
+#include <common/image.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpLoader);
 using namespace CIF;
 
 void TestBmpLoader::testInit() {
     std::auto_ptr<ImageLoader> loader(new BmpImageLoader);
     ImagePtr image = loader->load(LOADER_TEST_IMAGE_DIR + std::string("test.bmp"));
+    CPPUNIT_ASSERT(Size(1, 1) == image->size());
     CPPUNIT_ASSERT_THROW(loader->load(LOADER_TEST_IMAGE_DIR + std::string("test_not_exists.bmp")), ImageLoader::Exception);
     //    test empty stream
     std::stringstream is;

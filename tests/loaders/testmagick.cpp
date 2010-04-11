@@ -21,14 +21,17 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestMagickLoader);
 #include <memory>
 #include <fstream>
 using namespace CIF;
+typedef std::auto_ptr<MagickImageLoader> LoaderPtr;
 void TestMagickLoader::testInit() {
-    std::auto_ptr<MagickImageLoader> loader(new MagickImageLoader);
+    LoaderPtr loader(new MagickImageLoader);
 }
 
 void TestMagickLoader::testLoad() {
     std::string path = LOADER_TEST_IMAGE_DIR;
-    std::auto_ptr<MagickImageLoader> loader(new MagickImageLoader);
-    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.xpm"));
+    LoaderPtr loader(new MagickImageLoader);
+    ImagePtr img;
+    CPPUNIT_ASSERT_NO_THROW(img = loader->load(path + "test.xpm"));
+    CPPUNIT_ASSERT(img->size() == Size(1, 1));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.bmp"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.gif"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.tif"));

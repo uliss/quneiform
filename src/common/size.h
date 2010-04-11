@@ -42,13 +42,11 @@ class SizeImpl
             return height_;
         }
 
-        template<class U>
-        bool operator==(const SizeImpl<U>& sz) {
+        bool operator==(const SizeImpl& sz) {
             return width_ == sz.width() && height_ == sz.height();
         }
 
-        template<class U>
-        bool operator!=(const SizeImpl<U>& sz) {
+        bool operator!=(const SizeImpl& sz) {
             return width_ != sz.width() || height_ != sz.height();
         }
 
