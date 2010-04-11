@@ -91,8 +91,8 @@ ImagePtr BmpImageLoader::load(std::istream& stream) {
         throw ImageLoader::Exception("Unsupported image bit-depth.");
 
     if (Config::instance().debugHigh()) {
-        Debug() << "BmpImageLoader: \n" << "\twidth: " << imageWidth()
-                << "; height:  " << imageHeight() << std::endl;
+        Debug() << "BmpImageLoader: \n" << "\twidth: " << imageWidth() << "; height:  "
+                << imageHeight() << std::endl;
         Debug() << "\tbitcount: " << imageBitCount() << ", stride: " << stride()
                 << ", row stride: " << imageRowStride() << std::endl;
 
@@ -167,7 +167,7 @@ void BmpImageLoader::readBitFieldData(std::istream& stream) {
 
     const int header_offset = BIH_VER3SIZE;
     data_size_ = stride() * image_height + header_offset;
-    data_ = new char[data_size_];
+    data_ = new unsigned char[data_size_];
     uint8_t* data = (uint8_t*) data_ + header_offset;
     uint8_t* row_data = new uint8_t[row_stride];
 
@@ -382,8 +382,8 @@ void BmpImageLoader::readCompressedData(std::istream& stream) {
 
     free(comprbuf);
     data_size_ = info_header_.iSize + uncompr_size;
-    data_ = (char *) malloc(data_size_);
-    char * data = data_ + info_header_.iSize;
+    data_ = (unsigned char *) malloc(data_size_);
+    unsigned char * data = data_ + info_header_.iSize;
     if (!data_) {
         std::cerr << "Can't allocate space for final uncompressed scanline buffer\n";
         if (clr_tbl)
@@ -463,9 +463,9 @@ void BmpImageLoader::readInfoHeaderOs2v1(std::istream& stream) {
 void BmpImageLoader::readUncompressedData(std::istream& stream) {
     data_size_ = (long) streamSize(stream) - sizeof(BMPFileHeader);
     assert(data_size_ > 0);
-    data_ = new char[data_size_];
+    data_ = new unsigned char[data_size_];
     stream.seekg(sizeof(BMPFileHeader));
-    stream.read(data_, data_size_);
+    stream.read((char*) data_, data_size_);
     if (stream.fail())
         throw Exception("BmpImageLoader:: error while read image data");
 }

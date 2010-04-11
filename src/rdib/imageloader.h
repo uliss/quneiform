@@ -23,7 +23,7 @@
 #include <iostream>
 
 #include "common/exception.h"
-#include "image.h"
+#include "common/image.h"
 
 namespace CIF
 {

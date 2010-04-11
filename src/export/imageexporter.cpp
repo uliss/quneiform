@@ -88,23 +88,13 @@ void ImageExporter::setFormat(image_format_t format) {
         format_ = format;
 }
 
-string ImageExporter::outputFilename() const {
-    return output_filename_;
-}
-
-void ImageExporter::save(void * data, size_t dataSize, const string& path) {
-
+void ImageExporter::save(const ImageRawData& image, const string& path) {
     ofstream file;
     file.open(path.c_str(), ios::out | ios::binary | ios::trunc);
     if (!file)
         throw Exception("[ImageExporter::save] failed to: " + path);
 
-    setOutputFilename(path);
-    save(data, dataSize, file);
-}
-
-void ImageExporter::setOutputFilename(const std::string& filename) {
-    output_filename_ = filename;
+    save(image, file);
 }
 
 }

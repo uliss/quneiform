@@ -29,8 +29,23 @@ class MagickImageExporter: public ImageExporter
 {
     public:
         MagickImageExporter(image_format_t format = FORMAT_PNG);
+
+        /**
+         * Returns mime type for exporter format
+         */
         std::string mime() const;
-        void save(void * data, size_t dataSize, std::ostream& os);
+
+        /**
+         * Saves image to output stream
+         * @param image - image data
+         * @param os - output stream
+         */
+        void save(const ImageRawData& image, std::ostream& os);
+
+        /**
+         * Returns list of supported formats
+         * @return
+         */
         FormatList supportedFormats() const;
 };
 

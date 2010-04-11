@@ -31,9 +31,9 @@
 #include "common/exception.h"
 #include "common/memorybuffer.h"
 #include "common/outputformat.h"
+#include "common/image.h"
 #include "cimage/imageinfo.h"
 #include "export/exporter.h"
-#include "rdib/image.h"
 #include "globus.h"
 
 class CTIControl;

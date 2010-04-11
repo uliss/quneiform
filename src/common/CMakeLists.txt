@@ -11,6 +11,7 @@ add_library(cuneiform-common ${LIBTYPE}
     helper.cpp
     iconv.cpp
     iconvimpl.cpp
+    image.cpp
     imagerawdata.cpp
     language.cpp
     outputformat.cpp
@@ -20,6 +21,8 @@ set(COMMON_HEADER_INSTALL "common")
 install(FILES 
     language.h
     exception.h
+    image.h
+    imagerawdata.h
     rect.h
     point.h
     size.h

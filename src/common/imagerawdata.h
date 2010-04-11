@@ -21,6 +21,7 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
+#include <iostream>
 #include "globus.h"
 
 namespace CIF
@@ -68,6 +69,8 @@ class CLA_EXPO ImageRawData: public boost::noncopyable
         allocator_t allocator_;
         size_t size_;
 };
+
+std::ostream& operator<<(std::ostream& os, const ImageRawData& image);
 
 inline bool ImageRawData::isNull() const {
     return data_ == NULL || size_ == 0;

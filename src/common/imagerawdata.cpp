@@ -67,4 +67,9 @@ size_t ImageRawData::size() const {
     return size_;
 }
 
+std::ostream& operator<<(std::ostream& os, const ImageRawData& image) {
+    os.write((char*) image.data(), image.size());
+    return os;
+}
+
 }

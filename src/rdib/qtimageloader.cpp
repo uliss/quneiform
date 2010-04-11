@@ -74,16 +74,15 @@ ImagePtr QtImageLoader::load(const std::string& path) {
     RGBQUAD rgbWhite = { 255, 255, 255, 0 };
     dibInfo.bmiColors[0] = rgbWhite;
 
-
     const int dib_size = sizeInfo + sizePalete + sizeRaster;
-    char* pDib = new char[dib_size];
+    uchar* pDib = new uchar[dib_size];
     memset(pDib, 0x00, dib_size);
     memcpy(pDib, &dibInfo, sizeInfo);
     if (0 != sizePalete) {
         memcpy(pDib + sizeInfo, (const unsigned char*) colorTable.data(), sizePalete);
     }
 
-    char* pRaster = pDib + sizePalete + sizeInfo;
+    uchar* pRaster = pDib + sizePalete + sizeInfo;
     memcpy(pRaster, raster.bits(), sizeRaster);
 
     return ImagePtr(new Image(pDib, dib_size, Image::AllocatorNew));

@@ -18,6 +18,7 @@
 
 #include "testbmpimageexporter.h"
 #include <fstream>
+#include <common/imagerawdata.h>
 #include <export/imageexporter.h>
 #include <export/bmpimageexporter.h>
 #include <rdib/bmpimageloader.h>
@@ -30,14 +31,16 @@ void TestBmpImageExporter::testSave() {
     ImageExporterPtr exp(new BmpImageExporter);
 
     // bad image data
-    CPPUNIT_ASSERT_THROW(exp->save(NULL, 0, os), ImageExporter::Exception);
+    ImageRawData img;
+    CPPUNIT_ASSERT_THROW(exp->save(img, os), ImageExporter::Exception);
 
     // bad stream
     char data[1000];
-    CPPUNIT_ASSERT_THROW(exp->save(data, 1000, os), ImageExporter::Exception);
+    img.set((uchar*) data, 1000, ImageRawData::AllocatorNone);
+    CPPUNIT_ASSERT_THROW(exp->save(img, os), ImageExporter::Exception);
 
     BmpImageLoader loader;
     ImagePtr image = loader.load(EXPORTER_TEST_IMAGE_DIR + std::string("test_in.bmp"));
 
-    exp->save(image->data(), image->size(), "test_out.bmp");
+    exp->save(*image, "test_out.bmp");
 }

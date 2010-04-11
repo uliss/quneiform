@@ -27,6 +27,7 @@
 #include "ced/ced_struct.h"
 #include "common/debug.h"
 #include "common/cifconfig.h"
+#include "common/imagerawdata.h"
 #include "cfcompat.h"
 #include "common/helper.h"
 #include "common/iconv_local.h"
@@ -403,13 +404,17 @@ std::string GenericExporter::savePicture(CEDChar * picture) {
 void GenericExporter::savePictureData(CEDChar * picture, const std::string& path) {
     current_picture_ = pictureEntry(picture);
     assert(current_picture_);
-    imageExporter()->save(current_picture_->data, current_picture_->len, path);
+    ImageRawData raw_image((uchar*) current_picture_->data, current_picture_->len,
+            ImageRawData::AllocatorNone);
+    imageExporter()->save(raw_image, path);
 }
 
 void GenericExporter::savePictureData(CEDChar * picture, std::ostream& os) {
     current_picture_ = pictureEntry(picture);
     assert(current_picture_);
-    imageExporter()->save(current_picture_->data, current_picture_->len, os);
+    ImageRawData raw_image((uchar*) current_picture_->data, current_picture_->len,
+            ImageRawData::AllocatorNone);
+    imageExporter()->save(raw_image, os);
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {

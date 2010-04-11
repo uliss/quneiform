@@ -43,7 +43,6 @@
 #include "dpuma.h"
 #include "exc/exc.h"
 #include "export/exporterfactory.h"
-#include "rdib/image.h"
 #include "rblock/rblock.h"
 #include "rcorrkegl/rcorrkegl.h"
 #include "rfrmt/rfrmt.h"

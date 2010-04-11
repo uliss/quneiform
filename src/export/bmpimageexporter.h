@@ -29,7 +29,7 @@ class BmpImageExporter : public ImageExporter
     public:
         BmpImageExporter();
         std::string mime() const;
-        void save(void * data, size_t dataSize, std::ostream& os);
+        void save(const ImageRawData& image, std::ostream& os);
         FormatList supportedFormats() const;
 };
 

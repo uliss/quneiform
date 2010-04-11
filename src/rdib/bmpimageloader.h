@@ -21,7 +21,7 @@
 
 #include "cttypes.h"
 #include "imageloader.h"
-#include "image.h"
+#include "common/image.h"
 #include "rdib/bmp.h"
 
 namespace CIF
@@ -64,7 +64,7 @@ class BmpImageLoader: public ImageLoader
         uint32_t n_clr_elems;
         uint32_t clr_tbl_size;
         uint8_t * clr_tbl;
-        char * data_;
+        unsigned char * data_;
         int data_size_;
 };
 

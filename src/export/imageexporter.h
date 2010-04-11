@@ -29,6 +29,8 @@
 namespace CIF
 {
 
+class ImageRawData;
+
 class ImageExporter
 {
     public:
@@ -61,20 +63,15 @@ class ImageExporter
         virtual std::string mime() const = 0;
 
         /**
-         * Returns name of exported image
-         */
-        std::string outputFilename() const;
-
-        /**
          * Saves image from memory to filename
          * @param output filename
          */
-        virtual void save(void * data, size_t dataSize, const std::string& path);
+        virtual void save(const ImageRawData& image, const std::string& path);
 
         /**
          * Saves image from memory to stream
          */
-        virtual void save(void * data, size_t dataSize, std::ostream& os) = 0;
+        virtual void save(const ImageRawData& image, std::ostream& os) = 0;
 
         /**
          * Sets export format
@@ -82,11 +79,6 @@ class ImageExporter
          * @see isSupportedFormat
          */
         void setFormat(image_format_t format);
-
-        /**
-         * Sets export filename
-         */
-        void setOutputFilename(const std::string& filename);
 
         /**
          * Returns list of supported formats
@@ -98,7 +90,6 @@ class ImageExporter
          */
         static std::string formatToString(image_format_t format);
     private:
-        std::string output_filename_;
         image_format_t format_;
 };
 

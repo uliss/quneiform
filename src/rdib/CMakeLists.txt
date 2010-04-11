@@ -16,7 +16,6 @@ endif()
 
 add_library(cuneiform-rdib ${LIBTYPE} 
     ctdib.cpp
-    image.cpp
     imageformatdetector.cpp
     imageloader.cpp
     imageloaderfactory.cpp

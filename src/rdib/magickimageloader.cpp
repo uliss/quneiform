@@ -120,7 +120,7 @@ ImagePtr MagickImageLoader::load(const std::string& fname) {
 }
 
 ImagePtr MagickImageLoader::makeImage(Magick::Blob& blob) {
-    char * new_data = new char[blob.length()];
+    uchar * new_data = new uchar[blob.length()];
     memcpy(new_data, blob.data(), blob.length());
     return ImagePtr(new Image(new_data, blob.length(), Image::AllocatorNew));
 }

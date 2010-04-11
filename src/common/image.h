@@ -16,61 +16,31 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
+#ifndef IMAGE_H_
+#define IMAGE_H_
 
-#include "image.h"
+#include <boost/noncopyable.hpp>
+#include <boost/shared_ptr.hpp>
+#include <string>
+
+#include "globus.h"
+#include "common/imagerawdata.h"
 
 namespace CIF
 {
 
-Image::Image(char * src, size_t size, allocator_t allocator) :
-    data_(src), size_(size), allocator_(allocator)
+class CLA_EXPO Image: public ImageRawData
 {
-}
+    public:
+        Image(uchar * src, size_t size, allocator_t allocator);
+        std::string fileName() const;
+        void setFileName(const std::string& fname);
+    private:
+        std::string fname_;
+};
 
-Image::~Image()
-{
-    clear();
-}
-
-void Image::clear()
-{
-    if (allocator_ == AllocatorMalloc)
-        free(data_);
-    else
-        delete[] data_;
-    data_ = NULL;
-    size_ = 0;
-}
-
-char * Image::data()
-{
-    return data_;
-}
-
-std::string Image::fileName() const
-{
-    return fname_;
-}
-
-void Image::setData(char * src, size_t size, allocator_t allocator)
-{
-    clear();
-    allocator_ = allocator;
-    data_ = src;
-    size_ = size;
-}
-
-void Image::setFileName(const std::string& fname)
-{
-    fname_ = fname;
-}
-
-size_t Image::size() const
-{
-    return size_;
-}
+typedef boost::shared_ptr<Image> ImagePtr;
 
 }
+
+#endif /* IMAGE_H_ */

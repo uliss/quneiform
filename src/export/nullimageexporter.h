@@ -28,8 +28,18 @@ class NullImageExporter: public ImageExporter
 {
     public:
         NullImageExporter();
+
+        /**
+         * Returns empty string
+         */
         std::string mime() const;
-        void save(void *, size_t, std::ostream&);
+
+        void save(const ImageRawData& image, std::ostream&);
+
+        /**
+         * Returns empty list
+         * @return
+         */
         FormatList supportedFormats() const;
 };
 

@@ -25,7 +25,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestPuma);
 void TestPuma::testInit() {
     Puma::instance().pageTemplate();
     Rect rect;
-//    CPPUNIT_ASSERT_EQUAL(rect, Puma::instance().pageTemplate());
+    //    CPPUNIT_ASSERT_EQUAL(rect, Puma::instance().pageTemplate());
     CPPUNIT_ASSERT(Puma::instance().input_dib_ == NULL);
     CPPUNIT_ASSERT(Puma::instance().input_filename_.empty());
     CPPUNIT_ASSERT(Puma::instance().cpage_ == NULL);
@@ -36,7 +36,7 @@ void TestPuma::testOpen() {
     CPPUNIT_ASSERT_THROW(Puma::instance().open(null_ptr), PumaException);
 
     const int sz = 20;
-    char * data = new char[sz];
+    uchar * data = new uchar[sz];
     ImagePtr ptr(new Image(data, sz, Image::AllocatorNew));
     ptr->setFileName("test");
 

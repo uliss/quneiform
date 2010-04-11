@@ -25,8 +25,8 @@
 #include <vector>
 #include <boost/noncopyable.hpp>
 
+#include "common/image.h"
 #include "imageloader.h"
-#include "image.h"
 #include "imageformats.h"
 #include "globus.h"
 

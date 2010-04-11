@@ -18,6 +18,7 @@
 
 #include <Magick++.h>
 #include "magickimageexporter.h"
+#include "common/imagerawdata.h"
 
 namespace CIF
 {
@@ -39,14 +40,14 @@ std::string MagickImageExporter::mime() const {
     }
 }
 
-void MagickImageExporter::save(void * data, size_t dataSize, std::ostream& os) {
-    if (!data || !dataSize)
-        throw Exception("[MagickImageExporter::save] bad image given");
+void MagickImageExporter::save(const ImageRawData& image, std::ostream& os) {
+    if (image.isNull())
+        throw Exception("[MagickImageExporter::save] null image given");
 
     if (os.fail())
         throw Exception("[MagickImageExporter::save] invalid stream");
 
-    Magick::Blob blob(data, dataSize);
+    Magick::Blob blob(image.data(), image.size());
     try {
         Magick::Image image;
         image.verbose(true);

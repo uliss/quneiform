@@ -18,6 +18,7 @@
 
 #include "bmpimageexporter.h"
 #include "cfcompat.h"
+#include "common/imagerawdata.h"
 
 namespace CIF
 {
@@ -30,19 +31,16 @@ std::string BmpImageExporter::mime() const {
     return "image/x-ms-bmp";
 }
 
-void BmpImageExporter::save(void * data, size_t dataSize, std::ostream& os) {
-    if (!data)
-        throw Exception("[BmpImageExporter::save] invalid image data given");
-
-    if (dataSize <= 0)
-        throw Exception("[BmpImageExporter::save] invalid image size");
+void BmpImageExporter::save(const ImageRawData& image, std::ostream& os) {
+    if (image.isNull())
+        throw Exception("[BmpImageExporter::save] null image given");
 
     BITMAPFILEHEADER bf; //  bmp fileheader
-    BITMAPINFOHEADER * bfinfo = (BITMAPINFOHEADER *) data;
+    BITMAPINFOHEADER * bfinfo = (BITMAPINFOHEADER *) image.data();
 
     // uliss: TODO! check for endianness
     bf.bfType = 0x4d42; // 'BM'
-    bf.bfSize = sizeof(BITMAPFILEHEADER) + dataSize;
+    bf.bfSize = sizeof(BITMAPFILEHEADER) + image.size();
     // fileheader + infoheader + palette
     bf.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + bfinfo->biClrUsed
             * sizeof(RGBQUAD);
@@ -52,7 +50,8 @@ void BmpImageExporter::save(void * data, size_t dataSize, std::ostream& os) {
     if (os.fail())
         throw Exception("[BmpImageExporter::save] failed");
 
-    os.write((char*) data, dataSize);
+    os << image;
+
     if (os.fail())
         throw Exception("[BmpImageExporter::save] failed");
 }

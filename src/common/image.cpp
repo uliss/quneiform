@@ -16,44 +16,25 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IMAGE_H_
-#define IMAGE_H_
+#include <cstdlib>
+#include <cstring>
+#include <cassert>
 
-#include <boost/noncopyable.hpp>
-#include <boost/shared_ptr.hpp>
-#include <string>
-#include "globus.h"
+#include "image.h"
 
 namespace CIF
 {
 
-class CLA_EXPO Image: public boost::noncopyable
-{
-    public:
-        enum allocator_t
-        {
-            AllocatorMalloc,
-            AllocatorNew
-        };
-
-        Image(char * src, size_t size, allocator_t allocator = AllocatorMalloc);
-        virtual ~Image();
-        char * data();
-        std::string fileName() const;
-        void setData(char * src, size_t size, allocator_t allocator = AllocatorMalloc);
-        void setFileName(const std::string& fname);
-        size_t size() const;
-    private:
-        void clear();
-    private:
-        char * data_;
-        size_t size_;
-        allocator_t allocator_;
-        std::string fname_;
-};
-
-typedef boost::shared_ptr<Image> ImagePtr;
-
+Image::Image(uchar * src, size_t size, allocator_t allocator) :
+    ImageRawData(src, size, allocator) {
 }
 
-#endif /* IMAGE_H_ */
+std::string Image::fileName() const {
+    return fname_;
+}
+
+void Image::setFileName(const std::string& fname) {
+    fname_ = fname;
+}
+
+}

@@ -20,7 +20,7 @@
 #define MAGICKIMAGELOADER_H_
 
 #include "imageloader.h"
-#include "image.h"
+#include "common/image.h"
 
 namespace Magick
 {
