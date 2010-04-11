@@ -33,8 +33,24 @@ std::string Image::fileName() const {
     return fname_;
 }
 
+int Image::height() const {
+    return size_.height();
+}
+
 void Image::setFileName(const std::string& fname) {
     fname_ = fname;
+}
+
+void Image::setSize(const Size& size) {
+    size_ = size;
+}
+
+Size Image::size() const {
+    return size_;
+}
+
+int Image::width() const {
+    return size_.width();
 }
 
 }

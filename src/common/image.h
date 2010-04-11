@@ -25,6 +25,7 @@
 
 #include "globus.h"
 #include "common/imagerawdata.h"
+#include "common/size.h"
 
 namespace CIF
 {
@@ -33,10 +34,43 @@ class CLA_EXPO Image: public ImageRawData
 {
     public:
         Image(uchar * src, size_t size, allocator_t allocator);
+
+        /**
+         * Returns image filename
+         */
         std::string fileName() const;
+
+        /**
+         * Returns image height
+         * @see size(), width()
+         */
+        int height() const;
+
+        /**
+         * Sets image filename
+         */
         void setFileName(const std::string& fname);
+
+        /**
+         * Sets image size
+         * @see size()
+         */
+        void setSize(const Size& size);
+
+        /**
+         * Returns image size
+         * @see height(), width()
+         */
+        Size size() const;
+
+        /**
+         * Returns image width
+         * @see size()
+         */
+        int width() const;
     private:
         std::string fname_;
+        Size size_;
 };
 
 typedef boost::shared_ptr<Image> ImagePtr;
