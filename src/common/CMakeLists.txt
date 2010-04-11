@@ -11,6 +11,7 @@ add_library(cuneiform-common ${LIBTYPE}
     helper.cpp
     iconv.cpp
     iconvimpl.cpp
+    imagerawdata.cpp
     language.cpp
     outputformat.cpp
 )

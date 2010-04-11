@@ -1,6 +1,7 @@
 add_executable(test_common
     test_common.cpp
     testlanguage.cpp
+    testimagerawdata.cpp
     testpoint.cpp
     testrect.cpp
     testoutputformat.cpp
