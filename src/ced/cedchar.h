@@ -32,10 +32,11 @@ struct text_ref;
 namespace CIF
 {
 
-class FUN_EXPO__ CEDChar
+class CLA_EXPO CEDChar
 {
     public:
         CEDChar();
+        virtual ~CEDChar();
 
         /**
          * Adds alternative to char
@@ -96,7 +97,7 @@ class FUN_EXPO__ CEDChar
         /**
          * Checks if picture
          */
-        bool isPicture() const;
+        virtual bool isPicture() const;
 
         /**
          * Returns pointer to next char

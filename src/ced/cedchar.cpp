@@ -27,6 +27,9 @@ CEDChar::CEDChar() :
     prev_ = next_ = 0;
 }
 
+CEDChar::~CEDChar() {
+}
+
 void CEDChar::addAlternative(const LETTER& letter) {
     alternatives_.push_back(letter);
 }
