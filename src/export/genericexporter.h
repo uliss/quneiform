@@ -24,7 +24,7 @@
 #include "common/size.h"
 #include "common/iconv_local.h"
 
-class pictEntry;
+class PictureEntry;
 
 namespace CIF
 {
@@ -253,7 +253,7 @@ class GenericExporter: public Exporter
          * Returns pointer to picture entry
          * @throw Exception if entry not founds
          */
-        pictEntry * pictureEntry(CEDChar * picture) const;
+        PictureEntry * pictureEntry(CEDChar * picture) const;
 
         /**
          * Makes picture filename
@@ -415,7 +415,7 @@ class GenericExporter: public Exporter
         int previous_style_;
     protected:
         Iconv converter_;
-        pictEntry * current_picture_;
+        PictureEntry * current_picture_;
 };
 
 }

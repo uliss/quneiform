@@ -435,14 +435,14 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
 
             // write picture and parabreak
             if (chr && chr->isPicture()) {
-                for (int pict = 0; pict < rtf->page->picsUsed; pict++) {
-                    if (rtf->page->picsTable[pict].pictNumber == chr->fontNumber() - ED_PICT_BASE) {
-                        if (rtf->page->picsTable[pict].type == 1) {
+                for (int pict = 0; pict < rtf->page->pictureCount(); pict++) {
+                    if (rtf->page->pictureAt(pict)->pictNumber == chr->pictureNumber()) {
+                        if (rtf->page->pictureAt(pict)->type == 1) {
                             if (!WriteRtfDIB(rtf, pict))
                                 return FALSE;
                         }
 
-                        else if (rtf->page->picsTable[pict].type == 2)
+                        else if (rtf->page->pictureAt(pict)->type == 2)
                             if (!WriteRtfMetafile(rtf, pict))
                                 return FALSE;
 
@@ -1828,9 +1828,9 @@ Bool WriteRtfDIB(StrRtfOut *rtf, int pict) {
     uchar *pMem;
     LPBITMAPINFO pInfo;
     // get picture height/width
-    height = rtf->page->picsTable[pict].pictGoal.cy; // picture height in pointsize
-    width = rtf->page->picsTable[pict].pictGoal.cx; // picture width in pointsize
-    pInfo = (LPBITMAPINFO) rtf->page->picsTable[pict].data;
+    height = rtf->page->pictureAt(pict)->pictGoal.cy; // picture height in pointsize
+    width = rtf->page->pictureAt(pict)->pictGoal.cx; // picture width in pointsize
+    pInfo = (LPBITMAPINFO) rtf->page->pictureAt(pict)->data;
     width_bytes = ((width * pInfo->bmiHeader.biBitCount + 31) / 32) * 4;
 
     if (!BeginRtfGroup(rtf))
@@ -1852,10 +1852,10 @@ Bool WriteRtfDIB(StrRtfOut *rtf, int pict) {
         return FALSE; // write picture format
 
     // write picture height/width in HIMETRIC
-    if (!WriteRtfControl(rtf, "picw", PARAM_INT, rtf->page->picsTable[pict].pictSize.width()))
+    if (!WriteRtfControl(rtf, "picw", PARAM_INT, rtf->page->pictureAt(pict)->pictSize.width()))
         return FALSE; // write picture format
 
-    if (!WriteRtfControl(rtf, "pich", PARAM_INT, rtf->page->picsTable[pict].pictSize.height()))
+    if (!WriteRtfControl(rtf, "pich", PARAM_INT, rtf->page->pictureAt(pict)->pictSize.height()))
         return FALSE; // write picture format
 
     // write picture height/width in twips
@@ -1866,13 +1866,14 @@ Bool WriteRtfDIB(StrRtfOut *rtf, int pict) {
         return FALSE; // write picture format
 
     // write picture alignment
-    if (!WriteRtfControl(rtf, "sspicalign", PARAM_INT, (int) (rtf->page->picsTable[pict].pictAlign)))
+    if (!WriteRtfControl(rtf, "sspicalign", PARAM_INT,
+            (int) (rtf->page->pictureAt(pict)->pictAlign)))
         return FALSE; // write picture format
 
-    pMem = (uchar *) rtf->page->picsTable[pict].data;
+    pMem = (uchar *) rtf->page->pictureAt(pict)->data;
 
     // write the picture information
-    for (uint32_t l(0); l < rtf->page->picsTable[pict].len; ++l) {
+    for (uint32_t l(0); l < rtf->page->pictureAt(pict)->len; ++l) {
         if (!(result = PutRtfHexChar(rtf, pMem[l])))
             break;
     }
@@ -1946,16 +1947,16 @@ Bool WriteRtfMetafile(StrRtfOut *rtf, int pict) {
     //   if (!WriteRtfControl(rtf,"pich",PARAM_INT,((float)rtf->page->picsTable[pict].pictSize.cy)*8.3))/*((bmHeight*2500)/1440) ))*/ return FALSE;  // write picture format
     //this seems to be more or less correct
     if (!WriteRtfControl(rtf, "picw", PARAM_INT,
-            ((double) (rtf->page->picsTable[pict].pictGoal.cx)) * 1.7641))
+            ((double) (rtf->page->pictureAt(pict)->pictGoal.cx)) * 1.7641))
         return FALSE; // write picture format
 
     if (!WriteRtfControl(rtf, "pich", PARAM_INT,
-            ((double) (rtf->page->picsTable[pict].pictGoal.cy)) * 1.7641))
+            ((double) (rtf->page->pictureAt(pict)->pictGoal.cy)) * 1.7641))
         return FALSE; // write picture format
 
     // write picture width
     //   if (bmWidth>0) {
-    if (!WriteRtfControl(rtf, "picwgoal", PARAM_INT, rtf->page->picsTable[pict].pictGoal.cx))
+    if (!WriteRtfControl(rtf, "picwgoal", PARAM_INT, rtf->page->pictureAt(pict)->pictGoal.cx))
         return FALSE; // write picture format
 
     //if (!WriteRtfControl(w,rtf,"picwgoal",PARAM_INT,(int)(bmWidth) )) return FALSE;  // write picture format
@@ -1968,7 +1969,7 @@ Bool WriteRtfMetafile(StrRtfOut *rtf, int pict) {
      */
     // write picture height
     //   if (bmHeight>0) {
-    if (!WriteRtfControl(rtf, "pichgoal", PARAM_INT, rtf->page->picsTable[pict].pictGoal.cy))
+    if (!WriteRtfControl(rtf, "pichgoal", PARAM_INT, rtf->page->pictureAt(pict)->pictGoal.cy))
         return FALSE; // write picture format
 
     //if (!WriteRtfControl(w,rtf,"pichgoal",PARAM_INT,(int)(bmHeight) )) return FALSE;  // write picture format
@@ -1981,13 +1982,13 @@ Bool WriteRtfMetafile(StrRtfOut *rtf, int pict) {
      */
 
     // write picture alignment
-    if (!WriteRtfControl(rtf, "sspicalign", PARAM_INT, rtf->page->picsTable[pict].pictAlign))
+    if (!WriteRtfControl(rtf, "sspicalign", PARAM_INT, rtf->page->pictureAt(pict)->pictAlign))
         return FALSE; // write picture format
 
     // retrieve picture handle
-    pMem = (uchar *) rtf->page->picsTable[pict].data;
+    pMem = (uchar *) rtf->page->pictureAt(pict)->data;
 
-    for (l = 0; l < (long) rtf->page->picsTable[pict].len; l++) {
+    for (l = 0; l < (long) rtf->page->pictureAt(pict)->len; l++) {
         result = PutRtfHexChar(rtf, pMem[l]);
 
         if (!result)

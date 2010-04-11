@@ -615,15 +615,13 @@ void CED_ShowTree(char * name, CIF::CEDPage * hEdPage)
     Handle tblRow;
     unsigned int tblRowNum = 0, tblCellNum = 0;
     FILE *stream = fopen( name, "w" );
-    fprintf(stream, "\nTable of pictures:\nTotal pictures:%d", CED_GetNumOfPics(hEdPage));
+    fprintf(stream, "\nTable of pictures:\nTotal pictures:%d", hEdPage->pictureCount());
 
-    for (unsigned int p = 0; p < CED_GetNumOfPics(hEdPage); p++) {
-        int pictNumber, pictAlign , type, length;
-        CIF::Size pictSize;
-        EDSIZE pictGoal;
-        CED_GetPicture(hEdPage, p, &pictNumber, pictSize, &pictGoal, &pictAlign , &type, 0, &length);
+    for (unsigned int p = 0; p < hEdPage->pictureCount(); p++) {
+        PictureEntry * pict = hEdPage->pictureAt(p);
         fprintf(stream, "\npictNumber=%d, type=%d, length=%d, pictSize.x=%d, pictSize.y=%d,\npictGoal.x=%d, pictGoal.y=%d, pictAlign=%d\n",
-                pictNumber, type, length, pictSize.width(), pictSize.height(), pictGoal.cx, pictGoal.cy, pictAlign);
+                pict->pictNumber, pict->type, pict->len, pict->pictSize.width(),
+                pict->pictSize.height(), pict->pictGoal.cx, pict->pictGoal.cy, pict->pictAlign);
     }
 
     for (unsigned int i = 0; i < hEdPage->sectionCount(); i++) {
@@ -731,9 +729,9 @@ void PrintPara(FILE *stream, Handle para)
             CEDChar * chr = line->charAt(c);
 
             if (!chr->isPicture())
-                fprintf(stream, "%c", chr->alternativeAt(0).alternative);
+            fprintf(stream, "%c", chr->alternativeAt(0).alternative);
             else
-                fprintf(stream, "\\pict%d\\", chr->pictureNumber());
+            fprintf(stream, "\\pict%d\\", chr->pictureNumber());
         }
 
         fprintf(stream, "\n");
@@ -1181,34 +1179,34 @@ Bool32 WritePictTable(Handle hFile, CEDPage* page) {
     int len = 0;
     int q;
 
-    if (!(page->picsUsed))
+    if (!page->pictureCount())
         return TRUE;
 
-    for (q = 0; q < page->picsUsed; q++) {
-        len += page->picsTable[q].len;
+    for (size_t i = 0; i < page->pictureCount(); i++) {
+        len += page->pictureAt(i)->len;
     }
 
-    if (!WriteExtCode(hFile, EDEXT_PICS, 0, 0, len + sizeof(pictDescr) * page->picsUsed))
+    if (!WriteExtCode(hFile, EDEXT_PICS, 0, 0, len + sizeof(pictDescr) * page->pictureCount()))
         return FALSE;
 
     pictDescr picd;
 
-    for (q = 0; q < page->picsUsed; q++) {
-        picd.pictAlign = page->picsTable[q].pictAlign;
-        picd.pictGoal.cx = page->picsTable[q].pictGoal.cx;
-        picd.pictGoal.cy = page->picsTable[q].pictGoal.cy;
-        picd.pictNumber = page->picsTable[q].pictNumber;
-        picd.pictSize = page->picsTable[q].pictSize;
-        picd.len = page->picsTable[q].len;
-        picd.type = page->picsTable[q].type;
-        picd.size = page->picsTable[q].len + sizeof(picd);
+    for (size_t q = 0; q < page->pictureCount(); q++) {
+        picd.pictAlign = page->pictureAt(q)->pictAlign;
+        picd.pictGoal.cx = page->pictureAt(q)->pictGoal.cx;
+        picd.pictGoal.cy = page->pictureAt(q)->pictGoal.cy;
+        picd.pictNumber = page->pictureAt(q)->pictNumber;
+        picd.pictSize = page->pictureAt(q)->pictSize;
+        picd.len = page->pictureAt(q)->len;
+        picd.type = page->pictureAt(q)->type;
+        picd.size = page->pictureAt(q)->len + sizeof(picd);
 
         //write picture info.
         if (!CFIO_WriteToFile(hFile, (pchar) &picd, sizeof(picd)))
             return FALSE;
 
         //write picture
-        if (!CFIO_WriteToFile(hFile, (pchar) page->picsTable[q].data, page->picsTable[q].len))
+        if (!CFIO_WriteToFile(hFile, (pchar) page->pictureAt(q)->data, page->pictureAt(q)->len))
             return FALSE;
     }
 

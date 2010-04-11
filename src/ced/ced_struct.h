@@ -145,7 +145,7 @@ typedef struct fontEntry
         char* fontName;
 } FONTENTRY;
 
-class pictEntry
+class PictureEntry
 {
     public:
         uint16_t pictNumber;

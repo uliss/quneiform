@@ -449,41 +449,6 @@ CED_FUNC(uint32_t) CED_GetNumOfFonts(Handle hEdPage) {
     return ((CEDPage*) hEdPage)->fontsUsed;
 }
 
-CED_FUNC(Bool32) CED_GetPicture(Handle hEdPage, int number, int* pictNumber, CIF::Size& pictSize,
-        EDSIZE* pictGoal, int* pictAlign, int* type, void ** data, int* len) {
-    CEDPage * pg = (CEDPage*) hEdPage;
-
-    if (number >= pg->picsCreated)
-        return FALSE;
-
-    pictEntry* tmp = &(pg->picsTable[number]);
-
-    if (pictNumber)
-        *pictNumber = tmp->pictNumber;
-
-    pictSize = tmp->pictSize;
-
-    if (pictGoal)
-        *pictGoal = tmp->pictGoal;
-
-    if (pictAlign)
-        *pictAlign = tmp->pictAlign;
-
-    if (type)
-        *type = tmp->type;
-
-    if (data)
-        *data = tmp->data;
-
-    if (len)
-        *len = tmp->len;
-
-    return TRUE;
-}
-CED_FUNC(uint32_t) CED_GetNumOfPics(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->picsUsed;
-}
-
 CED_FUNC(CIF::Rect) CED_GetSectionBorder(Handle hEdSection) {
     return ((CEDSection*) hEdSection)->borders;
 }

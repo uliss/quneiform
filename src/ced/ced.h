@@ -379,8 +379,6 @@ DEC_FUN(Handle, CED_ReadFormattedEd, (char * lpEdFile, Bool32 readFromFile, uint
 DEC_FUN(Bool32, CED_WriteFormattedEd, (const char * lpEdFileName, Handle hEdPage))
 DEC_FUN(uint32_t, CED_GetNumberOfParagraphs, (Handle hEdPage))
 DEC_FUN(uint32_t, CED_GetNumOfFonts, (Handle hEdPage))
-DEC_FUN(Bool32, CED_GetPicture, (Handle hEdPage, int number, int* pictNumber, CIF::Size& pictSize, EDSIZE* pictGoal, int* pictAlign , int* type, void ** data, int* len))
-DEC_FUN(uint32_t, CED_GetNumOfPics, (Handle hEdPage))
 DEC_FUN(Handle, CED_GetParagraph, (Handle hEdPage, int _num))
 DEC_FUN(Bool32, CED_GetFont, (Handle hEdPage, int number, uchar* fontNumber, uchar* fontPitchAndFamily, uchar* fontCharset, char** fontName))
 DEC_FUN(Bool32, CED_GetSectLineBetCol, (Handle hEdSection))

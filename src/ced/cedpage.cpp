@@ -26,8 +26,6 @@
 
 //step of expansion of font table
 #define FONTS_STEPPING 5
-//step of expansion of picture table
-#define PICS_STEPPING  3
 
 namespace CIF
 {
@@ -41,9 +39,6 @@ CEDPage::CEDPage() :
     fontsUsed = 0; //number of fonts used in table
     fontsCreated = 0; //number of fonts created in table
     fontTable = 0; //pointer to font table
-    picsUsed = 0; //number of picture used in table
-    picsCreated = 0; //number of pictures created in table
-    picsTable = 0; //pointer to picture table
 }
 
 CEDPage::~CEDPage() {
@@ -112,11 +107,15 @@ CEDPage::~CEDPage() {
 
     delete[] fontTable;
 
-    //delete picture table
-    for (i = 0; i < picsUsed; i++)
-        free(picsTable[i].data);
+    clearPictures();
+}
 
-    delete[] picsTable;
+void CEDPage::clearPictures() {
+    for (size_t i = 0; i < pictures_.size(); i++) {
+        free(pictures_[i]->data);
+        delete pictures_[i];
+    }
+    pictures_.clear();
 }
 
 void CEDPage::clearSections() {
@@ -125,10 +124,10 @@ void CEDPage::clearSections() {
     section_num_ = 0;
 }
 
-pictEntry * CEDPage::findPictureByNumber(int number) const {
-    for (size_t i = 0; i < picsCreated; i++) {
-        if (picsTable[i].pictNumber == number)
-            return &picsTable[i];
+PictureEntry * CEDPage::findPictureByNumber(int number) const {
+    for (size_t i = 0; i < pictures_.size(); i++) {
+        if (pictures_.at(i)->pictNumber == number)
+            return pictures_[i];
     }
 
     return NULL;
@@ -167,14 +166,11 @@ Size CEDPage::pageSize() const {
 }
 
 size_t CEDPage::pictureCount() const {
-    assert(picsCreated >= 0);
-    return picsCreated;
+    return pictures_.size();
 }
 
-pictEntry * CEDPage::pictureAt(size_t pos) const {
-    if (pos >= pictureCount())
-        throw std::out_of_range("[CEDPage::pictureAt] wrong picture number");
-    return &picsTable[pos];
+PictureEntry * CEDPage::pictureAt(size_t pos) const {
+    return pictures_.at(pos);
 }
 
 void CEDPage::setImageDpi(const Size& dpi) {
@@ -506,35 +502,23 @@ int CEDPage::GetFontByNum(uchar fontNumber) {
 
 Bool32 CEDPage::CreatePicture(int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal,
         int pictAlign, int type, void * data, int len) {
-    if (picsUsed >= picsCreated) {
-        pictEntry* tmp;
-        tmp = new pictEntry[picsCreated + PICS_STEPPING];
+    PictureEntry * tmp = new PictureEntry;
 
-        if (!tmp)
-            return FALSE;
+    tmp->pictNumber = pictNumber;
+    tmp->pictSize = pictSize;
+    tmp->pictGoal = pictGoal;
+    tmp->type = type;
+    tmp->pictAlign = pictAlign;
+    tmp->len = len;
+    tmp->data = malloc(len);
 
-        if (picsTable) {
-            memcpy(tmp, picsTable, sizeof(pictEntry) * picsCreated);
-            delete[] picsTable;
-        }
-
-        picsCreated += PICS_STEPPING;
-        picsTable = tmp;
+    if (!tmp->data) {
+        delete tmp;
+        return FALSE;
     }
 
-    picsTable[picsUsed].pictNumber = pictNumber;
-    picsTable[picsUsed].pictSize = pictSize;
-    picsTable[picsUsed].pictGoal = pictGoal;
-    picsTable[picsUsed].type = type;
-    picsTable[picsUsed].pictAlign = pictAlign;
-    picsTable[picsUsed].len = len;
-    picsTable[picsUsed].data = malloc(len);
-
-    if (!picsTable[picsUsed].data)
-        return FALSE;
-
-    memcpy(picsTable[picsUsed].data, data, len);
-    picsUsed++;
+    memcpy(tmp->data, data, len);
+    pictures_.push_back(tmp);
     return TRUE;
 }
 

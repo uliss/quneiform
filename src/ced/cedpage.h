@@ -20,6 +20,7 @@
 #define CEDPAGE_H_
 
 #include <string>
+#include <vector>
 #include "globus.h"
 #include "ced_struct.h"
 #include "common/size.h"
@@ -30,13 +31,18 @@ namespace CIF
 class FUN_EXPO__ CEDPage
 {
     public:
+        /**
+         * Removes all pictures from page
+         */
+        void clearPictures();
+
         void clearSections();
 
         /**
          * Returns pointer to picture by given picture number
          * @return NULL if nothing found
          */
-        pictEntry * findPictureByNumber(int number) const;
+        PictureEntry * findPictureByNumber(int number) const;
 
         /**
          * Returns image dpi
@@ -85,9 +91,8 @@ class FUN_EXPO__ CEDPage
 
         /**
          * Returns pointer to picture with given number
-         * @throw std::out_of_range if invalid number is given
          */
-        pictEntry * pictureAt(size_t pos) const;
+        PictureEntry * pictureAt(size_t pos) const;
 
         /**
          * Returns count of pictures
@@ -187,9 +192,6 @@ class FUN_EXPO__ CEDPage
         int fontsUsed; //РљThe number of fonts used in table
         int fontsCreated; //РљThe number of fonts created in the table
         fontEntry* fontTable; // Pointer to the table fonts
-        int picsUsed; //РљNumber of images used in table
-        int picsCreated; //РљNumber of images created in the table
-        pictEntry* picsTable; // pointer to a table of images
 
         CEDPage();
         ~CEDPage();
@@ -243,6 +245,9 @@ class FUN_EXPO__ CEDPage
         bool resize_to_fit_;
         CEDSection * sections; //connected list of sections
         CEDSection * curSect; //current section
+
+        typedef std::vector<PictureEntry*> PictureList;
+        PictureList pictures_;
 };
 
 }

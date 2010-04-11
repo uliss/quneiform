@@ -356,7 +356,7 @@ CEDPage * GenericExporter::page() {
     return page_;
 }
 
-pictEntry * GenericExporter::pictureEntry(CEDChar * picture) const {
+PictureEntry * GenericExporter::pictureEntry(CEDChar * picture) const {
     assert(page_);
     assert(picture);
 
@@ -365,7 +365,7 @@ pictEntry * GenericExporter::pictureEntry(CEDChar * picture) const {
     if (picture_num < 0)
         throw Exception("[CEDPage::pictureEntry] not a picture given");
 
-    pictEntry * res = page_->findPictureByNumber(picture_num);
+    PictureEntry * res = page_->findPictureByNumber(picture_num);
 
     if (!res) {
         std::ostringstream msg;
