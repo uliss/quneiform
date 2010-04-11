@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,24 +16,35 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTPOINT_H_
-#define TESTPOINT_H_
+#include "testcolor.h"
+#include <common/color.h>
+#include <ced/cedarchive.h>
+CPPUNIT_TEST_SUITE_REGISTRATION(TestColor);
+using namespace CIF;
 
-#include <cppunit/extensions/HelperMacros.h>
+void TestColor::testSerialize() {
+#ifdef CF_SERIALIZE
+    Color c(1, 2, 3);
 
-class TestPoint: public CppUnit::TestFixture
-{
-    CPPUNIT_TEST_SUITE(TestPoint);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testCompare);
-    CPPUNIT_TEST(testOverflow);
-    CPPUNIT_TEST(testSerialize);
-    CPPUNIT_TEST_SUITE_END();
-public:
-    void testInit();
-    void testCompare();
-    void testOverflow();
-    void testSerialize();
-};
+    std::ofstream ofs("serialize_color.txt");
 
-#endif /* TESTPOINT_H_ */
+        // save data to archive
+        {
+            CEDOutputArchive oa(ofs);
+            // write class instance to archive
+            oa << c;
+        }
+
+        Color new_c;
+        CPPUNIT_ASSERT(c != new_c);
+        {
+            // create and open an archive for input
+            std::ifstream ifs("serialize_color.txt");
+            CEDInputArchive ia(ifs);
+            // read class state from archive
+            ia >> new_c;
+        }
+
+        CPPUNIT_ASSERT(c == new_c);
+#endif
+}

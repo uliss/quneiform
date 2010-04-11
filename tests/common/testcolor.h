@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,24 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTPOINT_H_
-#define TESTPOINT_H_
+#ifndef TESTCOLOR_H_
+#define TESTCOLOR_H_
 
 #include <cppunit/extensions/HelperMacros.h>
 
-class TestPoint: public CppUnit::TestFixture
+class TestColor: public CppUnit::TestFixture
 {
-    CPPUNIT_TEST_SUITE(TestPoint);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testCompare);
-    CPPUNIT_TEST(testOverflow);
+    CPPUNIT_TEST_SUITE(TestColor);
     CPPUNIT_TEST(testSerialize);
     CPPUNIT_TEST_SUITE_END();
 public:
-    void testInit();
-    void testCompare();
-    void testOverflow();
     void testSerialize();
 };
 
-#endif /* TESTPOINT_H_ */
+#endif /* TESTCOLOR_H_ */

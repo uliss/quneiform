@@ -18,6 +18,7 @@
 #include "testpoint.h"
 #include <common/point.h>
 #include <common/tostring.h>
+#include <ced/cedarchive.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestPoint);
 
 using namespace CIF;
@@ -77,6 +78,34 @@ void TestPoint::testOverflow() {
     Point p1(32000, 32000);
     Point16 p2;
     p2 = p1;
-//    p2 += 1000;
+    //    p2 += 1000;
 }
+
+void TestPoint::testSerialize() {
+#ifdef CF_SERIALIZE
+    Point pt(1, 2);
+
+    std::ofstream ofs("serialize_point.txt");
+
+    // save data to archive
+    {
+        CEDOutputArchive oa(ofs);
+        // write class instance to archive
+        oa << pt;
+    }
+
+    Point new_point;
+    CPPUNIT_ASSERT(pt != new_point);
+    {
+        // create and open an archive for input
+        std::ifstream ifs("serialize_point.txt");
+        CEDInputArchive ia(ifs);
+        // read class state from archive
+        ia >> new_point;
+    }
+
+    CPPUNIT_ASSERT_EQUAL(pt, new_point);
+
+}
+#endif
 

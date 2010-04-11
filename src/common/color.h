@@ -19,6 +19,8 @@
 #ifndef COLOR_H_
 #define COLOR_H_
 
+#include "serialize.h"
+
 namespace CIF
 {
 
@@ -55,7 +57,7 @@ class ColorImpl
         }
 
         bool operator==(const ColorImpl& color) {
-            if (isNull() == color.isNull())
+            if (isNull() && isNull() == color.isNull())
                 return true;
 
             return red() == color.red() && green() == color.green() && blue() == color.blue();
@@ -92,6 +94,16 @@ class ColorImpl
             return ret;
         }
     private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version) {
+            ar & r_;
+            ar & g_;
+            ar & b_;
+            ar & a_;
+        }
+#endif
         T r_, g_, b_, a_;
 };
 

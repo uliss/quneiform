@@ -356,6 +356,14 @@ class RectImpl
             return pt0_.y();
         }
     private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version) {
+            ar & pt0_;
+            ar & pt1_;
+        }
+#endif
         PointImpl<T> pt0_, pt1_;
 };
 

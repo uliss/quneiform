@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,24 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTPOINT_H_
-#define TESTPOINT_H_
+#ifndef CEDARCHIVE_H_
+#define CEDARCHIVE_H_
 
-#include <cppunit/extensions/HelperMacros.h>
+#include "common/serialize.h"
 
-class TestPoint: public CppUnit::TestFixture
+#ifdef CF_SERIALIZE
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+namespace CIF
 {
-    CPPUNIT_TEST_SUITE(TestPoint);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testCompare);
-    CPPUNIT_TEST(testOverflow);
-    CPPUNIT_TEST(testSerialize);
-    CPPUNIT_TEST_SUITE_END();
-public:
-    void testInit();
-    void testCompare();
-    void testOverflow();
-    void testSerialize();
-};
+typedef boost::archive::text_iarchive CEDInputArchive;
+typedef boost::archive::text_oarchive CEDOutputArchive;
+}
 
-#endif /* TESTPOINT_H_ */
+#endif
+
+#endif /* CEDARCHIVE_H_ */

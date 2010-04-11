@@ -10,5 +10,6 @@
 #cmakedefine CF_USE_ICONV
 #cmakedefine CF_USE_ZIP
 #cmakedefine CF_USE_ODF
+#cmakedefine CF_SERIALIZE
 
 #endif

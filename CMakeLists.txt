@@ -35,9 +35,12 @@ if(ICONV_FOUND)
 endif()
 
 # Boost
-find_package(Boost 1.33)
+find_package(Boost 1.33 COMPONENTS serialization)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
+    if(Boost_SERIALIZATION_FOUND)
+        set(CF_SERIALIZE True)
+    endif()
 else()
     message(FATAL_ERROR "Boost library required")
 endif()

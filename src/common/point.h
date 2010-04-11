@@ -33,46 +33,51 @@
 #include <limits>
 #include <cassert>
 #include "cttypes.h"
+#include "serialize.h"
 
 namespace CIF
 {
 
-struct OverflowCheckNumeric {
-    template<class T>
-    static void check(long long int value) {
-        assert(value <= std::numeric_limits<T>::max());
-    }
+struct OverflowCheckNumeric
+{
+        template<class T>
+        static void check(long long int value) {
+            assert(value <= std::numeric_limits<T>::max());
+        }
 };
 
-struct UnderflowCheckNumeric {
-    template<class T>
-    static void check(long long int value) {
-        assert(value >= std::numeric_limits<T>::min());
-    }
+struct UnderflowCheckNumeric
+{
+        template<class T>
+        static void check(long long int value) {
+            assert(value >= std::numeric_limits<T>::min());
+        }
 };
 
-struct OverflowCheckNone {
-    template<class T>
-    static void check(long long int) {
-    }
+struct OverflowCheckNone
+{
+        template<class T>
+        static void check(long long int) {
+        }
 };
 
-struct UnderflowCheckNone {
-    template<class T>
-    static void check(long long int) {
-    }
+struct UnderflowCheckNone
+{
+        template<class T>
+        static void check(long long int) {
+        }
 };
 
-template <class T>
+template<class T>
 class PointImpl
 {
     public:
         PointImpl(T x, T y) :
-                x_(x), y_(y) {
+            x_(x), y_(y) {
         }
 
         PointImpl() :
-                x_(0), y_(0) {
+            x_(0), y_(0) {
         }
 
         PointImpl& deskew(int skew1024) {
@@ -198,56 +203,57 @@ class PointImpl
             return y_;
         }
     private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version) {
+            ar & x_;
+            ar & y_;
+        }
+#endif
+
         T x_, y_;
 };
 
 template<class T>
-T PointXDelta(const PointImpl<T>& p0, const PointImpl<T>& p1)
-{
+T PointXDelta(const PointImpl<T>& p0, const PointImpl<T>& p1) {
     return p0.x() - p1.x();
 }
 
 template<class T>
-T PointYDelta(const PointImpl<T>& p0, const PointImpl<T>& p1)
-{
+T PointYDelta(const PointImpl<T>& p0, const PointImpl<T>& p1) {
     return p0.y() - p1.y();
 }
 
 template<class T>
-T PointXDistance(const PointImpl<T>& p0, const PointImpl<T>& p1)
-{
+T PointXDistance(const PointImpl<T>& p0, const PointImpl<T>& p1) {
     T res = p0.x() - p1.x();
     return res > 0 ? res : -res;
 }
 
 template<class T>
-T PointYDistance(const PointImpl<T>& p0, const PointImpl<T>& p1)
-{
+T PointYDistance(const PointImpl<T>& p0, const PointImpl<T>& p1) {
     T res = p0.y() - p1.y();
     return res > 0 ? res : -res;
 }
 
 template<class T>
-PointImpl<T> highest(const PointImpl<T>& p0, const PointImpl<T>& p1)
-{
+PointImpl<T> highest(const PointImpl<T>& p0, const PointImpl<T>& p1) {
     return p0.y() < p1.y() ? p0 : p1;
 }
 
 template<class T>
-PointImpl<T> leftmost(const PointImpl<T>& p0, const PointImpl<T>& p1)
-{
+PointImpl<T> leftmost(const PointImpl<T>& p0, const PointImpl<T>& p1) {
     return p0.x() < p1.x() ? p0 : p1;
 }
 
 template<class T>
-PointImpl<T> lowest(const PointImpl<T>& p0, const PointImpl<T>& p1)
-{
+PointImpl<T> lowest(const PointImpl<T>& p0, const PointImpl<T>& p1) {
     return p0.y() > p1.y() ? p0 : p1;
 }
 
 template<class T>
-PointImpl<T> rightmost(PointImpl<T>& p0, PointImpl<T>& p1)
-{
+PointImpl<T> rightmost(PointImpl<T>& p0, PointImpl<T>& p1) {
     return p0.x() > p1.x() ? p0 : p1;
 }
 

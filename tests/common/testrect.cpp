@@ -15,6 +15,10 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
+
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 #include "testrect.h"
 #include <common/rect.h>
 #include <common/tostring.h>
@@ -73,4 +77,31 @@ void TestRect::testInit() {
     CPPUNIT_ASSERT_EQUAL(r1.right(), 41);
     CPPUNIT_ASSERT_EQUAL(r1.bottom(), 56);
 
+}
+
+void TestRect::testSerialize() {
+#ifdef CF_SERIALIZE
+    Rect r(Point(1, -2), 100, 200);
+
+    std::ofstream ofs("serialize_rect.txt");
+
+    // save data to archive
+    {
+        boost::archive::text_oarchive oa(ofs);
+        // write class instance to archive
+        oa << r;
+    }
+
+    Rect new_r;
+    CPPUNIT_ASSERT(r != new_r);
+    {
+        // create and open an archive for input
+        std::ifstream ifs("serialize_rect.txt");
+        boost::archive::text_iarchive ia(ifs);
+        // read class state from archive
+        ia >> new_r;
+    }
+
+    CPPUNIT_ASSERT_EQUAL(r, new_r);
+#endif
 }

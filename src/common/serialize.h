@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,24 +16,13 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTPOINT_H_
-#define TESTPOINT_H_
+#ifndef SERIALIZE_H_
+#define SERIALIZE_H_
 
-#include <cppunit/extensions/HelperMacros.h>
+#include "config-user.h"
+#ifdef CF_SERIALIZE
+#include <boost/serialization/access.hpp>
+#endif
 
-class TestPoint: public CppUnit::TestFixture
-{
-    CPPUNIT_TEST_SUITE(TestPoint);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testCompare);
-    CPPUNIT_TEST(testOverflow);
-    CPPUNIT_TEST(testSerialize);
-    CPPUNIT_TEST_SUITE_END();
-public:
-    void testInit();
-    void testCompare();
-    void testOverflow();
-    void testSerialize();
-};
 
-#endif /* TESTPOINT_H_ */
+#endif /* SERIALIZE_H_ */
