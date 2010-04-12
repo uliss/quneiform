@@ -19,6 +19,8 @@
 #ifndef SIZE_H_
 #define SIZE_H_
 
+#include "serialize.h"
+
 namespace CIF
 {
 
@@ -88,6 +90,14 @@ class SizeImpl
         }
 
     private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar & width_;
+            ar & height_;
+        }
+#endif
         T width_, height_;
 };
 

@@ -16,12 +16,10 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
-
 #include "testrect.h"
 #include <common/rect.h>
 #include <common/tostring.h>
+#include <ced/cedarchive.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestRect);
 
 using namespace CIF;
@@ -87,7 +85,7 @@ void TestRect::testSerialize() {
 
     // save data to archive
     {
-        boost::archive::text_oarchive oa(ofs);
+        CEDOutputArchive oa(ofs);
         // write class instance to archive
         oa << r;
     }
@@ -97,7 +95,7 @@ void TestRect::testSerialize() {
     {
         // create and open an archive for input
         std::ifstream ifs("serialize_rect.txt");
-        boost::archive::text_iarchive ia(ifs);
+        CEDInputArchive ia(ifs);
         // read class state from archive
         ia >> new_r;
     }

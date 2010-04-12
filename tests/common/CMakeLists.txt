@@ -5,6 +5,7 @@ add_executable(test_common
     testimagerawdata.cpp
     testpoint.cpp
     testrect.cpp
+    testsize.cpp
     testoutputformat.cpp
 )
 
