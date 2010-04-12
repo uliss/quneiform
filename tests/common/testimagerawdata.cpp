@@ -15,7 +15,7 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-#include "testImagerawdata.h"
+#include "testimagerawdata.h"
 #include <common/imagerawdata.h>
 #include <common/tostring.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestImageRawData);
