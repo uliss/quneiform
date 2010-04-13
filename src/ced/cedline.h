@@ -25,7 +25,7 @@
 namespace CIF
 {
 
-class FUN_EXPO__ CEDLine
+class CLA_EXPO CEDLine
 {
     public:
         CEDLine();
@@ -68,6 +68,12 @@ class FUN_EXPO__ CEDLine
          * @return pointer to new symbol
          */
         CEDChar * insertChar();
+
+        /**
+         * Inserts symbol after current one. new symbol becomes current
+         * @return pointer to symbol
+         */
+        CEDChar * insertChar(CEDChar * chr);
 
         /**
          * Returns number of line from start of file
@@ -143,7 +149,7 @@ class FUN_EXPO__ CEDLine
         CEDChar * chars;
         //pointer to neighbor elements in connected list
         CEDLine * prev_;
-        CEDLine *next_;
+        CEDLine * next_;
         int default_font_height_;
 };
 

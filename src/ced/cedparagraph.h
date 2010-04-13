@@ -24,7 +24,7 @@
 
 namespace CIF {
 
-class FUN_EXPO__ CEDParagraph
+class CLA_EXPO CEDParagraph
 {
     public:
         int type; // Type paragraph

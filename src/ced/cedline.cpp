@@ -86,7 +86,11 @@ void CEDLine::setParentNumber(int number) {
 }
 
 CEDChar * CEDLine::insertChar() {
-    CEDChar * chr = new CEDChar;
+    return insertChar(new CEDChar);
+}
+
+CEDChar * CEDLine::insertChar(CEDChar * chr) {
+    assert(chr);
     char_number_++;
     chr->setParentNumber(internal_number_);
 

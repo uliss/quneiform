@@ -80,6 +80,7 @@
 #include "rimage/criimage.h"
 #include "sys_prog.h"
 #include "ced/ced.h"
+#include "ced/cedline.h"
 #include "rfrmt_prot.h"
 #include "compat/filefunc.h"
 
@@ -152,7 +153,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     LDPUMA_Skip(hTest);
 #ifdef EdWrite
     Handle hParagraph = NULL;
-    Handle hString = NULL;
+    CIF::CEDLine * hString = NULL;
     CIF::Size pictSize;
     EDSIZE pictGoal;
     CIF::Rect indent;
@@ -389,7 +390,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
             if (SectorInfo->FlagInColumn || (OutPutTypeFrame && SectorInfo->FlagFictiveParagraph)) {
                 hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hColumn, -1,
                                                  indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-                hString = CED_CreateLine(hParagraph, 0, 6);
+                hString = (CIF::CEDLine*) CED_CreateLine(hParagraph, 0, 6);
                 SectorInfo->FlagFictiveParagraph = FALSE;
             }
 
@@ -418,7 +419,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
 
             hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, -1,
                                              indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-            hString = CED_CreateLine(hParagraph, 0, 6);
+            hString = (CIF::CEDLine*) CED_CreateLine(hParagraph, 0, 6);
             Letter.setChar(' ');
             Letter.setProbability(0);
             CED_CreateChar(hString, slayout, &Letter, 12, ED_PICT_BASE + (int) IndexPict, -1, LANGUAGE_UNKNOWN,
