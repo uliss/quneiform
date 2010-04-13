@@ -21,6 +21,9 @@
 
 #include "common/serialize.h"
 
+namespace CIF
+{
+
 class Letter
 {
     public:
@@ -40,5 +43,7 @@ class Letter
         unsigned char alternative; //  ASCII code.  >= ' '.
         unsigned char probability;
 };
+
+}
 
 #endif /* LETTER_H_ */
