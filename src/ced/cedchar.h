@@ -27,8 +27,11 @@
 #include "letter.h"
 #include "common/color.h"
 #include "common/rect.h"
+#include "common/serialize.h"
 
-struct text_ref;
+#ifdef CF_SERIALIZE
+#include <boost/serialization/vector.hpp>
+#endif
 
 namespace CIF
 {
@@ -202,6 +205,23 @@ class CLA_EXPO CEDChar
          */
         void setPrev(CEDChar * prev);
     private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar & bbox_;
+            ar & parent_number_;
+            ar & fground_color_;
+            ar & bground_color_;
+            ar & font_lang_;
+            ar & font_height_;
+            ar & font_style_;
+            ar & font_number_;
+            ar & alternatives_;
+            ar & next_;
+            ar & prev_;
+        }
+#endif
         //layout of symbol in input image (in pixel)
         Rect bbox_;
         int parent_number_;

@@ -142,6 +142,7 @@ void CEDChar::setForegroundColor(const Color& color) {
 }
 
 void CEDChar::setNext(CEDChar * _next) {
+    assert(_next != this);
     next_ = _next;
     if (next_)
         next_->prev_ = this;
@@ -152,6 +153,7 @@ void CEDChar::setParentNumber(int number) {
 }
 
 void CEDChar::setPrev(CEDChar * previous) {
+    assert(previous != this);
     prev_ = previous;
     if (prev_)
         prev_->next_ = this;
