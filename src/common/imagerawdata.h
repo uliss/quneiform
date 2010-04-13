@@ -23,6 +23,11 @@
 #include <boost/shared_ptr.hpp>
 #include <iostream>
 #include "globus.h"
+#include "serialize.h"
+
+#ifdef CF_SERIALIZE
+#include <boost/serialization/binary_object.hpp>
+#endif
 
 namespace CIF
 {
@@ -65,6 +70,28 @@ class CLA_EXPO ImageRawData: public boost::noncopyable
          */
         size_t size() const;
     private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+
+        template<class Archive>
+        void save(Archive& a, const unsigned /*version*/) const
+        {
+            a << size_;
+            a << boost::serialization::make_binary_object(data_, size_ * sizeof(unsigned char));
+        }
+
+        template<class Archive>
+        void load(Archive& a, const unsigned /*version*/)
+        {
+            a >> size_;
+            // allocating memory
+            data_ = new uchar[size_];
+            a.load_binary(data_, size_);
+            allocator_ = AllocatorNew;
+        }
+
+        BOOST_SERIALIZATION_SPLIT_MEMBER()
+#endif
         unsigned char * data_;
         allocator_t allocator_;
         size_t size_;

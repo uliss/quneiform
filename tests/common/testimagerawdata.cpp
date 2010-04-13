@@ -16,8 +16,11 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 #include "testimagerawdata.h"
-#include <common/imagerawdata.h>
+#include <cstring>
 #include <common/tostring.h>
+#include <ced/cedarchive.h>
+#define private public
+#include <common/imagerawdata.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestImageRawData);
 
 using namespace CIF;
@@ -46,4 +49,63 @@ void TestImageRawData::testInit() {
     CPPUNIT_ASSERT_EQUAL(data2, ptr->data());
     CPPUNIT_ASSERT(ptr->size() == 12);
     CPPUNIT_ASSERT(ptr->data()[0] == 3);
+}
+
+void TestImageRawData::testSerialize() {
+#ifdef CF_SERIALIZE
+    ImageRawData img;
+    img.set(new uchar[10], 10, ImageRawData::AllocatorNew);
+    memset(img.data(), 0x21, 10);
+
+    // save data to archive
+    {
+        std::ofstream ofs("serialize_imageraw.txt");
+        CEDOutputArchive oa(ofs);
+        // write class instance to archive
+        oa << img;
+    }
+
+    ImageRawData new_img;
+
+    {
+        // create and open an archive for input
+        std::ifstream ifs("serialize_imageraw.txt");
+        CEDInputArchive ia(ifs);
+        // read class state from archive
+        ia >> new_img;
+    }
+
+    CPPUNIT_ASSERT_EQUAL(ImageRawData::AllocatorNew, new_img.allocator_);
+    CPPUNIT_ASSERT_EQUAL(img.size(), new_img.size());
+    for(int i = 0; i < 10; i++) {
+        CPPUNIT_ASSERT(new_img.data()[i] == 0x21);
+    }
+
+    unsigned char data1[10];
+    data1[0] = 1;
+    img.set(data1, sizeof(data1), ImageRawData::AllocatorNone);
+    // save data to archive
+    {
+        std::ofstream ofs("serialize_imageraw.txt");
+        CEDOutputArchive oa(ofs);
+        // write class instance to archive
+        oa << img;
+    }
+
+    {
+        unsigned char data2[10];
+        data2[0] = 2;
+        ImageRawData new_img(data2, 10, ImageRawData::AllocatorNone);
+        CPPUNIT_ASSERT_EQUAL(uchar(2), new_img.data()[0]);
+        // create and open an archive for input
+        std::ifstream ifs("serialize_imageraw.txt");
+        CEDInputArchive ia(ifs);
+        // read class state from archive
+        ia >> new_img;
+        CPPUNIT_ASSERT(new_img.size() == 10);
+        CPPUNIT_ASSERT_EQUAL(ImageRawData::AllocatorNew, new_img.allocator_);
+        CPPUNIT_ASSERT_EQUAL(uchar(1), new_img.data()[0]);
+    }
+#endif
+
 }

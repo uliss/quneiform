@@ -22,6 +22,7 @@
 #include "config-user.h"
 #ifdef CF_SERIALIZE
 #include <boost/serialization/access.hpp>
+#include <boost/serialization/split_member.hpp>
 #endif
 
 
