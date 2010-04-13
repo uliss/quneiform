@@ -4257,18 +4257,18 @@ void Rtf_CED_CreateChar(CIF::Rect * slayout, CIF::Letter* Letter, CRtfChar* pRtf
         return;
 
     if (pRtfChar) {
-        int i;
         slayout->rleft() = pRtfChar->m_Realrect.left + TemplateOffset.x();
         slayout->rright() = pRtfChar->m_Realrect.right + TemplateOffset.x();
         slayout->rtop() = pRtfChar->m_Realrect.top + TemplateOffset.y();
         slayout->rbottom() = pRtfChar->m_Realrect.bottom + TemplateOffset.y();
 
-        for (i = 0; i < pRtfChar->m_wCountAlt; i++) {
-            Letter[i].alternative = pRtfChar->m_chrVersions[i].m_bChar;
-            Letter[i].probability = pRtfChar->m_chrVersions[i].m_bProbability | 1;
+        int i = 0;
+        for (; i < pRtfChar->m_wCountAlt; i++) {
+            Letter[i].setChar(pRtfChar->m_chrVersions[i].m_bChar);
+            Letter[i].setProbability(pRtfChar->m_chrVersions[i].m_bProbability | 1);
         }
 
-        Letter[i - 1].probability &= 0xFE;
+        Letter[i - 1].setProbability(Letter[i - 1].probability() & 0xFE);
     }
 
     else {
@@ -4276,8 +4276,8 @@ void Rtf_CED_CreateChar(CIF::Rect * slayout, CIF::Letter* Letter, CRtfChar* pRtf
         slayout->rright() = -1;
         slayout->rtop() = -1;
         slayout->rbottom() = -1;
-        Letter->alternative = ' ';
-        Letter->probability = 0;
+        Letter->setChar(' ');
+        Letter->setProbability(0);
     }
 }
 

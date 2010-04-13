@@ -467,9 +467,7 @@ void NewFormattedL(const letter* pt, const uint32_t alternatives) {
     CEDChar *chr = lin->insertChar();
 
     for (uint i = 0; i < alternatives; i++) {
-        Letter lt;
-        lt.alternative = pt[i].bType;
-        lt.probability = pt[i].bAttrib;
+        Letter lt(pt[i].bType, pt[i].bAttrib);
         chr->addAlternative(lt);
     }
 
@@ -729,7 +727,7 @@ void PrintPara(FILE *stream, Handle para)
             CEDChar * chr = line->charAt(c);
 
             if (!chr->isPicture())
-            fprintf(stream, "%c", chr->alternativeAt(0).alternative);
+            fprintf(stream, "%c", chr->alternativeAt(0).getChar());
             else
             fprintf(stream, "\\pict%d\\", chr->pictureNumber());
         }
@@ -1082,9 +1080,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
                     }
 
                     else {
-                        Letter l;
-                        l.alternative = ' ';
-                        l.probability = 254;
+                        Letter l(' ', 254);
 
                         if (!CFIO_WriteToFile(hFile, (pchar) &l, sizeof(Letter)))
                             goto ED_WRITE_END;

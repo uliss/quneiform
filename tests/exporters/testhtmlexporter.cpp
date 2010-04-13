@@ -182,7 +182,7 @@ void TestHtmlExporter::testExportCharacter() {
     string chars("abcdefghijklmnopqstuvwxyz123456789!@#$%^*(-+");
     Letter lt;
     for (uint i = 0; i < chars.size(); i++) {
-        lt.alternative = chars[i];
+        lt.alternative_ = chars[i];
         c_->setAlternative(lt, 0);
         exp_->writeCharacter(cerr, c_);
         CPPUNIT_ASSERT_EQUAL(string(1, chars[i]), buffer(exp_));

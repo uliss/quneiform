@@ -455,7 +455,7 @@ void GenericExporter::setOutputStream(std::ostream * os) {
 
 void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     assert(chr && chr->hasAlternatives());
-    os << chr->alternativeAt(0).alternative;
+    os << chr->alternativeAt(0).getChar();
 }
 
 void GenericExporter::writeColumn(std::ostream& /*os*/, CEDParagraph * col) {

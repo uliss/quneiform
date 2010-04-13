@@ -386,23 +386,19 @@ CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, Letter*
     if (alternatives != 0) {
         int i = 0;
 
-        while (alternatives[i].probability & 1 == 1) {
-            if (alternatives[i].alternative < ' ')
-                alternatives[i].alternative = ' ';
+        while ((alternatives[i].probability() & 1) == 1) {
+            alternatives[i].normalizeNonPrintable();
 
             i++;
         }
 
         for (int j = 0; j < (i + 1); j++) {
-            Letter lt = alternatives[j];
-            chr->addAlternative(lt);
+            chr->addAlternative(alternatives[j]);
         }
     }
 
     else {
-        Letter lt;
-        lt.alternative = ' ';
-        lt.probability = 254;
+        Letter lt(' ', 254);
         chr->addAlternative(lt);
     }
 

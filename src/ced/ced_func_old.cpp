@@ -384,9 +384,7 @@ void FormattedL(const letter* pt, const uint32_t alternatives) {
 
     CEDChar *chr = lin->insertChar();
     for (size_t i = 0; i < alternatives; i++) {
-        Letter letter;
-        letter.alternative = pt[i].bType;
-        letter.probability = pt[i].bAttrib;
+        Letter letter(pt[i].bType, pt[i].bAttrib);
         chr->addAlternative(letter);
     }
 

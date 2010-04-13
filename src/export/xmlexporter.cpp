@@ -143,7 +143,7 @@ void XmlExporter::writeTag(std::ostream& os, const std::string& tagName,
 
 void XmlExporter::writeCharacter(std::ostream& /*os*/, CEDChar * chr) {
     assert(chr && chr->hasAlternatives());
-    lineBuffer() << escapeSpecialChar(chr->alternativeAt(0).alternative);
+    lineBuffer() << escapeSpecialChar(chr->alternativeAt(0).getChar());
 }
 
 void XmlExporter::useIndents(bool value) {

@@ -28,20 +28,43 @@ class Letter
 {
     public:
         Letter(unsigned char alt = 0, unsigned char prob = 0) :
-            alternative(alt), probability(prob) {
+            alternative_(alt), probability_(prob) {
+        }
+
+        unsigned char getChar() const {
+            return alternative_;
+        }
+
+        /**
+         * Replaces non-printable character to space
+         */
+        void normalizeNonPrintable() {
+            if (alternative_ < ' ')
+                alternative_ = ' ';
+        }
+
+        unsigned char probability() const {
+            return probability_;
+        }
+
+        void setChar(unsigned char alt) {
+            alternative_ = alt;
+        }
+
+        void setProbability(unsigned char prob) {
+            probability_ = prob;
         }
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
-            ar & alternative;
-            ar & probability;
+            ar & alternative_;
+            ar & probability_;
         }
 #endif
-    public:
-        unsigned char alternative; //  ASCII code.  >= ' '.
-        unsigned char probability;
+        unsigned char alternative_; //  ASCII code.  >= ' '.
+        unsigned char probability_;
 };
 
 }
