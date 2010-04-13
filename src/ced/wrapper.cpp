@@ -371,7 +371,7 @@ CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, bool hardBreak, int defChrF
 }
 
 //create symbol
-CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterEx* alternatives,
+CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, Letter* alternatives,
         int fontHeight, int fontNum, int fontAttribs, language_t fontLang, int foregroundColor,
         int backgroundColor) {
     CEDChar *chr = ((CEDLine*) hEdLine)->insertChar();
@@ -394,13 +394,13 @@ CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, letterE
         }
 
         for (int j = 0; j < (i + 1); j++) {
-            LETTER lt = alternatives[j];
+            Letter lt = alternatives[j];
             chr->addAlternative(lt);
         }
     }
 
     else {
-        LETTER lt;
+        Letter lt;
         lt.alternative = ' ';
         lt.probability = 254;
         chr->addAlternative(lt);

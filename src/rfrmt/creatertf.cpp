@@ -114,7 +114,7 @@ Bool ReadInternalFileRelease(FILE *fpFileNameIn, CRtfPage* RtfPage);
 Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t RightIndent,
         int16_t IntervalBefore, RtfSectorInfo *SectorInfo, int AlignParagraph, int shad,
         int LenthStringInTwips, int LengthFragmInTwips);
-void Rtf_CED_CreateChar(CIF::Rect* slayout, letterEx* Letter, CRtfChar* pRtfChar);
+void Rtf_CED_CreateChar(CIF::Rect* slayout, Letter* letter, CRtfChar* pRtfChar);
 void WriteCupDrop(CRtfChar* pRtfChar, int16_t font);
 Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo);
 void Cleaning_LI_FRMT_Used_Flag(void);
@@ -3097,7 +3097,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
     Handle hParagraph = NULL;
     Handle hString = NULL;
     CIF::Rect slayout;
-    letterEx Letter[REC_MAX_VERS];
+    Letter Letter[REC_MAX_VERS];
     int shading = -1;
 #endif
     InitFragment(SectorInfo);
@@ -4252,7 +4252,7 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
             SectorInfo->userNum, -1, interval, playout, -1, shad, -1, -1, FALSE);
 }
 
-void Rtf_CED_CreateChar(CIF::Rect * slayout, letterEx* Letter, CRtfChar* pRtfChar) {
+void Rtf_CED_CreateChar(CIF::Rect * slayout, Letter* Letter, CRtfChar* pRtfChar) {
     if (RtfWriteMode)
         return;
 

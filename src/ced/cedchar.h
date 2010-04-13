@@ -24,6 +24,7 @@
 
 #include "globus.h"
 #include "ced_struct.h"
+#include "letter.h"
 #include "common/color.h"
 #include "common/rect.h"
 
@@ -41,13 +42,13 @@ class CLA_EXPO CEDChar
         /**
          * Adds alternative to char
          */
-        void addAlternative(const LETTER& alt);
+        void addAlternative(const Letter& alt);
 
         /**
          * Returns alternative at given position
          * @throw std::out_of_range - if @a pos is wrong
          */
-        LETTER alternativeAt(size_t pos) const;
+        Letter alternativeAt(size_t pos) const;
 
         /**
          * Returns number of alternatives
@@ -129,7 +130,7 @@ class CLA_EXPO CEDChar
          * Sets character alternative
          * @throw std::out_of_range - if @a pos invalid
          */
-        void setAlternative(const LETTER& letter, size_t pos);
+        void setAlternative(const Letter& letter, size_t pos);
 
         /**
          * Sets background color
@@ -211,7 +212,7 @@ class CLA_EXPO CEDChar
         int font_height_;
         int font_style_;
         int font_number_;
-        typedef std::vector<LETTER> AlternativeList;
+        typedef std::vector<Letter> AlternativeList;
         AlternativeList alternatives_;
         //pointers to neighbor elements in connected list
         CEDChar *next_;

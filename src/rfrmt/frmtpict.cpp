@@ -160,7 +160,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     CIF::Rect slayout;
     EDSIZE interval;
     EDBOX EdFragmRect;
-    letterEx Letter;
+    Letter Letter;
     Handle hPrevObject;
 #endif
     uint32_t NumberPage = CPAGE_GetCurrentPage();

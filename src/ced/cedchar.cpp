@@ -30,11 +30,11 @@ CEDChar::CEDChar() :
 CEDChar::~CEDChar() {
 }
 
-void CEDChar::addAlternative(const LETTER& letter) {
+void CEDChar::addAlternative(const Letter& letter) {
     alternatives_.push_back(letter);
 }
 
-LETTER CEDChar::alternativeAt(size_t pos) const {
+Letter CEDChar::alternativeAt(size_t pos) const {
     return alternatives_.at(pos);
 }
 
@@ -102,7 +102,7 @@ Rect& CEDChar::rBoundingRect() {
     return bbox_;
 }
 
-void CEDChar::setAlternative(const LETTER& letter, size_t pos) {
+void CEDChar::setAlternative(const Letter& letter, size_t pos) {
     alternatives_.at(pos) = letter;
 }
 

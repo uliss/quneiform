@@ -274,14 +274,6 @@ struct letter {
     uchar bAttrib;
 };
 
-typedef struct letterEx {
-    public:
-        letterEx(uchar alt = 0, uchar prob = 0): alternative(alt), probability(prob) {}
-
-    uchar alternative; //  ASCII code.  >= ' '.
-    uchar probability;
-} LETTER;
-
 #define SSR_HUGE        0    /* Internal remark about huge letter */
 
 /* Seria within broken line: first - BROKEN_X, last - BROKEN_W  */

@@ -467,7 +467,7 @@ void NewFormattedL(const letter* pt, const uint32_t alternatives) {
     CEDChar *chr = lin->insertChar();
 
     for (uint i = 0; i < alternatives; i++) {
-        LETTER lt;
+        Letter lt;
         lt.alternative = pt[i].bType;
         lt.probability = pt[i].bAttrib;
         chr->addAlternative(lt);
@@ -1074,7 +1074,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
 
                     if (chr->hasAlternatives()) {
                         for (size_t i = 0; i < chr->alternativeCount(); i++) {
-                            LETTER letter = chr->alternativeAt(i);
+                            Letter letter = chr->alternativeAt(i);
 
                             if (!CFIO_WriteToFile(hFile, (pchar) &letter, sizeof(letter)))
                                 goto ED_WRITE_END;
@@ -1082,11 +1082,11 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
                     }
 
                     else {
-                        letterEx l;
+                        Letter l;
                         l.alternative = ' ';
                         l.probability = 254;
 
-                        if (!CFIO_WriteToFile(hFile, (pchar) &l, sizeof(letterEx)))
+                        if (!CFIO_WriteToFile(hFile, (pchar) &l, sizeof(Letter)))
                             goto ED_WRITE_END;
                     }
 
