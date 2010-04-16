@@ -79,6 +79,7 @@ class CEDPage;
 }
 
 typedef std::vector<uint16_t> vectorWord;
+#define  TwipsToEMU_Koef (360000 * 2.54)/1440
 
 #define TIRE                  0x97        //'-'
 
@@ -467,31 +468,6 @@ class CRtfHorizontalColumn//:public CObject
         RECT                 m_rect;
         RECT                 m_rectReal;
         uint16_t                  m_wType;
-};
-
-/////////////////////////////////////////////////////////////////////////////
-// VerticalColumn class
-class CRtfVerticalColumn//:public CObject
-{
-    public:
-        CRtfVerticalColumn();
-        ~CRtfVerticalColumn();
-
-        Bool                  Write( Bool OutPutType , RtfSectorInfo* SectorInfo);
-        void                 SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorInfo* SectorInfo);
-
-        /*CObArray*/
-        std::vector<CRtfFragment*>                m_arFragments;
-        CRtfPage             *m_PagePtr;
-
-        uint16_t                 m_wFragmentsCount;
-        uint16_t                  m_wIndex;
-        Bool                 m_bSortFlag;
-        RECT                 m_rect;
-        RECT                 m_rectReal;
-        uint16_t                  m_wType;
-        Bool                 m_bFlagObjectInColumn;
-        Bool                 m_bFlagSmall;
 };
 
 #endif // __CreateRtf_h__

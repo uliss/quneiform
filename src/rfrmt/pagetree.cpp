@@ -71,6 +71,7 @@
 #include "aldebug.h"
 #include "crtfstring.h"
 #include "crtfchar.h"
+#include "crtfverticalcolumn.h"
 #include "rtfword.h"
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
