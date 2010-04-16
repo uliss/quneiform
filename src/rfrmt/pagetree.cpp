@@ -70,6 +70,7 @@
 #include <stdarg.h>
 #include "aldebug.h"
 
+#include "crtffragment.h"
 #include "crtfsector.h"
 #include "crtfstring.h"
 #include "crtfchar.h"

@@ -30,7 +30,11 @@ void Put(const char *Data);
 void PutC(char sym);
 void PutCom(const char *Command, int32_t value, int16_t space);
 void PutChar(uchar sym);
-Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo) ;
+Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo);
+int16_t get_font_name(int16_t FontNumber);
+
+class CRtfChar;
+void WriteCupDrop(CRtfChar* pRtfChar, int16_t font);
 
 void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
 void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);

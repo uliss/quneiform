@@ -18,6 +18,8 @@
 
 #include <cstring>
 #include "crtffunc.h"
+#include "crtfchar.h"
+#include "creatertf.h"
 #include "lst3_win.h"
 
 void Put(const char *Data) {
@@ -111,4 +113,28 @@ void PutChar(uchar sym) {
         do0 (i, 0, len - 1)
             PutC(s[i]);
     }
+}
+
+int16_t get_font_name(int16_t FontNumber) {
+    if (FontNumber & TG_EDW_NARROW)
+        return 3;
+
+    if (FontNumber & TG_EDW_GELV)
+        return 0;
+
+    if (FontNumber & TG_EDW_SERIF)
+        return 1;
+
+    return 2;
+}
+
+void WriteCupDrop(CRtfChar* pRtfChar, int16_t font) {
+    Put("{\\pard\\fs6\\par}");
+    Put("{\\pard\\plain\\slmult0\\keepn\\widctlpar\\pvpara\\dropcapli3\\dropcapt1\\cgrid{");
+    PutCom("\\fs", pRtfChar->m_wFontPointSize * 2, 1);
+    PutCom("\\f", font, 1);
+    PutCom("\\dn", 9, 1);
+    PutCom("\\lang", 1024, 1);
+    PutChar(pRtfChar->m_chrVersions[0].m_bChar);
+    Put("\\par}}");
 }

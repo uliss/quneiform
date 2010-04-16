@@ -1,6 +1,7 @@
 add_library(cuneiform-rfrmt ${LIBTYPE}
 ${SNP_SRC}
 creatertf.cpp
+crtffragment.cpp
 crtffunc.cpp
 crtfsector.cpp
 crtfstring.cpp

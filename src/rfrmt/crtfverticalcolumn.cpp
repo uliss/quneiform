@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "crtfverticalcolumn.h"
+#include "crtffragment.h"
 #include "creatertf.h"
 
 CRtfVerticalColumn::CRtfVerticalColumn() {

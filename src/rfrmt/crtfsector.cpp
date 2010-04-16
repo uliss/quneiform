@@ -19,6 +19,7 @@
 #include "crtfsector.h"
 #include "crtfhorizontalcolumn.h"
 #include "crtfverticalcolumn.h"
+#include "crtffragment.h"
 #include "crtffunc.h"
 #include "ced/ced.h"
 
