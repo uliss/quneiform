@@ -541,29 +541,4 @@ class CRtfString//:public CObject
         uint32_t               S_Flags; //NEGA_STR vmk 10-06-2001
 };
 
-/////////////////////////////////////////////////////////////////////////////
-// Char class
-class CRtfChar//:public CObject
-{
-    public:
-        CRtfChar() {};
-        ~CRtfChar() {};
-        Bool                  Write();
-
-        struct {
-            uchar         m_bChar;
-            uchar         m_bProbability;
-        } m_chrVersions[REC_MAX_VERS];//!!! Art
-        RECT                 m_Idealrect;
-        RECT                 m_Realrect;
-        language_t                 m_blanguage;
-        uchar                 m_bFlg_spell;
-        uchar                 m_bFlg_spell_nocarrying;
-        uchar                 m_bFlg_cup_drop;
-        uint16_t                 m_wCountAlt;
-        uint16_t                 m_wFontNumber;
-        uint16_t                 m_wFontPointSize;
-        uint16_t                  m_wIndex;
-};
-
 #endif // __CreateRtf_h__

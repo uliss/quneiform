@@ -83,6 +83,7 @@
 #include "cstr/cstrdefs.h"
 #include "cline/cline.h"
 
+#include "crtfchar.h"
 #include "rtfword.h"
 
 #include "common/size.h"

@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "rtfword.h"
+#include "crtfchar.h"
 #include "creatertf.h"
 #include "cpage/cpage.h"
 

@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "creatertf.h"
 #include <stdlib.h>
 #include <cstring>
+#include "crtfchar.h"
 #include "rtfword.h"
 #include "globus.h"
 #include "dpuma.h"

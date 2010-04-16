@@ -69,6 +69,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include "aldebug.h"
+#include "crtfchar.h"
 #include "rtfword.h"
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
