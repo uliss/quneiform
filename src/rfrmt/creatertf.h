@@ -542,39 +542,6 @@ class CRtfString//:public CObject
 };
 
 /////////////////////////////////////////////////////////////////////////////
-// Word class
-class CRtfWord//:public CObject
-{
-    public:
-        CRtfWord();
-        ~CRtfWord();
-
-        CRtfChar*            GetFirstChar();
-        CRtfChar*            GetNextChar();
-        Bool                  Write();
-        void                 get_coordinates_and_probability(void);
-
-        /*CObArray*/
-        std::vector<CRtfChar*>             m_arChars;
-
-        uint16_t                    m_wCharsCount;
-        uint16_t                  m_wIndex;
-        CRtfString*          m_String;
-        RECT                 m_rect;
-
-        int16_t                m_wcl;
-        int16_t                m_wct;
-        int16_t                m_wcr;
-        int16_t                m_wcb;
-        int16_t                m_wcs;
-        int16_t                m_wcp;
-
-        uint16_t                  m_wFontNumber;
-        uint16_t                  m_wIdealFontPointSize;
-        uint16_t                  m_wRealFontPointSize;
-};
-
-/////////////////////////////////////////////////////////////////////////////
 // Char class
 class CRtfChar//:public CObject
 {

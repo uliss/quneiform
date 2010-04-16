@@ -11,6 +11,7 @@ formatoptions.cpp
 int_file.cpp
 mymem.cpp
 pagetree.cpp
+rtfword.cpp
 sort_int.cpp
 util.cpp
 util_lst.cpp
