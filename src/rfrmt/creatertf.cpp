@@ -84,6 +84,7 @@
 #include "cline/cline.h"
 
 #include "crtfchar.h"
+#include "crtfstring.h"
 #include "rtfword.h"
 
 #include "common/size.h"
@@ -3767,99 +3768,6 @@ void CRtfFragment::new_paragraph(Bool OutPutType) {
     PutCom("\\sb", m_sb, 0);
     PutCom("\\sa", 0, 0);
     PutCom("\\sl", 0, 0);
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 CRTFSTRING                                                     //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-CRtfString::CRtfString() {
-    m_wWordsCount = 0;
-    //  m_arWords.RemoveAll();
-    m_wLeftIndent = 0;
-    m_wRightIndent = 0;
-    m_wFirstIndent = 0;
-    m_wFlagBeginParagraph = 0;
-    m_wAlignment = 0;
-    m_wPrevAlignment = 0;
-    m_wLeftBorderEqual = 0;
-    m_wRightBorderEqual = 0;
-    m_wCentreEqual = 0;
-    m_bLineTransfer = 0;
-    m_FlagCarry = 0;
-    S_Flags = 0;
-    m_LengthStringInTwips = 0;
-}
-
-CRtfString::~CRtfString() {
-    CRtfWord* cWord;
-    m_wWordsCount = m_arWords.size();
-
-    for (int i = 0; i < m_wWordsCount; i++) {
-        cWord = m_arWords[i];
-        delete cWord;
-    }
-
-    //  m_arWords.RemoveAll();
-}
-
-int16_t CRtfString::GetStringSizeInTwips() {
-    CRtfWord* pRtfWord;
-    CRtfChar *pLastChar, *pFirstChar;
-    uint16_t CountChars;
-    pRtfWord = (CRtfWord*) m_arWords[0];
-    pFirstChar = (CRtfChar*) pRtfWord->m_arChars[0];
-    pRtfWord = (CRtfWord*) m_arWords[m_wWordsCount - 1];
-    CountChars = pRtfWord->m_wCharsCount;
-    pLastChar = (CRtfChar*) pRtfWord->m_arChars[CountChars - 1];
-    int16_t LenghtStr = (int16_t) ((pLastChar->m_Idealrect.right - pFirstChar->m_Idealrect.left)
-            * Twips);
-    return LenghtStr;
-}
-
-uint16_t CRtfString::GetRealStringSize(void) {
-    //  CString         TmpString;
-    char tmp_str[MAX_BUFFER_SIZE];
-    CRtfWord* pRtfWord;
-    CRtfChar *pRtfChar;
-    uint16_t CountChars, RealSize;
-    int16_t strHeight;
-    int index = 0;
-
-    for (int nw = 0; nw < m_wWordsCount; nw++) {
-        pRtfWord = (CRtfWord*) m_arWords[nw];
-        CountChars = pRtfWord->m_wCharsCount;
-
-        for (int nz = 0; nz < CountChars; nz++) {
-            pRtfChar = (CRtfChar*) pRtfWord->m_arChars[nz];
-            tmp_str[index++] = pRtfChar->m_chrVersions[0].m_bChar;
-        }
-
-        tmp_str[index++] = ' ';
-    }
-
-    tmp_str[index] = 0;
-    pRtfWord = (CRtfWord*) m_arWords[0];
-    pRtfChar = (CRtfChar*) pRtfWord->m_arChars[0];
-    RealSize = GetRealSize((char*) &tmp_str, strlen(tmp_str), pRtfWord->m_wRealFontPointSize,
-            pRtfChar->m_wFontNumber, &strHeight);
-    return RealSize;
-}
-
-CRtfWord* CRtfString::GetNextWord() {
-    m_arWords.push_back(new CRtfWord());
-    return m_arWords.back();
-}
-
-uint16_t CRtfString::get_max_font_size() {
-    uint16_t nw, str_max_font = 3;
-    CRtfWord* pRtfWord;
-
-    for (nw = 0; nw < m_wWordsCount; nw++) {
-        pRtfWord = (CRtfWord*) m_arWords[nw];
-        str_max_font = MAX(str_max_font, pRtfWord->m_wRealFontPointSize);
-    }
-
-    return str_max_font;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
