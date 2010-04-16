@@ -69,6 +69,8 @@
 #include <math.h>
 #include <stdarg.h>
 #include "aldebug.h"
+
+#include "crtfsector.h"
 #include "crtfstring.h"
 #include "crtfchar.h"
 #include "crtfhorizontalcolumn.h"

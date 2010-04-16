@@ -380,45 +380,4 @@ class CRtfFragment//:public CObject
         uint32_t                m_Flag;
 };
 
-/////////////////////////////////////////////////////////////////////////////
-// Sector class
-class CRtfSector//:public CObject
-{
-    public:
-        CRtfSector();
-        ~CRtfSector();
-
-        CRtfPage             *m_PagePtr;
-
-        Bool                  Write(void);
-        void                 WriteTerminalColumns(void);
-        void                 WriteNonTerminalColumns(void);
-        void                 WriteTerminalColumnsTablesAndPictures(void);
-        void                 CalcSector(void);
-        int32_t                GetCountAndRightBoundVTerminalColumns(void);
-        void                 ToPlacePicturesAndTables(CRtfFragment* Frament);
-        void                 FillingSectorInfo(void);
-
-        /*CObArray*/
-        std::vector<CRtfHorizontalColumn*>                m_arHorizontalColumns;
-        vectorWord/*CWordArray*/           m_arHTerminalColumnsIndex;
-        vectorWord/*CWordArray*/           m_arRightBoundTerminalColumns;
-        vectorWord/*CWordArray*/           m_arWidthTerminalColumns;
-        RtfSectorInfo        SectorInfo;
-
-        uint16_t                 m_wHorizontalColumnsCount;
-        uint16_t                 m_wFragmentsCount;
-        uint16_t                 m_wTextFragmentsCount;
-        uint16_t                 m_wPictureFragmentsCount;
-        uint16_t                 m_wTableFragmentsCount;
-        uint16_t                  m_wIndex;
-        RECT                 m_rect;
-        RECT                 m_rectReal;
-        uint16_t                  m_wType;
-        Handle               m_hEDSector;
-        Bool                 m_FlagOneString;
-        Bool                 m_bFlagLine;
-        int32_t         m_VTerminalColumnNumber;
-};
-
 #endif // __CreateRtf_h__
