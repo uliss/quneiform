@@ -1,7 +1,9 @@
 add_library(cuneiform-rfrmt ${LIBTYPE}
 ${SNP_SRC}
 creatertf.cpp
+crtffunc.cpp
 crtfstring.cpp
+crtfhorizontalcolumn.cpp
 crtfverticalcolumn.cpp
 frmt.cpp
 frmtallignment.cpp
