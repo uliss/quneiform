@@ -53,7 +53,7 @@ class CRtfChar
          */
         void setLanguage(language_t lang);
     private:
-        language_t m_blanguage;
+        language_t language_;
 };
 
 #endif /* CRTFCHAR_H_ */

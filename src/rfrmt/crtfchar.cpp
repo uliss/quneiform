@@ -19,9 +19,9 @@
 #include "crtfchar.h"
 
 void CRtfChar::setLanguage(language_t lang) {
-    m_blanguage = lang;
+    language_ = lang;
 }
 
 language_t CRtfChar::language() const {
-    return m_blanguage;
+    return language_;
 }
