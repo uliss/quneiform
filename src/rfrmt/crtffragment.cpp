@@ -97,7 +97,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
     for (int ns = 0; ns < m_wStringsCount; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
-        pRtfChar = (CRtfChar*) pRtfWord->m_arChars[0];
+        pRtfChar = pRtfWord->charAt(0);
 
         if (pRtfChar->m_bFlg_cup_drop == TRUE) { //заносим буквицы во frame
             if ((FlagMode & USE_FRAME) || OutPutType)
@@ -156,7 +156,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
             if (!RtfWriteMode) {
                 pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
-                pRtfChar = (CRtfChar*) pRtfWord->m_arChars[0];
+                pRtfChar = pRtfWord->firstChar();
                 int colWidth = 0;
 
                 if (pRtfParent && !(FlagMode & USE_NONE)) {
@@ -215,7 +215,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
         for (int nw = 0; nw < CountWords; nw++) {
             pRtfWord = (CRtfWord*) pRtfString->m_arWords[nw];
-            pRtfChar = (CRtfChar*) pRtfWord->m_arChars[0];
+            pRtfChar = pRtfWord->firstChar();
             Put("{");
             tmp_font_name = get_font_name(pRtfWord->m_wFontNumber);
 
@@ -290,7 +290,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             CountChars = pRtfWord->m_wCharsCount;
 
             for (int nz = 0; nz < CountChars; nz++) {
-                pRtfChar = (CRtfChar*) pRtfWord->m_arChars[nz];
+                pRtfChar = pRtfWord->charAt(nz);
 #ifdef EdWrite
 
                 if (!pRtfWord->m_wcs)

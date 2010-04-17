@@ -662,7 +662,7 @@ void CRtfPage::CorrectKegl(void) {
                 CountChars = pRtfWord->m_wCharsCount;
 
                 for (nz = 0; nz < CountChars; nz++) {
-                    pRtfChar = pRtfWord->m_arChars[nz];
+                    pRtfChar = pRtfWord->charAt(nz);
                     tmp_str[nz] = pRtfChar->m_chrVersions[0].m_bChar;
 
                     if (!nz)
@@ -677,10 +677,11 @@ void CRtfPage::CorrectKegl(void) {
             }
 
             pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
-            pFirstChar = (CRtfChar*) pRtfWord->m_arChars[0];
+            pFirstChar = pRtfWord->firstChar();
             pRtfWord = (CRtfWord*) pRtfString->m_arWords[CountWords - 1];
             CountChars = pRtfWord->m_wCharsCount;
-            pLastChar = (CRtfChar*) pRtfWord->m_arChars[CountChars - 1];
+            // pLastChar = pRtfWord->m_arChars[CountChars - 1];
+            pLastChar = pRtfWord->lastChar();
             LenghtStr = (int16_t) (pLastChar->m_Idealrect.right - pFirstChar->m_Idealrect.left);
             // adjust kegl to the text line real width (Microsoft function)
             Real_Size_Kegl = GetRealSizeKegl(TmpString, LenghtStr, pFirstChar->m_wFontPointSize,

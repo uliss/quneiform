@@ -171,10 +171,10 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo)
         else    pRtfString->m_wSpaceBefore = 0;
 
         pRtfWord      = (CRtfWord*)pRtfString->m_arWords[0];
-        pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
+        pRtfCharFirst = (CRtfChar*)pRtfWord->firstChar();
         pRtfString->m_FirstChar = pRtfCharFirst->m_chrVersions[0].m_bChar;
         pRtfWord      = (CRtfWord*)pRtfString->m_arWords[pRtfString->m_wWordsCount-1];
-        pRtfCharLast  = (CRtfChar*)pRtfWord->m_arChars[pRtfWord->m_wCharsCount-1];
+        pRtfCharLast  = (CRtfChar*)pRtfWord->charAt(pRtfWord->m_wCharsCount-1);
         pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
         pRtfString->m_LeftBorder  = pRtfCharFirst->m_Idealrect.left;
         pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right;
@@ -896,10 +896,10 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end)
             else {
                 pRtfStringPrev = (CRtfString*)m_arStrings[ns-1];
                 pRtfWord      = (CRtfWord*)pRtfStringPrev->m_arWords[0];
-                pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
+                pRtfCharFirst = pRtfWord->firstChar();
                 top = pRtfCharFirst->m_Idealrect.bottom;
                 pRtfWord      = (CRtfWord*)pRtfString->m_arWords[0];
-                pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
+                pRtfCharFirst = pRtfWord->firstChar();
                 bottom = pRtfCharFirst->m_Idealrect.top;
                 pRtfString->m_wSpaceBefore = (uint16_t)(bottom - top);
             }
@@ -910,10 +910,10 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end)
         else    pRtfString->m_wSpaceBefore = 0;
 
         pRtfWord      = (CRtfWord*)pRtfString->m_arWords[0];
-        pRtfCharFirst = (CRtfChar*)pRtfWord->m_arChars[0];
+        pRtfCharFirst = pRtfWord->firstChar();
         pRtfString->m_FirstChar = pRtfCharFirst->m_chrVersions[0].m_bChar;
         pRtfWord      = (CRtfWord*)pRtfString->m_arWords[pRtfString->m_wWordsCount-1];
-        pRtfCharLast  = (CRtfChar*)pRtfWord->m_arChars[pRtfWord->m_wCharsCount-1];
+        pRtfCharLast  = pRtfWord->charAt(pRtfWord->m_wCharsCount-1);
         pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
         pRtfString->m_LeftBorder  = pRtfCharFirst->m_Idealrect.left;
         pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right;
@@ -1022,7 +1022,7 @@ void CRtfFragment::CalculationLengthAndCount(CRtfString* pRtfString, int32_t* Co
         WCountChars = pRtfWord->m_wCharsCount;
 
         for (int j = 0; j < WCountChars; j++) {
-            pRtfChar = (CRtfChar*)pRtfWord->m_arChars[j];
+            pRtfChar = pRtfWord->charAt(j);
             (*LengthChars) += MAX(0, pRtfChar->m_Idealrect.right - pRtfChar->m_Idealrect.left);
             (*CountChars)++;
         }
@@ -1074,7 +1074,7 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph()
             CountWords = pRtfStringPrev->m_wWordsCount;
             pRtfWord   = (CRtfWord*)pRtfStringPrev->m_arWords[CountWords-1];
             CountChars = pRtfWord->m_wCharsCount;
-            pRtfChar   = (CRtfChar*)pRtfWord->m_arChars[CountChars-1];
+            pRtfChar   = pRtfWord->charAt(CountChars-1);
 
             if ( pRtfChar->m_chrVersions[0].m_bChar == '-' && pRtfChar->m_bFlg_spell_nocarrying ) {
                 if ( pRtfString->m_wAlignment == pRtfStringPrev->m_wAlignment    )
@@ -1399,8 +1399,8 @@ Bool CRtfFragment::GetFlagBigSpace(int beg, int end)
             pRtfWordPrev = (CRtfWord*)pRtfString->m_arWords[i-1];
             pRtfWordCur  = (CRtfWord*)pRtfString->m_arWords[i];
             CountCharInPrevWord = pRtfWordPrev->m_wCharsCount;
-            pRtfCharPrev = (CRtfChar*)pRtfWordPrev->m_arChars[CountCharInPrevWord-1];
-            pRtfCharCur  = (CRtfChar*)pRtfWordCur->m_arChars[0];
+            pRtfCharPrev = pRtfWordPrev->charAt(CountCharInPrevWord-1);
+            pRtfCharCur  = pRtfWordCur->firstChar();
 
             if ((pRtfCharCur->m_Idealrect.left - pRtfCharPrev->m_Idealrect.right) > 2*m_max_dist)
                 FlagBigSpase = 1;

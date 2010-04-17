@@ -25,18 +25,47 @@
 class CRtfChar;
 class CRtfString;
 
-// Word class
 class CRtfWord
 {
     public:
         CRtfWord();
         ~CRtfWord();
 
-        CRtfChar* GetFirstChar();
+        /**
+         * Adds char to the end of the word
+         */
+        void addChar(CRtfChar * chr);
+
+        /**
+         * Returns pointer to character at position @pos
+         * @throw std::out_of_range exception if invalid position given
+         */
+        CRtfChar * charAt(size_t pos);
+
+        /**
+         * Returns number of chars is word
+         */
+        size_t charCount() const;
+
+        /**
+         * Removes all chars
+         */
+        void clearChars();
+
+        /**
+         * Returns pointer to first char
+         * @throw std::out_of_range if word is empty
+         */
+        CRtfChar * firstChar();
+
+        /**
+         * Returns pointer to last char
+         * @throw std::out_of_range if word is empty
+         */
+        CRtfChar * lastChar();
+
         CRtfChar* GetNextChar();
         void get_coordinates_and_probability(void);
-
-        std::vector<CRtfChar*> m_arChars;
 
         uint16_t m_wCharsCount;
         uint16_t m_wIndex;
@@ -53,6 +82,9 @@ class CRtfWord
         uint16_t m_wFontNumber;
         uint16_t m_wIdealFontPointSize;
         uint16_t m_wRealFontPointSize;
+    private:
+        typedef std::vector<CRtfChar*> CharList;
+        CharList chars_;
 };
 
 #endif /* RTFWORD_H_ */

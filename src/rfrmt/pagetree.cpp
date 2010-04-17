@@ -2637,8 +2637,8 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
                         pRtfWord->m_wIdealFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
                         pRtfWord->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
                         do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) { //char begin
-                            pRtfWord->m_arChars.push_back( new CRtfChar() );
-                            pRtfChar = pRtfWord->m_arChars[nz];
+                            pRtfWord->addChar(new CRtfChar);
+                            pRtfChar = pRtfWord->charAt(nz);
                             pRtfChar->m_wCountAlt = MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt, REC_MAX_VERS);
 
                             for (int alt = 0; alt < Zn[nc][ns][nw][nz].Title.Z_Num_Alt && alt < REC_MAX_VERS; alt++) {
@@ -2755,8 +2755,8 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
                             pRtfWord->m_wRealFontPointSize = RtfPage->GetNewKegl(pRtfWord->m_wIdealFontPointSize);
 
                         do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) {
-                            pRtfWord->m_arChars.push_back( new CRtfChar() );
-                            pRtfChar = pRtfWord->m_arChars[nz];
+                            pRtfWord->addChar(new CRtfChar);
+                            pRtfChar = pRtfWord->charAt(nz);
                             pRtfChar->m_wCountAlt = MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt, REC_MAX_VERS);
 
                             for (int alt = 0; alt < Zn[nc][ns][nw][nz].Title.Z_Num_Alt && alt < REC_MAX_VERS; alt++) {

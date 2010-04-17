@@ -27,18 +27,38 @@ CRtfWord::CRtfWord() {
 }
 
 CRtfWord::~CRtfWord() {
-    CRtfChar* cChar;
-    m_wCharsCount = m_arChars.size();
+    clearChars();
+}
 
-    for (int i = 0; i < m_wCharsCount; i++) {
-        cChar = m_arChars[i];
-        delete cChar;
-    }
+void CRtfWord::addChar(CRtfChar * chr) {
+    chars_.push_back(chr);
+}
+
+CRtfChar * CRtfWord::charAt(size_t pos) {
+    return chars_.at(pos);
+}
+
+size_t CRtfWord::charCount() const {
+    return chars_.size();
+}
+
+void CRtfWord::clearChars() {
+    for (CharList::iterator it = chars_.begin(), end = chars_.end(); it != end; ++it)
+        delete *it;
+    chars_.clear();
+}
+
+CRtfChar * CRtfWord::firstChar() {
+    return chars_.front();
+}
+
+CRtfChar * CRtfWord::lastChar() {
+    return chars_.back();
 }
 
 CRtfChar* CRtfWord::GetNextChar() {
-    m_arChars.push_back(new CRtfChar());
-    return m_arChars.back();
+    chars_.push_back(new CRtfChar());
+    return chars_.back();
 }
 
 void CRtfWord::get_coordinates_and_probability() {
@@ -52,8 +72,8 @@ void CRtfWord::get_coordinates_and_probability() {
     m_wcr = m_wcb = 0;
     m_wcs = 1;
     m_wcp = 254;
-    pRtfCharFirst = (CRtfChar*) m_arChars[0];
-    pRtfCharLast = (CRtfChar*) m_arChars[m_wCharsCount - 1];
+    pRtfCharFirst = (CRtfChar*) chars_[0];
+    pRtfCharLast = (CRtfChar*) chars_[m_wCharsCount - 1];
     m_wcl = (int16_t) pRtfCharFirst->m_Realrect.left;
     m_wcr = (int16_t) pRtfCharLast->m_Realrect.right;
     m_wct = MIN((int16_t) pRtfCharFirst->m_Realrect.top, (int16_t) pRtfCharLast->m_Realrect.top);
@@ -61,7 +81,7 @@ void CRtfWord::get_coordinates_and_probability() {
             (int16_t) pRtfCharLast->m_Realrect.bottom);
 
     for (nz = 0; nz < m_wCharsCount; nz++) {
-        pRtfChar = (CRtfChar*) m_arChars[nz];
+        pRtfChar = (CRtfChar*) chars_[nz];
         m_wcp = MIN(m_wcp, pRtfChar->m_chrVersions[0].m_bProbability);
         m_wcs = MIN(m_wcs, pRtfChar->m_bFlg_spell);
     }
