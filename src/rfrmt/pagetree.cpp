@@ -73,6 +73,7 @@
 #include "crtffragment.h"
 #include "crtfsector.h"
 #include "crtfstring.h"
+#include "crtfpage.h"
 #include "crtfchar.h"
 #include "crtfhorizontalcolumn.h"
 #include "crtfverticalcolumn.h"

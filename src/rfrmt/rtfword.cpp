@@ -20,6 +20,7 @@
 #include "crtfchar.h"
 #include "creatertf.h"
 #include "cpage/cpage.h"
+#include "minmax.h"
 
 CRtfWord::CRtfWord() {
     m_wCharsCount = 0;

@@ -16,34 +16,48 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CRTFFUNC_H_
-#define CRTFFUNC_H_
+#ifndef CRTFSTRUCT_H_
+#define CRTFSTRUCT_H_
 
-#include "cfcompat.h"
+class RtfPageElementCount
+{
+    public:
+        uint16_t RtfSectors;
+        uint16_t RtfTextFragments;
+        uint16_t RtfFrameTextFragments;
+        uint16_t RtfPictureFragments;
+        uint16_t RtfTableFragments;
+        uint16_t RtfStrings;
+        uint16_t RtfWords;
+        uint16_t RtfChars;
+};
 
-class RtfSectorInfo;
-class CRtfPage;
+class KEGL
+{
+    public:
+        int16_t OldKegl;
+        int16_t NewKegl;
+        int16_t Count;
+};
 
-extern uint32_t RtfWriteMode;
+class FONT
+{
+    public:
+        char *family;
+        char *name;
+        int16_t Bold, Italic, Underline;
+};
+
+class FONT_COD
+{
+    public:
+        const char *name;
+        const char *family;
+};
+
+extern float Twips;
 extern uint32_t FlagMode;
+extern char UnRecogSymbol;
+extern uint32_t gnLanguage;
 
-void Put(const char *Data);
-void PutC(char sym);
-void PutCom(const char *Command, int32_t value, int16_t space);
-void PutChar(uchar sym);
-Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo);
-int16_t get_font_name(int16_t FontNumber);
-int16_t GetRealSizeKegl(const char * str, int16_t width, int16_t FontPointSize, int16_t FontNumber);
-int16_t GetRealSize(char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
-        int16_t* strHeight);
-extern Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName);
-
-class CRtfChar;
-void WriteCupDrop(CRtfChar* pRtfChar, int16_t font);
-
-void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
-void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips);
-void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-
-#endif /* CRTFFUNC_H_ */
+#endif /* CRTFSTRUCT_H_ */

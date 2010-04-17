@@ -3,6 +3,7 @@ ${SNP_SRC}
 creatertf.cpp
 crtffragment.cpp
 crtffunc.cpp
+crtfpage.cpp
 crtfsector.cpp
 crtfstring.cpp
 crtfhorizontalcolumn.cpp

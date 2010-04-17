@@ -22,6 +22,7 @@
 #include "crtffragment.h"
 #include "crtffunc.h"
 #include "ced/ced.h"
+#include "minmax.h"
 
 CRtfSector::CRtfSector() {
     m_bFlagLine = FALSE;

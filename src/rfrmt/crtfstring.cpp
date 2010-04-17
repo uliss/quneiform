@@ -21,6 +21,8 @@
 #include "crtfstring.h"
 #include "rtfword.h"
 #include "creatertf.h"
+#include "crtfstruct.h"
+#include "minmax.h"
 
 int16_t GetRealSize(char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
         int16_t* strHeight);
@@ -53,7 +55,6 @@ CRtfString::~CRtfString() {
 }
 
 int16_t CRtfString::GetStringSizeInTwips() {
-    extern float Twips;
     CRtfWord* pRtfWord;
     CRtfChar *pLastChar, *pFirstChar;
     uint16_t CountChars;

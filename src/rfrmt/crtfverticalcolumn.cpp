@@ -18,7 +18,9 @@
 
 #include "crtfverticalcolumn.h"
 #include "crtffragment.h"
+#include "crtfpage.h"
 #include "creatertf.h"
+#include "minmax.h"
 
 CRtfVerticalColumn::CRtfVerticalColumn() {
     m_bSortFlag = 0;

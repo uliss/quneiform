@@ -20,7 +20,9 @@
 #include "crtfverticalcolumn.h"
 #include "crtffragment.h"
 #include "crtffunc.h"
+#include "crtfpage.h"
 #include "ced/ced.h"
+#include "minmax.h"
 
 CRtfHorizontalColumn::CRtfHorizontalColumn() {
     m_wVerticalColumnsCount = 0;

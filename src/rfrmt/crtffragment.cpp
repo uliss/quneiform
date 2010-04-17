@@ -20,12 +20,14 @@
 #include "crtfchar.h"
 #include "crtfstring.h"
 #include "crtfsector.h"
+#include "crtfpage.h"
 #include "rtfword.h"
 #include "creatertf.h"
 #include "crtffunc.h"
 
 #include "ced/ced.h"
 #include "cstr/cstrdefs.h"
+#include "minmax.h"
 
 void Rtf_CED_CreateChar(CIF::Rect* slayout, CIF::Letter* letter, CRtfChar* pRtfChar);
 Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t RightIndent,
