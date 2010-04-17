@@ -69,7 +69,6 @@ class CRtfWord
 
         uint16_t m_wCharsCount;
         uint16_t m_wIndex;
-        CRtfString* m_String;
         RECT m_rect;
 
         int16_t m_wcl;
