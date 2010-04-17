@@ -352,7 +352,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 Handle hString__ = CED_CreateLine(hParagraph__, FALSE, 6);
                                 Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
                                 CED_CreateChar(hString__, slayout, Letter, EDFontPointSize,
-                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->m_blanguage,
+                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->language(),
                                         -1, -1);
                                 hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
                                         SectorInfo, m_wvid_parag,/*m_Flag*/pRtfString->S_Flags,
@@ -377,7 +377,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                             else {
                                 Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
                                 CED_CreateChar(hString, slayout, Letter, EDFontPointSize,
-                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->m_blanguage,
+                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->language(),
                                         -1, -1);
                             }
                         }
@@ -411,7 +411,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 Handle hString__ = CED_CreateLine(hParagraph__, FALSE, 6);
                                 Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
                                 CED_CreateChar(hString__, slayout, Letter, EDFontPointSize,
-                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->m_blanguage,
+                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->language(),
                                         -1, -1);
                                 hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
                                         SectorInfo, m_wvid_parag,/*m_Flag*/pRtfString->S_Flags,
@@ -436,7 +436,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                             else {
                                 Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
                                 CED_CreateChar(hString, slayout, Letter, EDFontPointSize,
-                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->m_blanguage,
+                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->language(),
                                         -1, -1);
                             }
                         }
@@ -457,7 +457,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                             EDFontAttribs = EDFontAttribs | 0x02;
                             Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
                             CED_CreateChar(hString, slayout, Letter, EDFontPointSize,
-                                    (int) tmp_font_name, EDFontAttribs, pRtfChar->m_blanguage, -1,
+                                    (int) tmp_font_name, EDFontAttribs, pRtfChar->language(), -1,
                                     -1);
                         }
 

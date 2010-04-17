@@ -16,44 +16,12 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CRTFCHAR_H_
-#define CRTFCHAR_H_
+#include "crtfchar.h"
 
-#include "cfcompat.h"
-#include "lang_def.h"
-#include "recdefs.h"
+void CRtfChar::setLanguage(language_t lang) {
+    m_blanguage = lang;
+}
 
-class CRtfChar
-{
-    public:
-        struct
-        {
-                uchar m_bChar;
-                uchar m_bProbability;
-        } m_chrVersions[REC_MAX_VERS];//!!! Art
-
-        RECT m_Idealrect;
-        RECT m_Realrect;
-        uchar m_bFlg_spell;
-        uchar m_bFlg_spell_nocarrying;
-        uchar m_bFlg_cup_drop;
-        uint16_t m_wCountAlt;
-        uint16_t m_wFontNumber;
-        uint16_t m_wFontPointSize;
-        uint16_t m_wIndex;
-
-        /**
-         * Returns character language
-         */
-        language_t language() const;
-
-        /**
-         * Sets character language
-         * @param lang - new language
-         */
-        void setLanguage(language_t lang);
-    private:
-        language_t m_blanguage;
-};
-
-#endif /* CRTFCHAR_H_ */
+language_t CRtfChar::language() const {
+    return m_blanguage;
+}

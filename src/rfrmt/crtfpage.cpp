@@ -317,7 +317,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                     }
 
                     fread(&alt2, sizeof(struct ALT_TIGER2), 1, in);
-                    pRtfChar->m_blanguage = alt2.language;
+                    pRtfChar->setLanguage(alt2.language);
                     pRtfChar->m_bFlg_spell_nocarrying = alt2.spellnocarrying;
                     pRtfChar->m_bFlg_cup_drop = alt2.FlagCapDrop;
                     pRtfChar->m_bFlg_spell = alt2.spell;
