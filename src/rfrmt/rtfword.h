@@ -68,7 +68,6 @@ class CRtfWord
         void get_coordinates_and_probability(void);
 
         uint16_t m_wCharsCount;
-        uint16_t m_wIndex;
 
         int16_t m_wcl;
         int16_t m_wct;
