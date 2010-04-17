@@ -3,6 +3,7 @@ if(CF_USE_ICONV)
     if(ICONV_SECOND_ARGUMENT_IS_CONST)
         add_definitions(-DICONV_SECOND_ARGUMENT_IS_CONST)
     endif()
+    set(CF_ICONV_LIBRARIES ${ICONV_LIBRARIES})
 endif()
 
 add_library(cuneiform-common ${LIBTYPE}
@@ -31,6 +32,6 @@ install(FILES
     memorybuffer.h 
     DESTINATION include/${CF_HEADER_INSTALL}/${COMMON_HEADER_INSTALL})
 
-target_link_libraries(cuneiform-common ${ICONV_LIBRARIES})
+target_link_libraries(cuneiform-common ${CF_ICONV_LIBRARIES})
 
 library_hook(cuneiform-common) 
