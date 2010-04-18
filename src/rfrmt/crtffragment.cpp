@@ -78,7 +78,6 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
     CRtfString* pRtfString;
     CRtfChar* pRtfChar;
     uint16_t CountWords;
-    uint16_t CountChars;
     int16_t flag_end_word_with_hiphen;
     int16_t tmp_font_name;
     Bool boPrevNega, boNega;
@@ -287,9 +286,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
             Put("{");
             //--- Цикл по буквам
-            CountChars = pRtfWord->m_wCharsCount;
 
-            for (int nz = 0; nz < CountChars; nz++) {
+            for (int nz = 0, total = pRtfWord->charCount(); nz < total; nz++) {
                 pRtfChar = pRtfWord->charAt(nz);
 #ifdef EdWrite
 
@@ -325,8 +323,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #endif
                 flag_end_word_with_hiphen = 0;
 
-                if (nw == (CountWords - 1) && nz == (CountChars - 1)
-                        && pRtfChar->m_chrVersions[0].m_bChar == '-')
+                if (nw == (total - 1) && nz == (total - 1) && pRtfChar->m_chrVersions[0].m_bChar
+                        == '-')
                     flag_end_word_with_hiphen = 1;
 
                 if (pRtfChar->m_chrVersions[0].m_bChar) {

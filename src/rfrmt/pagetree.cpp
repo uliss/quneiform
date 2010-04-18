@@ -2633,7 +2633,6 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
                         pRtfString->m_arWords.push_back( new CRtfWord() );
                         index_word = pRtfString->m_arWords.size();
                         pRtfWord = pRtfString->m_arWords[index_word-1];
-                        pRtfWord->m_wCharsCount = TitleWord[nc][ns][nw].W_Gen.W_NumSym;
                         pRtfWord->m_wIdealFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
                         pRtfWord->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
                         do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) { //char begin
@@ -2744,7 +2743,6 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
                         pRtfString->m_arWords.push_back( new CRtfWord() );
                         index_word = pRtfString->m_arWords.size();
                         pRtfWord = pRtfString->m_arWords[index_word-1];
-                        pRtfWord->m_wCharsCount = TitleWord[nc][ns][nw].W_Gen.W_NumSym;
                         pRtfWord->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
                         pRtfWord->m_wIdealFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
 

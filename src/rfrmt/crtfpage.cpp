@@ -273,13 +273,13 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
             for (nw = 0; nw < pRtfString->m_wWordsCount; ++nw) {
                 pRtfWord = pRtfString->GetNextWord();
                 fread(&tmp, 2, 1, in);
-                pRtfWord->m_wCharsCount = tmp;
+                int char_count = tmp;
                 fread(&tmp, 2, 1, in);
                 pRtfWord->m_wFontNumber = (uint16_t) tmp;
                 fread(&tmp, 2, 1, in);
                 pRtfWord->m_wIdealFontPointSize = (uint16_t) tmp;
 
-                for (nz = 0; nz < pRtfWord->m_wCharsCount; ++nz) {
+                for (nz = 0; nz < char_count; ++nz) {
                     uint16_t num;
 #pragma pack(1)
                     struct ALT_TIGER1
@@ -649,7 +649,7 @@ void CRtfPage::CorrectKegl(void) {
             int len = 0;
 
             for (int w = 0; w < CountWords; w++)
-                len += pRtfString->m_arWords[w]->m_wCharsCount + 1;
+                len += pRtfString->m_arWords[w]->charCount() + 1;
 
             //Выделяем буфер под неё
             char* TmpString = new char[len + 1];
@@ -659,7 +659,7 @@ void CRtfPage::CorrectKegl(void) {
             for (int nw = 0; nw < CountWords; nw++) {
                 int nz;
                 pRtfWord = pRtfString->m_arWords[nw];
-                CountChars = pRtfWord->m_wCharsCount;
+                CountChars = pRtfWord->charCount();
 
                 for (nz = 0; nz < CountChars; nz++) {
                     pRtfChar = pRtfWord->charAt(nz);
@@ -679,7 +679,7 @@ void CRtfPage::CorrectKegl(void) {
             pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
             pFirstChar = pRtfWord->firstChar();
             pRtfWord = (CRtfWord*) pRtfString->m_arWords[CountWords - 1];
-            CountChars = pRtfWord->m_wCharsCount;
+            CountChars = pRtfWord->charCount();
             // pLastChar = pRtfWord->m_arChars[CountChars - 1];
             pLastChar = pRtfWord->lastChar();
             LenghtStr = (int16_t) (pLastChar->m_Idealrect.right - pFirstChar->m_Idealrect.left);

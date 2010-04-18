@@ -67,8 +67,6 @@ class CRtfWord
         CRtfChar* GetNextChar();
         void get_coordinates_and_probability(void);
 
-        uint16_t m_wCharsCount;
-
         int16_t m_wcl;
         int16_t m_wct;
         int16_t m_wcr;
@@ -82,6 +80,7 @@ class CRtfWord
     private:
         typedef std::vector<CRtfChar*> CharList;
         CharList chars_;
+        uint16_t m_wCharsCount;
 };
 
 #endif /* RTFWORD_H_ */

@@ -57,12 +57,10 @@ CRtfString::~CRtfString() {
 int16_t CRtfString::GetStringSizeInTwips() {
     CRtfWord* pRtfWord;
     CRtfChar *pLastChar, *pFirstChar;
-    uint16_t CountChars;
     pRtfWord = (CRtfWord*) m_arWords[0];
     pFirstChar = pRtfWord->firstChar();
     pRtfWord = (CRtfWord*) m_arWords[m_wWordsCount - 1];
-    CountChars = pRtfWord->m_wCharsCount;
-    pLastChar = pRtfWord->charAt(CountChars - 1);
+    pLastChar = pRtfWord->lastChar();
     int16_t LenghtStr = (int16_t) ((pLastChar->m_Idealrect.right - pFirstChar->m_Idealrect.left)
             * Twips);
     return LenghtStr;
@@ -72,13 +70,13 @@ uint16_t CRtfString::GetRealStringSize(void) {
     char tmp_str[MAX_BUFFER_SIZE];
     CRtfWord* pRtfWord;
     CRtfChar *pRtfChar;
-    uint16_t CountChars, RealSize;
+    uint16_t RealSize;
     int16_t strHeight;
     int index = 0;
 
     for (int nw = 0; nw < m_wWordsCount; nw++) {
         pRtfWord = (CRtfWord*) m_arWords[nw];
-        CountChars = pRtfWord->m_wCharsCount;
+        int CountChars = pRtfWord->charCount();
 
         for (int nz = 0; nz < CountChars; nz++) {
             pRtfChar = pRtfWord->charAt(nz);
