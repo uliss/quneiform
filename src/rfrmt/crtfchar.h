@@ -31,22 +31,15 @@ namespace CIF
 class CRtfChar
 {
     public:
-        struct
-        {
-                uchar m_bChar;
-                uchar m_bProbability;
-        } m_chrVersions[REC_MAX_VERS];//!!! Art
-
-        uchar m_bFlg_spell;
-        uchar m_bFlg_spell_nocarrying;
-        uchar m_bFlg_cup_drop;
-        uint16_t m_wCountAlt;
-        uint16_t m_wFontPointSize;
-
         /**
          * Returns font number
          */
         font_number font() const;
+
+        /**
+         * Returns font size
+         */
+        short fontSize() const;
 
         /**
          * Returns ideal char bounding rectangle
@@ -69,6 +62,11 @@ class CRtfChar
         void setFont(font_number fontNumber);
 
         /**
+         * Sets font size
+         */
+        void setFontSize(short size);
+
+        /**
          * Sets ideal rectangle
          * @param rect
          */
@@ -84,11 +82,23 @@ class CRtfChar
          * Sets real rectangle
          */
         void setRealRect(const Rect& rect);
+
+        struct
+        {
+                uchar m_bChar;
+                uchar m_bProbability;
+        } m_chrVersions[REC_MAX_VERS];//!!! Art
+
+        uchar m_bFlg_spell;
+        uchar m_bFlg_spell_nocarrying;
+        uchar m_bFlg_cup_drop;
+        uint16_t m_wCountAlt;
     private:
         language_t language_;
         font_number font_number_;
         Rect ideal_rect_;
         Rect real_rect_;
+        uint16_t m_wFontPointSize;
 };
 
 }

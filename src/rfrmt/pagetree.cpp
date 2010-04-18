@@ -2652,7 +2652,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                             pRtfChar->setLanguage((language_t)Zn[nc][ns][nw][nz].Alt[0].a_language);
                             pRtfChar->m_bFlg_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
                             pRtfChar->setFont(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
-                            pRtfChar->m_wFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
+                            pRtfChar->setFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
                             pRtfChar->setRealRect(toRect(Zn[nc][ns][nw][nz].Title.Z_RealRect));
                             pRtfChar->setIdealRect(toRect(Zn[nc][ns][nw][nz].Title.Z_Rect));
                         }//char end
@@ -2769,7 +2769,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                             pRtfChar->setLanguage((language_t)Zn[nc][ns][nw][nz].Alt[0].a_language);
                             pRtfChar->m_bFlg_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
                             pRtfChar->setFont(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
-                            pRtfChar->m_wFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
+                            pRtfChar->setFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
                             pRtfChar->setRealRect(toRect(Zn[nc][ns][nw][nz].Title.Z_RealRect));
                             pRtfChar->setIdealRect(toRect(Zn[nc][ns][nw][nz].Title.Z_Rect));
                         }

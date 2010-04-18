@@ -25,6 +25,10 @@ font_number CRtfChar::font() const {
     return font_number_;
 }
 
+short CRtfChar::fontSize() const {
+    return m_wFontPointSize;
+}
+
 Rect CRtfChar::idealRect() const {
     return ideal_rect_;
 }
@@ -39,6 +43,10 @@ Rect CRtfChar::realRect() const {
 
 void CRtfChar::setFont(font_number fontNumber) {
     font_number_ = fontNumber;
+}
+
+void CRtfChar::setFontSize(short size) {
+    m_wFontPointSize = size;
 }
 
 void CRtfChar::setIdealRect(const Rect& rect) {

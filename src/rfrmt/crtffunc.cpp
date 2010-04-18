@@ -131,7 +131,7 @@ int16_t get_font_name(int16_t FontNumber) {
 void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font) {
     Put("{\\pard\\fs6\\par}");
     Put("{\\pard\\plain\\slmult0\\keepn\\widctlpar\\pvpara\\dropcapli3\\dropcapt1\\cgrid{");
-    PutCom("\\fs", pRtfChar->m_wFontPointSize * 2, 1);
+    PutCom("\\fs", pRtfChar->fontSize() * 2, 1);
     PutCom("\\f", font, 1);
     PutCom("\\dn", 9, 1);
     PutCom("\\lang", 1024, 1);

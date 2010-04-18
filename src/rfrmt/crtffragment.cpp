@@ -311,7 +311,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                         EDFontPointSize = DefFontSize;
 
                     else
-                        EDFontPointSize = (int) (pRtfChar->m_wFontPointSize * 2);
+                        EDFontPointSize = pRtfChar->fontSize() * 2;
 
 #endif
                 else
