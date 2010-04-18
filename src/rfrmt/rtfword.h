@@ -80,7 +80,6 @@ class CRtfWord
     private:
         typedef std::vector<CRtfChar*> CharList;
         CharList chars_;
-        uint16_t m_wCharsCount;
 };
 
 #endif /* RTFWORD_H_ */

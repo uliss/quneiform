@@ -23,7 +23,6 @@
 #include "minmax.h"
 
 CRtfWord::CRtfWord() {
-    m_wCharsCount = 0;
 }
 
 CRtfWord::~CRtfWord() {
@@ -72,15 +71,15 @@ void CRtfWord::get_coordinates_and_probability() {
     m_wcr = m_wcb = 0;
     m_wcs = 1;
     m_wcp = 254;
-    pRtfCharFirst = (CRtfChar*) chars_[0];
-    pRtfCharLast = (CRtfChar*) chars_[m_wCharsCount - 1];
+    pRtfCharFirst = chars_.front();
+    pRtfCharLast = chars_.back();;
     m_wcl = (int16_t) pRtfCharFirst->m_Realrect.left;
     m_wcr = (int16_t) pRtfCharLast->m_Realrect.right;
     m_wct = MIN((int16_t) pRtfCharFirst->m_Realrect.top, (int16_t) pRtfCharLast->m_Realrect.top);
     m_wcb = MAX((int16_t) pRtfCharFirst->m_Realrect.bottom,
             (int16_t) pRtfCharLast->m_Realrect.bottom);
 
-    for (nz = 0; nz < m_wCharsCount; nz++) {
+    for (nz = 0; nz < chars_.size(); nz++) {
         pRtfChar = (CRtfChar*) chars_[nz];
         m_wcp = MIN(m_wcp, pRtfChar->m_chrVersions[0].m_bProbability);
         m_wcs = MIN(m_wcs, pRtfChar->m_bFlg_spell);
