@@ -850,11 +850,11 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[pRtfString->m_wWordsCount - 1];
         pRtfCharLast = pRtfWord->lastChar();
         pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
-        pRtfString->m_LeftBorder = pRtfCharFirst->m_Idealrect.left;
-        pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right;
+        pRtfString->m_LeftBorder = pRtfCharFirst->idealRect().left();
+        pRtfString->m_RightBorder = pRtfCharLast->idealRect().right();
         CalculationLengthAndCount(pRtfString, &CountChars, &LengthChars);
-        m_l_fragment = MIN(m_l_fragment, (int16_t)pRtfCharFirst->m_Idealrect.left);
-        m_r_fragment = MAX(m_r_fragment, (int16_t)pRtfCharLast->m_Idealrect.right);
+        m_l_fragment = MIN(m_l_fragment, (int16_t)pRtfCharFirst->idealRect().left());
+        m_r_fragment = MAX(m_r_fragment, (int16_t)pRtfCharLast->idealRect().right());
 
         if (pRtfCharLast->m_chrVersions[0].m_bChar == '-' && pRtfCharLast->m_bFlg_spell_nocarrying)
             pRtfString->m_FlagCarry = TRUE;
@@ -1566,10 +1566,10 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
                 pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
                 pRtfWord = (CRtfWord*) pRtfStringPrev->m_arWords[0];
                 pRtfCharFirst = pRtfWord->firstChar();
-                top = pRtfCharFirst->m_Idealrect.bottom;
+                top = pRtfCharFirst->idealRect().bottom();
                 pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
                 pRtfCharFirst = pRtfWord->firstChar();
-                bottom = pRtfCharFirst->m_Idealrect.top;
+                bottom = pRtfCharFirst->idealRect().top();
                 pRtfString->m_wSpaceBefore = (uint16_t) (bottom - top);
             }
 
@@ -1585,10 +1585,10 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[pRtfString->m_wWordsCount - 1];
         pRtfCharLast = pRtfWord->lastChar();
         pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
-        pRtfString->m_LeftBorder = pRtfCharFirst->m_Idealrect.left;
-        pRtfString->m_RightBorder = pRtfCharLast->m_Idealrect.right;
-        m_l_fragmentLocal = MIN(m_l_fragmentLocal, (int16_t)pRtfCharFirst->m_Idealrect.left);
-        m_r_fragmentLocal = MAX(m_r_fragmentLocal, (int16_t)pRtfCharLast->m_Idealrect.right);
+        pRtfString->m_LeftBorder = pRtfCharFirst->idealRect().left();
+        pRtfString->m_RightBorder = pRtfCharLast->idealRect().right();
+        m_l_fragmentLocal = MIN(m_l_fragmentLocal, (int16_t)pRtfCharFirst->idealRect().left());
+        m_r_fragmentLocal = MAX(m_r_fragmentLocal, (int16_t)pRtfCharLast->idealRect().right());
     }
 
     // Присваиваются признаки равенства концов и середины соседних строк
@@ -1687,7 +1687,7 @@ void CRtfFragment::CalculationLengthAndCount(CRtfString* pRtfString, int32_t* Co
 
         for (int j = 0; j < WCountChars; j++) {
             pRtfChar = pRtfWord->charAt(j);
-            (*LengthChars) += MAX(0, pRtfChar->m_Idealrect.right - pRtfChar->m_Idealrect.left);
+            (*LengthChars) += MAX(0, pRtfChar->idealRect().width());
             (*CountChars)++;
         }
     }
@@ -2067,7 +2067,7 @@ Bool CRtfFragment::GetFlagBigSpace(int beg, int end) {
             pRtfCharPrev = pRtfWordPrev->lastChar();
             pRtfCharCur = pRtfWordCur->firstChar();
 
-            if ((pRtfCharCur->m_Idealrect.left - pRtfCharPrev->m_Idealrect.right) > 2 * m_max_dist)
+            if ((pRtfCharCur->idealRect().left() - pRtfCharPrev->idealRect().right()) > 2 * m_max_dist)
                 FlagBigSpase = 1;
         }
     }

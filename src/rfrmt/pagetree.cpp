@@ -237,6 +237,8 @@ void RtfUnionRect_CRect_SRect(tagRECT *s1, SRECT *s2);
 void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
 void RtfAssignRect_CRect_SRect(tagRECT *s1, SRECT *s2);
 void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
+CIF::Rect toRect(const SRECT& src);
+CIF::Rect toRect(const tagRECT& src);
 void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips);
 void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
 
@@ -2651,8 +2653,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                             pRtfChar->m_bFlg_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
                             pRtfChar->setFont(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
                             pRtfChar->m_wFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
-                            RtfAssignRect_CRect_SRect( &pRtfChar->m_Realrect, &Zn[nc][ns][nw][nz].Title.Z_RealRect );
-                            RtfAssignRect_CRect_SRect( &pRtfChar->m_Idealrect, &Zn[nc][ns][nw][nz].Title.Z_Rect );
+                            pRtfChar->setRealRect(toRect(Zn[nc][ns][nw][nz].Title.Z_RealRect));
+                            pRtfChar->setIdealRect(toRect(Zn[nc][ns][nw][nz].Title.Z_Rect));
                         }//char end
                     }//word end
                 }//str end
@@ -2768,8 +2770,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                             pRtfChar->m_bFlg_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
                             pRtfChar->setFont(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
                             pRtfChar->m_wFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
-                            RtfAssignRect_CRect_SRect( &pRtfChar->m_Realrect, &Zn[nc][ns][nw][nz].Title.Z_RealRect );
-                            RtfAssignRect_CRect_SRect( &pRtfChar->m_Idealrect, &Zn[nc][ns][nw][nz].Title.Z_Rect );
+                            pRtfChar->setRealRect(toRect(Zn[nc][ns][nw][nz].Title.Z_RealRect));
+                            pRtfChar->setIdealRect(toRect(Zn[nc][ns][nw][nz].Title.Z_Rect));
                         }
                     }//word end
                 }//str end
@@ -2956,6 +2958,14 @@ void RtfAssignRect_CRect_SRect(tagRECT *s1, SRECT *s2)
     s1->right = s2->right;
     s1->top = s2->top;
     s1->bottom = s2->bottom;
+}
+
+CIF::Rect toRect(const SRECT& src) {
+    return CIF::Rect(CIF::Point(src.left, src.top), CIF::Point(src.right, src.bottom));
+}
+
+CIF::Rect toRect(const tagRECT& src) {
+    return CIF::Rect(CIF::Point(src.left, src.top), CIF::Point(src.right, src.bottom));
 }
 
 void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2)

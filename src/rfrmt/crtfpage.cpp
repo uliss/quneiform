@@ -297,15 +297,9 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
 #pragma pack()
                     pRtfChar = pRtfWord->GetNextChar();
                     fread(&SRect, sizeof(Rect16), 1, in); //Ideal BOX
-                    pRtfChar->m_Idealrect.left = SRect.left;
-                    pRtfChar->m_Idealrect.top = SRect.top;
-                    pRtfChar->m_Idealrect.right = SRect.right;
-                    pRtfChar->m_Idealrect.bottom = SRect.bottom;
+                    pRtfChar->setIdealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
                     fread(&SRect, sizeof(Rect16), 1, in); //Real BOX
-                    pRtfChar->m_Realrect.left = SRect.left;
-                    pRtfChar->m_Realrect.top = SRect.top;
-                    pRtfChar->m_Realrect.right = SRect.right;
-                    pRtfChar->m_Realrect.bottom = SRect.bottom;
+                    pRtfChar->setRealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
                     fread(&num, sizeof(uint16_t), 1, in);
                     assert(num <= REC_MAX_VERS);
                     pRtfChar->m_wCountAlt = MIN(num, REC_MAX_VERS);
@@ -685,7 +679,7 @@ void CRtfPage::CorrectKegl(void) {
             CountChars = pRtfWord->charCount();
             // pLastChar = pRtfWord->m_arChars[CountChars - 1];
             pLastChar = pRtfWord->lastChar();
-            LenghtStr = (int16_t) (pLastChar->m_Idealrect.right - pFirstChar->m_Idealrect.left);
+            LenghtStr = (int16_t) (pLastChar->idealRect().right() - pFirstChar->idealRect().left());
             // adjust kegl to the text line real width (Microsoft function)
             Real_Size_Kegl = GetRealSizeKegl(TmpString, LenghtStr, pFirstChar->m_wFontPointSize,
                     pFirstChar->font());

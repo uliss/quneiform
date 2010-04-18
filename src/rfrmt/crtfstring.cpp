@@ -64,7 +64,7 @@ int16_t CRtfString::GetStringSizeInTwips() {
     pFirstChar = pRtfWord->firstChar();
     pRtfWord = (CRtfWord*) m_arWords[m_wWordsCount - 1];
     pLastChar = pRtfWord->lastChar();
-    int16_t LenghtStr = (int16_t) ((pLastChar->m_Idealrect.right - pFirstChar->m_Idealrect.left)
+    int16_t LenghtStr = (int16_t) ((pLastChar->idealRect().right() - pFirstChar->idealRect().left())
             * Twips);
     return LenghtStr;
 }

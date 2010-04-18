@@ -95,8 +95,7 @@
 
 #pragma pack(1)
 
-//#define ID_SYM struct h_id_sym /*Идентификатор символа*/
-#define SRECT struct h_srect
+/*Идентификатор символа*/
 #define ZN struct h_zn
 #define TITLE_ZN struct h_title_zn
 #define ALT_SPELL struct h_alt_spell
@@ -108,10 +107,11 @@
 #define S_GEN struct h_s_gen
 #define RECOG_MODES struct h_recog_modes
 #define COOR_COMP struct h_coor_comp
-//ID_SYM { unsigned char col,str,comp,word; };
-SRECT {
+
+struct SRECT {
     int left, top, right, bottom;
 };
+
 #define LEN_START 3
 COOR_COMP {
     uchar start_pos[LEN_START];

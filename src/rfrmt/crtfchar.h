@@ -23,6 +23,7 @@
 #include "lang_def.h"
 #include "recdefs.h"
 #include "crtfstruct.h"
+#include "common/rect.h"
 
 namespace CIF
 {
@@ -36,8 +37,6 @@ class CRtfChar
                 uchar m_bProbability;
         } m_chrVersions[REC_MAX_VERS];//!!! Art
 
-        RECT m_Idealrect;
-        RECT m_Realrect;
         uchar m_bFlg_spell;
         uchar m_bFlg_spell_nocarrying;
         uchar m_bFlg_cup_drop;
@@ -51,9 +50,19 @@ class CRtfChar
         font_number font() const;
 
         /**
+         * Returns ideal char bounding rectangle
+         */
+        Rect idealRect() const;
+
+        /**
          * Returns character language
          */
         language_t language() const;
+
+        /**
+         * Returns bounding rectangle
+         */
+        Rect realRect() const;
 
         /**
          * Sets font number
@@ -61,13 +70,26 @@ class CRtfChar
         void setFont(font_number fontNumber);
 
         /**
+         * Sets ideal rectangle
+         * @param rect
+         */
+        void setIdealRect(const Rect& rect);
+
+        /**
          * Sets character language
          * @param lang - new language
          */
         void setLanguage(language_t lang);
+
+        /**
+         * Sets real rectangle
+         */
+        void setRealRect(const Rect& rect);
     private:
         language_t language_;
         font_number font_number_;
+        Rect ideal_rect_;
+        Rect real_rect_;
 };
 
 }

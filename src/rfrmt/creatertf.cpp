@@ -130,7 +130,7 @@ extern char RtfFileName[PATH_MAX];
 extern uint32_t CountPict;
 extern uint32_t CountTable;
 extern uint32_t RtfWriteMode;
-extern CIF::Point16 TemplateOffset;
+extern CIF::Point TemplateOffset;
 
 #define CHEREDOVON
 
@@ -384,10 +384,11 @@ void Rtf_CED_CreateChar(CIF::Rect * slayout, CIF::Letter* Letter, CIF::CRtfChar*
         return;
 
     if (pRtfChar) {
-        slayout->rleft() = pRtfChar->m_Realrect.left + TemplateOffset.x();
-        slayout->rright() = pRtfChar->m_Realrect.right + TemplateOffset.x();
-        slayout->rtop() = pRtfChar->m_Realrect.top + TemplateOffset.y();
-        slayout->rbottom() = pRtfChar->m_Realrect.bottom + TemplateOffset.y();
+        *slayout = pRtfChar->realRect().translate(TemplateOffset);
+//        slayout->rleft() = pRtfChar->m_Realrect.left + TemplateOffset.x();
+//        slayout->rright() = pRtfChar->m_Realrect.right + TemplateOffset.x();
+//        slayout->rtop() = pRtfChar->m_Realrect.top + TemplateOffset.y();
+//        slayout->rbottom() = pRtfChar->m_Realrect.bottom + TemplateOffset.y();
 
         int i = 0;
         for (; i < pRtfChar->m_wCountAlt; i++) {

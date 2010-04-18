@@ -66,7 +66,7 @@ CRtfChar* CRtfWord::GetNextChar() {
 void CRtfWord::get_coordinates_and_probability() {
     int16_t nz;
     int16_t t, l, b, r;
-    CRtfChar *pRtfChar, *pRtfCharFirst, *pRtfCharLast;
+    CRtfChar *pRtfCharFirst, *pRtfCharLast;
     PAGEINFO PageInfo;
     Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     GetPageInfo(hCPAGE, &PageInfo);
@@ -76,15 +76,14 @@ void CRtfWord::get_coordinates_and_probability() {
     m_wcp = 254;
     pRtfCharFirst = chars_.front();
     pRtfCharLast = chars_.back();
-    ;
-    m_wcl = (int16_t) pRtfCharFirst->m_Realrect.left;
-    m_wcr = (int16_t) pRtfCharLast->m_Realrect.right;
-    m_wct = MIN((int16_t) pRtfCharFirst->m_Realrect.top, (int16_t) pRtfCharLast->m_Realrect.top);
-    m_wcb = MAX((int16_t) pRtfCharFirst->m_Realrect.bottom,
-            (int16_t) pRtfCharLast->m_Realrect.bottom);
+
+    m_wcl = (int16_t) pRtfCharFirst->realRect().left();
+    m_wcr = (int16_t) pRtfCharLast->realRect().right();
+    m_wct = MIN(pRtfCharFirst->realRect().top(), pRtfCharLast->realRect().top());
+    m_wcb = MAX(pRtfCharFirst->realRect().bottom(), pRtfCharLast->realRect().bottom());
 
     for (nz = 0; nz < chars_.size(); nz++) {
-        pRtfChar = (CRtfChar*) chars_[nz];
+        CRtfChar * pRtfChar = chars_[nz];
         m_wcp = MIN(m_wcp, pRtfChar->m_chrVersions[0].m_bProbability);
         m_wcs = MIN(m_wcs, pRtfChar->m_bFlg_spell);
     }

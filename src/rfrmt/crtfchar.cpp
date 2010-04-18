@@ -25,16 +25,32 @@ font_number CRtfChar::font() const {
     return font_number_;
 }
 
+Rect CRtfChar::idealRect() const {
+    return ideal_rect_;
+}
+
 language_t CRtfChar::language() const {
     return language_;
+}
+
+Rect CRtfChar::realRect() const {
+    return real_rect_;
 }
 
 void CRtfChar::setFont(font_number fontNumber) {
     font_number_ = fontNumber;
 }
 
+void CRtfChar::setIdealRect(const Rect& rect) {
+    ideal_rect_ = rect;
+}
+
 void CRtfChar::setLanguage(language_t lang) {
     language_ = lang;
+}
+
+void CRtfChar::setRealRect(const Rect& rect) {
+    real_rect_ = rect;
 }
 
 }

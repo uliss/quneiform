@@ -84,7 +84,7 @@ extern std::vector<RECT> *pInputArray;
 int32_t PageIncline2048 = 2048;
 uint32_t CountPict = 0, CountTable = 0;
 void SetReturnCode_rfrmt(uint16_t rc);
-Point16 TemplateOffset;
+CIF::Point TemplateOffset;
 
 extern uint32_t GetPictCount(void);
 extern uint32_t GetTablCount(void);
