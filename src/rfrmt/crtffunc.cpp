@@ -135,6 +135,6 @@ void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font) {
     PutCom("\\f", font, 1);
     PutCom("\\dn", 9, 1);
     PutCom("\\lang", 1024, 1);
-    PutChar(pRtfChar->m_chrVersions[0].m_bChar);
+    PutChar(pRtfChar->first().getChar());
     Put("\\par}}");
 }

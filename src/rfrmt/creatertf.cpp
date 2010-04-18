@@ -391,9 +391,9 @@ void Rtf_CED_CreateChar(CIF::Rect * slayout, CIF::Letter* Letter, CIF::CRtfChar*
 //        slayout->rbottom() = pRtfChar->m_Realrect.bottom + TemplateOffset.y();
 
         int i = 0;
-        for (; i < pRtfChar->m_wCountAlt; i++) {
-            Letter[i].setChar(pRtfChar->m_chrVersions[i].m_bChar);
-            Letter[i].setProbability(pRtfChar->m_chrVersions[i].m_bProbability | 1);
+        for (; i < pRtfChar->versionCount(); i++) {
+            Letter[i].setChar(pRtfChar->versionAt(i).getChar());
+            Letter[i].setProbability(pRtfChar->versionAt(i).probability() | 1);
         }
 
         Letter[i - 1].setProbability(Letter[i - 1].probability() & 0xFE);

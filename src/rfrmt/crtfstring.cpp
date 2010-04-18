@@ -83,7 +83,7 @@ uint16_t CRtfString::GetRealStringSize(void) {
 
         for (int nz = 0; nz < CountChars; nz++) {
             pRtfChar = pRtfWord->charAt(nz);
-            tmp_str[index++] = pRtfChar->m_chrVersions[0].m_bChar;
+            tmp_str[index++] = pRtfChar->first().getChar();
         }
 
         tmp_str[index++] = ' ';

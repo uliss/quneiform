@@ -84,7 +84,7 @@ void CRtfWord::get_coordinates_and_probability() {
 
     for (nz = 0; nz < chars_.size(); nz++) {
         CRtfChar * pRtfChar = chars_[nz];
-        m_wcp = MIN(m_wcp, pRtfChar->m_chrVersions[0].m_bProbability);
+        m_wcp = MIN(m_wcp, pRtfChar->first().probability());
         m_wcs = MIN(m_wcs, pRtfChar->m_bFlg_spell);
     }
 

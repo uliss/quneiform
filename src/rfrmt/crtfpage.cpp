@@ -304,15 +304,9 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                             SRect.right, SRect.bottom)));
                     fread(&num, sizeof(uint16_t), 1, in);
                     assert(num <= REC_MAX_VERS);
-                    pRtfChar->m_wCountAlt = MIN(num, REC_MAX_VERS);
-
                     for (i = 0; i < num; i++) {
                         fread(&alt1, sizeof(struct ALT_TIGER1), 1, in);
-
-                        if (i < REC_MAX_VERS) {
-                            pRtfChar->m_chrVersions[i].m_bChar = alt1.let;
-                            pRtfChar->m_chrVersions[i].m_bProbability = alt1.prob;
-                        }
+                        pRtfChar->addVersion(Letter(alt1.let, alt1.prob));
                     }
 
                     fread(&alt2, sizeof(struct ALT_TIGER2), 1, in);
@@ -662,7 +656,7 @@ void CRtfPage::CorrectKegl(void) {
 
                 for (nz = 0; nz < CountChars; nz++) {
                     pRtfChar = pRtfWord->charAt(nz);
-                    tmp_str[nz] = pRtfChar->m_chrVersions[0].m_bChar;
+                    tmp_str[nz] = pRtfChar->first().getChar();
 
                     if (!nz)
                         pRtfChar->setFontSize(MIN(pRtfChar->fontSize(), MaxFontSize));

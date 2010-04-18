@@ -23,7 +23,6 @@
 
 #include "cfcompat.h"
 #include "lang_def.h"
-#include "recdefs.h"
 #include "crtfstruct.h"
 #include "common/rect.h"
 #include "common/letter.h"
@@ -34,6 +33,23 @@ namespace CIF
 class CRtfChar
 {
     public:
+        CRtfChar();
+
+        /**
+         * Adds version
+         */
+        void addVersion(const Letter& version);
+
+        /**
+         * Returns first alternative
+         */
+        const Letter& first() const;
+
+        /**
+         * Returns first alternative
+         */
+        Letter& first();
+
         /**
          * Returns font number
          */
@@ -86,24 +102,36 @@ class CRtfChar
          */
         void setRealRect(const Rect& rect);
 
-        struct
-        {
-                uchar m_bChar;
-                uchar m_bProbability;
-        } m_chrVersions[REC_MAX_VERS];//!!! Art
+        /**
+         * Returns reference to character alternative
+         * @param pos
+         * @return const reference
+         */
+        const Letter& versionAt(size_t pos) const;
+
+        /**
+         * Returns reference to character alternative
+         * @param pos
+         * @return reference
+         */
+        Letter& versionAt(size_t pos);
+
+        /**
+         * Returns number of versions
+         */
+        size_t versionCount() const;
 
         uchar m_bFlg_spell;
         uchar m_bFlg_spell_nocarrying;
         uchar m_bFlg_cup_drop;
-        uint16_t m_wCountAlt;
     private:
         language_t language_;
         font_number font_number_;
+        uint16_t font_size_;
         Rect ideal_rect_;
         Rect real_rect_;
-        uint16_t m_wFontPointSize;
-        typedef std::vector<Letter> Versions;
-        Versions versions_;
+        typedef std::vector<Letter> LetterList;
+        LetterList versions_;
 };
 
 }

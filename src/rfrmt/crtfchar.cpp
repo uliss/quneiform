@@ -16,17 +16,38 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <cassert>
+
 #include "crtfchar.h"
+#include "recdefs.h"
 
 namespace CIF
 {
+
+CRtfChar::CRtfChar() :
+    language_(LANGUAGE_UNKNOWN), font_number_(0), font_size_(0) {
+
+}
+
+void CRtfChar::addVersion(const Letter& version) {
+    assert(versions_.size() < REC_MAX_VERS);
+    versions_.push_back(version);
+}
+
+const Letter& CRtfChar::first() const {
+    return versions_.front();
+}
+
+Letter& CRtfChar::first() {
+    return versions_.front();
+}
 
 font_number CRtfChar::font() const {
     return font_number_;
 }
 
 short CRtfChar::fontSize() const {
-    return m_wFontPointSize;
+    return font_size_;
 }
 
 Rect CRtfChar::idealRect() const {
@@ -46,7 +67,7 @@ void CRtfChar::setFont(font_number fontNumber) {
 }
 
 void CRtfChar::setFontSize(short size) {
-    m_wFontPointSize = size;
+    font_size_ = size;
 }
 
 void CRtfChar::setIdealRect(const Rect& rect) {
@@ -59,6 +80,18 @@ void CRtfChar::setLanguage(language_t lang) {
 
 void CRtfChar::setRealRect(const Rect& rect) {
     real_rect_ = rect;
+}
+
+const Letter& CRtfChar::versionAt(size_t pos) const {
+    return versions_.at(pos);
+}
+
+Letter& CRtfChar::versionAt(size_t pos) {
+    return versions_.at(pos);
+}
+
+size_t CRtfChar::versionCount() const {
+    return versions_.size();
 }
 
 }

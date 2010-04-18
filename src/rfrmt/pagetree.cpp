@@ -2640,11 +2640,10 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) { //char begin
                             pRtfWord->addChar(new CIF::CRtfChar);
                             pRtfChar = pRtfWord->charAt(nz);
-                            pRtfChar->m_wCountAlt = MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt, REC_MAX_VERS);
 
                             for (int alt = 0; alt < Zn[nc][ns][nw][nz].Title.Z_Num_Alt && alt < REC_MAX_VERS; alt++) {
-                                pRtfChar->m_chrVersions[alt].m_bChar = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
-                                pRtfChar->m_chrVersions[alt].m_bProbability = Zn[nc][ns][nw][nz].Alt[alt].a_Prob;
+                                CIF::Letter vers(Zn[nc][ns][nw][nz].Alt[alt].a_Code, Zn[nc][ns][nw][nz].Alt[alt].a_Prob);
+                                pRtfChar->addVersion(vers);
                             }
 
                             pRtfChar->m_bFlg_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying; //~ не знак переноса, а дефис в слове (пр: красно-белый)
@@ -2757,11 +2756,10 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) {
                             pRtfWord->addChar(new CIF::CRtfChar);
                             pRtfChar = pRtfWord->charAt(nz);
-                            pRtfChar->m_wCountAlt = MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt, REC_MAX_VERS);
 
                             for (int alt = 0; alt < Zn[nc][ns][nw][nz].Title.Z_Num_Alt && alt < REC_MAX_VERS; alt++) {
-                                pRtfChar->m_chrVersions[alt].m_bChar = Zn[nc][ns][nw][nz].Alt[alt].a_Code;
-                                pRtfChar->m_chrVersions[alt].m_bProbability = Zn[nc][ns][nw][nz].Alt[alt].a_Prob;
+                                CIF::Letter vers(Zn[nc][ns][nw][nz].Alt[alt].a_Code, Zn[nc][ns][nw][nz].Alt[alt].a_Prob);
+                                pRtfChar->addVersion(vers);
                             }
 
                             pRtfChar->m_bFlg_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying;

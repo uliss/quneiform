@@ -299,11 +299,11 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #ifdef EdWrite
 
                 if (!pRtfWord->m_wcs)
-                    pRtfChar->m_chrVersions[0].m_bProbability = 0;
+                    pRtfChar->first().setProbability(0);
 
                 if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)
 #ifdef CHEREDOV
-                    EDFontPointSize = (int)((pRtfChar->m_wFontPointSize - 1) * 2);
+                    EDFontPointSize = (int)((pRtfChar->font_size_ - 1) * 2);
 
 #else
 
@@ -330,11 +330,10 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #endif
                 flag_end_word_with_hiphen = 0;
 
-                if (nw == (total - 1) && nz == (total - 1) && pRtfChar->m_chrVersions[0].m_bChar
-                        == '-')
+                if (nw == (total - 1) && nz == (total - 1) && pRtfChar->first().getChar() == '-')
                     flag_end_word_with_hiphen = 1;
 
-                if (pRtfChar->m_chrVersions[0].m_bChar) {
+                if (pRtfChar->first().getChar()) {
                     if (pRtfString->m_bLineTransfer == TRUE) {
 #ifdef EdWrite
 
@@ -393,7 +392,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                             WriteCupDrop(pRtfChar, tmp_font_name);
 
                         else
-                            PutChar(pRtfChar->m_chrVersions[0].m_bChar);
+                            PutChar(pRtfChar->first().getChar());
                     }
 
                     else if (!((m_wvid_parag == RTF_TP_LEFT_AND_RIGHT_ALLIGN || m_wvid_parag
@@ -452,7 +451,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                             WriteCupDrop(pRtfChar, tmp_font_name);
 
                         else
-                            PutChar(pRtfChar->m_chrVersions[0].m_bChar);
+                            PutChar(pRtfChar->first().getChar());
                     }
 
                     else {
@@ -846,17 +845,17 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
 
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
         pRtfCharFirst = pRtfWord->firstChar();
-        pRtfString->m_FirstChar = pRtfCharFirst->m_chrVersions[0].m_bChar;
+        pRtfString->m_FirstChar = pRtfCharFirst->first().getChar();
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[pRtfString->m_wWordsCount - 1];
         pRtfCharLast = pRtfWord->lastChar();
-        pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
+        pRtfString->m_LastChar = pRtfCharLast->first().getChar();
         pRtfString->m_LeftBorder = pRtfCharFirst->idealRect().left();
         pRtfString->m_RightBorder = pRtfCharLast->idealRect().right();
         CalculationLengthAndCount(pRtfString, &CountChars, &LengthChars);
         m_l_fragment = MIN(m_l_fragment, (int16_t)pRtfCharFirst->idealRect().left());
         m_r_fragment = MAX(m_r_fragment, (int16_t)pRtfCharLast->idealRect().right());
 
-        if (pRtfCharLast->m_chrVersions[0].m_bChar == '-' && pRtfCharLast->m_bFlg_spell_nocarrying)
+        if (pRtfCharLast->first().getChar() == '-' && pRtfCharLast->m_bFlg_spell_nocarrying)
             pRtfString->m_FlagCarry = TRUE;
     }
 
@@ -1581,10 +1580,10 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
 
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
         pRtfCharFirst = pRtfWord->firstChar();
-        pRtfString->m_FirstChar = pRtfCharFirst->m_chrVersions[0].m_bChar;
+        pRtfString->m_FirstChar = pRtfCharFirst->first().getChar();
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[pRtfString->m_wWordsCount - 1];
         pRtfCharLast = pRtfWord->lastChar();
-        pRtfString->m_LastChar = pRtfCharLast->m_chrVersions[0].m_bChar;
+        pRtfString->m_LastChar = pRtfCharLast->first().getChar();
         pRtfString->m_LeftBorder = pRtfCharFirst->idealRect().left();
         pRtfString->m_RightBorder = pRtfCharLast->idealRect().right();
         m_l_fragmentLocal = MIN(m_l_fragmentLocal, (int16_t)pRtfCharFirst->idealRect().left());
@@ -1739,7 +1738,7 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
             pRtfWord = (CRtfWord*) pRtfStringPrev->m_arWords[CountWords - 1];
             pRtfChar = pRtfWord->lastChar();
 
-            if (pRtfChar->m_chrVersions[0].m_bChar == '-' && pRtfChar->m_bFlg_spell_nocarrying) {
+            if (pRtfChar->first().getChar() == '-' && pRtfChar->m_bFlg_spell_nocarrying) {
                 if (pRtfString->m_wAlignment == pRtfStringPrev->m_wAlignment)
                     pRtfString->m_wFlagBeginParagraph = FALSE;
 
