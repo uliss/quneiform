@@ -24,7 +24,7 @@
 
 #include "globus.h"
 #include "ced_struct.h"
-#include "letter.h"
+#include "common/letter.h"
 #include "common/color.h"
 #include "common/rect.h"
 #include "common/serialize.h"

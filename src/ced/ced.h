@@ -61,7 +61,7 @@
 #include "lang_def.h"
 #include "common/size.h"
 #include "common/rect.h"
-#include "letter.h"
+#include "common/letter.h"
 
 #ifdef __CED__
 #define CED_FUNC  FUN_EXPO

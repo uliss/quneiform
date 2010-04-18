@@ -19,11 +19,14 @@
 #ifndef CRTFCHAR_H_
 #define CRTFCHAR_H_
 
+#include <vector>
+
 #include "cfcompat.h"
 #include "lang_def.h"
 #include "recdefs.h"
 #include "crtfstruct.h"
 #include "common/rect.h"
+#include "common/letter.h"
 
 namespace CIF
 {
@@ -99,6 +102,8 @@ class CRtfChar
         Rect ideal_rect_;
         Rect real_rect_;
         uint16_t m_wFontPointSize;
+        typedef std::vector<Letter> Versions;
+        Versions versions_;
 };
 
 }
