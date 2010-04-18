@@ -27,6 +27,9 @@
 int16_t GetRealSize(char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
         int16_t* strHeight);
 
+namespace CIF
+{
+
 CRtfString::CRtfString() {
     m_wWordsCount = 0;
     m_wLeftIndent = 0;
@@ -109,5 +112,7 @@ uint16_t CRtfString::get_max_font_size() {
     }
 
     return str_max_font;
+}
+
 }
 

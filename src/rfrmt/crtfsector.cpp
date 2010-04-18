@@ -24,6 +24,9 @@
 #include "ced/ced.h"
 #include "minmax.h"
 
+namespace CIF
+{
+
 CRtfSector::CRtfSector() {
     m_bFlagLine = FALSE;
     m_wHorizontalColumnsCount = 0;
@@ -278,5 +281,7 @@ void CRtfSector::FillingSectorInfo() //~ тут происходит работ�
             }
         }
     }
+}
+
 }
 

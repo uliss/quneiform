@@ -23,6 +23,9 @@
 #include "cfcompat.h"
 #include "creatertf.h"
 
+namespace CIF
+{
+
 class CRtfPage;
 class CRtfVerticalColumn;
 class CRtfFragment;
@@ -72,5 +75,7 @@ class CRtfHorizontalColumn
         RECT m_rectReal;
         uint16_t m_wType;
 };
+
+}
 
 #endif /* CRTFHORIZONTALCOLUMN_H_ */

@@ -182,7 +182,7 @@ extern uint32_t RtfWriteMode;
  OpenFullOutTiger  - RTF
  CalcStatTiger     - статистика об интервалах (внутри- и меж- словные и т.п.)
  */
-extern Bool PageTree(FILE *InFileName, CRtfPage* RtfPage,
+extern Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage,
                      const char* OutFileName);
 extern short OpenFullOutTiger(FILE *FileName);
 void show_frm(int16_t NumFragm, FRAME **frm);
@@ -1974,7 +1974,7 @@ int16_t CalcNumDau(KNOTT *Knot)
 //         Горизантальные колонки на вертикальные колонки
 //         Определение терминальности вертикальных колонок
 //  Запольнение RtfPage.
-Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
+Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 {
     int16_t nc, ns, nw, nz, fl, i, i_ns1, i_nsb, i_nse, j, ih, iv, iv1, kp,
     kp1, kp2, n_beg, dist_hor_col = 240, dist_sec = 360, flag_vse_term =
@@ -1989,13 +1989,13 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
     FRAME **frm;
     Bool FlagBadBad = FALSE;
     KNOTT *RootUdal = NULL;
-    CRtfSector* pRtfSector;
-    CRtfHorizontalColumn* pRtfHorizontalColumn;
-    CRtfVerticalColumn* pRtfVerticalColumn;
-    CRtfFragment* pRtfFragment;
-    CRtfString* pRtfString;
-    CRtfWord* pRtfWord;
-    CRtfChar* pRtfChar;
+    CIF::CRtfSector* pRtfSector;
+    CIF::CRtfHorizontalColumn* pRtfHorizontalColumn;
+    CIF::CRtfVerticalColumn* pRtfVerticalColumn;
+    CIF::CRtfFragment* pRtfFragment;
+    CIF::CRtfString* pRtfString;
+    CIF::CRtfWord* pRtfWord;
+    CIF::CRtfChar* pRtfChar;
     SETUP_GENERATE_TREE setup;
     Inf.Tree.Root = (KNOTT*) malloc(sizeof(KNOTT));
     KNOTT *pRoot = Inf.Tree.Root, *ptr, *ptr1, *ptr2;
@@ -2605,7 +2605,7 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
                 if ( NumStr[nc] < 0)
                     continue;
 
-                RtfPage->m_arFragments.push_back( new CRtfFragment() );
+                RtfPage->m_arFragments.push_back( new CIF::CRtfFragment() );
                 RtfPage->Count.RtfTextFragments++;
                 j = RtfPage->m_arFragments.size();
                 pRtfFragment = RtfPage->m_arFragments[j-1];
@@ -2620,7 +2620,7 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
                     if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
                         continue;
 
-                    pRtfFragment->m_arStrings.push_back( new CRtfString() );
+                    pRtfFragment->m_arStrings.push_back( new CIF::CRtfString() );
                     pRtfString = pRtfFragment->m_arStrings[ns];
                     pRtfString->m_wWordsCount = TitleStr[nc][ns].S_Gen.S_NumWord;//nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
                     pRtfString->S_Flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
@@ -2630,13 +2630,13 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
                             continue;
                         }
 
-                        pRtfString->m_arWords.push_back( new CRtfWord() );
+                        pRtfString->m_arWords.push_back( new CIF::CRtfWord() );
                         index_word = pRtfString->m_arWords.size();
                         pRtfWord = pRtfString->m_arWords[index_word-1];
                         pRtfWord->m_wIdealFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
                         pRtfWord->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
                         do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) { //char begin
-                            pRtfWord->addChar(new CRtfChar);
+                            pRtfWord->addChar(new CIF::CRtfChar);
                             pRtfChar = pRtfWord->charAt(nz);
                             pRtfChar->m_wCountAlt = MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt, REC_MAX_VERS);
 
@@ -2682,11 +2682,11 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
     RtfPage->Count.RtfSectors = K_Sect;
     do0(i, 0, K_Sect) { //sect begin
         int index_word;
-        RtfPage->m_arSectors.push_back( new CRtfSector() );
+        RtfPage->m_arSectors.push_back( new CIF::CRtfSector() );
         pRtfSector = RtfPage->m_arSectors[i];
         pRtfSector->m_wHorizontalColumnsCount = K_Hor[i];
         do0(ih, 0, K_Hor[i]) {//hor. col.  begin
-            pRtfSector->m_arHorizontalColumns.push_back( new CRtfHorizontalColumn() );
+            pRtfSector->m_arHorizontalColumns.push_back( new CIF::CRtfHorizontalColumn() );
             pRtfHorizontalColumn = pRtfSector->m_arHorizontalColumns[ih];
             RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rectReal, &ColH_New[i][ih].bnd);
             RtfUnionRect_CRect_CRect(&pRtfSector->m_rectReal, &pRtfHorizontalColumn->m_rectReal);
@@ -2705,10 +2705,10 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
                 if ( K_Hor[i] == 0 && K_Ver[i][ih] == 0 && NumStr[nc] == 0 )
                     pRtfSector->m_FlagOneString = TRUE;
 
-                pRtfHorizontalColumn->m_arVerticalColumns.push_back( new CRtfVerticalColumn() );
+                pRtfHorizontalColumn->m_arVerticalColumns.push_back( new CIF::CRtfVerticalColumn() );
                 pRtfVerticalColumn = pRtfHorizontalColumn->m_arVerticalColumns.back();
                 pRtfVerticalColumn->m_wFragmentsCount = 1;
-                pRtfVerticalColumn->m_arFragments.push_back( new CRtfFragment() );
+                pRtfVerticalColumn->m_arFragments.push_back( new CIF::CRtfFragment() );
                 pRtfFragment = pRtfVerticalColumn->m_arFragments[/*iv*/0]; //nega ~? м.б. [iv] вместо [0]?
                 pRtfFragment->m_wType = FT_TEXT;
                 RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rect, &RectFragm[nc] );
@@ -2721,7 +2721,7 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
                     if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
                         continue;
 
-                    pRtfFragment->m_arStrings.push_back( new CRtfString() );
+                    pRtfFragment->m_arStrings.push_back( new CIF::CRtfString() );
                     pRtfString = pRtfFragment->m_arStrings[ns];
 
                     if (TitleStr[nc][ns].S_Attr) {
@@ -2740,7 +2740,7 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
                             continue;
                         }
 
-                        pRtfString->m_arWords.push_back( new CRtfWord() );
+                        pRtfString->m_arWords.push_back( new CIF::CRtfWord() );
                         index_word = pRtfString->m_arWords.size();
                         pRtfWord = pRtfString->m_arWords[index_word-1];
                         pRtfWord->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
@@ -2753,7 +2753,7 @@ Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName)
                             pRtfWord->m_wRealFontPointSize = RtfPage->GetNewKegl(pRtfWord->m_wIdealFontPointSize);
 
                         do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) {
-                            pRtfWord->addChar(new CRtfChar);
+                            pRtfWord->addChar(new CIF::CRtfChar);
                             pRtfChar = pRtfWord->charAt(nz);
                             pRtfChar->m_wCountAlt = MIN(Zn[nc][ns][nw][nz].Title.Z_Num_Alt, REC_MAX_VERS);
 

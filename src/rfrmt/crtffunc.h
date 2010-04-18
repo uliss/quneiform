@@ -20,10 +20,9 @@
 #define CRTFFUNC_H_
 
 #include "cfcompat.h"
+#include "creatertf.h"
 
 class RtfSectorInfo;
-class CRtfPage;
-
 extern uint32_t RtfWriteMode;
 extern uint32_t FlagMode;
 
@@ -36,10 +35,9 @@ int16_t get_font_name(int16_t FontNumber);
 int16_t GetRealSizeKegl(const char * str, int16_t width, int16_t FontPointSize, int16_t FontNumber);
 int16_t GetRealSize(char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
         int16_t* strHeight);
-extern Bool PageTree(FILE *InFileName, CRtfPage* RtfPage, const char* OutFileName);
+extern Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName);
 
-class CRtfChar;
-void WriteCupDrop(CRtfChar* pRtfChar, int16_t font);
+void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
 
 void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
 void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);

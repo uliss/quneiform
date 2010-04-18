@@ -22,9 +22,13 @@
 #include <vector>
 #include "cfcompat.h"
 
+class RtfSectorInfo;
+
+namespace CIF
+{
+
 class CRtfPage;
 class CRtfString;
-class RtfSectorInfo;
 
 class CRtfFragment
 {
@@ -155,5 +159,6 @@ class CRtfFragment
         uchar m_FlagBigSpace;
         uint32_t m_Flag;
 };
+}
 
 #endif /* CRTFFRAGMENT_H_ */

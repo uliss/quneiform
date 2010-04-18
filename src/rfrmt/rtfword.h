@@ -22,6 +22,8 @@
 #include <vector>
 #include "cfcompat.h"
 
+namespace CIF
+{
 class CRtfChar;
 class CRtfString;
 
@@ -81,5 +83,7 @@ class CRtfWord
         typedef std::vector<CRtfChar*> CharList;
         CharList chars_;
 };
+
+}
 
 #endif /* RTFWORD_H_ */

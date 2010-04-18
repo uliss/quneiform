@@ -23,6 +23,9 @@
 #include "lang_def.h"
 #include "recdefs.h"
 
+namespace CIF
+{
+
 class CRtfChar
 {
     public:
@@ -55,5 +58,7 @@ class CRtfChar
     private:
         language_t language_;
 };
+
+}
 
 #endif /* CRTFCHAR_H_ */

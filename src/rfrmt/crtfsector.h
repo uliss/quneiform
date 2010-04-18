@@ -24,6 +24,9 @@
 #include "creatertf.h"
 #include "cfcompat.h"
 
+namespace CIF
+{
+
 class CRtfPage;
 class CRtfHorizontalColumn;
 
@@ -64,5 +67,7 @@ class CRtfSector
         Bool m_bFlagLine;
         int32_t m_VTerminalColumnNumber;
 };
+
+}
 
 #endif /* CRTFSECTOR_H_ */

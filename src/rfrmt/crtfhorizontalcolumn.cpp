@@ -24,6 +24,9 @@
 #include "ced/ced.h"
 #include "minmax.h"
 
+namespace CIF
+{
+
 CRtfHorizontalColumn::CRtfHorizontalColumn() {
     m_wVerticalColumnsCount = 0;
     m_wType = HC_SingleTerminal;
@@ -1035,5 +1038,7 @@ void CRtfHorizontalColumn::ToPlacePicturesAndTables(CRtfFragment* pRtfFragment) 
     pRtfFragmentNew->m_wUserNumber = pRtfFragment->m_wUserNumber;
     pRtfFragmentNew->m_wUserNumberForFormattedMode = pRtfFragment->m_wUserNumberForFormattedMode;
     RtfUnionRect_CRect_CRect(&pRtfFragmentNew->m_rect, &pRtfFragment->m_rect);
+}
+
 }
 

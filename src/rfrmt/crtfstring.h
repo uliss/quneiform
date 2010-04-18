@@ -22,6 +22,9 @@
 #include <vector>
 #include "cfcompat.h"
 
+namespace CIF
+{
+
 class CRtfFragment;
 class CRtfWord;
 
@@ -66,5 +69,7 @@ class CRtfString
         uchar m_FlagCarry;
         uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
 };
+
+}
 
 #endif /* CRTFSTRING_H_ */

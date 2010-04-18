@@ -18,6 +18,9 @@
 
 #include "crtfchar.h"
 
+namespace CIF
+{
+
 void CRtfChar::setLanguage(language_t lang) {
     language_ = lang;
 }
@@ -25,3 +28,6 @@ void CRtfChar::setLanguage(language_t lang) {
 language_t CRtfChar::language() const {
     return language_;
 }
+
+}
+

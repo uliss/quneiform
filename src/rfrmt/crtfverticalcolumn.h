@@ -22,9 +22,13 @@
 #include <vector>
 #include "cfcompat.h"
 
+class RtfSectorInfo;
+
+namespace CIF
+{
+
 class CRtfPage;
 class CRtfFragment;
-class RtfSectorInfo;
 
 class CRtfVerticalColumn
 {
@@ -47,5 +51,7 @@ class CRtfVerticalColumn
         Bool m_bFlagObjectInColumn;
         Bool m_bFlagSmall;
 };
+
+}
 
 #endif /* CRTFVERTICALCOLUMN_H_ */

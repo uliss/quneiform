@@ -27,8 +27,6 @@
 namespace CIF
 {
 class CEDPage;
-}
-
 class CRtfFragment;
 class CRtfSector;
 
@@ -97,5 +95,6 @@ class CRtfPage
         int m_nPrevSectorNumber;
         CIF::CEDPage * m_hED;
 };
+}
 
 #endif /* CRTFPAGE_H_ */

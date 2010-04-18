@@ -101,7 +101,7 @@
 #include "common/debug.h"
 
 extern Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, Handle* hEdTree);
-extern Bool PageTree(FILE *fpFileNameIn, CRtfPage* RtfPage, const char *FileNameOut);
+extern Bool PageTree(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage, const char *FileNameOut);
 extern Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo, Bool OutPutMode);
 extern Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFrame);
 void GetTableRect(uint32_t NumberTable, Rect16* RectTable, uint32_t* UserNumber);
@@ -113,11 +113,11 @@ extern void RtfAssignRect_CRect_CRect(RECT *s1, RECT *s2);
 
 int16_t CreateEmptyRtfFile(void);
 
-Bool ReadInternalFileRelease(FILE *fpFileNameIn, CRtfPage* RtfPage);
+Bool ReadInternalFileRelease(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage);
 Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t RightIndent,
         int16_t IntervalBefore, RtfSectorInfo *SectorInfo, int AlignParagraph, int shad,
         int LenthStringInTwips, int LengthFragmInTwips);
-void WriteCupDrop(CRtfChar* pRtfChar, int16_t font);
+void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
 void Cleaning_LI_FRMT_Used_Flag(void);
 
 float Twips;
@@ -138,7 +138,7 @@ extern CIF::Point16 TemplateOffset;
 //                                 FullRtf                                                        //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree) {
-    CRtfPage RtfPage;
+    CIF::CRtfPage RtfPage;
 
     if (RtfWriteMode) // is activated ONLY in debug mode (нажать ??? в LDPUMA)
         Cleaning_LI_FRMT_Used_Flag(); //обнуление флажков, что линии между колонок
@@ -174,207 +174,6 @@ Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree) {
 
 #endif
     return TRUE;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 InitFragment                                                   //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfFragment::InitFragment(RtfSectorInfo* SectorInfo) {
-    CRtfWord* pRtfWord;
-    CRtfString* pRtfString;
-    int PenaltyForCheredov = 0;
-    int CountWords;
-    pRtfString = (CRtfString*) m_arStrings[0];
-    pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
-    CountWords = pRtfString->m_wWordsCount;
-
-    if (m_wStringsCount == 1 && SectorInfo->CountFragments > 1) {
-        if (pRtfWord->m_wRealFontPointSize >= 14)
-            PenaltyForCheredov = 4;
-
-        else if (pRtfWord->m_wRealFontPointSize < 14 && pRtfWord->m_wRealFontPointSize > 10)
-            PenaltyForCheredov = 2;
-
-        else if (pRtfWord->m_wRealFontPointSize < 10 && pRtfWord->m_wRealFontPointSize > 5)
-            PenaltyForCheredov = 1;
-    }
-
-    for (int nw = 0; nw < CountWords; nw++) {
-        pRtfWord = (CRtfWord*) pRtfString->m_arWords[nw];
-
-        if (pRtfWord->m_wRealFontPointSize > 5)
-            pRtfWord->m_wRealFontPointSize -= PenaltyForCheredov;
-    }
-
-    m_wprev_font_name = get_font_name(pRtfWord->m_wFontNumber);
-    m_wprev_Underline = pRtfWord->m_wFontNumber & TG_EDW_UNDERLINE;
-    m_wprev_Bold = pRtfWord->m_wFontNumber & TG_EDW_BOLD;
-    m_wprev_Italic = pRtfWord->m_wFontNumber & TG_EDW_ITALIC;
-    m_wprev_lang = 1024;
-    m_wprev_font_size = pRtfWord->m_wRealFontPointSize;
-    SetFragmentAlignment(SectorInfo);
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 FWriteTable                                                    //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-Bool CRtfFragment::FWriteTable(int16_t NumberCurrentFragment, RtfSectorInfo *SectorInfo,
-        Bool OutPutType) {
-    // CString  TableString;
-    //  uint32_t   CountTableElem;
-    //  uint32_t   Tindex;
-    //  char     Tsym;
-    //  WriteTable((uint32_t)NumberCurrentFragment, SectorInfo/*, &TableString */, OutPutType);
-    /*  if(RtfWriteMode)
-     {
-     CountTableElem = TableString.GetLength();
-     for( Tindex=0;  Tindex<CountTableElem; Tindex++ )
-     {
-     Tsym=(char)TableString.GetAt(Tindex);
-     if(Tsym)
-     PutC(Tsym);
-     }
-     }*/
-    return TRUE;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 FWritePicture                                                  //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-Bool CRtfFragment::FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo *SectorInfo,
-        Bool OutPutType) {
-    //  CString  PictString;
-    //  uint32_t   Pindex;
-    //  uint32_t  CountPictElem;
-    //  char     Psym;
-    WritePict((uint32_t) NumberCurrentFragment, SectorInfo,/* &PictString,*/
-    OutPutType);
-    /*  if(RtfWriteMode)
-     {
-     CountPictElem = PictString.GetLength();
-     for( Pindex=0;  Pindex<CountPictElem; Pindex++ )
-     {
-     Psym=(char)PictString.GetAt(Pindex);
-     if(Psym)
-     PutC(Psym);
-     }
-     }
-     */
-    return TRUE;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 new_paragraph                                                  //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfFragment::new_paragraph(Bool OutPutType) {
-    if (OutPutType) {
-        switch (m_wvid_parag) {
-        case RTF_TP_LEFT_ALLIGN:
-            Put("\\ql");
-            break;
-        case RTF_TP_RIGHT_ALLIGN:
-            Put("\\qr");
-            break;
-        case RTF_TP_LEFT_AND_RIGHT_ALLIGN:
-            Put("\\qj");
-            break;
-        case RTF_TP_CENTER:
-
-            if (FlagMode & USE_NONE)
-                Put("\\ql");
-
-            else
-                Put("\\qc");
-
-            break;
-        case RTF_TP_ONE:
-            Put("\\ql");
-            break;
-        }
-
-        PutCom("\\li", m_li, 0);
-        PutCom("\\ri", m_ri, 0);
-
-        if (m_fi < 0)
-            PutCom("\\fi-", abs(m_fi), 0);
-
-        else
-            PutCom("\\fi", m_fi, 0);
-
-        PutCom("\\sb", m_sb, 0);
-        PutCom("\\sa", 0, 0);
-        PutCom("\\sl", 0, 0);
-        Put("{");
-    }
-
-    Put("\\pard");
-    Put("\\plain");
-
-    switch (m_wprev_font_name) {
-    case 0:
-        PutCom("\\f", 0, 0);
-        break;
-    case 1:
-        PutCom("\\f", 1, 0);
-        break;
-    case 2:
-        PutCom("\\f", 2, 0);
-        break;
-    case 3:
-        PutCom("\\f", 3, 0);
-        break;
-    default:
-        PutCom("\\f", 1, 0);
-        break;
-    }
-
-    PutCom("\\lang", m_wprev_lang, 0);
-
-    if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
-        PutCom("\\fs", DefFontSize, 1);
-
-    else
-        PutCom("\\fs", m_wprev_font_size * 2, 1);
-
-    if (OutPutType)
-        return;
-
-    switch (m_wvid_parag) {
-    case RTF_TP_LEFT_ALLIGN:
-        Put("\\ql");
-        break;
-    case RTF_TP_RIGHT_ALLIGN:
-        Put("\\qr");
-        break;
-    case RTF_TP_LEFT_AND_RIGHT_ALLIGN:
-        Put("\\qj");
-        break;
-    case RTF_TP_CENTER:
-
-        if (FlagMode & USE_NONE)
-            Put("\\ql");
-
-        else
-            Put("\\qc");
-
-        break;
-    case RTF_TP_ONE:
-        Put("\\ql");
-        break;
-    }
-
-    PutCom("\\li", m_li, 0);
-    PutCom("\\ri", m_ri, 0);
-
-    if (m_fi < 0)
-        PutCom("\\fi-", abs(m_fi), 0);
-
-    else
-        PutCom("\\fi", m_fi, 0);
-
-    PutCom("\\sb", m_sb, 0);
-    PutCom("\\sa", 0, 0);
-    PutCom("\\sl", 0, 0);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -580,7 +379,7 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
             SectorInfo->userNum, -1, interval, playout, -1, shad, -1, -1, FALSE);
 }
 
-void Rtf_CED_CreateChar(CIF::Rect * slayout, CIF::Letter* Letter, CRtfChar* pRtfChar) {
+void Rtf_CED_CreateChar(CIF::Rect * slayout, CIF::Letter* Letter, CIF::CRtfChar* pRtfChar) {
     if (RtfWriteMode)
         return;
 

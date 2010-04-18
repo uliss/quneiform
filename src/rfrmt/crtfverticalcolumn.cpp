@@ -22,6 +22,9 @@
 #include "creatertf.h"
 #include "minmax.h"
 
+namespace CIF
+{
+
 CRtfVerticalColumn::CRtfVerticalColumn() {
     m_bSortFlag = 0;
     m_wType = FT_TEXT;
@@ -144,5 +147,7 @@ void CRtfVerticalColumn::SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorIn
             * TwipsToEMU_Koef);
     SectorInfo->m_rectFree.bottom = CurrentFragment->m_rectFree.bottom = (int32_t) (MAX(0,
             BottomFree) * TwipsToEMU_Koef);
+}
+
 }
 

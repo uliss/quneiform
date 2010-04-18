@@ -49,6 +49,9 @@ uint16_t FlagWriteRtfCoordinates = 1;
 char WriteRtfPageNumber[CFIO_MAX_PATH] = "1";
 extern char WriteRtfImageName[PATH_MAX];
 
+namespace CIF
+{
+
 CRtfPage::CRtfPage() {
     Count.RtfSectors = 0;
     Count.RtfTextFragments = 0;
@@ -226,8 +229,8 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
     int16_t nc, ns, nw, nz, i;
     int16_t tmp;
     uint32_t wtmp;
-    Rect16 RectFragm;
-    Rect16 SRect;
+    ::Rect16 RectFragm;
+    ::Rect16 SRect;
     rewind(in);
     fread(&tmp, 2, 1, in);
     RtfPage->m_wDpi = tmp;
@@ -367,7 +370,7 @@ void CRtfPage::SetTwips(void) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfPage::AddPictures(void) {
     CRtfFragment* pRtfFragment;
-    Rect16 RectPict;
+    ::Rect16 RectPict;
     Count.RtfPictureFragments = (uint16_t) CountPict;
 
     for (int i = 0; i < (int) CountPict; i++) {
@@ -1451,5 +1454,7 @@ int16_t CRtfPage::GetFlagAndNumberFragment(uchar* FragmentType, int16_t* InGroup
     }
 
     return i;
+}
+
 }
 

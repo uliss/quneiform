@@ -135,13 +135,16 @@ typedef std::vector<uint16_t> vectorWord;
 #define RTF_TP_CENTER                3 //- выравнивание по центру
 #define RTF_TP_ONE                   4 //- каждая строка состоит из одного слова, выравнивание левому краю
 #define RTF_TP_TYPE_LINE             5 //- список
+namespace CIF
+{
 class CRtfSector;
 class CRtfFragment;
 class CRtfHorizontalColumn;
 class CRtfVerticalColumn;
-class CRtfParagraph;
+class CRtfPage;
 class CRtfString;
 class CRtfWord;
 class CRtfChar;
+}
 
 #endif // __CreateRtf_h__

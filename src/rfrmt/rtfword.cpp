@@ -22,6 +22,9 @@
 #include "cpage/cpage.h"
 #include "minmax.h"
 
+namespace CIF
+{
+
 CRtfWord::CRtfWord() {
 }
 
@@ -72,7 +75,8 @@ void CRtfWord::get_coordinates_and_probability() {
     m_wcs = 1;
     m_wcp = 254;
     pRtfCharFirst = chars_.front();
-    pRtfCharLast = chars_.back();;
+    pRtfCharLast = chars_.back();
+    ;
     m_wcl = (int16_t) pRtfCharFirst->m_Realrect.left;
     m_wcr = (int16_t) pRtfCharLast->m_Realrect.right;
     m_wct = MIN((int16_t) pRtfCharFirst->m_Realrect.top, (int16_t) pRtfCharLast->m_Realrect.top);
@@ -112,5 +116,7 @@ void CRtfWord::get_coordinates_and_probability() {
             m_wcb = (int16_t) PageInfo.Height - t;
         }
     }
+}
+
 }
 
