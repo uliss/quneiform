@@ -42,7 +42,6 @@ class CRtfChar
         uchar m_bFlg_cup_drop;
         uint16_t m_wCountAlt;
         uint16_t m_wFontPointSize;
-        uint16_t m_wIndex;
 
         /**
          * Returns font number
