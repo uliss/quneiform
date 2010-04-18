@@ -35,6 +35,10 @@ class Letter
             return alternative_;
         }
 
+        bool isHyphen() const {
+            return alternative_ == '-';
+        }
+
         /**
          * Replaces non-printable character to space
          */

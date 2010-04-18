@@ -855,7 +855,7 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         m_l_fragment = MIN(m_l_fragment, (int16_t)pRtfCharFirst->idealRect().left());
         m_r_fragment = MAX(m_r_fragment, (int16_t)pRtfCharLast->idealRect().right());
 
-        if (pRtfCharLast->first().getChar() == '-' && pRtfCharLast->m_bFlg_spell_nocarrying)
+        if (pRtfCharLast->first().isHyphen() && pRtfCharLast->m_bFlg_spell_nocarrying)
             pRtfString->m_FlagCarry = TRUE;
     }
 
@@ -1738,7 +1738,7 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
             pRtfWord = (CRtfWord*) pRtfStringPrev->m_arWords[CountWords - 1];
             pRtfChar = pRtfWord->lastChar();
 
-            if (pRtfChar->first().getChar() == '-' && pRtfChar->m_bFlg_spell_nocarrying) {
+            if (pRtfChar->first().isHyphen() && pRtfChar->m_bFlg_spell_nocarrying) {
                 if (pRtfString->m_wAlignment == pRtfStringPrev->m_wAlignment)
                     pRtfString->m_wFlagBeginParagraph = FALSE;
 
