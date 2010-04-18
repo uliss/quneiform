@@ -22,6 +22,7 @@
 #include "cfcompat.h"
 #include "lang_def.h"
 #include "recdefs.h"
+#include "crtfstruct.h"
 
 namespace CIF
 {
@@ -41,14 +42,23 @@ class CRtfChar
         uchar m_bFlg_spell_nocarrying;
         uchar m_bFlg_cup_drop;
         uint16_t m_wCountAlt;
-        uint16_t m_wFontNumber;
         uint16_t m_wFontPointSize;
         uint16_t m_wIndex;
+
+        /**
+         * Returns font number
+         */
+        font_number font() const;
 
         /**
          * Returns character language
          */
         language_t language() const;
+
+        /**
+         * Sets font number
+         */
+        void setFont(font_number fontNumber);
 
         /**
          * Sets character language
@@ -57,6 +67,7 @@ class CRtfChar
         void setLanguage(language_t lang);
     private:
         language_t language_;
+        font_number font_number_;
 };
 
 }

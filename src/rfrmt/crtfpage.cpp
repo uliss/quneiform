@@ -324,7 +324,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                     pRtfChar->m_bFlg_spell_nocarrying = alt2.spellnocarrying;
                     pRtfChar->m_bFlg_cup_drop = alt2.FlagCapDrop;
                     pRtfChar->m_bFlg_spell = alt2.spell;
-                    pRtfChar->m_wFontNumber = pRtfWord->m_wFontNumber;
+                    pRtfChar->setFont(pRtfWord->m_wFontNumber);
                     pRtfChar->m_wFontPointSize = pRtfWord->m_wIdealFontPointSize;
                 }
             }
@@ -688,7 +688,7 @@ void CRtfPage::CorrectKegl(void) {
             LenghtStr = (int16_t) (pLastChar->m_Idealrect.right - pFirstChar->m_Idealrect.left);
             // adjust kegl to the text line real width (Microsoft function)
             Real_Size_Kegl = GetRealSizeKegl(TmpString, LenghtStr, pFirstChar->m_wFontPointSize,
-                    pFirstChar->m_wFontNumber);
+                    pFirstChar->font());
             AddNewKegl(pLastChar->m_wFontPointSize, Real_Size_Kegl);
             delete[] TmpString;
         }

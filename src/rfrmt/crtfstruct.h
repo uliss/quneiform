@@ -19,6 +19,8 @@
 #ifndef CRTFSTRUCT_H_
 #define CRTFSTRUCT_H_
 
+typedef short font_number;
+
 class RtfPageElementCount
 {
     public:

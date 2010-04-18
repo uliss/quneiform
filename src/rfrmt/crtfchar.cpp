@@ -21,12 +21,20 @@
 namespace CIF
 {
 
-void CRtfChar::setLanguage(language_t lang) {
-    language_ = lang;
+font_number CRtfChar::font() const {
+    return font_number_;
 }
 
 language_t CRtfChar::language() const {
     return language_;
+}
+
+void CRtfChar::setFont(font_number fontNumber) {
+    font_number_ = fontNumber;
+}
+
+void CRtfChar::setLanguage(language_t lang) {
+    language_ = lang;
 }
 
 }
