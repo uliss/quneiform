@@ -19,7 +19,7 @@
 #include <cstring>
 #include "crtfchar.h"
 #include "crtfstring.h"
-#include "rtfword.h"
+#include "crtfword.h"
 #include "creatertf.h"
 #include "crtfstruct.h"
 #include "minmax.h"

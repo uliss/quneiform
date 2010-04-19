@@ -9,8 +9,8 @@ crtfsector.cpp
 crtfstring.cpp
 crtfhorizontalcolumn.cpp
 crtfverticalcolumn.cpp
+crtfword.cpp
 frmt.cpp
-frmtallignment.cpp
 frmtdibapi.cpp
 frmtdll.cpp
 frmtfile.cpp
@@ -19,7 +19,6 @@ formatoptions.cpp
 int_file.cpp
 mymem.cpp
 pagetree.cpp
-rtfword.cpp
 sort_int.cpp
 util.cpp
 util_lst.cpp

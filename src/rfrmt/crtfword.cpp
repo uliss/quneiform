@@ -16,7 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "rtfword.h"
+#include "crtfword.h"
 #include "crtfchar.h"
 #include "creatertf.h"
 #include "cpage/cpage.h"

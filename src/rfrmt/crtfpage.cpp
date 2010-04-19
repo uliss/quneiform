@@ -19,7 +19,7 @@
 #include <cstring>
 #include "crtfchar.h"
 #include "crtfsector.h"
-#include "rtfword.h"
+#include "crtfword.h"
 #include "crtffragment.h"
 #include "crtfpage.h"
 #include "crtffunc.h"

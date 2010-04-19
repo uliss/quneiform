@@ -77,7 +77,7 @@
 #include "crtfchar.h"
 #include "crtfhorizontalcolumn.h"
 #include "crtfverticalcolumn.h"
-#include "rtfword.h"
+#include "crtfword.h"
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
 

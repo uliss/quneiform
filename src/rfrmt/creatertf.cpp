@@ -91,7 +91,7 @@
 #include "crtfstring.h"
 #include "crtfhorizontalcolumn.h"
 #include "crtfverticalcolumn.h"
-#include "rtfword.h"
+#include "crtfword.h"
 #include "crtffunc.h"
 #include "crtfstruct.h"
 

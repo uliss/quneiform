@@ -22,7 +22,7 @@
 #include "crtfstring.h"
 #include "crtfsector.h"
 #include "crtfpage.h"
-#include "rtfword.h"
+#include "crtfword.h"
 #include "creatertf.h"
 #include "crtffunc.h"
 #include "frmtpict.h"
