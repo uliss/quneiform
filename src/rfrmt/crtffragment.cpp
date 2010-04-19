@@ -200,7 +200,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
         if (!RtfWriteMode && !pRtfChar->m_bFlg_cup_drop) {
 #ifdef CHEREDOV
-            hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer, (int)((pRtfWord->m_wRealFontPointSize - 1) * 2));
+            hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
             if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME)) {
@@ -282,13 +282,13 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             flag_end_word_with_hiphen = 0;
             pRtfWord->getCoordinatesAndProbability();
             Put("{");
-            PutCom("\\wcl", pRtfWord->m_wcl, 0);
-            PutCom("\\wcr", pRtfWord->m_wcr, 0);
-            PutCom("\\wct", pRtfWord->m_wct, 0);
-            PutCom("\\wcb", pRtfWord->m_wcb, 0);
-            PutCom("\\wcp", pRtfWord->m_wcp, 0);
+            PutCom("\\wcl", pRtfWord->bRect().left(), 0);
+            PutCom("\\wcr", pRtfWord->bRect().right(), 0);
+            PutCom("\\wct", pRtfWord->bRect().rtop(), 0);
+            PutCom("\\wcb", pRtfWord->bRect().bottom(), 0);
+            PutCom("\\wcp", pRtfWord->probability(), 0);
 
-            if (!pRtfWord->m_wcs)
+            if (!pRtfWord->spelling())
                 Put("\\wcs");
 
             Put("{");
@@ -298,7 +298,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 pRtfChar = pRtfWord->charAt(nz);
 #ifdef EdWrite
 
-                if (!pRtfWord->m_wcs)
+                if (!pRtfWord->spelling())
                     pRtfChar->first().setProbability(0);
 
                 if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)
@@ -316,7 +316,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #endif
                 else
 #ifdef CHEREDOV
-                EDFontPointSize = (int)((pRtfWord->m_wRealFontPointSize - 1) * 2);
+                EDFontPointSize = (int)((pRtfWord->real_font_size_ - 1) * 2);
 
 #else
 
@@ -363,7 +363,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                         pRtfString->m_LengthStringInTwips, m_rectReal.right
                                                 - m_rectReal.left); //NEGA_STR
 #ifdef CHEREDOV
-                                hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer, (int)((pRtfWord->m_wRealFontPointSize - 1) * 2));
+                                hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
                                 if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
@@ -422,7 +422,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                         pRtfString->m_LengthStringInTwips, m_rectReal.right
                                                 - m_rectReal.left); //NEGA_STR
 #ifdef CHEREDOV
-                                hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer, (int)((pRtfWord->m_wRealFontPointSize - 1) * 2));
+                                hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
                                 if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
@@ -477,7 +477,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 if (!RtfWriteMode && !pRtfChar->m_bFlg_cup_drop) {
                     Rtf_CED_CreateChar(&slayout, Letter, NULL);
 #ifdef CHEREDOV
-                    CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->m_wRealFontPointSize - 1)*2), (int)tmp_font_name,
+                    CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->real_font_size_ - 1)*2), (int)tmp_font_name,
                             EDFontAttribs, -1, -1, -1);
 #else
 
@@ -506,7 +506,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 if (!RtfWriteMode) {
                     Rtf_CED_CreateChar(&slayout, Letter, NULL);
 #ifdef CHEREDOV
-                    CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->m_wRealFontPointSize - 1)*2), (int)tmp_font_name,
+                    CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->real_font_size_ - 1)*2), (int)tmp_font_name,
                             EDFontAttribs, -1, -1, -1);
 #else
 

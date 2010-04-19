@@ -21,6 +21,8 @@
 
 #include <vector>
 #include "cfcompat.h"
+#include "common/rect.h"
+
 #include "crtfstruct.h"
 
 namespace CIF
@@ -38,6 +40,11 @@ class CRtfWord
          * Adds char to the end of the word
          */
         void addChar(CRtfChar * chr);
+
+        /**
+         * Returns bounding rectangle of word
+         */
+        Rect bRect() const;
 
         /**
          * Returns pointer to character at position @pos
@@ -65,6 +72,7 @@ class CRtfWord
          * @throw std::out_of_range if word is empty
          */
         CRtfChar * firstChar();
+        const CRtfChar * firstChar() const;
 
         /**
          * Returns word font number
@@ -81,6 +89,12 @@ class CRtfWord
          * @throw std::out_of_range if word is empty
          */
         CRtfChar * lastChar();
+        const CRtfChar * lastChar() const;
+
+        /**
+         * Returns word minimal probability
+         */
+        short probability() const;
 
         short realFontSize() const;
 
@@ -99,18 +113,28 @@ class CRtfWord
          */
         void setRealFontSize(short size);
 
-        int16_t m_wcl;
-        int16_t m_wct;
-        int16_t m_wcr;
-        int16_t m_wcb;
-        int16_t m_wcs;
-        int16_t m_wcp;
+        /**
+         * Returns word spelling
+         */
+        bool spelling() const;
+    private:
+        void calcMinProbability();
+        void calcMinSpelling();
+        Rect charsBRect() const;
+        void rotateRect(Rect& rect, int angle, int x_offset, int y_offset);
     private:
         typedef std::vector<CRtfChar*> CharList;
         CharList chars_;
         font_number font_number_;
-        short m_wIdealFontPointSize;
-        short m_wRealFontPointSize;
+        short ideal_font_size_;
+        short real_font_size_;
+        short spelling_;
+        short probability_;
+        Rect brect_;
+        int16_t m_wcl;
+        int16_t m_wct;
+        int16_t m_wcr;
+        int16_t m_wcb;
 
 };
 

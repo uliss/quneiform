@@ -16,6 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <algorithm>
 #include "crtfword.h"
 #include "crtfchar.h"
 #include "creatertf.h"
@@ -36,12 +37,45 @@ void CRtfWord::addChar(CRtfChar * chr) {
     chars_.push_back(chr);
 }
 
+Rect CRtfWord::bRect() const {
+    return brect_;
+}
+
+bool compareCharProbability(CRtfChar * first, CRtfChar * second) {
+    return first->first().probability() < second->first().probability();
+}
+
+void CRtfWord::calcMinProbability() {
+    probability_ = 254;
+    CharList::iterator it = std::min_element(chars_.begin(), chars_.end(), compareCharProbability);
+    if (it != chars_.end())
+        probability_ = (*it)->first().probability();
+}
+
+bool compareCharSpelling(CRtfChar * first, CRtfChar * second) {
+    return first->m_bFlg_spell < second->m_bFlg_spell;
+}
+
+void CRtfWord::calcMinSpelling() {
+    spelling_ = 1;
+    CharList::iterator it = std::min_element(chars_.begin(), chars_.end(), compareCharSpelling);
+    if (it != chars_.end())
+        spelling_ = (*it)->m_bFlg_spell;
+}
+
 CRtfChar * CRtfWord::charAt(size_t pos) {
     return chars_.at(pos);
 }
 
 size_t CRtfWord::charCount() const {
     return chars_.size();
+}
+
+Rect CRtfWord::charsBRect() const {
+    if (chars_.empty())
+        return Rect();
+
+    return firstChar()->realRect().united(lastChar()->realRect());
 }
 
 void CRtfWord::clearChars() {
@@ -54,20 +88,59 @@ CRtfChar * CRtfWord::firstChar() {
     return chars_.front();
 }
 
+const CRtfChar * CRtfWord::firstChar() const {
+    return chars_.front();
+}
+
 font_number CRtfWord::fontNumber() const {
     return font_number_;
 }
 
 short CRtfWord::idealFontSize() const {
-    return m_wIdealFontPointSize;
+    return ideal_font_size_;
 }
 
 CRtfChar * CRtfWord::lastChar() {
     return chars_.back();
 }
 
+const CRtfChar * CRtfWord::lastChar() const {
+    return chars_.back();
+}
+
+short CRtfWord::probability() const {
+    return probability_;
+}
+
 short CRtfWord::realFontSize() const {
-    return m_wRealFontPointSize;
+    return real_font_size_;
+}
+
+void CRtfWord::rotateRect(Rect& rect, int angle, int x_offset, int y_offset) {
+    Rect result = rect;
+    switch (angle) {
+    case 90: //270
+        result.rleft() = rect.top();
+        result.rright() = rect.bottom();
+        result.rtop() = y_offset - rect.right();
+        result.rbottom() = y_offset - rect.left();
+        break;
+    case 270: //90
+        result.rleft() = x_offset - rect.bottom();
+        result.rright() = x_offset - rect.top();
+        result.rtop() = rect.left();
+        result.rbottom() = rect.right();
+        break;
+    case 180:
+        result.rleft() = x_offset - rect.right();
+        result.rright() = x_offset - rect.left();
+        result.rtop() = y_offset - rect.bottom();
+        result.rbottom() = y_offset - rect.top();
+        break;
+    default:
+        break;
+    }
+    rect = result;
 }
 
 void CRtfWord::setFontNumber(font_number number) {
@@ -75,65 +148,28 @@ void CRtfWord::setFontNumber(font_number number) {
 }
 
 void CRtfWord::getCoordinatesAndProbability() {
-    int16_t nz;
-    int16_t t, l, b, r;
-    CRtfChar *pRtfCharFirst, *pRtfCharLast;
+    calcMinProbability();
+    calcMinSpelling();
+
     PAGEINFO PageInfo;
     Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     GetPageInfo(hCPAGE, &PageInfo);
-    m_wcl = m_wct = 32000;
-    m_wcr = m_wcb = 0;
-    m_wcs = 1;
-    m_wcp = 254;
-    pRtfCharFirst = chars_.front();
-    pRtfCharLast = chars_.back();
 
-    m_wcl = (int16_t) pRtfCharFirst->realRect().left();
-    m_wcr = (int16_t) pRtfCharLast->realRect().right();
-    m_wct = MIN(pRtfCharFirst->realRect().top(), pRtfCharLast->realRect().top());
-    m_wcb = MAX(pRtfCharFirst->realRect().bottom(), pRtfCharLast->realRect().bottom());
-
-    for (nz = 0; nz < chars_.size(); nz++) {
-        CRtfChar * pRtfChar = chars_[nz];
-        m_wcp = MIN(m_wcp, pRtfChar->first().probability());
-        m_wcs = MIN(m_wcs, pRtfChar->m_bFlg_spell);
-    }
-
-    if (PageInfo.Angle) {
-        t = m_wct;
-        r = m_wcr;
-        b = m_wcb;
-        l = m_wcl;
-
-        if (PageInfo.Angle == 90) { //270
-            m_wcl = t;
-            m_wcr = b;
-            m_wct = (int16_t) PageInfo.Height - r;
-            m_wcb = (int16_t) PageInfo.Height - l;
-        }
-
-        else if (PageInfo.Angle == 270) { //90
-            m_wcl = (int16_t) PageInfo.Width - b;
-            m_wcr = (int16_t) PageInfo.Width - t;
-            m_wct = l;
-            m_wcb = r;
-        }
-
-        else if (PageInfo.Angle == 180) {
-            m_wcl = (int16_t) PageInfo.Width - r;
-            m_wcr = (int16_t) PageInfo.Width - l;
-            m_wct = (int16_t) PageInfo.Height - b;
-            m_wcb = (int16_t) PageInfo.Height - t;
-        }
-    }
+    Rect tmp = charsBRect();
+    rotateRect(tmp, PageInfo.Angle, PageInfo.Width, PageInfo.Height);
+    brect_ = tmp;
 }
 
 void CRtfWord::setIdealFontSize(short size) {
-    m_wIdealFontPointSize = size;
+    ideal_font_size_ = size;
 }
 
 void CRtfWord::setRealFontSize(short size) {
-    m_wRealFontPointSize = size;
+    real_font_size_ = size;
+}
+
+bool CRtfWord::spelling() const {
+    return spelling_ > 0;
 }
 
 }
