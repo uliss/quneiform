@@ -89,7 +89,7 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 		return TRUE;
 
 	Handle hCPage = Image->hCPAGE;
-	PAGEINFO info = { 0 };
+	PAGEINFO info;
 	char OldImage[CPAGE_MAXNAME];
 	GetPageInfo(hCPage, &info);
 

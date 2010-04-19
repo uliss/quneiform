@@ -232,7 +232,7 @@ Bool32 RLINE_LinesPass1(Handle hCPage, Handle hCCOM, void* phCLINE,
 	}
 	/// BogDmitry
 
-	PAGEINFO info = { 0 };
+	PAGEINFO info;
 
 	if (!GetPageInfo(hCPage, &info))
 		return FALSE;
@@ -1101,7 +1101,7 @@ void DeleteBadDotLine(CLINE_handle hCLINE, CCOM_handle hCCOM, Handle hCPAGE) {
 	if (count_comp > 50000 || count_comp == 0)
 		return;
 
-	PAGEINFO info = { 0 };
+	PAGEINFO info;
 	GetPageInfo(hCPAGE, &info);
 
 	int i = 10;
@@ -1313,7 +1313,7 @@ Bool32 RLINE_LinesPass2(CCOM_handle hCCOM, void* phCLINE, Handle hCPAGE) {
 	if (!hCPAGE)
 		return FALSE;
 
-	PAGEINFO info = { 0 };
+	PAGEINFO info;
 
 	if (!GetPageInfo(hCPAGE, &info))
 		return FALSE;
@@ -1374,7 +1374,7 @@ Bool32 CorrectDoubleLines(CLINE_handle hContainer) {
 	CPDLine cpLine1, cpLine2;
 	uint32_t PageNumber = CPAGE_GetCurrentPage();
 	Handle h_Page = CPAGE_GetHandlePage(PageNumber);
-	PAGEINFO page_info = { 0 };
+	PAGEINFO page_info;
 
 	if (!GetPageInfo(h_Page, &page_info))
 		return FALSE;
@@ -1657,7 +1657,7 @@ Bool32 FindExtLines(CLINE_handle* hLinesMass, int32_t CountLines,
 			simple_shift = 0;
 	uint32_t PageNumber = CPAGE_GetCurrentPage();
 	Handle h_Page = CPAGE_GetHandlePage(PageNumber);
-	PAGEINFO page_info = { 0 };
+	PAGEINFO page_info;
 	int32_t dpi;
 
 	if (!GetPageInfo(h_Page, &page_info))

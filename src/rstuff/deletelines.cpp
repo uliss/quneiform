@@ -119,7 +119,7 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 
 	CIMAGEIMAGECALLBACK cbk;
 	CIMAGEIMAGECALLBACK cbk1;
-	PAGEINFO info = { 0 }; // Описание страницы
+	PAGEINFO info; // Описание страницы
 	int i;
 	Bool fl_cont;
 	char ImageName[CPAGE_MAXNAME];

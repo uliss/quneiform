@@ -132,7 +132,7 @@ Bool32 RVERLINE_MarkLines(CCOM_handle hCComp, Handle hCPage) {
 	int *pWhatDo;
 	int iZher[MaxZherTotal], nZher;
 	void *Zhertvy[MaxZherTotal];
-	PAGEINFO info = { 0 };
+	PAGEINFO info;
 	CLINE_handle hCLINE = CLINE_GetMainContainer();
 	ret = WasInitRVERLINE();
 	if (!ret)

@@ -451,7 +451,7 @@ Bool SearchNegBySize(CCOM_handle hCCOM, Handle hCPage, NegList** ROOT, int& nRC)
     CCOM_comp * pcomp = CCOM_GetFirst(hCCOM, NULL);
     if (pcomp == NULL)
         return FALSE;
-    PAGEINFO info = { 0 };
+    PAGEINFO info;
     GetPageInfo(hCPage, &info);
     DPIX = info.DPIX;
     DPIY = info.DPIY;
@@ -1011,7 +1011,7 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp)
         prewide *= 8;
     }
 
-    PAGEINFO info = { 0 };
+    PAGEINFO info;
     CIMAGE_InfoDataInGet DataInto = { 0 };
     CIMAGE_InfoDataOutGet DataOut = { 0 };
     char Name[CPAGE_MAXNAME];

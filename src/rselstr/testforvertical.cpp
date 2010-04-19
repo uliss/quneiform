@@ -103,7 +103,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_TestForVertical(CCOM_handle hCCOM, Handle hCPage, R
     min_let_h = 2;
     inf_betw_str_h = 10;
 
-    PAGEINFO info = { 0 };
+    PAGEINFO info;
     GetPageInfo(hCPage,&info);
 
     int skew = info.Incline2048;
@@ -769,7 +769,7 @@ int GetMinCol(CCOM_comp** pC, int nN, Bool vert) {
 Bool MainVertDiagnostic(Handle hCPage, CCOM_handle hCCOM, CPrepHstr* temp, Rect16* pRc, int nRc,
         int param) {
 
-    PAGEINFO info = { 0 };
+    PAGEINFO info;
     GetPageInfo(hCPage,&info);
 
     int skew = info.Incline2048;

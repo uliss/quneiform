@@ -625,7 +625,7 @@ CCOM_handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg, Boo
         RecRaster* rast, int min_h) {
     int min_w, max_h, max_w;
     // int j;
-    PAGEINFO info = { 0 };
+    PAGEINFO info;
     // uchar Name[CPAGE_MAXNAME];
     GetPageInfo(hCPage, &info);
 

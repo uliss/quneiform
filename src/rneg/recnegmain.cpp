@@ -149,7 +149,7 @@ void RNEG_RecogNeg(CCOM_handle hCCOM, Handle hCPage, uchar* pImageName,
 	inf_betw_str_h = 10;
 	sup_square = 500000;
 
-	PAGEINFO info = { 0 };
+	PAGEINFO info;
 	GetPageInfo(hCPage, &info);
 	DPIX = info.DPIX;
 	DPIY = info.DPIY;

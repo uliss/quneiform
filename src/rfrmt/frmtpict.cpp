@@ -178,7 +178,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     if (!h_Pict)
         return FALSE;
 
-    PAGEINFO pinfo = { 0 };
+    PAGEINFO pinfo;
 
     if (!GetPageInfo(h_Page, &pinfo))
         return FALSE;

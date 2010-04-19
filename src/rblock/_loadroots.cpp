@@ -185,7 +185,7 @@ Bool32 PicturesSecondStage(CCOM_handle hCCOM, Handle hCPAGE)
     uint32_t nLocalComps;
     uint32_t MaxLocal, nMaxLocal;
     uint32_t Result1, Result2;
-    PAGEINFO info = { 0 };//Almi
+    PAGEINFO info;//Almi
     int PageWidth;//Almi
     //NPF makros:
     int BOUND_DEFECT = NPFGetBD();

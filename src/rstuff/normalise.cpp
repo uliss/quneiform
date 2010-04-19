@@ -180,7 +180,7 @@ Bool32 CreateContainerBigComp(PRSPreProcessImage Image) {
 	Handle hCPage = Image->hCPAGE;
 	CCOM_handle hCCOM_new = 0;
 	BIG_IMAGE big_Image;
-	PAGEINFO info = { 0 };
+	PAGEINFO info;
 	GetPageInfo(hCPage, &info);
 	int i = 0;
 
@@ -245,7 +245,7 @@ Bool32 PreProcessImage(PRSPreProcessImage Image) {
 
 	// Andrey 12.11.01
 	// Проинициализируем контейнер CPAGE
-	PAGEINFO PInfo = { 0 };
+	PAGEINFO PInfo;
 	GetPageInfo(hCPAGE, &PInfo);
 	strcpy((char*) PInfo.szImageName, glpRecogName);
 	PInfo.BitPerPixel = info->biBitCount;
@@ -272,7 +272,7 @@ Bool32 PreProcessImage(PRSPreProcessImage Image) {
 
 	// Переинициализируем контейнер CPAGE
 	{
-		PAGEINFO PInfo = { 0 };
+		PAGEINFO PInfo;
 		GetPageInfo(hCPAGE, &PInfo);
 		strcpy((char*) PInfo.szImageName, glpRecogName);
 		PInfo.BitPerPixel = info->biBitCount;
@@ -484,7 +484,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 			if (!ExtractComponents(FALSE, hLinesCCOM, PUMA_IMAGE_DELLINE, Image)) {
 				rc = FALSE;
 			} else {
-				PAGEINFO inf = { 0 };
+				PAGEINFO inf;
 				GetPageInfo(Image->hCPAGE, &inf);
 				strcpy((char*) inf.szImageName, PUMA_IMAGE_DELLINE);
 				inf.Images |= IMAGE_DELLINE;
@@ -715,7 +715,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image) {
 	uint16_t Code;
 	int32_t SkewReg, Skew, SkewLocVerLin;
 	Rect16 RcReg;
-	PAGEINFO info = { 0 };
+	PAGEINFO info;
 	UN_BUFF MainBuff = { 0 };
 	void *vMain;
 	char *cWork;
@@ -807,7 +807,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void checkResolution(CCOM_handle hCCOM, Handle hCPAGE) {
-	PAGEINFO page_info = { 0 };
+	PAGEINFO page_info;
 	const int min_res = 99;
 	CCOM_comp* pcomp = NULL;
 	unsigned int Masy[100], Masx[100], i, Jy_m = 0, My_m = 0, Jx_m = 0, Mx_m =

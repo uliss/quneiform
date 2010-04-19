@@ -300,7 +300,7 @@ static void LayoutFromCPAGE(Handle hCPAGE)
     ROOT * pRoot = NULL;
     uint32_t BlockNumber;
     // piter 08.07.99
-    PAGEINFO PInfo = { 0 };
+    PAGEINFO PInfo;
     RotatePageToReal();
 
     if (CPAGE_GetPageData(hCPAGE, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo)))

@@ -64,7 +64,7 @@ RSELSTR_FUNC(Bool32) RSELSTR_PutObjects(Handle hCPage, CCOM_handle hCCOM, CHSTR_
     if (list == NULL)
         return FALSE;
 
-    PAGEINFO info = { 0 };
+    PAGEINFO info;
     GetPageInfo(hCPage,&info);
 
     CHstr* string;

@@ -92,7 +92,7 @@ Bool32 RBLOCK_ExtractTextBlocks(CCOM_handle hCCOM, Handle hCPAGE,
         MainWindowD = LDPUMA_GetWindowHandle("Main");
 
     HCLINE = hCLINE;
-    PAGEINFO info = { 0 };
+    PAGEINFO info;
 
     if (GetPageInfo(hCPAGE, &info))
         nIncline = info.Incline2048;

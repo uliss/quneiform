@@ -110,7 +110,7 @@ Bool32 GetObjects(CCOM_handle hCCOM, Handle hCPage)
     inf_betw_str_h = 10;
     const int neg_w = 30;
 
-    PAGEINFO info = { 0 };
+    PAGEINFO info;
     GetPageInfo(hCPage,&info);
 
     int skew = info.Incline2048;
