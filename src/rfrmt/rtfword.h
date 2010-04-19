@@ -66,7 +66,6 @@ class CRtfWord
          */
         CRtfChar * lastChar();
 
-        CRtfChar* GetNextChar();
         void get_coordinates_and_probability(void);
 
         int16_t m_wcl;

@@ -58,11 +58,6 @@ CRtfChar * CRtfWord::lastChar() {
     return chars_.back();
 }
 
-CRtfChar* CRtfWord::GetNextChar() {
-    chars_.push_back(new CRtfChar());
-    return chars_.back();
-}
-
 void CRtfWord::get_coordinates_and_probability() {
     int16_t nz;
     int16_t t, l, b, r;

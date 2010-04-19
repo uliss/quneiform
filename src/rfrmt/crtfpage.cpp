@@ -295,7 +295,8 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                             language_t language;
                     } alt2;
 #pragma pack()
-                    pRtfChar = pRtfWord->GetNextChar();
+                    pRtfChar = new CRtfChar;
+                    pRtfWord->addChar(pRtfChar);
                     fread(&SRect, sizeof(Rect16), 1, in); //Ideal BOX
                     pRtfChar->setIdealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(
                             SRect.right, SRect.bottom)));
