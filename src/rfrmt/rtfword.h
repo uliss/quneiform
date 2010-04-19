@@ -21,6 +21,7 @@
 
 #include <vector>
 #include "cfcompat.h"
+#include "crtfstruct.h"
 
 namespace CIF
 {
@@ -55,10 +56,25 @@ class CRtfWord
         void clearChars();
 
         /**
+         *
+         */
+        void getCoordinatesAndProbability();
+
+        /**
          * Returns pointer to first char
          * @throw std::out_of_range if word is empty
          */
         CRtfChar * firstChar();
+
+        /**
+         * Returns word font number
+         */
+        font_number fontNumber() const;
+
+        /**
+         * Returns ideal font size for word
+         */
+        short idealFontSize() const;
 
         /**
          * Returns pointer to last char
@@ -66,7 +82,22 @@ class CRtfWord
          */
         CRtfChar * lastChar();
 
-        void get_coordinates_and_probability(void);
+        short realFontSize() const;
+
+        /**
+         * Sets word font number
+         */
+        void setFontNumber(font_number number);
+
+        /**
+         * Sets ideal font size
+         */
+        void setIdealFontSize(short size);
+
+        /**
+         * Sets real font size
+         */
+        void setRealFontSize(short size);
 
         int16_t m_wcl;
         int16_t m_wct;
@@ -74,13 +105,13 @@ class CRtfWord
         int16_t m_wcb;
         int16_t m_wcs;
         int16_t m_wcp;
-
-        uint16_t m_wFontNumber;
-        uint16_t m_wIdealFontPointSize;
-        uint16_t m_wRealFontPointSize;
     private:
         typedef std::vector<CRtfChar*> CharList;
         CharList chars_;
+        font_number font_number_;
+        short m_wIdealFontPointSize;
+        short m_wRealFontPointSize;
+
 };
 
 }

@@ -54,11 +54,27 @@ CRtfChar * CRtfWord::firstChar() {
     return chars_.front();
 }
 
+font_number CRtfWord::fontNumber() const {
+    return font_number_;
+}
+
+short CRtfWord::idealFontSize() const {
+    return m_wIdealFontPointSize;
+}
+
 CRtfChar * CRtfWord::lastChar() {
     return chars_.back();
 }
 
-void CRtfWord::get_coordinates_and_probability() {
+short CRtfWord::realFontSize() const {
+    return m_wRealFontPointSize;
+}
+
+void CRtfWord::setFontNumber(font_number number) {
+    font_number_ = number;
+}
+
+void CRtfWord::getCoordinatesAndProbability() {
     int16_t nz;
     int16_t t, l, b, r;
     CRtfChar *pRtfCharFirst, *pRtfCharLast;
@@ -110,6 +126,14 @@ void CRtfWord::get_coordinates_and_probability() {
             m_wcb = (int16_t) PageInfo.Height - t;
         }
     }
+}
+
+void CRtfWord::setIdealFontSize(short size) {
+    m_wIdealFontPointSize = size;
+}
+
+void CRtfWord::setRealFontSize(short size) {
+    m_wRealFontPointSize = size;
 }
 
 }

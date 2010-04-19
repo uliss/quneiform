@@ -147,7 +147,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 m_sb = 0;
 
 #endif
-            m_wprev_font_size = pRtfWord->m_wRealFontPointSize;
+            m_wprev_font_size = pRtfWord->realFontSize();
 
             if (FlagMode & USE_FRAME_AND_COLUMN) {
                 if (SectorInfo->FlagOneString == TRUE) {
@@ -209,7 +209,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
             else {
                 hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer,
-                        (int) (pRtfWord->m_wRealFontPointSize * 2));
+                        pRtfWord->realFontSize() * 2);
             }
 
 #endif
@@ -223,7 +223,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             pRtfWord = (CRtfWord*) pRtfString->m_arWords[nw];
             pRtfChar = pRtfWord->firstChar();
             Put("{");
-            tmp_font_name = get_font_name(pRtfWord->m_wFontNumber);
+            tmp_font_name = get_font_name(pRtfWord->fontNumber());
 
             if (m_wprev_font_name != tmp_font_name) {
                 switch (tmp_font_name) {
@@ -249,21 +249,21 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             EDFontAttribs = 0;
 #endif
 
-            if (pRtfWord->m_wFontNumber & TG_EDW_UNDERLINE) {
+            if (pRtfWord->fontNumber() & TG_EDW_UNDERLINE) {
                 Put("\\ul");
 #ifdef EdWrite
                 EDFontAttribs = EDFontAttribs | TG_EDW_UNDERLINE;
 #endif
             }
 
-            if (!(FlagMode & NOBOLD) && (pRtfWord->m_wFontNumber & TG_EDW_BOLD)) {
+            if (!(FlagMode & NOBOLD) && (pRtfWord->fontNumber() & TG_EDW_BOLD)) {
                 Put("\\b");
 #ifdef EdWrite
                 EDFontAttribs = EDFontAttribs | TG_EDW_BOLD;
 #endif
             }
 
-            if (!(FlagMode & NOCURSIV) && (pRtfWord->m_wFontNumber & TG_EDW_ITALIC)) {
+            if (!(FlagMode & NOCURSIV) && (pRtfWord->fontNumber() & TG_EDW_ITALIC)) {
                 Put("\\i");
 #ifdef EdWrite
                 EDFontAttribs = EDFontAttribs | TG_EDW_ITALIC;
@@ -277,10 +277,10 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 PutCom("\\fs", DefFontSize, 1);
 
             else
-                PutCom("\\fs", pRtfWord->m_wRealFontPointSize * 2, 1);
+                PutCom("\\fs", pRtfWord->realFontSize() * 2, 1);
 
             flag_end_word_with_hiphen = 0;
-            pRtfWord->get_coordinates_and_probability();
+            pRtfWord->getCoordinatesAndProbability();
             Put("{");
             PutCom("\\wcl", pRtfWord->m_wcl, 0);
             PutCom("\\wcr", pRtfWord->m_wcr, 0);
@@ -324,7 +324,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                     EDFontPointSize = DefFontSize;
 
                 else
-                    EDFontPointSize = (int) (pRtfWord->m_wRealFontPointSize * 2);
+                    EDFontPointSize = pRtfWord->realFontSize() * 2;
 
 #endif
 #endif
@@ -372,8 +372,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
                                 else
                                     hString = CED_CreateLine(hParagraph,
-                                            pRtfString->m_bLineTransfer,
-                                            (int) (pRtfWord->m_wRealFontPointSize * 2));
+                                            pRtfString->m_bLineTransfer, pRtfWord->realFontSize()
+                                                    * 2);
 
 #endif
                             }
@@ -431,8 +431,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
                                 else
                                     hString = CED_CreateLine(hParagraph,
-                                            pRtfString->m_bLineTransfer,
-                                            (int) (pRtfWord->m_wRealFontPointSize * 2));
+                                            pRtfString->m_bLineTransfer, pRtfWord->realFontSize()
+                                                    * 2);
 
 #endif
                             }
@@ -486,9 +486,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
 
                     else
-                        CED_CreateChar(hString, slayout, Letter,
-                                (int) (pRtfWord->m_wRealFontPointSize * 2), (int) tmp_font_name,
-                                EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
+                        CED_CreateChar(hString, slayout, Letter, pRtfWord->realFontSize() * 2,
+                                (int) tmp_font_name, EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
 
 #endif
                 }
@@ -516,9 +515,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
 
                     else
-                        CED_CreateChar(hString, slayout, Letter,
-                                (int) (pRtfWord->m_wRealFontPointSize * 2), (int) tmp_font_name,
-                                EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
+                        CED_CreateChar(hString, slayout, Letter, pRtfWord->realFontSize() * 2,
+                                (int) tmp_font_name, EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
 
 #endif
                 }
@@ -561,29 +559,30 @@ void CRtfFragment::InitFragment(RtfSectorInfo* SectorInfo) {
     CountWords = pRtfString->m_wWordsCount;
 
     if (m_wStringsCount == 1 && SectorInfo->CountFragments > 1) {
-        if (pRtfWord->m_wRealFontPointSize >= 14)
+        if (pRtfWord->realFontSize() >= 14)
             PenaltyForCheredov = 4;
 
-        else if (pRtfWord->m_wRealFontPointSize < 14 && pRtfWord->m_wRealFontPointSize > 10)
+        else if (pRtfWord->realFontSize() < 14 && pRtfWord->realFontSize() > 10)
             PenaltyForCheredov = 2;
 
-        else if (pRtfWord->m_wRealFontPointSize < 10 && pRtfWord->m_wRealFontPointSize > 5)
+        else if (pRtfWord->realFontSize() < 10 && pRtfWord->realFontSize() > 5)
             PenaltyForCheredov = 1;
     }
 
     for (int nw = 0; nw < CountWords; nw++) {
-        pRtfWord = (CRtfWord*) pRtfString->m_arWords[nw];
+        pRtfWord = pRtfString->m_arWords[nw];
 
-        if (pRtfWord->m_wRealFontPointSize > 5)
-            pRtfWord->m_wRealFontPointSize -= PenaltyForCheredov;
+        if (pRtfWord->realFontSize() > 5) {
+            pRtfWord->setRealFontSize(pRtfWord->realFontSize() - PenaltyForCheredov);
+        }
     }
 
-    m_wprev_font_name = get_font_name(pRtfWord->m_wFontNumber);
-    m_wprev_Underline = pRtfWord->m_wFontNumber & TG_EDW_UNDERLINE;
-    m_wprev_Bold = pRtfWord->m_wFontNumber & TG_EDW_BOLD;
-    m_wprev_Italic = pRtfWord->m_wFontNumber & TG_EDW_ITALIC;
+    m_wprev_font_name = get_font_name(pRtfWord->fontNumber());
+    m_wprev_Underline = pRtfWord->fontNumber() & TG_EDW_UNDERLINE;
+    m_wprev_Bold = pRtfWord->fontNumber() & TG_EDW_BOLD;
+    m_wprev_Italic = pRtfWord->fontNumber() & TG_EDW_ITALIC;
     m_wprev_lang = 1024;
-    m_wprev_font_size = pRtfWord->m_wRealFontPointSize;
+    m_wprev_font_size = pRtfWord->realFontSize();
     SetFragmentAlignment(SectorInfo);
 }
 
@@ -1722,8 +1721,8 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
         pRtfWordPrev = (CRtfWord*) pRtfStringPrev->m_arWords[0];
         pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
 
-        if (pRtfString->m_wAlignment != RTF_TP_CENTER && abs(pRtfWord->m_wRealFontPointSize
-                - pRtfWordPrev->m_wRealFontPointSize) > 1) {
+        if (pRtfString->m_wAlignment != RTF_TP_CENTER && abs(pRtfWord->realFontSize()
+                - pRtfWordPrev->realFontSize()) > 1) {
             pRtfStringPrev->m_bLineTransfer = FALSE;
             pRtfString->m_wFlagBeginParagraph = TRUE;
         }
@@ -2066,7 +2065,8 @@ Bool CRtfFragment::GetFlagBigSpace(int beg, int end) {
             pRtfCharPrev = pRtfWordPrev->lastChar();
             pRtfCharCur = pRtfWordCur->firstChar();
 
-            if ((pRtfCharCur->idealRect().left() - pRtfCharPrev->idealRect().right()) > 2 * m_max_dist)
+            if ((pRtfCharCur->idealRect().left() - pRtfCharPrev->idealRect().right()) > 2
+                    * m_max_dist)
                 FlagBigSpase = 1;
         }
     }

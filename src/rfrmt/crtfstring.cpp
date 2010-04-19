@@ -92,7 +92,7 @@ uint16_t CRtfString::GetRealStringSize(void) {
     tmp_str[index] = 0;
     pRtfWord = (CRtfWord*) m_arWords[0];
     pRtfChar = pRtfWord->firstChar();
-    RealSize = GetRealSize((char*) &tmp_str, strlen(tmp_str), pRtfWord->m_wRealFontPointSize,
+    RealSize = GetRealSize((char*) &tmp_str, strlen(tmp_str), pRtfWord->realFontSize(),
             pRtfChar->font(), &strHeight);
     return RealSize;
 }
@@ -108,7 +108,7 @@ uint16_t CRtfString::get_max_font_size() {
 
     for (nw = 0; nw < m_wWordsCount; nw++) {
         pRtfWord = (CRtfWord*) m_arWords[nw];
-        str_max_font = MAX(str_max_font, pRtfWord->m_wRealFontPointSize);
+        str_max_font = MAX(str_max_font, pRtfWord->realFontSize());
     }
 
     return str_max_font;

@@ -2635,8 +2635,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         pRtfString->m_arWords.push_back( new CIF::CRtfWord() );
                         index_word = pRtfString->m_arWords.size();
                         pRtfWord = pRtfString->m_arWords[index_word-1];
-                        pRtfWord->m_wIdealFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
-                        pRtfWord->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
+                        pRtfWord->setIdealFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
+                        pRtfWord->setFontNumber(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
                         do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) { //char begin
                             pRtfWord->addChar(new CIF::CRtfChar);
                             pRtfChar = pRtfWord->charAt(nz);
@@ -2744,14 +2744,14 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         pRtfString->m_arWords.push_back( new CIF::CRtfWord() );
                         index_word = pRtfString->m_arWords.size();
                         pRtfWord = pRtfString->m_arWords[index_word-1];
-                        pRtfWord->m_wFontNumber = ((TitleWord[nc][ns][nw]).W_Gen).FontNumber;
-                        pRtfWord->m_wIdealFontPointSize = ((TitleWord[nc][ns][nw]).W_Gen).FontSize;
+                        pRtfWord->setFontNumber(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
+                        pRtfWord->setIdealFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
 
                         if (NumStr[nc] == 0 && TitleStr[nc][ns].S_Gen.S_NumWord == 1)
-                            pRtfWord->m_wRealFontPointSize = RtfPage->GetMinKegl(pRtfWord->m_wIdealFontPointSize);
+                            pRtfWord->setRealFontSize(RtfPage->GetMinKegl(pRtfWord->idealFontSize()));
 
                         else
-                            pRtfWord->m_wRealFontPointSize = RtfPage->GetNewKegl(pRtfWord->m_wIdealFontPointSize);
+                            pRtfWord->setRealFontSize(RtfPage->GetNewKegl(pRtfWord->idealFontSize()));
 
                         do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) {
                             pRtfWord->addChar(new CIF::CRtfChar);

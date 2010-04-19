@@ -278,9 +278,9 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                 fread(&tmp, 2, 1, in);
                 int char_count = tmp;
                 fread(&tmp, 2, 1, in);
-                pRtfWord->m_wFontNumber = (uint16_t) tmp;
+                pRtfWord->setFontNumber(tmp);
                 fread(&tmp, 2, 1, in);
-                pRtfWord->m_wIdealFontPointSize = (uint16_t) tmp;
+                pRtfWord->setIdealFontSize(tmp);
 
                 for (nz = 0; nz < char_count; ++nz) {
                     uint16_t num;
@@ -315,8 +315,8 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                     pRtfChar->m_bFlg_spell_nocarrying = alt2.spellnocarrying;
                     pRtfChar->m_bFlg_cup_drop = alt2.FlagCapDrop;
                     pRtfChar->m_bFlg_spell = alt2.spell;
-                    pRtfChar->setFont(pRtfWord->m_wFontNumber);
-                    pRtfChar->setFontSize(pRtfWord->m_wIdealFontPointSize);
+                    pRtfChar->setFont(pRtfWord->fontNumber());
+                    pRtfChar->setFontSize(pRtfWord->idealFontSize());
                 }
             }
         }
@@ -711,10 +711,10 @@ void CRtfPage::ChangeKegl(void) {
                 pRtfWord = (CRtfWord*) pRtfString->m_arWords[nw];
 
                 if (CountStrings == 1)
-                    pRtfWord->m_wRealFontPointSize = GetMinKegl(pRtfWord->m_wIdealFontPointSize);
+                    pRtfWord->setRealFontSize(GetMinKegl(pRtfWord->idealFontSize()));
 
                 else
-                    pRtfWord->m_wRealFontPointSize = GetNewKegl(pRtfWord->m_wIdealFontPointSize);
+                    pRtfWord->setRealFontSize(GetNewKegl(pRtfWord->idealFontSize()));
             }
         }
     }
