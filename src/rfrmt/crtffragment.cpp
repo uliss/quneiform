@@ -280,7 +280,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 PutCom("\\fs", pRtfWord->realFontSize() * 2, 1);
 
             flag_end_word_with_hiphen = 0;
-            pRtfWord->getCoordinatesAndProbability();
+            pRtfWord->calcCoordinatesAndProbability();
             Put("{");
             PutCom("\\wcl", pRtfWord->bRect().left(), 0);
             PutCom("\\wcr", pRtfWord->bRect().right(), 0);
@@ -288,7 +288,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             PutCom("\\wcb", pRtfWord->bRect().bottom(), 0);
             PutCom("\\wcp", pRtfWord->probability(), 0);
 
-            if (!pRtfWord->spelling())
+            if (!pRtfWord->isSpelled())
                 Put("\\wcs");
 
             Put("{");
@@ -298,7 +298,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 pRtfChar = pRtfWord->charAt(nz);
 #ifdef EdWrite
 
-                if (!pRtfWord->spelling())
+                if (!pRtfWord->isSpelled())
                     pRtfChar->first().setProbability(0);
 
                 if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)

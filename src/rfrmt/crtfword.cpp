@@ -21,10 +21,11 @@
 #include "crtfchar.h"
 #include "creatertf.h"
 #include "cpage/cpage.h"
-#include "minmax.h"
 
 namespace CIF
 {
+
+const short DEFAULT_PROBABILITY = 254;
 
 CRtfWord::CRtfWord() {
 }
@@ -41,26 +42,22 @@ Rect CRtfWord::bRect() const {
     return brect_;
 }
 
-bool compareCharProbability(CRtfChar * first, CRtfChar * second) {
-    return first->first().probability() < second->first().probability();
+void CRtfWord::calcBRect() {
+    PAGEINFO PageInfo;
+    Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    GetPageInfo(hCPAGE, &PageInfo);
+
+    Rect tmp = charsBRect();
+    rotateRect(tmp, PageInfo.Angle, PageInfo.Width, PageInfo.Height);
+    brect_ = tmp;
 }
 
-void CRtfWord::calcMinProbability() {
-    probability_ = 254;
-    CharList::iterator it = std::min_element(chars_.begin(), chars_.end(), compareCharProbability);
-    if (it != chars_.end())
-        probability_ = (*it)->first().probability();
+void CRtfWord::calcProbability() {
+    probability_ = charMinProbability();
 }
 
-bool compareCharSpelling(CRtfChar * first, CRtfChar * second) {
-    return first->m_bFlg_spell < second->m_bFlg_spell;
-}
-
-void CRtfWord::calcMinSpelling() {
-    spelling_ = 1;
-    CharList::iterator it = std::min_element(chars_.begin(), chars_.end(), compareCharSpelling);
-    if (it != chars_.end())
-        spelling_ = (*it)->m_bFlg_spell;
+void CRtfWord::calcSpelling() {
+    spelling_ = charSpelling();
 }
 
 CRtfChar * CRtfWord::charAt(size_t pos) {
@@ -76,6 +73,15 @@ Rect CRtfWord::charsBRect() const {
         return Rect();
 
     return firstChar()->realRect().united(lastChar()->realRect());
+}
+
+bool CRtfWord::charSpelling() const {
+    for (CharList::const_iterator it = chars_.begin(), end = chars_.end(); it != end; ++it) {
+        if (!(*it)->m_bFlg_spell)
+            return false;
+    }
+
+    return true;
 }
 
 void CRtfWord::clearChars() {
@@ -106,6 +112,16 @@ CRtfChar * CRtfWord::lastChar() {
 
 const CRtfChar * CRtfWord::lastChar() const {
     return chars_.back();
+}
+
+inline bool compareCharProbability(CRtfChar * first, CRtfChar * second) {
+    return first->first().probability() < second->first().probability();
+}
+
+short CRtfWord::charMinProbability() const {
+    CharList::const_iterator it = std::min_element(chars_.begin(), chars_.end(),
+            compareCharProbability);
+    return it == chars_.end() ? DEFAULT_PROBABILITY : (*it)->first().probability();
 }
 
 short CRtfWord::probability() const {
@@ -147,17 +163,10 @@ void CRtfWord::setFontNumber(font_number number) {
     font_number_ = number;
 }
 
-void CRtfWord::getCoordinatesAndProbability() {
-    calcMinProbability();
-    calcMinSpelling();
-
-    PAGEINFO PageInfo;
-    Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
-    GetPageInfo(hCPAGE, &PageInfo);
-
-    Rect tmp = charsBRect();
-    rotateRect(tmp, PageInfo.Angle, PageInfo.Width, PageInfo.Height);
-    brect_ = tmp;
+void CRtfWord::calcCoordinatesAndProbability() {
+    calcProbability();
+    calcSpelling();
+    calcBRect();
 }
 
 void CRtfWord::setIdealFontSize(short size) {
@@ -168,7 +177,7 @@ void CRtfWord::setRealFontSize(short size) {
     real_font_size_ = size;
 }
 
-bool CRtfWord::spelling() const {
+bool CRtfWord::isSpelled() const {
     return spelling_ > 0;
 }
 
