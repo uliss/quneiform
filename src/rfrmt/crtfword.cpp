@@ -27,7 +27,8 @@ namespace CIF
 
 const short DEFAULT_PROBABILITY = 254;
 
-CRtfWord::CRtfWord() {
+CRtfWord::CRtfWord() :
+    font_number_(0), ideal_font_size_(0), real_font_size_(0), spelling_(false), probability_(0) {
 }
 
 CRtfWord::~CRtfWord() {
@@ -91,10 +92,12 @@ void CRtfWord::clearChars() {
 }
 
 CRtfChar * CRtfWord::firstChar() {
-    return chars_.front();
+    return const_cast<CRtfChar*> (const_cast<const CRtfWord*> (this)->firstChar());
 }
 
 const CRtfChar * CRtfWord::firstChar() const {
+    if (chars_.empty())
+        throw std::out_of_range("[CRtfWord::firstChar] word is empty");
     return chars_.front();
 }
 
@@ -107,10 +110,12 @@ short CRtfWord::idealFontSize() const {
 }
 
 CRtfChar * CRtfWord::lastChar() {
-    return chars_.back();
+    return const_cast<CRtfChar*> (const_cast<const CRtfWord*> (this)->lastChar());
 }
 
 const CRtfChar * CRtfWord::lastChar() const {
+    if (chars_.empty())
+        throw std::out_of_range("[CRtfWord::lastChar] word is empty");
     return chars_.back();
 }
 

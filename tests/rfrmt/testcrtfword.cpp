@@ -24,4 +24,14 @@ CPPUNIT_TEST_SUITE_REGISTRATION( TestCRtfWord);
 
 void TestCRtfWord::testInit() {
     CIF::CRtfWord wd;
+    CPPUNIT_ASSERT(wd.bRect() == Rect());
+    CPPUNIT_ASSERT(wd.charCount() == 0);
+    CPPUNIT_ASSERT_THROW(wd.charAt(0), std::out_of_range);
+    CPPUNIT_ASSERT_THROW(wd.firstChar(), std::out_of_range);
+    CPPUNIT_ASSERT_THROW(wd.lastChar(), std::out_of_range);
+    CPPUNIT_ASSERT(wd.fontNumber() == 0);
+    CPPUNIT_ASSERT(wd.idealFontSize() == 0);
+    CPPUNIT_ASSERT(!wd.isSpelled());
+    CPPUNIT_ASSERT(wd.realFontSize() == 0);
+    CPPUNIT_ASSERT(wd.probability() == 0);
 }
