@@ -125,7 +125,7 @@ class CLA_EXPO CRtfWord
         void calcSpelling();
         Rect charsBRect() const;
         bool charSpelling() const;
-        short charMinProbability() const;
+        short charProbability() const;
         static void rotateRect(Rect& rect, int angle, int x_offset, int y_offset);
     private:
         typedef std::vector<CRtfChar*> CharList;

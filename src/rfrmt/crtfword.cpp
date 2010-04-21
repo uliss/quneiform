@@ -52,7 +52,7 @@ void CRtfWord::calcBRect() {
 }
 
 void CRtfWord::calcProbability() {
-    probability_ = charMinProbability();
+    probability_ = charProbability();
 }
 
 void CRtfWord::calcSpelling() {
@@ -123,7 +123,7 @@ inline bool compareCharProbability(CRtfChar * first, CRtfChar * second) {
     return first->first().probability() < second->first().probability();
 }
 
-short CRtfWord::charMinProbability() const {
+short CRtfWord::charProbability() const {
     CharList::const_iterator it = std::min_element(chars_.begin(), chars_.end(),
             compareCharProbability);
     return it == chars_.end() ? Letter::LOWEST_PROBABILITY : (*it)->first().probability();
