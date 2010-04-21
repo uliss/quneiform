@@ -26,6 +26,14 @@ class RtfSectorInfo;
 extern uint32_t RtfWriteMode;
 extern uint32_t FlagMode;
 
+namespace CIF
+{
+
+float getTwips();
+void setTwips(float value);
+
+}
+
 void Put(const char *Data);
 void PutC(char sym);
 void PutCom(const char *Command, int32_t value, int16_t space);

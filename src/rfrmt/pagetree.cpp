@@ -78,6 +78,7 @@
 #include "crtfhorizontalcolumn.h"
 #include "crtfverticalcolumn.h"
 #include "crtfword.h"
+#include "crtffunc.h"
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
 
@@ -1927,7 +1928,6 @@ int16_t SortHorLine1(LINE_KNOT *LineHK, int16_t NumH, LINE_KNOT *LineVK,
 
 #define MAX_STYLE 100
 int16_t K_PointInInch = 72;
-extern float Twips;
 float HalfPoint;
 static uint cr = 13, lf = 10;
 #define FONT_OCR struct h_font_ocr
@@ -2536,10 +2536,10 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
         do0(ih, 0, K_Hor[i]) {
             do0(iv, 0, K_Ver[i][ih]) {
                 nc = Colt[i][ih][iv];
-                RectFragm[nc].left = (int16_t)(RectFragm[nc].left * Twips);
-                RectFragm[nc].right = (int16_t)(RectFragm[nc].right * Twips);
-                RectFragm[nc].top = (int16_t)(RectFragm[nc].top * Twips);
-                RectFragm[nc].bottom = (int16_t)(RectFragm[nc].bottom * Twips);
+                RectFragm[nc].left = (int16_t)(RectFragm[nc].left * CIF::getTwips());
+                RectFragm[nc].right = (int16_t)(RectFragm[nc].right * CIF::getTwips());
+                RectFragm[nc].top = (int16_t)(RectFragm[nc].top * CIF::getTwips());
+                RectFragm[nc].bottom = (int16_t)(RectFragm[nc].bottom * CIF::getTwips());
             }
         }
     }
@@ -2989,10 +2989,10 @@ void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2)
 
 void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips)
 {
-    s1->left = (int32_t)(s1->left * Twips);
-    s1->right = (int32_t)(s1->right * Twips);
-    s1->top = (int32_t)(s1->top * Twips);
-    s1->bottom = (int32_t)(s1->bottom * Twips);
+    s1->left = (int32_t)(s1->left * CIF::getTwips());
+    s1->right = (int32_t)(s1->right * CIF::getTwips());
+    s1->top = (int32_t)(s1->top * CIF::getTwips());
+    s1->bottom = (int32_t)(s1->bottom * CIF::getTwips());
 }
 
 //==Объединение пары рамок

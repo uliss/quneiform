@@ -83,6 +83,7 @@
 #include "ced/cedline.h"
 #include "rfrmt_prot.h"
 #include "compat/filefunc.h"
+#include "crtffunc.h"
 
 #include "minmax.h"
 
@@ -368,8 +369,8 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
             pTmpDIB->SetDIBbyPtr(pOutDIB);
             pictSize.rwidth() = Wh.x();
             pictSize.rheight() = Wh.y();
-            pictGoal.cx = (uint32_t) (Twips * pTmpDIB->GetLineWidth());
-            pictGoal.cy = (uint32_t) (Twips * pTmpDIB->GetLinesNumber());
+            pictGoal.cx = (uint32_t) (CIF::getTwips() * pTmpDIB->GetLineWidth());
+            pictGoal.cy = (uint32_t) (CIF::getTwips() * pTmpDIB->GetLinesNumber());
             int32_t iDIBSize = pTmpDIB->GetDIBSize();
             delete pTmpDIB;
             indent = CIF::Rect();
@@ -401,17 +402,17 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
                 if (SectorInfo->FlagInColumn == TRUE) {
                     EdFragmRect.x = MAX(0, SectorInfo->OffsetFromColumn.x());
                     EdFragmRect.y = MAX(0, SectorInfo->OffsetFromColumn.y());
-                    EdFragmRect.w = MAX(0, Wh.x() - FrameOffset) * Twips;
-                    EdFragmRect.h = Wh.y() * Twips;
+                    EdFragmRect.w = MAX(0, Wh.x() - FrameOffset) * CIF::getTwips();
+                    EdFragmRect.h = Wh.y() * CIF::getTwips();
                     SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector,
                                                           SectorInfo->hColumn, EdFragmRect, 0x22, -1, -1, -1);
                 }
 
                 else {
-                    EdFragmRect.x = Lr.x() * Twips - SectorInfo->Offset.x();
-                    EdFragmRect.y = Lr.y() * Twips - SectorInfo->Offset.y();
-                    EdFragmRect.w = MAX(0, Wh.x() - FrameOffset) * Twips;
-                    EdFragmRect.h = Wh.y() * Twips;
+                    EdFragmRect.x = Lr.x() * CIF::getTwips() - SectorInfo->Offset.x();
+                    EdFragmRect.y = Lr.y() * CIF::getTwips() - SectorInfo->Offset.y();
+                    EdFragmRect.w = MAX(0, Wh.x() - FrameOffset) * CIF::getTwips();
+                    EdFragmRect.h = Wh.y() * CIF::getTwips();
                     SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector,
                                                           SectorInfo->hColumn, EdFragmRect, 0x22, -1, 0, 0);
                 }

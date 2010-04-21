@@ -950,7 +950,7 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
 
         if (ns == 0) {
             if (pRtfString->m_wLeftIndent > m_max_dist / 2)
-                pRtfString->m_wFirstIndent = (uint16_t) (m_max_dist * Twips);
+                pRtfString->m_wFirstIndent = (uint16_t) (m_max_dist * getTwips());
 
             else
                 pRtfString->m_wFirstIndent = 0;
@@ -965,7 +965,7 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
         if (ns == m_wStringsCount - 1) {
             if ((pRtfString->m_wLeftIndent - pRtfStringPrev->m_wLeftIndent) > (m_max_dist / 2)) {
                 pRtfString->m_wLeftIndent = 0;
-                pRtfString->m_wFirstIndent = (uint16_t) (m_max_dist * Twips);
+                pRtfString->m_wFirstIndent = (uint16_t) (m_max_dist * getTwips());
                 pRtfString->m_wFlagBeginParagraph = TRUE;
             }
         }
@@ -977,7 +977,7 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
                     && ((pRtfString->m_wLeftIndent - pRtfStringNext->m_wLeftIndent) > (m_max_dist
                             / 2))) {
                 pRtfString->m_wLeftIndent = 0;
-                pRtfString->m_wFirstIndent = (uint16_t) (m_max_dist * Twips);
+                pRtfString->m_wFirstIndent = (uint16_t) (m_max_dist * getTwips());
                 pRtfString->m_wFlagBeginParagraph = TRUE;
             }
         }
@@ -1767,14 +1767,14 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
     int ns(0);
     int16_t twp_dist;
     int16_t Dif = 0;
-    twp_dist = (int16_t) (3 * m_max_dist * Twips);
+    twp_dist = (int16_t) (3 * m_max_dist * getTwips());
 
     for (ns = 0; ns < m_wStringsCount; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
         pRtfString->m_LengthStringInTwips = pRtfString->realLength();
-        pRtfString->m_wLeftIndent = (int16_t) ((int16_t) (pRtfString->m_wLeftIndent * Twips)
+        pRtfString->m_wLeftIndent = (int16_t) ((int16_t) (pRtfString->m_wLeftIndent * getTwips())
                 + m_LeftOffsetFragmentFromVerticalColumn);
-        pRtfString->m_wRightIndent = (int16_t) ((int16_t) (pRtfString->m_wRightIndent * Twips)
+        pRtfString->m_wRightIndent = (int16_t) ((int16_t) (pRtfString->m_wRightIndent * getTwips())
                 + m_RightOffsetFragmentFromVerticalColumn);
         pRtfString->m_wRightIndent
                 = MIN(pRtfString->m_wRightIndent,

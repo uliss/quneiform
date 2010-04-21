@@ -57,7 +57,6 @@ class FONT_COD
         const char *family;
 };
 
-extern float Twips;
 extern uint32_t FlagMode;
 extern char UnRecogSymbol;
 extern uint32_t gnLanguage;

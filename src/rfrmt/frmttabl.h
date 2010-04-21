@@ -81,7 +81,6 @@
 #define  TG_EDW_ITALIC        16
 #define  TG_EDW_UNDERLINE     64
 #define  TG_EDW_NARROW        128     // user defined
-extern float Twips;
 extern uint32_t FlagMode;
 extern char lpMyNameSerif[PATH_MAX];
 extern char lpMyNameNonSerif[PATH_MAX];

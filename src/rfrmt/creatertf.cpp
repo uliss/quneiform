@@ -120,7 +120,20 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
 void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
 void Cleaning_LI_FRMT_Used_Flag(void);
 
-float Twips;
+namespace CIF {
+
+static float twips_ = 0;
+
+float getTwips() {
+    return twips_;
+}
+
+void setTwips(float value) {
+    twips_ = value;
+}
+
+}
+
 
 extern char lpMyNameSerif[PATH_MAX];
 extern char lpMyNameNonSerif[PATH_MAX];
@@ -214,7 +227,7 @@ int16_t GetRealSizeKegl( /*CString**/const char* str, int16_t width, int16_t Fon
         for (int i = 0; i < Count; i++) {
             int16_t RealSize = GetRealSize(sz, strlen(sz), FontPointSize, FontNumber, &strHeight);
 
-            if (RealSize > (int16_t) (width * Twips * koef)) { //криретий окончания итераций- чтобы все символы влезли в строку по ширине
+            if (RealSize > (int16_t) (width * CIF::getTwips() * koef)) { //криретий окончания итераций- чтобы все символы влезли в строку по ширине
                 PenaltyKeglForString++;
                 FontPointSize--;
             }
@@ -444,30 +457,30 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo) {
             if ((cpdata->Flags & LI_IsTrue) && !(cpdata->Flags & LI_IsAtTable) && !(cpdata->Flags
                     & LI_Used) && !(cpdata->Flags & LI_FRMT_Used)) {
                 if (FlagVer) {
-                    if (cpdata->Line.Beg_X * Twips > Rect->left && cpdata->Line.End_X * Twips
-                            > Rect->left && cpdata->Line.Beg_X * Twips < Rect->right
-                            && cpdata->Line.End_X * Twips < Rect->right && VCentre
-                            > cpdata->Line.Beg_Y * Twips && VCentre < cpdata->Line.End_Y * Twips
-                            && abs(cpdata->Line.Beg_Y - cpdata->Line.End_Y) * Twips > (Rect->bottom
+                    if (cpdata->Line.Beg_X * CIF::getTwips() > Rect->left && cpdata->Line.End_X * CIF::getTwips()
+                            > Rect->left && cpdata->Line.Beg_X * CIF::getTwips() < Rect->right
+                            && cpdata->Line.End_X * CIF::getTwips() < Rect->right && VCentre
+                            > cpdata->Line.Beg_Y * CIF::getTwips() && VCentre < cpdata->Line.End_Y * CIF::getTwips()
+                            && abs(cpdata->Line.Beg_Y - cpdata->Line.End_Y) * CIF::getTwips() > (Rect->bottom
                                     - Rect->top) / 2)
                         return TRUE;
                 }
 
                 else {//Hor
-                    if (((cpdata->Line.Beg_Y * Twips > Rect->top && cpdata->Line.Beg_Y * Twips
-                            < Rect->bottom) || (cpdata->Line.End_Y * Twips > Rect->top
-                            && cpdata->Line.End_Y * Twips < Rect->bottom)) && abs(
-                            cpdata->Line.Beg_X - cpdata->Line.End_X) * Twips > SectorInfo->PaperW
+                    if (((cpdata->Line.Beg_Y * CIF::getTwips() > Rect->top && cpdata->Line.Beg_Y * CIF::getTwips()
+                            < Rect->bottom) || (cpdata->Line.End_Y * CIF::getTwips() > Rect->top
+                            && cpdata->Line.End_Y * CIF::getTwips() < Rect->bottom)) && abs(
+                            cpdata->Line.Beg_X - cpdata->Line.End_X) * CIF::getTwips() > SectorInfo->PaperW
                             / 2) {
-                        if (cpdata->Line.Beg_Y * Twips > Rect->top && cpdata->Line.Beg_Y * Twips
+                        if (cpdata->Line.Beg_Y * CIF::getTwips() > Rect->top && cpdata->Line.Beg_Y * CIF::getTwips()
                                 < Rect->bottom) {
-                            Rect->top = (int32_t) (cpdata->Line.Beg_Y * Twips);
-                            Rect->bottom = (int32_t) (cpdata->Line.Beg_Y * Twips + 10);
+                            Rect->top = (int32_t) (cpdata->Line.Beg_Y * CIF::getTwips());
+                            Rect->bottom = (int32_t) (cpdata->Line.Beg_Y * CIF::getTwips() + 10);
                         }
 
                         else {
-                            Rect->top = (int32_t) (cpdata->Line.End_Y * Twips);
-                            Rect->bottom = (int32_t) (cpdata->Line.End_Y * Twips + 10);
+                            Rect->top = (int32_t) (cpdata->Line.End_Y * CIF::getTwips());
+                            Rect->bottom = (int32_t) (cpdata->Line.End_Y * CIF::getTwips() + 10);
                         }
 
                         CLINE_CopyData(&data, cpdata, sizeof(DLine));

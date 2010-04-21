@@ -31,20 +31,11 @@ namespace CIF
 const int SMALLEST_FONT_SIZE = 3;
 const char SPACE = ' ';
 
-CRtfString::CRtfString() {
-    m_wLeftIndent = 0;
-    m_wRightIndent = 0;
-    m_wFirstIndent = 0;
-    m_wFlagBeginParagraph = 0;
-    m_wAlignment = 0;
-    m_wPrevAlignment = 0;
-    m_wLeftBorderEqual = 0;
-    m_wRightBorderEqual = 0;
-    m_wCentreEqual = 0;
-    m_bLineTransfer = 0;
-    m_FlagCarry = 0;
-    S_Flags = 0;
-    m_LengthStringInTwips = 0;
+CRtfString::CRtfString() :
+    m_wLeftIndent(0), m_wRightIndent(0), m_wFirstIndent(0), m_wFlagBeginParagraph(0), m_wAlignment(
+            0), m_wLeftBorderEqual(0), m_wRightBorderEqual(0), m_wCentreEqual(0),
+            m_bLineTransfer(0), m_FlagCarry(0), S_Flags(0), m_LengthStringInTwips(0) {
+
 }
 
 CRtfString::~CRtfString() {
@@ -102,16 +93,13 @@ size_t CRtfString::wordCount() const {
     return words_.size();
 }
 
-int16_t CRtfString::GetStringSizeInTwips() {
-    CRtfWord* pRtfWord;
-    CRtfChar *pLastChar, *pFirstChar;
-    pRtfWord = words_[0];
-    pFirstChar = pRtfWord->firstChar();
-    pRtfWord = words_.back();
-    pLastChar = pRtfWord->lastChar();
-    int16_t LenghtStr =
-            (int16_t) ((pLastChar->idealRect().right() - pFirstChar->idealRect().left()) * Twips);
-    return LenghtStr;
+int CRtfString::lengthInTwips() const {
+    if (words_.empty())
+        return 0;
+
+    const CRtfChar * first = firstWord()->firstChar();
+    const CRtfChar * last = lastWord()->lastChar();
+    return (last->idealRect().right() - first->idealRect().left()) * getTwips();
 }
 
 uint CRtfString::realLength() const {
@@ -133,7 +121,7 @@ std::string CRtfString::toString() const {
         result += SPACE;
     }
 
-    // remove traling space
+    // remove trailing space
     if (!result.empty())
         result.erase(result.length() - 1);
 

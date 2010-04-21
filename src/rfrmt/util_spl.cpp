@@ -73,12 +73,12 @@
 #include "ful_txt.h"
 #include "globus.h"
 #include "aldebug.h"
+#include "crtffunc.h"
 
 ////////////// functions, which are moved from other modules //////////////
 #ifdef alDebug
 static int dets = 1;
 #endif
-static HWND h_found = NULL;
 
 /* These were in ful_txt.h. That caused missing symbols
  * so I moved them here. JussiP.
@@ -558,7 +558,6 @@ int CalcStatTiger(void)
 
 
 extern Rect16 *RectFragm;
-extern float Twips;
 extern int16_t K_TwipsInInch;
 int16_t HeiStrAllPage;
 int16_t MonoSpaceAllPage;
@@ -604,7 +603,7 @@ short OpenFullOutTiger(FILE *in)
 #endif
     fread(&MonoSpaceAllPage, 2, 1, in);
     fread(&HeiStrAllPage, 2, 1, in);
-    Twips = ((float) K_TwipsInInch) / ScanResolution;
+    CIF::setTwips(((float) K_TwipsInInch) / ScanResolution);
 
     // Twips = (float)((int)(Twips+0.5));
     if (NumCol) {

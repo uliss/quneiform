@@ -236,8 +236,8 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
     RtfPage->m_wDpi = tmp;
 
     if (tmp) {
-        Twips = ((float) K_TwipsInInch) / tmp;
-        Twips = (float) ((int) (Twips + 0.5));
+        setTwips(((float) K_TwipsInInch) / tmp);
+        setTwips((float) ((int) (getTwips() + 0.5)));
     }
 
     fread(&tmp, 2, 1, in);
@@ -254,10 +254,10 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
         pRtfFragment->pRtfParent = RtfPage;
         pRtfFragment->m_wType = FT_TEXT;
         fread(&RectFragm, 1, sizeof(Rect16), in);
-        pRtfFragment->m_rect.left = (int32_t) (RectFragm.left * Twips);
-        pRtfFragment->m_rect.top = (int32_t) (RectFragm.top * Twips);
-        pRtfFragment->m_rect.right = (int32_t) (RectFragm.right * Twips);
-        pRtfFragment->m_rect.bottom = (int32_t) (RectFragm.bottom * Twips);
+        pRtfFragment->m_rect.left = (int32_t) (RectFragm.left * CIF::getTwips());
+        pRtfFragment->m_rect.top = (int32_t) (RectFragm.top * CIF::getTwips());
+        pRtfFragment->m_rect.right = (int32_t) (RectFragm.right * CIF::getTwips());
+        pRtfFragment->m_rect.bottom = (int32_t) (RectFragm.bottom * CIF::getTwips());
         fread(&tmp, 2, 1, in);
         pRtfFragment->m_wStringsCount = tmp;
         fread(&wtmp, 4, 1, in);
@@ -330,7 +330,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
 //                                 SetTwips                                                       //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfPage::SetTwips(void) {
-    m_fTwips = Twips;
+    m_fTwips = getTwips();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -347,7 +347,7 @@ void CRtfPage::SetTwips(void) {
  pRtfFragment = GetNextFragment();
  GetTableRect( i, &RectPict, (uint32_t*)&pRtfFragment->m_wUserNumber );
  RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectPict);
- RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, Twips);
+ RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, CIF::getTwips());
  pRtfFragment->m_wType = FT_TABLE;
  if(FlagMode & USE_FRAME_AND_COLUMN)
  {
@@ -369,7 +369,7 @@ void CRtfPage::AddPictures(void) {
         pRtfFragment = GetNextFragment();
         GetPictRect(i, &RectPict, (uint32_t*) &pRtfFragment->m_wUserNumber);
         RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectPict);
-        RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, Twips);
+        RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, CIF::getTwips());
         pRtfFragment->m_wType = FT_PICTURE;
 
         if (FlagMode & USE_FRAME_AND_COLUMN) {
@@ -499,7 +499,7 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
             Width = MAX(Width, (*ppRtfFragment)->m_rect.right - (*ppRtfFragment)->m_rect.left);
         }
 
-        PaperW = MAX(DefaultWidthPage, (int32_t)(Width/** Twips*/) + MargL + MargR);
+        PaperW = MAX(DefaultWidthPage, (int32_t)(Width/** CIF::getTwips()*/) + MargL + MargR);
         PaperH = DefaultHeightPage;
     }
 

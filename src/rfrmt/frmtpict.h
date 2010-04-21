@@ -64,8 +64,6 @@
 #ifndef __frmtpict_h__
 #define __frmtpict_h__
 
-extern float Twips;
-
 uint32_t GetPictCount(void);
 Bool WritePict(uint32_t IndexPict,
                RtfSectorInfo* SectorInfo /*,  CString* PictString*/, Bool OutPutType);

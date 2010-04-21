@@ -59,6 +59,11 @@ class CLA_EXPO CRtfString
         const CRtfWord * lastWord() const;
 
         /**
+         * Returns string length in twips
+         */
+        int lengthInTwips() const;
+
+        /**
          * Returns max font size among string words
          */
         int maxWordFontSize() const;
@@ -85,7 +90,6 @@ class CLA_EXPO CRtfString
          */
         size_t wordCount() const;
 
-        int16_t GetStringSizeInTwips();
 
         int32_t m_LeftBorder;
         int32_t m_RightBorder;
@@ -95,7 +99,6 @@ class CLA_EXPO CRtfString
         uint16_t m_wFirstIndent;
         uint16_t m_wFlagBeginParagraph;
         uint16_t m_wAlignment;
-        uint16_t m_wPrevAlignment;
         uint16_t m_LengthStringInTwips;
         uint16_t m_wSpaceBefore;
         uchar m_wLeftBorderEqual;
