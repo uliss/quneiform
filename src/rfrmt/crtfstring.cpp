@@ -16,17 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <cstring>
 #include <iostream>
 #include "crtfchar.h"
 #include "crtfstring.h"
 #include "crtfword.h"
 #include "creatertf.h"
 #include "crtfstruct.h"
+#include "crtffunc.h"
 #include "minmax.h"
-
-int16_t GetRealSize(char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
-        int16_t* strHeight);
 
 namespace CIF
 {
@@ -117,32 +114,15 @@ int16_t CRtfString::GetStringSizeInTwips() {
     return LenghtStr;
 }
 
-uint CRtfString::realLength() {
-    char tmp_str[MAX_BUFFER_SIZE];
-    CRtfWord* pRtfWord;
-    CRtfChar *pRtfChar;
-    uint16_t RealSize;
+uint CRtfString::realLength() const {
+    if (words_.empty())
+        return 0;
+
     int16_t strHeight;
-    int index = 0;
-
-    for (int nw = 0; nw < words_.size(); nw++) {
-        pRtfWord = (CRtfWord*) words_[nw];
-        int CountChars = pRtfWord->charCount();
-
-        for (int nz = 0; nz < CountChars; nz++) {
-            pRtfChar = pRtfWord->charAt(nz);
-            tmp_str[index++] = pRtfChar->first().getChar();
-        }
-
-        tmp_str[index++] = ' ';
-    }
-
-    tmp_str[index] = 0;
-    pRtfWord = (CRtfWord*) words_[0];
-    pRtfChar = pRtfWord->firstChar();
-    RealSize = GetRealSize((char*) &tmp_str, strlen(tmp_str), pRtfWord->realFontSize(),
-            pRtfChar->font(), &strHeight);
-    return RealSize;
+    std::string str = toString();
+    const CRtfChar *pRtfChar = firstWord()->firstChar();
+    return GetRealSize(str.c_str(), str.length(), firstWord()->realFontSize(), pRtfChar->font(),
+            &strHeight);
 }
 
 std::string CRtfString::toString() const {

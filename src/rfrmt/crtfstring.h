@@ -66,7 +66,7 @@ class CLA_EXPO CRtfString
         /**
          * Returns real string length in twips
          */
-        uint realLength();
+        uint realLength() const;
 
         /**
          * Returns string content as std::string

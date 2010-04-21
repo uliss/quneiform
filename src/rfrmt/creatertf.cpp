@@ -229,7 +229,7 @@ int16_t GetRealSizeKegl( /*CString**/const char* str, int16_t width, int16_t Fon
 }
 
 
-int16_t GetRealSize(char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
+int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
         int16_t* strHeight) {
     HFONT testFont;
     CIF::Size size;

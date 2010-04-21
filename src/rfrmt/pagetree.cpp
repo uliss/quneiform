@@ -218,7 +218,7 @@ int16_t Check_IsItFalseHorLine(int16_t recalc, int16_t reg, FRAME **frm,
                                BOUND *bnd, int16_t k_frm);
 int16_t check_white_int(int16_t beg_white_int, int16_t end_white_int,
                         int16_t maxh, int16_t *his_second_group);
-int16_t GetRealSize(char* str, int16_t len, int16_t FontSize,
+int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize,
                     int16_t FontNumber, int16_t* strHeight);
 void Get_all_term_fragms(KNOTT *ptr, int16_t *Colt, int16_t *iv,
                          int16_t NumCol, FRAME **frm);
