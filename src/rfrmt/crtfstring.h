@@ -73,10 +73,6 @@ class CLA_EXPO CRtfString
         int16_t GetStringSizeInTwips();
         uint16_t GetRealStringSize();
 
-        uint16_t m_wIndex;
-        RECT m_rect;
-        uint16_t m_wType;
-
         int32_t m_LeftBorder;
         int32_t m_RightBorder;
         uint16_t m_wLeftIndent;
