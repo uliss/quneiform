@@ -115,7 +115,7 @@ int16_t CRtfString::GetStringSizeInTwips() {
 }
 
 uint CRtfString::realLength() const {
-    if (words_.empty())
+    if (words_.empty() || words_.front()->charCount() == 0)
         return 0;
 
     int16_t strHeight;

@@ -53,3 +53,14 @@ void TestCRtfString::testToString() {
     str.lastWord()->addChar(new CRtfChar('d', 100));
     CPPUNIT_ASSERT_EQUAL(std::string("ab cd"), str.toString());
 }
+
+void TestCRtfString::testRealLength() {
+    CRtfString str;
+    CPPUNIT_ASSERT(str.realLength() == 0);
+    // now it's a stub
+    // so always returns 0
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(str.realLength() == 0);
+    str.firstWord()->addChar(new CRtfChar('a', 100));
+    CPPUNIT_ASSERT(str.realLength() == 0);
+}
