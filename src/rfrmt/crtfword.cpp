@@ -21,6 +21,7 @@
 #include "crtfchar.h"
 #include "creatertf.h"
 #include "cpage/cpage.h"
+#include "common/helper.h"
 
 namespace CIF
 {
@@ -44,6 +45,9 @@ Rect CRtfWord::bRect() const {
 void CRtfWord::calcBRect() {
     PAGEINFO PageInfo;
     Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    if (!hCPAGE)
+        throw Exception("[CRtfWord::calcBRect] CPAGE_GetHandlePage failed");
+
     GetPageInfo(hCPAGE, &PageInfo);
 
     Rect tmp = charsBRect();
@@ -126,7 +130,10 @@ inline bool compareCharProbability(CRtfChar * first, CRtfChar * second) {
 short CRtfWord::charProbability() const {
     CharList::const_iterator it = std::min_element(chars_.begin(), chars_.end(),
             compareCharProbability);
-    return it == chars_.end() ? Letter::LOWEST_PROBABILITY : (*it)->first().probability();
+    if (it == chars_.end())
+        return Letter::LOWEST_PROBABILITY;
+    else
+        return (*it)->first().probability();
 }
 
 short CRtfWord::probability() const {
@@ -140,17 +147,14 @@ short CRtfWord::realFontSize() const {
 void CRtfWord::rotateRect(Rect& rect, int angle, int x_offset, int y_offset) {
     Rect result = rect;
     switch (angle) {
+    case 0:
+    case 360:
+        break;
     case 90: //270
         result.rleft() = rect.top();
         result.rright() = rect.bottom();
         result.rtop() = y_offset - rect.right();
         result.rbottom() = y_offset - rect.left();
-        break;
-    case 270: //90
-        result.rleft() = x_offset - rect.bottom();
-        result.rright() = x_offset - rect.top();
-        result.rtop() = rect.left();
-        result.rbottom() = rect.right();
         break;
     case 180:
         result.rleft() = x_offset - rect.right();
@@ -158,8 +162,14 @@ void CRtfWord::rotateRect(Rect& rect, int angle, int x_offset, int y_offset) {
         result.rtop() = y_offset - rect.bottom();
         result.rbottom() = y_offset - rect.top();
         break;
-    default:
+    case 270: //90
+        result.rleft() = x_offset - rect.bottom();
+        result.rright() = x_offset - rect.top();
+        result.rtop() = rect.left();
+        result.rbottom() = rect.right();
         break;
+    default:
+        throw Exception("[CRtfWord::rotateRect] invalid rotate angle: " + toString(angle));
     }
     rect = result;
 }

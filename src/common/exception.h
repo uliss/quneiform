@@ -21,12 +21,13 @@
 
 #include <string>
 #include <stdexcept>
+#include "globus.h"
 
 namespace CIF
 {
 
 template<class T>
-class RuntimeExceptionImpl: public std::runtime_error
+class CLA_EXPO RuntimeExceptionImpl: public std::runtime_error
 {
     public:
         RuntimeExceptionImpl(const std::string& msg, int code = 0);

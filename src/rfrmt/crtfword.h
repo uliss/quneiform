@@ -23,6 +23,7 @@
 #include "globus.h"
 #include "cfcompat.h"
 #include "common/rect.h"
+#include "common/exception.h"
 
 #include "crtfstruct.h"
 
@@ -36,6 +37,8 @@ class CLA_EXPO CRtfWord
     public:
         CRtfWord();
         ~CRtfWord();
+
+        typedef CIF::RuntimeExceptionImpl<CRtfWord> Exception;
 
         /**
          * Adds char to the end of the word
@@ -126,6 +129,11 @@ class CLA_EXPO CRtfWord
         Rect charsBRect() const;
         bool charSpelling() const;
         short charProbability() const;
+
+        /**
+         * Rotates rectangle
+         * @throw Exception - if wrong angle given
+         */
         static void rotateRect(Rect& rect, int angle, int x_offset, int y_offset);
     private:
         typedef std::vector<CRtfChar*> CharList;

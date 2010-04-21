@@ -67,9 +67,7 @@ void TestCRtfWord::testCalcBRect() {
     wd.firstChar()->setIdealRect(brect);
     CPPUNIT_ASSERT_EQUAL(Rect(), wd.bRect());
 
-    //wd.calcBRect();
-
-    //CPPUNIT_ASSERT_EQUAL(brect, wd.bRect());
+    CPPUNIT_ASSERT_THROW(wd.calcBRect(), std::runtime_error);
 }
 
 void TestCRtfWord::testCharSpelling() {
@@ -94,5 +92,36 @@ void TestCRtfWord::testCharProbability() {
     wd.addChar(new CRtfChar);
     wd.lastChar()->addVersion(Letter(' ', 100));
     CPPUNIT_ASSERT(wd.charProbability() == 100);
+}
 
+void TestCRtfWord::testRotateRect() {
+    Rect r1(Point(10, 10), 100, 200);
+    Rect r2 = r1;
+
+    CRtfWord::rotateRect(r2, 0, 300, 400);
+    CPPUNIT_ASSERT_EQUAL(r1, r2);
+
+    // invalid angle
+    CPPUNIT_ASSERT_THROW(CRtfWord::rotateRect(r2, 15, 100, 200), CRtfWord::Exception);
+
+    //90
+    r2 = r1;
+    CRtfWord::rotateRect(r2, 90, 300, 400);
+    CPPUNIT_ASSERT_EQUAL(r1.width(), r2.height());
+    CPPUNIT_ASSERT_EQUAL(r1.height(), r2.width());
+    // TODO write more tests
+
+    //270
+    r2 = r1;
+    CRtfWord::rotateRect(r2, 270, 300, 400);
+    CPPUNIT_ASSERT_EQUAL(r1.width(), r2.height());
+    CPPUNIT_ASSERT_EQUAL(r1.height(), r2.width());
+    // TODO write more tests
+
+    //180
+    r2 = r1;
+    CRtfWord::rotateRect(r2, 180, 300, 400);
+    CPPUNIT_ASSERT_EQUAL(r1.width(), r2.width());
+    CPPUNIT_ASSERT_EQUAL(r1.height(), r2.height());
+    // TODO write more tests
 }
