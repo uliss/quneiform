@@ -2632,9 +2632,9 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                             continue;
                         }
 
-                        pRtfString->m_arWords.push_back( new CIF::CRtfWord() );
-                        index_word = pRtfString->m_arWords.size();
-                        pRtfWord = pRtfString->m_arWords[index_word-1];
+                        pRtfString->addWord(new CIF::CRtfWord);
+                        index_word = pRtfString->wordCount();
+                        pRtfWord = pRtfString->wordAt(index_word-1);
                         pRtfWord->setIdealFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
                         pRtfWord->setFontNumber(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
                         do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) { //char begin
@@ -2741,9 +2741,9 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                             continue;
                         }
 
-                        pRtfString->m_arWords.push_back( new CIF::CRtfWord() );
-                        index_word = pRtfString->m_arWords.size();
-                        pRtfWord = pRtfString->m_arWords[index_word-1];
+                        pRtfString->addWord(new CIF::CRtfWord);
+                        index_word = pRtfString->wordCount();
+                        pRtfWord = pRtfString->wordAt(index_word-1);
                         pRtfWord->setFontNumber(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
                         pRtfWord->setIdealFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
 

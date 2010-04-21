@@ -48,35 +48,57 @@ CRtfString::CRtfString() {
 }
 
 CRtfString::~CRtfString() {
-    CRtfWord* cWord;
-    m_wWordsCount = m_arWords.size();
-
-    for (int i = 0; i < m_wWordsCount; i++) {
-        cWord = m_arWords[i];
-        delete cWord;
-    }
+    clearWords();
 }
 
 void CRtfString::addWord(CRtfWord * word) {
-    m_arWords.push_back(word);
+    words_.push_back(word);
 }
 
 void CRtfString::clearWords() {
-    for(WordIterator it = m_arWords.begin(), e= m_arWords.end(); it != e; ++it)
+    for (WordIterator it = words_.begin(), e = words_.end(); it != e; ++it)
         delete (*it);
-    m_arWords.clear();
+    words_.clear();
+}
+
+CRtfWord * CRtfString::firstWord() {
+    return const_cast<CRtfWord*> (const_cast<const CRtfString*> (this)->firstWord());
+}
+
+const CRtfWord * CRtfString::firstWord() const {
+    if (words_.empty())
+        throw std::out_of_range("[CRtfString::firstWord] string is empty");
+    return words_.front();
+}
+
+CRtfWord * CRtfString::lastWord() {
+    return const_cast<CRtfWord*> (const_cast<const CRtfString*> (this)->lastWord());
+}
+
+const CRtfWord * CRtfString::lastWord() const {
+    if (words_.empty())
+        throw std::out_of_range("[CRtfString::lasttWord] string is empty");
+    return words_.back();
+}
+
+CRtfWord * CRtfString::wordAt(size_t pos) {
+    return words_.at(pos);
+}
+
+const CRtfWord * CRtfString::wordAt(size_t pos) const {
+    return words_.at(pos);
 }
 
 size_t CRtfString::wordCount() const {
-    return m_arWords.size();
+    return words_.size();
 }
 
 int16_t CRtfString::GetStringSizeInTwips() {
     CRtfWord* pRtfWord;
     CRtfChar *pLastChar, *pFirstChar;
-    pRtfWord = (CRtfWord*) m_arWords[0];
+    pRtfWord = (CRtfWord*) words_[0];
     pFirstChar = pRtfWord->firstChar();
-    pRtfWord = (CRtfWord*) m_arWords[m_wWordsCount - 1];
+    pRtfWord = (CRtfWord*) words_[m_wWordsCount - 1];
     pLastChar = pRtfWord->lastChar();
     int16_t LenghtStr =
             (int16_t) ((pLastChar->idealRect().right() - pFirstChar->idealRect().left()) * Twips);
@@ -92,7 +114,7 @@ uint16_t CRtfString::GetRealStringSize() {
     int index = 0;
 
     for (int nw = 0; nw < m_wWordsCount; nw++) {
-        pRtfWord = (CRtfWord*) m_arWords[nw];
+        pRtfWord = (CRtfWord*) words_[nw];
         int CountChars = pRtfWord->charCount();
 
         for (int nz = 0; nz < CountChars; nz++) {
@@ -104,7 +126,7 @@ uint16_t CRtfString::GetRealStringSize() {
     }
 
     tmp_str[index] = 0;
-    pRtfWord = (CRtfWord*) m_arWords[0];
+    pRtfWord = (CRtfWord*) words_[0];
     pRtfChar = pRtfWord->firstChar();
     RealSize = GetRealSize((char*) &tmp_str, strlen(tmp_str), pRtfWord->realFontSize(),
             pRtfChar->font(), &strHeight);
@@ -112,8 +134,8 @@ uint16_t CRtfString::GetRealStringSize() {
 }
 
 CRtfWord* CRtfString::GetNextWord() {
-    m_arWords.push_back(new CRtfWord());
-    return m_arWords.back();
+    words_.push_back(new CRtfWord());
+    return words_.back();
 }
 
 uint16_t CRtfString::get_max_font_size() {
@@ -121,7 +143,7 @@ uint16_t CRtfString::get_max_font_size() {
     CRtfWord* pRtfWord;
 
     for (nw = 0; nw < m_wWordsCount; nw++) {
-        pRtfWord = (CRtfWord*) m_arWords[nw];
+        pRtfWord = (CRtfWord*) words_[nw];
         str_max_font = MAX(str_max_font, pRtfWord->realFontSize());
     }
 

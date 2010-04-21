@@ -44,6 +44,27 @@ class CLA_EXPO CRtfString
         void clearWords();
 
         /**
+         * Returns pointer to first word
+         * @throw std::out_of_range if string is empty
+         */
+        CRtfWord * firstWord();
+        const CRtfWord * firstWord() const;
+
+        /**
+         * Returns pointer to last word in string
+         * @throw std::out_of_range if string is empty
+         */
+        CRtfWord * lastWord();
+        const CRtfWord * lastWord() const;
+
+        /**
+         * Returns pointer to word at position @b pos
+         * @throw std::out_of_range if no such position
+         */
+        CRtfWord * wordAt(size_t pos);
+        const CRtfWord * wordAt(size_t pos) const;
+
+        /**
          * Returns words count
          */
         size_t wordCount() const;
@@ -52,10 +73,6 @@ class CLA_EXPO CRtfString
         uint16_t get_max_font_size();
         int16_t GetStringSizeInTwips();
         uint16_t GetRealStringSize();
-
-        typedef std::vector<CRtfWord*> WordList;
-        typedef WordList::iterator WordIterator;
-        WordList m_arWords;
 
         uint16_t m_wWordsCount;
         uint16_t m_wIndex;
@@ -82,6 +99,10 @@ class CLA_EXPO CRtfString
         uchar m_Attr;
         uchar m_FlagCarry;
         uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
+    private:
+        typedef std::vector<CRtfWord*> WordList;
+        typedef WordList::iterator WordIterator;
+        WordList words_;
 };
 
 }

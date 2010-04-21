@@ -24,6 +24,8 @@ using namespace CIF;
 void TestCRtfString::testInit() {
     CRtfString str;
     CPPUNIT_ASSERT(str.wordCount() == 0);
+    CPPUNIT_ASSERT_THROW(str.firstWord(), std::out_of_range);
+    CPPUNIT_ASSERT_THROW(str.wordAt(0), std::out_of_range);
 }
 
 void TestCRtfString::testClearWords() {

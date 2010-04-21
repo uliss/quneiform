@@ -102,8 +102,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
     for (int ns = 0; ns < m_wStringsCount; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
-        pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
-        pRtfChar = pRtfWord->charAt(0);
+        pRtfWord = pRtfString->firstWord();
+        pRtfChar = pRtfWord->firstChar();
 
         if (pRtfChar->m_bFlg_cup_drop == TRUE) { //заносим буквицы во frame
             if ((FlagMode & USE_FRAME) || OutPutType)
@@ -161,7 +161,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #ifdef EdWrite
 
             if (!RtfWriteMode) {
-                pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
+                pRtfWord = pRtfString->firstWord();
                 pRtfChar = pRtfWord->firstChar();
                 int colWidth = 0;
 
@@ -220,7 +220,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
         CountWords = pRtfString->m_wWordsCount;
 
         for (int nw = 0; nw < CountWords; nw++) {
-            pRtfWord = (CRtfWord*) pRtfString->m_arWords[nw];
+            pRtfWord = pRtfString->wordAt(nw);
             pRtfChar = pRtfWord->firstChar();
             Put("{");
             tmp_font_name = get_font_name(pRtfWord->fontNumber());
@@ -555,7 +555,7 @@ void CRtfFragment::InitFragment(RtfSectorInfo* SectorInfo) {
     int PenaltyForCheredov = 0;
     int CountWords;
     pRtfString = (CRtfString*) m_arStrings[0];
-    pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
+    pRtfWord = pRtfString->firstWord();
     CountWords = pRtfString->m_wWordsCount;
 
     if (m_wStringsCount == 1 && SectorInfo->CountFragments > 1) {
@@ -570,7 +570,7 @@ void CRtfFragment::InitFragment(RtfSectorInfo* SectorInfo) {
     }
 
     for (int nw = 0; nw < CountWords; nw++) {
-        pRtfWord = pRtfString->m_arWords[nw];
+        pRtfWord = pRtfString->wordAt(nw);
 
         if (pRtfWord->realFontSize() > 5) {
             pRtfWord->setRealFontSize(pRtfWord->realFontSize() - PenaltyForCheredov);
@@ -842,10 +842,10 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         else
             pRtfString->m_wSpaceBefore = 0;
 
-        pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
+        pRtfWord = pRtfString->firstWord();
         pRtfCharFirst = pRtfWord->firstChar();
         pRtfString->m_FirstChar = pRtfCharFirst->first().getChar();
-        pRtfWord = (CRtfWord*) pRtfString->m_arWords[pRtfString->m_wWordsCount - 1];
+        pRtfWord = pRtfString->lastWord();
         pRtfCharLast = pRtfWord->lastChar();
         pRtfString->m_LastChar = pRtfCharLast->first().getChar();
         pRtfString->m_LeftBorder = pRtfCharFirst->idealRect().left();
@@ -1562,10 +1562,10 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
 
             else {
                 pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
-                pRtfWord = (CRtfWord*) pRtfStringPrev->m_arWords[0];
+                pRtfWord = pRtfStringPrev->firstWord();
                 pRtfCharFirst = pRtfWord->firstChar();
                 top = pRtfCharFirst->idealRect().bottom();
-                pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
+                pRtfWord = pRtfString->firstWord();
                 pRtfCharFirst = pRtfWord->firstChar();
                 bottom = pRtfCharFirst->idealRect().top();
                 pRtfString->m_wSpaceBefore = (uint16_t) (bottom - top);
@@ -1577,10 +1577,10 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
         else
             pRtfString->m_wSpaceBefore = 0;
 
-        pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
+        pRtfWord = pRtfString->firstWord();
         pRtfCharFirst = pRtfWord->firstChar();
         pRtfString->m_FirstChar = pRtfCharFirst->first().getChar();
-        pRtfWord = (CRtfWord*) pRtfString->m_arWords[pRtfString->m_wWordsCount - 1];
+        pRtfWord = pRtfString->lastWord();
         pRtfCharLast = pRtfWord->lastChar();
         pRtfString->m_LastChar = pRtfCharLast->first().getChar();
         pRtfString->m_LeftBorder = pRtfCharFirst->idealRect().left();
@@ -1680,7 +1680,7 @@ void CRtfFragment::CalculationLengthAndCount(CRtfString* pRtfString, int32_t* Co
     CountWords = pRtfString->m_wWordsCount;
 
     for (int i = 0; i < CountWords; i++) {
-        pRtfWord = (CRtfWord*) pRtfString->m_arWords[i];
+        pRtfWord = pRtfString->wordAt(i);
         int WCountChars = pRtfWord->charCount();
 
         for (int j = 0; j < WCountChars; j++) {
@@ -1718,8 +1718,8 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
     for (ns = 1; ns < m_wStringsCount; ns++) {
         pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
         pRtfString = (CRtfString*) m_arStrings[ns];
-        pRtfWordPrev = (CRtfWord*) pRtfStringPrev->m_arWords[0];
-        pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
+        pRtfWordPrev = pRtfStringPrev->firstWord();
+        pRtfWord = pRtfString->firstWord();
 
         if (pRtfString->m_wAlignment != RTF_TP_CENTER && abs(pRtfWord->realFontSize()
                 - pRtfWordPrev->realFontSize()) > 1) {
@@ -1734,7 +1734,7 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
 
         if (pRtfString->m_wFlagBeginParagraph == TRUE) {
             CountWords = pRtfStringPrev->m_wWordsCount;
-            pRtfWord = (CRtfWord*) pRtfStringPrev->m_arWords[CountWords - 1];
+            pRtfWord = pRtfStringPrev->lastWord();
             pRtfChar = pRtfWord->lastChar();
 
             if (pRtfChar->first().isHyphen() && pRtfChar->m_bFlg_spell_nocarrying) {
@@ -2060,8 +2060,8 @@ Bool CRtfFragment::GetFlagBigSpace(int beg, int end) {
         pRtfString = (CRtfString*) m_arStrings[ns];
 
         for (int i = 1; i < pRtfString->m_wWordsCount; i++) {
-            pRtfWordPrev = (CRtfWord*) pRtfString->m_arWords[i - 1];
-            pRtfWordCur = (CRtfWord*) pRtfString->m_arWords[i];
+            pRtfWordPrev = pRtfString->wordAt(i - 1);
+            pRtfWordCur = pRtfString->wordAt(i);
             pRtfCharPrev = pRtfWordPrev->lastChar();
             pRtfCharCur = pRtfWordCur->firstChar();
 

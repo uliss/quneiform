@@ -643,7 +643,7 @@ void CRtfPage::CorrectKegl(void) {
             int len = 0;
 
             for (int w = 0; w < CountWords; w++)
-                len += pRtfString->m_arWords[w]->charCount() + 1;
+                len += pRtfString->wordAt(w)->charCount() + 1;
 
             //Выделяем буфер под неё
             char* TmpString = new char[len + 1];
@@ -652,7 +652,7 @@ void CRtfPage::CorrectKegl(void) {
             //Формируем полную строку
             for (int nw = 0; nw < CountWords; nw++) {
                 int nz;
-                pRtfWord = pRtfString->m_arWords[nw];
+                pRtfWord = pRtfString->wordAt(nw);
                 CountChars = pRtfWord->charCount();
 
                 for (nz = 0; nz < CountChars; nz++) {
@@ -670,11 +670,10 @@ void CRtfPage::CorrectKegl(void) {
                 strcat(TmpString, tmp_str);
             }
 
-            pRtfWord = (CRtfWord*) pRtfString->m_arWords[0];
+            pRtfWord = pRtfString->firstWord();
             pFirstChar = pRtfWord->firstChar();
-            pRtfWord = (CRtfWord*) pRtfString->m_arWords[CountWords - 1];
+            pRtfWord = pRtfString->lastWord();
             CountChars = pRtfWord->charCount();
-            // pLastChar = pRtfWord->m_arChars[CountChars - 1];
             pLastChar = pRtfWord->lastChar();
             LenghtStr = (int16_t) (pLastChar->idealRect().right() - pFirstChar->idealRect().left());
             // adjust kegl to the text line real width (Microsoft function)
@@ -708,7 +707,7 @@ void CRtfPage::ChangeKegl(void) {
             CountWords = pRtfString->m_wWordsCount;
 
             for (int nw = 0; nw < CountWords; nw++) {
-                pRtfWord = (CRtfWord*) pRtfString->m_arWords[nw];
+                pRtfWord = pRtfString->wordAt(nw);
 
                 if (CountStrings == 1)
                     pRtfWord->setRealFontSize(GetMinKegl(pRtfWord->idealFontSize()));
