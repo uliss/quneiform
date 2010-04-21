@@ -73,6 +73,8 @@ Rect CRtfWord::charsBRect() const {
     if (chars_.empty())
         return Rect();
 
+    // uliss TODO only first and last char are counted, is it better to
+    // unite all character bboxes*
     return firstChar()->realRect().united(lastChar()->realRect());
 }
 

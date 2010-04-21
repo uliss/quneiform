@@ -21,6 +21,7 @@
 
 #include <vector>
 
+#include "globus.h"
 #include "cfcompat.h"
 #include "lang_def.h"
 #include "crtfstruct.h"
@@ -30,7 +31,7 @@
 namespace CIF
 {
 
-class CRtfChar
+class CLA_EXPO CRtfChar
 {
     public:
         CRtfChar();

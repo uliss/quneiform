@@ -29,31 +29,33 @@
 namespace CIF
 {
 
-struct RectCheckNormalized {
-    template<class T>
-    static void check(const T& rect) {
-        if (!rect.isValid())
-            throw std::runtime_error("Rectangle is not normalized");
-    }
+struct RectCheckNormalized
+{
+        template<class T>
+        static void check(const T& rect) {
+            if (!rect.isValid())
+                throw std::runtime_error("Rectangle is not normalized");
+        }
 };
 
-struct RectCheckNone {
-    template<class T>
-    static void check(const T&) {
-    }
+struct RectCheckNone
+{
+        template<class T>
+        static void check(const T&) {
+        }
 };
 
-template < class T, class NormalizeChecker = RectCheckNone >
+template<class T, class NormalizeChecker = RectCheckNone>
 class RectImpl
 {
     public:
         RectImpl(const PointImpl<T>& pt, T width, T height) :
-                pt0_(pt), pt1_(pt + PointImpl<T> (width, height)) {
+            pt0_(pt), pt1_(pt + PointImpl<T> (width, height)) {
             NormalizeChecker::check(*this);
         }
 
         RectImpl(const PointImpl<T>& pt0, const PointImpl<T>& pt1) :
-                pt0_(pt0), pt1_(pt1) {
+            pt0_(pt0), pt1_(pt1) {
             NormalizeChecker::check(*this);
         }
 
@@ -92,7 +94,7 @@ class RectImpl
 
         bool contains(T x, T y, bool proper) const {
             return proper ? (left() < x && top() < y && x < right() && y < bottom()) : (left() <= x
-                                                                                        && top() <= y && x <= right() && y <= bottom());
+                    && top() <= y && x <= right() && y <= bottom());
         }
 
         bool contains(const PointImpl<T>& pt, bool proper = false) const {
@@ -102,11 +104,11 @@ class RectImpl
         bool contains(const RectImpl& rect, bool proper = false) const {
             if (proper)
                 return top() < rect.top() && left() < rect.left() && rect.bottom() < bottom()
-                       && rect.right() < right();
+                        && rect.right() < right();
 
             else
                 return top() <= rect.top() && left() <= rect.left() && rect.bottom() <= bottom()
-                       && rect.right() <= right();
+                        && rect.right() <= right();
         }
 
         double diagonal() const {
@@ -114,7 +116,8 @@ class RectImpl
         }
 
         bool intersects(const RectImpl& r) const {
-            if (left() > r.right() || right() < r.left() || top() > r.bottom() || bottom() < r.top())
+            if (left() > r.right() || right() < r.left() || top() > r.bottom() || bottom()
+                    < r.top())
                 return false;
 
             return true;
@@ -122,7 +125,7 @@ class RectImpl
 
         RectImpl intersected(const RectImpl& r) {
             return RectImpl(PointImpl<T> (std::max(top(), r.top()), std::max(left(), r.left())),
-                            PointImpl<T> (std::min(bottom(), r.bottom()), std::min(right(), r.right())));
+                    PointImpl<T> (std::min(bottom(), r.bottom()), std::min(right(), r.right())));
         }
 
         bool isPositive() const {
@@ -255,14 +258,22 @@ class RectImpl
             NormalizeChecker::check(*this);
         }
 
-        void setBottomLeft(const PointImpl<T>& pt) {
+        void setLeftBottom(const PointImpl<T>& pt) {
             setLeft(pt.x());
             setBottom(pt.y());
         }
 
-        void setBottomRight(const PointImpl<T>& pt) {
-            pt1_ = pt;
-            NormalizeChecker::check(*this);
+        void setLeftBottom(T x, T y) {
+            setLeft(x);
+            setBottom(y);
+        }
+
+        void setLeftTop(const PointImpl<T>& pt) {
+            pt0_ = pt;
+        }
+
+        void setLeftTop(T x, T y) {
+            pt0_.set(x, y);
         }
 
         void setHeight(T t) {
@@ -280,6 +291,26 @@ class RectImpl
             NormalizeChecker::check(*this);
         }
 
+        void setRightBottom(const PointImpl<T>& pt) {
+            pt1_ = pt;
+            NormalizeChecker::check(*this);
+        }
+
+        void setRightBottom(T x, T y) {
+            pt1_.set(x, y);
+            NormalizeChecker::check(*this);
+        }
+
+        void setRightTop(const PointImpl<T>& pt) {
+            setRight(pt.x());
+            setTop(pt.y());
+        }
+
+        void setRightTop(T x, T y) {
+            setRight(x);
+            setTop(y);
+        }
+
         void setSize(const SizeImpl<T>& size) {
             setWidth(size.width());
             setHeight(size.height());
@@ -288,15 +319,6 @@ class RectImpl
         void setTop(T top) {
             pt0_.setY(top);
             NormalizeChecker::check(*this);
-        }
-
-        void setTopLeft(const PointImpl<T>& pt) {
-            pt0_ = pt;
-        }
-
-        void setTopRight(const PointImpl<T>& pt) {
-            setRight(pt.x());
-            setTop(pt.y());
         }
 
         void setWidth(T t) {
@@ -340,8 +362,8 @@ class RectImpl
         }
 
         RectImpl united(const RectImpl& r) {
-            return RectImpl(PointImpl<T> (std::min(top(), r.top()), std::min(left(), r.left())),
-                            PointImpl<T> (std::max(bottom(), r.bottom()), std::max(right(), r.right())));
+            return RectImpl(PointImpl<T> (std::min(left(), r.left()), std::min(top(), r.top())),
+                    PointImpl<T> (std::max(right(), r.right()), std::max(bottom(), r.bottom())));
         }
 
         T width() const {
