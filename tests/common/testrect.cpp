@@ -135,4 +135,7 @@ void TestRect::testNormalize() {
     CPPUNIT_ASSERT(!r2.isValid());
     r1.setRightBottom(-10, 40);
     CPPUNIT_ASSERT(!r1.isValid());
+    r1.normalize();
+    CPPUNIT_ASSERT_EQUAL(Rect(Point(-10, 10), Point(0, 40)), r1);
+    CPPUNIT_ASSERT_EQUAL(r1, r1.normalized());
 }
