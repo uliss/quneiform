@@ -31,17 +31,19 @@ CRtfChar::CRtfChar() :
 }
 
 void CRtfChar::addVersion(const Letter& version) {
-    if(versions_.size() >= REC_MAX_VERS)
+    if (versions_.size() >= REC_MAX_VERS)
         throw std::out_of_range("[CRtfChar::addVersion] too many char versions");
     versions_.push_back(version);
 }
 
 const Letter& CRtfChar::first() const {
+    if (versions_.empty())
+        throw std::out_of_range("[CRtfChar::first] no char versions");
     return versions_.front();
 }
 
 Letter& CRtfChar::first() {
-    return versions_.front();
+    return const_cast<Letter&>(const_cast<const CRtfChar*>(this)->first());
 }
 
 font_number CRtfChar::font() const {

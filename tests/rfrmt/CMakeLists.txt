@@ -1,5 +1,6 @@
 add_executable(test_rfrmt
     test_rfrmt.cpp
+    testcrtfchar.cpp
     testcrtfword.cpp
 )
 

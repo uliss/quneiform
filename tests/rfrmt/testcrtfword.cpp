@@ -83,9 +83,16 @@ void TestCRtfWord::testCharSpelling() {
 
 void TestCRtfWord::testCharProbability() {
     CRtfWord wd;
+
     CPPUNIT_ASSERT(wd.charProbability() == Letter::LOWEST_PROBABILITY);
-//    wd.addChar(new CRtfChar);
-//    CPPUNIT_ASSERT(!wd.charSpelling());
-//    wd.firstChar()->m_bFlg_spell = TRUE;
-//    CPPUNIT_ASSERT(wd.charSpelling());
+    wd.addChar(new CRtfChar);
+    CPPUNIT_ASSERT_THROW(wd.charProbability(), std::out_of_range);
+    wd.firstChar()->addVersion(Letter(' ', Letter::LOWEST_PROBABILITY));
+    CPPUNIT_ASSERT(wd.charProbability() == Letter::LOWEST_PROBABILITY);
+    wd.firstChar()->first().setProbability(200);
+    CPPUNIT_ASSERT(wd.charProbability() == 200);
+    wd.addChar(new CRtfChar);
+    wd.lastChar()->addVersion(Letter(' ', 100));
+    CPPUNIT_ASSERT(wd.charProbability() == 100);
+
 }
