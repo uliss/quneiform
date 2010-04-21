@@ -30,7 +30,6 @@
 namespace CIF
 {
 class CRtfChar;
-class CRtfString;
 
 class CLA_EXPO CRtfWord
 {
