@@ -80,3 +80,12 @@ void TestCRtfWord::testCharSpelling() {
     wd.firstChar()->m_bFlg_spell = TRUE;
     CPPUNIT_ASSERT(wd.charSpelling());
 }
+
+void TestCRtfWord::testCharProbability() {
+    CRtfWord wd;
+    CPPUNIT_ASSERT(wd.charMinProbability() == Letter::LOWEST_PROBABILITY);
+//    wd.addChar(new CRtfChar);
+//    CPPUNIT_ASSERT(!wd.charSpelling());
+//    wd.firstChar()->m_bFlg_spell = TRUE;
+//    CPPUNIT_ASSERT(wd.charSpelling());
+}

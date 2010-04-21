@@ -27,7 +27,12 @@ namespace CIF
 class Letter
 {
     public:
-        Letter(unsigned char alt = 0, unsigned char prob = 0) :
+        enum
+        {
+            LOWEST_PROBABILITY = 254
+        };
+
+        Letter(unsigned char alt = 0, unsigned char prob = LOWEST_PROBABILITY) :
             alternative_(alt), probability_(prob) {
         }
 

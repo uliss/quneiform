@@ -25,8 +25,6 @@
 namespace CIF
 {
 
-const short DEFAULT_PROBABILITY = 254;
-
 CRtfWord::CRtfWord() :
     font_number_(0), ideal_font_size_(0), real_font_size_(0), spelling_(false), probability_(0) {
 }
@@ -128,7 +126,7 @@ inline bool compareCharProbability(CRtfChar * first, CRtfChar * second) {
 short CRtfWord::charMinProbability() const {
     CharList::const_iterator it = std::min_element(chars_.begin(), chars_.end(),
             compareCharProbability);
-    return it == chars_.end() ? DEFAULT_PROBABILITY : (*it)->first().probability();
+    return it == chars_.end() ? Letter::LOWEST_PROBABILITY : (*it)->first().probability();
 }
 
 short CRtfWord::probability() const {
