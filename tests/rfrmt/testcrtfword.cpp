@@ -35,6 +35,7 @@ void TestCRtfWord::testInit() {
     CPPUNIT_ASSERT(!wd.isSpelled());
     CPPUNIT_ASSERT(wd.realFontSize() == 0);
     CPPUNIT_ASSERT(wd.probability() == 0);
+    CPPUNIT_ASSERT_EQUAL(std::string(), wd.toString());
 }
 
 void TestCRtfWord::testCharBRect() {
@@ -135,4 +136,15 @@ void TestCRtfWord::testClearChars() {
     CPPUNIT_ASSERT(wd.charCount() == 2);
     wd.clearChars();
     CPPUNIT_ASSERT(wd.charCount() == 0);
+}
+
+void TestCRtfWord::testToString() {
+    CRtfWord wd;
+    CPPUNIT_ASSERT_EQUAL(std::string(), wd.toString());
+    wd.addChar(new CRtfChar('a', Letter::LOWEST_PROBABILITY));
+    CPPUNIT_ASSERT_EQUAL(std::string("a"), wd.toString());
+    wd.addChar(new CRtfChar('b', Letter::LOWEST_PROBABILITY));
+    CPPUNIT_ASSERT_EQUAL(std::string("ab"), wd.toString());
+    wd.clearChars();
+    CPPUNIT_ASSERT_EQUAL(std::string(), wd.toString());
 }

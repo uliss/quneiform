@@ -169,7 +169,7 @@ void CRtfWord::rotateRect(Rect& rect, int angle, int x_offset, int y_offset) {
         result.rbottom() = rect.right();
         break;
     default:
-        throw Exception("[CRtfWord::rotateRect] invalid rotate angle: " + toString(angle));
+        throw Exception("[CRtfWord::rotateRect] invalid rotate angle: " + CIF::toString(angle));
     }
     rect = result;
 }
@@ -190,6 +190,15 @@ void CRtfWord::setIdealFontSize(short size) {
 
 void CRtfWord::setRealFontSize(short size) {
     real_font_size_ = size;
+}
+
+std::string CRtfWord::toString() const {
+    std::string result;
+    result.reserve(charCount());
+    for (CharConstIterator it = chars_.begin(), e = chars_.end(); it != e; ++it) {
+        result.append(1, (*it)->first().getChar());
+    }
+    return result;
 }
 
 bool CRtfWord::isSpelled() const {

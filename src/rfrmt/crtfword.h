@@ -20,6 +20,7 @@
 #define RTFWORD_H_
 
 #include <vector>
+#include <string>
 #include "globus.h"
 #include "cfcompat.h"
 #include "common/rect.h"
@@ -121,6 +122,11 @@ class CLA_EXPO CRtfWord
          * Sets real font size
          */
         void setRealFontSize(short size);
+
+        /**
+         * Returns word as string
+         */
+        std::string toString() const;
     private:
         void calcBRect();
         void calcProbability();
@@ -136,6 +142,8 @@ class CLA_EXPO CRtfWord
         static void rotateRect(Rect& rect, int angle, int x_offset, int y_offset);
     private:
         typedef std::vector<CRtfChar*> CharList;
+        typedef CharList::iterator CharIterator;
+        typedef CharList::const_iterator CharConstIterator;
         CharList chars_;
         font_number font_number_;
         short ideal_font_size_;

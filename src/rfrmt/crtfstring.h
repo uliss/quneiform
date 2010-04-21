@@ -20,6 +20,7 @@
 #define CRTFSTRING_H_
 
 #include <vector>
+#include <string>
 #include "cfcompat.h"
 
 namespace CIF
@@ -58,6 +59,21 @@ class CLA_EXPO CRtfString
         const CRtfWord * lastWord() const;
 
         /**
+         * Returns max font size among string words
+         */
+        int maxWordFontSize() const;
+
+        /**
+         * Returns real string length in twips
+         */
+        uint realLength();
+
+        /**
+         * Returns string content as std::string
+         */
+        std::string toString() const;
+
+        /**
          * Returns pointer to word at position @b pos
          * @throw std::out_of_range if no such position
          */
@@ -69,9 +85,7 @@ class CLA_EXPO CRtfString
          */
         size_t wordCount() const;
 
-        uint16_t get_max_font_size();
         int16_t GetStringSizeInTwips();
-        uint16_t GetRealStringSize();
 
         int32_t m_LeftBorder;
         int32_t m_RightBorder;
@@ -96,6 +110,7 @@ class CLA_EXPO CRtfString
     private:
         typedef std::vector<CRtfWord*> WordList;
         typedef WordList::iterator WordIterator;
+        typedef WordList::const_iterator WordIteratorConst;
         WordList words_;
 };
 

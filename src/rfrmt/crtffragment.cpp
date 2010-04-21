@@ -1771,7 +1771,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
 
     for (ns = 0; ns < m_wStringsCount; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
-        pRtfString->m_LengthStringInTwips = pRtfString->GetRealStringSize();
+        pRtfString->m_LengthStringInTwips = pRtfString->realLength();
         pRtfString->m_wLeftIndent = (int16_t) ((int16_t) (pRtfString->m_wLeftIndent * Twips)
                 + m_LeftOffsetFragmentFromVerticalColumn);
         pRtfString->m_wRightIndent = (int16_t) ((int16_t) (pRtfString->m_wRightIndent * Twips)

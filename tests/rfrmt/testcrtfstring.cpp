@@ -19,6 +19,7 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfString);
 #include "rfrmt/crtfstring.h"
 #include "rfrmt/crtfword.h"
+#include "rfrmt/crtfchar.h"
 using namespace CIF;
 
 void TestCRtfString::testInit() {
@@ -36,4 +37,19 @@ void TestCRtfString::testClearWords() {
     CPPUNIT_ASSERT(str.wordCount() == 1);
     str.clearWords();
     CPPUNIT_ASSERT(str.wordCount() == 0);
+}
+
+void TestCRtfString::testToString() {
+    CRtfString str;
+    CPPUNIT_ASSERT_EQUAL(std::string(), str.toString());
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT_EQUAL(std::string(), str.toString());
+    str.firstWord()->addChar(new CRtfChar('a', 100));
+    str.firstWord()->addChar(new CRtfChar('b', 100));
+    CPPUNIT_ASSERT_EQUAL(std::string("ab"), str.toString());
+
+    str.addWord(new CRtfWord);
+    str.lastWord()->addChar(new CRtfChar('c', 100));
+    str.lastWord()->addChar(new CRtfChar('d', 100));
+    CPPUNIT_ASSERT_EQUAL(std::string("ab cd"), str.toString());
 }

@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <cstring>
+#include <iostream>
 #include "crtfchar.h"
 #include "crtfstring.h"
 #include "crtfword.h"
@@ -29,6 +30,9 @@ int16_t GetRealSize(char* str, int16_t len, int16_t FontSize, int16_t FontNumber
 
 namespace CIF
 {
+
+const int SMALLEST_FONT_SIZE = 3;
+const char SPACE = ' ';
 
 CRtfString::CRtfString() {
     m_wLeftIndent = 0;
@@ -80,6 +84,15 @@ const CRtfWord * CRtfString::lastWord() const {
     return words_.back();
 }
 
+int CRtfString::maxWordFontSize() const {
+    int str_max_font = SMALLEST_FONT_SIZE;
+
+    for (size_t i = 0; i < words_.size(); i++)
+        str_max_font = MAX(str_max_font, words_[i]->realFontSize());
+
+    return str_max_font;
+}
+
 CRtfWord * CRtfString::wordAt(size_t pos) {
     return words_.at(pos);
 }
@@ -104,7 +117,7 @@ int16_t CRtfString::GetStringSizeInTwips() {
     return LenghtStr;
 }
 
-uint16_t CRtfString::GetRealStringSize() {
+uint CRtfString::realLength() {
     char tmp_str[MAX_BUFFER_SIZE];
     CRtfWord* pRtfWord;
     CRtfChar *pRtfChar;
@@ -132,16 +145,19 @@ uint16_t CRtfString::GetRealStringSize() {
     return RealSize;
 }
 
-uint16_t CRtfString::get_max_font_size() {
-    uint16_t nw, str_max_font = 3;
-    CRtfWord* pRtfWord;
+std::string CRtfString::toString() const {
+    std::string result;
 
-    for (nw = 0; nw < words_.size(); nw++) {
-        pRtfWord = (CRtfWord*) words_[nw];
-        str_max_font = MAX(str_max_font, pRtfWord->realFontSize());
+    for (WordIteratorConst it = words_.begin(), e = words_.end(); it != e; ++it) {
+        result += (*it)->toString();
+        result += SPACE;
     }
 
-    return str_max_font;
+    // remove traling space
+    if (!result.empty())
+        result.erase(result.length() - 1);
+
+    return result;
 }
 
 }

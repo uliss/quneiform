@@ -30,6 +30,12 @@ CRtfChar::CRtfChar() :
 
 }
 
+CRtfChar::CRtfChar(uchar chr, uchar probability) :
+    m_bFlg_spell(FALSE), m_bFlg_spell_nocarrying(FALSE), m_bFlg_cup_drop(FALSE), language_(
+            LANGUAGE_UNKNOWN), font_number_(0), font_size_(0) {
+    addVersion(Letter(chr, probability));
+}
+
 void CRtfChar::addVersion(const Letter& version) {
     if (versions_.size() >= REC_MAX_VERS)
         throw std::out_of_range("[CRtfChar::addVersion] too many char versions");
@@ -43,7 +49,7 @@ const Letter& CRtfChar::first() const {
 }
 
 Letter& CRtfChar::first() {
-    return const_cast<Letter&>(const_cast<const CRtfChar*>(this)->first());
+    return const_cast<Letter&> (const_cast<const CRtfChar*> (this)->first());
 }
 
 font_number CRtfChar::font() const {

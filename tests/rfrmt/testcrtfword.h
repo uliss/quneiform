@@ -31,6 +31,7 @@ class TestCRtfWord: public CppUnit::TestFixture
         CPPUNIT_TEST(testCharProbability);
         CPPUNIT_TEST(testRotateRect);
         CPPUNIT_TEST(testClearChars);
+        CPPUNIT_TEST(testToString);
         CPPUNIT_TEST_SUITE_END();
     public:
         void testInit();
@@ -40,6 +41,7 @@ class TestCRtfWord: public CppUnit::TestFixture
         void testCharProbability();
         void testRotateRect();
         void testClearChars();
+        void testToString();
 };
 
 #endif /* TESTPUMA_H_ */
