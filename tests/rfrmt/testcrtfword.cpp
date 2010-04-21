@@ -125,3 +125,14 @@ void TestCRtfWord::testRotateRect() {
     CPPUNIT_ASSERT_EQUAL(r1.height(), r2.height());
     // TODO write more tests
 }
+
+void TestCRtfWord::testClearChars() {
+    CRtfWord wd;
+    wd.clearChars();
+    CPPUNIT_ASSERT(wd.charCount() == 0);
+    wd.addChar(new CRtfChar);
+    wd.addChar(new CRtfChar);
+    CPPUNIT_ASSERT(wd.charCount() == 2);
+    wd.clearChars();
+    CPPUNIT_ASSERT(wd.charCount() == 0);
+}
