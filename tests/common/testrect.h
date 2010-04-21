@@ -26,10 +26,14 @@ class TestRect: public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestRect);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testSerialize);
+    CPPUNIT_TEST(testUnite);
+    CPPUNIT_TEST(testNormalize);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testSerialize();
+    void testUnite();
+    void testNormalize();
 };
 
 #endif /* TESTPOINT_H_ */

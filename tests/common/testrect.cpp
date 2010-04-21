@@ -15,7 +15,6 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-
 #include "testrect.h"
 #include <common/rect.h>
 #include <common/tostring.h>
@@ -102,4 +101,38 @@ void TestRect::testSerialize() {
 
     CPPUNIT_ASSERT_EQUAL(r, new_r);
 #endif
+}
+
+void TestRect::testUnite() {
+    Rect r1(Point(0, 0), Point(40, 40));
+
+    //inside
+    Rect r2(Point(10, 10), Point(30, 30));
+    CPPUNIT_ASSERT(r1.contains(r2));
+    CPPUNIT_ASSERT_EQUAL(r1, r1.united(r2));
+    CPPUNIT_ASSERT_EQUAL(r1, r2.united(r1));
+    //contains
+    r2.set(Point(-10, -20), Point(50, 60));
+    CPPUNIT_ASSERT(r2.contains(r1));
+    CPPUNIT_ASSERT_EQUAL(r2, r1.united(r2));
+    CPPUNIT_ASSERT_EQUAL(r2, r2.united(r1));
+    // intersects
+    r2.set(Point(20, 30), Point(50, 60));
+    CPPUNIT_ASSERT(r2.intersects(r1));
+    CPPUNIT_ASSERT_EQUAL(Rect(Point(), Point(50, 60)), r1.united(r2));
+    // non intersects
+    r2.set(Point(100, 100), Point(300, 300));
+    CPPUNIT_ASSERT(!r2.intersects(r1));
+    CPPUNIT_ASSERT_EQUAL(Rect(Point(), Point(300, 300)), r2.united(r1));
+}
+
+void TestRect::testNormalize() {
+    Rect r1(Point(0, 10), Point(30, 40));
+    CPPUNIT_ASSERT(r1.isValid());
+    Rect r2;
+    CPPUNIT_ASSERT(r2.isValid());
+    r2.setLeftTop(10, 20);
+    CPPUNIT_ASSERT(!r2.isValid());
+    r1.setRightBottom(-10, 40);
+    CPPUNIT_ASSERT(!r1.isValid());
 }

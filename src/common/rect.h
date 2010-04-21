@@ -59,6 +59,9 @@ class RectImpl
             NormalizeChecker::check(*this);
         }
 
+        /**
+         * Constructs rectangle at (0,0) with 0 width and height
+         */
         RectImpl() {
         }
 
@@ -76,22 +79,44 @@ class RectImpl
             return tmp;
         }
 
+        /**
+         * Returns bottom rectangle y-coord
+         */
         T bottom() const {
             return pt1_.y();
         }
 
+        /**
+         * Returns point that situated in the center of rectangle
+         * @see centerX(), centerY()
+         */
         PointImpl<T> center() const {
             return PointImpl<T> (centerX(), centerY());
         }
 
+        /**
+         * Returns x-coord of rectangle center
+         * @see centerY(), center()
+         */
         T centerX() const {
             return (left() + right()) / 2;
         }
 
+        /**
+         * Returns y-coord of rectangle center
+         * @see centerX(), center()
+         */
         T centerY() const {
             return (top() + bottom()) / 2;
         }
 
+        /**
+         * Checks if point with coords @b x and @b y is inside rectangle
+         * @param x - coordinate of point
+         * @param y - coordinate of point
+         * @param proper - if set to @b true not takes into account rectangle borders
+         * @return true if point is in rectangle
+         */
         bool contains(T x, T y, bool proper) const {
             return proper ? (left() < x && top() < y && x < right() && y < bottom()) : (left() <= x
                     && top() <= y && x <= right() && y <= bottom());
@@ -111,6 +136,9 @@ class RectImpl
                         && rect.right() <= right();
         }
 
+        /**
+         * Returns rectangle diagonal
+         */
         double diagonal() const {
             return ::sqrt(height() * height() + width() * width());
         }
@@ -133,7 +161,7 @@ class RectImpl
         }
 
         bool isValid() const {
-            return left() < right() && top() < bottom();
+            return left() <= right() && top() <= bottom();
         }
 
         T height() const {
