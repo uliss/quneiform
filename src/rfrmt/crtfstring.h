@@ -64,6 +64,11 @@ class CLA_EXPO CRtfString
         int lengthInTwips() const;
 
         /**
+         * Returns string line transfer
+         */
+        bool lineTransfer() const;
+
+        /**
          * Returns max font size among string words
          */
         int maxWordFontSize() const;
@@ -72,6 +77,11 @@ class CLA_EXPO CRtfString
          * Returns real string length in twips
          */
         uint realLength() const;
+
+        /**
+         * Sets line transfer
+         */
+        void setLineTransfer(bool value);
 
         /**
          * Returns string content as std::string
@@ -90,7 +100,6 @@ class CLA_EXPO CRtfString
          */
         size_t wordCount() const;
 
-
         int32_t m_LeftBorder;
         int32_t m_RightBorder;
         uint16_t m_wLeftIndent;
@@ -104,7 +113,7 @@ class CLA_EXPO CRtfString
         uchar m_wLeftBorderEqual;
         uchar m_wRightBorderEqual;
         uchar m_wCentreEqual;
-        uchar m_bLineTransfer;
+
         uchar m_LastChar;
         uchar m_FirstChar;
         uchar m_Attr;
@@ -115,6 +124,7 @@ class CLA_EXPO CRtfString
         typedef WordList::iterator WordIterator;
         typedef WordList::const_iterator WordIteratorConst;
         WordList words_;
+        bool line_break_;
 };
 
 }

@@ -200,15 +200,15 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
         if (!RtfWriteMode && !pRtfChar->m_bFlg_cup_drop) {
 #ifdef CHEREDOV
-            hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer, (int)((pRtfWord->real_font_size_ - 1) * 2));
+            hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
             if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME)) {
-                hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer, DefFontSize); //line is text line
+                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(), DefFontSize); //line is text line
             }
 
             else {
-                hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer,
+                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(),
                         pRtfWord->realFontSize() * 2);
             }
 
@@ -334,7 +334,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                     flag_end_word_with_hiphen = 1;
 
                 if (pRtfChar->first().getChar()) {
-                    if (pRtfString->m_bLineTransfer == TRUE) {
+                    if (pRtfString->lineTransfer()) {
 #ifdef EdWrite
 
                         if (!RtfWriteMode) {
@@ -363,16 +363,16 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                         pRtfString->m_LengthStringInTwips, m_rectReal.right
                                                 - m_rectReal.left); //NEGA_STR
 #ifdef CHEREDOV
-                                hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer, (int)((pRtfWord->real_font_size_ - 1) * 2));
+                                hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
                                 if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
                                     hString = CED_CreateLine(hParagraph,
-                                            pRtfString->m_bLineTransfer, DefFontSize);
+                                            pRtfString->lineTransfer(), DefFontSize);
 
                                 else
                                     hString = CED_CreateLine(hParagraph,
-                                            pRtfString->m_bLineTransfer, pRtfWord->realFontSize()
+                                            pRtfString->lineTransfer(), pRtfWord->realFontSize()
                                                     * 2);
 
 #endif
@@ -422,16 +422,16 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                         pRtfString->m_LengthStringInTwips, m_rectReal.right
                                                 - m_rectReal.left); //NEGA_STR
 #ifdef CHEREDOV
-                                hString = CED_CreateLine(hParagraph, pRtfString->m_bLineTransfer, (int)((pRtfWord->real_font_size_ - 1) * 2));
+                                hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
                                 if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
                                     hString = CED_CreateLine(hParagraph,
-                                            pRtfString->m_bLineTransfer, DefFontSize);
+                                            pRtfString->lineTransfer(), DefFontSize);
 
                                 else
                                     hString = CED_CreateLine(hParagraph,
-                                            pRtfString->m_bLineTransfer, pRtfWord->realFontSize()
+                                            pRtfString->lineTransfer(), pRtfWord->realFontSize()
                                                     * 2);
 
 #endif
@@ -531,7 +531,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
         }
 
         //--- Конец цикла по словам
-        if (pRtfString->m_bLineTransfer == TRUE)
+        if (pRtfString->lineTransfer())
             Put("\\line ");
 
         boPrevNega = boNega; //NEGA_STR
@@ -803,10 +803,10 @@ Bool CRtfFragment::ProcessingUseNoneMode(void) {
             pRtfString->m_wFlagBeginParagraph = FALSE;
 
         if (ns == m_wStringsCount - 1)
-            pRtfString->m_bLineTransfer = FALSE;
+            pRtfString->setLineTransfer(false);
 
         else
-            pRtfString->m_bLineTransfer = TRUE;
+            pRtfString->setLineTransfer(true);
 
         pRtfString->m_wAlignment = RTF_TP_LEFT_ALLIGN;
         pRtfString->m_wLeftIndent = pRtfString->m_wFirstIndent = pRtfString->m_wRightIndent = 0;
@@ -1344,7 +1344,7 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end) {
                 && FlagStringParagraphSoft == TRUE && (pRtfStringPrev->m_wRightIndent - RightDif)
                 > 5 * m_max_dist) || (pRtfStringPrev->m_LastChar == '.' && FlagStringParagraph
                 == TRUE)) {
-            pRtfStringPrev->m_bLineTransfer = FALSE;
+            pRtfStringPrev->setLineTransfer(false);
             pRtfString->m_wFlagBeginParagraph = TRUE;
         }
     }
@@ -1412,16 +1412,16 @@ Bool CRtfFragment::DeterminationOfRightJustification(int beg, int end) {
 
         if (ns == beg) {
             pRtfString->m_wFlagBeginParagraph = TRUE;
-            pRtfString->m_bLineTransfer = TRUE;
+            pRtfString->setLineTransfer(true);
             continue;
         }
 
-        pRtfString->m_bLineTransfer = TRUE;
+        pRtfString->setLineTransfer(true);
         pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
 
         if (pRtfStringPrev->m_LastChar == '.') {
             pRtfString->m_wFlagBeginParagraph = TRUE;
-            pRtfStringPrev->m_bLineTransfer = FALSE;
+            pRtfStringPrev->setLineTransfer(false);
         }
     }
 
@@ -1710,7 +1710,7 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
 
         // если выр. другая, то необходимо начать новый параграф
         if (pRtfString->m_wAlignment != pRtfStringPrev->m_wAlignment) {
-            pRtfStringPrev->m_bLineTransfer = FALSE;
+            pRtfStringPrev->setLineTransfer(false);
             pRtfString->m_wFlagBeginParagraph = TRUE;
         }
     }
@@ -1723,7 +1723,7 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
 
         if (pRtfString->m_wAlignment != RTF_TP_CENTER && abs(pRtfWord->realFontSize()
                 - pRtfWordPrev->realFontSize()) > 1) {
-            pRtfStringPrev->m_bLineTransfer = FALSE;
+            pRtfStringPrev->setLineTransfer(false);
             pRtfString->m_wFlagBeginParagraph = TRUE;
         }
     }
@@ -1744,7 +1744,7 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
                 else if (pRtfStringPrev->m_wAlignment == RTF_TP_LEFT_AND_RIGHT_ALLIGN
                         && pRtfString->m_wAlignment == RTF_TP_LEFT_ALLIGN) {
                     pRtfString->m_wAlignment = RTF_TP_LEFT_AND_RIGHT_ALLIGN;
-                    pRtfStringPrev->m_bLineTransfer = FALSE;
+                    pRtfStringPrev->setLineTransfer(false);
                     pRtfString->m_wFlagBeginParagraph = FALSE;
                 }
             }
@@ -2116,7 +2116,7 @@ void CRtfFragment::SetLineTransfer(int beg, int end) {
 
     for (int ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
-        pRtfString->m_bLineTransfer = TRUE;
+        pRtfString->setLineTransfer(true);
     }
 }
 

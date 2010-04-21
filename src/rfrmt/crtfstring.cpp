@@ -33,8 +33,8 @@ const char SPACE = ' ';
 
 CRtfString::CRtfString() :
     m_wLeftIndent(0), m_wRightIndent(0), m_wFirstIndent(0), m_wFlagBeginParagraph(0), m_wAlignment(
-            0), m_wLeftBorderEqual(0), m_wRightBorderEqual(0), m_wCentreEqual(0),
-            m_bLineTransfer(0), m_FlagCarry(0), S_Flags(0), m_LengthStringInTwips(0) {
+            0), m_LengthStringInTwips(0), m_wLeftBorderEqual(0), m_wRightBorderEqual(0),
+            m_wCentreEqual(0), m_FlagCarry(0), S_Flags(0), line_break_(false) {
 
 }
 
@@ -102,6 +102,10 @@ int CRtfString::lengthInTwips() const {
     return (last->idealRect().right() - first->idealRect().left()) * getTwips();
 }
 
+bool CRtfString::lineTransfer() const {
+    return line_break_;
+}
+
 uint CRtfString::realLength() const {
     if (words_.empty() || words_.front()->charCount() == 0)
         return 0;
@@ -111,6 +115,10 @@ uint CRtfString::realLength() const {
     const CRtfChar *pRtfChar = firstWord()->firstChar();
     return GetRealSize(str.c_str(), str.length(), firstWord()->realFontSize(), pRtfChar->font(),
             &strHeight);
+}
+
+void CRtfString::setLineTransfer(bool value) {
+    line_break_ = value;
 }
 
 std::string CRtfString::toString() const {
