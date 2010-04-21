@@ -27,11 +27,13 @@ class TestCRtfWord: public CppUnit::TestFixture
         CPPUNIT_TEST(testInit);
         CPPUNIT_TEST(testCalcBRect);
         CPPUNIT_TEST(testCharBRect);
+        CPPUNIT_TEST(testCharSpelling);
         CPPUNIT_TEST_SUITE_END();
     public:
         void testInit();
         void testCalcBRect();
         void testCharBRect();
+        void testCharSpelling();
 };
 
 #endif /* TESTPUMA_H_ */

@@ -38,6 +38,7 @@ class CLA_EXPO CRtfChar
 
         /**
          * Adds version
+         * @throw std::out_of_range exception with number of versions exceeds RECT_MAX_VERS
          */
         void addVersion(const Letter& version);
 

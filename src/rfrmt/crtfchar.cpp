@@ -25,12 +25,14 @@ namespace CIF
 {
 
 CRtfChar::CRtfChar() :
-    language_(LANGUAGE_UNKNOWN), font_number_(0), font_size_(0) {
+    m_bFlg_spell(FALSE), m_bFlg_spell_nocarrying(FALSE), m_bFlg_cup_drop(FALSE), language_(
+            LANGUAGE_UNKNOWN), font_number_(0), font_size_(0) {
 
 }
 
 void CRtfChar::addVersion(const Letter& version) {
-    assert(versions_.size() < REC_MAX_VERS);
+    if(versions_.size() >= REC_MAX_VERS)
+        throw std::out_of_range("[CRtfChar::addVersion] too many char versions");
     versions_.push_back(version);
 }
 

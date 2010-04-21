@@ -71,3 +71,12 @@ void TestCRtfWord::testCalcBRect() {
 
     //CPPUNIT_ASSERT_EQUAL(brect, wd.bRect());
 }
+
+void TestCRtfWord::testCharSpelling() {
+    CRtfWord wd;
+    CPPUNIT_ASSERT(wd.charSpelling());
+    wd.addChar(new CRtfChar);
+    CPPUNIT_ASSERT(!wd.charSpelling());
+    wd.firstChar()->m_bFlg_spell = TRUE;
+    CPPUNIT_ASSERT(wd.charSpelling());
+}
