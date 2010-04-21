@@ -37,9 +37,7 @@ class CRtfFragment
         ~CRtfFragment();
 
         CRtfPage* pRtfParent;
-        CRtfString* GetFirstString();
         CRtfString* GetNextString();
-        Bool Write(RtfSectorInfo* SectorInfo);
         void InitFragment(RtfSectorInfo* SectorInfo);
         void SetFragmentAlignment(RtfSectorInfo* SectorInfo);
         void new_paragraph(Bool OutPutType);
@@ -92,12 +90,10 @@ class CRtfFragment
         std::vector<CRtfString*> m_arStrings;
 
         uint16_t m_wStringsCount;
-        uint16_t m_wIndex;
         RECT m_rect;
         RECT m_rectReal;
         RECT m_rectFree;
         uint16_t m_wType;
-        uint32_t m_wInternalNumber;
         uint32_t m_wUserNumber;
         uint32_t m_wUserNumberForFormattedMode;
         int32_t m_LeftOffsetFragmentFromVerticalColumn;
