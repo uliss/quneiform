@@ -33,12 +33,28 @@ class CLA_EXPO CRtfString
         CRtfString();
         ~CRtfString();
 
+        /**
+         * Adds word to the end of string
+         */
+        void addWord(CRtfWord * word);
+
+        /**
+         * Removes all words from string
+         */
+        void clearWords();
+
+        /**
+         * Returns words count
+         */
+        size_t wordCount() const;
+
         CRtfWord* GetNextWord();
         uint16_t get_max_font_size();
         int16_t GetStringSizeInTwips();
         uint16_t GetRealStringSize();
 
         typedef std::vector<CRtfWord*> WordList;
+        typedef WordList::iterator WordIterator;
         WordList m_arWords;
 
         uint16_t m_wWordsCount;

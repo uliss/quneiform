@@ -18,8 +18,20 @@
 #include "testcrtfstring.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfString);
 #include "rfrmt/crtfstring.h"
+#include "rfrmt/crtfword.h"
 using namespace CIF;
 
 void TestCRtfString::testInit() {
     CRtfString str;
+    CPPUNIT_ASSERT(str.wordCount() == 0);
+}
+
+void TestCRtfString::testClearWords() {
+    CRtfString str;
+    CPPUNIT_ASSERT(str.wordCount() == 0);
+    str.clearWords();
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(str.wordCount() == 1);
+    str.clearWords();
+    CPPUNIT_ASSERT(str.wordCount() == 0);
 }

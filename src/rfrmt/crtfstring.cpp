@@ -57,6 +57,20 @@ CRtfString::~CRtfString() {
     }
 }
 
+void CRtfString::addWord(CRtfWord * word) {
+    m_arWords.push_back(word);
+}
+
+void CRtfString::clearWords() {
+    for(WordIterator it = m_arWords.begin(), e= m_arWords.end(); it != e; ++it)
+        delete (*it);
+    m_arWords.clear();
+}
+
+size_t CRtfString::wordCount() const {
+    return m_arWords.size();
+}
+
 int16_t CRtfString::GetStringSizeInTwips() {
     CRtfWord* pRtfWord;
     CRtfChar *pLastChar, *pFirstChar;
@@ -64,8 +78,8 @@ int16_t CRtfString::GetStringSizeInTwips() {
     pFirstChar = pRtfWord->firstChar();
     pRtfWord = (CRtfWord*) m_arWords[m_wWordsCount - 1];
     pLastChar = pRtfWord->lastChar();
-    int16_t LenghtStr = (int16_t) ((pLastChar->idealRect().right() - pFirstChar->idealRect().left())
-            * Twips);
+    int16_t LenghtStr =
+            (int16_t) ((pLastChar->idealRect().right() - pFirstChar->idealRect().left()) * Twips);
     return LenghtStr;
 }
 
