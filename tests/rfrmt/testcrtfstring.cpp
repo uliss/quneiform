@@ -21,4 +21,5 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfString);
 using namespace CIF;
 
 void TestCRtfString::testInit() {
+    CRtfString str;
 }

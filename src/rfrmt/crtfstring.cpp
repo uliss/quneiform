@@ -69,7 +69,7 @@ int16_t CRtfString::GetStringSizeInTwips() {
     return LenghtStr;
 }
 
-uint16_t CRtfString::GetRealStringSize(void) {
+uint16_t CRtfString::GetRealStringSize() {
     char tmp_str[MAX_BUFFER_SIZE];
     CRtfWord* pRtfWord;
     CRtfChar *pRtfChar;

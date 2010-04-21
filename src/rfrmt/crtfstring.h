@@ -25,26 +25,24 @@
 namespace CIF
 {
 
-class CRtfFragment;
 class CRtfWord;
 
-class CRtfString
+class CLA_EXPO CRtfString
 {
     public:
         CRtfString();
         ~CRtfString();
 
-        CRtfWord* GetFirstWord(void);
-        CRtfWord* GetNextWord(void);
-        uint16_t get_max_font_size(void);
-        int16_t GetStringSizeInTwips(void);
-        uint16_t GetRealStringSize(void);
+        CRtfWord* GetNextWord();
+        uint16_t get_max_font_size();
+        int16_t GetStringSizeInTwips();
+        uint16_t GetRealStringSize();
 
-        std::vector<CRtfWord*> m_arWords;
+        typedef std::vector<CRtfWord*> WordList;
+        WordList m_arWords;
 
         uint16_t m_wWordsCount;
         uint16_t m_wIndex;
-        CRtfFragment* m_Frag;
         RECT m_rect;
         uint16_t m_wType;
 
