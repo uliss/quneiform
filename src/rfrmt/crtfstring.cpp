@@ -31,7 +31,6 @@ namespace CIF
 {
 
 CRtfString::CRtfString() {
-    m_wWordsCount = 0;
     m_wLeftIndent = 0;
     m_wRightIndent = 0;
     m_wFirstIndent = 0;
@@ -96,9 +95,9 @@ size_t CRtfString::wordCount() const {
 int16_t CRtfString::GetStringSizeInTwips() {
     CRtfWord* pRtfWord;
     CRtfChar *pLastChar, *pFirstChar;
-    pRtfWord = (CRtfWord*) words_[0];
+    pRtfWord = words_[0];
     pFirstChar = pRtfWord->firstChar();
-    pRtfWord = (CRtfWord*) words_[m_wWordsCount - 1];
+    pRtfWord = words_.back();
     pLastChar = pRtfWord->lastChar();
     int16_t LenghtStr =
             (int16_t) ((pLastChar->idealRect().right() - pFirstChar->idealRect().left()) * Twips);
@@ -113,7 +112,7 @@ uint16_t CRtfString::GetRealStringSize() {
     int16_t strHeight;
     int index = 0;
 
-    for (int nw = 0; nw < m_wWordsCount; nw++) {
+    for (int nw = 0; nw < words_.size(); nw++) {
         pRtfWord = (CRtfWord*) words_[nw];
         int CountChars = pRtfWord->charCount();
 
@@ -133,16 +132,11 @@ uint16_t CRtfString::GetRealStringSize() {
     return RealSize;
 }
 
-CRtfWord* CRtfString::GetNextWord() {
-    words_.push_back(new CRtfWord());
-    return words_.back();
-}
-
 uint16_t CRtfString::get_max_font_size() {
     uint16_t nw, str_max_font = 3;
     CRtfWord* pRtfWord;
 
-    for (nw = 0; nw < m_wWordsCount; nw++) {
+    for (nw = 0; nw < words_.size(); nw++) {
         pRtfWord = (CRtfWord*) words_[nw];
         str_max_font = MAX(str_max_font, pRtfWord->realFontSize());
     }

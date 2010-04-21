@@ -217,7 +217,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
 #endif
         //--- Цикл по словам
-        CountWords = pRtfString->m_wWordsCount;
+        CountWords = pRtfString->wordCount();
 
         for (int nw = 0; nw < CountWords; nw++) {
             pRtfWord = pRtfString->wordAt(nw);
@@ -556,7 +556,7 @@ void CRtfFragment::InitFragment(RtfSectorInfo* SectorInfo) {
     int CountWords;
     pRtfString = (CRtfString*) m_arStrings[0];
     pRtfWord = pRtfString->firstWord();
-    CountWords = pRtfString->m_wWordsCount;
+    CountWords = pRtfString->wordCount();
 
     if (m_wStringsCount == 1 && SectorInfo->CountFragments > 1) {
         if (pRtfWord->realFontSize() >= 14)
@@ -1677,7 +1677,7 @@ void CRtfFragment::CalculationLengthAndCount(CRtfString* pRtfString, int32_t* Co
     CRtfWord *pRtfWord;
     CRtfChar *pRtfChar;
     uint16_t CountWords;
-    CountWords = pRtfString->m_wWordsCount;
+    CountWords = pRtfString->wordCount();
 
     for (int i = 0; i < CountWords; i++) {
         pRtfWord = pRtfString->wordAt(i);
@@ -1733,7 +1733,7 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
         pRtfString = (CRtfString*) m_arStrings[ns];
 
         if (pRtfString->m_wFlagBeginParagraph == TRUE) {
-            CountWords = pRtfStringPrev->m_wWordsCount;
+            CountWords = pRtfStringPrev->wordCount();
             pRtfWord = pRtfStringPrev->lastWord();
             pRtfChar = pRtfWord->lastChar();
 
@@ -2059,7 +2059,7 @@ Bool CRtfFragment::GetFlagBigSpace(int beg, int end) {
     for (int ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
 
-        for (int i = 1; i < pRtfString->m_wWordsCount; i++) {
+        for (int i = 1; i < pRtfString->wordCount(); i++) {
             pRtfWordPrev = pRtfString->wordAt(i - 1);
             pRtfWordCur = pRtfString->wordAt(i);
             pRtfCharPrev = pRtfWordPrev->lastChar();

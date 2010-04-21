@@ -69,12 +69,10 @@ class CLA_EXPO CRtfString
          */
         size_t wordCount() const;
 
-        CRtfWord* GetNextWord();
         uint16_t get_max_font_size();
         int16_t GetStringSizeInTwips();
         uint16_t GetRealStringSize();
 
-        uint16_t m_wWordsCount;
         uint16_t m_wIndex;
         RECT m_rect;
         uint16_t m_wType;

@@ -270,11 +270,12 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
             //Реальные коор. строки!
             fread(&SRect, sizeof(Rect16), 1, in);
             fread(&tmp, 2, 1, in);
-            pRtfString->m_wWordsCount = tmp;
+            int word_count = tmp;
             fread(&tmp, sizeof(uint32_t), 1, in);//NEGA_STR
 
-            for (nw = 0; nw < pRtfString->m_wWordsCount; ++nw) {
-                pRtfWord = pRtfString->GetNextWord();
+            for (nw = 0; nw < word_count; ++nw) {
+                pRtfWord = new CRtfWord;
+                pRtfString->addWord(pRtfWord);
                 fread(&tmp, 2, 1, in);
                 int char_count = tmp;
                 fread(&tmp, 2, 1, in);
@@ -638,7 +639,7 @@ void CRtfPage::CorrectKegl(void) {
 
         for (int ns = 0; ns < CountStrings; ns++) {
             pRtfString = pRtfFragment->m_arStrings[ns];
-            CountWords = pRtfString->m_wWordsCount;
+            CountWords = pRtfString->wordCount();
             //Считаем длину получившейся строки
             int len = 0;
 
@@ -704,7 +705,7 @@ void CRtfPage::ChangeKegl(void) {
 
         for (int ns = 0; ns < CountStrings; ns++) {
             pRtfString = (CRtfString*) pRtfFragment->m_arStrings[ns];
-            CountWords = pRtfString->m_wWordsCount;
+            CountWords = pRtfString->wordCount();
 
             for (int nw = 0; nw < CountWords; nw++) {
                 pRtfWord = pRtfString->wordAt(nw);
