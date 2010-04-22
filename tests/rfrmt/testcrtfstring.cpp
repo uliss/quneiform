@@ -20,6 +20,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfString);
 #include "rfrmt/crtfstring.h"
 #include "rfrmt/crtfword.h"
 #include "rfrmt/crtfchar.h"
+#include "rfrmt/creatertf.h"
 using namespace CIF;
 
 void TestCRtfString::testInit() {
@@ -88,7 +89,9 @@ void TestCRtfString::testStartsWithChar() {
 
 void TestCRtfString::testStartsWithDigit() {
     CRtfString str;
+    CPPUNIT_ASSERT(!str.startsWithDigit());
     str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(!str.startsWithDigit());
     CRtfChar * chr = new CRtfChar(' ', 0);
     str.firstWord()->addChar(chr);
     str.firstWord()->addChar(new CRtfChar(' ', 0));
@@ -101,9 +104,29 @@ void TestCRtfString::testStartsWithDigit() {
         CPPUNIT_ASSERT(str.startsWithDigit());
     }
 
-    std::string non_chars("x!@#$%^&*()qweryuiopsdfghjklcvbnm,");
+    std::string non_chars("x!@#$%^&*()q-weryuiopsdfghjklcvbnm,");
     for (size_t i = 0; i < non_chars.length(); i++) {
         chr->first().setChar(non_chars[i]);
         CPPUNIT_ASSERT(!str.startsWithDigit());
+    }
+}
+
+void TestCRtfString::testStartWithDash() {
+    CRtfString str;
+    CPPUNIT_ASSERT(!str.startsWithDash());
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(!str.startsWithDash());
+    CRtfChar * chr = new CRtfChar(' ', 0);
+    str.firstWord()->addChar(chr);
+    CPPUNIT_ASSERT(!str.startsWithDash());
+    chr->first().setChar('-');
+    CPPUNIT_ASSERT(str.startsWithDash());
+    chr->first().setChar(TIRE);
+    CPPUNIT_ASSERT(str.startsWithDash());
+
+    std::string non_dash("x!@#$%^&*12313214()qweryuiopsdfghjklcvbnm,");
+    for (size_t i = 0; i < non_dash.length(); i++) {
+        chr->first().setChar(non_dash[i]);
+        CPPUNIT_ASSERT(!str.startsWithDash());
     }
 }

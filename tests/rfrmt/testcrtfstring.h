@@ -31,6 +31,7 @@ class TestCRtfString: public CppUnit::TestFixture
     CPPUNIT_TEST(testFirstChar);
     CPPUNIT_TEST(testStartsWithChar);
     CPPUNIT_TEST(testStartsWithDigit);
+    CPPUNIT_TEST(testStartWithDash);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -40,6 +41,7 @@ public:
     void testFirstChar();
     void testStartsWithChar();
     void testStartsWithDigit();
+    void testStartWithDash();
 };
 
 #endif /* TESTCRTFSTRING_H_ */
