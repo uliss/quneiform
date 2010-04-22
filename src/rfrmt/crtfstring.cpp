@@ -30,6 +30,7 @@ namespace CIF
 
 const int SMALLEST_FONT_SIZE = 3;
 const char SPACE = ' ';
+const unsigned char HYPHEN = '-';
 
 CRtfString::CRtfString() :
     m_wLeftIndent(0), m_wRightIndent(0), m_wFirstIndent(0), m_wFlagBeginParagraph(0), m_wAlignment(
@@ -52,6 +53,16 @@ void CRtfString::clearWords() {
     words_.clear();
 }
 
+CRtfChar * CRtfString::firstChar() {
+    return const_cast<CRtfChar*> (const_cast<const CRtfString*> (this)->firstChar());
+}
+
+const CRtfChar * CRtfString::firstChar() const {
+    if (words_.empty() || words_.front()->empty())
+        return NULL;
+    return words_.front()->firstChar();
+}
+
 CRtfWord * CRtfString::firstWord() {
     return const_cast<CRtfWord*> (const_cast<const CRtfString*> (this)->firstWord());
 }
@@ -60,6 +71,16 @@ const CRtfWord * CRtfString::firstWord() const {
     if (words_.empty())
         throw std::out_of_range("[CRtfString::firstWord] string is empty");
     return words_.front();
+}
+
+const CRtfChar * CRtfString::lastChar() const {
+    if (words_.empty() || words_.back()->empty())
+        return NULL;
+    return words_.back()->lastChar();
+}
+
+CRtfChar * CRtfString::lastChar() {
+    return const_cast<CRtfChar*> (const_cast<const CRtfString*> (this)->lastChar());
 }
 
 CRtfWord * CRtfString::lastWord() {
@@ -119,6 +140,25 @@ uint CRtfString::realLength() const {
 
 void CRtfString::setLineTransfer(bool value) {
     line_break_ = value;
+}
+
+bool CRtfString::startsWith(unsigned char chr) const {
+    return firstChar() ? (firstChar()->getChar() == chr) : false;
+}
+
+bool CRtfString::startsWithDash() const {
+    const CRtfChar * first = firstChar();
+    if (first) {
+        uchar chr = first->getChar();
+        return chr == HYPHEN || chr == TIRE;
+    } else {
+        return false;
+    }
+}
+
+bool CRtfString::startsWithDigit() const {
+    const CRtfChar * first = firstChar();
+    return first ? isdigit(first->getChar()) != 0 : false;
 }
 
 std::string CRtfString::toString() const {

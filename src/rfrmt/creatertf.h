@@ -82,7 +82,7 @@ class CEDPage;
 typedef std::vector<uint16_t> vectorWord;
 #define  TwipsToEMU_Koef (360000 * 2.54)/1440
 
-#define TIRE                  0x97        //'-'
+const unsigned char TIRE = 0x97;        //'-'
 //Fragment output types
 #define FOT_SINGLE            0
 #define FOT_FRAME             1

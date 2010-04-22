@@ -95,6 +95,10 @@ void CRtfWord::clearChars() {
     chars_.clear();
 }
 
+bool CRtfWord::empty() const {
+    return chars_.empty();
+}
+
 CRtfChar * CRtfWord::firstChar() {
     return const_cast<CRtfChar*> (const_cast<const CRtfWord*> (this)->firstChar());
 }

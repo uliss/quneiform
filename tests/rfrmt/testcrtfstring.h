@@ -28,12 +28,18 @@ class TestCRtfString: public CppUnit::TestFixture
     CPPUNIT_TEST(testClearWords);
     CPPUNIT_TEST(testToString);
     CPPUNIT_TEST(testRealLength);
+    CPPUNIT_TEST(testFirstChar);
+    CPPUNIT_TEST(testStartsWithChar);
+    CPPUNIT_TEST(testStartsWithDigit);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testClearWords();
     void testToString();
     void testRealLength();
+    void testFirstChar();
+    void testStartsWithChar();
+    void testStartsWithDigit();
 };
 
 #endif /* TESTCRTFSTRING_H_ */

@@ -26,6 +26,7 @@
 namespace CIF
 {
 
+class CRtfChar;
 class CRtfWord;
 
 class CLA_EXPO CRtfString
@@ -45,11 +46,25 @@ class CLA_EXPO CRtfString
         void clearWords();
 
         /**
+         * Returns first char in string
+         * @return NULL if string is empty
+         */
+        CRtfChar * firstChar();
+        const CRtfChar * firstChar() const;
+
+        /**
          * Returns pointer to first word
          * @throw std::out_of_range if string is empty
          */
         CRtfWord * firstWord();
         const CRtfWord * firstWord() const;
+
+        /**
+         * Returns last char in string
+         * @return 0 if string is empty
+         */
+        CRtfChar * lastChar();
+        const CRtfChar * lastChar() const;
 
         /**
          * Returns pointer to last word in string
@@ -84,6 +99,21 @@ class CLA_EXPO CRtfString
         void setLineTransfer(bool value);
 
         /**
+         * Checks if string starts with symbol chr
+         */
+        bool startsWith(unsigned char chr) const;
+
+        /**
+         * Checks if string starts with dash
+         */
+        bool startsWithDash() const;
+
+        /**
+         * Checs if string starts with digit
+         */
+        bool startsWithDigit() const;
+
+        /**
          * Returns string content as std::string
          */
         std::string toString() const;
@@ -115,7 +145,7 @@ class CLA_EXPO CRtfString
         uchar m_wCentreEqual;
 
         uchar m_LastChar;
-        uchar m_FirstChar;
+
         uchar m_Attr;
         uchar m_FlagCarry;
         uint32_t S_Flags; //NEGA_STR vmk 10-06-2001

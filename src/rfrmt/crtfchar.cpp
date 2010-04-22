@@ -17,6 +17,8 @@
  ***************************************************************************/
 
 #include <cassert>
+#include <cctype> // for isdigit
+#include <iostream>
 
 #include "crtfchar.h"
 #include "recdefs.h"
@@ -42,6 +44,10 @@ void CRtfChar::addVersion(const Letter& version) {
     versions_.push_back(version);
 }
 
+bool CRtfChar::empty() const {
+    return versions_.empty();
+}
+
 const Letter& CRtfChar::first() const {
     if (versions_.empty())
         throw std::out_of_range("[CRtfChar::first] no char versions");
@@ -60,8 +66,19 @@ short CRtfChar::fontSize() const {
     return font_size_;
 }
 
+unsigned char CRtfChar::getChar() const {
+    return versions_.empty() ? uchar(0) : versions_.front().getChar();
+}
+
 Rect CRtfChar::idealRect() const {
     return ideal_rect_;
+}
+
+bool CRtfChar::isDigit() const {
+    if (versions_.empty())
+        return false;
+
+    return isdigit(versions_.front().getChar());
 }
 
 language_t CRtfChar::language() const {

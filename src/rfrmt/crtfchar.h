@@ -44,6 +44,11 @@ class CLA_EXPO CRtfChar
         void addVersion(const Letter& version);
 
         /**
+         * Returns true if char contains no versions
+         */
+        bool empty() const;
+
+        /**
          * Returns first alternative
          */
         const Letter& first() const;
@@ -64,9 +69,20 @@ class CLA_EXPO CRtfChar
         short fontSize() const;
 
         /**
+         * Returns first char version
+         * @return 0 if no versions exists
+         */
+        unsigned char getChar() const;
+
+        /**
          * Returns ideal char bounding rectangle
          */
         Rect idealRect() const;
+
+        /**
+         * Returns true if char is digit (0-9)
+         */
+        bool isDigit() const;
 
         /**
          * Returns character language

@@ -844,7 +844,6 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
 
         pRtfWord = pRtfString->firstWord();
         pRtfCharFirst = pRtfWord->firstChar();
-        pRtfString->m_FirstChar = pRtfCharFirst->first().getChar();
         pRtfWord = pRtfString->lastWord();
         pRtfCharLast = pRtfWord->lastChar();
         pRtfString->m_LastChar = pRtfCharLast->first().getChar();
@@ -1184,15 +1183,14 @@ void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int e
                 - pRtfStringPrev->m_wLeftIndent) > m_max_dist)) || (pRtfStringPrev->m_wRightIndent
                 > 10 * m_max_dist) || ((pRtfStringPrev->m_wRightIndent > 5 * m_max_dist)
                 && (pRtfStringPrev->m_LastChar == ';' || pRtfStringPrev->m_LastChar == '.'))
-                || (CheckNumber(pRtfString->m_FirstChar) && (pRtfStringPrev->m_LastChar == ';'
+                || (pRtfString->startsWithDigit() && (pRtfStringPrev->m_LastChar == ';'
                         || pRtfStringPrev->m_LastChar == '.')) || ((pRtfString->m_wLeftIndent > 3
-                * m_max_dist / 2) && (pRtfStringPrev->m_LastChar == '.' || pRtfString->m_FirstChar
-                == TIRE)) || (pRtfStringPrev->m_LastChar == '.' && (pRtfString->m_FirstChar == '-'
-                || pRtfString->m_FirstChar == TIRE)) || (pRtfStringPrev->m_LastChar == '?'
-                && (pRtfString->m_FirstChar == '-' || pRtfString->m_FirstChar == TIRE))
-                || (pRtfStringPrev->m_LastChar == ':' && (pRtfString->m_FirstChar == '-'
-                        || pRtfString->m_FirstChar == TIRE)) || (pRtfStringPrev->m_wRightIndent > 2
-                * m_max_dist && pRtfString->m_FirstChar == TIRE))
+                * m_max_dist / 2) && (pRtfStringPrev->m_LastChar == '.'
+                || pRtfString->startsWithDash())) || (pRtfStringPrev->m_LastChar == '.'
+                && pRtfString->startsWithDash()) || (pRtfStringPrev->m_LastChar == '?'
+                && pRtfString->startsWithDash()) || (pRtfStringPrev->m_LastChar == ':'
+                && pRtfString->startsWithDash()) || (pRtfStringPrev->m_wRightIndent > 2
+                * m_max_dist && pRtfString->startsWithDash()))
             pRtfString->m_wFlagBeginParagraph = TRUE;
     }
 }
@@ -1337,13 +1335,12 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end) {
 
         if (((pRtfString->m_wLeftIndent - LeftDif) > 2 * m_max_dist)
                 || ((pRtfStringPrev->m_wRightIndent - RightDif) > (RightFragm - LeftFragm) / 3)
-                || ((pRtfString->m_wLeftIndent > m_max_dist) && (pRtfString->m_FirstChar == '—'
-                        || pRtfString->m_FirstChar == TIRE)) || (CheckNumber(
-                pRtfString->m_FirstChar) && (pRtfStringPrev->m_LastChar == ';'
-                || pRtfStringPrev->m_LastChar == '.')) || (pRtfStringPrev->m_LastChar == '.'
-                && FlagStringParagraphSoft == TRUE && (pRtfStringPrev->m_wRightIndent - RightDif)
-                > 5 * m_max_dist) || (pRtfStringPrev->m_LastChar == '.' && FlagStringParagraph
-                == TRUE)) {
+                || ((pRtfString->m_wLeftIndent > m_max_dist) && pRtfString->startsWithDash())
+                || (pRtfString->startsWithDigit() && (pRtfStringPrev->m_LastChar == ';'
+                        || pRtfStringPrev->m_LastChar == '.')) || (pRtfStringPrev->m_LastChar
+                == '.' && FlagStringParagraphSoft == TRUE && (pRtfStringPrev->m_wRightIndent
+                - RightDif) > 5 * m_max_dist) || (pRtfStringPrev->m_LastChar == '.'
+                && FlagStringParagraph == TRUE)) {
             pRtfStringPrev->setLineTransfer(false);
             pRtfString->m_wFlagBeginParagraph = TRUE;
         }
@@ -1579,7 +1576,6 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
 
         pRtfWord = pRtfString->firstWord();
         pRtfCharFirst = pRtfWord->firstChar();
-        pRtfString->m_FirstChar = pRtfCharFirst->first().getChar();
         pRtfWord = pRtfString->lastWord();
         pRtfCharLast = pRtfWord->lastChar();
         pRtfString->m_LastChar = pRtfCharLast->first().getChar();

@@ -64,3 +64,46 @@ void TestCRtfString::testRealLength() {
     str.firstWord()->addChar(new CRtfChar('a', 100));
     CPPUNIT_ASSERT(str.realLength() == 0);
 }
+
+void TestCRtfString::testFirstChar() {
+    CRtfString str;
+    CPPUNIT_ASSERT(str.firstChar() == NULL);
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(str.firstChar() == NULL);
+    CRtfChar * chr = new CRtfChar;
+    str.firstWord()->addChar(chr);
+    CPPUNIT_ASSERT(str.firstChar() == chr);
+}
+
+void TestCRtfString::testStartsWithChar() {
+    CRtfString str;
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(!str.startsWith('1'));
+    std::string chars("123");
+    for (size_t i = 0; i < chars.length(); i++) {
+        str.firstWord()->addChar(new CRtfChar(chars[i], 0));
+    }
+    CPPUNIT_ASSERT(str.startsWith('1'));
+}
+
+void TestCRtfString::testStartsWithDigit() {
+    CRtfString str;
+    str.addWord(new CRtfWord);
+    CRtfChar * chr = new CRtfChar(' ', 0);
+    str.firstWord()->addChar(chr);
+    str.firstWord()->addChar(new CRtfChar(' ', 0));
+    CPPUNIT_ASSERT(str.firstChar() == chr);
+    CPPUNIT_ASSERT(!str.startsWithDigit());
+
+    std::string chars("0123456789");
+    for (size_t i = 0; i < chars.length(); i++) {
+        chr->first().setChar(chars[i]);
+        CPPUNIT_ASSERT(str.startsWithDigit());
+    }
+
+    std::string non_chars("x!@#$%^&*()qweryuiopsdfghjklcvbnm,");
+    for (size_t i = 0; i < non_chars.length(); i++) {
+        chr->first().setChar(non_chars[i]);
+        CPPUNIT_ASSERT(!str.startsWithDigit());
+    }
+}

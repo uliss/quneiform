@@ -73,6 +73,11 @@ class CLA_EXPO CRtfWord
         void clearChars();
 
         /**
+         * Returns true if word contains no chars
+         */
+        bool empty() const;
+
+        /**
          * Returns pointer to first char
          * @throw std::out_of_range if word is empty
          */
