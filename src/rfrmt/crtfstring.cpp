@@ -151,13 +151,7 @@ bool CRtfString::startsWith(int c) const {
 }
 
 bool CRtfString::startsWithDash() const {
-    const CRtfChar * first = firstChar();
-    if (first) {
-        uchar chr = first->getChar();
-        return chr == HYPHEN || chr == TIRE;
-    } else {
-        return false;
-    }
+    return startsWith(HYPHEN) || startsWith(TIRE);
 }
 
 bool CRtfString::startsWithDigit() const {
