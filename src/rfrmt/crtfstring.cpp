@@ -47,6 +47,10 @@ void CRtfString::addWord(CRtfWord * word) {
     words_.push_back(word);
 }
 
+int CRtfString::center() const {
+    return (m_LeftBorder + m_RightBorder) / 2;
+}
+
 void CRtfString::clearWords() {
     for (WordIterator it = words_.begin(), e = words_.end(); it != e; ++it)
         delete (*it);

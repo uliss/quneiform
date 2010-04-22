@@ -867,8 +867,6 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         pRtfString = (CRtfString*) m_arStrings[ns];
         pRtfString->m_wLeftIndent = (int16_t) (pRtfString->m_LeftBorder - m_l_fragment);
         pRtfString->m_wRightIndent = (int16_t) (m_r_fragment - pRtfString->m_RightBorder);
-        pRtfString->m_wCentre = (int16_t) (pRtfString->m_LeftBorder + pRtfString->m_RightBorder)
-                / 2;
     }
 
     // Присваиваются признаки равенства концов и середины соседних строк
@@ -877,7 +875,7 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         pRtfString = (CRtfString*) m_arStrings[ns];
         LeftDif = pRtfString->m_wLeftIndent - pRtfStringPrev->m_wLeftIndent;
         RightDif = pRtfString->m_wRightIndent - pRtfStringPrev->m_wRightIndent;
-        CentreDif = pRtfString->m_wCentre - pRtfStringPrev->m_wCentre;
+        CentreDif = pRtfString->center() - pRtfStringPrev->center();
 
         if (abs(LeftDif) <= m_max_dist) {
             pRtfString->m_wLeftBorderEqual = TRUE;
@@ -1588,7 +1586,7 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
         pRtfString = (CRtfString*) m_arStrings[ns];
         LeftDif = pRtfString->m_wLeftIndent - pRtfStringPrev->m_wLeftIndent;
         RightDif = pRtfString->m_wRightIndent - pRtfStringPrev->m_wRightIndent;
-        CentreDif = pRtfString->m_wCentre - pRtfStringPrev->m_wCentre;
+        CentreDif = pRtfString->center() - pRtfStringPrev->center();
 
         if (abs(LeftDif) <= m_max_dist) {
             pRtfString->m_wLeftBorderEqual = TRUE;

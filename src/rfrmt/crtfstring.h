@@ -41,6 +41,11 @@ class CLA_EXPO CRtfString
         void addWord(CRtfWord * word);
 
         /**
+         * Returns string center coord
+         */
+        int center() const;
+
+        /**
          * Removes all words from string
          */
         void clearWords();
@@ -139,7 +144,6 @@ class CLA_EXPO CRtfString
         int32_t m_RightBorder;
         uint16_t m_wLeftIndent;
         uint16_t m_wRightIndent;
-        uint16_t m_wCentre;
         uint16_t m_wFirstIndent;
         uint16_t m_wFlagBeginParagraph;
         uint16_t m_wAlignment;
