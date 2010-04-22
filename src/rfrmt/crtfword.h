@@ -78,6 +78,11 @@ class CLA_EXPO CRtfWord
         bool empty() const;
 
         /**
+         * Returns turne is word ends with given char
+         */
+        bool endsWith(int c) const;
+
+        /**
          * Returns pointer to first char
          * @throw std::out_of_range if word is empty
          */
@@ -127,6 +132,11 @@ class CLA_EXPO CRtfWord
          * Sets real font size
          */
         void setRealFontSize(short size);
+
+        /**
+         * Returns true if word start from given char
+         */
+        bool startsWith(int c) const;
 
         /**
          * Returns word as string

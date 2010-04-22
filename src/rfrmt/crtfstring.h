@@ -46,6 +46,11 @@ class CLA_EXPO CRtfString
         void clearWords();
 
         /**
+         * Returns true if string ends with given char
+         */
+        bool endsWith(int c) const;
+
+        /**
          * Returns first char in string
          * @return NULL if string is empty
          */
@@ -101,7 +106,7 @@ class CLA_EXPO CRtfString
         /**
          * Checks if string starts with symbol chr
          */
-        bool startsWith(unsigned char chr) const;
+        bool startsWith(int c) const;
 
         /**
          * Checks if string starts with dash
@@ -143,9 +148,6 @@ class CLA_EXPO CRtfString
         uchar m_wLeftBorderEqual;
         uchar m_wRightBorderEqual;
         uchar m_wCentreEqual;
-
-        uchar m_LastChar;
-
         uchar m_Attr;
         uchar m_FlagCarry;
         uint32_t S_Flags; //NEGA_STR vmk 10-06-2001

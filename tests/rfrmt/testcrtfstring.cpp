@@ -76,7 +76,7 @@ void TestCRtfString::testFirstChar() {
     CPPUNIT_ASSERT(str.firstChar() == chr);
 }
 
-void TestCRtfString::testStartsWithChar() {
+void TestCRtfString::testStartsWith() {
     CRtfString str;
     str.addWord(new CRtfWord);
     CPPUNIT_ASSERT(!str.startsWith('1'));
@@ -85,6 +85,7 @@ void TestCRtfString::testStartsWithChar() {
         str.firstWord()->addChar(new CRtfChar(chars[i], 0));
     }
     CPPUNIT_ASSERT(str.startsWith('1'));
+    CPPUNIT_ASSERT(str.endsWith('3'));
 }
 
 void TestCRtfString::testStartsWithDigit() {

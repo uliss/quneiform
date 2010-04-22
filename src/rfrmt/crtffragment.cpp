@@ -846,7 +846,6 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         pRtfCharFirst = pRtfWord->firstChar();
         pRtfWord = pRtfString->lastWord();
         pRtfCharLast = pRtfWord->lastChar();
-        pRtfString->m_LastChar = pRtfCharLast->first().getChar();
         pRtfString->m_LeftBorder = pRtfCharFirst->idealRect().left();
         pRtfString->m_RightBorder = pRtfCharLast->idealRect().right();
         CalculationLengthAndCount(pRtfString, &CountChars, &LengthChars);
@@ -1182,15 +1181,15 @@ void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int e
         if (((pRtfString->m_wLeftIndent > 2 * m_max_dist) && (abs(pRtfString->m_wLeftIndent
                 - pRtfStringPrev->m_wLeftIndent) > m_max_dist)) || (pRtfStringPrev->m_wRightIndent
                 > 10 * m_max_dist) || ((pRtfStringPrev->m_wRightIndent > 5 * m_max_dist)
-                && (pRtfStringPrev->m_LastChar == ';' || pRtfStringPrev->m_LastChar == '.'))
-                || (pRtfString->startsWithDigit() && (pRtfStringPrev->m_LastChar == ';'
-                        || pRtfStringPrev->m_LastChar == '.')) || ((pRtfString->m_wLeftIndent > 3
-                * m_max_dist / 2) && (pRtfStringPrev->m_LastChar == '.'
-                || pRtfString->startsWithDash())) || (pRtfStringPrev->m_LastChar == '.'
-                && pRtfString->startsWithDash()) || (pRtfStringPrev->m_LastChar == '?'
-                && pRtfString->startsWithDash()) || (pRtfStringPrev->m_LastChar == ':'
-                && pRtfString->startsWithDash()) || (pRtfStringPrev->m_wRightIndent > 2
-                * m_max_dist && pRtfString->startsWithDash()))
+                && (pRtfStringPrev->endsWith(';') || pRtfStringPrev->endsWith('.')))
+                || (pRtfString->startsWithDigit() && (pRtfStringPrev->endsWith(';')
+                        || pRtfStringPrev->endsWith('.'))) || ((pRtfString->m_wLeftIndent > 3
+                * m_max_dist / 2)
+                && (pRtfStringPrev->endsWith('.') || pRtfString->startsWithDash()))
+                || (pRtfStringPrev->endsWith('.') && pRtfString->startsWithDash())
+                || (pRtfStringPrev->endsWith('?') && pRtfString->startsWithDash())
+                || (pRtfStringPrev->endsWith(':') && pRtfString->startsWithDash())
+                || (pRtfStringPrev->m_wRightIndent > 2 * m_max_dist && pRtfString->startsWithDash()))
             pRtfString->m_wFlagBeginParagraph = TRUE;
     }
 }
@@ -1313,7 +1312,7 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end) {
     for (ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
 
-        if (pRtfString->m_LastChar == '.')
+        if (pRtfString->endsWith('.'))
             Count++;
     }
 
@@ -1336,11 +1335,10 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end) {
         if (((pRtfString->m_wLeftIndent - LeftDif) > 2 * m_max_dist)
                 || ((pRtfStringPrev->m_wRightIndent - RightDif) > (RightFragm - LeftFragm) / 3)
                 || ((pRtfString->m_wLeftIndent > m_max_dist) && pRtfString->startsWithDash())
-                || (pRtfString->startsWithDigit() && (pRtfStringPrev->m_LastChar == ';'
-                        || pRtfStringPrev->m_LastChar == '.')) || (pRtfStringPrev->m_LastChar
-                == '.' && FlagStringParagraphSoft == TRUE && (pRtfStringPrev->m_wRightIndent
-                - RightDif) > 5 * m_max_dist) || (pRtfStringPrev->m_LastChar == '.'
-                && FlagStringParagraph == TRUE)) {
+                || (pRtfString->startsWithDigit() && (pRtfStringPrev->endsWith(';')
+                        || pRtfStringPrev->endsWith('.'))) || (pRtfStringPrev->endsWith('.')
+                && FlagStringParagraphSoft == TRUE && (pRtfStringPrev->m_wRightIndent - RightDif)
+                > 5 * m_max_dist) || (pRtfStringPrev->endsWith('.') && FlagStringParagraph == TRUE)) {
             pRtfStringPrev->setLineTransfer(false);
             pRtfString->m_wFlagBeginParagraph = TRUE;
         }
@@ -1416,7 +1414,7 @@ Bool CRtfFragment::DeterminationOfRightJustification(int beg, int end) {
         pRtfString->setLineTransfer(true);
         pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
 
-        if (pRtfStringPrev->m_LastChar == '.') {
+        if (pRtfStringPrev->endsWith('.')) {
             pRtfString->m_wFlagBeginParagraph = TRUE;
             pRtfStringPrev->setLineTransfer(false);
         }
@@ -1578,7 +1576,6 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
         pRtfCharFirst = pRtfWord->firstChar();
         pRtfWord = pRtfString->lastWord();
         pRtfCharLast = pRtfWord->lastChar();
-        pRtfString->m_LastChar = pRtfCharLast->first().getChar();
         pRtfString->m_LeftBorder = pRtfCharFirst->idealRect().left();
         pRtfString->m_RightBorder = pRtfCharLast->idealRect().right();
         m_l_fragmentLocal = MIN(m_l_fragmentLocal, (int16_t)pRtfCharFirst->idealRect().left());
@@ -1953,7 +1950,7 @@ Bool CRtfFragment::GetFlagLeft(int beg, int end) {
     for (int ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
 
-        if (pRtfString->m_LastChar == ',') {
+        if (pRtfString->endsWith(',')) {
             Count++;
 
             if (pRtfString->m_wRightIndent > (pRtfString->m_RightBorder - pRtfString->m_LeftBorder)
@@ -1989,7 +1986,7 @@ Bool CRtfFragment::GetFlagStrongLeft(int beg, int end) {
     for (int ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
 
-        if (pRtfString->m_LastChar == '.' || pRtfString->m_LastChar == ',')
+        if (pRtfString->endsWith('.') || pRtfString->endsWith(','))
             Count++;
     }
 

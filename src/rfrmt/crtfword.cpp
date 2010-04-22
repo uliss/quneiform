@@ -99,6 +99,10 @@ bool CRtfWord::empty() const {
     return chars_.empty();
 }
 
+bool CRtfWord::endsWith(int c) const {
+    return chars_.empty() ? false : (chars_.back()->getChar() == c);
+}
+
 CRtfChar * CRtfWord::firstChar() {
     return const_cast<CRtfChar*> (const_cast<const CRtfWord*> (this)->firstChar());
 }
@@ -194,6 +198,10 @@ void CRtfWord::setIdealFontSize(short size) {
 
 void CRtfWord::setRealFontSize(short size) {
     real_font_size_ = size;
+}
+
+bool CRtfWord::startsWith(int c) const {
+    return chars_.empty() ? false : (chars_.front()->getChar() == c);
 }
 
 std::string CRtfWord::toString() const {

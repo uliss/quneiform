@@ -53,6 +53,10 @@ void CRtfString::clearWords() {
     words_.clear();
 }
 
+bool CRtfString::endsWith(int c) const {
+    return words_.empty() ? false : words_.back()->endsWith(c);
+}
+
 CRtfChar * CRtfString::firstChar() {
     return const_cast<CRtfChar*> (const_cast<const CRtfString*> (this)->firstChar());
 }
@@ -142,8 +146,8 @@ void CRtfString::setLineTransfer(bool value) {
     line_break_ = value;
 }
 
-bool CRtfString::startsWith(unsigned char chr) const {
-    return firstChar() ? (firstChar()->getChar() == chr) : false;
+bool CRtfString::startsWith(int c) const {
+    return words_.empty() ? false : words_.back()->startsWith(c);
 }
 
 bool CRtfString::startsWithDash() const {

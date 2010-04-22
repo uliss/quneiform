@@ -29,7 +29,7 @@ class TestCRtfString: public CppUnit::TestFixture
     CPPUNIT_TEST(testToString);
     CPPUNIT_TEST(testRealLength);
     CPPUNIT_TEST(testFirstChar);
-    CPPUNIT_TEST(testStartsWithChar);
+    CPPUNIT_TEST(testStartsWith);
     CPPUNIT_TEST(testStartsWithDigit);
     CPPUNIT_TEST(testStartWithDash);
     CPPUNIT_TEST_SUITE_END();
@@ -39,7 +39,7 @@ public:
     void testToString();
     void testRealLength();
     void testFirstChar();
-    void testStartsWithChar();
+    void testStartsWith();
     void testStartsWithDigit();
     void testStartWithDash();
 };

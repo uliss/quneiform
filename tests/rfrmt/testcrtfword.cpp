@@ -148,3 +148,18 @@ void TestCRtfWord::testToString() {
     wd.clearChars();
     CPPUNIT_ASSERT_EQUAL(std::string(), wd.toString());
 }
+
+void TestCRtfWord::testStartsWith() {
+    CRtfWord wd;
+    CPPUNIT_ASSERT(!wd.startsWith('1'));
+    wd.addChar(new CRtfChar('2', 1));
+    CPPUNIT_ASSERT(wd.startsWith('2'));
+    CPPUNIT_ASSERT(wd.endsWith('2'));
+    CPPUNIT_ASSERT(!wd.startsWith('1'));
+
+    wd.firstChar()->first().setChar('1');
+    CPPUNIT_ASSERT(wd.startsWith('1'));
+    wd.addChar(new CRtfChar('2', 1));
+    CPPUNIT_ASSERT(wd.startsWith('1'));
+    CPPUNIT_ASSERT(wd.endsWith('2'));
+}
