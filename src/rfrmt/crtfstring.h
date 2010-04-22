@@ -70,6 +70,11 @@ class CLA_EXPO CRtfString
         const CRtfWord * firstWord() const;
 
         /**
+         * Returns true if string begin paragraph
+         */
+        bool isParagraphBegin() const;
+
+        /**
          * Returns last char in string
          * @return 0 if string is empty
          */
@@ -119,6 +124,11 @@ class CLA_EXPO CRtfString
         void setLineTransfer(bool value);
 
         /**
+         * Sets string paragraph begining
+         */
+        void setParagraphBegin(bool value);
+
+        /**
          * Checks if string starts with symbol chr
          */
         bool startsWith(int c) const;
@@ -154,7 +164,6 @@ class CLA_EXPO CRtfString
         int32_t m_RightBorder;
         uint16_t m_wRightIndent;
         uint16_t m_wFirstIndent;
-        uint16_t m_wFlagBeginParagraph;
         uint16_t m_wAlignment;
         uint16_t m_LengthStringInTwips;
         uint16_t m_wSpaceBefore;
@@ -170,6 +179,7 @@ class CLA_EXPO CRtfString
         typedef WordList::const_iterator WordIteratorConst;
         WordList words_;
         bool line_break_;
+        bool paragraph_begin_;
         int left_indent_;
 };
 

@@ -33,9 +33,9 @@ const char SPACE = ' ';
 const unsigned char HYPHEN = '-';
 
 CRtfString::CRtfString() :
-    m_wRightIndent(0), m_wFirstIndent(0), m_wFlagBeginParagraph(0), m_wAlignment(0),
-            m_LengthStringInTwips(0), m_wLeftBorderEqual(0), m_wRightBorderEqual(0),
-            m_wCentreEqual(0), m_FlagCarry(0), S_Flags(0), line_break_(false), left_indent_(0) {
+    m_wRightIndent(0), m_wFirstIndent(0), m_wAlignment(0), m_LengthStringInTwips(0),
+            m_wLeftBorderEqual(0), m_wRightBorderEqual(0), m_wCentreEqual(0), m_FlagCarry(0),
+            S_Flags(0), line_break_(false), paragraph_begin_(false), left_indent_(0) {
 
 }
 
@@ -79,6 +79,10 @@ const CRtfWord * CRtfString::firstWord() const {
     if (words_.empty())
         throw std::out_of_range("[CRtfString::firstWord] string is empty");
     return words_.front();
+}
+
+bool CRtfString::isParagraphBegin() const {
+    return paragraph_begin_;
 }
 
 const CRtfChar * CRtfString::lastChar() const {
@@ -156,6 +160,10 @@ void CRtfString::setLeftIndent(int indent) {
 
 void CRtfString::setLineTransfer(bool value) {
     line_break_ = value;
+}
+
+void CRtfString::setParagraphBegin(bool value) {
+    paragraph_begin_ = value;
 }
 
 bool CRtfString::startsWith(int c) const {
