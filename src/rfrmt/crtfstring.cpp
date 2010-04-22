@@ -33,9 +33,9 @@ const char SPACE = ' ';
 const unsigned char HYPHEN = '-';
 
 CRtfString::CRtfString() :
-    m_wLeftIndent(0), m_wRightIndent(0), m_wFirstIndent(0), m_wFlagBeginParagraph(0), m_wAlignment(
-            0), m_LengthStringInTwips(0), m_wLeftBorderEqual(0), m_wRightBorderEqual(0),
-            m_wCentreEqual(0), m_FlagCarry(0), S_Flags(0), line_break_(false) {
+    m_wRightIndent(0), m_wFirstIndent(0), m_wFlagBeginParagraph(0), m_wAlignment(0),
+            m_LengthStringInTwips(0), m_wLeftBorderEqual(0), m_wRightBorderEqual(0),
+            m_wCentreEqual(0), m_FlagCarry(0), S_Flags(0), line_break_(false), left_indent_(0) {
 
 }
 
@@ -122,6 +122,10 @@ size_t CRtfString::wordCount() const {
     return words_.size();
 }
 
+int CRtfString::leftIndent() const {
+    return left_indent_;
+}
+
 int CRtfString::lengthInTwips() const {
     if (words_.empty())
         return 0;
@@ -144,6 +148,10 @@ uint CRtfString::realLength() const {
     const CRtfChar *pRtfChar = firstWord()->firstChar();
     return GetRealSize(str.c_str(), str.length(), firstWord()->realFontSize(), pRtfChar->font(),
             &strHeight);
+}
+
+void CRtfString::setLeftIndent(int indent) {
+    left_indent_ = indent;
 }
 
 void CRtfString::setLineTransfer(bool value) {

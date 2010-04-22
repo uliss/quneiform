@@ -84,6 +84,11 @@ class CLA_EXPO CRtfString
         const CRtfWord * lastWord() const;
 
         /**
+         * Returns left indent
+         */
+        int leftIndent() const;
+
+        /**
          * Returns string length in twips
          */
         int lengthInTwips() const;
@@ -102,6 +107,11 @@ class CLA_EXPO CRtfString
          * Returns real string length in twips
          */
         uint realLength() const;
+
+        /**
+         * Sets string left indent
+         */
+        void setLeftIndent(int indent);
 
         /**
          * Sets line transfer
@@ -142,7 +152,6 @@ class CLA_EXPO CRtfString
 
         int32_t m_LeftBorder;
         int32_t m_RightBorder;
-        uint16_t m_wLeftIndent;
         uint16_t m_wRightIndent;
         uint16_t m_wFirstIndent;
         uint16_t m_wFlagBeginParagraph;
@@ -161,6 +170,7 @@ class CLA_EXPO CRtfString
         typedef WordList::const_iterator WordIteratorConst;
         WordList words_;
         bool line_break_;
+        int left_indent_;
 };
 
 }
