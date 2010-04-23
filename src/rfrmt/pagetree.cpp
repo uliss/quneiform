@@ -2648,7 +2648,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                             pRtfChar->m_bFlg_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying; //~ не знак переноса, а дефис в слове (пр: красно-белый)
                             pRtfChar->m_bFlg_cup_drop = Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop;
                             pRtfChar->setLanguage((language_t)Zn[nc][ns][nw][nz].Alt[0].a_language);
-                            pRtfChar->m_bFlg_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
+                            pRtfChar->setSpelled(Zn[nc][ns][nw][nz].Alt[0].a_Spell);
                             pRtfChar->setFont(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
                             pRtfChar->setFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
                             pRtfChar->setRealRect(toRect(Zn[nc][ns][nw][nz].Title.Z_RealRect));
@@ -2762,7 +2762,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                             pRtfChar->m_bFlg_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying;
                             pRtfChar->m_bFlg_cup_drop = Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop;
                             pRtfChar->setLanguage((language_t)Zn[nc][ns][nw][nz].Alt[0].a_language);
-                            pRtfChar->m_bFlg_spell = Zn[nc][ns][nw][nz].Alt[0].a_Spell;
+                            pRtfChar->setSpelled(Zn[nc][ns][nw][nz].Alt[0].a_Spell);
                             pRtfChar->setFont(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
                             pRtfChar->setFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
                             pRtfChar->setRealRect(toRect(Zn[nc][ns][nw][nz].Title.Z_RealRect));

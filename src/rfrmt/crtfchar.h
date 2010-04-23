@@ -85,6 +85,11 @@ class CLA_EXPO CRtfChar
         bool isDigit() const;
 
         /**
+         * Returns if char spelled
+         */
+        bool isSpelled() const;
+
+        /**
          * Returns character language
          */
         language_t language() const;
@@ -122,6 +127,11 @@ class CLA_EXPO CRtfChar
         void setRealRect(const Rect& rect);
 
         /**
+         * Sets char spelled
+         */
+        void setSpelled(bool value);
+
+        /**
          * Returns reference to character alternative
          * @param pos
          * @return const reference
@@ -140,7 +150,6 @@ class CLA_EXPO CRtfChar
          */
         size_t versionCount() const;
 
-        uchar m_bFlg_spell;
         uchar m_bFlg_spell_nocarrying;
         uchar m_bFlg_cup_drop;
     private:
@@ -151,6 +160,7 @@ class CLA_EXPO CRtfChar
         Rect real_rect_;
         typedef std::vector<Letter> LetterList;
         LetterList versions_;
+        bool spelled_;
 };
 
 }

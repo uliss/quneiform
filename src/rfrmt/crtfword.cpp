@@ -82,7 +82,7 @@ Rect CRtfWord::charsBRect() const {
 
 bool CRtfWord::charSpelling() const {
     for (CharList::const_iterator it = chars_.begin(), end = chars_.end(); it != end; ++it) {
-        if (!(*it)->m_bFlg_spell)
+        if (!(*it)->isSpelled())
             return false;
     }
 

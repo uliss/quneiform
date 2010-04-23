@@ -27,14 +27,14 @@ namespace CIF
 {
 
 CRtfChar::CRtfChar() :
-    m_bFlg_spell(FALSE), m_bFlg_spell_nocarrying(FALSE), m_bFlg_cup_drop(FALSE), language_(
-            LANGUAGE_UNKNOWN), font_number_(0), font_size_(0) {
+    m_bFlg_spell_nocarrying(FALSE), m_bFlg_cup_drop(FALSE), language_(LANGUAGE_UNKNOWN),
+            font_number_(0), font_size_(0), spelled_(false) {
 
 }
 
 CRtfChar::CRtfChar(uchar chr, uchar probability) :
-    m_bFlg_spell(FALSE), m_bFlg_spell_nocarrying(FALSE), m_bFlg_cup_drop(FALSE), language_(
-            LANGUAGE_UNKNOWN), font_number_(0), font_size_(0) {
+    m_bFlg_spell_nocarrying(FALSE), m_bFlg_cup_drop(FALSE), language_(LANGUAGE_UNKNOWN),
+            font_number_(0), font_size_(0), spelled_(false) {
     addVersion(Letter(chr, probability));
 }
 
@@ -81,6 +81,10 @@ bool CRtfChar::isDigit() const {
     return isdigit(versions_.front().getChar());
 }
 
+bool CRtfChar::isSpelled() const {
+    return spelled_;
+}
+
 language_t CRtfChar::language() const {
     return language_;
 }
@@ -107,6 +111,10 @@ void CRtfChar::setLanguage(language_t lang) {
 
 void CRtfChar::setRealRect(const Rect& rect) {
     real_rect_ = rect;
+}
+
+void CRtfChar::setSpelled(bool value) {
+    spelled_ = value;
 }
 
 const Letter& CRtfChar::versionAt(size_t pos) const {

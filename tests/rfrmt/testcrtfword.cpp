@@ -80,7 +80,7 @@ void TestCRtfWord::testCharSpelling() {
     CPPUNIT_ASSERT(wd.charSpelling());
     wd.addChar(new CRtfChar);
     CPPUNIT_ASSERT(!wd.charSpelling());
-    wd.firstChar()->m_bFlg_spell = TRUE;
+    wd.firstChar()->setSpelled(true);
     CPPUNIT_ASSERT(wd.charSpelling());
 }
 

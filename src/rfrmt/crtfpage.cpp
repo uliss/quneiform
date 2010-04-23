@@ -315,7 +315,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                     pRtfChar->setLanguage(alt2.language);
                     pRtfChar->m_bFlg_spell_nocarrying = alt2.spellnocarrying;
                     pRtfChar->m_bFlg_cup_drop = alt2.FlagCapDrop;
-                    pRtfChar->m_bFlg_spell = alt2.spell;
+                    pRtfChar->setSpelled(alt2.spell);
                     pRtfChar->setFont(pRtfWord->fontNumber());
                     pRtfChar->setFontSize(pRtfWord->idealFontSize());
                 }
