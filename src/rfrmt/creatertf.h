@@ -77,66 +77,6 @@
 namespace CIF
 {
 class CEDPage;
-}
-
-typedef std::vector<uint16_t> vectorWord;
-#define  TwipsToEMU_Koef (360000 * 2.54)/1440
-
-const unsigned char TIRE = 0x97;        //'-'
-//Fragment output types
-#define FOT_SINGLE            0
-#define FOT_FRAME             1
-#define FOT_SINGLE_IN_COLUMN  2
-
-//Fragment types
-#define FT_TEXT               0
-#define FT_FRAME              1
-#define FT_TABLE              2
-#define FT_PICTURE            3
-
-//HorizontalColumn types
-#define HC_SingleTerminal     0
-#define HC_AllTerminal        1
-#define HC_FrameAndColumn     2
-#define HC_AllFrame           3
-#define HC_ONLY_PICTURE_TABLE 4
-
-#define MaxFontSize           72
-#define DefFontSize           24
-#define MAX_BUFFER_SIZE       2048
-#define ChangedKeglSize       6
-
-//       wFont bits
-#define TG_EDW_SERIF          1      //сериф.
-#define TG_EDW_GELV           2      //без сериф.
-#define TG_EDW_BOLD           4
-#define TG_EDW_ITALIC         16
-#define TG_EDW_UNDERLINE      64
-#define TG_EDW_NARROW         128     // user defined
-#define NOBOLD                0x0004
-#define NOCURSIV              0x0008
-#define NOSIZE                0x0020
-
-// Formatting Mode
-#define USE_NONE              0x0040   // no formatting
-#define USE_FRAME_AND_COLUMN  0x0001   // use columns & frames
-#define USE_FRAME             0x0002   // use only frames
-// Size A4
-#define DefaultWidthPage      11906
-#define DefaultHeightPage     16838
-
-#define DefMargL              1800 // Left   margin in twips    (the default is 1800).
-#define DefMargR              1800 // Right  margin in twips    (the default is 1800).
-#define DefMargT              1440 // Top    margin in twips    (the default is 1440).
-#define DefMargB              1440 // Bottom margin in twips    (the default is 1440).
-#define RTF_TP_LEFT_ALLIGN           0 //- выравниваение по левому краю
-#define RTF_TP_RIGHT_ALLIGN          1 //- выравнивание по правому краю
-#define RTF_TP_LEFT_AND_RIGHT_ALLIGN 2 //- выравнивание по ширине
-#define RTF_TP_CENTER                3 //- выравнивание по центру
-#define RTF_TP_ONE                   4 //- каждая строка состоит из одного слова, выравнивание левому краю
-#define RTF_TP_TYPE_LINE             5 //- список
-namespace CIF
-{
 class CRtfSector;
 class CRtfFragment;
 class CRtfHorizontalColumn;
@@ -146,5 +86,89 @@ class CRtfString;
 class CRtfWord;
 class CRtfChar;
 }
+
+typedef std::vector<uint16_t> vectorWord;
+const float TwipsToEMU_Koef = (360000 * 2.54) / 1440;
+const unsigned char TIRE = 0x97; //'-'
+
+//Fragment output types
+enum fragment_output_t
+{
+    FOT_SINGLE = 0, FOT_FRAME = 1, FOT_SINGLE_IN_COLUMN = 2
+};
+
+//Fragment types
+enum fragment_t
+{
+    FT_TEXT = 0, FT_FRAME = 1, FT_TABLE = 2, FT_PICTURE = 3
+};
+
+//HorizontalColumn types
+enum hcolumn_t
+{
+    HC_SingleTerminal = 0,
+    HC_AllTerminal = 1,
+    HC_FrameAndColumn = 2,
+    HC_AllFrame = 3,
+    HC_ONLY_PICTURE_TABLE = 4
+};
+
+const int MaxFontSize = 72;
+const int DefFontSize = 24;
+const int MAX_BUFFER_SIZE = 2048;
+const int ChangedKeglSize = 6;
+
+//       wFont bits
+enum
+{
+    TG_EDW_SERIF = 1, //сериф.
+    TG_EDW_GELV = 2, //без сериф.
+    TG_EDW_BOLD = 4,
+    TG_EDW_ITALIC = 16,
+    TG_EDW_UNDERLINE = 64,
+    TG_EDW_NARROW = 128
+// user defined
+};
+
+enum
+{
+    NOBOLD = 0x0004, NOCURSIV = 0x0008, NOSIZE = 0x0020
+};
+
+// Formatting Mode
+enum format_mode_t
+{
+    // no formatting
+    USE_NONE = 0x0040,
+    // use columns & frames
+    USE_FRAME_AND_COLUMN = 0x0001,
+    // use only frames
+    USE_FRAME = 0x0002
+};
+
+// Size A4
+const int DefaultWidthPage = 11906;
+const int DefaultHeightPage = 16838;
+
+const int DefMargL = 1800; // Left   margin in twips    (the default is 1800).
+const int DefMargR = 1800; // Right  margin in twips    (the default is 1800).
+const int DefMargT = 1440; // Top    margin in twips    (the default is 1440).
+const int DefMargB = 1440; // Bottom margin in twips    (the default is 1440).
+
+enum rtf_align_t
+{
+    //- выравниваение по левому краю
+    RTF_TP_LEFT_ALLIGN = 0,
+    //- выравнивание по правому краю
+    RTF_TP_RIGHT_ALLIGN = 1,
+    //- выравнивание по ширине
+    RTF_TP_LEFT_AND_RIGHT_ALLIGN = 2,
+    //- выравнивание по центру
+    RTF_TP_CENTER = 3,
+    //- каждая строка состоит из одного слова, выравнивание левому краю
+    RTF_TP_ONE = 4,
+    //- список
+    RTF_TP_TYPE_LINE = 5
+};
 
 #endif // __CreateRtf_h__
