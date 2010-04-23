@@ -33,9 +33,10 @@ const char SPACE = ' ';
 const unsigned char HYPHEN = '-';
 
 CRtfString::CRtfString() :
-    m_wRightIndent(0), m_wFirstIndent(0), m_wAlignment(0), m_LengthStringInTwips(0),
-            m_wLeftBorderEqual(0), m_wRightBorderEqual(0), m_wCentreEqual(0), S_Flags(0),
-            line_break_(false), paragraph_begin_(false), carry_(false), left_indent_(0) {
+    m_wRightIndent(0), m_wFirstIndent(0), m_wAlignment(0), m_LengthStringInTwips(0), S_Flags(0),
+            line_break_(false), paragraph_begin_(false), carry_(false), has_attributes_(false),
+            equal_center_(false), m_wLeftBorderEqual(false), m_wRightBorderEqual(false),
+            left_indent_(0) {
 
 }
 
@@ -83,6 +84,18 @@ const CRtfWord * CRtfString::firstWord() const {
 
 bool CRtfString::hasAttributes() const {
     return has_attributes_;
+}
+
+bool CRtfString::isEqualCenter() const {
+    return equal_center_;
+}
+
+bool CRtfString::isEqualLeft() const {
+    return m_wLeftBorderEqual;
+}
+
+bool CRtfString::isEqualRight() const {
+    return m_wRightBorderEqual;
 }
 
 bool CRtfString::isParagraphBegin() const {
@@ -164,6 +177,18 @@ uint CRtfString::realLength() const {
 
 void CRtfString::setAttributes(bool value) {
     has_attributes_ = value;
+}
+
+void CRtfString::setEqualCenter(bool value) {
+    equal_center_ = value;
+}
+
+void CRtfString::setEqualLeft(bool value) {
+    m_wLeftBorderEqual = value;
+}
+
+void CRtfString::setEqualRight(bool value) {
+    m_wRightBorderEqual = value;
 }
 
 void CRtfString::setLeftIndent(int indent) {

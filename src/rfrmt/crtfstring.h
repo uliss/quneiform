@@ -74,6 +74,10 @@ class CLA_EXPO CRtfString
          */
         bool hasAttributes() const;
 
+        bool isEqualCenter() const;
+        bool isEqualLeft() const;
+        bool isEqualRight() const;
+
         /**
          * Returns true if string begin paragraph
          */
@@ -125,6 +129,10 @@ class CLA_EXPO CRtfString
 
         /** */
         void setAttributes(bool value);
+
+        void setEqualCenter(bool value);
+        void setEqualLeft(bool value);
+        void setEqualRight(bool value);
 
         /**
          * Sets string left indent
@@ -185,9 +193,6 @@ class CLA_EXPO CRtfString
         uint16_t m_wAlignment;
         uint16_t m_LengthStringInTwips;
         uint16_t m_wSpaceBefore;
-        uchar m_wLeftBorderEqual;
-        uchar m_wRightBorderEqual;
-        uchar m_wCentreEqual;
         uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
     private:
         typedef std::vector<CRtfWord*> WordList;
@@ -198,6 +203,9 @@ class CLA_EXPO CRtfString
         bool paragraph_begin_;
         bool carry_;
         bool has_attributes_;
+        bool equal_center_;
+        bool m_wLeftBorderEqual;
+        bool m_wRightBorderEqual;
         int left_indent_;
 };
 

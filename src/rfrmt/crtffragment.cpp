@@ -876,24 +876,24 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         CentreDif = pRtfString->center() - pRtfStringPrev->center();
 
         if (abs(LeftDif) <= m_max_dist) {
-            pRtfString->m_wLeftBorderEqual = TRUE;
+            pRtfString->setEqualLeft(true);
             m_CountLeftEqual++;
 
             if (ns == 1) {
-                pRtfStringPrev->m_wLeftBorderEqual = TRUE;
+                pRtfStringPrev->setEqualLeft(true);
                 m_CountLeftEqual++;
             }
         }
 
         if (abs(RightDif) <= m_max_dist) {
-            pRtfString->m_wRightBorderEqual = TRUE;
+            pRtfString->setEqualRight(true);
             m_CountRightEqual++;
 
-            if (pRtfString->m_wLeftBorderEqual == TRUE)
+            if (pRtfString->isEqualRight())
                 m_CountLeftRightEqual++;
 
             if (ns == 1) {
-                pRtfStringPrev->m_wRightBorderEqual = TRUE;
+                pRtfStringPrev->setEqualRight(true);
                 m_CountRightEqual++;
                 m_CountLeftRightEqual++;
             }
@@ -904,11 +904,11 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
                 / 2)) || ((abs(CentreDif) < 2 * m_max_dist) && (abs(RightDif - LeftDif) < 3
                 * m_max_dist) && (abs(LeftDif) > 5 * m_max_dist)
                 && (abs(RightDif) > 5 * m_max_dist))) {
-            pRtfString->m_wCentreEqual = TRUE;
+            pRtfString->setEqualCenter(true);
             m_CountCentreEqual++;
 
             if (ns == 1) {
-                pRtfStringPrev->m_wCentreEqual = TRUE;
+                pRtfStringPrev->setEqualCenter(true);
                 m_CountCentreEqual++;
             }
         }
@@ -1040,7 +1040,7 @@ Bool CRtfFragment::CheckLeftRightJustification(int beg, int end) {
     for (int ns = beg + 1; ns < end; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
 
-        if (pRtfString->m_wLeftBorderEqual && pRtfString->m_wRightBorderEqual)
+        if (pRtfString->isEqualLeft() && pRtfString->isEqualRight())
             continue;
 
         if (CheckStringForLeftRightJustification(ns))
@@ -1080,26 +1080,25 @@ void CRtfFragment::GetCountEqual(int beg, int end, uint16_t* Count, int AlignTyp
         switch (AlignType) {
         case RTF_TP_LEFT_ALLIGN:
 
-            if (pRtfString->m_wLeftBorderEqual == TRUE)
+            if (pRtfString->isEqualLeft())
                 (*Count)++;
 
             break;
         case RTF_TP_RIGHT_ALLIGN:
 
-            if (pRtfString->m_wRightBorderEqual == TRUE)
+            if (pRtfString->isEqualRight())
                 (*Count)++;
 
             break;
         case RTF_TP_LEFT_AND_RIGHT_ALLIGN:
 
-            if ((pRtfString->m_wLeftBorderEqual == TRUE) && (pRtfString->m_wRightBorderEqual
-                    == TRUE))
+            if (pRtfString->isEqualLeft() && pRtfString->isEqualRight())
                 (*Count)++;
 
             break;
         case RTF_TP_CENTER:
 
-            if (pRtfString->m_wCentreEqual == TRUE)
+            if (pRtfString->isEqualCenter())
                 (*Count)++;
 
             break;
@@ -1538,9 +1537,9 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
 
     for (ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
-        pRtfString->m_wLeftBorderEqual = FALSE;
-        pRtfString->m_wRightBorderEqual = FALSE;
-        pRtfString->m_wCentreEqual = FALSE;
+        pRtfString->setEqualLeft(false);
+        pRtfString->setEqualRight(false);
+        pRtfString->setEqualCenter(false);
     }
 
     //  I. Поиск:       Левой(m_l_fragmentLocal) и правой(m_r_fragmentLocal) границ фрагмента
@@ -1587,24 +1586,24 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
         CentreDif = pRtfString->center() - pRtfStringPrev->center();
 
         if (abs(LeftDif) <= m_max_dist) {
-            pRtfString->m_wLeftBorderEqual = TRUE;
+            pRtfString->setEqualLeft(true);
             m_CountLeftEqual++;
 
             if (ns == beg) {
-                pRtfStringPrev->m_wLeftBorderEqual = TRUE;
+                pRtfStringPrev->setEqualLeft(true);
                 m_CountLeftEqual++;
             }
         }
 
         if (abs(RightDif) <= m_max_dist) {
-            pRtfString->m_wRightBorderEqual = TRUE;
+            pRtfString->setEqualRight(true);
             m_CountRightEqual++;
 
-            if (pRtfString->m_wLeftBorderEqual == TRUE)
+            if (pRtfString->isEqualRight())
                 m_CountLeftRightEqual++;
 
             if (ns == beg) {
-                pRtfStringPrev->m_wRightBorderEqual = TRUE;
+                pRtfStringPrev->setEqualRight(true);
                 m_CountRightEqual++;
                 m_CountLeftRightEqual++;
             }
@@ -1613,11 +1612,11 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
         if ((abs(CentreDif) < m_max_dist) && ((LeftDif <= 0 && RightDif <= 0) || (LeftDif > 0
                 && RightDif > 0)) && (abs(LeftDif) > m_max_dist / 2) && (abs(RightDif) > m_max_dist
                 / 2)) {
-            pRtfString->m_wCentreEqual = TRUE;
+            pRtfString->setEqualCenter(true);
             m_CountCentreEqual++;
 
             if (ns == beg) {
-                pRtfStringPrev->m_wCentreEqual = TRUE;
+                pRtfStringPrev->setEqualCenter(true);
                 m_CountCentreEqual++;
             }
         }
