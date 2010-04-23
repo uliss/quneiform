@@ -25,6 +25,7 @@ install(FILES
     imagerawdata.h
     rect.h
     point.h
+    serialize.h
     size.h
     singleton.h
     outputformat.h
