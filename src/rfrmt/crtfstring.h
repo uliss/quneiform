@@ -70,6 +70,11 @@ class CLA_EXPO CRtfString
         const CRtfWord * firstWord() const;
 
         /**
+         * Checks is string has attributes
+         */
+        bool hasAttributes() const;
+
+        /**
          * Returns true if string begin paragraph
          */
         bool isParagraphBegin() const;
@@ -99,6 +104,11 @@ class CLA_EXPO CRtfString
         int lengthInTwips() const;
 
         /**
+         * Returns true if string in carrying
+         */
+        bool lineCarry() const;
+
+        /**
          * Returns string line transfer
          */
         bool lineTransfer() const;
@@ -113,10 +123,18 @@ class CLA_EXPO CRtfString
          */
         uint realLength() const;
 
+        /** */
+        void setAttributes(bool value);
+
         /**
          * Sets string left indent
          */
         void setLeftIndent(int indent);
+
+        /**
+         * Sets line carrying
+         */
+        void setLineCarry(bool value);
 
         /**
          * Sets line transfer
@@ -170,8 +188,6 @@ class CLA_EXPO CRtfString
         uchar m_wLeftBorderEqual;
         uchar m_wRightBorderEqual;
         uchar m_wCentreEqual;
-        uchar m_Attr;
-        uchar m_FlagCarry;
         uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
     private:
         typedef std::vector<CRtfWord*> WordList;
@@ -180,6 +196,8 @@ class CLA_EXPO CRtfString
         WordList words_;
         bool line_break_;
         bool paragraph_begin_;
+        bool carry_;
+        bool has_attributes_;
         int left_indent_;
 };
 

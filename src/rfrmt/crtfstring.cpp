@@ -34,8 +34,8 @@ const unsigned char HYPHEN = '-';
 
 CRtfString::CRtfString() :
     m_wRightIndent(0), m_wFirstIndent(0), m_wAlignment(0), m_LengthStringInTwips(0),
-            m_wLeftBorderEqual(0), m_wRightBorderEqual(0), m_wCentreEqual(0), m_FlagCarry(0),
-            S_Flags(0), line_break_(false), paragraph_begin_(false), left_indent_(0) {
+            m_wLeftBorderEqual(0), m_wRightBorderEqual(0), m_wCentreEqual(0), S_Flags(0),
+            line_break_(false), paragraph_begin_(false), carry_(false), left_indent_(0) {
 
 }
 
@@ -79,6 +79,10 @@ const CRtfWord * CRtfString::firstWord() const {
     if (words_.empty())
         throw std::out_of_range("[CRtfString::firstWord] string is empty");
     return words_.front();
+}
+
+bool CRtfString::hasAttributes() const {
+    return has_attributes_;
 }
 
 bool CRtfString::isParagraphBegin() const {
@@ -143,6 +147,10 @@ bool CRtfString::lineTransfer() const {
     return line_break_;
 }
 
+bool CRtfString::lineCarry() const {
+    return carry_;
+}
+
 uint CRtfString::realLength() const {
     if (words_.empty() || words_.front()->charCount() == 0)
         return 0;
@@ -154,8 +162,16 @@ uint CRtfString::realLength() const {
             &strHeight);
 }
 
+void CRtfString::setAttributes(bool value) {
+    has_attributes_ = value;
+}
+
 void CRtfString::setLeftIndent(int indent) {
     left_indent_ = indent;
+}
+
+void CRtfString::setLineCarry(bool value) {
+    carry_ = value;
 }
 
 void CRtfString::setLineTransfer(bool value) {

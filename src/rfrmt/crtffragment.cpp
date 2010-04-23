@@ -851,7 +851,7 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         m_r_fragment = MAX(m_r_fragment, (int16_t)pRtfCharLast->idealRect().right());
 
         if (pRtfCharLast->first().isHyphen() && pRtfCharLast->m_bFlg_spell_nocarrying)
-            pRtfString->m_FlagCarry = TRUE;
+            pRtfString->setLineCarry(true);
     }
 
     if (CountChars)
@@ -1637,7 +1637,7 @@ void CRtfFragment::GetNextFragmentBegEnd(int32_t* beg, int32_t* end, Bool* Flag)
     for (i = *end; i < m_wStringsCount; i++) {
         pRtfString = (CRtfString*) m_arStrings[i];
 
-        if (pRtfString->m_Attr == TRUE) {
+        if (pRtfString->hasAttributes()) {
             *end = i;
             break;
         }
@@ -2028,7 +2028,7 @@ Bool CRtfFragment::GetFlagCarry(int beg, int end) {
     for (int ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
 
-        if (pRtfString->m_FlagCarry == TRUE)
+        if (pRtfString->lineCarry())
             return TRUE;
     }
 

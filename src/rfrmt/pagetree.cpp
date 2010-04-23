@@ -2726,11 +2726,10 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
                     if (TitleStr[nc][ns].S_Attr) {
                         pRtfFragment->m_Attr = 1;
-                        pRtfString->m_Attr = TRUE;
+                        pRtfString->setAttributes(true);
                     }
-
                     else
-                        pRtfString->m_Attr = FALSE;
+                        pRtfString->setAttributes(false);
 
                     pRtfString->S_Flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
                     do0(nw, 0, TitleStr[nc][ns].S_Gen.S_NumWord - 1) { //word begin
