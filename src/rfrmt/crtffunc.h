@@ -22,7 +22,7 @@
 #include "cfcompat.h"
 #include "creatertf.h"
 
-class RtfSectorInfo;
+struct RtfSectorInfo;
 extern uint32_t RtfWriteMode;
 extern uint32_t FlagMode;
 

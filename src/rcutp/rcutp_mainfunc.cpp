@@ -73,13 +73,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern  int16_t      minrow, bbs1, bbs2, bbs3, bbs4, Nb1, Nb2, Nb3;
 extern  uchar      language;
-#ifndef max
-#define MAX(a,b)            (((a) > (b)) ? (a) : (b))
-#endif
-
-#ifndef min
-#define MIN(a,b)            (((a) < (b)) ? (a) : (b))
-#endif
 
 extern int16_t   up_position, dw_position;
 uchar MemForCutPoints[65536];
@@ -87,7 +80,6 @@ uchar MemForCutPointsTwo[65536];
 uchar ForRaster3[R_S];
 extern uchar  db_status;  // snap presence byte
 void snap_clear_screen(void);
-
 
 static int16_t GDE_KAK[13][3] = {{1, 0, 0} , {4, 0, 0}  , {8, 0, 0} ,
     {1, 8, 0} , {8, 1, 0} , {8, 8, 0},

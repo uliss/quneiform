@@ -99,6 +99,7 @@
 #include "minmax.h"
 #include "common/rect.h"
 #include "common/debug.h"
+#include "compat/filefunc.h"
 
 extern Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, Handle* hEdTree);
 extern Bool PageTree(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage, const char *FileNameOut);

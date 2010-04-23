@@ -92,7 +92,7 @@ using namespace CIF;
 #define  USE_NONE              0x0040   // no formatting
 extern uint32_t FlagMode;
 extern uint32_t RtfWriteMode;
-extern Point16 TemplateOffset;
+extern CIF::Point TemplateOffset;
 
 extern char RtfFileName[PATH_MAX];
 /*

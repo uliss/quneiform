@@ -97,8 +97,6 @@ class CLA_EXPO ImageRawData: public boost::noncopyable
         size_t size_;
 };
 
-std::ostream& operator<<(std::ostream& os, const ImageRawData& image);
-
 inline bool ImageRawData::isNull() const {
     return data_ == NULL || size_ == 0;
 }
@@ -106,5 +104,7 @@ inline bool ImageRawData::isNull() const {
 typedef boost::shared_ptr<ImageRawData> ImageRawPtr;
 
 }
+
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const CIF::ImageRawData& image);
 
 #endif /* IMAGERAWDATA_H_ */

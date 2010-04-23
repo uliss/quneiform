@@ -65,6 +65,7 @@
 #define __frmttabl_h__
 
 #include "cstr/cstrdefs.h"
+#include "compat/filefunc.h"
 
 #define  DefFontSize          24
 #define  TablTrgaph           108
