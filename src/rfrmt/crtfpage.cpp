@@ -251,7 +251,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
 
     for (nc = 0; nc < RtfPage->Count.RtfTextFragments; ++nc) {
         pRtfFragment = RtfPage->GetNextFragment();
-        pRtfFragment->pRtfParent = RtfPage;
+        pRtfFragment->setParent(RtfPage);
         pRtfFragment->m_wType = FT_TEXT;
         fread(&RectFragm, 1, sizeof(Rect16), in);
         pRtfFragment->m_rect.left = (int32_t) (RectFragm.left * CIF::getTwips());
@@ -898,7 +898,7 @@ Bool CRtfPage::Write_USE_NONE() {
             PutCom("\\cols", 1, 0);
             PutCom("\\colno", 1, 0);
             PutCom("\\colw", PaperW, 0);
-            pRtfFragment->pRtfParent = this;
+            pRtfFragment->setParent(this);
             pRtfFragment->FWriteText(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
         }
     }
@@ -991,7 +991,7 @@ Bool CRtfPage::Write_USE_FRAME() {
 
 #endif
             SectorInfo->FlagOverLayed = FALSE;
-            pRtfFragment->pRtfParent = this;
+            pRtfFragment->setParent(this);
             pRtfFragment->FWriteText(i, SectorInfo, FOT_FRAME);
             Put("}");
         }

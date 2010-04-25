@@ -41,7 +41,8 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
 namespace CIF
 {
 
-CRtfFragment::CRtfFragment() {
+CRtfFragment::CRtfFragment() :
+    parent_(NULL) {
     m_wStringsCount = 0;
     m_CountLeftEqual = 0;
     m_CountRightEqual = 0;
@@ -58,7 +59,6 @@ CRtfFragment::CRtfFragment() {
     m_Attr = 0;
     m_FlagCarry = 0;
     m_Flag = 0;
-    pRtfParent = 0;
 }
 
 CRtfFragment::~CRtfFragment() {
@@ -70,6 +70,12 @@ CRtfFragment::~CRtfFragment() {
         delete cString;
     }
 }
+
+void CRtfFragment::setParent(CRtfPage * page) {
+    parent_ = page;
+}
+
+//////////////////////////////////////////////
 
 CRtfString* CRtfFragment::GetNextString() {
     m_arStrings.push_back(new CRtfString());
@@ -165,9 +171,9 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 pRtfChar = pRtfWord->firstChar();
                 int colWidth = 0;
 
-                if (pRtfParent && !(FlagMode & USE_NONE)) {
+                if (parent_ && !(FlagMode & USE_NONE)) {
                     CRtfSector* curSect =
-                            (CRtfSector*) pRtfParent->m_arSectors[pRtfParent->m_nCurSectorNumber];
+                            (CRtfSector*) parent_->m_arSectors[parent_->m_nCurSectorNumber];
 
                     //Если пишем с форматированием и однострочная колонка
                     if (FlagMode & USE_FRAME_AND_COLUMN && curSect->SectorInfo.FlagOneString
@@ -189,8 +195,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
                 if (!pRtfChar->m_bFlg_cup_drop)
                     hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb, SectorInfo,
-                            m_wvid_parag, pRtfString->flags(),
-                            pRtfString->realLength(), colWidth); //NEGA_STR
+                            m_wvid_parag, pRtfString->flags(), pRtfString->realLength(), colWidth); //NEGA_STR
             }
 
 #endif

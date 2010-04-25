@@ -37,7 +37,11 @@ class CRtfFragment
         CRtfFragment();
         ~CRtfFragment();
 
-        CRtfPage* pRtfParent;
+        /**
+         * Sets pointer to parent root
+         */
+        void setParent(CRtfPage * page);
+
         CRtfString* GetNextString();
         void InitFragment(RtfSectorInfo* SectorInfo);
         void SetFragmentAlignment(RtfSectorInfo* SectorInfo);
@@ -88,7 +92,8 @@ class CRtfFragment
 
         void PrintTheResult(const char*);
 
-        std::vector<CRtfString*> m_arStrings;
+        typedef std::vector<CRtfString*> StringList;
+        StringList m_arStrings;
 
         uint16_t m_wStringsCount;
         RECT m_rect;
@@ -139,6 +144,8 @@ class CRtfFragment
         uchar m_FlagRight;
         uchar m_FlagBigSpace;
         uint32_t m_Flag;
+    private:
+        CRtfPage * parent_;
 };
 }
 

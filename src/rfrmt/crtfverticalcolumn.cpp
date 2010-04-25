@@ -79,7 +79,7 @@ Bool CRtfVerticalColumn::Write(Bool OutPutType, RtfSectorInfo* SectorInfo) {
             if (!pRtfFragment->m_WidthVerticalColumn)
                 pRtfFragment->m_WidthVerticalColumn = (int16_t) (m_rect.right - m_rect.left);
 
-            pRtfFragment->pRtfParent = m_PagePtr;
+            pRtfFragment->setParent(m_PagePtr);
             pRtfFragment->FWriteText(0, SectorInfo, OutPutType);
         }
     }
