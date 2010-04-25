@@ -39,37 +39,44 @@ class CLA_EXPO CRtfString
 
         /**
          * Adds word to the end of string
+         * @see clearWords(), wordAt()
          */
         void addWord(CRtfWord * word);
 
         /**
          * Returns string aling
+         * @see setAlign()
          */
         rtf_align_t align() const;
 
         /**
          * Returns string center coord
+         * @see width(), leftBorder(), rightBorder()
          */
         int center() const;
 
         /**
          * Removes all words from string
+         * @see addWord()
          */
         void clearWords();
 
         /**
          * Returns true if string is empty
+         * @see wordCount()
          */
         bool empty() const;
 
         /**
          * Returns true if string ends with given char
+         * @see startsWith()
          */
         bool endsWith(int c) const;
 
         /**
          * Returns first char in string
-         * @return NULL if string is empty
+         * @throw std::out_of_range if string or first word is empty
+         * @see lastChar(), firstWord()
          */
         CRtfChar * firstChar();
         const CRtfChar * firstChar() const;
@@ -80,22 +87,26 @@ class CLA_EXPO CRtfString
         /**
          * Returns pointer to first word
          * @throw std::out_of_range if string is empty
+         * @see lastWord(), firstChar()
          */
         CRtfWord * firstWord();
         const CRtfWord * firstWord() const;
 
         /**
          * Returns CSTR flags
+         * @see hasFlag(), setFlags()
          */
         uint flags() const;
 
         /**
          * Checks is string has attributes
+         * @see attributes()
          */
         bool hasAttributes() const;
 
         /**
          * Checks if string has CSTR flag
+         * @see flags(), setFlags()
          */
         bool hasFlag(uint flag) const;
 
@@ -110,7 +121,8 @@ class CLA_EXPO CRtfString
 
         /**
          * Returns last char in string
-         * @return 0 if string is empty
+         * @throw std::out_of_range if string or last word is empty
+         * @see lastWord(), firstChar()
          */
         CRtfChar * lastChar();
         const CRtfChar * lastChar() const;
@@ -118,6 +130,7 @@ class CLA_EXPO CRtfString
         /**
          * Returns pointer to last word in string
          * @throw std::out_of_range if string is empty
+         * @see lastChar(), wordAt(), firstWord()
          */
         CRtfWord * lastWord();
         const CRtfWord * lastWord() const;
@@ -125,11 +138,13 @@ class CLA_EXPO CRtfString
         /**
          * Returns left string border
          * @throw std::out_of_range if string is empty
+         * @see rightBorder()
          */
         int leftBorder() const;
 
         /**
          * Returns left indent
+         * @see rightIndent(), setLeftIndent()
          */
         int leftIndent() const;
 
@@ -140,16 +155,19 @@ class CLA_EXPO CRtfString
 
         /**
          * Returns true if string in carrying
+         * @see setLineCarry()
          */
         bool lineCarry() const;
 
         /**
          * Returns string line transfer
+         * @see setLineTransfer()
          */
         bool lineTransfer() const;
 
         /**
          * Returns string top margin
+         * @see setMarginTop()
          */
         int marginTop() const;
 
@@ -160,22 +178,26 @@ class CLA_EXPO CRtfString
 
         /**
          * Returns real string length in twips
+         * @see width()
          */
         uint realLength() const;
 
         /**
          * Returns right border of string
          * @throw std::out_of_range if string is empty
+         * @see leftBorder()
          */
         int rightBorder() const;
 
         /**
          * Returns string right indent
+         * @see setRightIndent(), leftIndent()
          */
         int rightIndent() const;
 
         /**
          * Sets string alignment
+         * @see align()
          */
         void setAlign(rtf_align_t align);
 
@@ -188,26 +210,31 @@ class CLA_EXPO CRtfString
 
         /**
          * Sets string CSTR flags
+         * @see flags(), hasFlag()
          */
         void setFlags(uint flag);
 
         /**
          * Sets string first indent
+         * @see firstIndent()
          */
         void setFirstIndent(int indent);
 
         /**
          * Sets string left indent
+         * @see leftIndent(), setRightIndent()
          */
         void setLeftIndent(int indent);
 
         /**
          * Sets line carrying
+         * @see lineCarry()
          */
         void setLineCarry(bool value);
 
         /**
          * Sets line transfer
+         * @see lineTransfer()
          */
         void setLineTransfer(bool value);
 
@@ -217,7 +244,6 @@ class CLA_EXPO CRtfString
          */
         void setTopMargin(int value);
 
-
         /**
          * Sets string paragraph begining
          */
@@ -225,6 +251,7 @@ class CLA_EXPO CRtfString
 
         /**
          * Sets string right indent
+         * @see rightIndent(), setLeftIndent()
          */
         void setRightIndent(int indent);
 
@@ -235,11 +262,13 @@ class CLA_EXPO CRtfString
 
         /**
          * Checks if string starts with dash
+         * @see startsWith()
          */
         bool startsWithDash() const;
 
         /**
-         * Checs if string starts with digit
+         * Checks if string starts with digit
+         * @see startsWith()
          */
         bool startsWithDigit() const;
 
@@ -251,18 +280,21 @@ class CLA_EXPO CRtfString
         /**
          * Returns distance between left and right border
          * @return 0 if string is empty
+         * @see center(), leftBorder(), rightBorder()
          */
         int width() const;
 
         /**
          * Returns pointer to word at position @b pos
          * @throw std::out_of_range if no such position
+         * @see addWord(), clearWords()
          */
         CRtfWord * wordAt(size_t pos);
         const CRtfWord * wordAt(size_t pos) const;
 
         /**
          * Returns words count
+         * @see empty(), clearWords(), addWord()
          */
         size_t wordCount() const;
 
