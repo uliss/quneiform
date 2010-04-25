@@ -259,12 +259,12 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
         pRtfFragment->m_rect.right = (int32_t) (RectFragm.right * CIF::getTwips());
         pRtfFragment->m_rect.bottom = (int32_t) (RectFragm.bottom * CIF::getTwips());
         fread(&tmp, 2, 1, in);
-        pRtfFragment->m_wStringsCount = tmp;
+        int str_count = tmp;
         fread(&wtmp, 4, 1, in);
         pRtfFragment->m_wUserNumber = wtmp;
         fread(&wtmp, 4, 1, in);
 
-        for (ns = 0; ns < pRtfFragment->m_wStringsCount; ++ns) {
+        for (ns = 0; ns < str_count; ++ns) {
             pRtfString = new CRtfString;
             pRtfFragment->addString(pRtfString);
             fread(&SRect, sizeof(Rect16), 1, in);
@@ -636,10 +636,10 @@ void CRtfPage::CorrectKegl(void) {
 
     for (int i = 0; i < CountTextFragments; i++) {
         pRtfFragment = m_arFragments[i];
-        CountStrings = pRtfFragment->m_wStringsCount;
+        CountStrings = pRtfFragment->stringCount();
 
         for (int ns = 0; ns < CountStrings; ns++) {
-            pRtfString = pRtfFragment->m_arStrings[ns];
+            pRtfString = pRtfFragment->stringAt(ns);
             CountWords = pRtfString->wordCount();
             //Считаем длину получившейся строки
             int len = 0;
@@ -702,10 +702,10 @@ void CRtfPage::ChangeKegl(void) {
     // по частоте встречаемости выбираем преобразование из реал. в идеал. кегль
     for (int i = 0; i < CountTextFragments; i++) {
         pRtfFragment = (CRtfFragment*) m_arFragments[i];
-        CountStrings = pRtfFragment->m_wStringsCount;
+        CountStrings = pRtfFragment->stringCount();
 
         for (int ns = 0; ns < CountStrings; ns++) {
-            pRtfString = (CRtfString*) pRtfFragment->m_arStrings[ns];
+            pRtfString = pRtfFragment->stringAt(ns);
             CountWords = pRtfString->wordCount();
 
             for (int nw = 0; nw < CountWords; nw++) {

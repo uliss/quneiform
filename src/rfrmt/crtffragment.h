@@ -59,6 +59,11 @@ class CRtfFragment
         CRtfString * stringAt(size_t pos);
         const CRtfString * stringAt(size_t pos) const;
 
+        /**
+         * Returns numbers of strings in fragment
+         */
+        size_t stringCount() const;
+
         void InitFragment(RtfSectorInfo* SectorInfo);
         void SetFragmentAlignment(RtfSectorInfo* SectorInfo);
         void new_paragraph(Bool OutPutType);
@@ -108,11 +113,6 @@ class CRtfFragment
 
         void PrintTheResult(const char*);
 
-        typedef std::vector<CRtfString*> StringList;
-        typedef StringList::iterator StringIterator;
-        StringList m_arStrings;
-
-        uint16_t m_wStringsCount;
         RECT m_rect;
         RECT m_rectReal;
         RECT m_rectFree;
@@ -163,6 +163,9 @@ class CRtfFragment
         uint32_t m_Flag;
     private:
         CRtfPage * parent_;
+        typedef std::vector<CRtfString*> StringList;
+        typedef StringList::iterator StringIterator;
+        StringList strings_;
 };
 }
 

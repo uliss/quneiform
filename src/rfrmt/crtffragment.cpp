@@ -43,7 +43,6 @@ namespace CIF
 
 CRtfFragment::CRtfFragment() :
     parent_(NULL) {
-    m_wStringsCount = 0;
     m_CountLeftEqual = 0;
     m_CountRightEqual = 0;
     m_CountLeftRightEqual = 0;
@@ -66,13 +65,13 @@ CRtfFragment::~CRtfFragment() {
 }
 
 void CRtfFragment::addString(CRtfString * str) {
-    m_arStrings.push_back(str);
+    strings_.push_back(str);
 }
 
 void CRtfFragment::clearStrings() {
-    for (StringIterator it = m_arStrings.begin(), end = m_arStrings.end(); it != end; ++it)
+    for (StringIterator it = strings_.begin(), end = strings_.end(); it != end; ++it)
         delete *it;
-    m_arStrings.clear();
+    strings_.clear();
 }
 
 void CRtfFragment::setParent(CRtfPage * page) {
@@ -80,11 +79,15 @@ void CRtfFragment::setParent(CRtfPage * page) {
 }
 
 CRtfString * CRtfFragment::stringAt(size_t pos) {
-    return m_arStrings.at(pos);
+    return strings_.at(pos);
 }
 
 const CRtfString * CRtfFragment::stringAt(size_t pos) const {
-    return m_arStrings.at(pos);
+    return strings_.at(pos);
+}
+
+size_t CRtfFragment::stringCount() const {
+    return strings_.size();
 }
 
 //////////////////////////////////////////////
@@ -112,8 +115,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
     //--- Цикл по строкам
     boPrevNega = false; //NEGA_STR
 
-    for (int ns = 0; ns < m_wStringsCount; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (int ns = 0; ns < strings_.size(); ns++) {
+        pRtfString = strings_[ns];
         pRtfWord = pRtfString->firstWord();
         pRtfChar = pRtfWord->firstChar();
 
@@ -509,7 +512,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                     PutChar(' '); //InterWord Space
             }
 
-            else if ((ns < m_wStringsCount - 1) && (nw == CountWords - 1) && (m_wvid_parag
+            else if ((ns < stringCount() - 1) && (nw == CountWords - 1) && (m_wvid_parag
                     == RTF_TP_LEFT_AND_RIGHT_ALLIGN || m_wvid_parag == RTF_TP_LEFT_ALLIGN)
                     && !flag_end_word_with_hiphen) {
 #ifdef EdWrite
@@ -565,11 +568,11 @@ void CRtfFragment::InitFragment(RtfSectorInfo* SectorInfo) {
     CRtfString* pRtfString;
     int PenaltyForCheredov = 0;
     int CountWords;
-    pRtfString = (CRtfString*) m_arStrings[0];
+    pRtfString = (CRtfString*) strings_[0];
     pRtfWord = pRtfString->firstWord();
     CountWords = pRtfString->wordCount();
 
-    if (m_wStringsCount == 1 && SectorInfo->CountFragments > 1) {
+    if (stringCount() == 1 && SectorInfo->CountFragments > 1) {
         if (pRtfWord->realFontSize() >= 14)
             PenaltyForCheredov = 4;
 
@@ -776,12 +779,12 @@ void CRtfFragment::SetFragmentAlignment(RtfSectorInfo* SectorInfo) {
 
         if (ProcessingOverLayedFragment(SectorInfo) == FALSE) {
             if (DeterminationOfMixedFragment(SectorInfo) == FALSE) {
-                if (DeterminationOfLeftRightJustification(0, m_wStringsCount) == FALSE) {
-                    if (DeterminationOfListType(0, m_wStringsCount) == FALSE) {
-                        if (DeterminationOfLeftJustification(0, m_wStringsCount, 0) == FALSE) {
-                            if (DeterminationOfCentreJustification(0, m_wStringsCount) == FALSE) {
-                                if (DeterminationOfRightJustification(0, m_wStringsCount) == FALSE) {
-                                    DeterminationOfLeftJustification(0, m_wStringsCount, 1);
+                if (DeterminationOfLeftRightJustification(0, stringCount()) == FALSE) {
+                    if (DeterminationOfListType(0, stringCount()) == FALSE) {
+                        if (DeterminationOfLeftJustification(0, stringCount(), 0) == FALSE) {
+                            if (DeterminationOfCentreJustification(0, stringCount()) == FALSE) {
+                                if (DeterminationOfRightJustification(0, stringCount()) == FALSE) {
+                                    DeterminationOfLeftJustification(0, stringCount(), 1);
                                 }
                             }
                         }
@@ -804,15 +807,15 @@ Bool CRtfFragment::ProcessingUseNoneMode(void) {
     if (!(FlagMode & USE_NONE))
         return FALSE;
 
-    for (ns = 0; ns < m_wStringsCount; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (ns = 0; ns < stringCount(); ns++) {
+        pRtfString = strings_[ns];
 
         if (!ns)
             pRtfString->setParagraphBegin(true);
         else
             pRtfString->setParagraphBegin(false);
 
-        if (ns == m_wStringsCount - 1)
+        if (ns == stringCount() - 1)
             pRtfString->setLineTransfer(false);
 
         else
@@ -843,8 +846,8 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
 
     //  I. Поиск:       Левой(m_l_fragment) и правой(m_r_fragment) границ фрагмента
     //  II.Вычисление:  m_max_dist, котороя используется при поиске начала абзаца
-    for (ns = 0; ns < m_wStringsCount; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (ns = 0; ns < stringCount(); ns++) {
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (!ns) {
             pRtfString->setTopMargin(SectorInfo->VerticalOffsetFragmentInColumn);
@@ -871,16 +874,16 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         m_max_dist = 10;
 
     // Вычисляется отступ(m_wLeftIndent, m_wRightIndent) строки от краев фрагмента и центр строки
-    for (ns = 0; ns < m_wStringsCount; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (ns = 0; ns < stringCount(); ns++) {
+        pRtfString = (CRtfString*) strings_[ns];
         pRtfString->setLeftIndent(pRtfString->leftBorder() - m_l_fragment);
         pRtfString->setRightIndent(m_r_fragment - pRtfString->rightBorder());
     }
 
     // Присваиваются признаки равенства концов и середины соседних строк
-    for (ns = 1; ns < m_wStringsCount; ns++) {
-        pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (ns = 1; ns < stringCount(); ns++) {
+        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
+        pRtfString = (CRtfString*) strings_[ns];
         LeftDif = pRtfString->leftIndent() - pRtfStringPrev->leftIndent();
         RightDif = pRtfString->rightIndent() - pRtfStringPrev->rightIndent();
         CentreDif = pRtfString->center() - pRtfStringPrev->center();
@@ -942,15 +945,15 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
 
     int ns(0);
 
-    for (ns = 0; ns < m_wStringsCount; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (ns = 0; ns < stringCount(); ns++) {
+        pRtfString = (CRtfString*) strings_[ns];
         pRtfString->setAlign(RTF_TP_LEFT_AND_RIGHT_ALLIGN);
         pRtfString->setParagraphBegin(false);
         pRtfString->setRightIndent(0);
     }
 
-    for (ns = 0; ns < m_wStringsCount; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (ns = 0; ns < stringCount(); ns++) {
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (ns == 0) {
             if (pRtfString->leftIndent() > m_max_dist / 2)
@@ -964,9 +967,9 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
             continue;
         }
 
-        pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
+        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
 
-        if (ns == m_wStringsCount - 1) {
+        if (ns == stringCount() - 1) {
             if ((pRtfString->leftIndent() - pRtfStringPrev->leftIndent()) > (m_max_dist / 2)) {
                 pRtfString->setLeftIndent(0);
                 pRtfString->setFirstIndent(m_max_dist * getTwips());
@@ -975,7 +978,7 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
         }
 
         else {
-            pRtfStringNext = (CRtfString*) m_arStrings[ns + 1];
+            pRtfStringNext = (CRtfString*) strings_[ns + 1];
 
             if (((pRtfString->leftIndent() - pRtfStringPrev->leftIndent()) > (m_max_dist / 2))
                     && ((pRtfString->leftIndent() - pRtfStringNext->leftIndent())
@@ -1048,7 +1051,7 @@ Bool CRtfFragment::CheckLeftRightJustification(int beg, int end) {
     }
 
     for (int ns = beg + 1; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->isEqualLeft() && pRtfString->isEqualRight())
             continue;
@@ -1085,7 +1088,7 @@ void CRtfFragment::GetCountEqual(int beg, int end, uint16_t* Count, int AlignTyp
     CRtfString *pRtfString;
 
     for (int i = beg; i < end; i++) {
-        pRtfString = (CRtfString*) m_arStrings[i];
+        pRtfString = (CRtfString*) strings_[i];
 
         switch (AlignType) {
         case RTF_TP_LEFT_ALLIGN:
@@ -1145,10 +1148,10 @@ Bool CRtfFragment::CheckStringForLeftRightJustification(int ns) {
         RightDif = 0;
     }
 
-    pRtfString = (CRtfString*) m_arStrings[ns];
+    pRtfString = (CRtfString*) strings_[ns];
 
-    if ((pRtfString->leftIndent() - LeftDif) > m_max_dist && ns < m_wStringsCount - 1) {
-        pRtfStringNext = (CRtfString*) m_arStrings[ns + 1];
+    if ((pRtfString->leftIndent() - LeftDif) > m_max_dist && ns < stringCount() - 1) {
+        pRtfStringNext = (CRtfString*) strings_[ns + 1];
 
         if (((pRtfString->leftIndent() - LeftDif) < (RightFragm - LeftFragm) / 2)
                 && ((pRtfString->rightIndent() - RightDif) < m_max_dist)
@@ -1157,7 +1160,7 @@ Bool CRtfFragment::CheckStringForLeftRightJustification(int ns) {
     }
 
     if ((pRtfString->leftIndent() - LeftDif) < m_max_dist && ns > 1) {
-        pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
+        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
 
         if ((pRtfStringPrev->rightIndent() - RightDif) < m_max_dist)
             return TRUE;
@@ -1174,14 +1177,14 @@ void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int e
     CRtfString *pRtfString;
 
     for (int ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (ns == beg) {
             pRtfString->setParagraphBegin(true);
             continue;
         }
 
-        pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
+        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
 
         if (((pRtfString->leftIndent() > 2 * m_max_dist) && (abs(pRtfString->leftIndent()
                 - pRtfStringPrev->leftIndent()) > m_max_dist)) || (pRtfStringPrev->rightIndent()
@@ -1223,7 +1226,7 @@ void CRtfFragment::CorrectIndents(int beg, int end) {
     int i(0);
 
     for (i = beg; i < end; i++) {
-        pRtfString = (CRtfString*) m_arStrings[i];
+        pRtfString = (CRtfString*) strings_[i];
 
         if (i == beg) {
             MinLeftIndent = pRtfString->leftIndent();
@@ -1238,7 +1241,7 @@ void CRtfFragment::CorrectIndents(int beg, int end) {
     }
 
     for (i = beg; i < end; i++) {
-        pRtfString = (CRtfString*) m_arStrings[i];
+        pRtfString = (CRtfString*) strings_[i];
 
         if (pRtfString->isParagraphBegin()) {
             if (abs(pRtfString->leftIndent() - MinLeftIndent) < m_max_dist)
@@ -1315,7 +1318,7 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end) {
     int ns(0);
 
     for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->endsWith('.'))
             Count++;
@@ -1328,14 +1331,14 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end) {
         FlagStringParagraphSoft = TRUE;
 
     for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (ns == beg) {
             pRtfString->setParagraphBegin(true);
             continue;
         }
 
-        pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
+        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
 
         if (((pRtfString->leftIndent() - LeftDif) > 2 * m_max_dist)
                 || ((pRtfStringPrev->rightIndent() - RightDif) > (RightFragm - LeftFragm) / 3)
@@ -1371,7 +1374,7 @@ Bool CRtfFragment::DeterminationOfCentreJustification(int beg, int end) {
 
     SetParagraphAlignment(beg, end, RTF_TP_CENTER);
     SetLineTransfer(beg, end);
-    pRtfString = (CRtfString*) m_arStrings[beg];
+    pRtfString = (CRtfString*) strings_[beg];
     pRtfString->setParagraphBegin(true);
     PrintTheResult("\n ================== DeterminationOfCentreJustification ================== \n");
     return TRUE;
@@ -1408,7 +1411,7 @@ Bool CRtfFragment::DeterminationOfRightJustification(int beg, int end) {
     SetParagraphAlignment(beg, end, RTF_TP_RIGHT_ALLIGN);
 
     for (int ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (ns == beg) {
             pRtfString->setParagraphBegin(true);
@@ -1417,7 +1420,7 @@ Bool CRtfFragment::DeterminationOfRightJustification(int beg, int end) {
         }
 
         pRtfString->setLineTransfer(true);
-        pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
+        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
 
         if (pRtfStringPrev->endsWith('.')) {
             pRtfString->setParagraphBegin(true);
@@ -1443,14 +1446,14 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
     if (CountCentreEqual == (end - beg))
         return FALSE;
 
-    pRtfString = (CRtfString*) m_arStrings[0];
+    pRtfString = (CRtfString*) strings_[0];
     MinLeft = MaxLeft = pRtfString->leftBorder();
     MaxRight = pRtfString->rightBorder();
     int ns(0);
 
     //поиск тела списка
     for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
         MinLeft = MIN(MinLeft, pRtfString->leftBorder());
         MaxLeft = MAX(MaxLeft, pRtfString->leftBorder());
         MaxRight = MAX(MaxRight, pRtfString->rightBorder());
@@ -1463,7 +1466,7 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
         return FALSE;
 
     for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if ((abs(MinLeft - pRtfString->leftBorder()) > 5 * m_max_dist) && (abs(MaxLeft
                 - pRtfString->leftBorder()) > 5 * m_max_dist))
@@ -1486,7 +1489,7 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
     SetParagraphAlignment(beg, end, RTF_TP_TYPE_LINE);
 
     for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if ((ns == beg) || abs(MinLeft - pRtfString->leftBorder()) < m_max_dist)
             pRtfString->setParagraphBegin(true);
@@ -1546,7 +1549,7 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
     m_CountCentreEqual = 0;
 
     for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
         pRtfString->setEqualLeft(false);
         pRtfString->setEqualRight(false);
         pRtfString->setEqualCenter(false);
@@ -1554,14 +1557,14 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
 
     //  I. Поиск:       Левой(m_l_fragmentLocal) и правой(m_r_fragmentLocal) границ фрагмента
     for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (ns == beg) {
             if (!ns)
                 pRtfString->setTopMargin(SectorInfo->VerticalOffsetFragmentInColumn);
 
             else {
-                pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
+                pRtfStringPrev = (CRtfString*) strings_[ns - 1];
                 pRtfWord = pRtfStringPrev->firstWord();
                 pRtfCharFirst = pRtfWord->firstChar();
                 top = pRtfCharFirst->idealRect().bottom();
@@ -1587,8 +1590,8 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
 
     // Присваиваются признаки равенства концов и середины соседних строк
     for (ns = beg + 1; ns < end; ns++) {
-        pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
+        pRtfString = (CRtfString*) strings_[ns];
         LeftDif = pRtfString->leftIndent() - pRtfStringPrev->leftIndent();
         RightDif = pRtfString->rightIndent() - pRtfStringPrev->rightIndent();
         CentreDif = pRtfString->center() - pRtfStringPrev->center();
@@ -1641,8 +1644,8 @@ void CRtfFragment::GetNextFragmentBegEnd(int32_t* beg, int32_t* end, Bool* Flag)
     int i;
     *end = *beg + 1;
 
-    for (i = *end; i < m_wStringsCount; i++) {
-        pRtfString = (CRtfString*) m_arStrings[i];
+    for (i = *end; i < stringCount(); i++) {
+        pRtfString = (CRtfString*) strings_[i];
 
         if (pRtfString->hasAttributes()) {
             *end = i;
@@ -1650,8 +1653,8 @@ void CRtfFragment::GetNextFragmentBegEnd(int32_t* beg, int32_t* end, Bool* Flag)
         }
     }
 
-    if ((*end >= (int32_t) m_wStringsCount) || (i >= (int32_t) m_wStringsCount)) {
-        *end = (int32_t) m_wStringsCount;
+    if ((*end >= (int32_t) stringCount()) || (i >= (int32_t) stringCount())) {
+        *end = (int32_t) stringCount();
         *Flag = FALSE;
     }
 }
@@ -1700,9 +1703,9 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
     uint16_t CountChars;
     int ns(0);
 
-    for (ns = 1; ns < m_wStringsCount; ns++) {
-        pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (ns = 1; ns < stringCount(); ns++) {
+        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
+        pRtfString = (CRtfString*) strings_[ns];
 
         // если выр. другая, то необходимо начать новый параграф
         if (pRtfString->align() != pRtfStringPrev->align()) {
@@ -1711,9 +1714,9 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
         }
     }
 
-    for (ns = 1; ns < m_wStringsCount; ns++) {
-        pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (ns = 1; ns < stringCount(); ns++) {
+        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
+        pRtfString = (CRtfString*) strings_[ns];
         pRtfWordPrev = pRtfStringPrev->firstWord();
         pRtfWord = pRtfString->firstWord();
 
@@ -1724,9 +1727,9 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
         }
     }
 
-    for (ns = 1; ns < m_wStringsCount; ns++) {
-        pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (ns = 1; ns < stringCount(); ns++) {
+        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->isParagraphBegin()) {
             CountWords = pRtfStringPrev->wordCount();
@@ -1765,8 +1768,8 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
     int16_t Dif = 0;
     twp_dist = (int16_t) (3 * m_max_dist * getTwips());
 
-    for (ns = 0; ns < m_wStringsCount; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (ns = 0; ns < stringCount(); ns++) {
+        pRtfString = (CRtfString*) strings_[ns];
         pRtfString->calcRealLength();
         pRtfString->setLeftIndent(pRtfString->leftIndent() * getTwips()
                 + m_LeftOffsetFragmentFromVerticalColumn);
@@ -1777,16 +1780,16 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                         m_WidthVerticalColumn - (pRtfString->realLength() + pRtfString->leftIndent() + pRtfString->rightIndent())));
     }
 
-    for (ns = 0; ns < m_wStringsCount; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (ns = 0; ns < stringCount(); ns++) {
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->isParagraphBegin()) {
             if (pRtfString->align() == RTF_TP_LEFT_ALLIGN) {
                 Dif = MAX(0, m_WidthVerticalColumn - pRtfString->realLength());
                 MinLeftIndent = pRtfString->leftIndent();
 
-                for (i = ns + 1; i < m_wStringsCount; i++) {
-                    pRtfStringNext = (CRtfString*) m_arStrings[i];
+                for (i = ns + 1; i < stringCount(); i++) {
+                    pRtfStringNext = (CRtfString*) strings_[i];
 
                     if (pRtfStringNext->isParagraphBegin() || pRtfStringNext->align()
                             != RTF_TP_LEFT_ALLIGN)
@@ -1830,8 +1833,8 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
             }
 
             if (pRtfString->align() == RTF_TP_TYPE_LINE) {
-                if (ns + 1 < m_wStringsCount) {
-                    pRtfStringNext = (CRtfString*) m_arStrings[ns + 1];
+                if (ns + 1 < stringCount()) {
+                    pRtfStringNext = (CRtfString*) strings_[ns + 1];
 
                     if (!pRtfStringNext->isParagraphBegin() && pRtfStringNext->align()
                             == RTF_TP_TYPE_LINE) {
@@ -1854,8 +1857,8 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                 MinLeftIndent = pRtfString->leftIndent();
                 MinRightIndent = pRtfString->rightIndent();
 
-                for (i = ns + 1; i < m_wStringsCount; i++) {
-                    pRtfStringNext = (CRtfString*) m_arStrings[i];
+                for (i = ns + 1; i < stringCount(); i++) {
+                    pRtfStringNext = (CRtfString*) strings_[i];
 
                     if (pRtfStringNext->isParagraphBegin() || pRtfStringNext->align()
                             != RTF_TP_LEFT_AND_RIGHT_ALLIGN)
@@ -1898,8 +1901,8 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                 MinLeftIndent = pRtfString->leftIndent();
                 MinRightIndent = pRtfString->rightIndent();
 
-                for (i = ns; i < m_wStringsCount; i++) {
-                    pRtfStringNext = (CRtfString*) m_arStrings[i];
+                for (i = ns; i < stringCount(); i++) {
+                    pRtfStringNext = (CRtfString*) strings_[i];
                     MinLeftIndent = MIN(pRtfStringNext->leftIndent(), MinLeftIndent);
                     MinRightIndent = MIN(pRtfStringNext->rightIndent(), MinRightIndent);
 
@@ -1928,8 +1931,8 @@ void CRtfFragment::DefineLineTransfer() {
     CRtfString *pRtfString;
     int Count;
 
-    for (int ns = 0; ns < m_wStringsCount; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (int ns = 0; ns < stringCount(); ns++) {
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->isParagraphBegin() && (FlagLineTransfer || pRtfString->align()
                 == RTF_TP_CENTER)) {
@@ -1951,7 +1954,7 @@ Bool CRtfFragment::GetFlagLeft(int beg, int end) {
     Bool PriznakLeft = FALSE;
 
     for (int ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->endsWith(',')) {
             Count++;
@@ -1986,7 +1989,7 @@ Bool CRtfFragment::GetFlagStrongLeft(int beg, int end) {
     CRtfString *pRtfString;
 
     for (int ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->endsWith('.') || pRtfString->endsWith(','))
             Count++;
@@ -2009,14 +2012,14 @@ Bool CRtfFragment::GetFlagRight(int beg, int end) {
     int ns(0);
 
     for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->rightIndent() > m_max_dist)
             return FALSE;
     }
 
     for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->leftIndent() > ((m_r_fragment - m_l_fragment) / 2))
             return TRUE;
@@ -2032,7 +2035,7 @@ Bool CRtfFragment::GetFlagCarry(int beg, int end) {
     CRtfString *pRtfString;
 
     for (int ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->lineCarry())
             return TRUE;
@@ -2052,7 +2055,7 @@ Bool CRtfFragment::GetFlagBigSpace(int beg, int end) {
     int CountCharInPrevWord;
 
     for (int ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
 
         for (int i = 1; i < pRtfString->wordCount(); i++) {
             pRtfWordPrev = pRtfString->wordAt(i - 1);
@@ -2078,7 +2081,7 @@ void CRtfFragment::SetParagraphAlignment(int beg, int end, rtf_align_t AlignType
     beg = MAX(0, beg);
 
     for (i = beg; i < end; i++) {
-        pRtfString = (CRtfString*) m_arStrings[i];
+        pRtfString = (CRtfString*) strings_[i];
         pRtfString->setAlign(AlignType);
     }
 }
@@ -2090,8 +2093,8 @@ int CRtfFragment::GetCountLine(int beg) {
     CRtfString *pRtfString;
     int Count = 0;
 
-    for (int ns = beg + 1; ns < m_wStringsCount; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+    for (int ns = beg + 1; ns < stringCount(); ns++) {
+        pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->isParagraphBegin())
             break;
@@ -2109,7 +2112,7 @@ void CRtfFragment::SetLineTransfer(int beg, int end) {
     CRtfString *pRtfString;
 
     for (int ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) m_arStrings[ns];
+        pRtfString = (CRtfString*) strings_[ns];
         pRtfString->setLineTransfer(true);
     }
 }

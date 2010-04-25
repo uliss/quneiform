@@ -2610,7 +2610,6 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 RtfPage->Count.RtfTextFragments++;
                 j = RtfPage->m_arFragments.size();
                 pRtfFragment = RtfPage->m_arFragments[j-1];
-                pRtfFragment->m_wStringsCount = NumStr[nc] + 1;
                 pRtfFragment->m_wType = FT_TEXT;
                 pRtfFragment->m_rect.left = RectFragm[nc].left;
                 pRtfFragment->m_rect.right = RectFragm[nc].right;
@@ -2621,8 +2620,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
                         continue;
 
-                    pRtfFragment->m_arStrings.push_back( new CIF::CRtfString() );
-                    pRtfString = pRtfFragment->m_arStrings[ns];
+                    pRtfFragment->addString(new CIF::CRtfString);
+                    pRtfString = pRtfFragment->stringAt(ns);
                     //nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
                     pRtfString->setFlags(TitleStr[nc][ns].S_Flags); //NEGA_STR
                     do0(nw, 0, TitleStr[nc][ns].S_Gen.S_NumWord - 1) {//word begin
@@ -2714,14 +2713,13 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rectReal, &RectFragm[nc] );
                 RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rect, &RectFragm[nc] );
                 RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rectReal, &RectFragm[nc] );
-                pRtfFragment->m_wStringsCount = NumStr[nc] + 1;
                 pRtfFragment->m_Flag = FragFlag[nc]; //nega
                 do0(ns, 0, NumStr[nc]) { //str. begin
                     if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
                         continue;
 
-                    pRtfFragment->m_arStrings.push_back( new CIF::CRtfString() );
-                    pRtfString = pRtfFragment->m_arStrings[ns];
+                    pRtfFragment->addString(new CIF::CRtfString);
+                    pRtfString = pRtfFragment->stringAt(ns);
 
                     if (TitleStr[nc][ns].S_Attr) {
                         pRtfFragment->m_Attr = 1;
