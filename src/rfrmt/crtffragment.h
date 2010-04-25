@@ -101,18 +101,9 @@ class CRtfFragment
         int32_t m_RightOffsetFragmentFromVerticalColumn;
         uint16_t m_wOffsetFromPrevTextFragment;
 
-        uint16_t m_wBegStr;
-        uint16_t m_wEndStr;
-
         Bool m_bFlagObjectInColumn;
         Bool m_bFlagUsed;
         Bool m_bOutPutType;
-        Bool m_bflag_new_column;
-        Bool m_bflag_new_parag;
-        Bool m_bflag_new_str;
-        Bool m_bflag_new_line;
-        Bool m_bflag_change;
-        Bool m_bflag_LineTransfer;
         uint16_t m_wprev_font_name;
         uint16_t m_wprev_Underline;
         uint16_t m_wprev_Bold;
@@ -131,15 +122,8 @@ class CRtfFragment
         int16_t m_l_fragmentLocal;
         int16_t m_r_fragmentLocal;
 
-        int16_t m_LengthStringInTwips;
         int16_t m_WidthVerticalColumn;
 
-        int16_t m_posx;
-        int16_t m_posy;
-        int16_t m_absw;
-        int16_t m_absh;
-
-        int16_t m_tmp_fi;
         int16_t m_li;
         int16_t m_ri;
         int16_t m_fi;
