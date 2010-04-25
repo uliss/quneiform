@@ -21,6 +21,7 @@
 
 #include <vector>
 #include "cfcompat.h"
+#include "creatertf.h"
 
 class RtfSectorInfo;
 
@@ -74,7 +75,7 @@ class CRtfFragment
         void SetLineTransfer(int beg, int end);
         void SetFirstLeftAndRightIndentOfParagraph(void);
         void CorrectIndents(int beg, int end);
-        void SetParagraphAlignment(int beg, int end, int AlignType);
+        void SetParagraphAlignment(int beg, int end, rtf_align_t AlignType);
         void CalculationLengthAndCount(CRtfString* pRtfString, int32_t* CountChars,
                 int32_t* LengthChars);
         void GetCountEqual(int beg, int end, uint16_t* Count, int AlignType);

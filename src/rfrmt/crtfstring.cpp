@@ -33,9 +33,10 @@ const char SPACE = ' ';
 const unsigned char HYPHEN = '-';
 
 CRtfString::CRtfString() :
-    m_wFirstIndent(0), m_wAlignment(0), m_LengthStringInTwips(0), S_Flags(0), line_break_(false),
-            paragraph_begin_(false), carry_(false), has_attributes_(false), equal_center_(false),
-            equal_left_(false), equal_right_(false), left_indent_(0), right_indent_(0) {
+    m_wFirstIndent(0), m_LengthStringInTwips(0), S_Flags(0), line_break_(false), paragraph_begin_(
+            false), carry_(false), has_attributes_(false), equal_center_(false),
+            equal_left_(false), equal_right_(false), left_indent_(0), right_indent_(0),
+            align_(RTF_TP_LEFT_ALLIGN) {
 
 }
 
@@ -57,6 +58,10 @@ int CRtfString::rightBorder() const {
 
 int CRtfString::rightIndent() const {
     return right_indent_;
+}
+
+rtf_align_t CRtfString::align() const {
+    return align_;
 }
 
 int CRtfString::center() const {
@@ -189,6 +194,10 @@ uint CRtfString::realLength() const {
     const CRtfChar *pRtfChar = firstWord()->firstChar();
     return GetRealSize(str.c_str(), str.length(), firstWord()->realFontSize(), pRtfChar->font(),
             &strHeight);
+}
+
+void CRtfString::setAlign(rtf_align_t align) {
+    align_ = align;
 }
 
 void CRtfString::setAttributes(bool value) {

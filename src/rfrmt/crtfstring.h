@@ -21,6 +21,7 @@
 
 #include <vector>
 #include <string>
+#include "creatertf.h"
 #include "cfcompat.h"
 #include "common/rect.h"
 
@@ -40,6 +41,11 @@ class CLA_EXPO CRtfString
          * Adds word to the end of string
          */
         void addWord(CRtfWord * word);
+
+        /**
+         * Returns string aling
+         */
+        rtf_align_t align() const;
 
         /**
          * Returns string center coord
@@ -150,6 +156,11 @@ class CLA_EXPO CRtfString
          */
         int rightIndent() const;
 
+        /**
+         * Sets string alignment
+         */
+        void setAlign(rtf_align_t align);
+
         /** */
         void setAttributes(bool value);
 
@@ -221,7 +232,6 @@ class CLA_EXPO CRtfString
         size_t wordCount() const;
 
         uint16_t m_wFirstIndent;
-        uint16_t m_wAlignment;
         uint16_t m_LengthStringInTwips;
         uint16_t m_wSpaceBefore;
         uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
@@ -239,6 +249,7 @@ class CLA_EXPO CRtfString
         bool equal_right_;
         int left_indent_;
         int right_indent_;
+        rtf_align_t align_;
 };
 
 }

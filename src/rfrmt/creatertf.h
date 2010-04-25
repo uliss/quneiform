@@ -65,14 +65,11 @@
 #ifndef __CreateRtf_h__
 #define __CreateRtf_h__
 
+#include <vector>
 #include "rtfedwrite.h"
 #include "recdefs.h"
 #include "cfcompat.h"
 #include "lang_def.h"
-
-#include <vector>
-#include <cassert>
-#include <climits>
 
 namespace CIF
 {
