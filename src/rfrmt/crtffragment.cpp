@@ -140,7 +140,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             m_wvid_parag = pRtfString->align();
             m_li = pRtfString->leftIndent();
             m_ri = pRtfString->rightIndent();
-            m_sb = pRtfString->m_wSpaceBefore;
+            m_sb = pRtfString->marginTop();
 #ifdef EdWrite
 
             if (!RtfWriteMode && OutPutType)
@@ -836,10 +836,10 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         pRtfString = (CRtfString*) m_arStrings[ns];
 
         if (!ns) {
-            pRtfString->m_wSpaceBefore = SectorInfo->VerticalOffsetFragmentInColumn;
+            pRtfString->setTopMargin(SectorInfo->VerticalOffsetFragmentInColumn);
             pRtfString->setParagraphBegin(true);
         } else
-            pRtfString->m_wSpaceBefore = 0;
+            pRtfString->setTopMargin(0);
 
         pRtfWord = pRtfString->firstWord();
         pRtfCharFirst = pRtfWord->firstChar();
@@ -1547,7 +1547,7 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
 
         if (ns == beg) {
             if (!ns)
-                pRtfString->m_wSpaceBefore = SectorInfo->VerticalOffsetFragmentInColumn;
+                pRtfString->setTopMargin(SectorInfo->VerticalOffsetFragmentInColumn);
 
             else {
                 pRtfStringPrev = (CRtfString*) m_arStrings[ns - 1];
@@ -1557,14 +1557,14 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
                 pRtfWord = pRtfString->firstWord();
                 pRtfCharFirst = pRtfWord->firstChar();
                 bottom = pRtfCharFirst->idealRect().top();
-                pRtfString->m_wSpaceBefore = (uint16_t) (bottom - top);
+                pRtfString->setTopMargin(bottom - top);
             }
 
             pRtfString->setParagraphBegin(true);
         }
 
         else
-            pRtfString->m_wSpaceBefore = 0;
+            pRtfString->setTopMargin(0);
 
         pRtfWord = pRtfString->firstWord();
         pRtfCharFirst = pRtfWord->firstChar();

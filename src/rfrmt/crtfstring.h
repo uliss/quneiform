@@ -149,6 +149,11 @@ class CLA_EXPO CRtfString
         bool lineTransfer() const;
 
         /**
+         * Returns string top margin
+         */
+        int marginTop() const;
+
+        /**
          * Returns max font size among string words
          */
         int maxWordFontSize() const;
@@ -207,6 +212,13 @@ class CLA_EXPO CRtfString
         void setLineTransfer(bool value);
 
         /**
+         * Sets string top margin
+         * @see marginTop()
+         */
+        void setTopMargin(int value);
+
+
+        /**
          * Sets string paragraph begining
          */
         void setParagraphBegin(bool value);
@@ -255,7 +267,6 @@ class CLA_EXPO CRtfString
         size_t wordCount() const;
 
         uint16_t m_LengthStringInTwips;
-        uint16_t m_wSpaceBefore;
     private:
         typedef std::vector<CRtfWord*> WordList;
         typedef WordList::iterator WordIterator;
@@ -271,6 +282,7 @@ class CLA_EXPO CRtfString
         int first_indent_;
         int left_indent_;
         int right_indent_;
+        int margin_top_;
         rtf_align_t align_;
         uint flags_;
 };

@@ -35,8 +35,8 @@ const unsigned char HYPHEN = '-';
 CRtfString::CRtfString() :
     m_LengthStringInTwips(0), line_break_(false), paragraph_begin_(false), carry_(false),
             has_attributes_(false), equal_center_(false), equal_left_(false), equal_right_(false),
-            first_indent_(0), left_indent_(0), right_indent_(0), align_(RTF_TP_LEFT_ALLIGN),
-            flags_(0) {
+            first_indent_(0), left_indent_(0), right_indent_(0), margin_top_(0), align_(
+                    RTF_TP_LEFT_ALLIGN), flags_(0) {
 
 }
 
@@ -154,6 +154,10 @@ const CRtfWord * CRtfString::lastWord() const {
     return words_.back();
 }
 
+int CRtfString::marginTop() const {
+    return margin_top_;
+}
+
 int CRtfString::maxWordFontSize() const {
     int str_max_font = SMALLEST_FONT_SIZE;
 
@@ -246,6 +250,10 @@ void CRtfString::setLineCarry(bool value) {
 
 void CRtfString::setLineTransfer(bool value) {
     line_break_ = value;
+}
+
+void CRtfString::setTopMargin(int value) {
+    margin_top_ = value;
 }
 
 void CRtfString::setParagraphBegin(bool value) {
