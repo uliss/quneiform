@@ -265,7 +265,8 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
         fread(&wtmp, 4, 1, in);
 
         for (ns = 0; ns < pRtfFragment->m_wStringsCount; ++ns) {
-            pRtfString = pRtfFragment->GetNextString();
+            pRtfString = new CRtfString;
+            pRtfFragment->addString(pRtfString);
             fread(&SRect, sizeof(Rect16), 1, in);
             //Реальные коор. строки!
             fread(&SRect, sizeof(Rect16), 1, in);

@@ -38,11 +38,27 @@ class CRtfFragment
         ~CRtfFragment();
 
         /**
+         * Adds string at the end of fragment
+         */
+        void addString(CRtfString * str);
+
+        /**
+         * Removes all string from fragment
+         */
+        void clearStrings();
+
+        /**
          * Sets pointer to parent root
          */
         void setParent(CRtfPage * page);
 
-        CRtfString* GetNextString();
+        /**
+         * Returns pointer to string at @b pos
+         * @throw std::out_of_range if wrong position given
+         */
+        CRtfString * stringAt(size_t pos);
+        const CRtfString * stringAt(size_t pos) const;
+
         void InitFragment(RtfSectorInfo* SectorInfo);
         void SetFragmentAlignment(RtfSectorInfo* SectorInfo);
         void new_paragraph(Bool OutPutType);
@@ -93,6 +109,7 @@ class CRtfFragment
         void PrintTheResult(const char*);
 
         typedef std::vector<CRtfString*> StringList;
+        typedef StringList::iterator StringIterator;
         StringList m_arStrings;
 
         uint16_t m_wStringsCount;

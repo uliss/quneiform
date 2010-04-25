@@ -62,26 +62,32 @@ CRtfFragment::CRtfFragment() :
 }
 
 CRtfFragment::~CRtfFragment() {
-    CRtfString* cString;
-    m_wStringsCount = m_arStrings.size();
+    clearStrings();
+}
 
-    for (int i = 0; i < m_wStringsCount; i++) {
-        cString = m_arStrings[i];
-        delete cString;
-    }
+void CRtfFragment::addString(CRtfString * str) {
+    m_arStrings.push_back(str);
+}
+
+void CRtfFragment::clearStrings() {
+    for (StringIterator it = m_arStrings.begin(), end = m_arStrings.end(); it != end; ++it)
+        delete *it;
+    m_arStrings.clear();
 }
 
 void CRtfFragment::setParent(CRtfPage * page) {
     parent_ = page;
 }
 
-//////////////////////////////////////////////
-
-CRtfString* CRtfFragment::GetNextString() {
-    m_arStrings.push_back(new CRtfString());
-    return m_arStrings.back();
+CRtfString * CRtfFragment::stringAt(size_t pos) {
+    return m_arStrings.at(pos);
 }
 
+const CRtfString * CRtfFragment::stringAt(size_t pos) const {
+    return m_arStrings.at(pos);
+}
+
+//////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 FWriteText                                                     //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
