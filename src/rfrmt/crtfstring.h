@@ -226,6 +226,11 @@ class CLA_EXPO CRtfString
         void setFirstIndent(int indent);
 
         /**
+         * Sets font size penalty for all fonts that more then @b min_size
+         */
+        void setFontSizePenalty(int min_size, int penalty);
+
+        /**
          * Sets string left indent
          * @see leftIndent(), setRightIndent()
          */

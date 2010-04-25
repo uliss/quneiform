@@ -246,6 +246,13 @@ void CRtfString::setFirstIndent(int indent) {
     first_indent_ = indent;
 }
 
+void CRtfString::setFontSizePenalty(int min_size, int penalty) {
+    for (WordIterator it = words_.begin(), e = words_.end(); it != e; ++it) {
+        if ((*it)->realFontSize() > min_size)
+            (*it)->setRealFontSize((*it)->realFontSize() - penalty);
+    }
+}
+
 void CRtfString::setLeftIndent(int indent) {
     left_indent_ = indent;
 }

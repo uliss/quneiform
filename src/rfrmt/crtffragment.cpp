@@ -41,6 +41,13 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
 namespace CIF
 {
 
+const int SMALL_FONT_SIZE = 5;
+const int MEDIUM_FONT_SIZE = 10;
+const int BIG_FONT_SIZE = 14;
+const int PENALTY_FOR_SMALL_FONT_SIZE = 1;
+const int PENALTY_FOR_MEDIUM_FONT_SIZE = 2;
+const int PENALTY_FOR_BIG_FONT_SIZE = 4;
+
 CRtfFragment::CRtfFragment() :
     parent_(NULL) {
     m_CountLeftEqual = 0;
@@ -111,7 +118,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
     CIF::Letter Letter[REC_MAX_VERS];
     int shading = -1;
 #endif
-    InitFragment(SectorInfo);
+    initFragment(SectorInfo);
     //--- Цикл по строкам
     boPrevNega = false; //NEGA_STR
 
@@ -172,7 +179,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 }
             }
 
-            new_paragraph(OutPutType);
+            //new_paragraph(OutPutType);
 #ifdef EdWrite
 
             if (!RtfWriteMode) {
@@ -560,41 +567,31 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
     return TRUE;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 InitFragment                                                   //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfFragment::InitFragment(RtfSectorInfo* SectorInfo) {
-    CRtfWord* pRtfWord;
-    CRtfString* pRtfString;
-    int PenaltyForCheredov = 0;
-    int CountWords;
-    pRtfString = (CRtfString*) strings_[0];
-    pRtfWord = pRtfString->firstWord();
-    CountWords = pRtfString->wordCount();
+int CRtfFragment::fontSizePenalty(int fragment_count) const {
+    if (strings_.size() != 1 || fragment_count <= 1)
+        return 0;
 
-    if (stringCount() == 1 && SectorInfo->CountFragments > 1) {
-        if (pRtfWord->realFontSize() >= 14)
-            PenaltyForCheredov = 4;
+    int sz = strings_.front()->firstWord()->realFontSize();
 
-        else if (pRtfWord->realFontSize() < 14 && pRtfWord->realFontSize() > 10)
-            PenaltyForCheredov = 2;
+    if (SMALL_FONT_SIZE < sz && sz <= MEDIUM_FONT_SIZE)
+        return PENALTY_FOR_SMALL_FONT_SIZE;
+    else if (MEDIUM_FONT_SIZE < sz && sz <= BIG_FONT_SIZE)
+        return PENALTY_FOR_MEDIUM_FONT_SIZE;
+    else if (BIG_FONT_SIZE < sz)
+        return PENALTY_FOR_BIG_FONT_SIZE;
+}
 
-        else if (pRtfWord->realFontSize() < 10 && pRtfWord->realFontSize() > 5)
-            PenaltyForCheredov = 1;
-    }
+void CRtfFragment::initFragment(RtfSectorInfo* SectorInfo) {
+    assert(SectorInfo);
+    CRtfString* pRtfString = strings_.at(0);
+    CRtfWord* pRtfWord = pRtfString->firstWord();
 
-    for (int nw = 0; nw < CountWords; nw++) {
-        pRtfWord = pRtfString->wordAt(nw);
+    int PenaltyForCheredov = fontSizePenalty(SectorInfo->CountFragments);
 
-        if (pRtfWord->realFontSize() > 5) {
-            pRtfWord->setRealFontSize(pRtfWord->realFontSize() - PenaltyForCheredov);
-        }
-    }
+        pRtfString->setFontSizePenalty(SMALL_FONT_SIZE, PenaltyForCheredov);
+
 
     m_wprev_font_name = get_font_name(pRtfWord->fontNumber());
-    m_wprev_Underline = pRtfWord->fontNumber() & TG_EDW_UNDERLINE;
-    m_wprev_Bold = pRtfWord->fontNumber() & TG_EDW_BOLD;
-    m_wprev_Italic = pRtfWord->fontNumber() & TG_EDW_ITALIC;
     m_wprev_lang = 1024;
     m_wprev_font_size = pRtfWord->realFontSize();
     SetFragmentAlignment(SectorInfo);
@@ -646,120 +643,6 @@ Bool CRtfFragment::FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo *S
      }
      */
     return TRUE;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 new_paragraph                                                  //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfFragment::new_paragraph(Bool OutPutType) {
-    if (OutPutType) {
-        switch (m_wvid_parag) {
-        case RTF_TP_LEFT_ALLIGN:
-            Put("\\ql");
-            break;
-        case RTF_TP_RIGHT_ALLIGN:
-            Put("\\qr");
-            break;
-        case RTF_TP_LEFT_AND_RIGHT_ALLIGN:
-            Put("\\qj");
-            break;
-        case RTF_TP_CENTER:
-
-            if (FlagMode & USE_NONE)
-                Put("\\ql");
-
-            else
-                Put("\\qc");
-
-            break;
-        case RTF_TP_ONE:
-            Put("\\ql");
-            break;
-        }
-
-        PutCom("\\li", m_li, 0);
-        PutCom("\\ri", m_ri, 0);
-
-        if (m_fi < 0)
-            PutCom("\\fi-", abs(m_fi), 0);
-
-        else
-            PutCom("\\fi", m_fi, 0);
-
-        PutCom("\\sb", m_sb, 0);
-        PutCom("\\sa", 0, 0);
-        PutCom("\\sl", 0, 0);
-        Put("{");
-    }
-
-    Put("\\pard");
-    Put("\\plain");
-
-    switch (m_wprev_font_name) {
-    case 0:
-        PutCom("\\f", 0, 0);
-        break;
-    case 1:
-        PutCom("\\f", 1, 0);
-        break;
-    case 2:
-        PutCom("\\f", 2, 0);
-        break;
-    case 3:
-        PutCom("\\f", 3, 0);
-        break;
-    default:
-        PutCom("\\f", 1, 0);
-        break;
-    }
-
-    PutCom("\\lang", m_wprev_lang, 0);
-
-    if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
-        PutCom("\\fs", DefFontSize, 1);
-
-    else
-        PutCom("\\fs", m_wprev_font_size * 2, 1);
-
-    if (OutPutType)
-        return;
-
-    switch (m_wvid_parag) {
-    case RTF_TP_LEFT_ALLIGN:
-        Put("\\ql");
-        break;
-    case RTF_TP_RIGHT_ALLIGN:
-        Put("\\qr");
-        break;
-    case RTF_TP_LEFT_AND_RIGHT_ALLIGN:
-        Put("\\qj");
-        break;
-    case RTF_TP_CENTER:
-
-        if (FlagMode & USE_NONE)
-            Put("\\ql");
-
-        else
-            Put("\\qc");
-
-        break;
-    case RTF_TP_ONE:
-        Put("\\ql");
-        break;
-    }
-
-    PutCom("\\li", m_li, 0);
-    PutCom("\\ri", m_ri, 0);
-
-    if (m_fi < 0)
-        PutCom("\\fi-", abs(m_fi), 0);
-
-    else
-        PutCom("\\fi", m_fi, 0);
-
-    PutCom("\\sb", m_sb, 0);
-    PutCom("\\sa", 0, 0);
-    PutCom("\\sl", 0, 0);
 }
 
 /*------------------------------------------------------------------------------------------------------------
