@@ -22,6 +22,7 @@
 #include <vector>
 #include <string>
 #include "cfcompat.h"
+#include "common/rect.h"
 
 namespace CIF
 {
@@ -49,6 +50,11 @@ class CLA_EXPO CRtfString
          * Removes all words from string
          */
         void clearWords();
+
+        /**
+         * Returns true if string is empty
+         */
+        bool empty() const;
 
         /**
          * Returns true if string ends with given char
@@ -98,6 +104,12 @@ class CLA_EXPO CRtfString
         const CRtfWord * lastWord() const;
 
         /**
+         * Returns left string border
+         * @throw std::out_of_range if string is empty
+         */
+        int leftBorder() const;
+
+        /**
          * Returns left indent
          */
         int leftIndent() const;
@@ -126,6 +138,12 @@ class CLA_EXPO CRtfString
          * Returns real string length in twips
          */
         uint realLength() const;
+
+        /**
+         * Returns right border of string
+         * @throw std::out_of_range if string is empty
+         */
+        int rightBorder() const;
 
         /** */
         void setAttributes(bool value);
@@ -175,6 +193,12 @@ class CLA_EXPO CRtfString
         std::string toString() const;
 
         /**
+         * Returns distance between left and right border
+         * @return 0 if string is empty
+         */
+        int width() const;
+
+        /**
          * Returns pointer to word at position @b pos
          * @throw std::out_of_range if no such position
          */
@@ -186,8 +210,6 @@ class CLA_EXPO CRtfString
          */
         size_t wordCount() const;
 
-        int32_t m_LeftBorder;
-        int32_t m_RightBorder;
         uint16_t m_wRightIndent;
         uint16_t m_wFirstIndent;
         uint16_t m_wAlignment;
@@ -207,6 +229,8 @@ class CLA_EXPO CRtfString
         bool m_wLeftBorderEqual;
         bool m_wRightBorderEqual;
         int left_indent_;
+        int m_LeftBorder;
+        int m_RightBorder;
 };
 
 }

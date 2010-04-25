@@ -844,8 +844,6 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
         pRtfCharFirst = pRtfWord->firstChar();
         pRtfWord = pRtfString->lastWord();
         pRtfCharLast = pRtfWord->lastChar();
-        pRtfString->m_LeftBorder = pRtfCharFirst->idealRect().left();
-        pRtfString->m_RightBorder = pRtfCharLast->idealRect().right();
         CalculationLengthAndCount(pRtfString, &CountChars, &LengthChars);
         m_l_fragment = MIN(m_l_fragment, (int16_t)pRtfCharFirst->idealRect().left());
         m_r_fragment = MAX(m_r_fragment, (int16_t)pRtfCharLast->idealRect().right());
@@ -863,8 +861,8 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
     // Вычисляется отступ(m_wLeftIndent, m_wRightIndent) строки от краев фрагмента и центр строки
     for (ns = 0; ns < m_wStringsCount; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
-        pRtfString->setLeftIndent(pRtfString->m_LeftBorder - m_l_fragment);
-        pRtfString->m_wRightIndent = (int16_t) (m_r_fragment - pRtfString->m_RightBorder);
+        pRtfString->setLeftIndent(pRtfString->leftBorder() - m_l_fragment);
+        pRtfString->m_wRightIndent = (int16_t) (m_r_fragment - pRtfString->rightBorder());
     }
 
     // Присваиваются признаки равенства концов и середины соседних строк
@@ -1434,16 +1432,16 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
         return FALSE;
 
     pRtfString = (CRtfString*) m_arStrings[0];
-    MinLeft = MaxLeft = pRtfString->m_LeftBorder;
-    MaxRight = pRtfString->m_RightBorder;
+    MinLeft = MaxLeft = pRtfString->leftBorder();
+    MaxRight = pRtfString->rightBorder();
     int ns(0);
 
     //поиск тела списка
     for (ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
-        MinLeft = MIN(MinLeft, pRtfString->m_LeftBorder);
-        MaxLeft = MAX(MaxLeft, pRtfString->m_LeftBorder);
-        MaxRight = MAX(MaxRight, pRtfString->m_RightBorder);
+        MinLeft = MIN(MinLeft, pRtfString->leftBorder());
+        MaxLeft = MAX(MaxLeft, pRtfString->leftBorder());
+        MaxRight = MAX(MaxRight, pRtfString->rightBorder());
     }
 
     if ((MaxLeft - MinLeft) > (MaxRight - MaxLeft) / 2)
@@ -1455,17 +1453,17 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
     for (ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
 
-        if ((abs(MinLeft - pRtfString->m_LeftBorder) > 5 * m_max_dist) && (abs(MaxLeft
-                - pRtfString->m_LeftBorder) > 5 * m_max_dist))
+        if ((abs(MinLeft - pRtfString->leftBorder()) > 5 * m_max_dist) && (abs(MaxLeft
+                - pRtfString->leftBorder()) > 5 * m_max_dist))
             return FALSE;
 
-        if (abs(MinLeft - pRtfString->m_LeftBorder) < m_max_dist)
+        if (abs(MinLeft - pRtfString->leftBorder()) < m_max_dist)
             CountMinLeft++;
 
-        if (abs(MaxLeft - pRtfString->m_LeftBorder) < m_max_dist)
+        if (abs(MaxLeft - pRtfString->leftBorder()) < m_max_dist)
             CountMaxLeft++;
 
-        if (abs(MaxRight - pRtfString->m_RightBorder) < m_max_dist)
+        if (abs(MaxRight - pRtfString->rightBorder()) < m_max_dist)
             CountMaxRight++;
     }
 
@@ -1478,7 +1476,7 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
     for (ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
 
-        if ((ns == beg) || abs(MinLeft - pRtfString->m_LeftBorder) < m_max_dist)
+        if ((ns == beg) || abs(MinLeft - pRtfString->leftBorder()) < m_max_dist)
             pRtfString->setParagraphBegin(true);
     }
 
@@ -1571,8 +1569,6 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
         pRtfCharFirst = pRtfWord->firstChar();
         pRtfWord = pRtfString->lastWord();
         pRtfCharLast = pRtfWord->lastChar();
-        pRtfString->m_LeftBorder = pRtfCharFirst->idealRect().left();
-        pRtfString->m_RightBorder = pRtfCharLast->idealRect().right();
         m_l_fragmentLocal = MIN(m_l_fragmentLocal, (int16_t)pRtfCharFirst->idealRect().left());
         m_r_fragmentLocal = MAX(m_r_fragmentLocal, (int16_t)pRtfCharLast->idealRect().right());
     }
@@ -1948,8 +1944,7 @@ Bool CRtfFragment::GetFlagLeft(int beg, int end) {
         if (pRtfString->endsWith(',')) {
             Count++;
 
-            if (pRtfString->m_wRightIndent > (pRtfString->m_RightBorder - pRtfString->m_LeftBorder)
-                    / 4)
+            if (pRtfString->m_wRightIndent > (pRtfString->width()) / 4)
                 PriznakLeft = TRUE;
         }
     }

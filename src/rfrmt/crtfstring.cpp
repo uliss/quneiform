@@ -48,6 +48,14 @@ void CRtfString::addWord(CRtfWord * word) {
     words_.push_back(word);
 }
 
+int CRtfString::leftBorder() const {
+    return firstChar()->idealRect().left();
+}
+
+int CRtfString::rightBorder() const {
+    return lastChar()->idealRect().right();
+}
+
 int CRtfString::center() const {
     return (m_LeftBorder + m_RightBorder) / 2;
 }
@@ -56,6 +64,10 @@ void CRtfString::clearWords() {
     for (WordIterator it = words_.begin(), e = words_.end(); it != e; ++it)
         delete (*it);
     words_.clear();
+}
+
+bool CRtfString::empty() const {
+    return words_.empty();
 }
 
 bool CRtfString::endsWith(int c) const {
@@ -67,8 +79,8 @@ CRtfChar * CRtfString::firstChar() {
 }
 
 const CRtfChar * CRtfString::firstChar() const {
-    if (words_.empty() || words_.front()->empty())
-        return NULL;
+    if (words_.empty())
+        throw std::out_of_range("[CRtfString::firstChar] string is empty");
     return words_.front()->firstChar();
 }
 
@@ -103,8 +115,8 @@ bool CRtfString::isParagraphBegin() const {
 }
 
 const CRtfChar * CRtfString::lastChar() const {
-    if (words_.empty() || words_.back()->empty())
-        return NULL;
+    if (words_.empty())
+        throw std::out_of_range("[CRtfString::lastChar] string is empty");
     return words_.back()->lastChar();
 }
 
@@ -129,6 +141,12 @@ int CRtfString::maxWordFontSize() const {
         str_max_font = MAX(str_max_font, words_[i]->realFontSize());
 
     return str_max_font;
+}
+
+int CRtfString::width() const {
+    if (empty())
+        return 0;
+    return rightBorder() - leftBorder();
 }
 
 CRtfWord * CRtfString::wordAt(size_t pos) {
@@ -208,7 +226,7 @@ void CRtfString::setParagraphBegin(bool value) {
 }
 
 bool CRtfString::startsWith(int c) const {
-    return words_.empty() ? false : words_.back()->startsWith(c);
+    return words_.empty() ? false : words_.front()->startsWith(c);
 }
 
 bool CRtfString::startsWithDash() const {
@@ -216,8 +234,9 @@ bool CRtfString::startsWithDash() const {
 }
 
 bool CRtfString::startsWithDigit() const {
-    const CRtfChar * first = firstChar();
-    return first ? isdigit(first->getChar()) != 0 : false;
+    if (words_.empty() || words_.front()->empty())
+        return false;
+    return isdigit(firstChar()->getChar());
 }
 
 std::string CRtfString::toString() const {

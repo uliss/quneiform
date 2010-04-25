@@ -69,9 +69,9 @@ void TestCRtfString::testRealLength() {
 
 void TestCRtfString::testFirstChar() {
     CRtfString str;
-    CPPUNIT_ASSERT(str.firstChar() == NULL);
+    CPPUNIT_ASSERT_THROW(str.firstChar(), std::out_of_range);
     str.addWord(new CRtfWord);
-    CPPUNIT_ASSERT(str.firstChar() == NULL);
+    CPPUNIT_ASSERT_THROW(str.firstChar(), std::out_of_range);
     CRtfChar * chr = new CRtfChar;
     str.firstWord()->addChar(chr);
     CPPUNIT_ASSERT(str.firstChar() == chr);
@@ -87,6 +87,12 @@ void TestCRtfString::testStartsWith() {
     }
     CPPUNIT_ASSERT(str.startsWith('1'));
     CPPUNIT_ASSERT(str.endsWith('3'));
+
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(str.startsWith('1'));
+    CPPUNIT_ASSERT(!str.endsWith('3'));
+    str.lastWord()->addChar(new CRtfChar('4', 0));
+    CPPUNIT_ASSERT(str.endsWith('4'));
 }
 
 void TestCRtfString::testStartsWithDigit() {

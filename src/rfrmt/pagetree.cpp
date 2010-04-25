@@ -244,7 +244,6 @@ void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips);
 void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
 
 ////////////// functions, which are moved from other modules //////////////
-static HWND h_found = NULL;
 
 int ConsMess(const char* str, ...)
 {
