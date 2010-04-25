@@ -190,7 +190,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 if (!pRtfChar->m_bFlg_cup_drop)
                     hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb, SectorInfo,
                             m_wvid_parag, pRtfString->flags(),
-                            pRtfString->m_LengthStringInTwips, colWidth); //NEGA_STR
+                            pRtfString->realLength(), colWidth); //NEGA_STR
             }
 
 #endif
@@ -360,7 +360,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                         -1, -1);
                                 hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
                                         SectorInfo, m_wvid_parag, pRtfString->flags(),
-                                        pRtfString->m_LengthStringInTwips, m_rectReal.right
+                                        pRtfString->realLength(), m_rectReal.right
                                                 - m_rectReal.left); //NEGA_STR
 #ifdef CHEREDOV
                                 hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
@@ -419,7 +419,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                         -1, -1);
                                 hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
                                         SectorInfo, m_wvid_parag, pRtfString->flags(),
-                                        pRtfString->m_LengthStringInTwips, m_rectReal.right
+                                        pRtfString->realLength(), m_rectReal.right
                                                 - m_rectReal.left); //NEGA_STR
 #ifdef CHEREDOV
                                 hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
@@ -1756,14 +1756,14 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
 
     for (ns = 0; ns < m_wStringsCount; ns++) {
         pRtfString = (CRtfString*) m_arStrings[ns];
-        pRtfString->m_LengthStringInTwips = pRtfString->realLength();
+        pRtfString->calcRealLength();
         pRtfString->setLeftIndent(pRtfString->leftIndent() * getTwips()
                 + m_LeftOffsetFragmentFromVerticalColumn);
         pRtfString->setRightIndent(pRtfString->rightIndent() * getTwips()
                 + m_RightOffsetFragmentFromVerticalColumn);
         pRtfString->setRightIndent(
                 MIN(pRtfString->rightIndent(),
-                        m_WidthVerticalColumn - (pRtfString->m_LengthStringInTwips + pRtfString->leftIndent() + pRtfString->rightIndent())));
+                        m_WidthVerticalColumn - (pRtfString->realLength() + pRtfString->leftIndent() + pRtfString->rightIndent())));
     }
 
     for (ns = 0; ns < m_wStringsCount; ns++) {
@@ -1771,7 +1771,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
 
         if (pRtfString->isParagraphBegin()) {
             if (pRtfString->align() == RTF_TP_LEFT_ALLIGN) {
-                Dif = MAX(0, m_WidthVerticalColumn - pRtfString->m_LengthStringInTwips);
+                Dif = MAX(0, m_WidthVerticalColumn - pRtfString->realLength());
                 MinLeftIndent = pRtfString->leftIndent();
 
                 for (i = ns + 1; i < m_wStringsCount; i++) {
@@ -1784,7 +1784,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                     MinLeftIndent = MIN(pRtfStringNext->leftIndent(), MinLeftIndent);
                 }
 
-                if (m_WidthVerticalColumn > pRtfString->m_LengthStringInTwips) {
+                if (m_WidthVerticalColumn > pRtfString->lengthInTwips()) {
                     pRtfString->setFirstIndent(pRtfString->leftIndent() - MinLeftIndent);
 
                     if (pRtfString->firstIndent() < (twp_dist / 3))

@@ -50,6 +50,11 @@ class CLA_EXPO CRtfString
         rtf_align_t align() const;
 
         /**
+         * Calculates string width
+         */
+        void calcRealLength();
+
+        /**
          * Returns string center coord
          * @see width(), leftBorder(), rightBorder()
          */
@@ -297,8 +302,6 @@ class CLA_EXPO CRtfString
          * @see empty(), clearWords(), addWord()
          */
         size_t wordCount() const;
-
-        uint16_t m_LengthStringInTwips;
     private:
         typedef std::vector<CRtfWord*> WordList;
         typedef WordList::iterator WordIterator;
@@ -315,6 +318,7 @@ class CLA_EXPO CRtfString
         int left_indent_;
         int right_indent_;
         int margin_top_;
+        int real_length_;
         rtf_align_t align_;
         uint flags_;
 };

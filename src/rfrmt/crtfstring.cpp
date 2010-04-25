@@ -33,9 +33,9 @@ const char SPACE = ' ';
 const unsigned char HYPHEN = '-';
 
 CRtfString::CRtfString() :
-    m_LengthStringInTwips(0), line_break_(false), paragraph_begin_(false), carry_(false),
-            has_attributes_(false), equal_center_(false), equal_left_(false), equal_right_(false),
-            first_indent_(0), left_indent_(0), right_indent_(0), margin_top_(0), align_(
+    line_break_(false), paragraph_begin_(false), carry_(false), has_attributes_(false),
+            equal_center_(false), equal_left_(false), equal_right_(false), first_indent_(0),
+            left_indent_(0), right_indent_(0), margin_top_(0), real_length_(0), align_(
                     RTF_TP_LEFT_ALLIGN), flags_(0) {
 
 }
@@ -62,6 +62,19 @@ int CRtfString::rightIndent() const {
 
 rtf_align_t CRtfString::align() const {
     return align_;
+}
+
+void CRtfString::calcRealLength() {
+    if (words_.empty() || words_.front()->charCount() == 0) {
+        real_length_ = 0;
+        return;
+    }
+
+    int16_t strHeight;
+    std::string str = toString();
+    const CRtfChar *pRtfChar = firstChar();
+    real_length_ = GetRealSize(str.c_str(), str.length(), firstWord()->realFontSize(),
+            pRtfChar->font(), &strHeight);
 }
 
 int CRtfString::center() const {
@@ -202,14 +215,7 @@ bool CRtfString::lineCarry() const {
 }
 
 uint CRtfString::realLength() const {
-    if (words_.empty() || words_.front()->charCount() == 0)
-        return 0;
-
-    int16_t strHeight;
-    std::string str = toString();
-    const CRtfChar *pRtfChar = firstWord()->firstChar();
-    return GetRealSize(str.c_str(), str.length(), firstWord()->realFontSize(), pRtfChar->font(),
-            &strHeight);
+    return real_length_;
 }
 
 void CRtfString::setAlign(rtf_align_t align) {
