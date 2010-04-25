@@ -226,8 +226,8 @@ class CLA_EXPO CRtfString
         bool carry_;
         bool has_attributes_;
         bool equal_center_;
-        bool m_wLeftBorderEqual;
-        bool m_wRightBorderEqual;
+        bool equal_left_;
+        bool equal_right_;
         int left_indent_;
 };
 

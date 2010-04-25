@@ -35,7 +35,7 @@ const unsigned char HYPHEN = '-';
 CRtfString::CRtfString() :
     m_wRightIndent(0), m_wFirstIndent(0), m_wAlignment(0), m_LengthStringInTwips(0), S_Flags(0),
             line_break_(false), paragraph_begin_(false), carry_(false), has_attributes_(false),
-            equal_center_(false), m_wLeftBorderEqual(false), m_wRightBorderEqual(false),
+            equal_center_(false), equal_left_(false), equal_right_(false),
             left_indent_(0) {
 
 }
@@ -103,11 +103,11 @@ bool CRtfString::isEqualCenter() const {
 }
 
 bool CRtfString::isEqualLeft() const {
-    return m_wLeftBorderEqual;
+    return equal_left_;
 }
 
 bool CRtfString::isEqualRight() const {
-    return m_wRightBorderEqual;
+    return equal_right_;
 }
 
 bool CRtfString::isParagraphBegin() const {
@@ -202,11 +202,11 @@ void CRtfString::setEqualCenter(bool value) {
 }
 
 void CRtfString::setEqualLeft(bool value) {
-    m_wLeftBorderEqual = value;
+    equal_left_ = value;
 }
 
 void CRtfString::setEqualRight(bool value) {
-    m_wRightBorderEqual = value;
+    equal_right_ = value;
 }
 
 void CRtfString::setLeftIndent(int indent) {
