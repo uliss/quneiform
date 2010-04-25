@@ -33,10 +33,10 @@ const char SPACE = ' ';
 const unsigned char HYPHEN = '-';
 
 CRtfString::CRtfString() :
-    m_wFirstIndent(0), m_LengthStringInTwips(0), S_Flags(0), line_break_(false), paragraph_begin_(
-            false), carry_(false), has_attributes_(false), equal_center_(false),
-            equal_left_(false), equal_right_(false), left_indent_(0), right_indent_(0),
-            align_(RTF_TP_LEFT_ALLIGN) {
+    m_wFirstIndent(0), m_LengthStringInTwips(0), line_break_(false), paragraph_begin_(false),
+            carry_(false), has_attributes_(false), equal_center_(false), equal_left_(false),
+            equal_right_(false), left_indent_(0), right_indent_(0), align_(RTF_TP_LEFT_ALLIGN),
+            flags_(0) {
 
 }
 
@@ -102,8 +102,16 @@ const CRtfWord * CRtfString::firstWord() const {
     return words_.front();
 }
 
+uint CRtfString::flags() const {
+    return flags_;
+}
+
 bool CRtfString::hasAttributes() const {
     return has_attributes_;
+}
+
+bool CRtfString::hasFlag(uint flag) const {
+    return flags_ & flag;
 }
 
 bool CRtfString::isEqualCenter() const {
@@ -214,6 +222,10 @@ void CRtfString::setEqualLeft(bool value) {
 
 void CRtfString::setEqualRight(bool value) {
     equal_right_ = value;
+}
+
+void CRtfString::setFlags(uint flag) {
+    flags_ = flag;
 }
 
 void CRtfString::setLeftIndent(int indent) {

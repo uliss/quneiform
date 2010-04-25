@@ -82,9 +82,19 @@ class CLA_EXPO CRtfString
         const CRtfWord * firstWord() const;
 
         /**
+         * Returns CSTR flags
+         */
+        uint flags() const;
+
+        /**
          * Checks is string has attributes
          */
         bool hasAttributes() const;
+
+        /**
+         * Checks if string has CSTR flag
+         */
+        bool hasFlag(uint flag) const;
 
         bool isEqualCenter() const;
         bool isEqualLeft() const;
@@ -169,6 +179,11 @@ class CLA_EXPO CRtfString
         void setEqualRight(bool value);
 
         /**
+         * Sets string CSTR flags
+         */
+        void setFlags(uint flag);
+
+        /**
          * Sets string left indent
          */
         void setLeftIndent(int indent);
@@ -234,7 +249,6 @@ class CLA_EXPO CRtfString
         uint16_t m_wFirstIndent;
         uint16_t m_LengthStringInTwips;
         uint16_t m_wSpaceBefore;
-        uint32_t S_Flags; //NEGA_STR vmk 10-06-2001
     private:
         typedef std::vector<CRtfWord*> WordList;
         typedef WordList::iterator WordIterator;
@@ -250,6 +264,8 @@ class CLA_EXPO CRtfString
         int left_indent_;
         int right_indent_;
         rtf_align_t align_;
+        //NEGA_STR vmk 10-06-2001
+        uint flags_;
 };
 
 }

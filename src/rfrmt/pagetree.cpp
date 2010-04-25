@@ -2624,7 +2624,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     pRtfFragment->m_arStrings.push_back( new CIF::CRtfString() );
                     pRtfString = pRtfFragment->m_arStrings[ns];
                     //nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
-                    pRtfString->S_Flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
+                    pRtfString->setFlags(TitleStr[nc][ns].S_Flags); //NEGA_STR
                     do0(nw, 0, TitleStr[nc][ns].S_Gen.S_NumWord - 1) {//word begin
                         if (TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0) {
                             continue;
@@ -2730,7 +2730,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     else
                         pRtfString->setAttributes(false);
 
-                    pRtfString->S_Flags = TitleStr[nc][ns].S_Flags; //NEGA_STR
+                    pRtfString->setFlags(TitleStr[nc][ns].S_Flags); //NEGA_STR
                     do0(nw, 0, TitleStr[nc][ns].S_Gen.S_NumWord - 1) { //word begin
                         if (TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0) {
                             continue;

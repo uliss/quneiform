@@ -115,7 +115,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
         // чтобы не смешивать в одном абзаце негатив. и позитив. строки, при смене
         // цвета стартуем новый абзац
-        boNega = pRtfString->S_Flags & CSTR_STR_NEGATIVE; //NEGA_STR
+        boNega = pRtfString->hasFlag(CSTR_STR_NEGATIVE); //NEGA_STR
 
         if (boNega != boPrevNega)
             pRtfString->setParagraphBegin(true);
@@ -189,7 +189,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
                 if (!pRtfChar->m_bFlg_cup_drop)
                     hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb, SectorInfo,
-                            m_wvid_parag, /*m_Flag*/pRtfString->S_Flags,
+                            m_wvid_parag, pRtfString->flags(),
                             pRtfString->m_LengthStringInTwips, colWidth); //NEGA_STR
             }
 
@@ -347,7 +347,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 EDSIZE interval__ = { 0, 0 };
 
                                 //                          if(m_Flag & CSTR_STR_NEGATIVE) //nega
-                                if (pRtfString->S_Flags & CSTR_STR_NEGATIVE) //NEGA_STR
+                                if (pRtfString->hasFlag(CSTR_STR_NEGATIVE)) //NEGA_STR
                                     shading = 10000;
 
                                 Handle hParagraph__ = CED_CreateParagraph(SectorInfo->hEDSector,
@@ -359,7 +359,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                         (int) tmp_font_name, EDFontAttribs, pRtfChar->language(),
                                         -1, -1);
                                 hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
-                                        SectorInfo, m_wvid_parag,/*m_Flag*/pRtfString->S_Flags,
+                                        SectorInfo, m_wvid_parag, pRtfString->flags(),
                                         pRtfString->m_LengthStringInTwips, m_rectReal.right
                                                 - m_rectReal.left); //NEGA_STR
 #ifdef CHEREDOV
@@ -418,7 +418,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                         (int) tmp_font_name, EDFontAttribs, pRtfChar->language(),
                                         -1, -1);
                                 hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
-                                        SectorInfo, m_wvid_parag,/*m_Flag*/pRtfString->S_Flags,
+                                        SectorInfo, m_wvid_parag, pRtfString->flags(),
                                         pRtfString->m_LengthStringInTwips, m_rectReal.right
                                                 - m_rectReal.left); //NEGA_STR
 #ifdef CHEREDOV
