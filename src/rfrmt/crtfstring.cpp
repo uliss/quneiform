@@ -33,10 +33,9 @@ const char SPACE = ' ';
 const unsigned char HYPHEN = '-';
 
 CRtfString::CRtfString() :
-    m_wRightIndent(0), m_wFirstIndent(0), m_wAlignment(0), m_LengthStringInTwips(0), S_Flags(0),
-            line_break_(false), paragraph_begin_(false), carry_(false), has_attributes_(false),
-            equal_center_(false), equal_left_(false), equal_right_(false),
-            left_indent_(0) {
+    m_wFirstIndent(0), m_wAlignment(0), m_LengthStringInTwips(0), S_Flags(0), line_break_(false),
+            paragraph_begin_(false), carry_(false), has_attributes_(false), equal_center_(false),
+            equal_left_(false), equal_right_(false), left_indent_(0), right_indent_(0) {
 
 }
 
@@ -54,6 +53,10 @@ int CRtfString::leftBorder() const {
 
 int CRtfString::rightBorder() const {
     return lastChar()->idealRect().right();
+}
+
+int CRtfString::rightIndent() const {
+    return right_indent_;
 }
 
 int CRtfString::center() const {
@@ -166,12 +169,7 @@ int CRtfString::leftIndent() const {
 }
 
 int CRtfString::lengthInTwips() const {
-    if (words_.empty())
-        return 0;
-
-    const CRtfChar * first = firstWord()->firstChar();
-    const CRtfChar * last = lastWord()->lastChar();
-    return (last->idealRect().right() - first->idealRect().left()) * getTwips();
+    return width() * getTwips();
 }
 
 bool CRtfString::lineTransfer() const {
@@ -223,6 +221,10 @@ void CRtfString::setLineTransfer(bool value) {
 
 void CRtfString::setParagraphBegin(bool value) {
     paragraph_begin_ = value;
+}
+
+void CRtfString::setRightIndent(int indent) {
+    right_indent_ = indent;
 }
 
 bool CRtfString::startsWith(int c) const {

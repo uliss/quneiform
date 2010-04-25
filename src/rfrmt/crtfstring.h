@@ -145,6 +145,11 @@ class CLA_EXPO CRtfString
          */
         int rightBorder() const;
 
+        /**
+         * Returns string right indent
+         */
+        int rightIndent() const;
+
         /** */
         void setAttributes(bool value);
 
@@ -171,6 +176,11 @@ class CLA_EXPO CRtfString
          * Sets string paragraph begining
          */
         void setParagraphBegin(bool value);
+
+        /**
+         * Sets string right indent
+         */
+        void setRightIndent(int indent);
 
         /**
          * Checks if string starts with symbol chr
@@ -210,7 +220,6 @@ class CLA_EXPO CRtfString
          */
         size_t wordCount() const;
 
-        uint16_t m_wRightIndent;
         uint16_t m_wFirstIndent;
         uint16_t m_wAlignment;
         uint16_t m_LengthStringInTwips;
@@ -229,6 +238,7 @@ class CLA_EXPO CRtfString
         bool equal_left_;
         bool equal_right_;
         int left_indent_;
+        int right_indent_;
 };
 
 }
