@@ -1203,20 +1203,6 @@ void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int e
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 CheckNumber
-
-Bool CRtfFragment::CheckNumber(uchar FirstChar) {
-    const char* result = NULL;
-    const char* MasNumber = "0123456789";
-    result = strchr(MasNumber, FirstChar);
-
-    if (result == NULL)
-        return FALSE;
-
-    return TRUE;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 CorrectIndents
 
 void CRtfFragment::CorrectIndents(int beg, int end) {

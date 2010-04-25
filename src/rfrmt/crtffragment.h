@@ -109,7 +109,6 @@ class CRtfFragment
         Bool GetFlagStrongLeft(int beg, int end);
         Bool GetFlagRight(int beg, int end);
         Bool GetFlagBigSpace(int beg, int end);
-        Bool CheckNumber(uchar FirstChar);
 
         void PrintTheResult(const char*);
 
