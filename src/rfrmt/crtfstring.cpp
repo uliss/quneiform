@@ -57,7 +57,7 @@ int CRtfString::rightBorder() const {
 }
 
 int CRtfString::center() const {
-    return (m_LeftBorder + m_RightBorder) / 2;
+    return (leftBorder() + rightBorder()) / 2;
 }
 
 void CRtfString::clearWords() {

@@ -229,8 +229,6 @@ class CLA_EXPO CRtfString
         bool m_wLeftBorderEqual;
         bool m_wRightBorderEqual;
         int left_indent_;
-        int m_LeftBorder;
-        int m_RightBorder;
 };
 
 }
