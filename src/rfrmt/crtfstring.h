@@ -74,6 +74,9 @@ class CLA_EXPO CRtfString
         CRtfChar * firstChar();
         const CRtfChar * firstChar() const;
 
+        /** */
+        int firstIndent() const;
+
         /**
          * Returns pointer to first word
          * @throw std::out_of_range if string is empty
@@ -184,6 +187,11 @@ class CLA_EXPO CRtfString
         void setFlags(uint flag);
 
         /**
+         * Sets string first indent
+         */
+        void setFirstIndent(int indent);
+
+        /**
          * Sets string left indent
          */
         void setLeftIndent(int indent);
@@ -246,7 +254,6 @@ class CLA_EXPO CRtfString
          */
         size_t wordCount() const;
 
-        uint16_t m_wFirstIndent;
         uint16_t m_LengthStringInTwips;
         uint16_t m_wSpaceBefore;
     private:
@@ -261,10 +268,10 @@ class CLA_EXPO CRtfString
         bool equal_center_;
         bool equal_left_;
         bool equal_right_;
+        int first_indent_;
         int left_indent_;
         int right_indent_;
         rtf_align_t align_;
-        //NEGA_STR vmk 10-06-2001
         uint flags_;
 };
 

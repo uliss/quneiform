@@ -131,11 +131,11 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
             if (pRtfString->align() == RTF_TP_TYPE_LINE) {
                 pRtfString->setAlign(RTF_TP_LEFT_AND_RIGHT_ALLIGN);
-                m_fi = -pRtfString->m_wFirstIndent;
+                m_fi = -pRtfString->firstIndent();
             }
 
             else
-                m_fi = pRtfString->m_wFirstIndent;
+                m_fi = pRtfString->firstIndent();
 
             m_wvid_parag = pRtfString->align();
             m_li = pRtfString->leftIndent();
@@ -810,7 +810,7 @@ Bool CRtfFragment::ProcessingUseNoneMode(void) {
         pRtfString->setAlign(RTF_TP_LEFT_ALLIGN);
         pRtfString->setLeftIndent(0);
         pRtfString->setRightIndent(0);
-        pRtfString->m_wFirstIndent = 0;
+        pRtfString->setFirstIndent(0);
     }
 
     return TRUE;
@@ -943,10 +943,10 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
 
         if (ns == 0) {
             if (pRtfString->leftIndent() > m_max_dist / 2)
-                pRtfString->m_wFirstIndent = (uint16_t) (m_max_dist * getTwips());
+                pRtfString->setFirstIndent(m_max_dist * getTwips());
 
             else
-                pRtfString->m_wFirstIndent = 0;
+                pRtfString->setFirstIndent(0);
 
             pRtfString->setLeftIndent(0);
             pRtfString->setParagraphBegin(true);
@@ -958,7 +958,7 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
         if (ns == m_wStringsCount - 1) {
             if ((pRtfString->leftIndent() - pRtfStringPrev->leftIndent()) > (m_max_dist / 2)) {
                 pRtfString->setLeftIndent(0);
-                pRtfString->m_wFirstIndent = (uint16_t) (m_max_dist * getTwips());
+                pRtfString->setFirstIndent(m_max_dist * getTwips());
                 pRtfString->setParagraphBegin(true);
             }
         }
@@ -970,7 +970,7 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
                     && ((pRtfString->leftIndent() - pRtfStringNext->leftIndent())
                             > (m_max_dist / 2))) {
                 pRtfString->setLeftIndent(0);
-                pRtfString->m_wFirstIndent = (uint16_t) (m_max_dist * getTwips());
+                pRtfString->setFirstIndent(m_max_dist * getTwips());
                 pRtfString->setParagraphBegin(true);
             }
         }
@@ -1785,17 +1785,17 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                 }
 
                 if (m_WidthVerticalColumn > pRtfString->m_LengthStringInTwips) {
-                    pRtfString->m_wFirstIndent = pRtfString->leftIndent() - MinLeftIndent;
+                    pRtfString->setFirstIndent(pRtfString->leftIndent() - MinLeftIndent);
 
-                    if (pRtfString->m_wFirstIndent < (twp_dist / 3))
-                        pRtfString->m_wFirstIndent = 0;
+                    if (pRtfString->firstIndent() < (twp_dist / 3))
+                        pRtfString->setFirstIndent(0);
 
                     pRtfString->setLeftIndent(MIN(Dif, MinLeftIndent));
                 }
 
                 else {
                     pRtfString->setLeftIndent(0);
-                    pRtfString->m_wFirstIndent = 0;
+                    pRtfString->setFirstIndent(0);
                 }
 
                 pRtfString->setRightIndent(0);
@@ -1804,7 +1804,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                     pRtfString->setLeftIndent(0);
 
                 if (i == (ns + 1)) {
-                    pRtfString->m_wFirstIndent = pRtfString->leftIndent();
+                    pRtfString->setFirstIndent(pRtfString->leftIndent());
                     pRtfString->setLeftIndent(0);
                 }
 
@@ -1813,7 +1813,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
 
             if (pRtfString->align() == RTF_TP_RIGHT_ALLIGN) {
                 pRtfString->setLeftIndent(0);
-                pRtfString->m_wFirstIndent = 0;
+                pRtfString->setFirstIndent(0);
                 pRtfString->setRightIndent(0);
                 continue;
             }
@@ -1824,17 +1824,17 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
 
                     if (!pRtfStringNext->isParagraphBegin() && pRtfStringNext->align()
                             == RTF_TP_TYPE_LINE) {
-                        pRtfString->m_wFirstIndent = pRtfStringNext->leftIndent()
-                                - pRtfString->leftIndent();
+                        pRtfString->setFirstIndent(pRtfStringNext->leftIndent()
+                                - pRtfString->leftIndent());
                         pRtfString->setLeftIndent(pRtfStringNext->leftIndent());
                     }
 
                     else
-                        pRtfString->m_wFirstIndent = 0;
+                        pRtfString->setFirstIndent(0);
                 }
 
                 else
-                    pRtfString->m_wFirstIndent = 0;
+                    pRtfString->setFirstIndent(0);
 
                 continue;
             }
@@ -1857,10 +1857,10 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                 if (MinLeftIndent < (twp_dist / 3))
                     MinLeftIndent = 0;
 
-                pRtfString->m_wFirstIndent = pRtfString->leftIndent() - MinLeftIndent;
+                pRtfString->setFirstIndent(pRtfString->leftIndent() - MinLeftIndent);
 
-                if (pRtfString->m_wFirstIndent < (twp_dist / 3))
-                    pRtfString->m_wFirstIndent = 0;
+                if (pRtfString->firstIndent() < (twp_dist / 3))
+                    pRtfString->setFirstIndent(0);
 
                 if (MinLeftIndent < twp_dist)
                     pRtfString->setLeftIndent(0);
@@ -1875,7 +1875,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                     if (MinLeftIndent > ((2 * twp_dist) / 3))
                         pRtfString->setLeftIndent(MinLeftIndent);
 
-                    pRtfString->m_wFirstIndent = pRtfString->leftIndent();
+                    pRtfString->setFirstIndent(pRtfString->leftIndent());
                     pRtfString->setLeftIndent(0);
                     pRtfString->setRightIndent(0);
                 }
@@ -1899,7 +1899,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                 if (abs(MinLeftIndent - MinRightIndent) < (2 * m_max_dist))
                     MinLeftIndent = MinRightIndent = 0;
 
-                pRtfString->m_wFirstIndent = 0;
+                pRtfString->setFirstIndent(0);
                 pRtfString->setLeftIndent(MinLeftIndent);
                 pRtfString->setRightIndent(MinRightIndent);
             }

@@ -33,9 +33,9 @@ const char SPACE = ' ';
 const unsigned char HYPHEN = '-';
 
 CRtfString::CRtfString() :
-    m_wFirstIndent(0), m_LengthStringInTwips(0), line_break_(false), paragraph_begin_(false),
-            carry_(false), has_attributes_(false), equal_center_(false), equal_left_(false),
-            equal_right_(false), left_indent_(0), right_indent_(0), align_(RTF_TP_LEFT_ALLIGN),
+    m_LengthStringInTwips(0), line_break_(false), paragraph_begin_(false), carry_(false),
+            has_attributes_(false), equal_center_(false), equal_left_(false), equal_right_(false),
+            first_indent_(0), left_indent_(0), right_indent_(0), align_(RTF_TP_LEFT_ALLIGN),
             flags_(0) {
 
 }
@@ -90,6 +90,10 @@ const CRtfChar * CRtfString::firstChar() const {
     if (words_.empty())
         throw std::out_of_range("[CRtfString::firstChar] string is empty");
     return words_.front()->firstChar();
+}
+
+int CRtfString::firstIndent() const {
+    return first_indent_;
 }
 
 CRtfWord * CRtfString::firstWord() {
@@ -226,6 +230,10 @@ void CRtfString::setEqualRight(bool value) {
 
 void CRtfString::setFlags(uint flag) {
     flags_ = flag;
+}
+
+void CRtfString::setFirstIndent(int indent) {
+    first_indent_ = indent;
 }
 
 void CRtfString::setLeftIndent(int indent) {
