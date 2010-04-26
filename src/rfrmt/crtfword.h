@@ -68,6 +68,11 @@ class CLA_EXPO CRtfWord
         size_t charCount() const;
 
         /**
+         * Returns total length of word chars
+         */
+        int charTotalLength() const;
+
+        /**
          * Removes all chars
          */
         void clearChars();

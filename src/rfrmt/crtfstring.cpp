@@ -92,6 +92,13 @@ size_t CRtfString::charCount() const {
     return result;
 }
 
+int CRtfString::charTotalLength() const {
+    int result = 0;
+    for (WordIteratorConst it = words_.begin(), end = words_.end(); it != end; ++it)
+        result += (*it)->charTotalLength();
+    return result;
+}
+
 void CRtfString::clearWords() {
     for (WordIterator it = words_.begin(), e = words_.end(); it != e; ++it)
         delete (*it);

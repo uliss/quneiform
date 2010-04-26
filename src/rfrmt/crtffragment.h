@@ -43,6 +43,16 @@ class CLA_EXPO CRtfFragment
         void addString(CRtfString * str);
 
         /**
+         * Returns number of chars in fragment
+         */
+        size_t charCount() const;
+
+        /**
+         * Returns char total length
+         */
+        int charTotalLength() const;
+
+        /**
          * Removes all string from fragment
          */
         void clearStrings();
@@ -103,8 +113,6 @@ class CLA_EXPO CRtfFragment
         void SetFirstLeftAndRightIndentOfParagraph(void);
         void CorrectIndents(int beg, int end);
         void SetParagraphAlignment(int beg, int end, rtf_align_t AlignType);
-        void CalculationLengthAndCount(CRtfString* pRtfString, int32_t* CountChars,
-                int32_t* LengthChars);
         void GetCountEqual(int beg, int end, uint16_t* Count, int AlignType);
         Bool GetFlagCarry(int beg, int end);
         Bool GetFlagLeft(int beg, int end);
@@ -137,8 +145,6 @@ class CLA_EXPO CRtfFragment
         uint16_t m_CountLeftRightEqual;
         uint16_t m_CountCentreEqual;
 
-        int16_t m_l_fragment;
-        int16_t m_r_fragment;
         int16_t m_l_fragmentLocal;
         int16_t m_r_fragmentLocal;
 
@@ -160,17 +166,24 @@ class CLA_EXPO CRtfFragment
         uchar m_FlagBigSpace;
         uint32_t m_Flag;
     private:
+        void calcFragmentBorders(RtfSectorInfo* SectorInfo);
+        void calcMaxCharDistance();
         int fontSizePenalty(int fragment_count) const;
         void Init(RtfSectorInfo* SectorInfo);
         void initFragment(RtfSectorInfo* SectorInfo);
         void initFragmentFonts(int fragment_count);
+        int minStringLeftBorder() const;
+        int maxStringRightBorder() const;
         void processingUseNoneMode();
         void setFragmentAlignment(RtfSectorInfo* SectorInfo);
     private:
         CRtfPage * parent_;
         typedef std::vector<CRtfString*> StringList;
         typedef StringList::iterator StringIterator;
+        typedef StringList::const_iterator StringIteratorConst;
         StringList strings_;
+        int left_border_;
+        int right_border_;
 };
 }
 

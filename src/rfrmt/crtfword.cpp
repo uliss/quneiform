@@ -80,6 +80,16 @@ Rect CRtfWord::charsBRect() const {
     return firstChar()->realRect().united(lastChar()->realRect());
 }
 
+int CRtfWord::charTotalLength() const {
+    int result = 0;
+    for (CharConstIterator it = chars_.begin(), e = chars_.end(); it != e; ++it) {
+        int wd = (*it)->realRect().width();
+        if (wd > 0)
+            result += wd;
+    }
+    return result;
+}
+
 bool CRtfWord::charSpelling() const {
     for (CharList::const_iterator it = chars_.begin(), end = chars_.end(); it != end; ++it) {
         if (!(*it)->isSpelled())
