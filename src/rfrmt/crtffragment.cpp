@@ -81,6 +81,21 @@ void CRtfFragment::clearStrings() {
     strings_.clear();
 }
 
+CRtfString * CRtfFragment::firstString() {
+    return strings_.at(0);
+}
+
+const CRtfString * CRtfFragment::firstString() const {
+    return strings_.at(0);
+}
+
+void CRtfFragment::initFragmentFonts(int fragment_count) {
+    CRtfWord* first_word = firstString()->firstWord();
+    firstString()->setFontSizePenalty(SMALL_FONT_SIZE, fontSizePenalty(fragment_count));
+    m_wprev_font_name = fontName(first_word->fontNumber());
+    m_wprev_font_size = first_word->realFontSize();
+}
+
 void CRtfFragment::setParent(CRtfPage * page) {
     parent_ = page;
 }
@@ -244,7 +259,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             pRtfWord = pRtfString->wordAt(nw);
             pRtfChar = pRtfWord->firstChar();
             Put("{");
-            tmp_font_name = get_font_name(pRtfWord->fontNumber());
+            tmp_font_name = fontName(pRtfWord->fontNumber());
 
             if (m_wprev_font_name != tmp_font_name) {
                 switch (tmp_font_name) {
@@ -583,17 +598,8 @@ int CRtfFragment::fontSizePenalty(int fragment_count) const {
 
 void CRtfFragment::initFragment(RtfSectorInfo* SectorInfo) {
     assert(SectorInfo);
-    CRtfString* pRtfString = strings_.at(0);
-    CRtfWord* pRtfWord = pRtfString->firstWord();
-
-    int PenaltyForCheredov = fontSizePenalty(SectorInfo->CountFragments);
-
-        pRtfString->setFontSizePenalty(SMALL_FONT_SIZE, PenaltyForCheredov);
-
-
-    m_wprev_font_name = get_font_name(pRtfWord->fontNumber());
+    initFragmentFonts(SectorInfo->CountFragments);
     m_wprev_lang = 1024;
-    m_wprev_font_size = pRtfWord->realFontSize();
     SetFragmentAlignment(SectorInfo);
 }
 

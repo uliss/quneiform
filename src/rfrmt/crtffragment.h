@@ -48,6 +48,13 @@ class CRtfFragment
         void clearStrings();
 
         /**
+         * Returns pointer to first string in fragment
+         * @throw std::out_of_range if fragment is empty
+         */
+        CRtfString * firstString();
+        const CRtfString * firstString() const;
+
+        /**
          * Sets pointer to parent root
          */
         void setParent(CRtfPage * page);
@@ -157,6 +164,7 @@ class CRtfFragment
         uint32_t m_Flag;
     private:
         void initFragment(RtfSectorInfo* SectorInfo);
+        void initFragmentFonts(int fragment_count);
         int fontSizePenalty(int fragment_count) const;
     private:
         CRtfPage * parent_;

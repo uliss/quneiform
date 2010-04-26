@@ -263,7 +263,7 @@ int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t Font
     else
         bItalic = FALSE;
 
-    fn = get_font_name(FontNumber);
+    fn = CIF::fontName(FontNumber);
     //  TODO
     *strHeight = size.height();
     return size.width(); //in twips

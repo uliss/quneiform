@@ -32,6 +32,8 @@ namespace CIF
 float getTwips();
 void setTwips(float value);
 
+int fontName(int FontNumber);
+
 }
 
 void Put(const char *Data);
@@ -39,7 +41,7 @@ void PutC(char sym);
 void PutCom(const char *Command, int32_t value, int16_t space);
 void PutChar(uchar sym);
 Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo);
-int16_t get_font_name(int16_t FontNumber);
+
 int16_t GetRealSizeKegl(const char * str, int16_t width, int16_t FontPointSize, int16_t FontNumber);
 int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
         int16_t* strHeight);
