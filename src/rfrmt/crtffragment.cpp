@@ -98,10 +98,7 @@ void CRtfFragment::initFragmentFonts(int fragment_count) {
     m_wprev_font_size = first_word->realFontSize();
 }
 
-bool CRtfFragment::processingUseNoneMode() {
-    if (!RfrmtOptions::useNone())
-        return false;
-
+void CRtfFragment::processingUseNoneMode() {
     for (size_t i = 0; i < strings_.size(); i++) {
         CRtfString * str = strings_[i];
 
@@ -120,13 +117,13 @@ bool CRtfFragment::processingUseNoneMode() {
         str->setRightIndent(0);
         str->setFirstIndent(0);
     }
-
-    return true;
 }
 
 void CRtfFragment::setFragmentAlignment(RtfSectorInfo* SectorInfo) {
-    if (processingUseNoneMode())
+    if (RfrmtOptions::useNone()) {
+        processingUseNoneMode();
         return;
+    }
 
     Init(SectorInfo);
 
@@ -260,8 +257,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                             (CRtfSector*) parent_->m_arSectors[parent_->m_nCurSectorNumber];
 
                     //Если пишем с форматированием и однострочная колонка
-                    if (RfrmtOptions::useFramesAndColumns()
-                            && curSect->SectorInfo.FlagOneString == TRUE)
+                    if (RfrmtOptions::useFramesAndColumns() && curSect->SectorInfo.FlagOneString
+                            == TRUE)
                         colWidth = SectorInfo->PaperW - (SectorInfo->MargL + SectorInfo->MargR);
 
                     //Если пишем в колонку
@@ -455,8 +452,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
-                                if (!CIF::RfrmtOptions::useSize()
-                                        && CIF::RfrmtOptions::useFrames())
+                                if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames())
                                     hString = CED_CreateLine(hParagraph,
                                             pRtfString->lineTransfer(), DefFontSize);
 
@@ -515,8 +511,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
-                                if (!CIF::RfrmtOptions::useSize()
-                                        && CIF::RfrmtOptions::useFrames())
+                                if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames())
                                     hString = CED_CreateLine(hParagraph,
                                             pRtfString->lineTransfer(), DefFontSize);
 

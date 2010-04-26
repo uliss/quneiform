@@ -164,7 +164,7 @@ class CLA_EXPO CRtfFragment
         int fontSizePenalty(int fragment_count) const;
         void initFragment(RtfSectorInfo* SectorInfo);
         void initFragmentFonts(int fragment_count);
-        bool processingUseNoneMode();
+        void processingUseNoneMode();
         void setFragmentAlignment(RtfSectorInfo* SectorInfo);
     private:
         CRtfPage * parent_;
