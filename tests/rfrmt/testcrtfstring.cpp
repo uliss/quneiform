@@ -138,3 +138,23 @@ void TestCRtfString::testStartWithDash() {
         CPPUNIT_ASSERT(!str.startsWithDash());
     }
 }
+
+void TestCRtfString::testCharCount() {
+    CRtfString str;
+    CPPUNIT_ASSERT(str.charCount() == 0);
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(str.charCount() == 0);
+    CRtfChar * chr = new CRtfChar('a', 0);
+    str.firstWord()->addChar(chr);
+    CPPUNIT_ASSERT(str.charCount() == 1);
+    chr = new CRtfChar('b', 0);
+    str.firstWord()->addChar(chr);
+    CPPUNIT_ASSERT(str.charCount() == 2);
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(str.charCount() == 2);
+    chr = new CRtfChar('c', 0);
+    str.firstWord()->addChar(chr);
+    CPPUNIT_ASSERT(str.charCount() == 3);
+    str.clearWords();
+    CPPUNIT_ASSERT(str.charCount() == 0);
+}

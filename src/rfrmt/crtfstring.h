@@ -61,6 +61,11 @@ class CLA_EXPO CRtfString
         int center() const;
 
         /**
+         * Returns number of chars in string
+         */
+        size_t charCount() const;
+
+        /**
          * Removes all words from string
          * @see addWord()
          */

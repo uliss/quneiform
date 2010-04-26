@@ -81,6 +81,17 @@ int CRtfString::center() const {
     return (leftBorder() + rightBorder()) / 2;
 }
 
+inline int charCount(const CRtfWord * word) {
+    return word->charCount();
+}
+
+size_t CRtfString::charCount() const {
+    size_t result = 0;
+    for (WordIteratorConst it = words_.begin(), end = words_.end(); it != end; ++it)
+        result += (*it)->charCount();
+    return result;
+}
+
 void CRtfString::clearWords() {
     for (WordIterator it = words_.begin(), e = words_.end(); it != e; ++it)
         delete (*it);

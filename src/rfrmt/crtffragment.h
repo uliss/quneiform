@@ -76,7 +76,6 @@ class CLA_EXPO CRtfFragment
         Bool FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo,
                 Bool OutPutType);
 
-        void Init(RtfSectorInfo* SectorInfo);
         void ReInit(RtfSectorInfo* SectorInfo, int beg, int end);
         Bool ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo);
         Bool DeterminationOfCentreJustification(int beg, int end);
@@ -162,6 +161,7 @@ class CLA_EXPO CRtfFragment
         uint32_t m_Flag;
     private:
         int fontSizePenalty(int fragment_count) const;
+        void Init(RtfSectorInfo* SectorInfo);
         void initFragment(RtfSectorInfo* SectorInfo);
         void initFragmentFonts(int fragment_count);
         void processingUseNoneMode();

@@ -703,9 +703,6 @@ Bool CRtfFragment::FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo *S
     return TRUE;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                            Init
-
 void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
     int LeftDif, RightDif, CentreDif;
     CRtfString *pRtfStringPrev, *pRtfString;
@@ -719,25 +716,25 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
 
     //  I. Поиск:       Левой(m_l_fragment) и правой(m_r_fragment) границ фрагмента
     //  II.Вычисление:  m_max_dist, котороя используется при поиске начала абзаца
-    for (ns = 0; ns < stringCount(); ns++) {
-        pRtfString = (CRtfString*) strings_[ns];
+    for (size_t i = 0; i < stringCount(); i++) {
+        CRtfString * str = strings_[i];
 
-        if (!ns) {
-            pRtfString->setTopMargin(SectorInfo->VerticalOffsetFragmentInColumn);
-            pRtfString->setParagraphBegin(true);
+        if (!i) {
+            str->setTopMargin(SectorInfo->VerticalOffsetFragmentInColumn);
+            str->setParagraphBegin(true);
         } else
-            pRtfString->setTopMargin(0);
+            str->setTopMargin(0);
 
-        pRtfWord = pRtfString->firstWord();
+        pRtfWord = str->firstWord();
         pRtfCharFirst = pRtfWord->firstChar();
-        pRtfWord = pRtfString->lastWord();
+        pRtfWord = str->lastWord();
         pRtfCharLast = pRtfWord->lastChar();
-        CalculationLengthAndCount(pRtfString, &CountChars, &LengthChars);
+        CalculationLengthAndCount(str, &CountChars, &LengthChars);
         m_l_fragment = MIN(m_l_fragment, (int16_t)pRtfCharFirst->idealRect().left());
         m_r_fragment = MAX(m_r_fragment, (int16_t)pRtfCharLast->idealRect().right());
 
         if (pRtfCharLast->first().isHyphen() && pRtfCharLast->m_bFlg_spell_nocarrying)
-            pRtfString->setLineCarry(true);
+            str->setLineCarry(true);
     }
 
     if (CountChars)
