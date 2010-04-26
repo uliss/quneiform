@@ -31,7 +31,7 @@ namespace CIF
 class CRtfPage;
 class CRtfString;
 
-class CRtfFragment
+class CLA_EXPO CRtfFragment
 {
     public:
         CRtfFragment();
