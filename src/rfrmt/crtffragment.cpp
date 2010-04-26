@@ -17,6 +17,8 @@
  ***************************************************************************/
 
 #include <cstring>
+
+#include "rfrmtoptions.h"
 #include "crtffragment.h"
 #include "crtfchar.h"
 #include "crtfstring.h"
@@ -96,6 +98,57 @@ void CRtfFragment::initFragmentFonts(int fragment_count) {
     m_wprev_font_size = first_word->realFontSize();
 }
 
+bool CRtfFragment::processingUseNoneMode() {
+    if (!RfrmtOptions::useNone())
+        return false;
+
+    for (size_t i = 0; i < strings_.size(); i++) {
+        CRtfString * str = strings_[i];
+
+        if (i == 0)
+            str->setParagraphBegin(true);
+        else
+            str->setParagraphBegin(false);
+
+        if (i == stringCount() - 1)
+            str->setLineTransfer(false);
+        else
+            str->setLineTransfer(true);
+
+        str->setAlign(RTF_TP_LEFT_ALLIGN);
+        str->setLeftIndent(0);
+        str->setRightIndent(0);
+        str->setFirstIndent(0);
+    }
+
+    return true;
+}
+
+void CRtfFragment::setFragmentAlignment(RtfSectorInfo* SectorInfo) {
+    if (processingUseNoneMode())
+        return;
+
+    Init(SectorInfo);
+
+    if (ProcessingOverLayedFragment(SectorInfo) == FALSE) {
+        if (DeterminationOfMixedFragment(SectorInfo) == FALSE) {
+            if (DeterminationOfLeftRightJustification(0, stringCount()) == FALSE) {
+                if (DeterminationOfListType(0, stringCount()) == FALSE) {
+                    if (DeterminationOfLeftJustification(0, stringCount(), 0) == FALSE) {
+                        if (DeterminationOfCentreJustification(0, stringCount()) == FALSE) {
+                            if (DeterminationOfRightJustification(0, stringCount()) == FALSE) {
+                                DeterminationOfLeftJustification(0, stringCount(), 1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        Done();
+    }
+}
+
 void CRtfFragment::setParent(CRtfPage * page) {
     parent_ = page;
 }
@@ -143,7 +196,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
         pRtfChar = pRtfWord->firstChar();
 
         if (pRtfChar->m_bFlg_cup_drop == TRUE) { //заносим буквицы во frame
-            if ((FlagMode & USE_FRAME) || OutPutType)
+            if (RfrmtOptions::useFrames() || OutPutType)
                 pRtfChar->m_bFlg_cup_drop = FALSE;
 
             else
@@ -186,7 +239,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #endif
             m_wprev_font_size = pRtfWord->realFontSize();
 
-            if (FlagMode & USE_FRAME_AND_COLUMN) {
+            if (CIF::RfrmtOptions::useFramesAndColumns()) {
                 if (SectorInfo->FlagOneString == TRUE) {
                     m_li = 0;
                     m_fi = MAX(0, (int16_t)(m_rect.left - SectorInfo->MargL));
@@ -202,13 +255,13 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                 pRtfChar = pRtfWord->firstChar();
                 int colWidth = 0;
 
-                if (parent_ && !(FlagMode & USE_NONE)) {
+                if (parent_ && !RfrmtOptions::useNone()) {
                     CRtfSector* curSect =
                             (CRtfSector*) parent_->m_arSectors[parent_->m_nCurSectorNumber];
 
                     //Если пишем с форматированием и однострочная колонка
-                    if (FlagMode & USE_FRAME_AND_COLUMN && curSect->SectorInfo.FlagOneString
-                            == TRUE)
+                    if (RfrmtOptions::useFramesAndColumns()
+                            && curSect->SectorInfo.FlagOneString == TRUE)
                         colWidth = SectorInfo->PaperW - (SectorInfo->MargL + SectorInfo->MargR);
 
                     //Если пишем в колонку
@@ -239,7 +292,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
-            if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME)) {
+            if (!RfrmtOptions::useSize() && !RfrmtOptions::useFrames()) {
                 hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(), DefFontSize); //line is text line
             }
 
@@ -292,14 +345,14 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 #endif
             }
 
-            if (!(FlagMode & NOBOLD) && (pRtfWord->fontNumber() & TG_EDW_BOLD)) {
+            if (RfrmtOptions::useBold() && (pRtfWord->fontNumber() & TG_EDW_BOLD)) {
                 Put("\\b");
 #ifdef EdWrite
                 EDFontAttribs = EDFontAttribs | TG_EDW_BOLD;
 #endif
             }
 
-            if (!(FlagMode & NOCURSIV) && (pRtfWord->fontNumber() & TG_EDW_ITALIC)) {
+            if (RfrmtOptions::useItalic() && (pRtfWord->fontNumber() & TG_EDW_ITALIC)) {
                 Put("\\i");
 #ifdef EdWrite
                 EDFontAttribs = EDFontAttribs | TG_EDW_ITALIC;
@@ -309,7 +362,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
             if (m_wprev_lang != 1024)
                 PutCom("\\lang", 1024, 0);
 
-            if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
+            if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames())
                 PutCom("\\fs", DefFontSize, 1);
 
             else
@@ -343,7 +396,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
 #else
 
-                    if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
+                    if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames())
                         EDFontPointSize = DefFontSize;
 
                     else
@@ -356,7 +409,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
 
 #else
 
-                if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
+                if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames())
                     EDFontPointSize = DefFontSize;
 
                 else
@@ -402,7 +455,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
-                                if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
+                                if (!CIF::RfrmtOptions::useSize()
+                                        && CIF::RfrmtOptions::useFrames())
                                     hString = CED_CreateLine(hParagraph,
                                             pRtfString->lineTransfer(), DefFontSize);
 
@@ -461,7 +515,8 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                                 hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
-                                if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
+                                if (!CIF::RfrmtOptions::useSize()
+                                        && CIF::RfrmtOptions::useFrames())
                                     hString = CED_CreateLine(hParagraph,
                                             pRtfString->lineTransfer(), DefFontSize);
 
@@ -517,7 +572,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                             EDFontAttribs, -1, -1, -1);
 #else
 
-                    if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
+                    if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames())
                         CED_CreateChar(hString, slayout, Letter, DefFontSize, (int) tmp_font_name,
                                 EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
 
@@ -546,7 +601,7 @@ Bool CRtfFragment::FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo *Sect
                             EDFontAttribs, -1, -1, -1);
 #else
 
-                    if ((FlagMode & NOSIZE) && !(FlagMode & USE_FRAME))
+                    if (!RfrmtOptions::useSize() && RfrmtOptions::useFrames())
                         CED_CreateChar(hString, slayout, Letter, DefFontSize, (int) tmp_font_name,
                                 EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
 
@@ -594,13 +649,15 @@ int CRtfFragment::fontSizePenalty(int fragment_count) const {
         return PENALTY_FOR_MEDIUM_FONT_SIZE;
     else if (BIG_FONT_SIZE < sz)
         return PENALTY_FOR_BIG_FONT_SIZE;
+    else
+        return 0;
 }
 
 void CRtfFragment::initFragment(RtfSectorInfo* SectorInfo) {
     assert(SectorInfo);
     initFragmentFonts(SectorInfo->CountFragments);
     m_wprev_lang = 1024;
-    SetFragmentAlignment(SectorInfo);
+    setFragmentAlignment(SectorInfo);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -648,74 +705,6 @@ Bool CRtfFragment::FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo *S
      }
      }
      */
-    return TRUE;
-}
-
-/*------------------------------------------------------------------------------------------------------------
- RTF_TP_LEFT_ALLIGN                   0   -  выравниваение по левому краю
- RTF_TP_RIGHT_ALLIGN                  1   -  выравнивание по правому краю
- RTF_TP_LEFT_ALLIGN&TP_RIGHT_ALLIGN   2   -  выравнивание по ширине
- RTF_TP_CENTER                        3   -  выравнивание по центру
- RTF_TP_ONE                           4   -  каждая строка состоит из одного слова, выравнивание левому краю
- RTF_TP_TYPE_LINE                     5   -  список
- ---------------------------------------------------------------------------------------------------------------*/
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 SetFragmentAlignment
-void CRtfFragment::SetFragmentAlignment(RtfSectorInfo* SectorInfo) {
-    if (ProcessingUseNoneMode() == FALSE) {
-        Init(SectorInfo);
-
-        if (ProcessingOverLayedFragment(SectorInfo) == FALSE) {
-            if (DeterminationOfMixedFragment(SectorInfo) == FALSE) {
-                if (DeterminationOfLeftRightJustification(0, stringCount()) == FALSE) {
-                    if (DeterminationOfListType(0, stringCount()) == FALSE) {
-                        if (DeterminationOfLeftJustification(0, stringCount(), 0) == FALSE) {
-                            if (DeterminationOfCentreJustification(0, stringCount()) == FALSE) {
-                                if (DeterminationOfRightJustification(0, stringCount()) == FALSE) {
-                                    DeterminationOfLeftJustification(0, stringCount(), 1);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            Done();
-        }
-    }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                     ProcessingUseNoneMode
-
-Bool CRtfFragment::ProcessingUseNoneMode(void) {
-    CRtfString *pRtfString;
-    int ns;
-
-    if (!(FlagMode & USE_NONE))
-        return FALSE;
-
-    for (ns = 0; ns < stringCount(); ns++) {
-        pRtfString = strings_[ns];
-
-        if (!ns)
-            pRtfString->setParagraphBegin(true);
-        else
-            pRtfString->setParagraphBegin(false);
-
-        if (ns == stringCount() - 1)
-            pRtfString->setLineTransfer(false);
-
-        else
-            pRtfString->setLineTransfer(true);
-
-        pRtfString->setAlign(RTF_TP_LEFT_ALLIGN);
-        pRtfString->setLeftIndent(0);
-        pRtfString->setRightIndent(0);
-        pRtfString->setFirstIndent(0);
-    }
-
     return TRUE;
 }
 

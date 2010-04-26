@@ -21,7 +21,7 @@
 
 #include <vector>
 #include <string>
-#include "creatertf.h"
+#include "font.h"
 #include "cfcompat.h"
 #include "common/rect.h"
 

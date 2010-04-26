@@ -24,7 +24,7 @@
 #include "globus.h"
 #include "cfcompat.h"
 #include "lang_def.h"
-#include "crtfstruct.h"
+#include "font.h"
 #include "common/rect.h"
 #include "common/letter.h"
 

@@ -84,13 +84,12 @@
 #include "rfrmt_prot.h"
 #include "compat/filefunc.h"
 #include "crtffunc.h"
+#include "rfrmtoptions.h"
 
 #include "minmax.h"
 
 using namespace CIF;
 
-#define  USE_NONE              0x0040   // no formatting
-extern uint32_t FlagMode;
 extern uint32_t RtfWriteMode;
 extern CIF::Point TemplateOffset;
 
@@ -395,7 +394,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
                 SectorInfo->FlagFictiveParagraph = FALSE;
             }
 
-            if (FlagMode & USE_NONE || SectorInfo->CountFragments == 1)
+            if (CIF::RfrmtOptions::useNone() || SectorInfo->CountFragments == 1)
                 SectorInfo->hObject = SectorInfo->hColumn;
 
             else {

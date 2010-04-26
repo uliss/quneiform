@@ -27,6 +27,7 @@
 #include "creatertf.h"
 #include "frmttabl.h"
 #include "frmtpict.h"
+#include "rfrmtoptions.h"
 
 // common module
 #include "common/debug.h"
@@ -105,7 +106,7 @@ void CRtfPage::Rtf_CED_CreatePage(void) {
     m_hED->setTurn(PageInfo.Incline2048);
     m_hED->setImageSize(Size(PageInfo.Width, PageInfo.Height));
     m_hED->setImageDpi(Size(PageInfo.DPIX, PageInfo.DPIY));
-    m_hED->setResizeToFit(!(FlagMode & USE_NONE));
+    m_hED->setResizeToFit(!CIF::RfrmtOptions::useNone());
 #endif
 }
 
@@ -373,7 +374,7 @@ void CRtfPage::AddPictures(void) {
         RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, CIF::getTwips());
         pRtfFragment->m_wType = FT_PICTURE;
 
-        if (FlagMode & USE_FRAME_AND_COLUMN) {
+        if (RfrmtOptions::useFramesAndColumns()) {
             pRtfFragment->m_wUserNumberForFormattedMode = pRtfFragment->m_wUserNumber;
             pRtfFragment->m_wUserNumber = i;
         }
@@ -489,7 +490,7 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
     int32_t LeftPos = 32000, TopPos = 32000, RightPos = -32000, BottomPos = -32000, Width = 0;
     CRtfSector* pRtfSector;
 
-    if (FlagMode & USE_NONE) {// Фрагменты отписываются по пользовательским номерам
+    if (RfrmtOptions::useNone()) {// Фрагменты отписываются по пользовательским номерам
         MargL = DefMargL;
         MargR = DefMargR;
         MargT = DefMargT;
@@ -504,7 +505,7 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
         PaperH = DefaultHeightPage;
     }
 
-    else if ((FlagMode & USE_FRAME) || FlagBadColumn) {// Все фрагменты фреймы
+    else if (RfrmtOptions::useFrames() || FlagBadColumn) {// Все фрагменты фреймы
         m_arSectors.push_back(new CRtfSector());
         pRtfSector = m_arSectors.back();
 
@@ -813,7 +814,7 @@ Bool CRtfPage::Write(const char *FileNameOut) {
             return FALSE;
     }
 
-    if (FlagMode & USE_NONE) { // Фрагменты отписываются по пользовательским номерам
+    if (RfrmtOptions::useNone()) { // Фрагменты отписываются по пользовательским номерам
         ReCalcPageWidthAndHeight();
 #ifdef EdWrite
 
@@ -828,7 +829,7 @@ Bool CRtfPage::Write(const char *FileNameOut) {
         Write_USE_NONE();
     }
 
-    else if ((FlagMode & USE_FRAME) || FlagBadColumn) { // Все фрагменты фреймы
+    else if (RfrmtOptions::useFrames() || FlagBadColumn) { // Все фрагменты фреймы
         ReCalcPageWidthAndHeight();
 #ifdef EdWrite
 
@@ -1296,7 +1297,7 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
     pRtfSector->SectorInfo.PaperH = PaperH;
 
     // m_bFlagLine (есть линии) => не пытаться сдвигать margL для красоты
-    if (FlagMode & USE_FRAME_AND_COLUMN && pRtfSector->m_bFlagLine == FALSE) {
+    if (RfrmtOptions::useFramesAndColumns() && pRtfSector->m_bFlagLine == FALSE) {
         pRtfSector->GetCountAndRightBoundVTerminalColumns();
         CountHTerminalColumns = pRtfSector->m_arWidthTerminalColumns.size();
 
@@ -1316,7 +1317,7 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
 
     PutCom("\\margl", MargL, 0);
 
-    if (FlagMode & USE_FRAME_AND_COLUMN && pRtfSector->m_bFlagLine == FALSE) {
+    if (RfrmtOptions::useFramesAndColumns() && pRtfSector->m_bFlagLine == FALSE) {
         if (CountHTerminalColumns) {
             if (pRtfSector->m_FlagOneString == FALSE)
                 MargR = PaperW - (pRtfSector->m_arRightBoundTerminalColumns[CountHTerminalColumns
@@ -1337,7 +1338,7 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
     PutCom("\\margt", MargT, 0);
     PutCom("\\margb", MargB, 0);
 
-    if (!CountHTerminalColumns && !(FlagMode & USE_FRAME))
+    if (!CountHTerminalColumns && !(RfrmtOptions::useNone()))
         Put("\\pard\\fs6\\par");
 
     pRtfSector->SectorInfo.Offset.rx() = MargL;
@@ -1353,13 +1354,13 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
     border.setRight(MargR);
     border.setBottom(MargB);
 
-    if (FlagMode & USE_FRAME_AND_COLUMN)
+    if (RfrmtOptions::useFramesAndColumns())
         pRtfSector->SectorInfo.userNum = -1;
 
     else
         CountHTerminalColumns = 0;
 
-    if (FlagMode & USE_FRAME_AND_COLUMN && pRtfSector->m_bFlagLine == TRUE)
+    if (RfrmtOptions::useFramesAndColumns() && pRtfSector->m_bFlagLine == TRUE)
         CountHTerminalColumns = 0;
 
     EDCountHTerminalColumns = CountHTerminalColumns;
@@ -1378,7 +1379,7 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
     }
 
     for (j = 0; j < CountHTerminalColumns; j++) {
-        if (FlagMode & USE_FRAME_AND_COLUMN && pRtfSector->SectorInfo.FlagOneString == TRUE)
+        if (RfrmtOptions::useFramesAndColumns() && pRtfSector->SectorInfo.FlagOneString == TRUE)
             pEDColumn->width = PaperW - (MargL + MargR);
 
         else

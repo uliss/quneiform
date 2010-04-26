@@ -115,7 +115,7 @@ void PutChar(uchar sym) {
     }
 }
 
-int CIF::fontName(int FontNumber) {
+int CIF::fontName(font_number FontNumber) {
     if (FontNumber & TG_EDW_NARROW)
         return 3;
 

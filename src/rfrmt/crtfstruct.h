@@ -19,8 +19,6 @@
 #ifndef CRTFSTRUCT_H_
 #define CRTFSTRUCT_H_
 
-typedef short font_number;
-
 class RtfPageElementCount
 {
     public:
@@ -34,30 +32,6 @@ class RtfPageElementCount
         uint16_t RtfChars;
 };
 
-class KEGL
-{
-    public:
-        int16_t OldKegl;
-        int16_t NewKegl;
-        int16_t Count;
-};
-
-class FONT
-{
-    public:
-        char *family;
-        char *name;
-        int16_t Bold, Italic, Underline;
-};
-
-class FONT_COD
-{
-    public:
-        const char *name;
-        const char *family;
-};
-
-extern uint32_t FlagMode;
 extern char UnRecogSymbol;
 extern uint32_t gnLanguage;
 

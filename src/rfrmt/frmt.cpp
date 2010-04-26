@@ -71,21 +71,15 @@
 #include "dpuma.h"
 #include "aldebug.h"
 #include "rfrmt_prot.h"
+#include "rfrmtoptions.h"
 #include <cstring>
 #include <cassert>
 #include <vector>
 #include <climits>
 
 #include "compat/filefunc.h"
+#include "font.h"
 
-#define  USE_NONE             0x0040   // no formatting
-#define  USE_FRAME_AND_COLUMN 0x0001   // use columns & frames
-#define  USE_FRAME            0x0002   // use only frames
-#define  NOBOLD               0x0004
-#define  NOCURSIV             0x0008
-#define  NOSIZE               0x0020
-
-uint32_t FlagMode;
 uint32_t ExFlagMode;
 
 uint32_t RtfWriteMode;
@@ -133,8 +127,7 @@ extern Handle hDebugAlign;
 
 //###########################################
 #define New On
-Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree)
-{
+Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree) {
 #ifdef New
     FILE *fpInternalFile = create_temp_file();
 
@@ -143,7 +136,7 @@ Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree)
     }
 
     LDPUMA_Skip(hDebugProfStart);
-    FlagMode = 0;
+    CIF::RfrmtOptions::formatMode() = 0;
     ExFlagMode = FALSE;
     RtfWriteMode = FALSE;
     strcpy((char*) WriteRtfImageName, lpInputImageName);
@@ -179,22 +172,20 @@ Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree)
     }
 
     if (!gbBold)
-        FlagMode |= NOBOLD;
+        CIF::RfrmtOptions::setFlag(NOBOLD);
 
     if (!gbItalic)
-        FlagMode |= NOCURSIV;
+        CIF::RfrmtOptions::setFlag(NOCURSIV);
 
     if (!gbSize)
-        FlagMode |= NOSIZE;
+        CIF::RfrmtOptions::setFlag(NOSIZE);
 
     if (!LDPUMA_Skip(hDebugFrame))
-        FlagMode |= USE_FRAME;
-
+        CIF::RfrmtOptions::setFlag(USE_FRAME);
     else if (gnFormat == 1 && ExFlagMode == FALSE)
-        FlagMode |= USE_FRAME_AND_COLUMN;
-
+        CIF::RfrmtOptions::setFlag(USE_FRAME_AND_COLUMN);
     else
-        FlagMode |= USE_NONE;
+        CIF::RfrmtOptions::setFlag(USE_NONE);
 
     strcpy((char*) lpMyNameSerif, gpSerifName);
     strcpy((char*) lpMyNameNonSerif, gpSansSerifName);
@@ -279,16 +270,15 @@ Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree)
 #endif
 }
 
-Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code)
-{
+Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code) {
     FILE *fpInternalFile = create_temp_file();
 
-    if ( fpInternalFile == NULL) {
+    if (fpInternalFile == NULL) {
         assert ("Could not create tmpfile\n");
     }
 
     LDPUMA_Skip(hDebugProfStart);
-    FlagMode = 0;
+    CIF::RfrmtOptions::setFormatMode(0);
     ExFlagMode = FALSE;
     RtfWriteMode = TRUE;
 
@@ -296,7 +286,7 @@ Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code)
         hDbgWnd = LDPUMA_CreateWindow("Форматирование", LDPUMA_GetDIBptr(NULL));
     }
 
-    strcpy( (char*)RtfFileName, lpOutputFileName );
+    strcpy((char*) RtfFileName, lpOutputFileName);
 #ifdef alDebug
     CRtfFragRect RtfFragRect;
     RtfFragRect.m_arInputFragRect.clear();
@@ -329,24 +319,25 @@ Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code)
         return FALSE;
     }
 
-    if ( !gbBold ) FlagMode |= NOBOLD;
+    if (!gbBold)
+        CIF::RfrmtOptions::setFlag(NOBOLD);
 
-    if ( !gbItalic ) FlagMode |= NOCURSIV;
+    if (!gbItalic)
+        CIF::RfrmtOptions::setFlag(NOCURSIV);
 
-    if ( !gbSize ) FlagMode |= NOSIZE;
+    if (!gbSize)
+        CIF::RfrmtOptions::setFlag(NOSIZE);
 
     if (!LDPUMA_Skip(hDebugFrame))
-        FlagMode |= USE_FRAME;
-
-    else if ( gnFormat == 1 && ExFlagMode == FALSE)
-        FlagMode |= USE_FRAME_AND_COLUMN;
-
+        CIF::RfrmtOptions::setFlag(USE_FRAME);
+    else if (gnFormat == 1 && ExFlagMode == FALSE)
+        CIF::RfrmtOptions::setFlag(USE_FRAME_AND_COLUMN);
     else
-        FlagMode |= USE_NONE;
+        CIF::RfrmtOptions::setFlag(USE_NONE);
 
-    strcpy( (char*)lpMyNameSerif , gpSerifName );
-    strcpy( (char*)lpMyNameNonSerif , gpSansSerifName );
-    strcpy( (char*)lpMyNameMono , gpCourierName );
+    strcpy((char*) lpMyNameSerif, gpSerifName);
+    strcpy((char*) lpMyNameNonSerif, gpSansSerifName);
+    strcpy((char*) lpMyNameMono, gpCourierName);
     FlagChangeSizeKegl = TRUE;
 
     if (!LDPUMA_Skip(hDebugKegl))
@@ -371,7 +362,7 @@ Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code)
     else
         FlagDebugAlign = FALSE;
 
-    if (!FullRtf(fpInternalFile, lpOutputFileName, NULL) ) {
+    if (!FullRtf(fpInternalFile, lpOutputFileName, NULL)) {
         LDPUMA_Skip(hDebugProfEnd);
         fclose(fpInternalFile);
         return FALSE;

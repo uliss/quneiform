@@ -21,6 +21,7 @@
 #include "crtffragment.h"
 #include "crtffunc.h"
 #include "crtfpage.h"
+#include "rfrmtoptions.h"
 #include "ced/ced.h"
 #include "minmax.h"
 
@@ -537,7 +538,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
     if (m_wType == HC_SingleTerminal || m_wType == HC_AllTerminal) {
         *VTerminalColumnNumber += 1;
 
-        if (FlagMode & USE_FRAME_AND_COLUMN && *VTerminalColumnNumber == 1 && CountVTerminalColumns
+        if (RfrmtOptions::useFramesAndColumns() && *VTerminalColumnNumber == 1 && CountVTerminalColumns
                 > 1) {
             Rect.top = m_rectReal.top;
             Rect.bottom = m_rectReal.bottom;
@@ -555,7 +556,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 
         PutCom("\\colno", *VTerminalColumnNumber, 1);
 
-        if (FlagMode & USE_FRAME_AND_COLUMN && SectorInfo->FlagOneString == TRUE)
+        if (RfrmtOptions::useFramesAndColumns() && SectorInfo->FlagOneString == TRUE)
             colw = MAX(0, SectorInfo->PaperW - (SectorInfo->MargL + SectorInfo->MargR));
 
         else

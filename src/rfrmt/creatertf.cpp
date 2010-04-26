@@ -83,6 +83,7 @@
 #include "cstr/cstrdefs.h"
 #include "cline/cline.h"
 
+#include "rfrmtoptions.h"
 #include "crtfstruct.h"
 #include "crtfchar.h"
 #include "crtffragment.h"
@@ -94,6 +95,7 @@
 #include "crtfword.h"
 #include "crtffunc.h"
 #include "crtfstruct.h"
+#include "font.h"
 
 #include "common/size.h"
 #include "minmax.h"
@@ -121,7 +123,8 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
 void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
 void Cleaning_LI_FRMT_Used_Flag(void);
 
-namespace CIF {
+namespace CIF
+{
 
 static float twips_ = 0;
 
@@ -134,7 +137,6 @@ void setTwips(float value) {
 }
 
 }
-
 
 extern char lpMyNameSerif[PATH_MAX];
 extern char lpMyNameNonSerif[PATH_MAX];
@@ -157,7 +159,7 @@ Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree) {
     if (RtfWriteMode) // is activated ONLY in debug mode (нажать ??? в LDPUMA)
         Cleaning_LI_FRMT_Used_Flag(); //обнуление флажков, что линии между колонок
 
-    if (FlagMode & USE_FRAME_AND_COLUMN) {
+    if (CIF::RfrmtOptions::hasFlag(USE_FRAME_AND_COLUMN)) {
         if (!RtfPage.FindPageTree(fpFileNameIn, FileNameOut))
             return FALSE;
 
@@ -176,7 +178,7 @@ Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree) {
     //  RtfPage.AddTables();
     RtfPage.AddPictures();
 
-    if (FlagMode & USE_NONE)
+    if (CIF::RfrmtOptions::useNone())
         RtfPage.SortUserNumber();//в ручном layout user can establish own order of the fragments
 
 #ifndef EdWrite
@@ -210,7 +212,7 @@ int16_t GetRealSizeKegl( /*CString**/const char* str, int16_t width, int16_t Fon
 
     //      *str +=" ";
 
-    if (!(FlagMode & NOBOLD) && ((char) FontNumber & TG_EDW_BOLD))
+    if (CIF::RfrmtOptions::useBold() && ((char) FontNumber & CIF::TG_EDW_BOLD))
         koef = float(4. / 5.);
 
     sz = new char[len + 1];
@@ -222,8 +224,8 @@ int16_t GetRealSizeKegl( /*CString**/const char* str, int16_t width, int16_t Fon
     memset(sz + strlen(str), ' ', len - strlen(str));
     sz[len] = 0;
 
-    if (FontPointSize > ChangedKeglSize) {
-        int Count = FontPointSize - ChangedKeglSize;
+    if (FontPointSize > CIF::ChangedKeglSize) {
+        int Count = FontPointSize - CIF::ChangedKeglSize;
 
         for (int i = 0; i < Count; i++) {
             int16_t RealSize = GetRealSize(sz, strlen(sz), FontPointSize, FontNumber, &strHeight);
@@ -242,24 +244,20 @@ int16_t GetRealSizeKegl( /*CString**/const char* str, int16_t width, int16_t Fon
     return FontPointSize;
 }
 
-
 int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
         int16_t* strHeight) {
-    HFONT testFont;
     CIF::Size size;
     int n_Weight = 600, fn;
     uchar bItalic;
-    //  TEXTMETRIC  tm;
 
-    if (!(FlagMode & NOBOLD) && ((char) FontNumber & TG_EDW_BOLD))
+    if (CIF::RfrmtOptions::useBold() && ((char) FontNumber & CIF::TG_EDW_BOLD))
         n_Weight = 800;
 
-    if (FlagMode & NOSIZE)
-        FontSize = DefFontSize / 2;
+    if (CIF::RfrmtOptions::useSize())
+        FontSize = CIF::DefFontSize / 2;
 
-    if (!(FlagMode & NOCURSIV) && ((char) FontNumber & TG_EDW_ITALIC))
+    if (CIF::RfrmtOptions::useItalic() && ((char) FontNumber & CIF::TG_EDW_ITALIC))
         bItalic = TRUE;
-
     else
         bItalic = FALSE;
 
@@ -273,7 +271,7 @@ int16_t CreateEmptyRtfFile(void) {
     const char *TitleRtf = "\\rtf1\\ansi \\deff0\\deflang1024";
     char Eol[3], Nname[260];
     int16_t i;
-    FONT_COD FontCod[9] = { "Arial Cyr", "fswiss", // NonSerif
+    CIF::FONT_COD FontCod[9] = { "Arial Cyr", "fswiss", // NonSerif
             "Times New Roman Cyr", "froman", // Serif
             "Courier Cyr", "fmodern" // Fixed_Pitch
             };
@@ -350,20 +348,20 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
     playout.h = -1;
     align = AlignParagraph;
 
-    if (align == RTF_TP_ONE)
-        align = RTF_TP_LEFT_ALLIGN;
+    if (align == CIF::RTF_TP_ONE)
+        align = CIF::RTF_TP_LEFT_ALLIGN;
 
     switch (align) {
-    case RTF_TP_LEFT_ALLIGN:
+    case CIF::RTF_TP_LEFT_ALLIGN:
         align = TP_LEFT_ALLIGN;
         break;
-    case RTF_TP_RIGHT_ALLIGN:
+    case CIF::RTF_TP_RIGHT_ALLIGN:
         align = TP_RIGHT_ALLIGN;
         break;
-    case RTF_TP_LEFT_AND_RIGHT_ALLIGN:
+    case CIF::RTF_TP_LEFT_AND_RIGHT_ALLIGN:
         align = TP_LEFT_ALLIGN | TP_RIGHT_ALLIGN;
         break;
-    case RTF_TP_CENTER:
+    case CIF::RTF_TP_CENTER:
         align = TP_CENTER;
         break;
     }
@@ -399,10 +397,10 @@ void Rtf_CED_CreateChar(CIF::Rect * slayout, CIF::Letter* Letter, CIF::CRtfChar*
 
     if (pRtfChar) {
         *slayout = pRtfChar->realRect().translate(TemplateOffset);
-//        slayout->rleft() = pRtfChar->m_Realrect.left + TemplateOffset.x();
-//        slayout->rright() = pRtfChar->m_Realrect.right + TemplateOffset.x();
-//        slayout->rtop() = pRtfChar->m_Realrect.top + TemplateOffset.y();
-//        slayout->rbottom() = pRtfChar->m_Realrect.bottom + TemplateOffset.y();
+        //        slayout->rleft() = pRtfChar->m_Realrect.left + TemplateOffset.x();
+        //        slayout->rright() = pRtfChar->m_Realrect.right + TemplateOffset.x();
+        //        slayout->rtop() = pRtfChar->m_Realrect.top + TemplateOffset.y();
+        //        slayout->rbottom() = pRtfChar->m_Realrect.bottom + TemplateOffset.y();
 
         int i = 0;
         for (; i < pRtfChar->versionCount(); i++) {
@@ -458,23 +456,24 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo) {
             if ((cpdata->Flags & LI_IsTrue) && !(cpdata->Flags & LI_IsAtTable) && !(cpdata->Flags
                     & LI_Used) && !(cpdata->Flags & LI_FRMT_Used)) {
                 if (FlagVer) {
-                    if (cpdata->Line.Beg_X * CIF::getTwips() > Rect->left && cpdata->Line.End_X * CIF::getTwips()
-                            > Rect->left && cpdata->Line.Beg_X * CIF::getTwips() < Rect->right
-                            && cpdata->Line.End_X * CIF::getTwips() < Rect->right && VCentre
-                            > cpdata->Line.Beg_Y * CIF::getTwips() && VCentre < cpdata->Line.End_Y * CIF::getTwips()
-                            && abs(cpdata->Line.Beg_Y - cpdata->Line.End_Y) * CIF::getTwips() > (Rect->bottom
-                                    - Rect->top) / 2)
+                    if (cpdata->Line.Beg_X * CIF::getTwips() > Rect->left && cpdata->Line.End_X
+                            * CIF::getTwips() > Rect->left && cpdata->Line.Beg_X * CIF::getTwips()
+                            < Rect->right && cpdata->Line.End_X * CIF::getTwips() < Rect->right
+                            && VCentre > cpdata->Line.Beg_Y * CIF::getTwips() && VCentre
+                            < cpdata->Line.End_Y * CIF::getTwips() && abs(cpdata->Line.Beg_Y
+                            - cpdata->Line.End_Y) * CIF::getTwips() > (Rect->bottom - Rect->top)
+                            / 2)
                         return TRUE;
                 }
 
                 else {//Hor
-                    if (((cpdata->Line.Beg_Y * CIF::getTwips() > Rect->top && cpdata->Line.Beg_Y * CIF::getTwips()
-                            < Rect->bottom) || (cpdata->Line.End_Y * CIF::getTwips() > Rect->top
-                            && cpdata->Line.End_Y * CIF::getTwips() < Rect->bottom)) && abs(
-                            cpdata->Line.Beg_X - cpdata->Line.End_X) * CIF::getTwips() > SectorInfo->PaperW
-                            / 2) {
-                        if (cpdata->Line.Beg_Y * CIF::getTwips() > Rect->top && cpdata->Line.Beg_Y * CIF::getTwips()
-                                < Rect->bottom) {
+                    if (((cpdata->Line.Beg_Y * CIF::getTwips() > Rect->top && cpdata->Line.Beg_Y
+                            * CIF::getTwips() < Rect->bottom) || (cpdata->Line.End_Y
+                            * CIF::getTwips() > Rect->top && cpdata->Line.End_Y * CIF::getTwips()
+                            < Rect->bottom)) && abs(cpdata->Line.Beg_X - cpdata->Line.End_X)
+                            * CIF::getTwips() > SectorInfo->PaperW / 2) {
+                        if (cpdata->Line.Beg_Y * CIF::getTwips() > Rect->top && cpdata->Line.Beg_Y
+                                * CIF::getTwips() < Rect->bottom) {
                             Rect->top = (int32_t) (cpdata->Line.Beg_Y * CIF::getTwips());
                             Rect->bottom = (int32_t) (cpdata->Line.Beg_Y * CIF::getTwips() + 10);
                         }

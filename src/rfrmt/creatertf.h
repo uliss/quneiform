@@ -86,7 +86,6 @@ class CRtfChar;
 
 typedef std::vector<uint16_t> vectorWord;
 const float TwipsToEMU_Koef = (360000 * 2.54) / 1440;
-const unsigned char TIRE = 0x97; //'-'
 
 //Fragment output types
 enum fragment_output_t
@@ -110,27 +109,7 @@ enum hcolumn_t
     HC_ONLY_PICTURE_TABLE = 4
 };
 
-const int MaxFontSize = 72;
-const int DefFontSize = 24;
 const int MAX_BUFFER_SIZE = 2048;
-const int ChangedKeglSize = 6;
-
-//       wFont bits
-enum
-{
-    TG_EDW_SERIF = 1, //сериф.
-    TG_EDW_GELV = 2, //без сериф.
-    TG_EDW_BOLD = 4,
-    TG_EDW_ITALIC = 16,
-    TG_EDW_UNDERLINE = 64,
-    TG_EDW_NARROW = 128
-// user defined
-};
-
-enum
-{
-    NOBOLD = 0x0004, NOCURSIV = 0x0008, NOSIZE = 0x0020
-};
 
 // Formatting Mode
 enum format_mode_t
@@ -140,7 +119,10 @@ enum format_mode_t
     // use columns & frames
     USE_FRAME_AND_COLUMN = 0x0001,
     // use only frames
-    USE_FRAME = 0x0002
+    USE_FRAME = 0x0002,
+    NOBOLD = 0x0004,
+    NOCURSIV = 0x0008,
+    NOSIZE = 0x0020
 };
 
 // Size A4
@@ -151,21 +133,5 @@ const int DefMargL = 1800; // Left   margin in twips    (the default is 1800).
 const int DefMargR = 1800; // Right  margin in twips    (the default is 1800).
 const int DefMargT = 1440; // Top    margin in twips    (the default is 1440).
 const int DefMargB = 1440; // Bottom margin in twips    (the default is 1440).
-
-enum rtf_align_t
-{
-    //- выравниваение по левому краю
-    RTF_TP_LEFT_ALLIGN = 0,
-    //- выравнивание по правому краю
-    RTF_TP_RIGHT_ALLIGN = 1,
-    //- выравнивание по ширине
-    RTF_TP_LEFT_AND_RIGHT_ALLIGN = 2,
-    //- выравнивание по центру
-    RTF_TP_CENTER = 3,
-    //- каждая строка состоит из одного слова, выравнивание левому краю
-    RTF_TP_ONE = 4,
-    //- список
-    RTF_TP_TYPE_LINE = 5
-};
 
 #endif // __CreateRtf_h__

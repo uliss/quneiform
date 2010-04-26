@@ -21,7 +21,7 @@
 
 #include <vector>
 #include "cfcompat.h"
-#include "creatertf.h"
+#include "font.h"
 
 class RtfSectorInfo;
 
@@ -71,13 +71,11 @@ class CRtfFragment
          */
         size_t stringCount() const;
 
-        void SetFragmentAlignment(RtfSectorInfo* SectorInfo);
         Bool FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
         Bool FWriteTable(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
         Bool FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo,
                 Bool OutPutType);
 
-        Bool ProcessingUseNoneMode(void);
         void Init(RtfSectorInfo* SectorInfo);
         void ReInit(RtfSectorInfo* SectorInfo, int beg, int end);
         Bool ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo);
@@ -130,7 +128,7 @@ class CRtfFragment
         Bool m_bFlagObjectInColumn;
         Bool m_bFlagUsed;
         Bool m_bOutPutType;
-        uint16_t m_wprev_font_name;
+        font_number m_wprev_font_name;
         uint16_t m_wprev_lang;
         uint16_t m_wprev_font_size;
         uint16_t m_wvid_parag;
@@ -163,9 +161,11 @@ class CRtfFragment
         uchar m_FlagBigSpace;
         uint32_t m_Flag;
     private:
+        int fontSizePenalty(int fragment_count) const;
         void initFragment(RtfSectorInfo* SectorInfo);
         void initFragmentFonts(int fragment_count);
-        int fontSizePenalty(int fragment_count) const;
+        bool processingUseNoneMode();
+        void setFragmentAlignment(RtfSectorInfo* SectorInfo);
     private:
         CRtfPage * parent_;
         typedef std::vector<CRtfString*> StringList;

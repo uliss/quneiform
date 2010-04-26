@@ -19,6 +19,7 @@ formatoptions.cpp
 int_file.cpp
 mymem.cpp
 pagetree.cpp
+rfrmtoptions.cpp
 sort_int.cpp
 util.cpp
 util_lst.cpp

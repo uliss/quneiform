@@ -67,22 +67,9 @@
 #include "cstr/cstrdefs.h"
 #include "compat/filefunc.h"
 
-#define  DefFontSize          24
 #define  TablTrgaph           108
 #define  TablMinKeglSize      12
 
-#define  NOBOLD               0x0004
-#define  NOCURSIV             0x0008
-#define  NOSIZE               0x0020
-
-//       wFont bits
-#define  TG_EDW_SERIF         1
-#define  TG_EDW_GELV          2      //без сериф.
-#define  TG_EDW_BOLD          4
-#define  TG_EDW_ITALIC        16
-#define  TG_EDW_UNDERLINE     64
-#define  TG_EDW_NARROW        128     // user defined
-extern uint32_t FlagMode;
 extern char lpMyNameSerif[PATH_MAX];
 extern char lpMyNameNonSerif[PATH_MAX];
 extern char lpMyNameMono[PATH_MAX];

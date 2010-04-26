@@ -91,7 +91,6 @@ extern uint32_t GetTablCount(void);
 extern uchar Frmt_CharSet;
 extern int16_t CreateEmptyRtfFile(void);
 extern char UnRecogSymbol;
-extern uint32_t FlagMode;
 extern uint32_t ExFlagMode;
 
 #define HalfDefMargL   900 // Left margin in twips    (the default is 1800).

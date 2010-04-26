@@ -16,40 +16,11 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CRTFFUNC_H_
-#define CRTFFUNC_H_
-
-#include "cfcompat.h"
-#include "creatertf.h"
-#include "crtfstruct.h"
-
-struct RtfSectorInfo;
-extern uint32_t RtfWriteMode;
+#include "rfrmtoptions.h"
 
 namespace CIF
 {
 
-float getTwips();
-void setTwips(float value);
+unsigned int RfrmtOptions::format_mode_ = 0;
 
 }
-
-void Put(const char *Data);
-void PutC(char sym);
-void PutCom(const char *Command, int32_t value, int16_t space);
-void PutChar(uchar sym);
-Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo);
-
-int16_t GetRealSizeKegl(const char * str, int16_t width, int16_t FontPointSize, int16_t FontNumber);
-int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
-        int16_t* strHeight);
-extern Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName);
-
-void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
-
-void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
-void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips);
-void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-
-#endif /* CRTFFUNC_H_ */

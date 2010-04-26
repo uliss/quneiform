@@ -16,40 +16,72 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CRTFFUNC_H_
-#define CRTFFUNC_H_
-
-#include "cfcompat.h"
-#include "creatertf.h"
-#include "crtfstruct.h"
-
-struct RtfSectorInfo;
-extern uint32_t RtfWriteMode;
+#ifndef FONT_H_
+#define FONT_H_
 
 namespace CIF
 {
 
-float getTwips();
-void setTwips(float value);
+const int MaxFontSize = 72;
+const int DefFontSize = 24;
+const int ChangedKeglSize = 6;
+const unsigned char TIRE = 0x97; //'-'
+
+typedef short font_number;
+
+enum rtf_align_t
+{
+    //- выравниваение по левому краю
+    RTF_TP_LEFT_ALLIGN = 0,
+    //- выравнивание по правому краю
+    RTF_TP_RIGHT_ALLIGN = 1,
+    //- выравнивание по ширине
+    RTF_TP_LEFT_AND_RIGHT_ALLIGN = 2,
+    //- выравнивание по центру
+    RTF_TP_CENTER = 3,
+    //- каждая строка состоит из одного слова, выравнивание левому краю
+    RTF_TP_ONE = 4,
+    //- список
+    RTF_TP_TYPE_LINE = 5
+};
+
+//       wFont bits
+enum
+{
+    TG_EDW_SERIF = 1, //сериф.
+    TG_EDW_GELV = 2, //без сериф.
+    TG_EDW_BOLD = 4,
+    TG_EDW_ITALIC = 16,
+    TG_EDW_UNDERLINE = 64,
+    TG_EDW_NARROW = 128
+// user defined
+};
+
+class KEGL
+{
+    public:
+        short OldKegl;
+        short NewKegl;
+        short Count;
+};
+
+class FONT
+{
+    public:
+        char *family;
+        char *name;
+        short Bold, Italic, Underline;
+};
+
+class FONT_COD
+{
+    public:
+        const char *name;
+        const char *family;
+};
+
+int fontName(font_number fontNumber);
 
 }
 
-void Put(const char *Data);
-void PutC(char sym);
-void PutCom(const char *Command, int32_t value, int16_t space);
-void PutChar(uchar sym);
-Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo);
-
-int16_t GetRealSizeKegl(const char * str, int16_t width, int16_t FontPointSize, int16_t FontNumber);
-int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
-        int16_t* strHeight);
-extern Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName);
-
-void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
-
-void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
-void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips);
-void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-
-#endif /* CRTFFUNC_H_ */
+#endif /* FONT_H_ */

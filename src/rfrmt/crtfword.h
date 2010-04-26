@@ -26,7 +26,7 @@
 #include "common/rect.h"
 #include "common/exception.h"
 
-#include "crtfstruct.h"
+#include "font.h"
 
 namespace CIF
 {
