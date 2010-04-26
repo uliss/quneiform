@@ -12,6 +12,8 @@ hrstr
 usage
 )
 
+include (update_build)
+
 if(LIBTYPE STREQUAL SHARED)
     set(SNP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/hdebug/__snp.cpp)
     message(STATUS "Adding __snp.cpp to individual libraries.")

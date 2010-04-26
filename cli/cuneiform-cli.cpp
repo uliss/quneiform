@@ -81,6 +81,7 @@
 #include <fstream>
 
 #include "config.h" // for CF_VERSION
+#include "build_number.h" // for CF_BUILD_NUMBER
 #include "cuneiform.h"
 
 using namespace std;
@@ -273,7 +274,7 @@ int main(int argc, char **argv) {
             do_verbose = 1;
             break;
         case 'V':
-            cout << "Cuneiform for Linux " << CF_VERSION << "\n";
+            cout << "Cuneiform for Linux " << CF_VERSION <<  "; build: "<< CF_BUILD_NUMBER << "\n";
             return EXIT_SUCCESS;
             break;
         case 'x':

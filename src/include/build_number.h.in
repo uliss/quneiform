@@ -1,0 +1,6 @@
+#ifndef BUILD_NUMBER_H_
+#define BUILD_NUMBER_H_
+
+const int CF_BUILD_NUMBER = @CF_BUILD_NUMBER@;
+
+#endif
