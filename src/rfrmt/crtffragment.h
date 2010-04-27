@@ -157,7 +157,6 @@ class CLA_EXPO CRtfFragment
         int16_t m_sa;
         int16_t m_sl;
 
-        int16_t m_max_dist;
         uchar m_Attr;
         uchar m_FlagCarry;
         uchar m_FlagLeft;
@@ -184,6 +183,7 @@ class CLA_EXPO CRtfFragment
         StringList strings_;
         int left_border_;
         int right_border_;
+        int  max_char_distance_;
 };
 }
 

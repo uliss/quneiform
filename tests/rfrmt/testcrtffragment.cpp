@@ -21,6 +21,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfFragment);
 #define private public
 #include "rfrmt/crtffragment.h"
 #include "rfrmt/crtfstring.h"
+#include "rfrmt/crtfword.h"
+#include "rfrmt/crtfchar.h"
 
 using namespace CIF;
 
@@ -58,4 +60,35 @@ void TestCRtfFragment::testFontSizePenalty() {
     CRtfFragment fr;
     // penalty for empty fragment
     CPPUNIT_ASSERT(fr.fontSizePenalty(0) == 0);
+}
+
+void TestCRtfFragment::testCharCount() {
+    CRtfFragment fr;
+    CPPUNIT_ASSERT(fr.charCount() == 0);
+    CRtfString * str = new CRtfString;
+    fr.addString(str);
+    CPPUNIT_ASSERT(fr.charCount() == 0);
+    CRtfWord * word = new CRtfWord;
+    str->addWord(word);
+    CPPUNIT_ASSERT(fr.charCount() == 0);
+    CRtfChar * chr = new CRtfChar('t');
+    word->addChar(chr);
+    CPPUNIT_ASSERT(str->charCount() == 1);
+    CPPUNIT_ASSERT(fr.charCount() == 1);
+    str = new CRtfString;
+    fr.addString(str);
+    CPPUNIT_ASSERT(str->charCount() == 0);
+    CPPUNIT_ASSERT(fr.charCount() == 1);
+    word = new CRtfWord;
+    str->addWord(word);
+    CPPUNIT_ASSERT(fr.charCount() == 1);
+    chr = new CRtfChar('e');
+    word->addChar(chr);
+    CPPUNIT_ASSERT(str->charCount() == 1);
+    CPPUNIT_ASSERT(fr.charCount() == 2);
+}
+
+void TestCRtfFragment::testCharTotalLength() {
+    CRtfFragment fr;
+    CPPUNIT_ASSERT(fr.charTotalLength() == 0);
 }

@@ -35,7 +35,7 @@ class CLA_EXPO CRtfChar
 {
     public:
         CRtfChar();
-        CRtfChar(uchar chr, uchar probability);
+        CRtfChar(uchar chr, uchar probability = Letter::LOWEST_PROBABILITY);
 
         /**
          * Adds version

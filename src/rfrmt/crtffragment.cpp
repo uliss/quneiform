@@ -104,9 +104,9 @@ void CRtfFragment::calcMaxCharDistance() {
     int char_count = charCount();
 
     if (char_count)
-        m_max_dist = charTotalLength() / char_count;
+        max_char_distance_ = charTotalLength() / char_count;
     else
-        m_max_dist = 10;
+        max_char_distance_ = 10;
 }
 
 size_t CRtfFragment::charCount() const {
@@ -774,8 +774,7 @@ Bool CRtfFragment::FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo *S
 void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
     int LeftDif, RightDif, CentreDif;
     CRtfString *pRtfStringPrev, *pRtfString;
-    CRtfWord *pRtfWord;
-    CRtfChar *pRtfCharFirst, *pRtfCharLast;
+    CRtfChar *pRtfCharFirst;
 
     int ns;
     left_border_ = 32000;
@@ -788,21 +787,21 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
     calcMaxCharDistance();
 
     // Вычисляется отступ(m_wLeftIndent, m_wRightIndent) строки от краев фрагмента и центр строки
-    for (ns = 0; ns < stringCount(); ns++) {
-        pRtfString = (CRtfString*) strings_[ns];
+    for (size_t ns = 0; ns < stringCount(); ns++) {
+        pRtfString = strings_[ns];
         pRtfString->setLeftIndent(pRtfString->leftBorder() - left_border_);
         pRtfString->setRightIndent(right_border_ - pRtfString->rightBorder());
     }
 
     // Присваиваются признаки равенства концов и середины соседних строк
-    for (ns = 1; ns < stringCount(); ns++) {
-        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
-        pRtfString = (CRtfString*) strings_[ns];
+    for (size_t ns = 1; ns < stringCount(); ns++) {
+        pRtfStringPrev = strings_[ns - 1];
+        pRtfString = strings_[ns];
         LeftDif = pRtfString->leftIndent() - pRtfStringPrev->leftIndent();
         RightDif = pRtfString->rightIndent() - pRtfStringPrev->rightIndent();
         CentreDif = pRtfString->center() - pRtfStringPrev->center();
 
-        if (abs(LeftDif) <= m_max_dist) {
+        if (abs(LeftDif) <= max_char_distance_) {
             pRtfString->setEqualLeft(true);
             m_CountLeftEqual++;
 
@@ -812,7 +811,7 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
             }
         }
 
-        if (abs(RightDif) <= m_max_dist) {
+        if (abs(RightDif) <= max_char_distance_) {
             pRtfString->setEqualRight(true);
             m_CountRightEqual++;
 
@@ -826,11 +825,11 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
             }
         }
 
-        if (((abs(CentreDif) < m_max_dist) && ((LeftDif <= 0 && RightDif <= 0) || (LeftDif > 0
-                && RightDif > 0)) && (abs(LeftDif) > m_max_dist / 2) && (abs(RightDif) > m_max_dist
-                / 2)) || ((abs(CentreDif) < 2 * m_max_dist) && (abs(RightDif - LeftDif) < 3
-                * m_max_dist) && (abs(LeftDif) > 5 * m_max_dist)
-                && (abs(RightDif) > 5 * m_max_dist))) {
+        if (((abs(CentreDif) < max_char_distance_) && ((LeftDif <= 0 && RightDif <= 0) || (LeftDif
+                > 0 && RightDif > 0)) && (abs(LeftDif) > max_char_distance_ / 2) && (abs(RightDif)
+                > max_char_distance_ / 2)) || ((abs(CentreDif) < 2 * max_char_distance_) && (abs(
+                RightDif - LeftDif) < 3 * max_char_distance_) && (abs(LeftDif) > 5
+                * max_char_distance_) && (abs(RightDif) > 5 * max_char_distance_))) {
             pRtfString->setEqualCenter(true);
             m_CountCentreEqual++;
 
@@ -870,8 +869,8 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
         pRtfString = (CRtfString*) strings_[ns];
 
         if (ns == 0) {
-            if (pRtfString->leftIndent() > m_max_dist / 2)
-                pRtfString->setFirstIndent(m_max_dist * getTwips());
+            if (pRtfString->leftIndent() > max_char_distance_ / 2)
+                pRtfString->setFirstIndent(max_char_distance_ * getTwips());
 
             else
                 pRtfString->setFirstIndent(0);
@@ -884,9 +883,10 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
         pRtfStringPrev = (CRtfString*) strings_[ns - 1];
 
         if (ns == stringCount() - 1) {
-            if ((pRtfString->leftIndent() - pRtfStringPrev->leftIndent()) > (m_max_dist / 2)) {
+            if ((pRtfString->leftIndent() - pRtfStringPrev->leftIndent())
+                    > (max_char_distance_ / 2)) {
                 pRtfString->setLeftIndent(0);
-                pRtfString->setFirstIndent(m_max_dist * getTwips());
+                pRtfString->setFirstIndent(max_char_distance_ * getTwips());
                 pRtfString->setParagraphBegin(true);
             }
         }
@@ -894,11 +894,11 @@ Bool CRtfFragment::ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo) {
         else {
             pRtfStringNext = (CRtfString*) strings_[ns + 1];
 
-            if (((pRtfString->leftIndent() - pRtfStringPrev->leftIndent()) > (m_max_dist / 2))
-                    && ((pRtfString->leftIndent() - pRtfStringNext->leftIndent())
-                            > (m_max_dist / 2))) {
+            if (((pRtfString->leftIndent() - pRtfStringPrev->leftIndent()) > (max_char_distance_
+                    / 2)) && ((pRtfString->leftIndent() - pRtfStringNext->leftIndent())
+                    > (max_char_distance_ / 2))) {
                 pRtfString->setLeftIndent(0);
-                pRtfString->setFirstIndent(m_max_dist * getTwips());
+                pRtfString->setFirstIndent(max_char_distance_ * getTwips());
                 pRtfString->setParagraphBegin(true);
             }
         }
@@ -1064,19 +1064,19 @@ Bool CRtfFragment::CheckStringForLeftRightJustification(int ns) {
 
     pRtfString = (CRtfString*) strings_[ns];
 
-    if ((pRtfString->leftIndent() - LeftDif) > m_max_dist && ns < stringCount() - 1) {
+    if ((pRtfString->leftIndent() - LeftDif) > max_char_distance_ && ns < stringCount() - 1) {
         pRtfStringNext = (CRtfString*) strings_[ns + 1];
 
         if (((pRtfString->leftIndent() - LeftDif) < (RightFragm - LeftFragm) / 2)
-                && ((pRtfString->rightIndent() - RightDif) < m_max_dist)
-                && ((pRtfStringNext->leftIndent() - LeftDif) < m_max_dist))
+                && ((pRtfString->rightIndent() - RightDif) < max_char_distance_)
+                && ((pRtfStringNext->leftIndent() - LeftDif) < max_char_distance_))
             return TRUE;
     }
 
-    if ((pRtfString->leftIndent() - LeftDif) < m_max_dist && ns > 1) {
+    if ((pRtfString->leftIndent() - LeftDif) < max_char_distance_ && ns > 1) {
         pRtfStringPrev = (CRtfString*) strings_[ns - 1];
 
-        if ((pRtfStringPrev->rightIndent() - RightDif) < m_max_dist)
+        if ((pRtfStringPrev->rightIndent() - RightDif) < max_char_distance_)
             return TRUE;
     }
 
@@ -1100,18 +1100,19 @@ void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int e
 
         pRtfStringPrev = (CRtfString*) strings_[ns - 1];
 
-        if (((pRtfString->leftIndent() > 2 * m_max_dist) && (abs(pRtfString->leftIndent()
-                - pRtfStringPrev->leftIndent()) > m_max_dist)) || (pRtfStringPrev->rightIndent()
-                > 10 * m_max_dist) || ((pRtfStringPrev->rightIndent() > 5 * m_max_dist)
-                && (pRtfStringPrev->endsWith(';') || pRtfStringPrev->endsWith('.')))
+        if (((pRtfString->leftIndent() > 2 * max_char_distance_) && (abs(pRtfString->leftIndent()
+                - pRtfStringPrev->leftIndent()) > max_char_distance_))
+                || (pRtfStringPrev->rightIndent() > 10 * max_char_distance_)
+                || ((pRtfStringPrev->rightIndent() > 5 * max_char_distance_)
+                        && (pRtfStringPrev->endsWith(';') || pRtfStringPrev->endsWith('.')))
                 || (pRtfString->startsWithDigit() && (pRtfStringPrev->endsWith(';')
                         || pRtfStringPrev->endsWith('.'))) || ((pRtfString->leftIndent() > 3
-                * m_max_dist / 2)
-                && (pRtfStringPrev->endsWith('.') || pRtfString->startsWithDash()))
-                || (pRtfStringPrev->endsWith('.') && pRtfString->startsWithDash())
-                || (pRtfStringPrev->endsWith('?') && pRtfString->startsWithDash())
-                || (pRtfStringPrev->endsWith(':') && pRtfString->startsWithDash())
-                || (pRtfStringPrev->rightIndent() > 2 * m_max_dist && pRtfString->startsWithDash()))
+                * max_char_distance_ / 2) && (pRtfStringPrev->endsWith('.')
+                || pRtfString->startsWithDash())) || (pRtfStringPrev->endsWith('.')
+                && pRtfString->startsWithDash()) || (pRtfStringPrev->endsWith('?')
+                && pRtfString->startsWithDash()) || (pRtfStringPrev->endsWith(':')
+                && pRtfString->startsWithDash()) || (pRtfStringPrev->rightIndent() > 2
+                * max_char_distance_ && pRtfString->startsWithDash()))
             pRtfString->setParagraphBegin(true);
     }
 }
@@ -1144,7 +1145,7 @@ void CRtfFragment::CorrectIndents(int beg, int end) {
         pRtfString = (CRtfString*) strings_[i];
 
         if (pRtfString->isParagraphBegin()) {
-            if (abs(pRtfString->leftIndent() - MinLeftIndent) < m_max_dist)
+            if (abs(pRtfString->leftIndent() - MinLeftIndent) < max_char_distance_)
                 pRtfString->setLeftIndent(MinLeftIndent);
         }
     }
@@ -1240,13 +1241,14 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end) {
 
         pRtfStringPrev = (CRtfString*) strings_[ns - 1];
 
-        if (((pRtfString->leftIndent() - LeftDif) > 2 * m_max_dist)
+        if (((pRtfString->leftIndent() - LeftDif) > 2 * max_char_distance_)
                 || ((pRtfStringPrev->rightIndent() - RightDif) > (RightFragm - LeftFragm) / 3)
-                || ((pRtfString->leftIndent() > m_max_dist) && pRtfString->startsWithDash())
+                || ((pRtfString->leftIndent() > max_char_distance_) && pRtfString->startsWithDash())
                 || (pRtfString->startsWithDigit() && (pRtfStringPrev->endsWith(';')
                         || pRtfStringPrev->endsWith('.'))) || (pRtfStringPrev->endsWith('.')
                 && FlagStringParagraphSoft == TRUE && (pRtfStringPrev->rightIndent() - RightDif)
-                > 5 * m_max_dist) || (pRtfStringPrev->endsWith('.') && FlagStringParagraph == TRUE)) {
+                > 5 * max_char_distance_) || (pRtfStringPrev->endsWith('.') && FlagStringParagraph
+                == TRUE)) {
             pRtfStringPrev->setLineTransfer(false);
             pRtfString->setParagraphBegin(true);
         }
@@ -1362,23 +1364,23 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
     if ((MaxLeft - MinLeft) > (MaxRight - MaxLeft) / 2)
         return FALSE;
 
-    if ((MaxLeft - MinLeft) < m_max_dist)
+    if ((MaxLeft - MinLeft) < max_char_distance_)
         return FALSE;
 
     for (ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) strings_[ns];
 
-        if ((abs(MinLeft - pRtfString->leftBorder()) > 5 * m_max_dist) && (abs(MaxLeft
-                - pRtfString->leftBorder()) > 5 * m_max_dist))
+        if ((abs(MinLeft - pRtfString->leftBorder()) > 5 * max_char_distance_) && (abs(MaxLeft
+                - pRtfString->leftBorder()) > 5 * max_char_distance_))
             return FALSE;
 
-        if (abs(MinLeft - pRtfString->leftBorder()) < m_max_dist)
+        if (abs(MinLeft - pRtfString->leftBorder()) < max_char_distance_)
             CountMinLeft++;
 
-        if (abs(MaxLeft - pRtfString->leftBorder()) < m_max_dist)
+        if (abs(MaxLeft - pRtfString->leftBorder()) < max_char_distance_)
             CountMaxLeft++;
 
-        if (abs(MaxRight - pRtfString->rightBorder()) < m_max_dist)
+        if (abs(MaxRight - pRtfString->rightBorder()) < max_char_distance_)
             CountMaxRight++;
     }
 
@@ -1391,7 +1393,7 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
     for (ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) strings_[ns];
 
-        if ((ns == beg) || abs(MinLeft - pRtfString->leftBorder()) < m_max_dist)
+        if ((ns == beg) || abs(MinLeft - pRtfString->leftBorder()) < max_char_distance_)
             pRtfString->setParagraphBegin(true);
     }
 
@@ -1496,7 +1498,7 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
         RightDif = pRtfString->rightIndent() - pRtfStringPrev->rightIndent();
         CentreDif = pRtfString->center() - pRtfStringPrev->center();
 
-        if (abs(LeftDif) <= m_max_dist) {
+        if (abs(LeftDif) <= max_char_distance_) {
             pRtfString->setEqualLeft(true);
             m_CountLeftEqual++;
 
@@ -1506,7 +1508,7 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
             }
         }
 
-        if (abs(RightDif) <= m_max_dist) {
+        if (abs(RightDif) <= max_char_distance_) {
             pRtfString->setEqualRight(true);
             m_CountRightEqual++;
 
@@ -1520,9 +1522,9 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, int beg, int end) {
             }
         }
 
-        if ((abs(CentreDif) < m_max_dist) && ((LeftDif <= 0 && RightDif <= 0) || (LeftDif > 0
-                && RightDif > 0)) && (abs(LeftDif) > m_max_dist / 2) && (abs(RightDif) > m_max_dist
-                / 2)) {
+        if ((abs(CentreDif) < max_char_distance_) && ((LeftDif <= 0 && RightDif <= 0) || (LeftDif
+                > 0 && RightDif > 0)) && (abs(LeftDif) > max_char_distance_ / 2) && (abs(RightDif)
+                > max_char_distance_ / 2)) {
             pRtfString->setEqualCenter(true);
             m_CountCentreEqual++;
 
@@ -1649,7 +1651,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
     int ns(0);
     int16_t twp_dist;
     int16_t Dif = 0;
-    twp_dist = (int16_t) (3 * m_max_dist * getTwips());
+    twp_dist = (int16_t) (3 * max_char_distance_ * getTwips());
 
     for (ns = 0; ns < stringCount(); ns++) {
         pRtfString = (CRtfString*) strings_[ns];
@@ -1793,7 +1795,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                         break;
                 }
 
-                if (abs(MinLeftIndent - MinRightIndent) < (2 * m_max_dist))
+                if (abs(MinLeftIndent - MinRightIndent) < (2 * max_char_distance_))
                     MinLeftIndent = MinRightIndent = 0;
 
                 pRtfString->setFirstIndent(0);
@@ -1897,7 +1899,7 @@ Bool CRtfFragment::GetFlagRight(int beg, int end) {
     for (ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) strings_[ns];
 
-        if (pRtfString->rightIndent() > m_max_dist)
+        if (pRtfString->rightIndent() > max_char_distance_)
             return FALSE;
     }
 
@@ -1947,7 +1949,7 @@ Bool CRtfFragment::GetFlagBigSpace(int beg, int end) {
             pRtfCharCur = pRtfWordCur->firstChar();
 
             if ((pRtfCharCur->idealRect().left() - pRtfCharPrev->idealRect().right()) > 2
-                    * m_max_dist)
+                    * max_char_distance_)
                 FlagBigSpase = 1;
         }
     }

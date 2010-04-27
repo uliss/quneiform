@@ -28,12 +28,16 @@ class TestCRtfFragment: public CppUnit::TestFixture
     CPPUNIT_TEST(testAddString);
     CPPUNIT_TEST(testClearStrings);
     CPPUNIT_TEST(testFontSizePenalty);
+    CPPUNIT_TEST(testCharCount);
+    CPPUNIT_TEST(testCharTotalLength);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testAddString();
     void testClearStrings();
     void testFontSizePenalty();
+    void testCharCount();
+    void testCharTotalLength();
 };
 
 #endif /* TESTCRTFFRAGMENT_H_ */
