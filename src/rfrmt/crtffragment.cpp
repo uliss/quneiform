@@ -78,27 +78,43 @@ void CRtfFragment::addString(CRtfString * str) {
     strings_.push_back(str);
 }
 
-void CRtfFragment::calcFragmentBorders(RtfSectorInfo* SectorInfo) {
-    assert(SectorInfo);
+void CRtfFragment::adjustParagraph(int topMargin) {
+    for (StringIterator it = strings_.begin(), end = strings_.end(); it != end; ++it) {
+        CRtfString * str = *it;
+        if (it == strings_.begin()) {
+            str->setTopMargin(topMargin);
+            str->setParagraphBegin(true);
+        } else {
+            str->setTopMargin(0);
+        }
+
+        if (str->hasChars()) {
+            CRtfChar * last_char = str->lastChar();
+            if (last_char->first().isHyphen() && last_char->m_bFlg_spell_nocarrying)
+                str->setLineCarry(true);
+        }
+    }
+}
+
+void CRtfFragment::adjustStringIndents() {
+    for (StringIterator it = strings_.begin(), end = strings_.end(); it != end; ++it) {
+        CRtfString * str = *it;
+        str->setLeftIndent(str->leftBorder() - left_border_);
+        str->setRightIndent(right_border_ - str->rightBorder());
+
+        assert(0 <= str->leftIndent());
+        assert(0 <= str->rightIndent());
+    }
+}
+
+void CRtfFragment::calcFragmentBorders() {
     if (strings_.empty())
         return;
 
     left_border_ = minStringLeftBorder();
     right_border_ = maxStringRightBorder();
 
-    for (size_t i = 0; i < stringCount(); i++) {
-        CRtfString * str = strings_[i];
-
-        // first string in paragraph
-        if (i == 0) {
-            str->setTopMargin(SectorInfo->VerticalOffsetFragmentInColumn);
-            str->setParagraphBegin(true);
-        } else
-            str->setTopMargin(0);
-
-        if (str->lastChar()->first().isHyphen() && str->lastChar()->m_bFlg_spell_nocarrying)
-            str->setLineCarry(true);
-    }
+    assert(left_border_ <= right_border_);
 }
 
 void CRtfFragment::calcMaxCharDistance() {
@@ -108,6 +124,80 @@ void CRtfFragment::calcMaxCharDistance() {
         max_char_distance_ = charTotalLength() / char_count;
     else
         max_char_distance_ = DEFAULT_MAX_CHAR_DISTANCE;
+}
+
+inline bool diffHasEqualSign(int first, int second) {
+    return (first <= 0 && second <= 0) || (0 < first && 0 < second);
+}
+
+inline bool diffThreshold(int first, int second, int threshold) {
+    return (abs(first) > threshold) && (abs(second) > threshold);
+}
+
+inline bool symmetricDiffChange(int first, int second, int delta) {
+    return diffHasEqualSign(first, second) && diffThreshold(first, second, delta);
+}
+
+inline bool isAccuratelyCentered(int left_diff, int center_diff, int right_diff, int delta) {
+    return (abs(center_diff) < delta) && symmetricDiffChange(left_diff, right_diff, delta / 2);
+}
+
+inline bool isFreeleCentered(int left_diff, int center_diff, int right_diff, int max_delta) {
+    return ((abs(center_diff) < 2 * max_delta)
+            && (abs(right_diff - left_diff) < 3 * max_delta)
+            && diffThreshold(left_diff, right_diff, 5 * max_delta));
+}
+
+inline bool isStringCentered(int left_diff, int center_diff, int right_diff, int max_delta) {
+    return isAccuratelyCentered(left_diff, center_diff, right_diff, max_delta)
+            || isFreeleCentered(left_diff, center_diff, right_diff, max_delta);
+}
+
+void CRtfFragment::calcStringEndsEqual() {
+    m_CountLeftEqual = 0;
+    m_CountRightEqual = 0;
+
+    for (size_t ns = 1; ns < strings_.size(); ns++) {
+        CRtfString * prev = strings_[ns - 1];
+        CRtfString * str = strings_[ns];
+        int left_diff = str->leftIndent() - prev->leftIndent();
+        int right_diff = str->rightIndent() - prev->rightIndent();
+        int center_diff = (left_diff + right_diff) / 2;
+
+        if (abs(left_diff) <= max_char_distance_) {
+            str->setEqualLeft(true);
+            m_CountLeftEqual++;
+
+            if (ns == 1) {
+                prev->setEqualLeft(true);
+                m_CountLeftEqual++;
+            }
+        }
+
+        if (abs(right_diff) <= max_char_distance_) {
+            str->setEqualRight(true);
+            m_CountRightEqual++;
+
+            if (str->isEqualLeft())
+                m_CountLeftRightEqual++;
+
+            if (ns == 1) {
+                prev->setEqualRight(true);
+                m_CountRightEqual++;
+                m_CountLeftRightEqual++;
+            }
+        }
+
+        if (isStringCentered(left_diff, center_diff, right_diff, max_char_distance_)) {
+            str->setEqualCenter(true);
+            m_CountCentreEqual++;
+
+            if (ns == 1) {
+                prev->setEqualCenter(true);
+                m_CountCentreEqual++;
+            }
+        }
+    }
 }
 
 size_t CRtfFragment::charCount() const {
@@ -150,11 +240,11 @@ inline bool stringLeftBorderCompare(const CRtfString * first, const CRtfString *
 }
 
 int CRtfFragment::minStringLeftBorder() const {
+    if (strings_.empty())
+        throw std::out_of_range("[CRtfFragment::minStringLeftBorder] fragment is empty");
+
     StringIteratorConst it = std::min_element(strings_.begin(), strings_.end(),
             stringLeftBorderCompare);
-
-    if (it == strings_.end())
-        throw std::out_of_range("[CRtfFragment::minStringLeftBorder] fragment is empty");
 
     return (*it)->leftBorder();
 }
@@ -164,9 +254,11 @@ inline bool stringRightBorderCompare(const CRtfString * first, const CRtfString 
 }
 
 int CRtfFragment::maxStringRightBorder() const {
+    if (strings_.empty())
+        throw std::out_of_range("[CRtfFragment::maxStringRightBorder] fragment is empty");
+
     StringIteratorConst it = std::max_element(strings_.begin(), strings_.end(),
             stringRightBorderCompare);
-    assert(it != strings_.end());
     return (*it)->rightBorder();
 }
 
@@ -784,65 +876,19 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
     left_border_ = 32000;
     right_border_ = 0;
 
-    //  I. Поиск:       Левой(m_l_fragment) и правой(m_r_fragment) границ фрагмента
-    calcFragmentBorders(SectorInfo);
+    adjustParagraph(SectorInfo->VerticalOffsetFragmentInColumn);
 
-    //  II.Вычисление:  m_max_dist, котороя используется при поиске начала абзаца
+    //  Поиск:       Левой(m_l_fragment) и правой(m_r_fragment) границ фрагмента
+    calcFragmentBorders();
+
+    //  Вычисление:  m_max_dist, котороя используется при поиске начала абзаца
     calcMaxCharDistance();
 
-    // Вычисляется отступ(m_wLeftIndent, m_wRightIndent) строки от краев фрагмента и центр строки
-    for (size_t ns = 0; ns < stringCount(); ns++) {
-        pRtfString = strings_[ns];
-        pRtfString->setLeftIndent(pRtfString->leftBorder() - left_border_);
-        pRtfString->setRightIndent(right_border_ - pRtfString->rightBorder());
-    }
+    // Вычисляется отступ (leftIndent, rightIndent) строки от краев фрагмента
+    adjustStringIndents();
 
     // Присваиваются признаки равенства концов и середины соседних строк
-    for (size_t ns = 1; ns < stringCount(); ns++) {
-        pRtfStringPrev = strings_[ns - 1];
-        pRtfString = strings_[ns];
-        LeftDif = pRtfString->leftIndent() - pRtfStringPrev->leftIndent();
-        RightDif = pRtfString->rightIndent() - pRtfStringPrev->rightIndent();
-        CentreDif = pRtfString->center() - pRtfStringPrev->center();
-
-        if (abs(LeftDif) <= max_char_distance_) {
-            pRtfString->setEqualLeft(true);
-            m_CountLeftEqual++;
-
-            if (ns == 1) {
-                pRtfStringPrev->setEqualLeft(true);
-                m_CountLeftEqual++;
-            }
-        }
-
-        if (abs(RightDif) <= max_char_distance_) {
-            pRtfString->setEqualRight(true);
-            m_CountRightEqual++;
-
-            if (pRtfString->isEqualRight())
-                m_CountLeftRightEqual++;
-
-            if (ns == 1) {
-                pRtfStringPrev->setEqualRight(true);
-                m_CountRightEqual++;
-                m_CountLeftRightEqual++;
-            }
-        }
-
-        if (((abs(CentreDif) < max_char_distance_) && ((LeftDif <= 0 && RightDif <= 0) || (LeftDif
-                > 0 && RightDif > 0)) && (abs(LeftDif) > max_char_distance_ / 2) && (abs(RightDif)
-                > max_char_distance_ / 2)) || ((abs(CentreDif) < 2 * max_char_distance_) && (abs(
-                RightDif - LeftDif) < 3 * max_char_distance_) && (abs(LeftDif) > 5
-                * max_char_distance_) && (abs(RightDif) > 5 * max_char_distance_))) {
-            pRtfString->setEqualCenter(true);
-            m_CountCentreEqual++;
-
-            if (ns == 1) {
-                pRtfStringPrev->setEqualCenter(true);
-                m_CountCentreEqual++;
-            }
-        }
-    }
+    calcStringEndsEqual();
 
     PrintTheResult("\n ================== Init ================== \n");
 }

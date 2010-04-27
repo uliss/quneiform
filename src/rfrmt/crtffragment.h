@@ -140,11 +140,6 @@ class CLA_EXPO CRtfFragment
         uint16_t m_wprev_font_size;
         uint16_t m_wvid_parag;
 
-        uint16_t m_CountLeftEqual;
-        uint16_t m_CountRightEqual;
-        uint16_t m_CountLeftRightEqual;
-        uint16_t m_CountCentreEqual;
-
         int16_t m_l_fragmentLocal;
         int16_t m_r_fragmentLocal;
 
@@ -165,8 +160,11 @@ class CLA_EXPO CRtfFragment
         uchar m_FlagBigSpace;
         uint32_t m_Flag;
     private:
-        void calcFragmentBorders(RtfSectorInfo* SectorInfo);
+        void adjustParagraph(int topMargin);
+        void adjustStringIndents();
+        void calcFragmentBorders();
         void calcMaxCharDistance();
+        void calcStringEndsEqual();
         int fontSizePenalty(int fragment_count) const;
         void Init(RtfSectorInfo* SectorInfo);
         void initFragment(RtfSectorInfo* SectorInfo);
@@ -184,6 +182,10 @@ class CLA_EXPO CRtfFragment
         int left_border_;
         int right_border_;
         int max_char_distance_;
+        uint16_t m_CountLeftEqual;
+        uint16_t m_CountRightEqual;
+        uint16_t m_CountLeftRightEqual;
+        uint16_t m_CountCentreEqual;
 };
 }
 

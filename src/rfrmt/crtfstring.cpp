@@ -145,6 +145,14 @@ bool CRtfString::hasAttributes() const {
     return has_attributes_;
 }
 
+bool CRtfString::hasChars() const {
+    for(WordIteratorConst it = words_.begin(), e = words_.end(); it != e; ++it) {
+        if(!(*it)->empty())
+            return true;
+    }
+    return false;
+}
+
 bool CRtfString::hasFlag(uint flag) const {
     return flags_ & flag;
 }

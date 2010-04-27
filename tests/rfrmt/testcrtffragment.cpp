@@ -171,3 +171,44 @@ void TestCRtfFragment::testMinStringLeftBorder() {
     str2->firstChar()->setIdealRect(r);
     CPPUNIT_ASSERT_EQUAL(-10, fr.minStringLeftBorder());
 }
+
+void TestCRtfFragment::testMaxStringRightBorder() {
+    CRtfFragment fr;
+    CPPUNIT_ASSERT_THROW(fr.maxStringRightBorder(), std::out_of_range);
+
+    CRtfString * str1 = new CRtfString;
+    str1->addWord(new CRtfWord);
+    str1->lastWord()->addChar(new CRtfChar);
+
+    CRtfString * str2 = new CRtfString;
+    str2->addWord(new CRtfWord);
+    str2->lastWord()->addChar(new CRtfChar);
+
+    CRtfString * str3 = new CRtfString;
+    str3->addWord(new CRtfWord);
+    str3->lastWord()->addChar(new CRtfChar);
+
+    fr.addString(str1);
+    fr.addString(str2);
+    fr.addString(str3);
+
+    CPPUNIT_ASSERT(fr.maxStringRightBorder() == 0);
+
+    Rect r;
+
+    r.setRight(10);
+    str1->firstChar()->setIdealRect(r);
+    CPPUNIT_ASSERT_EQUAL(10, fr.maxStringRightBorder());
+
+    r.setRight(20);
+    str2->firstChar()->setIdealRect(r);
+    CPPUNIT_ASSERT_EQUAL(20, fr.maxStringRightBorder());
+
+    r.setRight(30);
+    str3->firstChar()->setIdealRect(r);
+    CPPUNIT_ASSERT_EQUAL(30, fr.maxStringRightBorder());
+
+    r.setLeft(-10);
+    str2->firstChar()->setIdealRect(r);
+    CPPUNIT_ASSERT_EQUAL(30, fr.maxStringRightBorder());
+}

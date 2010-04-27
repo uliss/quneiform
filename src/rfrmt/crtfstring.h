@@ -77,7 +77,7 @@ class CLA_EXPO CRtfString
         void clearWords();
 
         /**
-         * Returns true if string is empty
+         * Returns true if string contains no words
          * @see wordCount()
          */
         bool empty() const;
@@ -118,6 +118,11 @@ class CLA_EXPO CRtfString
          * @see attributes()
          */
         bool hasAttributes() const;
+
+        /**
+         * Returns true if string contains chars
+         */
+        bool hasChars() const;
 
         /**
          * Checks if string has CSTR flag
