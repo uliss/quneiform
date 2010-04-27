@@ -183,7 +183,7 @@ class CLA_EXPO CRtfFragment
         StringList strings_;
         int left_border_;
         int right_border_;
-        int  max_char_distance_;
+        int max_char_distance_;
 };
 }
 

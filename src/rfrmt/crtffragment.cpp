@@ -52,7 +52,7 @@ const int PENALTY_FOR_BIG_FONT_SIZE = 4;
 const int DEFAULT_MAX_CHAR_DISTANCE = 10;
 
 CRtfFragment::CRtfFragment() :
-    parent_(NULL) {
+    parent_(NULL), max_char_distance_(0) {
     m_CountLeftEqual = 0;
     m_CountRightEqual = 0;
     m_CountLeftRightEqual = 0;
@@ -152,7 +152,10 @@ inline bool stringLeftBorderCompare(const CRtfString * first, const CRtfString *
 int CRtfFragment::minStringLeftBorder() const {
     StringIteratorConst it = std::min_element(strings_.begin(), strings_.end(),
             stringLeftBorderCompare);
-    assert(it != strings_.end());
+
+    if (it == strings_.end())
+        throw std::out_of_range("[CRtfFragment::minStringLeftBorder] fragment is empty");
+
     return (*it)->leftBorder();
 }
 

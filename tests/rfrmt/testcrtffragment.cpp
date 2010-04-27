@@ -60,6 +60,7 @@ void TestCRtfFragment::testFontSizePenalty() {
     CRtfFragment fr;
     // penalty for empty fragment
     CPPUNIT_ASSERT(fr.fontSizePenalty(0) == 0);
+    // uliss TODO
 }
 
 void TestCRtfFragment::testCharCount() {
@@ -91,4 +92,82 @@ void TestCRtfFragment::testCharCount() {
 void TestCRtfFragment::testCharTotalLength() {
     CRtfFragment fr;
     CPPUNIT_ASSERT(fr.charTotalLength() == 0);
+    // uliss TODO
+}
+
+void TestCRtfFragment::testCalcMaxCharDistance() {
+    CRtfFragment fr;
+    CPPUNIT_ASSERT(fr.max_char_distance_ == 0);
+    fr.calcMaxCharDistance();
+    static const int DEFAULT_DISTANCE = 10;
+    CPPUNIT_ASSERT(fr.max_char_distance_ == DEFAULT_DISTANCE);
+
+    fr.addString(new CRtfString);
+    fr.calcMaxCharDistance();
+    CPPUNIT_ASSERT(fr.max_char_distance_ == DEFAULT_DISTANCE);
+
+    fr.firstString()->addWord(new CRtfWord);
+    fr.calcMaxCharDistance();
+    CPPUNIT_ASSERT(fr.max_char_distance_ == DEFAULT_DISTANCE);
+
+    fr.firstString()->lastWord()->addChar(new CRtfChar('t'));
+    fr.calcMaxCharDistance();
+    CPPUNIT_ASSERT(fr.max_char_distance_ == 0);
+
+    Rect r;
+    r.setWidth(100);
+    fr.firstString()->firstChar()->setRealRect(r);
+    fr.calcMaxCharDistance();
+    CPPUNIT_ASSERT(fr.max_char_distance_ == 100);
+
+    fr.firstString()->lastWord()->addChar(new CRtfChar('e'));
+    fr.calcMaxCharDistance();
+    CPPUNIT_ASSERT(fr.max_char_distance_ == 50);
+
+    r.setWidth(80);
+    fr.firstString()->lastWord()->addChar(new CRtfChar('e'));
+    fr.firstString()->lastChar()->setRealRect(r);
+    fr.calcMaxCharDistance();
+    CPPUNIT_ASSERT(fr.max_char_distance_ == 60);
+}
+
+void TestCRtfFragment::testMinStringLeftBorder() {
+    CRtfFragment fr;
+    CPPUNIT_ASSERT_THROW(fr.minStringLeftBorder(), std::out_of_range);
+
+    CRtfString * str1 = new CRtfString;
+    str1->addWord(new CRtfWord);
+    str1->lastWord()->addChar(new CRtfChar);
+
+    CRtfString * str2 = new CRtfString;
+    str2->addWord(new CRtfWord);
+    str2->lastWord()->addChar(new CRtfChar);
+
+    CRtfString * str3 = new CRtfString;
+    str3->addWord(new CRtfWord);
+    str3->lastWord()->addChar(new CRtfChar);
+
+    fr.addString(str1);
+    fr.addString(str2);
+    fr.addString(str3);
+
+    CPPUNIT_ASSERT(fr.minStringLeftBorder() == 0);
+
+    Rect r;
+
+    r.setLeft(10);
+    str1->firstChar()->setIdealRect(r);
+    CPPUNIT_ASSERT_EQUAL(0, fr.minStringLeftBorder());
+
+    r.setLeft(20);
+    str2->firstChar()->setIdealRect(r);
+    CPPUNIT_ASSERT_EQUAL(0, fr.minStringLeftBorder());
+
+    r.setLeft(30);
+    str3->firstChar()->setIdealRect(r);
+    CPPUNIT_ASSERT_EQUAL(10, fr.minStringLeftBorder());
+
+    r.setLeft(-10);
+    str2->firstChar()->setIdealRect(r);
+    CPPUNIT_ASSERT_EQUAL(-10, fr.minStringLeftBorder());
 }

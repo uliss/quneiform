@@ -30,6 +30,8 @@ class TestCRtfFragment: public CppUnit::TestFixture
     CPPUNIT_TEST(testFontSizePenalty);
     CPPUNIT_TEST(testCharCount);
     CPPUNIT_TEST(testCharTotalLength);
+    CPPUNIT_TEST(testCalcMaxCharDistance);
+    CPPUNIT_TEST(testMinStringLeftBorder);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -38,6 +40,8 @@ public:
     void testFontSizePenalty();
     void testCharCount();
     void testCharTotalLength();
+    void testCalcMaxCharDistance();
+    void testMinStringLeftBorder();
 };
 
 #endif /* TESTCRTFFRAGMENT_H_ */
