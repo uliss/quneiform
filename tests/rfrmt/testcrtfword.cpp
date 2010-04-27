@@ -168,3 +168,28 @@ void TestCRtfWord::testStartsWith() {
     CPPUNIT_ASSERT(wd.startsWith('1'));
     CPPUNIT_ASSERT(wd.endsWith('2'));
 }
+
+void TestCRtfWord::testCharTotalLength() {
+    CRtfWord wd;
+    Rect rect;
+
+    CPPUNIT_ASSERT(wd.charTotalLength() == 0);
+    wd.addChar(new CRtfChar('t'));
+    CPPUNIT_ASSERT(wd.charCount() == 1);
+    CPPUNIT_ASSERT(wd.charTotalLength() == 0);
+
+    rect.setWidth(100);
+    CPPUNIT_ASSERT(rect.width() == 100);
+    wd.lastChar()->setRealRect(rect);
+    CPPUNIT_ASSERT_EQUAL(100, wd.charTotalLength());
+
+    wd.addChar(new CRtfChar('e'));
+    rect.setWidth(-10);
+    wd.lastChar()->setRealRect(rect);
+    CPPUNIT_ASSERT_EQUAL(100, wd.charTotalLength());
+
+    wd.addChar(new CRtfChar('s'));
+    rect.setWidth(50);
+    wd.lastChar()->setRealRect(rect);
+    CPPUNIT_ASSERT_EQUAL(150, wd.charTotalLength());
+}

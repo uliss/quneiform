@@ -143,3 +143,27 @@ void TestRect::testNormalize() {
     CPPUNIT_ASSERT_EQUAL(Rect(Point(-10, 10), Point(0, 40)), r1);
     CPPUNIT_ASSERT_EQUAL(r1, r1.normalized());
 }
+
+void TestRect::testHeight() {
+    Rect r;
+    r.setHeight(100);
+    CPPUNIT_ASSERT_EQUAL(100, r.height());
+    CPPUNIT_ASSERT_EQUAL(0, r.width());
+    CPPUNIT_ASSERT(r.leftTop() == Point(0, 0));
+    CPPUNIT_ASSERT(r.rightBottom() == Point(0, 100));
+    r.setHeight(0);
+    CPPUNIT_ASSERT(r.isValid());
+    r.setHeight(-100);
+    CPPUNIT_ASSERT(!r.isValid());
+}
+
+void TestRect::testWidth() {
+    Rect r;
+    r.setWidth(100);
+    CPPUNIT_ASSERT_EQUAL(100, r.width());
+    CPPUNIT_ASSERT_EQUAL(0, r.height());
+    r.setWidth(0);
+    CPPUNIT_ASSERT(r.isValid());
+    r.setWidth(-100);
+    CPPUNIT_ASSERT(!r.isValid());
+}

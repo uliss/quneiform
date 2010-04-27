@@ -305,7 +305,7 @@ class RectImpl
         }
 
         void setHeight(T t) {
-            pt1_.setX(pt0_.x() + t);
+            pt1_.setY(pt0_.y() + t);
             NormalizeChecker::check(*this);
         }
 
@@ -350,7 +350,7 @@ class RectImpl
         }
 
         void setWidth(T t) {
-            pt1_.setY(pt0_.y() + t);
+            pt1_.setX(pt0_.x() + t);
             NormalizeChecker::check(*this);
         }
 
