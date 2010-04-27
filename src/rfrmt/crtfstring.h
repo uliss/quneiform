@@ -21,6 +21,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 #include "font.h"
 #include "cfcompat.h"
 #include "common/rect.h"
@@ -195,6 +196,11 @@ class CLA_EXPO CRtfString
          * Returns max font size among string words
          */
         int maxWordFontSize() const;
+
+        /**
+         * Prints string data to given stream
+         */
+        void print(std::ostream& os) const;
 
         /**
          * Returns real string length in twips

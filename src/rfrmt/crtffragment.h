@@ -20,6 +20,7 @@
 #define CRTFFRAGMENT_H_
 
 #include <vector>
+#include <iostream>
 #include "cfcompat.h"
 #include "font.h"
 
@@ -65,6 +66,11 @@ class CLA_EXPO CRtfFragment
         const CRtfString * firstString() const;
 
         /**
+         * Prints fragment content to given output stream
+         */
+        void printResult(std::ostream& os, const char* header = "") const;
+
+        /**
          * Sets pointer to parent root
          */
         void setParent(CRtfPage * page);
@@ -80,6 +86,11 @@ class CLA_EXPO CRtfFragment
          * Returns numbers of strings in fragment
          */
         size_t stringCount() const;
+
+        /**
+         * Returns content of fragment as string
+         */
+        std::string toString() const;
 
         Bool FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
         Bool FWriteTable(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
@@ -119,8 +130,6 @@ class CLA_EXPO CRtfFragment
         Bool GetFlagStrongLeft(int beg, int end);
         Bool GetFlagRight(int beg, int end);
         Bool GetFlagBigSpace(int beg, int end);
-
-        void PrintTheResult(const char*);
 
         RECT m_rect;
         RECT m_rectReal;

@@ -146,8 +146,8 @@ bool CRtfString::hasAttributes() const {
 }
 
 bool CRtfString::hasChars() const {
-    for(WordIteratorConst it = words_.begin(), e = words_.end(); it != e; ++it) {
-        if(!(*it)->empty())
+    for (WordIteratorConst it = words_.begin(), e = words_.end(); it != e; ++it) {
+        if (!(*it)->empty())
             return true;
     }
     return false;
@@ -240,6 +240,21 @@ bool CRtfString::lineCarry() const {
     return carry_;
 }
 
+void CRtfString::print(std::ostream& os) const {
+    os << "\"" << toString() << "\"" << "\n";
+    os << std::boolalpha;
+    os << "align:               " << align_ << "\n"
+        "begin paragraph:     " << isParagraphBegin() << "\n"
+        "first indent:        " << firstIndent() << "\n"
+        "left indent:         " << leftIndent() << "\n"
+        "right indent:        " << rightIndent() << "\n"
+        "left border equal:   " << isEqualLeft() << "\n"
+        "right border equal:  " << isEqualRight() << "\n"
+        "center equal:        " << isEqualCenter() << "\n"
+        "line break:          " << lineTransfer() << "\n"
+        "line carry:          " << lineCarry() << "\n";
+}
+
 uint CRtfString::realLength() const {
     return real_length_;
 }
@@ -321,13 +336,11 @@ std::string CRtfString::toString() const {
     std::string result;
 
     for (WordIteratorConst it = words_.begin(), e = words_.end(); it != e; ++it) {
-        result += (*it)->toString();
-        result += SPACE;
-    }
+        if (it != words_.begin())
+            result += SPACE;
 
-    // remove trailing space
-    if (!result.empty())
-        result.erase(result.length() - 1);
+        result += (*it)->toString();
+    }
 
     return result;
 }

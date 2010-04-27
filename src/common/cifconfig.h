@@ -24,7 +24,7 @@
 namespace CIF
 {
 
-class FUN_EXPO__ Config
+class CLA_EXPO Config
 {
         Config();
     public:
