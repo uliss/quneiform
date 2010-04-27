@@ -49,6 +49,7 @@ const int BIG_FONT_SIZE = 14;
 const int PENALTY_FOR_SMALL_FONT_SIZE = 1;
 const int PENALTY_FOR_MEDIUM_FONT_SIZE = 2;
 const int PENALTY_FOR_BIG_FONT_SIZE = 4;
+const int DEFAULT_MAX_CHAR_DISTANCE = 10;
 
 CRtfFragment::CRtfFragment() :
     parent_(NULL) {
@@ -106,7 +107,7 @@ void CRtfFragment::calcMaxCharDistance() {
     if (char_count)
         max_char_distance_ = charTotalLength() / char_count;
     else
-        max_char_distance_ = 10;
+        max_char_distance_ = DEFAULT_MAX_CHAR_DISTANCE;
 }
 
 size_t CRtfFragment::charCount() const {
