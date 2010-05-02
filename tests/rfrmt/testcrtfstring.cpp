@@ -17,6 +17,7 @@
  ***************************************************************************/
 #include "testcrtfstring.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfString);
+#define private public
 #include "rfrmt/crtfstring.h"
 #include "rfrmt/crtfword.h"
 #include "rfrmt/crtfchar.h"
@@ -157,4 +158,60 @@ void TestCRtfString::testCharCount() {
     CPPUNIT_ASSERT(str.charCount() == 3);
     str.clearWords();
     CPPUNIT_ASSERT(str.charCount() == 0);
+}
+
+void TestCRtfString::testLeftBorder() {
+    CRtfString str;
+    CPPUNIT_ASSERT_THROW(str.leftBorder(), std::out_of_range);
+    str.addWord(new CRtfWord);
+    CRtfChar * chr = new CRtfChar('T');
+    str.firstWord()->addChar(chr);
+    CPPUNIT_ASSERT_EQUAL(0, str.leftBorder());
+
+    Rect r;
+    r.setLeft(100);
+    chr->setIdealRect(r);
+    CPPUNIT_ASSERT_EQUAL(100, str.leftBorder());
+}
+
+void TestCRtfString::testRightBorder() {
+    CRtfString str;
+    CPPUNIT_ASSERT_THROW(str.rightBorder(), std::out_of_range);
+    str.addWord(new CRtfWord);
+    CRtfChar * chr = new CRtfChar('T');
+    str.firstWord()->addChar(chr);
+    CPPUNIT_ASSERT_EQUAL(0, str.rightBorder());
+
+    Rect r;
+    r.setRight(100);
+    chr->setIdealRect(r);
+    CPPUNIT_ASSERT_EQUAL(100, str.rightBorder());
+}
+
+void TestCRtfString::testBorders() {
+    CRtfString str;
+    str.addWord(new CRtfWord);
+    CRtfChar * chr = new CRtfChar('T');
+    str.firstWord()->addChar(chr);
+    CPPUNIT_ASSERT_EQUAL(0, str.leftBorder());
+    CPPUNIT_ASSERT_EQUAL(0, str.rightBorder());
+    Rect r;
+    r.setLeft(-100);
+    r.setRight(100);
+    chr->setIdealRect(r);
+    CPPUNIT_ASSERT_EQUAL(-100, str.leftBorder());
+    CPPUNIT_ASSERT_EQUAL(100, str.rightBorder());
+}
+
+void TestCRtfString::testCharTotalLength() {
+    CRtfString str;
+    CPPUNIT_ASSERT_EQUAL(0, str.charTotalLength());
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT_EQUAL(0, str.charTotalLength());
+    str.lastWord()->addChar(new CRtfChar('T'));
+    CPPUNIT_ASSERT_EQUAL(0, str.charTotalLength());
+    Rect r;
+    r.setWidth(100);
+    str.lastChar()->setRealRect(r);
+    CPPUNIT_ASSERT_EQUAL(100, str.charTotalLength());
 }

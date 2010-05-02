@@ -22,5 +22,6 @@ namespace CIF
 {
 
 unsigned int RfrmtOptions::format_mode_ = 0;
+bool RfrmtOptions::line_transfer_ = false;
 
 }

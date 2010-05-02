@@ -169,6 +169,15 @@ bool CRtfString::isEqualRight() const {
     return equal_right_;
 }
 
+bool CRtfString::isLineCarryNeeded() const {
+    try {
+        const CRtfChar * chr = lastChar();
+        return endsWith(HYPHEN) && chr->m_bFlg_spell_nocarrying;
+    } catch (std::out_of_range&) {
+        return false;
+    }
+}
+
 bool CRtfString::isParagraphBegin() const {
     return paragraph_begin_;
 }

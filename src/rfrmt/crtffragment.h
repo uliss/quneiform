@@ -66,6 +66,13 @@ class CLA_EXPO CRtfFragment
         const CRtfString * firstString() const;
 
         /**
+         * Returns pointer to last string in fragment
+         * @throw std::out_of_range if fragment is empty
+         */
+        CRtfString * lastString();
+        const CRtfString * lastString() const;
+
+        /**
          * Prints fragment content to given output stream
          */
         void printResult(std::ostream& os, const char* header = "") const;
@@ -92,19 +99,17 @@ class CLA_EXPO CRtfFragment
          */
         std::string toString() const;
 
-        Bool FWriteText(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
+        Bool FWriteText(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
         Bool FWriteTable(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
         Bool FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo,
                 Bool OutPutType);
 
         void ReInit(RtfSectorInfo* SectorInfo, int beg, int end);
-        Bool ProcessingOverLayedFragment(RtfSectorInfo* SectorInfo);
         Bool DeterminationOfCentreJustification(int beg, int end);
         Bool DeterminationOfRightJustification(int beg, int end);
         Bool DeterminationOfListType(int beg, int end);
         void Done(void);
 
-        Bool DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo);
         void GetNextFragmentBegEnd(int32_t* beg, int32_t* end, Bool* Flag);
 
         Bool DeterminationOfLeftRightJustification(int beg, int end);
@@ -118,11 +123,7 @@ class CLA_EXPO CRtfFragment
         Bool CheckStringForLeftJustification(int ns);
 
         void CheckOnceAgainImportancesFlagBeginParagraph(void);
-        void DefineLineTransfer(void);
-        int GetCountLine(int beg);
-        void SetLineTransfer(int beg, int end);
         void SetFirstLeftAndRightIndentOfParagraph(void);
-        void CorrectIndents(int beg, int end);
         void SetParagraphAlignment(int beg, int end, rtf_align_t AlignType);
         void GetCountEqual(int beg, int end, uint16_t* Count, int AlignType);
         Bool GetFlagCarry(int beg, int end);
@@ -169,24 +170,35 @@ class CLA_EXPO CRtfFragment
         uchar m_FlagBigSpace;
         uint32_t m_Flag;
     private:
+        typedef std::vector<CRtfString*> StringList;
+        typedef StringList::iterator StringIterator;
+        typedef StringList::const_iterator StringIteratorConst;
+    private:
         void adjustParagraph(int topMargin);
         void adjustStringIndents();
         void calcFragmentBorders();
         void calcMaxCharDistance();
         void calcStringEndsEqual();
+        void correctParagraphIndents(StringIterator begin, StringIterator end);
+        void defineLineTransfer();
+        Bool DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo);
+        StringIteratorConst findNextFragment(StringIteratorConst begin) const;
+        StringIterator findParagraph(StringIterator begin, StringIterator end);
         int fontSizePenalty(int fragment_count) const;
         void Init(RtfSectorInfo* SectorInfo);
         void initFragment(RtfSectorInfo* SectorInfo);
         void initFragmentFonts(int fragment_count);
+        int minParagraphLeftIndent(StringIteratorConst begin, StringIteratorConst end) const;
         int minStringLeftBorder() const;
         int maxStringRightBorder() const;
         void processingUseNoneMode();
+        void processingOverlayed();
         void setFragmentAlignment(RtfSectorInfo* SectorInfo);
+        void setLineTransfer(StringIterator begin, StringIterator end);
+        void updateStringPairAlignment(CRtfString * current, CRtfString * previous);
+        void updateFirstStringPairAlignment();
     private:
         CRtfPage * parent_;
-        typedef std::vector<CRtfString*> StringList;
-        typedef StringList::iterator StringIterator;
-        typedef StringList::const_iterator StringIteratorConst;
         StringList strings_;
         int left_border_;
         int right_border_;

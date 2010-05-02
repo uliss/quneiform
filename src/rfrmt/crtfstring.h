@@ -136,6 +136,11 @@ class CLA_EXPO CRtfString
         bool isEqualRight() const;
 
         /**
+         * Returns true if line carry needed
+         */
+        bool isLineCarryNeeded() const;
+
+        /**
          * Returns true if string begin paragraph
          */
         bool isParagraphBegin() const;

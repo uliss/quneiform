@@ -90,7 +90,6 @@ char lpMyNameNonSerif[PATH_MAX];
 char lpMyNameMono[PATH_MAX];
 
 Bool32 FlagChangeSizeKegl;
-Bool32 FlagLineTransfer;
 Bool32 FlagDebugAlign;
 
 extern Bool32 gbBold;
@@ -198,13 +197,12 @@ Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree) {
     else
         FlagChangeSizeKegl = TRUE;
 
-    FlagLineTransfer = FALSE;
+    CIF::RfrmtOptions::setLineTransfer(false);
 
     if (!LDPUMA_Skip(hDebugLineTransfer))
-        FlagLineTransfer = TRUE;
-
+        CIF::RfrmtOptions::setLineTransfer(true);
     else
-        FlagLineTransfer = FALSE;
+        CIF::RfrmtOptions::setLineTransfer(false);
 
     FlagDebugAlign = FALSE;
 
@@ -346,13 +344,12 @@ Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code) {
     else
         FlagChangeSizeKegl = TRUE;
 
-    FlagLineTransfer = FALSE;
+    CIF::RfrmtOptions::setLineTransfer(false);
 
     if (!LDPUMA_Skip(hDebugLineTransfer))
-        FlagLineTransfer = TRUE;
-
+        CIF::RfrmtOptions::setLineTransfer(true);
     else
-        FlagLineTransfer = FALSE;
+        CIF::RfrmtOptions::setLineTransfer(false);
 
     FlagDebugAlign = FALSE;
 

@@ -35,12 +35,20 @@ class RfrmtOptions
             return format_mode_ & flag;
         }
 
+        static bool lineTransfer() {
+            return line_transfer_;
+        }
+
         static void setFlag(format_mode_t flag) {
             format_mode_ |= flag;
         }
 
         static void setFormatMode(unsigned int mode) {
             format_mode_ = mode;
+        }
+
+        static void setLineTransfer(bool value) {
+            line_transfer_ = value;
         }
 
         static bool useBold() {
@@ -68,6 +76,7 @@ class RfrmtOptions
         }
     private:
         static unsigned int format_mode_;
+        static bool line_transfer_;
     private:
         RfrmtOptions();
 };

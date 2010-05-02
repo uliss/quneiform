@@ -33,6 +33,10 @@ class TestCRtfFragment: public CppUnit::TestFixture
     CPPUNIT_TEST(testCalcMaxCharDistance);
     CPPUNIT_TEST(testMinStringLeftBorder);
     CPPUNIT_TEST(testMaxStringRightBorder);
+    CPPUNIT_TEST(testAdjustParagraph);
+    CPPUNIT_TEST(testCalcStringEndsEqual);
+    CPPUNIT_TEST(testCalcFragmentBorders);
+    CPPUNIT_TEST(testAdjustStringIndents);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -44,6 +48,10 @@ public:
     void testCalcMaxCharDistance();
     void testMinStringLeftBorder();
     void testMaxStringRightBorder();
+    void testAdjustParagraph();
+    void testCalcStringEndsEqual();
+    void testCalcFragmentBorders();
+    void testAdjustStringIndents();
 };
 
 #endif /* TESTCRTFFRAGMENT_H_ */

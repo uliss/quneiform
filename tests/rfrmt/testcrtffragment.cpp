@@ -26,6 +26,27 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfFragment);
 
 using namespace CIF;
 
+#define INIT_STR(str, left, right) \
+        { \
+    CPPUNIT_ASSERT(str->empty());\
+    str->addWord(new CRtfWord);\
+    str->lastWord()->addChar(new CRtfChar('C'));\
+    Rect r;\
+    r.setLeft(left);\
+    r.setRight(right);\
+    str->firstChar()->setIdealRect(r);\
+    str->firstChar()->setRealRect(r);\
+    CPPUNIT_ASSERT_EQUAL(left, str->leftBorder());\
+    CPPUNIT_ASSERT_EQUAL(right, str->rightBorder());\
+        }
+
+#define FR_ADD_STR(fr, left, right) \
+        {\
+    CRtfString * str = new CRtfString;\
+    INIT_STR(str, left, right);\
+    fr.addString(str);\
+        }
+
 void TestCRtfFragment::testInit() {
     CRtfFragment fr;
     CPPUNIT_ASSERT(fr.stringCount() == 0);
@@ -60,7 +81,6 @@ void TestCRtfFragment::testFontSizePenalty() {
     CRtfFragment fr;
     // penalty for empty fragment
     CPPUNIT_ASSERT(fr.fontSizePenalty(0) == 0);
-    // uliss TODO
 }
 
 void TestCRtfFragment::testCharCount() {
@@ -92,7 +112,9 @@ void TestCRtfFragment::testCharCount() {
 void TestCRtfFragment::testCharTotalLength() {
     CRtfFragment fr;
     CPPUNIT_ASSERT(fr.charTotalLength() == 0);
-    // uliss TODO
+
+    FR_ADD_STR(fr, 0, 20);
+    CPPUNIT_ASSERT_EQUAL(20, fr.charTotalLength());
 }
 
 void TestCRtfFragment::testCalcMaxCharDistance() {
@@ -211,4 +233,129 @@ void TestCRtfFragment::testMaxStringRightBorder() {
     r.setLeft(-10);
     str2->firstChar()->setIdealRect(r);
     CPPUNIT_ASSERT_EQUAL(30, fr.maxStringRightBorder());
+}
+
+void TestCRtfFragment::testAdjustParagraph() {
+    CRtfFragment fr;
+    fr.adjustParagraph(0);
+    fr.addString(new CRtfString);
+    CPPUNIT_ASSERT_EQUAL(0, fr.firstString()->marginTop());
+    CPPUNIT_ASSERT(!fr.firstString()->isParagraphBegin());
+    fr.adjustParagraph(100);
+    CPPUNIT_ASSERT_EQUAL(100, fr.firstString()->marginTop());
+    CPPUNIT_ASSERT(fr.firstString()->isParagraphBegin());
+    fr.addString(new CRtfString);
+    fr.stringAt(1)->setTopMargin(10);
+    fr.stringAt(1)->setParagraphBegin(true);
+    fr.adjustParagraph(100);
+    CPPUNIT_ASSERT_EQUAL(100, fr.firstString()->marginTop());
+    CPPUNIT_ASSERT(fr.firstString()->isParagraphBegin());
+    CPPUNIT_ASSERT_EQUAL(0, fr.stringAt(1)->marginTop());
+    CPPUNIT_ASSERT(!fr.stringAt(1)->isParagraphBegin());
+
+    // hyphens
+}
+
+#define FR_LEQUAL(fr, value) \
+    CPPUNIT_ASSERT(fr.m_CountLeftEqual == value);
+
+#define FR_REQUAL(fr, value) \
+    CPPUNIT_ASSERT_EQUAL((int)value, (int)fr.m_CountRightEqual);
+
+#define FR_CEQUAL(fr, value) \
+	CPPUNIT_ASSERT(fr.m_CountCentreEqual == value);
+
+#define FR_CALC(fr) \
+		{\
+    fr.calcFragmentBorders();\
+    fr.adjustStringIndents();\
+    fr.calcStringEndsEqual();\
+		}
+
+void TestCRtfFragment::testCalcStringEndsEqual() {
+    CRtfFragment fr;
+    fr.max_char_distance_ = 10;
+    FR_CALC(fr);
+
+    FR_LEQUAL(fr, 0);
+    FR_REQUAL(fr, 0);
+    FR_CEQUAL(fr, 0);
+
+    FR_ADD_STR(fr, 0, 200);
+    FR_CALC(fr);
+    CPPUNIT_ASSERT(!fr.lastString()->isEqualLeft());
+    CPPUNIT_ASSERT(!fr.lastString()->isEqualRight());
+    CPPUNIT_ASSERT(!fr.lastString()->isEqualCenter());
+    FR_LEQUAL(fr, 0);
+    FR_REQUAL(fr, 0);
+    FR_CEQUAL(fr, 0);
+
+    FR_ADD_STR(fr, 1, 50);
+    FR_CALC(fr);
+    CPPUNIT_ASSERT(fr.lastString()->isEqualLeft());
+    CPPUNIT_ASSERT(!fr.lastString()->isEqualRight());
+    CPPUNIT_ASSERT(!fr.lastString()->isEqualCenter());
+    FR_LEQUAL(fr, 2);
+    FR_REQUAL(fr, 0);
+    FR_CEQUAL(fr, 0);
+
+    FR_ADD_STR(fr, 2, 51);
+    FR_CALC(fr);
+    CPPUNIT_ASSERT(fr.lastString()->isEqualLeft());
+    CPPUNIT_ASSERT(fr.lastString()->isEqualRight());
+    CPPUNIT_ASSERT(!fr.lastString()->isEqualCenter());
+    FR_LEQUAL(fr, 3);
+    // TODO check value "1"...
+    FR_REQUAL(fr, 1);
+    FR_CEQUAL(fr, 0);
+
+    FR_ADD_STR(fr, 13, 40);
+    FR_CALC(fr);
+    CPPUNIT_ASSERT(!fr.lastString()->isEqualLeft());
+    CPPUNIT_ASSERT(!fr.lastString()->isEqualRight());
+    CPPUNIT_ASSERT(fr.lastString()->isEqualCenter());
+    FR_LEQUAL(fr, 3);
+    FR_REQUAL(fr, 1);
+    FR_CEQUAL(fr, 1);
+}
+
+void TestCRtfFragment::testCalcFragmentBorders() {
+    CRtfFragment fr;
+
+    FR_ADD_STR(fr, 0, 100);
+    fr.calcFragmentBorders();
+    CPPUNIT_ASSERT_EQUAL(0, fr.left_border_);
+    CPPUNIT_ASSERT_EQUAL(100, fr.right_border_);
+
+    FR_ADD_STR(fr, -10, 40);
+    fr.calcFragmentBorders();
+    CPPUNIT_ASSERT_EQUAL(-10, fr.left_border_);
+    CPPUNIT_ASSERT_EQUAL(100, fr.right_border_);
+
+    FR_ADD_STR(fr, 50, 400);
+    fr.calcFragmentBorders();
+    CPPUNIT_ASSERT_EQUAL(-10, fr.left_border_);
+    CPPUNIT_ASSERT_EQUAL(400, fr.right_border_);
+}
+
+void TestCRtfFragment::testAdjustStringIndents() {
+    CRtfFragment fr;
+
+    FR_ADD_STR(fr, 0, 100);
+    fr.calcFragmentBorders();
+    fr.adjustStringIndents();
+    CPPUNIT_ASSERT_EQUAL(0, fr.firstString()->leftIndent());
+    CPPUNIT_ASSERT_EQUAL(0, fr.firstString()->rightIndent());
+
+    FR_ADD_STR(fr, 0, 70);
+    fr.calcFragmentBorders();
+    fr.adjustStringIndents();
+    CPPUNIT_ASSERT_EQUAL(0, fr.lastString()->leftIndent());
+    CPPUNIT_ASSERT_EQUAL(30, fr.lastString()->rightIndent());
+
+    FR_ADD_STR(fr, 10, 20);
+    fr.calcFragmentBorders();
+    fr.adjustStringIndents();
+    CPPUNIT_ASSERT_EQUAL(10, fr.lastString()->leftIndent());
+    CPPUNIT_ASSERT_EQUAL(80, fr.lastString()->rightIndent());
 }
