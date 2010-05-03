@@ -317,7 +317,7 @@ void CRtfFragment::updateFirstStringPairAlignment() {
         previous->setEqualCenter(true);
         m_CountCentreEqual++;
     } else {
-        Debug() << "[CRtfFragment::updateFirstStringPairAlignment] no string alignment";
+        Debug() << "[CRtfFragment::updateFirstStringPairAlignment] no string alignment\n";
     }
 }
 
@@ -447,9 +447,9 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
         pRtfWord = pRtfString->firstWord();
         pRtfChar = pRtfWord->firstChar();
 
-        if (pRtfChar->m_bFlg_cup_drop == TRUE) { //заносим буквицы во frame
+        if (pRtfChar->isDropCap()) { //заносим буквицы во frame
             if (RfrmtOptions::useFrames() || OutPutType)
-                pRtfChar->m_bFlg_cup_drop = FALSE;
+                pRtfChar->setDropCap(false);
             else
                 pRtfString->setParagraphBegin(true);
         }
@@ -465,8 +465,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
             if (pRtfString->align() == RTF_TP_TYPE_LINE) {
                 pRtfString->setAlign(RTF_TP_LEFT_AND_RIGHT_ALLIGN);
                 m_fi = -pRtfString->firstIndent();
-            }
-            else
+            } else
                 m_fi = pRtfString->firstIndent();
 
             m_wvid_parag = pRtfString->align();
@@ -518,7 +517,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                 if (!colWidth)
                     colWidth = m_rectReal.right - m_rectReal.left;
 
-                if (!pRtfChar->m_bFlg_cup_drop)
+                if (!pRtfChar->isDropCap())
                     hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb, SectorInfo,
                             m_wvid_parag, pRtfString->flags(), pRtfString->realLength(), colWidth); //NEGA_STR
             }
@@ -528,7 +527,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 
 #ifdef EdWrite
 
-        if (!RtfWriteMode && !pRtfChar->m_bFlg_cup_drop) {
+        if (!RtfWriteMode && !pRtfChar->isDropCap()) {
 #ifdef CHEREDOV
             hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
@@ -586,7 +585,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                 if (!pRtfWord->isSpelled())
                     pRtfChar->first().setProbability(0);
 
-                if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)
+                if (nw == 0 && nz == 0 && pRtfChar->isDropCap())
 #ifdef CHEREDOV
                     EDFontPointSize = (int)((pRtfChar->font_size_ - 1) * 2);
 
@@ -621,7 +620,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 #ifdef EdWrite
 
                         if (!RtfWriteMode) {
-                            if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop) {
+                            if (nw == 0 && nz == 0 && pRtfChar->isDropCap()) {
                                 slayout = CIF::Rect();
                                 EDBOX playout__ = { 0, 0, 0, 0 };
                                 Handle hObject__ = CED_CreateFrame(SectorInfo->hEDSector,
@@ -671,7 +670,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 
 #endif
 
-                        if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)
+                        if (nw == 0 && nz == 0 && pRtfChar->isDropCap())
                             WriteCupDrop(pRtfChar, tmp_font_name);
 
                         else
@@ -684,7 +683,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 #ifdef EdWrite
 
                         if (!RtfWriteMode) {
-                            if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop) {
+                            if (nw == 0 && nz == 0 && pRtfChar->isDropCap()) {
                                 slayout = CIF::Rect();
                                 EDBOX playout__ = { 0, 0, 0, 0 };
                                 Handle hObject__ = CED_CreateFrame(SectorInfo->hEDSector,
@@ -730,7 +729,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 
 #endif
 
-                        if (nw == 0 && nz == 0 && pRtfChar->m_bFlg_cup_drop)
+                        if (nw == 0 && nz == 0 && pRtfChar->isDropCap())
                             WriteCupDrop(pRtfChar, tmp_font_name);
 
                         else
@@ -757,7 +756,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
             if (nw < CountWords - 1) {
 #ifdef EdWrite
 
-                if (!RtfWriteMode && !pRtfChar->m_bFlg_cup_drop) {
+                if (!RtfWriteMode && !pRtfChar->isDropCap()) {
                     Rtf_CED_CreateChar(&slayout, Letter, NULL);
 #ifdef CHEREDOV
                     CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->real_font_size_ - 1)*2), (int)tmp_font_name,
@@ -835,29 +834,6 @@ void CRtfFragment::initFragment(RtfSectorInfo* SectorInfo) {
     initFragmentFonts(SectorInfo->CountFragments);
     m_wprev_lang = 1024;
     setFragmentAlignment(SectorInfo);
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 FWriteTable                                                    //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-Bool CRtfFragment::FWriteTable(int16_t NumberCurrentFragment, RtfSectorInfo *SectorInfo,
-        Bool OutPutType) {
-    // CString  TableString;
-    //  uint32_t   CountTableElem;
-    //  uint32_t   Tindex;
-    //  char     Tsym;
-    //  WriteTable((uint32_t)NumberCurrentFragment, SectorInfo/*, &TableString */, OutPutType);
-    /*  if(RtfWriteMode)
-     {
-     CountTableElem = TableString.GetLength();
-     for( Tindex=0;  Tindex<CountTableElem; Tindex++ )
-     {
-     Tsym=(char)TableString.GetAt(Tindex);
-     if(Tsym)
-     PutC(Tsym);
-     }
-     }*/
-    return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

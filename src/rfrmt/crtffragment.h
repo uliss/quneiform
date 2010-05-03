@@ -100,7 +100,6 @@ class CLA_EXPO CRtfFragment
         std::string toString() const;
 
         Bool FWriteText(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
-        Bool FWriteTable(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
         Bool FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo,
                 Bool OutPutType);
 

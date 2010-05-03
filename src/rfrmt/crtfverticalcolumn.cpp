@@ -57,7 +57,7 @@ Bool CRtfVerticalColumn::Write(Bool OutPutType, RtfSectorInfo* SectorInfo) {
 
         if (pRtfFragment->m_wType == FT_TABLE) {
             SectorInfo->userNum = pRtfFragment->m_wUserNumberForFormattedMode;
-            pRtfFragment->FWriteTable((int) pRtfFragment->m_wUserNumber, SectorInfo, OutPutType);
+            // pRtfFragment->FWriteTable((int) pRtfFragment->m_wUserNumber, SectorInfo, OutPutType);
             pRtfFragment->m_bFlagUsed = TRUE;
         }
 

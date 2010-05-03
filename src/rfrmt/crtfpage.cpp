@@ -316,7 +316,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
                     fread(&alt2, sizeof(struct ALT_TIGER2), 1, in);
                     pRtfChar->setLanguage(alt2.language);
                     pRtfChar->m_bFlg_spell_nocarrying = alt2.spellnocarrying;
-                    pRtfChar->m_bFlg_cup_drop = alt2.FlagCapDrop;
+                    pRtfChar->setDropCap(alt2.FlagCapDrop);
                     pRtfChar->setSpelled(alt2.spell);
                     pRtfChar->setFont(pRtfWord->fontNumber());
                     pRtfChar->setFontSize(pRtfWord->idealFontSize());
@@ -890,8 +890,9 @@ Bool CRtfPage::Write_USE_NONE() {
         WriteSectorsHeader(i);
         pRtfFragment = (CRtfFragment*) m_arFragments[NumberCurrentFragment];
 
-        if (FragmentType == FT_TABLE)
-            pRtfFragment->FWriteTable(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
+        if (FragmentType == FT_TABLE) {
+            //pRtfFragment->FWriteTable(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
+        }
 
         else if (FragmentType == FT_PICTURE)
             pRtfFragment->FWritePicture(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
@@ -959,16 +960,12 @@ Bool CRtfPage::Write_USE_FRAME() {
 
         if (pRtfFragment->m_wType == FT_TABLE) {
             InGroupNumber = i - (Count.RtfFrameTextFragments + Count.RtfTextFragments);
-            pRtfFragment->FWriteTable(InGroupNumber, SectorInfo, FOT_FRAME);
-        }
-
-        else if (pRtfFragment->m_wType == FT_PICTURE) {
+            //            pRtfFragment->FWriteTable(InGroupNumber, SectorInfo, FOT_FRAME);
+        } else if (pRtfFragment->m_wType == FT_PICTURE) {
             InGroupNumber = i - (Count.RtfFrameTextFragments + Count.RtfTextFragments
                     + Count.RtfTableFragments);
             pRtfFragment->FWritePicture(InGroupNumber, SectorInfo, FOT_FRAME);
-        }
-
-        else {
+        } else {
             Put("{\\pard\\plain\\slmult1\\nowidctlpar\\pvpage");
             shpleft = pRtfFragment->m_rect.left;
             PutCom("\\posx", shpleft, 0);

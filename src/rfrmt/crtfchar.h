@@ -85,6 +85,12 @@ class CLA_EXPO CRtfChar
         bool isDigit() const;
 
         /**
+         * Returns true if char is dropped capital
+         * \~russian буквица
+         */
+        bool isDropCap() const;
+
+        /**
          * Returns if char spelled
          */
         bool isSpelled() const;
@@ -98,6 +104,11 @@ class CLA_EXPO CRtfChar
          * Returns bounding rectangle
          */
         Rect realRect() const;
+
+        /**
+         * Sets drop cap
+         */
+        void setDropCap(bool value);
 
         /**
          * Sets font number
@@ -151,7 +162,6 @@ class CLA_EXPO CRtfChar
         size_t versionCount() const;
 
         uchar m_bFlg_spell_nocarrying;
-        uchar m_bFlg_cup_drop;
     private:
         language_t language_;
         font_number font_number_;
@@ -161,6 +171,7 @@ class CLA_EXPO CRtfChar
         typedef std::vector<Letter> LetterList;
         LetterList versions_;
         bool spelled_;
+        bool drop_cap_;
 };
 
 }

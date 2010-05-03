@@ -21,20 +21,27 @@
 #include <iostream>
 
 #include "crtfchar.h"
+#include "rfrmtoptions.h"
+
+#include "cstr/cstr.h"
 #include "recdefs.h"
+#include "edfile.h"
+
+// ced
+#include "ced/ced.h"
 
 namespace CIF
 {
 
 CRtfChar::CRtfChar() :
-    m_bFlg_spell_nocarrying(FALSE), m_bFlg_cup_drop(FALSE), language_(LANGUAGE_UNKNOWN),
-            font_number_(0), font_size_(0), spelled_(false) {
+    m_bFlg_spell_nocarrying(FALSE), language_(LANGUAGE_UNKNOWN), font_number_(0), font_size_(0),
+            spelled_(false), drop_cap_(false) {
 
 }
 
 CRtfChar::CRtfChar(uchar chr, uchar probability) :
-    m_bFlg_spell_nocarrying(FALSE), m_bFlg_cup_drop(FALSE), language_(LANGUAGE_UNKNOWN),
-            font_number_(0), font_size_(0), spelled_(false) {
+    m_bFlg_spell_nocarrying(FALSE), language_(LANGUAGE_UNKNOWN), font_number_(0), font_size_(0),
+            spelled_(false), drop_cap_(false) {
     addVersion(Letter(chr, probability));
 }
 
@@ -81,6 +88,10 @@ bool CRtfChar::isDigit() const {
     return isdigit(versions_.front().getChar());
 }
 
+bool CRtfChar::isDropCap() const {
+    return drop_cap_;
+}
+
 bool CRtfChar::isSpelled() const {
     return spelled_;
 }
@@ -91,6 +102,10 @@ language_t CRtfChar::language() const {
 
 Rect CRtfChar::realRect() const {
     return real_rect_;
+}
+
+void CRtfChar::setDropCap(bool value) {
+    drop_cap_ = value;
 }
 
 void CRtfChar::setFont(font_number fontNumber) {
