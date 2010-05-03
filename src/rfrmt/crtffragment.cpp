@@ -430,14 +430,12 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
     int16_t flag_end_word_with_hiphen;
     int16_t tmp_font_name;
     Bool boPrevNega, boNega;
-#ifdef EdWrite
     int EDFontAttribs, EDFontPointSize;
     Handle hParagraph = NULL;
     Handle hString = NULL;
     CIF::Rect slayout;
     CIF::Letter Letter[REC_MAX_VERS];
     int shading = -1;
-#endif
     initFragment(SectorInfo);
     //--- Цикл по строкам
     boPrevNega = false; //NEGA_STR
@@ -472,12 +470,10 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
             m_li = pRtfString->leftIndent();
             m_ri = pRtfString->rightIndent();
             m_sb = pRtfString->marginTop();
-#ifdef EdWrite
 
             if (!RtfWriteMode && OutPutType)
                 m_sb = 0;
 
-#endif
             m_wprev_font_size = pRtfWord->realFontSize();
 
             if (CIF::RfrmtOptions::useFramesAndColumns()) {
@@ -487,8 +483,6 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                     m_ri = 0;
                 }
             }
-
-#ifdef EdWrite
 
             if (!RtfWriteMode) {
                 pRtfWord = pRtfString->firstWord();
@@ -521,11 +515,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                     hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb, SectorInfo,
                             m_wvid_parag, pRtfString->flags(), pRtfString->realLength(), colWidth); //NEGA_STR
             }
-
-#endif
         }
-
-#ifdef EdWrite
 
         if (!RtfWriteMode && !pRtfChar->isDropCap()) {
 #ifdef CHEREDOV
@@ -544,7 +534,6 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 #endif
         }
 
-#endif
         //--- Цикл по словам
         CountWords = pRtfString->wordCount();
 
@@ -552,26 +541,18 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
             pRtfWord = pRtfString->wordAt(nw);
             pRtfChar = pRtfWord->firstChar();
             tmp_font_name = fontName(pRtfWord->fontNumber());
-#ifdef EdWrite
             EDFontAttribs = 0;
-#endif
 
             if (pRtfWord->fontNumber() & TG_EDW_UNDERLINE) {
-#ifdef EdWrite
                 EDFontAttribs = EDFontAttribs | TG_EDW_UNDERLINE;
-#endif
             }
 
             if (RfrmtOptions::useBold() && (pRtfWord->fontNumber() & TG_EDW_BOLD)) {
-#ifdef EdWrite
                 EDFontAttribs = EDFontAttribs | TG_EDW_BOLD;
-#endif
             }
 
             if (RfrmtOptions::useItalic() && (pRtfWord->fontNumber() & TG_EDW_ITALIC)) {
-#ifdef EdWrite
                 EDFontAttribs = EDFontAttribs | TG_EDW_ITALIC;
-#endif
             }
 
             flag_end_word_with_hiphen = 0;
@@ -580,7 +561,6 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 
             for (int nz = 0, total = pRtfWord->charCount(); nz < total; nz++) {
                 pRtfChar = pRtfWord->charAt(nz);
-#ifdef EdWrite
 
                 if (!pRtfWord->isSpelled())
                     pRtfChar->first().setProbability(0);
@@ -609,7 +589,6 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                     EDFontPointSize = pRtfWord->realFontSize() * 2;
 
 #endif
-#endif
                 flag_end_word_with_hiphen = 0;
 
                 if (nw == (total - 1) && nz == (total - 1) && pRtfChar->first().getChar() == '-')
@@ -617,8 +596,6 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 
                 if (pRtfChar->first().getChar()) {
                     if (pRtfString->lineTransfer()) {
-#ifdef EdWrite
-
                         if (!RtfWriteMode) {
                             if (nw == 0 && nz == 0 && pRtfChar->isDropCap()) {
                                 slayout = CIF::Rect();
@@ -668,8 +645,6 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                             }
                         }
 
-#endif
-
                         if (nw == 0 && nz == 0 && pRtfChar->isDropCap())
                             WriteCupDrop(pRtfChar, tmp_font_name);
 
@@ -680,8 +655,6 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                     else if (!((m_wvid_parag == RTF_TP_LEFT_AND_RIGHT_ALLIGN || m_wvid_parag
                             == RTF_TP_LEFT_ALLIGN) && flag_end_word_with_hiphen
                             && pRtfChar->m_bFlg_spell_nocarrying)) {
-#ifdef EdWrite
-
                         if (!RtfWriteMode) {
                             if (nw == 0 && nz == 0 && pRtfChar->isDropCap()) {
                                 slayout = CIF::Rect();
@@ -727,8 +700,6 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                             }
                         }
 
-#endif
-
                         if (nw == 0 && nz == 0 && pRtfChar->isDropCap())
                             WriteCupDrop(pRtfChar, tmp_font_name);
 
@@ -737,8 +708,6 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                     }
 
                     else {
-#ifdef EdWrite
-
                         if (!RtfWriteMode) {
                             EDFontAttribs = EDFontAttribs | 0x02;
                             Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
@@ -746,16 +715,12 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                                     (int) tmp_font_name, EDFontAttribs, pRtfChar->language(), -1,
                                     -1);
                         }
-
-#endif
                     }
                 }
             }
 
             //--- Конец цикла по буквам
             if (nw < CountWords - 1) {
-#ifdef EdWrite
-
                 if (!RtfWriteMode && !pRtfChar->isDropCap()) {
                     Rtf_CED_CreateChar(&slayout, Letter, NULL);
 #ifdef CHEREDOV
@@ -773,15 +738,9 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 
 #endif
                 }
-
-#endif
-            }
-
-            else if ((ns < stringCount() - 1) && (nw == CountWords - 1) && (m_wvid_parag
+            } else if ((ns < stringCount() - 1) && (nw == CountWords - 1) && (m_wvid_parag
                     == RTF_TP_LEFT_AND_RIGHT_ALLIGN || m_wvid_parag == RTF_TP_LEFT_ALLIGN)
                     && !flag_end_word_with_hiphen) {
-#ifdef EdWrite
-
                 if (!RtfWriteMode) {
                     Rtf_CED_CreateChar(&slayout, Letter, NULL);
 #ifdef CHEREDOV
@@ -799,10 +758,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 
 #endif
                 }
-
-#endif
             }
-
         }
 
         //--- Конец цикла по словам
