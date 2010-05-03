@@ -167,29 +167,24 @@ class CLA_EXPO CRtfFragment
         void calcStringEndsEqual();
         void correctParagraphIndents(StringIterator begin, StringIterator end);
         void defineLineTransfer();
-        bool determinationOfCentreJustification(StringIterator begin, StringIterator end);
-        bool determinationOfLeftJustification(StringIterator begin, StringIterator end, bool direct);
-        bool determinationOfRightJustification(StringIterator begin, StringIterator end);
-        bool determinationOfMixedFragment(RtfSectorInfo* SectorInfo);
+        bool determineAlignCenter(StringIterator begin, StringIterator end);
+        bool determineAlignLeft(StringIterator begin, StringIterator end, bool direct);
+        bool determineAlignRight(StringIterator begin, StringIterator end);
+        bool determineMixedFragment(RtfSectorInfo* SectorInfo);
         StringIteratorConst findNextFragment(StringIteratorConst begin) const;
         StringIterator findParagraph(StringIterator begin, StringIterator end);
         int fontSizePenalty(int fragment_count) const;
         bool hasBigSpaceBetweenWords(StringIteratorConst begin, StringIteratorConst end) const;
-        bool hasFlagCarry(StringIteratorConst begin, StringIteratorConst end) const;
         bool hasFlagLeft(StringIterator begin, StringIterator end);
         void Init(RtfSectorInfo* SectorInfo);
         void initFragment(RtfSectorInfo* SectorInfo);
         void initFragmentFonts(int fragment_count);
-        int minParagraphLeftIndent(StringIteratorConst begin, StringIteratorConst end) const;
         int minStringLeftBorder() const;
         int maxStringRightBorder() const;
         void processingUseNoneMode();
         void processingOverlayed();
         void setFlagBeginParagraphForLeftJustification(StringIterator begin, StringIterator end);
         void setFragmentAlignment(RtfSectorInfo* SectorInfo);
-        void setLineTransfer(StringIterator begin, StringIterator end);
-        void setParagraphAlignment(StringIterator begin, StringIterator end,
-                format_align_t AlignType);
         void updateStringPairAlignment(CRtfString * current, CRtfString * previous);
         void updateFirstStringPairAlignment();
     private:
@@ -200,6 +195,11 @@ class CLA_EXPO CRtfFragment
         static int countEqualAlign(StringIteratorConst begin, StringIteratorConst end,
                 format_align_t AlignType);
         static int countStringEndDots(StringIteratorConst begin, StringIteratorConst end);
+        static bool hasFlagCarry(StringIteratorConst begin, StringIteratorConst end);
+        static int minParagraphLeftIndent(StringIteratorConst begin, StringIteratorConst end);
+        static void setLineTransfer(StringIterator begin, StringIterator end);
+        static void setParagraphAlignment(StringIterator begin, StringIterator end,
+                format_align_t AlignType);
     private:
         CRtfPage * parent_;
         StringList strings_;

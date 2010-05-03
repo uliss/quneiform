@@ -239,7 +239,7 @@ const CRtfString * CRtfFragment::lastString() const {
     return strings_.back();
 }
 
-int CRtfFragment::minParagraphLeftIndent(StringIteratorConst begin, StringIteratorConst end) const {
+int CRtfFragment::minParagraphLeftIndent(StringIteratorConst begin, StringIteratorConst end) {
     int min_left_indent = 0;
     for (StringIteratorConst it = begin; it != end; ++it) {
         if (it == begin) {
@@ -373,16 +373,13 @@ void CRtfFragment::setFragmentAlignment(RtfSectorInfo* SectorInfo) {
         return processingOverlayed();
     }
 
-    if (determinationOfMixedFragment(SectorInfo) == false) {
+    if (determineMixedFragment(SectorInfo) == false) {
         if (DeterminationOfLeftRightJustification(0, stringCount()) == FALSE) {
             if (DeterminationOfListType(0, stringCount()) == FALSE) {
-                if (determinationOfLeftJustification(strings_.begin(), strings_.end(), false)
-                        == false) {
-                    if (determinationOfCentreJustification(strings_.begin(), strings_.end())
-                            == false) {
-                        if (determinationOfRightJustification(strings_.begin(), strings_.end())
-                                == false) {
-                            determinationOfLeftJustification(strings_.begin(), strings_.end(), true);
+                if (determineAlignLeft(strings_.begin(), strings_.end(), false) == false) {
+                    if (determineAlignCenter(strings_.begin(), strings_.end()) == false) {
+                        if (determineAlignRight(strings_.begin(), strings_.end()) == false) {
+                            determineAlignLeft(strings_.begin(), strings_.end(), true);
                         }
                     }
                 }
@@ -1045,8 +1042,7 @@ bool CRtfFragment::checkLeftAlign(int left, int right, int center, int justify, 
     return (non_left_only && left_in_minority) ? false : true;
 }
 
-bool CRtfFragment::determinationOfLeftJustification(StringIterator begin, StringIterator end,
-        bool direct) {
+bool CRtfFragment::determineAlignLeft(StringIterator begin, StringIterator end, bool direct) {
     if (!direct && !checkLeftAlign(begin, end))
         return false;
 
@@ -1123,7 +1119,7 @@ void CRtfFragment::setFlagBeginParagraphForLeftJustification(StringIterator begi
     }
 }
 
-bool CRtfFragment::determinationOfCentreJustification(StringIterator begin, StringIterator end) {
+bool CRtfFragment::determineAlignCenter(StringIterator begin, StringIterator end) {
     int left = countEqualAlign(begin, end, FORMAT_ALIGN_LEFT);
     int right = countEqualAlign(begin, end, FORMAT_ALIGN_RIGHT);
     int justify = countEqualAlign(begin, end, FORMAT_ALIGN_JUSTIFY);
@@ -1158,7 +1154,7 @@ bool CRtfFragment::checkRightAlign(StringIteratorConst begin, StringIteratorCons
             std::distance(begin, end));
 }
 
-bool CRtfFragment::determinationOfRightJustification(StringIterator begin, StringIterator end) {
+bool CRtfFragment::determineAlignRight(StringIterator begin, StringIterator end) {
     flag_carry_ = hasFlagCarry(begin, end);
 
     if (flag_carry_ && m_FlagRight == FALSE)
@@ -1257,7 +1253,7 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
     return TRUE;
 }
 
-bool CRtfFragment::determinationOfMixedFragment(RtfSectorInfo* SectorInfo) {
+bool CRtfFragment::determineMixedFragment(RtfSectorInfo* SectorInfo) {
     int32_t beg = 0, end;
     Bool Flag = TRUE;
 
@@ -1270,14 +1266,13 @@ bool CRtfFragment::determinationOfMixedFragment(RtfSectorInfo* SectorInfo) {
 
         if (DeterminationOfLeftRightJustification(beg, end) == FALSE) {
             if (DeterminationOfListType(beg, end) == FALSE) {
-                if (determinationOfLeftJustification(strings_.begin() + beg,
-                        strings_.begin() + end, false) == false) {
-                    if (determinationOfCentreJustification(strings_.begin() + beg, strings_.begin()
-                            + end) == false) {
-                        if (determinationOfRightJustification(strings_.begin() + beg,
-                                strings_.begin() + end) == false) {
-                            determinationOfLeftJustification(strings_.begin() + beg,
-                                    strings_.begin() + end, true);
+                if (determineAlignLeft(strings_.begin() + beg, strings_.begin() + end, false)
+                        == false) {
+                    if (determineAlignCenter(strings_.begin() + beg, strings_.begin() + end)
+                            == false) {
+                        if (determineAlignRight(strings_.begin() + beg, strings_.begin() + end)
+                                == false) {
+                            determineAlignLeft(strings_.begin() + beg, strings_.begin() + end, true);
                         }
                     }
                 }
@@ -1754,7 +1749,7 @@ Bool CRtfFragment::GetFlagRight(int beg, int end) {
     return FALSE;
 }
 
-bool CRtfFragment::hasFlagCarry(StringIteratorConst begin, StringIteratorConst end) const {
+bool CRtfFragment::hasFlagCarry(StringIteratorConst begin, StringIteratorConst end) {
     for (StringIteratorConst it = begin; it != end; ++it) {
         if ((*it)->lineCarry())
             return true;
