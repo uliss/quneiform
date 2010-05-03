@@ -116,13 +116,13 @@ void PutChar(uchar sym) {
 }
 
 int CIF::fontName(font_number FontNumber) {
-    if (FontNumber & TG_EDW_NARROW)
+    if (FontNumber & FORMAT_FONT_NARROW)
         return 3;
 
-    if (FontNumber & TG_EDW_GELV)
+    if (FontNumber & FORMAT_FONT_SANS)
         return 0;
 
-    if (FontNumber & TG_EDW_SERIF)
+    if (FontNumber & FORMAT_FONT_SERIF)
         return 1;
 
     return 2;

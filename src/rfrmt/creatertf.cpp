@@ -212,7 +212,7 @@ int16_t GetRealSizeKegl( /*CString**/const char* str, int16_t width, int16_t Fon
 
     //      *str +=" ";
 
-    if (CIF::RfrmtOptions::useBold() && ((char) FontNumber & CIF::TG_EDW_BOLD))
+    if (CIF::RfrmtOptions::useBold() && ((char) FontNumber & CIF::FORMAT_FONT_BOLD))
         koef = float(4. / 5.);
 
     sz = new char[len + 1];
@@ -250,13 +250,13 @@ int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t Font
     int n_Weight = 600, fn;
     uchar bItalic;
 
-    if (CIF::RfrmtOptions::useBold() && ((char) FontNumber & CIF::TG_EDW_BOLD))
+    if (CIF::RfrmtOptions::useBold() && ((char) FontNumber & CIF::FORMAT_FONT_BOLD))
         n_Weight = 800;
 
     if (CIF::RfrmtOptions::useSize())
         FontSize = CIF::DefFontSize / 2;
 
-    if (CIF::RfrmtOptions::useItalic() && ((char) FontNumber & CIF::TG_EDW_ITALIC))
+    if (CIF::RfrmtOptions::useItalic() && ((char) FontNumber & CIF::FORMAT_FONT_ITALIC))
         bItalic = TRUE;
     else
         bItalic = FALSE;
@@ -348,20 +348,20 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
     playout.h = -1;
     align = AlignParagraph;
 
-    if (align == CIF::RTF_TP_ONE)
-        align = CIF::RTF_TP_LEFT_ALLIGN;
+    if (align == CIF::FORMAT_ALIGN_ONE)
+        align = CIF::FORMAT_ALIGN_LEFT;
 
     switch (align) {
-    case CIF::RTF_TP_LEFT_ALLIGN:
+    case CIF::FORMAT_ALIGN_LEFT:
         align = TP_LEFT_ALLIGN;
         break;
-    case CIF::RTF_TP_RIGHT_ALLIGN:
+    case CIF::FORMAT_ALIGN_RIGHT:
         align = TP_RIGHT_ALLIGN;
         break;
-    case CIF::RTF_TP_LEFT_AND_RIGHT_ALLIGN:
+    case CIF::FORMAT_ALIGN_JUSTIFY:
         align = TP_LEFT_ALLIGN | TP_RIGHT_ALLIGN;
         break;
-    case CIF::RTF_TP_CENTER:
+    case CIF::FORMAT_ALIGN_CENTER:
         align = TP_CENTER;
         break;
     }

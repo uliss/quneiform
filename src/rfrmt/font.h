@@ -29,32 +29,32 @@ const unsigned char TIRE = 0x97; //'-'
 
 typedef short font_number;
 
-enum rtf_align_t
+enum format_align_t
 {
     //- выравниваение по левому краю
-    RTF_TP_LEFT_ALLIGN = 0,
+    FORMAT_ALIGN_LEFT = 0,
     //- выравнивание по правому краю
-    RTF_TP_RIGHT_ALLIGN = 1,
+    FORMAT_ALIGN_RIGHT = 1,
     //- выравнивание по ширине
-    RTF_TP_LEFT_AND_RIGHT_ALLIGN = 2,
+    FORMAT_ALIGN_JUSTIFY = 2,
     //- выравнивание по центру
-    RTF_TP_CENTER = 3,
+    FORMAT_ALIGN_CENTER = 3,
     //- каждая строка состоит из одного слова, выравнивание левому краю
-    RTF_TP_ONE = 4,
+    FORMAT_ALIGN_ONE = 4,
     //- список
-    RTF_TP_TYPE_LINE = 5
+    FORMAT_ALIGN_LIST = 5
 };
 
-//       wFont bits
+// Font bits
 enum
 {
-    TG_EDW_SERIF = 1, //сериф.
-    TG_EDW_GELV = 2, //без сериф.
-    TG_EDW_BOLD = 4,
-    TG_EDW_ITALIC = 16,
-    TG_EDW_UNDERLINE = 64,
-    TG_EDW_NARROW = 128
-// user defined
+    FORMAT_FONT_SERIF = 1,
+    FORMAT_FONT_SANS = 2,
+    FORMAT_FONT_BOLD = 4,
+    FORMAT_FONT_ITALIC = 16,
+    FORMAT_FONT_UNDERLINE = 64,
+    // user defined
+    FORMAT_FONT_NARROW = 128
 };
 
 class KEGL

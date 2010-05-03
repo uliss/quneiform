@@ -171,7 +171,7 @@ class CLA_EXPO CRtfFragment
         bool checkLeftJustification(StringIteratorConst begin, StringIteratorConst end) const;
         void correctParagraphIndents(StringIterator begin, StringIterator end);
         int countEqualAlign(StringIteratorConst begin, StringIteratorConst end,
-                rtf_align_t AlignType) const;
+                format_align_t AlignType) const;
         int countStringEndDots(StringIteratorConst begin, StringIteratorConst end) const;
         void defineLineTransfer();
         bool determinationOfLeftJustification(StringIterator begin, StringIterator end, bool direct);
@@ -193,7 +193,7 @@ class CLA_EXPO CRtfFragment
         void setFlagBeginParagraphForLeftJustification(StringIterator begin, StringIterator end);
         void setFragmentAlignment(RtfSectorInfo* SectorInfo);
         void setLineTransfer(StringIterator begin, StringIterator end);
-        void setParagraphAlignment(StringIterator begin, StringIterator end, rtf_align_t AlignType);
+        void setParagraphAlignment(StringIterator begin, StringIterator end, format_align_t AlignType);
         void updateStringPairAlignment(CRtfString * current, CRtfString * previous);
         void updateFirstStringPairAlignment();
     private:

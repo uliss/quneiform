@@ -36,7 +36,7 @@ CRtfString::CRtfString() :
     line_break_(false), paragraph_begin_(false), carry_(false), has_attributes_(false),
             equal_center_(false), equal_left_(false), equal_right_(false), first_indent_(0),
             left_indent_(0), right_indent_(0), margin_top_(0), real_length_(0), align_(
-                    RTF_TP_LEFT_ALLIGN), flags_(0) {
+                    FORMAT_ALIGN_LEFT), flags_(0) {
 
 }
 
@@ -60,7 +60,7 @@ int CRtfString::rightIndent() const {
     return right_indent_;
 }
 
-rtf_align_t CRtfString::align() const {
+format_align_t CRtfString::align() const {
     return align_;
 }
 
@@ -280,7 +280,7 @@ uint CRtfString::realLength() const {
     return real_length_;
 }
 
-void CRtfString::setAlign(rtf_align_t align) {
+void CRtfString::setAlign(format_align_t align) {
     align_ = align;
 }
 

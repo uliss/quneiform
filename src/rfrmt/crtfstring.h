@@ -48,7 +48,7 @@ class CLA_EXPO CRtfString
          * Returns string aling
          * @see setAlign()
          */
-        rtf_align_t align() const;
+        format_align_t align() const;
 
         /**
          * Calculates string width
@@ -236,7 +236,7 @@ class CLA_EXPO CRtfString
          * Sets string alignment
          * @see align()
          */
-        void setAlign(rtf_align_t align);
+        void setAlign(format_align_t align);
 
         /** */
         void setAttributes(bool value);
@@ -356,7 +356,7 @@ class CLA_EXPO CRtfString
         int right_indent_;
         int margin_top_;
         int real_length_;
-        rtf_align_t align_;
+        format_align_t align_;
         uint flags_;
 };
 

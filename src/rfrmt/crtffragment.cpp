@@ -355,7 +355,7 @@ void CRtfFragment::processingUseNoneMode() {
         else
             str->setLineTransfer(true);
 
-        str->setAlign(RTF_TP_LEFT_ALLIGN);
+        str->setAlign(FORMAT_ALIGN_LEFT);
         str->setLeftIndent(0);
         str->setRightIndent(0);
         str->setFirstIndent(0);
@@ -461,8 +461,8 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
             pRtfString->setParagraphBegin(true);
 
         if (pRtfString->isParagraphBegin()) {
-            if (pRtfString->align() == RTF_TP_TYPE_LINE) {
-                pRtfString->setAlign(RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+            if (pRtfString->align() == FORMAT_ALIGN_LIST) {
+                pRtfString->setAlign(FORMAT_ALIGN_JUSTIFY);
                 m_fi = -pRtfString->firstIndent();
             } else
                 m_fi = pRtfString->firstIndent();
@@ -537,16 +537,16 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
             tmp_font_name = fontName(pRtfWord->fontNumber());
             EDFontAttribs = 0;
 
-            if (pRtfWord->fontNumber() & TG_EDW_UNDERLINE) {
-                EDFontAttribs = EDFontAttribs | TG_EDW_UNDERLINE;
+            if (pRtfWord->fontNumber() & FORMAT_FONT_UNDERLINE) {
+                EDFontAttribs = EDFontAttribs | FORMAT_FONT_UNDERLINE;
             }
 
-            if (RfrmtOptions::useBold() && (pRtfWord->fontNumber() & TG_EDW_BOLD)) {
-                EDFontAttribs = EDFontAttribs | TG_EDW_BOLD;
+            if (RfrmtOptions::useBold() && (pRtfWord->fontNumber() & FORMAT_FONT_BOLD)) {
+                EDFontAttribs = EDFontAttribs | FORMAT_FONT_BOLD;
             }
 
-            if (RfrmtOptions::useItalic() && (pRtfWord->fontNumber() & TG_EDW_ITALIC)) {
-                EDFontAttribs = EDFontAttribs | TG_EDW_ITALIC;
+            if (RfrmtOptions::useItalic() && (pRtfWord->fontNumber() & FORMAT_FONT_ITALIC)) {
+                EDFontAttribs = EDFontAttribs | FORMAT_FONT_ITALIC;
             }
 
             flag_end_word_with_hiphen = 0;
@@ -632,8 +632,8 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                                     (int) tmp_font_name, EDFontAttribs, pRtfChar->language(), -1,
                                     -1);
                         }
-                    } else if (!((m_wvid_parag == RTF_TP_LEFT_AND_RIGHT_ALLIGN || m_wvid_parag
-                            == RTF_TP_LEFT_ALLIGN) && flag_end_word_with_hiphen
+                    } else if (!((m_wvid_parag == FORMAT_ALIGN_JUSTIFY || m_wvid_parag
+                            == FORMAT_ALIGN_LEFT) && flag_end_word_with_hiphen
                             && pRtfChar->m_bFlg_spell_nocarrying)) {
                         if (nw == 0 && nz == 0 && pRtfChar->isDropCap()) {
                             slayout = CIF::Rect();
@@ -700,7 +700,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 #endif
                 }
             } else if ((ns < stringCount() - 1) && (nw == CountWords - 1) && (m_wvid_parag
-                    == RTF_TP_LEFT_AND_RIGHT_ALLIGN || m_wvid_parag == RTF_TP_LEFT_ALLIGN)
+                    == FORMAT_ALIGN_JUSTIFY || m_wvid_parag == FORMAT_ALIGN_LEFT)
                     && !flag_end_word_with_hiphen) {
                 Rtf_CED_CreateChar(&slayout, Letter, NULL);
 #ifdef CHEREDOV
@@ -784,7 +784,7 @@ void CRtfFragment::processingOverlayed() {
 
     for (size_t i = 0; i < stringCount(); i++) {
         CRtfString * str = strings_[i];
-        str->setAlign(RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+        str->setAlign(FORMAT_ALIGN_JUSTIFY);
         str->setParagraphBegin(false);
         str->setRightIndent(0);
     }
@@ -835,7 +835,7 @@ Bool CRtfFragment::DeterminationOfLeftRightJustification(int beg, int end) {
         return FALSE;
 
     setParagraphAlignment(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+            FORMAT_ALIGN_JUSTIFY);
     SetFlagBeginParagraphForLeftRightJustification(beg, end);
     correctParagraphIndents(strings_.begin() + beg, strings_.begin() + end);
 
@@ -849,15 +849,15 @@ Bool CRtfFragment::CheckLeftRightJustification(int beg, int end) {
     CRtfString *pRtfString;
     int Count = 0;
     int CountCentreEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_CENTER);
+            FORMAT_ALIGN_CENTER);
     int CountLeftEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_LEFT_ALLIGN);
+            FORMAT_ALIGN_LEFT);
 
     if (CountCentreEqual == (end - beg))
         return FALSE;
 
     int CountLeftRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+            FORMAT_ALIGN_JUSTIFY);
     m_FlagCarry = hasFlagCarry(strings_.begin() + beg, strings_.begin() + end);
     m_FlagLeft = hasFlagLeft(strings_.begin() + beg, strings_.begin() + end);
     m_FlagStrongLeft = GetFlagStrongLeft(beg, end);
@@ -905,7 +905,7 @@ Bool CRtfFragment::CheckLeftRightJustification(int beg, int end) {
             return FALSE;
 
         CountCentreEqual += countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-                RTF_TP_CENTER);
+                FORMAT_ALIGN_CENTER);
 
         if ((Count + CountLeftRightEqual) < CountCentreEqual)
             return FALSE;
@@ -924,24 +924,24 @@ int CRtfFragment::countStringEndDots(StringIteratorConst begin, StringIteratorCo
 }
 
 int CRtfFragment::countEqualAlign(StringIteratorConst begin, StringIteratorConst end,
-        rtf_align_t AlignType) const {
+        format_align_t AlignType) const {
     int count = 0;
 
     for (StringIteratorConst it = begin; it != end; ++it) {
         switch (AlignType) {
-        case RTF_TP_LEFT_ALLIGN:
+        case FORMAT_ALIGN_LEFT:
             if ((*it)->isEqualLeft())
                 count++;
             break;
-        case RTF_TP_RIGHT_ALLIGN:
+        case FORMAT_ALIGN_RIGHT:
             if ((*it)->isEqualRight())
                 count++;
             break;
-        case RTF_TP_LEFT_AND_RIGHT_ALLIGN:
+        case FORMAT_ALIGN_JUSTIFY:
             if ((*it)->isEqualLeft() && (*it)->isEqualRight())
                 count++;
             break;
-        case RTF_TP_CENTER:
+        case FORMAT_ALIGN_CENTER:
             if ((*it)->isEqualCenter())
                 count++;
             break;
@@ -1040,7 +1040,7 @@ bool CRtfFragment::determinationOfLeftJustification(StringIterator begin, String
     if (!direct && !checkLeftJustification(begin, end))
         return false;
 
-    setParagraphAlignment(begin, end, RTF_TP_LEFT_ALLIGN);
+    setParagraphAlignment(begin, end, FORMAT_ALIGN_LEFT);
 
     if (hasFlagCarry(begin, end) == false || hasFlagLeft(begin, end)) {
         if (std::distance(begin, end) > 0)
@@ -1053,10 +1053,10 @@ bool CRtfFragment::determinationOfLeftJustification(StringIterator begin, String
 }
 
 bool CRtfFragment::checkLeftJustification(StringIteratorConst begin, StringIteratorConst end) const {
-    int left = countEqualAlign(begin, end, RTF_TP_LEFT_ALLIGN);
-    int right = countEqualAlign(begin, end, RTF_TP_RIGHT_ALLIGN);
-    int justify = countEqualAlign(begin, end, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
-    int center = countEqualAlign(begin, end, RTF_TP_CENTER);
+    int left = countEqualAlign(begin, end, FORMAT_ALIGN_LEFT);
+    int right = countEqualAlign(begin, end, FORMAT_ALIGN_RIGHT);
+    int justify = countEqualAlign(begin, end, FORMAT_ALIGN_JUSTIFY);
+    int center = countEqualAlign(begin, end, FORMAT_ALIGN_CENTER);
 
     const bool non_left_only = (right + justify + center) > 0;
     const bool not_left_half = left < (std::distance(begin, end) / 2);
@@ -1121,20 +1121,20 @@ void CRtfFragment::setFlagBeginParagraphForLeftJustification(StringIterator begi
 
 Bool CRtfFragment::DeterminationOfCentreJustification(int beg, int end) {
     int CountLeftEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_LEFT_ALLIGN);
+            FORMAT_ALIGN_LEFT);
     int CountRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_RIGHT_ALLIGN);
+            FORMAT_ALIGN_RIGHT);
     int CountLeftRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+            FORMAT_ALIGN_JUSTIFY);
     int CountCentreEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_CENTER);
+            FORMAT_ALIGN_CENTER);
 
     if ((CountCentreEqual < (end - beg) / 2 || CountCentreEqual < CountRightEqual
             || CountCentreEqual < CountLeftRightEqual || CountCentreEqual < CountLeftEqual)
             && (CountRightEqual + CountLeftRightEqual + CountLeftEqual > 0))
         return FALSE;
 
-    setParagraphAlignment(strings_.begin() + beg, strings_.begin() + end, RTF_TP_CENTER);
+    setParagraphAlignment(strings_.begin() + beg, strings_.begin() + end, FORMAT_ALIGN_CENTER);
     setLineTransfer(strings_.begin() + beg, strings_.begin() + end);
     strings_[beg]->setParagraphBegin(true);
 
@@ -1156,13 +1156,13 @@ Bool CRtfFragment::DeterminationOfRightJustification(int beg, int end) {
         return FALSE;
 
     int CountLeftEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_LEFT_ALLIGN);
+            FORMAT_ALIGN_LEFT);
     int CountRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_RIGHT_ALLIGN);
+            FORMAT_ALIGN_RIGHT);
     int CountLeftRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+            FORMAT_ALIGN_JUSTIFY);
     int CountCentreEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_CENTER);
+            FORMAT_ALIGN_CENTER);
 
     if (CountRightEqual < (end - beg) / 2)
         return FALSE;
@@ -1172,7 +1172,7 @@ Bool CRtfFragment::DeterminationOfRightJustification(int beg, int end) {
             + CountLeftEqual > 0))
         return FALSE;
 
-    setParagraphAlignment(strings_.begin() + beg, strings_.begin() + end, RTF_TP_RIGHT_ALLIGN);
+    setParagraphAlignment(strings_.begin() + beg, strings_.begin() + end, FORMAT_ALIGN_RIGHT);
 
     for (int ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) strings_[ns];
@@ -1207,7 +1207,7 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
     int32_t MinLeft, MaxLeft, MaxRight;
     int32_t CountMinLeft = 0, CountMaxLeft = 0, CountMaxRight = 0;
     int CountCentreEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            RTF_TP_CENTER);
+            FORMAT_ALIGN_CENTER);
 
     if (CountCentreEqual == (end - beg))
         return FALSE;
@@ -1252,7 +1252,7 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
             || (CountMaxRight < (end - beg) / 2))
         return FALSE;
 
-    setParagraphAlignment(strings_.begin() + beg, strings_.begin() + end, RTF_TP_TYPE_LINE);
+    setParagraphAlignment(strings_.begin() + beg, strings_.begin() + end, FORMAT_ALIGN_LIST);
 
     for (ns = beg; ns < end; ns++) {
         pRtfString = (CRtfString*) strings_[ns];
@@ -1468,7 +1468,7 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
         pRtfWordPrev = pRtfStringPrev->firstWord();
         pRtfWord = pRtfString->firstWord();
 
-        if (pRtfString->align() != RTF_TP_CENTER && abs(pRtfWord->realFontSize()
+        if (pRtfString->align() != FORMAT_ALIGN_CENTER && abs(pRtfWord->realFontSize()
                 - pRtfWordPrev->realFontSize()) > 1) {
             pRtfStringPrev->setLineTransfer(false);
             pRtfString->setParagraphBegin(true);
@@ -1488,9 +1488,9 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
                 if (pRtfString->align() == pRtfStringPrev->align())
                     pRtfString->setParagraphBegin(false);
 
-                else if (pRtfStringPrev->align() == RTF_TP_LEFT_AND_RIGHT_ALLIGN
-                        && pRtfString->align() == RTF_TP_LEFT_ALLIGN) {
-                    pRtfString->setAlign(RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+                else if (pRtfStringPrev->align() == FORMAT_ALIGN_JUSTIFY
+                        && pRtfString->align() == FORMAT_ALIGN_LEFT) {
+                    pRtfString->setAlign(FORMAT_ALIGN_JUSTIFY);
                     pRtfStringPrev->setLineTransfer(false);
                     pRtfString->setParagraphBegin(false);
                 }
@@ -1533,7 +1533,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
         pRtfString = (CRtfString*) strings_[ns];
 
         if (pRtfString->isParagraphBegin()) {
-            if (pRtfString->align() == RTF_TP_LEFT_ALLIGN) {
+            if (pRtfString->align() == FORMAT_ALIGN_LEFT) {
                 Dif = MAX(0, m_WidthVerticalColumn - pRtfString->realLength());
                 MinLeftIndent = pRtfString->leftIndent();
 
@@ -1541,7 +1541,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                     pRtfStringNext = (CRtfString*) strings_[i];
 
                     if (pRtfStringNext->isParagraphBegin() || pRtfStringNext->align()
-                            != RTF_TP_LEFT_ALLIGN)
+                            != FORMAT_ALIGN_LEFT)
                         break;
 
                     MinLeftIndent = MIN(pRtfStringNext->leftIndent(), MinLeftIndent);
@@ -1574,19 +1574,19 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                 continue;
             }
 
-            if (pRtfString->align() == RTF_TP_RIGHT_ALLIGN) {
+            if (pRtfString->align() == FORMAT_ALIGN_RIGHT) {
                 pRtfString->setLeftIndent(0);
                 pRtfString->setFirstIndent(0);
                 pRtfString->setRightIndent(0);
                 continue;
             }
 
-            if (pRtfString->align() == RTF_TP_TYPE_LINE) {
+            if (pRtfString->align() == FORMAT_ALIGN_LIST) {
                 if (ns + 1 < stringCount()) {
                     pRtfStringNext = (CRtfString*) strings_[ns + 1];
 
                     if (!pRtfStringNext->isParagraphBegin() && pRtfStringNext->align()
-                            == RTF_TP_TYPE_LINE) {
+                            == FORMAT_ALIGN_LIST) {
                         pRtfString->setFirstIndent(pRtfStringNext->leftIndent()
                                 - pRtfString->leftIndent());
                         pRtfString->setLeftIndent(pRtfStringNext->leftIndent());
@@ -1602,7 +1602,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                 continue;
             }
 
-            if (pRtfString->align() == RTF_TP_LEFT_AND_RIGHT_ALLIGN) {
+            if (pRtfString->align() == FORMAT_ALIGN_JUSTIFY) {
                 MinLeftIndent = pRtfString->leftIndent();
                 MinRightIndent = pRtfString->rightIndent();
 
@@ -1610,7 +1610,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                     pRtfStringNext = (CRtfString*) strings_[i];
 
                     if (pRtfStringNext->isParagraphBegin() || pRtfStringNext->align()
-                            != RTF_TP_LEFT_AND_RIGHT_ALLIGN)
+                            != FORMAT_ALIGN_JUSTIFY)
                         break;
 
                     MinLeftIndent = MIN(pRtfStringNext->leftIndent(), MinLeftIndent);
@@ -1646,7 +1646,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                 continue;
             }
 
-            if (pRtfString->align() == RTF_TP_CENTER) {
+            if (pRtfString->align() == FORMAT_ALIGN_CENTER) {
                 MinLeftIndent = pRtfString->leftIndent();
                 MinRightIndent = pRtfString->rightIndent();
 
@@ -1655,7 +1655,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
                     MinLeftIndent = MIN(pRtfStringNext->leftIndent(), MinLeftIndent);
                     MinRightIndent = MIN(pRtfStringNext->rightIndent(), MinRightIndent);
 
-                    if (pRtfString->align() != RTF_TP_CENTER)
+                    if (pRtfString->align() != FORMAT_ALIGN_CENTER)
                         break;
                 }
 
@@ -1677,7 +1677,7 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
 void CRtfFragment::defineLineTransfer() {
     for (StringIterator it = strings_.begin(), end = strings_.end(); it != end; ++it) {
         if ((*it)->isParagraphBegin() && (RfrmtOptions::lineTransfer() //
-                || (*it)->align() == RTF_TP_CENTER)) {
+                || (*it)->align() == FORMAT_ALIGN_CENTER)) {
             setLineTransfer(it, findParagraph(it, end));
         }
     }
@@ -1699,7 +1699,7 @@ bool CRtfFragment::hasFlagLeft(StringIterator begin, StringIterator end) {
     if (Count > 1 && PriznakLeft)
         return true;
 
-    int CountLeftEqual = countEqualAlign(begin, end, RTF_TP_LEFT_ALLIGN);
+    int CountLeftEqual = countEqualAlign(begin, end, FORMAT_ALIGN_LEFT);
 
     if (CountLeftEqual == std::distance(begin, end))
         return true;
@@ -1779,7 +1779,7 @@ bool CRtfFragment::hasBigSpaceBetweenWords(StringIteratorConst begin, StringIter
 }
 
 void CRtfFragment::setParagraphAlignment(StringIterator begin, StringIterator end,
-        rtf_align_t AlignType) {
+        format_align_t AlignType) {
     for (StringIterator it = begin; it != end; ++it)
         (*it)->setAlign(AlignType);
 }
