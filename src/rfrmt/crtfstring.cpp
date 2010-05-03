@@ -145,6 +145,18 @@ bool CRtfString::hasAttributes() const {
     return has_attributes_;
 }
 
+bool CRtfString::hasBigSpace(int max_space) const {
+    for (size_t i = 1; i < wordCount(); i++) {
+        CRtfChar * current = words_[i]->firstChar();
+        CRtfChar * prev = words_[i - 1]->lastChar();
+
+        if ((current->idealRect().left() - prev->idealRect().right()) > max_space)
+            return true;
+    }
+
+    return false;
+}
+
 bool CRtfString::hasChars() const {
     for (WordIteratorConst it = words_.begin(), e = words_.end(); it != e; ++it) {
         if (!(*it)->empty())

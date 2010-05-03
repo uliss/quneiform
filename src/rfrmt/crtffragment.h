@@ -114,18 +114,12 @@ class CLA_EXPO CRtfFragment
         Bool CheckLeftRightJustification(int beg, int end);
         void SetFlagBeginParagraphForLeftRightJustification(int beg, int end);
         Bool CheckStringForLeftRightJustification(int ns);
-
-        void SetFlagBeginParagraphForLeftJustification(int beg, int end);
         Bool CheckStringForLeftJustification(int ns);
 
         void CheckOnceAgainImportancesFlagBeginParagraph(void);
         void SetFirstLeftAndRightIndentOfParagraph(void);
-        void SetParagraphAlignment(int beg, int end, rtf_align_t AlignType);
-        Bool GetFlagCarry(int beg, int end);
-        Bool GetFlagLeft(int beg, int end);
         Bool GetFlagStrongLeft(int beg, int end);
         Bool GetFlagRight(int beg, int end);
-        Bool GetFlagBigSpace(int beg, int end);
 
         RECT m_rect;
         RECT m_rectReal;
@@ -174,16 +168,20 @@ class CLA_EXPO CRtfFragment
         void calcFragmentBorders();
         void calcMaxCharDistance();
         void calcStringEndsEqual();
-        bool checkLeftJustification(int beg, int end);
+        bool checkLeftJustification(StringIteratorConst begin, StringIteratorConst end) const;
         void correctParagraphIndents(StringIterator begin, StringIterator end);
         int countEqualAlign(StringIteratorConst begin, StringIteratorConst end,
                 rtf_align_t AlignType) const;
+        int countStringEndDots(StringIteratorConst begin, StringIteratorConst end) const;
         void defineLineTransfer();
-        bool DeterminationOfLeftJustification(int beg, int end, bool direct);
+        bool determinationOfLeftJustification(StringIterator begin, StringIterator end, bool direct);
         Bool DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo);
         StringIteratorConst findNextFragment(StringIteratorConst begin) const;
         StringIterator findParagraph(StringIterator begin, StringIterator end);
         int fontSizePenalty(int fragment_count) const;
+        bool hasBigSpaceBetweenWords(StringIteratorConst begin, StringIteratorConst end) const;
+        bool hasFlagCarry(StringIteratorConst begin, StringIteratorConst end) const;
+        bool hasFlagLeft(StringIterator begin, StringIterator end);
         void Init(RtfSectorInfo* SectorInfo);
         void initFragment(RtfSectorInfo* SectorInfo);
         void initFragmentFonts(int fragment_count);
@@ -192,8 +190,10 @@ class CLA_EXPO CRtfFragment
         int maxStringRightBorder() const;
         void processingUseNoneMode();
         void processingOverlayed();
+        void setFlagBeginParagraphForLeftJustification(StringIterator begin, StringIterator end);
         void setFragmentAlignment(RtfSectorInfo* SectorInfo);
         void setLineTransfer(StringIterator begin, StringIterator end);
+        void setParagraphAlignment(StringIterator begin, StringIterator end, rtf_align_t AlignType);
         void updateStringPairAlignment(CRtfString * current, CRtfString * previous);
         void updateFirstStringPairAlignment();
     private:

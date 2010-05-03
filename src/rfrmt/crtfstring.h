@@ -121,6 +121,12 @@ class CLA_EXPO CRtfString
         bool hasAttributes() const;
 
         /**
+         * Returns true if string has at least one big space between words
+         * @max_space maximum space between words
+         */
+        bool hasBigSpace(int max_space) const;
+
+        /**
          * Returns true if string contains chars
          */
         bool hasChars() const;
