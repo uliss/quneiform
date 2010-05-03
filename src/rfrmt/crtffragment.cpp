@@ -471,7 +471,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
             m_ri = pRtfString->rightIndent();
             m_sb = pRtfString->marginTop();
 
-            if (!RtfWriteMode && OutPutType)
+            if (OutPutType)
                 m_sb = 0;
 
             m_wprev_font_size = pRtfWord->realFontSize();
@@ -484,49 +484,42 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                 }
             }
 
-            if (!RtfWriteMode) {
-                pRtfWord = pRtfString->firstWord();
-                pRtfChar = pRtfWord->firstChar();
-                int colWidth = 0;
+            pRtfWord = pRtfString->firstWord();
+            pRtfChar = pRtfWord->firstChar();
+            int colWidth = 0;
 
-                if (parent_ && !RfrmtOptions::useNone()) {
-                    CRtfSector* curSect =
-                            (CRtfSector*) parent_->m_arSectors[parent_->m_nCurSectorNumber];
+            if (parent_ && !RfrmtOptions::useNone()) {
+                CRtfSector* curSect =
+                        (CRtfSector*) parent_->m_arSectors[parent_->m_nCurSectorNumber];
 
-                    //Если пишем с форматированием и однострочная колонка
-                    if (RfrmtOptions::useFramesAndColumns() && curSect->SectorInfo.FlagOneString
-                            == TRUE)
-                        colWidth = SectorInfo->PaperW - (SectorInfo->MargL + SectorInfo->MargR);
-
-                    //Если пишем в колонку
-
-                    else if (SectorInfo->hColumn == SectorInfo->hObject) {
-                        colWidth
-                                = curSect->m_arWidthTerminalColumns[curSect->m_VTerminalColumnNumber
-                                        - 1];
-                    }
+                //Если пишем с форматированием и однострочная колонка
+                if (RfrmtOptions::useFramesAndColumns() && curSect->SectorInfo.FlagOneString
+                        == TRUE) {
+                    colWidth = SectorInfo->PaperW - (SectorInfo->MargL + SectorInfo->MargR);
+                } //Если пишем в колонку
+                else if (SectorInfo->hColumn == SectorInfo->hObject) {
+                    colWidth = curSect->m_arWidthTerminalColumns[curSect->m_VTerminalColumnNumber
+                            - 1];
                 }
-
-                //Если ничего не помогло
-                if (!colWidth)
-                    colWidth = m_rectReal.right - m_rectReal.left;
-
-                if (!pRtfChar->isDropCap())
-                    hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb, SectorInfo,
-                            m_wvid_parag, pRtfString->flags(), pRtfString->realLength(), colWidth); //NEGA_STR
             }
+
+            //Если ничего не помогло
+            if (!colWidth)
+                colWidth = m_rectReal.right - m_rectReal.left;
+
+            if (!pRtfChar->isDropCap())
+                hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb, SectorInfo,
+                        m_wvid_parag, pRtfString->flags(), pRtfString->realLength(), colWidth); //NEGA_STR
         }
 
-        if (!RtfWriteMode && !pRtfChar->isDropCap()) {
+        if (!pRtfChar->isDropCap()) {
 #ifdef CHEREDOV
             hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
             if (!RfrmtOptions::useSize() && !RfrmtOptions::useFrames()) {
                 hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(), DefFontSize); //line is text line
-            }
-
-            else {
+            } else {
                 hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(),
                         pRtfWord->realFontSize() * 2);
             }
@@ -596,168 +589,132 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 
                 if (pRtfChar->first().getChar()) {
                     if (pRtfString->lineTransfer()) {
-                        if (!RtfWriteMode) {
-                            if (nw == 0 && nz == 0 && pRtfChar->isDropCap()) {
-                                slayout = CIF::Rect();
-                                EDBOX playout__ = { 0, 0, 0, 0 };
-                                Handle hObject__ = CED_CreateFrame(SectorInfo->hEDSector,
-                                        SectorInfo->hColumn, playout__, 0x22, -1, -1, -1);
-                                CED_SetFrameFlag(hObject__, ED_DROPCAP);
-                                EDSIZE interval__ = { 0, 0 };
+                        if (nw == 0 && nz == 0 && pRtfChar->isDropCap()) {
+                            slayout = CIF::Rect();
+                            EDBOX playout__ = { 0, 0, 0, 0 };
+                            Handle hObject__ = CED_CreateFrame(SectorInfo->hEDSector,
+                                    SectorInfo->hColumn, playout__, 0x22, -1, -1, -1);
+                            CED_SetFrameFlag(hObject__, ED_DROPCAP);
+                            EDSIZE interval__ = { 0, 0 };
 
-                                //                          if(m_Flag & CSTR_STR_NEGATIVE) //nega
-                                if (pRtfString->hasFlag(CSTR_STR_NEGATIVE)) //NEGA_STR
-                                    shading = 10000;
+                            //                          if(m_Flag & CSTR_STR_NEGATIVE) //nega
+                            if (pRtfString->hasFlag(CSTR_STR_NEGATIVE)) //NEGA_STR
+                                shading = 10000;
 
-                                Handle hParagraph__ = CED_CreateParagraph(SectorInfo->hEDSector,
-                                        hObject__, TP_LEFT_ALLIGN, slayout, 0, -1, interval__,
-                                        playout__, -1, shading, -1, -1, FALSE);
-                                Handle hString__ = CED_CreateLine(hParagraph__, FALSE, 6);
-                                Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
-                                CED_CreateChar(hString__, slayout, Letter, EDFontPointSize,
-                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->language(),
-                                        -1, -1);
-                                hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
-                                        SectorInfo, m_wvid_parag, pRtfString->flags(),
-                                        pRtfString->realLength(), m_rectReal.right
-                                                - m_rectReal.left); //NEGA_STR
+                            Handle hParagraph__ = CED_CreateParagraph(SectorInfo->hEDSector,
+                                    hObject__, TP_LEFT_ALLIGN, slayout, 0, -1, interval__,
+                                    playout__, -1, shading, -1, -1, FALSE);
+                            Handle hString__ = CED_CreateLine(hParagraph__, FALSE, 6);
+                            Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
+                            CED_CreateChar(hString__, slayout, Letter, EDFontPointSize,
+                                    (int) tmp_font_name, EDFontAttribs, pRtfChar->language(), -1,
+                                    -1);
+                            hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
+                                    SectorInfo, m_wvid_parag, pRtfString->flags(),
+                                    pRtfString->realLength(), m_rectReal.right - m_rectReal.left); //NEGA_STR
 #ifdef CHEREDOV
-                                hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
+                            hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
-                                if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames())
-                                    hString = CED_CreateLine(hParagraph,
-                                            pRtfString->lineTransfer(), DefFontSize);
-
-                                else
-                                    hString = CED_CreateLine(hParagraph,
-                                            pRtfString->lineTransfer(), pRtfWord->realFontSize()
-                                                    * 2);
+                            if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames()) {
+                                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(),
+                                        DefFontSize);
+                            } else {
+                                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(),
+                                        pRtfWord->realFontSize() * 2);
+                            }
 
 #endif
-                            }
-
-                            else {
-                                Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
-                                CED_CreateChar(hString, slayout, Letter, EDFontPointSize,
-                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->language(),
-                                        -1, -1);
-                            }
-                        }
-
-                        if (nw == 0 && nz == 0 && pRtfChar->isDropCap())
-                            WriteCupDrop(pRtfChar, tmp_font_name);
-
-                        else
-                            PutChar(pRtfChar->first().getChar());
-                    }
-
-                    else if (!((m_wvid_parag == RTF_TP_LEFT_AND_RIGHT_ALLIGN || m_wvid_parag
-                            == RTF_TP_LEFT_ALLIGN) && flag_end_word_with_hiphen
-                            && pRtfChar->m_bFlg_spell_nocarrying)) {
-                        if (!RtfWriteMode) {
-                            if (nw == 0 && nz == 0 && pRtfChar->isDropCap()) {
-                                slayout = CIF::Rect();
-                                EDBOX playout__ = { 0, 0, 0, 0 };
-                                Handle hObject__ = CED_CreateFrame(SectorInfo->hEDSector,
-                                        SectorInfo->hColumn, playout__, 0x22, -1, -1, -1);
-                                CED_SetFrameFlag(hObject__, ED_DROPCAP);
-                                EDSIZE interval__ = { 0, 0 };
-
-                                Handle hParagraph__ = CED_CreateParagraph(SectorInfo->hEDSector,
-                                        hObject__, TP_LEFT_ALLIGN, slayout, 0, -1, interval__,
-                                        playout__, -1, -1, -1, -1, FALSE);
-                                Handle hString__ = CED_CreateLine(hParagraph__, FALSE, 6);
-                                Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
-                                CED_CreateChar(hString__, slayout, Letter, EDFontPointSize,
-                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->language(),
-                                        -1, -1);
-                                hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
-                                        SectorInfo, m_wvid_parag, pRtfString->flags(),
-                                        pRtfString->realLength(), m_rectReal.right
-                                                - m_rectReal.left); //NEGA_STR
-#ifdef CHEREDOV
-                                hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
-#else
-
-                                if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames())
-                                    hString = CED_CreateLine(hParagraph,
-                                            pRtfString->lineTransfer(), DefFontSize);
-
-                                else
-                                    hString = CED_CreateLine(hParagraph,
-                                            pRtfString->lineTransfer(), pRtfWord->realFontSize()
-                                                    * 2);
-
-#endif
-                            }
-
-                            else {
-                                Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
-                                CED_CreateChar(hString, slayout, Letter, EDFontPointSize,
-                                        (int) tmp_font_name, EDFontAttribs, pRtfChar->language(),
-                                        -1, -1);
-                            }
-                        }
-
-                        if (nw == 0 && nz == 0 && pRtfChar->isDropCap())
-                            WriteCupDrop(pRtfChar, tmp_font_name);
-
-                        else
-                            PutChar(pRtfChar->first().getChar());
-                    }
-
-                    else {
-                        if (!RtfWriteMode) {
-                            EDFontAttribs = EDFontAttribs | 0x02;
+                        } else {
                             Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
                             CED_CreateChar(hString, slayout, Letter, EDFontPointSize,
                                     (int) tmp_font_name, EDFontAttribs, pRtfChar->language(), -1,
                                     -1);
                         }
+                    } else if (!((m_wvid_parag == RTF_TP_LEFT_AND_RIGHT_ALLIGN || m_wvid_parag
+                            == RTF_TP_LEFT_ALLIGN) && flag_end_word_with_hiphen
+                            && pRtfChar->m_bFlg_spell_nocarrying)) {
+                        if (nw == 0 && nz == 0 && pRtfChar->isDropCap()) {
+                            slayout = CIF::Rect();
+                            EDBOX playout__ = { 0, 0, 0, 0 };
+                            Handle hObject__ = CED_CreateFrame(SectorInfo->hEDSector,
+                                    SectorInfo->hColumn, playout__, 0x22, -1, -1, -1);
+                            CED_SetFrameFlag(hObject__, ED_DROPCAP);
+                            EDSIZE interval__ = { 0, 0 };
+
+                            Handle hParagraph__ = CED_CreateParagraph(SectorInfo->hEDSector,
+                                    hObject__, TP_LEFT_ALLIGN, slayout, 0, -1, interval__,
+                                    playout__, -1, -1, -1, -1, FALSE);
+                            Handle hString__ = CED_CreateLine(hParagraph__, FALSE, 6);
+                            Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
+                            CED_CreateChar(hString__, slayout, Letter, EDFontPointSize,
+                                    (int) tmp_font_name, EDFontAttribs, pRtfChar->language(), -1,
+                                    -1);
+                            hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
+                                    SectorInfo, m_wvid_parag, pRtfString->flags(),
+                                    pRtfString->realLength(), m_rectReal.right - m_rectReal.left); //NEGA_STR
+#ifdef CHEREDOV
+                            hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
+#else
+
+                            if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames()) {
+                                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(),
+                                        DefFontSize);
+                            } else {
+                                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(),
+                                        pRtfWord->realFontSize() * 2);
+                            }
+#endif
+                        } else {
+                            Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
+                            CED_CreateChar(hString, slayout, Letter, EDFontPointSize,
+                                    (int) tmp_font_name, EDFontAttribs, pRtfChar->language(), -1,
+                                    -1);
+                        }
+                    } else {
+                        EDFontAttribs = EDFontAttribs | 0x02;
+                        Rtf_CED_CreateChar(&slayout, Letter, pRtfChar);
+                        CED_CreateChar(hString, slayout, Letter, EDFontPointSize,
+                                (int) tmp_font_name, EDFontAttribs, pRtfChar->language(), -1, -1);
                     }
                 }
             }
 
             //--- Конец цикла по буквам
             if (nw < CountWords - 1) {
-                if (!RtfWriteMode && !pRtfChar->isDropCap()) {
+                if (!pRtfChar->isDropCap()) {
                     Rtf_CED_CreateChar(&slayout, Letter, NULL);
 #ifdef CHEREDOV
                     CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->real_font_size_ - 1)*2), (int)tmp_font_name,
                             EDFontAttribs, -1, -1, -1);
 #else
 
-                    if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames())
+                    if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames()) {
                         CED_CreateChar(hString, slayout, Letter, DefFontSize, (int) tmp_font_name,
                                 EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
-
-                    else
+                    } else {
                         CED_CreateChar(hString, slayout, Letter, pRtfWord->realFontSize() * 2,
                                 (int) tmp_font_name, EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
-
+                    }
 #endif
                 }
             } else if ((ns < stringCount() - 1) && (nw == CountWords - 1) && (m_wvid_parag
                     == RTF_TP_LEFT_AND_RIGHT_ALLIGN || m_wvid_parag == RTF_TP_LEFT_ALLIGN)
                     && !flag_end_word_with_hiphen) {
-                if (!RtfWriteMode) {
-                    Rtf_CED_CreateChar(&slayout, Letter, NULL);
+                Rtf_CED_CreateChar(&slayout, Letter, NULL);
 #ifdef CHEREDOV
-                    CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->real_font_size_ - 1)*2), (int)tmp_font_name,
-                            EDFontAttribs, -1, -1, -1);
+                CED_CreateChar(hString, slayout, Letter, (int)((pRtfWord->real_font_size_ - 1)*2), (int)tmp_font_name,
+                        EDFontAttribs, -1, -1, -1);
 #else
 
-                    if (!RfrmtOptions::useSize() && RfrmtOptions::useFrames())
-                        CED_CreateChar(hString, slayout, Letter, DefFontSize, (int) tmp_font_name,
-                                EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
-
-                    else
-                        CED_CreateChar(hString, slayout, Letter, pRtfWord->realFontSize() * 2,
-                                (int) tmp_font_name, EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
-
-#endif
+                if (!RfrmtOptions::useSize() && RfrmtOptions::useFrames()) {
+                    CED_CreateChar(hString, slayout, Letter, DefFontSize, (int) tmp_font_name,
+                            EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
+                } else {
+                    CED_CreateChar(hString, slayout, Letter, pRtfWord->realFontSize() * 2,
+                            (int) tmp_font_name, EDFontAttribs, LANGUAGE_UNKNOWN, -1, -1);
                 }
+#endif
             }
         }
 
