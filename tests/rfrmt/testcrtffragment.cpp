@@ -359,3 +359,40 @@ void TestCRtfFragment::testAdjustStringIndents() {
     CPPUNIT_ASSERT_EQUAL(10, fr.lastString()->leftIndent());
     CPPUNIT_ASSERT_EQUAL(80, fr.lastString()->rightIndent());
 }
+
+void TestCRtfFragment::testCountEqualAlign() {
+    CRtfFragment fr;
+
+#define COUNT_EQUAL(count, align) \
+        CPPUNIT_ASSERT_EQUAL((count), fr.countEqualAlign(fr.strings_.begin(), fr.strings_.end(), (align)));
+
+    COUNT_EQUAL(0, RTF_TP_LEFT_ALLIGN);
+    COUNT_EQUAL(0, RTF_TP_RIGHT_ALLIGN);
+    COUNT_EQUAL(0, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    COUNT_EQUAL(0, RTF_TP_CENTER);
+
+    FR_ADD_STR(fr, 0, 100);
+    fr.lastString()->setEqualLeft(true);
+    fr.lastString()->setEqualRight(true);
+
+    COUNT_EQUAL(2, RTF_TP_LEFT_ALLIGN);
+    COUNT_EQUAL(2, RTF_TP_RIGHT_ALLIGN);
+    COUNT_EQUAL(2, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    COUNT_EQUAL(0, RTF_TP_CENTER);
+
+    FR_ADD_STR(fr, 0, 100);
+    fr.lastString()->setEqualCenter(true);
+    fr.lastString()->setEqualRight(true);
+    COUNT_EQUAL(2, RTF_TP_LEFT_ALLIGN);
+    COUNT_EQUAL(2, RTF_TP_RIGHT_ALLIGN);
+    COUNT_EQUAL(2, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    COUNT_EQUAL(2, RTF_TP_CENTER);
+
+    FR_ADD_STR(fr, 0, 100);
+    fr.lastString()->setEqualCenter(true);
+    fr.lastString()->setEqualRight(true);
+    COUNT_EQUAL(2, RTF_TP_LEFT_ALLIGN);
+    COUNT_EQUAL(3, RTF_TP_RIGHT_ALLIGN);
+    COUNT_EQUAL(2, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    COUNT_EQUAL(2, RTF_TP_CENTER);
+}

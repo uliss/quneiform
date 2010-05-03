@@ -377,10 +377,10 @@ void CRtfFragment::setFragmentAlignment(RtfSectorInfo* SectorInfo) {
     if (DeterminationOfMixedFragment(SectorInfo) == FALSE) {
         if (DeterminationOfLeftRightJustification(0, stringCount()) == FALSE) {
             if (DeterminationOfListType(0, stringCount()) == FALSE) {
-                if (DeterminationOfLeftJustification(0, stringCount(), 0) == FALSE) {
+                if (DeterminationOfLeftJustification(0, stringCount(), false) == FALSE) {
                     if (DeterminationOfCentreJustification(0, stringCount()) == FALSE) {
                         if (DeterminationOfRightJustification(0, stringCount()) == FALSE) {
-                            DeterminationOfLeftJustification(0, stringCount(), 1);
+                            DeterminationOfLeftJustification(0, stringCount(), true);
                         }
                     }
                 }
@@ -749,29 +749,9 @@ void CRtfFragment::initFragment(RtfSectorInfo* SectorInfo) {
     setFragmentAlignment(SectorInfo);
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 FWritePicture                                                  //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-Bool CRtfFragment::FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo *SectorInfo,
+void CRtfFragment::FWritePicture(int NumberCurrentFragment, RtfSectorInfo *SectorInfo,
         Bool OutPutType) {
-    //  CString  PictString;
-    //  uint32_t   Pindex;
-    //  uint32_t  CountPictElem;
-    //  char     Psym;
-    WritePict((uint32_t) NumberCurrentFragment, SectorInfo,/* &PictString,*/
-    OutPutType);
-    /*  if(RtfWriteMode)
-     {
-     CountPictElem = PictString.GetLength();
-     for( Pindex=0;  Pindex<CountPictElem; Pindex++ )
-     {
-     Psym=(char)PictString.GetAt(Pindex);
-     if(Psym)
-     PutC(Psym);
-     }
-     }
-     */
-    return TRUE;
+    WritePict(NumberCurrentFragment, SectorInfo, OutPutType);
 }
 
 void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
@@ -863,22 +843,19 @@ Bool CRtfFragment::DeterminationOfLeftRightJustification(int beg, int end) {
     return TRUE;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 CheckLeftRightJustification
-
 Bool CRtfFragment::CheckLeftRightJustification(int beg, int end) {
     CRtfString *pRtfString;
     int Count = 0;
-    uint16_t CountLeftRightEqual = 0;
-    uint16_t CountCentreEqual = 0;
-    uint16_t CountLeftEqual = 0;
-    GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
-    GetCountEqual(beg, end, &CountLeftEqual, RTF_TP_LEFT_ALLIGN);
+    int CountCentreEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_CENTER);
+    int CountLeftEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_LEFT_ALLIGN);
 
     if (CountCentreEqual == (end - beg))
         return FALSE;
 
-    GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    int CountLeftRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_LEFT_AND_RIGHT_ALLIGN);
     m_FlagCarry = GetFlagCarry(beg, end);
     m_FlagLeft = GetFlagLeft(beg, end);
     m_FlagStrongLeft = GetFlagStrongLeft(beg, end);
@@ -921,13 +898,12 @@ Bool CRtfFragment::CheckLeftRightJustification(int beg, int end) {
     if (m_FlagCarry) {
         if ((Count + CountLeftRightEqual) < (end - beg - 1) / 3)
             return FALSE;
-    }
-
-    else {
+    } else {
         if ((Count + CountLeftRightEqual) < 4 * (end - beg - 1) / 5)
             return FALSE;
 
-        GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
+        CountCentreEqual += countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+                RTF_TP_CENTER);
 
         if ((Count + CountLeftRightEqual) < CountCentreEqual)
             return FALSE;
@@ -936,47 +912,37 @@ Bool CRtfFragment::CheckLeftRightJustification(int beg, int end) {
     return TRUE;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 GetCountEqual
+int CRtfFragment::countEqualAlign(StringIteratorConst begin, StringIteratorConst end,
+        rtf_align_t AlignType) const {
+    int count = 0;
 
-void CRtfFragment::GetCountEqual(int beg, int end, uint16_t* Count, int AlignType) {
-    CRtfString *pRtfString;
-
-    for (int i = beg; i < end; i++) {
-        pRtfString = (CRtfString*) strings_[i];
-
+    for (StringIteratorConst it = begin; it != end; ++it) {
         switch (AlignType) {
         case RTF_TP_LEFT_ALLIGN:
-
-            if (pRtfString->isEqualLeft())
-                (*Count)++;
-
+            if ((*it)->isEqualLeft())
+                count++;
             break;
         case RTF_TP_RIGHT_ALLIGN:
-
-            if (pRtfString->isEqualRight())
-                (*Count)++;
-
+            if ((*it)->isEqualRight())
+                count++;
             break;
         case RTF_TP_LEFT_AND_RIGHT_ALLIGN:
-
-            if (pRtfString->isEqualLeft() && pRtfString->isEqualRight())
-                (*Count)++;
-
+            if ((*it)->isEqualLeft() && (*it)->isEqualRight())
+                count++;
             break;
         case RTF_TP_CENTER:
-
-            if (pRtfString->isEqualCenter())
-                (*Count)++;
-
+            if ((*it)->isEqualCenter())
+                count++;
             break;
         default:
             break;
         }
     }
 
-    if (*Count == 1)
-        (*Count)++;
+    if (count == 1)
+        count++;
+
+    return count;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1058,12 +1024,9 @@ void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int e
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 DeterminationOfLeftJustification
-
-Bool CRtfFragment::DeterminationOfLeftJustification(int beg, int end, Bool direct) {
-    if (!direct && !CheckLeftJustification(beg, end))
-        return FALSE;
+bool CRtfFragment::DeterminationOfLeftJustification(int beg, int end, bool direct) {
+    if (!direct && !checkLeftJustification(beg, end))
+        return false;
 
     SetParagraphAlignment(beg, end, RTF_TP_LEFT_ALLIGN);
 
@@ -1076,28 +1039,25 @@ Bool CRtfFragment::DeterminationOfLeftJustification(int beg, int end, Bool direc
     if (Config::instance().debugHigh())
         printResult(std::cerr,
                 "\n ================== DeterminationOfLeftJustification ==================");
-    return TRUE;
+    return true;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 CheckLeftJustification
-
-Bool CRtfFragment::CheckLeftJustification(int beg, int end) {
-    uint16_t CountLeftEqual = 0;
-    uint16_t CountRightEqual = 0;
-    uint16_t CountLeftRightEqual = 0;
-    uint16_t CountCentreEqual = 0;
-    GetCountEqual(beg, end, &CountLeftEqual, RTF_TP_LEFT_ALLIGN);
-    GetCountEqual(beg, end, &CountRightEqual, RTF_TP_RIGHT_ALLIGN);
-    GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
-    GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
+bool CRtfFragment::checkLeftJustification(int beg, int end) {
+    int CountLeftEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_LEFT_ALLIGN);
+    int CountRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_RIGHT_ALLIGN);
+    int CountLeftRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    int CountCentreEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_CENTER);
 
     if ((CountLeftEqual < (end - beg) / 2 || CountLeftEqual < CountRightEqual || CountLeftEqual
             < CountLeftRightEqual || CountLeftEqual < CountCentreEqual) && (CountRightEqual
             + CountLeftRightEqual + CountCentreEqual > 0))
-        return FALSE;
+        return false;
 
-    return TRUE;
+    return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1165,19 +1125,15 @@ void CRtfFragment::SetFlagBeginParagraphForLeftJustification(int beg, int end) {
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 DeterminationOfCentreJustification
-
 Bool CRtfFragment::DeterminationOfCentreJustification(int beg, int end) {
-    CRtfString *pRtfString;
-    uint16_t CountLeftEqual = 0;
-    uint16_t CountRightEqual = 0;
-    uint16_t CountLeftRightEqual = 0;
-    uint16_t CountCentreEqual = 0;
-    GetCountEqual(beg, end, &CountLeftEqual, RTF_TP_LEFT_ALLIGN);
-    GetCountEqual(beg, end, &CountRightEqual, RTF_TP_RIGHT_ALLIGN);
-    GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
-    GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
+    int CountLeftEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_LEFT_ALLIGN);
+    int CountRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_RIGHT_ALLIGN);
+    int CountLeftRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    int CountCentreEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_CENTER);
 
     if ((CountCentreEqual < (end - beg) / 2 || CountCentreEqual < CountRightEqual
             || CountCentreEqual < CountLeftRightEqual || CountCentreEqual < CountLeftEqual)
@@ -1186,8 +1142,7 @@ Bool CRtfFragment::DeterminationOfCentreJustification(int beg, int end) {
 
     SetParagraphAlignment(beg, end, RTF_TP_CENTER);
     setLineTransfer(strings_.begin() + beg, strings_.begin() + end);
-    pRtfString = (CRtfString*) strings_[beg];
-    pRtfString->setParagraphBegin(true);
+    strings_[beg]->setParagraphBegin(true);
 
     if (Config::instance().debugHigh())
         printResult(std::cerr,
@@ -1201,19 +1156,19 @@ Bool CRtfFragment::DeterminationOfCentreJustification(int beg, int end) {
 Bool CRtfFragment::DeterminationOfRightJustification(int beg, int end) {
     CRtfString *pRtfStringPrev;
     CRtfString *pRtfString;
-    uint16_t CountLeftEqual = 0;
-    uint16_t CountRightEqual = 0;
-    uint16_t CountLeftRightEqual = 0;
-    uint16_t CountCentreEqual = 0;
     m_FlagCarry = GetFlagCarry(beg, end);
 
     if (m_FlagCarry && m_FlagRight == FALSE)
         return FALSE;
 
-    GetCountEqual(beg, end, &CountLeftEqual, RTF_TP_LEFT_ALLIGN);
-    GetCountEqual(beg, end, &CountRightEqual, RTF_TP_RIGHT_ALLIGN);
-    GetCountEqual(beg, end, &CountLeftRightEqual, RTF_TP_LEFT_AND_RIGHT_ALLIGN);
-    GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
+    int CountLeftEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_LEFT_ALLIGN);
+    int CountRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_RIGHT_ALLIGN);
+    int CountLeftRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_LEFT_AND_RIGHT_ALLIGN);
+    int CountCentreEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_CENTER);
 
     if (CountRightEqual < (end - beg) / 2)
         return FALSE;
@@ -1235,7 +1190,7 @@ Bool CRtfFragment::DeterminationOfRightJustification(int beg, int end) {
         }
 
         pRtfString->setLineTransfer(true);
-        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
+        pRtfStringPrev = strings_[ns - 1];
 
         if (pRtfStringPrev->endsWith('.')) {
             pRtfString->setParagraphBegin(true);
@@ -1257,8 +1212,8 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
     uchar FlagListParagraph = 0;
     int32_t MinLeft, MaxLeft, MaxRight;
     int32_t CountMinLeft = 0, CountMaxLeft = 0, CountMaxRight = 0;
-    uint16_t CountCentreEqual = 0;
-    GetCountEqual(beg, end, &CountCentreEqual, RTF_TP_CENTER);
+    int CountCentreEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_CENTER);
 
     if (CountCentreEqual == (end - beg))
         return FALSE;
@@ -1477,10 +1432,7 @@ void CRtfFragment::GetNextFragmentBegEnd(int32_t* beg, int32_t* end, Bool* Flag)
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 Done
-
-void CRtfFragment::Done(void) {
+void CRtfFragment::Done() {
     CheckOnceAgainImportancesFlagBeginParagraph();
     SetFirstLeftAndRightIndentOfParagraph();
     defineLineTransfer();
@@ -1729,8 +1681,8 @@ void CRtfFragment::SetFirstLeftAndRightIndentOfParagraph() {
 
 void CRtfFragment::defineLineTransfer() {
     for (StringIterator it = strings_.begin(), end = strings_.end(); it != end; ++it) {
-        if ((*it)->isParagraphBegin() && (RfrmtOptions::lineTransfer() || (*it)->align()
-                == RTF_TP_CENTER)) {
+        if ((*it)->isParagraphBegin() && (RfrmtOptions::lineTransfer() //
+                || (*it)->align() == RTF_TP_CENTER)) {
             setLineTransfer(it, findParagraph(it, end));
         }
     }
@@ -1742,7 +1694,6 @@ void CRtfFragment::defineLineTransfer() {
 Bool CRtfFragment::GetFlagLeft(int beg, int end) {
     CRtfString* pRtfString;
     int Count = 0;
-    uint16_t CountLeftEqual = 0;
     Bool PriznakLeft = FALSE;
 
     for (int ns = beg; ns < end; ns++) {
@@ -1759,7 +1710,8 @@ Bool CRtfFragment::GetFlagLeft(int beg, int end) {
     if (Count > 1 && PriznakLeft)
         return TRUE;
 
-    GetCountEqual(beg, end, &CountLeftEqual, RTF_TP_LEFT_ALLIGN);
+    int CountLeftEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
+            RTF_TP_LEFT_ALLIGN);
 
     if (CountLeftEqual == (end - beg))
         return TRUE;

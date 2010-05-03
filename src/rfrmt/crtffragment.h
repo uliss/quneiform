@@ -100,14 +100,13 @@ class CLA_EXPO CRtfFragment
         std::string toString() const;
 
         Bool FWriteText(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
-        Bool FWritePicture(int16_t NumberCurrentFragment, RtfSectorInfo* SectorInfo,
-                Bool OutPutType);
+        void FWritePicture(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
 
         void ReInit(RtfSectorInfo* SectorInfo, int beg, int end);
         Bool DeterminationOfCentreJustification(int beg, int end);
         Bool DeterminationOfRightJustification(int beg, int end);
         Bool DeterminationOfListType(int beg, int end);
-        void Done(void);
+        void Done();
 
         void GetNextFragmentBegEnd(int32_t* beg, int32_t* end, Bool* Flag);
 
@@ -116,15 +115,12 @@ class CLA_EXPO CRtfFragment
         void SetFlagBeginParagraphForLeftRightJustification(int beg, int end);
         Bool CheckStringForLeftRightJustification(int ns);
 
-        Bool DeterminationOfLeftJustification(int beg, int end, Bool direct);
-        Bool CheckLeftJustification(int beg, int end);
         void SetFlagBeginParagraphForLeftJustification(int beg, int end);
         Bool CheckStringForLeftJustification(int ns);
 
         void CheckOnceAgainImportancesFlagBeginParagraph(void);
         void SetFirstLeftAndRightIndentOfParagraph(void);
         void SetParagraphAlignment(int beg, int end, rtf_align_t AlignType);
-        void GetCountEqual(int beg, int end, uint16_t* Count, int AlignType);
         Bool GetFlagCarry(int beg, int end);
         Bool GetFlagLeft(int beg, int end);
         Bool GetFlagStrongLeft(int beg, int end);
@@ -178,8 +174,12 @@ class CLA_EXPO CRtfFragment
         void calcFragmentBorders();
         void calcMaxCharDistance();
         void calcStringEndsEqual();
+        bool checkLeftJustification(int beg, int end);
         void correctParagraphIndents(StringIterator begin, StringIterator end);
+        int countEqualAlign(StringIteratorConst begin, StringIteratorConst end,
+                rtf_align_t AlignType) const;
         void defineLineTransfer();
+        bool DeterminationOfLeftJustification(int beg, int end, bool direct);
         Bool DeterminationOfMixedFragment(RtfSectorInfo* SectorInfo);
         StringIteratorConst findNextFragment(StringIteratorConst begin) const;
         StringIterator findParagraph(StringIterator begin, StringIterator end);
