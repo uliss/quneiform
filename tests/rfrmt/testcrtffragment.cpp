@@ -364,7 +364,7 @@ void TestCRtfFragment::testCountEqualAlign() {
     CRtfFragment fr;
 
 #define COUNT_EQUAL(count, align) \
-        CPPUNIT_ASSERT_EQUAL((count), fr.countEqualAlign(fr.strings_.begin(), fr.strings_.end(), (align)));
+        CPPUNIT_ASSERT_EQUAL(static_cast<unsigned int>(count), fr.countEqualAlign(fr.strings_.begin(), fr.strings_.end(), (align)));
 
     COUNT_EQUAL(0, FORMAT_ALIGN_LEFT);
     COUNT_EQUAL(0, FORMAT_ALIGN_RIGHT);
@@ -395,4 +395,22 @@ void TestCRtfFragment::testCountEqualAlign() {
     COUNT_EQUAL(3, FORMAT_ALIGN_RIGHT);
     COUNT_EQUAL(2, FORMAT_ALIGN_JUSTIFY);
     COUNT_EQUAL(2, FORMAT_ALIGN_CENTER);
+}
+
+void TestCRtfFragment::testCheckAlign() {
+    CPPUNIT_ASSERT(!CRtfFragment::checkLeftAlign(0, 0, 0, 0, 0));
+    CPPUNIT_ASSERT(!CRtfFragment::checkLeftAlign(1, 0, 0, 0, 4));
+    CPPUNIT_ASSERT(CRtfFragment::checkLeftAlign(1, 0, 0, 0, 1));
+    CPPUNIT_ASSERT(CRtfFragment::checkLeftAlign(1, 0, 0, 0, 2));
+    CPPUNIT_ASSERT(CRtfFragment::checkLeftAlign(6, 1, 1, 2, 10));
+    CPPUNIT_ASSERT(CRtfFragment::checkLeftAlign(6, 1, 1, 5, 10));
+    //    CPPUNIT_ASSERT(!CRtfFragment::checkLeftAlign(6, 6, 6, 6, 10));
+
+    CPPUNIT_ASSERT(!CRtfFragment::checkRightAlign(0, 0, 0, 0, 0));
+    CPPUNIT_ASSERT(!CRtfFragment::checkRightAlign(0, 1, 0, 0, 4));
+    CPPUNIT_ASSERT(CRtfFragment::checkRightAlign(0, 1, 0, 0, 1));
+    CPPUNIT_ASSERT(CRtfFragment::checkRightAlign(0, 1, 0, 0, 2));
+    CPPUNIT_ASSERT(CRtfFragment::checkRightAlign(1, 6, 1, 2, 10));
+    CPPUNIT_ASSERT(CRtfFragment::checkRightAlign(1, 6, 1, 5, 10));
+    //    CPPUNIT_ASSERT(!CRtfFragment::checkRightAlign(6, 6, 6, 6, 10));
 }

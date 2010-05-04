@@ -373,13 +373,16 @@ void CRtfFragment::setFragmentAlignment(RtfSectorInfo* SectorInfo) {
         return processingOverlayed();
     }
 
+    StringIterator begin = strings_.begin();
+    StringIterator end = strings_.end();
+
     if (determineMixedFragment(SectorInfo) == false) {
-        if (DeterminationOfLeftRightJustification(0, stringCount()) == FALSE) {
-            if (DeterminationOfListType(0, stringCount()) == FALSE) {
-                if (determineAlignLeft(strings_.begin(), strings_.end(), false) == false) {
-                    if (determineAlignCenter(strings_.begin(), strings_.end()) == false) {
-                        if (determineAlignRight(strings_.begin(), strings_.end()) == false) {
-                            determineAlignLeft(strings_.begin(), strings_.end(), true);
+        if (determineAlignJustify(begin, end) == false) {
+            if (determineList(begin, end) == false) {
+                if (determineAlignLeft(begin, end, false) == false) {
+                    if (determineAlignCenter(begin, end) == false) {
+                        if (determineAlignRight(begin, end) == false) {
+                            determineAlignLeft(begin, end, true);
                         }
                     }
                 }
@@ -825,90 +828,85 @@ void CRtfFragment::processingOverlayed() {
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 DeterminationOfLeftRightJustification
+bool CRtfFragment::determineAlignJustify(StringIterator begin, StringIterator end) {
+    if (!checkAlignJustify(begin, end))
+        return false;
 
-Bool CRtfFragment::DeterminationOfLeftRightJustification(int beg, int end) {
-    if (!CheckLeftRightJustification(beg, end))
-        return FALSE;
-
-    setParagraphAlignment(strings_.begin() + beg, strings_.begin() + end, FORMAT_ALIGN_JUSTIFY);
-    SetFlagBeginParagraphForLeftRightJustification(beg, end);
-    correctParagraphIndents(strings_.begin() + beg, strings_.begin() + end);
-
-    if (Config::instance().debugHigh())
-        printResult(std::cerr,
-                "\n ================== DeterminationOfLeftRightJustification ==================");
-    return TRUE;
+    setParagraphAlignment(begin, end, FORMAT_ALIGN_JUSTIFY);
+    setFlagBeginParagraphForLeftRightJustification(begin, end);
+    correctParagraphIndents(begin, end);
+    return true;
 }
 
-Bool CRtfFragment::CheckLeftRightJustification(int beg, int end) {
-    CRtfString *pRtfString;
+bool CRtfFragment::checkAlignJustify(StringIterator begin, StringIterator end) {
+    int CountCentreEqual = countEqualAlign(begin, end, FORMAT_ALIGN_CENTER);
+    const int string_count = std::distance(begin, end);
+
+    // all centered
+    if (CountCentreEqual == string_count)
+        return false;
+
+    flag_carry_ = hasFlagCarry(begin, end);
+    flag_left_ = hasFlagLeft(begin, end);
+    flag_strong_left_ = hasFlagStrongLeft(begin, end);
+    flag_right_ = hasFlagRight(begin, end);
+    flag_big_space_ = hasBigSpaceBetweenWords(begin, end);
+
+    if (flag_strong_left_)
+        return false;
+
+    int CountLeftEqual = countEqualAlign(begin, end, FORMAT_ALIGN_LEFT);
+    int CountLeftRightEqual = countEqualAlign(begin, end, FORMAT_ALIGN_JUSTIFY);
+
+    if (flag_carry_ == false && //
+            string_count <= 2 && //
+            CountLeftRightEqual == 0)
+        return false;
+
+    if (flag_carry_ == false && //
+            flag_big_space_ == false && //
+            (CountLeftRightEqual < string_count / 3))
+        return false;
+
+    if (flag_right_ == true && string_count <= 4)
+        return false;
+
+    if ((CountLeftEqual > string_count) && flag_big_space_ == false) {
+        if ((string_count < 5) && (CountLeftEqual > CountLeftRightEqual))
+            return false;
+
+        if (CountLeftRightEqual <= string_count / 2)
+            return false;
+    }
+
     int Count = 0;
-    int CountCentreEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            FORMAT_ALIGN_CENTER);
-    int CountLeftEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            FORMAT_ALIGN_LEFT);
+    if (string_count > 0) {
+        for (StringIterator it = (begin + 1); it != end; ++it) {
+            if ((*it)->isEqualLeft() && (*it)->isEqualRight())
+                continue;
 
-    if (CountCentreEqual == (end - beg))
-        return FALSE;
-
-    int CountLeftRightEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            FORMAT_ALIGN_JUSTIFY);
-    flag_carry_ = hasFlagCarry(strings_.begin() + beg, strings_.begin() + end);
-    m_FlagLeft = hasFlagLeft(strings_.begin() + beg, strings_.begin() + end);
-    m_FlagStrongLeft = GetFlagStrongLeft(beg, end);
-    m_FlagRight = GetFlagRight(beg, end);
-    m_FlagBigSpace = hasBigSpaceBetweenWords(strings_.begin() + beg, strings_.begin() + end);
-
-    if (m_FlagStrongLeft == TRUE)
-        return FALSE;
-
-    if (flag_carry_ == FALSE && end - beg <= 2 && CountLeftRightEqual == 0)
-        return FALSE;
-
-    if (flag_carry_ == FALSE && m_FlagBigSpace == FALSE && (CountLeftRightEqual < (end - beg) / 3))
-        return FALSE;
-
-    if (m_FlagRight == TRUE && end - beg <= 4)
-        return FALSE;
-
-    if ((CountLeftEqual >= (end - beg - 1)) && m_FlagBigSpace == FALSE) {
-        if (((end - beg) < 5) && (CountLeftEqual > CountLeftRightEqual))
-            return FALSE;
-
-        if (CountLeftRightEqual <= (end - beg) / 2)
-            return FALSE;
+            if (CheckStringForLeftRightJustification(std::distance(strings_.begin(), it)))
+                Count++;
+        }
     }
 
-    for (int ns = beg + 1; ns < end; ns++) {
-        pRtfString = (CRtfString*) strings_[ns];
-
-        if (pRtfString->isEqualLeft() && pRtfString->isEqualRight())
-            continue;
-
-        if (CheckStringForLeftRightJustification(ns))
-            Count++;
-    }
-
-    if (m_FlagLeft && ((Count + CountLeftRightEqual) < 4 * (end - beg - 1) / 5))
-        return FALSE;
+    if (flag_left_ && ((Count + CountLeftRightEqual) < 4 * (string_count - 1) / 5))
+        return false;
 
     if (flag_carry_) {
-        if ((Count + CountLeftRightEqual) < (end - beg - 1) / 3)
-            return FALSE;
+        if ((Count + CountLeftRightEqual) < (string_count - 1) / 3)
+            return false;
     } else {
-        if ((Count + CountLeftRightEqual) < 4 * (end - beg - 1) / 5)
-            return FALSE;
+        if ((Count + CountLeftRightEqual) < 4 * (string_count - 1) / 5)
+            return false;
 
-        CountCentreEqual += countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-                FORMAT_ALIGN_CENTER);
+        CountCentreEqual += countEqualAlign(begin, end, FORMAT_ALIGN_CENTER);
 
         if ((Count + CountLeftRightEqual) < CountCentreEqual)
-            return FALSE;
+            return false;
     }
 
-    return TRUE;
+    return true;
 }
 
 int CRtfFragment::countStringEndDots(StringIteratorConst begin, StringIteratorConst end) {
@@ -920,9 +918,9 @@ int CRtfFragment::countStringEndDots(StringIteratorConst begin, StringIteratorCo
     return count;
 }
 
-int CRtfFragment::countEqualAlign(StringIteratorConst begin, StringIteratorConst end,
+uint CRtfFragment::countEqualAlign(StringIteratorConst begin, StringIteratorConst end,
         format_align_t AlignType) {
-    int count = 0;
+    uint count = 0;
 
     for (StringIteratorConst it = begin; it != end; ++it) {
         switch (AlignType) {
@@ -998,42 +996,37 @@ Bool CRtfFragment::CheckStringForLeftRightJustification(int ns) {
     return FALSE;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 SetFlagBeginParagraphForLeftRightJustification
+void CRtfFragment::setFlagBeginParagraphForLeftRightJustification(StringIterator begin,
+        StringIterator end) {
+    for (StringIterator it = begin; it != end; ++it) {
+        CRtfString * curr = *it;
 
-void CRtfFragment::SetFlagBeginParagraphForLeftRightJustification(int beg, int end) {
-    CRtfString *pRtfStringPrev;
-    CRtfString *pRtfString;
-
-    for (int ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) strings_[ns];
-
-        if (ns == beg) {
-            pRtfString->setParagraphBegin(true);
+        if (it == begin) {
+            curr->setParagraphBegin(true);
             continue;
         }
 
-        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
+        CRtfString * prev = *(it - 1);
 
-        if (((pRtfString->leftIndent() > 2 * max_char_distance_) && (abs(pRtfString->leftIndent()
-                - pRtfStringPrev->leftIndent()) > max_char_distance_))
-                || (pRtfStringPrev->rightIndent() > 10 * max_char_distance_)
-                || ((pRtfStringPrev->rightIndent() > 5 * max_char_distance_)
-                        && (pRtfStringPrev->endsWith(';') || pRtfStringPrev->endsWith('.')))
-                || (pRtfString->startsWithDigit() && (pRtfStringPrev->endsWith(';')
-                        || pRtfStringPrev->endsWith('.'))) || ((pRtfString->leftIndent() > 3
-                * max_char_distance_ / 2) && (pRtfStringPrev->endsWith('.')
-                || pRtfString->startsWithDash())) || (pRtfStringPrev->endsWith('.')
-                && pRtfString->startsWithDash()) || (pRtfStringPrev->endsWith('?')
-                && pRtfString->startsWithDash()) || (pRtfStringPrev->endsWith(':')
-                && pRtfString->startsWithDash()) || (pRtfStringPrev->rightIndent() > 2
-                * max_char_distance_ && pRtfString->startsWithDash()))
-            pRtfString->setParagraphBegin(true);
+        if (((curr->leftIndent() > 2 * max_char_distance_) && //
+                (abs(curr->leftIndent() - prev->leftIndent()) > max_char_distance_))
+                || (prev->rightIndent() > 10 * max_char_distance_) || //
+                ((prev->rightIndent() > 5 * max_char_distance_) && //
+                        (prev->endsWith(';') || prev->endsWith('.'))) || //
+                (curr->startsWithDigit() && (prev->endsWith(';') || prev->endsWith('.'))) || //
+                ((curr->leftIndent() > 3 * max_char_distance_ / 2) && //
+                        (prev->endsWith('.') || curr->startsWithDash())) || //
+                (prev->endsWith('.') && curr->startsWithDash()) || //
+                (prev->endsWith('?') && curr->startsWithDash()) || //
+                (prev->endsWith(':') && curr->startsWithDash()) || //
+                (prev->rightIndent() > 2 * max_char_distance_ && curr->startsWithDash()))
+            curr->setParagraphBegin(true);
     }
 }
 
-bool CRtfFragment::checkLeftAlign(int left, int right, int center, int justify, int total) {
-    if (left < total / 2)
+bool CRtfFragment::checkLeftAlign(uint left, uint right, uint center, uint justify, uint total) {
+    // less than half
+    if (left == 0 || (left < (total / 2)))
         return false;
 
     const bool non_left_only = (right + justify + center) > 0;
@@ -1119,14 +1112,26 @@ void CRtfFragment::setFlagBeginParagraphForLeftJustification(StringIterator begi
     }
 }
 
-bool CRtfFragment::determineAlignCenter(StringIterator begin, StringIterator end) {
-    int left = countEqualAlign(begin, end, FORMAT_ALIGN_LEFT);
-    int right = countEqualAlign(begin, end, FORMAT_ALIGN_RIGHT);
-    int justify = countEqualAlign(begin, end, FORMAT_ALIGN_JUSTIFY);
-    int center = countEqualAlign(begin, end, FORMAT_ALIGN_CENTER);
+bool CRtfFragment::checkCenterAlign(int left, int right, int center, int justify, int total) {
+    // less then half
+    if (center == 0 || (center < total / 2))
+        return false;
 
-    if ((center < std::distance(begin, end) / 2 || center < right || center < justify || center
-            < left) && (right + justify + left > 0))
+    const bool center_only = ((left + right + justify) == 0);
+    const bool center_in_minority = (center < right) || (center < justify) || (center < left);
+    return (!center_only && center_in_minority) ? false : true;
+}
+
+bool CRtfFragment::checkCenterAlign(StringIteratorConst begin, StringIteratorConst end) {
+    return checkCenterAlign(countEqualAlign(begin, end, FORMAT_ALIGN_LEFT), //
+            countEqualAlign(begin, end, FORMAT_ALIGN_RIGHT), //
+            countEqualAlign(begin, end, FORMAT_ALIGN_CENTER), //
+            countEqualAlign(begin, end, FORMAT_ALIGN_JUSTIFY), //
+            std::distance(begin, end));
+}
+
+bool CRtfFragment::determineAlignCenter(StringIterator begin, StringIterator end) {
+    if (!checkCenterAlign(begin, end))
         return false;
 
     setParagraphAlignment(begin, end, FORMAT_ALIGN_CENTER);
@@ -1135,14 +1140,12 @@ bool CRtfFragment::determineAlignCenter(StringIterator begin, StringIterator end
     return true;
 }
 
-bool CRtfFragment::checkRightAlign(int leftCount, int rightCount, int centerCount,
-        int justifyCount, int total) {
-    if (rightCount < total / 2)
+bool CRtfFragment::checkRightAlign(uint left, uint right, uint center, uint justify, uint total) {
+    if (right == 0 || (right < (total / 2)))
         return false;
 
-    const bool right_in_minority = (rightCount < centerCount) || (rightCount < justifyCount)
-            || (rightCount < leftCount);
-    const bool non_right_only = (centerCount + justifyCount + leftCount) > 0;
+    const bool right_in_minority = (right < center) || (right < justify) || (right < left);
+    const bool non_right_only = (center + justify + left) > 0;
     return (non_right_only && right_in_minority) ? false : true;
 }
 
@@ -1157,7 +1160,7 @@ bool CRtfFragment::checkRightAlign(StringIteratorConst begin, StringIteratorCons
 bool CRtfFragment::determineAlignRight(StringIterator begin, StringIterator end) {
     flag_carry_ = hasFlagCarry(begin, end);
 
-    if (flag_carry_ && m_FlagRight == FALSE)
+    if (flag_carry_ && flag_right_ == FALSE)
         return false;
 
     if (!checkRightAlign(begin, end))
@@ -1185,45 +1188,39 @@ bool CRtfFragment::determineAlignRight(StringIterator begin, StringIterator end)
     return true;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 DeterminationOfListType
+bool CRtfFragment::determineList(StringIterator begin, StringIterator end) {
+    // if all centered
+    if ((int) countEqualAlign(begin, end, FORMAT_ALIGN_CENTER) == std::distance(begin, end))
+        return false;
 
-Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
-    CRtfString *pRtfString;
-    uchar FlagListParagraph = 0;
-    int32_t MinLeft, MaxLeft, MaxRight;
-    int32_t CountMinLeft = 0, CountMaxLeft = 0, CountMaxRight = 0;
-    int CountCentreEqual = countEqualAlign(strings_.begin() + beg, strings_.begin() + end,
-            FORMAT_ALIGN_CENTER);
+    int MinLeft = firstString()->leftBorder();
+    int MaxLeft = MinLeft;
+    int MaxRight = firstString()->rightBorder();
 
-    if (CountCentreEqual == (end - beg))
-        return FALSE;
-
-    pRtfString = (CRtfString*) strings_[0];
-    MinLeft = MaxLeft = pRtfString->leftBorder();
-    MaxRight = pRtfString->rightBorder();
-    int ns(0);
-
-    //поиск тела списка
-    for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) strings_[ns];
-        MinLeft = MIN(MinLeft, pRtfString->leftBorder());
-        MaxLeft = MAX(MaxLeft, pRtfString->leftBorder());
-        MaxRight = MAX(MaxRight, pRtfString->rightBorder());
+    //find list body
+    for (StringIterator it = begin; it != end; ++it) {
+        CRtfString * str = *it;
+        MinLeft = std::min(MinLeft, str->leftBorder());
+        MaxLeft = std::max(MaxLeft, str->leftBorder());
+        MaxRight = std::max(MaxRight, str->rightBorder());
     }
 
     if ((MaxLeft - MinLeft) > (MaxRight - MaxLeft) / 2)
-        return FALSE;
+        return false;
 
     if ((MaxLeft - MinLeft) < max_char_distance_)
-        return FALSE;
+        return false;
 
-    for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) strings_[ns];
+    int CountMinLeft = 0;
+    int CountMaxLeft = 0;
+    int CountMaxRight = 0;
+
+    for (StringIterator it = begin; it != end; ++it) {
+        CRtfString *pRtfString = *it;
 
         if ((abs(MinLeft - pRtfString->leftBorder()) > 5 * max_char_distance_) && (abs(MaxLeft
                 - pRtfString->leftBorder()) > 5 * max_char_distance_))
-            return FALSE;
+            return false;
 
         if (abs(MinLeft - pRtfString->leftBorder()) < max_char_distance_)
             CountMinLeft++;
@@ -1235,22 +1232,21 @@ Bool CRtfFragment::DeterminationOfListType(int beg, int end) {
             CountMaxRight++;
     }
 
-    if ((CountMinLeft > CountMaxLeft) || ((CountMinLeft + CountMaxLeft) < 4 * (end - beg) / 5)
-            || (CountMaxRight < (end - beg) / 2))
-        return FALSE;
+    if ((CountMinLeft > CountMaxLeft) || //
+            ((CountMinLeft + CountMaxLeft) < 4 * std::distance(begin, end) / 5) || //
+            (CountMaxRight < std::distance(begin, end) / 2))
+        return false;
 
-    setParagraphAlignment(strings_.begin() + beg, strings_.begin() + end, FORMAT_ALIGN_LIST);
+    setParagraphAlignment(begin, end, FORMAT_ALIGN_LIST);
 
-    for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) strings_[ns];
-
-        if ((ns == beg) || abs(MinLeft - pRtfString->leftBorder()) < max_char_distance_)
-            pRtfString->setParagraphBegin(true);
+    for (StringIterator it = begin; it != end; ++it) {
+        if ((it == begin) || abs(MinLeft - (*it)->leftBorder()) < max_char_distance_)
+            (*it)->setParagraphBegin(true);
     }
 
     if (Config::instance().debugHigh())
         printResult(std::cerr, "\n ================== DeterminationOfListType ==================");
-    return TRUE;
+    return true;
 }
 
 bool CRtfFragment::determineMixedFragment(RtfSectorInfo* SectorInfo) {
@@ -1264,8 +1260,8 @@ bool CRtfFragment::determineMixedFragment(RtfSectorInfo* SectorInfo) {
         GetNextFragmentBegEnd(&beg, &end, &Flag);
         ReInit(SectorInfo, beg, end);
 
-        if (DeterminationOfLeftRightJustification(beg, end) == FALSE) {
-            if (DeterminationOfListType(beg, end) == FALSE) {
+        if (determineAlignJustify(strings_.begin() + beg, strings_.begin() + end) == false) {
+            if (determineList(strings_.begin() + beg, strings_.begin() + end) == false) {
                 if (determineAlignLeft(strings_.begin() + beg, strings_.begin() + end, false)
                         == false) {
                     if (determineAlignCenter(strings_.begin() + beg, strings_.begin() + end)
@@ -1693,60 +1689,47 @@ bool CRtfFragment::hasFlagLeft(StringIterator begin, StringIterator end) {
     if (CountLeftEqual == std::distance(begin, end))
         return true;
 
-    m_FlagBigSpace = hasBigSpaceBetweenWords(begin, end);
+    flag_big_space_ = hasBigSpaceBetweenWords(begin, end);
     flag_carry_ = hasFlagCarry(begin, end);
 
-    if (!m_FlagBigSpace && !flag_carry_)
+    if (!flag_big_space_ && !flag_carry_)
+        return true;
+
+    return false;
+}
+
+bool CRtfFragment::hasFlagStrongLeft(StringIteratorConst begin, StringIteratorConst end) const {
+    int count = 0;
+    for (StringIteratorConst it = begin; it != end; ++it) {
+        if ((*it)->endsWith('.') || (*it)->endsWith(','))
+            count++;
+    }
+
+    if (count == std::distance(begin, end))
+        return true;
+
+    // small fragment
+    if ((std::distance(begin, end) < 5) && count > 2)
         return true;
 
     return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                     GetFlagStrongLeft
-
-Bool CRtfFragment::GetFlagStrongLeft(int beg, int end) {
-    int Count = 0;
-    CRtfString *pRtfString;
-
-    for (int ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) strings_[ns];
-
-        if (pRtfString->endsWith('.') || pRtfString->endsWith(','))
-            Count++;
-    }
-
-    if (Count == end - beg)
-        return TRUE;
-
-    if ((end - beg < 5) && Count > 2)
-        return TRUE;
-
-    return FALSE;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                     GetFlagRight
 
-Bool CRtfFragment::GetFlagRight(int beg, int end) {
-    CRtfString *pRtfString;
-    int ns(0);
-
-    for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) strings_[ns];
-
-        if (pRtfString->rightIndent() > max_char_distance_)
-            return FALSE;
+bool CRtfFragment::hasFlagRight(StringIteratorConst begin, StringIteratorConst end) const {
+    for (StringIteratorConst it = begin; it != end; ++it) {
+        if ((*it)->rightIndent() > max_char_distance_)
+            return false;
     }
 
-    for (ns = beg; ns < end; ns++) {
-        pRtfString = (CRtfString*) strings_[ns];
-
-        if (pRtfString->leftIndent() > ((right_border_ - left_border_) / 2))
-            return TRUE;
+    for (StringIteratorConst it = begin; it != end; ++it) {
+        if ((*it)->leftIndent() > ((right_border_ - left_border_) / 2))
+            return true;
     }
 
-    return FALSE;
+    return false;
 }
 
 bool CRtfFragment::hasFlagCarry(StringIteratorConst begin, StringIteratorConst end) {
