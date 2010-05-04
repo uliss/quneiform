@@ -86,13 +86,13 @@ ImagePtr MagickImageLoader::load(std::istream& stream) {
     if (stream.fail())
         throw Exception("[MagickImageLoader::load] invalid stream given");
 
-    std::streampos stream_size = streamSize(stream);
+    long int stream_size = streamSize(stream);
     if (stream_size < 1)
         throw Exception("[MagickImageLoader::load] empty stream given");
 
     boost::scoped_array<char> tmp(new char[stream_size]);
     Magick::Blob blob;
-    blob.updateNoCopy(tmp.get(), static_cast<size_t> (stream_size));
+    blob.updateNoCopy(tmp.get(), stream_size);
     try {
         Magick::Image image;
         image.density("10");

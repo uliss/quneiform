@@ -1,4 +1,7 @@
-set(LIBTYPE SHARED)
+if(NOT LIBTYPE)
+    set(LIBTYPE SHARED)
+endif()
+
 set(NEWLIBTYPE STATIC)
 
 include_directories(

@@ -752,14 +752,14 @@ Bool makeRasterC(c_comp* comp, RecRaster** rast) {
                 rast32[i] = 0xFFFFFFFF;
             if (beg32 == end32) {
                 tmp = ((uint32_t) 0xFFFFFFFF >> beg31) & ((uint32_t) 0xFFFFFFFF << (31 - end31));
-                bswap_32(tmp);
+                tmp = bswap_32(tmp);
                 rast32[beg32] |= tmp;
             } else {
                 tmp = (uint32_t) 0xFFFFFFFF >> beg31;
-                bswap_32(tmp);
+                tmp = bswap_32(tmp);
                 rast32[beg32] |= tmp;
                 tmp = (uint32_t) 0xFFFFFFFF << (31 - end31);
-                bswap_32(tmp);
+                tmp = bswap_32(tmp);
                 rast32[end32] |= tmp;
             }
 

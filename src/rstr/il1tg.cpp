@@ -149,7 +149,7 @@ static void NHdiff(cell *);
 static void TYcell(cell *);
 static void GCcell(cell *);
 static void set_mem(void);
-static int16_t check_two_case(cell *, pchar);
+static int16_t check_two_case(cell *, const char *);
 static void comptorast(puchar, cell *);
 static void make_hor_vert(cell *);
 static void make_hist(void);
@@ -680,7 +680,7 @@ static void set_mem() {
 		peak_vect[i] = (uchar*) c;
 }
 
-static int16_t check_two_case(cell *C, pchar c) {
+static int16_t check_two_case(cell *C, const char * c) {
 	int16_t i, n;
 	CIF::version * v;
 #define TWO_CASE_THRESH 140
