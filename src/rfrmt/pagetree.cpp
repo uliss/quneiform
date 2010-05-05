@@ -2722,7 +2722,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     pRtfString = pRtfFragment->stringAt(ns);
 
                     if (TitleStr[nc][ns].S_Attr) {
-                        pRtfFragment->m_Attr = 1;
+                        pRtfFragment->setMixed(true);
                         pRtfString->setAttributes(true);
                     }
                     else

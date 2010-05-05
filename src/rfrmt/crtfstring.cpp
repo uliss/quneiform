@@ -169,6 +169,14 @@ bool CRtfString::hasFlag(uint flag) const {
     return flags_ & flag;
 }
 
+bool CRtfString::isEndOfSentence() const {
+    return endsWith('.') || endsWith('?') || endsWith('!');
+}
+
+bool CRtfString::isEndOfSentencePart() const {
+    return endsWith(':') || endsWith(';');
+}
+
 bool CRtfString::isEqualCenter() const {
     return equal_center_;
 }

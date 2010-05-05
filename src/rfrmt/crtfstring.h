@@ -137,6 +137,18 @@ class CLA_EXPO CRtfString
          */
         bool hasFlag(uint flag) const;
 
+        /**
+         * Returns true if string is end of sentence
+         *  i.e. ends with '.', '?', '!'
+         */
+        bool isEndOfSentence() const;
+
+        /**
+         * Returns true if string is end of sentence part
+         * i.e. ends with ':' or ';'
+         */
+        bool isEndOfSentencePart() const;
+
         bool isEqualCenter() const;
         bool isEqualLeft() const;
         bool isEqualRight() const;
