@@ -106,11 +106,6 @@ class CLA_EXPO CRtfFragment
 
         Bool FWriteText(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
         void FWritePicture(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
-        void Done();
-
-        Bool CheckStringForLeftJustification(int ns);
-
-        void CheckOnceAgainImportancesFlagBeginParagraph(void);
 
         RECT m_rect;
         RECT m_rectReal;
@@ -153,6 +148,7 @@ class CLA_EXPO CRtfFragment
         void calcStringEndsEqual(StringIterator begin, StringIterator end);
         bool checkAlignJustify(StringIterator begin, StringIterator end);
         bool checkStringForJustifyAlign(int ns);
+        void checkOnceAgainImportancesFlagBeginParagraph();
         void correctParagraphIndents(StringIterator begin, StringIterator end);
         void defineLineTransfer();
         bool determineAlign(StringIterator begin, StringIterator end);
@@ -162,6 +158,7 @@ class CLA_EXPO CRtfFragment
         bool determineAlignRight(StringIterator begin, StringIterator end);
         bool determineList(StringIterator begin, StringIterator end);
         bool determineMixedFragment(RtfSectorInfo* SectorInfo);
+        void Done();
         StringIterator findNextFragment(StringIterator begin);
         StringIterator findParagraph(StringIterator begin, StringIterator end);
         int fontSizePenalty(int fragment_count) const;

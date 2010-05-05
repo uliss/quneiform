@@ -1358,20 +1358,12 @@ void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, StringIterator begin, Strin
 }
 
 void CRtfFragment::Done() {
-    CheckOnceAgainImportancesFlagBeginParagraph();
+    checkOnceAgainImportancesFlagBeginParagraph();
     setFirstLeftAndRightIndentOfParagraph();
     defineLineTransfer();
 }
 
-//-------------------------------------------------------------------------------------------------
-//---------------------------------  HELPER FUNCTIONS  --------------------------------------------
-//-------------------------------------------------------------------------------------------------
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                 CheckOnceAgainImportancesFlagBeginParagraph
-
-void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
+void CRtfFragment::checkOnceAgainImportancesFlagBeginParagraph() {
     CRtfString *pRtfString;
     CRtfString *pRtfStringPrev;
     CRtfWord *pRtfWordPrev;
@@ -1427,10 +1419,6 @@ void CRtfFragment::CheckOnceAgainImportancesFlagBeginParagraph() {
             }
         }
     }
-
-    if (Config::instance().debugHigh())
-        printResult(std::cerr,
-                "\n ================== CheckOnceAgainImportancesFlagBeginParagraph ==================");
 }
 
 void CRtfFragment::setFirstLeftAndRightIndentOfParagraph() {
@@ -1579,10 +1567,6 @@ void CRtfFragment::setFirstLeftAndRightIndentOfParagraph() {
             break;
         }
     }
-
-    if (Config::instance().debugHigh())
-        printResult(std::cerr,
-                "\n ================== SetFirstLeftAndRightIndentOfParagraph ==================");
 }
 
 void CRtfFragment::defineLineTransfer() {
@@ -1640,9 +1624,6 @@ bool CRtfFragment::hasFlagStrongLeft(StringIteratorConst begin, StringIteratorCo
 
     return false;
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                     GetFlagRight
 
 bool CRtfFragment::hasFlagRight(StringIteratorConst begin, StringIteratorConst end) const {
     for (StringIteratorConst it = begin; it != end; ++it) {
