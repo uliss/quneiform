@@ -534,7 +534,7 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
 
             m_wprev_font_size = word->realFontSize();
 
-            if (CIF::RfrmtOptions::useFramesAndColumns()) {
+            if (RfrmtOptions::useFramesAndColumns()) {
                 if (SectorInfo->FlagOneString == TRUE) {
                     left_indent = 0;
                     first_indent = MAX(0, (int16_t)(m_rect.left - SectorInfo->MargL));
@@ -542,13 +542,10 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
                 }
             }
 
-            word = str->firstWord();
-            chr = word->firstChar();
             int colWidth = 0;
 
             if (parent_ && !RfrmtOptions::useNone()) {
-                CRtfSector* curSect =
-                        (CRtfSector*) parent_->m_arSectors[parent_->m_nCurSectorNumber];
+                CRtfSector* curSect = parent_->m_arSectors[parent_->m_nCurSectorNumber];
 
                 //Если пишем с форматированием и однострочная колонка
                 if (RfrmtOptions::useFramesAndColumns() && curSect->SectorInfo.FlagOneString
