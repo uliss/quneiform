@@ -314,43 +314,10 @@ FEAT_LET
 };
 
 uchar Get1Alt(ZN *z, int na);
-int GetFeatLet(ZN *z, int fl_all, int fl_Ext, REGLE Regle);
-int R_Chif(uchar cod);
-int R_Let(uchar cod);
-int R_Rus(uchar cod);
-int R_Lat(uchar cod);
-int R_Upp(uchar cod);
-int R_Low(uchar cod);
-int TestWordFeat(ZN *z, int kz, int fl_all, REGLE Regle1, REGLE Regle2);
-int TestWordChifLet(ZN *z, int kz, int fl_all);
-int TestWordLang(ZN *z, int kz, int fl_all);
-int CorrFeat(ZN *z, int kz, REGLE Regle);
-int CorrWordChifLet(ZN *z, int kz, int fl_all);
-int CorrWordLang(ZN *z, int kz, int fl_all);
-int CorrWord(ZN *z, int kz, uchar LastCod, int fl_all, int HeadLine, SRECT *bnds);
-int TestStickUpp(ZN *z, SRECT *bnds);
-int GetFeatShift(ZN *z, int fl_all, SRECT *bnds);
-int TestWordShift(ZN *z, int kz, int fl_all, SRECT *bnds);
-int CorrWordShift(ZN *z, int kz, uchar LastCod, int fl_all, int fl_bnd, int fl_ExtAlt, int Lang,
-        int HeadLine, SRECT *bnds);
-int CorrShift(ZN *z, int flUppLow, int fl_bnd, int fl_ExtAlt, int fl_all, int Lang, int PosWord,
-        SRECT *bnds);
-int CorrWordFnt(ZN *z, int kz, int fl_all);
-int TestWordFnt(ZN *z, int kz, int fl_all);
-int GetAllowExtAlt(int Action, REGLE Regle);
-int CorrFul(void);
-int EstRectWordFul(int nc, int ns);
-int EstRectWord(SRECT *frm, int ksym, SRECT *bnd);
-int AllowRelDistAltOCR(ZN *z, int alt1, int alt2);
 //---------RTF-converter----------
 void MyUnionRect(SRECT *s1, SRECT *s2, SRECT *u);
 
-#pragma pack(1)
-
 #pragma pack(2)
-#ifdef MAIN2
-
-#else
 //---Из секции колонок---
 extern int16_t NumCol;
 extern int16_t *NumStr;//[nc]
@@ -369,4 +336,4 @@ extern PAR_FUL par_ful;
 extern FEAT_LET FeatLet[256];
 //---WORK---
 extern uchar buf[1024];
-#endif
+
