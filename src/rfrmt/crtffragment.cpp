@@ -449,6 +449,10 @@ void CRtfFragment::setParent(CRtfPage * page) {
     parent_ = page;
 }
 
+void CRtfFragment::setType(fragment_t type) {
+    m_wType = type;
+}
+
 CRtfString * CRtfFragment::stringAt(size_t pos) {
     return strings_.at(pos);
 }
@@ -471,7 +475,11 @@ std::string CRtfFragment::toString() const {
     return result;
 }
 
-void CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorInfo, Bool OutPutType) {
+fragment_t CRtfFragment::type() const {
+    return m_wType;
+}
+
+void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
     uint16_t CountWords;
     int16_t flag_end_word_with_hiphen;
     int16_t tmp_font_name;

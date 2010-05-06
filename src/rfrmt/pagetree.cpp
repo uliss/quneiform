@@ -2610,7 +2610,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 RtfPage->Count.RtfTextFragments++;
                 j = RtfPage->m_arFragments.size();
                 pRtfFragment = RtfPage->m_arFragments[j-1];
-                pRtfFragment->m_wType = FT_TEXT;
+                pRtfFragment->setType(FT_TEXT);
                 pRtfFragment->m_rect.left = RectFragm[nc].left;
                 pRtfFragment->m_rect.right = RectFragm[nc].right;
                 pRtfFragment->m_rect.top = RectFragm[nc].top;
@@ -2708,7 +2708,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 pRtfVerticalColumn->m_wFragmentsCount = 1;
                 pRtfVerticalColumn->m_arFragments.push_back( new CIF::CRtfFragment() );
                 pRtfFragment = pRtfVerticalColumn->m_arFragments[/*iv*/0]; //nega ~? м.б. [iv] вместо [0]?
-                pRtfFragment->m_wType = FT_TEXT;
+                pRtfFragment->setType(FT_TEXT);
                 RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rect, &RectFragm[nc] );
                 RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rectReal, &RectFragm[nc] );
                 RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rect, &RectFragm[nc] );

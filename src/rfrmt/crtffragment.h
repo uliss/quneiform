@@ -23,6 +23,7 @@
 #include <iostream>
 #include "cfcompat.h"
 #include "font.h"
+#include "creatertf.h"
 
 class RtfSectorInfo;
 
@@ -88,6 +89,11 @@ class CLA_EXPO CRtfFragment
         void setParent(CRtfPage * page);
 
         /**
+         * Sets fragment type
+         */
+        void setType(fragment_t type);
+
+        /**
          * Returns pointer to string at @b pos
          * @throw std::out_of_range if wrong position given
          */
@@ -104,13 +110,17 @@ class CLA_EXPO CRtfFragment
          */
         std::string toString() const;
 
-        void FWriteText(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
+        /**
+         * Returns fragment type
+         */
+        fragment_t type() const;
+
+        void FWriteText(RtfSectorInfo* SectorInfo, Bool OutPutType);
         void FWritePicture(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
 
         RECT m_rect;
         RECT m_rectReal;
         RECT m_rectFree;
-        uint16_t m_wType;
         uint32_t m_wUserNumber;
         uint32_t m_wUserNumberForFormattedMode;
         int32_t m_LeftOffsetFragmentFromVerticalColumn;
@@ -123,10 +133,7 @@ class CLA_EXPO CRtfFragment
         font_number m_wprev_font_name;
         uint16_t m_wprev_lang;
         uint16_t m_wprev_font_size;
-
         int16_t m_WidthVerticalColumn;
-
-
         uint32_t m_Flag;
     private:
         typedef std::vector<CRtfString*> StringList;
@@ -208,6 +215,7 @@ class CLA_EXPO CRtfFragment
         uint16_t m_CountRightEqual;
         uint16_t m_CountLeftRightEqual;
         uint16_t m_CountCentreEqual;
+        fragment_t m_wType;
         int local_fragment_left_;
         int local_fragment_right_;
         bool flag_carry_;

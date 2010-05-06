@@ -253,7 +253,7 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
     for (nc = 0; nc < RtfPage->Count.RtfTextFragments; ++nc) {
         pRtfFragment = RtfPage->GetNextFragment();
         pRtfFragment->setParent(RtfPage);
-        pRtfFragment->m_wType = FT_TEXT;
+        pRtfFragment->setType(FT_TEXT);
         fread(&RectFragm, 1, sizeof(Rect16), in);
         pRtfFragment->m_rect.left = (int32_t) (RectFragm.left * CIF::getTwips());
         pRtfFragment->m_rect.top = (int32_t) (RectFragm.top * CIF::getTwips());
@@ -372,7 +372,7 @@ void CRtfPage::AddPictures(void) {
         GetPictRect(i, &RectPict, (uint32_t*) &pRtfFragment->m_wUserNumber);
         RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectPict);
         RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, CIF::getTwips());
-        pRtfFragment->m_wType = FT_PICTURE;
+        pRtfFragment->setType(FT_PICTURE);
 
         if (RfrmtOptions::useFramesAndColumns()) {
             pRtfFragment->m_wUserNumberForFormattedMode = pRtfFragment->m_wUserNumber;
@@ -902,7 +902,7 @@ Bool CRtfPage::Write_USE_NONE() {
             PutCom("\\colno", 1, 0);
             PutCom("\\colw", PaperW, 0);
             pRtfFragment->setParent(this);
-            pRtfFragment->FWriteText(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
+            pRtfFragment->FWriteText(&pRtfSector->SectorInfo, FOT_SINGLE);
         }
     }
 
@@ -958,10 +958,10 @@ Bool CRtfPage::Write_USE_FRAME() {
     for (int16_t i = 0; i < CountFragments; i++) {
         pRtfFragment = (CRtfFragment*) m_arFragments[i];
 
-        if (pRtfFragment->m_wType == FT_TABLE) {
+        if (pRtfFragment->type() == FT_TABLE) {
             InGroupNumber = i - (Count.RtfFrameTextFragments + Count.RtfTextFragments);
             //            pRtfFragment->FWriteTable(InGroupNumber, SectorInfo, FOT_FRAME);
-        } else if (pRtfFragment->m_wType == FT_PICTURE) {
+        } else if (pRtfFragment->type() == FT_PICTURE) {
             InGroupNumber = i - (Count.RtfFrameTextFragments + Count.RtfTextFragments
                     + Count.RtfTableFragments);
             pRtfFragment->FWritePicture(InGroupNumber, SectorInfo, FOT_FRAME);
@@ -991,7 +991,7 @@ Bool CRtfPage::Write_USE_FRAME() {
 #endif
             SectorInfo->FlagOverLayed = FALSE;
             pRtfFragment->setParent(this);
-            pRtfFragment->FWriteText(i, SectorInfo, FOT_FRAME);
+            pRtfFragment->FWriteText(SectorInfo, FOT_FRAME);
             Put("}");
         }
     }
@@ -1011,7 +1011,7 @@ void CRtfPage::ToPlacePicturesAndTables(void) {
 
     for (std::vector<CRtfFragment*>::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
             < m_arFragments.end(); ppRtfFragment++) {
-        if ((*ppRtfFragment)->m_wType == FT_PICTURE || (*ppRtfFragment)->m_wType == FT_TABLE) {
+        if ((*ppRtfFragment)->type() == FT_PICTURE || (*ppRtfFragment)->type() == FT_TABLE) {
             CountSectors = m_arSectors.size();
 
             //страница пустая:создается новый сектор для них

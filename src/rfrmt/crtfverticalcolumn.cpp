@@ -17,9 +17,9 @@
  ***************************************************************************/
 
 #include "crtfverticalcolumn.h"
+#include "creatertf.h"
 #include "crtffragment.h"
 #include "crtfpage.h"
-#include "creatertf.h"
 #include "minmax.h"
 
 namespace CIF
@@ -51,17 +51,17 @@ Bool CRtfVerticalColumn::Write(Bool OutPutType, RtfSectorInfo* SectorInfo) {
     for (int i = 0; i < m_wFragmentsCount; i++) {
         pRtfFragment = (CRtfFragment*) m_arFragments[i];
 
-        if ((pRtfFragment->m_wType == FT_TABLE || pRtfFragment->m_wType == FT_PICTURE)
+        if ((pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE)
                 && pRtfFragment->m_bFlagUsed == TRUE)
             continue;
 
-        if (pRtfFragment->m_wType == FT_TABLE) {
+        if (pRtfFragment->type() == FT_TABLE) {
             SectorInfo->userNum = pRtfFragment->m_wUserNumberForFormattedMode;
             // pRtfFragment->FWriteTable((int) pRtfFragment->m_wUserNumber, SectorInfo, OutPutType);
             pRtfFragment->m_bFlagUsed = TRUE;
         }
 
-        else if (pRtfFragment->m_wType == FT_PICTURE) {
+        else if (pRtfFragment->type() == FT_PICTURE) {
             SectorInfo->userNum = pRtfFragment->m_wUserNumberForFormattedMode;
             pRtfFragment->FWritePicture((int) pRtfFragment->m_wUserNumber, SectorInfo, OutPutType);
             pRtfFragment->m_bFlagUsed = TRUE;
@@ -80,7 +80,7 @@ Bool CRtfVerticalColumn::Write(Bool OutPutType, RtfSectorInfo* SectorInfo) {
                 pRtfFragment->m_WidthVerticalColumn = (int16_t) (m_rect.right - m_rect.left);
 
             pRtfFragment->setParent(m_PagePtr);
-            pRtfFragment->FWriteText(0, SectorInfo, OutPutType);
+            pRtfFragment->FWriteText(SectorInfo, OutPutType);
         }
     }
 
@@ -118,7 +118,7 @@ void CRtfVerticalColumn::SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorIn
     for (i = 0; i < CountFragments; i++) {
         pRtfFragment = m_PagePtr->m_arFragments[i];
 
-        if (pRtfFragment->m_wType == FT_PICTURE || pRtfFragment->m_wType == FT_TABLE)
+        if (pRtfFragment->type() == FT_PICTURE || pRtfFragment->type() == FT_TABLE)
             continue;
 
         CurrentFragmentRect.left = pRtfFragment->m_rect.left;
