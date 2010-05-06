@@ -112,10 +112,9 @@ struct SRECT
         int left, top, right, bottom;
 };
 
-const int LEN_START = 3;
-
 struct COOR_COMP
 {
+        static const int LEN_START = 3;
         uchar start_pos[LEN_START];
         uchar buf;
         short lenght;
@@ -171,7 +170,6 @@ struct TITLE_WORD
 {
         uchar Z_Code; //Опознавательный код заголовка (=1)
         W_GEN W_Gen; //Родословная слова
-        //SRECT W_Rect;//Рамка
         int NumAltSpell; //Число подсказок
         int PosFirstCorr;//позиция первой правки типа Ins,Del
         ALT_SPELL *AltSpell;//Подсказки
@@ -306,8 +304,7 @@ typedef int (CALLBACK *FUNC_GEN_FULWORD)(ID_SYM id, ZN *z, int MaxZn);
 
 typedef int (*REGLE)(uchar kod);
 
-#define FEAT_LET struct h_feat_let
-FEAT_LET
+struct FEAT_LET
 {
         uint Lang :1; // 0 - R, 1 - E
         uint Let :1; // 1 - Letter, 0 - нет
