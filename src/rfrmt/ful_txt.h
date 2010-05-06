@@ -408,7 +408,6 @@ int EstRectWordFul(int nc, int ns);
 int EstRectWord(SRECT *frm, int ksym, SRECT *bnd);
 int AllowRelDistAltOCR(ZN *z, int alt1, int alt2);
 //---------RTF-converter----------
-//int FullRtf(FILE *fpFileNameFul,char *FileNameOut);
 void MyUnionRect(SRECT *s1, SRECT *s2, SRECT *u);
 
 #pragma pack(1)
@@ -419,16 +418,12 @@ void MyUnionRect(SRECT *s1, SRECT *s2, SRECT *u);
 #else
 //---Из секции колонок---
 extern int16_t NumCol;
-extern int SizeSectionCol;
 extern int16_t *NumStr;//[nc]
 extern uint32_t *UserNumber;//[nc]
 extern uint32_t *FragFlag;//[nc]
 extern SRECT *BndCol;//[nc]
 extern STAT_COL *StatCol;//[nc]
-extern int len_col, k_colt, slope, k_frm, space;
-extern char name[80], name1[LEN_PATH];
 extern int k_col[MAX_LEV + 1], k_lev;
-extern LEV **knot; //Дерево
 extern int fl_EditStruct;
 //---Из секции имен баз---
 extern int SizeSectionFntName;
@@ -439,15 +434,10 @@ extern TITLE_STR **TitleStr;//[nc][ns]
 extern TITLE_WORD ***TitleWord;//[nc][ns][nw]
 extern TITLE_FUL TitleFul;
 extern COOR_COMP *CoorComp;
-extern long NumComp;
 //--FullSpellFull
-extern uchar word[MAX_SYM_WORD + 1], word1[MAX_SYM_WORD + 1];
-extern float dist[MAX_SYM_WORD + 1], dist1[MAX_SYM_WORD + 1];
 extern PAR_FUL par_ful;
 extern char PunctuationMarks[256];
 extern int ExtSettings;
-//extern char AlphabetAllow[256];
-extern char WordOne[256];
 extern uchar Upper[256], Lower[256], UppLow[256], UppLowOther[256],
 EndSentence[256];
 extern uchar KoderRus[256], KoderLat[256];

@@ -86,17 +86,12 @@ static int dets = 1;
 
 //---Из секции колонок---
 int16_t NumCol;
-int SizeSectionCol;
 int16_t *NumStr;//[nc]
 uint32_t *UserNumber;//[nc]
 uint32_t *FragFlag;//[nc]
 SRECT *BndCol;//[nc]
 STAT_COL *StatCol;//[nc]
-int len_col, k_frm;
-//int k_colt,slope,space;
-char name[80], name1[LEN_PATH];
 int k_col[MAX_LEV + 1], k_lev;
-LEV **knot; //Дерево
 int fl_EditStruct; //Признак несоответствия дерева терминал. колонкам
 //---Из секции имен баз---
 int SizeSectionFntName;
@@ -107,15 +102,10 @@ TITLE_STR **TitleStr;//[nc][ns]
 TITLE_WORD ***TitleWord;//[nc][ns][nw]
 TITLE_FUL TitleFul;
 COOR_COMP *CoorComp;
-long NumComp;
 //--FullSpellFull
-uchar word[MAX_SYM_WORD + 1], word1[MAX_SYM_WORD + 1];
-float dist[MAX_SYM_WORD + 1], dist1[MAX_SYM_WORD + 1];
 PAR_FUL par_ful;
 char PunctuationMarks[256];
 int ExtSettings;
-//char AlphabetAllow[256];
-char WordOne[256];
 uchar Upper[256], Lower[256], UppLow[256], UppLowOther[256], EndSentence[256];
 uchar KoderRus[256], KoderLat[256];
 int FlCarryStr;

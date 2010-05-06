@@ -471,9 +471,7 @@ std::string CRtfFragment::toString() const {
     return result;
 }
 
-Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorInfo, Bool OutPutType) {
-    CRtfWord* pRtfWord;
-    CRtfString* pRtfString;
+void CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorInfo, Bool OutPutType) {
     CRtfChar* pRtfChar;
     uint16_t CountWords;
     int16_t flag_end_word_with_hiphen;
@@ -490,35 +488,35 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
     boPrevNega = false; //NEGA_STR
 
     for (int ns = 0; ns < strings_.size(); ns++) {
-        pRtfString = strings_[ns];
-        pRtfWord = pRtfString->firstWord();
+        CRtfString * str = strings_[ns];
+        CRtfWord* pRtfWord = str->firstWord();
         pRtfChar = pRtfWord->firstChar();
 
         if (pRtfChar->isDropCap()) { //заносим буквицы во frame
             if (RfrmtOptions::useFrames() || OutPutType)
                 pRtfChar->setDropCap(false);
             else
-                pRtfString->setParagraphBegin(true);
+                str->setParagraphBegin(true);
         }
 
         // чтобы не смешивать в одном абзаце негатив. и позитив. строки, при смене
         // цвета стартуем новый абзац
-        boNega = pRtfString->hasFlag(CSTR_STR_NEGATIVE); //NEGA_STR
+        boNega = str->hasFlag(CSTR_STR_NEGATIVE); //NEGA_STR
 
         if (boNega != boPrevNega)
-            pRtfString->setParagraphBegin(true);
+            str->setParagraphBegin(true);
 
-        if (pRtfString->isParagraphBegin()) {
-            if (pRtfString->align() == FORMAT_ALIGN_LIST) {
-                pRtfString->setAlign(FORMAT_ALIGN_JUSTIFY);
-                m_fi = -pRtfString->firstIndent();
+        if (str->isParagraphBegin()) {
+            if (str->align() == FORMAT_ALIGN_LIST) {
+                str->setAlign(FORMAT_ALIGN_JUSTIFY);
+                m_fi = -str->firstIndent();
             } else
-                m_fi = pRtfString->firstIndent();
+                m_fi = str->firstIndent();
 
-            m_wvid_parag = pRtfString->align();
-            m_li = pRtfString->leftIndent();
-            m_ri = pRtfString->rightIndent();
-            m_sb = pRtfString->marginTop();
+            m_wvid_parag = str->align();
+            m_li = str->leftIndent();
+            m_ri = str->rightIndent();
+            m_sb = str->marginTop();
 
             if (OutPutType)
                 m_sb = 0;
@@ -533,7 +531,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                 }
             }
 
-            pRtfWord = pRtfString->firstWord();
+            pRtfWord = str->firstWord();
             pRtfChar = pRtfWord->firstChar();
             int colWidth = 0;
 
@@ -558,29 +556,29 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
 
             if (!pRtfChar->isDropCap())
                 hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb, SectorInfo,
-                        m_wvid_parag, pRtfString->flags(), pRtfString->realLength(), colWidth); //NEGA_STR
+                        m_wvid_parag, str->flags(), str->realLength(), colWidth); //NEGA_STR
         }
 
         if (!pRtfChar->isDropCap()) {
 #ifdef CHEREDOV
-            hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
+            hString = CED_CreateLine(hParagraph, str->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
             if (!RfrmtOptions::useSize() && !RfrmtOptions::useFrames()) {
-                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(), DefFontSize); //line is text line
+                hString = CED_CreateLine(hParagraph, str->lineTransfer(), DefFontSize); //line is text line
             } else {
-                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(),
-                        pRtfWord->realFontSize() * 2);
+                hString = CED_CreateLine(hParagraph, str->lineTransfer(), pRtfWord->realFontSize()
+                        * 2);
             }
 
 #endif
         }
 
         //--- Цикл по словам
-        CountWords = pRtfString->wordCount();
+        CountWords = str->wordCount();
 
         for (int nw = 0; nw < CountWords; nw++) {
-            pRtfWord = pRtfString->wordAt(nw);
+            pRtfWord = str->wordAt(nw);
             pRtfChar = pRtfWord->firstChar();
             tmp_font_name = fontName(pRtfWord->fontNumber());
             EDFontAttribs = 0;
@@ -637,7 +635,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                     flag_end_word_with_hiphen = 1;
 
                 if (pRtfChar->first().getChar()) {
-                    if (pRtfString->lineTransfer()) {
+                    if (str->lineTransfer()) {
                         if (nw == 0 && nz == 0 && pRtfChar->isDropCap()) {
                             slayout = CIF::Rect();
                             EDBOX playout__ = { 0, 0, 0, 0 };
@@ -647,7 +645,7 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                             EDSIZE interval__ = { 0, 0 };
 
                             //                          if(m_Flag & CSTR_STR_NEGATIVE) //nega
-                            if (pRtfString->hasFlag(CSTR_STR_NEGATIVE)) //NEGA_STR
+                            if (str->hasFlag(CSTR_STR_NEGATIVE)) //NEGA_STR
                                 shading = 10000;
 
                             Handle hParagraph__ = CED_CreateParagraph(SectorInfo->hEDSector,
@@ -659,17 +657,17 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                                     (int) tmp_font_name, EDFontAttribs, pRtfChar->language(), -1,
                                     -1);
                             hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
-                                    SectorInfo, m_wvid_parag, pRtfString->flags(),
-                                    pRtfString->realLength(), m_rectReal.right - m_rectReal.left); //NEGA_STR
+                                    SectorInfo, m_wvid_parag, str->flags(), str->realLength(),
+                                    m_rectReal.right - m_rectReal.left); //NEGA_STR
 #ifdef CHEREDOV
-                            hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
+                            hString = CED_CreateLine(hParagraph, str->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
                             if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames()) {
-                                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(),
+                                hString = CED_CreateLine(hParagraph, str->lineTransfer(),
                                         DefFontSize);
                             } else {
-                                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(),
+                                hString = CED_CreateLine(hParagraph, str->lineTransfer(),
                                         pRtfWord->realFontSize() * 2);
                             }
 
@@ -700,17 +698,17 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
                                     (int) tmp_font_name, EDFontAttribs, pRtfChar->language(), -1,
                                     -1);
                             hParagraph = Rtf_CED_CreateParagraph(m_fi, m_li, m_ri, m_sb,
-                                    SectorInfo, m_wvid_parag, pRtfString->flags(),
-                                    pRtfString->realLength(), m_rectReal.right - m_rectReal.left); //NEGA_STR
+                                    SectorInfo, m_wvid_parag, str->flags(), str->realLength(),
+                                    m_rectReal.right - m_rectReal.left); //NEGA_STR
 #ifdef CHEREDOV
-                            hString = CED_CreateLine(hParagraph, pRtfString->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
+                            hString = CED_CreateLine(hParagraph, str->line_break_, (int)((pRtfWord->real_font_size_ - 1) * 2));
 #else
 
                             if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames()) {
-                                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(),
+                                hString = CED_CreateLine(hParagraph, str->lineTransfer(),
                                         DefFontSize);
                             } else {
-                                hString = CED_CreateLine(hParagraph, pRtfString->lineTransfer(),
+                                hString = CED_CreateLine(hParagraph, str->lineTransfer(),
                                         pRtfWord->realFontSize() * 2);
                             }
 #endif
@@ -772,7 +770,6 @@ Bool CRtfFragment::FWriteText(int NumberCurrentFragment, RtfSectorInfo *SectorIn
     }
 
     //--- Конец цикла по строкам
-    return TRUE;
 }
 
 int CRtfFragment::fontSizePenalty(int fragment_count) const {
@@ -1364,58 +1361,48 @@ void CRtfFragment::Done() {
 }
 
 void CRtfFragment::checkOnceAgainImportancesFlagBeginParagraph() {
-    CRtfString *pRtfString;
-    CRtfString *pRtfStringPrev;
-    CRtfWord *pRtfWordPrev;
-    CRtfWord *pRtfWord;
-    CRtfChar *pRtfChar;
-    uint16_t CountWords;
-    uint16_t CountChars;
-    int ns(0);
+    if (strings_.empty())
+        return;
 
-    for (ns = 1; ns < stringCount(); ns++) {
-        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
-        pRtfString = (CRtfString*) strings_[ns];
+    for (StringIterator it = (strings_.begin() + 1), end = strings_.end(); it != end; ++it) {
+        CRtfString * prev = *(it - 1);
+        CRtfString * curr = *it;
 
         // если выр. другая, то необходимо начать новый параграф
-        if (pRtfString->align() != pRtfStringPrev->align()) {
-            pRtfStringPrev->setLineTransfer(false);
-            pRtfString->setParagraphBegin(true);
+        if (curr->align() != prev->align()) {
+            prev->setLineTransfer(false);
+            curr->setParagraphBegin(true);
         }
     }
 
-    for (ns = 1; ns < stringCount(); ns++) {
-        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
-        pRtfString = (CRtfString*) strings_[ns];
-        pRtfWordPrev = pRtfStringPrev->firstWord();
-        pRtfWord = pRtfString->firstWord();
+    for (StringIterator it = (strings_.begin() + 1), end = strings_.end(); it != end; ++it) {
+        CRtfString * prev = *(it - 1);
+        CRtfString * curr = *it;
 
-        if (pRtfString->align() != FORMAT_ALIGN_CENTER && abs(pRtfWord->realFontSize()
-                - pRtfWordPrev->realFontSize()) > 1) {
-            pRtfStringPrev->setLineTransfer(false);
-            pRtfString->setParagraphBegin(true);
+        if (curr->align() != FORMAT_ALIGN_CENTER && //
+                abs(curr->firstWord()->realFontSize() - prev->firstWord()->realFontSize()) > 1) {
+            prev->setLineTransfer(false);
+            curr->setParagraphBegin(true);
         }
     }
 
-    for (ns = 1; ns < stringCount(); ns++) {
-        pRtfStringPrev = (CRtfString*) strings_[ns - 1];
-        pRtfString = (CRtfString*) strings_[ns];
+    for (StringIterator it = (strings_.begin() + 1), end = strings_.end(); it != end; ++it) {
+        CRtfString * prev = *(it - 1);
+        CRtfString * str = *it;
 
-        if (pRtfString->isParagraphBegin()) {
-            CountWords = pRtfStringPrev->wordCount();
-            pRtfWord = pRtfStringPrev->lastWord();
-            pRtfChar = pRtfWord->lastChar();
+        // skip non paragraph
+        if (!str->isParagraphBegin())
+            continue;
 
-            if (pRtfChar->first().isHyphen() && pRtfChar->m_bFlg_spell_nocarrying) {
-                if (pRtfString->align() == pRtfStringPrev->align())
-                    pRtfString->setParagraphBegin(false);
+        CRtfChar * last_prev_char = prev->lastChar();
 
-                else if (pRtfStringPrev->align() == FORMAT_ALIGN_JUSTIFY && pRtfString->align()
-                        == FORMAT_ALIGN_LEFT) {
-                    pRtfString->setAlign(FORMAT_ALIGN_JUSTIFY);
-                    pRtfStringPrev->setLineTransfer(false);
-                    pRtfString->setParagraphBegin(false);
-                }
+        if (last_prev_char->first().isHyphen() && last_prev_char->m_bFlg_spell_nocarrying) {
+            if (str->align() == prev->align())
+                str->setParagraphBegin(false);
+            else if (prev->align() == FORMAT_ALIGN_JUSTIFY && str->align() == FORMAT_ALIGN_LEFT) {
+                str->setAlign(FORMAT_ALIGN_JUSTIFY);
+                str->setParagraphBegin(false);
+                prev->setLineTransfer(false);
             }
         }
     }
