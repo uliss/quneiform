@@ -92,32 +92,16 @@ uint32_t *FragFlag;//[nc]
 SRECT *BndCol;//[nc]
 STAT_COL *StatCol;//[nc]
 int k_col[MAX_LEV + 1], k_lev;
-int fl_EditStruct; //Признак несоответствия дерева терминал. колонкам
-//---Из секции имен баз---
-int SizeSectionFntName;
-char *FntName;
 //---Из секции знакомест---
 ZN ****Zn;//[nc][ns][nw][nz]
 TITLE_STR **TitleStr;//[nc][ns]
 TITLE_WORD ***TitleWord;//[nc][ns][nw]
-TITLE_FUL TitleFul;
-COOR_COMP *CoorComp;
 //--FullSpellFull
 PAR_FUL par_ful;
-char PunctuationMarks[256];
-int ExtSettings;
-uchar Upper[256], Lower[256], UppLow[256], UppLowOther[256], EndSentence[256];
-uchar KoderRus[256], KoderLat[256];
-int FlCarryStr;
-char FileParSpel[MAXFILENAME], FileParSpelOut[MAXFILENAME];
-int *Pen;
-int MaxValue;
 //--КОРРЕКТОР ПО ОДНОРОДНОСТИ
 FEAT_LET FeatLet[256];
-uchar **ClustOCR;
-int K_Clust;//Кластеры перепутывания
 //---WORK---
-uchar buf[1024], buf1[1024];
+uchar buf[1024];
 /* End of things brought from ful_txt.h. */
 
 /* Rectangles are written in frmtfile.cpp and they contain 16-bit integers.
