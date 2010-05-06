@@ -265,49 +265,9 @@ PAR_FUL
 };
 
 //---Прототипы функций
-uchar KoderSym(uchar Base, uchar Kod);
-int GenFullTxt(char *FileNameFul, char *FileNameOut);
-int AnalysLocationPairRect(SRECT b1, SRECT b2);
-int BelongPointRect(SRECT b1, int x, int y);
-int CalcMoveSep(SRECT b1, SRECT b2, int *dx1, int *dy1);
-int OrderBndTxt(SRECT *BndColTxt);
-void MoveOneCol(SRECT *Bnd, int dx, int dy);
 int FreeStructFull(void);
-int RtfFreeStructFull(void);
-void init1_par_ful(void);
-float FindPosDel(ZN *Zn, int kz, char *y, float k1, float k2, float D_Max, float gam, int *pos);
-float FindPosIns(ZN *Zn, int kz, char *y, float k1, float k2, float D_Max, float gam, int *pos);
-float DistDel(ZN *Zn, int kz, char *y, float k1, float k2, float D_Max, float gam, int pos);
-float DistIns(ZN *Zn, int kz, char *y, float k1, float k2, float D_Max, float gam, int pos);
-float DistEqNum(ZN *Zn, int kz, char *y, float k1, float k2, float D_Max);
-float DistAltZn(ZN x, char y, float k1, float k2, float D_Max);
-//--FullSpellFull--
-int GenFullSpellFull(char *FileNameFul, char *FileNameOut, INF_TREE *Inf);
-int GetNextAltWord(ZN *WordAlt, int k, int Reg, int CodLang, uchar *word, float *dist);
-int TstCarry(int nc, int ns, int nw);
-int AllowWordLang(uchar *word, int CodLang);
-int TstCarry(int nc, int ns, int nw);
-int PutStructAltSpell(uchar *buf, uint16_t *Dist, TITLE_WORD *t);
-int InsertWord(int nc, int ns, int nw, ZN *zi, int kz);
-int NormParSpellOCR(ZN *z, int kz, int flo, uint16_t *reinst, uint16_t *reinstb, uint16_t *redel,
-        uint16_t *reelse, uint16_t *reunknow, float *del, uint16_t *porog);
-int Norm2ParSpellOCR(ZN *z, int kz, int flo, uint16_t *reinst, uint16_t *reinstb, uint16_t *redel,
-        uint16_t *reelse, uint16_t *reunknow, float *del, uint16_t *porog);
-int FindWord(int flo, ZN *z, uchar *word, uchar *buf, uint16_t *DistMin, uint16_t *porog1,
-        TITLE_WORD *t, uint16_t MaxAltSpell);
-//--SpelOneWord--
-int CloseSpell(void);
-int SpellOneWord(uchar *in, uchar *out, int MaxAltSpell);
-int CorrOneWord(uchar *in, uchar *out, uchar LastCod, int fl_all, int HeadLine, SRECT *bnds);
 //--SpelNewOneWord--
 typedef int (CALLBACK *FUNC_GEN_FULWORD)(ID_SYM id, ZN *z, int MaxZn);
-int FindOneWord(ID_SYM id, int Reg, char *OutWord);
-int FindOneWord1(ZN *zBuf, int NumZnWord, int Reg, char *OutWord);
-//--Query FullFile--
-int InsertWordFirstAlt(int nc, int ns, int nw, char *s, SRECT *frm);
-//--util--
-void bounds_rect(int ii, SRECT *bnd, int nx);
-void image_r(SRECT *b);
 //---КОРРЕКТОР ПО ОДНОРОДНОСТИ
 //Возможные языки слова
 #define RUS 0
