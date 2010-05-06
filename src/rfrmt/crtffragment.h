@@ -123,16 +123,9 @@ class CLA_EXPO CRtfFragment
         font_number m_wprev_font_name;
         uint16_t m_wprev_lang;
         uint16_t m_wprev_font_size;
-        uint16_t m_wvid_parag;
 
         int16_t m_WidthVerticalColumn;
 
-        int16_t m_li;
-        int16_t m_ri;
-        int16_t m_fi;
-        int16_t m_sb;
-        int16_t m_sa;
-        int16_t m_sl;
 
         uint32_t m_Flag;
     private:
