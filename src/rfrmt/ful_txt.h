@@ -63,26 +63,43 @@
 #endif
 
 #define DELTA_TITLE 4
-//------Значения поля TITLE_WORD.W_GEN.W_Spell-------
-// SPELL_NOT - слово не пропущено через SPELL (либо вообще не было обращения
-//   к SPELL_CHECK, либо слово недостойное);
-// SPELL_FIND - слово либо его производное по правилам словообразования найдено;
-// SPELL_NOFIND - слово либо его производное по правилам словообразования не найдено;
-// SPELL_CORR - в пределах данного радиуса поиска нашлись подсказки к слову
-// SPELL_PART - данное слово есть часть слова
-//     (либо за счет переноса, либо за счет слияния слов)
-#define SPELL_NOT  0
-#define SPELL_FIND 1
-#define SPELL_CORR 2
-#define SPELL_PART 3
-#define SPELL_NOFIND 4
+
+/**
+ * Значения поля  TITLE_WORD.W_GEN.W_Spell
+ */
+enum rfrmt_spell_t
+{
+    /**
+     *  слово не пропущено через SPELL
+     *  (либо вообще не было обращения к SPELL_CHECK, либо слово недостойное);
+     */
+    SPELL_NOT = 0,
+
+    /**
+     * слово либо его производное по правилам словообразования найдено;
+     */
+    SPELL_FIND = 1,
+
+    /**
+     * в пределах данного радиуса поиска нашлись подсказки к слову
+     */
+    SPELL_CORR = 2,
+
+    /**
+     * данное слово есть часть слова (либо за счет переноса, либо за счет слияния слов)
+     */
+    SPELL_PART = 3,
+
+    /**
+     * слово либо его производное по правилам словообразования не найдено;
+     */
+    SPELL_NOFIND = 4
+};
 
 #define FIRST 0
 #define NEXT 1
 
 #define MAX_SYM_WORD 100
-#define PAR_FUL struct h_par_ful
-
 #define PROC_SPELL 15
 #define PROC_OPEN  14
 
@@ -90,33 +107,21 @@
 
 #pragma pack(1)
 
-/*Идентификатор символа*/
-#define ZN struct h_zn
-#define TITLE_ZN struct h_title_zn
-#define ALT_SPELL struct h_alt_spell
-#define TITLE_WORD struct h_title_word
-#define TITLE_STR struct h_title_str
-#define TITLE_FUL struct h_title_ful
-#define W_GEN struct h_w_gen
-#define ALT_ZN struct h_alt_zn
-#define S_GEN struct h_s_gen
-#define RECOG_MODES struct h_recog_modes
-#define COOR_COMP struct h_coor_comp
-
 struct SRECT
 {
         int left, top, right, bottom;
 };
 
-#define LEN_START 3
-COOR_COMP
+const int LEN_START = 3;
+
+struct COOR_COMP
 {
         uchar start_pos[LEN_START];
         uchar buf;
         short lenght;
 };
 
-TITLE_ZN
+struct TITLE_ZN
 {
         uchar Z_Code; // identification code header (= 0)
         ID_SYM Z_Id; // identification code
@@ -127,7 +132,7 @@ TITLE_ZN
         uchar Z_NumComp;
 };
 
-ALT_ZN
+struct ALT_ZN
 {
         uchar a_Code; //Код символа
         uchar a_Base; //Номер базы
@@ -138,13 +143,14 @@ ALT_ZN
         uchar a_Spell;
         float a_Dist;//Дефект распознавания
 };
-ZN
+
+struct ZN
 {
         TITLE_ZN Title; //Заголовок знакоместа
         ALT_ZN Alt[REC_MAX_VERS];//Альтернативы
 };
 
-W_GEN
+struct W_GEN
 {
         uint16_t W_NumSym; //Число символов
         uchar W_Spell; //Spell-Check
@@ -152,7 +158,8 @@ W_GEN
         uint16_t FontNumber;
         uint16_t FontSize;
 };
-ALT_SPELL
+
+struct ALT_SPELL
 {
         uchar Len; //Длина подсказки с завершающим \0 (счет - с 1)
         uchar Reserv;
@@ -160,7 +167,7 @@ ALT_SPELL
         char *Alt; //Сама альтернатива - строка в формате С
 };
 
-TITLE_WORD
+struct TITLE_WORD
 {
         uchar Z_Code; //Опознавательный код заголовка (=1)
         W_GEN W_Gen; //Родословная слова
@@ -174,14 +181,14 @@ TITLE_WORD
 #endif
 };
 
-S_GEN
+struct S_GEN
 {
         uint16_t S_NumWord;//Число слов в строке
         uchar HeadLine;
         uchar Reserv[2];
 };
 
-TITLE_STR
+struct TITLE_STR
 {
         uchar Z_Code; //Опознавательный код заголовка (=2)
         S_GEN S_Gen; //Родословная строки
@@ -193,7 +200,8 @@ TITLE_STR
         uchar Dummy[DELTA_TITLE];
 #endif
 };
-RECOG_MODES
+
+struct RECOG_MODES
 {
         uchar s[10];
 };
@@ -212,7 +220,7 @@ typedef struct h_lev
         ADDR *Addr;/*[kp+1],если kp>=0*/
 } LEV;
 
-TITLE_FUL
+struct TITLE_FUL
 {
         uint16_t wFHSize; //Размер заголовка файла
         uint16_t wZHSize; //Размер локал.заголовка знакоместа, слова или строки
@@ -230,9 +238,10 @@ TITLE_FUL
         uchar Reserv[26];
         //uchar *Reserv;//malloc(size=wFHSize-46)
 };
+
 #pragma pack(2)
-#define PAR_FUL struct h_par_ful
-PAR_FUL
+
+struct PAR_FUL
 {
         char KodNoRecog;//Код нераспознан. символа для b_find
         char KodNoRecogOut;//Код нераспознан. символа для выходного текста

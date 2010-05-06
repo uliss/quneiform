@@ -63,14 +63,7 @@
 #include "cfcompat.h"
 #include "minmax.h"
 
-//#define TIGER_CORR
-//#define __MRK__
-//#define __DOT__
-//В этом случае формат хранения рамок: FRAME + Point16 OldCoor
-//#if defined (__DOT__) || defined (__MRK__)
 #define OLD_COOR
-//#endif
-//#define BLANK
 #ifdef __STR_DLL__
 #define KREST
 #define PRAFAX
@@ -79,16 +72,12 @@
 #define DEB_PRA
 #ifndef BLANK
 #define SPLIT_COL
-//#define PROF_COL
 //--Отделение графики
 #define GRAPH
 #endif
 #define PLAIN 0
 #define NORV  1
 
-#if defined (WIN_MOD) && !defined (__MRK__) && !defined (__DOT__)
-//#include "resource.h"
-#endif
 //вариант, когда считается, что в метриках смертей стоят глубины
 //#define _DEPTH_
 
@@ -101,14 +90,6 @@
 
 #define WORK 0
 #define EDIT 1
-
-//#define INTEL
-//#define AU
-//ext - .prn or .prc
-//#define OLD_NAME   В файле column.c
-
-//для динамич. переключения длины PRS-кода
-//#define PRS_2_3
 
 struct h_frame {
     unsigned long start_pos, end_pos;
@@ -123,15 +104,15 @@ typedef void (*FUN_MESS)(uint16_t wPar, uint32_t lPar);
 typedef int(*COMP_FUN)(void);
 typedef TYPE (*DistFrame)(FRAME*, FRAME*);
 
-#define ID_SYM struct h_id_sym /*Идентификатор символа*/
+/*Идентификатор символа*/
 
 #ifdef ID4
-ID_SYM {unsigned char col, str, comp, word;
+struct ID_SYM {unsigned char col, str, comp, word;
        };
 #define CONV uchar
 #define FL_ID 1
 #else
-ID_SYM {
+struct ID_SYM {
     uint col, str, comp, word;
 };
 #define CONV uint
