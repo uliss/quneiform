@@ -186,13 +186,10 @@ extern uint32_t RtfWriteMode;
 extern Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage,
                      const char* OutFileName);
 extern short OpenFullOutTiger(FILE *FileName);
-void show_frm(int16_t NumFragm, FRAME **frm);
 Bool Alik_sort_function(const void *a, const void *b);
 int CalcStatTiger(void);
 int16_t GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
                             SETUP_GENERATE_TREE *setup, FRAME ***Frm1, INF_TREE *Inf);
-void GetFirstIndexFragm(Rect16 *RectFragm, int16_t NumCol, int16_t *nc,
-                        FRAME **frm);
 int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                             STRET *LineH, int16_t NumLH, FRAME **frm, int16_t NumFrm,
                             INF_TREE *Inf, int16_t size_x, int16_t size_y);
@@ -225,18 +222,8 @@ void Get_all_term_fragms(KNOTT *ptr, int16_t *Colt, int16_t *iv,
                          int16_t NumCol, FRAME **frm);
 void Get_all_term_fragms1(KNOTT* ptr, int16_t* Colt, int16_t* iv,
                           int16_t NumCol, FRAME **frm);
-int16_t term_col_seriated(int16_t* term_ind, int16_t Count_Term_Col,
-                          int16_t* K_Ver_Flag_Term);
-int16_t OrderingAndRecalcCol(int16_t Nsector, int16_t Ncol, int16_t H0,
-                             int16_t L0, int16_t *W_P, int16_t *H_P, int16_t dist_col, KNOTT *pRoot,
-                             FRAME **frm, float Max_koof_for_width, float Max_koof_for_height);
-int16_t RecalcRect(int16_t L, int16_t H, int16_t *w, int16_t *h, KNOTT *ptrc,
-                   FRAME **frm, float Max_koof_for_width, float Max_koof_for_height);
-int16_t GetOffsetVerticalCell(int16_t L, int16_t H, int16_t *w, int16_t *h,
-                              KNOTT *ptrc, FRAME **frm);
 void RtfUnionRect_CRect_SRect(tagRECT *s1, SRECT *s2);
 void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-void RtfAssignRect_CRect_SRect(tagRECT *s1, SRECT *s2);
 void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
 CIF::Rect toRect(const SRECT& src);
 CIF::Rect toRect(const tagRECT& src);
@@ -2936,14 +2923,6 @@ void Get_all_term_fragms(KNOTT* ptr, int16_t* Colt, int16_t* iv,
 }
 
 void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2)
-{
-    s1->left = s2->left;
-    s1->right = s2->right;
-    s1->top = s2->top;
-    s1->bottom = s2->bottom;
-}
-
-void RtfAssignRect_CRect_SRect(tagRECT *s1, SRECT *s2)
 {
     s1->left = s2->left;
     s1->right = s2->right;

@@ -136,11 +136,6 @@ Bool CreateInternalFileForFormatter(FILE *pIFName)
     }
 
     if (!(Page.Count.Frags + (int) CountPict + (int) CountTable)) {
-        if (CreateEmptyRtfFile() < 0) {
-            SetReturnCode_rfrmt(IDS_ERR_SIZEFRAGMENT);
-            return FALSE;
-        }
-
         return TRUE;
     }
 

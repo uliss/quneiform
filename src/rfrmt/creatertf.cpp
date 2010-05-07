@@ -114,8 +114,6 @@ extern void RtfCalcRectSizeInTwips(RECT *s1, float Twips);
 extern void RtfUnionRect_CRect_CRect(RECT *s1, RECT *s2);
 extern void RtfAssignRect_CRect_CRect(RECT *s1, RECT *s2);
 
-int16_t CreateEmptyRtfFile(void);
-
 Bool ReadInternalFileRelease(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage);
 void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
 void Cleaning_LI_FRMT_Used_Flag(void);
@@ -262,67 +260,6 @@ int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t Font
     //  TODO
     *strHeight = size.height();
     return size.width(); //in twips
-}
-
-int16_t CreateEmptyRtfFile(void) {
-    const char *TitleRtf = "\\rtf1\\ansi \\deff0\\deflang1024";
-    char Eol[3], Nname[260];
-    int16_t i;
-    CIF::FONT_COD FontCod[9] = { "Arial Cyr", "fswiss", // NonSerif
-            "Times New Roman Cyr", "froman", // Serif
-            "Courier Cyr", "fmodern" // Fixed_Pitch
-            };
-    uint16_t cr = 13/*0x0d*/, lf = 10/*0x0a*/;
-
-    if (RtfWriteMode) {
-        Eol[0] = (char) cr;
-        Eol[1] = (char) lf;
-        Eol[2] = 0;
-
-        if ((out = fopen((char*) RtfFileName, "w")) == NULL)
-            return -6;
-
-        PutChar(0);
-        Put("{");
-        Put(TitleRtf);
-        Put(" ");
-        Put(Eol);
-        //--WRITE Font Table--
-        Put("{\\fonttbl");
-        Put(Eol);
-
-        for (i = 0; i < 3; ++i) {
-            Put("{");
-            PutCom("\\f", i, 0);
-            Put("\\");
-            Put(FontCod[i].family);
-            PutCom("\\fcharset", 0, 0);
-            Put(" ");
-            Put(FontCod[i].name);
-            Put(";}");
-            Put(Eol);
-        }
-
-        Put("}");
-        Put(Eol);
-        Put("{\\info");
-        Put("{\\title WinTiger}");
-        Put("}");
-        Put(Eol);
-        //WRITE IMAGE INFORMATION
-        Put("{\\*\\imagename \"");
-        strcpy(Nname, (char*) WriteRtfImageName);
-        Put(Nname);
-        Put("\" \\imagepage");
-        // strcpy(Nname,WriteRtfPageNumber);
-        Put("1");
-        Put(";}");
-        Put("}");
-        PutChar(1);
-        fclose(out);
-    }
-
-    return TRUE;
 }
 
 CIF::CEDParagraph * Rtf_CED_CreateParagraph(int FirstIndent, int LeftIndent, int RightIndent,
