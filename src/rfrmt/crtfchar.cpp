@@ -29,6 +29,9 @@
 
 // ced
 #include "ced/ced.h"
+#include "ced/cedchar.h"
+
+extern CIF::Point TemplateOffset;
 
 namespace CIF
 {
@@ -100,6 +103,18 @@ language_t CRtfChar::language() const {
     return language_;
 }
 
+CEDChar * CRtfChar::makeCedSpace(int fontName, int fontSize, int fontAttrs) {
+    CEDChar * chr = new CEDChar;
+
+    chr->setFontLanguage(LANGUAGE_UNKNOWN);
+    chr->addAlternative(Letter(' ', 0));
+    chr->setForegroundColor(Color::null());
+    chr->setBackgroundColor(Color::null());
+    chr->setBoundingRect(Rect(Point(-1, -1), Point(-1, -1)));
+
+    return chr;
+}
+
 Rect CRtfChar::realRect() const {
     return real_rect_;
 }
@@ -130,6 +145,32 @@ void CRtfChar::setRealRect(const Rect& rect) {
 
 void CRtfChar::setSpelled(bool value) {
     spelled_ = value;
+}
+
+CEDChar * CRtfChar::toCedChar(int font_name, int font_size, int font_style) const {
+    CEDChar * chr = new CEDChar;
+    Rect layout;
+    layout.rleft() = real_rect_.left() + TemplateOffset.x();
+    layout.rright() = real_rect_.right() + TemplateOffset.x();
+    layout.rtop() = real_rect_.top() + TemplateOffset.y();
+    layout.rbottom() = real_rect_.bottom() + TemplateOffset.y();
+
+    chr->setBoundingRect(layout);
+    chr->setFontLanguage(language_);
+    chr->setFontStyle(font_style);
+    chr->setFontNumber(font_name);
+    chr->setFontHeight(font_size);
+
+    for (size_t i = 0; i < versions_.size(); i++) {
+        Letter alt = versions_[i];
+        alt.normalizeNonPrintable();
+        chr->addAlternative(alt);
+    }
+
+    chr->setForegroundColor(Color::null());
+    chr->setBackgroundColor(Color::null());
+
+    return chr;
 }
 
 const Letter& CRtfChar::versionAt(size_t pos) const {

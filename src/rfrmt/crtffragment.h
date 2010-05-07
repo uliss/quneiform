@@ -149,6 +149,7 @@ class CLA_EXPO CRtfFragment
         bool checkAlignJustify(StringIterator begin, StringIterator end);
         bool checkStringForJustifyAlign(int ns);
         void checkOnceAgainImportancesFlagBeginParagraph();
+        int columnWidth(RtfSectorInfo* SectorInfo);
         void correctParagraphIndents(StringIterator begin, StringIterator end);
         void defineLineTransfer();
         bool determineAlign(StringIterator begin, StringIterator end);

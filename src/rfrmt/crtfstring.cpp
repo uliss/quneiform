@@ -23,6 +23,10 @@
 #include "creatertf.h"
 #include "crtfstruct.h"
 #include "crtffunc.h"
+#include "rfrmtoptions.h"
+
+// ced
+#include "ced/cedline.h"
 #include "minmax.h"
 
 namespace CIF
@@ -359,6 +363,18 @@ bool CRtfString::startsWithDigit() const {
     if (words_.empty() || words_.front()->empty())
         return false;
     return isdigit(firstChar()->getChar());
+}
+
+CEDLine * CRtfString::toCedLine() const {
+    CEDLine * line = new CEDLine;
+    line->setHardBreak(line_break_);
+
+    if (!RfrmtOptions::useSize() && !RfrmtOptions::useFrames())
+        line->setDefaultFontHeight(DefFontSize);
+    else
+        line->setDefaultFontHeight(firstWord()->realFontSize() * 2);
+
+    return line;
 }
 
 std::string CRtfString::toString() const {

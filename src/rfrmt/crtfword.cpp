@@ -20,6 +20,11 @@
 #include "crtfword.h"
 #include "crtfchar.h"
 #include "creatertf.h"
+#include "rfrmtoptions.h"
+
+// ced
+#include "ced/cedchar.h"
+
 #include "cpage/cpage.h"
 #include "common/helper.h"
 
@@ -123,6 +128,21 @@ const CRtfChar * CRtfWord::firstChar() const {
     return chars_.front();
 }
 
+int CRtfWord::fontAttrs() const {
+    int ret = 0;
+
+    if (font_number_ & FORMAT_FONT_UNDERLINE)
+        ret |= FORMAT_FONT_UNDERLINE;
+
+    if (RfrmtOptions::useBold() && (font_number_ & FORMAT_FONT_BOLD))
+        ret |= FORMAT_FONT_BOLD;
+
+    if (RfrmtOptions::useItalic() && (font_number_ & FORMAT_FONT_ITALIC))
+        ret |= FORMAT_FONT_ITALIC;
+
+    return ret;
+}
+
 font_number CRtfWord::fontNumber() const {
     return font_number_;
 }
@@ -139,6 +159,13 @@ const CRtfChar * CRtfWord::lastChar() const {
     if (chars_.empty())
         throw std::out_of_range("[CRtfWord::lastChar] word is empty");
     return chars_.back();
+}
+
+CEDChar * CRtfWord::makeCedSpace(int fontName, int fontAttrs) const {
+    CEDChar * space = CRtfChar::makeCedSpace(fontName, DefFontSize, fontAttrs);
+    if (RfrmtOptions::useSize() || !RfrmtOptions::useFrames())
+        space->setFontHeight(realFontSize() * 2);
+    return space;
 }
 
 inline bool compareCharProbability(CRtfChar * first, CRtfChar * second) {

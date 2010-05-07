@@ -395,9 +395,7 @@ CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, Letter*
         for (int j = 0; j < (i + 1); j++) {
             chr->addAlternative(alternatives[j]);
         }
-    }
-
-    else {
+    } else {
         Letter lt(' ', 254);
         chr->addAlternative(lt);
     }

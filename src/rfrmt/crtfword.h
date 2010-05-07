@@ -31,6 +31,7 @@
 namespace CIF
 {
 class CRtfChar;
+class CEDChar;
 
 class CLA_EXPO CRtfWord
 {
@@ -95,6 +96,11 @@ class CLA_EXPO CRtfWord
         const CRtfChar * firstChar() const;
 
         /**
+         * Returns font attributes
+         */
+        int fontAttrs() const;
+
+        /**
          * Returns word font number
          */
         font_number fontNumber() const;
@@ -115,6 +121,11 @@ class CLA_EXPO CRtfWord
          */
         CRtfChar * lastChar();
         const CRtfChar * lastChar() const;
+
+        /**
+         * Makes space
+         */
+        CEDChar * makeCedSpace(int fontName, int fontAttrs) const;
 
         /**
          * Returns word minimal probability

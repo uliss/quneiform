@@ -31,6 +31,7 @@ namespace CIF
 
 class CRtfChar;
 class CRtfWord;
+class CEDLine;
 
 class CLA_EXPO CRtfString
 {
@@ -325,6 +326,12 @@ class CLA_EXPO CRtfString
          * @see startsWith()
          */
         bool startsWithDigit() const;
+
+        /**
+         * Returns pointer to CEDLine
+         * @note caller deletes return value
+         */
+        CEDLine * toCedLine() const;
 
         /**
          * Returns string content as std::string

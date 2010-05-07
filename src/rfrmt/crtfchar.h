@@ -31,6 +31,8 @@
 namespace CIF
 {
 
+class CEDChar;
+
 class CLA_EXPO CRtfChar
 {
     public:
@@ -143,6 +145,12 @@ class CLA_EXPO CRtfChar
         void setSpelled(bool value);
 
         /**
+         * Returns pointer to CEDChar
+         * @note caller should delete returned value
+         */
+        CEDChar * toCedChar(int font_name, int font_size, int font_style) const;
+
+        /**
          * Returns reference to character alternative
          * @param pos
          * @return const reference
@@ -162,6 +170,8 @@ class CLA_EXPO CRtfChar
         size_t versionCount() const;
 
         uchar m_bFlg_spell_nocarrying;
+    public:
+        static CEDChar * makeCedSpace(int fontName, int fontSize, int fontAttrs);
     private:
         language_t language_;
         font_number font_number_;

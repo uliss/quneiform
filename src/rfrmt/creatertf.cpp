@@ -117,9 +117,6 @@ extern void RtfAssignRect_CRect_CRect(RECT *s1, RECT *s2);
 int16_t CreateEmptyRtfFile(void);
 
 Bool ReadInternalFileRelease(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage);
-Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t RightIndent,
-        int16_t IntervalBefore, RtfSectorInfo *SectorInfo, int AlignParagraph, int shad,
-        int LenthStringInTwips, int LengthFragmInTwips);
 void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
 void Cleaning_LI_FRMT_Used_Flag(void);
 
@@ -328,8 +325,8 @@ int16_t CreateEmptyRtfFile(void) {
     return TRUE;
 }
 
-Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t RightIndent,
-        int16_t IntervalBefore, RtfSectorInfo *SectorInfo, int AlignParagraph, int m_Flag,
+CIF::CEDParagraph * Rtf_CED_CreateParagraph(int FirstIndent, int LeftIndent, int RightIndent,
+        int IntervalBefore, RtfSectorInfo *SectorInfo, int AlignParagraph, int m_Flag,
         int LengthStringInTwips, int LengthFragmInTwips) {
     CIF::Rect indent;
     EDBOX playout;
@@ -370,7 +367,6 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
         align = TP_CENTER;
         shad = 10000;
 
-        //#ifdef VMK002
         if ((m_Flag & CSTR_STR_UPDOWN) || (m_Flag & CSTR_STR_DOWNUP)) {
             //          int addIndent =  SectorInfo->PaperW - SectorInfo->MargL - SectorInfo->MargR -
             //                           LenthStringInTwips - indent.left - indent.right;
@@ -383,12 +379,10 @@ Handle Rtf_CED_CreateParagraph(int16_t FirstIndent, int16_t LeftIndent, int16_t 
                 indent.rtop() = 0;
             }
         }
-
-        //#endif
     }
 
-    return CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, align, indent,
-            SectorInfo->userNum, -1, interval, playout, -1, shad, -1, -1, FALSE);
+    return (CIF::CEDParagraph*) CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
+            align, indent, SectorInfo->userNum, -1, interval, playout, -1, shad, -1, -1, FALSE);
 }
 
 void Rtf_CED_CreateChar(CIF::Rect * slayout, CIF::Letter* Letter, CIF::CRtfChar* pRtfChar) {
@@ -409,9 +403,7 @@ void Rtf_CED_CreateChar(CIF::Rect * slayout, CIF::Letter* Letter, CIF::CRtfChar*
         }
 
         Letter[i - 1].setProbability(Letter[i - 1].probability() & 0xFE);
-    }
-
-    else {
+    } else {
         slayout->rleft() = -1;
         slayout->rright() = -1;
         slayout->rtop() = -1;
