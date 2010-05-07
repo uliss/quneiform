@@ -281,29 +281,6 @@ int MinArr(int *x, int n, int *PosExtr)
     return x[in];
 }
 
-//==
-/* // !!! Art - устарело
- int statis(TYPE *arr,int n,TYPE *ave1,TYPE *sig1,TYPE *med,TYPE *mod,int regim)
- //если regim > 0, усекаем края выборки вместо [0,n] - [n/regim,n-n/regim]
- { int i; long ave=0,sig=0,work;
-
- u4sort(arr,n+1,sizeof(TYPE),(COMP_FUN)comp1); //медиана
- if(regim) //обрезаем края выборки
- { int beg=n/regim; if((n-=2*beg)<0){n+=2*beg;goto m1;}
- if(beg) do0(i,0,n) arr[i]=arr[i+beg];
- }
- m1: *med=arr[n>>1];
- do0(i,0,n) ave+=arr[i]; ave/=(long)(n+1);
- do0(i,0,n)
- { work=arr[i]-ave;
- sig+=work*work;
- }
- sig=(long)sqrt(sig/(float)(n+1));
- *ave1=(TYPE)ave; *sig1=(TYPE)sig;
- return 0;
- }
- */// !!! Art - устарело
-//==
 void bound_frm(FRAME **frm, int k_frm, BOUND *bnd)
 {
     int ymin = 32000, ymax = -32000, xmin = 32000, xmax = -32000, i;
