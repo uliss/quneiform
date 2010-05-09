@@ -101,6 +101,11 @@ class CLA_EXPO CRtfChar
         bool isSpelled() const;
 
         /**
+         * \~russin не знак переноса, а дефис в слове (пр: красно-белый)
+         */
+        bool isSpelledNoCarrying() const;
+
+        /**
          * Returns character language
          */
         language_t language() const;
@@ -147,6 +152,8 @@ class CLA_EXPO CRtfChar
          */
         void setSpelled(bool value);
 
+        void setSpelledNoCarrying(bool value);
+
         /**
          * Returns pointer to CEDChar
          * @note caller should delete returned value
@@ -177,8 +184,6 @@ class CLA_EXPO CRtfChar
          * Returns number of versions
          */
         size_t versionCount() const;
-
-        uchar m_bFlg_spell_nocarrying;
     public:
         static CEDChar * makeCedSpace(int fontName, int fontSize, int fontAttrs);
     private:
@@ -191,6 +196,7 @@ class CLA_EXPO CRtfChar
         LetterList versions_;
         bool spelled_;
         bool drop_cap_;
+        bool spell_nocarrying_;
 };
 
 }

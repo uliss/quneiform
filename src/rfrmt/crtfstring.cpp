@@ -198,7 +198,7 @@ bool CRtfString::isEqualRight() const {
 bool CRtfString::isLineCarryNeeded() const {
     try {
         const CRtfChar * chr = lastChar();
-        return endsWith(HYPHEN) && chr->m_bFlg_spell_nocarrying;
+        return endsWith(HYPHEN) && chr->isSpelledNoCarrying();
     } catch (std::out_of_range&) {
         return false;
     }

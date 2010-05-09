@@ -39,14 +39,14 @@ namespace CIF
 {
 
 CRtfChar::CRtfChar() :
-    m_bFlg_spell_nocarrying(FALSE), language_(LANGUAGE_UNKNOWN), font_number_(0), font_size_(0),
-            spelled_(false), drop_cap_(false) {
+    language_(LANGUAGE_UNKNOWN), font_number_(0), font_size_(0), spelled_(false), drop_cap_(false),
+            spell_nocarrying_(false) {
 
 }
 
 CRtfChar::CRtfChar(uchar chr, uchar probability) :
-    m_bFlg_spell_nocarrying(FALSE), language_(LANGUAGE_UNKNOWN), font_number_(0), font_size_(0),
-            spelled_(false), drop_cap_(false) {
+    language_(LANGUAGE_UNKNOWN), font_number_(0), font_size_(0), spelled_(false), drop_cap_(false),
+            spell_nocarrying_(false) {
     addVersion(Letter(chr, probability));
 }
 
@@ -101,6 +101,10 @@ bool CRtfChar::isSpelled() const {
     return spelled_;
 }
 
+bool CRtfChar::isSpelledNoCarrying() const {
+    return spell_nocarrying_;
+}
+
 language_t CRtfChar::language() const {
     return language_;
 }
@@ -150,6 +154,10 @@ void CRtfChar::setRealRect(const Rect& rect) {
 
 void CRtfChar::setSpelled(bool value) {
     spelled_ = value;
+}
+
+void CRtfChar::setSpelledNoCarrying(bool value) {
+    spell_nocarrying_ = value;
 }
 
 CEDChar * CRtfChar::toCedChar(int font_name, int font_size, int font_style) const {

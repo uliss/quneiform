@@ -2607,7 +2607,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                 pRtfChar->addVersion(vers);
                             }
 
-                            pRtfChar->m_bFlg_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying; //~ не знак переноса, а дефис в слове (пр: красно-белый)
+                            pRtfChar->setSpelledNoCarrying(Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying); //~ не знак переноса, а дефис в слове (пр: красно-белый)
                             pRtfChar->setDropCap(Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop);
                             pRtfChar->setLanguage((language_t)Zn[nc][ns][nw][nz].Alt[0].a_language);
                             pRtfChar->setSpelled(Zn[nc][ns][nw][nz].Alt[0].a_Spell);
@@ -2719,7 +2719,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                 pRtfChar->addVersion(vers);
                             }
 
-                            pRtfChar->m_bFlg_spell_nocarrying = Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying;
+                            pRtfChar->setSpelledNoCarrying(Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying);
                             pRtfChar->setDropCap(Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop);
                             pRtfChar->setLanguage((language_t)Zn[nc][ns][nw][nz].Alt[0].a_language);
                             pRtfChar->setSpelled(Zn[nc][ns][nw][nz].Alt[0].a_Spell);

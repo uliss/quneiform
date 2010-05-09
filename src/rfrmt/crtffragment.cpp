@@ -623,7 +623,7 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
                         }
                     } else if (!((paragraph_align == FORMAT_ALIGN_JUSTIFY || paragraph_align
                             == FORMAT_ALIGN_LEFT) && word_ends_with_hyphen
-                            && chr->m_bFlg_spell_nocarrying)) {
+                            && chr->isSpelledNoCarrying())) {
                         if (nw == 0 && nz == 0 && chr->isDropCap()) {
                             chr->insertCedDropCap(SectorInfo, font_name, font_size, font_attrs,
                                     str->isNegative());
@@ -1287,7 +1287,7 @@ void CRtfFragment::checkOnceAgainImportancesFlagBeginParagraph() {
 
         CRtfChar * last_prev_char = prev->lastChar();
 
-        if (last_prev_char->first().isHyphen() && last_prev_char->m_bFlg_spell_nocarrying) {
+        if (last_prev_char->first().isHyphen() && last_prev_char->isSpelledNoCarrying()) {
             if (str->align() == prev->align())
                 str->setParagraphBegin(false);
             else if (prev->align() == FORMAT_ALIGN_JUSTIFY && str->align() == FORMAT_ALIGN_LEFT) {
