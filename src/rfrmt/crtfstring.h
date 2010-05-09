@@ -26,12 +26,15 @@
 #include "cfcompat.h"
 #include "common/rect.h"
 
+struct RtfSectorInfo;
+
 namespace CIF
 {
 
 class CRtfChar;
 class CRtfWord;
 class CEDLine;
+class CEDParagraph;
 
 class CLA_EXPO CRtfString
 {
@@ -158,6 +161,11 @@ class CLA_EXPO CRtfString
          * Returns true if line carry needed
          */
         bool isLineCarryNeeded() const;
+
+        /**
+         * Returns if string is negative
+         */
+        bool isNegative() const;
 
         /**
          * Returns true if string begin paragraph
@@ -328,10 +336,17 @@ class CLA_EXPO CRtfString
         bool startsWithDigit() const;
 
         /**
-         * Returns pointer to CEDLine
+         * Returns pointer to new CEDLine
          * @note caller deletes return value
          */
         CEDLine * toCedLine() const;
+
+        /**
+         * Returns pointer to new CEDParagraph
+         * @note caller deletes return value
+         */
+        CEDParagraph * toCedParagraph(RtfSectorInfo * sector, int firstIndent, int leftIndent,
+                int rightIndent, int marginTop, int width) const;
 
         /**
          * Returns string content as std::string

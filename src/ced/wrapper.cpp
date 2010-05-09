@@ -296,7 +296,7 @@ CED_FUNC(Bool32) CED_SetCellFlag(Handle hEdCell, int flag) {
 }
 //create paragraph
 
-CED_FUNC(Handle) CED_CreateParagraph(Handle hEdSection, Handle hObject, int align,
+CEDParagraph * CED_CreateParagraph(Handle hEdSection, Handle hObject, int align,
         const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout,
         int color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
     if (logStream) {
@@ -309,7 +309,7 @@ CED_FUNC(Handle) CED_CreateParagraph(Handle hEdSection, Handle hObject, int alig
         fflush(logStream);
     }
 
-    Handle ret = (Handle) (((CEDSection*) hEdSection)->CreateParagraph((CEDParagraph*) hObject,
+    CEDParagraph * ret = (((CEDSection*) hEdSection)->CreateParagraph((CEDParagraph*) hObject,
             align, indent, UserNum, FlagBorder, interval, layout, color, shading,
             spaceBetweenLines, spcBtwLnsMult, keep));
 
@@ -351,7 +351,7 @@ CED_FUNC(Bool32) CED_SetParaBorders(Handle hEdParagraph, int leftBrdrType, int l
 }
 
 //create line
-CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, bool hardBreak, int defChrFontHeight) {
+CEDLine * CED_CreateLine(Handle hEdParagraph, bool hardBreak, int defChrFontHeight) {
     if (logStream) {
         fprintf(logStream, "CreateLine params: %x,%i,%i\n", hEdParagraph, hardBreak,
                 defChrFontHeight);
@@ -367,7 +367,7 @@ CED_FUNC(Handle) CED_CreateLine(Handle hEdParagraph, bool hardBreak, int defChrF
         fflush(logStream);
     }
 
-    return (Handle) lin;
+    return lin;
 }
 
 //create symbol

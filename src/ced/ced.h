@@ -357,6 +357,13 @@ typedef enum
 #ifdef _DEBUG
 #define     CED_FNCED_ShowTree 0xffff
 #endif
+
+namespace CIF
+{
+class CEDPage;
+class CEDLine;
+class CEDParagraph;
+}
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; CED_FUNC(a) b c;
 DEC_FUN(uint32_t, CED_IsEdFile, (char * file, Bool32 readFromFile, uint32_t bufLen))
 DEC_FUN(uint32_t, CED_ReadED, (char * file, Bool32 readFromFile, uint32_t bufLen))
@@ -366,9 +373,9 @@ DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, const CIF::S
 DEC_FUN(Handle, CED_CreateSection, (Handle hEdPage, const CIF::Rect& border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY))
 DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol))
 DEC_FUN(Handle, CED_CreateColumn, ( Handle hEdSection))
-DEC_FUN(Handle, CED_CreateParagraph, (Handle hEdSection, Handle hObject, int align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, int color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep))
+DEC_FUN(CIF::CEDParagraph *, CED_CreateParagraph, (Handle hEdSection, Handle hObject, int align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, int color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep))
 DEC_FUN(Bool32, CED_SetParaBorders, (Handle hEdParagraph, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int brdrBtw))
-DEC_FUN(Handle, CED_CreateLine, (Handle hEdParagraph, bool hardBreak, int defChrFontHeight))
+DEC_FUN(CIF::CEDLine*, CED_CreateLine, (Handle hEdParagraph, bool hardBreak, int defChrFontHeight))
 DEC_FUN(Handle, CED_CreateChar, (Handle hEdLine, const CIF::Rect& layout, CIF::Letter* alternatives, int fontHeight, int fontNum, int fontAttribs, language_t fontLang, int foregroundColor, int backgroundColor))
 DEC_FUN(Handle, CED_CreateFrame, (Handle hEdSection, Handle hEdColumn, EDBOX rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty))
 DEC_FUN(Bool32, CED_SetFrameFlag, (Handle hEdFrame, int flag))
@@ -425,11 +432,6 @@ DEC_FUN(uint32_t, CED_GetCountLine, (Handle hEdParagraph))
 DEC_FUN(Handle, CED_GetLine, (Handle hEdParagraph, int number))
 DEC_FUN(Bool32, CED_WriteFormattedRtf, (const char * fileName, Handle hEdPage))
 DEC_FUN(Bool32, CED_MergeFormattedRtf, (const char * fileName, Handle hEdPage))
-
-namespace CIF
-{
-class CEDPage;
-}
 
 #ifdef _DEBUG
 CED_FUNC(void) CED_ShowTree(char * name, CIF::CEDPage * EdPage);

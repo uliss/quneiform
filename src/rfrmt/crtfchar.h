@@ -28,10 +28,13 @@
 #include "common/rect.h"
 #include "common/letter.h"
 
+class RtfSectorInfo;
+
 namespace CIF
 {
 
 class CEDChar;
+class CEDParagraph;
 
 class CLA_EXPO CRtfChar
 {
@@ -149,6 +152,12 @@ class CLA_EXPO CRtfChar
          * @note caller should delete returned value
          */
         CEDChar * toCedChar(int font_name, int font_size, int font_style) const;
+
+        /**
+         * Insertsdrop cap into CEDPage
+         */
+        CEDParagraph * insertCedDropCap(RtfSectorInfo * sector, int font_name, int font_size,
+                int font_style, bool negative) const;
 
         /**
          * Returns reference to character alternative

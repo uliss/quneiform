@@ -37,12 +37,6 @@
 #include "common/debug.h"
 #include "minmax.h"
 
-void Rtf_CED_CreateChar(CIF::Rect* slayout, CIF::Letter* letter, CIF::CRtfChar* pRtfChar);
-
-CIF::CEDParagraph * Rtf_CED_CreateParagraph(int FirstIndent, int LeftIndent, int RightIndent,
-        int IntervalBefore, RtfSectorInfo *SectorInfo, int AlignParagraph, int shad,
-        int LenthStringInTwips, int LengthFragmInTwips);
-
 namespace CIF
 {
 
@@ -508,9 +502,7 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
     int font_size;
     CEDParagraph * ced_paragraph = NULL;
     CEDLine * ced_line = NULL;
-    CIF::Rect slayout;
     CIF::Letter Letter[REC_MAX_VERS];
-    int shading = -1;
     initFragment(SectorInfo);
     //--- Цикл по строкам
     bool is_prev_negative = false; //NEGA_STR
@@ -523,7 +515,7 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
     for (StringIterator it = strings_.begin(), end = strings_.end(); it != end; ++it) {
         // чтобы не смешивать в одном абзаце негатив. и позитив. строки, при смене
         // цвета стартуем новый абзац
-        bool is_negative = (*it)->hasFlag(CSTR_STR_NEGATIVE);
+        bool is_negative = (*it)->isNegative();
 
         if (is_negative != is_prev_negative)
             (*it)->setParagraphBegin(true);
@@ -550,7 +542,6 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
             } else
                 first_indent = str->firstIndent();
 
-            paragraph_align = str->align();
             left_indent = str->leftIndent();
             right_indent = str->rightIndent();
             margin_top = str->marginTop();
@@ -570,10 +561,10 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
 
             int colWidth = columnWidth(SectorInfo);
 
-            if (!chr->isDropCap())
-                ced_paragraph = Rtf_CED_CreateParagraph(first_indent, left_indent, right_indent,
-                        margin_top, SectorInfo, paragraph_align, str->flags(), str->realLength(),
-                        colWidth);
+            if (!chr->isDropCap()) {
+                ced_paragraph = str->toCedParagraph(SectorInfo, first_indent, left_indent,
+                        right_indent, margin_top, colWidth);
+            }
         }
 
         if (!chr->isDropCap()) {
@@ -601,11 +592,11 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
                     chr->first().setProbability(0);
 
                 if (nw == 0 && nz == 0 && chr->isDropCap()) {
-                    if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames())
+                    if (!RfrmtOptions::useSize() && RfrmtOptions::useFrames())
                         font_size = DefFontSize;
                     else
                         font_size = chr->fontSize() * 2;
-                } else if (!CIF::RfrmtOptions::useSize() && CIF::RfrmtOptions::useFrames())
+                } else if (!RfrmtOptions::useSize() && RfrmtOptions::useFrames())
                     font_size = DefFontSize;
                 else
                     font_size = word->realFontSize() * 2;
@@ -618,28 +609,12 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
                 if (chr->first().getChar()) {
                     if (str->lineTransfer()) {
                         if (nw == 0 && nz == 0 && chr->isDropCap()) {
-                            slayout = CIF::Rect();
-                            EDBOX playout__ = { 0, 0, 0, 0 };
-                            Handle frame = CED_CreateFrame(SectorInfo->hEDSector,
-                                    SectorInfo->hColumn, playout__, 0x22, -1, -1, -1);
-                            CED_SetFrameFlag(frame, ED_DROPCAP);
-                            EDSIZE interval__ = { 0, 0 };
+                            chr->insertCedDropCap(SectorInfo, font_name, font_size, font_attrs,
+                                    str->isNegative());
 
-                            if (str->hasFlag(CSTR_STR_NEGATIVE)) //NEGA_STR
-                                shading = 10000;
-
-                            Handle hParagraph__ = CED_CreateParagraph(SectorInfo->hEDSector, frame,
-                                    TP_LEFT_ALLIGN, slayout, 0, -1, interval__, playout__, -1,
-                                    shading, -1, -1, FALSE);
-                            Handle hString__ = CED_CreateLine(hParagraph__, FALSE, 6);
-                            Rtf_CED_CreateChar(&slayout, Letter, chr);
-                            CED_CreateChar(hString__, slayout, Letter, font_size, font_name,
-                                    font_attrs, chr->language(), -1, -1);
-                            ced_paragraph = Rtf_CED_CreateParagraph(first_indent, left_indent,
-                                    right_indent, margin_top, SectorInfo, paragraph_align,
-                                    str->flags(), str->realLength(), m_rectReal.right
-                                            - m_rectReal.left); //NEGA_STR
-
+                            ced_paragraph = str->toCedParagraph(SectorInfo, first_indent,
+                                    left_indent, right_indent, margin_top, m_rectReal.right
+                                            - m_rectReal.left);
                             ced_line = str->toCedLine();
                             ced_paragraph->insertLine(ced_line);
                         } else {
@@ -650,24 +625,12 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
                             == FORMAT_ALIGN_LEFT) && word_ends_with_hyphen
                             && chr->m_bFlg_spell_nocarrying)) {
                         if (nw == 0 && nz == 0 && chr->isDropCap()) {
-                            slayout = CIF::Rect();
-                            EDBOX playout__ = { 0, 0, 0, 0 };
-                            Handle hObject__ = CED_CreateFrame(SectorInfo->hEDSector,
-                                    SectorInfo->hColumn, playout__, 0x22, -1, -1, -1);
-                            CED_SetFrameFlag(hObject__, ED_DROPCAP);
-                            EDSIZE interval__ = { 0, 0 };
+                            chr->insertCedDropCap(SectorInfo, font_name, font_size, font_attrs,
+                                    str->isNegative());
 
-                            Handle hParagraph__ = CED_CreateParagraph(SectorInfo->hEDSector,
-                                    hObject__, TP_LEFT_ALLIGN, slayout, 0, -1, interval__,
-                                    playout__, -1, -1, -1, -1, FALSE);
-                            Handle hString__ = CED_CreateLine(hParagraph__, FALSE, 6);
-                            Rtf_CED_CreateChar(&slayout, Letter, chr);
-                            CED_CreateChar(hString__, slayout, Letter, font_size, font_name,
-                                    font_attrs, chr->language(), -1, -1);
-                            ced_paragraph = Rtf_CED_CreateParagraph(first_indent, left_indent,
-                                    right_indent, margin_top, SectorInfo, paragraph_align,
-                                    str->flags(), str->realLength(), m_rectReal.right
-                                            - m_rectReal.left); //NEGA_STR
+                            ced_paragraph = str->toCedParagraph(SectorInfo, first_indent,
+                                    left_indent, right_indent, margin_top, m_rectReal.right
+                                            - m_rectReal.left);
 
                             ced_line = str->toCedLine();
                             ced_paragraph->insertLine(ced_line);
