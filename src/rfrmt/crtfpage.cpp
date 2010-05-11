@@ -902,7 +902,7 @@ Bool CRtfPage::Write_USE_NONE() {
             PutCom("\\colno", 1, 0);
             PutCom("\\colw", PaperW, 0);
             pRtfFragment->setParent(this);
-            pRtfFragment->FWriteText(&pRtfSector->SectorInfo, FOT_SINGLE);
+            pRtfFragment->toCed(&pRtfSector->SectorInfo, FOT_SINGLE);
         }
     }
 
@@ -991,7 +991,7 @@ Bool CRtfPage::Write_USE_FRAME() {
 #endif
             SectorInfo->FlagOverLayed = FALSE;
             pRtfFragment->setParent(this);
-            pRtfFragment->FWriteText(SectorInfo, FOT_FRAME);
+            pRtfFragment->toCed(SectorInfo, FOT_FRAME);
             Put("}");
         }
     }

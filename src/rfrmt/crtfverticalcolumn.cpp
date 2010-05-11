@@ -52,22 +52,18 @@ Bool CRtfVerticalColumn::Write(Bool OutPutType, RtfSectorInfo* SectorInfo) {
         pRtfFragment = (CRtfFragment*) m_arFragments[i];
 
         if ((pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE)
-                && pRtfFragment->m_bFlagUsed == TRUE)
+                && pRtfFragment->isUsed())
             continue;
 
         if (pRtfFragment->type() == FT_TABLE) {
             SectorInfo->userNum = pRtfFragment->m_wUserNumberForFormattedMode;
             // pRtfFragment->FWriteTable((int) pRtfFragment->m_wUserNumber, SectorInfo, OutPutType);
-            pRtfFragment->m_bFlagUsed = TRUE;
-        }
-
-        else if (pRtfFragment->type() == FT_PICTURE) {
+            pRtfFragment->setUsed(true);
+        } else if (pRtfFragment->type() == FT_PICTURE) {
             SectorInfo->userNum = pRtfFragment->m_wUserNumberForFormattedMode;
             pRtfFragment->FWritePicture((int) pRtfFragment->m_wUserNumber, SectorInfo, OutPutType);
-            pRtfFragment->m_bFlagUsed = TRUE;
-        }
-
-        else {
+            pRtfFragment->setUsed(true);
+        } else {
             if (!pRtfFragment->m_LeftOffsetFragmentFromVerticalColumn
                     && !pRtfFragment->m_RightOffsetFragmentFromVerticalColumn) {
                 pRtfFragment->m_LeftOffsetFragmentFromVerticalColumn = pRtfFragment->m_rect.left
@@ -80,7 +76,7 @@ Bool CRtfVerticalColumn::Write(Bool OutPutType, RtfSectorInfo* SectorInfo) {
                 pRtfFragment->m_WidthVerticalColumn = (int16_t) (m_rect.right - m_rect.left);
 
             pRtfFragment->setParent(m_PagePtr);
-            pRtfFragment->FWriteText(SectorInfo, OutPutType);
+            pRtfFragment->toCed(SectorInfo, OutPutType);
         }
     }
 

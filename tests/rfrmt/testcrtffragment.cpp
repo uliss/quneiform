@@ -257,13 +257,13 @@ void TestCRtfFragment::testAdjustParagraph() {
 }
 
 #define FR_LEQUAL(fr, value) \
-    CPPUNIT_ASSERT(fr.m_CountLeftEqual == value);
+    CPPUNIT_ASSERT(fr.count_equal_left_ == value);
 
 #define FR_REQUAL(fr, value) \
-    CPPUNIT_ASSERT_EQUAL((int)value, (int)fr.m_CountRightEqual);
+    CPPUNIT_ASSERT_EQUAL((int)value, (int)fr.count_equal_right_);
 
 #define FR_CEQUAL(fr, value) \
-	CPPUNIT_ASSERT(fr.m_CountCentreEqual == value);
+	CPPUNIT_ASSERT(fr.count_equal_center_ == value);
 
 #define FR_CALC(fr) \
 		{\

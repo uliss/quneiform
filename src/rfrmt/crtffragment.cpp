@@ -32,7 +32,6 @@
 #include "ced/ced.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedline.h"
-#include "cstr/cstrdefs.h"
 #include "common/cifconfig.h"
 #include "common/debug.h"
 #include "minmax.h"
@@ -50,17 +49,16 @@ const int DEFAULT_MAX_CHAR_DISTANCE = 10;
 
 CRtfFragment::CRtfFragment() :
     parent_(NULL), left_border_(0), right_border_(0), max_char_distance_(0), flag_carry_(false),
-            mixed_fragment_(false) {
-    m_CountLeftEqual = 0;
-    m_CountRightEqual = 0;
-    m_CountLeftRightEqual = 0;
-    m_CountCentreEqual = 0;
+            mixed_fragment_(false), in_column_(false) {
+    count_equal_left_ = 0;
+    count_equal_right_ = 0;
+    count_equal_justify_ = 0;
+    count_equal_center_ = 0;
     SetRect(&m_rect, 32000, 32000, 0, 0);
     m_bOutPutType = FOT_FRAME;
     m_LeftOffsetFragmentFromVerticalColumn = 0;
     m_RightOffsetFragmentFromVerticalColumn = 0;
     m_WidthVerticalColumn = 0;
-    m_bFlagObjectInColumn = 0;
     m_wOffsetFromPrevTextFragment = 0;
     m_bFlagUsed = 0;
     m_Flag = 0;
@@ -245,8 +243,16 @@ const CRtfString * CRtfFragment::firstString() const {
     return strings_.at(0);
 }
 
+bool CRtfFragment::inColumn() const {
+    return in_column_;
+}
+
 bool CRtfFragment::isMixed() const {
     return mixed_fragment_;
+}
+
+bool CRtfFragment::isUsed() const {
+    return m_bFlagUsed;
 }
 
 void CRtfFragment::initFragmentFonts(int fragment_count) {
@@ -382,14 +388,14 @@ void CRtfFragment::updateFirstStringPairAlignment() {
 
     if (current->isEqualLeft()) {
         previous->setEqualLeft(true);
-        m_CountLeftEqual++;
+        count_equal_left_++;
     } else if (current->isEqualRight()) {
         previous->setEqualRight(true);
-        m_CountLeftRightEqual++;
-        m_CountRightEqual++;
+        count_equal_justify_++;
+        count_equal_right_++;
     } else if (current->isEqualCenter()) {
         previous->setEqualCenter(true);
-        m_CountCentreEqual++;
+        count_equal_center_++;
     } else {
         Debug() << "[CRtfFragment::updateFirstStringPairAlignment] no string alignment\n";
     }
@@ -400,20 +406,20 @@ void CRtfFragment::updateStringPairAlignment(CRtfString * current, CRtfString * 
 
     if (leftAligned(current, previous, max_char_distance_)) {
         current->setEqualLeft(true);
-        m_CountLeftEqual++;
+        count_equal_left_++;
     }
 
     if (rightAligned(current, previous, max_char_distance_)) {
         current->setEqualRight(true);
-        m_CountRightEqual++;
+        count_equal_right_++;
 
         if (current->isEqualLeft())
-            m_CountLeftRightEqual++;
+            count_equal_justify_++;
     }
 
     if (centered(current, previous, max_char_distance_)) {
         current->setEqualCenter(true);
-        m_CountCentreEqual++;
+        count_equal_center_++;
     }
 }
 
@@ -436,6 +442,10 @@ void CRtfFragment::processingUseNoneMode() {
         str->setRightIndent(0);
         str->setFirstIndent(0);
     }
+}
+
+void CRtfFragment::setInColumn(bool value) {
+    in_column_ = value;
 }
 
 void CRtfFragment::setMixed(bool value) {
@@ -469,7 +479,11 @@ void CRtfFragment::setParent(CRtfPage * page) {
 }
 
 void CRtfFragment::setType(fragment_t type) {
-    m_wType = type;
+    type_ = type;
+}
+
+void CRtfFragment::setUsed(bool value) {
+    m_bFlagUsed = value;
 }
 
 CRtfString * CRtfFragment::stringAt(size_t pos) {
@@ -495,18 +509,16 @@ std::string CRtfFragment::toString() const {
 }
 
 fragment_t CRtfFragment::type() const {
-    return m_wType;
+    return type_;
 }
 
-void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
+void CRtfFragment::toCed(RtfSectorInfo *SectorInfo, bool OutPutType) {
     int font_size;
     CEDParagraph * ced_paragraph = NULL;
     CEDLine * ced_line = NULL;
-    CIF::Letter Letter[REC_MAX_VERS];
     initFragment(SectorInfo);
     //--- Цикл по строкам
     bool is_prev_negative = false; //NEGA_STR
-    format_align_t paragraph_align;
     int left_indent;
     int right_indent;
     int first_indent;
@@ -621,7 +633,7 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
                             CEDChar * ced_char = chr->toCedChar(font_name, font_size, font_attrs);
                             ced_line->insertChar(ced_char);
                         }
-                    } else if (!((paragraph_align == FORMAT_ALIGN_JUSTIFY || paragraph_align
+                    } else if (!((str->align() == FORMAT_ALIGN_JUSTIFY || str->align()
                             == FORMAT_ALIGN_LEFT) && word_ends_with_hyphen
                             && chr->isSpelledNoCarrying())) {
                         if (nw == 0 && nz == 0 && chr->isDropCap()) {
@@ -652,8 +664,8 @@ void CRtfFragment::FWriteText(RtfSectorInfo *SectorInfo, Bool OutPutType) {
                     ced_line->insertChar(word->makeCedSpace(font_name, font_attrs));
                 }
             } else if ((*str_it != strings_.back()) && (nw == CountWords - 1) && //
-                    (paragraph_align == FORMAT_ALIGN_JUSTIFY || //
-                            paragraph_align == FORMAT_ALIGN_LEFT) && //
+                    (str->align() == FORMAT_ALIGN_JUSTIFY || //
+                            str->align() == FORMAT_ALIGN_LEFT) && //
                     !word_ends_with_hyphen) {
                 ced_line->insertChar(word->makeCedSpace(font_name, font_attrs));
             }
@@ -764,10 +776,10 @@ void CRtfFragment::processingOverlayed() {
 }
 
 void CRtfFragment::resetStringEndsEqual() {
-    m_CountLeftEqual = 0;
-    m_CountRightEqual = 0;
-    m_CountCentreEqual = 0;
-    m_CountLeftRightEqual = 0;
+    count_equal_left_ = 0;
+    count_equal_right_ = 0;
+    count_equal_center_ = 0;
+    count_equal_justify_ = 0;
 }
 
 bool CRtfFragment::determineAlignJustify(StringIterator begin, StringIterator end) {

@@ -67,6 +67,13 @@ class CLA_EXPO CRtfFragment
         const CRtfString * firstString() const;
 
         /**
+         * Returns true if object in column
+         */
+        bool inColumn() const;
+
+        bool isUsed() const;
+
+        /**
          * Returns pointer to last string in fragment
          * @throw std::out_of_range if fragment is empty
          */
@@ -77,6 +84,8 @@ class CLA_EXPO CRtfFragment
          * Prints fragment content to given output stream
          */
         void printResult(std::ostream& os, const char* header = "") const;
+
+        void setInColumn(bool value);
 
         /**
          * Sets fragment type to mixed
@@ -93,6 +102,8 @@ class CLA_EXPO CRtfFragment
          */
         void setType(fragment_t type);
 
+        void setUsed(bool value);
+
         /**
          * Returns pointer to string at @b pos
          * @throw std::out_of_range if wrong position given
@@ -106,6 +117,11 @@ class CLA_EXPO CRtfFragment
         size_t stringCount() const;
 
         /**
+         * Exports CRtfFragment to CED
+         */
+        void toCed(RtfSectorInfo* SectorInfo, bool OutPutType);
+
+        /**
          * Returns content of fragment as string
          */
         std::string toString() const;
@@ -115,7 +131,6 @@ class CLA_EXPO CRtfFragment
          */
         fragment_t type() const;
 
-        void FWriteText(RtfSectorInfo* SectorInfo, Bool OutPutType);
         void FWritePicture(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
 
         RECT m_rect;
@@ -126,10 +141,6 @@ class CLA_EXPO CRtfFragment
         int32_t m_LeftOffsetFragmentFromVerticalColumn;
         int32_t m_RightOffsetFragmentFromVerticalColumn;
         uint16_t m_wOffsetFromPrevTextFragment;
-
-        Bool m_bFlagObjectInColumn;
-        Bool m_bFlagUsed;
-        Bool m_bOutPutType;
         font_number m_wprev_font_name;
         uint16_t m_wprev_lang;
         uint16_t m_wprev_font_size;
@@ -212,11 +223,11 @@ class CLA_EXPO CRtfFragment
         int left_border_;
         int right_border_;
         int max_char_distance_;
-        uint16_t m_CountLeftEqual;
-        uint16_t m_CountRightEqual;
-        uint16_t m_CountLeftRightEqual;
-        uint16_t m_CountCentreEqual;
-        fragment_t m_wType;
+        uint16_t count_equal_left_;
+        uint16_t count_equal_right_;
+        uint16_t count_equal_justify_;
+        uint16_t count_equal_center_;
+        fragment_t type_;
         int local_fragment_left_;
         int local_fragment_right_;
         bool flag_carry_;
@@ -225,6 +236,9 @@ class CLA_EXPO CRtfFragment
         bool flag_right_;
         bool flag_big_space_;
         bool mixed_fragment_;
+        bool in_column_;
+        bool m_bFlagUsed;
+        bool m_bOutPutType;
 };
 }
 

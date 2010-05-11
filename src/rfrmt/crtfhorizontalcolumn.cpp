@@ -483,14 +483,14 @@ void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *
 
         if (pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE) {
             if (m_wType <= HC_AllTerminal) {
-                pRtfFragment->m_bFlagObjectInColumn = TRUE;
+                pRtfFragment->setInColumn(true);
                 pRtfVerticalColumn->m_bFlagObjectInColumn = TRUE;
                 SetFlagObjectInColumnForPageFragment(pRtfFragment);
             }
 
             else {
                 SectorInfo->FlagInColumn = FALSE;
-                pRtfFragment->m_bFlagObjectInColumn = FALSE;
+                pRtfFragment->setInColumn(false);
                 pRtfVerticalColumn->m_bFlagObjectInColumn = FALSE;
                 pRtfVerticalColumn->Write(FOT_SINGLE, SectorInfo);
             }
@@ -512,7 +512,7 @@ void CRtfHorizontalColumn::SetFlagObjectInColumnForPageFragment(CRtfFragment* Cu
                 == CurFragment->m_rect.left && pRtfFragment->m_rect.right
                 == CurFragment->m_rect.right && pRtfFragment->m_rect.top == CurFragment->m_rect.top
                 && pRtfFragment->m_rect.bottom == CurFragment->m_rect.bottom)
-            pRtfFragment->m_bFlagObjectInColumn = TRUE;
+            pRtfFragment->setInColumn(true);
     }
 }
 
@@ -617,7 +617,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 
             else {
                 if ((pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE)
-                        && pRtfFragment->m_bFlagObjectInColumn) {//Picture,Table
+                        && pRtfFragment->inColumn()) {//Picture,Table
                     SectorInfo->FlagInColumn = TRUE;
 
                     if (!SectorInfo->FlagOneString)//!!!Art
