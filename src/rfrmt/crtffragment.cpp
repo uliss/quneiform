@@ -49,18 +49,16 @@ const int DEFAULT_MAX_CHAR_DISTANCE = 10;
 
 CRtfFragment::CRtfFragment() :
     parent_(NULL), left_border_(0), right_border_(0), max_char_distance_(0), flag_carry_(false),
-            mixed_fragment_(false), in_column_(false) {
+            mixed_fragment_(false), in_column_(false), used_(false) {
     count_equal_left_ = 0;
     count_equal_right_ = 0;
     count_equal_justify_ = 0;
     count_equal_center_ = 0;
     SetRect(&m_rect, 32000, 32000, 0, 0);
-    m_bOutPutType = FOT_FRAME;
     m_LeftOffsetFragmentFromVerticalColumn = 0;
     m_RightOffsetFragmentFromVerticalColumn = 0;
     m_WidthVerticalColumn = 0;
     m_wOffsetFromPrevTextFragment = 0;
-    m_bFlagUsed = 0;
     m_Flag = 0;
 }
 
@@ -252,7 +250,7 @@ bool CRtfFragment::isMixed() const {
 }
 
 bool CRtfFragment::isUsed() const {
-    return m_bFlagUsed;
+    return used_;
 }
 
 void CRtfFragment::initFragmentFonts(int fragment_count) {
@@ -483,7 +481,7 @@ void CRtfFragment::setType(fragment_t type) {
 }
 
 void CRtfFragment::setUsed(bool value) {
-    m_bFlagUsed = value;
+    used_ = value;
 }
 
 CRtfString * CRtfFragment::stringAt(size_t pos) {

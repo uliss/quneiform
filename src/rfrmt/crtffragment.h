@@ -237,8 +237,7 @@ class CLA_EXPO CRtfFragment
         bool flag_big_space_;
         bool mixed_fragment_;
         bool in_column_;
-        bool m_bFlagUsed;
-        bool m_bOutPutType;
+        bool used_;
 };
 }
 
