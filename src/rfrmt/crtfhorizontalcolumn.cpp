@@ -479,7 +479,7 @@ void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *
 
     for (int i = 0; i < CountFrameInTerminalColumn; i++) {
         pRtfVerticalColumn = m_arVerticalColumns[i];
-        pRtfFragment = pRtfVerticalColumn->m_arFragments[0];
+        pRtfFragment = pRtfVerticalColumn->firstFragment();
 
         if (pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE) {
             if (m_wType <= HC_AllTerminal) {
@@ -594,7 +594,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
                 number = m_arOrderingNumber[i];
 
             pRtfVerticalColumn = m_arVerticalColumns[number];
-            pRtfFragment = pRtfVerticalColumn->m_arFragments[0];
+            pRtfFragment = pRtfVerticalColumn->firstFragment();
             FreeSpace = GetFreeSpaceBetweenPrevAndCurrentFragments(pRtfFragment->m_rect.top,
                     SectorInfo);
             SectorInfo->VerticalOffsetFragmentInColumn = FreeSpace;
@@ -771,7 +771,7 @@ Bool CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber) {
         number = m_arOrderingNumber[CurFragmentNumber];
 
     pRtfVerticalColumn = m_arVerticalColumns[number];
-    pRtfFragment = pRtfVerticalColumn->m_arFragments[0];
+    pRtfFragment = pRtfVerticalColumn->firstFragment();
     CurFragmentRect.rleft() = pRtfFragment->m_rect.left;
     CurFragmentRect.rright() = pRtfFragment->m_rect.right;
     CurFragmentRect.rbottom() = pRtfFragment->m_rect.bottom;
@@ -823,7 +823,7 @@ void CRtfHorizontalColumn::SortFragments() {
 
     for (int i = 0; i < CountFrameInTerminalColumn; i++) {
         pRtfVerticalColumn = m_arVerticalColumns[i];
-        pRtfFragment = pRtfVerticalColumn->m_arFragments[0];
+        pRtfFragment = pRtfVerticalColumn->firstFragment();
         FlagInserted = FALSE;
 
         if (i == 0)
@@ -836,7 +836,7 @@ void CRtfHorizontalColumn::SortFragments() {
             for (m = 0; m < size; m++) {
                 number = m_arOrderingNumber[m];
                 pRtfVerticalColumn = m_arVerticalColumns[number];
-                pRtfFragmentFirst = pRtfVerticalColumn->m_arFragments[0];
+                pRtfFragmentFirst = pRtfVerticalColumn->firstFragment();
 
                 //Если фрагмент выше другого
                 if (pRtfFragment->m_rect.top < pRtfFragmentFirst->m_rect.top) {
@@ -914,7 +914,7 @@ uint16_t CRtfHorizontalColumn::GetOffsetFromPrevTextFragment(CRtfFragment *pRtfF
 
     for (int i = 0; i < CountFrameInTerminalColumn; i++) {
         pRtfVerticalColumn = m_arVerticalColumns[i];
-        pRtfFragmentNext = pRtfVerticalColumn->m_arFragments[0];
+        pRtfFragmentNext = pRtfVerticalColumn->firstFragment();
 
         if (pRtfFragmentNext->type() == FT_TEXT && pRtfFragment->m_rect.top
                 >= pRtfFragmentNext->m_rect.top && pRtfFragment->m_rect.top
@@ -1030,10 +1030,9 @@ void CRtfHorizontalColumn::ToPlacePicturesAndTables(CRtfFragment* pRtfFragment) 
         m_wType = HC_ONLY_PICTURE_TABLE;
 
     pRtfVerticalColumn = m_arVerticalColumns.back();
-    pRtfVerticalColumn->m_wFragmentsCount = 1;
     pRtfVerticalColumn->m_wType = pRtfFragment->type();
-    pRtfVerticalColumn->m_arFragments.push_back(new CRtfFragment());
-    pRtfFragmentNew = pRtfVerticalColumn->m_arFragments.back();
+    pRtfFragmentNew = new CRtfFragment;
+    pRtfVerticalColumn->addFragment(pRtfFragmentNew);
     pRtfFragmentNew->setType(pRtfFragment->type());
     pRtfFragmentNew->m_wUserNumber = pRtfFragment->m_wUserNumber;
     pRtfFragmentNew->m_wUserNumberForFormattedMode = pRtfFragment->m_wUserNumberForFormattedMode;

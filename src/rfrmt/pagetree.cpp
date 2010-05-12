@@ -2669,9 +2669,11 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
                 pRtfHorizontalColumn->m_arVerticalColumns.push_back( new CIF::CRtfVerticalColumn() );
                 pRtfVerticalColumn = pRtfHorizontalColumn->m_arVerticalColumns.back();
-                pRtfVerticalColumn->m_wFragmentsCount = 1;
-                pRtfVerticalColumn->m_arFragments.push_back( new CIF::CRtfFragment() );
-                pRtfFragment = pRtfVerticalColumn->m_arFragments[/*iv*/0]; //nega ~? м.б. [iv] вместо [0]?
+                pRtfVerticalColumn->addFragment(new CIF::CRtfFragment);
+                //nega ~? м.б. [iv] вместо [0]?
+                // uliss FIXME
+                // this is really strange
+                pRtfFragment = pRtfVerticalColumn->fragmentAt(iv);
                 pRtfFragment->setType(FT_TEXT);
                 RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rect, &RectFragm[nc] );
                 RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rectReal, &RectFragm[nc] );

@@ -271,11 +271,11 @@ void CRtfSector::FillingSectorInfo() //~ тут происходит работ�
         for (int i1 = 0; i1 < CountVColumn; i1++) {
             pRtfVerticalColumn = pRtfHorizontalColumn->m_arVerticalColumns[i1];
             pRtfVerticalColumn->m_PagePtr = m_PagePtr;
-            CountFragments = pRtfVerticalColumn->m_arFragments.size();
+            CountFragments = pRtfVerticalColumn->fragmentCount();
 
             for (int i2 = 0; i2 < CountFragments; i2++) {
                 SectorInfo.CountFragments++;
-                pRtfFragment = pRtfVerticalColumn->m_arFragments[i2];
+                pRtfFragment = pRtfVerticalColumn->fragmentAt(i2);
                 //!!!Art   if(pRtfFragment->m_wType == FT_FRAME || pRtfFragment->m_wType == FT_TEXT )
                 //!!!Art   SectorInfo.Offset.y = MIN(SectorInfo.Offset.y, pRtfFragment->m_rect.top);
             }

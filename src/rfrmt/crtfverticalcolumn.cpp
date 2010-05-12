@@ -28,28 +28,52 @@ namespace CIF
 CRtfVerticalColumn::CRtfVerticalColumn() {
     m_bSortFlag = 0;
     m_wType = FT_TEXT;
-    m_wFragmentsCount = 0;
     SetRect(&m_rect, 32000, 32000, 0, 0);
     m_bFlagObjectInColumn = 0;
     m_PagePtr = 0;
 }
 
 CRtfVerticalColumn::~CRtfVerticalColumn() {
-    CRtfFragment* cFrag;
-    m_wFragmentsCount = m_arFragments.size();
+    clearFragments();
+}
 
-    for (uint32_t i = 0; i < m_wFragmentsCount; i++) {
-        cFrag = m_arFragments[i];
-        delete cFrag;
+void CRtfVerticalColumn::addFragment(CRtfFragment * fragment) {
+    fragments_.push_back(fragment);
+}
+
+void CRtfVerticalColumn::clearFragments() {
+    for (FragmentIterator it = fragments_.begin(), end = fragments_.end(); it != end; ++it) {
+        delete (*it);
     }
+
+    fragments_.clear();
+}
+
+CRtfFragment * CRtfVerticalColumn::firstFragment() {
+    return fragments_.at(0);
+}
+
+const CRtfFragment * CRtfVerticalColumn::firstFragment() const {
+    return fragments_.at(0);
+}
+
+CRtfFragment * CRtfVerticalColumn::fragmentAt(size_t pos) {
+    return fragments_.at(pos);
+}
+
+const CRtfFragment * CRtfVerticalColumn::fragmentAt(size_t pos) const {
+    return fragments_.at(pos);
+}
+
+size_t CRtfVerticalColumn::fragmentCount() const {
+    return fragments_.size();
 }
 
 Bool CRtfVerticalColumn::Write(Bool OutPutType, RtfSectorInfo* SectorInfo) {
     CRtfFragment* pRtfFragment;
-    m_wFragmentsCount = m_arFragments.size();
 
-    for (int i = 0; i < m_wFragmentsCount; i++) {
-        pRtfFragment = (CRtfFragment*) m_arFragments[i];
+    for (int i = 0; i < fragments_.size(); i++) {
+        pRtfFragment = (CRtfFragment*) fragments_[i];
 
         if ((pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE)
                 && pRtfFragment->isUsed())

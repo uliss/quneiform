@@ -36,13 +36,40 @@ class CRtfVerticalColumn
         CRtfVerticalColumn();
         ~CRtfVerticalColumn();
 
+        /**
+         * Adds fragment to the end of column
+         */
+        void addFragment(CRtfFragment * fragment);
+
+        /**
+         * Removes all fragments from column
+         */
+        void clearFragments();
+
+        /**
+         * Returns pointer to first fragment in column
+         * @throw std::out_of_range if column is empty
+         */
+        CRtfFragment * firstFragment();
+        const CRtfFragment * firstFragment() const;
+
+        /**
+         * Returns pointer to fragment
+         * @param pos - position of fragment
+         * @throw std::out_of_range if fragment not exists at such position
+         */
+        CRtfFragment * fragmentAt(size_t pos);
+        const CRtfFragment * fragmentAt(size_t pos) const;
+
+        /**
+         * Returns fragment count
+         */
+        size_t fragmentCount() const;
+
         Bool Write(Bool OutPutType, RtfSectorInfo* SectorInfo);
         void SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorInfo* SectorInfo);
 
-        std::vector<CRtfFragment*> m_arFragments;
         CRtfPage *m_PagePtr;
-
-        uint16_t m_wFragmentsCount;
         uint16_t m_wIndex;
         Bool m_bSortFlag;
         RECT m_rect;
@@ -50,6 +77,10 @@ class CRtfVerticalColumn
         uint16_t m_wType;
         Bool m_bFlagObjectInColumn;
         Bool m_bFlagSmall;
+    private:
+        typedef std::vector<CRtfFragment*> FragmentList;
+        typedef FragmentList::iterator FragmentIterator;
+        FragmentList fragments_;
 };
 
 }
