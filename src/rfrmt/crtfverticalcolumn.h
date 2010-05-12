@@ -81,6 +81,16 @@ class CRtfVerticalColumn
         void setPage(CRtfPage * page);
 
         /**
+         * Sets column type
+         */
+        void setType(fragment_t type);
+
+        /**
+         * Returns column type
+         */
+        fragment_t type() const;
+
+        /**
          * Exports column to CED document structure
          * @param type
          * @param SectorInfo
@@ -90,13 +100,13 @@ class CRtfVerticalColumn
         Bool m_bSortFlag;
         RECT m_rect;
         RECT m_rectReal;
-        uint16_t m_wType;
         Bool m_bFlagSmall;
     private:
         typedef std::vector<CRtfFragment*> FragmentList;
         typedef FragmentList::iterator FragmentIterator;
         FragmentList fragments_;
         CRtfPage * page_;
+        fragment_t m_wType;
 };
 
 }

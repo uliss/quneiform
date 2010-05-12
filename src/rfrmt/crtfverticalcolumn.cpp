@@ -80,6 +80,14 @@ void CRtfVerticalColumn::setPage(CRtfPage * page) {
     page_ = page;
 }
 
+void CRtfVerticalColumn::setType(fragment_t type) {
+    m_wType = type;
+}
+
+fragment_t CRtfVerticalColumn::type() const {
+    return m_wType;
+}
+
 void CRtfVerticalColumn::write(RtfSectorInfo * sector, fragment_output_t type) {
     for (FragmentIterator it = fragments_.begin(), end = fragments_.end(); it != end; ++it) {
         CRtfFragment * fragm = *it;
