@@ -29,7 +29,6 @@ CRtfVerticalColumn::CRtfVerticalColumn() {
     m_bSortFlag = 0;
     m_wType = FT_TEXT;
     SetRect(&m_rect, 32000, 32000, 0, 0);
-    m_bFlagObjectInColumn = 0;
     m_PagePtr = 0;
 }
 

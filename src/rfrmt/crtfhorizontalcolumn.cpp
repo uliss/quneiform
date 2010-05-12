@@ -484,14 +484,12 @@ void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *
         if (pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE) {
             if (m_wType <= HC_AllTerminal) {
                 pRtfFragment->setInColumn(true);
-                pRtfVerticalColumn->m_bFlagObjectInColumn = TRUE;
                 SetFlagObjectInColumnForPageFragment(pRtfFragment);
             }
 
             else {
                 SectorInfo->FlagInColumn = FALSE;
                 pRtfFragment->setInColumn(false);
-                pRtfVerticalColumn->m_bFlagObjectInColumn = FALSE;
                 pRtfVerticalColumn->Write(FOT_SINGLE, SectorInfo);
             }
         }

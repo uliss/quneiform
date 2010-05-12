@@ -70,12 +70,10 @@ class CRtfVerticalColumn
         void SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorInfo* SectorInfo);
 
         CRtfPage *m_PagePtr;
-        uint16_t m_wIndex;
         Bool m_bSortFlag;
         RECT m_rect;
         RECT m_rectReal;
         uint16_t m_wType;
-        Bool m_bFlagObjectInColumn;
         Bool m_bFlagSmall;
     private:
         typedef std::vector<CRtfFragment*> FragmentList;
