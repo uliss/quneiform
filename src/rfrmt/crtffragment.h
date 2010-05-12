@@ -100,8 +100,6 @@ class CLA_EXPO CRtfFragment
          */
         void setType(fragment_t type);
 
-        void setUsed(bool value);
-
         /**
          * Returns pointer to string at @b pos
          * @throw std::out_of_range if wrong position given
