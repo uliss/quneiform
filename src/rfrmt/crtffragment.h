@@ -71,8 +71,6 @@ class CLA_EXPO CRtfFragment
          */
         bool inColumn() const;
 
-        bool isUsed() const;
-
         /**
          * Returns pointer to last string in fragment
          * @throw std::out_of_range if fragment is empty
@@ -117,11 +115,6 @@ class CLA_EXPO CRtfFragment
         size_t stringCount() const;
 
         /**
-         * Exports CRtfFragment to CED
-         */
-        void toCed(RtfSectorInfo* SectorInfo, bool OutPutType);
-
-        /**
          * Returns content of fragment as string
          */
         std::string toString() const;
@@ -130,6 +123,26 @@ class CLA_EXPO CRtfFragment
          * Returns fragment type
          */
         fragment_t type() const;
+
+        /**
+         * Exports fragment to CED document tree structure
+         */
+        void write(RtfSectorInfo * sector, fragment_output_t type);
+
+        /**
+         * Exports fragment to CED picture
+         */
+        void writePicture(RtfSectorInfo * sector, fragment_output_t type);
+
+        /**
+         * Exports fragment to CED tables
+         */
+        void writeTable(RtfSectorInfo* SectorInfo, fragment_output_t type);
+
+        /**
+         * Exports fragment to CED text
+         */
+        void writeText(RtfSectorInfo* SectorInfo, fragment_output_t type);
 
         void FWritePicture(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
 
@@ -232,7 +245,7 @@ class CLA_EXPO CRtfFragment
         bool flag_big_space_;
         bool mixed_fragment_;
         bool in_column_;
-        bool used_;
+        bool written_;
 };
 }
 

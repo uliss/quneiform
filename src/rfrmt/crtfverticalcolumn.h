@@ -21,6 +21,7 @@
 
 #include <vector>
 #include "cfcompat.h"
+#include "creatertf.h"
 
 class RtfSectorInfo;
 
@@ -66,10 +67,26 @@ class CRtfVerticalColumn
          */
         size_t fragmentCount() const;
 
-        Bool Write(Bool OutPutType, RtfSectorInfo* SectorInfo);
-        void SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorInfo* SectorInfo);
+        /**
+         * Returns pointer to parent page
+         * @return
+         */
+        CRtfPage * page();
+        const CRtfPage * page() const;
 
-        CRtfPage *m_PagePtr;
+        /**
+         * Sets pointer to parent page
+         * @param page
+         */
+        void setPage(CRtfPage * page);
+
+        /**
+         * Exports column to CED document structure
+         * @param type
+         * @param SectorInfo
+         */
+        void write(RtfSectorInfo * SectorInfo, fragment_output_t type);
+
         Bool m_bSortFlag;
         RECT m_rect;
         RECT m_rectReal;
@@ -79,6 +96,7 @@ class CRtfVerticalColumn
         typedef std::vector<CRtfFragment*> FragmentList;
         typedef FragmentList::iterator FragmentIterator;
         FragmentList fragments_;
+        CRtfPage * page_;
 };
 
 }

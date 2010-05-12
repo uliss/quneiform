@@ -490,7 +490,7 @@ void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *
             else {
                 SectorInfo->FlagInColumn = FALSE;
                 pRtfFragment->setInColumn(false);
-                pRtfVerticalColumn->Write(FOT_SINGLE, SectorInfo);
+                pRtfVerticalColumn->write(SectorInfo, FOT_SINGLE);
             }
         }
     }
@@ -610,7 +610,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 
 #endif
                 SectorInfo->FlagOverLayed = GetOverLayedFlag(i);
-                pRtfVerticalColumn->Write(FOT_SINGLE, SectorInfo);
+                pRtfVerticalColumn->write(SectorInfo, FOT_SINGLE);
             }
 
             else {
@@ -632,7 +632,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
                         SectorInfo->hObject = SectorInfo->hColumn;
 
 #endif
-                    pRtfVerticalColumn->Write(FOT_SINGLE, SectorInfo);
+                    pRtfVerticalColumn->write(SectorInfo, FOT_SINGLE);
                 }
             }
         }
@@ -709,7 +709,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 
 #endif
                 SectorInfo->FlagOverLayed = GetOverLayedFlag(index);
-                pRtfVerticalColumn->Write(FOT_SINGLE, SectorInfo);
+                pRtfVerticalColumn->write(SectorInfo, FOT_SINGLE);
             }
 
             if (*VTerminalColumnNumber < CountVTerminalColumns)
@@ -992,7 +992,7 @@ void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo
 
 #endif
             SectorInfo->FlagOverLayed = FALSE;
-            pRtfVerticalColumn->Write(FOT_FRAME, SectorInfo);
+            pRtfVerticalColumn->write(SectorInfo, FOT_FRAME);
             Put("}");
         }
     }
@@ -1010,7 +1010,7 @@ void CRtfHorizontalColumn::WriteNonTerminalColumns(RtfSectorInfo* SectorInfo) {
 
         if (pRtfVerticalColumn->m_wType > FT_FRAME) {
             SectorInfo->FlagInColumn = FALSE;
-            pRtfVerticalColumn->Write(FOT_FRAME, SectorInfo);
+            pRtfVerticalColumn->write(SectorInfo, FOT_FRAME);
         }
     }
 }

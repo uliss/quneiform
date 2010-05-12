@@ -25,11 +25,11 @@
 namespace CIF
 {
 
-CRtfVerticalColumn::CRtfVerticalColumn() {
+CRtfVerticalColumn::CRtfVerticalColumn() :
+    page_(NULL) {
     m_bSortFlag = 0;
     m_wType = FT_TEXT;
     SetRect(&m_rect, 32000, 32000, 0, 0);
-    m_PagePtr = 0;
 }
 
 CRtfVerticalColumn::~CRtfVerticalColumn() {
@@ -68,100 +68,33 @@ size_t CRtfVerticalColumn::fragmentCount() const {
     return fragments_.size();
 }
 
-Bool CRtfVerticalColumn::Write(Bool OutPutType, RtfSectorInfo* SectorInfo) {
-    CRtfFragment* pRtfFragment;
-
-    for (int i = 0; i < fragments_.size(); i++) {
-        pRtfFragment = (CRtfFragment*) fragments_[i];
-
-        if ((pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE)
-                && pRtfFragment->isUsed())
-            continue;
-
-        if (pRtfFragment->type() == FT_TABLE) {
-            SectorInfo->userNum = pRtfFragment->m_wUserNumberForFormattedMode;
-            // pRtfFragment->FWriteTable((int) pRtfFragment->m_wUserNumber, SectorInfo, OutPutType);
-            pRtfFragment->setUsed(true);
-        } else if (pRtfFragment->type() == FT_PICTURE) {
-            SectorInfo->userNum = pRtfFragment->m_wUserNumberForFormattedMode;
-            pRtfFragment->FWritePicture((int) pRtfFragment->m_wUserNumber, SectorInfo, OutPutType);
-            pRtfFragment->setUsed(true);
-        } else {
-            if (!pRtfFragment->m_LeftOffsetFragmentFromVerticalColumn
-                    && !pRtfFragment->m_RightOffsetFragmentFromVerticalColumn) {
-                pRtfFragment->m_LeftOffsetFragmentFromVerticalColumn = pRtfFragment->m_rect.left
-                        - m_rect.left;
-                pRtfFragment->m_RightOffsetFragmentFromVerticalColumn = m_rect.right
-                        - pRtfFragment->m_rect.right;
-            }
-
-            if (!pRtfFragment->m_WidthVerticalColumn)
-                pRtfFragment->m_WidthVerticalColumn = (int16_t) (m_rect.right - m_rect.left);
-
-            pRtfFragment->setParent(m_PagePtr);
-            pRtfFragment->toCed(SectorInfo, OutPutType);
-        }
-    }
-
-    return TRUE;
+CRtfPage * CRtfVerticalColumn::page() {
+    return page_;
 }
 
-void CRtfVerticalColumn::SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorInfo* SectorInfo) {
-    CRtfFragment* pRtfFragment;
-    RECT LeftFreePlace, RightFreePlace, TopFreePlace, BottomFreePlace, CurrentFragmentRect,
-            RectInter;
-    int i, CountFragments;
-    int32_t LeftFree, RightFree, TopFree, BottomFree;
-    LeftFree = CurrentFragment->m_rect.left;
-    RightFree = SectorInfo->PaperW - CurrentFragment->m_rect.right;
-    TopFree = CurrentFragment->m_rect.top;
-    BottomFree = SectorInfo->PaperH - CurrentFragment->m_rect.bottom;
-    LeftFreePlace.left = 0;
-    LeftFreePlace.right = MAX(0, CurrentFragment->m_rect.left - 1);
-    LeftFreePlace.top = CurrentFragment->m_rect.top;
-    LeftFreePlace.bottom = CurrentFragment->m_rect.bottom;
-    RightFreePlace.left = CurrentFragment->m_rect.right + 1;
-    RightFreePlace.right = SectorInfo->PaperW;
-    RightFreePlace.top = CurrentFragment->m_rect.top;
-    RightFreePlace.bottom = CurrentFragment->m_rect.bottom;
-    TopFreePlace.left = CurrentFragment->m_rect.left;
-    TopFreePlace.right = CurrentFragment->m_rect.right;
-    TopFreePlace.top = 0;
-    TopFreePlace.bottom = MAX(0, CurrentFragment->m_rect.top - 1);
-    BottomFreePlace.left = CurrentFragment->m_rect.left;
-    BottomFreePlace.right = CurrentFragment->m_rect.right;
-    BottomFreePlace.top = CurrentFragment->m_rect.bottom + 1;
-    BottomFreePlace.bottom = SectorInfo->PaperH;
-    CountFragments = m_PagePtr->m_arFragments.size();
+const CRtfPage * CRtfVerticalColumn::page() const {
+    return page_;
+}
 
-    for (i = 0; i < CountFragments; i++) {
-        pRtfFragment = m_PagePtr->m_arFragments[i];
+void CRtfVerticalColumn::setPage(CRtfPage * page) {
+    page_ = page;
+}
 
-        if (pRtfFragment->type() == FT_PICTURE || pRtfFragment->type() == FT_TABLE)
-            continue;
+void CRtfVerticalColumn::write(RtfSectorInfo * sector, fragment_output_t type) {
+    for (FragmentIterator it = fragments_.begin(), end = fragments_.end(); it != end; ++it) {
+        CRtfFragment * fragm = *it;
+        if (!fragm->m_LeftOffsetFragmentFromVerticalColumn
+                && !fragm->m_RightOffsetFragmentFromVerticalColumn) {
+            fragm->m_LeftOffsetFragmentFromVerticalColumn = m_rect.left - fragm->m_rect.left;
+            fragm->m_RightOffsetFragmentFromVerticalColumn = m_rect.right - fragm->m_rect.right;
+        }
 
-        CurrentFragmentRect.left = pRtfFragment->m_rect.left;
-        CurrentFragmentRect.right = pRtfFragment->m_rect.right;
-        CurrentFragmentRect.top = pRtfFragment->m_rect.top;
-        CurrentFragmentRect.bottom = pRtfFragment->m_rect.bottom;
+        if (!fragm->m_WidthVerticalColumn)
+            fragm->m_WidthVerticalColumn = m_rect.right - m_rect.left;
 
-        if (IntersectRect(&RectInter, &CurrentFragmentRect, &LeftFreePlace))
-            LeftFree = MIN(LeftFree, LeftFreePlace.right - CurrentFragmentRect.right);
-
-        if (IntersectRect(&RectInter, &CurrentFragmentRect, &RightFreePlace))
-            RightFree = MIN(RightFree, CurrentFragmentRect.left - RightFreePlace.left);
-
-        if (IntersectRect(&RectInter, &CurrentFragmentRect, &TopFreePlace))
-            TopFree = MIN(TopFree, TopFreePlace.bottom - CurrentFragmentRect.bottom);
-
-        if (IntersectRect(&RectInter, &CurrentFragmentRect, &BottomFreePlace))
-            BottomFree = MIN(BottomFree, CurrentFragmentRect.top - BottomFreePlace.top);
+        fragm->setParent(page_);
+        fragm->write(sector, type);
     }
-
-    SectorInfo->m_rectFree.left = (int32_t) (MAX(0, LeftFree) * TwipsToEMU_Koef);
-    SectorInfo->m_rectFree.right = (int32_t) (MAX(0, RightFree) * TwipsToEMU_Koef);
-    SectorInfo->m_rectFree.top = (int32_t) (MAX(0, TopFree) * TwipsToEMU_Koef);
-    SectorInfo->m_rectFree.bottom = (int32_t) (MAX(0, BottomFree) * TwipsToEMU_Koef);
 }
 
 }
