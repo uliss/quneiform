@@ -622,7 +622,6 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 
                     if (!SectorInfo->FlagOneString)//!!!Art
                         SectorInfo->OffsetFromColumn.rx() = pRtfFragment->m_rect.left - m_rect.left;
-
                     else
                         //!!!Art
                         SectorInfo->OffsetFromColumn.rx() = pRtfFragment->m_rect.left

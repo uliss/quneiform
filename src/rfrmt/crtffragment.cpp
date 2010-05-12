@@ -253,10 +253,7 @@ bool CRtfFragment::isUsed() const {
 }
 
 void CRtfFragment::initFragmentFonts(int fragment_count) {
-    CRtfWord* first_word = firstString()->firstWord();
     firstString()->setFontSizePenalty(SMALL_FONT_SIZE, fontSizePenalty(fragment_count));
-    m_wprev_font_name = fontName(first_word->fontNumber());
-    m_wprev_font_size = first_word->realFontSize();
 }
 
 bool CRtfFragment::isBigIndent(const CRtfString* str) const {
@@ -558,8 +555,6 @@ void CRtfFragment::toCed(RtfSectorInfo *SectorInfo, bool OutPutType) {
             if (OutPutType)
                 margin_top = 0;
 
-            m_wprev_font_size = word->realFontSize();
-
             if (RfrmtOptions::useFramesAndColumns()) {
                 if (SectorInfo->FlagOneString == TRUE) {
                     left_indent = 0;
@@ -691,7 +686,6 @@ int CRtfFragment::fontSizePenalty(int fragment_count) const {
 void CRtfFragment::initFragment(RtfSectorInfo* SectorInfo) {
     assert(SectorInfo);
     initFragmentFonts(SectorInfo->CountFragments);
-    m_wprev_lang = 1024;
     setFragmentAlignment(SectorInfo);
 }
 

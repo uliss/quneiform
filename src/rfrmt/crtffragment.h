@@ -140,9 +140,6 @@ class CLA_EXPO CRtfFragment
         int32_t m_LeftOffsetFragmentFromVerticalColumn;
         int32_t m_RightOffsetFragmentFromVerticalColumn;
         uint16_t m_wOffsetFromPrevTextFragment;
-        font_number m_wprev_font_name;
-        uint16_t m_wprev_lang;
-        uint16_t m_wprev_font_size;
         int16_t m_WidthVerticalColumn;
     private:
         typedef std::vector<CRtfString*> StringList;
