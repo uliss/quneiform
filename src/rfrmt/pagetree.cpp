@@ -2579,7 +2579,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 pRtfFragment->m_rect.right = RectFragm[nc].right;
                 pRtfFragment->m_rect.top = RectFragm[nc].top;
                 pRtfFragment->m_rect.bottom = RectFragm[nc].bottom;
-                pRtfFragment->m_Flag = FragFlag [nc]; //nega_str сделать цикл и занести в массив RtfString признаки негативности
+                //pRtfFragment->m_Flag = FragFlag [nc]; //nega_str сделать цикл и занести в массив RtfString признаки негативности
                 do0(ns, 0, NumStr[nc]) { //str. begin
                     if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
                         continue;
@@ -2677,7 +2677,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rectReal, &RectFragm[nc] );
                 RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rect, &RectFragm[nc] );
                 RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rectReal, &RectFragm[nc] );
-                pRtfFragment->m_Flag = FragFlag[nc]; //nega
+                //pRtfFragment->m_Flag = FragFlag[nc]; //nega
                 do0(ns, 0, NumStr[nc]) { //str. begin
                     if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
                         continue;

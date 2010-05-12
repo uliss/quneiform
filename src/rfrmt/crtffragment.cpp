@@ -59,7 +59,6 @@ CRtfFragment::CRtfFragment() :
     m_RightOffsetFragmentFromVerticalColumn = 0;
     m_WidthVerticalColumn = 0;
     m_wOffsetFromPrevTextFragment = 0;
-    m_Flag = 0;
 }
 
 CRtfFragment::~CRtfFragment() {

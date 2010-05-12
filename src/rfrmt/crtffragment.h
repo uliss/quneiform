@@ -144,7 +144,6 @@ class CLA_EXPO CRtfFragment
         uint16_t m_wprev_lang;
         uint16_t m_wprev_font_size;
         int16_t m_WidthVerticalColumn;
-        uint32_t m_Flag;
     private:
         typedef std::vector<CRtfString*> StringList;
         typedef StringList::iterator StringIterator;
