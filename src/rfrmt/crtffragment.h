@@ -135,7 +135,6 @@ class CLA_EXPO CRtfFragment
 
         RECT m_rect;
         RECT m_rectReal;
-        RECT m_rectFree;
         uint32_t m_wUserNumber;
         uint32_t m_wUserNumberForFormattedMode;
         int32_t m_LeftOffsetFragmentFromVerticalColumn;

@@ -135,14 +135,10 @@ void CRtfVerticalColumn::SetSpaceRect(CRtfFragment* CurrentFragment, RtfSectorIn
             BottomFree = MIN(BottomFree, CurrentFragmentRect.top - BottomFreePlace.top);
     }
 
-    SectorInfo->m_rectFree.left = CurrentFragment->m_rectFree.left = (int32_t) (MAX(0, LeftFree)
-            * TwipsToEMU_Koef);
-    SectorInfo->m_rectFree.right = CurrentFragment->m_rectFree.right = (int32_t) (MAX(0, RightFree)
-            * TwipsToEMU_Koef);
-    SectorInfo->m_rectFree.top = CurrentFragment->m_rectFree.top = (int32_t) (MAX(0, TopFree)
-            * TwipsToEMU_Koef);
-    SectorInfo->m_rectFree.bottom = CurrentFragment->m_rectFree.bottom = (int32_t) (MAX(0,
-            BottomFree) * TwipsToEMU_Koef);
+    SectorInfo->m_rectFree.left = (int32_t) (MAX(0, LeftFree) * TwipsToEMU_Koef);
+    SectorInfo->m_rectFree.right = (int32_t) (MAX(0, RightFree) * TwipsToEMU_Koef);
+    SectorInfo->m_rectFree.top = (int32_t) (MAX(0, TopFree) * TwipsToEMU_Koef);
+    SectorInfo->m_rectFree.bottom = (int32_t) (MAX(0, BottomFree) * TwipsToEMU_Koef);
 }
 
 }
