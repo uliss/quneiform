@@ -36,6 +36,28 @@ class CRtfHorizontalColumn
         CRtfHorizontalColumn();
         ~CRtfHorizontalColumn();
 
+        /**
+         * Adds vertical column
+         */
+        void addColumn(CRtfVerticalColumn * col);
+
+        /**
+         * Removes all vertical columns
+         */
+        void clearColumns();
+
+        /**
+         * Returns pointer to vertical column at position @b pos
+         * @throw std::out_of_range if invalid position given
+         */
+        CRtfVerticalColumn * columnAt(size_t pos);
+        const CRtfVerticalColumn * columnAt(size_t pos) const;
+
+        /**
+         * Returns number of vertical columns
+         */
+        size_t columnCount() const;
+
         CRtfPage *m_PagePtr;
 
         Bool Write(/*CWordArray*/vectorWord* arRightBoundTerminalColumns,
@@ -63,17 +85,18 @@ class CRtfHorizontalColumn
         Bool GetOverLayedFlag(int CurFragmentNumber);
         void SetFlagObjectInColumnForPageFragment(CRtfFragment* CurFragment);
 
-        std::vector<CRtfVerticalColumn*> m_arVerticalColumns;
         std::vector<vectorWord*> m_arVTerminalColumnsGroup;
         std::vector<vectorWord*> m_arVTerminalColumnsIndex;
         vectorWord m_arSpacePlace;
         std::vector<uchar> m_arOrderingNumber;
-
-        uint16_t m_wVerticalColumnsCount;
         uint16_t m_wIndex;
         RECT m_rect;
         RECT m_rectReal;
         uint16_t m_wType;
+    private:
+        typedef std::vector<CRtfVerticalColumn*> VColumnList;
+        typedef VColumnList::iterator VColumnIterator;
+        VColumnList vcols_;
 };
 
 }

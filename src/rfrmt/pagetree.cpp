@@ -2656,7 +2656,6 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
             RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rect, &ColH[i][ih].bnd);
             RtfUnionRect_CRect_CRect(&pRtfSector->m_rect, &pRtfHorizontalColumn->m_rect);
             RtfUnionRect_CRect_CRect(&RtfPage->m_rect, &pRtfSector->m_rect);
-            pRtfHorizontalColumn->m_wVerticalColumnsCount = K_Ver[i][ih];
             pRtfHorizontalColumn->m_wType = K_Ver_Flag_Term[i][ih];
             do0(iv, 0, K_Ver[i][ih]) { //vert. col.  begin
                 nc = Colt[i][ih][iv];
@@ -2667,8 +2666,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 if ( K_Hor[i] == 0 && K_Ver[i][ih] == 0 && NumStr[nc] == 0 )
                     pRtfSector->m_FlagOneString = TRUE;
 
-                pRtfHorizontalColumn->m_arVerticalColumns.push_back( new CIF::CRtfVerticalColumn() );
-                pRtfVerticalColumn = pRtfHorizontalColumn->m_arVerticalColumns.back();
+                pRtfVerticalColumn = new CIF::CRtfVerticalColumn;
+                pRtfHorizontalColumn->addColumn(pRtfVerticalColumn);
                 pRtfVerticalColumn->addFragment(new CIF::CRtfFragment);
                 //nega ~? м.б. [iv] вместо [0]?
                 // uliss FIXME

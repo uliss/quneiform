@@ -266,10 +266,10 @@ void CRtfSector::FillingSectorInfo() //~ тут происходит работ�
 
     for (int i = 0; i < m_wHorizontalColumnsCount; i++) {
         pRtfHorizontalColumn = m_arHorizontalColumns[i];
-        CountVColumn = pRtfHorizontalColumn->m_arVerticalColumns.size();
+        CountVColumn = pRtfHorizontalColumn->columnCount();
 
         for (int i1 = 0; i1 < CountVColumn; i1++) {
-            pRtfVerticalColumn = pRtfHorizontalColumn->m_arVerticalColumns[i1];
+            pRtfVerticalColumn = pRtfHorizontalColumn->columnAt(i1);
             pRtfVerticalColumn->setPage(m_PagePtr);
             CountFragments = pRtfVerticalColumn->fragmentCount();
 

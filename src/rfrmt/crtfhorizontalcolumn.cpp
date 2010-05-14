@@ -29,22 +29,16 @@ namespace CIF
 {
 
 CRtfHorizontalColumn::CRtfHorizontalColumn() {
-    m_wVerticalColumnsCount = 0;
     m_wType = HC_SingleTerminal;
     SetRect(&m_rect, 32000, 32000, 0, 0);
     SetRect(&m_rectReal, 32000, 32000, 0, 0);
 }
 
 CRtfHorizontalColumn::~CRtfHorizontalColumn() {
-    CRtfVerticalColumn* cVerticalColumn;
     uint16_t Count;
     int i;
-    m_wVerticalColumnsCount = m_arVerticalColumns.size();
 
-    for (i = 0; i < m_wVerticalColumnsCount; i++) {
-        cVerticalColumn = m_arVerticalColumns[i];
-        delete cVerticalColumn;
-    }
+    clearColumns();
 
     Count = m_arVTerminalColumnsGroup.size();
 
@@ -60,6 +54,30 @@ CRtfHorizontalColumn::~CRtfHorizontalColumn() {
         delete pGroupIndex;
     }
 }
+
+void CRtfHorizontalColumn::addColumn(CRtfVerticalColumn * col) {
+    vcols_.push_back(col);
+}
+
+void CRtfHorizontalColumn::clearColumns() {
+    for (VColumnIterator it = vcols_.begin(), end = vcols_.end(); it != end; ++it)
+        delete *it;
+
+    vcols_.clear();
+}
+
+CRtfVerticalColumn * CRtfHorizontalColumn::columnAt(size_t pos) {
+    return vcols_.at(pos);
+}
+
+const CRtfVerticalColumn * CRtfHorizontalColumn::columnAt(size_t pos) const {
+    return vcols_.at(pos);
+}
+
+size_t CRtfHorizontalColumn::columnCount() const {
+    return vcols_.size();
+}
+
 //~ здесь попытка деления на колонки
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 CalcHorizontalColumn                                           //
@@ -84,13 +102,10 @@ void CRtfHorizontalColumn::CalcHorizontalColumn(void) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool CRtfHorizontalColumn::CheckTermColumn(void) {
     CRtfVerticalColumn *pRtfVerticalColumn, *pRtfPrevVerticalColumn;
-    int i;
-    m_wVerticalColumnsCount = m_arVerticalColumns.size();
-
-    for (i = 0; i < m_wVerticalColumnsCount; i++) {
+    for (int i = 0; i < vcols_.size(); i++) {
         if (i) {
-            pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
-            pRtfPrevVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i - 1];
+            pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
+            pRtfPrevVerticalColumn = (CRtfVerticalColumn*) vcols_[i - 1];
 
             if (pRtfVerticalColumn->m_rectReal.top < pRtfPrevVerticalColumn->m_rectReal.bottom)
                 return FALSE;
@@ -112,10 +127,9 @@ void CRtfHorizontalColumn::FindHeadingAndSetFrameFlag(void) {
     int32_t Left = 32000, Right = 0, Length, Left1, Right1;
     int i, j, FlagLeft, FlagRight, tmp;
     int32_t MaxWidth = 1, MaxHeight = 1;
-    m_wVerticalColumnsCount = m_arVerticalColumns.size();
 
-    for (i = 0; i < m_wVerticalColumnsCount; i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
+    for (i = 0; i < vcols_.size(); i++) {
+        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_TEXT || pRtfVerticalColumn->type() == FT_FRAME) {
             MaxWidth = MAX(MaxWidth, pRtfVerticalColumn->m_rectReal.right
@@ -126,8 +140,8 @@ void CRtfHorizontalColumn::FindHeadingAndSetFrameFlag(void) {
         }
     }
 
-    for (i = 0; i < m_wVerticalColumnsCount; i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
+    for (i = 0; i < vcols_.size(); i++) {
+        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_TEXT || pRtfVerticalColumn->type() == FT_FRAME) {
             if (((pRtfVerticalColumn->m_rectReal.right - pRtfVerticalColumn->m_rectReal.left) * 2
@@ -137,8 +151,8 @@ void CRtfHorizontalColumn::FindHeadingAndSetFrameFlag(void) {
         }
     }
 
-    for (i = 0; i < m_wVerticalColumnsCount; i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
+    for (i = 0; i < vcols_.size(); i++) {
+        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
 
         if ((pRtfVerticalColumn->type() == FT_TEXT || pRtfVerticalColumn->type() == FT_FRAME)
                 && pRtfVerticalColumn->m_bFlagSmall == FALSE) {
@@ -152,8 +166,8 @@ void CRtfHorizontalColumn::FindHeadingAndSetFrameFlag(void) {
     for (i = 0; i < Length; i++)
         Hist.push_back(0);
 
-    for (i = 0; i < m_wVerticalColumnsCount; i++) { //~накопление гистограммы
-        pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
+    for (i = 0; i < vcols_.size(); i++) { //~накопление гистограммы
+        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
 
         if ((pRtfVerticalColumn->type() == FT_TEXT || pRtfVerticalColumn->type() == FT_FRAME)
                 && pRtfVerticalColumn->m_bFlagSmall == FALSE) {
@@ -165,8 +179,8 @@ void CRtfHorizontalColumn::FindHeadingAndSetFrameFlag(void) {
         }
     }
 
-    for (i = 0; i < m_wVerticalColumnsCount; i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
+    for (i = 0; i < vcols_.size(); i++) {
+        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
 
         if (pRtfVerticalColumn->m_bFlagSmall) {
             pRtfVerticalColumn->setType(FT_FRAME);
@@ -222,10 +236,9 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
     CRtfVerticalColumn* pRtfVerticalColumn;
     int32_t Left = 32000, Right = 0, Length, Left1, Right1;
     int i, j, FlagSpace = 0, CountColumn, MinLeft, MaxRight;
-    m_wVerticalColumnsCount = m_arVerticalColumns.size();
 
-    for (i = 0; i < m_wVerticalColumnsCount; i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
+    for (i = 0; i < vcols_.size(); i++) {
+        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_TEXT) {
             Left = MIN(Left, pRtfVerticalColumn->m_rectReal.left);
@@ -240,8 +253,8 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
     for (i = 0; i < Length; i++)
         Hist.push_back(0);
 
-    for (i = 0; i < m_wVerticalColumnsCount; i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
+    for (i = 0; i < vcols_.size(); i++) {
+        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_TEXT) {
             Left1 = pRtfVerticalColumn->m_rectReal.left - Left;
@@ -288,8 +301,8 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
                 Right = MinLeft + m_arSpacePlace[i];
             }
 
-            for (int j = 0; j < m_wVerticalColumnsCount; j++) {
-                pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[j];
+            for (int j = 0; j < vcols_.size(); j++) {
+                pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[j];
 
                 if (pRtfVerticalColumn->type() == FT_TEXT && pRtfVerticalColumn->m_rectReal.left
                         >= Left && pRtfVerticalColumn->m_rectReal.right <= Right) {
@@ -307,8 +320,8 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
     }
 
     //~неудача деления => all columns become frames
-    for (i = 0; i < m_wVerticalColumnsCount; i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
+    for (i = 0; i < vcols_.size(); i++) {
+        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_TEXT)
             pRtfVerticalColumn->setType(FT_FRAME);
@@ -316,8 +329,8 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
 
     int IndexMaxWidthFragment = 0, MaxWidth = 0;
 
-    for (i = 0; i < m_wVerticalColumnsCount; i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
+    for (i = 0; i < vcols_.size(); i++) {
+        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_FRAME) {
             if ((pRtfVerticalColumn->m_rectReal.right - pRtfVerticalColumn->m_rectReal.left)
@@ -329,7 +342,7 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
         }
     }
 
-    pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[IndexMaxWidthFragment];
+    pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[IndexMaxWidthFragment];
     pRtfVerticalColumn->setType(FT_TEXT);
     m_arVTerminalColumnsGroup.push_back(new vectorWord());
     pGroup = m_arVTerminalColumnsGroup[0];
@@ -358,14 +371,13 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
     if (m_wType == HC_AllTerminal) { //section includes only terminal columns (! NO frames)
         m_arVTerminalColumnsIndex.push_back(new vectorWord());
         pGroup = m_arVTerminalColumnsIndex[0];
-        m_wVerticalColumnsCount = m_arVerticalColumns.size();
 
-        for (j = 0; j < m_wVerticalColumnsCount; j++) {
+        for (j = 0; j < vcols_.size(); j++) {
             FlagChange = 0;
             Top = 320000;
 
-            for (i = 0; i < m_wVerticalColumnsCount; i++) {
-                pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
+            for (i = 0; i < vcols_.size(); i++) {
+                pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
 
                 if (pRtfVerticalColumn->type() == FT_FRAME || pRtfVerticalColumn->m_bSortFlag == 1)
                     continue;
@@ -379,7 +391,7 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
 
             if (FlagChange) {
                 pGroup->push_back(index);
-                pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[index];
+                pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[index];
                 pRtfVerticalColumn->m_bSortFlag = 1;
             }
         }
@@ -400,7 +412,7 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
 
                 for (int i1 = 0; i1 < CountInGroup; i1++) {
                     Number = (*pGroup)[i1];
-                    pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[Number];
+                    pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[Number];
 
                     if (pRtfVerticalColumn->type() == FT_FRAME || pRtfVerticalColumn->m_bSortFlag
                             == 1)
@@ -415,7 +427,7 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
 
                 if (FlagChange) {
                     pGroupNew->push_back(index);
-                    pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[index];
+                    pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[index];
                     pRtfVerticalColumn->m_bSortFlag = 1;
                 }
             }
@@ -453,7 +465,7 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
 
             for (int j = 0; j < CountInGroup; j++) {
                 index = (*pGroup)[j];
-                pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[index];
+                pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[index];
                 tmp = MAX(pRtfVerticalColumn->m_rectReal.left, 0);
                 RightBound = MIN(RightBound, tmp);
                 WidthColumn = MAX(WidthColumn, (uint16_t)(pRtfVerticalColumn->m_rectReal.right
@@ -474,10 +486,10 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
 void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo) {
     CRtfVerticalColumn* pRtfVerticalColumn;
     CRtfFragment* pRtfFragment;
-    int CountFrameInTerminalColumn = m_arVerticalColumns.size();
+    int CountFrameInTerminalColumn = vcols_.size();
 
     for (int i = 0; i < CountFrameInTerminalColumn; i++) {
-        pRtfVerticalColumn = m_arVerticalColumns[i];
+        pRtfVerticalColumn = vcols_[i];
         pRtfFragment = pRtfVerticalColumn->firstFragment();
 
         if (pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE) {
@@ -581,7 +593,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
         }
 
 #endif
-        CountFrameInTerminalColumn = m_arVerticalColumns.size();
+        CountFrameInTerminalColumn = vcols_.size();
         SortFragments();
 
         for (i = 0; i < CountFrameInTerminalColumn; i++) {
@@ -590,7 +602,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
             if (m_arOrderingNumber.size())
                 number = m_arOrderingNumber[i];
 
-            pRtfVerticalColumn = m_arVerticalColumns[number];
+            pRtfVerticalColumn = vcols_[number];
             pRtfFragment = pRtfVerticalColumn->firstFragment();
             FreeSpace = GetFreeSpaceBetweenPrevAndCurrentFragments(pRtfFragment->m_rect.top,
                     SectorInfo);
@@ -656,7 +668,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 
             for (j = 0; j < CountInGroup; j++) { //~ V-columns in one H-col
                 int index = (*pGroup)[j];
-                pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[index];
+                pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[index];
 
                 if (i == 0 && j == 0) {
                     FlagFirstTerminalFragment = TRUE;
@@ -697,7 +709,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminal
 
             for (j = 0; j < CountInGroup; j++) {
                 int index = (*pGroup)[j];
-                pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[index];
+                pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[index];
                 FreeSpace = GetFreeSpaceBetweenPrevAndCurrentFragments(
                         pRtfVerticalColumn->m_rect.top, SectorInfo);
                 SectorInfo->VerticalOffsetFragmentInColumn = FreeSpace;
@@ -767,7 +779,7 @@ Bool CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber) {
     if (m_arOrderingNumber.size())
         number = m_arOrderingNumber[CurFragmentNumber];
 
-    pRtfVerticalColumn = m_arVerticalColumns[number];
+    pRtfVerticalColumn = vcols_[number];
     pRtfFragment = pRtfVerticalColumn->firstFragment();
     CurFragmentRect.rleft() = pRtfFragment->m_rect.left;
     CurFragmentRect.rright() = pRtfFragment->m_rect.right;
@@ -816,10 +828,10 @@ void CRtfHorizontalColumn::SortFragments() {
     CRtfFragment *pRtfFragment, *pRtfFragmentFirst;
     int /*NextTop=-32000,*/size, number;
     Bool FlagInserted = FALSE;
-    CountFrameInTerminalColumn = m_arVerticalColumns.size();
+    CountFrameInTerminalColumn = vcols_.size();
 
     for (int i = 0; i < CountFrameInTerminalColumn; i++) {
-        pRtfVerticalColumn = m_arVerticalColumns[i];
+        pRtfVerticalColumn = vcols_[i];
         pRtfFragment = pRtfVerticalColumn->firstFragment();
         FlagInserted = FALSE;
 
@@ -832,7 +844,7 @@ void CRtfHorizontalColumn::SortFragments() {
 
             for (m = 0; m < size; m++) {
                 number = m_arOrderingNumber[m];
-                pRtfVerticalColumn = m_arVerticalColumns[number];
+                pRtfVerticalColumn = vcols_[number];
                 pRtfFragmentFirst = pRtfVerticalColumn->firstFragment();
 
                 //Если фрагмент выше другого
@@ -873,7 +885,7 @@ void CRtfHorizontalColumn::SortFragments() {
      //во фреймы после последнго текстового фрагмента
      for( int m=m_arOrderingNumber.size()-1; m>=0; m-- )
      {
-     pRtfVerticalColumn = m_arVerticalColumns[m_arOrderingNumber[m]];
+     pRtfVerticalColumn = vcols_[m_arOrderingNumber[m]];
      pRtfFragmentFirst   = pRtfVerticalColumn->m_arFragments[0];
      if (pRtfFragmentFirst->m_wType==FT_TEXT)
      break;
@@ -890,7 +902,7 @@ void CRtfHorizontalColumn::SortFragments() {
      brkHeight/=Twips;
      for( m=m_arOrderingNumber.size()-1; m>lastTxtNum; m-- )
      {
-     pRtfVerticalColumn = m_arVerticalColumns[m_arOrderingNumber[m]];
+     pRtfVerticalColumn = vcols_[m_arOrderingNumber[m]];
      pRtfFragment   = pRtfVerticalColumn->m_arFragments[0];
      if( (pRtfFragment->m_wType==FT_TABLE || pRtfFragment->m_wType==FT_PICTURE))
      {
@@ -907,10 +919,10 @@ uint16_t CRtfHorizontalColumn::GetOffsetFromPrevTextFragment(CRtfFragment *pRtfF
     CRtfVerticalColumn *pRtfVerticalColumn;
     CRtfFragment *pRtfFragmentNext;
     uint16_t VerOffset = 0;
-    CountFrameInTerminalColumn = m_arVerticalColumns.size();
+    CountFrameInTerminalColumn = vcols_.size();
 
     for (int i = 0; i < CountFrameInTerminalColumn; i++) {
-        pRtfVerticalColumn = m_arVerticalColumns[i];
+        pRtfVerticalColumn = vcols_[i];
         pRtfFragmentNext = pRtfVerticalColumn->firstFragment();
 
         if (pRtfFragmentNext->type() == FT_TEXT && pRtfFragment->m_rect.top
@@ -937,9 +949,8 @@ void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo
     EDSIZE interval;
     EDBOX playout;
 #endif
-    m_wVerticalColumnsCount = m_arVerticalColumns.size();
 
-    for (int i = 0; i < m_wVerticalColumnsCount; i++) {
+    for (int i = 0; i < vcols_.size(); i++) {
         if (!fri) {
             Put("\\pard\\fs6\\par");
             fri = 1;
@@ -962,7 +973,7 @@ void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo
 #endif
         }
 
-        pRtfVerticalColumn = (CRtfVerticalColumn*) m_arVerticalColumns[i];
+        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_FRAME) {
             Put("{\\pard\\plain\\slmult1\\nowidctlpar\\pvpara");
@@ -1002,10 +1013,9 @@ void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfHorizontalColumn::WriteNonTerminalColumns(RtfSectorInfo* SectorInfo) {
     CRtfVerticalColumn* pRtfVerticalColumn;
-    m_wVerticalColumnsCount = m_arVerticalColumns.size();
 
-    for (int i = 0; i < m_wVerticalColumnsCount; i++) {
-        pRtfVerticalColumn = m_arVerticalColumns[i];
+    for (int i = 0; i < vcols_.size(); i++) {
+        pRtfVerticalColumn = vcols_[i];
 
         if (pRtfVerticalColumn->type() > FT_FRAME) {
             SectorInfo->FlagInColumn = FALSE;
@@ -1020,13 +1030,12 @@ void CRtfHorizontalColumn::WriteNonTerminalColumns(RtfSectorInfo* SectorInfo) {
 void CRtfHorizontalColumn::ToPlacePicturesAndTables(CRtfFragment* pRtfFragment) {
     CRtfVerticalColumn* pRtfVerticalColumn;
     CRtfFragment* pRtfFragmentNew;
-    m_arVerticalColumns.push_back(new CRtfVerticalColumn());
-    m_wVerticalColumnsCount = m_arVerticalColumns.size();
+    vcols_.push_back(new CRtfVerticalColumn());
 
-    if (m_wVerticalColumnsCount == 1)
+    if (vcols_.size() == 1)
         m_wType = HC_ONLY_PICTURE_TABLE;
 
-    pRtfVerticalColumn = m_arVerticalColumns.back();
+    pRtfVerticalColumn = vcols_.back();
     pRtfVerticalColumn->setType(pRtfFragment->type());
     pRtfFragmentNew = new CRtfFragment;
     pRtfVerticalColumn->addFragment(pRtfFragmentNew);
