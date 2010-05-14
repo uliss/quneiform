@@ -131,24 +131,45 @@ void TestCRtfWord::testRotateRect() {
     // TODO write more tests
 }
 
+void TestCRtfWord::testSet() {
+    CRtfWord word;
+    std::string str("test");
+    word.set(str);
+    CPPUNIT_ASSERT(word.charCount() == str.size());
+    CPPUNIT_ASSERT_EQUAL(str, word.toString());
+}
+
 void TestCRtfWord::testClearChars() {
     CRtfWord wd;
     wd.clearChars();
     CPPUNIT_ASSERT(wd.charCount() == 0);
-    wd.addChar(new CRtfChar);
-    wd.addChar(new CRtfChar);
+    wd.addChar('a');
+    wd.addChar('b');
     CPPUNIT_ASSERT(wd.charCount() == 2);
     wd.clearChars();
     CPPUNIT_ASSERT(wd.charCount() == 0);
+}
+
+void TestCRtfWord::testEndsWith() {
+    CRtfWord wd;
+    CPPUNIT_ASSERT(!wd.endsWith('a'));
+    wd.addChar('b');
+    CPPUNIT_ASSERT(!wd.endsWith('a'));
+    wd.addChar('a');
+    CPPUNIT_ASSERT(wd.endsWith('a'));
+
+    wd.clearChars();
+    wd.addChar('a');
+    CPPUNIT_ASSERT(wd.endsWith('a'));
 }
 
 void TestCRtfWord::testToString() {
     CRtfWord wd;
     const std::string s_empty;
     CPPUNIT_ASSERT_EQUAL(s_empty, wd.toString());
-    wd.addChar(new CRtfChar('a', Letter::LOWEST_PROBABILITY));
+    wd.addChar('a');
     CPPUNIT_ASSERT_EQUAL(std::string("a"), wd.toString());
-    wd.addChar(new CRtfChar('b', Letter::LOWEST_PROBABILITY));
+    wd.addChar('b');
     CPPUNIT_ASSERT_EQUAL(std::string("ab"), wd.toString());
     wd.clearChars();
     CPPUNIT_ASSERT_EQUAL(s_empty, wd.toString());
@@ -157,14 +178,14 @@ void TestCRtfWord::testToString() {
 void TestCRtfWord::testStartsWith() {
     CRtfWord wd;
     CPPUNIT_ASSERT(!wd.startsWith('1'));
-    wd.addChar(new CRtfChar('2', 1));
+    wd.addChar('2');
     CPPUNIT_ASSERT(wd.startsWith('2'));
     CPPUNIT_ASSERT(wd.endsWith('2'));
     CPPUNIT_ASSERT(!wd.startsWith('1'));
 
     wd.firstChar()->first().setChar('1');
     CPPUNIT_ASSERT(wd.startsWith('1'));
-    wd.addChar(new CRtfChar('2', 1));
+    wd.addChar('2');
     CPPUNIT_ASSERT(wd.startsWith('1'));
     CPPUNIT_ASSERT(wd.endsWith('2'));
 }
@@ -174,7 +195,7 @@ void TestCRtfWord::testCharTotalLength() {
     Rect rect;
 
     CPPUNIT_ASSERT(wd.charTotalLength() == 0);
-    wd.addChar(new CRtfChar('t'));
+    wd.addChar('t');
     CPPUNIT_ASSERT(wd.charCount() == 1);
     CPPUNIT_ASSERT(wd.charTotalLength() == 0);
 
@@ -183,12 +204,12 @@ void TestCRtfWord::testCharTotalLength() {
     wd.lastChar()->setRealRect(rect);
     CPPUNIT_ASSERT_EQUAL(100, wd.charTotalLength());
 
-    wd.addChar(new CRtfChar('e'));
+    wd.addChar('e');
     rect.setWidth(-10);
     wd.lastChar()->setRealRect(rect);
     CPPUNIT_ASSERT_EQUAL(100, wd.charTotalLength());
 
-    wd.addChar(new CRtfChar('s'));
+    wd.addChar('s');
     rect.setWidth(50);
     wd.lastChar()->setRealRect(rect);
     CPPUNIT_ASSERT_EQUAL(150, wd.charTotalLength());

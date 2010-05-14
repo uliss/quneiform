@@ -90,7 +90,7 @@ class CLA_EXPO CRtfWord
         bool empty() const;
 
         /**
-         * Returns turne is word ends with given char
+         * Returns true is word ends with given char
          */
         bool endsWith(int c) const;
 
@@ -141,6 +141,11 @@ class CLA_EXPO CRtfWord
         short realFontSize() const;
 
         /**
+         * Sets word from string
+         */
+        void set(const std::string& str);
+
+        /**
          * Sets word font number
          */
         void setFontNumber(font_number number);
@@ -185,7 +190,7 @@ class CLA_EXPO CRtfWord
     private:
         typedef std::vector<CRtfChar*> CharList;
         typedef CharList::iterator CharIterator;
-        typedef CharList::const_iterator CharConstIterator;
+        typedef CharList::const_iterator CharIteratorConst;
         CharList chars_;
         font_number font_number_;
         short ideal_font_size_;

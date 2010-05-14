@@ -399,8 +399,7 @@ void CRtfString::write(CEDParagraph * par) const {
     line->setHardBreak(line_break_);
 
     for (WordIteratorConst it = words_.begin(), end = words_.end(); it != end; ++it) {
-        // first word
-        // insert space
+        // insert space before if not first word in string
         if (it != words_.begin()) {
             CEDChar * space = CRtfChar::makeCedSpace(-1, -1, (*it)->fontAttrs());
             line->insertChar(space);

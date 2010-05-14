@@ -34,6 +34,8 @@ class TestCRtfWord: public CppUnit::TestFixture
         CPPUNIT_TEST(testToString);
         CPPUNIT_TEST(testStartsWith);
         CPPUNIT_TEST(testCharTotalLength);
+        CPPUNIT_TEST(testSet);
+        CPPUNIT_TEST(testEndsWith);
         CPPUNIT_TEST_SUITE_END();
     public:
         void testInit();
@@ -41,10 +43,12 @@ class TestCRtfWord: public CppUnit::TestFixture
         void testCharBRect();
         void testCharSpelling();
         void testCharProbability();
-        void testRotateRect();
         void testClearChars();
+        void testEndsWith();
+        void testRotateRect();
         void testToString();
         void testStartsWith();
+        void testSet();
         void testCharTotalLength();
 };
 

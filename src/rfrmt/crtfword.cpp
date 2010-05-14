@@ -91,7 +91,7 @@ Rect CRtfWord::charsBRect() const {
 
 int CRtfWord::charTotalLength() const {
     int result = 0;
-    for (CharConstIterator it = chars_.begin(), e = chars_.end(); it != e; ++it) {
+    for (CharIteratorConst it = chars_.begin(), e = chars_.end(); it != e; ++it) {
         int wd = (*it)->realRect().width();
         if (wd > 0)
             result += wd;
@@ -223,6 +223,15 @@ void CRtfWord::rotateRect(Rect& rect, int angle, int x_offset, int y_offset) {
     rect = result;
 }
 
+void CRtfWord::set(const std::string& str) {
+    for (size_t i = 0; i < str.length(); i++) {
+        if (str[i] == ' ')
+            continue;
+
+        addChar(str[i]);
+    }
+}
+
 void CRtfWord::setFontNumber(font_number number) {
     font_number_ = number;
 }
@@ -248,7 +257,7 @@ bool CRtfWord::startsWith(int c) const {
 std::string CRtfWord::toString() const {
     std::string result;
     result.reserve(charCount());
-    for (CharConstIterator it = chars_.begin(), e = chars_.end(); it != e; ++it) {
+    for (CharIteratorConst it = chars_.begin(), e = chars_.end(); it != e; ++it) {
         result.append(1, (*it)->first().getChar());
     }
     return result;
@@ -259,7 +268,7 @@ bool CRtfWord::isSpelled() const {
 }
 
 void CRtfWord::write(CEDLine * line) const {
-    for (CharConstIterator it = chars_.begin(), end = chars_.end(); it != end; ++it) {
+    for (CharIteratorConst it = chars_.begin(), end = chars_.end(); it != end; ++it) {
         CEDChar * chr = (*it)->write(line);
         chr->setFontStyle(fontAttrs());
     }
