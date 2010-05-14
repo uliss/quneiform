@@ -215,3 +215,15 @@ void TestCRtfString::testCharTotalLength() {
     str.lastChar()->setRealRect(r);
     CPPUNIT_ASSERT_EQUAL(100, str.charTotalLength());
 }
+
+void TestCRtfString::testEndsWith() {
+    CRtfString str;
+    // empty
+    CPPUNIT_ASSERT(!str.endsWith('1'));
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(!str.endsWith('1'));
+    str.lastWord()->addChar(new CRtfChar('2'));
+    CPPUNIT_ASSERT(!str.endsWith('1'));
+    str.lastWord()->addChar(new CRtfChar('1'));
+    CPPUNIT_ASSERT(str.endsWith('1'));
+}

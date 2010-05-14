@@ -37,6 +37,7 @@ class TestCRtfString: public CppUnit::TestFixture
     CPPUNIT_TEST(testRightBorder);
     CPPUNIT_TEST(testBorders);
     CPPUNIT_TEST(testCharTotalLength);
+    CPPUNIT_TEST(testEndsWith);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -52,6 +53,7 @@ public:
     void testRightBorder();
     void testBorders();
     void testCharTotalLength();
+    void testEndsWith();
 };
 
 #endif /* TESTCRTFSTRING_H_ */
