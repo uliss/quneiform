@@ -579,6 +579,7 @@ void CRtfFragment::writeText(RtfSectorInfo * sector) {
                     str->rightIndent(), str->marginTop(), str->align());
         }
 
+        assert(ced_paragraph);
         str->write(ced_paragraph);
     }
 }

@@ -398,6 +398,8 @@ std::string CRtfString::toString() const {
 }
 
 void CRtfString::write(CEDParagraph * par) const {
+    assert(par);
+
     CEDLine * line = toCedLine();
     line->setHardBreak(line_break_);
 
