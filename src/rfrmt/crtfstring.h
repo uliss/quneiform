@@ -208,16 +208,10 @@ class CLA_EXPO CRtfString
         int lengthInTwips() const;
 
         /**
-         * Returns true if string in carrying
-         * @see setLineCarry()
+         * Returns true if line break required
+         * @see setLineBreak()
          */
-        bool lineCarry() const;
-
-        /**
-         * Returns string line transfer
-         * @see setLineTransfer()
-         */
-        bool lineTransfer() const;
+        bool lineBreak() const;
 
         /**
          * Returns string top margin
@@ -291,16 +285,10 @@ class CLA_EXPO CRtfString
         void setLeftIndent(int indent);
 
         /**
-         * Sets line carrying
-         * @see lineCarry()
-         */
-        void setLineCarry(bool value);
-
-        /**
          * Sets line transfer
-         * @see lineTransfer()
+         * @see lineBreak()
          */
-        void setLineTransfer(bool value);
+        void setLineBreak(bool value);
 
         /**
          * Sets string top margin
@@ -379,7 +367,6 @@ class CLA_EXPO CRtfString
         WordList words_;
         bool line_break_;
         bool paragraph_begin_;
-        bool carry_;
         bool has_attributes_;
         bool equal_center_;
         bool equal_left_;

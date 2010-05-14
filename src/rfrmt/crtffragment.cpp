@@ -80,9 +80,6 @@ void CRtfFragment::adjustParagraph(int topMargin) {
             str->setTopMargin(0);
             str->setParagraphBegin(false);
         }
-
-        if (str->isLineCarryNeeded())
-            str->setLineCarry(true);
     }
 }
 
@@ -450,18 +447,18 @@ void CRtfFragment::updateStringPairAlignment(CRtfString * current, CRtfString * 
 }
 
 void CRtfFragment::processingUseNoneMode() {
-    for (size_t i = 0; i < strings_.size(); i++) {
-        CRtfString * str = strings_[i];
+    for (StringIterator it = strings_.begin(), end = strings_.end(); it != end; ++it) {
+        CRtfString * str = *it;
 
-        if (i == 0)
+        if (it == strings_.begin())
             str->setParagraphBegin(true);
         else
             str->setParagraphBegin(false);
 
-        if (i == stringCount() - 1)
-            str->setLineTransfer(false);
+        if (str == strings_.back())
+            str->setLineBreak(false);
         else
-            str->setLineTransfer(true);
+            str->setLineBreak(true);
 
         str->setAlign(FORMAT_ALIGN_LEFT);
         str->setLeftIndent(0);
@@ -497,7 +494,7 @@ void CRtfFragment::setFragmentAlignment(RtfSectorInfo* SectorInfo) {
 
 void CRtfFragment::setLineTransfer(StringIterator begin, StringIterator end) {
     for (StringIterator it = begin; it != end; ++it)
-        (*it)->setLineTransfer(true);
+        (*it)->setLineBreak(true);
 }
 
 void CRtfFragment::setParent(CRtfPage * page) {
@@ -954,7 +951,7 @@ void CRtfFragment::setFlagBeginParagraphForLeftAlign(StringIterator begin, Strin
                 || (pRtfStringPrev->endsWith('.') && FlagStringParagraphSoft == TRUE
                         && (pRtfStringPrev->rightIndent() - RightDif) > 5 * max_char_distance_)
                 || (pRtfStringPrev->endsWith('.') && FlagStringParagraph == TRUE)) {
-            pRtfStringPrev->setLineTransfer(false);
+            pRtfStringPrev->setLineBreak(false);
             pRtfString->setParagraphBegin(true);
         }
     }
@@ -1043,16 +1040,16 @@ bool CRtfFragment::determineAlignRight(StringIterator begin, StringIterator end)
 
         if (it == begin) {
             str->setParagraphBegin(true);
-            str->setLineTransfer(true);
+            str->setLineBreak(true);
             continue;
         }
 
-        str->setLineTransfer(true);
+        str->setLineBreak(true);
         CRtfString * prev = *(it - 1);
 
         if (prev->endsWith('.')) {
             str->setParagraphBegin(true);
-            prev->setLineTransfer(false);
+            prev->setLineBreak(false);
         }
     }
     return true;
@@ -1181,7 +1178,7 @@ void CRtfFragment::checkOnceAgainImportancesFlagBeginParagraph() {
 
         // если выр. другая, то необходимо начать новый параграф
         if (curr->align() != prev->align()) {
-            prev->setLineTransfer(false);
+            prev->setLineBreak(false);
             curr->setParagraphBegin(true);
         }
     }
@@ -1192,7 +1189,7 @@ void CRtfFragment::checkOnceAgainImportancesFlagBeginParagraph() {
 
         if (curr->align() != FORMAT_ALIGN_CENTER && //
                 abs(curr->firstWord()->realFontSize() - prev->firstWord()->realFontSize()) > 1) {
-            prev->setLineTransfer(false);
+            prev->setLineBreak(false);
             curr->setParagraphBegin(true);
         }
     }
@@ -1213,7 +1210,7 @@ void CRtfFragment::checkOnceAgainImportancesFlagBeginParagraph() {
             else if (prev->align() == FORMAT_ALIGN_JUSTIFY && str->align() == FORMAT_ALIGN_LEFT) {
                 str->setAlign(FORMAT_ALIGN_JUSTIFY);
                 str->setParagraphBegin(false);
-                prev->setLineTransfer(false);
+                prev->setLineBreak(false);
             }
         }
     }
@@ -1439,7 +1436,7 @@ bool CRtfFragment::hasFlagRight(StringIteratorConst begin, StringIteratorConst e
 
 bool CRtfFragment::hasFlagCarry(StringIteratorConst begin, StringIteratorConst end) {
     for (StringIteratorConst it = begin; it != end; ++it) {
-        if ((*it)->lineCarry())
+        if ((*it)->isLineCarryNeeded())
             return true;
     }
 

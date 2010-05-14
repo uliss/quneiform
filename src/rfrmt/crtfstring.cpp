@@ -40,10 +40,9 @@ const char SPACE = ' ';
 const unsigned char HYPHEN = '-';
 
 CRtfString::CRtfString() :
-    line_break_(false), paragraph_begin_(false), carry_(false), has_attributes_(false),
-            equal_center_(false), equal_left_(false), equal_right_(false), first_indent_(0),
-            left_indent_(0), right_indent_(0), margin_top_(0), real_length_(0), align_(
-                    FORMAT_ALIGN_LEFT), flags_(0) {
+    line_break_(false), paragraph_begin_(false), has_attributes_(false), equal_center_(false),
+            equal_left_(false), equal_right_(false), first_indent_(0), left_indent_(0),
+            right_indent_(0), margin_top_(0), real_length_(0), align_(FORMAT_ALIGN_LEFT), flags_(0) {
 
 }
 
@@ -273,12 +272,8 @@ int CRtfString::lengthInTwips() const {
     return width() * getTwips();
 }
 
-bool CRtfString::lineTransfer() const {
+bool CRtfString::lineBreak() const {
     return line_break_;
-}
-
-bool CRtfString::lineCarry() const {
-    return carry_;
 }
 
 void CRtfString::print(std::ostream& os) const {
@@ -292,8 +287,8 @@ void CRtfString::print(std::ostream& os) const {
         "left border equal:   " << isEqualLeft() << "\n"
         "right border equal:  " << isEqualRight() << "\n"
         "center equal:        " << isEqualCenter() << "\n"
-        "line break:          " << lineTransfer() << "\n"
-        "line carry:          " << lineCarry() << "\n";
+        "line break:          " << lineBreak() << "\n"
+        "line carry:          " << isLineCarryNeeded() << "\n";
 }
 
 uint CRtfString::realLength() const {
@@ -339,11 +334,7 @@ void CRtfString::setLeftIndent(int indent) {
     left_indent_ = indent;
 }
 
-void CRtfString::setLineCarry(bool value) {
-    carry_ = value;
-}
-
-void CRtfString::setLineTransfer(bool value) {
+void CRtfString::setLineBreak(bool value) {
     line_break_ = value;
 }
 
