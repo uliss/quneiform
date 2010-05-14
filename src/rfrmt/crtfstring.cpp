@@ -55,6 +55,12 @@ void CRtfString::addWord(CRtfWord * word) {
     words_.push_back(word);
 }
 
+void CRtfString::addWord(const std::string& word) {
+    CRtfWord * w = new CRtfWord;
+    w->set(word.substr(0, word.find(' ')));
+    addWord(w);
+}
+
 int CRtfString::leftBorder() const {
     return firstChar()->idealRect().left();
 }

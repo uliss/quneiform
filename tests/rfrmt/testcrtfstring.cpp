@@ -64,13 +64,13 @@ void TestCRtfString::testToString() {
     CPPUNIT_ASSERT_EQUAL(str_empty, str.toString());
     str.addWord(new CRtfWord);
     CPPUNIT_ASSERT_EQUAL(str_empty, str.toString());
-    str.firstWord()->addChar(new CRtfChar('a', 100));
-    str.firstWord()->addChar(new CRtfChar('b', 100));
+    str.firstWord()->addChar('a');
+    str.firstWord()->addChar('b');
     CPPUNIT_ASSERT_EQUAL(std::string("ab"), str.toString());
 
     str.addWord(new CRtfWord);
-    str.lastWord()->addChar(new CRtfChar('c', 100));
-    str.lastWord()->addChar(new CRtfChar('d', 100));
+    str.lastWord()->addChar('c');
+    str.lastWord()->addChar('d');
     CPPUNIT_ASSERT_EQUAL(std::string("ab cd"), str.toString());
 }
 
@@ -81,7 +81,7 @@ void TestCRtfString::testRealLength() {
     // so always returns 0
     str.addWord(new CRtfWord);
     CPPUNIT_ASSERT(str.realLength() == 0);
-    str.firstWord()->addChar(new CRtfChar('a', 100));
+    str.firstWord()->addChar('a');
     CPPUNIT_ASSERT(str.realLength() == 0);
 }
 
@@ -129,16 +129,14 @@ void TestCRtfString::testStartsWith() {
     str.addWord(new CRtfWord);
     CPPUNIT_ASSERT(!str.startsWith('1'));
     std::string chars("123");
-    for (size_t i = 0; i < chars.length(); i++) {
-        str.firstWord()->addChar(new CRtfChar(chars[i], 0));
-    }
+    str.firstWord()->set(chars);
     CPPUNIT_ASSERT(str.startsWith('1'));
     CPPUNIT_ASSERT(str.endsWith('3'));
 
     str.addWord(new CRtfWord);
     CPPUNIT_ASSERT(str.startsWith('1'));
     CPPUNIT_ASSERT(!str.endsWith('3'));
-    str.lastWord()->addChar(new CRtfChar('4', 0));
+    str.lastWord()->addChar('4');
     CPPUNIT_ASSERT(str.endsWith('4'));
 }
 
@@ -191,16 +189,13 @@ void TestCRtfString::testCharCount() {
     CPPUNIT_ASSERT(str.charCount() == 0);
     str.addWord(new CRtfWord);
     CPPUNIT_ASSERT(str.charCount() == 0);
-    CRtfChar * chr = new CRtfChar('a', 0);
-    str.firstWord()->addChar(chr);
+    str.firstWord()->addChar('a');
     CPPUNIT_ASSERT(str.charCount() == 1);
-    chr = new CRtfChar('b', 0);
-    str.firstWord()->addChar(chr);
+    str.firstWord()->addChar('b');
     CPPUNIT_ASSERT(str.charCount() == 2);
     str.addWord(new CRtfWord);
     CPPUNIT_ASSERT(str.charCount() == 2);
-    chr = new CRtfChar('c', 0);
-    str.firstWord()->addChar(chr);
+    str.firstWord()->addChar('c');
     CPPUNIT_ASSERT(str.charCount() == 3);
     str.clearWords();
     CPPUNIT_ASSERT(str.charCount() == 0);
@@ -268,8 +263,8 @@ void TestCRtfString::testEndsWith() {
     CPPUNIT_ASSERT(!str.endsWith('1'));
     str.addWord(new CRtfWord);
     CPPUNIT_ASSERT(!str.endsWith('1'));
-    str.lastWord()->addChar(new CRtfChar('2'));
+    str.lastWord()->addChar('2');
     CPPUNIT_ASSERT(!str.endsWith('1'));
-    str.lastWord()->addChar(new CRtfChar('1'));
+    str.lastWord()->addChar('1');
     CPPUNIT_ASSERT(str.endsWith('1'));
 }

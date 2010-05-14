@@ -224,6 +224,8 @@ void CRtfWord::rotateRect(Rect& rect, int angle, int x_offset, int y_offset) {
 }
 
 void CRtfWord::set(const std::string& str) {
+    clearChars();
+
     for (size_t i = 0; i < str.length(); i++) {
         if (str[i] == ' ')
             continue;

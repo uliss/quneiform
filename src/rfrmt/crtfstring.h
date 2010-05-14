@@ -47,6 +47,7 @@ class CLA_EXPO CRtfString
          * @see clearWords(), wordAt()
          */
         void addWord(CRtfWord * word);
+        void addWord(const std::string& word);
 
         /**
          * Returns string aling
