@@ -39,6 +39,8 @@ class TestCRtfString: public CppUnit::TestFixture
     CPPUNIT_TEST(testCharTotalLength);
     CPPUNIT_TEST(testEndsWith);
     CPPUNIT_TEST(testIsEndOfSentence);
+    CPPUNIT_TEST(testHasChars);
+    CPPUNIT_TEST(testHasBigSpace);
     CPPUNIT_TEST_SUITE_END();
 public:
         void testBorders();
@@ -47,6 +49,8 @@ public:
         void testClearWords();
         void testEndsWith();
         void testFirstChar();
+        void testHasBigSpace();
+        void testHasChars();
         void testInit();
         void testIsEndOfSentence();
         void testLeftBorder();

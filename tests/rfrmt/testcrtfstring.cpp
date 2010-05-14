@@ -95,6 +95,35 @@ void TestCRtfString::testFirstChar() {
     CPPUNIT_ASSERT(str.firstChar() == chr);
 }
 
+void TestCRtfString::testHasBigSpace() {
+    CRtfString str;
+    CPPUNIT_ASSERT(!str.hasBigSpace(-1));
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(!str.hasBigSpace(0));
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT_THROW(str.hasBigSpace(0), std::out_of_range);
+    str.firstWord()->addChar(' ');
+    CPPUNIT_ASSERT_THROW(str.hasBigSpace(0), std::out_of_range);
+    str.lastWord()->addChar('a');
+    CPPUNIT_ASSERT(str.hasBigSpace(-1));
+
+    str.firstChar()->setIdealRect(Rect(Point(0, 0), 100, 200));
+    str.lastChar()->setIdealRect(Rect(Point(150, 0), 100, 200));
+    CPPUNIT_ASSERT(str.hasBigSpace(49));
+    CPPUNIT_ASSERT(!str.hasBigSpace(50));
+}
+
+void TestCRtfString::testHasChars() {
+    CRtfString str;
+    CPPUNIT_ASSERT(!str.hasChars());
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(!str.hasChars());
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(!str.hasChars());
+    str.lastWord()->addChar(' ');
+    CPPUNIT_ASSERT(str.hasChars());
+}
+
 void TestCRtfString::testStartsWith() {
     CRtfString str;
     str.addWord(new CRtfWord);

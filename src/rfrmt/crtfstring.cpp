@@ -153,7 +153,7 @@ bool CRtfString::hasAttributes() const {
 }
 
 bool CRtfString::hasBigSpace(int max_space) const {
-    for (size_t i = 1; i < wordCount(); i++) {
+    for (size_t i = 1; i < words_.size(); i++) {
         CRtfChar * current = words_[i]->firstChar();
         CRtfChar * prev = words_[i - 1]->lastChar();
 
