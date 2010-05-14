@@ -38,22 +38,24 @@ class TestCRtfString: public CppUnit::TestFixture
     CPPUNIT_TEST(testBorders);
     CPPUNIT_TEST(testCharTotalLength);
     CPPUNIT_TEST(testEndsWith);
+    CPPUNIT_TEST(testIsEndOfSentence);
     CPPUNIT_TEST_SUITE_END();
 public:
-    void testInit();
-    void testClearWords();
-    void testToString();
-    void testRealLength();
-    void testFirstChar();
-    void testStartsWith();
-    void testStartsWithDigit();
-    void testStartWithDash();
-    void testCharCount();
-    void testLeftBorder();
-    void testRightBorder();
-    void testBorders();
-    void testCharTotalLength();
-    void testEndsWith();
+        void testBorders();
+        void testCharCount();
+        void testCharTotalLength();
+        void testClearWords();
+        void testEndsWith();
+        void testFirstChar();
+        void testInit();
+        void testIsEndOfSentence();
+        void testLeftBorder();
+        void testRealLength();
+        void testRightBorder();
+        void testStartsWith();
+        void testStartsWithDigit();
+        void testStartWithDash();
+        void testToString();
 };
 
 #endif /* TESTCRTFSTRING_H_ */

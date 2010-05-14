@@ -39,6 +39,10 @@ CRtfWord::~CRtfWord() {
     clearChars();
 }
 
+void CRtfWord::addChar(uchar ch) {
+    addChar(new CRtfChar(ch));
+}
+
 void CRtfWord::addChar(CRtfChar * chr) {
     chars_.push_back(chr);
 }

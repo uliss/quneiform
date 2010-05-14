@@ -48,6 +48,11 @@ class CLA_EXPO CRtfWord
         void addChar(CRtfChar * chr);
 
         /**
+         * Adds char to the end of word
+         */
+        void addChar(uchar ch);
+
+        /**
          * Returns bounding rectangle of word
          */
         Rect bRect() const;

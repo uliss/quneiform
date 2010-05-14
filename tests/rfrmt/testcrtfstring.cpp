@@ -31,6 +31,23 @@ void TestCRtfString::testInit() {
     CPPUNIT_ASSERT_THROW(str.wordAt(0), std::out_of_range);
 }
 
+void TestCRtfString::testIsEndOfSentence() {
+    CRtfString str;
+    CPPUNIT_ASSERT(!str.isEndOfSentence());
+    str.addWord(new CRtfWord);
+    CPPUNIT_ASSERT(!str.isEndOfSentence());
+    str.lastWord()->addChar(' ');
+    CPPUNIT_ASSERT(!str.isEndOfSentence());
+    str.lastWord()->addChar('.');
+    CPPUNIT_ASSERT(str.isEndOfSentence());
+    str.lastWord()->addChar('?');
+    CPPUNIT_ASSERT(str.isEndOfSentence());
+    str.lastWord()->addChar('!');
+    CPPUNIT_ASSERT(str.isEndOfSentence());
+    str.lastWord()->addChar('a');
+    CPPUNIT_ASSERT(!str.isEndOfSentence());
+}
+
 void TestCRtfString::testClearWords() {
     CRtfString str;
     CPPUNIT_ASSERT(str.wordCount() == 0);
