@@ -162,13 +162,8 @@ void CRtfChar::setSpelledNoCarrying(bool value) {
 
 CEDChar * CRtfChar::toCedChar(int font_name, int font_size, int font_style) const {
     CEDChar * chr = new CEDChar;
-    Rect layout;
-    layout.rleft() = real_rect_.left() + TemplateOffset.x();
-    layout.rright() = real_rect_.right() + TemplateOffset.x();
-    layout.rtop() = real_rect_.top() + TemplateOffset.y();
-    layout.rbottom() = real_rect_.bottom() + TemplateOffset.y();
 
-    chr->setBoundingRect(layout);
+    chr->setBoundingRect(real_rect_.translated(TemplateOffset));
     chr->setFontLanguage(language_);
     chr->setFontStyle(font_style);
     chr->setFontNumber(font_name);
@@ -215,6 +210,13 @@ Letter& CRtfChar::versionAt(size_t pos) {
 
 size_t CRtfChar::versionCount() const {
     return versions_.size();
+}
+
+CEDChar * CRtfChar::write(CEDLine * line) const {
+    assert(line);
+    assert(getChar());
+
+    return line->insertChar(toCedChar(font_number_, font_size_, 0));
 }
 
 }

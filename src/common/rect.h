@@ -373,6 +373,10 @@ class RectImpl
             return translate(PointImpl<T> (dx, dy));
         }
 
+        RectImpl translated(const PointImpl<T>& pt) const {
+            return RectImpl(pt0_ + pt, pt1_ + pt);
+        }
+
         RectImpl& translateX(T offset) {
             pt0_.rx() += offset;
             pt1_.rx() += offset;

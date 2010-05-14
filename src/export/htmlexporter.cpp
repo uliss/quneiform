@@ -71,13 +71,12 @@ void HtmlExporter::writeDoctype(std::ostream& os) {
     os << HTML_DOCTYPE;
 }
 
-void HtmlExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
+void HtmlExporter::writeLineBreak(std::ostream& os) {
     // skip last line break
     if (lineLeftInParagraph() <= 1)
         return;
 
-    if (isLineBreak(line))
-        os << XmlTag("br") << "\n";
+    os << XmlTag("br") << "\n";
 }
 
 void HtmlExporter::writeMeta(std::ostream& os) {

@@ -93,9 +93,8 @@ void TextExporter::writeCharacter(std::ostream& /*os*/, CEDChar * chr) {
     GenericExporter::writeCharacter(line_buffer_, chr);
 }
 
-void TextExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
-    if (isLineBreak(line))
-        os << "\n";
+void TextExporter::writeLineBreak(std::ostream& os) {
+    os << '\n';
 }
 
 void TextExporter::writeLineBuffer(std::ostream& os, CEDLine * line) {
@@ -110,6 +109,15 @@ void TextExporter::writeLineBuffer(std::ostream& os, CEDLine * line) {
         os << output_line;
 
     clearLineBuffer();
+
+    if (isLineBreak(line)) {
+        writeLineBreak(os);
+    } else {
+        // if no end hyphen
+        // insert space to separate words on different lines
+        if (!output_line.empty() && output_line.rfind('-') != 0 && lines_left_in_paragraph_ > 1)
+            os << ' ';
+    }
 }
 
 void TextExporter::writeLineBufferRaw(std::ostream& os) {
@@ -119,7 +127,6 @@ void TextExporter::writeLineBufferRaw(std::ostream& os) {
 
 void TextExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
     writeLineBuffer(os, line);
-    writeLineBreak(os, line);
     lines_left_in_paragraph_--;
 }
 

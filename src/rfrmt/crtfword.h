@@ -32,6 +32,7 @@ namespace CIF
 {
 class CRtfChar;
 class CEDChar;
+class CEDLine;
 
 class CLA_EXPO CRtfWord
 {
@@ -158,6 +159,11 @@ class CLA_EXPO CRtfWord
          * Returns word as string
          */
         std::string toString() const;
+
+        /**
+         * Writes word to CEDLine
+         */
+        void write(CEDLine * line) const;
     private:
         void calcBRect();
         void calcProbability();

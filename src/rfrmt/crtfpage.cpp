@@ -892,17 +892,14 @@ Bool CRtfPage::Write_USE_NONE() {
 
         if (FragmentType == FT_TABLE) {
             //pRtfFragment->FWriteTable(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
-        }
-
-        else if (FragmentType == FT_PICTURE)
+        } else if (FragmentType == FT_PICTURE) {
             pRtfFragment->FWritePicture(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
-
-        else {
+        } else {
             PutCom("\\cols", 1, 0);
             PutCom("\\colno", 1, 0);
             PutCom("\\colw", PaperW, 0);
             pRtfFragment->setParent(this);
-            pRtfFragment->writeText(&pRtfSector->SectorInfo, FOT_SINGLE);
+            pRtfFragment->writeText(&pRtfSector->SectorInfo);
         }
     }
 
@@ -991,7 +988,7 @@ Bool CRtfPage::Write_USE_FRAME() {
 #endif
             SectorInfo->FlagOverLayed = FALSE;
             pRtfFragment->setParent(this);
-            pRtfFragment->writeText(SectorInfo, FOT_FRAME);
+            pRtfFragment->writeText(SectorInfo);
             Put("}");
         }
     }

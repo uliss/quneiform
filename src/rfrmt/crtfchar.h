@@ -34,6 +34,7 @@ namespace CIF
 {
 
 class CEDChar;
+class CEDLine;
 class CEDParagraph;
 
 class CLA_EXPO CRtfChar
@@ -184,6 +185,12 @@ class CLA_EXPO CRtfChar
          * Returns number of versions
          */
         size_t versionCount() const;
+
+        /**
+         * Write character to CEDLine
+         * @return pointer to inserted CEDChar
+         */
+        CEDChar * write(CEDLine * line) const;
     public:
         static CEDChar * makeCedSpace(int fontName, int fontSize, int fontAttrs);
     private:

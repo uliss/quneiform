@@ -41,7 +41,7 @@ class HtmlExporter: public XmlExporter
         /**
          * Writes <br/> tag if needed
          */
-        virtual void writeLineBreak(std::ostream& os, CEDLine * line);
+        virtual void writeLineBreak(std::ostream& os);
 
         /**
          * Writes HTML meta information in <meta> tags

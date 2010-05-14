@@ -342,13 +342,6 @@ class CLA_EXPO CRtfString
         CEDLine * toCedLine() const;
 
         /**
-         * Returns pointer to new CEDParagraph
-         * @note caller deletes return value
-         */
-        CEDParagraph * toCedParagraph(RtfSectorInfo * sector, int firstIndent, int leftIndent,
-                int rightIndent, int marginTop, int width) const;
-
-        /**
          * Returns string content as std::string
          */
         std::string toString() const;
@@ -373,6 +366,11 @@ class CLA_EXPO CRtfString
          * @see empty(), clearWords(), addWord()
          */
         size_t wordCount() const;
+
+        /**
+         * Writes string to CEDParagraph
+         */
+        void write(CEDParagraph * line) const;
     private:
         typedef std::vector<CRtfWord*> WordList;
         typedef WordList::iterator WordIterator;

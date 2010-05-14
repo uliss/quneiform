@@ -54,9 +54,9 @@ class TextExporter: public GenericExporter
         virtual void writeCharacter(std::ostream& os, CEDChar * chr);
 
         /**
-         * Writes line break if needed
+         * Writes line breaks
          */
-        virtual void writeLineBreak(std::ostream& os, CEDLine * line);
+        virtual void writeLineBreak(std::ostream& os);
 
         /**
          * Writes preprocessed line buffer content to output stream

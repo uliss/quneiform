@@ -254,5 +254,12 @@ bool CRtfWord::isSpelled() const {
     return spelling_ > 0;
 }
 
+void CRtfWord::write(CEDLine * line) const {
+    for (CharConstIterator it = chars_.begin(), end = chars_.end(); it != end; ++it) {
+        CEDChar * chr = (*it)->write(line);
+        chr->setFontStyle(fontAttrs());
+    }
+}
+
 }
 

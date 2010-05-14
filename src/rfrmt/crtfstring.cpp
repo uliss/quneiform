@@ -27,6 +27,7 @@
 
 // ced
 #include "ced/cedline.h"
+#include "ced/cedparagraph.h"
 
 #include "cstr/cstrdefs.h"
 #include "minmax.h"
@@ -375,68 +376,12 @@ CEDLine * CRtfString::toCedLine() const {
     CEDLine * line = new CEDLine;
     line->setHardBreak(line_break_);
 
-    if (!RfrmtOptions::useSize() && !RfrmtOptions::useFrames())
+    if (empty())
         line->setDefaultFontHeight(DefFontSize);
     else
         line->setDefaultFontHeight(firstWord()->realFontSize() * 2);
 
     return line;
-}
-
-CEDParagraph * CRtfString::toCedParagraph(RtfSectorInfo * sector, int firstIndent, int leftIndent,
-        int rightIndent, int marginTop, int width) const {
-    EDBOX playout;
-    EDSIZE interval;
-
-    Rect indent(Point(leftIndent, firstIndent), Point(rightIndent, 0));
-    interval.cx = marginTop;
-    interval.cy = 0;
-    playout.x = -1;
-    playout.w = -1;
-    playout.y = -1;
-    playout.h = -1;
-    int par_align = align();
-    int shad = -1;
-
-    if (par_align == FORMAT_ALIGN_ONE)
-        par_align = FORMAT_ALIGN_LEFT;
-
-    switch (par_align) {
-    case FORMAT_ALIGN_LEFT:
-        par_align = TP_LEFT_ALLIGN;
-        break;
-    case FORMAT_ALIGN_RIGHT:
-        par_align = TP_RIGHT_ALLIGN;
-        break;
-    case FORMAT_ALIGN_JUSTIFY:
-        par_align = TP_LEFT_ALLIGN | TP_RIGHT_ALLIGN;
-        break;
-    case FORMAT_ALIGN_CENTER:
-        par_align = TP_CENTER;
-        break;
-    }
-
-    if (isNegative()) {
-        par_align = TP_CENTER;
-        shad = 10000;
-
-        if (hasFlag(CSTR_STR_UPDOWN) || hasFlag(CSTR_STR_DOWNUP)) {
-            //          int addIndent =  SectorInfo->PaperW - SectorInfo->MargL - SectorInfo->MargR -
-            //                           LenthStringInTwips - indent.left - indent.right;
-            int addIndent = width - realLength();
-
-            if (addIndent > 0) {
-                addIndent = (int) (0.9 * addIndent);
-                indent.rleft() += addIndent / 2;
-                indent.rright() += addIndent / 2;
-                indent.rtop() = 0;
-            }
-        }
-    }
-
-    return CED_CreateParagraph(sector->hEDSector, sector->hObject, par_align, indent,
-            sector->userNum, -1, interval, playout, -1, shad, -1, -1, FALSE);
-
 }
 
 std::string CRtfString::toString() const {
@@ -450,6 +395,24 @@ std::string CRtfString::toString() const {
     }
 
     return result;
+}
+
+void CRtfString::write(CEDParagraph * par) const {
+    CEDLine * line = toCedLine();
+    line->setHardBreak(line_break_);
+
+    for (WordIteratorConst it = words_.begin(), end = words_.end(); it != end; ++it) {
+        // first word
+        // insert space
+        if (it != words_.begin()) {
+            CEDChar * space = CRtfChar::makeCedSpace(-1, -1, (*it)->fontAttrs());
+            line->insertChar(space);
+        }
+
+        (*it)->write(line);
+    }
+
+    par->insertLine(line);
 }
 
 }

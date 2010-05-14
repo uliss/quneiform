@@ -303,6 +303,42 @@ const CRtfString * CRtfFragment::lastString() const {
     return strings_.back();
 }
 
+CEDParagraph * CRtfFragment::makeParagraph(RtfSectorInfo * sector, int firstIndent, int leftIndent,
+        int rightIndent, int marginTop, format_align_t align) {
+    EDBOX playout;
+    EDSIZE interval;
+
+    Rect indent(Point(leftIndent, firstIndent), Point(rightIndent, 0));
+    interval.cx = marginTop;
+    interval.cy = 0;
+    playout.x = -1;
+    playout.w = -1;
+    playout.y = -1;
+    playout.h = -1;
+
+    int par_align = align;
+
+    switch (align) {
+    case FORMAT_ALIGN_ONE:
+    case FORMAT_ALIGN_LEFT:
+        par_align = TP_LEFT_ALLIGN;
+        break;
+    case FORMAT_ALIGN_RIGHT:
+        par_align = TP_RIGHT_ALLIGN;
+        break;
+    case FORMAT_ALIGN_JUSTIFY:
+        par_align = TP_LEFT_ALLIGN | TP_RIGHT_ALLIGN;
+        break;
+    case FORMAT_ALIGN_CENTER:
+        par_align = TP_CENTER;
+        break;
+    }
+
+    return CED_CreateParagraph(sector->hEDSector, sector->hObject, par_align, indent,
+            sector->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
+
+}
+
 int CRtfFragment::minParagraphLeftIndent(StringIteratorConst begin, StringIteratorConst end) {
     int min_left_indent = 0;
     for (StringIteratorConst it = begin; it != end; ++it) {
@@ -507,10 +543,10 @@ void CRtfFragment::write(RtfSectorInfo * sector, fragment_output_t out_type) {
         writePicture(sector, out_type);
         break;
     case FT_TEXT:
-        writeText(sector, out_type);
+        writeText(sector);
         break;
     default:
-        throw std::runtime_error("[CRtfFragment::write] export error: tring to export frame");
+        throw std::runtime_error("[CRtfFragment::write] export error: trying to export frame");
     }
 
 }
@@ -533,165 +569,18 @@ void CRtfFragment::writeTable(RtfSectorInfo* sector, fragment_output_t type) {
     written_ = true;
 }
 
-void CRtfFragment::writeText(RtfSectorInfo *SectorInfo, fragment_output_t output_type) {
-    int font_size;
+void CRtfFragment::writeText(RtfSectorInfo * sector) {
+    initFragment(sector);
     CEDParagraph * ced_paragraph = NULL;
-    CEDLine * ced_line = NULL;
-    initFragment(SectorInfo);
-    //--- Цикл по строкам
-    bool is_prev_negative = false; //NEGA_STR
-    int left_indent;
-    int right_indent;
-    int first_indent;
-    int margin_top;
-
     for (StringIterator it = strings_.begin(), end = strings_.end(); it != end; ++it) {
-        // чтобы не смешивать в одном абзаце негатив. и позитив. строки, при смене
-        // цвета стартуем новый абзац
-        bool is_negative = (*it)->isNegative();
-
-        if (is_negative != is_prev_negative)
-            (*it)->setParagraphBegin(true);
-
-        is_prev_negative = is_negative;
-    }
-
-    for (StringIterator str_it = strings_.begin(), end = strings_.end(); str_it != end; ++str_it) {
-        CRtfString * str = *str_it;
-        CRtfWord * word = str->firstWord();
-        CRtfChar * chr = word->firstChar();
-
-        if (chr->isDropCap()) { //заносим буквицы во frame
-            if (RfrmtOptions::useFrames() || output_type)
-                chr->setDropCap(false);
-            else
-                str->setParagraphBegin(true);
-        }
-
+        CRtfString * str = *it;
         if (str->isParagraphBegin()) {
-            if (str->align() == FORMAT_ALIGN_LIST) {
-                str->setAlign(FORMAT_ALIGN_JUSTIFY);
-                first_indent = -str->firstIndent();
-            } else
-                first_indent = str->firstIndent();
-
-            left_indent = str->leftIndent();
-            right_indent = str->rightIndent();
-            margin_top = str->marginTop();
-
-            if (output_type)
-                margin_top = 0;
-
-            if (RfrmtOptions::useFramesAndColumns()) {
-                if (SectorInfo->FlagOneString == TRUE) {
-                    left_indent = 0;
-                    first_indent = MAX(0, (int16_t)(m_rect.left - SectorInfo->MargL));
-                    right_indent = 0;
-                }
-            }
-
-            int colWidth = columnWidth(SectorInfo);
-
-            if (!chr->isDropCap()) {
-                ced_paragraph = str->toCedParagraph(SectorInfo, first_indent, left_indent,
-                        right_indent, margin_top, colWidth);
-            }
+            ced_paragraph = makeParagraph(sector, str->firstIndent(), str->leftIndent(),
+                    str->rightIndent(), str->marginTop(), str->align());
         }
 
-        if (!chr->isDropCap()) {
-            ced_line = str->toCedLine();
-            ced_paragraph->insertLine(ced_line);
-        }
-
-        //--- Цикл по словам
-        size_t CountWords = str->wordCount();
-
-        for (size_t nw = 0; nw < CountWords; nw++) {
-            word = str->wordAt(nw);
-            chr = word->firstChar();
-            int font_name = fontName(word->fontNumber());
-            int font_attrs = word->fontAttrs();
-
-            bool word_ends_with_hyphen = false;
-            word->calcCoordinatesAndProbability();
-
-            //--- Цикл по буквам
-            for (size_t nz = 0, total = word->charCount(); nz < total; nz++) {
-                chr = word->charAt(nz);
-
-                if (!word->isSpelled())
-                    chr->first().setProbability(0);
-
-                if (nw == 0 && nz == 0 && chr->isDropCap()) {
-                    if (!RfrmtOptions::useSize() && RfrmtOptions::useFrames())
-                        font_size = DefFontSize;
-                    else
-                        font_size = chr->fontSize() * 2;
-                } else if (!RfrmtOptions::useSize() && RfrmtOptions::useFrames())
-                    font_size = DefFontSize;
-                else
-                    font_size = word->realFontSize() * 2;
-
-                word_ends_with_hyphen = false;
-
-                if (nw == (CountWords - 1) && nz == (total - 1) && chr->first().isHyphen())
-                    word_ends_with_hyphen = true;
-
-                if (chr->first().getChar()) {
-                    if (str->lineTransfer()) {
-                        if (nw == 0 && nz == 0 && chr->isDropCap()) {
-                            chr->insertCedDropCap(SectorInfo, font_name, font_size, font_attrs,
-                                    str->isNegative());
-
-                            ced_paragraph = str->toCedParagraph(SectorInfo, first_indent,
-                                    left_indent, right_indent, margin_top, m_rectReal.right
-                                            - m_rectReal.left);
-                            ced_line = str->toCedLine();
-                            ced_paragraph->insertLine(ced_line);
-                        } else {
-                            CEDChar * ced_char = chr->toCedChar(font_name, font_size, font_attrs);
-                            ced_line->insertChar(ced_char);
-                        }
-                    } else if (!((str->align() == FORMAT_ALIGN_JUSTIFY || str->align()
-                            == FORMAT_ALIGN_LEFT) && word_ends_with_hyphen
-                            && chr->isSpelledNoCarrying())) {
-                        if (nw == 0 && nz == 0 && chr->isDropCap()) {
-                            chr->insertCedDropCap(SectorInfo, font_name, font_size, font_attrs,
-                                    str->isNegative());
-
-                            ced_paragraph = str->toCedParagraph(SectorInfo, first_indent,
-                                    left_indent, right_indent, margin_top, m_rectReal.right
-                                            - m_rectReal.left);
-
-                            ced_line = str->toCedLine();
-                            ced_paragraph->insertLine(ced_line);
-                        } else {
-                            CEDChar * ced_char = chr->toCedChar(font_name, font_size, font_attrs);
-                            ced_line->insertChar(ced_char);
-                        }
-                    } else {
-                        font_attrs = font_attrs | 0x02;
-                        CEDChar * ced_char = chr->toCedChar(font_name, font_size, font_attrs);
-                        ced_line->insertChar(ced_char);
-                    }
-                }
-            }
-
-            //--- Конец цикла по буквам
-            if (nw < CountWords - 1) {
-                if (!chr->isDropCap()) {
-                    ced_line->insertChar(word->makeCedSpace(font_name, font_attrs));
-                }
-            } else if ((*str_it != strings_.back()) && (nw == CountWords - 1) && //
-                    (str->align() == FORMAT_ALIGN_JUSTIFY || //
-                            str->align() == FORMAT_ALIGN_LEFT) && //
-                    !word_ends_with_hyphen) {
-                ced_line->insertChar(word->makeCedSpace(font_name, font_attrs));
-            }
-        }
-        //--- Конец цикла по словам
+        str->write(ced_paragraph);
     }
-    //--- Конец цикла по строкам
 }
 
 int CRtfFragment::fontSizePenalty(int fragment_count) const {

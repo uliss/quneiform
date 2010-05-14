@@ -32,6 +32,7 @@ namespace CIF
 
 class CRtfPage;
 class CRtfString;
+class CEDParagraph;
 
 class CLA_EXPO CRtfFragment
 {
@@ -140,7 +141,7 @@ class CLA_EXPO CRtfFragment
         /**
          * Exports fragment to CED text
          */
-        void writeText(RtfSectorInfo* SectorInfo, fragment_output_t type);
+        void writeText(RtfSectorInfo* SectorInfo);
 
         void FWritePicture(int NumberCurrentFragment, RtfSectorInfo* SectorInfo, Bool OutPutType);
 
@@ -219,6 +220,8 @@ class CLA_EXPO CRtfFragment
                 format_align_t AlignType);
         static int countStringEndDots(StringIteratorConst begin, StringIteratorConst end);
         static bool hasFlagCarry(StringIteratorConst begin, StringIteratorConst end);
+        static CEDParagraph * makeParagraph(RtfSectorInfo * sector, int firstIndent,
+                int leftIndent, int rightIndent, int marginTop, format_align_t align);
         static int minParagraphLeftIndent(StringIteratorConst begin, StringIteratorConst end);
         static void setLineTransfer(StringIterator begin, StringIterator end);
         static void setParagraphAlignment(StringIterator begin, StringIterator end,
