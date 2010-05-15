@@ -26,9 +26,8 @@ namespace CIF
 {
 
 CRtfVerticalColumn::CRtfVerticalColumn() :
-    page_(NULL) {
+    page_(NULL), type_(FT_TEXT), small_(false) {
     m_bSortFlag = 0;
-    m_wType = FT_TEXT;
     SetRect(&m_rect, 32000, 32000, 0, 0);
 }
 
@@ -68,6 +67,10 @@ size_t CRtfVerticalColumn::fragmentCount() const {
     return fragments_.size();
 }
 
+bool CRtfVerticalColumn::isSmall() const {
+    return small_;
+}
+
 CRtfPage * CRtfVerticalColumn::page() {
     return page_;
 }
@@ -88,12 +91,16 @@ void CRtfVerticalColumn::setPage(CRtfPage * page) {
     page_ = page;
 }
 
+void CRtfVerticalColumn::setSmall(bool value) {
+    small_ = value;
+}
+
 void CRtfVerticalColumn::setType(fragment_t type) {
-    m_wType = type;
+    type_ = type;
 }
 
 fragment_t CRtfVerticalColumn::type() const {
-    return m_wType;
+    return type_;
 }
 
 void CRtfVerticalColumn::write(RtfSectorInfo * sector, fragment_output_t type) {

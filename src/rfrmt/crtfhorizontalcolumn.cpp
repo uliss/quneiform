@@ -118,38 +118,57 @@ CRtfHorizontalColumn::column_t CRtfHorizontalColumn::type() const {
     return type_;
 }
 
+void CRtfHorizontalColumn::markSmallColumns() {
+    const int max_width = maxVColumnWidth();
+    const int max_height = maxVColumnHeight();
+
+    for (size_t i = 0; i < vcols_.size(); i++) {
+        CRtfVerticalColumn * vcol = vcols_[i];
+
+        if (vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) {
+            if ((vcol->realWidth() * 2 < max_width) && (vcol->realHeight() * 2 < max_height))
+                vcol->setSmall(true);
+            else
+                vcol->setSmall(false);
+        }
+    }
+}
+
+int CRtfHorizontalColumn::maxVColumnHeight() const {
+    int max_height = 1;
+
+    for (VColumnIteratorConst it = vcols_.begin(), end = vcols_.end(); it != end; ++it) {
+        if ((*it)->type() == FT_TEXT || (*it)->type() == FT_FRAME)
+            max_height = std::max(max_height, (*it)->realHeight());
+    }
+
+    return max_height;
+}
+
+int CRtfHorizontalColumn::maxVColumnWidth() const {
+    int max_width = 1;
+
+    for (VColumnIteratorConst it = vcols_.begin(), end = vcols_.end(); it != end; ++it) {
+        if ((*it)->type() == FT_TEXT || (*it)->type() == FT_FRAME)
+            max_width = std::max(max_width, (*it)->realWidth());
+    }
+
+    return max_width;
+}
+
 //после удаления жертвы по гистограммам проверяем разделимость остальных колонок и если да,
 // все они будут терминал.
 void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
     CRtfVerticalColumn* vcol;
     std::vector<uchar> Hist;
-    int32_t Left = 32000, Right = 0, Length, Left1, Right1;
-    int i, j, FlagLeft, FlagRight, tmp;
-    int32_t MaxWidth = 1, MaxHeight = 1;
+    int Left = 32000, Right = 0, Length, Left1, Right1;
+
+    markSmallColumns();
 
     for (size_t i = 0; i < vcols_.size(); i++) {
         CRtfVerticalColumn * vcol = vcols_[i];
 
-        if (vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) {
-            MaxWidth = MAX(MaxWidth, vcol->realWidth());
-            MaxHeight = MAX(MaxHeight, vcol->realHeight());
-            vcol->m_bFlagSmall = FALSE; //в первую очередь жертвы ищутся среди малых
-        }
-    }
-
-    for (size_t i = 0; i < vcols_.size(); i++) {
-        CRtfVerticalColumn * vcol = vcols_[i];
-
-        if (vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) {
-            if ((vcol->realWidth() * 2 < MaxWidth) && (vcol->realHeight() * 2 < MaxHeight))
-                vcol->m_bFlagSmall = TRUE;
-        }
-    }
-
-    for (size_t i = 0; i < vcols_.size(); i++) {
-        CRtfVerticalColumn * vcol = vcols_[i];
-
-        if ((vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) && vcol->m_bFlagSmall == FALSE) {
+        if ((vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) && !vcol->isSmall()) {
             Left = MIN(Left, vcol->m_rectReal.left);
             Right = MAX(Right, vcol->m_rectReal.right);
         }
@@ -157,25 +176,25 @@ void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
 
     Length = Right - Left + 2;
 
-    for (i = 0; i < Length; i++)
+    for (int i = 0; i < Length; i++)
         Hist.push_back(0);
 
-    for (i = 0; i < vcols_.size(); i++) { //~накопление гистограммы
-        vcol = (CRtfVerticalColumn*) vcols_[i];
+    for (size_t i = 0; i < vcols_.size(); i++) { //~накопление гистограммы
+        vcol = vcols_[i];
 
-        if ((vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) && vcol->m_bFlagSmall == FALSE) {
+        if ((vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) && !vcol->isSmall()) {
             Left1 = vcol->m_rectReal.left - Left;
             Right1 = vcol->m_rectReal.right - Left;
 
-            for (j = Left1; j < Right1; j++)
+            for (int j = Left1; j < Right1; j++)
                 Hist[j] += 1;
         }
     }
 
-    for (i = 0; i < vcols_.size(); i++) {
-        vcol = (CRtfVerticalColumn*) vcols_[i];
+    for (size_t i = 0; i < vcols_.size(); i++) {
+        vcol = vcols_[i];
 
-        if (vcol->m_bFlagSmall) {
+        if (vcol->isSmall()) {
             vcol->setType(FT_FRAME);
             continue;
         }
@@ -183,28 +202,23 @@ void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
         if (vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) {
             Left1 = vcol->m_rectReal.left - Left;
             Right1 = vcol->m_rectReal.right - Left;
-            FlagLeft = 0;
-            FlagRight = 0;
-            tmp = Hist[Left1];
+            bool FlagLeft = false;
+            bool FlagRight = false;
+            int tmp = Hist[Left1];
 
-            for (j = Left1; j < Right1; j++) {
+            for (int j = Left1; j < Right1; j++) {
                 if (tmp < Hist[j]) {
-                    if (FlagLeft == 0)
+                    if (FlagLeft == false)
                         tmp = Hist[j];
-
-                    else if (FlagLeft == 1 && FlagRight == 0) {
-                        FlagRight = 1;
+                    else if (FlagLeft == true && FlagRight == false) {
+                        FlagRight = true;
                         break;
                     }
-                }
-
-                else if (tmp > Hist[j]) {
-                    if (FlagLeft == 0) {
+                } else if (tmp > Hist[j]) {
+                    if (FlagLeft == false) {
                         tmp = Hist[j];
-                        FlagLeft = 1;
-                    }
-
-                    else if (FlagLeft == 1 && FlagRight == 0)
+                        FlagLeft = true;
+                    } else if (FlagLeft == true && FlagRight == false)
                         tmp = Hist[j];
                 }
             }
@@ -215,8 +229,6 @@ void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
                 vcol->setType(FT_TEXT);
         }
     }
-
-    //  Hist.RemoveAll();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

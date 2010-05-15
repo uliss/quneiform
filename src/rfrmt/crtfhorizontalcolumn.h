@@ -114,9 +114,13 @@ class CRtfHorizontalColumn
         void clearTerminalColumnsGroup();
         void clearTerminalColumnsIndexes();
         void findHeadingAndSetFrameFlag();
+        void markSmallColumns();
+        int maxVColumnHeight() const;
+        int maxVColumnWidth() const;
     private:
         typedef std::vector<CRtfVerticalColumn*> VColumnList;
         typedef VColumnList::iterator VColumnIterator;
+        typedef VColumnList::const_iterator VColumnIteratorConst;
         typedef std::vector<VectorWord*> VectorWordList;
         typedef VectorWordList::iterator VectorWordIterator;
         VColumnList vcols_;

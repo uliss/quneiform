@@ -69,6 +69,11 @@ class CLA_EXPO CRtfVerticalColumn
         size_t fragmentCount() const;
 
         /**
+         * Returns true if column has small height
+         */
+        bool isSmall() const;
+
+        /**
          * Returns pointer to parent page
          * @return
          */
@@ -83,6 +88,11 @@ class CLA_EXPO CRtfVerticalColumn
          * @param page
          */
         void setPage(CRtfPage * page);
+
+        /**
+         * Sets column small
+         */
+        void setSmall(bool value);
 
         /**
          * Sets column type
@@ -104,13 +114,13 @@ class CLA_EXPO CRtfVerticalColumn
         Bool m_bSortFlag;
         RECT m_rect;
         RECT m_rectReal;
-        Bool m_bFlagSmall;
     private:
         typedef std::vector<CRtfFragment*> FragmentList;
         typedef FragmentList::iterator FragmentIterator;
         FragmentList fragments_;
         CRtfPage * page_;
-        fragment_t m_wType;
+        fragment_t type_;
+        bool small_;
 };
 
 }
