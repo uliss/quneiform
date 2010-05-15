@@ -82,7 +82,7 @@ class CRtfFragRect
         std::vector<RECT> m_arGeomFragRectStep1;
         std::vector<RECT> m_arGeomFragRectStep2;
         std::vector<RECT> m_arGeomFragRectTemp;
-        vectorWord m_arGeomFragRectColor;
+        VectorWord m_arGeomFragRectColor;
         uint16_t m_wFragCount;
         uint16_t m_nIndex;
         uint16_t m_Cycle;

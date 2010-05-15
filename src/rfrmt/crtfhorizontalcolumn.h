@@ -63,9 +63,9 @@ class CRtfHorizontalColumn
          */
         void setPage(CRtfPage * page);
 
-        Bool Write(/*CWordArray*/vectorWord* arRightBoundTerminalColumns,
+        Bool Write(/*CWordArray*/VectorWord* arRightBoundTerminalColumns,
                 int32_t* VTerminalColumnNumber);
-        void WriteTerminalColumns(/*CWordArray*/vectorWord* arRightBoundTerminalColumns,
+        void WriteTerminalColumns(/*CWordArray*/VectorWord* arRightBoundTerminalColumns,
                 int32_t* VTerminalColumnNumber, int32_t CountVTerminalColumns,
                 RtfSectorInfo* SectorInfo);
         void WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo, Bool FlagFirstTerminalFragment,
@@ -74,8 +74,8 @@ class CRtfHorizontalColumn
         void WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
         void CalcHorizontalColumn(void);
         int32_t GetCountAndRightBoundVTerminalColumns(
-        /*CWordArray*/vectorWord* arRightBoundTerminalColumns,
-                vectorWord/*CWordArray*/* arWidthTerminalColumns);
+        /*CWordArray*/VectorWord* arRightBoundTerminalColumns,
+                VectorWord/*CWordArray*/* arWidthTerminalColumns);
         void FindHeadingAndSetFrameFlag(void);
         void DefineTerminalProperty(void);
         void FillingVTerminalColumnsIndex(void);
@@ -88,11 +88,6 @@ class CRtfHorizontalColumn
         Bool GetOverLayedFlag(int CurFragmentNumber);
         void SetFlagObjectInColumnForPageFragment(CRtfFragment* CurFragment);
 
-        std::vector<vectorWord*> m_arVTerminalColumnsGroup;
-        std::vector<vectorWord*> m_arVTerminalColumnsIndex;
-        vectorWord m_arSpacePlace;
-        std::vector<uchar> m_arOrderingNumber;
-        uint16_t m_wIndex;
         RECT m_rect;
         RECT m_rectReal;
         uint16_t m_wType;
@@ -101,6 +96,10 @@ class CRtfHorizontalColumn
         typedef VColumnList::iterator VColumnIterator;
         VColumnList vcols_;
         CRtfPage * page_;
+        std::vector<uchar> m_arOrderingNumber;
+        VectorWord m_arSpacePlace;
+        std::vector<VectorWord*> m_arVTerminalColumnsGroup;
+        std::vector<VectorWord*> m_arVTerminalColumnsIndex;
 };
 
 }

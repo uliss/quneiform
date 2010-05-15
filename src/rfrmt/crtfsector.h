@@ -48,9 +48,9 @@ class CRtfSector
         void FillingSectorInfo(void);
 
         std::vector<CRtfHorizontalColumn*> m_arHorizontalColumns;
-        vectorWord m_arHTerminalColumnsIndex;
-        vectorWord m_arRightBoundTerminalColumns;
-        vectorWord m_arWidthTerminalColumns;
+        VectorWord m_arHTerminalColumnsIndex;
+        VectorWord m_arRightBoundTerminalColumns;
+        VectorWord m_arWidthTerminalColumns;
         RtfSectorInfo SectorInfo;
 
         uint16_t m_wHorizontalColumnsCount;

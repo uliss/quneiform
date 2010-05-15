@@ -84,7 +84,7 @@ class CRtfWord;
 class CRtfChar;
 }
 
-typedef std::vector<uint16_t> vectorWord;
+typedef std::vector<uint16_t> VectorWord;
 const float TwipsToEMU_Koef = (360000 * 2.54) / 1440;
 
 //Fragment output types

@@ -138,7 +138,7 @@ std::vector <tagRECT> *pTheGeomStep = NULL;
 extern std::vector <tagRECT> *pTheGeomStep1;
 extern std::vector <tagRECT> *pTheGeomStep2;
 extern std::vector <tagRECT> *pTheGeomTemp;
-extern vectorWord *pFragRectColor;
+extern VectorWord *pFragRectColor;
 extern void MyDrawForDebug(void);
 extern uint16_t *CountRect;
 

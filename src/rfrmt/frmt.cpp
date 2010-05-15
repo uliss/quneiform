@@ -110,7 +110,7 @@ std::vector <tagRECT> *pInputArray;
 std::vector <tagRECT> *pTheGeomStep1;
 std::vector <tagRECT> *pTheGeomStep2;
 std::vector <tagRECT> *pTheGeomTemp;
-vectorWord *pFragRectColor;
+VectorWord *pFragRectColor;
 uint16_t *CountRect;
 uint16_t Draw_Step;
 uint16_t Draw_Cycle;

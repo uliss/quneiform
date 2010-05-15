@@ -44,14 +44,14 @@ CRtfHorizontalColumn::~CRtfHorizontalColumn() {
     Count = m_arVTerminalColumnsGroup.size();
 
     for (i = 0; i < Count; i++) {
-        vectorWord* pGroup = m_arVTerminalColumnsGroup[i];
+        VectorWord* pGroup = m_arVTerminalColumnsGroup[i];
         delete pGroup;
     }
 
     Count = m_arVTerminalColumnsIndex.size();
 
     for (i = 0; i < Count; i++) {
-        vectorWord* pGroupIndex = m_arVTerminalColumnsIndex[i];
+        VectorWord* pGroupIndex = m_arVTerminalColumnsIndex[i];
         delete pGroupIndex;
     }
 }
@@ -237,7 +237,7 @@ void CRtfHorizontalColumn::FindHeadingAndSetFrameFlag(void) {
 void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of histogram after victim deletion
 {
     std::vector<uchar> Hist;
-    vectorWord* pGroup;
+    VectorWord* pGroup;
     CRtfVerticalColumn* pRtfVerticalColumn;
     int32_t Left = 32000, Right = 0, Length, Left1, Right1;
     int i, j, FlagSpace = 0, CountColumn, MinLeft, MaxRight;
@@ -288,8 +288,8 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
 
     if (CountColumn) {
         for (i = 0; i <= CountColumn; i++) {
-            m_arVTerminalColumnsGroup.push_back(new vectorWord());
-            pGroup = (vectorWord*) m_arVTerminalColumnsGroup[i];
+            m_arVTerminalColumnsGroup.push_back(new VectorWord());
+            pGroup = (VectorWord*) m_arVTerminalColumnsGroup[i];
 
             if (i == 0) {
                 Left = MinLeft;
@@ -349,7 +349,7 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
 
     pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[IndexMaxWidthFragment];
     pRtfVerticalColumn->setType(FT_TEXT);
-    m_arVTerminalColumnsGroup.push_back(new vectorWord());
+    m_arVTerminalColumnsGroup.push_back(new VectorWord());
     pGroup = m_arVTerminalColumnsGroup[0];
     pGroup->push_back(IndexMaxWidthFragment);
     m_wType = HC_FrameAndColumn;
@@ -365,16 +365,16 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
     uint16_t index, Number;
     int32_t Top;
     CRtfVerticalColumn *pRtfVerticalColumn;
-    vectorWord *pGroup, *pGroupNew;
+    VectorWord *pGroup, *pGroupNew;
 
     if (m_wType == HC_SingleTerminal) {
-        m_arVTerminalColumnsIndex.push_back(new vectorWord());
+        m_arVTerminalColumnsIndex.push_back(new VectorWord());
         pGroup = m_arVTerminalColumnsIndex[0];
         pGroup->push_back(0);
     }
 
     if (m_wType == HC_AllTerminal) { //section includes only terminal columns (! NO frames)
-        m_arVTerminalColumnsIndex.push_back(new vectorWord());
+        m_arVTerminalColumnsIndex.push_back(new VectorWord());
         pGroup = m_arVTerminalColumnsIndex[0];
 
         for (j = 0; j < vcols_.size(); j++) {
@@ -406,7 +406,7 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
         int CountColumn = m_arVTerminalColumnsGroup.size();
 
         for (j = 0; j < CountColumn; j++) {
-            m_arVTerminalColumnsIndex.push_back(new vectorWord());
+            m_arVTerminalColumnsIndex.push_back(new VectorWord());
             pGroupNew = m_arVTerminalColumnsIndex[j];
             pGroup = m_arVTerminalColumnsGroup[j];
             int CountInGroup = pGroup->size();
@@ -444,11 +444,11 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
 //                                 GetCountAndRightBoundVTerminalColumns                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
-        vectorWord* arRightBoundTerminalColumns, vectorWord* arWidthTerminalColumns) {
+        VectorWord* arRightBoundTerminalColumns, VectorWord* arWidthTerminalColumns) {
     int32_t CountVTerminalColumns = 0;
     CRtfVerticalColumn *pRtfVerticalColumn;
     uint16_t RightBound, index, WidthColumn, tmp;
-    vectorWord *pGroup;
+    VectorWord *pGroup;
 
     if (m_wType == HC_SingleTerminal || m_wType == HC_AllTerminal) {
         RightBound = (uint16_t) MAX(m_rectReal.left, 0);
@@ -533,13 +533,13 @@ void CRtfHorizontalColumn::SetFlagObjectInColumnForPageFragment(CRtfFragment* Cu
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 WriteTerminalColumns                                           //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfHorizontalColumn::WriteTerminalColumns(vectorWord* arRightBoundTerminalColumns,
+void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminalColumns,
         int32_t* VTerminalColumnNumber, int32_t CountVTerminalColumns, RtfSectorInfo *SectorInfo) {
     int colsr(0), i(0), j(0), colw(0), CountInGroup(0);
     int32_t CountTerminalColumns, NextColumnsLeft, CountFrameInTerminalColumn, Left, Right;
     CRtfVerticalColumn *pRtfVerticalColumn;
     CRtfFragment *pRtfFragment;
-    vectorWord *pGroup;
+    VectorWord *pGroup;
     uint16_t FreeSpace;
     int number;
     Bool FlagFirstTerminalFragment = FALSE;
