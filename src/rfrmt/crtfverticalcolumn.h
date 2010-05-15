@@ -20,6 +20,7 @@
 #define CRTFVERTICALCOLUMN_H_
 
 #include <vector>
+#include "globus.h"
 #include "cfcompat.h"
 #include "creatertf.h"
 
@@ -31,7 +32,7 @@ namespace CIF
 class CRtfPage;
 class CRtfFragment;
 
-class CRtfVerticalColumn
+class CLA_EXPO CRtfVerticalColumn
 {
     public:
         CRtfVerticalColumn();
