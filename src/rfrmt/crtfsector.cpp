@@ -58,9 +58,9 @@ void CRtfSector::CalcSector(void) {
 
     for (int ih = 0; ih < m_wHorizontalColumnsCount; ih++) {
         pRtfHorizontalColumn = m_arHorizontalColumns[ih];
-        pRtfHorizontalColumn->CalcHorizontalColumn();
+        pRtfHorizontalColumn->calcHorizontalColumn();
 
-        if (pRtfHorizontalColumn->m_wType < HC_AllFrame)
+        if (pRtfHorizontalColumn->type() < HC_AllFrame)
             m_arHTerminalColumnsIndex.push_back(ih);
     }
 }
@@ -194,7 +194,7 @@ void CRtfSector::WriteNonTerminalColumns(void) {
     for (int i = 0; i < m_wHorizontalColumnsCount; i++) {
         pRtfHorizontalColumn = m_arHorizontalColumns[i];
 
-        if (pRtfHorizontalColumn->m_wType >= HC_AllFrame)
+        if (pRtfHorizontalColumn->type() >= HC_AllFrame)
             pRtfHorizontalColumn->WriteNonTerminalColumns(&SectorInfo);
     }
 }
@@ -276,7 +276,7 @@ void CRtfSector::FillingSectorInfo() //~ тут происходит работ�
             for (int i2 = 0; i2 < CountFragments; i2++) {
                 SectorInfo.CountFragments++;
                 pRtfFragment = pRtfVerticalColumn->fragmentAt(i2);
-                //!!!Art   if(pRtfFragment->m_wType == FT_FRAME || pRtfFragment->m_wType == FT_TEXT )
+                //!!!Art   if(pRtfFragment->type_ == FT_FRAME || pRtfFragment->type_ == FT_TEXT )
                 //!!!Art   SectorInfo.Offset.y = MIN(SectorInfo.Offset.y, pRtfFragment->m_rect.top);
             }
         }

@@ -350,7 +350,7 @@ void CRtfPage::SetTwips(void) {
  GetTableRect( i, &RectPict, (uint32_t*)&pRtfFragment->m_wUserNumber );
  RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectPict);
  RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, CIF::getTwips());
- pRtfFragment->m_wType = FT_TABLE;
+ pRtfFragment->type_ = FT_TABLE;
  if(FlagMode & USE_FRAME_AND_COLUMN)
  {
  pRtfFragment->m_wUserNumberForFormattedMode = pRtfFragment->m_wUserNumber;

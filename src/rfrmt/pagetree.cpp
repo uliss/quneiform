@@ -2656,7 +2656,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
             RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rect, &ColH[i][ih].bnd);
             RtfUnionRect_CRect_CRect(&pRtfSector->m_rect, &pRtfHorizontalColumn->m_rect);
             RtfUnionRect_CRect_CRect(&RtfPage->m_rect, &pRtfSector->m_rect);
-            pRtfHorizontalColumn->m_wType = K_Ver_Flag_Term[i][ih];
+            pRtfHorizontalColumn->setType(static_cast<hcolumn_t>(K_Ver_Flag_Term[i][ih]));
             do0(iv, 0, K_Ver[i][ih]) { //vert. col.  begin
                 nc = Colt[i][ih][iv];
 

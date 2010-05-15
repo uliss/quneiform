@@ -30,7 +30,7 @@ namespace CIF
 
 CRtfHorizontalColumn::CRtfHorizontalColumn() :
     page_(NULL) {
-    m_wType = HC_SingleTerminal;
+    type_ = HC_SingleTerminal;
     SetRect(&m_rect, 32000, 32000, 0, 0);
     SetRect(&m_rectReal, 32000, 32000, 0, 0);
 }
@@ -43,6 +43,21 @@ CRtfHorizontalColumn::~CRtfHorizontalColumn() {
 
 void CRtfHorizontalColumn::addColumn(CRtfVerticalColumn * col) {
     vcols_.push_back(col);
+}
+
+void CRtfHorizontalColumn::calcHorizontalColumn() {
+    if (type_ == HC_FrameAndColumn || type_ == HC_AllFrame) {
+        if (CheckTermColumn() == FALSE) { //~проверка вертикал. затенения колонок ("жертва" будет frame)
+            FindHeadingAndSetFrameFlag(); //это проверка, что после удаления жертвы все стало лучше
+            DefineTerminalProperty(); //присвоение признака терминальности колонкам
+        }
+
+        else
+            type_ = HC_AllTerminal;
+    }
+
+    if (type_ <= HC_FrameAndColumn)
+        FillingVTerminalColumnsIndex(); //есть хорошие колонки
 }
 
 void CRtfHorizontalColumn::clearColumns() {
@@ -85,23 +100,12 @@ void CRtfHorizontalColumn::setPage(CRtfPage * page) {
     page_ = page;
 }
 
-//~ здесь попытка деления на колонки
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 CalcHorizontalColumn                                           //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfHorizontalColumn::CalcHorizontalColumn(void) {
-    if (m_wType == HC_FrameAndColumn || m_wType == HC_AllFrame) {
-        if (CheckTermColumn() == FALSE) { //~проверка вертикал. затенения колонок ("жертва" будет frame)
-            FindHeadingAndSetFrameFlag(); //это проверка, что после удаления жертвы все стало лучше
-            DefineTerminalProperty(); //присвоение признака терминальности колонкам
-        }
+void CRtfHorizontalColumn::setType(hcolumn_t type) {
+    type_ = type;
+}
 
-        else
-            m_wType = HC_AllTerminal;
-    }
-
-    if (m_wType <= HC_FrameAndColumn)
-        FillingVTerminalColumnsIndex(); //есть хорошие колонки
+hcolumn_t CRtfHorizontalColumn::type() const {
+    return type_;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -322,7 +326,7 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
     //  Hist.RemoveAll();
 
     if (m_arSpacePlace.size()) {
-        m_wType = HC_FrameAndColumn;
+        type_ = HC_FrameAndColumn;
         return;
     }
 
@@ -354,7 +358,7 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
     terminal_col_group_.push_back(new VectorWord());
     pGroup = terminal_col_group_[0];
     pGroup->push_back(IndexMaxWidthFragment);
-    m_wType = HC_FrameAndColumn;
+    type_ = HC_FrameAndColumn;
 }
 
 //resorting of the fragment array (at first position should be located Frames, next ones are terminal columns)
@@ -369,13 +373,13 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
     CRtfVerticalColumn *pRtfVerticalColumn;
     VectorWord *pGroup, *pGroupNew;
 
-    if (m_wType == HC_SingleTerminal) {
+    if (type_ == HC_SingleTerminal) {
         terminal_col_idx_.push_back(new VectorWord());
         pGroup = terminal_col_idx_[0];
         pGroup->push_back(0);
     }
 
-    if (m_wType == HC_AllTerminal) { //section includes only terminal columns (! NO frames)
+    if (type_ == HC_AllTerminal) { //section includes only terminal columns (! NO frames)
         terminal_col_idx_.push_back(new VectorWord());
         pGroup = terminal_col_idx_[0];
 
@@ -404,7 +408,7 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
         }
     }
 
-    if (m_wType == HC_FrameAndColumn) {
+    if (type_ == HC_FrameAndColumn) {
         int CountColumn = terminal_col_group_.size();
 
         for (j = 0; j < CountColumn; j++) {
@@ -452,7 +456,7 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
     uint16_t RightBound, index, WidthColumn, tmp;
     VectorWord *pGroup;
 
-    if (m_wType == HC_SingleTerminal || m_wType == HC_AllTerminal) {
+    if (type_ == HC_SingleTerminal || type_ == HC_AllTerminal) {
         RightBound = (uint16_t) MAX(m_rectReal.left, 0);
         WidthColumn = (uint16_t) (m_rectReal.right - m_rectReal.left);
         arRightBoundTerminalColumns->push_back(RightBound);
@@ -461,7 +465,7 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
         return CountVTerminalColumns;
     }
 
-    if (m_wType == HC_FrameAndColumn) {
+    if (type_ == HC_FrameAndColumn) {
         CountVTerminalColumns = terminal_col_idx_.size();
 
         for (int i = 0; i < CountVTerminalColumns; i++) {
@@ -500,7 +504,7 @@ void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *
         pRtfFragment = pRtfVerticalColumn->firstFragment();
 
         if (pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE) {
-            if (m_wType <= HC_AllTerminal) {
+            if (type_ <= HC_AllTerminal) {
                 pRtfFragment->setInColumn(true);
                 SetFlagObjectInColumnForPageFragment(pRtfFragment);
             }
@@ -551,7 +555,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminal
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //***********************        Tерминальная колонка из одного или нескольких фрагментов  ******************************************
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (m_wType == HC_SingleTerminal || m_wType == HC_AllTerminal) {
+    if (type_ == HC_SingleTerminal || type_ == HC_AllTerminal) {
         *VTerminalColumnNumber += 1;
 
         if (RfrmtOptions::useFramesAndColumns() && *VTerminalColumnNumber == 1
@@ -894,7 +898,7 @@ void CRtfHorizontalColumn::SortFragments() {
      {
      pRtfVerticalColumn = vcols_[m_arOrderingNumber[m]];
      pRtfFragmentFirst   = pRtfVerticalColumn->m_arFragments[0];
-     if (pRtfFragmentFirst->m_wType==FT_TEXT)
+     if (pRtfFragmentFirst->type_==FT_TEXT)
      break;
      }
      if (m<0)
@@ -911,7 +915,7 @@ void CRtfHorizontalColumn::SortFragments() {
      {
      pRtfVerticalColumn = vcols_[m_arOrderingNumber[m]];
      pRtfFragment   = pRtfVerticalColumn->m_arFragments[0];
-     if( (pRtfFragment->m_wType==FT_TABLE || pRtfFragment->m_wType==FT_PICTURE))
+     if( (pRtfFragment->type_==FT_TABLE || pRtfFragment->type_==FT_PICTURE))
      {
      //вычитаем 2 высоты - фикт. абзаца и разрыва
      //если меньше, чем высота разрава, то чтобы он не упрыгнул вниз
@@ -1040,7 +1044,7 @@ void CRtfHorizontalColumn::ToPlacePicturesAndTables(CRtfFragment* pRtfFragment) 
     vcols_.push_back(new CRtfVerticalColumn());
 
     if (vcols_.size() == 1)
-        m_wType = HC_ONLY_PICTURE_TABLE;
+        type_ = HC_ONLY_PICTURE_TABLE;
 
     pRtfVerticalColumn = vcols_.back();
     pRtfVerticalColumn->setType(pRtfFragment->type());

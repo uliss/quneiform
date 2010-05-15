@@ -42,6 +42,11 @@ class CRtfHorizontalColumn
         void addColumn(CRtfVerticalColumn * col);
 
         /**
+         * Try to divide into columns
+         */
+        void calcHorizontalColumn();
+
+        /**
          * Removes all vertical columns
          */
         void clearColumns();
@@ -63,6 +68,16 @@ class CRtfHorizontalColumn
          */
         void setPage(CRtfPage * page);
 
+        /**
+         * Sets column type
+         */
+        void setType(hcolumn_t type);
+
+        /**
+         * Returns column type
+         */
+        hcolumn_t type() const;
+
         Bool Write(VectorWord* arRightBoundTerminalColumns, int32_t* VTerminalColumnNumber);
         void WriteTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 int32_t* VTerminalColumnNumber, int32_t CountVTerminalColumns,
@@ -71,7 +86,6 @@ class CRtfHorizontalColumn
                 int32_t TopPositionFirstTerminalFragment);
         void WriteNonTerminalColumns(RtfSectorInfo* SectorInfo);
         void WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
-        void CalcHorizontalColumn(void);
         int32_t GetCountAndRightBoundVTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 VectorWord* arWidthTerminalColumns);
         void FindHeadingAndSetFrameFlag(void);
@@ -88,7 +102,6 @@ class CRtfHorizontalColumn
 
         RECT m_rect;
         RECT m_rectReal;
-        uint16_t m_wType;
     private:
         void clearTerminalColumnsGroup();
         void clearTerminalColumnsIndexes();
@@ -99,6 +112,7 @@ class CRtfHorizontalColumn
         typedef VectorWordList::iterator VectorWordIterator;
         VColumnList vcols_;
         CRtfPage * page_;
+        hcolumn_t type_;
         std::vector<uchar> m_arOrderingNumber;
         VectorWord m_arSpacePlace;
         VectorWordList terminal_col_group_;
