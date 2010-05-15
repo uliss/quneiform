@@ -33,6 +33,15 @@ class CRtfFragment;
 class CRtfHorizontalColumn
 {
     public:
+        enum column_t
+        {
+            SINGLE_TERMINAL = 0,
+            ALL_TERMINAL = 1,
+            FRAME_AND_COLUMN = 2,
+            ALL_FRAME = 3,
+            ONLY_PICTURE_TABLE = 4
+        };
+    public:
         CRtfHorizontalColumn();
         ~CRtfHorizontalColumn();
 
@@ -71,12 +80,12 @@ class CRtfHorizontalColumn
         /**
          * Sets column type
          */
-        void setType(hcolumn_t type);
+        void setType(column_t type);
 
         /**
          * Returns column type
          */
-        hcolumn_t type() const;
+        column_t type() const;
 
         Bool Write(VectorWord* arRightBoundTerminalColumns, int32_t* VTerminalColumnNumber);
         void WriteTerminalColumns(VectorWord* arRightBoundTerminalColumns,
@@ -92,7 +101,6 @@ class CRtfHorizontalColumn
         void DefineTerminalProperty(void);
         void FillingVTerminalColumnsIndex(void);
         void ToPlacePicturesAndTables(CRtfFragment* Frament);
-        Bool CheckTermColumn(void);
         void SortFragments(void);
         uint16_t GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag,
                 RtfSectorInfo *SectorInfo);
@@ -103,6 +111,7 @@ class CRtfHorizontalColumn
         RECT m_rect;
         RECT m_rectReal;
     private:
+        bool checkTermColumn() const;
         void clearTerminalColumnsGroup();
         void clearTerminalColumnsIndexes();
     private:
@@ -112,7 +121,7 @@ class CRtfHorizontalColumn
         typedef VectorWordList::iterator VectorWordIterator;
         VColumnList vcols_;
         CRtfPage * page_;
-        hcolumn_t type_;
+        column_t type_;
         std::vector<uchar> m_arOrderingNumber;
         VectorWord m_arSpacePlace;
         VectorWordList terminal_col_group_;

@@ -60,7 +60,7 @@ void CRtfSector::CalcSector(void) {
         pRtfHorizontalColumn = m_arHorizontalColumns[ih];
         pRtfHorizontalColumn->calcHorizontalColumn();
 
-        if (pRtfHorizontalColumn->type() < HC_AllFrame)
+        if (pRtfHorizontalColumn->type() < CRtfHorizontalColumn::ALL_FRAME)
             m_arHTerminalColumnsIndex.push_back(ih);
     }
 }
@@ -194,7 +194,7 @@ void CRtfSector::WriteNonTerminalColumns(void) {
     for (int i = 0; i < m_wHorizontalColumnsCount; i++) {
         pRtfHorizontalColumn = m_arHorizontalColumns[i];
 
-        if (pRtfHorizontalColumn->type() >= HC_AllFrame)
+        if (pRtfHorizontalColumn->type() >= CRtfHorizontalColumn::ALL_FRAME)
             pRtfHorizontalColumn->WriteNonTerminalColumns(&SectorInfo);
     }
 }

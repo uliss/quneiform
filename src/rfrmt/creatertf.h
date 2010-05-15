@@ -99,16 +99,6 @@ enum fragment_t
     FT_TEXT = 0, FT_FRAME = 1, FT_TABLE = 2, FT_PICTURE = 3
 };
 
-//HorizontalColumn types
-enum hcolumn_t
-{
-    HC_SingleTerminal = 0,
-    HC_AllTerminal = 1,
-    HC_FrameAndColumn = 2,
-    HC_AllFrame = 3,
-    HC_ONLY_PICTURE_TABLE = 4
-};
-
 const int MAX_BUFFER_SIZE = 2048;
 
 // Formatting Mode
