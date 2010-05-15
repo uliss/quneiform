@@ -75,6 +75,9 @@ class CLA_EXPO CRtfVerticalColumn
         CRtfPage * page();
         const CRtfPage * page() const;
 
+        int realHeight() const;
+        int realWidth() const;
+
         /**
          * Sets pointer to parent page
          * @param page

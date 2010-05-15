@@ -97,7 +97,6 @@ class CRtfHorizontalColumn
         void WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
         int32_t GetCountAndRightBoundVTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 VectorWord* arWidthTerminalColumns);
-        void FindHeadingAndSetFrameFlag(void);
         void DefineTerminalProperty(void);
         void FillingVTerminalColumnsIndex(void);
         void ToPlacePicturesAndTables(CRtfFragment* Frament);
@@ -114,6 +113,7 @@ class CRtfHorizontalColumn
         bool checkTermColumn() const;
         void clearTerminalColumnsGroup();
         void clearTerminalColumnsIndexes();
+        void findHeadingAndSetFrameFlag();
     private:
         typedef std::vector<CRtfVerticalColumn*> VColumnList;
         typedef VColumnList::iterator VColumnIterator;
