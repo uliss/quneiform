@@ -58,7 +58,10 @@ class CRtfHorizontalColumn
          */
         size_t columnCount() const;
 
-        CRtfPage *m_PagePtr;
+        /**
+         * Sets pointer to parent page
+         */
+        void setPage(CRtfPage * page);
 
         Bool Write(/*CWordArray*/vectorWord* arRightBoundTerminalColumns,
                 int32_t* VTerminalColumnNumber);
@@ -97,6 +100,7 @@ class CRtfHorizontalColumn
         typedef std::vector<CRtfVerticalColumn*> VColumnList;
         typedef VColumnList::iterator VColumnIterator;
         VColumnList vcols_;
+        CRtfPage * page_;
 };
 
 }

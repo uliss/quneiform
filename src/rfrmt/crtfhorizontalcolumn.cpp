@@ -28,7 +28,8 @@
 namespace CIF
 {
 
-CRtfHorizontalColumn::CRtfHorizontalColumn() {
+CRtfHorizontalColumn::CRtfHorizontalColumn() :
+    page_(NULL) {
     m_wType = HC_SingleTerminal;
     SetRect(&m_rect, 32000, 32000, 0, 0);
     SetRect(&m_rectReal, 32000, 32000, 0, 0);
@@ -76,6 +77,10 @@ const CRtfVerticalColumn * CRtfHorizontalColumn::columnAt(size_t pos) const {
 
 size_t CRtfHorizontalColumn::columnCount() const {
     return vcols_.size();
+}
+
+void CRtfHorizontalColumn::setPage(CRtfPage * page) {
+    page_ = page;
 }
 
 //~ здесь попытка деления на колонки
@@ -512,10 +517,10 @@ void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfHorizontalColumn::SetFlagObjectInColumnForPageFragment(CRtfFragment* CurFragment) {
     CRtfFragment* pRtfFragment;
-    int CountFragments = m_PagePtr->m_arFragments.size();
+    int CountFragments = page_->m_arFragments.size();
 
     for (int i = 0; i < CountFragments; i++) {
-        pRtfFragment = m_PagePtr->m_arFragments[i];
+        pRtfFragment = page_->m_arFragments[i];
 
         if (pRtfFragment->type() == CurFragment->type() && pRtfFragment->m_rect.left
                 == CurFragment->m_rect.left && pRtfFragment->m_rect.right
@@ -746,10 +751,10 @@ uint16_t CRtfHorizontalColumn::GetFreeSpaceBetweenPrevAndCurrentFragments(int To
     if (FreePlace.top >= FreePlace.bottom)
         return 0;
 
-    CountFragments = m_PagePtr->m_arFragments.size();
+    CountFragments = page_->m_arFragments.size();
 
     for (i = 0; i < CountFragments; i++) {
-        pRtfFragment = m_PagePtr->m_arFragments[i];
+        pRtfFragment = page_->m_arFragments[i];
 
         if (pRtfFragment->m_rect.bottom <= FreePlace.top || pRtfFragment->m_rect.right
                 <= FreePlace.left || pRtfFragment->m_rect.top >= FreePlace.bottom
@@ -785,10 +790,10 @@ Bool CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber) {
     CurFragmentRect.rright() = pRtfFragment->m_rect.right;
     CurFragmentRect.rbottom() = pRtfFragment->m_rect.bottom;
     CurFragmentRect.rtop() = pRtfFragment->m_rect.top;
-    CountFragments = m_PagePtr->m_arFragments.size();
+    CountFragments = page_->m_arFragments.size();
 
     for (i = 0; i < CountFragments; i++) {
-        pRtfFragment = m_PagePtr->m_arFragments[i];
+        pRtfFragment = page_->m_arFragments[i];
 
         if (!pRtfFragment->type())
             continue;

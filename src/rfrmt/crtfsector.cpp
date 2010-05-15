@@ -129,7 +129,7 @@ void CRtfSector::WriteTerminalColumnsTablesAndPictures(void) {
     for (int i = 0; i < CountHTerminalColumns; i++) {
         TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
         pRtfHorizontalColumn = m_arHorizontalColumns[TerminalColumnNumber];
-        pRtfHorizontalColumn->m_PagePtr = this->m_PagePtr;
+        pRtfHorizontalColumn->setPage(m_PagePtr);
         pRtfHorizontalColumn->WriteTerminalColumnsTablesAndPictures(&SectorInfo);
     }
 }
@@ -157,7 +157,7 @@ void CRtfSector::WriteTerminalColumns(void) {
             pRtfHorizontalColumn = m_arHorizontalColumns[TerminalColumnNumber];
             SectorInfo.VerticalOffsetColumnFromSector
                     = (uint16_t) (pRtfHorizontalColumn->m_rect.top - m_rect.top);
-            pRtfHorizontalColumn->m_PagePtr = this->m_PagePtr;
+            pRtfHorizontalColumn->setPage(m_PagePtr);
             pRtfHorizontalColumn->WriteTerminalColumns(&m_arRightBoundTerminalColumns,
                     &m_VTerminalColumnNumber, CountVTerminalColumns, &SectorInfo);
         }
