@@ -36,24 +36,9 @@ CRtfHorizontalColumn::CRtfHorizontalColumn() :
 }
 
 CRtfHorizontalColumn::~CRtfHorizontalColumn() {
-    uint16_t Count;
-    int i;
-
     clearColumns();
-
-    Count = m_arVTerminalColumnsGroup.size();
-
-    for (i = 0; i < Count; i++) {
-        VectorWord* pGroup = m_arVTerminalColumnsGroup[i];
-        delete pGroup;
-    }
-
-    Count = m_arVTerminalColumnsIndex.size();
-
-    for (i = 0; i < Count; i++) {
-        VectorWord* pGroupIndex = m_arVTerminalColumnsIndex[i];
-        delete pGroupIndex;
-    }
+    clearTerminalColumnsGroup();
+    clearTerminalColumnsIndexes();
 }
 
 void CRtfHorizontalColumn::addColumn(CRtfVerticalColumn * col) {
@@ -65,6 +50,23 @@ void CRtfHorizontalColumn::clearColumns() {
         delete *it;
 
     vcols_.clear();
+}
+
+void CRtfHorizontalColumn::clearTerminalColumnsGroup() {
+    for (VectorWordIterator it = terminal_col_group_.begin(), end = terminal_col_group_.end(); it
+            != end; ++it) {
+        delete *it;
+    }
+
+    terminal_col_group_.clear();
+}
+
+void CRtfHorizontalColumn::clearTerminalColumnsIndexes() {
+    for (VectorWordIterator it = terminal_col_idx_.begin(), end = terminal_col_idx_.end(); it
+            != end; ++it) {
+        delete *it;
+    }
+    terminal_col_idx_.clear();
 }
 
 CRtfVerticalColumn * CRtfHorizontalColumn::columnAt(size_t pos) {
@@ -288,8 +290,8 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
 
     if (CountColumn) {
         for (i = 0; i <= CountColumn; i++) {
-            m_arVTerminalColumnsGroup.push_back(new VectorWord());
-            pGroup = (VectorWord*) m_arVTerminalColumnsGroup[i];
+            terminal_col_group_.push_back(new VectorWord());
+            pGroup = (VectorWord*) terminal_col_group_[i];
 
             if (i == 0) {
                 Left = MinLeft;
@@ -349,8 +351,8 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
 
     pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[IndexMaxWidthFragment];
     pRtfVerticalColumn->setType(FT_TEXT);
-    m_arVTerminalColumnsGroup.push_back(new VectorWord());
-    pGroup = m_arVTerminalColumnsGroup[0];
+    terminal_col_group_.push_back(new VectorWord());
+    pGroup = terminal_col_group_[0];
     pGroup->push_back(IndexMaxWidthFragment);
     m_wType = HC_FrameAndColumn;
 }
@@ -368,14 +370,14 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
     VectorWord *pGroup, *pGroupNew;
 
     if (m_wType == HC_SingleTerminal) {
-        m_arVTerminalColumnsIndex.push_back(new VectorWord());
-        pGroup = m_arVTerminalColumnsIndex[0];
+        terminal_col_idx_.push_back(new VectorWord());
+        pGroup = terminal_col_idx_[0];
         pGroup->push_back(0);
     }
 
     if (m_wType == HC_AllTerminal) { //section includes only terminal columns (! NO frames)
-        m_arVTerminalColumnsIndex.push_back(new VectorWord());
-        pGroup = m_arVTerminalColumnsIndex[0];
+        terminal_col_idx_.push_back(new VectorWord());
+        pGroup = terminal_col_idx_[0];
 
         for (j = 0; j < vcols_.size(); j++) {
             FlagChange = 0;
@@ -403,12 +405,12 @@ void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
     }
 
     if (m_wType == HC_FrameAndColumn) {
-        int CountColumn = m_arVTerminalColumnsGroup.size();
+        int CountColumn = terminal_col_group_.size();
 
         for (j = 0; j < CountColumn; j++) {
-            m_arVTerminalColumnsIndex.push_back(new VectorWord());
-            pGroupNew = m_arVTerminalColumnsIndex[j];
-            pGroup = m_arVTerminalColumnsGroup[j];
+            terminal_col_idx_.push_back(new VectorWord());
+            pGroupNew = terminal_col_idx_[j];
+            pGroup = terminal_col_group_[j];
             int CountInGroup = pGroup->size();
 
             for (i = 0; i < CountInGroup; i++) {
@@ -460,10 +462,10 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
     }
 
     if (m_wType == HC_FrameAndColumn) {
-        CountVTerminalColumns = m_arVTerminalColumnsIndex.size();
+        CountVTerminalColumns = terminal_col_idx_.size();
 
         for (int i = 0; i < CountVTerminalColumns; i++) {
-            pGroup = m_arVTerminalColumnsIndex[i];
+            pGroup = terminal_col_idx_[i];
             int CountInGroup = pGroup->size();
             RightBound = 32000;
             WidthColumn = 0;
@@ -661,14 +663,14 @@ void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminal
     //***********************************                    Фреймы и колонки            ************************************************
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     else {
-        CountTerminalColumns = m_arVTerminalColumnsIndex.size();
+        CountTerminalColumns = terminal_col_idx_.size();
 
         for (i = 0; i < CountTerminalColumns; i++) {
             *VTerminalColumnNumber += 1;
             PutCom("\\colno", *VTerminalColumnNumber, 1);
             Left = 32000;
             Right = 0;
-            pGroup = m_arVTerminalColumnsIndex[i];
+            pGroup = terminal_col_idx_[i];
             CountInGroup = pGroup->size();
 
             for (j = 0; j < CountInGroup; j++) { //~ V-columns in one H-col

@@ -63,9 +63,8 @@ class CRtfHorizontalColumn
          */
         void setPage(CRtfPage * page);
 
-        Bool Write(/*CWordArray*/VectorWord* arRightBoundTerminalColumns,
-                int32_t* VTerminalColumnNumber);
-        void WriteTerminalColumns(/*CWordArray*/VectorWord* arRightBoundTerminalColumns,
+        Bool Write(VectorWord* arRightBoundTerminalColumns, int32_t* VTerminalColumnNumber);
+        void WriteTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 int32_t* VTerminalColumnNumber, int32_t CountVTerminalColumns,
                 RtfSectorInfo* SectorInfo);
         void WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo, Bool FlagFirstTerminalFragment,
@@ -73,9 +72,8 @@ class CRtfHorizontalColumn
         void WriteNonTerminalColumns(RtfSectorInfo* SectorInfo);
         void WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
         void CalcHorizontalColumn(void);
-        int32_t GetCountAndRightBoundVTerminalColumns(
-        /*CWordArray*/VectorWord* arRightBoundTerminalColumns,
-                VectorWord/*CWordArray*/* arWidthTerminalColumns);
+        int32_t GetCountAndRightBoundVTerminalColumns(VectorWord* arRightBoundTerminalColumns,
+                VectorWord* arWidthTerminalColumns);
         void FindHeadingAndSetFrameFlag(void);
         void DefineTerminalProperty(void);
         void FillingVTerminalColumnsIndex(void);
@@ -92,14 +90,19 @@ class CRtfHorizontalColumn
         RECT m_rectReal;
         uint16_t m_wType;
     private:
+        void clearTerminalColumnsGroup();
+        void clearTerminalColumnsIndexes();
+    private:
         typedef std::vector<CRtfVerticalColumn*> VColumnList;
         typedef VColumnList::iterator VColumnIterator;
+        typedef std::vector<VectorWord*> VectorWordList;
+        typedef VectorWordList::iterator VectorWordIterator;
         VColumnList vcols_;
         CRtfPage * page_;
         std::vector<uchar> m_arOrderingNumber;
         VectorWord m_arSpacePlace;
-        std::vector<VectorWord*> m_arVTerminalColumnsGroup;
-        std::vector<VectorWord*> m_arVTerminalColumnsIndex;
+        VectorWordList terminal_col_group_;
+        VectorWordList terminal_col_idx_;
 };
 
 }
