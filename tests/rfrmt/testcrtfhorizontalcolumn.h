@@ -26,10 +26,12 @@ class TestCRtfHorizontalColumn: public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestCRtfHorizontalColumn);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testMakeHistogram);
+    CPPUNIT_TEST(testProcessSpaceByHist);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testMakeHistogram();
+    void testProcessSpaceByHist();
 };
 
 #endif /* TESTCRTFHORIZONTALCOLUMN_H_ */

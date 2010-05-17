@@ -159,7 +159,8 @@ int CRtfHorizontalColumn::leftBigVColumnBorder() const {
 CRtfHorizontalColumn::Histogram CRtfHorizontalColumn::makeHistogram(int left_border,
         int right_border) {
     if ((right_border - left_border) <= 1)
-        throw std::invalid_argument("[CRtfHorizontalColumn::makeHistogram] invalid histogram borders");
+        throw std::invalid_argument(
+                "[CRtfHorizontalColumn::makeHistogram] invalid histogram borders");
     return Histogram(right_border - left_border, 0);
 }
 
@@ -258,13 +259,15 @@ int CRtfHorizontalColumn::rightBigVColumnBorder() const {
 }
 
 void CRtfHorizontalColumn::processSpaceByHist(const Histogram& hist) {
+    m_arSpacePlace.clear();
+
     bool space_flag = false;
     for (size_t i = 0, sz = hist.size(); i < sz; i++) {
-        if (hist[i] && space_flag) {
-            space_flag = false;
-        } else if (!hist[i] && !space_flag) {
+        if (hist[i] == 0 && !space_flag) {
             space_flag = true;
             m_arSpacePlace.push_back(i);
+        } else if (hist[i] != 0 && space_flag) {
+            space_flag = false;
         }
     }
 }
