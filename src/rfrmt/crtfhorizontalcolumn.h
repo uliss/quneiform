@@ -33,6 +33,8 @@ class CRtfFragment;
 class CRtfHorizontalColumn
 {
     public:
+        typedef std::vector<unsigned char> Histogram;
+
         enum column_t
         {
             SINGLE_TERMINAL = 0,
@@ -97,7 +99,6 @@ class CRtfHorizontalColumn
         void WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
         int32_t GetCountAndRightBoundVTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 VectorWord* arWidthTerminalColumns);
-        void DefineTerminalProperty(void);
         void FillingVTerminalColumnsIndex(void);
         void ToPlacePicturesAndTables(CRtfFragment* Frament);
         void SortFragments(void);
@@ -110,13 +111,25 @@ class CRtfHorizontalColumn
         RECT m_rect;
         RECT m_rectReal;
     private:
+        void accumulateHistorgam(Histogram& hist, int left_border) const;
         bool checkTermColumn() const;
         void clearTerminalColumnsGroup();
         void clearTerminalColumnsIndexes();
+        /* recalculation of histogram after victim deletion */
+        void defineTerminalProperty();
         void findHeadingAndSetFrameFlag();
+        /* returns leftmost border of big vertical columns */
+        int leftBigVColumnBorder() const;
+        /* returns empty histogram for vertical columns */
+        Histogram makeHistogram(int left_border, int right_border) const;
+        /* detects and marks small vertical columns */
         void markSmallColumns();
         int maxVColumnHeight() const;
         int maxVColumnWidth() const;
+        void processColsByHist(const Histogram& hist, int left_offset);
+        void processSpaceByHist(const Histogram& hist);
+        /* returns rightmost border of big vertical columns */
+        int rightBigVColumnBorder() const;
     private:
         typedef std::vector<CRtfVerticalColumn*> VColumnList;
         typedef VColumnList::iterator VColumnIterator;

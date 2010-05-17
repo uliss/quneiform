@@ -25,6 +25,8 @@
 #include "ced/ced.h"
 #include "minmax.h"
 
+#include <boost/bind.hpp>
+
 namespace CIF
 {
 
@@ -50,12 +52,31 @@ void CRtfHorizontalColumn::calcHorizontalColumn() {
             type_ = ALL_TERMINAL;
         } else {//~проверка вертикального затенения колонок ("жертва" будет frame)
             findHeadingAndSetFrameFlag(); //это проверка, что после удаления жертвы все стало лучше
-            DefineTerminalProperty(); //присвоение признака терминальности колонкам
+            defineTerminalProperty(); //присвоение признака терминальности колонкам
         }
     }
 
     if (type_ <= FRAME_AND_COLUMN)
         FillingVTerminalColumnsIndex(); //есть хорошие колонки
+}
+
+void addBigColToHist(const CRtfVerticalColumn * col, CRtfHorizontalColumn::Histogram& hist,
+        int left_border) {
+    assert(col);
+
+    if ((col->type() == FT_TEXT || col->type() == FT_FRAME) && !col->isSmall()) {
+        const int col_left = col->m_rectReal.left - left_border;
+        const int col_right = col->m_rectReal.right - left_border;
+
+        assert(hist.size() < col_right);
+
+        for (int i = col_left; i < col_right; i++)
+            hist.at(i)++;
+    }
+}
+
+void CRtfHorizontalColumn::accumulateHistorgam(Histogram& hist, int left_border) const {
+    std::for_each(vcols_.begin(), vcols_.end(), boost::bind(addBigColToHist, _1, hist, left_border));
 }
 
 bool CRtfHorizontalColumn::checkTermColumn() const {
@@ -118,20 +139,46 @@ CRtfHorizontalColumn::column_t CRtfHorizontalColumn::type() const {
     return type_;
 }
 
-void CRtfHorizontalColumn::markSmallColumns() {
-    const int max_width = maxVColumnWidth();
-    const int max_height = maxVColumnHeight();
+int CRtfHorizontalColumn::leftBigVColumnBorder() const {
+    int left = 0;
 
     for (size_t i = 0; i < vcols_.size(); i++) {
         CRtfVerticalColumn * vcol = vcols_[i];
 
-        if (vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) {
-            if ((vcol->realWidth() * 2 < max_width) && (vcol->realHeight() * 2 < max_height))
-                vcol->setSmall(true);
+        if ((vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) && !vcol->isSmall()) {
+            if (i == 0)
+                left = vcol->m_rectReal.left;
             else
-                vcol->setSmall(false);
+                left = std::min(left, vcol->m_rectReal.left);
         }
     }
+
+    return left;
+}
+
+CRtfHorizontalColumn::Histogram CRtfHorizontalColumn::makeHistogram(int left_border,
+        int right_border) const {
+    assert(right_border - left_border);
+    return Histogram(right_border - left_border + 2, 0);
+}
+
+void determineColSize(CRtfVerticalColumn * col, int threshold_width, int threshold_height) {
+    if (col->type() == FT_TEXT || col->type() == FT_FRAME) {
+        if ((col->realWidth() < threshold_width) && (col->realHeight() < threshold_height)) {
+            col->setSmall(true);
+            col->setType(FT_FRAME);
+        } else
+            col->setSmall(false);
+    }
+}
+
+void CRtfHorizontalColumn::markSmallColumns() {
+    const int threshold_width = maxVColumnWidth() / 2;
+    const int threshold_height = maxVColumnHeight() / 2;
+
+    // all small column became frames
+    std::for_each(vcols_.begin(), vcols_.end(), boost::bind(determineColSize, _1, threshold_width,
+            threshold_height));
 }
 
 int CRtfHorizontalColumn::maxVColumnHeight() const {
@@ -156,70 +203,31 @@ int CRtfHorizontalColumn::maxVColumnWidth() const {
     return max_width;
 }
 
-//после удаления жертвы по гистограммам проверяем разделимость остальных колонок и если да,
-// все они будут терминал.
-void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
-    CRtfVerticalColumn* vcol;
-    std::vector<uchar> Hist;
-    int Left = 32000, Right = 0, Length, Left1, Right1;
-
-    markSmallColumns();
-
+void CRtfHorizontalColumn::processColsByHist(const Histogram& hist, int left_offset) {
     for (size_t i = 0; i < vcols_.size(); i++) {
         CRtfVerticalColumn * vcol = vcols_[i];
 
         if ((vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) && !vcol->isSmall()) {
-            Left = MIN(Left, vcol->m_rectReal.left);
-            Right = MAX(Right, vcol->m_rectReal.right);
-        }
-    }
-
-    Length = Right - Left + 2;
-
-    for (int i = 0; i < Length; i++)
-        Hist.push_back(0);
-
-    for (size_t i = 0; i < vcols_.size(); i++) { //~накопление гистограммы
-        vcol = vcols_[i];
-
-        if ((vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) && !vcol->isSmall()) {
-            Left1 = vcol->m_rectReal.left - Left;
-            Right1 = vcol->m_rectReal.right - Left;
-
-            for (int j = Left1; j < Right1; j++)
-                Hist[j] += 1;
-        }
-    }
-
-    for (size_t i = 0; i < vcols_.size(); i++) {
-        vcol = vcols_[i];
-
-        if (vcol->isSmall()) {
-            vcol->setType(FT_FRAME);
-            continue;
-        }
-
-        if (vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) {
-            Left1 = vcol->m_rectReal.left - Left;
-            Right1 = vcol->m_rectReal.right - Left;
+            const int Left1 = vcol->m_rectReal.left - left_offset;
+            const int Right1 = vcol->m_rectReal.right - left_offset;
             bool FlagLeft = false;
             bool FlagRight = false;
-            int tmp = Hist[Left1];
+            int tmp = hist[Left1];
 
             for (int j = Left1; j < Right1; j++) {
-                if (tmp < Hist[j]) {
+                if (tmp < hist[j]) {
                     if (FlagLeft == false)
-                        tmp = Hist[j];
+                        tmp = hist[j];
                     else if (FlagLeft == true && FlagRight == false) {
                         FlagRight = true;
                         break;
                     }
-                } else if (tmp > Hist[j]) {
+                } else if (tmp > hist[j]) {
                     if (FlagLeft == false) {
-                        tmp = Hist[j];
+                        tmp = hist[j];
                         FlagLeft = true;
                     } else if (FlagLeft == true && FlagRight == false)
-                        tmp = Hist[j];
+                        tmp = hist[j];
                 }
             }
 
@@ -231,16 +239,55 @@ void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
     }
 }
 
-void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of histogram after victim deletion
-{
-    std::vector<uchar> Hist;
+int CRtfHorizontalColumn::rightBigVColumnBorder() const {
+    int right = 0;
+
+    for (size_t i = 0; i < vcols_.size(); i++) {
+        CRtfVerticalColumn * vcol = vcols_[i];
+
+        if ((vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) && !vcol->isSmall()) {
+            if (i == 0)
+                right = vcol->m_rectReal.right;
+            else
+                right = std::min(right, vcol->m_rectReal.right);
+        }
+    }
+
+    return right;
+}
+
+void CRtfHorizontalColumn::processSpaceByHist(const Histogram& hist) {
+    bool space_flag = false;
+    for (size_t i = 0, sz = hist.size(); i < sz; i++) {
+        if (hist[i] && space_flag) {
+            space_flag = false;
+        } else if (!hist[i] && !space_flag) {
+            space_flag = true;
+            m_arSpacePlace.push_back(i);
+        }
+    }
+}
+
+//после удаления жертвы по гистограммам проверяем разделимость остальных колонок и если да,
+// все они будут терминал.
+void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
+    markSmallColumns();
+    const int Left = leftBigVColumnBorder();
+    const int Right = rightBigVColumnBorder();
+    Histogram Hist = makeHistogram(Left, Right);
+
+    accumulateHistorgam(Hist, Left);
+    processColsByHist(Hist, Left);
+}
+
+void CRtfHorizontalColumn::defineTerminalProperty() {
     VectorWord* pGroup;
     CRtfVerticalColumn* pRtfVerticalColumn;
     int32_t Left = 32000, Right = 0, Length, Left1, Right1;
     int i, j, FlagSpace = 0, CountColumn, MinLeft, MaxRight;
 
-    for (i = 0; i < vcols_.size(); i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
+    for (size_t i = 0; i < vcols_.size(); i++) {
+        pRtfVerticalColumn = vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_TEXT) {
             Left = MIN(Left, pRtfVerticalColumn->m_rectReal.left);
@@ -252,11 +299,10 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
     MaxRight = Right;
     Length = Right - Left;
 
-    for (i = 0; i < Length; i++)
-        Hist.push_back(0);
+    Histogram Hist = makeHistogram(Left, Right);
 
     for (i = 0; i < vcols_.size(); i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
+        pRtfVerticalColumn = vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_TEXT) {
             Left1 = pRtfVerticalColumn->m_rectReal.left - Left;
@@ -267,44 +313,28 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
         }
     }
 
-    for (j = 0; j < Length; j++) {
-        if (Hist[j] == 0) {
-            if (!FlagSpace) {
-                FlagSpace = 1;
-                m_arSpacePlace.push_back(j);
-            }
-        }
-
-        else {
-            if (FlagSpace)
-                FlagSpace = 0;
-        }
-    }
+    processSpaceByHist(Hist);
 
     CountColumn = m_arSpacePlace.size();
 
     if (CountColumn) {
         for (i = 0; i <= CountColumn; i++) {
-            terminal_col_group_.push_back(new VectorWord());
-            pGroup = (VectorWord*) terminal_col_group_[i];
+            terminal_col_group_.push_back(new VectorWord);
+            pGroup = terminal_col_group_[i];
 
             if (i == 0) {
                 Left = MinLeft;
                 Right = MinLeft + m_arSpacePlace[i];
-            }
-
-            else if (i == CountColumn) {
+            } else if (i == CountColumn) {
                 Left = MinLeft + m_arSpacePlace[i - 1];
                 Right = MaxRight;
-            }
-
-            else {
+            } else {
                 Left = MinLeft + m_arSpacePlace[i - 1];
                 Right = MinLeft + m_arSpacePlace[i];
             }
 
-            for (int j = 0; j < vcols_.size(); j++) {
-                pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[j];
+            for (size_t j = 0; j < vcols_.size(); j++) {
+                pRtfVerticalColumn = vcols_[j];
 
                 if (pRtfVerticalColumn->type() == FT_TEXT && pRtfVerticalColumn->m_rectReal.left
                         >= Left && pRtfVerticalColumn->m_rectReal.right <= Right) {
@@ -314,8 +344,6 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
         }
     }
 
-    //  Hist.RemoveAll();
-
     if (m_arSpacePlace.size()) {
         type_ = FRAME_AND_COLUMN;
         return;
@@ -323,7 +351,7 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
 
     //~неудача деления => all columns become frames
     for (i = 0; i < vcols_.size(); i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
+        pRtfVerticalColumn = vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_TEXT)
             pRtfVerticalColumn->setType(FT_FRAME);
@@ -332,7 +360,7 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
     int IndexMaxWidthFragment = 0, MaxWidth = 0;
 
     for (i = 0; i < vcols_.size(); i++) {
-        pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[i];
+        pRtfVerticalColumn = vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_FRAME) {
             if ((pRtfVerticalColumn->m_rectReal.right - pRtfVerticalColumn->m_rectReal.left)
@@ -344,7 +372,7 @@ void CRtfHorizontalColumn::DefineTerminalProperty(void) //~ recalculation of his
         }
     }
 
-    pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[IndexMaxWidthFragment];
+    pRtfVerticalColumn = vcols_[IndexMaxWidthFragment];
     pRtfVerticalColumn->setType(FT_TEXT);
     terminal_col_group_.push_back(new VectorWord());
     pGroup = terminal_col_group_[0];
