@@ -157,9 +157,10 @@ int CRtfHorizontalColumn::leftBigVColumnBorder() const {
 }
 
 CRtfHorizontalColumn::Histogram CRtfHorizontalColumn::makeHistogram(int left_border,
-        int right_border) const {
-    assert(right_border - left_border);
-    return Histogram(right_border - left_border + 2, 0);
+        int right_border) {
+    if ((right_border - left_border) <= 1)
+        throw std::invalid_argument("[CRtfHorizontalColumn::makeHistogram] invalid histogram borders");
+    return Histogram(right_border - left_border, 0);
 }
 
 void determineColSize(CRtfVerticalColumn * col, int threshold_width, int threshold_height) {

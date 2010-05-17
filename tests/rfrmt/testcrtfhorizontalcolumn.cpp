@@ -16,11 +16,26 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 #include "testcrtfhorizontalcolumn.h"
+#include <stdexcept>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfHorizontalColumn);
+#define private public
 #include "rfrmt/crtfhorizontalcolumn.h"
 using namespace CIF;
 
 void TestCRtfHorizontalColumn::testInit() {
     CRtfHorizontalColumn col;
     CPPUNIT_ASSERT_EQUAL(col.type(), CRtfHorizontalColumn::SINGLE_TERMINAL);
+    CPPUNIT_ASSERT(col.columnCount() == 0);
+    col.clearColumns();
+    col.clearTerminalColumnsGroup();
+    col.clearTerminalColumnsIndexes();
+}
+
+void TestCRtfHorizontalColumn::testMakeHistogram() {
+    CRtfHorizontalColumn::Histogram h = CRtfHorizontalColumn::makeHistogram(0, 2);
+    CPPUNIT_ASSERT(h.size() == 2);
+    CPPUNIT_ASSERT_THROW(CRtfHorizontalColumn::makeHistogram(0, 0), std::invalid_argument);
+    CPPUNIT_ASSERT_THROW(CRtfHorizontalColumn::makeHistogram(0, -2), std::invalid_argument);
+    h = CRtfHorizontalColumn::makeHistogram(-10, -1);
+    CPPUNIT_ASSERT(h.size() == 9);
 }
