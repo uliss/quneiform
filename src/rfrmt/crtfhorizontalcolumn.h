@@ -30,7 +30,7 @@ class CRtfPage;
 class CRtfVerticalColumn;
 class CRtfFragment;
 
-class CRtfHorizontalColumn
+class CLA_EXPO CRtfHorizontalColumn
 {
     public:
         typedef std::vector<unsigned char> Histogram;
@@ -99,7 +99,6 @@ class CRtfHorizontalColumn
         void WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
         int32_t GetCountAndRightBoundVTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 VectorWord* arWidthTerminalColumns);
-        void FillingVTerminalColumnsIndex(void);
         void ToPlacePicturesAndTables(CRtfFragment* Frament);
         void SortFragments(void);
         uint16_t GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag,
@@ -117,6 +116,13 @@ class CRtfHorizontalColumn
         void clearTerminalColumnsIndexes();
         /* recalculation of histogram after victim deletion */
         void defineTerminalProperty();
+        /*
+         * resorting of the fragment array (at first position should be located Frames,
+         * next ones are terminal columns)
+         */
+        void fillVTerminalColumnsIndex();
+        void fillAllTerminalColumnIndex();
+        void fillSingleTerminalColumnIndex();
         void findHeadingAndSetFrameFlag();
         /* returns leftmost border of big vertical columns */
         int leftBigVColumnBorder() const;

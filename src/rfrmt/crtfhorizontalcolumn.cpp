@@ -57,7 +57,7 @@ void CRtfHorizontalColumn::calcHorizontalColumn() {
     }
 
     if (type_ <= FRAME_AND_COLUMN)
-        FillingVTerminalColumnsIndex(); //есть хорошие колонки
+        fillVTerminalColumnsIndex(); //есть хорошие колонки
 }
 
 void addBigColToHist(const CRtfVerticalColumn * col, CRtfHorizontalColumn::Histogram& hist,
@@ -380,47 +380,60 @@ void CRtfHorizontalColumn::defineTerminalProperty() {
     type_ = FRAME_AND_COLUMN;
 }
 
-//resorting of the fragment array (at first position should be located Frames, next ones are terminal columns)
-void CRtfHorizontalColumn::FillingVTerminalColumnsIndex(void) {
+void CRtfHorizontalColumn::fillAllTerminalColumnIndex() {
+    terminal_col_idx_.push_back(new VectorWord);
+    VectorWord * pGroup = terminal_col_idx_.front();
+
+    short index;
+
+    for (size_t j = 0; j < vcols_.size(); j++) {
+        bool FlagChange = false;
+        int Top = 320000;
+        CRtfVerticalColumn * col;
+
+        for (unsigned short i = 0; i < vcols_.size(); i++) {
+            col = vcols_[i];
+
+            if (col->type() == FT_FRAME || col->m_bSortFlag == 1)
+                continue;
+
+            if (col->m_rectReal.top < Top) {
+                Top = col->m_rectReal.top;
+                index = i;
+                FlagChange = true;
+            }
+        }
+
+        if (FlagChange) {
+            pGroup->push_back(index);
+            col = vcols_[index];
+            col->m_bSortFlag = 1;
+        }
+    }
+}
+
+void CRtfHorizontalColumn::fillSingleTerminalColumnIndex() {
+    assert(terminal_col_idx_.empty());
+
+    terminal_col_idx_.push_back(new VectorWord);
+    terminal_col_idx_.front()->push_back(0);
+}
+
+void CRtfHorizontalColumn::fillVTerminalColumnsIndex() {
     int i, j, FlagChange;
     uint16_t index, Number;
     int32_t Top;
     CRtfVerticalColumn *pRtfVerticalColumn;
     VectorWord *pGroup, *pGroupNew;
 
-    if (type_ == SINGLE_TERMINAL) {
-        terminal_col_idx_.push_back(new VectorWord());
-        pGroup = terminal_col_idx_[0];
-        pGroup->push_back(0);
-    }
-
-    if (type_ == ALL_TERMINAL) { //section includes only terminal columns (! NO frames)
-        terminal_col_idx_.push_back(new VectorWord());
-        pGroup = terminal_col_idx_[0];
-
-        for (j = 0; j < vcols_.size(); j++) {
-            FlagChange = 0;
-            Top = 320000;
-
-            for (i = 0; i < vcols_.size(); i++) {
-                pRtfVerticalColumn = vcols_[i];
-
-                if (pRtfVerticalColumn->type() == FT_FRAME || pRtfVerticalColumn->m_bSortFlag == 1)
-                    continue;
-
-                if (pRtfVerticalColumn->m_rectReal.top < Top) {
-                    Top = pRtfVerticalColumn->m_rectReal.top;
-                    index = i;
-                    FlagChange = 1;
-                }
-            }
-
-            if (FlagChange) {
-                pGroup->push_back(index);
-                pRtfVerticalColumn = vcols_[index];
-                pRtfVerticalColumn->m_bSortFlag = 1;
-            }
-        }
+    switch (type_) {
+    case SINGLE_TERMINAL:
+        fillSingleTerminalColumnIndex();
+        break;
+        //section includes only terminal columns (! NO frames)
+    case ALL_TERMINAL:
+        fillAllTerminalColumnIndex();
+        break;
     }
 
     if (type_ == FRAME_AND_COLUMN) {

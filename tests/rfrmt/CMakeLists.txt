@@ -2,6 +2,7 @@ add_executable(test_rfrmt
     test_rfrmt.cpp
     testcrtfchar.cpp
     testcrtffragment.cpp
+    testcrtfhorizontalcolumn.cpp
     testcrtfstring.cpp
     testcrtfverticalcolumn.cpp
     testcrtfword.cpp
