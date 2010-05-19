@@ -16,16 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <boost/bind.hpp>
+
 #include "crtfhorizontalcolumn.h"
 #include "crtfverticalcolumn.h"
 #include "crtffragment.h"
 #include "crtffunc.h"
 #include "crtfpage.h"
 #include "rfrmtoptions.h"
+
+#include "common/debug.h"
 #include "ced/ced.h"
 #include "minmax.h"
-
-#include <boost/bind.hpp>
 
 namespace CIF
 {
@@ -259,13 +261,13 @@ int CRtfHorizontalColumn::rightBigVColumnBorder() const {
 }
 
 void CRtfHorizontalColumn::processSpaceByHist(const Histogram& hist) {
-    m_arSpacePlace.clear();
+    hist_spaces_.clear();
 
     bool space_flag = false;
     for (size_t i = 0, sz = hist.size(); i < sz; i++) {
         if (hist[i] == 0 && !space_flag) {
             space_flag = true;
-            m_arSpacePlace.push_back(i);
+            hist_spaces_.push_back(i);
         } else if (hist[i] != 0 && space_flag) {
             space_flag = false;
         }
@@ -319,7 +321,7 @@ void CRtfHorizontalColumn::defineTerminalProperty() {
 
     processSpaceByHist(Hist);
 
-    CountColumn = m_arSpacePlace.size();
+    CountColumn = hist_spaces_.size();
 
     if (CountColumn) {
         for (i = 0; i <= CountColumn; i++) {
@@ -328,13 +330,13 @@ void CRtfHorizontalColumn::defineTerminalProperty() {
 
             if (i == 0) {
                 Left = MinLeft;
-                Right = MinLeft + m_arSpacePlace[i];
+                Right = MinLeft + hist_spaces_[i];
             } else if (i == CountColumn) {
-                Left = MinLeft + m_arSpacePlace[i - 1];
+                Left = MinLeft + hist_spaces_[i - 1];
                 Right = MaxRight;
             } else {
-                Left = MinLeft + m_arSpacePlace[i - 1];
-                Right = MinLeft + m_arSpacePlace[i];
+                Left = MinLeft + hist_spaces_[i - 1];
+                Right = MinLeft + hist_spaces_[i];
             }
 
             for (size_t j = 0; j < vcols_.size(); j++) {
@@ -348,7 +350,7 @@ void CRtfHorizontalColumn::defineTerminalProperty() {
         }
     }
 
-    if (m_arSpacePlace.size()) {
+    if (hist_spaces_.size()) {
         type_ = FRAME_AND_COLUMN;
         return;
     }
@@ -423,13 +425,43 @@ void CRtfHorizontalColumn::fillSingleTerminalColumnIndex() {
     terminal_col_idx_.front()->push_back(0);
 }
 
-void CRtfHorizontalColumn::fillVTerminalColumnsIndex() {
-    int i, j, FlagChange;
-    uint16_t index, Number;
-    int32_t Top;
-    CRtfVerticalColumn *pRtfVerticalColumn;
-    VectorWord *pGroup, *pGroupNew;
+void CRtfHorizontalColumn::fillTerminalFrameColumnIndex() {
+    for (size_t j = 0, col_count = terminal_col_group_.size(); j < col_count; j++) {
+        terminal_col_idx_.push_back(new VectorWord);
+        VectorWord * pGroupNew = terminal_col_idx_[j];
+        VectorWord * pGroup = terminal_col_group_[j];
 
+        CRtfVerticalColumn * vcol = NULL;
+        int index = 0;
+
+        for (size_t i = 0, CountInGroup = pGroup->size(); i < CountInGroup; i++) {
+            bool FlagChange = false;
+            int Top = 320000;
+
+            for (size_t i1 = 0; i1 < CountInGroup; i1++) {
+                int Number = pGroup->at(i1);
+                vcol = vcols_[Number];
+
+                if (vcol->type() == FT_FRAME || vcol->m_bSortFlag == 1)
+                    continue;
+
+                if (vcol->m_rectReal.top < Top) {
+                    Top = vcol->m_rectReal.top;
+                    index = Number;
+                    FlagChange = true;
+                }
+            }
+
+            if (FlagChange) {
+                pGroupNew->push_back(index);
+                vcol = vcols_[index];
+                vcol->m_bSortFlag = 1;
+            }
+        }
+    }
+}
+
+void CRtfHorizontalColumn::fillVTerminalColumnsIndex() {
     switch (type_) {
     case SINGLE_TERMINAL:
         fillSingleTerminalColumnIndex();
@@ -438,43 +470,13 @@ void CRtfHorizontalColumn::fillVTerminalColumnsIndex() {
     case ALL_TERMINAL:
         fillAllTerminalColumnIndex();
         break;
-    }
-
-    if (type_ == FRAME_AND_COLUMN) {
-        int CountColumn = terminal_col_group_.size();
-
-        for (j = 0; j < CountColumn; j++) {
-            terminal_col_idx_.push_back(new VectorWord());
-            pGroupNew = terminal_col_idx_[j];
-            pGroup = terminal_col_group_[j];
-            int CountInGroup = pGroup->size();
-
-            for (i = 0; i < CountInGroup; i++) {
-                FlagChange = 0;
-                Top = 320000;
-
-                for (int i1 = 0; i1 < CountInGroup; i1++) {
-                    Number = (*pGroup)[i1];
-                    pRtfVerticalColumn = vcols_[Number];
-
-                    if (pRtfVerticalColumn->type() == FT_FRAME || pRtfVerticalColumn->m_bSortFlag
-                            == 1)
-                        continue;
-
-                    if (pRtfVerticalColumn->m_rectReal.top < Top) {
-                        Top = pRtfVerticalColumn->m_rectReal.top;
-                        index = Number;
-                        FlagChange = 1;
-                    }
-                }
-
-                if (FlagChange) {
-                    pGroupNew->push_back(index);
-                    pRtfVerticalColumn = vcols_[index];
-                    pRtfVerticalColumn->m_bSortFlag = 1;
-                }
-            }
-        }
+    case FRAME_AND_COLUMN:
+        fillTerminalFrameColumnIndex();
+        break;
+    default:
+        Debug() << "[CRtfHorizontalColumn::fillVTerminalColumnsIndex] unhandled column type: "
+                << type_ << "\n";
+        break;
     }
 }
 

@@ -123,6 +123,7 @@ class CLA_EXPO CRtfHorizontalColumn
         void fillVTerminalColumnsIndex();
         void fillAllTerminalColumnIndex();
         void fillSingleTerminalColumnIndex();
+        void fillTerminalFrameColumnIndex();
         void findHeadingAndSetFrameFlag();
         /* returns leftmost border of big vertical columns */
         int leftBigVColumnBorder() const;
@@ -147,7 +148,9 @@ class CLA_EXPO CRtfHorizontalColumn
         CRtfPage * page_;
         column_t type_;
         std::vector<uchar> m_arOrderingNumber;
-        VectorWord m_arSpacePlace;
+        // contains histogram positions where spaces starts
+        // for ex. for histogram 0011001100 - contains (0,4,8)
+        VectorWord hist_spaces_;
         VectorWordList terminal_col_group_;
         VectorWordList terminal_col_idx_;
 };

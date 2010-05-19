@@ -44,54 +44,54 @@ void TestCRtfHorizontalColumn::testMakeHistogram() {
 
 void TestCRtfHorizontalColumn::testProcessSpaceByHist() {
     CRtfHorizontalColumn col;
-    CPPUNIT_ASSERT(col.m_arSpacePlace.size() == 0);
+    CPPUNIT_ASSERT(col.hist_spaces_.size() == 0);
     Histogram hist;
     col.processSpaceByHist(hist);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.size() == 0);
+    CPPUNIT_ASSERT(col.hist_spaces_.size() == 0);
     hist.push_back(1);
     // 1
     col.processSpaceByHist(hist);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.size() == 0);
+    CPPUNIT_ASSERT(col.hist_spaces_.size() == 0);
 
     // 0
     hist.front() = 0;
     col.processSpaceByHist(hist);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.size() == 1);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.at(0) == 0);
+    CPPUNIT_ASSERT(col.hist_spaces_.size() == 1);
+    CPPUNIT_ASSERT(col.hist_spaces_.at(0) == 0);
 
     // 00
     hist.push_back(0);
     col.processSpaceByHist(hist);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.size() == 1);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.at(0) == 0);
+    CPPUNIT_ASSERT(col.hist_spaces_.size() == 1);
+    CPPUNIT_ASSERT(col.hist_spaces_.at(0) == 0);
 
     // 001
     hist.push_back(1);
     col.processSpaceByHist(hist);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.size() == 1);
+    CPPUNIT_ASSERT(col.hist_spaces_.size() == 1);
 
     // 0011
     hist.push_back(1);
     col.processSpaceByHist(hist);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.size() == 1);
+    CPPUNIT_ASSERT(col.hist_spaces_.size() == 1);
 
     // 00110
     hist.push_back(0);
     col.processSpaceByHist(hist);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.size() == 2);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.at(0) == 0);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.at(1) == 4);
+    CPPUNIT_ASSERT(col.hist_spaces_.size() == 2);
+    CPPUNIT_ASSERT(col.hist_spaces_.at(0) == 0);
+    CPPUNIT_ASSERT(col.hist_spaces_.at(1) == 4);
 
     // 001101
     hist.push_back(1);
     col.processSpaceByHist(hist);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.size() == 2);
+    CPPUNIT_ASSERT(col.hist_spaces_.size() == 2);
 
     // 0011010
     hist.push_back(0);
     col.processSpaceByHist(hist);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.size() == 3);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.at(0) == 0);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.at(1) == 4);
-    CPPUNIT_ASSERT(col.m_arSpacePlace.at(2) == 6);
+    CPPUNIT_ASSERT(col.hist_spaces_.size() == 3);
+    CPPUNIT_ASSERT(col.hist_spaces_.at(0) == 0);
+    CPPUNIT_ASSERT(col.hist_spaces_.at(1) == 4);
+    CPPUNIT_ASSERT(col.hist_spaces_.at(2) == 6);
 }
