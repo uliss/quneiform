@@ -9,6 +9,7 @@ endif()
 add_library(cuneiform-common ${LIBTYPE}
     cifconfig.cpp
     helper.cpp
+    histogram.cpp
     iconv_local.cpp
     iconvimpl.cpp
     image.cpp
