@@ -150,7 +150,7 @@ int CRtfHorizontalColumn::leftBigVColumnBorder() const {
             if (i == 0)
                 left = vcol->m_rectReal.left;
             else
-                left = std::min(left, vcol->m_rectReal.left);
+                left = std::min(left, (int) vcol->m_rectReal.left);
         }
     }
 
@@ -224,7 +224,7 @@ int CRtfHorizontalColumn::rightBigVColumnBorder() const {
             if (i == 0)
                 right = vcol->m_rectReal.right;
             else
-                right = std::min(right, vcol->m_rectReal.right);
+                right = std::min(right, (int) vcol->m_rectReal.right);
         }
     }
 
@@ -233,16 +233,7 @@ int CRtfHorizontalColumn::rightBigVColumnBorder() const {
 
 void CRtfHorizontalColumn::processSpaceByHist(const Histogram& hist) {
     hist_spaces_.clear();
-
-    bool space_flag = false;
-    for (size_t i = 0, sz = hist.size(); i < sz; i++) {
-        if (hist[i] == 0 && !space_flag) {
-            space_flag = true;
-            hist_spaces_.push_back(i);
-        } else if (hist[i] != 0 && space_flag) {
-            space_flag = false;
-        }
-    }
+    hist.spacePosition(std::back_inserter(hist_spaces_));
 }
 
 //после удаления жертвы по гистограммам проверяем разделимость остальных колонок и если да,

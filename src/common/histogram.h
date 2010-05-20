@@ -160,6 +160,13 @@ class HistogramImpl
          * @example for 01100011100 - it returns 3
          */
         size_t spaceCount() const;
+
+        /**
+         * Inserts space positions into given container
+         * @see spaceCount()
+         */
+        template<class IteratorBegin>
+        void spacePosition(IteratorBegin it) const;
     private:
         HistogramVector hist_;
 };
@@ -241,6 +248,21 @@ size_t HistogramImpl<T>::spaceCount() const {
         }
     }
     return space_count;
+}
+
+template<class T>
+template<class IteratorBegin>
+void HistogramImpl<T>::spacePosition(IteratorBegin it) const {
+    bool space_flag = false;
+    for (size_t i = 0, sz = hist_.size(); i < sz; i++) {
+        if (hist_[i] == 0 && !space_flag) {
+            space_flag = true;
+            it = i;
+            ++it;
+        } else if (hist_[i] != 0 && space_flag) {
+            space_flag = false;
+        }
+    }
 }
 
 typedef HistogramImpl<unsigned char> Histogram;
