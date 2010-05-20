@@ -110,7 +110,7 @@ class CLA_EXPO CRtfHorizontalColumn
         RECT m_rectReal;
     private:
         void accumulateHistorgam(Histogram& hist, int left_border) const;
-        bool checkTermColumn() const;
+        bool checkTerminalColumn() const;
         void clearTerminalColumnsGroup();
         void clearTerminalColumnsIndexes();
         /* recalculation of histogram after victim deletion */

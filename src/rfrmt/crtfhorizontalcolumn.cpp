@@ -85,7 +85,7 @@ void CRtfHorizontalColumn::addColumn(CRtfVerticalColumn * col) {
 
 void CRtfHorizontalColumn::calcHorizontalColumn() {
     if (type_ == FRAME_AND_COLUMN || type_ == ALL_FRAME) {
-        if (checkTermColumn()) {
+        if (checkTerminalColumn()) {
             type_ = ALL_TERMINAL;
         } else {//~проверка вертикального затенения колонок ("жертва" будет frame)
             findHeadingAndSetFrameFlag(); //это проверка, что после удаления жертвы все стало лучше
@@ -97,12 +97,12 @@ void CRtfHorizontalColumn::calcHorizontalColumn() {
         fillVTerminalColumnsIndex(); //есть хорошие колонки
 }
 
-void addBigColToHist(const CRtfVerticalColumn * col, Histogram& hist, int left_border) {
+void addBigColToHist(const CRtfVerticalColumn * col, Histogram& hist, int histogram_offset) {
     assert(col);
 
     if ((col->type() == FT_TEXT || col->type() == FT_FRAME) && !col->isSmall()) {
-        const int col_left = col->m_rectReal.left - left_border;
-        const int col_right = col->m_rectReal.right - left_border;
+        const int col_left = col->m_rectReal.left - histogram_offset;
+        const int col_right = col->m_rectReal.right - histogram_offset;
 
         assert(hist.size() < col_right);
 
@@ -111,11 +111,12 @@ void addBigColToHist(const CRtfVerticalColumn * col, Histogram& hist, int left_b
     }
 }
 
-void CRtfHorizontalColumn::accumulateHistorgam(Histogram& hist, int left_border) const {
-    std::for_each(vcols_.begin(), vcols_.end(), boost::bind(addBigColToHist, _1, hist, left_border));
+void CRtfHorizontalColumn::accumulateHistorgam(Histogram& hist, int histogram_offset) const {
+    std::for_each(vcols_.begin(), vcols_.end(), boost::bind(addBigColToHist, _1, hist,
+            histogram_offset));
 }
 
-bool CRtfHorizontalColumn::checkTermColumn() const {
+bool CRtfHorizontalColumn::checkTerminalColumn() const {
     for (size_t i = 1; i < vcols_.size(); i++) {
         const CRtfVerticalColumn * vcol = vcols_[i];
         const CRtfVerticalColumn * vcol_prev = vcols_[i - 1];
