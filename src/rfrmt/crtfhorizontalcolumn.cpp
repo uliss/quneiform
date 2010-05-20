@@ -32,10 +32,24 @@
 namespace CIF
 {
 
-struct BigTextAndFrame
+struct VColumnBigTextAndFrame
 {
-        bool operator()(CRtfVerticalColumn * col) {
+        bool operator()(const CRtfVerticalColumn * col) {
             return !col->isSmall() && (col->type() == FT_TEXT || col->type() == FT_FRAME);
+        }
+};
+
+struct VColumnText
+{
+        bool operator()(const CRtfVerticalColumn * col) {
+            return col->type() == FT_TEXT;
+        }
+};
+
+struct VColumnFrame
+{
+        bool operator()(const CRtfVerticalColumn * col) {
+            return col->type() == FT_FRAME;
         }
 };
 
@@ -62,6 +76,58 @@ int columnMinLeftBorder(Iterator begin, Iterator end, Pred condition) {
             continue;
 
         res = std::min(res, static_cast<int> ((*it)->m_rectReal.left));
+    }
+
+    return res;
+}
+
+template<class Pred>
+void addVColumnToHistogram(const CRtfVerticalColumn * vcol, Histogram& hist, int histogram_offset,
+        Pred condition) {
+    assert(vcol);
+
+    if (!condition(vcol))
+        return;
+
+    const int col_left = vcol->m_rectReal.left - histogram_offset;
+    const int col_right = vcol->m_rectReal.right - histogram_offset;
+
+    assert(hist.size() < col_right);
+
+    for (int i = col_left; i < col_right; i++)
+        hist[i]++;
+}
+
+template<class Iterator, class Pred>
+void accumulateHistogram(Iterator begin, Iterator end, Histogram& hist, int histogram_offset,
+        Pred condition) {
+    std::for_each(begin, end, boost::bind(addVColumnToHistogram<Pred> , _1, hist, histogram_offset,
+            condition));
+}
+
+template<class Iterator, class Pred>
+int maxColumnWidth(Iterator start, Iterator end, Pred condition) {
+    int res = 0;
+    while (start != end) {
+        if (condition(*start)) {
+            res = std::max(res, (*start)->realWidth());
+        }
+        ++start;
+    }
+    return res;
+}
+
+template<class Iterator, class Pred>
+Iterator findColumnWithMaxWidth(Iterator start, Iterator end, Pred condition) {
+    int width = 0;
+    Iterator res = end;
+    while (start != end) {
+        if ((*start)->realWidth() > width) {
+            width = (*start)->realWidth();
+            res = start;
+        }
+
+        ++start;
     }
 
     return res;
@@ -109,11 +175,6 @@ void addBigColToHist(const CRtfVerticalColumn * col, Histogram& hist, int histog
         for (int i = col_left; i < col_right; i++)
             hist[i]++;
     }
-}
-
-void CRtfHorizontalColumn::accumulateHistorgam(Histogram& hist, int histogram_offset) const {
-    std::for_each(vcols_.begin(), vcols_.end(), boost::bind(addBigColToHist, _1, hist,
-            histogram_offset));
 }
 
 bool CRtfHorizontalColumn::checkTerminalColumn() const {
@@ -238,52 +299,41 @@ void CRtfHorizontalColumn::processSpaceByHist(const Histogram& hist) {
     hist.spacePosition(std::back_inserter(hist_spaces_));
 }
 
+void CRtfHorizontalColumn::setAllFrames() {
+    for (VColumnIterator it = vcols_.begin(), end = vcols_.end(); it != end; ++it) {
+        if ((*it)->type() == FT_TEXT)
+            (*it)->setType(FT_FRAME);
+    }
+}
+
 //после удаления жертвы по гистограммам проверяем разделимость остальных колонок и если да,
 // все они будут терминал.
 void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
     markSmallColumns();
-    const int Left = columnMinLeftBorder(vcols_.begin(), vcols_.end(), BigTextAndFrame());
-    const int Right = columnMaxRightBorder(vcols_.begin(), vcols_.end(), BigTextAndFrame());
-    assert(Right - Left >= 0);
-    Histogram Hist(Right - Left);
+    const int left = columnMinLeftBorder(vcols_.begin(), vcols_.end(), VColumnBigTextAndFrame());
+    const int right = columnMaxRightBorder(vcols_.begin(), vcols_.end(), VColumnBigTextAndFrame());
+    assert(right - left >= 0);
+    Histogram hist(right - left);
 
-    accumulateHistorgam(Hist, Left);
-    processColsByHist(Hist, Left);
+    accumulateHistogram(vcols_.begin(), vcols_.end(), hist, left, VColumnBigTextAndFrame());
+    processColsByHist(hist, left);
 }
 
 void CRtfHorizontalColumn::defineTerminalProperty() {
     VectorWord* pGroup;
     CRtfVerticalColumn* pRtfVerticalColumn;
-    int32_t Left = 32000, Right = 0, Length, Left1, Right1;
-    int i, j, FlagSpace = 0, CountColumn, MinLeft, MaxRight;
+    int i, j, CountColumn, MinLeft, MaxRight;
 
-    for (size_t i = 0; i < vcols_.size(); i++) {
-        pRtfVerticalColumn = vcols_[i];
-
-        if (pRtfVerticalColumn->type() == FT_TEXT) {
-            Left = MIN(Left, pRtfVerticalColumn->m_rectReal.left);
-            Right = MAX(Right, pRtfVerticalColumn->m_rectReal.right);
-        }
-    }
+    int Left = columnMinLeftBorder(vcols_.begin(), vcols_.end(), VColumnText());
+    int Right = columnMaxRightBorder(vcols_.begin(), vcols_.end(), VColumnText());
 
     MinLeft = Left;
     MaxRight = Right;
-    Length = Right - Left;
 
-    Histogram Hist(Length);
+    assert((Right - Left) > 0);
+    Histogram Hist(Right - Left);
 
-    for (size_t i = 0; i < vcols_.size(); i++) {
-        pRtfVerticalColumn = vcols_[i];
-
-        if (pRtfVerticalColumn->type() == FT_TEXT) {
-            Left1 = pRtfVerticalColumn->m_rectReal.left - Left;
-            Right1 = pRtfVerticalColumn->m_rectReal.right - Left;
-
-            for (j = Left1; j < Right1; j++)
-                Hist[j]++;
-        }
-    }
-
+    accumulateHistogram(vcols_.begin(), vcols_.end(), Hist, Left, VColumnText());
     processSpaceByHist(Hist);
 
     CountColumn = hist_spaces_.size();
@@ -321,33 +371,14 @@ void CRtfHorizontalColumn::defineTerminalProperty() {
     }
 
     //~неудача деления => all columns become frames
-    for (i = 0; i < vcols_.size(); i++) {
-        pRtfVerticalColumn = vcols_[i];
+    setAllFrames();
 
-        if (pRtfVerticalColumn->type() == FT_TEXT)
-            pRtfVerticalColumn->setType(FT_FRAME);
-    }
-
-    int IndexMaxWidthFragment = 0, MaxWidth = 0;
-
-    for (i = 0; i < vcols_.size(); i++) {
-        pRtfVerticalColumn = vcols_[i];
-
-        if (pRtfVerticalColumn->type() == FT_FRAME) {
-            if ((pRtfVerticalColumn->m_rectReal.right - pRtfVerticalColumn->m_rectReal.left)
-                    > MaxWidth) {
-                MaxWidth = pRtfVerticalColumn->m_rectReal.right
-                        - pRtfVerticalColumn->m_rectReal.left;
-                IndexMaxWidthFragment = i;
-            }
-        }
-    }
-
-    pRtfVerticalColumn = vcols_[IndexMaxWidthFragment];
-    pRtfVerticalColumn->setType(FT_TEXT);
-    terminal_col_group_.push_back(new VectorWord());
-    pGroup = terminal_col_group_[0];
-    pGroup->push_back(IndexMaxWidthFragment);
+    VColumnIterator it = findColumnWithMaxWidth(vcols_.begin(), vcols_.end(), VColumnFrame());
+    assert(it != vcols_.end());
+    (*it)->setType(FT_TEXT);
+    int IndexMaxWidthFragment = std::distance(vcols_.begin(), it);
+    terminal_col_group_.push_back(new VectorWord);
+    terminal_col_group_.front()->push_back(IndexMaxWidthFragment);
     type_ = FRAME_AND_COLUMN;
 }
 

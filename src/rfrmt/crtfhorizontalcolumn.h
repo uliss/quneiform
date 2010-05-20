@@ -109,7 +109,6 @@ class CLA_EXPO CRtfHorizontalColumn
         RECT m_rect;
         RECT m_rectReal;
     private:
-        void accumulateHistorgam(Histogram& hist, int left_border) const;
         bool checkTerminalColumn() const;
         void clearTerminalColumnsGroup();
         void clearTerminalColumnsIndexes();
@@ -130,6 +129,7 @@ class CLA_EXPO CRtfHorizontalColumn
         int maxVColumnWidth() const;
         void processColsByHist(const Histogram& hist, int left_offset);
         void processSpaceByHist(const Histogram& hist);
+        void setAllFrames();
     private:
         typedef std::vector<CRtfVerticalColumn*> VColumnList;
         typedef VColumnList::iterator VColumnIterator;
