@@ -22,6 +22,7 @@
 #include <vector>
 #include "globus.h"
 #include "cfcompat.h"
+#include "common/rect.h"
 #include "creatertf.h"
 
 class RtfSectorInfo;
@@ -88,6 +89,8 @@ class CLA_EXPO CRtfVerticalColumn
          * @param page
          */
         void setPage(CRtfPage * page);
+
+        void setRealRect(const CIF::Rect& r);
 
         /**
          * Sets column small

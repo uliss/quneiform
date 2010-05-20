@@ -124,16 +124,12 @@ class CLA_EXPO CRtfHorizontalColumn
         void fillSingleTerminalColumnIndex();
         void fillTerminalFrameColumnIndex();
         void findHeadingAndSetFrameFlag();
-        /* returns leftmost border of big vertical columns */
-        int leftBigVColumnBorder() const;
         /* detects and marks small vertical columns */
         void markSmallColumns();
         int maxVColumnHeight() const;
         int maxVColumnWidth() const;
         void processColsByHist(const Histogram& hist, int left_offset);
         void processSpaceByHist(const Histogram& hist);
-        /* returns rightmost border of big vertical columns */
-        int rightBigVColumnBorder() const;
     private:
         typedef std::vector<CRtfVerticalColumn*> VColumnList;
         typedef VColumnList::iterator VColumnIterator;

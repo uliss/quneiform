@@ -15,11 +15,13 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-#include "testcrtfhorizontalcolumn.h"
 #include <stdexcept>
+#include "testcrtfhorizontalcolumn.h"
+#include "common/tostring.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfHorizontalColumn);
 #define private public
 #include "rfrmt/crtfhorizontalcolumn.h"
+#include "rfrmt/crtfverticalcolumn.h"
 using namespace CIF;
 
 void TestCRtfHorizontalColumn::testInit() {
@@ -29,6 +31,77 @@ void TestCRtfHorizontalColumn::testInit() {
     col.clearColumns();
     col.clearTerminalColumnsGroup();
     col.clearTerminalColumnsIndexes();
+}
+
+int numSmall(const CRtfHorizontalColumn& col) {
+    int res = 0;
+
+    for (size_t i = 0; i < col.vcols_.size(); i++) {
+        if (col.vcols_[i]->isSmall())
+            res++;
+    }
+
+    return res;
+}
+
+void ADD_VCOL(CRtfHorizontalColumn& col, const Rect& r) {
+    CRtfVerticalColumn * vcol = new CRtfVerticalColumn;
+    vcol->setRealRect(r);
+    col.addColumn(vcol);
+}
+
+void ADD_VCOL(CRtfHorizontalColumn& col, int width, int height, int xoffset) {
+    ADD_VCOL(col, Rect(Point(xoffset, 0), width, height));
+}
+
+void TestCRtfHorizontalColumn::testMarkSmallColumns() {
+    CRtfHorizontalColumn col;
+    col.markSmallColumns();
+    CPPUNIT_ASSERT_EQUAL(0, numSmall(col));
+
+    ADD_VCOL(col, 10, 10, 0);
+    col.markSmallColumns();
+    CPPUNIT_ASSERT_EQUAL(0, numSmall(col));
+
+    ADD_VCOL(col, 14, 11, 0);
+    col.markSmallColumns();
+    CPPUNIT_ASSERT_EQUAL(0, numSmall(col));
+
+    ADD_VCOL(col, 17, 9, 0);
+    col.markSmallColumns();
+    CPPUNIT_ASSERT_EQUAL(0, numSmall(col));
+
+    ADD_VCOL(col, 4, 4, 0);
+    col.markSmallColumns();
+    CPPUNIT_ASSERT_EQUAL(1, numSmall(col));
+
+    ADD_VCOL(col, 50, 80, 0);
+    col.markSmallColumns();
+    CPPUNIT_ASSERT_EQUAL((int) col.columnCount() - 1, numSmall(col));
+}
+
+void TestCRtfHorizontalColumn::testMaxVColumnHeight() {
+    CRtfHorizontalColumn col;
+    CPPUNIT_ASSERT_EQUAL(0, col.maxVColumnHeight());
+    ADD_VCOL(col, 0, 1, 0);
+    ADD_VCOL(col, 0, 5, 0);
+    ADD_VCOL(col, 0, 2, 0);
+    CPPUNIT_ASSERT_EQUAL(5, col.maxVColumnHeight());
+    ADD_VCOL(col, 0, 111, 0);
+    ADD_VCOL(col, 0, 0, 0);
+    CPPUNIT_ASSERT_EQUAL(111, col.maxVColumnHeight());
+}
+
+void TestCRtfHorizontalColumn::testMaxVColumnWidth() {
+    CRtfHorizontalColumn col;
+    CPPUNIT_ASSERT_EQUAL(0, col.maxVColumnWidth());
+    ADD_VCOL(col, 0, 0, 0);
+    ADD_VCOL(col, 10, 0, 0);
+    ADD_VCOL(col, 1, 0, 0);
+    CPPUNIT_ASSERT_EQUAL(10, col.maxVColumnWidth());
+    ADD_VCOL(col, 120, 0, 0);
+    ADD_VCOL(col, 4, 0, 0);
+    CPPUNIT_ASSERT_EQUAL(120, col.maxVColumnWidth());
 }
 
 void TestCRtfHorizontalColumn::testProcessSpaceByHist() {

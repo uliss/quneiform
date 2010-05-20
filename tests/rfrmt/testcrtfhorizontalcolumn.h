@@ -26,9 +26,15 @@ class TestCRtfHorizontalColumn: public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestCRtfHorizontalColumn);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testProcessSpaceByHist);
+    CPPUNIT_TEST(testMarkSmallColumns);
+    CPPUNIT_TEST(testMaxVColumnHeight);
+    CPPUNIT_TEST(testMaxVColumnWidth);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
+    void testMarkSmallColumns();
+    void testMaxVColumnHeight();
+    void testMaxVColumnWidth();
     void testProcessSpaceByHist();
 };
 

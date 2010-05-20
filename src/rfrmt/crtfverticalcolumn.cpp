@@ -80,15 +80,22 @@ const CRtfPage * CRtfVerticalColumn::page() const {
 }
 
 int CRtfVerticalColumn::realHeight() const {
-    return m_rectReal.bottom - m_rect.top;
+    return m_rectReal.bottom - m_rectReal.top;
 }
 
 int CRtfVerticalColumn::realWidth() const {
-    return m_rectReal.right - m_rect.left;
+    return m_rectReal.right - m_rectReal.left;
 }
 
 void CRtfVerticalColumn::setPage(CRtfPage * page) {
     page_ = page;
+}
+
+void CRtfVerticalColumn::setRealRect(const Rect& r) {
+    m_rectReal.top = r.top();
+    m_rectReal.left = r.left();
+    m_rectReal.bottom = r.bottom();
+    m_rectReal.right = r.right();
 }
 
 void CRtfVerticalColumn::setSmall(bool value) {

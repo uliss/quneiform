@@ -32,6 +32,41 @@
 namespace CIF
 {
 
+struct BigTextAndFrame
+{
+        bool operator()(CRtfVerticalColumn * col) {
+            return !col->isSmall() && (col->type() == FT_TEXT || col->type() == FT_FRAME);
+        }
+};
+
+template<class Iterator, class Pred>
+int columnMaxRightBorder(Iterator begin, Iterator end, Pred condition) {
+    int res = (begin != end) ? (*begin)->m_rectReal.right : 0;
+
+    for (Iterator it = begin; it != end; ++it) {
+        if (!condition(*it))
+            continue;
+
+        res = std::max(res, static_cast<int> ((*it)->m_rectReal.right));
+    }
+
+    return res;
+}
+
+template<class Iterator, class Pred>
+int columnMinLeftBorder(Iterator begin, Iterator end, Pred condition) {
+    int res = (begin != end) ? (*begin)->m_rectReal.left : 0;
+
+    for (Iterator it = begin; it != end; ++it) {
+        if (!condition(*it))
+            continue;
+
+        res = std::min(res, static_cast<int> ((*it)->m_rectReal.left));
+    }
+
+    return res;
+}
+
 CRtfHorizontalColumn::CRtfHorizontalColumn() :
     page_(NULL), type_(SINGLE_TERMINAL) {
     SetRect(&m_rect, 32000, 32000, 0, 0);
@@ -140,23 +175,6 @@ CRtfHorizontalColumn::column_t CRtfHorizontalColumn::type() const {
     return type_;
 }
 
-int CRtfHorizontalColumn::leftBigVColumnBorder() const {
-    int left = 0;
-
-    for (size_t i = 0; i < vcols_.size(); i++) {
-        CRtfVerticalColumn * vcol = vcols_[i];
-
-        if ((vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) && !vcol->isSmall()) {
-            if (i == 0)
-                left = vcol->m_rectReal.left;
-            else
-                left = std::min(left, (int) vcol->m_rectReal.left);
-        }
-    }
-
-    return left;
-}
-
 void determineColSize(CRtfVerticalColumn * col, int threshold_width, int threshold_height) {
     if (col->type() == FT_TEXT || col->type() == FT_FRAME) {
         if ((col->realWidth() < threshold_width) && (col->realHeight() < threshold_height)) {
@@ -177,7 +195,7 @@ void CRtfHorizontalColumn::markSmallColumns() {
 }
 
 int CRtfHorizontalColumn::maxVColumnHeight() const {
-    int max_height = 1;
+    int max_height = 0;
 
     for (VColumnIteratorConst it = vcols_.begin(), end = vcols_.end(); it != end; ++it) {
         if ((*it)->type() == FT_TEXT || (*it)->type() == FT_FRAME)
@@ -188,7 +206,7 @@ int CRtfHorizontalColumn::maxVColumnHeight() const {
 }
 
 int CRtfHorizontalColumn::maxVColumnWidth() const {
-    int max_width = 1;
+    int max_width = 0;
 
     for (VColumnIteratorConst it = vcols_.begin(), end = vcols_.end(); it != end; ++it) {
         if ((*it)->type() == FT_TEXT || (*it)->type() == FT_FRAME)
@@ -214,23 +232,6 @@ void CRtfHorizontalColumn::processColsByHist(const Histogram& hist, int left_off
     }
 }
 
-int CRtfHorizontalColumn::rightBigVColumnBorder() const {
-    int right = 0;
-
-    for (size_t i = 0; i < vcols_.size(); i++) {
-        CRtfVerticalColumn * vcol = vcols_[i];
-
-        if ((vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) && !vcol->isSmall()) {
-            if (i == 0)
-                right = vcol->m_rectReal.right;
-            else
-                right = std::min(right, (int) vcol->m_rectReal.right);
-        }
-    }
-
-    return right;
-}
-
 void CRtfHorizontalColumn::processSpaceByHist(const Histogram& hist) {
     hist_spaces_.clear();
     hist.spacePosition(std::back_inserter(hist_spaces_));
@@ -240,8 +241,8 @@ void CRtfHorizontalColumn::processSpaceByHist(const Histogram& hist) {
 // все они будут терминал.
 void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
     markSmallColumns();
-    const int Left = leftBigVColumnBorder();
-    const int Right = rightBigVColumnBorder();
+    const int Left = columnMinLeftBorder(vcols_.begin(), vcols_.end(), BigTextAndFrame());
+    const int Right = columnMaxRightBorder(vcols_.begin(), vcols_.end(), BigTextAndFrame());
     assert(Right - Left >= 0);
     Histogram Hist(Right - Left);
 
