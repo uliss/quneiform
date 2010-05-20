@@ -25,19 +25,32 @@
 namespace CIF
 {
 
-class Histogram
+template<class T>
+class HistogramImpl
 {
-        typedef std::vector<unsigned short> HistogramVector;
     public:
-        typedef HistogramVector::iterator iterator;
-        typedef HistogramVector::const_iterator const_iterator;
+        typedef std::vector<T> HistogramVector;
+        typedef typename HistogramVector::iterator iterator;
+        typedef typename HistogramVector::const_iterator const_iterator;
+        typedef typename HistogramVector::reference reference;
+        typedef typename HistogramVector::const_reference const_reference;
+        typedef T value_type;
     public:
-        Histogram(size_t size) :
+        /**
+         * Constructs histogram of defined size initiated with 0
+         * @param size - size of histogram
+         */
+        HistogramImpl(size_t size) :
             hist_(size, 0) {
         }
 
+        /**
+         * Construct histogram from container values
+         * @param first - first iterator
+         * @param last - end iterator
+         */
         template<class IteratorBegin, class IteratorEnd>
-        Histogram(IteratorBegin first, IteratorEnd last) {
+        HistogramImpl(IteratorBegin first, IteratorEnd last) {
             hist_.reserve(std::distance(first, last));
             std::copy(first, last, std::back_inserter(hist_));
         }
@@ -52,6 +65,10 @@ class Histogram
 
         void clear() {
             std::fill(hist_.begin(), hist_.end(), 0);
+        }
+
+        void compress() {
+            std::unique(hist_.begin(), hist_.end());
         }
 
         bool empty() const {
@@ -79,7 +96,11 @@ class Histogram
             std::copy(first, last, std::back_inserter(hist_));
         }
 
-        void lower(unsigned short value);
+        /**
+         * Subtracts  value from all histogram values
+         * if some histogram values less then @b value - it becames 0
+         */
+        void lower(T value);
 
         iterator max() {
             return std::max_element(hist_.begin(), hist_.end());
@@ -87,6 +108,10 @@ class Histogram
 
         const_iterator max() const {
             return std::max_element(hist_.begin(), hist_.end());
+        }
+
+        T max_element() const {
+            return *max();
         }
 
         iterator min() {
@@ -97,31 +122,128 @@ class Histogram
             return std::min_element(hist_.begin(), hist_.end());
         }
 
+        T min_element() const {
+            return *min();
+        }
+
         void minimize();
 
-        HistogramVector::reference operator[](size_t pos) {
+        /**
+         * Returns reference to histogram value at positions @b pos
+         * @throw std::out_of_range if invalid position given
+         */
+        reference operator[](size_t pos) {
             return hist_.at(pos);
         }
 
-        HistogramVector::const_reference operator[](size_t pos) const {
+        const_reference operator[](size_t pos) const {
             return hist_.at(pos);
         }
 
-        void raise(unsigned short value);
+        /**
+         * Adds new value to the end of histogram
+         */
+        void push_back(T value);
 
-        size_t size() const {
-            return hist_.size();
-        }
+        /**
+         * Adds @b value to all histogram values
+         */
+        void raise(T value);
 
+        /**
+         * Returns histogram size
+         */
+        size_t size() const;
+
+        /**
+         * Returns number of spaces (where elements == 0) between histogram peaks
+         * @example for 01100011100 - it returns 3
+         */
         size_t spaceCount() const;
-
-        void uniqe() {
-            std::unique(hist_.begin(), hist_.end());
-        }
-
     private:
         HistogramVector hist_;
 };
+
+template<class T>
+bool HistogramImpl<T>::findU(size_t begin, size_t end) const {
+    if (begin >= hist_.size() || end > hist_.size() || begin == end || begin > end)
+        return false;
+
+    bool left_descent = false;
+    bool right_ascent = false;
+    unsigned short current = hist_[begin];
+
+    for (size_t i = begin; i < end; i++) {
+        if (current < hist_[i]) {
+            if (left_descent == false)
+                current = hist_[i];
+            else if (left_descent == true && right_ascent == false) {
+                right_ascent = true;
+                // found 'U'-like histogram
+                // return
+                return true;
+            }
+        } else if (current > hist_[i]) {
+            if (left_descent == false) {
+                current = hist_[i];
+                left_descent = true;
+            } else if (left_descent == true && right_ascent == false)
+                current = hist_[i];
+        }
+    }
+
+    return false;
+}
+
+template<class T>
+void HistogramImpl<T>::lower(T value) {
+    for (iterator it = hist_.begin(), end = hist_.end(); it != end; ++it) {
+        if (*it > value)
+            *it -= value;
+        else
+            *it = 0;
+    }
+}
+
+template<class T>
+void HistogramImpl<T>::minimize() {
+    iterator it = min();
+    if (it != end() || (*it) != 0)
+        lower(*it);
+}
+
+template<class T>
+void HistogramImpl<T>::push_back(T value) {
+    hist_.push_back(value);
+}
+
+template<class T>
+void HistogramImpl<T>::raise(T value) {
+    for (iterator it = hist_.begin(), end = hist_.end(); it != end; ++it)
+        *it += value;
+}
+
+template<class T>
+size_t HistogramImpl<T>::size() const {
+    return hist_.size();
+}
+
+template<class T>
+size_t HistogramImpl<T>::spaceCount() const {
+    size_t space_count = 0;
+    bool space_flag = false;
+    for (size_t i = 0, sz = hist_.size(); i < sz; i++) {
+        if (hist_[i] == 0 && !space_flag) {
+            space_flag = true;
+            space_count++;
+        } else if (hist_[i] != 0 && space_flag) {
+            space_flag = false;
+        }
+    }
+    return space_count;
+}
+
+typedef HistogramImpl<unsigned char> Histogram;
 
 }
 

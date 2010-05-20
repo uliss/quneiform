@@ -62,8 +62,7 @@ void CRtfHorizontalColumn::calcHorizontalColumn() {
         fillVTerminalColumnsIndex(); //есть хорошие колонки
 }
 
-void addBigColToHist(const CRtfVerticalColumn * col, CRtfHorizontalColumn::Histogram& hist,
-        int left_border) {
+void addBigColToHist(const CRtfVerticalColumn * col, Histogram& hist, int left_border) {
     assert(col);
 
     if ((col->type() == FT_TEXT || col->type() == FT_FRAME) && !col->isSmall()) {
@@ -73,7 +72,7 @@ void addBigColToHist(const CRtfVerticalColumn * col, CRtfHorizontalColumn::Histo
         assert(hist.size() < col_right);
 
         for (int i = col_left; i < col_right; i++)
-            hist.at(i)++;
+            hist[i]++;
     }
 }
 
@@ -158,14 +157,6 @@ int CRtfHorizontalColumn::leftBigVColumnBorder() const {
     return left;
 }
 
-CRtfHorizontalColumn::Histogram CRtfHorizontalColumn::makeHistogram(int left_border,
-        int right_border) {
-    if ((right_border - left_border) <= 1)
-        throw std::invalid_argument(
-                "[CRtfHorizontalColumn::makeHistogram] invalid histogram borders");
-    return Histogram(right_border - left_border, 0);
-}
-
 void determineColSize(CRtfVerticalColumn * col, int threshold_width, int threshold_height) {
     if (col->type() == FT_TEXT || col->type() == FT_FRAME) {
         if ((col->realWidth() < threshold_width) && (col->realHeight() < threshold_height)) {
@@ -212,30 +203,10 @@ void CRtfHorizontalColumn::processColsByHist(const Histogram& hist, int left_off
         CRtfVerticalColumn * vcol = vcols_[i];
 
         if ((vcol->type() == FT_TEXT || vcol->type() == FT_FRAME) && !vcol->isSmall()) {
-            const int Left1 = vcol->m_rectReal.left - left_offset;
-            const int Right1 = vcol->m_rectReal.right - left_offset;
-            bool FlagLeft = false;
-            bool FlagRight = false;
-            int tmp = hist[Left1];
+            const int left = vcol->m_rectReal.left - left_offset;
+            const int right = vcol->m_rectReal.right - left_offset;
 
-            for (int j = Left1; j < Right1; j++) {
-                if (tmp < hist[j]) {
-                    if (FlagLeft == false)
-                        tmp = hist[j];
-                    else if (FlagLeft == true && FlagRight == false) {
-                        FlagRight = true;
-                        break;
-                    }
-                } else if (tmp > hist[j]) {
-                    if (FlagLeft == false) {
-                        tmp = hist[j];
-                        FlagLeft = true;
-                    } else if (FlagLeft == true && FlagRight == false)
-                        tmp = hist[j];
-                }
-            }
-
-            if (FlagRight)
+            if (hist.findU(left, right))
                 vcol->setType(FT_FRAME);
             else
                 vcol->setType(FT_TEXT);
@@ -280,7 +251,8 @@ void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
     markSmallColumns();
     const int Left = leftBigVColumnBorder();
     const int Right = rightBigVColumnBorder();
-    Histogram Hist = makeHistogram(Left, Right);
+    assert(Right - Left >= 0);
+    Histogram Hist(Right - Left);
 
     accumulateHistorgam(Hist, Left);
     processColsByHist(Hist, Left);
@@ -305,9 +277,9 @@ void CRtfHorizontalColumn::defineTerminalProperty() {
     MaxRight = Right;
     Length = Right - Left;
 
-    Histogram Hist = makeHistogram(Left, Right);
+    Histogram Hist(Length);
 
-    for (i = 0; i < vcols_.size(); i++) {
+    for (size_t i = 0; i < vcols_.size(); i++) {
         pRtfVerticalColumn = vcols_[i];
 
         if (pRtfVerticalColumn->type() == FT_TEXT) {
@@ -315,7 +287,7 @@ void CRtfHorizontalColumn::defineTerminalProperty() {
             Right1 = pRtfVerticalColumn->m_rectReal.right - Left;
 
             for (j = Left1; j < Right1; j++)
-                Hist[j] += 1;
+                Hist[j]++;
         }
     }
 

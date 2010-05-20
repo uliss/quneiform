@@ -21,6 +21,7 @@
 
 #include <vector>
 #include "cfcompat.h"
+#include "common/histogram.h"
 #include "creatertf.h"
 
 namespace CIF
@@ -33,8 +34,6 @@ class CRtfFragment;
 class CLA_EXPO CRtfHorizontalColumn
 {
     public:
-        typedef std::vector<unsigned char> Histogram;
-
         enum column_t
         {
             SINGLE_TERMINAL = 0,
@@ -135,9 +134,6 @@ class CLA_EXPO CRtfHorizontalColumn
         void processSpaceByHist(const Histogram& hist);
         /* returns rightmost border of big vertical columns */
         int rightBigVColumnBorder() const;
-    private:
-        /* returns empty histogram for vertical columns */
-        static Histogram makeHistogram(int left_border, int right_border);
     private:
         typedef std::vector<CRtfVerticalColumn*> VColumnList;
         typedef VColumnList::iterator VColumnIterator;

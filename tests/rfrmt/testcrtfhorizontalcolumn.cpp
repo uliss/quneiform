@@ -22,8 +22,6 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfHorizontalColumn);
 #include "rfrmt/crtfhorizontalcolumn.h"
 using namespace CIF;
 
-typedef CRtfHorizontalColumn::Histogram Histogram;
-
 void TestCRtfHorizontalColumn::testInit() {
     CRtfHorizontalColumn col;
     CPPUNIT_ASSERT_EQUAL(col.type(), CRtfHorizontalColumn::SINGLE_TERMINAL);
@@ -33,19 +31,10 @@ void TestCRtfHorizontalColumn::testInit() {
     col.clearTerminalColumnsIndexes();
 }
 
-void TestCRtfHorizontalColumn::testMakeHistogram() {
-    Histogram h = CRtfHorizontalColumn::makeHistogram(0, 2);
-    CPPUNIT_ASSERT(h.size() == 2);
-    CPPUNIT_ASSERT_THROW(CRtfHorizontalColumn::makeHistogram(0, 0), std::invalid_argument);
-    CPPUNIT_ASSERT_THROW(CRtfHorizontalColumn::makeHistogram(0, -2), std::invalid_argument);
-    h = CRtfHorizontalColumn::makeHistogram(-10, -1);
-    CPPUNIT_ASSERT(h.size() == 9);
-}
-
 void TestCRtfHorizontalColumn::testProcessSpaceByHist() {
     CRtfHorizontalColumn col;
     CPPUNIT_ASSERT(col.hist_spaces_.size() == 0);
-    Histogram hist;
+    Histogram hist(0);
     col.processSpaceByHist(hist);
     CPPUNIT_ASSERT(col.hist_spaces_.size() == 0);
     hist.push_back(1);
@@ -54,7 +43,7 @@ void TestCRtfHorizontalColumn::testProcessSpaceByHist() {
     CPPUNIT_ASSERT(col.hist_spaces_.size() == 0);
 
     // 0
-    hist.front() = 0;
+    hist[0] = 0;
     col.processSpaceByHist(hist);
     CPPUNIT_ASSERT(col.hist_spaces_.size() == 1);
     CPPUNIT_ASSERT(col.hist_spaces_.at(0) == 0);
