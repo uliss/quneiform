@@ -320,66 +320,69 @@ void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
 }
 
 void CRtfHorizontalColumn::defineTerminalProperty() {
-    VectorWord* pGroup;
-    CRtfVerticalColumn* pRtfVerticalColumn;
-    int i, j, CountColumn, MinLeft, MaxRight;
+    int left = columnMinLeftBorder(vcols_.begin(), vcols_.end(), VColumnText());
+    int right = columnMaxRightBorder(vcols_.begin(), vcols_.end(), VColumnText());
 
-    int Left = columnMinLeftBorder(vcols_.begin(), vcols_.end(), VColumnText());
-    int Right = columnMaxRightBorder(vcols_.begin(), vcols_.end(), VColumnText());
+    assert((right - left) > 0);
+    Histogram hist(right - left);
 
-    MinLeft = Left;
-    MaxRight = Right;
+    accumulateHistogram(vcols_.begin(), vcols_.end(), hist, left, VColumnText());
+    processSpaceByHist(hist);
 
-    assert((Right - Left) > 0);
-    Histogram Hist(Right - Left);
-
-    accumulateHistogram(vcols_.begin(), vcols_.end(), Hist, Left, VColumnText());
-    processSpaceByHist(Hist);
-
-    CountColumn = hist_spaces_.size();
+    int CountColumn = hist_spaces_.size();
 
     if (CountColumn) {
-        for (i = 0; i <= CountColumn; i++) {
-            terminal_col_group_.push_back(new VectorWord);
-            pGroup = terminal_col_group_[i];
-
-            if (i == 0) {
-                Left = MinLeft;
-                Right = MinLeft + hist_spaces_[i];
-            } else if (i == CountColumn) {
-                Left = MinLeft + hist_spaces_[i - 1];
-                Right = MaxRight;
-            } else {
-                Left = MinLeft + hist_spaces_[i - 1];
-                Right = MinLeft + hist_spaces_[i];
-            }
-
-            for (size_t j = 0; j < vcols_.size(); j++) {
-                pRtfVerticalColumn = vcols_[j];
-
-                if (pRtfVerticalColumn->type() == FT_TEXT && pRtfVerticalColumn->m_rectReal.left
-                        >= Left && pRtfVerticalColumn->m_rectReal.right <= Right) {
-                    pGroup->push_back(j); //~слияние секторов в одну колонку по вертикали
-                }
-            }
-        }
+        fillTerminalGroups(left, right);
     }
 
     if (hist_spaces_.size()) {
         type_ = FRAME_AND_COLUMN;
-        return;
+    } else {
+        divisionFailed();
     }
+}
 
-    //~неудача деления => all columns become frames
+void CRtfHorizontalColumn::divisionFailed() {
+    // all columns become frames
     setAllFrames();
 
     VColumnIterator it = findColumnWithMaxWidth(vcols_.begin(), vcols_.end(), VColumnFrame());
     assert(it != vcols_.end());
     (*it)->setType(FT_TEXT);
-    int IndexMaxWidthFragment = std::distance(vcols_.begin(), it);
+    int max_col_idx = std::distance(vcols_.begin(), it);
     terminal_col_group_.push_back(new VectorWord);
-    terminal_col_group_.front()->push_back(IndexMaxWidthFragment);
+    terminal_col_group_.front()->push_back(max_col_idx);
     type_ = FRAME_AND_COLUMN;
+}
+
+void CRtfHorizontalColumn::fillTerminalGroups(int minLeft, int maxRight) {
+    int left = 0, right = 0;
+    int CountColumn = hist_spaces_.size();
+
+    for (int i = 0; i <= CountColumn; i++) {
+        terminal_col_group_.push_back(new VectorWord);
+        VectorWord* pGroup = terminal_col_group_[i];
+
+        if (i == 0) {
+            left = minLeft;
+            right = minLeft + hist_spaces_[i];
+        } else if (i == CountColumn) {
+            left = minLeft + hist_spaces_[i - 1];
+            right = maxRight;
+        } else {
+            left = minLeft + hist_spaces_[i - 1];
+            right = minLeft + hist_spaces_[i];
+        }
+
+        for (size_t j = 0; j < vcols_.size(); j++) {
+            CRtfVerticalColumn * vcol = vcols_[j];
+
+            if (vcol->type() == FT_TEXT && vcol->m_rectReal.left >= left && vcol->m_rectReal.right
+                    <= right) {
+                pGroup->push_back(j); //~слияние секторов в одну колонку по вертикали
+            }
+        }
+    }
 }
 
 void CRtfHorizontalColumn::fillAllTerminalColumnIndex() {

@@ -115,6 +115,12 @@ class CLA_EXPO CRtfHorizontalColumn
         /* recalculation of histogram after victim deletion */
         void defineTerminalProperty();
         /*
+         * Called if division to columns failed. All column become frames. (FT_FRAME)
+         * Then widest frame selected and marked as FT_TEXT
+         */
+        void divisionFailed();
+
+        /*
          * resorting of the fragment array (at first position should be located Frames,
          * next ones are terminal columns)
          */
@@ -122,6 +128,7 @@ class CLA_EXPO CRtfHorizontalColumn
         void fillAllTerminalColumnIndex();
         void fillSingleTerminalColumnIndex();
         void fillTerminalFrameColumnIndex();
+        void fillTerminalGroups(int minLeft, int maxRight);
         void findHeadingAndSetFrameFlag();
         /* detects and marks small vertical columns */
         void markSmallColumns();
