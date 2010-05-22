@@ -127,8 +127,8 @@ class CLA_EXPO CRtfHorizontalColumn
         void findHeadingAndSetFrameFlag();
         uint16_t GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag,
                 RtfSectorInfo *SectorInfo);
-        uint16_t GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragment);
-        Bool GetOverLayedFlag(int CurFragmentNumber);
+        int getOffsetFromPrevTextFragment(const CRtfFragment *pRtfFragment);
+        Bool getOverLayedFlag(int CurFragmentNumber);
         /* detects and marks small vertical columns */
         void markSmallColumns();
         int maxVColumnHeight() const;

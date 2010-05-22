@@ -2672,7 +2672,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 //nega ~? м.б. [iv] вместо [0]?
                 // uliss FIXME
                 // this is really strange
-                pRtfFragment = pRtfVerticalColumn->fragmentAt(iv);
+                pRtfFragment = pRtfVerticalColumn->fragmentAt(0);
                 pRtfFragment->setType(FT_TEXT);
                 RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rect, &RectFragm[nc] );
                 RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rectReal, &RectFragm[nc] );

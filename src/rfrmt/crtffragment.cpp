@@ -1470,4 +1470,22 @@ void CRtfFragment::printResult(std::ostream& os, const char * header_str) const 
     }
 }
 
+Rect CRtfFragment::rect() const {
+    Rect res;
+    res.rtop() = m_rect.top;
+    res.rleft() = m_rect.left;
+    res.rbottom() = m_rect.bottom;
+    res.rright() = m_rect.right;
+    return res;
+}
+
+Rect CRtfFragment::realRect() const {
+    Rect res;
+        res.rtop() = m_rectReal.top;
+        res.rleft() = m_rectReal.left;
+        res.rbottom() = m_rectReal.bottom;
+        res.rright() = m_rectReal.right;
+        return res;
+}
+
 }

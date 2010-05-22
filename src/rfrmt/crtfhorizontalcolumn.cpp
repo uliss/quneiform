@@ -594,7 +594,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminal
                         - pRtfFragment->m_rect.right;
                 pRtfFragment->m_WidthVerticalColumn = int16_t(m_rect.right - m_rect.left);
                 SectorInfo->hObject = SectorInfo->hColumn;
-                SectorInfo->FlagOverLayed = GetOverLayedFlag(i);
+                SectorInfo->FlagOverLayed = getOverLayedFlag(i);
                 pRtfVerticalColumn->write(SectorInfo, FOT_SINGLE);
             } else {
                 if ((pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE)
@@ -668,7 +668,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminal
                         pRtfVerticalColumn->m_rect.top, SectorInfo);
                 SectorInfo->VerticalOffsetFragmentInColumn = FreeSpace;
                 SectorInfo->hObject = SectorInfo->hColumn;
-                SectorInfo->FlagOverLayed = GetOverLayedFlag(index);
+                SectorInfo->FlagOverLayed = getOverLayedFlag(index);
                 pRtfVerticalColumn->write(SectorInfo, FOT_SINGLE);
             }
         }
@@ -708,49 +708,41 @@ uint16_t CRtfHorizontalColumn::GetFreeSpaceBetweenPrevAndCurrentFragments(int To
     return (uint16_t) FreePlaceHeight;
 }
 
-Bool CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber) {
-    CRtfVerticalColumn *pRtfVerticalColumn;
-    CRtfFragment *pRtfFragment;
-    CIF::Rect CurFragmentRect;
-    int i, number, CountFragments;
+Bool CRtfHorizontalColumn::getOverLayedFlag(int CurFragmentNumber) {
     CIF::Point pt;
-    number = CurFragmentNumber;
+    int number = CurFragmentNumber;
 
     if (m_arOrderingNumber.size())
         number = m_arOrderingNumber[CurFragmentNumber];
 
-    pRtfVerticalColumn = vcols_[number];
-    pRtfFragment = pRtfVerticalColumn->firstFragment();
-    CurFragmentRect.rleft() = pRtfFragment->m_rect.left;
-    CurFragmentRect.rright() = pRtfFragment->m_rect.right;
-    CurFragmentRect.rbottom() = pRtfFragment->m_rect.bottom;
-    CurFragmentRect.rtop() = pRtfFragment->m_rect.top;
-    CountFragments = page_->m_arFragments.size();
+    CRtfFragment * first_frag = vcols_.at(number)->firstFragment();
+    Rect CurFragmentRect = first_frag->rect();
+    int CountFragments = page_->m_arFragments.size();
 
-    for (i = 0; i < CountFragments; i++) {
-        pRtfFragment = page_->m_arFragments[i];
+    for (int i = 0; i < CountFragments; i++) {
+        CRtfFragment * frag = page_->m_arFragments[i];
 
-        if (!pRtfFragment->type())
+        if (frag->type() == FT_TEXT)
             continue;
 
-        pt.rx() = pRtfFragment->m_rect.left;
-        pt.ry() = pRtfFragment->m_rect.top;
+        pt.rx() = frag->m_rect.left;
+        pt.ry() = frag->m_rect.top;
 
         if (CurFragmentRect.contains(pt))
             return TRUE;
 
-        pt.rx() = pRtfFragment->m_rect.right;
+        pt.rx() = frag->m_rect.right;
 
         if (CurFragmentRect.contains(pt))
             return TRUE;
 
-        pt.rx() = pRtfFragment->m_rect.left;
-        pt.ry() = pRtfFragment->m_rect.bottom;
+        pt.rx() = frag->m_rect.left;
+        pt.ry() = frag->m_rect.bottom;
 
         if (CurFragmentRect.contains(pt))
             return TRUE;
 
-        pt.rx() = pRtfFragment->m_rect.right;
+        pt.rx() = frag->m_rect.right;
 
         if (CurFragmentRect.contains(pt))
             return TRUE;
@@ -790,7 +782,7 @@ void CRtfHorizontalColumn::sortFragments() {
 
                     if (pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE)
                         pRtfFragment->m_wOffsetFromPrevTextFragment
-                                = GetOffsetFromPrevTextFragment(pRtfFragment);
+                                = getOffsetFromPrevTextFragment(pRtfFragment);
 
                     FlagInserted = TRUE;
                     break;
@@ -851,24 +843,18 @@ void CRtfHorizontalColumn::sortFragments() {
      */
 }
 
-uint16_t CRtfHorizontalColumn::GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragment) {
-    int32_t CountFrameInTerminalColumn;
-    CRtfVerticalColumn *pRtfVerticalColumn;
-    CRtfFragment *pRtfFragmentNext;
-    uint16_t VerOffset = 0;
-    CountFrameInTerminalColumn = vcols_.size();
+int CRtfHorizontalColumn::getOffsetFromPrevTextFragment(const CRtfFragment * frag) {
+    int vert_offset = 0;
 
-    for (int i = 0; i < CountFrameInTerminalColumn; i++) {
-        pRtfVerticalColumn = vcols_[i];
-        pRtfFragmentNext = pRtfVerticalColumn->firstFragment();
+    for (size_t i = 0; i < vcols_.size(); i++) {
+        CRtfFragment * cur_frag = vcols_[i]->firstFragment();
 
-        if (pRtfFragmentNext->type() == FT_TEXT && pRtfFragment->m_rect.top
-                >= pRtfFragmentNext->m_rect.top && pRtfFragment->m_rect.top
-                < pRtfFragmentNext->m_rect.bottom)
-            VerOffset = (uint16_t) (pRtfFragment->m_rect.top - pRtfFragmentNext->m_rect.top);
+        if (cur_frag->type() == FT_TEXT && frag->m_rect.top >= cur_frag->m_rect.top
+                && frag->m_rect.top < cur_frag->m_rect.bottom)
+            vert_offset = frag->m_rect.top - cur_frag->m_rect.top;
     }
 
-    return VerOffset;
+    return vert_offset;
 }
 
 void CRtfHorizontalColumn::writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo,

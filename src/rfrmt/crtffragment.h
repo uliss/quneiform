@@ -21,9 +21,11 @@
 
 #include <vector>
 #include <iostream>
+
 #include "cfcompat.h"
 #include "font.h"
 #include "creatertf.h"
+#include "common/rect.h"
 
 class RtfSectorInfo;
 
@@ -83,6 +85,9 @@ class CLA_EXPO CRtfFragment
          * Prints fragment content to given output stream
          */
         void printResult(std::ostream& os, const char* header = "") const;
+
+        Rect rect() const;
+        Rect realRect() const;
 
         void setInColumn(bool value);
 
