@@ -513,30 +513,13 @@ void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *
         if (pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE) {
             if (type_ <= ALL_TERMINAL) {
                 pRtfFragment->setInColumn(true);
-                setFlagObjectInColumnForPageFragment(pRtfFragment);
-            }
-
-            else {
+                page_->setFragmentsInColumn(pRtfFragment);
+            } else {
                 SectorInfo->FlagInColumn = FALSE;
                 pRtfFragment->setInColumn(false);
                 pRtfVerticalColumn->write(SectorInfo, FOT_SINGLE);
             }
         }
-    }
-}
-
-void CRtfHorizontalColumn::setFlagObjectInColumnForPageFragment(CRtfFragment* cur_frag) {
-    assert(page_);
-
-    int CountFragments = page_->m_arFragments.size();
-
-    for (int i = 0; i < CountFragments; i++) {
-        CRtfFragment * frag = page_->m_arFragments[i];
-
-        if (frag->type() == cur_frag->type() && frag->m_rect.left == cur_frag->m_rect.left
-                && frag->m_rect.right == cur_frag->m_rect.right && frag->m_rect.top
-                == cur_frag->m_rect.top && frag->m_rect.bottom == cur_frag->m_rect.bottom)
-            frag->setInColumn(true);
     }
 }
 

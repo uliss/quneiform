@@ -135,7 +135,6 @@ class CLA_EXPO CRtfHorizontalColumn
         int maxVColumnWidth() const;
         void processColsByHist(const Histogram& hist, int left_offset);
         void processSpaceByHist(const Histogram& hist);
-        void setFlagObjectInColumnForPageFragment(CRtfFragment* CurFragment);
         void sortFragments();
         void writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo, Bool FlagFirstTerminalFragment);
     private:

@@ -77,6 +77,19 @@ CRtfPage::~CRtfPage() {
         delete *it1;
 }
 
+void CRtfPage::setFragmentsInColumn(const CRtfFragment * cur_frag) {
+    assert(cur_frag);
+
+    for (size_t i = 0; i < m_arFragments.size(); i++) {
+        CRtfFragment * frag = m_arFragments[i];
+
+        if (frag->type() == cur_frag->type() && frag->m_rect.left == cur_frag->m_rect.left
+                && frag->m_rect.right == cur_frag->m_rect.right && frag->m_rect.top
+                == cur_frag->m_rect.top && frag->m_rect.bottom == cur_frag->m_rect.bottom)
+            frag->setInColumn(true);
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                 Rtf_CED_CreatePage                                             //
 ////////////////////////////////////////////////////////////////////////////////////////////////////

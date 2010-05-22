@@ -36,6 +36,8 @@ class CRtfPage
         CRtfPage();
         ~CRtfPage();
 
+        void setFragmentsInColumn(const CRtfFragment * cur_fragm);
+
         void CRtfPageDelFragments(void);
         CRtfFragment* GetNextFragment();
         Bool ReadInternalFile(FILE *FileNameIn);
