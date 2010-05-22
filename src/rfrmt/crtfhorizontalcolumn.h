@@ -20,6 +20,8 @@
 #define CRTFHORIZONTALCOLUMN_H_
 
 #include <vector>
+#include <boost/shared_ptr.hpp>
+
 #include "cfcompat.h"
 #include "common/histogram.h"
 #include "creatertf.h"
@@ -94,18 +96,10 @@ class CLA_EXPO CRtfHorizontalColumn
         void WriteTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 int32_t* VTerminalColumnNumber, int32_t CountVTerminalColumns,
                 RtfSectorInfo* SectorInfo);
-        void WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo, Bool FlagFirstTerminalFragment,
-                int32_t TopPositionFirstTerminalFragment);
         void WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
         int32_t GetCountAndRightBoundVTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 VectorWord* arWidthTerminalColumns);
         void ToPlacePicturesAndTables(CRtfFragment* Frament);
-        void SortFragments(void);
-        uint16_t GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag,
-                RtfSectorInfo *SectorInfo);
-        uint16_t GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragment);
-        Bool GetOverLayedFlag(int CurFragmentNumber);
-        void SetFlagObjectInColumnForPageFragment(CRtfFragment* CurFragment);
 
         RECT m_rect;
         RECT m_rectReal;
@@ -113,8 +107,6 @@ class CLA_EXPO CRtfHorizontalColumn
         /* sets all text vertical columns to frames */
         void allTextToFrames();
         bool checkTerminalColumn() const;
-        void clearTerminalColumnsGroup();
-        void clearTerminalColumnsIndexes();
         /* recalculation of histogram after victim deletion */
         void defineTerminalProperty();
         /*
@@ -133,27 +125,35 @@ class CLA_EXPO CRtfHorizontalColumn
         void fillTerminalFrameColumnIndex();
         void fillTerminalGroups(int minLeft, int maxRight);
         void findHeadingAndSetFrameFlag();
+        uint16_t GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag,
+                RtfSectorInfo *SectorInfo);
+        uint16_t GetOffsetFromPrevTextFragment(CRtfFragment *pRtfFragment);
+        Bool GetOverLayedFlag(int CurFragmentNumber);
         /* detects and marks small vertical columns */
         void markSmallColumns();
         int maxVColumnHeight() const;
         int maxVColumnWidth() const;
         void processColsByHist(const Histogram& hist, int left_offset);
         void processSpaceByHist(const Histogram& hist);
+        void setFlagObjectInColumnForPageFragment(CRtfFragment* CurFragment);
+        void sortFragments();
+        void writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo, Bool FlagFirstTerminalFragment);
     private:
         typedef std::vector<CRtfVerticalColumn*> VColumnList;
         typedef VColumnList::iterator VColumnIterator;
         typedef VColumnList::const_iterator VColumnIteratorConst;
-        typedef std::vector<VectorWord*> VectorWordList;
-        typedef VectorWordList::iterator VectorWordIterator;
+        typedef std::vector<int> IndexList;
+        typedef boost::shared_ptr<IndexList> IndexListPtr;
+        typedef std::vector<IndexListPtr> TerminalIndexes;
         VColumnList vcols_;
         CRtfPage * page_;
         column_t type_;
         std::vector<uchar> m_arOrderingNumber;
         // contains histogram positions where spaces starts
         // for ex. for histogram 0011001100 - contains (0,4,8)
-        VectorWord hist_spaces_;
-        VectorWordList terminal_col_group_;
-        VectorWordList terminal_col_idx_;
+        IndexList hist_spaces_;
+        TerminalIndexes terminal_col_group_;
+        TerminalIndexes terminal_col_idx_;
 };
 
 }

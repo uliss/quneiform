@@ -29,8 +29,6 @@ void TestCRtfHorizontalColumn::testInit() {
     CPPUNIT_ASSERT_EQUAL(col.type(), CRtfHorizontalColumn::SINGLE_TERMINAL);
     CPPUNIT_ASSERT(col.columnCount() == 0);
     col.clearColumns();
-    col.clearTerminalColumnsGroup();
-    col.clearTerminalColumnsIndexes();
 }
 
 int numSmall(const CRtfHorizontalColumn& col) {
@@ -170,4 +168,15 @@ void TestCRtfHorizontalColumn::testAllTextToFrames() {
     col.allTextToFrames();
     CPPUNIT_ASSERT_EQUAL(FT_FRAME, col.columnAt(0)->type());
     CPPUNIT_ASSERT_EQUAL(FT_PICTURE, col.columnAt(1)->type());
+}
+
+void TestCRtfHorizontalColumn::testFillSingleTerminalColumnIndex() {
+    CRtfHorizontalColumn col;
+    col.fillSingleTerminalColumnIndex();
+    CPPUNIT_ASSERT(col.terminal_col_idx_.size() == 1);
+
+    col.fillSingleTerminalColumnIndex();
+    CPPUNIT_ASSERT(col.terminal_col_idx_.size() == 1);
+    CPPUNIT_ASSERT(col.terminal_col_idx_.front()->size() == 1);
+    CPPUNIT_ASSERT(col.terminal_col_idx_.front()->at(0) == 0);
 }

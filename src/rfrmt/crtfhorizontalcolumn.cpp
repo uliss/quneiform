@@ -141,8 +141,6 @@ CRtfHorizontalColumn::CRtfHorizontalColumn() :
 
 CRtfHorizontalColumn::~CRtfHorizontalColumn() {
     clearColumns();
-    clearTerminalColumnsGroup();
-    clearTerminalColumnsIndexes();
 }
 
 void CRtfHorizontalColumn::addColumn(CRtfVerticalColumn * col) {
@@ -194,22 +192,7 @@ void CRtfHorizontalColumn::clearColumns() {
         delete *it;
 
     vcols_.clear();
-}
-
-void CRtfHorizontalColumn::clearTerminalColumnsGroup() {
-    for (VectorWordIterator it = terminal_col_group_.begin(), end = terminal_col_group_.end(); it
-            != end; ++it) {
-        delete *it;
-    }
-
     terminal_col_group_.clear();
-}
-
-void CRtfHorizontalColumn::clearTerminalColumnsIndexes() {
-    for (VectorWordIterator it = terminal_col_idx_.begin(), end = terminal_col_idx_.end(); it
-            != end; ++it) {
-        delete *it;
-    }
     terminal_col_idx_.clear();
 }
 
@@ -350,7 +333,7 @@ void CRtfHorizontalColumn::divisionFailed() {
     assert(it != vcols_.end());
     (*it)->setType(FT_TEXT);
     int max_col_idx = std::distance(vcols_.begin(), it);
-    terminal_col_group_.push_back(new VectorWord);
+    terminal_col_group_.push_back(IndexListPtr(new IndexList));
     terminal_col_group_.front()->push_back(max_col_idx);
     type_ = FRAME_AND_COLUMN;
 }
@@ -360,8 +343,8 @@ void CRtfHorizontalColumn::fillTerminalGroups(int minLeft, int maxRight) {
     int CountColumn = hist_spaces_.size();
 
     for (int i = 0; i <= CountColumn; i++) {
-        terminal_col_group_.push_back(new VectorWord);
-        VectorWord* pGroup = terminal_col_group_[i];
+        terminal_col_group_.push_back(IndexListPtr(new IndexList));
+        IndexList * pGroup = terminal_col_group_[i].get();
 
         if (i == 0) {
             left = minLeft;
@@ -386,8 +369,8 @@ void CRtfHorizontalColumn::fillTerminalGroups(int minLeft, int maxRight) {
 }
 
 void CRtfHorizontalColumn::fillAllTerminalColumnIndex() {
-    terminal_col_idx_.push_back(new VectorWord);
-    VectorWord * pGroup = terminal_col_idx_.front();
+    terminal_col_idx_.push_back(IndexListPtr(new IndexList));
+    IndexList * pGroup = terminal_col_idx_.front().get();
 
     short index;
 
@@ -418,17 +401,15 @@ void CRtfHorizontalColumn::fillAllTerminalColumnIndex() {
 }
 
 void CRtfHorizontalColumn::fillSingleTerminalColumnIndex() {
-    assert(terminal_col_idx_.empty());
-
-    terminal_col_idx_.push_back(new VectorWord);
-    terminal_col_idx_.front()->push_back(0);
+    terminal_col_idx_.clear();
+    terminal_col_idx_.push_back(IndexListPtr(new IndexList(1, 0)));
 }
 
 void CRtfHorizontalColumn::fillTerminalFrameColumnIndex() {
     for (size_t j = 0, col_count = terminal_col_group_.size(); j < col_count; j++) {
-        terminal_col_idx_.push_back(new VectorWord);
-        VectorWord * pGroupNew = terminal_col_idx_[j];
-        VectorWord * pGroup = terminal_col_group_[j];
+        terminal_col_idx_.push_back(IndexListPtr(new IndexList));
+        IndexList * pGroupNew = terminal_col_idx_[j].get();
+        IndexList * pGroup = terminal_col_group_[j].get();
 
         CRtfVerticalColumn * vcol = NULL;
         int index = 0;
@@ -484,7 +465,6 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
     int32_t CountVTerminalColumns = 0;
     CRtfVerticalColumn *pRtfVerticalColumn;
     uint16_t RightBound, index, WidthColumn, tmp;
-    VectorWord *pGroup;
 
     if (type_ == SINGLE_TERMINAL || type_ == ALL_TERMINAL) {
         RightBound = (uint16_t) MAX(m_rectReal.left, 0);
@@ -499,7 +479,7 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
         CountVTerminalColumns = terminal_col_idx_.size();
 
         for (int i = 0; i < CountVTerminalColumns; i++) {
-            pGroup = terminal_col_idx_[i];
+            IndexList * pGroup = terminal_col_idx_[i].get();
             int CountInGroup = pGroup->size();
             RightBound = 32000;
             WidthColumn = 0;
@@ -533,7 +513,7 @@ void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *
         if (pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE) {
             if (type_ <= ALL_TERMINAL) {
                 pRtfFragment->setInColumn(true);
-                SetFlagObjectInColumnForPageFragment(pRtfFragment);
+                setFlagObjectInColumnForPageFragment(pRtfFragment);
             }
 
             else {
@@ -545,18 +525,18 @@ void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *
     }
 }
 
-void CRtfHorizontalColumn::SetFlagObjectInColumnForPageFragment(CRtfFragment* CurFragment) {
-    CRtfFragment* pRtfFragment;
+void CRtfHorizontalColumn::setFlagObjectInColumnForPageFragment(CRtfFragment* cur_frag) {
+    assert(page_);
+
     int CountFragments = page_->m_arFragments.size();
 
     for (int i = 0; i < CountFragments; i++) {
-        pRtfFragment = page_->m_arFragments[i];
+        CRtfFragment * frag = page_->m_arFragments[i];
 
-        if (pRtfFragment->type() == CurFragment->type() && pRtfFragment->m_rect.left
-                == CurFragment->m_rect.left && pRtfFragment->m_rect.right
-                == CurFragment->m_rect.right && pRtfFragment->m_rect.top == CurFragment->m_rect.top
-                && pRtfFragment->m_rect.bottom == CurFragment->m_rect.bottom)
-            pRtfFragment->setInColumn(true);
+        if (frag->type() == cur_frag->type() && frag->m_rect.left == cur_frag->m_rect.left
+                && frag->m_rect.right == cur_frag->m_rect.right && frag->m_rect.top
+                == cur_frag->m_rect.top && frag->m_rect.bottom == cur_frag->m_rect.bottom)
+            frag->setInColumn(true);
     }
 }
 
@@ -566,7 +546,6 @@ void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminal
     int32_t CountTerminalColumns, NextColumnsLeft, CountFrameInTerminalColumn, Left, Right;
     CRtfVerticalColumn *pRtfVerticalColumn;
     CRtfFragment *pRtfFragment;
-    VectorWord *pGroup;
     uint16_t FreeSpace;
     int number;
     Bool FlagFirstTerminalFragment = FALSE;
@@ -611,7 +590,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminal
         SectorInfo->hObject = SectorInfo->hColumn;
 
         CountFrameInTerminalColumn = vcols_.size();
-        SortFragments();
+        sortFragments();
 
         for (i = 0; i < CountFrameInTerminalColumn; i++) {
             number = i;
@@ -664,7 +643,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminal
             *VTerminalColumnNumber += 1;
             Left = 32000;
             Right = 0;
-            pGroup = terminal_col_idx_[i];
+            IndexList * pGroup = terminal_col_idx_[i].get();
             CountInGroup = pGroup->size();
 
             for (j = 0; j < CountInGroup; j++) { //~ V-columns in one H-col
@@ -697,8 +676,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminal
             SectorInfo->hObject = SectorInfo->hColumn;
 
             if (!i) //noisy fragment or picture are made as frame,frames привязаны к первой терминал. колонке сектора
-                WriteFramesInTerminalColumn(SectorInfo, FlagFirstTerminalFragment,
-                        TopPositionFirstTerminalFragment);
+                writeFramesInTerminalColumn(SectorInfo, FlagFirstTerminalFragment);
 
             for (j = 0; j < CountInGroup; j++) {
                 int index = (*pGroup)[j];
@@ -798,7 +776,7 @@ Bool CRtfHorizontalColumn::GetOverLayedFlag(int CurFragmentNumber) {
     return FALSE;
 }
 
-void CRtfHorizontalColumn::SortFragments() {
+void CRtfHorizontalColumn::sortFragments() {
     int32_t CountFrameInTerminalColumn;
     CRtfVerticalColumn *pRtfVerticalColumn;
     CRtfFragment *pRtfFragment, *pRtfFragmentFirst;
@@ -910,8 +888,8 @@ uint16_t CRtfHorizontalColumn::GetOffsetFromPrevTextFragment(CRtfFragment *pRtfF
     return VerOffset;
 }
 
-void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo,
-        Bool FlagFirstTerminalFragment, int32_t TopPositionFirstTerminalFragment) {
+void CRtfHorizontalColumn::writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo,
+        Bool FlagFirstTerminalFragment) {
     CRtfVerticalColumn* pRtfVerticalColumn;
     int32_t shpleft, shptop, shpright, shpbottom, fri = 0;
     EDBOX EdFragmRect;

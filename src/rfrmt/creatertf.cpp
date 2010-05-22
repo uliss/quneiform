@@ -63,6 +63,7 @@
 // ============================================================================
 #include <cstdio>
 
+#include "crtfhorizontalcolumn.h"
 #include "cfcompat.h"
 #include "creatertf.h"
 #include "globus.h"
@@ -90,7 +91,6 @@
 #include "crtfpage.h"
 #include "crtfsector.h"
 #include "crtfstring.h"
-#include "crtfhorizontalcolumn.h"
 #include "crtfverticalcolumn.h"
 #include "crtfword.h"
 #include "crtffunc.h"
