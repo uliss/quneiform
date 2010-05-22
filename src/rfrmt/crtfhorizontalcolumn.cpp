@@ -92,7 +92,7 @@ void addVColumnToHistogram(const CRtfVerticalColumn * vcol, Histogram& hist, int
     const int col_left = vcol->m_rectReal.left - histogram_offset;
     const int col_right = vcol->m_rectReal.right - histogram_offset;
 
-    assert(hist.size() < col_right);
+    assert((int) hist.size() < col_right);
 
     for (int i = col_left; i < col_right; i++)
         hist[i]++;
@@ -122,7 +122,7 @@ Iterator findColumnWithMaxWidth(Iterator start, Iterator end, Pred condition) {
     int width = 0;
     Iterator res = end;
     while (start != end) {
-        if ((*start)->realWidth() > width) {
+        if (condition(*start) && (*start)->realWidth() > width) {
             width = (*start)->realWidth();
             res = start;
         }
@@ -170,7 +170,7 @@ void addBigColToHist(const CRtfVerticalColumn * col, Histogram& hist, int histog
         const int col_left = col->m_rectReal.left - histogram_offset;
         const int col_right = col->m_rectReal.right - histogram_offset;
 
-        assert(hist.size() < col_right);
+        assert((int) hist.size() < col_right);
 
         for (int i = col_left; i < col_right; i++)
             hist[i]++;
@@ -299,7 +299,7 @@ void CRtfHorizontalColumn::processSpaceByHist(const Histogram& hist) {
     hist.spacePosition(std::back_inserter(hist_spaces_));
 }
 
-void CRtfHorizontalColumn::setAllFrames() {
+void CRtfHorizontalColumn::allTextToFrames() {
     for (VColumnIterator it = vcols_.begin(), end = vcols_.end(); it != end; ++it) {
         if ((*it)->type() == FT_TEXT)
             (*it)->setType(FT_FRAME);
@@ -344,7 +344,7 @@ void CRtfHorizontalColumn::defineTerminalProperty() {
 
 void CRtfHorizontalColumn::divisionFailed() {
     // all columns become frames
-    setAllFrames();
+    allTextToFrames();
 
     VColumnIterator it = findColumnWithMaxWidth(vcols_.begin(), vcols_.end(), VColumnFrame());
     assert(it != vcols_.end());
@@ -914,7 +914,6 @@ void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo
         Bool FlagFirstTerminalFragment, int32_t TopPositionFirstTerminalFragment) {
     CRtfVerticalColumn* pRtfVerticalColumn;
     int32_t shpleft, shptop, shpright, shpbottom, fri = 0;
-#ifdef EdWrite
     EDBOX EdFragmRect;
     Handle hParagraph = NULL;
     Handle hString = NULL;
@@ -922,7 +921,6 @@ void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo
     CIF::Rect indent;
     EDSIZE interval;
     EDBOX playout;
-#endif
 
     for (size_t i = 0; i < vcols_.size(); i++) {
         if (!fri) {
@@ -963,7 +961,7 @@ void CRtfHorizontalColumn::WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo
     }
 }
 
-void CRtfHorizontalColumn::WriteNonTerminalColumns(RtfSectorInfo* SectorInfo) {
+void CRtfHorizontalColumn::writeNonTerminalColumns(RtfSectorInfo* SectorInfo) {
     for (size_t i = 0; i < vcols_.size(); i++) {
         CRtfVerticalColumn* vcol = vcols_[i];
 

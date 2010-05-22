@@ -157,3 +157,17 @@ void TestCRtfHorizontalColumn::testProcessSpaceByHist() {
     CPPUNIT_ASSERT(col.hist_spaces_.at(1) == 4);
     CPPUNIT_ASSERT(col.hist_spaces_.at(2) == 6);
 }
+
+void TestCRtfHorizontalColumn::testAllTextToFrames() {
+    CRtfHorizontalColumn col;
+    col.allTextToFrames();
+    ADD_VCOL(col, 0, 0, 0);
+    ADD_VCOL(col, 0, 0, 0);
+    col.columnAt(0)->setType(FT_TEXT);
+    col.columnAt(1)->setType(FT_PICTURE);
+    CPPUNIT_ASSERT_EQUAL(FT_TEXT, col.columnAt(0)->type());
+    CPPUNIT_ASSERT_EQUAL(FT_PICTURE, col.columnAt(1)->type());
+    col.allTextToFrames();
+    CPPUNIT_ASSERT_EQUAL(FT_FRAME, col.columnAt(0)->type());
+    CPPUNIT_ASSERT_EQUAL(FT_PICTURE, col.columnAt(1)->type());
+}

@@ -88,13 +88,14 @@ class CLA_EXPO CRtfHorizontalColumn
          */
         column_t type() const;
 
+        void writeNonTerminalColumns(RtfSectorInfo* SectorInfo);
+
         Bool Write(VectorWord* arRightBoundTerminalColumns, int32_t* VTerminalColumnNumber);
         void WriteTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 int32_t* VTerminalColumnNumber, int32_t CountVTerminalColumns,
                 RtfSectorInfo* SectorInfo);
         void WriteFramesInTerminalColumn(RtfSectorInfo* SectorInfo, Bool FlagFirstTerminalFragment,
                 int32_t TopPositionFirstTerminalFragment);
-        void WriteNonTerminalColumns(RtfSectorInfo* SectorInfo);
         void WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
         int32_t GetCountAndRightBoundVTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 VectorWord* arWidthTerminalColumns);
@@ -109,6 +110,8 @@ class CLA_EXPO CRtfHorizontalColumn
         RECT m_rect;
         RECT m_rectReal;
     private:
+        /* sets all text vertical columns to frames */
+        void allTextToFrames();
         bool checkTerminalColumn() const;
         void clearTerminalColumnsGroup();
         void clearTerminalColumnsIndexes();
@@ -136,7 +139,6 @@ class CLA_EXPO CRtfHorizontalColumn
         int maxVColumnWidth() const;
         void processColsByHist(const Histogram& hist, int left_offset);
         void processSpaceByHist(const Histogram& hist);
-        void setAllFrames();
     private:
         typedef std::vector<CRtfVerticalColumn*> VColumnList;
         typedef VColumnList::iterator VColumnIterator;

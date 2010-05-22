@@ -195,7 +195,7 @@ void CRtfSector::WriteNonTerminalColumns(void) {
         pRtfHorizontalColumn = m_arHorizontalColumns[i];
 
         if (pRtfHorizontalColumn->type() >= CRtfHorizontalColumn::ALL_FRAME)
-            pRtfHorizontalColumn->WriteNonTerminalColumns(&SectorInfo);
+            pRtfHorizontalColumn->writeNonTerminalColumns(&SectorInfo);
     }
 }
 
