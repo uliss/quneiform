@@ -104,6 +104,13 @@ class CLA_EXPO CRtfHorizontalColumn
         RECT m_rect;
         RECT m_rectReal;
     private:
+        typedef std::vector<CRtfVerticalColumn*> VColumnList;
+        typedef VColumnList::iterator VColumnIterator;
+        typedef VColumnList::const_iterator VColumnIteratorConst;
+        typedef std::vector<int> IndexList;
+        typedef boost::shared_ptr<IndexList> IndexListPtr;
+        typedef std::vector<IndexListPtr> TerminalIndexes;
+    private:
         /* sets all text vertical columns to frames */
         void allTextToFrames();
         bool checkTerminalColumn() const;
@@ -115,16 +122,19 @@ class CLA_EXPO CRtfHorizontalColumn
          */
         void divisionFailed();
 
+        void fillAllTerminalColumnIndex();
+        void fillSingleTerminalColumnIndex();
         /*
          * resorting of the fragment array (at first position should be located Frames,
          * next ones are terminal columns)
          */
-        void fillVTerminalColumnsIndex();
-        void fillAllTerminalColumnIndex();
-        void fillSingleTerminalColumnIndex();
+        void fillTerminalColumnsIndex();
         void fillTerminalFrameColumnIndex();
         void fillTerminalGroups(int minLeft, int maxRight);
         void findHeadingAndSetFrameFlag();
+        /* return index of highest unsorted column or -1 if nothing found */
+        int findHighestUnsortedColumn() const;
+        int findHighestUnsortedColumnInGroup(const IndexList * group) const;
         uint16_t GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag,
                 RtfSectorInfo *SectorInfo);
         int getOffsetFromPrevTextFragment(const CRtfFragment *pRtfFragment);
@@ -133,17 +143,18 @@ class CLA_EXPO CRtfHorizontalColumn
         void markSmallColumns();
         int maxVColumnHeight() const;
         int maxVColumnWidth() const;
+        /*
+         * merges vertical columns that lays inside (minLeft <= col <= maxRight) borders
+         * into one column group
+         */
+        void mergeColumnsToGroup(int minLeft, int maxRight, IndexList * group);
         void processColsByHist(const Histogram& hist, int left_offset);
         void processSpaceByHist(const Histogram& hist);
         void sortFragments();
+        void sortColumns(IndexList * dest_idx);
+        void sortColumnsInGroup(const IndexList* group, IndexList * dest_idx);
         void writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo, Bool FlagFirstTerminalFragment);
     private:
-        typedef std::vector<CRtfVerticalColumn*> VColumnList;
-        typedef VColumnList::iterator VColumnIterator;
-        typedef VColumnList::const_iterator VColumnIteratorConst;
-        typedef std::vector<int> IndexList;
-        typedef boost::shared_ptr<IndexList> IndexListPtr;
-        typedef std::vector<IndexListPtr> TerminalIndexes;
         VColumnList vcols_;
         CRtfPage * page_;
         column_t type_;
@@ -151,6 +162,11 @@ class CLA_EXPO CRtfHorizontalColumn
         // contains histogram positions where spaces starts
         // for ex. for histogram 0011001100 - contains (0,4,8)
         IndexList hist_spaces_;
+        // contains indexes of vertical columns in 2-dimension array
+        // for example: {{0,1,2} {3,4}, {5}} means that there's 3 column groups
+        // in first - vertical columns with indexes == 0,1,2 are merged vertically
+        // in second - vertical column with indexes == 3,4 are merged vertically
+        // in third - single column with index == 5
         TerminalIndexes terminal_col_group_;
         TerminalIndexes terminal_col_idx_;
 };

@@ -75,6 +75,11 @@ class CLA_EXPO CRtfVerticalColumn
         bool isSmall() const;
 
         /**
+         * Returns true if vertical column is sorted by height
+         */
+        bool isSorted() const;
+
+        /**
          * Returns pointer to parent page
          * @return
          */
@@ -98,6 +103,11 @@ class CLA_EXPO CRtfVerticalColumn
         void setSmall(bool value);
 
         /**
+         *
+         */
+        void setSorted(bool value);
+
+        /**
          * Sets column type
          */
         void setType(fragment_t type);
@@ -114,7 +124,6 @@ class CLA_EXPO CRtfVerticalColumn
          */
         void write(RtfSectorInfo * SectorInfo, fragment_output_t type);
 
-        Bool m_bSortFlag;
         RECT m_rect;
         RECT m_rectReal;
     private:
@@ -124,6 +133,7 @@ class CLA_EXPO CRtfVerticalColumn
         CRtfPage * page_;
         fragment_t type_;
         bool small_;
+        bool sorted_;
 };
 
 }

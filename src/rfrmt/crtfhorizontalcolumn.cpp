@@ -158,7 +158,7 @@ void CRtfHorizontalColumn::calcHorizontalColumn() {
     }
 
     if (type_ <= FRAME_AND_COLUMN)
-        fillVTerminalColumnsIndex(); //есть хорошие колонки
+        fillTerminalColumnsIndex(); //есть хорошие колонки
 }
 
 void addBigColToHist(const CRtfVerticalColumn * col, Histogram& hist, int histogram_offset) {
@@ -261,6 +261,18 @@ int CRtfHorizontalColumn::maxVColumnWidth() const {
     return max_width;
 }
 
+void CRtfHorizontalColumn::mergeColumnsToGroup(int minLeft, int maxRight, IndexList * group) {
+    for (size_t i = 0; i < vcols_.size(); i++) {
+        CRtfVerticalColumn * vcol = vcols_[i];
+
+        //слияние секторов в одну колонку по вертикали
+        if (vcol->type() == FT_TEXT && vcol->m_rectReal.left >= minLeft && vcol->m_rectReal.right
+                <= maxRight) {
+            group->push_back(i);
+        }
+    }
+}
+
 void CRtfHorizontalColumn::processColsByHist(const Histogram& hist, int left_offset) {
     for (size_t i = 0; i < vcols_.size(); i++) {
         CRtfVerticalColumn * vcol = vcols_[i];
@@ -302,6 +314,46 @@ void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
     processColsByHist(hist, left);
 }
 
+int CRtfHorizontalColumn::findHighestUnsortedColumn() const {
+    int res = -1;
+    int top = std::numeric_limits<int>::max();
+
+    for (size_t i = 0; i < vcols_.size(); i++) {
+        CRtfVerticalColumn * col = vcols_[i];
+        if (col->type() == FT_FRAME || col->isSorted())
+            continue;
+
+        if (col->m_rectReal.top < top) {
+            top = col->m_rectReal.top;
+            res = static_cast<int> (i);
+        }
+
+    }
+
+    return res;
+}
+
+int CRtfHorizontalColumn::findHighestUnsortedColumnInGroup(const IndexList * group) const {
+    assert(group);
+    int res = -1;
+    int top = std::numeric_limits<int>::max();
+
+    for (size_t i = 0; i < group->size(); i++) {
+        const int number = group->at(i);
+        CRtfVerticalColumn * col = vcols_[number];
+
+        if (col->type() == FT_FRAME || col->isSorted())
+            continue;
+
+        if (col->m_rectReal.top < top) {
+            top = col->m_rectReal.top;
+            res = number;
+        }
+    }
+
+    return res;
+}
+
 void CRtfHorizontalColumn::defineTerminalProperty() {
     int left = columnMinLeftBorder(vcols_.begin(), vcols_.end(), VColumnText());
     int right = columnMaxRightBorder(vcols_.begin(), vcols_.end(), VColumnText());
@@ -340,16 +392,16 @@ void CRtfHorizontalColumn::divisionFailed() {
 
 void CRtfHorizontalColumn::fillTerminalGroups(int minLeft, int maxRight) {
     int left = 0, right = 0;
-    int CountColumn = hist_spaces_.size();
+    const int column_count = hist_spaces_.size();
 
-    for (int i = 0; i <= CountColumn; i++) {
-        terminal_col_group_.push_back(IndexListPtr(new IndexList));
-        IndexList * pGroup = terminal_col_group_[i].get();
+    for (int i = 0; i <= column_count; i++) {
+        IndexList * group = new IndexList;
+        terminal_col_group_.push_back(IndexListPtr(group));
 
         if (i == 0) {
             left = minLeft;
             right = minLeft + hist_spaces_[i];
-        } else if (i == CountColumn) {
+        } else if (i == column_count) {
             left = minLeft + hist_spaces_[i - 1];
             right = maxRight;
         } else {
@@ -357,47 +409,17 @@ void CRtfHorizontalColumn::fillTerminalGroups(int minLeft, int maxRight) {
             right = minLeft + hist_spaces_[i];
         }
 
-        for (size_t j = 0; j < vcols_.size(); j++) {
-            CRtfVerticalColumn * vcol = vcols_[j];
-
-            if (vcol->type() == FT_TEXT && vcol->m_rectReal.left >= left && vcol->m_rectReal.right
-                    <= right) {
-                pGroup->push_back(j); //~слияние секторов в одну колонку по вертикали
-            }
-        }
+        mergeColumnsToGroup(left, right, group);
     }
 }
 
 void CRtfHorizontalColumn::fillAllTerminalColumnIndex() {
-    terminal_col_idx_.push_back(IndexListPtr(new IndexList));
-    IndexList * pGroup = terminal_col_idx_.front().get();
+    terminal_col_idx_.clear();
 
-    short index;
+    IndexList * group_idx = new IndexList;
+    terminal_col_idx_.push_back(IndexListPtr(group_idx));
 
-    for (size_t j = 0; j < vcols_.size(); j++) {
-        bool FlagChange = false;
-        int Top = 320000;
-        CRtfVerticalColumn * col;
-
-        for (unsigned short i = 0; i < vcols_.size(); i++) {
-            col = vcols_[i];
-
-            if (col->type() == FT_FRAME || col->m_bSortFlag == 1)
-                continue;
-
-            if (col->m_rectReal.top < Top) {
-                Top = col->m_rectReal.top;
-                index = i;
-                FlagChange = true;
-            }
-        }
-
-        if (FlagChange) {
-            pGroup->push_back(index);
-            col = vcols_[index];
-            col->m_bSortFlag = 1;
-        }
-    }
+    sortColumns(group_idx);
 }
 
 void CRtfHorizontalColumn::fillSingleTerminalColumnIndex() {
@@ -407,41 +429,15 @@ void CRtfHorizontalColumn::fillSingleTerminalColumnIndex() {
 
 void CRtfHorizontalColumn::fillTerminalFrameColumnIndex() {
     for (size_t j = 0, col_count = terminal_col_group_.size(); j < col_count; j++) {
-        terminal_col_idx_.push_back(IndexListPtr(new IndexList));
-        IndexList * pGroupNew = terminal_col_idx_[j].get();
-        IndexList * pGroup = terminal_col_group_[j].get();
+        IndexList * col_group = terminal_col_group_[j].get();
+        IndexList * group_idx = new IndexList;
+        terminal_col_idx_.push_back(IndexListPtr(group_idx));
 
-        CRtfVerticalColumn * vcol = NULL;
-        int index = 0;
-
-        for (size_t i = 0, CountInGroup = pGroup->size(); i < CountInGroup; i++) {
-            bool FlagChange = false;
-            int Top = 320000;
-
-            for (size_t i1 = 0; i1 < CountInGroup; i1++) {
-                int Number = pGroup->at(i1);
-                vcol = vcols_[Number];
-
-                if (vcol->type() == FT_FRAME || vcol->m_bSortFlag == 1)
-                    continue;
-
-                if (vcol->m_rectReal.top < Top) {
-                    Top = vcol->m_rectReal.top;
-                    index = Number;
-                    FlagChange = true;
-                }
-            }
-
-            if (FlagChange) {
-                pGroupNew->push_back(index);
-                vcol = vcols_[index];
-                vcol->m_bSortFlag = 1;
-            }
-        }
+        sortColumnsInGroup(col_group, group_idx);
     }
 }
 
-void CRtfHorizontalColumn::fillVTerminalColumnsIndex() {
+void CRtfHorizontalColumn::fillTerminalColumnsIndex() {
     switch (type_) {
     case SINGLE_TERMINAL:
         fillSingleTerminalColumnIndex();
@@ -631,7 +627,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminal
 
             for (j = 0; j < CountInGroup; j++) { //~ V-columns in one H-col
                 int index = (*pGroup)[j];
-                pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[index];
+                pRtfVerticalColumn = vcols_[index];
 
                 if (i == 0 && j == 0) {
                     FlagFirstTerminalFragment = TRUE;
@@ -663,7 +659,7 @@ void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminal
 
             for (j = 0; j < CountInGroup; j++) {
                 int index = (*pGroup)[j];
-                pRtfVerticalColumn = (CRtfVerticalColumn*) vcols_[index];
+                pRtfVerticalColumn = vcols_[index];
                 FreeSpace = GetFreeSpaceBetweenPrevAndCurrentFragments(
                         pRtfVerticalColumn->m_rect.top, SectorInfo);
                 SectorInfo->VerticalOffsetFragmentInColumn = FreeSpace;
@@ -749,6 +745,29 @@ Bool CRtfHorizontalColumn::getOverLayedFlag(int CurFragmentNumber) {
     }
 
     return FALSE;
+}
+
+void CRtfHorizontalColumn::sortColumns(IndexList * dest_idx) {
+    for (size_t i = 0; i < vcols_.size(); i++) {
+        int pos = findHighestUnsortedColumn();
+        if (pos < 0)
+            break;
+
+        vcols_[pos]->setSorted(true);
+        dest_idx->push_back(pos);
+    }
+}
+
+void CRtfHorizontalColumn::sortColumnsInGroup(const IndexList* col_group, IndexList * dest_idx) {
+    for (size_t i = 0; i < col_group->size(); i++) {
+        int highest_col_idx = findHighestUnsortedColumnInGroup(col_group);
+
+        if (highest_col_idx == -1)
+            break;
+
+        dest_idx->push_back(highest_col_idx);
+        vcols_[highest_col_idx]->setSorted(true);
+    }
 }
 
 void CRtfHorizontalColumn::sortFragments() {

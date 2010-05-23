@@ -42,9 +42,10 @@ int numSmall(const CRtfHorizontalColumn& col) {
     return res;
 }
 
-void ADD_VCOL(CRtfHorizontalColumn& col, const Rect& r) {
+void ADD_VCOL(CRtfHorizontalColumn& col, const Rect& r, fragment_t type = FT_TEXT) {
     CRtfVerticalColumn * vcol = new CRtfVerticalColumn;
     vcol->setRealRect(r);
+    vcol->setType(type);
     col.addColumn(vcol);
 }
 
@@ -179,4 +180,28 @@ void TestCRtfHorizontalColumn::testFillSingleTerminalColumnIndex() {
     CPPUNIT_ASSERT(col.terminal_col_idx_.size() == 1);
     CPPUNIT_ASSERT(col.terminal_col_idx_.front()->size() == 1);
     CPPUNIT_ASSERT(col.terminal_col_idx_.front()->at(0) == 0);
+}
+
+Rect rectH(int h) {
+    return Rect(Point(0, h), 0, 0);
+}
+
+void TestCRtfHorizontalColumn::testFillAllTerminalColumnIndex() {
+    CRtfHorizontalColumn col;
+    col.fillAllTerminalColumnIndex();
+    CPPUNIT_ASSERT(col.terminal_col_idx_.size() == 1);
+    CPPUNIT_ASSERT(col.terminal_col_idx_.front()->size() == 0);
+
+    ADD_VCOL(col, rectH(10));
+    ADD_VCOL(col, rectH(5));
+    ADD_VCOL(col, rectH(-1));
+    ADD_VCOL(col, rectH(8));
+
+    col.fillAllTerminalColumnIndex();
+    CPPUNIT_ASSERT(col.terminal_col_idx_.size() == 1);
+    CPPUNIT_ASSERT(col.terminal_col_idx_.front()->size() == 4);
+    CPPUNIT_ASSERT(col.terminal_col_idx_.front()->at(0) == 2);
+    CPPUNIT_ASSERT(col.terminal_col_idx_.front()->at(1) == 1);
+    CPPUNIT_ASSERT(col.terminal_col_idx_.front()->at(2) == 3);
+    CPPUNIT_ASSERT(col.terminal_col_idx_.front()->at(3) == 0);
 }

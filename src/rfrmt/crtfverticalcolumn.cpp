@@ -26,8 +26,7 @@ namespace CIF
 {
 
 CRtfVerticalColumn::CRtfVerticalColumn() :
-    page_(NULL), type_(FT_TEXT), small_(false) {
-    m_bSortFlag = 0;
+    page_(NULL), type_(FT_TEXT), small_(false), sorted_(false) {
     SetRect(&m_rect, 32000, 32000, 0, 0);
 }
 
@@ -71,6 +70,10 @@ bool CRtfVerticalColumn::isSmall() const {
     return small_;
 }
 
+bool CRtfVerticalColumn::isSorted() const {
+    return sorted_;
+}
+
 CRtfPage * CRtfVerticalColumn::page() {
     return page_;
 }
@@ -100,6 +103,10 @@ void CRtfVerticalColumn::setRealRect(const Rect& r) {
 
 void CRtfVerticalColumn::setSmall(bool value) {
     small_ = value;
+}
+
+void CRtfVerticalColumn::setSorted(bool value) {
+    sorted_ = value;
 }
 
 void CRtfVerticalColumn::setType(fragment_t type) {
