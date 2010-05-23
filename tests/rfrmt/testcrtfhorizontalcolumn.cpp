@@ -24,6 +24,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfHorizontalColumn);
 #include "rfrmt/crtfverticalcolumn.h"
 using namespace CIF;
 
+typedef CRtfHorizontalColumn::IndexList IndexList;
+
 void TestCRtfHorizontalColumn::testInit() {
     CRtfHorizontalColumn col;
     CPPUNIT_ASSERT_EQUAL(col.type(), CRtfHorizontalColumn::SINGLE_TERMINAL);
@@ -204,4 +206,36 @@ void TestCRtfHorizontalColumn::testFillAllTerminalColumnIndex() {
     CPPUNIT_ASSERT(col.terminal_col_idx_.front()->at(1) == 1);
     CPPUNIT_ASSERT(col.terminal_col_idx_.front()->at(2) == 3);
     CPPUNIT_ASSERT(col.terminal_col_idx_.front()->at(3) == 0);
+}
+
+void checkSort(const CRtfHorizontalColumn& col, bool value) {
+    for(size_t i = 0; i < col.columnCount(); i++) {
+        CPPUNIT_ASSERT_EQUAL(value, col.columnAt(i)->isSorted());
+    }
+}
+
+void TestCRtfHorizontalColumn::testSortColumns() {
+    CRtfHorizontalColumn col;
+    IndexList idx;
+    col.sortColumns(&idx);
+    CPPUNIT_ASSERT(idx.size() == 0);
+
+    ADD_VCOL(col, rectH(100));
+    ADD_VCOL(col, rectH(15));
+    ADD_VCOL(col, rectH(-11));
+    ADD_VCOL(col, rectH(0));
+
+    checkSort(col, false);
+    col.sortColumns(&idx);
+    CPPUNIT_ASSERT(idx.size() == 4);
+    checkSort(col, true);
+    CPPUNIT_ASSERT_EQUAL(2, idx[0]);
+    CPPUNIT_ASSERT_EQUAL(3, idx[1]);
+    CPPUNIT_ASSERT_EQUAL(1, idx[2]);
+    CPPUNIT_ASSERT_EQUAL(0, idx[3]);
+
+    // all columns marked as sorted
+    // so no new adding
+    col.sortColumns(&idx);
+    CPPUNIT_ASSERT(idx.size() == 4);
 }

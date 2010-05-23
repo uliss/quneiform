@@ -151,6 +151,13 @@ class CLA_EXPO CRtfHorizontalColumn
         void processColsByHist(const Histogram& hist, int left_offset);
         void processSpaceByHist(const Histogram& hist);
         void sortFragments();
+
+        /*
+         * sorts columns by top position - higher columns are earlier
+         * columns in @b vcols_ are marked as sorted
+         * @param dest_idx - write indexes of sorted columns to given array
+         * @note dest_idx is not cleared
+         */
         void sortColumns(IndexList * dest_idx);
         void sortColumnsInGroup(const IndexList* group, IndexList * dest_idx);
         void writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo, Bool FlagFirstTerminalFragment);
