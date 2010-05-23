@@ -1091,10 +1091,10 @@ Bool CRtfPage::Write_USE_FRAME_AND_COLUMN() {
     for (i = 0; i < CountSectors; i++) {
         m_nCurSectorNumber = i;
         pRtfSector = m_arSectors[i];
-        pRtfSector->m_PagePtr = this;
+        pRtfSector->setPage(this);
 
         if (pRtfSector->m_bFlagLine == FALSE)
-            pRtfSector->CalcSector();
+            pRtfSector->calcSector();
 
         WriteSectorsHeader(i);
         pRtfSector->Write();

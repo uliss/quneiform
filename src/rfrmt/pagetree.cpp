@@ -2646,10 +2646,9 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
         int index_word;
         RtfPage->m_arSectors.push_back( new CIF::CRtfSector() );
         pRtfSector = RtfPage->m_arSectors[i];
-        pRtfSector->m_wHorizontalColumnsCount = K_Hor[i];
         do0(ih, 0, K_Hor[i]) {//hor. col.  begin
-            pRtfSector->m_arHorizontalColumns.push_back( new CIF::CRtfHorizontalColumn() );
-            pRtfHorizontalColumn = pRtfSector->m_arHorizontalColumns[ih];
+            pRtfHorizontalColumn = new CIF::CRtfHorizontalColumn;
+            pRtfSector->addColumn(pRtfHorizontalColumn);
             RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rectReal, &ColH_New[i][ih].bnd);
             RtfUnionRect_CRect_CRect(&pRtfSector->m_rectReal, &pRtfHorizontalColumn->m_rectReal);
             RtfUnionRect_CRect_CRect(&RtfPage->m_rectReal, &pRtfSector->m_rectReal);

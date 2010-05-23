@@ -29,7 +29,6 @@ namespace CIF
 
 CRtfSector::CRtfSector() {
     m_bFlagLine = FALSE;
-    m_wHorizontalColumnsCount = 0;
     m_FlagOneString = FALSE;
     SectorInfo.Offset.rx() = DefMargL / 2;
     SectorInfo.Offset.ry() = 32000;
@@ -40,133 +39,104 @@ CRtfSector::CRtfSector() {
 }
 
 CRtfSector::~CRtfSector() {
-    CRtfHorizontalColumn* cHorizontalColumn;
-    m_wHorizontalColumnsCount = m_arHorizontalColumns.size();
+    clearColumns();
+}
 
-    for (int i = 0; i < m_wHorizontalColumnsCount; i++) {
-        cHorizontalColumn = m_arHorizontalColumns[i];
-        delete cHorizontalColumn;
+void CRtfSector::addColumn(CRtfHorizontalColumn * col) {
+    hcols_.push_back(col);
+}
+
+void CRtfSector::clearColumns() {
+    for (iterator it = hcols_.begin(), end = hcols_.end(); it != end; ++it)
+        delete *it;
+
+    hcols_.clear();
+}
+
+size_t CRtfSector::columnCount() const {
+    return hcols_.size();
+}
+
+void CRtfSector::setPage(CRtfPage * page) {
+    page_ = page;
+}
+
+void CRtfSector::calcSector() {
+    for (size_t i = 0; i < hcols_.size(); i++) {
+        CRtfHorizontalColumn * hcol = hcols_[i];
+        hcol->calcHorizontalColumn();
+
+        if (hcol->type() < CRtfHorizontalColumn::ALL_FRAME)
+            m_arHTerminalColumnsIndex.push_back(i);
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 CalcSector                                                     //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfSector::CalcSector(void) {
-    CRtfHorizontalColumn* pRtfHorizontalColumn;
-    m_wHorizontalColumnsCount = m_arHorizontalColumns.size();
-
-    for (int ih = 0; ih < m_wHorizontalColumnsCount; ih++) {
-        pRtfHorizontalColumn = m_arHorizontalColumns[ih];
-        pRtfHorizontalColumn->calcHorizontalColumn();
-
-        if (pRtfHorizontalColumn->type() < CRtfHorizontalColumn::ALL_FRAME)
-            m_arHTerminalColumnsIndex.push_back(ih);
-    }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 Write                                                          //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-Bool CRtfSector::Write(void) {
-#ifdef EdWrite
-    Handle hParagraph = NULL;
-    Handle hString = NULL;
-    CIF::Rect indent;
+Bool CRtfSector::Write() {
     EDBOX playout;
     EDSIZE interval;
-    int align;
-#endif
 
     if (m_bFlagLine == FALSE) {
         FillingSectorInfo();
-        WriteNonTerminalColumns(); //FRAMES привязанные к началу сектора (это работает только когда сектор целиком состоит из frames)
-        WriteTerminalColumnsTablesAndPictures(); // каждая таблица может иметь leftOffs & topOffset
-        WriteTerminalColumns(); //это настоящие (не Frames) колонки - каждая колонки может иметь leftOffs & topOffset of section
-        Put("{\\pard\\fs6");
-        PutCom("\\sa", SectorInfo.InterSectorDist, 0);
-        Put("\\par}");
+        //FRAMES привязанные к началу сектора (это работает только когда сектор целиком состоит из frames)
+        WriteNonTerminalColumns();
+        // каждая таблица может иметь leftOffs & topOffset
+        WriteTerminalColumnsTablesAndPictures();
+        //это настоящие (не Frames) колонки - каждая колонки может иметь leftOffs & topOffset of section
+        WriteTerminalColumns();
     }
 
-    else {
-        Put("{\\pard\\plain\\nowidctlpar\\brdrt\\brdrs\\brdrw15\\adjustright\\fs6");
-        PutCom("\\sa", SectorInfo.InterSectorDist, 0);
-        Put("\\par}");
-    }
-
-    if (RtfWriteMode)
-        return TRUE;
-
-#ifdef EdWrite
-    indent = CIF::Rect();
+    Rect indent;
     interval.cx = 0;
     interval.cy = SectorInfo.InterSectorDist;
     playout.x = -1;
     playout.w = -1;
     playout.y = -1;
     playout.h = -1;
-    align = TP_LEFT_ALLIGN;
-    hParagraph = CED_CreateParagraph(SectorInfo.hEDSector, SectorInfo.hColumn, align, indent,
-            SectorInfo.userNum, -1, interval, playout, -1, /*0*/-1, -1, -1, FALSE);
+    int align = TP_LEFT_ALLIGN;
+    Handle hParagraph = CED_CreateParagraph(SectorInfo.hEDSector, SectorInfo.hColumn, align,
+            indent, SectorInfo.userNum, -1, interval, playout, -1, /*0*/-1, -1, -1, FALSE);
 
     if (m_bFlagLine == TRUE) {
         CED_SetParaBorders(hParagraph, 0, 0, 0, 0, 1, 20, 0, 0, TRUE);
     }
 
-    hString = CED_CreateLine(hParagraph, FALSE, 6);
-#endif
+    CED_CreateLine(hParagraph, FALSE, 6);
     return TRUE;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 writeTablesAndPictures                          //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfSector::WriteTerminalColumnsTablesAndPictures(void) {
+void CRtfSector::WriteTerminalColumnsTablesAndPictures() {
     int32_t CountHTerminalColumns, TerminalColumnNumber;
     CRtfHorizontalColumn *pRtfHorizontalColumn;
     CountHTerminalColumns = m_arHTerminalColumnsIndex.size();
 
     for (int i = 0; i < CountHTerminalColumns; i++) {
         TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
-        pRtfHorizontalColumn = m_arHorizontalColumns[TerminalColumnNumber];
-        pRtfHorizontalColumn->setPage(m_PagePtr);
+        pRtfHorizontalColumn = hcols_[TerminalColumnNumber];
+        pRtfHorizontalColumn->setPage(page_);
         pRtfHorizontalColumn->writeTablesAndPictures(&SectorInfo);
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 writeTerminalColumns                                           //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfSector::WriteTerminalColumns(void) {
-    int32_t CountHTerminalColumns, CountVTerminalColumns, TerminalColumnNumber;
-    CRtfHorizontalColumn *pRtfHorizontalColumn;
-    CountHTerminalColumns = m_arHTerminalColumnsIndex.size();
+void CRtfSector::WriteTerminalColumns() {
+    int CountHTerminalColumns = m_arHTerminalColumnsIndex.size();
     m_VTerminalColumnNumber = 0;
     m_arRightBoundTerminalColumns.clear();
     m_arWidthTerminalColumns.clear();
 
     if (CountHTerminalColumns > 0) {
-        CountVTerminalColumns = GetCountAndRightBoundVTerminalColumns();
-        PutCom("\\cols", CountVTerminalColumns, 0);
-        int32_t len_colsx = 709;
-        PutCom("\\colsx", len_colsx, 1);
-        Put("\\endnhere");
+        int CountVTerminalColumns = GetCountAndRightBoundVTerminalColumns();
 
         for (int i = 0; i < CountHTerminalColumns; i++) {
-            TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
-            pRtfHorizontalColumn = m_arHorizontalColumns[TerminalColumnNumber];
-            SectorInfo.VerticalOffsetColumnFromSector
-                    = (uint16_t) (pRtfHorizontalColumn->m_rect.top - m_rect.top);
-            pRtfHorizontalColumn->setPage(m_PagePtr);
-            pRtfHorizontalColumn->writeTerminalColumns(&m_arRightBoundTerminalColumns,
-                    &m_VTerminalColumnNumber, CountVTerminalColumns, &SectorInfo);
+            int TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
+            CRtfHorizontalColumn * hcol = hcols_[TerminalColumnNumber];
+            SectorInfo.VerticalOffsetColumnFromSector = (uint16_t) (hcol->m_rect.top - m_rect.top);
+            hcol->setPage(page_);
+            hcol->writeTerminalColumns(&m_arRightBoundTerminalColumns, &m_VTerminalColumnNumber,
+                    CountVTerminalColumns, &SectorInfo);
         }
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 getCountAndRightBoundVTerminalColumns                          //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 int32_t CRtfSector::GetCountAndRightBoundVTerminalColumns(void) {
     int32_t CountHTerminalColumns, CountVTerminalColumns, TerminalColumnNumber;
     CRtfHorizontalColumn *pRtfHorizontalColumn;
@@ -175,7 +145,7 @@ int32_t CRtfSector::GetCountAndRightBoundVTerminalColumns(void) {
 
     for (int i = 0; i < CountHTerminalColumns; i++) {
         TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
-        pRtfHorizontalColumn = m_arHorizontalColumns[TerminalColumnNumber];
+        pRtfHorizontalColumn = hcols_[TerminalColumnNumber];
         CountVTerminalColumns += pRtfHorizontalColumn->getCountAndRightBoundVTerminalColumns(
                 &m_arRightBoundTerminalColumns, &m_arWidthTerminalColumns);
     }
@@ -183,51 +153,41 @@ int32_t CRtfSector::GetCountAndRightBoundVTerminalColumns(void) {
     return CountVTerminalColumns;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 WriteNonTerminalColumns                                        //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfSector::WriteNonTerminalColumns(void) {
-    CRtfHorizontalColumn *pRtfHorizontalColumn;
+void CRtfSector::WriteNonTerminalColumns() {
     SectorInfo.FlagFictiveParagraph = TRUE;
-    m_wHorizontalColumnsCount = m_arHorizontalColumns.size();
 
-    for (int i = 0; i < m_wHorizontalColumnsCount; i++) {
-        pRtfHorizontalColumn = m_arHorizontalColumns[i];
+    for (size_t i = 0; i < hcols_.size(); i++) {
+        CRtfHorizontalColumn * hcol = hcols_[i];
 
-        if (pRtfHorizontalColumn->type() >= CRtfHorizontalColumn::ALL_FRAME)
-            pRtfHorizontalColumn->writeNonTerminalColumns(&SectorInfo);
+        if (hcol->type() >= CRtfHorizontalColumn::ALL_FRAME)
+            hcol->writeNonTerminalColumns(&SectorInfo);
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 ToPlacePicturesAndTables                                       //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfSector::ToPlacePicturesAndTables(CRtfFragment* pRtfFragment) {
     CRtfHorizontalColumn *pRtfHorizontalColumn;
-    m_wHorizontalColumnsCount = m_arHorizontalColumns.size();
 
-    if (m_wHorizontalColumnsCount == 0) {
-        m_arHorizontalColumns.push_back(new CRtfHorizontalColumn());
-        pRtfHorizontalColumn = m_arHorizontalColumns.back();
+    if (hcols_.empty()) {
+        hcols_.push_back(new CRtfHorizontalColumn);
+        pRtfHorizontalColumn = hcols_.back();
         pRtfHorizontalColumn->ToPlacePicturesAndTables(pRtfFragment);
         return;
     }
 
-    pRtfHorizontalColumn = m_arHorizontalColumns.back();
+    pRtfHorizontalColumn = hcols_.back();
 
     if (pRtfFragment->m_rect.left >= pRtfHorizontalColumn->m_rectReal.right) {
-        m_arHorizontalColumns.push_back(new CRtfHorizontalColumn());
-        pRtfHorizontalColumn = m_arHorizontalColumns.back();
+        hcols_.push_back(new CRtfHorizontalColumn());
+        pRtfHorizontalColumn = hcols_.back();
         pRtfHorizontalColumn->ToPlacePicturesAndTables(pRtfFragment);
         return;
     }
 
-    for (int j = 0; j < m_wHorizontalColumnsCount; j++) {
-        pRtfHorizontalColumn = m_arHorizontalColumns[j];
+    for (size_t j = 0; j < hcols_.size(); j++) {
+        pRtfHorizontalColumn = hcols_[j];
 
         if (pRtfFragment->m_rect.right <= pRtfHorizontalColumn->m_rectReal.left) {
-            pRtfHorizontalColumn = *m_arHorizontalColumns.insert(m_arHorizontalColumns.begin() + j,
-                    new CRtfHorizontalColumn());
+            pRtfHorizontalColumn = *hcols_.insert(hcols_.begin() + j, new CRtfHorizontalColumn());
             pRtfHorizontalColumn->ToPlacePicturesAndTables(pRtfFragment);
             return;
         }
@@ -243,34 +203,29 @@ void CRtfSector::ToPlacePicturesAndTables(CRtfFragment* pRtfFragment) {
         }
     }
 }
+
 //~ расчет размеров сектора
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 FillingSectorInfo                                              //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfSector::FillingSectorInfo() //~ тут происходит работа си старой (vmk) структурой колонок
+void CRtfSector::FillingSectorInfo() //~ тут происходит работа со старой (vmk) структурой колонок
 {
     CRtfHorizontalColumn *pRtfHorizontalColumn;
     CRtfVerticalColumn *pRtfVerticalColumn;
     CRtfFragment *pRtfFragment;
     int CountVColumn, CountFragments;
-    m_wHorizontalColumnsCount = m_arHTerminalColumnsIndex.size();
 
-    if (m_wHorizontalColumnsCount) {
-        pRtfHorizontalColumn = m_arHorizontalColumns[m_arHTerminalColumnsIndex[0]];
+    if (!m_arHTerminalColumnsIndex.empty()) {
+        pRtfHorizontalColumn = hcols_[m_arHTerminalColumnsIndex[0]];
 
         if (m_FlagOneString == FALSE)
             SectorInfo.Offset.rx() = MAX(pRtfHorizontalColumn->m_rect.left, 0);
     }
 
-    m_wHorizontalColumnsCount = m_arHorizontalColumns.size();
-
-    for (int i = 0; i < m_wHorizontalColumnsCount; i++) {
-        pRtfHorizontalColumn = m_arHorizontalColumns[i];
+    for (size_t i = 0; i < hcols_.size(); i++) {
+        pRtfHorizontalColumn = hcols_[i];
         CountVColumn = pRtfHorizontalColumn->columnCount();
 
         for (int i1 = 0; i1 < CountVColumn; i1++) {
             pRtfVerticalColumn = pRtfHorizontalColumn->columnAt(i1);
-            pRtfVerticalColumn->setPage(m_PagePtr);
+            pRtfVerticalColumn->setPage(page_);
             CountFragments = pRtfVerticalColumn->fragmentCount();
 
             for (int i2 = 0; i2 < CountFragments; i2++) {

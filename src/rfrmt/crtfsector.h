@@ -36,36 +36,54 @@ class CRtfSector
         CRtfSector();
         ~CRtfSector();
 
-        CRtfPage *m_PagePtr;
+        /**
+         * Adds horizontal column to sector
+         */
+        void addColumn(CRtfHorizontalColumn * col);
 
-        Bool Write(void);
-        void WriteTerminalColumns(void);
-        void WriteNonTerminalColumns(void);
-        void WriteTerminalColumnsTablesAndPictures(void);
-        void CalcSector(void);
-        int32_t GetCountAndRightBoundVTerminalColumns(void);
+        void calcSector();
+
+        /**
+         * Removes all column from sector
+         */
+        void clearColumns();
+
+        /**
+         * Returns number of columns in sector
+         */
+        size_t columnCount() const;
+
+        /**
+         * Sets pointer to CRtfPage parent
+         */
+        void setPage(CRtfPage * page);
+
+        Bool Write();
+        void WriteTerminalColumns();
+        void WriteNonTerminalColumns();
+        void WriteTerminalColumnsTablesAndPictures();
+        int32_t GetCountAndRightBoundVTerminalColumns();
         void ToPlacePicturesAndTables(CRtfFragment* Frament);
-        void FillingSectorInfo(void);
+        void FillingSectorInfo();
 
-        std::vector<CRtfHorizontalColumn*> m_arHorizontalColumns;
         VectorWord m_arHTerminalColumnsIndex;
         VectorWord m_arRightBoundTerminalColumns;
         VectorWord m_arWidthTerminalColumns;
         RtfSectorInfo SectorInfo;
 
-        uint16_t m_wHorizontalColumnsCount;
-        uint16_t m_wFragmentsCount;
-        uint16_t m_wTextFragmentsCount;
-        uint16_t m_wPictureFragmentsCount;
-        uint16_t m_wTableFragmentsCount;
-        uint16_t m_wIndex;
         RECT m_rect;
         RECT m_rectReal;
-        uint16_t m_wType;
         Handle m_hEDSector;
         Bool m_FlagOneString;
         Bool m_bFlagLine;
         int32_t m_VTerminalColumnNumber;
+    private:
+        typedef std::vector<CRtfHorizontalColumn*> HColumnList;
+        typedef HColumnList::iterator iterator;
+    private:
+        CRtfPage * page_;
+        HColumnList hcols_;
+
 };
 
 }
