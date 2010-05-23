@@ -119,7 +119,7 @@ Bool CRtfSector::Write(void) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 WriteTerminalColumnsTablesAndPictures                          //
+//                                 writeTerminalColumnsTablesAndPictures                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfSector::WriteTerminalColumnsTablesAndPictures(void) {
     int32_t CountHTerminalColumns, TerminalColumnNumber;
@@ -130,12 +130,12 @@ void CRtfSector::WriteTerminalColumnsTablesAndPictures(void) {
         TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
         pRtfHorizontalColumn = m_arHorizontalColumns[TerminalColumnNumber];
         pRtfHorizontalColumn->setPage(m_PagePtr);
-        pRtfHorizontalColumn->WriteTerminalColumnsTablesAndPictures(&SectorInfo);
+        pRtfHorizontalColumn->writeTerminalColumnsTablesAndPictures(&SectorInfo);
     }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 WriteTerminalColumns                                           //
+//                                 writeTerminalColumns                                           //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfSector::WriteTerminalColumns(void) {
     int32_t CountHTerminalColumns, CountVTerminalColumns, TerminalColumnNumber;
@@ -158,7 +158,7 @@ void CRtfSector::WriteTerminalColumns(void) {
             SectorInfo.VerticalOffsetColumnFromSector
                     = (uint16_t) (pRtfHorizontalColumn->m_rect.top - m_rect.top);
             pRtfHorizontalColumn->setPage(m_PagePtr);
-            pRtfHorizontalColumn->WriteTerminalColumns(&m_arRightBoundTerminalColumns,
+            pRtfHorizontalColumn->writeTerminalColumns(&m_arRightBoundTerminalColumns,
                     &m_VTerminalColumnNumber, CountVTerminalColumns, &SectorInfo);
         }
     }

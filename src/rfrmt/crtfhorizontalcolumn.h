@@ -91,12 +91,11 @@ class CLA_EXPO CRtfHorizontalColumn
         column_t type() const;
 
         void writeNonTerminalColumns(RtfSectorInfo* SectorInfo);
-
-        Bool Write(VectorWord* arRightBoundTerminalColumns, int32_t* VTerminalColumnNumber);
-        void WriteTerminalColumns(VectorWord* arRightBoundTerminalColumns,
+        void writeTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 int32_t* VTerminalColumnNumber, int32_t CountVTerminalColumns,
                 RtfSectorInfo* SectorInfo);
-        void WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
+        void writeTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
+
         int32_t GetCountAndRightBoundVTerminalColumns(VectorWord* arRightBoundTerminalColumns,
                 VectorWord* arWidthTerminalColumns);
         void ToPlacePicturesAndTables(CRtfFragment* Frament);
@@ -145,7 +144,7 @@ class CLA_EXPO CRtfHorizontalColumn
          * or -1 if nothing found
          * @throw std::out_of_range if column index in group is more then size of vcols_
          */
-        int findHighestUnsortedColumnInGroup(const IndexList * group) const;
+        int findHighestUnsortedColumnInGroup(const IndexList& group) const;
         uint16_t GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag,
                 RtfSectorInfo *SectorInfo);
         int getOffsetFromPrevTextFragment(const CRtfFragment *pRtfFragment);
@@ -170,7 +169,7 @@ class CLA_EXPO CRtfHorizontalColumn
          * @note dest_idx is not cleared
          */
         void sortColumns(IndexList * dest_idx);
-        void sortColumnsInGroup(const IndexList* group, IndexList * dest_idx);
+        void sortColumnsInGroup(const IndexList& group, IndexList * dest_idx);
         void writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo, Bool FlagFirstTerminalFragment);
     private:
         VColumnList vcols_;

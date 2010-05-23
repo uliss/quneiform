@@ -333,13 +333,12 @@ int CRtfHorizontalColumn::findHighestUnsortedColumn() const {
     return res;
 }
 
-int CRtfHorizontalColumn::findHighestUnsortedColumnInGroup(const IndexList * group) const {
-    assert(group);
+int CRtfHorizontalColumn::findHighestUnsortedColumnInGroup(const IndexList& group) const {
     int res = -1;
     int top = std::numeric_limits<int>::max();
 
-    for (size_t i = 0; i < group->size(); i++) {
-        const int number = group->at(i);
+    for (size_t i = 0; i < group.size(); i++) {
+        const int number = group.at(i);
         CRtfVerticalColumn * col = vcols_.at(number);
 
         if (col->type() == FT_FRAME || col->isSorted())
@@ -433,7 +432,7 @@ void CRtfHorizontalColumn::fillTerminalFrameColumnIndex() {
         IndexList * group_idx = new IndexList;
         terminal_col_idx_.push_back(IndexListPtr(group_idx));
 
-        sortColumnsInGroup(col_group, group_idx);
+        sortColumnsInGroup(*col_group, group_idx);
     }
 }
 
@@ -497,7 +496,7 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
     return CountVTerminalColumns;
 }
 
-void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo) {
+void CRtfHorizontalColumn::writeTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo) {
     CRtfVerticalColumn* pRtfVerticalColumn;
     CRtfFragment* pRtfFragment;
     int CountFrameInTerminalColumn = vcols_.size();
@@ -519,7 +518,7 @@ void CRtfHorizontalColumn::WriteTerminalColumnsTablesAndPictures(RtfSectorInfo *
     }
 }
 
-void CRtfHorizontalColumn::WriteTerminalColumns(VectorWord* arRightBoundTerminalColumns,
+void CRtfHorizontalColumn::writeTerminalColumns(VectorWord* arRightBoundTerminalColumns,
         int32_t* VTerminalColumnNumber, int32_t CountVTerminalColumns, RtfSectorInfo *SectorInfo) {
     int colsr(0), i(0), j(0), colw(0), CountInGroup(0);
     int32_t CountTerminalColumns, NextColumnsLeft, CountFrameInTerminalColumn, Left, Right;
@@ -758,11 +757,10 @@ void CRtfHorizontalColumn::sortColumns(IndexList * dest_idx) {
     }
 }
 
-void CRtfHorizontalColumn::sortColumnsInGroup(const IndexList* col_group, IndexList * dest_idx) {
-    assert(col_group);
+void CRtfHorizontalColumn::sortColumnsInGroup(const IndexList& col_group, IndexList * dest_idx) {
     assert(dest_idx);
 
-    for (size_t i = 0; i < col_group->size(); i++) {
+    for (size_t i = 0; i < col_group.size(); i++) {
         int highest_col_idx = findHighestUnsortedColumnInGroup(col_group);
 
         if (highest_col_idx == -1)
@@ -930,13 +928,13 @@ void CRtfHorizontalColumn::writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo
     }
 }
 
-void CRtfHorizontalColumn::writeNonTerminalColumns(RtfSectorInfo* SectorInfo) {
+void CRtfHorizontalColumn::writeNonTerminalColumns(RtfSectorInfo* sector) {
     for (size_t i = 0; i < vcols_.size(); i++) {
         CRtfVerticalColumn* vcol = vcols_[i];
 
         if (vcol->type() > FT_FRAME) {
-            SectorInfo->FlagInColumn = FALSE;
-            vcol->write(SectorInfo, FOT_FRAME);
+            sector->FlagInColumn = FALSE;
+            vcol->write(sector, FOT_FRAME);
         }
     }
 }
