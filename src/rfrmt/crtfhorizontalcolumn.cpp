@@ -759,6 +759,9 @@ void CRtfHorizontalColumn::sortColumns(IndexList * dest_idx) {
 }
 
 void CRtfHorizontalColumn::sortColumnsInGroup(const IndexList* col_group, IndexList * dest_idx) {
+    assert(col_group);
+    assert(dest_idx);
+
     for (size_t i = 0; i < col_group->size(); i++) {
         int highest_col_idx = findHighestUnsortedColumnInGroup(col_group);
 
@@ -766,7 +769,7 @@ void CRtfHorizontalColumn::sortColumnsInGroup(const IndexList* col_group, IndexL
             break;
 
         dest_idx->push_back(highest_col_idx);
-        vcols_[highest_col_idx]->setSorted(true);
+        vcols_.at(highest_col_idx)->setSorted(true);
     }
 }
 

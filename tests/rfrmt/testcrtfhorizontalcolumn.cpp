@@ -209,7 +209,7 @@ void TestCRtfHorizontalColumn::testFillAllTerminalColumnIndex() {
 }
 
 void checkSort(const CRtfHorizontalColumn& col, bool value) {
-    for(size_t i = 0; i < col.columnCount(); i++) {
+    for (size_t i = 0; i < col.columnCount(); i++) {
         CPPUNIT_ASSERT_EQUAL(value, col.columnAt(i)->isSorted());
     }
 }
@@ -239,3 +239,57 @@ void TestCRtfHorizontalColumn::testSortColumns() {
     col.sortColumns(&idx);
     CPPUNIT_ASSERT(idx.size() == 4);
 }
+
+void TestCRtfHorizontalColumn::testSortColumnsInGroup() {
+    CRtfHorizontalColumn col;
+    IndexList group;
+    IndexList idx;
+
+    col.sortColumnsInGroup(&group, &idx);
+    CPPUNIT_ASSERT(idx.size() == 0);
+
+    ADD_VCOL(col, rectH(100));
+    ADD_VCOL(col, rectH(15));
+    ADD_VCOL(col, rectH(-11));
+    ADD_VCOL(col, rectH(0));
+    ADD_VCOL(col, rectH(1));
+    ADD_VCOL(col, rectH(5));
+    ADD_VCOL(col, rectH(-4));
+
+    // adding cols with h = 100 and 15 in one group
+    group.push_back(0);
+    group.push_back(1);
+
+    col.sortColumnsInGroup(&group, &idx);
+    CPPUNIT_ASSERT(idx.size() == 2);
+    CPPUNIT_ASSERT(idx[0] == 1); // with h = 15
+    CPPUNIT_ASSERT(idx[1] == 0);
+    CPPUNIT_ASSERT(col.columnAt(0)->isSorted());
+    CPPUNIT_ASSERT(col.columnAt(1)->isSorted());
+    CPPUNIT_ASSERT(!col.columnAt(2)->isSorted());
+    CPPUNIT_ASSERT(!col.columnAt(3)->isSorted());
+    CPPUNIT_ASSERT(!col.columnAt(4)->isSorted());
+    CPPUNIT_ASSERT(!col.columnAt(5)->isSorted());
+    CPPUNIT_ASSERT(!col.columnAt(6)->isSorted());
+
+    group.clear();
+    idx.clear();
+
+    // adding cols with h = -11, 0, 1, 5, -4 in one group
+    group.push_back(2);
+    group.push_back(3);
+    group.push_back(4);
+    group.push_back(5);
+    group.push_back(6);
+    col.sortColumnsInGroup(&group, &idx);
+
+    checkSort(col, true);
+
+    CPPUNIT_ASSERT(idx.size() == 5);
+    CPPUNIT_ASSERT(col.columnAt(idx[0])->m_rectReal.top == -11);
+    CPPUNIT_ASSERT(col.columnAt(idx[1])->m_rectReal.top == -4);
+    CPPUNIT_ASSERT(col.columnAt(idx[2])->m_rectReal.top == 0);
+    CPPUNIT_ASSERT(col.columnAt(idx[3])->m_rectReal.top == 1);
+    CPPUNIT_ASSERT(col.columnAt(idx[4])->m_rectReal.top == 5);
+}
+

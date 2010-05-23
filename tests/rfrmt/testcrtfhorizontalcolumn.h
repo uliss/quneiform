@@ -33,6 +33,7 @@ class TestCRtfHorizontalColumn: public CppUnit::TestFixture
     CPPUNIT_TEST(testFillSingleTerminalColumnIndex);
     CPPUNIT_TEST(testFillAllTerminalColumnIndex);
     CPPUNIT_TEST(testSortColumns);
+    CPPUNIT_TEST(testSortColumnsInGroup);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -44,6 +45,7 @@ public:
     void testFillSingleTerminalColumnIndex();
     void testFillAllTerminalColumnIndex();
     void testSortColumns();
+    void testSortColumnsInGroup();
 };
 
 #endif /* TESTCRTFHORIZONTALCOLUMN_H_ */
