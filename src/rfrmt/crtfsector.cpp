@@ -119,7 +119,7 @@ Bool CRtfSector::Write(void) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 writeTerminalColumnsTablesAndPictures                          //
+//                                 writeTablesAndPictures                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfSector::WriteTerminalColumnsTablesAndPictures(void) {
     int32_t CountHTerminalColumns, TerminalColumnNumber;
@@ -130,7 +130,7 @@ void CRtfSector::WriteTerminalColumnsTablesAndPictures(void) {
         TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
         pRtfHorizontalColumn = m_arHorizontalColumns[TerminalColumnNumber];
         pRtfHorizontalColumn->setPage(m_PagePtr);
-        pRtfHorizontalColumn->writeTerminalColumnsTablesAndPictures(&SectorInfo);
+        pRtfHorizontalColumn->writeTablesAndPictures(&SectorInfo);
     }
 }
 
@@ -165,7 +165,7 @@ void CRtfSector::WriteTerminalColumns(void) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 GetCountAndRightBoundVTerminalColumns                          //
+//                                 getCountAndRightBoundVTerminalColumns                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 int32_t CRtfSector::GetCountAndRightBoundVTerminalColumns(void) {
     int32_t CountHTerminalColumns, CountVTerminalColumns, TerminalColumnNumber;
@@ -176,7 +176,7 @@ int32_t CRtfSector::GetCountAndRightBoundVTerminalColumns(void) {
     for (int i = 0; i < CountHTerminalColumns; i++) {
         TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
         pRtfHorizontalColumn = m_arHorizontalColumns[TerminalColumnNumber];
-        CountVTerminalColumns += pRtfHorizontalColumn->GetCountAndRightBoundVTerminalColumns(
+        CountVTerminalColumns += pRtfHorizontalColumn->getCountAndRightBoundVTerminalColumns(
                 &m_arRightBoundTerminalColumns, &m_arWidthTerminalColumns);
     }
 

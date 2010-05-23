@@ -124,6 +124,11 @@ class CLA_EXPO CRtfVerticalColumn
          */
         void write(RtfSectorInfo * SectorInfo, fragment_output_t type);
 
+        /**
+         * Exports column tables and pictures
+         */
+        void writeTablesAndPictures(RtfSectorInfo * SectorInfo, bool allTerminal);
+
         RECT m_rect;
         RECT m_rectReal;
     private:

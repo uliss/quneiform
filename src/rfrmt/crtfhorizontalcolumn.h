@@ -92,12 +92,11 @@ class CLA_EXPO CRtfHorizontalColumn
 
         void writeNonTerminalColumns(RtfSectorInfo* SectorInfo);
         void writeTerminalColumns(VectorWord* arRightBoundTerminalColumns,
-                int32_t* VTerminalColumnNumber, int32_t CountVTerminalColumns,
-                RtfSectorInfo* SectorInfo);
-        void writeTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo);
+                int * VTerminalColumnNumber, int CountVTerminalColumns, RtfSectorInfo* SectorInfo);
+        void writeTablesAndPictures(RtfSectorInfo * sector);
 
-        int32_t GetCountAndRightBoundVTerminalColumns(VectorWord* arRightBoundTerminalColumns,
-                VectorWord* arWidthTerminalColumns);
+        int getCountAndRightBoundVTerminalColumns(VectorWord * RightBoundTerminalColumns,
+                VectorWord * WidthTerminalColumns);
         void ToPlacePicturesAndTables(CRtfFragment* Frament);
 
         RECT m_rect;
@@ -171,6 +170,8 @@ class CLA_EXPO CRtfHorizontalColumn
         void sortColumns(IndexList * dest_idx);
         void sortColumnsInGroup(const IndexList& group, IndexList * dest_idx);
         void writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo);
+        void writeTerminalColumnsOnly(VectorWord* arRightBoundTerminalColumns,
+                int * VTerminalColumnNumber, int CountVTerminalColumns, RtfSectorInfo *SectorInfo);
     private:
         VColumnList vcols_;
         CRtfPage * page_;

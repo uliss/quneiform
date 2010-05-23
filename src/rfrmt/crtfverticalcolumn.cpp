@@ -134,5 +134,23 @@ void CRtfVerticalColumn::write(RtfSectorInfo * sector, fragment_output_t type) {
     }
 }
 
+void CRtfVerticalColumn::writeTablesAndPictures(RtfSectorInfo * SectorInfo, bool allTerminal) {
+    if (fragments_.empty())
+        return;
+
+    CRtfFragment * frag = firstFragment();
+
+    if (frag->type() == FT_TABLE || frag->type() == FT_PICTURE) {
+        if (allTerminal) {
+            frag->setInColumn(true);
+            page_->setFragmentsInColumn(frag);
+        } else {
+            SectorInfo->FlagInColumn = FALSE;
+            frag->setInColumn(false);
+            write(SectorInfo, FOT_SINGLE);
+        }
+    }
+}
+
 }
 

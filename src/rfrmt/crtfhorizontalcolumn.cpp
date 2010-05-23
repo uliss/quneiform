@@ -455,19 +455,16 @@ void CRtfHorizontalColumn::fillTerminalColumnsIndex() {
     }
 }
 
-int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
+int CRtfHorizontalColumn::getCountAndRightBoundVTerminalColumns(
         VectorWord* arRightBoundTerminalColumns, VectorWord* arWidthTerminalColumns) {
-    int32_t CountVTerminalColumns = 0;
-    CRtfVerticalColumn *pRtfVerticalColumn;
-    uint16_t RightBound, index, WidthColumn, tmp;
+    int CountVTerminalColumns = 0;
 
     if (type_ == SINGLE_TERMINAL || type_ == ALL_TERMINAL) {
-        RightBound = (uint16_t) MAX(m_rectReal.left, 0);
-        WidthColumn = (uint16_t) (m_rectReal.right - m_rectReal.left);
+        uint16_t RightBound = (uint16_t) MAX(m_rectReal.left, 0);
+        uint16_t WidthColumn = (uint16_t) (m_rectReal.right - m_rectReal.left);
         arRightBoundTerminalColumns->push_back(RightBound);
         arWidthTerminalColumns->push_back(WidthColumn);
-        CountVTerminalColumns = 1;
-        return CountVTerminalColumns;
+        return 1;
     }
 
     if (type_ == FRAME_AND_COLUMN) {
@@ -476,16 +473,15 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
         for (int i = 0; i < CountVTerminalColumns; i++) {
             IndexList * pGroup = terminal_col_idx_[i].get();
             int CountInGroup = pGroup->size();
-            RightBound = 32000;
-            WidthColumn = 0;
+            uint16_t RightBound = 32000;
+            uint16_t WidthColumn = 0;
 
             for (int j = 0; j < CountInGroup; j++) {
-                index = (*pGroup)[j];
-                pRtfVerticalColumn = vcols_[index];
-                tmp = MAX(pRtfVerticalColumn->m_rectReal.left, 0);
+                int index = (*pGroup)[j];
+                CRtfVerticalColumn * vcol = vcols_[index];
+                int tmp = MAX(vcol->m_rectReal.left, 0);
                 RightBound = MIN(RightBound, tmp);
-                WidthColumn = MAX(WidthColumn, (uint16_t)(pRtfVerticalColumn->m_rectReal.right
-                                - pRtfVerticalColumn->m_rectReal.left));
+                WidthColumn = MAX(WidthColumn, vcol->realWidth());
             }
 
             arRightBoundTerminalColumns->push_back(RightBound);
@@ -496,153 +492,31 @@ int32_t CRtfHorizontalColumn::GetCountAndRightBoundVTerminalColumns(
     return CountVTerminalColumns;
 }
 
-void CRtfHorizontalColumn::writeTerminalColumnsTablesAndPictures(RtfSectorInfo *SectorInfo) {
-    CRtfVerticalColumn* pRtfVerticalColumn;
-    CRtfFragment* pRtfFragment;
-    int CountFrameInTerminalColumn = vcols_.size();
-
-    for (int i = 0; i < CountFrameInTerminalColumn; i++) {
-        pRtfVerticalColumn = vcols_[i];
-        pRtfFragment = pRtfVerticalColumn->firstFragment();
-
-        if (pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE) {
-            if (type_ <= ALL_TERMINAL) {
-                pRtfFragment->setInColumn(true);
-                page_->setFragmentsInColumn(pRtfFragment);
-            } else {
-                SectorInfo->FlagInColumn = FALSE;
-                pRtfFragment->setInColumn(false);
-                pRtfVerticalColumn->write(SectorInfo, FOT_SINGLE);
-            }
-        }
-    }
+void CRtfHorizontalColumn::writeTablesAndPictures(RtfSectorInfo * sector) {
+    for (VColumnIterator it = vcols_.begin(), end = vcols_.end(); it != end; ++it)
+        (*it)->writeTablesAndPictures(sector, type_ <= ALL_TERMINAL);
 }
 
 void CRtfHorizontalColumn::writeTerminalColumns(VectorWord* arRightBoundTerminalColumns,
-        int32_t* VTerminalColumnNumber, int32_t CountVTerminalColumns, RtfSectorInfo *SectorInfo) {
-    int colsr(0), i(0), j(0), colw(0), CountInGroup(0);
-    int32_t CountTerminalColumns, NextColumnsLeft, CountFrameInTerminalColumn, Left, Right;
-    CRtfVerticalColumn *pRtfVerticalColumn;
-    CRtfFragment *pRtfFragment;
-    uint16_t FreeSpace;
-    int number;
-    Bool FlagFirstTerminalFragment = FALSE;
-    int32_t TopPositionFirstTerminalFragment;
-    RECT Rect;
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //***********************        Tерминальная колонка из одного или нескольких фрагментов  ******************************************
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        int * VTerminalColumnNumber, int CountVTerminalColumns, RtfSectorInfo *SectorInfo) {
+    // Tерминальная колонка из одного или нескольких фрагментов
     if (type_ == SINGLE_TERMINAL || type_ == ALL_TERMINAL) {
-        *VTerminalColumnNumber += 1;
-
-        if (RfrmtOptions::useFramesAndColumns() && *VTerminalColumnNumber == 1
-                && CountVTerminalColumns > 1) {
-            Rect.top = m_rectReal.top;
-            Rect.bottom = m_rectReal.bottom;
-            Rect.left = m_rectReal.right;
-            Rect.right = (*arRightBoundTerminalColumns)[*VTerminalColumnNumber];
-
-            if (CheckLines(&Rect, TRUE, SectorInfo)) {
-                CED_SetSectLineBetCol(SectorInfo->hEDSector, TRUE);
-            }
-        }
-
-        if (RfrmtOptions::useFramesAndColumns() && SectorInfo->FlagOneString == TRUE)
-            colw = MAX(0, SectorInfo->PaperW - (SectorInfo->MargL + SectorInfo->MargR));
-        else
-            colw = m_rectReal.right - m_rectReal.left;
-
-        colsr = -1;
-
-        if (CountVTerminalColumns && *VTerminalColumnNumber < CountVTerminalColumns) {
-            NextColumnsLeft = (*arRightBoundTerminalColumns)[*VTerminalColumnNumber];
-            colsr = NextColumnsLeft - m_rectReal.right;
-        }
-
-        if (*VTerminalColumnNumber == 1)
-            SectorInfo->hColumn = SectorInfo->hFirstColumn;
-        else
-            SectorInfo->hColumn = CED_CreateColumn(SectorInfo->hEDSector);
-
-        SectorInfo->hObject = SectorInfo->hColumn;
-
-        CountFrameInTerminalColumn = vcols_.size();
-        sortFragments();
-
-        for (i = 0; i < CountFrameInTerminalColumn; i++) {
-            number = i;
-
-            if (ordering_number_.size())
-                number = ordering_number_[i];
-
-            pRtfVerticalColumn = vcols_[number];
-            pRtfFragment = pRtfVerticalColumn->firstFragment();
-            FreeSpace = GetFreeSpaceBetweenPrevAndCurrentFragments(pRtfFragment->m_rect.top,
-                    SectorInfo);
-            SectorInfo->VerticalOffsetFragmentInColumn = FreeSpace;
-
-            if (pRtfFragment->type() != FT_TABLE && pRtfFragment->type() != FT_PICTURE) {//Text
-                pRtfFragment->m_LeftOffsetFragmentFromVerticalColumn = pRtfFragment->m_rect.left
-                        - m_rect.left;
-                pRtfFragment->m_RightOffsetFragmentFromVerticalColumn = m_rect.right
-                        - pRtfFragment->m_rect.right;
-                pRtfFragment->m_WidthVerticalColumn = int16_t(m_rect.right - m_rect.left);
-                SectorInfo->hObject = SectorInfo->hColumn;
-                SectorInfo->FlagOverLayed = getOverLayedFlag(i);
-                pRtfVerticalColumn->write(SectorInfo, FOT_SINGLE);
-            } else {
-                if ((pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE)
-                        && pRtfFragment->inColumn()) {//Picture,Table
-                    SectorInfo->FlagInColumn = TRUE;
-
-                    if (!SectorInfo->FlagOneString)//!!!Art
-                        SectorInfo->OffsetFromColumn.rx() = pRtfFragment->m_rect.left - m_rect.left;
-                    else
-                        //!!!Art
-                        SectorInfo->OffsetFromColumn.rx() = pRtfFragment->m_rect.left
-                                - SectorInfo->MargL;//!!!Art
-
-                    SectorInfo->OffsetFromColumn.ry() = pRtfFragment->m_wOffsetFromPrevTextFragment;
-                    SectorInfo->hObject = SectorInfo->hColumn;
-                    pRtfVerticalColumn->write(SectorInfo, FOT_SINGLE);
-                }
-            }
-        }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //***********************************                    Фреймы и колонки            ************************************************
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    else {
-        CountTerminalColumns = terminal_col_idx_.size();
-
-        for (i = 0; i < CountTerminalColumns; i++) {
+        writeTerminalColumnsOnly(arRightBoundTerminalColumns, VTerminalColumnNumber,
+                CountVTerminalColumns, SectorInfo);
+    } else { // Фреймы и колонки
+        for (size_t i = 0; i < terminal_col_idx_.size(); i++) {
             *VTerminalColumnNumber += 1;
-            Left = 32000;
-            Right = 0;
+            int Left = 32000;
+            int Right = 0;
             IndexList * pGroup = terminal_col_idx_[i].get();
-            CountInGroup = pGroup->size();
+            size_t CountInGroup = pGroup->size();
 
-            for (j = 0; j < CountInGroup; j++) { //~ V-columns in one H-col
+            for (size_t j = 0; j < CountInGroup; j++) { //~ V-columns in one H-col
                 int index = (*pGroup)[j];
-                pRtfVerticalColumn = vcols_[index];
+                CRtfVerticalColumn * vcol = vcols_[index];
 
-                if (i == 0 && j == 0) {
-                    FlagFirstTerminalFragment = TRUE;
-                    TopPositionFirstTerminalFragment = pRtfVerticalColumn->m_rectReal.top;
-                }
-
-                Left = MIN(Left, pRtfVerticalColumn->m_rectReal.left);
-                Right = MAX(Right, pRtfVerticalColumn->m_rectReal.right);
-            }
-
-            colw = Right - Left;
-            colsr = -1;
-
-            if (*VTerminalColumnNumber < CountVTerminalColumns) {
-                NextColumnsLeft = (*arRightBoundTerminalColumns)[*VTerminalColumnNumber];
-                colsr = NextColumnsLeft - Right;
+                Left = MIN(Left, vcol->m_rectReal.left);
+                Right = MAX(Right, vcol->m_rectReal.right);
             }
 
             if (*VTerminalColumnNumber == 1)
@@ -655,15 +529,15 @@ void CRtfHorizontalColumn::writeTerminalColumns(VectorWord* arRightBoundTerminal
             if (!i) //noisy fragment or picture are made as frame,frames привязаны к первой терминал. колонке сектора
                 writeFramesInTerminalColumn(SectorInfo);
 
-            for (j = 0; j < CountInGroup; j++) {
+            for (size_t j = 0; j < CountInGroup; j++) {
                 int index = (*pGroup)[j];
-                pRtfVerticalColumn = vcols_[index];
-                FreeSpace = GetFreeSpaceBetweenPrevAndCurrentFragments(
-                        pRtfVerticalColumn->m_rect.top, SectorInfo);
+                CRtfVerticalColumn * vcol = vcols_[index];
+                int FreeSpace = GetFreeSpaceBetweenPrevAndCurrentFragments(vcol->m_rect.top,
+                        SectorInfo);
                 SectorInfo->VerticalOffsetFragmentInColumn = FreeSpace;
                 SectorInfo->hObject = SectorInfo->hColumn;
                 SectorInfo->FlagOverLayed = getOverLayedFlag(index);
-                pRtfVerticalColumn->write(SectorInfo, FOT_SINGLE);
+                vcol->write(SectorInfo, FOT_SINGLE);
             }
         }
     }
@@ -865,7 +739,66 @@ int CRtfHorizontalColumn::getOffsetFromPrevTextFragment(const CRtfFragment * fra
     return vert_offset;
 }
 
-void CRtfHorizontalColumn::writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo) {
+void CRtfHorizontalColumn::writeTerminalColumnsOnly(VectorWord* arRightBoundTerminalColumns,
+        int * VTerminalColumnNumber, int CountVTerminalColumns, RtfSectorInfo *sector) {
+    *VTerminalColumnNumber += 1;
+
+    if (RfrmtOptions::useFramesAndColumns() && *VTerminalColumnNumber == 1 && CountVTerminalColumns
+            > 1) {
+        RECT Rect;
+        Rect.top = m_rectReal.top;
+        Rect.bottom = m_rectReal.bottom;
+        Rect.left = m_rectReal.right;
+        Rect.right = (*arRightBoundTerminalColumns)[*VTerminalColumnNumber];
+
+        if (CheckLines(&Rect, TRUE, sector)) {
+            CED_SetSectLineBetCol(sector->hEDSector, TRUE);
+        }
+    }
+
+    if (*VTerminalColumnNumber == 1)
+        sector->hColumn = sector->hFirstColumn;
+    else
+        sector->hColumn = CED_CreateColumn(sector->hEDSector);
+
+    sector->hObject = sector->hColumn;
+
+    sortFragments();
+
+    for (size_t i = 0; i < vcols_.size(); i++) {
+        int number = i;
+
+        if (ordering_number_.size())
+            number = ordering_number_[i];
+
+        CRtfVerticalColumn * vcol = vcols_[number];
+        CRtfFragment * frag = vcol->firstFragment();
+        int FreeSpace = GetFreeSpaceBetweenPrevAndCurrentFragments(frag->m_rect.top, sector);
+        sector->VerticalOffsetFragmentInColumn = FreeSpace;
+
+        if (frag->type() != FT_TABLE && frag->type() != FT_PICTURE) {//Text
+            frag->m_LeftOffsetFragmentFromVerticalColumn = frag->m_rect.left - m_rect.left;
+            frag->m_RightOffsetFragmentFromVerticalColumn = m_rect.right - frag->m_rect.right;
+            frag->m_WidthVerticalColumn = int16_t(m_rect.right - m_rect.left);
+            sector->hObject = sector->hColumn;
+            sector->FlagOverLayed = getOverLayedFlag(i);
+            vcol->write(sector, FOT_SINGLE);
+        } else if ((frag->type() == FT_TABLE || frag->type() == FT_PICTURE) && frag->inColumn()) {//Picture,Table
+            sector->FlagInColumn = TRUE;
+
+            if (!sector->FlagOneString)
+                sector->OffsetFromColumn.rx() = frag->m_rect.left - m_rect.left;
+            else
+                sector->OffsetFromColumn.rx() = frag->m_rect.left - sector->MargL;
+
+            sector->OffsetFromColumn.ry() = frag->m_wOffsetFromPrevTextFragment;
+            sector->hObject = sector->hColumn;
+            vcol->write(sector, FOT_SINGLE);
+        }
+    }
+}
+
+void CRtfHorizontalColumn::writeFramesInTerminalColumn(RtfSectorInfo * SectorInfo) {
     for (size_t i = 0; i < vcols_.size(); i++) {
         if (i == 0) {
             Rect indent;
