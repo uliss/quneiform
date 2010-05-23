@@ -124,6 +124,7 @@ class CLA_EXPO CRtfHorizontalColumn
 
         void fillAllTerminalColumnIndex();
         void fillSingleTerminalColumnIndex();
+
         /*
          * resorting of the fragment array (at first position should be located Frames,
          * next ones are terminal columns)
@@ -132,8 +133,18 @@ class CLA_EXPO CRtfHorizontalColumn
         void fillTerminalFrameColumnIndex();
         void fillTerminalGroups(int minLeft, int maxRight);
         void findHeadingAndSetFrameFlag();
-        /* return index of highest unsorted column or -1 if nothing found */
+
+        /*
+         * return index of highest unsorted column (skipping frames)
+         * or -1 if nothing found
+         */
         int findHighestUnsortedColumn() const;
+
+        /*
+         * return index of highest unsorted column (skipping frames) in given group
+         * or -1 if nothing found
+         * @throw std::out_of_range if column index in group is more then size of vcols_
+         */
         int findHighestUnsortedColumnInGroup(const IndexList * group) const;
         uint16_t GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag,
                 RtfSectorInfo *SectorInfo);

@@ -293,3 +293,57 @@ void TestCRtfHorizontalColumn::testSortColumnsInGroup() {
     CPPUNIT_ASSERT(col.columnAt(idx[4])->m_rectReal.top == 5);
 }
 
+void TestCRtfHorizontalColumn::testFindHighestUnsortedColumn() {
+    CRtfHorizontalColumn col;
+
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumn() == -1);
+
+    ADD_VCOL(col, rectH(1));
+    ADD_VCOL(col, rectH(2));
+    ADD_VCOL(col, rectH(-100), FT_FRAME);
+    ADD_VCOL(col, rectH(3));
+
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumn() == 0);
+    col.columnAt(0)->setSorted(true);
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumn() == 1);
+    col.columnAt(1)->setSorted(true);
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumn() == 3);
+    col.columnAt(3)->setSorted(true);
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumn() == -1);
+}
+
+void TestCRtfHorizontalColumn::testFindHighestUnsortedColumnInGroup() {
+    CRtfHorizontalColumn col;
+    IndexList group;
+
+    group.push_back(0);
+
+    CPPUNIT_ASSERT_THROW(col.findHighestUnsortedColumnInGroup(&group), std::out_of_range);
+
+    group.push_back(0);
+    ADD_VCOL(col, rectH(1));
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumnInGroup(&group) == 0);
+    // ignore sorted
+    col.columnAt(0)->setSorted(true);
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumnInGroup(&group) == -1);
+    // ignore frames
+    col.columnAt(0)->setSorted(false);
+    col.columnAt(0)->setType(FT_FRAME);
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumnInGroup(&group) == -1);
+
+    group.clear();
+    col.clearColumns();
+
+    ADD_VCOL(col, rectH(1));
+    ADD_VCOL(col, rectH(10));
+    ADD_VCOL(col, rectH(0));
+
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumnInGroup(&group) == -1);
+    group.push_back(1);// h == 10
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumnInGroup(&group) == 1);
+    group.push_back(2); // h == 0
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumnInGroup(&group) == 2);
+    group.push_back(0); // h == 1
+    CPPUNIT_ASSERT(col.findHighestUnsortedColumnInGroup(&group) == 2);
+}
+

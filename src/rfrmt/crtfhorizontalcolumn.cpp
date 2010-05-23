@@ -340,7 +340,7 @@ int CRtfHorizontalColumn::findHighestUnsortedColumnInGroup(const IndexList * gro
 
     for (size_t i = 0; i < group->size(); i++) {
         const int number = group->at(i);
-        CRtfVerticalColumn * col = vcols_[number];
+        CRtfVerticalColumn * col = vcols_.at(number);
 
         if (col->type() == FT_FRAME || col->isSorted())
             continue;

@@ -34,6 +34,8 @@ class TestCRtfHorizontalColumn: public CppUnit::TestFixture
     CPPUNIT_TEST(testFillAllTerminalColumnIndex);
     CPPUNIT_TEST(testSortColumns);
     CPPUNIT_TEST(testSortColumnsInGroup);
+    CPPUNIT_TEST(testFindHighestUnsortedColumn);
+    CPPUNIT_TEST(testFindHighestUnsortedColumnInGroup);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -46,6 +48,8 @@ public:
     void testFillAllTerminalColumnIndex();
     void testSortColumns();
     void testSortColumnsInGroup();
+    void testFindHighestUnsortedColumn();
+    void testFindHighestUnsortedColumnInGroup();
 };
 
 #endif /* TESTCRTFHORIZONTALCOLUMN_H_ */
