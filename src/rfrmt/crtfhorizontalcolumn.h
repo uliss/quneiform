@@ -170,12 +170,12 @@ class CLA_EXPO CRtfHorizontalColumn
          */
         void sortColumns(IndexList * dest_idx);
         void sortColumnsInGroup(const IndexList& group, IndexList * dest_idx);
-        void writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo, Bool FlagFirstTerminalFragment);
+        void writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo);
     private:
         VColumnList vcols_;
         CRtfPage * page_;
         column_t type_;
-        std::vector<uchar> m_arOrderingNumber;
+        std::vector<uchar> ordering_number_;
         // contains histogram positions where spaces starts
         // for ex. for histogram 0011001100 - contains (0,4,8)
         IndexList hist_spaces_;

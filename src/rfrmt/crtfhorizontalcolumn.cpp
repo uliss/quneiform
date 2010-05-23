@@ -573,8 +573,8 @@ void CRtfHorizontalColumn::writeTerminalColumns(VectorWord* arRightBoundTerminal
         for (i = 0; i < CountFrameInTerminalColumn; i++) {
             number = i;
 
-            if (m_arOrderingNumber.size())
-                number = m_arOrderingNumber[i];
+            if (ordering_number_.size())
+                number = ordering_number_[i];
 
             pRtfVerticalColumn = vcols_[number];
             pRtfFragment = pRtfVerticalColumn->firstFragment();
@@ -647,14 +647,13 @@ void CRtfHorizontalColumn::writeTerminalColumns(VectorWord* arRightBoundTerminal
 
             if (*VTerminalColumnNumber == 1)
                 SectorInfo->hColumn = SectorInfo->hFirstColumn;
-
             else
                 SectorInfo->hColumn = CED_CreateColumn(SectorInfo->hEDSector);
 
             SectorInfo->hObject = SectorInfo->hColumn;
 
             if (!i) //noisy fragment or picture are made as frame,frames привязаны к первой терминал. колонке сектора
-                writeFramesInTerminalColumn(SectorInfo, FlagFirstTerminalFragment);
+                writeFramesInTerminalColumn(SectorInfo);
 
             for (j = 0; j < CountInGroup; j++) {
                 int index = (*pGroup)[j];
@@ -707,8 +706,8 @@ Bool CRtfHorizontalColumn::getOverLayedFlag(int CurFragmentNumber) {
     CIF::Point pt;
     int number = CurFragmentNumber;
 
-    if (m_arOrderingNumber.size())
-        number = m_arOrderingNumber[CurFragmentNumber];
+    if (ordering_number_.size())
+        number = ordering_number_[CurFragmentNumber];
 
     CRtfFragment * first_frag = vcols_.at(number)->firstFragment();
     Rect CurFragmentRect = first_frag->rect();
@@ -772,69 +771,58 @@ void CRtfHorizontalColumn::sortColumnsInGroup(const IndexList& col_group, IndexL
 }
 
 void CRtfHorizontalColumn::sortFragments() {
-    int32_t CountFrameInTerminalColumn;
-    CRtfVerticalColumn *pRtfVerticalColumn;
-    CRtfFragment *pRtfFragment, *pRtfFragmentFirst;
-    int /*NextTop=-32000,*/size, number;
-    Bool FlagInserted = FALSE;
-    CountFrameInTerminalColumn = vcols_.size();
+    for (size_t i = 0; i < vcols_.size(); i++) {
+        CRtfVerticalColumn * vcol = vcols_[i];
+        CRtfFragment * frag = vcol->firstFragment();
+        bool FlagInserted = false;
 
-    for (int i = 0; i < CountFrameInTerminalColumn; i++) {
-        pRtfVerticalColumn = vcols_[i];
-        pRtfFragment = pRtfVerticalColumn->firstFragment();
-        FlagInserted = FALSE;
+        if (i == 0) {
+            ordering_number_.push_back((uchar) i);
+            continue;
+        }
 
-        if (i == 0)
-            m_arOrderingNumber.push_back(i);
+        size_t m = 0;
 
-        else {
-            size = m_arOrderingNumber.size();
-            int m;
+        for (m = 0; m < ordering_number_.size(); m++) {
+            int number = ordering_number_[m];
+            vcol = vcols_[number];
+            const CRtfFragment * frag_first = vcol->firstFragment();
 
-            for (m = 0; m < size; m++) {
-                number = m_arOrderingNumber[m];
-                pRtfVerticalColumn = vcols_[number];
-                pRtfFragmentFirst = pRtfVerticalColumn->firstFragment();
+            //Если фрагмент выше другого
+            if (frag->m_rect.top < frag_first->m_rect.top) {
+                ordering_number_.insert(ordering_number_.begin() + m, i);
 
-                //Если фрагмент выше другого
-                if (pRtfFragment->m_rect.top < pRtfFragmentFirst->m_rect.top) {
-                    m_arOrderingNumber.insert(m_arOrderingNumber.begin() + m, i);
+                if (frag->type() == FT_TABLE || frag->type() == FT_PICTURE)
+                    frag->m_wOffsetFromPrevTextFragment = getOffsetFromPrevTextFragment(frag);
 
-                    if (pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE)
-                        pRtfFragment->m_wOffsetFromPrevTextFragment
-                                = getOffsetFromPrevTextFragment(pRtfFragment);
+                FlagInserted = true;
+                break;
+            } else
 
-                    FlagInserted = TRUE;
-                    break;
-                }
-
-                else
-
-                //Если таблица/картинка покрывается текстовым фрагментом
-                if ((pRtfFragment->type() == FT_TABLE || pRtfFragment->type() == FT_PICTURE)
-                        && pRtfFragmentFirst->type() == FT_TEXT && pRtfFragment->m_rect.top
-                        >= pRtfFragmentFirst->m_rect.top && pRtfFragment->m_rect.top
-                        < pRtfFragmentFirst->m_rect.bottom) {
-                    m_arOrderingNumber.insert(m_arOrderingNumber.begin() + m, i);
-                    pRtfFragment->m_wOffsetFromPrevTextFragment
-                            = (uint16_t) (pRtfFragment->m_rect.top - pRtfFragmentFirst->m_rect.top);
-                    FlagInserted = TRUE;
-                    break;
-                }
+            //Если таблица/картинка покрывается текстовым фрагментом
+            if ((frag->type() == FT_TABLE || frag->type() == FT_PICTURE) && //
+                    frag_first->type() == FT_TEXT && //
+                    frag->m_rect.top >= frag_first->m_rect.top && //
+                    frag->m_rect.top < frag_first->m_rect.bottom) {
+                ordering_number_.insert(ordering_number_.begin() + m, i);
+                frag->m_wOffsetFromPrevTextFragment = (uint16_t) (frag->m_rect.top
+                        - frag_first->m_rect.top);
+                FlagInserted = true;
+                break;
             }
+        }
 
-            if (FlagInserted == FALSE) {
-                m_arOrderingNumber.push_back(m);
-            }
+        if (FlagInserted == false) {
+            ordering_number_.push_back(m);
         }
     }
 
     //Надо оттестировать
     /*  //Выставляем расстояние для картинок и таблиц, которые пойдут
      //во фреймы после последнго текстового фрагмента
-     for( int m=m_arOrderingNumber.size()-1; m>=0; m-- )
+     for( int m=ordering_number_.size()-1; m>=0; m-- )
      {
-     pRtfVerticalColumn = vcols_[m_arOrderingNumber[m]];
+     pRtfVerticalColumn = vcols_[ordering_number_[m]];
      pRtfFragmentFirst   = pRtfVerticalColumn->m_arFragments[0];
      if (pRtfFragmentFirst->type_==FT_TEXT)
      break;
@@ -849,9 +837,9 @@ void CRtfHorizontalColumn::sortFragments() {
      GetRealSize("A",0,24,0,&brkHeight);
      parHeight/=Twips;
      brkHeight/=Twips;
-     for( m=m_arOrderingNumber.size()-1; m>lastTxtNum; m-- )
+     for( m=ordering_number_.size()-1; m>lastTxtNum; m-- )
      {
-     pRtfVerticalColumn = vcols_[m_arOrderingNumber[m]];
+     pRtfVerticalColumn = vcols_[ordering_number_[m]];
      pRtfFragment   = pRtfVerticalColumn->m_arFragments[0];
      if( (pRtfFragment->type_==FT_TABLE || pRtfFragment->type_==FT_PICTURE))
      {
@@ -877,53 +865,38 @@ int CRtfHorizontalColumn::getOffsetFromPrevTextFragment(const CRtfFragment * fra
     return vert_offset;
 }
 
-void CRtfHorizontalColumn::writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo,
-        Bool FlagFirstTerminalFragment) {
-    CRtfVerticalColumn* pRtfVerticalColumn;
-    int32_t shpleft, shptop, shpright, shpbottom, fri = 0;
-    EDBOX EdFragmRect;
-    Handle hParagraph = NULL;
-    Handle hString = NULL;
-    int align;
-    CIF::Rect indent;
-    EDSIZE interval;
-    EDBOX playout;
-
+void CRtfHorizontalColumn::writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo) {
     for (size_t i = 0; i < vcols_.size(); i++) {
-        if (!fri) {
-            fri = 1;
-            indent = CIF::Rect();
+        if (i == 0) {
+            Rect indent;
+            EDSIZE interval;
             interval.cx = 0;
             interval.cy = 0;
+            EDBOX playout;
             playout.x = -1;
             playout.w = -1;
             playout.y = -1;
             playout.h = -1;
-            align = TP_LEFT_ALLIGN;
-            hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, align,
-                    indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-            hString = CED_CreateLine(hParagraph, FALSE, 6);
+            Handle hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
+                    TP_LEFT_ALLIGN, indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1,
+                    -1, FALSE);
+            CED_CreateLine(hParagraph, FALSE, 6);
         }
 
-        pRtfVerticalColumn = vcols_[i];
+        CRtfVerticalColumn* vcol = vcols_[i];
 
-        if (pRtfVerticalColumn->type() == FT_FRAME) {
-            shpleft = pRtfVerticalColumn->m_rectReal.left - m_rectReal.left;
-            shptop = pRtfVerticalColumn->m_rectReal.top - m_rectReal.top;
-            shpbottom = pRtfVerticalColumn->m_rectReal.bottom - pRtfVerticalColumn->m_rectReal.top;
-            shpright = pRtfVerticalColumn->m_rectReal.right - pRtfVerticalColumn->m_rectReal.left;
+        if (vcol->type() == FT_FRAME) {
+            EDBOX EdFragmRect;
 
-            EdFragmRect.x = pRtfVerticalColumn->m_rectReal.left - m_rectReal.left;
-            EdFragmRect.w = pRtfVerticalColumn->m_rectReal.right
-                    - pRtfVerticalColumn->m_rectReal.left;
-            EdFragmRect.y = pRtfVerticalColumn->m_rectReal.top - m_rectReal.top;
-            EdFragmRect.h = pRtfVerticalColumn->m_rectReal.bottom
-                    - pRtfVerticalColumn->m_rectReal.top;
+            EdFragmRect.x = vcol->m_rectReal.left - m_rectReal.left;
+            EdFragmRect.w = vcol->m_rectReal.right - vcol->m_rectReal.left;
+            EdFragmRect.y = vcol->m_rectReal.top - m_rectReal.top;
+            EdFragmRect.h = vcol->m_rectReal.bottom - vcol->m_rectReal.top;
             SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
                     EdFragmRect, 0x22, -1, 86, 43);
 
             SectorInfo->FlagOverLayed = FALSE;
-            pRtfVerticalColumn->write(SectorInfo, FOT_FRAME);
+            vcol->write(SectorInfo, FOT_FRAME);
         }
     }
 }
