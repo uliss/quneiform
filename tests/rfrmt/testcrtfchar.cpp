@@ -28,3 +28,33 @@ void TestCRtfChar::testInit() {
     CPPUNIT_ASSERT_THROW(ch.versionAt(0), std::out_of_range);
     CPPUNIT_ASSERT_THROW(ch.first(), std::out_of_range);
 }
+
+struct DrawChar
+{
+        int * i_;
+        DrawChar(int * i) :
+            i_(i) {
+        }
+        void operator()(const CRtfChar * ch) {
+            (*i_)++;
+        }
+};
+
+void TestCRtfChar::testSetDrawCallback() {
+    RfrmtDrawCharFunction d;
+    CRtfChar::setDrawCallback(d);
+
+    CRtfChar ch;
+    ch.drawLayout();
+
+    int called = 0;
+    d = DrawChar(&called);
+    CRtfChar::setDrawCallback(d);
+    ch.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(1, called);
+    ch.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(2, called);
+
+    RfrmtDrawCharFunction null;
+    CRtfChar::setDrawCallback(null);
+}

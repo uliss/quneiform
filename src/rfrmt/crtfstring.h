@@ -22,6 +22,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <boost/function.hpp>
+
 #include "font.h"
 #include "cfcompat.h"
 #include "common/rect.h"
@@ -35,6 +37,9 @@ class CRtfChar;
 class CRtfWord;
 class CEDLine;
 class CEDParagraph;
+class CRtfString;
+
+typedef boost::function<void(const CRtfString*)> RfrmtDrawStringFunction;
 
 class CLA_EXPO CRtfString
 {
@@ -81,6 +86,11 @@ class CLA_EXPO CRtfString
          * @see addWord()
          */
         void clearWords();
+
+        /**
+         * Draws string layout
+         */
+        void drawLayout() const;
 
         /**
          * Returns true if string contains no words
@@ -360,6 +370,10 @@ class CLA_EXPO CRtfString
          * Writes string to CEDParagraph
          */
         void write(CEDParagraph * line) const;
+    public:
+        static void setDrawCallback(RfrmtDrawStringFunction f);
+    private:
+        static RfrmtDrawStringFunction draw_func_;
     private:
         typedef std::vector<CRtfWord*> WordList;
         typedef WordList::iterator WordIterator;

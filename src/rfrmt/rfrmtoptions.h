@@ -19,12 +19,27 @@
 #ifndef RFRMTOPTIONS_H_
 #define RFRMTOPTIONS_H_
 
-#include "creatertf.h"
+#include "common/rect.h"
+#include "globus.h"
 
 namespace CIF
 {
 
-class RfrmtOptions
+// Formatting Mode
+enum format_mode_t
+{
+    // no formatting
+    USE_NONE = 0x0040,
+    // use columns & frames
+    USE_FRAME_AND_COLUMN = 0x0001,
+    // use only frames
+    USE_FRAME = 0x0002,
+    NOBOLD = 0x0004,
+    NOCURSIV = 0x0008,
+    NOSIZE = 0x0020
+};
+
+class CLA_EXPO RfrmtOptions
 {
     public:
         static unsigned int & formatMode() {
@@ -39,6 +54,11 @@ class RfrmtOptions
             return line_transfer_;
         }
 
+        template<class T, class F>
+        static void setDrawCallback(F f) {
+            T::setDrawCallback(f);
+        }
+
         static void setFlag(format_mode_t flag) {
             format_mode_ |= flag;
         }
@@ -51,29 +71,12 @@ class RfrmtOptions
             line_transfer_ = value;
         }
 
-        static bool useBold() {
-            return !hasFlag(NOBOLD);
-        }
-
-        static bool useFrames() {
-            return hasFlag(USE_FRAME);
-        }
-
-        static bool useFramesAndColumns() {
-            return hasFlag(USE_FRAME_AND_COLUMN);
-        }
-
-        static bool useItalic() {
-            return !hasFlag(NOCURSIV);
-        }
-
-        static bool useNone() {
-            return hasFlag(USE_NONE);
-        }
-
-        static bool useSize() {
-            return !hasFlag(NOSIZE);
-        }
+        static bool useBold();
+        static bool useFrames();
+        static bool useFramesAndColumns();
+        static bool useItalic();
+        static bool useNone();
+        static bool useSize();
     private:
         static unsigned int format_mode_;
         static bool line_transfer_;

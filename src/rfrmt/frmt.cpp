@@ -171,20 +171,20 @@ Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree) {
     }
 
     if (!gbBold)
-        CIF::RfrmtOptions::setFlag(NOBOLD);
+        CIF::RfrmtOptions::setFlag(CIF::NOBOLD);
 
     if (!gbItalic)
-        CIF::RfrmtOptions::setFlag(NOCURSIV);
+        CIF::RfrmtOptions::setFlag(CIF::NOCURSIV);
 
     if (!gbSize)
-        CIF::RfrmtOptions::setFlag(NOSIZE);
+        CIF::RfrmtOptions::setFlag(CIF::NOSIZE);
 
     if (!LDPUMA_Skip(hDebugFrame))
-        CIF::RfrmtOptions::setFlag(USE_FRAME);
+        CIF::RfrmtOptions::setFlag(CIF::USE_FRAME);
     else if (gnFormat == 1 && ExFlagMode == FALSE)
-        CIF::RfrmtOptions::setFlag(USE_FRAME_AND_COLUMN);
+        CIF::RfrmtOptions::setFlag(CIF::USE_FRAME_AND_COLUMN);
     else
-        CIF::RfrmtOptions::setFlag(USE_NONE);
+        CIF::RfrmtOptions::setFlag(CIF::USE_NONE);
 
     strcpy((char*) lpMyNameSerif, gpSerifName);
     strcpy((char*) lpMyNameNonSerif, gpSansSerifName);
@@ -318,20 +318,20 @@ Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code) {
     }
 
     if (!gbBold)
-        CIF::RfrmtOptions::setFlag(NOBOLD);
+        CIF::RfrmtOptions::setFlag(CIF::NOBOLD);
 
     if (!gbItalic)
-        CIF::RfrmtOptions::setFlag(NOCURSIV);
+        CIF::RfrmtOptions::setFlag(CIF::NOCURSIV);
 
     if (!gbSize)
-        CIF::RfrmtOptions::setFlag(NOSIZE);
+        CIF::RfrmtOptions::setFlag(CIF::NOSIZE);
 
     if (!LDPUMA_Skip(hDebugFrame))
-        CIF::RfrmtOptions::setFlag(USE_FRAME);
+        CIF::RfrmtOptions::setFlag(CIF::USE_FRAME);
     else if (gnFormat == 1 && ExFlagMode == FALSE)
-        CIF::RfrmtOptions::setFlag(USE_FRAME_AND_COLUMN);
+        CIF::RfrmtOptions::setFlag(CIF::USE_FRAME_AND_COLUMN);
     else
-        CIF::RfrmtOptions::setFlag(USE_NONE);
+        CIF::RfrmtOptions::setFlag(CIF::USE_NONE);
 
     strcpy((char*) lpMyNameSerif, gpSerifName);
     strcpy((char*) lpMyNameNonSerif, gpSansSerifName);

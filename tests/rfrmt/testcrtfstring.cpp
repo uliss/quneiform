@@ -268,3 +268,38 @@ void TestCRtfString::testEndsWith() {
     str.lastWord()->addChar('1');
     CPPUNIT_ASSERT(str.endsWith('1'));
 }
+
+struct DrawString
+{
+        int * i_;
+        DrawString(int * i) :
+            i_(i) {
+        }
+        void operator()(const CRtfString *) {
+            (*i_)++;
+        }
+};
+
+void TestCRtfString::testSetDrawCallback() {
+    RfrmtDrawStringFunction f;
+    CRtfString::setDrawCallback(f);
+
+    CRtfString str;
+    str.drawLayout();
+
+    int call_count = 0;
+    f = DrawString(&call_count);
+    CRtfString::setDrawCallback(f);
+
+    CPPUNIT_ASSERT_EQUAL(0, call_count);
+    str.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(1, call_count);
+    str.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(2, call_count);
+
+    RfrmtDrawStringFunction null;
+    CRtfString::setDrawCallback(null);
+    str.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(2, call_count);
+
+}

@@ -414,3 +414,42 @@ void TestCRtfFragment::testCheckAlign() {
     CPPUNIT_ASSERT(CRtfFragment::checkRightAlign(1, 6, 1, 5, 10));
     //    CPPUNIT_ASSERT(!CRtfFragment::checkRightAlign(6, 6, 6, 6, 10));
 }
+
+struct DrawFragment
+{
+        int * i_;
+        DrawFragment(int * i) :
+            i_(i) {
+        }
+        void operator()(const CRtfFragment *) {
+            (*i_)++;
+        }
+};
+
+void TestCRtfFragment::testSetDrawCallback() {
+    RfrmtDrawFragmentFunction d;
+    CRtfFragment::setDrawCallback(d);
+
+    CRtfFragment fr;
+    fr.drawLayout();
+
+    int count = 0;
+
+    d = DrawFragment(&count);
+    CRtfFragment::setDrawCallback(d);
+
+    CPPUNIT_ASSERT_EQUAL(0, count);
+    fr.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(1, count);
+    fr.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(2, count);
+    fr.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(3, count);
+
+    RfrmtDrawFragmentFunction null;
+    CRtfFragment::setDrawCallback(null);
+    CPPUNIT_ASSERT_EQUAL(3, count);
+    fr.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(3, count);
+    fr.drawLayout();
+}

@@ -21,6 +21,8 @@
 
 #include <vector>
 #include <string>
+#include <boost/function.hpp>
+
 #include "globus.h"
 #include "cfcompat.h"
 #include "common/rect.h"
@@ -33,6 +35,9 @@ namespace CIF
 class CRtfChar;
 class CEDChar;
 class CEDLine;
+class CRtfWord;
+
+typedef boost::function<void(const CRtfWord*)> RfrmtDrawWordFunction;
 
 class CLA_EXPO CRtfWord
 {
@@ -83,6 +88,11 @@ class CLA_EXPO CRtfWord
          * Removes all chars
          */
         void clearChars();
+
+        /**
+         * Draws word borders
+         */
+        void drawLayout() const;
 
         /**
          * Returns true if word contains no chars
@@ -181,12 +191,15 @@ class CLA_EXPO CRtfWord
         Rect charsBRect() const;
         bool charSpelling() const;
         short charProbability() const;
-
+    public:
         /**
          * Rotates rectangle
          * @throw Exception - if wrong angle given
          */
         static void rotateRect(Rect& rect, int angle, int x_offset, int y_offset);
+        static void setDrawCallback(RfrmtDrawWordFunction f);
+    private:
+        static RfrmtDrawWordFunction draw_func_;
     private:
         typedef std::vector<CRtfChar*> CharList;
         typedef CharList::iterator CharIterator;

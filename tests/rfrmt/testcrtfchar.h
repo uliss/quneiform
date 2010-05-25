@@ -25,9 +25,11 @@ class TestCRtfChar: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestCRtfChar);
     CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testSetDrawCallback);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
+    void testSetDrawCallback();
 };
 
 #endif /* TESTCRTFCHAR_H_ */

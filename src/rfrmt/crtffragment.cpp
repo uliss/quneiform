@@ -34,6 +34,7 @@
 #include "ced/cedline.h"
 #include "common/cifconfig.h"
 #include "common/debug.h"
+#include "common/tostring.h"
 #include "minmax.h"
 
 namespace CIF
@@ -46,6 +47,8 @@ const int PENALTY_FOR_SMALL_FONT_SIZE = 1;
 const int PENALTY_FOR_MEDIUM_FONT_SIZE = 2;
 const int PENALTY_FOR_BIG_FONT_SIZE = 4;
 const int DEFAULT_MAX_CHAR_DISTANCE = 10;
+
+RfrmtDrawFragmentFunction CRtfFragment::draw_func_;
 
 CRtfFragment::CRtfFragment() :
     parent_(NULL), left_border_(0), right_border_(0), max_char_distance_(0), flag_carry_(false),
@@ -194,6 +197,12 @@ void CRtfFragment::clearStrings() {
     for (StringIterator it = strings_.begin(), end = strings_.end(); it != end; ++it)
         delete *it;
     strings_.clear();
+}
+
+void CRtfFragment::drawLayout() const {
+    if (draw_func_.empty())
+        return;
+    draw_func_(this);
 }
 
 void CRtfFragment::correctParagraphIndents(StringIterator begin, StringIterator end) {
@@ -465,6 +474,10 @@ void CRtfFragment::processingUseNoneMode() {
         str->setRightIndent(0);
         str->setFirstIndent(0);
     }
+}
+
+void CRtfFragment::setDrawCallback(RfrmtDrawFragmentFunction f) {
+    draw_func_ = f;
 }
 
 void CRtfFragment::setInColumn(bool value) {
@@ -1481,11 +1494,11 @@ Rect CRtfFragment::rect() const {
 
 Rect CRtfFragment::realRect() const {
     Rect res;
-        res.rtop() = m_rectReal.top;
-        res.rleft() = m_rectReal.left;
-        res.rbottom() = m_rectReal.bottom;
-        res.rright() = m_rectReal.right;
-        return res;
+    res.rtop() = m_rectReal.top;
+    res.rleft() = m_rectReal.left;
+    res.rbottom() = m_rectReal.bottom;
+    res.rright() = m_rectReal.right;
+    return res;
 }
 
 }

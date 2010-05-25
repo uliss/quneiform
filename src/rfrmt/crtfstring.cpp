@@ -39,6 +39,8 @@ const int SMALLEST_FONT_SIZE = 3;
 const char SPACE = ' ';
 const unsigned char HYPHEN = '-';
 
+RfrmtDrawStringFunction CRtfString::draw_func_;
+
 CRtfString::CRtfString() :
     line_break_(false), paragraph_begin_(false), has_attributes_(false), equal_center_(false),
             equal_left_(false), equal_right_(false), first_indent_(0), left_indent_(0),
@@ -115,6 +117,11 @@ void CRtfString::clearWords() {
     for (WordIterator it = words_.begin(), e = words_.end(); it != e; ++it)
         delete (*it);
     words_.clear();
+}
+
+void CRtfString::drawLayout() const {
+    if (!draw_func_.empty())
+        draw_func_(this);
 }
 
 bool CRtfString::empty() const {
@@ -301,6 +308,10 @@ void CRtfString::setAlign(format_align_t align) {
 
 void CRtfString::setAttributes(bool value) {
     has_attributes_ = value;
+}
+
+void CRtfString::setDrawCallback(RfrmtDrawStringFunction f) {
+    draw_func_ = f;
 }
 
 void CRtfString::setEqualCenter(bool value) {

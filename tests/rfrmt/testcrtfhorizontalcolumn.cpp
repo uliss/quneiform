@@ -347,3 +347,38 @@ void TestCRtfHorizontalColumn::testFindHighestUnsortedColumnInGroup() {
     CPPUNIT_ASSERT(col.findHighestUnsortedColumnInGroup(group) == 2);
 }
 
+struct DrawHColumn
+{
+        int * i_;
+        DrawHColumn(int * i) :
+            i_(i) {
+        }
+        void operator()(const CRtfHorizontalColumn *) {
+            (*i_)++;
+        }
+};
+
+void TestCRtfHorizontalColumn::testSetDrawCallback() {
+    RfrmtDrawHColumnFunction f;
+    CRtfHorizontalColumn::setDrawCallback(f);
+
+    CRtfHorizontalColumn col;
+    col.drawLayout();
+
+    int call_count = 0;
+    f = DrawHColumn(&call_count);
+    CRtfHorizontalColumn::setDrawCallback(f);
+
+    CPPUNIT_ASSERT_EQUAL(0, call_count);
+    col.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(1, call_count);
+    col.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(2, call_count);
+
+    RfrmtDrawHColumnFunction null;
+    CRtfHorizontalColumn::setDrawCallback(null);
+
+    col.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(2, call_count);
+}
+

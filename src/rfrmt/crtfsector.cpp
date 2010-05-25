@@ -27,6 +27,8 @@
 namespace CIF
 {
 
+RfrmtDrawSectorFunction CRtfSector::draw_func_;
+
 CRtfSector::CRtfSector() {
     m_bFlagLine = FALSE;
     m_FlagOneString = FALSE;
@@ -57,6 +59,10 @@ size_t CRtfSector::columnCount() const {
     return hcols_.size();
 }
 
+void CRtfSector::setDrawCallback(RfrmtDrawSectorFunction f) {
+    draw_func_ = f;
+}
+
 void CRtfSector::setPage(CRtfPage * page) {
     page_ = page;
 }
@@ -67,7 +73,7 @@ void CRtfSector::calcSector() {
         hcol->calcHorizontalColumn();
 
         if (hcol->type() < CRtfHorizontalColumn::ALL_FRAME)
-            m_arHTerminalColumnsIndex.push_back(i);
+            terminal_col_idx_.push_back(i);
     }
 }
 
@@ -94,7 +100,7 @@ Bool CRtfSector::Write() {
     playout.h = -1;
     int align = TP_LEFT_ALLIGN;
     Handle hParagraph = CED_CreateParagraph(SectorInfo.hEDSector, SectorInfo.hColumn, align,
-            indent, SectorInfo.userNum, -1, interval, playout, -1, /*0*/-1, -1, -1, FALSE);
+            indent, SectorInfo.userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
 
     if (m_bFlagLine == TRUE) {
         CED_SetParaBorders(hParagraph, 0, 0, 0, 0, 1, 20, 0, 0, TRUE);
@@ -107,10 +113,10 @@ Bool CRtfSector::Write() {
 void CRtfSector::WriteTerminalColumnsTablesAndPictures() {
     int32_t CountHTerminalColumns, TerminalColumnNumber;
     CRtfHorizontalColumn *pRtfHorizontalColumn;
-    CountHTerminalColumns = m_arHTerminalColumnsIndex.size();
+    CountHTerminalColumns = terminal_col_idx_.size();
 
     for (int i = 0; i < CountHTerminalColumns; i++) {
-        TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
+        TerminalColumnNumber = terminal_col_idx_[i];
         pRtfHorizontalColumn = hcols_[TerminalColumnNumber];
         pRtfHorizontalColumn->setPage(page_);
         pRtfHorizontalColumn->writeTablesAndPictures(&SectorInfo);
@@ -118,7 +124,7 @@ void CRtfSector::WriteTerminalColumnsTablesAndPictures() {
 }
 
 void CRtfSector::WriteTerminalColumns() {
-    int CountHTerminalColumns = m_arHTerminalColumnsIndex.size();
+    int CountHTerminalColumns = terminal_col_idx_.size();
     m_VTerminalColumnNumber = 0;
     m_arRightBoundTerminalColumns.clear();
     m_arWidthTerminalColumns.clear();
@@ -127,7 +133,7 @@ void CRtfSector::WriteTerminalColumns() {
         int CountVTerminalColumns = GetCountAndRightBoundVTerminalColumns();
 
         for (int i = 0; i < CountHTerminalColumns; i++) {
-            int TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
+            int TerminalColumnNumber = terminal_col_idx_[i];
             CRtfHorizontalColumn * hcol = hcols_[TerminalColumnNumber];
             SectorInfo.VerticalOffsetColumnFromSector = (uint16_t) (hcol->m_rect.top - m_rect.top);
             hcol->setPage(page_);
@@ -141,10 +147,10 @@ int32_t CRtfSector::GetCountAndRightBoundVTerminalColumns(void) {
     int32_t CountHTerminalColumns, CountVTerminalColumns, TerminalColumnNumber;
     CRtfHorizontalColumn *pRtfHorizontalColumn;
     CountVTerminalColumns = 0;
-    CountHTerminalColumns = m_arHTerminalColumnsIndex.size();
+    CountHTerminalColumns = terminal_col_idx_.size();
 
     for (int i = 0; i < CountHTerminalColumns; i++) {
-        TerminalColumnNumber = m_arHTerminalColumnsIndex[i];
+        TerminalColumnNumber = terminal_col_idx_[i];
         pRtfHorizontalColumn = hcols_[TerminalColumnNumber];
         CountVTerminalColumns += pRtfHorizontalColumn->getCountAndRightBoundVTerminalColumns(
                 &m_arRightBoundTerminalColumns, &m_arWidthTerminalColumns);
@@ -212,8 +218,8 @@ void CRtfSector::FillingSectorInfo() //~ тут происходит работ�
     CRtfFragment *pRtfFragment;
     int CountVColumn, CountFragments;
 
-    if (!m_arHTerminalColumnsIndex.empty()) {
-        pRtfHorizontalColumn = hcols_[m_arHTerminalColumnsIndex[0]];
+    if (!terminal_col_idx_.empty()) {
+        pRtfHorizontalColumn = hcols_[terminal_col_idx_[0]];
 
         if (m_FlagOneString == FALSE)
             SectorInfo.Offset.rx() = MAX(pRtfHorizontalColumn->m_rect.left, 0);

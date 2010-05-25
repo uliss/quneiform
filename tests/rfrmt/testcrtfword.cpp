@@ -214,3 +214,37 @@ void TestCRtfWord::testCharTotalLength() {
     wd.lastChar()->setRealRect(rect);
     CPPUNIT_ASSERT_EQUAL(150, wd.charTotalLength());
 }
+
+struct DrawWord
+{
+        int * i_;
+        DrawWord(int * i) :
+            i_(i) {
+        }
+        void operator()(const CRtfWord *) {
+            (*i_)++;
+        }
+};
+
+void TestCRtfWord::testSetDrawCallback() {
+    RfrmtDrawWordFunction f;
+    CRtfWord::setDrawCallback(f);
+
+    CRtfWord w;
+    w.drawLayout();
+
+    int call_count = 0;
+    f = DrawWord(&call_count);
+    CRtfWord::setDrawCallback(f);
+
+    CPPUNIT_ASSERT_EQUAL(0, call_count);
+    w.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(1, call_count);
+    w.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(2, call_count);
+
+    RfrmtDrawWordFunction null;
+    CRtfWord::setDrawCallback(null);
+    w.drawLayout();
+    CPPUNIT_ASSERT_EQUAL(2, call_count);
+}

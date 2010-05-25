@@ -20,6 +20,7 @@
 #define CRTFCHAR_H_
 
 #include <vector>
+#include <boost/function.hpp>
 
 #include "globus.h"
 #include "cfcompat.h"
@@ -36,6 +37,9 @@ namespace CIF
 class CEDChar;
 class CEDLine;
 class CEDParagraph;
+class CRtfChar;
+
+typedef boost::function<void(const CRtfChar*)> RfrmtDrawCharFunction;
 
 class CLA_EXPO CRtfChar
 {
@@ -48,6 +52,12 @@ class CLA_EXPO CRtfChar
          * @throw std::out_of_range exception with number of versions exceeds RECT_MAX_VERS
          */
         void addVersion(const Letter& version);
+
+        /**
+         * Draws char bounding rects via previously set callbacks
+         * @see setDrawCallback()
+         */
+        void drawLayout() const;
 
         /**
          * Returns true if char contains no versions
@@ -162,7 +172,7 @@ class CLA_EXPO CRtfChar
         CEDChar * toCedChar(int font_name, int font_size, int font_style) const;
 
         /**
-         * Insertsdrop cap into CEDPage
+         * Inserts drop cap into CEDPage
          */
         CEDParagraph * insertCedDropCap(RtfSectorInfo * sector, int font_name, int font_size,
                 int font_style, bool negative) const;
@@ -193,6 +203,9 @@ class CLA_EXPO CRtfChar
         CEDChar * write(CEDLine * line) const;
     public:
         static CEDChar * makeCedSpace(int fontName, int fontSize, int fontAttrs);
+        static void setDrawCallback(RfrmtDrawCharFunction f);
+    private:
+        static RfrmtDrawCharFunction draw_func_;
     private:
         language_t language_;
         font_number font_number_;

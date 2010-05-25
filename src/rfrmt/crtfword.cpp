@@ -27,9 +27,13 @@
 
 #include "cpage/cpage.h"
 #include "common/helper.h"
+#include "common/debug.h"
+#include "common/tostring.h"
 
 namespace CIF
 {
+
+RfrmtDrawWordFunction CRtfWord::draw_func_;
 
 CRtfWord::CRtfWord() :
     font_number_(0), ideal_font_size_(0), real_font_size_(0), spelling_(false), probability_(0) {
@@ -112,6 +116,11 @@ void CRtfWord::clearChars() {
     for (CharList::iterator it = chars_.begin(), end = chars_.end(); it != end; ++it)
         delete *it;
     chars_.clear();
+}
+
+void CRtfWord::drawLayout() const {
+    if(!draw_func_.empty())
+        draw_func_(this);
 }
 
 bool CRtfWord::empty() const {
@@ -234,6 +243,10 @@ void CRtfWord::set(const std::string& str) {
     }
 }
 
+void CRtfWord::setDrawCallback(RfrmtDrawWordFunction f) {
+    draw_func_ = f;
+}
+
 void CRtfWord::setFontNumber(font_number number) {
     font_number_ = number;
 }
@@ -270,6 +283,9 @@ bool CRtfWord::isSpelled() const {
 }
 
 void CRtfWord::write(CEDLine * line) const {
+    //RfrmtOptions::draw(brect_);
+    //Debug() << brect_ << "\n";
+
     for (CharIteratorConst it = chars_.begin(), end = chars_.end(); it != end; ++it) {
         CEDChar * chr = (*it)->write(line);
         chr->setFontStyle(fontAttrs());

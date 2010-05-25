@@ -39,6 +39,7 @@ class TestCRtfFragment: public CppUnit::TestFixture
     CPPUNIT_TEST(testAdjustStringIndents);
     CPPUNIT_TEST(testCountEqualAlign);
     CPPUNIT_TEST(testCheckAlign);
+    CPPUNIT_TEST(testSetDrawCallback);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -56,6 +57,7 @@ public:
     void testAdjustStringIndents();
     void testCountEqualAlign();
     void testCheckAlign();
+    void testSetDrawCallback();
 };
 
 #endif /* TESTCRTFFRAGMENT_H_ */

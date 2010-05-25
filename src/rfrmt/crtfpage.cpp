@@ -53,6 +53,8 @@ extern char WriteRtfImageName[PATH_MAX];
 namespace CIF
 {
 
+RfrmtDrawPageFunction CRtfPage::draw_func_;
+
 CRtfPage::CRtfPage() {
     Count.RtfSectors = 0;
     Count.RtfTextFragments = 0;
@@ -75,6 +77,10 @@ CRtfPage::~CRtfPage() {
     for (std::vector<CRtfFragment*>::iterator it1 = m_arFragments.begin(); it1
             < m_arFragments.end(); it1++)
         delete *it1;
+}
+
+void CRtfPage::setDrawCallback(RfrmtDrawPageFunction f) {
+    draw_func_ = f;
 }
 
 void CRtfPage::setFragmentsInColumn(const CRtfFragment * cur_frag) {

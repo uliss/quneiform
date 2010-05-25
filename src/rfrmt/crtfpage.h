@@ -20,6 +20,7 @@
 #define CRTFPAGE_H_
 
 #include <vector>
+#include <boost/function.hpp>
 
 #include "cfcompat.h"
 #include "crtfstruct.h"
@@ -29,6 +30,9 @@ namespace CIF
 class CEDPage;
 class CRtfFragment;
 class CRtfSector;
+class CRtfPage;
+
+typedef boost::function<void(const CRtfPage*)> RfrmtDrawPageFunction;
 
 class CRtfPage
 {
@@ -96,6 +100,10 @@ class CRtfPage
         int m_nCurSectorNumber;
         int m_nPrevSectorNumber;
         CIF::CEDPage * m_hED;
+    public:
+        static void setDrawCallback(RfrmtDrawPageFunction f);
+    private:
+        static RfrmtDrawPageFunction draw_func_;
 };
 }
 

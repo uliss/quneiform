@@ -17,11 +17,36 @@
  ***************************************************************************/
 
 #include "rfrmtoptions.h"
+#include "creatertf.h"
 
 namespace CIF
 {
 
 unsigned int RfrmtOptions::format_mode_ = 0;
 bool RfrmtOptions::line_transfer_ = false;
+
+bool RfrmtOptions::useBold() {
+    return !hasFlag(NOBOLD);
+}
+
+bool RfrmtOptions::useFrames() {
+    return hasFlag(USE_FRAME);
+}
+
+bool RfrmtOptions::useFramesAndColumns() {
+    return hasFlag(USE_FRAME_AND_COLUMN);
+}
+
+bool RfrmtOptions::useItalic() {
+    return !hasFlag(NOCURSIV);
+}
+
+bool RfrmtOptions::useNone() {
+    return hasFlag(USE_NONE);
+}
+
+bool RfrmtOptions::useSize() {
+    return !hasFlag(NOSIZE);
+}
 
 }

@@ -101,20 +101,6 @@ enum fragment_t
 
 const int MAX_BUFFER_SIZE = 2048;
 
-// Formatting Mode
-enum format_mode_t
-{
-    // no formatting
-    USE_NONE = 0x0040,
-    // use columns & frames
-    USE_FRAME_AND_COLUMN = 0x0001,
-    // use only frames
-    USE_FRAME = 0x0002,
-    NOBOLD = 0x0004,
-    NOCURSIV = 0x0008,
-    NOSIZE = 0x0020
-};
-
 // Size A4
 const int DefaultWidthPage = 11906;
 const int DefaultHeightPage = 16838;

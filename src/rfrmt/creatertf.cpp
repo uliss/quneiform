@@ -69,7 +69,6 @@
 #include "globus.h"
 #include "sys_prog.h"
 #include "cpage/cpage.h"
-#include "lst3_win.h"
 #include "cfio/cfio.h"
 #include "ced/ced.h"
 #include "ced/cedpage.h"
@@ -154,7 +153,7 @@ Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree) {
     if (RtfWriteMode) // is activated ONLY in debug mode (нажать ??? в LDPUMA)
         Cleaning_LI_FRMT_Used_Flag(); //обнуление флажков, что линии между колонок
 
-    if (CIF::RfrmtOptions::hasFlag(USE_FRAME_AND_COLUMN)) {
+    if (CIF::RfrmtOptions::hasFlag(CIF::USE_FRAME_AND_COLUMN)) {
         if (!RtfPage.FindPageTree(fpFileNameIn, FileNameOut))
             return FALSE;
 

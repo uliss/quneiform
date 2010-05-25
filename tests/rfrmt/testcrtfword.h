@@ -36,6 +36,7 @@ class TestCRtfWord: public CppUnit::TestFixture
         CPPUNIT_TEST(testCharTotalLength);
         CPPUNIT_TEST(testSet);
         CPPUNIT_TEST(testEndsWith);
+        CPPUNIT_TEST(testSetDrawCallback);
         CPPUNIT_TEST_SUITE_END();
     public:
         void testInit();
@@ -50,6 +51,7 @@ class TestCRtfWord: public CppUnit::TestFixture
         void testStartsWith();
         void testSet();
         void testCharTotalLength();
+        void testSetDrawCallback();
 };
 
 #endif /* TESTPUMA_H_ */

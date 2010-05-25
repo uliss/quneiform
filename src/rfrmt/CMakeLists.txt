@@ -31,9 +31,11 @@ cif_visibility_hidden(cuneiform-rfrmt)
 set_property(TARGET cuneiform-rfrmt PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
 set(RFRMT_HEADER_INSTALL "rfrmt")
-install(FILES formatoptions.h DESTINATION include/${CF_HEADER_INSTALL}/${RFRMT_HEADER_INSTALL})
-
-
+install(FILES 
+    formatoptions.h 
+    rfrmtoptions.h
+    DESTINATION 
+    include/${CF_HEADER_INSTALL}/${RFRMT_HEADER_INSTALL})
 
 target_link_libraries(cuneiform-rfrmt
     cuneiform-compat

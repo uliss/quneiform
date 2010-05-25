@@ -23,9 +23,9 @@
 #include <iostream>
 #include <cstddef>
 
-#include "puma/pumadef.h"
 #include "lang_def.h"
 #include "globus.h"
+#include "puma/pumadef.h"
 #include "rdib/imageformats.h"
 
 namespace CIF

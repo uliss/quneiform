@@ -41,6 +41,7 @@ class TestCRtfString: public CppUnit::TestFixture
     CPPUNIT_TEST(testIsEndOfSentence);
     CPPUNIT_TEST(testHasChars);
     CPPUNIT_TEST(testHasBigSpace);
+    CPPUNIT_TEST(testSetDrawCallback);
     CPPUNIT_TEST_SUITE_END();
 public:
         void testBorders();
@@ -60,6 +61,7 @@ public:
         void testStartsWithDigit();
         void testStartWithDash();
         void testToString();
+        void testSetDrawCallback();
 };
 
 #endif /* TESTCRTFSTRING_H_ */

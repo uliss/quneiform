@@ -20,6 +20,7 @@
 #define CRTFSECTOR_H_
 
 #include <vector>
+#include <boost/function.hpp>
 
 #include "creatertf.h"
 #include "cfcompat.h"
@@ -29,6 +30,9 @@ namespace CIF
 
 class CRtfPage;
 class CRtfHorizontalColumn;
+class CRtfSector;
+
+typedef boost::function<void(const CRtfSector*)> RfrmtDrawSectorFunction;
 
 class CRtfSector
 {
@@ -66,7 +70,6 @@ class CRtfSector
         void ToPlacePicturesAndTables(CRtfFragment* Frament);
         void FillingSectorInfo();
 
-        VectorWord m_arHTerminalColumnsIndex;
         VectorWord m_arRightBoundTerminalColumns;
         VectorWord m_arWidthTerminalColumns;
         RtfSectorInfo SectorInfo;
@@ -77,12 +80,17 @@ class CRtfSector
         Bool m_FlagOneString;
         Bool m_bFlagLine;
         int32_t m_VTerminalColumnNumber;
+    public:
+        static void setDrawCallback(RfrmtDrawSectorFunction f);
+    private:
+        static RfrmtDrawSectorFunction draw_func_;
     private:
         typedef std::vector<CRtfHorizontalColumn*> HColumnList;
         typedef HColumnList::iterator iterator;
     private:
         CRtfPage * page_;
         HColumnList hcols_;
+        VectorWord terminal_col_idx_;
 
 };
 

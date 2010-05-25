@@ -21,6 +21,7 @@
 
 #include <vector>
 #include <boost/shared_ptr.hpp>
+#include <boost/function.hpp>
 
 #include "cfcompat.h"
 #include "common/histogram.h"
@@ -32,6 +33,9 @@ namespace CIF
 class CRtfPage;
 class CRtfVerticalColumn;
 class CRtfFragment;
+class CRtfHorizontalColumn;
+
+typedef boost::function<void(const CRtfHorizontalColumn*)> RfrmtDrawHColumnFunction;
 
 class CLA_EXPO CRtfHorizontalColumn
 {
@@ -76,6 +80,11 @@ class CLA_EXPO CRtfHorizontalColumn
         size_t columnCount() const;
 
         /**
+         * Draws column layout via callback function
+         */
+        void drawLayout() const;
+
+        /**
          * Sets pointer to parent page
          */
         void setPage(CRtfPage * page);
@@ -101,6 +110,10 @@ class CLA_EXPO CRtfHorizontalColumn
 
         RECT m_rect;
         RECT m_rectReal;
+    public:
+        static void setDrawCallback(RfrmtDrawHColumnFunction f);
+    private:
+        static RfrmtDrawHColumnFunction draw_func_;
     private:
         typedef std::vector<CRtfVerticalColumn*> VColumnList;
         typedef VColumnList::iterator VColumnIterator;

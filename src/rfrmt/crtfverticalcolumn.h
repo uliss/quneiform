@@ -20,6 +20,8 @@
 #define CRTFVERTICALCOLUMN_H_
 
 #include <vector>
+#include <boost/function.hpp>
+
 #include "globus.h"
 #include "cfcompat.h"
 #include "common/rect.h"
@@ -32,6 +34,9 @@ namespace CIF
 
 class CRtfPage;
 class CRtfFragment;
+class CRtfVerticalColumn;
+
+typedef boost::function<void(const CRtfVerticalColumn*)> RfrmtDrawVColumnFunction;
 
 class CLA_EXPO CRtfVerticalColumn
 {
@@ -48,6 +53,12 @@ class CLA_EXPO CRtfVerticalColumn
          * Removes all fragments from column
          */
         void clearFragments();
+
+        /**
+         * Draws column layout via callback function
+         * @see setDrawCallback()
+         */
+        void drawLayout() const;
 
         /**
          * Returns pointer to first fragment in column
@@ -87,6 +98,7 @@ class CLA_EXPO CRtfVerticalColumn
         const CRtfPage * page() const;
 
         int realHeight() const;
+        Rect realRect() const;
         int realWidth() const;
 
         /**
@@ -131,6 +143,10 @@ class CLA_EXPO CRtfVerticalColumn
 
         RECT m_rect;
         RECT m_rectReal;
+    public:
+        static void setDrawCallback(RfrmtDrawVColumnFunction f);
+    private:
+        static RfrmtDrawVColumnFunction draw_func_;
     private:
         typedef std::vector<CRtfFragment*> FragmentList;
         typedef FragmentList::iterator FragmentIterator;

@@ -133,6 +133,8 @@ Iterator findColumnWithMaxWidth(Iterator start, Iterator end, Pred condition) {
     return res;
 }
 
+RfrmtDrawHColumnFunction CRtfHorizontalColumn::draw_func_;
+
 CRtfHorizontalColumn::CRtfHorizontalColumn() :
     page_(NULL), type_(SINGLE_TERMINAL) {
     SetRect(&m_rect, 32000, 32000, 0, 0);
@@ -206,6 +208,15 @@ const CRtfVerticalColumn * CRtfHorizontalColumn::columnAt(size_t pos) const {
 
 size_t CRtfHorizontalColumn::columnCount() const {
     return vcols_.size();
+}
+
+void CRtfHorizontalColumn::drawLayout() const {
+    if(!draw_func_.empty())
+        draw_func_(this);
+}
+
+void CRtfHorizontalColumn::setDrawCallback(RfrmtDrawHColumnFunction f) {
+    draw_func_ = f;
 }
 
 void CRtfHorizontalColumn::setPage(CRtfPage * page) {

@@ -20,10 +20,13 @@
 #include "creatertf.h"
 #include "crtffragment.h"
 #include "crtfpage.h"
+#include "rfrmtoptions.h"
 #include "minmax.h"
 
 namespace CIF
 {
+
+RfrmtDrawVColumnFunction CRtfVerticalColumn::draw_func_;
 
 CRtfVerticalColumn::CRtfVerticalColumn() :
     page_(NULL), type_(FT_TEXT), small_(false), sorted_(false) {
@@ -44,6 +47,11 @@ void CRtfVerticalColumn::clearFragments() {
     }
 
     fragments_.clear();
+}
+
+void CRtfVerticalColumn::drawLayout() const {
+    if (!draw_func_.empty())
+        draw_func_(this);
 }
 
 CRtfFragment * CRtfVerticalColumn::firstFragment() {
@@ -86,8 +94,16 @@ int CRtfVerticalColumn::realHeight() const {
     return m_rectReal.bottom - m_rectReal.top;
 }
 
+Rect CRtfVerticalColumn::realRect() const {
+    return Rect(Point(m_rectReal.left, m_rectReal.top), Point(m_rectReal.right, m_rectReal.bottom));
+}
+
 int CRtfVerticalColumn::realWidth() const {
     return m_rectReal.right - m_rectReal.left;
+}
+
+void CRtfVerticalColumn::setDrawCallback(RfrmtDrawVColumnFunction f) {
+    draw_func_ = f;
 }
 
 void CRtfVerticalColumn::setPage(CRtfPage * page) {
@@ -132,6 +148,8 @@ void CRtfVerticalColumn::write(RtfSectorInfo * sector, fragment_output_t type) {
         fragm->setParent(page_);
         fragm->write(sector, type);
     }
+
+    //RfrmtOptions::draw(realRect());
 }
 
 void CRtfVerticalColumn::writeTablesAndPictures(RtfSectorInfo * SectorInfo, bool allTerminal) {

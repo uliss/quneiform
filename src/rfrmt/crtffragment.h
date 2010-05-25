@@ -21,6 +21,7 @@
 
 #include <vector>
 #include <iostream>
+#include <boost/function.hpp>
 
 #include "cfcompat.h"
 #include "font.h"
@@ -35,6 +36,9 @@ namespace CIF
 class CRtfPage;
 class CRtfString;
 class CEDParagraph;
+class CRtfFragment;
+
+typedef boost::function<void(const CRtfFragment*)> RfrmtDrawFragmentFunction;
 
 class CLA_EXPO CRtfFragment
 {
@@ -61,6 +65,11 @@ class CLA_EXPO CRtfFragment
          * Removes all string from fragment
          */
         void clearStrings();
+
+        /**
+         * Draws fragment layout via callback function
+         */
+        void drawLayout() const;
 
         /**
          * Returns pointer to first string in fragment
@@ -158,6 +167,10 @@ class CLA_EXPO CRtfFragment
         int32_t m_RightOffsetFragmentFromVerticalColumn;
         uint16_t m_wOffsetFromPrevTextFragment;
         int16_t m_WidthVerticalColumn;
+    public:
+        static void setDrawCallback(RfrmtDrawFragmentFunction f);
+    private:
+        static RfrmtDrawFragmentFunction draw_func_;
     private:
         typedef std::vector<CRtfString*> StringList;
         typedef StringList::iterator StringIterator;
