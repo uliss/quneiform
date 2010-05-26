@@ -79,6 +79,11 @@ CRtfPage::~CRtfPage() {
         delete *it1;
 }
 
+void CRtfPage::drawLayout() const {
+    if (!draw_func_.empty())
+        draw_func_(this);
+}
+
 void CRtfPage::setDrawCallback(RfrmtDrawPageFunction f) {
     draw_func_ = f;
 }
@@ -424,9 +429,7 @@ void CRtfPage::AddLines(void) {
                 RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &Rect);
                 RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &Rect);
             }
-        }
-
-        else
+        } else
         //      if( i < CountSectors )
         {
             pRtfSector = m_arSectors[i - 1];
@@ -466,7 +469,7 @@ void CRtfPage::SortUserNumber(void) {
         FlagChange = FALSE;
 
         for (j = 0; j < CountFragments; j++) {
-            pRtfFragment = (CRtfFragment*) m_arFragments[j];
+            pRtfFragment = m_arFragments[j];
 
             if (pRtfFragment->m_wUserNumber < MinUserNumber) {
                 MinUserNumber = pRtfFragment->m_wUserNumber;
@@ -476,14 +479,14 @@ void CRtfPage::SortUserNumber(void) {
         }
 
         if (FlagChange) {
-            pRtfFragment = (CRtfFragment*) m_arFragments[indexMinUserNumber];
+            pRtfFragment = m_arFragments[indexMinUserNumber];
             pRtfFragment->m_wUserNumber = 32000;
             mas[indexMinUserNumber] = i + 1;
         }
     }
 
     for (i = 0; i < CountFragments; i++) {
-        pRtfFragment = (CRtfFragment*) m_arFragments[i];
+        pRtfFragment = m_arFragments[i];
         pRtfFragment->m_wUserNumber = mas[i];
     }
 }
@@ -719,7 +722,7 @@ void CRtfPage::ChangeKegl(void) {
 
     // по частоте встречаемости выбираем преобразование из реал. в идеал. кегль
     for (int i = 0; i < CountTextFragments; i++) {
-        pRtfFragment = (CRtfFragment*) m_arFragments[i];
+        pRtfFragment = m_arFragments[i];
         CountStrings = pRtfFragment->stringCount();
 
         for (int ns = 0; ns < CountStrings; ns++) {
@@ -946,7 +949,7 @@ Bool CRtfPage::Write_USE_FRAME() {
     int16_t CountFragments = Count.RtfFrameTextFragments + Count.RtfTextFragments
             + Count.RtfTableFragments + Count.RtfPictureFragments;
     WriteSectorsHeader(0);
-    pRtfSector = (CRtfSector*) m_arSectors[0];
+    pRtfSector = m_arSectors[0];
     SectorInfo = &pRtfSector->SectorInfo;
     SectorInfo->Offset.set(0, 0);
     Put("\\pard\\fs6\\par");
@@ -970,7 +973,7 @@ Bool CRtfPage::Write_USE_FRAME() {
 #endif
 
     for (int16_t i = 0; i < CountFragments; i++) {
-        pRtfFragment = (CRtfFragment*) m_arFragments[i];
+        pRtfFragment = m_arFragments[i];
 
         if (pRtfFragment->type() == FT_TABLE) {
             InGroupNumber = i - (Count.RtfFrameTextFragments + Count.RtfTextFragments);
@@ -1298,7 +1301,6 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
     if (i > 0) //!!!Art
         pRtfSector->SectorInfo.Offset.ry() = m_arSectors[i - 1]->m_rectReal.bottom + m_arSectors[i
                 - 1]->SectorInfo.InterSectorDist;//!!!Art
-
     else
         //!!!Art
         pRtfSector->SectorInfo.Offset.ry() = pRtfSector->m_rectReal.top;
@@ -1315,14 +1317,11 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
         if (CountHTerminalColumns) {
             if (pRtfSector->m_FlagOneString == FALSE)
                 MargL = pRtfSector->m_arRightBoundTerminalColumns[0];
-
             else {
                 MargL = MIN(InitMargL, pRtfSector->m_arRightBoundTerminalColumns[0]);
                 pRtfSector->SectorInfo.FlagOneString = TRUE;
             }
-        }
-
-        else
+        } else
             MargL = MAX(pRtfSector->m_rectReal.left, 0);
     }
 
@@ -1333,15 +1332,12 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
             if (pRtfSector->m_FlagOneString == FALSE)
                 MargR = PaperW - (pRtfSector->m_arRightBoundTerminalColumns[CountHTerminalColumns
                         - 1] + pRtfSector->m_arWidthTerminalColumns[CountHTerminalColumns - 1]);
-
             else
                 MargR
                         = MIN(InitMargR, PaperW
                                 - (pRtfSector->m_arRightBoundTerminalColumns[CountHTerminalColumns - 1]
                                         + pRtfSector->m_arWidthTerminalColumns[CountHTerminalColumns - 1]));
-        }
-
-        else
+        } else
             MargR = PaperW - pRtfSector->m_rectReal.right;
     }
 
@@ -1367,7 +1363,6 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
 
     if (RfrmtOptions::useFramesAndColumns())
         pRtfSector->SectorInfo.userNum = -1;
-
     else
         CountHTerminalColumns = 0;
 
@@ -1392,16 +1387,13 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
     for (j = 0; j < CountHTerminalColumns; j++) {
         if (RfrmtOptions::useFramesAndColumns() && pRtfSector->SectorInfo.FlagOneString == TRUE)
             pEDColumn->width = PaperW - (MargL + MargR);
-
         else
             pEDColumn->width = pRtfSector->m_arWidthTerminalColumns[j];
 
         if (j < CountHTerminalColumns - 1) {
             pEDColumn->space = pRtfSector->m_arRightBoundTerminalColumns[j + 1]
                     - (pRtfSector->m_arRightBoundTerminalColumns[j] + pEDColumn->width);
-        }
-
-        else
+        } else
             pEDColumn->space = 0;
 
         pEDColumn++;
@@ -1432,7 +1424,7 @@ int16_t CRtfPage::GetFlagAndNumberFragment(uchar* FragmentType, int16_t* InGroup
     CountTTP = CountTT + Count.RtfPictureFragments;
 
     for (j = 0; j < CountTTP; j++) {
-        pRtfFragment = (CRtfFragment*) m_arFragments[j];
+        pRtfFragment = m_arFragments[j];
 
         if ((uint32_t) (i + 1) == pRtfFragment->m_wUserNumber) {
             i = j;
@@ -1443,15 +1435,11 @@ int16_t CRtfPage::GetFlagAndNumberFragment(uchar* FragmentType, int16_t* InGroup
     if (i < CountT) {
         *InGroupNumber = i;
         *FragmentType = FT_TEXT;
-    }
-
-    else {
+    } else {
         if (i < CountTT) {
             *InGroupNumber = i - CountT;
             *FragmentType = FT_TABLE;
-        }
-
-        else {
+        } else {
             *InGroupNumber = i - CountTT;
             *FragmentType = FT_PICTURE;
         }

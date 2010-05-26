@@ -40,6 +40,11 @@ class CRtfPage
         CRtfPage();
         ~CRtfPage();
 
+        /**
+         * Draws page layout via callback
+         */
+        void drawLayout() const;
+
         void setFragmentsInColumn(const CRtfFragment * cur_fragm);
 
         void CRtfPageDelFragments(void);

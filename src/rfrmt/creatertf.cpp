@@ -158,9 +158,7 @@ Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree) {
             return FALSE;
 
         RtfPage.SetTwips();
-    }
-
-    else {
+    } else {
         if (!RtfPage.ReadInternalFile(fpFileNameIn))
             return FALSE;
 

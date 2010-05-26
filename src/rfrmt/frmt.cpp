@@ -355,7 +355,6 @@ Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code) {
 
     if (!LDPUMA_Skip(hDebugAlign))
         FlagDebugAlign = TRUE;
-
     else
         FlagDebugAlign = FALSE;
 
