@@ -50,7 +50,6 @@ class CRtfPage
         void CRtfPageDelFragments(void);
         CRtfFragment* GetNextFragment();
         Bool ReadInternalFile(FILE *FileNameIn);
-        Bool OpenOutputFile(const char* FileNameOut);
         void CloseOutputFile(void);
         void SetTwips(void);
         Bool FindPageTree(FILE *FileNameIn, const char* FileNameOut);

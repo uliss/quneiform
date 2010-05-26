@@ -98,17 +98,7 @@ void CRtfPage::setFragmentsInColumn(const CRtfFragment * cur_frag) {
             frag->setInColumn(true);
     }
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 Rtf_CED_CreatePage                                             //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfPage::Rtf_CED_CreatePage(void) {
-    if (RtfWriteMode)
-        return;
-
-#ifdef EdWrite
-    using namespace CIF;
-
+void CRtfPage::Rtf_CED_CreatePage() {
     m_hED = new CEDPage;
     m_hED->setImageName(WriteRtfImageName);
     m_hED->setUnrecognizedChar(UnRecogSymbol);
@@ -128,41 +118,14 @@ void CRtfPage::Rtf_CED_CreatePage(void) {
     m_hED->setTurn(PageInfo.Incline2048);
     m_hED->setImageSize(Size(PageInfo.Width, PageInfo.Height));
     m_hED->setImageDpi(Size(PageInfo.DPIX, PageInfo.DPIY));
-    m_hED->setResizeToFit(!CIF::RfrmtOptions::useNone());
-#endif
+    m_hED->setResizeToFit(!RfrmtOptions::useNone());
 }
 
 void CRtfPage::Rtf_CED_WriteFormattedEd(const char* RtfFileName, CEDPage** hEdTree) {
-    char lpEdFileName[CFIO_MAX_PATH];
-    char lpEdTestFileName[CFIO_MAX_PATH];
-
-    if (RtfWriteMode) {
-        return;
-        strcpy((char*) lpEdFileName, RtfFileName);
-        strncpy((char*) lpEdFileName + strlen((char*) lpEdFileName) - 3, "fed", 3);
-        strcpy((char*) lpEdTestFileName, RtfFileName);
-        strncpy((char*) lpEdTestFileName + strlen((char*) lpEdTestFileName) - 3, "txt", 3);
-        CED_WriteFormattedEd((char*) lpEdFileName, m_hED);
-        delete m_hED;
-    } else
-        *hEdTree = m_hED;
+    *hEdTree = m_hED;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 CRtfPageDelFragments                                           //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfPage::CRtfPageDelFragments(void) {
-    /* CRtfFragment* cFrag;
-     uint32_t wCount, i;
-
-     wCount = m_arFragments.GetSize();
-     for( i=0; i<wCount; i++)
-     {
-     cFrag = (CRtfFragment*)m_arFragments[i];
-     delete cFrag;
-     }
-     m_arFragments.RemoveAll();
-     */
+void CRtfPage::CRtfPageDelFragments() {
     for (std::vector<CRtfFragment*>::iterator it1 = m_arFragments.begin(); it1
             < m_arFragments.end(); it1++)
         delete *it1;
@@ -170,46 +133,12 @@ void CRtfPage::CRtfPageDelFragments(void) {
     m_arFragments.clear();
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 GetNextFragment                                                //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 CRtfFragment* CRtfPage::GetNextFragment() {
     m_arFragments.push_back(new CRtfFragment());
     return m_arFragments.back();
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 OpenOutputFile                                                 //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-Bool CRtfPage::OpenOutputFile(const char* FileNameOut) {
-#ifdef _DEBUG
-    int Count = 0;
-
-    while (TRUE) {
-        if ((out = fopen(FileNameOut, "w")) == NULL) {
-            CIF::Debug() << "Can not open RTF file.\nPlease close file.\n";
-        }
-
-        else {
-            Count = 0;
-        }
-
-        if (Count++ > 10)
-        return FALSE;
-    }
-
-#else
-
-    if ((out = fopen(FileNameOut, "w")) == NULL)
-        return FALSE;
-
-#endif
-    return TRUE;
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 CloseOutputFile                                                //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfPage::CloseOutputFile(void) {
+void CRtfPage::CloseOutputFile() {
     fclose(out);
 }
 
@@ -233,9 +162,6 @@ Bool CRtfPage::ReadInternalFile(FILE *fpFileNameIn) {
     return FALSE;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 ReadInternalFileRelease                                        //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
     CRtfFragment* pRtfFragment;
     CRtfString* pRtfString;
@@ -342,41 +268,29 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
     return TRUE;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 SetTwips                                                       //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfPage::SetTwips(void) {
     m_fTwips = getTwips();
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 AddTables                                                      //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-/*void CRtfPage::AddTables(void)
- {
- CRtfFragment* pRtfFragment;
- Rect16  RectPict;
+void CRtfPage::AddTables() {
+    //    CRtfFragment * pRtfFragment;
+    //    Rect16 RectPict;
+    //
+    //    Count.RtfTableFragments = (uint16_t) CountTable;
+    //    for (uint32_t i = 0; i < (int) CountTable; i++) {
+    //        pRtfFragment = GetNextFragment();
+    //        GetTableRect(i, &RectPict, (uint32_t*) &pRtfFragment->m_wUserNumber);
+    //        RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectPict);
+    //        RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, CIF::getTwips());
+    //        pRtfFragment->type_ = FT_TABLE;
+    //        if (FlagMode & USE_FRAME_AND_COLUMN) {
+    //            pRtfFragment->m_wUserNumberForFormattedMode = pRtfFragment->m_wUserNumber;
+    //            pRtfFragment->m_wUserNumber = i;
+    //        }
+    //    }
+}
 
- Count.RtfTableFragments = (uint16_t)CountTable;
- for(uint32_t i=0; i < (int)CountTable; i++ )
- {
- pRtfFragment = GetNextFragment();
- GetTableRect( i, &RectPict, (uint32_t*)&pRtfFragment->m_wUserNumber );
- RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectPict);
- RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, CIF::getTwips());
- pRtfFragment->type_ = FT_TABLE;
- if(FlagMode & USE_FRAME_AND_COLUMN)
- {
- pRtfFragment->m_wUserNumberForFormattedMode = pRtfFragment->m_wUserNumber;
- pRtfFragment->m_wUserNumber = i;
- }
- }
- }*/
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 AddPictures                                                    //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfPage::AddPictures(void) {
+void CRtfPage::AddPictures() {
     CRtfFragment* pRtfFragment;
     ::Rect16 RectPict;
     Count.RtfPictureFragments = (uint16_t) CountPict;
@@ -395,10 +309,7 @@ void CRtfPage::AddPictures(void) {
     }
 }
 //~ поиск межсекторных H_lines & межколонных V-Lines
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 AddLines                                                      //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfPage::AddLines(void) {
+void CRtfPage::AddLines() {
     CRtfSector* pRtfSector;
     CRtfSector* pRtfNextSector;
     RECT Rect;
@@ -488,9 +399,6 @@ void CRtfPage::SortUserNumber(void) {
 //Секторы на горизантальные колонки
 //Горизантальные колонки на вертикальные колонки
 //Определение терминальности вертикальных колонок
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 FindPageTree                                                   //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool CRtfPage::FindPageTree(FILE *fpFileNameIn, const char* FileNameOut) {
     return PageTree(fpFileNameIn, this, FileNameOut);
 }
@@ -515,9 +423,7 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
 
         PaperW = MAX(DefaultWidthPage, (int32_t)(Width/** CIF::getTwips()*/) + MargL + MargR);
         PaperH = DefaultHeightPage;
-    }
-
-    else if (RfrmtOptions::useFrames() || FlagBadColumn) {// Все фрагменты фреймы
+    } else if (RfrmtOptions::useFrames() || FlagBadColumn) {// Все фрагменты фреймы
         m_arSectors.push_back(new CRtfSector());
         pRtfSector = m_arSectors.back();
 
@@ -539,9 +445,7 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
         InitMargR = MargR;
         InitMargT = MargT;
         InitMargB = MargB;
-    }
-
-    else {// Фрагменты отписываются после изучения структуры страницы
+    } else {// Фрагменты отписываются после изучения структуры страницы
         for (std::vector<CRtfFragment*>::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
                 < m_arFragments.end(); ppRtfFragment++) {
             LeftPos = MIN(LeftPos, (int16_t)(*ppRtfFragment)->m_rect.left);
@@ -587,9 +491,7 @@ void CRtfPage::SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, i
                 if ((BottomPos + 2 * (MasMargT[i] + MasMargB[i])) >= HeightPage[j]) {
                     *MargT = MasMargT[3];
                     *MargB = MasMargB[3];
-                }
-
-                else {
+                } else {
                     *MargT = MasMargT[i];
                     *MargB = MasMargB[i];
                 }
@@ -609,9 +511,7 @@ void CRtfPage::SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, i
                 if ((BottomPos + 2 * (MasMargT[i] + MasMargB[i])) >= WidthPage[j]) {
                     *MargT = MasMargT[3];
                     *MargB = MasMargB[3];
-                }
-
-                else {
+                } else {
                     *MargT = MasMargT[i];
                     *MargB = MasMargB[i];
                 }
@@ -700,9 +600,6 @@ void CRtfPage::CorrectKegl(void) {
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 ChangeKegl                                                     //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfPage::ChangeKegl(void) {
     CRtfFragment* pRtfFragment;
     CRtfString* pRtfString;
@@ -726,7 +623,6 @@ void CRtfPage::ChangeKegl(void) {
 
                 if (CountStrings == 1)
                     pRtfWord->setRealFontSize(GetMinKegl(pRtfWord->idealFontSize()));
-
                 else
                     pRtfWord->setRealFontSize(GetNewKegl(pRtfWord->idealFontSize()));
             }
@@ -734,9 +630,6 @@ void CRtfPage::ChangeKegl(void) {
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 AddNewKegl                                                     //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfPage::AddNewKegl(int16_t OldKegl, int16_t NewKegl) {
     KEGL tmp;
 
@@ -753,9 +646,6 @@ void CRtfPage::AddNewKegl(int16_t OldKegl, int16_t NewKegl) {
     arKegls.push_back(tmp);
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 GetNewKegl                                                     //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 int16_t CRtfPage::GetNewKegl(int16_t OldKegl) {
     int16_t FlagChange = 0, Count = 0, tmpKegl, FlagPenalty = 1;
 
@@ -767,9 +657,7 @@ int16_t CRtfPage::GetNewKegl(int16_t OldKegl) {
                     Count = kegl->Count;
                     tmpKegl = kegl->NewKegl;
                 }
-            }
-
-            else {
+            } else {
                 FlagChange = 1;
                 tmpKegl = MIN(kegl->NewKegl, OldKegl);
             }
@@ -782,9 +670,8 @@ int16_t CRtfPage::GetNewKegl(int16_t OldKegl) {
                 if ((__kegl->Count > (Count / 4)) && __kegl->NewKegl < tmpKegl) {
                     tmpKegl = __kegl->NewKegl;
                     FlagPenalty = 0;
-                }
-
-                else if (FlagPenalty && (__kegl->Count > (Count / 10)) && __kegl->NewKegl < tmpKegl) {
+                } else if (FlagPenalty && (__kegl->Count > (Count / 10)) && __kegl->NewKegl
+                        < tmpKegl) {
                     tmpKegl--;
                     tmpKegl = MAX(tmpKegl, 4);
                 }
@@ -798,9 +685,6 @@ int16_t CRtfPage::GetNewKegl(int16_t OldKegl) {
     return OldKegl;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 GetMinKegl                                                     //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 int16_t CRtfPage::GetMinKegl(int16_t OldKegl) {
     int16_t FlagChange = 0, tmpKegl = 72;
 
@@ -817,54 +701,27 @@ int16_t CRtfPage::GetMinKegl(int16_t OldKegl) {
     return OldKegl;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 Write                                                          //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool CRtfPage::Write(const char *FileNameOut) {
-    if (RtfWriteMode) {
-        if (!OpenOutputFile(FileNameOut))
-            return FALSE;
-    }
-
     if (RfrmtOptions::useNone()) { // Фрагменты отписываются по пользовательским номерам
         ReCalcPageWidthAndHeight();
-#ifdef EdWrite
-
-        if (!RtfWriteMode)
-            Rtf_CED_CreatePage();
-
-#endif
+        Rtf_CED_CreatePage();
 
         if (!WriteHeaderRtf())
             return FALSE;
 
         Write_USE_NONE();
-    }
-
-    else if (RfrmtOptions::useFrames() || FlagBadColumn) { // Все фрагменты фреймы
+    } else if (RfrmtOptions::useFrames() || FlagBadColumn) { // Все фрагменты фреймы
         ReCalcPageWidthAndHeight();
-#ifdef EdWrite
-
-        if (!RtfWriteMode)
-            Rtf_CED_CreatePage();
-
-#endif
+        Rtf_CED_CreatePage();
 
         if (!WriteHeaderRtf())
             return FALSE;
 
         Write_USE_FRAME();
-    }
-
-    else {
+    } else {
         ToPlacePicturesAndTables();
         ReCalcPageWidthAndHeight();
-#ifdef EdWrite
-
-        if (!RtfWriteMode)
-            Rtf_CED_CreatePage();
-
-#endif
+        Rtf_CED_CreatePage();
 
         if (!WriteHeaderRtf())
             return FALSE;
@@ -873,16 +730,10 @@ Bool CRtfPage::Write(const char *FileNameOut) {
         Write_USE_FRAME_AND_COLUMN(); // Фрагменты отписываются после изучения структуры страницы
     }
 
-    if (RtfWriteMode)
-        CloseOutputFile();
-
     return TRUE;
 }
 
 // Фрагменты отписываются по пользовательским номерам
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 Write_USE_NONE                                                 //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool CRtfPage::Write_USE_NONE() {
     int16_t NumberCurrentFragment, InGroupNumber;
     uchar FragmentType;
@@ -900,54 +751,42 @@ Bool CRtfPage::Write_USE_NONE() {
         pRtfSector->SectorInfo.userNum = NumberCurrentFragment;
         pRtfSector->m_VTerminalColumnNumber = 1;
         WriteSectorsHeader(i);
-        pRtfFragment = (CRtfFragment*) m_arFragments[NumberCurrentFragment];
+        pRtfFragment = m_arFragments[NumberCurrentFragment];
 
         if (FragmentType == FT_TABLE) {
             //pRtfFragment->FWriteTable(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
         } else if (FragmentType == FT_PICTURE) {
             pRtfFragment->FWritePicture(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
         } else {
-            PutCom("\\cols", 1, 0);
-            PutCom("\\colno", 1, 0);
-            PutCom("\\colw", PaperW, 0);
             pRtfFragment->setParent(this);
             pRtfFragment->writeText(&pRtfSector->SectorInfo);
         }
     }
 
-    Put("}");
-    PutChar(1);
     return TRUE;
 }
 
 // Все фрагменты фреймы
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 Write_USE_FRAME                                                //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool CRtfPage::Write_USE_FRAME() {
     int16_t InGroupNumber;
     CRtfFragment* pRtfFragment;
     RtfSectorInfo* SectorInfo;
     CRtfSector *pRtfSector;
     int32_t shpleft, shptop, shpright, shpbottom;
-#ifdef EdWrite
     EDBOX EdFragmRect;
     Handle hParagraph = NULL;
     int align;
     CIF::Rect indent;
     EDSIZE interval;
     EDBOX playout;
-#endif
     int16_t CountFragments = Count.RtfFrameTextFragments + Count.RtfTextFragments
             + Count.RtfTableFragments + Count.RtfPictureFragments;
     WriteSectorsHeader(0);
     pRtfSector = m_arSectors[0];
     SectorInfo = &pRtfSector->SectorInfo;
     SectorInfo->Offset.set(0, 0);
-    Put("\\pard\\fs6\\par");
-#ifdef EdWrite
 
-    if (!RtfWriteMode && CountFragments) {
+    if (CountFragments) {
         indent = CIF::Rect();
         interval.cx = 0;
         interval.cy = 0;
@@ -958,11 +797,9 @@ Bool CRtfPage::Write_USE_FRAME() {
         align = TP_LEFT_ALLIGN;
         hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, align, indent,
                 SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-        CIF::CEDLine * hString = new CIF::CEDLine(false, 6);
-        ((CIF::CEDParagraph*) hParagraph)->insertLine(hString);
+        CEDLine * hString = new CEDLine(false, 6);
+        ((CEDParagraph*) hParagraph)->insertLine(hString);
     }
-
-#endif
 
     for (int16_t i = 0; i < CountFragments; i++) {
         pRtfFragment = m_arFragments[i];
@@ -975,45 +812,28 @@ Bool CRtfPage::Write_USE_FRAME() {
                     + Count.RtfTableFragments);
             pRtfFragment->FWritePicture(InGroupNumber, SectorInfo, FOT_FRAME);
         } else {
-            Put("{\\pard\\plain\\slmult1\\nowidctlpar\\pvpage");
             shpleft = pRtfFragment->m_rect.left;
-            PutCom("\\posx", shpleft, 0);
             shptop = pRtfFragment->m_rect.top;
-            PutCom("\\posy", shptop, 0);
             shpbottom = pRtfFragment->m_rect.bottom - pRtfFragment->m_rect.top;
-            PutCom("\\absh", shpbottom, 0);
             shpright = pRtfFragment->m_rect.right - pRtfFragment->m_rect.left;
-            PutCom("\\absw", shpright, 0);
-            Put("\\abslock1");
-            Put("\\dxfrtext86\\dfrmtxtx86\\dfrmtxty43\\adjustright");
-#ifdef EdWrite
 
-            if (!RtfWriteMode) {
-                EdFragmRect.x = pRtfFragment->m_rect.left;
-                EdFragmRect.w = pRtfFragment->m_rect.right - pRtfFragment->m_rect.left;
-                EdFragmRect.y = pRtfFragment->m_rect.top;
-                EdFragmRect.h = pRtfFragment->m_rect.bottom - pRtfFragment->m_rect.top;
-                SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
-                        EdFragmRect, 0x22, -1, 86, 43);
-            }
+            EdFragmRect.x = pRtfFragment->m_rect.left;
+            EdFragmRect.w = pRtfFragment->m_rect.right - pRtfFragment->m_rect.left;
+            EdFragmRect.y = pRtfFragment->m_rect.top;
+            EdFragmRect.h = pRtfFragment->m_rect.bottom - pRtfFragment->m_rect.top;
+            SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
+                    EdFragmRect, 0x22, -1, 86, 43);
 
-#endif
             SectorInfo->FlagOverLayed = FALSE;
             pRtfFragment->setParent(this);
             pRtfFragment->writeText(SectorInfo);
-            Put("}");
         }
     }
 
-    Put("}");
-    PutChar(1);
     return TRUE;
 }
-//табл. помещаются в существующие сектора как frame (м.б.изменение размера колонки) или создаются для них новые сектора(терминал.колонка)
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 ToPlacePicturesAndTables                                       //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//табл. помещаются в существующие сектора как frame (м.б.изменение размера колонки)
+// или создаются для них новые сектора(терминал.колонка)
 void CRtfPage::ToPlacePicturesAndTables(void) {
     CRtfSector* pRtfSector;
     int j, CountSectors;
@@ -1054,9 +874,7 @@ void CRtfPage::ToPlacePicturesAndTables(void) {
                     RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &(*ppRtfFragment)->m_rect);
                     pRtfSector->ToPlacePicturesAndTables((*ppRtfFragment));
                     break;
-                }
-
-                else {//картина или таблица внутри сектора: добавляетс
+                } else {//картина или таблица внутри сектора: добавляетс
                     if (((*ppRtfFragment)->m_rect.top < pRtfSector->m_rectReal.top
                             && (*ppRtfFragment)->m_rect.bottom > pRtfSector->m_rectReal.top)
                             || ((*ppRtfFragment)->m_rect.top >= pRtfSector->m_rectReal.top
@@ -1071,9 +889,6 @@ void CRtfPage::ToPlacePicturesAndTables(void) {
 }
 
 // Фрагменты отписываются после изучения структуры страницы
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 Write_USE_FRAME_AND_COLUMN                                     //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool CRtfPage::Write_USE_FRAME_AND_COLUMN() {
     int i;
     CRtfSector* pRtfSector;
@@ -1101,16 +916,10 @@ Bool CRtfPage::Write_USE_FRAME_AND_COLUMN() {
         pRtfSector->Write();
     }
 
-    Put("}");
-    PutChar(1);
     return TRUE;
 }
 
 // чтобы дать больший, чем default, вертикальный offset of the section
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                       GetFreeSpaceBetweenSectors                                               //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 uint16_t CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector) {
     CRtfFragment *pRtfFragment;
     RECT FreePlace;
@@ -1143,25 +952,15 @@ uint16_t CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector
     return (uint16_t) FreePlaceHeight;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 WriteHeaderRtf                                                 //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 Bool CRtfPage::WriteHeaderRtf(void) {
     int16_t NumFont = 4, i;
     uint16_t cr = 13/*0x0d*/, lf = 10/*0x0a*/;
     const char *TitleRtf = "\\rtf1\\ansi\\deff0\\deflang1024";
     char Eol[3], Nname[260];
-#ifdef EdWrite
     uchar fontPitchAndFamily;
-#endif
     Eol[0] = (char) cr;
     Eol[1] = (char) lf;
     Eol[2] = 0;
-    PutChar(0); //Clear buffer
-    Put("{");
-    Put(TitleRtf);
-    Put(" ");
-    Put(Eol);
     //--WRITE Font Table--
     FONT *Font;
     FONT_COD FontCod[12] = { "Arial Cyr", "fswiss", // NonSerif
@@ -1202,21 +1001,7 @@ Bool CRtfPage::WriteHeaderRtf(void) {
         Font[i].Underline = 0;
     }
 
-    Put("{\\fonttbl");
-    Put(Eol);
-
     for (i = 0; i < NumFont; ++i) {
-        Put("{");
-        PutCom("\\f", i, 0);
-        Put("\\");
-        Put(Font[i].family);
-        PutCom("\\fcharset", Frmt_CharSet, 0);
-        Put(" ");
-        Put(Font[i].name);
-        Put(";}");
-        Put(Eol);
-#ifdef EdWrite
-
         switch (i) {
         case 0:
             fontPitchAndFamily = FF_SWISS;
@@ -1232,18 +1017,8 @@ Bool CRtfPage::WriteHeaderRtf(void) {
             break;
         }
 
-        if (!RtfWriteMode)
-            CED_CreateFont(m_hED, (uchar) i, fontPitchAndFamily, (uchar) Frmt_CharSet, Font[i].name);
-
-#endif
+        CED_CreateFont(m_hED, (uchar) i, fontPitchAndFamily, (uchar) Frmt_CharSet, Font[i].name);
     }
-
-    Put("}");
-    Put(Eol);
-    Put("{\\info");
-    Put("{\\title WinTiger}");
-    Put("}");
-    Put(Eol);
 
     for (i = 0; i < NumFont; ++i) {
         free(Font[i].family);
@@ -1251,43 +1026,17 @@ Bool CRtfPage::WriteHeaderRtf(void) {
     }
 
     free(Font);
-    //WRITE IMAGE INFORMATION
-    Put("{\\*\\imagename \"");
-    strcpy(Nname, (const char*) WriteRtfImageName);
-    Put(Nname);
-    Put("\" \\imagepage");
-    strcpy(Nname, (const char*) WriteRtfPageNumber);
-    Put(Nname);
-    Put(";}");
     return TRUE;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 WriteSectorsHeader                                             //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 void CRtfPage::WriteSectorsHeader(int16_t i) {
     CRtfSector *pRtfSector;
     int CountHTerminalColumns;
-#ifdef EdWrite
     int j;
     int EDCountHTerminalColumns;
     CIF::Rect border;
     EDCOL *pEDColumnFirst, *pEDColumn;
-#endif
 
-    if (i)
-        Put("\\sect");
-
-    Put("\\sectd ");
-
-    if (!i)
-        Put("\\sbkpage");
-
-    if (i)
-        Put("\\sbknone");
-
-    PutCom("\\paperw", PaperW, 0);
-    PutCom("\\paperh", PaperH, 0);
     pRtfSector = m_arSectors[i];
 
     if (i > 0) //!!!Art
@@ -1317,8 +1066,6 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
             MargL = MAX(pRtfSector->m_rectReal.left, 0);
     }
 
-    PutCom("\\margl", MargL, 0);
-
     if (RfrmtOptions::useFramesAndColumns() && pRtfSector->m_bFlagLine == FALSE) {
         if (CountHTerminalColumns) {
             if (pRtfSector->m_FlagOneString == FALSE)
@@ -1333,21 +1080,10 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
             MargR = PaperW - pRtfSector->m_rectReal.right;
     }
 
-    PutCom("\\margr", MargR, 0);
-    PutCom("\\margt", MargT, 0);
-    PutCom("\\margb", MargB, 0);
-
-    if (!CountHTerminalColumns && !(RfrmtOptions::useNone()))
-        Put("\\pard\\fs6\\par");
-
     pRtfSector->SectorInfo.Offset.rx() = MargL;
     pRtfSector->SectorInfo.MargL = MargL;
     pRtfSector->SectorInfo.MargR = MargR;
 
-    if (RtfWriteMode)
-        return;
-
-#ifdef EdWrite
     border.setLeft(MargL);
     border.setTop(MargT);
     border.setRight(MargR);
@@ -1399,13 +1135,9 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
     pRtfSector->SectorInfo.hColumn = pRtfSector->SectorInfo.hFirstColumn;
     pRtfSector->SectorInfo.hObject = pRtfSector->SectorInfo.hFirstColumn;
     free(pEDColumnFirst);
-#endif
 }
 
 //Ишется следуюший фрагмент по пользовательскому номеру
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 GetFlagAndNumberFragment                                       //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 int16_t CRtfPage::GetFlagAndNumberFragment(uchar* FragmentType, int16_t* InGroupNumber) {
     int16_t j, i, CountT, CountTT, CountTTP;
     CRtfFragment* pRtfFragment;

@@ -66,6 +66,5 @@ class CEDPage;
 
 RFRMT_FUNC void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts);
 RFRMT_FUNC Bool RFRMT_Formatter(const char * InputFileName, CIF::CEDPage** page);
-RFRMT_FUNC Bool32 RFRMT_SaveRtf(const char * OutputFileName, uint32_t code);
 
 #endif

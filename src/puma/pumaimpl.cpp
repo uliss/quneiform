@@ -290,14 +290,6 @@ void PumaImpl::formatResult() {
 
     if (!RFRMT_Formatter(input_filename_.c_str(), &ed_page_))
         throw PumaException("RFRMT_Formatter failed");
-
-    if (Config::instance().debugDump()) {
-        std::string fname(input_filename_ + "_tmp_.rtf");
-        RFRMT_SetFormatOptions(format_options_);
-        RFRMT_SaveRtf(fname.c_str(), 8);
-        // fname = input_filename_ + "_tmp_.fed";
-        // save(fname.c_str(), FORMAT_EDNATIVE);
-    }
 }
 
 void PumaImpl::getImageInfo(const std::string& image_name) {
