@@ -103,7 +103,6 @@ extern uint32_t CountTable;
 
 // extern functions
 void SetReturnCode_rfrmt(uint16_t rc);
-uint16_t GetReturnCode_rfrmt();
 
 #ifdef alDebug
 std::vector <tagRECT> *pInputArray;
@@ -124,7 +123,6 @@ extern Handle hDebugFrame;
 extern Handle hDebugLineTransfer;
 extern Handle hDebugAlign;
 
-//###########################################
 #define New On
 Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree) {
 #ifdef New
@@ -208,7 +206,6 @@ Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree) {
 
     if (!LDPUMA_Skip(hDebugAlign))
         FlagDebugAlign = TRUE;
-
     else
         FlagDebugAlign = FALSE;
 
@@ -223,43 +220,6 @@ Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree) {
         assert (ch);
     }
 
-#ifdef alDebug
-
-    if (!LDPUMA_Skip(hDebugMy)) {
-        int i;
-
-        for ( i = 0; i < pInputArray->size(); i++) {
-            RECT rect = (*pInputArray)[i];
-            Rect16 rect16 = {(int16_t)rect.left, (int16_t)rect.top, (int16_t)rect.right, (int16_t)rect.bottom};
-            LDPUMA_DrawRect(hDbgWnd, &rect16, 0, RGB(0, 127, 0), 1, (uint32_t)hDbgWnd);
-        }
-
-        LDPUMA_Console("Press any key...pInputArray");
-        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
-        LDPUMA_DeleteRects(hDbgWnd, (uint32_t)hDbgWnd);
-
-        for ( i = 0; i < pTheGeomStep1->size(); i++) {
-            RECT rect = (*pTheGeomStep1)[i];
-            Rect16 rect16 = {(int16_t)rect.left, (int16_t)rect.top, (int16_t)rect.right, (int16_t)rect.bottom};
-            LDPUMA_DrawRect(hDbgWnd, &rect16, 0, RGB(0, 127, 0), 1, (uint32_t)hDbgWnd);
-        }
-
-        LDPUMA_Console("Press any key...pTheGeomStep1");
-        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
-        LDPUMA_DeleteRects(hDbgWnd, (uint32_t)hDbgWnd);
-
-        for ( i = 0; i < pTheGeomStep2->size(); i++) {
-            RECT rect = (*pTheGeomStep2)[i];
-            Rect16 rect16 = {(int16_t)rect.left, (int16_t)rect.top, (int16_t)rect.right, (int16_t)rect.bottom};
-            LDPUMA_DrawRect(hDbgWnd, &rect16, 0, RGB(0, 127, 0), 1, (uint32_t)hDbgWnd);
-        }
-
-        LDPUMA_Console("Press any key...pTheGeomStep2");
-        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
-        LDPUMA_DeleteRects(hDbgWnd, (uint32_t)hDbgWnd);
-    }
-
-#endif
     LDPUMA_Skip(hDebugProfEnd);
     return TRUE;
 #else

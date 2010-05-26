@@ -54,25 +54,11 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// ============================================================================
-// Written by Peter Khlebutin
-// This file creation date: 20.07.98
-//
-// frmtdll.cpp :
-// ============================================================================
-
-#include "resource.h"
 #define __RFRMT_EXTERN__
 #include "rfrmt.h"
-#include "dpuma.h"
-#include "dsnap.h"
-#include "formatoptions.h"
-#include "puma/pumadef.h"
 #include "rfrmt_prot.h"
-#include "compat_defs.h"
+#include "formatoptions.h"
 
-//////////////////////////////////////////////////////////////////GLOBAL VARIABLES
-static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
 Bool32 gbBold = TRUE;
 Bool32 gbItalic = TRUE;
@@ -86,108 +72,7 @@ const char * gpCourierName = "Courier Cyr";
 char UnRecogSymbol = '~';
 uint32_t gnLanguage = LANGUAGE_RUS_ENG;
 
-///////////////////////////////////////////////////////////////
-//Handle hUseCLine;
-
-Bool32 RFRMT_Init(uint16_t wHeightCode, Handle hStorage)
-{
-    LDPUMA_Init(0, NULL);
-    LDPUMA_Registry(&hDebugRoot, SNAP_ROOT_CONVERTERS, NULL);
-    LDPUMA_Registry(&hDebugMy, "Отладка форматирования", hDebugRoot);
-    LDPUMA_Registry(&hDebugKegl, "Кегль не изменять", hDebugMy);
-    LDPUMA_RegistryHelp(hDebugKegl,
-            "Эта опция предназначена для корректировки размера кегля при форматировании", FALSE);
-    LDPUMA_Registry(&hDebugFrame, "Все фрагменты фреймы", hDebugMy);
-    LDPUMA_RegistryHelp(hDebugFrame, "Эта опция предназначена для форматирования фреймами", FALSE);
-    LDPUMA_Registry(&hDebugAlign, "Отладка выравнивания параграфа", hDebugMy);
-    LDPUMA_RegistryHelp(hDebugAlign, "Отладка выравнивания параграфа", FALSE);
-    LDPUMA_Registry(&hDebugLineTransfer, "Строки не переносить", hDebugMy);
-    LDPUMA_RegistryHelp(hDebugLineTransfer, "Строки не переносить", FALSE);
-    LDPUMA_Registry(&hDebugProfile, "Оценка времени работы.", hDebugMy);
-    LDPUMA_RegistryHelp(hDebugProfile, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hDebugProfStart, "Начало работы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfStart, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hDebugProfTable, "Таблица", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfTable, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hDebugProfCell, "Ячейки", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfCell, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hDebugProfTmp, "Tmp", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfTmp, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hDebugProfEndTable, "Конец таблицы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfEndTable, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hDebugProfWrite, "Запись таблицы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfWrite, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hDebugProfWriteRow, "Запись строки таблицы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfWriteRow, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hDebugProfWriteCell, "Запись ячейки таблицы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfWriteCell, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hDebugProfWriteChar, "Запись символа", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfWriteChar, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hDebugProfEnd, "Конец работы", hDebugProfile);
-    LDPUMA_RegistryHelp(hDebugProfEnd, "Оценка времени работы.", FALSE);
-    LDPUMA_Registry(&hTest, "Тест памяти записи картинок", hDebugMy);
-    LDPUMA_Registry(&hTestDIBData, "Получить исходную картинку", hTest);
-    LDPUMA_Registry(&hTestTurn, "Поворота на 90\180", hTest);
-    LDPUMA_Registry(&hTestRotate, "Доворота на малый угол", hTest);
-    LDPUMA_Registry(&hTestWriteMetafile, "Запись в метафайл", hTest);
-    LDPUMA_Registry(&hTestGetMaskDIB, "Получения маскированного DIB", hTest);
-    LDPUMA_Registry(&hTestWriteED, "Запись в ED", hTest);
-    LDPUMA_Registry(&hTestEnd, "В конце функции", hTest);
-    LDPUMA_Registry(&hTestDeleteImage, "Удаление временных изображений", hTest);
-    // LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий", NULL);
-    gwHeightRC = wHeightCode;
-    return TRUE;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 RFRMT_Done()
-{
-    LDPUMA_Done();
-    return TRUE;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//
-uint32_t RFRMT_GetReturnCode()
-{
-    uint32_t rc = 0;
-
-    if ((gwLowRC - IDS_ERR_NO) > 0)
-        rc = (uint32_t) (gwHeightRC << 16) | (gwLowRC - IDS_ERR_NO);
-
-    return rc;
-}
-
-char * RFRMT_GetReturnString(uint32_t dwError)
-{
-    if (dwError >> 16 != gwHeightRC)
-        gwLowRC = IDS_ERR_NOTIMPLEMENT;
-
-    return NULL;
-}
-
-Bool32 RFRMT_GetExportData(uint32_t dwType, void * pData)
-{
-    Bool32 rc = TRUE;
-    gwLowRC = 0;
-#define CASE_DATA(a,b,c)    case a: *(b *)pData = c; break;
-
-    switch (dwType) {
-    CASE_DATA(RFRMT_Bool32_Bold, Bool32, gbBold)
-    CASE_DATA(RFRMT_Bool32_Italic, Bool32, gbItalic)
-    CASE_DATA(RFRMT_Bool32_Size, Bool32, gbSize)
-    CASE_DATA(RFRMT_Word8_UnRecogSymbol, uchar, UnRecogSymbol)
-    default:
-        *(Handle *) pData = NULL;
-        gwLowRC = IDS_ERR_NOTIMPLEMENT;
-        rc = FALSE;
-    }
-
-#undef CASE_DATA
-    return rc;
-}
-
-void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts)
-{
+void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts) {
     static std::string sans, serif, mono;
     gbBold = opts.isBoldUsed();
     gbItalic = opts.isItalicUsed();
@@ -203,42 +88,6 @@ void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts)
     gpCourierName = mono.c_str();
 }
 
-Bool32 RFRMT_SetImportData(uint32_t dwType, const void * pData)
-{
-    Bool32 rc = TRUE;
-    gwLowRC = 0;
-#define CASE_DATA(a,b,c)    case a: c = *(b *)pData; break;
-#define CASE_PDATA(a,b,c)   case a: c = (b)pData; break;
-
-    switch (dwType) {
-    CASE_DATA(RFRMT_Bool32_Bold, Bool32, gbBold)
-    CASE_DATA(RFRMT_Bool32_Italic, Bool32, gbItalic)
-    CASE_DATA(RFRMT_Bool32_Size, Bool32, gbSize)
-    CASE_DATA(RFRMT_Word32_Format, uint32_t, gnFormat)
-    CASE_PDATA(RFRMT_char_SerifName, const char *, gpSerifName)
-    CASE_PDATA(RFRMT_char_SansSerifName, const char *, gpSansSerifName)
-    CASE_PDATA(RFRMT_char_CourierName, const char *, gpCourierName)
-    CASE_DATA(RFRMT_Word8_UnRecogSymbol, uchar, UnRecogSymbol)
-        // !!!Art - язык распознавания понадобился для умолчания в редактор
-    CASE_DATA(RFRMT_Word32_Language, uint32_t, gnLanguage)
-    default:
-        gwLowRC = IDS_ERR_NOTIMPLEMENT;
-        rc = FALSE;
-    }
-
-#undef CASE_DATA
-#undef CASE_PDATA
-    return rc;
-}
-
-void SetReturnCode_rfrmt(uint16_t rc)
-{
+void SetReturnCode_rfrmt(uint16_t rc) {
     gwLowRC = rc;
 }
-
-uint16_t GetReturnCode_rfrmt()
-{
-    return gwLowRC;
-}
-//////////////////////////////////////////////////////////////////////////////////
-//end of file

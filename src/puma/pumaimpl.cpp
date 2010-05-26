@@ -428,7 +428,6 @@ void PumaImpl::modulesDone() {
     RCORRKEGL_Done();
     RPIC_Done();
     RIMAGE_Done();
-    RFRMT_Done();
     RSL_Done();
     RLINE_Done();
     RBLOCK_Done();
@@ -496,9 +495,6 @@ void PumaImpl::modulesInit() {
 
         if (!RSTR_Init(PUMA_MODULE_RSTR, ghStorage))
             throw PumaException("RSTR_Init failed.");
-
-        if (!RFRMT_Init(PUMA_MODULE_RFRMT, ghStorage))
-            throw PumaException("RFRMT_Init failed.");
 
         if (!RIMAGE_Init(PUMA_MODULE_RIMAGE, ghStorage))
             throw PumaException("RIMAGE_Init failed.");
