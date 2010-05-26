@@ -102,16 +102,20 @@
 #include "common/debug.h"
 #include "compat/filefunc.h"
 
-extern Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, Handle* hEdTree);
-extern Bool PageTree(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage, const char *FileNameOut);
-extern Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo, Bool OutPutMode);
-extern Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFrame);
+namespace CIF {
+class CEDPage;
+}
+
+Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, CIF::CEDPage ** page);
+Bool PageTree(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage, const char *FileNameOut);
+Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo, Bool OutPutMode);
+Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFrame);
 void GetTableRect(uint32_t NumberTable, Rect16* RectTable, uint32_t* UserNumber);
 uchar GetPictRect(uint32_t NumberPict, Rect16* RectPict, uint32_t* UserNumber);
-extern void RtfAssignRect_CRect_Rect16(RECT *s1, Rect16 *s2);
-extern void RtfCalcRectSizeInTwips(RECT *s1, float Twips);
-extern void RtfUnionRect_CRect_CRect(RECT *s1, RECT *s2);
-extern void RtfAssignRect_CRect_CRect(RECT *s1, RECT *s2);
+void RtfAssignRect_CRect_Rect16(RECT *s1, Rect16 *s2);
+void RtfCalcRectSizeInTwips(RECT *s1, float Twips);
+void RtfUnionRect_CRect_CRect(RECT *s1, RECT *s2);
+void RtfAssignRect_CRect_CRect(RECT *s1, RECT *s2);
 
 Bool ReadInternalFileRelease(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage);
 void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
@@ -144,10 +148,7 @@ extern CIF::Point TemplateOffset;
 
 #define CHEREDOVON
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 FullRtf                                                        //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree) {
+Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, CIF::CEDPage ** hEdTree) {
     CIF::CRtfPage RtfPage;
 
     if (RtfWriteMode) // is activated ONLY in debug mode (нажать ??? в LDPUMA)
@@ -173,14 +174,9 @@ Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, Handle* hEdTree) {
     if (CIF::RfrmtOptions::useNone())
         RtfPage.SortUserNumber();//в ручном layout user can establish own order of the fragments
 
-#ifndef EdWrite
-    RtfPage.Write(FileNameOut);
-#else
-
-    if (RtfPage.Write(FileNameOut) && !RtfWriteMode)
+    if (RtfPage.Write(FileNameOut))
         RtfPage.Rtf_CED_WriteFormattedEd(FileNameOut, hEdTree);
 
-#endif
     return TRUE;
 }
 

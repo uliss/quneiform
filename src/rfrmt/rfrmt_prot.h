@@ -68,11 +68,13 @@
 #include <stddef.h>
 #include <stdio.h>
 
-Bool CreateInternalFileForFormatter(FILE *fpInternalFileName);
+namespace CIF
+{
+class CEDPage;
+}
 
-Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, Handle* hEdTree);
-//////////////////////////////////////////////////////////////////////////////////
-//
+Bool CreateInternalFileForFormatter(FILE *fpInternalFileName);
+Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, CIF::CEDPage** page);
 #ifdef __RFRMT_EXTERN__
 #define EXTERN
 #define VAL(a) = a

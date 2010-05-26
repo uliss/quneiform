@@ -104,18 +104,6 @@ extern uint32_t CountTable;
 // extern functions
 void SetReturnCode_rfrmt(uint16_t rc);
 
-#ifdef alDebug
-std::vector <tagRECT> *pInputArray;
-std::vector <tagRECT> *pTheGeomStep1;
-std::vector <tagRECT> *pTheGeomStep2;
-std::vector <tagRECT> *pTheGeomTemp;
-VectorWord *pFragRectColor;
-uint16_t *CountRect;
-uint16_t Draw_Step;
-uint16_t Draw_Cycle;
-#endif
-///////////////////////////////////////////////////////////////
-
 Handle hDbgWnd = NULL;
 extern Handle hDebugMy;
 extern Handle hDebugKegl;
@@ -123,44 +111,17 @@ extern Handle hDebugFrame;
 extern Handle hDebugLineTransfer;
 extern Handle hDebugAlign;
 
-#define New On
-Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree) {
-#ifdef New
+Bool RFRMT_Formatter(const char* lpInputImageName, CIF::CEDPage** page) {
     FILE *fpInternalFile = create_temp_file();
 
     if (fpInternalFile == NULL) {
         assert ("Could not create tmpfile\n");
     }
 
-    LDPUMA_Skip(hDebugProfStart);
     CIF::RfrmtOptions::formatMode() = 0;
     ExFlagMode = FALSE;
     RtfWriteMode = FALSE;
     strcpy((char*) WriteRtfImageName, lpInputImageName);
-#ifdef alDebug
-    CRtfFragRect RtfFragRect;
-    RtfFragRect.m_arInputFragRect.clear();
-    RtfFragRect.m_arGeomFragRectStep1.clear();
-    RtfFragRect.m_arGeomFragRectStep2.clear();
-    RtfFragRect.m_arGeomFragRectTemp.clear();
-    RtfFragRect.m_arGeomFragRectColor.clear();
-    RtfFragRect.m_GeomFragCountRect = 0;
-    RtfFragRect.m_Cycle = 0;
-    RtfFragRect.m_Step = 0;
-#ifdef GLOBAL_DEBUG_AND_DRAW
-    RtfFragRect.m_Cycle = 1;
-#else
-    RtfFragRect.m_Cycle = 0;
-#endif
-    pInputArray = &RtfFragRect.m_arInputFragRect;
-    pTheGeomStep1 = &RtfFragRect.m_arGeomFragRectStep1;
-    pTheGeomStep2 = &RtfFragRect.m_arGeomFragRectStep2;
-    pTheGeomTemp = &RtfFragRect.m_arGeomFragRectTemp;
-    pFragRectColor = &RtfFragRect.m_arGeomFragRectColor;
-    CountRect = &RtfFragRect.m_GeomFragCountRect;
-    Draw_Step = RtfFragRect.m_Step;
-    Draw_Cycle = RtfFragRect.m_Cycle;
-#endif
     SetReturnCode_rfrmt(IDS_ERR_NO);
 
     if (CreateInternalFileForFormatter(fpInternalFile) == FALSE) {
@@ -191,11 +152,8 @@ Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree) {
 
     if (!LDPUMA_Skip(hDebugKegl))
         FlagChangeSizeKegl = FALSE;
-
     else
         FlagChangeSizeKegl = TRUE;
-
-    CIF::RfrmtOptions::setLineTransfer(false);
 
     if (!LDPUMA_Skip(hDebugLineTransfer))
         CIF::RfrmtOptions::setLineTransfer(true);
@@ -209,7 +167,7 @@ Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree) {
     else
         FlagDebugAlign = FALSE;
 
-    if (!FullRtf(fpInternalFile, NULL, PtrEdTree)) {
+    if (!FullRtf(fpInternalFile, NULL, page)) {
         fclose(fpInternalFile);
         return FALSE;
     }
@@ -220,12 +178,7 @@ Bool32 RFRMT_Formatter(const char* lpInputImageName, Handle* PtrEdTree) {
         assert (ch);
     }
 
-    LDPUMA_Skip(hDebugProfEnd);
     return TRUE;
-#else
-    strcpy(WriteRtfImageName, lpInputImageName);
-    return TRUE;
-#endif
 }
 
 Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code) {
@@ -245,30 +198,6 @@ Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code) {
     }
 
     strcpy((char*) RtfFileName, lpOutputFileName);
-#ifdef alDebug
-    CRtfFragRect RtfFragRect;
-    RtfFragRect.m_arInputFragRect.clear();
-    RtfFragRect.m_arGeomFragRectStep1.clear();
-    RtfFragRect.m_arGeomFragRectStep2.clear();
-    RtfFragRect.m_arGeomFragRectTemp.clear();
-    RtfFragRect.m_arGeomFragRectColor.clear();
-    RtfFragRect.m_GeomFragCountRect = 0;
-    RtfFragRect.m_Cycle = 0;
-    RtfFragRect.m_Step = 0;
-#ifdef GLOBAL_DEBUG_AND_DRAW
-    RtfFragRect.m_Cycle = 1;
-#else
-    RtfFragRect.m_Cycle = 0;
-#endif
-    pInputArray = &RtfFragRect.m_arInputFragRect;
-    pTheGeomStep1 = &RtfFragRect.m_arGeomFragRectStep1;
-    pTheGeomStep2 = &RtfFragRect.m_arGeomFragRectStep2;
-    pTheGeomTemp = &RtfFragRect.m_arGeomFragRectTemp;
-    pFragRectColor = &RtfFragRect.m_arGeomFragRectColor;
-    CountRect = &RtfFragRect.m_GeomFragCountRect;
-    Draw_Step = RtfFragRect.m_Step;
-    Draw_Cycle = RtfFragRect.m_Cycle;
-#endif
     SetReturnCode_rfrmt(IDS_ERR_NO);
 
     if (CreateInternalFileForFormatter(fpInternalFile) == FALSE) {
@@ -330,51 +259,6 @@ Bool32 RFRMT_SaveRtf(const char* lpOutputFileName, uint32_t code) {
         assert (ch);
     }
 
-#ifdef alDebug
-
-    if (!LDPUMA_Skip(hDebugMy)) {
-        int i;
-
-        for ( i = 0; i < pInputArray->size(); i++) {
-            RECT rect = (*pInputArray)[i];
-            Rect16 rect16 = {(int16_t)rect.left, (int16_t)rect.top, (int16_t)rect.right, (int16_t)rect.bottom};
-            LDPUMA_DrawRect(hDbgWnd, &rect16, 0, RGB(0, 127, 0), 1, (uint32_t)hDbgWnd);
-        }
-
-        LDPUMA_Console("Press any key...pInputArray");
-        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
-        LDPUMA_DeleteRects(hDbgWnd, (uint32_t)hDbgWnd);
-
-        for ( i = 0; i < pTheGeomStep1->size(); i++) {
-            RECT rect = (*pTheGeomStep1)[i];
-            Rect16 rect16 = {(int16_t)rect.left, (int16_t)rect.top, (int16_t)rect.right, (int16_t)rect.bottom};
-            LDPUMA_DrawRect(hDbgWnd, &rect16, 0, RGB(0, 127, 0), 1, (uint32_t)hDbgWnd);
-        }
-
-        LDPUMA_Console("Press any key...pTheGeomStep1");
-        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
-        LDPUMA_DeleteRects(hDbgWnd, (uint32_t)hDbgWnd);
-
-        for ( i = 0; i < pTheGeomStep2->size(); i++) {
-            RECT rect = (*pTheGeomStep2)[i];
-            Rect16 rect16 = {(int16_t)rect.left, (int16_t)rect.top, (int16_t)rect.right, (int16_t)rect.bottom};
-            LDPUMA_DrawRect(hDbgWnd, &rect16, 0, RGB(0, 127, 0), 1, (uint32_t)hDbgWnd);
-        }
-
-        LDPUMA_Console("Press any key...pTheGeomStep2");
-        LDPUMA_WaitUserInput(hDebugMy, hDbgWnd);
-        LDPUMA_DeleteRects(hDbgWnd, (uint32_t)hDbgWnd);
-    }
-
-#endif
     LDPUMA_Skip(hDebugProfEnd);
     return TRUE;
 }
-
-#ifdef alDebug
-void MyDrawForDebug(void)
-{
-    Draw_Step = 3;
-    Draw_Cycle = 0;
-}
-#endif

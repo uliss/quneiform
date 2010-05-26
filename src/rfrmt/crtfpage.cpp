@@ -132,11 +132,7 @@ void CRtfPage::Rtf_CED_CreatePage(void) {
 #endif
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 Rtf_CED_WriteFormattedEd                                       //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfPage::Rtf_CED_WriteFormattedEd(const char* RtfFileName, Handle* hEdTree) {
-#ifdef EdWrite
+void CRtfPage::Rtf_CED_WriteFormattedEd(const char* RtfFileName, CEDPage** hEdTree) {
     char lpEdFileName[CFIO_MAX_PATH];
     char lpEdTestFileName[CFIO_MAX_PATH];
 
@@ -148,12 +144,8 @@ void CRtfPage::Rtf_CED_WriteFormattedEd(const char* RtfFileName, Handle* hEdTree
         strncpy((char*) lpEdTestFileName + strlen((char*) lpEdTestFileName) - 3, "txt", 3);
         CED_WriteFormattedEd((char*) lpEdFileName, m_hED);
         delete m_hED;
-    }
-
-    else
+    } else
         *hEdTree = m_hED;
-
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

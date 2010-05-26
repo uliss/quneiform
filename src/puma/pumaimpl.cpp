@@ -288,7 +288,7 @@ void PumaImpl::formatResult() {
         ed_page_ = NULL;
     }
 
-    if (!RFRMT_Formatter(input_filename_.c_str(), (void**) &ed_page_))
+    if (!RFRMT_Formatter(input_filename_.c_str(), &ed_page_))
         throw PumaException("RFRMT_Formatter failed");
 
     if (Config::instance().debugDump()) {

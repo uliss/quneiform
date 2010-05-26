@@ -77,10 +77,6 @@
 
 using namespace CIF;
 
-#ifdef alDebug
-extern std::vector<RECT> *pInputArray;
-#endif
-
 int32_t PageIncline2048 = 2048;
 uint32_t CountPict = 0, CountTable = 0;
 void SetReturnCode_rfrmt(uint16_t rc);
@@ -97,8 +93,7 @@ extern uint32_t ExFlagMode;
 #define HalfDefMargT   720 // Top  margin in twips    (the default is 1440).
 /////////////////////////////////////////////////////////////////////////////
 //                    CreateInternalFileForFormatter
-Bool CreateInternalFileForFormatter(FILE *pIFName)
-{
+Bool CreateInternalFileForFormatter(FILE *pIFName) {
     Bool FReturnCode = TRUE;
     CSTR_line line;
     CFPage Page;
@@ -108,9 +103,7 @@ Bool CreateInternalFileForFormatter(FILE *pIFName)
 
     if (PageInfo.X && PageInfo.Y) {
         TemplateOffset.set(PageInfo.X, PageInfo.Y);
-    }
-
-    else {
+    } else {
         TemplateOffset.set(0, 0);
     }
 
@@ -121,8 +114,7 @@ Bool CreateInternalFileForFormatter(FILE *pIFName)
     line = CSTR_FirstLine(1);
 
     while (line) {
-        if (CheckComingLine(&line) && Page.CheckComingLine_For_TextFragments(
-                    &line))
+        if (CheckComingLine(&line) && Page.CheckComingLine_For_TextFragments(&line))
             Page.ProcessingComingLine(&line);
 
         line = CSTR_NextLine(line, 1);
@@ -159,7 +151,7 @@ Bool CreateInternalFileForFormatter(FILE *pIFName)
 
     // Processing Fragments
     for (int iPage = 0; iPage < Page.Count.Frags; iPage++) {
-        cFrag = (CFragment*) Page.m_arFrags[iPage];
+        cFrag = Page.m_arFrags[iPage];
         VCopyRect(&VRect, &cFrag->m_rectFrag);
 
         if (CheckRect(&VRect) == FALSE)
@@ -172,7 +164,7 @@ Bool CreateInternalFileForFormatter(FILE *pIFName)
 
         // Processing Strings
         for (int iFrag = 0; iFrag < cFrag->m_wStringsCount; iFrag++) {
-            cString = (CFString*) cFrag->m_arStrings[iFrag];
+            cString = cFrag->m_arStrings[iFrag];
             VCopyRect(&VRect, &cString->m_rectBaseLine);
             fwrite(&VRect, sizeof(InternalRect), 1, pIFName);
             VCopyRect(&VRect, &cString->m_rectString);
@@ -181,31 +173,27 @@ Bool CreateInternalFileForFormatter(FILE *pIFName)
             fwrite(&cString->S_Flags, sizeof(uint32_t), 1, pIFName); //NEGA_STR
             // Processing Words
             for (int iString = 0; iString < cString->m_wWordsCount; iString++) {
-                cWord = (CWord*) cString->m_arWords[iString];
+                cWord = cString->m_arWords[iString];
                 fwrite(&cWord->m_wCharsCount, sizeof(uint16_t), 1, pIFName);
                 fwrite(&cWord->m_wFontNumber, sizeof(uint16_t), 1, pIFName);
                 fwrite(&cWord->m_wFontPointSize, sizeof(uint16_t), 1, pIFName);
 
                 // Processing Letters
                 for (int iWord = 0; iWord < cWord->m_wCharsCount; iWord++) {
-                    cChar = (CChar*) cWord->m_arChars[iWord];
+                    cChar = cWord->m_arChars[iWord];
                     VCopyRect(&VRect, &cChar->m_rectChar);
                     fwrite(&VRect, sizeof(InternalRect), 1, pIFName);
                     VCopyRect(&VRect, &cChar->m_RealRectChar);
                     fwrite(&VRect, sizeof(InternalRect), 1, pIFName);
                     fwrite(&cChar->m_wCountAlt, sizeof(uint16_t), 1, pIFName);
 
-                    for (int iAlt = 0; iAlt < cChar->m_wCountAlt && iAlt
-                            < REC_MAX_VERS; iAlt++) {
-                        fwrite(&cChar->m_chrVersions[iAlt].m_bChar,
-                               sizeof(char), 1, pIFName);
-                        fwrite(&cChar->m_chrVersions[iAlt].m_bProbability,
-                               sizeof(char), 1, pIFName);
+                    for (int iAlt = 0; iAlt < cChar->m_wCountAlt && iAlt < REC_MAX_VERS; iAlt++) {
+                        fwrite(&cChar->m_chrVersions[iAlt].m_bChar, sizeof(char), 1, pIFName);
+                        fwrite(&cChar->m_chrVersions[iAlt].m_bProbability, sizeof(char), 1, pIFName);
                     }
 
                     fwrite(&cChar->m_blanguage, sizeof(char), 1, pIFName);
-                    fwrite(&cChar->m_bFlg_spell_nocarrying, sizeof(char), 1,
-                           pIFName);
+                    fwrite(&cChar->m_bFlg_spell_nocarrying, sizeof(char), 1, pIFName);
                     fwrite(&cChar->m_bFlg_cup_drop, sizeof(char), 1, pIFName);
                     fwrite(&cChar->m_bFlg_spell, sizeof(char), 1, pIFName);
                     fwrite(&cChar->m_wFontNumber, sizeof(char), 1, pIFName);
@@ -219,27 +207,24 @@ Bool CreateInternalFileForFormatter(FILE *pIFName)
 
 /////////////////////////////////////////////////////////////////////////////
 // CPage class implementation
-CFPage::CFPage()
-{
+CFPage::CFPage() {
     Count.Frags = Count.Strings = Count.Words = Count.Chars = 0;
     m_nIndex = 0;
     m_nPrevFragNumber = -1;
 }
 
-CFPage::~CFPage()
-{
+CFPage::~CFPage() {
     CFragment* cFrag;
 
     for (int i = 0; i < Count.Frags; i++) {
-        cFrag = (CFragment*) m_arFrags[i];
+        cFrag = m_arFrags[i];
         delete cFrag;
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CFPage::CreateArray_For_TextFragments
-void CFPage::CreateArray_For_TextFragments()
-{
+void CFPage::CreateArray_For_TextFragments() {
     Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     Handle hBlock = CPAGE_GetBlockFirst(hPage, 0);
 
@@ -255,8 +240,7 @@ void CFPage::CreateArray_For_TextFragments()
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CFPage::CheckComingLine_For_TextFragments
-Bool CFPage::CheckComingLine_For_TextFragments(CSTR_line* line)
-{
+Bool CFPage::CheckComingLine_For_TextFragments(CSTR_line* line) {
     int32_t CurFragNumber, SizeArrayTextFragments, i;
     CSTR_attr attr;
 
@@ -273,24 +257,21 @@ Bool CFPage::CheckComingLine_For_TextFragments(CSTR_line* line)
     return 0;
 }
 
-CFragment* CFPage::GetFirstFrag()
-{
+CFragment* CFPage::GetFirstFrag() {
     m_nIndex = 0;
-    return (CFragment*) m_arFrags[m_nIndex];
+    return m_arFrags[m_nIndex];
 }
 
-CFragment* CFPage::GetNextFrag()
-{
+CFragment* CFPage::GetNextFrag() {
     if (++m_nIndex == Count.Frags)
         return NULL;
 
-    return (CFragment*) m_arFrags[m_nIndex];
+    return m_arFrags[m_nIndex];
 }
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CFPage::ProcessingComingLine
-void CFPage::ProcessingComingLine(CSTR_line* Comingline)
-{
+void CFPage::ProcessingComingLine(CSTR_line* Comingline) {
     CSTR_line line;
     CSTR_attr attr;
     CFragment* Fragment;
@@ -312,23 +293,16 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline)
         hBlock = CPAGE_GetBlockFirst(hCPAGE, NULL);
 
         while (hBlock) {
-            if (CPAGE_GetBlockInterNum(hCPAGE, hBlock)
-                    == (uint32_t) m_nCurFragNumber) {
-                Fragment->m_wUserNumber = (uint32_t) CPAGE_GetBlockUserNum(
-                                              hCPAGE, hBlock);
+            if (CPAGE_GetBlockInterNum(hCPAGE, hBlock) == (uint32_t) m_nCurFragNumber) {
+                Fragment->m_wUserNumber = (uint32_t) CPAGE_GetBlockUserNum(hCPAGE, hBlock);
                 Fragment->m_Flags = attr.Flags; //nega
 
                 if (attr.Flags == CSTR_STR_NEGATIVE) { //nega_str
-                    CPAGE_GetBlockData(hCPAGE, hBlock, TYPE_TEXT, &poly,
-                                       sizeof(POLY_));
-                    Fragment->m_rectFrag.left = poly.com.Vertex[0].x()
-                                                - TemplateOffset.x();
-                    Fragment->m_rectFrag.right = poly.com.Vertex[2].x()
-                                                 - TemplateOffset.x();
-                    Fragment->m_rectFrag.top = poly.com.Vertex[0].y()
-                                               - TemplateOffset.y();
-                    Fragment->m_rectFrag.bottom = poly.com.Vertex[2].y()
-                                                  - TemplateOffset.y();
+                    CPAGE_GetBlockData(hCPAGE, hBlock, TYPE_TEXT, &poly, sizeof(POLY_));
+                    Fragment->m_rectFrag.left = poly.com.Vertex[0].x() - TemplateOffset.x();
+                    Fragment->m_rectFrag.right = poly.com.Vertex[2].x() - TemplateOffset.x();
+                    Fragment->m_rectFrag.top = poly.com.Vertex[0].y() - TemplateOffset.y();
+                    Fragment->m_rectFrag.bottom = poly.com.Vertex[2].y() - TemplateOffset.y();
                 }
 
                 break;
@@ -347,20 +321,17 @@ void CFPage::ProcessingComingLine(CSTR_line* Comingline)
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CFPage::AddString
-void CFPage::AddString(CSTR_line* Comingline)
-{
+void CFPage::AddString(CSTR_line* Comingline) {
     CFragment* Fragment;
-    Fragment = (CFragment*) m_arFrags[Count.Frags - 1];
+    Fragment = m_arFrags[Count.Frags - 1];
     assert(Fragment);
     Fragment->AddString(Comingline, &Count);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CFPage::Write
-Bool CFPage::Write()
-{
-    for (CFragment* pFrag = GetFirstFrag(); pFrag != NULL; pFrag
-            = GetNextFrag()) {
+Bool CFPage::Write() {
+    for (CFragment* pFrag = GetFirstFrag(); pFrag != NULL; pFrag = GetNextFrag()) {
         assert(pFrag);
         pFrag->Write();
     }
@@ -370,27 +341,24 @@ Bool CFPage::Write()
 
 /////////////////////////////////////////////////////////////////////////////
 // CFragment class implementation
-CFragment::CFragment()
-{
+CFragment::CFragment() {
     m_Flags = 0;
     m_wStringsCount = 0;
     SetRect(&m_rectFrag, 0, 0, 0, 0);
 }
 
-CFragment::~CFragment()
-{
+CFragment::~CFragment() {
     CFString* cString;
 
     for (int i = 0; i < m_wStringsCount; i++) {
-        cString = (CFString*) m_arStrings[i];
+        cString = m_arStrings[i];
         delete cString;
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CFragment::AddString
-void CFragment::AddString(CSTR_line* Comingline, PageElementCount* Count)
-{
+void CFragment::AddString(CSTR_line* Comingline, PageElementCount* Count) {
     CFPage Page;
     CSTR_line line;
     CSTR_attr line_attr;
@@ -404,20 +372,19 @@ void CFragment::AddString(CSTR_line* Comingline, PageElementCount* Count)
 
     line = *Comingline;
     CSTR_GetLineAttr(line, &line_attr);
-    SetRect(&TmpRect, line_attr.col - TemplateOffset.x(), line_attr.row
-            - TemplateOffset.y(), line_attr.col - TemplateOffset.x()
-            + line_attr.wid, line_attr.row - TemplateOffset.y() + line_attr.hei);
+    SetRect(&TmpRect, line_attr.col - TemplateOffset.x(), line_attr.row - TemplateOffset.y(),
+            line_attr.col - TemplateOffset.x() + line_attr.wid, line_attr.row - TemplateOffset.y()
+                    + line_attr.hei);
     UnionRect(&m_rectFrag, &m_rectFrag, &TmpRect);
     dist = line_attr.hei / 2;
 
     if (m_wStringsCount > 0) {
-        String = (CFString*) m_arStrings[m_wStringsCount - 1];
+        String = m_arStrings[m_wStringsCount - 1];
         PrevStringRect = &String->m_rectString;
 
-        if (TmpRect.top < PrevStringRect->bottom && TmpRect.left
-                > PrevStringRect->right && abs(TmpRect.top
-                                               - PrevStringRect->top) <= dist && abs(TmpRect.bottom
-                                                                                     - PrevStringRect->bottom) <= dist)
+        if (TmpRect.top < PrevStringRect->bottom && TmpRect.left > PrevStringRect->right && abs(
+                TmpRect.top - PrevStringRect->top) <= dist && abs(TmpRect.bottom
+                - PrevStringRect->bottom) <= dist)
             Flag_Continuation_Strings = TRUE;
     }
 
@@ -435,8 +402,7 @@ void CFragment::AddString(CSTR_line* Comingline, PageElementCount* Count)
 
 /////////////////////////////////////////////////////////////////////////////
 //                    CheckLineForFilling
-Bool CheckLineForFilling(CSTR_line* Comingline)
-{
+Bool CheckLineForFilling(CSTR_line* Comingline) {
     CSTR_line line;
     CSTR_rast rast;
     RecVersions vers;
@@ -450,46 +416,39 @@ Bool CheckLineForFilling(CSTR_line* Comingline)
         CSTR_GetAttr(rast, &rast_attr);
 
         if ((rast_attr.flg & CSTR_f_dust) || (rast_attr.flg & CSTR_f_fict) || //Дусты и
-                ((rast_attr.flg & CSTR_f_space)
-                 && (!vers.Alt[0].Code || vers.Alt[0].Code == 0x1e
-                     || vers.Alt[0].Code == 0x1f))) //полупробелы  выкидываем.
+                ((rast_attr.flg & CSTR_f_space) && (!vers.Alt[0].Code || vers.Alt[0].Code == 0x1e
+                        || vers.Alt[0].Code == 0x1f))) //полупробелы  выкидываем.
             goto next_raster;
 
         return TRUE;
-    next_raster:
-        rast = CSTR_GetNextRaster(rast, CSTR_f_all);
+        next_raster: rast = CSTR_GetNextRaster(rast, CSTR_f_all);
     }
 
     return FALSE;
 }
 
-Bool CFragment::Write()
-{
+Bool CFragment::Write() {
     return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // CFString class implementation
-CFString::CFString()
-{
+CFString::CFString() {
     m_wWordsCount = 0;
 }
 
-CFString::~CFString()
-{
+CFString::~CFString() {
     CWord* cWord;
 
     for (int i = 0; i < m_wWordsCount; i++) {
-        cWord = (CWord*) m_arWords[i];
+        cWord = m_arWords[i];
         delete cWord;
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////
 //                   CFString::ExtractWordsFromString
-void CFString::ExtractWordsFromString(CSTR_line* Comingline,
-                                      PageElementCount* Count)
-{
+void CFString::ExtractWordsFromString(CSTR_line* Comingline, PageElementCount* Count) {
     CSTR_rast_attr rast_attr;
     CSTR_rast rast;
     RecVersions vers;
@@ -509,11 +468,10 @@ void CFString::ExtractWordsFromString(CSTR_line* Comingline,
     if (line_attr.Flags & CSTR_STR_CapDrop) //буквица - см. первая буква в сказках
         FlagCapDrop = TRUE;
 
-    SetRect(&m_rectBaseLine, line_attr.bs1, line_attr.bs2, line_attr.bs3,
-            line_attr.bs4); //don't used now
-    SetRect(&m_rectString, line_attr.col - TemplateOffset.x(), line_attr.row
-            - TemplateOffset.y(), line_attr.col - TemplateOffset.x()
-            + line_attr.wid, line_attr.row - TemplateOffset.y() + line_attr.hei);
+    SetRect(&m_rectBaseLine, line_attr.bs1, line_attr.bs2, line_attr.bs3, line_attr.bs4); //don't used now
+    SetRect(&m_rectString, line_attr.col - TemplateOffset.x(), line_attr.row - TemplateOffset.y(),
+            line_attr.col - TemplateOffset.x() + line_attr.wid, line_attr.row - TemplateOffset.y()
+                    + line_attr.hei);
 #ifdef alDebug //obsolete option
     {
         RECT rect;
@@ -534,9 +492,8 @@ void CFString::ExtractWordsFromString(CSTR_line* Comingline,
         //#define REGULAR_SPACE   0x20
 
         if ((rast_attr.flg & CSTR_f_dust) || (rast_attr.flg & CSTR_f_fict) || //Дусты и
-                ((rast_attr.flg & CSTR_f_space)
-                 && (!vers.Alt[0].Code || vers.Alt[0].Code == 0x1e
-                     || vers.Alt[0].Code == 0x1f)))//полупробелы  выкидываем.
+                ((rast_attr.flg & CSTR_f_space) && (!vers.Alt[0].Code || vers.Alt[0].Code == 0x1e
+                        || vers.Alt[0].Code == 0x1f)))//полупробелы  выкидываем.
             goto next_raster;
 
         FlagString = TRUE;
@@ -578,8 +535,7 @@ void CFString::ExtractWordsFromString(CSTR_line* Comingline,
             }
         }
 
-    next_raster:
-        rast = CSTR_GetNextRaster(rast, CSTR_f_all);
+        next_raster: rast = CSTR_GetNextRaster(rast, CSTR_f_all);
     }
 
     if (FlagString == FALSE)
@@ -588,26 +544,22 @@ void CFString::ExtractWordsFromString(CSTR_line* Comingline,
 
 /////////////////////////////////////////////////////////////////////////////
 // CWord class implementation
-CWord::CWord()
-{
+CWord::CWord() {
     m_wCharsCount = 0;
 }
 
-CWord::~CWord()
-{
+CWord::~CWord() {
     CChar* cChar;
 
     for (int i = 0; i < m_wCharsCount; i++) {
-        cChar = (CChar*) m_arChars[i];
+        cChar = m_arChars[i];
         delete cChar;
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////
 //                   CWord::AddLetter2Word
-void CWord::AddLetter2Word(CSTR_rast* rast, PageElementCount* Count,
-                           Bool* FlagCapDrop)
-{
+void CWord::AddLetter2Word(CSTR_rast* rast, PageElementCount* Count, Bool* FlagCapDrop) {
     CChar* CurrentChar;
     UniVersions vers;
     CSTR_GetCollectionUni(*rast, &vers);
@@ -627,29 +579,25 @@ void CWord::AddLetter2Word(CSTR_rast* rast, PageElementCount* Count,
 
 /////////////////////////////////////////////////////////////////////////////
 // CChar class implementation
-CChar::CChar()
-{
+CChar::CChar() {
 }
 
-CChar::~CChar()
-{
+CChar::~CChar() {
 }
 
 /////////////////////////////////////////////////////////////////////////////
 //                   CChar::AddingLetter
-void CChar::AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop)
-{
+void CChar::AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop) {
     CSTR_rast_attr rast_attr;
     UniVersions vers;
     CSTR_GetCollectionUni(*rast, &vers);
     CSTR_GetAttr(*rast, &rast_attr);
-    SetRect(&m_rectChar, rast_attr.col - TemplateOffset.x(), rast_attr.row
-            - TemplateOffset.y(), rast_attr.col - TemplateOffset.x() + rast_attr.w,
-            rast_attr.row - TemplateOffset.y() + rast_attr.h);
-    SetRect(&m_RealRectChar, rast_attr.r_col - TemplateOffset.x(),
-            rast_attr.r_row - TemplateOffset.y(), rast_attr.r_col
-            - TemplateOffset.x() + rast_attr.w, rast_attr.r_row
-            - TemplateOffset.y() + rast_attr.h);
+    SetRect(&m_rectChar, rast_attr.col - TemplateOffset.x(), rast_attr.row - TemplateOffset.y(),
+            rast_attr.col - TemplateOffset.x() + rast_attr.w, rast_attr.row - TemplateOffset.y()
+                    + rast_attr.h);
+    SetRect(&m_RealRectChar, rast_attr.r_col - TemplateOffset.x(), rast_attr.r_row
+            - TemplateOffset.y(), rast_attr.r_col - TemplateOffset.x() + rast_attr.w,
+            rast_attr.r_row - TemplateOffset.y() + rast_attr.h);
     m_wCountAlt = MIN(vers.lnAltCnt, REC_MAX_VERS);
     m_bFlg_spell = 0;
 
@@ -695,8 +643,7 @@ void CChar::AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop)
         m_bFlg_cup_drop = FALSE;
 }
 
-void VCopyRect(InternalRect* Inner, RECT* Outer)
-{
+void VCopyRect(InternalRect* Inner, RECT* Outer) {
     Inner->top = (uint16_t) Outer->top;
     Inner->bottom = (uint16_t) Outer->bottom;
     Inner->left = (uint16_t) Outer->left;
@@ -705,13 +652,12 @@ void VCopyRect(InternalRect* Inner, RECT* Outer)
 
 /////////////////////////////////////////////////////////////////////////////
 //                   CheckRect
-Bool CheckRect(InternalRect* Inner)
-{
+Bool CheckRect(InternalRect* Inner) {
     char str[500];
 
     if (Inner->top >= Inner->bottom || Inner->left >= Inner->right) {
-        sprintf(str, " Left = %d, Right = %d, Top = %d, Bottom = %d ",
-                Inner->left, Inner->right, Inner->top, Inner->bottom);
+        sprintf(str, " Left = %d, Right = %d, Top = %d, Bottom = %d ", Inner->left, Inner->right,
+                Inner->top, Inner->bottom);
         LDPUMA_Console(str);
         SetReturnCode_rfrmt(IDS_ERR_SIZEFRAGMENT);
         return FALSE;
@@ -722,8 +668,7 @@ Bool CheckRect(InternalRect* Inner)
 
 /////////////////////////////////////////////////////////////////////////////
 //                   CheckComingLine
-Bool CheckComingLine(CSTR_line* Comingline)
-{
+Bool CheckComingLine(CSTR_line* Comingline) {
     CSTR_rast rast;
     CSTR_line line;
     line = *Comingline;
