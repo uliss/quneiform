@@ -173,7 +173,6 @@ extern int16_t SizeYGlobUpp;
 extern SUB_ALLOC SubZn;
 extern int16_t MonoSpaceAllPage;
 extern int16_t HeiStrAllPage;
-extern uint32_t RtfWriteMode;
 
 /*
  util     - memory alloc
@@ -1994,9 +1993,6 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
         if (det20 || det23) {
             ConsMess("Formatter End ");
-
-            if (RtfWriteMode)
-                ConsMess("*************************************************************");
         }
 
 #endif

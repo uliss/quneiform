@@ -81,8 +81,6 @@
 #include "font.h"
 
 uint32_t ExFlagMode;
-
-uint32_t RtfWriteMode;
 char RtfFileName[PATH_MAX];
 char WriteRtfImageName[PATH_MAX];
 char lpMyNameSerif[PATH_MAX];
@@ -104,14 +102,13 @@ extern uint32_t CountTable;
 // extern functions
 void SetReturnCode_rfrmt(uint16_t rc);
 
-Handle hDbgWnd = NULL;
 extern Handle hDebugMy;
 extern Handle hDebugKegl;
 extern Handle hDebugFrame;
 extern Handle hDebugLineTransfer;
 extern Handle hDebugAlign;
 
-Bool RFRMT_Formatter(const char* lpInputImageName, CIF::CEDPage** page) {
+bool RFRMT_Formatter(const char* lpInputImageName, CIF::CEDPage** page) {
     FILE *fpInternalFile = create_temp_file();
 
     if (fpInternalFile == NULL) {
@@ -120,7 +117,6 @@ Bool RFRMT_Formatter(const char* lpInputImageName, CIF::CEDPage** page) {
 
     CIF::RfrmtOptions::formatMode() = 0;
     ExFlagMode = FALSE;
-    RtfWriteMode = FALSE;
     strcpy((char*) WriteRtfImageName, lpInputImageName);
     SetReturnCode_rfrmt(IDS_ERR_NO);
 
@@ -148,7 +144,6 @@ Bool RFRMT_Formatter(const char* lpInputImageName, CIF::CEDPage** page) {
     strcpy((char*) lpMyNameSerif, gpSerifName);
     strcpy((char*) lpMyNameNonSerif, gpSansSerifName);
     strcpy((char*) lpMyNameMono, gpCourierName);
-    FlagChangeSizeKegl = TRUE;
 
     if (!LDPUMA_Skip(hDebugKegl))
         FlagChangeSizeKegl = FALSE;
@@ -159,8 +154,6 @@ Bool RFRMT_Formatter(const char* lpInputImageName, CIF::CEDPage** page) {
         CIF::RfrmtOptions::setLineTransfer(true);
     else
         CIF::RfrmtOptions::setLineTransfer(false);
-
-    FlagDebugAlign = FALSE;
 
     if (!LDPUMA_Skip(hDebugAlign))
         FlagDebugAlign = TRUE;

@@ -55,16 +55,16 @@
  */
 #ifndef __RFRMT_H
 #define __RFRMT_H
-#include "globus.h"
-#define RFRMT_FUNC  FUN_EXPO__
 
 namespace CIF
 {
-class FormatOptions;
+
 class CEDPage;
+class FormatOptions;
+
 }
 
-RFRMT_FUNC void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts);
-RFRMT_FUNC Bool RFRMT_Formatter(const char * InputFileName, CIF::CEDPage** page);
+void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts);
+bool RFRMT_Formatter(const char * InputFileName, CIF::CEDPage** page);
 
 #endif

@@ -90,9 +90,7 @@
 
 using namespace CIF;
 
-extern uint32_t RtfWriteMode;
 extern CIF::Point TemplateOffset;
-
 extern char RtfFileName[PATH_MAX];
 /*
  * Dib Header Marker - used in writing DIBs to files
@@ -100,8 +98,7 @@ extern char RtfFileName[PATH_MAX];
 #define DIB_HEADER_MARKER   ((uint16_t) ('M' << 8) | 'B')
 
 //==============   Определение кол-ва картин на странице  ======================
-uint32_t GetPictCount(void)
-{
+uint32_t GetPictCount(void) {
     uint32_t PictCount = 0;
     uint32_t NumberPage = CPAGE_GetCurrentPage();
     Handle h_Page = CPAGE_GetHandlePage(NumberPage);
@@ -116,8 +113,7 @@ uint32_t GetPictCount(void)
 }
 
 //=====================     Размер картинки     ===================================
-uchar GetPictRect(uint32_t NumberPict, ::Rect16* RectPict, uint32_t* UserNumber)
-{
+uchar GetPictRect(uint32_t NumberPict, ::Rect16* RectPict, uint32_t* UserNumber) {
     uint32_t PictCount = 0;
     Point Lr, Wh;
     uint32_t NumberPage = CPAGE_GetCurrentPage();
@@ -145,8 +141,7 @@ uchar GetPictRect(uint32_t NumberPict, ::Rect16* RectPict, uint32_t* UserNumber)
 }
 
 //**************************** Запись картин ************************************
-Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFrame)
-{
+Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFrame) {
     uint32_t PictNumber = 0;
     Point RtfLt;
     CPAGE_PICTURE pict;
@@ -214,30 +209,30 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
 
     //piter : Корректируем координаты из-за повернута страницы.
     switch (pinfo.Angle) {
-        case 0:
-            in.dwX = Lr.x();
-            in.dwY = Lr.y();
-            in.dwWidth = Wh.x();
-            in.dwHeight = Wh.y();
-            break;
-        case 270:
-            in.dwX = pinfo.Width - (Wh.y() + Lr.y());
-            in.dwY = Lr.x();
-            in.dwWidth = Wh.y();
-            in.dwHeight = Wh.x();
-            break;
-        case 180:
-            in.dwX = pinfo.Width - (Wh.x() + Lr.x());
-            in.dwY = pinfo.Height - (Wh.y() + Lr.y());
-            in.dwWidth = Wh.x();
-            in.dwHeight = Wh.y();
-            break;
-        case 90:
-            in.dwX = Lr.y();
-            in.dwY = pinfo.Height - (Wh.x() + Lr.x());
-            in.dwWidth = Wh.y();
-            in.dwHeight = Wh.x();
-            break;
+    case 0:
+        in.dwX = Lr.x();
+        in.dwY = Lr.y();
+        in.dwWidth = Wh.x();
+        in.dwHeight = Wh.y();
+        break;
+    case 270:
+        in.dwX = pinfo.Width - (Wh.y() + Lr.y());
+        in.dwY = Lr.x();
+        in.dwWidth = Wh.y();
+        in.dwHeight = Wh.x();
+        break;
+    case 180:
+        in.dwX = pinfo.Width - (Wh.x() + Lr.x());
+        in.dwY = pinfo.Height - (Wh.y() + Lr.y());
+        in.dwWidth = Wh.x();
+        in.dwHeight = Wh.y();
+        break;
+    case 90:
+        in.dwX = Lr.y();
+        in.dwY = pinfo.Height - (Wh.x() + Lr.x());
+        in.dwWidth = Wh.y();
+        in.dwHeight = Wh.x();
+        break;
     }
 
     // end piter
@@ -259,21 +254,21 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
 
     if (CIMAGE_WriteDIB(szPictName, pOutDIB, TRUE)) {
         switch (pinfo.Angle) {
-            case 90:
-                rc = RIMAGE_Turn((puchar) szPictName, (puchar) szTurnName, RIMAGE_TURN_90, FALSE);
-                CIMAGE_DeleteImage(lpName);
-                lpName = szTurnName;
-                break;
-            case 180:
-                rc = RIMAGE_Turn((puchar) szPictName, (puchar) szTurnName, RIMAGE_TURN_180, FALSE);
-                CIMAGE_DeleteImage(lpName);
-                lpName = szTurnName;
-                break;
-            case 270:
-                rc = RIMAGE_Turn((puchar) szPictName, (puchar) szTurnName, RIMAGE_TURN_270, FALSE);
-                CIMAGE_DeleteImage(lpName);
-                lpName = szTurnName;
-                break;
+        case 90:
+            rc = RIMAGE_Turn((puchar) szPictName, (puchar) szTurnName, RIMAGE_TURN_90, FALSE);
+            CIMAGE_DeleteImage(lpName);
+            lpName = szTurnName;
+            break;
+        case 180:
+            rc = RIMAGE_Turn((puchar) szPictName, (puchar) szTurnName, RIMAGE_TURN_180, FALSE);
+            CIMAGE_DeleteImage(lpName);
+            lpName = szTurnName;
+            break;
+        case 270:
+            rc = RIMAGE_Turn((puchar) szPictName, (puchar) szTurnName, RIMAGE_TURN_270, FALSE);
+            CIMAGE_DeleteImage(lpName);
+            lpName = szTurnName;
+            break;
         }
 
         if (!rc) {
@@ -317,7 +312,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
         }
 
         if (!RIMAGE_RotatePoint((puchar) lpName, in.dwX, in.dwY, (int32_t *) &in.dwX,
-                                (int32_t *) &in.dwY)) {
+                (int32_t *) &in.dwY)) {
             in.dwX = 0;
             in.dwY = 0;
         }
@@ -361,79 +356,74 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     LDPUMA_Skip(hTestWriteMetafile);
 
     if (rc) {
-        if (!RtfWriteMode) {
-#ifdef EdWrite
-            LDPUMA_Skip(hTestWriteED);
-            PCTDIB pTmpDIB = new CTDIB;
-            pTmpDIB->SetDIBbyPtr(pOutDIB);
-            pictSize.rwidth() = Wh.x();
-            pictSize.rheight() = Wh.y();
-            pictGoal.cx = (uint32_t) (CIF::getTwips() * pTmpDIB->GetLineWidth());
-            pictGoal.cy = (uint32_t) (CIF::getTwips() * pTmpDIB->GetLinesNumber());
-            int32_t iDIBSize = pTmpDIB->GetDIBSize();
-            delete pTmpDIB;
-            indent = CIF::Rect();
-            interval.cx = 0;
-            interval.cy = 0;
-            playout.x = -1;
-            playout.w = -1;
-            playout.y = -1;
-            playout.h = -1;
-            Lr.rx() = MAX(0, Lr.x());
-            Lr.ry() = MAX(0, Lr.y());
-            slayout.rleft() = Lr.x();
-            slayout.rright() = Lr.x() + Wh.x();
-            slayout.rtop() = Lr.y();
-            slayout.rbottom() = Lr.y() + Wh.y();
-            hPrevObject = SectorInfo->hObject;
+        LDPUMA_Skip(hTestWriteED);
+        PCTDIB pTmpDIB = new CTDIB;
+        pTmpDIB->SetDIBbyPtr(pOutDIB);
+        pictSize.rwidth() = Wh.x();
+        pictSize.rheight() = Wh.y();
+        pictGoal.cx = (uint32_t) (CIF::getTwips() * pTmpDIB->GetLineWidth());
+        pictGoal.cy = (uint32_t) (CIF::getTwips() * pTmpDIB->GetLinesNumber());
+        int32_t iDIBSize = pTmpDIB->GetDIBSize();
+        delete pTmpDIB;
+        indent = CIF::Rect();
+        interval.cx = 0;
+        interval.cy = 0;
+        playout.x = -1;
+        playout.w = -1;
+        playout.y = -1;
+        playout.h = -1;
+        Lr.rx() = MAX(0, Lr.x());
+        Lr.ry() = MAX(0, Lr.y());
+        slayout.rleft() = Lr.x();
+        slayout.rright() = Lr.x() + Wh.x();
+        slayout.rtop() = Lr.y();
+        slayout.rbottom() = Lr.y() + Wh.y();
+        hPrevObject = SectorInfo->hObject;
 
-            if (SectorInfo->FlagInColumn || (OutPutTypeFrame && SectorInfo->FlagFictiveParagraph)) {
-                hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hColumn, -1,
-                                                 indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-                hString = (CIF::CEDLine*) CED_CreateLine(hParagraph, 0, 6);
-                SectorInfo->FlagFictiveParagraph = FALSE;
+        if (SectorInfo->FlagInColumn || (OutPutTypeFrame && SectorInfo->FlagFictiveParagraph)) {
+            hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hColumn, -1,
+                    indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
+            hString = (CIF::CEDLine*) CED_CreateLine(hParagraph, 0, 6);
+            SectorInfo->FlagFictiveParagraph = FALSE;
+        }
+
+        if (CIF::RfrmtOptions::useNone() || SectorInfo->CountFragments == 1)
+            SectorInfo->hObject = SectorInfo->hColumn;
+
+        else {
+            if (SectorInfo->FlagInColumn == TRUE) {
+                EdFragmRect.x = MAX(0, SectorInfo->OffsetFromColumn.x());
+                EdFragmRect.y = MAX(0, SectorInfo->OffsetFromColumn.y());
+                EdFragmRect.w = MAX(0, Wh.x() - FrameOffset) * CIF::getTwips();
+                EdFragmRect.h = Wh.y() * CIF::getTwips();
+                SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
+                        EdFragmRect, 0x22, -1, -1, -1);
             }
-
-            if (CIF::RfrmtOptions::useNone() || SectorInfo->CountFragments == 1)
-                SectorInfo->hObject = SectorInfo->hColumn;
 
             else {
-                if (SectorInfo->FlagInColumn == TRUE) {
-                    EdFragmRect.x = MAX(0, SectorInfo->OffsetFromColumn.x());
-                    EdFragmRect.y = MAX(0, SectorInfo->OffsetFromColumn.y());
-                    EdFragmRect.w = MAX(0, Wh.x() - FrameOffset) * CIF::getTwips();
-                    EdFragmRect.h = Wh.y() * CIF::getTwips();
-                    SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector,
-                                                          SectorInfo->hColumn, EdFragmRect, 0x22, -1, -1, -1);
-                }
-
-                else {
-                    EdFragmRect.x = Lr.x() * CIF::getTwips() - SectorInfo->Offset.x();
-                    EdFragmRect.y = Lr.y() * CIF::getTwips() - SectorInfo->Offset.y();
-                    EdFragmRect.w = MAX(0, Wh.x() - FrameOffset) * CIF::getTwips();
-                    EdFragmRect.h = Wh.y() * CIF::getTwips();
-                    SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector,
-                                                          SectorInfo->hColumn, EdFragmRect, 0x22, -1, 0, 0);
-                }
+                EdFragmRect.x = Lr.x() * CIF::getTwips() - SectorInfo->Offset.x();
+                EdFragmRect.y = Lr.y() * CIF::getTwips() - SectorInfo->Offset.y();
+                EdFragmRect.w = MAX(0, Wh.x() - FrameOffset) * CIF::getTwips();
+                EdFragmRect.h = Wh.y() * CIF::getTwips();
+                SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
+                        EdFragmRect, 0x22, -1, 0, 0);
             }
-
-            hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, -1,
-                                             indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-            hString = (CIF::CEDLine*) CED_CreateLine(hParagraph, 0, 6);
-            Letter.setChar(' ');
-            Letter.setProbability(0);
-            CED_CreateChar(hString, slayout, &Letter, 12, ED_PICT_BASE + (int) IndexPict, -1, LANGUAGE_UNKNOWN,
-                           -1, -1);
-
-            if (!CED_CreatePicture(SectorInfo->hEDPage, (int) IndexPict, pictSize, pictGoal,
-                                   ED_ALIGN_MIDDLE, 1, pOutDIB, (int) iDIBSize)) {
-                SectorInfo->hObject = hPrevObject;
-                return FALSE;
-            }
-
-#endif
-            LDPUMA_Skip(hTestDeleteImage);
         }
+
+        hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, -1, indent,
+                SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
+        hString = (CIF::CEDLine*) CED_CreateLine(hParagraph, 0, 6);
+        Letter.setChar(' ');
+        Letter.setProbability(0);
+        CED_CreateChar(hString, slayout, &Letter, 12, ED_PICT_BASE + (int) IndexPict, -1,
+                LANGUAGE_UNKNOWN, -1, -1);
+
+        if (!CED_CreatePicture(SectorInfo->hEDPage, (int) IndexPict, pictSize, pictGoal,
+                ED_ALIGN_MIDDLE, 1, pOutDIB, (int) iDIBSize)) {
+            SectorInfo->hObject = hPrevObject;
+            return FALSE;
+        }
+        LDPUMA_Skip(hTestDeleteImage);
     }
 
     // piter
@@ -441,26 +431,8 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     CIMAGE_DeleteImage(lpName);
     CIMAGE_FreeCopedDIB(pOutDIB);
     // end piter
-#ifdef EdWrite
+    SectorInfo->hObject = hPrevObject;
 
-    if (!RtfWriteMode)
-        SectorInfo->hObject = hPrevObject;
-
-#endif
     LDPUMA_Skip(hTestEnd);
     return TRUE;
-}
-
-// Piter.
-// Сохранение изображения в метафайле
-static void bufcpy(char ** str, void * mem, unsigned sz)
-{
-    const char Hex[] = "0123456789ABCDEF";
-    unsigned char * c = (unsigned char *) mem;
-
-    for (unsigned i = 0; i < sz; i++, (*str) += 2) {
-        (*str)[0] = Hex[c[i] >> 4];
-        (*str)[1] = Hex[c[i] & 0x0F];
-        (*str)[2] = 0;
-    }
 }

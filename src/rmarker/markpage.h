@@ -69,7 +69,6 @@
 #include "exc/exc.h"
 #include "rblock/rblock.h"
 #include "rline/rline.h"
-#include "rfrmt/rfrmt.h"
 #include "rpic/rpic.h"
 #include "rstr/rstr.h"
 #include "rstuff/rstuff.h"

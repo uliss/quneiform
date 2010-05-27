@@ -16,34 +16,43 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CRTFFUNC_H_
-#define CRTFFUNC_H_
+#ifndef FORMATTER_H_
+#define FORMATTER_H_
 
-#include "cfcompat.h"
-#include "creatertf.h"
-#include "crtfstruct.h"
-
-struct RtfSectorInfo;
+#include "globus.h"
+#include "formatoptions.h"
 
 namespace CIF
 {
 
-float getTwips();
-void setTwips(float value);
+class CEDPage;
+
+class CLA_EXPO Formatter
+{
+    public:
+        Formatter(const FormatOptions& opt = FormatOptions());
+        /**
+         * Formats file
+         * @return pointer to created CEDPage document
+         * @note caller should free return value
+         */
+        CEDPage * format(const std::string& fileName) const;
+
+        /**
+         * Returns format options
+         */
+        FormatOptions options() const;
+
+        /**
+         * Sets format options
+         */
+        void setOptions(const FormatOptions& opts);
+    private:
+        void setInnerOptions() const;
+    private:
+        FormatOptions opts_;
+};
 
 }
 
-Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo);
-int16_t GetRealSizeKegl(const char * str, int16_t width, int16_t FontPointSize, int16_t FontNumber);
-int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
-        int16_t* strHeight);
-extern Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName);
-
-void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
-
-void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
-void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips);
-void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-
-#endif /* CRTFFUNC_H_ */
+#endif /* FORMATTER_H_ */

@@ -67,6 +67,7 @@
 
 #include <stddef.h>
 #include <stdio.h>
+#include "cttypes.h"
 
 namespace CIF
 {

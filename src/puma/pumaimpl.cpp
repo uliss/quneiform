@@ -45,7 +45,7 @@
 #include "export/exporterfactory.h"
 #include "rblock/rblock.h"
 #include "rcorrkegl/rcorrkegl.h"
-#include "rfrmt/rfrmt.h"
+#include "rfrmt/formatter.h"
 #include "rimage/criimage.h"
 #include "rline/rline.h"
 #include "rmarker/rmarker.h"
@@ -281,15 +281,14 @@ FormatOptions PumaImpl::formatOptions() const {
 }
 
 void PumaImpl::formatResult() {
-    RFRMT_SetFormatOptions(format_options_);
+    Formatter frmt(format_options_);
 
     if (ed_page_) {
         delete ed_page_;
         ed_page_ = NULL;
     }
 
-    if (!RFRMT_Formatter(input_filename_.c_str(), &ed_page_))
-        throw PumaException("RFRMT_Formatter failed");
+    ed_page_ = frmt.format(input_filename_);
 }
 
 void PumaImpl::getImageInfo(const std::string& image_name) {

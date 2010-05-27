@@ -102,7 +102,8 @@
 #include "common/debug.h"
 #include "compat/filefunc.h"
 
-namespace CIF {
+namespace CIF
+{
 class CEDPage;
 }
 
@@ -118,7 +119,6 @@ void RtfUnionRect_CRect_CRect(RECT *s1, RECT *s2);
 void RtfAssignRect_CRect_CRect(RECT *s1, RECT *s2);
 
 Bool ReadInternalFileRelease(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage);
-void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
 void Cleaning_LI_FRMT_Used_Flag(void);
 
 namespace CIF
@@ -143,16 +143,12 @@ extern char WriteRtfImageName[PATH_MAX];
 extern char RtfFileName[PATH_MAX];
 extern uint32_t CountPict;
 extern uint32_t CountTable;
-extern uint32_t RtfWriteMode;
 extern CIF::Point TemplateOffset;
 
 #define CHEREDOVON
 
 Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, CIF::CEDPage ** hEdTree) {
     CIF::CRtfPage RtfPage;
-
-    if (RtfWriteMode) // is activated ONLY in debug mode (нажать ??? в LDPUMA)
-        Cleaning_LI_FRMT_Used_Flag(); //обнуление флажков, что линии между колонок
 
     if (CIF::RfrmtOptions::hasFlag(CIF::USE_FRAME_AND_COLUMN)) {
         if (!RtfPage.FindPageTree(fpFileNameIn, FileNameOut))
