@@ -38,7 +38,6 @@ CEDPage * Formatter::format(const std::string& fileName) const {
     CEDPage * page = NULL;
     RFRMT_Formatter(fileName.c_str(), &page);
     return page;
-
     FILE * internal_file = create_temp_file();
     if (internal_file == NULL)
         throw std::runtime_error("[Formatter::format] could not create temp file");
@@ -66,7 +65,7 @@ FormatOptions Formatter::options() const {
 }
 
 void Formatter::setInnerOptions() const {
-    RfrmtOptions::formatMode() = 0;
+    RfrmtOptions::setFormatMode(0);
 
     if (!opts_.isBoldUsed())
         RfrmtOptions::setFlag(NOBOLD);

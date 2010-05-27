@@ -87,9 +87,6 @@ char lpMyNameSerif[PATH_MAX];
 char lpMyNameNonSerif[PATH_MAX];
 char lpMyNameMono[PATH_MAX];
 
-Bool32 FlagChangeSizeKegl;
-Bool32 FlagDebugAlign;
-
 extern Bool32 gbBold;
 extern Bool32 gbItalic;
 extern Bool32 gbSize;
@@ -115,7 +112,7 @@ bool RFRMT_Formatter(const char* lpInputImageName, CIF::CEDPage** page) {
         assert ("Could not create tmpfile\n");
     }
 
-    CIF::RfrmtOptions::formatMode() = 0;
+    CIF::RfrmtOptions::setFormatMode(0);
     ExFlagMode = FALSE;
     strcpy((char*) WriteRtfImageName, lpInputImageName);
     SetReturnCode_rfrmt(IDS_ERR_NO);
@@ -145,20 +142,10 @@ bool RFRMT_Formatter(const char* lpInputImageName, CIF::CEDPage** page) {
     strcpy((char*) lpMyNameNonSerif, gpSansSerifName);
     strcpy((char*) lpMyNameMono, gpCourierName);
 
-    if (!LDPUMA_Skip(hDebugKegl))
-        FlagChangeSizeKegl = FALSE;
-    else
-        FlagChangeSizeKegl = TRUE;
-
     if (!LDPUMA_Skip(hDebugLineTransfer))
         CIF::RfrmtOptions::setLineTransfer(true);
     else
         CIF::RfrmtOptions::setLineTransfer(false);
-
-    if (!LDPUMA_Skip(hDebugAlign))
-        FlagDebugAlign = TRUE;
-    else
-        FlagDebugAlign = FALSE;
 
     if (!FullRtf(fpInternalFile, NULL, page)) {
         fclose(fpInternalFile);

@@ -42,7 +42,7 @@ enum format_mode_t
 class CLA_EXPO RfrmtOptions
 {
     public:
-        static unsigned int & formatMode() {
+        static unsigned int formatMode() {
             return format_mode_;
         }
 
