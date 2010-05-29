@@ -70,9 +70,5 @@
 #define  TablTrgaph           108
 #define  TablMinKeglSize      12
 
-extern std::string lpMyNameSerif;
-extern std::string lpMyNameNonSerif;
-extern std::string lpMyNameMono;
-
 #endif
 

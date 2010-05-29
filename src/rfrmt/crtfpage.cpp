@@ -48,7 +48,6 @@ uchar Frmt_CharSet = (uchar) 204;
 int16_t K_TwipsInInch = 1440;
 uint16_t FlagWriteRtfCoordinates = 1;
 char WriteRtfPageNumber[CFIO_MAX_PATH] = "1";
-extern std::string WriteRtfImageName;
 
 namespace CIF
 {
@@ -88,6 +87,22 @@ void CRtfPage::setDrawCallback(RfrmtDrawPageFunction f) {
     draw_func_ = f;
 }
 
+void CRtfPage::setFontMonospace(const std::string& name) {
+    font_monospace_ = name;
+}
+
+void CRtfPage::setFontSans(const std::string& name) {
+    font_sans_ = name;
+}
+
+void CRtfPage::setFontSerif(const std::string& name) {
+    font_serif_ = name;
+}
+
+void CRtfPage::setImageName(const std::string& name) {
+    image_name_ = name;
+}
+
 void CRtfPage::setFragmentsInColumn(const CRtfFragment * cur_frag) {
     assert(cur_frag);
 
@@ -100,7 +115,7 @@ void CRtfPage::setFragmentsInColumn(const CRtfFragment * cur_frag) {
 }
 void CRtfPage::Rtf_CED_CreatePage() {
     m_hED = new CEDPage;
-    m_hED->setImageName(WriteRtfImageName);
+    m_hED->setImageName(image_name_);
     m_hED->setUnrecognizedChar(UnRecogSymbol);
     m_hED->setLanguage(static_cast<language_t> (gnLanguage));
     m_hED->setPageSize(Size(PaperW, PaperH));
@@ -952,9 +967,9 @@ Bool CRtfPage::WriteHeaderRtf() {
     typedef std::pair<int, std::string> FontEntry;
     typedef std::vector<FontEntry> FontList;
     FontList fonts;
-    fonts.push_back(FontEntry(FF_SWISS, lpMyNameNonSerif));
-    fonts.push_back(FontEntry(FF_ROMAN, lpMyNameSerif));
-    fonts.push_back(FontEntry(FF_MODERN, lpMyNameMono));
+    fonts.push_back(FontEntry(FF_SWISS, font_sans_));
+    fonts.push_back(FontEntry(FF_ROMAN, font_serif_));
+    fonts.push_back(FontEntry(FF_MODERN, font_monospace_));
     fonts.push_back(FontEntry(FF_SWISS, "Arial Narrow"));
 
     for (size_t i = 0; i < fonts.size(); i++) {

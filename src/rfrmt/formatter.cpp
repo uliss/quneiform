@@ -29,11 +29,7 @@
 
 #include "cfcompat.h"
 
-std::string WriteRtfImageName;
 uint32_t ExFlagMode;
-std::string lpMyNameSerif;
-std::string lpMyNameNonSerif;
-std::string lpMyNameMono;
 
 namespace CIF
 {
@@ -55,9 +51,7 @@ CEDPage * Formatter::format(const std::string& fileName) {
         throw std::runtime_error("[Formatter::format] cannot create format file");
     }
 
-    WriteRtfImageName = fileName;
-
-    CEDPage * page = readFormatFile(fp);
+    CEDPage * page = readFormatFile(fileName, fp);
 
     if (fclose(fp) != 0)
         throw std::runtime_error("[Formatter::format] cannot close format file");
@@ -69,7 +63,7 @@ FormatOptions Formatter::options() const {
     return opts_;
 }
 
-CEDPage * Formatter::readFormatFile(FILE * fp) {
+CEDPage * Formatter::readFormatFile(const std::string& imageName, FILE * fp) {
     CRtfPage page;
 
     if (RfrmtOptions::hasFlag(USE_FRAME_AND_COLUMN)) {
@@ -77,6 +71,11 @@ CEDPage * Formatter::readFormatFile(FILE * fp) {
             throw std::runtime_error("[Formatter::readFormatFile] read error");
     } else if (!page.ReadInternalFile(fp))
         throw std::runtime_error("[Formatter::readFormatFile] read error");
+
+    page.setFontMonospace(opts_.monospaceName());
+    page.setFontSans(opts_.sansSerifName());
+    page.setFontSerif(opts_.serifName());
+    page.setImageName(imageName);
 
     page.SetTwips();
     page.CorrectKegl();
@@ -104,10 +103,6 @@ void Formatter::setFontOptions() const {
 
     if (!opts_.isFontSizeUsed())
         RfrmtOptions::setFlag(NOSIZE);
-
-    lpMyNameSerif = opts_.serifName();
-    lpMyNameNonSerif = opts_.sansSerifName();
-    lpMyNameMono = opts_.monospaceName();
 }
 
 void Formatter::setInnerOptions() const {

@@ -46,6 +46,26 @@ class CRtfPage
          */
         void drawLayout() const;
 
+        /**
+         * Sets monospace font name
+         */
+        void setFontMonospace(const std::string& name);
+
+        /**
+         * Sets sans serif font name
+         */
+        void setFontSans(const std::string& name);
+
+        /**
+         * Sets serif font name
+         */
+        void setFontSerif(const std::string& name);
+
+        /**
+         * Sets image name
+         */
+        void setImageName(const std::string& name);
+
         void setFragmentsInColumn(const CRtfFragment * cur_fragm);
 
         void CRtfPageDelFragments(void);
@@ -104,6 +124,11 @@ class CRtfPage
         int m_nCurSectorNumber;
         int m_nPrevSectorNumber;
         CIF::CEDPage * m_hED;
+    private:
+        std::string image_name_;
+        std::string font_sans_;
+        std::string font_serif_;
+        std::string font_monospace_;
     public:
         static void setDrawCallback(RfrmtDrawPageFunction f);
     private:
