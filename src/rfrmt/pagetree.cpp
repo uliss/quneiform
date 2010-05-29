@@ -69,6 +69,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include "aldebug.h"
+#include "common/debug.h"
 
 #include "crtffragment.h"
 #include "crtfsector.h"
@@ -1014,7 +1015,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
 
                     if (LineVK[left].beg - 30 >= LineVK[right].beg ||
                             LineHK[top].beg - 10 >= LineHK[bottom].beg) //LineHK[top].beg >= LineHK[bottom].beg)
-                        LDPUMA_Console(" Неправильные координаты фрагмента!!! ");
+							CIF::Debug() << " Неправильные координаты фрагмента!!!\n";
 
                     if (LineVK[left].beg - 30 >= LineVK[right].beg ||
                             LineHK[top].beg - 10 > LineHK[bottom].beg) { //LineHK[top].beg >= LineHK[bottom].beg)

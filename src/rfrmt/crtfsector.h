@@ -79,7 +79,7 @@ class CRtfSector
         Handle m_hEDSector;
         Bool m_FlagOneString;
         Bool m_bFlagLine;
-        int32_t m_VTerminalColumnNumber;
+        int m_VTerminalColumnNumber;
     public:
         static void setDrawCallback(RfrmtDrawSectorFunction f);
     private:

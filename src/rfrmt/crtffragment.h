@@ -28,7 +28,7 @@
 #include "creatertf.h"
 #include "common/rect.h"
 
-class RtfSectorInfo;
+struct RtfSectorInfo;
 
 namespace CIF
 {

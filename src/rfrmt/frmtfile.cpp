@@ -66,6 +66,7 @@
 #include <cstring>
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
+#include "common/debug.h"
 #include "cstr/cstr.h"
 #include "rfrmt_prot.h"
 #include "rfrmtfile.h"
@@ -648,15 +649,13 @@ void VCopyRect(InternalRect* Inner, RECT* Outer) {
     Inner->right = (uint16_t) Outer->right;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//                   CheckRect
 Bool CheckRect(InternalRect* Inner) {
     char str[500];
 
     if (Inner->top >= Inner->bottom || Inner->left >= Inner->right) {
         sprintf(str, " Left = %d, Right = %d, Top = %d, Bottom = %d ", Inner->left, Inner->right,
                 Inner->top, Inner->bottom);
-        LDPUMA_Console(str);
+		CIF::Debug() << str << "\n";
         //SetReturnCode_rfrmt(IDS_ERR_SIZEFRAGMENT);
         return FALSE;
     }
