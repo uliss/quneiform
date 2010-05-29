@@ -28,10 +28,6 @@
 
 #include "cfcompat.h"
 
-extern Bool32 gbBold;
-extern Bool32 gbItalic;
-extern Bool32 gbSize;
-extern uint32_t gnFormat;
 extern const char* gpSerifName;
 extern const char* gpSansSerifName;
 extern const char* gpCourierName;
@@ -53,7 +49,7 @@ Formatter::Formatter(const FormatOptions& opt) {
 CEDPage * Formatter::format(const std::string& fileName) const {
     CEDPage * page = NULL;
 
-    FILE *internal_file = create_temp_file();
+    FILE * internal_file = create_temp_file();
 
     if (internal_file == NULL)
         throw std::runtime_error("[Formatter::format] could not create temp file");
@@ -102,7 +98,7 @@ void Formatter::setInnerOptions() const {
     // set to true in debug mode
     RfrmtOptions::setLineTransfer(false);
 
-    if (gnFormat == 1 && ExFlagMode == FALSE)
+    if (opts_.formatMode() == PUMA_FORMAT_ALL && ExFlagMode == FALSE)
         RfrmtOptions::setFlag(USE_FRAME_AND_COLUMN);
     else
         RfrmtOptions::setFlag(USE_NONE);

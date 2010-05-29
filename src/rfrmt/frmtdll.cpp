@@ -60,22 +60,12 @@
 #include "formatoptions.h"
 
 static uint16_t gwLowRC = 0;
-Bool32 gbBold = TRUE;
-Bool32 gbItalic = TRUE;
-Bool32 gbSize = TRUE;
-uint32_t gnFormat = 1; // 0 - не форматировать
-// 1 - форматировать с фреймами и  колонками
-// 2 - только фреймы
 char UnRecogSymbol = '~';
 uint32_t gnLanguage = LANGUAGE_RUS_ENG;
 
 void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts) {
-    gbBold = opts.isBoldUsed();
-    gbItalic = opts.isItalicUsed();
-    gbSize = opts.isFontSizeUsed();
     UnRecogSymbol = (char) opts.unrecognizedChar();
     gnLanguage = opts.language();
-    gnFormat = opts.formatMode();
 }
 
 void SetReturnCode_rfrmt(uint16_t rc) {

@@ -60,13 +60,18 @@
 #include "lang_def.h"
 #include <climits>
 
-enum puma_format_mode_t {
+enum puma_format_mode_t
+{
+    // no formatting
     PUMA_FORMAT_NONE = 0x0040,
+    // format output into frames and columns
     PUMA_FORMAT_ALL = 0x0001,
+    // format output into frames only
     PUMA_FORMAT_ONLY_FRAME = 0x0002
 };
 
-enum puma_table_t {
+enum puma_table_t
+{
     PUMA_TABLE_NONE = 0,
     PUMA_TABLE_DEFAULT = 1,
     PUMA_TABLE_ONLY_LINE = 2,
@@ -74,21 +79,20 @@ enum puma_table_t {
     PUMA_TABLE_LINE_TEXT = 4
 };
 
-enum puma_picture_t {
+enum puma_picture_t
+{
     PUMA_PICTURE_NONE = 0, PUMA_PICTURE_ALL = 1
 };
 
-
 // Флаги обновления контейнеров
-enum puma_update_flag_t {
-    FLG_UPDATE_NO = 0,
-    FLG_UPDATE = UINT_MAX,
-    FLG_UPDATE_CCOM = 0x1,
-    FLG_UPDATE_CPAGE = 0x2,
+enum puma_update_flag_t
+{
+    FLG_UPDATE_NO = 0, FLG_UPDATE = UINT_MAX, FLG_UPDATE_CCOM = 0x1, FLG_UPDATE_CPAGE = 0x2,
 };
 
 // constants
-enum puma_module_t {
+enum puma_module_t
+{
     PUMA_MODULE_CCOM = 1,
     PUMA_MODULE_CPAGE = 2,
     PUMA_MODULE_CFIO = 3,
@@ -98,7 +102,6 @@ enum puma_module_t {
     PUMA_MODULE_RBLOCK = 102,
     PUMA_MODULE_RSTR = 103,
     PUMA_MODULE_RLINE = 104,
-    PUMA_MODULE_RFRMT = 105,
     PUMA_MODULE_RIMAGE = 107,
     PUMA_MODULE_RPSTR = 108,
     PUMA_MODULE_RPIC = 109,
