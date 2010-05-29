@@ -25,6 +25,7 @@
 
 #include "formatter.h"
 #include "rfrmtoptions.h"
+#include "crtfpage.h"
 
 #include "cfcompat.h"
 
@@ -69,12 +70,32 @@ FormatOptions Formatter::options() const {
 }
 
 CEDPage * Formatter::readFormatFile(FILE * fp) {
-    CEDPage * page = NULL;
-    if (!FullRtf(fp, NULL, &page)) {
-        fclose(fp);
-        throw std::runtime_error("[Formatter::exportToCed] formatting failed");
-    }
-    return page;
+    CRtfPage page;
+    CEDPage * ced_page = NULL;
+
+    if (RfrmtOptions::hasFlag(USE_FRAME_AND_COLUMN)) {
+        if (!page.FindPageTree(fp, NULL))
+            throw std::runtime_error("[ Formatter::readFormatFile] read error");
+
+        page.SetTwips();
+    } else if (!page.ReadInternalFile(fp))
+        throw std::runtime_error("[Formatter::readFormatFile] read error");
+
+    page.SetTwips();
+    page.CorrectKegl();
+    page.ChangeKegl();
+
+    //  RtfPage.AddTables();
+    page.AddPictures();
+
+    // in manual layout user can establish own order of the fragments
+    if (RfrmtOptions::useNone())
+        page.SortUserNumber();
+
+    if (page.Write(NULL))
+        page.Rtf_CED_WriteFormattedEd(NULL, &ced_page);
+
+    return ced_page;
 }
 
 void Formatter::setFontOptions() const {

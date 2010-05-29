@@ -22,6 +22,7 @@
 #include <vector>
 #include <boost/function.hpp>
 
+#include "font.h"
 #include "cfcompat.h"
 #include "crtfstruct.h"
 

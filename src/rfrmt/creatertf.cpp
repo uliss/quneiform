@@ -107,7 +107,6 @@ namespace CIF
 class CEDPage;
 }
 
-Bool FullRtf(FILE *fpFileNameIn, const char *FileNameOut, CIF::CEDPage ** page);
 Bool PageTree(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage, const char *FileNameOut);
 Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo, Bool OutPutMode);
 Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFrame);
@@ -142,38 +141,6 @@ extern CIF::Point TemplateOffset;
 
 #define CHEREDOVON
 
-Bool FullRtf(FILE *fpFileNameIn, const char* FileNameOut, CIF::CEDPage ** hEdTree) {
-    CIF::CRtfPage RtfPage;
-
-    if (CIF::RfrmtOptions::hasFlag(CIF::USE_FRAME_AND_COLUMN)) {
-        if (!RtfPage.FindPageTree(fpFileNameIn, FileNameOut))
-            return FALSE;
-
-        RtfPage.SetTwips();
-    } else {
-        if (!RtfPage.ReadInternalFile(fpFileNameIn))
-            return FALSE;
-
-        RtfPage.SetTwips();
-        RtfPage.CorrectKegl();
-        RtfPage.ChangeKegl();
-    }
-
-    //  RtfPage.AddTables();
-    RtfPage.AddPictures();
-
-    if (CIF::RfrmtOptions::useNone())
-        RtfPage.SortUserNumber();//в ручном layout user can establish own order of the fragments
-
-    if (RtfPage.Write(FileNameOut))
-        RtfPage.Rtf_CED_WriteFormattedEd(FileNameOut, hEdTree);
-
-    return TRUE;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 UTILS                                                          //
-////////////////////////////////////////////////////////////////////////////////////////////////////
 int16_t GetRealSizeKegl( /*CString**/const char* str, int16_t width, int16_t FontPointSize,
         int16_t FontNumber) {
     char* sz;
