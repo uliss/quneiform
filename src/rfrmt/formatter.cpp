@@ -29,10 +29,10 @@
 
 #include "cfcompat.h"
 
-uint32_t ExFlagMode;
-
 namespace CIF
 {
+
+bool Formatter::extended_mode_ = false;
 
 Formatter::Formatter(const FormatOptions& opt) {
     setOptions(opt);
@@ -46,9 +46,9 @@ CEDPage * Formatter::format(const std::string& fileName) {
 
     setInnerOptions();
 
-    if (CreateInternalFileForFormatter(fp) == FALSE) {
+    if (!writeFormatFile(fp)) {
         fclose(fp);
-        throw std::runtime_error("[Formatter::format] cannot create format file");
+        throw std::runtime_error("[Formatter::format] cannot write format file");
     }
 
     CEDPage * page = readFormatFile(fileName, fp);
@@ -108,14 +108,14 @@ void Formatter::setFontOptions() const {
 void Formatter::setInnerOptions() const {
     setFontOptions();
 
-    ExFlagMode = FALSE;
+    extended_mode_ = false;
 
     RfrmtOptions::setFormatMode(0);
 
     // set to true in debug mode
     RfrmtOptions::setLineTransfer(false);
 
-    if (opts_.formatMode() == PUMA_FORMAT_ALL && ExFlagMode == FALSE)
+    if (opts_.formatMode() == PUMA_FORMAT_ALL && extended_mode_ == FALSE)
         RfrmtOptions::setFlag(USE_FRAME_AND_COLUMN);
     else
         RfrmtOptions::setFlag(USE_NONE);
@@ -125,6 +125,10 @@ void Formatter::setInnerOptions() const {
 void Formatter::setOptions(const FormatOptions& opts) {
     opts_ = opts;
     RFRMT_SetFormatOptions(opts);
+}
+
+bool Formatter::writeFormatFile(FILE * fp) {
+    return CreateInternalFileForFormatter(fp) == TRUE;
 }
 
 }

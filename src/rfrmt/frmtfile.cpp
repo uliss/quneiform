@@ -73,6 +73,7 @@
 #include "aldebug.h"
 #include "dpuma.h"
 #include "resource.h"
+#include "formatter.h"
 #include "minmax.h"
 
 using namespace CIF;
@@ -87,7 +88,6 @@ extern uint32_t GetTablCount(void);
 extern uchar Frmt_CharSet;
 extern int16_t CreateEmptyRtfFile(void);
 extern char UnRecogSymbol;
-extern uint32_t ExFlagMode;
 
 #define HalfDefMargL   900 // Left margin in twips    (the default is 1800).
 #define HalfDefMargT   720 // Top  margin in twips    (the default is 1440).
@@ -124,7 +124,7 @@ Bool CreateInternalFileForFormatter(FILE *pIFName) {
     // CountTable = GetTablCount();
 
     if (Page.Count.Chars > 32000) {
-        ExFlagMode = TRUE;
+        CIF::Formatter::extended_mode_ = true;
     }
 
     if (!(Page.Count.Frags + (int) CountPict + (int) CountTable)) {

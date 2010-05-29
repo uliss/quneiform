@@ -54,8 +54,11 @@ class CLA_EXPO Formatter
         CEDPage * readFormatFile(const std::string& imageName, FILE * fp);
         void setFontOptions() const;
         void setInnerOptions() const;
+        bool writeFormatFile(FILE * fp);
     private:
         FormatOptions opts_;
+    public:
+        static bool extended_mode_;
 };
 
 }
