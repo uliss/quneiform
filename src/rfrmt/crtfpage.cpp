@@ -25,7 +25,6 @@
 #include "crtffunc.h"
 #include "crtfstring.h"
 #include "creatertf.h"
-#include "frmttabl.h"
 #include "frmtpict.h"
 #include "rfrmtoptions.h"
 #include "formatoptions.h"

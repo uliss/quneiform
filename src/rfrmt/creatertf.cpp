@@ -66,8 +66,6 @@
 #include "crtfhorizontalcolumn.h"
 #include "cfcompat.h"
 #include "creatertf.h"
-#include "globus.h"
-#include "sys_prog.h"
 #include "cpage/cpage.h"
 #include "cfio/cfio.h"
 #include "ced/ced.h"
