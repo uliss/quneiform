@@ -32,6 +32,7 @@ class CEDPage;
 class CRtfFragment;
 class CRtfSector;
 class CRtfPage;
+class FormatOptions;
 
 typedef boost::function<void(const CRtfPage*)> RfrmtDrawPageFunction;
 
@@ -62,9 +63,19 @@ class CRtfPage
         void setFontSerif(const std::string& name);
 
         /**
+         * Sets formatting options
+         */
+        void setFormatOptions(const FormatOptions& opts);
+
+        /**
          * Sets image name
          */
         void setImageName(const std::string& name);
+
+        /**
+         * Sets symbol that inserted instead of unrecognized characters
+         */
+        void setUnrecognizedChar(char ch);
 
         void setFragmentsInColumn(const CRtfFragment * cur_fragm);
 
@@ -92,7 +103,6 @@ class CRtfPage
         int16_t GetFlagAndNumberFragment(uchar* FragmentType, int16_t* CurrentSectorNumber);
         void WriteSectorsHeader(int16_t i);
         void ToPlacePicturesAndTables(void);
-        void Rtf_CED_CreatePage(void);
         uint16_t GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector);
         void SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, int32_t BottomPos,
                 int32_t* PaperW, int32_t* PaperH, int32_t* MargL, int32_t* MargR, int32_t* MargT,
@@ -123,12 +133,16 @@ class CRtfPage
         int m_nIndex;
         int m_nCurSectorNumber;
         int m_nPrevSectorNumber;
-        CIF::CEDPage * m_hED;
+        CEDPage * m_hED;
+    private:
+        void initCedPage();
     private:
         std::string image_name_;
         std::string font_sans_;
         std::string font_serif_;
         std::string font_monospace_;
+        char unrecognized_char_;
+        language_t language_;
     public:
         static void setDrawCallback(RfrmtDrawPageFunction f);
     private:

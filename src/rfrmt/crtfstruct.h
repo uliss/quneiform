@@ -32,7 +32,4 @@ class RtfPageElementCount
         uint16_t RtfChars;
 };
 
-extern char UnRecogSymbol;
-extern uint32_t gnLanguage;
-
 #endif /* CRTFSTRUCT_H_ */

@@ -64,6 +64,4 @@ class FormatOptions;
 
 }
 
-void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts);
-
 #endif

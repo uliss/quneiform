@@ -80,14 +80,12 @@ using namespace CIF;
 
 int32_t PageIncline2048 = 2048;
 uint32_t CountPict = 0, CountTable = 0;
-void SetReturnCode_rfrmt(uint16_t rc);
 CIF::Point TemplateOffset;
 
 extern uint32_t GetPictCount(void);
 extern uint32_t GetTablCount(void);
 extern uchar Frmt_CharSet;
 extern int16_t CreateEmptyRtfFile(void);
-extern char UnRecogSymbol;
 
 #define HalfDefMargL   900 // Left margin in twips    (the default is 1800).
 #define HalfDefMargT   720 // Top  margin in twips    (the default is 1440).
@@ -603,7 +601,7 @@ void CChar::AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop) {
 
     if (!vers.lnAltCnt) {
         m_wCountAlt = 1;
-        m_chrVersions[0].m_bChar = UnRecogSymbol;
+        m_chrVersions[0].m_bChar = CIF::Formatter::unrecognized_char;
         m_chrVersions[0].m_bProbability = 0;
     }
 
@@ -659,7 +657,7 @@ Bool CheckRect(InternalRect* Inner) {
         sprintf(str, " Left = %d, Right = %d, Top = %d, Bottom = %d ", Inner->left, Inner->right,
                 Inner->top, Inner->bottom);
         LDPUMA_Console(str);
-        SetReturnCode_rfrmt(IDS_ERR_SIZEFRAGMENT);
+        //SetReturnCode_rfrmt(IDS_ERR_SIZEFRAGMENT);
         return FALSE;
     }
 

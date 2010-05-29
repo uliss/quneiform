@@ -33,6 +33,7 @@ namespace CIF
 {
 
 bool Formatter::extended_mode_ = false;
+char Formatter::unrecognized_char = '~';
 
 Formatter::Formatter(const FormatOptions& opt) {
     setOptions(opt);
@@ -72,9 +73,7 @@ CEDPage * Formatter::readFormatFile(const std::string& imageName, FILE * fp) {
     } else if (!page.ReadInternalFile(fp))
         throw std::runtime_error("[Formatter::readFormatFile] read error");
 
-    page.setFontMonospace(opts_.monospaceName());
-    page.setFontSans(opts_.sansSerifName());
-    page.setFontSerif(opts_.serifName());
+    page.setFormatOptions(opts_);
     page.setImageName(imageName);
 
     page.SetTwips();
@@ -124,7 +123,7 @@ void Formatter::setInnerOptions() const {
 
 void Formatter::setOptions(const FormatOptions& opts) {
     opts_ = opts;
-    RFRMT_SetFormatOptions(opts);
+    unrecognized_char = (char) opts.unrecognizedChar();
 }
 
 bool Formatter::writeFormatFile(FILE * fp) {

@@ -59,6 +59,7 @@ class CLA_EXPO Formatter
         FormatOptions opts_;
     public:
         static bool extended_mode_;
+        static char unrecognized_char;
 };
 
 }

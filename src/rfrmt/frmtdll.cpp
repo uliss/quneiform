@@ -57,17 +57,4 @@
 #define __RFRMT_EXTERN__
 #include "rfrmt.h"
 #include "rfrmt_prot.h"
-#include "formatoptions.h"
 
-static uint16_t gwLowRC = 0;
-char UnRecogSymbol = '~';
-uint32_t gnLanguage = LANGUAGE_RUS_ENG;
-
-void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts) {
-    UnRecogSymbol = (char) opts.unrecognizedChar();
-    gnLanguage = opts.language();
-}
-
-void SetReturnCode_rfrmt(uint16_t rc) {
-    gwLowRC = rc;
-}

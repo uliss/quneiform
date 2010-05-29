@@ -66,19 +66,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _DEBUG
 #endif
 
-// extern functions
-void SetReturnCode_rfrmt(uint16_t rc);
-uint16_t GetReturnCode_rfrmt();
-
 //####################################
 void *  myAlloc(size_t stAllocateBlock)
 {
     void * mem = NULL;
 #ifdef _DEBUG
     mem = malloc(stAllocateBlock);
-
-    if (!mem)
-        SetReturnCode_rfrmt(IDS_ERR_NO_MEMORY);
 
 #endif
     return mem;

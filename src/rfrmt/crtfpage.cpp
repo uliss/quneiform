@@ -28,6 +28,7 @@
 #include "frmttabl.h"
 #include "frmtpict.h"
 #include "rfrmtoptions.h"
+#include "formatoptions.h"
 
 // common module
 #include "common/debug.h"
@@ -99,8 +100,20 @@ void CRtfPage::setFontSerif(const std::string& name) {
     font_serif_ = name;
 }
 
+void CRtfPage::setFormatOptions(const FormatOptions& opts) {
+    font_sans_ = opts.sansSerifName();
+    font_serif_ = opts.serifName();
+    font_monospace_ = opts.monospaceName();
+    language_ = opts.language();
+    unrecognized_char_ = (char) opts.unrecognizedChar();
+}
+
 void CRtfPage::setImageName(const std::string& name) {
     image_name_ = name;
+}
+
+void CRtfPage::setUnrecognizedChar(char ch) {
+    unrecognized_char_ = ch;
 }
 
 void CRtfPage::setFragmentsInColumn(const CRtfFragment * cur_frag) {
@@ -113,11 +126,11 @@ void CRtfPage::setFragmentsInColumn(const CRtfFragment * cur_frag) {
             frag->setInColumn(true);
     }
 }
-void CRtfPage::Rtf_CED_CreatePage() {
+void CRtfPage::initCedPage() {
     m_hED = new CEDPage;
     m_hED->setImageName(image_name_);
-    m_hED->setUnrecognizedChar(UnRecogSymbol);
-    m_hED->setLanguage(static_cast<language_t> (gnLanguage));
+    m_hED->setUnrecognizedChar(unrecognized_char_);
+    m_hED->setLanguage(language_);
     m_hED->setPageSize(Size(PaperW, PaperH));
     m_hED->setPageBorder(Rect(Point(MargT, MargL), Point(MargB, MargR)));
 
@@ -715,7 +728,7 @@ int16_t CRtfPage::GetMinKegl(int16_t OldKegl) {
 Bool CRtfPage::Write() {
     if (RfrmtOptions::useNone()) { // Фрагменты отписываются по пользовательским номерам
         ReCalcPageWidthAndHeight();
-        Rtf_CED_CreatePage();
+        initCedPage();
 
         if (!WriteHeaderRtf())
             return FALSE;
@@ -723,7 +736,7 @@ Bool CRtfPage::Write() {
         Write_USE_NONE();
     } else if (RfrmtOptions::useFrames() || FlagBadColumn) { // Все фрагменты фреймы
         ReCalcPageWidthAndHeight();
-        Rtf_CED_CreatePage();
+        initCedPage();
 
         if (!WriteHeaderRtf())
             return FALSE;
@@ -732,7 +745,7 @@ Bool CRtfPage::Write() {
     } else {
         ToPlacePicturesAndTables();
         ReCalcPageWidthAndHeight();
-        Rtf_CED_CreatePage();
+        initCedPage();
 
         if (!WriteHeaderRtf())
             return FALSE;
