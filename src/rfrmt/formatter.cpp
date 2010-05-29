@@ -66,14 +66,9 @@ CEDPage * Formatter::format(const std::string& fileName) const {
         throw std::runtime_error("[Formatter::format] cannot create format file");
     }
 
-    if (gnFormat == 1 && ExFlagMode == FALSE)
-        CIF::RfrmtOptions::setFlag(CIF::USE_FRAME_AND_COLUMN);
-    else
-        CIF::RfrmtOptions::setFlag(CIF::USE_NONE);
-
-    lpMyNameSerif = gpSerifName;
-    lpMyNameNonSerif = gpSansSerifName;
-    lpMyNameMono = gpCourierName;
+    lpMyNameSerif = opts_.serifName();
+    lpMyNameNonSerif = opts_.sansSerifName();
+    lpMyNameMono = opts_.monospaceName();
 
     if (!FullRtf(internal_file, NULL, &page)) {
         fclose(internal_file);
@@ -106,6 +101,11 @@ void Formatter::setInnerOptions() const {
 
     // set to true in debug mode
     RfrmtOptions::setLineTransfer(false);
+
+    if (gnFormat == 1 && ExFlagMode == FALSE)
+        RfrmtOptions::setFlag(USE_FRAME_AND_COLUMN);
+    else
+        RfrmtOptions::setFlag(USE_NONE);
 }
 
 void Formatter::setOptions(const FormatOptions& opts) {

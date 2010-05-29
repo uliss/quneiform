@@ -66,26 +66,16 @@ Bool32 gbSize = TRUE;
 uint32_t gnFormat = 1; // 0 - не форматировать
 // 1 - форматировать с фреймами и  колонками
 // 2 - только фреймы
-const char * gpSerifName = "MS Serif Cyr";
-const char * gpSansSerifName = "MS Sans Serif Cyr";
-const char * gpCourierName = "Courier Cyr";
 char UnRecogSymbol = '~';
 uint32_t gnLanguage = LANGUAGE_RUS_ENG;
 
 void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts) {
-    static std::string sans, serif, mono;
     gbBold = opts.isBoldUsed();
     gbItalic = opts.isItalicUsed();
     gbSize = opts.isFontSizeUsed();
     UnRecogSymbol = (char) opts.unrecognizedChar();
     gnLanguage = opts.language();
     gnFormat = opts.formatMode();
-    serif = opts.serifName();
-    gpSerifName = serif.c_str();
-    sans = opts.sansSerifName();
-    gpSansSerifName = sans.c_str();
-    mono = opts.monospaceName();
-    gpCourierName = mono.c_str();
 }
 
 void SetReturnCode_rfrmt(uint16_t rc) {
