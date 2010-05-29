@@ -19,6 +19,9 @@
 #ifndef FORMATTER_H_
 #define FORMATTER_H_
 
+#include <cstdio>
+#include <string>
+
 #include "globus.h"
 #include "formatoptions.h"
 
@@ -36,7 +39,7 @@ class CLA_EXPO Formatter
          * @return pointer to created CEDPage document
          * @note caller should free return value
          */
-        CEDPage * format(const std::string& fileName) const;
+        CEDPage * format(const std::string& fileName);
 
         /**
          * Returns format options
@@ -48,6 +51,8 @@ class CLA_EXPO Formatter
          */
         void setOptions(const FormatOptions& opts);
     private:
+        CEDPage * readFormatFile(FILE * fp);
+        void setFontOptions() const;
         void setInnerOptions() const;
     private:
         FormatOptions opts_;

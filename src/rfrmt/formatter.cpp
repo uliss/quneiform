@@ -28,11 +28,6 @@
 
 #include "cfcompat.h"
 
-extern const char* gpSerifName;
-extern const char* gpSansSerifName;
-extern const char* gpCourierName;
-extern uint32_t CountTable;
-
 std::string WriteRtfImageName;
 uint32_t ExFlagMode;
 std::string lpMyNameSerif;
@@ -46,32 +41,24 @@ Formatter::Formatter(const FormatOptions& opt) {
     setOptions(opt);
 }
 
-CEDPage * Formatter::format(const std::string& fileName) const {
-    CEDPage * page = NULL;
+CEDPage * Formatter::format(const std::string& fileName) {
+    FILE * fp = create_temp_file();
 
-    FILE * internal_file = create_temp_file();
-
-    if (internal_file == NULL)
+    if (fp == NULL)
         throw std::runtime_error("[Formatter::format] could not create temp file");
 
     setInnerOptions();
-    WriteRtfImageName = fileName;
 
-    if (CreateInternalFileForFormatter(internal_file) == FALSE) {
-        fclose(internal_file);
+    if (CreateInternalFileForFormatter(fp) == FALSE) {
+        fclose(fp);
         throw std::runtime_error("[Formatter::format] cannot create format file");
     }
 
-    lpMyNameSerif = opts_.serifName();
-    lpMyNameNonSerif = opts_.sansSerifName();
-    lpMyNameMono = opts_.monospaceName();
+    WriteRtfImageName = fileName;
 
-    if (!FullRtf(internal_file, NULL, &page)) {
-        fclose(internal_file);
-        throw std::runtime_error("[Formatter::format] formatting failed");
-    }
+    CEDPage * page = readFormatFile(fp);
 
-    if (fclose(internal_file) != 0)
+    if (fclose(fp) != 0)
         throw std::runtime_error("[Formatter::format] cannot close format file");
 
     return page;
@@ -81,11 +68,16 @@ FormatOptions Formatter::options() const {
     return opts_;
 }
 
-void Formatter::setInnerOptions() const {
-    ExFlagMode = FALSE;
+CEDPage * Formatter::readFormatFile(FILE * fp) {
+    CEDPage * page = NULL;
+    if (!FullRtf(fp, NULL, &page)) {
+        fclose(fp);
+        throw std::runtime_error("[Formatter::exportToCed] formatting failed");
+    }
+    return page;
+}
 
-    RfrmtOptions::setFormatMode(0);
-
+void Formatter::setFontOptions() const {
     if (!opts_.isBoldUsed())
         RfrmtOptions::setFlag(NOBOLD);
 
@@ -95,6 +87,18 @@ void Formatter::setInnerOptions() const {
     if (!opts_.isFontSizeUsed())
         RfrmtOptions::setFlag(NOSIZE);
 
+    lpMyNameSerif = opts_.serifName();
+    lpMyNameNonSerif = opts_.sansSerifName();
+    lpMyNameMono = opts_.monospaceName();
+}
+
+void Formatter::setInnerOptions() const {
+    setFontOptions();
+
+    ExFlagMode = FALSE;
+
+    RfrmtOptions::setFormatMode(0);
+
     // set to true in debug mode
     RfrmtOptions::setLineTransfer(false);
 
@@ -102,6 +106,7 @@ void Formatter::setInnerOptions() const {
         RfrmtOptions::setFlag(USE_FRAME_AND_COLUMN);
     else
         RfrmtOptions::setFlag(USE_NONE);
+
 }
 
 void Formatter::setOptions(const FormatOptions& opts) {
