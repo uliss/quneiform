@@ -1,5 +1,4 @@
 add_library(cuneiform-rfrmt ${LIBTYPE}
-${SNP_SRC}
 creatertf.cpp
 crtfchar.cpp
 crtffragment.cpp
@@ -12,12 +11,10 @@ crtfverticalcolumn.cpp
 crtfword.cpp
 formatter.cpp
 frmtdibapi.cpp
-frmtdll.cpp
 frmtfile.cpp
 frmtpict.cpp
 formatoptions.cpp
 int_file.cpp
-mymem.cpp
 pagetree.cpp
 rfrmtoptions.cpp
 sort_int.cpp

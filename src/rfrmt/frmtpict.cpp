@@ -72,13 +72,11 @@
 #include "cpage/cpagetyps.h"
 #include "rtfedwrite.h"
 #include "frmtpict.h"
-#include "dpuma.h"
 #include "puma/pumadef.h"
 #include "rdib/ctdib.h"
 #include "cimage/ctiimage.h"
 #include "frmtdibapi.h"
 #include "rimage/criimage.h"
-#include "sys_prog.h"
 #include "ced/ced.h"
 #include "ced/cedline.h"
 #include "rfrmt_prot.h"
@@ -144,8 +142,6 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     uint32_t PictNumber = 0;
     Point RtfLt;
     CPAGE_PICTURE pict;
-    LDPUMA_Skip(hTest);
-#ifdef EdWrite
     Handle hParagraph = NULL;
     CIF::CEDLine * hString = NULL;
     CIF::Size pictSize;
@@ -157,7 +153,6 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     EDBOX EdFragmRect;
     Letter Letter;
     Handle hPrevObject;
-#endif
     uint32_t NumberPage = CPAGE_GetCurrentPage();
     Handle h_Page = CPAGE_GetHandlePage(NumberPage);
     Handle h_Pict = CPAGE_PictureGetFirst(h_Page);
@@ -235,7 +230,6 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     }
 
     // end piter
-    LDPUMA_Skip(hTestDIBData);
     in.MaskFlag = FALSE;
     void * pOutDIB = NULL;
 
@@ -249,7 +243,6 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     char szPictName[] = "RFRMT:Picture";
     char szRotateName[] = "RFRMT:RotatePicture";
     char * lpName = szPictName;
-    LDPUMA_Skip(hTestTurn);
 
     if (CIMAGE_WriteDIB(szPictName, pOutDIB, TRUE)) {
         switch (pinfo.Angle) {
@@ -274,21 +267,15 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
             fprintf(stderr, "RIMAGE_Turn failed\n");
             rc = FALSE;
         }
-    }
-
-    else {
+    } else {
         fprintf(stderr, "WritePict error!!! CIMAGE_WriteDIB failed: %s\n", szPictName);
     }
 
     // Довернем изображение на малый угол.
-    LDPUMA_Skip(hTestRotate);
-
     if (!RIMAGE_Rotate((puchar) lpName, (puchar) szRotateName, pinfo.Incline2048, 2048, 0)) {
         fprintf(stderr, "RIMAGE_Rotate failed\n");
         rc = FALSE;
-    }
-
-    else {
+    } else {
         CIMAGE_DeleteImage(lpName);
         lpName = szRotateName;
     }
@@ -300,9 +287,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
         if (pinfo.Incline2048 >= 0) {
             in.dwX = ptWh.y() * pinfo.Incline2048 / 2048;
             in.dwY = 0;
-        }
-
-        else {
+        } else {
             in.dwX = 0;
             //  Beg of Almi Corr
             //                      in.dwY = ptWh.x*pinfo.Incline2048/2048;
@@ -322,7 +307,6 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
         in.MaskFlag = TRUE;
         // Получим размер маски
         uint32_t nSize = 0;
-        LDPUMA_Skip(hTestGetMaskDIB);
 
         if (CPAGE_PictureGetMask(h_Page, h_Pict, 0, NULL, &nSize)) {
             char * lpMask = (char*) malloc(sizeof(in) + nSize);
@@ -335,27 +319,20 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
                         fprintf(stderr, "CIMAGE_GetDIBData failed\n");
                         rc = FALSE;
                     }
-                }
-
-                else {
+                } else {
                     fprintf(stderr, "PAGE_PictureGetMask failed\n");
                     rc = FALSE;
                 }
 
                 free(lpMask);
             }
-        }
-
-        else {
+        } else {
             fprintf(stderr, "PAGE_PictureGetMask() failed\n");
             rc = FALSE;
         }
     }
 
-    LDPUMA_Skip(hTestWriteMetafile);
-
     if (rc) {
-        LDPUMA_Skip(hTestWriteED);
         PCTDIB pTmpDIB = new CTDIB;
         pTmpDIB->SetDIBbyPtr(pOutDIB);
         pictSize.rwidth() = Wh.x();
@@ -388,7 +365,6 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
 
         if (CIF::RfrmtOptions::useNone() || SectorInfo->CountFragments == 1)
             SectorInfo->hObject = SectorInfo->hColumn;
-
         else {
             if (SectorInfo->FlagInColumn == TRUE) {
                 EdFragmRect.x = MAX(0, SectorInfo->OffsetFromColumn.x());
@@ -397,9 +373,7 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
                 EdFragmRect.h = Wh.y() * CIF::getTwips();
                 SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
                         EdFragmRect, 0x22, -1, -1, -1);
-            }
-
-            else {
+            } else {
                 EdFragmRect.x = Lr.x() * CIF::getTwips() - SectorInfo->Offset.x();
                 EdFragmRect.y = Lr.y() * CIF::getTwips() - SectorInfo->Offset.y();
                 EdFragmRect.w = MAX(0, Wh.x() - FrameOffset) * CIF::getTwips();
@@ -422,7 +396,6 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
             SectorInfo->hObject = hPrevObject;
             return FALSE;
         }
-        LDPUMA_Skip(hTestDeleteImage);
     }
 
     // piter
@@ -431,7 +404,5 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     CIMAGE_FreeCopedDIB(pOutDIB);
     // end piter
     SectorInfo->hObject = hPrevObject;
-
-    LDPUMA_Skip(hTestEnd);
     return TRUE;
 }

@@ -20,7 +20,6 @@
 #include <cstring>
 #include <stdexcept>
 
-#include "rfrmt.h"
 #include "rfrmt_prot.h"
 
 #include "formatter.h"
