@@ -91,7 +91,6 @@
 using namespace CIF;
 
 extern CIF::Point TemplateOffset;
-extern char RtfFileName[PATH_MAX];
 /*
  * Dib Header Marker - used in writing DIBs to files
  */

@@ -16,7 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <stdio.h>
+#include <cstdio>
+#include <cstring>
 #include <stdexcept>
 
 #include "rfrmt.h"
@@ -27,6 +28,21 @@
 
 #include "cfcompat.h"
 
+extern Bool32 gbBold;
+extern Bool32 gbItalic;
+extern Bool32 gbSize;
+extern uint32_t gnFormat;
+extern const char* gpSerifName;
+extern const char* gpSansSerifName;
+extern const char* gpCourierName;
+extern uint32_t CountTable;
+
+std::string WriteRtfImageName;
+uint32_t ExFlagMode;
+char lpMyNameSerif[PATH_MAX];
+char lpMyNameNonSerif[PATH_MAX];
+char lpMyNameMono[PATH_MAX];
+
 namespace CIF
 {
 
@@ -36,18 +52,29 @@ Formatter::Formatter(const FormatOptions& opt) {
 
 CEDPage * Formatter::format(const std::string& fileName) const {
     CEDPage * page = NULL;
-    RFRMT_Formatter(fileName.c_str(), &page);
-    return page;
-    FILE * internal_file = create_temp_file();
+
+    FILE *internal_file = create_temp_file();
+
     if (internal_file == NULL)
         throw std::runtime_error("[Formatter::format] could not create temp file");
 
     setInnerOptions();
+    ExFlagMode = FALSE;
+    WriteRtfImageName = fileName;
 
     if (CreateInternalFileForFormatter(internal_file) == FALSE) {
         fclose(internal_file);
         throw std::runtime_error("[Formatter::format] cannot create format file");
     }
+
+    if (gnFormat == 1 && ExFlagMode == FALSE)
+        CIF::RfrmtOptions::setFlag(CIF::USE_FRAME_AND_COLUMN);
+    else
+        CIF::RfrmtOptions::setFlag(CIF::USE_NONE);
+
+    strcpy((char*) lpMyNameSerif, gpSerifName);
+    strcpy((char*) lpMyNameNonSerif, gpSansSerifName);
+    strcpy((char*) lpMyNameMono, gpCourierName);
 
     if (!FullRtf(internal_file, NULL, &page)) {
         fclose(internal_file);
@@ -65,6 +92,8 @@ FormatOptions Formatter::options() const {
 }
 
 void Formatter::setInnerOptions() const {
+    ExFlagMode = FALSE;
+
     RfrmtOptions::setFormatMode(0);
 
     if (!opts_.isBoldUsed())

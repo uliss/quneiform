@@ -48,7 +48,7 @@ uchar Frmt_CharSet = (uchar) 204;
 int16_t K_TwipsInInch = 1440;
 uint16_t FlagWriteRtfCoordinates = 1;
 char WriteRtfPageNumber[CFIO_MAX_PATH] = "1";
-extern char WriteRtfImageName[PATH_MAX];
+extern std::string WriteRtfImageName;
 
 namespace CIF
 {

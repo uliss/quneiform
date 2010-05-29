@@ -65,6 +65,5 @@ class FormatOptions;
 }
 
 void RFRMT_SetFormatOptions(const CIF::FormatOptions& opts);
-bool RFRMT_Formatter(const char * InputFileName, CIF::CEDPage** page);
 
 #endif
