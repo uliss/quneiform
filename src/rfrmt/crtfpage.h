@@ -23,6 +23,7 @@
 #include <boost/function.hpp>
 
 #include "font.h"
+#include "common/size.h"
 #include "cfcompat.h"
 #include "crtfstruct.h"
 
@@ -105,8 +106,7 @@ class CRtfPage
         void ToPlacePicturesAndTables(void);
         uint16_t GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector);
         void SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, int32_t BottomPos,
-                int32_t* PaperW, int32_t* PaperH, int32_t* MargL, int32_t* MargR, int32_t* MargT,
-                int32_t* MargB);
+                Size& size, int32_t* MargL, int32_t* MargR, int32_t* MargT, int32_t* MargB);
 
         std::vector<CRtfFragment*> m_arFragments;
         std::vector<CRtfSector*> m_arSectors;
@@ -117,8 +117,6 @@ class CRtfPage
         float m_fTwips;
         RECT m_rect;
         RECT m_rectReal;
-        int32_t PaperW;
-        int32_t PaperH;
         int32_t MargL;
         int32_t MargR;
         int32_t MargT;
@@ -143,6 +141,7 @@ class CRtfPage
         std::string font_monospace_;
         char unrecognized_char_;
         language_t language_;
+        Size page_size_;
     public:
         static void setDrawCallback(RfrmtDrawPageFunction f);
     private:

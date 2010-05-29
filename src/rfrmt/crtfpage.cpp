@@ -130,7 +130,7 @@ void CRtfPage::initCedPage() {
     m_hED->setImageName(image_name_);
     m_hED->setUnrecognizedChar(unrecognized_char_);
     m_hED->setLanguage(language_);
-    m_hED->setPageSize(Size(PaperW, PaperH));
+    m_hED->setPageSize(page_size_);
     m_hED->setPageBorder(Rect(Point(MargT, MargL), Point(MargB, MargR)));
 
     // setting page number
@@ -341,16 +341,16 @@ void CRtfPage::AddLines() {
     for (int i = 0; i < CountSectors; i++) {
         if (i == 0) {
             pRtfSector = m_arSectors[i];
-            pRtfSector->SectorInfo.PaperW = PaperW;
+            pRtfSector->SectorInfo.PaperW = page_size_.width();
             Rect.left = 0;
-            Rect.right = PaperW;
+            Rect.right = page_size_.width();
             Rect.top = 0;
             Rect.bottom = MAX(0, pRtfSector->m_rect.top);
 
             if (CheckLines(&Rect, FALSE, &pRtfSector->SectorInfo)) {
                 pRtfSector = *m_arSectors.insert(m_arSectors.begin() + i, new CRtfSector());
                 pRtfSector->m_bFlagLine = TRUE;
-                pRtfSector->SectorInfo.PaperW = PaperW;
+                pRtfSector->SectorInfo.PaperW = page_size_.width();
                 CountSectors++;
                 RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &Rect);
                 RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &Rect);
@@ -359,17 +359,17 @@ void CRtfPage::AddLines() {
         //      if( i < CountSectors )
         {
             pRtfSector = m_arSectors[i - 1];
-            pRtfSector->SectorInfo.PaperW = PaperW;
+            pRtfSector->SectorInfo.PaperW = page_size_.width();
             pRtfNextSector = m_arSectors[i];
             Rect.left = 0;
-            Rect.right = PaperW;
+            Rect.right = page_size_.width();
             Rect.top = pRtfSector->m_rect.bottom;
             Rect.bottom = pRtfNextSector->m_rect.top;
 
             if (CheckLines(&Rect, FALSE, &pRtfSector->SectorInfo)) {
                 pRtfSector = *m_arSectors.insert(m_arSectors.begin() + i, new CRtfSector());
                 pRtfSector->m_bFlagLine = TRUE;
-                pRtfSector->SectorInfo.PaperW = PaperW;
+                pRtfSector->SectorInfo.PaperW = page_size_.width();
                 CountSectors++;
                 RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &Rect);
                 RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &Rect);
@@ -444,8 +444,9 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
             Width = MAX(Width, (*ppRtfFragment)->m_rect.right - (*ppRtfFragment)->m_rect.left);
         }
 
-        PaperW = MAX(DefaultWidthPage, (int32_t)(Width/** CIF::getTwips()*/) + MargL + MargR);
-        PaperH = DefaultHeightPage;
+        page_size_.rwidth()
+                = MAX(DefaultWidthPage, (int32_t)(Width/** CIF::getTwips()*/) + MargL + MargR);
+        page_size_.rheight() = DefaultHeightPage;
     } else if (RfrmtOptions::useFrames() || FlagBadColumn) {// Все фрагменты фреймы
         m_arSectors.push_back(new CRtfSector());
         pRtfSector = m_arSectors.back();
@@ -462,8 +463,8 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
         pRtfSector->m_rectReal.right = pRtfSector->m_rect.right = RightPos;
         pRtfSector->m_rectReal.top = pRtfSector->m_rect.top = TopPos;
         pRtfSector->m_rectReal.bottom = pRtfSector->m_rect.bottom = BottomPos;
-        SetPaperSize(LeftPos, RightPos, TopPos, BottomPos, &PaperW, &PaperH, &MargL, &MargR,
-                &MargT, &MargB);
+        SetPaperSize(LeftPos, RightPos, TopPos, BottomPos, page_size_, &MargL, &MargR, &MargT,
+                &MargB);
         InitMargL = MargL;
         InitMargR = MargR;
         InitMargT = MargT;
@@ -477,8 +478,8 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
             BottomPos = MAX(BottomPos, (int16_t)(*ppRtfFragment)->m_rect.bottom);
         }
 
-        SetPaperSize(LeftPos, RightPos, TopPos, BottomPos, &PaperW, &PaperH, &MargL, &MargR,
-                &MargT, &MargB);
+        SetPaperSize(LeftPos, RightPos, TopPos, BottomPos, page_size_, &MargL, &MargR, &MargT,
+                &MargB);
         InitMargL = MargL;
         InitMargR = MargR;
         InitMargT = MargT;
@@ -490,8 +491,7 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
 //           Вычисления ширены и высоты листа                                           //
 //////////////////////////////////////////////////////////////////////////////////////////
 void CRtfPage::SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, int32_t BottomPos,
-        int32_t* PaperW, int32_t* PaperH, int32_t* MargL, int32_t* MargR, int32_t* MargT,
-        int32_t* MargB) {
+        Size& size, int32_t* MargL, int32_t* MargR, int32_t* MargT, int32_t* MargB) {
     int i, j;
     int32_t MargL2 = DefMargL / 2, MargL10 = DefMargL / 10, MargL0 = 0;
     int32_t MargR2 = DefMargR / 2, MargR10 = DefMargR / 10, MargR0 = 0;
@@ -519,8 +519,8 @@ void CRtfPage::SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, i
                     *MargB = MasMargB[i];
                 }
 
-                *PaperW = WidthPage[j];
-                *PaperH = HeightPage[j];
+                size.setWidth(HeightPage[j]);
+                size.setHeight(WidthPage[j]);
                 return;
             }
         }
@@ -539,8 +539,8 @@ void CRtfPage::SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, i
                     *MargB = MasMargB[i];
                 }
 
-                *PaperW = HeightPage[j];
-                *PaperH = WidthPage[j];
+                size.setWidth(HeightPage[j]);
+                size.setHeight(WidthPage[j]);
                 return;
             }
         }
@@ -550,8 +550,8 @@ void CRtfPage::SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, i
     *MargR = MargR2;
     *MargT = MargT2;
     *MargB = MargB2;
-    *PaperW = WidthPage[3];
-    *PaperH = HeightPage[3];
+    size.setWidth(HeightPage[3]);
+    size.setHeight(WidthPage[3]);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -1010,8 +1010,8 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
         pRtfSector->SectorInfo.Offset.ry() = pRtfSector->m_rectReal.top;
 
     pRtfSector->SectorInfo.FlagOneString = FALSE;
-    pRtfSector->SectorInfo.PaperW = PaperW;
-    pRtfSector->SectorInfo.PaperH = PaperH;
+    pRtfSector->SectorInfo.PaperW = page_size_.width();
+    pRtfSector->SectorInfo.PaperH = page_size_.height();
 
     // m_bFlagLine (есть линии) => не пытаться сдвигать margL для красоты
     if (RfrmtOptions::useFramesAndColumns() && pRtfSector->m_bFlagLine == FALSE) {
@@ -1032,15 +1032,16 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
     if (RfrmtOptions::useFramesAndColumns() && pRtfSector->m_bFlagLine == FALSE) {
         if (CountHTerminalColumns) {
             if (pRtfSector->m_FlagOneString == FALSE)
-                MargR = PaperW - (pRtfSector->m_arRightBoundTerminalColumns[CountHTerminalColumns
-                        - 1] + pRtfSector->m_arWidthTerminalColumns[CountHTerminalColumns - 1]);
+                MargR = page_size_.width()
+                        - (pRtfSector->m_arRightBoundTerminalColumns[CountHTerminalColumns - 1]
+                                + pRtfSector->m_arWidthTerminalColumns[CountHTerminalColumns - 1]);
             else
                 MargR
-                        = MIN(InitMargR, PaperW
+                        = MIN(InitMargR, page_size_.width()
                                 - (pRtfSector->m_arRightBoundTerminalColumns[CountHTerminalColumns - 1]
                                         + pRtfSector->m_arWidthTerminalColumns[CountHTerminalColumns - 1]));
         } else
-            MargR = PaperW - pRtfSector->m_rectReal.right;
+            MargR = page_size_.width() - pRtfSector->m_rectReal.right;
     }
 
     pRtfSector->SectorInfo.Offset.rx() = MargL;
@@ -1071,13 +1072,13 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
         return;
 
     if (!CountHTerminalColumns) {
-        pEDColumn->width = PaperW - (MargL + MargR);
+        pEDColumn->width = page_size_.width() - (MargL + MargR);
         pEDColumn->space = 0;
     }
 
     for (j = 0; j < CountHTerminalColumns; j++) {
         if (RfrmtOptions::useFramesAndColumns() && pRtfSector->SectorInfo.FlagOneString == TRUE)
-            pEDColumn->width = PaperW - (MargL + MargR);
+            pEDColumn->width = page_size_.width() - (MargL + MargR);
         else
             pEDColumn->width = pRtfSector->m_arWidthTerminalColumns[j];
 
@@ -1091,7 +1092,7 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
     }
 
     pRtfSector->m_hEDSector = CED_CreateSection(m_hED, border, -1, EDCountHTerminalColumns,
-            pEDColumnFirst, 0, PaperW, PaperH, 0, -1, -1);
+            pEDColumnFirst, 0, page_size_.width(), page_size_.height(), 0, -1, -1);
     pRtfSector->SectorInfo.hEDSector = pRtfSector->m_hEDSector;
     pRtfSector->SectorInfo.hEDPage = m_hED;
     pRtfSector->SectorInfo.hFirstColumn = CED_CreateColumn(pRtfSector->SectorInfo.hEDSector);
