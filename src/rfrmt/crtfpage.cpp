@@ -121,10 +121,6 @@ void CRtfPage::Rtf_CED_CreatePage() {
     m_hED->setResizeToFit(!RfrmtOptions::useNone());
 }
 
-void CRtfPage::Rtf_CED_WriteFormattedEd(const char* RtfFileName, CEDPage** hEdTree) {
-    *hEdTree = m_hED;
-}
-
 void CRtfPage::CRtfPageDelFragments() {
     for (std::vector<CRtfFragment*>::iterator it1 = m_arFragments.begin(); it1
             < m_arFragments.end(); it1++)
@@ -701,7 +697,7 @@ int16_t CRtfPage::GetMinKegl(int16_t OldKegl) {
     return OldKegl;
 }
 
-Bool CRtfPage::Write(const char *FileNameOut) {
+Bool CRtfPage::Write() {
     if (RfrmtOptions::useNone()) { // Фрагменты отписываются по пользовательским номерам
         ReCalcPageWidthAndHeight();
         Rtf_CED_CreatePage();

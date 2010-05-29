@@ -65,7 +65,7 @@ class CRtfPage
         void AddTables(void);
         void AddLines(void);
         void SortUserNumber(void);
-        Bool Write(const char* FileNameOut);
+        Bool Write();
         Bool Write_USE_NONE(void);
         Bool Write_USE_FRAME(void);
         Bool Write_USE_FRAME_AND_COLUMN(void);
@@ -73,7 +73,6 @@ class CRtfPage
         void WriteSectorsHeader(int16_t i);
         void ToPlacePicturesAndTables(void);
         void Rtf_CED_CreatePage(void);
-        void Rtf_CED_WriteFormattedEd(const char* FileNameOut, CEDPage**);
         uint16_t GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector);
         void SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, int32_t BottomPos,
                 int32_t* PaperW, int32_t* PaperH, int32_t* MargL, int32_t* MargR, int32_t* MargT,

@@ -71,13 +71,10 @@ FormatOptions Formatter::options() const {
 
 CEDPage * Formatter::readFormatFile(FILE * fp) {
     CRtfPage page;
-    CEDPage * ced_page = NULL;
 
     if (RfrmtOptions::hasFlag(USE_FRAME_AND_COLUMN)) {
         if (!page.FindPageTree(fp, NULL))
-            throw std::runtime_error("[ Formatter::readFormatFile] read error");
-
-        page.SetTwips();
+            throw std::runtime_error("[Formatter::readFormatFile] read error");
     } else if (!page.ReadInternalFile(fp))
         throw std::runtime_error("[Formatter::readFormatFile] read error");
 
@@ -92,10 +89,10 @@ CEDPage * Formatter::readFormatFile(FILE * fp) {
     if (RfrmtOptions::useNone())
         page.SortUserNumber();
 
-    if (page.Write(NULL))
-        page.Rtf_CED_WriteFormattedEd(NULL, &ced_page);
+    if (!page.Write())
+        throw std::runtime_error("[Formatter::readFormatFile] export to CED failed");
 
-    return ced_page;
+    return page.m_hED;
 }
 
 void Formatter::setFontOptions() const {
