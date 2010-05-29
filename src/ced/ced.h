@@ -368,7 +368,7 @@ class CEDParagraph;
 DEC_FUN(uint32_t, CED_IsEdFile, (char * file, Bool32 readFromFile, uint32_t bufLen))
 DEC_FUN(uint32_t, CED_ReadED, (char * file, Bool32 readFromFile, uint32_t bufLen))
 DEC_FUN(void, CED_SetRawDataProc, (FNRDProc proc))
-DEC_FUN(Bool32, CED_CreateFont, (Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset, char* fontName))
+DEC_FUN(Bool32, CED_CreateFont, (Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset, const char* fontName))
 DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len))
 DEC_FUN(Handle, CED_CreateSection, (Handle hEdPage, const CIF::Rect& border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY))
 DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol))

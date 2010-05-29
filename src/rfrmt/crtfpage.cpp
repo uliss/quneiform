@@ -952,80 +952,20 @@ uint16_t CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector
     return (uint16_t) FreePlaceHeight;
 }
 
-Bool CRtfPage::WriteHeaderRtf(void) {
-    int16_t NumFont = 4, i;
-    uint16_t cr = 13/*0x0d*/, lf = 10/*0x0a*/;
-    const char *TitleRtf = "\\rtf1\\ansi\\deff0\\deflang1024";
-    char Eol[3], Nname[260];
-    uchar fontPitchAndFamily;
-    Eol[0] = (char) cr;
-    Eol[1] = (char) lf;
-    Eol[2] = 0;
-    //--WRITE Font Table--
-    FONT *Font;
-    FONT_COD FontCod[12] = { "Arial Cyr", "fswiss", // NonSerif
-            "Times New Roman Cyr", "froman", // Serif
-            "Courier Cyr", "fmodern", // Fixed_Pitch
-            "Arial Narrow", "fswiss" // NonSerif
-            };
-    Font = (FONT*) malloc(NumFont * sizeof(FONT));
+Bool CRtfPage::WriteHeaderRtf() {
+    typedef std::pair<int, std::string> FontEntry;
+    typedef std::vector<FontEntry> FontList;
+    FontList fonts;
+    fonts.push_back(FontEntry(FF_SWISS, lpMyNameNonSerif));
+    fonts.push_back(FontEntry(FF_ROMAN, lpMyNameSerif));
+    fonts.push_back(FontEntry(FF_MODERN, lpMyNameMono));
+    fonts.push_back(FontEntry(FF_SWISS, "Arial Narrow"));
 
-    if (!Font)
-        return FALSE;
-
-    for (i = 0; i < NumFont; ++i) {
-        Font[i].family = (char*) malloc(strlen(FontCod[i].family) + 1);
-        strcpy(Font[i].family, FontCod[i].family);
-
-        switch (i) {
-        case 0:
-            Font[i].name = (char*) malloc(strlen((const char*) lpMyNameNonSerif) + 1);
-            strcpy(Font[i].name, (char*) lpMyNameNonSerif);
-            break;
-        case 1:
-            Font[i].name = (char*) malloc(strlen((char*) lpMyNameSerif) + 1);
-            strcpy(Font[i].name, (char*) lpMyNameSerif);
-            break;
-        case 2:
-            Font[i].name = (char*) malloc(strlen((char*) lpMyNameMono) + 1);
-            strcpy(Font[i].name, (char*) lpMyNameMono);
-            break;
-        case 3:
-            Font[i].name = (char*) malloc(strlen("Arial Narrow") + 1);
-            strcpy(Font[i].name, "Arial Narrow");
-            break;
-        }
-
-        Font[i].Italic = 0;
-        Font[i].Bold = 0;
-        Font[i].Underline = 0;
+    for (size_t i = 0; i < fonts.size(); i++) {
+        CED_CreateFont(m_hED, (uchar) i, fonts[i].first, (uchar) Frmt_CharSet,
+                fonts[i].second.c_str());
     }
 
-    for (i = 0; i < NumFont; ++i) {
-        switch (i) {
-        case 0:
-            fontPitchAndFamily = FF_SWISS;
-            break;
-        case 1:
-            fontPitchAndFamily = FF_ROMAN;
-            break;
-        case 2:
-            fontPitchAndFamily = FF_MODERN;
-            break;
-        case 3:
-            fontPitchAndFamily = FF_SWISS;
-            break;
-        }
-
-        CED_CreateFont(m_hED, (uchar) i, fontPitchAndFamily, (uchar) Frmt_CharSet, Font[i].name);
-    }
-
-    for (i = 0; i < NumFont; ++i) {
-        free(Font[i].family);
-        free(Font[i].name);
-    }
-
-    free(Font);
     return TRUE;
 }
 

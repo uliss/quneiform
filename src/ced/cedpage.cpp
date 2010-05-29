@@ -439,7 +439,7 @@ int CEDPage::GetNumberOfChars() {
 }
 
 Bool32 CEDPage::CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
-        char* fontName) {
+        const char* fontName) {
     if (fontsUsed >= fontsCreated) {
         fontEntry* tmp;
         tmp = new fontEntry[fontsCreated + FONTS_STEPPING];

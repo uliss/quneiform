@@ -212,7 +212,7 @@ class FUN_EXPO__ CEDPage
         int GetNumberOfChars();
 
         Bool32 CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
-                char* fontName);
+                const char* fontName);
         Bool32 GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily,
                 uchar* fontCharset, char** fontName);
 

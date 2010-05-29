@@ -67,7 +67,7 @@ FILE *logStream;
 
 //create font
 CED_FUNC(Bool32) CED_CreateFont(Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily,
-        uchar fontCharset, char* fontName) {
+        uchar fontCharset, const char* fontName) {
     if (logStream) {
         fprintf(logStream, "CreateFont params: %x,%hd,%hd,%hd,%s\n", hEdPage, fontNumber,
                 fontPitchAndFamily, fontCharset, fontName);

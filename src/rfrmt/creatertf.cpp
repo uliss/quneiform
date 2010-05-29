@@ -136,10 +136,6 @@ void setTwips(float value) {
 
 }
 
-extern char lpMyNameSerif[PATH_MAX];
-extern char lpMyNameNonSerif[PATH_MAX];
-extern char lpMyNameMono[PATH_MAX];
-extern char WriteRtfImageName[PATH_MAX];
 extern uint32_t CountPict;
 extern uint32_t CountTable;
 extern CIF::Point TemplateOffset;

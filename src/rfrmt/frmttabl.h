@@ -70,9 +70,9 @@
 #define  TablTrgaph           108
 #define  TablMinKeglSize      12
 
-extern char lpMyNameSerif[PATH_MAX];
-extern char lpMyNameNonSerif[PATH_MAX];
-extern char lpMyNameMono[PATH_MAX];
+extern std::string lpMyNameSerif;
+extern std::string lpMyNameNonSerif;
+extern std::string lpMyNameMono;
 
 #endif
 

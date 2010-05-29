@@ -39,9 +39,9 @@ extern uint32_t CountTable;
 
 std::string WriteRtfImageName;
 uint32_t ExFlagMode;
-char lpMyNameSerif[PATH_MAX];
-char lpMyNameNonSerif[PATH_MAX];
-char lpMyNameMono[PATH_MAX];
+std::string lpMyNameSerif;
+std::string lpMyNameNonSerif;
+std::string lpMyNameMono;
 
 namespace CIF
 {
@@ -59,7 +59,6 @@ CEDPage * Formatter::format(const std::string& fileName) const {
         throw std::runtime_error("[Formatter::format] could not create temp file");
 
     setInnerOptions();
-    ExFlagMode = FALSE;
     WriteRtfImageName = fileName;
 
     if (CreateInternalFileForFormatter(internal_file) == FALSE) {
@@ -72,9 +71,9 @@ CEDPage * Formatter::format(const std::string& fileName) const {
     else
         CIF::RfrmtOptions::setFlag(CIF::USE_NONE);
 
-    strcpy((char*) lpMyNameSerif, gpSerifName);
-    strcpy((char*) lpMyNameNonSerif, gpSansSerifName);
-    strcpy((char*) lpMyNameMono, gpCourierName);
+    lpMyNameSerif = gpSerifName;
+    lpMyNameNonSerif = gpSansSerifName;
+    lpMyNameMono = gpCourierName;
 
     if (!FullRtf(internal_file, NULL, &page)) {
         fclose(internal_file);
