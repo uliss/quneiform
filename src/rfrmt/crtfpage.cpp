@@ -729,40 +729,35 @@ CEDPage * CRtfPage::Write() {
     return ced_page_;
 }
 
-Bool CRtfPage::writeUsingNone() {
+void CRtfPage::writeUsingNone() {
     calcPageSize();
     initCedPage();
     writeFonts();
 
-    int16_t NumberCurrentFragment, InGroupNumber;
-    uchar FragmentType;
-    CRtfFragment *pRtfFragment;
-    CRtfSector *pRtfSector;
-    int16_t CountSectors = Count.RtfFrameTextFragments + Count.RtfTextFragments
+    size_t CountSectors = Count.RtfFrameTextFragments + Count.RtfTextFragments
             + Count.RtfTableFragments + Count.RtfPictureFragments;
 
-    for (int16_t i = 0; i < CountSectors; i++) {
+    for (size_t i = 0; i < CountSectors; i++) {
         m_nCurSectorNumber = i;
-        InGroupNumber = i;
-        NumberCurrentFragment = GetFlagAndNumberFragment(&FragmentType, &InGroupNumber);
-        m_arSectors.push_back(new CRtfSector());
-        pRtfSector = m_arSectors.back();
-        pRtfSector->SectorInfo.userNum = NumberCurrentFragment;
-        pRtfSector->m_VTerminalColumnNumber = 1;
+        int FragmentType = FT_TEXT;
+        int InGroupNumber = i;
+        int NumberCurrentFragment = getFlagAndNumberFragment(&FragmentType, &InGroupNumber);
+        CRtfSector * sector = new CRtfSector;
+        sector->SectorInfo.userNum = NumberCurrentFragment;
+        sector->m_VTerminalColumnNumber = 1;
+        m_arSectors.push_back(sector);
         WriteSectorsHeader(i);
-        pRtfFragment = m_arFragments[NumberCurrentFragment];
+        CRtfFragment * frag = m_arFragments[NumberCurrentFragment];
 
         if (FragmentType == FT_TABLE) {
             //pRtfFragment->FWriteTable(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
         } else if (FragmentType == FT_PICTURE) {
-            pRtfFragment->FWritePicture(InGroupNumber, &pRtfSector->SectorInfo, FOT_SINGLE);
+            frag->FWritePicture(InGroupNumber, &sector->SectorInfo, FOT_SINGLE);
         } else {
-            pRtfFragment->setParent(this);
-            pRtfFragment->writeText(&pRtfSector->SectorInfo);
+            frag->setParent(this);
+            frag->writeText(&sector->SectorInfo);
         }
     }
-
-    return TRUE;
 }
 
 // Все фрагменты фреймы
@@ -977,60 +972,57 @@ void CRtfPage::writeFonts() {
 }
 
 void CRtfPage::WriteSectorsHeader(int16_t i) {
-    CRtfSector *pRtfSector;
     int CountHTerminalColumns;
-    int j;
     int EDCountHTerminalColumns;
     CIF::Rect border;
     EDCOL *pEDColumnFirst, *pEDColumn;
 
-    pRtfSector = m_arSectors[i];
+    CRtfSector * sector = m_arSectors[i];
 
     if (i > 0) //!!!Art
-        pRtfSector->SectorInfo.Offset.ry() = m_arSectors[i - 1]->m_rectReal.bottom + m_arSectors[i
-                - 1]->SectorInfo.InterSectorDist;//!!!Art
+        sector->SectorInfo.Offset.ry() = m_arSectors[i - 1]->m_rectReal.bottom
+                + m_arSectors[i - 1]->SectorInfo.InterSectorDist;//!!!Art
     else
         //!!!Art
-        pRtfSector->SectorInfo.Offset.ry() = pRtfSector->m_rectReal.top;
+        sector->SectorInfo.Offset.ry() = sector->m_rectReal.top;
 
-    pRtfSector->SectorInfo.FlagOneString = FALSE;
-    pRtfSector->SectorInfo.PaperW = page_size_.width();
-    pRtfSector->SectorInfo.PaperH = page_size_.height();
+    sector->SectorInfo.FlagOneString = FALSE;
+    sector->SectorInfo.PaperW = page_size_.width();
+    sector->SectorInfo.PaperH = page_size_.height();
 
     // m_bFlagLine (есть линии) => не пытаться сдвигать margL для красоты
-    if (RfrmtOptions::useFramesAndColumns() && pRtfSector->m_bFlagLine == FALSE) {
-        pRtfSector->GetCountAndRightBoundVTerminalColumns();
-        CountHTerminalColumns = pRtfSector->m_arWidthTerminalColumns.size();
+    if (RfrmtOptions::useFramesAndColumns() && sector->m_bFlagLine == FALSE) {
+        sector->GetCountAndRightBoundVTerminalColumns();
+        CountHTerminalColumns = sector->m_arWidthTerminalColumns.size();
 
         if (CountHTerminalColumns) {
-            if (pRtfSector->m_FlagOneString == FALSE)
-                MargL = pRtfSector->m_arRightBoundTerminalColumns[0];
+            if (sector->m_FlagOneString == FALSE)
+                MargL = sector->m_arRightBoundTerminalColumns[0];
             else {
-                MargL = MIN(InitMargL, pRtfSector->m_arRightBoundTerminalColumns[0]);
-                pRtfSector->SectorInfo.FlagOneString = TRUE;
+                MargL = MIN(InitMargL, sector->m_arRightBoundTerminalColumns[0]);
+                sector->SectorInfo.FlagOneString = TRUE;
             }
         } else
-            MargL = MAX(pRtfSector->m_rectReal.left, 0);
+            MargL = MAX(sector->m_rectReal.left, 0);
     }
 
-    if (RfrmtOptions::useFramesAndColumns() && pRtfSector->m_bFlagLine == FALSE) {
+    if (RfrmtOptions::useFramesAndColumns() && sector->m_bFlagLine == FALSE) {
         if (CountHTerminalColumns) {
-            if (pRtfSector->m_FlagOneString == FALSE)
+            if (sector->m_FlagOneString == FALSE)
                 MargR = page_size_.width()
-                        - (pRtfSector->m_arRightBoundTerminalColumns[CountHTerminalColumns - 1]
-                                + pRtfSector->m_arWidthTerminalColumns[CountHTerminalColumns - 1]);
+                        - (sector->m_arRightBoundTerminalColumns[CountHTerminalColumns - 1]
+                                + sector->m_arWidthTerminalColumns[CountHTerminalColumns - 1]);
             else
-                MargR
-                        = MIN(InitMargR, page_size_.width()
-                                - (pRtfSector->m_arRightBoundTerminalColumns[CountHTerminalColumns - 1]
-                                        + pRtfSector->m_arWidthTerminalColumns[CountHTerminalColumns - 1]));
+                MargR = MIN(InitMargR, page_size_.width()
+                        - (sector->m_arRightBoundTerminalColumns[CountHTerminalColumns - 1]
+                                + sector->m_arWidthTerminalColumns[CountHTerminalColumns - 1]));
         } else
-            MargR = page_size_.width() - pRtfSector->m_rectReal.right;
+            MargR = page_size_.width() - sector->m_rectReal.right;
     }
 
-    pRtfSector->SectorInfo.Offset.rx() = MargL;
-    pRtfSector->SectorInfo.MargL = MargL;
-    pRtfSector->SectorInfo.MargR = MargR;
+    sector->SectorInfo.Offset.rx() = MargL;
+    sector->SectorInfo.MargL = MargL;
+    sector->SectorInfo.MargR = MargR;
 
     border.setLeft(MargL);
     border.setTop(MargT);
@@ -1038,11 +1030,11 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
     border.setBottom(MargB);
 
     if (RfrmtOptions::useFramesAndColumns())
-        pRtfSector->SectorInfo.userNum = -1;
+        sector->SectorInfo.userNum = -1;
     else
         CountHTerminalColumns = 0;
 
-    if (RfrmtOptions::useFramesAndColumns() && pRtfSector->m_bFlagLine == TRUE)
+    if (RfrmtOptions::useFramesAndColumns() && sector->m_bFlagLine == TRUE)
         CountHTerminalColumns = 0;
 
     EDCountHTerminalColumns = CountHTerminalColumns;
@@ -1060,45 +1052,42 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
         pEDColumn->space = 0;
     }
 
-    for (j = 0; j < CountHTerminalColumns; j++) {
-        if (RfrmtOptions::useFramesAndColumns() && pRtfSector->SectorInfo.FlagOneString == TRUE)
+    for (int j = 0; j < CountHTerminalColumns; j++) {
+        if (RfrmtOptions::useFramesAndColumns() && sector->SectorInfo.FlagOneString == TRUE)
             pEDColumn->width = page_size_.width() - (MargL + MargR);
         else
-            pEDColumn->width = pRtfSector->m_arWidthTerminalColumns[j];
+            pEDColumn->width = sector->m_arWidthTerminalColumns[j];
 
         if (j < CountHTerminalColumns - 1) {
-            pEDColumn->space = pRtfSector->m_arRightBoundTerminalColumns[j + 1]
-                    - (pRtfSector->m_arRightBoundTerminalColumns[j] + pEDColumn->width);
+            pEDColumn->space = sector->m_arRightBoundTerminalColumns[j + 1]
+                    - (sector->m_arRightBoundTerminalColumns[j] + pEDColumn->width);
         } else
             pEDColumn->space = 0;
 
         pEDColumn++;
     }
 
-    pRtfSector->m_hEDSector = CED_CreateSection(ced_page_, border, -1, EDCountHTerminalColumns,
+    sector->m_hEDSector = CED_CreateSection(ced_page_, border, -1, EDCountHTerminalColumns,
             pEDColumnFirst, 0, page_size_.width(), page_size_.height(), 0, -1, -1);
-    pRtfSector->SectorInfo.hEDSector = pRtfSector->m_hEDSector;
-    pRtfSector->SectorInfo.hEDPage = ced_page_;
-    pRtfSector->SectorInfo.hFirstColumn = CED_CreateColumn(pRtfSector->SectorInfo.hEDSector);
-    pRtfSector->SectorInfo.hColumn = pRtfSector->SectorInfo.hFirstColumn;
-    pRtfSector->SectorInfo.hObject = pRtfSector->SectorInfo.hFirstColumn;
+    sector->SectorInfo.hEDSector = sector->m_hEDSector;
+    sector->SectorInfo.hEDPage = ced_page_;
+    sector->SectorInfo.hFirstColumn = CED_CreateColumn(sector->SectorInfo.hEDSector);
+    sector->SectorInfo.hColumn = sector->SectorInfo.hFirstColumn;
+    sector->SectorInfo.hObject = sector->SectorInfo.hFirstColumn;
     free(pEDColumnFirst);
 }
 
-//Ишется следуюший фрагмент по пользовательскому номеру
-int16_t CRtfPage::GetFlagAndNumberFragment(uchar* FragmentType, int16_t* InGroupNumber) {
-    int16_t j, i, CountT, CountTT, CountTTP;
-    CRtfFragment* pRtfFragment;
+int CRtfPage::getFlagAndNumberFragment(int * FragmentType, int * InGroupNumber) {
     *FragmentType = FT_TEXT;
-    i = *InGroupNumber;
-    CountT = Count.RtfTextFragments + Count.RtfFrameTextFragments;
-    CountTT = CountT + Count.RtfTableFragments;
-    CountTTP = CountTT + Count.RtfPictureFragments;
+    int i = *InGroupNumber;
+    int CountT = Count.RtfTextFragments + Count.RtfFrameTextFragments;
+    int CountTT = CountT + Count.RtfTableFragments;
+    int CountTTP = CountTT + Count.RtfPictureFragments;
 
-    for (j = 0; j < CountTTP; j++) {
-        pRtfFragment = m_arFragments[j];
+    for (int j = 0; j < CountTTP; j++) {
+        CRtfFragment * frag = m_arFragments[j];
 
-        if ((uint32_t) (i + 1) == pRtfFragment->m_wUserNumber) {
+        if ((uint32_t) (i + 1) == frag->m_wUserNumber) {
             i = j;
             break;
         }

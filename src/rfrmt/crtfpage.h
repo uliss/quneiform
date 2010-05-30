@@ -110,7 +110,6 @@ class CRtfPage
         void AddTables(void);
         void AddLines(void);
         void SortUserNumber(void);
-        int16_t GetFlagAndNumberFragment(uchar* FragmentType, int16_t* CurrentSectorNumber);
         void WriteSectorsHeader(int16_t i);
         void ToPlacePicturesAndTables(void);
         uint16_t GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector);
@@ -143,11 +142,13 @@ class CRtfPage
         void calcPageSizeCommon();
         void calcPageSizeFrames();
         void calcPageSizeNone();
+        /* Ишется следуюший фрагмент по пользовательскому номеру */
+        int getFlagAndNumberFragment(int * FragmentType, int * CurrentSectorNumber);
         void initCedPage();
         int maxFragmentWidth() const;
         void writeFonts();
         /* fragments written by user numbers */
-        Bool writeUsingNone();
+        void writeUsingNone();
         Bool writeUsingFrames();
         Bool writeUsingFramesAndColumns();
     private:
