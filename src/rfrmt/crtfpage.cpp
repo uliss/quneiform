@@ -441,8 +441,8 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
         MargT = DefMargT;
         MargB = DefMargB;
 
-        for (std::vector<CRtfFragment*>::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
-                < m_arFragments.end(); ppRtfFragment++) {
+        for (FragmentList::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
+                != m_arFragments.end(); ppRtfFragment++) {
             Width = MAX(Width, (*ppRtfFragment)->m_rect.right - (*ppRtfFragment)->m_rect.left);
         }
 
@@ -453,8 +453,8 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
         m_arSectors.push_back(new CRtfSector());
         pRtfSector = m_arSectors.back();
 
-        for (std::vector<CRtfFragment*>::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
-                < m_arFragments.end(); ppRtfFragment++) {
+        for (FragmentList::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
+                != m_arFragments.end(); ppRtfFragment++) {
             LeftPos = MIN(LeftPos, (int16_t)(*ppRtfFragment)->m_rect.left);
             TopPos = MIN(TopPos, (int16_t)(*ppRtfFragment)->m_rect.top);
             RightPos = MAX(RightPos, (int16_t)(*ppRtfFragment)->m_rect.right);
@@ -472,8 +472,8 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
         InitMargT = MargT;
         InitMargB = MargB;
     } else {// Фрагменты отписываются после изучения структуры страницы
-        for (std::vector<CRtfFragment*>::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
-                < m_arFragments.end(); ppRtfFragment++) {
+        for (FragmentList::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
+                != m_arFragments.end(); ppRtfFragment++) {
             LeftPos = MIN(LeftPos, (int16_t)(*ppRtfFragment)->m_rect.left);
             TopPos = MIN(TopPos, (int16_t)(*ppRtfFragment)->m_rect.top);
             RightPos = MAX(RightPos, (int16_t)(*ppRtfFragment)->m_rect.right);
