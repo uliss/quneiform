@@ -99,11 +99,8 @@ class CRtfPage
 
         CRtfFragment* GetNextFragment();
         Bool ReadInternalFile(FILE *FileNameIn);
-        void CloseOutputFile(void);
         void SetTwips(void);
         Bool FindPageTree(FILE *FileNameIn, const char* FileNameOut);
-        void ReCalcPageWidthAndHeight();
-        Bool WriteHeaderRtf(void);
         void CorrectKegl(void);
         void ChangeKegl(void);
         void AddNewKegl(int16_t OldKegl, int16_t NewKegl);
@@ -142,7 +139,14 @@ class CRtfPage
 
         int m_nCurSectorNumber;
     private:
+        void calcPageSize();
+        void calcPageSizeCommon();
+        void calcPageSizeFrames();
+        void calcPageSizeNone();
         void initCedPage();
+        int maxFragmentWidth() const;
+        void writeHeader();
+        /* fragments written by user numbers */
         Bool writeUsingNone();
         Bool writeUsingFrames();
         Bool writeUsingFramesAndColumns();

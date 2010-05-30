@@ -38,23 +38,19 @@
 #include "ced/cedparagraph.h"
 // cpage module
 #include "cpage/cpage.h"
-// cfio
-#include "cfio/cfio.h"
-
-#include "lst3_win.h"
 
 extern uint32_t CountPict;
 uchar Frmt_CharSet = (uchar) 204;
 int16_t K_TwipsInInch = 1440;
 uint16_t FlagWriteRtfCoordinates = 1;
-char WriteRtfPageNumber[CFIO_MAX_PATH] = "1";
 
 namespace CIF
 {
 
 RfrmtDrawPageFunction CRtfPage::draw_func_;
 
-CRtfPage::CRtfPage() {
+CRtfPage::CRtfPage() :
+    ced_page_(NULL), bad_column_(false) {
     Count.RtfSectors = 0;
     Count.RtfTextFragments = 0;
     Count.RtfFrameTextFragments = 0;
@@ -63,8 +59,6 @@ CRtfPage::CRtfPage() {
     Count.RtfStrings = 0;
     Count.RtfWords = 0;
     Count.RtfChars = 0;
-    bad_column_ = false;
-    ced_page_ = NULL;
     SetRect(&m_rect, 32000, 32000, 0, 0);
     SetRect(&m_rectReal, 32000, 32000, 0, 0);
 }
@@ -142,11 +136,7 @@ void CRtfPage::initCedPage() {
     ced_page_->setLanguage(language_);
     ced_page_->setPageSize(page_size_);
     ced_page_->setPageBorder(Rect(Point(MargT, MargL), Point(MargB, MargR)));
-
-    // setting page number
-    int PageNumber = 1;
-    PageNumber = atoi(WriteRtfPageNumber);
-    ced_page_->setPageNumber(PageNumber);
+    ced_page_->setPageNumber(1);
 
     // setting page info
     PAGEINFO PageInfo;
@@ -155,16 +145,11 @@ void CRtfPage::initCedPage() {
     ced_page_->setTurn(PageInfo.Incline2048);
     ced_page_->setImageSize(Size(PageInfo.Width, PageInfo.Height));
     ced_page_->setImageDpi(Size(PageInfo.DPIX, PageInfo.DPIY));
-    ced_page_->setResizeToFit(!RfrmtOptions::useNone());
 }
 
 CRtfFragment* CRtfPage::GetNextFragment() {
     m_arFragments.push_back(new CRtfFragment());
     return m_arFragments.back();
-}
-
-void CRtfPage::CloseOutputFile() {
-    fclose(out);
 }
 
 //********* Чтение internal.vit
@@ -380,10 +365,7 @@ void CRtfPage::AddLines() {
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 SortUserNumber                                                 //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void CRtfPage::SortUserNumber(void) {
+void CRtfPage::SortUserNumber() {
     CRtfFragment* pRtfFragment;
     uchar FlagChange;
     uint32_t mas[500], MinUserNumber = 32000;
@@ -428,65 +410,74 @@ Bool CRtfPage::FindPageTree(FILE *fpFileNameIn, const char* FileNameOut) {
     return PageTree(fpFileNameIn, this, FileNameOut);
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////
-//           Вычисления ширины и высоты листа                                           //
-//////////////////////////////////////////////////////////////////////////////////////////
-void CRtfPage::ReCalcPageWidthAndHeight(void) {
-    int32_t LeftPos = 32000, TopPos = 32000, RightPos = -32000, BottomPos = -32000, Width = 0;
-    CRtfSector* pRtfSector;
-
+void CRtfPage::calcPageSize() {
     if (RfrmtOptions::useNone()) {// Фрагменты отписываются по пользовательским номерам
-        MargL = DefMargL;
-        MargR = DefMargR;
-        MargT = DefMargT;
-        MargB = DefMargB;
-
-        for (FragmentList::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
-                != m_arFragments.end(); ppRtfFragment++) {
-            Width = MAX(Width, (*ppRtfFragment)->m_rect.right - (*ppRtfFragment)->m_rect.left);
-        }
-
-        page_size_.rwidth()
-                = MAX(DefaultWidthPage, (int32_t)(Width/** CIF::getTwips()*/) + MargL + MargR);
-        page_size_.rheight() = DefaultHeightPage;
+        calcPageSizeNone();
     } else if (RfrmtOptions::useFrames() || bad_column_) {// Все фрагменты фреймы
-        m_arSectors.push_back(new CRtfSector());
-        pRtfSector = m_arSectors.back();
-
-        for (FragmentList::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
-                != m_arFragments.end(); ppRtfFragment++) {
-            LeftPos = MIN(LeftPos, (int16_t)(*ppRtfFragment)->m_rect.left);
-            TopPos = MIN(TopPos, (int16_t)(*ppRtfFragment)->m_rect.top);
-            RightPos = MAX(RightPos, (int16_t)(*ppRtfFragment)->m_rect.right);
-            BottomPos = MAX(BottomPos, (int16_t)(*ppRtfFragment)->m_rect.bottom);
-        }
-
-        pRtfSector->m_rectReal.left = pRtfSector->m_rect.left = LeftPos;
-        pRtfSector->m_rectReal.right = pRtfSector->m_rect.right = RightPos;
-        pRtfSector->m_rectReal.top = pRtfSector->m_rect.top = TopPos;
-        pRtfSector->m_rectReal.bottom = pRtfSector->m_rect.bottom = BottomPos;
-        SetPaperSize(LeftPos, RightPos, TopPos, BottomPos, page_size_, &MargL, &MargR, &MargT,
-                &MargB);
-        InitMargL = MargL;
-        InitMargR = MargR;
-        InitMargT = MargT;
-        InitMargB = MargB;
+        calcPageSizeFrames();
     } else {// Фрагменты отписываются после изучения структуры страницы
-        for (FragmentList::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
-                != m_arFragments.end(); ppRtfFragment++) {
-            LeftPos = MIN(LeftPos, (int16_t)(*ppRtfFragment)->m_rect.left);
-            TopPos = MIN(TopPos, (int16_t)(*ppRtfFragment)->m_rect.top);
-            RightPos = MAX(RightPos, (int16_t)(*ppRtfFragment)->m_rect.right);
-            BottomPos = MAX(BottomPos, (int16_t)(*ppRtfFragment)->m_rect.bottom);
-        }
-
-        SetPaperSize(LeftPos, RightPos, TopPos, BottomPos, page_size_, &MargL, &MargR, &MargT,
-                &MargB);
-        InitMargL = MargL;
-        InitMargR = MargR;
-        InitMargT = MargT;
-        InitMargB = MargB;
+        calcPageSizeCommon();
     }
+}
+
+void CRtfPage::calcPageSizeCommon() {
+    int LeftPos = 32000, TopPos = 32000, RightPos = -32000, BottomPos = -32000;
+
+    for (FragmentList::iterator it = m_arFragments.begin(); it != m_arFragments.end(); ++it) {
+        LeftPos = MIN(LeftPos, (*it)->m_rect.left);
+        TopPos = MIN(TopPos, (*it)->m_rect.top);
+        RightPos = MAX(RightPos, (*it)->m_rect.right);
+        BottomPos = MAX(BottomPos, (*it)->m_rect.bottom);
+    }
+
+    SetPaperSize(LeftPos, RightPos, TopPos, BottomPos, page_size_, &MargL, &MargR, &MargT, &MargB);
+    InitMargL = MargL;
+    InitMargR = MargR;
+    InitMargT = MargT;
+    InitMargB = MargB;
+}
+
+void CRtfPage::calcPageSizeFrames() {
+    int LeftPos = 32000, TopPos = 32000, RightPos = -32000, BottomPos = -32000;
+    CRtfSector * sector = new CRtfSector;
+    m_arSectors.push_back(sector);
+
+    for (FragmentList::iterator frag = m_arFragments.begin(); frag != m_arFragments.end(); ++frag) {
+        LeftPos = MIN(LeftPos, (int16_t)(*frag)->m_rect.left);
+        TopPos = MIN(TopPos, (int16_t)(*frag)->m_rect.top);
+        RightPos = MAX(RightPos, (int16_t)(*frag)->m_rect.right);
+        BottomPos = MAX(BottomPos, (int16_t)(*frag)->m_rect.bottom);
+    }
+
+    sector->m_rectReal.left = sector->m_rect.left = LeftPos;
+    sector->m_rectReal.right = sector->m_rect.right = RightPos;
+    sector->m_rectReal.top = sector->m_rect.top = TopPos;
+    sector->m_rectReal.bottom = sector->m_rect.bottom = BottomPos;
+    SetPaperSize(LeftPos, RightPos, TopPos, BottomPos, page_size_, &MargL, &MargR, &MargT, &MargB);
+    InitMargL = MargL;
+    InitMargR = MargR;
+    InitMargT = MargT;
+    InitMargB = MargB;
+}
+
+void CRtfPage::calcPageSizeNone() {
+    MargL = DefMargL;
+    MargR = DefMargR;
+    MargT = DefMargT;
+    MargB = DefMargB;
+
+    const int width = std::max(DefaultWidthPage, maxFragmentWidth() + MargL + MargR);
+
+    page_size_.setWidth(width);
+    page_size_.setHeight(DefaultHeightPage);
+}
+
+int CRtfPage::maxFragmentWidth() const {
+    int width = 0;
+    for (FragmentList::const_iterator it = m_arFragments.begin(); it != m_arFragments.end(); it++) {
+        width = std::max(width, (*it)->rect().width());
+    }
+    return width;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -738,13 +729,10 @@ CEDPage * CRtfPage::Write() {
     return ced_page_;
 }
 
-// Фрагменты отписываются по пользовательским номерам
 Bool CRtfPage::writeUsingNone() {
-    ReCalcPageWidthAndHeight();
+    calcPageSize();
     initCedPage();
-
-    if (!WriteHeaderRtf())
-        throw std::runtime_error("[CRtfPage::Write] WriteHeaderRtf failed");
+    writeHeader();
 
     int16_t NumberCurrentFragment, InGroupNumber;
     uchar FragmentType;
@@ -779,11 +767,9 @@ Bool CRtfPage::writeUsingNone() {
 
 // Все фрагменты фреймы
 Bool CRtfPage::writeUsingFrames() {
-    ReCalcPageWidthAndHeight();
+    calcPageSize();
     initCedPage();
-
-    if (!WriteHeaderRtf())
-        throw std::runtime_error("[CRtfPage::Write] WriteHeaderRtf failed");
+    writeHeader();
 
     int16_t InGroupNumber;
     CRtfFragment* pRtfFragment;
@@ -908,11 +894,9 @@ void CRtfPage::ToPlacePicturesAndTables(void) {
 // Фрагменты отписываются после изучения структуры страницы
 Bool CRtfPage::writeUsingFramesAndColumns() {
     ToPlacePicturesAndTables();
-    ReCalcPageWidthAndHeight();
+    calcPageSize();
     initCedPage();
-
-    if (!WriteHeaderRtf())
-        throw std::runtime_error("[CRtfPage::Write] WriteHeaderRtf failed");
+    writeHeader();
 
     AddLines();
 
@@ -978,7 +962,7 @@ uint16_t CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector
     return (uint16_t) FreePlaceHeight;
 }
 
-Bool CRtfPage::WriteHeaderRtf() {
+void CRtfPage::writeHeader() {
     typedef std::pair<int, std::string> FontEntry;
     typedef std::vector<FontEntry> FontList;
     FontList fonts;
@@ -988,11 +972,8 @@ Bool CRtfPage::WriteHeaderRtf() {
     fonts.push_back(FontEntry(FF_SWISS, "Arial Narrow"));
 
     for (size_t i = 0; i < fonts.size(); i++) {
-        CED_CreateFont(ced_page_, (uchar) i, fonts[i].first, (uchar) Frmt_CharSet,
-                fonts[i].second.c_str());
+        CED_CreateFont(ced_page_, (uchar) i, fonts[i].first, Frmt_CharSet, fonts[i].second.c_str());
     }
-
-    return TRUE;
 }
 
 void CRtfPage::WriteSectorsHeader(int16_t i) {

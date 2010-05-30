@@ -62,8 +62,6 @@ class FUN_EXPO__ CEDPage
          */
         Size imageSize() const;
 
-        bool isResizeToFit() const;
-
         /**
          * Returns page language
          * @see setLanguage
@@ -162,8 +160,6 @@ class FUN_EXPO__ CEDPage
          */
         void setPageSize(const Size& size);
 
-        void setResizeToFit(bool value);
-
         /**
          * Sets page turn
          * @see turn()
@@ -242,7 +238,6 @@ class FUN_EXPO__ CEDPage
         int page_number_;
         language_t language_;
         char unrecognized_char_;
-        bool resize_to_fit_;
         CEDSection * sections; //connected list of sections
         CEDSection * curSect; //current section
 

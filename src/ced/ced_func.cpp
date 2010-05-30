@@ -173,7 +173,6 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
         mainPage->setPageSize(CIF::Size(pd->paperw, pd->paperh));
         CIF::Rect borders(CIF::Point(pd->margt, pd->margl), CIF::Point(pd->margb, pd->margr));
         mainPage->setPageBorder(borders);
-        mainPage->setResizeToFit(pd->resizeToFit);
 
         //for backward compatibility
         if (unsigned((&(pd->recogLang)) - ((uchar*) pd)) < pt->length - sizeof(edExtention))
@@ -793,7 +792,7 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
     pd.margl = page->pageBorder().left();
     pd.margb = page->pageBorder().bottom();
     pd.margr = page->pageBorder().right();
-    pd.resizeToFit = page->isResizeToFit() ? 1 : 0;
+    pd.resizeToFit = 0;
     pd.recogLang = page->language();
 
     if (!WriteExtCode(hFile, EDEXT_BORDERS, &pd, sizeof(pd)))
