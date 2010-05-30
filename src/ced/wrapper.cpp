@@ -65,26 +65,6 @@ using namespace CIF;
 
 FILE *logStream;
 
-//create font
-CED_FUNC(Bool32) CED_CreateFont(Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily,
-        uchar fontCharset, const char* fontName) {
-    if (logStream) {
-        fprintf(logStream, "CreateFont params: %x,%hd,%hd,%hd,%s\n", hEdPage, fontNumber,
-                fontPitchAndFamily, fontCharset, fontName);
-        fflush(logStream);
-    }
-
-    Bool ret = ((CEDPage*) hEdPage)->CreateFont(fontNumber, fontPitchAndFamily, fontCharset,
-            fontName);
-
-    if (logStream) {
-        fprintf(logStream, "CreateFont returned %i\n", ret);
-        fflush(logStream);
-    }
-
-    return ret;
-}
-
 CED_FUNC(Bool32) CED_CreatePicture(Handle hEdPage, int pictNumber, const CIF::Size& pictSize,
         EDSIZE pictGoal, int pictAlign, int type, void * data, int len) {
     if (logStream) {

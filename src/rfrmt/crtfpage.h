@@ -145,7 +145,7 @@ class CRtfPage
         void calcPageSizeNone();
         void initCedPage();
         int maxFragmentWidth() const;
-        void writeHeader();
+        void writeFonts();
         /* fragments written by user numbers */
         Bool writeUsingNone();
         Bool writeUsingFrames();

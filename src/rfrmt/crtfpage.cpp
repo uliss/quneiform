@@ -732,7 +732,7 @@ CEDPage * CRtfPage::Write() {
 Bool CRtfPage::writeUsingNone() {
     calcPageSize();
     initCedPage();
-    writeHeader();
+    writeFonts();
 
     int16_t NumberCurrentFragment, InGroupNumber;
     uchar FragmentType;
@@ -769,7 +769,7 @@ Bool CRtfPage::writeUsingNone() {
 Bool CRtfPage::writeUsingFrames() {
     calcPageSize();
     initCedPage();
-    writeHeader();
+    writeFonts();
 
     int16_t InGroupNumber;
     CRtfFragment* pRtfFragment;
@@ -896,7 +896,7 @@ Bool CRtfPage::writeUsingFramesAndColumns() {
     ToPlacePicturesAndTables();
     calcPageSize();
     initCedPage();
-    writeHeader();
+    writeFonts();
 
     AddLines();
 
@@ -962,7 +962,7 @@ uint16_t CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector
     return (uint16_t) FreePlaceHeight;
 }
 
-void CRtfPage::writeHeader() {
+void CRtfPage::writeFonts() {
     typedef std::pair<int, std::string> FontEntry;
     typedef std::vector<FontEntry> FontList;
     FontList fonts;
@@ -972,7 +972,7 @@ void CRtfPage::writeHeader() {
     fonts.push_back(FontEntry(FF_SWISS, "Arial Narrow"));
 
     for (size_t i = 0; i < fonts.size(); i++) {
-        CED_CreateFont(ced_page_, (uchar) i, fonts[i].first, Frmt_CharSet, fonts[i].second.c_str());
+        ced_page_->CreateFont(i, fonts[i].first, Frmt_CharSet, fonts[i].second.c_str());
     }
 }
 

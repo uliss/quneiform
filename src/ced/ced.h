@@ -99,16 +99,24 @@ typedef struct edCol
 #define MONO_FONT               8
 
 /* Font Families */
-#define FF_DONTCARE         (0<<4)  /* Don't care or don't know. */
-#define FF_ROMAN            (1<<4)  /* Variable stroke width, serifed. */
-/* Times Roman, Century Schoolbook, etc. */
-#define FF_SWISS            (2<<4)  /* Variable stroke width, sans-serifed. */
-/* Helvetica, Swiss, etc. */
-#define FF_MODERN           (3<<4)  /* Constant stroke width, serifed or sans-serifed. */
-/* Pica, Elite, Courier, etc. */
-#define FF_SCRIPT           (4<<4)  /* Cursive, etc. */
-#define FF_DECORATIVE       (5<<4)  /* Old English, etc. */
-
+enum ced_font_t
+{
+    /* Don't care or don't know. */
+    FF_DONTCARE = (0 << 4),
+    /* Variable stroke width, serifed. */
+    /* Times Roman, Century Schoolbook, etc. */
+    FF_ROMAN = (1 << 4),
+    /* Variable stroke width, sans-serifed. */
+    /* Helvetica, Swiss, etc. */
+    FF_SWISS = (2 << 4),
+    /* Constant stroke width, serifed or sans-serifed. */
+    /* Pica, Elite, Courier, etc. */
+    FF_MODERN = (3 << 4),
+    /* Cursive, etc. */
+    FF_SCRIPT = (4 << 4),
+    /* Old English, etc. */
+    FF_DECORATIVE = (5 << 4)
+};
 #endif
 
 //Для CreateFrame
@@ -368,7 +376,6 @@ class CEDParagraph;
 DEC_FUN(uint32_t, CED_IsEdFile, (char * file, Bool32 readFromFile, uint32_t bufLen))
 DEC_FUN(uint32_t, CED_ReadED, (char * file, Bool32 readFromFile, uint32_t bufLen))
 DEC_FUN(void, CED_SetRawDataProc, (FNRDProc proc))
-DEC_FUN(Bool32, CED_CreateFont, (Handle hEdPage, uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset, const char* fontName))
 DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len))
 DEC_FUN(Handle, CED_CreateSection, (Handle hEdPage, const CIF::Rect& border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY))
 DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol))
