@@ -44,6 +44,16 @@ class CRtfPage
         ~CRtfPage();
 
         /**
+         * Removes fragments
+         */
+        void clearFragments();
+
+        /**
+         * Removes sectors
+         */
+        void clearSectors();
+
+        /**
          * Draws page layout via callback
          */
         void drawLayout() const;
@@ -78,9 +88,15 @@ class CRtfPage
          */
         void setUnrecognizedChar(char ch);
 
+        /**
+         * Exports CRtfPage to ced
+         * @return pointer to CED page
+         * @note caller should free result
+         */
+        CEDPage * Write();
+
         void setFragmentsInColumn(const CRtfFragment * cur_fragm);
 
-        void CRtfPageDelFragments(void);
         CRtfFragment* GetNextFragment();
         Bool ReadInternalFile(FILE *FileNameIn);
         void CloseOutputFile(void);
@@ -97,10 +113,6 @@ class CRtfPage
         void AddTables(void);
         void AddLines(void);
         void SortUserNumber(void);
-        Bool Write();
-        Bool Write_USE_NONE(void);
-        Bool Write_USE_FRAME(void);
-        Bool Write_USE_FRAME_AND_COLUMN(void);
         int16_t GetFlagAndNumberFragment(uchar* FragmentType, int16_t* CurrentSectorNumber);
         void WriteSectorsHeader(int16_t i);
         void ToPlacePicturesAndTables(void);
@@ -108,9 +120,10 @@ class CRtfPage
         void SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, int32_t BottomPos,
                 Size& size, int32_t* MargL, int32_t* MargR, int32_t* MargT, int32_t* MargB);
 
-        std::vector<CRtfFragment*> m_arFragments;
-        std::vector<CRtfSector*> m_arSectors;
-        std::vector<KEGL> arKegls;
+        typedef std::vector<CRtfFragment*> FragmentList;
+        FragmentList m_arFragments;
+        typedef std::vector<CRtfSector*> SectorList;
+        SectorList m_arSectors;
 
         RtfPageElementCount Count;
         uint16_t m_wDpi;
@@ -127,13 +140,12 @@ class CRtfPage
         int32_t InitMargT;
         int32_t InitMargB;
 
-        uchar FlagBadColumn;
-        int m_nIndex;
         int m_nCurSectorNumber;
-        int m_nPrevSectorNumber;
-        CEDPage * m_hED;
     private:
         void initCedPage();
+        Bool writeUsingNone();
+        Bool writeUsingFrames();
+        Bool writeUsingFramesAndColumns();
     private:
         std::string image_name_;
         std::string font_sans_;
@@ -142,6 +154,9 @@ class CRtfPage
         char unrecognized_char_;
         language_t language_;
         Size page_size_;
+        CEDPage * ced_page_;
+        bool bad_column_;
+        std::vector<KEGL> arKegls;
     public:
         static void setDrawCallback(RfrmtDrawPageFunction f);
     private:

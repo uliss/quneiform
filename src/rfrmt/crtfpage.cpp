@@ -63,19 +63,29 @@ CRtfPage::CRtfPage() {
     Count.RtfStrings = 0;
     Count.RtfWords = 0;
     Count.RtfChars = 0;
-    FlagBadColumn = 0;
-    m_hED = NULL;
+    bad_column_ = false;
+    ced_page_ = NULL;
     SetRect(&m_rect, 32000, 32000, 0, 0);
     SetRect(&m_rectReal, 32000, 32000, 0, 0);
 }
 
 CRtfPage::~CRtfPage() {
-    for (std::vector<CRtfSector*>::iterator it = m_arSectors.begin(); it < m_arSectors.end(); it++)
+    clearSectors();
+    clearFragments();
+}
+
+void CRtfPage::clearFragments() {
+    for (FragmentList::iterator it = m_arFragments.begin(), e = m_arFragments.end(); it != e; ++it)
         delete *it;
 
-    for (std::vector<CRtfFragment*>::iterator it1 = m_arFragments.begin(); it1
-            < m_arFragments.end(); it1++)
-        delete *it1;
+    m_arFragments.clear();
+}
+
+void CRtfPage::clearSectors() {
+    for (SectorList::iterator it = m_arSectors.begin(), e = m_arSectors.end(); it != e; ++it)
+        delete *it;
+
+    m_arSectors.clear();
 }
 
 void CRtfPage::drawLayout() const {
@@ -126,34 +136,26 @@ void CRtfPage::setFragmentsInColumn(const CRtfFragment * cur_frag) {
     }
 }
 void CRtfPage::initCedPage() {
-    m_hED = new CEDPage;
-    m_hED->setImageName(image_name_);
-    m_hED->setUnrecognizedChar(unrecognized_char_);
-    m_hED->setLanguage(language_);
-    m_hED->setPageSize(page_size_);
-    m_hED->setPageBorder(Rect(Point(MargT, MargL), Point(MargB, MargR)));
+    ced_page_ = new CEDPage;
+    ced_page_->setImageName(image_name_);
+    ced_page_->setUnrecognizedChar(unrecognized_char_);
+    ced_page_->setLanguage(language_);
+    ced_page_->setPageSize(page_size_);
+    ced_page_->setPageBorder(Rect(Point(MargT, MargL), Point(MargB, MargR)));
 
     // setting page number
     int PageNumber = 1;
     PageNumber = atoi(WriteRtfPageNumber);
-    m_hED->setPageNumber(PageNumber);
+    ced_page_->setPageNumber(PageNumber);
 
     // setting page info
     PAGEINFO PageInfo;
     Handle hCPAGE = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     GetPageInfo(hCPAGE, &PageInfo);
-    m_hED->setTurn(PageInfo.Incline2048);
-    m_hED->setImageSize(Size(PageInfo.Width, PageInfo.Height));
-    m_hED->setImageDpi(Size(PageInfo.DPIX, PageInfo.DPIY));
-    m_hED->setResizeToFit(!RfrmtOptions::useNone());
-}
-
-void CRtfPage::CRtfPageDelFragments() {
-    for (std::vector<CRtfFragment*>::iterator it1 = m_arFragments.begin(); it1
-            < m_arFragments.end(); it1++)
-        delete *it1;
-
-    m_arFragments.clear();
+    ced_page_->setTurn(PageInfo.Incline2048);
+    ced_page_->setImageSize(Size(PageInfo.Width, PageInfo.Height));
+    ced_page_->setImageDpi(Size(PageInfo.DPIX, PageInfo.DPIY));
+    ced_page_->setResizeToFit(!RfrmtOptions::useNone());
 }
 
 CRtfFragment* CRtfPage::GetNextFragment() {
@@ -447,7 +449,7 @@ void CRtfPage::ReCalcPageWidthAndHeight(void) {
         page_size_.rwidth()
                 = MAX(DefaultWidthPage, (int32_t)(Width/** CIF::getTwips()*/) + MargL + MargR);
         page_size_.rheight() = DefaultHeightPage;
-    } else if (RfrmtOptions::useFrames() || FlagBadColumn) {// Все фрагменты фреймы
+    } else if (RfrmtOptions::useFrames() || bad_column_) {// Все фрагменты фреймы
         m_arSectors.push_back(new CRtfSector());
         pRtfSector = m_arSectors.back();
 
@@ -724,40 +726,26 @@ int16_t CRtfPage::GetMinKegl(int16_t OldKegl) {
     return OldKegl;
 }
 
-Bool CRtfPage::Write() {
+CEDPage * CRtfPage::Write() {
     if (RfrmtOptions::useNone()) { // Фрагменты отписываются по пользовательским номерам
-        ReCalcPageWidthAndHeight();
-        initCedPage();
-
-        if (!WriteHeaderRtf())
-            return FALSE;
-
-        Write_USE_NONE();
-    } else if (RfrmtOptions::useFrames() || FlagBadColumn) { // Все фрагменты фреймы
-        ReCalcPageWidthAndHeight();
-        initCedPage();
-
-        if (!WriteHeaderRtf())
-            return FALSE;
-
-        Write_USE_FRAME();
+        writeUsingNone();
+    } else if (RfrmtOptions::useFrames() || bad_column_) { // Все фрагменты фреймы
+        writeUsingFrames();
     } else {
-        ToPlacePicturesAndTables();
-        ReCalcPageWidthAndHeight();
-        initCedPage();
-
-        if (!WriteHeaderRtf())
-            return FALSE;
-
-        AddLines();
-        Write_USE_FRAME_AND_COLUMN(); // Фрагменты отписываются после изучения структуры страницы
+        writeUsingFramesAndColumns(); // Фрагменты отписываются после изучения структуры страницы
     }
 
-    return TRUE;
+    return ced_page_;
 }
 
 // Фрагменты отписываются по пользовательским номерам
-Bool CRtfPage::Write_USE_NONE() {
+Bool CRtfPage::writeUsingNone() {
+    ReCalcPageWidthAndHeight();
+    initCedPage();
+
+    if (!WriteHeaderRtf())
+        throw std::runtime_error("[CRtfPage::Write] WriteHeaderRtf failed");
+
     int16_t NumberCurrentFragment, InGroupNumber;
     uchar FragmentType;
     CRtfFragment *pRtfFragment;
@@ -790,7 +778,13 @@ Bool CRtfPage::Write_USE_NONE() {
 }
 
 // Все фрагменты фреймы
-Bool CRtfPage::Write_USE_FRAME() {
+Bool CRtfPage::writeUsingFrames() {
+    ReCalcPageWidthAndHeight();
+    initCedPage();
+
+    if (!WriteHeaderRtf())
+        throw std::runtime_error("[CRtfPage::Write] WriteHeaderRtf failed");
+
     int16_t InGroupNumber;
     CRtfFragment* pRtfFragment;
     RtfSectorInfo* SectorInfo;
@@ -912,7 +906,16 @@ void CRtfPage::ToPlacePicturesAndTables(void) {
 }
 
 // Фрагменты отписываются после изучения структуры страницы
-Bool CRtfPage::Write_USE_FRAME_AND_COLUMN() {
+Bool CRtfPage::writeUsingFramesAndColumns() {
+    ToPlacePicturesAndTables();
+    ReCalcPageWidthAndHeight();
+    initCedPage();
+
+    if (!WriteHeaderRtf())
+        throw std::runtime_error("[CRtfPage::Write] WriteHeaderRtf failed");
+
+    AddLines();
+
     int i;
     CRtfSector* pRtfSector;
     CRtfSector* pRtfNextSector;
@@ -985,7 +988,7 @@ Bool CRtfPage::WriteHeaderRtf() {
     fonts.push_back(FontEntry(FF_SWISS, "Arial Narrow"));
 
     for (size_t i = 0; i < fonts.size(); i++) {
-        CED_CreateFont(m_hED, (uchar) i, fonts[i].first, (uchar) Frmt_CharSet,
+        CED_CreateFont(ced_page_, (uchar) i, fonts[i].first, (uchar) Frmt_CharSet,
                 fonts[i].second.c_str());
     }
 
@@ -1091,10 +1094,10 @@ void CRtfPage::WriteSectorsHeader(int16_t i) {
         pEDColumn++;
     }
 
-    pRtfSector->m_hEDSector = CED_CreateSection(m_hED, border, -1, EDCountHTerminalColumns,
+    pRtfSector->m_hEDSector = CED_CreateSection(ced_page_, border, -1, EDCountHTerminalColumns,
             pEDColumnFirst, 0, page_size_.width(), page_size_.height(), 0, -1, -1);
     pRtfSector->SectorInfo.hEDSector = pRtfSector->m_hEDSector;
-    pRtfSector->SectorInfo.hEDPage = m_hED;
+    pRtfSector->SectorInfo.hEDPage = ced_page_;
     pRtfSector->SectorInfo.hFirstColumn = CED_CreateColumn(pRtfSector->SectorInfo.hEDSector);
     pRtfSector->SectorInfo.hColumn = pRtfSector->SectorInfo.hFirstColumn;
     pRtfSector->SectorInfo.hObject = pRtfSector->SectorInfo.hFirstColumn;

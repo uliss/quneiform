@@ -86,10 +86,7 @@ CEDPage * Formatter::readFormatFile(const std::string& imageName, FILE * fp) {
     if (RfrmtOptions::useNone())
         page.SortUserNumber();
 
-    if (!page.Write())
-        throw std::runtime_error("[Formatter::readFormatFile] export to CED failed");
-
-    return page.m_hED;
+    return page.Write();
 }
 
 void Formatter::setFontOptions() const {
