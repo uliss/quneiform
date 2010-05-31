@@ -98,6 +98,11 @@ class CRtfPage
         void setUnrecognizedChar(char ch);
 
         /**
+         * Sorts page fragments by user numbers
+         */
+        void sortByUserNumber();
+
+        /**
          * Exports CRtfPage to ced
          * @return pointer to CED page
          * @note caller should free result
@@ -114,10 +119,7 @@ class CRtfPage
         int16_t GetNewKegl(int16_t OldKegl);
         int16_t GetMinKegl(int16_t OldKegl);
         void AddLines(void);
-        void SortUserNumber(void);
-        void WriteSectorsHeader(int16_t i);
         void ToPlacePicturesAndTables(void);
-        uint16_t GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector);
         void SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, int32_t BottomPos,
                 Size& size, int32_t* MargL, int32_t* MargR, int32_t* MargT, int32_t* MargB);
 
@@ -146,15 +148,17 @@ class CRtfPage
         void calcPageSizeCommon();
         void calcPageSizeFrames();
         void calcPageSizeNone();
+        int freeSpaceBetweenSectors(CRtfSector* first, CRtfSector* second);
         /* Ишется следуюший фрагмент по пользовательскому номеру */
         int getFlagAndNumberFragment(int * FragmentType, int * CurrentSectorNumber);
         void initCedPage();
         int maxFragmentWidth() const;
         void writeFonts();
+        void writeSectorsHeader(int i);
         /* fragments written by user numbers */
         void writeUsingNone();
-        Bool writeUsingFrames();
-        Bool writeUsingFramesAndColumns();
+        void writeUsingFrames();
+        void writeUsingFramesAndColumns();
     private:
         std::string image_name_;
         std::string font_sans_;

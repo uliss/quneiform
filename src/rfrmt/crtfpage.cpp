@@ -204,7 +204,6 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
     for (nc = 0; nc < RtfPage->Count.RtfTextFragments; ++nc) {
         pRtfFragment = new CRtfFragment;
         RtfPage->addFragment(pRtfFragment);
-        pRtfFragment->setParent(RtfPage);
         pRtfFragment->setType(FT_TEXT);
         fread(&RectFragm, 1, sizeof(Rect16), in);
         pRtfFragment->m_rect.left = (int32_t) (RectFragm.left * CIF::getTwips());
@@ -364,39 +363,36 @@ void CRtfPage::AddLines() {
     }
 }
 
-void CRtfPage::SortUserNumber() {
-    CRtfFragment* pRtfFragment;
-    uchar FlagChange;
-    uint32_t mas[500], MinUserNumber = 32000;
-    int indexMinUserNumber, i, j;
-    int16_t CountFragments;
-    CountFragments = Count.RtfFrameTextFragments + Count.RtfTextFragments + Count.RtfTableFragments
-            + Count.RtfPictureFragments;
+void CRtfPage::sortByUserNumber() {
+    uint32_t mas[500];
+    int CountFragments = Count.RtfFrameTextFragments + Count.RtfTextFragments
+            + Count.RtfTableFragments + Count.RtfPictureFragments;
 
-    for (i = 0; i < CountFragments; i++) {
-        MinUserNumber = 32000;
-        FlagChange = FALSE;
+    int indexMinUserNumber = 0;
+    for (int i = 0; i < CountFragments; i++) {
+        int MinUserNumber = 32000;
+        bool FlagChange = false;
+        CRtfFragment* frag = NULL;
 
-        for (j = 0; j < CountFragments; j++) {
-            pRtfFragment = m_arFragments[j];
+        for (int j = 0; j < CountFragments; j++) {
+            frag = m_arFragments[j];
 
-            if (pRtfFragment->m_wUserNumber < MinUserNumber) {
-                MinUserNumber = pRtfFragment->m_wUserNumber;
+            if (frag->m_wUserNumber < MinUserNumber) {
+                MinUserNumber = frag->m_wUserNumber;
                 indexMinUserNumber = j;
-                FlagChange = TRUE;
+                FlagChange = true;
             }
         }
 
         if (FlagChange) {
-            pRtfFragment = m_arFragments[indexMinUserNumber];
-            pRtfFragment->m_wUserNumber = 32000;
+            frag = m_arFragments[indexMinUserNumber];
+            frag->m_wUserNumber = 32000;
             mas[indexMinUserNumber] = i + 1;
         }
     }
 
-    for (i = 0; i < CountFragments; i++) {
-        pRtfFragment = m_arFragments[i];
-        pRtfFragment->m_wUserNumber = mas[i];
+    for (int i = 0; i < CountFragments; i++) {
+        m_arFragments.at(i)->m_wUserNumber = mas[i];
     }
 }
 
@@ -745,7 +741,7 @@ void CRtfPage::writeUsingNone() {
         sector->SectorInfo.userNum = NumberCurrentFragment;
         sector->m_VTerminalColumnNumber = 1;
         m_arSectors.push_back(sector);
-        WriteSectorsHeader(i);
+        writeSectorsHeader(i);
         CRtfFragment * frag = m_arFragments[NumberCurrentFragment];
 
         if (FragmentType == FT_TABLE) {
@@ -760,74 +756,61 @@ void CRtfPage::writeUsingNone() {
 }
 
 // Все фрагменты фреймы
-Bool CRtfPage::writeUsingFrames() {
+void CRtfPage::writeUsingFrames() {
     calcPageSize();
     initCedPage();
     writeFonts();
 
-    int16_t InGroupNumber;
-    CRtfFragment* pRtfFragment;
-    RtfSectorInfo* SectorInfo;
-    CRtfSector *pRtfSector;
-    int32_t shpleft, shptop, shpright, shpbottom;
+    int InGroupNumber;
     EDBOX EdFragmRect;
-    Handle hParagraph = NULL;
-    int align;
-    CIF::Rect indent;
-    EDSIZE interval;
-    EDBOX playout;
-    int16_t CountFragments = Count.RtfFrameTextFragments + Count.RtfTextFragments
+
+    int CountFragments = Count.RtfFrameTextFragments + Count.RtfTextFragments
             + Count.RtfTableFragments + Count.RtfPictureFragments;
-    WriteSectorsHeader(0);
-    pRtfSector = m_arSectors[0];
-    SectorInfo = &pRtfSector->SectorInfo;
+    writeSectorsHeader(0);
+    CRtfSector * pRtfSector = m_arSectors.at(0);
+    RtfSectorInfo * SectorInfo = &pRtfSector->SectorInfo;
     SectorInfo->Offset.set(0, 0);
 
     if (CountFragments) {
-        indent = CIF::Rect();
+        EDSIZE interval;
+        EDBOX playout;
+        Rect indent;
         interval.cx = 0;
         interval.cy = 0;
         playout.x = -1;
         playout.w = -1;
         playout.y = -1;
         playout.h = -1;
-        align = TP_LEFT_ALLIGN;
-        hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, align, indent,
-                SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-        CEDLine * hString = new CEDLine(false, 6);
-        ((CEDParagraph*) hParagraph)->insertLine(hString);
+        int align = TP_LEFT_ALLIGN;
+        CEDParagraph * ced_par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
+                align, indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
+        CEDLine * ced_str = new CEDLine(false, 6);
+        ced_par->insertLine(ced_str);
     }
 
-    for (int16_t i = 0; i < CountFragments; i++) {
-        pRtfFragment = m_arFragments[i];
+    for (int i = 0; i < CountFragments; i++) {
+        CRtfFragment * frag = m_arFragments[i];
 
-        if (pRtfFragment->type() == FT_TABLE) {
+        if (frag->type() == FT_TABLE) {
             InGroupNumber = i - (Count.RtfFrameTextFragments + Count.RtfTextFragments);
             //            pRtfFragment->FWriteTable(InGroupNumber, SectorInfo, FOT_FRAME);
-        } else if (pRtfFragment->type() == FT_PICTURE) {
+        } else if (frag->type() == FT_PICTURE) {
             InGroupNumber = i - (Count.RtfFrameTextFragments + Count.RtfTextFragments
                     + Count.RtfTableFragments);
-            pRtfFragment->FWritePicture(InGroupNumber, SectorInfo, FOT_FRAME);
+            frag->FWritePicture(InGroupNumber, SectorInfo, FOT_FRAME);
         } else {
-            shpleft = pRtfFragment->m_rect.left;
-            shptop = pRtfFragment->m_rect.top;
-            shpbottom = pRtfFragment->m_rect.bottom - pRtfFragment->m_rect.top;
-            shpright = pRtfFragment->m_rect.right - pRtfFragment->m_rect.left;
-
-            EdFragmRect.x = pRtfFragment->m_rect.left;
-            EdFragmRect.w = pRtfFragment->m_rect.right - pRtfFragment->m_rect.left;
-            EdFragmRect.y = pRtfFragment->m_rect.top;
-            EdFragmRect.h = pRtfFragment->m_rect.bottom - pRtfFragment->m_rect.top;
+            EdFragmRect.x = frag->m_rect.left;
+            EdFragmRect.w = frag->m_rect.right - frag->m_rect.left;
+            EdFragmRect.y = frag->m_rect.top;
+            EdFragmRect.h = frag->m_rect.bottom - frag->m_rect.top;
             SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
                     EdFragmRect, 0x22, -1, 86, 43);
 
             SectorInfo->FlagOverLayed = FALSE;
-            pRtfFragment->setParent(this);
-            pRtfFragment->writeText(SectorInfo);
+            frag->setParent(this);
+            frag->writeText(SectorInfo);
         }
     }
-
-    return TRUE;
 }
 //табл. помещаются в существующие сектора как frame (м.б.изменение размера колонки)
 // или создаются для них новые сектора(терминал.колонка)
@@ -886,7 +869,7 @@ void CRtfPage::ToPlacePicturesAndTables(void) {
 }
 
 // Фрагменты отписываются после изучения структуры страницы
-Bool CRtfPage::writeUsingFramesAndColumns() {
+void CRtfPage::writeUsingFramesAndColumns() {
     ToPlacePicturesAndTables();
     calcPageSize();
     initCedPage();
@@ -894,66 +877,51 @@ Bool CRtfPage::writeUsingFramesAndColumns() {
 
     AddLines();
 
-    int i;
-    CRtfSector* pRtfSector;
-    CRtfSector* pRtfNextSector;
-    int16_t CountSectors = m_arSectors.size();
-
     //Считаем расстояния между секциями (кроме последней)
-    for (i = 0; i < CountSectors - 1; i++) {
-        pRtfSector = m_arSectors[i];
-        pRtfNextSector = m_arSectors[i + 1];
-        pRtfSector->SectorInfo.InterSectorDist = GetFreeSpaceBetweenSectors(pRtfSector,
-                pRtfNextSector);
+    for (size_t i = 0; i < m_arSectors.size() - 1; i++) {
+        CRtfSector * sector = m_arSectors[i];
+        CRtfSector * next_sector = m_arSectors[i + 1];
+        sector->SectorInfo.InterSectorDist = freeSpaceBetweenSectors(sector, next_sector);
     }
 
     //Отписываем каждую секцию
-    for (i = 0; i < CountSectors; i++) {
+    for (size_t i = 0; i < m_arSectors.size(); i++) {
         m_nCurSectorNumber = i;
-        pRtfSector = m_arSectors[i];
-        pRtfSector->setPage(this);
+        CRtfSector * sector = m_arSectors[i];
+        sector->setPage(this);
 
-        if (pRtfSector->m_bFlagLine == FALSE)
-            pRtfSector->calcSector();
+        if (sector->m_bFlagLine == FALSE)
+            sector->calcSector();
 
-        WriteSectorsHeader(i);
-        pRtfSector->Write();
+        writeSectorsHeader(i);
+        sector->Write();
     }
-
-    return TRUE;
 }
 
 // чтобы дать больший, чем default, вертикальный offset of the section
-uint16_t CRtfPage::GetFreeSpaceBetweenSectors(CRtfSector* pRtfSector, CRtfSector* pRtfNextSector) {
-    CRtfFragment *pRtfFragment;
-    RECT FreePlace;
-    int i, CountFragments;
-    int32_t FreePlaceHeight;
-    FreePlace.left = pRtfSector->m_rect.left;
-    FreePlace.right = pRtfSector->m_rect.right;
-    FreePlace.bottom = pRtfNextSector->m_rect.top - 1;
-    FreePlace.top = pRtfSector->m_rect.bottom + 1;
+int CRtfPage::freeSpaceBetweenSectors(CRtfSector * first, CRtfSector * second) {
+    Rect free_place(Point(first->m_rect.left, first->m_rect.bottom + 1), //
+            Point(first->m_rect.right, second->m_rect.top - 1));
 
-    if (FreePlace.top >= FreePlace.bottom)
+    if (free_place.height() <= 0)
         return 0;
 
-    CountFragments = m_arFragments.size(); //это множество фрагментов pRtfNextSector
+    size_t CountFragments = m_arFragments.size(); //это множество фрагментов pRtfNextSector
 
-    for (i = 0; i < CountFragments; i++) {
-        pRtfFragment = m_arFragments[i];
+    for (size_t i = 0; i < CountFragments; i++) {
+        CRtfFragment * frag = m_arFragments[i];
 
-        if (pRtfFragment->m_rect.bottom <= FreePlace.top || pRtfFragment->m_rect.right
-                <= FreePlace.left || pRtfFragment->m_rect.top >= FreePlace.bottom
-                || pRtfFragment->m_rect.left >= FreePlace.right)
+        if (frag->m_rect.bottom <= free_place.top() || //
+                frag->m_rect.right <= free_place.left() || //
+                frag->m_rect.top >= free_place.bottom() || //
+                frag->m_rect.left >= free_place.right())
             continue;
 
-        if (pRtfFragment->m_rect.top >= FreePlace.top && pRtfFragment->m_rect.top
-                <= FreePlace.bottom)
-            FreePlace.bottom = pRtfFragment->m_rect.top;
+        if (frag->m_rect.top >= free_place.top() && frag->m_rect.top <= free_place.bottom())
+            free_place.setBottom(frag->m_rect.top);
     }
 
-    FreePlaceHeight = MAX(0, FreePlace.bottom - FreePlace.top);
-    return (uint16_t) FreePlaceHeight;
+    return std::max(0, free_place.height());
 }
 
 void CRtfPage::writeFonts() {
@@ -970,7 +938,7 @@ void CRtfPage::writeFonts() {
     }
 }
 
-void CRtfPage::WriteSectorsHeader(int16_t i) {
+void CRtfPage::writeSectorsHeader(int i) {
     int CountHTerminalColumns;
     int EDCountHTerminalColumns;
     CIF::Rect border;

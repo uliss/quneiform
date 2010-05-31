@@ -78,12 +78,12 @@ CEDPage * Formatter::readFormatFile(const std::string& imageName, FILE * fp) {
     page.CorrectKegl();
     page.ChangeKegl();
 
-    //  page.addTables();
+    page.addTables();
     page.addPictures();
 
     // in manual layout user can establish own order of the fragments
     if (RfrmtOptions::useNone())
-        page.SortUserNumber();
+        page.sortByUserNumber();
 
     return page.Write();
 }
