@@ -84,9 +84,7 @@ uint32_t CountPict = 0, CountTable = 0;
 CIF::Point TemplateOffset;
 
 extern uint32_t GetPictCount(void);
-extern uint32_t GetTablCount(void);
 extern uchar Frmt_CharSet;
-extern int16_t CreateEmptyRtfFile(void);
 
 #define HalfDefMargL   900 // Left margin in twips    (the default is 1800).
 #define HalfDefMargT   720 // Top  margin in twips    (the default is 1440).

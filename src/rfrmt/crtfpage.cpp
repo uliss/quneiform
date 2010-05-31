@@ -40,6 +40,7 @@
 #include "cpage/cpage.h"
 
 extern uint32_t CountPict;
+extern uint32_t CountTable;
 uchar Frmt_CharSet = (uchar) 204;
 int16_t K_TwipsInInch = 1440;
 uint16_t FlagWriteRtfCoordinates = 1;
@@ -66,6 +67,11 @@ CRtfPage::CRtfPage() :
 CRtfPage::~CRtfPage() {
     clearSectors();
     clearFragments();
+}
+
+void CRtfPage::addFragment(CRtfFragment * frag) {
+    frag->setParent(this);
+    m_arFragments.push_back(frag);
 }
 
 void CRtfPage::clearFragments() {
@@ -147,11 +153,6 @@ void CRtfPage::initCedPage() {
     ced_page_->setImageDpi(Size(PageInfo.DPIX, PageInfo.DPIY));
 }
 
-CRtfFragment* CRtfPage::GetNextFragment() {
-    m_arFragments.push_back(new CRtfFragment());
-    return m_arFragments.back();
-}
-
 //********* Чтение internal.vit
 //*********  Частичное запольнения Page.
 //*********  В Page записываютя:
@@ -201,7 +202,8 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
     RtfPage->Count.RtfFrameTextFragments = 0;
 
     for (nc = 0; nc < RtfPage->Count.RtfTextFragments; ++nc) {
-        pRtfFragment = RtfPage->GetNextFragment();
+        pRtfFragment = new CRtfFragment;
+        RtfPage->addFragment(pRtfFragment);
         pRtfFragment->setParent(RtfPage);
         pRtfFragment->setType(FT_TEXT);
         fread(&RectFragm, 1, sizeof(Rect16), in);
@@ -278,43 +280,40 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
     return TRUE;
 }
 
-void CRtfPage::SetTwips(void) {
-    m_fTwips = getTwips();
+void CRtfPage::addTables() {
+    ::Rect16 RectPict;
+
+    Count.RtfTableFragments = (uint16_t) CountTable;
+    for (int i = 0; i < (int) CountTable; i++) {
+        CRtfFragment * frag = new CRtfFragment;
+        addFragment(frag);
+        // commented by uliss
+        //GetTableRect(i, &RectPict, (uint32_t*) &frag->m_wUserNumber);
+        RtfAssignRect_CRect_Rect16(&frag->m_rect, &RectPict);
+        RtfCalcRectSizeInTwips(&frag->m_rect, CIF::getTwips());
+        frag->setType(FT_TABLE);
+        if (RfrmtOptions::useFramesAndColumns()) {
+            frag->m_wUserNumberForFormattedMode = frag->m_wUserNumber;
+            frag->m_wUserNumber = i;
+        }
+    }
 }
 
-void CRtfPage::AddTables() {
-    //    CRtfFragment * pRtfFragment;
-    //    Rect16 RectPict;
-    //
-    //    Count.RtfTableFragments = (uint16_t) CountTable;
-    //    for (uint32_t i = 0; i < (int) CountTable; i++) {
-    //        pRtfFragment = GetNextFragment();
-    //        GetTableRect(i, &RectPict, (uint32_t*) &pRtfFragment->m_wUserNumber);
-    //        RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectPict);
-    //        RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, CIF::getTwips());
-    //        pRtfFragment->type_ = FT_TABLE;
-    //        if (FlagMode & USE_FRAME_AND_COLUMN) {
-    //            pRtfFragment->m_wUserNumberForFormattedMode = pRtfFragment->m_wUserNumber;
-    //            pRtfFragment->m_wUserNumber = i;
-    //        }
-    //    }
-}
-
-void CRtfPage::AddPictures() {
-    CRtfFragment* pRtfFragment;
+void CRtfPage::addPictures() {
     ::Rect16 RectPict;
     Count.RtfPictureFragments = (uint16_t) CountPict;
 
     for (int i = 0; i < (int) CountPict; i++) {
-        pRtfFragment = GetNextFragment();
-        GetPictRect(i, &RectPict, (uint32_t*) &pRtfFragment->m_wUserNumber);
-        RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectPict);
-        RtfCalcRectSizeInTwips(&pRtfFragment->m_rect, CIF::getTwips());
-        pRtfFragment->setType(FT_PICTURE);
+        CRtfFragment* frag = new CRtfFragment;
+        addFragment(frag);
+        GetPictRect(i, &RectPict, (uint32_t*) &frag->m_wUserNumber);
+        RtfAssignRect_CRect_Rect16(&frag->m_rect, &RectPict);
+        RtfCalcRectSizeInTwips(&frag->m_rect, CIF::getTwips());
+        frag->setType(FT_PICTURE);
 
         if (RfrmtOptions::useFramesAndColumns()) {
-            pRtfFragment->m_wUserNumberForFormattedMode = pRtfFragment->m_wUserNumber;
-            pRtfFragment->m_wUserNumber = i;
+            frag->m_wUserNumberForFormattedMode = frag->m_wUserNumber;
+            frag->m_wUserNumber = i;
         }
     }
 }

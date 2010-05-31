@@ -44,6 +44,15 @@ class CRtfPage
         ~CRtfPage();
 
         /**
+         * Adds fragment to page
+         */
+        void addFragment(CRtfFragment * frag);
+
+        void addPictures();
+
+        void addTables();
+
+        /**
          * Removes fragments
          */
         void clearFragments();
@@ -97,17 +106,13 @@ class CRtfPage
 
         void setFragmentsInColumn(const CRtfFragment * cur_fragm);
 
-        CRtfFragment* GetNextFragment();
         Bool ReadInternalFile(FILE *FileNameIn);
-        void SetTwips(void);
         Bool FindPageTree(FILE *FileNameIn, const char* FileNameOut);
         void CorrectKegl(void);
         void ChangeKegl(void);
         void AddNewKegl(int16_t OldKegl, int16_t NewKegl);
         int16_t GetNewKegl(int16_t OldKegl);
         int16_t GetMinKegl(int16_t OldKegl);
-        void AddPictures(void);
-        void AddTables(void);
         void AddLines(void);
         void SortUserNumber(void);
         void WriteSectorsHeader(int16_t i);
@@ -123,7 +128,6 @@ class CRtfPage
 
         RtfPageElementCount Count;
         uint16_t m_wDpi;
-        float m_fTwips;
         RECT m_rect;
         RECT m_rectReal;
         int32_t MargL;
