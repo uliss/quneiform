@@ -29,6 +29,16 @@ set_property(TARGET cuneiform-rfrmt PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
 set(RFRMT_HEADER_INSTALL "rfrmt")
 install(FILES 
+    crtfchar.h
+    crtfword.h
+    crtfstring.h
+    crtfverticalcolumn.h
+    crtfhorizontalcolumn.h
+    crtfsector.h
+    crtfpage.h
+    crtffragment.h
+    crtfstruct.h
+    font.h
     formatoptions.h 
     rfrmtoptions.h
     DESTINATION 

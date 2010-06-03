@@ -23,6 +23,7 @@ install(FILES
     exception.h
     image.h
     imagerawdata.h
+    letter.h
     rect.h
     point.h
     serialize.h

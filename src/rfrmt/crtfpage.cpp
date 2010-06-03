@@ -816,52 +816,51 @@ void CRtfPage::writeUsingFrames() {
 // или создаются для них новые сектора(терминал.колонка)
 void CRtfPage::ToPlacePicturesAndTables(void) {
     CRtfSector* pRtfSector;
-    int j, CountSectors;
 
-    for (std::vector<CRtfFragment*>::iterator ppRtfFragment = m_arFragments.begin(); ppRtfFragment
-            < m_arFragments.end(); ppRtfFragment++) {
-        if ((*ppRtfFragment)->type() == FT_PICTURE || (*ppRtfFragment)->type() == FT_TABLE) {
-            CountSectors = m_arSectors.size();
+    for (FragmentList::iterator frag_it = m_arFragments.begin(); frag_it != m_arFragments.end(); ++frag_it) {
+        if ((*frag_it)->type() != FT_PICTURE && (*frag_it)->type() != FT_TABLE)
+            continue;
 
-            //страница пустая:создается новый сектор для них
-            if (CountSectors == 0) {
-                m_arSectors.push_back(new CRtfSector());
-                pRtfSector = m_arSectors.front();
-                RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &(*ppRtfFragment)->m_rect);
-                RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &(*ppRtfFragment)->m_rect);
-                pRtfSector->ToPlacePicturesAndTables((*ppRtfFragment));
-                continue;
-            }
+        const size_t CountSectors = m_arSectors.size();
 
-            //картина или таблица ниже последного сектора:создается новый сектор для них
+        //страница пустая:создается новый сектор для них
+        if (CountSectors == 0) {
+            m_arSectors.push_back(new CRtfSector());
+            pRtfSector = m_arSectors.front();
+            RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &(*frag_it)->m_rect);
+            RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &(*frag_it)->m_rect);
+            pRtfSector->ToPlacePicturesAndTables((*frag_it));
+            continue;
+        }
+
+        //картина или таблица ниже последного сектора:создается новый сектор для них
+        pRtfSector = m_arSectors.back();
+
+        if ((*frag_it)->m_rect.top >= pRtfSector->m_rectReal.bottom) {
+            m_arSectors.push_back(new CRtfSector());
             pRtfSector = m_arSectors.back();
+            RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &(*frag_it)->m_rect);
+            RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &(*frag_it)->m_rect);
+            pRtfSector->ToPlacePicturesAndTables((*frag_it));
+            continue;
+        }
 
-            if ((*ppRtfFragment)->m_rect.top >= pRtfSector->m_rectReal.bottom) {
-                m_arSectors.push_back(new CRtfSector());
-                pRtfSector = m_arSectors.back();
-                RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &(*ppRtfFragment)->m_rect);
-                RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &(*ppRtfFragment)->m_rect);
-                pRtfSector->ToPlacePicturesAndTables((*ppRtfFragment));
-                continue;
-            }
+        for (size_t j = 0; j < CountSectors; j++) {//картина или таблица между секторами:создается новый сектор для них
+            pRtfSector = m_arSectors[j];
 
-            for (j = 0; j < CountSectors; j++) {//картина или таблица между секторами:создается новый сектор для них
-                pRtfSector = m_arSectors[j];
-
-                if ((*ppRtfFragment)->m_rect.bottom <= pRtfSector->m_rectReal.top) {
-                    pRtfSector = *m_arSectors.insert(m_arSectors.begin() + j, new CRtfSector());
-                    RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &(*ppRtfFragment)->m_rect);
-                    RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &(*ppRtfFragment)->m_rect);
-                    pRtfSector->ToPlacePicturesAndTables((*ppRtfFragment));
+            if ((*frag_it)->m_rect.bottom <= pRtfSector->m_rectReal.top) {
+                pRtfSector = *m_arSectors.insert(m_arSectors.begin() + j, new CRtfSector());
+                RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &(*frag_it)->m_rect);
+                RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &(*frag_it)->m_rect);
+                pRtfSector->ToPlacePicturesAndTables((*frag_it));
+                break;
+            } else {//картина или таблица внутри сектора: добавляетс
+                if (((*frag_it)->m_rect.top < pRtfSector->m_rectReal.top
+                        && (*frag_it)->m_rect.bottom > pRtfSector->m_rectReal.top)
+                        || ((*frag_it)->m_rect.top >= pRtfSector->m_rectReal.top
+                                && (*frag_it)->m_rect.top < pRtfSector->m_rectReal.bottom)) {
+                    pRtfSector->ToPlacePicturesAndTables((*frag_it));
                     break;
-                } else {//картина или таблица внутри сектора: добавляетс
-                    if (((*ppRtfFragment)->m_rect.top < pRtfSector->m_rectReal.top
-                            && (*ppRtfFragment)->m_rect.bottom > pRtfSector->m_rectReal.top)
-                            || ((*ppRtfFragment)->m_rect.top >= pRtfSector->m_rectReal.top
-                                    && (*ppRtfFragment)->m_rect.top < pRtfSector->m_rectReal.bottom)) {
-                        pRtfSector->ToPlacePicturesAndTables((*ppRtfFragment));
-                        break;
-                    }
                 }
             }
         }

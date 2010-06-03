@@ -65,21 +65,6 @@ class KEGL
         short Count;
 };
 
-class FONT
-{
-    public:
-        char *family;
-        char *name;
-        short Bold, Italic, Underline;
-};
-
-class FONT_COD
-{
-    public:
-        const char *name;
-        const char *family;
-};
-
 int fontName(font_number fontNumber);
 
 }
