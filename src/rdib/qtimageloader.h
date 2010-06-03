@@ -20,18 +20,42 @@
 #define QTIMAGELOADER_H_
 
 #include "imageloader.h"
+#include "globus.h"
+
+class QImage;
 
 namespace CIF
 {
 
-class QtImageLoader : public ImageLoader
+class CLA_EXPO QtImageLoader : public ImageLoader
 {
     public:
         QtImageLoader();
         ~QtImageLoader();
 
+        /**
+         * Returns pointer to loaded image
+         * @return NULL if image not loaded
+         */
+        QImage * image();
+
+        /**
+         * Checks if image loaded
+         */
+        bool isLoaded() const;
+
+        /**
+         * Loads image
+         * @param path - image path
+         * @return image pointer
+         */
         ImagePtr load(const std::string& path);
         ImagePtr load(std::istream& is);
+    private:
+        void clearImage();
+    private:
+        QImage * image_;
+
 };
 
 }

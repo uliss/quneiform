@@ -25,20 +25,36 @@
 namespace CIF
 {
 
-QtImageLoader::QtImageLoader() {
+QtImageLoader::QtImageLoader() :
+    image_(NULL) {
 }
 
 QtImageLoader::~QtImageLoader() {
+    clearImage();
+}
+
+void QtImageLoader::clearImage() {
+    delete image_;
+    image_ = NULL;
+}
+
+QImage * QtImageLoader::image() {
+    return image_;
+}
+
+bool QtImageLoader::isLoaded() const {
+    return image_ != NULL;
 }
 
 ImagePtr QtImageLoader::load(const std::string& path) {
-    QImage image;
+    clearImage();
+    image_ = new QImage(path.c_str());
 
-    if (!image.load(path.c_str()))
+    if (image_->isNull())
         throw Exception("[QtImageLoader::load] load failed.");
 
     /*.rgbSwapped();*/
-    const QImage& raster = image.mirrored();
+    const QImage& raster = image_->mirrored();
     BITMAPINFO dibInfo = { 0 };
     dibInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
     dibInfo.bmiHeader.biWidth = raster.width();
@@ -86,11 +102,11 @@ ImagePtr QtImageLoader::load(const std::string& path) {
     memcpy(pRaster, raster.bits(), sizeRaster);
 
     Image * img = new Image(pDib, dib_size, Image::AllocatorNew);
-    img->setSize(Size(image.width(), image.height()));
+    img->setSize(Size(image_->width(), image_->height()));
     return ImagePtr(img);
 }
 
-ImagePtr QtImageLoader::load(std::istream& is) {
+ImagePtr QtImageLoader::load(std::istream& /*is*/) {
     throw Exception("[QtImageLoader::load] loading from stream is not supported yet");
 }
 
