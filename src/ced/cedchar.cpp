@@ -98,10 +98,6 @@ CEDChar * CEDChar::prev() {
     return prev_;
 }
 
-Rect& CEDChar::rBoundingRect() {
-    return bbox_;
-}
-
 void CEDChar::setAlternative(const Letter& letter, size_t pos) {
     alternatives_.at(pos) = letter;
 }

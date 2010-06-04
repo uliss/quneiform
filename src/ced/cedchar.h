@@ -125,11 +125,6 @@ class CLA_EXPO CEDChar
         CEDChar * prev();
 
         /**
-         * Returns reference to character bounding rectangle
-         */
-        Rect& rBoundingRect();
-
-        /**
          * Sets character alternative
          * @throw std::out_of_range - if @a pos invalid
          */

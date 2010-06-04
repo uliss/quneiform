@@ -45,6 +45,8 @@ namespace CIF
 class RMarker;
 class ComponentExtractor;
 class CEDPage;
+class Formatter;
+class CRtfPage;
 
 Bool32 IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
@@ -63,6 +65,11 @@ class CLA_EXPO PumaImpl
         void append(const std::string& filename, format_t format) const;
 
         /**
+         * Clears recognized output formatting
+         */
+        void clearFormat();
+
+        /**
          * Make some cleanup after recognition
          */
         void close();
@@ -71,6 +78,17 @@ class CLA_EXPO PumaImpl
          * Returns format options
          */
         FormatOptions formatOptions() const;
+
+        /**
+         * Returns pointer to formatted page
+         * @return NULL if not formatted
+         */
+        CRtfPage * formatPage();
+
+        /**
+         * Formats results of recognition to CEDPage * tree
+         */
+        void formatResult();
 
         /**
          * Opens image for recognition
@@ -143,7 +161,6 @@ class CLA_EXPO PumaImpl
         void clearAll();
         void extractComponents();
         void extractStrings();
-        void formatResult();
         void getImageInfo(const std::string& image_name);
         void layout();
         void loadLayoutFromFile(const std::string& fname);
@@ -180,6 +197,7 @@ class CLA_EXPO PumaImpl
         std::auto_ptr<CTIControl> cimage_;
         std::auto_ptr<RMarker> rmarker_;
         std::auto_ptr<ComponentExtractor> comp_extractor_;
+        std::auto_ptr<Formatter> formatter_;
         BitmapInfoHeader info_;
         Rect rect_template_;
         bool do_spell_corretion_;

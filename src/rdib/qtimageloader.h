@@ -23,15 +23,22 @@
 #include "globus.h"
 
 class QImage;
+class QString;
 
 namespace CIF
 {
 
-class CLA_EXPO QtImageLoader : public ImageLoader
+class CLA_EXPO QtImageLoader: public ImageLoader
 {
     public:
-        QtImageLoader();
+        QtImageLoader(bool clearAfterLoading = true);
         ~QtImageLoader();
+
+        /**
+         * Clears allocated data for QImage, that can be accessed via image()
+         * @see image()
+         */
+        void clearImage();
 
         /**
          * Returns pointer to loaded image
@@ -50,11 +57,12 @@ class CLA_EXPO QtImageLoader : public ImageLoader
          * @return image pointer
          */
         ImagePtr load(const std::string& path);
+        ImagePtr load(const QString& path);
+        ImagePtr load(QImage * image);
         ImagePtr load(std::istream& is);
     private:
-        void clearImage();
-    private:
         QImage * image_;
+        bool clear_after_loading_;
 
 };
 

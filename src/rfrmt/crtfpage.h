@@ -22,6 +22,7 @@
 #include <vector>
 #include <boost/function.hpp>
 
+#include "globus.h"
 #include "font.h"
 #include "common/size.h"
 #include "cfcompat.h"
@@ -37,10 +38,10 @@ class FormatOptions;
 
 typedef boost::function<void(const CRtfPage*)> RfrmtDrawPageFunction;
 
-class CRtfPage
+class CLA_EXPO CRtfPage
 {
     public:
-        CRtfPage();
+        CRtfPage(const std::string& imageName);
         ~CRtfPage();
 
         /**
@@ -66,6 +67,11 @@ class CRtfPage
          * Draws page layout via callback
          */
         void drawLayout() const;
+
+        /**
+         * Returns page size
+         */
+        Size pageSize() const;
 
         /**
          * Sets monospace font name
@@ -144,6 +150,7 @@ class CRtfPage
 
         int m_nCurSectorNumber;
     private:
+        CRtfPage(const CRtfPage&);
         void calcPageSize();
         void calcPageSizeCommon();
         void calcPageSizeFrames();

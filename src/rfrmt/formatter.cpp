@@ -34,8 +34,13 @@ namespace CIF
 bool Formatter::extended_mode_ = false;
 char Formatter::unrecognized_char = '~';
 
-Formatter::Formatter(const FormatOptions& opt) {
+Formatter::Formatter(const FormatOptions& opt) :
+    page_(NULL) {
     setOptions(opt);
+}
+
+Formatter::~Formatter() {
+    delete page_;
 }
 
 CEDPage * Formatter::format(const std::string& fileName) {
@@ -63,29 +68,27 @@ FormatOptions Formatter::options() const {
     return opts_;
 }
 
+CRtfPage * Formatter::page() {
+    return page_;
+}
+
 CEDPage * Formatter::readFormatFile(const std::string& imageName, FILE * fp) {
-    CRtfPage page;
+    delete page_;
+    page_ = new CRtfPage(imageName);
 
     if (RfrmtOptions::hasFlag(USE_FRAME_AND_COLUMN)) {
-        if (!page.FindPageTree(fp, NULL))
+        if (!page_->FindPageTree(fp, NULL))
             throw std::runtime_error("[Formatter::readFormatFile] read error");
-    } else if (!page.ReadInternalFile(fp))
+    } else if (!page_->ReadInternalFile(fp))
         throw std::runtime_error("[Formatter::readFormatFile] read error");
 
-    page.setFormatOptions(opts_);
-    page.setImageName(imageName);
-
-    page.CorrectKegl();
-    page.ChangeKegl();
-
-    page.addTables();
-    page.addPictures();
+    setupPage();
 
     // in manual layout user can establish own order of the fragments
     if (RfrmtOptions::useNone())
-        page.sortByUserNumber();
+        page_->sortByUserNumber();
 
-    return page.Write();
+    return page_->Write();
 }
 
 void Formatter::setFontOptions() const {
@@ -114,6 +117,16 @@ void Formatter::setInnerOptions() const {
     else
         RfrmtOptions::setFlag(USE_NONE);
 
+}
+
+void Formatter::setupPage() {
+    page_->setFormatOptions(opts_);
+
+    page_->CorrectKegl();
+    page_->ChangeKegl();
+
+    page_->addTables();
+    page_->addPictures();
 }
 
 void Formatter::setOptions(const FormatOptions& opts) {

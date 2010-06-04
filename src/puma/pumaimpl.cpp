@@ -210,6 +210,10 @@ void PumaImpl::clearAll() {
     CIMAGE_DeleteImage(PUMA_IMAGE_TURN);
 }
 
+void PumaImpl::clearFormat() {
+    formatter_.reset();
+}
+
 void PumaImpl::close() {
     if (Config::instance().debug())
         Debug() << "Puma::close\n";
@@ -280,15 +284,19 @@ FormatOptions PumaImpl::formatOptions() const {
     return format_options_;
 }
 
+CRtfPage * PumaImpl::formatPage() {
+    return formatter_.get() ? formatter_->page() : NULL;
+}
+
 void PumaImpl::formatResult() {
-    Formatter frmt(format_options_);
+    formatter_.reset(new Formatter(format_options_));
 
     if (ed_page_) {
         delete ed_page_;
         ed_page_ = NULL;
     }
 
-    ed_page_ = frmt.format(input_filename_);
+    ed_page_ = formatter_->format(input_filename_);
 }
 
 void PumaImpl::getImageInfo(const std::string& image_name) {
@@ -806,8 +814,6 @@ void PumaImpl::recognize() {
         recognizeSpecial();
 
     normalize();
-    // Отформатируем результат
-    formatResult();
 }
 
 void PumaImpl::recognizeCorrection() {

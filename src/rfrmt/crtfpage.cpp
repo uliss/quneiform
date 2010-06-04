@@ -50,8 +50,8 @@ namespace CIF
 
 RfrmtDrawPageFunction CRtfPage::draw_func_;
 
-CRtfPage::CRtfPage() :
-    ced_page_(NULL), bad_column_(false) {
+CRtfPage::CRtfPage(const std::string& imageName) :
+    ced_page_(NULL), bad_column_(false), image_name_(imageName) {
     Count.RtfSectors = 0;
     Count.RtfTextFragments = 0;
     Count.RtfFrameTextFragments = 0;
@@ -91,6 +91,10 @@ void CRtfPage::clearSectors() {
 void CRtfPage::drawLayout() const {
     if (!draw_func_.empty())
         draw_func_(this);
+}
+
+Size CRtfPage::pageSize() const {
+    return page_size_;
 }
 
 void CRtfPage::setDrawCallback(RfrmtDrawPageFunction f) {
@@ -713,6 +717,8 @@ int16_t CRtfPage::GetMinKegl(int16_t OldKegl) {
 }
 
 CEDPage * CRtfPage::Write() {
+    drawLayout();
+
     if (RfrmtOptions::useNone()) { // Фрагменты отписываются по пользовательским номерам
         writeUsingNone();
     } else if (RfrmtOptions::useFrames() || bad_column_) { // Все фрагменты фреймы

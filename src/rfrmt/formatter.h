@@ -29,11 +29,13 @@ namespace CIF
 {
 
 class CEDPage;
+class CRtfPage;
 
 class CLA_EXPO Formatter
 {
     public:
         Formatter(const FormatOptions& opt = FormatOptions());
+        ~Formatter();
         /**
          * Formats file
          * @return pointer to created CEDPage document
@@ -47,6 +49,11 @@ class CLA_EXPO Formatter
         FormatOptions options() const;
 
         /**
+         * Returns pointer to formatted page tree
+         */
+        CRtfPage * page();
+
+        /**
          * Sets format options
          */
         void setOptions(const FormatOptions& opts);
@@ -54,9 +61,11 @@ class CLA_EXPO Formatter
         CEDPage * readFormatFile(const std::string& imageName, FILE * fp);
         void setFontOptions() const;
         void setInnerOptions() const;
+        void setupPage();
         bool writeFormatFile(FILE * fp);
     private:
         FormatOptions opts_;
+        CRtfPage * page_;
     public:
         static bool extended_mode_;
         static char unrecognized_char;

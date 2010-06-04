@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtGui>
-#include <QImage>
+#include <QtCore/QString>
+#include <QtGui/QImage>
 
 #include "qtimageloader.h"
 #include "compat_defs.h"
@@ -25,12 +25,11 @@
 namespace CIF
 {
 
-QtImageLoader::QtImageLoader() :
-    image_(NULL) {
+QtImageLoader::QtImageLoader(bool autoClear) :
+    image_(NULL), clear_after_loading_(autoClear) {
 }
 
 QtImageLoader::~QtImageLoader() {
-    clearImage();
 }
 
 void QtImageLoader::clearImage() {
@@ -46,15 +45,24 @@ bool QtImageLoader::isLoaded() const {
     return image_ != NULL;
 }
 
-ImagePtr QtImageLoader::load(const std::string& path) {
-    clearImage();
-    image_ = new QImage(path.c_str());
+ImagePtr QtImageLoader::load(const QString& path) {
+    ImagePtr res = load(new QImage(path));
+    if (clear_after_loading_)
+        clearImage();
+    return res;
+}
 
-    if (image_->isNull())
+ImagePtr QtImageLoader::load(QImage * image) {
+    assert(image);
+
+    if (image->isNull())
         throw Exception("[QtImageLoader::load] load failed.");
 
+    clearImage();
+    image_ = image;
+
     /*.rgbSwapped();*/
-    const QImage& raster = image_->mirrored();
+    const QImage& raster = image->mirrored();
     BITMAPINFO dibInfo = { 0 };
     dibInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
     dibInfo.bmiHeader.biWidth = raster.width();
@@ -102,8 +110,13 @@ ImagePtr QtImageLoader::load(const std::string& path) {
     memcpy(pRaster, raster.bits(), sizeRaster);
 
     Image * img = new Image(pDib, dib_size, Image::AllocatorNew);
-    img->setSize(Size(image_->width(), image_->height()));
+    img->setSize(Size(image->width(), image->height()));
+
     return ImagePtr(img);
+}
+
+ImagePtr QtImageLoader::load(const std::string& path) {
+    return load(QString::fromStdString(path));
 }
 
 ImagePtr QtImageLoader::load(std::istream& /*is*/) {
