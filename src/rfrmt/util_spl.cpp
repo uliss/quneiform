@@ -495,7 +495,6 @@ int CalcStatTiger() {
 
 
 extern Rect16 *RectFragm;
-extern int16_t K_TwipsInInch;
 int16_t HeiStrAllPage;
 int16_t MonoSpaceAllPage;
 
@@ -539,7 +538,6 @@ short OpenFullOutTiger(FILE *in) {
 #endif
     fread(&MonoSpaceAllPage, 2, 1, in);
     fread(&HeiStrAllPage, 2, 1, in);
-    CIF::setTwips(((float) K_TwipsInInch) / ScanResolution);
 
     // Twips = (float)((int)(Twips+0.5));
     if (NumCol) {

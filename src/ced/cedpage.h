@@ -231,8 +231,8 @@ class FUN_EXPO__ CEDPage
     private:
         Size image_size_;
         Size image_dpi_;
-        Size page_size_in_twips_;
-        Rect page_borders_in_twips_;
+        Size page_size_;
+        Rect page_borders_;
         std::string image_name_;
         int turn_;
         int page_number_;

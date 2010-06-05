@@ -42,16 +42,12 @@
 extern uint32_t CountPict;
 extern uint32_t CountTable;
 uchar Frmt_CharSet = (uchar) 204;
-int16_t K_TwipsInInch = 1440;
-uint16_t FlagWriteRtfCoordinates = 1;
 
 namespace CIF
 {
 
-RfrmtDrawPageFunction CRtfPage::draw_func_;
-
 CRtfPage::CRtfPage(const std::string& imageName) :
-    ced_page_(NULL), bad_column_(false), image_name_(imageName) {
+    image_name_(imageName), ced_page_(NULL), bad_column_(false) {
     Count.RtfSectors = 0;
     Count.RtfTextFragments = 0;
     Count.RtfFrameTextFragments = 0;
@@ -61,7 +57,6 @@ CRtfPage::CRtfPage(const std::string& imageName) :
     Count.RtfWords = 0;
     Count.RtfChars = 0;
     SetRect(&m_rect, 32000, 32000, 0, 0);
-    SetRect(&m_rectReal, 32000, 32000, 0, 0);
 }
 
 CRtfPage::~CRtfPage() {
@@ -88,17 +83,8 @@ void CRtfPage::clearSectors() {
     m_arSectors.clear();
 }
 
-void CRtfPage::drawLayout() const {
-    if (!draw_func_.empty())
-        draw_func_(this);
-}
-
 Size CRtfPage::pageSize() const {
     return page_size_;
-}
-
-void CRtfPage::setDrawCallback(RfrmtDrawPageFunction f) {
-    draw_func_ = f;
 }
 
 void CRtfPage::setFontMonospace(const std::string& name) {
@@ -191,11 +177,6 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
     fread(&tmp, 2, 1, in);
     RtfPage->m_wDpi = tmp;
 
-    if (tmp) {
-        setTwips(((float) K_TwipsInInch) / tmp);
-        setTwips((float) ((int) (getTwips() + 0.5)));
-    }
-
     fread(&tmp, 2, 1, in);
     RtfPage->Count.RtfTextFragments = tmp;
     fread(&tmp, 2, 1, in);
@@ -210,10 +191,10 @@ Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
         RtfPage->addFragment(pRtfFragment);
         pRtfFragment->setType(FT_TEXT);
         fread(&RectFragm, 1, sizeof(Rect16), in);
-        pRtfFragment->m_rect.left = (int32_t) (RectFragm.left * CIF::getTwips());
-        pRtfFragment->m_rect.top = (int32_t) (RectFragm.top * CIF::getTwips());
-        pRtfFragment->m_rect.right = (int32_t) (RectFragm.right * CIF::getTwips());
-        pRtfFragment->m_rect.bottom = (int32_t) (RectFragm.bottom * CIF::getTwips());
+        pRtfFragment->m_rect.left = RectFragm.left;
+        pRtfFragment->m_rect.top = RectFragm.top;
+        pRtfFragment->m_rect.right = RectFragm.right;
+        pRtfFragment->m_rect.bottom = RectFragm.bottom;
         fread(&tmp, 2, 1, in);
         int str_count = tmp;
         fread(&wtmp, 4, 1, in);
@@ -293,7 +274,6 @@ void CRtfPage::addTables() {
         // commented by uliss
         //GetTableRect(i, &RectPict, (uint32_t*) &frag->m_wUserNumber);
         RtfAssignRect_CRect_Rect16(&frag->m_rect, &RectPict);
-        RtfCalcRectSizeInTwips(&frag->m_rect, CIF::getTwips());
         frag->setType(FT_TABLE);
         if (RfrmtOptions::useFramesAndColumns()) {
             frag->m_wUserNumberForFormattedMode = frag->m_wUserNumber;
@@ -311,7 +291,6 @@ void CRtfPage::addPictures() {
         addFragment(frag);
         GetPictRect(i, &RectPict, (uint32_t*) &frag->m_wUserNumber);
         RtfAssignRect_CRect_Rect16(&frag->m_rect, &RectPict);
-        RtfCalcRectSizeInTwips(&frag->m_rect, CIF::getTwips());
         frag->setType(FT_PICTURE);
 
         if (RfrmtOptions::useFramesAndColumns()) {
@@ -365,6 +344,10 @@ void CRtfPage::AddLines() {
             }
         }
     }
+}
+
+Rect CRtfPage::bRect() const {
+    return Rect(Point(m_rect.left, m_rect.top), Point(m_rect.right, m_rect.bottom));
 }
 
 void CRtfPage::sortByUserNumber() {
@@ -717,8 +700,6 @@ int16_t CRtfPage::GetMinKegl(int16_t OldKegl) {
 }
 
 CEDPage * CRtfPage::Write() {
-    drawLayout();
-
     if (RfrmtOptions::useNone()) { // Фрагменты отписываются по пользовательским номерам
         writeUsingNone();
     } else if (RfrmtOptions::useFrames() || bad_column_) { // Все фрагменты фреймы

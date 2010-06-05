@@ -213,11 +213,6 @@ class CLA_EXPO CRtfString
         int leftIndent() const;
 
         /**
-         * Returns string length in twips
-         */
-        int lengthInTwips() const;
-
-        /**
          * Returns true if line break required
          * @see setLineBreak()
          */

@@ -337,8 +337,8 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
         pTmpDIB->SetDIBbyPtr(pOutDIB);
         pictSize.rwidth() = Wh.x();
         pictSize.rheight() = Wh.y();
-        pictGoal.cx = (uint32_t) (CIF::getTwips() * pTmpDIB->GetLineWidth());
-        pictGoal.cy = (uint32_t) (CIF::getTwips() * pTmpDIB->GetLinesNumber());
+        pictGoal.cx = pTmpDIB->GetLineWidth();
+        pictGoal.cy = pTmpDIB->GetLinesNumber();
         int32_t iDIBSize = pTmpDIB->GetDIBSize();
         delete pTmpDIB;
         indent = CIF::Rect();
@@ -369,15 +369,15 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
             if (SectorInfo->FlagInColumn == TRUE) {
                 EdFragmRect.x = MAX(0, SectorInfo->OffsetFromColumn.x());
                 EdFragmRect.y = MAX(0, SectorInfo->OffsetFromColumn.y());
-                EdFragmRect.w = MAX(0, Wh.x() - FrameOffset) * CIF::getTwips();
-                EdFragmRect.h = Wh.y() * CIF::getTwips();
+                EdFragmRect.w = MAX(0, Wh.x() - FrameOffset);
+                EdFragmRect.h = Wh.y();
                 SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
                         EdFragmRect, 0x22, -1, -1, -1);
             } else {
-                EdFragmRect.x = Lr.x() * CIF::getTwips() - SectorInfo->Offset.x();
-                EdFragmRect.y = Lr.y() * CIF::getTwips() - SectorInfo->Offset.y();
-                EdFragmRect.w = MAX(0, Wh.x() - FrameOffset) * CIF::getTwips();
-                EdFragmRect.h = Wh.y() * CIF::getTwips();
+                EdFragmRect.x = Lr.x() - SectorInfo->Offset.x();
+                EdFragmRect.y = Lr.y() - SectorInfo->Offset.y();
+                EdFragmRect.w = MAX(0, Wh.x() - FrameOffset);
+                EdFragmRect.h = Wh.y();
                 SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
                         EdFragmRect, 0x22, -1, 0, 0);
             }

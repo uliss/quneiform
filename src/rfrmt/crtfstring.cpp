@@ -275,10 +275,6 @@ int CRtfString::leftIndent() const {
     return left_indent_;
 }
 
-int CRtfString::lengthInTwips() const {
-    return width() * getTwips();
-}
-
 bool CRtfString::lineBreak() const {
     return line_break_;
 }

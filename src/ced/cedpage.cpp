@@ -149,7 +149,7 @@ language_t CEDPage::language() const {
 }
 
 Rect CEDPage::pageBorder() const {
-    return page_borders_in_twips_;
+    return page_borders_;
 }
 
 int CEDPage::pageNumber() const {
@@ -157,7 +157,7 @@ int CEDPage::pageNumber() const {
 }
 
 Size CEDPage::pageSize() const {
-    return page_size_in_twips_;
+    return page_size_;
 }
 
 size_t CEDPage::pictureCount() const {
@@ -185,7 +185,7 @@ void CEDPage::setLanguage(language_t language) {
 }
 
 void CEDPage::setPageBorder(const Rect& borders) {
-    page_borders_in_twips_ = borders;
+    page_borders_ = borders;
 }
 
 void CEDPage::setPageNumber(int number) {
@@ -193,7 +193,7 @@ void CEDPage::setPageNumber(int number) {
 }
 
 void CEDPage::setPageSize(const Size& size) {
-    page_size_in_twips_ = size;
+    page_size_ = size;
 }
 
 void CEDPage::setTurn(int angle) {

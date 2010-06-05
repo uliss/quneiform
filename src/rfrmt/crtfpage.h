@@ -20,7 +20,6 @@
 #define CRTFPAGE_H_
 
 #include <vector>
-#include <boost/function.hpp>
 
 #include "globus.h"
 #include "font.h"
@@ -35,8 +34,6 @@ class CRtfFragment;
 class CRtfSector;
 class CRtfPage;
 class FormatOptions;
-
-typedef boost::function<void(const CRtfPage*)> RfrmtDrawPageFunction;
 
 class CLA_EXPO CRtfPage
 {
@@ -54,6 +51,11 @@ class CLA_EXPO CRtfPage
         void addTables();
 
         /**
+         * Returns page bounds
+         */
+        Rect bRect() const;
+
+        /**
          * Removes fragments
          */
         void clearFragments();
@@ -62,11 +64,6 @@ class CLA_EXPO CRtfPage
          * Removes sectors
          */
         void clearSectors();
-
-        /**
-         * Draws page layout via callback
-         */
-        void drawLayout() const;
 
         /**
          * Returns page size
@@ -137,7 +134,6 @@ class CLA_EXPO CRtfPage
         RtfPageElementCount Count;
         uint16_t m_wDpi;
         RECT m_rect;
-        RECT m_rectReal;
         int32_t MargL;
         int32_t MargR;
         int32_t MargT;
@@ -177,10 +173,6 @@ class CLA_EXPO CRtfPage
         CEDPage * ced_page_;
         bool bad_column_;
         std::vector<KEGL> arKegls;
-    public:
-        static void setDrawCallback(RfrmtDrawPageFunction f);
-    private:
-        static RfrmtDrawPageFunction draw_func_;
 };
 }
 

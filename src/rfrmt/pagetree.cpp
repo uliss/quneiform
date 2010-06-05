@@ -227,7 +227,6 @@ void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
 void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
 CIF::Rect toRect(const SRECT& src);
 CIF::Rect toRect(const tagRECT& src);
-void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips);
 void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
 
 ////////////// functions, which are moved from other modules //////////////
@@ -2496,10 +2495,10 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
         do0(ih, 0, K_Hor[i]) {
             do0(iv, 0, K_Ver[i][ih]) {
                 nc = Colt[i][ih][iv];
-                RectFragm[nc].left = (int16_t)(RectFragm[nc].left * CIF::getTwips());
-                RectFragm[nc].right = (int16_t)(RectFragm[nc].right * CIF::getTwips());
-                RectFragm[nc].top = (int16_t)(RectFragm[nc].top * CIF::getTwips());
-                RectFragm[nc].bottom = (int16_t)(RectFragm[nc].bottom * CIF::getTwips());
+                RectFragm[nc].left = RectFragm[nc].left;
+                RectFragm[nc].right = RectFragm[nc].right;
+                RectFragm[nc].top = RectFragm[nc].top;
+                RectFragm[nc].bottom = RectFragm[nc].bottom;
             }
         }
     }
@@ -2646,9 +2645,6 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
         do0(ih, 0, K_Hor[i]) {//hor. col.  begin
             pRtfHorizontalColumn = new CIF::CRtfHorizontalColumn;
             pRtfSector->addColumn(pRtfHorizontalColumn);
-            RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rectReal, &ColH_New[i][ih].bnd);
-            RtfUnionRect_CRect_CRect(&pRtfSector->m_rectReal, &pRtfHorizontalColumn->m_rectReal);
-            RtfUnionRect_CRect_CRect(&RtfPage->m_rectReal, &pRtfSector->m_rectReal);
             RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rect, &ColH[i][ih].bnd);
             RtfUnionRect_CRect_CRect(&pRtfSector->m_rect, &pRtfHorizontalColumn->m_rect);
             RtfUnionRect_CRect_CRect(&RtfPage->m_rect, &pRtfSector->m_rect);
@@ -2934,14 +2930,6 @@ void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2)
     s1->right = MAX(s1->right, s2->right);
     s1->top = MIN(s1->top, s2->top);
     s1->bottom = MAX(s1->bottom, s2->bottom);
-}
-
-void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips)
-{
-    s1->left = (int32_t)(s1->left * CIF::getTwips());
-    s1->right = (int32_t)(s1->right * CIF::getTwips());
-    s1->top = (int32_t)(s1->top * CIF::getTwips());
-    s1->bottom = (int32_t)(s1->bottom * CIF::getTwips());
 }
 
 //==Объединение пары рамок

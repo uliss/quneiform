@@ -644,10 +644,6 @@ void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
 
 // если колонки остались несепарабельными, то они все будут отписаны как frames
 void CRtfFragment::processingOverlayed() {
-    CRtfString *pRtfStringPrev;
-    CRtfString *pRtfStringNext;
-    CRtfString *pRtfString;
-
     for (size_t i = 0; i < stringCount(); i++) {
         CRtfString * str = strings_[i];
         str->setAlign(FORMAT_ALIGN_JUSTIFY);
@@ -656,38 +652,36 @@ void CRtfFragment::processingOverlayed() {
     }
 
     for (size_t ns = 0; ns < stringCount(); ns++) {
-        pRtfString = strings_[ns];
+        CRtfString * str = strings_[ns];
 
         if (ns == 0) {
-            if (pRtfString->leftIndent() > max_char_distance_ / 2)
-                pRtfString->setFirstIndent(max_char_distance_ * getTwips());
+            if (str->leftIndent() > max_char_distance_ / 2)
+                str->setFirstIndent(max_char_distance_);
             else
-                pRtfString->setFirstIndent(0);
+                str->setFirstIndent(0);
 
-            pRtfString->setLeftIndent(0);
-            pRtfString->setParagraphBegin(true);
+            str->setLeftIndent(0);
+            str->setParagraphBegin(true);
             continue;
         }
 
         // ns >= 1
-        pRtfStringPrev = strings_[ns - 1];
+        CRtfString * str_prev = strings_[ns - 1];
 
         if (ns == stringCount() - 1) {
-            if ((pRtfString->leftIndent() - pRtfStringPrev->leftIndent())
-                    > (max_char_distance_ / 2)) {
-                pRtfString->setLeftIndent(0);
-                pRtfString->setFirstIndent(max_char_distance_ * getTwips());
-                pRtfString->setParagraphBegin(true);
+            if ((str->leftIndent() - str_prev->leftIndent()) > (max_char_distance_ / 2)) {
+                str->setLeftIndent(0);
+                str->setFirstIndent(max_char_distance_);
+                str->setParagraphBegin(true);
             }
         } else {
-            pRtfStringNext = strings_[ns + 1];
+            CRtfString * str_next = strings_[ns + 1];
 
-            if (((pRtfString->leftIndent() - pRtfStringPrev->leftIndent()) > (max_char_distance_
-                    / 2)) && ((pRtfString->leftIndent() - pRtfStringNext->leftIndent())
-                    > (max_char_distance_ / 2))) {
-                pRtfString->setLeftIndent(0);
-                pRtfString->setFirstIndent(max_char_distance_ * getTwips());
-                pRtfString->setParagraphBegin(true);
+            if (((str->leftIndent() - str_prev->leftIndent()) > (max_char_distance_ / 2))
+                    && ((str->leftIndent() - str_next->leftIndent()) > (max_char_distance_ / 2))) {
+                str->setLeftIndent(0);
+                str->setFirstIndent(max_char_distance_);
+                str->setParagraphBegin(true);
             }
         }
     }
@@ -1233,15 +1227,14 @@ void CRtfFragment::setFirstLeftAndRightIndentOfParagraph() {
     CRtfString *pRtfStringNext;
     int MinLeftIndent;
     int MinRightIndent;
-    int twp_dist = 3 * max_char_distance_ * getTwips();
+    const int twp_dist = 3 * max_char_distance_;
     int Dif = 0;
 
     for (StringIterator it = strings_.begin(), end = strings_.end(); it != end; ++it) {
         CRtfString * str = *it;
         str->calcRealLength();
-        str->setLeftIndent(str->leftIndent() * getTwips() + m_LeftOffsetFragmentFromVerticalColumn);
-        str->setRightIndent(str->rightIndent() * getTwips()
-                + m_RightOffsetFragmentFromVerticalColumn);
+        str->setLeftIndent(str->leftIndent() + m_LeftOffsetFragmentFromVerticalColumn);
+        str->setRightIndent(str->rightIndent() + m_RightOffsetFragmentFromVerticalColumn);
         str->setRightIndent(
                 MIN(str->rightIndent(),
                         m_WidthVerticalColumn - (str->realLength() + str->leftIndent() + str->rightIndent())));
@@ -1269,7 +1262,7 @@ void CRtfFragment::setFirstLeftAndRightIndentOfParagraph() {
                 MinLeftIndent = MIN(pRtfStringNext->leftIndent(), MinLeftIndent);
             }
 
-            if (m_WidthVerticalColumn > str->lengthInTwips()) {
+            if (m_WidthVerticalColumn > str->width()) {
                 str->setFirstIndent(str->leftIndent() - MinLeftIndent);
 
                 if (str->firstIndent() < (twp_dist / 3))
