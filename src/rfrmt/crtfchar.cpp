@@ -194,7 +194,7 @@ CEDChar * CRtfChar::toCedChar(int font_name, int font_size, int font_style) cons
     return chr;
 }
 
-CEDParagraph * CRtfChar::insertCedDropCap(RtfSectorInfo * sector, int font_name, int font_size,
+CEDParagraph * CRtfChar::insertCedDropCap(SectorInfo * sector, int font_name, int font_size,
         int font_style, bool negative) const {
     Rect slayout;
     EDBOX playout = { 0, 0, 0, 0 };

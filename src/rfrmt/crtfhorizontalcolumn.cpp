@@ -503,13 +503,13 @@ int CRtfHorizontalColumn::getCountAndRightBoundVTerminalColumns(
     return CountVTerminalColumns;
 }
 
-void CRtfHorizontalColumn::writeTablesAndPictures(RtfSectorInfo * sector) {
+void CRtfHorizontalColumn::writeTablesAndPictures(SectorInfo * sector) {
     for (VColumnIterator it = vcols_.begin(), end = vcols_.end(); it != end; ++it)
         (*it)->writeTablesAndPictures(sector, type_ <= ALL_TERMINAL);
 }
 
 void CRtfHorizontalColumn::writeTerminalColumns(VectorWord* arRightBoundTerminalColumns,
-        int * VTerminalColumnNumber, int CountVTerminalColumns, RtfSectorInfo *SectorInfo) {
+        int * VTerminalColumnNumber, int CountVTerminalColumns, SectorInfo *SectorInfo) {
     // Tерминальная колонка из одного или нескольких фрагментов
     if (type_ == SINGLE_TERMINAL || type_ == ALL_TERMINAL) {
         writeTerminalColumnsOnly(arRightBoundTerminalColumns, VTerminalColumnNumber,
@@ -555,7 +555,7 @@ void CRtfHorizontalColumn::writeTerminalColumns(VectorWord* arRightBoundTerminal
 }
 
 uint16_t CRtfHorizontalColumn::GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFragment,
-        RtfSectorInfo *SectorInfo) {
+        SectorInfo *SectorInfo) {
     CRtfFragment *pRtfFragment;
     RECT FreePlace;
     int i, CountFragments;
@@ -751,7 +751,7 @@ int CRtfHorizontalColumn::getOffsetFromPrevTextFragment(const CRtfFragment * fra
 }
 
 void CRtfHorizontalColumn::writeTerminalColumnsOnly(VectorWord* arRightBoundTerminalColumns,
-        int * VTerminalColumnNumber, int CountVTerminalColumns, RtfSectorInfo *sector) {
+        int * VTerminalColumnNumber, int CountVTerminalColumns, SectorInfo *sector) {
     *VTerminalColumnNumber += 1;
 
     if (RfrmtOptions::useFramesAndColumns() && *VTerminalColumnNumber == 1 && CountVTerminalColumns
@@ -809,7 +809,7 @@ void CRtfHorizontalColumn::writeTerminalColumnsOnly(VectorWord* arRightBoundTerm
     }
 }
 
-void CRtfHorizontalColumn::writeFramesInTerminalColumn(RtfSectorInfo * SectorInfo) {
+void CRtfHorizontalColumn::writeFramesInTerminalColumn(SectorInfo * SectorInfo) {
     for (size_t i = 0; i < vcols_.size(); i++) {
         if (i == 0) {
             Rect indent;
@@ -845,7 +845,7 @@ void CRtfHorizontalColumn::writeFramesInTerminalColumn(RtfSectorInfo * SectorInf
     }
 }
 
-void CRtfHorizontalColumn::writeNonTerminalColumns(RtfSectorInfo* sector) {
+void CRtfHorizontalColumn::writeNonTerminalColumns(SectorInfo* sector) {
     for (size_t i = 0; i < vcols_.size(); i++) {
         CRtfVerticalColumn* vcol = vcols_[i];
 

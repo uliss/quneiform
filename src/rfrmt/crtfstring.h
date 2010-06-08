@@ -28,11 +28,10 @@
 #include "cfcompat.h"
 #include "common/rect.h"
 
-struct RtfSectorInfo;
-
 namespace CIF
 {
 
+struct SectorInfo;
 class CRtfChar;
 class CRtfWord;
 class CEDLine;

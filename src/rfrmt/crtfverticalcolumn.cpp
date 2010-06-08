@@ -133,7 +133,7 @@ fragment_t CRtfVerticalColumn::type() const {
     return type_;
 }
 
-void CRtfVerticalColumn::write(RtfSectorInfo * sector, fragment_output_t type) {
+void CRtfVerticalColumn::write(SectorInfo * sector, fragment_output_t type) {
     for (FragmentIterator it = fragments_.begin(), end = fragments_.end(); it != end; ++it) {
         CRtfFragment * fragm = *it;
         if (!fragm->m_LeftOffsetFragmentFromVerticalColumn
@@ -152,7 +152,7 @@ void CRtfVerticalColumn::write(RtfSectorInfo * sector, fragment_output_t type) {
     //RfrmtOptions::draw(realRect());
 }
 
-void CRtfVerticalColumn::writeTablesAndPictures(RtfSectorInfo * SectorInfo, bool allTerminal) {
+void CRtfVerticalColumn::writeTablesAndPictures(SectorInfo * SectorInfo, bool allTerminal) {
     if (fragments_.empty())
         return;
 

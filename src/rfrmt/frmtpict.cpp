@@ -64,7 +64,7 @@
 // GetPictCount()      - Return Picture count
 // WritePict()         - Write  Picture
 
-#include "rtfedwrite.h"
+#include "sectorinfo.h"
 #include "rfrmtoptions.h"
 #include "frmtpict.h"
 #include "puma/pumadef.h"
@@ -124,7 +124,7 @@ Rect GetPictRect(uint NumberPict, uint32_t * UserNumber) {
         throw std::runtime_error("[GetPictRect] CPAGE_PictureGetPlace failed");
 }
 
-bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFrame) {
+bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame) {
     uint32_t PictNumber = 0;
     Point RtfLt;
     CPAGE_PICTURE pict;

@@ -757,7 +757,7 @@ void CRtfPage::writeUsingFrames() {
             + Count.RtfTableFragments + Count.RtfPictureFragments;
     writeSectorsHeader(0);
     CRtfSector * pRtfSector = m_arSectors.at(0);
-    RtfSectorInfo * SectorInfo = &pRtfSector->SectorInfo;
+    SectorInfo * SectorInfo = &pRtfSector->SectorInfo;
     SectorInfo->Offset.set(0, 0);
 
     if (CountFragments) {

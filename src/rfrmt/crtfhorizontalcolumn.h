@@ -99,10 +99,10 @@ class CLA_EXPO CRtfHorizontalColumn
          */
         column_t type() const;
 
-        void writeNonTerminalColumns(RtfSectorInfo* SectorInfo);
+        void writeNonTerminalColumns(SectorInfo* SectorInfo);
         void writeTerminalColumns(VectorWord* arRightBoundTerminalColumns,
-                int * VTerminalColumnNumber, int CountVTerminalColumns, RtfSectorInfo* SectorInfo);
-        void writeTablesAndPictures(RtfSectorInfo * sector);
+                int * VTerminalColumnNumber, int CountVTerminalColumns, SectorInfo* SectorInfo);
+        void writeTablesAndPictures(SectorInfo * sector);
 
         int getCountAndRightBoundVTerminalColumns(VectorWord * RightBoundTerminalColumns,
                 VectorWord * WidthTerminalColumns);
@@ -158,7 +158,7 @@ class CLA_EXPO CRtfHorizontalColumn
          */
         int findHighestUnsortedColumnInGroup(const IndexList& group) const;
         uint16_t GetFreeSpaceBetweenPrevAndCurrentFragments(int TopPosCurFrag,
-                RtfSectorInfo *SectorInfo);
+                SectorInfo *SectorInfo);
         int getOffsetFromPrevTextFragment(const CRtfFragment *pRtfFragment);
         Bool getOverLayedFlag(int CurFragmentNumber);
         /* detects and marks small vertical columns */
@@ -182,9 +182,9 @@ class CLA_EXPO CRtfHorizontalColumn
          */
         void sortColumns(IndexList * dest_idx);
         void sortColumnsInGroup(const IndexList& group, IndexList * dest_idx);
-        void writeFramesInTerminalColumn(RtfSectorInfo* SectorInfo);
+        void writeFramesInTerminalColumn(SectorInfo* SectorInfo);
         void writeTerminalColumnsOnly(VectorWord* arRightBoundTerminalColumns,
-                int * VTerminalColumnNumber, int CountVTerminalColumns, RtfSectorInfo *SectorInfo);
+                int * VTerminalColumnNumber, int CountVTerminalColumns, SectorInfo *SectorInfo);
     private:
         VColumnList vcols_;
         CRtfPage * page_;

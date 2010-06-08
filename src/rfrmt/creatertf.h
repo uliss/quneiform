@@ -66,7 +66,7 @@
 #define __CreateRtf_h__
 
 #include <vector>
-#include "rtfedwrite.h"
+#include "sectorinfo.h"
 #include "recdefs.h"
 #include "cfcompat.h"
 #include "lang_def.h"
@@ -85,7 +85,6 @@ class CRtfChar;
 }
 
 typedef std::vector<uint16_t> VectorWord;
-const float TwipsToEMU_Koef = (360000 * 2.54) / 1440;
 
 //Fragment output types
 enum fragment_output_t

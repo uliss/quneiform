@@ -54,54 +54,48 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// ============================================================================
-// Written by Shahverdiev  Alik
-// This file cration date: 08.10.99
-//
-// RtfEdWrite.h
-//
-// ============================================================================
-
-#ifndef __RtfEdWrite_h__
-#define __RtfEdWrite_h__
+#ifndef __SECTORINFO__
+#define __SECTORINFO__
 
 #include "cfcompat.h"
+#include "common/point.h"
 
-#define  EdWrite On
+namespace CIF
+{
 
-#define TABLE_TP_LEFT_ALLIGN   0x0002
-#define TABLE_TP_RIGHT_ALLIGN  0x0004
-#define TABLE_TP_CENTER        0x0008
+class CEDPage;
 
-struct RtfSectorInfo {
-    CIF::Point16 Offset;
-    CIF::Point16 OffsetFromColumn;
-    RECT m_rectFree;
+struct SectorInfo
+{
+        Point16 Offset;
+        Point16 OffsetFromColumn;
 
-    uint16_t CountFragments;
-    Handle hEDPage;
-    Handle hEDSector;
-    Handle hColumn;
-    Handle hFirstColumn;
-    Handle hObject;
-    Handle hEdTable;
-    Handle hEdTableRow;
-    Handle hEdTableCell;
-    Handle hEdTableParagraph;
-    Handle hEdTableString;
-    int userNum;
-    uint16_t VerticalOffsetColumnFromSector;
-    uint16_t VerticalOffsetFragmentInColumn;
-    uint16_t FlagInColumn;
-    uint16_t InterSectorDist;
-    Bool FlagFictiveParagraph;
-    int32_t MargL;
-    int32_t MargR;
-    int32_t PaperW;
-    int32_t PaperH;
+        uint16_t CountFragments;
+        CEDPage * hEDPage;
+        Handle hEDSector;
+        Handle hColumn;
+        Handle hFirstColumn;
+        Handle hObject;
+        Handle hEdTable;
+        Handle hEdTableRow;
+        Handle hEdTableCell;
+        Handle hEdTableParagraph;
+        Handle hEdTableString;
+        int userNum;
+        uint16_t VerticalOffsetColumnFromSector;
+        uint16_t VerticalOffsetFragmentInColumn;
+        uint16_t FlagInColumn;
+        uint16_t InterSectorDist;
+        Bool FlagFictiveParagraph;
+        int32_t MargL;
+        int32_t MargR;
+        int32_t PaperW;
+        int32_t PaperH;
 
-    Bool FlagOneString;
-    Bool FlagOverLayed;
+        Bool FlagOneString;
+        Bool FlagOverLayed;
 };
+
+}
 
 #endif

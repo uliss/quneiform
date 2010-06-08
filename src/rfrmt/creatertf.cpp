@@ -74,7 +74,6 @@
 #include "ced/cedparagraph.h"
 #include "edfile.h"
 #include "dpuma.h"
-#include "rtfedwrite.h"
 #include "lns/lnsdefs.h"
 #include "linedefs.h"
 #include "normdefs.h"
@@ -105,27 +104,9 @@ namespace CIF
 class CEDPage;
 }
 
-Bool PageTree(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage, const char *FileNameOut);
-Bool WriteTable(uint32_t IndexTable, RtfSectorInfo* SectorInfo, Bool OutPutMode);
-Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFrame);
-void GetTableRect(uint32_t NumberTable, Rect16* RectTable, uint32_t* UserNumber);
-uchar GetPictRect(uint32_t NumberPict, Rect16* RectPict, uint32_t* UserNumber);
-void RtfAssignRect_CRect_Rect16(RECT *s1, Rect16 *s2);
-void RtfCalcRectSizeInTwips(RECT *s1, float Twips);
-void RtfUnionRect_CRect_CRect(RECT *s1, RECT *s2);
-void RtfAssignRect_CRect_CRect(RECT *s1, RECT *s2);
-
-Bool ReadInternalFileRelease(FILE *fpFileNameIn, CIF::CRtfPage* RtfPage);
-void Cleaning_LI_FRMT_Used_Flag(void);
-
-extern uint32_t CountPict;
-extern uint32_t CountTable;
-extern CIF::Point TemplateOffset;
-
 #define CHEREDOVON
 
-int16_t GetRealSizeKegl( /*CString**/const char* str, int16_t width, int16_t FontPointSize,
-        int16_t FontNumber) {
+int16_t GetRealSizeKegl(const char* str, int16_t width, int16_t FontPointSize, int16_t FontNumber) {
     char* sz;
     uint16_t PenaltyKeglForString = 0;
     int16_t strHeight;
@@ -197,32 +178,23 @@ int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t Font
     return size.width(); //in twips
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                 CheckVerLines                                                  //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-#define LMin  500
+const int LMin = 500;
 
-Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo) {
-    Handle hPage;
-    int32_t VCentre, HCentre;
-
+Bool CheckLines(RECT* Rect, Bool FlagVer, CIF::SectorInfo *SectorInfo) {
     if (FlagVer == TRUE && Rect->bottom - Rect->top < LMin / 2)
         return FALSE;
 
-    hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     CLINE_handle hCLINE = CLINE_GetMainContainer();
-    HCentre = Rect->left + (Rect->right - Rect->left) / 2;
-    VCentre = Rect->top + (Rect->bottom - Rect->top) / 2;
-    CLINE_handle hline;
-    CPDLine cpdata;
-    DLine data;
-    hline = CLINE_GetFirstLine(hCLINE);
-
+    int VCentre = Rect->top + (Rect->bottom - Rect->top) / 2;
+    CLINE_handle hline = CLINE_GetFirstLine(hCLINE);
     if (!hline)
         return FALSE;
 
+    DLine data;
+
     while (hline) {
-        cpdata = CLINE_GetLineData(hline);
+        CPDLine cpdata = CLINE_GetLineData(hline);
 
         if ((!cpdata) || (FlagVer && (cpdata->Dir == LD_Horiz)) || ((!FlagVer) && (cpdata->Dir
                 != LD_Horiz)))
@@ -237,9 +209,7 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo) {
                             abs(cpdata->Line.Beg_Y - cpdata->Line.End_Y) > (Rect->bottom
                                     - Rect->top) / 2)
                         return TRUE;
-                }
-
-                else {//Hor
+                } else {//Hor
                     if (((cpdata->Line.Beg_Y > Rect->top && cpdata->Line.Beg_Y < Rect->bottom)
                             || (cpdata->Line.End_Y > Rect->top && cpdata->Line.End_Y < Rect->bottom))
                             && abs(cpdata->Line.Beg_X - cpdata->Line.End_X) > SectorInfo->PaperW
@@ -248,9 +218,7 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo) {
                             Rect->top = cpdata->Line.Beg_Y;
                             // FIXME why 10?
                             Rect->bottom = cpdata->Line.Beg_Y + 10;
-                        }
-
-                        else {
+                        } else {
                             Rect->top = cpdata->Line.End_Y;
                             // FIXME why 10?
                             Rect->bottom = cpdata->Line.End_Y + 10;
@@ -271,27 +239,20 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, RtfSectorInfo *SectorInfo) {
     return FALSE;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//                         Cleaning_LI_FRMT_Used_Flag                                             //
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void Cleaning_LI_FRMT_Used_Flag(void) {
-    Handle hPage;
-    hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
+void Cleaning_LI_FRMT_Used_Flag() {
+    Handle hPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     CLINE_handle hCLINE = CLINE_GetMainContainer();
-    CLINE_handle hline;
-    CPDLine cpdata;
-    DLine data;
-    hline = CLINE_GetFirstLine(hCLINE);
-
+    CLINE_handle hline = CLINE_GetFirstLine(hCLINE);
     if (!hline)
         return;
 
+    DLine data;
+
     while (hline) {
-        cpdata = CLINE_GetLineData(hline);
+        CPDLine cpdata = CLINE_GetLineData(hline);
 
         if (!cpdata)
             hline = CLINE_GetNextLine(hline);
-
         else {
             if (cpdata->Flags & LI_FRMT_Used) {
                 CLINE_CopyData(&data, cpdata, sizeof(DLine));

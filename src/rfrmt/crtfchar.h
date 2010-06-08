@@ -29,11 +29,10 @@
 #include "common/rect.h"
 #include "common/letter.h"
 
-class RtfSectorInfo;
-
 namespace CIF
 {
 
+class SectorInfo;
 class CEDChar;
 class CEDLine;
 class CEDParagraph;
@@ -174,7 +173,7 @@ class CLA_EXPO CRtfChar
         /**
          * Inserts drop cap into CEDPage
          */
-        CEDParagraph * insertCedDropCap(RtfSectorInfo * sector, int font_name, int font_size,
+        CEDParagraph * insertCedDropCap(SectorInfo * sector, int font_name, int font_size,
                 int font_style, bool negative) const;
 
         /**

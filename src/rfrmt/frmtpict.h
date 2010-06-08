@@ -72,7 +72,7 @@ namespace CIF
 /**  Определение кол-ва картин на странице */
 size_t GetPictCount();
 /** Запись картин */
-bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutType);
+bool WritePict(uint32_t IndexPict, SectorInfo* SectorInfo, Bool OutPutType);
 /** Размер картинки */
 Rect GetPictRect(uint NumberPict, uint32_t* UserNumber);
 

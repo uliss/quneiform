@@ -216,7 +216,7 @@ void CRtfFragment::correctParagraphIndents(StringIterator begin, StringIterator 
     }
 }
 
-int CRtfFragment::columnWidth(RtfSectorInfo* SectorInfo) {
+int CRtfFragment::columnWidth(SectorInfo* SectorInfo) {
     int width = 0;
 
     if (parent_ && !RfrmtOptions::useNone()) {
@@ -309,7 +309,7 @@ const CRtfString * CRtfFragment::lastString() const {
     return strings_.back();
 }
 
-CEDParagraph * CRtfFragment::makeParagraph(RtfSectorInfo * sector, int firstIndent, int leftIndent,
+CEDParagraph * CRtfFragment::makeParagraph(SectorInfo * sector, int firstIndent, int leftIndent,
         int rightIndent, int marginTop, format_align_t align) {
     EDBOX playout;
     EDSIZE interval;
@@ -488,7 +488,7 @@ void CRtfFragment::setMixed(bool value) {
     mixed_fragment_ = value;
 }
 
-void CRtfFragment::setFragmentAlignment(RtfSectorInfo* SectorInfo) {
+void CRtfFragment::setFragmentAlignment(SectorInfo* SectorInfo) {
     if (RfrmtOptions::useNone())
         return processingUseNoneMode();
 
@@ -544,7 +544,7 @@ fragment_t CRtfFragment::type() const {
     return type_;
 }
 
-void CRtfFragment::write(RtfSectorInfo * sector, fragment_output_t out_type) {
+void CRtfFragment::write(SectorInfo * sector, fragment_output_t out_type) {
     switch (type_) {
     case FT_TABLE:
         writeTable(sector, out_type);
@@ -561,7 +561,7 @@ void CRtfFragment::write(RtfSectorInfo * sector, fragment_output_t out_type) {
 
 }
 
-void CRtfFragment::writePicture(RtfSectorInfo * sector, fragment_output_t type) {
+void CRtfFragment::writePicture(SectorInfo * sector, fragment_output_t type) {
     if (written_)
         return;
 
@@ -570,7 +570,7 @@ void CRtfFragment::writePicture(RtfSectorInfo * sector, fragment_output_t type) 
     written_ = true;
 }
 
-void CRtfFragment::writeTable(RtfSectorInfo* sector, fragment_output_t type) {
+void CRtfFragment::writeTable(SectorInfo* sector, fragment_output_t type) {
     if (written_)
         return;
 
@@ -579,7 +579,7 @@ void CRtfFragment::writeTable(RtfSectorInfo* sector, fragment_output_t type) {
     written_ = true;
 }
 
-void CRtfFragment::writeText(RtfSectorInfo * sector) {
+void CRtfFragment::writeText(SectorInfo * sector) {
     initFragment(sector);
     CEDParagraph * ced_paragraph = NULL;
     for (StringIterator it = strings_.begin(), end = strings_.end(); it != end; ++it) {
@@ -610,18 +610,18 @@ int CRtfFragment::fontSizePenalty(int fragment_count) const {
         return 0;
 }
 
-void CRtfFragment::initFragment(RtfSectorInfo* SectorInfo) {
+void CRtfFragment::initFragment(SectorInfo* SectorInfo) {
     assert(SectorInfo);
     initFragmentFonts(SectorInfo->CountFragments);
     setFragmentAlignment(SectorInfo);
 }
 
-void CRtfFragment::FWritePicture(int NumberCurrentFragment, RtfSectorInfo *SectorInfo,
+void CRtfFragment::FWritePicture(int NumberCurrentFragment, SectorInfo *SectorInfo,
         Bool OutPutType) {
     WritePict(NumberCurrentFragment, SectorInfo, OutPutType);
 }
 
-void CRtfFragment::Init(RtfSectorInfo* SectorInfo) {
+void CRtfFragment::Init(SectorInfo* SectorInfo) {
     assert(SectorInfo);
 
     adjustParagraph(SectorInfo->VerticalOffsetFragmentInColumn);
@@ -1121,7 +1121,7 @@ bool CRtfFragment::determineList(StringIterator begin, StringIterator end) {
     return true;
 }
 
-bool CRtfFragment::determineMixedFragment(RtfSectorInfo* SectorInfo) {
+bool CRtfFragment::determineMixedFragment(SectorInfo* SectorInfo) {
     StringIterator it = strings_.begin();
 
     while (true) {
@@ -1137,7 +1137,7 @@ bool CRtfFragment::determineMixedFragment(RtfSectorInfo* SectorInfo) {
     return true;
 }
 
-void CRtfFragment::ReInit(RtfSectorInfo* SectorInfo, StringIterator begin, StringIterator end) {
+void CRtfFragment::ReInit(SectorInfo* SectorInfo, StringIterator begin, StringIterator end) {
     assert(begin != end);
 
     for (StringIterator it = begin; it != end; ++it) {

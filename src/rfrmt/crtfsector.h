@@ -72,7 +72,7 @@ class CRtfSector
 
         VectorWord m_arRightBoundTerminalColumns;
         VectorWord m_arWidthTerminalColumns;
-        RtfSectorInfo SectorInfo;
+        CIF::SectorInfo SectorInfo;
 
         RECT m_rect;
         RECT m_rectReal;

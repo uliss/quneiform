@@ -27,11 +27,10 @@
 #include "common/rect.h"
 #include "creatertf.h"
 
-class RtfSectorInfo;
-
 namespace CIF
 {
 
+class SectorInfo;
 class CRtfPage;
 class CRtfFragment;
 class CRtfVerticalColumn;
@@ -134,12 +133,12 @@ class CLA_EXPO CRtfVerticalColumn
          * @param type
          * @param SectorInfo
          */
-        void write(RtfSectorInfo * SectorInfo, fragment_output_t type);
+        void write(SectorInfo * SectorInfo, fragment_output_t type);
 
         /**
          * Exports column tables and pictures
          */
-        void writeTablesAndPictures(RtfSectorInfo * SectorInfo, bool allTerminal);
+        void writeTablesAndPictures(SectorInfo * SectorInfo, bool allTerminal);
 
         RECT m_rect;
         RECT m_rectReal;
