@@ -274,7 +274,7 @@ Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CRIControl::Turn(char* cDIBIn, char* cDIBOut, uint32_t wFlag,
+Bool32 CRIControl::Turn(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
                         uint32_t UseMargins)
 {
     int32_t NewWidth;

@@ -64,24 +64,17 @@
 // GetPictCount()      - Return Picture count
 // WritePict()         - Write  Picture
 
-// ============================================================================
-
-#include "creatertf.h"
-#include <cmath>
-#include "cpage/cpage.h"
-#include "cpage/cpagetyps.h"
 #include "rtfedwrite.h"
+#include "rfrmtoptions.h"
 #include "frmtpict.h"
 #include "puma/pumadef.h"
+#include "cpage/cpage.h"
 #include "rdib/ctdib.h"
 #include "cimage/ctiimage.h"
 #include "rimage/criimage.h"
 #include "ced/ced.h"
-#include "ced/cedline.h"
-#include "rfrmt_prot.h"
 #include "compat/filefunc.h"
-#include "crtffunc.h"
-#include "rfrmtoptions.h"
+#include "common/debug.h"
 
 #include "minmax.h"
 
@@ -155,12 +148,12 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
     }
 
     if (!h_Pict)
-        return FALSE;
+        return false;
 
     PAGEINFO pinfo;
 
     if (!GetPageInfo(h_Page, &pinfo))
-        return FALSE;
+        return false;
 
     CIMAGE_InfoDataInGet in = { 0 };
     BitmapInfoHeader image_info;
@@ -169,16 +162,15 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
     Point PLr;
     Point LrN;
     Point WhN;
-    uint16_t FrameOffset = 0;
 
     if (CIMAGE_GetImageInfo(pinfo.szImageName, &image_info) == FALSE)
-        return FALSE;
+        return false;
 
     CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &Lr, &Wh);
     CPAGE_PictureGetPlace(h_Page, h_Pict, -pinfo.Incline2048, &LrN, &WhN);
     Lr.rx() -= TemplateOffset.x();
     Lr.ry() -= TemplateOffset.y();
-    FrameOffset = abs(WhN.x() - Wh.x());
+    int FrameOffset = abs(WhN.x() - Wh.x());
 
     if (Lr.x() < 0)
         FrameOffset += abs(Lr.x());
@@ -187,7 +179,7 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
     //определяем размер маски
 
     if (!CPAGE_PictureGetPlace(h_Page, h_Pict, -pinfo.Incline2048, &Lr, &Wh))
-        return FALSE;
+        return false;
 
     Bool rc = TRUE;
 
@@ -224,46 +216,47 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
     void * pOutDIB = NULL;
 
     if (!CIMAGE_GetDIBData(PUMA_IMAGE_USER, &in, &pOutDIB)) {
-        fprintf(stderr, "WritePict error!!! CIMAGE_GetDIBData failed: %s\n", PUMA_IMAGE_USER);
-        return FALSE;
+        Debug() << "[WritePict] CIMAGE_GetDIBData failed: " << PUMA_IMAGE_USER << "\n";
+        return false;
+
     }
 
     // Соберем изображение
-    char szTurnName[] = "RFRMT:TurnPicture";
-    char szPictName[] = "RFRMT:Picture";
-    char szRotateName[] = "RFRMT:RotatePicture";
-    char * lpName = szPictName;
+    const char * szTurnName = "RFRMT:TurnPicture";
+    const char * szPictName = "RFRMT:Picture";
+    const char * szRotateName = "RFRMT:RotatePicture";
+    const char * lpName = szPictName;
 
     if (CIMAGE_WriteDIB(szPictName, pOutDIB, TRUE)) {
         switch (pinfo.Angle) {
         case 90:
-            rc = RIMAGE_Turn((puchar) szPictName, (puchar) szTurnName, RIMAGE_TURN_90, FALSE);
+            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_90, FALSE);
             CIMAGE_DeleteImage(lpName);
             lpName = szTurnName;
             break;
         case 180:
-            rc = RIMAGE_Turn((puchar) szPictName, (puchar) szTurnName, RIMAGE_TURN_180, FALSE);
+            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_180, FALSE);
             CIMAGE_DeleteImage(lpName);
             lpName = szTurnName;
             break;
         case 270:
-            rc = RIMAGE_Turn((puchar) szPictName, (puchar) szTurnName, RIMAGE_TURN_270, FALSE);
+            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_270, FALSE);
             CIMAGE_DeleteImage(lpName);
             lpName = szTurnName;
             break;
         }
 
         if (!rc) {
-            fprintf(stderr, "RIMAGE_Turn failed\n");
+            Debug() << "[WritePict] RIMAGE_Turn failed";
             rc = FALSE;
         }
     } else {
-        fprintf(stderr, "WritePict error!!! CIMAGE_WriteDIB failed: %s\n", szPictName);
+        Debug() << "[WritePict] CIMAGE_WriteDIB failed: " << szPictName << "\n";
     }
 
     // Довернем изображение на малый угол.
     if (!RIMAGE_Rotate((puchar) lpName, (puchar) szRotateName, pinfo.Incline2048, 2048, 0)) {
-        fprintf(stderr, "RIMAGE_Rotate failed\n");
+        Debug() << "[WritePict] RIMAGE_Rotate failed\n";
         rc = FALSE;
     } else {
         CIMAGE_DeleteImage(lpName);
@@ -306,18 +299,18 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
 
                 if (CPAGE_PictureGetMask(h_Page, h_Pict, 0, lpMask + sizeof(in), &nSize)) {
                     if (!CIMAGE_GetDIBData(lpName, (CIMAGE_InfoDataInGet*) lpMask, &pOutDIB)) {
-                        fprintf(stderr, "CIMAGE_GetDIBData failed\n");
+                        Debug() << "CIMAGE_GetDIBData failed\n";
                         rc = FALSE;
                     }
                 } else {
-                    fprintf(stderr, "PAGE_PictureGetMask failed\n");
+                    Debug() << "PAGE_PictureGetMask failed\n";
                     rc = FALSE;
                 }
 
                 free(lpMask);
             }
         } else {
-            fprintf(stderr, "PAGE_PictureGetMask() failed\n");
+            Debug() << "PAGE_PictureGetMask() failed\n";
             rc = FALSE;
         }
     }

@@ -141,12 +141,12 @@ RIMAGE_FUNC(Bool32) RIMAGE_Roll(puchar cDIBIn, puchar cDIBOut, int32_t High, int
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-RIMAGE_FUNC(Bool32) RIMAGE_Turn(puchar cDIBIn, puchar cDIBOut, uint32_t wFlag, uint32_t UseMargins)
+RIMAGE_FUNC(Bool32) RIMAGE_Turn(const char * cDIBIn, const char * cDIBOut, uint32_t wFlag, uint32_t UseMargins)
 {
     SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
     if ( Control_cri )
-        return Control_cri->Turn( (char*)cDIBIn, (char*)cDIBOut, wFlag, UseMargins);
+        return Control_cri->Turn(cDIBIn, cDIBOut, wFlag, UseMargins);
 
     SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
     return FALSE;

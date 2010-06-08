@@ -133,7 +133,7 @@ class CRIControl
         Bool32                    Binarise(const char*   cDIBIn, const char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
         Bool32                    Rotate(char*   cDIBIn, char*   cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins);
         Bool32                    Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
-        Bool32                    Turn(char*   cDIBIn, char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
+        Bool32                    Turn(const char*   cDIBIn, const char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
         Bool32                    Inverse(char*   cDIBIn, char*   cDIBOut, uint32_t UseMargins);
 };
 # endif    //__CRI_CONTROL_H_
