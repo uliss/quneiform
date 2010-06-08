@@ -38,7 +38,6 @@ void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
 
 void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
 void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
-void RtfCalcRectSizeInTwips(tagRECT *s1, float Twips);
 void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
 
 #endif /* CRTFFUNC_H_ */
