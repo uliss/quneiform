@@ -10,7 +10,6 @@ crtfhorizontalcolumn.cpp
 crtfverticalcolumn.cpp
 crtfword.cpp
 formatter.cpp
-frmtdibapi.cpp
 frmtfile.cpp
 frmtpict.cpp
 formatoptions.cpp

@@ -75,7 +75,6 @@
 #include "puma/pumadef.h"
 #include "rdib/ctdib.h"
 #include "cimage/ctiimage.h"
-#include "frmtdibapi.h"
 #include "rimage/criimage.h"
 #include "ced/ced.h"
 #include "ced/cedline.h"
