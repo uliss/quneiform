@@ -73,6 +73,8 @@
 #include "cimage/ctiimage.h"
 #include "rimage/criimage.h"
 #include "ced/ced.h"
+#include "ced/cedchar.h"
+#include "ced/cedline.h"
 #include "compat/filefunc.h"
 #include "common/debug.h"
 
@@ -125,16 +127,6 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
     uint32_t PictNumber = 0;
     Point RtfLt;
     CPAGE_PICTURE pict;
-    Handle hParagraph = NULL;
-    CIF::CEDLine * hString = NULL;
-    CIF::Size pictSize;
-    EDSIZE pictGoal;
-    CIF::Rect indent;
-    EDBOX playout;
-    CIF::Rect slayout;
-    EDSIZE interval;
-    EDBOX EdFragmRect;
-    Letter Letter;
     Handle hPrevObject;
     uint32_t NumberPage = CPAGE_GetCurrentPage();
     Handle h_Page = CPAGE_GetHandlePage(NumberPage);
@@ -316,23 +308,28 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
     }
 
     if (rc) {
+        Size pictSize(Wh.x(), Wh.y());
+
         PCTDIB pTmpDIB = new CTDIB;
         pTmpDIB->SetDIBbyPtr(pOutDIB);
-        pictSize.rwidth() = Wh.x();
-        pictSize.rheight() = Wh.y();
+        EDSIZE pictGoal;
         pictGoal.cx = pTmpDIB->GetLineWidth();
         pictGoal.cy = pTmpDIB->GetLinesNumber();
         int32_t iDIBSize = pTmpDIB->GetDIBSize();
         delete pTmpDIB;
-        indent = CIF::Rect();
+        Rect indent;
+        EDSIZE interval;
         interval.cx = 0;
         interval.cy = 0;
+        EDBOX playout;
         playout.x = -1;
         playout.w = -1;
         playout.y = -1;
         playout.h = -1;
         Lr.rx() = MAX(0, Lr.x());
         Lr.ry() = MAX(0, Lr.y());
+
+        Rect slayout;
         slayout.rleft() = Lr.x();
         slayout.rright() = Lr.x() + Wh.x();
         slayout.rtop() = Lr.y();
@@ -340,16 +337,18 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
         hPrevObject = SectorInfo->hObject;
 
         if (SectorInfo->FlagInColumn || (OutPutTypeFrame && SectorInfo->FlagFictiveParagraph)) {
-            hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hColumn, -1,
-                    indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-            hString = (CIF::CEDLine*) CED_CreateLine(hParagraph, 0, 6);
+            CEDParagraph * hParagraph = CED_CreateParagraph(SectorInfo->hEDSector,
+                    SectorInfo->hColumn, -1, indent, SectorInfo->userNum, -1, interval, playout,
+                    -1, -1, -1, -1, FALSE);
+            CED_CreateLine(hParagraph, false, 6);
             SectorInfo->FlagFictiveParagraph = FALSE;
         }
 
-        if (CIF::RfrmtOptions::useNone() || SectorInfo->CountFragments == 1)
+        if (RfrmtOptions::useNone() || SectorInfo->CountFragments == 1)
             SectorInfo->hObject = SectorInfo->hColumn;
         else {
             if (SectorInfo->FlagInColumn == TRUE) {
+                EDBOX EdFragmRect;
                 EdFragmRect.x = MAX(0, SectorInfo->OffsetFromColumn.x());
                 EdFragmRect.y = MAX(0, SectorInfo->OffsetFromColumn.y());
                 EdFragmRect.w = MAX(0, Wh.x() - FrameOffset);
@@ -357,6 +356,7 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
                 SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
                         EdFragmRect, 0x22, -1, -1, -1);
             } else {
+                EDBOX EdFragmRect;
                 EdFragmRect.x = Lr.x() - SectorInfo->Offset.x();
                 EdFragmRect.y = Lr.y() - SectorInfo->Offset.y();
                 EdFragmRect.w = MAX(0, Wh.x() - FrameOffset);
@@ -366,13 +366,17 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
             }
         }
 
-        hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject, -1, indent,
-                SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-        hString = (CIF::CEDLine*) CED_CreateLine(hParagraph, 0, 6);
-        Letter.setChar(' ');
-        Letter.setProbability(0);
-        CED_CreateChar(hString, slayout, &Letter, 12, ED_PICT_BASE + (int) IndexPict, -1,
-                LANGUAGE_UNKNOWN, -1, -1);
+        CEDParagraph * ced_par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
+                -1, indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
+        CEDLine * ced_line = CED_CreateLine(ced_par, false, 6);
+
+        CEDChar * ced_char = new CEDChar;
+        ced_char->setBoundingRect(slayout);
+        ced_char->addAlternative(Letter(' ', 0));
+        ced_char->setFontHeight(12);
+        ced_char->setFontNumber(ED_PICT_BASE + IndexPict);
+        ced_char->setFontLanguage(LANGUAGE_UNKNOWN);
+        ced_line->insertChar(ced_char);
 
         if (!CED_CreatePicture(SectorInfo->hEDPage, (int) IndexPict, pictSize, pictGoal,
                 ED_ALIGN_MIDDLE, 1, pOutDIB, (int) iDIBSize)) {
