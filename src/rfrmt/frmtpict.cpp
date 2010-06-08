@@ -75,6 +75,7 @@
 #include "ced/ced.h"
 #include "ced/cedchar.h"
 #include "ced/cedline.h"
+#include "ced/cedparagraph.h"
 #include "compat/filefunc.h"
 #include "common/debug.h"
 
@@ -368,7 +369,8 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
 
         CEDParagraph * ced_par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
                 -1, indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
-        CEDLine * ced_line = CED_CreateLine(ced_par, false, 6);
+        CEDLine * ced_line = new CEDLine;
+        ced_line->setDefaultFontHeight(6);
 
         CEDChar * ced_char = new CEDChar;
         ced_char->setBoundingRect(slayout);
@@ -376,7 +378,9 @@ bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFr
         ced_char->setFontHeight(12);
         ced_char->setFontNumber(ED_PICT_BASE + IndexPict);
         ced_char->setFontLanguage(LANGUAGE_UNKNOWN);
+
         ced_line->insertChar(ced_char);
+        ced_par->insertLine(ced_line);
 
         if (!CED_CreatePicture(SectorInfo->hEDPage, (int) IndexPict, pictSize, pictGoal,
                 ED_ALIGN_MIDDLE, 1, pOutDIB, (int) iDIBSize)) {

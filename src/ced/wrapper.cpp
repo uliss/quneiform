@@ -350,45 +350,6 @@ CEDLine * CED_CreateLine(Handle hEdParagraph, bool hardBreak, int defChrFontHeig
     return lin;
 }
 
-//create symbol
-CED_FUNC(Handle) CED_CreateChar(Handle hEdLine, const CIF::Rect& layout, Letter* alternatives,
-        int fontHeight, int fontNum, int fontAttribs, language_t fontLang, int foregroundColor,
-        int backgroundColor) {
-    CEDChar *chr = ((CEDLine*) hEdLine)->insertChar();
-    chr->setFontNumber(fontNum);
-    chr->setForegroundColor(Color::fromT<int>(foregroundColor));
-    chr->setBackgroundColor(Color::fromT<int>(backgroundColor));
-    chr->setFontLanguage(fontLang);
-    chr->setFontStyle(fontAttribs);
-    chr->setFontHeight(fontHeight);
-    chr->setBoundingRect(layout);
-
-    if (alternatives != 0) {
-        int i = 0;
-
-        while ((alternatives[i].probability() & 1) == 1) {
-            alternatives[i].normalizeNonPrintable();
-
-            i++;
-        }
-
-        for (int j = 0; j < (i + 1); j++) {
-            chr->addAlternative(alternatives[j]);
-        }
-    } else {
-        Letter lt(' ', 254);
-        chr->addAlternative(lt);
-    }
-
-    return chr;
-}
-
-//get description of page
-
-CED_FUNC(Handle) CED_ReadFormattedEd(char * lpEdFile, Bool32 readFromFile, uint32_t bufLen) {
-    return (Handle) CED_FormattedLoad(lpEdFile, readFromFile, bufLen);
-}
-
 CED_FUNC(Bool32) CED_WriteFormattedEd(const char * lpEdFileName, Handle hEdPage) {
     if (logStream) {
         fprintf(logStream, "WriteFormattedEd params: %s,%x\n", lpEdFileName, hEdPage);
