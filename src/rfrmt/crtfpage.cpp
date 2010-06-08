@@ -283,14 +283,16 @@ void CRtfPage::addTables() {
 }
 
 void CRtfPage::addPictures() {
-    ::Rect16 RectPict;
     Count.RtfPictureFragments = (uint16_t) CountPict;
 
     for (int i = 0; i < (int) CountPict; i++) {
-        CRtfFragment* frag = new CRtfFragment;
+        CRtfFragment * frag = new CRtfFragment;
         addFragment(frag);
-        GetPictRect(i, &RectPict, (uint32_t*) &frag->m_wUserNumber);
-        RtfAssignRect_CRect_Rect16(&frag->m_rect, &RectPict);
+        Rect RectPict = GetPictRect(i, (uint32_t*) &frag->m_wUserNumber);
+        frag->m_rect.top = RectPict.top();
+        frag->m_rect.bottom = RectPict.bottom();
+        frag->m_rect.left = RectPict.left();
+        frag->m_rect.right = RectPict.right();
         frag->setType(FT_PICTURE);
 
         if (RfrmtOptions::useFramesAndColumns()) {

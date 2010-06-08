@@ -64,11 +64,19 @@
 #ifndef __frmtpict_h__
 #define __frmtpict_h__
 
-uint32_t GetPictCount(void);
-Bool WritePict(uint32_t IndexPict,
-               RtfSectorInfo* SectorInfo /*,  CString* PictString*/, Bool OutPutType);
-uchar GetPictRect(uint32_t NumberPict, Rect16* RectPict, uint32_t* UserNumber);
-void GetBmpFileName(char* BmpFileName, char* RtfFileName, int IndexPict);
+#include "common/rect.h"
+
+namespace CIF
+{
+
+/**  Определение кол-ва картин на странице */
+size_t GetPictCount();
+/** Запись картин */
+bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutType);
+/** Размер картинки */
+Rect GetPictRect(uint NumberPict, uint32_t* UserNumber);
+
+}
 
 #endif
 

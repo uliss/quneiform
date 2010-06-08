@@ -85,34 +85,29 @@
 
 #include "minmax.h"
 
-using namespace CIF;
-
 extern CIF::Point TemplateOffset;
-/*
- * Dib Header Marker - used in writing DIBs to files
- */
-#define DIB_HEADER_MARKER   ((uint16_t) ('M' << 8) | 'B')
 
-//==============   Определение кол-ва картин на странице  ======================
-uint32_t GetPictCount(void) {
-    uint32_t PictCount = 0;
+namespace CIF
+{
+
+size_t GetPictCount() {
+    size_t res = 0;
     uint32_t NumberPage = CPAGE_GetCurrentPage();
     Handle h_Page = CPAGE_GetHandlePage(NumberPage);
     Handle h_Pict = CPAGE_PictureGetFirst(h_Page);
 
     while (h_Pict) {
-        PictCount++;
+        res++;
         h_Pict = CPAGE_PictureGetNext(h_Page, h_Pict);
     }
 
-    return PictCount;
+    return res;
 }
 
-//=====================     Размер картинки     ===================================
-uchar GetPictRect(uint32_t NumberPict, ::Rect16* RectPict, uint32_t* UserNumber) {
-    uint32_t PictCount = 0;
-    Point Lr, Wh;
-    uint32_t NumberPage = CPAGE_GetCurrentPage();
+Rect GetPictRect(uint NumberPict, uint32_t * UserNumber) {
+    uint PictCount = 0;
+
+    uint NumberPage = CPAGE_GetCurrentPage();
     Handle h_Page = CPAGE_GetHandlePage(NumberPage);
     Handle h_Pict = CPAGE_PictureGetFirst(h_Page);
 
@@ -122,22 +117,18 @@ uchar GetPictRect(uint32_t NumberPict, ::Rect16* RectPict, uint32_t* UserNumber)
     }
 
     if (!h_Pict)
-        return FALSE;
+        throw std::runtime_error("[GetPictRect] can't get picture");
 
     *UserNumber = (uint32_t) CPAGE_GetBlockUserNum(h_Page, h_Pict);
 
-    if (CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &Lr, &Wh)) {
-        RectPict->left = (int16_t) (Lr.x() - TemplateOffset.x());
-        RectPict->right = (int16_t) (Lr.x() - TemplateOffset.x() + Wh.x());
-        RectPict->top = (int16_t) (Lr.y() - TemplateOffset.y());
-        RectPict->bottom = (int16_t) (Lr.y() - TemplateOffset.y() + Wh.y());
-    }
-
-    return TRUE;
+    Point Lr, Wh;
+    if (CPAGE_PictureGetPlace(h_Page, h_Pict, 0, &Lr, &Wh))
+        return Rect(Lr - TemplateOffset, Wh.x(), Wh.y());
+    else
+        throw std::runtime_error("[GetPictRect] CPAGE_PictureGetPlace failed");
 }
 
-//**************************** Запись картин ************************************
-Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFrame) {
+bool WritePict(uint32_t IndexPict, RtfSectorInfo * SectorInfo, Bool OutPutTypeFrame) {
     uint32_t PictNumber = 0;
     Point RtfLt;
     CPAGE_PICTURE pict;
@@ -405,3 +396,6 @@ Bool WritePict(uint32_t IndexPict, RtfSectorInfo* SectorInfo, Bool OutPutTypeFra
     SectorInfo->hObject = hPrevObject;
     return TRUE;
 }
+
+}
+

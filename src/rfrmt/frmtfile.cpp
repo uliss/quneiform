@@ -75,6 +75,7 @@
 #include "dpuma.h"
 #include "resource.h"
 #include "formatter.h"
+#include "frmtpict.h"
 #include "minmax.h"
 
 using namespace CIF;
@@ -82,8 +83,6 @@ using namespace CIF;
 int32_t PageIncline2048 = 2048;
 uint32_t CountPict = 0, CountTable = 0;
 CIF::Point TemplateOffset;
-
-extern uint32_t GetPictCount(void);
 extern uchar Frmt_CharSet;
 
 #define HalfDefMargL   900 // Left margin in twips    (the default is 1800).
@@ -117,7 +116,7 @@ Bool CreateInternalFileForFormatter(FILE *pIFName) {
         line = CSTR_NextLine(line, 1);
     }
 
-    CountPict = GetPictCount();
+    CountPict = CIF::GetPictCount();
     // CountTable = GetTablCount();
 
     if (Page.Count.Chars > 32000) {
