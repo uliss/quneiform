@@ -103,8 +103,7 @@ using namespace CIF;
 
 int HFILE_ERROR;
 
-Bool CreateDirectory(const char * dir, void*)
-{
+Bool CreateDirectory(const char * dir, void*) {
     if (!mkdir(dir, 0755))
         return TRUE;
 
@@ -112,43 +111,36 @@ Bool CreateDirectory(const char * dir, void*)
         return FALSE;
 }
 
-size_t GetTempPath(size_t BufferLength, char * buf)
-{
+size_t GetTempPath(size_t BufferLength, char * buf) {
     strncpy(buf, "/tmp", BufferLength - 1);
     return strlen(buf);
 }
 
-int RemoveDirectory(const char *d)
-{
+int RemoveDirectory(const char *d) {
     return rmdir(d);
 }
 
-void* GlobalAlloc(uint uFlags, int dwBytes)
-{
+void* GlobalAlloc(uint uFlags, int dwBytes) {
     if (uFlags & GMEM_ZEROINIT)
         return calloc(dwBytes, 1);
 
     return malloc(dwBytes);
 }
 
-void GlobalFree(void *f)
-{
+void GlobalFree(void *f) {
     free(f);
 }
 
 int GetTempFileName(const char * /*lpPathName*/, const char * /*lpPrefixString*/, uint /*uUnique*/,
-        char* /*lpTempFileName*/)
-{
+        char* /*lpTempFileName*/) {
     return -1;
 }
 
-int GetLastError()
-{
+int GetLastError() {
     return errno;
 }
 
-uint32_t GetModuleFileName(HMODULE/* hModule*/, char* lpFilename, size_t /*size*/)
-{
+uint32_t GetModuleFileName(HMODULE/* hModule*/, char* lpFilename, size_t /*size*/) {
     /* Currently all modules must be in the directory pumatest was run in. */
     lpFilename[0] = '.';
     lpFilename[1] = '\0';
@@ -157,46 +149,39 @@ uint32_t GetModuleFileName(HMODULE/* hModule*/, char* lpFilename, size_t /*size*
 
 Handle CreateFile(const char * /*lpFileName*/, uint32_t /*dwDesiredAccess*/,
         uint32_t /*dwShareMode*/, void* /*lpSecurityAttributes*/,
-        uint32_t /*dwCreationDisposition*/, uint32_t /*dwFlagsAndAttributes*/, Handle /*hTemplateFile*/)
-{
+        uint32_t /*dwCreationDisposition*/, uint32_t /*dwFlagsAndAttributes*/, Handle /*hTemplateFile*/) {
     return 0;
 }
 
 int _findclose(long handle);
 long _findfirst(const char *filespec, struct _finddata_t *fileinfo);
 int _findnext(long handle, struct _finddata_t *fileinfo);
-long _tell(int handle)
-{
+long _tell(int handle) {
     return lseek(handle, 0, SEEK_CUR);
 }
 
-Bool GetComputerName(char * buf, size_t * size)
-{
+Bool GetComputerName(char * buf, size_t * size) {
     strncpy(buf, "CompName", *size);
     *size = strlen(buf);
     return TRUE;
 }
 
 Bool WritePrivateProfileString(const char * /*lpAppName*/, const char * /*lpKeyName*/,
-        const char * /*lpString*/, const char * /*lpFileName*/)
-{
+        const char * /*lpString*/, const char * /*lpFileName*/) {
     return 0;
 }
 
 uint GetPrivateProfileString(const char * /*lpAppName*/, const char * /*lpKeyName*/,
-        const char * /*lpDefault*/, char* /*lpReturnedString*/, size_t /*nSize*/, const char * /*lpFileName*/)
-{
+        const char * /*lpDefault*/, char* /*lpReturnedString*/, size_t /*nSize*/, const char * /*lpFileName*/) {
     return 0;
 }
 
 uint GetPrivateProfileInt(const char * /*lpAppName*/, const char * /*lpKeyName*/,
-        uint defaultValue, const char * /*lpFileName*/)
-{
+        uint defaultValue, const char * /*lpFileName*/) {
     return defaultValue;
 }
 
-long _filelength(int fd)
-{
+long filelength(int fd) {
     struct stat foo;
 
     if (fstat(fd, &foo) != 0) {
@@ -206,37 +191,34 @@ long _filelength(int fd)
     return foo.st_size;
 }
 
-long filelength(int fd)
-{
-    return _filelength(fd);
+CFCOMPAT_FUNC long filelength(FILE * stream) {
+    long pos = fseek(stream, 0L, SEEK_END);
+    fseek(stream, 0L, SEEK_SET);
+    return pos;
 }
 
-long _msize(void *memblock)
-{
+long _msize(void *memblock) {
     return malloc_usable_size(memblock);
 }
 
 /* All uses in Cuneiform just check if the file exists. Ignoring all other
  * cases.
  */
-int _access(const char *filename, int mode)
-{
+int _access(const char *filename, int mode) {
     struct stat foo;
     assert(mode == 0);
     return stat(filename, &foo);
 }
 
 #ifndef __CYGWIN__
-void strlwr(char *foo)
-{
+void strlwr(char *foo) {
     // FIXME: this is probably actually used somewhere.
 }
 #endif
 
-int wsprintf(char* lpOut, const char * lpFmt, ...)
-{
+int wsprintf(char* lpOut, const char * lpFmt, ...) {
     va_list args;
-    va_start (args, lpFmt);
+    va_start(args, lpFmt);
     int ret = vsprintf(lpOut, lpFmt, args);
 
     char buffer[256];
@@ -247,29 +229,24 @@ int wsprintf(char* lpOut, const char * lpFmt, ...)
     return ret;
 }
 
-int MessageBox(HWND /*hWnd*/, const char * lpText, const char * lpCaption, uint /*uType*/)
-{
+int MessageBox(HWND /*hWnd*/, const char * lpText, const char * lpCaption, uint /*uType*/) {
     fprintf(stderr, "MessageBox %s: %s\n", lpCaption, lpText);
     return 0;
 }
 
-pvoid GlobalLock(HGLOBAL hMem)
-{
+pvoid GlobalLock(HGLOBAL hMem) {
     return NULL;
 }
 
-Bool GlobalUnlock(HGLOBAL hMem)
-{
+Bool GlobalUnlock(HGLOBAL hMem) {
     return 0;
 }
 
-void OutputDebugString(const char * OutputString)
-{
+void OutputDebugString(const char * OutputString) {
     fputs(OutputString, stderr);
 }
 
-Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom)
-{
+Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
     lprc->left = xLeft;
     lprc->right = xRight;
     lprc->top = yTop;
@@ -277,8 +254,7 @@ Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom)
     return TRUE;
 }
 
-Bool PtInRect(const RECT *lprc, const CIF::Point16& pt)
-{
+Bool PtInRect(const RECT *lprc, const CIF::Point16& pt) {
     if (pt.x() >= lprc->left && pt.x() < lprc->right && pt.y() >= lprc->top && pt.y()
             < lprc->bottom)
         return TRUE;
@@ -290,8 +266,7 @@ Bool PtInRect(const RECT *lprc, const CIF::Point16& pt)
  * we do not need to calculate it.
  */
 
-Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2)
-{
+Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
     if (lprcSrc1->left > lprcSrc2->right || lprcSrc1->right < lprcSrc2->left || lprcSrc1->top
             > lprcSrc2->bottom || lprcSrc1->bottom < lprcSrc2->top)
         return FALSE;
@@ -299,8 +274,7 @@ Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2)
     return TRUE;
 }
 
-Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2)
-{
+Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2) {
     if (lprcSrc1->left - lprcSrc1->right == 0 || lprcSrc1->top - lprcSrc1->bottom == 0) {
         lprcDst->left = lprcSrc2->left;
         lprcDst->right = lprcSrc2->right;
@@ -324,8 +298,7 @@ Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2)
     return 0;
 }
 
-Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect, int nBottomRect)
-{
+Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect, int nBottomRect) {
     return 0;
 }
 
@@ -361,10 +334,10 @@ char* mkdtemp(char *tmpl)
     unsigned int cnt = 0;
 
     if (len < 6)
-    	return NULL;
+    return NULL;
 
     if (memcmp(x_tail, "XXXXXX", 6))
-    	return NULL;
+    return NULL;
 
     do {
         uint64_t val = value;
@@ -408,8 +381,7 @@ static void get_install_path(char *path)
 
 #else
 
-static void get_install_path(char *path)
-{
+static void get_install_path(char *path) {
     strcat(path, INSTALL_DATADIR);
 }
 
@@ -424,8 +396,7 @@ static void get_install_path(char *path)
  *
  */
 
-static void build_name_estimates(const char *base_name, char *env_name, char *prefix_name)
-{
+static void build_name_estimates(const char *base_name, char *env_name, char *prefix_name) {
     const char *env_prefix;
     const char *varname = "CF_DATADIR";
     int len = 0;
@@ -454,8 +425,7 @@ static void build_name_estimates(const char *base_name, char *env_name, char *pr
     }
 }
 
-int open_data_file(const char *basename, int mode)
-{
+int open_data_file(const char *basename, int mode) {
     char ename[1024];
     char pname[1024];
     build_name_estimates(basename, ename, pname);
@@ -467,8 +437,7 @@ int open_data_file(const char *basename, int mode)
     return open(pname, mode);
 }
 
-int data_file_exists(const char *basename)
-{
+int data_file_exists(const char *basename) {
     char ename[1024];
     char pname[1024];
     build_name_estimates(basename, ename, pname);
@@ -482,8 +451,7 @@ int data_file_exists(const char *basename)
 /* Split a file name in three: path, base file name, and extension.
  * All internal file names use / as path separator, even on Windows.
  */
-void split_path(const char *fname, char *file_path, char *basename, char *ext)
-{
+void split_path(const char *fname, char *file_path, char *basename, char *ext) {
     int last_path = -1;
     int suff = -1;
 
@@ -530,8 +498,7 @@ void split_path(const char *fname, char *file_path, char *basename, char *ext)
     ext[l - ext_start] = '\0';
 }
 
-void make_path(char *opath, const char *dir, const char *basename, const char *ext)
-{
+void make_path(char *opath, const char *dir, const char *basename, const char *ext) {
     const char dirsep = '/';
     const char *dirseps = "/";
     opath[0] = '\0';
@@ -558,8 +525,7 @@ void make_path(char *opath, const char *dir, const char *basename, const char *e
 /**
  * Convert backslashes to slashes. No-op on UNIX.
  */
-void winpath_to_internal(char *p)
-{
+void winpath_to_internal(char *p) {
 #if WIN32
     for (int i = 0; p[i] != '\0'; i++) {
         if (p[i] == '\\')
@@ -571,8 +537,7 @@ void winpath_to_internal(char *p)
 
 /* Get current working directory. */
 
-unsigned int curr_dir(unsigned int bsize, char* buf)
-{
+unsigned int curr_dir(unsigned int bsize, char* buf) {
 #ifdef _MSC_VER
     _getcwd(buf, bsize);
 #else
@@ -593,18 +558,17 @@ CFCOMPAT_FUNC FILE* create_temp_file(void)
     uint32_t retval = GetTempPath(BUFSIZE, temppath);
 
     if (retval >= BUFSIZE || retval == 0)
-        return NULL;
+    return NULL;
 
     if (GetTempFileName(temppath, "CF", 0, tempfname) == 0)
-        return NULL;
+    return NULL;
 
     return fopen(tempfname, "w+bD");
 }
 
 #else
 
-FILE* create_temp_file(void)
-{
+FILE* create_temp_file(void) {
     FILE *tmp_file;
     char* pattrn = static_cast<char*> (malloc(100));
     strcpy(pattrn, "/tmp/CF.XXXXXX");
@@ -627,13 +591,11 @@ FILE* create_temp_file(void)
 namespace CIF
 {
 
-std::string InstallPath()
-{
+std::string InstallPath() {
     return INSTALL_DATADIR;
 }
 
-std::string MakePath(const std::string& dir, const std::string& basename, const std::string& ext)
-{
+std::string MakePath(const std::string& dir, const std::string& basename, const std::string& ext) {
     const char DIRSEP = '/';
     std::string r(dir);
 

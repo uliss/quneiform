@@ -679,15 +679,9 @@ int OrtFoure(float *y, float *Re, float *Im, float *ys, float *Err, int k,
              int p, int na, int beg, int end);
 
 #ifndef V_LOCK
-int32_t filelength_m(FILE *stream);
 
 int hread_m(void *buf, int size, int count, FILE *stream);
 int CopyFile_my(char *NameIn, char *NameOut);
-int fgets_m(char *str, int max_len, FILE *f);
-char get_kod(FILE *f);
-int fgets1_m(char *str, int max_len, FILE *f);
-char get1_kod(FILE *f);
-char *get_param(char *str, char *param, int max_len);
 char *get1_param(char *str, char *param, int max_len);
 #endif
 

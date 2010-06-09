@@ -69,9 +69,9 @@ CFCOMPAT_FUNC int _findclose(long handle);
 CFCOMPAT_FUNC long _findfirst(const char *filespec, struct _finddata_t *fileinfo);
 CFCOMPAT_FUNC int _findnext(long handle, struct _finddata_t *fileinfo);
 CFCOMPAT_FUNC long _tell(int handle);
-CFCOMPAT_FUNC long _filelength(int fd);
 CFCOMPAT_FUNC int _access(const char *filename, int mode);
 CFCOMPAT_FUNC long filelength(int fd);
+CFCOMPAT_FUNC long filelength(FILE * f);
 
 CFCOMPAT_FUNC void strlwr(char *foo);
 

@@ -381,7 +381,7 @@ int read_frm(char *file_frm, FRAME ***frm_arr, int *k_arr_frm, FRAME ***frm,
     if ((rb = fopen(file_frm, "rb")) == NULL)
         return -1;
 
-    file_len = filelength_m(rb);
+    file_len = filelength(rb);
     kf = file_len / sizeof(PRMTR);
 #ifdef EXACT_REG
     flOver = TRUE;
