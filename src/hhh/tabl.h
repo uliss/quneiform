@@ -379,7 +379,6 @@ KNOTT *NextKnot(KNOTT *Curr, STACK *St);
 int InitSubAlloc(long Size, SUB_ALLOC *Sub);
 char *Submalloc(uint size, SUB_ALLOC *s);
 void DeleteSubAlloc(SUB_ALLOC *s);
-void ClearSubAlloc(SUB_ALLOC *s);
 
 //*********Plain Text колонизация с новым форматом дерева стр-ры*********
 int SearchInterval(FRAME **frm, int k_frm, int **beg1, int **end1, int *k_int1,

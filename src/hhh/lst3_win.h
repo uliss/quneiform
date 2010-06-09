@@ -505,7 +505,6 @@ KNOT *inc_lst(KNOT **beg, KNOT **beg_free);
 KNOT *inc_after_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free);
 void del_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free);
 void free_lst(KNOT **knot, int k_bloc);
-int memmove_m(void *out, void *in, long size);
 int alloc_seg(KNOT **kn, int *kb, int max_knot, uint size_item, int *size_bloc);
 uint determine_free_memory(uint size);
 void print_ptr(KNOT *beg);
@@ -925,10 +924,6 @@ int init_file_prs3(char *file_prs, FRAME **frm, int NumFrm, int TypeCall);
 void FreePrsLine(void);
 
 int ProjectFrm(FRAME **frm, int NumFrm, float tg_ang);
-int ProjectFrm1024(FRAME **frm, int NumFrm, int32_t Skew1024);
-int EstIntrvlHor(FRAME **frm, int num, BOUND *bnd, int dxAS, int dyAS,
-                 RECT *Limit, int MinVol, float MinPerc, int limDX, int limDY,
-                 int *dsym, int *AveX, int *AveY);
 
 #pragma pack()
 

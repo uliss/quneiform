@@ -121,7 +121,6 @@
 void ProjectRect1024(Rect16 *r, int32_t Skew1024);
 void ProjectPoint1024(CIF::Point16 *r, int32_t Skew1024);
 void ProjectPoint(CIF::Point16 *r, float tg_ang);
-Bool16 GetScanRes_LenPrs(char *ImageName);
 
 /* ‘®®ЎйҐ­Ёп Ё ЇаҐ¤гЇаҐ¦¤Ґ­Ёп */
 extern char NameFuncErr[100], Buff[60];

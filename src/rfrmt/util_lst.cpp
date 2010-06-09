@@ -67,10 +67,7 @@ extern short FlagGraphic1, Graphic1Color;
 
 using namespace CIF;
 
-/*=========*/
-KNOT *inc_lst(KNOT **beg, KNOT **beg_free)
-/*=========*/
-{
+KNOT *inc_lst(KNOT **beg, KNOT **beg_free) {
     KNOT *ptr = *beg_free, *ptr1 = *beg;
 
     if (ptr != NULL) { /*в списке есть память*/
@@ -121,7 +118,7 @@ KNOT *inc_after_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free)
 
     return beg_free_old;
 }
-/*==========*/
+
 void del_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free)
 /*=====??что будет,если удаляем (1)голову,(2)хвост,(3)в списке всего 1эл-т*/
 {
@@ -157,11 +154,7 @@ void del_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free)
     *beg_free = ptr;
 }
 
-/*==========*/
-int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free,
-             int size_item)
-/*==========*/
-{
+int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free, int size_item) {
     int i, j, size_bloc[MAX_BLOC], kb = -1, fl, k_item;
     KNOT *ptr, *ptr1, *ptr2, *kn[MAX_BLOC];
 
@@ -175,7 +168,8 @@ int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free,
             return -3;
     }
 
-    do0(i, 0, kb)(*knot)[i + (*k_bloc + 1)] = kn[i];
+    do0(i, 0, kb)
+        (*knot)[i + (*k_bloc + 1)] = kn[i];
 
     /*===собственно инициализация ссылок===*/
     if (*k_bloc == -1) { /*первый  захват памяти для данного списка*/
@@ -205,10 +199,10 @@ int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free,
     do0(i, 0, kb) {
         ptr = kn[i];
         do0(j, 0, size_bloc[i]) {
-            ptr1 = (KNOT*) ((char*)ptr + j * size_item); /*ptr[j]*/
-            ptr2 = (KNOT*) ((char*)ptr1 + size_item); /*ptr[j+1]*/
+            ptr1 = (KNOT*) ((char*) ptr + j * size_item); /*ptr[j]*/
+            ptr2 = (KNOT*) ((char*) ptr1 + size_item); /*ptr[j+1]*/
 
-            if ( ++k_item == max_knot ) {
+            if (++k_item == max_knot) {
                 ptr1->next = NULL;
                 goto endc;
             }
@@ -221,22 +215,20 @@ int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free,
 
                 else { /*ссылки между блоками*/
                     if (i < kb) {
-                        ptr1->next = kn[i+1];
-                        kn[i+1]->back = ptr1;
+                        ptr1->next = kn[i + 1];
+                        kn[i + 1]->back = ptr1;
                     }
 
-                    else return -4;
+                    else
+                        return -4;
                 }
             }
         }
     }
-endc:
-    return 0;
+    endc: return 0;
 }
-/*==========*/
-int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc)
-/*==========*/
-{
+
+int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc) {
     int i, k_knot;
     uint size;
     *kb = -1;
@@ -256,7 +248,8 @@ int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc)
             size = determine_free_memory(k * size_item);
 
             if (size < (uint) MIN_KNOT * size_item) { /*памяти явно не хватает*/
-                do0(i, 0, *kb) free(kn[i]);
+                do0(i, 0, *kb)
+                    free(kn[i]);
                 return -3;
             }
 
@@ -264,7 +257,8 @@ int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc)
         }
 
         if ((*kb) > MAX_BLOC - 2) { /*очень много мелких кусочков памяти*/
-            do0(i, 0, *kb) free((char*)kn[i]);
+            do0(i, 0, *kb)
+                free((char*) kn[i]);
             return -4;
         }
     }
@@ -272,9 +266,7 @@ int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc)
     return 0;
 }
 /*================опр-ние макс.доступного непрерыв.куска(max=65500)*/
-uint determine_free_memory(uint size1)
-/*===========================*/
-{
+uint determine_free_memory(uint size1) {
     char *ptr;
     uint size = size1;
 
@@ -290,14 +282,14 @@ uint determine_free_memory(uint size1)
     return size;
 }
 /*===========освобождение памяти списка*/
-void free_lst(KNOT **knot, int k_bloc)
-{
+void free_lst(KNOT **knot, int k_bloc) {
     int i;
 
     if (k_bloc < 0 || knot == NULL)
         return;
 
-    doi(i, k_bloc, 0) free((char*)knot[i]);
+    doi(i, k_bloc, 0)
+        free((char*) knot[i]);
     free((char*) knot);
 }
 #ifndef CLUST1
@@ -305,10 +297,11 @@ void free_lst(KNOT **knot, int k_bloc)
 typedef FRAME PRMTR;
 
 #ifdef OLD_COOR
-typedef struct tagOLD_FRAME {
-    unsigned long start_pos, end_pos;
-    int left, up, right, down;//Standard FRAME
-    int oldX, oldY;
+typedef struct tagOLD_FRAME
+{
+        unsigned long start_pos, end_pos;
+        int left, up, right, down;//Standard FRAME
+        int oldX, oldY;
 } OLD_FRAME;
 #else
 typedef FRAME OLD_FRAME;
@@ -328,9 +321,7 @@ Rect16 RectCut;
 
 //Return: 0 - OK, NOT_ALLOC - нет места для стека
 //==конструктор
-int NewStack(int size, STACK *St)
-//==
-{
+int NewStack(int size, STACK *St) {
     if ((St->arr = (KNOTT**) malloc(size * sizeof(PTR))) == NULL)
         return NOT_ALLOC;
 
@@ -339,18 +330,14 @@ int NewStack(int size, STACK *St)
     return 0;
 }
 //==деструктор
-void DelStack(STACK *St)
-//==
-{
+void DelStack(STACK *St) {
     if (St->arr != NULL)
         free(St->arr);
 }
 //Parameters:ptr - заносимый объект
 //Return: 0 - OK, NOT_ALLOC - переполнение стека
 //==занести в стек
-int PushStack(KNOTT *ptr, STACK *St)
-//==
-{
+int PushStack(KNOTT *ptr, STACK *St) {
     if (St->pos >= St->size)
         return NOT_ALLOC;
 
@@ -359,21 +346,15 @@ int PushStack(KNOTT *ptr, STACK *St)
 }
 //Return: вытолкнутый указатель, если стек непуст или NULL, если стек пуст
 //==Вытолкать из стека
-KNOTT *PopStack(STACK *St)
-//==
-{
+KNOTT *PopStack(STACK *St) {
     return (St->pos > 0) ? St->arr[--St->pos] : NULL;
 }
 //==Очистить стек без освобождения памяти
-void ClearStack(STACK *St)
-//==
-{
+void ClearStack(STACK *St) {
     St->pos = 0;
 }
 //==Проверка переполнения стека: return=FALSE => стек еще не переполнен
-int OverflowStack(STACK *St)
-//==
-{
+int OverflowStack(STACK *St) {
     return St->pos > St->size;
 }
 
@@ -384,8 +365,7 @@ int OverflowStack(STACK *St)
 //Параметры: Curr - текущ.узел, St - вспомогат. стек (размер = max глубине TREE)
 //После каждого вызова NextKnot проверять переполнение стека либо внутри ф-ции
 //==перейти к следующему узлу дерева (приоритет обхода - вниз, потом вправо)
-KNOTT *NextKnot(KNOTT *Curr, STACK *St)
-{
+KNOTT *NextKnot(KNOTT *Curr, STACK *St) {
     KNOTT *Next = Curr->next;
 
     if (Curr->down) { //Есть дочерние узлы, идем вниз
@@ -429,10 +409,7 @@ KNOTT *NextKnot(KNOTT *Curr, STACK *St)
 //malloc/free и GlobalLock/GlobalAlloc/LocalLock/LocalAlloc/GlobalFree и т.п.
 //Первоначальный захват сегментир.адрес.простр-ва Sub размера Size байт
 //Return: 0 - OK, NOT_ALLOC - нет памяти
-//==
-int InitSubAlloc(long Size, SUB_ALLOC *Sub)
-//==
-{
+int InitSubAlloc(long Size, SUB_ALLOC *Sub) {
     int NumPtr = (int) (Size / SIZE_SEGL), in;
     long k;
 
@@ -461,10 +438,7 @@ int InitSubAlloc(long Size, SUB_ALLOC *Sub)
 }
 //Захватить память в SubMalloc-адрес.пространстве s, при необх-ти - с
 //захватом дополнит. сегмента
-//==
-char *Submalloc(uint size, SUB_ALLOC *s)
-//==
-{
+char *Submalloc(uint size, SUB_ALLOC *s) {
     long pos;
     const char *err = "Submalloc";
 #ifdef DEBUG_MEM
@@ -473,8 +447,7 @@ char *Submalloc(uint size, SUB_ALLOC *s)
 
 #endif
 
-    if (s->CurrPtr >= s->NumPtr || s->SizePtr[s->CurrPtr] - s->CurrPos
-            < (long) size) {
+    if (s->CurrPtr >= s->NumPtr || s->SizePtr[s->CurrPtr] - s->CurrPos < (long) size) {
         s->CurrPos = 0;//переход к след.сегменту
 
         while (++s->CurrPtr < s->NumPtr && s->SizePtr[s->CurrPtr] < (long) size)
@@ -482,8 +455,7 @@ char *Submalloc(uint size, SUB_ALLOC *s)
 
         if (s->CurrPtr >= s->NumPtr) { //Исчерпаны все сегменты,заводим новый
             s->Ptr = (char**) realloc(s->Ptr, (s->NumPtr + 1) * sizeof(PTR));
-            s->SizePtr = (long*) realloc(s->SizePtr, (s->NumPtr + 1)
-                                         * sizeof(long));
+            s->SizePtr = (long*) realloc(s->SizePtr, (s->NumPtr + 1) * sizeof(long));
 
             if ((s->Ptr[s->NumPtr] = (char*) malloc((uint) SIZE_SEGL)) == NULL)
                 return NULL;
@@ -501,295 +473,11 @@ char *Submalloc(uint size, SUB_ALLOC *s)
     return &s->Ptr[s->CurrPtr][pos];
 }
 //==Освободить память SubAllocator-a
-void DeleteSubAlloc(SUB_ALLOC *s)
-//==
-{
-    int i;
-
-    for (i = 0; i < s->NumPtr; ++i)
+void DeleteSubAlloc(SUB_ALLOC *s) {
+    for (int i = 0; i < s->NumPtr; ++i)
         free(s->Ptr[i]);
 
     free(s->Ptr);
     free(s->SizePtr);
 }
-//==Позиционироваться к началу SubAllocator-a без очистки памяти под него
-void ClearSubAlloc(SUB_ALLOC *s)
-{
-    s->CurrPtr = 0;
-    s->CurrPos = 0;
-}
 
-int memmove_m(void *out, void *in, long size)
-{
-    memmove(out, in, (uint) size);
-    return 0;
-}
-
-
-#ifdef CT_SKEW
-#include "skew1024.h"
-#endif
-
-int ProjectFrm1024(FRAME **frm, int NumFrm, int32_t Skew1024)
-{
-    FRAME *f;
-    int i;
-    int xa, ya
-#ifndef CT_SKEW
-    , xc, yc
-#endif
-    , dx, dy;
-
-    if (!Skew1024)
-        return 0;
-
-    for (i = 0; i < NumFrm; ++i) {
-        f = frm[i];
-        xa = (f->right + f->left) >> 1;
-        ya = (f->up + f->down) >> 1;
-#ifndef CT_SKEW
-        xc = xa + (int) (((int32_t) ya * Skew1024) / 1024);
-        yc = ya - (int) (((int32_t) xa * Skew1024) / 1024);
-        dx = xc - xa;
-        dy = yc - ya;
-#else
-        Point16 pt(xa, ya);
-        pt.deskew(-Skew1024);
-        dx = pt.x() - xa;
-        dy = pt.y() - ya;
-#endif
-        f->left += dx;
-        f->right += dx;
-        f->down += dy;
-        f->up += dy;
-    }
-
-    return 1;
-}
-//Return: 0 - OK (в случае невозможности оценки dsym=INDEF)
-//Оценка межсимвол. интервала - для каждой рамки сегмента ищем ближайшего
-//соседа слева или справа в клетках AS 0,1,2
-//-------
-//|1|0|2|
-//-------
-//Оценивание межсимвол.(межштрих.) интервала dsym и заодно AveX,AveY
-//причем 2 варианта оценки AveX,AveY:
-//а) по той же выборке, что и dsym берем моды
-//б) из выборки, по кот. искали dsym, берем лишь те пары рамок, просвет между
-//   которыми ~= mod dsym (но тут придется помнить все пары для выборки dsym)
-//Вход:
-//  frm[num] - рамки (if(Limit != NULL) => переупорядочиваются внутри)
-//  bnd - габариты
-//  dxAS,dyAS -  размеры ячейки AS
-//  Limit - вектор ограничений размеров (если == NULL, нет ограничений)
-//  MinVol - мин.объем выборки для оценки (не зависит от общего числа рамок)
-//  MinPerc - мин. % точек в огрублен. моде гистограммы от общего числа !!в выборке!!
-//  limDX,limDY - допустимая разность габаритов пары для выборки dsym
-//  AveX != NULL => надо оценивать AveX,AveY
-int EstIntrvlHor(FRAME **frm, int num, BOUND *bnd, int dxAS, int dyAS,
-                 RECT *Limit, int MinVol, float MinPerc, int limDX, int limDY,
-                 int *dsym, int *AveX, int *AveY)
-{
-    AS As;
-    SEG_ARR List;
-    KNOT3 ***beg_as, *p, *pp, *ptr;
-    RECT Rect = { 0 };
-    int i, in, ret, iy, ix, up, down, left, right, ii, fl, dist, ky, kx, n, dx,
-    dy, ddx, ddy, inX[3], iix, l, r, u, d, dxMax, NumMod, nn;
-    int MaxNum = MAX(300, MinVol);
-    int *arr, *arrY;
-    const char *err = "EstIntrvlHor";
-    *dsym = *AveX = *AveY = INDEF;
-    ret = 0;
-
-    if (Limit) { //--Форм-е массива допустимых рамок--
-        int MinX = Limit->left, MaxX = Limit->right, MinY = Limit->top, MaxY =
-                                                                Limit->bottom;
-
-        for (i = 0, in = num - 1, num = 0; i <= in; ++i) {
-            FRAME *f = frm[i];
-            int dx = f->right - f->left, dy = f->down - f->up;
-
-            if (dx > MinX && dx < MaxX && dy > MinY && dy < MaxY)
-                num++;
-
-            else {
-                frm[i] = frm[in];
-                frm[in] = f;
-                --i;
-                --in;
-            }
-        }
-    }
-
-    if (num < MinVol)
-        return 0;
-
-    //--Генерация AS
-    List.NumSeg = -1;
-
-    if ((fl = init_lst(&List.ArrSeg, &List.NumSeg, num, (KNOT**) & List.free,
-                       sizeof(KNOT3))) != 0)
-        return -100 - fl;
-
-    if (fl = GenAS(frm, num - 1, dxAS, dyAS, bnd, (KNOT3*) List.free, -1, &As,
-                   Rect))
-        return fl - 10;
-
-    n = 0;
-    ky = As.ky - 1, kx = As.kx - 1;
-    beg_as = As.beg_as;
-
-    if ((arr = (int*) malloc(MaxNum * sizeof(int))) == NULL)
-        return NOT_ALLOC;
-
-    do0(iy, 1, ky)
-    do0(ix, 1, kx) {
-        inX[0] = ix;
-        inX[1] = ix - 1;
-        inX[2] = ix + 1;
-
-        for (pp = beg_as[iy][ix]; pp; pp = pp->next) {
-            FRAME *ff = pp->f;
-            left = ff->left;
-            right = ff->right;
-            down = ff->down;
-            up = ff->up;
-            ddx = right - left;
-            ddy = down - up;
-            dxMax = -32000;
-            do0(ii, 0, 2) {
-                iix = inX[ii];
-
-                for (p = beg_as[iy][iix]; p; p = p->next) {
-                    FRAME *f = p->f;
-                    l = f->left;
-                    r = f->right;
-                    d = f->down;
-                    u = f->up;
-                    dx = r - l;
-                    dy = down - up;
-
-                    if ((dist = DIST_V(left, right, p->f->left, p->f->right)) < 0 &&
-                            dist > dxMax && DIST_V(up, down, u, d) > 0 &&
-                            pp->beg != p && /*чтобы не было одинаковых пар*/
-                            abs(dx - ddx) < limDX && abs(dy - ddy) < limDY) {
-                        dxMax = dist;
-                        ptr = p;
-                    }
-                }
-
-                if (!ii && dxMax != -32000) break;//если в нашей клетке нашли,в др.не идем
-            }
-
-            if (dxMax != -32000) { //нашли соседа
-                pp->beg = ptr;
-                ptr->beg = pp;
-
-                //если понадобится восстанавливать пары, то можно pp->beg дать ptr на соседа
-                if (n >= MaxNum) {
-                    if ((arr = (int*)realloc(arr, (MaxNum *= 2) * sizeof(int))) == NULL)return NOT_ALLOC;
-                }
-
-                arr[n++] = -dxMax;
-            }
-        }
-    }
-
-    if (n < MinVol)
-        goto RET;
-
-    //Ищем в огрублен. гистограмме моду
-    if (statis2(arr, n - 1, NULL, dsym, 2, &NumMod)) {
-        ret = -21;
-        goto RET;
-    }
-
-    if (NumMod < (int) (MinPerc * n)) {
-        *dsym = INDEF;
-        goto RET;
-    }
-
-    //*dsym=-*dsym;
-    //--оценка AveX,AveY--
-    if ((arrY = (int*) malloc(MaxNum * sizeof(int))) == NULL)
-        return NOT_ALLOC;
-
-    nn = 0;
-    do0(iy, 1, ky) do0(ix, 1, kx) {
-        for (pp = beg_as[iy][ix]; pp; pp = pp->next) {
-            if (pp->beg) {
-                FRAME *f, *ff;
-                f = pp->f;
-                arr[nn] = f->right - f->left;
-                arrY[nn] = f->down - f->up;
-
-                if (pp->beg == NULL) Error(124, err);
-
-                ff = pp->beg->f;
-                pp->beg = NULL;
-
-                if (abs(*dsym + DIST_V(f->left, f->right, ff->left, ff->right)) < 3) nn++;
-
-                if (nn >= MaxNum) {
-                    arr = (int*)realloc(arr, (MaxNum = 2 * MaxNum) * (sizeof(int)));
-                    arrY = (int*)realloc(arrY, MaxNum * (sizeof(int)));
-
-                    if (arr == NULL || arrY == NULL) return NOT_ALLOC;
-                }
-            }
-        }
-    }
-
-    if (nn > 2) {
-        if (statis2(arr, nn - 1, NULL, AveX, 1, &NumMod)) {
-            ret = -21;
-            goto RET;
-        }
-
-        if (statis2(arrY, nn - 1, NULL, AveY, 1, &NumMod)) {
-            ret = -21;
-            goto RET;
-        }
-    }
-
-    free(arrY);
-RET:
-    free(arr);
-    free_lst(List.ArrSeg, List.NumSeg);
-    do0(i, 0, As.ky) free(As.beg_as[i]);
-    free(As.beg_as);
-    return ret;
-}
-//== считываем разрешение сканера и длину PRS-кода
-Bool16 GetScanRes_LenPrs(char *ImageName)
-//==
-{
-    split_path(ImageName, dir, fname, ext);
-    ScanResolution = 300;
-    {
-        TITLE_PRS TitlePRS;
-        float sx, sy;
-        make_path(Fullpath, dir, fname, "pr1");
-
-        if ((fip = fopen(Fullpath, "rb")) == NULL)
-            return FALSE;
-
-        fread(&TitlePRS, sizeof(TITLE_PRS), 1, fip);
-        sx = (float) TitlePRS.ScanResX;
-        sy = (float) TitlePRS.ScanResY;
-
-        if (TitlePRS.ScanResX != 0 && TitlePRS.ScanResY != 0 && sx / sy < 3.
-                && sx / sy > .3 && sx > 9. && sy > 9.)
-            ScanResolution = TitlePRS.ScanResX * 10;
-
-        WidthPRS = (TitlePRS.Name[3] == 'T' || TitlePRS.Name[3] == 't') ? 2 : 3;
-        fclose(fip);
-    }
-    MulScanRes = (float) ((ScanResolution + .05) / 300.);
-
-    if (WidthPRS != 2)
-        return FALSE;
-
-    return TRUE;
-}
