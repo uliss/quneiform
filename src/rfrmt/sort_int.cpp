@@ -63,73 +63,28 @@
 static int w;
 static int (*c)(char *, char *);
 
-#define MAX_KEY_SIZE 100
-static char flip_buffer[MAX_KEY_SIZE + 4]; /*¬ ЄбЁ¬ «. а §¬Ґа. н«-в  ¤ ­­ле*/
-#define MAX__DEPTH 300 /* Maximal depth of recursion */
-static char* base_arr[MAX__DEPTH]; /* base buffer */
-static int num_arr[MAX__DEPTH]; /* num buffer */
-static char **base_ptr, **base_start_ptr, **base_end_ptr;
-static int* num_ptr;
-
-//flip - ®Ў¬Ґ­ Ї ал н«-в®ў ¬Ґбв ¬Ё
-static void flip(char*, char *);
-static void quick_sort(char *, int);
-static void flip(char *a, char *b)
-{
+static void flip(char *a, char *b) {
+    const int MAX_KEY_SIZE = 100;
+    static char flip_buffer[MAX_KEY_SIZE + 4];
     memcpy(flip_buffer, a, w);
     memcpy(a, b, w);
     memcpy(b, flip_buffer, w);
 }
-/*====*/
-//void  u4sort(void *base, int  num, int  width, COMP_FUN (*compare()))
-void u4sort(void *base2, int num, int width, int(*compare)())
-{
+
+static void quick_sort(char *base1, int num1);
+void u4sort(void *base2, int num, int width, int(*compare)()) {
     w = width;
     c = (int(*)(char *, char *)) compare;
     quick_sort((char *) base2, num);
 }
 
-#define LOWORD(l) ((uint16_t)(l))
-int compare(TYPE *a, TYPE *b)
-{
+int comp1(TYPE *a, TYPE *b) {
     return (*a >= *b ? 1 : -1);
 }
-int comp_left(FRAME **a, FRAME **b)
-{
-    return ((*a)->left >= (*b)->left ? 1 : -1);
-}
-int comp_vert(FRAME **a, FRAME **b)
-{
-    return ((*a)->up >= (*b)->up ? 1 : -1);
-}
-int comp_leftDesc(FRAME **a, FRAME **b)
-{
-    return (-(*a)->left >= -(*b)->left ? 1 : -1);
-}
-int comp_vertDesc(FRAME **a, FRAME **b)
-{
-    return (-(*a)->up >= -(*b)->up ? 1 : -1);
-}
-int comp1(TYPE *a, TYPE *b)
-{
-    return (*a >= *b ? 1 : -1);
-}
-int compF(float *a, float *b)
-{
-    return (*a >= *b ? 1 : -1);
-}
-int comp_long(uint32_t *a, uint32_t *b)
-{
-    return (LOWORD(*a) >= LOWORD(*b) ? 1 : -1);
-}
-int comp1_long(uint32_t *a, uint32_t *b)
-{
-    return (*((uint*) a) >= *((uint*) b) ? 1 : -1);
-}
+
 /*  *((uint*)a+1) - нв® бв аиҐҐ б«®ў®  */
 /* ЎЁ­ а­л© Ї®ЁбЄ ў ®вб®авЁа®ў ­­®¬ ¬ ббЁўҐ    */
-int search_int(int *x, int n, int a)
-{
+int search_int(int *x, int n, int a) {
     int left, right, middle;
 
     if (a < x[0])
@@ -152,8 +107,13 @@ int search_int(int *x, int n, int a)
     return left + 1;
 }
 
-static void quick_sort(char *base1, int num1)
-{
+static void quick_sort(char *base1, int num1) {
+    /*¬ ЄбЁ¬ «. а §¬Ґа. н«-в  ¤ ­­ле*/
+    static char **base_ptr, **base_start_ptr, **base_end_ptr;
+    static int* num_ptr;
+    const int MAX__DEPTH = 300; /* Maximal depth of recursion */
+    static int num_arr[MAX__DEPTH]; /* num buffer */
+    static char* base_arr[MAX__DEPTH]; /* base buffer */
     int num, num_smaller;
     char *base, *smallQ, *largeQ;
     base_start_ptr = base_arr;
@@ -216,8 +176,7 @@ static void quick_sort(char *base1, int num1)
                         }
 
                         largeQ -= w;
-                    }
-                    while (smallQ < largeQ);
+                    } while (smallQ < largeQ);
                 }
 
                 if ((*c)(smallQ, base) < 0)
@@ -240,8 +199,7 @@ static void quick_sort(char *base1, int num1)
                 *num_ptr = num - num_smaller;
             }
         }
-    }
-    while (base_ptr != base_start_ptr);
+    } while (base_ptr != base_start_ptr);
 
     return;
 }

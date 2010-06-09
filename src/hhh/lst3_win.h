@@ -504,7 +504,6 @@ int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free,
 KNOT *inc_lst(KNOT **beg, KNOT **beg_free);
 KNOT *inc_after_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free);
 void del_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free);
-KNOT* DelLstNext(KNOT *ptr, KNOT **beg, KNOT **beg_free);
 void free_lst(KNOT **knot, int k_bloc);
 int memmove_m(void *out, void *in, long size);
 int alloc_seg(KNOT **kn, int *kb, int max_knot, uint size_item, int *size_bloc);
@@ -512,28 +511,18 @@ uint determine_free_memory(uint size);
 void print_ptr(KNOT *beg);
 void print_ptr_invert(KNOT *beg);
 void pr_ptr(KNOT *ptr, char *str);
-int read_frm(char *file_frm, FRAME ***frm_arr, int *k_arr_frm, FRAME ***frm,
-             int *k_frm);
-void GetOldCoor(FRAME *f, CIF::Point16 *old);
-void RestoreOldCoorFrm(FRAME *f, FRAME *fo, float tg_ang);
-void RestoreOldCoorRect(FRAME *f, RECT *fo);
 int read_frmW(char *file_frm, CIF::Point** CentrW, int *SizeX_W, int *SizeY_W,
               long *k_frm);
-void free_frm(FRAME **frm_arr, int k_arr_frm, FRAME **frm);
 int unfold(FRAME **frm, int k_frm, TYPE *dist1, int ave_y, BOUND *bnd);
 int clust_unfold(FRAME **frm, int k_frm, TYPE *dist, TYPE dp, int max_cl,
                  int *k_cl1, KNOT3 **beg_free1, KNOT3 **beg_cl);
 int viz_clust_word(FRAME **frm, int k_frm, int k_cl, KNOT3 **beg_cl);
-int comp_left(FRAME **a, FRAME **b);
 int sort_lett(int k_cl, KNOT3 **beg_free1, KNOT3 **beg_cl, COMP_FUN CompFun);
 int cut_word_unfold(int *k_cl1, KNOT3 **beg_cl);
 int project_frm(FRAME **frm, int k_frm, float tg_ang, int AllowW,
                 CIF::Point16 CentrW, long k_frmW);
 void sort_int(TYPE *a, int num, int *nodr);
 int comp1(TYPE *a, TYPE *b);
-int compF(float *a, float *b);
-int compare(TYPE *a, TYPE *b);
-int comp_long(uint32_t *a, uint32_t *b);
 
 int search_int(int *x, int n, int a);
 #define TYPE int /*тип сортируемых данных*/
@@ -587,7 +576,6 @@ int statis(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
 int statisF(float *arr, int n, float *ave, float *sig, float *med, float *mod);
 int sort_str(int k_str, KNOT3 **beg_str, FRAME **frms);
 int sort1_str(int k_str, FRAME ***str, int *ksym, FRAME **frms);
-int comp_vert(FRAME **a, FRAME **b);
 int gen_str(KNOT3 **beg_str, int k_str, FRAME ***str, int *ksym, FRAME **frm,
             int *IndSmall, int k_frm, int k_small);
 int union_str(int *k_str1, FRAME **frms, KNOT3 **beg_str, int *ksym,
