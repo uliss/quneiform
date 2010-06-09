@@ -103,8 +103,6 @@ enum rfrmt_spell_t
 #define PROC_SPELL 15
 #define PROC_OPEN  14
 
-#define MAX_VALUE 10
-
 #pragma pack(1)
 
 struct SRECT
