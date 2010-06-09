@@ -789,8 +789,6 @@ void union1_frm(FRAME **frm, int k_frm, BOUND *bnd);
 int ReadLines(char *FileLine, LINES *Lines1, int *NumStretchAll1);
 int TestLines(LINES *Lines1);
 int EstAngleLine(LINES *Lines1, float *tg_ang1, int NumStretchAll);
-//int PASC CorrectImage(BMPL *obmp,RECT *lpRect,int nRect);
-//int PASC PutImage(BMPL *obmp,char *outname,int teep);
 int Free_Line(LINES *Lines);
 //--Диагностика тестировщика структуры линий--
 #define NULL_LINE 1
@@ -871,15 +869,15 @@ int CopyBMPLMem(BMPL *BmpIn, BMPL *BmpOut);
 #define NOT_ALLOC -3
 //Основная ф-ция структурайзера
 #ifndef GLOB
-int PASC est_column(char *file_frm, char *file_prs, INF_TREE **InfStr);
+int est_column(char *file_frm, char *file_prs, INF_TREE **InfStr);
 #endif
-int PASC FreeInfTree(INF_TREE *Inf);
-void PASC SetMessage(FUN_MESS ExtFunMessage);
-void PASC SetBreakStr(FUN_POMP Ext_pump);
-void PASC OnBreakStr(int ExtBreak_on);
-void PASC InitEstStruct(FUN_MESS ExtFunMessage, FUN_POMP Ext_pump,
+int FreeInfTree(INF_TREE *Inf);
+void SetMessage(FUN_MESS ExtFunMessage);
+void SetBreakStr(FUN_POMP Ext_pump);
+void OnBreakStr(int ExtBreak_on);
+void InitEstStruct(FUN_MESS ExtFunMessage, FUN_POMP Ext_pump,
                         char **ParStruct, char **ParTabl, char **ParLine);
-void PASC CloseEstStruct(char *ParStruct, char *ParTabl, char *ParLine);
+void CloseEstStruct(char *ParStruct, char *ParTabl, char *ParLine);
 int TestBreak(void);
 void FreeAllStruct(FRAME **frm_arr, int k_arr_frm, FRAME **frm, STRET *LineV,
                    STRET *LineH, INF_TREE *Inf);
@@ -900,20 +898,20 @@ int GetTypeDoc(void);
 
 //=== K R E S T ===
 int EstAnglePlain(FRAME **frm, int NumFrm, float *tg_ang);
-int PASC DetectStringRECT(RECT *Rect, int NumFrm, float tg_ang,
+int DetectStringRECT(RECT *Rect, int NumFrm, float tg_ang,
                           RECT ***StrRect1, int **NumSym1, int *NumStr1);
 //=== P R A F A X ===
-int PASC InitExtrSym
+int InitExtrSym
 (char *FileRb, int WidthPRS, FRAME ***frm, int *NumFrm, int Reg, FRAME *kramki);
-void PASC CloseExtrSym(FRAME **frm);
-int PASC DetectLineRaster(char *file_pcx, char *FileOut, STRET **Stret1,
+void CloseExtrSym(FRAME **frm);
+int DetectLineRaster(char *file_pcx, char *FileOut, STRET **Stret1,
                           int *NumStretchAll1);
-int PASC SaveLine(int flPRA, STRET *Stret, int NumStret);
-int PASC ExtractComp(PRS_ONE *sym1, long *LenSym, FRAME *ff, char **symH1);
-int PASC ExtractComp3(PRS_ONE *sym1, long *LenSym, FRAME *ff, char **symH1);
+int SaveLine(int flPRA, STRET *Stret, int NumStret);
+int ExtractComp(PRS_ONE *sym1, long *LenSym, FRAME *ff, char **symH1);
+int ExtractComp3(PRS_ONE *sym1, long *LenSym, FRAME *ff, char **symH1);
 //=== Library ===
-int PASC EstAnglePlainImage(char *File, float *tg_ang);
-int PASC DeSkewlePlainImage(char *FileIn, char *FileOut, float tg_ang);
+int EstAnglePlainImage(char *File, float *tg_ang);
+int DeSkewlePlainImage(char *FileIn, char *FileOut, float tg_ang);
 
 //TypeCall: CALL_BOX - without open output PRN-file, CALL_STR - with ...
 #define CALL_STR 0

@@ -351,8 +351,6 @@ void DelTree(TREE2 *Tree);
 void ClearStatCell(STAT_CELL *s);
 int EstOneString(FRAME **frm, int k_frm, FRAME ****str1, int **ksym1,
                  int *k_str1);
-int PASC InitParTabl(char *File, PAR_TABL *ParTabl);
-int PASC FreeParTabl(PAR_TABL *p);
 
 //==Stack
 

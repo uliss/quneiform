@@ -57,82 +57,8 @@
 #ifndef SYS_PROG_DEFINED
 #define SYS_PROG_DEFINED
 
-#define CT_SKEW
-
 #define MAIN5 //Line
-#ifdef WIN_MOD
-#define FL_WIN 1
-#ifdef DLL_MOD
-#ifdef NATUR_WIN
-#undef NATUR_WIN
-#endif
-#else
-#ifndef NATUR_WIN
-#ifndef QWIN
-#define NATUR_WIN
-#endif
-#endif
-#endif
-#else
-#define FL_WIN 0
-#ifdef DLL_MOD
-#undef DLL_MOD
-#endif
-#ifdef NATUR_WIN
-#undef NATUR_WIN
-#endif
-#endif
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-
-#include <string.h>
-#include <fcntl.h>
-
-#include "common/point.h"
-
-#define PASC
-#define _export
-#define COM
-#define CALLBACK
-
-#ifdef DLL_MOD
-#define FL_DLL 1
-#define STATIC static
-#else
-#define FL_DLL 0
-#define STATIC
-#endif
-
-#ifdef NATUR_WIN
-#define FL_NATUR 1
-#else
-#define FL_NATUR 0
-#endif
-
-// --------- ђ Ў®в  б Ї ¬пвмо Ё ®Ўа Ў®вЄ  ®иЁЎ®Є. Large Model ONLY!!! ----------
-#ifndef SYS_INTERFACE
-#define SYS_INTERFACE
-
-//------  Common functions for mrk.dll, dot.dll, ndx.dll --------
-#include "globus.h"
-
-void ProjectRect1024(Rect16 *r, int32_t Skew1024);
-void ProjectPoint1024(CIF::Point16 *r, int32_t Skew1024);
-void ProjectPoint(CIF::Point16 *r, float tg_ang);
-
-/* ‘®®ЎйҐ­Ёп Ё ЇаҐ¤гЇаҐ¦¤Ґ­Ёп */
-extern char NameFuncErr[100], Buff[60];
-extern short NumErr;
-void PutMess(int num, char *str);
-void ClearERR(void);
-void WAR(int num, const char *str);
-void ERRO(int num, char *str);
 void Error(int num, const char *str);
-int GetERR(char *NameFunc);
-
-#endif
 
 #endif
 

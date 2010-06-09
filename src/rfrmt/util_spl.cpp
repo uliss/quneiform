@@ -62,10 +62,6 @@
 #include "lm.h"
 #endif
 
-#ifdef DLL_MOD
-#define LST_WWIN
-#define MAIN2
-#endif
 #ifndef WIN_MOD
 #define LST_WWIN
 #endif
@@ -73,11 +69,6 @@
 #include "globus.h"
 #include "aldebug.h"
 #include "crtffunc.h"
-
-////////////// functions, which are moved from other modules //////////////
-#ifdef alDebug
-static int dets = 1;
-#endif
 
 /* These were in ful_txt.h. That caused missing symbols
  * so I moved them here. JussiP.
@@ -171,7 +162,6 @@ int CalcStatTiger() {
                     if (a = Get1Alt(z, 0)) { //распознанно
                         if (IsB1(a)) {
                             if (numU >= maxU) {
-                                int MaxOld = maxU * sizeof(int);
                                 maxU *= 2;
 
                                 if ((Upp = (int*) realloc(Upp, maxU * sizeof(int))) == NULL)
@@ -183,7 +173,6 @@ int CalcStatTiger() {
 
                         if (IsB2(a)) {
                             if (numL >= maxL) {
-                                int MaxOld = maxL * sizeof(int);
                                 maxL *= 2;
 
                                 if ((Low = (int*) realloc(Low, maxL * sizeof(int))) == NULL)
@@ -214,7 +203,6 @@ int CalcStatTiger() {
                         SRECT *r = &z->Title.Z_Rect;
 
                         if (numL >= maxL) {
-                            int MaxOld = maxL * sizeof(int);
                             maxL *= 2;
 
                             if ((Low = (int*) realloc(Low, maxL * sizeof(int))) == NULL)
@@ -244,7 +232,6 @@ int CalcStatTiger() {
                         if (a = Get1Alt(z, 0)) {
                             if (IsB1(a)) {
                                 if (numU >= maxU) {
-                                    int MaxOld = maxU * sizeof(int);
                                     maxU *= 2;
 
                                     if ((Upp = (int*) realloc(Upp, maxU * sizeof(int))) == NULL)
@@ -312,7 +299,6 @@ int CalcStatTiger() {
                     if (a = Get1Alt(z, 0)) {
                         if (IsB2(a)) {
                             if (numL >= maxL) {
-                                int MaxOld = maxL * sizeof(int);
                                 maxL *= 2;
 
                                 if ((Low = (int*) realloc(Low, maxL * sizeof(int))) == NULL)
@@ -335,7 +321,6 @@ int CalcStatTiger() {
 
                                 if (flp && abs(r->top - rS->left) < abs(r->top - rS->top)) {
                                     if (numU >= maxU) {
-                                        int MaxOld = maxU * sizeof(int);
                                         maxU *= 2;
 
                                         if ((Upp = (int*) realloc(Upp, maxU * sizeof(int))) == NULL)
@@ -371,84 +356,15 @@ int CalcStatTiger() {
             } else
                 StatCol[nc].stat_str[ns].dy = StatCol[nc].dy_Low;
 
-#ifdef DRAWxxxx
-
-            if (viz && (numU || numB1)) {
-                clear();
-                rr.left = 32000;
-                rr.top = 32000;
-                rr.right = -32000;
-                rr.bottom = -32000;
-
-                for (nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) {
-                    for (nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) {
-                        rr.left = MIN(rr.left , Zn[nc][ns][nw][nz].Title.Z_Rect.left );
-                        rr.top = MIN(rr.top , Zn[nc][ns][nw][nz].Title.Z_Rect.top );
-                        rr.right = MAX(rr.right , Zn[nc][ns][nw][nz].Title.Z_Rect.right );
-                        rr.bottom = MAX(rr.bottom, Zn[nc][ns][nw][nz].Title.Z_Rect.bottom);
-                    }
-                }
-
-                rr.top = MIN(rr.top, rS->top);
-                rr.top -= 30;
-                rr.bottom = MAX(rr.bottom, rS->bottom);
-                rr.bottom += 30;
-                BoundsRect(0, (RECT*)&rr, 0);
-
-                for (nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) {
-                    for (nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz)
-                    image_rect((RECT*)&Zn[nc][ns][nw][nz].Title.Z_Rect, 9, 0xFFFF, _GBORDER);
-                }
-
-                {
-                    struct {
-                        int b1, b2, b3, b4;
-                    }bl;
-                    memcpy(&bl, rS, 8);
-                    setcol(10);
-                    vector_w(rr.left, bl.b1, rr.right, bl.b1);
-                    pause();
-                    setcol(11);
-                    vector_w(rr.left, bl.b2, rr.right, bl.b2);
-                    pause();
-                    setcol(13);
-                    vector_w(rr.left, bl.b4, rr.right, bl.b4);
-                    pause();
-                    setcol(12);
-                    vector_w(rr.left, bl.b3, rr.right, bl.b3);
-                    pause();
-                }
-            }
-
-#endif
-
             if (numU) { //ревизия линейки b2
                 med = 1;
                 Statist(Upp, numU, &ave, &sig, &med, &mod, 0);
-#ifdef DRAWxxx
-
-                if (viz) {
-                    setcol(14);
-                    vector_w(rr.left, med, rr.right, med);
-                    pause();
-                }
-
-#endif
                 rS->top = med;
             }
 
             if (numB1) { //ревизия линейки b2
                 med = 1;
                 Statist(arrB1, numB1, &ave, &sig, &med, &mod, 0);
-#ifdef DRAWxxx
-
-                if (viz) {
-                    setcol(15);
-                    vector_w(rr.left, med, rr.right, med);
-                    pause();
-                }
-
-#endif
                 rS->left = med;//?или только если med < old b1?
             }
         }
@@ -495,10 +411,10 @@ int CalcStatTiger() {
 
 
 extern Rect16 *RectFragm;
-int16_t HeiStrAllPage;
-int16_t MonoSpaceAllPage;
 
 short OpenFullOutTiger(FILE *in) {
+    static int HeiStrAllPage;
+    static int MonoSpaceAllPage;
     int nc, ns, nw, nz, k_word, k_z, i;
 #ifdef alDebug
 
@@ -554,9 +470,7 @@ short OpenFullOutTiger(FILE *in) {
 #endif
             goto BadReturn;
         }
-    }
-
-    else {
+    } else {
         NumStr = NULL;
         StatCol = NULL;
         goto BadReturn;

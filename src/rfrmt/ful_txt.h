@@ -272,7 +272,7 @@ struct PAR_FUL
 //---Прототипы функций
 int FreeStructFull(void);
 //--SpelNewOneWord--
-typedef int (CALLBACK *FUNC_GEN_FULWORD)(ID_SYM id, ZN *z, int MaxZn);
+typedef int (*FUNC_GEN_FULWORD)(ID_SYM id, ZN *z, int MaxZn);
 //---КОРРЕКТОР ПО ОДНОРОДНОСТИ
 //Возможные языки слова
 #define RUS 0
