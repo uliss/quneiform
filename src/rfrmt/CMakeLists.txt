@@ -13,7 +13,6 @@ formatter.cpp
 frmtfile.cpp
 frmtpict.cpp
 formatoptions.cpp
-int_file.cpp
 pagetree.cpp
 rfrmtoptions.cpp
 sort_int.cpp
