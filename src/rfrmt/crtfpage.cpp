@@ -915,17 +915,10 @@ int CRtfPage::freeSpaceBetweenSectors(CRtfSector * first, CRtfSector * second) {
 }
 
 void CRtfPage::writeFonts() {
-    typedef std::pair<int, std::string> FontEntry;
-    typedef std::vector<FontEntry> FontList;
-    FontList fonts;
-    fonts.push_back(FontEntry(FF_SWISS, font_sans_));
-    fonts.push_back(FontEntry(FF_ROMAN, font_serif_));
-    fonts.push_back(FontEntry(FF_MODERN, font_monospace_));
-    fonts.push_back(FontEntry(FF_SWISS, "Arial Narrow"));
-
-    for (size_t i = 0; i < fonts.size(); i++) {
-        ced_page_->createFont(i, fonts[i].first, Frmt_CharSet, fonts[i].second.c_str());
-    }
+    ced_page_->addFont(FontEntry(0, FF_SWISS, Frmt_CharSet, font_sans_));
+    ced_page_->addFont(FontEntry(1, FF_ROMAN, Frmt_CharSet, font_serif_));
+    ced_page_->addFont(FontEntry(2, FF_MODERN, Frmt_CharSet, font_monospace_));
+    ced_page_->addFont(FontEntry(3, FF_SWISS, Frmt_CharSet, "Arial Narrow"));
 }
 
 void CRtfPage::writeSectorsHeader(int i) {

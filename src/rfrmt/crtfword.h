@@ -25,10 +25,9 @@
 
 #include "globus.h"
 #include "cfcompat.h"
-#include "common/rect.h"
 #include "common/exception.h"
-
-#include "font.h"
+#include "common/font.h"
+#include "common/rect.h"
 
 namespace CIF
 {

@@ -95,6 +95,10 @@ CEDPage::~CEDPage() {
     clearPictures();
 }
 
+void CEDPage::addFont(const FontEntry& font) {
+
+}
+
 void CEDPage::clearPictures() {
     for (size_t i = 0; i < pictures_.size(); i++) {
         free(pictures_[i]->data);
@@ -421,20 +425,6 @@ int CEDPage::GetNumberOfChars() {
         i++;
 
     return i + 1;
-}
-
-bool CEDPage::createFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
-        const char* fontName) {
-    if (!fontName)
-        return false;
-
-    FontEntry font;
-    font.fontNumber = fontNumber;
-    font.fontPitchAndFamily = fontPitchAndFamily;
-    font.fontCharset = fontCharset;
-    font.fontName = fontCharset;
-    fonts_.push_back(font);
-    return true;
 }
 
 Bool32 CEDPage::GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily,

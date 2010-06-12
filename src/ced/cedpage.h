@@ -24,25 +24,25 @@
 #include "globus.h"
 #include "ced_struct.h"
 #include "common/size.h"
+#include "common/font.h"
 
 namespace CIF
 {
 
-class FUN_EXPO__ CEDPage
+class CLA_EXPO CEDPage
 {
     public:
+        /**
+         * Adds font to page font table
+         */
+        void addFont(const FontEntry& font);
+
         /**
          * Removes all pictures from page
          */
         void clearPictures();
 
         void clearSections();
-
-        /**
-         * Adds font to page font table
-         */
-        bool createFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
-                const char* fontName);
 
         /**
          * Returns pointer to picture by given picture number

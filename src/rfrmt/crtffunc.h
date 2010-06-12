@@ -32,12 +32,11 @@ Bool CheckLines(RECT* Rect, Bool FlagVer, CIF::SectorInfo *SectorInfo);
 int16_t GetRealSizeKegl(const char * str, int16_t width, int16_t FontPointSize, int16_t FontNumber);
 int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
         int16_t* strHeight);
-extern Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName);
 
-void WriteCupDrop(CIF::CRtfChar* pRtfChar, int16_t font);
+Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName);
 
-void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
-void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
+void RtfUnionRect_CRect_CRect(RECT *s1, RECT *s2);
+void RtfAssignRect_CRect_Rect16(RECT *s1, Rect16 *s2);
+void RtfAssignRect_CRect_CRect(RECT *s1, RECT *s2);
 
 #endif /* CRTFFUNC_H_ */

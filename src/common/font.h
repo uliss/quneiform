@@ -16,18 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef FONT_H_
-#define FONT_H_
+#ifndef CIF_FONT_H_
+#define CIF_FONT_H_
+
+#include "globus.h"
 
 namespace CIF
 {
+
+typedef short font_number;
 
 const int MaxFontSize = 72;
 const int DefFontSize = 24;
 const int ChangedKeglSize = 6;
 const unsigned char TIRE = 0x97; //'-'
-
-typedef short font_number;
 
 enum format_align_t
 {
@@ -65,8 +67,18 @@ class KEGL
         short Count;
 };
 
-int fontName(font_number fontNumber);
+class CLA_EXPO FontEntry
+{
+    public:
+        FontEntry(uchar number, uchar family, uchar charset, const std::string& name) :
+            fontNumber(number), fontPitchAndFamily(family), fontCharset(charset), fontName(name) {
+        }
+        uchar fontNumber;
+        uchar fontPitchAndFamily;
+        uchar fontCharset;
+        std::string fontName;
+};
 
 }
 
-#endif /* FONT_H_ */
+#endif

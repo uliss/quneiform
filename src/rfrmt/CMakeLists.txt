@@ -1,5 +1,4 @@
 add_library(cuneiform-rfrmt ${LIBTYPE}
-creatertf.cpp
 crtfchar.cpp
 crtffragment.cpp
 crtffunc.cpp

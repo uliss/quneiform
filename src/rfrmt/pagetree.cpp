@@ -216,18 +216,13 @@ int16_t Check_IsItFalseHorLine(int16_t recalc, int16_t reg, FRAME **frm,
                                BOUND *bnd, int16_t k_frm);
 int16_t check_white_int(int16_t beg_white_int, int16_t end_white_int,
                         int16_t maxh, int16_t *his_second_group);
-int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize,
-                    int16_t FontNumber, int16_t* strHeight);
 void Get_all_term_fragms(KNOTT *ptr, int16_t *Colt, int16_t *iv,
                          int16_t NumCol, FRAME **frm);
 void Get_all_term_fragms1(KNOTT* ptr, int16_t* Colt, int16_t* iv,
                           int16_t NumCol, FRAME **frm);
-void RtfUnionRect_CRect_SRect(tagRECT *s1, SRECT *s2);
-void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
-void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2);
 CIF::Rect toRect(const SRECT& src);
 CIF::Rect toRect(const tagRECT& src);
-void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2);
+void RtfUnionRect_CRect_SRect(tagRECT *s1, SRECT *s2);
 
 ////////////// functions, which are moved from other modules //////////////
 
@@ -2892,14 +2887,6 @@ void Get_all_term_fragms(KNOTT* ptr, int16_t* Colt, int16_t* iv,
     }
 }
 
-void RtfAssignRect_CRect_Rect16(tagRECT *s1, Rect16 *s2)
-{
-    s1->left = s2->left;
-    s1->right = s2->right;
-    s1->top = s2->top;
-    s1->bottom = s2->bottom;
-}
-
 CIF::Rect toRect(const SRECT& src) {
     return CIF::Rect(CIF::Point(src.left, src.top), CIF::Point(src.right, src.bottom));
 }
@@ -2908,23 +2895,7 @@ CIF::Rect toRect(const tagRECT& src) {
     return CIF::Rect(CIF::Point(src.left, src.top), CIF::Point(src.right, src.bottom));
 }
 
-void RtfAssignRect_CRect_CRect(tagRECT *s1, tagRECT *s2)
-{
-    s1->left = s2->left;
-    s1->right = s2->right;
-    s1->top = s2->top;
-    s1->bottom = s2->bottom;
-}
-
 void RtfUnionRect_CRect_SRect(tagRECT *s1, SRECT *s2)
-{
-    s1->left = MIN(s1->left, s2->left);
-    s1->right = MAX(s1->right, s2->right);
-    s1->top = MIN(s1->top, s2->top);
-    s1->bottom = MAX(s1->bottom, s2->bottom);
-}
-
-void RtfUnionRect_CRect_CRect(tagRECT *s1, tagRECT *s2)
 {
     s1->left = MIN(s1->left, s2->left);
     s1->right = MAX(s1->right, s2->right);

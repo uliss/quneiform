@@ -22,10 +22,10 @@
 #include <vector>
 
 #include "globus.h"
-#include "font.h"
 #include "common/size.h"
 #include "cfcompat.h"
 #include "crtfstruct.h"
+#include "common/font.h"
 
 namespace CIF
 {

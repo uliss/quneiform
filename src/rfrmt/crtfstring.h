@@ -24,8 +24,8 @@
 #include <iostream>
 #include <boost/function.hpp>
 
-#include "font.h"
 #include "cfcompat.h"
+#include "common/font.h"
 #include "common/rect.h"
 
 namespace CIF
