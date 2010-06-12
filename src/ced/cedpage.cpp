@@ -24,9 +24,6 @@
 #include "cedsection.h"
 #include "cedparagraph.h"
 
-//step of expansion of font table
-#define FONTS_STEPPING 5
-
 namespace CIF
 {
 
@@ -35,9 +32,6 @@ CEDPage::CEDPage() :
     sections = 0;
     curSect = 0;
     section_num_ = 0;
-    fontsUsed = 0; //number of fonts used in table
-    fontsCreated = 0; //number of fonts created in table
-    fontTable = 0; //pointer to font table
 }
 
 CEDPage::~CEDPage() {
@@ -98,14 +92,6 @@ CEDPage::~CEDPage() {
         se1 = se;
     }
 
-    //delete font table
-    int i;
-
-    for (i = 0; i < fontsUsed; i++)
-        free(fontTable[i].fontName);
-
-    delete[] fontTable;
-
     clearPictures();
 }
 
@@ -130,6 +116,14 @@ PictureEntry * CEDPage::findPictureByNumber(int number) const {
     }
 
     return NULL;
+}
+
+const FontEntry& CEDPage::fontAt(size_t pos) const {
+    return fonts_.at(pos);
+}
+
+size_t CEDPage::fontCount() const {
+    return fonts_.size();
 }
 
 Size CEDPage::imageDpi() const {
@@ -431,57 +425,41 @@ int CEDPage::GetNumberOfChars() {
 
 bool CEDPage::createFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
         const char* fontName) {
-    if (fontsUsed >= fontsCreated) {
-        fontEntry * tmp = new fontEntry[fontsCreated + FONTS_STEPPING];
-
-        if (fontTable) {
-            memcpy(tmp, fontTable, sizeof(fontEntry) * fontsCreated);
-            delete[] fontTable;
-        }
-
-        fontsCreated += FONTS_STEPPING;
-        fontTable = tmp;
-    }
-
-    fontTable[fontsUsed].fontNumber = fontNumber;
-    fontTable[fontsUsed].fontPitchAndFamily = fontPitchAndFamily;
-    fontTable[fontsUsed].fontCharset = fontCharset;
-
     if (!fontName)
         return false;
 
-    fontTable[fontsUsed].fontName = strdup(fontName);
-
-    if (!fontTable[fontsUsed].fontName)
-        return false;
-
-    fontsUsed++;
+    FontEntry font;
+    font.fontNumber = fontNumber;
+    font.fontPitchAndFamily = fontPitchAndFamily;
+    font.fontCharset = fontCharset;
+    font.fontName = fontCharset;
+    fonts_.push_back(font);
     return true;
 }
 
 Bool32 CEDPage::GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily,
-        uchar* fontCharset, char** fontName) {
-    if (number >= fontsUsed)
+        uchar* fontCharset, const char** fontName) {
+    if (number >= fonts_.size())
         return FALSE;
 
     if (fontNumber)
-        *fontNumber = fontTable[number].fontNumber;
+        *fontNumber = fontAt(number).fontNumber;
 
     if (fontPitchAndFamily)
-        *fontPitchAndFamily = fontTable[number].fontPitchAndFamily;
+        *fontPitchAndFamily = fonts_[number].fontPitchAndFamily;
 
     if (fontCharset)
-        *fontCharset = fontTable[number].fontCharset;
+        *fontCharset = fonts_[number].fontCharset;
 
     if (fontName)
-        *fontName = fontTable[number].fontName;
+        *fontName = fonts_[number].fontName.c_str();
 
     return TRUE;
 }
 
 int CEDPage::GetFontByNum(uchar fontNumber) {
-    for (int i = 0; i < fontsUsed; i++)
-        if (fontTable[i].fontNumber == fontNumber)
+    for (size_t i = 0; i < fonts_.size(); i++)
+        if (fonts_[i].fontNumber == fontNumber)
             return i;
 
     return 0;

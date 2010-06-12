@@ -1113,27 +1113,27 @@ Bool32 CED_FormattedWrite(const char * fileName, CIF::CEDPage *page) {
 }
 
 Bool32 WriteFontTable(Handle hFile, CIF::CEDPage* page) {
-    char* ch = 0;
+    const char* ch = 0;
     //define the sum of lengths of all names of fonts
     int len = 0;
     int q;
 
-    if (!(page->fontsUsed))
+    if (!(page->fontCount()))
         return TRUE;
 
-    for (q = 0; q < page->fontsUsed; q++) {
+    for (q = 0; q < page->fontCount(); q++) {
         page->GetFont(q, 0, 0, 0, &ch);
 
         if (ch)
             len += strlen(ch) + 1;
     }
 
-    if (!WriteExtCode(hFile, EDEXT_FONTS, 0, 0, len + sizeof(fontDiscr) * page->fontsUsed))
+    if (!WriteExtCode(hFile, EDEXT_FONTS, 0, 0, len + sizeof(fontDiscr) * page->fontCount()))
         return FALSE;
 
     fontDiscr fond;
 
-    for (q = 0; q < page->fontsUsed; q++) {
+    for (q = 0; q < page->fontCount(); q++) {
         page->GetFont(q, &(fond.fontNumber), &(fond.fontPitchAndFamily), &(fond.fontCharset), &ch);
         fond.size = strlen(ch) + 1 + sizeof(fontDiscr);
 

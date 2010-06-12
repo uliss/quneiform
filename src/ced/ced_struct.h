@@ -137,13 +137,14 @@ typedef struct edRowDescr
         Bool32 header;
 } EDROWDESCR;
 
-typedef struct fontEntry
+struct FontEntry
 {
+    public:
         uchar fontNumber;
         uchar fontPitchAndFamily;
         uchar fontCharset;
-        char* fontName;
-} FONTENTRY;
+        std::string fontName;
+};
 
 class PictureEntry
 {

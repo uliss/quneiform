@@ -51,6 +51,17 @@ class FUN_EXPO__ CEDPage
         PictureEntry * findPictureByNumber(int number) const;
 
         /**
+         * Returns reference to font entry in given position
+         * @throw std::out_of_range exception if wrong position given
+         */
+        const FontEntry& fontAt(size_t pos) const;
+
+        /**
+         * Returns number of fonts in page
+         */
+        size_t fontCount() const;
+
+        /**
          * Returns image dpi
          * @see setImageDpi()
          */
@@ -191,10 +202,6 @@ class FUN_EXPO__ CEDPage
          */
         char unrecognizedChar() const;
 
-        int fontsUsed; //РљThe number of fonts used in table
-        int fontsCreated; //РљThe number of fonts created in the table
-        fontEntry* fontTable; // Pointer to the table fonts
-
         CEDPage();
         ~CEDPage();
 
@@ -214,7 +221,7 @@ class FUN_EXPO__ CEDPage
         int GetNumberOfChars();
 
         Bool32 GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily,
-                uchar* fontCharset, char** fontName);
+                uchar* fontCharset, const char** fontName);
 
         int GetFontByNum(uchar fontNumber);
 
@@ -244,6 +251,9 @@ class FUN_EXPO__ CEDPage
         char unrecognized_char_;
         CEDSection * sections; //connected list of sections
         CEDSection * curSect; //current section
+
+        typedef std::vector<FontEntry> FontList;
+        FontList fonts_;
 
         typedef std::vector<PictureEntry*> PictureList;
         PictureList pictures_;

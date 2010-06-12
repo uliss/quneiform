@@ -374,16 +374,6 @@ CED_FUNC(Handle) CED_GetParagraph(Handle hEdPage, int _num) {
     return ((CEDPage*) hEdPage)->GetParagraph(_num);
 }
 
-//get font
-CED_FUNC(Bool32) CED_GetFont(Handle hEdPage, int number, uchar* fontNumber,
-        uchar* fontPitchAndFamily, uchar* fontCharset, char** fontName) {
-    return ((CEDPage*) hEdPage)->GetFont(number, fontNumber, fontPitchAndFamily, fontCharset,
-            fontName);
-}
-CED_FUNC(uint32_t) CED_GetNumOfFonts(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->fontsUsed;
-}
-
 CED_FUNC(CIF::Rect) CED_GetSectionBorder(Handle hEdSection) {
     return ((CEDSection*) hEdSection)->borders;
 }

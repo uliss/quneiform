@@ -121,8 +121,8 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
     rtf->PrevChar.setFontNumber(-1);
     rtf->PrevChar.setForegroundColor(Color::null());
     rtf->PrevChar.setBackgroundColor(Color::null());
-    rtf->table = new int[rtf->page->fontsUsed];
-    memset(rtf->table, -1, sizeof(int) * rtf->page->fontsUsed);
+    rtf->table = new int[rtf->page->fontCount()];
+    memset(rtf->table, -1, sizeof(int) * rtf->page->fontCount());
     // allocate color table
     rtf->color = new StrRtfColor[MAX_RTF_COLORS];
     memset(rtf->color, 0, sizeof(struct StrRtfColor) * MAX_RTF_COLORS); // initialize with zeros
@@ -145,8 +145,8 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
             goto WRITE_END;
 
         //fill in font table with default values
-        for (int i = 0; i < rtf->page->fontsUsed; i++)
-            rtf->table[i] = rtf->page->fontTable[i].fontNumber;
+        for (int i = 0; i < rtf->page->fontCount(); i++)
+            rtf->table[i] = rtf->page->fontAt(i).fontNumber;
 
         rtf->maxFntNum = -1;
 
@@ -605,11 +605,11 @@ Bool WriteRtfFont(StrRtfOut *rtf, Bool head) {
             return FALSE;
     }
 
-    char* ch = 0;
+    const char* ch = 0;
     fontDiscr fond;
     CEDPage* page = rtf->page;
 
-    for (int q = 0; q < page->fontsUsed; q++) {
+    for (int q = 0; q < page->fontCount(); q++) {
         if (rtf->table[q] <= rtf->maxFntNum)
             continue;
 
@@ -2039,7 +2039,7 @@ Bool WriteRtfMergedHeader(StrRtfOut *rtf, const char * name) {
     rtf->maxFntNum = m;
     m++;
 
-    for (i = 0; i < rtf->page->fontsUsed; i++) {
+    for (i = 0; i < rtf->page->fontCount(); i++) {
         if (rtf->table[i] == -1) {
             rtf->table[i] = m;
             m++;
@@ -2124,7 +2124,7 @@ Bool WriteRtfMergedHeader(StrRtfOut *rtf, const char * name) {
 }
 
 Bool GetRtfWord(StrRtfOut *rtf);
-int nameCmp(char* s1, char* s2);
+int nameCmp(const char* s1, const char* s2);
 void StrTrim(char* string);
 /******************************************************************************
  ReadRtfFontTable:
@@ -2155,9 +2155,9 @@ int ReadRtfFontTable(StrRtfOut *rtf, int * maxFontNum)//PTERWND w,struct StrRtf 
                 if (maxNum < font.FontId)
                     maxNum = font.FontId;
 
-                for (int i = 0; i < rtf->page->fontsUsed; i++) {
-                    if (rtf->page->fontTable[i].fontCharset == font.CharSet && nameCmp(
-                            rtf->page->fontTable[i].fontName, font.name) == 0)
+                for (size_t i = 0; i < rtf->page->fontCount(); i++) {
+                    if (rtf->page->fontAt(i).fontCharset == font.CharSet && nameCmp(
+                            rtf->page->fontAt(i).fontName.c_str(), font.name) == 0)
                         rtf->table[i] = font.FontId;
                 }
 
@@ -2175,9 +2175,9 @@ int ReadRtfFontTable(StrRtfOut *rtf, int * maxFontNum)//PTERWND w,struct StrRtf 
             if (maxNum < font.FontId)
                 maxNum = font.FontId;
 
-            for (int i = 0; i < rtf->page->fontsUsed; i++) {
-                if (nameCmp(rtf->page->fontTable[i].fontName, font.name) == 0
-                        && rtf->page->fontTable[i].fontCharset == font.CharSet)
+            for (size_t i = 0; i < rtf->page->fontCount(); i++) {
+                if (nameCmp(rtf->page->fontAt(i).fontName.c_str(), font.name) == 0
+                        && rtf->page->fontAt(i).fontCharset == font.CharSet)
                     rtf->table[i] = font.FontId;
             }
         }
@@ -2291,21 +2291,25 @@ int ReadRtfFontTable(StrRtfOut *rtf, int * maxFontNum)//PTERWND w,struct StrRtf 
 }
 
 //compare fonts names
-int nameCmp(char* s1, char* s2) {
+int nameCmp(const char* s1, const char* s2) {
     if (strcmp(s1, s2) == 0)
         return 0;
 
     if (strcmp(s1 + strlen(s1) - 4, " Cyr") == 0)
-        s1[strlen(s1) - 4] = 0;
+        return 0;
+    //        s1[strlen(s1) - 4] = 0;
 
     if (strcmp(s2 + strlen(s2) - 4, " Cyr") == 0)
-        s2[strlen(s2) - 4] = 0;
+        return 0;
+    //        s2[strlen(s2) - 4] = 0;
 
     if (strcmp(s1 + strlen(s1) - 3, " CE") == 0)
-        s1[strlen(s1) - 3] = 0;
+        return 0;
+//        s1[strlen(s1) - 3] = 0;
 
     if (strcmp(s2 + strlen(s2) - 3, " CE") == 0)
-        s2[strlen(s2) - 3] = 0;
+        return 0;
+//        s2[strlen(s2) - 3] = 0;
 
     if (strcmp(s1, s2) == 0)
         return 0;
