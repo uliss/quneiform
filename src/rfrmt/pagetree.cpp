@@ -107,41 +107,42 @@
 #define CONS_MESS21 if(det21)   ConsMess
 #define CONS_MESS22 if(det22)   ConsMess
 #define CONS_MESS23 if(det23)   ConsMess
-int det0 = 1, //draw step
-           det1 = 0, //common
-                  det2 = 0, //search_interval
-                         det3 = 0, //SearchColHist
-                                det4 = 0, //geometry rtf
-                                       det5 = 0, //write rtf
-                                              det6 = 0, //sort && show fragm
-                                                     det7 = 0, //print string
-                                                            det8 = 0, //font
-                                                                   det9 = 0, //bad return
-                                                                          det10 = 0, //ierarxiya colonok
-                                                                                  det11 = 0, //Get_all_term_fragms
-                                                                                          det12 = 0, //calculate ideal size of fragms
-                                                                                                  det13 = 0, //Size page
-                                                                                                          det14 = 0, //control frame
-                                                                                                                  det15 = 0, //frame_coor
-                                                                                                                          det16 = 0, //ordering and recalc colons
-                                                                                                                                  det17 = 0, //indent
-                                                                                                                                          det18 = 0, //межстрочное растояние
-                                                                                                                                                  det19 = 0, //отладка ошибок
-                                                                                                                                                          det20 = 0, //отладка realese version
-                                                                                                                                                                  det21 = 0, //отладка realese version
-                                                                                                                                                                          det22 = 0, //отладка realese version--memory
-                                                                                                                                                                                  det23 = 1, //отладка realese version only name file
-                                                                                                                                                                                          dets = 0; //tmp break points
+int det0 = 0; //draw step
+int det1 = 0; //common
+int det2 = 0; //search_interval
+int det3 = 0; //SearchColHist
+int det4 = 0; //geometry rtf
+int det5 = 0; //write rtf
+int det6 = 0; //sort && show fragm
+int det7 = 0; //print string
+int det8 = 0; //font
+int det9 = 0; //bad return
+int det10 = 0; //ierarxiya colonok
+int det11 = 0; //Get_all_term_fragms
+int det12 = 0; //calculate ideal size of fragms
+int det13 = 0; //Size page
+int det14 = 0; //control frame
+int det15 = 0; //frame_coor
+int det16 = 0; //ordering and recalc colons
+int det17 = 0; //indent
+int det18 = 0; //межстрочное растояние
+int det19 = 0; //отладка ошибок
+int det20 = 0; //отладка realese version
+int det21 = 0; //отладка realese version
+int det22 = 0; //отладка realese version--memory
+int det23 = 0; //отладка realese version only name file
+int dets = 0; //tmp break points
 
 
 short FlagGraphic1 = 0, Graphic1Color = 0;
-std::vector <tagRECT> *pTheGeomStep = NULL;
-extern std::vector <tagRECT> *pTheGeomStep1;
-extern std::vector <tagRECT> *pTheGeomStep2;
-extern std::vector <tagRECT> *pTheGeomTemp;
-extern VectorWord *pFragRectColor;
-extern void MyDrawForDebug(void);
-extern uint16_t *CountRect;
+std::vector <RECT> pTheGeomStep;
+std::vector <RECT> pTheGeomStep1;
+std::vector <RECT> pTheGeomStep2;
+std::vector <RECT> pTheGeomTemp;
+VectorWord pFragRectColor;
+
+void MyDrawForDebug(void) {}
+uint16_t CountRect;
 
 #else
 #define CONS_MESS1 1 ? 0 : ConsMess
@@ -519,11 +520,9 @@ void ImageKnot1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int16_t col,
     r.right = LineVK[r1.right].beg;
     r.top = LineHK[r1.top].beg;
     r.bottom = LineHK[r1.bottom].beg;
-    image_rect(&r, col, line_style, fill);
 
     if (ColFrm >= 0 && ptr->InBegFrm >= 0 && ptr->NumFrm >= 0) {
         TestKNOTT1(ptr, LineVK, LineHK, NumFrm, NumVK, NumHK);
-        image_frame(&f[ptr->InBegFrm], ptr->NumFrm - 1, 0, line_style, fill);
     }
 }
 
@@ -1357,10 +1356,10 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
 
     CONS_MESS2("k_frm=%d ", k_frm + 1);
 #ifdef alDebug
-    {   pTheGeomTemp->clear();
+    {   pTheGeomTemp.clear();
         tagRECT rct;
         SetRect(&rct, bnd->left, bnd->up, bnd->right, bnd->down);
-        pTheGeomTemp->push_back(rct);
+        pTheGeomTemp.push_back(rct);
     }
 #endif
     do0(i, 0, k_frm) {
@@ -1368,7 +1367,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
         {
             tagRECT rct;
             SetRect(&rct, frm[i]->left, frm[i]->up, frm[i]->right, frm[i]->down);
-            pTheGeomTemp->push_back(rct);
+            pTheGeomTemp.push_back(rct);
         }
 #endif
 
@@ -1394,7 +1393,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
         do0(j, mi, ma) ++his[j];
     }
 #ifdef alDebug
-    *CountRect = pTheGeomTemp->size();
+    CountRect = pTheGeomTemp.size();
     CONS_MESS2("---Поиск межколон. интервалов---");
 
     if (det0) MyDrawForDebug();
@@ -1464,13 +1463,13 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
             if (reg == VER) {
                 tagRECT rct;
                 SetRect(&rct, bnd->left, tmp_pos + Home, bnd->right, tmp_pos + Home);
-                pTheGeomTemp->push_back(rct);//~
+                pTheGeomTemp.push_back(rct);//~
             }
 
             else {
                 tagRECT rct;
                 SetRect(&rct, tmp_pos + Home, bnd->up, tmp_pos + Home, bnd->down);
-                pTheGeomTemp->push_back(rct);
+                pTheGeomTemp.push_back(rct);
             }
 
             if (det0) MyDrawForDebug();
@@ -2692,9 +2691,6 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
     if (det20 || det23) {
         ConsMess("Formatter End ");
-
-        if (RtfWriteMode)
-            ConsMess("*************************************************************");
     }
 
 #endif
@@ -2777,18 +2773,14 @@ void Get_all_term_fragms1(KNOTT* ptr, int16_t* Colt, int16_t* iv,
 
     if (ptr->NumFrm > 1 && !ptr->Type) {
 #ifdef alDebug
-
         if (det4) ConsMess(">>> %d не отсортированных фрагмента", ptr->NumFrm);
-
 #endif
         i_nse = ptr->InBegFrm + ptr->NumFrm;
 
         for (i_nsb = ptr->InBegFrm; i_nsb < i_nse; ++*iv, ++i_nsb) {
             Colt[*iv] = (int16_t) frm[i_nsb]->start_pos;
 #ifdef alDebug
-
             if (det4) ConsMess(" #term=%d", NumCol + 1 - Colt[*iv]);
-
 #endif
         }
     }
@@ -2897,16 +2889,14 @@ void image_frm(FRAME *f, int col, int line_style, int fill)
     f1.right = f->right;
     f1.top = f->up;
     f1.bottom = f->down;
-    image_rect(&f1, col, line_style, fill);
 }
 
 void image_bnd(BOUND *f, int col, int line_style, int fill) {}
 
 void image_frame(FRAME **frm, int k, int col, int line_style, int fill)
 {
-    int i;
-    do0(i, 0, k)
-    image_frm(frm[i], col, line_style, fill);
+    for(int i = 0; i <= k; i++)
+        image_frm(frm[i], col, line_style, fill);
 }
 
 void bounds_frm(int ii, FRAME **frm, int nx) {}
@@ -2918,7 +2908,7 @@ void image_rect(RECT *f, int col, int line_style, int fill)
     CONS_MESS1(" left=%d,  right=%d,  up=%d,  down=%d", f->left, f->right, f->top, f->bottom);
 
     if ( pTheGeomStep == pTheGeomStep1 ) {
-        pFragRectColor->push_back(Graphic1Color);
+        pFragRectColor.push_back(Graphic1Color);
 
         if (Graphic1Color == 0) {
             f->left = MAX(0, f->left - 12);
@@ -2944,7 +2934,7 @@ void image_rect(RECT *f, int col, int line_style, int fill)
 
     tagRECT rct;
     SetRect(&rct, f->left, f->top, f->right, f->bottom);
-    pTheGeomStep->push_back(rct);
+    pTheGeomStep.push_back(rct);
 }
 
 #endif

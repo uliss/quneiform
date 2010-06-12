@@ -468,15 +468,6 @@ void CFString::ExtractWordsFromString(CSTR_line* Comingline, PageElementCount* C
     SetRect(&m_rectString, line_attr.col - TemplateOffset.x(), line_attr.row - TemplateOffset.y(),
             line_attr.col - TemplateOffset.x() + line_attr.wid, line_attr.row - TemplateOffset.y()
                     + line_attr.hei);
-#ifdef alDebug //obsolete option
-    {
-        RECT rect;
-        SetRect(&rect, line_attr.col, line_attr.row,
-                line_attr.col + line_attr.wid,
-                line_attr.row + line_attr.hei);
-        pInputArray->push_back(rect);
-    }
-#endif
     rast = CSTR_GetFirstRaster(line); // I фикт. растр
     rast = CSTR_GetNextRaster(rast, CSTR_f_all);
 

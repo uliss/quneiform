@@ -100,6 +100,9 @@ typedef struct tagRECT
         int32_t right;
         int32_t top;
         int32_t bottom;
+        bool operator==(const tagRECT& r) const {
+            return left == r.left && right == r.right && top == r.top && bottom == r.bottom;
+        }
 } RECT;
 
 typedef RECT* LPRECT;

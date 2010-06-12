@@ -65,6 +65,7 @@
 #include "globus.h"
 #include "aldebug.h"
 #include "crtffunc.h"
+#include "consmess.h"
 
 /* These were in ful_txt.h. That caused missing symbols
  * so I moved them here. JussiP.
@@ -93,6 +94,8 @@ uchar buf[1024];
 /* Rectangles are written in frmtfile.cpp and they contain 16-bit integers.
  * They are processed as 32-bit integers here, so we need to convert.
  */
+
+extern int dets;
 
 static void readSRECT(SRECT *r, FILE *f) {
     Rect16 r16;

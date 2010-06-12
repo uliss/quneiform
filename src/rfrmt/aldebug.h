@@ -57,6 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __alDebug_h__
 #define __alDebug_h__
 
-/*#define alDebug ON*/
+#define alDebug ON
 
 #endif
