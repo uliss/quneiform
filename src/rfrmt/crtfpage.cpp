@@ -156,114 +156,25 @@ void CRtfPage::initCedPage() {
 //*********    -- таблицы
 //*********    -- картинки
 
-Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage);
-
-Bool CRtfPage::ReadInternalFile(FILE *fpFileNameIn) {
-    if (ReadInternalFileRelease(fpFileNameIn, this))
-        return TRUE;
-
-    return FALSE;
-}
-
-Bool ReadInternalFileRelease(FILE *in, CRtfPage* RtfPage) {
-    CRtfFragment* pRtfFragment;
-    CRtfString* pRtfString;
-    CRtfWord* pRtfWord;
-    CRtfChar* pRtfChar;
-    int16_t nc, ns, nw, nz, i;
+void CRtfPage::readInternalFile(FILE *in) {
     int16_t tmp;
-    uint32_t wtmp;
-    ::Rect16 RectFragm;
-    ::Rect16 SRect;
     rewind(in);
     fread(&tmp, 2, 1, in);
-    RtfPage->m_wDpi = tmp;
+    m_wDpi = tmp;
 
     fread(&tmp, 2, 1, in);
-    RtfPage->Count.RtfTextFragments = tmp;
-    fread(&tmp, 2, 1, in);
-    fread(&tmp, 2, 1, in);
+    Count.RtfTextFragments = tmp;
     fread(&tmp, 2, 1, in);
     fread(&tmp, 2, 1, in);
     fread(&tmp, 2, 1, in);
-    RtfPage->Count.RtfFrameTextFragments = 0;
+    fread(&tmp, 2, 1, in);
+    fread(&tmp, 2, 1, in);
+    Count.RtfFrameTextFragments = 0;
 
-    for (nc = 0; nc < RtfPage->Count.RtfTextFragments; ++nc) {
-        pRtfFragment = new CRtfFragment;
-        RtfPage->addFragment(pRtfFragment);
-        pRtfFragment->setType(FT_TEXT);
-        fread(&RectFragm, 1, sizeof(Rect16), in);
-        pRtfFragment->m_rect.left = RectFragm.left;
-        pRtfFragment->m_rect.top = RectFragm.top;
-        pRtfFragment->m_rect.right = RectFragm.right;
-        pRtfFragment->m_rect.bottom = RectFragm.bottom;
-        fread(&tmp, 2, 1, in);
-        int str_count = tmp;
-        fread(&wtmp, 4, 1, in);
-        pRtfFragment->m_wUserNumber = wtmp;
-        fread(&wtmp, 4, 1, in);
-
-        for (ns = 0; ns < str_count; ++ns) {
-            pRtfString = new CRtfString;
-            pRtfFragment->addString(pRtfString);
-            fread(&SRect, sizeof(Rect16), 1, in);
-            //Реальные коор. строки!
-            fread(&SRect, sizeof(Rect16), 1, in);
-            fread(&tmp, 2, 1, in);
-            int word_count = tmp;
-            fread(&tmp, sizeof(uint32_t), 1, in);//NEGA_STR
-
-            for (nw = 0; nw < word_count; ++nw) {
-                pRtfWord = new CRtfWord;
-                pRtfString->addWord(pRtfWord);
-                fread(&tmp, 2, 1, in);
-                int char_count = tmp;
-                fread(&tmp, 2, 1, in);
-                pRtfWord->setFontNumber(tmp);
-                fread(&tmp, 2, 1, in);
-                pRtfWord->setIdealFontSize(tmp);
-
-                for (nz = 0; nz < char_count; ++nz) {
-                    uint16_t num;
-#pragma pack(1)
-                    struct ALT_TIGER1
-                    {
-                            unsigned char let, prob;
-                    } alt1;
-                    struct ALT_TIGER2
-                    {
-                            unsigned char spellnocarrying, FlagCapDrop, spell, base;
-                            language_t language;
-                    } alt2;
-#pragma pack()
-                    pRtfChar = new CRtfChar;
-                    pRtfWord->addChar(pRtfChar);
-                    fread(&SRect, sizeof(Rect16), 1, in); //Ideal BOX
-                    pRtfChar->setIdealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(
-                            SRect.right, SRect.bottom)));
-                    fread(&SRect, sizeof(Rect16), 1, in); //Real BOX
-                    pRtfChar->setRealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(
-                            SRect.right, SRect.bottom)));
-                    fread(&num, sizeof(uint16_t), 1, in);
-                    assert(num <= REC_MAX_VERS);
-                    for (i = 0; i < num; i++) {
-                        fread(&alt1, sizeof(struct ALT_TIGER1), 1, in);
-                        pRtfChar->addVersion(Letter(alt1.let, alt1.prob));
-                    }
-
-                    fread(&alt2, sizeof(struct ALT_TIGER2), 1, in);
-                    pRtfChar->setLanguage(alt2.language);
-                    pRtfChar->setSpelledNoCarrying(alt2.spellnocarrying);
-                    pRtfChar->setDropCap(alt2.FlagCapDrop);
-                    pRtfChar->setSpelled(alt2.spell);
-                    pRtfChar->setFont(pRtfWord->fontNumber());
-                    pRtfChar->setFontSize(pRtfWord->idealFontSize());
-                }
-            }
-        }
+    for (int nc = 0; nc < Count.RtfTextFragments; ++nc) {
+        CRtfFragment * frag = CRtfFragment::read(in);
+        addFragment(frag);
     }
-
-    return TRUE;
 }
 
 void CRtfPage::addTables() {

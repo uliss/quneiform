@@ -168,6 +168,12 @@ class CLA_EXPO CRtfFragment
         int16_t m_WidthVerticalColumn;
     public:
         static void setDrawCallback(RfrmtDrawFragmentFunction f);
+
+        /**
+         * Reads CRtfFragment from given file descriptor
+         * @return pointer to new fragment
+         */
+        static CRtfFragment * read(FILE * in);
     private:
         static RfrmtDrawFragmentFunction draw_func_;
     private:

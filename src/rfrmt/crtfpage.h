@@ -71,6 +71,11 @@ class CLA_EXPO CRtfPage
         Size pageSize() const;
 
         /**
+         * Reads data from format file
+         */
+        void readInternalFile(FILE * file);
+
+        /**
          * Sets monospace font name
          */
         void setFontMonospace(const std::string& name);
@@ -114,7 +119,6 @@ class CLA_EXPO CRtfPage
 
         void setFragmentsInColumn(const CRtfFragment * cur_fragm);
 
-        Bool ReadInternalFile(FILE *FileNameIn);
         Bool FindPageTree(FILE *FileNameIn, const char* FileNameOut);
         void CorrectKegl(void);
         void ChangeKegl(void);
