@@ -1,1 +1,40 @@
-This is experimental branch of Cuneiform.
+Introduction
+============
+
+This is experimental branch of Cuneiform that actively refactored.
+
+Building
+========
+
+Extract the source and go to the root folder (the one this file is in).
+Then type the following commands:
+
+	mkdir builddir
+	cd builddir	
+	cmake ..
+	make
+	make install 
+
+By default Cuneiform installs to /usr/local. You can specify a different prefix
+by giving a command line switch "-DCMAKE_INSTALL_PREFIX=/what/ever/you/want"
+to CMake.
+
+For developers:
+
+build with 'cmake -DCMAKE_BUILD_TYPE=debug' command - to have debugging information
+
+for having OcrTk (The ISRI OCR Performance Toolkit) build with '-DOCRTK=True'
+for more information see: http://www.isri.unlv.edu/ISRI/OCRtk
+
+
+Contact information
+===================
+
+Project home page: 
+	https://launchpad.net/cuneiform-linux
+Mailing list: 
+	https://launchpad.net/~cuneiform
+This branch on Launchpad: 
+	https://code.launchpad.net/~serge-uliss/cuneiform-linux/refactoring
+	
+For suggestions write to <serj.poltavski@gmail.com>

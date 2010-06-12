@@ -22,4 +22,9 @@ else()
     message(STATUS "CppUnit library not found. No tests will be build.")
 endif()
 
+if(CF_OCRTK)
+    add_subdirectory(ocrtk)
+endif()
+
+
 
