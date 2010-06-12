@@ -482,7 +482,6 @@ CRtfFragment * CRtfFragment::read(FILE * in) {
     int16_t tmp;
     uint32_t wtmp;
     ::Rect16 RectFragm;
-    ::Rect16 SRect;
 
     CRtfFragment * frag = new CRtfFragment;
 
@@ -493,70 +492,17 @@ CRtfFragment * CRtfFragment::read(FILE * in) {
     frag->m_rect.right = RectFragm.right;
     frag->m_rect.bottom = RectFragm.bottom;
     fread(&tmp, 2, 1, in);
-    int str_count = tmp;
+    const int str_count = tmp;
     fread(&wtmp, 4, 1, in);
     frag->m_wUserNumber = wtmp;
     fread(&wtmp, 4, 1, in);
 
     for (int ns = 0; ns < str_count; ++ns) {
-        CRtfString * str = new CRtfString;
+        CRtfString * str = CRtfString::read(in);
         frag->addString(str);
-        fread(&SRect, sizeof(Rect16), 1, in);
-        //Реальные коор. строки!
-        fread(&SRect, sizeof(Rect16), 1, in);
-        fread(&tmp, 2, 1, in);
-        int word_count = tmp;
-        fread(&tmp, sizeof(uint32_t), 1, in);//NEGA_STR
-
-        for (int nw = 0; nw < word_count; ++nw) {
-            CRtfWord * word = new CRtfWord;
-            str->addWord(word);
-            fread(&tmp, 2, 1, in);
-            int char_count = tmp;
-            fread(&tmp, 2, 1, in);
-            word->setFontNumber(tmp);
-            fread(&tmp, 2, 1, in);
-            word->setIdealFontSize(tmp);
-
-            for (int nz = 0; nz < char_count; ++nz) {
-                uint16_t num;
-#pragma pack(1)
-                struct ALT_TIGER1
-                {
-                        unsigned char let, prob;
-                } alt1;
-                struct ALT_TIGER2
-                {
-                        unsigned char spellnocarrying, FlagCapDrop, spell, base;
-                        language_t language;
-                } alt2;
-#pragma pack()
-                CRtfChar * chr = new CRtfChar;
-                word->addChar(chr);
-                fread(&SRect, sizeof(Rect16), 1, in); //Ideal BOX
-                chr->setIdealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right,
-                        SRect.bottom)));
-                fread(&SRect, sizeof(Rect16), 1, in); //Real BOX
-                chr->setRealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right,
-                        SRect.bottom)));
-                fread(&num, sizeof(uint16_t), 1, in);
-                assert(num <= REC_MAX_VERS);
-                for (int i = 0; i < num; i++) {
-                    fread(&alt1, sizeof(struct ALT_TIGER1), 1, in);
-                    chr->addVersion(Letter(alt1.let, alt1.prob));
-                }
-
-                fread(&alt2, sizeof(struct ALT_TIGER2), 1, in);
-                chr->setLanguage(alt2.language);
-                chr->setSpelledNoCarrying(alt2.spellnocarrying);
-                chr->setDropCap(alt2.FlagCapDrop);
-                chr->setSpelled(alt2.spell);
-                chr->setFont(word->fontNumber());
-                chr->setFontSize(word->idealFontSize());
-            }
-        }
     }
 
+    return frag;
 }
 
 void CRtfFragment::setDrawCallback(RfrmtDrawFragmentFunction f) {

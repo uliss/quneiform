@@ -366,6 +366,12 @@ class CLA_EXPO CRtfString
         void write(CEDParagraph * line) const;
     public:
         static void setDrawCallback(RfrmtDrawStringFunction f);
+
+        /**
+         * Reads string from format file
+         * @return pointer to new string
+         */
+        static CRtfString * read(FILE * file);
     private:
         static RfrmtDrawStringFunction draw_func_;
     private:
