@@ -5,16 +5,20 @@ import os
 import sys
 import subprocess
 
-CMD = "./cuneiform -l %s -o %s -f text '../images/lang.diftest/%s.bmp'"
+os.environ['CF_DATADIR'] = "@CMAKE_SOURCE_DIR@/datafiles"
+IMAGEDIR = "@CMAKE_SOURCE_DIR@/images/lang.diftest"
+CUNEIFORM = "@CMAKE_BINARY_DIR@/cuneiform"
+
+CMD = CUNEIFORM + " -l %s -o %s -f text '" + IMAGEDIR + "/%s.bmp'"
 DATA = {'bul' : 'Bulgarian',
         'hrv' : 'Croatian',
         'cze' : 'Czech',
         'dan' : 'Danish',
         'dut' : 'Dutch',
-        'eng' : 'English2cl',
+        'eng' : 'English',
         'est' : 'Estonian',
         'fra' : 'French',
-        'ger' : 'German', 
+        'ger' : 'German',
         'hun' : 'Hungarian',
         'ita' : 'Italian',
         'lav' : 'Latvian',
@@ -33,7 +37,6 @@ DATA = {'bul' : 'Bulgarian',
 OUTPUT = "tmp.txt"
 CMD += " 2>/dev/null"
 
-os.environ['CF_DATADIR'] = "../datafiles"
 tests_passed = 0
 tests_failed = 0
 

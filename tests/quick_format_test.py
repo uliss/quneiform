@@ -3,12 +3,15 @@
 
 import os
 import sys
-import subprocess
+from subprocess import *
 
-CMD = "./cuneiform -l ger -o tmp.%s -f %s '../../cifocr/images/lang.diftest/german.bmp'"
+os.environ['CF_DATADIR'] = "@CMAKE_SOURCE_DIR@/datafiles"
+
+IMAGE = "@CMAKE_SOURCE_DIR@/images/lang.diftest/german.bmp"
+CUNEIFORM = "@CMAKE_BINARY_DIR@/cuneiform"
+
+CMD = CUNEIFORM + " -l ger -o tmp.%s -f %s '" + IMAGE + "'"
 DATA = ['text', 'textdebug', 'smarttext', 'html', 'hocr', 'odf', 'rtf', 'native']
-
-CMD += " 2>/dev/null"
 
 tests_passed = 0
 tests_failed = 0
@@ -16,7 +19,7 @@ tests_failed = 0
 for key in DATA:
     cmd = CMD % (key, key)
     #print cmd
-    retcode = subprocess.call(cmd, shell=True)
+    retcode = call(cmd, stdout=PIPE, stderr=PIPE, shell=True)
     if retcode > 0:
         print "%s failed" % key
 	tests_failed = tests_failed + 1

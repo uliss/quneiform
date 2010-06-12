@@ -26,5 +26,14 @@ if(CF_OCRTK)
     add_subdirectory(ocrtk)
 endif()
 
+configure_file(${CMAKE_SOURCE_DIR}/tests/lang_regression.py 
+    ${CMAKE_BINARY_DIR}/lang_regression.py)
+    
+configure_file(${CMAKE_SOURCE_DIR}/tests/quick_lang_test.py 
+    ${CMAKE_BINARY_DIR}/quick_lang_test.py)
+    
+configure_file(${CMAKE_SOURCE_DIR}/tests/quick_format_test.py 
+    ${CMAKE_BINARY_DIR}/quick_format_test.py)
+
 
 
