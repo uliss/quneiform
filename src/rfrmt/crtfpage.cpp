@@ -363,7 +363,7 @@ void CRtfPage::calcPageSizeNone() {
     MargT = DefMargT;
     MargB = DefMargB;
 
-    const int width = std::max(DefaultWidthPage, maxFragmentWidth() + MargL + MargR);
+    const int width = std::max((int) DefaultWidthPage, static_cast<int>(maxFragmentWidth() + MargL + MargR));
 
     page_size_.setWidth(width);
     page_size_.setHeight(DefaultHeightPage);
