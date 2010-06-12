@@ -157,7 +157,6 @@ extern uint16_t *CountRect;
 #endif
 
 #define  My_Debug ON
-#define  COLH   struct h_colh
 
 typedef void(*FMyDraw)(void);
 typedef struct tagSETUP_GENERATE_TREE {
@@ -170,10 +169,7 @@ const char *errRtf = "ED_RTF";
 Rect16 *RectFragm;
 FRAME *ArrFrm;
 
-extern int16_t SizeYGlobUpp;
 extern SUB_ALLOC SubZn;
-extern int16_t MonoSpaceAllPage;
-extern int16_t HeiStrAllPage;
 
 /*
  util     - memory alloc
@@ -183,9 +179,9 @@ extern int16_t HeiStrAllPage;
  OpenFullOutTiger  - RTF
  CalcStatTiger     - статистика об интервалах (внутри- и меж- словные и т.п.)
  */
-extern Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage,
+Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage,
                      const char* OutFileName);
-extern short OpenFullOutTiger(FILE *FileName);
+short OpenFullOutTiger(FILE *FileName);
 Bool Alik_sort_function(const void *a, const void *b);
 int CalcStatTiger(void);
 int16_t GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
@@ -209,7 +205,6 @@ void FillFieldKNOTT1(KNOTT *ptr, int16_t Left, int16_t Right, int16_t Top,
 int16_t SortHorLine1(LINE_KNOT *LineHK, int16_t NumH, LINE_KNOT *LineVK,
                      int16_t NumV, KNOTT *Root, KNOTT ***colt1, int16_t *k_colt1,
                      FRAME **frm);
-char *get2_param(char *str, char *param, int16_t max_len);
 int16_t Check_IsItFalseHorLine(int16_t recalc, int16_t reg, FRAME **frm,
                                int16_t *his, int16_t pos, int16_t len, int16_t maxh, int16_t sum,
                                int16_t len_group, int16_t *his_first_group, int16_t *his_second_group,
@@ -390,9 +385,7 @@ int statis2(TYPE *arr, int n, TYPE *med, TYPE *mod, int SizeWin, int *NumMod)
     if (SizeWin == 1) { //стандарт.гистограмма
         do0 (i, 0, n)
         ++his[arr[i] - mi];
-    }
-
-    else if (SizeWin > 1) { //огрубление гистограммы
+    } else if (SizeWin > 1) { //огрубление гистограммы
         if (SizeWin > 2)
             return -1; //!пока!
 
@@ -400,9 +393,7 @@ int statis2(TYPE *arr, int n, TYPE *med, TYPE *mod, int SizeWin, int *NumMod)
             ++his[arr[i] - mi];
             ++his[arr[i] - mi + 1];
         }
-    }
-
-    else
+    } else
         return -1;
 
     if (mod) {
@@ -481,9 +472,7 @@ int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free,
             ptr->beg = NULL;
 #endif
         }
-    }
-
-    else {
+    } else {
         do0(i, 0, k_frm) {
             f = frm[i];
             ny = (((f->up + f->down ) >> 1) - ymin) / dy;
@@ -1883,30 +1872,8 @@ int16_t SortHorLine1(LINE_KNOT *LineHK, int16_t NumH, LINE_KNOT *LineVK,
     return 0;
 }
 
-#define MAX_STYLE 100
-int16_t K_PointInInch = 72;
-float HalfPoint;
-static uint cr = 13, lf = 10;
-#define FONT_OCR struct h_font_ocr
-#define STYLE struct h_style
-#define PARAG struct h_parag
-STYLE {
-    int16_t Alignment;
-    int16_t IndentFirst, IndentLeft, IndentRight;
-    int16_t SpaceBefore, SpaceAfter, SpaceBetwLine;
-    int16_t Font, SizeFont;
-};
-PARAG {
-    int16_t NumStyle; //Индекс в табл. стилей
-    int16_t BegStr, EndStr; //Гранич. строки абзаца
-    SRECT bnd;
-    int16_t MaxSize;
-}; //
-COLH {
+struct COLH {
     SRECT bnd;/*рамка объединения*/
-};
-FONT_OCR {
-    char *FileBase;
 };
 
 //==
@@ -2911,39 +2878,6 @@ void MyUnionRect(SRECT *s1, SRECT *s2, SRECT *u)
     u->right = MAX(s1->right, s2->right);
     u->top = MIN(s1->top, s2->top);
     u->bottom = MAX(s1->bottom, s2->bottom);
-}
-
-//==
-char *get2_param(char *str, char *param, int16_t max_len)
-//==
-{
-    int16_t len;
-    len = -1;
-
-    while (str[++len] == ' ')
-        ;
-
-    str += len;/*Убираем пробелы слева от параметра*/
-    len = -1;
-
-    while (++len < max_len && str[len] != ' ') { /*Поиск первого пробела справа*/
-        if ((param[len] = str[len]) == 0)
-            break; /*Detect END STRING*/
-
-        if (len && (uint) str[len - 1] == cr && (uint) str[len] == lf) { /*Detect <cr><lf>*/
-            --len;
-            break;
-        }
-    }
-
-    /*Если параметр очень длинный, возвращаем неудачу его выделения*/
-    if (len < max_len - 1)
-        param[len] = 0;
-
-    else
-        param[len = 0] = 0;
-
-    return str + len;
 }
 
 #ifdef alDebug
