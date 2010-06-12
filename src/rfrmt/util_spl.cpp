@@ -56,11 +56,7 @@
 
 #define TIGER_CORR       //alik
 #include "lst3_win.h"
-#ifdef SPELL_NEW
-#include "b_open.h"
-#include "spell.h"
-#include "lm.h"
-#endif
+#include <stdlib.h>
 
 #ifndef WIN_MOD
 #define LST_WWIN

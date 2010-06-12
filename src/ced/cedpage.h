@@ -39,6 +39,12 @@ class FUN_EXPO__ CEDPage
         void clearSections();
 
         /**
+         * Adds font to page font table
+         */
+        bool createFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
+                const char* fontName);
+
+        /**
          * Returns pointer to picture by given picture number
          * @return NULL if nothing found
          */
@@ -207,8 +213,6 @@ class FUN_EXPO__ CEDPage
         int GetNumberOfLines();
         int GetNumberOfChars();
 
-        Bool32 CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
-                const char* fontName);
         Bool32 GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily,
                 uchar* fontCharset, char** fontName);
 

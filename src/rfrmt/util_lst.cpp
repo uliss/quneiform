@@ -56,10 +56,7 @@
 
 #include "lst3_win.h"
 #include "aldebug.h"
-
-#ifdef WIN32
-#include "snptools.h"
-#endif
+#include <stdlib.h>
 
 #ifdef alDebug
 extern short FlagGraphic1, Graphic1Color;

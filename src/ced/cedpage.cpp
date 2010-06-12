@@ -429,14 +429,10 @@ int CEDPage::GetNumberOfChars() {
     return i + 1;
 }
 
-Bool32 CEDPage::CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
+bool CEDPage::createFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fontCharset,
         const char* fontName) {
     if (fontsUsed >= fontsCreated) {
-        fontEntry* tmp;
-        tmp = new fontEntry[fontsCreated + FONTS_STEPPING];
-
-        if (!tmp)
-            return FALSE;
+        fontEntry * tmp = new fontEntry[fontsCreated + FONTS_STEPPING];
 
         if (fontTable) {
             memcpy(tmp, fontTable, sizeof(fontEntry) * fontsCreated);
@@ -452,15 +448,15 @@ Bool32 CEDPage::CreateFont(uchar fontNumber, uchar fontPitchAndFamily, uchar fon
     fontTable[fontsUsed].fontCharset = fontCharset;
 
     if (!fontName)
-        return FALSE;
+        return false;
 
     fontTable[fontsUsed].fontName = strdup(fontName);
 
     if (!fontTable[fontsUsed].fontName)
-        return FALSE;
+        return false;
 
     fontsUsed++;
-    return TRUE;
+    return true;
 }
 
 Bool32 CEDPage::GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily,

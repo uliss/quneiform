@@ -161,7 +161,7 @@ void NewFormattedE(const edExtention* pt, const void* ptExt) {
         fontDiscr *fond = (fontDiscr *) ptExt;
 
         while ((char*) fond - (char*) ptExt < signed(pt->length - sizeof(edExtention))) {
-            mainPage->CreateFont(fond->fontNumber, fond->fontPitchAndFamily, fond->fontCharset,
+            mainPage->createFont(fond->fontNumber, fond->fontPitchAndFamily, fond->fontCharset,
                     (char*) fond + sizeof(fontDiscr));
             fond = (fontDiscr *) ((char*) fond + fond->size);
         }

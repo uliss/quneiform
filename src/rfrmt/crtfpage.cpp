@@ -39,6 +39,8 @@
 // cpage module
 #include "cpage/cpage.h"
 
+#include "minmax.h"
+
 extern uint32_t CountPict;
 extern uint32_t CountTable;
 uchar Frmt_CharSet = (uchar) 204;
@@ -922,7 +924,7 @@ void CRtfPage::writeFonts() {
     fonts.push_back(FontEntry(FF_SWISS, "Arial Narrow"));
 
     for (size_t i = 0; i < fonts.size(); i++) {
-        ced_page_->CreateFont(i, fonts[i].first, Frmt_CharSet, fonts[i].second.c_str());
+        ced_page_->createFont(i, fonts[i].first, Frmt_CharSet, fonts[i].second.c_str());
     }
 }
 
