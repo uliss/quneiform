@@ -390,7 +390,6 @@ DEC_FUN(Handle, CED_CreateTableRow, (Handle hEdSection, Handle hEdTable, int lef
 DEC_FUN(Handle, CED_CreateCell, (Handle hEdSection, Handle hEdRow, int cellX, int merging, int vertTextAlign, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, EDBOX layout, int shading, int color))
 DEC_FUN(Bool32, CED_SetCellFlag, (Handle hEdCell, int flag))
 DEC_FUN(Bool32, CED_WriteFormattedEd, (const char * lpEdFileName, Handle hEdPage))
-DEC_FUN(uint32_t, CED_GetNumberOfParagraphs, (Handle hEdPage))
 DEC_FUN(Handle, CED_GetParagraph, (Handle hEdPage, int _num))
 DEC_FUN(Bool32, CED_GetSectLineBetCol, (Handle hEdSection))
 DEC_FUN(CIF::Rect, CED_GetSectionBorder, (Handle hEdSection))

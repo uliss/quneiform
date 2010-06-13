@@ -25,7 +25,7 @@
 
 namespace CIF {
 
-class FUN_EXPO__ CEDSection
+class CLA_EXPO CEDSection
 {
     public:
         int numberOfColumns; // The number of columns in the section (n pieces)

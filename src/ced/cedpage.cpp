@@ -253,16 +253,8 @@ CEDSection * CEDPage::GetCurSection() {
     return curSect;
 }
 
-int CEDPage::GetNumOfCurSection() {
-    return curSect->internalNumber;
-}
-
 CEDSection * CEDPage::NextSection() {
     return curSect->next;
-}
-
-CEDSection * CEDPage::PrevSection() {
-    return curSect->prev;
 }
 
 CEDSection * CEDPage::section(int _num) {
@@ -313,118 +305,8 @@ CEDChar * CEDPage::GetChar(int _num) {
     return ss;
 }
 
-Bool32 CEDPage::GoToNextSection() {
-    if (curSect && curSect->next) {
-        curSect = curSect->next;
-        return TRUE;
-    }
-
-    else
-        return FALSE;
-}
-
-Bool32 CEDPage::GoToNextParagraph(Bool32 NonFictiveOnly) {
-    if (curSect && curSect->curPara && curSect->curPara->next) {
-        CEDParagraph * para = curSect->curPara;
-        CEDSection* sect = curSect;
-
-        do {
-            if (curSect->curPara->next->parentNumber == curSect->curPara->parentNumber)
-                curSect->curPara = curSect->curPara->next;
-
-            else {
-                curSect = curSect->next;
-                curSect->curPara = curSect->paragraphs;
-            }
-        } while (NonFictiveOnly && (curSect->curPara->type & FICTIVE) && curSect->curPara->next);
-
-        if (NonFictiveOnly && (curSect->curPara->type & FICTIVE)) {
-            curSect = sect;
-            curSect->curPara = para;
-            return FALSE;
-        }
-
-        else
-            return TRUE;
-    }
-
-    else
-        return FALSE;
-}
-
-Bool32 CEDPage::GoToNextLine() {
-    CEDLine * aa;
-
-    if (curSect && curSect->curPara && curSect->curPara->curLine && (aa
-            = curSect->curPara->curLine->next())) {
-        CEDParagraph *qq = GetParagraph(curSect->curPara->curLine->next()->parentNumber());
-        CEDSection * ss = section(qq->parentNumber);
-        curSect = ss;
-        curSect->curPara = qq;
-        curSect->curPara->curLine = aa;
-        return TRUE;
-    }
-
-    else
-        return FALSE;
-}
-
-Bool32 CEDPage::GoToNextChar() {
-    CEDChar * ww;
-
-    if (curSect && curSect->curPara && curSect->curPara->curLine
-            && curSect->curPara->curLine->currentChar() && (ww
-            = curSect->curPara->curLine->currentChar()->next())) {
-        CEDLine * aa = GetLine(curSect->curPara->curLine->currentChar()->next()->parentNumber());
-        CEDParagraph *qq = GetParagraph(aa->parentNumber());
-        CEDSection * ss = section(qq->parentNumber);
-        curSect = ss;
-        curSect->curPara = qq;
-        curSect->curPara->curLine = aa;
-        curSect->curPara->curLine->setCurrentChar(ww);
-        return TRUE;
-    }
-
-    else
-        return FALSE;
-}
-
 int CEDPage::sectionCount() const {
     return section_num_;
-}
-
-int CEDPage::GetNumberOfParagraphs() {
-    if (!GetParagraph(0))
-        return 0;
-
-    int i = 0;
-
-    for (CEDParagraph *qq = GetParagraph(0); qq->next; qq = qq->next)
-        i++;
-
-    return i + 1;
-}
-int CEDPage::GetNumberOfLines() {
-    if (!GetLine(0))
-        return 0;
-
-    int i = 0;
-
-    for (CEDLine *qq = GetLine(0); qq->next(); qq = qq->next())
-        i++;
-
-    return i + 1;
-}
-int CEDPage::GetNumberOfChars() {
-    if (!GetChar(0))
-        return 0;
-
-    int i = 0;
-
-    for (CEDChar *qq = GetChar(0); qq->next(); qq = qq->next())
-        i++;
-
-    return i + 1;
 }
 
 Bool32 CEDPage::GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily,

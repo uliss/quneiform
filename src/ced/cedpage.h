@@ -211,15 +211,6 @@ class CLA_EXPO CEDPage
         CEDLine * GetLine(int _num);
         CEDChar * GetChar(int _num);
 
-        Bool32 GoToNextSection();
-        Bool32 GoToNextParagraph(Bool32 NonFictiveOnly);
-        Bool32 GoToNextLine();
-        Bool32 GoToNextChar();
-
-        int GetNumberOfParagraphs();
-        int GetNumberOfLines();
-        int GetNumberOfChars();
-
         Bool32 GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily,
                 uchar* fontCharset, const char** fontName);
 
@@ -232,10 +223,8 @@ class CLA_EXPO CEDPage
         //sets pointer to the inserted one
 
         CEDSection * GetCurSection(); //returns current section
-        int GetNumOfCurSection(); //returns current section
 
         CEDSection * NextSection(); //returns next section, 0 if last
-        CEDSection * PrevSection(); //return previous section, 0 if first
 
         int NumberOfParagraphs, NumberOfLines, NumberOfChars;
         int section_num_;

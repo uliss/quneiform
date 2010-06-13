@@ -366,10 +366,6 @@ CED_FUNC(Bool32) CED_WriteFormattedEd(const char * lpEdFileName, Handle hEdPage)
     return ret;
 }
 
-CED_FUNC(uint32_t) CED_GetNumberOfParagraphs(Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->GetNumberOfParagraphs();
-}
-
 CED_FUNC(Handle) CED_GetParagraph(Handle hEdPage, int _num) {
     return ((CEDPage*) hEdPage)->GetParagraph(_num);
 }
