@@ -119,7 +119,7 @@ void CRtfWord::clearChars() {
 }
 
 void CRtfWord::drawLayout() const {
-    if(!draw_func_.empty())
+    if (!draw_func_.empty())
         draw_func_(this);
 }
 
@@ -196,6 +196,59 @@ short CRtfWord::charProbability() const {
 
 short CRtfWord::probability() const {
     return probability_;
+}
+
+CRtfWord * CRtfWord::read(FILE * in) {
+    assert(in);
+
+    int16_t tmp;
+    ::Rect16 SRect;
+
+    CRtfWord * word = new CRtfWord;
+
+    fread(&tmp, 2, 1, in);
+    const int char_count = tmp;
+    fread(&tmp, 2, 1, in);
+    word->setFontNumber(tmp);
+    fread(&tmp, 2, 1, in);
+    word->setIdealFontSize(tmp);
+
+    for (int nz = 0; nz < char_count; ++nz) {
+        uint16_t num;
+#pragma pack(1)
+        struct ALT_TIGER1
+        {
+                unsigned char let, prob;
+        } alt1;
+        struct ALT_TIGER2
+        {
+                unsigned char spellnocarrying, FlagCapDrop, spell, base;
+                language_t language;
+        } alt2;
+#pragma pack()
+        CRtfChar * chr = new CRtfChar;
+        word->addChar(chr);
+        fread(&SRect, sizeof(Rect16), 1, in); //Ideal BOX
+        chr->setIdealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
+        fread(&SRect, sizeof(Rect16), 1, in); //Real BOX
+        chr->setRealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
+        fread(&num, sizeof(uint16_t), 1, in);
+        assert(num <= REC_MAX_VERS);
+        for (int i = 0; i < num; i++) {
+            fread(&alt1, sizeof(struct ALT_TIGER1), 1, in);
+            chr->addVersion(Letter(alt1.let, alt1.prob));
+        }
+
+        fread(&alt2, sizeof(struct ALT_TIGER2), 1, in);
+        chr->setLanguage(alt2.language);
+        chr->setSpelledNoCarrying(alt2.spellnocarrying);
+        chr->setDropCap(alt2.FlagCapDrop);
+        chr->setSpelled(alt2.spell);
+        chr->setFont(word->fontNumber());
+        chr->setFontSize(word->idealFontSize());
+    }
+
+    return word;
 }
 
 short CRtfWord::realFontSize() const {

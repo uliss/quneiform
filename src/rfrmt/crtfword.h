@@ -183,6 +183,12 @@ class CLA_EXPO CRtfWord
          * Writes word to CEDLine
          */
         void write(CEDLine * line) const;
+    public:
+        /**
+         * Reads CRtfWord from file
+         * @return pointer to new word
+         */
+        static CRtfWord * read(FILE * in);
     private:
         void calcBRect();
         void calcProbability();
