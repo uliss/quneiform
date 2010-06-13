@@ -202,6 +202,7 @@ class CLA_EXPO CRtfChar
         CEDChar * write(CEDLine * line) const;
     public:
         static CEDChar * makeCedSpace(int fontName, int fontSize, int fontAttrs);
+        static CRtfChar * read(FILE * in);
         static void setDrawCallback(RfrmtDrawCharFunction f);
     private:
         static RfrmtDrawCharFunction draw_func_;

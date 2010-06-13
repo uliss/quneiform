@@ -133,6 +133,40 @@ CEDChar * CRtfChar::makeCedSpace(int fontName, int fontSize, int fontAttrs) {
     return chr;
 }
 
+CRtfChar * CRtfChar::read(FILE * in) {
+    CRtfChar * chr = new CRtfChar;
+
+    ::Rect16 SRect;
+    fread(&SRect, sizeof(Rect16), 1, in); //Ideal BOX
+    chr->setIdealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
+    fread(&SRect, sizeof(Rect16), 1, in); //Real BOX
+    chr->setRealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
+
+    uint16_t num;
+    fread(&num, sizeof(uint16_t), 1, in);
+    assert(num <= REC_MAX_VERS);
+    for (int i = 0; i < num; i++) {
+        uchar letter, prob;
+        fread(&letter, 1, 1, in);
+        fread(&prob, 1, 1, in);
+        chr->addVersion(Letter(letter, prob));
+    }
+
+    uchar spellnocarrying, capdrop, spell, base, language;
+    fread(&language, 1, 1, in);
+    fread(&spellnocarrying, 1, 1, in);
+    fread(&capdrop, 1, 1, in);
+    fread(&spell, 1, 1, in);
+    fread(&base, 1, 1, in);
+
+    chr->setLanguage(static_cast<language_t> (language));
+    chr->setSpelledNoCarrying(spellnocarrying);
+    chr->setDropCap(capdrop);
+    chr->setSpelled(spell);
+
+    return chr;
+}
+
 Rect CRtfChar::realRect() const {
     return real_rect_;
 }

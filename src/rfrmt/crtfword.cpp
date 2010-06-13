@@ -214,38 +214,10 @@ CRtfWord * CRtfWord::read(FILE * in) {
     word->setIdealFontSize(tmp);
 
     for (int nz = 0; nz < char_count; ++nz) {
-        uint16_t num;
-#pragma pack(1)
-        struct ALT_TIGER1
-        {
-                unsigned char let, prob;
-        } alt1;
-        struct ALT_TIGER2
-        {
-                unsigned char spellnocarrying, FlagCapDrop, spell, base;
-                language_t language;
-        } alt2;
-#pragma pack()
-        CRtfChar * chr = new CRtfChar;
-        word->addChar(chr);
-        fread(&SRect, sizeof(Rect16), 1, in); //Ideal BOX
-        chr->setIdealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
-        fread(&SRect, sizeof(Rect16), 1, in); //Real BOX
-        chr->setRealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
-        fread(&num, sizeof(uint16_t), 1, in);
-        assert(num <= REC_MAX_VERS);
-        for (int i = 0; i < num; i++) {
-            fread(&alt1, sizeof(struct ALT_TIGER1), 1, in);
-            chr->addVersion(Letter(alt1.let, alt1.prob));
-        }
-
-        fread(&alt2, sizeof(struct ALT_TIGER2), 1, in);
-        chr->setLanguage(alt2.language);
-        chr->setSpelledNoCarrying(alt2.spellnocarrying);
-        chr->setDropCap(alt2.FlagCapDrop);
-        chr->setSpelled(alt2.spell);
+        CRtfChar * chr = CRtfChar::read(in);
         chr->setFont(word->fontNumber());
         chr->setFontSize(word->idealFontSize());
+        word->addChar(chr);
     }
 
     return word;
