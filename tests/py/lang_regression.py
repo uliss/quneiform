@@ -29,17 +29,25 @@ LANGS = {'bul' : 'Bulgarian',
         'ukr' : 'Ukrainian'                 
          }
 
-fmtTest = cf.Tester('lang.diftest')
-fmtTest.setFormat('textdebug')
-fmtTest.setSampleExt('txt')
-fmtTest.setLineBreaks(True)
+def test():
+    fmtTest = cf.Tester('lang.diftest')
+    fmtTest.setFormat('textdebug')
+    fmtTest.setSampleExt('txt')
+    fmtTest.setLineBreaks(True)
+    
+    for key, lang in sorted(LANGS.iteritems()):
+        fmtTest.setLanguage(key)
+        img = fmtTest.makeFullImageName('%s.bmp' % lang.lower())
+        if not fmtTest.diffTest(img):
+            fmtTest.accuracy(img)
+            
+    if fmtTest.passed():
+        return True
+    else:
+        if __name__ == '__main__':
+            sys.exit(1)
+        else:
+            return False
 
-for key, lang in sorted(LANGS.iteritems()):
-    fmtTest.setLanguage(key)
-    img = fmtTest.makeFullImageName('%s.bmp' % lang.lower())
-    if not fmtTest.diffTest(img):
-        fmtTest.accuracy(img)
-        
-if not fmtTest.passed():
-    sys.exit(1)
-
+if __name__ == '__main__':
+    test()

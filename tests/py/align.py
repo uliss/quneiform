@@ -11,11 +11,21 @@ INPUT_FILES = (
     'align_right.png'
 )
 
-fmtTest = cf.Tester('format')
-fmtTest.setFormat('html')
-
-for img in INPUT_FILES:
-    fmtTest.diffTest(fmtTest.makeFullImageName(img))
+def test():
+    fmtTest = cf.Tester('format')
+    fmtTest.setFormat('html')
+    
+    for img in INPUT_FILES:
+        fmtTest.diffTest(fmtTest.makeFullImageName(img))
         
-if not fmtTest.passed():
-    sys.exit(1)
+    if fmtTest.passed():
+        return True
+    else:
+        if __name__ == '__main__':
+            sys.exit(1)
+        else:
+            return False
+
+if __name__ == '__main__':
+    test()
+
