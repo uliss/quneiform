@@ -35,7 +35,6 @@ install(FILES
     crtfpage.h
     crtffragment.h
     crtfstruct.h
-    font.h
     formatoptions.h 
     rfrmtoptions.h
     DESTINATION 
