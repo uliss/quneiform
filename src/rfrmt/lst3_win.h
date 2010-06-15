@@ -348,8 +348,6 @@ extern float MulScanRes;
 #define DIST_V(u1,d1,u2,d2) (MIN(d1,d2)-MAX(u1,u2))
 
 //---------ОПИСАНИЕ ЛИНИЙ------------
-
-#include "lindefs.h"
 //--Ориентация линии--
 enum
 {
