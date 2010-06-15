@@ -85,7 +85,6 @@
 
 #include "dpuma.h"
 
-#define MAIN
 #define ZAGL
 #define TABL__ ON
 
@@ -171,6 +170,10 @@ Rect16 *RectFragm;
 FRAME *ArrFrm;
 
 extern SUB_ALLOC SubZn;
+
+int SizeYGlob;
+uint16_t ScanResolution;
+float MulScanRes;//Разрешения сканера и нормир.множитель
 
 /*
  util     - memory alloc

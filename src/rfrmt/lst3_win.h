@@ -54,9 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//ifdef EXACT_REG => read_frm use cutted rect
-//#define EXACT_REG
-
 #include <sys/types.h>
 
 #include "cfcompat.h"
@@ -272,38 +269,10 @@ struct SPEC
         uint reg :1, typ :4, lev :4, end :1, buf :6;
 };
 
-#define ORDER(arg)  ((SPEC*) &arg) -> typ
-
 const int MAXFILENAME = 256;
 const int MAX_BLOC = 10;
 const int MIN_KNOT = 10;
 #define SIZE_SEG 65500
-
-#ifndef BITS32
-#define MAX_FRAME 16300
-#else
-#define MAX_FRAME 32000
-#endif
-
-#define P 0
-#define R 1
-#define S 2
-#define PROP 0
-#define LEFT 0
-#define RIGHT 1
-#define CENTER 3
-#define PI 3.1415926
-#define UNDEF 2
-
-//Для 4-байт. записи
-#define END_WORD(arg)    ((POS_BIT*) &arg)->word
-#define END_SYM(arg)     ((POS_BIT*) &arg)->sym
-#define COMMA(arg)       ((POS_BIT*) &arg)->comma
-#define BEG_PARAG(arg)   ((POS_BIT*) &arg)->parag
-#define JOIN_COMP(arg)   ((POS_BIT*) &arg)->JoinComp
-#define INDICE(arg)      ((POS_BIT*) &arg)->Index
-#define FRACT(arg)       ((POS_BIT*) &arg)->Fract
-#define MULTI_POINT(arg) ((POS_BIT*) &arg)->MultiPoint
 
 //Общие надстройки 4-8-байтные
 #ifdef ID4
@@ -312,79 +281,11 @@ const int MIN_KNOT = 10;
 #define BIT_POSITION POS_BIT8
 #endif
 
-#define END_WORD1(arg)    ((BIT_POSITION*) &arg)->word
-#define END_SYM1(arg)     ((BIT_POSITION*) &arg)->sym
-#define COMMA1(arg)       ((BIT_POSITION*) &arg)->comma
 #define BEG_PARAG1(arg)   ((BIT_POSITION*) &arg)->parag
-#define JOIN_COMP1(arg)   ((BIT_POSITION*) &arg)->JoinComp
-#define INDICE1(arg)      ((BIT_POSITION*) &arg)->Index
-#define FRACT1(arg)       ((BIT_POSITION*) &arg)->Fract
-#define MULTI_POINT1(arg) ((BIT_POSITION*) &arg)->MultiPoint
-
-#define CUT_COMP(arg)  ((POS1_BIT*) &arg)->cut_comp
-#define DOWNL(arg)     ((POS1_BIT*) &arg)->DownL
-#define HEAD_LINE(arg) ((POS_STR*) &arg)->HeadLine
-
-#define SPACE_MAX 200
-
-/*Режим TREE1 - генерация дерева структуры общего вида (объемная по памяти операция)
- иначе дерево в ОЗУ не генерится*/
-/*#define TREE1*/
-/*-----Графика-----*/
-#define EGA 16
-#define CGA 4
-#ifndef ZAGL
-extern int nxn, nyn, nxk, nyk, KX, KY, gr_regim;
-extern float xnn, ynn, xkk, ykk, xmm, ymm;
-#else
-int nxn, nyn, nxk, nyk, KX, KY, gr_regim;
-float xnn, ynn, xkk, ykk, xmm, ymm;
-#endif
 
 int shift(void);
 
 void mess(char *s1, char *s2, char *s3, char *s4);
-
-#ifdef ZAGL
-int Esc = 27, Enter = 13, Del = 1083, Delete = 1008, Tab = 1009, Home = 1071, End1 = 1079,
-Ins = 1082, Up = 1072, Down = 1080, Left = 1075, Right = 1077, PgUp = 1073, PgDown = 1081,
-CtrlEsc = 2027, CtrlEnter = 2010, CtrlDel = 2127, CtrlDelete = 2147, CtrlTab = 2148,
-CtrlHome = 2119, CtrlEnd = 2117, CtrlIns = 2146, CtrlUp = 2141,
-CtrlDown = 2145, CtrlLeft = 2115, CtrlRight = 2116, CtrlPgUp = 2132, CtrlPgDown = 2118,
-AltEsc = 3001, AltEnter = 3028, AltDel = 3014, AltDelete = 3163, AltTab = 3165,
-AltHome = 3151, AltEnd = 3159, AltIns = 3162, AltUp = 3152,
-AltDown = 3160, AltLeft = 3155, AltRight = 3157, AltPgUp = 3153, AltPgDown = 3161,
-ShiftEsc = 4027, ShiftEnter = 4013, ShiftDel = 4083, ShiftDelete = 4008, ShiftTab = 4009,
-ShiftHome = 4071, ShiftEnd = 4079, ShiftIns = 4082, ShiftUp = 4072, ShiftDown = 4080,
-ShiftLeft = 4075, ShiftRight = 4077, ShiftPgUp = 4073, ShiftPgDown = 4081;
-#else
-extern int Esc, Enter, Del, Delete, Tab, Home, End1, Ins, Up, Down, Left, Right, PgUp, PgDown,
-        CtrlEsc, CtrlEnter, CtrlDel, CtrlDelete, CtrlTab, CtrlHome, CtrlEnd, CtrlIns, CtrlUp,
-        CtrlDown, CtrlLeft, CtrlRight, CtrlPgUp, CtrlPgDown, AltEsc, AltEnter, AltDel, AltDelete,
-        AltTab, AltHome, AltEnd, AltIns, AltUp, AltDown, AltLeft, AltRight, AltPgUp, AltPgDown,
-        ShiftEsc, ShiftEnter, ShiftDel, ShiftDelete, ShiftTab, ShiftHome, ShiftEnd, ShiftIns,
-        ShiftUp, ShiftDown, ShiftLeft, ShiftRight, ShiftPgUp, ShiftPgDown;
-#endif
-#pragma pack(1)
-#define PRS_ONE1 struct h_prs_one1
-//Вариации описания pole_bit
-#ifdef PRS_T
-typedef unsigned short PRS_ONE;
-#define WIDTH_PRS 2
-#else
-#define PRS_ONE struct h_prs_one
-PRS_ONE1
-{
-        uchar code;
-        uint16_t metri;
-};
-PRS_ONE
-{
-        uint typ :2, het :1, scob :1, dummi :12;
-        uchar dummi1;
-};
-#define WIDTH_PRS 3
-#endif
 
 #pragma pack(2)
 /*-------------Прототипы ф-ций-------------*/
@@ -402,15 +303,6 @@ int search_int(int *x, int n, int a);
 typedef int TYPE; /*тип сортируемых данных*/
 int MaxArr(int *x, int n, int *PosExtr);
 int MinArr(int *x, int n, int *PosExtr);
-/*Кластер-анализ с использованием АС*/
-#define MAX_ENV 100
-#define DIST_LETTER 0
-#define DIST_WORD 1
-#define DIST_COL 2
-#define DIST_LINE 3
-#define DIST_LINE1 4
-#define DIST_DOT 5
-#define DIST_DIAG 6
 int Statist(int *arr, int n, int *ave, int *sig, int *med, int *mod, int regim);
 int statis2(TYPE *arr, int n, TYPE *med, TYPE *mod, int SizeWin, int *NumMod);
 int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod, int regim);
@@ -420,153 +312,66 @@ int cut_str(FRAME ****str1, int **ksym1, int *k_str1, FRAME ***frms1, int size_x
 int CutComp(FRAME ***str, int *ksym, int k_str, FRAME **frms, FRAME **frm, int *k_frm);
 
 //==Колонизация==
-#define UNSORT 0
-#define HOR    1
-#define VER    2
-#define TERM   3
-#define MATR   4
-#define IND    5
-#define TREE   6
-#define PAIR   7
-#define TABL   8
-#define FORMUL 9
-#define SLOPE  10
-#define MAX_LEV  6 /*макс.число уровней*/
-//==Иерархич.индекс==
-#define LET 1
-#define WRD 2
-#define STR 3
-#define COL 4
-#define COLVT 5
-#define MAX_COL 45 /*Макс.число терминал. колонок*/
+enum
+{
+    UNSORT = 0,
+    HOR = 1,
+    VER = 2,
+    TERM = 3,
+    MATR = 4,
+    IND = 5,
+    TREE = 6,
+    PAIR = 7,
+    TABL = 8,
+    FORMUL = 9,
+    SLOPE = 10
+};
+
+/*макс.число уровней*/
+const int MAX_LEV = 6;
+/*Макс.число терминал. колонок*/
+const int MAX_COL = 45;
 /*Рамки всех уровней, кроме компонент, связаны в списки по уровням*/
 //---Колонизация "снизу-вверх"----
 int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free, int value, AS *As,
         RECT Rect);
 
-#ifndef MAIN
-extern PAR par;
-extern int viz, extr;
-extern long na, ko, pos1;
-extern FILE *fip, *out, *out_rb;
-extern long PRSMAX;
-extern void *low; /*нижняя граница загрузки программы - для контроля*/
-extern char *s1, *s2, *s3; /*Сообщения для интерактива*/
-extern char *abcd;
-extern int count, rou;
-extern int h_term;
-extern STAT_COL stat_col;
-extern int dx_prs, dy_prs;
-extern int k_prop, k_mono;
-extern int upi;
-extern char dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
-extern char Fullpath[255];
-extern int SizeXGlob, SizeYGlob;
-extern REFER *fiv;
-extern int NumCut;
-extern FRAME *Cut;
-extern int SizeX_W, SizeY_W;
-extern float AveNumCrossCol, AveNumCross1Col, AveThickCol, AveThick1Col;
-extern int KbAll;
-extern int CountCol, Percent1, Percent2, Percent3, NumColt;
-extern char FileParStr[MAXFILENAME];
+extern int SizeYGlob;
 extern uint16_t ScanResolution;
 extern float MulScanRes;
-extern int Break_on;
-extern FUN_POMP pump;
-extern FUN_MESS FunMessage;
-extern int WidthPRS, MaxShtrih;
-#else
-PAR par;
-int viz = 0, extr = 0;
-long na = 0, ko = -1, pos1;
-FILE *fip, *out, *out_rb;
-long PRSMAX;
-void *low; /*нижняя граница загрузки программы - для контроля*/
-const char *s1 = "Esc - continue;", *s2 = "Up,Down,Left,Right - Move image;",
-*s3 = "Ctrl/<Up,Down,Left,Right> - Scale image";
-const char *abcd = "|\\-/";
-int count = 0, rou = 0;
-int h_term;/*Счетчик текущей высоты PRS-линии(для записи в терминатор)*/
-STAT_COL stat_col;/*Статистика по строкам текущей колонки*/
-int dx_prs, dy_prs;/*Габариты PRS-файла*/
-int k_prop, k_mono;//Кол-ва пропорц. и моноспейс. колонок и общая оценка моноспейса
-int upi;/*Счетчик строк для рисовалки*/
-char drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
-char Fullpath[255];
-//char NameFuncErr[100],Buff[60]; int NumErr;
-int SizeXGlob, SizeYGlob;
-REFER *fiv;
-int NumCut;
-FRAME *Cut; //Счетчик и буфер разрезанных компонент
-int SizeX_W, SizeY_W;
-float AveNumCrossCol, AveNumCross1Col, AveThickCol, AveThick1Col;
-int KbAll;
-int CountCol, Percent1 = 5, Percent2 = 55, Percent3 = 40, NumColt;
-char FileParStr[MAXFILENAME];
-uint16_t ScanResolution;
-float MulScanRes;//Разрешения сканера и нормир.множитель
-int Break_on = 0; // if == 1 => break process
-FUN_POMP pump; // вставляем в цикле
-FUN_MESS FunMessage; //в режиме DLL вместо SendMessage
-int WidthPRS, MaxShtrih;
-#endif
 
 /*Макросы*/
 /*dv - вертикал. размер=минимуму из невязок низов,верхов и середин
  dg - горизонт. размер - расстояние между рамками по горизонтали,
  если они не перекрываются, либо размер перекрытия*/
 
-#define dist_frm(f1,f2,dist) { int dv,d_up;\
-  d_up=  abs(f1->up - f2->up); \
-  dv=abs(f1->down - f2->down); if(d_up < dv) dv=d_up; \
-  dist=abs(MAX(f1->left,f2->left) - MIN(f1->right,f2->right));\
-  dist+=par.kv*dv; \
-}
-
 #define DIST_V(u1,d1,u2,d2) (MIN(d1,d2)-MAX(u1,u2))
-
-#define DV_FRM(a,b) DIST_V(a->up,a->down,b->up,b->down)
-
-#define DH_FRM(a,b) DIST_V(a->left,a->right,b->left,b->right)
-
-//Мин.расст. м/точками рамок *f1,*f2, long Zv,Zh
-#define DIST_MIN_FRM(f1,f2) \
-  ((Zv=DIST_V(f1->up,f1->down,f2->up,f2->down)), \
-  (Zh=DIST_V(f1->left,f1->right,f2->left,f2->right)), \
-  (Zv >= 0 ? ((Zh < 0) ? Zh*Zh : 0) : ((Zh >= 0) ? Zv*Zv : Zh*Zh+Zv*Zv)))
-//Мера сх-ва <0,1> с раздел.порогами ph,pv по обеим коор-там, int ZZv,ZZh
-
-#define DIST_FRM_COL(f1,f2,ph,pv) \
-  ((ZZv=DIST_V(f1->up,f1->down,f2->up,f2->down)), \
-  (ZZh=DIST_V(f1->left,f1->right,f2->left,f2->right)), \
-  (ZZv >= pv && ZZh >= ph ? 1:0))
 
 //---------ОПИСАНИЕ ЛИНИЙ------------
 
 #include "lindefs.h"
-//--Диагностика тестировщика структуры линий--
-#define NULL_LINE 1
-#define NULL_THICK 2
-#define COINCIDE_STRETCH 4
 //--Ориентация линии--
-#define HOR_LINE 1
-#define VER_LINE 2
-#define SLOPE_LINE 4
+enum
+{
+    HOR_LINE = 1, VER_LINE = 2
+};
+
 //--Тип линии--
-#define SOLID_LINE  0
-#define DOUBLE_LINE 1
-#define THICK_LINE  2
-#define HIDDEN_LINE 3
-#define DOT_LINE    4
-#define MAX_TYPE_LINE 6
+enum
+{
+    SOLID_LINE = 0,
+    DOUBLE_LINE = 1,
+    THICK_LINE = 2,
+    HIDDEN_LINE = 3,
+    DOT_LINE = 4,
+    MAX_TYPE_LINE = 6
+};
+
 //--Начал. или конеч. (.) отрезка--
-#define POINT_BEG 1
-#define POINT_END 2
-//Мин.тангенс, при котором еще делаем поворот всей системы линий
-//fi|10'  |20'  |30'  |60'  |90'  |120' |150' |180' |210' |
-//tg|.0029|.0058|.0087|.0175|.0262|.0349|.0437|.0524|.0612|
-#define MIN_TANG .001
+enum
+{
+    POINT_BEG = 1, POINT_END = 2
+};
 
 #pragma pack(1)
 
@@ -582,21 +387,11 @@ typedef struct hSTRET
         void *ptr; //вспомогат. ук-ль (для FindDot)
 } STRET;
 
-typedef struct hSTRET_P
-{
-        STRET *Stret;
-        short Feat; //POINT_BEG || POINT_END
-} STRET_P;
-
 //пересчет к не300-dpi SCAN RESOLUTION
 #define NORM_SCAN(value) ((int)(MulScanRes*value))
 //Диагностика
 #include "tabl.h"
-#define NOT_ALLOC -3
-
-//TypeCall: CALL_BOX - without open output PRN-file, CALL_STR - with ...
-#define CALL_STR 0
-#define CALL_BOX 1
+const int NOT_ALLOC = -3;
 
 #pragma pack()
 
