@@ -57,39 +57,14 @@
 //ifdef EXACT_REG => read_frm use cutted rect
 //#define EXACT_REG
 
-#include "sys_prog.h"
 #include <sys/types.h>
 
 #include "cfcompat.h"
 #include "minmax.h"
 
 #define OLD_COOR
-#ifdef __STR_DLL__
-#define KREST
-#define PRAFAX
-#endif
 
-#define DEB_PRA
-#ifndef BLANK
-#define SPLIT_COL
-//--Отделение графики
-#define GRAPH
-#endif
-#define PLAIN 0
-#define NORV  1
-
-//вариант, когда считается, что в метриках смертей стоят глубины
-//#define _DEPTH_
-
-#define DEBUG
-#define VIZ
-
-#if defined (VIZ) && defined (DOS_MOD)
-#define DRAW
-#endif
-
-#define WORK 0
-#define EDIT 1
+const int PLAIN = 0;
 
 struct h_frame
 {
@@ -107,42 +82,19 @@ typedef TYPE (*DistFrame)(FRAME*, FRAME*);
 
 /*Идентификатор символа*/
 
-#ifdef ID4
-struct ID_SYM {unsigned char col, str, comp, word;
-};
-#define CONV uchar
-#define FL_ID 1
-#else
 struct ID_SYM
 {
         uint col, str, comp, word;
 };
-#define CONV uint
-#define FL_ID 0
-#endif
 
 typedef void * PTR;
-typedef void ** PTR2;
-typedef void *** PTR3;
 
-#define _GFILLINTERIOR 0
 #define _GBORDER 1
 
 #define do0(p1,p2,p3) for(p1=(int)(p2); p1<=(int)(p3); ++p1)
-#define dou(p1,p2,p3) for(p1=(p2); p1<=(p3); ++p1)
 #define doi(p1,p2,p3) for(p1=(int)(p2); p1>=(int)(p3); --p1)
 
 //Структура структуры в памяти
-struct PIECE
-{
-        int up, down;
-};
-
-struct FRM_ARR
-{
-        FRAME **FrmArr, **frm;
-        int NumArr, NumFrm, AllFrm;
-};
 
 struct BOUND
 {
@@ -171,13 +123,6 @@ struct KNOT
         KNOT *next, *back;
 };
 
-struct KNOT2
-{
-        KNOT2 *next, *back;
-        FRAME *f;
-        TYPE dist;
-};
-
 struct KNOT3
 {
         KNOT3 *next, *back;
@@ -192,12 +137,6 @@ struct KNOT4
         FRAME *f;
 };
 
-struct FRML
-{
-        FRML *next, *back;
-        int left, up, right, down;
-};
-
 struct AS
 {
         KNOT3 ***beg_as; //Двумерный массив голов списков сегментов АС
@@ -209,12 +148,6 @@ struct AS
 struct REFER
 {
         uint ss;
-};
-
-struct TITLE_PRS
-{
-        char Name[4], ScanResX, ScanResY, Thick, Reserv;
-        int SizeX, SizeY;
 };
 
 #pragma pack(1)
@@ -325,36 +258,12 @@ struct POS2_BIT
         uint AveCrossFloat :4;//Дроб. часть сред.сложности символа(ЦМР - 1/16)
 };
 
-#define AVE_CROSS(arg) ((POS2_BIT*)&arg)->AveCrossInt+(((POS2_BIT*)&arg)->AveCrossFloat)/16.
-
 struct POS3_BIT
 {
         uint pos1;
         uint pos :8;
         uint NumHole :4; //Число дыр
         uint MaxDepth :4;//Макс. глубина(ЦМР - 1/16 высоты рамки)
-};
-
-#define NUM_HOLE(arg) ((POS3_BIT*)&arg)->NumHole
-#define MAX_DEPTH(arg) ((POS3_BIT*)&arg)->MaxDepth
-
-/*Описание узла дерева:
- *next,*back - ссылки по элементам с общим предком;
- *up - ссылка на предка;
- *down - ссылка на голову своих дочерей;
- *f - ссылка в список рамок на объемлющую рамку;
- reg - признак регулярности данного узла;
- typ - характер упорядоченности списка его дочерей;
- lev - уровень узла (это не чисто древесное понятие, а структурное, т.е.
- узлы одного уровня могут находиться на разном расстоянии от корня);
- end - признак блокировки (1 - конец блока);
- buf - резерв */
-
-struct KNOTG
-{
-        KNOTG *next, *back, *up, *down;
-        FRML *f;
-        uint reg :1, typ :4, lev :4, end :1, buf :6;
 };
 
 #pragma pack(2)
@@ -493,7 +402,6 @@ int search_int(int *x, int n, int a);
 typedef int TYPE; /*тип сортируемых данных*/
 int MaxArr(int *x, int n, int *PosExtr);
 int MinArr(int *x, int n, int *PosExtr);
-#define COEFF 300
 /*Кластер-анализ с использованием АС*/
 #define MAX_ENV 100
 #define DIST_LETTER 0
@@ -636,11 +544,6 @@ int WidthPRS, MaxShtrih;
 
 //---------ОПИСАНИЕ ЛИНИЙ------------
 
-#ifndef MAIN5
-#error  ...... NOT MAIN5 ......
-#endif
-
-#ifdef MAIN5
 #include "lindefs.h"
 //--Диагностика тестировщика структуры линий--
 #define NULL_LINE 1
@@ -685,8 +588,6 @@ typedef struct hSTRET_P
         short Feat; //POINT_BEG || POINT_END
 } STRET_P;
 
-#endif
-/**/
 //пересчет к не300-dpi SCAN RESOLUTION
 #define NORM_SCAN(value) ((int)(MulScanRes*value))
 //Диагностика
@@ -698,8 +599,6 @@ typedef struct hSTRET_P
 #define CALL_BOX 1
 
 #pragma pack()
-
-#define STRUCT_INI "struct.ini"
 
 void u4sort(void *base, int num, int width, int(*compare)());
 

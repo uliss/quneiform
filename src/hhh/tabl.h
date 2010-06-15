@@ -313,44 +313,7 @@ typedef struct hINF_TREE {
     FUN_MESS FunMessage;
 } INF_TREE;
 
-int
-FilterLineNorveg(STRET *LineV, short *NumLV, STRET *LineH,
-                 short *NumLH, RECT bnd, short Thick, RECT *BndTabl,
-                 short *TopCapt, short *BottomCapt);
-int IdentApriorLineV(STRET *LineV, short *NumLV, STRET *LineH, short *NumLH,
-                     short Thick, RECT *BndTabl, PAR_TABL *ParTabl, short *DelCoor,
-                     COOR_IDENT *CoorId);
-int DivFrmBox(FRAME **frm, int k_frm, RECT *box, int NumBox, int reg,
-              int DelFrm, int *intr);
 KNOTT* IncKnot(KNOTT *up, KNOTT *after, KNOTT **free);
-void FillFieldKNOTT(KNOTT *ptr, int Left, int Right, int Top, int Bottom,
-                    int InBegFrm, int NumFrm, int InColA, uint OrderChild, uint Type,
-                    uint AllowOCR, uint JustH, uint JustV, char *Name);
-int FindLineNumPage(STRET *LineH, short NumLH, FRAME **frm, int NumFrm,
-                    short TopCapt, RECT *RectTabl, int *Coor);
-int CreateTree(BOUND BndTxt, RECT *RectAll, RECT *RectTabl, STRET *LineV,
-               short NumLV, STRET *LineH, short NumLH, FRAME **frm, int NumFrm,
-               short Thick, INF_TREE *Inf);
-int compKNOTT_InColA(KNOTT **a, KNOTT **b);
-int EstSizeKnott(FRAME **f, int NumKnot, KNOTT **Knot, int DYmin, int DYmax,
-                 int MinNum, int *DYest, int Reg);
-int EstSizesCompCell(KNOTT **TermV, int NumCol, STAT_CELL *StatCell, FRAME **f);
-int EstInterval(AS *As, int Upp, int Low, int *dstr, int *dsym, int MinNum);
-int EstIntervalKnott(FRAME **f, int NumKnot, KNOTT **Knot, int MinNum, int Upp,
-                     int Low, int *dstr, int *dsym);
-int CalcHistCell(int NumKnot, KNOTT **Knot, FRAME **frm, int Orient, int Pixel,
-                 int *MinCoor, int *MaxCoor, int **Hist, int *NumHist);
-int DivColH(FRAME **f, KNOTT *Col, STAT_CELL *StatCell, int *NumIntr,
-            int *intr, float k1, float k2, LINE_KNOT *LineHK, int Reg);
-int compINDEX_SORT(INDEX_SORT *a, INDEX_SORT *b);
-int compLINE_KNOT(LINE_KNOT *a, LINE_KNOT *b);
-int SortHorLine(LINE_KNOT *LineHK, int NumH, LINE_KNOT *LineVK, int NumV,
-                KNOTT *Root, KNOTT ***colt1, int *k_colt1, FRAME **frm,
-                STAT_CELL *StatCell);
-void DelTree(TREE2 *Tree);
-void ClearStatCell(STAT_CELL *s);
-int EstOneString(FRAME **frm, int k_frm, FRAME ****str1, int **ksym1,
-                 int *k_str1);
 
 //==Stack
 
@@ -366,10 +329,6 @@ KNOTT *PopStack(STACK *St);
 void ClearStack(STACK *St);
 int OverflowStack(STACK *St);
 
-int FilterPiecesLinesKnot(KNOTT *Knot, int flL, int flR, int flU, int flD,
-                          int ThickH, int ThickV, int ThickAbsH, int ThickAbsV, int ThickRel,
-                          FRAME **fRm1, LINE_KNOT *LineH, LINE_KNOT *LineV, STAT_CELL *StatCell);
-
 //== TREE2-Utilites
 KNOTT *NextKnot(KNOTT *Curr, STACK *St);
 
@@ -377,25 +336,5 @@ KNOTT *NextKnot(KNOTT *Curr, STACK *St);
 int InitSubAlloc(long Size, SUB_ALLOC *Sub);
 char *Submalloc(uint size, SUB_ALLOC *s);
 void DeleteSubAlloc(SUB_ALLOC *s);
-
-//*********Plain Text колонизация с новым форматом дерева стр-ры*********
-int SearchInterval(FRAME **frm, int k_frm, int **beg1, int **end1, int *k_int1,
-                   BOUND *bnd, int ave_dir, int ave_ort, int reg, int *NumMax);
-int SearchColHist(FRAME **frm, int k_frm, BOUND *bnd, int ave_x, int ave_y,
-                  int reg, int *k_int, int **intr1, int **begI, int **endI, int *NumMax);
-int AddLine(LINE_KNOT **Line1, int *nCurr, int *nMax, int Coor, int Thres);
-int CreateTreePlainTxt(BOUND BndTxt, STRET *LineV, short NumLV, STRET *LineH,
-                       short NumLH, FRAME **frm, int NumFrm, INF_TREE *Inf, int size_x,
-                       int size_y);
-
-//== Serv. func
-
-void ImageKnot(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int col,
-               int line_style, int fill, int ColFrm, FRAME **f, int NumFrm, int NumVK,
-               int NumHK);
-void TestKNOTT(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int NumFrm,
-               int NumVK, int NumHK);
-int ImageTree(KNOTT *Root, LINE_KNOT *LineVK, LINE_KNOT *LineHK, FRAME **f,
-              int NumFrm, int NumVK, int NumHK);
 
 #endif

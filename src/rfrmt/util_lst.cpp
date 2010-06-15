@@ -57,6 +57,7 @@
 #include "lst3_win.h"
 #include "aldebug.h"
 #include <stdlib.h>
+#include <iostream>
 
 #ifdef alDebug
 extern short FlagGraphic1, Graphic1Color;
@@ -89,7 +90,7 @@ KNOT *inc_after_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free)
     KNOT *beg_free_old = *beg_free, *next;
 
     if (ptr == NULL)
-        Error(1, "inc_after_lst");
+        std::cerr << "Error #1: inc_after_lst\n";
 
     if (*beg_free == NULL)
         return NULL; /*в списке свобод. нет памяти */
@@ -437,7 +438,6 @@ int InitSubAlloc(long Size, SUB_ALLOC *Sub) {
 //захватом дополнит. сегмента
 char *Submalloc(uint size, SUB_ALLOC *s) {
     long pos;
-    const char *err = "Submalloc";
 #ifdef DEBUG_MEM
 
     if (size == 0 || size > SIZE_SEGL) Error(2, err);
@@ -464,7 +464,7 @@ char *Submalloc(uint size, SUB_ALLOC *s) {
     }
 
     if ((pos = s->CurrPos) < 0 || pos + (long) size > s->SizePtr[s->CurrPtr])
-        Error(1, err);
+        std::cerr << "Error #1: Submalloc\n";
 
     s->CurrPos += size;
     return &s->Ptr[s->CurrPtr][pos];

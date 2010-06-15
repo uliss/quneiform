@@ -57,17 +57,18 @@
 #include <string.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <stdio.h>
 #include <ctype.h>
 #include "cstr/cstr.h"
 #include "cpage/cpage.h"
 #include "rcorrkegl.h"
 #include "wrgb.h"
-#include "lst3_win.h"
 #include "dpuma.h"
 #include "cor_kegl.h"
 #include "garbage.h"
 #include "ligas.h"
 #include "minmax.h"
+#include "cfcompat.h"
 
 using namespace CIF;
 

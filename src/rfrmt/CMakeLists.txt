@@ -15,7 +15,6 @@ formatoptions.cpp
 pagetree.cpp
 rfrmtoptions.cpp
 sort_int.cpp
-util.cpp
 util_lst.cpp
 util_spl.cpp
 )
