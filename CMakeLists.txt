@@ -2,7 +2,7 @@ project(cuneiform C CXX)
 cmake_minimum_required(VERSION 2.6.0)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
-
+ 
 include(version)
 include(outtree)
 
@@ -58,7 +58,7 @@ add_subdirectory(datafiles)
 add_subdirectory(src)
 add_subdirectory(cli)
 
-if(CMAKE_BUILD_TYPE STREQUAL Debug)
+if(CF_TEST)
    ENABLE_TESTING()
    add_subdirectory(tests)
 endif()

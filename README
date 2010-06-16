@@ -19,13 +19,15 @@ By default Cuneiform installs to /usr/local. You can specify a different prefix
 by giving a command line switch "-DCMAKE_INSTALL_PREFIX=/what/ever/you/want"
 to CMake.
 
-For developers:
-
-build with 'cmake -DCMAKE_BUILD_TYPE=debug' command - to have debugging information
-
-for having OcrTk (The ISRI OCR Performance Toolkit) build with '-DOCRTK=True'
-for more information see: http://www.isri.unlv.edu/ISRI/OCRtk
-
+Configuration
+=============
+   -DCMAKE_BUILD_TYPE=Debug    - build debug version of Cuneiform
+   -DCF_TEST=Yes               - build tests
+   -DCF_OCRTK=Yes              - build OCRtk, toolkit for controlling OCR results
+                                 (The ISRI OCR Performance Toolkit)
+                                 for more information see: http://www.isri.unlv.edu/ISRI/OCRtk
+   -DCF_NO_QT=Yes              - disable QtImageLoader build
+   -DCF_NO_IMAGE_MAGICK=Yes    - disable MagickLoader build
 
 Contact information
 ===================
