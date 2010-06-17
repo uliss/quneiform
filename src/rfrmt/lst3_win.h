@@ -304,7 +304,6 @@ typedef int TYPE; /*тип сортируемых данных*/
 int MaxArr(int *x, int n, int *PosExtr);
 int MinArr(int *x, int n, int *PosExtr);
 int Statist(int *arr, int n, int *ave, int *sig, int *med, int *mod, int regim);
-int statis2(TYPE *arr, int n, TYPE *med, TYPE *mod, int SizeWin, int *NumMod);
 int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod, int regim);
 int cut_str(FRAME ****str1, int **ksym1, int *k_str1, FRAME ***frms1, int size_x, int kmax_str);
 

@@ -314,7 +314,6 @@ int Statist(int *arr, int n, int *ave, int *sig, int *med, int *mod, int regim) 
 /*если regim > 0, усекаем края выборки вместо [0,n] - [n/regim,n-n/regim]*/
 int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
             int regim) {
-    int i;
     long ave = 0, sig = 0, work;
 
     if (*med) {
@@ -328,19 +327,24 @@ int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
                 goto m1;
             }
 
-            if      (beg) do0(i, 0, n)
-                arr[i] = arr[i+beg];
+            if (beg) {
+                for(int i = 0; i <= n; ++i)
+                    arr[i] = arr[i+beg];
+            }
         }
 
     m1:
         *med = arr[n>>1];
     }
 
-    do0(i, 0, n) ave += arr[i];
+    for(int i = 0; i <= n; ++i) {
+        ave += arr[i];
+    }
+
     ave /= (long)(n + 1);
 
     if (*sig1) {
-        do0(i, 0, n) {
+        for(int i = 0; i <= n; ++i) {
             work = arr[i] - ave;
             sig += work * work;
         }
@@ -349,67 +353,6 @@ int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
     }
 
     *ave1 = (TYPE)ave;
-    return 0;
-}
-
-//== SizeWin - ширина окна при наложении гистограммы(if =1 => стандарт.гистограмма)
-int statis2(TYPE *arr, int n, TYPE *med, TYPE *mod, int SizeWin, int *NumMod)
-{
-    int i, PosExtr, num;
-    long ave = 0, sig = 0;
-    int *his, mi = 32000, ma = -32000, nmax, modd = -32000, ki, sum = 0, k = (n
-                                                                              + 1) >> 1;
-    //---Расчет моды,медианы по гистограмме---
-    int medd = -32000;
-    const char *err = "statis2";
-    mi = MinArr(arr, n, &PosExtr);
-    ma = MaxArr(arr, n, &PosExtr);
-    ki = ma - mi;
-    num = ki + SizeWin;
-
-    if ((his = (int*) malloc(num * sizeof(int))) == NULL)
-        return NOT_ALLOC;
-
-    memset(his, 0, num * sizeof(int));
-
-    if (SizeWin == 1) { //стандарт.гистограмма
-        do0 (i, 0, n)
-        ++his[arr[i] - mi];
-    } else if (SizeWin > 1) { //огрубление гистограммы
-        if (SizeWin > 2)
-            return -1; //!пока!
-
-        do0(i, 0, n) {
-            ++his[arr[i] - mi];
-            ++his[arr[i] - mi + 1];
-        }
-    } else
-        return -1;
-
-    if (mod) {
-        do0(i, 0, ki)
-
-        if (modd < his[i]) {
-            modd = his[i];
-            nmax = i;
-        }
-
-        *mod = nmax + mi;
-        *NumMod = his[nmax];
-    }
-
-    if (med) {
-        do0(i, 0, ki)
-
-        if ((sum += his[i]) >= k) {
-            medd = mi + i;
-            break;
-        }
-
-        *med = medd;
-    }
-
-    free(his);
     return 0;
 }
 
