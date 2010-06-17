@@ -187,12 +187,28 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage,                     cons
 short OpenFullOutTiger(FILE *FileName);
 Bool Alik_sort_function(const void *a, const void *b);
 int CalcStatTiger(void);
-int16_t GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
+int GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
                             SETUP_GENERATE_TREE *setup, FRAME ***Frm1, INF_TREE *Inf);
-int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
+
+/**
+ * Создать дерево стр-ры Text Plain
+ *
+ * @param BndTxt - page boundaries
+ * @param LineV - вертикальные линии найденные на листе
+ * @param NumLV - число вертикальных линий найденных на листе
+ * @param LineH - горизонтальные линии найденные на листе
+ * @param NumLH - число горизонтальных линий найденных на листе
+ * @param frm - рамки букв (фрагментов в CunieForm) листа
+ * @param NumFrm - число рамок букв листа
+ * @param Inf - результирующая структура хранения дерева колонок листа
+ * @param size_x - стандарт. размер букв листа
+ * @param size_y - стандарт. размер букв листа
+ * @return 0 - OK
+ */
+int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                             STRET *LineH, int16_t NumLH, FRAME **frm, int16_t NumFrm,
                             INF_TREE *Inf, int16_t size_x, int16_t size_y);
-int16_t AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax,
+int AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax,
                  int16_t Coor, int16_t Thres);
 int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
                        int16_t ave_y, int16_t reg, int16_t *k_int, int16_t **intr1,
@@ -361,10 +377,9 @@ int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
 int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free,
           int value, AS *As, RECT Rect)
 {
-    int xmin, xmax, ymin, ymax, kx, ky, nx, ny, i, delx, dely;
+    int xmin, xmax, ymin, ymax, kx, ky, nx, ny, delx, dely;
     KNOT3 ***beg, *ptr;
     FRAME *f;
-    const char *err = "GenAS";
     /*оконтуривание решетки пустой полосой*/
     xmin = bnd->left;
     xmax = bnd->right;
@@ -380,7 +395,7 @@ int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free,
     if ((beg = (KNOT3***) malloc((ky + 1) * sizeof(KNOT3**))) == NULL)
         return -3;
 
-    do0(i, 0, ky) {
+    for(int i = 0; i <= ky; ++i) {
         if ((beg[i] = (KNOT3**)malloc((kx + 1) * sizeof(KNOT3*))) == NULL)
             return NOT_ALLOC;
 
@@ -388,7 +403,7 @@ int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free,
     }
 
     if (value != INDEF) { //заполнение ассоциат. стр-ры
-        do0 (i, 0, k_frm) {
+        for(int i = 0; i <= k_frm; ++i) {
             f = frm[i];
             ny = (((f->up + f->down ) >> 1) - ymin) / dy;
             nx = (((f->left + f->right) >> 1) - xmin) / dx;
@@ -401,17 +416,15 @@ int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free,
 
             ptr->f = f;
             ptr->cl = value;
-#if defined (__MRK__) || defined (__DOT__)
-            ptr->beg = NULL;
-#endif
         }
     } else {
-        do0(i, 0, k_frm) {
+        for(int i = 0; i <= k_frm; ++i) {
             f = frm[i];
             ny = (((f->up + f->down ) >> 1) - ymin) / dy;
             nx = (((f->left + f->right) >> 1) - xmin) / dx;
 
-            if ( (ptr = (KNOT3*)inc_lst((KNOT**) & beg[ny][nx], (KNOT**) & beg_free)) == NULL)return -4;
+            if ( (ptr = (KNOT3*)inc_lst((KNOT**) & beg[ny][nx], (KNOT**) & beg_free)) == NULL)
+                return -4;
 
             ptr->f = f;
             delx = f->right - f->left;
@@ -509,28 +522,24 @@ void init_font(void)
 }
 #endif /*DRAW*/
 
-//==
 static int16_t Realloc2(KNOTT*** colt, KNOTT*** colnt, KNOTT*** colnt1,
                         int16_t **begI, int16_t **endI, int16_t **intr, int16_t nOld,
-                        int16_t nNew)
-{
-    int16_t oldS = nOld * sizeof(PTR), newS = nNew * sizeof(PTR), oldS1 = nOld
-                                                                          * sizeof(int16_t), newS1 = nNew * sizeof(int16_t);
+                        int16_t nNew) {
+    size_t newS = nNew * sizeof(PTR);
+    size_t newS1 = nNew * sizeof(int16_t);
 
-    if ((colt && ((*colt = (KNOTT**) realloc(*colt, newS)) == NULL)) || (colnt
-                                                                         && ((*colnt = (KNOTT**) realloc(*colnt, newS)) == NULL)) || (colnt1
-                                                                                                                                      && ((*colnt1 = (KNOTT**) realloc(*colnt1, newS)) == NULL)) || (begI
-                                                                                                                                                                                                     && ((*begI = (int16_t*) realloc(*begI, newS1)) == NULL)) || (endI
-                                                                                                                                                                                                                                                                  && ((*endI = (int16_t*) realloc(*endI, newS1)) == NULL)) || (intr
-                                                                                                                                                                                                                                                                                                                               && ((*intr = (int16_t*) realloc(*intr, newS1)) == NULL)))
+    if ((colt && ((*colt = (KNOTT**) realloc(*colt, newS)) == NULL))
+            || (colnt  && ((*colnt = (KNOTT**) realloc(*colnt, newS)) == NULL))
+            || (colnt1 && ((*colnt1 = (KNOTT**) realloc(*colnt1, newS)) == NULL))
+            || (begI   && ((*begI = (int16_t*) realloc(*begI, newS1)) == NULL))
+            || (endI   && ((*endI = (int16_t*) realloc(*endI, newS1)) == NULL))
+            || (intr   && ((*intr = (int16_t*) realloc(*intr, newS1)) == NULL)))
         return NOT_ALLOC;
 
     return 0;
 }
 
-//==
-void ConvertRect16ToBnd(Rect16 *r, SRECT *b)
-{
+void ConvertRect16ToBnd(Rect16 *r, SRECT *b) {
     b->left = r->left;
     b->right = r->right;
     b->top = r->top;
@@ -556,11 +565,10 @@ void show_frm(int16_t NumFragm, FRAME **frm)
 //      RectFragm[NumFragm],
 //      setup - input parameters
 //  output - Inf
-int16_t GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
+int GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
                             SETUP_GENERATE_TREE *setup, FRAME ***Frm1, INF_TREE *Inf)
 {
     FRAME **frm;
-    int16_t i, fl = 0;
     BOUND BndAll;
     ArrFrm = (FRAME*) malloc(NumFragm * sizeof(FRAME));
     frm = (FRAME**) malloc(NumFragm * sizeof(PTR));
@@ -576,7 +584,7 @@ int16_t GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
     BndAll.down = -32000;
 
     //--convert from RectFragm[NumFragm] to frm[NumFragm]--
-    for (i = 0; i < NumFragm; ++i) {
+    for (int i = 0; i < NumFragm; ++i) {
         frm[i] = &ArrFrm[i];
         //"i" is initial index for text information extraction from fragment arrays Zn,TitleWord,TitleStr,etc.
         ArrFrm[i].start_pos = i;
@@ -586,8 +594,13 @@ int16_t GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
         ArrFrm[i].down = RectFragm[i].bottom;
 #ifdef alDebug
 
-        if (dets) ConsMess("i=%d  l=%d,r=%d,u=%d,d=%d", i,
-                               RectFragm[i].left, RectFragm[i].right, RectFragm[i].top, RectFragm[i].bottom);
+        if (dets) {
+            Debug() << "i=" << i
+                    << ",l=" << RectFragm[i].left
+                    << ",r=" << RectFragm[i].right ,
+                    << ",u=" << RectFragm[i].top
+                    << "d=" << RectFragm[i].bottom << "\n";
+        }
 
 #endif
         BndAll.left = MIN(BndAll.left, RectFragm[i].left);
@@ -599,30 +612,18 @@ int16_t GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
     //--calling internal function for tree generation--
     if (CreateTreePlainTxt1(BndAll, NULL, 0, NULL, 0, frm, NumFragm, Inf,
                             setup->size_x, setup->size_y))
-        return (int16_t) fl - 200;
+        return -200;
 
     return 0;
 }
 
-//Создать дерево стр-ры Text Plain
-//Input:
-//   BndTxt - page boundaries
-//   LineV[NumLV],LineH[NumLH] - вертикальные и горизонтальные линии, найденные на листе
-//   frm[NumFrm] - рамки букв (фрагментов в CunieForm) листа
-//   size_x,size_y - стандарт. размер букв листа
-//Output:
-//   Inf - результирующая структура хранения дерева колонок листа
-//Return: 0 - OK
-//====
-int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
+int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                             STRET *LineH, int16_t NumLH, FRAME **frm, int16_t NumFrm,
-                            INF_TREE *Inf, int16_t size_x, int16_t size_y)
-//====
-{
+                            INF_TREE *Inf, int16_t size_x, int16_t size_y) {
     int16_t i, nVmax = 3 * MAX_COL , nHmax = 3 * MAX_COL , nV, nH, j;
-    int16_t nT = nVmax + 1, fl, tmp, InBegFrm, NumF, ThresX, ThresY;
+    int16_t fl, tmp, InBegFrm, NumF, ThresX, ThresY;
     int16_t left, right, top, bottom, NumMax = 3 * MAX_COL , MaxOld;
-    int16_t *intr, *begI, *endI, NumT = nVmax + 1;
+    int16_t *intr, *begI, *endI;
     int16_t k_colnt, k_colnt1, k_colt, minz;
     int16_t fl_beg/*Признак первого расщепления на колонки*/;
     int16_t order/*Тип искомой упорядоченности:HOR - горизонт. или VER - вертикал.*/;
@@ -633,8 +634,11 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
     KNOTT **colt, **colnt, **colnt1, *ptr;
     LINE_KNOT *LineVK, *LineHK;
     STAT_CELL *StatCell = (STAT_CELL*) malloc(sizeof(STAT_CELL));
-    const char*err = "CreateTreePlainTxt1";
-    CONS_MESS1("===  CreateTreePlainTxt1  === ");
+
+#ifndef NDEBUG
+    CIF::Debug() << "===  CreateTreePlainTxt1  === \n";
+#endif
+
     //LineVK, LineHK - виртуальные либо натуральные линии разграфки,
     //   сепарирующие найденные колонки, с помощью этих линий производитс
     //   горизонт. и вертикал. выравнивание колонок
@@ -657,7 +661,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
     colnt1 = (KNOTT**)malloc(NumMax * sizeof(PTR));
 
     if (colt == NULL || colnt == NULL || colnt1 == NULL) {
-        CONS_MESS9("NOT_ALLOC 609");
+        CIF::Debug() << "CreateTreePlainTxt1(): NOT_ALLOC 1\n";
         return NOT_ALLOC;
     }
 
@@ -666,12 +670,12 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
     Tree.NumSeg = -1;
 
     if ((fl = init_lst(&Tree.ArrSeg, &Tree.NumSeg, Tree.NumKnot, (KNOT**) & Tree.free, sizeof(KNOTT))) != 0) {
-        CONS_MESS9("NOT_ALLOC 618");
+        CIF::Debug() << "CreateTreePlainTxt1(): NOT_ALLOC 2\n";
         return -90 - fl;
     }
 
     if ((Tree.Root = IncKnot(NULL, NULL, &Tree.free)) == NULL) {
-        CONS_MESS9("NOT_ALLOC 624");
+        CIF::Debug() << "CreateTreePlainTxt1(): NOT_ALLOC 3\n";
         return -6;
     }
 
@@ -702,10 +706,10 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
 
         k_colnt1 = -1; /*Число нетерминал. колонок след. уровня*/
         //--цикл попытки дробления всех узлов текущего уровня--
-        CONS_MESS1("while....................  k_colnt=%d ", k_colnt);
-        do0(i, 0, k_colnt) {
-            CONS_MESS1("beg......................1 ");
-            CONS_MESS1("i=%d ", i);
+        CIF::Debug() << "while....................  k_colnt=" << k_colnt << "\n";
+        for(i = 0; i <= k_colnt; ++i) {
+            CIF::Debug() << "beg......................1 \n"
+                    "i=" <<  i;
             ptr = colnt[i]; //текущий узел
             left = ptr->InBegFrm; //индекс первой рамки (фрагмента) узла
             kf = ptr->NumFrm - 1; //число рамок(фрагментов)узла
@@ -713,14 +717,14 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
             //если же узел удастся разбить, то порядок
             //узла определяется упорядоченностью его дочерних
             //узлов (V- или H-порядок)
-            CONS_MESS1("(index first fragm)left=%d , (count fragm) kf=%d ", left, kf);
+
+            CIF::Debug() << "(index first fragm)left=" << left << ", (count fragm) kf=" << kf << "\n";
 
             //bndc - рамка узла
-            if (!fl_beg)
-                bound_frm(&frm[left], kf, &bndc); //рамка узла есть рамка входящих в узел рамок фрагментов
-
-            else
-                bndc = BndTxt; //вначале рамка узла-корня есть рамка всего листа
+            if (!fl_beg) //рамка узла есть рамка входящих в узел рамок фрагментов
+                bound_frm(&frm[left], kf, &bndc);
+            else //вначале рамка узла-корня есть рамка всего листа
+                bndc = BndTxt;
 
             CONS_MESS1("fl_beg=%d, bndc : left=%d,  right=%d,  up=%d,  down=%d", fl_beg, bndc.left, bndc.right, bndc.up, bndc.down);
             //---
@@ -731,9 +735,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
             //   и поиска на нем межколонных зазоров
             if (flTerm) {
                 fl = kcol = 0;
-            }
-
-            else {
+            } else {
                 if ((fl = SearchColHist1(&frm[left], kf, &bndc, size_x, size_y, order,
                                          &kcol, &intr, &begI, &endI, &NumMax)) < 0) {
                     CONS_MESS9(" 715 !!!!! SearchColHist1 fl=%d", fl);
@@ -785,7 +787,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
 
                 //Разбиение удалось => заносим в дерево дочерний куст подколонок данного узла
                 PrevChild = NULL;
-                do0(j, 0, kcol) { //цикл внесению дочерей в дерево
+                for(j = 0; j <= kcol; ++j) { //цикл внесению дочерей в дерево
                     //вставляем дочерний узел в дерево:
                     //      ptr - узел-родитель
                     //      PrevChild - предыдущее дит
@@ -841,9 +843,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                         }
 
                         CONS_MESS1("end------------------4");
-                    }
-
-                    else {
+                    } else {
                         CONS_MESS1("beg------------------5");
                         CONS_MESS1("order == VER");
                         minz = MIN(ThresY, del);
@@ -891,9 +891,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                                 CONS_MESS9("917       right-200");
                                 return right - 200;
                             }
-                        }
-
-                        else {
+                        } else {
                             //       minz=fl ? (order==HOR ? endI[j-1]:b.left) : bnd.right;
                             minz = fl ? (order == HOR ? endI[j-1] : b.left) : b.right;
 
@@ -915,9 +913,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                                 CONS_MESS9("942       bottom-100");
                                 return bottom - 100;
                             }
-                        }
-
-                        else {
+                        } else {
                             minz = order == VER ? endI[j-1] : b.up;
 
                             if ((top = AddLine1(&LineHK, &nH, &nHmax, minz, -1)) < 0) {
@@ -960,9 +956,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                     CONS_MESS1("end------------------3");
                 }
                 CONS_MESS1("end------------------2");
-            }
-
-            else { /*Обнаружена терминал. колонка*/
+            } else { /*Обнаружена терминал. колонка*/
                 CONS_MESS1("Обнаружена терминал. колонка");
                 CONS_MESS1("beg------------------2.1");
 
@@ -1043,8 +1037,6 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
     }
 
     for (i = 0; i <= k_colt; ++i) {
-        int16_t in;
-        in = colt[i]->InColA;
         colt[i]->AllowOCR = 1;
         Inf->bnd_col[i].left = LineVK[colt[i]->Rect.left].beg;
         Inf->bnd_col[i].right = LineVK[colt[i]->Rect.right].beg;
@@ -1052,8 +1044,7 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
         Inf->bnd_col[i].down = LineHK[colt[i]->Rect.bottom].beg;
     }
 
-    CONS_MESS1("==  !!!! end  CreateTreePlainTxt1   == ");
-    CONS_MESS9("1103    return 0; ");
+    CIF::Debug() << "==  !!!! end  CreateTreePlainTxt1   == \n";
     free((KNOT**)StatCell);
     return 0;
 }
@@ -1066,19 +1057,15 @@ int16_t CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
 //                                      Thres - порог грубости отождествления линий
 //Обменные параметры: Line1[nCurr] - система линий
 //                    nMax - максимальное число линий
-//==
-int16_t AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax,
-                 int16_t Coor, int16_t Thres)
-//==
-{
-    int16_t i, fl = -1, n;
+int AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax,
+                 int16_t Coor, int16_t Thres) {
     LINE_KNOT *Line = *Line1;
 
-    for (i = 0; i < *nCurr; ++i)
+    for (int i = 0; i < *nCurr; ++i)
         if (abs(Line[i].beg - Coor) < Thres)
             return i;
 
-    n = *nCurr;//Add new Line
+    int n = *nCurr;//Add new Line
 
     if (n >= *nMax) { //обработка переполнение массива линий
         *nMax = (int16_t) (*nMax * 1.5);
@@ -1109,13 +1096,9 @@ int16_t AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax,
  0 - если колонки не обнаружены,
  kcol, если обнаружены,
  < 0 - ERR*/
-
-//==
 int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
                        int16_t ave_y, int16_t reg, int16_t *k_int, int16_t **intr1,
-                       int16_t **begI, int16_t **endI, int16_t *NumMax)
-//==
-{
+                       int16_t **begI, int16_t **endI, int16_t *NumMax) {
     int16_t ave_dir, ave_ort, i, kcol, x, in, kf, fl, ki, MaxOld = *NumMax;
     int k_bloc;
     int16_t *intr = *intr1;
@@ -1126,9 +1109,7 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
         ave_dir = ave_x;
         ave_ort = ave_y;
         CONS_MESS3("reg==HOR,ave_dir=%d ; ave_ort=%d", ave_dir, ave_ort);
-    }
-
-    else {
+    } else {
         ave_dir = ave_y;
         ave_ort = ave_x;
         CONS_MESS3("reg==VER,ave_dir=%d ; ave_ort=%d", ave_dir, ave_ort);
@@ -1151,7 +1132,8 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
     CONS_MESS3("kcol=%d", kcol);
     do0(i, 0, kcol) beg[i] = NULL;
 
-    for (i = 0; i < kcol; ++i) intr[i] = ((*begI)[i] + (*endI)[i]) >> 1;
+    for (i = 0; i < kcol; ++i)
+        intr[i] = ((*begI)[i] + (*endI)[i]) >> 1;
 
     k_bloc = -1;
 
@@ -1160,12 +1142,11 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
         return -fl - 50;
 
     CONS_MESS3("k_frm=%d", k_frm);
-    do0(i, 0, k_frm) { /*занесение рамок в списки колонок*/
+    for(int i= 0; i <= k_frm; ++i) { /*занесение рамок в списки колонок*/
         x = (reg == HOR) ? frm[i]->left : frm[i]->up;
 
         if (kcol < 2)
             in = (x < intr[0]) ? 0 : 1;
-
         else
             in = search_int((int*)intr, *k_int, x);
 
@@ -1174,7 +1155,7 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
     }
     kf = -1;
     ki = -1;
-    do0(i, 0, kcol) {
+    for(int i = 0; i <= kcol; ++i) {
         ptr = beg[i];
 
         if (ptr == NULL)
@@ -1187,6 +1168,7 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
 
         intr[++ki] = kf;
     }
+
     free_lst((KNOT**)knot, k_bloc);
 
     if (kf != k_frm) {
@@ -1217,13 +1199,9 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
  0 - разбиение не произошло,
  1 - разбиение произошло,
  < 0 - ERR*/
-
-//===
 int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
                         int16_t **end1, int16_t *k_int1, BOUND *bnd, int16_t ave_dir,
-                        int16_t ave_ort, int16_t reg, int16_t *NumMax)
-//===
-{
+                        int16_t ave_ort, int16_t reg, int16_t *NumMax) {
     int16_t k_int, pos, min_col, min_int, maxh, minh, midh, kstr, len,
     len_group, i, j;
     int16_t beg_int, end_int, sumh, ave_h, mi, ma, Home, Fin;
@@ -1248,9 +1226,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
         Home = bnd->left;
         Fin = bnd->right;
         CONS_MESS2("reg==HOR; Home=%d; Fin=%d;", Home, Fin);
-    }
-
-    else {
+    } else {
         Home = bnd->up;
         Fin = bnd->down;
         len_group = bnd->right - bnd->left + 2;
@@ -1294,7 +1270,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
         pTheGeomTemp.push_back(rct);
     }
 #endif
-    do0(i, 0, k_frm) {
+    for(int i = 0; i<= k_frm; ++i) {
 #ifdef alDebug
         {
             tagRECT rct;
@@ -1308,9 +1284,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
             ma = frm[i]->right - Home;
             CONS_MESS2("reg==HOR: frm[i]->left=%d,frm[i]->right=%d, mi=%d, ma=%d",
                        frm[i]->left, frm[i]->right, mi, ma);
-        }
-
-        else {
+        } else {
             mi = frm[i]->up - Home;
             ma = frm[i]->down - Home;
             CONS_MESS2("reg==VER: frm[i]->up=%d,frm[i]->down=%d,mi=%d,ma=%d",
@@ -1322,7 +1296,8 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
             return -6;
         }
 
-        do0(j, mi, ma) ++his[j];
+        for(int j = mi; j <= ma; ++j)
+            ++his[j];
     }
 #ifdef alDebug
     CountRect = pTheGeomTemp.size();
@@ -1375,7 +1350,9 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
         CONS_MESS2("beg_int=%d; pos=%d", beg_int, pos);
         tmp_pos = pos;
         sumh = 0;
-        do0(i, beg_int, pos) sumh += his[i];
+        for(int i = beg_int; i<= pos; ++i)
+            sumh += his[i];
+
         ave_h = sumh / (pos - beg_int + 1);
         CONS_MESS2("ave_h=%d", ave_h);
 
@@ -1396,9 +1373,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
                 tagRECT rct;
                 SetRect(&rct, bnd->left, tmp_pos + Home, bnd->right, tmp_pos + Home);
                 pTheGeomTemp.push_back(rct);//~
-            }
-
-            else {
+            } else {
                 tagRECT rct;
                 SetRect(&rct, tmp_pos + Home, bnd->up, tmp_pos + Home, bnd->down);
                 pTheGeomTemp.push_back(rct);
@@ -1461,7 +1436,6 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
 }
 
 //////////////        Check_IsItFalseHorLine
-////
 int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
                                FRAME **frm, int16_t *his, int16_t pos, int16_t len, int16_t maxh,
                                int16_t sum, int16_t len_group, int16_t *his_first_group,
@@ -1483,7 +1457,7 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
     Home = bnd->left;
     Fin = bnd->right;
     ///////////////////        First_Group             /////////////////////////////////////
-    do0(i, 0, k_frm) {
+    for(int i = 0; i<= k_frm; ++i) {
         if (frm[i]->up >= last_real_line + bnd->up && frm[i]->down <= pos + bnd->up ) {
             tagRECT rct;
             SetRect(&rct, frm[i]->left, frm[i]->up, frm[i]->right, frm[i]->down);
@@ -1493,7 +1467,7 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
     k_frm_first = First_Group.size() - 1;
     CONS_MESS2(" new_count_frm-first=%d ", k_frm_first + 1);
     memset(his_first_group, 0, (len_group + 1)*sizeof(int16_t));
-    do0(i, 0, k_frm_first) {
+    for(int i = 0; i<= k_frm_first; ++i) {
         mi = First_Group[i].left - Home;
         ma = First_Group[i].right - Home;
 
@@ -1502,7 +1476,8 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
             goto end1;
         }
 
-        do0(j, mi, ma) ++his_first_group[j];
+        for(int j = mi; j<= ma; ++j)
+            ++his_first_group[j];
     }
     ////////////////////////// Second_Group   ////////////////////////////////////////////////
     old_pos = pos;
@@ -1616,7 +1591,6 @@ int16_t check_white_int(int16_t beg_white_int, int16_t end_white_int,
 
     if (count_white_picsels >= 2)
         return 1;
-
     else
         return 0;
 }
