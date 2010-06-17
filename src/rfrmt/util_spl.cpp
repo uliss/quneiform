@@ -158,7 +158,7 @@ int CalcStatTiger() {
                     ZN *z = &Zn[nc][ns][nw][nz];
                     SRECT *r = &z->Title.Z_Rect;
 
-                    if (a = Get1Alt(z, 0)) { //распознанно
+                    if (a = z->alt(0)) { //распознанно
                         if (IsB1(a)) {
                             if (numU >= maxU) {
                                 maxU *= 2;
@@ -228,7 +228,7 @@ int CalcStatTiger() {
                         ZN *z = &Zn[nc][ns][nw][nz];
                         SRECT *r = &z->Title.Z_Rect;
 
-                        if (a = Get1Alt(z, 0)) {
+                        if (a = z->alt(0)) {
                             if (IsB1(a)) {
                                 if (numU >= maxU) {
                                     maxU *= 2;
@@ -295,7 +295,7 @@ int CalcStatTiger() {
                     ZN *z = &Zn[nc][ns][nw][nz];
                     SRECT *r = &z->Title.Z_Rect;
 
-                    if (a = Get1Alt(z, 0)) {
+                    if (a = z->alt(0)) {
                         if (IsB2(a)) {
                             if (numL >= maxL) {
                                 maxL *= 2;
@@ -313,7 +313,7 @@ int CalcStatTiger() {
                                 flp = TRUE;
 
                                 for (i = 1; i < na; ++i)
-                                    if (!IsB2(a = Get1Alt(z, i)) || FeatLet[a].ImUppLow) {
+                                    if (!IsB2(a = z->alt(i)) || FeatLet[a].ImUppLow) {
                                         flp = FALSE;
                                         break;
                                     }

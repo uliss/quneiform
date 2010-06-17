@@ -144,16 +144,16 @@ void MyDrawForDebug(void) {}
 uint16_t CountRect;
 
 #else
-#define CONS_MESS1 1 ? 0 : ConsMess
-#define CONS_MESS2 1 ? 0 : ConsMess
-#define CONS_MESS3 1 ? 0 : ConsMess
-#define CONS_MESS4 1 ? 0 : ConsMess
-#define CONS_MESS6 1 ? 0 : ConsMess
-#define CONS_MESS9 1 ? 0 : ConsMess
-#define CONS_MESS20 1 ? 0 : ConsMess
-#define CONS_MESS21 1 ? 0 : ConsMess
-#define CONS_MESS22 1 ? 0 : ConsMess
-#define CONS_MESS23 1 ? 0 : ConsMess
+#define CONS_MESS1
+#define CONS_MESS2
+#define CONS_MESS3
+#define CONS_MESS4
+#define CONS_MESS6
+#define CONS_MESS9
+#define CONS_MESS20
+#define CONS_MESS21
+#define CONS_MESS22
+#define CONS_MESS23
 #endif
 
 #define  My_Debug ON
@@ -183,8 +183,7 @@ float MulScanRes;//Разрешения сканера и нормир.множ�
  OpenFullOutTiger  - RTF
  CalcStatTiger     - статистика об интервалах (внутри- и меж- словные и т.п.)
  */
-Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage,
-                     const char* OutFileName);
+Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage,                     const char* OutFileName);
 short OpenFullOutTiger(FILE *FileName);
 Bool Alik_sort_function(const void *a, const void *b);
 int CalcStatTiger(void);
@@ -242,9 +241,9 @@ int ConsMess(const char* str, ...)
 
 Bool Alik_sort_function(const void *a, const void *b)
 {
-    if (((*(FRAME **) a)->up > (*(FRAME **) b)->up) || (((*(FRAME **) a)->up
-                                                         == (*(FRAME **) b)->up) && ((*(FRAME **) a)->down
-                                                                                     > (*(FRAME **) b)->down)))
+    if (((*(FRAME **) a)->up > (*(FRAME **) b)->up)
+            || (((*(FRAME **) a)->up  == (*(FRAME **) b)->up)
+                    && ((*(FRAME **) a)->down > (*(FRAME **) b)->down)))
         return 1;
 
     if ((*(FRAME **) a)->up < (*(FRAME **) b)->up)
@@ -253,22 +252,25 @@ Bool Alik_sort_function(const void *a, const void *b)
     return 0;
 }
 
-//==
-int MaxArr(int *x, int n, int *PosExtr)
-{
-    int i, in = 0;
+int MaxArr(int *x, int n, int *PosExtr) {
+    int in = 0;
 
-    do0(i, 1, n) if (x[i] > x[in]) in = i;
+    for(int i= 1; i<= n; ++i) {
+        if (x[i] > x[in])
+            in = i;
+    }
 
     *PosExtr = in;
     return x[in];
 }
-//==
-int MinArr(int *x, int n, int *PosExtr)
-{
-    int i, in = 0;
 
-    do0(i, 1, n) if (x[i] < x[in]) in = i;
+int MinArr(int *x, int n, int *PosExtr) {
+    int in = 0;
+
+    for(int i = 1; i <= n; ++i) {
+        if (x[i] < x[in])
+            in = i;
+    }
 
     *PosExtr = in;
     return x[in];
@@ -276,12 +278,12 @@ int MinArr(int *x, int n, int *PosExtr)
 
 void bound_frm(FRAME **frm, int k_frm, BOUND *bnd)
 {
-    int ymin = 32000, ymax = -32000, xmin = 32000, xmax = -32000, i;
-    do0(i, 0, k_frm) {
-        ymin = MIN(ymin, frm[i]->up);
-        ymax = MAX(ymax, frm[i]->down);
-        xmin = MIN(xmin, frm[i]->left);
-        xmax = MAX(xmax, frm[i]->right);
+    int ymin = 32000, ymax = -32000, xmin = 32000, xmax = -32000;
+    for(int i = 0 ; i<= k_frm; ++i) {
+        ymin = std::min(ymin, frm[i]->up);
+        ymax = std::max(ymax, frm[i]->down);
+        xmin = std::min(xmin, frm[i]->left);
+        xmax = std::max(xmax, frm[i]->right);
     }
     bnd->left = xmin;
     bnd->right = xmax;
@@ -289,7 +291,6 @@ void bound_frm(FRAME **frm, int k_frm, BOUND *bnd)
     bnd->down = ymax;
 }
 
-//==
 void TestKNOTT1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK,
                 int16_t NumFrm, int16_t NumVK, int16_t NumHK)
 {
@@ -306,28 +307,13 @@ void TestKNOTT1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK,
         std::cerr << "Error #1: TestKNOTT1\n";
 }
 
-//===Для нераспознан.знакоместа Return=0
-uchar Get1Alt(ZN *z, int na)
-{
-    int ka = z->Title.Z_Num_Alt;
-
-    if (ka <= 0 /*|| na >= ka*/)
-        return 0;
-
-    else
-        return z->Alt[na].a_Code;
-}
-
-//==
-int Statist(int *arr, int n, int *ave, int *sig, int *med, int *mod, int regim)
-{
+int Statist(int *arr, int n, int *ave, int *sig, int *med, int *mod, int regim) {
     return n > 0 ? statis1(arr, n - 1, ave, sig, med, mod, regim) : -1;
 }
-//==
-int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
-            int regim)
+
 /*если regim > 0, усекаем края выборки вместо [0,n] - [n/regim,n-n/regim]*/
-{
+int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
+            int regim) {
     int i;
     long ave = 0, sig = 0, work;
 
@@ -358,7 +344,7 @@ int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
             work = arr[i] - ave;
             sig += work * work;
         }
-        sig = (long)/*(float)*/sqrt(sig / (float)(n + 1));
+        sig = (long) sqrt(sig / (float)(n + 1));
         *sig1 = (TYPE)sig;
     }
 

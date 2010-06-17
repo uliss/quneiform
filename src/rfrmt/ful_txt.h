@@ -145,6 +145,18 @@ struct ZN
 {
         TITLE_ZN Title; //Заголовок знакоместа
         ALT_ZN Alt[REC_MAX_VERS];//Альтернативы
+
+        /**
+         * Returns alternative
+         * @return 0 for unrecognized
+         */
+        uchar alt(int num) const {
+            assert(num < REC_MAX_VERS);
+            if (Title.Z_Num_Alt <= 0)
+                return 0;
+            else
+                return Alt[num].a_Code;
+        }
 };
 
 struct W_GEN
@@ -317,7 +329,6 @@ struct FEAT_LET
         //uchar RusLat;//Коды сходных по написанию букв др.яз. или 0
 };
 
-uchar Get1Alt(ZN *z, int na);
 //---------RTF-converter----------
 void MyUnionRect(SRECT *s1, SRECT *s2, SRECT *u);
 
