@@ -33,7 +33,7 @@ int16_t GetRealSizeKegl(const char * str, int16_t width, int16_t FontPointSize, 
 int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
         int16_t* strHeight);
 
-Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName);
+Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage);
 
 void RtfUnionRect_CRect_CRect(RECT *s1, RECT *s2);
 void RtfAssignRect_CRect_Rect16(RECT *s1, Rect16 *s2);

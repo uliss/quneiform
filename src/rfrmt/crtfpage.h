@@ -119,7 +119,7 @@ class CLA_EXPO CRtfPage
 
         void setFragmentsInColumn(const CRtfFragment * cur_fragm);
 
-        Bool FindPageTree(FILE *FileNameIn, const char* FileNameOut);
+        Bool FindPageTree(FILE *FileNameIn);
         void CorrectKegl(void);
         void ChangeKegl(void);
         void AddNewKegl(int16_t OldKegl, int16_t NewKegl);

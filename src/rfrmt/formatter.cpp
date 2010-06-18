@@ -77,7 +77,7 @@ CEDPage * Formatter::readFormatFile(const std::string& imageName, FILE * fp) {
     page_ = new CRtfPage(imageName);
 
     if (RfrmtOptions::hasFlag(USE_FRAME_AND_COLUMN)) {
-        if (!page_->FindPageTree(fp, NULL))
+        if (!page_->FindPageTree(fp))
             throw std::runtime_error("[Formatter::readFormatFile] read error");
     } else {
         page_->readInternalFile(fp);

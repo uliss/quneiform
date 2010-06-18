@@ -130,7 +130,7 @@ float MulScanRes;//Разрешения сканера и нормир.множ�
  OpenFullOutTiger  - RTF
  CalcStatTiger     - статистика об интервалах (внутри- и меж- словные и т.п.)
  */
-Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName);
+Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage);
 short OpenFullOutTiger(FILE *FileName);
 Bool Alik_sort_function(const void *a, const void *b);
 int CalcStatTiger(void);
@@ -961,7 +961,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
         Inf->bnd_col[i].down = LineHK[colt[i]->Rect.bottom].beg;
     }
 
-    CIF::Debug() << "==  !!!! end  CreateTreePlainTxt1   == \n";
+    CIF::FMT_DBG("==  !!!! end  CreateTreePlainTxt1   == ");
     free((KNOT**) StatCell);
     return 0;
 }
@@ -1701,7 +1701,7 @@ int16_t CalcNumDau(KNOTT *Knot) {
 //         Горизантальные колонки на вертикальные колонки
 //         Определение терминальности вертикальных колонок
 //  Заполнение RtfPage.
-Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName) {
+Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage) {
     int16_t nc, ns, nw, nz, fl, i, i_ns1, i_nsb, i_nse, j, ih, iv, iv1, kp, kp1, kp2, n_beg,
             flag_vse_term = 1, OldNumCol;
     int16_t FlagBadColumn;

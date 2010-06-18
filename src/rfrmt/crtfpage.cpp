@@ -303,8 +303,8 @@ void CRtfPage::sortByUserNumber() {
 //Секторы на горизантальные колонки
 //Горизантальные колонки на вертикальные колонки
 //Определение терминальности вертикальных колонок
-Bool CRtfPage::FindPageTree(FILE *fpFileNameIn, const char* FileNameOut) {
-    return PageTree(fpFileNameIn, this, FileNameOut);
+Bool CRtfPage::FindPageTree(FILE *fpFileNameIn) {
+    return PageTree(fpFileNameIn, this);
 }
 
 void CRtfPage::calcPageSize() {
