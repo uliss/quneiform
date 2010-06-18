@@ -25,7 +25,7 @@
 namespace CIF
 {
 
-int FormatDebug::flags_ = FormatDebug::COMMON;
+int FormatDebug::flags_ = 0;
 
 #ifdef NDEBUG
 void FMT_DBG(FormatDebug::debug_t, const char *, ...) {}
@@ -44,6 +44,8 @@ void FMT_DBG(FormatDebug::debug_t level, const char * format, ...) {
         return;
     if (FormatDebug::hasFlag(level))
         return;
+
+    return;
 
     static char strbuf[4096]; // string to be put
     va_list list;

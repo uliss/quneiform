@@ -92,13 +92,14 @@
 
 #ifdef alDebug
 short FlagGraphic1 = 0, Graphic1Color = 0;
-std::vector <RECT> pTheGeomStep;
-std::vector <RECT> pTheGeomStep1;
-std::vector <RECT> pTheGeomStep2;
-std::vector <RECT> pTheGeomTemp;
+std::vector<RECT> pTheGeomStep;
+std::vector<RECT> pTheGeomStep1;
+std::vector<RECT> pTheGeomStep2;
+std::vector<RECT> pTheGeomTemp;
 VectorWord pFragRectColor;
 
-void MyDrawForDebug(void) {}
+void MyDrawForDebug(void) {
+}
 uint16_t CountRect;
 #else
 
@@ -381,15 +382,13 @@ int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free, i
 //================================================================================
 //=================================   ImageKnot1  ================================
 //================================================================================
-void ImageKnot1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int16_t col,
-        int16_t line_style, int16_t fill, int16_t ColFrm, FRAME **f, int16_t NumFrm,
-        int16_t NumVK, int16_t NumHK)
-{
+void ImageKnot1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int16_t col, int16_t line_style,
+        int16_t fill, int16_t ColFrm, FRAME **f, int16_t NumFrm, int16_t NumVK, int16_t NumHK) {
     RECT r, r1 = ptr->Rect;
     int16_t fl = (ColFrm != INDEF) ? 0 : 1;
 
     if (ColFrm == INDEF)
-    ColFrm = col;
+        ColFrm = col;
 
     r.left = LineVK[r1.left].beg;
     r.right = LineVK[r1.right].beg;
@@ -405,49 +404,45 @@ void ImageKnot1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int16_t col,
 //================================================================================
 //=================================   ImageTree1  ================================
 //================================================================================
-int16_t ImageTree1(KNOTT *Root, LINE_KNOT *LineVK, LINE_KNOT *LineHK,
-        FRAME **frm, int16_t NumFrm, int16_t NumVK, int16_t NumHK)
-{
+int16_t ImageTree1(KNOTT *Root, LINE_KNOT *LineVK, LINE_KNOT *LineHK, FRAME **frm, int16_t NumFrm,
+        int16_t NumVK, int16_t NumHK) {
     STACK St;
     int16_t DepthTree = 20, col, ColFrm, i = 1;
     KNOTT *Curr;
     char *err = "ImageTree1";
 
     if (NewStack(DepthTree, &St))
-    return NOT_ALLOC;
+        return NOT_ALLOC;
 
     Curr = Root;
     col = 0;
 
     while (Curr != NULL) {
         if (++col > 15)
-        col = 1;
+            col = 1;
 
         ColFrm = col;
 
         //ImageKnot1(Curr,LineVK,LineHK,col,0xFFFF,_GBORDER,ColFrm,frm,NumFrm,NumVK,NumHK);
         //--Рисуем по перекрестным ссылкам терминал. H-графы,списки их V-ссылок и им обратные
         //if(Curr->InBegFrm == IN_NO && Curr->down == NULL) //Терм. H-узел
-        if (det10) {
-            ConsMess("i=%2d   InBegFrm=%2d  NumFrm=%2d  InColA=%6d  OrderChild=%2d",
-                    i, Curr->InBegFrm, Curr->NumFrm, Curr->InColA, Curr->OrderChild);
-            ++i;
-        }
+        CIF::FMT_DBG("i=%2d   InBegFrm=%2d  NumFrm=%2d  InColA=%6d  OrderChild=%2d", i,
+                Curr->InBegFrm, Curr->NumFrm, Curr->InColA, Curr->OrderChild);
+        ++i;
 
-        ImageKnot1(Curr, LineVK, LineHK, col, (int16_t)0xFFFF, _GBORDER, (int16_t) - 1, frm, NumFrm, NumVK,
-                NumHK);
+        ImageKnot1(Curr, LineVK, LineHK, col, (int16_t) 0xFFFF, _GBORDER, (int16_t) -1, frm,
+                NumFrm, NumVK, NumHK);
         Curr = NextKnot(Curr, &St);
 
         if (OverflowStack(&St))
-        return NOT_ALLOC;
+            return NOT_ALLOC;
     }
 
     DelStack(&St);
     return 0;
 }
 
-void init_font(void)
-{
+void init_font(void) {
     ;
 }
 #endif /*DRAW*/
@@ -475,14 +470,12 @@ void ConvertRect16ToBnd(Rect16 *r, SRECT *b) {
 }
 
 #ifdef alDebug
-void show_frm(int16_t NumFragm, FRAME **frm)
-{
+void show_frm(int16_t NumFragm, FRAME **frm) {
     int16_t i;
 
     for (i = 0; i < NumFragm; ++i) {
-        if (det6 || det17)
-        ConsMess(" i=%d start_pos=%d l=%d r=%d t=%d b=%d", i, frm[i]->start_pos,
-                frm[i]->left, frm[i]->right, frm[i]->up, frm[i]->down);
+        CIF::FMT_DBG(" i=%d start_pos=%d l=%d r=%d t=%d b=%d", i, frm[i]->start_pos, frm[i]->left,
+                frm[i]->right, frm[i]->up, frm[i]->down);
     }
 }
 #endif
@@ -521,13 +514,8 @@ int GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm, SETUP_GENERATE_TREE
         ArrFrm[i].down = RectFragm[i].bottom;
 #ifdef alDebug
 
-        if (dets) {
-            CIF::Debug() << "i=" << i
-            << ",l=" << RectFragm[i].left
-            << ",r=" << RectFragm[i].right ,
-            << ",u=" << RectFragm[i].top
-            << "d=" << RectFragm[i].bottom << "\n";
-        }
+        CIF::FMT_DBG("i=%d,l=%d,r=%d,u=%d,d=%d", i, RectFragm[i].left, RectFragm[i].right,
+                RectFragm[i].top, RectFragm[i].bottom);
 
 #endif
         BndAll.left = MIN(BndAll.left, RectFragm[i].left);
@@ -941,7 +929,8 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
     pTheGeomStep = pTheGeomStep2;
 
     for (i = 0; i <= k_colt; ++i)
-    ImageKnot1(colt[i], LineVK, LineHK, 14, (int16_t)0xFFFF, _GBORDER, (int16_t) - 1, frm, NumFrm, nV, nH);
+        ImageKnot1(colt[i], LineVK, LineHK, 14, (int16_t) 0xFFFF, _GBORDER, (int16_t) -1, frm,
+                NumFrm, nV, nH);
 
     pTheGeomStep = pTheGeomStep1;
     FlagGraphic1 = 1;
@@ -1191,7 +1180,8 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
 
     CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "k_frm=%d ", k_frm + 1);
 #ifdef alDebug
-    {   pTheGeomTemp.clear();
+    {
+        pTheGeomTemp.clear();
         tagRECT rct;
         SetRect(&rct, bnd->left, bnd->up, bnd->right, bnd->down);
         pTheGeomTemp.push_back(rct);
@@ -1231,9 +1221,6 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
 #ifdef alDebug
     CountRect = pTheGeomTemp.size();
     CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "---Поиск межколон. интервалов---");
-
-    if (det0) MyDrawForDebug();
-
 #endif
     //--Поиск межколон. интервалов--
     k_int = -1;
@@ -1308,9 +1295,6 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
                 SetRect(&rct, tmp_pos + Home, bnd->up, tmp_pos + Home, bnd->down);
                 pTheGeomTemp.push_back(rct);
             }
-
-            if (det0) MyDrawForDebug();
-
 #endif
 
             if (pos < len - min_col) { //не тривиальный интервал - т.е. еще не правая граница
@@ -1763,7 +1747,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
     if (!OpenFullOutTiger(InFileName)) {
 #ifdef alDebug
-        free((KNOT**)Inf.Tree.Root);
+        free((KNOT**) Inf.Tree.Root);
 
         CIF::FMT_DBG("Formatter End ");
 #endif
@@ -1832,7 +1816,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 - inCol));
 #ifdef alDebug
 
-        if (det6 && num > 1 && !Inf.ColT[i]->Type) {
+        if (num > 1 && !Inf.ColT[i]->Type) {
             CIF::FMT_DBG(" Фрагмент не отсортирован !!! ");
             CIF::FMT_DBG("********* end multiframe ********");
         }
@@ -1959,8 +1943,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     Get_all_term_fragms1(ptr, Colt[0][ih], &iv, NumCol, frm);
 #ifdef alDebug
 
-                    if (det4 && ptr->NumFrm > 1 && !ptr->Type)
-                    CIF::FMT_DBG("Колонка сложной структуры (фреймы) ");
+                    if (ptr->NumFrm > 1 && !ptr->Type)
+                        CIF::FMT_DBG("Колонка сложной структуры (фреймы) ");
 
 #endif
                 } else {
@@ -2006,19 +1990,18 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
                     K_Ver[0][ih] = --iv;
 #ifdef alDebug
-                    CIF::FMT_DBG("Кол-во терм. колонок=" << (K_Ver[0][ih] + 1));
-
+                    CIF::FMT_DBG("Кол-во терм. колонок=%d", (K_Ver[0][ih] + 1));
 #endif
                 }
 
 #ifdef alDebug
 
                 if (!K_Ver_Flag_Term[0][ih])
-                CIF::FMT_DBG("Column is simple");
-                else if (det4 && K_Ver_Flag_Term[0][ih] == 1)
-                CIF::FMT_DBG("Column is simple and consist of terminal fragments");
+                    CIF::FMT_DBG("Column is simple");
+                else if (K_Ver_Flag_Term[0][ih] == 1)
+                    CIF::FMT_DBG("Column is simple and consist of terminal fragments");
                 else
-                CIF::FMT_DBG("Column is complicated (frames)");
+                    CIF::FMT_DBG("Column is complicated (frames)");
 
 #endif
             }
@@ -2137,12 +2120,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                     * sizeof(int16_t))) == NULL)
                                 return -3;
 
-#ifdef alDebug
-
-                            if (det4 && dets)
-                            DBG(" Выделяем память для " << ptr1->NumFrm << " term fragm");
-
-#endif
+                            CIF::FMT_DBG(" Выделяем память для %d  term fragm", ptr1->NumFrm);
 
                             for (iv1 = 0, iv = 0, ptr2 = ptr1->down; iv1 <= kp1; ++iv1, ptr2
                                     = ptr2->next) {
@@ -2186,11 +2164,11 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 #ifdef alDebug
 
                         if (!K_Ver_Flag_Term[i][ih])
-                        CIF::FMT_DBG("Колонка простая");
+                            CIF::FMT_DBG("Колонка простая");
                         else if (K_Ver_Flag_Term[i][ih] == 1)
-                        CIF::FMT_DBG("Колонка простая и состоит из терм.фраг-тов");
+                            CIF::FMT_DBG("Колонка простая и состоит из терм.фраг-тов");
                         else
-                        CIF::FMT_DBG("Колонка сложной структуры (фреймы) ");
+                            CIF::FMT_DBG("Колонка сложной структуры (фреймы) ");
 
 #endif
                     }
@@ -2499,13 +2477,9 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
             }//vert.end
         }//hor.end
     }//sec.end
-#ifdef alDebug
 
-    if (det20 || det23) {
-        DBG("Formatter End ");
-    }
+    CIF::FMT_DBG("Formatter End ");
 
-#endif
     for (i = 0; i <= K_Sect; ++i) {
         for (ih = 0; ih <= K_Hor[i]; ++ih)
             free(Colt[i][ih]);
@@ -2594,25 +2568,21 @@ void Get_all_term_fragms1(KNOTT* ptr, int16_t* Colt, int16_t* iv, int16_t NumCol
 
     if (ptr->NumFrm > 1 && !ptr->Type) {
 #ifdef alDebug
-        if (det4) ConsMess(">>> %d не отсортированных фрагмента", ptr->NumFrm);
+        CIF::FMT_DBG(">>> %d не отсортированных фрагмента", ptr->NumFrm);
 #endif
         i_nse = ptr->InBegFrm + ptr->NumFrm;
 
         for (i_nsb = ptr->InBegFrm; i_nsb < i_nse; ++*iv, ++i_nsb) {
             Colt[*iv] = (int16_t) frm[i_nsb]->start_pos;
 #ifdef alDebug
-            if (det4) ConsMess(" #term=%d", NumCol + 1 - Colt[*iv]);
+            CIF::FMT_DBG(" #term=%d", NumCol + 1 - Colt[*iv]);
 #endif
         }
-    }
-
-    else {
+    } else {
         Colt[*iv] = ptr->InBegFrm;
         ++*iv;
 #ifdef alDebug
-
-        if (det11) ConsMess(" #term=%d", NumCol + 1 - ptr->InBegFrm);
-
+        CIF::FMT_DBG(" #term=%d", NumCol + 1 - ptr->InBegFrm);
 #endif
     }
 }
@@ -2647,8 +2617,8 @@ void Get_all_term_fragms(KNOTT* ptr, int16_t* Colt, int16_t* iv, int16_t NumCol,
                                     Get_all_term_fragms1(ptr4, Colt, iv, NumCol, frm);
 
 #ifdef alDebug
-                                else if (det11) ConsMess("   Ошибка !!!   ");
-
+                                else
+                                    CIF::FMT_DBG("   Ошибка !!!   ");
 #endif
                             }
                         }
@@ -2685,17 +2655,14 @@ void MyUnionRect(SRECT *s1, SRECT *s2, SRECT *u)
 }
 
 #ifdef alDebug
-void clear(void)
-{
+void clear(void) {
     ;
 }
-void pause_internal(void)
-{
+void pause_internal(void) {
     ;
 }
 
-void image_frm(FRAME *f, int col, int line_style, int fill)
-{
+void image_frm(FRAME *f, int col, int line_style, int fill) {
     RECT f1;
     f1.left = f->left;
     f1.right = f->right;
@@ -2703,23 +2670,24 @@ void image_frm(FRAME *f, int col, int line_style, int fill)
     f1.bottom = f->down;
 }
 
-void image_bnd(BOUND *f, int col, int line_style, int fill) {}
-
-void image_frame(FRAME **frm, int k, int col, int line_style, int fill)
-{
-    for(int i = 0; i <= k; i++)
-    image_frm(frm[i], col, line_style, fill);
+void image_bnd(BOUND *f, int col, int line_style, int fill) {
 }
 
-void bounds_frm(int ii, FRAME **frm, int nx) {}
+void image_frame(FRAME **frm, int k, int col, int line_style, int fill) {
+    for (int i = 0; i <= k; i++)
+        image_frm(frm[i], col, line_style, fill);
+}
 
-void BoundsRect(int ii, RECT *frm, int nx) {}
+void bounds_frm(int ii, FRAME **frm, int nx) {
+}
 
-void image_rect(RECT *f, int col, int line_style, int fill)
-{
-    CONS_MESS1(" left=%d,  right=%d,  up=%d,  down=%d", f->left, f->right, f->top, f->bottom);
+void BoundsRect(int ii, RECT *frm, int nx) {
+}
 
-    if ( pTheGeomStep == pTheGeomStep1 ) {
+void image_rect(RECT *f, int col, int line_style, int fill) {
+    CIF::FMT_DBG(" left=%d,  right=%d,  up=%d,  down=%d", f->left, f->right, f->top, f->bottom);
+
+    if (pTheGeomStep == pTheGeomStep1) {
         pFragRectColor.push_back(Graphic1Color);
 
         if (Graphic1Color == 0) {

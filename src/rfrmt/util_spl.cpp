@@ -87,7 +87,7 @@ FEAT_LET FeatLet[256];
 uchar buf[1024];
 /* End of things brought from ful_txt.h. */
 
-extern int dets;
+static int dets = 0;
 
 /*
  * Rectangles are written in frmtfile.cpp and they contain 16-bit integers.
