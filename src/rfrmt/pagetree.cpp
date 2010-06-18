@@ -244,7 +244,7 @@ int16_t Check_IsItFalseHorLine(int16_t recalc, int16_t reg, FRAME **frm,
                                int16_t *his, int16_t pos, int16_t len, int16_t maxh, int16_t sum,
                                int16_t len_group, int16_t *his_first_group, int16_t *his_second_group,
                                BOUND *bnd, int16_t k_frm);
-int16_t check_white_int(int16_t beg_white_int, int16_t end_white_int,
+int check_white_int(int16_t beg_white_int, int16_t end_white_int,
                         int16_t maxh, int16_t *his_second_group);
 void Get_all_term_fragms(KNOTT *ptr, int16_t *Colt, int16_t *iv,
                          int16_t NumCol, FRAME **frm);
@@ -997,7 +997,8 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
             DBG("end------------------1");
         }
         //переписываем узлы следующего уровня в текущий уровень для след.итерации
-        do0(i, 0, k_colnt1) colnt[i] = colnt1[i];
+        for(i = 0; i <= k_colnt1; ++i)
+            colnt[i] = colnt1[i];
         k_colnt = k_colnt1;
         fl_beg = 0;
         order = order == HOR ? VER : HOR;//меняем порядок на ортогональный для след.итерации
@@ -1146,7 +1147,8 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
 
     kcol = *k_int + 1;
     CONS_MESS3("kcol=%d", kcol);
-    do0(i, 0, kcol) beg[i] = NULL;
+    for(i = 0; i <= kcol; ++i)
+        beg[i] = NULL;
 
     for (i = 0; i < kcol; ++i)
         intr[i] = ((*begI)[i] + (*endI)[i]) >> 1;
@@ -1501,7 +1503,7 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
     while (pos <= len && (int16_t)his[++pos] > maxh);
 
     CONS_MESS2("Second_Group new pos = %d", pos);
-    do0(i, 0, k_frm) {
+    for(i = 0; i <= k_frm; ++i) {
         if (frm[i]->up >= old_pos + bnd->up && frm[i]->down <= pos + bnd->up ) {
             tagRECT rct;
             SetRect(&rct, frm[i]->left, frm[i]->up, frm[i]->right, frm[i]->down);
@@ -1511,7 +1513,7 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
     k_frm_second = Second_Group.size() - 1;
     CONS_MESS2("Second_Group new_count_frm=%d ", k_frm_second + 1);
     memset(his_second_group, 0, (len_group + 1)*sizeof(int16_t));
-    do0(i, 0, k_frm_second) {
+    for(i = 0; i <= k_frm_second; ++i) {
         mi = Second_Group[i].left - Home;
         ma = Second_Group[i].right - Home;
 
@@ -1520,10 +1522,11 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
             goto end1;
         }
 
-        do0(j, mi, ma) ++his_second_group[j];
+        for(j = mi; j <= ma; ++j)
+            ++his_second_group[j];
     }
     /////////  Compary white intervals //////////////////////////////
-    do0(i, 0, len_group) {
+    for(i = 0; i <= len_group; ++i) {
         while (i <= len_group && (int16_t)his_first_group[++i] <= maxh);
 
         while (i <= len_group && (int16_t)his_first_group[++i] > maxh);
@@ -1555,7 +1558,7 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
             goto end0;
         }
     }
-    do0(i, 0, len_group) {
+    for(i = 0; i <= len_group; ++i) {
         while (i <= len_group && (int16_t)his_second_group[++i] <= maxh);
 
         while (i <= len_group && (int16_t)his_second_group[++i] > maxh);
@@ -1597,18 +1600,16 @@ end0:
     return 0;
 }
 
-int16_t check_white_int(int16_t beg_white_int, int16_t end_white_int,
+int check_white_int(int16_t beg_white_int, int16_t end_white_int,
                         int16_t maxh, int16_t *his_second_group)
 {
-    int16_t i, count_white_picsels = 0;
-    do0(i, beg_white_int, end_white_int) {
-        if ((int16_t)his_second_group[++i] <= maxh) ++count_white_picsels;
+    int count_white_pixels = 0;
+    for(int i = beg_white_int; i <= end_white_int; ++i) {
+        if (his_second_group[++i] <= maxh)
+            ++count_white_pixels;
     }
 
-    if (count_white_picsels >= 2)
-        return 1;
-    else
-        return 0;
+    return (count_white_pixels >= 2) ? TRUE : FALSE;
 }
 
 /*Добавить узел в дерево после дочернего эл-та after узла-родителя up:
@@ -2338,7 +2339,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 if ((Colt[0][0] = (int16_t*)malloc((K_Ver[0][0] + 1) * sizeof(int16_t))) == NULL)
                     return NOT_ALLOC;
 
-                do0(i, 0, NumCol) {
+                for(i = 0; i <= NumCol; ++i) {
                     Colt[0][0][i] = i;
                 }
             }
@@ -2410,10 +2411,10 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 //                  Подсчет реалных размеров кеглей                                    //
 //                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////
-    do0(i, 0, K_Sect) { //sect begin
+    for(i = 0; i <= K_Sect; ++i) { //sect begin
         int index_word;
-        do0(ih, 0, K_Hor[i]) {//hor. col.  begin
-            do0(iv, 0, K_Ver[i][ih]) { //vert. col.  begin
+        for(ih = 0; ih <= K_Hor[i]; ++ih) {//hor. col.  begin
+            for(iv = 0; iv <= K_Ver[i][ih]; ++iv) { //vert. col.  begin
                 nc = Colt[i][ih][iv];
 
                 if ( NumStr[nc] < 0)
@@ -2429,7 +2430,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 pRtfFragment->m_rect.top = RectFragm[nc].top;
                 pRtfFragment->m_rect.bottom = RectFragm[nc].bottom;
                 //pRtfFragment->m_Flag = FragFlag [nc]; //nega_str сделать цикл и занести в массив RtfString признаки негативности
-                do0(ns, 0, NumStr[nc]) { //str. begin
+                for(ns = 0; ns <= NumStr[nc]; ++ns) { //str. begin
                     if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
                         continue;
 
@@ -2437,7 +2438,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     pRtfString = pRtfFragment->stringAt(ns);
                     //nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
                     pRtfString->setFlags(TitleStr[nc][ns].S_Flags); //NEGA_STR
-                    do0(nw, 0, TitleStr[nc][ns].S_Gen.S_NumWord - 1) {//word begin
+                    for(nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) {//word begin
                         if (TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0) {
                             continue;
                         }
@@ -2447,7 +2448,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         pRtfWord = pRtfString->wordAt(index_word-1);
                         pRtfWord->setIdealFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
                         pRtfWord->setFontNumber(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
-                        do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) { //char begin
+                        for(nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) { //char begin
                             pRtfWord->addChar(new CIF::CRtfChar);
                             pRtfChar = pRtfWord->charAt(nz);
 
@@ -2456,7 +2457,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                 pRtfChar->addVersion(vers);
                             }
 
-                            pRtfChar->setSpelledNoCarrying(Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying); //~ не знак переноса, а дефис в слове (пр: красно-белый)
+                            //~ не знак переноса, а дефис в слове (пр: красно-белый)
+                            pRtfChar->setSpelledNoCarrying(Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying);
                             pRtfChar->setDropCap(Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop);
                             pRtfChar->setLanguage((language_t)Zn[nc][ns][nw][nz].Alt[0].a_language);
                             pRtfChar->setSpelled(Zn[nc][ns][nw][nz].Alt[0].a_Spell);
@@ -2477,10 +2479,10 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 //////////////////////////////////////////////////////////////////////////////////////////
     if ((ColH_New = (COLH**)malloc((K_Sect + 1) * sizeof(COLH*))) == NULL) return -3;
 
-    do0(i, 0, K_Sect) {
+    for(i = 0; i<= K_Sect; ++i) {
         if ((ColH_New[i] = (COLH*)malloc((K_Hor[i] + 1) * sizeof(COLH))) == NULL) return -3;
 
-        do0(ih, 0, K_Hor[i]) {
+        for(ih = 0; ih <= K_Hor[i]; ++ih) {
             ColH_New[i][ih].bnd.left = ColH[i][ih].bnd.left;
             ColH_New[i][ih].bnd.right = ColH[i][ih].bnd.right;
             ColH_New[i][ih].bnd.top = ColH[i][ih].bnd.top;
@@ -2491,18 +2493,18 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Добавляем отформатированные текстовые фрагменты (Page).
     RtfPage->Count.RtfSectors = K_Sect;
-    do0(i, 0, K_Sect) { //sect begin
+    for(i = 0; i <= K_Sect; ++i){ //sect begin
         int index_word;
-        RtfPage->m_arSectors.push_back( new CIF::CRtfSector() );
+        RtfPage->m_arSectors.push_back(new CIF::CRtfSector);
         pRtfSector = RtfPage->m_arSectors[i];
-        do0(ih, 0, K_Hor[i]) {//hor. col.  begin
+        for(ih = 0; ih <= K_Hor[i]; ++ih) {//hor. col.  begin
             pRtfHorizontalColumn = new CIF::CRtfHorizontalColumn;
             pRtfSector->addColumn(pRtfHorizontalColumn);
             RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rect, &ColH[i][ih].bnd);
             RtfUnionRect_CRect_CRect(&pRtfSector->m_rect, &pRtfHorizontalColumn->m_rect);
             RtfUnionRect_CRect_CRect(&RtfPage->m_rect, &pRtfSector->m_rect);
             pRtfHorizontalColumn->setType(static_cast<CIF::CRtfHorizontalColumn::column_t>(K_Ver_Flag_Term[i][ih]));
-            do0(iv, 0, K_Ver[i][ih]) { //vert. col.  begin
+            for(iv = 0; iv <= K_Ver[i][ih]; ++iv) { //vert. col.  begin
                 nc = Colt[i][ih][iv];
 
                 if ( NumStr[nc] < 0)
@@ -2524,7 +2526,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rect, &RectFragm[nc] );
                 RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rectReal, &RectFragm[nc] );
                 //pRtfFragment->m_Flag = FragFlag[nc]; //nega
-                do0(ns, 0, NumStr[nc]) { //str. begin
+                for(ns= 0; ns <= NumStr[nc]; ++ns) { //str. begin
                     if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
                         continue;
 
@@ -2538,7 +2540,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         pRtfString->setAttributes(false);
 
                     pRtfString->setFlags(TitleStr[nc][ns].S_Flags); //NEGA_STR
-                    do0(nw, 0, TitleStr[nc][ns].S_Gen.S_NumWord - 1) { //word begin
+                    for(nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) { //word begin
                         if (TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0) {
                             continue;
                         }
@@ -2554,7 +2556,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         else
                             pRtfWord->setRealFontSize(RtfPage->GetNewKegl(pRtfWord->idealFontSize()));
 
-                        do0(nz, 0, TitleWord[nc][ns][nw].W_Gen.W_NumSym - 1) {
+                        for(nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) {
                             pRtfWord->addChar(new CIF::CRtfChar);
                             pRtfChar = pRtfWord->charAt(nz);
 
@@ -2580,13 +2582,14 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 #ifdef alDebug
 
     if (det20 || det23) {
-        ConsMess("Formatter End ");
+        DBG("Formatter End ");
     }
 
 #endif
-    do0(i, 0, K_Sect) {
-        do0(ih, 0, K_Hor[i])
-        free(Colt[i][ih]);
+    for(i = 0; i<= K_Sect; ++i) {
+        for(ih = 0; ih <= K_Hor[i]; ++ih)
+            free(Colt[i][ih]);
+
         free(K_Ver[i]);
         free(K_Ver_Flag_Term[i]);
         free(K_Ver_Add_On[i]);
