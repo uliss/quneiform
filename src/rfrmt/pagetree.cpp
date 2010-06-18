@@ -164,6 +164,9 @@ uint16_t CountRect;
     CIF::Debug() << st << std::endl;\
 }
 
+#define DBG_SORT(st) DBG(st)
+#define DBG_GEOM(st) DBG(st)
+
 #define DBG_LINE(st) {\
     DBG(__FILE__ << ":" << __LINE__ << " " << st)\
 }
@@ -1922,15 +1925,16 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 }
             }
 
-            if (Inf.ColT[i]->Type) inCol = Inf.ColT[i]->InBegFrm = (int)frm[n_beg]->start_pos;
+            if (Inf.ColT[i]->Type)
+                inCol = Inf.ColT[i]->InBegFrm = (int)frm[n_beg]->start_pos;
         }
 
-        CONS_MESS6("beg=%d num=%d inCol=%d", n_beg, num, NumCol - inCol);
+        DBG_SORT("beg=" << n_beg << " num=" << num << " inCol=" << (NumCol - inCol));
 #ifdef alDebug
 
         if (det6 && num > 1 && !Inf.ColT[i]->Type) {
-            ConsMess(" Фрагмент не отсортирован !!! ");
-            ConsMess("********* end multiframe ********");
+            DBG(" Фрагмент не отсортирован !!! ");
+            DBG("********* end multiframe ********");
         }
 
 #endif
@@ -1967,7 +1971,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
 #ifdef alDebug
 
-                if (dets && det6) ConsMess("nc=%d ", NumCol - nc);
+                if (dets && det6)
+                    DBG ("nc= " << (NumCol - nc));
 
 #endif
 
@@ -2018,8 +2023,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
         /*****************     Начал. порядок - горизон. *********************************/
         if (pRoot->OrderChild == HOR) {
-            CONS_MESS4("Начал. порядок - горизон.");
-            CONS_MESS4("Количество колон =%d", k_col[1] + 1);
+            DBG_GEOM("Original horizontal order");
+            DBG_GEOM("Columns number =" << (k_col[1] + 1));
             K_Sect = 0;
             K_Hor = (int16_t*)malloc((K_Sect + 1) * sizeof(int16_t));
             K_Hor[0] = k_col[1];
@@ -2039,15 +2044,13 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 K_Ver_Flag_Term[0][ih] = 0;
                 iv = 0;
                 kp = CalcNumDau(ptr) - 1;
-                CONS_MESS4(" #Col=%d", ih + 1);
+                DBG_GEOM(" #Col=" << (ih + 1));
 
                 if (kp < 0) { //Терминал.колонка
                     if (ptr->NumFrm > 1 && !ptr->Type) {
                         K_Ver[0][ih] = ptr->NumFrm - 1;
                         K_Ver_Flag_Term[0][ih] = 2;
-                    }
-
-                    else
+                    } else
                         K_Ver[0][ih] = 0;
 
                     if ((Colt[0][ih] = (int16_t*)malloc((K_Ver[0][ih] + 1) * sizeof(int16_t))) == NULL)
@@ -2057,7 +2060,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 #ifdef alDebug
 
                     if (det4 && ptr->NumFrm > 1 && !ptr->Type)
-                        ConsMess("Колонка сложной структуры (фреймы) ");
+                        DBG("Колонка сложной структуры (фреймы) ");
 
 #endif
                 }
@@ -2069,9 +2072,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         return NOT_ALLOC;
 
 #ifdef alDebug
-
-                    if (det4 && dets) ConsMess(" Выдельяем память для %d term fragm", ptr->NumFrm);
-
+                    if (det4 && dets)
+                        DBG("Выделяем память для " << ptr->NumFrm << " term fragm");
 #endif
 
                     for (iv1 = 0, iv = 0, ptr1 = ptr->down; iv1 <= kp; ++iv1, ptr1 = ptr1->next) {
@@ -2081,25 +2083,22 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         if (kp1 >= 0) {
                             Get_all_term_fragms( ptr1, Colt[0][ih], &iv, NumCol, frm );
                             K_Ver_Flag_Term[0][ih] = 2;
-                        }
-
-                        else {
+                        } else {
                             if (ptr1->NumFrm > 1 && !ptr1->Type) {
                                 K_Ver_Flag_Term[0][ih] = 2;
-                                CONS_MESS4(">>> %d не отсортированных фрагмента", ptr1->NumFrm);
+                                DBG_GEOM(">>> " << ptr1->NumFrm << " fragments not sorted");
                                 i_nse = ptr1->InBegFrm + ptr1->NumFrm;
 
                                 for (i_nsb = ptr1->InBegFrm; i_nsb < i_nse; ++iv, ++i_nsb) {
                                     Colt[0][ih][iv] = (int16_t)frm[i_nsb]->start_pos;
-                                    CONS_MESS4(" #term=%d", NumCol + 1 - Colt[0][ih][iv]);
+                                    DBG_GEOM(" #term=" << (NumCol + 1 - Colt[0][ih][iv]));
                                 }
-                            }
-
-                            else {
-                                if (!K_Ver_Flag_Term[0][ih]) K_Ver_Flag_Term[0][ih] = 1;
+                            } else {
+                                if (!K_Ver_Flag_Term[0][ih])
+                                    K_Ver_Flag_Term[0][ih] = 1;
 
                                 Colt[0][ih][iv] = ptr1->InBegFrm;
-                                CONS_MESS4(" #term=%d", NumCol + 1 - Colt[0][ih][iv]);
+                                DBG_GEOM(" #term=" << (NumCol + 1 - Colt[0][ih][iv]));
                                 iv++;
                             }
                         }
@@ -2108,7 +2107,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     K_Ver[0][ih] = --iv;
 #ifdef alDebug
 
-                    if (det4 && dets) ConsMess("Кол-во терм. колонок=%d", K_Ver[0][ih] + 1);
+                    if (det4 && dets)
+                        DBG("Кол-во терм. колонок=" << (K_Ver[0][ih] + 1));
 
 #endif
                 }
@@ -2116,11 +2116,12 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 #ifdef alDebug
 
                 if (det4) {
-                    if (!K_Ver_Flag_Term[0][ih]) ConsMess("Колонка простая");
-
-                    else if (det4 && K_Ver_Flag_Term[0][ih] == 1) ConsMess("Колонка простая и состоит из терм.фраг-тов");
-
-                    else ConsMess("Колонка сложной структуры (фреймы) ");
+                    if (!K_Ver_Flag_Term[0][ih])
+                        DBG("Column is simple");
+                    else if (det4 && K_Ver_Flag_Term[0][ih] == 1)
+                        DBG("Column is simple and consist of terminal fragments");
+                    else
+                        DBG("Column is complicated (frames)");
                 }
 
 #endif
@@ -2129,8 +2130,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
         /*****************     Начал. порядок - вертикал. *********************************/
         else if (pRoot->OrderChild == VER) {
-            CONS_MESS4("Начал. порядок - вертикал.");
-            CONS_MESS4("Количество секций =%d", k_col[1] + 1);
+            DBG_GEOM("Original order - vertical");
+            DBG_GEOM("Section number =" << (k_col[1] + 1));
             K_Sect = k_col[1];
             K_Hor = (int16_t*)malloc((K_Sect + 1) * sizeof(int16_t));
             K_Ver = (int16_t**)malloc((K_Sect + 1) * sizeof(int16_t*));
@@ -2143,7 +2144,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
             //******  Цикл по секциям,внутри каждой - до 2-уровневой иерархии ***********
             for (i = 0, ptr = pRoot->down; i <= K_Sect; ++i, ptr = ptr->next) {
                 kp = CalcNumDau(ptr) - 1;
-                CONS_MESS4("***Секция #%d- из   %d   гориз. колонок ", i + 1, kp < 0 ? 1 : kp + 1);
+                DBG_GEOM("***Section #" << (i + 1) << " - from  " << (kp < 0 ? 1 : kp + 1) << "  horizontal columns");
 
                 //Секция - одна терминал. колонка
                 if (kp < 0) {
@@ -2158,9 +2159,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     if (ptr->NumFrm > 1 && !ptr->Type) {
                         K_Ver[i][0] = ptr->NumFrm - 1;
                         K_Ver_Flag_Term[i][0] = 2;
-                    }
-
-                    else {
+                    } else {
                         K_Ver[i][0] = 0;
                         K_Ver_Flag_Term[i][0] = 0;
                     }
@@ -2169,20 +2168,18 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         return -3;
 
                     if (ptr->NumFrm > 1 && !ptr->Type) {
-                        CONS_MESS4(">>> %d не отсортированных фрагмента", ptr->NumFrm);
+                        DBG_GEOM(">>> " << ptr->NumFrm << " не отсортированных фрагмента");
                         i_nse = ptr->InBegFrm + ptr->NumFrm;
 
                         for (i_ns1 = 0, i_nsb = ptr->InBegFrm; i_nsb < i_nse; ++i_ns1, ++i_nsb) {
                             Colt[i][0][i_ns1] = (int16_t)frm[i_nsb]->start_pos;
-                            CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][0][i_ns1]);
+                            DBG_GEOM(" #term=" << (NumCol + 1 - Colt[i][0][i_ns1]));
                         }
 
-                        CONS_MESS4("Колонка сложной структуры (фреймы) ");
-                    }
-
-                    else {
+                        DBG_GEOM("Колонка сложной структуры (фреймы) ");
+                    } else {
                         Colt[i][0][0] = ptr->InBegFrm;
-                        CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][0][0]);
+                        DBG_GEOM(" #term=" << (NumCol + 1 - Colt[i][0][0]));
                     }
                 }
 
@@ -2200,15 +2197,13 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     for (ih = 0, ptr1 = ptr->down; ih <= kp; ++ih, ptr1 = ptr1->next) {
                         kp1 = CalcNumDau(ptr1) - 1;//Число дочерей H-col
                         K_Ver_Flag_Term[i][ih] = 0;
-                        CONS_MESS4(" #Col=%d", ih + 1);
+                        DBG_GEOM(" #Col=" << (ih + 1));
 
                         if (kp1 < 0) { //Терм. H-col
                             if (ptr1->NumFrm > 1 && !ptr1->Type) {
                                 K_Ver[i][ih] = ptr1->NumFrm - 1;
                                 K_Ver_Flag_Term[i][ih] = 2;
-                            }
-
-                            else {
+                            } else {
                                 K_Ver[i][ih] = 0;
                                 K_Ver_Flag_Term[i][ih] = 0;
                             }
@@ -2217,22 +2212,19 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                 return -3;
 
                             if (ptr1->NumFrm > 1 && !ptr1->Type) {
-                                CONS_MESS4(">>> %d не отсортированных фрагмента", ptr1->NumFrm);
+                                DBG_GEOM(">>>  " << ptr1->NumFrm << " не отсортированных фрагмента");
+
                                 i_nse = ptr1->InBegFrm + ptr1->NumFrm;
 
                                 for (i_ns1 = 0, i_nsb = ptr1->InBegFrm; i_nsb < i_nse; ++i_ns1, ++i_nsb) {
                                     Colt[i][ih][i_ns1] = (int16_t)frm[i_nsb]->start_pos;
-                                    CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][ih][i_ns1]);
+                                    DBG_GEOM(" #term=" << (NumCol + 1 - Colt[i][ih][i_ns1]));
                                 }
-                            }
-
-                            else {
+                            } else {
                                 Colt[i][ih][0] = ptr1->InBegFrm;
-                                CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][ih][0]);
+                                DBG_GEOM(" #term=" << (NumCol + 1 - Colt[i][ih][0]));
                             }
-                        }
-
-                        else {
+                        } else {
                             K_Ver[i][ih] = ptr1->NumFrm - 1;
 
                             if ((Colt[i][ih] = (int16_t*)malloc((K_Ver[i][ih] + 1) * sizeof(int16_t))) == NULL)
@@ -2240,7 +2232,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
 #ifdef alDebug
 
-                            if (det4 && dets) ConsMess(" Выдельяем память для %d term fragm", ptr1->NumFrm);
+                            if (det4 && dets)
+                                DBG(" Выделяем память для " << ptr1->NumFrm << " term fragm");
 
 #endif
 
@@ -2251,9 +2244,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                 if (kp2 >= 0) {
                                     Get_all_term_fragms( ptr2, Colt[i][ih], &iv, NumCol, frm );
                                     K_Ver_Flag_Term[i][ih] = 2;
-                                }
-
-                                else {
+                                } else {
                                     if (ptr2->NumFrm > 1 && !ptr2->Type) {
                                         K_Ver_Flag_Term[i][ih] = 2;
                                         CONS_MESS4(">>> %d не отсортированных фрагмента", ptr2->NumFrm);
@@ -2263,9 +2254,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                             Colt[i][ih][iv] = (int16_t)frm[i_nsb]->start_pos;
                                             CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][ih][iv]);
                                         }
-                                    }
-
-                                    else {
+                                    } else {
                                         if (!K_Ver_Flag_Term[i][ih])
                                             K_Ver_Flag_Term[i][ih] = 1;
 
@@ -2279,7 +2268,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                             K_Ver[i][ih] = --iv;
 #ifdef alDebug
 
-                            if (det4 && dets) ConsMess("Кол-во терм. колонок=%d", K_Ver[i][ih] + 1);
+                            if (det4 && dets)
+                                DBG("Кол-во терм. колонок=" << (K_Ver[i][ih] + 1));
 
 #endif
                         }
