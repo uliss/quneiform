@@ -88,8 +88,6 @@ typedef void * PTR;
 
 #define _GBORDER 1
 
-#define do0(p1,p2,p3) for(p1=(int)(p2); p1<=(int)(p3); ++p1)
-
 //Структура структуры в памяти
 
 struct BOUND

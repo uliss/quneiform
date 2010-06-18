@@ -54,13 +54,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <stdlib.h>
 #define TIGER_CORR       //alik
 #include "lst3_win.h"
-#include <stdlib.h>
-
-#ifndef WIN_MOD
-#define LST_WWIN
-#endif
 #include "ful_txt.h"
 #include "globus.h"
 #include "aldebug.h"
@@ -91,12 +87,12 @@ FEAT_LET FeatLet[256];
 uchar buf[1024];
 /* End of things brought from ful_txt.h. */
 
-/* Rectangles are written in frmtfile.cpp and they contain 16-bit integers.
- * They are processed as 32-bit integers here, so we need to convert.
- */
-
 extern int dets;
 
+/*
+ * Rectangles are written in frmtfile.cpp and they contain 16-bit integers.
+ * They are processed as 32-bit integers here, so we need to convert.
+ */
 static void readSRECT(SRECT *r, FILE *f) {
     Rect16 r16;
     fread(&r16, sizeof(Rect16), 1, f);
@@ -665,7 +661,7 @@ int FreeStructFull() {
     int kw = 0, nc, ns = 0, nw = 0, sp = 0, num = 0, i = 0;
     const char *err = "FreeStructFull";
 #ifdef SUB_ZN
-    do0(nc, 0, NumCol) {
+    for(nc = 0; nc <= NumCol; ++nc) {
         if (StatCol[nc].stat_str)
             free(StatCol[nc].stat_str);
     }
@@ -673,12 +669,12 @@ int FreeStructFull() {
     DeleteSubAlloc(&SubZn);
 #else
     //---Секция знакомест---
-    do0(nc, 0, NumCol) {
+    for(nc = 0; nc <= NumCol; ++nc) {
         if (StatCol[nc].stat_str) free(StatCol[nc].stat_str);
 
-        do0(ns, 0, NumStr[nc]) {
+        for(ns = 0; ns <= NumStr[nc]; ++ns) {
             kw = TitleStr[nc][ns].S_Gen.S_NumWord - 1;
-            do0(nw, 0, kw) {
+            for(nw = 0; nw <= kw; nw++) {
                 free(Zn[nc][ns][nw]);
 
                 if ((sp = TitleWord[nc][ns][nw].W_Gen.W_Spell) == SPELL_CORR) {
@@ -688,7 +684,8 @@ int FreeStructFull() {
 
                     if ((num = TitleWord[nc][ns][nw].NumAltSpell) <= 0) Error(1, err);
 
-                    do0(i, 0, num - 1) free(TitleWord[nc][ns][nw].AltSpell[i].Alt);
+                    for(i = 0 i < num; i++)
+                        free(TitleWord[nc][ns][nw].AltSpell[i].Alt);
                     free(TitleWord[nc][ns][nw].AltSpell);
                 }
             }
@@ -714,12 +711,13 @@ int FreeStructFull() {
     free(NumStr);
     free(StatCol);
 #ifndef TIGER_CORR
-    {   int nlev; //Освобождение памяти под иерархию колонок
-        do0(nlev, 0, k_lev) {
-            do0(nc, 0, k_col[nlev])
-
-            if (knot[nlev][nc].kp >= 0)
-            free(knot[nlev][nc].Addr);
+    {
+        //Освобождение памяти под иерархию колонок
+        for(int nlev = 0; nlev <= k_lev; nlev++) {
+            for(nc = 0; nc <= k_col[nlev]; nc++) {
+                if (knot[nlev][nc].kp >= 0)
+                    free(knot[nlev][nc].Addr);
+            }
 
             free(knot[nlev]);
         }
@@ -733,10 +731,4 @@ int FreeStructFull() {
 #endif
     return 0;
 }
-
-#ifndef BLANK
-#define SPACE_RED 4
-#else
-#define SPACE_RED 0
-#endif
 
