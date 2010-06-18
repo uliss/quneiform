@@ -159,7 +159,6 @@ uint16_t CountRect;
 #define CONS_MESS22
 #define CONS_MESS23
 
-
 #define DBG(st) { \
     CIF::Debug() << st << std::endl;\
 }
@@ -171,12 +170,12 @@ uint16_t CountRect;
     DBG(__FILE__ << ":" << __LINE__ << " " << st)\
 }
 
-
 #endif
 
 typedef void(*FMyDraw)(void);
-typedef struct tagSETUP_GENERATE_TREE {
-    int16_t size_x, size_y; //standard sizes of symbols in page
+typedef struct tagSETUP_GENERATE_TREE
+{
+        int16_t size_x, size_y; //standard sizes of symbols in page
 } SETUP_GENERATE_TREE;
 
 int16_t FlagOdinSectorOdnaColonka = FALSE;
@@ -199,12 +198,12 @@ float MulScanRes;//Разрешения сканера и нормир.множ�
  OpenFullOutTiger  - RTF
  CalcStatTiger     - статистика об интервалах (внутри- и меж- словные и т.п.)
  */
-Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage,                     const char* OutFileName);
+Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName);
 short OpenFullOutTiger(FILE *FileName);
 Bool Alik_sort_function(const void *a, const void *b);
 int CalcStatTiger(void);
-int GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
-                            SETUP_GENERATE_TREE *setup, FRAME ***Frm1, INF_TREE *Inf);
+int GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm, SETUP_GENERATE_TREE *setup,
+        FRAME ***Frm1, INF_TREE *Inf);
 
 /**
  * Создать дерево стр-ры Text Plain
@@ -221,61 +220,53 @@ int GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
  * @param size_y - стандарт. размер букв листа
  * @return 0 - OK
  */
-int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
-                            STRET *LineH, int16_t NumLH, FRAME **frm, int16_t NumFrm,
-                            INF_TREE *Inf, int16_t size_x, int16_t size_y);
-int AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax,
-                 int16_t Coor, int16_t Thres);
-int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
-                       int16_t ave_y, int16_t reg, int16_t *k_int, int16_t **intr1,
-                       int16_t **begI, int16_t **endI, int16_t *NumMax);
-int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
-                        int16_t **end1, int16_t *k_int1, BOUND *bnd, int16_t ave_dir,
-                        int16_t ave_ort, int16_t reg, int16_t *NumMax);
+int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH, int16_t NumLH,
+        FRAME **frm, int16_t NumFrm, INF_TREE *Inf, int16_t size_x, int16_t size_y);
+int AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax, int16_t Coor, int16_t Thres);
+int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x, int16_t ave_y,
+        int16_t reg, int16_t *k_int, int16_t **intr1, int16_t **begI, int16_t **endI,
+        int16_t *NumMax);
+int16_t
+        SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **end1,
+                int16_t *k_int1, BOUND *bnd, int16_t ave_dir, int16_t ave_ort, int16_t reg,
+                int16_t *NumMax);
 KNOTT* IncKnot(KNOTT *up, KNOTT *after, KNOTT **free);
-void FillFieldKNOTT1(KNOTT *ptr, int16_t Left, int16_t Right, int16_t Top,
-                     int16_t Bottom, int16_t InBegFrm, int16_t NumFrm, int16_t InColA,
-                     uint OrderChild, uint Type, uint AllowOCR, uint JustH, uint JustV,
-                     char *Name);
-int16_t SortHorLine1(LINE_KNOT *LineHK, int16_t NumH, LINE_KNOT *LineVK,
-                     int16_t NumV, KNOTT *Root, KNOTT ***colt1, int16_t *k_colt1,
-                     FRAME **frm);
-int16_t Check_IsItFalseHorLine(int16_t recalc, int16_t reg, FRAME **frm,
-                               int16_t *his, int16_t pos, int16_t len, int16_t maxh, int16_t sum,
-                               int16_t len_group, int16_t *his_first_group, int16_t *his_second_group,
-                               BOUND *bnd, int16_t k_frm);
-int check_white_int(int16_t beg_white_int, int16_t end_white_int,
-                        int16_t maxh, int16_t *his_second_group);
-void Get_all_term_fragms(KNOTT *ptr, int16_t *Colt, int16_t *iv,
-                         int16_t NumCol, FRAME **frm);
-void Get_all_term_fragms1(KNOTT* ptr, int16_t* Colt, int16_t* iv,
-                          int16_t NumCol, FRAME **frm);
+void FillFieldKNOTT1(KNOTT *ptr, int16_t Left, int16_t Right, int16_t Top, int16_t Bottom,
+        int16_t InBegFrm, int16_t NumFrm, int16_t InColA, uint OrderChild, uint Type,
+        uint AllowOCR, uint JustH, uint JustV, char *Name);
+int16_t SortHorLine1(LINE_KNOT *LineHK, int16_t NumH, LINE_KNOT *LineVK, int16_t NumV, KNOTT *Root,
+        KNOTT ***colt1, int16_t *k_colt1, FRAME **frm);
+int16_t Check_IsItFalseHorLine(int16_t recalc, int16_t reg, FRAME **frm, int16_t *his, int16_t pos,
+        int16_t len, int16_t maxh, int16_t sum, int16_t len_group, int16_t *his_first_group,
+        int16_t *his_second_group, BOUND *bnd, int16_t k_frm);
+int check_white_int(int16_t beg_white_int, int16_t end_white_int, int16_t maxh,
+        int16_t *his_second_group);
+void Get_all_term_fragms(KNOTT *ptr, int16_t *Colt, int16_t *iv, int16_t NumCol, FRAME **frm);
+void Get_all_term_fragms1(KNOTT* ptr, int16_t* Colt, int16_t* iv, int16_t NumCol, FRAME **frm);
 CIF::Rect toRect(const SRECT& src);
 CIF::Rect toRect(const tagRECT& src);
 void RtfUnionRect_CRect_SRect(tagRECT *s1, SRECT *s2);
 
 ////////////// functions, which are moved from other modules //////////////
 
-int ConsMess(const char* str, ...)
-{
+int ConsMess(const char* str, ...) {
     if (str == NULL)
         return 0;
 
     char strbuf[4096]; // string to be put
     va_list list;
-    va_start(list, str );
+    va_start(list, str);
     int count = vsnprintf(strbuf, sizeof(strbuf), str, list);
-    va_end( list );
+    va_end(list);
     strcat(strbuf, "\r\n");
     fputs(strbuf, stderr);
     return count;
 }
 
-Bool Alik_sort_function(const void *a, const void *b)
-{
+Bool Alik_sort_function(const void *a, const void *b) {
     if (((*(FRAME **) a)->up > (*(FRAME **) b)->up)
-            || (((*(FRAME **) a)->up  == (*(FRAME **) b)->up)
-                    && ((*(FRAME **) a)->down > (*(FRAME **) b)->down)))
+            || (((*(FRAME **) a)->up == (*(FRAME **) b)->up) && ((*(FRAME **) a)->down
+                    > (*(FRAME **) b)->down)))
         return 1;
 
     if ((*(FRAME **) a)->up < (*(FRAME **) b)->up)
@@ -287,7 +278,7 @@ Bool Alik_sort_function(const void *a, const void *b)
 int MaxArr(int *x, int n, int *PosExtr) {
     int in = 0;
 
-    for(int i= 1; i<= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         if (x[i] > x[in])
             in = i;
     }
@@ -299,7 +290,7 @@ int MaxArr(int *x, int n, int *PosExtr) {
 int MinArr(int *x, int n, int *PosExtr) {
     int in = 0;
 
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         if (x[i] < x[in])
             in = i;
     }
@@ -308,10 +299,9 @@ int MinArr(int *x, int n, int *PosExtr) {
     return x[in];
 }
 
-void bound_frm(FRAME **frm, int k_frm, BOUND *bnd)
-{
+void bound_frm(FRAME **frm, int k_frm, BOUND *bnd) {
     int ymin = 32000, ymax = -32000, xmin = 32000, xmax = -32000;
-    for(int i = 0 ; i<= k_frm; ++i) {
+    for (int i = 0; i <= k_frm; ++i) {
         ymin = std::min(ymin, frm[i]->up);
         ymax = std::max(ymax, frm[i]->down);
         xmin = std::min(xmin, frm[i]->left);
@@ -323,19 +313,16 @@ void bound_frm(FRAME **frm, int k_frm, BOUND *bnd)
     bnd->down = ymax;
 }
 
-void TestKNOTT1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK,
-                int16_t NumFrm, int16_t NumVK, int16_t NumHK)
-{
+void TestKNOTT1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int16_t NumFrm, int16_t NumVK,
+        int16_t NumHK) {
     RECT r1 = ptr->Rect;
     KNOTT *up = ptr->up;
 
-    if (r1.left >= r1.right || r1.top == r1.bottom || r1.left < 0 || r1.left
-            >= NumVK || r1.right < 0 || r1.right >= NumVK || r1.top < 0
-            || r1.top >= NumHK || r1.bottom < 0 || r1.bottom >= NumHK
-            || LineVK[r1.left].beg >= LineVK[r1.right].beg
-            || LineHK[r1.top].beg >= LineHK[r1.bottom].beg || ptr->InBegFrm
-            < (up ? up->InBegFrm : 0) || ptr->InBegFrm + ptr->NumFrm
-            > (up ? up->InBegFrm + up->NumFrm : NumFrm))
+    if (r1.left >= r1.right || r1.top == r1.bottom || r1.left < 0 || r1.left >= NumVK || r1.right
+            < 0 || r1.right >= NumVK || r1.top < 0 || r1.top >= NumHK || r1.bottom < 0 || r1.bottom
+            >= NumHK || LineVK[r1.left].beg >= LineVK[r1.right].beg || LineHK[r1.top].beg
+            >= LineHK[r1.bottom].beg || ptr->InBegFrm < (up ? up->InBegFrm : 0) || ptr->InBegFrm
+            + ptr->NumFrm > (up ? up->InBegFrm + up->NumFrm : NumFrm))
         std::cerr << "Error #1: TestKNOTT1\n";
 }
 
@@ -344,8 +331,7 @@ int Statist(int *arr, int n, int *ave, int *sig, int *med, int *mod, int regim) 
 }
 
 /*если regim > 0, усекаем края выборки вместо [0,n] - [n/regim,n-n/regim]*/
-int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
-            int regim) {
+int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod, int regim) {
     long ave = 0, sig = 0, work;
 
     if (*med) {
@@ -354,45 +340,43 @@ int statis1(TYPE *arr, int n, TYPE *ave1, TYPE *sig1, TYPE *med, TYPE *mod,
         if (regim) { /*обрезаем края выборки*/
             int beg = n / regim;
 
-            if ((n -= 2 * beg ) < 0) {
-                n += 2 * beg ;
+            if ((n -= 2 * beg) < 0) {
+                n += 2 * beg;
                 goto m1;
             }
 
             if (beg) {
-                for(int i = 0; i <= n; ++i)
-                    arr[i] = arr[i+beg];
+                for (int i = 0; i <= n; ++i)
+                    arr[i] = arr[i + beg];
             }
         }
 
-    m1:
-        *med = arr[n>>1];
+        m1: *med = arr[n >> 1];
     }
 
-    for(int i = 0; i <= n; ++i) {
+    for (int i = 0; i <= n; ++i) {
         ave += arr[i];
     }
 
-    ave /= (long)(n + 1);
+    ave /= (long) (n + 1);
 
     if (*sig1) {
-        for(int i = 0; i <= n; ++i) {
+        for (int i = 0; i <= n; ++i) {
             work = arr[i] - ave;
             sig += work * work;
         }
-        sig = (long) sqrt(sig / (float)(n + 1));
-        *sig1 = (TYPE)sig;
+        sig = (long) sqrt(sig / (float) (n + 1));
+        *sig1 = (TYPE) sig;
     }
 
-    *ave1 = (TYPE)ave;
+    *ave1 = (TYPE) ave;
     return 0;
 }
 
 //Память под beg_as[][] захват-тся внутри, память под списк.пр-во KNOT3 снаружи
 //==Генерация плоской АС на двусвязных списках
-int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free,
-          int value, AS *As, RECT Rect)
-{
+int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free, int value, AS *As,
+        RECT Rect) {
     int xmin, xmax, ymin, ymax, kx, ky, nx, ny, delx, dely;
     KNOT3 ***beg, *ptr;
     FRAME *f;
@@ -411,42 +395,42 @@ int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free,
     if ((beg = (KNOT3***) malloc((ky + 1) * sizeof(KNOT3**))) == NULL)
         return -3;
 
-    for(int i = 0; i <= ky; ++i) {
-        if ((beg[i] = (KNOT3**)malloc((kx + 1) * sizeof(KNOT3*))) == NULL)
+    for (int i = 0; i <= ky; ++i) {
+        if ((beg[i] = (KNOT3**) malloc((kx + 1) * sizeof(KNOT3*))) == NULL)
             return NOT_ALLOC;
 
-        memset(beg[i], 0, (kx + 1)*sizeof(PTR));
+        memset(beg[i], 0, (kx + 1) * sizeof(PTR));
     }
 
     if (value != INDEF) { //заполнение ассоциат. стр-ры
-        for(int i = 0; i <= k_frm; ++i) {
+        for (int i = 0; i <= k_frm; ++i) {
             f = frm[i];
-            ny = (((f->up + f->down ) >> 1) - ymin) / dy;
+            ny = (((f->up + f->down) >> 1) - ymin) / dy;
             nx = (((f->left + f->right) >> 1) - xmin) / dx;
 
             if (ny < 0 || nx < 0 || ny > ky || nx > kx)
                 return -1;
 
-            if ( (ptr = (KNOT3*)inc_lst((KNOT**) & beg[ny][nx], (KNOT**) & beg_free)) == NULL)
+            if ((ptr = (KNOT3*) inc_lst((KNOT**) &beg[ny][nx], (KNOT**) &beg_free)) == NULL)
                 return -4;
 
             ptr->f = f;
             ptr->cl = value;
         }
     } else {
-        for(int i = 0; i <= k_frm; ++i) {
+        for (int i = 0; i <= k_frm; ++i) {
             f = frm[i];
-            ny = (((f->up + f->down ) >> 1) - ymin) / dy;
+            ny = (((f->up + f->down) >> 1) - ymin) / dy;
             nx = (((f->left + f->right) >> 1) - xmin) / dx;
 
-            if ( (ptr = (KNOT3*)inc_lst((KNOT**) & beg[ny][nx], (KNOT**) & beg_free)) == NULL)
+            if ((ptr = (KNOT3*) inc_lst((KNOT**) &beg[ny][nx], (KNOT**) &beg_free)) == NULL)
                 return -4;
 
             ptr->f = f;
             delx = f->right - f->left;
             dely = f->down - f->up;
-            ptr->cl = (delx >= Rect.left && delx <= Rect.right &&
-                       dely >= Rect.top && dely <= Rect.bottom) ? 1 : value;
+            ptr->cl = (delx >= Rect.left && delx <= Rect.right && dely >= Rect.top && dely
+                    <= Rect.bottom) ? 1 : value;
         }
     }
 
@@ -468,14 +452,14 @@ int GenAS(FRAME **frm, int k_frm, int dx, int dy, BOUND *bnd, KNOT3 *beg_free,
 //=================================   ImageKnot1  ================================
 //================================================================================
 void ImageKnot1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int16_t col,
-                int16_t line_style, int16_t fill, int16_t ColFrm, FRAME **f, int16_t NumFrm,
-                int16_t NumVK, int16_t NumHK)
+        int16_t line_style, int16_t fill, int16_t ColFrm, FRAME **f, int16_t NumFrm,
+        int16_t NumVK, int16_t NumHK)
 {
     RECT r, r1 = ptr->Rect;
     int16_t fl = (ColFrm != INDEF) ? 0 : 1;
 
     if (ColFrm == INDEF)
-        ColFrm = col;
+    ColFrm = col;
 
     r.left = LineVK[r1.left].beg;
     r.right = LineVK[r1.right].beg;
@@ -492,7 +476,7 @@ void ImageKnot1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int16_t col,
 //=================================   ImageTree1  ================================
 //================================================================================
 int16_t ImageTree1(KNOTT *Root, LINE_KNOT *LineVK, LINE_KNOT *LineHK,
-                   FRAME **frm, int16_t NumFrm, int16_t NumVK, int16_t NumHK)
+        FRAME **frm, int16_t NumFrm, int16_t NumVK, int16_t NumHK)
 {
     STACK St;
     int16_t DepthTree = 20, col, ColFrm, i = 1;
@@ -500,14 +484,14 @@ int16_t ImageTree1(KNOTT *Root, LINE_KNOT *LineVK, LINE_KNOT *LineHK,
     char *err = "ImageTree1";
 
     if (NewStack(DepthTree, &St))
-        return NOT_ALLOC;
+    return NOT_ALLOC;
 
     Curr = Root;
     col = 0;
 
     while (Curr != NULL) {
         if (++col > 15)
-            col = 1;
+        col = 1;
 
         ColFrm = col;
 
@@ -516,16 +500,16 @@ int16_t ImageTree1(KNOTT *Root, LINE_KNOT *LineVK, LINE_KNOT *LineHK,
         //if(Curr->InBegFrm == IN_NO && Curr->down == NULL) //Терм. H-узел
         if (det10) {
             ConsMess("i=%2d   InBegFrm=%2d  NumFrm=%2d  InColA=%6d  OrderChild=%2d",
-                     i, Curr->InBegFrm, Curr->NumFrm, Curr->InColA, Curr->OrderChild);
+                    i, Curr->InBegFrm, Curr->NumFrm, Curr->InColA, Curr->OrderChild);
             ++i;
         }
 
         ImageKnot1(Curr, LineVK, LineHK, col, (int16_t)0xFFFF, _GBORDER, (int16_t) - 1, frm, NumFrm, NumVK,
-                   NumHK);
+                NumHK);
         Curr = NextKnot(Curr, &St);
 
         if (OverflowStack(&St))
-            return NOT_ALLOC;
+        return NOT_ALLOC;
     }
 
     DelStack(&St);
@@ -538,18 +522,16 @@ void init_font(void)
 }
 #endif /*DRAW*/
 
-static int16_t Realloc2(KNOTT*** colt, KNOTT*** colnt, KNOTT*** colnt1,
-                        int16_t **begI, int16_t **endI, int16_t **intr, int16_t nOld,
-                        int16_t nNew) {
+static int16_t Realloc2(KNOTT*** colt, KNOTT*** colnt, KNOTT*** colnt1, int16_t **begI,
+        int16_t **endI, int16_t **intr, int16_t nOld, int16_t nNew) {
     size_t newS = nNew * sizeof(PTR);
     size_t newS1 = nNew * sizeof(int16_t);
 
-    if ((colt && ((*colt = (KNOTT**) realloc(*colt, newS)) == NULL))
-            || (colnt  && ((*colnt = (KNOTT**) realloc(*colnt, newS)) == NULL))
-            || (colnt1 && ((*colnt1 = (KNOTT**) realloc(*colnt1, newS)) == NULL))
-            || (begI   && ((*begI = (int16_t*) realloc(*begI, newS1)) == NULL))
-            || (endI   && ((*endI = (int16_t*) realloc(*endI, newS1)) == NULL))
-            || (intr   && ((*intr = (int16_t*) realloc(*intr, newS1)) == NULL)))
+    if ((colt && ((*colt = (KNOTT**) realloc(*colt, newS)) == NULL)) || (colnt && ((*colnt
+            = (KNOTT**) realloc(*colnt, newS)) == NULL)) || (colnt1 && ((*colnt1
+            = (KNOTT**) realloc(*colnt1, newS)) == NULL)) || (begI && ((*begI = (int16_t*) realloc(
+            *begI, newS1)) == NULL)) || (endI && ((*endI = (int16_t*) realloc(*endI, newS1))
+            == NULL)) || (intr && ((*intr = (int16_t*) realloc(*intr, newS1)) == NULL)))
         return NOT_ALLOC;
 
     return 0;
@@ -569,8 +551,8 @@ void show_frm(int16_t NumFragm, FRAME **frm)
 
     for (i = 0; i < NumFragm; ++i) {
         if (det6 || det17)
-            ConsMess(" i=%d start_pos=%d l=%d r=%d t=%d b=%d", i, frm[i]->start_pos,
-                     frm[i]->left, frm[i]->right, frm[i]->up, frm[i]->down);
+        ConsMess(" i=%d start_pos=%d l=%d r=%d t=%d b=%d", i, frm[i]->start_pos,
+                frm[i]->left, frm[i]->right, frm[i]->up, frm[i]->down);
     }
 }
 #endif
@@ -581,9 +563,8 @@ void show_frm(int16_t NumFragm, FRAME **frm)
 //      RectFragm[NumFragm],
 //      setup - input parameters
 //  output - Inf
-int GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
-                            SETUP_GENERATE_TREE *setup, FRAME ***Frm1, INF_TREE *Inf)
-{
+int GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm, SETUP_GENERATE_TREE *setup,
+        FRAME ***Frm1, INF_TREE *Inf) {
     FRAME **frm;
     BOUND BndAll;
     ArrFrm = (FRAME*) malloc(NumFragm * sizeof(FRAME));
@@ -612,10 +593,10 @@ int GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
 
         if (dets) {
             CIF::Debug() << "i=" << i
-                    << ",l=" << RectFragm[i].left
-                    << ",r=" << RectFragm[i].right ,
-                    << ",u=" << RectFragm[i].top
-                    << "d=" << RectFragm[i].bottom << "\n";
+            << ",l=" << RectFragm[i].left
+            << ",r=" << RectFragm[i].right ,
+            << ",u=" << RectFragm[i].top
+            << "d=" << RectFragm[i].bottom << "\n";
         }
 
 #endif
@@ -626,19 +607,18 @@ int GenerateTreeByFragm(Rect16 *RectFragm, int16_t NumFragm,
     }
 
     //--calling internal function for tree generation--
-    if (CreateTreePlainTxt1(BndAll, NULL, 0, NULL, 0, frm, NumFragm, Inf,
-                            setup->size_x, setup->size_y))
+    if (CreateTreePlainTxt1(BndAll, NULL, 0, NULL, 0, frm, NumFragm, Inf, setup->size_x,
+            setup->size_y))
         return -200;
 
     return 0;
 }
 
-int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
-                            STRET *LineH, int16_t NumLH, FRAME **frm, int16_t NumFrm,
-                            INF_TREE *Inf, int16_t size_x, int16_t size_y) {
-    int16_t i, nVmax = 3 * MAX_COL , nHmax = 3 * MAX_COL , nV, nH, j;
+int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH, int16_t NumLH,
+        FRAME **frm, int16_t NumFrm, INF_TREE *Inf, int16_t size_x, int16_t size_y) {
+    int16_t i, nVmax = 3 * MAX_COL, nHmax = 3 * MAX_COL, nV, nH, j;
     int16_t fl, tmp, InBegFrm, NumF, ThresX, ThresY;
-    int16_t left, right, top, bottom, NumMax = 3 * MAX_COL , MaxOld;
+    int16_t left, right, top, bottom, NumMax = 3 * MAX_COL, MaxOld;
     int16_t *intr, *begI, *endI;
     int16_t k_colnt, k_colnt1, k_colt, minz;
     int16_t fl_beg/*Признак первого расщепления на колонки*/;
@@ -656,11 +636,11 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
     //LineVK, LineHK - виртуальные либо натуральные линии разграфки,
     //   сепарирующие найденные колонки, с помощью этих линий производитс
     //   горизонт. и вертикал. выравнивание колонок
-    LineVK = (LINE_KNOT*)malloc((nVmax + 2) * sizeof(LINE_KNOT));
-    LineHK = (LINE_KNOT*)malloc((nHmax + 2) * sizeof(LINE_KNOT));
-    intr = (int16_t*)malloc(NumMax * sizeof(int16_t));
-    begI = (int16_t*)malloc(NumMax * sizeof(int16_t));
-    endI = (int16_t*)malloc(NumMax * sizeof(int16_t));
+    LineVK = (LINE_KNOT*) malloc((nVmax + 2) * sizeof(LINE_KNOT));
+    LineHK = (LINE_KNOT*) malloc((nHmax + 2) * sizeof(LINE_KNOT));
+    intr = (int16_t*) malloc(NumMax * sizeof(int16_t));
+    begI = (int16_t*) malloc(NumMax * sizeof(int16_t));
+    endI = (int16_t*) malloc(NumMax * sizeof(int16_t));
     //Заносим в разграфку натурал. линии после их ортогонализации
     //-- Замыкание системы H- и V-линий с краев по рамке листа --
     LineVK[0].beg = BndTxt.left;
@@ -670,9 +650,9 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
     LineVK[0].Thick = LineVK[1].Thick = LineHK[0].Thick = LineHK[1].Thick = 0;
     LineVK[0].TypeLine = LineVK[1].TypeLine = LineHK[0].TypeLine = LineHK[1].TypeLine = HIDDEN_LINE;
     nV = nH = 2;
-    colt = (KNOTT**)malloc(NumMax * sizeof(PTR));
-    colnt = (KNOTT**)malloc(NumMax * sizeof(PTR));
-    colnt1 = (KNOTT**)malloc(NumMax * sizeof(PTR));
+    colt = (KNOTT**) malloc(NumMax * sizeof(PTR));
+    colnt = (KNOTT**) malloc(NumMax * sizeof(PTR));
+    colnt1 = (KNOTT**) malloc(NumMax * sizeof(PTR));
 
     if (colt == NULL || colnt == NULL || colnt1 == NULL) {
         DBG("CreateTreePlainTxt1(): NOT_ALLOC " << __LINE__);
@@ -683,7 +663,9 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
     Tree.NumKnot = NumMax * 2;
     Tree.NumSeg = -1;
 
-    if ((fl = init_lst(&Tree.ArrSeg, &Tree.NumSeg, Tree.NumKnot, (KNOT**) & Tree.free, sizeof(KNOTT))) != 0) {
+    if ((fl
+            = init_lst(&Tree.ArrSeg, &Tree.NumSeg, Tree.NumKnot, (KNOT**) &Tree.free, sizeof(KNOTT)))
+            != 0) {
         DBG("CreateTreePlainTxt1(): NOT_ALLOC " << __LINE__);
         return -90 - fl;
     }
@@ -693,12 +675,13 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
         return -6;
     }
 
-    FillFieldKNOTT1(Tree.Root, 0, 1, 0, 1, 0, NumFrm, IN_NO, UNSORT, ROOT, TRUE, ALG_BEG, ALG_BEG, NULL);
-    colnt[k_colnt=0] = Tree.Root;
+    FillFieldKNOTT1(Tree.Root, 0, 1, 0, 1, 0, NumFrm, IN_NO, UNSORT, ROOT, TRUE, ALG_BEG, ALG_BEG,
+            NULL);
+    colnt[k_colnt = 0] = Tree.Root;
     k_colt = -1;
     fl_beg = 1;
     order = VER;//Так удобнее для RTF-converter
-    ThresX = ThresY = (int16_t)(1.5 * size_y);
+    ThresX = ThresY = (int16_t) (1.5 * size_y);
     int16_t MaxAllowLev, flTerm;
     MaxAllowLev = 6;
     MaxLev = 0;
@@ -721,7 +704,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
         k_colnt1 = -1; /*Число нетерминал. колонок след. уровня*/
         //--цикл попытки дробления всех узлов текущего уровня--
         DBG("while....................  k_colnt=" << k_colnt)
-        for(i = 0; i <= k_colnt; ++i) {
+        for (i = 0; i <= k_colnt; ++i) {
             DBG("beg......................1")
 
             ptr = colnt[i]; //текущий узел
@@ -737,7 +720,8 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
             //bndc - рамка узла
             if (!fl_beg) //рамка узла есть рамка входящих в узел рамок фрагментов
                 bound_frm(&frm[left], kf, &bndc);
-            else //вначале рамка узла-корня есть рамка всего листа
+            else
+                //вначале рамка узла-корня есть рамка всего листа
                 bndc = BndTxt;
 
             DBG(" fl_beg=" << fl_beg << ", bndc : left=" << bndc.left
@@ -752,8 +736,8 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
             if (flTerm) {
                 fl = kcol = 0;
             } else {
-                if ((fl = SearchColHist1(&frm[left], kf, &bndc, size_x, size_y, order,
-                                         &kcol, &intr, &begI, &endI, &NumMax)) < 0) {
+                if ((fl = SearchColHist1(&frm[left], kf, &bndc, size_x, size_y, order, &kcol,
+                        &intr, &begI, &endI, &NumMax)) < 0) {
                     DBG_LINE("!!!!! SearchColHist1 fl=" << fl);
                     return fl - 2000;
                 }
@@ -761,8 +745,8 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                 DBG("after SearchColHist1 MaxOld=" << MaxOld << ", NumMax=" << NumMax);
             }
 
-            if (MaxOld != NumMax &&
-                    Realloc2(&colt, &colnt, &colnt1, NULL, NULL, NULL, MaxOld, NumMax) == NOT_ALLOC) {
+            if (MaxOld != NumMax && Realloc2(&colt, &colnt, &colnt1, NULL, NULL, NULL, MaxOld,
+                    NumMax) == NOT_ALLOC) {
                 DBG_LINE(" NOT_ALLOC");
                 return NOT_ALLOC;
             }
@@ -776,14 +760,14 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                 order = order == HOR ? VER : HOR;
                 MaxOld = NumMax;
 
-                if ((fl = SearchColHist1(&frm[left], kf, &bndc, size_x, size_y, order,
-                                         &kcol, &intr, &begI, &endI, &NumMax)) < 0) {
+                if ((fl = SearchColHist1(&frm[left], kf, &bndc, size_x, size_y, order, &kcol,
+                        &intr, &begI, &endI, &NumMax)) < 0) {
                     DBG_LINE("fl-2000");
                     return fl - 2000;
                 }
 
-                if (MaxOld != NumMax &&
-                        Realloc2(&colt, &colnt, &colnt1, NULL, NULL, NULL, MaxOld, NumMax) == NOT_ALLOC) {
+                if (MaxOld != NumMax && Realloc2(&colt, &colnt, &colnt1, NULL, NULL, NULL, MaxOld,
+                        NumMax) == NOT_ALLOC) {
                     DBG_LINE("NOT_ALLOC");
                     return NOT_ALLOC;
                 }
@@ -803,7 +787,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
 
                 //Разбиение удалось => заносим в дерево дочерний куст подколонок данного узла
                 PrevChild = NULL;
-                for(j = 0; j <= kcol; ++j) { //цикл внесению дочерей в дерево
+                for (j = 0; j <= kcol; ++j) { //цикл внесению дочерей в дерево
                     //вставляем дочерний узел в дерево:
                     //      ptr - узел-родитель
                     //      PrevChild - предыдущее дит
@@ -817,27 +801,27 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                     }
 
                     //номер начального фрагмента InBegFrm и число фрагментов NumF данной колонки
-                    tmp = j ? intr[j-1] + 1 : 0;
+                    tmp = j ? intr[j - 1] + 1 : 0;
                     InBegFrm = ptr->InBegFrm + tmp;
                     NumF = intr[j] - tmp + 1;
                     DBG("InBegFrm=" << InBegFrm << ",  NumF=" << NumF);
                     //--ищем близкие линии или генерим новые для границ колонки--
                     bound_frm(&frm[InBegFrm], NumF - 1, &b);
-                    del = begI[j] - (j ? endI[j-1] : 0);
+                    del = begI[j] - (j ? endI[j - 1] : 0);
 
                     if (order == HOR) {
                         DBG("beg------------------4");
                         DBG("order == HOR");
                         minz = MIN(ThresX, del);
 
-                        if ((left = !j ? ptr->Rect.left :
-                                    AddLine1(&LineVK, &nV, &nVmax, (int16_t)endI[j-1], minz)) < 0) {
+                        if ((left = !j ? ptr->Rect.left : AddLine1(&LineVK, &nV, &nVmax,
+                                (int16_t) endI[j - 1], minz)) < 0) {
                             DBG_LINE("       left-100");
                             return left - 100;
                         }
 
-                        if ((right = j == kcol ? ptr->Rect.right :
-                                     AddLine1(&LineVK, &nV, &nVmax, begI[j], minz)) < 0) {
+                        if ((right = j == kcol ? ptr->Rect.right : AddLine1(&LineVK, &nV, &nVmax,
+                                begI[j], minz)) < 0) {
                             DBG_LINE("       right-200");
                             return right - 200;
                         }
@@ -864,14 +848,14 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                         DBG("order == VER");
                         minz = MIN(ThresY, del);
 
-                        if ((top = !j ? ptr->Rect.top :
-                                   AddLine1(&LineHK, &nH, &nHmax, endI[j-1], minz)) < 0) {
+                        if ((top = !j ? ptr->Rect.top : AddLine1(&LineHK, &nH, &nHmax, endI[j - 1],
+                                minz)) < 0) {
                             DBG_LINE("       top-300");
                             return top - 300;
                         }
 
-                        if ((bottom = j == kcol ? ptr->Rect.bottom :
-                                      AddLine1(&LineHK, &nH, &nHmax, begI[j], minz)) < 0) {
+                        if ((bottom = j == kcol ? ptr->Rect.bottom : AddLine1(&LineHK, &nH, &nHmax,
+                                begI[j], minz)) < 0) {
                             DBG_LINE("       bottom-400");
                             return bottom - 400;
                         }
@@ -909,7 +893,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                             }
                         } else {
                             //       minz=fl ? (order==HOR ? endI[j-1]:b.left) : bnd.right;
-                            minz = fl ? (order == HOR ? endI[j-1] : b.left) : b.right;
+                            minz = fl ? (order == HOR ? endI[j - 1] : b.left) : b.right;
 
                             if ((left = AddLine1(&LineVK, &nV, &nVmax, minz, -1)) < 0) {
                                 DBG_LINE("       right-200");
@@ -930,7 +914,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                                 return bottom - 100;
                             }
                         } else {
-                            minz = order == VER ? endI[j-1] : b.up;
+                            minz = order == VER ? endI[j - 1] : b.up;
 
                             if ((top = AddLine1(&LineHK, &nH, &nHmax, minz, -1)) < 0) {
                                 DBG_LINE("       top-100");
@@ -939,27 +923,28 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                         }
                     }
 
-                    if (LineVK[left].beg - 30 >= LineVK[right].beg ||
-                            LineHK[top].beg - 10 >= LineHK[bottom].beg) //LineHK[top].beg >= LineHK[bottom].beg)
-							DBG(" Неправильные координаты фрагмента!!!");
+                    if (LineVK[left].beg - 30 >= LineVK[right].beg || LineHK[top].beg - 10
+                            >= LineHK[bottom].beg) //LineHK[top].beg >= LineHK[bottom].beg)
+                        DBG(" Неправильные координаты фрагмента!!!");
 
-                    if (LineVK[left].beg - 30 >= LineVK[right].beg ||
-                            LineHK[top].beg - 10 > LineHK[bottom].beg) { //LineHK[top].beg >= LineHK[bottom].beg)
+                    if (LineVK[left].beg - 30 >= LineVK[right].beg || LineHK[top].beg - 10
+                            > LineHK[bottom].beg) { //LineHK[top].beg >= LineHK[bottom].beg)
                         DBG_LINE(" return -6");
                         return -6;
                     }
 
                     //заполняем поля нового узла колонки
                     //!!! поля left,right,top,bottom имеют смысл индексов линий разграфки
-                    FillFieldKNOTT1(Child, left, right, top, bottom,
-                                    InBegFrm, NumF, IN_NO, UNSORT, CELL, TRUE, ALG_BEG, ALG_BEG, NULL);
+                    FillFieldKNOTT1(Child, left, right, top, bottom, InBegFrm, NumF, IN_NO, UNSORT,
+                            CELL, TRUE, ALG_BEG, ALG_BEG, NULL);
 
                     if (fl) {
                         if (++k_colnt1 >= NumMax) {
                             int16_t old = NumMax;
-                            NumMax = (int16_t)(NumMax * 1.5);
+                            NumMax = (int16_t) (NumMax * 1.5);
 
-                            if (Realloc2(&colt, &colnt, &colnt1, &begI, &endI, &intr, old, NumMax) == NOT_ALLOC) {
+                            if (Realloc2(&colt, &colnt, &colnt1, &begI, &endI, &intr, old, NumMax)
+                                    == NOT_ALLOC) {
                                 DBG_LINE("NOT_ALLOC");
                                 return NOT_ALLOC;
                             }
@@ -978,7 +963,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
 
                 if (++k_colt >= NumMax) {
                     int16_t old = NumMax;
-                    NumMax = (int16_t)(NumMax * 1.5);
+                    NumMax = (int16_t) (NumMax * 1.5);
 
                     if (Realloc2(&colt, &colnt, &colnt1, &begI, &endI, &intr, old, NumMax)
                             == NOT_ALLOC) {
@@ -990,14 +975,14 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
                 colt[k_colt] = ptr;
                 //заполняем поля очередного терминал. узла
                 ptr->OrderChild = TERM;
-                colt[k_colt]->InColA = (int)frm[left]->start_pos;
+                colt[k_colt]->InColA = (int) frm[left]->start_pos;
                 DBG("end------------------2.1");
             }
 
             DBG("end------------------1");
         }
         //переписываем узлы следующего уровня в текущий уровень для след.итерации
-        for(i = 0; i <= k_colnt1; ++i)
+        for (i = 0; i <= k_colnt1; ++i)
             colnt[i] = colnt1[i];
         k_colnt = k_colnt1;
         fl_beg = 0;
@@ -1030,7 +1015,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
     pTheGeomStep = pTheGeomStep2;
 
     for (i = 0; i <= k_colt; ++i)
-        ImageKnot1(colt[i], LineVK, LineHK, 14, (int16_t)0xFFFF, _GBORDER, (int16_t) - 1, frm, NumFrm, nV, nH);
+    ImageKnot1(colt[i], LineVK, LineHK, 14, (int16_t)0xFFFF, _GBORDER, (int16_t) - 1, frm, NumFrm, nV, nH);
 
     pTheGeomStep = pTheGeomStep1;
     FlagGraphic1 = 1;
@@ -1048,7 +1033,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
     Inf->ColT = colt; //терминал. колонки дерева colt[NumT]
     Inf->NumT = k_colt; //
 
-    if (!(Inf->bnd_col = (BOUND*)malloc((k_colt + 1) * sizeof(BOUND)))) {
+    if (!(Inf->bnd_col = (BOUND*) malloc((k_colt + 1) * sizeof(BOUND)))) {
         DBG_LINE("NOT_ALLOC");
         return NOT_ALLOC;
     }
@@ -1062,7 +1047,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
     }
 
     CIF::Debug() << "==  !!!! end  CreateTreePlainTxt1   == \n";
-    free((KNOT**)StatCell);
+    free((KNOT**) StatCell);
     return 0;
 }
 
@@ -1074,8 +1059,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV,
 //                                      Thres - порог грубости отождествления линий
 //Обменные параметры: Line1[nCurr] - система линий
 //                    nMax - максимальное число линий
-int AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax,
-                 int16_t Coor, int16_t Thres) {
+int AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax, int16_t Coor, int16_t Thres) {
     LINE_KNOT *Line = *Line1;
 
     for (int i = 0; i < *nCurr; ++i)
@@ -1087,8 +1071,7 @@ int AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax,
     if (n >= *nMax) { //обработка переполнение массива линий
         *nMax = (int16_t) (*nMax * 1.5);
 
-        if ((Line = (LINE_KNOT*) realloc(Line, *nMax * sizeof(LINE_KNOT)))
-                == NULL)
+        if ((Line = (LINE_KNOT*) realloc(Line, *nMax * sizeof(LINE_KNOT))) == NULL)
             return NOT_ALLOC;
 
         *Line1 = Line;
@@ -1113,14 +1096,15 @@ int AddLine1(LINE_KNOT **Line1, int16_t *nCurr, int16_t *nMax,
  0 - если колонки не обнаружены,
  kcol, если обнаружены,
  < 0 - ERR*/
-int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
-                       int16_t ave_y, int16_t reg, int16_t *k_int, int16_t **intr1,
-                       int16_t **begI, int16_t **endI, int16_t *NumMax) {
+int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x, int16_t ave_y,
+        int16_t reg, int16_t *k_int, int16_t **intr1, int16_t **begI, int16_t **endI,
+        int16_t *NumMax) {
     int16_t ave_dir, ave_ort, i, kcol, x, in, kf, fl, ki, MaxOld = *NumMax;
     int k_bloc;
     int16_t *intr = *intr1;
     KNOT4 *Free, **knot, **beg = (KNOT4**) malloc(*NumMax * sizeof(PTR)), *ptr;
-    CONS_MESS3("===beg    SearchColHist1   ===");
+    CONS_MESS3
+    ("===beg    SearchColHist1   ===");
 
     if (reg == HOR) {
         ave_dir = ave_x;
@@ -1140,14 +1124,15 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
     }
 
     if (MaxOld != *NumMax) {
-        if ((intr = (int16_t*)realloc(intr, *NumMax * sizeof(int16_t))) == NULL ||
-                (beg = (KNOT4**)realloc(beg, *NumMax * sizeof(PTR))) == NULL)
+        if ((intr = (int16_t*) realloc(intr, *NumMax * sizeof(int16_t))) == NULL || (beg
+                = (KNOT4**) realloc(beg, *NumMax * sizeof(PTR))) == NULL)
             return NOT_ALLOC;
     }
 
     kcol = *k_int + 1;
-    CONS_MESS3("kcol=%d", kcol);
-    for(i = 0; i <= kcol; ++i)
+    CONS_MESS3
+    ("kcol=%d", kcol);
+    for (i = 0; i <= kcol; ++i)
         beg[i] = NULL;
 
     for (i = 0; i < kcol; ++i)
@@ -1155,25 +1140,25 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
 
     k_bloc = -1;
 
-    if ((fl = init_lst((KNOT***) & knot, &k_bloc, k_frm + 2, (KNOT**) & Free,
-                       sizeof(KNOT4))) != 0)
+    if ((fl = init_lst((KNOT***) &knot, &k_bloc, k_frm + 2, (KNOT**) &Free, sizeof(KNOT4))) != 0)
         return -fl - 50;
 
-    CONS_MESS3("k_frm=%d", k_frm);
-    for(int i= 0; i <= k_frm; ++i) { /*занесение рамок в списки колонок*/
+    CONS_MESS3
+    ("k_frm=%d", k_frm);
+    for (int i = 0; i <= k_frm; ++i) { /*занесение рамок в списки колонок*/
         x = (reg == HOR) ? frm[i]->left : frm[i]->up;
 
         if (kcol < 2)
             in = (x < intr[0]) ? 0 : 1;
         else
-            in = search_int((int*)intr, *k_int, x);
+            in = search_int((int*) intr, *k_int, x);
 
-        ptr = (KNOT4*)inc_lst((KNOT**) & beg[in], (KNOT**) & Free);
+        ptr = (KNOT4*) inc_lst((KNOT**) &beg[in], (KNOT**) &Free);
         ptr->f = frm[i];
     }
     kf = -1;
     ki = -1;
-    for(int i = 0; i <= kcol; ++i) {
+    for (int i = 0; i <= kcol; ++i) {
         ptr = beg[i];
 
         if (ptr == NULL)
@@ -1187,7 +1172,7 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
         intr[++ki] = kf;
     }
 
-    free_lst((KNOT**)knot, k_bloc);
+    free_lst((KNOT**) knot, k_bloc);
 
     if (kf != k_frm) {
         CONS_MESS3("!!!!!!SearchColHist1: kf != k_frm;return -7");
@@ -1196,7 +1181,8 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
 
     *k_int = ki;
     free(beg);
-    CONS_MESS3("===SearchColHist1: normal end; kcol=%d===", kcol);
+    CONS_MESS3
+    ("===SearchColHist1: normal end; kcol=%d===", kcol);
     return kcol;
 }
 
@@ -1217,14 +1203,12 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x,
  0 - разбиение не произошло,
  1 - разбиение произошло,
  < 0 - ERR*/
-int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
-                        int16_t **end1, int16_t *k_int1, BOUND *bnd, int16_t ave_dir,
-                        int16_t ave_ort, int16_t reg, int16_t *NumMax) {
-    int16_t k_int, pos, min_col, min_int, maxh, minh, midh, kstr, len,
-    len_group, i, j;
+int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **end1,
+        int16_t *k_int1, BOUND *bnd, int16_t ave_dir, int16_t ave_ort, int16_t reg, int16_t *NumMax) {
+    int16_t k_int, pos, min_col, min_int, maxh, minh, midh, kstr, len, len_group, i, j;
     int16_t beg_int, end_int, sumh, ave_h, mi, ma, Home, Fin;
-    int16_t *his, *his_first_group, *his_second_group, last_real_line, *Beg =
-        *beg1, *End = *end1, tmp_pos;
+    int16_t *his, *his_first_group, *his_second_group, last_real_line, *Beg = *beg1, *End = *end1,
+            tmp_pos;
     //--Расчет параметров одномерной колонизации--
     min_col = 1;//миним. длина колонки в пикселах
     min_int = ave_dir * 2;//миним. длина интервала в пикселах
@@ -1237,8 +1221,10 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
         min_int = 5;/*ave_dir * 1.5*/
 
     ; //~~~
-    CONS_MESS2("=== begin SearchInterval1===");
-    CONS_MESS2("min_int= %d", min_int);
+    CONS_MESS2
+    ("=== begin SearchInterval1===");
+    CONS_MESS2
+    ("min_int= %d", min_int);
 
     if (reg == HOR) {
         Home = bnd->left;
@@ -1252,16 +1238,17 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
     }
 
     //Оценка числа строк(HOR)листа /ширины листа в символах(VER)
-    kstr = (int16_t) (reg == HOR ? (bnd->down - bnd->up) / (2 * ave_ort) :
-                      (bnd->right - bnd->left) / (1.2 * ave_ort));
+    kstr = (int16_t) (reg == HOR ? (bnd->down - bnd->up) / (2 * ave_ort) : (bnd->right - bnd->left)
+            / (1.2 * ave_ort));
     //--Вычисление профиля-гистограммы числа компонент, проецирующихся в данный пиксел--
     len = Fin - Home + 2;//длина гистограммы
-    CONS_MESS2("kstr=%d  len_hist=%d", kstr, len);
+    CONS_MESS2
+    ("kstr=%d  len_hist=%d", kstr, len);
 
-    if ( (his = (int16_t*)malloc(len * sizeof(int16_t))) == NULL)
+    if ((his = (int16_t*) malloc(len * sizeof(int16_t))) == NULL)
         return NOT_ALLOC;
 
-    memset(his, 0, len*sizeof(int16_t));
+    memset(his, 0, len * sizeof(int16_t));
     --len;
 
     if (reg == VER) {
@@ -1270,17 +1257,18 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
             len_group = 0;
         }
 
-        if ((his_first_group = (int16_t*)malloc((len_group + 4) * sizeof(int16_t))) == NULL)
+        if ((his_first_group = (int16_t*) malloc((len_group + 4) * sizeof(int16_t))) == NULL)
             return NOT_ALLOC;
 
-        if ((his_second_group = (int16_t*)malloc((len_group + 4) * sizeof(int16_t))) == NULL)
+        if ((his_second_group = (int16_t*) malloc((len_group + 4) * sizeof(int16_t))) == NULL)
             return NOT_ALLOC;
 
         last_real_line = 0;
         --len_group;
     }
 
-    CONS_MESS2("k_frm=%d ", k_frm + 1);
+    CONS_MESS2
+    ("k_frm=%d ", k_frm + 1);
 #ifdef alDebug
     {   pTheGeomTemp.clear();
         tagRECT rct;
@@ -1288,7 +1276,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
         pTheGeomTemp.push_back(rct);
     }
 #endif
-    for(int i = 0; i<= k_frm; ++i) {
+    for (int i = 0; i <= k_frm; ++i) {
 #ifdef alDebug
         {
             tagRECT rct;
@@ -1300,13 +1288,11 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
         if (reg == HOR) {
             mi = frm[i]->left - Home;
             ma = frm[i]->right - Home;
-            CONS_MESS2("reg==HOR: frm[i]->left=%d,frm[i]->right=%d, mi=%d, ma=%d",
-                       frm[i]->left, frm[i]->right, mi, ma);
+            CONS_MESS2("reg==HOR: frm[i]->left=%d,frm[i]->right=%d, mi=%d, ma=%d", frm[i]->left, frm[i]->right, mi, ma);
         } else {
             mi = frm[i]->up - Home;
             ma = frm[i]->down - Home;
-            CONS_MESS2("reg==VER: frm[i]->up=%d,frm[i]->down=%d,mi=%d,ma=%d",
-                       frm[i]->up, frm[i]->down, mi, ma);
+            CONS_MESS2("reg==VER: frm[i]->up=%d,frm[i]->down=%d,mi=%d,ma=%d", frm[i]->up, frm[i]->down, mi, ma);
         }
 
         if (mi < 0 || ma > len) {
@@ -1314,7 +1300,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
             return -6;
         }
 
-        for(int j = mi; j <= ma; ++j)
+        for (int j = mi; j <= ma; ++j)
             ++his[j];
     }
 #ifdef alDebug
@@ -1328,7 +1314,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
     k_int = -1;
     pos = -1;
 
-    while ((int16_t)his[++pos] < minh) { /*поиск I позиции текста*/
+    while ((int16_t) his[++pos] < minh) { /*поиск I позиции текста*/
         if (pos >= len) {
             if (reg == VER) {
                 free(his_first_group);
@@ -1337,13 +1323,15 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
 
             free(his);
             *k_int1 = -1;
-            CONS_MESS2("===колонки не обнаружены===");
+            CONS_MESS2
+            ("===колонки не обнаружены===");
             return 0;
         } /*колонки не обнаружены*/
     }
 
     do { /*ищем I позицию интервала*/
-        while (pos < len - min_int - min_col && (int16_t)his[++pos] > maxh);
+        while (pos < len - min_int - min_col && (int16_t) his[++pos] > maxh)
+            ;
 
         if (pos >= len - min_int - min_col) {
             CONS_MESS2("!!!!!! pos >= len-min_int-min_col");
@@ -1353,29 +1341,31 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
         beg_int = pos;
 
         /*ищем последовательность не менее чем min_int высотой < maxh*/
-        while ((int16_t)his[++pos] <= maxh)
+        while ((int16_t) his[++pos] <= maxh)
             if (pos >= len || pos - beg_int >= min_int)
                 break;
 
-        if (pos - beg_int < min_int &&
-                Check_IsItFalseHorLine(last_real_line, reg, frm, his, pos, len, maxh, min_int + min_col,
-                                       len_group, his_first_group, his_second_group, bnd, k_frm))
+        if (pos - beg_int < min_int && Check_IsItFalseHorLine(last_real_line, reg, frm, his, pos,
+                len, maxh, min_int + min_col, len_group, his_first_group, his_second_group, bnd,
+                k_frm))
             continue;
 
         if (pos >= len)
             break;
 
-        CONS_MESS2("beg_int=%d; pos=%d", beg_int, pos);
+        CONS_MESS2
+        ("beg_int=%d; pos=%d", beg_int, pos);
         tmp_pos = pos;
         sumh = 0;
-        for(int i = beg_int; i<= pos; ++i)
+        for (int i = beg_int; i <= pos; ++i)
             sumh += his[i];
 
         ave_h = sumh / (pos - beg_int + 1);
-        CONS_MESS2("ave_h=%d", ave_h);
+        CONS_MESS2
+        ("ave_h=%d", ave_h);
 
         if (ave_h <= midh) { /*интервал найден, ищем его конец*/
-            while ((int16_t)his[++pos] <= maxh) {
+            while ((int16_t) his[++pos] <= maxh) {
                 sumh += his[pos];
                 ave_h = sumh / (pos - beg_int + 1);
 
@@ -1384,7 +1374,8 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
             }
 
             end_int = pos;
-            CONS_MESS2("end_int=%d", end_int);
+            CONS_MESS2
+            ("end_int=%d", end_int);
 #ifdef alDebug
 
             if (reg == VER) {
@@ -1406,10 +1397,11 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
                 End[k_int] = end_int + Home;
 
                 //Фиксируем интервал лишь в случае достаточной длины колонки
-                if ((k_int > 0 && Beg[k_int] - End[k_int-1] < min_col) ||
-                        (Beg[k_int] - Home < min_col)) {
+                if ((k_int > 0 && Beg[k_int] - End[k_int - 1] < min_col) || (Beg[k_int] - Home
+                        < min_col)) {
                     --k_int;
-                    CONS_MESS2(" колонка узкая,интервал не принимается! ");
+                    CONS_MESS2
+                    (" колонка узкая,интервал не принимается! ");
                     continue;
                 }
 
@@ -1417,10 +1409,10 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
 
                 if (k_int > *NumMax - 2) {
                     int16_t MaxOld = *NumMax;
-                    *NumMax = (int16_t)(*NumMax * 1.5);
+                    *NumMax = (int16_t) (*NumMax * 1.5);
 
-                    if ((Beg = (int16_t*)realloc(Beg, *NumMax * sizeof(int16_t))) == NULL ||
-                            (End = (int16_t*)realloc(End, *NumMax * sizeof(int16_t))) == NULL) {
+                    if ((Beg = (int16_t*) realloc(Beg, *NumMax * sizeof(int16_t))) == NULL || (End
+                            = (int16_t*) realloc(End, *NumMax * sizeof(int16_t))) == NULL) {
                         free(his);
 
                         if (reg == VER) {
@@ -1435,8 +1427,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
         }
 
         pos += min_col; /*для попадания внутрь колонки,если end_pos - внутри интервала*/
-    }
-    while (pos < len - min_int - min_col);
+    } while (pos < len - min_int - min_col);
 
     free(his);
 
@@ -1448,44 +1439,48 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1,
     *beg1 = Beg;
     *end1 = End;
     *k_int1 = k_int;
-    CONS_MESS2("k_int=%d", k_int);
-    CONS_MESS2("=== end SearchInterval1===");
+    CONS_MESS2
+    ("k_int=%d", k_int);
+    CONS_MESS2
+    ("=== end SearchInterval1===");
     return k_int >= 0 ? 1 : 0;
 }
 
 //////////////        Check_IsItFalseHorLine
-int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
-                               FRAME **frm, int16_t *his, int16_t pos, int16_t len, int16_t maxh,
-                               int16_t sum, int16_t len_group, int16_t *his_first_group,
-                               int16_t *his_second_group, BOUND *bnd, int16_t k_frm)
-{
-    int16_t Home, Fin, old_pos, i, j, mi, ma, beg_white_int, end_white_int,
-    k_frm_first, k_frm_second;
+int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg, FRAME **frm, int16_t *his,
+        int16_t pos, int16_t len, int16_t maxh, int16_t sum, int16_t len_group,
+        int16_t *his_first_group, int16_t *his_second_group, BOUND *bnd, int16_t k_frm) {
+    int16_t Home, Fin, old_pos, i, j, mi, ma, beg_white_int, end_white_int, k_frm_first,
+            k_frm_second;
     std::vector<tagRECT> First_Group;
     std::vector<tagRECT> Second_Group;
 
     if (reg == HOR || len_group <= 0)
         goto end1;
 
-    CONS_MESS2("===begin Check_IsItFalseHorLine===");
-    CONS_MESS2("pos=%d len=%d last_real_line=%d", pos, len, last_real_line);
+    CONS_MESS2
+    ("===begin Check_IsItFalseHorLine===");
+    CONS_MESS2
+    ("pos=%d len=%d last_real_line=%d", pos, len, last_real_line);
 
-    if (last_real_line > 0) --last_real_line;
+    if (last_real_line > 0)
+        --last_real_line;
 
     Home = bnd->left;
     Fin = bnd->right;
     ///////////////////        First_Group             /////////////////////////////////////
-    for(int i = 0; i<= k_frm; ++i) {
-        if (frm[i]->up >= last_real_line + bnd->up && frm[i]->down <= pos + bnd->up ) {
+    for (int i = 0; i <= k_frm; ++i) {
+        if (frm[i]->up >= last_real_line + bnd->up && frm[i]->down <= pos + bnd->up) {
             tagRECT rct;
             SetRect(&rct, frm[i]->left, frm[i]->up, frm[i]->right, frm[i]->down);
             First_Group.push_back(rct);
         }
     }
     k_frm_first = First_Group.size() - 1;
-    CONS_MESS2(" new_count_frm-first=%d ", k_frm_first + 1);
-    memset(his_first_group, 0, (len_group + 1)*sizeof(int16_t));
-    for(int i = 0; i<= k_frm_first; ++i) {
+    CONS_MESS2
+    (" new_count_frm-first=%d ", k_frm_first + 1);
+    memset(his_first_group, 0, (len_group + 1) * sizeof(int16_t));
+    for (int i = 0; i <= k_frm_first; ++i) {
         mi = First_Group[i].left - Home;
         ma = First_Group[i].right - Home;
 
@@ -1494,26 +1489,29 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
             goto end1;
         }
 
-        for(int j = mi; j<= ma; ++j)
+        for (int j = mi; j <= ma; ++j)
             ++his_first_group[j];
     }
     ////////////////////////// Second_Group   ////////////////////////////////////////////////
     old_pos = pos;
 
-    while (pos <= len && (int16_t)his[++pos] > maxh);
+    while (pos <= len && (int16_t) his[++pos] > maxh)
+        ;
 
-    CONS_MESS2("Second_Group new pos = %d", pos);
-    for(i = 0; i <= k_frm; ++i) {
-        if (frm[i]->up >= old_pos + bnd->up && frm[i]->down <= pos + bnd->up ) {
+    CONS_MESS2
+    ("Second_Group new pos = %d", pos);
+    for (i = 0; i <= k_frm; ++i) {
+        if (frm[i]->up >= old_pos + bnd->up && frm[i]->down <= pos + bnd->up) {
             tagRECT rct;
             SetRect(&rct, frm[i]->left, frm[i]->up, frm[i]->right, frm[i]->down);
             Second_Group.push_back(rct);
         }
     }
     k_frm_second = Second_Group.size() - 1;
-    CONS_MESS2("Second_Group new_count_frm=%d ", k_frm_second + 1);
-    memset(his_second_group, 0, (len_group + 1)*sizeof(int16_t));
-    for(i = 0; i <= k_frm_second; ++i) {
+    CONS_MESS2
+    ("Second_Group new_count_frm=%d ", k_frm_second + 1);
+    memset(his_second_group, 0, (len_group + 1) * sizeof(int16_t));
+    for (i = 0; i <= k_frm_second; ++i) {
         mi = Second_Group[i].left - Home;
         ma = Second_Group[i].right - Home;
 
@@ -1522,31 +1520,37 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
             goto end1;
         }
 
-        for(j = mi; j <= ma; ++j)
+        for (j = mi; j <= ma; ++j)
             ++his_second_group[j];
     }
     /////////  Compary white intervals //////////////////////////////
-    for(i = 0; i <= len_group; ++i) {
-        while (i <= len_group && (int16_t)his_first_group[++i] <= maxh);
+    for (i = 0; i <= len_group; ++i) {
+        while (i <= len_group && (int16_t) his_first_group[++i] <= maxh)
+            ;
 
-        while (i <= len_group && (int16_t)his_first_group[++i] > maxh);
+        while (i <= len_group && (int16_t) his_first_group[++i] > maxh)
+            ;
 
         if (i >= len_group)
             break;
 
-        while (i <= len_group && (int16_t)his_first_group[++i] > maxh);
+        while (i <= len_group && (int16_t) his_first_group[++i] > maxh)
+            ;
 
         beg_white_int = i;
-        CONS_MESS2("First Group beg_white_int=%d ", i);
+        CONS_MESS2
+        ("First Group beg_white_int=%d ", i);
 
-        while (i <= len_group && (int16_t)his_first_group[++i] <= maxh);
+        while (i <= len_group && (int16_t) his_first_group[++i] <= maxh)
+            ;
 
         end_white_int = i;
 
         if (end_white_int >= len_group)
             break;
 
-        CONS_MESS2("First Group end_white_int=%d ", i);
+        CONS_MESS2
+        ("First Group end_white_int=%d ", i);
 
         if (beg_white_int == end_white_int) {
             CONS_MESS2("beg_white_int==end_white_int i=%d ", i);
@@ -1558,27 +1562,33 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
             goto end0;
         }
     }
-    for(i = 0; i <= len_group; ++i) {
-        while (i <= len_group && (int16_t)his_second_group[++i] <= maxh);
+    for (i = 0; i <= len_group; ++i) {
+        while (i <= len_group && (int16_t) his_second_group[++i] <= maxh)
+            ;
 
-        while (i <= len_group && (int16_t)his_second_group[++i] > maxh);
+        while (i <= len_group && (int16_t) his_second_group[++i] > maxh)
+            ;
 
         if (i >= len_group)
             break;
 
-        while (i <= len_group && (int16_t)his_second_group[++i] > maxh);
+        while (i <= len_group && (int16_t) his_second_group[++i] > maxh)
+            ;
 
         beg_white_int = i;
-        CONS_MESS2("Second Group beg_white_int=%d ", i);
+        CONS_MESS2
+        ("Second Group beg_white_int=%d ", i);
 
-        while (i <= len_group && (int16_t)his_second_group[++i] <= maxh);
+        while (i <= len_group && (int16_t) his_second_group[++i] <= maxh)
+            ;
 
         end_white_int = i;
 
         if (end_white_int >= len_group)
             break;
 
-        CONS_MESS2("Second Group end_white_int=%d ", i);
+        CONS_MESS2
+        ("Second Group end_white_int=%d ", i);
 
         if (beg_white_int == end_white_int) {
             CONS_MESS2("Second Group beg_white_int==end_white_int i=%d ", i);
@@ -1590,21 +1600,20 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg,
             goto end0;
         }
     }
-end1:
+    end1:
     //  First_Group.RemoveAll( );
     //  Second_Group.RemoveAll( );
     return 1;
-end0:
+    end0:
     //  First_Group.RemoveAll( );
     //  Second_Group.RemoveAll( );
     return 0;
 }
 
-int check_white_int(int16_t beg_white_int, int16_t end_white_int,
-                        int16_t maxh, int16_t *his_second_group)
-{
+int check_white_int(int16_t beg_white_int, int16_t end_white_int, int16_t maxh,
+        int16_t *his_second_group) {
     int count_white_pixels = 0;
-    for(int i = beg_white_int; i <= end_white_int; ++i) {
+    for (int i = beg_white_int; i <= end_white_int; ++i) {
         if (his_second_group[++i] <= maxh)
             ++count_white_pixels;
     }
@@ -1619,26 +1628,20 @@ int check_white_int(int16_t beg_white_int, int16_t end_white_int,
  after - узел-дочь, после кот. следует вставить новый узел,
  free - голова общего списка свобод. памяти дерева*/
 //============return: указатель на новый включен. в дерево узел или NULL
-KNOTT* IncKnot(KNOTT *up, KNOTT *after, KNOTT **free)
-//==
-{
+KNOTT* IncKnot(KNOTT *up, KNOTT *after, KNOTT **free) {
     KNOTT *New;
 
     if (up != NULL) {
         if (after == NULL)
-            New = (KNOTT*) inc_lst((KNOT**) & up->down, (KNOT**) free);
-
+            New = (KNOTT*) inc_lst((KNOT**) &up->down, (KNOT**) free);
         else
-            New = (KNOTT*) inc_after_lst((KNOT*) after, (KNOT**) & up->down,
-                                         (KNOT**) free);
+            New = (KNOTT*) inc_after_lst((KNOT*) after, (KNOT**) &up->down, (KNOT**) free);
 
         if (New == NULL)
             return New;
-    }
-
-    else {
+    } else {
         New = NULL;
-        New = (KNOTT*) inc_lst((KNOT**) & New, (KNOT**) free);//корень
+        New = (KNOTT*) inc_lst((KNOT**) &New, (KNOT**) free);//корень
     }
 
     New->up = up;
@@ -1646,12 +1649,9 @@ KNOTT* IncKnot(KNOTT *up, KNOTT *after, KNOTT **free)
     return New;
 }
 //===Заполнение полей узла KNOTT ортогонал. дерева TREE2
-void FillFieldKNOTT1(KNOTT *ptr, int16_t Left, int16_t Right, int16_t Top,
-                     int16_t Bottom, int16_t InBegFrm, int16_t NumFrm, int16_t InColA,
-                     uint OrderChild, uint Type, uint AllowOCR, uint JustH, uint JustV,
-                     char *Name)
-//==
-{
+void FillFieldKNOTT1(KNOTT *ptr, int16_t Left, int16_t Right, int16_t Top, int16_t Bottom,
+        int16_t InBegFrm, int16_t NumFrm, int16_t InColA, uint OrderChild, uint Type,
+        uint AllowOCR, uint JustH, uint JustV, char *Name) {
     ptr->Rect.top = Top; //индекс линии - верхней границы
     ptr->Rect.bottom = Bottom; //--/-- нижней
     ptr->Rect.left = Left; //--/-- левой
@@ -1679,14 +1679,12 @@ int16_t compLINE_KNOT1(LINE_KNOT *a, LINE_KNOT *b) {
 //сортировка H-линий дерева по вертикали
 //и попутное заполнение массива терминал. V-колонок (k_colt1 - индекс)
 //если V-линии не упорядочены, они также сортируютс
-int16_t SortHorLine1(LINE_KNOT *LineHK, int16_t NumH, LINE_KNOT *LineVK,
-                     int16_t NumV, KNOTT *Root, KNOTT ***colt1, int16_t *k_colt1,
-                     FRAME **frm) {
-    INDEX_SORT *Ind = (INDEX_SORT *) malloc(MAX(NumH, NumV)
-                                            * sizeof(INDEX_SORT));
+int16_t SortHorLine1(LINE_KNOT *LineHK, int16_t NumH, LINE_KNOT *LineVK, int16_t NumV, KNOTT *Root,
+        KNOTT ***colt1, int16_t *k_colt1, FRAME **frm) {
+    INDEX_SORT *Ind = (INDEX_SORT *) malloc(MAX(NumH, NumV) * sizeof(INDEX_SORT));
     STAT_CELL StDefault;
-    int16_t *Index = (int16_t *) malloc(NumH * sizeof(int16_t)), *IndexV =
-                         (int16_t *) malloc(NumV * sizeof(int16_t));
+    int16_t *Index = (int16_t *) malloc(NumH * sizeof(int16_t)), *IndexV = (int16_t *) malloc(NumV
+            * sizeof(int16_t));
     int16_t i, DepthTree = 20, flV;
     STACK St;
     KNOTT *Curr, **colt;
@@ -1757,8 +1755,7 @@ int16_t SortHorLine1(LINE_KNOT *LineHK, int16_t NumH, LINE_KNOT *LineVK,
 #ifdef VER_ORDER_QUE_STR
 
     while (Curr != NULL) { //II проход - заполнение массива TERM Cell
-        if (Curr->down == NULL && Curr->AllowOCR && Curr->InBegFrm != IN_NO
-                && Curr->NumFrm > 0)
+        if (Curr->down == NULL && Curr->AllowOCR && Curr->InBegFrm != IN_NO && Curr->NumFrm > 0)
             colt[++k_colt] = Curr;
 
         Curr = NextKnot(Curr, &St);
@@ -1788,8 +1785,9 @@ int16_t SortHorLine1(LINE_KNOT *LineHK, int16_t NumH, LINE_KNOT *LineVK,
     return 0;
 }
 
-struct COLH {
-    SRECT bnd;/*рамка объединения*/
+struct COLH
+{
+        SRECT bnd;/*рамка объединения*/
 };
 
 int16_t CalcNumDau(KNOTT *Knot) {
@@ -1812,15 +1810,13 @@ int16_t CalcNumDau(KNOTT *Knot) {
 //         Секторы на горизантальные колонки
 //         Горизантальные колонки на вертикальные колонки
 //         Определение терминальности вертикальных колонок
-//  Запольнение RtfPage.
-Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
-{
-    int16_t nc, ns, nw, nz, fl, i, i_ns1, i_nsb, i_nse, j, ih, iv, iv1, kp,
-    kp1, kp2, n_beg, flag_vse_term = 1, OldNumCol;
+//  Заполнение RtfPage.
+Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName) {
+    int16_t nc, ns, nw, nz, fl, i, i_ns1, i_nsb, i_nse, j, ih, iv, iv1, kp, kp1, kp2, n_beg,
+            flag_vse_term = 1, OldNumCol;
     int16_t FlagBadColumn;
     SRECT bnd;
-    int16_t ***Colt, K_Sect, *K_Hor, **K_Ver_Flag_Term, **K_Ver_Add_On,
-    **K_Ver_Offset, **K_Ver;
+    int16_t ***Colt, K_Sect, *K_Hor, **K_Ver_Flag_Term, **K_Ver_Add_On, **K_Ver_Offset, **K_Ver;
     COLH **ColH, **ColH_New;
     INF_TREE Inf;
     FRAME **frm;
@@ -1873,7 +1869,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
     DBG("OpenFullOutTiger");
 
-    if ( NumCol >= 0 )
+    if (NumCol >= 0)
         fl = CalcStatTiger();
     else
         fl = 1;
@@ -1893,7 +1889,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
     DBG("GenerateTreeByFragm ");
 
     //---объединяем результаты распознавания текстовых фрагментов в колонки---
-    if ( Inf.NumT )
+    if (Inf.NumT)
         FlagOdinSectorOdnaColonka = FALSE;
 
     for (i = 0; i <= Inf.NumT; ++i) {
@@ -1905,21 +1901,21 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
         n_beg = Inf.ColT[i]->InBegFrm;
         num = Inf.ColT[i]->NumFrm;
         Inf.ColT[i]->Type = 1;
-        Inf.ColT[i]->InBegFrm = (int)frm[n_beg]->start_pos;
+        Inf.ColT[i]->InBegFrm = (int) frm[n_beg]->start_pos;
         inCol = Inf.ColT[i]->InBegFrm;
 
         if (num > 1) {
-            qsort((void *)(frm + n_beg), num, sizeof(FRAME *), Alik_sort_function);
+            qsort((void *) (frm + n_beg), num, sizeof(FRAME *), Alik_sort_function);
 
             for (j = 0; j < num - 1; ++j) {
-                if (frm[n_beg+j]->down > frm[n_beg+j+1]->up) {
+                if (frm[n_beg + j]->down > frm[n_beg + j + 1]->up) {
                     FlagOdinSectorOdnaColonka = FALSE;
                     break;
                 }
             }
 
             for (j = 0; j < num - 1; ++j) {
-                if (frm[n_beg+j]->down - 30 > frm[n_beg+j+1]->up) {
+                if (frm[n_beg + j]->down - 30 > frm[n_beg + j + 1]->up) {
                     Inf.ColT[i]->Type = 0;
                     Inf.ColT[i]->InBegFrm = n_beg;
                     break;
@@ -1927,7 +1923,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
             }
 
             if (Inf.ColT[i]->Type)
-                inCol = Inf.ColT[i]->InBegFrm = (int)frm[n_beg]->start_pos;
+                inCol = Inf.ColT[i]->InBegFrm = (int) frm[n_beg]->start_pos;
         }
 
         DBG_SORT("beg=" << n_beg << " num=" << num << " inCol=" << (NumCol - inCol));
@@ -1941,7 +1937,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 #endif
 
         //многофрагментная колонка => объединяем строки фрагментов
-        if ( num > 1 && (Inf.ColT[i]->Type || ( FlagOdinSectorOdnaColonka && !Inf.NumT ) )) {
+        if (num > 1 && (Inf.ColT[i]->Type || (FlagOdinSectorOdnaColonka && !Inf.NumT))) {
             TotalNumStr = 0;
             m = 0;
             RectFragm[inCol].left = Inf.bnd_col[i].left;
@@ -1950,22 +1946,22 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
             RectFragm[inCol].bottom = Inf.bnd_col[i].down;
 
             for (j = 0; j < num; ++j) {
-                nc = (int16_t)frm[n_beg+j]->start_pos;
+                nc = (int16_t) frm[n_beg + j]->start_pos;
                 TotalNumStr += NumStr[nc] + 1;
             }
 
             TITLE_STR *tS;
             TITLE_WORD **tW;
             ZN ***Z;
-            tS = (TITLE_STR* )Submalloc(TotalNumStr * sizeof(TITLE_STR), &SubZn);
-            tW = (TITLE_WORD**)Submalloc(TotalNumStr * sizeof(PTR), &SubZn);
+            tS = (TITLE_STR*) Submalloc(TotalNumStr * sizeof(TITLE_STR), &SubZn);
+            tW = (TITLE_WORD**) Submalloc(TotalNumStr * sizeof(PTR), &SubZn);
             Z = (ZN***) Submalloc(TotalNumStr * sizeof(PTR), &SubZn);
 
             if (!tS || !tW || !Z)
                 return NOT_ALLOC;
 
             for (j = 0; j < num; ++j) {
-                nc = (int16_t)frm[n_beg+j]->start_pos; //прибавить строки колонки nc к inCol
+                nc = (int16_t) frm[n_beg + j]->start_pos; //прибавить строки колонки nc к inCol
 
                 if (j)
                     TitleStr[nc][0].S_Attr = 1;
@@ -1973,7 +1969,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 #ifdef alDebug
 
                 if (dets && det6)
-                    DBG ("nc= " << (NumCol - nc));
+                DBG ("nc= " << (NumCol - nc));
 
 #endif
 
@@ -1999,11 +1995,11 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
     }
 
     pRoot = Inf.Tree.Root;
-    Inf.StatCell = (STAT_CELL*)malloc(NumCol * sizeof(STAT_CELL));
+    Inf.StatCell = (STAT_CELL*) malloc(NumCol * sizeof(STAT_CELL));
     Inf.StatCell[0].HeiStr = 42;//~т.к. из ED-файла приходит неверные значени
     Inf.MonoSpaceTrue = 22;//~
     Inf.k_str = NumStr;
-//---Заполнение структуры колонок K_Sect,K_Hor,K_Ver,Colt,ColH---***********************
+    //---Заполнение структуры колонок K_Sect,K_Hor,K_Ver,Colt,ColH---***********************
     k_lev = MaxLev - 1;
     --NumCol;
 
@@ -2012,13 +2008,13 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
         NumCol = 0;
     }
 
-//converter from Inf, где лежит дерево, в трехуровневую uint16_t-схему
-//представления иерархии колонок:
-// K_Sect
-//      K_Hor[K_Sect]
-//          K_Ver[K_Sect][K_Hor[K_Sect]]
-// K_Ver_Flag_Term указывает свойства колонки :
-// 0----простая колонка; 1----простая колонка c терм. фрагментами; 2----- сложная колонка
+    //converter from Inf, где лежит дерево, в трехуровневую uint16_t-схему
+    //представления иерархии колонок:
+    // K_Sect
+    //      K_Hor[K_Sect]
+    //          K_Ver[K_Sect][K_Hor[K_Sect]]
+    // K_Ver_Flag_Term указывает свойства колонки :
+    // 0----простая колонка; 1----простая колонка c терм. фрагментами; 2----- сложная колонка
     {
         k_col[1] = CalcNumDau(pRoot) - 1;
 
@@ -2027,18 +2023,19 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
             DBG_GEOM("Original horizontal order");
             DBG_GEOM("Columns number =" << (k_col[1] + 1));
             K_Sect = 0;
-            K_Hor = (int16_t*)malloc((K_Sect + 1) * sizeof(int16_t));
+            K_Hor = (int16_t*) malloc((K_Sect + 1) * sizeof(int16_t));
             K_Hor[0] = k_col[1];
-            K_Ver = (int16_t**)malloc((K_Sect + 1) * sizeof(int16_t*));
-            K_Ver_Flag_Term = (int16_t**)malloc((K_Sect + 1) * sizeof(int16_t*));
-            Colt = (int16_t***)malloc((K_Sect + 1) * sizeof(int16_t**));
+            K_Ver = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+            K_Ver_Flag_Term = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+            Colt = (int16_t***) malloc((K_Sect + 1) * sizeof(int16_t**));
 
             if (K_Hor == NULL || K_Ver_Flag_Term == NULL || K_Ver == NULL || Colt == NULL)
                 return NOT_ALLOC;
 
-            if ((K_Ver[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL ||
-                    (K_Ver_Flag_Term[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL ||
-                    (Colt [0] = (int16_t**)malloc((K_Hor[0] + 1) * sizeof(PTR))) == NULL)
+            if ((K_Ver[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL
+                    || (K_Ver_Flag_Term[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t)))
+                            == NULL || (Colt[0] = (int16_t**) malloc((K_Hor[0] + 1) * sizeof(PTR)))
+                    == NULL)
                 return NOT_ALLOC;
 
             for (ih = 0, ptr = pRoot->down; ih <= K_Hor[0]; ++ih, ptr = ptr->next) {
@@ -2054,14 +2051,15 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     } else
                         K_Ver[0][ih] = 0;
 
-                    if ((Colt[0][ih] = (int16_t*)malloc((K_Ver[0][ih] + 1) * sizeof(int16_t))) == NULL)
+                    if ((Colt[0][ih] = (int16_t*) malloc((K_Ver[0][ih] + 1) * sizeof(int16_t)))
+                            == NULL)
                         return NOT_ALLOC;
 
-                    Get_all_term_fragms1( ptr, Colt[0][ih], &iv, NumCol, frm );
+                    Get_all_term_fragms1(ptr, Colt[0][ih], &iv, NumCol, frm);
 #ifdef alDebug
 
                     if (det4 && ptr->NumFrm > 1 && !ptr->Type)
-                        DBG("Колонка сложной структуры (фреймы) ");
+                    DBG("Колонка сложной структуры (фреймы) ");
 
 #endif
                 }
@@ -2069,12 +2067,13 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 else {
                     K_Ver[0][ih] = ptr->NumFrm - 1;
 
-                    if ((Colt[0][ih] = (int16_t*)malloc((K_Ver[0][ih] + 1) * sizeof(int16_t))) == NULL)
+                    if ((Colt[0][ih] = (int16_t*) malloc((K_Ver[0][ih] + 1) * sizeof(int16_t)))
+                            == NULL)
                         return NOT_ALLOC;
 
 #ifdef alDebug
                     if (det4 && dets)
-                        DBG("Выделяем память для " << ptr->NumFrm << " term fragm");
+                    DBG("Выделяем память для " << ptr->NumFrm << " term fragm");
 #endif
 
                     for (iv1 = 0, iv = 0, ptr1 = ptr->down; iv1 <= kp; ++iv1, ptr1 = ptr1->next) {
@@ -2082,7 +2081,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         kp1 = CalcNumDau(ptr1) - 1;
 
                         if (kp1 >= 0) {
-                            Get_all_term_fragms( ptr1, Colt[0][ih], &iv, NumCol, frm );
+                            Get_all_term_fragms(ptr1, Colt[0][ih], &iv, NumCol, frm);
                             K_Ver_Flag_Term[0][ih] = 2;
                         } else {
                             if (ptr1->NumFrm > 1 && !ptr1->Type) {
@@ -2091,7 +2090,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                 i_nse = ptr1->InBegFrm + ptr1->NumFrm;
 
                                 for (i_nsb = ptr1->InBegFrm; i_nsb < i_nse; ++iv, ++i_nsb) {
-                                    Colt[0][ih][iv] = (int16_t)frm[i_nsb]->start_pos;
+                                    Colt[0][ih][iv] = (int16_t) frm[i_nsb]->start_pos;
                                     DBG_GEOM(" #term=" << (NumCol + 1 - Colt[0][ih][iv]));
                                 }
                             } else {
@@ -2109,7 +2108,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 #ifdef alDebug
 
                     if (det4 && dets)
-                        DBG("Кол-во терм. колонок=" << (K_Ver[0][ih] + 1));
+                    DBG("Кол-во терм. колонок=" << (K_Ver[0][ih] + 1));
 
 #endif
                 }
@@ -2118,11 +2117,11 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
                 if (det4) {
                     if (!K_Ver_Flag_Term[0][ih])
-                        DBG("Column is simple");
+                    DBG("Column is simple");
                     else if (det4 && K_Ver_Flag_Term[0][ih] == 1)
-                        DBG("Column is simple and consist of terminal fragments");
+                    DBG("Column is simple and consist of terminal fragments");
                     else
-                        DBG("Column is complicated (frames)");
+                    DBG("Column is complicated (frames)");
                 }
 
 #endif
@@ -2134,10 +2133,10 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
             DBG_GEOM("Original order - vertical");
             DBG_GEOM("Section number =" << (k_col[1] + 1));
             K_Sect = k_col[1];
-            K_Hor = (int16_t*)malloc((K_Sect + 1) * sizeof(int16_t));
-            K_Ver = (int16_t**)malloc((K_Sect + 1) * sizeof(int16_t*));
-            K_Ver_Flag_Term = (int16_t**)malloc((K_Sect + 1) * sizeof(int16_t*));
-            Colt = (int16_t***)malloc((K_Sect + 1) * sizeof(int16_t**));
+            K_Hor = (int16_t*) malloc((K_Sect + 1) * sizeof(int16_t));
+            K_Ver = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+            K_Ver_Flag_Term = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+            Colt = (int16_t***) malloc((K_Sect + 1) * sizeof(int16_t**));
 
             if (K_Hor == NULL || K_Ver_Flag_Term == NULL || K_Ver == NULL || Colt == NULL)
                 return NOT_ALLOC;
@@ -2150,9 +2149,9 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 //Секция - одна терминал. колонка
                 if (kp < 0) {
                     K_Hor[i] = 0;
-                    K_Ver[i] = (int16_t*)malloc((K_Hor[i] + 1) * sizeof(int16_t));
-                    K_Ver_Flag_Term[i] = (int16_t*)malloc((K_Hor[i] + 1) * sizeof(int16_t));
-                    Colt[i] = (int16_t**)malloc((K_Hor[i] + 1) * sizeof(int16_t*));
+                    K_Ver[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
+                    K_Ver_Flag_Term[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
+                    Colt[i] = (int16_t**) malloc((K_Hor[i] + 1) * sizeof(int16_t*));
 
                     if (K_Ver[i] == NULL || K_Ver_Flag_Term[i] == NULL || Colt[i] == NULL)
                         return NOT_ALLOC;
@@ -2165,7 +2164,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         K_Ver_Flag_Term[i][0] = 0;
                     }
 
-                    if ((Colt[i][0] = (int16_t*)malloc((K_Ver[i][0] + 1) * sizeof(int16_t))) == NULL)
+                    if ((Colt[i][0] = (int16_t*) malloc((K_Ver[i][0] + 1) * sizeof(int16_t)))
+                            == NULL)
                         return -3;
 
                     if (ptr->NumFrm > 1 && !ptr->Type) {
@@ -2173,7 +2173,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         i_nse = ptr->InBegFrm + ptr->NumFrm;
 
                         for (i_ns1 = 0, i_nsb = ptr->InBegFrm; i_nsb < i_nse; ++i_ns1, ++i_nsb) {
-                            Colt[i][0][i_ns1] = (int16_t)frm[i_nsb]->start_pos;
+                            Colt[i][0][i_ns1] = (int16_t) frm[i_nsb]->start_pos;
                             DBG_GEOM(" #term=" << (NumCol + 1 - Colt[i][0][i_ns1]));
                         }
 
@@ -2187,9 +2187,9 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 //Секция - из kp H-колонок
                 else {
                     K_Hor[i] = kp;
-                    K_Ver[i] = (int16_t*)malloc((K_Hor[i] + 1) * sizeof(int16_t));
-                    K_Ver_Flag_Term[i] = (int16_t*)malloc((K_Hor[i] + 1) * sizeof(int16_t));
-                    Colt[i] = (int16_t**)malloc((K_Hor[i] + 1) * sizeof(int16_t*));
+                    K_Ver[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
+                    K_Ver_Flag_Term[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
+                    Colt[i] = (int16_t**) malloc((K_Hor[i] + 1) * sizeof(int16_t*));
 
                     if (K_Ver[i] == NULL || K_Ver_Flag_Term[i] == NULL || Colt[i] == NULL)
                         return NOT_ALLOC;
@@ -2209,7 +2209,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                 K_Ver_Flag_Term[i][ih] = 0;
                             }
 
-                            if ((Colt[i][ih] = (int16_t*)malloc((K_Ver[i][ih] + 1) * sizeof(int16_t))) == NULL)
+                            if ((Colt[i][ih] = (int16_t*) malloc((K_Ver[i][ih] + 1)
+                                    * sizeof(int16_t))) == NULL)
                                 return -3;
 
                             if (ptr1->NumFrm > 1 && !ptr1->Type) {
@@ -2218,7 +2219,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                 i_nse = ptr1->InBegFrm + ptr1->NumFrm;
 
                                 for (i_ns1 = 0, i_nsb = ptr1->InBegFrm; i_nsb < i_nse; ++i_ns1, ++i_nsb) {
-                                    Colt[i][ih][i_ns1] = (int16_t)frm[i_nsb]->start_pos;
+                                    Colt[i][ih][i_ns1] = (int16_t) frm[i_nsb]->start_pos;
                                     DBG_GEOM(" #term=" << (NumCol + 1 - Colt[i][ih][i_ns1]));
                                 }
                             } else {
@@ -2228,31 +2229,34 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         } else {
                             K_Ver[i][ih] = ptr1->NumFrm - 1;
 
-                            if ((Colt[i][ih] = (int16_t*)malloc((K_Ver[i][ih] + 1) * sizeof(int16_t))) == NULL)
+                            if ((Colt[i][ih] = (int16_t*) malloc((K_Ver[i][ih] + 1)
+                                    * sizeof(int16_t))) == NULL)
                                 return -3;
 
 #ifdef alDebug
 
                             if (det4 && dets)
-                                DBG(" Выделяем память для " << ptr1->NumFrm << " term fragm");
+                            DBG(" Выделяем память для " << ptr1->NumFrm << " term fragm");
 
 #endif
 
-                            for (iv1 = 0, iv = 0, ptr2 = ptr1->down; iv1 <= kp1; ++iv1, ptr2 = ptr2->next) {
+                            for (iv1 = 0, iv = 0, ptr2 = ptr1->down; iv1 <= kp1; ++iv1, ptr2
+                                    = ptr2->next) {
                                 //Поиск терминальных фрагментов
                                 kp2 = CalcNumDau(ptr2) - 1;
 
                                 if (kp2 >= 0) {
-                                    Get_all_term_fragms( ptr2, Colt[i][ih], &iv, NumCol, frm );
+                                    Get_all_term_fragms(ptr2, Colt[i][ih], &iv, NumCol, frm);
                                     K_Ver_Flag_Term[i][ih] = 2;
                                 } else {
                                     if (ptr2->NumFrm > 1 && !ptr2->Type) {
                                         K_Ver_Flag_Term[i][ih] = 2;
-                                        CONS_MESS4(">>> %d не отсортированных фрагмента", ptr2->NumFrm);
+                                        CONS_MESS4
+                                        (">>> %d не отсортированных фрагмента", ptr2->NumFrm);
                                         i_nse = ptr2->InBegFrm + ptr2->NumFrm;
 
                                         for (i_nsb = ptr2->InBegFrm; i_nsb < i_nse; ++iv, ++i_nsb) {
-                                            Colt[i][ih][iv] = (int16_t)frm[i_nsb]->start_pos;
+                                            Colt[i][ih][iv] = (int16_t) frm[i_nsb]->start_pos;
                                             CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][ih][iv]);
                                         }
                                     } else {
@@ -2260,7 +2264,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                             K_Ver_Flag_Term[i][ih] = 1;
 
                                         Colt[i][ih][iv] = ptr2->InBegFrm;
-                                        CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][ih][iv]);
+                                        CONS_MESS4
+                                        (" #term=%d", NumCol + 1 - Colt[i][ih][iv]);
                                         iv++;
                                     }
                                 }
@@ -2270,7 +2275,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 #ifdef alDebug
 
                             if (det4 && dets)
-                                DBG("Кол-во терм. колонок=" << (K_Ver[i][ih] + 1));
+                            DBG("Кол-во терм. колонок=" << (K_Ver[i][ih] + 1));
 
 #endif
                         }
@@ -2291,63 +2296,64 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     //************ Конец цикла по H-дочерям секции ****************************
                 }
             }
-        }  else {
+        } else {
             if (!NumCol) { //090899 update
                 K_Sect = 0;
-                K_Hor = (int16_t*)malloc((K_Sect + 1) * sizeof(int16_t));
+                K_Hor = (int16_t*) malloc((K_Sect + 1) * sizeof(int16_t));
                 K_Hor[0] = 0;
-                K_Ver = (int16_t**)malloc((K_Sect + 1) * sizeof(int16_t*));
-                K_Ver_Flag_Term = (int16_t**)malloc((K_Sect + 1) * sizeof(int16_t*));
-                Colt = (int16_t***)malloc((K_Sect + 1) * sizeof(int16_t**));
+                K_Ver = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+                K_Ver_Flag_Term = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+                Colt = (int16_t***) malloc((K_Sect + 1) * sizeof(int16_t**));
 
                 if (K_Hor == NULL || K_Ver_Flag_Term == NULL || K_Ver == NULL || Colt == NULL)
                     return NOT_ALLOC;
 
-                if ((K_Ver[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL ||
-                        (K_Ver_Flag_Term[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL ||
-                        (Colt [0] = (int16_t**)malloc((K_Hor[0] + 1) * sizeof(PTR))) == NULL)
+                if ((K_Ver[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL
+                        || (K_Ver_Flag_Term[0]
+                                = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL
+                        || (Colt[0] = (int16_t**) malloc((K_Hor[0] + 1) * sizeof(PTR))) == NULL)
                     return NOT_ALLOC;
 
                 K_Ver_Flag_Term[0][0] = 0;
                 K_Ver[0][0] = 0;
 
-                if ((Colt[0][0] = (int16_t*)malloc((K_Ver[0][0] + 1) * sizeof(int16_t))) == NULL)
+                if ((Colt[0][0] = (int16_t*) malloc((K_Ver[0][0] + 1) * sizeof(int16_t))) == NULL)
                     return NOT_ALLOC;
 
                 Colt[0][0][0] = 0;
             } else {
-            BadReturn:
-                FlagBadColumn = 1;
+                BadReturn: FlagBadColumn = 1;
                 K_Sect = 0;
-                K_Hor = (int16_t*)malloc((K_Sect + 1) * sizeof(int16_t));
+                K_Hor = (int16_t*) malloc((K_Sect + 1) * sizeof(int16_t));
                 K_Hor[0] = 0;
-                K_Ver = (int16_t**)malloc((K_Sect + 1) * sizeof(int16_t*));
-                K_Ver_Flag_Term = (int16_t**)malloc((K_Sect + 1) * sizeof(int16_t*));
-                Colt = (int16_t***)malloc((K_Sect + 1) * sizeof(int16_t**));
+                K_Ver = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+                K_Ver_Flag_Term = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+                Colt = (int16_t***) malloc((K_Sect + 1) * sizeof(int16_t**));
 
-                if ( K_Hor == NULL || K_Ver_Flag_Term == NULL || K_Ver == NULL || Colt == NULL )
+                if (K_Hor == NULL || K_Ver_Flag_Term == NULL || K_Ver == NULL || Colt == NULL)
                     return NOT_ALLOC;
 
-                if (( K_Ver[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL ||
-                        ( K_Ver_Flag_Term[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL ||
-                        ( Colt [0] = (int16_t**)malloc((K_Hor[0] + 1) * sizeof(PTR))) == NULL)
+                if ((K_Ver[0] = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL
+                        || (K_Ver_Flag_Term[0]
+                                = (int16_t*) malloc((K_Hor[0] + 1) * sizeof(int16_t))) == NULL
+                        || (Colt[0] = (int16_t**) malloc((K_Hor[0] + 1) * sizeof(PTR))) == NULL)
                     return NOT_ALLOC;
 
                 K_Ver_Flag_Term[0][0] = 2;
                 K_Ver[0][0] = NumCol;
 
-                if ((Colt[0][0] = (int16_t*)malloc((K_Ver[0][0] + 1) * sizeof(int16_t))) == NULL)
+                if ((Colt[0][0] = (int16_t*) malloc((K_Ver[0][0] + 1) * sizeof(int16_t))) == NULL)
                     return NOT_ALLOC;
 
-                for(i = 0; i <= NumCol; ++i) {
+                for (i = 0; i <= NumCol; ++i) {
                     Colt[0][0][i] = i;
                 }
             }
         }
     }
-    for(i = 0; i <= K_Sect; ++i) {
-        for(ih = 0; ih <= K_Hor[i]; ++ih) {
-            for(iv = 0; iv <= K_Ver[i][ih]; ++iv) {
+    for (i = 0; i <= K_Sect; ++i) {
+        for (ih = 0; ih <= K_Hor[i]; ++ih) {
+            for (iv = 0; iv <= K_Ver[i][ih]; ++iv) {
                 nc = Colt[i][ih][iv];
                 RectFragm[nc].left = RectFragm[nc].left;
                 RectFragm[nc].right = RectFragm[nc].right;
@@ -2357,38 +2363,39 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
         }
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////
-//  Создание массива укрупненных колонок Colh--*****************************************//
-//  преобр-ние из 3-уровневой в 2-уровневую систему колонок  (ideal size)               //
-//////////////////////////////////////////////////////////////////////////////////////////
-    if ((ColH = (COLH**)malloc((K_Sect + 1) * sizeof(COLH*))) == NULL)
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //  Создание массива укрупненных колонок Colh--*****************************************//
+    //  преобр-ние из 3-уровневой в 2-уровневую систему колонок  (ideal size)               //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    if ((ColH = (COLH**) malloc((K_Sect + 1) * sizeof(COLH*))) == NULL)
         return -3;
 
-    K_Ver_Add_On = (int16_t**)malloc((K_Sect + 1) * sizeof(int16_t*));
-    K_Ver_Offset = (int16_t**)malloc((K_Sect + 1) * sizeof(int16_t*));
+    K_Ver_Add_On = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
+    K_Ver_Offset = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
 
     if (K_Ver_Add_On == NULL || K_Ver_Offset == NULL)
         return NOT_ALLOC;
 
-    for(i = 0; i <= K_Sect; ++i) {
+    for (i = 0; i <= K_Sect; ++i) {
         SRECT BndTmp;
 
-        if ((ColH[i] = (COLH*)malloc((K_Hor[i] + 1) * sizeof(COLH))) == NULL)return -3;
+        if ((ColH[i] = (COLH*) malloc((K_Hor[i] + 1) * sizeof(COLH))) == NULL)
+            return -3;
 
-        K_Ver_Add_On[i] = (int16_t*)malloc((K_Hor[i] + 1) * sizeof(int16_t));
-        K_Ver_Offset[i] = (int16_t*)malloc((K_Hor[i] + 1) * sizeof(int16_t));
+        K_Ver_Add_On[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
+        K_Ver_Offset[i] = (int16_t*) malloc((K_Hor[i] + 1) * sizeof(int16_t));
 
         if (K_Ver_Add_On[i] == NULL || K_Ver_Offset[i] == NULL)
             return NOT_ALLOC;
 
-        for(ih = 0; ih <= K_Hor[i]; ++ih) {
+        for (ih = 0; ih <= K_Hor[i]; ++ih) {
             K_Ver_Add_On[i][ih] = 0;
             K_Ver_Offset[i][ih] = 0;
 
             if (K_Ver_Flag_Term[i][ih] >= 2)
                 flag_vse_term = 0;
 
-            for(iv = 0; iv <= K_Ver[i][ih]; ++iv) {
+            for (iv = 0; iv <= K_Ver[i][ih]; ++iv) {
                 nc = Colt[i][ih][iv];
 
                 if (!iv)
@@ -2406,31 +2413,31 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
         }
     }
     DBG("Подсчет реалных размеров кеглей ");
-/////////////////////////////////////////////////////////////////////////////////////////
-//                                                                                     //
-//                  Подсчет реалных размеров кеглей                                    //
-//                                                                                     //
-/////////////////////////////////////////////////////////////////////////////////////////
-    for(i = 0; i <= K_Sect; ++i) { //sect begin
+    /////////////////////////////////////////////////////////////////////////////////////////
+    //                                                                                     //
+    //                  Подсчет реалных размеров кеглей                                    //
+    //                                                                                     //
+    /////////////////////////////////////////////////////////////////////////////////////////
+    for (i = 0; i <= K_Sect; ++i) { //sect begin
         int index_word;
-        for(ih = 0; ih <= K_Hor[i]; ++ih) {//hor. col.  begin
-            for(iv = 0; iv <= K_Ver[i][ih]; ++iv) { //vert. col.  begin
+        for (ih = 0; ih <= K_Hor[i]; ++ih) {//hor. col.  begin
+            for (iv = 0; iv <= K_Ver[i][ih]; ++iv) { //vert. col.  begin
                 nc = Colt[i][ih][iv];
 
-                if ( NumStr[nc] < 0)
+                if (NumStr[nc] < 0)
                     continue;
 
-                RtfPage->m_arFragments.push_back( new CIF::CRtfFragment() );
+                RtfPage->m_arFragments.push_back(new CIF::CRtfFragment());
                 RtfPage->Count.RtfTextFragments++;
                 j = RtfPage->m_arFragments.size();
-                pRtfFragment = RtfPage->m_arFragments[j-1];
+                pRtfFragment = RtfPage->m_arFragments[j - 1];
                 pRtfFragment->setType(FT_TEXT);
                 pRtfFragment->m_rect.left = RectFragm[nc].left;
                 pRtfFragment->m_rect.right = RectFragm[nc].right;
                 pRtfFragment->m_rect.top = RectFragm[nc].top;
                 pRtfFragment->m_rect.bottom = RectFragm[nc].bottom;
                 //pRtfFragment->m_Flag = FragFlag [nc]; //nega_str сделать цикл и занести в массив RtfString признаки негативности
-                for(ns = 0; ns <= NumStr[nc]; ++ns) { //str. begin
+                for (ns = 0; ns <= NumStr[nc]; ++ns) { //str. begin
                     if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
                         continue;
 
@@ -2438,29 +2445,32 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     pRtfString = pRtfFragment->stringAt(ns);
                     //nega_str добавить m_Flag в RtfString и занести туда признак NEGATIVE
                     pRtfString->setFlags(TitleStr[nc][ns].S_Flags); //NEGA_STR
-                    for(nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) {//word begin
+                    for (nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) {//word begin
                         if (TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0) {
                             continue;
                         }
 
                         pRtfString->addWord(new CIF::CRtfWord);
                         index_word = pRtfString->wordCount();
-                        pRtfWord = pRtfString->wordAt(index_word-1);
+                        pRtfWord = pRtfString->wordAt(index_word - 1);
                         pRtfWord->setIdealFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
                         pRtfWord->setFontNumber(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
-                        for(nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) { //char begin
+                        for (nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) { //char begin
                             pRtfWord->addChar(new CIF::CRtfChar);
                             pRtfChar = pRtfWord->charAt(nz);
 
-                            for (int alt = 0; alt < Zn[nc][ns][nw][nz].Title.Z_Num_Alt && alt < REC_MAX_VERS; alt++) {
-                                CIF::Letter vers(Zn[nc][ns][nw][nz].Alt[alt].a_Code, Zn[nc][ns][nw][nz].Alt[alt].a_Prob);
+                            for (int alt = 0; alt < Zn[nc][ns][nw][nz].Title.Z_Num_Alt && alt
+                                    < REC_MAX_VERS; alt++) {
+                                CIF::Letter vers(Zn[nc][ns][nw][nz].Alt[alt].a_Code,
+                                        Zn[nc][ns][nw][nz].Alt[alt].a_Prob);
                                 pRtfChar->addVersion(vers);
                             }
 
                             //~ не знак переноса, а дефис в слове (пр: красно-белый)
-                            pRtfChar->setSpelledNoCarrying(Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying);
+                            pRtfChar->setSpelledNoCarrying(
+                                    Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying);
                             pRtfChar->setDropCap(Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop);
-                            pRtfChar->setLanguage((language_t)Zn[nc][ns][nw][nz].Alt[0].a_language);
+                            pRtfChar->setLanguage((language_t) Zn[nc][ns][nw][nz].Alt[0].a_language);
                             pRtfChar->setSpelled(Zn[nc][ns][nw][nz].Alt[0].a_Spell);
                             pRtfChar->setFont(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
                             pRtfChar->setFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
@@ -2474,43 +2484,46 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
     }//sec.end
     RtfPage->CorrectKegl(); // actually it is calculation of the kegles
     RtfPage->ChangeKegl(); // it is properly writing
-//////////////////////////////////////////////////////////////////////////////////////////
-//Новые координаты гор.колонок после пересчета реал. размеров вер.кол , параг. и строк  //
-//////////////////////////////////////////////////////////////////////////////////////////
-    if ((ColH_New = (COLH**)malloc((K_Sect + 1) * sizeof(COLH*))) == NULL) return -3;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //Новые координаты гор.колонок после пересчета реал. размеров вер.кол , параг. и строк  //
+    //////////////////////////////////////////////////////////////////////////////////////////
+    if ((ColH_New = (COLH**) malloc((K_Sect + 1) * sizeof(COLH*))) == NULL)
+        return -3;
 
-    for(i = 0; i<= K_Sect; ++i) {
-        if ((ColH_New[i] = (COLH*)malloc((K_Hor[i] + 1) * sizeof(COLH))) == NULL) return -3;
+    for (i = 0; i <= K_Sect; ++i) {
+        if ((ColH_New[i] = (COLH*) malloc((K_Hor[i] + 1) * sizeof(COLH))) == NULL)
+            return -3;
 
-        for(ih = 0; ih <= K_Hor[i]; ++ih) {
+        for (ih = 0; ih <= K_Hor[i]; ++ih) {
             ColH_New[i][ih].bnd.left = ColH[i][ih].bnd.left;
             ColH_New[i][ih].bnd.right = ColH[i][ih].bnd.right;
             ColH_New[i][ih].bnd.top = ColH[i][ih].bnd.top;
             ColH_New[i][ih].bnd.bottom = ColH[i][ih].bnd.bottom;
         }
     }
-//                                                                                     //
-/////////////////////////////////////////////////////////////////////////////////////////
-// Добавляем отформатированные текстовые фрагменты (Page).
+    //                                                                                     //
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // Добавляем отформатированные текстовые фрагменты (Page).
     RtfPage->Count.RtfSectors = K_Sect;
-    for(i = 0; i <= K_Sect; ++i){ //sect begin
+    for (i = 0; i <= K_Sect; ++i) { //sect begin
         int index_word;
         RtfPage->m_arSectors.push_back(new CIF::CRtfSector);
         pRtfSector = RtfPage->m_arSectors[i];
-        for(ih = 0; ih <= K_Hor[i]; ++ih) {//hor. col.  begin
+        for (ih = 0; ih <= K_Hor[i]; ++ih) {//hor. col.  begin
             pRtfHorizontalColumn = new CIF::CRtfHorizontalColumn;
             pRtfSector->addColumn(pRtfHorizontalColumn);
             RtfUnionRect_CRect_SRect(&pRtfHorizontalColumn->m_rect, &ColH[i][ih].bnd);
             RtfUnionRect_CRect_CRect(&pRtfSector->m_rect, &pRtfHorizontalColumn->m_rect);
             RtfUnionRect_CRect_CRect(&RtfPage->m_rect, &pRtfSector->m_rect);
-            pRtfHorizontalColumn->setType(static_cast<CIF::CRtfHorizontalColumn::column_t>(K_Ver_Flag_Term[i][ih]));
-            for(iv = 0; iv <= K_Ver[i][ih]; ++iv) { //vert. col.  begin
+            pRtfHorizontalColumn->setType(
+                    static_cast<CIF::CRtfHorizontalColumn::column_t> (K_Ver_Flag_Term[i][ih]));
+            for (iv = 0; iv <= K_Ver[i][ih]; ++iv) { //vert. col.  begin
                 nc = Colt[i][ih][iv];
 
-                if ( NumStr[nc] < 0)
+                if (NumStr[nc] < 0)
                     continue;
 
-                if ( K_Hor[i] == 0 && K_Ver[i][ih] == 0 && NumStr[nc] == 0 )
+                if (K_Hor[i] == 0 && K_Ver[i][ih] == 0 && NumStr[nc] == 0)
                     pRtfSector->m_FlagOneString = TRUE;
 
                 pRtfVerticalColumn = new CIF::CRtfVerticalColumn;
@@ -2521,12 +2534,12 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 // this is really strange
                 pRtfFragment = pRtfVerticalColumn->fragmentAt(0);
                 pRtfFragment->setType(FT_TEXT);
-                RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rect, &RectFragm[nc] );
-                RtfAssignRect_CRect_Rect16( &pRtfVerticalColumn->m_rectReal, &RectFragm[nc] );
-                RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rect, &RectFragm[nc] );
-                RtfAssignRect_CRect_Rect16( &pRtfFragment->m_rectReal, &RectFragm[nc] );
+                RtfAssignRect_CRect_Rect16(&pRtfVerticalColumn->m_rect, &RectFragm[nc]);
+                RtfAssignRect_CRect_Rect16(&pRtfVerticalColumn->m_rectReal, &RectFragm[nc]);
+                RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rect, &RectFragm[nc]);
+                RtfAssignRect_CRect_Rect16(&pRtfFragment->m_rectReal, &RectFragm[nc]);
                 //pRtfFragment->m_Flag = FragFlag[nc]; //nega
-                for(ns= 0; ns <= NumStr[nc]; ++ns) { //str. begin
+                for (ns = 0; ns <= NumStr[nc]; ++ns) { //str. begin
                     if (TitleStr[nc][ns].S_Gen.S_NumWord <= 0)
                         continue;
 
@@ -2540,34 +2553,39 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         pRtfString->setAttributes(false);
 
                     pRtfString->setFlags(TitleStr[nc][ns].S_Flags); //NEGA_STR
-                    for(nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) { //word begin
+                    for (nw = 0; nw < TitleStr[nc][ns].S_Gen.S_NumWord; ++nw) { //word begin
                         if (TitleWord[nc][ns][nw].W_Gen.W_NumSym == 0) {
                             continue;
                         }
 
                         pRtfString->addWord(new CIF::CRtfWord);
                         index_word = pRtfString->wordCount();
-                        pRtfWord = pRtfString->wordAt(index_word-1);
+                        pRtfWord = pRtfString->wordAt(index_word - 1);
                         pRtfWord->setFontNumber(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
                         pRtfWord->setIdealFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
 
                         if (NumStr[nc] == 0 && TitleStr[nc][ns].S_Gen.S_NumWord == 1)
-                            pRtfWord->setRealFontSize(RtfPage->GetMinKegl(pRtfWord->idealFontSize()));
+                            pRtfWord->setRealFontSize(
+                                    RtfPage->GetMinKegl(pRtfWord->idealFontSize()));
                         else
-                            pRtfWord->setRealFontSize(RtfPage->GetNewKegl(pRtfWord->idealFontSize()));
+                            pRtfWord->setRealFontSize(
+                                    RtfPage->GetNewKegl(pRtfWord->idealFontSize()));
 
-                        for(nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) {
+                        for (nz = 0; nz < TitleWord[nc][ns][nw].W_Gen.W_NumSym; ++nz) {
                             pRtfWord->addChar(new CIF::CRtfChar);
                             pRtfChar = pRtfWord->charAt(nz);
 
-                            for (int alt = 0; alt < Zn[nc][ns][nw][nz].Title.Z_Num_Alt && alt < REC_MAX_VERS; alt++) {
-                                CIF::Letter vers(Zn[nc][ns][nw][nz].Alt[alt].a_Code, Zn[nc][ns][nw][nz].Alt[alt].a_Prob);
+                            for (int alt = 0; alt < Zn[nc][ns][nw][nz].Title.Z_Num_Alt && alt
+                                    < REC_MAX_VERS; alt++) {
+                                CIF::Letter vers(Zn[nc][ns][nw][nz].Alt[alt].a_Code,
+                                        Zn[nc][ns][nw][nz].Alt[alt].a_Prob);
                                 pRtfChar->addVersion(vers);
                             }
 
-                            pRtfChar->setSpelledNoCarrying(Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying);
+                            pRtfChar->setSpelledNoCarrying(
+                                    Zn[nc][ns][nw][nz].Alt[0].a_SpellNoCarrying);
                             pRtfChar->setDropCap(Zn[nc][ns][nw][nz].Alt[0].a_FlagCupDrop);
-                            pRtfChar->setLanguage((language_t)Zn[nc][ns][nw][nz].Alt[0].a_language);
+                            pRtfChar->setLanguage((language_t) Zn[nc][ns][nw][nz].Alt[0].a_language);
                             pRtfChar->setSpelled(Zn[nc][ns][nw][nz].Alt[0].a_Spell);
                             pRtfChar->setFont(((TitleWord[nc][ns][nw]).W_Gen).FontNumber);
                             pRtfChar->setFontSize(((TitleWord[nc][ns][nw]).W_Gen).FontSize);
@@ -2586,8 +2604,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
     }
 
 #endif
-    for(i = 0; i<= K_Sect; ++i) {
-        for(ih = 0; ih <= K_Hor[i]; ++ih)
+    for (i = 0; i <= K_Sect; ++i) {
+        for (ih = 0; ih <= K_Hor[i]; ++ih)
             free(Colt[i][ih]);
 
         free(K_Ver[i]);
@@ -2599,27 +2617,38 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
         free(ColH_New[i]);
     }
 
-    if (K_Hor) free(K_Hor);
+    if (K_Hor)
+        free(K_Hor);
 
-    if (K_Ver) free(K_Ver);
+    if (K_Ver)
+        free(K_Ver);
 
-    if (K_Ver_Flag_Term) free(K_Ver_Flag_Term);
+    if (K_Ver_Flag_Term)
+        free(K_Ver_Flag_Term);
 
-    if (K_Ver_Add_On) free(K_Ver_Add_On);
+    if (K_Ver_Add_On)
+        free(K_Ver_Add_On);
 
-    if (K_Ver_Offset) free(K_Ver_Offset);
+    if (K_Ver_Offset)
+        free(K_Ver_Offset);
 
-    if (Colt) free(Colt);
+    if (Colt)
+        free(Colt);
 
-    if (ColH) free(ColH);
+    if (ColH)
+        free(ColH);
 
-    if (ColH_New) free(ColH_New);
+    if (ColH_New)
+        free(ColH_New);
 
-    if (RootUdal) free((KNOT**)RootUdal);
+    if (RootUdal)
+        free((KNOT**) RootUdal);
 
-    if (ArrFrm) free(ArrFrm);
+    if (ArrFrm)
+        free(ArrFrm);
 
-    if (frm) free(frm);
+    if (frm)
+        free(frm);
 
     if (FlagOdinSectorOdnaColonka) {
         int16_t tmpNumCol;
@@ -2633,30 +2662,32 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
     } else if (NumStr)
         FreeStructFull();
 
-    if (NumStr) free(NumStr);
+    if (NumStr)
+        free(NumStr);
 
-    if (UserNumber) free(UserNumber);
+    if (UserNumber)
+        free(UserNumber);
 
-    if (FragFlag) free(FragFlag);
+    if (FragFlag)
+        free(FragFlag);
 
-    if (RectFragm) free(RectFragm);
+    if (RectFragm)
+        free(RectFragm);
 
     if (FlagBadBad)
         return TRUE;
 
-    free((KNOT**)Inf.Tree.Root);
-    free((KNOT**)Inf.Tree.ArrSeg);
-    free((KNOT**)Inf.LineVK);
-    free((KNOT**)Inf.LineHK);
-    free((KNOT**)Inf.bnd_col);
-    free((KNOT**)Inf.StatCell);
-    free((KNOT**)Inf.ColT);
+    free((KNOT**) Inf.Tree.Root);
+    free((KNOT**) Inf.Tree.ArrSeg);
+    free((KNOT**) Inf.LineVK);
+    free((KNOT**) Inf.LineHK);
+    free((KNOT**) Inf.bnd_col);
+    free((KNOT**) Inf.StatCell);
+    free((KNOT**) Inf.ColT);
     return TRUE;
 }
 
-void Get_all_term_fragms1(KNOTT* ptr, int16_t* Colt, int16_t* iv,
-                          int16_t NumCol, FRAME **frm)
-{
+void Get_all_term_fragms1(KNOTT* ptr, int16_t* Colt, int16_t* iv, int16_t NumCol, FRAME **frm) {
     int16_t i_nsb, i_nse;
 
     if (ptr->NumFrm > 1 && !ptr->Type) {
@@ -2684,9 +2715,7 @@ void Get_all_term_fragms1(KNOTT* ptr, int16_t* Colt, int16_t* iv,
     }
 }
 
-void Get_all_term_fragms(KNOTT* ptr, int16_t* Colt, int16_t* iv,
-                         int16_t NumCol, FRAME **frm)
-{
+void Get_all_term_fragms(KNOTT* ptr, int16_t* Colt, int16_t* iv, int16_t NumCol, FRAME **frm) {
     int16_t i, i1, i2, i3, kp, kp1, kp2, kp3, kp4;
     KNOTT *ptr1, *ptr2, *ptr3, *ptr4;
     kp = CalcNumDau(ptr) - 1;
@@ -2703,20 +2732,17 @@ void Get_all_term_fragms(KNOTT* ptr, int16_t* Colt, int16_t* iv,
                 if (kp2 < 0) //Терм. col
                     Get_all_term_fragms1(ptr2, Colt, iv, NumCol, frm);
                 else {
-                    for (i2 = 0, ptr3 = ptr2->down; i2 <= kp2; ++i2, ptr3
-                            = ptr3->next) {
+                    for (i2 = 0, ptr3 = ptr2->down; i2 <= kp2; ++i2, ptr3 = ptr3->next) {
                         kp3 = CalcNumDau(ptr3) - 1;
 
                         if (kp3 < 0) //Терм. col
                             Get_all_term_fragms1(ptr3, Colt, iv, NumCol, frm);
                         else {
-                            for (i3 = 0, ptr4 = ptr3->down; i3 <= kp3; ++i3, ptr4
-                                    = ptr4->next) {
+                            for (i3 = 0, ptr4 = ptr3->down; i3 <= kp3; ++i3, ptr4 = ptr4->next) {
                                 kp4 = CalcNumDau(ptr4) - 1;
 
                                 if (kp4 < 0) //Терм. col
-                                    Get_all_term_fragms1(ptr4, Colt, iv,
-                                                         NumCol, frm);
+                                    Get_all_term_fragms1(ptr4, Colt, iv, NumCol, frm);
 
 #ifdef alDebug
                                 else if (det11) ConsMess("   Ошибка !!!   ");
@@ -2739,8 +2765,7 @@ CIF::Rect toRect(const tagRECT& src) {
     return CIF::Rect(CIF::Point(src.left, src.top), CIF::Point(src.right, src.bottom));
 }
 
-void RtfUnionRect_CRect_SRect(tagRECT *s1, SRECT *s2)
-{
+void RtfUnionRect_CRect_SRect(tagRECT *s1, SRECT *s2) {
     s1->left = MIN(s1->left, s2->left);
     s1->right = MAX(s1->right, s2->right);
     s1->top = MIN(s1->top, s2->top);
@@ -2781,7 +2806,7 @@ void image_bnd(BOUND *f, int col, int line_style, int fill) {}
 void image_frame(FRAME **frm, int k, int col, int line_style, int fill)
 {
     for(int i = 0; i <= k; i++)
-        image_frm(frm[i], col, line_style, fill);
+    image_frm(frm[i], col, line_style, fill);
 }
 
 void bounds_frm(int ii, FRAME **frm, int nx) {}

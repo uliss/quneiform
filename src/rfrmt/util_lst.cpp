@@ -158,7 +158,7 @@ int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free, int size_
             return -3;
     }
 
-    for(i = 0; i <= kb; ++i)
+    for (i = 0; i <= kb; ++i)
         (*knot)[i + (*k_bloc + 1)] = kn[i];
 
     /*===собственно инициализация ссылок===*/
@@ -182,9 +182,9 @@ int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free, int size_
 
     *k_bloc += kb + 1;
     k_item = -1;
-    for(i = 0; i <= kb; ++i) {
+    for (i = 0; i <= kb; ++i) {
         ptr = kn[i];
-        for(j = 0; j <= size_bloc[i]; ++j) {
+        for (j = 0; j <= size_bloc[i]; ++j) {
             ptr1 = (KNOT*) ((char*) ptr + j * size_item); /*ptr[j]*/
             ptr2 = (KNOT*) ((char*) ptr1 + size_item); /*ptr[j+1]*/
 
@@ -226,7 +226,7 @@ int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc) {
             size = determine_free_memory(k * size_item);
 
             if (size < (uint) MIN_KNOT * size_item) { /*памяти явно не хватает*/
-                for(i = 0; i <= *kb; ++i)
+                for (i = 0; i <= *kb; ++i)
                     free(kn[i]);
                 return -3;
             }
@@ -235,7 +235,7 @@ int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc) {
         }
 
         if ((*kb) > MAX_BLOC - 2) { /*очень много мелких кусочков памяти*/
-            for(i = 0; i <= *kb; ++i)
+            for (i = 0; i <= *kb; ++i)
                 free((char*) kn[i]);
             return -4;
         }
@@ -264,7 +264,7 @@ void free_lst(KNOT **knot, int k_bloc) {
     if (k_bloc < 0 || knot == NULL)
         return;
 
-    for(int  i = k_bloc; i >= 0; --i)
+    for (int i = k_bloc; i >= 0; --i)
         free((char*) knot[i]);
     free((char*) knot);
 }
