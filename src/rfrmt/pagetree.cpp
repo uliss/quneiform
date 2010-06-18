@@ -62,15 +62,13 @@
 //
 // ============================================================================
 
-#include "creatertf.h"
-#include <search.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <stdarg.h>
-#include "aldebug.h"
-#include "common/debug.h"
 
+#include "aldebug.h"
+#include "creatertf.h"
 #include "crtffragment.h"
 #include "crtfsector.h"
 #include "crtfstring.h"
@@ -80,59 +78,19 @@
 #include "crtfverticalcolumn.h"
 #include "crtfword.h"
 #include "crtffunc.h"
+#include "formatdebug.h"
+
 #include "cpage/cpage.h"
 #include "cpage/cpagetyps.h"
-
-#include "dpuma.h"
-
-#define ZAGL
-#define TABL__ ON
+#include "common/debug.h"
 
 #include "lst3_win.h"
 #include "ful_txt.h"
-#include "globus.h"
 #include "consmess.h"
 
 #include "minmax.h"
 
 #ifdef alDebug
-#define CONS_MESS1 if(det1) ConsMess
-#define CONS_MESS2 if(det2) ConsMess
-#define CONS_MESS3 if(det3) ConsMess
-#define CONS_MESS4 if(det4) ConsMess
-#define CONS_MESS6 if(det6) ConsMess
-#define CONS_MESS9 if(det9) ConsMess
-#define CONS_MESS20 if(det20)   ConsMess
-#define CONS_MESS21 if(det21)   ConsMess
-#define CONS_MESS22 if(det22)   ConsMess
-#define CONS_MESS23 if(det23)   ConsMess
-int det0 = 0; //draw step
-int det1 = 0; //common
-int det2 = 0; //search_interval
-int det3 = 0; //SearchColHist
-int det4 = 0; //geometry rtf
-int det5 = 0; //write rtf
-int det6 = 0; //sort && show fragm
-int det7 = 0; //print string
-int det8 = 0; //font
-int det9 = 0; //bad return
-int det10 = 0; //ierarxiya colonok
-int det11 = 0; //Get_all_term_fragms
-int det12 = 0; //calculate ideal size of fragms
-int det13 = 0; //Size page
-int det14 = 0; //control frame
-int det15 = 0; //frame_coor
-int det16 = 0; //ordering and recalc colons
-int det17 = 0; //indent
-int det18 = 0; //межстрочное растояние
-int det19 = 0; //отладка ошибок
-int det20 = 0; //отладка realese version
-int det21 = 0; //отладка realese version
-int det22 = 0; //отладка realese version--memory
-int det23 = 0; //отладка realese version only name file
-int dets = 0; //tmp break points
-
-
 short FlagGraphic1 = 0, Graphic1Color = 0;
 std::vector <RECT> pTheGeomStep;
 std::vector <RECT> pTheGeomStep1;
@@ -142,33 +100,7 @@ VectorWord pFragRectColor;
 
 void MyDrawForDebug(void) {}
 uint16_t CountRect;
-
-#define DBG(st) { \
-    CIF::Debug() << st << std::endl;\
-}
-
 #else
-#define CONS_MESS1
-#define CONS_MESS2
-#define CONS_MESS3
-#define CONS_MESS4
-#define CONS_MESS6
-#define CONS_MESS9
-#define CONS_MESS20
-#define CONS_MESS21
-#define CONS_MESS22
-#define CONS_MESS23
-
-#define DBG(st) { \
-    CIF::Debug() << st << std::endl;\
-}
-
-#define DBG_SORT(st) DBG(st)
-#define DBG_GEOM(st) DBG(st)
-
-#define DBG_LINE(st) {\
-    DBG(__FILE__ << ":" << __LINE__ << " " << st)\
-}
 
 #endif
 
@@ -180,7 +112,6 @@ typedef struct tagSETUP_GENERATE_TREE
 
 int16_t FlagOdinSectorOdnaColonka = FALSE;
 int16_t MaxLev, NumColTrue, RegimExt;
-const char *errRtf = "ED_RTF";
 Rect16 *RectFragm;
 FRAME *ArrFrm;
 
@@ -227,9 +158,8 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x, in
         int16_t reg, int16_t *k_int, int16_t **intr1, int16_t **begI, int16_t **endI,
         int16_t *NumMax);
 int16_t
-        SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **end1,
-                int16_t *k_int1, BOUND *bnd, int16_t ave_dir, int16_t ave_ort, int16_t reg,
-                int16_t *NumMax);
+SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **end1, int16_t *k_int1,
+        BOUND *bnd, int16_t ave_dir, int16_t ave_ort, int16_t reg, int16_t *NumMax);
 KNOTT* IncKnot(KNOTT *up, KNOTT *after, KNOTT **free);
 void FillFieldKNOTT1(KNOTT *ptr, int16_t Left, int16_t Right, int16_t Top, int16_t Bottom,
         int16_t InBegFrm, int16_t NumFrm, int16_t InColA, uint OrderChild, uint Type,
@@ -631,7 +561,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
     LINE_KNOT *LineVK, *LineHK;
     STAT_CELL *StatCell = (STAT_CELL*) malloc(sizeof(STAT_CELL));
 
-    DBG("===  CreateTreePlainTxt1  === \n");
+    CIF::FMT_DBG("===  CreateTreePlainTxt1  ===");
 
     //LineVK, LineHK - виртуальные либо натуральные линии разграфки,
     //   сепарирующие найденные колонки, с помощью этих линий производитс
@@ -655,7 +585,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
     colnt1 = (KNOTT**) malloc(NumMax * sizeof(PTR));
 
     if (colt == NULL || colnt == NULL || colnt1 == NULL) {
-        DBG("CreateTreePlainTxt1(): NOT_ALLOC " << __LINE__);
+        CIF::FMT_DBG("CreateTreePlainTxt1(): NOT_ALLOC at %d", __LINE__);
         return NOT_ALLOC;
     }
 
@@ -666,12 +596,12 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
     if ((fl
             = init_lst(&Tree.ArrSeg, &Tree.NumSeg, Tree.NumKnot, (KNOT**) &Tree.free, sizeof(KNOTT)))
             != 0) {
-        DBG("CreateTreePlainTxt1(): NOT_ALLOC " << __LINE__);
+        CIF::FMT_DBG("CreateTreePlainTxt1(): NOT_ALLOC at %d", __LINE__);
         return -90 - fl;
     }
 
     if ((Tree.Root = IncKnot(NULL, NULL, &Tree.free)) == NULL) {
-        DBG("CreateTreePlainTxt1(): NOT_ALLOC " << __LINE__);
+        CIF::FMT_DBG("CreateTreePlainTxt1(): NOT_ALLOC at %d", __LINE__);
         return -6;
     }
 
@@ -703,9 +633,9 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
 
         k_colnt1 = -1; /*Число нетерминал. колонок след. уровня*/
         //--цикл попытки дробления всех узлов текущего уровня--
-        DBG("while....................  k_colnt=" << k_colnt)
-        for (i = 0; i <= k_colnt; ++i) {
-            DBG("beg......................1")
+        CIF::FMT_DBG("while....................  k_colnt=%d", k_colnt);
+        for (i = 0; i <= k_colnt; i++) {
+            CIF::FMT_DBG("beg......................1");
 
             ptr = colnt[i]; //текущий узел
             left = ptr->InBegFrm; //индекс первой рамки (фрагмента) узла
@@ -715,7 +645,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
             //узла определяется упорядоченностью его дочерних
             //узлов (V- или H-порядок)
 
-            DBG("i=" << i << ", (index first fragm) left=" << left << ", (count fragm) kf=" << kf << ",")
+            CIF::FMT_DBG("i=%d, (index first fragm) left=%d, (count fragm) kf=%d,", i, left, kf);
 
             //bndc - рамка узла
             if (!fl_beg) //рамка узла есть рамка входящих в узел рамок фрагментов
@@ -724,8 +654,8 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
                 //вначале рамка узла-корня есть рамка всего листа
                 bndc = BndTxt;
 
-            DBG(" fl_beg=" << fl_beg << ", bndc : left=" << bndc.left
-                    << ",  right=" << bndc.right << ",  up=" << bndc.up << ",  down=" << bndc.down)
+            CIF::FMT_DBG(" fl_beg=%d, bndc : left=%d, right=%d, up=%d, down=%d", fl_beg, bndc.left,
+                    bndc.right, bndc.up, bndc.down);
 
             //---
             MaxOld = NumMax;
@@ -738,16 +668,16 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
             } else {
                 if ((fl = SearchColHist1(&frm[left], kf, &bndc, size_x, size_y, order, &kcol,
                         &intr, &begI, &endI, &NumMax)) < 0) {
-                    DBG_LINE("!!!!! SearchColHist1 fl=" << fl);
+                    CIF::FMT_DBG("at line %d. !!!!! SearchColHist1 fl=%d", __LINE__, fl);
                     return fl - 2000;
                 }
 
-                DBG("after SearchColHist1 MaxOld=" << MaxOld << ", NumMax=" << NumMax);
+                CIF::FMT_DBG("after SearchColHist1 MaxOld=%d, NumMax=%d", MaxOld, NumMax);
             }
 
             if (MaxOld != NumMax && Realloc2(&colt, &colnt, &colnt1, NULL, NULL, NULL, MaxOld,
                     NumMax) == NOT_ALLOC) {
-                DBG_LINE(" NOT_ALLOC");
+                CIF::FMT_DBG(" NOT_ALLOC at %d", __LINE__);
                 return NOT_ALLOC;
             }
 
@@ -762,13 +692,13 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
 
                 if ((fl = SearchColHist1(&frm[left], kf, &bndc, size_x, size_y, order, &kcol,
                         &intr, &begI, &endI, &NumMax)) < 0) {
-                    DBG_LINE("fl-2000");
+                    CIF::FMT_DBG("fl-2000 at %d", __LINE__);
                     return fl - 2000;
                 }
 
                 if (MaxOld != NumMax && Realloc2(&colt, &colnt, &colnt1, NULL, NULL, NULL, MaxOld,
                         NumMax) == NOT_ALLOC) {
-                    DBG_LINE("NOT_ALLOC");
+                    CIF::FMT_DBG("NOT_ALLOC at %d", __LINE__);
                     return NOT_ALLOC;
                 }
             }
@@ -777,11 +707,10 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
                 ptr->OrderChild = order;
 
             if (kcol > 0) {
-                DBG("beg------------------2");
-                DBG("kcol=" << kcol);
+                CIF::FMT_DBG("beg------------------2");
+                CIF::FMT_DBG("kcol=%d", kcol);
                 BOUND b;
 
-                //,bnd;
                 if (fl_beg && ptr->OrderChild == HOR)
                     --MaxAllowLev;
 
@@ -792,11 +721,11 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
                     //      ptr - узел-родитель
                     //      PrevChild - предыдущее дит
                     //      Tree.free - свободное списковое пространство дерева
-                    DBG("beg------------------3");
-                    DBG("j=" << j);
+                    CIF::FMT_DBG("beg------------------3");
+                    CIF::FMT_DBG("j=%d", j);
 
                     if ((Child = IncKnot(ptr, PrevChild, &Tree.free)) == NULL) {
-                        DBG(__LINE__ << "!!!!!! IncKnot return -7");
+                        CIF::FMT_DBG("!!!!!! IncKnot return -7 at %d", __LINE__);
                         return -7;
                     }
 
@@ -804,25 +733,25 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
                     tmp = j ? intr[j - 1] + 1 : 0;
                     InBegFrm = ptr->InBegFrm + tmp;
                     NumF = intr[j] - tmp + 1;
-                    DBG("InBegFrm=" << InBegFrm << ",  NumF=" << NumF);
+                    CIF::FMT_DBG("InBegFrm=%d, NumF=%d", InBegFrm, NumF);
                     //--ищем близкие линии или генерим новые для границ колонки--
                     bound_frm(&frm[InBegFrm], NumF - 1, &b);
                     del = begI[j] - (j ? endI[j - 1] : 0);
 
                     if (order == HOR) {
-                        DBG("beg------------------4");
-                        DBG("order == HOR");
+                        CIF::FMT_DBG("beg------------------4");
+                        CIF::FMT_DBG("order == HOR");
                         minz = MIN(ThresX, del);
 
                         if ((left = !j ? ptr->Rect.left : AddLine1(&LineVK, &nV, &nVmax,
                                 (int16_t) endI[j - 1], minz)) < 0) {
-                            DBG_LINE("       left-100");
+                            CIF::FMT_DBG("       left-100 at %d", __LINE__);
                             return left - 100;
                         }
 
                         if ((right = j == kcol ? ptr->Rect.right : AddLine1(&LineVK, &nV, &nVmax,
                                 begI[j], minz)) < 0) {
-                            DBG_LINE("       right-200");
+                            CIF::FMT_DBG("       right-200 at %d", __LINE__);
                             return right - 200;
                         }
 
@@ -833,30 +762,30 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
                         minz = MIN(ThresY, del1);
 
                         if ((top = AddLine1(&LineHK, &nH, &nHmax, b.up, minz)) < 0) {
-                            DBG_LINE("       top-100");
+                            CIF::FMT_DBG("       top-100 at %d", __LINE__);
                             return top - 100;
                         }
 
                         if ((bottom = AddLine1(&LineHK, &nH, &nHmax, b.down, minz)) < 0) {
-                            DBG_LINE("       bottom-100");
+                            CIF::FMT_DBG("       bottom-100 at %d", __LINE__);
                             return bottom - 100;
                         }
 
-                        DBG("end------------------4");
+                        CIF::FMT_DBG("end------------------4");
                     } else {
-                        DBG("beg------------------5");
-                        DBG("order == VER");
+                        CIF::FMT_DBG("beg------------------5");
+                        CIF::FMT_DBG("order == VER");
                         minz = MIN(ThresY, del);
 
                         if ((top = !j ? ptr->Rect.top : AddLine1(&LineHK, &nH, &nHmax, endI[j - 1],
                                 minz)) < 0) {
-                            DBG_LINE("       top-300");
+                            CIF::FMT_DBG("       top-300 at %d", __LINE__);
                             return top - 300;
                         }
 
                         if ((bottom = j == kcol ? ptr->Rect.bottom : AddLine1(&LineHK, &nH, &nHmax,
                                 begI[j], minz)) < 0) {
-                            DBG_LINE("       bottom-400");
+                            CIF::FMT_DBG("       bottom-400 at %d", __LINE__);
                             return bottom - 400;
                         }
 
@@ -866,58 +795,55 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
                         minz = MIN(ThresX, del1);
 
                         if ((left = AddLine1(&LineVK, &nV, &nVmax, b.left, minz)) < 0) {
-                            DBG_LINE("       left-100");
+                            CIF::FMT_DBG("       left-100 at %d", __LINE__);
                             return left - 100;
                         }
 
                         if ((right = AddLine1(&LineVK, &nV, &nVmax, b.right, minz)) < 0) {
-                            DBG_LINE("       right-200");
+                            CIF::FMT_DBG("       right-200 at %d", __LINE__);
                             return right - 200;
                         }
 
-                        DBG("end------------------5");
+                        CIF::FMT_DBG("end------------------5");
                     }
 
                     //--разрешение противоречия равенства индексов начальной и конечной--
                     //  границ для малоразмерных колонок
                     if (left == right) { //узкая колонка
-                        DBG("left == right <<narrow column>>");
+                        CIF::FMT_DBG("left == right <<narrow column>>");
 
                         if (j != kcol || !fl) {
-                            //minz=fl ? (order==HOR ? begI[j]:b.right) : bnd.right;
                             minz = fl ? (order == HOR ? begI[j] : b.right) : b.right;
 
                             if ((right = AddLine1(&LineVK, &nV, &nVmax, minz, -1)) < 0) {
-                                DBG_LINE("       right-200");
+                                CIF::FMT_DBG("       right-200 at %d", __LINE__);
                                 return right - 200;
                             }
                         } else {
-                            //       minz=fl ? (order==HOR ? endI[j-1]:b.left) : bnd.right;
                             minz = fl ? (order == HOR ? endI[j - 1] : b.left) : b.right;
 
                             if ((left = AddLine1(&LineVK, &nV, &nVmax, minz, -1)) < 0) {
-                                DBG_LINE("       right-200");
+                                CIF::FMT_DBG("       right-200 at %d", __LINE__);
                                 return right - 200;
                             }
                         }
                     }
 
                     if (top == bottom) { //низкая колонка
-                        DBG("top == bottom <<low column>>");
+                        CIF::FMT_DBG("top == bottom <<low column>>");
 
                         if (j != kcol || !fl) {
-                            //               minz=fl ? (order==VER ? begI[j]:b.down) : bnd.down;
                             minz = fl ? (order == VER ? begI[j] : b.down) : b.down;
 
                             if ((bottom = AddLine1(&LineHK, &nH, &nHmax, minz, -1)) < 0) {
-                                DBG_LINE("       bottom-100");
+                                CIF::FMT_DBG("       bottom-100 at %d", __LINE__);
                                 return bottom - 100;
                             }
                         } else {
                             minz = order == VER ? endI[j - 1] : b.up;
 
                             if ((top = AddLine1(&LineHK, &nH, &nHmax, minz, -1)) < 0) {
-                                DBG_LINE("       top-100");
+                                CIF::FMT_DBG("       top-100 at %d", __LINE__);
                                 return top - 100;
                             }
                         }
@@ -925,11 +851,11 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
 
                     if (LineVK[left].beg - 30 >= LineVK[right].beg || LineHK[top].beg - 10
                             >= LineHK[bottom].beg) //LineHK[top].beg >= LineHK[bottom].beg)
-                        DBG(" Неправильные координаты фрагмента!!!");
+                        CIF::FMT_DBG(" Неправильные координаты фрагмента!!!");
 
                     if (LineVK[left].beg - 30 >= LineVK[right].beg || LineHK[top].beg - 10
                             > LineHK[bottom].beg) { //LineHK[top].beg >= LineHK[bottom].beg)
-                        DBG_LINE(" return -6");
+                        CIF::FMT_DBG(" return -6 at %d", __LINE__);
                         return -6;
                     }
 
@@ -945,7 +871,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
 
                             if (Realloc2(&colt, &colnt, &colnt1, &begI, &endI, &intr, old, NumMax)
                                     == NOT_ALLOC) {
-                                DBG_LINE("NOT_ALLOC");
+                                CIF::FMT_DBG("NOT_ALLOC at %d", __LINE__);
                                 return NOT_ALLOC;
                             }
                         }
@@ -954,12 +880,12 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
                     }
 
                     PrevChild = Child;
-                    DBG("end------------------3");
+                    CIF::FMT_DBG("end------------------3");
                 }
-                DBG("end------------------2");
+                CIF::FMT_DBG("end------------------2");
             } else { /*Обнаружена терминал. колонка*/
-                DBG("Terminal column found");
-                DBG("beg------------------2.1");
+                CIF::FMT_DBG("Terminal column found");
+                CIF::FMT_DBG("beg------------------2.1");
 
                 if (++k_colt >= NumMax) {
                     int16_t old = NumMax;
@@ -967,7 +893,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
 
                     if (Realloc2(&colt, &colnt, &colnt1, &begI, &endI, &intr, old, NumMax)
                             == NOT_ALLOC) {
-                        DBG_LINE("NOT_ALLOC");
+                        CIF::FMT_DBG("NOT_ALLOC at %d", __LINE__);
                         return NOT_ALLOC;
                     }
                 }
@@ -976,10 +902,10 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
                 //заполняем поля очередного терминал. узла
                 ptr->OrderChild = TERM;
                 colt[k_colt]->InColA = (int) frm[left]->start_pos;
-                DBG("end------------------2.1");
+                CIF::FMT_DBG("end------------------2.1");
             }
 
-            DBG("end------------------1");
+            CIF::FMT_DBG("end------------------1");
         }
         //переписываем узлы следующего уровня в текущий уровень для след.итерации
         for (i = 0; i <= k_colnt1; ++i)
@@ -1002,12 +928,12 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
 
     //сортируем линии разграфки и перенумеруем их в узлах дерева
     if ((fl = SortHorLine1(LineHK, nH, LineVK, nV, Tree.Root, &colt, &k_colt, frm))) {
-        DBG_LINE("fl-260");
+        CIF::FMT_DBG("fl-260 at %d", __LINE__);
         return fl - 260;
     }
 
     if (tmp != k_colt) {
-        DBG_LINE("fl-11");
+        CIF::FMT_DBG("fl-11 at %d", __LINE__);
         return fl - 11;
     }
 
@@ -1034,7 +960,7 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
     Inf->NumT = k_colt; //
 
     if (!(Inf->bnd_col = (BOUND*) malloc((k_colt + 1) * sizeof(BOUND)))) {
-        DBG_LINE("NOT_ALLOC");
+        CIF::FMT_DBG("NOT_ALLOC at %d", __LINE__);
         return NOT_ALLOC;
     }
 
@@ -1103,22 +1029,23 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x, in
     int k_bloc;
     int16_t *intr = *intr1;
     KNOT4 *Free, **knot, **beg = (KNOT4**) malloc(*NumMax * sizeof(PTR)), *ptr;
-    CONS_MESS3
-    ("===beg    SearchColHist1   ===");
+    CIF::FMT_DBG(CIF::FormatDebug::HISTOGRAM, "===beg    SearchColHist1   ===");
 
     if (reg == HOR) {
         ave_dir = ave_x;
         ave_ort = ave_y;
-        CONS_MESS3("reg==HOR,ave_dir=%d ; ave_ort=%d", ave_dir, ave_ort);
+        CIF::FMT_DBG(CIF::FormatDebug::HISTOGRAM, "reg==HOR,ave_dir=%d ; ave_ort=%d", ave_dir,
+                ave_ort);
     } else {
         ave_dir = ave_y;
         ave_ort = ave_x;
-        CONS_MESS3("reg==VER,ave_dir=%d ; ave_ort=%d", ave_dir, ave_ort);
+        CIF::FMT_DBG(CIF::FormatDebug::HISTOGRAM, "reg==VER,ave_dir=%d ; ave_ort=%d", ave_dir,
+                ave_ort);
     }
 
     if ((fl = SearchInterval1(frm, k_frm, begI, endI, k_int, bnd, ave_dir, ave_ort, reg, NumMax))
             <= 0) {
-        CONS_MESS3("!!!!! SearchInterval1 return<0");
+        CIF::FMT_DBG(CIF::FormatDebug::HISTOGRAM, "!!!!! SearchInterval1 return<0");
         free(beg);
         return fl;
     }
@@ -1130,8 +1057,7 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x, in
     }
 
     kcol = *k_int + 1;
-    CONS_MESS3
-    ("kcol=%d", kcol);
+    CIF::FMT_DBG(CIF::FormatDebug::HISTOGRAM, "kcol=%d", kcol);
     for (i = 0; i <= kcol; ++i)
         beg[i] = NULL;
 
@@ -1143,8 +1069,7 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x, in
     if ((fl = init_lst((KNOT***) &knot, &k_bloc, k_frm + 2, (KNOT**) &Free, sizeof(KNOT4))) != 0)
         return -fl - 50;
 
-    CONS_MESS3
-    ("k_frm=%d", k_frm);
+    CIF::FMT_DBG(CIF::FormatDebug::HISTOGRAM, "k_frm=%d", k_frm);
     for (int i = 0; i <= k_frm; ++i) { /*занесение рамок в списки колонок*/
         x = (reg == HOR) ? frm[i]->left : frm[i]->up;
 
@@ -1175,14 +1100,13 @@ int16_t SearchColHist1(FRAME **frm, int16_t k_frm, BOUND *bnd, int16_t ave_x, in
     free_lst((KNOT**) knot, k_bloc);
 
     if (kf != k_frm) {
-        CONS_MESS3("!!!!!!SearchColHist1: kf != k_frm;return -7");
+        CIF::FMT_DBG(CIF::FormatDebug::HISTOGRAM, "!!!!!!SearchColHist1: kf != k_frm;return -7");
         return -7;
     }
 
     *k_int = ki;
     free(beg);
-    CONS_MESS3
-    ("===SearchColHist1: normal end; kcol=%d===", kcol);
+    CIF::FMT_DBG(CIF::FormatDebug::HISTOGRAM, "===SearchColHist1: normal end; kcol=%d===", kcol);
     return kcol;
 }
 
@@ -1221,20 +1145,19 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
         min_int = 5;/*ave_dir * 1.5*/
 
     ; //~~~
-    CONS_MESS2
-    ("=== begin SearchInterval1===");
-    CONS_MESS2
-    ("min_int= %d", min_int);
+
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "=== begin SearchInterval1===");
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "min_int= %d", min_int);
 
     if (reg == HOR) {
         Home = bnd->left;
         Fin = bnd->right;
-        CONS_MESS2("reg==HOR; Home=%d; Fin=%d;", Home, Fin);
+        CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "reg==HOR; Home=%d; Fin=%d;", Home, Fin);
     } else {
         Home = bnd->up;
         Fin = bnd->down;
         len_group = bnd->right - bnd->left + 2;
-        CONS_MESS2("reg==VER; Home=%d; Fin=%d;", Home, Fin);
+        CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "reg==VER; Home=%d; Fin=%d;", Home, Fin);
     }
 
     //Оценка числа строк(HOR)листа /ширины листа в символах(VER)
@@ -1242,8 +1165,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
             / (1.2 * ave_ort));
     //--Вычисление профиля-гистограммы числа компонент, проецирующихся в данный пиксел--
     len = Fin - Home + 2;//длина гистограммы
-    CONS_MESS2
-    ("kstr=%d  len_hist=%d", kstr, len);
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "kstr=%d  len_hist=%d", kstr, len);
 
     if ((his = (int16_t*) malloc(len * sizeof(int16_t))) == NULL)
         return NOT_ALLOC;
@@ -1253,7 +1175,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
 
     if (reg == VER) {
         if (len_group < 0) {
-            CONS_MESS21("begin len_group=%d ", len_group);
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "begin len_group=%d ", len_group);
             len_group = 0;
         }
 
@@ -1267,8 +1189,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
         --len_group;
     }
 
-    CONS_MESS2
-    ("k_frm=%d ", k_frm + 1);
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "k_frm=%d ", k_frm + 1);
 #ifdef alDebug
     {   pTheGeomTemp.clear();
         tagRECT rct;
@@ -1288,15 +1209,19 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
         if (reg == HOR) {
             mi = frm[i]->left - Home;
             ma = frm[i]->right - Home;
-            CONS_MESS2("reg==HOR: frm[i]->left=%d,frm[i]->right=%d, mi=%d, ma=%d", frm[i]->left, frm[i]->right, mi, ma);
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL,
+                    "reg==HOR: frm[i]->left=%d,frm[i]->right=%d, mi=%d, ma=%d", frm[i]->left,
+                    frm[i]->right, mi, ma);
         } else {
             mi = frm[i]->up - Home;
             ma = frm[i]->down - Home;
-            CONS_MESS2("reg==VER: frm[i]->up=%d,frm[i]->down=%d,mi=%d,ma=%d", frm[i]->up, frm[i]->down, mi, ma);
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL,
+                    "reg==VER: frm[i]->up=%d,frm[i]->down=%d,mi=%d,ma=%d", frm[i]->up,
+                    frm[i]->down, mi, ma);
         }
 
         if (mi < 0 || ma > len) {
-            CONS_MESS2("!!!!!! mi < 0 || ma > len return -6");
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "!!!!!! mi < 0 || ma > len return -6");
             return -6;
         }
 
@@ -1305,7 +1230,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
     }
 #ifdef alDebug
     CountRect = pTheGeomTemp.size();
-    CONS_MESS2("---Поиск межколон. интервалов---");
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "---Поиск межколон. интервалов---");
 
     if (det0) MyDrawForDebug();
 
@@ -1323,8 +1248,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
 
             free(his);
             *k_int1 = -1;
-            CONS_MESS2
-            ("===колонки не обнаружены===");
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "===колонки не обнаружены===");
             return 0;
         } /*колонки не обнаружены*/
     }
@@ -1334,7 +1258,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
             ;
 
         if (pos >= len - min_int - min_col) {
-            CONS_MESS2("!!!!!! pos >= len-min_int-min_col");
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "!!!!!! pos >= len-min_int-min_col");
             break;
         }
 
@@ -1353,16 +1277,14 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
         if (pos >= len)
             break;
 
-        CONS_MESS2
-        ("beg_int=%d; pos=%d", beg_int, pos);
+        CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "beg_int=%d; pos=%d", beg_int, pos);
         tmp_pos = pos;
         sumh = 0;
         for (int i = beg_int; i <= pos; ++i)
             sumh += his[i];
 
         ave_h = sumh / (pos - beg_int + 1);
-        CONS_MESS2
-        ("ave_h=%d", ave_h);
+        CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "ave_h=%d", ave_h);
 
         if (ave_h <= midh) { /*интервал найден, ищем его конец*/
             while ((int16_t) his[++pos] <= maxh) {
@@ -1374,8 +1296,7 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
             }
 
             end_int = pos;
-            CONS_MESS2
-            ("end_int=%d", end_int);
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "end_int=%d", end_int);
 #ifdef alDebug
 
             if (reg == VER) {
@@ -1400,8 +1321,8 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
                 if ((k_int > 0 && Beg[k_int] - End[k_int - 1] < min_col) || (Beg[k_int] - Home
                         < min_col)) {
                     --k_int;
-                    CONS_MESS2
-                    (" колонка узкая,интервал не принимается! ");
+                    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL,
+                            " колонка узкая,интервал не принимается! ");
                     continue;
                 }
 
@@ -1439,10 +1360,8 @@ int16_t SearchInterval1(FRAME **frm, int16_t k_frm, int16_t **beg1, int16_t **en
     *beg1 = Beg;
     *end1 = End;
     *k_int1 = k_int;
-    CONS_MESS2
-    ("k_int=%d", k_int);
-    CONS_MESS2
-    ("=== end SearchInterval1===");
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "k_int=%d", k_int);
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "=== end SearchInterval1===");
     return k_int >= 0 ? 1 : 0;
 }
 
@@ -1458,10 +1377,9 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg, FRAME **frm,
     if (reg == HOR || len_group <= 0)
         goto end1;
 
-    CONS_MESS2
-    ("===begin Check_IsItFalseHorLine===");
-    CONS_MESS2
-    ("pos=%d len=%d last_real_line=%d", pos, len, last_real_line);
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "===begin Check_IsItFalseHorLine===");
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "pos=%d len=%d last_real_line=%d", pos, len,
+            last_real_line);
 
     if (last_real_line > 0)
         --last_real_line;
@@ -1477,15 +1395,14 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg, FRAME **frm,
         }
     }
     k_frm_first = First_Group.size() - 1;
-    CONS_MESS2
-    (" new_count_frm-first=%d ", k_frm_first + 1);
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, " new_count_frm-first=%d ", k_frm_first + 1);
     memset(his_first_group, 0, (len_group + 1) * sizeof(int16_t));
     for (int i = 0; i <= k_frm_first; ++i) {
         mi = First_Group[i].left - Home;
         ma = First_Group[i].right - Home;
 
         if (mi < 0 || ma > len_group) {
-            CONS_MESS2("!!!!!! mi < 0 || ma > len First_Group ");
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "!!!!!! mi < 0 || ma > len First_Group ");
             goto end1;
         }
 
@@ -1498,8 +1415,7 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg, FRAME **frm,
     while (pos <= len && (int16_t) his[++pos] > maxh)
         ;
 
-    CONS_MESS2
-    ("Second_Group new pos = %d", pos);
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "Second_Group new pos = %d", pos);
     for (i = 0; i <= k_frm; ++i) {
         if (frm[i]->up >= old_pos + bnd->up && frm[i]->down <= pos + bnd->up) {
             tagRECT rct;
@@ -1508,15 +1424,14 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg, FRAME **frm,
         }
     }
     k_frm_second = Second_Group.size() - 1;
-    CONS_MESS2
-    ("Second_Group new_count_frm=%d ", k_frm_second + 1);
+    CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "Second_Group new_count_frm=%d ", k_frm_second + 1);
     memset(his_second_group, 0, (len_group + 1) * sizeof(int16_t));
     for (i = 0; i <= k_frm_second; ++i) {
         mi = Second_Group[i].left - Home;
         ma = Second_Group[i].right - Home;
 
         if (mi < 0 || ma > len_group) {
-            CONS_MESS2("!!!!!! mi < 0 || ma > len Second_Group");
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "!!!!!! mi < 0 || ma > len Second_Group");
             goto end1;
         }
 
@@ -1538,8 +1453,7 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg, FRAME **frm,
             ;
 
         beg_white_int = i;
-        CONS_MESS2
-        ("First Group beg_white_int=%d ", i);
+        CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "First Group beg_white_int=%d ", i);
 
         while (i <= len_group && (int16_t) his_first_group[++i] <= maxh)
             ;
@@ -1549,16 +1463,15 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg, FRAME **frm,
         if (end_white_int >= len_group)
             break;
 
-        CONS_MESS2
-        ("First Group end_white_int=%d ", i);
+        CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "First Group end_white_int=%d ", i);
 
         if (beg_white_int == end_white_int) {
-            CONS_MESS2("beg_white_int==end_white_int i=%d ", i);
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "beg_white_int==end_white_int i=%d ", i);
             goto end1;
         }
 
         if (!check_white_int(beg_white_int, end_white_int, maxh, his_second_group)) {
-            CONS_MESS2("===Can't find white interval->First Group===");
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "===Can't find white interval->First Group===");
             goto end0;
         }
     }
@@ -1576,8 +1489,7 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg, FRAME **frm,
             ;
 
         beg_white_int = i;
-        CONS_MESS2
-        ("Second Group beg_white_int=%d ", i);
+        CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "Second Group beg_white_int=%d ", i);
 
         while (i <= len_group && (int16_t) his_second_group[++i] <= maxh)
             ;
@@ -1587,27 +1499,21 @@ int16_t Check_IsItFalseHorLine(int16_t last_real_line, int16_t reg, FRAME **frm,
         if (end_white_int >= len_group)
             break;
 
-        CONS_MESS2
-        ("Second Group end_white_int=%d ", i);
+        CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "Second Group end_white_int=%d ", i);
 
         if (beg_white_int == end_white_int) {
-            CONS_MESS2("Second Group beg_white_int==end_white_int i=%d ", i);
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL,
+                    "Second Group beg_white_int==end_white_int i=%d ", i);
             goto end1;
         }
 
         if (!check_white_int(beg_white_int, end_white_int, maxh, his_first_group)) {
-            CONS_MESS2("===Second Group Can't find white interval===");
+            CIF::FMT_DBG(CIF::FormatDebug::INTERVAL, "===Second Group Can't find white interval===");
             goto end0;
         }
     }
-    end1:
-    //  First_Group.RemoveAll( );
-    //  Second_Group.RemoveAll( );
-    return 1;
-    end0:
-    //  First_Group.RemoveAll( );
-    //  Second_Group.RemoveAll( );
-    return 0;
+    end1: return 1;
+    end0: return 0;
 }
 
 int check_white_int(int16_t beg_white_int, int16_t end_white_int, int16_t maxh,
@@ -1795,7 +1701,7 @@ int16_t CalcNumDau(KNOTT *Knot) {
     KNOTT *ptr;
 
     if (!Knot)
-        std::cerr << "Error #1: " << errRtf << "\n";
+        std::cerr << "Error #1: ED_RTF\n";
 
     for (ptr = Knot->down; ptr; ptr = ptr->next)
         n++;
@@ -1859,15 +1765,12 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 #ifdef alDebug
         free((KNOT**)Inf.Tree.Root);
 
-        if (det20 || det23) {
-            ConsMess("Formatter End ");
-        }
-
+        CIF::FMT_DBG("Formatter End ");
 #endif
         return TRUE;
     }
 
-    DBG("OpenFullOutTiger");
+    CIF::FMT_DBG("OpenFullOutTiger");
 
     if (NumCol >= 0)
         fl = CalcStatTiger();
@@ -1882,11 +1785,10 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
     if (fl = GenerateTreeByFragm(RectFragm, NumCol, &setup, &frm, &Inf)) {
         --NumCol;
         FlagBadBad = TRUE;
-        DBG("  NameFile-> " << OutFileName);
         goto BadReturn;
     }
 
-    DBG("GenerateTreeByFragm ");
+    CIF::FMT_DBG("GenerateTreeByFragm ");
 
     //---объединяем результаты распознавания текстовых фрагментов в колонки---
     if (Inf.NumT)
@@ -1926,12 +1828,13 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 inCol = Inf.ColT[i]->InBegFrm = (int) frm[n_beg]->start_pos;
         }
 
-        DBG_SORT("beg=" << n_beg << " num=" << num << " inCol=" << (NumCol - inCol));
+        CIF::FMT_DBG(CIF::FormatDebug::FRAGMENT, "beg=%d num=%d inCol=%d", n_beg, num, (NumCol
+                - inCol));
 #ifdef alDebug
 
         if (det6 && num > 1 && !Inf.ColT[i]->Type) {
-            DBG(" Фрагмент не отсортирован !!! ");
-            DBG("********* end multiframe ********");
+            CIF::FMT_DBG(" Фрагмент не отсортирован !!! ");
+            CIF::FMT_DBG("********* end multiframe ********");
         }
 
 #endif
@@ -1967,9 +1870,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     TitleStr[nc][0].S_Attr = 1;
 
 #ifdef alDebug
-
-                if (dets && det6)
-                DBG ("nc= " << (NumCol - nc));
+                CIF::FMT_DBG("nc= %d", NumCol - nc);
 
 #endif
 
@@ -1990,7 +1891,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
             TitleWord[inCol] = tW;
             Zn[inCol] = Z;
             NumStr[inCol] = TotalNumStr - 1;
-            DBG("********* end multiframe ********");
+            CIF::FMT_DBG("********* end multiframe ********");
         }
     }
 
@@ -2020,8 +1921,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
         /*****************     Начал. порядок - горизон. *********************************/
         if (pRoot->OrderChild == HOR) {
-            DBG_GEOM("Original horizontal order");
-            DBG_GEOM("Columns number =" << (k_col[1] + 1));
+            CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, "Original horizontal order");
+            CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, "Columns number =%d", k_col[1] + 1);
             K_Sect = 0;
             K_Hor = (int16_t*) malloc((K_Sect + 1) * sizeof(int16_t));
             K_Hor[0] = k_col[1];
@@ -2042,7 +1943,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                 K_Ver_Flag_Term[0][ih] = 0;
                 iv = 0;
                 kp = CalcNumDau(ptr) - 1;
-                DBG_GEOM(" #Col=" << (ih + 1));
+                CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, " #Col=%d", ih + 1);
 
                 if (kp < 0) { //Терминал.колонка
                     if (ptr->NumFrm > 1 && !ptr->Type) {
@@ -2059,22 +1960,18 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 #ifdef alDebug
 
                     if (det4 && ptr->NumFrm > 1 && !ptr->Type)
-                    DBG("Колонка сложной структуры (фреймы) ");
+                    CIF::FMT_DBG("Колонка сложной структуры (фреймы) ");
 
 #endif
-                }
-
-                else {
+                } else {
                     K_Ver[0][ih] = ptr->NumFrm - 1;
 
                     if ((Colt[0][ih] = (int16_t*) malloc((K_Ver[0][ih] + 1) * sizeof(int16_t)))
                             == NULL)
                         return NOT_ALLOC;
 
-#ifdef alDebug
-                    if (det4 && dets)
-                    DBG("Выделяем память для " << ptr->NumFrm << " term fragm");
-#endif
+                    CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, "Выделяем память для %d term fragm",
+                            ptr->NumFrm);
 
                     for (iv1 = 0, iv = 0, ptr1 = ptr->down; iv1 <= kp; ++iv1, ptr1 = ptr1->next) {
                         //Поиск терминальных фрагментов
@@ -2086,19 +1983,22 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         } else {
                             if (ptr1->NumFrm > 1 && !ptr1->Type) {
                                 K_Ver_Flag_Term[0][ih] = 2;
-                                DBG_GEOM(">>> " << ptr1->NumFrm << " fragments not sorted");
+                                CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY,
+                                        ">>> %d fragments not sorted", ptr1->NumFrm);
                                 i_nse = ptr1->InBegFrm + ptr1->NumFrm;
 
                                 for (i_nsb = ptr1->InBegFrm; i_nsb < i_nse; ++iv, ++i_nsb) {
                                     Colt[0][ih][iv] = (int16_t) frm[i_nsb]->start_pos;
-                                    DBG_GEOM(" #term=" << (NumCol + 1 - Colt[0][ih][iv]));
+                                    CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, " #term=%d", NumCol
+                                            + 1 - Colt[0][ih][iv]);
                                 }
                             } else {
                                 if (!K_Ver_Flag_Term[0][ih])
                                     K_Ver_Flag_Term[0][ih] = 1;
 
                                 Colt[0][ih][iv] = ptr1->InBegFrm;
-                                DBG_GEOM(" #term=" << (NumCol + 1 - Colt[0][ih][iv]));
+                                CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, " #term=%d", NumCol + 1
+                                        - Colt[0][ih][iv]);
                                 iv++;
                             }
                         }
@@ -2106,23 +2006,19 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
                     K_Ver[0][ih] = --iv;
 #ifdef alDebug
-
-                    if (det4 && dets)
-                    DBG("Кол-во терм. колонок=" << (K_Ver[0][ih] + 1));
+                    CIF::FMT_DBG("Кол-во терм. колонок=" << (K_Ver[0][ih] + 1));
 
 #endif
                 }
 
 #ifdef alDebug
 
-                if (det4) {
-                    if (!K_Ver_Flag_Term[0][ih])
-                    DBG("Column is simple");
-                    else if (det4 && K_Ver_Flag_Term[0][ih] == 1)
-                    DBG("Column is simple and consist of terminal fragments");
-                    else
-                    DBG("Column is complicated (frames)");
-                }
+                if (!K_Ver_Flag_Term[0][ih])
+                CIF::FMT_DBG("Column is simple");
+                else if (det4 && K_Ver_Flag_Term[0][ih] == 1)
+                CIF::FMT_DBG("Column is simple and consist of terminal fragments");
+                else
+                CIF::FMT_DBG("Column is complicated (frames)");
 
 #endif
             }
@@ -2130,8 +2026,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
         /*****************     Начал. порядок - вертикал. *********************************/
         else if (pRoot->OrderChild == VER) {
-            DBG_GEOM("Original order - vertical");
-            DBG_GEOM("Section number =" << (k_col[1] + 1));
+            CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, "Original order - vertical");
+            CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, "Section number =%d", k_col[1] + 1);
             K_Sect = k_col[1];
             K_Hor = (int16_t*) malloc((K_Sect + 1) * sizeof(int16_t));
             K_Ver = (int16_t**) malloc((K_Sect + 1) * sizeof(int16_t*));
@@ -2144,7 +2040,8 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
             //******  Цикл по секциям,внутри каждой - до 2-уровневой иерархии ***********
             for (i = 0, ptr = pRoot->down; i <= K_Sect; ++i, ptr = ptr->next) {
                 kp = CalcNumDau(ptr) - 1;
-                DBG_GEOM("***Section #" << (i + 1) << " - from  " << (kp < 0 ? 1 : kp + 1) << "  horizontal columns");
+                CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY,
+                        "***Section #%d - from %d horizontal columns", i + 1, kp < 0 ? 1 : kp + 1);
 
                 //Секция - одна терминал. колонка
                 if (kp < 0) {
@@ -2169,18 +2066,22 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                         return -3;
 
                     if (ptr->NumFrm > 1 && !ptr->Type) {
-                        DBG_GEOM(">>> " << ptr->NumFrm << " не отсортированных фрагмента");
+                        CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY,
+                                ">>> %d не отсортированных фрагмента", ptr->NumFrm);
                         i_nse = ptr->InBegFrm + ptr->NumFrm;
 
                         for (i_ns1 = 0, i_nsb = ptr->InBegFrm; i_nsb < i_nse; ++i_ns1, ++i_nsb) {
                             Colt[i][0][i_ns1] = (int16_t) frm[i_nsb]->start_pos;
-                            DBG_GEOM(" #term=" << (NumCol + 1 - Colt[i][0][i_ns1]));
+                            CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, " #term=%d", (NumCol + 1
+                                    - Colt[i][0][i_ns1]));
                         }
 
-                        DBG_GEOM("Колонка сложной структуры (фреймы) ");
+                        CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY,
+                                "Колонка сложной структуры (фреймы) ");
                     } else {
                         Colt[i][0][0] = ptr->InBegFrm;
-                        DBG_GEOM(" #term=" << (NumCol + 1 - Colt[i][0][0]));
+                        CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, " #term=%d", NumCol + 1
+                                - Colt[i][0][0]);
                     }
                 }
 
@@ -2198,7 +2099,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                     for (ih = 0, ptr1 = ptr->down; ih <= kp; ++ih, ptr1 = ptr1->next) {
                         kp1 = CalcNumDau(ptr1) - 1;//Число дочерей H-col
                         K_Ver_Flag_Term[i][ih] = 0;
-                        DBG_GEOM(" #Col=" << (ih + 1));
+                        CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, " #Col=%d", ih + 1);
 
                         if (kp1 < 0) { //Терм. H-col
                             if (ptr1->NumFrm > 1 && !ptr1->Type) {
@@ -2214,17 +2115,20 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                 return -3;
 
                             if (ptr1->NumFrm > 1 && !ptr1->Type) {
-                                DBG_GEOM(">>>  " << ptr1->NumFrm << " не отсортированных фрагмента");
+                                CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY,
+                                        ">>>  %d не отсортированных фрагмента", ptr1->NumFrm);
 
                                 i_nse = ptr1->InBegFrm + ptr1->NumFrm;
 
                                 for (i_ns1 = 0, i_nsb = ptr1->InBegFrm; i_nsb < i_nse; ++i_ns1, ++i_nsb) {
                                     Colt[i][ih][i_ns1] = (int16_t) frm[i_nsb]->start_pos;
-                                    DBG_GEOM(" #term=" << (NumCol + 1 - Colt[i][ih][i_ns1]));
+                                    CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, " #term=%d", NumCol
+                                            + 1 - Colt[i][ih][i_ns1]);
                                 }
                             } else {
                                 Colt[i][ih][0] = ptr1->InBegFrm;
-                                DBG_GEOM(" #term=" << (NumCol + 1 - Colt[i][ih][0]));
+                                CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, " #term=5d", (NumCol + 1
+                                        - Colt[i][ih][0]));
                             }
                         } else {
                             K_Ver[i][ih] = ptr1->NumFrm - 1;
@@ -2251,21 +2155,22 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
                                 } else {
                                     if (ptr2->NumFrm > 1 && !ptr2->Type) {
                                         K_Ver_Flag_Term[i][ih] = 2;
-                                        CONS_MESS4
-                                        (">>> %d не отсортированных фрагмента", ptr2->NumFrm);
+                                        CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY,
+                                                ">>> %d не отсортированных фрагмента", ptr2->NumFrm);
                                         i_nse = ptr2->InBegFrm + ptr2->NumFrm;
 
                                         for (i_nsb = ptr2->InBegFrm; i_nsb < i_nse; ++iv, ++i_nsb) {
                                             Colt[i][ih][iv] = (int16_t) frm[i_nsb]->start_pos;
-                                            CONS_MESS4(" #term=%d", NumCol + 1 - Colt[i][ih][iv]);
+                                            CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, " #term=%d",
+                                                    NumCol + 1 - Colt[i][ih][iv]);
                                         }
                                     } else {
                                         if (!K_Ver_Flag_Term[i][ih])
                                             K_Ver_Flag_Term[i][ih] = 1;
 
                                         Colt[i][ih][iv] = ptr2->InBegFrm;
-                                        CONS_MESS4
-                                        (" #term=%d", NumCol + 1 - Colt[i][ih][iv]);
+                                        CIF::FMT_DBG(CIF::FormatDebug::GEOMETRY, " #term=%d",
+                                                NumCol + 1 - Colt[i][ih][iv]);
                                         iv++;
                                     }
                                 }
@@ -2273,22 +2178,19 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
 
                             K_Ver[i][ih] = --iv;
 #ifdef alDebug
-
-                            if (det4 && dets)
-                            DBG("Кол-во терм. колонок=" << (K_Ver[i][ih] + 1));
+                            CIF::FMT_DBG("Кол-во терм. колонок=%d", K_Ver[i][ih] + 1);
 
 #endif
                         }
 
 #ifdef alDebug
 
-                        if (det4) {
-                            if (!K_Ver_Flag_Term[i][ih]) ConsMess("Колонка простая");
-
-                            else if (K_Ver_Flag_Term[i][ih] == 1) ConsMess("Колонка простая и состоит из терм.фраг-тов");
-
-                            else ConsMess("Колонка сложной структуры (фреймы) ");
-                        }
+                        if (!K_Ver_Flag_Term[i][ih])
+                        CIF::FMT_DBG("Колонка простая");
+                        else if (K_Ver_Flag_Term[i][ih] == 1)
+                        CIF::FMT_DBG("Колонка простая и состоит из терм.фраг-тов");
+                        else
+                        CIF::FMT_DBG("Колонка сложной структуры (фреймы) ");
 
 #endif
                     }
@@ -2412,7 +2314,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage, const char* OutFileName)
             ColH[i][ih].bnd.bottom = bnd.bottom;
         }
     }
-    DBG("Подсчет реалных размеров кеглей ");
+    CIF::FMT_DBG("Подсчет реалных размеров кеглей ");
     /////////////////////////////////////////////////////////////////////////////////////////
     //                                                                                     //
     //                  Подсчет реалных размеров кеглей                                    //

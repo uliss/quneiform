@@ -8,6 +8,7 @@ crtfstring.cpp
 crtfhorizontalcolumn.cpp
 crtfverticalcolumn.cpp
 crtfword.cpp
+formatdebug.cpp
 formatter.cpp
 frmtfile.cpp
 frmtpict.cpp
