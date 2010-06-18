@@ -108,9 +108,7 @@ KNOT *inc_after_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free)
     if (next != NULL) { /*вставить не после конца списка*/
         beg_free_old->next = next;
         next->back = beg_free_old;
-    }
-
-    else { /*вставить после конца списка*/
+    } else { /*вставить после конца списка*/
         beg_free_old->next = NULL;
     }
 
@@ -126,15 +124,11 @@ void del_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free)
         back->next = next;
         next->back = back;
     }/*не голова List и не хвост*/
-
     else if (next != NULL) { /*не хвост  List, но голова*/
         *beg = next;
         next->back = NULL;
-    }
-
-    else if (back != NULL) /*не голова List, но хвост*/
+    } else if (back != NULL) /*не голова List, но хвост*/
         back->next = NULL;
-
     else
         /*и хвост и голова List*/
         *beg = NULL;
@@ -144,9 +138,7 @@ void del_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free)
     if (*beg_free != NULL) { /*List Free не пуст,устанавливаем связи со старой головой*/
         ptr->next = *beg_free;
         (*beg_free)->back = ptr;
-    }
-
-    else
+    } else
         ptr->next = NULL;
 
     *beg_free = ptr;
@@ -166,22 +158,18 @@ int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free, int size_
             return -3;
     }
 
-    do0(i, 0, kb)
+    for(i = 0; i <= kb; ++i)
         (*knot)[i + (*k_bloc + 1)] = kn[i];
 
     /*===собственно инициализация ссылок===*/
     if (*k_bloc == -1) { /*первый  захват памяти для данного списка*/
         *beg_free = kn[0];
         kn[0][0].back = NULL;
-    }
-
-    else { /*подцепляем новый кусок к хвосту существующего списка*/
+    } else { /*подцепляем новый кусок к хвосту существующего списка*/
         if (*beg_free == NULL) { /*список свобод. памяти исчерпан*/
             *beg_free = kn[0];
             kn[0][0].back = NULL;
-        }
-
-        else {
+        } else {
             ptr = *beg_free;
 
             while (ptr->next != NULL)
@@ -194,30 +182,24 @@ int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free, int size_
 
     *k_bloc += kb + 1;
     k_item = -1;
-    do0(i, 0, kb) {
+    for(i = 0; i <= kb; ++i) {
         ptr = kn[i];
-        do0(j, 0, size_bloc[i]) {
+        for(j = 0; j <= size_bloc[i]; ++j) {
             ptr1 = (KNOT*) ((char*) ptr + j * size_item); /*ptr[j]*/
             ptr2 = (KNOT*) ((char*) ptr1 + size_item); /*ptr[j+1]*/
 
             if (++k_item == max_knot) {
                 ptr1->next = NULL;
                 goto endc;
-            }
-
-            else {
+            } else {
                 if (j < size_bloc[i]) { /*ссылки внутри одного блока*/
                     ptr1->next = ptr2;
                     ptr2->back = ptr1;
-                }
-
-                else { /*ссылки между блоками*/
+                } else { /*ссылки между блоками*/
                     if (i < kb) {
                         ptr1->next = kn[i + 1];
                         kn[i + 1]->back = ptr1;
-                    }
-
-                    else
+                    } else
                         return -4;
                 }
             }
@@ -239,14 +221,12 @@ int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc) {
         if ((kn[++(*kb)] = (KNOT*) malloc(k * size_item)) != NULL) { /*смогли взять*/
             max_kn -= k;
             size_bloc[*kb] = k - 1;
-        }
-
-        else {
+        } else {
             --(*kb);
             size = determine_free_memory(k * size_item);
 
             if (size < (uint) MIN_KNOT * size_item) { /*памяти явно не хватает*/
-                do0(i, 0, *kb)
+                for(i = 0; i <= *kb; ++i)
                     free(kn[i]);
                 return -3;
             }
@@ -255,7 +235,7 @@ int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc) {
         }
 
         if ((*kb) > MAX_BLOC - 2) { /*очень много мелких кусочков памяти*/
-            do0(i, 0, *kb)
+            for(i = 0; i <= *kb; ++i)
                 free((char*) kn[i]);
             return -4;
         }
@@ -281,12 +261,10 @@ uint determine_free_memory(uint size1) {
 }
 /*===========освобождение памяти списка*/
 void free_lst(KNOT **knot, int k_bloc) {
-    int i;
-
     if (k_bloc < 0 || knot == NULL)
         return;
 
-    doi(i, k_bloc, 0)
+    for(int  i = k_bloc; i >= 0; --i)
         free((char*) knot[i]);
     free((char*) knot);
 }
@@ -304,15 +282,6 @@ typedef struct tagOLD_FRAME
 #else
 typedef FRAME OLD_FRAME;
 #endif
-
-#define KBUF 512
-#define KHIS 50
-
-Rect16 RectCut;
-
-#define TestExactReg(f) \
-       (DIST_V(f.left,f.right,RectCut.left,RectCut.right)  > 0 && \
-          DIST_V(f.up,  f.down, RectCut.top, RectCut.bottom) > 0)
 
 #endif
 //*****стек-массив*****
