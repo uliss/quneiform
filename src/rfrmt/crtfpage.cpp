@@ -363,7 +363,8 @@ void CRtfPage::calcPageSizeNone() {
     MargT = DefMargT;
     MargB = DefMargB;
 
-    const int width = std::max((int) DefaultWidthPage, static_cast<int>(maxFragmentWidth() + MargL + MargR));
+    const int width = std::max((int) DefaultWidthPage, static_cast<int> (maxFragmentWidth() + MargL
+            + MargR));
 
     page_size_.setWidth(width);
     page_size_.setHeight(DefaultHeightPage);
@@ -717,51 +718,49 @@ void CRtfPage::writeUsingFrames() {
 //табл. помещаются в существующие сектора как frame (м.б.изменение размера колонки)
 // или создаются для них новые сектора(терминал.колонка)
 void CRtfPage::ToPlacePicturesAndTables(void) {
-    CRtfSector* pRtfSector;
-
     for (FragmentList::iterator frag_it = m_arFragments.begin(); frag_it != m_arFragments.end(); ++frag_it) {
         if ((*frag_it)->type() != FT_PICTURE && (*frag_it)->type() != FT_TABLE)
             continue;
 
+        CRtfSector * str;
         const size_t CountSectors = m_arSectors.size();
 
         //страница пустая:создается новый сектор для них
         if (CountSectors == 0) {
             m_arSectors.push_back(new CRtfSector());
-            pRtfSector = m_arSectors.front();
-            RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &(*frag_it)->m_rect);
-            RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &(*frag_it)->m_rect);
-            pRtfSector->ToPlacePicturesAndTables((*frag_it));
+            str = m_arSectors.front();
+            str->m_rect = (*frag_it)->m_rect;
+            str->m_rectReal = (*frag_it)->m_rect;
+            str->ToPlacePicturesAndTables(*frag_it);
             continue;
         }
 
         //картина или таблица ниже последного сектора:создается новый сектор для них
-        pRtfSector = m_arSectors.back();
+        str = m_arSectors.back();
 
-        if ((*frag_it)->m_rect.top >= pRtfSector->m_rectReal.bottom) {
+        if ((*frag_it)->m_rect.top >= str->m_rectReal.bottom) {
             m_arSectors.push_back(new CRtfSector());
-            pRtfSector = m_arSectors.back();
-            RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &(*frag_it)->m_rect);
-            RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &(*frag_it)->m_rect);
-            pRtfSector->ToPlacePicturesAndTables((*frag_it));
+            str = m_arSectors.back();
+            str->m_rect = (*frag_it)->m_rect;
+            str->m_rectReal = (*frag_it)->m_rect;
+            str->ToPlacePicturesAndTables(*frag_it);
             continue;
         }
 
         for (size_t j = 0; j < CountSectors; j++) {//картина или таблица между секторами:создается новый сектор для них
-            pRtfSector = m_arSectors[j];
+            str = m_arSectors[j];
 
-            if ((*frag_it)->m_rect.bottom <= pRtfSector->m_rectReal.top) {
-                pRtfSector = *m_arSectors.insert(m_arSectors.begin() + j, new CRtfSector());
-                RtfAssignRect_CRect_CRect(&pRtfSector->m_rect, &(*frag_it)->m_rect);
-                RtfAssignRect_CRect_CRect(&pRtfSector->m_rectReal, &(*frag_it)->m_rect);
-                pRtfSector->ToPlacePicturesAndTables((*frag_it));
+            if ((*frag_it)->m_rect.bottom <= str->m_rectReal.top) {
+                str = *m_arSectors.insert(m_arSectors.begin() + j, new CRtfSector());
+                str->m_rect = (*frag_it)->m_rect;
+                str->m_rectReal = (*frag_it)->m_rect;
+                str->ToPlacePicturesAndTables(*frag_it);
                 break;
             } else {//картина или таблица внутри сектора: добавляетс
-                if (((*frag_it)->m_rect.top < pRtfSector->m_rectReal.top
-                        && (*frag_it)->m_rect.bottom > pRtfSector->m_rectReal.top)
-                        || ((*frag_it)->m_rect.top >= pRtfSector->m_rectReal.top
-                                && (*frag_it)->m_rect.top < pRtfSector->m_rectReal.bottom)) {
-                    pRtfSector->ToPlacePicturesAndTables((*frag_it));
+                if (((*frag_it)->m_rect.top < str->m_rectReal.top && (*frag_it)->m_rect.bottom
+                        > str->m_rectReal.top) || ((*frag_it)->m_rect.top >= str->m_rectReal.top
+                        && (*frag_it)->m_rect.top < str->m_rectReal.bottom)) {
+                    str->ToPlacePicturesAndTables((*frag_it));
                     break;
                 }
             }

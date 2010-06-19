@@ -170,40 +170,37 @@ void CRtfSector::WriteNonTerminalColumns() {
     }
 }
 
-void CRtfSector::ToPlacePicturesAndTables(CRtfFragment* pRtfFragment) {
-    CRtfHorizontalColumn *pRtfHorizontalColumn;
+void CRtfSector::ToPlacePicturesAndTables(CRtfFragment* frag) {
+    CRtfHorizontalColumn * hcol;
 
     if (hcols_.empty()) {
         hcols_.push_back(new CRtfHorizontalColumn);
-        pRtfHorizontalColumn = hcols_.back();
-        pRtfHorizontalColumn->ToPlacePicturesAndTables(pRtfFragment);
+        hcol = hcols_.back();
+        hcol->ToPlacePicturesAndTables(frag);
         return;
     }
 
-    pRtfHorizontalColumn = hcols_.back();
+    hcol = hcols_.back();
 
-    if (pRtfFragment->m_rect.left >= pRtfHorizontalColumn->m_rectReal.right) {
+    if (frag->m_rect.left >= hcol->m_rectReal.right) {
         hcols_.push_back(new CRtfHorizontalColumn());
-        pRtfHorizontalColumn = hcols_.back();
-        pRtfHorizontalColumn->ToPlacePicturesAndTables(pRtfFragment);
+        hcol = hcols_.back();
+        hcol->ToPlacePicturesAndTables(frag);
         return;
     }
 
     for (size_t j = 0; j < hcols_.size(); j++) {
-        pRtfHorizontalColumn = hcols_[j];
+        hcol = hcols_[j];
 
-        if (pRtfFragment->m_rect.right <= pRtfHorizontalColumn->m_rectReal.left) {
-            pRtfHorizontalColumn = *hcols_.insert(hcols_.begin() + j, new CRtfHorizontalColumn());
-            pRtfHorizontalColumn->ToPlacePicturesAndTables(pRtfFragment);
+        if (frag->m_rect.right <= hcol->m_rectReal.left) {
+            hcol = *hcols_.insert(hcols_.begin() + j, new CRtfHorizontalColumn());
+            hcol->ToPlacePicturesAndTables(frag);
             return;
-        }
-
-        else {
-            if ((pRtfFragment->m_rect.left < pRtfHorizontalColumn->m_rectReal.left
-                    && pRtfFragment->m_rect.right > pRtfHorizontalColumn->m_rectReal.left)
-                    || (pRtfFragment->m_rect.left >= pRtfHorizontalColumn->m_rectReal.left
-                            && pRtfFragment->m_rect.left < pRtfHorizontalColumn->m_rectReal.right)) {
-                pRtfHorizontalColumn->ToPlacePicturesAndTables(pRtfFragment);
+        } else {
+            if ((frag->m_rect.left < hcol->m_rectReal.left && frag->m_rect.right
+                    > hcol->m_rectReal.left) || (frag->m_rect.left >= hcol->m_rectReal.left
+                    && frag->m_rect.left < hcol->m_rectReal.right)) {
+                hcol->ToPlacePicturesAndTables(frag);
                 return;
             }
         }

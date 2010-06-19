@@ -211,7 +211,7 @@ size_t CRtfHorizontalColumn::columnCount() const {
 }
 
 void CRtfHorizontalColumn::drawLayout() const {
-    if(!draw_func_.empty())
+    if (!draw_func_.empty())
         draw_func_(this);
 }
 
@@ -856,22 +856,20 @@ void CRtfHorizontalColumn::writeNonTerminalColumns(SectorInfo* sector) {
     }
 }
 
-void CRtfHorizontalColumn::ToPlacePicturesAndTables(CRtfFragment* pRtfFragment) {
-    CRtfVerticalColumn* pRtfVerticalColumn;
-    CRtfFragment* pRtfFragmentNew;
+void CRtfHorizontalColumn::ToPlacePicturesAndTables(CRtfFragment* frag) {
     vcols_.push_back(new CRtfVerticalColumn());
 
     if (vcols_.size() == 1)
         type_ = ONLY_PICTURE_TABLE;
 
-    pRtfVerticalColumn = vcols_.back();
-    pRtfVerticalColumn->setType(pRtfFragment->type());
-    pRtfFragmentNew = new CRtfFragment;
-    pRtfVerticalColumn->addFragment(pRtfFragmentNew);
-    pRtfFragmentNew->setType(pRtfFragment->type());
-    pRtfFragmentNew->m_wUserNumber = pRtfFragment->m_wUserNumber;
-    pRtfFragmentNew->m_wUserNumberForFormattedMode = pRtfFragment->m_wUserNumberForFormattedMode;
-    RtfUnionRect_CRect_CRect(&pRtfFragmentNew->m_rect, &pRtfFragment->m_rect);
+    CRtfVerticalColumn * vcol = vcols_.back();
+    vcol->setType(frag->type());
+    CRtfFragment * new_frag = new CRtfFragment;
+    vcol->addFragment(new_frag);
+    new_frag->setType(frag->type());
+    new_frag->m_wUserNumber = frag->m_wUserNumber;
+    new_frag->m_wUserNumberForFormattedMode = frag->m_wUserNumberForFormattedMode;
+    RtfUnionRect_CRect_CRect(&new_frag->m_rect, &frag->m_rect);
 }
 
 }
