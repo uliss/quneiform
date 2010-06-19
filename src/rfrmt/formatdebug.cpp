@@ -25,7 +25,8 @@
 namespace CIF
 {
 
-int FormatDebug::flags_ = FormatDebug::COMMON;
+//int FormatDebug::flags_ = FormatDebug::COMMON;
+int FormatDebug::flags_ = 0;
 
 #ifdef NDEBUG
 void FMT_DBG(FormatDebug::debug_t, const char *, ...) {}
