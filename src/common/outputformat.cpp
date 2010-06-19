@@ -62,7 +62,6 @@ bool initOutputFormatData()
     addFormat(FORMAT_HTML, "html", "HTML format", "html");
     addFormat(FORMAT_HOCR, "hocr", "hOCR HTML format", "html");
     addFormat(FORMAT_RTF, "rtf", "RTF format", "rtf");
-    addFormat(FORMAT_EDNATIVE, "native", "Cuneiform 2000 format", "ed");
     addFormat(FORMAT_DEBUG, "textdebug", "for debugging purposes", "txt");
 
 #ifdef CF_USE_ODF
@@ -120,7 +119,7 @@ OutputFormatList OutputFormat::formats()
 
 bool OutputFormat::isValid() const
 {
-    return (FORMAT_EDNATIVE <= format_) ? true : false;
+    return (FORMAT_NONE < format_) ? true : false;
 }
 
 std::string OutputFormat::name(format_t format)

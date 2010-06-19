@@ -148,10 +148,5 @@ class PictureEntry
         uint32_t len;
         void* data;
 };
-#define DEC_FUN(a,b,c) typedef a (*FN##b)c
-DEC_FUN(Bool32, CED_FormattedWrite, ( const char * fileName, CIF::CEDPage *page));
-DEC_FUN(CIF::CEDPage*, CED_FormattedLoad, (char * file, Bool32 readFromFile, uint32_t bufLen));
-DEC_FUN(void, CED_DeleteTree, (CIF::CEDPage * pg));
-#undef DEC_FUN
 
 #endif// _CED_STRUCT_

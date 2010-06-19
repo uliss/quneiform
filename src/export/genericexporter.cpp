@@ -70,8 +70,8 @@ int GenericExporter::charNumInParagraph(CEDParagraph * par) {
     if (!par)
         return 0;
     int num_of_chars = 0;
-    for (int i = 0, num_lines = par->GetCountLine(); i < num_lines; i++)
-        num_of_chars += par->GetLine(i)->charCount();
+    for (int i = 0, num_lines = par->lineCount(); i < num_lines; i++)
+        num_of_chars += par->lineAt(i)->charCount();
 
     return num_of_chars;
 }
@@ -533,8 +533,8 @@ void GenericExporter::writePageEnd(std::ostream&, CEDPage*) {
 
 void GenericExporter::writeParagraph(std::ostream&, CEDParagraph * par) {
     assert(par);
-    for (int i = 0, num_lines = par->GetCountLine(); i < num_lines; i++)
-        exportLine(par->GetLine(i));
+    for (int i = 0, num_lines = par->lineCount(); i < num_lines; i++)
+        exportLine(par->lineAt(i));
 }
 
 void GenericExporter::writeParagraphBegin(std::ostream&, CEDParagraph*) {

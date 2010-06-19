@@ -35,24 +35,6 @@ CEDPage::CEDPage() :
 }
 
 CEDPage::~CEDPage() {
-    CEDChar * ch1, *ch;
-    ch1 = ch = GetChar(0);
-
-    while (ch1) {
-        ch = ch1->next();
-        delete ch1;
-        ch1 = ch;
-    }
-
-    CEDLine * li1, *li;
-    li1 = li = GetLine(0);
-
-    while (li1) {
-        li = li1->next();
-        delete li1;
-        li1 = li;
-    }
-
     CEDParagraph * pa1, *pa;
     pa1 = pa = GetParagraph(0);
 
@@ -274,33 +256,6 @@ CEDParagraph * CEDPage::GetParagraph(int _num) {
 
     for (ss = qq ? qq->paragraphs : 0; ss && ss->internalNumber != _num; ss = ss->next)
         ;
-
-    return ss;
-}
-CEDLine * CEDPage::GetLine(int _num) {
-    CEDParagraph *qq = GetParagraph(0);
-
-    while (qq && !qq->lines)
-        qq = qq->next;
-
-    CEDLine* ss;
-
-    for (ss = qq ? qq->lines : 0; ss && ss->internalNumber() != _num; ss = ss->next())
-        ;
-
-    return ss;
-}
-CEDChar * CEDPage::GetChar(int _num) {
-    CEDLine *qq = GetLine(0);
-
-    while (qq && !qq->first())
-        qq = qq->next();
-
-    int num = 0;
-    CEDChar* ss;
-
-    for (ss = qq ? qq->first() : 0; ss && num != _num; ss = ss->next())
-        num++;
 
     return ss;
 }

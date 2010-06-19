@@ -19,6 +19,8 @@
 #ifndef CEDLINE_H_
 #define CEDLINE_H_
 
+#include <vector>
+#include <boost/shared_ptr.hpp>
 #include "globus.h"
 #include "ced_struct.h"
 
@@ -34,7 +36,7 @@ class CLA_EXPO CEDLine
         /**
          * Returns char at given position
          */
-        CEDChar* charAt(unsigned int pos);
+        CEDChar * charAt(size_t pos);
 
         /**
          * Returns number of chars in line
@@ -42,10 +44,9 @@ class CLA_EXPO CEDLine
         int charCount();
 
         /**
-         * Returns pointer to current symbol
-         * @see setCurrentChar()
+         * Removes all chars from line
          */
-        CEDChar * currentChar();
+        void clearChars();
 
         /**
          * Returns default font height
@@ -81,48 +82,15 @@ class CLA_EXPO CEDLine
         int internalNumber() const;
 
         /**
-         * Returns pointer to next line
-         */
-        CEDLine * next();
-
-        /**
-         * returns next symbol, 0 if last
-         */
-        CEDChar * nextChar();
-
-        /**
          * Returns number of parent in a file
          * @see setParentNumber()
          */
         int parentNumber() const;
 
         /**
-         * Returns pointer to previous line
-         */
-        CEDLine * prev();
-
-        /**
-         * returns previous symbol, 0 if first
-         */
-        CEDChar * prevChar();
-
-        /**
-         * Sets current char
-         * @see currentChar()
-         */
-        void setCurrentChar(CEDChar * chr);
-
-        /**
-         * Sets new value of current symbol
-         */
-        CEDChar * setCurrentChar(int number);
-
-        /**
          * Sets default font height
          */
         void setDefaultFontHeight(int height);
-
-        void setFirst(CEDChar * chr);
 
         /**
          * Sets line hard breaking
@@ -135,21 +103,14 @@ class CLA_EXPO CEDLine
          * @see parentNumber()
          */
         void setParentNumber(int number);
-
-        friend class CEDParagraph;
-        int char_number_;
     private:
         bool hard_break_;
-        //current symbol
-        CEDChar * current_char_;
         int internal_number_;
         int parent_number_;
-        //connected list of symbols
-        CEDChar * chars;
-        //pointer to neighbor elements in connected list
-        CEDLine * prev_;
-        CEDLine * next_;
         int default_font_height_;
+        typedef boost::shared_ptr<CEDChar> CharPtr;
+        typedef std::vector<CharPtr> CharList;
+        CharList chars_;
 };
 
 }

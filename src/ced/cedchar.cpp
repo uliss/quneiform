@@ -24,7 +24,6 @@ namespace CIF
 CEDChar::CEDChar() :
     parent_number_(0), font_lang_(LANGUAGE_ENGLISH), font_height_(0), font_style_(0), font_number_(
             0) {
-    prev_ = next_ = 0;
 }
 
 CEDChar::~CEDChar() {
@@ -59,10 +58,6 @@ bool CEDChar::isPicture() const {
             != 0xfffffffe);
 }
 
-CEDChar * CEDChar::next() {
-    return next_;
-}
-
 Rect CEDChar::boundingRect() const {
     return bbox_;
 }
@@ -92,10 +87,6 @@ int CEDChar::pictureNumber() const {
         return -1;
     assert(fontNumber() >= ED_PICT_BASE);
     return fontNumber() - ED_PICT_BASE;
-}
-
-CEDChar * CEDChar::prev() {
-    return prev_;
 }
 
 void CEDChar::setAlternative(const Letter& letter, size_t pos) {
@@ -137,22 +128,8 @@ void CEDChar::setForegroundColor(const Color& color) {
     fground_color_ = color;
 }
 
-void CEDChar::setNext(CEDChar * _next) {
-    assert(_next != this);
-    next_ = _next;
-    if (next_)
-        next_->prev_ = this;
-}
-
 void CEDChar::setParentNumber(int number) {
     parent_number_ = number;
-}
-
-void CEDChar::setPrev(CEDChar * previous) {
-    assert(previous != this);
-    prev_ = previous;
-    if (prev_)
-        prev_->next_ = this;
 }
 
 std::ostream& operator<<(std::ostream& os, const CEDChar& chr) {

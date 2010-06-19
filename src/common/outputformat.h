@@ -29,18 +29,17 @@ namespace CIF
 enum format_t
 {
     FORMAT_NONE = -1,
-    FORMAT_EDNATIVE = 0,
-    FORMAT_TEXT = 0x02,
-    FORMAT_SMARTTEXT = 0x04,
-    FORMAT_RTF = 0x08,
-    FORMAT_TABLETXT = 0x0100, // Table text
-    FORMAT_TABLECSV = 0x0200, // Table CSV (comma separated)
-    FORMAT_TABLEDBF = 0x0400, // Table DBF
-    FORMAT_TABLEWKS = 0x1000, // Table WKS (Lotus)
-    FORMAT_HTML = 0x2000,
-    FORMAT_HOCR = 0x4000,
-    FORMAT_DEBUG = 0x8000,
-    FORMAT_ODF   = 0x10000
+    FORMAT_TEXT = 0,
+    FORMAT_SMARTTEXT,
+    FORMAT_RTF,
+    FORMAT_TABLETXT, // Table text
+    FORMAT_TABLECSV, // Table CSV (comma separated)
+    FORMAT_TABLEDBF, // Table DBF
+    FORMAT_TABLEWKS, // Table WKS (Lotus)
+    FORMAT_HTML,
+    FORMAT_HOCR,
+    FORMAT_DEBUG,
+    FORMAT_ODF
 };
 
 typedef std::list<format_t> OutputFormatList;

@@ -153,11 +153,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
         if (!WriteRtfFont(rtf, TRUE))
             goto WRITE_END; //write the font table
 
-        if (!WriteRtfColor(rtf))
-            goto WRITE_END;
-
-        //write the color table
-        //    if (!WriteRtfStylesheet(w,rtf)) goto WRITE_END; //write the color table
+        //    if (!WriteRtfStylesheet(w,rtf)) goto WRITE_END;
         if (!WriteRtfMargin(rtf))
             goto WRITE_END;
 
@@ -237,9 +233,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
 
                         if (!WriteRtfControl(rtf, "pard", PARAM_NONE, 0))
                             goto WRITE_END;
-                    }
-
-                    else if (para->type == FRAME_BEGIN) {
+                    } else if (para->type == FRAME_BEGIN) {
                         rtf->RtfInFrame = TRUE;
 
                         if (!WriteRtfControl(rtf, "pard", PARAM_NONE, 0))
@@ -253,16 +247,16 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
 
                         //if there is only one paragraph in a frame and this paragraph is real.
                         if (para && (!para->GetNextObject()) && (!(para->type & FICTIVE))) {
-                            CEDLine * l = para->lines;
-
                             //if there is only one line in a paragraph
-                            if (l && ((!l->next()) || l->next()->parentNumber() != l->parentNumber())) {
-                                CEDChar * c = l->first();
+                            if (para->lineCount() == 1) {
+                                CEDLine * l = para->lineAt(0);
 
                                 //the same for symbol
-                                if (c && ((!c->next()) || c->next()->parentNumber()
-                                        != c->parentNumber()) && c->isPicture())
-                                    rtf->wrtFrmSz = FALSE;
+                                if (l->charCount()) {
+                                    CEDChar * c = l->first();
+                                    if (c->isPicture())
+                                        rtf->wrtFrmSz = FALSE;
+                                }
                             }
                         }
 
@@ -271,9 +265,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
                         if (para && (!para->GetNextObject()) && (para->type == TAB_BEGIN))
                             rtf->wrtFrmSz = FALSE;
                     }
-                }
-
-                else {
+                } else {
                     int shading = para->shading;
 
                     //if we found painted paragraph, which is first one in a non-first line
@@ -393,9 +385,10 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
 
     rtf->PrevPfmt = p;
     // Write character formats and para break
-    int parent = p->lines ? p->lines->parentNumber() : 0;
+    int parent = p->lineCount() ? p->lineAt(0)->parentNumber() : 0;
 
-    for (l = p->lines; l && l->parentNumber() == parent; l = l->next()) {
+    for (size_t i = 0; i < p->lineCount(); i++) {
+        l = p->lineAt(i);
         lastLin = l;
         // determine the column range to write
         FirstCol = 0;
@@ -406,7 +399,9 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
 
         len = 0; // length of the segment
 
-        for (j = 0; j <= LastCol; j++) {
+        ////////
+        //// uliss
+        for (j = 0; j < LastCol; j++) {
             chr = l->charAt(j);//this construction is correct
             //!!Warning  - cycle is longer then a line (length of line +1), so be careful
             //this one is also correct
@@ -464,7 +459,7 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
 
         // Write EOL in non-wordwrap mode
         //If line is not last one in paragraph
-        if (l->next() && l->next()->parentNumber() == parent && l->hardBreak())
+        if (i != (p->lineCount() - 1) && l->hardBreak())
             if (!WriteRtfControl(rtf, "line", PARAM_NONE, 0))
                 return FALSE;
     }
@@ -2094,9 +2089,6 @@ Bool WriteRtfMergedHeader(StrRtfOut *rtf, const char * name) {
             rtf->TextIndex - oldIndex))
         goto END_HDR;
 
-    if (!WriteRtfColor(rtf, head))
-        goto END_HDR;
-
     if (!FlushRtfLine(rtf))
         goto END_HDR; // flush the rtf line to the output
 
@@ -2305,11 +2297,11 @@ int nameCmp(const char* s1, const char* s2) {
 
     if (strcmp(s1 + strlen(s1) - 3, " CE") == 0)
         return 0;
-//        s1[strlen(s1) - 3] = 0;
+    //        s1[strlen(s1) - 3] = 0;
 
     if (strcmp(s2 + strlen(s2) - 3, " CE") == 0)
         return 0;
-//        s2[strlen(s2) - 3] = 0;
+    //        s2[strlen(s2) - 3] = 0;
 
     if (strcmp(s1, s2) == 0)
         return 0;
@@ -2806,109 +2798,6 @@ Bool WriteRtfParaBorder(StrRtfOut *rtf, CEDParagraph * para) {
                 return FALSE;
         }
     }
-
-    return TRUE;
-}
-
-/*****************************************************************************
- WriteRtfColor:
- Fill the RTF color table and write the color table to the rtf output device.
- ******************************************************************************/
-Bool WriteRtfColor(StrRtfOut*rtf, Bool head) {
-    int i, j, TotalColors;
-    uchar red, green, blue;
-    struct StrRtfColor * color;
-    int oldColors = rtf->TotalColors;
-    // Fill the rtf color table
-    color = rtf->color;
-    color[0].color = Color::null(); // default color
-
-    if (head)
-        TotalColors = 1;
-
-    else
-        TotalColors = rtf->TotalColors; // total number of colors in the table
-
-    // scan the font table
-    for (CEDChar * ch = rtf->page->GetChar(0); ch; ch = ch->next()) {
-        // fill the text foreground color
-        for (j = 0; j < TotalColors; j++) { // scan the color table
-            if (ch->foregroundColor() == color[j].color)
-                break; // color found
-        }
-
-        if (j == TotalColors && TotalColors < MAX_RTF_COLORS) {
-            color[TotalColors].color = ch->foregroundColor();
-            TotalColors++;
-        }
-
-        // fill the text background color
-        for (j = 0; j < TotalColors; j++) { // scan the color table
-            if (ch->backgroundColor() == color[j].color)
-                break; // color found
-        }
-
-        if (j == TotalColors && TotalColors < MAX_RTF_COLORS) {
-            color[TotalColors].color = ch->backgroundColor();
-            TotalColors++;
-        }
-    }
-
-    // scan the stylesheet table
-    /*    for (i=0;i<TotalSID;i++) {
-     // fill the text foreground color
-     for (j=0;j<TotalColors;j++) {                        // scan the color table
-     if (StyleId[i].TextColor==color[j].color) break;  // color found
-     }
-     if (j==TotalColors && TotalColors<MAX_RTF_COLORS) {
-     color[TotalColors].color=StyleId[i].TextColor;
-     TotalColors++;
-     }
-     // fill the text foreground color
-     for (j=0;j<TotalColors;j++) {                         // scan the color table
-     if (StyleId[i].TextBkColor==color[j].color) break; // color found
-     }
-     if (j==TotalColors && TotalColors<MAX_RTF_COLORS) {
-     color[TotalColors].color=StyleId[i].TextBkColor;
-     TotalColors++;
-     }
-     }
-     */
-    rtf->TotalColors = TotalColors; // total number of colors in the table
-    // write the color table
-    if (head) {
-        if (!BeginRtfGroup(rtf))
-            return FALSE; // begin color group
-
-        if (!WriteRtfControl(rtf, "colortbl", PARAM_NONE, 0))
-            return FALSE;
-
-        //      if (!WriteRtfText(rtf,";",1)) return FALSE; // write the default color
-    }
-
-    for (i = oldColors; i < TotalColors; i++) { // write colors from the font table
-        if (!color[i].color.isNull()) {
-            red = color[i].color.red();
-            green = color[i].color.green();
-            blue = color[i].color.blue();
-
-            if (!WriteRtfControl(rtf, "red", PARAM_INT, red))
-                return FALSE;
-
-            if (!WriteRtfControl(rtf, "green", PARAM_INT, green))
-                return FALSE;
-
-            if (!WriteRtfControl(rtf, "blue", PARAM_INT, blue))
-                return FALSE;
-        }
-
-        if (!WriteRtfText(rtf, ";", 1))
-            return FALSE; // write the delimiter
-    }
-
-    if (head)
-        if (!EndRtfGroup(rtf))
-            return FALSE; // end color group
 
     return TRUE;
 }

@@ -23,18 +23,13 @@ namespace CIF
 {
 
 CEDLine::CEDLine() :
-    char_number_(0), hard_break_(false), current_char_(NULL), internal_number_(0),
-            parent_number_(0), chars(NULL), prev_(NULL), next_(NULL), default_font_height_(-1) {
+    hard_break_(false), internal_number_(0), parent_number_(0),
+            default_font_height_(-1) {
 }
 
 CEDLine::CEDLine(bool hardBreak, int fontHeight) :
-    char_number_(0), hard_break_(hardBreak), current_char_(NULL), internal_number_(0),
-            parent_number_(0), chars(NULL), prev_(NULL), next_(NULL), default_font_height_(
-                    fontHeight) {
-}
-
-CEDChar * CEDLine::currentChar() {
-    return current_char_;
+    hard_break_(hardBreak), internal_number_(0), parent_number_(0),
+            default_font_height_(fontHeight) {
 }
 
 int CEDLine::defaultFontHeight() const {
@@ -42,7 +37,7 @@ int CEDLine::defaultFontHeight() const {
 }
 
 CEDChar * CEDLine::first() {
-    return chars;
+    return chars_.at(0).get();
 }
 
 bool CEDLine::hardBreak() const {
@@ -53,20 +48,8 @@ int CEDLine::internalNumber() const {
     return internal_number_;
 }
 
-CEDLine * CEDLine::next() {
-    return next_;
-}
-
 int CEDLine::parentNumber() const {
     return parent_number_;
-}
-
-CEDLine * CEDLine::prev() {
-    return prev_;
-}
-
-void CEDLine::setCurrentChar(CEDChar * chr) {
-    current_char_ = chr;
 }
 
 void CEDLine::setDefaultFontHeight(int height) {
@@ -75,10 +58,6 @@ void CEDLine::setDefaultFontHeight(int height) {
 
 void CEDLine::setHardBreak(bool value) {
     hard_break_ = value;
-}
-
-void CEDLine::setFirst(CEDChar * chr) {
-    chars = chr;
 }
 
 void CEDLine::setParentNumber(int number) {
@@ -91,89 +70,21 @@ CEDChar * CEDLine::insertChar() {
 
 CEDChar * CEDLine::insertChar(CEDChar * chr) {
     assert(chr);
-    char_number_++;
     chr->setParentNumber(internal_number_);
-
-    if (current_char_) {
-        chr->setNext(current_char_->next());
-        chr->setPrev(current_char_);
-    }
-
-    else {
-        chars = chr;
-        CEDLine *ww = prev_;
-
-        while (ww && !ww->chars)
-            ww = ww->prev_;
-
-        if (ww) {
-            CEDChar *qq = ww->chars;
-
-            while (qq->next())
-                qq = qq->next();
-
-            qq->setNext(chr);
-        }
-
-        ww = next_;
-
-        while (ww && !ww->chars)
-            ww = ww->next_;
-
-        if (ww) {
-            CEDChar *qq = ww->chars;
-
-            qq->setPrev(chr);
-        }
-    }
-
-    setCurrentChar(chr);
+    chars_.push_back(CharPtr(chr));
     return chr;
 }
 
-CEDChar * CEDLine::setCurrentChar(int _number) {
-    int num = 0;
-    CEDChar* chr = chars;
-
-    for (; chr && num != _number; chr = chr->next())
-        num++;
-
-    setCurrentChar(chr);
-    return current_char_;
-}
-
-CEDChar * CEDLine::nextChar() {
-    if (!current_char_ || !current_char_->next())
-        return NULL;
-
-    if (current_char_->next()->parentNumber() == current_char_->parentNumber())
-        return current_char_->next();
-    else
-        return NULL;
-}
-
-CEDChar * CEDLine::prevChar() {
-    if (!current_char_ || !current_char_->prev())
-        return NULL;
-
-    if (current_char_->prev()->parentNumber() == current_char_->parentNumber())
-        return current_char_->prev();
-    else
-        return NULL;
-}
-
-CEDChar* CEDLine::charAt(unsigned int _num) {
-    unsigned int num = 0;
-    CEDChar* chr = chars;
-
-    for (; chr && num != _num; chr = chr->next())
-        num++;
-
-    return chr;
+CEDChar * CEDLine::charAt(size_t pos) {
+    return chars_.at(pos).get();
 }
 
 int CEDLine::charCount() {
-    return char_number_;
+    return chars_.size();
+}
+
+void CEDLine::clearChars() {
+    chars_.clear();
 }
 
 }

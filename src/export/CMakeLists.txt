@@ -4,7 +4,6 @@ set(image_exporters
     bmpimageexporter.cpp)
     
 set(exporters
-    edexporter.cpp
     exporter.cpp
     debugexporter.cpp
     genericexporter.cpp

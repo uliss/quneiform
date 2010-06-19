@@ -104,11 +104,6 @@ class CLA_EXPO CEDChar
         virtual bool isPicture() const;
 
         /**
-         * Returns pointer to next char
-         */
-        CEDChar * next();
-
-        /**
          * Returns character parent number
          * @see setParentNumber()
          */
@@ -118,11 +113,6 @@ class CLA_EXPO CEDChar
          * Returns picture number or -1 is it not a picture
          */
         int pictureNumber() const;
-
-        /**
-         * Returns pointer to previous char
-         */
-        CEDChar * prev();
 
         /**
          * Sets character alternative
@@ -183,22 +173,10 @@ class CLA_EXPO CEDChar
         void setForegroundColor(int color);
 
         /**
-         * Sets pointer to next char
-         * In next char pointer to previous set to @b this
-         */
-        void setNext(CEDChar * next);
-
-        /**
          * Sets character parent number
          * @see parentNumber()
          */
         void setParentNumber(int number);
-
-        /**
-         * Sets pointer to previous char
-         * In pointed char member next set to this
-         */
-        void setPrev(CEDChar * prev);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
@@ -213,8 +191,6 @@ class CLA_EXPO CEDChar
             ar & font_style_;
             ar & font_number_;
             ar & alternatives_;
-            ar & next_;
-            ar & prev_;
         }
 #endif
         //layout of symbol in input image (in pixel)
@@ -229,9 +205,6 @@ class CLA_EXPO CEDChar
         int font_number_;
         typedef std::vector<Letter> AlternativeList;
         AlternativeList alternatives_;
-        //pointers to neighbor elements in connected list
-        CEDChar *next_;
-        CEDChar * prev_;
 };
 
 std::ostream& operator<<(std::ostream& os, const CEDChar& chr);

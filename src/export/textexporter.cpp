@@ -135,7 +135,7 @@ void TextExporter::writePageEnd(std::ostream& os, CEDPage*) {
 }
 
 void TextExporter::writeParagraphBegin(std::ostream&, CEDParagraph * par) {
-    lines_left_in_paragraph_ = par->GetCountLine();
+    lines_left_in_paragraph_ = par->lineCount();
 }
 
 void TextExporter::writeParagraphEnd(std::ostream& os, CEDParagraph*) {

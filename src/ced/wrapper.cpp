@@ -350,22 +350,6 @@ CEDLine * CED_CreateLine(Handle hEdParagraph, bool hardBreak, int defChrFontHeig
     return lin;
 }
 
-CED_FUNC(Bool32) CED_WriteFormattedEd(const char * lpEdFileName, Handle hEdPage) {
-    if (logStream) {
-        fprintf(logStream, "WriteFormattedEd params: %s,%x\n", lpEdFileName, hEdPage);
-        fflush(logStream);
-    }
-
-    Bool32 ret = CED_FormattedWrite(lpEdFileName, (CEDPage*) hEdPage);
-
-    if (logStream) {
-        fprintf(logStream, "WriteFormattedEd returned %i\n", ret);
-        fflush(logStream);
-    }
-
-    return ret;
-}
-
 CED_FUNC(Handle) CED_GetParagraph(Handle hEdPage, int _num) {
     return ((CEDPage*) hEdPage)->GetParagraph(_num);
 }
@@ -653,14 +637,6 @@ CED_FUNC(int) CED_GetCountLogicalCell(Handle hEdTable) {
         ((CEDParagraph*) hEdTable)->CreateTableOfCells();
 
     return ((CEDParagraph*) hEdTable)->GetCountLogicalCell();
-}
-/////////////////////////////////////////////////////////////////
-CED_FUNC(uint32_t) CED_GetCountLine(Handle hEdParagraph) {
-    return ((CEDParagraph*) hEdParagraph)->GetCountLine();
-}
-
-CED_FUNC(Handle) CED_GetLine(Handle hEdParagraph, int number) {
-    return ((CEDParagraph*) hEdParagraph)->GetLine(number);
 }
 
 CED_FUNC(uint32_t) CED_GetAlignment(Handle hEdParagraph) {

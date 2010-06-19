@@ -228,38 +228,6 @@ enum ed_align_t
 // align picture top to base line
 };
 
-#define DEC_FUN(a,b,c) typedef a (*FN##b)c
-
-DEC_FUN(void, CED_BitmapRef, (const struct bit_map_ref* pt));
-DEC_FUN(void, CED_TextRef, (const struct text_ref* pt));
-DEC_FUN(void, CED_FontKegl, (const struct font_kegl *pt));
-DEC_FUN(void, CED_Kegl, (const struct kegl* pt));
-DEC_FUN(void, CED_Shift, (const struct shift* pt));
-DEC_FUN(void, CED_RetrieveLevel, (const struct retrieve_level* pt));
-DEC_FUN(void, CED_Underline, (const struct underline* pt));
-DEC_FUN(void, CED_DensPrint, (const struct dens_print* pt));
-DEC_FUN(void, CED_Tabul, (const struct tabul* pt));
-DEC_FUN(void, CED_TablTabul, (const struct tabl_tabul* pt));
-DEC_FUN(void, CED_SheetDiskDescr, (const struct sheet_disk_descr* pt));
-DEC_FUN(void, CED_FragmDiskDescr, (const struct fragm_disk_descr* pt));
-DEC_FUN(void, CED_FragmDisk, (const struct fragm_disk* pt));
-DEC_FUN(void, CED_StepBack, (const struct step_back* pt));
-DEC_FUN(void, CED_LineBeg, (const struct line_beg* pt));
-DEC_FUN(void, CED_Position, (const struct position* pt));
-DEC_FUN(void, CED_EdTagLanguage, (const struct EdTagLanguage* pt));
-DEC_FUN(void, CED_TableConformSizes, (const struct table_conform_sizes* pt));
-DEC_FUN(void, CED_GroupWords, (const struct group_words* pt));
-DEC_FUN(void, CED_GroupSymbols, (const struct group_symbols* pt));
-DEC_FUN(void, CED_Border, (const struct border* pt));
-DEC_FUN(void, CED_TableHeader, (const struct table_header* pt));
-DEC_FUN(void, CED_ListOfFragments, (const struct list_of_fragments* pt));
-DEC_FUN(void, CED_Extention, (const struct edExtention* pt, const void* ptExt));
-DEC_FUN(void, CED_ExtentionNew, (const struct edExtentionNew* pt, const void* ptExt));
-DEC_FUN(void, CED_Aksant, (const struct aksant* pt));
-DEC_FUN(void, CED_Letter, (const struct letter* pt, const uint32_t alternatives));
-
-#undef DEC_FUN
-
 //Экспорт
 
 typedef enum
@@ -374,8 +342,6 @@ class CEDParagraph;
 }
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; CED_FUNC(a) b c;
 DEC_FUN(uint32_t, CED_IsEdFile, (char * file, Bool32 readFromFile, uint32_t bufLen))
-DEC_FUN(uint32_t, CED_ReadED, (char * file, Bool32 readFromFile, uint32_t bufLen))
-DEC_FUN(void, CED_SetRawDataProc, (FNRDProc proc))
 DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len))
 DEC_FUN(Handle, CED_CreateSection, (Handle hEdPage, const CIF::Rect& border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY))
 DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol))
@@ -389,7 +355,6 @@ DEC_FUN(Handle, CED_CreateTable, (Handle hEdSection, Handle hObject))
 DEC_FUN(Handle, CED_CreateTableRow, (Handle hEdSection, Handle hEdTable, int left, int rowHeight, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int gaph, int position, Bool32 header))
 DEC_FUN(Handle, CED_CreateCell, (Handle hEdSection, Handle hEdRow, int cellX, int merging, int vertTextAlign, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, EDBOX layout, int shading, int color))
 DEC_FUN(Bool32, CED_SetCellFlag, (Handle hEdCell, int flag))
-DEC_FUN(Bool32, CED_WriteFormattedEd, (const char * lpEdFileName, Handle hEdPage))
 DEC_FUN(Handle, CED_GetParagraph, (Handle hEdPage, int _num))
 DEC_FUN(Bool32, CED_GetSectLineBetCol, (Handle hEdSection))
 DEC_FUN(CIF::Rect, CED_GetSectionBorder, (Handle hEdSection))
@@ -430,8 +395,6 @@ DEC_FUN(uint32_t, CED_GetUserNumber, (Handle hEdParagraph))
 DEC_FUN(EDSIZE, CED_GetInterval, (Handle hEdParagraph))
 DEC_FUN(Bool32, CED_GetParaParams, (Handle hEdParagraph, int* color, int* shading, int* spaceBetweenLines, char* spcBtwLnsMult, char* keep))
 DEC_FUN(Bool32, CED_GetParaBorders, (Handle hEdParagraph, int* leftBrdrType, int* leftBrdrWidth, int* rightBrdrType, int* rightBrdrWidth, int* topBrdrType, int* topBrdrWidth, int* bottomBrdrType, int* bottomBrdrWidth, int* brdrBtw))
-DEC_FUN(uint32_t, CED_GetCountLine, (Handle hEdParagraph))
-DEC_FUN(Handle, CED_GetLine, (Handle hEdParagraph, int number))
 DEC_FUN(Bool32, CED_WriteFormattedRtf, (const char * fileName, Handle hEdPage))
 DEC_FUN(Bool32, CED_MergeFormattedRtf, (const char * fileName, Handle hEdPage))
 

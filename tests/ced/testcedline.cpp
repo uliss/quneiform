@@ -24,13 +24,10 @@ using namespace CIF;
 
 void TestCedLine::testInit() {
     CEDLine ln;
-    CPPUNIT_ASSERT(0 == ln.currentChar());
     CPPUNIT_ASSERT(0 == ln.charCount());
     CPPUNIT_ASSERT(0 == ln.internalNumber());
     CPPUNIT_ASSERT(0 == ln.parentNumber());
-    CPPUNIT_ASSERT(0 == ln.first());
-    CPPUNIT_ASSERT(0 == ln.next());
-    CPPUNIT_ASSERT(0 == ln.prev());
+    CPPUNIT_ASSERT_THROW(ln.first(), std::out_of_range);
 }
 
 void TestCedLine::testInsertChar() {
@@ -43,8 +40,6 @@ void TestCedLine::testInsertChar() {
     CPPUNIT_ASSERT_EQUAL(ln.internalNumber(), chr->parentNumber());
     CPPUNIT_ASSERT_EQUAL(chr, ln.first());
     CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
-    CPPUNIT_ASSERT(0 == chr->next());
-    CPPUNIT_ASSERT(0 == chr->prev());
 
     CEDChar * chr2 = ln.insertChar();
     CPPUNIT_ASSERT(chr2);
@@ -52,60 +47,22 @@ void TestCedLine::testInsertChar() {
     CPPUNIT_ASSERT_EQUAL(chr2->parentNumber(), ln.internalNumber());
     CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
     CPPUNIT_ASSERT_EQUAL(chr2, ln.charAt(1));
-    CPPUNIT_ASSERT_EQUAL(chr2, ln.currentChar());
     CPPUNIT_ASSERT_EQUAL(chr, ln.first());
-    CPPUNIT_ASSERT_EQUAL(chr2, chr->next());
-    CPPUNIT_ASSERT_EQUAL(chr, chr2->prev());
-    CPPUNIT_ASSERT(0 == chr2->next());
-    CPPUNIT_ASSERT(0 == chr->prev());
-
-    ln.setCurrentChar(0);
 
     CEDChar * chr3 = ln.insertChar();
     CPPUNIT_ASSERT(chr3);
     CPPUNIT_ASSERT_EQUAL(3, ln.charCount());
     CPPUNIT_ASSERT_EQUAL(chr3->parentNumber(), ln.internalNumber());
-    CPPUNIT_ASSERT_EQUAL(chr3, ln.charAt(1));
     CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
-    CPPUNIT_ASSERT_EQUAL(chr2, ln.charAt(2));
-    CPPUNIT_ASSERT_EQUAL(chr3, ln.currentChar());
+    CPPUNIT_ASSERT_EQUAL(chr2, ln.charAt(1));
+    CPPUNIT_ASSERT_EQUAL(chr3, ln.charAt(2));
     CPPUNIT_ASSERT_EQUAL(chr, ln.first());
-    CPPUNIT_ASSERT_EQUAL(chr3, chr->next());
-    CPPUNIT_ASSERT_EQUAL(chr, chr3->prev());
-    CPPUNIT_ASSERT_EQUAL(chr3, chr2->prev());
-    CPPUNIT_ASSERT_EQUAL(chr2, chr3->next());
-
-    delete chr;
-    delete chr2;
-    delete chr3;
 }
 
 void TestCedLine::testCharAt() {
     CEDLine ln;
     CEDChar * chr = ln.insertChar();
     CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
-    CPPUNIT_ASSERT(0 == ln.charAt(-1));
-    CPPUNIT_ASSERT(0 == ln.charAt(19));
-
-    delete chr;
-}
-
-void TestCedLine::testNextChar() {
-    CEDLine ln;
-    ln.internal_number_ = 1234;
-    CPPUNIT_ASSERT(0 == ln.nextChar());
-    ln.insertChar();
-
-    CPPUNIT_ASSERT(0 == ln.nextChar());
-    ln.insertChar();
-    ln.setCurrentChar(0);
-    CPPUNIT_ASSERT_EQUAL(ln.charAt(1), ln.nextChar());
-
-    ln.charAt(1)->setParentNumber(123);
-    CPPUNIT_ASSERT(ln.charAt(1) != ln.nextChar());
-}
-
-void TestCedLine::testPrevChar() {
-    CEDLine ln;
-    CPPUNIT_ASSERT(0 == ln.prevChar());
+    CPPUNIT_ASSERT_THROW(ln.charAt(-1), std::out_of_range);
+    CPPUNIT_ASSERT_THROW(ln.charAt(19), std::out_of_range);
 }

@@ -20,7 +20,6 @@
 #include "htmlexporter.h"
 #include "debugexporter.h"
 #include "rtfexporter.h"
-#include "edexporter.h"
 #include "textexporter.h"
 #include "hocrexporter.h"
 #include "puma/pumadef.h"
@@ -55,9 +54,6 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
         break;
     case FORMAT_RTF:
         exp.reset(new RtfExporter(page_));
-        break;
-    case FORMAT_EDNATIVE:
-        exp.reset(new EdExporter(page_));
         break;
     case FORMAT_HOCR:
         exp.reset(new HocrExporter(page_, format_options_));

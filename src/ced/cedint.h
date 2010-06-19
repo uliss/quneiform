@@ -74,50 +74,8 @@
 #include "compat_defs.h"
 #include "compat/filefunc.h"
 
-extern FNRDProc RDProced;//pointer to function, which processes raw data
 void SetReturnCode_ced(uint32_t rc);//set error code
 uint32_t GetReturnCode_ced();
-
-#define DEC_FUN(a,b,c) a My##b c;a MyRawData##b c;extern FN##b b;
-
-DEC_FUN(void, CED_BitmapRef, (const bit_map_ref* pt))
-DEC_FUN(void, CED_TextRef, (const text_ref* pt))
-DEC_FUN(void, CED_FontKegl, (const font_kegl *pt))
-DEC_FUN(void, CED_Kegl, (const kegl* pt))
-DEC_FUN(void, CED_Shift, (const shift* pt))
-DEC_FUN(void, CED_RetrieveLevel, (const retrieve_level* pt))
-DEC_FUN(void, CED_Underline, (const underline* pt))
-DEC_FUN(void, CED_DensPrint, (const dens_print* pt))
-DEC_FUN(void, CED_Tabul, (const tabul* pt))
-DEC_FUN(void, CED_TablTabul, (const tabl_tabul* pt))
-DEC_FUN(void, CED_SheetDiskDescr, (const sheet_disk_descr* pt))
-DEC_FUN(void, CED_FragmDiskDescr, (const fragm_disk_descr* pt))
-DEC_FUN(void, CED_FragmDisk, (const fragm_disk* pt))
-DEC_FUN(void, CED_StepBack, (const step_back* pt))
-DEC_FUN(void, CED_LineBeg, (const line_beg* pt))
-DEC_FUN(void, CED_Position, (const position* pt))
-DEC_FUN(void, CED_EdTagLanguage, (const EdTagLanguage* pt))
-DEC_FUN(void, CED_TableConformSizes, (const table_conform_sizes* pt))
-DEC_FUN(void, CED_GroupWords, (const group_words* pt))
-DEC_FUN(void, CED_GroupSymbols, (const group_symbols* pt))
-DEC_FUN(void, CED_Border, (const border* pt))
-DEC_FUN(void, CED_TableHeader, (const table_header* pt))
-DEC_FUN(void, CED_ListOfFragments, (const list_of_fragments* pt))
-DEC_FUN(void, CED_Extention, (const edExtention* pt, const void* ptExt))
-DEC_FUN(void, CED_ExtentionNew, (const edExtentionNew* pt, const void* ptExt))
-DEC_FUN(void, CED_Aksant, (const aksant* pt))
-DEC_FUN(void, CED_Letter, (const letter* pt, const uint32_t alternatives))
-#undef DEC_FUN
-#define DEC_FUN(a,b,c) a b c
-DEC_FUN(uint32_t, CED_ReadED, (char * file, Bool32 readFromFile, uint32_t bufLen));
-DEC_FUN(void, CED_SetRawDataProc, (FNRDProc proc));
-DEC_FUN(CIF::CEDPage*, CED_FormattedLoad, (char * file, Bool32 readFromFile, uint32_t bufLen));
-DEC_FUN(Bool32, CED_FormattedWrite, (const char * fileName, CIF::CEDPage *page));
-DEC_FUN(void, CED_DeleteTree, (CIF::CEDPage * pg));
-
-#undef DEC_FUN
-
-CIF::CEDPage * Formattedload_96(char * file, Bool32 readFromFile, uint32_t bufLen);
 
 #pragma pack(1)
 struct pageDescr
@@ -371,7 +329,6 @@ Bool PutRtfHexChar(StrRtfOut *rtf, uchar CurChar);
 Bool WriteRtfMetafile(StrRtfOut *rtf, int pict);
 Bool WriteRtfMergedHeader(StrRtfOut *rtf, const char * name);
 Bool WriteRtfParaBorder(StrRtfOut *rtf, CIF::CEDParagraph * para);
-Bool WriteRtfColor(StrRtfOut *rtf, Bool head = TRUE);
 
 extern FILE *logStream;
 

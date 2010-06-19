@@ -19,6 +19,9 @@
 #ifndef CEDPARAGRAPH_H_
 #define CEDPARAGRAPH_H_
 
+#include <vector>
+#include <boost/shared_ptr.hpp>
+
 #include "globus.h"
 #include "ced_struct.h"
 
@@ -56,11 +59,18 @@ class CLA_EXPO CEDParagraph
         char * extData; // Data cat. will be recorded in the file after the title;
         int extDataLen; // Its size
 
+        /**
+         * Returns pointer to line at given position
+         */
+        CEDLine * lineAt(size_t pos);
+
+        /**
+         * Returns number of lines
+         */
+        size_t lineCount() const;
+
         CEDParagraph();
         ~CEDParagraph();
-
-        CEDLine* GetLine(int _num);
-        int GetCountLine();
 
         CEDParagraph* GetFirstObject();
         CEDParagraph* GetNextObject();
@@ -72,23 +82,10 @@ class CLA_EXPO CEDParagraph
         CEDLine * insertLine(CEDLine * line);
         CEDLine * InsertLine(); //inserts new line after current one. new line becomes current
         //returns pointer to new line
-        //CEDLine * DeleteLine(Bool32 _deleteSubItems); //deletes current line. previous one becomes current
-        //return it
-        //_deleteSubItems - either delete all daughter elements or attach it to previous object
 
-        void SetCurLine(CEDLine* _line);//sets new value of current line
-        CEDLine * SetCurLine(int _number);//sets new value of current line
-
-        CEDLine * GetCurLine(); //returns current line
-        int GetNumOfCurLine(); //returns current line
-
-        CEDLine * NextLine(Bool32 _goThroughPara); //returns next line, 0 if last
-        CEDLine * PrevLine(Bool32 _goThroughPara); //returns previous line, 0 if first
-        //If _goThroughSect = TRUE, then we consider boundary lines in file, otherwise in paragraph
-
-        CEDLine * lines; //connected list of lines
-        int numOfLines;
-        CEDLine * curLine; //current line
+        typedef boost::shared_ptr<CEDLine> LinePtr;
+        typedef std::vector<LinePtr> LineList;
+        LineList lines; //connected list of lines
         CEDParagraph * prev, *next; //pointer to neibor elements in connected list
         int internalNumber; //number of paragraph from start of file
         int parentNumber; //number of parent in file

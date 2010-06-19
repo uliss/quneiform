@@ -44,129 +44,32 @@ CEDParagraph::CEDParagraph() {
     brdrBtw = 0;
     extData = 0;
     extDataLen = 0;
-    lines = 0;
-    curLine = 0;
     internalNumber = 0;
     parentNumber = 0;
     prev = next = 0;
-    numOfLines = 0;
 }
 
 CEDParagraph::~CEDParagraph() {
 }
 
+CEDLine * CEDParagraph::lineAt(size_t pos) {
+    return lines.at(pos).get();
+}
+
+size_t CEDParagraph::lineCount() const {
+    return lines.size();
+}
+
 CEDLine * CEDParagraph::insertLine(CEDLine * line) {
     assert(line);
 
-    numOfLines++;
     line->setParentNumber(internalNumber);
-
-    if (curLine) {
-        line->next_ = curLine->next();
-
-        if (line->next())
-            (line->next())->prev_ = line;
-
-        curLine->next_ = line;
-        line->prev_ = curLine;
-        line->internal_number_ = curLine->internalNumber() + 1;
-
-        for (CEDLine * line1 = line->next(); line1; line1 = line1->next())
-            line1->internal_number_++;
-    } else {
-        //      if(internalNumber!=0)
-        //      {
-        CEDParagraph *ww = prev;
-
-        while (ww && !ww->lines)
-            ww = ww->prev;
-
-        if (ww) {
-            CEDLine *qq = ww->lines;
-
-            while (qq->next() && qq->next()->parentNumber() == ww->internalNumber)
-                qq = qq->next();
-
-            qq->next_ = line;
-            line->prev_ = qq;
-            line->internal_number_ = qq->internalNumber() + 1;
-        }
-
-        ww = next;
-
-        while (ww && !ww->lines)
-            ww = ww->next;
-
-        if (ww) {
-            CEDLine *qq = ww->lines;
-            qq->prev_ = line;
-            line->next_ = qq;
-
-            while (qq) {
-                qq->internal_number_++;
-                qq = qq->next();
-            }
-        }
-
-        //      }
-        lines = line;
-    }
-
-    curLine = line;
+    lines.push_back(LinePtr(line));
     return line;
 }
 
 CEDLine * CEDParagraph::InsertLine() {
     return insertLine(new CEDLine);
-}
-
-void CEDParagraph::SetCurLine(CEDLine* _line) {
-    curLine = _line;
-}
-
-CEDLine * CEDParagraph::SetCurLine(int _number) {
-    int i = 0;
-
-    if (lines)
-        i = lines->internalNumber();
-
-    CEDLine* line;
-
-    for (line = lines; line && line->internalNumber() - i != _number; line = line->next())
-        ;
-
-    curLine = line;
-    return line;
-}
-
-CEDLine * CEDParagraph::GetCurLine() {
-    return curLine;
-}
-
-int CEDParagraph::GetNumOfCurLine() {
-    return curLine->internalNumber();
-}
-
-CEDLine * CEDParagraph::NextLine(Bool32 _goThroughPara) {
-    if (_goThroughPara)
-        return curLine->next();
-
-    if (curLine->next() && curLine->next()->parentNumber() == curLine->parentNumber())
-        return curLine->next();
-
-    else
-        return 0;
-}
-
-CEDLine * CEDParagraph::PrevLine(Bool32 _goThroughPara) {
-    if (_goThroughPara)
-        return curLine->prev();
-
-    if (curLine->prev() && curLine->prev()->parentNumber() == curLine->parentNumber())
-        return curLine->prev();
-
-    else
-        return 0;
 }
 
 CEDParagraph* CEDParagraph::GetFirstObject() {
@@ -203,7 +106,6 @@ CEDParagraph* CEDParagraph::GetNextObject() {
     if (next && ((next->type & FICTIVE) == 0 || next->type == TAB_BEGIN || next->type
             == FRAME_BEGIN))
         return next;
-
     else
         return 0;
 }
@@ -421,23 +323,6 @@ int CEDParagraph::GetCountLogicalCell() {
             i = table[q];
 
     return i + 1;
-}
-CEDLine* CEDParagraph::GetLine(int _num) {
-    int i = 0;
-
-    if (lines)
-        i = lines->internalNumber();
-
-    CEDLine* line;
-
-    for (line = lines; line && line->internalNumber() - i != _num; line = line->next())
-        ;
-
-    return line;
-}
-
-int CEDParagraph::GetCountLine() {
-    return numOfLines;
 }
 
 }

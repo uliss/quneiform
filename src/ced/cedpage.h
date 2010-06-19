@@ -208,8 +208,6 @@ class CLA_EXPO CEDPage
         Bool32 FormattedWriteRtf(const char * fileName, Bool merge);
 
         CEDParagraph * GetParagraph(int _num);
-        CEDLine * GetLine(int _num);
-        CEDChar * GetChar(int _num);
 
         Bool32 GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily,
                 uchar* fontCharset, const char** fontName);
