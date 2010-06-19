@@ -256,8 +256,8 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
                             CEDLine * l = para->lines;
 
                             //if there is only one line in a paragraph
-                            if (l && ((!l->next_) || l->next_->parent_number_ != l->parent_number_)) {
-                                CEDChar * c = l->chars;
+                            if (l && ((!l->next()) || l->next()->parentNumber() != l->parentNumber())) {
+                                CEDChar * c = l->first();
 
                                 //the same for symbol
                                 if (c && ((!c->next()) || c->next()->parentNumber()

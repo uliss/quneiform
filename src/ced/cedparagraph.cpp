@@ -59,7 +59,7 @@ CEDLine * CEDParagraph::insertLine(CEDLine * line) {
     assert(line);
 
     numOfLines++;
-    line->parent_number_ = internalNumber;
+    line->setParentNumber(internalNumber);
 
     if (curLine) {
         line->next_ = curLine->next();

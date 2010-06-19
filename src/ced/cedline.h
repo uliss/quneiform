@@ -137,7 +137,6 @@ class CLA_EXPO CEDLine
         void setParentNumber(int number);
 
         friend class CEDParagraph;
-        friend class CEDPage;
         int char_number_;
     private:
         bool hard_break_;

@@ -293,13 +293,13 @@ CEDLine * CEDPage::GetLine(int _num) {
 CEDChar * CEDPage::GetChar(int _num) {
     CEDLine *qq = GetLine(0);
 
-    while (qq && !qq->chars)
+    while (qq && !qq->first())
         qq = qq->next();
 
     int num = 0;
     CEDChar* ss;
 
-    for (ss = qq ? qq->chars : 0; ss && num != _num; ss = ss->next())
+    for (ss = qq ? qq->first() : 0; ss && num != _num; ss = ss->next())
         num++;
 
     return ss;
