@@ -75,7 +75,6 @@ void SetReturnCode_cfio(uint16_t rc);
 //GLOBAL VARIABLES
 static uint16_t            wHeightRC =                         0;
 static uint16_t            wLowRC =                            0;
-static Handle            hInst =                             NULL;
 CTCControl *      Control_ctc =                           NULL;
 static int32_t             InitCount =                         0;
 static Bool32            InitDone =                          FALSE;

@@ -80,25 +80,15 @@
 #include "cfio.h"
 #include "resource.h"
 #include "ctcclasses.h"
-//////////////////////////////////////////////////////////////////////Memory alloc
-#define   ALLOC                new
-#define   FREE                 delete
-#define   PRIVATE_NEW          new
-#define   PRIVATE_DELETE       delete
-#define   GLOBAL_NEW           new
-#define   GLOBAL_DELETE        delete
-//////////////////////////////////////////////////////////////////////////////////
+
 class CTCControl
 {
         // data members
     private:
         CTCMemoryList MemoryList;
-        CTCFileList FileList;
-        CTCStorageList StorageList;
         char szTempFolder[CFIO_MAX_PATH];
         char szFileFolder[CFIO_MAX_PATH];
         char szStorageFolder[CFIO_MAX_PATH];
-        char szBuffer[CFIO_MAX_PATH];
 
     public:
         CTCControl();
