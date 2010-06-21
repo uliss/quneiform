@@ -827,7 +827,7 @@ void CRtfHorizontalColumn::writeFramesInTerminalColumn(SectorInfo * SectorInfo) 
                     ALIGN_LEFT, indent, SectorInfo->userNum, -1, interval, playout, Color::null(), -1, -1,
                     -1, FALSE);
             CEDLine * ln = new CEDLine(false, 6);
-            par->insertLine(ln);
+            par->addLine(ln);
         }
 
         CRtfVerticalColumn * vcol = vcols_[i];

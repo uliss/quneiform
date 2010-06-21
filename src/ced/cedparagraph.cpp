@@ -70,7 +70,7 @@ size_t CEDParagraph::lineCount() const {
     return lines.size();
 }
 
-CEDLine * CEDParagraph::insertLine(CEDLine * line) {
+CEDLine * CEDParagraph::addLine(CEDLine * line) {
     assert(line);
 
     line->setParentNumber(internalNumber);
@@ -88,10 +88,6 @@ void CEDParagraph::setColor(const Color& c) {
 
 void CEDParagraph::setIndent(const Rect& ind) {
     indent_ = ind;
-}
-
-CEDLine * CEDParagraph::insertLine() {
-    return insertLine(new CEDLine);
 }
 
 CEDParagraph* CEDParagraph::GetFirstObject() {

@@ -688,7 +688,7 @@ void CRtfPage::writeUsingFrames() {
                 ALIGN_LEFT, indent, SectorInfo->userNum, -1, interval, playout, Color::null(), -1,
                 -1, -1, FALSE);
         CEDLine * ced_str = new CEDLine(false, 6);
-        ced_par->insertLine(ced_str);
+        ced_par->addLine(ced_str);
     }
 
     for (int i = 0; i < CountFragments; i++) {

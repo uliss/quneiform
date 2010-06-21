@@ -435,7 +435,7 @@ void CRtfString::write(CEDParagraph * par) const {
         (*it)->write(line);
     }
 
-    par->insertLine(line);
+    par->addLine(line);
 }
 
 }

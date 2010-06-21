@@ -341,7 +341,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
             CEDParagraph * par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hColumn,
                     ALIGN_NONE, indent, SectorInfo->userNum, -1, interval, playout, Color::null(), -1, -1,
                     -1, FALSE);
-            par->insertLine(new CEDLine(false, 6));
+            par->addLine(new CEDLine(false, 6));
             SectorInfo->FlagFictiveParagraph = FALSE;
         }
 
@@ -381,7 +381,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         ced_char->setFontLanguage(LANGUAGE_UNKNOWN);
 
         ced_line->insertChar(ced_char);
-        ced_par->insertLine(ced_line);
+        ced_par->addLine(ced_line);
 
         if (!CED_CreatePicture(SectorInfo->hEDPage, (int) IndexPict, pictSize, pictGoal,
                 ED_ALIGN_MIDDLE, 1, pOutDIB, (int) iDIBSize)) {

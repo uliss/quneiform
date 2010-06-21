@@ -57,6 +57,11 @@ class CLA_EXPO CEDParagraph
         void * descriptor; // Pointer to advanced descriptor of special structures
 
         /**
+         * Adds line to the end of paragraph
+         */
+        CEDLine * addLine(CEDLine * line);
+
+        /**
          * Returns paragraph alignment
          */
         align_t align() const;
@@ -107,9 +112,6 @@ class CLA_EXPO CEDParagraph
         CEDParagraph* GetLogicalCell(int number);
         int GetCountLogicalCell();
         void CreateTableOfCells();
-        CEDLine * insertLine(CEDLine * line);
-        CEDLine * insertLine(); //inserts new line after current one. new line becomes current
-        //returns pointer to new line
 
         CEDParagraph * prev, *next; //pointer to neibor elements in connected list
         int internalNumber; //number of paragraph from start of file
