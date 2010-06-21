@@ -22,8 +22,7 @@ namespace CIF
 {
 
 CEDChar::CEDChar() :
-    parent_number_(0), font_lang_(LANGUAGE_ENGLISH), font_height_(0), font_style_(0), font_number_(
-            0) {
+    font_lang_(LANGUAGE_ENGLISH), font_height_(0), font_style_(0), font_number_(0) {
 }
 
 CEDChar::~CEDChar() {
@@ -78,10 +77,6 @@ int CEDChar::fontStyle() const {
     return font_style_;
 }
 
-int CEDChar::parentNumber() const {
-    return parent_number_;
-}
-
 int CEDChar::pictureNumber() const {
     if (!isPicture())
         return -1;
@@ -128,12 +123,8 @@ void CEDChar::setForegroundColor(const Color& color) {
     fground_color_ = color;
 }
 
-void CEDChar::setParentNumber(int number) {
-    parent_number_ = number;
-}
-
 std::ostream& operator<<(std::ostream& os, const CEDChar& chr) {
-    os << "char: parentNumber=" << chr.parentNumber() << ";fontheight=" << chr.fontHeight();
+    os << "char: fontheight=" << chr.fontHeight();
     return os;
 }
 

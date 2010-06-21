@@ -23,11 +23,11 @@ namespace CIF
 {
 
 CEDLine::CEDLine() :
-    hard_break_(false), internal_number_(0), parent_number_(0), default_font_height_(-1) {
+    hard_break_(false), parent_number_(0), default_font_height_(-1) {
 }
 
 CEDLine::CEDLine(bool hardBreak, int fontHeight) :
-    hard_break_(hardBreak), internal_number_(0), parent_number_(0),
+    hard_break_(hardBreak), parent_number_(0),
             default_font_height_(fontHeight) {
 }
 
@@ -47,10 +47,6 @@ CEDChar * CEDLine::first() {
 
 bool CEDLine::hardBreak() const {
     return hard_break_;
-}
-
-int CEDLine::internalNumber() const {
-    return internal_number_;
 }
 
 int CEDLine::parentNumber() const {
@@ -75,7 +71,6 @@ CEDChar * CEDLine::insertChar() {
 
 CEDChar * CEDLine::insertChar(CEDChar * chr) {
     assert(chr);
-    chr->setParentNumber(internal_number_);
     chars_.push_back(CharPtr(chr));
     return chr;
 }

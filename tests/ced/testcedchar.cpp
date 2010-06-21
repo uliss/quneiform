@@ -35,7 +35,6 @@ void TestCEDChar::testSerialize() {
     chr.setBackgroundColor(Color(255, 0, 0));
     chr.setForegroundColor(Color(0, 0, 255));
     chr.setBoundingRect(Rect(Point(1, 2), Point(3, 4)));
-    chr.setParentNumber(1);
 
     // save data to archive
     {
@@ -52,6 +51,10 @@ void TestCEDChar::testSerialize() {
         CEDInputArchive ia(ifs);
         // read class state from archive
         ia >> new_chr;
+
+        CPPUNIT_ASSERT_EQUAL(chr.alternativeCount(), new_chr.alternativeCount());
+        CPPUNIT_ASSERT_EQUAL(chr.fontHeight(), new_chr.fontHeight());
+        //CPPUNIT_ASSERT_EQUAL(chr.backgroundColor(), new_chr.backgroundColor());
     }
 
 #endif

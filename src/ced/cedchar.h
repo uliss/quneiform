@@ -104,12 +104,6 @@ class CLA_EXPO CEDChar
         virtual bool isPicture() const;
 
         /**
-         * Returns character parent number
-         * @see setParentNumber()
-         */
-        int parentNumber() const;
-
-        /**
          * Returns picture number or -1 is it not a picture
          */
         int pictureNumber() const;
@@ -172,18 +166,12 @@ class CLA_EXPO CEDChar
          */
         void setForegroundColor(int color);
 
-        /**
-         * Sets character parent number
-         * @see parentNumber()
-         */
-        void setParentNumber(int number);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
             ar & bbox_;
-            ar & parent_number_;
             ar & fground_color_;
             ar & bground_color_;
             ar & font_lang_;
@@ -195,7 +183,6 @@ class CLA_EXPO CEDChar
 #endif
         //layout of symbol in input image (in pixel)
         Rect bbox_;
-        int parent_number_;
         Color fground_color_;
         Color bground_color_;
         //font parameters

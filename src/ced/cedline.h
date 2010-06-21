@@ -82,11 +82,6 @@ class CLA_EXPO CEDLine
         CEDChar * insertChar(CEDChar * chr);
 
         /**
-         * Returns number of line from start of file
-         */
-        int internalNumber() const;
-
-        /**
          * Returns number of parent in a file
          * @see setParentNumber()
          */
@@ -114,14 +109,12 @@ class CLA_EXPO CEDLine
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
             ar & hard_break_;
-            ar & internal_number_;
             ar & parent_number_;
             ar & default_font_height_;
             ar & chars_;
         }
 #endif
         bool hard_break_;
-        int internal_number_;
         int parent_number_;
         int default_font_height_;
         typedef boost::shared_ptr<CEDChar> CharPtr;
