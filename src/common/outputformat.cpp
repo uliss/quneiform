@@ -61,7 +61,7 @@ bool initOutputFormatData()
     addFormat(FORMAT_SMARTTEXT, "smarttext", "plain text with TeX paragraphs", "txt");
     addFormat(FORMAT_HTML, "html", "HTML format", "html");
     addFormat(FORMAT_HOCR, "hocr", "hOCR HTML format", "html");
-    addFormat(FORMAT_RTF, "rtf", "RTF format", "rtf");
+    //addFormat(FORMAT_RTF, "rtf", "RTF format", "rtf");
     addFormat(FORMAT_DEBUG, "textdebug", "for debugging purposes", "txt");
 
 #ifdef CF_USE_ODF

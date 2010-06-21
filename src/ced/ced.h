@@ -388,8 +388,6 @@ DEC_FUN(uint32_t, CED_GetUserNumber, (Handle hEdParagraph))
 DEC_FUN(EDSIZE, CED_GetInterval, (Handle hEdParagraph))
 DEC_FUN(Bool32, CED_GetParaParams, (Handle hEdParagraph, int* color, int* shading, int* spaceBetweenLines, char* spcBtwLnsMult, char* keep))
 DEC_FUN(Bool32, CED_GetParaBorders, (Handle hEdParagraph, int* leftBrdrType, int* leftBrdrWidth, int* rightBrdrType, int* rightBrdrWidth, int* topBrdrType, int* topBrdrWidth, int* bottomBrdrType, int* bottomBrdrWidth, int* brdrBtw))
-DEC_FUN(Bool32, CED_WriteFormattedRtf, (const char * fileName, Handle hEdPage))
-DEC_FUN(Bool32, CED_MergeFormattedRtf, (const char * fileName, Handle hEdPage))
 
 #ifdef _DEBUG
 CED_FUNC(void) CED_ShowTree(char * name, CIF::CEDPage * EdPage);

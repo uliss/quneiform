@@ -19,7 +19,6 @@
 #include "exporterfactory.h"
 #include "htmlexporter.h"
 #include "debugexporter.h"
-#include "rtfexporter.h"
 #include "textexporter.h"
 #include "hocrexporter.h"
 #include "puma/pumadef.h"
@@ -51,9 +50,6 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
     switch (format) {
     case FORMAT_DEBUG:
         exp.reset(new DebugExporter(format_options_));
-        break;
-    case FORMAT_RTF:
-        exp.reset(new RtfExporter(page_));
         break;
     case FORMAT_HOCR:
         exp.reset(new HocrExporter(page_, format_options_));

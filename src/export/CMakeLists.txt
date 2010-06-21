@@ -9,7 +9,6 @@ set(exporters
     genericexporter.cpp
     hocrexporter.cpp
     htmlexporter.cpp
-    rtfexporter.cpp
     textexporter.cpp
     xmlexporter.cpp
 )

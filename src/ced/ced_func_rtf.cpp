@@ -75,42 +75,17 @@ using namespace CIF;
 #define MAX_RTF_COLORS     200
 #define TextDefBkColor  Color(255,255,255)
 
-Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
+Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
     Bool ret;
-    struct StrRtfColor *color = NULL;
-    CEDSection* sect;
-    struct StrRtfOut *rtf = new StrRtfOut;
+    StrRtfColor * color = NULL;
+    StrRtfOut * rtf = new StrRtfOut;
     memset(rtf, 0, sizeof(struct StrRtfOut)); // initialize with zeros
-    //read old rtf
-    Handle oldRtfHndl;
 
-    if (merge) {
-        rtf->oldFileLen = CFIO_ReadMemoryFromFile(fileName, &oldRtfHndl);
+    rtf->hFile = fopen(fileName, "wb");
 
-        if (rtf->oldFileLen == 0) {
-            SetReturnCode_ced(CFIO_GetReturnCode());
-            return 0;
-        }
-
-        rtf->oldFile = (char*) CFIO_LockMemory(oldRtfHndl);
-
-        if (!rtf->oldFile) {
-            SetReturnCode_ced(CFIO_GetReturnCode());
-            CFIO_UnlockMemory(oldRtfHndl);
-            CFIO_FreeMemory(oldRtfHndl);
-            return 0;
-        }
-
-        rtf->hFile = 0;
-    }
-
-    else {
-        rtf->hFile = fopen(fileName, "wb");
-
-        if (!rtf->hFile) {
-            SetReturnCode_ced(CFIO_GetReturnCode());
-            return FALSE;
-        }
+    if (!rtf->hFile) {
+        SetReturnCode_ced(CFIO_GetReturnCode());
+        return FALSE;
     }
 
     // initialize global variables
@@ -127,53 +102,40 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
     rtf->color = new StrRtfColor[MAX_RTF_COLORS];
     memset(rtf->color, 0, sizeof(struct StrRtfColor) * MAX_RTF_COLORS); // initialize with zeros
 
-    if (!merge) {
-        // write the rtf header
-        if (!BeginRtfGroup(rtf))
-            goto WRITE_END;
+    CEDSection * sect;
 
-        if (!WriteRtfControl(rtf, "rtf", PARAM_INT, 1))
-            goto WRITE_END;
+    // write the rtf header
+    if (!BeginRtfGroup(rtf))
+        goto WRITE_END;
 
-        if (!WriteRtfControl(rtf, "ansi", PARAM_NONE, 0))
-            goto WRITE_END;
+    if (!WriteRtfControl(rtf, "rtf", PARAM_INT, 1))
+        goto WRITE_END;
 
-        if (!WriteRtfControl(rtf, "deff", PARAM_INT, 0))
-            goto WRITE_END;
+    if (!WriteRtfControl(rtf, "ansi", PARAM_NONE, 0))
+        goto WRITE_END;
 
-        if (!WriteRtfControl(rtf, "deflang", PARAM_INT, 1024))
-            goto WRITE_END;
+    if (!WriteRtfControl(rtf, "deff", PARAM_INT, 0))
+        goto WRITE_END;
 
-        //fill in font table with default values
-        for (int i = 0; i < rtf->page->fontCount(); i++)
-            rtf->table[i] = rtf->page->fontAt(i).fontNumber;
+    if (!WriteRtfControl(rtf, "deflang", PARAM_INT, 1024))
+        goto WRITE_END;
 
-        rtf->maxFntNum = -1;
+    //fill in font table with default values
+    for (int i = 0; i < rtf->page->fontCount(); i++)
+        rtf->table[i] = rtf->page->fontAt(i).fontNumber;
 
-        if (!WriteRtfFont(rtf, TRUE))
-            goto WRITE_END; //write the font table
+    rtf->maxFntNum = -1;
 
-        //    if (!WriteRtfStylesheet(w,rtf)) goto WRITE_END;
-        if (!WriteRtfMargin(rtf))
-            goto WRITE_END;
+    if (!WriteRtfFont(rtf, TRUE))
+        goto WRITE_END;
+    //write the font table
 
-        //write default margin and paper information
-    }
+    //    if (!WriteRtfStylesheet(w,rtf)) goto WRITE_END;
+    if (!WriteRtfMargin(rtf))
+        goto WRITE_END;
 
-    else {
-        if (!WriteRtfMergedHeader(rtf, fileName)) {
-            if (rtf->hFile)
-                goto WRITE_END; //write default margin and paper information
+    //write default margin and paper information
 
-            if (rtf->table)
-                delete[] rtf->table; // free rtf control area
-
-            if (rtf)
-                delete rtf; // free rtf control area
-
-            return FALSE;
-        }
-    }
 
     sect = section(0);
     rtf->PrevPfmt = DEFAULT_PFMT;
@@ -353,9 +315,6 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName, Bool merge) {
 
     if (rtf->table)
         delete[] rtf->table; // free rtf control area
-
-    if (merge && rtf->oldFile)
-        CFIO_FreeMemory(rtf->oldFile); // free old rtf
 
     if (rtf)
         delete rtf; // free rtf control area
@@ -2004,116 +1963,6 @@ Bool WriteRtfMetafile(StrRtfOut *rtf, int pict) {
 
 int ReadRtfFontTable(StrRtfOut *rtf, int * maxFontNum);
 int ReadRtfColorTable(StrRtfOut *rtf);
-Bool WriteRtfMergedHeader(StrRtfOut *rtf, const char * name) {
-    int oldIndex;
-    Bool head;
-    char * ptr = rtf->oldFile;
-    int len = rtf->oldFileLen;
-    int i;
-
-    for (i = 0; i < len - (int) strlen("\\fonttbl"); i++)
-        if (memcmp(ptr + i, "\\fonttbl", strlen("\\fonttbl")) == 0)
-            if (i == 0 || ptr[i - 1] != '\\')
-                break;
-
-    if (i == len - (int) strlen("\\fonttbl")) {
-        SetReturnCode_ced(IDS_ERR_NOT_RTF);
-        return FALSE;
-    }
-
-    i += strlen("\\fonttbl");
-    rtf->TextIndex = i;
-    int m;
-
-    if (ReadRtfFontTable(rtf, &m)) {
-        SetReturnCode_ced(IDS_ERR_NOT_RTF);
-        return FALSE;
-    }
-
-    //  if (m=-1) m=0;
-    rtf->maxFntNum = m;
-    m++;
-
-    for (i = 0; i < rtf->page->fontCount(); i++) {
-        if (rtf->table[i] == -1) {
-            rtf->table[i] = m;
-            m++;
-        }
-    }
-
-    Bool ret = TRUE;
-    //remove old file - it is similar to rtf
-    rtf->hFile = CFIO_OpenFreeFile(0, name, OSF_CREATE | OSF_BINARY);
-
-    if (!rtf->hFile)
-        goto END_HDR;
-
-    if (HFILE_ERROR == (HFILE) CFIO_WriteToFile(rtf->hFile, rtf->oldFile, rtf->TextIndex - 1))
-        goto END_HDR;
-
-    if (!WriteRtfFont(rtf, FALSE))
-        goto END_HDR;
-
-    if (!FlushRtfLine(rtf))
-        goto END_HDR; // flush the rtf line to the output
-
-    oldIndex = rtf->TextIndex;
-
-    for (i = rtf->TextIndex - 1; i < len - (int) strlen("\\colortbl"); i++)
-        if (memcmp(ptr + i, "\\colortbl", strlen("\\colortbl")) == 0)
-            if (i == 0 || ptr[i - 1] != '\\')
-                break;
-
-    if (i != len - (int) strlen("\\colortbl")) {
-        i += strlen("\\colortbl");
-
-        while (ptr[i] == ' ')
-            i++;
-
-        rtf->TextIndex = i;
-
-        if (ReadRtfColorTable(rtf)) {
-            SetReturnCode_ced(IDS_ERR_NOT_RTF);
-            return FALSE;
-        }
-
-        head = FALSE;
-    }
-
-    else {
-        rtf->TextIndex++;
-        head = TRUE;
-    }
-
-    if (HFILE_ERROR == (HFILE) CFIO_WriteToFile(rtf->hFile, (rtf->oldFile) + oldIndex - 1,
-            rtf->TextIndex - oldIndex))
-        goto END_HDR;
-
-    if (!FlushRtfLine(rtf))
-        goto END_HDR; // flush the rtf line to the output
-
-    if (HFILE_ERROR == (HFILE) CFIO_WriteToFile(rtf->hFile, ((char*) rtf->oldFile) + rtf->TextIndex
-            - 1, rtf->oldFileLen - (rtf->TextIndex + 2)))
-        goto END_HDR;
-
-    // end the previous section
-    if (!WriteRtfControl(rtf, "sect", PARAM_NONE, 0))
-        goto END_HDR;
-
-    if (!WriteRtfControl(rtf, "plain", PARAM_NONE, 0))
-        goto END_HDR;
-
-    if (!WriteRtfControl(rtf, "fs", PARAM_INT, 24))
-        goto END_HDR;
-
-    //in order to draw "}" at the end
-    rtf->GroupLevel = 1;
-    rtf->SpacePending = FALSE; // delimit the last control by '{' character
-    goto OK;
-    END_HDR: SetReturnCode_ced(CFIO_GetReturnCode());
-    ret = FALSE;
-    OK: return ret;
-}
 
 Bool GetRtfWord(StrRtfOut *rtf);
 int nameCmp(const char* s1, const char* s2);

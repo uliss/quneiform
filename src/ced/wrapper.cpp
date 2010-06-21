@@ -623,23 +623,3 @@ CED_FUNC(Bool32) CED_GetParaBorders(Handle hEdParagraph, int* leftBrdrType, int*
 
     return TRUE;
 }
-
-CED_FUNC(Bool32) CED_WriteFormattedRtf(const char * fileName, Handle hEdPage) {
-    if (logStream) {
-        fprintf(logStream, "WriteFormattedRtf params: %s,%x\n", fileName, hEdPage);
-        fflush(logStream);
-    }
-
-    Bool32 ret = ((CEDPage*) hEdPage)->FormattedWriteRtf(fileName, FALSE);
-
-    if (logStream) {
-        fprintf(logStream, "WriteFormattedRtf returned %i\n", ret);
-        fflush(logStream);
-    }
-
-    return ret;
-}
-
-CED_FUNC(Bool32) CED_MergeFormattedRtf(const char * fileName, Handle hEdPage) {
-    return ((CEDPage*) hEdPage)->FormattedWriteRtf(fileName, TRUE);
-}
