@@ -311,7 +311,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
     FINAL:
     // flush text buffer
     FlushRtfLine(rtf); // flush the rtf line to the output
-    CFIO_CloseFreeFile(rtf->hFile, CSF_SAVEDISK);
+    fclose(rtf->hFile);
 
     if (rtf->table)
         delete[] rtf->table; // free rtf control area
@@ -535,7 +535,7 @@ Bool FlushRtfLine(StrRtfOut *rtf) {
     rtf->TextLen++;
 
     if (rtf->hFile) { // write to file
-        if (!fwrite(rtf->text, rtf->TextLen, sizeof(char), static_cast<FILE*> (rtf->hFile)))
+        if (!fwrite(rtf->text, rtf->TextLen, sizeof(char), rtf->hFile))
             return 0;
     }
 

@@ -244,7 +244,7 @@ struct StrRtfColor
 struct StrRtfOut
 { // Rtf output file processing block
         int output; // rtr output type: RTF_FILE,RTF_BUF,RTF_CB
-        Handle hFile; // stream if file is used
+        FILE * hFile; // stream if file is used
         Handle hBuf; // output buffer handle if using buffer output
         uchar *buf; // output buffer pointer if using buffer
         long BufLen; // allcated length of buffer

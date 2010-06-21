@@ -67,37 +67,6 @@
 CFIO_FUNC Bool32 CFIO_Init(uint16_t wHeightCode, Handle hStorage);
 CFIO_FUNC Bool32 CFIO_Done();
 CFIO_FUNC uint32_t CFIO_GetReturnCode();
-CFIO_FUNC char * CFIO_GetReturnString(uint32_t dwError);
-CFIO_FUNC Bool32 CFIO_SetImportData(uint32_t dwType, void * pData);
-
-enum Parameters
-{
-    CFIO_PCHAR_TEMPORARY_FOLDER = 1,
-    CFIO_PCHAR_STORAGE_FOLDER,
-    CFIO_PCHAR_FILE_FOLDER,
-    CFIO_FNOpenStorage,
-    CFIO_FNCloseStorage,
-    CFIO_FNDeleteStorage,
-    CFIO_FNWriteFileToStorage,
-    CFIO_FNReadFileFromStorage,
-    CFIO_FNOpenFreeFile,
-    CFIO_FNCloseFreeFile,
-    CFIO_FNWriteToFile,
-    CFIO_FNReadFromFile,
-    CFIO_FNSeekFilePointer,
-    CFIO_FNTellFilePointer,
-    CFIO_FNFlushFile,
-    CFIO_FNAllocMemory,
-    CFIO_FNDAllocMemory,
-    CFIO_FNReAllocMemory,
-    CFIO_FNFreeMemory,
-    CFIO_FNLockMemory,
-    CFIO_FNUnlockMemory,
-    CFIO_FNWriteMemoryToFile,
-    CFIO_FNReadMemoryFromFile,
-    CFIO_FNWriteMemoryToStorage,
-    CFIO_FNReadMemoryFromStorage
-};
 
 //Folders
 enum CFIOFolders
@@ -107,25 +76,15 @@ enum CFIOFolders
     CFIO_STORAGE_FOLDER
 };
 //////Storages
-//Open storage
 #define   OS_CREATE               0x01
 #define   OS_OPEN                 0x02
-CFIO_FUNC Handle CFIO_OpenStorage(pchar, uint32_t);
-//Close Storage
 #define   CS_WITHOUT_SAVE         0x01                                 // Only close
 #define   CS_DELETE               0x02                                 // Delete storage
 #define   CS_FILE_DELETE          0x04                                 // Delete all attached files from disk
 #define   CS_SAVE                 0x08                                 // Save storage at current state
 #define   CS_FILE_SAVE            0x10                                 // Save all attached files
 #define   CS_ALL                  0x20                                 // Close all open storages
-CFIO_FUNC Bool32 CFIO_CloseStorage(Handle, uint32_t);
-//Delete storage from disk (don't need to be opened)
-CFIO_FUNC Bool32 CFIO_DeleteStorage(pchar);
 /////////Files
-//Write file to storage
-CFIO_FUNC uint32_t CFIO_WriteFileToStorage(Handle, Handle, pchar);
-//Read file from storage
-CFIO_FUNC Handle CFIO_ReadFileFromStorage(Handle, pchar);
 //Open file
 #define   OSF_CREATE               0x01
 #define   OSF_OPEN                 0x02
@@ -134,26 +93,14 @@ CFIO_FUNC Handle CFIO_ReadFileFromStorage(Handle, pchar);
 #define   OSF_BINARY               0x10
 #define   OSF_IN_MEMORY            0x20
 #define   OSF_TEMPORARY            0x40
-CFIO_FUNC Handle CFIO_OpenFreeFile(Handle, const char *, uint32_t);
 //Close file
 #define   CSF_SAVEDISK             0x01
 #define   CSF_SAVESTORAGE          0x02
 #define   CSF_DELETE               0x04
 #define   CSF_WRITE                0x08
-CFIO_FUNC Bool32 CFIO_CloseFreeFile(Handle, uint32_t);
-//Write data to file
-CFIO_FUNC uint32_t CFIO_WriteToFile(Handle, pchar, uint32_t);
-// Read data from file
-CFIO_FUNC uint32_t CFIO_ReadFromFile(Handle, pchar, uint32_t);
-//Seek pointer
 #define   FS_END                   0x01
 #define   FS_BEGIN                 0x02
 #define   FS_CUR                   0x04
-CFIO_FUNC uint32_t CFIO_SeekFilePointer(Handle, uint32_t, uint32_t);
-//Tell pointer
-CFIO_FUNC uint32_t CFIO_TellFilePointer(Handle);
-//Flash data from buffer
-CFIO_FUNC Bool32 CFIO_FlushFile(Handle);
 ////////Memory
 // Alloc memory
 #define   MAF_GPTR                   0x0001
@@ -172,28 +119,17 @@ CFIO_FUNC Bool32 CFIO_FlushFile(Handle);
 #define   MAF_GALL_GMEM_SHARE        0x2000
 #define   MAF_GALL_GMEM_ZEROINIT     0x4000
 #define   MAF_GALL_GMEM_RESERVED     0x8000
-CFIO_FUNC Handle CFIO_AllocMemory(uint32_t, uint32_t);
 CFIO_FUNC Handle CFIO_DAllocMemory(uint32_t, uint32_t, const char*, const char*);
-// ReAlloc memory
 #define   MRF_NEW_MEMORY                  0x0000
 #define   MRF_GALL_GMEM_DISCARDABLEGPTR   0x0001
 #define   MRF_GALL_GMEM_MOVEABLE          0x0002
 #define   MRF_GALL_GMEM_NOCOMPACT         0x0004
 #define   MRF_GALL_GMEM_ZEROINIT          0x0008
-CFIO_FUNC Handle CFIO_ReAllocMemory(Handle, uint32_t, uint32_t);
 //Free memory
 CFIO_FUNC Bool32 CFIO_FreeMemory(Handle);
 //Lock memory
 CFIO_FUNC Handle CFIO_LockMemory(Handle);
 //Unlock memory
 CFIO_FUNC Bool32 CFIO_UnlockMemory(Handle);
-// Write from memory to disk
-CFIO_FUNC uint32_t CFIO_WriteMemoryToFile(Handle, pchar);
-//Read data from disk to memory
-CFIO_FUNC uint32_t CFIO_ReadMemoryFromFile(const char *, Handle *);
-//Write data from memory to storage
-CFIO_FUNC uint32_t CFIO_WriteMemoryToStorage(Handle, Handle, pchar);
-//Read data from storage to memory
-CFIO_FUNC uint32_t CFIO_ReadMemoryFromStorage(Handle, pchar, Handle *);
 
 #endif                                                                                           //__CFIO_H__
