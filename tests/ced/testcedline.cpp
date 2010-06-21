@@ -99,9 +99,10 @@ void TestCedLine::testSerialize() {
         // read class state from archive
         ia >> new_line;
 
-        CPPUNIT_ASSERT_EQUAL(new_line.charCount(), ln.charCount());
+        CPPUNIT_ASSERT_EQUAL(ln.charCount(), new_line.charCount());
+        CPPUNIT_ASSERT_EQUAL(ln.defaultFontHeight(), new_line.defaultFontHeight());
+        CPPUNIT_ASSERT_EQUAL(ln.hardBreak(), new_line.hardBreak());
         CPPUNIT_ASSERT(new_line.charAt(0)->fontHeight() == 12);
-        CPPUNIT_ASSERT(new_line.hardBreak());
     }
 
 #endif
