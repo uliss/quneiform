@@ -22,6 +22,7 @@
 #include "globus.h"
 #include "ced_struct.h"
 #include "common/rect.h"
+#include "common/color.h"
 
 namespace CIF {
 
@@ -47,7 +48,7 @@ class CLA_EXPO CEDSection
         CEDParagraph * CreateFrame(CEDParagraph* hObject, edBox rect, char position = -1,
                 int borderSpace = -1, int dxfrtextx = -1, int dxfrtexty = -1);
         CEDParagraph * CreateParagraph(CEDParagraph * hObject, int align, const Rect& indent,
-                int UserNum, int FlagBorder, EDSIZE interval, edBox layout, int color, int shading,
+                int UserNum, int FlagBorder, EDSIZE interval, edBox layout, const Color& color, int shading,
                 int spaceBetweenLines, char spcBtwLnsMult, char keep);
 
         CEDParagraph * CreateTable(CEDParagraph * hObject);
@@ -77,8 +78,6 @@ class CLA_EXPO CEDSection
         CEDParagraph * GetCurParagraph(); //returns current paragraph
         int GetNumOfCurParagraph(); //returns current paragraph
 
-        CEDParagraph * NextParagraph(Bool32 _goThroughSect); //returns next paragraph, 0 if last
-        CEDParagraph * PrevParagraph(Bool32 _goThroughSect); //returns previous paragraph, 0 if first
         //If _goThroughSect = TRUE, then we consider boundary paragraphs in file, othrwise in section
 
         CEDParagraph * paragraphs; //connected list of paragraphs

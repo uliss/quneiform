@@ -62,6 +62,7 @@
 #include "common/size.h"
 #include "common/rect.h"
 #include "common/letter.h"
+#include "common/color.h"
 
 #ifdef __CED__
 #define CED_FUNC  FUN_EXPO
@@ -346,7 +347,7 @@ DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, const CIF::S
 DEC_FUN(Handle, CED_CreateSection, (Handle hEdPage, const CIF::Rect& border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY))
 DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol))
 DEC_FUN(Handle, CED_CreateColumn, ( Handle hEdSection))
-DEC_FUN(CIF::CEDParagraph *, CED_CreateParagraph, (Handle hEdSection, Handle hObject, int align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, int color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep))
+DEC_FUN(CIF::CEDParagraph *, CED_CreateParagraph, (Handle hEdSection, Handle hObject, int align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, const CIF::Color& color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep))
 DEC_FUN(Bool32, CED_SetParaBorders, (Handle hEdParagraph, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int brdrBtw))
 DEC_FUN(Handle, CED_CreateFrame, (Handle hEdSection, Handle hEdColumn, EDBOX rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty))
 DEC_FUN(Bool32, CED_SetFrameFlag, (Handle hEdFrame, int flag))
@@ -386,8 +387,6 @@ DEC_FUN(uint32_t, CED_GetAlignment, (Handle hEdParagraph))
 DEC_FUN(EDBOX, CED_GetLayout, (Handle hEdParagraph))
 DEC_FUN(uint32_t, CED_GetUserNumber, (Handle hEdParagraph))
 DEC_FUN(EDSIZE, CED_GetInterval, (Handle hEdParagraph))
-DEC_FUN(Bool32, CED_GetParaParams, (Handle hEdParagraph, int* color, int* shading, int* spaceBetweenLines, char* spcBtwLnsMult, char* keep))
-DEC_FUN(Bool32, CED_GetParaBorders, (Handle hEdParagraph, int* leftBrdrType, int* leftBrdrWidth, int* rightBrdrType, int* rightBrdrWidth, int* topBrdrType, int* topBrdrWidth, int* bottomBrdrType, int* bottomBrdrWidth, int* brdrBtw))
 
 #ifdef _DEBUG
 CED_FUNC(void) CED_ShowTree(char * name, CIF::CEDPage * EdPage);

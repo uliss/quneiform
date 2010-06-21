@@ -278,7 +278,7 @@ CED_FUNC(Bool32) CED_SetCellFlag(Handle hEdCell, int flag) {
 
 CEDParagraph * CED_CreateParagraph(Handle hEdSection, Handle hObject, int align,
         const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout,
-        int color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
+        const CIF::Color& color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
     if (logStream) {
         fprintf(
                 logStream,
@@ -569,57 +569,4 @@ CED_FUNC(uint32_t) CED_GetUserNumber(Handle hEdParagraph) {
 
 CED_FUNC(EDSIZE) CED_GetInterval(Handle hEdParagraph) {
     return ((CEDParagraph*) hEdParagraph)->interval;
-}
-
-CED_FUNC(Bool32) CED_GetParaParams(Handle hEdParagraph, int* color, int* shading,
-        int* spaceBetweenLines, char* spcBtwLnsMult, char* keep) {
-    if (color)
-        *color = ((CEDParagraph*) hEdParagraph)->color;
-
-    if (shading)
-        *shading = ((CEDParagraph*) hEdParagraph)->shading;
-
-    if (spaceBetweenLines)
-        *spaceBetweenLines = ((CEDParagraph*) hEdParagraph)->spaceBetweenLines;
-
-    if (spcBtwLnsMult)
-        *spcBtwLnsMult = ((CEDParagraph*) hEdParagraph)->spcBtwLnsMult;
-
-    if (keep)
-        *keep = ((CEDParagraph*) hEdParagraph)->keep;
-
-    return TRUE;
-}
-//obtain boundary of paragraph
-CED_FUNC(Bool32) CED_GetParaBorders(Handle hEdParagraph, int* leftBrdrType, int* leftBrdrWidth,
-        int* rightBrdrType, int* rightBrdrWidth, int* topBrdrType, int* topBrdrWidth,
-        int* bottomBrdrType, int* bottomBrdrWidth, int* brdrBtw) {
-    if (leftBrdrType)
-        *leftBrdrType = ((CEDParagraph*) hEdParagraph)->leftBrdrType;
-
-    if (leftBrdrWidth)
-        *leftBrdrWidth = ((CEDParagraph*) hEdParagraph)->leftBrdrWidth;
-
-    if (rightBrdrType)
-        *rightBrdrType = ((CEDParagraph*) hEdParagraph)->rightBrdrType;
-
-    if (rightBrdrWidth)
-        *rightBrdrWidth = ((CEDParagraph*) hEdParagraph)->rightBrdrWidth;
-
-    if (topBrdrType)
-        *topBrdrType = ((CEDParagraph*) hEdParagraph)->topBrdrType;
-
-    if (topBrdrWidth)
-        *topBrdrWidth = ((CEDParagraph*) hEdParagraph)->topBrdrWidth;
-
-    if (bottomBrdrType)
-        *bottomBrdrType = ((CEDParagraph*) hEdParagraph)->bottomBrdrType;
-
-    if (bottomBrdrWidth)
-        *bottomBrdrWidth = ((CEDParagraph*) hEdParagraph)->bottomBrdrWidth;
-
-    if (brdrBtw)
-        *brdrBtw = ((CEDParagraph*) hEdParagraph)->brdrBtw;
-
-    return TRUE;
 }

@@ -25,7 +25,7 @@
 namespace CIF
 {
 
-CEDParagraph::CEDParagraph() {
+CEDParagraph::CEDParagraph() : color_(Color::null()) {
     type = 0;
     alignment = 0;
     layout.x = layout.w = layout.y = layout.h = 0;
@@ -42,14 +42,16 @@ CEDParagraph::CEDParagraph() {
     topBrdrWidth = 0;
     bottomBrdrWidth = 0;
     brdrBtw = 0;
-    extData = 0;
-    extDataLen = 0;
     internalNumber = 0;
     parentNumber = 0;
     prev = next = 0;
 }
 
 CEDParagraph::~CEDParagraph() {
+}
+
+const Color& CEDParagraph::color() const {
+    return color_;
 }
 
 CEDLine * CEDParagraph::lineAt(size_t pos) {
@@ -68,7 +70,11 @@ CEDLine * CEDParagraph::insertLine(CEDLine * line) {
     return line;
 }
 
-CEDLine * CEDParagraph::InsertLine() {
+void CEDParagraph::setColor(const Color& c) {
+    color_ = c;
+}
+
+CEDLine * CEDParagraph::insertLine() {
     return insertLine(new CEDLine);
 }
 

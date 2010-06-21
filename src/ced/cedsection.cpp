@@ -351,7 +351,7 @@ CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow, int cellX, int merging
 }
 
 CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, int align, const Rect& indent,
-        int UserNum, int FlagBorder, EDSIZE interval, edBox layout, int color, int shading,
+        int UserNum, int FlagBorder, EDSIZE interval, edBox layout, const Color& color, int shading,
         int spaceBetweenLines, char spcBtwLnsMult, char keep) {
     if (hObject->type != TAB_CELL_BEGIN && hObject->type != FRAME_BEGIN && hObject->type
             != COLUMN_BEGIN) {
@@ -395,7 +395,7 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, int align, co
     para->indent = indent;
     para->userNumber = UserNum;
     para->border = FlagBorder;
-    para->color = color;
+    para->setColor(color);
     para->shading = shading;
     para->spaceBetweenLines = spaceBetweenLines;
     para->spcBtwLnsMult = spcBtwLnsMult;
@@ -495,28 +495,6 @@ CEDParagraph * CEDSection::GetCurParagraph() {
 
 int CEDSection::GetNumOfCurParagraph() {
     return curPara->internalNumber;
-}
-
-CEDParagraph * CEDSection::NextParagraph(Bool32 _goThroughSect) {
-    if (_goThroughSect)
-        return curPara->next;
-
-    if (curPara->next && curPara->next->parentNumber == curPara->parentNumber)
-        return curPara->next;
-
-    else
-        return 0;
-}
-
-CEDParagraph * CEDSection::PrevParagraph(Bool32 _goThroughSect) {
-    if (_goThroughSect)
-        return curPara->prev;
-
-    if (curPara->prev && curPara->prev->parentNumber == curPara->parentNumber)
-        return curPara->prev;
-
-    else
-        return 0;
 }
 
 }

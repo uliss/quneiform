@@ -24,8 +24,10 @@
 
 #include "globus.h"
 #include "ced_struct.h"
+#include "common/color.h"
 
-namespace CIF {
+namespace CIF
+{
 
 class CLA_EXPO CEDParagraph
 {
@@ -38,7 +40,6 @@ class CLA_EXPO CEDParagraph
         EDSIZE interval; //  cx-upper indentation, cy-bottom
 
         edBox layout; //  Location paragraph on page
-        int color;
         int shading;
         int spaceBetweenLines;
         char spcBtwLnsMult;
@@ -56,8 +57,10 @@ class CLA_EXPO CEDParagraph
 
         void * descriptor; // Pointer to advanced descriptor of special structures
 
-        char * extData; // Data cat. will be recorded in the file after the title;
-        int extDataLen; // Its size
+        /**
+         * Returns paragraph color
+         */
+        const Color& color() const;
 
         /**
          * Returns pointer to line at given position
@@ -68,6 +71,12 @@ class CLA_EXPO CEDParagraph
          * Returns number of lines
          */
         size_t lineCount() const;
+
+        /**
+         * Sets paragraph foreground color
+         * @see color()
+         */
+        void setColor(const Color& c);
 
         CEDParagraph();
         ~CEDParagraph();
@@ -80,17 +89,19 @@ class CLA_EXPO CEDParagraph
         int GetCountLogicalCell();
         void CreateTableOfCells();
         CEDLine * insertLine(CEDLine * line);
-        CEDLine * InsertLine(); //inserts new line after current one. new line becomes current
+        CEDLine * insertLine(); //inserts new line after current one. new line becomes current
         //returns pointer to new line
 
-        typedef boost::shared_ptr<CEDLine> LinePtr;
-        typedef std::vector<LinePtr> LineList;
-        LineList lines; //connected list of lines
         CEDParagraph * prev, *next; //pointer to neibor elements in connected list
         int internalNumber; //number of paragraph from start of file
         int parentNumber; //number of parent in file
         friend class CEDSection;
         friend class CEDPage;
+    private:
+        typedef boost::shared_ptr<CEDLine> LinePtr;
+        typedef std::vector<LinePtr> LineList;
+        LineList lines; //connected list of lines
+        Color color_;
 };
 
 }
