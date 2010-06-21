@@ -1165,7 +1165,7 @@ Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPf
         PrevSpaceAfter = PrevPfmt->interval.cy;
         PrevSpaceBetween = PrevPfmt->spaceBetweenLines;
         PrevSpaceBetweenMult = PrevPfmt->spcBtwLnsMult;
-        PrevAlignment = PrevPfmt->alignment;
+        PrevAlignment = PrevPfmt->align();
         PrevParaKeep = PrevPfmt->keep;
         PrevLbt = PrevPfmt->leftBrdrType;
         PrevRbt = PrevPfmt->rightBrdrType;
@@ -1186,7 +1186,7 @@ Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPf
     CurSpaceAfter = NewPfmt->interval.cy;
     CurSpaceBetween = NewPfmt->spaceBetweenLines;
     CurSpaceBetweenMult = NewPfmt->spcBtwLnsMult;
-    CurAlignment = NewPfmt->alignment;
+    CurAlignment = NewPfmt->align();
     CurParaKeep = NewPfmt->keep;
     CurLbt = NewPfmt->leftBrdrType;
     CurRbt = NewPfmt->rightBrdrType;

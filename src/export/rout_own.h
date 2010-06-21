@@ -73,11 +73,6 @@ enum font_style_t
 // сноска
 };
 
-enum rout_aligt_t
-{
-    ALIGN_LEFT = 2, ALIGN_RIGHT = 4, ALIGN_CENTER = 8, ALIGN_MASK = (ALIGN_LEFT | ALIGN_RIGHT
-            | ALIGN_CENTER)
-};
 
 #endif
 

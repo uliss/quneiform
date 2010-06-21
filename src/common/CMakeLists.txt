@@ -19,6 +19,7 @@ add_library(cuneiform-common ${LIBTYPE}
 
 set(COMMON_HEADER_INSTALL "common")
 install(FILES 
+    align.h
     language.h
     exception.h
     image.h

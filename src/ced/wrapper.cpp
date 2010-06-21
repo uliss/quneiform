@@ -276,7 +276,7 @@ CED_FUNC(Bool32) CED_SetCellFlag(Handle hEdCell, int flag) {
 }
 //create paragraph
 
-CEDParagraph * CED_CreateParagraph(Handle hEdSection, Handle hObject, int align,
+CEDParagraph * CED_CreateParagraph(Handle hEdSection, Handle hObject, CIF::align_t align,
         const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout,
         const CIF::Color& color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
     if (logStream) {
@@ -553,20 +553,4 @@ CED_FUNC(int) CED_GetCountLogicalCell(Handle hEdTable) {
         ((CEDParagraph*) hEdTable)->CreateTableOfCells();
 
     return ((CEDParagraph*) hEdTable)->GetCountLogicalCell();
-}
-
-CED_FUNC(uint32_t) CED_GetAlignment(Handle hEdParagraph) {
-    return ((CEDParagraph*) hEdParagraph)->alignment;
-}
-
-CED_FUNC(edBox) CED_GetLayout(Handle hEdParagraph) {
-    return ((CEDParagraph*) hEdParagraph)->layout;
-}
-
-CED_FUNC(uint32_t) CED_GetUserNumber(Handle hEdParagraph) {
-    return ((CEDParagraph*) hEdParagraph)->userNumber;
-}
-
-CED_FUNC(EDSIZE) CED_GetInterval(Handle hEdParagraph) {
-    return ((CEDParagraph*) hEdParagraph)->interval;
 }

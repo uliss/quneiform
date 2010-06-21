@@ -115,11 +115,11 @@ void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     assert(par);
 
     XmlTag p("p");
-    switch (par->alignment & ALIGN_MASK) {
+    switch (par->align()) {
     case ALIGN_CENTER:
         p["align"] = "center";
         break;
-    case (ALIGN_LEFT | ALIGN_RIGHT):
+    case (ALIGN_JUSTIFY):
         p["align"] = "justify";
         break;
     case ALIGN_RIGHT:

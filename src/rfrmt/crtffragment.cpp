@@ -322,21 +322,21 @@ CEDParagraph * CRtfFragment::makeParagraph(SectorInfo * sector, int firstIndent,
     playout.y = -1;
     playout.h = -1;
 
-    int par_align = align;
+    align_t par_align = ALIGN_LEFT;
 
     switch (align) {
     case FORMAT_ALIGN_ONE:
     case FORMAT_ALIGN_LEFT:
-        par_align = TP_LEFT_ALLIGN;
+        par_align = ALIGN_LEFT;
         break;
     case FORMAT_ALIGN_RIGHT:
-        par_align = TP_RIGHT_ALLIGN;
+        par_align = ALIGN_RIGHT;
         break;
     case FORMAT_ALIGN_JUSTIFY:
-        par_align = TP_LEFT_ALLIGN | TP_RIGHT_ALLIGN;
+        par_align = ALIGN_JUSTIFY;
         break;
     case FORMAT_ALIGN_CENTER:
-        par_align = TP_CENTER;
+        par_align = ALIGN_CENTER;
         break;
     }
 

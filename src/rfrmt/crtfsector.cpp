@@ -100,8 +100,7 @@ Bool CRtfSector::Write() {
     playout.w = -1;
     playout.y = -1;
     playout.h = -1;
-    int align = TP_LEFT_ALLIGN;
-    CEDParagraph * par = CED_CreateParagraph(SectorInfo.hEDSector, SectorInfo.hColumn, align,
+    CEDParagraph * par = CED_CreateParagraph(SectorInfo.hEDSector, SectorInfo.hColumn, ALIGN_LEFT,
             indent, SectorInfo.userNum, -1, interval, playout, Color::null(), -1, -1, -1, FALSE);
 
     if (m_bFlagLine == TRUE) {

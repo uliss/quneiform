@@ -23,6 +23,7 @@
 #include "ced_struct.h"
 #include "common/rect.h"
 #include "common/color.h"
+#include "common/align.h"
 
 namespace CIF {
 
@@ -47,7 +48,7 @@ class CLA_EXPO CEDSection
         CEDParagraph * CreateColumn();
         CEDParagraph * CreateFrame(CEDParagraph* hObject, edBox rect, char position = -1,
                 int borderSpace = -1, int dxfrtextx = -1, int dxfrtexty = -1);
-        CEDParagraph * CreateParagraph(CEDParagraph * hObject, int align, const Rect& indent,
+        CEDParagraph * CreateParagraph(CEDParagraph * hObject, align_t align, const Rect& indent,
                 int UserNum, int FlagBorder, EDSIZE interval, edBox layout, const Color& color, int shading,
                 int spaceBetweenLines, char spcBtwLnsMult, char keep);
 

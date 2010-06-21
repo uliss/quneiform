@@ -25,6 +25,7 @@
 #include "globus.h"
 #include "ced_struct.h"
 #include "common/color.h"
+#include "common/align.h"
 
 namespace CIF
 {
@@ -33,7 +34,6 @@ class CLA_EXPO CEDParagraph
 {
     public:
         int type; // Type paragraph
-        int alignment; // Alignment abzattsa
         Rect indent; // Indentation: left = left, right = width, top = red.line (in twip)
         int userNumber; // ID number, the user at the stage of fragmentation
         int border; //  frame around abzattsa
@@ -58,6 +58,11 @@ class CLA_EXPO CEDParagraph
         void * descriptor; // Pointer to advanced descriptor of special structures
 
         /**
+         * Returns paragraph alignment
+         */
+        align_t align() const;
+
+        /**
          * Returns paragraph color
          */
         const Color& color() const;
@@ -71,6 +76,11 @@ class CLA_EXPO CEDParagraph
          * Returns number of lines
          */
         size_t lineCount() const;
+
+        /**
+         * Sets paragraph alignment
+         */
+        void setAlign(align_t align);
 
         /**
          * Sets paragraph foreground color
@@ -102,6 +112,7 @@ class CLA_EXPO CEDParagraph
         typedef std::vector<LinePtr> LineList;
         LineList lines; //connected list of lines
         Color color_;
+        align_t align_;
 };
 
 }

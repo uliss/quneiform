@@ -338,9 +338,9 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         hPrevObject = SectorInfo->hObject;
 
         if (SectorInfo->FlagInColumn || (OutPutTypeFrame && SectorInfo->FlagFictiveParagraph)) {
-            CEDParagraph * par = CED_CreateParagraph(SectorInfo->hEDSector,
-                    SectorInfo->hColumn, -1, indent, SectorInfo->userNum, -1, interval, playout,
-                    Color::null(), -1, -1, -1, FALSE);
+            CEDParagraph * par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hColumn,
+                    ALIGN_NONE, indent, SectorInfo->userNum, -1, interval, playout, Color::null(), -1, -1,
+                    -1, FALSE);
             par->insertLine(new CEDLine(false, 6));
             SectorInfo->FlagFictiveParagraph = FALSE;
         }
@@ -368,7 +368,8 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         }
 
         CEDParagraph * ced_par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
-                -1, indent, SectorInfo->userNum, -1, interval, playout, Color::null(), -1, -1, -1, FALSE);
+                ALIGN_NONE, indent, SectorInfo->userNum, -1, interval, playout, Color::null(), -1,
+                -1, -1, FALSE);
         CEDLine * ced_line = new CEDLine;
         ced_line->setDefaultFontHeight(6);
 

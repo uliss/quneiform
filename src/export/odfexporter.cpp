@@ -327,8 +327,8 @@ void OdfExporter::writePageEnd(std::ostream& os, CEDPage*) {
 
 void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     XmlTag p("text:p");
-    switch (par->alignment & ALIGN_MASK) {
-    case (ALIGN_LEFT | ALIGN_RIGHT):
+    switch (par->align()) {
+    case (ALIGN_JUSTIFY):
         p["text:style-name"] = ODF_STYLE_JUSTIFY;
         break;
     }

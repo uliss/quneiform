@@ -89,7 +89,7 @@ void TestHtmlExporter::testExport() {
 void TestHtmlExporter::testExportParagraph() {
     CPPUNIT_ASSERT_EQUAL(true, exp_->skipEmptyParagraphs());
     CEDParagraph * par = new CEDParagraph;
-    par->alignment = TP_LEFT_ALLIGN;
+    par->setAlign(ALIGN_LEFT);
 
     std::stringstream buf1;
     exp_->os_ = &buf1;
@@ -109,21 +109,21 @@ void TestHtmlExporter::testExportParagraph() {
     // right align
     std::stringstream buf3;
     exp_->os_ = &buf3;
-    par->alignment = TP_RIGHT_ALLIGN;
+    par->setAlign(ALIGN_RIGHT);
     exp_->exportParagraph(par);
     CPPUNIT_ASSERT_EQUAL(std::string("<p align=\"right\"></p>\n"), buf3.str());
 
     // center align
     std::stringstream buf4;
     exp_->os_ = &buf4;
-    par->alignment = TP_CENTER;
+    par->setAlign(ALIGN_CENTER);
     exp_->exportParagraph(par);
     CPPUNIT_ASSERT_EQUAL(std::string("<p align=\"center\"></p>\n"), buf4.str());
 
     // justify align
     std::stringstream buf5;
     exp_->os_ = &buf5;
-    par->alignment = TP_RIGHT_ALLIGN | TP_LEFT_ALLIGN;
+    par->setAlign(ALIGN_JUSTIFY);
     exp_->exportParagraph(par);
     CPPUNIT_ASSERT_EQUAL(std::string("<p align=\"justify\"></p>\n"), buf5.str());
 
