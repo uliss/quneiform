@@ -68,31 +68,42 @@ class CLA_EXPO CEDParagraph
 
         /**
          * Returns paragraph color
+         * @see setColor()
          */
         const Color& color() const;
 
         /**
          * Returns paragraph indents
+         * @see setIndent()
          */
         const Rect& indent() const;
 
         /**
          * Returns pointer to line at given position
+         * @see lineCount()
          */
         CEDLine * lineAt(size_t pos);
 
         /**
          * Returns number of lines
+         * @see lineAt()
          */
         size_t lineCount() const;
 
         /**
+         * Returns parent section number
+         */
+        int parentNumber() const;
+
+        /**
          * Sets paragraph alignment
+         * @see align()
          */
         void setAlign(align_t align);
 
         /**
          * Sets paragraph indents
+         * @see indent()
          */
         void setIndent(const Rect& ind);
 
@@ -114,8 +125,6 @@ class CLA_EXPO CEDParagraph
         void CreateTableOfCells();
 
         CEDParagraph * prev, *next; //pointer to neibor elements in connected list
-        int internalNumber; //number of paragraph from start of file
-        int parentNumber; //number of parent in file
         friend class CEDSection;
         friend class CEDPage;
     private:
@@ -125,6 +134,8 @@ class CLA_EXPO CEDParagraph
         Color color_;
         align_t align_;
         Rect indent_;
+        int internal_number_;
+        int parent_number_;
 };
 
 }

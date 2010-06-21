@@ -400,8 +400,8 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align
     para->spaceBetweenLines = spaceBetweenLines;
     para->spcBtwLnsMult = spcBtwLnsMult;
     para->keep = keep;
-    memcpy(&(para->interval), &interval, sizeof(interval));
-    memcpy(&(para->layout), &layout, sizeof(layout));
+    para->interval = interval;
+    para->layout = layout = layout;
     return para;
 }
 
@@ -410,7 +410,7 @@ CEDParagraph * CEDSection::InsertParagraph(Bool32 AfterCurrent) {
         curPara = curPara->prev;
 
     CEDParagraph * para = new CEDParagraph;
-    para->parentNumber = internalNumber;
+    para->parent_number_ = internalNumber;
 
     if (curPara) {
         para->next = curPara->next;
@@ -420,15 +420,15 @@ CEDParagraph * CEDSection::InsertParagraph(Bool32 AfterCurrent) {
 
         curPara->next = para;
         para->prev = curPara;
-        para->internalNumber = curPara->internalNumber + 1;
+        para->internal_number_ = curPara->internal_number_ + 1;
 
         for (CEDParagraph * para1 = para->next; para1; para1 = para1->next)
-            para1->internalNumber++;
+            para1->internal_number_++;
     }
 
     else {
         paragraphs = para;
-        //      if(internalNumber!=0)
+        //      if(internal_number_!=0)
         //      {
         CEDSection *ww = prev;
 
@@ -443,7 +443,7 @@ CEDParagraph * CEDSection::InsertParagraph(Bool32 AfterCurrent) {
 
             qq->next = para;
             para->prev = qq;
-            para->internalNumber = qq->internalNumber + 1;
+            para->internal_number_ = qq->internal_number_ + 1;
         }
 
         ww = next;
@@ -457,7 +457,7 @@ CEDParagraph * CEDSection::InsertParagraph(Bool32 AfterCurrent) {
             para->next = qq;
 
             while (qq) {
-                qq->internalNumber++;
+                qq->internal_number_++;
                 qq = qq->next;
             }
         }
@@ -478,11 +478,11 @@ CEDParagraph * CEDSection::SetCurParagraph(int _number) {
     int i = 0;
 
     if (paragraphs)
-        i = paragraphs->internalNumber;
+        i = paragraphs->internal_number_;
 
     CEDParagraph* para;
 
-    for (para = paragraphs; para && para->internalNumber - i != _number; para = para->next)
+    for (para = paragraphs; para && para->internal_number_ - i != _number; para = para->next)
         ;
 
     curPara = para;
@@ -494,7 +494,7 @@ CEDParagraph * CEDSection::GetCurParagraph() {
 }
 
 int CEDSection::GetNumOfCurParagraph() {
-    return curPara->internalNumber;
+    return curPara->internal_number_;
 }
 
 }

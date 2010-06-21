@@ -254,7 +254,7 @@ CEDParagraph * CEDPage::GetParagraph(int _num) {
 
     CEDParagraph* ss;
 
-    for (ss = qq ? qq->paragraphs : 0; ss && ss->internalNumber != _num; ss = ss->next)
+    for (ss = qq ? qq->paragraphs : 0; ss && ss->internal_number_ != _num; ss = ss->next)
         ;
 
     return ss;
