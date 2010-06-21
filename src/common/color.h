@@ -56,14 +56,14 @@ class ColorImpl
             return g_;
         }
 
-        bool operator==(const ColorImpl& color) {
+        bool operator==(const ColorImpl& color) const {
             if (isNull() && isNull() == color.isNull())
                 return true;
 
             return red() == color.red() && green() == color.green() && blue() == color.blue();
         }
 
-        bool operator!=(const ColorImpl& color) {
+        bool operator!=(const ColorImpl& color) const {
             return !operator ==(color);
         }
 

@@ -20,10 +20,12 @@
 #define TOSTRING_H_
 
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include "point.h"
 #include "rect.h"
 #include "size.h"
+#include "color.h"
 
 namespace CIF
 {
@@ -43,7 +45,7 @@ std::ostream& operator<<(std::ostream& os, const RectImpl<T>& rect) {
 
 template<class T>
 std::ostream& operator<<(std::ostream& os, const SizeImpl<T>& size) {
-   // os << "Size(" << size.width() << "," << size.height();
+    os << "Size(" << size.width() << "," << size.height();
     return os;
 }
 
@@ -52,6 +54,16 @@ std::string toBBox(const RectImpl<T>& rect) {
     std::ostringstream os;
     os << rect.left() << " " << rect.top() << " " << rect.right() << " " << rect.bottom();
     return os.str();
+}
+
+template<class T>
+std::ostream& operator<<(std::ostream& os, const ColorImpl<T>& color) {
+    char old_fill = os.fill();
+    os.fill('0');
+    os << "Color(0x" << std::hex << std::setw(2) << (int) color.red() << std::setw(2) << (int) color.green()
+            << std::setw(2) << (int) color.blue() << ")" << std::dec;
+    os.fill(old_fill);
+    return os;
 }
 
 }

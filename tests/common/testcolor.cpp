@@ -18,6 +18,7 @@
 #include <fstream>
 #include "testcolor.h"
 #include <common/color.h>
+#include <common/tostring.h>
 #include <ced/cedarchive.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestColor);
 using namespace CIF;
@@ -25,6 +26,7 @@ using namespace CIF;
 void TestColor::testSerialize() {
 #ifdef CF_SERIALIZE
     Color c(1, 2, 3);
+    Color n = Color::null();
 
         // save data to archive
         {
@@ -32,6 +34,7 @@ void TestColor::testSerialize() {
             CEDOutputArchive oa(ofs);
             // write class instance to archive
             oa << c;
+            oa << n;
         }
 
         Color new_c;
@@ -42,8 +45,11 @@ void TestColor::testSerialize() {
             CEDInputArchive ia(ifs);
             // read class state from archive
             ia >> new_c;
-        }
 
-        CPPUNIT_ASSERT(c == new_c);
+            CPPUNIT_ASSERT_EQUAL(c, new_c);
+
+            ia >> new_c;
+            CPPUNIT_ASSERT_EQUAL(n, new_c);
+        }
 #endif
 }
