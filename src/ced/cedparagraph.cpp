@@ -25,7 +25,8 @@
 namespace CIF
 {
 
-CEDParagraph::CEDParagraph() : color_(Color::null()), align_(ALIGN_LEFT) {
+CEDParagraph::CEDParagraph() :
+    color_(Color::null()), align_(ALIGN_LEFT) {
     type = 0;
     layout.x = layout.w = layout.y = layout.h = 0;
     userNumber = 0;
@@ -57,6 +58,10 @@ const Color& CEDParagraph::color() const {
     return color_;
 }
 
+const Rect& CEDParagraph::indent() const {
+    return indent_;
+}
+
 CEDLine * CEDParagraph::lineAt(size_t pos) {
     return lines.at(pos).get();
 }
@@ -79,6 +84,10 @@ void CEDParagraph::setAlign(align_t align) {
 
 void CEDParagraph::setColor(const Color& c) {
     color_ = c;
+}
+
+void CEDParagraph::setIndent(const Rect& ind) {
+    indent_ = ind;
 }
 
 CEDLine * CEDParagraph::insertLine() {
@@ -113,7 +122,6 @@ CEDParagraph* CEDParagraph::GetNextObject() {
         else
             return ret;
     }
-
 
     //if there is next frame, which is simple one/table/frame --- return it
     if (next && ((next->type & FICTIVE) == 0 || next->type == TAB_BEGIN || next->type

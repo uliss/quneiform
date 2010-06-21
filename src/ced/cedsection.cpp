@@ -392,7 +392,7 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align
 
     CEDParagraph *para = InsertParagraph(FALSE);
     para->setAlign(align);
-    para->indent = indent;
+    para->indent_ = indent;
     para->userNumber = UserNum;
     para->border = FlagBorder;
     para->setColor(color);

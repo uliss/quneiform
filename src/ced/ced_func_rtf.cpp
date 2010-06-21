@@ -1157,9 +1157,9 @@ Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPf
 
     // extract value for comparison
     if (PrevPfmt) {
-        PrevLeftIndent = PrevPfmt->indent.left();
-        PrevRightIndent = PrevPfmt->indent.right();
-        PrevFirstIndent = PrevPfmt->indent.top();
+        PrevLeftIndent = PrevPfmt->indent().left();
+        PrevRightIndent = PrevPfmt->indent().right();
+        PrevFirstIndent = PrevPfmt->indent().top();
         PrevShading = PrevPfmt->shading;
         PrevSpaceBefore = PrevPfmt->interval.cx;
         PrevSpaceAfter = PrevPfmt->interval.cy;
@@ -1178,9 +1178,9 @@ Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPf
         PrevBrdrBtw = PrevPfmt->brdrBtw;
     }
 
-    CurLeftIndent = NewPfmt->indent.left();
-    CurRightIndent = NewPfmt->indent.right();
-    CurFirstIndent = NewPfmt->indent.top();
+    CurLeftIndent = NewPfmt->indent().left();
+    CurRightIndent = NewPfmt->indent().right();
+    CurFirstIndent = NewPfmt->indent().top();
     CurShading = NewPfmt->shading;
     CurSpaceBefore = NewPfmt->interval.cx;
     CurSpaceAfter = NewPfmt->interval.cy;

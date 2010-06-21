@@ -34,7 +34,6 @@ class CLA_EXPO CEDParagraph
 {
     public:
         int type; // Type paragraph
-        Rect indent; // Indentation: left = left, right = width, top = red.line (in twip)
         int userNumber; // ID number, the user at the stage of fragmentation
         int border; //  frame around abzattsa
         EDSIZE interval; //  cx-upper indentation, cy-bottom
@@ -68,6 +67,11 @@ class CLA_EXPO CEDParagraph
         const Color& color() const;
 
         /**
+         * Returns paragraph indents
+         */
+        const Rect& indent() const;
+
+        /**
          * Returns pointer to line at given position
          */
         CEDLine * lineAt(size_t pos);
@@ -81,6 +85,11 @@ class CLA_EXPO CEDParagraph
          * Sets paragraph alignment
          */
         void setAlign(align_t align);
+
+        /**
+         * Sets paragraph indents
+         */
+        void setIndent(const Rect& ind);
 
         /**
          * Sets paragraph foreground color
@@ -113,6 +122,7 @@ class CLA_EXPO CEDParagraph
         LineList lines; //connected list of lines
         Color color_;
         align_t align_;
+        Rect indent_;
 };
 
 }
