@@ -26,10 +26,9 @@ void TestColor::testSerialize() {
 #ifdef CF_SERIALIZE
     Color c(1, 2, 3);
 
-    std::ofstream ofs("serialize_color.txt");
-
         // save data to archive
         {
+            std::ofstream ofs("serialize_color.txt");
             CEDOutputArchive oa(ofs);
             // write class instance to archive
             oa << c;

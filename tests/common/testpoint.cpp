@@ -86,10 +86,9 @@ void TestPoint::testSerialize() {
 #ifdef CF_SERIALIZE
     Point pt(1, 2);
 
-    std::ofstream ofs("serialize_point.txt");
-
     // save data to archive
     {
+        std::ofstream ofs("serialize_point.txt");
         CEDOutputArchive oa(ofs);
         // write class instance to archive
         oa << pt;

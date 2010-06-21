@@ -23,13 +23,18 @@ namespace CIF
 {
 
 CEDLine::CEDLine() :
-    hard_break_(false), internal_number_(0), parent_number_(0),
-            default_font_height_(-1) {
+    hard_break_(false), internal_number_(0), parent_number_(0), default_font_height_(-1) {
 }
 
 CEDLine::CEDLine(bool hardBreak, int fontHeight) :
     hard_break_(hardBreak), internal_number_(0), parent_number_(0),
             default_font_height_(fontHeight) {
+}
+
+std::ostream& operator<<(std::ostream& os, const CEDLine& chr) {
+    os << "CEDLine: " << "hardbreak=" << chr.hardBreak() << ", default font height="
+            << chr.defaultFontHeight() << ", parent number=" << chr.parentNumber() << "\n";
+    return os;
 }
 
 int CEDLine::defaultFontHeight() const {

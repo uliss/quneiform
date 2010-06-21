@@ -27,11 +27,13 @@ class TestCedLine: public CppUnit::TestFixture
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testInsertChar);
     CPPUNIT_TEST(testCharAt);
+    CPPUNIT_TEST(testSerialize);
     CPPUNIT_TEST_SUITE_END();
     public:
         void testInit();
         void testInsertChar();
         void testCharAt();
+        void testSerialize();
 };
 
 #endif /* TESTCEDLINE_H_ */

@@ -24,6 +24,11 @@
 #include "globus.h"
 #include "ced_struct.h"
 
+#ifdef CF_SERIALIZE
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/shared_ptr.hpp>
+#endif
+
 namespace CIF
 {
 
@@ -104,6 +109,17 @@ class CLA_EXPO CEDLine
          */
         void setParentNumber(int number);
     private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar & hard_break_;
+            ar & internal_number_;
+            ar & parent_number_;
+            ar & default_font_height_;
+            ar & chars_;
+        }
+#endif
         bool hard_break_;
         int internal_number_;
         int parent_number_;
@@ -112,6 +128,8 @@ class CLA_EXPO CEDLine
         typedef std::vector<CharPtr> CharList;
         CharList chars_;
 };
+
+std::ostream& operator<<(std::ostream& os, const CEDLine& chr);
 
 }
 

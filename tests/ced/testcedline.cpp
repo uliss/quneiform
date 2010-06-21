@@ -18,8 +18,11 @@
 #include "testcedline.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCedLine);
 #define private public
+#include <iostream>
+#include <fstream>
 #include <ced/cedchar.h>
 #include <ced/cedline.h>
+#include <ced/cedarchive.h>
 using namespace CIF;
 
 void TestCedLine::testInit() {
@@ -65,4 +68,41 @@ void TestCedLine::testCharAt() {
     CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
     CPPUNIT_ASSERT_THROW(ln.charAt(-1), std::out_of_range);
     CPPUNIT_ASSERT_THROW(ln.charAt(19), std::out_of_range);
+}
+
+void TestCedLine::testSerialize() {
+#ifdef CF_SERIALIZE
+    CEDLine ln;
+    ln.setHardBreak(true);
+    ln.setDefaultFontHeight(11);
+
+    ln.insertChar(new CEDChar);
+    ln.charAt(0)->setFontHeight(12);
+    ln.charAt(0)->setForegroundColor(Color(0, 100, 200));
+
+    const char * fname = "serialize_cedline.txt";
+
+    // save data to archive
+    {
+        std::ofstream ofs(fname);
+        CEDOutputArchive oa(ofs);
+        // write class instance to archive
+        oa << ln;
+    }
+
+    CEDLine new_line;
+    {
+        // create and open an archive for input
+        std::ifstream ifs(fname);
+        assert(ifs);
+        CEDInputArchive ia(ifs);
+        // read class state from archive
+        ia >> new_line;
+
+        CPPUNIT_ASSERT_EQUAL(new_line.charCount(), ln.charCount());
+        CPPUNIT_ASSERT(new_line.charAt(0)->fontHeight() == 12);
+        CPPUNIT_ASSERT(new_line.hardBreak());
+    }
+
+#endif
 }

@@ -27,7 +27,7 @@ void TestOutputFormat::testInit()
     OutputFormatList lst = OutputFormat::formats();
     CPPUNIT_ASSERT(!lst.empty());
     CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_HTML) != lst.end());
-    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_RTF) != lst.end());
+//    CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_RTF) != lst.end());
     CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_HOCR) != lst.end());
     CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_TEXT) != lst.end());
     CPPUNIT_ASSERT(std::find(lst.begin(), lst.end(), FORMAT_SMARTTEXT) != lst.end());

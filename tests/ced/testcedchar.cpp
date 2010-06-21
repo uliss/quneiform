@@ -37,10 +37,9 @@ void TestCEDChar::testSerialize() {
     chr.setBoundingRect(Rect(Point(1, 2), Point(3, 4)));
     chr.setParentNumber(1);
 
-    std::ofstream ofs("serialize_cedchar.txt");
-
     // save data to archive
     {
+        std::ofstream ofs("serialize_cedchar.txt");
         CEDOutputArchive oa(ofs);
         // write class instance to archive
         oa << chr;
