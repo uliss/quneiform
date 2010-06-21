@@ -27,6 +27,8 @@
 
 #include "common/debug.h"
 #include "ced/ced.h"
+#include "ced/cedline.h"
+#include "ced/cedparagraph.h"
 #include "minmax.h"
 
 namespace CIF
@@ -821,13 +823,14 @@ void CRtfHorizontalColumn::writeFramesInTerminalColumn(SectorInfo * SectorInfo) 
             playout.w = -1;
             playout.y = -1;
             playout.h = -1;
-            Handle hParagraph = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
+            CEDParagraph * par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
                     TP_LEFT_ALLIGN, indent, SectorInfo->userNum, -1, interval, playout, -1, -1, -1,
                     -1, FALSE);
-            CED_CreateLine(hParagraph, FALSE, 6);
+            CEDLine * ln = new CEDLine(false, 6);
+            par->insertLine(ln);
         }
 
-        CRtfVerticalColumn* vcol = vcols_[i];
+        CRtfVerticalColumn * vcol = vcols_[i];
 
         if (vcol->type() == FT_FRAME) {
             EDBOX EdFragmRect;

@@ -330,80 +330,6 @@ CED_FUNC(Bool32) CED_SetParaBorders(Handle hEdParagraph, int leftBrdrType, int l
     return TRUE;
 }
 
-//create line
-CEDLine * CED_CreateLine(Handle hEdParagraph, bool hardBreak, int defChrFontHeight) {
-    if (logStream) {
-        fprintf(logStream, "CreateLine params: %x,%i,%i\n", hEdParagraph, hardBreak,
-                defChrFontHeight);
-        fflush(logStream);
-    }
-
-    CEDLine * lin = ((CEDParagraph*) hEdParagraph)->InsertLine();
-    lin->setHardBreak(hardBreak);
-    lin->setDefaultFontHeight(defChrFontHeight);
-
-    if (logStream) {
-        fprintf(logStream, "CreateLine returned %x\n", lin);
-        fflush(logStream);
-    }
-
-    return lin;
-}
-
-CED_FUNC(Handle) CED_GetParagraph(Handle hEdPage, int _num) {
-    return ((CEDPage*) hEdPage)->GetParagraph(_num);
-}
-
-CED_FUNC(CIF::Rect) CED_GetSectionBorder(Handle hEdSection) {
-    return ((CEDSection*) hEdSection)->borders;
-}
-
-CED_FUNC(Bool32) CED_GetSectionParams(Handle hEdSection, CIF::Rect& border, int* colInterval,
-        char* sectionBreak, int* width, int* height, char* orientation, int* headerY, int* footerY) {
-    if (!hEdSection)
-        return FALSE;
-
-    CEDSection *sect = (CEDSection*) hEdSection;
-
-    border = sect->borders;
-
-    if (colInterval)
-        (*colInterval) = sect->colInterval;
-
-    if (sectionBreak)
-        (*sectionBreak) = sect->sectionBreak;
-
-    if (width)
-        (*width) = sect->width;
-
-    if (height)
-        (*height) = sect->height;
-
-    if (orientation)
-        (*orientation) = sect->orientation;
-
-    if (headerY)
-        (*headerY) = sect->headerY;
-
-    if (footerY)
-        (*footerY) = sect->footerY;
-
-    return TRUE;
-}
-
-CED_FUNC(Bool32) CED_GetSectLineBetCol(Handle hEdSection) {
-    return ((CEDSection*) hEdSection)->lineBetCol;
-}
-
-///////////////////////////////////////////////////////////////////////////////////////
-CED_FUNC(uint32_t) CED_GetCountColumn(Handle hEdSection) {
-    return ((CEDSection*) hEdSection)->numberOfColumns;
-}
-
-CED_FUNC(uint32_t) CED_GetNumSnakeCols(Handle hEdSection) {
-    return ((CEDSection*) hEdSection)->numSnakeCols;
-}
-
 CED_FUNC(Handle) CED_GetColumn(Handle hEdSection, int number) {
     return (Handle) (((CEDSection*) hEdSection)->GetColumn(number));
 }
@@ -417,16 +343,6 @@ CED_FUNC(int32_t) CED_GetSnakeColumnSpacing(Handle hEdSection, int number) {
 }
 ///////////////////////////////////////////////////////////
 
-/*uint32_t CED_GetCountFrame(Handle hEdSection)
- {
- return ((CEDSection*)hEdSection)->numberOfFrames;
- }
-
- Handle CED_GetFrame(Handle hEdSection,int number)
- {
- return (Handle)(((CEDSection*)hEdSection)->GetFrame(number));
- }
- */
 CED_FUNC(edBox) CED_GetFrameRect(Handle hEdFrame) {
     return ((EDFRAMEDESCR*) (((CEDParagraph*) hEdFrame)->descriptor))->rec;
 }

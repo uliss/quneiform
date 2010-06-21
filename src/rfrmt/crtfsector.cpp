@@ -22,6 +22,8 @@
 #include "crtffragment.h"
 #include "crtffunc.h"
 #include "ced/ced.h"
+#include "ced/cedline.h"
+#include "ced/cedparagraph.h"
 #include "minmax.h"
 
 namespace CIF
@@ -99,14 +101,16 @@ Bool CRtfSector::Write() {
     playout.y = -1;
     playout.h = -1;
     int align = TP_LEFT_ALLIGN;
-    Handle hParagraph = CED_CreateParagraph(SectorInfo.hEDSector, SectorInfo.hColumn, align,
+    CEDParagraph * par = CED_CreateParagraph(SectorInfo.hEDSector, SectorInfo.hColumn, align,
             indent, SectorInfo.userNum, -1, interval, playout, -1, -1, -1, -1, FALSE);
 
     if (m_bFlagLine == TRUE) {
-        CED_SetParaBorders(hParagraph, 0, 0, 0, 0, 1, 20, 0, 0, TRUE);
+        CED_SetParaBorders(par, 0, 0, 0, 0, 1, 20, 0, 0, TRUE);
     }
 
-    CED_CreateLine(hParagraph, FALSE, 6);
+    // FIXME uliss: using hardcoded font size
+    CEDLine * ln = new CEDLine(false, 6);
+    par->insertLine(ln);
     return TRUE;
 }
 
