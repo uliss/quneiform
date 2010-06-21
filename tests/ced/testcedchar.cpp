@@ -18,6 +18,7 @@
 #include <iostream>
 #include <fstream>
 #include "testcedchar.h"
+#include <common/tostring.h>
 #include <ced/cedchar.h>
 #include <ced/cedarchive.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDChar);
@@ -54,7 +55,9 @@ void TestCEDChar::testSerialize() {
 
         CPPUNIT_ASSERT_EQUAL(chr.alternativeCount(), new_chr.alternativeCount());
         CPPUNIT_ASSERT_EQUAL(chr.fontHeight(), new_chr.fontHeight());
-        //CPPUNIT_ASSERT_EQUAL(chr.backgroundColor(), new_chr.backgroundColor());
+        CPPUNIT_ASSERT_EQUAL(chr.backgroundColor(), new_chr.backgroundColor());
+        CPPUNIT_ASSERT_EQUAL(chr.foregroundColor(), new_chr.foregroundColor());
+        CPPUNIT_ASSERT_EQUAL(chr.boundingRect(), new_chr.boundingRect());
     }
 
 #endif
