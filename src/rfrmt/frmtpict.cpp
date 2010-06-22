@@ -341,7 +341,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
             CEDParagraph * par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hColumn,
                     ALIGN_NONE, indent, SectorInfo->userNum, -1, interval, playout, Color::null(), -1, -1,
                     -1, FALSE);
-            par->addLine(new CEDLine(false, 6));
+            par->addLine(new CEDLine(NULL, false, 6));
             SectorInfo->FlagFictiveParagraph = FALSE;
         }
 

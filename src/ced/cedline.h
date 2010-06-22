@@ -19,24 +19,18 @@
 #ifndef CEDLINE_H_
 #define CEDLINE_H_
 
-#include <vector>
-#include <boost/shared_ptr.hpp>
 #include "globus.h"
 #include "ced_struct.h"
-
-#ifdef CF_SERIALIZE
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/shared_ptr.hpp>
-#endif
+#include "blockelement.h"
 
 namespace CIF
 {
 
-class CLA_EXPO CEDLine
+class CLA_EXPO CEDLine: public BlockElement
 {
     public:
-        CEDLine();
-        CEDLine(bool hardBreak, int fontHeight);
+        CEDLine(BlockElement * parent = NULL);
+        CEDLine(BlockElement * parent, bool hardBreak, int fontHeight);
 
         /**
          * Returns char at given position
@@ -108,18 +102,16 @@ class CLA_EXPO CEDLine
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar.template register_type<CEDChar>();
+            ar & boost::serialization::base_object<BlockElement>(*this);
             ar & hard_break_;
             ar & parent_number_;
             ar & default_font_height_;
-            ar & chars_;
         }
 #endif
         bool hard_break_;
         int parent_number_;
         int default_font_height_;
-        typedef boost::shared_ptr<CEDChar> CharPtr;
-        typedef std::vector<CharPtr> CharList;
-        CharList chars_;
 };
 
 std::ostream& operator<<(std::ostream& os, const CEDLine& chr);

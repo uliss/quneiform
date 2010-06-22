@@ -108,7 +108,7 @@ Bool CRtfSector::Write() {
     }
 
     // FIXME uliss: using hardcoded font size
-    CEDLine * ln = new CEDLine(false, 6);
+    CEDLine * ln = new CEDLine(NULL, false, 6);
     par->addLine(ln);
     return TRUE;
 }

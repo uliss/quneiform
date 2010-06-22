@@ -21,14 +21,14 @@
 namespace CIF
 {
 
-BlockElement::BlockElement(Element * parent) :
+BlockElement::BlockElement(BlockElement * parent) :
     Element(parent) {
 }
 
 BlockElement::~BlockElement() {
 }
 
-Element * BlockElement::at(size_t pos) {
+Element * BlockElement::elementAt(size_t pos) {
     return elements_.at(pos).get();
 }
 
@@ -44,11 +44,11 @@ bool BlockElement::empty() const {
     return elements_.empty();
 }
 
-void BlockElement::push_back(Element * e) {
-    push_back(ElementPtr(e));
+void BlockElement::addElement(Element * e) {
+    addElement(ElementPtr(e));
 }
 
-void BlockElement::push_back(ElementPtr e) {
+void BlockElement::addElement(ElementPtr e) {
     elements_.push_back(e);
     e->setParent(this);
 }

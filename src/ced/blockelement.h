@@ -24,6 +24,13 @@
 
 #include "element.h"
 #include "globus.h"
+#include "common/serialize.h"
+
+#ifdef CF_SERIALIZE
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/shared_ptr.hpp>
+#endif
 
 namespace CIF
 {
@@ -31,16 +38,27 @@ namespace CIF
 class CLA_EXPO BlockElement: public Element
 {
     public:
-        BlockElement(Element * parent = NULL);
+        BlockElement(BlockElement * parent = NULL);
         ~BlockElement();
 
         typedef boost::shared_ptr<Element> ElementPtr;
         typedef std::vector<ElementPtr> ElementList;
 
         /**
+         * Adds element to the and of block
+         */
+        void addElement(ElementPtr e);
+        void addElement(Element * e);
+
+        /**
          * Removes all element children
          */
         void clear();
+
+        /**
+         * Returns pointer to element at given position
+         */
+        Element * elementAt(size_t pos);
 
         /**
          * Returns number of elements
@@ -51,11 +69,17 @@ class CLA_EXPO BlockElement: public Element
          * Returns true if element is empty
          */
         bool empty() const;
+    private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar & boost::serialization::base_object<Element>(*this);
+            ar & elements_;
+        }
+#endif
     protected:
         typedef ElementList::iterator iterator;
-        Element * at(size_t pos);
-        void push_back(ElementPtr e);
-        void push_back(Element * e);
     private:
         ElementList elements_;
 };

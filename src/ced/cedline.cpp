@@ -22,13 +22,13 @@
 namespace CIF
 {
 
-CEDLine::CEDLine() :
-    hard_break_(false), parent_number_(0), default_font_height_(-1) {
+CEDLine::CEDLine(BlockElement * parent) :
+    BlockElement(parent), hard_break_(false), parent_number_(0), default_font_height_(-1) {
 }
 
-CEDLine::CEDLine(bool hardBreak, int fontHeight) :
-    hard_break_(hardBreak), parent_number_(0),
-            default_font_height_(fontHeight) {
+CEDLine::CEDLine(BlockElement * parent, bool hardBreak, int fontHeight) :
+    BlockElement(parent), hard_break_(hardBreak), parent_number_(0), default_font_height_(
+            fontHeight) {
 }
 
 std::ostream& operator<<(std::ostream& os, const CEDLine& chr) {
@@ -42,7 +42,7 @@ int CEDLine::defaultFontHeight() const {
 }
 
 CEDChar * CEDLine::first() {
-    return chars_.at(0).get();
+    return charAt(0);
 }
 
 bool CEDLine::hardBreak() const {
@@ -71,20 +71,24 @@ CEDChar * CEDLine::insertChar() {
 
 CEDChar * CEDLine::insertChar(CEDChar * chr) {
     assert(chr);
-    chars_.push_back(CharPtr(chr));
+    addElement(chr);
     return chr;
 }
 
 CEDChar * CEDLine::charAt(size_t pos) {
-    return chars_.at(pos).get();
+    CEDChar * ret = dynamic_cast<CEDChar*> (elementAt(pos));
+    if (ret)
+        return ret;
+    else
+        throw std::runtime_error("[CEDLine::charAt] invalid cast to CEDChar");
 }
 
 int CEDLine::charCount() {
-    return chars_.size();
+    return elementCount();
 }
 
 void CEDLine::clearChars() {
-    chars_.clear();
+    clear();
 }
 
 }

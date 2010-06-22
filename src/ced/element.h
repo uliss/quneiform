@@ -78,7 +78,7 @@ class CLA_EXPO Element
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
-            ar & parent_;
+            //ar & parent_;
             ar & color_;
             ar & bgcolor_;
             ar & brect_;
