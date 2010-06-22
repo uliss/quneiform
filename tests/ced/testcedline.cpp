@@ -73,7 +73,7 @@ void TestCedLine::testSerialize() {
 
     ln.insertChar(new CEDChar);
     ln.charAt(0)->setFontHeight(12);
-    ln.charAt(0)->setForegroundColor(Color(0, 100, 200));
+    ln.charAt(0)->setColor(Color(0, 100, 200));
 
     const char * fname = "serialize_cedline.txt";
 

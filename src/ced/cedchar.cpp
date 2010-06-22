@@ -21,8 +21,8 @@
 namespace CIF
 {
 
-CEDChar::CEDChar() :
-    font_lang_(LANGUAGE_ENGLISH), font_height_(0), font_style_(0), font_number_(0) {
+CEDChar::CEDChar(Element * parent) :
+    Element(parent), font_lang_(LANGUAGE_ENGLISH), font_height_(0), font_style_(0), font_number_(0) {
 }
 
 CEDChar::~CEDChar() {
@@ -40,14 +40,6 @@ size_t CEDChar::alternativeCount() const {
     return alternatives_.size();
 }
 
-Color CEDChar::backgroundColor() const {
-    return bground_color_;
-}
-
-Color CEDChar::foregroundColor() const {
-    return fground_color_;
-}
-
 bool CEDChar::hasAlternatives() const {
     return !alternatives_.empty();
 }
@@ -55,10 +47,6 @@ bool CEDChar::hasAlternatives() const {
 bool CEDChar::isPicture() const {
     return (font_number_ >= ED_PICT_BASE) && (font_number_ != 0xffffffff) && (font_number_
             != 0xfffffffe);
-}
-
-Rect CEDChar::boundingRect() const {
-    return bbox_;
 }
 
 int CEDChar::fontHeight() const {
@@ -88,21 +76,6 @@ void CEDChar::setAlternative(const Letter& letter, size_t pos) {
     alternatives_.at(pos) = letter;
 }
 
-void CEDChar::setBackgroundColor(const Color& color) {
-    bground_color_ = color;
-}
-
-void CEDChar::setBoundingRect(const Rect& bbox) {
-    bbox_ = bbox;
-}
-
-void CEDChar::setBoundingRect(const EDBOX& bbox) {
-    bbox_.rleft() = bbox.x;
-    bbox_.rtop() = bbox.y;
-    bbox_.setWidth(bbox.w);
-    bbox_.setHeight(bbox.h);
-}
-
 void CEDChar::setFontHeight(int height) {
     font_height_ = height;
 }
@@ -117,10 +90,6 @@ void CEDChar::setFontNumber(int number) {
 
 void CEDChar::setFontStyle(int style) {
     font_style_ = style;
-}
-
-void CEDChar::setForegroundColor(const Color& color) {
-    fground_color_ = color;
 }
 
 std::ostream& operator<<(std::ostream& os, const CEDChar& chr) {

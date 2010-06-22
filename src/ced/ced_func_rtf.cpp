@@ -94,7 +94,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
     rtf->page = this;
     rtf->PrevChar.setFontHeight(24);
     rtf->PrevChar.setFontNumber(-1);
-    rtf->PrevChar.setForegroundColor(Color::null());
+    rtf->PrevChar.setColor(Color::null());
     rtf->PrevChar.setBackgroundColor(Color::null());
     rtf->table = new int[rtf->page->fontCount()];
     memset(rtf->table, -1, sizeof(int) * rtf->page->fontCount());
@@ -824,7 +824,7 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
         //       strcpy(PrevTypeFace,TerFont[PrevFont].TypeFace);
         PrevFamily = rtf->table[rtf->page->GetFontByNum(prevChar->fontNumber())];
         PrevStyle = prevChar->fontStyle();
-        PrevTextColor = prevChar->foregroundColor();
+        PrevTextColor = prevChar->color();
         PrevTextBkColor = prevChar->backgroundColor();
         PrevPointSize = prevChar->fontHeight(); // store as twice the point size
     }
@@ -845,7 +845,7 @@ Bool WriteRtfCharFmt(StrRtfOut *rtf, CIF::CEDChar* curChar) {
     //    strcpy(CurTypeFace,TerFont[CurFont].TypeFace);
     CurFamily = rtf->table[rtf->page->GetFontByNum(curChar->fontNumber())];
     CurStyle = curChar->fontStyle();
-    CurTextColor = curChar->foregroundColor();
+    CurTextColor = curChar->color();
     CurTextBkColor = curChar->backgroundColor();
     //    CurFieldId=TerFont[CurFont].FieldId;
     //    CurCharSID=TerFont[CurFont].CharStyId;

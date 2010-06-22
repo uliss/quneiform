@@ -24,22 +24,22 @@
 
 #include "globus.h"
 #include "ced_struct.h"
+#include "element.h"
 #include "common/letter.h"
-#include "common/color.h"
-#include "common/rect.h"
 #include "common/serialize.h"
 
 #ifdef CF_SERIALIZE
 #include <boost/serialization/vector.hpp>
+#include <boost/serialization/base_object.hpp>
 #endif
 
 namespace CIF
 {
 
-class CLA_EXPO CEDChar
+class CLA_EXPO CEDChar: public Element
 {
     public:
-        CEDChar();
+        CEDChar(Element * parent = NULL);
         virtual ~CEDChar();
 
         /**
@@ -57,16 +57,6 @@ class CLA_EXPO CEDChar
          * Returns number of alternatives
          */
         size_t alternativeCount() const;
-
-        /**
-         * Returns char background color
-         */
-        Color backgroundColor() const;
-
-        /**
-         * Returns character bounding rectangle
-         */
-        Rect boundingRect() const;
 
         /**
          * Returns font height
@@ -87,11 +77,6 @@ class CLA_EXPO CEDChar
          * Returns font style
          */
         int fontStyle() const;
-
-        /**
-         * Returns char foreground color
-         */
-        Color foregroundColor() const;
 
         /**
          * Checks if char has alternative
@@ -115,27 +100,6 @@ class CLA_EXPO CEDChar
         void setAlternative(const Letter& letter, size_t pos);
 
         /**
-         * Sets background color
-         * @see backgroundColor()
-         */
-        void setBackgroundColor(const Color& color);
-
-        /**
-         * Sets background color
-         */
-        void setBackgroundColor(int color);
-
-        /**
-         * Sets bounding rectangle
-         */
-        void setBoundingRect(const Rect& bbox);
-
-        /**
-         * Sets bounding rectabgle
-         */
-        void setBoundingRect(const EDBOX& bbox);
-
-        /**
          * Sets font height
          */
         void setFontHeight(int height);
@@ -154,26 +118,12 @@ class CLA_EXPO CEDChar
          * Sets font style
          */
         void setFontStyle(int style);
-
-        /**
-         * Sets foreground color
-         * @see foregroundColor()
-         */
-        void setForegroundColor(const Color& color);
-
-        /**
-         * Sets foreground color
-         */
-        void setForegroundColor(int color);
-
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
-            ar & bbox_;
-            ar & fground_color_;
-            ar & bground_color_;
+            ar & boost::serialization::base_object<Element>(*this);
             ar & font_lang_;
             ar & font_height_;
             ar & font_style_;
@@ -181,10 +131,6 @@ class CLA_EXPO CEDChar
             ar & alternatives_;
         }
 #endif
-        //layout of symbol in input image (in pixel)
-        Rect bbox_;
-        Color fground_color_;
-        Color bground_color_;
         //font parameters
         language_t font_lang_;
         int font_height_;

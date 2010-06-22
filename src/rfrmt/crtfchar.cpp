@@ -123,7 +123,7 @@ CEDChar * CRtfChar::makeCedSpace(int fontName, int fontSize, int fontAttrs) {
 
     chr->setFontLanguage(LANGUAGE_UNKNOWN);
     chr->addAlternative(Letter(' ', 0));
-    chr->setForegroundColor(Color::null());
+    chr->setColor(Color::null());
     chr->setBackgroundColor(Color::null());
     chr->setBoundingRect(Rect(Point(-1, -1), Point(-1, -1)));
     chr->setFontStyle(fontAttrs);
@@ -222,7 +222,7 @@ CEDChar * CRtfChar::toCedChar(int font_name, int font_size, int font_style) cons
         chr->addAlternative(alt);
     }
 
-    chr->setForegroundColor(Color::null());
+    chr->setColor(Color::null());
     chr->setBackgroundColor(Color::null());
 
     return chr;

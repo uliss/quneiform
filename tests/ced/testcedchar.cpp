@@ -34,7 +34,7 @@ void TestCEDChar::testSerialize() {
     chr.addAlternative(Letter('a', 128));
     chr.setFontHeight(11);
     chr.setBackgroundColor(Color(255, 0, 0));
-    chr.setForegroundColor(Color(0, 0, 255));
+    chr.setColor(Color(0, 0, 255));
     chr.setBoundingRect(Rect(Point(1, 2), Point(3, 4)));
 
     // save data to archive
@@ -56,7 +56,7 @@ void TestCEDChar::testSerialize() {
         CPPUNIT_ASSERT_EQUAL(chr.alternativeCount(), new_chr.alternativeCount());
         CPPUNIT_ASSERT_EQUAL(chr.fontHeight(), new_chr.fontHeight());
         CPPUNIT_ASSERT_EQUAL(chr.backgroundColor(), new_chr.backgroundColor());
-        CPPUNIT_ASSERT_EQUAL(chr.foregroundColor(), new_chr.foregroundColor());
+        CPPUNIT_ASSERT_EQUAL(chr.color(), new_chr.color());
         CPPUNIT_ASSERT_EQUAL(chr.boundingRect(), new_chr.boundingRect());
     }
 
