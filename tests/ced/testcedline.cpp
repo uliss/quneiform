@@ -27,7 +27,7 @@ using namespace CIF;
 
 void TestCedLine::testInit() {
     CEDLine ln;
-    CPPUNIT_ASSERT(0 == ln.charCount());
+    CPPUNIT_ASSERT(0 == ln.elementCount());
     CPPUNIT_ASSERT(0 == ln.parentNumber());
     CPPUNIT_ASSERT_THROW(ln.first(), std::out_of_range);
 }
@@ -37,20 +37,20 @@ void TestCedLine::testInsertChar() {
     CEDChar * chr = ln.insertChar();
 
     CPPUNIT_ASSERT(chr);
-    CPPUNIT_ASSERT_EQUAL(1, ln.charCount());
+    CPPUNIT_ASSERT_EQUAL(size_t(1), ln.elementCount());
     CPPUNIT_ASSERT_EQUAL(chr, ln.first());
     CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
 
     CEDChar * chr2 = ln.insertChar();
     CPPUNIT_ASSERT(chr2);
-    CPPUNIT_ASSERT_EQUAL(2, ln.charCount());
+    CPPUNIT_ASSERT_EQUAL(size_t(2), ln.elementCount());
     CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
     CPPUNIT_ASSERT_EQUAL(chr2, ln.charAt(1));
     CPPUNIT_ASSERT_EQUAL(chr, ln.first());
 
     CEDChar * chr3 = ln.insertChar();
     CPPUNIT_ASSERT(chr3);
-    CPPUNIT_ASSERT_EQUAL(3, ln.charCount());
+    CPPUNIT_ASSERT_EQUAL(size_t(3), ln.elementCount());
     CPPUNIT_ASSERT_EQUAL(chr, ln.charAt(0));
     CPPUNIT_ASSERT_EQUAL(chr2, ln.charAt(1));
     CPPUNIT_ASSERT_EQUAL(chr3, ln.charAt(2));
@@ -94,7 +94,7 @@ void TestCedLine::testSerialize() {
         // read class state from archive
         ia >> new_line;
 
-        CPPUNIT_ASSERT_EQUAL(ln.charCount(), new_line.charCount());
+        CPPUNIT_ASSERT_EQUAL(ln.elementCount(), new_line.elementCount());
         CPPUNIT_ASSERT_EQUAL(ln.defaultFontHeight(), new_line.defaultFontHeight());
         CPPUNIT_ASSERT_EQUAL(ln.hardBreak(), new_line.hardBreak());
         CPPUNIT_ASSERT(new_line.charAt(0)->fontHeight() == 12);

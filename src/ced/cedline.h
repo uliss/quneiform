@@ -34,18 +34,9 @@ class CLA_EXPO CEDLine: public BlockElement
 
         /**
          * Returns char at given position
+         * @throw std::runtime_error if element at given position is not CEDChar
          */
         CEDChar * charAt(size_t pos);
-
-        /**
-         * Returns number of chars in line
-         */
-        int charCount();
-
-        /**
-         * Removes all chars from line
-         */
-        void clearChars();
 
         /**
          * Returns default font height

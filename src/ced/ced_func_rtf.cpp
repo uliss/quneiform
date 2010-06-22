@@ -214,7 +214,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
                                 CEDLine * l = para->lineAt(0);
 
                                 //the same for symbol
-                                if (l->charCount()) {
+                                if (l->elementCount()) {
                                     CEDChar * c = l->first();
                                     if (c->isPicture())
                                         rtf->wrtFrmSz = FALSE;
@@ -351,7 +351,7 @@ Bool WriteRtfPara(StrRtfOut *rtf, CEDParagraph* p, Bool brk) {
         lastLin = l;
         // determine the column range to write
         FirstCol = 0;
-        LastCol = l->charCount();// last uchar not included
+        LastCol = l->elementCount();// last uchar not included
 
         if (FirstCol >= LastCol)
             goto LINE_END; // nothing to write

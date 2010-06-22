@@ -83,13 +83,5 @@ CEDChar * CEDLine::charAt(size_t pos) {
         throw std::runtime_error("[CEDLine::charAt] invalid cast to CEDChar");
 }
 
-int CEDLine::charCount() {
-    return elementCount();
-}
-
-void CEDLine::clearChars() {
-    clear();
-}
-
 }
 
