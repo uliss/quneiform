@@ -64,8 +64,8 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include <stdarg.h>
+#include <algorithm>
 
 #include "aldebug.h"
 #include "creatertf.h"
@@ -194,16 +194,14 @@ int ConsMess(const char* str, ...) {
     return count;
 }
 
-Bool Alik_sort_function(const void *a, const void *b) {
-    if (((*(FRAME **) a)->up > (*(FRAME **) b)->up)
-            || (((*(FRAME **) a)->up == (*(FRAME **) b)->up) && ((*(FRAME **) a)->down
-                    > (*(FRAME **) b)->down)))
-        return 1;
+bool pageTreeFrameSortFunction(FRAME * a, FRAME * b) {
+    if (a->up < b->up)
+        return true;
 
-    if ((*(FRAME **) a)->up < (*(FRAME **) b)->up)
-        return -1;
+    if ((a->up == b->up) && (a->down < b->down))
+        return true;
 
-    return 0;
+    return false;
 }
 
 int MaxArr(int *x, int n, int *PosExtr) {
@@ -388,7 +386,7 @@ void ImageKnot1(KNOTT *ptr, LINE_KNOT *LineVK, LINE_KNOT *LineHK, int16_t col, i
     int16_t fl = (ColFrm != INDEF) ? 0 : 1;
 
     if (ColFrm == INDEF)
-        ColFrm = col;
+    ColFrm = col;
 
     r.left = LineVK[r1.left].beg;
     r.right = LineVK[r1.right].beg;
@@ -412,14 +410,14 @@ int16_t ImageTree1(KNOTT *Root, LINE_KNOT *LineVK, LINE_KNOT *LineHK, FRAME **fr
     char *err = "ImageTree1";
 
     if (NewStack(DepthTree, &St))
-        return NOT_ALLOC;
+    return NOT_ALLOC;
 
     Curr = Root;
     col = 0;
 
     while (Curr != NULL) {
         if (++col > 15)
-            col = 1;
+        col = 1;
 
         ColFrm = col;
 
@@ -435,7 +433,7 @@ int16_t ImageTree1(KNOTT *Root, LINE_KNOT *LineVK, LINE_KNOT *LineHK, FRAME **fr
         Curr = NextKnot(Curr, &St);
 
         if (OverflowStack(&St))
-            return NOT_ALLOC;
+        return NOT_ALLOC;
     }
 
     DelStack(&St);
@@ -929,8 +927,8 @@ int CreateTreePlainTxt1(BOUND BndTxt, STRET *LineV, int16_t NumLV, STRET *LineH,
     pTheGeomStep = pTheGeomStep2;
 
     for (i = 0; i <= k_colt; ++i)
-        ImageKnot1(colt[i], LineVK, LineHK, 14, (int16_t) 0xFFFF, _GBORDER, (int16_t) -1, frm,
-                NumFrm, nV, nH);
+    ImageKnot1(colt[i], LineVK, LineHK, 14, (int16_t) 0xFFFF, _GBORDER, (int16_t) -1, frm,
+            NumFrm, nV, nH);
 
     pTheGeomStep = pTheGeomStep1;
     FlagGraphic1 = 1;
@@ -1791,7 +1789,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage) {
         inCol = Inf.ColT[i]->InBegFrm;
 
         if (num > 1) {
-            qsort((void *) (frm + n_beg), num, sizeof(FRAME *), Alik_sort_function);
+            std::sort((frm + n_beg), (frm + n_beg + num), pageTreeFrameSortFunction);
 
             for (j = 0; j < num - 1; ++j) {
                 if (frm[n_beg + j]->down > frm[n_beg + j + 1]->up) {
@@ -1944,7 +1942,7 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage) {
 #ifdef alDebug
 
                     if (ptr->NumFrm > 1 && !ptr->Type)
-                        CIF::FMT_DBG("Колонка сложной структуры (фреймы) ");
+                    CIF::FMT_DBG("Колонка сложной структуры (фреймы) ");
 
 #endif
                 } else {
@@ -1997,11 +1995,11 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage) {
 #ifdef alDebug
 
                 if (!K_Ver_Flag_Term[0][ih])
-                    CIF::FMT_DBG("Column is simple");
+                CIF::FMT_DBG("Column is simple");
                 else if (K_Ver_Flag_Term[0][ih] == 1)
-                    CIF::FMT_DBG("Column is simple and consist of terminal fragments");
+                CIF::FMT_DBG("Column is simple and consist of terminal fragments");
                 else
-                    CIF::FMT_DBG("Column is complicated (frames)");
+                CIF::FMT_DBG("Column is complicated (frames)");
 
 #endif
             }
@@ -2164,11 +2162,11 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage) {
 #ifdef alDebug
 
                         if (!K_Ver_Flag_Term[i][ih])
-                            CIF::FMT_DBG("Колонка простая");
+                        CIF::FMT_DBG("Колонка простая");
                         else if (K_Ver_Flag_Term[i][ih] == 1)
-                            CIF::FMT_DBG("Колонка простая и состоит из терм.фраг-тов");
+                        CIF::FMT_DBG("Колонка простая и состоит из терм.фраг-тов");
                         else
-                            CIF::FMT_DBG("Колонка сложной структуры (фреймы) ");
+                        CIF::FMT_DBG("Колонка сложной структуры (фреймы) ");
 
 #endif
                     }
@@ -2618,7 +2616,7 @@ void Get_all_term_fragms(KNOTT* ptr, int16_t* Colt, int16_t* iv, int16_t NumCol,
 
 #ifdef alDebug
                                 else
-                                    CIF::FMT_DBG("   Ошибка !!!   ");
+                                CIF::FMT_DBG("   Ошибка !!!   ");
 #endif
                             }
                         }
@@ -2675,7 +2673,7 @@ void image_bnd(BOUND *f, int col, int line_style, int fill) {
 
 void image_frame(FRAME **frm, int k, int col, int line_style, int fill) {
     for (int i = 0; i <= k; i++)
-        image_frm(frm[i], col, line_style, fill);
+    image_frm(frm[i], col, line_style, fill);
 }
 
 void bounds_frm(int ii, FRAME **frm, int nx) {

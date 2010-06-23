@@ -285,7 +285,7 @@ CEDParagraph * CED_CreateParagraph(Handle hEdSection, Handle hObject, CIF::align
                 "CreateParagraph params: %x,%x,%i,(%i,%i,%i,%i),%i,%i,(%i,%i),(%i,%i,%i,%i),%i,%i,%i,%hd,%hd\n",
                 hEdSection, hObject, align, indent.left(), indent.top(), indent.right(),
                 indent.bottom(), UserNum, FlagBorder, interval.cx, interval.cy, layout.x, layout.y,
-                layout.w, layout.h, color, shading, spaceBetweenLines, spcBtwLnsMult, keep);
+                layout.w, layout.h, color.toT<int>(), shading, spaceBetweenLines, spcBtwLnsMult, keep);
         fflush(logStream);
     }
 
