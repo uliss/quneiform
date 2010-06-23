@@ -44,11 +44,11 @@ class SizeImpl
             return height_;
         }
 
-        bool operator==(const SizeImpl& sz) {
+        bool operator==(const SizeImpl& sz) const {
             return width_ == sz.width() && height_ == sz.height();
         }
 
-        bool operator!=(const SizeImpl& sz) {
+        bool operator!=(const SizeImpl& sz) const {
             return width_ != sz.width() || height_ != sz.height();
         }
 

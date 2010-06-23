@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,44 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
+#ifndef TESTIMAGE_H_
+#define TESTIMAGE_H_
 
-#include "image.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-namespace CIF
+class TestImage: public CppUnit::TestFixture
 {
+    CPPUNIT_TEST_SUITE(TestImage);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testSerialize);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testInit();
+    void testSerialize();
+};
 
-Image::Image() {
-}
-
-Image::Image(uchar * src, size_t size, allocator_t allocator) :
-    ImageRawData(src, size, allocator) {
-}
-
-std::string Image::fileName() const {
-    return fname_;
-}
-
-int Image::height() const {
-    return size_.height();
-}
-
-void Image::setFileName(const std::string& fname) {
-    fname_ = fname;
-}
-
-void Image::setSize(const Size& size) {
-    size_ = size;
-}
-
-Size Image::size() const {
-    return size_;
-}
-
-int Image::width() const {
-    return size_.width();
-}
-
-}
+#endif /* TESTIMAGE_H_ */

@@ -20,13 +20,19 @@
 #define CEDPICTURE_H_
 
 #include "globus.h"
-#include "cedchar.h"
+#include "element.h"
+#include "ced.h"
 #include "common/image.h"
+#include "common/serialize.h"
+
+#ifdef CF_SERIALIZE
+#include <boost/serialization/shared_ptr.hpp>
+#endif
 
 namespace CIF
 {
 
-class CLA_EXPO CEDPicture: public CEDChar
+class CLA_EXPO CEDPicture: public Element
 {
     public:
         CEDPicture();
@@ -70,6 +76,18 @@ class CLA_EXPO CEDPicture: public CEDChar
          * @see pictureNumber()
          */
         void setPictureNumber(int number);
+    private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar & boost::serialization::base_object<Element>(*this);
+            ar & align_;
+            ar & number_;
+            ar & image_;
+            ar & goal_;
+        }
+#endif
     private:
         ed_align_t align_;
         int number_;

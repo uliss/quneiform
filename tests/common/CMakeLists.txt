@@ -3,6 +3,7 @@ add_executable(test_common
     testcolor.cpp
     testhistogram.cpp
     testlanguage.cpp
+    testimage.cpp
     testimagerawdata.cpp
     testpoint.cpp
     testrect.cpp

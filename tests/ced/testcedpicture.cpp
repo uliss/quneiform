@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -15,45 +15,38 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
+#include <fstream>
+#include "testcedpicture.h"
+#include <ced/cedpicture.h>
+#include <common/tostring.h>
+#include <ced/cedarchive.h>
+CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDPicture);
+using namespace CIF;
 
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
+void TestCEDPicture::testSerialize() {
+#ifdef CF_SERIALIZE
+    ImagePtr img_ptr(new Image(new uchar[100], 100, Image::AllocatorNew));
+    img_ptr->setFileName("CED picture");
+    CEDPicture p;
+    p.setImage(img_ptr);
 
-#include "image.h"
 
-namespace CIF
-{
+    // save data to archive
+    {
+        std::ofstream ofs("serialize_cedpicture.txt");
+        CEDOutputArchive oa(ofs);
+        // write class instance to archive
+        oa << p;
+    }
 
-Image::Image() {
-}
-
-Image::Image(uchar * src, size_t size, allocator_t allocator) :
-    ImageRawData(src, size, allocator) {
-}
-
-std::string Image::fileName() const {
-    return fname_;
-}
-
-int Image::height() const {
-    return size_.height();
-}
-
-void Image::setFileName(const std::string& fname) {
-    fname_ = fname;
-}
-
-void Image::setSize(const Size& size) {
-    size_ = size;
-}
-
-Size Image::size() const {
-    return size_;
-}
-
-int Image::width() const {
-    return size_.width();
-}
-
+    {
+        CEDPicture new_p;
+        // create and open an archive for input
+        std::ifstream ifs("serialize_cedpicture.txt");
+        CEDInputArchive ia(ifs);
+        // read class state from archive
+        ia >> new_p;
+        CPPUNIT_ASSERT_EQUAL(p.image()->size(), new_p.image()->size());
+    }
+#endif
 }

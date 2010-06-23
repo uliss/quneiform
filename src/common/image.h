@@ -26,6 +26,11 @@
 #include "globus.h"
 #include "common/imagerawdata.h"
 #include "common/size.h"
+#include "common/serialize.h"
+
+#ifdef CF_SERIALIZE
+#include <boost/serialization/shared_ptr.hpp>
+#endif
 
 namespace CIF
 {
@@ -33,6 +38,7 @@ namespace CIF
 class CLA_EXPO Image: public ImageRawData
 {
     public:
+        Image();
         Image(uchar * src, size_t size, allocator_t allocator);
 
         /**
@@ -68,6 +74,16 @@ class CLA_EXPO Image: public ImageRawData
          * @see size()
          */
         int width() const;
+    private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar & boost::serialization::base_object<ImageRawData>(*this);
+            ar & fname_;
+            ar & size_;
+        }
+#endif
     private:
         std::string fname_;
         Size size_;

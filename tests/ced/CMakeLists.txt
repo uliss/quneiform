@@ -2,6 +2,7 @@ add_executable(test_ced
     test_ced.cpp
     testcedchar.cpp
     testcedline.cpp
+    testcedpicture.cpp
 )
 
 target_link_libraries(test_ced 
