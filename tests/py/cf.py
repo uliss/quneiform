@@ -75,16 +75,16 @@ class Tester:
         
         retcode = self.cuneiform(self.makeArgs(img), stdout=PIPE, stderr=PIPE)
         if retcode != 0:
-            print "%-25s OCR failed" % os.path.basename(img)
+            print "%-35s OCR failed" % os.path.basename(img)
             self._tests_failed += 1
             return False
             
         if os.path.getsize(self._output) == 0:
-            print "%-25s OCR failed. No output" % os.path.basename(img)
+            print "%-35s OCR failed. No output" % os.path.basename(img)
             self._tests_failed += 1
             return False
         else:
-            print "%-25s %-15s Ok" % (os.path.basename(img), 'OCR(%s)' % self._format)
+            print "%-35s %-15s Ok" % (os.path.basename(img), 'OCR(%s)' % self._format)
             self._tests_passed += 1
         
         return True
@@ -100,7 +100,7 @@ class Tester:
         
         sample_name = self.makeSampleName(img)
         if not os.path.exists(sample_name):
-            print "%-25s Diff failed. Sample output not exists: %s" % (os.path.basename(img), sample_name)
+            print "%-35s Diff failed. Sample output not exists: %s" % (os.path.basename(img), sample_name)
             self._tests_failed += 1
             return False
         
@@ -108,7 +108,7 @@ class Tester:
         diff_output = open(diff_name, 'w')
         retcode = self.diff(sample_name, self._output, stdout=diff_output)
         if retcode != 0:
-            print "%-25s Difference found" % os.path.basename(img)
+            print "%-35s Difference found" % os.path.basename(img)
             self._tests_failed += 1
             return False
         else:

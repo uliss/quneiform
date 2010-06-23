@@ -25,3 +25,7 @@ lang_quick.test()
 header("Language regression test")
 import lang_regression
 lang_regression.test()
+
+header("Image formats test")
+import image_formats
+image_formats.test()
