@@ -264,26 +264,6 @@ int CEDPage::sectionCount() const {
     return section_num_;
 }
 
-Bool32 CEDPage::GetFont(int number, uchar* fontNumber, uchar* fontPitchAndFamily,
-        uchar* fontCharset, const char** fontName) {
-    if (number >= fonts_.size())
-        return FALSE;
-
-    if (fontNumber)
-        *fontNumber = fontAt(number).fontNumber;
-
-    if (fontPitchAndFamily)
-        *fontPitchAndFamily = fonts_[number].fontPitchAndFamily;
-
-    if (fontCharset)
-        *fontCharset = fonts_[number].fontCharset;
-
-    if (fontName)
-        *fontName = fonts_[number].fontName.c_str();
-
-    return TRUE;
-}
-
 int CEDPage::GetFontByNum(uchar fontNumber) {
     for (size_t i = 0; i < fonts_.size(); i++)
         if (fonts_[i].fontNumber == fontNumber)

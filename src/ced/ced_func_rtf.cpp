@@ -68,6 +68,7 @@
 #include "cfcompat.h"
 #include "cfio/cfio.h"
 #include "compat/cfstring.h"
+#include "charsets.h"
 
 using namespace CIF;
 
@@ -559,15 +560,13 @@ Bool WriteRtfFont(StrRtfOut *rtf, Bool head) {
             return FALSE;
     }
 
-    const char* ch = 0;
-    fontDiscr fond;
     CEDPage* page = rtf->page;
 
-    for (int q = 0; q < page->fontCount(); q++) {
+    for (size_t q = 0; q < page->fontCount(); q++) {
         if (rtf->table[q] <= rtf->maxFntNum)
             continue;
 
-        page->GetFont(q, &(fond.fontNumber), &(fond.fontPitchAndFamily), &(fond.fontCharset), &ch);
+        FontEntry ft = page->fontAt(q);
 
         //write font info
         if (!BeginRtfGroup(rtf))
@@ -579,7 +578,7 @@ Bool WriteRtfFont(StrRtfOut *rtf, Bool head) {
         rtf->WritingControl = TRUE; // disable line break
         rtf->SpacePending = FALSE; // no need to write the space after the last control
 
-        switch (fond.fontPitchAndFamily & 0xf0) {
+        switch (ft.fontPitchAndFamily & 0xf0) {
         case FF_DECORATIVE:
             strcpy(family, "decor");
             break;
@@ -609,7 +608,7 @@ Bool WriteRtfFont(StrRtfOut *rtf, Bool head) {
         if (!WriteRtfText(rtf, family, strlen(family)))
             return FALSE; // write font family
 
-        switch (fond.fontPitchAndFamily & 0xf) {
+        switch (ft.fontPitchAndFamily & 0xf) {
         case DEFAULT_PITCH:
             strcpy(family, "prq0");
             break;
@@ -630,7 +629,7 @@ Bool WriteRtfFont(StrRtfOut *rtf, Bool head) {
         if (!WriteRtfText(rtf, family, strlen(family)))
             return FALSE; // write font family
 
-        if (!WriteRtfControl(rtf, "fcharset", PARAM_INT, fond.fontCharset))
+        if (!WriteRtfControl(rtf, "fcharset", PARAM_INT, ft.fontCharset))
             return FALSE;
 
         //write font ame
@@ -640,22 +639,18 @@ Bool WriteRtfFont(StrRtfOut *rtf, Bool head) {
         if (!WriteRtfText(rtf, " ", 1))
             return FALSE;// write family delimiter
 
-        if (!WriteRtfText(rtf, ch, strlen(ch)))
+        if (!WriteRtfText(rtf, ft.fontName.c_str(), ft.fontName.length()))
             return FALSE; // write font typeface
 
-        switch (fond.fontCharset) {
-        case 204:// Cyrillic
-
-            if (memcmp(ch + strlen(ch) - strlen(" Cyr"), " Cyr", strlen(" Cyr")) != 0)
-                if (!WriteRtfText(rtf, " Cyr", 4))
-                    return FALSE;
+        switch (ft.fontCharset) {
+        case CHARSET_RUSSIAN:// Cyrillic
+            if (!WriteRtfText(rtf, " Cyr", 4))
+                return FALSE;
 
             break;
-        case 238:// Central Europe
-
-            if (memcmp(ch + strlen(ch) - strlen(" CE"), " CE", strlen(" CE")) != 0)
-                if (!WriteRtfText(rtf, " CE", 3))
-                    return FALSE;
+        case CHARSET_EASTEUROPE:// Central Europe
+            if (!WriteRtfText(rtf, " CE", 3))
+                return FALSE;
 
             break;
         case 0:// Default

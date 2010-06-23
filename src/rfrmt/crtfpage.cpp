@@ -40,10 +40,11 @@
 #include "cpage/cpage.h"
 
 #include "minmax.h"
+#include "charsets.h"
 
 extern uint32_t CountPict;
 extern uint32_t CountTable;
-uchar Frmt_CharSet = (uchar) 204;
+uchar Frmt_CharSet = CHARSET_RUSSIAN;
 
 namespace CIF
 {
