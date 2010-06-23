@@ -45,6 +45,10 @@ void CEDPicture::setAlignment(ed_align_t align) {
     align_ = align;
 }
 
+void CEDPicture::setImage(Image * image) {
+    setImage(ImagePtr(image));
+}
+
 void CEDPicture::setImage(ImagePtr image) {
     image_ = image;
 }

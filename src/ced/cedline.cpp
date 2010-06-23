@@ -18,6 +18,7 @@
 
 #include "cedline.h"
 #include "cedchar.h"
+#include "cedpicture.h"
 
 namespace CIF
 {
@@ -29,6 +30,10 @@ CEDLine::CEDLine(BlockElement * parent) :
 CEDLine::CEDLine(BlockElement * parent, bool hardBreak, int fontHeight) :
     BlockElement(parent), hard_break_(hardBreak), parent_number_(0), default_font_height_(
             fontHeight) {
+}
+
+void CEDLine::addImage(CEDPicture * img) {
+    addElement(img);
 }
 
 std::ostream& operator<<(std::ostream& os, const CEDLine& chr) {

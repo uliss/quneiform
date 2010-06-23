@@ -70,6 +70,7 @@ class CLA_EXPO CEDPicture: public Element
          * @see image
          */
         void setImage(ImagePtr image);
+        void setImage(Image * image);
 
         /**
          * Sets picture number

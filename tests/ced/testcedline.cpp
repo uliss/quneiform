@@ -22,6 +22,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCedLine);
 #include <fstream>
 #include <ced/cedchar.h>
 #include <ced/cedline.h>
+#include <ced/cedpicture.h>
 #include <ced/cedarchive.h>
 using namespace CIF;
 
@@ -74,6 +75,11 @@ void TestCedLine::testSerialize() {
     ln.insertChar(new CEDChar);
     ln.charAt(0)->setFontHeight(12);
     ln.charAt(0)->setColor(Color(0, 100, 200));
+
+    CEDPicture * im = new CEDPicture;
+    im->setImage(new Image(new uchar[10], 10, Image::AllocatorNew));
+    im->image()->setFileName("CEDLine");
+    ln.addImage(im);
 
     const char * fname = "serialize_cedline.txt";
 

@@ -26,11 +26,19 @@
 namespace CIF
 {
 
+class CEDPicture;
+
 class CLA_EXPO CEDLine: public BlockElement
 {
     public:
         CEDLine(BlockElement * parent = NULL);
         CEDLine(BlockElement * parent, bool hardBreak, int fontHeight);
+
+
+        /**
+         * Inserts image to the end of line
+         */
+        void addImage(CEDPicture * img);
 
         /**
          * Returns char at given position
@@ -94,6 +102,7 @@ class CLA_EXPO CEDLine: public BlockElement
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
             ar.template register_type<CEDChar>();
+            ar.template register_type<CEDPicture>();
             ar & boost::serialization::base_object<BlockElement>(*this);
             ar & hard_break_;
             ar & parent_number_;
