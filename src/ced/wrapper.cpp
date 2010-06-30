@@ -192,90 +192,6 @@ CED_FUNC(Bool32) CED_SetFrameFlag(Handle hEdFrame, int flag) {
     return TRUE;
 }
 
-//create table
-CED_FUNC(Handle) CED_CreateTable(Handle hEdSection, Handle hObject) {
-    if (logStream) {
-        fprintf(logStream, "CreateTable params: %x,%x\n", hEdSection, hObject);
-        fflush(logStream);
-    }
-
-    Handle ret = (Handle) (((CEDSection*) hEdSection)->CreateTable((CEDParagraph*) hObject));
-
-    if (logStream) {
-        fprintf(logStream, "CreateTable returned %x\n", ret);
-        fflush(logStream);
-    }
-
-    return ret;
-}
-
-CED_FUNC(Handle) CED_CreateTableRow(Handle hEdSection, Handle hEdTable, int left, int rowHeight,
-        int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth,
-        int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int gaph,
-        int position, Bool32 header) {
-    if (logStream) {
-        fprintf(logStream, "CreateTableRow params: %x,%x,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i\n",
-                hEdSection, hEdTable, left, rowHeight, leftBrdrType, leftBrdrWidth, rightBrdrType,
-                rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType, bottomBrdrWidth, gaph,
-                position, header);
-        fflush(logStream);
-    }
-
-    Handle ret = (Handle) (((CEDSection*) hEdSection)->CreateTableRow((CEDParagraph*) hEdTable,
-            left, rowHeight, leftBrdrType, leftBrdrWidth, rightBrdrType, rightBrdrWidth,
-            topBrdrType, topBrdrWidth, bottomBrdrType, bottomBrdrWidth, gaph, position, header));
-
-    if (logStream) {
-        fprintf(logStream, "CreateTableRow returned %x\n", ret);
-        fflush(logStream);
-    }
-
-    return ret;
-}
-
-// create table's cell
-CED_FUNC(Handle) CED_CreateCell(Handle hEdSection, Handle hEdRow, int cellX, int merging,
-        int vertTextAlign, int leftBrdrType, int leftBrdrWidth, int rightBrdrType,
-        int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType,
-        int bottomBrdrWidth, EDBOX layout, int shading, int color) {
-    if (logStream) {
-        fprintf(logStream,
-                "CreateCell params: %x,%x,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,%i,(%i,%i,%i,%i),%i,%i\n",
-                hEdSection, hEdRow, cellX, merging, vertTextAlign, leftBrdrType, leftBrdrWidth,
-                rightBrdrType, rightBrdrWidth, topBrdrType, topBrdrWidth, bottomBrdrType,
-                bottomBrdrWidth, layout.x, layout.y, layout.w, layout.h, shading, color);
-        fflush(logStream);
-    }
-
-    Handle ret = (Handle) (((CEDSection*) hEdSection) -> CreateCell((CEDParagraph*) hEdRow, cellX,
-            merging, vertTextAlign, leftBrdrType, leftBrdrWidth, rightBrdrType, rightBrdrWidth,
-            topBrdrType, topBrdrWidth, bottomBrdrType, bottomBrdrWidth, layout, shading, color));
-
-    if (logStream) {
-        fprintf(logStream, "CreateCell returned %x\n", ret);
-        fflush(logStream);
-    }
-
-    return ret;
-}
-
-CED_FUNC(Bool32) CED_SetCellFlag(Handle hEdCell, int flag) {
-    if (logStream) {
-        fprintf(logStream, "SetCellFlag params: %x,%x\n", hEdCell, flag);
-        fflush(logStream);
-    }
-
-    ((EDCELLDESCR *) (((CEDParagraph*) hEdCell)->descriptor))->flag = flag;
-
-    if (logStream) {
-        fprintf(logStream, "SetCellFlag returned %i\n", TRUE);
-        fflush(logStream);
-    }
-
-    return TRUE;
-}
-//create paragraph
-
 CEDParagraph * CED_CreateParagraph(Handle hEdSection, Handle hObject, CIF::align_t align,
         const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout,
         const CIF::Color& color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
@@ -330,52 +246,6 @@ CED_FUNC(Bool32) CED_SetParaBorders(Handle hEdParagraph, int leftBrdrType, int l
     return TRUE;
 }
 
-CED_FUNC(Handle) CED_GetColumn(Handle hEdSection, int number) {
-    return (Handle) (((CEDSection*) hEdSection)->GetColumn(number));
-}
-
-CED_FUNC(int32_t) CED_GetSnakeColumnWidth(Handle hEdSection, int number) {
-    return ((CEDSection*) hEdSection)->colInfo[number].width;
-}
-
-CED_FUNC(int32_t) CED_GetSnakeColumnSpacing(Handle hEdSection, int number) {
-    return ((CEDSection*) hEdSection)->colInfo[number].space;
-}
-///////////////////////////////////////////////////////////
-
-CED_FUNC(edBox) CED_GetFrameRect(Handle hEdFrame) {
-    return ((EDFRAMEDESCR*) (((CEDParagraph*) hEdFrame)->descriptor))->rec;
-}
-
-CED_FUNC(int32_t) CED_GetFramePosition(Handle hEdFrame) {
-    return ((EDFRAMEDESCR*) (((CEDParagraph*) hEdFrame)->descriptor))->position;
-}
-
-CED_FUNC(int32_t) CED_GetFrameBorderSpace(Handle hEdFrame) {
-    return ((EDFRAMEDESCR*) (((CEDParagraph*) hEdFrame)->descriptor))->borderSpace;
-}
-
-CED_FUNC(int32_t) CED_GetFrameDxfrtextx(Handle hEdFrame) {
-    return ((EDFRAMEDESCR*) (((CEDParagraph*) hEdFrame)->descriptor))->dxfrtextx;
-}
-
-CED_FUNC(int32_t) CED_GetFrameDxfrtexty(Handle hEdFrame) {
-    return ((EDFRAMEDESCR*) (((CEDParagraph*) hEdFrame)->descriptor))->dxfrtexty;
-}
-
-CED_FUNC(int32_t) CED_GetFrameFlag(Handle hEdFrame) {
-    return ((EDFRAMEDESCR*) (((CEDParagraph*) hEdFrame)->descriptor))->flag;
-}
-
-///////////////////////////////////////////////////////////////
-CED_FUNC(Handle) CED_GetFirstObject(Handle hObject) {
-    return (Handle) ((CEDParagraph*) hObject)->GetFirstObject();
-}
-
-CED_FUNC(Handle) CED_GetNextObject(Handle hObject) {
-    return (Handle) ((CEDParagraph*) hObject)->GetNextObject();
-}
-
 CED_FUNC(Bool32) CED_IsTable(Handle hObject) {
     return ((CEDParagraph*) hObject)->type == TAB_BEGIN ? TRUE : FALSE;
 }
@@ -392,165 +262,17 @@ CED_FUNC(Bool32) CED_IsFictive(Handle hEdParagraph) {
     return ((CEDParagraph*) hEdParagraph)->type & FICTIVE ? TRUE : FALSE;
 }
 
-CED_FUNC(uint32_t) CED_GetCountRow(Handle hEdTable) {
-    return ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->numOfRows;
-}
-
-CED_FUNC(Handle) CED_GetTableRow(Handle hEdTable, int num) {
-    return (Handle) ((CEDParagraph*) hEdTable)->GetRow(num);
-}
-CED_FUNC(Bool32) CED_GetTableRowParams(Handle hEdRow, int* left, int* rowHeight, int* leftBrdrType,
-        int* leftBrdrWidth, int* rightBrdrType, int* rightBrdrWidth, int* topBrdrType,
-        int* topBrdrWidth, int* bottomBrdrType, int* bottomBrdrWidth, int* gaph, int* position,
-        Bool32* header) {
-    EDROWDESCR* td = ((EDROWDESCR*) ((CEDParagraph*) hEdRow)->descriptor);
-
-    if (!td)
-        return FALSE;
-
-    if (left)
-        *left = td->left;
-
-    if (rowHeight)
-        *rowHeight = td->rowHeight;
-
-    if (leftBrdrType)
-        *leftBrdrType = td->leftBrdrType;
-
-    if (leftBrdrWidth)
-        *leftBrdrWidth = td->leftBrdrWidth;
-
-    if (rightBrdrType)
-        *rightBrdrType = td->rightBrdrType;
-
-    if (rightBrdrWidth)
-        *rightBrdrWidth = td->rightBrdrWidth;
-
-    if (topBrdrType)
-        *topBrdrType = td->topBrdrType;
-
-    if (topBrdrWidth)
-        *topBrdrWidth = td->topBrdrWidth;
-
-    if (bottomBrdrType)
-        *bottomBrdrType = td->bottomBrdrType;
-
-    if (bottomBrdrWidth)
-        *bottomBrdrWidth = td->bottomBrdrWidth;
-
-    if (gaph)
-        *gaph = td->gaph;
-
-    if (position)
-        *position = td->position;
-
-    if (header)
-        *header = td->header;
-
-    return TRUE;
-}
-
-uint32_t CED_GetCountCell(Handle hEdRow) {
-    return ((EDROWDESCR*) ((CEDParagraph*) hEdRow)->descriptor)->numOfCells;
-}
-CED_FUNC(Handle) CED_GetCell(Handle hEdRow, int number) {
-    return (Handle) ((CEDParagraph*) hEdRow)->GetCell(number);
-}
-
-CED_FUNC(Bool32) CED_GetCellParams(Handle hEdCell, int* cellX, int* merging, int* vertTextAlign,
-        int* leftBrdrType, int* leftBrdrWidth, int* rightBrdrType, int* rightBrdrWidth,
-        int* topBrdrType, int* topBrdrWidth, int* bottomBrdrType, int* bottomBrdrWidth,
-        EDBOX* layout, int* shading, int* color) {
-    EDCELLDESCR* cd = ((EDCELLDESCR*) ((CEDParagraph*) hEdCell)->descriptor);
-
-    if (!cd)
-        return FALSE;
-
-    if (cellX)
-        (*cellX) = cd->cellX;
-
-    if (merging)
-        (*merging) = cd->merging;
-
-    if (vertTextAlign)
-        (*vertTextAlign) = cd->vertTextAlign;
-
-    if (leftBrdrType)
-        (*leftBrdrType) = cd->leftBrdrType;
-
-    if (leftBrdrWidth)
-        (*leftBrdrWidth) = cd->leftBrdrWidth;
-
-    if (rightBrdrType)
-        (*rightBrdrType) = cd->rightBrdrType;
-
-    if (rightBrdrWidth)
-        (*rightBrdrWidth) = cd->rightBrdrWidth;
-
-    if (topBrdrType)
-        (*topBrdrType) = cd->topBrdrType;
-
-    if (topBrdrWidth)
-        (*topBrdrWidth) = cd->topBrdrWidth;
-
-    if (bottomBrdrType)
-        (*bottomBrdrType) = cd->bottomBrdrType;
-
-    if (bottomBrdrWidth)
-        (*bottomBrdrWidth) = cd->bottomBrdrWidth;
-
-    if (layout)
-        memcpy(layout, &(cd->layout), sizeof(EDBOX));
-
-    if (shading)
-        (*shading) = cd->shading;
-
-    if (color)
-        (*color) = cd->color;
-
-    return TRUE;
-}
-
-CED_FUNC(int32_t) CED_GetCellFlag(Handle hEdCell) {
-    return ((EDCELLDESCR*) (((CEDParagraph*) hEdCell)->descriptor))->flag;
-}
-
-CED_FUNC(uint32_t *) CED_GetTableOfCells(Handle hEdTable) {
-    if ((uint32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->table == 0)
-        ((CEDParagraph*) hEdTable)->CreateTableOfCells();
-
-    return (uint32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->table;
-}
-
-CED_FUNC(int32_t *)CED_GetLinesX(Handle hEdTable) {
-    if ((uint32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->table == 0)
-        ((CEDParagraph*) hEdTable)->CreateTableOfCells();
-
-    return (int32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->linesX;
-}
-
-CED_FUNC(int32_t *)CED_GetRowsHeights(Handle hEdTable) {
-    if ((uint32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->table == 0)
-        ((CEDParagraph*) hEdTable)->CreateTableOfCells();
-
-    return (int32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->linesY;
-}
-
 CED_FUNC(edSize) CED_GetSize(Handle hEdTable) {
     if ((uint32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->table == 0)
         ((CEDParagraph*) hEdTable)->CreateTableOfCells();
 
     return (edSize) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->size;
 }
-CED_FUNC(Handle) CED_GetLogicalCell(Handle hEdTable, int number) {
-    if ((uint32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->table == 0)
-        ((CEDParagraph*) hEdTable)->CreateTableOfCells();
 
-    return (Handle) ((CEDParagraph*) hEdTable)->GetLogicalCell(number);
-}
 CED_FUNC(int) CED_GetCountLogicalCell(Handle hEdTable) {
     if ((uint32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->table == 0)
         ((CEDParagraph*) hEdTable)->CreateTableOfCells();
 
     return ((CEDParagraph*) hEdTable)->GetCountLogicalCell();
 }
+
