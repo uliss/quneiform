@@ -8,6 +8,7 @@ cedpage.cpp
 cedparagraph.cpp
 cedpicture.cpp
 cedsection.cpp
+cedtable.cpp
 ced_func_rtf.cpp
 dll.cpp
 element.cpp
