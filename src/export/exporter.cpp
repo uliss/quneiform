@@ -21,6 +21,7 @@
 
 #include "exporter.h"
 #include "nullimageexporter.h"
+#include "common/helper.h" // for removeFileExt
 
 using namespace std;
 
@@ -97,6 +98,18 @@ ImageExporterPtr Exporter::imageExporter() {
 
 std::string Exporter::inputEncoding() const {
     return input_encoding_;
+}
+
+std::string Exporter::makeOutputPictureDir() const {
+    if (output_picture_dir_.empty()) {
+        if (output_filename_.empty())
+            throw Exception(
+                    "[Exporter::makeOutputPictureDir] failed - specify output picture directory");
+
+        return removeFileExt(outputFilename()) + "_files";
+    }
+
+    return output_picture_dir_;
 }
 
 std::string Exporter::outputEncoding() const {
@@ -177,6 +190,10 @@ void Exporter::setOutputEncoding(const std::string& enc) {
 
 void Exporter::setOutputFilename(const std::string& filename) {
     output_filename_ = filename;
+}
+
+void Exporter::setOutputPictureDir(const std::string path) {
+    output_picture_dir_ = path;
 }
 
 }

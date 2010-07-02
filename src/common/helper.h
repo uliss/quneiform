@@ -47,6 +47,8 @@ inline std::string removeFileExt(const std::string& filename)
     return filename.substr(0, filename.rfind('.'));
 }
 
+std::string baseName(const std::string& path);
+
 template<class T>
 std::string toString(const T& t)
 {

@@ -147,6 +147,16 @@ class GenericExporter: public Exporter
         bool isRemoveHyphens(CEDLine * line) const;
 
         /**
+         * Makes picture path for export
+         */
+        std::string makePicturePath(CEDChar * picture);
+
+        /**
+         * Makes relative picture path
+         */
+        std::string makePicturePathRelative(CEDChar * picture);
+
+        /**
          * Returns pointer to default output stream
          */
         std::ostream * outputStream();
@@ -154,9 +164,8 @@ class GenericExporter: public Exporter
         /**
          * Saves given picture
          * @see createPicturesFolder
-         * @return path to saved pictures
          */
-        std::string savePicture(CEDChar * picture);
+        void savePicture(CEDChar * picture);
 
         /**
          * Saves picture to file
@@ -259,7 +268,7 @@ class GenericExporter: public Exporter
         /**
          * Makes picture filename
          */
-        std::string pictureName(CEDChar * picture);
+        std::string makePictureName(CEDChar * picture);
 
         /**
          * Resets font styles

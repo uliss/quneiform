@@ -348,7 +348,7 @@ void OdfExporter::writePicture(std::ostream& os, CEDChar * picture) {
         std::ostringstream img_buf;
         savePictureData(picture, img_buf);
         // uliss: TODO seems not optimal copying
-        std::string path = ODF_PICT_DIR + pictureName(picture);
+        std::string path = ODF_PICT_DIR + makePictureName(picture);
         odfWrite(path, img_buf.str());
         addOdfManifestFile(path, imageExporter()->mime());
 
@@ -360,7 +360,7 @@ void OdfExporter::writePicture(std::ostream& os, CEDChar * picture) {
 
         XmlTag frame("draw:frame");
         frame["text:anchor-type"] = "paragraph";
-        frame["draw:name"] = pictureName(picture);
+        frame["draw:name"] = makePictureName(picture);
         frame["draw:z-index"] = "0";
         float xdpi = (float) page()->imageDpi().width();
         float ydpi = (float) page()->imageDpi().height();

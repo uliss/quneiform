@@ -420,7 +420,9 @@ ExporterPtr PumaImpl::makeExporter(format_t format) const {
 
     ExporterFactory::instance().setPage(ed_page_);
     ExporterFactory::instance().setFormatOptions(format_options_);
-    return ExporterFactory::instance().make(format);
+    ExporterPtr e = ExporterFactory::instance().make(format);
+    e->setOutputPictureDir(output_image_dir_);
+    return e;
 }
 
 void PumaImpl::modulesDone() {
@@ -1052,6 +1054,10 @@ void PumaImpl::saveToText(const std::string& filename) const {
 
 void PumaImpl::setFormatOptions(const FormatOptions& opt) {
     format_options_ = opt;
+}
+
+void PumaImpl::setImageOutputDir(const std::string& path) {
+    output_image_dir_ = path;
 }
 
 void PumaImpl::setOptionAutoRotate(bool val) {

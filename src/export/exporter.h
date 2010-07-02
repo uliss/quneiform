@@ -79,6 +79,11 @@ class Exporter
         std::string inputEncoding() const;
 
         /**
+         * Makes directory path for picture export
+         */
+        std::string makeOutputPictureDir() const;
+
+        /**
          * Returns destination encoding
          */
         std::string outputEncoding() const;
@@ -113,6 +118,13 @@ class Exporter
          * Sets export filename
          */
         void setOutputFilename(const std::string& filename);
+
+        /**
+         * Sets output picture directory
+         * @param path - if empty string given, picture directory path made
+         * from output filename + suffix "_files"
+         */
+        void setOutputPictureDir(const std::string path);
     private:
         virtual void doExport(std::ostream& os) = 0;
         void autoDetectOutputEncoding();
@@ -127,6 +139,7 @@ class Exporter
         std::string input_encoding_;
         std::string output_encoding_;
         std::string output_filename_;
+        std::string output_picture_dir_;
 };
 
 typedef boost::shared_ptr<Exporter> ExporterPtr;

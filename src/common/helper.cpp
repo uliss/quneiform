@@ -21,13 +21,12 @@
 namespace CIF
 {
 
-std::string escapeHtmlSpecialChars(const std::string& path)
-{
+std::string escapeHtmlSpecialChars(const std::string& path) {
     // uliss TODO!!!
     std::string ret;
     ret.reserve(path.size());
-    for(std::string::const_iterator it = path.begin(), end = path.end(); it != end; ++it) {
-        switch(*it) {
+    for (std::string::const_iterator it = path.begin(), end = path.end(); it != end; ++it) {
+        switch (*it) {
         case '"':
             ret.append("&quot;");
             break;
@@ -37,6 +36,9 @@ std::string escapeHtmlSpecialChars(const std::string& path)
         case '<':
             ret.append("&lt;");
             break;
+        case '>':
+            ret.append("&gt;");
+            break;
         case '&':
             ret.append("&amp;");
             break;
@@ -45,6 +47,38 @@ std::string escapeHtmlSpecialChars(const std::string& path)
         }
     }
     return ret;
+}
+
+#if defined _WIN32 || defined __WIN32__
+inline bool IS_SLASH(char ch) {
+    return ch == '\\' || ch == '/';
+}
+#else
+inline bool IS_SLASH(char ch) {
+    return ch == '/';
+}
+#endif
+
+std::string baseName(const std::string& path) {
+    bool last_slash = false;
+    size_t slash_pos = std::string::npos;
+    const size_t sz = path.size();
+    for (size_t i = sz; i != 0; i--) {
+        if (IS_SLASH(path[i - 1])) {
+            if (i == sz) {
+                last_slash = true;
+            } else {
+                slash_pos = i;
+                break;
+            }
+        }
+    }
+
+    if (slash_pos == std::string::npos) {
+        return (last_slash && sz > 1) ? path.substr(0, sz - 1) : path;
+    }
+
+    return last_slash ? path.substr(slash_pos, (sz - slash_pos) - 1) : path.substr(slash_pos);
 }
 
 }

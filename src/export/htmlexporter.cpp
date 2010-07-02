@@ -143,11 +143,11 @@ void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
 
 void HtmlExporter::writePicture(std::ostream& /*os*/, CEDChar * picture) {
     try {
-        std::string path = savePicture(picture);
+        savePicture(picture);
         assert(current_picture_);
 
         XmlTag img("img");
-        img["src"] = escapeHtmlSpecialChars(path);
+        img["src"] = escapeHtmlSpecialChars(makePicturePathRelative(picture));
         img["alt"] = "";
         img["height"] = toString(current_picture_->pictSize.height());
         img["width"] = toString(current_picture_->pictSize.width());

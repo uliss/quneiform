@@ -138,6 +138,7 @@ static string usage() {
         "  -a   --append                 Appends output to existing document         \n"
         "                                   (supported not for all formats)          \n"
         "  -o   --output   FILENAME      Sets output filename                        \n"
+        "       --output-image-dir PATH  Sets image output directory                 \n"
         "       --stdout                 Puts result to standard output              \n"
         "  Export options:                                                           \n"
         "       --preserve-line-breaks   Preserves line-breaking                     \n"
@@ -229,6 +230,7 @@ int main(int argc, char **argv) {
                     1 }, { "no-italic", no_argument, &no_italic, 1 },
             { "nopictures", no_argument, &do_pictures, 0 },//
             { "output", required_argument, NULL, 'o' },//
+            { "output-image-dir", required_argument, NULL, 'i' },//
             { "pictures", no_argument, &do_pictures, 1 },//
             { "preserve-line-breaks", no_argument, &preserve_line_breaks, 1 },//
             { "preserve-hyphens", no_argument, &preserve_hyphens, 1 }, { "sansserif-name",
@@ -242,7 +244,7 @@ int main(int argc, char **argv) {
             { "version", no_argument, NULL, 'V' },//
             { NULL, 0, NULL, 0 } };
 
-    string outfilename, infilename, monospace, serif, sansserif;
+    string outfilename, output_image_dir, infilename, monospace, serif, sansserif;
     format_t outputformat = FORMAT_TEXT;
     language_t langcode = LANGUAGE_ENGLISH;
     int code;
@@ -260,6 +262,9 @@ int main(int argc, char **argv) {
         case 'h':
             cout << usage();
             return EXIT_SUCCESS;
+            break;
+        case 'i':
+            output_image_dir = optarg;
             break;
         case 'l':
             langcode = process_lang_options(optarg);
@@ -364,6 +369,7 @@ int main(int argc, char **argv) {
         //  opt.setFormatMode(puma_format_mode_t t);
 
         Puma::instance().setFormatOptions(opt);
+        Puma::instance().setImageOutputDir(output_image_dir);
 
         if (do_pictures)
             Puma::instance().setOptionPictures(PUMA_PICTURE_ALL);

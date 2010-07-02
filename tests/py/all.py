@@ -26,6 +26,10 @@ header("Language regression test")
 import lang_regression
 lang_regression.test()
 
+header("Image export test")
+import image_export
+image_export.test()
+
 header("Image formats test")
 import image_formats
 image_formats.test()

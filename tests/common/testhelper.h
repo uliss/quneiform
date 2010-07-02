@@ -16,32 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTGENERICEXPORTER_H_
-#define TESTGENERICEXPORTER_H_
+#ifndef TESTHELPER_H_
+#define TESTHELPER_H_
 
 #include <cppunit/extensions/HelperMacros.h>
 
-class TestGenericExporter: public CppUnit::TestFixture
+class TestHelper: public CppUnit::TestFixture
 {
-    CPPUNIT_TEST_SUITE(TestGenericExporter);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testDoExport);
-    CPPUNIT_TEST(testExportPage);
-    CPPUNIT_TEST(testCreatePicturesFolder);
-    CPPUNIT_TEST(testMakePictureName);
-    CPPUNIT_TEST(testMakeOutputPictureDir);
-    CPPUNIT_TEST(testMakePicturePath);
-    CPPUNIT_TEST(testMakePicturePathRelative);
+    CPPUNIT_TEST_SUITE(TestHelper);
+    CPPUNIT_TEST(testBaseName);
+    CPPUNIT_TEST(testEscapeHtmlSpecialChars);
     CPPUNIT_TEST_SUITE_END();
-    public:
-        void testInit();
-        void testDoExport();
-        void testExportPage();
-        void testCreatePicturesFolder();
-        void testMakePictureName();
-        void testMakeOutputPictureDir();
-        void testMakePicturePath();
-        void testMakePicturePathRelative();
+public:
+    void testBaseName();
+    void testEscapeHtmlSpecialChars();
 };
 
-#endif /* TESTGENERICEXPORTER_H_ */
+#endif /* TESTHELPER_H_ */

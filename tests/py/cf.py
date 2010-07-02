@@ -22,6 +22,7 @@ class Tester:
     _tests_failed = 0
     _language = None
     _output = None
+    _output_image_dir = None
     _format = None
     _line_breaks = False
     _sample_ext = None
@@ -125,6 +126,8 @@ class Tester:
             args += ['--output', self._output]
         if self._format is not None:
             args += ['--format', self._format]
+        if self._output_image_dir is not None:
+            args += ['--output-image-dir', self._output_image_dir]
             
         if self._line_breaks:
             args.append('--preserve-line-breaks')
@@ -164,6 +167,9 @@ class Tester:
             
     def setFormat(self, format):
         self._format = format
+        
+    def setImageOutputDir(self, path):
+        self._output_image_dir = path
             
     def setLanguage(self, lang):
         self._language = lang

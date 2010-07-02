@@ -123,6 +123,7 @@ class CLA_EXPO PumaImpl
          * Sets format options
          */
         void setFormatOptions(const FormatOptions& opt);
+        void setImageOutputDir(const std::string& path);
         void setOptionAutoRotate(bool val);
         void setOptionDotMatrix(bool val);
         void setOptionFax100(bool val);
@@ -209,6 +210,7 @@ class CLA_EXPO PumaImpl
         std::string user_dict_name_;
         std::string input_filename_;
         std::string layout_filename_;
+        std::string output_image_dir_;
         FormatOptions format_options_;
         puma_picture_t pictures_;
         puma_table_t tables_;

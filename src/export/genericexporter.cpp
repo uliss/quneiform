@@ -51,12 +51,6 @@ bool initSupportedFontStyles() {
 const bool init_supported_fontstyles = initSupportedFontStyles();
 }
 
-std::string picturesFolderPath(const std::string& path) {
-    std::string res = removeFileExt(path);
-    res += "_files";
-    return res;
-}
-
 GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
     Exporter(opts), page_(page), no_pictures_(false), os_(NULL), num_chars_(0), num_columns_(0),
             num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
@@ -78,9 +72,7 @@ int GenericExporter::charNumInParagraph(CEDParagraph * par) {
 }
 
 std::string GenericExporter::createPicturesFolder() {
-    if (outputFilename().empty())
-        throw Exception("Page name not specified");
-    std::string path = picturesFolderPath(outputFilename());
+    std::string path = makeOutputPictureDir();
 
     // check if folder already exists
     if (_access(path.c_str(), 0) == 0) {
@@ -161,17 +153,17 @@ void GenericExporter::exportLine(CEDLine * line) {
 }
 
 void GenericExporter::exportObjects(CEDParagraph * obj) {
-   // for (CEDParagraph * obj = objects->GetFirstObject(); obj != NULL; obj = obj->GetNextObject()) {
-        // Определить тип объекта
-        if (CED_IsFrame(obj))
-            exportFrame(obj);
-        else if (CED_IsTable(obj))
-            exportTable(obj);
-        else if (CED_IsParagraph(obj))
-            exportParagraph(obj);
-        else {
-            Debug() << "[GenericExporter::exportColumn] Skipping fictive paragraph in ED\n";
-        }
+    // for (CEDParagraph * obj = objects->GetFirstObject(); obj != NULL; obj = obj->GetNextObject()) {
+    // Определить тип объекта
+    if (CED_IsFrame(obj))
+        exportFrame(obj);
+    else if (CED_IsTable(obj))
+        exportTable(obj);
+    else if (CED_IsParagraph(obj))
+        exportParagraph(obj);
+    else {
+        Debug() << "[GenericExporter::exportColumn] Skipping fictive paragraph in ED\n";
+    }
     //}
 }
 
@@ -382,7 +374,7 @@ PictureEntry * GenericExporter::pictureEntry(CEDChar * picture) const {
     return res;
 }
 
-std::string GenericExporter::pictureName(CEDChar * picture) {
+std::string GenericExporter::makePictureName(CEDChar * picture) {
     assert(picture);
     std::ostringstream buf;
     buf << "image_" << picture->pictureNumber() << "." << imageExporter()->extension();
@@ -396,10 +388,17 @@ void GenericExporter::resetFontStyle(std::ostream& os) {
     previous_style_ = 0;
 }
 
-std::string GenericExporter::savePicture(CEDChar * picture) {
-    std::string path = createPicturesFolder() + "/" + pictureName(picture);
-    savePictureData(picture, path);
-    return path;
+std::string GenericExporter::makePicturePathRelative(CEDChar * picture) {
+    return baseName(makeOutputPictureDir()) + "/" + makePictureName(picture);
+}
+
+std::string GenericExporter::makePicturePath(CEDChar * picture) {
+    return makeOutputPictureDir() + "/" + makePictureName(picture);
+}
+
+void GenericExporter::savePicture(CEDChar * picture) {
+    createPicturesFolder();
+    savePictureData(picture, makePicturePath(picture));
 }
 
 void GenericExporter::savePictureData(CEDChar * picture, const std::string& path) {
@@ -462,7 +461,7 @@ void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
 void GenericExporter::writeColumn(std::ostream& /*os*/, CEDColumn * col) {
     for (size_t i = 0; i < col->elementCount(); i++) {
         CEDParagraph * par = dynamic_cast<CEDParagraph*> (col->elementAt(i));
-        if(par)
+        if (par)
             exportObjects(par);
     }
 }
