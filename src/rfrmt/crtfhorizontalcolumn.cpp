@@ -29,6 +29,7 @@
 #include "ced/ced.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
+#include "ced/cedsection.h"
 #include "minmax.h"
 
 namespace CIF
@@ -535,7 +536,7 @@ void CRtfHorizontalColumn::writeTerminalColumns(VectorWord* arRightBoundTerminal
             if (*VTerminalColumnNumber == 1)
                 SectorInfo->hColumn = SectorInfo->hFirstColumn;
             else
-                SectorInfo->hColumn = CED_CreateColumn(SectorInfo->hEDSector);
+                SectorInfo->hColumn = SectorInfo->hEDSector->createColumn();
 
             SectorInfo->hObject = SectorInfo->hColumn;
 
@@ -772,7 +773,7 @@ void CRtfHorizontalColumn::writeTerminalColumnsOnly(VectorWord* arRightBoundTerm
     if (*VTerminalColumnNumber == 1)
         sector->hColumn = sector->hFirstColumn;
     else
-        sector->hColumn = CED_CreateColumn(sector->hEDSector);
+        sector->hColumn = sector->hEDSector->createColumn();
 
     sector->hObject = sector->hColumn;
 

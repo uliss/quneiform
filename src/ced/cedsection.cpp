@@ -20,12 +20,13 @@
 #include <cstring>
 #include <iostream>
 #include "cedsection.h"
+#include "cedcolumn.h"
 #include "cedparagraph.h"
 
-namespace CIF {
+namespace CIF
+{
 
 CEDSection::CEDSection() {
-    numberOfColumns = 0;
     sectionBreak = 0;
     width = 0;
     height = 0;
@@ -41,55 +42,28 @@ CEDSection::CEDSection() {
     curPara = 0;
     internalNumber = 0;
     prev = next = 0;
-    columnsBeg = columnsEnd = columnsCur = 0;
+    columnsEnd = 0;
 }
 
 CEDSection::~CEDSection() {
 }
 
-CEDParagraph * CEDSection::CreateColumn() {
-    if (!columnsBeg) {
-        //start column
-        CEDParagraph * para = InsertParagraph();
-        columnsBeg = para;
-        para->type = COLUMN_BEGIN;
-        EDCOLDESCR* colinf = (EDCOLDESCR *) malloc(sizeof(EDCOLDESCR));
-        para->descriptor = colinf;
-        //finish all columns
-        CEDParagraph * para1 = InsertParagraph();
-        columnsEnd = para1;
-        para1->type = LAST_IN_COLUMN;
-        ((EDCOLDESCR*) (para->descriptor))->next = para1;
-        SetCurParagraph(columnsBeg);
-        columnsCur = columnsBeg;
-    }
-
-    else {
-        //start column
-        SetCurParagraph(columnsEnd);
-        CEDParagraph * para = InsertParagraph(FALSE);
-        para->type = COLUMN_BEGIN;
-        EDCOLDESCR* colinf = (EDCOLDESCR *) malloc(sizeof(EDCOLDESCR));
-        para->descriptor = colinf;
-        ((EDCOLDESCR*) (columnsCur->descriptor))->next = para;
-        ((EDCOLDESCR*) (para->descriptor))->next = columnsEnd;
-        columnsCur = para;
-    }
-
-    numberOfColumns++;
-    return curPara;
+void CEDSection::addColumn(CEDColumn * col) {
+    addElement(col);
 }
 
-CEDParagraph * CEDSection::GetColumn(int _num) {
-    if (_num > numberOfColumns)
-        return 0;
+CEDColumn * CEDSection::columnAt(size_t pos) {
+    return static_cast<CEDColumn*> (elementAt(pos));
+}
 
-    CEDParagraph *para = columnsBeg;
+size_t CEDSection::columnCount() const {
+    return elementCount();
+}
 
-    for (int i = 0; i < _num; i++)
-        para = (CEDParagraph*) ((EDCOLDESCR*) para->descriptor)->next;
-
-    return para;
+CEDColumn * CEDSection::createColumn() {
+    CEDColumn * col = new CEDColumn;
+    addElement(col);
+    return col;
 }
 
 CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char position,
@@ -350,45 +324,44 @@ CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow, int cellX, int merging
     return para;
 }
 
-CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align, const Rect& indent,
-        int UserNum, int FlagBorder, EDSIZE interval, edBox layout, const Color& color, int shading,
-        int spaceBetweenLines, char spcBtwLnsMult, char keep) {
-    if (hObject->type != TAB_CELL_BEGIN && hObject->type != FRAME_BEGIN && hObject->type
-            != COLUMN_BEGIN) {
-#ifdef _DEBUG
-        std::cerr << "CED error: Attempt to create paragraph in table's row or in table or in ordinary paragraph\n(not in column or frame or table's cell";
-#endif
-        return 0;
-    }
+CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align,
+        const Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, edBox layout,
+        const Color& color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
+    //    if (hObject->type != TAB_CELL_BEGIN && hObject->type != FRAME_BEGIN && hObject->type
+    //            != COLUMN_BEGIN) {
+    //#ifdef _DEBUG
+    //        std::cerr << "CED error: Attempt to create paragraph in table's row or in table or in ordinary paragraph\n(not in column or frame or table's cell";
+    //#endif
+    //        return 0;
+    //    }
 
-    EDCOLDESCR *colde = (EDCOLDESCR*) (hObject->descriptor);
-#ifdef _DEBUG
-
-    if (!colde) {
-        std::cerr << "CED error: Attempt to create paragraph in ordinary paragraph\n(not in column or in frame or in table's cell)";
-        return 0;
-    }
-
-#endif
-
-    if (colde->next)
-        SetCurParagraph((CEDParagraph *) (colde->next));
-
-    else {
-        //      switch(hObject->type)
-        //      {
-        /*
-         case FRAME_BEGIN:
-         SetCurParagraph(framesEnd);
-         break;
-         */
-        //      case COLUMN_BEGIN:
-        //          SetCurParagraph(columnsEnd);
-        //          break;
-        //      default:
-        return 0;
-        //      }
-    }
+//    EDCOLDESCR *colde = (EDCOLDESCR*) (hObject->descriptor);
+//#ifdef _DEBUG
+//
+//    if (!colde) {
+//        std::cerr << "CED error: Attempt to create paragraph in ordinary paragraph\n(not in column or in frame or in table's cell)";
+//        return 0;
+//    }
+//
+//#endif
+//
+//    if (colde->next)
+//        SetCurParagraph((CEDParagraph *) (colde->next));
+//    else {
+//        //      switch(hObject->type)
+//        //      {
+//        /*
+//         case FRAME_BEGIN:
+//         SetCurParagraph(framesEnd);
+//         break;
+//         */
+//        //      case COLUMN_BEGIN:
+//        //          SetCurParagraph(columnsEnd);
+//        //          break;
+//        //      default:
+//        return 0;
+//        //      }
+//    }
 
     CEDParagraph *para = InsertParagraph(FALSE);
     para->setAlign(align);
@@ -406,66 +379,67 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align
 }
 
 CEDParagraph * CEDSection::InsertParagraph(Bool32 AfterCurrent) {
-    if (!AfterCurrent)
-        curPara = curPara->prev;
+    //if (!AfterCurrent)
+      //  curPara = curPara->prev;
 
     CEDParagraph * para = new CEDParagraph;
     para->parent_number_ = internalNumber;
+    columnAt(0)->addElement(para);
 
-    if (curPara) {
-        para->next = curPara->next;
-
-        if (para->next)
-            (para->next)->prev = para;
-
-        curPara->next = para;
-        para->prev = curPara;
-        para->internal_number_ = curPara->internal_number_ + 1;
-
-        for (CEDParagraph * para1 = para->next; para1; para1 = para1->next)
-            para1->internal_number_++;
-    }
-
-    else {
-        paragraphs = para;
-        //      if(internal_number_!=0)
-        //      {
-        CEDSection *ww = prev;
-
-        while (ww && !ww->paragraphs)
-            ww = ww->prev;
-
-        if (ww) {
-            CEDParagraph *qq = ww->paragraphs;
-
-            while (qq->next)
-                qq = qq->next;
-
-            qq->next = para;
-            para->prev = qq;
-            para->internal_number_ = qq->internal_number_ + 1;
-        }
-
-        ww = next;
-
-        while (ww && !ww->paragraphs)
-            ww = ww->next;
-
-        if (ww) {
-            CEDParagraph *qq = ww->paragraphs;
-            qq->prev = para;
-            para->next = qq;
-
-            while (qq) {
-                qq->internal_number_++;
-                qq = qq->next;
-            }
-        }
-
-        //      }
-    }
-
-    curPara = para;
+//    if (curPara) {
+//        para->next = curPara->next;
+//
+//        if (para->next)
+//            (para->next)->prev = para;
+//
+//        curPara->next = para;
+//        para->prev = curPara;
+//        para->internal_number_ = curPara->internal_number_ + 1;
+//
+//        for (CEDParagraph * para1 = para->next; para1; para1 = para1->next)
+//            para1->internal_number_++;
+//    }
+//
+//    else {
+//        paragraphs = para;
+//        //      if(internal_number_!=0)
+//        //      {
+//        CEDSection *ww = prev;
+//
+//        while (ww && !ww->paragraphs)
+//            ww = ww->prev;
+//
+//        if (ww) {
+//            CEDParagraph *qq = ww->paragraphs;
+//
+//            while (qq->next)
+//                qq = qq->next;
+//
+//            qq->next = para;
+//            para->prev = qq;
+//            para->internal_number_ = qq->internal_number_ + 1;
+//        }
+//
+//        ww = next;
+//
+//        while (ww && !ww->paragraphs)
+//            ww = ww->next;
+//
+//        if (ww) {
+//            CEDParagraph *qq = ww->paragraphs;
+//            qq->prev = para;
+//            para->next = qq;
+//
+//            while (qq) {
+//                qq->internal_number_++;
+//                qq = qq->next;
+//            }
+//        }
+//
+//        //      }
+//    }
+//
+//    curPara = para;
     return para;
 }
 

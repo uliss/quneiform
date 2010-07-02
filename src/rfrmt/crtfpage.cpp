@@ -36,6 +36,7 @@
 #include "ced/cedline.h"
 #include "ced/cedpage.h"
 #include "ced/cedparagraph.h"
+#include "ced/cedsection.h"
 // cpage module
 #include "cpage/cpage.h"
 
@@ -932,7 +933,7 @@ void CRtfPage::writeSectorsHeader(int i) {
             pEDColumnFirst, 0, page_size_.width(), page_size_.height(), 0, -1, -1);
     sector->SectorInfo.hEDSector = sector->m_hEDSector;
     sector->SectorInfo.hEDPage = ced_page_;
-    sector->SectorInfo.hFirstColumn = CED_CreateColumn(sector->SectorInfo.hEDSector);
+    sector->SectorInfo.hFirstColumn = sector->SectorInfo.hEDSector->createColumn();
     sector->SectorInfo.hColumn = sector->SectorInfo.hFirstColumn;
     sector->SectorInfo.hObject = sector->SectorInfo.hFirstColumn;
     free(pEDColumnFirst);

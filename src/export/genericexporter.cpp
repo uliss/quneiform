@@ -25,6 +25,7 @@
 #include "ced/cedline.h"
 #include "ced/cedchar.h"
 #include "ced/ced_struct.h"
+#include "ced/cedcolumn.h"
 #include "common/debug.h"
 #include "common/cifconfig.h"
 #include "common/imagerawdata.h"
@@ -126,7 +127,7 @@ void GenericExporter::exportChar(CEDChar * chr) {
     }
 }
 
-void GenericExporter::exportColumn(CEDParagraph * col) {
+void GenericExporter::exportColumn(CEDColumn * col) {
     assert(col);
     num_columns_++;
 
@@ -159,8 +160,8 @@ void GenericExporter::exportLine(CEDLine * line) {
     writeLineEnd(*os_, line);
 }
 
-void GenericExporter::exportObjects(CEDParagraph * objects) {
-    for (CEDParagraph * obj = objects->GetFirstObject(); obj != NULL; obj = obj->GetNextObject()) {
+void GenericExporter::exportObjects(CEDParagraph * obj) {
+   // for (CEDParagraph * obj = objects->GetFirstObject(); obj != NULL; obj = obj->GetNextObject()) {
         // Определить тип объекта
         if (CED_IsFrame(obj))
             exportFrame(obj);
@@ -171,7 +172,7 @@ void GenericExporter::exportObjects(CEDParagraph * objects) {
         else {
             Debug() << "[GenericExporter::exportColumn] Skipping fictive paragraph in ED\n";
         }
-    }
+    //}
 }
 
 void GenericExporter::exportPage(CEDPage * page) {
@@ -458,15 +459,19 @@ void GenericExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
     os << chr->alternativeAt(0).getChar();
 }
 
-void GenericExporter::writeColumn(std::ostream& /*os*/, CEDParagraph * col) {
-    exportObjects(col);
+void GenericExporter::writeColumn(std::ostream& /*os*/, CEDColumn * col) {
+    for (size_t i = 0; i < col->elementCount(); i++) {
+        CEDParagraph * par = dynamic_cast<CEDParagraph*> (col->elementAt(i));
+        if(par)
+            exportObjects(par);
+    }
 }
 
-void GenericExporter::writeColumnBegin(std::ostream& /*os*/, CEDParagraph * /*col*/) {
+void GenericExporter::writeColumnBegin(std::ostream& /*os*/, CEDColumn * /*col*/) {
 
 }
 
-void GenericExporter::writeColumnEnd(std::ostream& /*os*/, CEDParagraph * /*col*/) {
+void GenericExporter::writeColumnEnd(std::ostream& /*os*/, CEDColumn * /*col*/) {
 
 }
 
@@ -551,8 +556,8 @@ void GenericExporter::writePicture(std::ostream&, CEDChar*) {
 
 void GenericExporter::writeSection(std::ostream&, CEDSection * sect) {
     assert(sect);
-    for (int i = 0; i < sect->numberOfColumns; i++)
-        exportColumn(sect->GetColumn(i));
+    for (size_t i = 0; i < sect->columnCount(); i++)
+        exportColumn(sect->columnAt(i));
 }
 
 void GenericExporter::writeSectionBegin(std::ostream&, CEDSection*) {

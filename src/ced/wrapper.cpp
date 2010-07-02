@@ -86,7 +86,7 @@ CED_FUNC(Bool32) CED_CreatePicture(Handle hEdPage, int pictNumber, const CIF::Si
 }
 //create section
 
-CED_FUNC(Handle) CED_CreateSection(Handle hEdPage, const CIF::Rect& border, int colInterval,
+CED_FUNC(CIF::CEDSection*) CED_CreateSection(Handle hEdPage, const CIF::Rect& border, int colInterval,
         int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation,
         int headerY, int footerY) {
     if (logStream) {
@@ -119,7 +119,7 @@ CED_FUNC(Handle) CED_CreateSection(Handle hEdPage, const CIF::Rect& border, int 
         fflush(logStream);
     }
 
-    return (Handle) sect;
+    return sect;
 }
 
 CED_FUNC(Bool32) CED_SetSectLineBetCol(Handle hEdSection, Bool32 lineBetCol) {
@@ -145,7 +145,7 @@ CED_FUNC(Handle) CED_CreateColumn(Handle hEdSection) {
         fflush(logStream);
     }
 
-    Handle ret = (Handle) (((CEDSection*) hEdSection)->CreateColumn());
+    Handle ret = (Handle) (((CEDSection*) hEdSection)->createColumn());
 
     if (logStream) {
         fprintf(logStream, "CreateColumn returned %x\n", ret);

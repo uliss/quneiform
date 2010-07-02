@@ -64,6 +64,8 @@ namespace CIF
 {
 
 class CEDPage;
+class CEDSection;
+class CEDColumn;
 
 struct SectorInfo
 {
@@ -72,9 +74,9 @@ struct SectorInfo
 
         uint16_t CountFragments;
         CEDPage * hEDPage;
-        Handle hEDSector;
-        Handle hColumn;
-        Handle hFirstColumn;
+        CEDSection * hEDSector;
+        CEDColumn * hColumn;
+        CEDColumn * hFirstColumn;
         Handle hObject;
         Handle hEdTable;
         Handle hEdTableRow;

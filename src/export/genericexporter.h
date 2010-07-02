@@ -34,6 +34,7 @@ class CEDSection;
 class CEDParagraph;
 class CEDLine;
 class CEDChar;
+class CEDColumn;
 
 class GenericExporter: public Exporter
 {
@@ -179,7 +180,7 @@ class GenericExporter: public Exporter
          *   - writeColumn
          *   - writeColumnEnd
          */
-        void exportColumn(CEDParagraph * col);
+        void exportColumn(CEDColumn * col);
 
         /**
          * Exports frames
@@ -274,19 +275,19 @@ class GenericExporter: public Exporter
          * Exports column content
          * @see writeColumnBegin and writeColumnEnd
          */
-        virtual void writeColumn(std::ostream& os, CEDParagraph * col);
+        virtual void writeColumn(std::ostream& os, CEDColumn * col);
 
         /**
          * Called before writeColumn
          * @see writeColumn
          */
-        virtual void writeColumnBegin(std::ostream& os, CEDParagraph * col);
+        virtual void writeColumnBegin(std::ostream& os, CEDColumn * col);
 
         /**
          * Called after writeColumn
          * @see writeColumn
          */
-        virtual void writeColumnEnd(std::ostream& os, CEDParagraph * col);
+        virtual void writeColumnEnd(std::ostream& os, CEDColumn * col);
 
         /**
          * Writes font styles

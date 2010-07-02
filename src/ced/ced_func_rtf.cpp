@@ -62,6 +62,7 @@
 
 #include "minmax.h"
 #include "ced_struct.h"
+#include "cedcolumn.h"
 #include "cedint.h"
 #include "cedline.h"
 #include "resource.h"
@@ -147,10 +148,10 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
             goto WRITE_END; //write section properties
 
         //  int sectNum=0;
-        for (int colNum = 0; colNum < sect->numberOfColumns; colNum++) {
-            CEDParagraph* col = sect->GetColumn(colNum);
+        for (size_t colNum = 0; colNum < sect->columnCount(); colNum++) {
+            CEDColumn * col = sect->columnAt(colNum);
             Bool firstParaGraph = TRUE;//process first element in a row - for correct paragraph convertation
-            CEDParagraph* para = col->GetFirstObject();
+            CEDParagraph * para = dynamic_cast<CEDParagraph*> (col->elementAt(0));
 
             while (para) {
                 if (para->type & FICTIVE) {
@@ -267,7 +268,7 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
                 firstParaGraph = FALSE;
             }
 
-            if (colNum != sect->numberOfColumns - 1)
+            if (colNum != sect->columnCount() - 1)
                 if (!WriteRtfControl(rtf, "column", PARAM_NONE, 0))
                     goto WRITE_END;
         }

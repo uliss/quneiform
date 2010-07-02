@@ -28,6 +28,7 @@
 namespace CIF
 {
 
+class CEDSection;
 class CRtfPage;
 class CRtfHorizontalColumn;
 class CRtfSector;
@@ -76,7 +77,7 @@ class CRtfSector
 
         RECT m_rect;
         RECT m_rectReal;
-        Handle m_hEDSector;
+        CEDSection * m_hEDSector;
         Bool m_FlagOneString;
         Bool m_bFlagLine;
         int m_VTerminalColumnNumber;

@@ -21,16 +21,24 @@
 
 #include "globus.h"
 #include "ced_struct.h"
+#include "blockelement.h"
 #include "common/rect.h"
 #include "common/color.h"
 #include "common/align.h"
 
-namespace CIF {
+namespace CIF
+{
 
-class CLA_EXPO CEDSection
+class CEDColumn;
+
+class CLA_EXPO CEDSection: public BlockElement
 {
     public:
-        int numberOfColumns; // The number of columns in the section (n pieces)
+        void addColumn(CEDColumn * col);
+        CEDColumn * columnAt(size_t pos);
+        size_t columnCount() const;
+        CEDColumn * createColumn();
+
         Rect borders; // padding from the edge of paper
         int colInterval;
         char sectionBreak;
@@ -45,12 +53,11 @@ class CLA_EXPO CEDSection
         char * extData; // Data cat. will be recorded in the file after the title;
         int extDataLen; // Data size.
 
-        CEDParagraph * CreateColumn();
         CEDParagraph * CreateFrame(CEDParagraph* hObject, edBox rect, char position = -1,
                 int borderSpace = -1, int dxfrtextx = -1, int dxfrtexty = -1);
         CEDParagraph * CreateParagraph(CEDParagraph * hObject, align_t align, const Rect& indent,
-                int UserNum, int FlagBorder, EDSIZE interval, edBox layout, const Color& color, int shading,
-                int spaceBetweenLines, char spcBtwLnsMult, char keep);
+                int UserNum, int FlagBorder, EDSIZE interval, edBox layout, const Color& color,
+                int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep);
 
         CEDParagraph * CreateTable(CEDParagraph * hObject);
         CEDParagraph * CreateTableRow(CEDParagraph * hTable, int left, int rowHeight,
@@ -62,8 +69,6 @@ class CLA_EXPO CEDSection
                 int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth,
                 int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth,
                 EDBOX layout, int shading, int color);
-
-        CEDParagraph * GetColumn(int _num);
 
         CEDSection();
         ~CEDSection();
@@ -82,13 +87,15 @@ class CLA_EXPO CEDSection
         //If _goThroughSect = TRUE, then we consider boundary paragraphs in file, othrwise in section
 
         CEDParagraph * paragraphs; //connected list of paragraphs
-        CEDParagraph * columnsBeg, *columnsEnd, *columnsCur/*,*framesBeg,*framesEnd,*framesCur*/;
+        CEDParagraph * columnsEnd;
 
         CEDParagraph * curPara;//current paragraph
         CEDSection * prev, *next; //pointer to neibor elements in connected list
         int internalNumber; //number of paragraph from start of the file
 
         friend class CEDPage;
+    private:
+
 };
 
 }

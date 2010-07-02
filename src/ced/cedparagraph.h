@@ -24,13 +24,14 @@
 
 #include "globus.h"
 #include "ced_struct.h"
+#include "element.h"
 #include "common/color.h"
 #include "common/align.h"
 
 namespace CIF
 {
 
-class CLA_EXPO CEDParagraph
+class CLA_EXPO CEDParagraph : public Element
 {
     public:
         int type; // Type paragraph
@@ -120,7 +121,6 @@ class CLA_EXPO CEDParagraph
         CEDParagraph* GetNextObject();
         CEDParagraph* GetCell(int cell);
         CEDParagraph* GetRow(int row);
-        CEDParagraph* GetLogicalCell(int number);
         int GetCountLogicalCell();
         void CreateTableOfCells();
 

@@ -301,37 +301,6 @@ void CEDParagraph::CreateTableOfCells() {
     return;
 }
 
-CEDParagraph* CEDParagraph::GetLogicalCell(int number) {
-    int cx = ((EDTABDESCR*) descriptor)->size.cx;
-    int cy = ((EDTABDESCR*) descriptor)->size.cy;
-    int* table = ((EDTABDESCR*) descriptor)->table;
-    int i;
-
-    for (i = 0; i < cx * cy; i++)
-        if (table[i] == number)
-            break;
-
-    int r = i / cx;
-    CEDParagraph * row = GetRow(r);
-    int n;
-
-    if ((n = table[r * cx]) == number)
-        return row->GetCell(0);
-
-    int cell = 1;
-
-    for (int c = 0; c < cx; c++) {
-        if (table[r * cx + c] == number)
-            break;
-
-        if (table[r * cx + c] != n) {
-            n = table[r * cx + c];
-            cell++;
-        }
-    }
-
-    return row->GetCell(cell);
-}
 
 int CEDParagraph::GetCountLogicalCell() {
     int i = 0;

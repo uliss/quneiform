@@ -3,6 +3,7 @@ add_definitions(-D__CED__)
 add_library(cuneiform-ced ${LIBTYPE}
 blockelement.cpp
 cedchar.cpp
+cedcolumn.cpp
 cedline.cpp
 cedpage.cpp
 cedparagraph.cpp
