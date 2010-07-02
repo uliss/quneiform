@@ -194,7 +194,7 @@ CED_FUNC(Bool32) CED_SetFrameFlag(Handle hEdFrame, int flag) {
 
 CEDParagraph * CED_CreateParagraph(Handle hEdSection, Handle hObject, CIF::align_t align,
         const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout,
-        const CIF::Color& color, int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
+        const CIF::Color& color, const CIF::Color& shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
     if (logStream) {
         fprintf(
                 logStream,

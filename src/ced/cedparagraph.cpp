@@ -26,7 +26,7 @@ namespace CIF
 {
 
 CEDParagraph::CEDParagraph() :
-    color_(Color::null()), align_(ALIGN_LEFT) {
+    align_(ALIGN_LEFT) {
     type = 0;
     layout.x = layout.w = layout.y = layout.h = 0;
     userNumber = 0;
@@ -52,10 +52,6 @@ CEDParagraph::~CEDParagraph() {
 
 align_t CEDParagraph::align() const {
     return align_;
-}
-
-const Color& CEDParagraph::color() const {
-    return color_;
 }
 
 const Rect& CEDParagraph::indent() const {
@@ -84,10 +80,6 @@ int CEDParagraph::parentNumber() const {
 
 void CEDParagraph::setAlign(align_t align) {
     align_ = align;
-}
-
-void CEDParagraph::setColor(const Color& c) {
-    color_ = c;
 }
 
 void CEDParagraph::setIndent(const Rect& ind) {

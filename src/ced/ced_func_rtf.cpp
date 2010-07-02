@@ -230,12 +230,12 @@ Bool32 CEDPage::FormattedWriteRtf(const char * fileName) {
                             rtf->wrtFrmSz = FALSE;
                     }
                 } else {
-                    int shading = para->shading;
+                    Color shading = para->backgroundColor();
 
                     //if we found painted paragraph, which is first one in a non-first line
                     //then we fill in fake paragraph in order not to paint column break in word
                     if (colNum != 0 && firstParaGraph && rtf->PrevPfmt && shading
-                            != rtf->PrevPfmt->shading) {
+                            != rtf->PrevPfmt->backgroundColor()) {
                         if (!WriteRtfControl(rtf, "pard", PARAM_NONE, 0))
                             goto WRITE_END;
 
@@ -1124,17 +1124,11 @@ Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPf
     int CurLeftIndent, PrevLeftIndent = 0;
     int CurRightIndent, PrevRightIndent = 0;
     int CurFirstIndent, PrevFirstIndent = 0;
-    //    int CurTabId,PrevTabId=0;
-    //    uint CurFlags,PrevFlags=0,NoValueFlags;
-    //    int CurCellId,PrevCellId=0;
-    //    int CurRowId,PrevRowId=0;
-    int CurShading, PrevShading = 0;
-    //    int CurParaFID,PrevParaFID=0;
+    Color CurShading, PrevShading;
     int CurSpaceBefore, PrevSpaceBefore = 0;
     int CurSpaceAfter, PrevSpaceAfter = 0;
     int CurSpaceBetween, PrevSpaceBetween = 0;
     int CurSpaceBetweenMult, PrevSpaceBetweenMult = 0;
-    //    int CurParaSID,PrevParaSID=0;
     int CurParaKeep, PrevParaKeep = 0;
     int CurAlignment, PrevAlignment = 0;
     int CurLbt, PrevLbt = 0;
@@ -1156,7 +1150,7 @@ Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPf
         PrevLeftIndent = PrevPfmt->indent().left();
         PrevRightIndent = PrevPfmt->indent().right();
         PrevFirstIndent = PrevPfmt->indent().top();
-        PrevShading = PrevPfmt->shading;
+        PrevShading = PrevPfmt->backgroundColor();
         PrevSpaceBefore = PrevPfmt->interval.cx;
         PrevSpaceAfter = PrevPfmt->interval.cy;
         PrevSpaceBetween = PrevPfmt->spaceBetweenLines;
@@ -1177,7 +1171,7 @@ Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPf
     CurLeftIndent = NewPfmt->indent().left();
     CurRightIndent = NewPfmt->indent().right();
     CurFirstIndent = NewPfmt->indent().top();
-    CurShading = NewPfmt->shading;
+    CurShading = NewPfmt->backgroundColor();
     CurSpaceBefore = NewPfmt->interval.cx;
     CurSpaceAfter = NewPfmt->interval.cy;
     CurSpaceBetween = NewPfmt->spaceBetweenLines;
@@ -1199,11 +1193,9 @@ Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPf
     //    }
 
     // check for default para
-    if (CurLeftIndent == 0 && CurRightIndent == 0 && CurFirstIndent == 0
-    /*&& CurFlags==0 && CurTabId==0 && CurCellId==0 */
-    && CurShading == 0 /*&& CurParaFID==0 && PrevParaFID==0 */
-    && CurSpaceBefore == 0 && CurSpaceAfter == 0 && CurSpaceBetween == 0
-    /*&& CurParaSID==0*/&& !rtf->RtfInFrame && !rtf->RtfInTable && CurAlignment == 0) {
+    if (CurLeftIndent == 0 && CurRightIndent == 0 && CurFirstIndent == 0 && CurShading.isNull()
+            && CurSpaceBefore == 0 && CurSpaceAfter == 0 && CurSpaceBetween == 0
+            && !rtf->RtfInFrame && !rtf->RtfInTable && CurAlignment == 0) {
         return WriteRtfControl(rtf, "pard", PARAM_NONE, 0);
     }
 
@@ -1392,8 +1384,8 @@ Bool WriteRtfParaFmt(StrRtfOut *rtf, CEDParagraph* NewPfmt, CEDParagraph* PrevPf
     }
 
     // compare and write shading
-    if (CurShading != PrevShading && CurShading >= 0) {
-        if (!WriteRtfControl(rtf, "shading", PARAM_INT, CurShading))
+    if (CurShading != PrevShading && !CurShading.isNull()) {
+        if (!WriteRtfControl(rtf, "shading", PARAM_INT, CurShading.toT<int> ()))
             return FALSE;
     }
 

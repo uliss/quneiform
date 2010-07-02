@@ -40,7 +40,6 @@ class CLA_EXPO CEDParagraph : public Element
         EDSIZE interval; //  cx-upper indentation, cy-bottom
 
         edBox layout; //  Location paragraph on page
-        int shading;
         int spaceBetweenLines;
         char spcBtwLnsMult;
         char keep;
@@ -66,12 +65,6 @@ class CLA_EXPO CEDParagraph : public Element
          * Returns paragraph alignment
          */
         align_t align() const;
-
-        /**
-         * Returns paragraph color
-         * @see setColor()
-         */
-        const Color& color() const;
 
         /**
          * Returns paragraph indents
@@ -108,12 +101,6 @@ class CLA_EXPO CEDParagraph : public Element
          */
         void setIndent(const Rect& ind);
 
-        /**
-         * Sets paragraph foreground color
-         * @see color()
-         */
-        void setColor(const Color& c);
-
         CEDParagraph();
         ~CEDParagraph();
 
@@ -131,7 +118,6 @@ class CLA_EXPO CEDParagraph : public Element
         typedef boost::shared_ptr<CEDLine> LinePtr;
         typedef std::vector<LinePtr> LineList;
         LineList lines; //connected list of lines
-        Color color_;
         align_t align_;
         Rect indent_;
         int internal_number_;

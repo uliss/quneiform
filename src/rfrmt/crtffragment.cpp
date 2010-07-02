@@ -341,7 +341,7 @@ CEDParagraph * CRtfFragment::makeParagraph(SectorInfo * sector, int firstIndent,
     }
 
     return CED_CreateParagraph(sector->hEDSector, sector->hObject, par_align, indent,
-            sector->userNum, -1, interval, playout, Color::null(), -1, -1, -1, FALSE);
+            sector->userNum, -1, interval, playout, Color::null(), Color::null(), -1, -1, FALSE);
 
 }
 

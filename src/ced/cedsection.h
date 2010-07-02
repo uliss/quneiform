@@ -57,7 +57,7 @@ class CLA_EXPO CEDSection: public BlockElement
                 int borderSpace = -1, int dxfrtextx = -1, int dxfrtexty = -1);
         CEDParagraph * CreateParagraph(CEDParagraph * hObject, align_t align, const Rect& indent,
                 int UserNum, int FlagBorder, EDSIZE interval, edBox layout, const Color& color,
-                int shading, int spaceBetweenLines, char spcBtwLnsMult, char keep);
+                const Color& bgrnd, int spaceBetweenLines, char spcBtwLnsMult, char keep);
 
         CEDParagraph * CreateTable(CEDParagraph * hObject);
         CEDParagraph * CreateTableRow(CEDParagraph * hTable, int left, int rowHeight,

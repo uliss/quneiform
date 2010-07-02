@@ -687,8 +687,8 @@ void CRtfPage::writeUsingFrames() {
         playout.y = -1;
         playout.h = -1;
         CEDParagraph * ced_par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
-                ALIGN_LEFT, indent, SectorInfo->userNum, -1, interval, playout, Color::null(), -1,
-                -1, -1, FALSE);
+                ALIGN_LEFT, indent, SectorInfo->userNum, -1, interval, playout, Color::null(),
+                Color::null(), -1, -1, FALSE);
         CEDLine * ced_str = new CEDLine(NULL, false, 6);
         ced_par->addLine(ced_str);
     }
