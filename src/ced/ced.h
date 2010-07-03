@@ -130,9 +130,6 @@ enum ced_font_t
 #define VPOS_MRG        1
 #define VPOS_PARA       2
 
-//База для шрифта/признака картинки
-const int ED_PICT_BASE = 0x10000;
-
 //Для разрыва раздела
 #define ED_SECT_NEW_PAGE       1
 #define ED_SECT_CONTINUE       0

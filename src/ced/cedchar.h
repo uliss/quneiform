@@ -84,16 +84,6 @@ class CLA_EXPO CEDChar: public Element
         bool hasAlternatives() const;
 
         /**
-         * Checks if picture
-         */
-        virtual bool isPicture() const;
-
-        /**
-         * Returns picture number or -1 is it not a picture
-         */
-        int pictureNumber() const;
-
-        /**
          * Sets character alternative
          * @throw std::out_of_range - if @a pos invalid
          */

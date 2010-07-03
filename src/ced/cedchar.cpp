@@ -44,11 +44,6 @@ bool CEDChar::hasAlternatives() const {
     return !alternatives_.empty();
 }
 
-bool CEDChar::isPicture() const {
-    return (font_number_ >= ED_PICT_BASE) && (font_number_ != 0xffffffff) && (font_number_
-            != 0xfffffffe);
-}
-
 int CEDChar::fontHeight() const {
     return font_height_;
 }
@@ -63,13 +58,6 @@ int CEDChar::fontNumber() const {
 
 int CEDChar::fontStyle() const {
     return font_style_;
-}
-
-int CEDChar::pictureNumber() const {
-    if (!isPicture())
-        return -1;
-    assert(fontNumber() >= ED_PICT_BASE);
-    return fontNumber() - ED_PICT_BASE;
 }
 
 void CEDChar::setAlternative(const Letter& letter, size_t pos) {

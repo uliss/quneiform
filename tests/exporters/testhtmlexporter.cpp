@@ -28,6 +28,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #include <ced/cedline.h>
 #include <ced/cedpage.h>
 #include <ced/cedchar.h>
+#include <ced/cedpicture.h>
 #include <ced/cedparagraph.h>
 using namespace CIF;
 using namespace std;
@@ -287,16 +288,15 @@ void TestHtmlExporter::testFontStyleClose() {
 }
 
 void TestHtmlExporter::testExportPicture() {
-    CEDChar * pict = new CEDChar;
-    pict->font_number_ = ED_PICT_BASE;
+    CEDPicture pict;
 
     std::stringstream buf;
     exp_->os_ = &buf;
     // no page name
-    //CPPUNIT_ASSERT_THROW(exp_->exportPicture(pict), Exporter::Exception);
+    //    CPPUNIT_ASSERT_THROW(exp_->exportPicture(&pict), Exporter::Exception);
 
     //exp_->output_filename_ = "output.html";
-    //exp_->exportPicture(pict);
+    //exp_->exportPicture(&pict);
 
     //CPPUNIT_ASSERT_EQUAL(std::string("<img alt=\"\" src=\"output_files/image_0.bmp\"/>"), buf.str());
 }
