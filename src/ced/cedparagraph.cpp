@@ -26,7 +26,7 @@ namespace CIF
 {
 
 CEDParagraph::CEDParagraph() :
-    align_(ALIGN_LEFT) {
+    align_(ALIGN_LEFT), line_space_(-1) {
     type = 0;
     layout.x = layout.w = layout.y = layout.h = 0;
     userNumber = 0;
@@ -66,6 +66,10 @@ size_t CEDParagraph::lineCount() const {
     return elementCount();
 }
 
+int CEDParagraph::lineSpace() const {
+    return line_space_;
+}
+
 void CEDParagraph::addLine(CEDLine * line) {
     addElement(line);
 }
@@ -80,6 +84,10 @@ void CEDParagraph::setAlign(align_t align) {
 
 void CEDParagraph::setIndent(const Rect& ind) {
     indent_ = ind;
+}
+
+void CEDParagraph::setLineSpace(int value) {
+    line_space_ = value;
 }
 
 }

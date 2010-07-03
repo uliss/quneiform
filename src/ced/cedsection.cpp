@@ -370,7 +370,7 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align
     para->border = FlagBorder;
     para->setColor(color);
     para->setBackgroundColor(shading);
-    para->spaceBetweenLines = spaceBetweenLines;
+    para->setLineSpace(spaceBetweenLines);
     para->spcBtwLnsMult = spcBtwLnsMult;
     para->keep = keep;
     para->interval = interval;

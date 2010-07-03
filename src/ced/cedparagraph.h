@@ -40,7 +40,6 @@ class CLA_EXPO CEDParagraph : public BlockElement
         EDSIZE interval; //  cx-upper indentation, cy-bottom
 
         edBox layout; //  Location paragraph on page
-        int spaceBetweenLines;
         char spcBtwLnsMult;
         char keep;
 
@@ -85,6 +84,11 @@ class CLA_EXPO CEDParagraph : public BlockElement
         size_t lineCount() const;
 
         /**
+         * Returns line space
+         */
+        int lineSpace() const;
+
+        /**
          * Returns parent section number
          */
         int parentNumber() const;
@@ -101,6 +105,12 @@ class CLA_EXPO CEDParagraph : public BlockElement
          */
         void setIndent(const Rect& ind);
 
+        /**
+         * Sets line space
+         * @see lineSpace()
+         */
+        void setLineSpace(int value);
+
         CEDParagraph();
         ~CEDParagraph();
 
@@ -112,6 +122,7 @@ class CLA_EXPO CEDParagraph : public BlockElement
         Rect indent_;
         int internal_number_;
         int parent_number_;
+        int line_space_;
 };
 
 }
