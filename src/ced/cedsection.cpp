@@ -44,6 +44,8 @@ CEDSection::CEDSection() {
 }
 
 CEDSection::~CEDSection() {
+    if (colInfo)
+        delete[] colInfo;
 }
 
 void CEDSection::addColumn(CEDColumn * col) {
@@ -324,7 +326,8 @@ CEDParagraph * CEDSection::CreateCell(CEDParagraph* hRow, int cellX, int merging
 
 CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align,
         const Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, edBox layout,
-        const Color& color, const Color& shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
+        const Color& color, const Color& shading, int spaceBetweenLines, char spcBtwLnsMult,
+        char keep) {
     //    if (hObject->type != TAB_CELL_BEGIN && hObject->type != FRAME_BEGIN && hObject->type
     //            != COLUMN_BEGIN) {
     //#ifdef _DEBUG
@@ -333,33 +336,33 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align
     //        return 0;
     //    }
 
-//    EDCOLDESCR *colde = (EDCOLDESCR*) (hObject->descriptor);
-//#ifdef _DEBUG
-//
-//    if (!colde) {
-//        std::cerr << "CED error: Attempt to create paragraph in ordinary paragraph\n(not in column or in frame or in table's cell)";
-//        return 0;
-//    }
-//
-//#endif
-//
-//    if (colde->next)
-//        SetCurParagraph((CEDParagraph *) (colde->next));
-//    else {
-//        //      switch(hObject->type)
-//        //      {
-//        /*
-//         case FRAME_BEGIN:
-//         SetCurParagraph(framesEnd);
-//         break;
-//         */
-//        //      case COLUMN_BEGIN:
-//        //          SetCurParagraph(columnsEnd);
-//        //          break;
-//        //      default:
-//        return 0;
-//        //      }
-//    }
+    //    EDCOLDESCR *colde = (EDCOLDESCR*) (hObject->descriptor);
+    //#ifdef _DEBUG
+    //
+    //    if (!colde) {
+    //        std::cerr << "CED error: Attempt to create paragraph in ordinary paragraph\n(not in column or in frame or in table's cell)";
+    //        return 0;
+    //    }
+    //
+    //#endif
+    //
+    //    if (colde->next)
+    //        SetCurParagraph((CEDParagraph *) (colde->next));
+    //    else {
+    //        //      switch(hObject->type)
+    //        //      {
+    //        /*
+    //         case FRAME_BEGIN:
+    //         SetCurParagraph(framesEnd);
+    //         break;
+    //         */
+    //        //      case COLUMN_BEGIN:
+    //        //          SetCurParagraph(columnsEnd);
+    //        //          break;
+    //        //      default:
+    //        return 0;
+    //        //      }
+    //    }
 
     CEDParagraph *para = InsertParagraph(FALSE);
     para->setAlign(align);

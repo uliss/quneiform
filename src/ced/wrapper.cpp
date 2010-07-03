@@ -86,9 +86,9 @@ CED_FUNC(Bool32) CED_CreatePicture(Handle hEdPage, int pictNumber, const CIF::Si
 }
 //create section
 
-CED_FUNC(CIF::CEDSection*) CED_CreateSection(Handle hEdPage, const CIF::Rect& border, int colInterval,
-        int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation,
-        int headerY, int footerY) {
+CED_FUNC(CIF::CEDSection*) CED_CreateSection(Handle hEdPage, const CIF::Rect& border,
+        int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height,
+        char orientation, int headerY, int footerY) {
     if (logStream) {
         fprintf(logStream, "CreateSection params: %x,(%i,%i,%i,%i),%i,%i,%x,%hd,%i,%i,%hd,%i,%i\n",
                 hEdPage, border.left(), border.top(), border.right(), border.bottom(), colInterval,
@@ -96,8 +96,8 @@ CED_FUNC(CIF::CEDSection*) CED_CreateSection(Handle hEdPage, const CIF::Rect& bo
         fflush(logStream);
     }
 
-    CEDSection *sect = ((CEDPage*) hEdPage)->InsertSection();
-    memcpy(&(sect->borders), &border, sizeof(border));
+    CEDSection * sect = new CEDSection;
+    sect->borders = border;
     sect->colInterval = colInterval;
     sect->sectionBreak = sectionBreak;
     sect->width = width;
@@ -108,9 +108,10 @@ CED_FUNC(CIF::CEDSection*) CED_CreateSection(Handle hEdPage, const CIF::Rect& bo
     sect->numSnakeCols = numOfCols;
     sect->colInfo = new EDCOL[numOfCols];
 
+    ((CEDPage*) hEdPage)->addSection(sect);
+
     if (colInfo)
         memcpy(sect->colInfo, colInfo, sizeof(EDCOL) * numOfCols);
-
     else
         memset(sect->colInfo, -1, sizeof(EDCOL) * numOfCols);
 
@@ -177,14 +178,16 @@ CED_FUNC(Bool32) CED_SetFrameFlag(Handle hEdFrame, int flag) {
 
 CEDParagraph * CED_CreateParagraph(Handle hEdSection, Handle hObject, CIF::align_t align,
         const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout,
-        const CIF::Color& color, const CIF::Color& shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
+        const CIF::Color& color, const CIF::Color& shading, int spaceBetweenLines,
+        char spcBtwLnsMult, char keep) {
     if (logStream) {
         fprintf(
                 logStream,
                 "CreateParagraph params: %x,%x,%i,(%i,%i,%i,%i),%i,%i,(%i,%i),(%i,%i,%i,%i),%i,%i,%i,%hd,%hd\n",
                 hEdSection, hObject, align, indent.left(), indent.top(), indent.right(),
                 indent.bottom(), UserNum, FlagBorder, interval.cx, interval.cy, layout.x, layout.y,
-                layout.w, layout.h, color.toT<int>(), shading, spaceBetweenLines, spcBtwLnsMult, keep);
+                layout.w, layout.h, color.toT<int> (), shading, spaceBetweenLines, spcBtwLnsMult,
+                keep);
         fflush(logStream);
     }
 

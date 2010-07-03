@@ -29,56 +29,18 @@ namespace CIF
 
 CEDPage::CEDPage() :
     turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG), unrecognized_char_(0) {
-    sections = 0;
-    curSect = 0;
-    section_num_ = 0;
 }
 
 CEDPage::~CEDPage() {
-    CEDParagraph * pa1, *pa;
-    pa1 = pa = GetParagraph(0);
-
-    while (pa1) {
-        pa = pa1->next;
-
-        if (pa1->descriptor) {
-            if (pa1->type == TAB_BEGIN) {
-                EDTABDESCR * td = (EDTABDESCR *) pa1->descriptor;
-
-                if (td->table) {
-                    delete[] td->linesX;
-                    delete[] td->linesY;
-                    delete[] td->table;
-                }
-
-                //              free(td->horShow);
-                //              free(td->verShow);
-            }
-
-            free(pa1->descriptor);
-        }
-
-        delete pa1;
-        pa1 = pa;
-    }
-
-    CEDSection * se1, *se;
-    se1 = se = section(0);
-
-    while (se1) {
-        if (se1->colInfo)
-            delete[] se1->colInfo;
-
-        se = se1->next;
-        delete se1;
-        se1 = se;
-    }
-
     clearPictures();
 }
 
 void CEDPage::addFont(const FontEntry& font) {
 
+}
+
+void CEDPage::addSection(CEDSection * sect) {
+    addElement(sect);
 }
 
 void CEDPage::clearPictures() {
@@ -87,12 +49,6 @@ void CEDPage::clearPictures() {
         delete pictures_[i];
     }
     pictures_.clear();
-}
-
-void CEDPage::clearSections() {
-    delete sections;
-    curSect = NULL;
-    section_num_ = 0;
 }
 
 PictureEntry * CEDPage::findPictureByNumber(int number) const {
@@ -192,84 +148,12 @@ char CEDPage::unrecognizedChar() const {
     return unrecognized_char_;
 }
 
-CEDSection * CEDPage::InsertSection() {
-    section_num_++;
-    CEDSection * sect = new CEDSection;
-
-    if (curSect) {
-        sect->next = curSect->next;
-
-        if (sect->next)
-            (sect->next)->prev = sect;
-
-        curSect->next = sect;
-        sect->prev = curSect;
-        sect->internalNumber = curSect->internalNumber + 1;
-
-        for (CEDSection * sect1 = sect->next; sect1; sect1 = sect1->next)
-            sect1->internalNumber++;
-    }
-
-    else
-        sections = sect;
-
-    curSect = sect;
-    return sect;
+CEDSection * CEDPage::sectionAt(size_t pos) {
+    return dynamic_cast<CEDSection*> (elementAt(pos));
 }
 
-CEDSection * CEDPage::setCurrentSection(CEDSection* _sect) {
-    return curSect = _sect;
-}
-
-CEDSection * CEDPage::setCurrentSection(int _number) {
-    CEDSection* sect;
-
-    for (sect = sections; sect && sect->internalNumber != _number; sect = sect->next)
-        ;
-
-    curSect = sect;
-    return sect;
-}
-
-CEDSection * CEDPage::GetCurSection() {
-    return curSect;
-}
-
-CEDSection * CEDPage::NextSection() {
-    return curSect->next;
-}
-
-CEDSection * CEDPage::section(int _num) {
-    CEDSection* ss = sections;
-    for (; ss && ss->internalNumber != _num; ss = ss->next) {
-    }
-
-    return ss;
-}
-CEDParagraph * CEDPage::GetParagraph(int _num) {
-    CEDSection * qq = sections;
-
-    while (qq && !qq->paragraphs)
-        qq = qq->next;
-
-    CEDParagraph* ss;
-
-    for (ss = qq ? qq->paragraphs : 0; ss && ss->internal_number_ != _num; ss = ss->next)
-        ;
-
-    return ss;
-}
-
-int CEDPage::sectionCount() const {
-    return section_num_;
-}
-
-int CEDPage::GetFontByNum(uchar fontNumber) {
-    for (size_t i = 0; i < fonts_.size(); i++)
-        if (fonts_[i].fontNumber == fontNumber)
-            return i;
-
-    return 0;
+size_t CEDPage::sectionCount() const {
+    return elementCount();
 }
 
 Bool32 CEDPage::CreatePicture(int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal,

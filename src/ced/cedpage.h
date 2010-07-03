@@ -23,13 +23,14 @@
 #include <vector>
 #include "globus.h"
 #include "ced_struct.h"
+#include "blockelement.h"
 #include "common/size.h"
 #include "common/font.h"
 
 namespace CIF
 {
 
-class CLA_EXPO CEDPage
+class CLA_EXPO CEDPage: public BlockElement
 {
     public:
         /**
@@ -38,11 +39,14 @@ class CLA_EXPO CEDPage
         void addFont(const FontEntry& font);
 
         /**
+         * Adds section to page
+         */
+        void addSection(CEDSection * sect);
+
+        /**
          * Removes all pictures from page
          */
         void clearPictures();
-
-        void clearSections();
 
         /**
          * Returns pointer to picture by given picture number
@@ -117,17 +121,12 @@ class CLA_EXPO CEDPage
         /**
          * Returns pointer to section with given number
          */
-        CEDSection * section(int num);
+        CEDSection * sectionAt(size_t pos);
 
         /**
          * Returns number of sections
          */
-        int sectionCount() const;
-
-        /**
-         * sets new value of current section
-         */
-        CEDSection * setCurrentSection(CEDSection* sect);
+        size_t sectionCount() const;
 
         /**
          * sets new value of current section
@@ -205,23 +204,8 @@ class CLA_EXPO CEDPage
         CEDPage();
         ~CEDPage();
 
-        CEDParagraph * GetParagraph(int _num);
-
-        int GetFontByNum(uchar fontNumber);
-
-        Bool32 FormattedWriteRtf(const char * fileName);
         Bool32 CreatePicture(int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal,
                 int pictAlign, int type, void * data, int len);
-
-        CEDSection * InsertSection(); //inserts new section after current one. inserted one becomes current
-        //sets pointer to the inserted one
-
-        CEDSection * GetCurSection(); //returns current section
-
-        CEDSection * NextSection(); //returns next section, 0 if last
-
-        int NumberOfParagraphs, NumberOfLines, NumberOfChars;
-        int section_num_;
     private:
         Size image_size_;
         Size image_dpi_;
@@ -232,8 +216,6 @@ class CLA_EXPO CEDPage
         int page_number_;
         language_t language_;
         char unrecognized_char_;
-        CEDSection * sections; //connected list of sections
-        CEDSection * curSect; //current section
 
         typedef std::vector<FontEntry> FontList;
         FontList fonts_;
