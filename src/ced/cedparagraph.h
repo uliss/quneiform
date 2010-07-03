@@ -104,13 +104,6 @@ class CLA_EXPO CEDParagraph : public BlockElement
         CEDParagraph();
         ~CEDParagraph();
 
-        CEDParagraph* GetFirstObject();
-        CEDParagraph* GetNextObject();
-        CEDParagraph* GetCell(int cell);
-        CEDParagraph* GetRow(int row);
-        int GetCountLogicalCell();
-        void CreateTableOfCells();
-
         CEDParagraph * prev, *next; //pointer to neibor elements in connected list
         friend class CEDSection;
         friend class CEDPage;

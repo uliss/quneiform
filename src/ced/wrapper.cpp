@@ -138,23 +138,6 @@ CED_FUNC(Bool32) CED_SetSectLineBetCol(Handle hEdSection, Bool32 lineBetCol) {
     return TRUE;
 }
 
-//create column
-CED_FUNC(Handle) CED_CreateColumn(Handle hEdSection) {
-    if (logStream) {
-        fprintf(logStream, "CreateColumn params: %x\n", hEdSection);
-        fflush(logStream);
-    }
-
-    Handle ret = (Handle) (((CEDSection*) hEdSection)->createColumn());
-
-    if (logStream) {
-        fprintf(logStream, "CreateColumn returned %x\n", ret);
-        fflush(logStream);
-    }
-
-    return ret;
-}
-
 //create frame
 CED_FUNC(Handle) CED_CreateFrame(Handle hEdSection, Handle hEdColumn, edBox rect, char position,
         int borderSpace, int dxfrtextx, int dxfrtexty) {
@@ -256,23 +239,5 @@ CED_FUNC(Bool32) CED_IsFrame(Handle hObject) {
 
 CED_FUNC(Bool32) CED_IsParagraph(Handle hObject) {
     return ((CEDParagraph*) hObject)->type & FICTIVE ? FALSE : TRUE;
-}
-
-CED_FUNC(Bool32) CED_IsFictive(Handle hEdParagraph) {
-    return ((CEDParagraph*) hEdParagraph)->type & FICTIVE ? TRUE : FALSE;
-}
-
-CED_FUNC(edSize) CED_GetSize(Handle hEdTable) {
-    if ((uint32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->table == 0)
-        ((CEDParagraph*) hEdTable)->CreateTableOfCells();
-
-    return (edSize) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->size;
-}
-
-CED_FUNC(int) CED_GetCountLogicalCell(Handle hEdTable) {
-    if ((uint32_t*) ((EDTABDESCR*) ((CEDParagraph*) hEdTable)->descriptor)->table == 0)
-        ((CEDParagraph*) hEdTable)->CreateTableOfCells();
-
-    return ((CEDParagraph*) hEdTable)->GetCountLogicalCell();
 }
 

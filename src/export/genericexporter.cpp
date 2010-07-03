@@ -231,68 +231,12 @@ void GenericExporter::exportTable(CEDParagraph * table) {
 }
 
 void GenericExporter::exportTableCells(CEDParagraph * table) {
-    assert(table);
-    // Количество строк и столбцов таблицы
-    EDSIZE dim = CED_GetSize(table);
-    const int table_rows = dim.cy;
-    //const int table_cols = dim.cx;
 
-    // Количество логических ячеек
-    const unsigned int num_table_cells = CED_GetCountLogicalCell(table);
-
-    // Массив логических номеров ячеек
-    //gLogicalCells = (long*) CED_GetTableOfCells(gTableHandle);
-
-    // Справочная обхода ячеек
-    const int MAX_TABLE_CELLS = 10000;
-    char sprav[MAX_TABLE_CELLS];
-    assert(num_table_cells < sizeof(sprav));
-    memset(&sprav, 0, sizeof(sprav));
-
-    // Цикл по строкам таблицы
-    for (int row_index = 0; row_index < table_rows; row_index++) {
-        CEDParagraph * row = table->GetRow(row_index);
-        exportTableRow(row);
-    }
 }
 
 void GenericExporter::exportTableRow(CEDParagraph * row) {
     assert(row);
-
     writeTableRowBegin(*os_, row);
-
-    //    // Цикл по столбцам таблицы
-    //    for (gIndexTableCol = 0; gIndexTableCol < gTableCols; gIndexTableCol++) {
-    //        // Логический номер ячейки
-    //        gIndexTableCell = gLogicalCells[gIndexTableRow * gTableCols + gIndexTableCol];
-    //
-    //        // Проверить по справочной
-    //        if (gIndexTableCell < 0 || sprav[gIndexTableCell]) {
-    //            // В этой логической ячейке уже были
-    //            gCellHandle = NULL;
-    //            continue;
-    //        }
-    //
-    //        sprav[gIndexTableCell] = 1;
-    //
-    //        // Начало ячейки
-    //        gCellHandle = CED_GetLogicalCell(gTableHandle, gIndexTableCell);
-    //        ASSERT(gCellHandle);
-    //
-    //        gHitCells++;
-    //        BROWSE_FUNCTION(gCellHandle, BROWSE_CELL_START);
-    //
-    //        // Обход абзацев в ячейке
-    //        if (!BrowseParagraphs(gCellHandle, BrowseFunction, FALSE, // wantSkipTableCells
-    //                FALSE // wantSkipParagraphs
-    //        ))
-    //            return FALSE;
-    //
-    //        // Конец ячейки
-    //        BROWSE_FUNCTION(gCellHandle, BROWSE_CELL_END);
-    //        gCellHandle = NULL;
-    //    }
-
     writeTableRowEnd(*os_, row);
 }
 

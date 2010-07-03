@@ -347,7 +347,6 @@ class CEDSection;
 DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len))
 DEC_FUN(CIF::CEDSection*, CED_CreateSection, (Handle hEdPage, const CIF::Rect& border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY))
 DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol))
-DEC_FUN(Handle, CED_CreateColumn, ( Handle hEdSection))
 DEC_FUN(CIF::CEDParagraph *, CED_CreateParagraph, (Handle hEdSection, Handle hObject, CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, const CIF::Color& color, const CIF::Color& backgr, int spaceBetweenLines, char spcBtwLnsMult, char keep))
 DEC_FUN(Bool32, CED_SetParaBorders, (Handle hEdParagraph, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int brdrBtw))
 DEC_FUN(Handle, CED_CreateFrame, (Handle hEdSection, Handle hEdColumn, EDBOX rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty))
@@ -355,9 +354,6 @@ DEC_FUN(Bool32, CED_SetFrameFlag, (Handle hEdFrame, int flag))
 DEC_FUN(Bool32, CED_IsTable, (Handle hObject))
 DEC_FUN(Bool32, CED_IsFrame, (Handle hObject))
 DEC_FUN(Bool32, CED_IsParagraph, (Handle hObject))
-DEC_FUN(Bool32, CED_IsFictive, (Handle hEdParagraph))
-DEC_FUN(EDSIZE, CED_GetSize, (Handle hEdTable))
-DEC_FUN(int, CED_GetCountLogicalCell, (Handle hEdTable))
 
 #ifdef _DEBUG
 CED_FUNC(void) CED_ShowTree(char * name, CIF::CEDPage * EdPage);
