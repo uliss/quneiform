@@ -43,7 +43,6 @@ CEDParagraph::CEDParagraph() :
     bottomBrdrWidth = 0;
     brdrBtw = 0;
     internal_number_ = 0;
-    parent_number_ = 0;
     prev = next = 0;
 }
 
@@ -72,10 +71,6 @@ int CEDParagraph::lineSpace() const {
 
 void CEDParagraph::addLine(CEDLine * line) {
     addElement(line);
-}
-
-int CEDParagraph::parentNumber() const {
-    return parent_number_;
 }
 
 void CEDParagraph::setAlign(align_t align) {

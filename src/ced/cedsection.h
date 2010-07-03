@@ -50,8 +50,6 @@ class CLA_EXPO CEDSection: public BlockElement
         int numSnakeCols;
         Bool lineBetCol;
         EDCOL *colInfo;
-        char * extData; // Data cat. will be recorded in the file after the title;
-        int extDataLen; // Data size.
 
         CEDParagraph * CreateFrame(CEDParagraph* hObject, edBox rect, char position = -1,
                 int borderSpace = -1, int dxfrtextx = -1, int dxfrtexty = -1);
@@ -75,16 +73,7 @@ class CLA_EXPO CEDSection: public BlockElement
 
         CEDParagraph * InsertParagraph(Bool32 AfterCurrent = TRUE); // Inserts new paragraph after the current. Current becomes a new paragraph
         // Returns pointer to the newly created bullet
-        //  CEDParagraph * DeleteParagraph(Bool32 _deleteSubItems); //deletes current paragraph. previous one becomes current
-        //return it
-        //_deleteSubItems - either delete all daughter elements or attach it to previous object
         CEDParagraph * SetCurParagraph(CEDParagraph* _para);//sets new value of current paragraph
-        CEDParagraph * SetCurParagraph(int _number);//sets new value of current paragraph
-
-        CEDParagraph * GetCurParagraph(); //returns current paragraph
-        int GetNumOfCurParagraph(); //returns current paragraph
-
-        //If _goThroughSect = TRUE, then we consider boundary paragraphs in file, othrwise in section
 
         CEDParagraph * paragraphs; //connected list of paragraphs
         CEDParagraph * columnsEnd;

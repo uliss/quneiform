@@ -31,9 +31,12 @@
 namespace CIF
 {
 
-class CLA_EXPO CEDParagraph : public BlockElement
+class CLA_EXPO CEDParagraph: public BlockElement
 {
     public:
+        CEDParagraph();
+        ~CEDParagraph();
+
         int type; // Type paragraph
         int userNumber; // ID number, the user at the stage of fragmentation
         int border; //  frame around abzattsa
@@ -84,14 +87,10 @@ class CLA_EXPO CEDParagraph : public BlockElement
         size_t lineCount() const;
 
         /**
-         * Returns line space
+         * Returns space between lines
+         * @see setLineSpace()
          */
         int lineSpace() const;
-
-        /**
-         * Returns parent section number
-         */
-        int parentNumber() const;
 
         /**
          * Sets paragraph alignment
@@ -111,17 +110,12 @@ class CLA_EXPO CEDParagraph : public BlockElement
          */
         void setLineSpace(int value);
 
-        CEDParagraph();
-        ~CEDParagraph();
-
         CEDParagraph * prev, *next; //pointer to neibor elements in connected list
-        friend class CEDSection;
         friend class CEDPage;
     private:
         align_t align_;
         Rect indent_;
         int internal_number_;
-        int parent_number_;
         int line_space_;
 };
 
