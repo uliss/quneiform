@@ -59,19 +59,15 @@ const Rect& CEDParagraph::indent() const {
 }
 
 CEDLine * CEDParagraph::lineAt(size_t pos) {
-    return lines.at(pos).get();
+    return dynamic_cast<CEDLine*> (elementAt(pos));
 }
 
 size_t CEDParagraph::lineCount() const {
-    return lines.size();
+    return elementCount();
 }
 
-CEDLine * CEDParagraph::addLine(CEDLine * line) {
-    assert(line);
-
-    line->setParentNumber(internal_number_);
-    lines.push_back(LinePtr(line));
-    return line;
+void CEDParagraph::addLine(CEDLine * line) {
+    addElement(line);
 }
 
 int CEDParagraph::parentNumber() const {
@@ -292,7 +288,6 @@ void CEDParagraph::CreateTableOfCells() {
     delete[] x;
     return;
 }
-
 
 int CEDParagraph::GetCountLogicalCell() {
     int i = 0;

@@ -24,14 +24,14 @@
 
 #include "globus.h"
 #include "ced_struct.h"
-#include "element.h"
+#include "blockelement.h"
 #include "common/color.h"
 #include "common/align.h"
 
 namespace CIF
 {
 
-class CLA_EXPO CEDParagraph : public Element
+class CLA_EXPO CEDParagraph : public BlockElement
 {
     public:
         int type; // Type paragraph
@@ -59,7 +59,7 @@ class CLA_EXPO CEDParagraph : public Element
         /**
          * Adds line to the end of paragraph
          */
-        CEDLine * addLine(CEDLine * line);
+        void addLine(CEDLine * line);
 
         /**
          * Returns paragraph alignment
@@ -115,9 +115,6 @@ class CLA_EXPO CEDParagraph : public Element
         friend class CEDSection;
         friend class CEDPage;
     private:
-        typedef boost::shared_ptr<CEDLine> LinePtr;
-        typedef std::vector<LinePtr> LineList;
-        LineList lines; //connected list of lines
         align_t align_;
         Rect indent_;
         int internal_number_;
