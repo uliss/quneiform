@@ -22,8 +22,8 @@
 
 #include "textexporter.h"
 #include "ced/ced.h"
-#include "ced/cedint.h"
 #include "ced/cedline.h"
+#include "ced/cedparagraph.h"
 #include "common/helper.h"
 
 namespace CIF

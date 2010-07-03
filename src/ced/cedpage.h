@@ -44,17 +44,6 @@ class CLA_EXPO CEDPage: public BlockElement
         void addSection(CEDSection * sect);
 
         /**
-         * Removes all pictures from page
-         */
-        void clearPictures();
-
-        /**
-         * Returns pointer to picture by given picture number
-         * @return NULL if nothing found
-         */
-        PictureEntry * findPictureByNumber(int number) const;
-
-        /**
          * Returns reference to font entry in given position
          * @throw std::out_of_range exception if wrong position given
          */
@@ -107,16 +96,6 @@ class CLA_EXPO CEDPage: public BlockElement
          * @see setPageSize()
          */
         Size pageSize() const;
-
-        /**
-         * Returns pointer to picture with given number
-         */
-        PictureEntry * pictureAt(size_t pos) const;
-
-        /**
-         * Returns count of pictures
-         */
-        size_t pictureCount() const;
 
         /**
          * Returns pointer to section with given number
@@ -203,9 +182,6 @@ class CLA_EXPO CEDPage: public BlockElement
 
         CEDPage();
         ~CEDPage();
-
-        Bool32 CreatePicture(int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal,
-                int pictAlign, int type, void * data, int len);
     private:
         Size image_size_;
         Size image_dpi_;
@@ -219,9 +195,6 @@ class CLA_EXPO CEDPage: public BlockElement
 
         typedef std::vector<FontEntry> FontList;
         FontList fonts_;
-
-        typedef std::vector<PictureEntry*> PictureList;
-        PictureList pictures_;
 };
 
 }

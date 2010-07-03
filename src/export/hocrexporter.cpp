@@ -18,7 +18,9 @@
 
 #include "hocrexporter.h"
 #include "xmltag.h"
-#include "ced/cedint.h"
+#include "ced/cedpicture.h"
+#include "ced/cedchar.h"
+#include "ced/cedpage.h"
 #include "common/helper.h"
 
 namespace CIF
@@ -64,7 +66,7 @@ void HocrExporter::addCharBBox(CEDChar * chr) {
     assert(chr);
     Rect r = chr->boundingRect();
 
-    // spaces have not valid bounding rectangle
+    // spaces have invalid bounding rectangle
     if (goodCharRect(r)) {
         rects_.push_back(r);
 
@@ -141,8 +143,9 @@ void HocrExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     line_rect_ = Rect();
 }
 
-void HocrExporter::writePicture(std::ostream& os, CEDChar * picture) {
-    addCharBBox(picture);
+void HocrExporter::writePicture(std::ostream& os, CEDPicture * picture) {
+//    addCharBBox(picture);
+    line_rect_ = picture->boundingRect();
     HtmlExporter::writePicture(os, picture);
 }
 

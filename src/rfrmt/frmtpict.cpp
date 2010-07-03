@@ -64,6 +64,8 @@
 // GetPictCount()      - Return Picture count
 // WritePict()         - Write  Picture
 
+#include <string.h> // for memcpy
+
 #include "sectorinfo.h"
 #include "rfrmtoptions.h"
 #include "frmtpict.h"
@@ -75,6 +77,7 @@
 #include "ced/ced.h"
 #include "ced/cedchar.h"
 #include "ced/cedline.h"
+#include "ced/cedpicture.h"
 #include "ced/cedparagraph.h"
 #include "compat/filefunc.h"
 #include "common/debug.h"
@@ -373,21 +376,16 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         CEDLine * ced_line = new CEDLine;
         ced_line->setDefaultFontHeight(6);
 
-        CEDChar * ced_char = new CEDChar;
-        ced_char->setBoundingRect(slayout);
-        ced_char->addAlternative(Letter(' ', 0));
-        ced_char->setFontHeight(12);
-        ced_char->setFontNumber(ED_PICT_BASE + IndexPict);
-        ced_char->setFontLanguage(LANGUAGE_UNKNOWN);
+        CEDPicture * ced_pict = new CEDPicture();
+        ced_pict->setBoundingRect(slayout);
+        ced_pict->setPictureNumber(IndexPict);
+        ced_pict->setAlignment(ED_ALIGN_MIDDLE);
+        uchar * img_data = new uchar[iDIBSize];
+        memcpy(img_data, pOutDIB, iDIBSize);
+        ced_pict->setImage(new Image(img_data, iDIBSize, Image::AllocatorNew));
 
-        ced_line->insertChar(ced_char);
+        ced_line->addElement(ced_pict);
         ced_par->addLine(ced_line);
-
-        if (!CED_CreatePicture(SectorInfo->hEDPage, (int) IndexPict, pictSize, pictGoal,
-                ED_ALIGN_MIDDLE, 1, pOutDIB, (int) iDIBSize)) {
-            SectorInfo->hObject = hPrevObject;
-            return FALSE;
-        }
     }
 
     // piter

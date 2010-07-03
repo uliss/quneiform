@@ -10,7 +10,6 @@ cedparagraph.cpp
 cedpicture.cpp
 cedsection.cpp
 cedtable.cpp
-dll.cpp
 element.cpp
 wrapper.cpp
 )

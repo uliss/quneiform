@@ -21,11 +21,14 @@
 
 #include "genericexporter.h"
 #include "ced/ced.h"
-#include "ced/cedint.h"
 #include "ced/cedline.h"
 #include "ced/cedchar.h"
 #include "ced/ced_struct.h"
 #include "ced/cedcolumn.h"
+#include "ced/cedpicture.h"
+#include "ced/cedsection.h"
+#include "ced/cedparagraph.h"
+#include "ced/cedpage.h"
 #include "common/debug.h"
 #include "common/cifconfig.h"
 #include "common/imagerawdata.h"
@@ -55,7 +58,7 @@ GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
     Exporter(opts), page_(page), no_pictures_(false), os_(NULL), num_chars_(0), num_columns_(0),
             num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
             num_tables_(0), table_nesting_level_(0), skip_empty_paragraphs_(false),
-            skip_empty_lines_(false), previous_style_(0), current_picture_(NULL) {
+            skip_empty_lines_(false), previous_style_(0) {
 
     if (isCharsetConversion())
         converter_.open(inputEncoding(), outputEncoding());
@@ -104,19 +107,14 @@ void GenericExporter::doExport(std::ostream& os) {
 void GenericExporter::exportChar(CEDChar * chr) {
     assert(chr);
 
-    if (chr->isPicture())
-        exportPicture(chr);
-    else {
-        // Обычный символ
-        num_chars_++;
+    num_chars_++;
 
-        // Скрытый ли символ
-        //gEdCharHidden = CED_GetCharFontAttribs(charHandle) & ED_HIDDEN;
+    // Скрытый ли символ
+    //gEdCharHidden = CED_GetCharFontAttribs(charHandle) & ED_HIDDEN;
 
-        writeFontStyle(*os_, chr);
-        writeCharacter(*os_, chr);
-        previous_style_ = chr->fontStyle();
-    }
+    writeFontStyle(*os_, chr);
+    writeCharacter(*os_, chr);
+    previous_style_ = chr->fontStyle();
 }
 
 void GenericExporter::exportColumn(CEDColumn * col) {
@@ -194,7 +192,7 @@ void GenericExporter::exportParagraph(CEDParagraph * par) {
     writeParagraphEnd(*os_, par);
 }
 
-void GenericExporter::exportPicture(CEDChar * picture) {
+void GenericExporter::exportPicture(CEDPicture * picture) {
     if (skipPictures()) {
         Debug() << "picture skipped\n";
         return;
@@ -294,31 +292,7 @@ CEDPage * GenericExporter::page() {
     return page_;
 }
 
-PictureEntry * GenericExporter::pictureEntry(CEDChar * picture) const {
-    assert(page_);
-    assert(picture);
-
-    int picture_num = picture->pictureNumber();
-
-    if (picture_num < 0)
-        throw Exception("[CEDPage::pictureEntry] not a picture given");
-
-    PictureEntry * res = page_->findPictureByNumber(picture_num);
-
-    if (!res) {
-        std::ostringstream msg;
-        msg << "[GenericExporter::savePictureData] picture with number " << picture_num
-                << " not found\n";
-        throw Exception(msg.str());
-    }
-
-    if (!res->data || res->len <= 0)
-        throw Exception("[GenericExporter::savePicture] failed");
-
-    return res;
-}
-
-std::string GenericExporter::makePictureName(CEDChar * picture) {
+std::string GenericExporter::makePictureName(CEDPicture * picture) {
     assert(picture);
     std::ostringstream buf;
     buf << "image_" << picture->pictureNumber() << "." << imageExporter()->extension();
@@ -332,33 +306,25 @@ void GenericExporter::resetFontStyle(std::ostream& os) {
     previous_style_ = 0;
 }
 
-std::string GenericExporter::makePicturePathRelative(CEDChar * picture) {
+std::string GenericExporter::makePicturePathRelative(CEDPicture * picture) {
     return baseName(makeOutputPictureDir()) + "/" + makePictureName(picture);
 }
 
-std::string GenericExporter::makePicturePath(CEDChar * picture) {
+std::string GenericExporter::makePicturePath(CEDPicture * picture) {
     return makeOutputPictureDir() + "/" + makePictureName(picture);
 }
 
-void GenericExporter::savePicture(CEDChar * picture) {
+void GenericExporter::savePicture(CEDPicture * picture) {
     createPicturesFolder();
     savePictureData(picture, makePicturePath(picture));
 }
 
-void GenericExporter::savePictureData(CEDChar * picture, const std::string& path) {
-    current_picture_ = pictureEntry(picture);
-    assert(current_picture_);
-    ImageRawData raw_image((uchar*) current_picture_->data, current_picture_->len,
-            ImageRawData::AllocatorNone);
-    imageExporter()->save(raw_image, path);
+void GenericExporter::savePictureData(CEDPicture * picture, const std::string& path) {
+    imageExporter()->save(*picture->image(), path);
 }
 
-void GenericExporter::savePictureData(CEDChar * picture, std::ostream& os) {
-    current_picture_ = pictureEntry(picture);
-    assert(current_picture_);
-    ImageRawData raw_image((uchar*) current_picture_->data, current_picture_->len,
-            ImageRawData::AllocatorNone);
-    imageExporter()->save(raw_image, os);
+void GenericExporter::savePictureData(CEDPicture * picture, std::ostream& os) {
+    imageExporter()->save(*picture->image(), os);
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {
@@ -451,8 +417,13 @@ void GenericExporter::writeFrameEnd(std::ostream& /*os*/, CEDParagraph * /*frame
 
 void GenericExporter::writeLine(std::ostream&, CEDLine * line) {
     assert(line);
-    for (int i = 0, max_chars = line->elementCount(); i < max_chars; i++)
-        exportChar(line->charAt(i));
+    for (size_t i = 0, max_chars = line->elementCount(); i < max_chars; i++) {
+        if (dynamic_cast<CEDChar *> (line->elementAt(i))) {
+            exportChar(line->charAt(i));
+        } else if (dynamic_cast<CEDPicture *> (line->elementAt(i))) {
+            exportPicture(static_cast<CEDPicture*> (line->elementAt(i)));
+        }
+    }
 }
 
 void GenericExporter::writeLineBegin(std::ostream&, CEDLine*) {
@@ -493,7 +464,7 @@ void GenericExporter::writeParagraphEnd(std::ostream&, CEDParagraph*) {
 
 }
 
-void GenericExporter::writePicture(std::ostream&, CEDChar*) {
+void GenericExporter::writePicture(std::ostream&, CEDPicture*) {
 
 }
 

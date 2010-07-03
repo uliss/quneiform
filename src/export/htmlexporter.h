@@ -71,7 +71,7 @@ class HtmlExporter: public XmlExporter
         /**
          * Writes <img tag
          */
-        virtual void writePicture(std::ostream& os, CEDChar * picture);
+        virtual void writePicture(std::ostream& os, CEDPicture * picture);
 
         /**
          * Writes <table> tag

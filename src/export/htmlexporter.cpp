@@ -21,7 +21,8 @@
 #include "htmlexporter.h"
 #include "common/helper.h"
 #include "common/debug.h"
-#include "ced/cedint.h"
+#include "ced/cedpicture.h"
+#include "ced/cedparagraph.h"
 #include "rout_own.h"
 #include "xmltag.h"
 #include "imageexporterfactory.h"
@@ -141,16 +142,16 @@ void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
     writeCloseTag(os, "p", "\n");
 }
 
-void HtmlExporter::writePicture(std::ostream& /*os*/, CEDChar * picture) {
+void HtmlExporter::writePicture(std::ostream& /*os*/, CEDPicture * picture) {
     try {
+        assert(picture);
         savePicture(picture);
-        assert(current_picture_);
 
         XmlTag img("img");
         img["src"] = escapeHtmlSpecialChars(makePicturePathRelative(picture));
         img["alt"] = "";
-        img["height"] = toString(current_picture_->pictSize.height());
-        img["width"] = toString(current_picture_->pictSize.width());
+        img["height"] = toString(picture->boundingRect().height());
+        img["width"] = toString(picture->boundingRect().width());
         lineBuffer() << img << "\n";
 
     } catch (Exception& e) {

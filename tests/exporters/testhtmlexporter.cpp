@@ -25,9 +25,10 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #include <export/htmlexporter.h>
 #include <export/rout_own.h>
 #include <ced/ced.h>
-#include <ced/cedint.h>
 #include <ced/cedline.h>
 #include <ced/cedpage.h>
+#include <ced/cedchar.h>
+#include <ced/cedparagraph.h>
 using namespace CIF;
 using namespace std;
 

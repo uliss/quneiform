@@ -32,7 +32,6 @@ CEDPage::CEDPage() :
 }
 
 CEDPage::~CEDPage() {
-    clearPictures();
 }
 
 void CEDPage::addFont(const FontEntry& font) {
@@ -41,23 +40,6 @@ void CEDPage::addFont(const FontEntry& font) {
 
 void CEDPage::addSection(CEDSection * sect) {
     addElement(sect);
-}
-
-void CEDPage::clearPictures() {
-    for (size_t i = 0; i < pictures_.size(); i++) {
-        free(pictures_[i]->data);
-        delete pictures_[i];
-    }
-    pictures_.clear();
-}
-
-PictureEntry * CEDPage::findPictureByNumber(int number) const {
-    for (size_t i = 0; i < pictures_.size(); i++) {
-        if (pictures_.at(i)->pictNumber == number)
-            return pictures_[i];
-    }
-
-    return NULL;
 }
 
 const FontEntry& CEDPage::fontAt(size_t pos) const {
@@ -94,14 +76,6 @@ int CEDPage::pageNumber() const {
 
 Size CEDPage::pageSize() const {
     return page_size_;
-}
-
-size_t CEDPage::pictureCount() const {
-    return pictures_.size();
-}
-
-PictureEntry * CEDPage::pictureAt(size_t pos) const {
-    return pictures_.at(pos);
 }
 
 void CEDPage::setImageDpi(const Size& dpi) {
@@ -154,28 +128,6 @@ CEDSection * CEDPage::sectionAt(size_t pos) {
 
 size_t CEDPage::sectionCount() const {
     return elementCount();
-}
-
-Bool32 CEDPage::CreatePicture(int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal,
-        int pictAlign, int type, void * data, int len) {
-    PictureEntry * tmp = new PictureEntry;
-
-    tmp->pictNumber = pictNumber;
-    tmp->pictSize = pictSize;
-    tmp->pictGoal = pictGoal;
-    tmp->type = type;
-    tmp->pictAlign = pictAlign;
-    tmp->len = len;
-    tmp->data = malloc(len);
-
-    if (!tmp->data) {
-        delete tmp;
-        return FALSE;
-    }
-
-    memcpy(tmp->data, data, len);
-    pictures_.push_back(tmp);
-    return TRUE;
 }
 
 }

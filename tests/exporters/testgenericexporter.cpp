@@ -21,7 +21,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestGenericExporter);
 #define private public
 #define protected public
 #include <export/genericexporter.h>
-#include <ced/cedint.h>
+#include <ced/cedpicture.h>
+#include <ced/cedpage.h>
 #include "cfcompat.h"
 using namespace CIF;
 
@@ -89,9 +90,9 @@ void TestGenericExporter::testCreatePicturesFolder() {
 void TestGenericExporter::testMakePictureName() {
     FormatOptions opt;
     GenericExporter * p = new GenericExporter(NULL, opt);
-    CEDChar ch;
-    ch.setFontNumber(ED_PICT_BASE + 1);
-    CPPUNIT_ASSERT_EQUAL(std::string("image_1."), p->makePictureName(&ch));
+    CEDPicture pict;
+    pict.setPictureNumber(1);
+    CPPUNIT_ASSERT_EQUAL(std::string("image_1."), p->makePictureName(&pict));
     delete p;
 }
 
@@ -111,39 +112,39 @@ void TestGenericExporter::testMakeOutputPictureDir() {
 void TestGenericExporter::testMakePicturePath() {
     FormatOptions opt;
     GenericExporter * p = new GenericExporter(NULL, opt);
-    CEDChar ch;
-    ch.setFontNumber(ED_PICT_BASE + 1);
+    CEDPicture pict;
+    pict.setPictureNumber(1);
 
-    CPPUNIT_ASSERT_THROW(p->makePicturePath(&ch), Exporter::Exception);
+    CPPUNIT_ASSERT_THROW(p->makePicturePath(&pict), Exporter::Exception);
     p->setOutputFilename("./test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("./test_files/image_1."), p->makePicturePath(&ch));
+    CPPUNIT_ASSERT_EQUAL(std::string("./test_files/image_1."), p->makePicturePath(&pict));
 
-    ch.setFontNumber(ED_PICT_BASE + 2);
+    pict.setPictureNumber(2);
     p->setOutputFilename("test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_2."), p->makePicturePath(&ch));
+    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_2."), p->makePicturePath(&pict));
 
-    ch.setFontNumber(ED_PICT_BASE + 3);
+    pict.setPictureNumber(3);
     p->setOutputFilename("/../..//test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("/../..//test_files/image_3."), p->makePicturePath(&ch));
+    CPPUNIT_ASSERT_EQUAL(std::string("/../..//test_files/image_3."), p->makePicturePath(&pict));
     delete p;
 }
 
 void TestGenericExporter::testMakePicturePathRelative() {
     FormatOptions opt;
     GenericExporter * p = new GenericExporter(NULL, opt);
-    CEDChar ch;
-    ch.setFontNumber(ED_PICT_BASE + 1);
+    CEDPicture pict;
+    pict.setPictureNumber(1);
 
-    CPPUNIT_ASSERT_THROW(p->makePicturePathRelative(&ch), Exporter::Exception);
+    CPPUNIT_ASSERT_THROW(p->makePicturePathRelative(&pict), Exporter::Exception);
     p->setOutputFilename("./test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_1."), p->makePicturePathRelative(&ch));
+    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_1."), p->makePicturePathRelative(&pict));
 
-    ch.setFontNumber(ED_PICT_BASE + 2);
+    pict.setPictureNumber(2);
     p->setOutputFilename("test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_2."), p->makePicturePathRelative(&ch));
+    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_2."), p->makePicturePathRelative(&pict));
 
-    ch.setFontNumber(ED_PICT_BASE + 3);
+    pict.setPictureNumber(3);
     p->setOutputFilename("/../..//test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_3."), p->makePicturePathRelative(&ch));
+    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_3."), p->makePicturePathRelative(&pict));
     delete p;
 }

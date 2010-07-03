@@ -24,8 +24,6 @@
 #include "common/size.h"
 #include "common/iconv_local.h"
 
-class PictureEntry;
-
 namespace CIF
 {
 
@@ -35,6 +33,7 @@ class CEDParagraph;
 class CEDLine;
 class CEDChar;
 class CEDColumn;
+class CEDPicture;
 
 class GenericExporter: public Exporter
 {
@@ -149,12 +148,12 @@ class GenericExporter: public Exporter
         /**
          * Makes picture path for export
          */
-        std::string makePicturePath(CEDChar * picture);
+        std::string makePicturePath(CEDPicture * picture);
 
         /**
          * Makes relative picture path
          */
-        std::string makePicturePathRelative(CEDChar * picture);
+        std::string makePicturePathRelative(CEDPicture * picture);
 
         /**
          * Returns pointer to default output stream
@@ -165,17 +164,17 @@ class GenericExporter: public Exporter
          * Saves given picture
          * @see createPicturesFolder
          */
-        void savePicture(CEDChar * picture);
+        void savePicture(CEDPicture * picture);
 
         /**
          * Saves picture to file
          */
-        void savePictureData(CEDChar * picture, const std::string& filepath);
+        void savePictureData(CEDPicture * picture, const std::string& filepath);
 
         /**
          * Saves picture to stream
          */
-        void savePictureData(CEDChar * picture, std::ostream& os);
+        void savePictureData(CEDPicture * picture, std::ostream& os);
 
         /**
          * Sets pointer to default output stream
@@ -235,7 +234,7 @@ class GenericExporter: public Exporter
         /**
          * Exports picture
          */
-        void exportPicture(CEDChar * picture);
+        void exportPicture(CEDPicture * picture);
 
         /**
          * Exports section
@@ -260,15 +259,9 @@ class GenericExporter: public Exporter
         CEDPage * page();
 
         /**
-         * Returns pointer to picture entry
-         * @throw Exception if entry not founds
-         */
-        PictureEntry * pictureEntry(CEDChar * picture) const;
-
-        /**
          * Makes picture filename
          */
-        std::string makePictureName(CEDChar * picture);
+        std::string makePictureName(CEDPicture * picture);
 
         /**
          * Resets font styles
@@ -383,7 +376,7 @@ class GenericExporter: public Exporter
         /**
          * Writes picture
          */
-        virtual void writePicture(std::ostream& os, CEDChar * pict);
+        virtual void writePicture(std::ostream& os, CEDPicture * pict);
 
         /**
          * Exports section content
@@ -425,7 +418,6 @@ class GenericExporter: public Exporter
         int previous_style_;
     protected:
         Iconv converter_;
-        PictureEntry * current_picture_;
 };
 
 }

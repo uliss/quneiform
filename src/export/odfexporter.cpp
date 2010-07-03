@@ -28,6 +28,7 @@
 #include "xmltag.h"
 #include "ced/cedpage.h"
 #include "ced/cedchar.h"
+#include "ced/cedpicture.h"
 #include "ced/cedparagraph.h"
 #include "common/tostring.h"
 #include "common/helper.h"
@@ -343,7 +344,7 @@ void OdfExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
     writeCloseTag(os, "text:p", "");
 }
 
-void OdfExporter::writePicture(std::ostream& os, CEDChar * picture) {
+void OdfExporter::writePicture(std::ostream& os, CEDPicture * picture) {
     try {
         std::ostringstream img_buf;
         savePictureData(picture, img_buf);
@@ -365,8 +366,8 @@ void OdfExporter::writePicture(std::ostream& os, CEDChar * picture) {
         float xdpi = (float) page()->imageDpi().width();
         float ydpi = (float) page()->imageDpi().height();
         assert(0 < xdpi && xdpi < 3000 && 0 < ydpi && ydpi < 3000);
-        frame["svg:width"] = toString((float) current_picture_->pictSize.width() / xdpi) + "in";
-        frame["svg:height"] = toString((float) current_picture_->pictSize.height() / ydpi) + "in";
+        frame["svg:width"] = toString((float) picture->boundingRect().width() / xdpi) + "in";
+        frame["svg:height"] = toString((float) picture->boundingRect().height() / ydpi) + "in";
 
         frame.writeBeginNL(os);
         os << img << "\n";

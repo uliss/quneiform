@@ -137,16 +137,5 @@ typedef struct edRowDescr
         Bool32 header;
 } EDROWDESCR;
 
-class PictureEntry
-{
-    public:
-        uint16_t pictNumber;
-        CIF::Size pictSize;
-        EDSIZE pictGoal;
-        uchar pictAlign;
-        uchar type;
-        uint32_t len;
-        void* data;
-};
 
 #endif// _CED_STRUCT_

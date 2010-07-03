@@ -507,9 +507,6 @@ void PumaImpl::modulesInit() {
         if (!RPIC_Init(PUMA_MODULE_RPIC, ghStorage))
             throw PumaException("RPIC_Init failed.");
 
-        if (!CED_Init(PUMA_MODULE_CED, ghStorage))
-            throw PumaException("CED_Init failed.");
-
 #ifdef _USE_RVERLINE_
 
         if (!RVERLINE_Init(PUMA_MODULE_RVERLINE, ghStorage))

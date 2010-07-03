@@ -51,7 +51,7 @@ class OdfExporter: public XmlExporter
         void writePageEnd(std::ostream& os, CEDPage * page);
         void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
         void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
-        void writePicture(std::ostream& os, CEDChar * picture);
+        void writePicture(std::ostream& os, CEDPicture * picture);
     private:
         void addOdfAutomaticStyles(std::ostream& os);
         void addOdfContent();

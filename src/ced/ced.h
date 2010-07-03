@@ -185,39 +185,6 @@ enum ed_border_t
     ED_BRDR_DASHED = 4,
     ED_BRDR_DOUBLE = 5
 };
-CED_FUNC(Bool32) CED_Init(uint16_t wHeightCode, Handle hStorage);
-
-//Импорт
-enum CED_IMPORT_ENTRIES
-{
-    CED_FNCED_BitmapRef = 1,
-    CED_FNCED_TextRef,
-    CED_FNCED_FontKegl,
-    CED_FNCED_Kegl,
-    CED_FNCED_Shift,
-    CED_FNCED_RetrieveLevel,
-    CED_FNCED_Underline,
-    CED_FNCED_DensPrint,
-    CED_FNCED_Tabul,
-    CED_FNCED_TablTabul,
-    CED_FNCED_SheetDiskDescr,
-    CED_FNCED_FragmDiskDescr,
-    CED_FNCED_FragmDisk,
-    CED_FNCED_StepBack,
-    CED_FNCED_LineBeg,
-    CED_FNCED_Position,
-    CED_FNCED_EdTagLanguage,
-    CED_FNCED_TableConformSizes,
-    CED_FNCED_GroupWords,
-    CED_FNCED_GroupSymbols,
-    CED_FNCED_Border,
-    CED_FNCED_TableHeader,
-    CED_FNCED_ListOfFragments,
-    CED_FNCED_Extention,
-    CED_FNCED_Aksant,
-    CED_FNCED_Letter,
-    CED_FNCED_ExtentionNew
-};
 
 typedef void (*FNRDProc)(uchar* ptr, uint32_t lth);
 
@@ -230,108 +197,6 @@ enum ed_align_t
 // align picture top to base line
 };
 
-//Экспорт
-
-typedef enum
-{
-    CED_FNCED_ReadED = 1,
-    CED_FNCED_SetRawDataProc,
-    CED_FNCED_FormattedLoad,
-    CED_FNCED_FormattedWrite,
-    CED_FNCED_DeleteTree,
-    CED_FNCED_CreatePage,
-    CED_FNCED_CreateSection,
-    CED_FNCED_CreateFont,
-    CED_FNCED_CreateColumn,
-    CED_FNCED_CreateParagraph,
-    CED_FNCED_CreateLine,
-    CED_FNCED_CreateChar,
-    CED_FNCED_CreateFrame,
-    CED_FNCED_CreateTable,
-    CED_FNCED_CreateCell,
-    CED_FNCED_DeletePage,
-    CED_FNCED_ReadFormattedEd,
-    CED_FNCED_WriteFormattedEd,
-    CED_FNCED_GetPageImageName,
-    CED_FNCED_GetPageImageSize,
-    CED_FNCED_GetPageDpi,
-    CED_FNCED_GetPageTurn,
-    CED_FNCED_GetPageSize,
-    CED_FNCED_GetPageUnrecogChar,
-    CED_FNCED_GetCountSection,
-    CED_FNCED_GetNumberOfParagraphs,
-    CED_FNCED_GetFont,
-    CED_FNCED_GetNumOfFonts,
-    CED_FNCED_GetParagraph,
-    CED_FNCED_GetSection,
-    CED_FNCED_GetSectionBorder,
-    CED_FNCED_GetCountColumn,
-    CED_FNCED_GetColumn,
-    CED_FNCED_GetSnakeColumnWidth,
-    CED_FNCED_GetSnakeColumnSpacing,
-    CED_FNCED_GetFrameRect,
-    CED_FNCED_GetFirstObject,
-    CED_FNCED_GetNextObject,
-    CED_FNCED_IsTable,
-    CED_FNCED_IsFrame,
-    CED_FNCED_IsParagraph,
-    CED_FNCED_IsFictive,
-    CED_FNCED_GetCountCell,
-    CED_FNCED_GetCell,
-    CED_FNCED_GetLinesX,
-    CED_FNCED_GetRowsHeights,
-    CED_FNCED_GetTableOfCells,
-    CED_FNCED_GetSize,
-    CED_FNCED_GetIndent,
-    CED_FNCED_GetAlignment,
-    CED_FNCED_GetLayout,
-    CED_FNCED_GetUserNumber,
-    CED_FNCED_GetInterval,
-    CED_FNCED_GetCountLine,
-    CED_FNCED_GetLine,
-    CED_FNCED_GetCountChar,
-    CED_FNCED_GetChar,
-    CED_FNCED_GetAlternatives,
-    CED_FNCED_GetCharFontLang,
-    CED_FNCED_IsEdFile,
-    CED_FNCED_GetCharLayout,
-    CED_FNCED_CreatePicture,
-    CED_FNCED_CreateTableRow,
-    CED_FNCED_GetPageNumber,
-    CED_FNCED_GetPageBorders,
-    CED_FNCED_GetPageResize,
-    CED_FNCED_GetPicture,
-    CED_FNCED_GetNumOfPics,
-    CED_FNCED_GetNumSnakeCols,
-    CED_FNCED_GetCountRow,
-    CED_FNCED_GetTableRow,
-    CED_FNCED_GetTableRowParams,
-    CED_FNCED_GetCellParams,
-    CED_FNCED_GetFramePosition,
-    CED_FNCED_GetFrameBorderSpace,
-    CED_FNCED_GetFrameDxfrtextx,
-    CED_FNCED_GetFrameDxfrtexty,
-    CED_FNCED_GetLineHardBreak,
-    CED_FNCED_GetCharFontNum,
-    CED_FNCED_GetLogicalCell,
-    CED_FNCED_GetCountLogicalCell,
-    CED_FNCED_GetLineDefChrFontHeight,
-    CED_FNCED_WriteFormattedRtf,
-    CED_FNCED_SetLogFileName,
-    CED_FNCED_MergeFormattedRtf,
-    CED_FNCED_SetLineParams,
-    CED_FNCED_SetSectLineBetCol,
-    CED_FNCED_GetSectLineBetCol,
-    CED_FNCED_SetParaBorders,
-    CED_FNCED_GetParaBorders,
-    CED_FNCED_SetFrameFlag,
-    CED_FNCED_GetFrameFlag,
-    CED_FNCED_GetParaParams,
-    CED_FNCED_SetCellFlag,
-    CED_FNCED_GetCellFlag,
-    CED_FNCED_SetPageRecogLang,
-    CED_FNCED_GetPageRecogLang
-} CED_EXPORT_ENTRIES;
 #ifdef _DEBUG
 #define     CED_FNCED_ShowTree 0xffff
 #endif
@@ -344,7 +209,6 @@ class CEDParagraph;
 class CEDSection;
 }
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; CED_FUNC(a) b c;
-DEC_FUN(Bool32, CED_CreatePicture, (Handle hEdPage, int pictNumber, const CIF::Size& pictSize, EDSIZE pictGoal, int pictAlign, int type, void * data, int len))
 DEC_FUN(CIF::CEDSection*, CED_CreateSection, (Handle hEdPage, const CIF::Rect& border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY))
 DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol))
 DEC_FUN(CIF::CEDParagraph *, CED_CreateParagraph, (Handle hEdSection, Handle hObject, CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, const CIF::Color& color, const CIF::Color& backgr, int spaceBetweenLines, char spcBtwLnsMult, char keep))

@@ -57,34 +57,16 @@
 //Filename wrapper.cpp
 //Created 13.01.99 by Bozhenov Artem,(c) CT inc.
 #include <cstring>
+#include <cstdio>
 #include "ced_struct.h"
-#include "cedint.h"
 #include "cedline.h"
+#include "cedpage.h"
+#include "cedsection.h"
+#include "cedparagraph.h"
 
 using namespace CIF;
 
 FILE *logStream;
-
-CED_FUNC(Bool32) CED_CreatePicture(Handle hEdPage, int pictNumber, const CIF::Size& pictSize,
-        EDSIZE pictGoal, int pictAlign, int type, void * data, int len) {
-    if (logStream) {
-        fprintf(logStream, "CreatePicture params: %x,%i,(%i,%i),(%i,%i),%i,%i,%x,%i\n", hEdPage,
-                pictNumber, pictSize.width(), pictSize.height(), pictGoal.cx, pictGoal.cy,
-                pictAlign, type, data, len);
-        fflush(logStream);
-    }
-
-    Bool ret = ((CEDPage*) hEdPage)->CreatePicture(pictNumber, pictSize, pictGoal, pictAlign, type,
-            data, len);
-
-    if (logStream) {
-        fprintf(logStream, "CreatePicture returned %i\n", ret);
-        fflush(logStream);
-    }
-
-    return ret;
-}
-//create section
 
 CED_FUNC(CIF::CEDSection*) CED_CreateSection(Handle hEdPage, const CIF::Rect& border,
         int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height,
