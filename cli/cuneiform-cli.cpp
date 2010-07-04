@@ -150,7 +150,7 @@ static string usage() {
         "       --no-italic              Use normal font for italic text             \n"
         "       --monospace-name         Use specified monospace font in RTF output  \n"
         "       --serif-name             Use specified serif font in RTF output      \n"
-        "       --sansserif-name         Use seecified sans-serif font in RTF output \n";
+        "       --sansserif-name         Use specified sans-serif font in RTF output \n";
     return os.str();
 }
 
