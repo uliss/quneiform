@@ -23,6 +23,7 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
+#include "globus.h"
 #include "imageexporter.h"
 #include "common/exception.h"
 #include "rfrmt/formatoptions.h"
@@ -30,7 +31,7 @@
 namespace CIF
 {
 
-class Exporter
+class CLA_EXPO Exporter
 {
     public:
         Exporter(const FormatOptions& opts);

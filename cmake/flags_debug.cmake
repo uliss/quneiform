@@ -19,6 +19,7 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
         # setting linker warning flags
         set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--warn-common")
     endif()
-
     message(STATUS "Compiler flags are: ${CMAKE_CXX_FLAGS_DEBUG}")
 endif()
+
+include(msvc)
