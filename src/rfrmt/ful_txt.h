@@ -100,22 +100,12 @@ enum rfrmt_spell_t
 #define NEXT 1
 
 #define MAX_SYM_WORD 100
-#define PROC_SPELL 15
-#define PROC_OPEN  14
 
 #pragma pack(1)
 
 struct SRECT
 {
         int left, top, right, bottom;
-};
-
-struct COOR_COMP
-{
-        static const int LEN_START = 3;
-        uchar start_pos[LEN_START];
-        uchar buf;
-        short lenght;
 };
 
 struct TITLE_ZN
@@ -209,43 +199,11 @@ struct TITLE_STR
 #endif
 };
 
-struct RECOG_MODES
-{
-        uchar s[10];
-};
-
 //Стр-ры описания узлов дерева колонок в файле
 typedef struct h_addrXX
 {
         short ind, lev;
 } ADDR; //Древес.адрес=Nна уровне+Nуровня
-
-typedef struct h_lev
-{
-        SRECT bnd;
-        uint16_t SpecInt;
-        int kp;
-        ADDR *Addr;/*[kp+1],если kp>=0*/
-} LEV;
-
-struct TITLE_FUL
-{
-        uint16_t wFHSize; //Размер заголовка файла
-        uint16_t wZHSize; //Размер локал.заголовка знакоместа, слова или строки
-        uint32_t dNumZ; //Количество знакомест в файле
-        char StrLogo[16];
-        char StrVer[2];//Номер версии без точки
-        RECOG_MODES Recog_Modes;//Характеристики процесса распознавания
-        uint32_t FntNameOffset;//Смещение секции имен баз в файле
-        uint32_t ColOffset;//Смещение секции колонок в файле
-        uint32_t ZOffset; //Смещение секции знакомест в файле
-        uchar ProcSpell;//Признак обработки Spell
-        uchar Reserv_1;
-        uint16_t nWord; // Число слов
-        uint16_t nStr; // Число строк
-        uchar Reserv[26];
-        //uchar *Reserv;//malloc(size=wFHSize-46)
-};
 
 #pragma pack(2)
 
@@ -286,37 +244,19 @@ int FreeStructFull(void);
 //--SpelNewOneWord--
 typedef int (*FUNC_GEN_FULWORD)(ID_SYM id, ZN *z, int MaxZn);
 //---КОРРЕКТОР ПО ОДНОРОДНОСТИ
-//Возможные языки слова
-#define RUS 0
-#define LAT 1
-//Признаки Ц/Б
-#define CHIF 0
-#define LET 1
 //Верхний/нижний регистры
 #define UPP 0
 #define LOW 1
 //Возможные позиции знакомест в слове
-#define FIRST 0
-#define FIRST_NEXT 1
-#define MIDDLE 2
 #define DELIMITER 3
-#define NO_LET 4
-//Значения параметра Action
-#define TEST 0
-#define CORR 1
-
-#define PRECIS 2
 
 #define MAX_CLUST 64
 #define MAX_CLUST_COM 9
 #define MAX_CLUST_ONE 9
 #define MAX_ELEM_CLUST 19
 
-typedef int (*REGLE)(uchar kod);
-
 struct FEAT_LET
 {
-        uint Lang :1; // 0 - R, 1 - E
         uint Let :1; // 1 - Letter, 0 - нет
         uint Chif :1; // 1 - цифра (0...9 * + - =)
         uint Shift :1;// 0 - Upper Case, 1 - Lower Case
@@ -325,8 +265,6 @@ struct FEAT_LET
         uint ImUppLow :1;//Сходство начертания больших и малых букв
         uint DelimSubWord :1;// - ( ) [ ] { } " '
         uint IndCl :6;//Индекс кластера перепутыванмя,если > 0
-        uint Reserv :2;
-        //uchar RusLat;//Коды сходных по написанию букв др.яз. или 0
 };
 
 //---------RTF-converter----------
