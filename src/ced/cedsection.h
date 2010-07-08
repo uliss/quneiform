@@ -34,8 +34,19 @@ class CEDColumn;
 class CLA_EXPO CEDSection: public BlockElement
 {
     public:
+        /**
+         * Adds vertical column to page section
+         */
         void addColumn(CEDColumn * col);
+
+        /**
+         * Returns  pointer to column by given position
+         */
         CEDColumn * columnAt(size_t pos);
+
+        /**
+         * Returns number of columns in section
+         */
         size_t columnCount() const;
         CEDColumn * createColumn();
 
@@ -57,17 +68,6 @@ class CLA_EXPO CEDSection: public BlockElement
                 int UserNum, int FlagBorder, EDSIZE interval, edBox layout, const Color& color,
                 const Color& bgrnd, int spaceBetweenLines, char spcBtwLnsMult, char keep);
 
-        CEDParagraph * CreateTable(CEDParagraph * hObject);
-        CEDParagraph * CreateTableRow(CEDParagraph * hTable, int left, int rowHeight,
-                int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth,
-                int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth,
-                int gaph, int position, Bool32 header);
-
-        CEDParagraph * CreateCell(CEDParagraph* hRow, int cellX, int merging, int vertTextAlign,
-                int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth,
-                int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth,
-                EDBOX layout, int shading, int color);
-
         CEDSection();
         ~CEDSection();
 
@@ -79,9 +79,6 @@ class CLA_EXPO CEDSection: public BlockElement
         CEDParagraph * columnsEnd;
 
         CEDParagraph * curPara;//current paragraph
-        CEDSection * prev, *next; //pointer to neibor elements in connected list
-        int internalNumber; //number of paragraph from start of the file
-
         friend class CEDPage;
     private:
 

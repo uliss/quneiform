@@ -31,6 +31,9 @@ class CLA_EXPO CEDColumn: public BlockElement
     public:
         CEDColumn(CEDSection * parent = NULL);
         virtual ~CEDColumn();
+    private:
+        int width_;
+        int space_;
 };
 
 }
