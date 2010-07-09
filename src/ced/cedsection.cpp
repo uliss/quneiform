@@ -36,7 +36,6 @@ CEDSection::CEDSection() {
     numSnakeCols = 0;
     lineBetCol = 0;
     colInfo = 0;
-    curPara = 0;
     columnsEnd = 0;
 }
 
@@ -82,19 +81,6 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char p
 
 #endif
 
-    //if this column is not not last one - go to column's last paragraph
-    if (colde->next)
-        SetCurParagraph((CEDParagraph *) (colde->next)->prev);
-
-    //otherwise do the same
-    else {
-        if (hObject->type == COLUMN_BEGIN)
-            SetCurParagraph(columnsEnd->prev);
-
-        else
-            return 0;
-    }
-
     //start frame
     CEDParagraph * para = new CEDParagraph;
     para->type = FRAME_BEGIN;
@@ -115,15 +101,14 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char p
     columnAt(0)->addElement(para1);
     para1->type = FRAME_END;
     ((EDFRAMEDESCR *) (para->descriptor))->last = para1;
-    SetCurParagraph(para);
-    return curPara;
+    return para;
 }
 
 CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align,
         const Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, edBox layout,
         const Color& color, const Color& shading, int spaceBetweenLines, char spcBtwLnsMult,
         char keep) {
-    CEDParagraph *para = new CEDParagraph;
+    CEDParagraph * para = new CEDParagraph;
     columnAt(0)->addElement(para);
     para->setAlign(align);
     para->setIndent(indent);
@@ -135,13 +120,8 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align
     para->spcBtwLnsMult = spcBtwLnsMult;
     para->keep = keep;
     para->interval = interval;
-    para->layout = layout = layout;
+    para->layout = layout;
     return para;
-}
-
-CEDParagraph * CEDSection::SetCurParagraph(CEDParagraph* _para) {
-    curPara = _para;
-    return _para;
 }
 
 }

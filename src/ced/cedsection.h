@@ -71,10 +71,7 @@ class CLA_EXPO CEDSection: public BlockElement
         CEDSection();
         ~CEDSection();
 
-        CEDParagraph * SetCurParagraph(CEDParagraph* _para);//sets new value of current paragraph
-
         CEDParagraph * columnsEnd;
-        CEDParagraph * curPara;//current paragraph
         friend class CEDPage;
     private:
 
