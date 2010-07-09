@@ -71,13 +71,9 @@ class CLA_EXPO CEDSection: public BlockElement
         CEDSection();
         ~CEDSection();
 
-        CEDParagraph * InsertParagraph(Bool32 AfterCurrent = TRUE); // Inserts new paragraph after the current. Current becomes a new paragraph
-        // Returns pointer to the newly created bullet
         CEDParagraph * SetCurParagraph(CEDParagraph* _para);//sets new value of current paragraph
 
-        CEDParagraph * paragraphs; //connected list of paragraphs
         CEDParagraph * columnsEnd;
-
         CEDParagraph * curPara;//current paragraph
         friend class CEDPage;
     private:
