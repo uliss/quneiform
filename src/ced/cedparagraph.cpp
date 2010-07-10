@@ -38,7 +38,6 @@ CEDParagraph::CEDParagraph() :
     bottomBrdrWidth = 0;
     brdrBtw = 0;
     internal_number_ = 0;
-    prev = next = 0;
 }
 
 CEDParagraph::~CEDParagraph() {

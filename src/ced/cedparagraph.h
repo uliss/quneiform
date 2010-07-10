@@ -104,9 +104,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
          * @see lineSpace()
          */
         void setLineSpace(int value);
-
-        CEDParagraph * prev, *next; //pointer to neibor elements in connected list
-        friend class CEDPage;
     private:
         align_t align_;
         Rect indent_;
