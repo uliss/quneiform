@@ -105,22 +105,6 @@ CED_FUNC(CIF::CEDSection*) CED_CreateSection(Handle hEdPage, const CIF::Rect& bo
     return sect;
 }
 
-CED_FUNC(Bool32) CED_SetSectLineBetCol(Handle hEdSection, Bool32 lineBetCol) {
-    if (logStream) {
-        fprintf(logStream, "SetSectLineBetCol params: %x,%i\n", hEdSection, lineBetCol);
-        fflush(logStream);
-    }
-
-    ((CEDSection*) hEdSection)->lineBetCol = lineBetCol;
-
-    if (logStream) {
-        fprintf(logStream, "SetSectLineBetCol returned %i\n", TRUE);
-        fflush(logStream);
-    }
-
-    return TRUE;
-}
-
 //create frame
 CED_FUNC(Handle) CED_CreateFrame(Handle hEdSection, Handle hEdColumn, edBox rect, char position,
         int borderSpace, int dxfrtextx, int dxfrtexty) {
