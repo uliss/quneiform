@@ -120,7 +120,6 @@ CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align
     para->spcBtwLnsMult = spcBtwLnsMult;
     para->keep = keep;
     para->interval = interval;
-    para->layout = layout;
     return para;
 }
 

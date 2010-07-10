@@ -176,11 +176,11 @@ enum ed_char_style_t
 enum ed_border_t
 {
     ED_BRDR_NONE = 0,
-    ED_BRDR_SINGLE = 1,
-    ED_BRDR_SHADOWED = 2,
-    ED_BRDR_DOTTED = 3,
-    ED_BRDR_DASHED = 4,
-    ED_BRDR_DOUBLE = 5
+    ED_BRDR_SINGLE,
+    ED_BRDR_SHADOWED,
+    ED_BRDR_DOTTED,
+    ED_BRDR_DASHED,
+    ED_BRDR_DOUBLE
 };
 
 typedef void (*FNRDProc)(uchar* ptr, uint32_t lth);
@@ -209,7 +209,6 @@ class CEDSection;
 DEC_FUN(CIF::CEDSection*, CED_CreateSection, (Handle hEdPage, const CIF::Rect& border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY))
 DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol))
 DEC_FUN(CIF::CEDParagraph *, CED_CreateParagraph, (Handle hEdSection, Handle hObject, CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, const CIF::Color& color, const CIF::Color& backgr, int spaceBetweenLines, char spcBtwLnsMult, char keep))
-DEC_FUN(Bool32, CED_SetParaBorders, (Handle hEdParagraph, int leftBrdrType, int leftBrdrWidth, int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth, int bottomBrdrType, int bottomBrdrWidth, int brdrBtw))
 DEC_FUN(Handle, CED_CreateFrame, (Handle hEdSection, Handle hEdColumn, EDBOX rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty))
 DEC_FUN(Bool32, CED_SetFrameFlag, (Handle hEdFrame, int flag))
 DEC_FUN(Bool32, CED_IsTable, (Handle hObject))

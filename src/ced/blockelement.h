@@ -22,6 +22,7 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 
+#include "ced.h"
 #include "element.h"
 #include "globus.h"
 #include "common/serialize.h"
@@ -69,6 +70,15 @@ class CLA_EXPO BlockElement: public Element
          * Returns true if element is empty
          */
         bool empty() const;
+
+        void setBorderBottom(ed_border_t bottom);
+        void setBorderBottomWidth(unsigned short width);
+        void setBorderLeft(ed_border_t left);
+        void setBorderLeftWidth(unsigned short width);
+        void setBorderRight(ed_border_t right);
+        void setBorderRightWidth(unsigned short width);
+        void setBorderTop(ed_border_t top);
+        void setBorderTopWidth(unsigned short width);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
@@ -82,6 +92,14 @@ class CLA_EXPO BlockElement: public Element
         typedef ElementList::iterator iterator;
     private:
         ElementList elements_;
+        char border_left_;
+        char border_top_;
+        char border_right_;
+        char border_bottom_;
+        unsigned short border_left_wd_;
+        unsigned short border_top_wd_;
+        unsigned short border_right_wd_;
+        unsigned short border_bottom_wd_;
 };
 
 }

@@ -185,35 +185,6 @@ CEDParagraph * CED_CreateParagraph(Handle hEdSection, Handle hObject, CIF::align
     return ret;
 }
 
-//set boundary of paragraph
-CED_FUNC(Bool32) CED_SetParaBorders(Handle hEdParagraph, int leftBrdrType, int leftBrdrWidth,
-        int rightBrdrType, int rightBrdrWidth, int topBrdrType, int topBrdrWidth,
-        int bottomBrdrType, int bottomBrdrWidth, int brdrBtw) {
-    if (logStream) {
-        fprintf(logStream, "SetParaBorders params: %x,%i,%i,%i,%i,%i,%i,%i,%i,%i\n", hEdParagraph,
-                leftBrdrType, leftBrdrWidth, rightBrdrType, rightBrdrWidth, topBrdrType,
-                topBrdrWidth, bottomBrdrType, bottomBrdrWidth, brdrBtw);
-        fflush(logStream);
-    }
-
-    ((CEDParagraph*) hEdParagraph)->leftBrdrType = leftBrdrType;
-    ((CEDParagraph*) hEdParagraph)->leftBrdrWidth = leftBrdrWidth;
-    ((CEDParagraph*) hEdParagraph)->rightBrdrType = rightBrdrType;
-    ((CEDParagraph*) hEdParagraph)->rightBrdrWidth = rightBrdrWidth;
-    ((CEDParagraph*) hEdParagraph)->topBrdrType = topBrdrType;
-    ((CEDParagraph*) hEdParagraph)->topBrdrWidth = topBrdrWidth;
-    ((CEDParagraph*) hEdParagraph)->bottomBrdrType = bottomBrdrType;
-    ((CEDParagraph*) hEdParagraph)->bottomBrdrWidth = bottomBrdrWidth;
-    ((CEDParagraph*) hEdParagraph)->brdrBtw = brdrBtw;
-
-    if (logStream) {
-        fprintf(logStream, "SetParaBorders returned %i\n", TRUE);
-        fflush(logStream);
-    }
-
-    return TRUE;
-}
-
 CED_FUNC(Bool32) CED_IsTable(Handle hObject) {
     return ((CEDParagraph*) hObject)->type == TAB_BEGIN ? TRUE : FALSE;
 }

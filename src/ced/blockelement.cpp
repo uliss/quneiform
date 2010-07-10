@@ -22,7 +22,9 @@ namespace CIF
 {
 
 BlockElement::BlockElement(BlockElement * parent) :
-    Element(parent) {
+    Element(parent), border_left_(ED_BRDR_NONE), border_top_(ED_BRDR_NONE), border_right_(
+            ED_BRDR_NONE), border_bottom_(ED_BRDR_NONE), border_left_wd_(0), border_top_wd_(0),
+            border_right_wd_(0), border_bottom_wd_(0) {
 }
 
 BlockElement::~BlockElement() {
@@ -51,6 +53,38 @@ void BlockElement::addElement(Element * e) {
 void BlockElement::addElement(ElementPtr e) {
     elements_.push_back(e);
     e->setParent(this);
+}
+
+void BlockElement::setBorderBottom(ed_border_t bottom) {
+    border_bottom_ = bottom;
+}
+
+void BlockElement::setBorderBottomWidth(unsigned short width) {
+    border_bottom_wd_ = width;
+}
+
+void BlockElement::setBorderLeft(ed_border_t left) {
+    border_left_ = left;
+}
+
+void BlockElement::setBorderLeftWidth(unsigned short width) {
+    border_left_wd_ = width;
+}
+
+void BlockElement::setBorderRight(ed_border_t right) {
+    border_right_ = right;
+}
+
+void BlockElement::setBorderRightWidth(unsigned short width) {
+    border_right_wd_ = width;
+}
+
+void BlockElement::setBorderTop(ed_border_t top) {
+    border_top_ = top;
+}
+
+void BlockElement::setBorderTopWidth(unsigned short width) {
+    border_top_wd_ = width;
 }
 
 }

@@ -104,7 +104,9 @@ Bool CRtfSector::Write() {
             indent, SectorInfo.userNum, -1, interval, playout, Color::null(), Color::null(), -1, -1, FALSE);
 
     if (m_bFlagLine == TRUE) {
-        CED_SetParaBorders(par, 0, 0, 0, 0, 1, 20, 0, 0, TRUE);
+        par->setBorderTop(ED_BRDR_SINGLE);
+        par->setBorderTopWidth(20);
+        par->brdrBtw = TRUE;
     }
 
     // FIXME uliss: using hardcoded font size

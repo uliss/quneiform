@@ -28,15 +28,10 @@ namespace CIF
 CEDParagraph::CEDParagraph() :
     align_(ALIGN_LEFT), line_space_(-1) {
     type = 0;
-    layout.x = layout.w = layout.y = layout.h = 0;
     userNumber = 0;
     border = 0;
     interval.cx = interval.cy = 0;
     descriptor = 0;
-    leftBrdrType = 0;
-    rightBrdrType = 0;
-    topBrdrType = 0;
-    bottomBrdrType = 0;
     leftBrdrWidth = 0;
     rightBrdrWidth = 0;
     topBrdrWidth = 0;

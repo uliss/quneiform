@@ -42,14 +42,9 @@ class CLA_EXPO CEDParagraph: public BlockElement
         int border; //  frame around abzattsa
         EDSIZE interval; //  cx-upper indentation, cy-bottom
 
-        edBox layout; //  Location paragraph on page
         char spcBtwLnsMult;
         char keep;
 
-        int leftBrdrType;
-        int rightBrdrType;
-        int topBrdrType;
-        int bottomBrdrType;
         int leftBrdrWidth;
         int rightBrdrWidth;
         int topBrdrWidth;
