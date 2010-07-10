@@ -63,15 +63,16 @@
 #include "common/size.h"
 #include "ced.h"
 
-#define     FICTIVE         0xf000
-#define     COLUMN_BEGIN    (1|FICTIVE)
-#define     LAST_IN_COLUMN  (2|FICTIVE)
-#define     FRAME_BEGIN     (3|FICTIVE)
-#define     FRAME_END       (4|FICTIVE)
-#define     TAB_BEGIN       (5|FICTIVE)
-#define     TAB_CELL_BEGIN  (6|FICTIVE)
-#define     TAB_END         (7|FICTIVE)
-#define     TAB_ROW_BEGIN   (8|FICTIVE)
+enum {
+    FICTIVE = 0xf000,
+    COLUMN_BEGIN = (1 | FICTIVE),
+    LAST_IN_COLUMN = (2 | FICTIVE),
+    FRAME_BEGIN = (3 | FICTIVE),
+    FRAME_END = (4 | FICTIVE),
+    TAB_CELL_BEGIN = (6 | FICTIVE),
+    TAB_END = (7 | FICTIVE),
+    TAB_ROW_BEGIN = (8 | FICTIVE)
+};
 
 namespace CIF
 {
@@ -136,6 +137,5 @@ typedef struct edRowDescr
         int position;
         Bool32 header;
 } EDROWDESCR;
-
 
 #endif// _CED_STRUCT_

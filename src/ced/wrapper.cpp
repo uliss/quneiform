@@ -185,10 +185,6 @@ CEDParagraph * CED_CreateParagraph(Handle hEdSection, Handle hObject, CIF::align
     return ret;
 }
 
-CED_FUNC(Bool32) CED_IsTable(Handle hObject) {
-    return ((CEDParagraph*) hObject)->type == TAB_BEGIN ? TRUE : FALSE;
-}
-
 CED_FUNC(Bool32) CED_IsFrame(Handle hObject) {
     return ((CEDParagraph*) hObject)->type == FRAME_BEGIN ? TRUE : FALSE;
 }

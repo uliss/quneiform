@@ -155,8 +155,6 @@ void GenericExporter::exportObjects(CEDParagraph * obj) {
     // Определить тип объекта
     if (CED_IsFrame(obj))
         exportFrame(obj);
-    else if (CED_IsTable(obj))
-        exportTable(obj);
     else if (CED_IsParagraph(obj))
         exportParagraph(obj);
     else {

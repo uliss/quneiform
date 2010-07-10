@@ -211,7 +211,6 @@ DEC_FUN(Bool32, CED_SetSectLineBetCol, ( Handle hEdSection, Bool32 lineBetCol))
 DEC_FUN(CIF::CEDParagraph *, CED_CreateParagraph, (Handle hEdSection, Handle hObject, CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, const CIF::Color& color, const CIF::Color& backgr, int spaceBetweenLines, char spcBtwLnsMult, char keep))
 DEC_FUN(Handle, CED_CreateFrame, (Handle hEdSection, Handle hEdColumn, EDBOX rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty))
 DEC_FUN(Bool32, CED_SetFrameFlag, (Handle hEdFrame, int flag))
-DEC_FUN(Bool32, CED_IsTable, (Handle hObject))
 DEC_FUN(Bool32, CED_IsFrame, (Handle hObject))
 DEC_FUN(Bool32, CED_IsParagraph, (Handle hObject))
 
