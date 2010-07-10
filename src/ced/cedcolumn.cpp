@@ -30,4 +30,20 @@ CEDColumn::CEDColumn(CEDSection * parent) :
 CEDColumn::~CEDColumn() {
 }
 
+void CEDColumn::setSpace(int space) {
+    space_ = space;
+}
+
+void CEDColumn::setWidth(int width) {
+    width_ = width;
+}
+
+int CEDColumn::space() const {
+    return space_;
+}
+
+int CEDColumn::width() const {
+    return width_;
+}
+
 }

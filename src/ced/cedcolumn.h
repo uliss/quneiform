@@ -31,6 +31,11 @@ class CLA_EXPO CEDColumn: public BlockElement
     public:
         CEDColumn(CEDSection * parent = NULL);
         virtual ~CEDColumn();
+
+        void setSpace(int space);
+        void setWidth(int width);
+        int space() const;
+        int width() const;
     private:
         int width_;
         int space_;
