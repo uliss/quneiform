@@ -68,10 +68,7 @@ enum {
     COLUMN_BEGIN = (1 | FICTIVE),
     LAST_IN_COLUMN = (2 | FICTIVE),
     FRAME_BEGIN = (3 | FICTIVE),
-    FRAME_END = (4 | FICTIVE),
-    TAB_CELL_BEGIN = (6 | FICTIVE),
-    TAB_END = (7 | FICTIVE),
-    TAB_ROW_BEGIN = (8 | FICTIVE)
+    FRAME_END = (4 | FICTIVE)
 };
 
 namespace CIF

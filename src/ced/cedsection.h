@@ -70,11 +70,6 @@ class CLA_EXPO CEDSection: public BlockElement
 
         CEDSection();
         ~CEDSection();
-
-        CEDParagraph * columnsEnd;
-        friend class CEDPage;
-    private:
-
 };
 
 }

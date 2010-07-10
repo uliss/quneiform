@@ -36,7 +36,6 @@ CEDSection::CEDSection() {
     numSnakeCols = 0;
     lineBetCol = 0;
     colInfo = 0;
-    columnsEnd = 0;
 }
 
 CEDSection::~CEDSection() {
