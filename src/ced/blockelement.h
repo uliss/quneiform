@@ -86,6 +86,14 @@ class CLA_EXPO BlockElement: public Element
         void serialize(Archive & ar, const unsigned int /*version*/) {
             ar & boost::serialization::base_object<Element>(*this);
             ar & elements_;
+            ar & border_left_;
+            ar & border_top_;
+            ar & border_right_;
+            ar & border_bottom_;
+            ar & border_left_wd_;
+            ar & border_top_wd_;
+            ar & border_right_wd_;
+            ar & border_bottom_wd_;
         }
 #endif
     protected:
