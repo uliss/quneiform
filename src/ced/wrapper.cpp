@@ -166,11 +166,3 @@ CEDParagraph * CED_CreateParagraph(CIF::CEDSection * sect, CIF::BlockElement * c
     return ret;
 }
 
-CED_FUNC(Bool32) CED_IsFrame(Handle hObject) {
-    return ((CEDParagraph*) hObject)->type == FRAME_BEGIN ? TRUE : FALSE;
-}
-
-CED_FUNC(Bool32) CED_IsParagraph(Handle hObject) {
-    return ((CEDParagraph*) hObject)->type & FICTIVE ? FALSE : TRUE;
-}
-

@@ -212,8 +212,6 @@ DEC_FUN(CIF::CEDSection*, CED_CreateSection, (Handle hEdPage, const CIF::Rect& b
 DEC_FUN(CIF::CEDParagraph*, CED_CreateParagraph, (CIF::CEDSection * sect, CIF::BlockElement * cont, CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, const CIF::Color& color, const CIF::Color& backgr, int spaceBetweenLines, char spcBtwLnsMult, char keep))
 DEC_FUN(CIF::BlockElement*, CED_CreateFrame, (CIF::CEDSection * sect, CIF::CEDColumn * col, EDBOX rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty))
 DEC_FUN(Bool32, CED_SetFrameFlag, (Handle hEdFrame, int flag))
-DEC_FUN(Bool32, CED_IsFrame, (Handle hObject))
-DEC_FUN(Bool32, CED_IsParagraph, (Handle hObject))
 
 #ifdef _DEBUG
 CED_FUNC(void) CED_ShowTree(char * name, CIF::CEDPage * EdPage);
