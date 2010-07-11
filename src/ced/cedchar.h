@@ -58,6 +58,8 @@ class CLA_EXPO CEDChar: public Element
          */
         size_t alternativeCount() const;
 
+        void exportElement(CEDExporter& exp);
+
         /**
          * Returns font height
          */

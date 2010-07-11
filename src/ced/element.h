@@ -27,11 +27,15 @@
 namespace CIF
 {
 
+class CEDExporter;
+
 class CLA_EXPO Element
 {
     public:
         Element(Element * parent = NULL);
         virtual ~Element();
+    public:
+        virtual void exportElement(CEDExporter& exp) = 0;
 
         /**
          * Returns element background color

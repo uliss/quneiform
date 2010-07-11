@@ -51,6 +51,8 @@ class CLA_EXPO CEDLine: public BlockElement
          */
         int defaultFontHeight() const;
 
+        void exportElement(CEDExporter& exp);
+
         /**
          * Returns pointer to first char in line
          */

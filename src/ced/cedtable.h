@@ -28,7 +28,7 @@ class CLA_EXPO CEDTable: public BlockElement
 {
     public:
         CEDTable(BlockElement * parent = NULL);
-        virtual ~CEDTable();
+        void exportElement(CEDExporter& exp);
 };
 
 }

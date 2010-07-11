@@ -22,6 +22,7 @@
 #include "cedsection.h"
 #include "cedcolumn.h"
 #include "cedparagraph.h"
+#include "cedexporter.h"
 
 namespace CIF
 {
@@ -59,6 +60,10 @@ CEDColumn * CEDSection::createColumn() {
     CEDColumn * col = new CEDColumn;
     addElement(col);
     return col;
+}
+
+void CEDSection::exportElement(CEDExporter& exp) {
+    exp.exportSection(*this);
 }
 
 CEDParagraph * CEDSection::CreateFrame(CEDColumn * col, edBox rect, char position, int borderSpace,

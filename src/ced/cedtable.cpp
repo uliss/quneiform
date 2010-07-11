@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "cedtable.h"
+#include "cedexporter.h"
 
 namespace CIF
 {
@@ -25,7 +26,8 @@ CEDTable::CEDTable(BlockElement * parent) :
     BlockElement(parent) {
 }
 
-CEDTable::~CEDTable() {
+void CEDTable::exportElement(CEDExporter& exp) {
+    exp.exportTable(*this);
 }
 
 }

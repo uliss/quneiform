@@ -46,6 +46,8 @@ class CLA_EXPO CEDPage: public BlockElement
          */
         void addSection(CEDSection * sect);
 
+        void exportElement(CEDExporter& exp);
+
         /**
          * Returns reference to font entry in given position
          * @throw std::out_of_range exception if wrong position given

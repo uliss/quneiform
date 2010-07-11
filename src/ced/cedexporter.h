@@ -16,31 +16,36 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CEDCOLUMN_H_
-#define CEDCOLUMN_H_
+#ifndef CEDEXPORTER_H_
+#define CEDEXPORTER_H_
 
-#include "blockelement.h"
+#include "globus.h"
+#include <boost/noncopyable.hpp>
 
 namespace CIF
 {
 
+class CEDChar;
+class CEDColumn;
+class CEDLine;
+class CEDPage;
+class CEDPicture;
 class CEDSection;
+class CEDTable;
 
-class CLA_EXPO CEDColumn: public BlockElement
+class CLA_EXPO CEDExporter: public boost::noncopyable
 {
     public:
-        CEDColumn(CEDSection * parent = NULL);
-
-        void exportElement(CEDExporter& exp);
-        void setSpace(int space);
-        void setWidth(int width);
-        int space() const;
-        int width() const;
-    private:
-        int width_;
-        int space_;
+        virtual void exportChar(CEDChar& chr) = 0;
+        virtual void exportColumn(CEDColumn& col) = 0;
+        virtual void exportLine(CEDLine& line) = 0;
+        virtual void exportPage(CEDPage& page) = 0;
+        virtual void exportParagraph(CEDParagraph& par) = 0;
+        virtual void exportPicture(CEDPicture& pict) = 0;
+        virtual void exportSection(CEDSection& sect) = 0;
+        virtual void exportTable(CEDTable& table) = 0;
 };
 
 }
 
-#endif /* CEDCOLUMN_H_ */
+#endif /* CEDEXPORTER_H_ */

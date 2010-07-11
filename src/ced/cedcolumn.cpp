@@ -18,6 +18,7 @@
 
 #include "cedcolumn.h"
 #include "cedsection.h"
+#include "cedexporter.h"
 
 namespace CIF
 {
@@ -26,8 +27,8 @@ CEDColumn::CEDColumn(CEDSection * parent) :
     BlockElement(parent) {
 
 }
-
-CEDColumn::~CEDColumn() {
+void CEDColumn::exportElement(CEDExporter& exp) {
+    exp.exportColumn(*this);
 }
 
 void CEDColumn::setSpace(int space) {

@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "cedchar.h"
+#include "cedexporter.h"
 
 namespace CIF
 {
@@ -38,6 +39,10 @@ Letter CEDChar::alternativeAt(size_t pos) const {
 
 size_t CEDChar::alternativeCount() const {
     return alternatives_.size();
+}
+
+void CEDChar::exportElement(CEDExporter& exp) {
+    exp.exportChar(*this);
 }
 
 bool CEDChar::hasAlternatives() const {

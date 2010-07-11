@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "cedpicture.h"
+#include "cedexporter.h"
 
 namespace CIF
 {
@@ -27,6 +28,10 @@ CEDPicture::CEDPicture() :
 
 ed_align_t CEDPicture::alignment() const {
     return align_;
+}
+
+void CEDPicture::exportElement(CEDExporter& exp) {
+    exp.exportPicture(*this);
 }
 
 ImagePtr CEDPicture::image() {

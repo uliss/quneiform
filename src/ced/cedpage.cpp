@@ -23,6 +23,7 @@
 #include "cedline.h"
 #include "cedsection.h"
 #include "cedparagraph.h"
+#include "cedexporter.h"
 
 namespace CIF
 {
@@ -40,6 +41,10 @@ void CEDPage::addFont(const FontEntry& font) {
 
 void CEDPage::addSection(CEDSection * sect) {
     addElement(sect);
+}
+
+void CEDPage::exportElement(CEDExporter& exp) {
+    exp.exportPage(*this);
 }
 
 const FontEntry& CEDPage::fontAt(size_t pos) const {

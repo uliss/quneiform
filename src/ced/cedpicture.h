@@ -43,6 +43,8 @@ class CLA_EXPO CEDPicture: public Element
          */
         ed_align_t alignment() const;
 
+        void exportElement(CEDExporter& exp);
+
         /**
          * Returns pointer to image
          * @see setImage()

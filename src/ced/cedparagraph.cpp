@@ -20,6 +20,7 @@
 #include <cstring>
 #include "cedparagraph.h"
 #include "cedline.h"
+#include "cedexporter.h"
 #include "ced_struct.h"
 
 namespace CIF
@@ -45,6 +46,10 @@ CEDParagraph::~CEDParagraph() {
 
 align_t CEDParagraph::align() const {
     return align_;
+}
+
+void CEDParagraph::exportElement(CEDExporter& exp) {
+    exp.exportParagraph(*this);
 }
 
 const Rect& CEDParagraph::indent() const {

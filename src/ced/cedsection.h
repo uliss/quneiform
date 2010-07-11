@@ -50,6 +50,8 @@ class CLA_EXPO CEDSection: public BlockElement
         size_t columnCount() const;
         CEDColumn * createColumn();
 
+        void exportElement(CEDExporter& exp);
+
         Rect borders; // padding from the edge of paper
         int colInterval;
         char sectionBreak;

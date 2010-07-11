@@ -19,6 +19,7 @@
 #include "cedline.h"
 #include "cedchar.h"
 #include "cedpicture.h"
+#include "cedexporter.h"
 
 namespace CIF
 {
@@ -44,6 +45,10 @@ std::ostream& operator<<(std::ostream& os, const CEDLine& chr) {
 
 int CEDLine::defaultFontHeight() const {
     return default_font_height_;
+}
+
+void CEDLine::exportElement(CEDExporter& exp) {
+    exp.exportLine(*this);
 }
 
 CEDChar * CEDLine::first() {

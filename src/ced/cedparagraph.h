@@ -63,6 +63,8 @@ class CLA_EXPO CEDParagraph: public BlockElement
          */
         align_t align() const;
 
+        void exportElement(CEDExporter& exp);
+
         /**
          * Returns paragraph indents
          * @see setIndent()
