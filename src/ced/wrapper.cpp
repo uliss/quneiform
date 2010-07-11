@@ -106,17 +106,15 @@ CED_FUNC(CIF::CEDSection*) CED_CreateSection(Handle hEdPage, const CIF::Rect& bo
 }
 
 //create frame
-CED_FUNC(Handle) CED_CreateFrame(Handle hEdSection, Handle hEdColumn, edBox rect, char position,
-        int borderSpace, int dxfrtextx, int dxfrtexty) {
+BlockElement * CED_CreateFrame(CIF::CEDSection * sect, CIF::CEDColumn * col, edBox rect,
+        char position, int borderSpace, int dxfrtextx, int dxfrtexty) {
     if (logStream) {
-        fprintf(logStream, "CreateFrame params: %x,%x,(%i,%i,%i,%i),%hd,%i,%i,%i\n", hEdSection,
-                hEdColumn, rect.x, rect.y, rect.w, rect.h, position, borderSpace, dxfrtextx,
-                dxfrtexty);
+        fprintf(logStream, "CreateFrame params: %x,%x,(%i,%i,%i,%i),%hd,%i,%i,%i\n", sect, col,
+                rect.x, rect.y, rect.w, rect.h, position, borderSpace, dxfrtextx, dxfrtexty);
         fflush(logStream);
     }
 
-    Handle ret = (Handle) (((CEDSection*) hEdSection)->CreateFrame((CEDParagraph*) hEdColumn, rect,
-            position, borderSpace, dxfrtextx, dxfrtexty));
+    BlockElement * ret = sect->CreateFrame(col, rect, position, borderSpace, dxfrtextx, dxfrtexty);
 
     if (logStream) {
         fprintf(logStream, "CreateFrame returned %x\n", ret);
@@ -142,24 +140,23 @@ CED_FUNC(Bool32) CED_SetFrameFlag(Handle hEdFrame, int flag) {
     return TRUE;
 }
 
-CEDParagraph * CED_CreateParagraph(Handle hEdSection, Handle hObject, CIF::align_t align,
-        const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout,
-        const CIF::Color& color, const CIF::Color& shading, int spaceBetweenLines,
+CEDParagraph * CED_CreateParagraph(CIF::CEDSection * sect, CIF::BlockElement * cont,
+        CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval,
+        EDBOX layout, const CIF::Color& color, const CIF::Color& shading, int spaceBetweenLines,
         char spcBtwLnsMult, char keep) {
     if (logStream) {
         fprintf(
                 logStream,
                 "CreateParagraph params: %x,%x,%i,(%i,%i,%i,%i),%i,%i,(%i,%i),(%i,%i,%i,%i),%i,%i,%i,%hd,%hd\n",
-                hEdSection, hObject, align, indent.left(), indent.top(), indent.right(),
-                indent.bottom(), UserNum, FlagBorder, interval.cx, interval.cy, layout.x, layout.y,
-                layout.w, layout.h, color.toT<int> (), shading.toT<int> (), spaceBetweenLines, spcBtwLnsMult,
+                sect, cont, align, indent.left(), indent.top(), indent.right(), indent.bottom(),
+                UserNum, FlagBorder, interval.cx, interval.cy, layout.x, layout.y, layout.w,
+                layout.h, color.toT<int> (), shading.toT<int> (), spaceBetweenLines, spcBtwLnsMult,
                 keep);
         fflush(logStream);
     }
 
-    CEDParagraph * ret = (((CEDSection*) hEdSection)->CreateParagraph((CEDParagraph*) hObject,
-            align, indent, UserNum, FlagBorder, interval, layout, color, shading,
-            spaceBetweenLines, spcBtwLnsMult, keep));
+    CEDParagraph * ret = sect->CreateParagraph(cont, align, indent, UserNum, FlagBorder, interval,
+            layout, color, shading, spaceBetweenLines, spcBtwLnsMult, keep);
 
     if (logStream) {
         fprintf(logStream, "CreateParagraph returned %x\n", ret);

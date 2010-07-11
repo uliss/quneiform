@@ -62,9 +62,9 @@ class CLA_EXPO CEDSection: public BlockElement
         Bool lineBetCol;
         EDCOL *colInfo;
 
-        CEDParagraph * CreateFrame(CEDParagraph* hObject, edBox rect, char position = -1,
+        CEDParagraph * CreateFrame(CEDColumn * col, edBox rect, char position = -1,
                 int borderSpace = -1, int dxfrtextx = -1, int dxfrtexty = -1);
-        CEDParagraph * CreateParagraph(CEDParagraph * hObject, align_t align, const Rect& indent,
+        CEDParagraph * CreateParagraph(BlockElement * container, align_t align, const Rect& indent,
                 int UserNum, int FlagBorder, EDSIZE interval, edBox layout, const Color& color,
                 const Color& bgrnd, int spaceBetweenLines, char spcBtwLnsMult, char keep);
 

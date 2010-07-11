@@ -30,8 +30,10 @@
 #include "frmtpict.h"
 
 #include "ced/ced.h"
+#include "ced/cedcolumn.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedline.h"
+#include "ced/cedsection.h"
 #include "common/cifconfig.h"
 #include "common/debug.h"
 #include "common/tostring.h"
@@ -311,17 +313,6 @@ const CRtfString * CRtfFragment::lastString() const {
 
 CEDParagraph * CRtfFragment::makeParagraph(SectorInfo * sector, int firstIndent, int leftIndent,
         int rightIndent, int marginTop, format_align_t align) {
-    EDBOX playout;
-    EDSIZE interval;
-
-    Rect indent(Point(leftIndent, firstIndent), Point(rightIndent, 0));
-    interval.cx = marginTop;
-    interval.cy = 0;
-    playout.x = -1;
-    playout.w = -1;
-    playout.y = -1;
-    playout.h = -1;
-
     align_t par_align = ALIGN_LEFT;
 
     switch (align) {
@@ -340,9 +331,26 @@ CEDParagraph * CRtfFragment::makeParagraph(SectorInfo * sector, int firstIndent,
         break;
     }
 
-    return CED_CreateParagraph(sector->hEDSector, sector->hObject, par_align, indent,
-            sector->userNum, -1, interval, playout, Color::null(), Color::null(), -1, -1, FALSE);
+    CEDParagraph * par = new CEDParagraph;
+    par->setAlign(par_align);
 
+    Rect indent(Point(leftIndent, firstIndent), Point(rightIndent, 0));
+    par->setIndent(indent);
+    par->setLineSpace(-1);
+    par->userNumber = sector->userNum;
+    par->border = -1;
+    par->spcBtwLnsMult = -1;
+    par->keep = FALSE;
+
+    EDSIZE interval;
+    interval.cx = marginTop;
+    interval.cy = 0;
+
+    par->interval = interval;
+
+    sector->hObject->addElement(par);
+
+    return par;
 }
 
 int CRtfFragment::minParagraphLeftIndent(StringIteratorConst begin, StringIteratorConst end) {

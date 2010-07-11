@@ -66,6 +66,7 @@ namespace CIF
 class CEDPage;
 class CEDSection;
 class CEDColumn;
+class BlockElement;
 
 struct SectorInfo
 {
@@ -77,7 +78,7 @@ struct SectorInfo
         CEDSection * hEDSector;
         CEDColumn * hColumn;
         CEDColumn * hFirstColumn;
-        Handle hObject;
+        BlockElement * hObject;
         Handle hEdTable;
         Handle hEdTableRow;
         Handle hEdTableCell;

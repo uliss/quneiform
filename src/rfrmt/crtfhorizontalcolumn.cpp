@@ -27,6 +27,7 @@
 
 #include "common/debug.h"
 #include "ced/ced.h"
+#include "ced/cedcolumn.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedsection.h"

@@ -26,7 +26,7 @@ namespace CIF
 {
 
 CEDParagraph::CEDParagraph() :
-    align_(ALIGN_LEFT), line_space_(-1) {
+    BlockElement(), align_(ALIGN_LEFT), line_space_(-1) {
     type = 0;
     userNumber = 0;
     border = 0;

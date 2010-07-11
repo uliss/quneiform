@@ -61,25 +61,8 @@ CEDColumn * CEDSection::createColumn() {
     return col;
 }
 
-CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char position,
-        int borderSpace, int dxfrtextx, int dxfrtexty) {
-    if (hObject->type != COLUMN_BEGIN) {
-#ifdef _DEBUG
-        std::cerr << "CED error: Attempt of frame creation outside of table";
-#endif
-        return 0;
-    }
-
-    EDCOLDESCR *colde = (EDCOLDESCR*) (hObject->descriptor);
-#ifdef _DEBUG
-
-    if (colde == 0) {
-        std::cerr << "CED error: Attempt of frame creation in ordinary paragraph\n(not in column)";
-        return 0;
-    }
-
-#endif
-
+CEDParagraph * CEDSection::CreateFrame(CEDColumn * col, edBox rect, char position, int borderSpace,
+        int dxfrtextx, int dxfrtexty) {
     //start frame
     CEDParagraph * para = new CEDParagraph;
     para->type = FRAME_BEGIN;
@@ -94,21 +77,20 @@ CEDParagraph * CEDSection::CreateFrame(CEDParagraph* hObject, edBox rect, char p
     framinf->dxfrtexty = dxfrtexty;
     framinf->flag = 0;
     para->descriptor = framinf;
-    columnAt(0)->addElement(para);
+    col->addElement(para);
     //finish frame
     CEDParagraph * para1 = new CEDParagraph;
-    columnAt(0)->addElement(para1);
+    col->addElement(para1);
     para1->type = FRAME_END;
     ((EDFRAMEDESCR *) (para->descriptor))->last = para1;
     return para;
 }
 
-CEDParagraph * CEDSection::CreateParagraph(CEDParagraph * hObject, align_t align,
-        const Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, edBox layout,
-        const Color& color, const Color& shading, int spaceBetweenLines, char spcBtwLnsMult,
-        char keep) {
+CEDParagraph * CEDSection::CreateParagraph(BlockElement * cont, align_t align, const Rect& indent,
+        int UserNum, int FlagBorder, EDSIZE interval, edBox layout, const Color& color,
+        const Color& shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
     CEDParagraph * para = new CEDParagraph;
-    columnAt(0)->addElement(para);
+    cont->addElement(para);
     para->setAlign(align);
     para->setIndent(indent);
     para->userNumber = UserNum;

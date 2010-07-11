@@ -76,6 +76,7 @@
 #include "rimage/criimage.h"
 #include "ced/ced.h"
 #include "ced/cedchar.h"
+#include "ced/cedcolumn.h"
 #include "ced/cedline.h"
 #include "ced/cedpicture.h"
 #include "ced/cedparagraph.h"
@@ -131,7 +132,6 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     uint32_t PictNumber = 0;
     Point RtfLt;
     CPAGE_PICTURE pict;
-    Handle hPrevObject;
     uint32_t NumberPage = CPAGE_GetCurrentPage();
     Handle h_Page = CPAGE_GetHandlePage(NumberPage);
     Handle h_Pict = CPAGE_PictureGetFirst(h_Page);
@@ -310,6 +310,8 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
             rc = FALSE;
         }
     }
+
+    BlockElement * hPrevObject;
 
     if (rc) {
         Size pictSize(Wh.x(), Wh.y());

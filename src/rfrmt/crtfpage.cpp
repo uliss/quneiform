@@ -33,6 +33,7 @@
 #include "common/debug.h"
 // ced module
 #include "ced/ced.h"
+#include "ced/cedcolumn.h"
 #include "ced/cedline.h"
 #include "ced/cedpage.h"
 #include "ced/cedparagraph.h"
