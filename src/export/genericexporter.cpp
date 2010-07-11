@@ -58,7 +58,7 @@ GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
     Exporter(opts), page_(page), no_pictures_(false), os_(NULL), num_chars_(0), num_columns_(0),
             num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
             num_tables_(0), table_nesting_level_(0), skip_empty_paragraphs_(false),
-            skip_empty_lines_(false), previous_style_(0) {
+            skip_empty_lines_(false), show_alternatives_(false), previous_style_(0) {
 
     if (isCharsetConversion())
         converter_.open(inputEncoding(), outputEncoding());
@@ -216,6 +216,10 @@ bool GenericExporter::isLineBreak(CEDLine& line) const {
 
 bool GenericExporter::isRemoveHyphens(CEDLine& line) const {
     return !isLineBreak(line) && !formatOptions().preserveLineHyphens();
+}
+
+bool GenericExporter::isShowAlternatives() const {
+    return show_alternatives_;
 }
 
 int GenericExporter::numChars() const {

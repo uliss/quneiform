@@ -21,6 +21,7 @@
 #include "htmlexporter.h"
 #include "common/helper.h"
 #include "common/debug.h"
+#include "ced/cedchar.h"
 #include "ced/cedpicture.h"
 #include "ced/cedparagraph.h"
 #include "rout_own.h"
@@ -29,6 +30,9 @@
 #include "config.h" // for CF_VERSION
 namespace CIF
 {
+
+const std::string HTML_ALTERNATIVE_STYLE(
+        "padding: 0 1px 0 1px; margin:1px; background-color: #FDD;");
 
 const std::string HTML_DOCTYPE("<!DOCTYPE html PUBLIC "
     "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
@@ -66,6 +70,22 @@ std::string HtmlExporter::fontStyleTag(int style) const {
         return "";
     }
     return "";
+}
+
+void HtmlExporter::writeCharacter(std::ostream& os, CEDChar& chr) {
+    if (isShowAlternatives() && chr.alternativeCount() > 1) {
+        XmlTag alts("span", std::string(1, chr.alternativeAt(0).getChar()));
+        std::string s("Alternatives: ");
+        for (size_t i = 1; i < chr.alternativeCount(); i++)
+            s += " " + escapeSpecialChar(chr.alternativeAt(i).getChar());
+
+        alts["title"] = s;
+        alts["style"] = HTML_ALTERNATIVE_STYLE;
+        lineBuffer() << alts;
+
+    } else {
+        XmlExporter::writeCharacter(os, chr);
+    }
 }
 
 void HtmlExporter::writeDoctype(std::ostream& os) {
@@ -156,13 +176,13 @@ void HtmlExporter::writePicture(std::ostream& /*os*/, CEDPicture& picture) {
     }
 }
 
-void HtmlExporter::writeSectionBegin(std::ostream& os, CEDSection& sect) {
+void HtmlExporter::writeSectionBegin(std::ostream& os, CEDSection&) {
     Attributes attrs;
     attrs["id"] = "section#" + toString(numSections());
     writeStartTag(os, "div", attrs);
 }
 
-void HtmlExporter::writeSectionEnd(std::ostream& os, CEDSection& sect) {
+void HtmlExporter::writeSectionEnd(std::ostream& os, CEDSection&) {
     writeCloseTag(os, "div", "\n");
 }
 

@@ -41,6 +41,12 @@ class GenericExporter: public Exporter
         GenericExporter(CEDPage * page, const FormatOptions& opts);
 
         /**
+         * Returns true if recognized alternatives of chars should be exported
+         * (depends from concrete exporter)
+         */
+        bool isShowAlternatives() const;
+
+        /**
          * Returns number of exported characters
          */
         int numChars() const;
@@ -376,6 +382,7 @@ class GenericExporter: public Exporter
         int table_nesting_level_;
         bool skip_empty_paragraphs_;
         bool skip_empty_lines_;
+        bool show_alternatives_;
         int previous_style_;
     protected:
         Iconv converter_;

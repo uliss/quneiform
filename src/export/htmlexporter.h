@@ -34,6 +34,11 @@ class HtmlExporter: public XmlExporter
         virtual std::string fontStyleTag(int style) const;
 
         /**
+         * Writes characters to line buffer
+         */
+        virtual void writeCharacter(std::ostream& os, CEDChar& chr);
+
+        /**
          * Writes HTML document type
          */
         virtual void writeDoctype(std::ostream& os);
