@@ -66,18 +66,9 @@
 
 using namespace CIF;
 
-FILE *logStream;
-
-CED_FUNC(CIF::CEDSection*) CED_CreateSection(Handle hEdPage, const CIF::Rect& border,
-        int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height,
-        char orientation, int headerY, int footerY) {
-    if (logStream) {
-        fprintf(logStream, "CreateSection params: %x,(%i,%i,%i,%i),%i,%i,%x,%hd,%i,%i,%hd,%i,%i\n",
-                hEdPage, border.left(), border.top(), border.right(), border.bottom(), colInterval,
-                numOfCols, colInfo, sectionBreak, width, height, orientation, headerY, footerY);
-        fflush(logStream);
-    }
-
+CIF::CEDSection* CED_CreateSection(CIF::CEDPage * page, const CIF::Rect& border, int colInterval,
+        int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation,
+        int headerY, int footerY) {
     CEDSection * sect = new CEDSection;
     sect->borders = border;
     sect->colInterval = colInterval;
@@ -90,79 +81,21 @@ CED_FUNC(CIF::CEDSection*) CED_CreateSection(Handle hEdPage, const CIF::Rect& bo
     sect->numSnakeCols = numOfCols;
     sect->colInfo = new EDCOL[numOfCols];
 
-    ((CEDPage*) hEdPage)->addSection(sect);
+    page->addSection(sect);
 
     if (colInfo)
         memcpy(sect->colInfo, colInfo, sizeof(EDCOL) * numOfCols);
     else
         memset(sect->colInfo, -1, sizeof(EDCOL) * numOfCols);
 
-    if (logStream) {
-        fprintf(logStream, "CreateSection returned %x\n", sect);
-        fflush(logStream);
-    }
-
     return sect;
-}
-
-//create frame
-BlockElement * CED_CreateFrame(CIF::CEDSection * sect, CIF::CEDColumn * col, edBox rect,
-        char position, int borderSpace, int dxfrtextx, int dxfrtexty) {
-    if (logStream) {
-        fprintf(logStream, "CreateFrame params: %x,%x,(%i,%i,%i,%i),%hd,%i,%i,%i\n", sect, col,
-                rect.x, rect.y, rect.w, rect.h, position, borderSpace, dxfrtextx, dxfrtexty);
-        fflush(logStream);
-    }
-
-    BlockElement * ret = sect->CreateFrame(col, rect, position, borderSpace, dxfrtextx, dxfrtexty);
-
-    if (logStream) {
-        fprintf(logStream, "CreateFrame returned %x\n", ret);
-        fflush(logStream);
-    }
-
-    return ret;
-}
-
-CED_FUNC(Bool32) CED_SetFrameFlag(Handle hEdFrame, int flag) {
-    if (logStream) {
-        fprintf(logStream, "SetFrameFlag params: %x,%x\n", hEdFrame, flag);
-        fflush(logStream);
-    }
-
-    ((EDFRAMEDESCR *) (((CEDParagraph*) hEdFrame)->descriptor))->flag = flag;
-
-    if (logStream) {
-        fprintf(logStream, "SetFrameFlag returned %i\n", TRUE);
-        fflush(logStream);
-    }
-
-    return TRUE;
 }
 
 CEDParagraph * CED_CreateParagraph(CIF::CEDSection * sect, CIF::BlockElement * cont,
         CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval,
-        EDBOX layout, const CIF::Color& color, const CIF::Color& shading, int spaceBetweenLines,
-        char spcBtwLnsMult, char keep) {
-    if (logStream) {
-        fprintf(
-                logStream,
-                "CreateParagraph params: %x,%x,%i,(%i,%i,%i,%i),%i,%i,(%i,%i),(%i,%i,%i,%i),%i,%i,%i,%hd,%hd\n",
-                sect, cont, align, indent.left(), indent.top(), indent.right(), indent.bottom(),
-                UserNum, FlagBorder, interval.cx, interval.cy, layout.x, layout.y, layout.w,
-                layout.h, color.toT<int> (), shading.toT<int> (), spaceBetweenLines, spcBtwLnsMult,
-                keep);
-        fflush(logStream);
-    }
-
-    CEDParagraph * ret = sect->CreateParagraph(cont, align, indent, UserNum, FlagBorder, interval,
-            layout, color, shading, spaceBetweenLines, spcBtwLnsMult, keep);
-
-    if (logStream) {
-        fprintf(logStream, "CreateParagraph returned %x\n", ret);
-        fflush(logStream);
-    }
-
-    return ret;
+        const CIF::Rect& layout, const CIF::Color& color, const CIF::Color& shading,
+        int spaceBetweenLines, char spcBtwLnsMult, char keep) {
+    return sect->CreateParagraph(cont, align, indent, UserNum, FlagBorder, interval, layout, color,
+            shading, spaceBetweenLines, spcBtwLnsMult, keep);
 }
 

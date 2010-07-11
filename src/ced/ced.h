@@ -194,10 +194,6 @@ enum ed_align_t
 // align picture top to base line
 };
 
-#ifdef _DEBUG
-#define     CED_FNCED_ShowTree 0xffff
-#endif
-
 namespace CIF
 {
 class CEDPage;
@@ -206,18 +202,15 @@ class CEDParagraph;
 class CEDSection;
 class CEDColumn;
 class BlockElement;
+class CEDFrame;
 }
-#define DEC_FUN(a,b,c) typedef a (*FN##b)c; CED_FUNC(a) b c;
-DEC_FUN(CIF::CEDSection*, CED_CreateSection, (Handle hEdPage, const CIF::Rect& border, int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation, int headerY, int footerY))
-DEC_FUN(CIF::CEDParagraph*, CED_CreateParagraph, (CIF::CEDSection * sect, CIF::BlockElement * cont, CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval, EDBOX layout, const CIF::Color& color, const CIF::Color& backgr, int spaceBetweenLines, char spcBtwLnsMult, char keep))
-DEC_FUN(CIF::BlockElement*, CED_CreateFrame, (CIF::CEDSection * sect, CIF::CEDColumn * col, EDBOX rect, char position, int borderSpace, int dxfrtextx, int dxfrtexty))
-DEC_FUN(Bool32, CED_SetFrameFlag, (Handle hEdFrame, int flag))
-
-#ifdef _DEBUG
-CED_FUNC(void) CED_ShowTree(char * name, CIF::CEDPage * EdPage);
-#endif
-
-#undef DEC_FUN
+CED_FUNC(CIF::CEDSection*) CED_CreateSection(CIF::CEDPage* page, const CIF::Rect& border,
+        int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height,
+        char orientation, int headerY, int footerY);
+CED_FUNC(CIF::CEDParagraph*) CED_CreateParagraph(CIF::CEDSection * sect, CIF::BlockElement * cont,
+        CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval,
+        const CIF::Rect& layout, const CIF::Color& color, const CIF::Color& backgr,
+        int spaceBetweenLines, char spcBtwLnsMult, char keep);
 
 #pragma pack (pop)
 

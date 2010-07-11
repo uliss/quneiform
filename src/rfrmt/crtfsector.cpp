@@ -81,9 +81,6 @@ void CRtfSector::calcSector() {
 }
 
 Bool CRtfSector::Write() {
-    EDBOX playout;
-    EDSIZE interval;
-
     if (m_bFlagLine == FALSE) {
         FillingSectorInfo();
         //FRAMES привязанные к началу сектора (это работает только когда сектор целиком состоит из frames)
@@ -95,14 +92,13 @@ Bool CRtfSector::Write() {
     }
 
     Rect indent;
+    Rect playout;
+    EDSIZE interval;
     interval.cx = 0;
     interval.cy = SectorInfo.InterSectorDist;
-    playout.x = -1;
-    playout.w = -1;
-    playout.y = -1;
-    playout.h = -1;
     CEDParagraph * par = CED_CreateParagraph(SectorInfo.hEDSector, SectorInfo.hColumn, ALIGN_LEFT,
-            indent, SectorInfo.userNum, -1, interval, playout, Color::null(), Color::null(), -1, -1, FALSE);
+            indent, SectorInfo.userNum, -1, interval, playout, Color::null(), Color::null(), -1,
+            -1, FALSE);
 
     if (m_bFlagLine == TRUE) {
         par->setBorderTop(ED_BRDR_SINGLE);

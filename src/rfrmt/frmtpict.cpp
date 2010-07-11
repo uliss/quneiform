@@ -65,7 +65,6 @@
 // WritePict()         - Write  Picture
 
 #include <string.h> // for memcpy
-
 #include "sectorinfo.h"
 #include "rfrmtoptions.h"
 #include "frmtpict.h"
@@ -77,9 +76,11 @@
 #include "ced/ced.h"
 #include "ced/cedchar.h"
 #include "ced/cedcolumn.h"
+#include "ced/cedframe.h"
 #include "ced/cedline.h"
 #include "ced/cedpicture.h"
 #include "ced/cedparagraph.h"
+#include "ced/cedsection.h"
 #include "compat/filefunc.h"
 #include "common/debug.h"
 
@@ -324,14 +325,10 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         int32_t iDIBSize = pTmpDIB->GetDIBSize();
         delete pTmpDIB;
         Rect indent;
+        Rect playout;
         EDSIZE interval;
         interval.cx = 0;
         interval.cy = 0;
-        EDBOX playout;
-        playout.x = -1;
-        playout.w = -1;
-        playout.y = -1;
-        playout.h = -1;
         Lr.rx() = MAX(0, Lr.x());
         Lr.ry() = MAX(0, Lr.y());
 
@@ -354,20 +351,20 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
             SectorInfo->hObject = SectorInfo->hColumn;
         else {
             if (SectorInfo->FlagInColumn == TRUE) {
-                EDBOX EdFragmRect;
-                EdFragmRect.x = MAX(0, SectorInfo->OffsetFromColumn.x());
-                EdFragmRect.y = MAX(0, SectorInfo->OffsetFromColumn.y());
-                EdFragmRect.w = MAX(0, Wh.x() - FrameOffset);
-                EdFragmRect.h = Wh.y();
-                SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
+                Rect EdFragmRect;
+                EdFragmRect.setLeft(MAX(0, SectorInfo->OffsetFromColumn.x()));
+                EdFragmRect.setTop(MAX(0, SectorInfo->OffsetFromColumn.y()));
+                EdFragmRect.setWidth(MAX(0, Wh.x() - FrameOffset));
+                EdFragmRect.setHeight(Wh.y());
+                SectorInfo->hObject = SectorInfo->hEDSector->createFrame(SectorInfo->hColumn,
                         EdFragmRect, 0x22, -1, -1, -1);
             } else {
-                EDBOX EdFragmRect;
-                EdFragmRect.x = Lr.x() - SectorInfo->Offset.x();
-                EdFragmRect.y = Lr.y() - SectorInfo->Offset.y();
-                EdFragmRect.w = MAX(0, Wh.x() - FrameOffset);
-                EdFragmRect.h = Wh.y();
-                SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
+                Rect EdFragmRect;
+                EdFragmRect.setLeft(Lr.x() - SectorInfo->Offset.x());
+                EdFragmRect.setTop(Lr.y() - SectorInfo->Offset.y());
+                EdFragmRect.setWidth(MAX(0, Wh.x() - FrameOffset));
+                EdFragmRect.setHeight(Wh.y());
+                SectorInfo->hObject = SectorInfo->hEDSector->createFrame(SectorInfo->hColumn,
                         EdFragmRect, 0x22, -1, 0, 0);
             }
         }

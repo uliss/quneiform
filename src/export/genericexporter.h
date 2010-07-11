@@ -197,6 +197,8 @@ class GenericExporter: public Exporter
          */
         void exportColumn(CEDColumn& col);
 
+        void exportFrame(CEDFrame& frame);
+
         /**
          * Exports line
          * calls line write functions:
@@ -245,10 +247,6 @@ class GenericExporter: public Exporter
          *  - writeFrameEnd
          */
         void exportFrame(CEDParagraph * frame);
-
-        void exportTable(CEDParagraph * table);
-        void exportTableCells(CEDParagraph * table);
-        void exportTableRow(CEDParagraph * row);
     protected:
         virtual std::string createPicturesFolder();
         void doExport(std::ostream& os);
@@ -303,12 +301,12 @@ class GenericExporter: public Exporter
         /**
          * Called before writeFrame
          */
-        virtual void writeFrameBegin(std::ostream& os, CEDParagraph * frame);
+        virtual void writeFrameBegin(std::ostream& os, CEDFrame& frame);
 
         /**
          * Called after writeFrame
          */
-        virtual void writeFrameEnd(std::ostream& os, CEDParagraph * frame);
+        virtual void writeFrameEnd(std::ostream& os, CEDFrame& frame);
 
         /**
          * Called before writeLine performed

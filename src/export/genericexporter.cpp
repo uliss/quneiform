@@ -23,6 +23,7 @@
 #include "ced/ced.h"
 #include "ced/cedline.h"
 #include "ced/cedchar.h"
+#include "ced/cedframe.h"
 #include "ced/ced_struct.h"
 #include "ced/cedcolumn.h"
 #include "ced/cedpicture.h"
@@ -121,12 +122,11 @@ void GenericExporter::exportColumn(CEDColumn& col) {
     writeColumnEnd(*os_, col);
 }
 
-void GenericExporter::exportFrame(CEDParagraph * frame) {
-    assert(frame);
+void GenericExporter::exportFrame(CEDFrame& frame) {
     num_frames_++;
 
     writeFrameBegin(*os_, frame);
-    frame->exportChildren(*this);
+    frame.exportChildren(*this);
     writeFrameEnd(*os_, frame);
 }
 
@@ -178,32 +178,6 @@ void GenericExporter::exportSection(CEDSection& sect) {
     writeSectionBegin(*os_, sect);
     sect.exportChildren(*this);
     writeSectionEnd(*os_, sect);
-}
-
-void GenericExporter::exportTable(CEDParagraph * table) {
-    assert(table);
-    if (table_nesting_level_ > 0) {
-        Debug() << "[GenericExporter::exportTable] Skipping table inside table\n";
-        return;
-    }
-
-    num_tables_++;
-    table_nesting_level_++;
-
-    writeTableBegin(*os_, table);
-    exportTableCells(table);
-    writeTableEnd(*os_, table);
-    table_nesting_level_--;
-}
-
-void GenericExporter::exportTableCells(CEDParagraph * table) {
-
-}
-
-void GenericExporter::exportTableRow(CEDParagraph * row) {
-    assert(row);
-    writeTableRowBegin(*os_, row);
-    writeTableRowEnd(*os_, row);
 }
 
 bool GenericExporter::isEmptyParagraph(CEDParagraph& par) {
@@ -362,11 +336,11 @@ void GenericExporter::writeFontStyleBegin(std::ostream&, int) {
 void GenericExporter::writeFontStyleEnd(std::ostream&, int) {
 }
 
-void GenericExporter::writeFrameBegin(std::ostream& /*os*/, CEDParagraph * /*frame*/) {
+void GenericExporter::writeFrameBegin(std::ostream& /*os*/, CEDFrame&) {
 
 }
 
-void GenericExporter::writeFrameEnd(std::ostream& /*os*/, CEDParagraph * /*frame*/) {
+void GenericExporter::writeFrameEnd(std::ostream& /*os*/, CEDFrame&) {
 
 }
 

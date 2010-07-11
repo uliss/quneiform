@@ -31,8 +31,10 @@
 // ced
 #include "ced/ced.h"
 #include "ced/cedchar.h"
+#include "ced/cedframe.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
+#include "ced/cedsection.h"
 
 extern CIF::Point TemplateOffset;
 
@@ -231,14 +233,13 @@ CEDChar * CRtfChar::toCedChar(int font_name, int font_size, int font_style) cons
 CEDParagraph * CRtfChar::insertCedDropCap(SectorInfo * sector, int font_name, int font_size,
         int font_style, bool negative) const {
     Rect slayout;
-    EDBOX playout = { 0, 0, 0, 0 };
-    BlockElement * frame = CED_CreateFrame(sector->hEDSector, sector->hColumn, playout, 0x22, -1, -1, -1);
-    CED_SetFrameFlag(frame, ED_DROPCAP);
+    Rect playout;
+    CEDFrame * frame = sector->hEDSector->createFrame(sector->hColumn, playout, 0x22);
     EDSIZE interval = { 0, 0 };
     Color shading = negative ? Color(0, 0, 0) : Color::null();
 
-    CEDParagraph * drop_cap_par = CED_CreateParagraph(sector->hEDSector, frame,
-            ALIGN_RIGHT, slayout, 0, -1, interval, playout, Color::null(), shading, -1, -1, FALSE);
+    CEDParagraph * drop_cap_par = CED_CreateParagraph(sector->hEDSector, frame, ALIGN_RIGHT,
+            slayout, 0, -1, interval, playout, Color::null(), shading, -1, -1, FALSE);
     CEDLine * ced_line = new CEDLine(NULL, false, 6);
     drop_cap_par->addLine(ced_line);
     CEDChar * ced_char = toCedChar(font_name, font_size, font_style);

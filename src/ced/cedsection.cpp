@@ -19,6 +19,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
+
+#include "cedframe.h"
 #include "cedsection.h"
 #include "cedcolumn.h"
 #include "cedparagraph.h"
@@ -66,33 +68,20 @@ void CEDSection::exportElement(CEDExporter& exp) {
     exp.exportSection(*this);
 }
 
-CEDParagraph * CEDSection::CreateFrame(CEDColumn * col, edBox rect, char position, int borderSpace,
-        int dxfrtextx, int dxfrtexty) {
-    //start frame
-    CEDParagraph * para = new CEDParagraph;
-    para->type = FRAME_BEGIN;
-    edFrameDescr* framinf = (EDFRAMEDESCR *) malloc(sizeof(EDFRAMEDESCR));
-    framinf->rec.x = rect.x;
-    framinf->rec.y = rect.y;
-    framinf->rec.w = rect.w;
-    framinf->rec.h = rect.h;
-    framinf->position = position;
-    framinf->borderSpace = borderSpace;
-    framinf->dxfrtextx = dxfrtextx;
-    framinf->dxfrtexty = dxfrtexty;
-    framinf->flag = 0;
-    para->descriptor = framinf;
-    col->addElement(para);
-    //finish frame
-    CEDParagraph * para1 = new CEDParagraph;
-    col->addElement(para1);
-    para1->type = FRAME_END;
-    ((EDFRAMEDESCR *) (para->descriptor))->last = para1;
-    return para;
+CEDFrame * CEDSection::createFrame(CEDColumn * col, const Rect& rect, char position,
+        int borderSpace, int dxfrtextx, int dxfrtexty) {
+    CEDFrame * frame = new CEDFrame;
+    col->addElement(frame);
+    frame->setBoundingRect(rect);
+    frame->setPosition(position);
+    frame->setBorderSpace(borderSpace);
+    frame->dxfrtextx = dxfrtextx;
+    frame->dxfrtexty = dxfrtexty;
+    return frame;
 }
 
 CEDParagraph * CEDSection::CreateParagraph(BlockElement * cont, align_t align, const Rect& indent,
-        int UserNum, int FlagBorder, EDSIZE interval, edBox layout, const Color& color,
+        int UserNum, int FlagBorder, EDSIZE interval, const Rect& layout, const Color& color,
         const Color& shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
     CEDParagraph * para = new CEDParagraph;
     cont->addElement(para);

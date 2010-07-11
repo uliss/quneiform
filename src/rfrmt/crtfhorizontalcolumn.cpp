@@ -28,6 +28,7 @@
 #include "common/debug.h"
 #include "ced/ced.h"
 #include "ced/cedcolumn.h"
+#include "ced/cedframe.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedsection.h"
@@ -817,14 +818,11 @@ void CRtfHorizontalColumn::writeFramesInTerminalColumn(SectorInfo * SectorInfo) 
     for (size_t i = 0; i < vcols_.size(); i++) {
         if (i == 0) {
             Rect indent;
+            Rect playout;
             EDSIZE interval;
             interval.cx = 0;
             interval.cy = 0;
-            EDBOX playout;
-            playout.x = -1;
-            playout.w = -1;
-            playout.y = -1;
-            playout.h = -1;
+
             CEDParagraph * par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
                     ALIGN_LEFT, indent, SectorInfo->userNum, -1, interval, playout, Color::null(),
                     Color::null(), -1, -1, FALSE);
@@ -835,13 +833,14 @@ void CRtfHorizontalColumn::writeFramesInTerminalColumn(SectorInfo * SectorInfo) 
         CRtfVerticalColumn * vcol = vcols_[i];
 
         if (vcol->type() == FT_FRAME) {
-            EDBOX EdFragmRect;
+            int x = vcol->m_rectReal.left - m_rectReal.left;
+            int y = vcol->m_rectReal.top - m_rectReal.top;
+            int w = vcol->m_rectReal.right - vcol->m_rectReal.left;
+            int h = vcol->m_rectReal.bottom - vcol->m_rectReal.top;
 
-            EdFragmRect.x = vcol->m_rectReal.left - m_rectReal.left;
-            EdFragmRect.w = vcol->m_rectReal.right - vcol->m_rectReal.left;
-            EdFragmRect.y = vcol->m_rectReal.top - m_rectReal.top;
-            EdFragmRect.h = vcol->m_rectReal.bottom - vcol->m_rectReal.top;
-            SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
+            Rect EdFragmRect(Point(x, y), w, h);
+
+            SectorInfo->hObject = SectorInfo->hEDSector->createFrame(SectorInfo->hColumn,
                     EdFragmRect, 0x22, -1, 86, 43);
 
             SectorInfo->FlagOverLayed = FALSE;

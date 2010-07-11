@@ -35,14 +35,15 @@ class DebugExporter: public Exporter
         virtual void appendTo(const std::string& filename);
     private:
         void doExport(std::ostream& os);
-        void exportChar(CEDChar& chr) {}
-        void exportColumn(CEDColumn& col) {}
-        void exportLine(CEDLine& line) {}
-        void exportPage(CEDPage& page) {}
-        void exportParagraph(CEDParagraph& par) {}
-        void exportPicture(CEDPicture& pict) {}
-        void exportSection(CEDSection& sect) {}
-        void exportTable(CEDTable& table) {}
+        void exportChar(CEDChar&) {}
+        void exportColumn(CEDColumn&) {}
+        void exportFrame(CEDFrame&) {}
+        void exportLine(CEDLine&) {}
+        void exportPage(CEDPage&) {}
+        void exportParagraph(CEDParagraph&) {}
+        void exportPicture(CEDPicture&) {}
+        void exportSection(CEDSection&) {}
+        void exportTable(CEDTable&) {}
 };
 
 }

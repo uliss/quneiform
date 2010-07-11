@@ -34,6 +34,7 @@
 // ced module
 #include "ced/ced.h"
 #include "ced/cedcolumn.h"
+#include "ced/cedframe.h"
 #include "ced/cedline.h"
 #include "ced/cedpage.h"
 #include "ced/cedparagraph.h"
@@ -668,7 +669,6 @@ void CRtfPage::writeUsingFrames() {
     writeFonts();
 
     int InGroupNumber;
-    EDBOX EdFragmRect;
 
     int CountFragments = Count.RtfFrameTextFragments + Count.RtfTextFragments
             + Count.RtfTableFragments + Count.RtfPictureFragments;
@@ -679,14 +679,11 @@ void CRtfPage::writeUsingFrames() {
 
     if (CountFragments) {
         EDSIZE interval;
-        EDBOX playout;
-        Rect indent;
         interval.cx = 0;
         interval.cy = 0;
-        playout.x = -1;
-        playout.w = -1;
-        playout.y = -1;
-        playout.h = -1;
+        Rect playout;
+        Rect indent;
+
         CEDParagraph * ced_par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
                 ALIGN_LEFT, indent, SectorInfo->userNum, -1, interval, playout, Color::null(),
                 Color::null(), -1, -1, FALSE);
@@ -705,11 +702,10 @@ void CRtfPage::writeUsingFrames() {
                     + Count.RtfTableFragments);
             frag->FWritePicture(InGroupNumber, SectorInfo, FOT_FRAME);
         } else {
-            EdFragmRect.x = frag->m_rect.left;
-            EdFragmRect.w = frag->m_rect.right - frag->m_rect.left;
-            EdFragmRect.y = frag->m_rect.top;
-            EdFragmRect.h = frag->m_rect.bottom - frag->m_rect.top;
-            SectorInfo->hObject = CED_CreateFrame(SectorInfo->hEDSector, SectorInfo->hColumn,
+            Rect EdFragmRect(Point(frag->m_rect.left, frag->m_rect.top), Point(frag->m_rect.right,
+                    frag->m_rect.bottom));
+            // TODO uliss: hardcoded values
+            SectorInfo->hObject = SectorInfo->hEDSector->createFrame(SectorInfo->hColumn,
                     EdFragmRect, 0x22, -1, 86, 43);
 
             SectorInfo->FlagOverLayed = FALSE;

@@ -16,39 +16,26 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CEDEXPORTER_H_
-#define CEDEXPORTER_H_
-
-#include "globus.h"
-#include <boost/noncopyable.hpp>
+#include "cedframe.h"
+#include "cedexporter.h"
 
 namespace CIF
 {
 
-class CEDChar;
-class CEDColumn;
-class CEDFrame;
-class CEDLine;
-class CEDPage;
-class CEDParagraph;
-class CEDPicture;
-class CEDSection;
-class CEDTable;
-
-class CLA_EXPO CEDExporter: public boost::noncopyable
-{
-    public:
-        virtual void exportChar(CEDChar& chr) = 0;
-        virtual void exportColumn(CEDColumn& col) = 0;
-        virtual void exportFrame(CEDFrame& frame) = 0;
-        virtual void exportLine(CEDLine& line) = 0;
-        virtual void exportPage(CEDPage& page) = 0;
-        virtual void exportParagraph(CEDParagraph& par) = 0;
-        virtual void exportPicture(CEDPicture& pict) = 0;
-        virtual void exportSection(CEDSection& sect) = 0;
-        virtual void exportTable(CEDTable& table) = 0;
-};
-
+CEDFrame::CEDFrame(BlockElement * parent) :
+    BlockElement(parent), dxfrtextx(-1), dxfrtexty(-1), border_space_(-1), position_(-1) {
 }
 
-#endif /* CEDEXPORTER_H_ */
+void CEDFrame::exportElement(CEDExporter& exp) {
+    exp.exportFrame(*this);
+}
+
+void CEDFrame::setBorderSpace(int borderSpace) {
+    border_space_ = borderSpace;
+}
+
+void CEDFrame::setPosition(char pos) {
+    position_ = pos;
+}
+
+}
