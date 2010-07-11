@@ -275,7 +275,7 @@ void OdfExporter::writeFontStyleEnd(std::ostream& os, int style) {
     //    span.writeEnd(os);
 }
 
-void OdfExporter::writeLineBreak(std::ostream& os, CEDLine * line) {
+void OdfExporter::writeLineBreak(std::ostream& os, CEDLine& line) {
     // skip last line break
     if (lineLeftInParagraph() <= 1)
         return;
@@ -318,17 +318,17 @@ void OdfExporter::writeMetaStatistics(std::ostream& os) {
     os << stat << "\n";
 }
 
-void OdfExporter::writePageBegin(std::ostream& os, CEDPage*) {
+void OdfExporter::writePageBegin(std::ostream& os, CEDPage&) {
     writeStartTag(os, "office:text", "\n");
 }
 
-void OdfExporter::writePageEnd(std::ostream& os, CEDPage*) {
+void OdfExporter::writePageEnd(std::ostream& os, CEDPage&) {
     writeCloseTag(os, "office:text", "\n");
 }
 
-void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
+void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
     XmlTag p("text:p");
-    switch (par->align()) {
+    switch (par.align()) {
     case (ALIGN_JUSTIFY):
         p["text:style-name"] = ODF_STYLE_JUSTIFY;
         break;
@@ -338,13 +338,13 @@ void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     XmlExporter::writeParagraphBegin(os, par);
 }
 
-void OdfExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
+void OdfExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
     resetFontStyle(os);
     writeLineBufferRaw(os);
     writeCloseTag(os, "text:p", "");
 }
 
-void OdfExporter::writePicture(std::ostream& os, CEDPicture * picture) {
+void OdfExporter::writePicture(std::ostream& os, CEDPicture& picture) {
     try {
         std::ostringstream img_buf;
         savePictureData(picture, img_buf);
@@ -366,8 +366,8 @@ void OdfExporter::writePicture(std::ostream& os, CEDPicture * picture) {
         float xdpi = (float) page()->imageDpi().width();
         float ydpi = (float) page()->imageDpi().height();
         assert(0 < xdpi && xdpi < 3000 && 0 < ydpi && ydpi < 3000);
-        frame["svg:width"] = toString((float) picture->boundingRect().width() / xdpi) + "in";
-        frame["svg:height"] = toString((float) picture->boundingRect().height() / ydpi) + "in";
+        frame["svg:width"] = toString((float) picture.width() / xdpi) + "in";
+        frame["svg:height"] = toString((float) picture.height() / ydpi) + "in";
 
         frame.writeBeginNL(os);
         os << img << "\n";

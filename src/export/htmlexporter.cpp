@@ -94,7 +94,7 @@ void HtmlExporter::writeMeta(std::ostream& os) {
     }
 }
 
-void HtmlExporter::writePageBegin(std::ostream& os, CEDPage*) {
+void HtmlExporter::writePageBegin(std::ostream& os, CEDPage&) {
     writeDoctype(os);
     writeStartTag(os, "html", "\n");
     writeStartTag(os, "head", "\n");
@@ -107,16 +107,14 @@ void HtmlExporter::writePageBegin(std::ostream& os, CEDPage*) {
         throw Exception("HtmlExporter failed");
 }
 
-void HtmlExporter::writePageEnd(std::ostream& os, CEDPage*) {
+void HtmlExporter::writePageEnd(std::ostream& os, CEDPage&) {
     writeCloseTag(os, "body", "\n");
     writeCloseTag(os, "html", "\n");
 }
 
-void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
-    assert(par);
-
+void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
     XmlTag p("p");
-    switch (par->align()) {
+    switch (par.align()) {
     case ALIGN_CENTER:
         p["align"] = "center";
         break;
@@ -134,7 +132,7 @@ void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
     TextExporter::writeParagraphBegin(os, par);
 }
 
-void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
+void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
     // writes closing tags to line buffer
     resetFontStyle(os);
     // write and flush line buffer to output stream
@@ -142,21 +140,30 @@ void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph * /*par*/) {
     writeCloseTag(os, "p", "\n");
 }
 
-void HtmlExporter::writePicture(std::ostream& /*os*/, CEDPicture * picture) {
+void HtmlExporter::writePicture(std::ostream& /*os*/, CEDPicture& picture) {
     try {
-        assert(picture);
         savePicture(picture);
 
         XmlTag img("img");
         img["src"] = escapeHtmlSpecialChars(makePicturePathRelative(picture));
         img["alt"] = "";
-        img["height"] = toString(picture->boundingRect().height());
-        img["width"] = toString(picture->boundingRect().width());
+        img["height"] = toString(picture.height());
+        img["width"] = toString(picture.width());
         lineBuffer() << img << "\n";
 
     } catch (Exception& e) {
         Debug() << "[HtmlExporter::writePicture] failed: " << e.what() << std::endl;
     }
+}
+
+void HtmlExporter::writeSectionBegin(std::ostream& os, CEDSection& sect) {
+    Attributes attrs;
+    attrs["id"] = "section#" + toString(numSections());
+    writeStartTag(os, "div", attrs);
+}
+
+void HtmlExporter::writeSectionEnd(std::ostream& os, CEDSection& sect) {
+    writeCloseTag(os, "div", "\n");
 }
 
 void HtmlExporter::writeTableBegin(std::ostream& os, CEDParagraph * /*table*/) {

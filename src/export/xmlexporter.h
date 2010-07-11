@@ -100,7 +100,7 @@ class XmlExporter: public TextExporter
         /**
          * Writes escaped character to line buffer
          */
-        virtual void writeCharacter(std::ostream& os, CEDChar * chr);
+        virtual void writeCharacter(std::ostream& os, CEDChar& chr);
 
         /**
          * Writes font style open tag

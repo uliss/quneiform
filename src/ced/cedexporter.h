@@ -29,6 +29,7 @@ class CEDChar;
 class CEDColumn;
 class CEDLine;
 class CEDPage;
+class CEDParagraph;
 class CEDPicture;
 class CEDSection;
 class CEDTable;

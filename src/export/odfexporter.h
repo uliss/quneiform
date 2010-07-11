@@ -43,15 +43,15 @@ class OdfExporter: public XmlExporter
         std::string fontStyleTag(int style) const;
         void writeFontStyleBegin(std::ostream& os, int style);
         void writeFontStyleEnd(std::ostream& os, int style);
-        void writeLineBreak(std::ostream& os, CEDLine * line);
+        void writeLineBreak(std::ostream& os, CEDLine& line);
         void writeMeta(std::ostream& os);
         void writeMetaDate(std::ostream& os);
         void writeMetaStatistics(std::ostream& os);
-        void writePageBegin(std::ostream& os, CEDPage * page);
-        void writePageEnd(std::ostream& os, CEDPage * page);
-        void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
-        void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
-        void writePicture(std::ostream& os, CEDPicture * picture);
+        void writePageBegin(std::ostream& os, CEDPage& page);
+        void writePageEnd(std::ostream& os, CEDPage& page);
+        void writeParagraphBegin(std::ostream& os, CEDParagraph& par);
+        void writeParagraphEnd(std::ostream& os, CEDParagraph& par);
+        void writePicture(std::ostream& os, CEDPicture& picture);
     private:
         void addOdfAutomaticStyles(std::ostream& os);
         void addOdfContent();

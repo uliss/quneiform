@@ -48,11 +48,10 @@ inline std::string rectBBoxes(const HocrExporter::RectList& lst) {
     return buf.str();
 }
 
-inline std::string pageBBox(CEDPage * p) {
-    assert(p);
+inline std::string pageBBox(CEDPage& p) {
     std::ostringstream buf;
-    buf << "image '" << escapeHtmlSpecialChars(p->imageName()) << "'; bbox 0 0 "
-            << p->imageSize().width() << " " << p->imageSize().height();
+    buf << "image '" << escapeHtmlSpecialChars(p.imageName()) << "'; bbox 0 0 "
+            << p.imageSize().width() << " " << p.imageSize().height();
     return buf.str();
 }
 
@@ -62,9 +61,8 @@ HocrExporter::HocrExporter(CEDPage * page, const FormatOptions& opts) :
     formatOptions().setPreserveLineHyphens(true);
 }
 
-void HocrExporter::addCharBBox(CEDChar * chr) {
-    assert(chr);
-    Rect r = chr->boundingRect();
+void HocrExporter::addCharBBox(CEDChar& chr) {
+    Rect r = chr.boundingRect();
 
     // spaces have invalid bounding rectangle
     if (goodCharRect(r)) {
@@ -81,7 +79,7 @@ void HocrExporter::addCharBBox(CEDChar * chr) {
     }
 }
 
-void HocrExporter::writeCharacter(std::ostream& os, CEDChar * chr) {
+void HocrExporter::writeCharacter(std::ostream& os, CEDChar& chr) {
     addCharBBox(chr);
     HtmlExporter::writeCharacter(os, chr);
 }
@@ -93,7 +91,7 @@ void HocrExporter::writeCharBBoxesInfo(std::ostream& os) {
     os << span << "\n";
 }
 
-void HocrExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
+void HocrExporter::writeLineEnd(std::ostream& os, CEDLine& line) {
     XmlTag span("span");
     span["class"] = "ocr_line";
     span["id"] = "line_" + toString(numLines());
@@ -118,8 +116,7 @@ void HocrExporter::writeMeta(std::ostream& os) {
     os << meta << "\n";
 }
 
-void HocrExporter::writePageBegin(std::ostream& os, CEDPage * page) {
-    assert(page);
+void HocrExporter::writePageBegin(std::ostream& os, CEDPage& page) {
     HtmlExporter::writePageBegin(os, page);
     static int num_pages = 1;
     // example: <div class="ocr_page" title="image 'page-000.pbm'; bbox 0 0 4306 6064">
@@ -131,21 +128,21 @@ void HocrExporter::writePageBegin(std::ostream& os, CEDPage * page) {
     num_pages++;
 }
 
-void HocrExporter::writePageEnd(std::ostream& os, CEDPage * page) {
+void HocrExporter::writePageEnd(std::ostream& os, CEDPage& page) {
     writeCloseTag(os, "div", "\n");
     HtmlExporter::writePageEnd(os, page);
 }
 
-void HocrExporter::writeParagraphBegin(std::ostream& os, CEDParagraph * par) {
+void HocrExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
     HtmlExporter::writeParagraphBegin(os, par);
     os << "\n";
     rects_.clear();
     line_rect_ = Rect();
 }
 
-void HocrExporter::writePicture(std::ostream& os, CEDPicture * picture) {
-//    addCharBBox(picture);
-    line_rect_ = picture->boundingRect();
+void HocrExporter::writePicture(std::ostream& os, CEDPicture& picture) {
+    //    addCharBBox(picture);
+    line_rect_ = picture.boundingRect();
     HtmlExporter::writePicture(os, picture);
 }
 

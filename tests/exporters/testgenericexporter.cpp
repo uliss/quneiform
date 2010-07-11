@@ -56,14 +56,13 @@ void TestGenericExporter::testDoExport() {
 
 void TestGenericExporter::testExportPage() {
     FormatOptions opt;
-    CEDPage * page = new CEDPage;
-    GenericExporter * p = new GenericExporter(page, opt);
+    CEDPage page;
+    GenericExporter * p = new GenericExporter(&page, opt);
 
     p->os_ = &std::cout;
     p->exportPage(page);
 
     delete p;
-    delete page;
 }
 
 void TestGenericExporter::testCreatePicturesFolder() {
@@ -92,7 +91,7 @@ void TestGenericExporter::testMakePictureName() {
     GenericExporter * p = new GenericExporter(NULL, opt);
     CEDPicture pict;
     pict.setPictureNumber(1);
-    CPPUNIT_ASSERT_EQUAL(std::string("image_1."), p->makePictureName(&pict));
+    CPPUNIT_ASSERT_EQUAL(std::string("image_1."), p->makePictureName(pict));
     delete p;
 }
 
@@ -115,17 +114,17 @@ void TestGenericExporter::testMakePicturePath() {
     CEDPicture pict;
     pict.setPictureNumber(1);
 
-    CPPUNIT_ASSERT_THROW(p->makePicturePath(&pict), Exporter::Exception);
+    CPPUNIT_ASSERT_THROW(p->makePicturePath(pict), Exporter::Exception);
     p->setOutputFilename("./test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("./test_files/image_1."), p->makePicturePath(&pict));
+    CPPUNIT_ASSERT_EQUAL(std::string("./test_files/image_1."), p->makePicturePath(pict));
 
     pict.setPictureNumber(2);
     p->setOutputFilename("test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_2."), p->makePicturePath(&pict));
+    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_2."), p->makePicturePath(pict));
 
     pict.setPictureNumber(3);
     p->setOutputFilename("/../..//test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("/../..//test_files/image_3."), p->makePicturePath(&pict));
+    CPPUNIT_ASSERT_EQUAL(std::string("/../..//test_files/image_3."), p->makePicturePath(pict));
     delete p;
 }
 
@@ -135,16 +134,16 @@ void TestGenericExporter::testMakePicturePathRelative() {
     CEDPicture pict;
     pict.setPictureNumber(1);
 
-    CPPUNIT_ASSERT_THROW(p->makePicturePathRelative(&pict), Exporter::Exception);
+    CPPUNIT_ASSERT_THROW(p->makePicturePathRelative(pict), Exporter::Exception);
     p->setOutputFilename("./test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_1."), p->makePicturePathRelative(&pict));
+    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_1."), p->makePicturePathRelative(pict));
 
     pict.setPictureNumber(2);
     p->setOutputFilename("test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_2."), p->makePicturePathRelative(&pict));
+    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_2."), p->makePicturePathRelative(pict));
 
     pict.setPictureNumber(3);
     p->setOutputFilename("/../..//test.html");
-    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_3."), p->makePicturePathRelative(&pict));
+    CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_3."), p->makePicturePathRelative(pict));
     delete p;
 }

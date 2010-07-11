@@ -51,27 +51,37 @@ class HtmlExporter: public XmlExporter
         /**
          * Writes HTML header, meta info and <body> tag
          */
-        virtual void writePageBegin(std::ostream& os, CEDPage * page);
+        virtual void writePageBegin(std::ostream& os, CEDPage& page);
 
         /**
          * Writes </body> and </html> tags
          */
-        virtual void writePageEnd(std::ostream& os, CEDPage * page);
+        virtual void writePageEnd(std::ostream& os, CEDPage& page);
 
         /**
          * Writes <p> tag
          */
-        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph& par);
 
         /**
          * Writes </p> tag
          */
-        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph& par);
 
         /**
-         * Writes <img tag
+         * Writes <img> tag
          */
-        virtual void writePicture(std::ostream& os, CEDPicture * picture);
+        virtual void writePicture(std::ostream& os, CEDPicture& picture);
+
+        /**
+         * Writes <div> for section
+         */
+        virtual void writeSectionBegin(std::ostream& os, CEDSection& sect);
+
+        /**
+         * Writes </div> for section
+         */
+        virtual void writeSectionEnd(std::ostream& os, CEDSection& sect);
 
         /**
          * Writes <table> tag

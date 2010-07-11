@@ -52,13 +52,13 @@ inline string buffer(HtmlExporter * exp) {
 
 #define ASSERT_CHAR_WRITE(src, dest) {\
     c_->setAlternative(Letter(src), 0);\
-    exp_->exportChar(c_);\
+    exp_->exportChar(*c_);\
     CHECK_BUFFER(dest);\
 }
 
 #define ASSERT_CHAR_WRITE_CLEAR(src, dest) {\
 	c_->setAlternative(Letter(src), 0);\
-    exp_->exportChar(c_);\
+    exp_->exportChar(*c_);\
     CHECK_BUFFER_CLEAR(dest);\
 }
 
@@ -90,8 +90,8 @@ void TestHtmlExporter::testExport() {
 
 void TestHtmlExporter::testExportParagraph() {
     CPPUNIT_ASSERT_EQUAL(true, exp_->skipEmptyParagraphs());
-    CEDParagraph * par = new CEDParagraph;
-    par->setAlign(ALIGN_LEFT);
+    CEDParagraph par;
+    par.setAlign(ALIGN_LEFT);
 
     std::stringstream buf1;
     exp_->os_ = &buf1;
@@ -111,30 +111,28 @@ void TestHtmlExporter::testExportParagraph() {
     // right align
     std::stringstream buf3;
     exp_->os_ = &buf3;
-    par->setAlign(ALIGN_RIGHT);
+    par.setAlign(ALIGN_RIGHT);
     exp_->exportParagraph(par);
     CPPUNIT_ASSERT_EQUAL(std::string("<p align=\"right\"></p>\n"), buf3.str());
 
     // center align
     std::stringstream buf4;
     exp_->os_ = &buf4;
-    par->setAlign(ALIGN_CENTER);
+    par.setAlign(ALIGN_CENTER);
     exp_->exportParagraph(par);
     CPPUNIT_ASSERT_EQUAL(std::string("<p align=\"center\"></p>\n"), buf4.str());
 
     // justify align
     std::stringstream buf5;
     exp_->os_ = &buf5;
-    par->setAlign(ALIGN_JUSTIFY);
+    par.setAlign(ALIGN_JUSTIFY);
     exp_->exportParagraph(par);
     CPPUNIT_ASSERT_EQUAL(std::string("<p align=\"justify\"></p>\n"), buf5.str());
-
-    delete par;
 }
 
 void TestHtmlExporter::testExportLine() {
     CPPUNIT_ASSERT_EQUAL(true, exp_->skipEmptyLines());
-    CEDLine * line = new CEDLine;
+    CEDLine line;
 
     std::stringstream buf1;
     exp_->os_ = &buf1;
@@ -166,11 +164,10 @@ void TestHtmlExporter::testExportLine() {
     std::stringstream buf4;
     exp_->os_ = &buf4;
     exp_->formatOptions().setPreserveLineBreaks(false);
-    line->setHardBreak(true);
+    line.setHardBreak(true);
     exp_->lines_left_in_paragraph_ = 2;
     exp_->exportLine(line);
     CPPUNIT_ASSERT_EQUAL(std::string("<br/>\n"), buf4.str());
-    delete line;
 }
 
 void TestHtmlExporter::testExportCharacter() {
@@ -186,7 +183,7 @@ void TestHtmlExporter::testExportCharacter() {
     for (uint i = 0; i < chars.size(); i++) {
         lt.alternative_ = chars[i];
         c_->setAlternative(lt, 0);
-        exp_->writeCharacter(cerr, c_);
+        exp_->writeCharacter(cerr, *c_);
         CPPUNIT_ASSERT_EQUAL(string(1, chars[i]), buffer(exp_));
         clearBuffer(exp_);
     }

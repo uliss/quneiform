@@ -26,12 +26,13 @@
 #include "globus.h"
 #include "imageexporter.h"
 #include "common/exception.h"
+#include "ced/cedexporter.h"
 #include "rfrmt/formatoptions.h"
 
 namespace CIF
 {
 
-class CLA_EXPO Exporter
+class CLA_EXPO Exporter: public CEDExporter
 {
     public:
         Exporter(const FormatOptions& opts);

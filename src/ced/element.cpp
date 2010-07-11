@@ -41,6 +41,13 @@ const Color & Element::color() const {
     return color_;
 }
 
+void Element::exportChildren(CEDExporter& exp) {
+}
+
+int Element::height() const {
+    return brect_.height();
+}
+
 Element * Element::parent() {
     return parent_;
 }
@@ -63,6 +70,10 @@ void Element::setColor(const Color & c) {
 
 void Element::setParent(Element * parent) {
     parent_ = parent;
+}
+
+int Element::width() const {
+    return brect_.width();
 }
 
 }

@@ -111,12 +111,12 @@ class GenericExporter: public Exporter
         /**
          * Checks if line skipped
          */
-        bool skipLine(CEDLine * line) const;
+        bool skipLine(CEDLine& line) const;
 
         /**
          * Checks if paragraph skipped
          */
-        bool skipParagraph(CEDParagraph * par) const;
+        bool skipParagraph(CEDParagraph& par) const;
 
         /**
          * Checks if pictures skipped
@@ -128,32 +128,32 @@ class GenericExporter: public Exporter
         /**
          * Returns number of characters in given paragraph
          */
-        static int charNumInParagraph(CEDParagraph * par);
 
+        static int charNumInParagraph(CEDParagraph& par);
         /**
          * Checks if given paragraph is empty
          */
-        static bool isEmptyParagraph(CEDParagraph * par);
+        static bool isEmptyParagraph(CEDParagraph& par);
 
         /**
          * Checks if line break needed
          */
-        bool isLineBreak(CEDLine * line) const;
+        bool isLineBreak(CEDLine& line) const;
 
         /**
          * Checks if hyphens removal is needed
          */
-        bool isRemoveHyphens(CEDLine * line) const;
+        bool isRemoveHyphens(CEDLine& line) const;
 
         /**
          * Makes picture path for export
          */
-        std::string makePicturePath(CEDPicture * picture);
+        std::string makePicturePath(CEDPicture& picture);
 
         /**
          * Makes relative picture path
          */
-        std::string makePicturePathRelative(CEDPicture * picture);
+        std::string makePicturePathRelative(CEDPicture& picture);
 
         /**
          * Returns pointer to default output stream
@@ -164,63 +164,48 @@ class GenericExporter: public Exporter
          * Saves given picture
          * @see createPicturesFolder
          */
-        void savePicture(CEDPicture * picture);
+        void savePicture(CEDPicture& picture);
 
         /**
          * Saves picture to file
          */
-        void savePictureData(CEDPicture * picture, const std::string& filepath);
+        void savePictureData(CEDPicture& picture, const std::string& filepath);
 
         /**
          * Saves picture to stream
          */
-        void savePictureData(CEDPicture * picture, std::ostream& os);
+        void savePictureData(CEDPicture& picture, std::ostream& os);
 
         /**
          * Sets pointer to default output stream
          */
         void setOutputStream(std::ostream * os);
-    private:
+    public:
+        void exportChar(CEDChar& chr);
+
         /**
          * Exports columns
          * calls column write functions:
          *   - writeColumnBegin
-         *   - writeColumn
          *   - writeColumnEnd
          */
-        void exportColumn(CEDColumn * col);
-
-        /**
-         * Exports frames
-         * calls frame write functions:
-         *  - writeFrameBegin
-         *  - writeFrame
-         *  - writeFrameEnd
-         */
-        void exportFrame(CEDParagraph * frame);
+        void exportColumn(CEDColumn& col);
 
         /**
          * Exports line
          * calls line write functions:
          *  - writeLineBegin
-         *  - writeLine
          *  - writeLineEnd
          */
-        void exportLine(CEDLine * line);
-
-        /**
-         * Exports list of objects
-         */
-        void exportObjects(CEDParagraph * objects);
+        void exportLine(CEDLine& line);
 
         /**
          * Export page
          * calls write page functions:
          *  - writePageBegin
-         *  - writePage
          *  - writePageEnd
          */
-        void exportPage(CEDPage * page);
+        void exportPage(CEDPage& page);
 
         /**
          * Exports paragraph
@@ -229,21 +214,31 @@ class GenericExporter: public Exporter
          *  - writeParagraph
          *  - writeParagraphEnd
          */
-        void exportParagraph(CEDParagraph* par);
+        void exportParagraph(CEDParagraph& par);
 
         /**
          * Exports picture
          */
-        void exportPicture(CEDPicture * picture);
+        void exportPicture(CEDPicture& pict);
 
         /**
          * Exports section
          * calls section write functions:
          *  - writeSectionBegin
-         *  - writeSection
          *  - writeSectionEnd
          */
-        void exportSection(CEDSection * sect);
+        void exportSection(CEDSection& sect);
+
+        void exportTable(CEDTable& table) {
+        }
+    private:
+        /**
+         * Exports frames
+         * calls frame write functions:
+         *  - writeFrameBegin
+         *  - writeFrameEnd
+         */
+        void exportFrame(CEDParagraph * frame);
 
         void exportTable(CEDParagraph * table);
         void exportTableCells(CEDParagraph * table);
@@ -251,7 +246,6 @@ class GenericExporter: public Exporter
     protected:
         virtual std::string createPicturesFolder();
         void doExport(std::ostream& os);
-        virtual void exportChar(CEDChar * chr);
 
         /**
          * Returns pointer to exported page
@@ -261,7 +255,7 @@ class GenericExporter: public Exporter
         /**
          * Makes picture filename
          */
-        std::string makePictureName(CEDPicture * picture);
+        std::string makePictureName(CEDPicture& picture);
 
         /**
          * Resets font styles
@@ -271,30 +265,24 @@ class GenericExporter: public Exporter
         /**
          * Writes character to output stream
          */
-        virtual void writeCharacter(std::ostream& os, CEDChar * chr);
-
-        /**
-         * Exports column content
-         * @see writeColumnBegin and writeColumnEnd
-         */
-        virtual void writeColumn(std::ostream& os, CEDColumn * col);
+        virtual void writeCharacter(std::ostream& os, CEDChar& chr);
 
         /**
          * Called before writeColumn
          * @see writeColumn
          */
-        virtual void writeColumnBegin(std::ostream& os, CEDColumn * col);
+        virtual void writeColumnBegin(std::ostream& os, CEDColumn& col);
 
         /**
          * Called after writeColumn
          * @see writeColumn
          */
-        virtual void writeColumnEnd(std::ostream& os, CEDColumn * col);
+        virtual void writeColumnEnd(std::ostream& os, CEDColumn& col);
 
         /**
          * Writes font styles
          */
-        void writeFontStyle(std::ostream& os, CEDChar * chr);
+        void writeFontStyle(std::ostream& os, CEDChar& chr);
 
         /**
          * Writes style begin to output stream
@@ -307,11 +295,6 @@ class GenericExporter: public Exporter
         virtual void writeFontStyleEnd(std::ostream& os, int style);
 
         /**
-         * Exports frame content
-         */
-        virtual void writeFrame(std::ostream& os, CEDParagraph * frame);
-
-        /**
          * Called before writeFrame
          */
         virtual void writeFrameBegin(std::ostream& os, CEDParagraph * frame);
@@ -322,76 +305,54 @@ class GenericExporter: public Exporter
         virtual void writeFrameEnd(std::ostream& os, CEDParagraph * frame);
 
         /**
-         * Exports line characters. You should redefine it if other character order
-         * export required.
-         * @see writeLineBegin and writeLineEnd
-         */
-        virtual void writeLine(std::ostream& os, CEDLine * line);
-
-        /**
          * Called before writeLine performed
          * @see writeLine and writeLineEnd
          */
-        virtual void writeLineBegin(std::ostream& os, CEDLine * line);
+        virtual void writeLineBegin(std::ostream& os, CEDLine& line);
 
         /**
          * Called after writeLine performed
          * @see writeLine and writeLineBegin
          */
-        virtual void writeLineEnd(std::ostream& os, CEDLine * line);
-
-        /**
-         * Exports page sections.
-         * @see writePageBegin and writePageEnd
-         */
-        virtual void writePage(std::ostream& os, CEDPage * page);
+        virtual void writeLineEnd(std::ostream& os, CEDLine& line);
 
         /**
          * Called before writePage
          * @see writePage and writePageEnd
          */
-        virtual void writePageBegin(std::ostream& os, CEDPage * page);
+        virtual void writePageBegin(std::ostream& os, CEDPage& page);
 
         /**
          * Called after writePage
          * @see writePage and writePageBegin
          */
-        virtual void writePageEnd(std::ostream& os, CEDPage * page);
-
-        /**
-         * Exports paragraph lines
-         */
-        virtual void writeParagraph(std::ostream& os, CEDParagraph * par);
+        virtual void writePageEnd(std::ostream& os, CEDPage& page);
 
         /**
          * Called before writePragraph
          */
-        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph& par);
 
         /**
          * Called after writePragraph
          */
-        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph& par);
 
         /**
          * Writes picture
          */
-        virtual void writePicture(std::ostream& os, CEDPicture * pict);
-
-        /**
-         * Exports section content
-         */
-        virtual void writeSection(std::ostream& os, CEDSection * sect);
+        virtual void writePicture(std::ostream& os, CEDPicture& pict);
 
         /**
          * Called before writeSection
          */
-        virtual void writeSectionBegin(std::ostream& os, CEDSection * sect);
+        virtual void writeSectionBegin(std::ostream& os, CEDSection& sect);
 
         /**
          * Called after writeSection
          */
-        virtual void writeSectionEnd(std::ostream& os, CEDSection * sect);
+        virtual void writeSectionEnd(std::ostream& os, CEDSection& sect);
+
         virtual void writeTableBegin(std::ostream& os, CEDParagraph * table);
         virtual void writeTableEnd(std::ostream& os, CEDParagraph * table);
         virtual void writeTableRowBegin(std::ostream& os, CEDParagraph * row);

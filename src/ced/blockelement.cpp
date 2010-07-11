@@ -46,6 +46,11 @@ bool BlockElement::empty() const {
     return elements_.empty();
 }
 
+void BlockElement::exportChildren(CEDExporter& exp) {
+    for (iterator it = elements_.begin(), e = elements_.end(); it != e; ++it)
+        (*it)->exportElement(exp);
+}
+
 void BlockElement::addElement(Element * e) {
     addElement(ElementPtr(e));
 }

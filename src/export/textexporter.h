@@ -51,7 +51,7 @@ class TextExporter: public GenericExporter
         /**
          * Writes character to line buffer
          */
-        virtual void writeCharacter(std::ostream& os, CEDChar * chr);
+        virtual void writeCharacter(std::ostream& os, CEDChar& chr);
 
         /**
          * Writes line breaks
@@ -63,30 +63,30 @@ class TextExporter: public GenericExporter
          * after that line buffer is cleared
          * @see clearLineBuffer
          */
-        virtual void writeLineBuffer(std::ostream& os, CEDLine * line);
+        virtual void writeLineBuffer(std::ostream& os, CEDLine& line);
 
         /**
          * Writes line and optional line break if needed
          * @see writeLineBreak
          */
-        virtual void writeLineEnd(std::ostream& os, CEDLine * line);
+        virtual void writeLineEnd(std::ostream& os, CEDLine& line);
 
         /**
          * Writes new line after page
          */
-        virtual void writePageEnd(std::ostream& os, CEDPage * page);
+        virtual void writePageEnd(std::ostream& os, CEDPage& page);
 
-        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph * par);
+        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph& par);
 
         /**
          * Writes new line after paragraph
          */
-        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph * par);
+        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph& par);
 
         /**
          * Writes stub "[picture]" on picture place
          */
-        virtual void writePicture(std::ostream& os, CEDChar * picture);
+        virtual void writePicture(std::ostream& os, CEDPicture& picture);
     protected:
         /**
          * Clears line buffer

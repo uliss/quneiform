@@ -89,7 +89,7 @@ void TextExporter::writeBOM(std::ostream& os) {
     os << "\xEF\xBB\xBF";
 }
 
-void TextExporter::writeCharacter(std::ostream& /*os*/, CEDChar * chr) {
+void TextExporter::writeCharacter(std::ostream& /*os*/, CEDChar& chr) {
     GenericExporter::writeCharacter(line_buffer_, chr);
 }
 
@@ -97,7 +97,7 @@ void TextExporter::writeLineBreak(std::ostream& os) {
     os << '\n';
 }
 
-void TextExporter::writeLineBuffer(std::ostream& os, CEDLine * line) {
+void TextExporter::writeLineBuffer(std::ostream& os, CEDLine& line) {
     std::string output_line = lineBufferPrepared();
 
     if (isRemoveHyphens(line))
@@ -125,24 +125,24 @@ void TextExporter::writeLineBufferRaw(std::ostream& os) {
     clearLineBuffer();
 }
 
-void TextExporter::writeLineEnd(std::ostream& os, CEDLine * line) {
+void TextExporter::writeLineEnd(std::ostream& os, CEDLine& line) {
     writeLineBuffer(os, line);
     lines_left_in_paragraph_--;
 }
 
-void TextExporter::writePageEnd(std::ostream& os, CEDPage*) {
+void TextExporter::writePageEnd(std::ostream& os, CEDPage&) {
     os << std::endl;
 }
 
-void TextExporter::writeParagraphBegin(std::ostream&, CEDParagraph * par) {
-    lines_left_in_paragraph_ = par->lineCount();
+void TextExporter::writeParagraphBegin(std::ostream&, CEDParagraph& par) {
+    lines_left_in_paragraph_ = par.lineCount();
 }
 
-void TextExporter::writeParagraphEnd(std::ostream& os, CEDParagraph*) {
+void TextExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
     os << "\n";
 }
 
-void TextExporter::writePicture(std::ostream& os, CEDChar * /*picture*/) {
+void TextExporter::writePicture(std::ostream& os, CEDPicture&) {
     os << "[picture]\n";
 }
 

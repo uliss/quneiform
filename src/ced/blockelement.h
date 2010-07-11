@@ -71,6 +71,8 @@ class CLA_EXPO BlockElement: public Element
          */
         bool empty() const;
 
+        void exportChildren(CEDExporter& exp);
+
         void setBorderBottom(ed_border_t bottom);
         void setBorderBottomWidth(unsigned short width);
         void setBorderLeft(ed_border_t left);

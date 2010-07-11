@@ -36,6 +36,7 @@ class CLA_EXPO Element
         virtual ~Element();
     public:
         virtual void exportElement(CEDExporter& exp) = 0;
+        virtual void exportChildren(CEDExporter& exp);
 
         /**
          * Returns element background color
@@ -51,6 +52,11 @@ class CLA_EXPO Element
          * Returns element color
          */
         const Color& color() const;
+
+        /**
+         * Returns element height
+         */
+        int height() const;
 
         /**
          * Returns pointer to parent element
@@ -77,6 +83,11 @@ class CLA_EXPO Element
          * Sets parent object
          */
         void setParent(Element * parent);
+
+        /**
+         * Returns element width
+         */
+        int width() const;
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
