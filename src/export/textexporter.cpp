@@ -22,6 +22,7 @@
 
 #include "textexporter.h"
 #include "ced/ced.h"
+#include "ced/cedchar.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
 #include "common/helper.h"
@@ -89,8 +90,8 @@ void TextExporter::writeBOM(std::ostream& os) {
     os << "\xEF\xBB\xBF";
 }
 
-void TextExporter::writeCharacter(std::ostream& /*os*/, CEDChar& chr) {
-    GenericExporter::writeCharacter(line_buffer_, chr);
+void TextExporter::writeCharacter(std::ostream&, CEDChar& chr) {
+    lineBuffer() << chr.alternativeAt(0).getChar();
 }
 
 void TextExporter::writeLineBreak(std::ostream& os) {

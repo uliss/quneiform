@@ -48,7 +48,7 @@ void TestGenericExporter::testDoExport() {
 
     // test standard output
     p->doExport(std::cout);
-    CPPUNIT_ASSERT_EQUAL(p->no_pictures_, true);
+    CPPUNIT_ASSERT_EQUAL(p->no_pictures_, false);
     CPPUNIT_ASSERT(p->os_ == &std::cout);
     delete p;
     delete page;
@@ -98,7 +98,9 @@ void TestGenericExporter::testMakePictureName() {
 void TestGenericExporter::testMakeOutputPictureDir() {
     FormatOptions opt;
     GenericExporter * p = new GenericExporter(NULL, opt);
-    CPPUNIT_ASSERT_THROW(p->makeOutputPictureDir(), Exporter::Exception);
+
+    // default dir
+    CPPUNIT_ASSERT_EQUAL(std::string("cuneiform-out_files"), p->makeOutputPictureDir());
     p->setOutputFilename("./test.html");
     CPPUNIT_ASSERT_EQUAL(std::string("./test_files"), p->makeOutputPictureDir());
     p->setOutputFilename("test.html");
@@ -114,7 +116,8 @@ void TestGenericExporter::testMakePicturePath() {
     CEDPicture pict;
     pict.setPictureNumber(1);
 
-    CPPUNIT_ASSERT_THROW(p->makePicturePath(pict), Exporter::Exception);
+    // default dir
+    CPPUNIT_ASSERT_EQUAL(std::string("cuneiform-out_files/image_1."), p->makePicturePath(pict));
     p->setOutputFilename("./test.html");
     CPPUNIT_ASSERT_EQUAL(std::string("./test_files/image_1."), p->makePicturePath(pict));
 
@@ -134,7 +137,8 @@ void TestGenericExporter::testMakePicturePathRelative() {
     CEDPicture pict;
     pict.setPictureNumber(1);
 
-    CPPUNIT_ASSERT_THROW(p->makePicturePathRelative(pict), Exporter::Exception);
+    // default dir
+    CPPUNIT_ASSERT_EQUAL(std::string("cuneiform-out_files/image_1."), p->makePicturePathRelative(pict));
     p->setOutputFilename("./test.html");
     CPPUNIT_ASSERT_EQUAL(std::string("test_files/image_1."), p->makePicturePathRelative(pict));
 

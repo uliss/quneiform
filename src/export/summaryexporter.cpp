@@ -29,65 +29,22 @@ namespace CIF
 {
 
 SummaryExporter::SummaryExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts), total_columns_(0), total_pars_(0), total_lines_(0),
-            total_chars_(0), total_pictures_(0) {
+    GenericExporter(page, opts) {
+    setSkipPictures(false);
+    setSkipEmptyLines(false);
+    setSkipEmptyParagraphs(false);
 }
 
-void parCount(CEDColumn * col, size_t * par_num, size_t * line_num, size_t * char_num,
-        size_t * pict_num) {
-    for (size_t i = 0; i < col->elementCount(); i++) {
-        if (dynamic_cast<CEDParagraph*> (col->elementAt(i))) {
-            (*par_num)++;
-            CEDParagraph * p = static_cast<CEDParagraph*> (col->elementAt(i));
-            (*line_num) += p->lineCount();
-
-            for (size_t ln_i = 0; ln_i < p->lineCount(); ln_i++) {
-                CEDLine * l = p->lineAt(ln_i);
-
-                for (size_t ch_i = 0; ch_i < l->elementCount(); ch_i++) {
-                    Element * el = l->elementAt(ch_i);
-                    if (dynamic_cast<CEDChar*> (el)) {
-                        (*char_num)++;
-                    } else if (dynamic_cast<CEDPicture*> (el)) {
-                        (*pict_num)++;
-                    }
-                }
-            }
-        }
-    }
-}
-
-void SummaryExporter::calcPageStat() {
-    total_columns_ = 0;
-    total_pars_ = 0;
-    total_lines_ = 0;
-    total_chars_ = 0;
-    total_pictures_ = 0;
-    for (size_t i = 0; i < page()->sectionCount(); i++) {
-        CEDSection * sect = page()->sectionAt(i);
-        total_columns_ += sect->columnCount();
-
-        for (size_t col_i = 0; col_i < sect->columnCount(); col_i++) {
-            parCount(sect->columnAt(col_i), &total_pars_, &total_lines_, &total_chars_,
-                    &total_pictures_);
-        }
-    }
-}
-
-void SummaryExporter::doExport(std::ostream& os) {
-    calcPageStat();
-    printPageStat(os);
-}
-
-void SummaryExporter::printPageStat(std::ostream& os) {
+void SummaryExporter::writePageEnd(std::ostream& os, CEDPage&) {
     os << "##################################\n";
     os << "Page summary: " << "\n";
-    os << "    total sections:   " << page()->sectionCount() << "\n";
-    os << "    total columns:    " << total_columns_ << "\n";
-    os << "    total paragraphs: " << total_pars_ << "\n";
-    os << "    total lines:      " << total_lines_ << "\n";
-    os << "    total chars:      " << total_chars_ << "\n";
-    os << "    total pictures:   " << total_pictures_ << "\n";
+    os << "    total sections:   " << numSections() << "\n";
+    os << "    total columns:    " << numColumns() << "\n";
+    os << "    total paragraphs: " << numParagraphs() << "\n";
+    os << "    total lines:      " << numLines() << "\n";
+    os << "    total chars:      " << numChars() << "\n";
+    os << "    total pictures:   " << numPictures() << "\n";
+    os << "    total tables:     " << numTables() << "\n";
 }
 
 }

@@ -28,6 +28,8 @@ using namespace std;
 namespace CIF
 {
 
+const char * DEFAULT_PICTURE_DIR = "cuneiform-out_files";
+
 Exporter::Exporter(const FormatOptions& opts) :
     format_options_(opts) {
     //autoDetectOutputEncoding();
@@ -103,8 +105,7 @@ std::string Exporter::inputEncoding() const {
 std::string Exporter::makeOutputPictureDir() const {
     if (output_picture_dir_.empty()) {
         if (output_filename_.empty())
-            throw Exception(
-                    "[Exporter::makeOutputPictureDir] failed - specify output picture directory");
+            return DEFAULT_PICTURE_DIR;
 
         return removeFileExt(outputFilename()) + "_files";
     }

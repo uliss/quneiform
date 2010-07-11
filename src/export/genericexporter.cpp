@@ -94,22 +94,12 @@ void GenericExporter::doExport(std::ostream& os) {
     if (os.fail() || page_ == NULL)
         throw Exception("[GenericExporter::doExport] invalid stream given");
 
-    if (outputFilename().empty()) {
-        Debug()
-                << "[GenericExporter::doExport] output filename is empty. Skipping picture export\n";
-        setSkipPictures(true);
-    }
-
     setOutputStream(&os);
     page_->exportElement(*this);
 }
 
 void GenericExporter::exportChar(CEDChar& chr) {
     num_chars_++;
-
-    // Скрытый ли символ
-    //gEdCharHidden = CED_GetCharFontAttribs(charHandle) & ED_HIDDEN;
-
     writeFontStyle(*os_, chr);
     writeCharacter(*os_, chr);
     previous_style_ = chr.fontStyle();
@@ -313,8 +303,7 @@ void GenericExporter::setOutputStream(std::ostream * os) {
 }
 
 void GenericExporter::writeCharacter(std::ostream& os, CEDChar& chr) {
-    assert(chr.hasAlternatives());
-    os << chr.alternativeAt(0).getChar();
+
 }
 
 void GenericExporter::writeColumnBegin(std::ostream& /*os*/, CEDColumn& /*col*/) {

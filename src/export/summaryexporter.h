@@ -29,15 +29,7 @@ class SummaryExporter: public GenericExporter
     public:
         SummaryExporter(CEDPage * page, const FormatOptions& opts);
     private:
-        void doExport(std::ostream& os);
-        void printPageStat(std::ostream& os);
-        void calcPageStat();
-    private:
-        size_t total_columns_;
-        size_t total_pars_;
-        size_t total_lines_;
-        size_t total_chars_;
-        size_t total_pictures_;
+        void writePageEnd(std::ostream& os, CEDPage& page);
 };
 
 }
