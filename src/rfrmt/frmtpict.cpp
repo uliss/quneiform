@@ -374,6 +374,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
                 ALIGN_NONE, indent, SectorInfo->userNum, -1, interval, playout, Color::null(),
                 Color::null(), -1, -1, FALSE);
         CEDLine * ced_line = new CEDLine;
+        // TODO hard coded font value
         ced_line->setDefaultFontHeight(6);
 
         CEDPicture * ced_pict = new CEDPicture();

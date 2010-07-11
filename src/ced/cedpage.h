@@ -33,6 +33,9 @@ namespace CIF
 class CLA_EXPO CEDPage: public BlockElement
 {
     public:
+        CEDPage();
+        ~CEDPage();
+
         /**
          * Adds font to page font table
          */
@@ -179,9 +182,24 @@ class CLA_EXPO CEDPage: public BlockElement
          * @see setUnrecognizedChar()
          */
         char unrecognizedChar() const;
-
-        CEDPage();
-        ~CEDPage();
+    private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar & boost::serialization::base_object<BlockElement>(*this);
+            ar & image_size_;
+            ar & image_dpi_;
+            ar & page_size_;
+            ar & page_borders_;
+            ar & image_name_;
+            ar & turn_;
+            ar & page_number_;
+            ar & language_;
+            ar & unrecognized_char_;
+            ar & fonts_;
+        }
+#endif
     private:
         Size image_size_;
         Size image_dpi_;

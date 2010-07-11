@@ -20,6 +20,7 @@
 #define CIF_FONT_H_
 
 #include "globus.h"
+#include "common/serialize.h"
 
 namespace CIF
 {
@@ -70,13 +71,29 @@ class KEGL
 class CLA_EXPO FontEntry
 {
     public:
-        FontEntry(uchar number, uchar family, uchar charset, const std::string& name) :
-            fontNumber(number), fontPitchAndFamily(family), fontCharset(charset), fontName(name) {
+        FontEntry() :
+            fontNumber(0), fontPitchAndFamily(0), charset_(0) {
         }
+
+        FontEntry(uchar number, uchar family, uchar charset, const std::string& name) :
+            fontNumber(number), fontPitchAndFamily(family), charset_(charset), name_(name) {
+        }
+    private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar & fontNumber;
+            ar & fontPitchAndFamily;
+            ar & charset_;
+            ar & name_;
+        }
+#endif
+    private:
         uchar fontNumber;
         uchar fontPitchAndFamily;
-        uchar fontCharset;
-        std::string fontName;
+        uchar charset_;
+        std::string name_;
 };
 
 }
