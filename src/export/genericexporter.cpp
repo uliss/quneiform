@@ -30,6 +30,7 @@
 #include "ced/cedsection.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedpage.h"
+#include "ced/cedtable.h"
 #include "common/debug.h"
 #include "common/cifconfig.h"
 #include "common/imagerawdata.h"
@@ -178,6 +179,11 @@ void GenericExporter::exportSection(CEDSection& sect) {
     writeSectionBegin(*os_, sect);
     sect.exportChildren(*this);
     writeSectionEnd(*os_, sect);
+}
+
+void GenericExporter::exportTable(CEDTable& table) {
+    num_tables_++;
+    table.exportChildren(*this);
 }
 
 bool GenericExporter::isEmptyParagraph(CEDParagraph& par) {
@@ -378,21 +384,6 @@ void GenericExporter::writeSectionBegin(std::ostream&, CEDSection&) {
 
 void GenericExporter::writeSectionEnd(std::ostream&, CEDSection&) {
 
-}
-
-void GenericExporter::writeTableBegin(std::ostream&, CEDParagraph*) {
-
-}
-
-void GenericExporter::writeTableEnd(std::ostream&, CEDParagraph*) {
-
-}
-
-void GenericExporter::writeTableRowBegin(std::ostream&, CEDParagraph*) {
-
-}
-
-void GenericExporter::writeTableRowEnd(std::ostream&, CEDParagraph*) {
 }
 
 GenericExporter::styleList GenericExporter::styleEnd(int style_prev, int style_current) {

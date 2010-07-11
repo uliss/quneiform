@@ -219,7 +219,6 @@ class GenericExporter: public Exporter
          * Exports paragraph
          * calls paragraph write functions:
          *  - writeParagraphBegin
-         *  - writeParagraph
          *  - writeParagraphEnd
          */
         void exportParagraph(CEDParagraph& par);
@@ -237,8 +236,7 @@ class GenericExporter: public Exporter
          */
         void exportSection(CEDSection& sect);
 
-        void exportTable(CEDTable& table) {
-        }
+        void exportTable(CEDTable& table);
     private:
         /**
          * Exports frames
@@ -356,11 +354,6 @@ class GenericExporter: public Exporter
          * Called after writeSection
          */
         virtual void writeSectionEnd(std::ostream& os, CEDSection& sect);
-
-        virtual void writeTableBegin(std::ostream& os, CEDParagraph * table);
-        virtual void writeTableEnd(std::ostream& os, CEDParagraph * table);
-        virtual void writeTableRowBegin(std::ostream& os, CEDParagraph * row);
-        virtual void writeTableRowEnd(std::ostream& os, CEDParagraph * row);
 
         static styleList styleEnd(int style_prev, int style_current);
         static styleList styleBegin(int style_prev, int style_current);
