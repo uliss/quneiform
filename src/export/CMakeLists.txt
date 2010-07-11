@@ -10,6 +10,7 @@ set(exporters
     hocrexporter.cpp
     htmlexporter.cpp
     textexporter.cpp
+    summaryexporter.cpp
     xmlexporter.cpp
 )
 

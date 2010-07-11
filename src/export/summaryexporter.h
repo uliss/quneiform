@@ -16,60 +16,30 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef OUTPUTFORMAT_H_
-#define OUTPUTFORMAT_H_
+#ifndef SUMMARYEXPORTER_H_
+#define SUMMARYEXPORTER_H_
 
-#include <string>
-#include <list>
-#include "globus.h"
+#include "genericexporter.h"
 
 namespace CIF
 {
 
-enum format_t
-{
-    FORMAT_NONE = -1,
-    FORMAT_TEXT = 0,
-    FORMAT_SMARTTEXT,
-    FORMAT_RTF,
-    FORMAT_TABLETXT, // Table text
-    FORMAT_TABLECSV, // Table CSV (comma separated)
-    FORMAT_TABLEDBF, // Table DBF
-    FORMAT_TABLEWKS, // Table WKS (Lotus)
-    FORMAT_HTML,
-    FORMAT_HOCR,
-    FORMAT_DEBUG,
-    FORMAT_ODF,
-    FORMAT_SUMMARY
-};
-
-typedef std::list<format_t> OutputFormatList;
-
-class CLA_EXPO OutputFormat
+class SummaryExporter: public GenericExporter
 {
     public:
-        OutputFormat(format_t format);
-
-        std::string description() const;
-        std::string extension() const;
-        format_t get() const;
-        bool isValid() const;
-        std::string name() const;
-    public:
-        static OutputFormat byName(const std::string& name);
-        static std::string description(format_t format);
-        static std::string extension(format_t format);
-        static OutputFormatList formats();
-        static std::string name(format_t format);
+        SummaryExporter(CEDPage * page, const FormatOptions& opts);
     private:
-        format_t format_;
+        void doExport(std::ostream& os);
+        void printPageStat(std::ostream& os);
+        void calcPageStat();
+    private:
+        size_t total_columns_;
+        size_t total_pars_;
+        size_t total_lines_;
+        size_t total_chars_;
+        size_t total_pictures_;
 };
 
-inline format_t OutputFormat::get() const
-{
-    return format_;
 }
 
-}
-
-#endif /* OUTPUTFORMAT_H_ */
+#endif /* SUMMARYEXPORTER_H_ */

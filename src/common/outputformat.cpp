@@ -62,6 +62,7 @@ bool initOutputFormatData()
     addFormat(FORMAT_HTML, "html", "HTML format", "html");
     addFormat(FORMAT_HOCR, "hocr", "hOCR HTML format", "html");
     //addFormat(FORMAT_RTF, "rtf", "RTF format", "rtf");
+    addFormat(FORMAT_SUMMARY, "summary", "prints recognition summary", "txt");
     addFormat(FORMAT_DEBUG, "textdebug", "for debugging purposes", "txt");
 
 #ifdef CF_USE_ODF

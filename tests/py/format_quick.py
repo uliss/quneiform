@@ -4,7 +4,7 @@
 import sys
 import cf
 
-FORMATS = ('text', 'textdebug', 'smarttext', 'html', 'hocr', 'odf')
+FORMATS = ('text', 'textdebug', 'smarttext', 'html', 'hocr', 'odf', 'summary')
 
 def test():
     fmtTest = cf.Tester('lang.diftest')

@@ -21,11 +21,11 @@
 #include "debugexporter.h"
 #include "textexporter.h"
 #include "hocrexporter.h"
+#include "summaryexporter.h"
 #include "puma/pumadef.h"
 #include "ced/cedpage.h"
 #include "common/outputformat.h"
 #include "config-user.h" // for CF_USE_ODF
-
 #ifdef CF_USE_ODF
 #include "odfexporter.h"
 #endif
@@ -67,6 +67,9 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
         exp.reset(new OdfExporter(page_, format_options_));
         break;
 #endif
+    case FORMAT_SUMMARY:
+        exp.reset(new SummaryExporter(page_, format_options_));
+        break;
     default:
         throw Exception("[ExporterFactoryImpl::make] Unsupported export format: "
                 + OutputFormat::name(format), format);

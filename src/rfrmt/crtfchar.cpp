@@ -232,7 +232,7 @@ CEDParagraph * CRtfChar::insertCedDropCap(SectorInfo * sector, int font_name, in
         int font_style, bool negative) const {
     Rect slayout;
     EDBOX playout = { 0, 0, 0, 0 };
-    BlockElement * frame = (BlockElement*) CED_CreateFrame(sector->hEDSector, sector->hColumn, playout, 0x22, -1, -1, -1);
+    BlockElement * frame = CED_CreateFrame(sector->hEDSector, sector->hColumn, playout, 0x22, -1, -1, -1);
     CED_SetFrameFlag(frame, ED_DROPCAP);
     EDSIZE interval = { 0, 0 };
     Color shading = negative ? Color(0, 0, 0) : Color::null();
