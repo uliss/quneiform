@@ -237,14 +237,6 @@ class GenericExporter: public Exporter
         void exportSection(CEDSection& sect);
 
         void exportTable(CEDTable& table);
-    private:
-        /**
-         * Exports frames
-         * calls frame write functions:
-         *  - writeFrameBegin
-         *  - writeFrameEnd
-         */
-        void exportFrame(CEDParagraph * frame);
     protected:
         virtual std::string createPicturesFolder();
         void doExport(std::ostream& os);
@@ -370,7 +362,6 @@ class GenericExporter: public Exporter
         int num_pictures_;
         int num_sections_;
         int num_tables_;
-        int table_nesting_level_;
         bool skip_empty_paragraphs_;
         bool skip_empty_lines_;
         bool show_alternatives_;

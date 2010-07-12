@@ -59,8 +59,8 @@ const bool init_supported_fontstyles = initSupportedFontStyles();
 GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
     Exporter(opts), page_(page), no_pictures_(false), os_(NULL), num_chars_(0), num_columns_(0),
             num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
-            num_tables_(0), table_nesting_level_(0), skip_empty_paragraphs_(false),
-            skip_empty_lines_(false), show_alternatives_(false), previous_style_(0) {
+            num_tables_(0), skip_empty_paragraphs_(false), skip_empty_lines_(false),
+            show_alternatives_(false), previous_style_(0) {
 
     if (isCharsetConversion())
         converter_.open(inputEncoding(), outputEncoding());
