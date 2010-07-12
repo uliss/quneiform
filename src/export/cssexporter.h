@@ -16,43 +16,33 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <boost/functional/hash.hpp>
+#ifndef CSSEXPORTER_H_
+#define CSSEXPORTER_H_
+
+#include <map>
+#include <string>
+
 #include "styleexporter.h"
-#include "ced/cedchar.h"
 
 namespace CIF
 {
 
-StyleExporter::StyleExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts) {
-    setSkipEmptyLines(true);
-    setSkipEmptyParagraphs(true);
-    setSkipPictures(true);
-}
+class CssExporter: public StyleExporter
+{
+    public:
+        CssExporter(CEDPage * page, const FormatOptions& opts);
+        typedef std::map<std::string, std::string> StyleMap;
+        typedef StyleMap::value_type StyleEntry;
 
-StyleExporter::~StyleExporter() {
-
-}
-
-void StyleExporter::addStyle(const CEDChar&, size_t hash) {
-    hashes_.insert(hash);
-}
-
-void StyleExporter::exportChar(CEDChar& chr) {
-    size_t chr_hash = hash(chr);
-    // not found
-    if (hashes_.find(chr_hash) == hashes_.end())
-        addStyle(chr, chr_hash);
-}
-
-size_t StyleExporter::hash(const CEDChar& chr) const {
-    std::size_t seed = 0;
-    boost::hash_combine(seed, chr.color().toT<int> ());
-    boost::hash_combine(seed, chr.backgroundColor().toT<int> ());
-    boost::hash_combine(seed, chr.fontStyle());
-    if (formatOptions().isFontSizeUsed())
-        boost::hash_combine(seed, chr.fontHeight());
-    return seed;
-}
+        virtual void addStyle(const CEDChar& chr, size_t hash);
+        virtual std::string makeCssStyle(const CEDChar& chr) const;
+        virtual std::string makeCssStyleKey(size_t hash) const;
+        virtual void writePageEnd(std::ostream& os, CEDPage& page);
+        virtual void writeStyleEntry(std::ostream& os, const StyleEntry& entry);
+    private:
+        StyleMap styles_;
+};
 
 }
+
+#endif /* CSSEXPORTER_H_ */

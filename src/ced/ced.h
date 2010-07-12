@@ -95,11 +95,6 @@ typedef struct edCol
 
 #ifndef _WINGDI_
 
-#define DEFAULT_PITCH           0
-#define FIXED_PITCH             1
-#define VARIABLE_PITCH          2
-#define MONO_FONT               8
-
 /* Font Families */
 enum ced_font_t
 {
@@ -121,15 +116,6 @@ enum ced_font_t
 };
 #endif
 
-//Для CreateFrame
-#define HPOS_PAGE       (0<<4)
-#define HPOS_MRG        (1<<4)
-#define HPOS_COL        (2<<4)
-
-#define VPOS_PAGE       0
-#define VPOS_MRG        1
-#define VPOS_PARA       2
-
 //Для разрыва раздела
 #define ED_SECT_NEW_PAGE       1
 #define ED_SECT_CONTINUE       0
@@ -137,24 +123,6 @@ enum ced_font_t
 #define ED_ORIENT_PORTRAIT   0
 #define ED_ORIENT_LANDSCAPE  1
 
-//Положение фрейма
-#define ED_POSXR    (0x7fffffff-1)
-
-//Стили символов
-enum ed_char_style_t
-{
-    ED_ULINED = 1,
-    ED_HIDDEN = 2,
-    ED_BOLD = 4,
-    ED_ITALIC = 16,
-    ED_PROTECT = 32,
-    ED_ULINE = 64,
-    ED_STRIKE = 128,
-    ED_SUPSCR = 256,
-    ED_SUBSCR = 512,
-    ED_FNOTE = 1024
-
-};
 //для абзацев
 #define ED_PARA_KEEP    1
 #define ED_PARA_KEEP_NEXT   3

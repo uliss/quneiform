@@ -4,6 +4,7 @@ set(image_exporters
     bmpimageexporter.cpp)
     
 set(exporters
+    cssexporter.cpp
     exporter.cpp
     debugexporter.cpp
     genericexporter.cpp

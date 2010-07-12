@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "exporterfactory.h"
+#include "cssexporter.h"
 #include "htmlexporter.h"
 #include "debugexporter.h"
 #include "textexporter.h"
@@ -55,6 +56,7 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
         exp.reset(new HocrExporter(page_, format_options_));
         break;
     case FORMAT_HTML:
+//        exp.reset(new CssExporter(page_, format_options_));
         exp.reset(new HtmlExporter(page_, format_options_));
         break;
     case FORMAT_SMARTTEXT:
