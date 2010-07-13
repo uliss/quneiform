@@ -23,7 +23,6 @@
 #include <boost/shared_ptr.hpp>
 
 #include "globus.h"
-#include "ced_struct.h"
 #include "blockelement.h"
 #include "common/color.h"
 #include "common/align.h"

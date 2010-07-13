@@ -21,7 +21,6 @@
 #include "cedparagraph.h"
 #include "cedline.h"
 #include "cedexporter.h"
-#include "ced_struct.h"
 
 namespace CIF
 {

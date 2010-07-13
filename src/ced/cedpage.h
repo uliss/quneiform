@@ -22,7 +22,6 @@
 #include <string>
 #include <vector>
 #include "globus.h"
-#include "ced_struct.h"
 #include "blockelement.h"
 #include "common/size.h"
 #include "common/font.h"

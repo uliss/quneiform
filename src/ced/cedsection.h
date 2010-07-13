@@ -20,7 +20,6 @@
 #define CEDSECTION_H_
 
 #include "globus.h"
-#include "ced_struct.h"
 #include "blockelement.h"
 #include "common/rect.h"
 #include "common/color.h"

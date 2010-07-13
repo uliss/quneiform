@@ -20,13 +20,13 @@
 #define CEDLINE_H_
 
 #include "globus.h"
-#include "ced_struct.h"
 #include "blockelement.h"
 
 namespace CIF
 {
 
 class CEDPicture;
+class CEDChar;
 
 class CLA_EXPO CEDLine: public BlockElement
 {

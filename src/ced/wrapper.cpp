@@ -58,7 +58,6 @@
 //Created 13.01.99 by Bozhenov Artem,(c) CT inc.
 #include <cstring>
 #include <cstdio>
-#include "ced_struct.h"
 #include "cedline.h"
 #include "cedpage.h"
 #include "cedsection.h"

@@ -24,7 +24,6 @@
 #include "ced/cedline.h"
 #include "ced/cedchar.h"
 #include "ced/cedframe.h"
-#include "ced/ced_struct.h"
 #include "ced/cedcolumn.h"
 #include "ced/cedpicture.h"
 #include "ced/cedsection.h"

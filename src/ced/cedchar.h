@@ -23,7 +23,7 @@
 #include <vector>
 
 #include "globus.h"
-#include "ced_struct.h"
+#include "lang_def.h"
 #include "element.h"
 #include "common/letter.h"
 #include "common/serialize.h"
