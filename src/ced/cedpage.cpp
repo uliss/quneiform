@@ -32,9 +32,6 @@ CEDPage::CEDPage() :
     turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG), unrecognized_char_('~') {
 }
 
-CEDPage::~CEDPage() {
-}
-
 void CEDPage::addFont(const FontEntry& font) {
     fonts_.push_back(font);
 }

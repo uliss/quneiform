@@ -40,7 +40,6 @@ class CLA_EXPO CEDChar: public Element
 {
     public:
         CEDChar(Element * parent = NULL);
-        virtual ~CEDChar();
 
         /**
          * Adds alternative to char

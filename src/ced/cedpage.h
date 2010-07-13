@@ -33,7 +33,6 @@ class CLA_EXPO CEDPage: public BlockElement
 {
     public:
         CEDPage();
-        ~CEDPage();
 
         /**
          * Adds font to page font table
