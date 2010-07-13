@@ -54,103 +54,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//  TIGER run options
-#define RUN_SPELLER          1
+////  TIGER run options
 #define FORCE_ONE_COLUMN     2
-#define NO_FORMATING         4
-#define FAX100               8
-#define DOTMATRIX           16
-#define BCRFLAG             32
 #define BCRLOUT             64
-#define CUTLEFT            128
-#define CUTRIGHT           256
-#define SPACE_CORRECTION   512
 
-//  Kernel functions
-Bool kernel_init(void);
-Bool bcr_init(void);
-void kernel_run_options(uint16_t options);
-Bool recognize(puchar ed_file_name);
-Bool page_analysis(void);
-Bool final_recognition(puchar ed_file_name);
-Bool spelling_checker(puchar ed_file_name);
-Bool kernel_reset(void);
-Bool kernel_reload_vocs(void);
-Bool kernel_set_temp_dir(uchar *tmp_dir);
-Bool kernel_set_windows_dir(uchar *tmp_dir);
-Bool kernel_valid_version(int16_t, int16_t);
-Bool kernel_set_enable_table_recog(uchar table_recog);
-Bool kernel_set_user_dict(uchar *user_dict);
-
-//  Error status functions
+////  Error status functions
 pchar get_message(uint16_t code);
-uint16_t get_error_status(void);
-Bool bool_status(void);
-void set_error_status(uint16_t group, uint16_t element);
-void clear_error_status(void);
 
-//  Convetrt to text
-Bool convert_to_text(puchar edfile, puchar textfile, uint16_t options, uint16_t codepage,
-                     uchar badchar);
-#define SAVE_TEXT_ED            0x01
-#define SAVE_TEXT_ASCII         0x02
-#define SAVE_TEXT_SMART_ASCII   0x04
-#define SAVE_TEXT_RTF           0x08
-#define SAVE_TEXT_ANSI          0x10 // Pit 8.26.94
-#define SAVE_TEXT_SMART_ANSI    0x20 // Pit
-#define SAVE_TEXT_APPEND            128  //  0x'80'
-#define SAVE_TEXT_ASCII_APP         (SAVE_TEXT_ASCII + SAVE_TEXT_APPEND)
-#define SAVE_TEXT_SMART_ASCII_APP   (SAVE_TEXT_SMART_ASCII + SAVE_TEXT_APPEND)
-#define SAVE_TEXT_RTF_APP           (SAVE_TEXT_RTF + SAVE_TEXT_APPEND)
-
-#define SAVE_TABLE_TXT      0x0100
-#define SAVE_TABLE_CSV      0x0200
-#define SAVE_TABLE_DBF      0x0400
-#define SAVE_TABLE_ODBC     0x0800
-#define SAVE_TABLE_WKS      0x1000
-#define SAVE_HTML               0x2000
-#define SAVE_HOCR               0x4000
-
-// wCodePage options... Piter
-#define SAVE_TEXT               SAVE_TEXT_ASCII
-#define SAVE_TEXT_SMART         SAVE_TEXT_SMART_ASCII
-
-# define TIGER_CODE_UNKNOWN     0x0000
-# define TIGER_CODE_ASCII       0x0001
-# define TIGER_CODE_ANSI        0x0002
-# define TIGER_CODE_KOI8        0x0004
-# define TIGER_CODE_ISO         0x0008
-
-void write_text(uchar);
-
-//-------------------- Callback functions -------------------------
-
-//  Image read functions
-
-struct AttrImage {
-    uint16_t PixelHeight;
-    uint16_t PixelWidth;
-    uint16_t ByteWidth;
-    uint16_t LeftDisplacement;
-    uint16_t Resolution_X;
-    uint16_t Resolution_Y;
-    uchar FotoMetrics;
-    uchar bUnused;
-    uint16_t AddX;
-    uint16_t AddY;
-};
-
-Bool Tiger_ImageOpen(struct AttrImage * p);
-Bool Tiger_ImageOpen_xy(struct AttrImage * p, uint16_t x, uint16_t y, uint16_t w, uint16_t h);
-Bool Tiger_ImageClose(void);
-int16_t Tiger_ImageRead(puchar buffer, uint16_t lth);
-uint32_t Tiger_ProcessPictures(puchar buffer, uint32_t lth);
-
-//  Immediate error report
-void Tiger_ReportError(uint16_t status, puchar message);
-
-// Progress Monitor
-Bool Tiger_ProgressStart(void);
-Bool Tiger_ProgressFinish(void);
-Bool Tiger_ProgressSetPercentage(uint16_t wPercent);
-Bool Tiger_ProgressSetStage(uint16_t wStageNumber, puchar pStageName, uint16_t wVolume);

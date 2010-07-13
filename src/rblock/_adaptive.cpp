@@ -92,11 +92,6 @@ void progress_finish(void)
         fnProgressFinish_rblock();
 }
 
-void Tiger_ReportError(uint16_t status, puchar message)
-{
-    LDPUMA_Console("Tiger_ReportError (%u,%s )", status, message);
-}
-
 extern MN * LOC_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper,
                         int16_t left);
 extern uchar work_raster[], work_raster_1[];

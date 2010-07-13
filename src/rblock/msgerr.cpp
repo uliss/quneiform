@@ -270,7 +270,7 @@ static char mess[512], add_mess[256];
 static void msg_err(int16_t group, int16_t element)
 {
     status_code = 1000 + group * 100 + element;
-    Tiger_ReportError(status_code, (uchar*) get_message(status_code));
+    fputs(get_message(status_code), stderr);
 }
 
 void error_exit(int16_t group, int16_t element)
@@ -301,37 +301,6 @@ pchar get_message(uint16_t code)
 
     strcpy(mess, *(message_groups[(code - 1000) / 100] + code % 100 - 1)); /* ptr to message */
     strcat(mess, add_mess);
-#ifdef __MAC__
-    // Перекодирование под Windows идет в WINCV\DLL_MAIN.c
-    // тк программа под DOS и WINDOWS собирается на одной компиляции
-    {
-        extern char decode_ASCII_to_[];
-        int16_t i;
-
-        for (i = 0; *(c + i); i++)
-            *(c + i) = decode_ASCII_to_[(uchar)(*(c+i))];
-    }
-#endif
     return c;
 }
 
-uint16_t get_error_status()
-{
-    return status_code;
-}
-
-void clear_error_status()
-{
-    status_code = 0;
-    add_mess[0] = '\0';
-}
-
-Bool bool_status()
-{
-    return ((status_code) ? FALSE : TRUE);
-}
-
-void set_error_status(uint16_t group, uint16_t element)
-{
-    msg_err(group, element);
-}

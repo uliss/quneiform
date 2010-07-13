@@ -71,11 +71,6 @@
 #define CED_FUNC  FUN_IMPO__
 #endif
 
-typedef struct edBox
-{
-        int x, w, y, h;
-} EDBOX;
-
 typedef struct edSize
 {
         int32_t cx, cy;
@@ -109,30 +104,6 @@ enum ced_font_t
 };
 #endif
 
-//Для разрыва раздела
-#define ED_SECT_NEW_PAGE       1
-#define ED_SECT_CONTINUE       0
-/* orientation selections */
-#define ED_ORIENT_PORTRAIT   0
-#define ED_ORIENT_LANDSCAPE  1
-
-//для абзацев
-#define ED_PARA_KEEP    1
-#define ED_PARA_KEEP_NEXT   3
-//- Positions the paragraph to the right within the reference frame.
-#define ED_POSXC    (0x7fffffff-2)
-//- Centers the frame horizontally within the reference frame.
-//Слияние ячеек
-#define ED_CELL_MRGF    1
-// - ячейка первая в объединяемой группе
-#define ED_CELL_MRG     2
-//- ячейка очередная в объедияемой группе, т.е.
-#define ED_DROPCAP      1
-// - Фрейм является буквицей
-#define ED_TDIR_UP      2
-#define ED_TDIR_DOWN    4
-// - направление текста в ячейке таблицы или фрейме
-
 //Типы границ ячейки, абзаца и др.
 enum ed_border_t
 {
@@ -143,8 +114,6 @@ enum ed_border_t
     ED_BRDR_DASHED,
     ED_BRDR_DOUBLE
 };
-
-typedef void (*FNRDProc)(uchar* ptr, uint32_t lth);
 
 //Для CreatePicture
 enum ed_align_t
