@@ -35,10 +35,25 @@ class StyleExporter: public GenericExporter
 
         virtual void exportChar(CEDChar& chr);
         virtual void exportParagraph(CEDParagraph& par);
+
+        /**
+         * Calculates hash of given char
+         * You can overload this function to take in account other
+         * char properties
+         */
         virtual size_t hash(const CEDChar& chr) const;
         virtual size_t hash(const CEDParagraph& par) const;
+
+        /**
+         * Makes style for given element
+         * @return style name
+         */
         virtual std::string makeStyle(const CEDChar& chr);
         virtual std::string makeStyle(const CEDParagraph& par);
+
+        /**
+         * Returns style name by element
+         */
         template<class T>
         std::string styleByElement(const T& el) const {
             HashMap::const_iterator it = hashes_.find(hash(el));

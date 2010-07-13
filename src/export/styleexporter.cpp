@@ -50,8 +50,6 @@ void StyleExporter::exportChar(CEDChar& chr) {
 }
 
 void StyleExporter::exportParagraph(CEDParagraph& par) {
-    std::cerr << par.indent() << "\n";
-
     GenericExporter::exportParagraph(par);
     size_t par_hash = hash(par);
     if (hashes_.find(par_hash) == hashes_.end())

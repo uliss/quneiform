@@ -14,6 +14,7 @@ add_executable(test_exporters
     testbmpimageexporter.cpp
     testgenericexporter.cpp
     testhtmlexporter.cpp
+    teststyleexporter.cpp
     ${odf_test}
     ${magick_test}
 )

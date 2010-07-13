@@ -16,6 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <cstdio>
 #include "odfstyleexporter.h"
 #include "xmltag.h"
 #include "ced/cedparagraph.h"
@@ -29,8 +30,10 @@ inline std::string pixel2odf(int pixel) {
     return toString(pixel / 11.9) + "mm";
 }
 
-inline std::string color2odf(const Color& color) {
-    return "#00FF00";
+inline std::string color2odf(const Color& c) {
+    char buf[8];
+    snprintf(buf, sizeof(buf), "#%02x%02x%02x", c.red(), c.green(), c.blue());
+    return buf;
 }
 
 OdfStyleExporter::OdfStyleExporter(CEDPage * page, const FormatOptions& opts) :
