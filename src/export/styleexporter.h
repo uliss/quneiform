@@ -19,7 +19,8 @@
 #ifndef STYLEEXPORTER_H_
 #define STYLEEXPORTER_H_
 
-#include <set>
+#include <map>
+#include <string>
 #include "common/color.h"
 #include "genericexporter.h"
 
@@ -32,11 +33,18 @@ class StyleExporter: public GenericExporter
         StyleExporter(CEDPage * page, const FormatOptions& opts);
         ~StyleExporter();
 
-        virtual void addStyle(const CEDChar& chr, size_t hash);
         virtual void exportChar(CEDChar& chr);
+        virtual void exportParagraph(CEDParagraph& par);
         virtual size_t hash(const CEDChar& chr) const;
+        virtual size_t hash(const CEDParagraph& par) const;
+        virtual std::string makeStyle(const CEDChar& chr);
+        virtual std::string makeStyle(const CEDParagraph& par);
     private:
-        std::set<size_t> hashes_;
+        void addStyle(const std::string& name, size_t hash);
+    private:
+        // hash => style name map
+        typedef std::map<size_t, std::string> HashMap;
+        HashMap hashes_;
 };
 
 }

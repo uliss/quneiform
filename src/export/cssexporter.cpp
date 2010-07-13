@@ -22,45 +22,89 @@
 #include "common/font.h"
 #include "cssexporter.h"
 #include "ced/cedchar.h"
+#include "ced/cedparagraph.h"
 
 namespace CIF
 {
 
 inline std::string color2css(const Color& c) {
-    char buf[7];
-    snprintf(buf, sizeof(buf), "%02x%02x%02x", c.red(), c.green(), c.blue());
+    char buf[8];
+    snprintf(buf, sizeof(buf), "#%02x%02x%02x", c.red(), c.green(), c.blue());
     return buf;
+}
+
+inline std::string align2css(align_t align) {
+    switch (align) {
+    case ALIGN_CENTER:
+        return "center";
+    case ALIGN_RIGHT:
+        return "right";
+    case ALIGN_JUSTIFY:
+        return "justify";
+    default:
+        return "";
+    }
+}
+
+inline void writeCssEntry(std::ostream& os, const std::string& key, const std::string& value) {
+    if (value.empty())
+        return;
+
+    os << "    " << key << ": " << value << ";\n";
+}
+
+inline void writeCssColor(std::ostream& os, const std::string& key, const Color& color) {
+    if (color.isNull())
+        return;
+    writeCssEntry(os, key, color2css(color));
+}
+
+inline void writeCssEntryPx(std::ostream& os, const std::string& key, int value) {
+    os << "    " << key << ": " << value << "px;\n";
 }
 
 CssExporter::CssExporter(CEDPage * page, const FormatOptions& opts) :
     StyleExporter(page, opts) {
-
-}
-
-void CssExporter::addStyle(const CEDChar& chr, size_t hash) {
-    styles_.insert(std::make_pair(makeCssStyleKey(hash), makeCssStyle(chr)));
-    StyleExporter::addStyle(chr, hash);
 }
 
 std::string CssExporter::makeCssStyle(const CEDChar& chr) const {
     std::ostringstream buf;
 
-    if (!chr.color().isNull())
-        buf << "    color: #" << color2css(chr.color()) << ";\n";
-
-    if (!chr.backgroundColor().isNull())
-        buf << "    background-color: #" << color2css(chr.backgroundColor()) << ";\n";
+    writeCssColor(buf, "color", chr.color());
+    writeCssColor(buf, "background-color", chr.backgroundColor());
 
     if (formatOptions().isFontSizeUsed() && chr.fontHeight() > 0)
-        buf << "    font-height: " << chr.fontHeight() << "px;\n";
+        writeCssEntryPx(buf, "font-height", chr.fontHeight());
+
+    if (formatOptions().isBoldUsed() && chr.fontStyle() & FORMAT_FONT_BOLD)
+        writeCssEntry(buf, "font-weight", "bold");
+
+    if (formatOptions().isItalicUsed() && chr.fontStyle() & FORMAT_FONT_ITALIC)
+        writeCssEntry(buf, "font-decoration", "italic");
 
     return buf.str();
 }
 
-std::string CssExporter::makeCssStyleKey(size_t hash) const {
+std::string CssExporter::makeCssStyle(const CEDParagraph& par) const {
     std::ostringstream buf;
-    buf << "char_" << std::hex << hash;
+
+    writeCssColor(buf, "color", par.color());
+    writeCssColor(buf, "background-color", par.backgroundColor());
+    writeCssEntry(buf, "text-align", align2css(par.align()));
+
     return buf.str();
+}
+
+std::string CssExporter::makeStyle(const CEDChar& chr) {
+    std::string chr_style = StyleExporter::makeStyle(chr);
+    styles_[chr_style] = makeCssStyle(chr);
+    return chr_style;
+}
+
+std::string CssExporter::makeStyle(const CEDParagraph& par) {
+    std::string par_style = StyleExporter::makeStyle(par);
+    styles_[par_style] = makeCssStyle(par);
+    return par_style;
 }
 
 void CssExporter::writePageEnd(std::ostream& os, CEDPage&) {
