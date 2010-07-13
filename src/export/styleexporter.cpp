@@ -28,32 +28,23 @@ namespace CIF
 {
 
 StyleExporter::StyleExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts) {
+    GenericExporter(page, opts), style_num_char_(0), style_num_paragraph_(0) {
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
     setSkipPictures(true);
 }
 
-StyleExporter::~StyleExporter() {
-
-}
-
-void StyleExporter::addStyle(const std::string& name, size_t hash) {
-    hashes_[hash] = name;
-}
-
 void StyleExporter::exportChar(CEDChar& chr) {
     size_t chr_hash = hash(chr);
-    // not found
     if (hashes_.find(chr_hash) == hashes_.end())
-        addStyle(makeStyle(chr), chr_hash);
+        hashes_[chr_hash] = makeStyle(chr);
 }
 
 void StyleExporter::exportParagraph(CEDParagraph& par) {
     GenericExporter::exportParagraph(par);
     size_t par_hash = hash(par);
     if (hashes_.find(par_hash) == hashes_.end())
-        addStyle(makeStyle(par), par_hash);
+        hashes_[par_hash] = makeStyle(par);
 }
 
 size_t StyleExporter::hash(const CEDChar& chr) const {
@@ -91,13 +82,11 @@ size_t StyleExporter::hash(const CEDParagraph& par) const {
 }
 
 std::string StyleExporter::makeStyle(const CEDChar&) {
-    static int num = 1;
-    return "char_" + toString(num++);
+    return "char_" + toString(++style_num_char_);
 }
 
 std::string StyleExporter::makeStyle(const CEDParagraph&) {
-    static int num = 1;
-    return "par_" + toString(num++);
+    return "par_" + toString(++style_num_paragraph_);
 }
 
 }

@@ -21,6 +21,26 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestStyleExporter);
 
 using namespace CIF;
 
+void TestStyleExporter::testExportChar() {
+    FormatOptions opts;
+    StyleExporter e(NULL, opts);
+    CEDChar chr1;
+    CPPUNIT_ASSERT(e.styleByElement(chr1).empty());
+
+    e.exportChar(chr1);
+    CPPUNIT_ASSERT_EQUAL(std::string("char_1"), e.styleByElement(chr1));
+
+    CEDChar chr2;
+    chr2.setColor(Color(100, 0, 0));
+    CPPUNIT_ASSERT(e.styleByElement(chr2).empty());
+
+    e.exportChar(chr2);
+    CPPUNIT_ASSERT_EQUAL(std::string("char_2"), e.styleByElement(chr2));
+
+    CEDChar chr3;
+    CPPUNIT_ASSERT_EQUAL(std::string("char_1"), e.styleByElement(chr3));
+}
+
 void TestStyleExporter::testHashChar() {
     FormatOptions opts;
     opts.useFontSize(false);
@@ -61,6 +81,32 @@ void TestStyleExporter::testHashChar() {
     CPPUNIT_ASSERT(e.hash(c1) != e.hash(c2));
     c2.setFontStyle(FORMAT_FONT_BOLD);
     CPPUNIT_ASSERT_EQUAL(e.hash(c1), e.hash(c2));
+}
+
+void TestStyleExporter::testHashParagraph() {
+    FormatOptions opts;
+    StyleExporter e(NULL, opts);
+    CEDParagraph par1, par2;
+
+    CPPUNIT_ASSERT_EQUAL(e.hash(par1), e.hash(par2));
+    par1.setColor(Color(100, 0, 0));
+    CPPUNIT_ASSERT(e.hash(par1) != e.hash(par2));
+    par2.setColor(par1.color());
+    CPPUNIT_ASSERT_EQUAL(e.hash(par1), e.hash(par2));
+    par1.setBackgroundColor(Color(0, 100, 0));
+    CPPUNIT_ASSERT(e.hash(par1) != e.hash(par2));
+    par2.setBackgroundColor(par1.backgroundColor());
+    CPPUNIT_ASSERT_EQUAL(e.hash(par1), e.hash(par2));
+
+    par1.setAlign(ALIGN_CENTER);
+    CPPUNIT_ASSERT(e.hash(par1) != e.hash(par2));
+    par2.setAlign(par1.align());
+    CPPUNIT_ASSERT_EQUAL(e.hash(par1), e.hash(par2));
+
+    par1.setIndent(10);
+    CPPUNIT_ASSERT(e.hash(par1) != e.hash(par2));
+    par2.setIndent(par1.indent());
+    CPPUNIT_ASSERT_EQUAL(e.hash(par1), e.hash(par2));
 }
 
 void TestStyleExporter::testMakeStyle() {

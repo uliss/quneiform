@@ -31,7 +31,6 @@ class StyleExporter: public GenericExporter
 {
     public:
         StyleExporter(CEDPage * page, const FormatOptions& opts);
-        ~StyleExporter();
 
         virtual void exportChar(CEDChar& chr);
         virtual void exportParagraph(CEDParagraph& par);
@@ -53,6 +52,7 @@ class StyleExporter: public GenericExporter
 
         /**
          * Returns style name by element
+         * @return empty string if style not found for element
          */
         template<class T>
         std::string styleByElement(const T& el) const {
@@ -60,11 +60,11 @@ class StyleExporter: public GenericExporter
             return it == hashes_.end() ? "" : it->second;
         }
     private:
-        void addStyle(const std::string& name, size_t hash);
-    private:
         // hash => style name map
         typedef std::map<size_t, std::string> HashMap;
         HashMap hashes_;
+        int style_num_char_;
+        int style_num_paragraph_;
 };
 
 }

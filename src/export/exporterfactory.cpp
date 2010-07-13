@@ -17,7 +17,6 @@
  ***************************************************************************/
 
 #include "exporterfactory.h"
-#include "cssexporter.h"
 #include "htmlexporter.h"
 #include "debugexporter.h"
 #include "textexporter.h"
