@@ -21,7 +21,9 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include <iostream>
+#include <boost/shared_ptr.hpp>
 
 namespace CIF
 {
@@ -35,6 +37,13 @@ class Tag
         Tag(const std::string& tagName, const std::string& content = "");
         Tag(const std::string& tagName, const Attributes& attr);
         virtual ~Tag();
+
+        /**
+         * Adds child to tag
+         * @note you should pass pointer to object created with new
+         * it will destroyed automatically
+         */
+        void addChild(Tag * tag);
 
         /**
          * Returns tag attribute value by name
@@ -61,6 +70,11 @@ class Tag
          * Checks if attribute exists
          */
         bool hasAttribute(const std::string& name) const;
+
+        /**
+         * Returns true if tag has child tags
+         */
+        bool hasChildren() const;
 
         /**
          * Returns tag name
@@ -103,6 +117,11 @@ class Tag
         void writeBeginNL(std::ostream& os) const;
 
         /**
+         * Writes children
+         */
+        virtual void writeChildren(std::ostream& os) const;
+
+        /**
          * Writes tag content
          */
         virtual void writeContent(std::ostream& os) const = 0;
@@ -124,6 +143,9 @@ class Tag
     private:
         std::string tag_name_;
         std::string content_;
+        typedef boost::shared_ptr<Tag> TagPtr;
+        typedef std::vector<TagPtr> TagList;
+        TagList children_;
     protected:
         Attributes attrs_;
 };

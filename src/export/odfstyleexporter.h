@@ -16,42 +16,32 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef STYLEEXPORTER_H_
-#define STYLEEXPORTER_H_
+#ifndef ODFSTYLEEXPORTER_H_
+#define ODFSTYLEEXPORTER_H_
 
 #include <map>
-#include <string>
-#include "common/color.h"
-#include "genericexporter.h"
+#include <boost/shared_ptr.hpp>
+#include "styleexporter.h"
 
 namespace CIF
 {
 
-class StyleExporter: public GenericExporter
+class XmlTag;
+
+class OdfStyleExporter: public StyleExporter
 {
     public:
-        StyleExporter(CEDPage * page, const FormatOptions& opts);
-        ~StyleExporter();
-
-        virtual void exportChar(CEDChar& chr);
-        virtual void exportParagraph(CEDParagraph& par);
-        virtual size_t hash(const CEDChar& chr) const;
-        virtual size_t hash(const CEDParagraph& par) const;
-        virtual std::string makeStyle(const CEDChar& chr);
-        virtual std::string makeStyle(const CEDParagraph& par);
-        template<class T>
-        std::string styleByElement(const T& el) const {
-            HashMap::const_iterator it = hashes_.find(hash(el));
-            return it == hashes_.end() ? "" : it->second;
-        }
+        OdfStyleExporter(CEDPage * page, const FormatOptions& opts);
+        std::string makeStyle(const CEDParagraph& par);
+        void writePageEnd(std::ostream& os, CEDPage& page);
     private:
-        void addStyle(const std::string& name, size_t hash);
+        typedef boost::shared_ptr<XmlTag> StylePtr;
+        StylePtr makeOdfStyle(const CEDParagraph& par, const std::string& name);
     private:
-        // hash => style name map
-        typedef std::map<size_t, std::string> HashMap;
-        HashMap hashes_;
+        typedef std::map<std::string, StylePtr> StyleMap;
+        StyleMap styles_;
 };
 
 }
 
-#endif /* STYLEEXPORTER_H_ */
+#endif /* ODFSTYLEEXPORTER_H_ */

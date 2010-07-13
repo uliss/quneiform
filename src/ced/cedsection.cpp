@@ -87,12 +87,13 @@ CEDParagraph * CEDSection::CreateParagraph(BlockElement * cont, align_t align, c
     cont->addElement(para);
     para->setAlign(align);
     para->setIndent(indent);
-    para->userNumber = UserNum;
-    para->border = FlagBorder;
     para->setColor(color);
     para->setBackgroundColor(shading);
     para->setLineSpace(spaceBetweenLines);
+    para->setBoundingRect(layout);
     para->spcBtwLnsMult = spcBtwLnsMult;
+    para->userNumber = UserNum;
+    para->border = FlagBorder;
     para->keep = keep;
     para->interval = interval;
     return para;

@@ -21,6 +21,7 @@
 #include "ced/cedchar.h"
 #include "ced/cedparagraph.h"
 #include "common/helper.h"
+#include "common/tostring.h"
 #include "common/font.h"
 
 namespace CIF
@@ -49,6 +50,8 @@ void StyleExporter::exportChar(CEDChar& chr) {
 }
 
 void StyleExporter::exportParagraph(CEDParagraph& par) {
+    //    std::cerr << par.indent() << "\n";
+
     GenericExporter::exportParagraph(par);
     size_t par_hash = hash(par);
     if (hashes_.find(par_hash) == hashes_.end())
@@ -85,6 +88,8 @@ size_t StyleExporter::hash(const CEDParagraph& par) const {
     boost::hash_combine(seed, par.color().toT<int> ());
     boost::hash_combine(seed, par.backgroundColor().toT<int> ());
     boost::hash_combine(seed, par.align());
+    boost::hash_combine(seed, par.indent().x());
+    boost::hash_combine(seed, par.indent().y());
     return seed;
 }
 

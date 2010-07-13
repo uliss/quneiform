@@ -23,6 +23,7 @@
 #include <cstring>
 #include <ctime>
 #include "odfexporter.h"
+#include "odfstyleexporter.h"
 #include "imageexporterfactory.h"
 #include "rout_own.h"
 #include "xmltag.h"
@@ -60,8 +61,7 @@ std::string datetime(const std::string& format = "%Y-%m-%dT%H:%M:%S") {
 }
 
 OdfExporter::OdfExporter(CEDPage * page, const FormatOptions& opts) :
-    XmlExporter(page, opts), zip_(NULL) {
-
+    XmlExporter(page, opts), zip_(NULL), style_exporter_(new OdfStyleExporter(page, opts)) {
     ImageExporterPtr exp = ImageExporterFactory::instance().make();
     setImageExporter(exp);
     setSkipPictures(false);
@@ -69,19 +69,15 @@ OdfExporter::OdfExporter(CEDPage * page, const FormatOptions& opts) :
 
 OdfExporter::~OdfExporter() {
     odfClose();
+    delete style_exporter_;
 }
 
 void OdfExporter::addOdfAutomaticStyles(std::ostream& os) {
     XmlTag automatic_styles("office:automatic-styles");
     automatic_styles.writeBeginNL(os);
 
-    os << "<style:style style:name=\"" << ODF_STYLE_JUSTIFY << "\" "
-        "style:family=\"paragraph\" "
-        "style:parent-style-name=\"Standard\">\n"
-        "<style:paragraph-properties "
-        "fo:text-align=\"start\" "
-        "style:justify-single-word=\"false\"/>\n"
-        "</style:style>\n";
+    style_exporter_->exportTo(os);
+    // style_exporter_->exportTo(std::cerr);
 
     os << "<style:style style:name=\"" << ODF_STYLE_BOLD << "\" style:family=\"text\">\n"
         "<style:text-properties "
@@ -320,19 +316,21 @@ void OdfExporter::writeMetaStatistics(std::ostream& os) {
 
 void OdfExporter::writePageBegin(std::ostream& os, CEDPage&) {
     writeStartTag(os, "office:text", "\n");
+    writeStartTag(os, "text:page", "\n");
 }
 
 void OdfExporter::writePageEnd(std::ostream& os, CEDPage&) {
+    writeCloseTag(os, "text:page", "\n");
     writeCloseTag(os, "office:text", "\n");
 }
 
 void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
     XmlTag p("text:p");
-    switch (par.align()) {
-    case (ALIGN_JUSTIFY):
-        p["text:style-name"] = ODF_STYLE_JUSTIFY;
-        break;
-    }
+
+    std::string style_name = style_exporter_->styleByElement(par);
+
+    if (!style_name.empty())
+        p["text:style-name"] = style_name;
 
     p.writeBegin(os);
     XmlExporter::writeParagraphBegin(os, par);
@@ -349,7 +347,8 @@ void OdfExporter::writePicture(std::ostream& os, CEDPicture& picture) {
         std::ostringstream img_buf;
         savePictureData(picture, img_buf);
         // uliss: TODO seems not optimal copying
-        std::string path = ODF_PICT_DIR + makePictureName(picture);
+        std::string picture_name = makePictureName(picture);
+        std::string path = ODF_PICT_DIR + picture_name;
         odfWrite(path, img_buf.str());
         addOdfManifestFile(path, imageExporter()->mime());
 
@@ -361,7 +360,8 @@ void OdfExporter::writePicture(std::ostream& os, CEDPicture& picture) {
 
         XmlTag frame("draw:frame");
         frame["text:anchor-type"] = "paragraph";
-        frame["draw:name"] = makePictureName(picture);
+        frame["draw:frame-name"] = picture_name;
+        frame["draw:name"] = picture_name;
         frame["draw:z-index"] = "0";
         float xdpi = (float) page()->imageDpi().width();
         float ydpi = (float) page()->imageDpi().height();
@@ -376,6 +376,22 @@ void OdfExporter::writePicture(std::ostream& os, CEDPicture& picture) {
     } catch (Exception& e) {
         Debug() << "[OdfExporter::writePicture] failed: " << e.what() << std::endl;
     }
+}
+
+void OdfExporter::writeSectionBegin(std::ostream& /*os*/, CEDSection&) {
+    //    writeStartTag(os, "text:section", "\n");
+}
+
+void OdfExporter::writeSectionEnd(std::ostream& /*os*/, CEDSection&) {
+    //    writeCloseTag(os, "text:section", "\n");
+}
+
+void OdfExporter::writeTableBegin(std::ostream& os, CEDTable&) {
+    writeStartTag(os, "table:table", "\n");
+}
+
+void OdfExporter::writeTableEnd(std::ostream& os, CEDTable&) {
+    writeCloseTag(os, "table:table", "\n");
 }
 
 }

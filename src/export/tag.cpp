@@ -34,8 +34,16 @@ Tag::Tag(const std::string& name, const Attributes& attrs) :
 Tag::~Tag() {
 }
 
+void Tag::addChild(Tag * tag) {
+    children_.push_back(TagPtr(tag));
+}
+
 bool Tag::hasAttribute(const std::string& name) const {
     return attrs_.find(name) != attrs_.end();
+}
+
+bool Tag::hasChildren() const {
+    return !children_.empty();
 }
 
 std::string Tag::attribute(const std::string& name) const {
@@ -46,6 +54,7 @@ std::string Tag::attribute(const std::string& name) const {
 void Tag::clear() {
     content_.clear();
     attrs_.clear();
+    children_.clear();
 }
 
 std::string Tag::content() const {
@@ -77,17 +86,24 @@ void Tag::writeBeginNL(std::ostream& os) const {
     os << "\n";
 }
 
+void Tag::writeChildren(std::ostream& os) const {
+    for (TagList::const_iterator it = children_.begin(), e = children_.end(); it != e; ++it) {
+        os << *(it->get()) << "\n";
+    }
+}
+
 void Tag::writeEndNL(std::ostream& os) const {
     writeEnd(os);
     os << "\n";
 }
 
 std::ostream& operator<<(std::ostream& os, const Tag& tag) {
-    if (tag.isSingle()) {
+    if (tag.isSingle() && !tag.hasChildren()) {
         tag.writeSingle(os);
     } else {
         tag.writeBegin(os);
         tag.writeContent(os);
+        tag.writeChildren(os);
         tag.writeEnd(os);
     }
     return os;

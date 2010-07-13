@@ -30,6 +30,7 @@ namespace CIF
 {
 
 class Tag;
+class OdfStyleExporter;
 
 class OdfExporter: public XmlExporter
 {
@@ -52,6 +53,10 @@ class OdfExporter: public XmlExporter
         void writeParagraphBegin(std::ostream& os, CEDParagraph& par);
         void writeParagraphEnd(std::ostream& os, CEDParagraph& par);
         void writePicture(std::ostream& os, CEDPicture& picture);
+        void writeSectionBegin(std::ostream& os, CEDSection& sect);
+        void writeSectionEnd(std::ostream& os, CEDSection& sect);
+        void writeTableBegin(std::ostream& os, CEDTable& table);
+        void writeTableEnd(std::ostream& os, CEDTable& table);
     private:
         void addOdfAutomaticStyles(std::ostream& os);
         void addOdfContent();
@@ -72,6 +77,7 @@ class OdfExporter: public XmlExporter
         typedef std::map<std::string, std::string> ManifestList;
         BufList buffers_;
         ManifestList files_;
+        OdfStyleExporter * style_exporter_;
 };
 
 }
