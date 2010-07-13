@@ -50,7 +50,7 @@ void StyleExporter::exportChar(CEDChar& chr) {
 }
 
 void StyleExporter::exportParagraph(CEDParagraph& par) {
-    //    std::cerr << par.indent() << "\n";
+    std::cerr << par.indent() << "\n";
 
     GenericExporter::exportParagraph(par);
     size_t par_hash = hash(par);
@@ -88,8 +88,7 @@ size_t StyleExporter::hash(const CEDParagraph& par) const {
     boost::hash_combine(seed, par.color().toT<int> ());
     boost::hash_combine(seed, par.backgroundColor().toT<int> ());
     boost::hash_combine(seed, par.align());
-    boost::hash_combine(seed, par.indent().x());
-    boost::hash_combine(seed, par.indent().y());
+    boost::hash_combine(seed, par.indent());
     return seed;
 }
 

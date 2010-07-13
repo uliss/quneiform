@@ -27,12 +27,11 @@ namespace CIF
 {
 
 CEDParagraph::CEDParagraph() :
-    BlockElement(), align_(ALIGN_LEFT), line_space_(-1) {
-    type = 0;
+    BlockElement(), align_(ALIGN_LEFT), line_space_(-1), indent_(0), padding_left_(0),
+            padding_right_(0) {
     userNumber = 0;
     border = 0;
     interval.cx = interval.cy = 0;
-    descriptor = 0;
     leftBrdrWidth = 0;
     rightBrdrWidth = 0;
     topBrdrWidth = 0;
@@ -52,7 +51,7 @@ void CEDParagraph::exportElement(CEDExporter& exp) {
     exp.exportParagraph(*this);
 }
 
-const Rect& CEDParagraph::indent() const {
+int CEDParagraph::indent() const {
     return indent_;
 }
 
@@ -76,8 +75,16 @@ void CEDParagraph::setAlign(align_t align) {
     align_ = align;
 }
 
-void CEDParagraph::setIndent(const Rect& ind) {
-    indent_ = ind;
+void CEDParagraph::setIndent(int value) {
+    indent_ = value;
+}
+
+void CEDParagraph::setPaddingLeft(int value) {
+    padding_left_ = value;
+}
+
+void CEDParagraph::setPaddingRight(int value) {
+    padding_right_ = value;
 }
 
 void CEDParagraph::setLineSpace(int value) {

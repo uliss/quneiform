@@ -37,7 +37,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
         CEDParagraph();
         ~CEDParagraph();
 
-        int type; // Type paragraph
         int userNumber; // ID number, the user at the stage of fragmentation
         int border; //  frame around abzattsa
         EDSIZE interval; //  cx-upper indentation, cy-bottom
@@ -51,8 +50,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
         int bottomBrdrWidth;
         int brdrBtw;
 
-        void * descriptor; // Pointer to advanced descriptor of special structures
-
         /**
          * Adds line to the end of paragraph
          */
@@ -60,16 +57,20 @@ class CLA_EXPO CEDParagraph: public BlockElement
 
         /**
          * Returns paragraph alignment
+         * @see setAlign()
          */
         align_t align() const;
 
+        /**
+         * Call appropriate exporter function
+         */
         void exportElement(CEDExporter& exp);
 
         /**
          * Returns paragraph indents
          * @see setIndent()
          */
-        const Rect& indent() const;
+        int indent() const;
 
         /**
          * Returns pointer to line at given position
@@ -96,21 +97,35 @@ class CLA_EXPO CEDParagraph: public BlockElement
         void setAlign(align_t align);
 
         /**
-         * Sets paragraph indents
+         * Sets indent for paragraph
          * @see indent()
          */
-        void setIndent(const Rect& ind);
+        void setIndent(int value);
 
         /**
          * Sets line space
          * @see lineSpace()
          */
         void setLineSpace(int value);
+
+        /**
+         * Sets left padding
+         * @see rightPadding()
+         */
+        void setPaddingLeft(int value);
+
+        /**
+         * Sets right padding
+         * @see setPaddingLeft()
+         */
+        void setPaddingRight(int value);
     private:
         align_t align_;
-        Rect indent_;
         int internal_number_;
         int line_space_;
+        int indent_;
+        int padding_left_;
+        int padding_right_;
 };
 
 }

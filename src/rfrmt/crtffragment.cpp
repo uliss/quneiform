@@ -333,9 +333,9 @@ CEDParagraph * CRtfFragment::makeParagraph(SectorInfo * sector, int firstIndent,
 
     CEDParagraph * par = new CEDParagraph;
     par->setAlign(par_align);
-
-    Rect indent(Point(leftIndent, firstIndent), Point(rightIndent, 0));
-    par->setIndent(indent);
+    par->setIndent(firstIndent);
+    par->setPaddingLeft(leftIndent);
+    par->setPaddingRight(rightIndent);
     par->setLineSpace(-1);
     par->userNumber = sector->userNum;
     par->border = -1;

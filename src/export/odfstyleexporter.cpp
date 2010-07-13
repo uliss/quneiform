@@ -69,10 +69,8 @@ OdfStyleExporter::StylePtr OdfStyleExporter::makeOdfStyle(const CEDParagraph& pa
         break;
     }
 
-    Rect indent = par.indent();
-    if (indent.y() > 0) {
-        par_prop->setAttribute("fo:text-indent", pixel2odf(indent.y()));
-    }
+    if (par.indent() > 0)
+        par_prop->setAttribute("fo:text-indent", pixel2odf(par.indent()));
 
     //    par_prop->setAttribute("fo:margin-left", "4cm");
 

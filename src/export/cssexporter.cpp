@@ -91,6 +91,8 @@ std::string CssExporter::makeCssStyle(const CEDParagraph& par) const {
     writeCssColor(buf, "color", par.color());
     writeCssColor(buf, "background-color", par.backgroundColor());
     writeCssEntry(buf, "text-align", align2css(par.align()));
+    if (par.indent() > 0)
+        writeCssEntryPx(buf, "text-indent", par.indent());
 
     return buf.str();
 }

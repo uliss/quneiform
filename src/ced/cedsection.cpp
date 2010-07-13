@@ -86,7 +86,9 @@ CEDParagraph * CEDSection::CreateParagraph(BlockElement * cont, align_t align, c
     CEDParagraph * para = new CEDParagraph;
     cont->addElement(para);
     para->setAlign(align);
-    para->setIndent(indent);
+    para->setPaddingLeft(indent.x());
+    para->setPaddingRight(indent.pt1().x());
+    para->setIndent(indent.y());
     para->setColor(color);
     para->setBackgroundColor(shading);
     para->setLineSpace(spaceBetweenLines);
