@@ -74,7 +74,7 @@ std::string CssExporter::makeCssStyle(const CEDChar& chr) const {
     writeCssColor(buf, "background-color", chr.backgroundColor());
 
     if (formatOptions().isFontSizeUsed() && chr.fontHeight() > 0)
-        writeCssEntryPx(buf, "font-height", chr.fontHeight());
+        writeCssEntryPx(buf, "font-size", chr.fontHeight());
 
     if (formatOptions().isBoldUsed() && chr.fontStyle() & FORMAT_FONT_BOLD)
         writeCssEntry(buf, "font-weight", "bold");
@@ -91,7 +91,7 @@ std::string CssExporter::makeCssStyle(const CEDParagraph& par) const {
     writeCssColor(buf, "color", par.color());
     writeCssColor(buf, "background-color", par.backgroundColor());
     writeCssEntry(buf, "text-align", align2css(par.align()));
-    if (par.indent() > 0)
+    if (par.indent() != 0)
         writeCssEntryPx(buf, "text-indent", par.indent());
 
     return buf.str();

@@ -12,6 +12,7 @@ endif()
 add_executable(test_exporters
     test_exporters.cpp
     testbmpimageexporter.cpp
+    testcssexporter.cpp
     testgenericexporter.cpp
     testhtmlexporter.cpp
     teststyleexporter.cpp
