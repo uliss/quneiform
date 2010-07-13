@@ -93,11 +93,12 @@ CEDParagraph * CEDSection::CreateParagraph(BlockElement * cont, align_t align, c
     para->setBackgroundColor(shading);
     para->setLineSpace(spaceBetweenLines);
     para->setBoundingRect(layout);
+    para->setUserNumber(UserNum);
+    para->setMarginBottom(interval.cy);
+    para->setMarginTop(interval.cx);
     para->spcBtwLnsMult = spcBtwLnsMult;
-    para->userNumber = UserNum;
     para->border = FlagBorder;
     para->keep = keep;
-    para->interval = interval;
     return para;
 }
 

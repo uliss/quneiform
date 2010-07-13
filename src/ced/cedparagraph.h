@@ -34,15 +34,10 @@ class CLA_EXPO CEDParagraph: public BlockElement
 {
     public:
         CEDParagraph();
-        ~CEDParagraph();
 
-        int userNumber; // ID number, the user at the stage of fragmentation
         int border; //  frame around abzattsa
-        EDSIZE interval; //  cx-upper indentation, cy-bottom
-
         char spcBtwLnsMult;
         char keep;
-
         int leftBrdrWidth;
         int rightBrdrWidth;
         int topBrdrWidth;
@@ -108,6 +103,18 @@ class CLA_EXPO CEDParagraph: public BlockElement
         void setLineSpace(int value);
 
         /**
+         * Sets bottom margin
+         * @see setMarginTop()
+         */
+        void setMarginBottom(int value);
+
+        /**
+         * Sets top margin
+         * @see setMarginBottom()
+         */
+        void setMarginTop(int value);
+
+        /**
          * Sets left padding
          * @see rightPadding()
          */
@@ -118,6 +125,11 @@ class CLA_EXPO CEDParagraph: public BlockElement
          * @see setPaddingLeft()
          */
         void setPaddingRight(int value);
+
+        /**
+         * Sets user number at the stage of fragmentation
+         */
+        void setUserNumber(int value);
     private:
         align_t align_;
         int internal_number_;
@@ -125,6 +137,9 @@ class CLA_EXPO CEDParagraph: public BlockElement
         int indent_;
         int padding_left_;
         int padding_right_;
+        int margin_top_;
+        int margin_bottom_;
+        int user_number_;
 };
 
 }
