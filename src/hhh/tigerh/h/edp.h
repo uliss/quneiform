@@ -59,7 +59,6 @@
 
 #define RTF_DEBUG 0             // 0-off, 1-print, 2-additional lines to ED
 #include "cttypes.h"
-#include "edfile.h"
 #include "msgerr.h"
 #include <stdlib.h>
 

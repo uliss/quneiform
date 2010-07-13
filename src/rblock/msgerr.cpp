@@ -62,7 +62,6 @@
 #include "cttypes.h"
 #include "msgerr.h"
 #include "kernel.h"
-#include "face_lng.h"
 
 #if MORDA==LANGUAGE_ENGLISH
 /*============= English definitions for error messages ======== */

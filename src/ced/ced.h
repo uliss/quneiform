@@ -66,17 +66,10 @@
 #include "common/align.h"
 
 #ifdef __CED__
-#define CED_FUNC  FUN_EXPO
+#define CED_FUNC  FUN_EXPO__
 #else
-#define CED_FUNC  FUN_IMPO
+#define CED_FUNC  FUN_IMPO__
 #endif
-
-#define FUN_IMPO_VOID  FUN_IMPO__  __FUN_IMPO
-#define FUN_EXPO_VOID  FUN_EXPO__  __FUN_EXPO
-
-#pragma pack (push,8)
-
-#include "edfile.h"
 
 typedef struct edBox
 {
@@ -172,14 +165,12 @@ class CEDColumn;
 class BlockElement;
 class CEDFrame;
 }
-CED_FUNC(CIF::CEDSection*) CED_CreateSection(CIF::CEDPage* page, const CIF::Rect& border,
+CED_FUNC CIF::CEDSection* CED_CreateSection(CIF::CEDPage* page, const CIF::Rect& border,
         int colInterval, int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height,
         char orientation, int headerY, int footerY);
-CED_FUNC(CIF::CEDParagraph*) CED_CreateParagraph(CIF::CEDSection * sect, CIF::BlockElement * cont,
+CED_FUNC CIF::CEDParagraph* CED_CreateParagraph(CIF::CEDSection * sect, CIF::BlockElement * cont,
         CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval,
         const CIF::Rect& layout, const CIF::Color& color, const CIF::Color& backgr,
         int spaceBetweenLines, char spcBtwLnsMult, char keep);
-
-#pragma pack (pop)
 
 #endif

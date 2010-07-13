@@ -26,7 +26,6 @@
 
 #include "cstr/cstr.h"
 #include "recdefs.h"
-#include "edfile.h"
 
 // ced
 #include "ced/ced.h"
