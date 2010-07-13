@@ -38,10 +38,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
         int border; //  frame around abzattsa
         char spcBtwLnsMult;
         char keep;
-        int leftBrdrWidth;
-        int rightBrdrWidth;
-        int topBrdrWidth;
-        int bottomBrdrWidth;
         int brdrBtw;
 
         /**
@@ -132,7 +128,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
         void setUserNumber(int value);
     private:
         align_t align_;
-        int internal_number_;
         int line_space_;
         int indent_;
         int padding_left_;
