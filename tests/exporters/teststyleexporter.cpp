@@ -41,6 +41,24 @@ void TestStyleExporter::testExportChar() {
     CPPUNIT_ASSERT_EQUAL(std::string("char_1"), e.styleByElement(chr3));
 }
 
+void TestStyleExporter::testExportParagraph() {
+    FormatOptions opts;
+    StyleExporter e(NULL, opts);
+
+    CEDParagraph par1;
+
+    CPPUNIT_ASSERT(e.styleByElement(par1).empty());
+
+    e.exportParagraph(par1);
+    CPPUNIT_ASSERT_EQUAL(std::string("par_1"), e.styleByElement(par1));
+
+    par1.setIndent(10);
+    CPPUNIT_ASSERT(e.styleByElement(par1).empty());
+
+    e.exportParagraph(par1);
+    CPPUNIT_ASSERT_EQUAL(std::string("par_2"), e.styleByElement(par1));
+}
+
 void TestStyleExporter::testHashChar() {
     FormatOptions opts;
     opts.useFontSize(false);

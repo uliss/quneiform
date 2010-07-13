@@ -25,12 +25,14 @@ class TestStyleExporter: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestStyleExporter);
     CPPUNIT_TEST(testExportChar);
+    CPPUNIT_TEST(testExportParagraph);
     CPPUNIT_TEST(testHashChar);
     CPPUNIT_TEST(testHashParagraph);
     CPPUNIT_TEST(testMakeStyle);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testExportChar();
+    void testExportParagraph();
     void testHashChar();
     void testHashParagraph();
     void testMakeStyle();
