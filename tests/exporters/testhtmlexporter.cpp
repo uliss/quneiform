@@ -244,20 +244,29 @@ void TestHtmlExporter::testBold() {
 void TestHtmlExporter::testItalic() {
     exp_->formatOptions().useItalic(true);
 
-    c_->font_style_ = FONT_ITALIC;
-    ASSERT_CHAR_WRITE('1', "<i>1");
-    c_->font_style_ = 0;
-    ASSERT_CHAR_WRITE_CLEAR('2', "<i>1</i>2");
+    CEDParagraph par;
 
+    parAddChar(par, 'a');
+    CHECK_PAR("<p>a</p>\n", par);
+
+    parAddChar(par, ' ');
+    CHECK_PAR("<p>a </p>\n", par);
+
+    parAddChar(par, 't', FONT_ITALIC);
+    CHECK_PAR("<p>a <i>t</i></p>\n", par);
+
+    parAddChar(par, 'e', FONT_ITALIC);
+    CHECK_PAR("<p>a <i>te</i></p>\n", par);
+
+    parAddChar(par, 's');
+    CHECK_PAR("<p>a <i>te</i>s</p>\n", par);
+
+    parAddChar(par, 't', FONT_ITALIC);
+    CHECK_PAR("<p>a <i>te</i>s<i>t</i></p>\n", par);
+
+    // no italic
     exp_->formatOptions().useItalic(false);
-    CPPUNIT_ASSERT(!exp_->formatOptions().isItalicUsed());
-
-    c_->font_style_ = FONT_ITALIC;
-    ASSERT_CHAR_WRITE('1', "1");
-    c_->font_style_ = 0;
-    ASSERT_CHAR_WRITE('2', "12");
-
-    exp_->formatOptions().useItalic(true);
+    CHECK_PAR("<p>a test</p>\n", par);
 }
 
 void TestHtmlExporter::testUnderlined() {
