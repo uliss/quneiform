@@ -57,10 +57,6 @@ std::string XmlExporter::escapeSpecialChar(uchar code) {
     }
 }
 
-std::string XmlExporter::fontStyleTag(int) const {
-    return std::string();
-}
-
 void XmlExporter::writeCloseTag(std::ostream& os, const std::string& tagName,
         const std::string& newline) {
     if (tagName.empty())
@@ -70,14 +66,6 @@ void XmlExporter::writeCloseTag(std::ostream& os, const std::string& tagName,
     writeIndent(os);
     os << "</" << tagName << ">" << newline;
     line_break_ = newline.empty() ? false : true;
-}
-
-void XmlExporter::writeFontStyleBegin(std::ostream& /*os*/, int style) {
-    writeStartTag(lineBuffer(), fontStyleTag(style));
-}
-
-void XmlExporter::writeFontStyleEnd(std::ostream& /*os*/, int style) {
-    writeCloseTag(lineBuffer(), fontStyleTag(style));
 }
 
 void XmlExporter::writeXmlDeclaration(std::ostream& os, const std::string& encoding) {

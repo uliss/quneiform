@@ -99,7 +99,7 @@ void HocrExporter::writeLineEnd(std::ostream& os, CEDLine& line) {
     span.writeBeginNL(os);
 
     writeCharBBoxesInfo(os);
-    resetFontStyle(os);
+//    resetFontStyle(os);
     HtmlExporter::writeLineEnd(os, line);
 
     span.writeEndNL(os);

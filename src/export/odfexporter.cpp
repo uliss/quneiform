@@ -337,7 +337,7 @@ void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
 }
 
 void OdfExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
-    resetFontStyle(os);
+//    resetFontStyle(os);
     writeLineBufferRaw(os);
     writeCloseTag(os, "text:p", "");
 }

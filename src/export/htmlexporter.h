@@ -31,17 +31,24 @@ class HtmlExporter: public XmlExporter
     public:
         HtmlExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
     protected:
-        virtual std::string fontStyleTag(int style) const;
+        void closeStyle(bool value);
+
+        virtual void writeAlternativesBegin(const CEDChar& chr);
+        virtual void writeAlternativesEnd(const CEDChar& chr);
 
         /**
          * Writes characters to line buffer
          */
-        virtual void writeCharacter(std::ostream& os, CEDChar& chr);
+        virtual void writeCharacterBegin(std::ostream& os, CEDChar& chr);
+        virtual void writeCharacterEnd(std::ostream& os, CEDChar& chr);
 
         /**
          * Writes HTML document type
          */
         virtual void writeDoctype(std::ostream& os);
+
+        void writeFontStyleBegin(int style);
+        void writeFontStyleEnd(int style);
 
         /**
          * Writes <br/> tag if needed
@@ -89,19 +96,12 @@ class HtmlExporter: public XmlExporter
         virtual void writeSectionEnd(std::ostream& os, CEDSection& sect);
 
         /**
-         * Writes <table> tag
-         */
-        virtual void writeTableBegin(std::ostream& os, CEDParagraph * table);
-
-        /**
-         * Writes </table> tag
-         */
-        virtual void writeTableEnd(std::ostream& os, CEDParagraph * table);
-
-        /**
          * Writes HTML title in header
          */
         virtual void writeTitle(std::ostream& os);
+    private:
+        int prev_char_style_;
+        bool close_style_;
 };
 
 }

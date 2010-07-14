@@ -19,6 +19,7 @@
 #ifndef TESTHTMLEXPORTER_H_
 #define TESTHTMLEXPORTER_H_
 
+#include <sstream>
 #include <cppunit/extensions/HelperMacros.h>
 
 namespace CIF {
@@ -30,42 +31,44 @@ class HtmlExporter;
 class TestHtmlExporter: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestHtmlExporter);
-    CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testExport);
-    CPPUNIT_TEST(testExportParagraph);
-    CPPUNIT_TEST(testExportLine);
     CPPUNIT_TEST(testExportCharacter);
+    CPPUNIT_TEST(testExportColumn);
+    CPPUNIT_TEST(testExportLine);
+    CPPUNIT_TEST(testExportParagraph);
+    CPPUNIT_TEST(testExportPicture);
+
     CPPUNIT_TEST(testBold);
     CPPUNIT_TEST(testItalic);
-    CPPUNIT_TEST(testUnderlined);
+    CPPUNIT_TEST(testMixed);
     CPPUNIT_TEST(testSub);
     CPPUNIT_TEST(testSuper);
-    CPPUNIT_TEST(testMixed);
-    CPPUNIT_TEST(testFontStyleClose);
-    CPPUNIT_TEST(testExportPicture);
+    CPPUNIT_TEST(testUnderlined);
+    CPPUNIT_TEST(testWriteAlternatives);
     CPPUNIT_TEST_SUITE_END();
     public:
         void setUp();
         void tearDown();
 
-        void testInit();
         void testExport();
-        void testExportParagraph();
-        void testExportLine();
         void testExportCharacter();
+        void testExportColumn();
+        void testExportLine();
+        void testExportParagraph();
+        void testExportPicture();
+
         void testBold();
         void testItalic();
-        void testUnderlined();
+        void testMixed();
         void testSub();
         void testSuper();
-        void testMixed();
-        void testFontStyleClose();
-        void testExportPicture();
+        void testUnderlined();
+        void testWriteAlternatives();
     private:
         CIF::CEDPage * page_;
         CIF::HtmlExporter * exp_;
         CIF::CEDChar * c_;
-        CIF::CEDChar * prev_c_;
+        std::ostringstream buffer_;
 };
 
 #endif /* TESTHTMLEXPORTER_H_ */

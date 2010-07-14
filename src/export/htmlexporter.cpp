@@ -21,6 +21,7 @@
 #include "htmlexporter.h"
 #include "common/helper.h"
 #include "common/debug.h"
+#include "common/font.h"
 #include "ced/cedchar.h"
 #include "ced/cedpicture.h"
 #include "ced/cedparagraph.h"
@@ -31,15 +32,15 @@
 namespace CIF
 {
 
-const std::string HTML_ALTERNATIVE_STYLE(
-        "padding: 0 1px 0 1px; margin:1px; background-color: #FDD;");
+const std::string HTML_ALTERNATIVE_STYLE_CLASS(
+        "has_alternative");
 
 const std::string HTML_DOCTYPE("<!DOCTYPE html PUBLIC "
     "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
     "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n");
 
 HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
-    XmlExporter(page, opts) {
+    XmlExporter(page, opts), prev_char_style_(0), close_style_(false) {
 
     ImageExporterPtr exp = ImageExporterFactory::instance().make();
     setImageExporter(exp);
@@ -50,46 +51,75 @@ HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
     //    useIndents(true);
 }
 
-std::string HtmlExporter::fontStyleTag(int style) const {
-    switch (style) {
-    case FONT_BOLD:
-        if (formatOptions().isBoldUsed())
-            return "b";
-        break;
-    case FONT_ITALIC:
-        if (formatOptions().isItalicUsed())
-            return "i";
-        break;
-    case FONT_UNDERLINE:
-        return "u";
-    case FONT_SUB:
-        return "sub";
-    case FONT_SUPER:
-        return "sup";
-    default:
-        return "";
-    }
-    return "";
+void HtmlExporter::closeStyle(bool value) {
+    close_style_ = value;
 }
 
-void HtmlExporter::writeCharacter(std::ostream& os, CEDChar& chr) {
+void HtmlExporter::writeAlternativesBegin(const CEDChar& chr) {
     if (isShowAlternatives() && chr.alternativeCount() > 1) {
-        XmlTag alts("span", std::string(1, chr.alternativeAt(0).getChar()));
-        std::string s("Alternatives: ");
+        lineBuffer() << "<span title=\"Alternatives:";
         for (size_t i = 1; i < chr.alternativeCount(); i++)
-            s += " " + escapeSpecialChar(chr.alternativeAt(i).getChar());
+            lineBuffer() << " " << escapeSpecialChar(chr.alternativeAt(i).getChar());
 
-        alts["title"] = s;
-        alts["style"] = HTML_ALTERNATIVE_STYLE;
-        lineBuffer() << alts;
-
-    } else {
-        XmlExporter::writeCharacter(os, chr);
+        lineBuffer() << "\" class=\"" << HTML_ALTERNATIVE_STYLE_CLASS << "\">";
     }
+}
+
+void HtmlExporter::writeAlternativesEnd(const CEDChar& chr) {
+    if (isShowAlternatives() && chr.alternativeCount() > 1)
+        lineBuffer() << "</span>";
+}
+
+void HtmlExporter::writeCharacterBegin(std::ostream&, CEDChar& chr) {
+    if (prev_char_style_ != chr.fontStyle()) {
+        writeFontStyleEnd(prev_char_style_);
+        writeFontStyleBegin(chr.fontStyle());
+        prev_char_style_ = chr.fontStyle();
+    }
+
+    writeAlternativesBegin(chr);
+}
+
+void HtmlExporter::writeCharacterEnd(std::ostream&, CEDChar& chr) {
+    writeAlternativesEnd(chr);
 }
 
 void HtmlExporter::writeDoctype(std::ostream& os) {
     os << HTML_DOCTYPE;
+}
+
+void HtmlExporter::writeFontStyleBegin(int style) {
+    if (formatOptions().isBoldUsed() && (style & FONT_BOLD))
+        lineBuffer() << "<b>";
+
+    if (formatOptions().isItalicUsed() && (style & FONT_ITALIC))
+        lineBuffer() << "<i>";
+
+    if (style & FONT_UNDERLINE)
+        lineBuffer() << "<u>";
+
+    if (style & FONT_SUB)
+        lineBuffer() << "<sub>";
+
+    if (style & FONT_SUPER)
+        lineBuffer() << "<sup>";
+}
+
+void HtmlExporter::writeFontStyleEnd(int style) {
+    if (style & FONT_SUPER)
+        lineBuffer() << "</sup>";
+
+    if (style & FONT_SUB)
+        lineBuffer() << "</sub>";
+
+    if (style & FONT_UNDERLINE)
+        lineBuffer() << "</u>";
+
+    if (formatOptions().isItalicUsed() && (style & FONT_ITALIC))
+        lineBuffer() << "</i>";
+
+    if (formatOptions().isBoldUsed() && (style & FONT_BOLD))
+        lineBuffer() << "</b>";
 }
 
 void HtmlExporter::writeLineBreak(std::ostream& os) {
@@ -150,17 +180,19 @@ void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
 
     p.writeBegin(os);
     TextExporter::writeParagraphBegin(os, par);
+
+    prev_char_style_ = 0;
 }
 
 void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
     // writes closing tags to line buffer
-    resetFontStyle(os);
+    writeFontStyleEnd(prev_char_style_);
     // write and flush line buffer to output stream
     writeLineBufferRaw(os);
     writeCloseTag(os, "p", "\n");
 }
 
-void HtmlExporter::writePicture(std::ostream& /*os*/, CEDPicture& picture) {
+void HtmlExporter::writePicture(std::ostream&, CEDPicture& picture) {
     try {
         savePicture(picture);
 
@@ -184,15 +216,6 @@ void HtmlExporter::writeSectionBegin(std::ostream& os, CEDSection&) {
 
 void HtmlExporter::writeSectionEnd(std::ostream& os, CEDSection&) {
     writeCloseTag(os, "div", "\n");
-}
-
-void HtmlExporter::writeTableBegin(std::ostream& os, CEDParagraph * /*table*/) {
-    resetFontStyle(os);
-    writeStartTag(os, "table");
-}
-
-void HtmlExporter::writeTableEnd(std::ostream& os, CEDParagraph * /*table*/) {
-    writeCloseTag(os, "table");
 }
 
 void HtmlExporter::writeTitle(std::ostream& os) {

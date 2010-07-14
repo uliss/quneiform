@@ -25,11 +25,13 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #include <export/htmlexporter.h>
 #include <export/rout_own.h>
 #include <ced/ced.h>
+#include <ced/cedcolumn.h>
 #include <ced/cedline.h>
 #include <ced/cedpage.h>
 #include <ced/cedchar.h>
 #include <ced/cedpicture.h>
 #include <ced/cedparagraph.h>
+#include <rdib/imageloaderfactory.h>
 using namespace CIF;
 using namespace std;
 
@@ -39,6 +41,26 @@ inline void clearBuffer(HtmlExporter * exp) {
 
 inline string buffer(HtmlExporter * exp) {
     return exp->lineBuffer().str();
+}
+
+inline CEDChar * makeChar(char l, int style = 0) {
+    CEDChar * c = new CEDChar;
+    c->addAlternative(Letter(l));
+    c->setFontStyle(style);
+    return c;
+}
+
+inline CEDChar * lineAddChar(CEDLine * l, char letter, int style = 0) {
+    CEDChar * c = makeChar(letter, style);
+    l->addElement(c);
+    return c;
+}
+
+inline CEDChar * parAddChar(CEDParagraph& p, char letter, int style = 0) {
+    if (!p.lineCount())
+        p.addLine(new CEDLine);
+
+    return lineAddChar(p.lineAt(0), letter, style);
 }
 
 #define CHECK_BUFFER(str)  { \
@@ -62,9 +84,24 @@ inline string buffer(HtmlExporter * exp) {
     CHECK_BUFFER_CLEAR(dest);\
 }
 
+#define CHECK_PAR(s, par) {\
+    clearBuffer(exp_);\
+    buffer_.str("");\
+    exp_->exportParagraph(par);\
+    CPPUNIT_ASSERT_EQUAL(std::string(s), buffer_.str());\
+}
+
+#define CHECK_COL(s, col) {\
+    clearBuffer(exp_);\
+    buffer_.str("");\
+    exp_->exportColumn(col);\
+    CPPUNIT_ASSERT_EQUAL(std::string(s), buffer_.str());\
+}
+
 void TestHtmlExporter::setUp() {
     page_ = new CEDPage;
     exp_ = new HtmlExporter(page_);
+    exp_->os_ = &buffer_;
     c_ = new CEDChar;
     c_->addAlternative(Letter());
 }
@@ -73,9 +110,7 @@ void TestHtmlExporter::tearDown() {
     delete exp_;
     delete page_;
     delete c_;
-}
-
-void TestHtmlExporter::testInit() {
+    buffer_.str("");
 }
 
 void TestHtmlExporter::testExport() {
@@ -91,43 +126,31 @@ void TestHtmlExporter::testExport() {
 void TestHtmlExporter::testExportParagraph() {
     CPPUNIT_ASSERT_EQUAL(true, exp_->skipEmptyParagraphs());
     CEDParagraph par;
-    par.setAlign(ALIGN_LEFT);
-
-    std::stringstream buf1;
-    exp_->os_ = &buf1;
 
     // empty paragraph
-    exp_->exportParagraph(par);
-    CPPUNIT_ASSERT_EQUAL(std::string(""), buf1.str());
+    CHECK_PAR("", par);
+    parAddChar(par, 't');
+    CHECK_PAR("<p>t</p>\n", par);
 
+    par.clear();
     // explicit exports
-    // left align
-    std::stringstream buf2;
-    exp_->os_ = &buf2;
     exp_->setSkipEmptyParagraphs(false);
-    exp_->exportParagraph(par);
-    CPPUNIT_ASSERT_EQUAL(std::string("<p></p>\n"), buf2.str());
+    CHECK_PAR("<p></p>\n", par);
 
-    // right align
-    std::stringstream buf3;
-    exp_->os_ = &buf3;
+    parAddChar(par, 't');
+    CHECK_PAR("<p>t</p>\n", par);
+
+    par.setAlign(ALIGN_LEFT);
+    CHECK_PAR("<p>t</p>\n", par);
+
     par.setAlign(ALIGN_RIGHT);
-    exp_->exportParagraph(par);
-    CPPUNIT_ASSERT_EQUAL(std::string("<p align=\"right\"></p>\n"), buf3.str());
+    CHECK_PAR("<p align=\"right\">t</p>\n", par);
 
-    // center align
-    std::stringstream buf4;
-    exp_->os_ = &buf4;
     par.setAlign(ALIGN_CENTER);
-    exp_->exportParagraph(par);
-    CPPUNIT_ASSERT_EQUAL(std::string("<p align=\"center\"></p>\n"), buf4.str());
+    CHECK_PAR("<p align=\"center\">t</p>\n", par);
 
-    // justify align
-    std::stringstream buf5;
-    exp_->os_ = &buf5;
     par.setAlign(ALIGN_JUSTIFY);
-    exp_->exportParagraph(par);
-    CPPUNIT_ASSERT_EQUAL(std::string("<p align=\"justify\"></p>\n"), buf5.str());
+    CHECK_PAR("<p align=\"justify\">t</p>\n", par);
 }
 
 void TestHtmlExporter::testExportLine() {
@@ -190,22 +213,32 @@ void TestHtmlExporter::testExportCharacter() {
 }
 
 void TestHtmlExporter::testBold() {
+    CEDParagraph par;
+
     exp_->formatOptions().useBold(true);
 
-    c_->font_style_ = FONT_BOLD;
-    ASSERT_CHAR_WRITE('d', "<b>d");
-    c_->font_style_ = 0;
-    ASSERT_CHAR_WRITE_CLEAR('e', "<b>d</b>e");
+    parAddChar(par, 'a');
+    CHECK_PAR("<p>a</p>\n", par);
 
+    parAddChar(par, ' ');
+    CHECK_PAR("<p>a </p>\n", par);
+
+    parAddChar(par, 't', FONT_BOLD);
+    CHECK_PAR("<p>a <b>t</b></p>\n", par);
+
+    parAddChar(par, 'e', FONT_BOLD);
+    CHECK_PAR("<p>a <b>te</b></p>\n", par);
+
+    parAddChar(par, 's');
+    CHECK_PAR("<p>a <b>te</b>s</p>\n", par);
+
+    parAddChar(par, 't', FONT_BOLD);
+    CHECK_PAR("<p>a <b>te</b>s<b>t</b></p>\n", par);
+
+    // no bold
     exp_->formatOptions().useBold(false);
-    CPPUNIT_ASSERT(!exp_->formatOptions().isBoldUsed());
 
-    c_->font_style_ = FONT_BOLD;
-    ASSERT_CHAR_WRITE('d', "d");
-    c_->font_style_ = 0;
-    ASSERT_CHAR_WRITE('e', "de");
-
-    exp_->formatOptions().useBold(true);
+    CHECK_PAR("<p>a test</p>\n", par);
 }
 
 void TestHtmlExporter::testItalic() {
@@ -228,73 +261,161 @@ void TestHtmlExporter::testItalic() {
 }
 
 void TestHtmlExporter::testUnderlined() {
-    c_->font_style_ = FONT_UNDERLINE;
-    ASSERT_CHAR_WRITE('1', "<u>1");
-    c_->font_style_ = 0;
-    ASSERT_CHAR_WRITE('2', "<u>1</u>2");
+    CEDParagraph par;
+
+    parAddChar(par, 'a');
+    parAddChar(par, ' ');
+    CHECK_PAR("<p>a </p>\n", par);
+
+    parAddChar(par, 't', FONT_UNDERLINE);
+    CHECK_PAR("<p>a <u>t</u></p>\n", par);
+
+    parAddChar(par, 'e', FONT_UNDERLINE);
+    CHECK_PAR("<p>a <u>te</u></p>\n", par);
+
+    parAddChar(par, 's');
+    CHECK_PAR("<p>a <u>te</u>s</p>\n", par);
+
+    parAddChar(par, 't', FONT_UNDERLINE);
+    CHECK_PAR("<p>a <u>te</u>s<u>t</u></p>\n", par);
 }
 
 void TestHtmlExporter::testSub() {
-    exp_->formatOptions().useFontSize(true);
-    c_->font_style_ = FONT_SUB;
-    ASSERT_CHAR_WRITE('1', "<sub>1");
-    c_->font_style_ = 0;
-    ASSERT_CHAR_WRITE('2', "<sub>1</sub>2");
+    CEDParagraph par;
+
+    parAddChar(par, 'a');
+    parAddChar(par, ' ');
+    CHECK_PAR("<p>a </p>\n", par);
+
+    parAddChar(par, 's', FONT_SUB);
+    CHECK_PAR("<p>a <sub>s</sub></p>\n", par);
+
+    parAddChar(par, 'u', FONT_SUB);
+    CHECK_PAR("<p>a <sub>su</sub></p>\n", par);
+
+    parAddChar(par, 'b');
+    CHECK_PAR("<p>a <sub>su</sub>b</p>\n", par);
 }
 
 void TestHtmlExporter::testSuper() {
-    exp_->formatOptions().useFontSize(true);
-    c_->font_style_ = FONT_SUPER;
-    ASSERT_CHAR_WRITE('1', "<sup>1");
-    c_->font_style_ = 0;
-    ASSERT_CHAR_WRITE('2', "<sup>1</sup>2");
+    CEDParagraph par;
+
+    parAddChar(par, 'a');
+    parAddChar(par, ' ');
+    CHECK_PAR("<p>a </p>\n", par);
+
+    parAddChar(par, 's', FONT_SUPER);
+    CHECK_PAR("<p>a <sup>s</sup></p>\n", par);
+
+    parAddChar(par, 'u', FONT_SUPER);
+    CHECK_PAR("<p>a <sup>su</sup></p>\n", par);
+
+    parAddChar(par, 'p');
+    CHECK_PAR("<p>a <sup>su</sup>p</p>\n", par);
 }
 
 void TestHtmlExporter::testMixed() {
-    exp_->formatOptions().useFontSize(true);
-    c_->font_style_ = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB;
-    ASSERT_CHAR_WRITE('1', "<i><u><sub>1");
-    c_->font_style_ = 0;
-    ASSERT_CHAR_WRITE_CLEAR('2', "<i><u><sub>1</sub></u></i>2");
+    CEDParagraph par;
 
-    c_->font_style_ = FONT_UNDERLINE | FONT_ITALIC | FONT_SUB | FONT_SUPER;
-    ASSERT_CHAR_WRITE('1', "<i><u><sub><sup>1");
-    c_->font_style_ = 0;
-    ASSERT_CHAR_WRITE('2', "<i><u><sub><sup>1</sup></sub></u></i>2");
-    c_->font_style_ = FONT_UNDERLINE;
-    ASSERT_CHAR_WRITE_CLEAR('3', "<i><u><sub><sup>1</sup></sub></u></i>2<u>3");
+    parAddChar(par, 'm');
+    CHECK_PAR("<p>m</p>\n", par);
 
-    {
-        exp_->previous_style_ = 0;
-        c_->font_style_ = FONT_BOLD | FONT_ITALIC;
-        ASSERT_CHAR_WRITE('1', "<b><i>1");
-        c_->font_style_ = FONT_SUB | FONT_ITALIC;
+    parAddChar(par, 'i', FONT_BOLD);
+    parAddChar(par, 'x', FONT_BOLD);
+    CHECK_PAR("<p>m<b>ix</b></p>\n", par);
 
-        // TODO uliss
-        //ASSERT_CHAR_WRITE('2', "<b><i>1</i></b><i><sub>2");
-        c_->font_style_ = FONT_UNDERLINE;
-        //ASSERT_CHAR_WRITE('3', "<i><b>1</b><sub>2</sub></i><u>3");
-    }
+    parAddChar(par, 'e', FONT_ITALIC);
+    parAddChar(par, 'd', FONT_ITALIC);
+    parAddChar(par, ' ');
+    CHECK_PAR("<p>m<b>ix</b><i>ed</i> </p>\n", par);
 
-}
+    parAddChar(par, 's', FONT_UNDERLINE);
+    parAddChar(par, 't', FONT_UNDERLINE);
+    CHECK_PAR("<p>m<b>ix</b><i>ed</i> <u>st</u></p>\n", par);
 
-void TestHtmlExporter::testFontStyleClose() {
-    std::stringstream buf;
-    exp_->writeFontStyleEnd(buf, FONT_ITALIC);
-    CHECK_BUFFER("</i>");
+    parAddChar(par, 'y', FONT_SUB);
+    parAddChar(par, 'l', FONT_SUB);
+    CHECK_PAR("<p>m<b>ix</b><i>ed</i> <u>st</u><sub>yl</sub></p>\n", par);
+
+    parAddChar(par, 'e', FONT_SUPER);
+    parAddChar(par, 's', FONT_SUPER);
+    CHECK_PAR("<p>m<b>ix</b><i>ed</i> <u>st</u><sub>yl</sub><sup>es</sup></p>\n", par);
+
+    par.clear();
+
+    parAddChar(par, 'm', FONT_BOLD);
+    CHECK_PAR("<p><b>m</b></p>\n", par);
+
+    parAddChar(par, 'i', FONT_BOLD | FONT_ITALIC);
+    CHECK_PAR("<p><b>m</b><b><i>i</i></b></p>\n", par);
+
+    parAddChar(par, 'x', FONT_ITALIC);
+    CHECK_PAR("<p><b>m</b><b><i>i</i></b><i>x</i></p>\n", par);
+
+    par.clear();
+    parAddChar(par, 'm', FONT_BOLD | FONT_ITALIC | FONT_UNDERLINE | FONT_SUB | FONT_SUPER);
+    CHECK_PAR("<p><b><i><u><sub><sup>m</sup></sub></u></i></b></p>\n", par);
+
+    par.clear();
+    parAddChar(par, 'm', FONT_BOLD | FONT_ITALIC | FONT_UNDERLINE | FONT_SUB);
+    CHECK_PAR("<p><b><i><u><sub>m</sub></u></i></b></p>\n", par);
+
+    par.clear();
+    parAddChar(par, 'm', FONT_BOLD | FONT_ITALIC | FONT_SUB);
+    CHECK_PAR("<p><b><i><sub>m</sub></i></b></p>\n", par);
+
+    par.clear();
+    parAddChar(par, 'm', FONT_ITALIC | FONT_SUB);
+    CHECK_PAR("<p><i><sub>m</sub></i></p>\n", par);
+
+    par.clear();
+    parAddChar(par, 'm', FONT_SUB);
+    CHECK_PAR("<p><sub>m</sub></p>\n", par);
+
 }
 
 void TestHtmlExporter::testExportPicture() {
     CEDPicture pict;
 
-    std::stringstream buf;
-    exp_->os_ = &buf;
-    // no page name
-    //    CPPUNIT_ASSERT_THROW(exp_->exportPicture(&pict), Exporter::Exception);
+#ifndef EXPORTER_TEST_IMAGE_DIR
+#define EXPORTER_TEST_IMAGE_DIR "./"
+#endif
 
-    //exp_->output_filename_ = "output.html";
-    //exp_->exportPicture(&pict);
+    pict.setImage(ImageLoaderFactory::instance().load(EXPORTER_TEST_IMAGE_DIR "test_in.bmp"));
 
-    //CPPUNIT_ASSERT_EQUAL(std::string("<img alt=\"\" src=\"output_files/image_0.bmp\"/>"), buf.str());
+    exp_->setOutputPictureDir("output");
+    exp_->exportPicture(pict);
+
+    CPPUNIT_ASSERT_EQUAL(std::string("<img alt=\"\" height=\"0\" src=\"output/image_0.png\" width=\"0\"/>\n"),
+            exp_->lineBuffer().str());
+}
+
+void TestHtmlExporter::testExportColumn() {
+    CEDColumn col;
+    CEDParagraph * par1 = new CEDParagraph;
+    CEDParagraph * par2 = new CEDParagraph;
+    col.addElement(par1);
+    col.addElement(par2);
+
+    parAddChar(*par1, 't', FONT_BOLD);
+    parAddChar(*par2, 'e', FONT_BOLD);
+
+    exp_->exportColumn(col);
+    CHECK_COL("<p><b>t</b></p>\n<p><b>e</b></p>\n", col);
+}
+
+void TestHtmlExporter::testWriteAlternatives() {
+    exp_->setShowAlternatives(true);
+    CEDParagraph par;
+
+    CEDChar * c = parAddChar(par, 'a');
+
+    CHECK_PAR("<p>a</p>\n", par);
+
+    c->addAlternative('b');
+    CHECK_PAR("<p><span title=\"Alternatives: b\" class=\"has_alternative\">a</span></p>\n", par);
+
+    c->setFontStyle(FONT_UNDERLINE);
+    CHECK_PAR("<p><u><span title=\"Alternatives: b\" class=\"has_alternative\">a</span></u></p>\n", par);
 }
 

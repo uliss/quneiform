@@ -87,6 +87,11 @@ class GenericExporter: public Exporter
         int numTables() const;
 
         /**
+         * Show recognition alternatives
+         */
+        void setShowAlternatives(bool value);
+
+        /**
          * Controls empty line export
          * @param value if true - empty lines skipped
          */
@@ -252,14 +257,12 @@ class GenericExporter: public Exporter
         std::string makePictureName(CEDPicture& picture);
 
         /**
-         * Resets font styles
-         */
-        void resetFontStyle(std::ostream& os);
-
-        /**
          * Writes character to output stream
          */
         virtual void writeCharacter(std::ostream& os, CEDChar& chr);
+
+        virtual void writeCharacterBegin(std::ostream& os, CEDChar& chr);
+        virtual void writeCharacterEnd(std::ostream& os, CEDChar& chr);
 
         /**
          * Called before writeColumn
@@ -272,21 +275,6 @@ class GenericExporter: public Exporter
          * @see writeColumn
          */
         virtual void writeColumnEnd(std::ostream& os, CEDColumn& col);
-
-        /**
-         * Writes font styles
-         */
-        void writeFontStyle(std::ostream& os, CEDChar& chr);
-
-        /**
-         * Writes style begin to output stream
-         */
-        virtual void writeFontStyleBegin(std::ostream& os, int style);
-
-        /**
-         * Writes font style end to output stream
-         */
-        virtual void writeFontStyleEnd(std::ostream& os, int style);
 
         /**
          * Called before writeFrame
@@ -365,7 +353,6 @@ class GenericExporter: public Exporter
         bool skip_empty_paragraphs_;
         bool skip_empty_lines_;
         bool show_alternatives_;
-        int previous_style_;
     protected:
         Iconv converter_;
 };

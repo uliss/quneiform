@@ -41,6 +41,7 @@ void SummaryExporter::writePageEnd(std::ostream& os, CEDPage&) {
     os << "    total sections:   " << numSections() << "\n";
     os << "    total columns:    " << numColumns() << "\n";
     os << "    total paragraphs: " << numParagraphs() << "\n";
+    os << "    total frames:     " << numFrames() << "\n";
     os << "    total lines:      " << numLines() << "\n";
     os << "    total chars:      " << numChars() << "\n";
     os << "    total pictures:   " << numPictures() << "\n";

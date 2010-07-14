@@ -59,7 +59,7 @@ GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
     Exporter(opts), page_(page), no_pictures_(false), os_(NULL), num_chars_(0), num_columns_(0),
             num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
             num_tables_(0), skip_empty_paragraphs_(false), skip_empty_lines_(false),
-            show_alternatives_(false), previous_style_(0) {
+            show_alternatives_(false) {
 
     if (isCharsetConversion())
         converter_.open(inputEncoding(), outputEncoding());
@@ -99,9 +99,9 @@ void GenericExporter::doExport(std::ostream& os) {
 
 void GenericExporter::exportChar(CEDChar& chr) {
     num_chars_++;
-    writeFontStyle(*os_, chr);
+    writeCharacterBegin(*os_, chr);
     writeCharacter(*os_, chr);
-    previous_style_ = chr.fontStyle();
+    writeCharacterEnd(*os_, chr);
 }
 
 void GenericExporter::exportColumn(CEDColumn& col) {
@@ -237,13 +237,6 @@ std::string GenericExporter::makePictureName(CEDPicture& picture) {
     return buf.str();
 }
 
-void GenericExporter::resetFontStyle(std::ostream& os) {
-    styleList off = styleEnd(previous_style_, 0);
-    for (styleList::iterator it = off.begin(), end = off.end(); it != end; ++it)
-        writeFontStyleEnd(os, *it);
-    previous_style_ = 0;
-}
-
 std::string GenericExporter::makePicturePathRelative(CEDPicture& picture) {
     return baseName(makeOutputPictureDir()) + "/" + makePictureName(picture);
 }
@@ -263,6 +256,10 @@ void GenericExporter::savePictureData(CEDPicture& picture, const std::string& pa
 
 void GenericExporter::savePictureData(CEDPicture& picture, std::ostream& os) {
     imageExporter()->save(*(picture.image()), os);
+}
+
+void GenericExporter::setShowAlternatives(bool value) {
+    show_alternatives_ = value;
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {
@@ -301,33 +298,20 @@ void GenericExporter::setOutputStream(std::ostream * os) {
     os_ = os;
 }
 
-void GenericExporter::writeCharacter(std::ostream& os, CEDChar& chr) {
+void GenericExporter::writeCharacter(std::ostream&, CEDChar&) {
+}
 
+void GenericExporter::writeCharacterBegin(std::ostream&, CEDChar&) {
+}
+
+void GenericExporter::writeCharacterEnd(std::ostream&, CEDChar&) {
 }
 
 void GenericExporter::writeColumnBegin(std::ostream& /*os*/, CEDColumn& /*col*/) {
-
 }
 
 void GenericExporter::writeColumnEnd(std::ostream& /*os*/, CEDColumn& /*col*/) {
 
-}
-
-void GenericExporter::writeFontStyle(std::ostream& os, CEDChar& c) {
-    styleList style_off = styleEnd(previous_style_, c.fontStyle());
-    styleList style_on = styleBegin(previous_style_, c.fontStyle());
-
-    for (styleList::iterator it = style_off.begin(), end = style_off.end(); it != end; ++it)
-        writeFontStyleEnd(os, *it);
-
-    for (styleList::iterator it = style_on.begin(), end = style_on.end(); it != end; ++it)
-        writeFontStyleBegin(os, *it);
-}
-
-void GenericExporter::writeFontStyleBegin(std::ostream&, int) {
-}
-
-void GenericExporter::writeFontStyleEnd(std::ostream&, int) {
 }
 
 void GenericExporter::writeFrameBegin(std::ostream& /*os*/, CEDFrame&) {

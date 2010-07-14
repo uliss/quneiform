@@ -93,24 +93,9 @@ class XmlExporter: public TextExporter
 
     protected:
         /**
-         * Returns name of font style tag by given style type
-         */
-        virtual std::string fontStyleTag(int style) const;
-
-        /**
          * Writes escaped character to line buffer
          */
         virtual void writeCharacter(std::ostream& os, CEDChar& chr);
-
-        /**
-         * Writes font style open tag
-         */
-        virtual void writeFontStyleBegin(std::ostream& os, int style);
-
-        /**
-         * Writes font style close tag
-         */
-        virtual void writeFontStyleEnd(std::ostream& os, int style);
 
         /**
          * Writes xml declaration: <?xml ... ?>
