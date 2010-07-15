@@ -73,7 +73,9 @@ CFCOMPAT_FUNC int _access(const char *filename, int mode);
 CFCOMPAT_FUNC long filelength(int fd);
 CFCOMPAT_FUNC long filelength(FILE * f);
 
-CFCOMPAT_FUNC void strlwr(char *foo);
+#ifndef __CYGWIN__
+CFCOMPAT_FUNC char * strlwr(char *foo);
+#endif
 
 CFCOMPAT_FUNC uint GetPrivateProfileString(const char * AppName, const char * KeyName,
         const char * Default, char* ReturnedString, size_t nSize, const char * lpFileName);

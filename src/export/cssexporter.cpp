@@ -19,8 +19,9 @@
 #include <sstream>
 #include <cstdio>
 #include <iomanip>
-#include "common/font.h"
 #include "cssexporter.h"
+#include "cfcompat.h"
+#include "common/font.h"
 #include "ced/cedchar.h"
 #include "ced/cedparagraph.h"
 

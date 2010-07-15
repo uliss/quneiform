@@ -69,6 +69,9 @@
 #elif __MINGW32__
 #include "endian.h"
 #include "byteswap.h"
+#elif __CYGWIN__
+#include "endian.h"
+#include "byteswap.h"
 #elif __linux__
 #include <endian.h>
 #include <byteswap.h>

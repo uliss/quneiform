@@ -210,12 +210,6 @@ int _access(const char *filename, int mode) {
     return stat(filename, &foo);
 }
 
-#ifndef __CYGWIN__
-void strlwr(char *foo) {
-    // FIXME: this is probably actually used somewhere.
-}
-#endif
-
 int wsprintf(char* lpOut, const char * lpFmt, ...) {
     va_list args;
     va_start(args, lpFmt);
