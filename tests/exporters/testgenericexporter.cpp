@@ -39,7 +39,7 @@ void TestGenericExporter::testDoExport() {
     FormatOptions opt;
     CEDPage * page = new CEDPage;
     GenericExporter * p = new GenericExporter(page, opt);
-    p->no_pictures_ = false;
+    p->skip_pictures_ = false;
 
     // test invalid stream
     std::ofstream f;
@@ -48,7 +48,7 @@ void TestGenericExporter::testDoExport() {
 
     // test standard output
     p->doExport(std::cout);
-    CPPUNIT_ASSERT_EQUAL(p->no_pictures_, false);
+    CPPUNIT_ASSERT_EQUAL(p->skip_pictures_, false);
     CPPUNIT_ASSERT(p->os_ == &std::cout);
     delete p;
     delete page;

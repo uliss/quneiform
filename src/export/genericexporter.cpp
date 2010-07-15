@@ -40,25 +40,10 @@
 namespace CIF
 {
 
-GenericExporter::styleList supported_fontstyles;
-namespace
-{
-bool initSupportedFontStyles() {
-    CIF::supported_fontstyles.push_back(FONT_BOLD);
-    CIF::supported_fontstyles.push_back(FONT_ITALIC);
-    CIF::supported_fontstyles.push_back(FONT_UNDERLINE);
-    CIF::supported_fontstyles.push_back(FONT_SUB);
-    CIF::supported_fontstyles.push_back(FONT_SUPER);
-    return true;
-}
-
-const bool init_supported_fontstyles = initSupportedFontStyles();
-}
-
 GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
-    Exporter(opts), page_(page), no_pictures_(false), os_(NULL), num_chars_(0), num_columns_(0),
-            num_frames_(0), num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0),
-            num_tables_(0), skip_empty_paragraphs_(false), skip_empty_lines_(false),
+    Exporter(opts), page_(page), os_(NULL), num_chars_(0), num_columns_(0), num_frames_(0),
+            num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0), num_tables_(0),
+            skip_pictures_(false), skip_empty_paragraphs_(false), skip_empty_lines_(false),
             show_alternatives_(false) {
 
     if (isCharsetConversion())
@@ -271,7 +256,7 @@ void GenericExporter::setSkipEmptyParagraphs(bool value) {
 }
 
 void GenericExporter::setSkipPictures(bool value) {
-    no_pictures_ = value;
+    skip_pictures_ = value;
 }
 
 bool GenericExporter::skipEmptyLines() const {
@@ -291,7 +276,7 @@ bool GenericExporter::skipParagraph(CEDParagraph& par) const {
 }
 
 bool GenericExporter::skipPictures() const {
-    return no_pictures_;
+    return skip_pictures_;
 }
 
 void GenericExporter::setOutputStream(std::ostream * os) {
@@ -355,45 +340,6 @@ void GenericExporter::writeSectionBegin(std::ostream&, CEDSection&) {
 }
 
 void GenericExporter::writeSectionEnd(std::ostream&, CEDSection&) {
-
-}
-
-GenericExporter::styleList GenericExporter::styleEnd(int style_prev, int style_current) {
-    styleList result;
-
-    if (!style_prev)
-        return result;
-
-    // find font style changes
-    for (styleList::reverse_iterator it = supported_fontstyles.rbegin(), end =
-            supported_fontstyles.rend(); it != end; ++it) {
-        // if flag exists in previous, but missing in current
-        if ((style_prev & (*it)) && !(style_current & (*it))) {
-            result.push_back(*it);
-        }
-    }
-
-    return result;
-}
-
-GenericExporter::styleList GenericExporter::styleBegin(int style_prev, int style_current) {
-    styleList result;
-
-    // find font style changes
-    for (styleList::iterator it = supported_fontstyles.begin(), end = supported_fontstyles.end(); it
-            != end; ++it) {
-        // no previous char and flag set in current
-        if (!style_prev && (style_current & (*it))) {
-            result.push_back(*it);
-            continue;
-        }
-        // previous not contains flag but in current flag is set
-        else if (!(style_prev & (*it)) && (style_current & (*it))) {
-            result.push_back(*it);
-        }
-    }
-
-    return result;
 
 }
 

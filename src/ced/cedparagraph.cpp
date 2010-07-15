@@ -29,7 +29,6 @@ CEDParagraph::CEDParagraph() :
     BlockElement(), align_(ALIGN_LEFT), line_space_(-1), indent_(0), padding_left_(0),
             padding_right_(0), margin_top_(0), margin_bottom_(0), user_number_(0) {
     border = 0;
-    brdrBtw = 0;
 }
 
 align_t CEDParagraph::align() const {

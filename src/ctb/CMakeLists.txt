@@ -4,7 +4,6 @@ ctb_cnvm.cpp
 ctb_gray.cpp
 ctb_oper.cpp
 ctb_pack.cpp
-ctb_prot.cpp
 ctb_recr.cpp
 ctb_tool.cpp
 )

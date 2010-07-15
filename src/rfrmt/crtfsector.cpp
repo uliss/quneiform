@@ -97,13 +97,11 @@ Bool CRtfSector::Write() {
     interval.cx = 0;
     interval.cy = SectorInfo.InterSectorDist;
     CEDParagraph * par = CED_CreateParagraph(SectorInfo.hEDSector, SectorInfo.hColumn, ALIGN_LEFT,
-            indent, SectorInfo.userNum, -1, interval, playout, Color::null(), Color::null(), -1,
-            -1, FALSE);
+            indent, SectorInfo.userNum, -1, interval, playout, Color::null(), Color::null(), -1);
 
     if (m_bFlagLine == TRUE) {
         par->setBorderTop(ED_BRDR_SINGLE);
         par->setBorderTopWidth(20);
-        par->brdrBtw = TRUE;
     }
 
     // FIXME uliss: using hardcoded font size

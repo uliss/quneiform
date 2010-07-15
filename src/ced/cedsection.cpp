@@ -82,7 +82,7 @@ CEDFrame * CEDSection::createFrame(CEDColumn * col, const Rect& rect, char posit
 
 CEDParagraph * CEDSection::CreateParagraph(BlockElement * cont, align_t align, const Rect& indent,
         int UserNum, int FlagBorder, EDSIZE interval, const Rect& layout, const Color& color,
-        const Color& shading, int spaceBetweenLines, char spcBtwLnsMult, char keep) {
+        const Color& shading, int spaceBetweenLines) {
     CEDParagraph * para = new CEDParagraph;
     cont->addElement(para);
     para->setAlign(align);
@@ -96,9 +96,7 @@ CEDParagraph * CEDSection::CreateParagraph(BlockElement * cont, align_t align, c
     para->setUserNumber(UserNum);
     para->setMarginBottom(interval.cy);
     para->setMarginTop(interval.cx);
-    para->spcBtwLnsMult = spcBtwLnsMult;
     para->border = FlagBorder;
-    para->keep = keep;
     return para;
 }
 

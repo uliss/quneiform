@@ -26,9 +26,12 @@
 #include "blockelement.h"
 #include "common/color.h"
 #include "common/align.h"
+#include "common/serialize.h"
 
 namespace CIF
 {
+
+class CEDLine;
 
 class CLA_EXPO CEDParagraph: public BlockElement
 {
@@ -37,8 +40,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
 
         int border; //  frame around abzattsa
         char spcBtwLnsMult;
-        char keep;
-        int brdrBtw;
 
         /**
          * Adds line to the end of paragraph
@@ -126,6 +127,24 @@ class CLA_EXPO CEDParagraph: public BlockElement
          * Sets user number at the stage of fragmentation
          */
         void setUserNumber(int value);
+    private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar.template register_type<CEDLine>();
+            ar & boost::serialization::base_object<BlockElement>(*this);
+            ar & align_;
+            ar & line_space_;
+            ar & indent_;
+            ar & padding_left_;
+            ar & padding_right_;
+            ar & margin_top_;
+            ar & margin_bottom_;
+            ar & user_number_;
+            ar & border;
+        }
+#endif
     private:
         align_t align_;
         int line_space_;

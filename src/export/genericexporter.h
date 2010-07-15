@@ -43,6 +43,7 @@ class GenericExporter: public Exporter
         /**
          * Returns true if recognized alternatives of chars should be exported
          * (depends from concrete exporter)
+         * @see setShowAlternatives()
          */
         bool isShowAlternatives() const;
 
@@ -88,6 +89,7 @@ class GenericExporter: public Exporter
 
         /**
          * Show recognition alternatives
+         * @see isShowAlternatives()
          */
         void setShowAlternatives(bool value);
 
@@ -120,7 +122,7 @@ class GenericExporter: public Exporter
         bool skipEmptyParagraphs() const;
 
         /**
-         * Checks if line skipped
+         * Checks if empty lines skipped
          */
         bool skipLine(CEDLine& line) const;
 
@@ -133,8 +135,6 @@ class GenericExporter: public Exporter
          * Checks if pictures skipped
          */
         bool skipPictures() const;
-
-        typedef std::vector<int> styleList;
     protected:
         /**
          * Returns number of characters in given paragraph
@@ -168,6 +168,7 @@ class GenericExporter: public Exporter
 
         /**
          * Returns pointer to default output stream
+         * @see setOutputStream()
          */
         std::ostream * outputStream();
 
@@ -189,6 +190,7 @@ class GenericExporter: public Exporter
 
         /**
          * Sets pointer to default output stream
+         * @see outputStream()
          */
         void setOutputStream(std::ostream * os);
     public:
@@ -199,9 +201,13 @@ class GenericExporter: public Exporter
          * calls column write functions:
          *   - writeColumnBegin
          *   - writeColumnEnd
+         *  @see writeColumnBegin(), writeColumnEnd()
          */
         void exportColumn(CEDColumn& col);
 
+        /**
+         * Exports frame
+         */
         void exportFrame(CEDFrame& frame);
 
         /**
@@ -265,24 +271,26 @@ class GenericExporter: public Exporter
         virtual void writeCharacterEnd(std::ostream& os, CEDChar& chr);
 
         /**
-         * Called before writeColumn
-         * @see writeColumn
+         * Reimplement this function if you want some actions before column export
+         * @see exportColumn, writeColumnEnd
          */
         virtual void writeColumnBegin(std::ostream& os, CEDColumn& col);
 
         /**
-         * Called after writeColumn
-         * @see writeColumn
+         * Reimplement this function if you want some actions after column export
+         * @see exportColumn, writeColumnBegin
          */
         virtual void writeColumnEnd(std::ostream& os, CEDColumn& col);
 
         /**
-         * Called before writeFrame
+         * Reimplement this function if you want some actions before frame export
+         * @see exportFrame, writeFrameEnd
          */
         virtual void writeFrameBegin(std::ostream& os, CEDFrame& frame);
 
         /**
-         * Called after writeFrame
+         * Reimplement this function if you want some actions after frame export
+         * @see exportFrame, writeFrameBegin
          */
         virtual void writeFrameEnd(std::ostream& os, CEDFrame& frame);
 
@@ -334,13 +342,8 @@ class GenericExporter: public Exporter
          * Called after writeSection
          */
         virtual void writeSectionEnd(std::ostream& os, CEDSection& sect);
-
-        static styleList styleEnd(int style_prev, int style_current);
-        static styleList styleBegin(int style_prev, int style_current);
     private:
         CEDPage * page_;
-        bool first_paragraph_;
-        bool no_pictures_;
         std::ostream * os_;
         int num_chars_;
         int num_columns_;
@@ -350,6 +353,7 @@ class GenericExporter: public Exporter
         int num_pictures_;
         int num_sections_;
         int num_tables_;
+        bool skip_pictures_;
         bool skip_empty_paragraphs_;
         bool skip_empty_lines_;
         bool show_alternatives_;

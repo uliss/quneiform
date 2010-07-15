@@ -114,18 +114,6 @@ CTB_FUNC void CTB_align41(uchar *sbin, int32_t w, int32_t h);
 //*************** Gray images    ********* *********************************
 CTB_FUNC uchar CTB_BestLevelInGray(uchar *image, int wx, int wy);
 CTB_FUNC Bool32 CTB_GrayBound(RecRasterEx *PaintRaster, int GLevel);
-//*************** access to LEMAN protocol *********************************
-CTB_FUNC Bool32 CTB_prot_open(const char *name);
-CTB_FUNC Bool32 CTB_prot_read(unsigned char *PROT_raster, int *PROT_w,
-                              int *PROT_h, unsigned char *PROT_let, unsigned char *PROT_data);
-CTB_FUNC void CTB_prot_close(void);
-CTB_FUNC Bool32 CTB_prot_write(const char *file_name, unsigned char *raster,
-                               int Width, int Height, unsigned char code, int align,
-                               unsigned char *PROT_data);
-CTB_FUNC Bool32 CTB_prot_gray_read(unsigned char *PROT_raster,
-                                   unsigned char *PROT_data);
-CTB_FUNC Bool32 CTB_prot_gray_write(const char *file_name,
-                                    unsigned char *PROT_raster, unsigned char let, int w, int h, int align);
 //**************** CT FormReader data I/O **********************************
 CTB_FUNC int32_t CTB_AddRecRaster(const char *fname, RecRaster *r, uchar let);
 CTB_FUNC int32_t CTB_AddRecRaster_data(const char *fname, RecRaster *r, uchar *data);
