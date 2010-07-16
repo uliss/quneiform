@@ -18,8 +18,12 @@
 
 #include <cstdio>
 #include "odfstyleexporter.h"
+#include "rout_own.h"
 #include "xmltag.h"
+// ced
+#include "ced/cedchar.h"
 #include "ced/cedparagraph.h"
+// common
 #include "common/helper.h"
 #include "common/tostring.h"
 
@@ -39,6 +43,34 @@ inline std::string color2odf(const Color& c) {
 OdfStyleExporter::OdfStyleExporter(CEDPage * page, const FormatOptions& opts) :
     StyleExporter(page, opts) {
     setSkipEmptyParagraphs(true);
+}
+
+OdfStyleExporter::StylePtr OdfStyleExporter::makeOdfStyle(const CEDChar& chr,
+        const std::string& name) {
+    StylePtr style(new XmlTag("style:style"));
+    style->setAttribute("style:name", name);
+    style->setAttribute("style:family", "text");
+    style->setAttribute("style:parent-style-name", "Standard");
+
+    XmlTag * text_prop = new XmlTag("style:text-properties");
+
+    if (!chr.color().isNull())
+        text_prop->setAttribute("fo:color", color2odf(chr.color()));
+
+    if (!chr.color().isNull())
+        text_prop->setAttribute("fo:background-color:", color2odf(chr.backgroundColor()));
+
+    if (chr.fontStyle() & FONT_ITALIC)
+        text_prop->setAttribute("fo:font-style", "italic");
+
+    if (chr.fontStyle() & FONT_BOLD) {
+        text_prop->setAttribute("fo:font-weight", "bold");
+        text_prop->setAttribute("style:font-weight-asian", "bold");
+        text_prop->setAttribute("style:font-weight-complex", "bold");
+    }
+
+    style->addChild(text_prop);
+    return style;
 }
 
 OdfStyleExporter::StylePtr OdfStyleExporter::makeOdfStyle(const CEDParagraph& par,
@@ -84,6 +116,12 @@ OdfStyleExporter::StylePtr OdfStyleExporter::makeOdfStyle(const CEDParagraph& pa
     style->addChild(par_prop);
     style->addChild(text_prop);
     return style;
+}
+
+std::string OdfStyleExporter::makeStyle(const CEDChar& chr) {
+    std::string chr_style = StyleExporter::makeStyle(chr);
+    styles_[chr_style] = makeOdfStyle(chr, chr_style);
+    return chr_style;
 }
 
 std::string OdfStyleExporter::makeStyle(const CEDParagraph& par) {

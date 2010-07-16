@@ -41,7 +41,7 @@ class OdfExporter: public XmlExporter
         void exportTo(const std::string& fname);
         void exportTo(std::ostream& os);
     protected:
-        std::string fontStyleTag(int style) const;
+        void writeCharacterBegin(std::ostream& os, CEDChar& chr);
         void writeFontStyleBegin(std::ostream& os, int style);
         void writeFontStyleEnd(std::ostream& os, int style);
         void writeLineBreak(std::ostream& os, CEDLine& line);
@@ -78,6 +78,8 @@ class OdfExporter: public XmlExporter
         BufList buffers_;
         ManifestList files_;
         OdfStyleExporter * style_exporter_;
+        size_t prev_char_style_hash_;
+        bool style_span_opened_;
 };
 
 }

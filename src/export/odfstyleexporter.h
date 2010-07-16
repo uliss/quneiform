@@ -32,11 +32,13 @@ class OdfStyleExporter: public StyleExporter
 {
     public:
         OdfStyleExporter(CEDPage * page, const FormatOptions& opts);
+        std::string makeStyle(const CEDChar& chr);
         std::string makeStyle(const CEDParagraph& par);
         void writePageEnd(std::ostream& os, CEDPage& page);
     private:
         typedef boost::shared_ptr<XmlTag> StylePtr;
         StylePtr makeOdfStyle(const CEDParagraph& par, const std::string& name);
+        StylePtr makeOdfStyle(const CEDChar& chr, const std::string& name);
     private:
         typedef std::map<std::string, StylePtr> StyleMap;
         StyleMap styles_;

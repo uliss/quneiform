@@ -43,10 +43,7 @@
 namespace CIF
 {
 
-const std::string ODF_STYLE_JUSTIFY = "P1";
-const std::string ODF_STYLE_BOLD = "BOLD";
-const std::string ODF_STYLE_ITALIC = "ITALIC";
-const std::string ODF_PICT_DIR = "Pictures/";
+static const std::string ODF_PICT_DIR = "Pictures/";
 
 std::string datetime(const std::string& format = "%Y-%m-%dT%H:%M:%S") {
     time_t rawtime;
@@ -61,7 +58,8 @@ std::string datetime(const std::string& format = "%Y-%m-%dT%H:%M:%S") {
 }
 
 OdfExporter::OdfExporter(CEDPage * page, const FormatOptions& opts) :
-    XmlExporter(page, opts), zip_(NULL), style_exporter_(new OdfStyleExporter(page, opts)) {
+    XmlExporter(page, opts), zip_(NULL), style_exporter_(new OdfStyleExporter(page, opts)),
+            prev_char_style_hash_(0), style_span_opened_(false) {
     ImageExporterPtr exp = ImageExporterFactory::instance().make();
     setImageExporter(exp);
     setSkipPictures(false);
@@ -78,14 +76,6 @@ void OdfExporter::addOdfAutomaticStyles(std::ostream& os) {
 
     style_exporter_->exportTo(os);
     // style_exporter_->exportTo(std::cerr);
-
-    os << "<style:style style:name=\"" << ODF_STYLE_BOLD << "\" style:family=\"text\">\n"
-        "<style:text-properties "
-        "fo:font-weight=\"bold\" "
-        "style:font-weight-asian=\"bold\" "
-        "style:font-weight-complex=\"bold\"/>\n"
-        "</style:style>\n";
-
     automatic_styles.writeEndNL(os);
 }
 
@@ -195,17 +185,6 @@ void OdfExporter::exportTo(std::ostream& os) {
     unlink(tmpfile.c_str());
 }
 
-std::string OdfExporter::fontStyleTag(int style) const {
-    switch (style) {
-    case FONT_ITALIC:
-        return ODF_STYLE_ITALIC;
-    case FONT_BOLD:
-        return ODF_STYLE_BOLD;
-    default:
-        return "";
-    }
-}
-
 void OdfExporter::makePicturesDir() {
     zip_add_dir(zip_, ODF_PICT_DIR.c_str());
     addOdfManifestFile(ODF_PICT_DIR, "");
@@ -258,6 +237,26 @@ void OdfExporter::setCommonOdfNamespaces(Tag& tag) const {
     tag["xmlns:svg"] = "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0";
     tag["xmlns:fo"] = "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0";
     tag["office:version"] = "1.2";
+}
+
+void OdfExporter::writeCharacterBegin(std::ostream& os, CEDChar& chr) {
+    size_t chr_hash = style_exporter_->hash(chr);
+
+    if (style_exporter_->hasHash(chr_hash)) {
+        if (prev_char_style_hash_ != chr_hash) {
+            if (style_span_opened_) {
+                writeCloseTag(os, "text:span");
+                style_span_opened_ = false;
+            }
+
+            Attributes attrs;
+            attrs["text:style-name"] = style_exporter_->styleByHash(chr_hash);
+            writeStartTag(os, "text:span", attrs);
+            style_span_opened_ = true;
+
+            prev_char_style_hash_ = chr_hash;
+        }
+    }
 }
 
 void OdfExporter::writeFontStyleBegin(std::ostream& os, int style) {
@@ -334,12 +333,17 @@ void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
 
     p.writeBegin(os);
     XmlExporter::writeParagraphBegin(os, par);
+
+    prev_char_style_hash_ = 0;
 }
 
 void OdfExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
-//    resetFontStyle(os);
+    if (style_span_opened_)
+        writeCloseTag(os, "text:span");
+    style_span_opened_ = false;
+
     writeLineBufferRaw(os);
-    writeCloseTag(os, "text:p", "");
+    writeCloseTag(os, "text:p");
 }
 
 void OdfExporter::writePicture(std::ostream& os, CEDPicture& picture) {
