@@ -60,8 +60,11 @@ OdfStyleExporter::StylePtr OdfStyleExporter::makeOdfStyle(const CEDChar& chr,
     if (!chr.color().isNull())
         text_prop->setAttribute("fo:background-color:", color2odf(chr.backgroundColor()));
 
-    if (chr.fontStyle() & FONT_ITALIC)
+    if (chr.fontStyle() & FONT_ITALIC) {
         text_prop->setAttribute("fo:font-style", "italic");
+        text_prop->setAttribute("style:font-style-asian", "italic");
+        text_prop->setAttribute("style:font-style-complex", "italic");
+    }
 
     if (chr.fontStyle() & FONT_BOLD) {
         text_prop->setAttribute("fo:font-weight", "bold");

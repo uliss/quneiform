@@ -245,13 +245,13 @@ void OdfExporter::writeCharacterBegin(std::ostream& os, CEDChar& chr) {
     if (style_exporter_->hasHash(chr_hash)) {
         if (prev_char_style_hash_ != chr_hash) {
             if (style_span_opened_) {
-                writeCloseTag(os, "text:span");
+                writeCloseTag(lineBuffer(), "text:span");
                 style_span_opened_ = false;
             }
 
             Attributes attrs;
             attrs["text:style-name"] = style_exporter_->styleByHash(chr_hash);
-            writeStartTag(os, "text:span", attrs);
+            writeStartTag(lineBuffer(), "text:span", attrs);
             style_span_opened_ = true;
 
             prev_char_style_hash_ = chr_hash;
@@ -335,15 +335,16 @@ void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
     XmlExporter::writeParagraphBegin(os, par);
 
     prev_char_style_hash_ = 0;
+    style_span_opened_ = false;
 }
 
 void OdfExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
     if (style_span_opened_)
-        writeCloseTag(os, "text:span");
+        writeCloseTag(lineBuffer(), "text:span");
     style_span_opened_ = false;
 
     writeLineBufferRaw(os);
-    writeCloseTag(os, "text:p");
+    writeCloseTag(os, "text:p", "\n");
 }
 
 void OdfExporter::writePicture(std::ostream& os, CEDPicture& picture) {
