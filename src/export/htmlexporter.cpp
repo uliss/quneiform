@@ -32,8 +32,7 @@
 namespace CIF
 {
 
-const std::string HTML_ALTERNATIVE_STYLE_CLASS(
-        "has_alternative");
+const std::string HTML_ALTERNATIVE_STYLE_CLASS("has_alternative");
 
 const std::string HTML_DOCTYPE("<!DOCTYPE html PUBLIC "
     "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
@@ -120,6 +119,14 @@ void HtmlExporter::writeFontStyleEnd(int style) {
 
     if (formatOptions().isBoldUsed() && (style & FONT_BOLD))
         lineBuffer() << "</b>";
+}
+
+void HtmlExporter::writeFrameBegin(std::ostream& os, CEDFrame& frame) {
+    os << "<div class=\"frame\">";
+}
+
+void HtmlExporter::writeFrameEnd(std::ostream& os, CEDFrame& frame) {
+    os << "</div>\n";
 }
 
 void HtmlExporter::writeLineBreak(std::ostream& os) {
@@ -210,8 +217,8 @@ void HtmlExporter::writePicture(std::ostream&, CEDPicture& picture) {
 
 void HtmlExporter::writeSectionBegin(std::ostream& os, CEDSection&) {
     Attributes attrs;
-    attrs["id"] = "section#" + toString(numSections());
-    writeStartTag(os, "div", attrs);
+    attrs["id"] = "section_" + toString(numSections());
+    writeStartTag(os, "div", attrs, "\n");
 }
 
 void HtmlExporter::writeSectionEnd(std::ostream& os, CEDSection&) {

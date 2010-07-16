@@ -118,6 +118,7 @@ void Formatter::setInnerOptions() const {
     else
         RfrmtOptions::setFlag(USE_NONE);
 
+//    RfrmtOptions::setFlag(USE_FRAME);
 }
 
 void Formatter::setupPage() {

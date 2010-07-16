@@ -361,6 +361,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
                         CEDFrame::VPOS_PARAGRAPH);
                 frame->setBoundingRect(EdFragmRect);
                 SectorInfo->hColumn->addElement(frame);
+                SectorInfo->hObject = frame;
             } else {
                 Rect EdFragmRect;
                 EdFragmRect.setLeft(Lr.x() - SectorInfo->Offset.x());
@@ -373,6 +374,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
                 frame->dxfrtextx = 0;
                 frame->dxfrtexty = 0;
                 SectorInfo->hColumn->addElement(frame);
+                SectorInfo->hObject = frame;
             }
         }
 

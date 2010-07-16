@@ -51,6 +51,16 @@ class HtmlExporter: public XmlExporter
         void writeFontStyleEnd(int style);
 
         /**
+         * Writes open frame tag
+         */
+        virtual void writeFrameBegin(std::ostream& os, CEDFrame& frame);
+
+        /**
+         * Writes close frame tag
+         */
+        virtual void writeFrameEnd(std::ostream& os, CEDFrame& frame);
+
+        /**
          * Writes <br/> tag if needed
          */
         virtual void writeLineBreak(std::ostream& os);
