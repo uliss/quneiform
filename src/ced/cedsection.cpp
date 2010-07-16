@@ -58,12 +58,6 @@ size_t CEDSection::columnCount() const {
     return elementCount();
 }
 
-CEDColumn * CEDSection::createColumn() {
-    CEDColumn * col = new CEDColumn;
-    addElement(col);
-    return col;
-}
-
 void CEDSection::exportElement(CEDExporter& exp) {
     exp.exportSection(*this);
 }

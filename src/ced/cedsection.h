@@ -49,8 +49,6 @@ class CLA_EXPO CEDSection: public BlockElement
          */
         size_t columnCount() const;
 
-        CEDColumn * createColumn();
-
         CEDFrame * createFrame(CEDColumn * col, const Rect& rect, char position = -1,
                 int borderSpace = -1, int dxfrtextx = -1, int dxfrtexty = -1);
 

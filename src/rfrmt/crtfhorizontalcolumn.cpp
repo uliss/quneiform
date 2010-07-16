@@ -535,10 +535,13 @@ void CRtfHorizontalColumn::writeTerminalColumns(VectorWord* arRightBoundTerminal
                 Right = MAX(Right, vcol->m_rectReal.right);
             }
 
-            if (*VTerminalColumnNumber == 1)
+            if (*VTerminalColumnNumber == 1) {
                 SectorInfo->hColumn = SectorInfo->hFirstColumn;
-            else
-                SectorInfo->hColumn = SectorInfo->hEDSector->createColumn();
+            } else {
+                CEDColumn * col = new CEDColumn;
+                SectorInfo->hEDSector->addColumn(col);
+                SectorInfo->hColumn = col;
+            }
 
             SectorInfo->hObject = SectorInfo->hColumn;
 
@@ -772,10 +775,13 @@ void CRtfHorizontalColumn::writeTerminalColumnsOnly(VectorWord* arRightBoundTerm
         }
     }
 
-    if (*VTerminalColumnNumber == 1)
+    if (*VTerminalColumnNumber == 1) {
         sector->hColumn = sector->hFirstColumn;
-    else
-        sector->hColumn = sector->hEDSector->createColumn();
+    }
+    else {
+        sector->hColumn = new CEDColumn;
+        sector->hEDSector->addColumn(sector->hColumn);
+    }
 
     sector->hObject = sector->hColumn;
 
