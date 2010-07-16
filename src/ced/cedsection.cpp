@@ -62,18 +62,6 @@ void CEDSection::exportElement(CEDExporter& exp) {
     exp.exportSection(*this);
 }
 
-CEDFrame * CEDSection::createFrame(CEDColumn * col, const Rect& rect, char position,
-        int borderSpace, int dxfrtextx, int dxfrtexty) {
-    CEDFrame * frame = new CEDFrame;
-    col->addElement(frame);
-    frame->setBoundingRect(rect);
-    frame->setPosition(position);
-    frame->setBorderSpace(borderSpace);
-    frame->dxfrtextx = dxfrtextx;
-    frame->dxfrtexty = dxfrtexty;
-    return frame;
-}
-
 CEDParagraph * CEDSection::CreateParagraph(BlockElement * cont, align_t align, const Rect& indent,
         int UserNum, int FlagBorder, EDSIZE interval, const Rect& layout, const Color& color,
         const Color& shading, int spaceBetweenLines) {

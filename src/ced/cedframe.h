@@ -28,7 +28,28 @@ namespace CIF
 class CLA_EXPO CEDFrame: public BlockElement
 {
     public:
-        CEDFrame(BlockElement * parent = NULL);
+        enum vposition_t
+        {
+            /** y position relating top page border */
+            VPOS_PAGE = 0,
+            /** y position relating top page margin */
+            VPOS_MARGIN = 1,
+            /** y position relating */
+            VPOS_PARAGRAPH = 2
+        };
+
+        enum hposition_t
+        {
+            /** x position relating left page border */
+            HPOS_PAGE = (0 << 4),
+            /** x position relating left page margin */
+            HPOS_MARGIN = (1 << 4),
+            /** x position relating column left border */
+            HPOS_COLUMN = (2 << 4)
+        };
+
+        CEDFrame(BlockElement * parent = NULL, hposition_t hpos = HPOS_COLUMN, vposition_t vpos =
+                VPOS_PARAGRAPH);
 
         void exportElement(CEDExporter& exp);
 
@@ -36,10 +57,20 @@ class CLA_EXPO CEDFrame: public BlockElement
         int dxfrtexty;
 
         void setBorderSpace(int borderSpace);
-        void setPosition(char pos);
+
+        /**
+         * Sets horizontal frame snap position
+         */
+        void setHPosition(hposition_t pos);
+
+        /**
+         * Sets vertical frame snap position
+         */
+        void setVPosition(vposition_t pos);
     private:
         int border_space_;
-        char position_;
+        hposition_t hpos_;
+        vposition_t vpos_;
 };
 
 }

@@ -356,16 +356,23 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
                 EdFragmRect.setTop(MAX(0, SectorInfo->OffsetFromColumn.y()));
                 EdFragmRect.setWidth(MAX(0, Wh.x() - FrameOffset));
                 EdFragmRect.setHeight(Wh.y());
-                SectorInfo->hObject = SectorInfo->hEDSector->createFrame(SectorInfo->hColumn,
-                        EdFragmRect, 0x22, -1, -1, -1);
+
+                CEDFrame * frame = new CEDFrame(NULL, CEDFrame::HPOS_COLUMN,
+                        CEDFrame::VPOS_PARAGRAPH);
+                frame->setBoundingRect(EdFragmRect);
+                SectorInfo->hColumn->addElement(frame);
             } else {
                 Rect EdFragmRect;
                 EdFragmRect.setLeft(Lr.x() - SectorInfo->Offset.x());
                 EdFragmRect.setTop(Lr.y() - SectorInfo->Offset.y());
                 EdFragmRect.setWidth(MAX(0, Wh.x() - FrameOffset));
                 EdFragmRect.setHeight(Wh.y());
-                SectorInfo->hObject = SectorInfo->hEDSector->createFrame(SectorInfo->hColumn,
-                        EdFragmRect, 0x22, -1, 0, 0);
+                CEDFrame * frame = new CEDFrame(NULL, CEDFrame::HPOS_COLUMN,
+                        CEDFrame::VPOS_PARAGRAPH);
+                frame->setBoundingRect(EdFragmRect);
+                frame->dxfrtextx = 0;
+                frame->dxfrtexty = 0;
+                SectorInfo->hColumn->addElement(frame);
             }
         }
 

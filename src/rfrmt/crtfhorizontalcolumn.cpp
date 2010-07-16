@@ -777,8 +777,7 @@ void CRtfHorizontalColumn::writeTerminalColumnsOnly(VectorWord* arRightBoundTerm
 
     if (*VTerminalColumnNumber == 1) {
         sector->hColumn = sector->hFirstColumn;
-    }
-    else {
+    } else {
         sector->hColumn = new CEDColumn;
         sector->hEDSector->addColumn(sector->hColumn);
     }
@@ -846,8 +845,12 @@ void CRtfHorizontalColumn::writeFramesInTerminalColumn(SectorInfo * SectorInfo) 
 
             Rect EdFragmRect(Point(x, y), w, h);
 
-            SectorInfo->hObject = SectorInfo->hEDSector->createFrame(SectorInfo->hColumn,
-                    EdFragmRect, 0x22, -1, 86, 43);
+            CEDFrame * frame = new CEDFrame(NULL, CEDFrame::HPOS_COLUMN, CEDFrame::VPOS_PARAGRAPH);
+            frame->setBoundingRect(EdFragmRect);
+            // uliss TODO why hardcoded values?
+            frame->dxfrtextx = 86;
+            frame->dxfrtexty = 43;
+            SectorInfo->hColumn->addElement(frame);
 
             SectorInfo->FlagOverLayed = FALSE;
             vcol->write(SectorInfo, FOT_FRAME);

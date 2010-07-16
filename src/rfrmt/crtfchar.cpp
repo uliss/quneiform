@@ -30,6 +30,7 @@
 // ced
 #include "ced/ced.h"
 #include "ced/cedchar.h"
+#include "ced/cedcolumn.h"
 #include "ced/cedframe.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
@@ -233,7 +234,10 @@ CEDParagraph * CRtfChar::insertCedDropCap(SectorInfo * sector, int font_name, in
         int font_style, bool negative) const {
     Rect slayout;
     Rect playout;
-    CEDFrame * frame = sector->hEDSector->createFrame(sector->hColumn, playout, 0x22);
+
+    CEDFrame * frame = new CEDFrame(NULL, CEDFrame::HPOS_COLUMN, CEDFrame::VPOS_PAGE);
+    sector->hColumn->addElement(frame);
+
     EDSIZE interval = { 0, 0 };
     Color shading = negative ? Color(0, 0, 0) : Color::null();
 

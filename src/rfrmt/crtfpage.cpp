@@ -704,9 +704,12 @@ void CRtfPage::writeUsingFrames() {
         } else {
             Rect EdFragmRect(Point(frag->m_rect.left, frag->m_rect.top), Point(frag->m_rect.right,
                     frag->m_rect.bottom));
-            // TODO uliss: hardcoded values
-            SectorInfo->hObject = SectorInfo->hEDSector->createFrame(SectorInfo->hColumn,
-                    EdFragmRect, 0x22, -1, 86, 43);
+            // TODO uliss: why hardcoded values?
+            CEDFrame * frame = new CEDFrame(NULL, CEDFrame::HPOS_COLUMN, CEDFrame::VPOS_PARAGRAPH);
+            frame->setBoundingRect(EdFragmRect);
+            frame->dxfrtextx = 86;
+            frame->dxfrtexty = 43;
+            SectorInfo->hColumn->addElement(frame);
 
             SectorInfo->FlagOverLayed = FALSE;
             frag->setParent(this);

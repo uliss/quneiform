@@ -22,8 +22,8 @@
 namespace CIF
 {
 
-CEDFrame::CEDFrame(BlockElement * parent) :
-    BlockElement(parent), dxfrtextx(-1), dxfrtexty(-1), border_space_(-1), position_(-1) {
+CEDFrame::CEDFrame(BlockElement * parent, hposition_t hpos, vposition_t vpos) :
+    BlockElement(parent), dxfrtextx(-1), dxfrtexty(-1), border_space_(-1), hpos_(hpos), vpos_(vpos) {
 }
 
 void CEDFrame::exportElement(CEDExporter& exp) {
@@ -34,8 +34,12 @@ void CEDFrame::setBorderSpace(int borderSpace) {
     border_space_ = borderSpace;
 }
 
-void CEDFrame::setPosition(char pos) {
-    position_ = pos;
+void CEDFrame::setHPosition(hposition_t pos) {
+    hpos_ = pos;
+}
+
+void CEDFrame::setVPosition(vposition_t pos) {
+    vpos_ = pos;
 }
 
 }

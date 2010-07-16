@@ -49,9 +49,6 @@ class CLA_EXPO CEDSection: public BlockElement
          */
         size_t columnCount() const;
 
-        CEDFrame * createFrame(CEDColumn * col, const Rect& rect, char position = -1,
-                int borderSpace = -1, int dxfrtextx = -1, int dxfrtexty = -1);
-
         void exportElement(CEDExporter& exp);
 
         Rect borders; // padding from the edge of paper
