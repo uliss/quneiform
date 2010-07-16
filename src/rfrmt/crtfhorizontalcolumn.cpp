@@ -771,7 +771,7 @@ void CRtfHorizontalColumn::writeTerminalColumnsOnly(VectorWord* arRightBoundTerm
         Rect.right = (*arRightBoundTerminalColumns)[*VTerminalColumnNumber];
 
         if (CheckLines(&Rect, TRUE, sector)) {
-            sector->hEDSector->lineBetCol = TRUE;
+            sector->hEDSector->setLineBetweenColumns(true);
         }
     }
 

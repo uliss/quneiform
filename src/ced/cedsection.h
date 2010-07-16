@@ -34,6 +34,9 @@ class CEDFrame;
 class CLA_EXPO CEDSection: public BlockElement
 {
     public:
+        CEDSection();
+        ~CEDSection();
+
         /**
          * Adds vertical column to page section
          */
@@ -51,6 +54,18 @@ class CLA_EXPO CEDSection: public BlockElement
 
         void exportElement(CEDExporter& exp);
 
+        /**
+         * Returns if line between columns should be drawn
+         * @see setLineBetweenColumns()
+         */
+        bool lineBetweenColumns() const;
+
+        /**
+         * Sets drawing line between columns
+         * @see lineBetweenColumns()
+         */
+        void setLineBetweenColumns(bool value);
+
         Rect borders; // padding from the edge of paper
         int colInterval;
         char sectionBreak;
@@ -60,15 +75,13 @@ class CLA_EXPO CEDSection: public BlockElement
         int headerY;
         int footerY;
         int numSnakeCols;
-        Bool lineBetCol;
         EDCOL *colInfo;
 
         CEDParagraph * CreateParagraph(BlockElement * container, align_t align, const Rect& indent,
                 int UserNum, int FlagBorder, EDSIZE interval, const Rect& layout,
                 const Color& color, const Color& bgrnd, int spaceBetweenLines);
-
-        CEDSection();
-        ~CEDSection();
+    private:
+        bool line_between_columns_;
 };
 
 }

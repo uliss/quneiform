@@ -29,7 +29,8 @@
 namespace CIF
 {
 
-CEDSection::CEDSection() {
+CEDSection::CEDSection() :
+    line_between_columns_(false) {
     sectionBreak = 0;
     width = 0;
     height = 0;
@@ -37,7 +38,6 @@ CEDSection::CEDSection() {
     headerY = 0;
     footerY = 0;
     numSnakeCols = 0;
-    lineBetCol = 0;
     colInfo = 0;
 }
 
@@ -60,6 +60,14 @@ size_t CEDSection::columnCount() const {
 
 void CEDSection::exportElement(CEDExporter& exp) {
     exp.exportSection(*this);
+}
+
+bool CEDSection::lineBetweenColumns() const {
+    return line_between_columns_;
+}
+
+void CEDSection::setLineBetweenColumns(bool value) {
+    line_between_columns_ = value;
 }
 
 CEDParagraph * CEDSection::CreateParagraph(BlockElement * cont, align_t align, const Rect& indent,
