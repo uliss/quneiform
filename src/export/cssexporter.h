@@ -31,7 +31,10 @@ class CssExporter: public StyleExporter
 {
     public:
         CssExporter(CEDPage * page, const FormatOptions& opts);
+        void addCssStyle(const std::string& name, const std::string& content);
 
+        virtual size_t hash(const CEDChar& chr) const;
+        virtual size_t hash(const CEDParagraph& par) const;
         virtual std::string makeCssStyle(const CEDChar& chr) const;
         virtual std::string makeCssStyle(const CEDParagraph& par) const;
         virtual std::string makeStyle(const CEDChar& chr);

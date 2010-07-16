@@ -19,6 +19,8 @@
 #include <sstream>
 #include <cstdio>
 #include <iomanip>
+#include <boost/functional/hash.hpp>
+
 #include "cssexporter.h"
 #include "cfcompat.h"
 #include "common/font.h"
@@ -68,6 +70,31 @@ CssExporter::CssExporter(CEDPage * page, const FormatOptions& opts) :
     StyleExporter(page, opts) {
 }
 
+void CssExporter::addCssStyle(const std::string& name, const std::string& content) {
+    static size_t seed = 1000;
+    boost::hash_combine(seed, seed);
+    addStyle(name, seed);
+    styles_[name] = content;
+}
+
+size_t CssExporter::hash(const CEDChar& chr) const {
+    size_t seed = 1;
+    boost::hash_combine(seed, chr.color().toT<int> ());
+    boost::hash_combine(seed, chr.backgroundColor().toT<int> ());
+    if (formatOptions().isFontSizeUsed())
+        boost::hash_combine(seed, chr.fontHeight());
+    return seed;
+}
+
+size_t CssExporter::hash(const CEDParagraph& par) const {
+    size_t seed = 2;
+    boost::hash_combine(seed, par.color().toT<int> ());
+    boost::hash_combine(seed, par.backgroundColor().toT<int> ());
+    boost::hash_combine(seed, par.lineSpace());
+    boost::hash_combine(seed, par.indent());
+    return seed;
+}
+
 std::string CssExporter::makeCssStyle(const CEDChar& chr) const {
     std::ostringstream buf;
 
@@ -77,12 +104,6 @@ std::string CssExporter::makeCssStyle(const CEDChar& chr) const {
     if (formatOptions().isFontSizeUsed() && chr.fontHeight() > 0)
         writeCssEntryPx(buf, "font-size", chr.fontHeight());
 
-    if (formatOptions().isBoldUsed() && chr.fontStyle() & FORMAT_FONT_BOLD)
-        writeCssEntry(buf, "font-weight", "bold");
-
-    if (formatOptions().isItalicUsed() && chr.fontStyle() & FORMAT_FONT_ITALIC)
-        writeCssEntry(buf, "font-decoration", "italic");
-
     return buf.str();
 }
 
@@ -91,7 +112,10 @@ std::string CssExporter::makeCssStyle(const CEDParagraph& par) const {
 
     writeCssColor(buf, "color", par.color());
     writeCssColor(buf, "background-color", par.backgroundColor());
-    writeCssEntry(buf, "text-align", align2css(par.align()));
+
+    if (par.lineSpace() > 0)
+        writeCssEntryPx(buf, "line-height", par.lineSpace());
+
     if (par.indent() != 0)
         writeCssEntryPx(buf, "text-indent", par.indent());
 
@@ -99,14 +123,23 @@ std::string CssExporter::makeCssStyle(const CEDParagraph& par) const {
 }
 
 std::string CssExporter::makeStyle(const CEDChar& chr) {
+    std::string content = makeCssStyle(chr);
+    if (content.empty())
+        return "";
+
     std::string chr_style = StyleExporter::makeStyle(chr);
-    styles_[chr_style] = makeCssStyle(chr);
+    styles_[chr_style] = content;
     return chr_style;
 }
 
 std::string CssExporter::makeStyle(const CEDParagraph& par) {
+    std::string content = makeCssStyle(par);
+    if (content.empty())
+        return "";
+
     std::string par_style = StyleExporter::makeStyle(par);
-    styles_[par_style] = makeCssStyle(par);
+
+    styles_[par_style] = content;
     return par_style;
 }
 

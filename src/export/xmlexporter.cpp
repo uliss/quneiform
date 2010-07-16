@@ -33,7 +33,7 @@ inline std::string makeIndent(int level) {
 }
 
 XmlExporter::XmlExporter(CEDPage * page, const FormatOptions& opts) :
-    TextExporter(page, opts), indent_level_(0), use_indent_(false), line_break_(false) {
+    TextExporter(page, opts), line_break_(false) {
 }
 
 void XmlExporter::appendTo(const std::string& filename) {
@@ -62,8 +62,6 @@ void XmlExporter::writeCloseTag(std::ostream& os, const std::string& tagName,
     if (tagName.empty())
         return;
 
-    indent_level_--;
-    writeIndent(os);
     os << "</" << tagName << ">" << newline;
     line_break_ = newline.empty() ? false : true;
 }
@@ -72,17 +70,11 @@ void XmlExporter::writeXmlDeclaration(std::ostream& os, const std::string& encod
     os << "<?xml version=\"1.0\" encoding=\"" << encoding << "\"?>\n";
 }
 
-void XmlExporter::writeIndent(std::ostream& os) {
-    if (use_indent_ && line_break_)
-        os << makeIndent(indent_level_);
-}
-
 void XmlExporter::writeSingleTag(std::ostream& os, const std::string& tagName,
         const Attributes& attrs, const std::string& newline) {
     if (tagName.empty())
         return;
 
-    writeIndent(os);
     os << "<" << tagName;
     writeAttributes(os, attrs);
     os << "/>" << newline;
@@ -99,9 +91,7 @@ void XmlExporter::writeStartTag(std::ostream& os, const std::string& tagName,
     if (tagName.empty())
         return;
 
-    writeIndent(os);
     os << "<" << tagName << ">" << newline;
-    indent_level_++;
     line_break_ = newline.empty() ? false : true;
 }
 
@@ -110,11 +100,9 @@ void XmlExporter::writeStartTag(std::ostream& os, const std::string& tagName,
     if (tagName.empty())
         return;
 
-    writeIndent(os);
     os << "<" << tagName;
     writeAttributes(os, attrs);
     os << ">" << newline;
-    indent_level_++;
     line_break_ = newline.empty() ? false : true;
 }
 
@@ -132,10 +120,6 @@ void XmlExporter::writeTag(std::ostream& os, const std::string& tagName,
 void XmlExporter::writeCharacter(std::ostream& /*os*/, CEDChar& chr) {
     assert(chr.hasAlternatives());
     lineBuffer() << escapeSpecialChar(chr.alternativeAt(0).getChar());
-}
-
-void XmlExporter::useIndents(bool value) {
-    use_indent_ = value;
 }
 
 }

@@ -46,11 +46,6 @@ class XmlExporter: public TextExporter
         static std::string escapeSpecialChar(uchar code);
 
         /**
-         * Turns on/off indent during export
-         */
-        void useIndents(bool value);
-
-        /**
          * Writes xml attributes to output stream
          */
         void writeAttributes(std::ostream& os, const Attributes& attrs);
@@ -60,11 +55,6 @@ class XmlExporter: public TextExporter
          */
         void writeCloseTag(std::ostream& os, const std::string& tagName,
                 const std::string& newline = "");
-
-        /**
-         * If use indent is set writes appropriate indent to output stream
-         */
-        void writeIndent(std::ostream& os);
 
         /**
          * Writes single tag to output stream
@@ -102,8 +92,6 @@ class XmlExporter: public TextExporter
          */
         virtual void writeXmlDeclaration(std::ostream& os, const std::string& encoding = "UTF-8");
     private:
-        int indent_level_;
-        bool use_indent_;
         bool line_break_;
 };
 

@@ -26,6 +26,7 @@
 #include "rfrmtoptions.h"
 
 // ced
+#include "ced/cedchar.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
 
@@ -428,7 +429,10 @@ void CRtfString::write(CEDParagraph * par) const {
     for (WordIteratorConst it = words_.begin(), end = words_.end(); it != end; ++it) {
         // insert space before if not first word in string
         if (it != words_.begin()) {
-            CEDChar * space = CRtfChar::makeCedSpace(-1, -1, (*it)->fontAttrs());
+            CEDChar * space = CRtfChar::makeCedSpace((*it)->fontNumber(), -1, (*it)->fontAttrs());
+            if (!(*it)->empty()) {
+                space->setFontHeight((*it)->lastChar()->fontSize());
+            }
             line->insertChar(space);
         }
 

@@ -34,17 +34,22 @@ StyleExporter::StyleExporter(CEDPage * page, const FormatOptions& opts) :
     setSkipPictures(true);
 }
 
+void StyleExporter::addStyle(const std::string& styleName, size_t hash) {
+    if (!styleName.empty())
+        hashes_[hash] = styleName;
+}
+
 void StyleExporter::exportChar(CEDChar& chr) {
     size_t chr_hash = hash(chr);
     if (hashes_.find(chr_hash) == hashes_.end())
-        hashes_[chr_hash] = makeStyle(chr);
+        addStyle(makeStyle(chr), chr_hash);
 }
 
 void StyleExporter::exportParagraph(CEDParagraph& par) {
     GenericExporter::exportParagraph(par);
     size_t par_hash = hash(par);
     if (hashes_.find(par_hash) == hashes_.end())
-        hashes_[par_hash] = makeStyle(par);
+        addStyle(makeStyle(par), par_hash);
 }
 
 size_t StyleExporter::hash(const CEDChar& chr) const {
@@ -88,5 +93,4 @@ std::string StyleExporter::makeStyle(const CEDChar&) {
 std::string StyleExporter::makeStyle(const CEDParagraph&) {
     return "par_" + toString(++style_num_paragraph_);
 }
-
 }

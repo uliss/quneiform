@@ -32,7 +32,20 @@ class StyleExporter: public GenericExporter
     public:
         StyleExporter(CEDPage * page, const FormatOptions& opts);
 
+        /**
+         * Adds style to style map
+         * @param styleName - if empty style name given nothing inserted
+         */
+        virtual void addStyle(const std::string& styleName, size_t hash);
+
+        /**
+         * Adds unique styles for characters
+         */
         virtual void exportChar(CEDChar& chr);
+
+        /**
+         * Adds unique styles for paragraphs
+         */
         virtual void exportParagraph(CEDParagraph& par);
 
         /**
@@ -49,6 +62,10 @@ class StyleExporter: public GenericExporter
          */
         virtual std::string makeStyle(const CEDChar& chr);
         virtual std::string makeStyle(const CEDParagraph& par);
+    public:
+        bool hasHash(size_t hash) const {
+            return hashes_.find(hash) != hashes_.end();
+        }
 
         /**
          * Returns style name by element
@@ -56,7 +73,14 @@ class StyleExporter: public GenericExporter
          */
         template<class T>
         std::string styleByElement(const T& el) const {
-            HashMap::const_iterator it = hashes_.find(hash(el));
+            return styleByHash(hash(el));
+        }
+
+        /**
+         * Returns style name by hash
+         */
+        std::string styleByHash(size_t hash) const {
+            HashMap::const_iterator it = hashes_.find(hash);
             return it == hashes_.end() ? "" : it->second;
         }
     private:

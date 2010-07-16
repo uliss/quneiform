@@ -18,28 +18,33 @@
 
 #include <cassert>
 #include <algorithm>
+
+#include "cssexporter.h"
 #include "htmlexporter.h"
+#include "imageexporterfactory.h"
+#include "rout_own.h"
+#include "xmltag.h"
+
 #include "common/helper.h"
 #include "common/debug.h"
 #include "common/font.h"
 #include "ced/cedchar.h"
 #include "ced/cedpicture.h"
 #include "ced/cedparagraph.h"
-#include "rout_own.h"
-#include "xmltag.h"
-#include "imageexporterfactory.h"
 #include "config.h" // for CF_VERSION
 namespace CIF
 {
 
 const std::string HTML_ALTERNATIVE_STYLE_CLASS("has_alternative");
+const std::string HTML_ALTERNATIVE_STYLE_CONTENT("color: #FF3333; padding: 0 2px;\n");
 
 const std::string HTML_DOCTYPE("<!DOCTYPE html PUBLIC "
     "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
     "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n");
 
 HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
-    XmlExporter(page, opts), prev_char_style_(0), close_style_(false) {
+    XmlExporter(page, opts), prev_char_style_hash_(0), prev_char_font_style_(0), char_span_opened_(
+            false), style_exporter_(new CssExporter(page, opts)) {
 
     ImageExporterPtr exp = ImageExporterFactory::instance().make();
     setImageExporter(exp);
@@ -47,11 +52,9 @@ HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
     setSkipPictures(false);
-    //    useIndents(true);
-}
 
-void HtmlExporter::closeStyle(bool value) {
-    close_style_ = value;
+    if (isShowAlternatives())
+        style_exporter_->addCssStyle(HTML_ALTERNATIVE_STYLE_CLASS, HTML_ALTERNATIVE_STYLE_CONTENT);
 }
 
 void HtmlExporter::writeAlternativesBegin(const CEDChar& chr) {
@@ -70,10 +73,27 @@ void HtmlExporter::writeAlternativesEnd(const CEDChar& chr) {
 }
 
 void HtmlExporter::writeCharacterBegin(std::ostream&, CEDChar& chr) {
-    if (prev_char_style_ != chr.fontStyle()) {
-        writeFontStyleEnd(prev_char_style_);
+    size_t chr_hash = style_exporter_->hash(chr);
+    if (style_exporter_->hasHash(chr_hash)) {
+        if (prev_char_style_hash_ != chr_hash) {
+            if (char_span_opened_) {
+                writeCloseTag(lineBuffer(), "span");
+                char_span_opened_ = false;
+            }
+
+            Attributes attrs;
+            attrs["class"] = style_exporter_->styleByHash(chr_hash);
+            writeStartTag(lineBuffer(), "span", attrs);
+            char_span_opened_ = true;
+
+            prev_char_style_hash_ = chr_hash;
+        }
+    }
+
+    if (prev_char_font_style_ != chr.fontStyle()) {
+        writeFontStyleEnd(prev_char_font_style_);
         writeFontStyleBegin(chr.fontStyle());
-        prev_char_style_ = chr.fontStyle();
+        prev_char_font_style_ = chr.fontStyle();
     }
 
     writeAlternativesBegin(chr);
@@ -81,6 +101,14 @@ void HtmlExporter::writeCharacterBegin(std::ostream&, CEDChar& chr) {
 
 void HtmlExporter::writeCharacterEnd(std::ostream&, CEDChar& chr) {
     writeAlternativesEnd(chr);
+}
+
+void HtmlExporter::writeCssStyle(std::ostream& os) {
+    writeStartTag(os, "style", "\n");
+    os << "<!--\n";
+    style_exporter_->exportTo(os);
+    os << "-->\n";
+    writeCloseTag(os, "style", "\n");
 }
 
 void HtmlExporter::writeDoctype(std::ostream& os) {
@@ -121,11 +149,11 @@ void HtmlExporter::writeFontStyleEnd(int style) {
         lineBuffer() << "</b>";
 }
 
-void HtmlExporter::writeFrameBegin(std::ostream& os, CEDFrame& frame) {
+void HtmlExporter::writeFrameBegin(std::ostream& os, CEDFrame&) {
     os << "<div class=\"frame\">";
 }
 
-void HtmlExporter::writeFrameEnd(std::ostream& os, CEDFrame& frame) {
+void HtmlExporter::writeFrameEnd(std::ostream& os, CEDFrame&) {
     os << "</div>\n";
 }
 
@@ -157,6 +185,7 @@ void HtmlExporter::writePageBegin(std::ostream& os, CEDPage&) {
     writeStartTag(os, "head", "\n");
     writeTitle(os);
     writeMeta(os);
+    writeCssStyle(os);
     writeCloseTag(os, "head", "\n");
     writeStartTag(os, "body", "\n");
 
@@ -185,15 +214,24 @@ void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
         break;
     }
 
+    std::string par_style = style_exporter_->styleByElement(par);
+    if (!par_style.empty())
+        p["class"] = escapeHtmlSpecialChars(par_style);
+
     p.writeBegin(os);
     TextExporter::writeParagraphBegin(os, par);
 
-    prev_char_style_ = 0;
+    prev_char_font_style_ = 0;
+    prev_char_style_hash_ = 0;
 }
 
 void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
     // writes closing tags to line buffer
-    writeFontStyleEnd(prev_char_style_);
+    writeFontStyleEnd(prev_char_font_style_);
+    if (char_span_opened_) {
+        writeCloseTag(os, "span");
+        char_span_opened_ = false;
+    }
     // write and flush line buffer to output stream
     writeLineBufferRaw(os);
     writeCloseTag(os, "p", "\n");

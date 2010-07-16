@@ -20,19 +20,20 @@
 #define HTMLEXPORTER_H_
 
 #include <map>
+#include <memory>
 #include <vector>
 #include "xmlexporter.h"
 
 namespace CIF
 {
 
+class CssExporter;
+
 class HtmlExporter: public XmlExporter
 {
     public:
         HtmlExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
     protected:
-        void closeStyle(bool value);
-
         virtual void writeAlternativesBegin(const CEDChar& chr);
         virtual void writeAlternativesEnd(const CEDChar& chr);
 
@@ -41,6 +42,11 @@ class HtmlExporter: public XmlExporter
          */
         virtual void writeCharacterBegin(std::ostream& os, CEDChar& chr);
         virtual void writeCharacterEnd(std::ostream& os, CEDChar& chr);
+
+        /**
+         * Writes css style
+         */
+        virtual void writeCssStyle(std::ostream& os);
 
         /**
          * Writes HTML document type
@@ -110,8 +116,10 @@ class HtmlExporter: public XmlExporter
          */
         virtual void writeTitle(std::ostream& os);
     private:
-        int prev_char_style_;
-        bool close_style_;
+        size_t prev_char_style_hash_;
+        int prev_char_font_style_;
+        bool char_span_opened_;
+        std::auto_ptr<CssExporter> style_exporter_;
 };
 
 }

@@ -25,12 +25,20 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCssExporter);
 
 using namespace CIF;
 
+#define ASSERT_PAR(str, e, par) {\
+	CPPUNIT_ASSERT_EQUAL(std::string(CSS_INDENT str), e.makeCssStyle(par));\
+}
+
+#define ASSERT_EMPTY(e, el) {\
+	CPPUNIT_ASSERT_EQUAL(std::string(""), e.makeCssStyle(el));\
+}
+
 void TestCssExporter::testMakeCssStyleChar() {
     FormatOptions opts;
     CssExporter e(NULL, opts);
 
     CEDChar chr;
-    CPPUNIT_ASSERT_EQUAL(std::string(""), e.makeCssStyle(chr));
+    ASSERT_EMPTY(e, chr);
 
     chr.setColor(Color(16, 0, 0));
     CPPUNIT_ASSERT_EQUAL(std::string(CSS_INDENT "color: #100000;\n"), e.makeCssStyle(chr));
@@ -51,30 +59,30 @@ void TestCssExporter::testMakeCssStyleParagraph() {
     CssExporter e(NULL, opts);
 
     CEDParagraph par;
-    CPPUNIT_ASSERT_EQUAL(std::string(""), e.makeCssStyle(par));
+    ASSERT_EMPTY(e, par);
     par.setColor(Color(16, 0, 0));
-    CPPUNIT_ASSERT_EQUAL(std::string(CSS_INDENT "color: #100000;\n"), e.makeCssStyle(par));
+    ASSERT_PAR("color: #100000;\n", e, par);
     par.setColor(Color::null());
     par.setBackgroundColor(Color(0, 0, 16));
-    CPPUNIT_ASSERT_EQUAL(std::string(CSS_INDENT "background-color: #000010;\n"), e.makeCssStyle(par));
+    ASSERT_PAR("background-color: #000010;\n", e, par);
     par.setBackgroundColor(Color::null());
 
     par.setIndent(10);
-    CPPUNIT_ASSERT_EQUAL(std::string(CSS_INDENT "text-indent: 10px;\n"), e.makeCssStyle(par));
+    ASSERT_PAR("text-indent: 10px;\n", e, par);
     par.setIndent(-10);
-    CPPUNIT_ASSERT_EQUAL(std::string(CSS_INDENT "text-indent: -10px;\n"), e.makeCssStyle(par));
+    ASSERT_PAR("text-indent: -10px;\n", e, par);
     par.setIndent(0);
+    ASSERT_EMPTY(e, par);
 
-    par.setAlign(ALIGN_JUSTIFY);
-    CPPUNIT_ASSERT_EQUAL(std::string(CSS_INDENT "text-align: justify;\n"), e.makeCssStyle(par));
-    par.setAlign(ALIGN_CENTER);
-    CPPUNIT_ASSERT_EQUAL(std::string(CSS_INDENT "text-align: center;\n"), e.makeCssStyle(par));
-    par.setAlign(ALIGN_RIGHT);
-    CPPUNIT_ASSERT_EQUAL(std::string(CSS_INDENT "text-align: right;\n"), e.makeCssStyle(par));
-    par.setAlign(ALIGN_NONE);
-    CPPUNIT_ASSERT_EQUAL(std::string(""), e.makeCssStyle(par));
-    par.setAlign(ALIGN_LEFT);
-    CPPUNIT_ASSERT_EQUAL(std::string(""), e.makeCssStyle(par));
+    par.setLineSpace(-10);
+    ASSERT_EMPTY(e, par);
+    par.setLineSpace(0);
+    ASSERT_EMPTY(e, par);
+    par.setLineSpace(1);
+    ASSERT_PAR("line-height: 1px;\n", e, par);
+    par.setLineSpace(0);
+    ASSERT_EMPTY(e, par);
+
 }
 
 void TestCssExporter::testMakeStyle() {
