@@ -1,3 +1,10 @@
+2010-07-17
+Add --show-alternatives command line option - to show other possibilities of recognition.
+Now works only with HTML export. Alternatives shown as title attribute of <span> tag.
+Also CSS style .has_alternatives applied - so now all characters that have alternatives
+became red and get a little bit more padding.
+
+
 2010-07-02
 Added --output-image-dir option to set output directory for saving images from recognized document
 

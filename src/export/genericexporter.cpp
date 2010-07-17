@@ -43,8 +43,7 @@ namespace CIF
 GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
     Exporter(opts), page_(page), os_(NULL), num_chars_(0), num_columns_(0), num_frames_(0),
             num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0), num_tables_(0),
-            skip_pictures_(false), skip_empty_paragraphs_(false), skip_empty_lines_(false),
-            show_alternatives_(false) {
+            skip_pictures_(false), skip_empty_paragraphs_(false), skip_empty_lines_(false) {
 
     if (isCharsetConversion())
         converter_.open(inputEncoding(), outputEncoding());
@@ -172,10 +171,6 @@ bool GenericExporter::isRemoveHyphens(CEDLine& line) const {
     return !isLineBreak(line) && !formatOptions().preserveLineHyphens();
 }
 
-bool GenericExporter::isShowAlternatives() const {
-    return show_alternatives_;
-}
-
 int GenericExporter::numChars() const {
     return num_chars_;
 }
@@ -241,10 +236,6 @@ void GenericExporter::savePictureData(CEDPicture& picture, const std::string& pa
 
 void GenericExporter::savePictureData(CEDPicture& picture, std::ostream& os) {
     imageExporter()->save(*(picture.image()), os);
-}
-
-void GenericExporter::setShowAlternatives(bool value) {
-    show_alternatives_ = value;
 }
 
 void GenericExporter::setSkipEmptyLines(bool value) {

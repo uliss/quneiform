@@ -414,7 +414,7 @@ void TestHtmlExporter::testExportColumn() {
 }
 
 void TestHtmlExporter::testWriteAlternatives() {
-    exp_->setShowAlternatives(true);
+    exp_->formatOptions().setShowAlternatives(true);
     CEDParagraph par;
 
     CEDChar * c = parAddChar(par, 'a');

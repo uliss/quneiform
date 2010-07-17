@@ -35,7 +35,6 @@ class CLA_EXPO FormatOptions
 {
     public:
         FormatOptions();
-        virtual ~FormatOptions();
 
         puma_format_mode_t formatMode() const;
         image_format_t imageExportFormat() const;
@@ -56,8 +55,10 @@ class CLA_EXPO FormatOptions
         void setPreserveLineHyphens(bool val = true);
         void setSansSerifName(const std::string& name);
         void setSerifName(const std::string& name);
+        void setShowAlternatives(bool value);
         void setUnrecognizedChar(wchar_t ch);
         void setUnrecognizedChar(char ch);
+        bool showAlternatives() const;
         wchar_t unrecognizedChar() const;
         void useBold(bool val = true);
         void useFontSize(bool val = true);
@@ -75,6 +76,7 @@ class CLA_EXPO FormatOptions
         language_t language_;
         image_format_t image_format_;
         bool preserve_line_hyphens_;
+        bool show_alternatives_;
 };
 
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const FormatOptions& fmt);

@@ -53,12 +53,12 @@ HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
     setSkipEmptyParagraphs(true);
     setSkipPictures(false);
 
-    if (isShowAlternatives())
+    if (formatOptions().showAlternatives())
         style_exporter_->addCssStyle(HTML_ALTERNATIVE_STYLE_CLASS, HTML_ALTERNATIVE_STYLE_CONTENT);
 }
 
 void HtmlExporter::writeAlternativesBegin(const CEDChar& chr) {
-    if (isShowAlternatives() && chr.alternativeCount() > 1) {
+    if (formatOptions().showAlternatives() && chr.alternativeCount() > 1) {
         lineBuffer() << "<span title=\"Alternatives:";
         for (size_t i = 1; i < chr.alternativeCount(); i++)
             lineBuffer() << " " << escapeSpecialChar(chr.alternativeAt(i).getChar());
@@ -68,7 +68,7 @@ void HtmlExporter::writeAlternativesBegin(const CEDChar& chr) {
 }
 
 void HtmlExporter::writeAlternativesEnd(const CEDChar& chr) {
-    if (isShowAlternatives() && chr.alternativeCount() > 1)
+    if (formatOptions().showAlternatives() && chr.alternativeCount() > 1)
         lineBuffer() << "</span>";
 }
 

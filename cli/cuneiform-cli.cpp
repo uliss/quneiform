@@ -140,7 +140,7 @@ static string usage() {
         "  -o   --output   FILENAME      Sets output filename                        \n"
         "       --output-image-dir PATH  Sets image output directory                 \n"
         "       --stdout                 Puts result to standard output              \n"
-        "  Export options:                                                           \n"
+        "  Output formatting options:                                                \n"
         "       --preserve-line-breaks   Preserves line-breaking                     \n"
         "       --preserve-hyphens       Preserves line hyphenation                  \n"
         "       --unrecognized CHAR      Set symbol, that shown instead of           \n"
@@ -149,6 +149,8 @@ static string usage() {
         "       --no-font-size           Do not use font size                        \n"
         "       --no-bold                Use normal font for bold text               \n"
         "       --no-italic              Use normal font for italic text             \n"
+        "       --show-alternatives      Show alternatives of recognition            \n"
+        "                                    (now HTML only)                         \n"
         "       --monospace-name         Use specified monospace font in RTF output  \n"
         "       --serif-name             Use specified serif font in RTF output      \n"
         "       --sansserif-name         Use specified sans-serif font in RTF output \n";
@@ -214,7 +216,7 @@ int main(int argc, char **argv) {
             do_singlecolumn = FALSE, do_pictures = TRUE, do_tables = FALSE, do_autorotate = FALSE,
             preserve_line_breaks = FALSE, preserve_hyphens = FALSE, do_dump = FALSE, no_bold =
                     FALSE, no_italic = FALSE, no_font_size = FALSE, stdout_output = FALSE,
-            do_append = FALSE;
+            do_append = FALSE, show_alternatives = FALSE;
 
     const char * const short_options = ":aho:vVl:f:d:u:";
     const struct option long_options[] = {
@@ -240,8 +242,9 @@ int main(int argc, char **argv) {
             { "preserve-hyphens", no_argument, &preserve_hyphens, 1 }, //
             { "sansserif-name", required_argument, NULL, 'y' }, //
             { "serif-name", required_argument, NULL, 'z' },//
-            { "onecolumn", no_argument, &do_singlecolumn, 1 },//
+            { "show-alternatives", no_argument, &show_alternatives, 1 }, //
             { "stdout", no_argument, &stdout_output, 1 }, //
+            { "onecolumn", no_argument, &do_singlecolumn, 1 },//
             { "spell", no_argument, &do_speller, 1 },//
             { "tables", required_argument, &do_tables, 1 },//
             { "unrecognized", required_argument, NULL, 'u' },//
@@ -371,6 +374,7 @@ int main(int argc, char **argv) {
         opt.useBold(no_bold ? false : true);
         opt.useItalic(no_italic ? false : true);
         opt.useFontSize(no_font_size ? false : true);
+        opt.setShowAlternatives(show_alternatives ? true : false);
         //  opt.setFormatMode(puma_format_mode_t t);
 
         Puma::instance().setFormatOptions(opt);

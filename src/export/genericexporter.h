@@ -41,13 +41,6 @@ class GenericExporter: public Exporter
         GenericExporter(CEDPage * page, const FormatOptions& opts);
 
         /**
-         * Returns true if recognized alternatives of chars should be exported
-         * (depends from concrete exporter)
-         * @see setShowAlternatives()
-         */
-        bool isShowAlternatives() const;
-
-        /**
          * Returns number of exported characters
          */
         int numChars() const;
@@ -86,12 +79,6 @@ class GenericExporter: public Exporter
          * Returns number of exported tables
          */
         int numTables() const;
-
-        /**
-         * Show recognition alternatives
-         * @see isShowAlternatives()
-         */
-        void setShowAlternatives(bool value);
 
         /**
          * Controls empty line export
@@ -356,7 +343,6 @@ class GenericExporter: public Exporter
         bool skip_pictures_;
         bool skip_empty_paragraphs_;
         bool skip_empty_lines_;
-        bool show_alternatives_;
     protected:
         Iconv converter_;
 };
