@@ -20,7 +20,6 @@
 #define HTMLEXPORTER_H_
 
 #include <map>
-#include <memory>
 #include <vector>
 #include "xmlexporter.h"
 
@@ -33,6 +32,7 @@ class HtmlExporter: public XmlExporter
 {
     public:
         HtmlExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+        ~HtmlExporter();
     protected:
         virtual void writeAlternativesBegin(const CEDChar& chr);
         virtual void writeAlternativesEnd(const CEDChar& chr);
@@ -119,7 +119,7 @@ class HtmlExporter: public XmlExporter
         size_t prev_char_style_hash_;
         int prev_char_font_style_;
         bool char_span_opened_;
-        std::auto_ptr<CssExporter> style_exporter_;
+        CssExporter * style_exporter_;
 };
 
 }

@@ -57,6 +57,10 @@ HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
         style_exporter_->addCssStyle(HTML_ALTERNATIVE_STYLE_CLASS, HTML_ALTERNATIVE_STYLE_CONTENT);
 }
 
+HtmlExporter::~HtmlExporter() {
+    delete style_exporter_;
+}
+
 void HtmlExporter::writeAlternativesBegin(const CEDChar& chr) {
     if (formatOptions().showAlternatives() && chr.alternativeCount() > 1) {
         lineBuffer() << "<span title=\"Alternatives:";
