@@ -2491,38 +2491,17 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage) {
         free(ColH_New[i]);
     }
 
-    if (K_Hor)
-        free(K_Hor);
-
-    if (K_Ver)
-        free(K_Ver);
-
-    if (K_Ver_Flag_Term)
-        free(K_Ver_Flag_Term);
-
-    if (K_Ver_Add_On)
-        free(K_Ver_Add_On);
-
-    if (K_Ver_Offset)
-        free(K_Ver_Offset);
-
-    if (Colt)
-        free(Colt);
-
-    if (ColH)
-        free(ColH);
-
-    if (ColH_New)
-        free(ColH_New);
-
-    if (RootUdal)
-        free((KNOT**) RootUdal);
-
-    if (ArrFrm)
-        free(ArrFrm);
-
-    if (frm)
-        free(frm);
+    free(K_Hor);
+    free(K_Ver);
+    free(K_Ver_Flag_Term);
+    free(K_Ver_Add_On);
+    free(K_Ver_Offset);
+    free(Colt);
+    free(ColH);
+    free(ColH_New);
+    free((KNOT**) RootUdal);
+    free(ArrFrm);
+    free(frm);
 
     if (FlagOdinSectorOdnaColonka) {
         int16_t tmpNumCol;
@@ -2536,16 +2515,9 @@ Bool PageTree(FILE *InFileName, CIF::CRtfPage* RtfPage) {
     } else if (NumStr)
         FreeStructFull();
 
-    if (NumStr)
         free(NumStr);
-
-    if (UserNumber)
         free(UserNumber);
-
-    if (FragFlag)
         free(FragFlag);
-
-    if (RectFragm)
         free(RectFragm);
 
     if (FlagBadBad)

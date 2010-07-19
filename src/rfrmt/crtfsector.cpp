@@ -211,9 +211,6 @@ void CRtfSector::ToPlacePicturesAndTables(CRtfFragment* frag) {
 void CRtfSector::FillingSectorInfo() //~ тут происходит работа со старой (vmk) структурой колонок
 {
     CRtfHorizontalColumn *pRtfHorizontalColumn;
-    CRtfVerticalColumn *pRtfVerticalColumn;
-    CRtfFragment *pRtfFragment;
-    int CountVColumn, CountFragments;
 
     if (!terminal_col_idx_.empty()) {
         pRtfHorizontalColumn = hcols_[terminal_col_idx_[0]];
@@ -224,16 +221,16 @@ void CRtfSector::FillingSectorInfo() //~ тут происходит работ�
 
     for (size_t i = 0; i < hcols_.size(); i++) {
         pRtfHorizontalColumn = hcols_[i];
-        CountVColumn = pRtfHorizontalColumn->columnCount();
+        int CountVColumn = pRtfHorizontalColumn->columnCount();
 
         for (int i1 = 0; i1 < CountVColumn; i1++) {
-            pRtfVerticalColumn = pRtfHorizontalColumn->columnAt(i1);
+            CRtfVerticalColumn * pRtfVerticalColumn = pRtfHorizontalColumn->columnAt(i1);
             pRtfVerticalColumn->setPage(page_);
-            CountFragments = pRtfVerticalColumn->fragmentCount();
+            int CountFragments = pRtfVerticalColumn->fragmentCount();
 
             for (int i2 = 0; i2 < CountFragments; i2++) {
                 SectorInfo.CountFragments++;
-                pRtfFragment = pRtfVerticalColumn->fragmentAt(i2);
+                CRtfFragment * pRtfFragment = pRtfVerticalColumn->fragmentAt(i2);
                 //!!!Art   if(pRtfFragment->type_ == FT_FRAME || pRtfFragment->type_ == FT_TEXT )
                 //!!!Art   SectorInfo.Offset.y = MIN(SectorInfo.Offset.y, pRtfFragment->m_rect.top);
             }

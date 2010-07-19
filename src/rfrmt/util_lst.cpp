@@ -298,7 +298,6 @@ int NewStack(int size, STACK *St) {
 }
 //==деструктор
 void DelStack(STACK *St) {
-    if (St->arr != NULL)
         free(St->arr);
 }
 //Parameters:ptr - заносимый объект

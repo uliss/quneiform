@@ -50,7 +50,7 @@ void RtfAssignRect_CRect_Rect16(RECT *s1, Rect16 *s2) {
 int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
         int16_t* strHeight) {
     CIF::Size size;
-    int n_Weight = 600, fn;
+    int n_Weight = 600;
     uchar bItalic;
 
     if (CIF::RfrmtOptions::useBold() && ((char) FontNumber & CIF::FORMAT_FONT_BOLD))
