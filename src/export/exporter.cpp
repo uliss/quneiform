@@ -193,7 +193,7 @@ void Exporter::setOutputFilename(const std::string& filename) {
     output_filename_ = filename;
 }
 
-void Exporter::setOutputPictureDir(const std::string path) {
+void Exporter::setOutputPictureDir(const std::string& path) {
     output_picture_dir_ = path;
 }
 

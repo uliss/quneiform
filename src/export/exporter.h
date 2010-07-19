@@ -126,7 +126,7 @@ class CLA_EXPO Exporter: public CEDExporter
          * @param path - if empty string given, picture directory path made
          * from output filename + suffix "_files"
          */
-        void setOutputPictureDir(const std::string path);
+        void setOutputPictureDir(const std::string& path);
     private:
         virtual void doExport(std::ostream& os) = 0;
         void autoDetectOutputEncoding();
