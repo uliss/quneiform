@@ -1,6 +1,7 @@
 add_executable(test_ced
     test_ced.cpp
     testcedchar.cpp
+    testcedframe.cpp
     testcedline.cpp
     testcedpage.cpp
     testcedpicture.cpp

@@ -25,6 +25,9 @@
 namespace CIF
 {
 
+class CEDParagraph;
+class CEDPicture;
+
 class CLA_EXPO CEDFrame: public BlockElement
 {
     public:
@@ -67,6 +70,19 @@ class CLA_EXPO CEDFrame: public BlockElement
          * Sets vertical frame snap position
          */
         void setVPosition(vposition_t pos);
+    private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar.template register_type<CEDParagraph>();
+            ar.template register_type<CEDPicture>();
+            ar & boost::serialization::base_object<BlockElement>(*this);
+            ar & border_space_;
+            ar & hpos_;
+            ar & vpos_;
+        }
+#endif
     private:
         int border_space_;
         hposition_t hpos_;

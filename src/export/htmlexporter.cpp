@@ -62,7 +62,7 @@ HtmlExporter::~HtmlExporter() {
 }
 
 void HtmlExporter::writeAlternativesBegin(const CEDChar& chr) {
-    if (formatOptions().showAlternatives() && chr.alternativeCount() > 1) {
+    if (chr.alternativeCount() > 1) {
         lineBuffer() << "<span title=\"Alternatives:";
         for (size_t i = 1; i < chr.alternativeCount(); i++)
             lineBuffer() << " " << escapeSpecialChar(chr.alternativeAt(i).getChar());
@@ -72,7 +72,7 @@ void HtmlExporter::writeAlternativesBegin(const CEDChar& chr) {
 }
 
 void HtmlExporter::writeAlternativesEnd(const CEDChar& chr) {
-    if (formatOptions().showAlternatives() && chr.alternativeCount() > 1)
+    if (chr.alternativeCount() > 1)
         lineBuffer() << "</span>";
 }
 
@@ -100,11 +100,13 @@ void HtmlExporter::writeCharacterBegin(std::ostream&, CEDChar& chr) {
         prev_char_font_style_ = chr.fontStyle();
     }
 
-    writeAlternativesBegin(chr);
+    if (formatOptions().showAlternatives())
+        writeAlternativesBegin(chr);
 }
 
 void HtmlExporter::writeCharacterEnd(std::ostream&, CEDChar& chr) {
-    writeAlternativesEnd(chr);
+    if (formatOptions().showAlternatives())
+        writeAlternativesEnd(chr);
 }
 
 void HtmlExporter::writeCssStyle(std::ostream& os) {
