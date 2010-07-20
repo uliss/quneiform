@@ -36,12 +36,14 @@ class OdfStyleExporter: public StyleExporter
         std::string makeStyle(const CEDParagraph& par);
         void writePageEnd(std::ostream& os, CEDPage& page);
     private:
+        int fontSize2odf(int value) const;
         typedef boost::shared_ptr<XmlTag> StylePtr;
         StylePtr makeOdfStyle(const CEDParagraph& par, const std::string& name);
         StylePtr makeOdfStyle(const CEDChar& chr, const std::string& name);
     private:
         typedef std::map<std::string, StylePtr> StyleMap;
         StyleMap styles_;
+        float font_koef_;
 };
 
 }

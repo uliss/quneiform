@@ -243,6 +243,7 @@ class GenericExporter: public Exporter
          * Returns pointer to exported page
          */
         CEDPage * page();
+        const CEDPage * page() const;
 
         /**
          * Makes picture filename

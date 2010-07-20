@@ -22,6 +22,7 @@
 #include "xmltag.h"
 // ced
 #include "ced/cedchar.h"
+#include "ced/cedpage.h"
 #include "ced/cedparagraph.h"
 // common
 #include "common/helper.h"
@@ -41,8 +42,14 @@ inline std::string color2odf(const Color& c) {
 }
 
 OdfStyleExporter::OdfStyleExporter(CEDPage * page, const FormatOptions& opts) :
-    StyleExporter(page, opts) {
+    StyleExporter(page, opts), font_koef_(1.0) {
     setSkipEmptyParagraphs(true);
+    if (page)
+        font_koef_ = static_cast<float> (page->imageDpi().width() / 200.0);
+}
+
+int OdfStyleExporter::fontSize2odf(int value) const {
+    return value * font_koef_;
 }
 
 OdfStyleExporter::StylePtr OdfStyleExporter::makeOdfStyle(const CEDChar& chr,
@@ -81,8 +88,15 @@ OdfStyleExporter::StylePtr OdfStyleExporter::makeOdfStyle(const CEDChar& chr,
     if (chr.fontStyle() & FONT_SUPER)
         text_prop->setAttribute("style:text-position", "super");
 
-    if(chr.fontStyle() & FONT_SUB)
+    if (chr.fontStyle() & FONT_SUB)
         text_prop->setAttribute("style:text-position", "sub");
+
+    if (formatOptions().isFontSizeUsed() && chr.fontHeight() > 0) {
+        std::string font_size = toString(fontSize2odf(chr.fontHeight()));
+        text_prop->setAttribute("fo:font-size", font_size);
+        text_prop->setAttribute("style:font-size-asian", font_size);
+        text_prop->setAttribute("style:font-size-complex", font_size);
+    }
 
     style->addChild(text_prop);
     return style;

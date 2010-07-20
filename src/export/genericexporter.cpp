@@ -211,6 +211,10 @@ CEDPage * GenericExporter::page() {
     return page_;
 }
 
+const CEDPage * GenericExporter::page() const {
+    return page_;
+}
+
 std::string GenericExporter::makePictureName(CEDPicture& picture) {
     std::ostringstream buf;
     buf << "image_" << picture.pictureNumber() << "." << imageExporter()->extension();
