@@ -235,7 +235,7 @@ void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
     // writes closing tags to line buffer
     writeFontStyleEnd(prev_char_font_style_);
     if (char_span_opened_) {
-        writeCloseTag(os, "span");
+        writeCloseTag(lineBuffer(), "span");
         char_span_opened_ = false;
     }
     // write and flush line buffer to output stream
