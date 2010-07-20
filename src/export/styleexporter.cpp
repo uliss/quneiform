@@ -18,11 +18,11 @@
 
 #include <boost/functional/hash.hpp>
 #include "styleexporter.h"
+#include "rout_own.h"
 #include "ced/cedchar.h"
 #include "ced/cedparagraph.h"
 #include "common/helper.h"
 #include "common/tostring.h"
-#include "common/font.h"
 
 namespace CIF
 {
@@ -60,13 +60,33 @@ size_t StyleExporter::hash(const CEDChar& chr) const {
     boost::hash_combine(seed, chr.backgroundColor().toT<int> ());
 
     // bold
-    if (formatOptions().isBoldUsed() && (chr.fontStyle() & FORMAT_FONT_BOLD)) {
-        boost::hash_combine(seed, static_cast<int> (FORMAT_FONT_BOLD));
+    if (formatOptions().isBoldUsed() && (chr.fontStyle() & FONT_BOLD)) {
+        boost::hash_combine(seed, static_cast<int> (FONT_BOLD));
     }
 
     // italic
-    if (formatOptions().isItalicUsed() && (chr.fontStyle() & FORMAT_FONT_ITALIC)) {
-        boost::hash_combine(seed, static_cast<int> (FORMAT_FONT_ITALIC));
+    if (formatOptions().isItalicUsed() && (chr.fontStyle() & FONT_ITALIC)) {
+        boost::hash_combine(seed, static_cast<int> (FONT_ITALIC));
+    }
+
+    // underlined
+    if (chr.fontStyle() & FONT_UNDERLINE) {
+        boost::hash_combine(seed, static_cast<int> (FONT_UNDERLINE));
+    }
+
+    // superscript
+    if (chr.fontStyle() & FONT_SUPER) {
+        boost::hash_combine(seed, static_cast<int> (FONT_SUPER));
+    }
+
+    // superscript
+    if (chr.fontStyle() & FONT_SUB) {
+        boost::hash_combine(seed, static_cast<int> (FONT_SUB));
+    }
+
+    // strike
+    if (chr.fontStyle() & FONT_STRIKE) {
+        boost::hash_combine(seed, static_cast<int> (FONT_STRIKE));
     }
 
     // font size

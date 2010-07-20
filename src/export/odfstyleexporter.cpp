@@ -72,6 +72,18 @@ OdfStyleExporter::StylePtr OdfStyleExporter::makeOdfStyle(const CEDChar& chr,
         text_prop->setAttribute("style:font-weight-complex", "bold");
     }
 
+    if (chr.fontStyle() & FONT_UNDERLINE)
+        text_prop->setAttribute("style:text-underline-type", "single");
+
+    if (chr.fontStyle() & FONT_STRIKE)
+        text_prop->setAttribute("style:text-line-through-type", "single");
+
+    if (chr.fontStyle() & FONT_SUPER)
+        text_prop->setAttribute("style:text-position", "super");
+
+    if(chr.fontStyle() & FONT_SUB)
+        text_prop->setAttribute("style:text-position", "sub");
+
     style->addChild(text_prop);
     return style;
 }

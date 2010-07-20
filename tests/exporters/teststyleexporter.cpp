@@ -17,6 +17,7 @@
  ***************************************************************************/
 #include "teststyleexporter.h"
 #include "export/styleexporter.cpp"
+#include "export/rout_own.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestStyleExporter);
 
 using namespace CIF;
@@ -84,20 +85,38 @@ void TestStyleExporter::testHashChar() {
     CPPUNIT_ASSERT_EQUAL(e.hash(c1), e.hash(c2));
 
     e.formatOptions().useItalic(false);
-    c1.setFontStyle(FORMAT_FONT_ITALIC);
+    c1.setFontStyle(FONT_ITALIC);
     CPPUNIT_ASSERT_EQUAL(e.hash(c1), e.hash(c2));
     e.formatOptions().useItalic(true);
     CPPUNIT_ASSERT(e.hash(c1) != e.hash(c2));
-    c2.setFontStyle(FORMAT_FONT_ITALIC);
+    c2.setFontStyle(FONT_ITALIC);
     CPPUNIT_ASSERT_EQUAL(e.hash(c1), e.hash(c2));
 
     e.formatOptions().useBold(false);
-    c1.setFontStyle(FORMAT_FONT_BOLD);
+    c1.setFontStyle(FONT_BOLD);
     c2.setFontStyle(0);
     CPPUNIT_ASSERT_EQUAL(e.hash(c1), e.hash(c2));
     e.formatOptions().useBold(true);
     CPPUNIT_ASSERT(e.hash(c1) != e.hash(c2));
-    c2.setFontStyle(FORMAT_FONT_BOLD);
+    c2.setFontStyle(FONT_BOLD);
+    CPPUNIT_ASSERT_EQUAL(e.hash(c1), e.hash(c2));
+
+    c1.setFontStyle(FONT_UNDERLINE);
+    c2.setFontStyle(0);
+    CPPUNIT_ASSERT(e.hash(c1) != e.hash(c2));
+    c2.setFontStyle(FONT_UNDERLINE);
+    CPPUNIT_ASSERT_EQUAL(e.hash(c1), e.hash(c2));
+
+    c1.setFontStyle(FONT_SUPER);
+    c2.setFontStyle(0);
+    CPPUNIT_ASSERT(e.hash(c1) != e.hash(c2));
+    c2.setFontStyle(FONT_SUPER);
+    CPPUNIT_ASSERT_EQUAL(e.hash(c1), e.hash(c2));
+
+    c1.setFontStyle(FONT_SUB);
+    c2.setFontStyle(0);
+    CPPUNIT_ASSERT(e.hash(c1) != e.hash(c2));
+    c2.setFontStyle(FONT_SUB);
     CPPUNIT_ASSERT_EQUAL(e.hash(c1), e.hash(c2));
 }
 
