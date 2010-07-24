@@ -18,6 +18,10 @@ header("Bold test")
 import bold
 bold.test()
 
+header("Italic test")
+import italic
+italic.test()
+
 header("Indent test")
 import indent
 indent.test()
