@@ -83,25 +83,25 @@ void GenericExporter::doExport(std::ostream& os) {
 
 void GenericExporter::exportChar(CEDChar& chr) {
     num_chars_++;
-    writeCharacterBegin(*os_, chr);
-    writeCharacter(*os_, chr);
-    writeCharacterEnd(*os_, chr);
+    writeCharacterBegin(chr);
+    writeCharacter(chr);
+    writeCharacterEnd(chr);
 }
 
 void GenericExporter::exportColumn(CEDColumn& col) {
     num_columns_++;
 
-    writeColumnBegin(*os_, col);
+    writeColumnBegin(col);
     col.exportChildren(*this);
-    writeColumnEnd(*os_, col);
+    writeColumnEnd(col);
 }
 
 void GenericExporter::exportFrame(CEDFrame& frame) {
     num_frames_++;
 
-    writeFrameBegin(*os_, frame);
+    writeFrameBegin(frame);
     frame.exportChildren(*this);
-    writeFrameEnd(*os_, frame);
+    writeFrameEnd(frame);
 }
 
 void GenericExporter::exportLine(CEDLine& line) {
@@ -112,15 +112,15 @@ void GenericExporter::exportLine(CEDLine& line) {
     }
 
     num_lines_++;
-    writeLineBegin(*os_, line);
+    writeLineBegin(line);
     line.exportChildren(*this);
-    writeLineEnd(*os_, line);
+    writeLineEnd(line);
 }
 
 void GenericExporter::exportPage(CEDPage& page) {
-    writePageBegin(*os_, page);
+    writePageBegin(page);
     page.exportChildren(*this);
-    writePageEnd(*os_, page);
+    writePageEnd(page);
 }
 
 void GenericExporter::exportParagraph(CEDParagraph& par) {
@@ -132,26 +132,24 @@ void GenericExporter::exportParagraph(CEDParagraph& par) {
 
     num_paragraphs_++;
 
-    writeParagraphBegin(*os_, par);
+    writeParagraphBegin(par);
     par.exportChildren(*this);
-    writeParagraphEnd(*os_, par);
+    writeParagraphEnd(par);
 }
 
 void GenericExporter::exportPicture(CEDPicture& picture) {
-    if (skipPictures()) {
-        Debug() << "picture skipped\n";
+    if (skipPictures())
         return;
-    }
 
     num_pictures_++;
-    writePicture(*os_, picture);
+    writePicture(picture);
 }
 
 void GenericExporter::exportSection(CEDSection& sect) {
     num_sections_++;
-    writeSectionBegin(*os_, sect);
+    writeSectionBegin(sect);
     sect.exportChildren(*this);
-    writeSectionEnd(*os_, sect);
+    writeSectionEnd(sect);
 }
 
 void GenericExporter::exportTable(CEDTable& table) {
@@ -163,7 +161,7 @@ bool GenericExporter::isEmptyParagraph(CEDParagraph& par) {
     return charNumInParagraph(par) < 1;
 }
 
-bool GenericExporter::isLineBreak(CEDLine& line) const {
+bool GenericExporter::isLineBreak(const CEDLine& line) const {
     return line.hardBreak() || formatOptions().preserveLineBreaks();
 }
 
@@ -203,8 +201,8 @@ int GenericExporter::numTables() const {
     return num_tables_;
 }
 
-std::ostream * GenericExporter::outputStream() {
-    return os_;
+std::ostream& GenericExporter::outputStream() {
+    return *os_;
 }
 
 CEDPage * GenericExporter::page() {
@@ -278,63 +276,63 @@ void GenericExporter::setOutputStream(std::ostream * os) {
     os_ = os;
 }
 
-void GenericExporter::writeCharacter(std::ostream&, CEDChar&) {
+void GenericExporter::writeCharacter(CEDChar&) {
 }
 
-void GenericExporter::writeCharacterBegin(std::ostream&, CEDChar&) {
+void GenericExporter::writeCharacterBegin(CEDChar&) {
 }
 
-void GenericExporter::writeCharacterEnd(std::ostream&, CEDChar&) {
+void GenericExporter::writeCharacterEnd(CEDChar&) {
 }
 
-void GenericExporter::writeColumnBegin(std::ostream& /*os*/, CEDColumn& /*col*/) {
+void GenericExporter::writeColumnBegin(CEDColumn&) {
 }
 
-void GenericExporter::writeColumnEnd(std::ostream& /*os*/, CEDColumn& /*col*/) {
-
-}
-
-void GenericExporter::writeFrameBegin(std::ostream& /*os*/, CEDFrame&) {
+void GenericExporter::writeColumnEnd(CEDColumn&) {
 
 }
 
-void GenericExporter::writeFrameEnd(std::ostream& /*os*/, CEDFrame&) {
+void GenericExporter::writeFrameBegin(CEDFrame&) {
 
 }
 
-void GenericExporter::writeLineBegin(std::ostream&, CEDLine&) {
+void GenericExporter::writeFrameEnd(CEDFrame&) {
 
 }
 
-void GenericExporter::writeLineEnd(std::ostream&, CEDLine&) {
+void GenericExporter::writeLineBegin(CEDLine&) {
 
 }
 
-void GenericExporter::writePageBegin(std::ostream&, CEDPage&) {
+void GenericExporter::writeLineEnd(CEDLine&) {
 
 }
 
-void GenericExporter::writePageEnd(std::ostream&, CEDPage&) {
+void GenericExporter::writePageBegin(CEDPage&) {
 
 }
 
-void GenericExporter::writeParagraphBegin(std::ostream&, CEDParagraph&) {
+void GenericExporter::writePageEnd(CEDPage&) {
 
 }
 
-void GenericExporter::writeParagraphEnd(std::ostream&, CEDParagraph&) {
+void GenericExporter::writeParagraphBegin(CEDParagraph&) {
 
 }
 
-void GenericExporter::writePicture(std::ostream&, CEDPicture&) {
+void GenericExporter::writeParagraphEnd(CEDParagraph&) {
 
 }
 
-void GenericExporter::writeSectionBegin(std::ostream&, CEDSection&) {
+void GenericExporter::writePicture(CEDPicture&) {
 
 }
 
-void GenericExporter::writeSectionEnd(std::ostream&, CEDSection&) {
+void GenericExporter::writeSectionBegin(CEDSection&) {
+
+}
+
+void GenericExporter::writeSectionEnd(CEDSection&) {
 
 }
 

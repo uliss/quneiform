@@ -60,6 +60,19 @@ void BlockElement::addElement(ElementPtr e) {
     e->setParent(this);
 }
 
+Element * BlockElement::lastElement() {
+    if (elements_.empty())
+        throw std::out_of_range("[BlockElement::lastElement] element is empty");
+    return elements_.back().get();
+}
+
+const Element * BlockElement::lastElement() const {
+    if (elements_.empty())
+        throw std::out_of_range("[BlockElement::lastElement] element is empty");
+    return elements_.back().get();
+
+}
+
 void BlockElement::setBorderBottom(ed_border_t bottom) {
     border_bottom_ = bottom;
 }

@@ -43,55 +43,51 @@ class TextExporter: public GenericExporter
         void exportTo(std::ostream& os);
     protected:
         /**
-         * Preprocess line buffer
-         * if overloaded can be used for character replacement
-         */
-        virtual void bufferPreprocess(std::string& buffer);
-
-        /**
          * Writes character to line buffer
          */
-        virtual void writeCharacter(std::ostream& os, CEDChar& chr);
+        virtual void writeCharacter(CEDChar& chr);
 
         /**
          * Writes line breaks
          */
-        virtual void writeLineBreak(std::ostream& os);
+        virtual void writeLineBreak();
 
         /**
          * Writes preprocessed line buffer content to output stream
          * after that line buffer is cleared
          * @see clearLineBuffer
          */
-        virtual void writeLineBuffer(std::ostream& os, CEDLine& line);
+        virtual void writeLineBuffer(CEDLine& line);
+
+        virtual void writeLineBegin(CEDLine& line);
 
         /**
          * Writes line and optional line break if needed
          * @see writeLineBreak
          */
-        virtual void writeLineEnd(std::ostream& os, CEDLine& line);
+        virtual void writeLineEnd(CEDLine& line);
 
         /**
          * Writes new line after page
          */
-        virtual void writePageEnd(std::ostream& os, CEDPage& page);
+        virtual void writePageEnd(CEDPage& page);
 
-        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph& par);
+        virtual void writeParagraphBegin(CEDParagraph& par);
 
         /**
          * Writes new line after paragraph
          */
-        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph& par);
+        virtual void writeParagraphEnd(CEDParagraph& par);
 
         /**
          * Writes stub "[picture]" on picture place
          */
-        virtual void writePicture(std::ostream& os, CEDPicture& picture);
+        virtual void writePicture(CEDPicture& picture);
     protected:
         /**
-         * Clears line buffer
+         * Flushes line buffer to output stream
          */
-        void clearLineBuffer();
+        void flushLineBuffer();
 
         /**
          * Returns raw line content
@@ -117,10 +113,17 @@ class TextExporter: public GenericExporter
          * Writes raw line buffer content to output stream
          * after that line buffer is cleared
          */
-        void writeLineBufferRaw(std::ostream& os);
+        void writeLineBufferRaw();
+    private:
+        bool notLastLine() const {
+            return lines_left_in_paragraph_ > 1;
+        }
     private:
         std::ostringstream line_buffer_;
-        int lines_left_in_paragraph_;
+        size_t lines_left_in_paragraph_;
+        size_t elements_left_in_line_;
+        bool remove_last_line_hyphen_;
+        bool add_space_after_line_;
 };
 
 }

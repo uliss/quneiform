@@ -25,44 +25,26 @@
 #include "ced/cedchar.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
+#include "ced/cedpicture.h"
 #include "common/helper.h"
 
 namespace CIF
 {
 
-inline void removeHyphens(std::string& line) {
-    if (line.empty())
-        return;
-
-    size_t len = line.size();
-    if (len > 1 && line[len - 1] == '-')
-        line.erase(len - 1, 1);
-}
-
 TextExporter::TextExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts), lines_left_in_paragraph_(0) {
+    GenericExporter(page, opts), lines_left_in_paragraph_(0), elements_left_in_line_(0),
+            add_space_after_line_(false) {
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
-    setSkipPictures(true);
+    setSkipPictures(false);
 }
 
 void TextExporter::appendTo(const std::string& filename) {
-    std::ofstream f;
-    f.open(filename.c_str(), std::ios::out | std::ios::binary | std::ios::app);
+    std::ofstream f(filename.c_str(), std::ios::out | std::ios::binary | std::ios::app);
     if (!f)
         throw Exception("[TextExporter::appendTo] append failed to: " + filename);
     setOutputFilename(filename);
     doExport(f);
-}
-
-void TextExporter::bufferPreprocess(std::string& buffer) {
-    // replaces -- to Unicode mdash character
-    replaceAll(buffer, "--", "\u2013");
-}
-
-void TextExporter::clearLineBuffer() {
-    assert(line_buffer_.rdbuf());
-    line_buffer_.rdbuf()->str("");
 }
 
 void TextExporter::exportTo(std::ostream& os) {
@@ -72,13 +54,26 @@ void TextExporter::exportTo(std::ostream& os) {
     GenericExporter::exportTo(os);
 }
 
+void TextExporter::flushLineBuffer() {
+    std::string output_line = lineBufferPrepared();
+
+    if (isCharsetConversion())
+        outputStream() << converter_.convert(output_line);
+    else
+        outputStream() << output_line;
+
+    line_buffer_.str("");
+}
+
 std::ostringstream& TextExporter::lineBuffer() {
+    if (streamSize(line_buffer_) > 1024)
+        flushLineBuffer();
+
     return line_buffer_;
 }
 
 std::string TextExporter::lineBufferPrepared() {
     std::string res(line_buffer_.str());
-    bufferPreprocess(res);
     return res;
 }
 
@@ -90,61 +85,59 @@ void TextExporter::writeBOM(std::ostream& os) {
     os << "\xEF\xBB\xBF";
 }
 
-void TextExporter::writeCharacter(std::ostream&, CEDChar& chr) {
+void TextExporter::writeCharacter(CEDChar& chr) {
+    // skip last hyphen in line
+    if (elements_left_in_line_-- == 1 && remove_last_line_hyphen_)
+        return;
+
     lineBuffer() << chr.alternativeAt(0).getChar();
 }
 
-void TextExporter::writeLineBreak(std::ostream& os) {
-    os << '\n';
+void TextExporter::writeLineBreak() {
+    outputStream() << '\n';
 }
 
-void TextExporter::writeLineBuffer(std::ostream& os, CEDLine& line) {
-    std::string output_line = lineBufferPrepared();
+void TextExporter::writeLineBuffer(CEDLine& line) {
+    flushLineBuffer();
 
-    if (isRemoveHyphens(line))
-        removeHyphens(output_line);
-
-    if (isCharsetConversion())
-        os << converter_.convert(output_line);
-    else
-        os << output_line;
-
-    clearLineBuffer();
-
-    if (isLineBreak(line)) {
-        writeLineBreak(os);
-    } else {
-        // if no end hyphen
-        // insert space to separate words on different lines
-        if (!output_line.empty() && output_line.rfind('-') != 0 && lines_left_in_paragraph_ > 1)
-            os << ' ';
-    }
+    if (isLineBreak(line))
+        writeLineBreak();
+    else if (notLastLine() && !remove_last_line_hyphen_)
+        outputStream() << ' ';
 }
 
-void TextExporter::writeLineBufferRaw(std::ostream& os) {
-    os << lineBuffer().str();
-    clearLineBuffer();
+void TextExporter::writeLineBufferRaw() {
+    outputStream() << lineBuffer().str();
+    line_buffer_.str("");
 }
 
-void TextExporter::writeLineEnd(std::ostream& os, CEDLine& line) {
-    writeLineBuffer(os, line);
+void TextExporter::writeLineBegin(CEDLine& line) {
+    elements_left_in_line_ = line.elementCount();
+    remove_last_line_hyphen_ = false;
+
+    if (notLastLine() && !isLineBreak(line))
+        remove_last_line_hyphen_ = line.endsWithHyphen();
+}
+
+void TextExporter::writeLineEnd(CEDLine& line) {
+    writeLineBuffer(line);
     lines_left_in_paragraph_--;
 }
 
-void TextExporter::writePageEnd(std::ostream& os, CEDPage&) {
-    os << std::endl;
+void TextExporter::writePageEnd(CEDPage&) {
+    outputStream() << std::endl;
 }
 
-void TextExporter::writeParagraphBegin(std::ostream&, CEDParagraph& par) {
+void TextExporter::writeParagraphBegin(CEDParagraph& par) {
     lines_left_in_paragraph_ = par.lineCount();
 }
 
-void TextExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
-    os << "\n";
+void TextExporter::writeParagraphEnd(CEDParagraph&) {
+    outputStream() << "\n";
 }
 
-void TextExporter::writePicture(std::ostream& os, CEDPicture&) {
-    os << "[picture]\n";
+void TextExporter::writePicture(CEDPicture& pict) {
+    outputStream() << "[picture: " << pict.width() << 'x' << pict.height() << "]\n";
 }
 
 }

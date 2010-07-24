@@ -26,8 +26,8 @@
 namespace CIF
 {
 
-const int BOXES_TO_RESERVE = 200;
-const int BAD_RECT_VALUE = 65535;
+static const int BOXES_TO_RESERVE = 200;
+static const int BAD_RECT_VALUE = 65535;
 
 inline bool goodCharRect(const Rect& rc) {
     return rc.left() != -1 && rc.left() != BAD_RECT_VALUE && rc.right() != BAD_RECT_VALUE
@@ -79,71 +79,70 @@ void HocrExporter::addCharBBox(CEDChar& chr) {
     }
 }
 
-void HocrExporter::writeCharacter(std::ostream& os, CEDChar& chr) {
+void HocrExporter::writeCharacter(CEDChar& chr) {
     addCharBBox(chr);
-    HtmlExporter::writeCharacter(os, chr);
+    HtmlExporter::writeCharacter(chr);
 }
 
-void HocrExporter::writeCharBBoxesInfo(std::ostream& os) {
+void HocrExporter::writeCharBBoxesInfo() {
     XmlTag span("span");
     span["class"] = "ocr_info";
     span["title"] = rectBBoxes(rects_);
-    os << span << "\n";
+    outputStream() << span << "\n";
 }
 
-void HocrExporter::writeLineEnd(std::ostream& os, CEDLine& line) {
+void HocrExporter::writeLineEnd(CEDLine& line) {
     XmlTag span("span");
     span["class"] = "ocr_line";
     span["id"] = "line_" + toString(numLines());
     span["title"] = rectBBox(line_rect_);
-    span.writeBeginNL(os);
+    span.writeBeginNL(outputStream());
 
-    writeCharBBoxesInfo(os);
-//    resetFontStyle(os);
-    HtmlExporter::writeLineEnd(os, line);
+    writeCharBBoxesInfo();
+    //    resetFontStyle(os);
+    HtmlExporter::writeLineEnd(line);
 
-    span.writeEndNL(os);
+    span.writeEndNL(outputStream());
     is_in_line_ = false;
     rects_.clear();
 }
 
-void HocrExporter::writeMeta(std::ostream& os) {
-    HtmlExporter::writeMeta(os);
+void HocrExporter::writeMeta() {
+    HtmlExporter::writeMeta();
 
     XmlTag meta("meta");
     meta["name"] = "ocr-system";
     meta["content"] = "cuneiform";
-    os << meta << "\n";
+    outputStream() << meta << "\n";
 }
 
-void HocrExporter::writePageBegin(std::ostream& os, CEDPage& page) {
-    HtmlExporter::writePageBegin(os, page);
+void HocrExporter::writePageBegin(CEDPage& page) {
+    HtmlExporter::writePageBegin(page);
     static int num_pages = 1;
     // example: <div class="ocr_page" title="image 'page-000.pbm'; bbox 0 0 4306 6064">
     XmlTag div("div");
     div["class"] = "ocr_page";
     div["id"] = "page_" + toString(num_pages);
     div["title"] = pageBBox(page);
-    div.writeBeginNL(os);
+    div.writeBeginNL(outputStream());
     num_pages++;
 }
 
-void HocrExporter::writePageEnd(std::ostream& os, CEDPage& page) {
-    writeCloseTag(os, "div", "\n");
-    HtmlExporter::writePageEnd(os, page);
+void HocrExporter::writePageEnd(CEDPage& page) {
+    writeCloseTag("div", "\n");
+    HtmlExporter::writePageEnd(page);
 }
 
-void HocrExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
-    HtmlExporter::writeParagraphBegin(os, par);
-    os << "\n";
+void HocrExporter::writeParagraphBegin(CEDParagraph& par) {
+    HtmlExporter::writeParagraphBegin(par);
+    outputStream() << "\n";
     rects_.clear();
     line_rect_ = Rect();
 }
 
-void HocrExporter::writePicture(std::ostream& os, CEDPicture& picture) {
-    //    addCharBBox(picture);
+void HocrExporter::writePicture(CEDPicture& picture) {
     line_rect_ = picture.boundingRect();
-    HtmlExporter::writePicture(os, picture);
+    HtmlExporter::writePicture(picture);
 }
 
 }

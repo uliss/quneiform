@@ -34,7 +34,7 @@ class OdfStyleExporter: public StyleExporter
         OdfStyleExporter(CEDPage * page, const FormatOptions& opts);
         std::string makeStyle(const CEDChar& chr);
         std::string makeStyle(const CEDParagraph& par);
-        void writePageEnd(std::ostream& os, CEDPage& page);
+        void writePageEnd(CEDPage& page);
     private:
         int fontSize2odf(int value) const;
         typedef boost::shared_ptr<XmlTag> StylePtr;

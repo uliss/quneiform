@@ -57,67 +57,65 @@ std::string XmlExporter::escapeSpecialChar(uchar code) {
     }
 }
 
-void XmlExporter::writeCloseTag(std::ostream& os, const std::string& tagName,
+void XmlExporter::writeCloseTag(const std::string& tagName, const std::string& newline) {
+    if (tagName.empty())
+        return;
+
+    outputStream() << "</" << tagName << ">" << newline;
+    line_break_ = newline.empty() ? false : true;
+}
+
+void XmlExporter::writeXmlDeclaration(const std::string& encoding) {
+    outputStream() << "<?xml version=\"1.0\" encoding=\"" << encoding << "\"?>\n";
+}
+
+void XmlExporter::writeSingleTag(const std::string& tagName, const Attributes& attrs,
         const std::string& newline) {
     if (tagName.empty())
         return;
 
-    os << "</" << tagName << ">" << newline;
+    outputStream() << "<" << tagName;
+    writeAttributes(attrs);
+    outputStream() << "/>" << newline;
     line_break_ = newline.empty() ? false : true;
 }
 
-void XmlExporter::writeXmlDeclaration(std::ostream& os, const std::string& encoding) {
-    os << "<?xml version=\"1.0\" encoding=\"" << encoding << "\"?>\n";
-}
-
-void XmlExporter::writeSingleTag(std::ostream& os, const std::string& tagName,
-        const Attributes& attrs, const std::string& newline) {
-    if (tagName.empty())
-        return;
-
-    os << "<" << tagName;
-    writeAttributes(os, attrs);
-    os << "/>" << newline;
-    line_break_ = newline.empty() ? false : true;
-}
-
-void XmlExporter::writeAttributes(std::ostream& os, const Attributes& attrs) {
+void XmlExporter::writeAttributes(const Attributes& attrs) {
     for (Attributes::const_iterator it = attrs.begin(), end = attrs.end(); it != end; ++it)
-        os << " " << it->first << "=\"" << it->second << "\"";
+        outputStream() << " " << it->first << "=\"" << it->second << "\"";
 }
 
-void XmlExporter::writeStartTag(std::ostream& os, const std::string& tagName,
+void XmlExporter::writeStartTag(const std::string& tagName, const std::string& newline) {
+    if (tagName.empty())
+        return;
+
+    outputStream() << "<" << tagName << ">" << newline;
+    line_break_ = newline.empty() ? false : true;
+}
+
+void XmlExporter::writeStartTag(const std::string& tagName, const Attributes& attrs,
         const std::string& newline) {
     if (tagName.empty())
         return;
 
-    os << "<" << tagName << ">" << newline;
+    outputStream() << "<" << tagName;
+    writeAttributes(attrs);
+    outputStream() << ">" << newline;
     line_break_ = newline.empty() ? false : true;
 }
 
-void XmlExporter::writeStartTag(std::ostream& os, const std::string& tagName,
+void XmlExporter::writeTag(const std::string& tagName, const std::string& tagText,
         const Attributes& attrs, const std::string& newline) {
     if (tagName.empty())
         return;
 
-    os << "<" << tagName;
-    writeAttributes(os, attrs);
-    os << ">" << newline;
+    writeStartTag(tagName, attrs);
+    outputStream() << escapeHtmlSpecialChars(tagText);
+    writeCloseTag(tagName, newline);
     line_break_ = newline.empty() ? false : true;
 }
 
-void XmlExporter::writeTag(std::ostream& os, const std::string& tagName,
-        const std::string& tagText, const Attributes& attrs, const std::string& newline) {
-    if (tagName.empty())
-        return;
-
-    writeStartTag(os, tagName, attrs);
-    os << escapeHtmlSpecialChars(tagText);
-    writeCloseTag(os, tagName, newline);
-    line_break_ = newline.empty() ? false : true;
-}
-
-void XmlExporter::writeCharacter(std::ostream& /*os*/, CEDChar& chr) {
+void XmlExporter::writeCharacter(CEDChar& chr) {
     assert(chr.hasAlternatives());
     lineBuffer() << escapeSpecialChar(chr.alternativeAt(0).getChar());
 }

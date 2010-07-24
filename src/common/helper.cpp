@@ -81,5 +81,41 @@ std::string baseName(const std::string& path) {
     return last_slash ? path.substr(slash_pos, (sz - slash_pos) - 1) : path.substr(slash_pos);
 }
 
+std::streampos streamSize(std::istream& is) {
+    std::streampos prev_pos = is.tellg();
+    // -1 returned in case of error
+    if (prev_pos < 0)
+        return 0;
+    is.seekg(0, std::ios::end);
+    // exception thrown or failbit flag set
+    if (is.fail())
+        return 0;
+    std::streampos ret = is.tellg();
+    if (ret < 0)
+        return 0;
+    is.seekg(prev_pos);
+    if (is.fail())
+        return 0;
+    return ret;
+}
+
+std::streampos streamSize(std::ostream& os) {
+    std::streampos prev_pos = os.tellp();
+    // -1 returned in case of error
+    if (prev_pos < 0)
+        return 0;
+    os.seekp(0, std::ios::end);
+    // exception thrown or failbit flag set
+    if (os.fail())
+        return 0;
+    std::streampos ret = os.tellp();
+    if (ret < 0)
+        return 0;
+    os.seekp(prev_pos);
+    if (os.fail())
+        return 0;
+    return ret;
+}
+
 }
 

@@ -36,7 +36,7 @@ using namespace CIF;
 using namespace std;
 
 inline void clearBuffer(HtmlExporter * exp) {
-    exp->lineBuffer().rdbuf()->str("");
+    exp->lineBuffer().str("");
 }
 
 inline string buffer(HtmlExporter * exp) {
@@ -206,7 +206,7 @@ void TestHtmlExporter::testExportCharacter() {
     for (uint i = 0; i < chars.size(); i++) {
         lt.alternative_ = chars[i];
         c_->setAlternative(lt, 0);
-        exp_->writeCharacter(cerr, *c_);
+        exp_->writeCharacter(*c_);
         CPPUNIT_ASSERT_EQUAL(string(1, chars[i]), buffer(exp_));
         clearBuffer(exp_);
     }

@@ -39,11 +39,11 @@ class CssExporter: public StyleExporter
         virtual std::string makeCssStyle(const CEDParagraph& par) const;
         virtual std::string makeStyle(const CEDChar& chr);
         virtual std::string makeStyle(const CEDParagraph& par);
-        virtual void writePageEnd(std::ostream& os, CEDPage& page);
+        virtual void writePageEnd(CEDPage& page);
     private:
         typedef std::map<std::string, std::string> StyleMap;
         typedef StyleMap::value_type StyleEntry;
-        void writeStyleEntry(std::ostream& os, const StyleEntry& entry);
+        void writeStyleEntry(const StyleEntry& entry);
     private:
         StyleMap styles_;
 };

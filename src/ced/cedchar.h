@@ -80,6 +80,11 @@ class CLA_EXPO CEDChar: public Element
         int fontStyle() const;
 
         /**
+         * Return true if char is hypen
+         */
+        bool isHyphen() const;
+
+        /**
          * Checks if char has alternative
          */
         bool hasAlternatives() const;

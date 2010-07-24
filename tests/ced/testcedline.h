@@ -24,12 +24,14 @@
 class TestCedLine: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestCedLine);
+    CPPUNIT_TEST(testEndsWithHyphen);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testInsertChar);
     CPPUNIT_TEST(testCharAt);
     CPPUNIT_TEST(testSerialize);
     CPPUNIT_TEST_SUITE_END();
     public:
+        void testEndsWithHyphen();
         void testInit();
         void testInsertChar();
         void testCharAt();

@@ -40,18 +40,18 @@ class HtmlExporter: public XmlExporter
         /**
          * Writes characters to line buffer
          */
-        virtual void writeCharacterBegin(std::ostream& os, CEDChar& chr);
-        virtual void writeCharacterEnd(std::ostream& os, CEDChar& chr);
+        virtual void writeCharacterBegin(CEDChar& chr);
+        virtual void writeCharacterEnd(CEDChar& chr);
 
         /**
          * Writes css style
          */
-        virtual void writeCssStyle(std::ostream& os);
+        virtual void writeCssStyle();
 
         /**
          * Writes HTML document type
          */
-        virtual void writeDoctype(std::ostream& os);
+        virtual void writeDoctype();
 
         void writeFontStyleBegin(int style);
         void writeFontStyleEnd(int style);
@@ -59,62 +59,62 @@ class HtmlExporter: public XmlExporter
         /**
          * Writes open frame tag
          */
-        virtual void writeFrameBegin(std::ostream& os, CEDFrame& frame);
+        virtual void writeFrameBegin(CEDFrame& frame);
 
         /**
          * Writes close frame tag
          */
-        virtual void writeFrameEnd(std::ostream& os, CEDFrame& frame);
+        virtual void writeFrameEnd(CEDFrame& frame);
 
         /**
          * Writes <br/> tag if needed
          */
-        virtual void writeLineBreak(std::ostream& os);
+        virtual void writeLineBreak();
 
         /**
          * Writes HTML meta information in <meta> tags
          */
-        virtual void writeMeta(std::ostream& os);
+        virtual void writeMeta();
 
         /**
          * Writes HTML header, meta info and <body> tag
          */
-        virtual void writePageBegin(std::ostream& os, CEDPage& page);
+        virtual void writePageBegin(CEDPage& page);
 
         /**
          * Writes </body> and </html> tags
          */
-        virtual void writePageEnd(std::ostream& os, CEDPage& page);
+        virtual void writePageEnd(CEDPage& page);
 
         /**
          * Writes <p> tag
          */
-        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph& par);
+        virtual void writeParagraphBegin(CEDParagraph& par);
 
         /**
          * Writes </p> tag
          */
-        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph& par);
+        virtual void writeParagraphEnd(CEDParagraph& par);
 
         /**
          * Writes <img> tag
          */
-        virtual void writePicture(std::ostream& os, CEDPicture& picture);
+        virtual void writePicture(CEDPicture& picture);
 
         /**
          * Writes <div> for section
          */
-        virtual void writeSectionBegin(std::ostream& os, CEDSection& sect);
+        virtual void writeSectionBegin(CEDSection& sect);
 
         /**
          * Writes </div> for section
          */
-        virtual void writeSectionEnd(std::ostream& os, CEDSection& sect);
+        virtual void writeSectionEnd(CEDSection& sect);
 
         /**
          * Writes HTML title in header
          */
-        virtual void writeTitle(std::ostream& os);
+        virtual void writeTitle();
     private:
         size_t prev_char_style_hash_;
         int prev_char_font_style_;

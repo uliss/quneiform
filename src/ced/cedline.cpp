@@ -47,6 +47,14 @@ int CEDLine::defaultFontHeight() const {
     return default_font_height_;
 }
 
+bool CEDLine::endsWithHyphen() const {
+    if (empty())
+        return false;
+
+    const CEDChar * chr = dynamic_cast<const CEDChar*> (lastElement());
+    return chr == NULL ? false : chr->isHyphen();
+}
+
 void CEDLine::exportElement(CEDExporter& exp) {
     exp.exportLine(*this);
 }

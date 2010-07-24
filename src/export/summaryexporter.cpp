@@ -35,17 +35,17 @@ SummaryExporter::SummaryExporter(CEDPage * page, const FormatOptions& opts) :
     setSkipEmptyParagraphs(false);
 }
 
-void SummaryExporter::writePageEnd(std::ostream& os, CEDPage&) {
-    os << "##################################\n";
-    os << "Page summary: " << "\n";
-    os << "    total sections:   " << numSections() << "\n";
-    os << "    total columns:    " << numColumns() << "\n";
-    os << "    total paragraphs: " << numParagraphs() << "\n";
-    os << "    total frames:     " << numFrames() << "\n";
-    os << "    total lines:      " << numLines() << "\n";
-    os << "    total chars:      " << numChars() << "\n";
-    os << "    total pictures:   " << numPictures() << "\n";
-    os << "    total tables:     " << numTables() << "\n";
+void SummaryExporter::writePageEnd(CEDPage&) {
+    outputStream() << "##################################\n";
+    outputStream() << "Page summary: " << "\n";
+    outputStream() << "    total sections:   " << numSections() << "\n";
+    outputStream() << "    total columns:    " << numColumns() << "\n";
+    outputStream() << "    total paragraphs: " << numParagraphs() << "\n";
+    outputStream() << "    total frames:     " << numFrames() << "\n";
+    outputStream() << "    total lines:      " << numLines() << "\n";
+    outputStream() << "    total chars:      " << numChars() << "\n";
+    outputStream() << "    total pictures:   " << numPictures() << "\n";
+    outputStream() << "    total tables:     " << numTables() << "\n";
 }
 
 }

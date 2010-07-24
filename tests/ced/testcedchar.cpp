@@ -28,6 +28,17 @@ using namespace CIF;
 void TestCEDChar::testInit() {
 }
 
+void TestCEDChar::testIsHyphen() {
+    CEDChar chr;
+
+    CPPUNIT_ASSERT(!chr.isHyphen());
+
+    chr.addAlternative(' ');
+    CPPUNIT_ASSERT(!chr.isHyphen());
+    chr.setAlternative('-', 0);
+    CPPUNIT_ASSERT(chr.isHyphen());
+}
+
 void TestCEDChar::testSerialize() {
 #ifdef CF_SERIALIZE
     CEDChar chr;

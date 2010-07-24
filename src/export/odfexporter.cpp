@@ -70,48 +70,59 @@ OdfExporter::~OdfExporter() {
     delete style_exporter_;
 }
 
-void OdfExporter::addOdfAutomaticStyles(std::ostream& os) {
+void OdfExporter::addOdfAutomaticStyles() {
     XmlTag automatic_styles("office:automatic-styles");
-    automatic_styles.writeBeginNL(os);
-
-    style_exporter_->exportTo(os);
-    // style_exporter_->exportTo(std::cerr);
-    automatic_styles.writeEndNL(os);
+    automatic_styles.writeBegin(outputStream());
+    style_exporter_->exportTo(outputStream());
+    automatic_styles.writeEnd(outputStream());
 }
 
 void OdfExporter::addOdfContent() {
+    // saving old output stream
+    std::ostream * old_stream = &outputStream();
+
     makePicturesDir();
 
     std::ostringstream buf;
-    writeXmlDeclaration(buf);
+    // setting new output stream
+    setOutputStream(&buf);
 
+    writeXmlDeclaration();
     XmlTag doc_content("office:document-content");
     setCommonOdfNamespaces(doc_content);
-    doc_content.writeBeginNL(buf);
-
-    addOdfAutomaticStyles(buf);
+    doc_content.writeBegin(outputStream());
+    addOdfAutomaticStyles();
 
     XmlTag body("office:body");
-    body.writeBeginNL(buf);
+    body.writeBeginNL(outputStream());
 
-    doExport(buf);
+    doExport(outputStream());
 
-    body.writeEndNL(buf);
-    doc_content.writeEndNL(buf);
+    body.writeEnd(outputStream());
+    doc_content.writeEnd(outputStream());
 
     odfWrite("content.xml", buf.str());
     addOdfManifestFile("content.xml", "text/xml");
+
+    // restore output stream
+    setOutputStream(old_stream);
 }
 
 void OdfExporter::addOdfManifest() {
+    // saving old output stream
+    std::ostream * old_stream = &outputStream();
+
     zip_add_dir(zip_, "META-INF");
 
     std::ostringstream buf;
-    writeXmlDeclaration(buf);
+    // setting new output stream
+    setOutputStream(&buf);
+
+    writeXmlDeclaration();
 
     XmlTag manifest("manifest:manifest");
     manifest["xmlns:manifest"] = "urn:oasis:names:tc:opendocument:xmlns:manifest:1.0";
-    manifest.writeBeginNL(buf);
+    manifest.writeBeginNL(outputStream());
 
     addOdfManifestFile("/", "application/vnd.oasis.opendocument.text");
 
@@ -119,11 +130,14 @@ void OdfExporter::addOdfManifest() {
     for (ManifestList::iterator it = files_.begin(), end = files_.end(); it != end; ++it) {
         file_entry["manifest:full-path"] = it->first;
         file_entry["manifest:media-type"] = it->second;
-        buf << file_entry << "\n";
+        outputStream() << file_entry << "\n";
     }
 
-    manifest.writeEndNL(buf);
+    manifest.writeEndNL(outputStream());
     odfWrite("META-INF/manifest.xml", buf.str());
+
+    // restore output stream
+    setOutputStream(old_stream);
 }
 
 void OdfExporter::addOdfManifestFile(const std::string& path, const std::string& type) {
@@ -131,11 +145,20 @@ void OdfExporter::addOdfManifestFile(const std::string& path, const std::string&
 }
 
 void OdfExporter::addOdfMeta() {
+    // saving old output stream
+    std::ostream * old_stream = &outputStream();
+
     std::ostringstream buf;
-    writeXmlDeclaration(buf);
-    writeMeta(buf);
+    // setting new output stream
+    setOutputStream(&buf);
+
+    writeXmlDeclaration();
+    writeMeta();
     odfWrite("meta.xml", buf.str());
     addOdfManifestFile("meta.xml", "text/xml");
+
+    // restore output stream
+    setOutputStream(old_stream);
 }
 
 void OdfExporter::addOdfMime() {
@@ -143,14 +166,23 @@ void OdfExporter::addOdfMime() {
 }
 
 void OdfExporter::addOdfSettings() {
+    // saving old output stream
+    std::ostream * old_stream = &outputStream();
+
     std::ostringstream buf;
-    writeXmlDeclaration(buf);
+    // setting new output stream
+    setOutputStream(&buf);
+
+    writeXmlDeclaration();
     XmlTag settings("office:document-settings");
     setCommonOdfNamespaces(settings);
-    buf << settings << "\n";
+    outputStream() << settings << "\n";
 
     odfWrite("settings.xml", buf.str());
     addOdfManifestFile("settings.xml", "text/xml");
+
+    // restore output stream
+    setOutputStream(old_stream);
 }
 
 void OdfExporter::addOdfStyles() {
@@ -239,19 +271,20 @@ void OdfExporter::setCommonOdfNamespaces(Tag& tag) const {
     tag["office:version"] = "1.2";
 }
 
-void OdfExporter::writeCharacterBegin(std::ostream& os, CEDChar& chr) {
+void OdfExporter::writeCharacterBegin(CEDChar& chr) {
     size_t chr_hash = style_exporter_->hash(chr);
 
     if (style_exporter_->hasHash(chr_hash)) {
         if (prev_char_style_hash_ != chr_hash) {
+            XmlTag span("text:span");
+
             if (style_span_opened_) {
-                writeCloseTag(lineBuffer(), "text:span");
+                span.writeEnd(lineBuffer());
                 style_span_opened_ = false;
             }
 
-            Attributes attrs;
-            attrs["text:style-name"] = style_exporter_->styleByHash(chr_hash);
-            writeStartTag(lineBuffer(), "text:span", attrs);
+            span["text:style-name"] = style_exporter_->styleByHash(chr_hash);
+            span.writeBegin(lineBuffer());
             style_span_opened_ = true;
 
             prev_char_style_hash_ = chr_hash;
@@ -259,49 +292,49 @@ void OdfExporter::writeCharacterBegin(std::ostream& os, CEDChar& chr) {
     }
 }
 
-void OdfExporter::writeFontStyleBegin(std::ostream& os, int style) {
+void OdfExporter::writeFontStyleBegin(int style) {
     //    XmlTag span("text:span");
     //    span["text:style-name"] = fontStyleTag(style);
     //    span.writeBegin(os);
 }
 
-void OdfExporter::writeFontStyleEnd(std::ostream& os, int style) {
+void OdfExporter::writeFontStyleEnd(int style) {
     //    XmlTag span("text:span");
     //    span.writeEnd(os);
 }
 
-void OdfExporter::writeLineBreak(std::ostream& os, CEDLine& line) {
+void OdfExporter::writeLineBreak(CEDLine& line) {
     // skip last line break
     if (lineLeftInParagraph() <= 1)
         return;
 
     if (isLineBreak(line))
-        writeSingleTag(os, "text:line-break", Attributes(), "\n");
+        writeSingleTag("text:line-break", Attributes(), "\n");
 }
 
-void OdfExporter::writeMeta(std::ostream& os) {
+void OdfExporter::writeMeta() {
     XmlTag document_meta("office:document-meta");
     setCommonOdfNamespaces(document_meta);
-    document_meta.writeBeginNL(os);
+    document_meta.writeBegin(outputStream());
 
     XmlTag office_meta("office:meta");
-    office_meta.writeBeginNL(os);
+    office_meta.writeBegin(outputStream());
 
-    os << XmlTag("meta:generator", "Cuneiform-" CF_VERSION) << "\n";
-    writeMetaDate(os);
-    writeMetaStatistics(os);
+    outputStream() << XmlTag("meta:generator", "Cuneiform-" CF_VERSION) << "\n";
+    writeMetaDate();
+    writeMetaStatistics();
 
-    office_meta.writeEndNL(os);
-    document_meta.writeEndNL(os);
+    office_meta.writeEnd(outputStream());
+    document_meta.writeEnd(outputStream());
 }
 
-void OdfExporter::writeMetaDate(std::ostream& os) {
+void OdfExporter::writeMetaDate() {
     std::string time = datetime();
-    os << XmlTag("meta:creation-date", time) << "\n";
-    os << XmlTag("dc:date", time) << "\n";
+    outputStream() << XmlTag("meta:creation-date", time) << "\n";
+    outputStream() << XmlTag("dc:date", time) << "\n";
 }
 
-void OdfExporter::writeMetaStatistics(std::ostream& os) {
+void OdfExporter::writeMetaStatistics() {
     XmlTag stat("meta:document-statistic");
     stat["meta:table-count"] = toString(numTables());
     stat["meta:image-count"] = toString(numPictures());
@@ -310,20 +343,20 @@ void OdfExporter::writeMetaStatistics(std::ostream& os) {
     stat["meta:paragraph-count"] = toString(numParagraphs());
     stat["meta:word-count"] = "0";
     stat["meta:character-count"] = toString(numChars());
-    os << stat << "\n";
+    outputStream() << stat << "\n";
 }
 
-void OdfExporter::writePageBegin(std::ostream& os, CEDPage&) {
-    writeStartTag(os, "office:text", "\n");
-    writeStartTag(os, "text:page", "\n");
+void OdfExporter::writePageBegin(CEDPage&) {
+    writeStartTag("office:text", "\n");
+    writeStartTag("text:page", "\n");
 }
 
-void OdfExporter::writePageEnd(std::ostream& os, CEDPage&) {
-    writeCloseTag(os, "text:page", "\n");
-    writeCloseTag(os, "office:text", "\n");
+void OdfExporter::writePageEnd(CEDPage&) {
+    writeCloseTag("text:page", "\n");
+    writeCloseTag("office:text", "\n");
 }
 
-void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
+void OdfExporter::writeParagraphBegin(CEDParagraph& par) {
     XmlTag p("text:p");
 
     std::string style_name = style_exporter_->styleByElement(par);
@@ -331,23 +364,23 @@ void OdfExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
     if (!style_name.empty())
         p["text:style-name"] = style_name;
 
-    p.writeBegin(os);
-    XmlExporter::writeParagraphBegin(os, par);
+    p.writeBegin(outputStream());
+    XmlExporter::writeParagraphBegin(par);
 
     prev_char_style_hash_ = 0;
     style_span_opened_ = false;
 }
 
-void OdfExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
+void OdfExporter::writeParagraphEnd(CEDParagraph&) {
     if (style_span_opened_)
-        writeCloseTag(lineBuffer(), "text:span");
+        lineBuffer() << "</text:span>";
     style_span_opened_ = false;
 
-    writeLineBufferRaw(os);
-    writeCloseTag(os, "text:p", "\n");
+    writeLineBufferRaw();
+    writeCloseTag("text:p", "\n");
 }
 
-void OdfExporter::writePicture(std::ostream& os, CEDPicture& picture) {
+void OdfExporter::writePicture(CEDPicture& picture) {
     try {
         std::ostringstream img_buf;
         savePictureData(picture, img_buf);
@@ -374,29 +407,29 @@ void OdfExporter::writePicture(std::ostream& os, CEDPicture& picture) {
         frame["svg:width"] = toString((float) picture.width() / xdpi) + "in";
         frame["svg:height"] = toString((float) picture.height() / ydpi) + "in";
 
-        frame.writeBeginNL(os);
-        os << img << "\n";
-        frame.writeEndNL(os);
+        frame.writeBegin(outputStream());
+        outputStream() << img;
+        frame.writeEnd(outputStream());
 
     } catch (Exception& e) {
         Debug() << "[OdfExporter::writePicture] failed: " << e.what() << std::endl;
     }
 }
 
-void OdfExporter::writeSectionBegin(std::ostream& /*os*/, CEDSection&) {
+void OdfExporter::writeSectionBegin(CEDSection&) {
     //    writeStartTag(os, "text:section", "\n");
 }
 
-void OdfExporter::writeSectionEnd(std::ostream& /*os*/, CEDSection&) {
+void OdfExporter::writeSectionEnd(CEDSection&) {
     //    writeCloseTag(os, "text:section", "\n");
 }
 
-void OdfExporter::writeTableBegin(std::ostream& os, CEDTable&) {
-    writeStartTag(os, "table:table", "\n");
+void OdfExporter::writeTableBegin(CEDTable&) {
+    writeStartTag("table:table", "\n");
 }
 
-void OdfExporter::writeTableEnd(std::ostream& os, CEDTable&) {
-    writeCloseTag(os, "table:table", "\n");
+void OdfExporter::writeTableEnd(CEDTable&) {
+    writeCloseTag("table:table", "\n");
 }
 
 }

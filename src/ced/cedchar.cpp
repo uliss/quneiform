@@ -62,6 +62,12 @@ int CEDChar::fontStyle() const {
     return font_style_;
 }
 
+bool CEDChar::isHyphen() const {
+    if (!hasAlternatives())
+        return false;
+    return alternativeAt(0).isHyphen();
+}
+
 void CEDChar::setAlternative(const Letter& letter, size_t pos) {
     alternatives_.at(pos) = letter;
 }

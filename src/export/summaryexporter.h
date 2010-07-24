@@ -29,7 +29,7 @@ class SummaryExporter: public GenericExporter
     public:
         SummaryExporter(CEDPage * page, const FormatOptions& opts);
     private:
-        void writePageEnd(std::ostream& os, CEDPage& page);
+        void writePageEnd(CEDPage& page);
 };
 
 }

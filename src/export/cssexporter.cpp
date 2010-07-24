@@ -143,14 +143,14 @@ std::string CssExporter::makeStyle(const CEDParagraph& par) {
     return par_style;
 }
 
-void CssExporter::writePageEnd(std::ostream& os, CEDPage&) {
-    os << "/* cuneiform css style */\n";
+void CssExporter::writePageEnd(CEDPage&) {
+    outputStream() << "/* cuneiform css style */\n";
     for (StyleMap::iterator it = styles_.begin(); it != styles_.end(); ++it)
-        writeStyleEntry(os, *it);
+        writeStyleEntry(*it);
 }
 
-void CssExporter::writeStyleEntry(std::ostream& os, const StyleEntry& entry) {
-    os << "." << entry.first << " {\n" << entry.second << "}\n";
+void CssExporter::writeStyleEntry(const StyleEntry& entry) {
+    outputStream() << "." << entry.first << " {\n" << entry.second << "}\n";
 }
 
 }

@@ -26,6 +26,24 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCedLine);
 #include <ced/cedarchive.h>
 using namespace CIF;
 
+void TestCedLine::testEndsWithHyphen() {
+    CEDLine ln;
+
+    CPPUNIT_ASSERT(!ln.endsWithHyphen());
+
+    ln.addElement(new CEDChar);
+    CPPUNIT_ASSERT(!ln.endsWithHyphen());
+
+    CEDChar * chr = new CEDChar;
+    chr->addAlternative('-');
+    ln.addElement(chr);
+
+    CPPUNIT_ASSERT(ln.endsWithHyphen());
+
+    ln.addElement(new CEDChar);
+    CPPUNIT_ASSERT(!ln.endsWithHyphen());
+}
+
 void TestCedLine::testInit() {
     CEDLine ln;
     CPPUNIT_ASSERT(0 == ln.elementCount());

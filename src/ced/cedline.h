@@ -51,6 +51,11 @@ class CLA_EXPO CEDLine: public BlockElement
          */
         int defaultFontHeight() const;
 
+        /**
+         * Returns true if line end with hyphen
+         */
+        bool endsWithHyphen() const;
+
         void exportElement(CEDExporter& exp);
 
         /**

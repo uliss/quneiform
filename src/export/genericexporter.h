@@ -136,7 +136,7 @@ class GenericExporter: public Exporter
         /**
          * Checks if line break needed
          */
-        bool isLineBreak(CEDLine& line) const;
+        bool isLineBreak(const CEDLine& line) const;
 
         /**
          * Checks if hyphens removal is needed
@@ -157,7 +157,7 @@ class GenericExporter: public Exporter
          * Returns pointer to default output stream
          * @see setOutputStream()
          */
-        std::ostream * outputStream();
+        std::ostream& outputStream();
 
         /**
          * Saves given picture
@@ -253,83 +253,83 @@ class GenericExporter: public Exporter
         /**
          * Writes character to output stream
          */
-        virtual void writeCharacter(std::ostream& os, CEDChar& chr);
+        virtual void writeCharacter(CEDChar& chr);
 
-        virtual void writeCharacterBegin(std::ostream& os, CEDChar& chr);
-        virtual void writeCharacterEnd(std::ostream& os, CEDChar& chr);
+        virtual void writeCharacterBegin(CEDChar& chr);
+        virtual void writeCharacterEnd(CEDChar& chr);
 
         /**
          * Reimplement this function if you want some actions before column export
          * @see exportColumn, writeColumnEnd
          */
-        virtual void writeColumnBegin(std::ostream& os, CEDColumn& col);
+        virtual void writeColumnBegin(CEDColumn& col);
 
         /**
          * Reimplement this function if you want some actions after column export
          * @see exportColumn, writeColumnBegin
          */
-        virtual void writeColumnEnd(std::ostream& os, CEDColumn& col);
+        virtual void writeColumnEnd(CEDColumn& col);
 
         /**
          * Reimplement this function if you want some actions before frame export
          * @see exportFrame, writeFrameEnd
          */
-        virtual void writeFrameBegin(std::ostream& os, CEDFrame& frame);
+        virtual void writeFrameBegin(CEDFrame& frame);
 
         /**
          * Reimplement this function if you want some actions after frame export
          * @see exportFrame, writeFrameBegin
          */
-        virtual void writeFrameEnd(std::ostream& os, CEDFrame& frame);
+        virtual void writeFrameEnd(CEDFrame& frame);
 
         /**
          * Called before writeLine performed
          * @see writeLine and writeLineEnd
          */
-        virtual void writeLineBegin(std::ostream& os, CEDLine& line);
+        virtual void writeLineBegin(CEDLine& line);
 
         /**
          * Called after writeLine performed
          * @see writeLine and writeLineBegin
          */
-        virtual void writeLineEnd(std::ostream& os, CEDLine& line);
+        virtual void writeLineEnd(CEDLine& line);
 
         /**
          * Called before writePage
          * @see writePage and writePageEnd
          */
-        virtual void writePageBegin(std::ostream& os, CEDPage& page);
+        virtual void writePageBegin(CEDPage& page);
 
         /**
          * Called after writePage
          * @see writePage and writePageBegin
          */
-        virtual void writePageEnd(std::ostream& os, CEDPage& page);
+        virtual void writePageEnd(CEDPage& page);
 
         /**
          * Called before writePragraph
          */
-        virtual void writeParagraphBegin(std::ostream& os, CEDParagraph& par);
+        virtual void writeParagraphBegin(CEDParagraph& par);
 
         /**
          * Called after writePragraph
          */
-        virtual void writeParagraphEnd(std::ostream& os, CEDParagraph& par);
+        virtual void writeParagraphEnd(CEDParagraph& par);
 
         /**
          * Writes picture
          */
-        virtual void writePicture(std::ostream& os, CEDPicture& pict);
+        virtual void writePicture(CEDPicture& pict);
 
         /**
          * Called before writeSection
          */
-        virtual void writeSectionBegin(std::ostream& os, CEDSection& sect);
+        virtual void writeSectionBegin(CEDSection& sect);
 
         /**
          * Called after writeSection
          */
-        virtual void writeSectionEnd(std::ostream& os, CEDSection& sect);
+        virtual void writeSectionEnd(CEDSection& sect);
     private:
         CEDPage * page_;
         std::ostream * os_;

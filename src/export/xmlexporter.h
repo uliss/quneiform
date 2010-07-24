@@ -48,49 +48,47 @@ class XmlExporter: public TextExporter
         /**
          * Writes xml attributes to output stream
          */
-        void writeAttributes(std::ostream& os, const Attributes& attrs);
+        void writeAttributes(const Attributes& attrs);
 
         /**
          * Writes close tag to output stream
          */
-        void writeCloseTag(std::ostream& os, const std::string& tagName,
-                const std::string& newline = "");
+        void writeCloseTag(const std::string& tagName, const std::string& newline = "");
 
         /**
          * Writes single tag to output stream
          */
-        void writeSingleTag(std::ostream& os, const std::string& tagName, const Attributes& attrs =
-                Attributes(), const std::string& newline = "");
-
-        /**
-         * Writes start tag to output stream
-         */
-        void writeStartTag(std::ostream& os, const std::string& tagName,
+        void writeSingleTag(const std::string& tagName, const Attributes& attrs = Attributes(),
                 const std::string& newline = "");
 
         /**
          * Writes start tag to output stream
          */
-        void writeStartTag(std::ostream& os, const std::string& tagName, const Attributes& attrs,
+        void writeStartTag(const std::string& tagName, const std::string& newline = "");
+
+        /**
+         * Writes start tag to output stream
+         */
+        void writeStartTag(const std::string& tagName, const Attributes& attrs,
                 const std::string& newline = "");
 
         /**
          * Writes tag to output stream
          * @note tagText not escaped for XML special chars
          */
-        void writeTag(std::ostream& os, const std::string& tagName, const std::string& tagText,
+        void writeTag(const std::string& tagName, const std::string& tagText,
                 const Attributes& attrs = Attributes(), const std::string& newline = "");
 
     protected:
         /**
          * Writes escaped character to line buffer
          */
-        virtual void writeCharacter(std::ostream& os, CEDChar& chr);
+        virtual void writeCharacter(CEDChar& chr);
 
         /**
          * Writes xml declaration: <?xml ... ?>
          */
-        virtual void writeXmlDeclaration(std::ostream& os, const std::string& encoding = "UTF-8");
+        virtual void writeXmlDeclaration(const std::string& encoding = "UTF-8");
     private:
         bool line_break_;
 };

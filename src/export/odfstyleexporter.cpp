@@ -159,10 +159,10 @@ std::string OdfStyleExporter::makeStyle(const CEDParagraph& par) {
     return par_style;
 }
 
-void OdfStyleExporter::writePageEnd(std::ostream& os, CEDPage&) {
-    os << "<!-- cuneiform generated style -->\n";
+void OdfStyleExporter::writePageEnd(CEDPage&) {
+    outputStream() << "<!-- cuneiform generated style -->\n";
     for (StyleMap::iterator it = styles_.begin(), end = styles_.end(); it != end; ++it) {
-        os << *(it->second) << "\n";
+        outputStream() << *(it->second) << "\n";
     }
 }
 

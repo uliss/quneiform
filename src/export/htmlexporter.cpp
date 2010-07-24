@@ -32,6 +32,10 @@
 #include "ced/cedpicture.h"
 #include "ced/cedparagraph.h"
 #include "config.h" // for CF_VERSION
+#ifndef CF_VERSION
+#define CF_VERSION "unknown"
+#endif
+
 namespace CIF
 {
 
@@ -76,18 +80,18 @@ void HtmlExporter::writeAlternativesEnd(const CEDChar& chr) {
         lineBuffer() << "</span>";
 }
 
-void HtmlExporter::writeCharacterBegin(std::ostream&, CEDChar& chr) {
+void HtmlExporter::writeCharacterBegin(CEDChar& chr) {
     size_t chr_hash = style_exporter_->hash(chr);
     if (style_exporter_->hasHash(chr_hash)) {
         if (prev_char_style_hash_ != chr_hash) {
             if (char_span_opened_) {
-                writeCloseTag(lineBuffer(), "span");
+                lineBuffer() << "</span>";
                 char_span_opened_ = false;
             }
 
-            Attributes attrs;
-            attrs["class"] = style_exporter_->styleByHash(chr_hash);
-            writeStartTag(lineBuffer(), "span", attrs);
+            XmlTag span("span");
+            span["class"] = style_exporter_->styleByHash(chr_hash);
+            span.writeBegin(lineBuffer());
             char_span_opened_ = true;
 
             prev_char_style_hash_ = chr_hash;
@@ -104,21 +108,21 @@ void HtmlExporter::writeCharacterBegin(std::ostream&, CEDChar& chr) {
         writeAlternativesBegin(chr);
 }
 
-void HtmlExporter::writeCharacterEnd(std::ostream&, CEDChar& chr) {
+void HtmlExporter::writeCharacterEnd(CEDChar& chr) {
     if (formatOptions().showAlternatives())
         writeAlternativesEnd(chr);
 }
 
-void HtmlExporter::writeCssStyle(std::ostream& os) {
-    writeStartTag(os, "style", "\n");
-    os << "<!--\n";
-    style_exporter_->exportTo(os);
-    os << "-->\n";
-    writeCloseTag(os, "style", "\n");
+void HtmlExporter::writeCssStyle() {
+    writeStartTag("style", "\n");
+    outputStream() << "<!--\n";
+    style_exporter_->exportTo(outputStream());
+    outputStream() << "-->\n";
+    writeCloseTag("style", "\n");
 }
 
-void HtmlExporter::writeDoctype(std::ostream& os) {
-    os << HTML_DOCTYPE;
+void HtmlExporter::writeDoctype() {
+    outputStream() << HTML_DOCTYPE;
 }
 
 void HtmlExporter::writeFontStyleBegin(int style) {
@@ -155,56 +159,53 @@ void HtmlExporter::writeFontStyleEnd(int style) {
         lineBuffer() << "</b>";
 }
 
-void HtmlExporter::writeFrameBegin(std::ostream& os, CEDFrame&) {
-    os << "<div class=\"frame\">";
+void HtmlExporter::writeFrameBegin(CEDFrame&) {
+    outputStream() << "<div class=\"frame\">";
 }
 
-void HtmlExporter::writeFrameEnd(std::ostream& os, CEDFrame&) {
-    os << "</div>\n";
+void HtmlExporter::writeFrameEnd(CEDFrame&) {
+    outputStream() << "</div>\n";
 }
 
-void HtmlExporter::writeLineBreak(std::ostream& os) {
+void HtmlExporter::writeLineBreak() {
     // skip last line break
     if (lineLeftInParagraph() <= 1)
         return;
 
-    os << XmlTag("br") << "\n";
+    outputStream() << XmlTag("br") << "\n";
 }
 
-void HtmlExporter::writeMeta(std::ostream& os) {
+void HtmlExporter::writeMeta() {
     XmlTag meta_generator("meta");
     meta_generator["name"] = "Generator";
     meta_generator["content"] = "cuneiform-linux-" CF_VERSION;
-    os << meta_generator << "\n";
+    outputStream() << meta_generator << "\n";
 
     if (isCharsetConversion()) {
         XmlTag meta_charset("meta");
         meta_charset["name"] = "Content-Type";
         meta_charset["content"] = "text/html;charset=" + outputEncoding();
-        os << meta_charset << "\n";
+        outputStream() << meta_charset << "\n";
     }
 }
 
-void HtmlExporter::writePageBegin(std::ostream& os, CEDPage&) {
-    writeDoctype(os);
-    writeStartTag(os, "html", "\n");
-    writeStartTag(os, "head", "\n");
-    writeTitle(os);
-    writeMeta(os);
-    writeCssStyle(os);
-    writeCloseTag(os, "head", "\n");
-    writeStartTag(os, "body", "\n");
-
-    if (os.fail())
-        throw Exception("HtmlExporter failed");
+void HtmlExporter::writePageBegin(CEDPage&) {
+    writeDoctype();
+    writeStartTag("html", "\n");
+    writeStartTag("head", "\n");
+    writeTitle();
+    writeMeta();
+    writeCssStyle();
+    writeCloseTag("head", "\n");
+    writeStartTag("body", "\n");
 }
 
-void HtmlExporter::writePageEnd(std::ostream& os, CEDPage&) {
-    writeCloseTag(os, "body", "\n");
-    writeCloseTag(os, "html", "\n");
+void HtmlExporter::writePageEnd(CEDPage&) {
+    writeCloseTag("body", "\n");
+    writeCloseTag("html", "\n");
 }
 
-void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
+void HtmlExporter::writeParagraphBegin(CEDParagraph& par) {
     XmlTag p("p");
     switch (par.align()) {
     case ALIGN_CENTER:
@@ -224,26 +225,26 @@ void HtmlExporter::writeParagraphBegin(std::ostream& os, CEDParagraph& par) {
     if (!par_style.empty())
         p["class"] = escapeHtmlSpecialChars(par_style);
 
-    p.writeBegin(os);
-    TextExporter::writeParagraphBegin(os, par);
+    p.writeBegin(outputStream());
+    TextExporter::writeParagraphBegin(par);
 
     prev_char_font_style_ = 0;
     prev_char_style_hash_ = 0;
 }
 
-void HtmlExporter::writeParagraphEnd(std::ostream& os, CEDParagraph&) {
+void HtmlExporter::writeParagraphEnd(CEDParagraph&) {
     // writes closing tags to line buffer
     writeFontStyleEnd(prev_char_font_style_);
     if (char_span_opened_) {
-        writeCloseTag(lineBuffer(), "span");
+        lineBuffer() << "</span>";
         char_span_opened_ = false;
     }
     // write and flush line buffer to output stream
-    writeLineBufferRaw(os);
-    writeCloseTag(os, "p", "\n");
+    writeLineBufferRaw();
+    writeCloseTag("p", "\n");
 }
 
-void HtmlExporter::writePicture(std::ostream&, CEDPicture& picture) {
+void HtmlExporter::writePicture(CEDPicture& picture) {
     try {
         savePicture(picture);
 
@@ -259,18 +260,18 @@ void HtmlExporter::writePicture(std::ostream&, CEDPicture& picture) {
     }
 }
 
-void HtmlExporter::writeSectionBegin(std::ostream& os, CEDSection&) {
+void HtmlExporter::writeSectionBegin(CEDSection&) {
     Attributes attrs;
     attrs["id"] = "section_" + toString(numSections());
-    writeStartTag(os, "div", attrs, "\n");
+    writeStartTag("div", attrs, "\n");
 }
 
-void HtmlExporter::writeSectionEnd(std::ostream& os, CEDSection&) {
-    writeCloseTag(os, "div", "\n");
+void HtmlExporter::writeSectionEnd(CEDSection&) {
+    writeCloseTag("div", "\n");
 }
 
-void HtmlExporter::writeTitle(std::ostream& os) {
-    os << XmlTag("title", "Cuneiform output") << "\n";
+void HtmlExporter::writeTitle() {
+    outputStream() << XmlTag("title", "Cuneiform output") << "\n";
 }
 
 }

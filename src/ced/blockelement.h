@@ -73,6 +73,13 @@ class CLA_EXPO BlockElement: public Element
 
         void exportChildren(CEDExporter& exp);
 
+        /**
+         * Returns pointer to last element in container
+         * @throw std::out_of_range if container is empty
+         */
+        Element * lastElement();
+        const Element * lastElement() const;
+
         void setBorderBottom(ed_border_t bottom);
         void setBorderBottomWidth(unsigned short width);
         void setBorderLeft(ed_border_t left);
