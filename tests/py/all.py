@@ -14,7 +14,11 @@ header("Align test")
 import align
 align.test()
 
-header("Format test")
+header("Indent test")
+import indent
+indent.test()
+
+header("Format quick test")
 import format_quick
 format_quick.test()
 
