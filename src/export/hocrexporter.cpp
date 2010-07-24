@@ -58,7 +58,6 @@ inline std::string pageBBox(CEDPage& p) {
 HocrExporter::HocrExporter(CEDPage * page, const FormatOptions& opts) :
     HtmlExporter(page, opts), is_in_line_(false) {
     rects_.reserve(BOXES_TO_RESERVE);
-    formatOptions().setPreserveLineHyphens(true);
 }
 
 void HocrExporter::addCharBBox(CEDChar& chr) {

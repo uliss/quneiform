@@ -22,6 +22,10 @@ header("Indent test")
 import indent
 indent.test()
 
+header("Hyphens test")
+import hyphens
+hyphens.test()
+
 header("Format quick test")
 import format_quick
 format_quick.test()

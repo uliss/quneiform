@@ -62,10 +62,6 @@ bool FormatOptions::preserveLineBreaks() const {
     return preserve_line_breaks_;
 }
 
-bool FormatOptions::preserveLineHyphens() const {
-    return preserve_line_hyphens_;
-}
-
 std::string FormatOptions::sansSerifName() const {
     return sans_serif_name_;
 }
@@ -92,10 +88,6 @@ void FormatOptions::setMonospaceName(const std::string & name) {
 
 void FormatOptions::setPreserveLineBreaks(bool val) {
     preserve_line_breaks_ = val;
-}
-
-void FormatOptions::setPreserveLineHyphens(bool val) {
-    preserve_line_hyphens_ = val;
 }
 
 void FormatOptions::setSansSerifName(const std::string & name) {

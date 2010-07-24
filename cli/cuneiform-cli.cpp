@@ -142,7 +142,6 @@ static string usage() {
         "       --stdout                 Puts result to standard output              \n"
         "  Output formatting options:                                                \n"
         "       --preserve-line-breaks   Preserves line-breaking                     \n"
-        "       --preserve-hyphens       Preserves line hyphenation                  \n"
         "       --unrecognized CHAR      Set symbol, that shown instead of           \n"
         "                                    unrecognized characters.                \n"
         "                                    Default is '~'.                         \n"
@@ -214,9 +213,9 @@ int main(int argc, char **argv) {
 
     int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller = FALSE,
             do_singlecolumn = FALSE, do_pictures = TRUE, do_tables = FALSE, do_autorotate = FALSE,
-            preserve_line_breaks = FALSE, preserve_hyphens = FALSE, do_dump = FALSE, no_bold =
-                    FALSE, no_italic = FALSE, no_font_size = FALSE, stdout_output = FALSE,
-            do_append = FALSE, show_alternatives = FALSE;
+            preserve_line_breaks = FALSE, do_dump = FALSE, no_bold = FALSE, no_italic = FALSE,
+            no_font_size = FALSE, stdout_output = FALSE, do_append = FALSE, show_alternatives =
+                    FALSE;
 
     const char * const short_options = ":aho:vVl:f:d:u:";
     const struct option long_options[] = {
@@ -239,7 +238,6 @@ int main(int argc, char **argv) {
             { "output-image-dir", required_argument, NULL, 'i' },//
             { "pictures", no_argument, &do_pictures, 1 },//
             { "preserve-line-breaks", no_argument, &preserve_line_breaks, 1 },//
-            { "preserve-hyphens", no_argument, &preserve_hyphens, 1 }, //
             { "sansserif-name", required_argument, NULL, 'y' }, //
             { "serif-name", required_argument, NULL, 'z' },//
             { "show-alternatives", no_argument, &show_alternatives, 1 }, //
@@ -365,8 +363,6 @@ int main(int argc, char **argv) {
             opt.setUnrecognizedChar(unrecognized_char);
         if (preserve_line_breaks)
             opt.setPreserveLineBreaks(true);
-        if (preserve_hyphens)
-            opt.setPreserveLineHyphens(true);
 
         opt.setLanguage(langcode);
         opt.setImageExportFormat(FORMAT_PNG);
