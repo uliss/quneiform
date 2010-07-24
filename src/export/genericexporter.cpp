@@ -165,10 +165,6 @@ bool GenericExporter::isLineBreak(const CEDLine& line) const {
     return line.hardBreak() || formatOptions().preserveLineBreaks();
 }
 
-bool GenericExporter::isRemoveHyphens(CEDLine& line) const {
-    return !isLineBreak(line) && !formatOptions().preserveLineHyphens();
-}
-
 int GenericExporter::numChars() const {
     return num_chars_;
 }

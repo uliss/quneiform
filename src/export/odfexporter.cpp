@@ -304,12 +304,7 @@ void OdfExporter::writeFontStyleEnd(int style) {
 }
 
 void OdfExporter::writeLineBreak(CEDLine& line) {
-    // skip last line break
-    if (lineLeftInParagraph() <= 1)
-        return;
-
-    if (isLineBreak(line))
-        writeSingleTag("text:line-break", Attributes(), "\n");
+    writeSingleTag("text:line-break", Attributes(), "\n");
 }
 
 void OdfExporter::writeMeta() {

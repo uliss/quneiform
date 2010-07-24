@@ -139,11 +139,6 @@ class GenericExporter: public Exporter
         bool isLineBreak(const CEDLine& line) const;
 
         /**
-         * Checks if hyphens removal is needed
-         */
-        bool isRemoveHyphens(CEDLine& line) const;
-
-        /**
          * Makes picture path for export
          */
         std::string makePicturePath(CEDPicture& picture);

@@ -168,10 +168,6 @@ void HtmlExporter::writeFrameEnd(CEDFrame&) {
 }
 
 void HtmlExporter::writeLineBreak() {
-    // skip last line break
-    if (lineLeftInParagraph() <= 1)
-        return;
-
     outputStream() << XmlTag("br") << "\n";
 }
 

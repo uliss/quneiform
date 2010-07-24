@@ -60,7 +60,7 @@ inline CEDChar * parAddChar(CEDParagraph& p, char letter, int style = 0) {
     if (!p.lineCount())
         p.addLine(new CEDLine);
 
-    return lineAddChar(p.lineAt(0), letter, style);
+    return lineAddChar(p.lineAt(p.lineCount() - 1), letter, style);
 }
 
 #define CHECK_BUFFER(str)  { \
@@ -95,6 +95,13 @@ inline CEDChar * parAddChar(CEDParagraph& p, char letter, int style = 0) {
     clearBuffer(exp_);\
     buffer_.str("");\
     exp_->exportColumn(col);\
+    CPPUNIT_ASSERT_EQUAL(std::string(s), buffer_.str());\
+}
+
+#define CHECK_LINE(s, line) {\
+	clearBuffer(exp_);\
+	buffer_.str("");\
+    exp_->exportLine(line);\
     CPPUNIT_ASSERT_EQUAL(std::string(s), buffer_.str());\
 }
 
@@ -157,40 +164,34 @@ void TestHtmlExporter::testExportLine() {
     CPPUNIT_ASSERT_EQUAL(true, exp_->skipEmptyLines());
     CEDLine line;
 
-    std::stringstream buf1;
-    exp_->os_ = &buf1;
-
     // empty line
-    exp_->exportLine(line);
-    CPPUNIT_ASSERT_EQUAL(std::string(""), buf1.str());
+    CHECK_LINE("", line);
 
     // explicit empty line export
     exp_->setSkipEmptyLines(false);
-    std::stringstream buf2;
-    exp_->os_ = &buf2;
-
-    exp_->exportLine(line);
-    CPPUNIT_ASSERT_EQUAL(std::string(""), buf2.str());
+    CHECK_LINE("", line);
 
     // line breaks
-
-    std::stringstream buf3;
-    exp_->os_ = &buf3;
 
     // preserve line breaks
     exp_->formatOptions().setPreserveLineBreaks(true);
     exp_->lines_left_in_paragraph_ = 2;
-    exp_->exportLine(line);
-    CPPUNIT_ASSERT_EQUAL(std::string("<br/>\n"), buf3.str());
+    CHECK_LINE("<br/>\n", line);
+    exp_->lines_left_in_paragraph_ = 2;
+    line.setHardBreak(true);
+    CHECK_LINE("<br/>\n", line);
 
     // line hard break
-    std::stringstream buf4;
-    exp_->os_ = &buf4;
     exp_->formatOptions().setPreserveLineBreaks(false);
     line.setHardBreak(true);
     exp_->lines_left_in_paragraph_ = 2;
-    exp_->exportLine(line);
-    CPPUNIT_ASSERT_EQUAL(std::string("<br/>\n"), buf4.str());
+    CHECK_LINE("<br/>\n", line);
+    exp_->lines_left_in_paragraph_ = 2;
+    line.setHardBreak(false);
+    CHECK_LINE(" ", line);
+
+    exp_->lines_left_in_paragraph_ = 1;
+    CHECK_LINE("", line);
 }
 
 void TestHtmlExporter::testExportCharacter() {
@@ -397,6 +398,43 @@ void TestHtmlExporter::testExportPicture() {
 
     CPPUNIT_ASSERT_EQUAL(std::string("<img alt=\"\" height=\"0\" src=\"output/image_0.png\" width=\"0\"/>\n"),
             exp_->lineBuffer().str());
+}
+
+void TestHtmlExporter::testHyphens() {
+    CEDParagraph par;
+    parAddChar(par, 'h');
+    parAddChar(par, 'y');
+    parAddChar(par, '-');
+
+    par.addElement(new CEDLine);
+    parAddChar(par, 'p');
+    parAddChar(par, 'h');
+    parAddChar(par, 'e');
+    parAddChar(par, 'n');
+    parAddChar(par, 's');
+
+    exp_->formatOptions().setPreserveLineBreaks(false);
+    CHECK_PAR("<p>hyphens</p>\n", par);
+
+    exp_->formatOptions().setPreserveLineBreaks(true);
+    CHECK_PAR("<p>hy-<br/>\nphens</p>\n", par);
+
+    exp_->formatOptions().setPreserveLineBreaks(false);
+    parAddChar(par, '-');
+    CHECK_PAR("<p>hyphens-</p>\n", par);
+
+    exp_->formatOptions().setPreserveLineBreaks(true);
+    CHECK_PAR("<p>hy-<br/>\nphens-</p>\n", par);
+
+    parAddChar(par, '2');
+    CHECK_PAR("<p>hy-<br/>\nphens-2</p>\n", par);
+
+    exp_->formatOptions().setPreserveLineBreaks(false);
+    CHECK_PAR("<p>hyphens-2</p>\n", par);
+
+    par.addElement(new CEDLine);
+    // space inserted before last empty line
+    CHECK_PAR("<p>hyphens-2 </p>\n", par);
 }
 
 void TestHtmlExporter::testExportColumn() {

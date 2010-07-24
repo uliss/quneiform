@@ -117,6 +117,9 @@ void XmlExporter::writeTag(const std::string& tagName, const std::string& tagTex
 
 void XmlExporter::writeCharacter(CEDChar& chr) {
     assert(chr.hasAlternatives());
+    if (elements_left_in_line_-- == 1 && remove_last_line_hyphen_)
+        return;
+
     lineBuffer() << escapeSpecialChar(chr.alternativeAt(0).getChar());
 }
 

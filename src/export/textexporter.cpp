@@ -32,8 +32,7 @@ namespace CIF
 {
 
 TextExporter::TextExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts), lines_left_in_paragraph_(0), elements_left_in_line_(0),
-            add_space_after_line_(false) {
+    GenericExporter(page, opts), lines_left_in_paragraph_(0), elements_left_in_line_(0) {
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
     setSkipPictures(false);
@@ -77,10 +76,6 @@ std::string TextExporter::lineBufferPrepared() {
     return res;
 }
 
-int TextExporter::lineLeftInParagraph() const {
-    return lines_left_in_paragraph_;
-}
-
 void TextExporter::writeBOM(std::ostream& os) {
     os << "\xEF\xBB\xBF";
 }
@@ -100,7 +95,7 @@ void TextExporter::writeLineBreak() {
 void TextExporter::writeLineBuffer(CEDLine& line) {
     flushLineBuffer();
 
-    if (isLineBreak(line))
+    if (isLineBreak(line) && lines_left_in_paragraph_ > 1) // skip last line break
         writeLineBreak();
     else if (notLastLine() && !remove_last_line_hyphen_)
         outputStream() << ' ';
@@ -133,11 +128,15 @@ void TextExporter::writeParagraphBegin(CEDParagraph& par) {
 }
 
 void TextExporter::writeParagraphEnd(CEDParagraph&) {
-    outputStream() << "\n";
+    outputStream() << '\n';
 }
 
 void TextExporter::writePicture(CEDPicture& pict) {
     outputStream() << "[picture: " << pict.width() << 'x' << pict.height() << "]\n";
+}
+
+void TextExporter::writeSectionEnd(CEDSection&) {
+    outputStream() << '\n';
 }
 
 }

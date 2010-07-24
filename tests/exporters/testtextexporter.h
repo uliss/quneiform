@@ -14,65 +14,39 @@
  *                                                                         *
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
- ***************************************************************************/
+ ***************************************************************************/ 
 
-#ifndef TESTHTMLEXPORTER_H_
-#define TESTHTMLEXPORTER_H_
+#ifndef TESTTEXTEXPORTER_H_
+#define TESTTEXTEXPORTER_H_
 
 #include <sstream>
 #include <cppunit/extensions/HelperMacros.h>
 
 namespace CIF {
-class CEDPage;
-class CEDChar;
-class HtmlExporter;
+    class TextExporter;
 }
 
-class TestHtmlExporter: public CppUnit::TestFixture
+class TestTextExporter: public CppUnit::TestFixture
 {
-    CPPUNIT_TEST_SUITE(TestHtmlExporter);
-    CPPUNIT_TEST(testExport);
-    CPPUNIT_TEST(testExportCharacter);
-    CPPUNIT_TEST(testExportColumn);
+    CPPUNIT_TEST_SUITE(TestTextExporter);
     CPPUNIT_TEST(testExportLine);
+    CPPUNIT_TEST(testExportPage);
     CPPUNIT_TEST(testExportParagraph);
     CPPUNIT_TEST(testExportPicture);
-
-    CPPUNIT_TEST(testHyphens);
-
-    CPPUNIT_TEST(testBold);
-    CPPUNIT_TEST(testItalic);
-    CPPUNIT_TEST(testMixed);
-    CPPUNIT_TEST(testSub);
-    CPPUNIT_TEST(testSuper);
-    CPPUNIT_TEST(testUnderlined);
-    CPPUNIT_TEST(testWriteAlternatives);
+    CPPUNIT_TEST(testExportSection);
     CPPUNIT_TEST_SUITE_END();
-    public:
-        void setUp();
-        void tearDown();
-
-        void testExport();
-        void testExportCharacter();
-        void testExportColumn();
-        void testExportLine();
-        void testExportParagraph();
-        void testExportPicture();
-
-        void testHyphens();
-
-        void testBold();
-        void testItalic();
-        void testMixed();
-        void testSub();
-        void testSuper();
-        void testUnderlined();
-        void testWriteAlternatives();
-    private:
-        CIF::CEDPage * page_;
-        CIF::HtmlExporter * exp_;
-        CIF::CEDChar * c_;
-        std::ostringstream buffer_;
+public:
+    void testExportLine();
+    void testExportPage();
+    void testExportParagraph();
+    void testExportPicture();
+    void testExportSection();
+public:
+    void setUp();
+    void tearDown();
+private:
+    CIF::TextExporter * exp_;
+    std::ostringstream buffer_;
 };
 
-#endif /* TESTHTMLEXPORTER_H_ */
+#endif /* TESTTEXTEXPORTER_H_ */

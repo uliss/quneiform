@@ -83,6 +83,11 @@ class TextExporter: public GenericExporter
          * Writes stub "[picture]" on picture place
          */
         virtual void writePicture(CEDPicture& picture);
+
+        /**
+         * Writes new line after section
+         */
+        virtual void writeSectionEnd(CEDSection& sect);
     protected:
         /**
          * Flushes line buffer to output stream
@@ -100,11 +105,6 @@ class TextExporter: public GenericExporter
         std::string lineBufferPrepared();
 
         /**
-         * Returns number of line in paragraph that not exported yet
-         */
-        int lineLeftInParagraph() const;
-
-        /**
          * Writes BOM mark before text document if needed
          */
         void writeBOM(std::ostream& os);
@@ -120,10 +120,10 @@ class TextExporter: public GenericExporter
         }
     private:
         std::ostringstream line_buffer_;
-        size_t lines_left_in_paragraph_;
-        size_t elements_left_in_line_;
+        int lines_left_in_paragraph_;
+    protected:
+        int elements_left_in_line_;
         bool remove_last_line_hyphen_;
-        bool add_space_after_line_;
 };
 
 }
