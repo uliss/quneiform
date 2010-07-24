@@ -14,13 +14,9 @@ header("Align test")
 import align
 align.test()
 
-header("Bold test")
-import bold
-bold.test()
-
-header("Italic test")
-import italic
-italic.test()
+header("Font styles test")
+import font_styles
+font_styles.test()
 
 header("Indent test")
 import indent

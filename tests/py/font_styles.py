@@ -6,6 +6,8 @@ import cf
 
 INPUT_FILES = (
     'bold.png',
+    'italic.png',
+    'underlined.png'
 )
 
 FORMATS = (
