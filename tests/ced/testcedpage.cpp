@@ -40,7 +40,6 @@ void TestCEDPage::testSerialize() {
     p.setUnrecognizedChar('!');
     Rect borders(Point(0, 0), 1000, 2000);
     p.setPageBorder(borders);
-    p.addFont(FontEntry(1, 2, 3, "Times New Roman"));
 
     const char * fname = "serialize_cedpage.txt";
 
@@ -67,7 +66,6 @@ void TestCEDPage::testSerialize() {
         CPPUNIT_ASSERT_EQUAL(dpi, new_p.imageDpi());
         CPPUNIT_ASSERT_EQUAL('!', new_p.unrecognizedChar());
         CPPUNIT_ASSERT_EQUAL(borders, new_p.pageBorder());
-        CPPUNIT_ASSERT(new_p.fontCount() == 1);
     }
 
 #endif

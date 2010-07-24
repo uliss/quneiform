@@ -76,21 +76,6 @@ class CLA_EXPO CRtfPage
         void readInternalFile(FILE * file);
 
         /**
-         * Sets monospace font name
-         */
-        void setFontMonospace(const std::string& name);
-
-        /**
-         * Sets sans serif font name
-         */
-        void setFontSans(const std::string& name);
-
-        /**
-         * Sets serif font name
-         */
-        void setFontSerif(const std::string& name);
-
-        /**
          * Sets formatting options
          */
         void setFormatOptions(const FormatOptions& opts);
@@ -160,7 +145,6 @@ class CLA_EXPO CRtfPage
         int getFlagAndNumberFragment(int * FragmentType, int * CurrentSectorNumber);
         void initCedPage();
         int maxFragmentWidth() const;
-        void writeFonts();
         void writeSectorsHeader(int i);
         /* fragments written by user numbers */
         void writeUsingNone();
@@ -168,9 +152,6 @@ class CLA_EXPO CRtfPage
         void writeUsingFramesAndColumns();
     private:
         std::string image_name_;
-        std::string font_sans_;
-        std::string font_serif_;
-        std::string font_monospace_;
         char unrecognized_char_;
         language_t language_;
         Size page_size_;

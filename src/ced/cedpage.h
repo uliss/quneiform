@@ -35,27 +35,11 @@ class CLA_EXPO CEDPage: public BlockElement
         CEDPage();
 
         /**
-         * Adds font to page font table
-         */
-        void addFont(const FontEntry& font);
-
-        /**
          * Adds section to page
          */
         void addSection(CEDSection * sect);
 
         void exportElement(CEDExporter& exp);
-
-        /**
-         * Returns reference to font entry in given position
-         * @throw std::out_of_range exception if wrong position given
-         */
-        const FontEntry& fontAt(size_t pos) const;
-
-        /**
-         * Returns number of fonts in page
-         */
-        size_t fontCount() const;
 
         /**
          * Returns image dpi
@@ -197,7 +181,6 @@ class CLA_EXPO CEDPage: public BlockElement
             ar & page_number_;
             ar & language_;
             ar & unrecognized_char_;
-            ar & fonts_;
         }
 #endif
     private:
@@ -210,9 +193,6 @@ class CLA_EXPO CEDPage: public BlockElement
         int page_number_;
         language_t language_;
         char unrecognized_char_;
-
-        typedef std::vector<FontEntry> FontList;
-        FontList fonts_;
 };
 
 }

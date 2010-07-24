@@ -32,24 +32,12 @@ CEDPage::CEDPage() :
     turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG), unrecognized_char_('~') {
 }
 
-void CEDPage::addFont(const FontEntry& font) {
-    fonts_.push_back(font);
-}
-
 void CEDPage::addSection(CEDSection * sect) {
     addElement(sect);
 }
 
 void CEDPage::exportElement(CEDExporter& exp) {
     exp.exportPage(*this);
-}
-
-const FontEntry& CEDPage::fontAt(size_t pos) const {
-    return fonts_.at(pos);
-}
-
-size_t CEDPage::fontCount() const {
-    return fonts_.size();
 }
 
 Size CEDPage::imageDpi() const {

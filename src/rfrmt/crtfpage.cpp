@@ -93,22 +93,7 @@ Size CRtfPage::pageSize() const {
     return page_size_;
 }
 
-void CRtfPage::setFontMonospace(const std::string& name) {
-    font_monospace_ = name;
-}
-
-void CRtfPage::setFontSans(const std::string& name) {
-    font_sans_ = name;
-}
-
-void CRtfPage::setFontSerif(const std::string& name) {
-    font_serif_ = name;
-}
-
 void CRtfPage::setFormatOptions(const FormatOptions& opts) {
-    font_sans_ = opts.sansSerifName();
-    font_serif_ = opts.serifName();
-    font_monospace_ = opts.monospaceName();
     language_ = opts.language();
     unrecognized_char_ = (char) opts.unrecognizedChar();
 }
@@ -634,7 +619,6 @@ CEDPage * CRtfPage::Write() {
 void CRtfPage::writeUsingNone() {
     calcPageSize();
     initCedPage();
-    writeFonts();
 
     size_t CountSectors = Count.RtfFrameTextFragments + Count.RtfTextFragments
             + Count.RtfTableFragments + Count.RtfPictureFragments;
@@ -666,7 +650,6 @@ void CRtfPage::writeUsingNone() {
 void CRtfPage::writeUsingFrames() {
     calcPageSize();
     initCedPage();
-    writeFonts();
 
     int InGroupNumber;
 
@@ -775,7 +758,6 @@ void CRtfPage::writeUsingFramesAndColumns() {
     ToPlacePicturesAndTables();
     calcPageSize();
     initCedPage();
-    writeFonts();
 
     AddLines();
 
@@ -824,13 +806,6 @@ int CRtfPage::freeSpaceBetweenSectors(CRtfSector * first, CRtfSector * second) {
     }
 
     return std::max(0, free_place.height());
-}
-
-void CRtfPage::writeFonts() {
-    ced_page_->addFont(FontEntry(0, FF_SWISS, Frmt_CharSet, font_sans_));
-    ced_page_->addFont(FontEntry(1, FF_ROMAN, Frmt_CharSet, font_serif_));
-    ced_page_->addFont(FontEntry(2, FF_MODERN, Frmt_CharSet, font_monospace_));
-    ced_page_->addFont(FontEntry(3, FF_SWISS, Frmt_CharSet, "Arial Narrow"));
 }
 
 void CRtfPage::writeSectorsHeader(int i) {
