@@ -11,12 +11,20 @@ INPUT_FILES = (
     'align_right.png'
 )
 
+FORMATS = (
+     'html',
+     'text',
+     'smarttext',
+)
+
 def test():
     fmtTest = cf.Tester('format')
     fmtTest.setFormat('html')
     
     for img in INPUT_FILES:
-        fmtTest.diffTest(fmtTest.makeFullImageName(img))
+        for format in FORMATS:
+            fmtTest.setFormat(format)
+            fmtTest.diffTest(fmtTest.makeFullImageName(img))
         
     if fmtTest.passed():
         return True
