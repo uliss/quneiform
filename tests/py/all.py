@@ -14,6 +14,10 @@ header("Align test")
 import align
 align.test()
 
+header("Bold test")
+import bold
+bold.test()
+
 header("Indent test")
 import indent
 indent.test()
