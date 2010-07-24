@@ -11,6 +11,7 @@ set(exporters
     hocrexporter.cpp
     htmlexporter.cpp
     textexporter.cpp
+    smarttextexporter.cpp
     styleexporter.cpp
     summaryexporter.cpp
     xmlexporter.cpp

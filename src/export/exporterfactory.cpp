@@ -21,6 +21,7 @@
 #include "debugexporter.h"
 #include "textexporter.h"
 #include "hocrexporter.h"
+#include "smarttextexporter.h"
 #include "summaryexporter.h"
 #include "puma/pumadef.h"
 #include "ced/cedpage.h"
@@ -55,11 +56,11 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
         exp.reset(new HocrExporter(page_, format_options_));
         break;
     case FORMAT_HTML:
-//        exp.reset(new CssExporter(page_, format_options_));
         exp.reset(new HtmlExporter(page_, format_options_));
         break;
     case FORMAT_SMARTTEXT:
-        format_options_.setPreserveLineBreaks(true);
+        exp.reset(new SmartTextExporter(page_, format_options_));
+        break;
     case FORMAT_TEXT:
         exp.reset(new TextExporter(page_, format_options_));
         break;
