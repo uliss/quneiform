@@ -385,7 +385,9 @@ int main(int argc, char **argv) {
 
         Puma::instance().open(image);
         Puma::instance().recognize();
-        Puma::instance().formatResult();
+
+        if (outputformat != FORMAT_DEBUG)
+            Puma::instance().formatResult();
 
         if (stdout_output) {
             Puma::instance().save(std::cout, outputformat);

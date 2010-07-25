@@ -415,9 +415,6 @@ void PumaImpl::loadLayoutFromFile(const std::string& fname) {
 }
 
 ExporterPtr PumaImpl::makeExporter(format_t format) const {
-    if (!ed_page_)
-        throw PumaException("[PumaImpl::makeExporter] export failed");
-
     ExporterFactory::instance().setPage(ed_page_);
     ExporterFactory::instance().setFormatOptions(format_options_);
     ExporterPtr e = ExporterFactory::instance().make(format);

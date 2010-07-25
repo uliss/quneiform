@@ -26,6 +26,7 @@ namespace CIF
 
 DebugExporter::DebugExporter(const FormatOptions& opts) :
     Exporter(opts) {
+    formatOptions().setPreserveLineBreaks(true);
 }
 
 void DebugExporter::appendTo(const std::string& filename) {
@@ -55,8 +56,11 @@ void DebugExporter::doExport(std::ostream& os) {
         } else {
             os << CSTR_LineToTxt(lin_out, unrec);
         }
+
         if (formatOptions().preserveLineBreaks())
-            os << "\n";
+            os << '\n';
+        else
+            os << ' ';
     }
 
     os << std::endl;
