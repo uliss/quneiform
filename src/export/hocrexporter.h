@@ -29,11 +29,10 @@ namespace CIF
 class HocrExporter: public HtmlExporter
 {
     public:
-        HocrExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+        HocrExporter(CEDPage * page, const FormatOptions& opts);
         typedef std::vector<Rect> RectList;
     protected:
         void writeCharacter(CEDChar& chr);
-        void writeCharBBoxesInfo();
         void writeLineEnd(CEDLine& line);
         void writeMeta();
         void writePageBegin(CEDPage& page);
@@ -42,11 +41,14 @@ class HocrExporter: public HtmlExporter
         void writePicture(CEDPicture& picture);
     private:
         void addCharBBox(CEDChar& chr);
+        void clearCharBBoxes();
+        void clearLineBBox();
+        void writeCharBBoxesInfo();
     private:
-        RectList rects_;
+        RectList char_bboxes_;
+        Rect line_bbox_;
         // true if last none-space character was in line (i.e had a valid bbox).
         bool is_in_line_;
-        Rect line_rect_;
 };
 
 }

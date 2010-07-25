@@ -80,6 +80,14 @@ void XmlExporter::writeSingleTag(const std::string& tagName, const Attributes& a
     line_break_ = newline.empty() ? false : true;
 }
 
+void XmlExporter::writeSingleTag(const std::string& tagName, const std::string& newline) {
+    if (tagName.empty())
+        return;
+
+    outputStream() << "<" << tagName << "/>" << newline;
+    line_break_ = newline.empty() ? false : true;
+}
+
 void XmlExporter::writeAttributes(const Attributes& attrs) {
     for (Attributes::const_iterator it = attrs.begin(), end = attrs.end(); it != end; ++it)
         outputStream() << " " << it->first << "=\"" << it->second << "\"";

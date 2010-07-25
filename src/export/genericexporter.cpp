@@ -209,30 +209,30 @@ const CEDPage * GenericExporter::page() const {
     return page_;
 }
 
-std::string GenericExporter::makePictureName(CEDPicture& picture) {
+std::string GenericExporter::makePictureName(const CEDPicture& picture) {
     std::ostringstream buf;
     buf << "image_" << picture.pictureNumber() << "." << imageExporter()->extension();
     return buf.str();
 }
 
-std::string GenericExporter::makePicturePathRelative(CEDPicture& picture) {
+std::string GenericExporter::makePicturePathRelative(const CEDPicture& picture) {
     return baseName(makeOutputPictureDir()) + "/" + makePictureName(picture);
 }
 
-std::string GenericExporter::makePicturePath(CEDPicture& picture) {
+std::string GenericExporter::makePicturePath(const CEDPicture& picture) {
     return makeOutputPictureDir() + "/" + makePictureName(picture);
 }
 
-void GenericExporter::savePicture(CEDPicture& picture) {
+void GenericExporter::savePicture(const CEDPicture& picture) {
     createPicturesFolder();
     savePictureData(picture, makePicturePath(picture));
 }
 
-void GenericExporter::savePictureData(CEDPicture& picture, const std::string& path) {
+void GenericExporter::savePictureData(const CEDPicture& picture, const std::string& path) {
     imageExporter()->save(*(picture.image()), path);
 }
 
-void GenericExporter::savePictureData(CEDPicture& picture, std::ostream& os) {
+void GenericExporter::savePictureData(const CEDPicture& picture, std::ostream& os) {
     imageExporter()->save(*(picture.image()), os);
 }
 

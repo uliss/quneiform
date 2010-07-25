@@ -141,12 +141,12 @@ class GenericExporter: public Exporter
         /**
          * Makes picture path for export
          */
-        std::string makePicturePath(CEDPicture& picture);
+        std::string makePicturePath(const CEDPicture& picture);
 
         /**
          * Makes relative picture path
          */
-        std::string makePicturePathRelative(CEDPicture& picture);
+        std::string makePicturePathRelative(const CEDPicture& picture);
 
         /**
          * Returns pointer to default output stream
@@ -158,17 +158,17 @@ class GenericExporter: public Exporter
          * Saves given picture
          * @see createPicturesFolder
          */
-        void savePicture(CEDPicture& picture);
+        void savePicture(const CEDPicture& picture);
 
         /**
          * Saves picture to file
          */
-        void savePictureData(CEDPicture& picture, const std::string& filepath);
+        void savePictureData(const CEDPicture& picture, const std::string& filepath);
 
         /**
          * Saves picture to stream
          */
-        void savePictureData(CEDPicture& picture, std::ostream& os);
+        void savePictureData(const CEDPicture& picture, std::ostream& os);
 
         /**
          * Sets pointer to default output stream
@@ -243,7 +243,7 @@ class GenericExporter: public Exporter
         /**
          * Makes picture filename
          */
-        std::string makePictureName(CEDPicture& picture);
+        std::string makePictureName(const CEDPicture& picture);
 
         /**
          * Writes character to output stream

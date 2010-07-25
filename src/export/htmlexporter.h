@@ -115,6 +115,16 @@ class HtmlExporter: public XmlExporter
          * Writes HTML title in header
          */
         virtual void writeTitle();
+    protected:
+        void changeCharacterFontStyle(int new_style);
+        void changeCharacterStyleSpan(size_t new_hash);
+        void closeCharacerFontStyle();
+        void closeCharacterStyleSpan();
+        void openCharacterStyleSpan(size_t hash);
+        void openParagraphTag(const CEDParagraph& par);
+        void resetCharacterFontStyle();
+        void resetCharacterStyleSpan();
+        void writePictureTag(const CEDPicture& picture);
     private:
         size_t prev_char_style_hash_;
         int prev_char_font_style_;

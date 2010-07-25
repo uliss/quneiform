@@ -38,6 +38,10 @@ ImagePtr CEDPicture::image() {
     return image_;
 }
 
+const ImagePtr CEDPicture::image() const {
+    return image_;
+}
+
 bool CEDPicture::isPicture() const {
     return true;
 }

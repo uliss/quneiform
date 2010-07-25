@@ -65,6 +65,70 @@ HtmlExporter::~HtmlExporter() {
     delete style_exporter_;
 }
 
+void HtmlExporter::changeCharacterFontStyle(int new_style) {
+    closeCharacerFontStyle();
+    writeFontStyleBegin(new_style);
+    prev_char_font_style_ = new_style;
+}
+
+void HtmlExporter::changeCharacterStyleSpan(size_t new_hash) {
+    // if previous char style was opened close it
+    closeCharacterStyleSpan();
+    openCharacterStyleSpan(new_hash);
+    prev_char_style_hash_ = new_hash;
+}
+
+void HtmlExporter::closeCharacerFontStyle() {
+    writeFontStyleEnd(prev_char_font_style_);
+}
+
+void HtmlExporter::closeCharacterStyleSpan() {
+    if (!char_span_opened_)
+        return;
+
+    XmlTag span("span");
+    span.writeEnd(lineBuffer());
+    char_span_opened_ = false;
+}
+
+void HtmlExporter::openCharacterStyleSpan(size_t hash) {
+    XmlTag span("span");
+    span["class"] = style_exporter_->styleByHash(hash);
+    span.writeBegin(lineBuffer());
+    char_span_opened_ = true;
+}
+
+void HtmlExporter::openParagraphTag(const CEDParagraph& par) {
+    XmlTag p("p");
+    switch (par.align()) {
+    case ALIGN_CENTER:
+        p["align"] = "center";
+        break;
+    case (ALIGN_JUSTIFY):
+        p["align"] = "justify";
+        break;
+    case ALIGN_RIGHT:
+        p["align"] = "right";
+    default:
+        // "left" by default
+        break;
+    }
+
+    std::string par_style = style_exporter_->styleByElement(par);
+    if (!par_style.empty())
+        p["class"] = escapeHtmlSpecialChars(par_style);
+
+    p.writeBegin(outputStream());
+}
+
+void HtmlExporter::resetCharacterFontStyle() {
+    prev_char_font_style_ = 0;
+}
+
+void HtmlExporter::resetCharacterStyleSpan() {
+    prev_char_style_hash_ = 0;
+}
+
 void HtmlExporter::writeAlternativesBegin(const CEDChar& chr) {
     if (chr.alternativeCount() > 1) {
         lineBuffer() << "<span title=\"Alternatives:";
@@ -83,26 +147,14 @@ void HtmlExporter::writeAlternativesEnd(const CEDChar& chr) {
 void HtmlExporter::writeCharacterBegin(CEDChar& chr) {
     size_t chr_hash = style_exporter_->hash(chr);
     if (style_exporter_->hasHash(chr_hash)) {
-        if (prev_char_style_hash_ != chr_hash) {
-            if (char_span_opened_) {
-                lineBuffer() << "</span>";
-                char_span_opened_ = false;
-            }
-
-            XmlTag span("span");
-            span["class"] = style_exporter_->styleByHash(chr_hash);
-            span.writeBegin(lineBuffer());
-            char_span_opened_ = true;
-
-            prev_char_style_hash_ = chr_hash;
-        }
+        // character style changed
+        if (prev_char_style_hash_ != chr_hash)
+            changeCharacterStyleSpan(chr_hash);
     }
 
-    if (prev_char_font_style_ != chr.fontStyle()) {
-        writeFontStyleEnd(prev_char_font_style_);
-        writeFontStyleBegin(chr.fontStyle());
-        prev_char_font_style_ = chr.fontStyle();
-    }
+    // font style changed
+    if (prev_char_font_style_ != chr.fontStyle())
+        changeCharacterFontStyle(chr.fontStyle());
 
     if (formatOptions().showAlternatives())
         writeAlternativesBegin(chr);
@@ -164,11 +216,11 @@ void HtmlExporter::writeFrameBegin(CEDFrame&) {
 }
 
 void HtmlExporter::writeFrameEnd(CEDFrame&) {
-    outputStream() << "</div>\n";
+    writeCloseTag("div", "\n");
 }
 
 void HtmlExporter::writeLineBreak() {
-    outputStream() << XmlTag("br") << "\n";
+    writeSingleTag("br", "\n");
 }
 
 void HtmlExporter::writeMeta() {
@@ -202,39 +254,17 @@ void HtmlExporter::writePageEnd(CEDPage&) {
 }
 
 void HtmlExporter::writeParagraphBegin(CEDParagraph& par) {
-    XmlTag p("p");
-    switch (par.align()) {
-    case ALIGN_CENTER:
-        p["align"] = "center";
-        break;
-    case (ALIGN_JUSTIFY):
-        p["align"] = "justify";
-        break;
-    case ALIGN_RIGHT:
-        p["align"] = "right";
-    default:
-        // "left" by default
-        break;
-    }
-
-    std::string par_style = style_exporter_->styleByElement(par);
-    if (!par_style.empty())
-        p["class"] = escapeHtmlSpecialChars(par_style);
-
-    p.writeBegin(outputStream());
+    openParagraphTag(par);
     TextExporter::writeParagraphBegin(par);
 
-    prev_char_font_style_ = 0;
-    prev_char_style_hash_ = 0;
+    resetCharacterFontStyle();
+    resetCharacterStyleSpan();
 }
 
 void HtmlExporter::writeParagraphEnd(CEDParagraph&) {
-    // writes closing tags to line buffer
-    writeFontStyleEnd(prev_char_font_style_);
-    if (char_span_opened_) {
-        lineBuffer() << "</span>";
-        char_span_opened_ = false;
-    }
+    closeCharacerFontStyle();
+    closeCharacterStyleSpan();
+
     // write and flush line buffer to output stream
     writeLineBufferRaw();
     writeCloseTag("p", "\n");
@@ -243,17 +273,19 @@ void HtmlExporter::writeParagraphEnd(CEDParagraph&) {
 void HtmlExporter::writePicture(CEDPicture& picture) {
     try {
         savePicture(picture);
-
-        XmlTag img("img");
-        img["src"] = escapeHtmlSpecialChars(makePicturePathRelative(picture));
-        img["alt"] = "";
-        img["height"] = toString(picture.height());
-        img["width"] = toString(picture.width());
-        lineBuffer() << img << "\n";
-
+        writePictureTag(picture);
     } catch (Exception& e) {
         Debug() << "[HtmlExporter::writePicture] failed: " << e.what() << std::endl;
     }
+}
+
+void HtmlExporter::writePictureTag(const CEDPicture& picture) {
+    XmlTag img("img");
+    img["src"] = escapeHtmlSpecialChars(makePicturePathRelative(picture));
+    img["alt"] = "";
+    img["height"] = toString(picture.height());
+    img["width"] = toString(picture.width());
+    lineBuffer() << img << '\n';
 }
 
 void HtmlExporter::writeSectionBegin(CEDSection&) {

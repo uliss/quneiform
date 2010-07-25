@@ -58,8 +58,13 @@ class XmlExporter: public TextExporter
         /**
          * Writes single tag to output stream
          */
-        void writeSingleTag(const std::string& tagName, const Attributes& attrs = Attributes(),
+        void writeSingleTag(const std::string& tagName, const Attributes& attrs,
                 const std::string& newline = "");
+
+        /**
+         * Writes single tag to output stream
+         */
+        void writeSingleTag(const std::string& tagName, const std::string& newline = "");
 
         /**
          * Writes start tag to output stream

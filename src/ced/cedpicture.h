@@ -50,6 +50,7 @@ class CLA_EXPO CEDPicture: public Element
          * @see setImage()
          */
         ImagePtr image();
+        const ImagePtr image() const;
 
         /**
          * Returns true

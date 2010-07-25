@@ -57,7 +57,8 @@ inline std::string pageBBox(CEDPage& p) {
 
 HocrExporter::HocrExporter(CEDPage * page, const FormatOptions& opts) :
     HtmlExporter(page, opts), is_in_line_(false) {
-    rects_.reserve(BOXES_TO_RESERVE);
+    formatOptions().setShowAlternatives(false);
+    char_bboxes_.reserve(BOXES_TO_RESERVE);
 }
 
 void HocrExporter::addCharBBox(CEDChar& chr) {
@@ -65,17 +66,25 @@ void HocrExporter::addCharBBox(CEDChar& chr) {
 
     // spaces have invalid bounding rectangle
     if (goodCharRect(r)) {
-        rects_.push_back(r);
+        char_bboxes_.push_back(r);
 
         if (is_in_line_) {
-            line_rect_ |= r;
+            line_bbox_ |= r;
         }
         // begin to determine line bounds
         else {
-            line_rect_ = r;
+            line_bbox_ = r;
             is_in_line_ = true;
         }
     }
+}
+
+void HocrExporter::clearCharBBoxes() {
+    char_bboxes_.clear();
+}
+
+void HocrExporter::clearLineBBox() {
+    line_bbox_ = Rect();
 }
 
 void HocrExporter::writeCharacter(CEDChar& chr) {
@@ -86,24 +95,24 @@ void HocrExporter::writeCharacter(CEDChar& chr) {
 void HocrExporter::writeCharBBoxesInfo() {
     XmlTag span("span");
     span["class"] = "ocr_info";
-    span["title"] = rectBBoxes(rects_);
+    span["title"] = rectBBoxes(char_bboxes_);
     outputStream() << span << "\n";
 }
 
 void HocrExporter::writeLineEnd(CEDLine& line) {
-    XmlTag span("span");
-    span["class"] = "ocr_line";
-    span["id"] = "line_" + toString(numLines());
-    span["title"] = rectBBox(line_rect_);
-    span.writeBeginNL(outputStream());
+    Attributes attrs;
+    attrs["class"] = "ocr_line";
+    attrs["id"] = "line_" + toString(numLines());
+    attrs["title"] = rectBBox(line_bbox_);
+
+    writeStartTag("span", attrs);
 
     writeCharBBoxesInfo();
-    //    resetFontStyle(os);
     HtmlExporter::writeLineEnd(line);
 
-    span.writeEndNL(outputStream());
+    writeCloseTag("span", "\n");
     is_in_line_ = false;
-    rects_.clear();
+    clearCharBBoxes();
 }
 
 void HocrExporter::writeMeta() {
@@ -119,11 +128,14 @@ void HocrExporter::writePageBegin(CEDPage& page) {
     HtmlExporter::writePageBegin(page);
     static int num_pages = 1;
     // example: <div class="ocr_page" title="image 'page-000.pbm'; bbox 0 0 4306 6064">
-    XmlTag div("div");
-    div["class"] = "ocr_page";
-    div["id"] = "page_" + toString(num_pages);
-    div["title"] = pageBBox(page);
-    div.writeBeginNL(outputStream());
+
+    Attributes attrs;
+    attrs["class"] = "ocr_page";
+    attrs["id"] = "page_" + toString(num_pages);
+    attrs["title"] = pageBBox(page);
+
+    writeStartTag("div", attrs, "\n");
+
     num_pages++;
 }
 
@@ -135,12 +147,12 @@ void HocrExporter::writePageEnd(CEDPage& page) {
 void HocrExporter::writeParagraphBegin(CEDParagraph& par) {
     HtmlExporter::writeParagraphBegin(par);
     outputStream() << "\n";
-    rects_.clear();
-    line_rect_ = Rect();
+    clearCharBBoxes();
+    clearLineBBox();
 }
 
 void HocrExporter::writePicture(CEDPicture& picture) {
-    line_rect_ = picture.boundingRect();
+    line_bbox_ = picture.boundingRect();
     HtmlExporter::writePicture(picture);
 }
 
