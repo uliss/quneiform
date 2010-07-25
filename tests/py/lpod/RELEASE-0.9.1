@@ -1,0 +1,48 @@
+======================
+LpOD 0.9.1 aka Granada
+======================
+
+lpOD -- languages & platforms OpenDocument.
+Definition of a Free Software API implementing the ISO/IEC 26300 standard.
+Development, for higher level use cases, in Python, Perl and Ruby languages.
+of a top-down oriented API.
+
+This release has seen Restructured Text support much improved, and a Gentoo
+ebuild was contributed. Packaging of lpOD was a bit improved too and now it's
+publised on Pypi [#]_.
+
+.. [#] http://pypi.python.org/pypi/lpod-python
+
+A effort was made to remove ODF 1.2 traces from the templates, because lpOD
+targets ODF 1.1 for now. ODF 1.2 is not published yet.
+
+- Web: http://lpod-project.org
+- Documentation: http://docs.lpod-project.org
+- IRC: irc://irc.freenode.org/lpod
+
+Low-level API
+=============
+
+- "get_style" and "get_style_list" callable from any element.
+- "odf_container.get_contents" renamed to "get_parts"
+- "odf_document.get_files" renamed to "get_parts"
+- "odf_document.get_file_data" renamed to "get_part"
+
+High-level API
+==============
+
+- To get a style by its display name, call::
+
+    context.get_style(family, display_name=u"My Style")
+
+  It was previously a boolean flag.
+
+- In meta part, "(g|s)et_keyword" were renamed to "(g|s)et_keywords" to
+  illustrate the possibility of assigning several keywords. ;-) But it still
+  takes a single unicode string.
+
+- In meta part, added "(g|s)et_comments" as an alias to "(g|s)et_description"
+  because some desktop applications call them like this.
+
+- Table cells gained a "(g|s)et_cell_formula" method. Yes, formulas begin to be
+  taken into consideration!

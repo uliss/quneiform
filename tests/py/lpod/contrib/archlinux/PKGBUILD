@@ -1,0 +1,18 @@
+# Maintainer: Hervé Cauwelier <herve ¤ itaapy.com>
+# Published at http://aur.archlinux.org/packages.php?ID=34271
+
+pkgname=python-lpod
+pkgver=0.9.1
+pkgrel=1
+pkgdesc="Languages & Platforms OpenDocument: Python implementation"
+arch=('any')
+license=('GPL3' 'APACHE2')
+url="http://www.lpod-project.org/"
+depends=('python-lxml' 'pygobject')
+source=("http://download.lpod-project.org/lpod-python/lpod-python-$pkgver.tar.gz")
+md5sums=('e06d56179a37cb0284663f0342e29b24')
+
+build() {
+  cd "${srcdir}/lpod-python-$pkgver"
+  python setup.py install --root="${pkgdir}" || return 1
+}

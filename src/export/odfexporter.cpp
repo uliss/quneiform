@@ -186,14 +186,24 @@ void OdfExporter::addOdfSettings() {
 }
 
 void OdfExporter::addOdfStyles() {
-    //std::ostringstream buf;
-    //writeXmlDeclaration(buf);
-    //XmlTag style("office:document-style");
-    //setCommonOdfNamespaces(style);
-    //buf << style << "\n";
+    // saving old output stream
+    std::ostream * old_stream = &outputStream();
 
-    //odfWrite("styles.xml", buf.str());
-    //addOdfManifestFile("styles.xml", "text/xml");
+    std::ostringstream buf;
+    // setting new output stream
+    setOutputStream(&buf);
+
+    writeXmlDeclaration();
+
+    XmlTag style("office:document-style");
+    setCommonOdfNamespaces(style);
+    outputStream() << style << "\n";
+
+    odfWrite("styles.xml", buf.str());
+    addOdfManifestFile("styles.xml", "text/xml");
+
+    // restore output stream
+    setOutputStream(old_stream);
 }
 
 void OdfExporter::exportTo(const std::string& fname) {
@@ -201,10 +211,10 @@ void OdfExporter::exportTo(const std::string& fname) {
     unlink(fname.c_str());
     odfOpen(fname);
     addOdfMime();
-    addOdfMeta();
     addOdfSettings();
     addOdfStyles();
     addOdfContent();
+    addOdfMeta();
     addOdfManifest();
     odfClose();
 }
@@ -292,18 +302,7 @@ void OdfExporter::writeCharacterBegin(CEDChar& chr) {
     }
 }
 
-void OdfExporter::writeFontStyleBegin(int style) {
-    //    XmlTag span("text:span");
-    //    span["text:style-name"] = fontStyleTag(style);
-    //    span.writeBegin(os);
-}
-
-void OdfExporter::writeFontStyleEnd(int style) {
-    //    XmlTag span("text:span");
-    //    span.writeEnd(os);
-}
-
-void OdfExporter::writeLineBreak(CEDLine& line) {
+void OdfExporter::writeLineBreak(CEDLine&) {
     writeSingleTag("text:line-break", Attributes(), "\n");
 }
 

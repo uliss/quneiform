@@ -4,15 +4,11 @@
 import sys
 import cf
 
-INPUT_FILES = (
-    'hyphen.png',
-    ''
-)
-
 FORMATS = (
      'html',
      'text',
      'smarttext',
+     'odf'
 )
 
 def test():

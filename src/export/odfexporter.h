@@ -42,8 +42,6 @@ class OdfExporter: public XmlExporter
         void exportTo(std::ostream& os);
     protected:
         void writeCharacterBegin(CEDChar& chr);
-        void writeFontStyleBegin(int style);
-        void writeFontStyleEnd(int style);
         void writeLineBreak(CEDLine& line);
         void writeMeta();
         void writeMetaDate();

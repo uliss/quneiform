@@ -1,0 +1,73 @@
+==========
+LpOD 0.9.2
+==========
+
+lpOD -- languages & platforms OpenDocument.
+Definition of a Free Software API implementing the ISO/IEC 26300 standard.
+Development, for higher level use cases, in Python, Perl and Ruby languages.
+of a top-down oriented API.
+
+This release adds preliminary support for the manifest, and scripts CLI is
+more homogeneous. A new script lpod-convert converts documents from one format
+to another (currently ods to odt, and reStructuredText to odt). The scripts
+lpod-rst2odt was dropped as it's now a duplicate of lpod-convert.
+
+- Web: http://lpod-project.org
+- Documentation: http://docs.lpod-project.org
+- IRC: irc://irc.freenode.org/lpod
+
+Low-level API
+=============
+
+- The XML API in the odf_element class has seen many name shortenings:
+
+    Before          After
+    --------------  -------
+    get_tagname     get_tag
+    set_tagname     set_tag
+    insert_element  insert
+    append_element  append
+    delete_element  delete
+
+- "odf_element.delete" now accepts no argument to delete itself as a
+  shortcut.
+
+- "odf_create_element" accepts qualified names such as "text:p" to quickly
+  create a single element.
+
+- "get/set_boolean_attribute" as shortcuts to get/set a "true"/"false"
+  attribute from a boolean ("true" and "false" accepted too).
+
+- The undocumented and unspecified VFS was dropped (and so the pygobject
+  dependency). The Python Standard Library, third-party packages and library
+  wrappers offer enough file and file-like objects with "read" and "write"
+  methods for your needs.
+
+High-level API
+==============
+
+- Methods "get_heading_*" now get an "outline_level" argument instead of
+  "level" for consistency and not to mix with attribute "text:level"
+
+- Most scripts now write to the standard output, and provide "-o" option.
+  Exceptions are lpod-highlight (in-place) and lpod-mm2odt (foo.mm ->
+  foo.odt).
+
+- lpod-merge now merges documents in the first document provided, so this one
+  provides the styles.
+
+- Methods "get_<element>_by_yyy" are merged in a single "get_<element>" and
+  several optional arguments.
+
+- Some variable methods were renamed for consistency:
+
+    Before               After
+    -------------------  ------------------------
+    get_variable_list    get_variable_decl_list
+    get_variable_sets    get_variable_set_list
+    (missing)            get_variable_set
+    get_variable_value   get_variable_set_value
+    get_user_field_list  get_user_field_decl_list
+
+- Method "get_tracked_changes" was moved from odf_content to odf_element,
+  to group it with all other tracked changes methods.

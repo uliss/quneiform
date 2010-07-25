@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-import sys
+import os, sys
+import zipfile
 from subprocess import *
 
 os.environ['CF_DATADIR'] = "@CMAKE_SOURCE_DIR@/datafiles"
@@ -13,6 +13,23 @@ ACCSUM = "@CMAKE_BINARY_DIR@/cf_accsum"
 ACCURACY = "@CMAKE_BINARY_DIR@/cf_accuracy"
 IMAGEDIR = "@CMAKE_SOURCE_DIR@/images"
 DIFFOPTS = '-bB'
+
+class bcolor:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OK = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    END = '\033[0m'
+
+    def disable(self):
+        self.HEADER = ''
+        self.OKBLUE = ''
+        self.OK = ''
+        self.WARNING = ''
+        self.FAIL = ''
+        self.END = ''
+
 
 class Tester:
     _imagedir = ''
@@ -65,27 +82,27 @@ class Tester:
     
     def cuneiformTest(self, img):
         if not os.path.exists(img):
-            sys.stderr.write("image file not exists: %s\n" % img)
+            self.printError("image file not exists: %s\n" % img)
             return False
             
         if self._format is None:
-            print 'Error: output file not specified and output format is not set'
+            self.printError('output file not specified and output format is not set')
             return  False
             
         self._output = self.makeOutput(img)
         
         retcode = self.cuneiform(self.makeArgs(img), stdout=PIPE, stderr=PIPE)
         if retcode != 0:
-            print "%-35s %-15s FAIL" % (os.path.basename(img), "OCR")
+            self.printFail(img, "")
             self._tests_failed += 1
             return False
             
         if os.path.getsize(self._output) == 0:
-            print "%-35s %-15s FAIL. No output" % (os.path.basename(img), "OCR")
+            self.printFail(img, "No output")
             self._tests_failed += 1
             return False
         else:
-            print "%-35s %-15s Ok" % (os.path.basename(img), 'OCR(%s)' % self._format)
+            self.printOk(img)
             self._tests_passed += 1
         
         return True
@@ -95,21 +112,52 @@ class Tester:
         #print cmd
         return call(cmd, **kwargs)
     
+    def diffOdf(self, first, second, **kwargs):        
+        first_odf = zipfile.ZipFile(first)
+        second_odf = zipfile.ZipFile(second)
+        
+        first_content = first_odf.read('content.xml')
+        second_content = second_odf.read('content.xml')
+        
+        if first_content == second_content:
+            return 0
+        else:
+            first_xml = os.path.basename(first) + '.xml'
+            f = open(first_xml,'w')
+            f.write(first_content)
+            f.close
+                
+            second_xml = second + '.xml'
+            f = open(second_xml, 'w')
+            f.write(second_content)
+            f.close()        
+            return self.diff(first_xml, second_xml, **kwargs)
+    
     def diffTest(self, img):
         if not self.cuneiformTest(img):
             return False
         
+        if self._format == 'odf':
+            self.setSampleExt('odt')
+        elif self._sample_ext == 'odt':
+            self._sample_ext = None
+        
         sample_name = self.makeSampleName(img)
         if not os.path.exists(sample_name):
-            print "%-35s Diff failed. Sample output not exists: %s" % (os.path.basename(img), sample_name)
+            self.printFail(img, "\n(sample output not exists: %s)" % sample_name)
             self._tests_failed += 1
             return False
         
         diff_name = self.makeDiffName()
         diff_output = open(diff_name, 'w')
-        retcode = self.diff(sample_name, self._output, stdout=diff_output)
+        
+        if self._format == 'odf':
+            retcode = self.diffOdf(sample_name, self._output, stdout=diff_output)
+        else:  
+            retcode = self.diff(sample_name, self._output, stdout=diff_output)
+            
         if retcode != 0:
-            print "%-35s Difference found" % os.path.basename(img)
+            self.printFail(img, '(difference found)')
             self._tests_failed += 1
             return False
         else:
@@ -157,6 +205,15 @@ class Tester:
     
     def passed(self):
         return self._tests_failed == 0
+    
+    def printError(self, msg):
+        print "%s Error: %s %s" % (bcolor.FAIL, bcolor.END, msg)
+    
+    def printFail(self, img, msg):
+        print "%-35s %-15s %s FAIL %s %s" % (os.path.basename(img), 'OCR(%s)' % self._format, bcolor.FAIL, bcolor.END, msg)
+    
+    def printOk(self, img):
+        print "%-35s %-15s %s Ok %s" % (os.path.basename(img), 'OCR(%s)' % self._format, bcolor.OK, bcolor.END)
     
     def printTestStat(self):
         print "Tests total: %d, passed: %d, failed: %d" % (self.total(), self._tests_passed, self._tests_failed)

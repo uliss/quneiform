@@ -1,0 +1,65 @@
+LpOD 0.8 released
+===================
+
+lpOD -- languages & platforms OpenDocument.
+Definition of a Free Software API implementing the ISO/IEC 26300 standard.
+Development, for higher level use cases, in Python, Perl and Ruby languages.
+of a top-down oriented API.
+
+- The architecture design is complete.
+- The functional lpOD coverage is 90% complete.
+- Only Python implementation is available (80% complete), and serves as the
+  reference implementation
+- This release starts providing command-line tools for introspection and
+  manipulation.
+- The documentation is now online http://docs.lpod-project.org
+- Cookbooks provide ready-to-use examples of the API for ODT, ODS and ODP
+  (tables, tocs, notes, images frames, slides transitions, shapes, ... )
+
+:Web: http://lpod-project.org
+:Documentation: http://docs.lpod-project.org
+:IRC: irc://irc.freenode.org/lpod
+
+
+Python Implementation
+----------------------
+
+Low-level API
+~~~~~~~~~~~~~
+
+- All types of styles are supported in the low-level API.
+- Text search and replace API is added 
+- Basic shapes can be created: ellipse and circle, rectangle and square, and line.
+- Adding non ODF resources (e.g. images, pdf, ...) in documents
+- A Virtual File System (VFS) layer handles grabbing document from HTTP and FTP.
+- After starting with the libxml2 Python wrapper, switched to lxml for both speed and ease of use.
+
+High-level API
+~~~~~~~~~~~~~~
+
+- Template are provided, with empty body, i.e. the ODT template has no
+  paragraph, the ODS template has no table and the ODP template has no draw
+  page.
+- A document can grab styles from another document to merge them with its own
+  ones.
+- A specific API is available on paragraphs to insert notes and annotation.
+- A specific API is available for tables to abstract the XML model,
+  e.g. you can access cell "C3" without knowning the storage.
+- Tables can be created from and exported to CSV.
+- The full API to metadata is available. Only RDF would be missing.
+- The navigation API no longer use a context element. The element itself is
+  the navigation API.
+
+Command-line Utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+- The lpod-show.py tool dumps a textual representation of the content. It can
+  also dump the latter, style information and metadata list in a directory.
+- The lpod-meta.py introspection tool can list and edit metadata of the
+  document.
+- The lpod-merge.py tool can merge documents of the same type. ODT, ODP, 
+  ODS and CSV and supported for now. 
+- The lpod-highlight.py tool can apply a style on a text pattern. The default
+  style is overlining as if you were using a yellow highlighter pen.
+
+

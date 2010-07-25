@@ -12,6 +12,7 @@ FORMATS = (
      'html',
      'text',
      'smarttext',
+     'odf'
 )
 
 def test():
