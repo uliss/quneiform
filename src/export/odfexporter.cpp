@@ -302,7 +302,7 @@ void OdfExporter::writeCharacterBegin(CEDChar& chr) {
     }
 }
 
-void OdfExporter::writeLineBreak(CEDLine&) {
+void OdfExporter::writeLineBreak() {
     writeSingleTag("text:line-break", Attributes(), "\n");
 }
 

@@ -42,7 +42,7 @@ class OdfExporter: public XmlExporter
         void exportTo(std::ostream& os);
     protected:
         void writeCharacterBegin(CEDChar& chr);
-        void writeLineBreak(CEDLine& line);
+        void writeLineBreak();
         void writeMeta();
         void writeMetaDate();
         void writeMetaStatistics();
