@@ -48,6 +48,8 @@ class HocrExporter: public HtmlExporter
     private:
         RectList char_bboxes_;
         Rect line_bbox_;
+        std::ostringstream line_buffer_;
+        std::ostream * old_stream_;
         // true if last none-space character was in line (i.e had a valid bbox).
         bool is_in_line_;
 };

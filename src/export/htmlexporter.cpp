@@ -82,7 +82,7 @@ void HtmlExporter::closeCharacterFontStyle() {
 }
 
 void HtmlExporter::closeCharacterStyleSpan() {
-    if (!char_span_opened_)
+    if (!char_span_opened_ || !formatOptions().isStylesUsed())
         return;
 
     writeCloseTag("span");
@@ -90,6 +90,9 @@ void HtmlExporter::closeCharacterStyleSpan() {
 }
 
 void HtmlExporter::openCharacterStyleSpan(size_t hash) {
+    if(!formatOptions().isStylesUsed())
+        return;
+
     Attributes attrs;
     attrs["class"] = style_exporter_->styleByHash(hash);
     writeStartTag("span", attrs);
@@ -169,6 +172,9 @@ void HtmlExporter::writeCharacterEnd(CEDChar& chr) {
 }
 
 void HtmlExporter::writeCssStyle() {
+    if (!formatOptions().isStylesUsed())
+        return;
+
     writeStartTag("style", "\n");
     buffer() << "<!--\n";
     style_exporter_->exportTo(buffer());
@@ -187,7 +193,7 @@ void HtmlExporter::writeFontStyleBegin(int style) {
     if (formatOptions().isItalicUsed() && (style & FONT_ITALIC))
         writeStartTag("i");
 
-    if (style & FONT_UNDERLINE)
+    if (formatOptions().isUnderlinedUsed() && style & FONT_UNDERLINE)
         writeStartTag("u");
 
     if (style & FONT_SUB)
@@ -204,7 +210,7 @@ void HtmlExporter::writeFontStyleEnd(int style) {
     if (style & FONT_SUB)
         writeCloseTag("sub");
 
-    if (style & FONT_UNDERLINE)
+    if (formatOptions().isUnderlinedUsed() && style & FONT_UNDERLINE)
         writeCloseTag("u");
 
     if (formatOptions().isItalicUsed() && (style & FONT_ITALIC))

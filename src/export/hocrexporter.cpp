@@ -57,6 +57,11 @@ inline std::string pageBBox(CEDPage& p) {
 HocrExporter::HocrExporter(CEDPage * page, const FormatOptions& opts) :
     HtmlExporter(page, opts), is_in_line_(false) {
     formatOptions().setShowAlternatives(false);
+    formatOptions().useBold(false);
+    formatOptions().useItalic(false);
+    formatOptions().useFontSize(false);
+    formatOptions().useUndelined(false);
+    formatOptions().useStyles(false);
     char_bboxes_.reserve(BOXES_TO_RESERVE);
 }
 
@@ -100,23 +105,28 @@ void HocrExporter::writeCharBBoxesInfo() {
 }
 
 void HocrExporter::writeLineBegin(CEDLine& line) {
+    HtmlExporter::writeLineBegin(line);
+    flushBuffer();
+    line_buffer_.str("");
+    old_stream_ = outputStream();
+    setOutputStream(&line_buffer_);
+}
+
+void HocrExporter::writeLineEnd(CEDLine& line) {
+    flushBuffer();
+    setOutputStream(old_stream_);
+
     Attributes attrs;
     attrs["class"] = "ocr_line";
     attrs["id"] = "line_" + toString(numLines());
     attrs["title"] = rectBBox(line_bbox_);
     writeStartTag("span", attrs);
 
-    HtmlExporter::writeLineBegin(line);
-    resetCharacterFontStyle();
-    resetCharacterStyleSpan();
-}
-
-void HocrExporter::writeLineEnd(CEDLine& line) {
     writeCharBBoxesInfo();
-    HtmlExporter::writeLineEnd(line);
 
-    closeCharacterFontStyle();
-    closeCharacterStyleSpan();
+    buffer() << line_buffer_.str();
+
+    HtmlExporter::writeLineEnd(line);
 
     writeCloseTag("span", "\n");
     is_in_line_ = false;

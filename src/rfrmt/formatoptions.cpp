@@ -25,9 +25,10 @@ namespace CIF
 
 FormatOptions::FormatOptions() :
     serif_name_("Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
-            use_bold_(true), use_italic_(true), use_font_size_(true), preserve_line_breaks_(false),
-            format_mode_(PUMA_FORMAT_ALL), unrecognized_char_('~'), language_(LANGUAGE_RUS_ENG),
-            image_format_(FORMAT_UNKNOWN), preserve_line_hyphens_(false), show_alternatives_(false) {
+            use_bold_(true), use_italic_(true), use_styles_(true), use_underlined_(true),
+            use_font_size_(true), preserve_line_breaks_(false), format_mode_(PUMA_FORMAT_ALL),
+            unrecognized_char_('~'), language_(LANGUAGE_RUS_ENG), image_format_(FORMAT_UNKNOWN),
+            preserve_line_hyphens_(false), show_alternatives_(false) {
 }
 
 puma_format_mode_t FormatOptions::formatMode() const {
@@ -48,6 +49,14 @@ bool FormatOptions::isFontSizeUsed() const {
 
 bool FormatOptions::isItalicUsed() const {
     return use_italic_;
+}
+
+bool FormatOptions::isStylesUsed() const {
+    return use_styles_;
+}
+
+bool FormatOptions::isUnderlinedUsed() const {
+    return use_underlined_;
 }
 
 language_t FormatOptions::language() const {
@@ -130,6 +139,14 @@ void FormatOptions::useItalic(bool val) {
     use_italic_ = val;
 }
 
+void FormatOptions::useStyles(bool val) {
+    use_styles_ = val;
+}
+
+void FormatOptions::useUndelined(bool val) {
+    use_underlined_ = val;
+}
+
 std::ostream & operator <<(std::ostream & os, const FormatOptions & fmt) {
     using namespace std;
     os << "FormatOptions:\n";
@@ -138,6 +155,7 @@ std::ostream & operator <<(std::ostream & os, const FormatOptions & fmt) {
     os << setw(25) << "   Monospace Name:" << fmt.monospaceName() << "\n";
     os << setw(25) << "   Use bold:" << fmt.isBoldUsed() << "\n";
     os << setw(25) << "   Use Italic: " << fmt.isItalicUsed() << "\n";
+    os << setw(25) << "   Use Underlined: " << fmt.isUnderlinedUsed() << "\n";
     os << setw(25) << "   Use font size: " << fmt.isFontSizeUsed() << "\n";
     os << setw(25) << "   Unrecognized char: " << (char) (fmt.unrecognizedChar()) << "\n";
     os << setw(25) << "   Line breaks: " << fmt.preserveLineBreaks() << "\n";

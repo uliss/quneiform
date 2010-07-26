@@ -41,6 +41,8 @@ class CLA_EXPO FormatOptions
         bool isBoldUsed() const;
         bool isFontSizeUsed() const;
         bool isItalicUsed() const;
+        bool isStylesUsed() const;
+        bool isUnderlinedUsed() const;
         language_t language() const;
         std::string monospaceName() const;
         bool preserveLineBreaks() const;
@@ -61,12 +63,16 @@ class CLA_EXPO FormatOptions
         void useBold(bool val = true);
         void useFontSize(bool val = true);
         void useItalic(bool val = true);
+        void useStyles(bool val = true);
+        void useUndelined(bool val = true);
     private:
         std::string serif_name_;
         std::string sans_serif_name_;
         std::string monospace_name_;
         bool use_bold_;
         bool use_italic_;
+        bool use_styles_;
+        bool use_underlined_;
         bool use_font_size_;
         bool preserve_line_breaks_;
         puma_format_mode_t format_mode_;
@@ -76,7 +82,6 @@ class CLA_EXPO FormatOptions
         bool preserve_line_hyphens_;
         bool show_alternatives_;
 };
-
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const FormatOptions& fmt);
 
 }
