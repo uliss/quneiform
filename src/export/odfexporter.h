@@ -29,7 +29,6 @@
 namespace CIF
 {
 
-class Tag;
 class OdfStyleExporter;
 
 class OdfExporter: public XmlExporter
@@ -43,9 +42,10 @@ class OdfExporter: public XmlExporter
     protected:
         void writeCharacterBegin(CEDChar& chr);
         void writeLineBreak();
-        void writeMeta();
-        void writeMetaDate();
-        void writeMetaStatistics();
+        void writeMeta(std::ostream& os);
+        void writeMetaDate(std::ostream& os);
+        void writeMetaGenerator(std::ostream& os);
+        void writeMetaStatistics(std::ostream& os);
         void writePageBegin(CEDPage& page);
         void writePageEnd(CEDPage& page);
         void writeParagraphBegin(CEDParagraph& par);
@@ -56,7 +56,6 @@ class OdfExporter: public XmlExporter
         void writeTableBegin(CEDTable& table);
         void writeTableEnd(CEDTable& table);
     private:
-        void addOdfAutomaticStyles();
         void addOdfContent();
         void addOdfManifest();
         void addOdfManifestFile(const std::string& path, const std::string& type);
@@ -68,12 +67,13 @@ class OdfExporter: public XmlExporter
         void odfClose();
         void odfOpen(const std::string& fname);
         void odfWrite(const std::string& fname, const std::string& data);
-        void setCommonOdfNamespaces(Tag& tag) const;
+        void setCommonOdfNamespaces(Attributes& attrs) const;
+        void writeOdfAutomaticStyles();
     private:
         zip * zip_;
         typedef std::vector<std::string> BufList;
         typedef std::map<std::string, std::string> ManifestList;
-        BufList buffers_;
+        BufList zip_buffers_;
         ManifestList files_;
         OdfStyleExporter * style_exporter_;
         size_t prev_char_style_hash_;

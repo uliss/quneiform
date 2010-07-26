@@ -118,7 +118,7 @@ class HtmlExporter: public XmlExporter
     protected:
         void changeCharacterFontStyle(int new_style);
         void changeCharacterStyleSpan(size_t new_hash);
-        void closeCharacerFontStyle();
+        void closeCharacterFontStyle();
         void closeCharacterStyleSpan();
         void openCharacterStyleSpan(size_t hash);
         void openParagraphTag(const CEDParagraph& par);

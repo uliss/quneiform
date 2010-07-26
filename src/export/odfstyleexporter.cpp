@@ -18,8 +18,8 @@
 
 #include <cstdio>
 #include "odfstyleexporter.h"
+#include "xmlexporter.h"
 #include "rout_own.h"
-#include "xmltag.h"
 // ced
 #include "ced/cedchar.h"
 #include "ced/cedpage.h"
@@ -52,99 +52,107 @@ int OdfStyleExporter::fontSize2odf(int value) const {
     return value * font_koef_;
 }
 
-OdfStyleExporter::StylePtr OdfStyleExporter::makeOdfStyle(const CEDChar& chr,
-        const std::string& name) {
-    StylePtr style(new XmlTag("style:style"));
-    style->setAttribute("style:name", name);
-    style->setAttribute("style:family", "text");
-    style->setAttribute("style:parent-style-name", "Standard");
+std::string OdfStyleExporter::makeOdfStyle(const CEDChar& chr, const std::string& name) {
+    std::ostringstream buf;
 
-    XmlTag * text_prop = new XmlTag("style:text-properties");
+    XmlExporter::Attributes style_attrs;
+    style_attrs["style:name"] = name;
+    style_attrs["style:family"] = "text";
+    style_attrs["style:parent-style-name"] = "Standard";
+    XmlExporter::writeStartTag(buf, "style:style", style_attrs);
+
+    XmlExporter::Attributes text_attr;
 
     if (!chr.color().isNull())
-        text_prop->setAttribute("fo:color", color2odf(chr.color()));
+        text_attr["fo:color"] = color2odf(chr.color());
 
     if (!chr.color().isNull())
-        text_prop->setAttribute("fo:background-color:", color2odf(chr.backgroundColor()));
+        text_attr["fo:background-color:"] = color2odf(chr.backgroundColor());
 
     if (chr.fontStyle() & FONT_ITALIC) {
-        text_prop->setAttribute("fo:font-style", "italic");
-        text_prop->setAttribute("style:font-style-asian", "italic");
-        text_prop->setAttribute("style:font-style-complex", "italic");
+        text_attr["fo:font-style"] = "italic";
+        text_attr["style:font-style-asian"] = "italic";
+        text_attr["style:font-style-complex"] = "italic";
     }
 
     if (chr.fontStyle() & FONT_BOLD) {
-        text_prop->setAttribute("fo:font-weight", "bold");
-        text_prop->setAttribute("style:font-weight-asian", "bold");
-        text_prop->setAttribute("style:font-weight-complex", "bold");
+        text_attr["fo:font-weight"] = "bold";
+        text_attr["style:font-weight-asian"] = "bold";
+        text_attr["style:font-weight-complex"] = "bold";
     }
 
     if (chr.fontStyle() & FONT_UNDERLINE)
-        text_prop->setAttribute("style:text-underline-type", "single");
+        text_attr["style:text-underline-type"] = "single";
 
     if (chr.fontStyle() & FONT_STRIKE)
-        text_prop->setAttribute("style:text-line-through-type", "single");
+        text_attr["style:text-line-through-type"] = "single";
 
     if (chr.fontStyle() & FONT_SUPER)
-        text_prop->setAttribute("style:text-position", "super");
+        text_attr["style:text-position"] = "super";
 
     if (chr.fontStyle() & FONT_SUB)
-        text_prop->setAttribute("style:text-position", "sub");
+        text_attr["style:text-position"] = "sub";
 
     if (formatOptions().isFontSizeUsed() && chr.fontHeight() > 0) {
         std::string font_size = toString(fontSize2odf(chr.fontHeight()));
-        text_prop->setAttribute("fo:font-size", font_size);
-        text_prop->setAttribute("style:font-size-asian", font_size);
-        text_prop->setAttribute("style:font-size-complex", font_size);
+        text_attr["fo:font-size"] = font_size;
+        text_attr["style:font-size-asian"] = font_size;
+        text_attr["style:font-size-complex"] = font_size;
     }
 
-    style->addChild(text_prop);
-    return style;
+    XmlExporter::writeSingleTag(buf, "style:text-properties", text_attr);
+    buf << '\n';
+    XmlExporter::writeCloseTag(buf, "style:style");
+    return buf.str();
 }
 
-OdfStyleExporter::StylePtr OdfStyleExporter::makeOdfStyle(const CEDParagraph& par,
-        const std::string& name) {
-    StylePtr style(new XmlTag("style:style"));
-    style->setAttribute("style:name", name);
-    style->setAttribute("style:family", "paragraph");
-    style->setAttribute("style:parent-style-name", "Standard");
-    XmlTag * par_prop = new XmlTag("style:paragraph-properties");
+std::string OdfStyleExporter::makeOdfStyle(const CEDParagraph& par, const std::string& name) {
+    std::ostringstream buf;
+
+    XmlExporter::Attributes style_attrs;
+    style_attrs["style:name"] = name;
+    style_attrs["style:family"] = "paragraph";
+    style_attrs["style:parent-style-name"] = "Standard";
+    XmlExporter::writeStartTag(buf, "style:style", style_attrs);
+
+    XmlExporter::Attributes par_attrs;
 
     if (par.lineSpace() > 0)
-        par_prop->setAttribute("style:line-spacing", pixel2odf(par.lineSpace()));
+        par_attrs["style:line-spacing"] = pixel2odf(par.lineSpace());
 
     if (!par.backgroundColor().isNull())
-        par_prop->setAttribute("fo:background-color", color2odf(par.backgroundColor()));
+        par_attrs["fo:background-color"] = color2odf(par.backgroundColor());
 
     switch (par.align()) {
     case ALIGN_JUSTIFY:
-        par_prop->setAttribute("fo:text-align", "justify");
-        par_prop->setAttribute("style:justify-single-word", "false");
+        par_attrs["fo:text-align"] = "justify";
+        par_attrs["style:justify-single-word"] = "false";
         break;
     case ALIGN_CENTER:
-        par_prop->setAttribute("fo:text-align", "center");
+        par_attrs["fo:text-align"] = "center";
         break;
     case ALIGN_RIGHT:
-        par_prop->setAttribute("fo:text-align", "right");
+        par_attrs["fo:text-align"] = "right";
     case ALIGN_LEFT:
-        par_prop->setAttribute("fo:text-align", "left");
+        par_attrs["fo:text-align"] = "left";
         break;
     default:
         break;
     }
 
     if (par.indent() > 0)
-        par_prop->setAttribute("fo:text-indent", pixel2odf(par.indent()));
+        par_attrs["fo:text-indent"] = pixel2odf(par.indent());
+    XmlExporter::writeSingleTag(buf, "style:paragraph-properties", par_attrs);
+    buf << '\n';
 
-    //    par_prop->setAttribute("fo:margin-left", "4cm");
-
-    XmlTag * text_prop = new XmlTag("style:text-properties");
+    XmlExporter::Attributes text_attrs;
     if (!par.color().isNull())
-        text_prop->setAttribute("fo:color", color2odf(par.color()));
+        text_attrs["fo:color"] = color2odf(par.color());
+    XmlExporter::writeSingleTag(buf, "style:text-properties", text_attrs);
+    buf << '\n';
 
-    style->addChild(par_prop);
-    style->addChild(text_prop);
-    return style;
+    XmlExporter::writeCloseTag(buf, "style:style");
+    return buf.str();
 }
 
 std::string OdfStyleExporter::makeStyle(const CEDChar& chr) {
@@ -160,10 +168,11 @@ std::string OdfStyleExporter::makeStyle(const CEDParagraph& par) {
 }
 
 void OdfStyleExporter::writePageEnd(CEDPage&) {
-    outputStream() << "<!-- cuneiform generated style -->\n";
-    for (StyleMap::iterator it = styles_.begin(), end = styles_.end(); it != end; ++it) {
-        outputStream() << *(it->second) << "\n";
-    }
+    assert(outputStream());
+
+    *outputStream() << "<!-- cuneiform generated style -->\n";
+    for (StyleMap::iterator it = styles_.begin(), end = styles_.end(); it != end; ++it)
+        *outputStream() << it->second << '\n';
 }
 
 }

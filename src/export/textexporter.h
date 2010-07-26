@@ -52,13 +52,6 @@ class TextExporter: public GenericExporter
          */
         virtual void writeLineBreak();
 
-        /**
-         * Writes preprocessed line buffer content to output stream
-         * after that line buffer is cleared
-         * @see clearLineBuffer
-         */
-        virtual void writeLineBuffer(CEDLine& line);
-
         virtual void writeLineBegin(CEDLine& line);
 
         /**
@@ -89,42 +82,30 @@ class TextExporter: public GenericExporter
          */
         virtual void writeSectionEnd(CEDSection& sect);
     protected:
-        /**
-         * Flushes line buffer to output stream
-         */
-        void flushLineBuffer();
-
-        /**
-         * Returns raw line content
-         */
-        std::ostringstream& lineBuffer();
-
-        /**
-         * Returns prepared line content
-         */
-        std::string lineBufferPrepared();
+        std::ostringstream& buffer();
+        void flushBuffer();
+        void flushBufferConverted();
+        void flushBufferRaw();
 
         /**
          * Writes BOM mark before text document if needed
          */
         void writeBOM(std::ostream& os);
-
-        /**
-         * Writes raw line buffer content to output stream
-         * after that line buffer is cleared
-         */
-        void writeLineBufferRaw();
     private:
         bool notLastLine() const {
             return lines_left_in_paragraph_ > 1;
         }
     private:
-        std::ostringstream line_buffer_;
+        std::ostringstream buffer_;
         int lines_left_in_paragraph_;
     protected:
         int elements_left_in_line_;
         bool remove_last_line_hyphen_;
 };
+
+inline std::ostringstream& TextExporter::buffer() {
+    return buffer_;
+}
 
 }
 

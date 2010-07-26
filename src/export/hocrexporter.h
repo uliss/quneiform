@@ -33,6 +33,7 @@ class HocrExporter: public HtmlExporter
         typedef std::vector<Rect> RectList;
     protected:
         void writeCharacter(CEDChar& chr);
+        void writeLineBegin(CEDLine& line);
         void writeLineEnd(CEDLine& line);
         void writeMeta();
         void writePageBegin(CEDPage& page);

@@ -23,7 +23,6 @@
 #include "htmlexporter.h"
 #include "imageexporterfactory.h"
 #include "rout_own.h"
-#include "xmltag.h"
 
 #include "common/helper.h"
 #include "common/debug.h"
@@ -66,7 +65,7 @@ HtmlExporter::~HtmlExporter() {
 }
 
 void HtmlExporter::changeCharacterFontStyle(int new_style) {
-    closeCharacerFontStyle();
+    closeCharacterFontStyle();
     writeFontStyleBegin(new_style);
     prev_char_font_style_ = new_style;
 }
@@ -78,7 +77,7 @@ void HtmlExporter::changeCharacterStyleSpan(size_t new_hash) {
     prev_char_style_hash_ = new_hash;
 }
 
-void HtmlExporter::closeCharacerFontStyle() {
+void HtmlExporter::closeCharacterFontStyle() {
     writeFontStyleEnd(prev_char_font_style_);
 }
 
@@ -86,29 +85,28 @@ void HtmlExporter::closeCharacterStyleSpan() {
     if (!char_span_opened_)
         return;
 
-    XmlTag span("span");
-    span.writeEnd(lineBuffer());
+    writeCloseTag("span");
     char_span_opened_ = false;
 }
 
 void HtmlExporter::openCharacterStyleSpan(size_t hash) {
-    XmlTag span("span");
-    span["class"] = style_exporter_->styleByHash(hash);
-    span.writeBegin(lineBuffer());
+    Attributes attrs;
+    attrs["class"] = style_exporter_->styleByHash(hash);
+    writeStartTag("span", attrs);
     char_span_opened_ = true;
 }
 
 void HtmlExporter::openParagraphTag(const CEDParagraph& par) {
-    XmlTag p("p");
+    Attributes attrs;
     switch (par.align()) {
     case ALIGN_CENTER:
-        p["align"] = "center";
+        attrs["align"] = "center";
         break;
     case (ALIGN_JUSTIFY):
-        p["align"] = "justify";
+        attrs["align"] = "justify";
         break;
     case ALIGN_RIGHT:
-        p["align"] = "right";
+        attrs["align"] = "right";
     default:
         // "left" by default
         break;
@@ -116,9 +114,9 @@ void HtmlExporter::openParagraphTag(const CEDParagraph& par) {
 
     std::string par_style = style_exporter_->styleByElement(par);
     if (!par_style.empty())
-        p["class"] = escapeHtmlSpecialChars(par_style);
+        attrs["class"] = escapeHtmlSpecialChars(par_style);
 
-    p.writeBegin(outputStream());
+    writeStartTag("p", attrs);
 }
 
 void HtmlExporter::resetCharacterFontStyle() {
@@ -131,17 +129,22 @@ void HtmlExporter::resetCharacterStyleSpan() {
 
 void HtmlExporter::writeAlternativesBegin(const CEDChar& chr) {
     if (chr.alternativeCount() > 1) {
-        lineBuffer() << "<span title=\"Alternatives:";
-        for (size_t i = 1; i < chr.alternativeCount(); i++)
-            lineBuffer() << " " << escapeSpecialChar(chr.alternativeAt(i).getChar());
+        Attributes attrs;
+        attrs["class"] = HTML_ALTERNATIVE_STYLE_CLASS;
 
-        lineBuffer() << "\" class=\"" << HTML_ALTERNATIVE_STYLE_CLASS << "\">";
+        std::string alternatives("Alternatives:");
+        for (size_t i = 1; i < chr.alternativeCount(); i++)
+            alternatives.append(" " + escapeSpecialChar(chr.alternativeAt(i).getChar()));
+
+        attrs["title"] = alternatives;
+
+        writeStartTag("span", attrs);
     }
 }
 
 void HtmlExporter::writeAlternativesEnd(const CEDChar& chr) {
     if (chr.alternativeCount() > 1)
-        lineBuffer() << "</span>";
+        writeCloseTag("span");
 }
 
 void HtmlExporter::writeCharacterBegin(CEDChar& chr) {
@@ -167,52 +170,54 @@ void HtmlExporter::writeCharacterEnd(CEDChar& chr) {
 
 void HtmlExporter::writeCssStyle() {
     writeStartTag("style", "\n");
-    outputStream() << "<!--\n";
-    style_exporter_->exportTo(outputStream());
-    outputStream() << "-->\n";
+    buffer() << "<!--\n";
+    style_exporter_->exportTo(buffer());
+    buffer() << "-->\n";
     writeCloseTag("style", "\n");
 }
 
 void HtmlExporter::writeDoctype() {
-    outputStream() << HTML_DOCTYPE;
+    buffer() << HTML_DOCTYPE;
 }
 
 void HtmlExporter::writeFontStyleBegin(int style) {
     if (formatOptions().isBoldUsed() && (style & FONT_BOLD))
-        lineBuffer() << "<b>";
+        writeStartTag("b");
 
     if (formatOptions().isItalicUsed() && (style & FONT_ITALIC))
-        lineBuffer() << "<i>";
+        writeStartTag("i");
 
     if (style & FONT_UNDERLINE)
-        lineBuffer() << "<u>";
+        writeStartTag("u");
 
     if (style & FONT_SUB)
-        lineBuffer() << "<sub>";
+        writeStartTag("sub");
 
     if (style & FONT_SUPER)
-        lineBuffer() << "<sup>";
+        writeStartTag("sup");
 }
 
 void HtmlExporter::writeFontStyleEnd(int style) {
     if (style & FONT_SUPER)
-        lineBuffer() << "</sup>";
+        writeCloseTag("sup");
 
     if (style & FONT_SUB)
-        lineBuffer() << "</sub>";
+        writeCloseTag("sub");
 
     if (style & FONT_UNDERLINE)
-        lineBuffer() << "</u>";
+        writeCloseTag("u");
 
     if (formatOptions().isItalicUsed() && (style & FONT_ITALIC))
-        lineBuffer() << "</i>";
+        writeCloseTag("i");
 
     if (formatOptions().isBoldUsed() && (style & FONT_BOLD))
-        lineBuffer() << "</b>";
+        writeCloseTag("b");
 }
 
 void HtmlExporter::writeFrameBegin(CEDFrame&) {
-    outputStream() << "<div class=\"frame\">";
+    Attributes attrs;
+    attrs["class"] = "frame";
+    writeStartTag("div", attrs);
 }
 
 void HtmlExporter::writeFrameEnd(CEDFrame&) {
@@ -224,16 +229,16 @@ void HtmlExporter::writeLineBreak() {
 }
 
 void HtmlExporter::writeMeta() {
-    XmlTag meta_generator("meta");
+    Attributes meta_generator;
     meta_generator["name"] = "Generator";
     meta_generator["content"] = "cuneiform-linux-" CF_VERSION;
-    outputStream() << meta_generator << "\n";
+    writeSingleTag("meta", meta_generator, "\n");
 
     if (isCharsetConversion()) {
-        XmlTag meta_charset("meta");
+        Attributes meta_charset;
         meta_charset["name"] = "Content-Type";
         meta_charset["content"] = "text/html;charset=" + outputEncoding();
-        outputStream() << meta_charset << "\n";
+        writeSingleTag("meta", meta_charset, "\n");
     }
 }
 
@@ -251,6 +256,7 @@ void HtmlExporter::writePageBegin(CEDPage&) {
 void HtmlExporter::writePageEnd(CEDPage&) {
     writeCloseTag("body", "\n");
     writeCloseTag("html", "\n");
+    flushBuffer();
 }
 
 void HtmlExporter::writeParagraphBegin(CEDParagraph& par) {
@@ -262,11 +268,8 @@ void HtmlExporter::writeParagraphBegin(CEDParagraph& par) {
 }
 
 void HtmlExporter::writeParagraphEnd(CEDParagraph&) {
-    closeCharacerFontStyle();
+    closeCharacterFontStyle();
     closeCharacterStyleSpan();
-
-    // write and flush line buffer to output stream
-    writeLineBufferRaw();
     writeCloseTag("p", "\n");
 }
 
@@ -280,12 +283,12 @@ void HtmlExporter::writePicture(CEDPicture& picture) {
 }
 
 void HtmlExporter::writePictureTag(const CEDPicture& picture) {
-    XmlTag img("img");
-    img["src"] = escapeHtmlSpecialChars(makePicturePathRelative(picture));
-    img["alt"] = "";
-    img["height"] = toString(picture.height());
-    img["width"] = toString(picture.width());
-    lineBuffer() << img << '\n';
+    Attributes attrs;
+    attrs["src"] = escapeHtmlSpecialChars(makePicturePathRelative(picture));
+    attrs["alt"] = "";
+    attrs["height"] = toString(picture.height());
+    attrs["width"] = toString(picture.width());
+    writeSingleTag("img", attrs, "\n");
 }
 
 void HtmlExporter::writeSectionBegin(CEDSection&) {
@@ -299,7 +302,7 @@ void HtmlExporter::writeSectionEnd(CEDSection&) {
 }
 
 void HtmlExporter::writeTitle() {
-    outputStream() << XmlTag("title", "Cuneiform output") << "\n";
+    writeTag("title", "Cuneiform output", Attributes(), "\n");
 }
 
 }

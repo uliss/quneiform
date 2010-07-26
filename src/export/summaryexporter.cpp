@@ -36,16 +36,16 @@ SummaryExporter::SummaryExporter(CEDPage * page, const FormatOptions& opts) :
 }
 
 void SummaryExporter::writePageEnd(CEDPage&) {
-    outputStream() << "##################################\n";
-    outputStream() << "Page summary: " << "\n";
-    outputStream() << "    total sections:   " << numSections() << "\n";
-    outputStream() << "    total columns:    " << numColumns() << "\n";
-    outputStream() << "    total paragraphs: " << numParagraphs() << "\n";
-    outputStream() << "    total frames:     " << numFrames() << "\n";
-    outputStream() << "    total lines:      " << numLines() << "\n";
-    outputStream() << "    total chars:      " << numChars() << "\n";
-    outputStream() << "    total pictures:   " << numPictures() << "\n";
-    outputStream() << "    total tables:     " << numTables() << "\n";
+    *outputStream() << "##################################\n";
+    *outputStream() << "Page summary: " << "\n";
+    *outputStream() << "    total sections:   " << numSections() << "\n";
+    *outputStream() << "    total columns:    " << numColumns() << "\n";
+    *outputStream() << "    total paragraphs: " << numParagraphs() << "\n";
+    *outputStream() << "    total frames:     " << numFrames() << "\n";
+    *outputStream() << "    total lines:      " << numLines() << "\n";
+    *outputStream() << "    total chars:      " << numChars() << "\n";
+    *outputStream() << "    total pictures:   " << numPictures() << "\n";
+    *outputStream() << "    total tables:     " << numTables() << "\n";
 }
 
 }

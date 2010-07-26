@@ -27,6 +27,7 @@
 #include "ced/cedparagraph.h"
 #include "ced/cedpicture.h"
 #include "common/helper.h"
+#include "common/debug.h"
 
 namespace CIF
 {
@@ -53,27 +54,28 @@ void TextExporter::exportTo(std::ostream& os) {
     GenericExporter::exportTo(os);
 }
 
-void TextExporter::flushLineBuffer() {
-    std::string output_line = lineBufferPrepared();
+void TextExporter::flushBuffer() {
+    if (!outputStream()) {
+        Debug() << "[TextExporter::flushBuffer] pointer to output stream is NULL\n";
+        return;
+    }
 
     if (isCharsetConversion())
-        outputStream() << converter_.convert(output_line);
+        flushBufferConverted();
     else
-        outputStream() << output_line;
-
-    line_buffer_.str("");
+        flushBufferRaw();
 }
 
-std::ostringstream& TextExporter::lineBuffer() {
-    if (streamSize(line_buffer_) > 1024)
-        flushLineBuffer();
-
-    return line_buffer_;
+void TextExporter::flushBufferConverted() {
+    *outputStream() << converter_.convert(buffer_.str());
+    outputStream()->flush();
+    buffer_.str("");
 }
 
-std::string TextExporter::lineBufferPrepared() {
-    std::string res(line_buffer_.str());
-    return res;
+void TextExporter::flushBufferRaw() {
+    *outputStream() << buffer_.str();
+    outputStream()->flush();
+    buffer_.str("");
 }
 
 void TextExporter::writeBOM(std::ostream& os) {
@@ -85,25 +87,11 @@ void TextExporter::writeCharacter(CEDChar& chr) {
     if (elements_left_in_line_-- == 1 && remove_last_line_hyphen_)
         return;
 
-    lineBuffer() << chr.alternativeAt(0).getChar();
+    buffer() << chr.alternativeAt(0).getChar();
 }
 
 void TextExporter::writeLineBreak() {
-    outputStream() << '\n';
-}
-
-void TextExporter::writeLineBuffer(CEDLine& line) {
-    flushLineBuffer();
-
-    if (isLineBreak(line) && lines_left_in_paragraph_ > 1) // skip last line break
-        writeLineBreak();
-    else if (notLastLine() && !remove_last_line_hyphen_)
-        outputStream() << ' ';
-}
-
-void TextExporter::writeLineBufferRaw() {
-    outputStream() << lineBuffer().str();
-    line_buffer_.str("");
+    buffer() << '\n';
 }
 
 void TextExporter::writeLineBegin(CEDLine& line) {
@@ -115,12 +103,17 @@ void TextExporter::writeLineBegin(CEDLine& line) {
 }
 
 void TextExporter::writeLineEnd(CEDLine& line) {
-    writeLineBuffer(line);
+    if (isLineBreak(line) && lines_left_in_paragraph_ > 1) // skip last line break
+        writeLineBreak();
+    else if (notLastLine() && !remove_last_line_hyphen_)
+        buffer() << ' ';
+
     lines_left_in_paragraph_--;
 }
 
 void TextExporter::writePageEnd(CEDPage&) {
-    outputStream() << std::endl;
+    buffer() << '\n';
+    flushBuffer();
 }
 
 void TextExporter::writeParagraphBegin(CEDParagraph& par) {
@@ -128,15 +121,15 @@ void TextExporter::writeParagraphBegin(CEDParagraph& par) {
 }
 
 void TextExporter::writeParagraphEnd(CEDParagraph&) {
-    outputStream() << '\n';
+    buffer() << '\n';
 }
 
 void TextExporter::writePicture(CEDPicture& pict) {
-    outputStream() << "[picture: " << pict.width() << 'x' << pict.height() << "]\n";
+    buffer() << "[picture: " << pict.width() << 'x' << pict.height() << "]\n";
 }
 
 void TextExporter::writeSectionEnd(CEDSection&) {
-    outputStream() << '\n';
+    buffer() << '\n';
 }
 
 }

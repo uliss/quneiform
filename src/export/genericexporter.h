@@ -152,7 +152,7 @@ class GenericExporter: public Exporter
          * Returns pointer to default output stream
          * @see setOutputStream()
          */
-        std::ostream& outputStream();
+        std::ostream * outputStream();
 
         /**
          * Saves given picture

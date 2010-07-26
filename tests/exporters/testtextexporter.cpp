@@ -52,7 +52,7 @@ inline CEDChar * parAddChar(CEDParagraph& p, char letter, int style = 0) {
 
 #define BUFFER_CLEAR() {\
 	buffer_.str("");\
-	exp_->line_buffer_.str("");\
+	exp_->buffer().str("");\
 }
 
 #define CHECK_BUFFER(s, buf) {\
@@ -62,12 +62,14 @@ inline CEDChar * parAddChar(CEDParagraph& p, char letter, int style = 0) {
 #define CHECK_PAR(s, par) {\
     BUFFER_CLEAR()\
     exp_->exportParagraph(par);\
+    exp_->flushBuffer();\
     CHECK_BUFFER(s, buffer_);\
 }
 
 #define CHECK_LINE(s, line) {\
     BUFFER_CLEAR();\
     exp_->exportLine(line);\
+    exp_->flushBuffer();\
     CHECK_BUFFER(s, buffer_);\
 }
 
@@ -206,6 +208,7 @@ void TestTextExporter::testExportPicture() {
     pict.setBoundingRect(Rect(Point(), 10, 20));
 
     exp_->exportPicture(pict);
+    exp_->flushBuffer();
     CHECK_BUFFER("[picture: 10x20]\n", buffer_);
 }
 
@@ -213,5 +216,6 @@ void TestTextExporter::testExportSection() {
     CEDSection sect;
 
     exp_->exportSection(sect);
+    exp_->flushBuffer();
     CHECK_BUFFER("\n", buffer_);
 }

@@ -17,7 +17,6 @@
  ***************************************************************************/
 
 #include "hocrexporter.h"
-#include "xmltag.h"
 #include "ced/cedpicture.h"
 #include "ced/cedchar.h"
 #include "ced/cedpage.h"
@@ -93,22 +92,31 @@ void HocrExporter::writeCharacter(CEDChar& chr) {
 }
 
 void HocrExporter::writeCharBBoxesInfo() {
-    XmlTag span("span");
-    span["class"] = "ocr_info";
-    span["title"] = rectBBoxes(char_bboxes_);
-    outputStream() << span << "\n";
+    Attributes attrs;
+    attrs["class"] = "ocr_info";
+    attrs["title"] = rectBBoxes(char_bboxes_);
+
+    writeSingleTag("span", attrs, "\n");
 }
 
-void HocrExporter::writeLineEnd(CEDLine& line) {
+void HocrExporter::writeLineBegin(CEDLine& line) {
     Attributes attrs;
     attrs["class"] = "ocr_line";
     attrs["id"] = "line_" + toString(numLines());
     attrs["title"] = rectBBox(line_bbox_);
-
     writeStartTag("span", attrs);
 
+    HtmlExporter::writeLineBegin(line);
+    resetCharacterFontStyle();
+    resetCharacterStyleSpan();
+}
+
+void HocrExporter::writeLineEnd(CEDLine& line) {
     writeCharBBoxesInfo();
     HtmlExporter::writeLineEnd(line);
+
+    closeCharacterFontStyle();
+    closeCharacterStyleSpan();
 
     writeCloseTag("span", "\n");
     is_in_line_ = false;
@@ -118,10 +126,10 @@ void HocrExporter::writeLineEnd(CEDLine& line) {
 void HocrExporter::writeMeta() {
     HtmlExporter::writeMeta();
 
-    XmlTag meta("meta");
-    meta["name"] = "ocr-system";
-    meta["content"] = "cuneiform";
-    outputStream() << meta << "\n";
+    Attributes attrs;
+    attrs["name"] = "ocr-system";
+    attrs["content"] = "cuneiform";
+    writeSingleTag("meta", attrs, "\n");
 }
 
 void HocrExporter::writePageBegin(CEDPage& page) {
@@ -142,13 +150,15 @@ void HocrExporter::writePageBegin(CEDPage& page) {
 void HocrExporter::writePageEnd(CEDPage& page) {
     writeCloseTag("div", "\n");
     HtmlExporter::writePageEnd(page);
+    flushBuffer();
 }
 
 void HocrExporter::writeParagraphBegin(CEDParagraph& par) {
     HtmlExporter::writeParagraphBegin(par);
-    outputStream() << "\n";
+    buffer() << '\n';
     clearCharBBoxes();
     clearLineBBox();
+
 }
 
 void HocrExporter::writePicture(CEDPicture& picture) {

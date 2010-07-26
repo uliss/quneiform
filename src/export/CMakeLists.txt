@@ -38,8 +38,6 @@ endif()
 add_library(cuneiform-export ${LIBTYPE}
     exporterfactory.cpp
     imageexporterfactory.cpp
-    tag.cpp
-    xmltag.cpp
     ${exporters}
     ${image_exporters}
 )

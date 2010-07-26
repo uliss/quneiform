@@ -36,11 +36,11 @@ using namespace CIF;
 using namespace std;
 
 inline void clearBuffer(HtmlExporter * exp) {
-    exp->lineBuffer().str("");
+    exp->buffer().str("");
 }
 
 inline string buffer(HtmlExporter * exp) {
-    return exp->lineBuffer().str();
+    return exp->buffer().str();
 }
 
 inline CEDChar * makeChar(char l, int style = 0) {
@@ -88,6 +88,7 @@ inline CEDChar * parAddChar(CEDParagraph& p, char letter, int style = 0) {
     clearBuffer(exp_);\
     buffer_.str("");\
     exp_->exportParagraph(par);\
+    exp_->flushBuffer();\
     CPPUNIT_ASSERT_EQUAL(std::string(s), buffer_.str());\
 }
 
@@ -95,6 +96,7 @@ inline CEDChar * parAddChar(CEDParagraph& p, char letter, int style = 0) {
     clearBuffer(exp_);\
     buffer_.str("");\
     exp_->exportColumn(col);\
+    exp_->flushBuffer();\
     CPPUNIT_ASSERT_EQUAL(std::string(s), buffer_.str());\
 }
 
@@ -102,6 +104,7 @@ inline CEDChar * parAddChar(CEDParagraph& p, char letter, int style = 0) {
 	clearBuffer(exp_);\
 	buffer_.str("");\
     exp_->exportLine(line);\
+    exp_->flushBuffer();\
     CPPUNIT_ASSERT_EQUAL(std::string(s), buffer_.str());\
 }
 
@@ -121,8 +124,9 @@ void TestHtmlExporter::tearDown() {
 }
 
 void TestHtmlExporter::testExport() {
-    // attempt to export to empty stream
+    // attempt to export to invalid stream
     std::fstream os;
+    os << ' ';
     CPPUNIT_ASSERT_THROW(exp_->exportTo(os), Exporter::Exception);
 
     // export to stream buffer
@@ -397,7 +401,7 @@ void TestHtmlExporter::testExportPicture() {
     exp_->exportPicture(pict);
 
     CPPUNIT_ASSERT_EQUAL(std::string("<img alt=\"\" height=\"0\" src=\"output/image_0.png\" width=\"0\"/>\n"),
-            exp_->lineBuffer().str());
+            exp_->buffer().str());
 }
 
 void TestHtmlExporter::testHyphens() {
@@ -460,9 +464,9 @@ void TestHtmlExporter::testWriteAlternatives() {
     CHECK_PAR("<p>a</p>\n", par);
 
     c->addAlternative('b');
-    CHECK_PAR("<p><span title=\"Alternatives: b\" class=\"has_alternative\">a</span></p>\n", par);
+    CHECK_PAR("<p><span class=\"has_alternative\" title=\"Alternatives: b\">a</span></p>\n", par);
 
     c->setFontStyle(FONT_UNDERLINE);
-    CHECK_PAR("<p><u><span title=\"Alternatives: b\" class=\"has_alternative\">a</span></u></p>\n", par);
+    CHECK_PAR("<p><u><span class=\"has_alternative\" title=\"Alternatives: b\">a</span></u></p>\n", par);
 }
 

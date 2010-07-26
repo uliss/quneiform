@@ -83,19 +83,21 @@ class XmlExporter: public TextExporter
          */
         void writeTag(const std::string& tagName, const std::string& tagText,
                 const Attributes& attrs = Attributes(), const std::string& newline = "");
-
     protected:
         /**
          * Writes escaped character to line buffer
          */
         virtual void writeCharacter(CEDChar& chr);
-
-        /**
-         * Writes xml declaration: <?xml ... ?>
-         */
-        virtual void writeXmlDeclaration(const std::string& encoding = "UTF-8");
-    private:
-        bool line_break_;
+    public:
+        static void writeXmlDeclaration(std::ostream& os, const std::string& encoding = "UTF-8");
+        static void writeAttributes(std::ostream& os, const Attributes& attrs);
+        static void writeCloseTag(std::ostream& os, const std::string& tagName);
+        static void writeSingleTag(std::ostream& os, const std::string& tagName,
+                const Attributes& attrs = Attributes());
+        static void writeStartTag(std::ostream& os, const std::string& tagName,
+                const Attributes& attrs = Attributes());
+        static void writeTag(std::ostream& os, const std::string& tagName, const std::string& tagText,
+                const Attributes& attrs = Attributes());
 };
 
 }

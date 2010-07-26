@@ -26,8 +26,6 @@
 namespace CIF
 {
 
-class XmlTag;
-
 class OdfStyleExporter: public StyleExporter
 {
     public:
@@ -37,11 +35,10 @@ class OdfStyleExporter: public StyleExporter
         void writePageEnd(CEDPage& page);
     private:
         int fontSize2odf(int value) const;
-        typedef boost::shared_ptr<XmlTag> StylePtr;
-        StylePtr makeOdfStyle(const CEDParagraph& par, const std::string& name);
-        StylePtr makeOdfStyle(const CEDChar& chr, const std::string& name);
+        std::string makeOdfStyle(const CEDParagraph& par, const std::string& name);
+        std::string makeOdfStyle(const CEDChar& chr, const std::string& name);
     private:
-        typedef std::map<std::string, StylePtr> StyleMap;
+        typedef std::map<std::string, std::string> StyleMap;
         StyleMap styles_;
         float font_koef_;
 };

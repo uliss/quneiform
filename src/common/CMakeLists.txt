@@ -1,8 +1,5 @@
 if(CF_USE_ICONV)
     include_directories(BEFORE ${ICONV_INCLUDE_DIR})
-    if(ICONV_SECOND_ARGUMENT_IS_CONST)
-        add_definitions(-DICONV_SECOND_ARGUMENT_IS_CONST)
-    endif()
     set(CF_ICONV_LIBRARIES ${ICONV_LIBRARIES})
 endif()
 

@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <errno.h>
+#include <iostream>
 #include "iconvimpl.h"
 #include "iconv_local.h"
 
@@ -52,43 +53,44 @@ bool IconvImpl::close() {
     return result;
 }
 
-void throwException() {
-#ifdef CF_USE_ICONV
-    switch (errno) {
-        case E2BIG:
-        break;
-        case EILSEQ:
-        throw Iconv::Exception("Invalid character or multibyte sequence in the input");
-        break;
-        case EINVAL:
-        default:
-        throw Iconv::Exception("Incomplete multibyte sequence in the input");
-        break;
-    }
-#endif
-}
-
 std::string IconvImpl::convert(const std::string& src) {
 #ifdef CF_USE_ICONV
-    std::string result;
-
     if (src.empty())
-    return result;
+        return src;
 
-    char output_buf[1024];
-    const char *source_ptr = src.c_str();
+    std::string result;
+    result.reserve(src.size());
+
+    char *source_ptr = (char*) src.c_str();
     size_t source_len = src.length();
-    size_t output_len = sizeof(output_buf) - sizeof(output_buf[0]);
+
+    static const int BUFSIZE = 4096;
+    static const int NUL_TERMINATOR_LENGTH = 4;
+    char output_buf[BUFSIZE];
+    size_t output_len = BUFSIZE - NUL_TERMINATOR_LENGTH;
 
     while (source_len > 0) {
-        output_buf[0] = '\0';
         char * output_ptr = output_buf;
 
-        if (convert(&source_ptr, &source_len, &output_ptr, &output_len) == size_t(-1))
-        throwException();
+        if (convert(&source_ptr, &source_len, &output_ptr, &output_len) == (size_t) -1) {
+            switch (errno) {
+            case E2BIG:
+                output_len = BUFSIZE - NUL_TERMINATOR_LENGTH;
+                break;
+            case EILSEQ:
+                throw Iconv::Exception(
+                        "[IconvImpl::convert] invalid character or multibyte sequence in the input");
+                break;
+            case EINVAL:
+            default:
+                throw Iconv::Exception(
+                        "[IconvImpl::convert] incomplete multibyte sequence in the input");
+                break;
+            }
+        }
 
         *output_ptr = '\0';
-        result += output_buf;
+        result.append(output_buf);
     }
 
     return result;
@@ -96,16 +98,12 @@ std::string IconvImpl::convert(const std::string& src) {
     return src;
 }
 
-size_t IconvImpl::convert(const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft) {
+size_t IconvImpl::convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft) {
 #ifdef CF_USE_ICONV
-    return ::iconv(iconv_,
-#if !defined(ICONV_SECOND_ARGUMENT_IS_CONST)
-            (char**)
-#endif
-            inbuf, inbytesleft, outbuf, outbytesleft);
+    return ::iconv(iconv_, inbuf, inbytesleft, outbuf, outbytesleft);
 #else
     // see man 3 iconv regarding return value
-    return static_cast<size_t>(-1);
+    return static_cast<size_t> (-1);
 #endif
 }
 

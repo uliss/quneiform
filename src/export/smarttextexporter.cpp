@@ -22,6 +22,8 @@
 namespace CIF
 {
 
+static const std::string PAR_INDENT = "  ";
+
 SmartTextExporter::SmartTextExporter(CEDPage * page, const FormatOptions& opts) :
     TextExporter(page, opts) {
 
@@ -29,13 +31,13 @@ SmartTextExporter::SmartTextExporter(CEDPage * page, const FormatOptions& opts) 
 
 void SmartTextExporter::writeParagraphBegin(CEDParagraph& par) {
     if (par.indent())
-        outputStream() << "  ";
+        buffer() << PAR_INDENT;
 
     TextExporter::writeParagraphBegin(par);
 }
 
 void SmartTextExporter::writeParagraphEnd(CEDParagraph&) {
-    outputStream() << "\n\n";
+    buffer() << "\n\n";
 }
 
 }

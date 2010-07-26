@@ -197,8 +197,8 @@ int GenericExporter::numTables() const {
     return num_tables_;
 }
 
-std::ostream& GenericExporter::outputStream() {
-    return *os_;
+std::ostream * GenericExporter::outputStream() {
+    return os_;
 }
 
 CEDPage * GenericExporter::page() {

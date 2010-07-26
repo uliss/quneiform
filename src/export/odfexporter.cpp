@@ -26,7 +26,6 @@
 #include "odfstyleexporter.h"
 #include "imageexporterfactory.h"
 #include "rout_own.h"
-#include "xmltag.h"
 #include "ced/cedpage.h"
 #include "ced/cedchar.h"
 #include "ced/cedpicture.h"
@@ -70,38 +69,42 @@ OdfExporter::~OdfExporter() {
     delete style_exporter_;
 }
 
-void OdfExporter::addOdfAutomaticStyles() {
-    XmlTag automatic_styles("office:automatic-styles");
-    automatic_styles.writeBegin(outputStream());
-    style_exporter_->exportTo(outputStream());
-    automatic_styles.writeEnd(outputStream());
+void OdfExporter::writeOdfAutomaticStyles() {
+    writeStartTag("office:automatic-styles");
+    style_exporter_->exportTo(buffer());
+    writeCloseTag("office:automatic-styles");
 }
 
 void OdfExporter::addOdfContent() {
-    // saving old output stream
-    std::ostream * old_stream = &outputStream();
-
     makePicturesDir();
 
-    std::ostringstream buf;
+    // saving old output stream
+    std::ostream * old_stream = outputStream();
+
+    std::ostringstream content;
+    writeXmlDeclaration(content);
+
     // setting new output stream
-    setOutputStream(&buf);
+    setOutputStream(&content);
 
-    writeXmlDeclaration();
-    XmlTag doc_content("office:document-content");
-    setCommonOdfNamespaces(doc_content);
-    doc_content.writeBegin(outputStream());
-    addOdfAutomaticStyles();
+    Attributes doc_attrs;
+    setCommonOdfNamespaces(doc_attrs);
+    writeStartTag("office:document-content", doc_attrs);
 
-    XmlTag body("office:body");
-    body.writeBeginNL(outputStream());
+    // export automatic styles
+    writeOdfAutomaticStyles();
 
-    doExport(outputStream());
+    // write body
+    writeStartTag("office:body", "\n");
 
-    body.writeEnd(outputStream());
-    doc_content.writeEnd(outputStream());
+    // export document body
+    doExport(content);
 
-    odfWrite("content.xml", buf.str());
+    writeCloseTag("office:body");
+    writeCloseTag("office:document-content");
+    flushBuffer();
+
+    odfWrite("content.xml", content.str());
     addOdfManifestFile("content.xml", "text/xml");
 
     // restore output stream
@@ -109,35 +112,27 @@ void OdfExporter::addOdfContent() {
 }
 
 void OdfExporter::addOdfManifest() {
-    // saving old output stream
-    std::ostream * old_stream = &outputStream();
-
     zip_add_dir(zip_, "META-INF");
 
     std::ostringstream buf;
-    // setting new output stream
-    setOutputStream(&buf);
+    writeXmlDeclaration(buf);
 
-    writeXmlDeclaration();
-
-    XmlTag manifest("manifest:manifest");
+    Attributes manifest;
     manifest["xmlns:manifest"] = "urn:oasis:names:tc:opendocument:xmlns:manifest:1.0";
-    manifest.writeBeginNL(outputStream());
+    writeStartTag(buf, "manifest:manifest", manifest);
 
     addOdfManifestFile("/", "application/vnd.oasis.opendocument.text");
 
-    XmlTag file_entry("manifest:file-entry");
     for (ManifestList::iterator it = files_.begin(), end = files_.end(); it != end; ++it) {
-        file_entry["manifest:full-path"] = it->first;
-        file_entry["manifest:media-type"] = it->second;
-        outputStream() << file_entry << "\n";
+        Attributes attrs;
+        attrs["manifest:full-path"] = it->first;
+        attrs["manifest:media-type"] = it->second;
+        writeSingleTag(buf, "manifest:file-entry", attrs);
     }
 
-    manifest.writeEndNL(outputStream());
-    odfWrite("META-INF/manifest.xml", buf.str());
+    writeCloseTag(buf, "manifest:manifest");
 
-    // restore output stream
-    setOutputStream(old_stream);
+    odfWrite("META-INF/manifest.xml", buf.str());
 }
 
 void OdfExporter::addOdfManifestFile(const std::string& path, const std::string& type) {
@@ -145,20 +140,13 @@ void OdfExporter::addOdfManifestFile(const std::string& path, const std::string&
 }
 
 void OdfExporter::addOdfMeta() {
-    // saving old output stream
-    std::ostream * old_stream = &outputStream();
-
     std::ostringstream buf;
-    // setting new output stream
-    setOutputStream(&buf);
 
-    writeXmlDeclaration();
-    writeMeta();
+    writeXmlDeclaration(buf);
+    writeMeta(buf);
+
     odfWrite("meta.xml", buf.str());
     addOdfManifestFile("meta.xml", "text/xml");
-
-    // restore output stream
-    setOutputStream(old_stream);
 }
 
 void OdfExporter::addOdfMime() {
@@ -166,44 +154,29 @@ void OdfExporter::addOdfMime() {
 }
 
 void OdfExporter::addOdfSettings() {
-    // saving old output stream
-    std::ostream * old_stream = &outputStream();
-
     std::ostringstream buf;
-    // setting new output stream
-    setOutputStream(&buf);
 
-    writeXmlDeclaration();
-    XmlTag settings("office:document-settings");
-    setCommonOdfNamespaces(settings);
-    outputStream() << settings << "\n";
+    writeXmlDeclaration(buf);
+
+    Attributes attrs;
+    setCommonOdfNamespaces(attrs);
+    writeSingleTag(buf, "office:document-settings", attrs);
 
     odfWrite("settings.xml", buf.str());
     addOdfManifestFile("settings.xml", "text/xml");
-
-    // restore output stream
-    setOutputStream(old_stream);
 }
 
 void OdfExporter::addOdfStyles() {
-    // saving old output stream
-    std::ostream * old_stream = &outputStream();
-
     std::ostringstream buf;
-    // setting new output stream
-    setOutputStream(&buf);
 
-    writeXmlDeclaration();
+    writeXmlDeclaration(buf);
 
-    XmlTag style("office:document-style");
-    setCommonOdfNamespaces(style);
-    outputStream() << style << "\n";
+    Attributes attrs;
+    setCommonOdfNamespaces(attrs);
+    writeSingleTag(buf, "office:document-style", attrs);
 
     odfWrite("styles.xml", buf.str());
     addOdfManifestFile("styles.xml", "text/xml");
-
-    // restore output stream
-    setOutputStream(old_stream);
 }
 
 void OdfExporter::exportTo(const std::string& fname) {
@@ -235,7 +208,7 @@ void OdfExporter::makePicturesDir() {
 void OdfExporter::odfClose() {
     zip_close(zip_);
     zip_ = NULL;
-    buffers_.clear();
+    zip_buffers_.clear();
 }
 
 void OdfExporter::odfOpen(const std::string& fname) {
@@ -253,7 +226,8 @@ void OdfExporter::odfOpen(const std::string& fname) {
 
 void OdfExporter::odfWrite(const std::string& fname, const std::string& data) {
     assert(zip_);
-    BufList::iterator it = buffers_.insert(buffers_.end(), data);
+
+    BufList::iterator it = zip_buffers_.insert(zip_buffers_.end(), data);
     zip_source * src = zip_source_buffer(zip_, it->c_str(), it->size(), 0);
 
     if (!src)
@@ -265,20 +239,20 @@ void OdfExporter::odfWrite(const std::string& fname, const std::string& data) {
     }
 }
 
-void OdfExporter::setCommonOdfNamespaces(Tag& tag) const {
-    tag["xmlns:manifest"] = "urn:oasis:names:tc:opendocument:xmlns:manifest:1.0";
-    tag["xmlns:office"] = "urn:oasis:names:tc:opendocument:xmlns:office:1.0";
-    tag["xmlns:style"] = "urn:oasis:names:tc:opendocument:xmlns:style:1.0";
-    tag["xmlns:text"] = "urn:oasis:names:tc:opendocument:xmlns:text:1.0";
-    tag["xmlns:table"] = "urn:oasis:names:tc:opendocument:xmlns:table:1.0";
-    tag["xmlns:xlink"] = "http://www.w3.org/1999/xlink";
-    tag["xmlns:dc"] = "http://purl.org/dc/elements/1.1/";
-    tag["xmlns:meta"] = "urn:oasis:names:tc:opendocument:xmlns:meta:1.0";
-    tag["xmlns:number"] = "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0";
-    tag["xmlns:draw"] = "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0";
-    tag["xmlns:svg"] = "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0";
-    tag["xmlns:fo"] = "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0";
-    tag["office:version"] = "1.2";
+void OdfExporter::setCommonOdfNamespaces(Attributes& attrs) const {
+    attrs["xmlns:manifest"] = "urn:oasis:names:tc:opendocument:xmlns:manifest:1.0";
+    attrs["xmlns:office"] = "urn:oasis:names:tc:opendocument:xmlns:office:1.0";
+    attrs["xmlns:style"] = "urn:oasis:names:tc:opendocument:xmlns:style:1.0";
+    attrs["xmlns:text"] = "urn:oasis:names:tc:opendocument:xmlns:text:1.0";
+    attrs["xmlns:table"] = "urn:oasis:names:tc:opendocument:xmlns:table:1.0";
+    attrs["xmlns:xlink"] = "http://www.w3.org/1999/xlink";
+    attrs["xmlns:dc"] = "http://purl.org/dc/elements/1.1/";
+    attrs["xmlns:meta"] = "urn:oasis:names:tc:opendocument:xmlns:meta:1.0";
+    attrs["xmlns:number"] = "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0";
+    attrs["xmlns:draw"] = "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0";
+    attrs["xmlns:svg"] = "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0";
+    attrs["xmlns:fo"] = "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0";
+    attrs["office:version"] = "1.2";
 }
 
 void OdfExporter::writeCharacterBegin(CEDChar& chr) {
@@ -286,15 +260,14 @@ void OdfExporter::writeCharacterBegin(CEDChar& chr) {
 
     if (style_exporter_->hasHash(chr_hash)) {
         if (prev_char_style_hash_ != chr_hash) {
-            XmlTag span("text:span");
-
             if (style_span_opened_) {
-                span.writeEnd(lineBuffer());
+                writeCloseTag("text:span");
                 style_span_opened_ = false;
             }
 
-            span["text:style-name"] = style_exporter_->styleByHash(chr_hash);
-            span.writeBegin(lineBuffer());
+            Attributes attrs;
+            attrs["text:style-name"] = style_exporter_->styleByHash(chr_hash);
+            writeStartTag("text:span", attrs);
             style_span_opened_ = true;
 
             prev_char_style_hash_ = chr_hash;
@@ -306,38 +279,41 @@ void OdfExporter::writeLineBreak() {
     writeSingleTag("text:line-break", Attributes(), "\n");
 }
 
-void OdfExporter::writeMeta() {
-    XmlTag document_meta("office:document-meta");
+void OdfExporter::writeMeta(std::ostream& os) {
+    Attributes document_meta;
     setCommonOdfNamespaces(document_meta);
-    document_meta.writeBegin(outputStream());
 
-    XmlTag office_meta("office:meta");
-    office_meta.writeBegin(outputStream());
+    writeStartTag(os, "office:document-meta", document_meta);
+    writeStartTag(os, "office:meta");
 
-    outputStream() << XmlTag("meta:generator", "Cuneiform-" CF_VERSION) << "\n";
-    writeMetaDate();
-    writeMetaStatistics();
+    writeMetaGenerator(os);
+    writeMetaDate(os);
+    writeMetaStatistics(os);
 
-    office_meta.writeEnd(outputStream());
-    document_meta.writeEnd(outputStream());
+    writeCloseTag(os, "office:meta");
+    writeCloseTag(os, "office:document-meta");
 }
 
-void OdfExporter::writeMetaDate() {
+void OdfExporter::writeMetaDate(std::ostream& os) {
     std::string time = datetime();
-    outputStream() << XmlTag("meta:creation-date", time) << "\n";
-    outputStream() << XmlTag("dc:date", time) << "\n";
+    writeTag(os, "meta:creation-date", time);
+    writeTag(os, "dc:date", time);
 }
 
-void OdfExporter::writeMetaStatistics() {
-    XmlTag stat("meta:document-statistic");
-    stat["meta:table-count"] = toString(numTables());
-    stat["meta:image-count"] = toString(numPictures());
-    stat["meta:object-count"] = "0";
-    stat["meta:page-count"] = "1";
-    stat["meta:paragraph-count"] = toString(numParagraphs());
-    stat["meta:word-count"] = "0";
-    stat["meta:character-count"] = toString(numChars());
-    outputStream() << stat << "\n";
+void OdfExporter::writeMetaGenerator(std::ostream& os) {
+    writeTag(os, "meta:generator", "Cuneiform-" CF_VERSION);
+}
+
+void OdfExporter::writeMetaStatistics(std::ostream& os) {
+    Attributes attrs;
+    attrs["meta:table-count"] = toString(numTables());
+    attrs["meta:image-count"] = toString(numPictures());
+    attrs["meta:object-count"] = "0";
+    attrs["meta:page-count"] = "1";
+    attrs["meta:paragraph-count"] = toString(numParagraphs());
+    attrs["meta:word-count"] = "0";
+    attrs["meta:character-count"] = toString(numChars());
+    writeSingleTag(os, "meta:document-statistic", attrs);
 }
 
 void OdfExporter::writePageBegin(CEDPage&) {
@@ -351,14 +327,12 @@ void OdfExporter::writePageEnd(CEDPage&) {
 }
 
 void OdfExporter::writeParagraphBegin(CEDParagraph& par) {
-    XmlTag p("text:p");
-
+    Attributes attrs;
     std::string style_name = style_exporter_->styleByElement(par);
-
     if (!style_name.empty())
-        p["text:style-name"] = style_name;
+        attrs["text:style-name"] = style_name;
 
-    p.writeBegin(outputStream());
+    writeStartTag("text:p", attrs);
     XmlExporter::writeParagraphBegin(par);
 
     prev_char_style_hash_ = 0;
@@ -367,10 +341,10 @@ void OdfExporter::writeParagraphBegin(CEDParagraph& par) {
 
 void OdfExporter::writeParagraphEnd(CEDParagraph&) {
     if (style_span_opened_)
-        lineBuffer() << "</text:span>";
+        writeCloseTag("text:span");
+
     style_span_opened_ = false;
 
-    writeLineBufferRaw();
     writeCloseTag("text:p", "\n");
 }
 
@@ -384,26 +358,27 @@ void OdfExporter::writePicture(CEDPicture& picture) {
         odfWrite(path, img_buf.str());
         addOdfManifestFile(path, imageExporter()->mime());
 
-        XmlTag img("draw:image");
-        img["xlink:href"] = escapeHtmlSpecialChars(path);
-        img["xlink:type"] = "simple";
-        img["xlink:show"] = "embed";
-        img["xlink:actuate"] = "onLoad";
-
-        XmlTag frame("draw:frame");
-        frame["text:anchor-type"] = "paragraph";
-        frame["draw:frame-name"] = picture_name;
-        frame["draw:name"] = picture_name;
-        frame["draw:z-index"] = "0";
+        Attributes frame_attrs;
+        frame_attrs["text:anchor-type"] = "paragraph";
+        frame_attrs["draw:frame-name"] = picture_name;
+        frame_attrs["draw:name"] = picture_name;
+        frame_attrs["draw:z-index"] = "0";
         float xdpi = (float) page()->imageDpi().width();
         float ydpi = (float) page()->imageDpi().height();
         assert(0 < xdpi && xdpi < 3000 && 0 < ydpi && ydpi < 3000);
-        frame["svg:width"] = toString((float) picture.width() / xdpi) + "in";
-        frame["svg:height"] = toString((float) picture.height() / ydpi) + "in";
+        frame_attrs["svg:width"] = toString((float) picture.width() / xdpi) + "in";
+        frame_attrs["svg:height"] = toString((float) picture.height() / ydpi) + "in";
 
-        frame.writeBegin(outputStream());
-        outputStream() << img;
-        frame.writeEnd(outputStream());
+        writeStartTag("draw:frame", frame_attrs);
+
+        Attributes img_attrs;
+        img_attrs["xlink:href"] = escapeHtmlSpecialChars(path);
+        img_attrs["xlink:type"] = "simple";
+        img_attrs["xlink:show"] = "embed";
+        img_attrs["xlink:actuate"] = "onLoad";
+        writeSingleTag("draw:image", img_attrs);
+
+        writeCloseTag("draw:frame");
 
     } catch (Exception& e) {
         Debug() << "[OdfExporter::writePicture] failed: " << e.what() << std::endl;
