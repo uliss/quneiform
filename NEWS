@@ -1,3 +1,8 @@
+2010-07-28
+Export to DjVuXML output format added. 
+For detailed information see http://djvu.sourceforge.net/doc/man/djvuxml.html
+
+
 2010-07-17
 Add --show-alternatives command line option - to show other possibilities of recognition.
 Now works only with HTML export. Alternatives shown as title attribute of <span> tag.
@@ -7,6 +12,7 @@ became red and get a little bit more padding.
 
 2010-07-02
 Added --output-image-dir option to set output directory for saving images from recognized document
+
 
 2010-06-12
 OcrTk added to source tree for quality checking of OCR results
