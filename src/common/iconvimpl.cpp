@@ -100,7 +100,11 @@ std::string IconvImpl::convert(const std::string& src) {
 
 size_t IconvImpl::convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft) {
 #ifdef CF_USE_ICONV
+#ifdef ICONV_SECOND_ARGUMENT_IS_CONST
+    return ::iconv(iconv_, (const char**) inbuf, inbytesleft, outbuf, outbytesleft);
+#else
     return ::iconv(iconv_, inbuf, inbytesleft, outbuf, outbytesleft);
+#endif
 #else
     // see man 3 iconv regarding return value
     return static_cast<size_t> (-1);
