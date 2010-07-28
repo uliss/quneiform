@@ -19,6 +19,7 @@
 #include "exporterfactory.h"
 #include "htmlexporter.h"
 #include "debugexporter.h"
+#include "djvuxmlexporter.h"
 #include "textexporter.h"
 #include "hocrexporter.h"
 #include "smarttextexporter.h"
@@ -71,6 +72,9 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
 #endif
     case FORMAT_SUMMARY:
         exp.reset(new SummaryExporter(page_, format_options_));
+        break;
+    case FORMAT_DJVUXML:
+        exp.reset(new DjvuTxtExporter(page_, format_options_));
         break;
     default:
         throw Exception("[ExporterFactoryImpl::make] Unsupported export format: "

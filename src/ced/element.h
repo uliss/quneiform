@@ -44,7 +44,12 @@ class CLA_EXPO Element
         const Color& backgroundColor() const;
 
         /**
-         * Returns bounding rectangle of element
+         * Returns reference to bounding rectangle of element
+         */
+        Rect& boundingRect();
+
+        /**
+         * Returns reference to bounding rectangle of element
          */
         const Rect& boundingRect() const;
 
@@ -83,6 +88,11 @@ class CLA_EXPO Element
          * Sets parent object
          */
         void setParent(Element * parent);
+
+        /**
+         * Updates element bounding rectangle
+         */
+        virtual void updateBoundingRect();
 
         /**
          * Returns element width

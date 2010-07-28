@@ -88,6 +88,7 @@ class CLA_EXPO BlockElement: public Element
         void setBorderRightWidth(unsigned short width);
         void setBorderTop(ed_border_t top);
         void setBorderTopWidth(unsigned short width);
+        void updateBoundingRect();
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
@@ -107,6 +108,7 @@ class CLA_EXPO BlockElement: public Element
 #endif
     protected:
         typedef ElementList::iterator iterator;
+        typedef ElementList::const_iterator const_iterator;
     private:
         ElementList elements_;
         char border_left_;

@@ -40,7 +40,8 @@ enum format_t
     FORMAT_HOCR,
     FORMAT_DEBUG,
     FORMAT_ODF,
-    FORMAT_SUMMARY
+    FORMAT_SUMMARY,
+    FORMAT_DJVUXML
 };
 
 typedef std::list<format_t> OutputFormatList;

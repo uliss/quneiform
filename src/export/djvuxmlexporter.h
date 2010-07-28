@@ -16,72 +16,48 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "element.h"
+#ifndef DJVUXMLEXPORTER_H_
+#define DJVUXMLEXPORTER_H_
+
+#include <deque>
+#include "common/rect.h"
+#include "xmlexporter.h"
 
 namespace CIF
 {
 
-Element::Element(Element * parent) :
-    parent_(parent), color_(Color::null()), bgcolor_(Color::null()) {
+class DjvuTxtExporter: public XmlExporter
+{
+    public:
+        DjvuTxtExporter(CEDPage * page, const FormatOptions& opts);
+        void writeCharacter(CEDChar& chr);
+        void writeCharacterBegin(CEDChar& chr);
+        void writeColumnBegin(CEDChar& col);
+        void writeColumnEnd(CEDChar& col);
+        void writeLineBegin(CEDLine& line);
+        void writeLineBreak();
+        void writeLineEnd(CEDLine& line);
+        void writePageBegin(CEDPage& page);
+        void writePageEnd(CEDPage& page);
+        void writeParagraphBegin(CEDParagraph& par);
+        void writeParagraphEnd(CEDParagraph& par);
+        void writeSectionBegin(CEDSection& sect);
+        void writeSectionEnd(CEDSection& sect);
+    private:
+        void calcWordRectList(CEDLine& line);
+        void closeWord();
+        void setCoordAttr(Attributes& attrs, const Rect& r);
+        void startWord();
+        void writeIndent();
+        void writeWordBegin();
+        void writeWordEnd();
+    private:
+        typedef std::deque<Rect> WordRectList;
+        WordRectList word_rects_;
+        int indent_level_;
+        bool word_flag_;
+};
 
 }
 
-Element::~Element() {
-}
-
-const Color & Element::backgroundColor() const {
-    return bgcolor_;
-}
-
-Rect& Element::boundingRect() {
-    return brect_;
-}
-
-const Rect& Element::boundingRect() const {
-    return brect_;
-}
-
-const Color & Element::color() const {
-    return color_;
-}
-
-void Element::exportChildren(CEDExporter& exp) {
-}
-
-int Element::height() const {
-    return brect_.height();
-}
-
-Element * Element::parent() {
-    return parent_;
-}
-
-const Element * Element::parent() const {
-    return parent_;
-}
-
-void Element::setBackgroundColor(const Color & c) {
-    bgcolor_ = c;
-}
-
-void Element::setBoundingRect(const Rect& r) {
-    brect_ = r;
-}
-
-void Element::setColor(const Color & c) {
-    color_ = c;
-}
-
-void Element::setParent(Element * parent) {
-    parent_ = parent;
-}
-
-void Element::updateBoundingRect() {
-
-}
-
-int Element::width() const {
-    return brect_.width();
-}
-
-}
+#endif /* DJVUXMLEXPORTER_H_ */

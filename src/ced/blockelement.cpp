@@ -105,4 +105,19 @@ void BlockElement::setBorderTopWidth(unsigned short width) {
     border_top_wd_ = width;
 }
 
+void BlockElement::updateBoundingRect() {
+    for (iterator it = elements_.begin(), end = elements_.end(); it != end; ++it) {
+        (*it)->updateBoundingRect();
+        Rect brect = (*it)->boundingRect();
+
+        if (brect == Rect(Point(-1, -1), Point(-1, -1)))
+            continue;
+
+        if (it == elements_.begin())
+            boundingRect() = brect;
+        else
+            boundingRect() |= brect;
+    }
+}
+
 }
