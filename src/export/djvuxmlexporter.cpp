@@ -36,12 +36,12 @@ inline bool isSpace(const CEDChar& chr) {
     return chr.boundingRect() == Rect(Point(-1, -1), Point(-1, -1));
 }
 
-DjvuTxtExporter::DjvuTxtExporter(CEDPage * page, const FormatOptions& opts) :
+DjvuXmlExporter::DjvuXmlExporter(CEDPage * page, const FormatOptions& opts) :
     XmlExporter(page, opts), indent_level_(0), word_flag_(false) {
     formatOptions().setPreserveLineBreaks(true);
 }
 
-void DjvuTxtExporter::calcWordRectList(CEDLine& line) {
+void DjvuXmlExporter::calcWordRectList(CEDLine& line) {
     word_rects_.clear();
     Rect word_rect;
     bool word_flag = false;
@@ -66,30 +66,30 @@ void DjvuTxtExporter::calcWordRectList(CEDLine& line) {
         word_rects_.push_back(word_rect);
 }
 
-void DjvuTxtExporter::closeWord() {
+void DjvuXmlExporter::closeWord() {
     word_flag_ = false;
     writeWordEnd();
 }
 
-void DjvuTxtExporter::setCoordAttr(Attributes& attrs, const Rect& r) {
+void DjvuXmlExporter::setCoordAttr(Attributes& attrs, const Rect& r) {
     std::ostringstream buf;
     buf << r.left() << ',' << r.top() << ',' << r.right() << ',' << r.bottom();
     attrs["coords"] = buf.str();
 }
 
-void DjvuTxtExporter::startWord() {
+void DjvuXmlExporter::startWord() {
     word_flag_ = true;
     writeWordBegin();
 }
 
-void DjvuTxtExporter::writeCharacter(CEDChar& chr) {
+void DjvuXmlExporter::writeCharacter(CEDChar& chr) {
     if (isSpace(chr))
         return;
 
     TextExporter::writeCharacter(chr);
 }
 
-void DjvuTxtExporter::writeCharacterBegin(CEDChar& chr) {
+void DjvuXmlExporter::writeCharacterBegin(CEDChar& chr) {
     if (isSpace(chr)) {
         if (word_flag_)
             closeWord();
@@ -101,35 +101,35 @@ void DjvuTxtExporter::writeCharacterBegin(CEDChar& chr) {
     }
 }
 
-void DjvuTxtExporter::writeColumnBegin(CEDChar&) {
+void DjvuXmlExporter::writeColumnBegin(CEDChar&) {
     indent_level_++;
     writeIndent();
     writeStartTag("PAGECOLUMN", "\n");
 }
 
-void DjvuTxtExporter::writeColumnEnd(CEDChar&) {
+void DjvuXmlExporter::writeColumnEnd(CEDChar&) {
     writeIndent();
     writeCloseTag("PAGECOLUMN", "\n");
     indent_level_--;
 }
 
-void DjvuTxtExporter::writeIndent() {
+void DjvuXmlExporter::writeIndent() {
     if (indent_level_ > 0)
         buffer() << std::string(indent_level_ * DJVU_XML_INDENT, ' ');
 }
 
-void DjvuTxtExporter::writeLineBegin(CEDLine& line) {
+void DjvuXmlExporter::writeLineBegin(CEDLine& line) {
     calcWordRectList(line);
     indent_level_++;
     writeIndent();
     writeStartTag("LINE", "\n");
 }
 
-void DjvuTxtExporter::writeLineBreak() {
+void DjvuXmlExporter::writeLineBreak() {
 
 }
 
-void DjvuTxtExporter::writeLineEnd(CEDLine&) {
+void DjvuXmlExporter::writeLineEnd(CEDLine&) {
     if (word_flag_)
         closeWord();
 
@@ -138,19 +138,19 @@ void DjvuTxtExporter::writeLineEnd(CEDLine&) {
     indent_level_--;
 }
 
-void DjvuTxtExporter::writeParagraphBegin(CEDParagraph&) {
+void DjvuXmlExporter::writeParagraphBegin(CEDParagraph&) {
     indent_level_++;
     writeIndent();
     writeStartTag("PARAGRAPH", "\n");
 }
 
-void DjvuTxtExporter::writeParagraphEnd(CEDParagraph&) {
+void DjvuXmlExporter::writeParagraphEnd(CEDParagraph&) {
     writeIndent();
     writeCloseTag("PARAGRAPH", "\n");
     indent_level_--;
 }
 
-void DjvuTxtExporter::writePageBegin(CEDPage& page) {
+void DjvuXmlExporter::writePageBegin(CEDPage& page) {
     writeXmlDeclaration(buffer());
     writeStartTag("DjVuXML", "\n");
     writeTag("HEAD", "", Attributes(), "\n");
@@ -167,7 +167,7 @@ void DjvuTxtExporter::writePageBegin(CEDPage& page) {
     writeStartTag("HIDDENTEXT", "\n");
 }
 
-void DjvuTxtExporter::writePageEnd(CEDPage&) {
+void DjvuXmlExporter::writePageEnd(CEDPage&) {
     writeIndent();
     indent_level_--;
     writeCloseTag("HIDDENTEXT", "\n");
@@ -177,19 +177,19 @@ void DjvuTxtExporter::writePageEnd(CEDPage&) {
     flushBuffer();
 }
 
-void DjvuTxtExporter::writeSectionBegin(CEDSection&) {
+void DjvuXmlExporter::writeSectionBegin(CEDSection&) {
     indent_level_++;
     writeIndent();
     writeStartTag("REGION", "\n");
 }
 
-void DjvuTxtExporter::writeSectionEnd(CEDSection&) {
+void DjvuXmlExporter::writeSectionEnd(CEDSection&) {
     writeIndent();
     writeCloseTag("REGION", "\n");
     indent_level_--;
 }
 
-void DjvuTxtExporter::writeWordBegin() {
+void DjvuXmlExporter::writeWordBegin() {
     Attributes word_attrs;
     setCoordAttr(word_attrs, word_rects_.front());
     word_rects_.pop_front();
@@ -199,7 +199,7 @@ void DjvuTxtExporter::writeWordBegin() {
     writeStartTag("WORD", word_attrs);
 }
 
-void DjvuTxtExporter::writeWordEnd() {
+void DjvuXmlExporter::writeWordEnd() {
     writeCloseTag("WORD", "\n");
     indent_level_--;
 }

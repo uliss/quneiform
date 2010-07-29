@@ -26,10 +26,10 @@
 namespace CIF
 {
 
-class DjvuTxtExporter: public XmlExporter
+class DjvuXmlExporter: public XmlExporter
 {
     public:
-        DjvuTxtExporter(CEDPage * page, const FormatOptions& opts);
+        DjvuXmlExporter(CEDPage * page, const FormatOptions& opts);
         void writeCharacter(CEDChar& chr);
         void writeCharacterBegin(CEDChar& chr);
         void writeColumnBegin(CEDChar& col);

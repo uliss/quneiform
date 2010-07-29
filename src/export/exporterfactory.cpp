@@ -74,7 +74,7 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
         exp.reset(new SummaryExporter(page_, format_options_));
         break;
     case FORMAT_DJVUXML:
-        exp.reset(new DjvuTxtExporter(page_, format_options_));
+        exp.reset(new DjvuXmlExporter(page_, format_options_));
         break;
     default:
         throw Exception("[ExporterFactoryImpl::make] Unsupported export format: "
