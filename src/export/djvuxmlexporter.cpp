@@ -18,10 +18,12 @@
 
 #include <iomanip>
 #include "djvuxmlexporter.h"
+// ced
 #include "ced/cedchar.h"
 #include "ced/cedline.h"
 #include "ced/cedpage.h"
 #include "ced/cedparagraph.h"
+
 #include "common/tostring.h"
 #include "common/helper.h"
 
@@ -86,7 +88,7 @@ void DjvuXmlExporter::writeCharacter(CEDChar& chr) {
     if (isSpace(chr))
         return;
 
-    TextExporter::writeCharacter(chr);
+    buffer() << escapeSpecialChar(chr.alternativeAt(0).getChar());
 }
 
 void DjvuXmlExporter::writeCharacterBegin(CEDChar& chr) {

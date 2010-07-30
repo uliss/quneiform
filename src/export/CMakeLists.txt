@@ -7,6 +7,7 @@ set(exporters
     cssexporter.cpp
     exporter.cpp
     debugexporter.cpp
+    djvutxtexporter.cpp
     djvuxmlexporter.cpp
     genericexporter.cpp
     hocrexporter.cpp

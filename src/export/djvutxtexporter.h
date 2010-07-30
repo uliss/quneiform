@@ -16,62 +16,47 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef OUTPUTFORMAT_H_
-#define OUTPUTFORMAT_H_
+#ifndef DJVUTXTEXPORTER_H_
+#define DJVUTXTEXPORTER_H_
 
-#include <string>
-#include <list>
-#include "globus.h"
+#include <deque>
+#include <sstream>
+#include "textexporter.h"
+#include "common/rect.h"
 
 namespace CIF
 {
 
-enum format_t
-{
-    FORMAT_NONE = -1,
-    FORMAT_TEXT = 0,
-    FORMAT_SMARTTEXT,
-    FORMAT_RTF,
-    FORMAT_TABLETXT, // Table text
-    FORMAT_TABLECSV, // Table CSV (comma separated)
-    FORMAT_TABLEDBF, // Table DBF
-    FORMAT_TABLEWKS, // Table WKS (Lotus)
-    FORMAT_HTML,
-    FORMAT_HOCR,
-    FORMAT_DEBUG,
-    FORMAT_ODF,
-    FORMAT_SUMMARY,
-    FORMAT_DJVUXML,
-    FORMAT_DJVUTXT
-};
-
-typedef std::list<format_t> OutputFormatList;
-
-class CLA_EXPO OutputFormat
+class DjvuTxtExporter: public TextExporter
 {
     public:
-        OutputFormat(format_t format);
-
-        std::string description() const;
-        std::string extension() const;
-        format_t get() const;
-        bool isValid() const;
-        std::string name() const;
-    public:
-        static OutputFormat byName(const std::string& name);
-        static std::string description(format_t format);
-        static std::string extension(format_t format);
-        static OutputFormatList formats();
-        static std::string name(format_t format);
+        DjvuTxtExporter(CEDPage * page, const FormatOptions& opts);
+        void writeCharacter(CEDChar& chr);
+        void writeCharacterBegin(CEDChar& chr);
+        void writeLineBegin(CEDLine& line);
+        void writeLineBreak();
+        void writeLineEnd(CEDLine& line);
+        void writePageBegin(CEDPage& page);
+        void writePageEnd(CEDPage& page);
+        void writeParagraphBegin(CEDParagraph& par);
+        void writeParagraphEnd(CEDParagraph& par);
     private:
-        format_t format_;
+        void calcWordRectList(CEDLine& line);
+        void closeWord();
+        void startWord();
+        void writeIndent();
+        void writeRect(const Rect& r);
+        void writeWordBegin();
+        void writeWordBuffer();
+        void writeWordEnd();
+    private:
+        typedef std::deque<Rect> WordRectList;
+        WordRectList word_rects_;
+        std::ostringstream word_buffer_;
+        int indent_level_;
+        bool word_flag_;
 };
 
-inline format_t OutputFormat::get() const
-{
-    return format_;
 }
 
-}
-
-#endif /* OUTPUTFORMAT_H_ */
+#endif /* DJVUTXTEXPORTER_H_ */
