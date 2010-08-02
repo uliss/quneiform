@@ -25,6 +25,7 @@
 #include "ced/cedcolumn.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
+#include "ced/cedsection.h"
 #include "minmax.h"
 
 namespace CIF
@@ -96,7 +97,7 @@ Bool CRtfSector::Write() {
     EDSIZE interval;
     interval.cx = 0;
     interval.cy = SectorInfo.InterSectorDist;
-    CEDParagraph * par = CED_CreateParagraph(SectorInfo.hEDSector, SectorInfo.hColumn, ALIGN_LEFT,
+    CEDParagraph * par = SectorInfo.hEDSector->createParagraph(SectorInfo.hColumn, ALIGN_LEFT,
             indent, SectorInfo.userNum, -1, interval, playout, Color::null(), Color::null(), -1);
 
     if (m_bFlagLine == TRUE) {

@@ -97,7 +97,7 @@ class CLA_EXPO CEDSection: public BlockElement
          */
         void setSectionBreak(bool value);
 
-        CEDParagraph * CreateParagraph(BlockElement * container, align_t align, const Rect& indent,
+        CEDParagraph * createParagraph(BlockElement * container, align_t align, const Rect& indent,
                 int UserNum, int FlagBorder, EDSIZE interval, const Rect& layout,
                 const Color& color, const Color& bgrnd, int spaceBetweenLines);
     private:

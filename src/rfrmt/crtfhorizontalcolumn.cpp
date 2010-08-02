@@ -828,7 +828,7 @@ void CRtfHorizontalColumn::writeFramesInTerminalColumn(SectorInfo * SectorInfo) 
             interval.cx = 0;
             interval.cy = 0;
 
-            CEDParagraph * par = CED_CreateParagraph(SectorInfo->hEDSector, SectorInfo->hObject,
+            CEDParagraph * par = SectorInfo->hEDSector->createParagraph(SectorInfo->hObject,
                     ALIGN_LEFT, indent, SectorInfo->userNum, -1, interval, playout, Color::null(),
                     Color::null(), -1);
             CEDLine * ln = new CEDLine(NULL, false, 6);

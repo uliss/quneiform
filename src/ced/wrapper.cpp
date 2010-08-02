@@ -82,11 +82,3 @@ CIF::CEDSection* CED_CreateSection(CIF::CEDPage * page, const CIF::Rect& border,
     return sect;
 }
 
-CEDParagraph * CED_CreateParagraph(CIF::CEDSection * sect, CIF::BlockElement * cont,
-        CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval,
-        const CIF::Rect& layout, const CIF::Color& color, const CIF::Color& shading,
-        int spaceBetweenLines) {
-    return sect->CreateParagraph(cont, align, indent, UserNum, FlagBorder, interval, layout, color,
-            shading, spaceBetweenLines);
-}
-

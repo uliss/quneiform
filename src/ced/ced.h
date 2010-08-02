@@ -136,9 +136,5 @@ class CEDFrame;
 }
 CED_FUNC CIF::CEDSection* CED_CreateSection(CIF::CEDPage* page, const CIF::Rect& border,
         int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height);
-CED_FUNC CIF::CEDParagraph* CED_CreateParagraph(CIF::CEDSection * sect, CIF::BlockElement * cont,
-        CIF::align_t align, const CIF::Rect& indent, int UserNum, int FlagBorder, EDSIZE interval,
-        const CIF::Rect& layout, const CIF::Color& color, const CIF::Color& backgr,
-        int spaceBetweenLines);
 
 #endif
