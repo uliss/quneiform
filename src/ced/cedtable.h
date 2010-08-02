@@ -29,6 +29,14 @@ class CLA_EXPO CEDTable: public BlockElement
     public:
         CEDTable(BlockElement * parent = NULL);
         void exportElement(CEDExporter& exp);
+    private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar & boost::serialization::base_object<Element>(*this);
+        }
+#endif
 };
 
 }

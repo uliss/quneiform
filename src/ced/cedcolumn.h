@@ -36,6 +36,15 @@ class CLA_EXPO CEDColumn: public BlockElement
         void setWidth(int width);
         int space() const;
         int width() const;
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar & boost::serialization::base_object<Element>(*this);
+            ar & width_;
+            ar & space_;
+        }
+#endif
     private:
         int width_;
         int space_;

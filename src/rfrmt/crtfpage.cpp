@@ -904,8 +904,9 @@ void CRtfPage::writeSectorsHeader(int i) {
         pEDColumn++;
     }
 
-    sector->m_hEDSector = CED_CreateSection(ced_page_, border, -1, EDCountHTerminalColumns,
-            pEDColumnFirst, 0, page_size_.width(), page_size_.height(), 0, -1, -1);
+    sector->m_hEDSector = CED_CreateSection(ced_page_, border, EDCountHTerminalColumns,
+            pEDColumnFirst, 0, page_size_.width(), page_size_.height());
+    sector->m_hEDSector->setSize(page_size_);
     sector->SectorInfo.hEDSector = sector->m_hEDSector;
     sector->SectorInfo.hEDPage = ced_page_;
     sector->SectorInfo.hFirstColumn = new CEDColumn;

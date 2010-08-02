@@ -30,13 +30,8 @@ namespace CIF
 {
 
 CEDSection::CEDSection() :
-    line_between_columns_(false) {
-    sectionBreak = 0;
-    width = 0;
-    height = 0;
-    orientation = 0;
-    headerY = 0;
-    footerY = 0;
+    header_y_(0), footer_y_(0), line_between_columns_(false), section_break_(false),
+            orientation_(0) {
     numSnakeCols = 0;
     colInfo = 0;
 }
@@ -66,8 +61,29 @@ bool CEDSection::lineBetweenColumns() const {
     return line_between_columns_;
 }
 
+bool CEDSection::sectionBreak() const {
+    return section_break_;
+}
+
+void CEDSection::setFooterY(int value) {
+    footer_y_ = value;
+}
+
+void CEDSection::setHeaderY(int value) {
+    header_y_ = value;
+}
+
 void CEDSection::setLineBetweenColumns(bool value) {
     line_between_columns_ = value;
+}
+
+void CEDSection::setOrientation(char value) {
+    assert(value == 1 || value == 0 );
+    orientation_ = value;
+}
+
+void CEDSection::setSectionBreak(bool value) {
+    section_break_ = value;
 }
 
 CEDParagraph * CEDSection::CreateParagraph(BlockElement * cont, align_t align, const Rect& indent,

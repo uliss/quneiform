@@ -61,19 +61,42 @@ class CLA_EXPO CEDSection: public BlockElement
         bool lineBetweenColumns() const;
 
         /**
+         * Returns section breaking
+         * @see setSectionBreak()
+         */
+        bool sectionBreak() const;
+
+        /**
+         * Sets footer y-offset
+         */
+        void setFooterY(int value);
+
+        /**
+         * Sets header y-offset
+         */
+        void setHeaderY(int value);
+
+        /**
          * Sets drawing line between columns
          * @see lineBetweenColumns()
          */
         void setLineBetweenColumns(bool value);
 
+        /**
+         * Sets page orientation
+         * 0 - portrait, 1 - landscape
+         */
+        void setOrientation(char value);
+
+        /**
+         * Sets section break
+         * if @b false - section starts at current page
+         * if @b true - section starts at new page
+         * @see sectionBreak()
+         */
+        void setSectionBreak(bool value);
+
         Rect borders; // padding from the edge of paper
-        int colInterval;
-        char sectionBreak;
-        int width;
-        int height;
-        char orientation;
-        int headerY;
-        int footerY;
         int numSnakeCols;
         EDCOL *colInfo;
 
@@ -81,7 +104,11 @@ class CLA_EXPO CEDSection: public BlockElement
                 int UserNum, int FlagBorder, EDSIZE interval, const Rect& layout,
                 const Color& color, const Color& bgrnd, int spaceBetweenLines);
     private:
+        int header_y_;
+        int footer_y_;
         bool line_between_columns_;
+        bool section_break_;
+        char orientation_;
 };
 
 }

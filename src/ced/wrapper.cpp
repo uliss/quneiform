@@ -65,18 +65,13 @@
 
 using namespace CIF;
 
-CIF::CEDSection* CED_CreateSection(CIF::CEDPage * page, const CIF::Rect& border, int colInterval,
-        int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height, char orientation,
-        int headerY, int footerY) {
+CIF::CEDSection* CED_CreateSection(CIF::CEDPage * page, const CIF::Rect& border, int numOfCols,
+        EDCOL* colInfo, char sectionBreak, int width, int height) {
     CEDSection * sect = new CEDSection;
     sect->borders = border;
-    sect->colInterval = colInterval;
-    sect->sectionBreak = sectionBreak;
-    sect->width = width;
-    sect->height = height;
-    sect->orientation = orientation;
-    sect->headerY = headerY;
-    sect->footerY = footerY;
+    sect->setSectionBreak(sectionBreak);
+    sect->boundingRect().setWidth(width);
+    sect->boundingRect().setHeight(height);
     sect->numSnakeCols = numOfCols;
     sect->colInfo = new EDCOL[numOfCols];
 

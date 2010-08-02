@@ -19,6 +19,7 @@
 #include <fstream>
 #include "testcedpage.h"
 #include <ced/cedpage.h>
+#include <ced/cedsection.h>
 #include <ced/cedarchive.h>
 #include <common/tostring.h>
 

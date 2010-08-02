@@ -21,13 +21,14 @@
 
 #include <string>
 #include <vector>
-#include "globus.h"
 #include "blockelement.h"
 #include "common/size.h"
 #include "common/font.h"
 
 namespace CIF
 {
+
+class CEDSection;
 
 class CLA_EXPO CEDPage: public BlockElement
 {
@@ -171,6 +172,7 @@ class CLA_EXPO CEDPage: public BlockElement
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
+            ar.template register_type<CEDSection>();
             ar & boost::serialization::base_object<BlockElement>(*this);
             ar & image_size_;
             ar & image_dpi_;

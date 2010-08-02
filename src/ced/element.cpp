@@ -76,6 +76,10 @@ void Element::setParent(Element * parent) {
     parent_ = parent;
 }
 
+void Element::setSize(const Size& sz) {
+    brect_.setSize(sz);
+}
+
 void Element::updateBoundingRect() {
 
 }

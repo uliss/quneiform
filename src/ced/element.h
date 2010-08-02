@@ -60,34 +60,46 @@ class CLA_EXPO Element
 
         /**
          * Returns element height
+         * @see width(), boundingRect()
          */
         int height() const;
 
         /**
          * Returns pointer to parent element
+         * @see setParent()
          */
         Element * parent();
         const Element * parent() const;
 
         /**
          * Sets element background color
+         * @see backgroundColor(), setColor(), color()
          */
         void setBackgroundColor(const Color& c);
 
         /**
          * Sets element bounding rectangle
+         * @see boundingRect()
          */
         void setBoundingRect(const Rect& r);
 
         /**
          * Sets element color
+         * @see color(), setBackgroundColor()
          */
         void setColor(const Color& c);
 
         /**
          * Sets parent object
+         * @see parent()
          */
         void setParent(Element * parent);
+
+        /**
+         * Sets element size
+         * @see boundingRect()
+         */
+        void setSize(const Size& sz);
 
         /**
          * Updates element bounding rectangle
@@ -96,6 +108,7 @@ class CLA_EXPO Element
 
         /**
          * Returns element width
+         * @see height()
          */
         int width() const;
     private:
