@@ -105,6 +105,23 @@ void BlockElement::setBorderTopWidth(unsigned short width) {
     border_top_wd_ = width;
 }
 
+void BlockElement::setMargins(const Rect& margins) {
+    margins_ = margins;
+}
+
+void BlockElement::setMargins(int top, int right, int bottom, int left) {
+    margins_.setLeftTop(left, top);
+    margins_.setRightBottom(right, bottom);
+}
+
+void BlockElement::setMarginBottom(int bottom) {
+    margins_.setBottom(bottom);
+}
+
+void BlockElement::setMarginTop(int top) {
+    margins_.setTop(top);
+}
+
 void BlockElement::updateBoundingRect() {
     for (iterator it = elements_.begin(), end = elements_.end(); it != end; ++it) {
         (*it)->updateBoundingRect();

@@ -889,11 +889,21 @@ void CRtfPage::writeSectorsHeader(int i) {
         pEDColumn->space = 0;
     }
 
+    //#define PRN(a) { std::cerr << "    " << #a << ": " << a << "\n"; }
+    //
+    //    PRN(CountHTerminalColumns);
+    //    PRN(MargL);
+    //    PRN(MargR);
+    //    PRN(page_size_.width());
+    //    PRN(page_size_.height());
+
     for (int j = 0; j < CountHTerminalColumns; j++) {
         if (RfrmtOptions::useFramesAndColumns() && sector->SectorInfo.FlagOneString == TRUE)
             pEDColumn->width = page_size_.width() - (MargL + MargR);
         else
             pEDColumn->width = sector->m_arWidthTerminalColumns[j];
+
+        //        PRN(sector->m_arWidthTerminalColumns[j]);
 
         if (j < CountHTerminalColumns - 1) {
             pEDColumn->space = sector->m_arRightBoundTerminalColumns[j + 1]
@@ -907,6 +917,9 @@ void CRtfPage::writeSectorsHeader(int i) {
     sector->m_hEDSector = CED_CreateSection(ced_page_, border, EDCountHTerminalColumns,
             pEDColumnFirst, 0, page_size_.width(), page_size_.height());
     sector->m_hEDSector->setSize(page_size_);
+    sector->m_hEDSector->setMargins(border);
+    sector->m_hEDSector->setSectionBreak(false);
+
     sector->SectorInfo.hEDSector = sector->m_hEDSector;
     sector->SectorInfo.hEDPage = ced_page_;
     sector->SectorInfo.hFirstColumn = new CEDColumn;

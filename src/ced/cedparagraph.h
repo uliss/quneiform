@@ -100,18 +100,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
         void setLineSpace(int value);
 
         /**
-         * Sets bottom margin
-         * @see setMarginTop()
-         */
-        void setMarginBottom(int value);
-
-        /**
-         * Sets top margin
-         * @see setMarginBottom()
-         */
-        void setMarginTop(int value);
-
-        /**
          * Sets left padding
          * @see rightPadding()
          */
@@ -139,8 +127,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
             ar & indent_;
             ar & padding_left_;
             ar & padding_right_;
-            ar & margin_top_;
-            ar & margin_bottom_;
             ar & user_number_;
             ar & border;
         }
@@ -151,8 +137,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
         int indent_;
         int padding_left_;
         int padding_right_;
-        int margin_top_;
-        int margin_bottom_;
         int user_number_;
 };
 

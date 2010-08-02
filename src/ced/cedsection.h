@@ -35,7 +35,8 @@ class CLA_EXPO CEDSection: public BlockElement
 {
     public:
         CEDSection();
-        ~CEDSection();
+
+        void addColInfo(int width, int space);
 
         /**
          * Adds vertical column to page section
@@ -96,10 +97,6 @@ class CLA_EXPO CEDSection: public BlockElement
          */
         void setSectionBreak(bool value);
 
-        Rect borders; // padding from the edge of paper
-        int numSnakeCols;
-        EDCOL *colInfo;
-
         CEDParagraph * CreateParagraph(BlockElement * container, align_t align, const Rect& indent,
                 int UserNum, int FlagBorder, EDSIZE interval, const Rect& layout,
                 const Color& color, const Color& bgrnd, int spaceBetweenLines);
@@ -109,6 +106,9 @@ class CLA_EXPO CEDSection: public BlockElement
         bool line_between_columns_;
         bool section_break_;
         char orientation_;
+        std::vector<int> col_wd_;
+        std::vector<int> col_space_;
+
 };
 
 }

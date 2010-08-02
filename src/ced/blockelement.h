@@ -88,6 +88,10 @@ class CLA_EXPO BlockElement: public Element
         void setBorderRightWidth(unsigned short width);
         void setBorderTop(ed_border_t top);
         void setBorderTopWidth(unsigned short width);
+        void setMargins(const Rect& margins);
+        void setMargins(int top, int right, int bottom, int left);
+        void setMarginBottom(int bottom);
+        void setMarginTop(int top);
         void updateBoundingRect();
     private:
 #ifdef CF_SERIALIZE
@@ -104,6 +108,7 @@ class CLA_EXPO BlockElement: public Element
             ar & border_top_wd_;
             ar & border_right_wd_;
             ar & border_bottom_wd_;
+            ar & margins_;
         }
 #endif
     protected:
@@ -119,6 +124,7 @@ class CLA_EXPO BlockElement: public Element
         unsigned short border_top_wd_;
         unsigned short border_right_wd_;
         unsigned short border_bottom_wd_;
+        Rect margins_;
 };
 
 }

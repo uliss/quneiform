@@ -32,13 +32,11 @@ namespace CIF
 CEDSection::CEDSection() :
     header_y_(0), footer_y_(0), line_between_columns_(false), section_break_(false),
             orientation_(0) {
-    numSnakeCols = 0;
-    colInfo = 0;
 }
 
-CEDSection::~CEDSection() {
-    if (colInfo)
-        delete[] colInfo;
+void CEDSection::addColInfo(int width, int space) {
+    col_wd_.push_back(width);
+    col_space_.push_back(space);
 }
 
 void CEDSection::addColumn(CEDColumn * col) {
