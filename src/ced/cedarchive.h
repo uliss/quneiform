@@ -24,11 +24,15 @@
 #ifdef CF_SERIALIZE
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/xml_oarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp>
 
 namespace CIF
 {
 typedef boost::archive::text_iarchive CEDInputArchive;
 typedef boost::archive::text_oarchive CEDOutputArchive;
+typedef boost::archive::xml_iarchive CEDXmlInputArchive;
+typedef boost::archive::xml_oarchive CEDXmlOutputArchive;
 }
 
 #endif

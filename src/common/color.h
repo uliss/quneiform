@@ -98,10 +98,11 @@ class ColorImpl
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
-            ar & r_;
-            ar & g_;
-            ar & b_;
-            ar & a_;
+            using boost::serialization::make_nvp;
+            ar & make_nvp("red", r_);
+            ar & make_nvp("green", g_);
+            ar & make_nvp("blue", b_);
+            ar & make_nvp("alpha", a_);
         }
 #endif
         T r_, g_, b_, a_;

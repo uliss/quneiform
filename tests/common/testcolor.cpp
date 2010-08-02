@@ -28,20 +28,28 @@ void TestColor::testSerialize() {
     Color c(1, 2, 3);
     Color n = Color::null();
 
+    const char * TEXT_OUT = "serialize_color.txt";
+    const char * XML_OUT = "serialize_color.xml";
+
         // save data to archive
         {
-            std::ofstream ofs("serialize_color.txt");
+            std::ofstream ofs(TEXT_OUT);
             CEDOutputArchive oa(ofs);
+            std::ofstream ofsx(XML_OUT);
+            CEDXmlOutputArchive oax(ofsx);
             // write class instance to archive
-            oa << c;
-            oa << n;
+            oa << c << n;
+
+            oax << boost::serialization::make_nvp("color", c);
+            oax << boost::serialization::make_nvp("color", n);
+
         }
 
         Color new_c;
         CPPUNIT_ASSERT(c != new_c);
         {
             // create and open an archive for input
-            std::ifstream ifs("serialize_color.txt");
+            std::ifstream ifs(TEXT_OUT);
             CEDInputArchive ia(ifs);
             // read class state from archive
             ia >> new_c;
@@ -49,6 +57,14 @@ void TestColor::testSerialize() {
             CPPUNIT_ASSERT_EQUAL(c, new_c);
 
             ia >> new_c;
+            CPPUNIT_ASSERT_EQUAL(n, new_c);
+
+            std::ifstream ifsx(XML_OUT);
+            CEDXmlInputArchive iax(ifsx);
+
+            iax >> boost::serialization::make_nvp("color", new_c);
+            CPPUNIT_ASSERT_EQUAL(c, new_c);
+            iax >> boost::serialization::make_nvp("color", new_c);
             CPPUNIT_ASSERT_EQUAL(n, new_c);
         }
 #endif
