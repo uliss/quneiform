@@ -58,23 +58,11 @@ void TestImageRawData::testSerialize() {
     img.set(new uchar[10], 10, ImageRawData::AllocatorNew);
     memset(img.data(), 0x21, 10);
 
-    // save data to archive
-    {
-        std::ofstream ofs("serialize_imageraw.txt");
-        CEDOutputArchive oa(ofs);
-        // write class instance to archive
-        oa << img;
-    }
+    const char * FNAME = "serialize_imageraw.txt";
+    writeToTextArchive(FNAME, img);
 
     ImageRawData new_img;
-
-    {
-        // create and open an archive for input
-        std::ifstream ifs("serialize_imageraw.txt");
-        CEDInputArchive ia(ifs);
-        // read class state from archive
-        ia >> new_img;
-    }
+    readFromTextArchive(FNAME, new_img);
 
     CPPUNIT_ASSERT_EQUAL(ImageRawData::AllocatorNew, new_img.allocator_);
     CPPUNIT_ASSERT_EQUAL(img.dataSize(), new_img.dataSize());
@@ -85,24 +73,16 @@ void TestImageRawData::testSerialize() {
     unsigned char data1[10];
     data1[0] = 1;
     img.set(data1, sizeof(data1), ImageRawData::AllocatorNone);
-    // save data to archive
-    {
-        std::ofstream ofs("serialize_imageraw.txt");
-        CEDOutputArchive oa(ofs);
-        // write class instance to archive
-        oa << img;
-    }
+
+    writeToTextArchive(FNAME, img);
 
     {
         unsigned char data2[10];
         data2[0] = 2;
         ImageRawData new_img(data2, 10, ImageRawData::AllocatorNone);
         CPPUNIT_ASSERT_EQUAL(uchar(2), new_img.data()[0]);
-        // create and open an archive for input
-        std::ifstream ifs("serialize_imageraw.txt");
-        CEDInputArchive ia(ifs);
-        // read class state from archive
-        ia >> new_img;
+
+        readFromTextArchive(FNAME, new_img);
         CPPUNIT_ASSERT(new_img.dataSize() == 10);
         CPPUNIT_ASSERT_EQUAL(ImageRawData::AllocatorNew, new_img.allocator_);
         CPPUNIT_ASSERT_EQUAL(uchar(1), new_img.data()[0]);

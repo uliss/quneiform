@@ -65,3 +65,34 @@ void TestImage::testSerialize() {
     }
 #endif
 }
+
+void TestImage::testSerializeXml() {
+#ifdef CF_SERIALIZE
+    uchar * data = new uchar[100];
+    Image im(data, 100, Image::AllocatorNew);
+    im.setFileName("test image.png");
+    im.setSize(Size(20, 40));
+
+    // save data to archive
+    {
+        std::ofstream ofs("serialize_image.txt");
+        CEDOutputArchive oa(ofs);
+        // write class instance to archive
+        oa << im;
+    }
+
+    Image new_img(NULL, 0, Image::AllocatorNew);
+    {
+        // create and open an archive for input
+        std::ifstream ifs("serialize_image.txt");
+        CEDInputArchive ia(ifs);
+        // read class state from archive
+        ia >> new_img;
+
+        CPPUNIT_ASSERT_EQUAL(im.fileName(), new_img.fileName());
+        CPPUNIT_ASSERT_EQUAL(im.size(), new_img.size());
+        CPPUNIT_ASSERT_EQUAL(im.width(), new_img.width());
+        CPPUNIT_ASSERT_EQUAL(im.height(), new_img.height());
+    }
+#endif
+}

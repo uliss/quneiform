@@ -26,10 +26,12 @@ class TestImage: public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestImage);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testSerialize);
+    CPPUNIT_TEST(testSerializeXml);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testSerialize();
+    void testSerializeXml();
 };
 
 #endif /* TESTIMAGE_H_ */
