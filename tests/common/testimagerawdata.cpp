@@ -18,8 +18,8 @@
 #include "testimagerawdata.h"
 #include <cstring>
 #include <fstream>
+#include "../test_common.h"
 #include <common/tostring.h>
-#include <ced/cedarchive.h>
 #define private public
 #include <common/imagerawdata.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestImageRawData);
@@ -28,27 +28,27 @@ using namespace CIF;
 
 void TestImageRawData::testInit() {
     ImageRawPtr ptr(new ImageRawData);
-    CPPUNIT_ASSERT(ptr->size() == 0);
+    CPPUNIT_ASSERT(ptr->dataSize() == 0);
     CPPUNIT_ASSERT(ptr->data() == NULL);
     uchar * data = new unsigned char[10];
     data[0] = 1;
     ptr->set(data, 10, ImageRawData::AllocatorNew);
     CPPUNIT_ASSERT_EQUAL(data, ptr->data());
-    CPPUNIT_ASSERT(ptr->size() == 10);
+    CPPUNIT_ASSERT(ptr->dataSize() == 10);
     CPPUNIT_ASSERT(ptr->data()[0] == 1);
 
     uchar data1[11];
     data1[0] = 2;
     ptr->set(data1, 11, ImageRawData::AllocatorNone);
     CPPUNIT_ASSERT(data1 == ptr->data());
-    CPPUNIT_ASSERT (11 == ptr->size());
+    CPPUNIT_ASSERT (11 == ptr->dataSize());
     CPPUNIT_ASSERT(2 == ptr->data()[0]);
 
     uchar * data2 = (uchar*) malloc(12);
     data2[0] = 3;
     ptr->set(data2, 12, ImageRawData::AllocatorMalloc);
     CPPUNIT_ASSERT_EQUAL(data2, ptr->data());
-    CPPUNIT_ASSERT(ptr->size() == 12);
+    CPPUNIT_ASSERT(ptr->dataSize() == 12);
     CPPUNIT_ASSERT(ptr->data()[0] == 3);
 }
 
@@ -77,7 +77,7 @@ void TestImageRawData::testSerialize() {
     }
 
     CPPUNIT_ASSERT_EQUAL(ImageRawData::AllocatorNew, new_img.allocator_);
-    CPPUNIT_ASSERT_EQUAL(img.size(), new_img.size());
+    CPPUNIT_ASSERT_EQUAL(img.dataSize(), new_img.dataSize());
     for(int i = 0; i < 10; i++) {
         CPPUNIT_ASSERT(new_img.data()[i] == 0x21);
     }
@@ -103,10 +103,30 @@ void TestImageRawData::testSerialize() {
         CEDInputArchive ia(ifs);
         // read class state from archive
         ia >> new_img;
-        CPPUNIT_ASSERT(new_img.size() == 10);
+        CPPUNIT_ASSERT(new_img.dataSize() == 10);
         CPPUNIT_ASSERT_EQUAL(ImageRawData::AllocatorNew, new_img.allocator_);
         CPPUNIT_ASSERT_EQUAL(uchar(1), new_img.data()[0]);
     }
 #endif
+}
 
+void TestImageRawData::testSerializeXml() {
+#ifdef CF_SERIALIZE
+    ImageRawData img;
+    img.set(new uchar[10], 10, ImageRawData::AllocatorNew);
+    memset(img.data(), 0x21, 10);
+
+    const char * FNAME = "serialize_imageraw.xml";
+
+    writeToXmlArchive(FNAME, "image-raw", img);
+
+    ImageRawData new_img;
+    readFromXmlArchive(FNAME, "image-raw", new_img);
+
+    CPPUNIT_ASSERT_EQUAL(ImageRawData::AllocatorNew, new_img.allocator_);
+    CPPUNIT_ASSERT_EQUAL(img.dataSize(), new_img.dataSize());
+    for(int i = 0; i < 10; i++) {
+        CPPUNIT_ASSERT(new_img.data()[i] == 0x21);
+    }
+#endif
 }

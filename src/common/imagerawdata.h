@@ -52,8 +52,15 @@ class CLA_EXPO ImageRawData: public boost::noncopyable
 
         /**
          * Returns pointer to image data
+         * @see dataSize()
          */
         unsigned char * data() const;
+
+        /**
+         * Returns image data size
+         * @see data()
+         */
+        size_t dataSize() const;
 
         /**
          * Checks if image data empty
@@ -64,11 +71,6 @@ class CLA_EXPO ImageRawData: public boost::noncopyable
          * Sets image raw data. Previous data is cleared
          */
         void set(unsigned char * data, size_t size, allocator_t allocator);
-
-        /**
-         * Returns image data size
-         */
-        size_t size() const;
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
@@ -76,35 +78,36 @@ class CLA_EXPO ImageRawData: public boost::noncopyable
         template<class Archive>
         void save(Archive& a, const unsigned /*version*/) const
         {
-            a << size_;
-            a << boost::serialization::make_binary_object(data_, size_ * sizeof(unsigned char));
+            using boost::serialization::make_nvp;
+            a << make_nvp("data_size", data_size_);
+            a << make_nvp("data", boost::serialization::make_binary_object(data_, data_size_ * sizeof(unsigned char)));
         }
 
         template<class Archive>
         void load(Archive& a, const unsigned /*version*/)
         {
-            a >> size_;
+            using boost::serialization::make_nvp;
+            a >> make_nvp("data_size", data_size_);
             // allocating memory
-            data_ = new uchar[size_];
-            a.load_binary(data_, size_);
+            data_ = new uchar[data_size_];
             allocator_ = AllocatorNew;
+            a >> make_nvp("data", boost::serialization::make_binary_object(data_, data_size_));
         }
 
         BOOST_SERIALIZATION_SPLIT_MEMBER()
 #endif
         unsigned char * data_;
         allocator_t allocator_;
-        size_t size_;
+        size_t data_size_;
 };
 
 inline bool ImageRawData::isNull() const {
-    return data_ == NULL || size_ == 0;
+    return data_ == NULL || data_size_ == 0;
 }
 
 typedef boost::shared_ptr<ImageRawData> ImageRawPtr;
 
 }
-
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const CIF::ImageRawData& image);
 
 #endif /* IMAGERAWDATA_H_ */

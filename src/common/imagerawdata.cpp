@@ -22,11 +22,11 @@ namespace CIF
 {
 
 ImageRawData::ImageRawData() :
-    data_(NULL), allocator_(AllocatorNone), size_(0) {
+    data_(NULL), allocator_(AllocatorNone), data_size_(0) {
 }
 
 ImageRawData::ImageRawData(unsigned char * data, size_t size, allocator_t allocator) :
-    data_(data), allocator_(allocator), size_(size) {
+    data_(data), allocator_(allocator), data_size_(size) {
 
 }
 
@@ -48,28 +48,28 @@ void ImageRawData::clear() {
     }
 
     data_ = NULL;
-    size_ = 0;
+    data_size_ = 0;
 }
 
 unsigned char * ImageRawData::data() const {
     return data_;
 }
 
+size_t ImageRawData::dataSize() const {
+    return data_size_;
+}
+
 void ImageRawData::set(unsigned char * data, size_t size, allocator_t allocator) {
     clear();
 
     data_ = data;
-    size_ = size;
+    data_size_ = size;
     allocator_ = allocator;
-}
-
-size_t ImageRawData::size() const {
-    return size_;
 }
 
 }
 
 std::ostream& operator<<(std::ostream& os, const CIF::ImageRawData& image) {
-    os.write((char*) image.data(), image.size());
+    os.write((char*) image.data(), image.dataSize());
     return os;
 }

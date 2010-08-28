@@ -40,7 +40,7 @@ void BmpImageExporter::save(const ImageRawData& image, std::ostream& os) {
 
     // uliss: TODO! check for endianness
     bf.bfType = 0x4d42; // 'BM'
-    bf.bfSize = sizeof(BITMAPFILEHEADER) + image.size();
+    bf.bfSize = sizeof(BITMAPFILEHEADER) + image.dataSize();
     // fileheader + infoheader + palette
     bf.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + bfinfo->biClrUsed
             * sizeof(RGBQUAD);

@@ -47,7 +47,7 @@ void MagickImageExporter::save(const ImageRawData& image, std::ostream& os) {
     if (os.fail())
         throw Exception("[MagickImageExporter::save] invalid stream");
 
-    Magick::Blob blob(image.data(), image.size());
+    Magick::Blob blob(image.data(), image.dataSize());
     try {
         Magick::Image image;
         image.verbose(true);

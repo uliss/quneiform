@@ -68,8 +68,9 @@ class Letter
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
-            ar & alternative_;
-            ar & probability_;
+            using boost::serialization::make_nvp;
+            ar & make_nvp("alternative", alternative_);
+            ar & make_nvp("probability", probability_);
         }
 #endif
         unsigned char alternative_; //  ASCII code.  >= ' '.

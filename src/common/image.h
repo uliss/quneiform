@@ -79,9 +79,10 @@ class CLA_EXPO Image: public ImageRawData
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
+            using boost::serialization::make_nvp;
             ar & boost::serialization::base_object<ImageRawData>(*this);
-            ar & fname_;
-            ar & size_;
+            ar & make_nvp("filename", fname_);
+            ar & make_nvp("size", size_);
         }
 #endif
     private:
