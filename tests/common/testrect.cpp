@@ -17,9 +17,9 @@
  ***************************************************************************/
 #include <fstream>
 #include "testrect.h"
+#include "../test_common.h"
 #include <common/rect.h>
 #include <common/tostring.h>
-#include <ced/cedarchive.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestRect);
 
 using namespace CIF;
@@ -79,27 +79,28 @@ void TestRect::testInit() {
 
 void TestRect::testSerialize() {
 #ifdef CF_SERIALIZE
-    Rect r(Point(1, -2), 100, 200);
+    const Rect r(Point(1, -2), 100, 200);
+    const char * TXT = "serialize_rect.txt";
 
-    std::ofstream ofs("serialize_rect.txt");
-
-    // save data to archive
-    {
-        CEDOutputArchive oa(ofs);
-        // write class instance to archive
-        oa << r;
-    }
+    writeToTextArchive(TXT, r);
 
     Rect new_r;
     CPPUNIT_ASSERT(r != new_r);
-    {
-        // create and open an archive for input
-        std::ifstream ifs("serialize_rect.txt");
-        CEDInputArchive ia(ifs);
-        // read class state from archive
-        ia >> new_r;
-    }
+    readFromTextArchive(TXT, new_r);
+    CPPUNIT_ASSERT_EQUAL(r, new_r);
+#endif
+}
 
+void TestRect::testSerializeXml() {
+#ifdef CF_SERIALIZE
+    const Rect r(Point(1, -2), 100, 200);
+    const char * XML = "serialize_rect.xml";
+
+    writeToXmlArchive(XML, "rect", r);
+
+    Rect new_r;
+    CPPUNIT_ASSERT(r != new_r);
+    readFromXmlArchive(XML, "rect", new_r);
     CPPUNIT_ASSERT_EQUAL(r, new_r);
 #endif
 }

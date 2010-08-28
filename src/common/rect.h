@@ -414,8 +414,9 @@ class RectImpl
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
-            ar & pt0_;
-            ar & pt1_;
+            using boost::serialization::make_nvp;
+            ar & make_nvp("pt0", pt0_);
+            ar & make_nvp("pt1", pt1_);
         }
 #endif
         PointImpl<T> pt0_, pt1_;

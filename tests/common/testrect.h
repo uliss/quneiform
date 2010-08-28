@@ -26,6 +26,7 @@ class TestRect: public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestRect);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testSerialize);
+    CPPUNIT_TEST(testSerializeXml);
     CPPUNIT_TEST(testUnite);
     CPPUNIT_TEST(testNormalize);
     CPPUNIT_TEST(testWidth);
@@ -34,6 +35,7 @@ class TestRect: public CppUnit::TestFixture
 public:
     void testInit();
     void testSerialize();
+    void testSerializeXml();
     void testUnite();
     void testNormalize();
     void testHeight();
