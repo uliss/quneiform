@@ -18,9 +18,9 @@
 #include <iostream>
 #include <fstream>
 #include "testcedchar.h"
+#include "../test_common.h"
 #include <common/tostring.h>
 #include <ced/cedchar.h>
-#include <ced/cedarchive.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDChar);
 
 using namespace CIF;
@@ -41,6 +41,7 @@ void TestCEDChar::testIsHyphen() {
 
 void TestCEDChar::testSerialize() {
 #ifdef CF_SERIALIZE
+    const char * FNAME = "serialize_cedchar.txt";
     CEDChar chr;
     chr.addAlternative(Letter('a', 128));
     chr.setFontHeight(11);
@@ -48,29 +49,43 @@ void TestCEDChar::testSerialize() {
     chr.setColor(Color(0, 0, 255));
     chr.setBoundingRect(Rect(Point(1, 2), Point(3, 4)));
 
-    // save data to archive
-    {
-        std::ofstream ofs("serialize_cedchar.txt");
-        CEDOutputArchive oa(ofs);
-        // write class instance to archive
-        oa << chr;
-    }
+    writeToTextArchive(FNAME, chr);
 
     CEDChar new_chr;
-    {
-        // create and open an archive for input
-        std::ifstream ifs("serialize_cedchar.txt");
-        CEDInputArchive ia(ifs);
-        // read class state from archive
-        ia >> new_chr;
+    readFromTextArchive(FNAME, new_chr);
 
-        CPPUNIT_ASSERT_EQUAL(chr.alternativeCount(), new_chr.alternativeCount());
-        CPPUNIT_ASSERT_EQUAL(chr.fontHeight(), new_chr.fontHeight());
-        CPPUNIT_ASSERT_EQUAL(chr.backgroundColor(), new_chr.backgroundColor());
-        CPPUNIT_ASSERT_EQUAL(chr.color(), new_chr.color());
-        CPPUNIT_ASSERT_EQUAL(chr.boundingRect(), new_chr.boundingRect());
-    }
+    CPPUNIT_ASSERT_EQUAL(chr.alternativeCount(), new_chr.alternativeCount());
+    CPPUNIT_ASSERT_EQUAL(chr.fontHeight(), new_chr.fontHeight());
+    CPPUNIT_ASSERT_EQUAL(chr.backgroundColor(), new_chr.backgroundColor());
+    CPPUNIT_ASSERT_EQUAL(chr.color(), new_chr.color());
+    CPPUNIT_ASSERT_EQUAL(chr.boundingRect(), new_chr.boundingRect());
+#endif
+}
+
+void TestCEDChar::testSerializeXml() {
+#ifdef CF_SERIALIZE
+    const char * FNAME = "serialize_cedchar.xml";
+    CEDChar chr;
+    chr.addAlternative(Letter('a', 128));
+    chr.setFontHeight(11);
+    chr.setFontStyle(1);
+    chr.setFontNumber(2);
+    chr.setBackgroundColor(Color(255, 0, 0));
+    chr.setColor(Color(0, 0, 255));
+    chr.setBoundingRect(Rect(Point(1, 2), Point(3, 4)));
+
+    writeToXmlArchive(FNAME, "cedchar", chr);
+
+    CEDChar new_chr;
+    readFromXmlArchive(FNAME, "cedchar", new_chr);
+
+    CPPUNIT_ASSERT_EQUAL(chr.fontHeight(), new_chr.fontHeight());
+    CPPUNIT_ASSERT_EQUAL(chr.fontStyle(), new_chr.fontStyle());
+    CPPUNIT_ASSERT_EQUAL(chr.fontNumber(), new_chr.fontNumber());
+    CPPUNIT_ASSERT_EQUAL(chr.backgroundColor(), new_chr.backgroundColor());
+    CPPUNIT_ASSERT_EQUAL(chr.color(), new_chr.color());
+    CPPUNIT_ASSERT_EQUAL(chr.boundingRect(), new_chr.boundingRect());
+    CPPUNIT_ASSERT_EQUAL(chr.alternativeCount(), new_chr.alternativeCount());
 
 #endif
-
 }

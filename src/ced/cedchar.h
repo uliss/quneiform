@@ -119,12 +119,13 @@ class CLA_EXPO CEDChar: public Element
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
-            ar & boost::serialization::base_object<Element>(*this);
-            ar & font_lang_;
-            ar & font_height_;
-            ar & font_style_;
-            ar & font_number_;
-            ar & alternatives_;
+            using boost::serialization::make_nvp;
+            ar & make_nvp("base", boost::serialization::base_object<Element>(*this));
+            ar & make_nvp("font-language", font_lang_);
+            ar & make_nvp("font-height", font_height_);
+            ar & make_nvp("font-style", font_style_);
+            ar & make_nvp("font-number", font_number_);
+            ar & make_nvp("alternatives", alternatives_);
         }
 #endif
         //font parameters

@@ -116,10 +116,11 @@ class CLA_EXPO Element
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
+            using boost::serialization::make_nvp;
             //ar & parent_;
-            ar & color_;
-            ar & bgcolor_;
-            ar & brect_;
+            ar & make_nvp("color", color_);
+            ar & make_nvp("background-color", bgcolor_);
+            ar & make_nvp("bounding-rect", brect_);
         }
 #endif
     private:
