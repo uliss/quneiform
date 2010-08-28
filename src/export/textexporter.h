@@ -34,13 +34,6 @@ class TextExporter: public GenericExporter
          * Appends to the end of existing file
          */
         void appendTo(const std::string& filename);
-
-        /**
-         * Exports to stream
-         * @note BOM will be inserted on __APPLE__ platform
-         * @see writeBom
-         */
-        void exportTo(std::ostream& os);
     protected:
         /**
          * Writes character to line buffer
@@ -92,6 +85,13 @@ class TextExporter: public GenericExporter
          */
         void writeBOM(std::ostream& os);
     private:
+        /**
+         * Exports to stream
+         * @note BOM will be inserted on __APPLE__ platform
+         * @see writeBom
+         */
+        void doExport(std::ostream& os);
+
         bool notLastLine() const {
             return lines_left_in_paragraph_ > 1;
         }
