@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,26 +16,41 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTPOINT_H_
-#define TESTPOINT_H_
+#ifndef TEST_COMMON_H_
+#define TEST_COMMON_H_
 
-#include <cppunit/extensions/HelperMacros.h>
+#include <string>
+#include <fstream>
+#include <ced/cedarchive.h>
 
-class TestPoint: public CppUnit::TestFixture
-{
-    CPPUNIT_TEST_SUITE(TestPoint);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testCompare);
-    CPPUNIT_TEST(testOverflow);
-    CPPUNIT_TEST(testSerialize);
-    CPPUNIT_TEST(testSerializeXml);
-    CPPUNIT_TEST_SUITE_END();
-public:
-    void testInit();
-    void testCompare();
-    void testOverflow();
-    void testSerialize();
-    void testSerializeXml();
-};
+template<class T>
+void writeToXmlArchive(const std::string& filename, const std::string& obj_name, const T& object) {
+    std::ofstream xml(filename.c_str());
+    assert(xml);
+    CIF::CEDXmlOutputArchive ar(xml);
+    ar << boost::serialization::make_nvp(obj_name.c_str(), object);
+}
 
-#endif /* TESTPOINT_H_ */
+template<class T>
+void writeToTextArchive(const std::string& filename, const T& object) {
+    std::ofstream txt(filename.c_str());
+    assert(txt);
+    CIF::CEDOutputArchive ar(txt);
+    ar << object;
+}
+
+template<class T>
+void readFromXmlArchive(const std::string& filename, const std::string& obj_name, T& object) {
+    std::ifstream xml(filename.c_str());
+    CIF::CEDXmlInputArchive ar(xml);
+    ar >> boost::serialization::make_nvp(obj_name.c_str(), object);
+}
+
+template<class T>
+void readFromTextArchive(const std::string& filename, T& object) {
+    std::ifstream xml(filename.c_str());
+    CIF::CEDInputArchive ar(xml);
+    ar >> object;
+}
+
+#endif /* TEST_COMMON_H_ */
