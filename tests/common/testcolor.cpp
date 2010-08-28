@@ -17,55 +17,72 @@
  ***************************************************************************/
 #include <fstream>
 #include "testcolor.h"
+#include "../test_common.h"
 #include <common/color.h>
 #include <common/tostring.h>
-#include <ced/cedarchive.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestColor);
 using namespace CIF;
 
 void TestColor::testSerialize() {
 #ifdef CF_SERIALIZE
-    Color c(1, 2, 3);
-    Color n = Color::null();
+    const Color c(1, 2, 3);
+    const Color n = Color::null();
 
     const char * TEXT_OUT = "serialize_color.txt";
+
+    // save data to archive
+    {
+        std::ofstream ofs(TEXT_OUT);
+        CEDOutputArchive oa(ofs);
+        // write class instance to archive
+        oa << c << n;
+    }
+
+    Color new_c;
+    CPPUNIT_ASSERT(c != new_c);
+    {
+        // create and open an archive for input
+        std::ifstream ifs(TEXT_OUT);
+        CEDInputArchive ia(ifs);
+        // read class state from archive
+        ia >> new_c;
+
+        CPPUNIT_ASSERT_EQUAL(c, new_c);
+
+        ia >> new_c;
+        CPPUNIT_ASSERT_EQUAL(n, new_c);
+    }
+#endif
+}
+
+void TestColor::testSerializeXml() {
+#ifdef CF_SERIALIZE
+    const Color c(10, 20, 30);
+    const Color n = Color::null();
+
     const char * XML_OUT = "serialize_color.xml";
 
-        // save data to archive
-        {
-            std::ofstream ofs(TEXT_OUT);
-            CEDOutputArchive oa(ofs);
-            std::ofstream ofsx(XML_OUT);
-            CEDXmlOutputArchive oax(ofsx);
-            // write class instance to archive
-            oa << c << n;
+    // save data to archive
+    {
+        std::ofstream ofsx(XML_OUT);
+        CEDXmlOutputArchive oax(ofsx);
+        // write class instance to archive
+        writeToXml(oax, "color", c);
+        writeToXml(oax, "color", n);
+    }
 
-            oax << boost::serialization::make_nvp("color", c);
-            oax << boost::serialization::make_nvp("color", n);
-
-        }
-
+    {
         Color new_c;
         CPPUNIT_ASSERT(c != new_c);
-        {
-            // create and open an archive for input
-            std::ifstream ifs(TEXT_OUT);
-            CEDInputArchive ia(ifs);
-            // read class state from archive
-            ia >> new_c;
 
-            CPPUNIT_ASSERT_EQUAL(c, new_c);
+        // create and open an archive for input
+        std::ifstream ifs(XML_OUT);
+        CEDXmlInputArchive ia(ifs);
 
-            ia >> new_c;
-            CPPUNIT_ASSERT_EQUAL(n, new_c);
-
-            std::ifstream ifsx(XML_OUT);
-            CEDXmlInputArchive iax(ifsx);
-
-            iax >> boost::serialization::make_nvp("color", new_c);
-            CPPUNIT_ASSERT_EQUAL(c, new_c);
-            iax >> boost::serialization::make_nvp("color", new_c);
-            CPPUNIT_ASSERT_EQUAL(n, new_c);
-        }
+        readFromXml(ia, "color", new_c);
+        CPPUNIT_ASSERT_EQUAL(c, new_c);
+        readFromXml(ia, "color", new_c);
+        CPPUNIT_ASSERT_EQUAL(n, new_c);
+    }
 #endif
 }

@@ -29,11 +29,11 @@ class SizeImpl
 {
     public:
         SizeImpl() :
-                width_(0), height_(0) {
+            width_(0), height_(0) {
         }
 
         SizeImpl(T width, T height) :
-                width_(width), height_(height) {
+            width_(width), height_(height) {
         }
 
         bool isValid() const {
@@ -94,16 +94,16 @@ class SizeImpl
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
-            ar & width_;
-            ar & height_;
+            using boost::serialization::make_nvp;
+            ar & make_nvp("width", width_);
+            ar & make_nvp("height", height_);
         }
 #endif
         T width_, height_;
 };
 
 template<class T, class U>
-bool SizeContentEqual(const SizeImpl<T>& s0, const SizeImpl<U>& s1)
-{
+bool SizeContentEqual(const SizeImpl<T>& s0, const SizeImpl<U>& s1) {
     return s0.height() * s0.width() == s1.height() * s1.width();
 }
 

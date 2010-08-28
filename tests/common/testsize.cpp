@@ -17,33 +17,36 @@
  ***************************************************************************/
 #include <fstream>
 #include "testsize.h"
+#include "../test_common.h"
 #include <common/size.h>
-#include <ced/cedarchive.h>
 using namespace CIF;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestSize);
 
 void TestSize::testSerialize() {
 #ifdef CF_SERIALIZE
-    Size sz(-20, -30);
+    const Size sz(-20, -30);
 
-    std::ofstream ofs("serialize_size.txt");
-
-    // save data to archive
-    {
-        CEDOutputArchive oa(ofs);
-        // write class instance to archive
-        oa << sz;
-    }
+    const char * TXT = "serialize_size.txt";
+    writeToTextArchive(TXT, sz);
 
     Size new_sz;
     CPPUNIT_ASSERT(sz != new_sz);
-    {
-        // create and open an archive for input
-        std::ifstream ifs("serialize_size.txt");
-        CEDInputArchive ia(ifs);
-        // read class state from archive
-        ia >> new_sz;
-    }
+    readFromTextArchive(TXT, new_sz);
+
+    CPPUNIT_ASSERT(sz == new_sz);
+#endif
+}
+
+void TestSize::testSerializeXml() {
+#ifdef CF_SERIALIZE
+    const Size sz(-20, -30);
+
+    const char * XML = "serialize_size.xml";
+    writeToXmlArchive(XML, "size", sz);
+
+    Size new_sz;
+    CPPUNIT_ASSERT(sz != new_sz);
+    readFromXmlArchive(XML, "size", new_sz);
 
     CPPUNIT_ASSERT(sz == new_sz);
 #endif
