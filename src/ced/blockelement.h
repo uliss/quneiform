@@ -29,7 +29,6 @@
 
 #ifdef CF_SERIALIZE
 #include <boost/serialization/vector.hpp>
-#include <boost/serialization/base_object.hpp>
 #include <boost/serialization/shared_ptr.hpp>
 #endif
 
@@ -40,7 +39,6 @@ class CLA_EXPO BlockElement: public Element
 {
     public:
         BlockElement(BlockElement * parent = NULL);
-        ~BlockElement();
 
         typedef boost::shared_ptr<Element> ElementPtr;
         typedef std::vector<ElementPtr> ElementList;
@@ -98,17 +96,18 @@ class CLA_EXPO BlockElement: public Element
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
-            ar & boost::serialization::base_object<Element>(*this);
-            ar & elements_;
-            ar & border_left_;
-            ar & border_top_;
-            ar & border_right_;
-            ar & border_bottom_;
-            ar & border_left_wd_;
-            ar & border_top_wd_;
-            ar & border_right_wd_;
-            ar & border_bottom_wd_;
-            ar & margins_;
+            using boost::serialization::make_nvp;
+            ar & make_nvp("element", boost::serialization::base_object<Element>(*this));
+            ar & make_nvp("children", elements_);
+            ar & make_nvp("border-left", border_left_);
+            ar & make_nvp("border-top", border_top_);
+            ar & make_nvp("border-right", border_right_);
+            ar & make_nvp("border-bottom", border_bottom_);
+            ar & make_nvp("border-left-width", border_left_wd_);
+            ar & make_nvp("border-top-width", border_top_wd_);
+            ar & make_nvp("border-right-width", border_right_wd_);
+            ar & make_nvp("border-bottom-width", border_bottom_wd_);
+            ar & make_nvp("margins", margins_);
         }
 #endif
     protected:

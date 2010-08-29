@@ -42,10 +42,6 @@ const ImagePtr CEDPicture::image() const {
     return image_;
 }
 
-bool CEDPicture::isPicture() const {
-    return true;
-}
-
 int CEDPicture::pictureNumber() const {
     return number_;
 }

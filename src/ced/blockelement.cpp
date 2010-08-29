@@ -27,9 +27,6 @@ BlockElement::BlockElement(BlockElement * parent) :
             border_right_wd_(0), border_bottom_wd_(0) {
 }
 
-BlockElement::~BlockElement() {
-}
-
 Element * BlockElement::elementAt(size_t pos) {
     return elements_.at(pos).get();
 }

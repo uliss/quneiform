@@ -53,11 +53,6 @@ class CLA_EXPO CEDPicture: public Element
         const ImagePtr image() const;
 
         /**
-         * Returns true
-         */
-        bool isPicture() const;
-
-        /**
          * Returns picture number
          */
         int pictureNumber() const;
@@ -85,11 +80,12 @@ class CLA_EXPO CEDPicture: public Element
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
-            ar & boost::serialization::base_object<Element>(*this);
-            ar & align_;
-            ar & number_;
-            ar & image_;
-            ar & goal_;
+            using boost::serialization::make_nvp;
+            ar & make_nvp("element", boost::serialization::base_object<Element>(*this));
+            ar & make_nvp("align", align_);
+            ar & make_nvp("number", number_);
+            ar & make_nvp("image", image_);
+            //            ar & make_nvp("goal", goal_);
         }
 #endif
     private:

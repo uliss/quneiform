@@ -16,10 +16,12 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 #include "testcedline.h"
+#include "../test_common.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCedLine);
 #define private public
 #include <iostream>
 #include <fstream>
+#include "common/tostring.h"
 #include <ced/cedchar.h>
 #include <ced/cedline.h>
 #include <ced/cedpicture.h>
@@ -47,7 +49,6 @@ void TestCedLine::testEndsWithHyphen() {
 void TestCedLine::testInit() {
     CEDLine ln;
     CPPUNIT_ASSERT(0 == ln.elementCount());
-    CPPUNIT_ASSERT(0 == ln.parentNumber());
     CPPUNIT_ASSERT_THROW(ln.first(), std::out_of_range);
 }
 
@@ -86,6 +87,7 @@ void TestCedLine::testCharAt() {
 
 void TestCedLine::testSerialize() {
 #ifdef CF_SERIALIZE
+    const char * fname = "serialize_cedline.txt";
     CEDLine ln;
     ln.setHardBreak(true);
     ln.setDefaultFontHeight(11);
@@ -99,30 +101,52 @@ void TestCedLine::testSerialize() {
     im->image()->setFileName("CEDLine");
     ln.addImage(im);
 
-    const char * fname = "serialize_cedline.txt";
-
-    // save data to archive
-    {
-        std::ofstream ofs(fname);
-        CEDOutputArchive oa(ofs);
-        // write class instance to archive
-        oa << ln;
-    }
+    writeToTextArchive(fname, ln);
 
     CEDLine new_line;
-    {
-        // create and open an archive for input
-        std::ifstream ifs(fname);
-        assert(ifs);
-        CEDInputArchive ia(ifs);
-        // read class state from archive
-        ia >> new_line;
+    readFromTextArchive(fname, new_line);
 
-        CPPUNIT_ASSERT_EQUAL(ln.elementCount(), new_line.elementCount());
-        CPPUNIT_ASSERT_EQUAL(ln.defaultFontHeight(), new_line.defaultFontHeight());
-        CPPUNIT_ASSERT_EQUAL(ln.hardBreak(), new_line.hardBreak());
-        CPPUNIT_ASSERT(new_line.charAt(0)->fontHeight() == 12);
-    }
+    CPPUNIT_ASSERT_EQUAL(ln.elementCount(), new_line.elementCount());
+    CPPUNIT_ASSERT_EQUAL(ln.defaultFontHeight(), new_line.defaultFontHeight());
+    CPPUNIT_ASSERT_EQUAL(ln.hardBreak(), new_line.hardBreak());
+    CPPUNIT_ASSERT(new_line.charAt(0)->fontHeight() == 12);
+#endif
+}
 
+void TestCedLine::testSerializeXml() {
+#ifdef CF_SERIALIZE
+    const char * fname = "serialize_cedline.xml";
+    const Color ln_color(0, 100, 200);
+    CEDLine ln;
+    ln.setHardBreak(true);
+    ln.setDefaultFontHeight(11);
+
+    ln.insertChar(new CEDChar);
+    ln.charAt(0)->setFontHeight(12);
+    ln.charAt(0)->setColor(ln_color);
+
+    CEDPicture * im = new CEDPicture;
+    im->setImage(new Image(new uchar[10], 10, Image::AllocatorNew));
+    im->image()->setFileName("CEDLine");
+    ln.addImage(im);
+
+    writeToXmlArchive(fname, "cedline", ln);
+
+    CEDLine new_line;
+    readFromXmlArchive(fname, "cedline", new_line);
+
+    CPPUNIT_ASSERT_EQUAL(ln.elementCount(), new_line.elementCount());
+    CPPUNIT_ASSERT_EQUAL(ln.defaultFontHeight(), new_line.defaultFontHeight());
+    CPPUNIT_ASSERT_EQUAL(ln.hardBreak(), new_line.hardBreak());
+
+    // char checks
+    CPPUNIT_ASSERT(new_line.charAt(0)->fontHeight() == 12);
+    CPPUNIT_ASSERT_EQUAL(new_line.charAt(0)->color(), ln_color);
+
+    //picture checks
+    CEDPicture * new_pict = dynamic_cast<CEDPicture*>(ln.elementAt(1));
+    CPPUNIT_ASSERT(new_pict);
+    CPPUNIT_ASSERT_EQUAL(new_pict->image()->fileName(), im->image()->fileName());
+    CPPUNIT_ASSERT_EQUAL(new_pict->alignment(), im->alignment());
 #endif
 }

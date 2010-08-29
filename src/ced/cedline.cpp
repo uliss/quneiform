@@ -25,12 +25,11 @@ namespace CIF
 {
 
 CEDLine::CEDLine(BlockElement * parent) :
-    BlockElement(parent), hard_break_(false), parent_number_(0), default_font_height_(-1) {
+    BlockElement(parent), hard_break_(false), default_font_height_(-1) {
 }
 
 CEDLine::CEDLine(BlockElement * parent, bool hardBreak, int fontHeight) :
-    BlockElement(parent), hard_break_(hardBreak), parent_number_(0), default_font_height_(
-            fontHeight) {
+    BlockElement(parent), hard_break_(hardBreak), default_font_height_(fontHeight) {
 }
 
 void CEDLine::addImage(CEDPicture * img) {
@@ -39,7 +38,7 @@ void CEDLine::addImage(CEDPicture * img) {
 
 std::ostream& operator<<(std::ostream& os, const CEDLine& chr) {
     os << "CEDLine: " << "hardbreak=" << chr.hardBreak() << ", default font height="
-            << chr.defaultFontHeight() << ", parent number=" << chr.parentNumber() << "\n";
+            << chr.defaultFontHeight() << "\n";
     return os;
 }
 
@@ -67,20 +66,12 @@ bool CEDLine::hardBreak() const {
     return hard_break_;
 }
 
-int CEDLine::parentNumber() const {
-    return parent_number_;
-}
-
 void CEDLine::setDefaultFontHeight(int height) {
     default_font_height_ = height;
 }
 
 void CEDLine::setHardBreak(bool value) {
     hard_break_ = value;
-}
-
-void CEDLine::setParentNumber(int number) {
-    parent_number_ = number;
 }
 
 CEDChar * CEDLine::insertChar() {

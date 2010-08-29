@@ -34,7 +34,6 @@ class CLA_EXPO CEDLine: public BlockElement
         CEDLine(BlockElement * parent = NULL);
         CEDLine(BlockElement * parent, bool hardBreak, int fontHeight);
 
-
         /**
          * Inserts image to the end of line
          */
@@ -82,12 +81,6 @@ class CLA_EXPO CEDLine: public BlockElement
         CEDChar * insertChar(CEDChar * chr);
 
         /**
-         * Returns number of parent in a file
-         * @see setParentNumber()
-         */
-        int parentNumber() const;
-
-        /**
          * Sets default font height
          */
         void setDefaultFontHeight(int height);
@@ -97,27 +90,20 @@ class CLA_EXPO CEDLine: public BlockElement
          * @see hardBreak()
          */
         void setHardBreak(bool value);
-
-        /**
-         * Sets parent number
-         * @see parentNumber()
-         */
-        void setParentNumber(int number);
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
+            using boost::serialization::make_nvp;
             ar.template register_type<CEDChar>();
             ar.template register_type<CEDPicture>();
-            ar & boost::serialization::base_object<BlockElement>(*this);
-            ar & hard_break_;
-            ar & parent_number_;
-            ar & default_font_height_;
+            ar & make_nvp("block-element", boost::serialization::base_object<BlockElement>(*this));
+            ar & make_nvp("hard-break", hard_break_);
+            ar & make_nvp("default-font-height", default_font_height_);
         }
 #endif
         bool hard_break_;
-        int parent_number_;
         int default_font_height_;
 };
 

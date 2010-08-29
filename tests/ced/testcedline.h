@@ -29,6 +29,7 @@ class TestCedLine: public CppUnit::TestFixture
     CPPUNIT_TEST(testInsertChar);
     CPPUNIT_TEST(testCharAt);
     CPPUNIT_TEST(testSerialize);
+    CPPUNIT_TEST(testSerializeXml);
     CPPUNIT_TEST_SUITE_END();
     public:
         void testEndsWithHyphen();
@@ -36,6 +37,7 @@ class TestCedLine: public CppUnit::TestFixture
         void testInsertChar();
         void testCharAt();
         void testSerialize();
+        void testSerializeXml();
 };
 
 #endif /* TESTCEDLINE_H_ */

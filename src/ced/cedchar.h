@@ -120,7 +120,7 @@ class CLA_EXPO CEDChar: public Element
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
             using boost::serialization::make_nvp;
-            ar & make_nvp("base", boost::serialization::base_object<Element>(*this));
+            ar & make_nvp("element", boost::serialization::base_object<Element>(*this));
             ar & make_nvp("font-language", font_lang_);
             ar & make_nvp("font-height", font_height_);
             ar & make_nvp("font-style", font_style_);
