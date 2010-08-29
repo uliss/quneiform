@@ -75,12 +75,13 @@ class CLA_EXPO CEDFrame: public BlockElement
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
+            using boost::serialization::make_nvp;
             ar.template register_type<CEDParagraph>();
             ar.template register_type<CEDPicture>();
-            ar & boost::serialization::base_object<BlockElement>(*this);
-            ar & border_space_;
-            ar & hpos_;
-            ar & vpos_;
+            ar & make_nvp("block-element", boost::serialization::base_object<BlockElement>(*this));
+            ar & make_nvp("border-space", border_space_);
+            ar & make_nvp("h-position", hpos_);
+            ar & make_nvp("v-position", vpos_);
         }
 #endif
     private:

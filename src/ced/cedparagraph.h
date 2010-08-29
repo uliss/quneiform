@@ -120,15 +120,16 @@ class CLA_EXPO CEDParagraph: public BlockElement
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
+            using boost::serialization::make_nvp;
             ar.template register_type<CEDLine>();
-            ar & boost::serialization::base_object<BlockElement>(*this);
-            ar & align_;
-            ar & line_space_;
-            ar & indent_;
-            ar & padding_left_;
-            ar & padding_right_;
-            ar & user_number_;
-            ar & border;
+            ar & make_nvp("block-element", boost::serialization::base_object<BlockElement>(*this));
+            ar & make_nvp("align", align_);
+            ar & make_nvp("line-space", line_space_);
+            ar & make_nvp("indent", indent_);
+            ar & make_nvp("padding-left", padding_left_);
+            ar & make_nvp("padding-right", padding_right_);
+            ar & make_nvp("user-number", user_number_);
+            ar & make_nvp("border", border);
         }
 #endif
     private:
