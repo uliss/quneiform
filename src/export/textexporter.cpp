@@ -47,11 +47,11 @@ void TextExporter::appendTo(const std::string& filename) {
     doExport(f);
 }
 
-void TextExporter::exportTo(std::ostream& os) {
+void TextExporter::doExport(std::ostream& os) {
 #ifdef __APPLE__
     writeBOM(os);
 #endif
-    GenericExporter::exportTo(os);
+    GenericExporter::doExport(os);
 }
 
 void TextExporter::flushBuffer() {
