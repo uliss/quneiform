@@ -147,6 +147,6 @@ void TestCedLine::testSerializeXml() {
     CEDPicture * new_pict = dynamic_cast<CEDPicture*>(ln.elementAt(1));
     CPPUNIT_ASSERT(new_pict);
     CPPUNIT_ASSERT_EQUAL(new_pict->image()->fileName(), im->image()->fileName());
-    CPPUNIT_ASSERT_EQUAL(new_pict->alignment(), im->alignment());
+    CPPUNIT_ASSERT_EQUAL(new_pict->align(), im->align());
 #endif
 }

@@ -26,7 +26,7 @@ CEDPicture::CEDPicture() :
     align_(ED_ALIGN_MIDDLE), number_(0) {
 }
 
-ed_align_t CEDPicture::alignment() const {
+ed_align_t CEDPicture::align() const {
     return align_;
 }
 
@@ -46,7 +46,7 @@ int CEDPicture::pictureNumber() const {
     return number_;
 }
 
-void CEDPicture::setAlignment(ed_align_t align) {
+void CEDPicture::setAlign(ed_align_t align) {
     align_ = align;
 }
 

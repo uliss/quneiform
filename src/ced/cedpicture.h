@@ -38,10 +38,10 @@ class CLA_EXPO CEDPicture: public Element
         CEDPicture();
 
         /**
-         * Returns picture alignment
-         * @see setAlignment()
+         * Returns picture align
+         * @see setAlign()
          */
-        ed_align_t alignment() const;
+        ed_align_t align() const;
 
         void exportElement(CEDExporter& exp);
 
@@ -59,9 +59,9 @@ class CLA_EXPO CEDPicture: public Element
 
         /**
          * Sets picture align
-         * @see alignment()
+         * @see align()
          */
-        void setAlignment(ed_align_t align);
+        void setAlign(ed_align_t align);
 
         /**
          * Sets image

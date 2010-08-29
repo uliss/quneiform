@@ -388,7 +388,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         CEDPicture * ced_pict = new CEDPicture();
         ced_pict->setBoundingRect(slayout);
         ced_pict->setPictureNumber(IndexPict);
-        ced_pict->setAlignment(ED_ALIGN_MIDDLE);
+        ced_pict->setAlign(ED_ALIGN_MIDDLE);
         uchar * img_data = new uchar[iDIBSize];
         memcpy(img_data, pOutDIB, iDIBSize);
         ced_pict->setImage(new Image(img_data, iDIBSize, Image::AllocatorNew));
