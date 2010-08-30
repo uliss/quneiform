@@ -25,9 +25,11 @@ class TestCEDPicture: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestCEDPicture);
     CPPUNIT_TEST(testSerialize);
+    CPPUNIT_TEST(testSerializeXml);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testSerialize();
+    void testSerializeXml();
 };
 
 #endif /* TESTCEDPICTURE_H_ */

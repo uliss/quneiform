@@ -17,36 +17,45 @@
  ***************************************************************************/
 #include <fstream>
 #include "testcedpicture.h"
+#include "../test_common.h"
 #include <ced/cedpicture.h>
 #include <common/tostring.h>
-#include <ced/cedarchive.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDPicture);
 using namespace CIF;
 
 void TestCEDPicture::testSerialize() {
 #ifdef CF_SERIALIZE
+    const char * fname = "serialize_cedpicture.txt";
     ImagePtr img_ptr(new Image(new uchar[100], 100, Image::AllocatorNew));
     img_ptr->setFileName("CED picture");
     CEDPicture p;
     p.setImage(img_ptr);
 
+    writeToTextArchive(fname, p);
 
-    // save data to archive
-    {
-        std::ofstream ofs("serialize_cedpicture.txt");
-        CEDOutputArchive oa(ofs);
-        // write class instance to archive
-        oa << p;
-    }
+    CEDPicture new_p;
+    readFromTextArchive(fname, new_p);
+    CPPUNIT_ASSERT_EQUAL(p.image()->size(), new_p.image()->size());
+    CPPUNIT_ASSERT_EQUAL(p.image()->fileName(), new_p.image()->fileName());
+    CPPUNIT_ASSERT_EQUAL(p.align(), new_p.align());
 
-    {
-        CEDPicture new_p;
-        // create and open an archive for input
-        std::ifstream ifs("serialize_cedpicture.txt");
-        CEDInputArchive ia(ifs);
-        // read class state from archive
-        ia >> new_p;
-        CPPUNIT_ASSERT_EQUAL(p.image()->size(), new_p.image()->size());
-    }
+#endif
+}
+
+void TestCEDPicture::testSerializeXml() {
+#ifdef CF_SERIALIZE
+    const char * fname = "serialize_cedpicture.xml";
+    ImagePtr img_ptr(new Image(new uchar[100], 100, Image::AllocatorNew));
+    img_ptr->setFileName("CED picture");
+    CEDPicture p;
+    p.setImage(img_ptr);
+
+    writeToXmlArchive(fname, "cedpicture", p);
+
+    CEDPicture new_p;
+    readFromXmlArchive(fname, "cedpicture", new_p);
+    CPPUNIT_ASSERT_EQUAL(p.image()->size(), new_p.image()->size());
+    CPPUNIT_ASSERT_EQUAL(p.image()->fileName(), new_p.image()->fileName());
+    CPPUNIT_ASSERT_EQUAL(p.align(), new_p.align());
 #endif
 }

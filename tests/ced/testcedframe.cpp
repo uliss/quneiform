@@ -17,39 +17,36 @@
  ***************************************************************************/
 #include <fstream>
 #include "testcedframe.h"
+#include "../test_common.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDFrame);
 #include "ced/cedframe.h"
 #include "ced/cedpicture.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedline.h"
 #include "ced/cedchar.h"
-#include "ced/cedarchive.h"
 
 using namespace CIF;
 
 void TestCEDFrame::testSerialize() {
 #ifdef CF_SERIALIZE
+    const char * FILENAME = "serialize_cedframe.txt";
     CEDFrame fr;
     fr.setBorderSpace(11);
-
-    const char * FILENAME = "serialize_cedframe.txt";
-
-    // save data to archive
-    {
-        std::ofstream ofs(FILENAME);
-        CEDOutputArchive oa(ofs);
-        // write class instance to archive
-        oa << fr;
-    }
+    writeToTextArchive(FILENAME, fr);
 
     CEDFrame new_fr;
-    {
-        // create and open an archive for input
-        std::ifstream ifs(FILENAME);
-        CEDInputArchive ia(ifs);
-        // read class state from archive
-        ia >> new_fr;
-    }
+    readFromTextArchive(FILENAME, fr);
+#endif
+}
 
+void TestCEDFrame::testSerializeXml() {
+#ifdef CF_SERIALIZE
+    const char * FILENAME = "serialize_cedframe.xml";
+    CEDFrame fr;
+    fr.setBorderSpace(11);
+    writeToXmlArchive(FILENAME, "cedframe", fr);
+
+    CEDFrame new_fr;
+    readFromXmlArchive(FILENAME, "cedframe", fr);
 #endif
 }
