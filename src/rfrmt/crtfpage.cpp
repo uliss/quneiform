@@ -119,7 +119,6 @@ void CRtfPage::setFragmentsInColumn(const CRtfFragment * cur_frag) {
 void CRtfPage::initCedPage() {
     ced_page_ = new CEDPage;
     ced_page_->setImageName(image_name_);
-    ced_page_->setUnrecognizedChar(unrecognized_char_);
     ced_page_->setLanguage(language_);
     ced_page_->setPageSize(page_size_);
     ced_page_->setPageBorder(Rect(Point(MargT, MargL), Point(MargB, MargR)));

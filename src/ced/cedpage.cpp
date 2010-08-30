@@ -29,7 +29,7 @@ namespace CIF
 {
 
 CEDPage::CEDPage() :
-    turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG), unrecognized_char_('~') {
+    turn_(0), page_number_(0), language_(LANGUAGE_RUS_ENG) {
 }
 
 void CEDPage::addSection(CEDSection * sect) {
@@ -100,16 +100,8 @@ void CEDPage::setTurn(int angle) {
     turn_ = angle;
 }
 
-void CEDPage::setUnrecognizedChar(char chr) {
-    unrecognized_char_ = chr;
-}
-
 int CEDPage::turn() const {
     return turn_;
-}
-
-char CEDPage::unrecognizedChar() const {
-    return unrecognized_char_;
 }
 
 CEDSection * CEDPage::sectionAt(size_t pos) {

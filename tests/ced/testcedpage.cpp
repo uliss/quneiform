@@ -36,7 +36,6 @@ void TestCEDPage::testSerialize() {
     Size dpi(200, 300);
     p.setImageDpi(dpi);
     p.setLanguage(LANGUAGE_ITALIAN);
-    p.setUnrecognizedChar('!');
     Rect borders(Point(0, 0), 1000, 2000);
     p.setPageBorder(borders);
 
@@ -51,7 +50,33 @@ void TestCEDPage::testSerialize() {
     CPPUNIT_ASSERT_EQUAL(sz, new_p.imageSize());
     CPPUNIT_ASSERT_EQUAL(LANGUAGE_ITALIAN, new_p.language());
     CPPUNIT_ASSERT_EQUAL(dpi, new_p.imageDpi());
-    CPPUNIT_ASSERT_EQUAL('!', new_p.unrecognizedChar());
+    CPPUNIT_ASSERT_EQUAL(borders, new_p.pageBorder());
+#endif
+}
+
+void TestCEDPage::testSerializeXml() {
+#ifdef CF_SERIALIZE
+    CEDPage p;
+    p.setImageName("Test Image");
+    Size sz(10, 20);
+    p.setImageSize(sz);
+    Size dpi(200, 300);
+    p.setImageDpi(dpi);
+    p.setLanguage(LANGUAGE_ITALIAN);
+    Rect borders(Point(0, 0), 1000, 2000);
+    p.setPageBorder(borders);
+
+    const char * fname = "serialize_cedpage.xml";
+
+    writeToXmlArchive(fname, "cedpage", p);
+
+    CEDPage new_p;
+    readFromXmlArchive(fname, "cedpage", new_p);
+
+    CPPUNIT_ASSERT_EQUAL(std::string("Test Image"), new_p.imageName());
+    CPPUNIT_ASSERT_EQUAL(sz, new_p.imageSize());
+    CPPUNIT_ASSERT_EQUAL(LANGUAGE_ITALIAN, new_p.language());
+    CPPUNIT_ASSERT_EQUAL(dpi, new_p.imageDpi());
     CPPUNIT_ASSERT_EQUAL(borders, new_p.pageBorder());
 #endif
 }

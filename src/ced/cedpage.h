@@ -151,38 +151,26 @@ class CLA_EXPO CEDPage: public BlockElement
         void setTurn(int angle);
 
         /**
-         * Sets unrecognized char
-         * @see unrecongizedChar()
-         */
-        void setUnrecognizedChar(char chr);
-
-        /**
          * Returns tangent angle on the vertical images * 2048
          * @see setTurn()
          */
         int turn() const;
-
-        /**
-         * Returns unrecognized char
-         * @see setUnrecognizedChar()
-         */
-        char unrecognizedChar() const;
     private:
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
+            using boost::serialization::make_nvp;
             ar.template register_type<CEDSection>();
-            ar & boost::serialization::base_object<BlockElement>(*this);
-            ar & image_size_;
-            ar & image_dpi_;
-            ar & page_size_;
-            ar & page_borders_;
-            ar & image_name_;
-            ar & turn_;
-            ar & page_number_;
-            ar & language_;
-            ar & unrecognized_char_;
+            ar & make_nvp("block-element", boost::serialization::base_object<BlockElement>(*this));
+            ar & make_nvp("image-name", image_name_);
+            ar & make_nvp("image-size", image_size_);
+            ar & make_nvp("image-dpi", image_dpi_);
+            ar & make_nvp("page-size", page_size_);
+            ar & make_nvp("page-borders", page_borders_);
+            ar & make_nvp("page-number", page_number_);
+            ar & make_nvp("turn", turn_);
+            ar & make_nvp("language", language_);
         }
 #endif
     private:
@@ -194,7 +182,6 @@ class CLA_EXPO CEDPage: public BlockElement
         int turn_;
         int page_number_;
         language_t language_;
-        char unrecognized_char_;
 };
 
 }
