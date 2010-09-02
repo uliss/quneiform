@@ -15,12 +15,15 @@ IF (ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
 ENDIF (ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
 
 if(APPLE) 
-    FIND_PATH(ICONV_INCLUDE_DIR PATHS /opt/local/include iconv.h) 
+    FIND_PATH(ICONV_INCLUDE_DIR NAMES iconv.h PATHS /opt/local/include NO_DEFAULT_PATH) 
+    FIND_LIBRARY(ICONV_LIBRARIES NAMES iconv libiconv libiconv-2 PATHS /opt/local/lib NO_DEFAULT_PATH)
 else()
     FIND_PATH(ICONV_INCLUDE_DIR iconv.h)
+    FIND_LIBRARY(ICONV_LIBRARIES NAMES iconv libiconv libiconv-2 c)
 endif()
- 
-FIND_LIBRARY(ICONV_LIBRARIES NAMES iconv libiconv libiconv-2 c)
+
+message(STATUS "iconv include path found: ${ICONV_INCLUDE_DIR}")
+message(STATUS "iconv library found: ${ICONV_LIBRARIES}")
  
 IF(ICONV_INCLUDE_DIR AND ICONV_LIBRARIES) 
   SET(ICONV_FOUND TRUE) 

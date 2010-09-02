@@ -32,6 +32,8 @@ endif()
 find_package(Iconv)
 if(ICONV_FOUND)
     set(CF_USE_ICONV TRUE)
+else()
+    message(FATAL_ERROR "Iconv library required")
 endif()
 
 # Boost
