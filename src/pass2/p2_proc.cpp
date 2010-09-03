@@ -2525,14 +2525,14 @@ static Bool32 SomnitelnyjBlRazrez(CSTR_rast_attr *attrFon, RecVersions *vrFon,
     return attrFon->flg_new & CSTR_fn_bl_cut &&
            // Конфликтные коды. 16.07.2001 E.P.
            !is_baltic_language(language) && (
-               //           vrFon->Alt[0].Code==(uchar)'®' &&  // 0xae liga_CR
+               //           vrFon->Alt[0].Code==(uchar)'\xae' /* ® */ &&  // 0xae liga_CR
                vrFon->Alt[0].Code == liga_CR && // Макрос 01.06.2001 E.P.
-               (let == (uchar) 'Ў' || // 0xa1
-                let == (uchar) 'а' || // 0xe0
+               (let == (uchar) '\xa1' /* Ў */ || // 0xa1
+                let == (uchar) '\xe0' /* а */ || // 0xe0
                 let == r_cu_d || let == r_cu_g)
                && vrLeo->Alt[0].Prob > 150 || vrFon->Alt[0].Code
-               == (uchar) 'Ї' && // 0xaf
-               let == (uchar) 'ж' && // 0xe6
+               == (uchar) '\xaf' /* Ї */ && // 0xaf
+               let == (uchar) '\xe6' /* ж */ && // 0xe6
                vrLeo->Alt[0].Prob > 220);
 }
 
