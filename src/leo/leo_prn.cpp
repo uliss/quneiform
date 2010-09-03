@@ -169,13 +169,13 @@ static void leo_decode_to_roma(RecVersions *ver)
 
     for (int i = 0; i < n; i++) {
         switch (ver->Alt[i].Code) {
-            case (uchar) 'Õ':
+            case (uchar) '\xd5' /* Õ */:
                 ver->Alt[i].Code = 'X';
                 break;
             case (uchar) '1':
                 ver->Alt[i].Code = 'I';
                 break;
-            case (uchar) 'Ó':
+            case (uchar) '\xd3' /* Ó */:
                 ver->Alt[i].Code = 'V';
                 break;
             default:
@@ -364,8 +364,8 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
 
     for (num = i = 0; i < loc->lnAltCnt; i++)
         switch (stdAsciiToAnsi(loc->Alt[i].Code)) {
-            case (uchar) 'Ï':
-            case (uchar) 'ï':
+            case (uchar) '\xcf' /* Ï */:
+            case (uchar) '\xef' /* ï */:
                 pen = 0;
 
                 if (leo_diskr16x16_down(rr) > 0)
@@ -388,8 +388,8 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
                     loc->Alt[i].Prob = 1;
 
                 break;
-            case (uchar) 'Ë':
-            case (uchar) 'ë':
+            case (uchar) '\xcb' /* Ë */:
+            case (uchar) '\xeb' /* ë */:
                 r = pen = 0;
 
                 if (i == 1
@@ -410,8 +410,8 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
                     loc->Alt[i].Prob = 255;
 
                 break;
-            case (uchar) 'Î':
-            case (uchar) 'î':
+            case (uchar) '\xce' /* Î */:
+            case (uchar) '\xee' /* î */:
                 pen = 0;
 
                 if (!(Im3x5[4] > (Im3x5[3] + Im3x5[5]) / 4 || Im3x5[10] > (Im3x5[9]
@@ -431,8 +431,8 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
                     loc->Alt[i].Prob = 1;
 
                 break;
-            case (uchar) 'Ñ':
-            case (uchar) 'ñ':
+            case (uchar) '\xd1' /* Ñ */:
+            case (uchar) '\xf1' /* ñ */:
                 pen = 0;
 
                 if (leo_diskr16x16_right(rr) < 2)
@@ -447,8 +447,8 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
                     loc->Alt[i].Prob = 1;
 
                 break;
-            case (uchar) 'Â':
-            case (uchar) 'â':
+            case (uchar) '\xc2' /* Â */:
+            case (uchar) '\xe2' /* â */:
                 pen = 0;
 
                 if (leo_diskr16x16_right_down_hole(rr) > 1)
@@ -466,8 +466,8 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
                     loc->Alt[i].Prob = 1;
 
                 break;
-            case (uchar) 'Í':
-            case (uchar) 'í':
+            case (uchar) '\xcd' /* Í */:
+            case (uchar) '\xed' /* í */:
                 pen = 0;
 
                 if (leo_diskr3x5_H(Im3x5))
@@ -482,8 +482,8 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
                     loc->Alt[i].Prob = 1;
 
                 break;
-            case (uchar) 'È':
-            case (uchar) 'è':
+            case (uchar) '\xc8' /* È */:
+            case (uchar) '\xe8' /* è */:
                 pen = 0;
 
                 if (!leo_diskr3x5_H(Im3x5))
@@ -498,8 +498,8 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
                     loc->Alt[i].Prob = 1;
 
                 break;
-            case (uchar) 'Ø':
-            case (uchar) 'ø':
+            case (uchar) '\xd8' /* Ø */:
+            case (uchar) '\xf8' /* ø */:
                 pen = 0;
 
                 if (!leo_diskr3x5_III(Im3x5))
@@ -514,8 +514,8 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
                     loc->Alt[i].Prob = 1;
 
                 break;
-            case (uchar) 'Ý':
-            case (uchar) 'ý':
+            case (uchar) '\xdd' /* Ý */:
+            case (uchar) '\xfd' /* ý */:
                 pen = 0;
 
                 if (!leo_diskr3x5_III(Im3x5))
@@ -533,8 +533,8 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
                     loc->Alt[i].Prob = 1;
 
                 break;
-            case (uchar) 'Ç':
-            case (uchar) 'ç':
+            case (uchar) '\xc7' /* Ç */:
+            case (uchar) '\xe7' /* ç */:
             case '3':
                 pen = 0;
 
@@ -568,7 +568,7 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
 
                 break;
                 /*
-                 case    (uchar)'Á':
+                 case    (uchar)'\xc1': // 'Á'
                  pen = 0;
                  if( leo_diskr_right_up_hole(Im3x5) )
                  pen += 30;
@@ -778,13 +778,13 @@ Bool32 leoRecogPrintAllChar(RecObject* object)
 
                 if (leo_alpha_type == ALPH_DIG) {
                     switch (let) {
-                        case (uchar) 'Î':
+                        case (uchar) '\xce' /* Î */:
                             per.Alt[0].Code = '0';
                             break;
-                        case (uchar) 'Ç':
+                        case (uchar) '\xc7' /* Ç */:
                             per.Alt[0].Code = '3';
                             break;
-                        case (uchar) '×':
+                        case (uchar) '\xd7' /* × */:
                             per.Alt[0].Code = '4';
                             break;
                     }
@@ -928,18 +928,18 @@ Bool32 leoRecogPrintAllChar(RecObject* object)
 
     if (ver.lnAltCnt && per.lnAltCnt && r35.lnAltCnt && msk.lnAltCnt) {
         if (leo_alpha_type == ALPH_ALL) {
-            if (alphabet[(uchar) '‡'] && alphabet['3']) {
-                leo_kill_double_russian(&ver, (uchar) '‡', '3');
-                leo_kill_double_russian(&per, (uchar) '‡', '3');
-                leo_kill_double_russian(&r35, (uchar) '‡', '3');
-                leo_kill_double_russian(&msk, (uchar) '‡', '3');
+            if (alphabet[(uchar) '\x87' /* ‡ */] && alphabet['3']) {
+                leo_kill_double_russian(&ver, (uchar) '\x87' /* ‡ */, '3');
+                leo_kill_double_russian(&per, (uchar) '\x87' /* ‡ */, '3');
+                leo_kill_double_russian(&r35, (uchar) '\x87' /* ‡ */, '3');
+                leo_kill_double_russian(&msk, (uchar) '\x87' /* ‡ */, '3');
             }
 
-            if (alphabet[(uchar) 'Ž'] && alphabet['0']) {
-                leo_kill_double_russian(&ver, (uchar) 'Ž', '0');
-                leo_kill_double_russian(&per, (uchar) 'Ž', '0');
-                leo_kill_double_russian(&r35, (uchar) 'Ž', '0');
-                leo_kill_double_russian(&msk, (uchar) 'Ž', '0');
+            if (alphabet[(uchar) '\x8e' /* Ž */] && alphabet['0']) {
+                leo_kill_double_russian(&ver, (uchar) '\x8e' /* Ž */, '0');
+                leo_kill_double_russian(&per, (uchar) '\x8e' /* Ž */, '0');
+                leo_kill_double_russian(&r35, (uchar) '\x8e' /* Ž */, '0');
+                leo_kill_double_russian(&msk, (uchar) '\x8e' /* Ž */, '0');
             }
         }
 
@@ -1151,11 +1151,11 @@ XOPOIII_HET3X5:
     leo_compress(&ver);
 
     if (leo_alpha_type == ALPH_ALL) {
-        if (alphabet[(uchar) '‡'] && alphabet['3'])
-            leo_reverse_russian(&ver, (uchar) '‡', '3');
+        if (alphabet[(uchar) '\x87' /* ‡ */] && alphabet['3'])
+            leo_reverse_russian(&ver, (uchar) '\x87' /* ‡ */, '3');
 
-        if (alphabet[(uchar) 'Ž'] && alphabet['0'])
-            leo_reverse_russian(&ver, (uchar) 'Ž', '0');
+        if (alphabet[(uchar) '\x8e' /* Ž */] && alphabet['0'])
+            leo_reverse_russian(&ver, (uchar) '\x8e' /* Ž */, '0');
     }
 
     if (!(leo_alpha_type == ALPH_ALL && ver.lnAltCnt && leo_strchr_codes_ansi(
@@ -1395,18 +1395,18 @@ NOT_N:
 
     if (ver.lnAltCnt && per.lnAltCnt && r35.lnAltCnt && msk.lnAltCnt) {
         if (leo_alpha_type == ALPH_ALL) {
-            if (alphabet[(uchar) '‡'] && alphabet['3']) {
-                leo_kill_double_russian(&ver, (uchar) '‡', '3');
-                leo_kill_double_russian(&per, (uchar) '‡', '3');
-                leo_kill_double_russian(&r35, (uchar) '‡', '3');
-                leo_kill_double_russian(&msk, (uchar) '‡', '3');
+            if (alphabet[(uchar) '\x87' /* ‡ */] && alphabet['3']) {
+                leo_kill_double_russian(&ver, (uchar) '\x87' /* ‡ */, '3');
+                leo_kill_double_russian(&per, (uchar) '\x87' /* ‡ */, '3');
+                leo_kill_double_russian(&r35, (uchar) '\x87' /* ‡ */, '3');
+                leo_kill_double_russian(&msk, (uchar) '\x87' /* ‡ */, '3');
             }
 
-            if (alphabet[(uchar) 'Ž'] && alphabet['0']) {
-                leo_kill_double_russian(&ver, (uchar) 'Ž', '0');
-                leo_kill_double_russian(&per, (uchar) 'Ž', '0');
-                leo_kill_double_russian(&r35, (uchar) 'Ž', '0');
-                leo_kill_double_russian(&msk, (uchar) 'Ž', '0');
+            if (alphabet[(uchar) '\x8e' /* Ž */] && alphabet['0']) {
+                leo_kill_double_russian(&ver, (uchar) '\x8e' /* Ž */, '0');
+                leo_kill_double_russian(&per, (uchar) '\x8e' /* Ž */, '0');
+                leo_kill_double_russian(&r35, (uchar) '\x8e' /* Ž */, '0');
+                leo_kill_double_russian(&msk, (uchar) '\x8e' /* Ž */, '0');
             }
         }
 
@@ -1539,11 +1539,11 @@ XOPOIII_HET3X5:
     leo_compress(&ver);
 
     if (leo_alpha_type == ALPH_ALL) {
-        if (alphabet[(uchar) '‡'] && alphabet['3'])
-            leo_reverse_russian(&ver, (uchar) '‡', '3');
+        if (alphabet[(uchar) '\x87' /* ‡ */] && alphabet['3'])
+            leo_reverse_russian(&ver, (uchar) '\x87' /* ‡ */, '3');
 
-        if (alphabet[(uchar) 'Ž'] && alphabet['0'])
-            leo_reverse_russian(&ver, (uchar) 'Ž', '0');
+        if (alphabet[(uchar) '\x8e' /* Ž */] && alphabet['0'])
+            leo_reverse_russian(&ver, (uchar) '\x8e' /* Ž */, '0');
     }
 
     if (per_nonrec && ver.lnAltCnt && ver.Alt[0].Prob > 10) {
