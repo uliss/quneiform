@@ -72,11 +72,11 @@ int16_t russian_context_process(cell * c) {
 	return_code = NO_ACTION;
 	if (n_ltr == 1) /** single letter case: **/
 	{
-		nv = get_nvers(c, (uchar) 'О');
+		nv = get_nvers(c, (uchar) '\x8e' /* О */);
 		if (nv > 0 && memchr("0", c->vers[0].let, 1) && ((c->prev->flg
 				& c_f_let) || (c->next->flg & c_f_let) || (c->next->nvers > 0
 				&& memchr(".,", c->next->vers[0].let, 2)))) {
-			vers_to_first_place(c, get_nvers(c, (uchar) 'О')); // make it first
+			vers_to_first_place(c, get_nvers(c, (uchar) '\x8e' /* О */)); // make it first
 			sort_vers(c);
 			return_code = CONTINUE_ACTION;
 		}
@@ -88,18 +88,18 @@ int16_t russian_context_process(cell * c) {
 			return_code = CONTINUE_ACTION;
 		}
 
-		nv = get_nvers(c, (uchar) '®');
+		nv = get_nvers(c, (uchar) '\xa8' /* ® */);
 		if (((c->font | c->font_new) & c_fp_it) || (c->cg_flag & c_cg_comp))
-			if (nv > 0 && get_nvers(c, (uchar) 'п') != 0) // Oleg : 12-07-1994 : 'Я'in first
+			if (nv > 0 && get_nvers(c, (uchar) '\xef' /* п */) != 0) // Oleg : 12-07-1994 : '\x9f' /* Я */in first
 			{
 				if (c->vers[nv].prob > 120) {
-					promote(0, c, (uchar) '®', 30);
+					promote(0, c, (uchar) '\xa8' /* ® */, 30);
 					sort_vers(c);
 					return_code = CONTINUE_ACTION;
 				}
 			} else if (memchr("≠ѓ", c->vers[0].let, 2)) { //return return_code;
-				promote(0, c, (uchar) '®', 0); //  add vers
-				vers_to_first_place(c, get_nvers(c, (uchar) '®')); // make it first
+				promote(0, c, (uchar) '\xa8' /* ® */, 0); //  add vers
+				vers_to_first_place(c, get_nvers(c, (uchar) '\xa8' /* ® */)); // make it first
 				sort_vers(c);
 				return_code = CONTINUE_ACTION;
 			}
@@ -121,10 +121,10 @@ int16_t russian_context_process(cell * c) {
 			{ // add russian versions
 				switch( wc->vers[0].let )
 				{
-					case 'В': let=(uchar)'8'; break;
-					case 'О': let=(uchar)'0'; break;
-					case 'З': let=(uchar)'3'; break;
-					case '°': let=(uchar)'6'; break;
+					case '\x82' /* В */: let=(uchar)'8'; break;
+					case '\x8e' /* О */: let=(uchar)'0'; break;
+					case '\x87' /* З */: let=(uchar)'3'; break;
+					case '\xa1' /* ° */: let=(uchar)'6'; break;
 				}
 				nv = get_nvers(wc, let);
 				if( nv==-1 )
@@ -149,13 +149,13 @@ int16_t russian_context_process(cell * c) {
 				if (memchr("036", wc->vers[0].let, 3)) { // add russian versions
 					switch (wc->vers[0].let) {
 					case '0':
-						let = (uchar) 'О';
+						let = (uchar) '\x8e' /* О */;
 						break;
 					case '3':
-						let = (uchar) 'З';
+						let = (uchar) '\x87' /* З */;
 						break;
 					case '6':
-						let = (uchar) '°';
+						let = (uchar) '\xa1' /* ° */;
 						break;
 					}
 					nv = get_nvers(wc, let);
@@ -169,19 +169,19 @@ int16_t russian_context_process(cell * c) {
 		if (n_ltr > 3)
 			for (wc = c, i = 0; i < n_ltr; wc = wc->nextl, i++) // scan to word end
 			{
-				if (wc->nvers == 1 && wc->vers[0].let == (uchar) 'б'
+				if (wc->nvers == 1 && wc->vers[0].let == (uchar) '\xe1' /* б */
 						&& wc->vers[0].prob < 254 && !(wc->cg_flag & c_cg_cut)
 						&& wc->recsource & c_rs_ev) {
-					promote(0, wc, (uchar) '•', 0); //  add vers
-					promote(0, wc, (uchar) '•', -48); // spell checker may correct this word
+					promote(0, wc, (uchar) '\xa5' /* • */, 0); //  add vers
+					promote(0, wc, (uchar) '\xa5' /* • */, -48); // spell checker may correct this word
 					sort_vers(wc);
 					return_code = NO_ACTION; // Oleg : 12-07-1994 : go complex word
 				}
-				if (wc->vers[0].let == (uchar) 'к') {
+				if (wc->vers[0].let == (uchar) '\xea' /* к */) {
 					// ћалый твердый знак в Ѕолгарском основна€ буква.  08.09.2000 E.P.
 					if (!langBul && i == n_ltr - 1 && wc->vers[0].prob > 150) // last letter in word
 					{
-						wc->vers[0].let = (uchar) 'м';
+						wc->vers[0].let = (uchar) '\xec' /* м */;
 						/*  else  wc->vers[0].prob=MAX(0,wc->vers[0].prob-20); // decrease prob
 						 sort_vers(wc);*/
 						return_code = NO_ACTION; // Oleg : 12-07-1994 : go complex word
@@ -205,7 +205,7 @@ static uchar predessor[] = "Ѓо•бгн";
 int16_t help_spelling_checker(cell * c) {
 	if (!(c->flg & (c_f_let | c_f_bad)))
 		return 0;
-	if (c->vers[0].let != (uchar) '£')
+	if (c->vers[0].let != (uchar) '\xa3' /* £ */)
 		return 0;
 
 	if (memchr(predessor, c->prevl->vers[0].let, sizeof(predessor))
@@ -213,10 +213,10 @@ int16_t help_spelling_checker(cell * c) {
 		if (c->vers[0].prob > 120) {
 			CIF::version * v0;
 			for (v0 = c->vers; v0->let != 0; v0++)
-				if (v0->let == (uchar) 'в')
+				if (v0->let == (uchar) '\xe2' /* в */)
 					return 0; // already exist - OK
-			promote(0, c, (uchar) 'в', 0); //  add vers
-			promote(0, c, (uchar) 'в', -48); // promotion
+			promote(0, c, (uchar) '\xe2' /* в */, 0); //  add vers
+			promote(0, c, (uchar) '\xe2' /* в */, -48); // promotion
 			c->vers[c->nvers].let = c->vers[c->nvers].prob = 0;
 			return 1;
 		}
