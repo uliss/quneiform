@@ -864,7 +864,7 @@ int16_t accent(cell *c) {
 					continue;
 				}
 				break;
-			case (uchar) '¥':
+			case (uchar) '\xa5' /* ¥ */:
 				switch (acc_type) {
 				case ACC_2DOT:
 					if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer
@@ -877,7 +877,7 @@ int16_t accent(cell *c) {
 					continue;
 				}
 				break;
-			case (uchar) '…':
+			case (uchar) '\x85' /* … */:
 				switch (acc_type) {
 				case ACC_2DOT:
 					if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer
