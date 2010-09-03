@@ -741,8 +741,8 @@ int16_t get_baton_inc(cell *c) {
 
 	if (n >= 0) {
 		switch (let) {
-		case (uchar) 'Ï':
-		case (uchar) 'ï':
+		case (uchar) '\xcf' /* Ï */:
+		case (uchar) '\xef' /* ï */:
 			if (is_russian_baltic_conflict(let)) // 17.07.2001 E.P.
 			{
 				inc = 1;
@@ -752,15 +752,15 @@ int16_t get_baton_inc(cell *c) {
 			if (n == 2 && abs(r[1].incl - r[0].incl) < 50)
 				inc = r[1].incl;
 			break;
-		case (uchar) '×':
-		case (uchar) '÷':
+		case (uchar) '\xd7' /* × */:
+		case (uchar) '\xf7' /* ÷ */:
 			if (n == 2 && abs(r[1].incl - r[0].incl) < 50)
 				inc = r[1].incl;
 			else if (n == 1)
 				inc = r[0].incl;
 			break;
-		case (uchar) 'Ò':
-		case (uchar) 'ò':
+		case (uchar) '\xd2' /* Ò */:
+		case (uchar) '\xf2' /* ò */:
 			if (n == 1)
 				inc = r[0].incl;
 			break;
