@@ -264,14 +264,14 @@ int16_t is_russian(uchar ch) {
 	if (language == LANGUAGE_RUSSIAN || language == LANGUAGE_ENGLISH && multy_language)
 		switch (fEdCode) {
 		case ED_ASCII: // for ASCII
-			if ((ch >= (uchar) '†' && ch <= (uchar) 'Ø') || (ch >= (uchar) '‡'
-					&& ch <= (uchar) 'Ô') || (ch >= (uchar) 'Ä' && ch
-					<= (uchar) 'ü') || memchr("Òı˜¯˝»¿", ch, 8))
+			if ((ch >= (uchar) '\xa0' /* † */ && ch <= (uchar) '\xaf' /* Ø */) || (ch >= (uchar) '\xe0' /* ‡ */
+					&& ch <= (uchar) '\xef' /* Ô */) || (ch >= (uchar) '\x80' /* Ä */ && ch
+					<= (uchar) '\x9f' /* ü */) || memchr("Òı˜¯˝»¿", ch, 8))
 				return 1;
 			break;
 		case ED_WIN: // for Windows (ANSI)
-			if ((ch >= 0xE0 && ch <= 0xFF) || (ch >= (uchar) 'Ä' && ch
-					<= (uchar) 'ü'))
+			if ((ch >= 0xE0 && ch <= 0xFF) || (ch >= (uchar) '\x80' /* Ä */ && ch
+					<= (uchar) '\x9f' /* ü */))
 				return 1;
 			break;
 		case ED_MAC: // for Macintosh
@@ -460,18 +460,18 @@ int16_t is_russian_turkish_conflict(uchar c) {
 	if (!is_turkish_language(language))
 		return FALSE;
 
-	if (c == liga_bull_turkish || // 'ï'
-			c == liga_TM_turkish || // 'ô'
-			c == liga_CC_turkish || // '©'
-			c == liga_CR_turkish || // 'Æ'
-			c == AA_roof_accent || // '¬'
-			c == a_roof_accent || // '‚'
-			c == CC_bottom_accent || // '«'
-			c == c_bottom_accent || // 'Á'
-			c == OO_2dot_accent || // '÷'
-			c == i_roof_accent || // 'Ó'
-			c == r_cu_a || // ''
-			c == r_cu_d || // '˝'
+	if (c == liga_bull_turkish || // '\x95' /* ï */
+			c == liga_TM_turkish || // '\x99' /* ô */
+			c == liga_CC_turkish || // '\xa9' /* © */
+			c == liga_CR_turkish || // '\xae' /* Æ */
+			c == AA_roof_accent || // '\xc2' /* ¬ */
+			c == a_roof_accent || // '\xe2' /* ‚ */
+			c == CC_bottom_accent || // '\xc7' /* « */
+			c == c_bottom_accent || // '\xe7' /* Á */
+			c == OO_2dot_accent || // '\xd6' /* ÷ */
+			c == i_roof_accent || // '\xee' /* Ó */
+			c == r_cu_a || // '\xf0' /*  */
+			c == r_cu_d || // '\xfd' /* ˝ */
 			0)
 		return TRUE;
 
@@ -492,8 +492,8 @@ int16_t is_lower(uchar ch) {
 	if (language == LANGUAGE_RUSSIAN)
 		switch (fEdCode) {
 		case ED_ASCII: // for ASCII
-			if ((ch >= (uchar) '†' && ch <= (uchar) 'Ø') || (ch >= (uchar) '‡'
-					&& ch <= (uchar) 'Ô') || memchr("Òı˜¯˝¿", ch, 7))
+			if ((ch >= (uchar) '\xa0' /* † */ && ch <= (uchar) '\xaf' /* Ø */) || (ch >= (uchar) '\xe0' /* ‡ */
+					&& ch <= (uchar) '\xef' /* Ô */) || memchr("Òı˜¯˝¿", ch, 7))
 				return 1;
 			break;
 		case ED_WIN: // for Windows (ANSI)
@@ -514,7 +514,7 @@ int16_t is_upper(uchar ch) {
 		switch (fEdCode) {
 		case ED_ASCII:
 		case ED_MAC: // for ASCII and Macintosh
-			if (ch >= (uchar) 'Ä' && ch <= (uchar) 'ü' || ch
+			if (ch >= (uchar) '\x80' /* Ä */ && ch <= (uchar) '\x9f' /* ü */ || ch
 					== (uchar) r_EE_2dot)
 				return 1;
 			break;
@@ -560,7 +560,7 @@ int16_t twin(uchar ch) {
 
 uchar get_homot(uchar ch) {
 	if (ch == '0')
-		return ((uchar) 'Æ');
+		return ((uchar) '\xae' /* Æ */);
 	if (is_upper(ch))
 		return to_lower(ch);
 	if (is_lower(ch))
@@ -575,10 +575,10 @@ uchar to_upper(uchar c) {
 	if (language == LANGUAGE_RUSSIAN)
 		switch (fEdCode) {
 		case ED_ASCII: // for ASCII
-			if (c >= (uchar) '†' && c <= (uchar) 'Ø')
-				return c - (uchar) '†' + (uchar) 'Ä';
-			if (c >= (uchar) '‡' && c <= (uchar) 'Ô')
-				return c - (uchar) '‡' + (uchar) 'ê';
+			if (c >= (uchar) '\xa0' /* † */ && c <= (uchar) '\xaf' /* Ø */)
+				return c - (uchar) '\xa0' /* † */ + (uchar) '\x80' /* Ä */;
+			if (c >= (uchar) '\xe0' /* ‡ */ && c <= (uchar) '\xef' /* Ô */)
+				return c - (uchar) '\xe0' /* ‡ */ + (uchar) '\x90' /* ê */;
 			break;
 		case ED_WIN: // for Windows (ANSI)
 			if (c >= 0xE0 && c <= 0xFF)
@@ -601,10 +601,10 @@ uchar to_lower(uchar c) {
 	if (language == LANGUAGE_RUSSIAN)
 		switch (fEdCode) {
 		case ED_ASCII: // for ASCII
-			if (c >= (uchar) 'Ä' && c <= (uchar) 'è')
-				return c - (uchar) 'Ä' + (uchar) '†';
-			if (c >= (uchar) 'ê' && c <= (uchar) 'ü')
-				return c - (uchar) 'ê' + (uchar) '‡';
+			if (c >= (uchar) '\x80' /* Ä */ && c <= (uchar) '\x8f' /* è */)
+				return c - (uchar) '\x80' /* Ä */ + (uchar) '\xa0' /* † */;
+			if (c >= (uchar) '\x90' /* ê */ && c <= (uchar) '\x9f' /* ü */)
+				return c - (uchar) '\x90' /* ê */ + (uchar) '\xe0' /* ‡ */;
 			break;
 		case ED_WIN: // for Windows
 			if (c >= 0xC0 && c <= 0xDF)
