@@ -224,13 +224,13 @@ void analysis_words(void)
             <= MIN_PROB && WE->h <= ok_K_hgt) || (memchr("e", WE->vers[0].let, 1)
             && WE->vers[0].prob < MAX_PROB)) {
         if ((WE->vers[0].prob < MIN_PROB && (WE->h >> 1) * 3 <= (WE->prevl)->h) || (WE->vers[0].let
-                == (uchar) 'í' && !is_russian_baltic_conflict(WE->vers[0].let) && // 17.07.2001 E.P.
+                == (uchar) '\xed' /* í */ && !is_russian_baltic_conflict(WE->vers[0].let) && // 17.07.2001 E.P.
                 WE->vers[0].prob < MIN_PROB && (WE->prevl)->vers[0].prob >= 230)
-                || (WE->vers[0].let == (uchar) 'í' && !is_russian_baltic_conflict(WE->vers[0].let)
+                || (WE->vers[0].let == (uchar) '\xed' /* í */ && !is_russian_baltic_conflict(WE->vers[0].let)
                         && // 17.07.2001 E.P.
                         WE->vers[0].prob - 5 < PROB_OK && memchr(ruslet, (WE->prevl)->vers[0].let,
                         sizeof(ruslet)) && !is_russian_baltic_conflict((WE->prevl)->vers[0].let) // 17.07.2001 E.P.
-                ) || (WE->vers[0].let == (uchar) 'í'
+                ) || (WE->vers[0].let == (uchar) '\xed' /* í */
                 && !is_russian_baltic_conflict(WE->vers[0].let) && // 17.07.2001 E.P.
                 WE->vers[0].prob < MAX_PROB && memchr(ruslet, (WE->prevl)->vers[0].let,
                 sizeof(ruslet)) && !is_russian_baltic_conflict((WE->prevl)->vers[0].let) && // 17.07.2001 E.P.
