@@ -21,7 +21,7 @@ def find_string_in_file(pattern, filename):
             m = pattern.search(line)
             if m:
                 repl = "'\\x%x' /* %s */" % (ord(m.group(1)), m.group(1))                
-                new_line = pattern.sub(repl, line)
+                new_line = pattern.sub(repl, line, 1)
                 new_f.write(new_line)
                 literals_num += 1
             else:

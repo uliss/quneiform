@@ -541,8 +541,8 @@ Bool32 LEOSetAlphabet(char ansi_letters[]) // char table[0-255]
     }
 
     leo_current_alpha_ndx = leo_register_alphabet((char*) alphabet);
-    prn_roma_regim = (!ansi_letters[(uchar) 'À'] && ansi_letters['I'] && ansi_letters[(uchar) 'Ï']
-                      && ansi_letters[(uchar) 'Ó'] && ansi_letters[(uchar) 'Õ'] && ansi_letters[(uchar) 'Ø']
+    prn_roma_regim = (!ansi_letters[(uchar) '\xc0' /* À */] && ansi_letters['I'] && ansi_letters[(uchar) '\xcf' /* Ï */]
+                      && ansi_letters[(uchar) '\xd3' /* Ó */] && ansi_letters[(uchar) '\xd5' /* Õ */] && ansi_letters[(uchar) '\xd8' /* Ø */]
                       && ansi_letters['1']);
 
     if (leo_alpha_type & ALPH_R_E)
