@@ -90,9 +90,9 @@ extern uchar langUkr, langSer;
 #define  RELIABLE_A     190      //надежная "а" (не может быть частью
 #define  RELIABLE_9     150      //надежная "9"  другого символа)
 #define  I_wo_point     150      //вероятность для "i" без точки
-#define  G_to_T   100  //фора для 'т'
-#define  P_to_L    35  //фора для 'л'
-#define  O_to_B    60  //фора для 'б'
+#define  G_to_T   100  //фора для '\xe2' /* т */
+#define  P_to_L    35  //фора для '\xab' /* л */
+#define  O_to_B    60  //фора для '\xa1' /* б */
 #define  mi_PEN    60  //штраф для 'm', если есть i
 #define  m_nc_PEN  30  //штраф для 'm', если несвязная
 #define  H_PEN     30  //штраф для собранной 'H'
@@ -436,7 +436,7 @@ void cuts_glues() {
 	test_match_cell_word(&my_bases,cut_width);
 #endif
 
-	perc(); //// '╣' ш '%'
+	perc(); //// '\xb9' /* ╣ */ ш '%'
 
 	WB = cell_f()->next;
 	do // цикл по словам
@@ -691,9 +691,9 @@ cell *process_word(cell *WB, cell *WE) {
 			if (language == LANGUAGE_RUSSIAN) {
 				let = E->vers[0].let;
 
-				if (let(E) && (let == (uchar) 'т'
+				if (let(E) && (let == (uchar) '\xe2' /* т */
 						&& !is_russian_turkish_conflict(let) || // 21.05.2002 E.P.
-						let == (uchar) 'Т')) { //"т" не всегда надежно по эвентам
+						let == (uchar) '\x92' /* Т */)) { //"т" не всегда надежно по эвентам
 					if (!complete_recog(E))
 						if (E != WB && !let(E->prev) || E != WE
 								&& !let(E->next)) {
@@ -821,7 +821,7 @@ static cell *process_frame(cell *WB, cell *WE) {
 					if ((let = C->vers[0].let) != '!' && let != '?') {
 						int16_t midc = C->row + (C->h >> 1);
 						char fl = middle > C->row && bottom < midc && (let
-								== (uchar) 'г' || let == (uchar) 'Г');
+								== (uchar) '\xa3' /* г */ || let == (uchar) '\x83' /* Г */);
 						if (B->r_col + B->w > C->r_col || fl) //C и dust перекрываются
 						{ //или может быть "Т"("т")
 							if (!complete_recog(C)) {
@@ -832,11 +832,11 @@ static cell *process_frame(cell *WB, cell *WE) {
 							//фора для развалившихся букв:
 							if (fl)
 								p -= 60; //Т,т
-							else if (middle < C->row && let == (uchar) 'о'
+							else if (middle < C->row && let == (uchar) '\xae' /* о */
 									&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 							)
 								p -= 50; //б
-							else if (B->row > midc && let == (uchar) 'ч'
+							else if (B->row > midc && let == (uchar) '\xe7' /* ч */
 									&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 							)
 								p -= 30; //у,н
@@ -861,20 +861,20 @@ static cell *process_frame(cell *WB, cell *WE) {
 							}
 							p = C->vers[0].prob;
 							//фора для развалившихся букв:
-							if (fl || bottom < midc && let == (uchar) 'л' //Г,х
-									|| B->row > midc && let == (uchar) 'ч'
+							if (fl || bottom < midc && let == (uchar) '\xab' /* л */ //Г,х
+									|| B->row > midc && let == (uchar) '\xe7' /* ч */
 											&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 							) //н,у
 								p -= 30;
-							else if (middle < C->row && let == (uchar) 'о'
+							else if (middle < C->row && let == (uchar) '\xae' /* о */
 									&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 							)
 								p -= 50; //б
-							else if ((let == (uchar) 'г' || let == (uchar) 'Г')
+							else if ((let == (uchar) '\xa3' /* г */ || let == (uchar) '\x83' /* Г */)
 									&& B->row > C->row && middle < C->row
 									+ C->h //п
-									|| (let == (uchar) 'ь' || let
-											== (uchar) 'Ь') && middle > C->row
+									|| (let == (uchar) '\xec' /* ь */ || let
+											== (uchar) '\x9c' /* Ь */) && middle > C->row
 											&& middle < midc)//в
 								p -= 20;
 							B = C;
@@ -894,8 +894,8 @@ static cell *process_frame(cell *WB, cell *WE) {
 
 		C = B->prev;
 		let = C->vers[0].let;
-		if (C != LW && !dust(C) && (may_glue(C) || let == (uchar) 'ь' || let
-				== (uchar) 'Ь')) {
+		if (C != LW && !dust(C) && (may_glue(C) || let == (uchar) '\xec' /* ь */ || let
+				== (uchar) '\x9c' /* Ь */)) {
 			char add = 0; //Їыру: фюсртшЄ№ ёшьтюы ёыхтр
 			if (dust(B) && lefter(B, C->r_col + C->w)) //C яхЁхъЁ√трхЄё  dust'юь
 			{
@@ -1046,8 +1046,8 @@ static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
 				uchar let;
 
 			case 0: //первый раз
-				if (B->nvers && ((let = B->vers[0].let) == (uchar) 'ь' || let
-						== (uchar) 'Ь')) {
+				if (B->nvers && ((let = B->vers[0].let) == (uchar) '\xec' /* ь */ || let
+						== (uchar) '\x9c' /* Ь */)) {
 					fl_b = 2;
 					break;
 				} else
@@ -1816,8 +1816,8 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 					char weakp;
 
 				case '|':
-				case (uchar) 'ы':
-				case (uchar) 'Ы':
+				case (uchar) '\xeb' /* ы */:
+				case (uchar) '\x9b' /* Ы */:
 					if (pass == 1 && strchr("оОсCцЦ", // "ю╬ёCЎ╓"
 							(cut_list + ip)->versm.vers[0].let) &&
 					//"№■","√ю" ш Є.я.
@@ -1840,18 +1840,18 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 					}
 					break;
 
-				case (uchar) 'ю':
+				case (uchar) '\xee' /* ю */:
 					if (is_russian_turkish_conflict(let)) // 21.05.2002 E.P.
 						break;
-				case (uchar) 'Ю':
+				case (uchar) '\x9e' /* Ю */:
 					if (cut1->dh != 0 && ((let1 = cut1->versm.vers[0].let)
-							== (uchar) 'п' || let1 == (uchar) 'П')
+							== (uchar) '\xaf' /* п */ || let1 == (uchar) '\x8f' /* П */)
 							&& not_connect_sect(cut->px, i, cut_list))
 						type = 1;
 					break;
 
-				case (uchar) 'г':
-				case (uchar) 'Г':
+				case (uchar) '\xa3' /* г */:
+				case (uchar) '\x83' /* Г */:
 					if (cut1->dh != 0) //"г"->"т"
 					{
 						if (et == 0)
@@ -1870,8 +1870,8 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 					i2 = i;
 					break;
 
-				case (uchar) 'п':
-				case (uchar) 'П': //только двойные разрезы внутри -
+				case (uchar) '\xaf' /* п */:
+				case (uchar) '\x8f' /* П */: //только двойные разрезы внутри -
 					weakp = 0; // "п" ненадежное
 					for (cuti = cut1 + 1; cuti < cut; cuti++)
 						if (cuti->var & 40)
@@ -1998,10 +1998,10 @@ uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
 		seci->gvarr = (cut_list + ip)->gvarr;
 		let1 = (seci->versm.nvers) ? seci->versm.vers[0].let : bad_char;
 		if (ip >= i0) {
-			if (ip == i0 && (let0 == (uchar) 'ь' && let1 != (uchar) '|'
+			if (ip == i0 && (let0 == (uchar) '\xec' /* ь */ && let1 != (uchar) '|'
 					&& (seci->x - seci0->x) < (seci0->x
 							- (cut_list + seci0->px)->x) || let1 == (uchar) '|'
-					&& let0 != (uchar) 'ь')) { //текущая versi должна быть заменена
+					&& let0 != (uchar) '\xec' /* ь */)) { //текущая versi должна быть заменена
 				int16_t width = seci->x - seci0->x;
 				width = MAX(width, my_bases.ps);
 				seci->rv.v1 = norm(MAX_RO,width);
@@ -2133,10 +2133,10 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 
 	if (i1 > 0 && !(mode & 2) && seci1->versm.flg) {
 		let = (versi0->nvers) ? versi0->vers[0].let : 0;
-		if (let == (uchar) 'г' || let == (uchar) 'Г')
-			fora = G_to_T; //фора для 'т'
-		else if (let == (uchar) 'п' || let == (uchar) 'П')
-			fora = P_to_L; //фора для 'л'
+		if (let == (uchar) '\xa3' /* г */ || let == (uchar) '\x83' /* Г */)
+			fora = G_to_T; //фора для '\xe2' /* т */
+		else if (let == (uchar) '\xaf' /* п */ || let == (uchar) '\x8f' /* П */)
+			fora = P_to_L; //фора для '\xab' /* л */
 		else
 			fora = 0;
 		fora = seci1->lv.v1 - norm(fora,x0-x1);
@@ -2203,10 +2203,10 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 		goto ret;
 	}
 
-	//чтобы распозналась палка присваиваем версию 'ь'
+	//чтобы распозналась палка присваиваем версию '\xec' /* ь */
 
 	let = (versi1->nvers) ? versi1->vers[0].let : 0;
-	if (let == (uchar) 'ь')
+	if (let == (uchar) '\xec' /* ь */)
 		for (i = 0, CI = left_list.cells; i < left_list.N; i++, CI++)
 			if (!dust(*CI))
 				rest_vers(*CI, versi1);
@@ -2380,12 +2380,12 @@ static char *unite_list(char *resstr, int16_t i1, int16_t i0,
 		results_left_to_bad[7][0] = '6';
 		results_left_to_bad[7][2] = '6';
 		results_left_to_bad[9][2] = 'd';
-		results_left_to_bad[14][1] = 'Ш';
+		results_left_to_bad[14][1] = '\x98' /* Ш */;
 		results_left_to_bad[16][0] = 0;
-		results_left_to_bad[19][2] = 'ш';
-		results_left_to_bad[20][1] = 'Ш';
-		results_left_to_bad[22][1] = 'Ш';
-		results_left_to_bad[23][0] = 'ф';
+		results_left_to_bad[19][2] = '\xe8' /* ш */;
+		results_left_to_bad[20][1] = '\x98' /* Ш */;
+		results_left_to_bad[22][1] = '\x98' /* Ш */;
+		results_left_to_bad[23][0] = '\xe4' /* ф */;
 
 		results_right_to_bad[7][2] = 'o';
 		results_right_to_bad[9][5] = 'b';
@@ -2395,24 +2395,24 @@ static char *unite_list(char *resstr, int16_t i1, int16_t i0,
 		results_right_to_bad[22][0] = 0;
 
 	} else {
-		results_left_to_bad[0][22] = 'Щ';
-		results_left_to_bad[0][23] = 'ю';
+		results_left_to_bad[0][22] = '\x99' /* Щ */;
+		results_left_to_bad[0][23] = '\xee' /* ю */;
 		results_left_to_bad[7][0] = 'o';
-		results_left_to_bad[7][2] = 'о';
-		results_left_to_bad[9][2] = 'о';
-		results_left_to_bad[14][1] = 'Щ';
-		results_left_to_bad[16][0] = 'ю';
-		results_left_to_bad[19][2] = 'ю';
-		results_left_to_bad[20][1] = 'Щ';
-		results_left_to_bad[22][1] = 'Щ';
-		results_left_to_bad[23][0] = 'о';
+		results_left_to_bad[7][2] = '\xae' /* о */;
+		results_left_to_bad[9][2] = '\xae' /* о */;
+		results_left_to_bad[14][1] = '\x99' /* Щ */;
+		results_left_to_bad[16][0] = '\xee' /* ю */;
+		results_left_to_bad[19][2] = '\xee' /* ю */;
+		results_left_to_bad[20][1] = '\x99' /* Щ */;
+		results_left_to_bad[22][1] = '\x99' /* Щ */;
+		results_left_to_bad[23][0] = '\xae' /* о */;
 
-		results_right_to_bad[7][2] = 'о';
-		results_right_to_bad[9][5] = 'о';
-		results_right_to_bad[10][8] = 'Х';
-		results_right_to_bad[11][0] = 'т';
-		results_right_to_bad[16][0] = 'Щ';
-		results_right_to_bad[22][0] = 'ю';
+		results_right_to_bad[7][2] = '\xae' /* о */;
+		results_right_to_bad[9][5] = '\xae' /* о */;
+		results_right_to_bad[10][8] = '\x95' /* Х */;
+		results_right_to_bad[11][0] = '\xe2' /* т */;
+		results_right_to_bad[16][0] = '\x99' /* Щ */;
+		results_right_to_bad[22][0] = '\xee' /* ю */;
 
 	}
 
@@ -2425,7 +2425,7 @@ static char *unite_list(char *resstr, int16_t i1, int16_t i0,
 				if (!dust(vers2 = &cur_vers->vers)) {
 					if (vers1->nvers) {
 						let = vers1->vers[0].let;
-						pt = (let == (uchar) 'т'
+						pt = (let == (uchar) '\xe2' /* т */
 								&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 								) ? trs2 : trg;
 						if (vers1->vers[0].prob >= pt) {
@@ -2438,7 +2438,7 @@ static char *unite_list(char *resstr, int16_t i1, int16_t i0,
 					}
 					if (vers2->nvers) {
 						let = vers2->vers[0].let;
-						pt = (let == (uchar) 'т'
+						pt = (let == (uchar) '\xe2' /* т */
 								&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 								) ? trs2 : trg;
 						if (vers2->vers[0].prob >= pt) {
@@ -2688,9 +2688,9 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 				vers, width);
 	if (let_or_bad(vers))
 		switch (vers->vers[0].let) {
-		case (uchar) 'ы': //"м" и "ы" клеятся друг в друга
-		case (uchar) 'м':
-		case (uchar) 'ц': //"ц" иногда плохо клеится
+		case (uchar) '\xeb' /* ы */: //"м" и "ы" клеятся друг в друга
+		case (uchar) '\xac' /* м */:
+		case (uchar) '\xe6' /* ц */: //"ц" иногда плохо клеится
 		case '%':
 			if (*gvar & glued) {
 				uchar gvardd = 2; //без склеивания
@@ -2702,16 +2702,16 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 					memcpy(vers, &versd, sizeof(SVERS));
 				}
 			}
-		case (uchar) 'н':
-		case (uchar) 'п':
+		case (uchar) '\xad' /* н */:
+		case (uchar) '\xaf' /* п */:
 			if (top.n)
 				ro += PEN_TOP_DUST; //возможно "й"
 			break;
-		case (uchar) 'и':
+		case (uchar) '\xa8' /* и */:
 			if (ro < RO_DUST_OFF && top.b < my_bases.b2 && !bottom.n) //"й"
 				goto ret;
 			break;
-		case (uchar) 'о':
+		case (uchar) '\xae' /* о */:
 			if (is_russian_turkish_conflict(vers->vers[0].let)) // 21.05.2002 E.P.
 				break;
 			if (top.n) {
@@ -2743,7 +2743,7 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 			if (bottom.a > my_bases.bm && bottom.b < my_bases.b3 + 3)
 				goto ret;
 			break;
-		case 'ч':
+		case '\xe7' /* ч */:
 			if (is_russian_turkish_conflict(vers->vers[0].let)) // 21.05.2002 E.P.
 				break;
 
@@ -2796,7 +2796,7 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 	{
 		uchar let = vers->vers[0].let;
 		if (dust(vers) && let != '-' || cut_up && !(*gvar & up_dust) && let
-				!= 'i' && !(let = 'й' && !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
+				!= 'i' && !(let = '\xa9' /* й */ && !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 				) || cut_low && !(*gvar & low_dust) && let != '!' && let != '?'
 				|| cut_far)
 			roi[3] += CUT_PEN << 1;
@@ -3181,17 +3181,17 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 		uchar new_let = vers->vers[0].let;
 		uchar old_let = secr->versm.vers[0].let;
 		switch (new_let) {
-		//расширение 'о' до 'б'
-		case (uchar) 'б':
-			if (old_let == (uchar) 'о' && !is_russian_turkish_conflict(old_let) // 21.05.2002 E.P.
+		//расширение '\xae' /* о */ до '\xa1' /* б */
+		case (uchar) '\xa1' /* б */:
+			if (old_let == (uchar) '\xae' /* о */ && !is_russian_turkish_conflict(old_let) // 21.05.2002 E.P.
 			)
 				pen = -O_to_B;
 			break;
 
-			//расширение 'г'до  'п'
-		case (uchar) 'п':
-		case (uchar) 'П':
-			if ((old_let == (uchar) 'г' || old_let == (uchar) 'Г') && !(gvar
+			//расширение '\xa3' /* г */до  '\xaf' /* п */
+		case (uchar) '\xaf' /* п */:
+		case (uchar) '\x8f' /* П */:
+			if ((old_let == (uchar) '\xa3' /* г */ || old_let == (uchar) '\x83' /* Г */) && !(gvar
 					& (up_dust + low_dust)) //dust'ы только из коробки
 			)
 				pen = -40;
@@ -3221,39 +3221,39 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 		xr = secr->x;
 
 		switch (let0) {
-		//расширение 'г' до 'т'
-		case (uchar) 'т':
+		//расширение '\xa3' /* г */ до '\xe2' /* т */
+		case (uchar) '\xe2' /* т */:
 			if (is_russian_turkish_conflict(let0))
 				break; // 21.05.2002 E.P.
-		case (uchar) 'Т':
-			if ((letr == (uchar) 'г' || letr == (uchar) 'Г') && xm - xl < (xr
+		case (uchar) '\x92' /* Т */:
+			if ((letr == (uchar) '\xa3' /* г */ || letr == (uchar) '\x83' /* Г */) && xm - xl < (xr
 					- xl) >> 1)
-				pen = (letl == (uchar) 'у' || letl == (uchar) 'У') ? 30
+				pen = (letl == (uchar) '\xe3' /* у */ || letl == (uchar) '\x93' /* У */) ? 30
 						: G_to_T;
 			break;
 
-			//расширение 'п' до 'л'
-		case (uchar) 'л':
-		case (uchar) 'Л':
-			if ((letr == (uchar) 'п' || letr == (uchar) 'П') && secm->dh != 0
+			//расширение '\xaf' /* п */ до '\xab' /* л */
+		case (uchar) '\xab' /* л */:
+		case (uchar) '\x8b' /* Л */:
+			if ((letr == (uchar) '\xaf' /* п */ || letr == (uchar) '\x8f' /* П */) && secm->dh != 0
 					&& xm - xl <= (xr - xl) >> 2)
 				pen = P_to_L;
 			break;
 
 			//"ї" или "тп"
-		case (uchar) 'ї':
-			if (letl == (uchar) 'т' && !is_russian_turkish_conflict(letl) && // 21.05.2002 E.P.
-					letr == (uchar) 'п')
+		case (uchar) '\xf5' /* ї */:
+			if (letl == (uchar) '\xe2' /* т */ && !is_russian_turkish_conflict(letl) && // 21.05.2002 E.P.
+					letr == (uchar) '\xaf' /* п */)
 				pen = 30;
 			break;
 
 			//"ыо" или "ью"
-		case (uchar) 'ю':
-		case (uchar) 'Ю':
+		case (uchar) '\xee' /* ю */:
+		case (uchar) '\x9e' /* Ю */:
 			if (is_russian_turkish_conflict(let0)) // 21.05.2002 E.P.
 				break;
-			if (letl == (uchar) '|' || letl == liga_exm || letl == (uchar) 'ы'
-					|| letl == (uchar) 'Ы' // √█
+			if (letl == (uchar) '|' || letl == liga_exm || letl == (uchar) '\xeb' /* ы */
+					|| letl == (uchar) '\x9b' /* Ы */ // √█
 			)
 				if (secl->dh == 0 && secm->dh == 0) //ярыър эшъєфр эх яЁшъыххэр
 				{ //яЁшюЁшЄхЄ "ю", хёыш ярыър сышцх ъ "№"
@@ -3341,16 +3341,16 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 
 			switch (let0) {
 			//шёъы■ўхэшх "єэштхЁёры№э√ї" сєът
-			case (uchar) 'м': // 'ь'
-			case (uchar) 'М': // '╠'
-			case (uchar) 'ї':
+			case (uchar) '\xac' /* м */: // '\xec' /* ь */
+			case (uchar) '\x8c' /* М */: // '\xcc' /* ╠ */
+			case (uchar) '\xf5' /* ї */:
 				seci = secr;
 				while (seci > secl) {
 					versi = &seci->versm;
 					let = versi->vers[0].let;
-					if ((let == (uchar) 'о'
+					if ((let == (uchar) '\xae' /* о */
 							&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
-							|| let == (uchar) 'О') && versi->vers[0].prob
+							|| let == (uchar) '\x8e' /* О */) && versi->vers[0].prob
 							> trs2)
 						goto retb;
 
@@ -3359,7 +3359,7 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 				break;
 
 				//запрещается расширять "9" до "И"
-			case (uchar) 'И':
+			case (uchar) '\x88' /* И */:
 				if (letr == '9' && versr->vers[0].prob >= RELIABLE_9)
 					goto retb;
 				break;
@@ -3516,7 +3516,7 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 			if (versi0->nvers && v0->prob < trs2)
 				set_bad(versi0);
 			if (seci0->px != 0)
-				if (bad(versi0) || v0->let == (uchar) 'ы' || ((ilet = strchr(
+				if (bad(versi0) || v0->let == (uchar) '\xeb' /* ы */ || ((ilet = strchr(
 						(char*) letters_left_to_bad, v0->let))
 						&& !is_russian_baltic_conflict(v0->let) && // 17.07.2001 E.P.
 						!is_russian_turkish_conflict(v0->let) && // 21.05.2002 E.P.
@@ -3779,7 +3779,7 @@ static int16_t is_stick(cell *B) {
 }
 
 /*-----------------05-04-95 05:35pm-----------------
- paste  собирает 'ы' и 'о' по всей строке
+ paste  собирает '\xeb'  ы  и '\xae'  о  по всей строке
  --------------------------------------------------*/
 static void paste() {
 	cell *B, *BC, *EC;
@@ -3810,12 +3810,12 @@ static void paste() {
 			c3 = EC->vers[0].let;
 			if (!is_turkish_language(language) && // 21.05.2002 E.P.
 					glue_to_o(c2, c3, BC, EC))
-				expect = (uchar) 'о';
+				expect = (uchar) '\xae' /* о */;
 			else if (memchr("ьЬЪ", c2, 3) && (memchr("/1!()°", c3, 6) || c3
 					== liga_exm) // 10.09.2000 E.P.
 					&& abs(BC->h - EC->h) < 4 && abs(BC->row - EC->row) < 4
 					&& EC->r_col - (BC->r_col + BC->w) < BC->h / 10 + 4) /*to paste ы */
-				expect = is_lower(c2) ? (uchar) 'ы' : (uchar) 'Ы';
+				expect = is_lower(c2) ? (uchar) '\xeb' /* ы */ : (uchar) '\x9b' /* Ы */;
 			else
 				continue;
 
@@ -3844,7 +3844,7 @@ static void paste() {
 			dmBOX(B, &GL);
 
 			p = (B->nvers) ? B->vers[0].prob : 0;
-			if (expect == (uchar) 'о') {
+			if (expect == (uchar) '\xae' /* о */) {
 				if (!memchr("oO0оО", B->vers[0].let, 5)) {
 					del_cell(B);
 					BC = EC;
