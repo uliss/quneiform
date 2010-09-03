@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- ╨рчЁх°рхЄё  яютЄюЁэюх ЁрёяЁюёЄЁрэхэшх ш шёяюы№чютрэшх ъръ т тшфх шёїюфэюую ъюфр,
- Єръ ш т фтюшўэющ ЇюЁьх, ё шчьхэхэш ьш шыш схч, яЁш ёюсы■фхэшш ёыхфє■∙шї єёыютшщ:
+ ╨а╨░╨╖╤А╨╡╤И╨░╨╡╤В╤Б╤П ╨┐╨╛╨▓╤В╨╛╤А╨╜╨╛╨╡ ╤А╨░╤Б╨┐╤А╨╛╤Б╤В╤А╨░╨╜╨╡╨╜╨╕╨╡ ╨╕ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╕╨╡ ╨║╨░╨║ ╨▓ ╨▓╨╕╨┤╨╡ ╨╕╤Б╤Е╨╛╨┤╨╜╨╛╨│╨╛ ╨║╨╛╨┤╨░,
+ ╤В╨░╨║ ╨╕ ╨▓ ╨┤╨▓╨╛╨╕╤З╨╜╨╛╨╣ ╤Д╨╛╤А╨╝╨╡, ╤Б ╨╕╨╖╨╝╨╡╨╜╨╡╨╜╨╕╤П╨╝╨╕ ╨╕╨╗╨╕ ╨▒╨╡╨╖, ╨┐╤А╨╕ ╤Б╨╛╨▒╨╗╤О╨┤╨╡╨╜╨╕╨╕ ╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╕╤Е ╤Г╤Б╨╗╨╛╨▓╨╕╨╣:
 
- * ╧Ёш яютЄюЁэюь ЁрёяЁюёЄЁрэхэшш шёїюфэюую ъюфр фюыцэ√ юёЄртрЄ№ё  єърчрээюх
- т√°х єтхфюьыхэшх юс ртЄюЁёъюь яЁртх, ¤ЄюЄ ёяшёюъ єёыютшщ ш яюёыхфє■∙шщ
- юЄърч юЄ урЁрэЄшщ.
- * ╧Ёш яютЄюЁэюь ЁрёяЁюёЄЁрэхэшш фтюшўэюую ъюфр т фюъєьхэЄрЎшш ш/шыш т
- фЁєушї ьрЄхЁшрырї, яюёЄрты хь√ї яЁш ЁрёяЁюёЄЁрэхэшш, фюыцэ√ ёюїЁрэ Є№ё 
- єърчрээр  т√°х шэЇюЁьрЎш  юс ртЄюЁёъюь яЁртх, ¤ЄюЄ ёяшёюъ єёыютшщ ш
- яюёыхфє■∙шщ юЄърч юЄ урЁрэЄшщ.
- * ═ш эрчтрэшх Cognitive Technologies, эш шьхэр хх ёюЄЁєфэшъют эх ьюуєЄ
- с√Є№ шёяюы№чютрэ√ т ърўхёЄтх ёЁхфёЄтр яюффхЁцъш ш/шыш яЁюфтшцхэш 
- яЁюфєъЄют, юёэютрээ√ї эр ¤Єюь ╧╬, схч яЁхфтрЁшЄхы№эюую яшё№ьхээюую
- ЁрчЁх°хэш .
+ * ╨Я╤А╨╕ ╨┐╨╛╨▓╤В╨╛╤А╨╜╨╛╨╝ ╤А╨░╤Б╨┐╤А╨╛╤Б╤В╤А╨░╨╜╨╡╨╜╨╕╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╨╛╨│╨╛ ╨║╨╛╨┤╨░ ╨┤╨╛╨╗╨╢╨╜╤Л ╨╛╤Б╤В╨░╨▓╨░╤В╤М╤Б╤П ╤Г╨║╨░╨╖╨░╨╜╨╜╨╛╨╡
+ ╨▓╤Л╤И╨╡ ╤Г╨▓╨╡╨┤╨╛╨╝╨╗╨╡╨╜╨╕╨╡ ╨╛╨▒ ╨░╨▓╤В╨╛╤А╤Б╨║╨╛╨╝ ╨┐╤А╨░╨▓╨╡, ╤Н╤В╨╛╤В ╤Б╨┐╨╕╤Б╨╛╨║ ╤Г╤Б╨╗╨╛╨▓╨╕╨╣ ╨╕ ╨┐╨╛╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╕╨╣
+ ╨╛╤В╨║╨░╨╖ ╨╛╤В ╨│╨░╤А╨░╨╜╤В╨╕╨╣.
+ * ╨Я╤А╨╕ ╨┐╨╛╨▓╤В╨╛╤А╨╜╨╛╨╝ ╤А╨░╤Б╨┐╤А╨╛╤Б╤В╤А╨░╨╜╨╡╨╜╨╕╨╕ ╨┤╨▓╨╛╨╕╤З╨╜╨╛╨│╨╛ ╨║╨╛╨┤╨░ ╨▓ ╨┤╨╛╨║╤Г╨╝╨╡╨╜╤В╨░╤Ж╨╕╨╕ ╨╕/╨╕╨╗╨╕ ╨▓
+ ╨┤╤А╤Г╨│╨╕╤Е ╨╝╨░╤В╨╡╤А╨╕╨░╨╗╨░╤Е, ╨┐╨╛╤Б╤В╨░╨▓╨╗╤П╨╡╨╝╤Л╤Е ╨┐╤А╨╕ ╤А╨░╤Б╨┐╤А╨╛╤Б╤В╤А╨░╨╜╨╡╨╜╨╕╨╕, ╨┤╨╛╨╗╨╢╨╜╤Л ╤Б╨╛╤Е╤А╨░╨╜╤П╤В╤М╤Б╤П
+ ╤Г╨║╨░╨╖╨░╨╜╨╜╨░╤П ╨▓╤Л╤И╨╡ ╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╤П ╨╛╨▒ ╨░╨▓╤В╨╛╤А╤Б╨║╨╛╨╝ ╨┐╤А╨░╨▓╨╡, ╤Н╤В╨╛╤В ╤Б╨┐╨╕╤Б╨╛╨║ ╤Г╤Б╨╗╨╛╨▓╨╕╨╣ ╨╕
+ ╨┐╨╛╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╕╨╣ ╨╛╤В╨║╨░╨╖ ╨╛╤В ╨│╨░╤А╨░╨╜╤В╨╕╨╣.
+ * ╨Э╨╕ ╨╜╨░╨╖╨▓╨░╨╜╨╕╨╡ Cognitive Technologies, ╨╜╨╕ ╨╕╨╝╨╡╨╜╨░ ╨╡╨╡ ╤Б╨╛╤В╤А╤Г╨┤╨╜╨╕╨║╨╛╨▓ ╨╜╨╡ ╨╝╨╛╨│╤Г╤В
+ ╨▒╤Л╤В╤М ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╤Л ╨▓ ╨║╨░╤З╨╡╤Б╤В╨▓╨╡ ╤Б╤А╨╡╨┤╤Б╤В╨▓╨░ ╨┐╨╛╨┤╨┤╨╡╤А╨╢╨║╨╕ ╨╕/╨╕╨╗╨╕ ╨┐╤А╨╛╨┤╨▓╨╕╨╢╨╡╨╜╨╕╤П
+ ╨┐╤А╨╛╨┤╤Г╨║╤В╨╛╨▓, ╨╛╤Б╨╜╨╛╨▓╨░╨╜╨╜╤Л╤Е ╨╜╨░ ╤Н╤В╨╛╨╝ ╨Я╨Ю, ╨▒╨╡╨╖ ╨┐╤А╨╡╨┤╨▓╨░╤А╨╕╤В╨╡╨╗╤М╨╜╨╛╨│╨╛ ╨┐╨╕╤Б╤М╨╝╨╡╨╜╨╜╨╛╨│╨╛
+ ╤А╨░╨╖╤А╨╡╤И╨╡╨╜╨╕╤П.
 
- ▌╥└ ╧╨╬├╨└╠╠└ ╧╨┼─╬╤╥└┬╦┼═└ ┬╦└─┼╦▄╓└╠╚ └┬╥╬╨╤╩╚╒ ╧╨└┬ ╚/╚╦╚ ─╨╙├╚╠╚ ╦╚╓└╠╚ "╩└╩
- ╬═└ ┼╤╥▄" ┴┼╟ ╩└╩╬├╬-╦╚┴╬ ┬╚─└ ├└╨└═╥╚╔, ┬█╨└╞┼══█╒ ▀┬═╬ ╚╦╚ ╧╬─╨└╟╙╠┼┬└┼╠█╒,
- ┬╩╦▐╫└▀ ├└╨└═╥╚╚ ╩╬╠╠┼╨╫┼╤╩╬╔ ╓┼══╬╤╥╚ ╚ ╧╨╚├╬─═╬╤╥╚ ─╦▀ ╩╬═╩╨┼╥═╬╔ ╓┼╦╚, ═╬ ═┼
- ╬├╨└═╚╫╚┬└▀╤▄ ╚╠╚. ═╚ ┬╦└─┼╦┼╓ └┬╥╬╨╤╩╚╒ ╧╨└┬ ╚ ═╚ ╬─═╬ ─╨╙├╬┼ ╦╚╓╬, ╩╬╥╬╨╬┼
- ╠╬╞┼╥ ╚╟╠┼═▀╥▄ ╚/╚╦╚ ╧╬┬╥╬╨═╬ ╨└╤╧╨╬╤╥╨└═▀╥▄ ╧╨╬├╨└╠╠╙, ═╚ ┬ ╩╬┼╠ ╤╦╙╫└┼ ═┼
- ═┼╤и╥ ╬╥┬┼╥╤╥┬┼══╬╤╥╚, ┬╩╦▐╫└▀ ╦▐┴█┼ ╬┴┘╚┼, ╤╦╙╫└╔═█┼, ╤╧┼╓╚└╦▄═█┼ ╚╦╚
- ╧╬╤╦┼─╬┬└┬╪╚┼ ╙┴█╥╩╚, ╤┬▀╟└══█┼ ╤ ╚╤╧╬╦▄╟╬┬└═╚┼╠ ╚╦╚ ╧╬═┼╤┼══█┼ ┬╤╦┼─╤╥┬╚┼
- ═┼┬╬╟╠╬╞═╬╤╥╚ ╚╤╧╬╦▄╟╬┬└═╚▀ ╧╨╬├╨└╠╠█ (┬╩╦▐╫└▀ ╧╬╥┼╨╚ ─└══█╒, ╚╦╚ ─└══█┼,
- ╤╥└┬╪╚┼ ═┼├╬─═█╠╚, ╚╦╚ ╙┴█╥╩╚ ╚/╚╦╚ ╧╬╥┼╨╚ ─╬╒╬─╬┬, ╧╬═┼╤┼══█┼ ╚╟-╟└ ─┼╔╤╥┬╚╔
- ╥╨┼╥▄╚╒ ╦╚╓ ╚/╚╦╚ ╬╥╩└╟└ ╧╨╬├╨└╠╠█ ╨└┴╬╥└╥▄ ╤╬┬╠┼╤╥═╬ ╤ ─╨╙├╚╠╚ ╧╨╬├╨└╠╠└╠╚,
- ═╬ ═┼ ╬├╨└═╚╫╚┬└▀╤▄ ▌╥╚╠╚ ╤╦╙╫└▀╠╚), ═╬ ═┼ ╬├╨└═╚╫╚┬└▀╤▄ ╚╠╚, ─└╞┼ ┼╤╦╚ ╥└╩╬╔
- ┬╦└─┼╦┼╓ ╚╦╚ ─╨╙├╬┼ ╦╚╓╬ ┴█╦╚ ╚╟┬┼┘┼═█ ╬ ┬╬╟╠╬╞═╬╤╥╚ ╥└╩╚╒ ╙┴█╥╩╬┬ ╚ ╧╬╥┼╨▄.
+ ╨н╨в╨Р ╨Я╨а╨Ю╨У╨а╨Р╨Ь╨Ь╨Р ╨Я╨а╨Х╨Ф╨Ю╨б╨в╨Р╨Т╨Ы╨Х╨Э╨Р ╨Т╨Ы╨Р╨Ф╨Х╨Ы╨м╨ж╨Р╨Ь╨Ш ╨Р╨Т╨в╨Ю╨а╨б╨Ъ╨Ш╨е ╨Я╨а╨Р╨Т ╨Ш/╨Ш╨Ы╨Ш ╨Ф╨а╨г╨У╨Ш╨Ь╨Ш ╨Ы╨Ш╨ж╨Р╨Ь╨Ш "╨Ъ╨Р╨Ъ
+ ╨Ю╨Э╨Р ╨Х╨б╨в╨м" ╨С╨Х╨Ч ╨Ъ╨Р╨Ъ╨Ю╨У╨Ю-╨Ы╨Ш╨С╨Ю ╨Т╨Ш╨Ф╨Р ╨У╨Р╨а╨Р╨Э╨в╨Ш╨Щ, ╨Т╨л╨а╨Р╨Ц╨Х╨Э╨Э╨л╨е ╨п╨Т╨Э╨Ю ╨Ш╨Ы╨Ш ╨Я╨Ю╨Ф╨а╨Р╨Ч╨г╨Ь╨Х╨Т╨Р╨Х╨Ь╨л╨е,
+ ╨Т╨Ъ╨Ы╨о╨з╨Р╨п ╨У╨Р╨а╨Р╨Э╨в╨Ш╨Ш ╨Ъ╨Ю╨Ь╨Ь╨Х╨а╨з╨Х╨б╨Ъ╨Ю╨Щ ╨ж╨Х╨Э╨Э╨Ю╨б╨в╨Ш ╨Ш ╨Я╨а╨Ш╨У╨Ю╨Ф╨Э╨Ю╨б╨в╨Ш ╨Ф╨Ы╨п ╨Ъ╨Ю╨Э╨Ъ╨а╨Х╨в╨Э╨Ю╨Щ ╨ж╨Х╨Ы╨Ш, ╨Э╨Ю ╨Э╨Х
+ ╨Ю╨У╨а╨Р╨Э╨Ш╨з╨Ш╨Т╨Р╨п╨б╨м ╨Ш╨Ь╨Ш. ╨Э╨Ш ╨Т╨Ы╨Р╨Ф╨Х╨Ы╨Х╨ж ╨Р╨Т╨в╨Ю╨а╨б╨Ъ╨Ш╨е ╨Я╨а╨Р╨Т ╨Ш ╨Э╨Ш ╨Ю╨Ф╨Э╨Ю ╨Ф╨а╨г╨У╨Ю╨Х ╨Ы╨Ш╨ж╨Ю, ╨Ъ╨Ю╨в╨Ю╨а╨Ю╨Х
+ ╨Ь╨Ю╨Ц╨Х╨в ╨Ш╨Ч╨Ь╨Х╨Э╨п╨в╨м ╨Ш/╨Ш╨Ы╨Ш ╨Я╨Ю╨Т╨в╨Ю╨а╨Э╨Ю ╨а╨Р╨б╨Я╨а╨Ю╨б╨в╨а╨Р╨Э╨п╨в╨м ╨Я╨а╨Ю╨У╨а╨Р╨Ь╨Ь╨г, ╨Э╨Ш ╨Т ╨Ъ╨Ю╨Х╨Ь ╨б╨Ы╨г╨з╨Р╨Х ╨Э╨Х
+ ╨Э╨Х╨б╨Б╨в ╨Ю╨в╨Т╨Х╨в╨б╨в╨Т╨Х╨Э╨Э╨Ю╨б╨в╨Ш, ╨Т╨Ъ╨Ы╨о╨з╨Р╨п ╨Ы╨о╨С╨л╨Х ╨Ю╨С╨й╨Ш╨Х, ╨б╨Ы╨г╨з╨Р╨Щ╨Э╨л╨Х, ╨б╨Я╨Х╨ж╨Ш╨Р╨Ы╨м╨Э╨л╨Х ╨Ш╨Ы╨Ш
+ ╨Я╨Ю╨б╨Ы╨Х╨Ф╨Ю╨Т╨Р╨Т╨и╨Ш╨Х ╨г╨С╨л╨в╨Ъ╨Ш, ╨б╨Т╨п╨Ч╨Р╨Э╨Э╨л╨Х ╨б ╨Ш╨б╨Я╨Ю╨Ы╨м╨Ч╨Ю╨Т╨Р╨Э╨Ш╨Х╨Ь ╨Ш╨Ы╨Ш ╨Я╨Ю╨Э╨Х╨б╨Х╨Э╨Э╨л╨Х ╨Т╨б╨Ы╨Х╨Ф╨б╨в╨Т╨Ш╨Х
+ ╨Э╨Х╨Т╨Ю╨Ч╨Ь╨Ю╨Ц╨Э╨Ю╨б╨в╨Ш ╨Ш╨б╨Я╨Ю╨Ы╨м╨Ч╨Ю╨Т╨Р╨Э╨Ш╨п ╨Я╨а╨Ю╨У╨а╨Р╨Ь╨Ь╨л (╨Т╨Ъ╨Ы╨о╨з╨Р╨п ╨Я╨Ю╨в╨Х╨а╨Ш ╨Ф╨Р╨Э╨Э╨л╨е, ╨Ш╨Ы╨Ш ╨Ф╨Р╨Э╨Э╨л╨Х,
+ ╨б╨в╨Р╨Т╨и╨Ш╨Х ╨Э╨Х╨У╨Ю╨Ф╨Э╨л╨Ь╨Ш, ╨Ш╨Ы╨Ш ╨г╨С╨л╨в╨Ъ╨Ш ╨Ш/╨Ш╨Ы╨Ш ╨Я╨Ю╨в╨Х╨а╨Ш ╨Ф╨Ю╨е╨Ю╨Ф╨Ю╨Т, ╨Я╨Ю╨Э╨Х╨б╨Х╨Э╨Э╨л╨Х ╨Ш╨Ч-╨Ч╨Р ╨Ф╨Х╨Щ╨б╨в╨Т╨Ш╨Щ
+ ╨в╨а╨Х╨в╨м╨Ш╨е ╨Ы╨Ш╨ж ╨Ш/╨Ш╨Ы╨Ш ╨Ю╨в╨Ъ╨Р╨Ч╨Р ╨Я╨а╨Ю╨У╨а╨Р╨Ь╨Ь╨л ╨а╨Р╨С╨Ю╨в╨Р╨в╨м ╨б╨Ю╨Т╨Ь╨Х╨б╨в╨Э╨Ю ╨б ╨Ф╨а╨г╨У╨Ш╨Ь╨Ш ╨Я╨а╨Ю╨У╨а╨Р╨Ь╨Ь╨Р╨Ь╨Ш,
+ ╨Э╨Ю ╨Э╨Х ╨Ю╨У╨а╨Р╨Э╨Ш╨з╨Ш╨Т╨Р╨п╨б╨м ╨н╨в╨Ш╨Ь╨Ш ╨б╨Ы╨г╨з╨Р╨п╨Ь╨Ш), ╨Э╨Ю ╨Э╨Х ╨Ю╨У╨а╨Р╨Э╨Ш╨з╨Ш╨Т╨Р╨п╨б╨м ╨Ш╨Ь╨Ш, ╨Ф╨Р╨Ц╨Х ╨Х╨б╨Ы╨Ш ╨в╨Р╨Ъ╨Ю╨Щ
+ ╨Т╨Ы╨Р╨Ф╨Х╨Ы╨Х╨ж ╨Ш╨Ы╨Ш ╨Ф╨а╨г╨У╨Ю╨Х ╨Ы╨Ш╨ж╨Ю ╨С╨л╨Ы╨Ш ╨Ш╨Ч╨Т╨Х╨й╨Х╨Э╨л ╨Ю ╨Т╨Ю╨Ч╨Ь╨Ю╨Ц╨Э╨Ю╨б╨в╨Ш ╨в╨Р╨Ъ╨Ш╨е ╨г╨С╨л╨в╨Ъ╨Ю╨Т ╨Ш ╨Я╨Ю╨в╨Х╨а╨м.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -109,11 +109,11 @@ int16_t no_serific(uchar *RASTR, int16_t dy, int16_t dx, int16_t wb);
 
 #define bytlen(bits)  (REC_GW_WORD8(bits))
 
-extern uchar BUFFER[256]; /* вертикальная   прoекция              */
-extern uchar LOCAL[50]; /* координаты     ног             */
-extern uchar LOCAL_W[50]; /* ширины         ног             */
-extern uchar end1, beg2; /* конец 1 и начало 2-ой ног инп  */
-extern int broken_ii; /* флаг двух палок            */
+extern uchar BUFFER[256]; /* ╨▓╨╡╤А╤В╨╕╨║╨░╨╗╤М╨╜╨░╤П   ╨┐╤Аo╨╡╨║╤Ж╨╕╤П              */
+extern uchar LOCAL[50]; /* ╨║╨╛╨╛╤А╨┤╨╕╨╜╨░╤В╤Л     ╨╜╨╛╨│             */
+extern uchar LOCAL_W[50]; /* ╤И╨╕╤А╨╕╨╜╤Л         ╨╜╨╛╨│             */
+extern uchar end1, beg2; /* ╨║╨╛╨╜╨╡╤Ж 1 ╨╕ ╨╜╨░╤З╨░╨╗╨╛ 2-╨╛╨╣ ╨╜╨╛╨│ ╨╕╨╜╨┐  */
+extern int broken_ii; /* ╤Д╨╗╨░╨│ ╨┤╨▓╤Г╤Е ╨┐╨░╨╗╨╛╨║            */
 extern int16_t dnri_hook; // bottom right hook in small russian italic II,III
 extern int16_t uple_hook; // bottom left  hook in small russian italic II,III
 extern int16_t up_jack; // upper jack
@@ -128,8 +128,8 @@ int16_t left_dist[4], right_dist[4], num_foot, c_or_e, d_c, d_e, right_max,
 left_max, left_line, right_line, left_dist_big[4], right_dist_big[4],
 lower_long_line;
 int16_t av_tl, av_bl, av_br, rotate;
-/* g-Ж, sh-Ш, b-B, k-K, ju-Ю, f2-ИНП, tsh-Щ, ii-Ы, o-O, c-C, e-E,
- h-Х, ja-Я, z-З, ee-Э, d-Д, ce-Ц  */
+/* g-╨Ц, sh-╨и, b-B, k-K, ju-╨о, f2-╨Ш╨Э╨Я, tsh-╨й, ii-╨л, o-O, c-C, e-E,
+ h-╨е, ja-╨п, z-╨Ч, ee-╨н, d-╨Ф, ce-╨ж  */
 int16_t fill_center, up_down_serif, up_down_serif_B, IN_horiz_dis, broken_M_pen;
 
 static int16_t DiskrSymSh(uchar *RASTER, int16_t Wx, uchar NWIDTH,
@@ -289,9 +289,9 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             // russian small & capital E, Ze, 3
         case '3':
         case (uchar) '\x87':
-        case (uchar) '\xa7' /* з */:
+        case (uchar) '\xa7' /* ╨╖ */:
         case (uchar) '\x9d':
-        case (uchar) '\xed' /* э */:
+        case (uchar) '\xed' /* ╤Н */:
 
             if (diskr_3 < 0) {
                 if (LeftHole(rastr, D_X, Dx, Hy)) { // need mount on the central zone
@@ -307,7 +307,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // russian small & capital B
         case (uchar) '\x82':
-        case (uchar) '\xa2' /* в */:
+        case (uchar) '\xa2' /* ╨▓ */:
 
             if (diskr_b < 0) {
                 if (!DiskrRight(rastr0, D_X, Dx, dy, 1)) { // need pimple
@@ -322,10 +322,10 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
             // russian e
-        case (uchar) '\xa5' /* е */:
+        case (uchar) '\xa5' /* ╨╡ */:
 
             if (diskr_e < 0) {
-                if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '\xa5' /* е */,
+                if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '\xa5' /* ╨╡ */,
                                      (uchar) inc)) > 2)
                     P += (n - 2) * step_diskr;
 
@@ -339,7 +339,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             // russian o,O
             //  case '0' :
         case (uchar) '\x8e':
-        case (uchar) '\xae' /* о */:
+        case (uchar) '\xae' /* ╨╛ */:
 
             if (diskr_o < 0) {
                 if (DiskrRight(rastr0, D_X, Dx, dy, 2))
@@ -354,13 +354,13 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // russian c,C
         case (uchar) '\x91':
-        case (uchar) '\xe1' /* с */:
+        case (uchar) '\xe1' /* ╤Б */:
 
             if (diskr_c < 0) {
                 if (!DiskrRight(rastr0, D_X, Dx, dy, 2))
                     P = step_diskr;
 
-                if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '\xe1' /* с */,
+                if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '\xe1' /* ╤Б */,
                                      (uchar) inc)) != 0)
                     P += n * step_diskr;
 
@@ -440,7 +440,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small I/I
         case (uchar) '\x88':
-        case (uchar) '\xa8' /* и */:
+        case (uchar) '\xa8' /* ╨╕ */:
 
             if (diskr_i < 0) {
                 F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
@@ -502,7 +502,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small H
         case (uchar) '\x8d':
-        case (uchar) '\xad' /* н */:
+        case (uchar) '\xad' /* ╨╜ */:
 
             if (diskr_n < 0) {
                 F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
@@ -523,7 +523,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                 else {
                     DiskrIN(rastr0, D_X, dy, bw, dx);
 
-                    if (DiskrHorizIN(rastr0, D_X, dy)) { // жирная перекладина
+                    if (DiskrHorizIN(rastr0, D_X, dy)) { // ╨╢╨╕╤А╨╜╨░╤П ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╨░
                         IN_N = 3;
                         IN_I = 2;
                     }
@@ -546,7 +546,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small II
         case (uchar) '\x8f':
-        case (uchar) '\xaf' /* п */:
+        case (uchar) '\xaf' /* ╨┐ */:
 
             if (diskr_p) {
                 if (dy > 13)
@@ -610,7 +610,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small III
         case (uchar) '\x98':
-        case (uchar) '\xe8' /* ш */:
+        case (uchar) '\xe8' /* ╤И */:
 
             if (diskr_sh < 0) {
                 FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
@@ -668,7 +668,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
         case (uchar) '\x86':
-        case (uchar) '\xa6' /* ж */:
+        case (uchar) '\xa6' /* ╨╢ */:
 
             if (diskr_g < 0) {
                 if (!DiskrLeftBig(rastr0, D_X, Dx, dy, 2))
@@ -700,7 +700,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small III,
         case (uchar) '\x99':
-        case (uchar) '\xe9' /* щ */:
+        case (uchar) '\xe9' /* ╤Й */:
 
             if (diskr_tsh < 0) {
                 F = ((uchar) let == (uchar) '\x99') ? 4 : 2;
@@ -730,7 +730,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capiatl & small IO
         case (uchar) '\x9e':
-        case (uchar) '\xee' /* ю */:
+        case (uchar) '\xee' /* ╤О */:
 
             if (diskr_ju < 0) {
                 r = FOOT_HEI(rastr0, D_X, (uchar) dx, (uchar) dy);
@@ -756,7 +756,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small M
         case (uchar) '\x8c':
-        case (uchar) '\xac' /* м */:
+        case (uchar) '\xac' /* ╨╝ */:
 
             if (diskr_m < 0) {
                 if (mii < -100) {
@@ -797,7 +797,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small bl
         case (uchar) '\x9b':
-        case (uchar) '\xeb' /* ы */:
+        case (uchar) '\xeb' /* ╤Л */:
 
             if (diskr_ii < 0) {
                 if (mii < -100) {
@@ -887,15 +887,15 @@ int16_t vert_stairs(int16_t arr[], int16_t lim)
 
 /***************************************************************************/
 /*                                                                         */
-/*  возвращает   оценку возрастания середин интервалов перкладины ИН       */
+/*  ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В   ╨╛╤Ж╨╡╨╜╨║╤Г ╨▓╨╛╨╖╤А╨░╤Б╤В╨░╨╜╨╕╤П ╤Б╨╡╤А╨╡╨┤╨╕╨╜ ╨╕╨╜╤В╨╡╤А╨▓╨░╨╗╨╛╨▓ ╨┐╨╡╤А╨║╨╗╨░╨┤╨╕╨╜╤Л ╨Ш╨Э       */
 /*                                                                         */
 /***************************************************************************/
 static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                     int16_t dx)
 /***************************************************************************/
-/****     *RASTR     указатель   на  массив                         ********/
-/****      dy        kоличество  строк                              ********/
-/****      D_X       количество  байтов  в  строке                  ********/
+/****     *RASTR     ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤М   ╨╜╨░  ╨╝╨░╤Б╤Б╨╕╨▓                         ********/
+/****      dy        k╨╛╨╗╨╕╤З╨╡╤Б╤В╨▓╨╛  ╤Б╤В╤А╨╛╨║                              ********/
+/****      D_X       ╨║╨╛╨╗╨╕╤З╨╡╤Б╤В╨▓╨╛  ╨▒╨░╨╣╤В╨╛╨▓  ╨▓  ╤Б╤В╤А╨╛╨║╨╡                  ********/
 /***************************************************************************/
 {
     uchar n[256], hist[256];
@@ -903,7 +903,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     int16_t i, n2 = dy - 2 * (dy >> 2), n4, mean, fine;
     int16_t incr, decr, old, neue, equ;
     int16_t l = beg2 - end1 - 1, l_real, t, jump, rmin, rmax;
-    int16_t ol = 1, or_ = 1; /* зазор слева и справа */
+    int16_t ol = 1, or_ = 1; /* ╨╖╨░╨╖╨╛╤А ╤Б╨╗╨╡╨▓╨░ ╨╕ ╤Б╨┐╤А╨░╨▓╨░ */
     uchar * RAST, *R;
     n4 = std::max(dy / 4, (LOCAL_W[0] + LOCAL_W[1]) / 4);
 
@@ -921,12 +921,12 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     IN_M = 0;
 
     if (l + ol + or_ < 2 && dy > 19) {
-        if (small_density(RAST, n2, D_X, bw)) { /* нет заливки */
+        if (small_density(RAST, n2, D_X, bw)) { /* ╨╜╨╡╤В ╨╖╨░╨╗╨╕╨▓╨║╨╕ */
             IN_N = 4;
             IN_I = 2;
         }
 
-        else { /* заливка */
+        else { /* ╨╖╨░╨╗╨╕╨▓╨║╨░ */
             IN_N = 4;
             IN_I = 3;
         }
@@ -938,7 +938,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
     memset(hist, 0, dy);
 
-    if (l < 3) { /* отменить зазоры */
+    if (l < 3) { /* ╨╛╤В╨╝╨╡╨╜╨╕╤В╤М ╨╖╨░╨╖╨╛╤А╤Л */
         or_ = ol = 0;
         l = beg2 - end1 + 1 - ol - or_;
     }
@@ -1031,20 +1031,20 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     i = end1 + ol - 1;
     n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
 
-    /* запасной левый отсчет        */
-    for (mean = l_real = 0, i = end1 + ol; i <= beg2 - or_; i++) { /* таблица отчетов середин вертикальных интервалов   */
+    /* ╨╖╨░╨┐╨░╤Б╨╜╨╛╨╣ ╨╗╨╡╨▓╤Л╨╣ ╨╛╤В╤Б╤З╨╡╤В        */
+    for (mean = l_real = 0, i = end1 + ol; i <= beg2 - or_; i++) { /* ╤В╨░╨▒╨╗╨╕╤Ж╨░ ╨╛╤В╤З╨╡╤В╨╛╨▓ ╤Б╨╡╤А╨╡╨┤╨╕╨╜ ╨▓╨╡╤А╤В╨╕╨║╨░╨╗╤М╨╜╤Л╤Е ╨╕╨╜╤В╨╡╤А╨▓╨░╨╗╨╛╨▓   */
         n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
         mean += n[i];
 
-        if (n[i]) /* mean     - сумма   отсчетов        */
-            l_real++; /* l_real - число ненулевых отсчетов  */
+        if (n[i]) /* mean     - ╤Б╤Г╨╝╨╝╨░   ╨╛╤В╤Б╤З╨╡╤В╨╛╨▓        */
+            l_real++; /* l_real - ╤З╨╕╤Б╨╗╨╛ ╨╜╨╡╨╜╤Г╨╗╨╡╨▓╤Л╤Е ╨╛╤В╤Б╤З╨╡╤В╨╛╨▓  */
     }
 
     n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
 
-    /* запасной отсчет          */
+    /* ╨╖╨░╨┐╨░╤Б╨╜╨╛╨╣ ╨╛╤В╤Б╤З╨╡╤В          */
     if (l != l_real && (l_real == 2 || (n[end1] | n[end1 + 1]) && (n[beg2]
-                                                                   | n[beg2 - 1]))) { /* отсутствие перекладины            */
+                                                                   | n[beg2 - 1]))) { /* ╨╛╤В╤Б╤Г╤В╤Б╤В╨▓╨╕╨╡ ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╤Л            */
         IN_N_Bonus = 2;
         IN_I_Bonus = 2;
 
@@ -1053,7 +1053,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     }
 
     if (l_real <= 1 && ((n[end1] == 0 && n[end1 + 1] == 0) || (n[beg2] == 0
-                                                               && n[beg2 - 1] == 0))) { /* отсутствие перекладины          */
+                                                               && n[beg2 - 1] == 0))) { /* ╨╛╤В╤Б╤Г╤В╤Б╤В╨▓╨╕╨╡ ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╤Л          */
         IN_N_Bonus = 1;
         IN_P_Bonus = 1;
         IN_I_Bonus = 1;
@@ -1066,7 +1066,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         }
     }
 
-    if (no_serific(RASTR, dy, dx, bw)) { /* обратный пересчет в интервал высот [dy/4,dy-dy/4] */
+    if (no_serific(RASTR, dy, dx, bw)) { /* ╨╛╨▒╤А╨░╤В╨╜╤Л╨╣ ╨┐╨╡╤А╨╡╤Б╤З╨╡╤В ╨▓ ╨╕╨╜╤В╨╡╤А╨▓╨░╨╗ ╨▓╤Л╤Б╨╛╤В [dy/4,dy-dy/4] */
         int16_t nn4, nn2, h;
         nn4 = std::max(dy >> 2, (LOCAL_W[0] + LOCAL_W[1]) >> 1);
 
@@ -1104,7 +1104,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         i = beg2 - or_ + 1;
 
         if (or_ && n[i] && VertSum(RAST, D_X, n2, i) < n2 - 1
-                && NumVertInterval(RAST, D_X, n2, i) == 1) { /* учитываем последний отсчет */
+                && NumVertInterval(RAST, D_X, n2, i) == 1) { /* ╤Г╤З╨╕╤В╤Л╨▓╨░╨╡╨╝ ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╕╨╣ ╨╛╤В╤Б╤З╨╡╤В */
             mean += n[i];
             or_--;
             l_real++;
@@ -1114,7 +1114,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         i = end1 + ol - 1;
 
         if (ol && n[i] && VertSum(RAST, D_X, n2, i) < n2 - 1
-                && NumVertInterval(RAST, D_X, n2, i) == 1) { /* учитываем последний отсчет */
+                && NumVertInterval(RAST, D_X, n2, i) == 1) { /* ╤Г╤З╨╕╤В╤Л╨▓╨░╨╡╨╝ ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╕╨╣ ╨╛╤В╤Б╤З╨╡╤В */
             mean += n[i];
             ol--;
             l_real++;
@@ -1145,7 +1145,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                 break;
         }
 
-        if (i < 3 || (minup * 2 < mindown && minup * 3 < zaz && zaz > 3)) { /* почти залитая крышка */
+        if (i < 3 || (minup * 2 < mindown && minup * 3 < zaz && zaz > 3)) { /* ╨┐╨╛╤З╤В╨╕ ╨╖╨░╨╗╨╕╤В╨░╤П ╨║╤А╤Л╤И╨║╨░ */
             IN_N_Bonus = IN_I_Bonus = 1;
             IN_P_Bonus = 2;
         }
@@ -1177,7 +1177,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         int16_t z = beg2 - end1 + 1;
 
         if (z > 4 && l_real * 2 > z)
-            IN_IN_Monus = 1; /* А перекладины разрыв то маленький ! */
+            IN_IN_Monus = 1; /* ╨Р ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╤Л ╤А╨░╨╖╤А╤Л╨▓ ╤В╨╛ ╨╝╨░╨╗╨╡╨╜╤М╨║╨╕╨╣ ! */
 
         if (l_real > 4 || l - l_real <= 3 && l > 5 || l_real == 4
                 && fill_center || l_real < 2 && z < 4 && n4 < 6 || z > 10
@@ -1196,7 +1196,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                 hist[neue]++;
 
         mean = mean / l_real + ((mean % l_real) > (l_real >> 1));
-        /* mean   - средний отсчет      */
+        /* mean   - ╤Б╤А╨╡╨┤╨╜╨╕╨╣ ╨╛╤В╤Б╤З╨╡╤В      */
 
         if (hist[mean - 1] > l_real - 2)
             mean--;
@@ -1207,7 +1207,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         if (l_real != l && !(l_real == l - 1 && (n[end1] == 0 || n[beg2] == 0))) {
             if ((!fill_center && l_real <= 4) || l_real <= 3) {
                 int16_t an[2], en[2], ll, dy1 = n2, san[2], sen[2], z;
-                /* поиск прыщей от '\x8d' '\x8d' (Н) на середине высоты */
+                /* ╨┐╨╛╨╕╤Б╨║ ╨┐╤А╤Л╤Й╨╡╨╣ ╨╛╤В '\x8d' '\x8d' (╨Э) ╨╜╨░ ╤Б╨╡╤А╨╡╨┤╨╕╨╜╨╡ ╨▓╤Л╤Б╨╛╤В╤Л */
                 an[0] = n[end1];
                 an[1] = n[end1 + 1];
                 en[0] = n[beg2 - 1];
@@ -1258,7 +1258,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                         n[end1 + i] = (uchar) san[i];
                     }
 
-                    /* поиск прыщей от '\x88' (И) по разные стороны от середины высоты */
+                    /* ╨┐╨╛╨╕╤Б╨║ ╨┐╤А╤Л╤Й╨╡╨╣ ╨╛╤В '\x88' (╨Ш) ╨┐╨╛ ╤А╨░╨╖╨╜╤Л╨╡ ╤Б╤В╨╛╤А╨╛╨╜╤Л ╨╛╤В ╤Б╨╡╤А╨╡╨┤╨╕╨╜╤Л ╨▓╤Л╤Б╨╛╤В╤Л */
                     an[0] = n[end1];
                     an[1] = n[end1 + 1];
                     en[0] = n[beg2 - 1];
@@ -1298,8 +1298,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                         if (n[i] > ((n2 - 2) << 1))
                             t++;
 
-                    if (t >= std::max(2, (l_real >> 1))) { /* перекладина слишком высоко            */
-                        fill_center = 0; /* коррекция штрафа за отстутствие перекладины     */
+                    if (t >= std::max(2, (l_real >> 1))) { /* ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╨░ ╤Б╨╗╨╕╤И╨║╨╛╨╝ ╨▓╤Л╤Б╨╛╨║╨╛            */
+                        fill_center = 0; /* ╨║╨╛╤А╤А╨╡╨║╤Ж╨╕╤П ╤И╤В╤А╨░╤Д╨░ ╨╖╨░ ╨╛╤В╤Б╤В╤Г╤В╤Б╤В╨▓╨╕╨╡ ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╤Л     */
                         IN_N = 4;
                         IN_I = 1;
                         IN_dis = 1;
@@ -1307,8 +1307,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                     }
                 }
 
-                if (fill_center && l_real < 2 && l > 4) { /* полное отсутствие перекладины      */
-                    fill_center = 0; /* коррекция штрафа за отстутствие перекладины     */
+                if (fill_center && l_real < 2 && l > 4) { /* ╨┐╨╛╨╗╨╜╨╛╨╡ ╨╛╤В╤Б╤Г╤В╤Б╤В╨▓╨╕╨╡ ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╤Л      */
+                    fill_center = 0; /* ╨║╨╛╤А╤А╨╡╨║╤Ж╨╕╤П ╤И╤В╤А╨░╤Д╨░ ╨╖╨░ ╨╛╤В╤Б╤В╤Г╤В╤Б╤В╨▓╨╕╨╡ ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╤Л     */
                     IN_N = 4;
                     IN_I = 1;
                     IN_dis = 1;
@@ -1319,9 +1319,9 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
         for (old = incr = decr = fine = 0, i = end1 + ol, rmin = dy, rmax = 0; i
                 <= beg2 - or_; i++)
-            if ((neue = n[i]) != 0) { /* fine - сумма расстояний от среднего    */
+            if ((neue = n[i]) != 0) { /* fine - ╤Б╤Г╨╝╨╝╨░ ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╨╣ ╨╛╤В ╤Б╤А╨╡╨┤╨╜╨╡╨│╨╛    */
                 if (old == 0)
-                    old = neue;/* первый ненулевой отсчет   */
+                    old = neue;/* ╨┐╨╡╤А╨▓╤Л╨╣ ╨╜╨╡╨╜╤Г╨╗╨╡╨▓╨╛╨╣ ╨╛╤В╤Б╤З╨╡╤В   */
 
                 if (neue > rmax)
                     rmax = neue;
@@ -1336,19 +1336,19 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                     fine += mean - neue;
 
                 if (neue > old)
-                    incr++; /* число скачков возрастаний    */
+                    incr++; /* ╤З╨╕╤Б╨╗╨╛ ╤Б╨║╨░╤З╨║╨╛╨▓ ╨▓╨╛╨╖╤А╨░╤Б╤В╨░╨╜╨╕╨╣    */
 
                 else if (neue < old)
-                    decr++; /* число скачков убываний   */
+                    decr++; /* ╤З╨╕╤Б╨╗╨╛ ╤Б╨║╨░╤З╨║╨╛╨▓ ╤Г╨▒╤Л╨▓╨░╨╜╨╕╨╣   */
 
                 old = neue;
             }
 
         if (fine && rmax - rmin <= 2 && !(l_real == 3 && incr == 2))
-            fine = 0; /* все отсчеты в 2-х линиях */
+            fine = 0; /* ╨▓╤Б╨╡ ╨╛╤В╤Б╤З╨╡╤В╤Л ╨▓ 2-╤Е ╨╗╨╕╨╜╨╕╤П╤Е */
 
         if (fine && l_real == 3 && incr == 2)
-            fine += 2; /* 2 скачка в 3-х столбцах */
+            fine += 2; /* 2 ╤Б╨║╨░╤З╨║╨░ ╨▓ 3-╤Е ╤Б╤В╨╛╨╗╨▒╤Ж╨░╤Е */
 
         if (omni) {
             int16_t fin = fine, inc = incr, dec = decr;
@@ -1361,7 +1361,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                 else
                     fin += mean - neue;
 
-                inc++; /* число скачков возрастаний     */
+                inc++; /* ╤З╨╕╤Б╨╗╨╛ ╤Б╨║╨░╤З╨║╨╛╨▓ ╨▓╨╛╨╖╤А╨░╤Б╤В╨░╨╜╨╕╨╣     */
             }
 
             neue = n[beg2];
@@ -1373,10 +1373,10 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                 else
                     fin += mean - neue;
 
-                inc++; /* число скачков возрастаний     */
+                inc++; /* ╤З╨╕╤Б╨╗╨╛ ╤Б╨║╨░╤З╨║╨╛╨▓ ╨▓╨╛╨╖╤А╨░╤Б╤В╨░╨╜╨╕╨╣     */
             }
 
-            /* большое сходство с '\x88' (И) */
+            /* ╨▒╨╛╨╗╤М╤И╨╛╨╡ ╤Б╤Е╨╛╨┤╤Б╤В╨▓╨╛ ╤Б '\x88' (╨Ш) */
             if (fin > 10 && inc > 3 && dec < 1 && LOCAL[0] <= dx / 4)
                 IN_M = 80;
 
@@ -1387,24 +1387,24 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                 IN_M = 0;
         }
 
-        if (abs(incr - decr) < 2 && /* близкие значения скачков     */
-                (incr > 1 && /* более 1 возрастания     */
-                 decr > 1 || /* более 1 убывания     */
-                 incr && decr && incr + decr < 4) && /* мало скачков */
-                fine <= l /* малая дисперсия        */
+        if (abs(incr - decr) < 2 && /* ╨▒╨╗╨╕╨╖╨║╨╕╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П ╤Б╨║╨░╤З╨║╨╛╨▓     */
+                (incr > 1 && /* ╨▒╨╛╨╗╨╡╨╡ 1 ╨▓╨╛╨╖╤А╨░╤Б╤В╨░╨╜╨╕╤П     */
+                 decr > 1 || /* ╨▒╨╛╨╗╨╡╨╡ 1 ╤Г╨▒╤Л╨▓╨░╨╜╨╕╤П     */
+                 incr && decr && incr + decr < 4) && /* ╨╝╨░╨╗╨╛ ╤Б╨║╨░╤З╨║╨╛╨▓ */
+                fine <= l /* ╨╝╨░╨╗╨░╤П ╨┤╨╕╤Б╨┐╨╡╤А╤Б╨╕╤П        */
            )
             fine = 0;
 
-        if (incr < 2 && /* маловато возрастаний   */
-                l_real > 4 && /* на широкой перекладине */
-                decr && incr + decr < 4) /* скачков немного        */
+        if (incr < 2 && /* ╨╝╨░╨╗╨╛╨▓╨░╤В╨╛ ╨▓╨╛╨╖╤А╨░╤Б╤В╨░╨╜╨╕╨╣   */
+                l_real > 4 && /* ╨╜╨░ ╤И╨╕╤А╨╛╨║╨╛╨╣ ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╨╡ */
+                decr && incr + decr < 4) /* ╤Б╨║╨░╤З╨║╨╛╨▓ ╨╜╨╡╨╝╨╜╨╛╨│╨╛        */
             fine = 0;
 
         if (incr * 2 < decr && l_real > 4) /* too many incr */
             fine = 0;
 
         if (fine > 2 && incr < 2 && decr > 1 && l > 3)
-            fine -= 2; /* всего 1 возрастание       */
+            fine -= 2; /* ╨▓╤Б╨╡╨│╨╛ 1 ╨▓╨╛╨╖╤А╨░╤Б╤В╨░╨╜╨╕╨╡       */
 
         t = (incr <= 1) && (decr <= 1);
 
@@ -1424,8 +1424,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             old = neue;
         }
 
-        if (t == 0) /* более 1-го возрастания или убывания  */
-            fine += incr; /* добавили штраф за возрастание  */
+        if (t == 0) /* ╨▒╨╛╨╗╨╡╨╡ 1-╨│╨╛ ╨▓╨╛╨╖╤А╨░╤Б╤В╨░╨╜╨╕╤П ╨╕╨╗╨╕ ╤Г╨▒╤Л╨▓╨░╨╜╨╕╤П  */
+            fine += incr; /* ╨┤╨╛╨▒╨░╨▓╨╕╨╗╨╕ ╤И╤В╤А╨░╤Д ╨╖╨░ ╨▓╨╛╨╖╤А╨░╤Б╤В╨░╨╜╨╕╨╡  */
 
         for (t = equ = i = 0; i < dy; i++)
             if (hist[i] > equ)
@@ -1433,11 +1433,11 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
         if (fine > 1 && equ > 2 && t == mean && or_ == 0 && ol == 0 && n[end1]
                 < mean && mean < n[beg2] && equ + 2 == l_real)
-            fine = 0; /* 1-ый и последний скачки в  */
+            fine = 0; /* 1-╤Л╨╣ ╨╕ ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╕╨╣ ╤Б╨║╨░╤З╨║╨╕ ╨▓  */
 
-        /* разорванном растре, интервал */
+        /* ╤А╨░╨╖╨╛╤А╨▓╨░╨╜╨╜╨╛╨╝ ╤А╨░╤Б╤В╤А╨╡, ╨╕╨╜╤В╨╡╤А╨▓╨░╨╗ */
 
-        /* постоянства длины 3      */
+        /* ╨┐╨╛╤Б╤В╨╛╤П╨╜╤Б╤В╨▓╨░ ╨┤╨╗╨╕╨╜╤Л 3      */
         if (equ > 1 && fine < 6) {
             int16_t fineold = fine;
             t = n4 + n2 - (t >> 1);
@@ -1445,7 +1445,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             for (RAST = RASTR + D_X * (t - 2), i = t - 2; i <= t + 2; i++, RAST
                     += D_X)
                 if (SumIntervalBits(RAST, end1, (int16_t) (beg2 + 1)) == (beg2
-                                                                          - end1 + 1) * 3) { /* есть перекладина */
+                                                                          - end1 + 1) * 3) { /* ╨╡╤Б╤В╤М ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╨░ */
                     fine = 0;
                     break;
                 }
@@ -1455,18 +1455,18 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         }
 
         if (l_real < 5 && equ > 2)
-            fine = 0; /* 3 из 4(или <4) совпадают       */
+            fine = 0; /* 3 ╨╕╨╖ 4(╨╕╨╗╨╕ <4) ╤Б╨╛╨▓╨┐╨░╨┤╨░╤О╤В       */
 
         if (l_real > 4 && equ > l_real - 2)
-            fine = 0; /* совпадают l-1 из l отсчетов        */
+            fine = 0; /* ╤Б╨╛╨▓╨┐╨░╨┤╨░╤О╤В l-1 ╨╕╨╖ l ╨╛╤В╤Б╤З╨╡╤В╨╛╨▓        */
 
         jump = 0;
 
-        if (equ == l - 1) { /* единственный всплеск         */
+        if (equ == l - 1) { /* ╨╡╨┤╨╕╨╜╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╣ ╨▓╤Б╨┐╨╗╨╡╤Б╨║         */
             i = end1 + ol;
 
             if (n[i] != 0 && n[i] < n[i + 1] && n[i + 2] == n[i + 1]) {
-                fine = 0; /* единственный левый всплеск     */
+                fine = 0; /* ╨╡╨┤╨╕╨╜╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╣ ╨╗╨╡╨▓╤Л╨╣ ╨▓╤Б╨┐╨╗╨╡╤Б╨║     */
                 jump = 1;
             }
 
@@ -1475,28 +1475,28 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
                 if (n[i - 1] != 0 && n[i] > n[i - 1] && n[i - 2] == n[i - 1]) {
                     fine = 0;
-                    /* единственный правый всплеск      */
+                    /* ╨╡╨┤╨╕╨╜╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╣ ╨┐╤А╨░╨▓╤Л╨╣ ╨▓╤Б╨┐╨╗╨╡╤Б╨║      */
                     jump = 1;
                 }
             }
         }
 
-        if (l_real > 2) { /* нормировка накопленного штрафа     */
+        if (l_real > 2) { /* ╨╜╨╛╤А╨╝╨╕╤А╨╛╨▓╨║╨░ ╨╜╨░╨║╨╛╨┐╨╗╨╡╨╜╨╜╨╛╨│╨╛ ╤И╤В╤А╨░╤Д╨░     */
             fine <<= 5; /* *32 ?????????????            */
-            fine /= l_real; /* истинная ширина          */
-            fine /= n2; /* высота               */
+            fine /= l_real; /* ╨╕╤Б╤В╨╕╨╜╨╜╨░╤П ╤И╨╕╤А╨╕╨╜╨░          */
+            fine /= n2; /* ╨▓╤Л╤Б╨╛╤В╨░               */
         }
     }
 
     else {
-        fine = 0; /* l_real<2 : не можем оценить образ  */
+        fine = 0; /* l_real<2 : ╨╜╨╡ ╨╝╨╛╨╢╨╡╨╝ ╨╛╤Ж╨╡╨╜╨╕╤В╤М ╨╛╨▒╤А╨░╨╖  */
         IN_dis = 1;
         IN_equ = IN_N = 0;
         IN_I = 3;
         IN_pics = 0;
 
         if (fill_center && l > 2)
-            fill_center = 0; /* коррекция штрафа за отстутствие перекладины */
+            fill_center = 0; /* ╨║╨╛╤А╤А╨╡╨║╤Ж╨╕╤П ╤И╤В╤А╨░╤Д╨░ ╨╖╨░ ╨╛╤В╤Б╤В╤Г╤В╤Б╤В╨▓╨╕╨╡ ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╤Л */
 
         if (!fill_center && l_real == 1
                 && (NumVertInterval(RAST, D_X, n2, end1) == 1 && VertSum(RAST,
@@ -1509,7 +1509,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         return;
     }
 
-    IN_N = IN_I = fine; /*           штраф за возрастание   */
+    IN_N = IN_I = fine; /*           ╤И╤В╤А╨░╤Д ╨╖╨░ ╨▓╨╛╨╖╤А╨░╤Б╤В╨░╨╜╨╕╨╡   */
 
     if (incr < 2 && l_real > 5 && decr > 4) {
         if (fine > 6)
@@ -1538,7 +1538,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             if ( l_real > 5 )
 #endif
                 if (!rotate || l_real > 3)
-                    fill_center = 1; /* коррекция штрафа за отстутствие перекладины */
+                    fill_center = 1; /* ╨║╨╛╤А╤А╨╡╨║╤Ж╨╕╤П ╤И╤В╤А╨░╤Д╨░ ╨╖╨░ ╨╛╤В╤Б╤В╤Г╤В╤Б╤В╨▓╨╕╨╡ ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╤Л */
     }
 
     if (fine > 5 && l_real == 2 && !broken_flag && incr == 0 && decr == 1) {
@@ -1549,14 +1549,14 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
     IN_dis = 1;
     equ -= l - 2;
-    IN_equ = (equ > 0) ? 2 + equ : 0; /* IN_equ -штраф за постоянство */
+    IN_equ = (equ > 0) ? 2 + equ : 0; /* IN_equ -╤И╤В╤А╨░╤Д ╨╖╨░ ╨┐╨╛╤Б╤В╨╛╤П╨╜╤Б╤В╨▓╨╛ */
 
-    if (DiskrHorizIN(RASTR, D_X, dy)) { /* жирная перекладина */
+    if (DiskrHorizIN(RASTR, D_X, dy)) { /* ╨╢╨╕╤А╨╜╨░╤П ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╨░ */
         IN_N = 3;
         IN_I = 2;
     }
 
-    if (omni) { /* '\x88' (И) путается с '\x88' (И) */
+    if (omni) { /* '\x88' (╨Ш) ╨┐╤Г╤В╨░╨╡╤В╤Б╤П ╤Б '\x88' (╨Ш) */
         int16_t i, le, ri, nnn = (beg2 + end1 + ol - or_) / 2;
 
         if (fine > 15 && decr > 3 || fine > 20 && decr > 2 || fine > 10 && incr
@@ -1612,9 +1612,9 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 /***************************************************************************/
 int16_t DiskrHorizIN(uchar *RASTR, int16_t D_X, int16_t dy)
 /***************************************************************************/
-/****     *RASTR     указатель   на  массив                         ********/
-/****      dy        kоличество  строк                              ********/
-/****      D_X       количество  байтов  в  строке                  ********/
+/****     *RASTR     ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤М   ╨╜╨░  ╨╝╨░╤Б╤Б╨╕╨▓                         ********/
+/****      dy        k╨╛╨╗╨╕╤З╨╡╤Б╤В╨▓╨╛  ╤Б╤В╤А╨╛╨║                              ********/
+/****      D_X       ╨║╨╛╨╗╨╕╤З╨╡╤Б╤В╨▓╨╛  ╨▒╨░╨╣╤В╨╛╨▓  ╨▓  ╤Б╤В╤А╨╛╨║╨╡                  ********/
 /***************************************************************************/
 {
     uchar n[256];
@@ -1625,12 +1625,12 @@ int16_t DiskrHorizIN(uchar *RASTR, int16_t D_X, int16_t dy)
     if (IN_horiz_dis >= 0)
         return (IN_horiz_dis);
 
-    if (l < 4) { /* малое расстояние */
+    if (l < 4) { /* ╨╝╨░╨╗╨╛╨╡ ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╨╡ */
         IN_horiz_dis = 0;
         return (IN_horiz_dis);
     }
 
-    for (imax = nmax = kmax = -1, i = n4, j = 0; j <= n2; j++, i++, RAST += D_X) { /* заливки линий     */
+    for (imax = nmax = kmax = -1, i = n4, j = 0; j <= n2; j++, i++, RAST += D_X) { /* ╨╖╨░╨╗╨╕╨▓╨║╨╕ ╨╗╨╕╨╜╨╕╨╣     */
         n[i] = SumIntervalBits(RAST, end1, beg2) / 3;
 
         if (n[i] > nmax) {
@@ -1787,12 +1787,12 @@ int16_t broken_M(uchar * r, int16_t D_X, int16_t dy, int16_t left_lim,
         neue = RightDistance(rr, D_X);
 
         if (abs(neue - old) > 1)
-            return (broken_M_pen = 0);/* непрямой правый абрис */
+            return (broken_M_pen = 0);/* ╨╜╨╡╨┐╤А╤П╨╝╨╛╨╣ ╨┐╤А╨░╨▓╤Л╨╣ ╨░╨▒╤А╨╕╤Б */
 
         old = neue;
     }
 
-    /* прямой правый абрис */
+    /* ╨┐╤А╤П╨╝╨╛╨╣ ╨┐╤А╨░╨▓╤Л╨╣ ╨░╨▒╤А╨╕╤Б */
     old = LeftDistance(r, D_X);
     dest = old;
 
@@ -1810,7 +1810,7 @@ int16_t broken_M(uchar * r, int16_t D_X, int16_t dy, int16_t left_lim,
             }
 
             else
-                return (broken_M_pen = 0);/* немонотонность левого абриса */
+                return (broken_M_pen = 0);/* ╨╜╨╡╨╝╨╛╨╜╨╛╤В╨╛╨╜╨╜╨╛╤Б╤В╤М ╨╗╨╡╨▓╨╛╨│╨╛ ╨░╨▒╤А╨╕╤Б╨░ */
         }
 
         if (neue >= ll)
@@ -1825,7 +1825,7 @@ int16_t broken_M(uchar * r, int16_t D_X, int16_t dy, int16_t left_lim,
         old = neue;
     }
 
-    dest = neue - dest; /* скачок монотонного левого абриса */
+    dest = neue - dest; /* ╤Б╨║╨░╤З╨╛╨║ ╨╝╨╛╨╜╨╛╤В╨╛╨╜╨╜╨╛╨│╨╛ ╨╗╨╡╨▓╨╛╨│╨╛ ╨░╨▒╤А╨╕╤Б╨░ */
 
     if (left_lim == ll)
         left_lim = 3;
@@ -1890,18 +1890,18 @@ int16_t DiskrRight(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L)
         for (p_old = -1, sum = curr_sum = 0, i = minr; i <= maxr; i++) {
             p = NumVertInterval(R, D_X, h, (int16_t) (dl - i));
 
-            if (p >= 2) { /* наbegin 2-intervalsаseries of columns */
+            if (p >= 2) { /* ╨╜╨░begin 2-intervals╨░series of columns */
                 if (p_old < 2)
                     curr_sum = 1;
 
                 else
-                    curr_sum++; /* наaccount width of hole */
+                    curr_sum++; /* ╨╜╨░account width of hole */
 
                 if (curr_sum > L)
                     break;
             }
 
-            else if (p_old >= 2) { /* end 2-intervalsаseries of columns */
+            else if (p_old >= 2) { /* end 2-intervals╨░series of columns */
                 if (curr_sum > sum)
                     sum = curr_sum;
 
@@ -1941,7 +1941,7 @@ static int16_t DiskrSymSh(uchar *RASTER, int16_t Wx, uchar NWIDTH,
 
         if (old ^ c) {
             if (c)
-                l = i; /* black : наbegin of foot */
+                l = i; /* black : ╨╜╨░begin of foot */
 
             else { /* white   : end of foot  */
                 w = i - l;
@@ -1953,7 +1953,7 @@ static int16_t DiskrSymSh(uchar *RASTER, int16_t Wx, uchar NWIDTH,
                     minw = w;
 
                 LOCAL_W[k] = w; /* width of foot   */
-                LOCAL[k] = (l + i); /* center+1/2. Accuracy 1/2 pixelа */
+                LOCAL[k] = (l + i); /* center+1/2. Accuracy 1/2 pixel╨░ */
                 k++;
             }
         }
@@ -1964,7 +1964,7 @@ static int16_t DiskrSymSh(uchar *RASTER, int16_t Wx, uchar NWIDTH,
     if (k != 3 || maxw - minw > 1)
         return (0); // enigmatic image
 
-    i = LOCAL[2] + LOCAL[0] - (LOCAL[1] << 1); //аassimetry
+    i = LOCAL[2] + LOCAL[0] - (LOCAL[1] << 1); //╨░assimetry
 
     if (i == 0)
         return (-2);
@@ -2075,18 +2075,18 @@ int16_t DiskrLeft(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L)
         for (p_old = -1, curr_sum = sum = 0, i = minr; i <= maxr; i++) {
             p = NumVertInterval(R, D_X, h, i);
 
-            if (p >= 2) { /* begin 2-intervalsаseries of columns */
+            if (p >= 2) { /* begin 2-intervals╨░series of columns */
                 if (p_old != 2)
                     curr_sum = 1;
 
                 else
-                    curr_sum++; /* наaccount width of hole */
+                    curr_sum++; /* ╨╜╨░account width of hole */
 
                 if (curr_sum > L)
                     break;
             }
 
-            else if (p_old >= 2) { /* end 2-intervalsаseries of columns */
+            else if (p_old >= 2) { /* end 2-intervals╨░series of columns */
                 if (curr_sum > sum)
                     sum = curr_sum;
 
@@ -2110,7 +2110,7 @@ int16_t DiskrLeft(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L)
     return (left_dist[L]);
 }
 
-/*  DiskrLeftBig : check big left holeа */
+/*  DiskrLeftBig : check big left hole╨░ */
 int16_t DiskrLeftBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
                      int16_t L)
 {
@@ -2142,18 +2142,18 @@ int16_t DiskrLeftBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
         for (p_old = -1, curr_sum = sum = 0, i = minr; i <= maxr; i++) {
             p = NumVertInterval(R, D_X, h, i);
 
-            if (p >= 2) { /* наbegin 2-intervalsаseries of columns */
+            if (p >= 2) { /* ╨╜╨░begin 2-intervals╨░series of columns */
                 if (p_old != 2)
                     curr_sum = 1;
 
                 else
-                    curr_sum++; /* наaccount width of hole */
+                    curr_sum++; /* ╨╜╨░account width of hole */
 
                 if (curr_sum > L)
                     break;
             }
 
-            else if (p_old >= 2) { /* end 2-intervalsаseries of columns */
+            else if (p_old >= 2) { /* end 2-intervals╨░series of columns */
                 if (curr_sum > sum)
                     sum = curr_sum;
 
@@ -2201,7 +2201,7 @@ int16_t DiskrRightBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
                 for (p_old = -1, sum = curr_sum = 0, i = minr; i <= maxr; i++) {
                     p = NumVertInterval(R, D_X, h, (int16_t) (dl - i));
 
-                    if (p >= 2) { /* begin 2-intervalsаseries of columns */
+                    if (p >= 2) { /* begin 2-intervals╨░series of columns */
                         if (p_old < 2)
                             curr_sum = 1;
 
@@ -2214,7 +2214,7 @@ int16_t DiskrRightBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
                         }
                     }
 
-                    else if (p_old >= 2) { /* end 2-intervalsаseries of columns */
+                    else if (p_old >= 2) { /* end 2-intervals╨░series of columns */
                         if (curr_sum > sum)
                             sum = curr_sum;
 
@@ -2443,7 +2443,7 @@ static int16_t DiskrJu(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly)
         s3 += (r == 3);
     }
 
-    // NumHorizInterval : число интервалов в строке
+    // NumHorizInterval : ╤З╨╕╤Б╨╗╨╛ ╨╕╨╜╤В╨╡╤А╨▓╨░╨╗╨╛╨▓ ╨▓ ╤Б╤В╤А╨╛╨║╨╡
     n = Ly / 3;
     ret = 0;
 
@@ -2830,19 +2830,19 @@ int16_t up_down_zones(uchar *raster, int16_t D_X, int16_t dx, int16_t dx0,
     for (r = raster + start1 * D_X, num1 = 0, i = start1; i < stop1; i++, r
             += D_X) {
         num1 += (NumHorizInterval(r, dx) == 1 && SumBits(r, dx) >= l);
-        /*  num1 : число строк с одним длинным интервалом на крыше */
+        /*  num1 : ╤З╨╕╤Б╨╗╨╛ ╤Б╤В╤А╨╛╨║ ╤Б ╨╛╨┤╨╜╨╕╨╝ ╨┤╨╗╨╕╨╜╨╜╤Л╨╝ ╨╕╨╜╤В╨╡╤А╨▓╨░╨╗╨╛╨╝ ╨╜╨░ ╨║╤А╤Л╤И╨╡ */
     }
 
     for (r = raster + start2 * D_X, num2 = 0, i = start2; i < stop2; i++, r
             += D_X) {
         num2 += (NumHorizInterval(r, dx) == 1 && SumBits(r, dx) >= l);
-        /*  num2 : число строк с одним длинным интервалом внизу */
+        /*  num2 : ╤З╨╕╤Б╨╗╨╛ ╤Б╤В╤А╨╛╨║ ╤Б ╨╛╨┤╨╜╨╕╨╝ ╨┤╨╗╨╕╨╜╨╜╤Л╨╝ ╨╕╨╜╤В╨╡╤А╨▓╨░╨╗╨╛╨╝ ╨▓╨╜╨╕╨╖╤Г */
     }
 
-    if (num1 == 0 && num2 >= 1) /* нижние серифы слиплись, а крыша разорвана */
+    if (num1 == 0 && num2 >= 1) /* ╨╜╨╕╨╢╨╜╨╕╨╡ ╤Б╨╡╤А╨╕╤Д╤Л ╤Б╨╗╨╕╨┐╨╗╨╕╤Б╤М, ╨░ ╨║╤А╤Л╤И╨░ ╤А╨░╨╖╨╛╤А╨▓╨░╨╜╨░ */
         return ((up_down_serif = 2));
 
-    if (num1 == 0 && num2 == 0) /* две палки */
+    if (num1 == 0 && num2 == 0) /* ╨┤╨▓╨╡ ╨┐╨░╨╗╨║╨╕ */
         return ((up_down_serif = 1));
 
     return ((up_down_serif = 0));
@@ -2863,7 +2863,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
     if (c_or_e < 0) {
         d_c = 0;
 
-        /* горизонтальные исследования  */
+        /* ╨│╨╛╤А╨╕╨╖╨╛╨╜╤В╨░╨╗╤М╨╜╤Л╨╡ ╨╕╤Б╤Б╨╗╨╡╨┤╨╛╨▓╨░╨╜╨╕╤П  */
         for (minnum = dx, n2 = num = num1 = num2 = num3 = 0, i = ody; i < l; i++, r
                 += D_X) {
             t1 = NumHorizInterval(r, wid);
@@ -2889,19 +2889,19 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
             num2 += (t2 >= z);
         }
 
-        /*  num : число строк с одним длинным интервалом */
-        if (num > 1 || num1 > 2 || num2 > 3 || num3 > 1) { /* есть непрерывная перекладина */
-            c_or_e = 1; /* или набор залитых строк       */
+        /*  num : ╤З╨╕╤Б╨╗╨╛ ╤Б╤В╤А╨╛╨║ ╤Б ╨╛╨┤╨╜╨╕╨╝ ╨┤╨╗╨╕╨╜╨╜╤Л╨╝ ╨╕╨╜╤В╨╡╤А╨▓╨░╨╗╨╛╨╝ */
+        if (num > 1 || num1 > 2 || num2 > 3 || num3 > 1) { /* ╨╡╤Б╤В╤М ╨╜╨╡╨┐╤А╨╡╤А╤Л╨▓╨╜╨░╤П ╨┐╨╡╤А╨╡╨║╨╗╨░╨┤╨╕╨╜╨░ */
+            c_or_e = 1; /* ╨╕╨╗╨╕ ╨╜╨░╨▒╨╛╤А ╨╖╨░╨╗╨╕╤В╤Л╤Е ╤Б╤В╤А╨╛╨║       */
             d_e = 0;
             d_c = num;
 
             if (num3)
                 d_c += (minnum == 1 ? 4 : 3);
 
-            return ((let == (uchar) '\xa5' /* е */) ? d_e : d_c);
+            return ((let == (uchar) '\xa5' /* ╨╡ */) ? d_e : d_c);
         }
 
-        if (num == 0 && num1 == 0 && num2 == 0 && dy < 24) { /* ищу прыщ напротив конца правого рога */
+        if (num == 0 && num1 == 0 && num2 == 0 && dy < 24) { /* ╨╕╤Й╤Г ╨┐╤А╤Л╤Й ╨╜╨░╨┐╤А╨╛╤В╨╕╨▓ ╨║╨╛╨╜╤Ж╨░ ╨┐╤А╨░╨▓╨╛╨│╨╛ ╤А╨╛╨│╨░ */
             r = RASTR + ody * D_X;
             t2 = dx >> 1;
 
@@ -2944,17 +2944,17 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
             if (inc && t2 - t1 < 3)
                 t2 = t1; // Oleg : ERECTION conditions : 09-08-95 09:47pm
 
-            if (t3 > 2 && t2 > t1 && num1 >= 0 && num2 < 7) { /* вот прыщик */
-                c_or_e = 1; /* или набор залитых строк       */
+            if (t3 > 2 && t2 > t1 && num1 >= 0 && num2 < 7) { /* ╨▓╨╛╤В ╨┐╤А╤Л╤Й╨╕╨║ */
+                c_or_e = 1; /* ╨╕╨╗╨╕ ╨╜╨░╨▒╨╛╤А ╨╖╨░╨╗╨╕╤В╤Л╤Е ╤Б╤В╤А╨╛╨║       */
                 d_e = 0;
                 d_c = 1 + t2 - t1;
 
-                if ((let == (uchar) '\xa5' /* е */))
+                if ((let == (uchar) '\xa5' /* ╨╡ */))
                     return (d_e);
             }
         }
 
-        /* далее вертикальные исследования  */
+        /* ╨┤╨░╨╗╨╡╨╡ ╨▓╨╡╤А╤В╨╕╨║╨░╨╗╤М╨╜╤Л╨╡ ╨╕╤Б╤Б╨╗╨╡╨┤╨╛╨▓╨░╨╜╨╕╤П  */
         dx -= d;
         X &= 7;
 
@@ -2966,7 +2966,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
                 n++;
         }
 
-        /*  NumVertInterval : число линий в столбце */
+        /*  NumVertInterval : ╤З╨╕╤Б╨╗╨╛ ╨╗╨╕╨╜╨╕╨╣ ╨▓ ╤Б╤В╨╛╨╗╨▒╤Ж╨╡ */
         p = n;
         n *= 4;
         n /= 10; /* 40 % */
@@ -2980,7 +2980,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
         d_c = std::max((int) d_c, (s3 > n) ? s3 - n + 1 : 0);
     }
 
-    return ((let == (uchar) '\xa5' /* е */) ? d_e : d_c);
+    return ((let == (uchar) '\xa5' /* ╨╡ */) ? d_e : d_c);
 }
 
 int16_t AngleBottomRight(uchar *raster, int16_t D_X, int16_t hei)
