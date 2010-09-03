@@ -568,7 +568,7 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
 
                 break;
                 /*
-                 case    (uchar)'\xc1': // 'Á'
+                 case    (uchar)'\xc1': // '\xc1' (Á)
                  pen = 0;
                  if( leo_diskr_right_up_hole(Im3x5) )
                  pen += 30;

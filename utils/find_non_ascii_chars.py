@@ -9,6 +9,24 @@ def get_sources():
     res = os.popen("find %s -name '*.h' -o -name '*.cpp'" % "../src").read()
     return res.split("\n")
 
+def replace_char_by_code(str):
+    pattern = re.compile(u"'([^\u0000-\u007E])'")
+    m = pattern.search(str)
+    if m:
+        repl = "'\\x%x' /* %s */" % (ord(m.group(1)), m.group(1))
+        return pattern.sub(repl, str, 1)
+    else:
+        return None
+
+def replace_chars_by_code(str):
+    new_str = str
+    while True:
+        result = replace_char_by_code(new_str)
+        if result is not None:
+            new_str = result
+        else:
+            return new_str
+        
 
 def find_string_in_file(pattern, filename):
     #print "Looking in ", filename,
@@ -18,10 +36,8 @@ def find_string_in_file(pattern, filename):
     literals_num = 0
     try:
         for line in f:
-            m = pattern.search(line)
-            if m:
-                repl = "'\\x%x' /* %s */" % (ord(m.group(1)), m.group(1))                
-                new_line = pattern.sub(repl, line, 1)
+            new_line = replace_chars_by_code(line)
+            if new_line != line:
                 new_f.write(new_line)
                 literals_num += 1
             else:
