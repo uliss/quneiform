@@ -59,6 +59,7 @@ include(make_package)
 add_subdirectory(datafiles)
 add_subdirectory(src)
 add_subdirectory(cli)
+add_subdirectory(utils)
 
 if(CF_TEST)
    ENABLE_TESTING()
