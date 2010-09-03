@@ -672,10 +672,10 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             perc();
         }
 
-        // распознать 'Й'. Русская буква с шапкой распознаётся уникальным алгоритмом,
-        //		а не через accent(), как русская буква 'Ё'
+        // распознать '\xc9' /* Й */. Русская буква с шапкой распознаётся уникальным алгоритмом,
+        //		а не через accent(), как русская буква '\xa8' /* Ё */
         if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer) //&& !langBul) Almi&Oleg
-            proc_ii();//paste '©'
+            proc_ii();//paste '\xa9' /* © */
 
 
         // чистим версии
@@ -785,7 +785,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             }
 
             if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBul)
-                proc_bI(1);//glue all 'л'
+                proc_bI(1);//glue all '\xeb' /* л */
             if (p2_active && cell_f()->next == cell_l()) {
                 if (language == LANGUAGE_ENGLISH && Step) {
                     eng = 0;
@@ -834,13 +834,13 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             if (language == LANGUAGE_RUSSIAN && langUkr)
                 proc_Ukr(); //UKRAINIAN "iI & .."
             if (language == LANGUAGE_RUSSIAN && !langSer) //&& !langBul)Almi&Oleg
-                proc_ii(); //paste '©'
+                proc_ii(); //paste '\xa9' /* © */
 
             if (!cuts_glues_methode || cuts_glues_methode && language != LANGUAGE_RUSSIAN)
                 make_all_glues();
 
             if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBul)
-                proc_bI(1); //glue all 'л'
+                proc_bI(1); //glue all '\xeb' /* л */
         }
 
         // распознавание особых символов TM
@@ -1103,7 +1103,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
         erection_delete();
     }
 
-    //распознавание особых символов - '®','©'
+    //распознавание особых символов - '\xae' /* ® */,'\xa9' /* © */
     if (!(language == LANGUAGE_DIGITS || NO_Punct))
         trade_marks();
 
@@ -2901,15 +2901,15 @@ Bool match_word_prepare(CSTR_line ln, uchar *alphabet, MatchWordPar *param) {
         snap_show_text("Diffs end");
         snap_monitor();
     }
-    if (alphabet['©'] && !is_russian_turkish_conflict(language) // 21.05.2002 E.P.
+    if (alphabet['\xa9' /* © */] && !is_russian_turkish_conflict(language) // 21.05.2002 E.P.
     )
-        proc_ii(); //склейка всех 'й'
+        proc_ii(); //склейка всех '\xe9' /* й */
 
     ///////// Common code block
     set_cells_language(language);
-    if (alphabet['л'] && !is_baltic_language(language) // 17.07.2001 E.P. ==!is_russian_baltic_conflict(let)
+    if (alphabet['\xeb' /* л */] && !is_baltic_language(language) // 17.07.2001 E.P. ==!is_russian_baltic_conflict(let)
     )
-        proc_bI(1);// склейка всех 'ы'
+        proc_bI(1);// склейка всех '\xfb' /* ы */
 
     if (p2_active && cell_f()->next == cell_l()) {
         return FALSE;
@@ -2961,22 +2961,22 @@ Bool add_rus_under(cell *c) {
     Bool ret = FALSE;
     uchar pr = (uchar) (MAX((int16_t) c->vers[0].prob - 10, 2));
     switch (c->vers[0].let) {
-    case (uchar) 'з':
+    case (uchar) '\xe7' /* з */:
         if (is_russian_turkish_conflict(c->vers[0].let)) // 21.05.2002 E.P.
             break;
 
-        add_stick_vers(c, (char) 'г', pr);
+        add_stick_vers(c, (char) '\xe3' /* г */, pr);
         ret = TRUE;
         break;
-    case (uchar) 'Ё':
-        add_stick_vers(c, (char) 'ж', pr);
-        add_stick_vers(c, (char) 'г', (uchar) MAX((int16_t) pr - 10, 2));
+    case (uchar) '\xa8' /* Ё */:
+        add_stick_vers(c, (char) '\xe6' /* ж */, pr);
+        add_stick_vers(c, (char) '\xe3' /* г */, (uchar) MAX((int16_t) pr - 10, 2));
         ret = TRUE;
         break;
-    case (uchar) '®':
+    case (uchar) '\xae' /* ® */:
         if (is_russian_turkish_conflict(c->vers[0].let)) // 21.05.2002 E.P.
             break;
-        add_stick_vers(c, (char) 'а', pr);
+        add_stick_vers(c, (char) '\xe0' /* а */, pr);
         ret = TRUE;
         break;
     default:
