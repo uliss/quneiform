@@ -90,7 +90,7 @@ int16_t pen=0,upper=32000,dis,i;
  for(i=0;i < gl->ncell;i++)
   upper = MIN(upper,gl->celist[i]->row);
 
- if(let==(uchar)'©' &&
+ if(let==(uchar)'\xa9' /* © */ &&
 	 !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
    ){
   if((dis=upper-bl.b2) <= 0 ){ // letter upper than bbs2
@@ -105,7 +105,7 @@ int16_t pen=0,upper=32000,dis,i;
     pen +=  dis<3 ? 60 : 0;
    }
  }
- if(let==(uchar)'‰'){ // Capital iot
+ if(let==(uchar)'\x89' /* ‰ */){ // Capital iot
   if((dis=upper-bl.b1) <= 0 ){ // letter upper than bbs1
    dis = abs(dis);
    if(dis < 5) pen = iot_pen_uc[dis];
@@ -114,7 +114,7 @@ int16_t pen=0,upper=32000,dis,i;
  }
  return pen;
 }
-// Go by string and recog '©'
+// Go by string and recog '\xa9' /* © */
 void proc_ii(void)
 {
 cell * c,*cap;
@@ -188,7 +188,7 @@ uchar let;
    if( c->col+c->w < cap->col ||
        c->col      > cap->col+cap->w) return 0;  // not centered dust
 if(0&&!p2_active)  // OLEG
-   if( let==r_cu_u || let==(uchar)'¨' )
+   if( let==r_cu_u || let==(uchar)'\xa8' /* ¨ */ )
        {
         B_LINES bl;
         get_b_lines(c,&bl);
@@ -200,7 +200,7 @@ if(0&&!p2_active)  // OLEG
     clist[1]=cap;
     if( !compose_cell(2,clist,c) )
       return -1; //OLEG:new return style of composed
-     let = is_lower(let) ? (uchar)'©' : (uchar)'‰';
+     let = is_lower(let) ? (uchar)'\xa9' /* © */ : (uchar)'\x89' /* ‰ */;
         c->vers[0].let = let;
 	c->vers[0].prob=MIN(254,c->vers[0].prob+2);
 	c->recsource = 0; // artifact
@@ -267,7 +267,7 @@ int16_t i,cap_row,cap_col,cap_h,cap_w,cap_rt,cap_bt,ncaps;
     caplist[0]=c;
     if( !compose_cell((int16_t)(i+1),caplist,c) )
       return 0; //OLEG:new return style of composed
-     let = is_lower(let) ? (uchar)'©' : (uchar)'‰';
+     let = is_lower(let) ? (uchar)'\xa9' /* © */ : (uchar)'\x89' /* ‰ */;
         c->vers[0].let = let;
 	c->vers[0].prob=MIN(254,c->vers[0].prob+2);
 	c->recsource = 0; // artifact
