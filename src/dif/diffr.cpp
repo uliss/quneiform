@@ -288,9 +288,9 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
     switch (let) {
             // russian small & capital E, Ze, 3
         case '3':
-        case (uchar) 'á':
+        case (uchar) '\x87':
         case (uchar) 'ß':
-        case (uchar) 'ù':
+        case (uchar) '\x9d':
         case (uchar) 'Ì':
 
             if (diskr_3 < 0) {
@@ -306,7 +306,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
             // russian small & capital B
-        case (uchar) 'Ç':
+        case (uchar) '\x82':
         case (uchar) '¢':
 
             if (diskr_b < 0) {
@@ -338,7 +338,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // russian o,O
             //  case '0' :
-        case (uchar) 'é':
+        case (uchar) '\x8e':
         case (uchar) 'Æ':
 
             if (diskr_o < 0) {
@@ -353,7 +353,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
             // russian c,C
-        case (uchar) 'ë':
+        case (uchar) '\x91':
         case (uchar) '·':
 
             if (diskr_c < 0) {
@@ -439,7 +439,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             IN_M = 0;
             break;
             // capital & small I/I
-        case (uchar) 'à':
+        case (uchar) '\x88':
         case (uchar) '®':
 
             if (diskr_i < 0) {
@@ -501,7 +501,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
             // capital & small H
-        case (uchar) 'ç':
+        case (uchar) '\x8d':
         case (uchar) '≠':
 
             if (diskr_n < 0) {
@@ -545,7 +545,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
             // capital & small II
-        case (uchar) 'è':
+        case (uchar) '\x8f':
         case (uchar) 'Ø':
 
             if (diskr_p) {
@@ -609,7 +609,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
             // capital & small III
-        case (uchar) 'ò':
+        case (uchar) '\x98':
         case (uchar) 'Ë':
 
             if (diskr_sh < 0) {
@@ -667,7 +667,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                 P = diskr_sh;
 
             break;
-        case (uchar) 'Ü':
+        case (uchar) '\x86':
         case (uchar) '¶':
 
             if (diskr_g < 0) {
@@ -699,11 +699,11 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
             // capital & small III,
-        case (uchar) 'ô':
+        case (uchar) '\x99':
         case (uchar) 'È':
 
             if (diskr_tsh < 0) {
-                F = ((uchar) let == (uchar) 'ô') ? 4 : 2;
+                F = ((uchar) let == (uchar) '\x99') ? 4 : 2;
 
                 if ((F = FOOT(rastr0 + F * D_X, D_X, (uchar) Dx, (uchar) Hy, 0))
                         != 3)
@@ -729,7 +729,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
             // capiatl & small IO
-        case (uchar) 'û':
+        case (uchar) '\x9e':
         case (uchar) 'Ó':
 
             if (diskr_ju < 0) {
@@ -755,7 +755,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
             // capital & small M
-        case (uchar) 'å':
+        case (uchar) '\x8c':
         case (uchar) '¨':
 
             if (diskr_m < 0) {
@@ -796,7 +796,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
             // capital & small bl
-        case (uchar) 'õ':
+        case (uchar) '\x9b':
         case (uchar) 'Î':
 
             if (diskr_ii < 0) {
