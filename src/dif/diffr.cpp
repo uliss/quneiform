@@ -1207,7 +1207,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         if (l_real != l && !(l_real == l - 1 && (n[end1] == 0 || n[beg2] == 0))) {
             if ((!fill_center && l_real <= 4) || l_real <= 3) {
                 int16_t an[2], en[2], ll, dy1 = n2, san[2], sen[2], z;
-                /* поиск прыщей от '\x8d' 'Н' на середине высоты */
+                /* поиск прыщей от '\x8d' '\x8d' (Н) на середине высоты */
                 an[0] = n[end1];
                 an[1] = n[end1 + 1];
                 en[0] = n[beg2 - 1];
@@ -1258,7 +1258,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                         n[end1 + i] = (uchar) san[i];
                     }
 
-                    /* поиск прыщей от '\x88' 'И' по разные стороны от середины высоты */
+                    /* поиск прыщей от '\x88' (И) по разные стороны от середины высоты */
                     an[0] = n[end1];
                     an[1] = n[end1 + 1];
                     en[0] = n[beg2 - 1];
@@ -1376,7 +1376,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                 inc++; /* число скачков возрастаний     */
             }
 
-            /* большое сходство с 'И' */
+            /* большое сходство с '\x88' (И) */
             if (fin > 10 && inc > 3 && dec < 1 && LOCAL[0] <= dx / 4)
                 IN_M = 80;
 
