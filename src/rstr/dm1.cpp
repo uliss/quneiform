@@ -632,7 +632,7 @@ static int16_t allow_comp(cell *B1, int16_t bnd1, int16_t bnd2, int16_t p0)
         return 1;
     c1 = B1->vers[0].let;
     if ((p0 > bnd2) && ((c1 == 'i') || (c1 == 'j') || (language == LANGUAGE_RUSSIAN && ((c1
-            == (uchar) '©') || (c1 == (uchar) '‰'))) || (c1 == invers_exm) || (c1 == invers_qm)))
+            == (uchar) '\xa9' /* © */) || (c1 == (uchar) '\x89' /* ‰ */))) || (c1 == invers_exm) || (c1 == invers_qm)))
         return 1;
     if (db_status && (db_trace_flag & 2))
         est_snap(db_pass, B1, "<= bnd - not to be 'best'");
@@ -2796,7 +2796,7 @@ static int16_t TM_suspect(int16_t position, cell *c)
             let = c->vers[i].let;
             switch (position) {
             case 1:
-                if ((let == 'T' || let == 't' || let == (uchar) '’' || let == (uchar) 'â')
+                if ((let == 'T' || let == 't' || let == (uchar) '\x92' /* ’ */ || let == (uchar) '\xe2' /* â */)
                         && !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
                         !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
                 )
@@ -2807,7 +2807,7 @@ static int16_t TM_suspect(int16_t position, cell *c)
                     return MAX_TM_PROB;
                 }
             case 2:
-                if (let == 'M' || let == 'm' || let == (uchar) 'Œ' || let == (uchar) '¬') {
+                if (let == 'M' || let == 'm' || let == (uchar) '\x8c' /* Œ */ || let == (uchar) '\xac' /* ¬ */) {
                     c->vers[i].prob = MAX_TM_PROB;
                     sort_vers(c);
                     return MAX_TM_PROB;
