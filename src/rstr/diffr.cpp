@@ -395,8 +395,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		IN_M = 0;
 		break;
 
-	case (uchar) 'М':
-	case (uchar) 'м':
+	case (uchar) '\x8c' /* М */:
+	case (uchar) '\xac' /* м */:
 		if (omni) {
 			if (diskr_m < 0) {
 				if (mii < -100) {
@@ -428,8 +428,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 				P = diskr_m;
 		}
 		break;
-	case (uchar) 'Ы':
-	case (uchar) 'ы':
+	case (uchar) '\x9b' /* Ы */:
+	case (uchar) '\xeb' /* ы */:
 		if (diskr_ii < 0) {
 			if (omni) {
 				if (mii < -100)
@@ -447,7 +447,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_ii;
 		break;
 
-	case (uchar) 'Б':
+	case (uchar) '\x81' /* Б */:
 		if (omni) {
 			if (diskr_B < 0) {
 				if (!DiskrRight(rastr0, D_X, Dx, dy, 2))
@@ -457,7 +457,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 				P = diskr_B;
 		}
 		break;
-	case (uchar) 'Е':
+	case (uchar) '\x85' /* Е */:
 		if (omni) {
 			if (diskr_E < 0) {
 				if (!horiz_density(rastr0, D_X, dx, Hy, dy))
@@ -467,8 +467,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 				P = diskr_E;
 		}
 		break;
-	case (uchar) 'Д':
-	case (uchar) 'д':
+	case (uchar) '\x84' /* Д */:
+	case (uchar) '\xa4' /* д */:
 		if (diskr_d < 0) {
 			if (average_bl_angle(rastr0, D_X, Dx, dy, 0) > d_l)
 				P = 4 * step_diskr;
@@ -480,8 +480,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_d;
 		break;
-	case (uchar) 'К':
-	case (uchar) 'к':
+	case (uchar) '\x8a' /* К */:
+	case (uchar) '\xaa' /* к */:
 		if (diskr_k < 0) {
 			if (font_type == 0) { /* Poly 	*/
 				if (!DiskrRightBig(rastr0, D_X, Dx, dy, 2))
@@ -505,9 +505,9 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_k;
 		break;
-	case (uchar) 'В': /*     case 'в' :*/
+	case (uchar) '\x82' /* В */: /*     case '\xa2'  в  :*/
 #ifdef INTERSEPTOR
-		case (uchar)'в' :
+		case (uchar)'\xa2' /* в */ :
 #endif
 		if (diskr_b < 0) {
 #ifdef INTERSEPTOR
@@ -515,7 +515,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P += 100;
 #endif
 			if (!DiskrRight(rastr0, D_X, Dx, dy, 1)) { /* нет дырки */
-				if (dy <= 19) /* маленькие 'в' не имеют дырочки */
+				if (dy <= 19) /* маленькие '\xa2'  'в' не имеют дырочки */
 				{
 					if (!omni)
 						if (!NoSymmLastColumn(rastr0, D_X, Dx, dy))
@@ -543,13 +543,13 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_b;
 		break;
 	case '3':
-	case (uchar) 'З':
-	case (uchar) 'з':
+	case (uchar) '\x87' /* З */:
+	case (uchar) '\xa7' /* з */:
 		if (diskr_z < 0) {
 			if (!DiskrRight(rastr0, D_X, Dx, dy, 1)) { /* нет дырки */
 				if (dy < 14 && DiskrEZ(rastr0, D_X, dx, dy) == 1)
 					P += step_diskr;
-				else if ((dy < 21) || (cg_flag & 16)) /* маленькие 'з' не имеют дырочки */
+				else if ((dy < 21) || (cg_flag & 16)) /* маленькие '\xa7'  з не имеют дырочки */
 				{
 					if (dy > 13 && (!(cg_flag & 16)))
 						if (!NoSymmLastColumn(rastr0, D_X, Dx, dy))
@@ -569,8 +569,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_z;
 		break;
 
-	case (uchar) 'Э':
-	case (uchar) 'э':
+	case (uchar) '\x9d' /* Э */:
+	case (uchar) '\xed' /* э */:
 
 		// ┬ сюыурЁёъюь эхЄ ▌¤. 08.09.2000 E.P.
 		if (language == LANGUAGE_RUSSIAN && langBul) {
@@ -599,7 +599,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_ee;
 
 		break;
-		/* case (uchar)'Я' : */case (uchar) 'я': /*Valdemar 9.03.94*/
+		/* case (uchar)'\x9f'  Я  : */case (uchar) '\xef' /* я */: /*Valdemar 9.03.94*/
 		if (diskr_ja < 0) {
 			if (!DiskrLeft(rastr0, D_X, Dx, dy, 1))
 				P = 2 * step_diskr;
@@ -613,10 +613,10 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_ja;
 		break;
 		/*  case '8' :*/
-	case (uchar) 'Х':
+	case (uchar) '\x95' /* Х */:
 		if (is_turkish_language(language)) // 21.05.2002 E.P.
 			break;
-	case (uchar) 'х':
+	case (uchar) '\xe5' /* х */:
 		if (diskr_h < 0) {
 			if (!DiskrLeftBig(rastr0, D_X, Dx, dy, 1))
 				P += 3 * step_diskr;
@@ -630,8 +630,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_h;
 		break;
-	case (uchar) 'Ж':
-	case (uchar) 'ж':
+	case (uchar) '\x86' /* Ж */:
+	case (uchar) '\xa6' /* ж */:
 		if (diskr_g < 0) {
 			if (!DiskrLeftBig(rastr0, D_X, (uchar) Dx, (uchar) dy, 2))
 				P += 3 * step_diskr;
@@ -649,15 +649,15 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 					P += 2 * n * step_diskr;
 			}
 #ifdef INTERSEPTOR
-			if( let==(uchar)'ж' && dx>55 )
+			if( let==(uchar)'\xa6' /* ж */ && dx>55 )
 			P += 160;
 #endif
 			diskr_g = P;
 		} else
 			P = diskr_g;
 		break;
-	case (uchar) 'Ю':
-	case (uchar) 'ю':
+	case (uchar) '\x9e' /* Ю */:
+	case (uchar) '\xee' /* ю */:
 		if (is_turkish_language(language)) // 21.05.2002 E.P.
 			break;
 		if (diskr_ju < 0) {
@@ -669,15 +669,15 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			if (DiskrRight(rastr0, D_X, Dx, dy, 2))
 				P += 2 * step_diskr;
 #ifdef INTERSEPTOR
-			if( let==(uchar)'ю' && dx>55 )
+			if( let==(uchar)'\xee' /* ю */ && dx>55 )
 			P += 160;
 #endif
 			diskr_ju = P;
 		} else
 			P = diskr_ju;
 		break;
-	case (uchar) 'Ц':
-	case (uchar) 'ц':
+	case (uchar) '\x96' /* Ц */:
+	case (uchar) '\xe6' /* ц */:
 		if (diskr_ce < 0) {
 			if ((F = FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx, (uchar) Hy, 0))
 					!= 2)
@@ -692,8 +692,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_ce;
 		break;
-	case (uchar) 'Ш':
-	case (uchar) 'ш':
+	case (uchar) '\x98' /* Ш */:
+	case (uchar) '\xe8' /* ш */:
 		if (diskr_sh < 0) {
 			FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
 			if (rotate) // OLEG : ERECTION conditions : 09-20-95
@@ -737,8 +737,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_sh;
 		break;
 
-	case (uchar) 'П':
-	case (uchar) 'п':
+	case (uchar) '\x8f' /* П */:
+	case (uchar) '\xaf' /* п */:
 		if (diskr_p) {
 			if (dy > 13)
 				F = FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx, (uchar)(dy - 4), 0);
@@ -788,8 +788,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_p;
 		break;
-	case (uchar) 'И':
-	case (uchar) 'и':
+	case (uchar) '\x88' /* И */:
+	case (uchar) '\xa8' /* и */:
 		if (diskr_i < 0) {
 			F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
 			if (F != 2 || MIN(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1 < 3) {
@@ -845,8 +845,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_i;
 		break;
-	case (uchar) 'Н':
-	case (uchar) 'н':
+	case (uchar) '\x8d' /* Н */:
+	case (uchar) '\xad' /* н */:
 		if (diskr_n < 0) {
 			F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
 			if (F != 2 || MIN(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1 < 3) {
@@ -915,8 +915,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		 */
 		break;
 	case '0':
-	case (uchar) 'О':
-	case (uchar) 'о':
+	case (uchar) '\x8e' /* О */:
+	case (uchar) '\xae' /* о */:
 		if (is_turkish_language(language)) // 21.05.2002 E.P.
 			break;
 
@@ -927,33 +927,33 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_o;
 		break;
-	case (uchar) 'С':
-	case (uchar) 'с':
+	case (uchar) '\x91' /* С */:
+	case (uchar) '\xe1' /* с */:
 		if (diskr_c < 0) {
 			if (!DiskrRight(rastr0, D_X, Dx, dy, 2))
 				P = step_diskr;
-			if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) 'с',
+			if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '\xe1' /* с */,
 					(uchar) inc)) != 0)
 				P += n * step_diskr;
 			diskr_c = P;
 		} else
 			P = diskr_c;
 		break;
-	case (uchar) 'е':
+	case (uchar) '\xa5' /* е */:
 	case (uchar) UKR_e:
 	case (uchar) UKR_E:
 		if (diskr_e < 0) {
-			if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) 'е',
+			if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '\xa5' /* е */,
 					(uchar) inc)) > 2)
 				P += (n - 2) * step_diskr;
 			diskr_e = P;
 		} else
 			P = diskr_e;
 		break;
-	case (uchar) 'ч':
+	case (uchar) '\xe7' /* ч */:
 		if (is_turkish_language(language)) // 21.05.2002 E.P.
 			break;
-	case (uchar) 'Ч':
+	case (uchar) '\x97' /* Ч */:
 	case '4':
 		if (diskr_tsche < 0) {
 			if (dy > 16)
@@ -975,12 +975,12 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_tsche;
 		break;
-	case (uchar) 'Щ':
+	case (uchar) '\x99' /* Щ */:
 		if (is_turkish_language(language)) // 21.05.2002 E.P.
 			break;
-	case (uchar) 'щ':
+	case (uchar) '\xe9' /* щ */:
 		if (diskr_tsh < 0) {
-			F = ((uchar) let == (uchar) 'Щ') ? 4 : 2;
+			F = ((uchar) let == (uchar) '\x99' /* Щ */) ? 4 : 2;
 			if ((F = FOOT(rastr0 + F * D_X, D_X, (uchar) Dx, (uchar) Hy, 0))
 					!= 3)
 				P = 10 * step_diskr;
@@ -998,7 +998,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_tsh;
 		break;
 #ifdef UFA
-		case (uchar)'б':
+		case (uchar)'\xa1' /* б */:
 #endif
 	case '6':
 		if (diskr_6 < 0) {
@@ -1075,7 +1075,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		}
 		else P = diskr_2;
 		break;
-		case (uchar)'Г' :
+		case (uchar)'\x83' /* Г */ :
 		if( DiskrHoriz(rastr,D_X,dy/2) &&
 				(F=FOOT(rastr0+2*D_X, D_X,Dx, Hy,0))!=1 )
 		P = 4*step_diskr;
@@ -1369,7 +1369,7 @@ int16_t broken_M(uchar * r, int16_t D_X, int16_t dy, int16_t left_lim,
 			&& left_lim > 5 || dest == left_lim && left_lim > 4) && incr > dy
 			/ 2) && fc < 3 && maxd > 3));
 }
-/* descr_ce : дикриминатор 'Ц','ц' с очень короткими хвостами */
+/* descr_ce : дикриминатор '\x96'  Ц ,'\xe6'  ц  с очень короткими хвостами */
 static int16_t descr_ce(uchar *r, int16_t D_X, int16_t hy) {
 	uchar *rr = r + D_X;
 	int16_t i;
@@ -1454,7 +1454,7 @@ static int16_t DiskrJu1(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy)
 }
 #endif
 
-/* for letters 'ж' */
+/* for letters '\xa6'  ж  */
 static int16_t DiskrJ0(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly,
 		int16_t lim) {
 	uchar *RASTER = RASTR;
@@ -1518,7 +1518,7 @@ static int DiskrJ(unsigned char *RASTR, int D_X, int dx, int dy) {
 			> 3);
 }
 
-/* for letters 'ш' */
+/* for letters '\xe8'  ш  */
 static int16_t DiskrSh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly) {
 	uchar *RASTER = RASTR;
 	int16_t i, num, n2, p, ddx;
@@ -1545,7 +1545,7 @@ static int16_t DiskrSh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly) {
 	return (num > 2 ? num - 2 : 0);
 }
 
-/* for letters 'ш' */
+/* for letters '\xe8'  ш  */
 static int16_t DiskrSh0(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 		int16_t dx0) {
 	uchar *RASTER = RASTR + D_X * (dy - (dy >> 2));
@@ -1816,7 +1816,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 			d_c = num;
 			if (num3)
 				d_c += (minnum == 1 ? 4 : 3);
-			return ((let == (uchar) 'е') ? d_e : d_c);
+			return ((let == (uchar) '\xa5' /* е */) ? d_e : d_c);
 		}
 		if (num == 0 && num1 == 0 && num2 == 0 && dy < 24) { /* ищу прыщ напротив конца правого рога */
 			r = RASTR + ody * D_X;
@@ -1854,7 +1854,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 				c_or_e = 1; /* или набор залитых строк       */
 				d_e = 0;
 				d_c = 1 + t2 - t1;
-				if ((let == (uchar) 'е'))
+				if ((let == (uchar) '\xa5' /* е */))
 					return (d_e);
 			}
 		}
@@ -1880,7 +1880,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 			d_e = 4;
 		d_c = MAX(d_c, (s3 > n) ? s3 - n + 1 : 0);
 	}
-	return ((let == (uchar) 'е') ? d_e : d_c);
+	return ((let == (uchar) '\xa5' /* е */) ? d_e : d_c);
 }
 
 static int16_t average_tl_angle(uchar *RASTER, int16_t D_X, int16_t dx,
@@ -2002,7 +2002,7 @@ int16_t fill_center_zone(uchar *raster, int16_t D_X, int16_t dy, int16_t beg,
 	return (fill_center);
 }
 
-/* корректность слития крыши и нижних серифов для 'П','п' */
+/* корректность слития крыши и нижних серифов для '\x8f'  П ,'\xaf'  п  */
 int16_t up_down_zones(uchar *raster, int16_t D_X, int16_t dx, int16_t dx0,
 		int16_t start1, int16_t stop1, int16_t start2, int16_t stop2) {
 	int16_t i, num1, num2, l = dx0 - (dx0 >> 3);
@@ -2032,7 +2032,7 @@ int16_t up_down_zones(uchar *raster, int16_t D_X, int16_t dx, int16_t dx0,
 	return ((up_down_serif = 0));
 }
 
-/* корректность слития крыши и нижних серифов для 'В','в' */
+/* корректность слития крыши и нижних серифов для '\x82'  В ,'\xa2'  в  */
 int16_t up_down_zones_for_B(uchar *raster, int16_t D_X, int16_t dx,
 		int16_t dx0, int16_t start1, int16_t stop1, int16_t start2,
 		int16_t stop2) {
@@ -2067,7 +2067,7 @@ int16_t up_down_zones_for_B(uchar *raster, int16_t D_X, int16_t dx,
 
 /***************************************************************************/
 /*                                                                         */
-/*   возвращает   1   если   слитие   'i'  с   'д'                         */
+/*   возвращает   1   если   слитие   'i'  с   '\xa4'  д                          */
 /*   возвращает   0   иначе                                                */
 /*                                                                         */
 /***************************************************************************/
@@ -2456,7 +2456,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 		if (l_real != l && !(l_real == l - 1 && (n[end1] == 0 || n[beg2] == 0)))
 			if (!fill_center && l_real <= 4 || l_real <= 3) {
 				int16_t an[2], en[2], ll, dy1 = n2, san[2], sen[2], z;
-				/* поиск прыщей от 'Н' на середине высоты */
+				/* поиск прыщей от '\x8d' Н на середине высоты */
 				an[0] = n[end1];
 				an[1] = n[end1 + 1];
 				en[0] = n[beg2 - 1];
@@ -2495,7 +2495,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 						n[beg2 - i] = (uchar) sen[i];
 						n[end1 + i] = (uchar) san[i];
 					}
-					/* поиск прыщей от 'И' по разные стороны от середины высоты */
+					/* поиск прыщей от '\x88' И по разные стороны от середины высоты */
 					an[0] = n[end1];
 					an[1] = n[end1 + 1];
 					en[0] = n[beg2 - 1];
@@ -2587,7 +2587,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 					fin += mean - neue;
 				inc++; /* число скачков возрастаний 	*/
 			}
-			/* большое сходство с 'И' */
+			/* большое сходство с '\x88'  И  */
 			if (fin > 10 && inc > 3 && dec < 1 && LOCAL[0] <= dx / 4)
 				IN_M = 80;
 			else if (fin > 10 && inc > 2 && dec == 0 && LOCAL[0] <= dx / 4)
@@ -2722,7 +2722,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 		IN_N = 3;
 		IN_I = 2;
 	}
-	if (omni) { /* 'И' путается с 'М' */
+	if (omni) { /* '\x88' И путается с '\x8c' М */
 		int16_t i, le, ri, nnn = (beg2 + end1 + ol - or_) / 2;
 		if (fine > 15 && decr > 3 || fine > 20 && decr > 2 || fine > 10 && incr
 				< 1 && decr > 3)
@@ -2948,7 +2948,7 @@ static int16_t DiskrimM(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 			break;
 		}
 		byte += (prev - j);
-		/* for  'ы' */
+		/* for  '\xeb'  ы  */
 		if ((byte < 2) && (i > n4 + 2)) {
 			break;
 		}
@@ -3053,7 +3053,7 @@ static int16_t DiskrimM1(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 			break;
 		}
 		byte += (prev - j);
-		/* for  'ы' */
+		/* for  '\xeb'  ы  */
 		if ((byte < 1) && (i > n4 + 2)) {
 			break;
 		}
@@ -3282,7 +3282,7 @@ int16_t up_down_hist_M(uchar *rastr, int16_t D_X, int16_t Dx, int16_t dy) {
 	return (4);
 }
 
-/*  для 'ш': ноги на одинаковом расстоянии? Да: <0; нет: >0; неясно: 0 */
+/*  для '\xe8' ш: ноги на одинаковом расстоянии? Да: <0; нет: >0; неясно: 0 */
 static int16_t DiskrSymSh(uchar *RASTER, int16_t Wx, uchar NWIDTH,
 		uchar NLENGTH) {
 	int16_t i, old, l, k, d;
