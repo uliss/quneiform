@@ -156,7 +156,7 @@ static Bool proplet_tg(uchar let)
 	}
 
 	// for INTERSEPTOR need "S"
-	if(language==LANGUAGE_RUSSIAN && multy_language && (is_english(let)||let=='$'||let==(uchar)'ß'))
+	if(language==LANGUAGE_RUSSIAN && multy_language && (is_english(let)||let=='$'||let==(uchar)'\xdf' /* ß */))
 		return FALSE;
 	// Oleg : 20-10-1994 : kill english versions for Rus-Eng mode
 	if(language==LANGUAGE_ENGLISH && (is_russian(let)||let=='|'))
