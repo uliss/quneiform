@@ -289,9 +289,9 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             // russian small & capital E, Ze, 3
         case '3':
         case (uchar) '\x87':
-        case (uchar) 'з':
+        case (uchar) '\xa7' /* з */:
         case (uchar) '\x9d':
-        case (uchar) 'э':
+        case (uchar) '\xed' /* э */:
 
             if (diskr_3 < 0) {
                 if (LeftHole(rastr, D_X, Dx, Hy)) { // need mount on the central zone
@@ -307,7 +307,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // russian small & capital B
         case (uchar) '\x82':
-        case (uchar) 'в':
+        case (uchar) '\xa2' /* в */:
 
             if (diskr_b < 0) {
                 if (!DiskrRight(rastr0, D_X, Dx, dy, 1)) { // need pimple
@@ -322,10 +322,10 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
             // russian e
-        case (uchar) 'е':
+        case (uchar) '\xa5' /* е */:
 
             if (diskr_e < 0) {
-                if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) 'е',
+                if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '\xa5' /* е */,
                                      (uchar) inc)) > 2)
                     P += (n - 2) * step_diskr;
 
@@ -339,7 +339,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             // russian o,O
             //  case '0' :
         case (uchar) '\x8e':
-        case (uchar) 'о':
+        case (uchar) '\xae' /* о */:
 
             if (diskr_o < 0) {
                 if (DiskrRight(rastr0, D_X, Dx, dy, 2))
@@ -354,13 +354,13 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // russian c,C
         case (uchar) '\x91':
-        case (uchar) 'с':
+        case (uchar) '\xe1' /* с */:
 
             if (diskr_c < 0) {
                 if (!DiskrRight(rastr0, D_X, Dx, dy, 2))
                     P = step_diskr;
 
-                if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) 'с',
+                if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '\xe1' /* с */,
                                      (uchar) inc)) != 0)
                     P += n * step_diskr;
 
@@ -440,7 +440,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small I/I
         case (uchar) '\x88':
-        case (uchar) 'и':
+        case (uchar) '\xa8' /* и */:
 
             if (diskr_i < 0) {
                 F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
@@ -502,7 +502,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small H
         case (uchar) '\x8d':
-        case (uchar) 'н':
+        case (uchar) '\xad' /* н */:
 
             if (diskr_n < 0) {
                 F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
@@ -546,7 +546,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small II
         case (uchar) '\x8f':
-        case (uchar) 'п':
+        case (uchar) '\xaf' /* п */:
 
             if (diskr_p) {
                 if (dy > 13)
@@ -610,7 +610,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small III
         case (uchar) '\x98':
-        case (uchar) 'ш':
+        case (uchar) '\xe8' /* ш */:
 
             if (diskr_sh < 0) {
                 FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
@@ -668,7 +668,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             break;
         case (uchar) '\x86':
-        case (uchar) 'ж':
+        case (uchar) '\xa6' /* ж */:
 
             if (diskr_g < 0) {
                 if (!DiskrLeftBig(rastr0, D_X, Dx, dy, 2))
@@ -700,7 +700,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small III,
         case (uchar) '\x99':
-        case (uchar) 'щ':
+        case (uchar) '\xe9' /* щ */:
 
             if (diskr_tsh < 0) {
                 F = ((uchar) let == (uchar) '\x99') ? 4 : 2;
@@ -730,7 +730,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capiatl & small IO
         case (uchar) '\x9e':
-        case (uchar) 'ю':
+        case (uchar) '\xee' /* ю */:
 
             if (diskr_ju < 0) {
                 r = FOOT_HEI(rastr0, D_X, (uchar) dx, (uchar) dy);
@@ -756,7 +756,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small M
         case (uchar) '\x8c':
-        case (uchar) 'м':
+        case (uchar) '\xac' /* м */:
 
             if (diskr_m < 0) {
                 if (mii < -100) {
@@ -797,7 +797,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             break;
             // capital & small bl
         case (uchar) '\x9b':
-        case (uchar) 'ы':
+        case (uchar) '\xeb' /* ы */:
 
             if (diskr_ii < 0) {
                 if (mii < -100) {
@@ -1207,7 +1207,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         if (l_real != l && !(l_real == l - 1 && (n[end1] == 0 || n[beg2] == 0))) {
             if ((!fill_center && l_real <= 4) || l_real <= 3) {
                 int16_t an[2], en[2], ll, dy1 = n2, san[2], sen[2], z;
-                /* поиск прыщей от 'Н' на середине высоты */
+                /* поиск прыщей от '\x8d' 'Н' на середине высоты */
                 an[0] = n[end1];
                 an[1] = n[end1 + 1];
                 en[0] = n[beg2 - 1];
@@ -1258,7 +1258,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                         n[end1 + i] = (uchar) san[i];
                     }
 
-                    /* поиск прыщей от 'И' по разные стороны от середины высоты */
+                    /* поиск прыщей от '\x88' 'И' по разные стороны от середины высоты */
                     an[0] = n[end1];
                     an[1] = n[end1 + 1];
                     en[0] = n[beg2 - 1];
@@ -1556,7 +1556,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         IN_I = 2;
     }
 
-    if (omni) { /* 'И' путается с 'М' */
+    if (omni) { /* '\x88' (И) путается с '\x88' (И) */
         int16_t i, le, ri, nnn = (beg2 + end1 + ol - or_) / 2;
 
         if (fine > 15 && decr > 3 || fine > 20 && decr > 2 || fine > 10 && incr
@@ -2898,7 +2898,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
             if (num3)
                 d_c += (minnum == 1 ? 4 : 3);
 
-            return ((let == (uchar) 'е') ? d_e : d_c);
+            return ((let == (uchar) '\xa5' /* е */) ? d_e : d_c);
         }
 
         if (num == 0 && num1 == 0 && num2 == 0 && dy < 24) { /* ищу прыщ напротив конца правого рога */
@@ -2949,7 +2949,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
                 d_e = 0;
                 d_c = 1 + t2 - t1;
 
-                if ((let == (uchar) 'е'))
+                if ((let == (uchar) '\xa5' /* е */))
                     return (d_e);
             }
         }
@@ -2980,7 +2980,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
         d_c = std::max((int) d_c, (s3 > n) ? s3 - n + 1 : 0);
     }
 
-    return ((let == (uchar) 'е') ? d_e : d_c);
+    return ((let == (uchar) '\xa5' /* е */) ? d_e : d_c);
 }
 
 int16_t AngleBottomRight(uchar *raster, int16_t D_X, int16_t hei)

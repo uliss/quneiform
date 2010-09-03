@@ -13,17 +13,26 @@ def get_sources():
 def find_string_in_file(pattern, filename):
     #print "Looking in ", filename,
     f = open(filename, "r")
+    new_filename = filename + '.new'
+    new_f = open(new_filename, 'w')
+    literals_num = 0
     try:
         for line in f:
             m = pattern.search(line)
             if m:
-                #print line,
-                print "%x" % ord(m.group(1))                
-                print filename
-                f.close()
-                return True
+                repl = "'\\x%x' /* %s */" % (ord(m.group(1)), m.group(1))                
+                new_line = pattern.sub(repl, line)
+                new_f.write(new_line)
+                literals_num += 1
+            else:
+                new_f.write(line)
     finally:
         f.close()
+
+
+    if literals_num == 0:
+        os.remove(new_filename)
+
     return False
 
 
