@@ -288,7 +288,7 @@ static int16_t dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_
             if (
 				// 16.07.2001 E.P. конфликт с a_bottom_accent_baltic 0xe0
 				!is_baltic_language(language) &&
-				let=='а' &&	// 0xe0
+				let=='\xe0' /* а */ &&	// 0xe0
 				(c->pr_vers.prob>100 || abs(c->save_baton[0].l-c->h)<=bl_lim)
 			   )
               continue;
@@ -304,7 +304,7 @@ static int16_t dirt_frag(cell **B, cell **E, cell *first, cell *last, Bool stop_
         if (!capb)  capb=c;
         cape=c;
       }
-      if (let!='а' ||
+      if (let!='\xe0' /* а */ ||
 			// 16.07.2001 E.P. конфликт с a_bottom_accent_baltic 0xe0
 		    is_baltic_language(language)
 		  )
@@ -606,5 +606,5 @@ static void del_hided(cell *clink)
 
 static Bool capital(uchar let)
 {
-    return (let>='0' && let<='9' || let>='A' && let<='Z' || let>='А' && let<='Я');
+    return (let>='0' && let<='9' || let>='A' && let<='Z' || let>='\xc0' /* А */ && let<='\xdf' /* Я */);
 }

@@ -346,7 +346,7 @@ int32_t TestFontClusters(void)
         }
 
         // узналось как что-то иное ?
-        // если совсем не распозналось - бывает ('»' в sten91)
+        // если совсем не распозналось - бывает ('\xc8' /* » */ в sten91)
         if( j >= ro.recResults.lnAltCnt ||
             ro.recResults.Alt[j].Prob < 180 ||
             ro.recResults.Alt[j].Prob < 220 &&
@@ -547,15 +547,15 @@ Bool32   p2_msk_inc(CSTR_rast    rst)
     ver.Alt[1].Prob=255;
     if( name=='0' )
     {
-        ver.Alt[1].Code=(uchar)'О';
-        ver.Alt[2].Code=(uchar)'Ѓ';
+        ver.Alt[1].Code=(uchar)'\x8e' /* О */;
+        ver.Alt[2].Code=(uchar)'\xae' /* Ѓ */;
         ver.Alt[2].Prob=255;
         ver.lnAltCnt=3;
     }
     if( name=='3' )
     {
-        ver.Alt[1].Code=(uchar)'З';
-        ver.Alt[2].Code=(uchar)'І';
+        ver.Alt[1].Code=(uchar)'\x87' /* З */;
+        ver.Alt[2].Code=(uchar)'\xa7' /* І */;
         ver.Alt[2].Prob=255;
         ver.lnAltCnt=3;
     }

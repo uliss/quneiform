@@ -135,10 +135,10 @@ Bool tradeCR(cell *c) {
 			if (c->vers[0].let == (uchar) 'o' || c->vers[0].let == (uchar) 'O'
 					|| c->vers[0].let == (uchar) '0' ||
 
-			c->vers[0].let == (uchar) 'Ѓ' && !is_russian_turkish_conflict(
+			c->vers[0].let == (uchar) '\xae' /* Ѓ */ && !is_russian_turkish_conflict(
 					c->vers[0].let) // 21.05.2002 E.P.
 
-					|| c->vers[0].let == (uchar) 'О' || c->vers[0].let
+					|| c->vers[0].let == (uchar) '\x8e' /* О */ || c->vers[0].let
 					== (uchar) 'Q') {
 				saveN = (uchar) nextc->nvers;
 				memcpy(saveV, nextc->vers, VERS_IN_CELL * sizeof(CIF::version));
@@ -164,8 +164,8 @@ Bool tradeCR(cell *c) {
 						switch (nextc->vers[i].let) {
 						case 'c':
 						case 'C':
-						case (uchar) 'б': // –усска€ "с" - конфликтный код дл€ балтики 17.07.2001
-						case (uchar) 'С':
+						case (uchar) '\xe1' /* б */: // –усска€ "с" - конфликтный код дл€ балтики 17.07.2001
+						case (uchar) '\x91' /* С */:
 							//  онфликтный код
 							if (!is_russian_baltic_conflict(nextc->vers[i].let)) // 17.07.2001 E.P.
 								tm = liga_CC;
@@ -832,7 +832,7 @@ static int16_t try_TM (cell **first_cell_ptr, int16_t num)
 		{
 			let=c->vers[j].let;
 			if (let=='t' || let=='T' || // let=='1' ||
-					( language==LANGUAGE_RUSSIAN && (let==(uchar)'в' || let==(uchar)'Т')) ) // Russian T
+					( language==LANGUAGE_RUSSIAN && (let==(uchar)'\xe2' /* в */ || let==(uchar)'\x92' /* Т */)) ) // Russian T
 			{
 				tc = c;
 				TM_found=1; // T is found
@@ -877,7 +877,7 @@ static int16_t try_TM (cell **first_cell_ptr, int16_t num)
 	{
 		let=fc->vers[j].let;
 		if (let=='m' || let=='M' ||
-				(language==LANGUAGE_RUSSIAN && (let==(uchar)'ђ' || let==(uchar)'М') ) ) // Russian M
+				(language==LANGUAGE_RUSSIAN && (let==(uchar)'\xac' /* ђ */ || let==(uchar)'\x8c' /* М */) ) ) // Russian M
 		{
 			TM_found|=2; // M is found
 			Mprob += fc->vers[j].prob;

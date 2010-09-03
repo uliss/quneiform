@@ -666,7 +666,7 @@ static uchar let_lindef_lat[256] = {
 		// f0 n o accents                      u accents
 		};
 
-// Nick 25/01/2001 дл€ русского маленького 'о' изменено с 0x34 на 0x36
+// Nick 25/01/2001 дл€ русского маленького '\xee' /* о */ изменено с 0x34 на 0x36
 //                 дл€ i с 6 на 4
 static uchar let_lindef_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0,
@@ -1337,8 +1337,8 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_linshape[r_e_2dot] = 0x08;
 
 			// for accent is used in abris
-			let_sans_acc[r_EE_2dot] = (uchar) 'Е';
-			let_sans_acc[r_e_2dot] = (uchar) '•';
+			let_sans_acc[r_EE_2dot] = (uchar) '\x85' /* Е */;
+			let_sans_acc[r_e_2dot] = (uchar) '\xa5' /* • */;
 
 			// ???
 			let_lindef3[r_EE_2dot] = 0;

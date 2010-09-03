@@ -183,15 +183,15 @@ static struct {
 	uchar e2[3];
 	uchar E2[3];
 	uchar ii[3];
-} eq_list = { { (uchar) '§', r_cu_d, r_cu_g, 0 }, //   r_cu_d  0xf0     cursiv d tail up
+} eq_list = { { (uchar) '\xa4' /* § */, r_cu_d, r_cu_g, 0 }, //   r_cu_d  0xf0     cursiv d tail up
 		//   r_cu_g  0xf1     cursiv d tail down
-		{ (uchar) 'в', r_cu_m, 0 }, //   r_cu_m  0xf5     cursiv t
-		{ (uchar) '®', (uchar) '©', r_cu_u, 0 }, //   r_cu_u  0xf7     cursiv ee
-		{ (uchar) '£', r_cu_z, 0 }, //   r_cu_z  0xf8     cursiv g
-		{ (uchar) '†', r_cu_a, 0 }, //   r_cu_a  0xfd     a
-		{ (uchar) 'с', r_e_2dot, 0 }, //   r_e_2dot   0xC0  russian e ..  = 192
-		{ (uchar) 'р', r_EE_2dot, 0 }, //   r_EE_2dot  0xC8  russian E ..  = 200
-		{ (uchar) 'И', (uchar) 'Й', 0 } };
+		{ (uchar) '\xe2' /* в */, r_cu_m, 0 }, //   r_cu_m  0xf5     cursiv t
+		{ (uchar) '\xa8' /* ® */, (uchar) '\xa9' /* © */, r_cu_u, 0 }, //   r_cu_u  0xf7     cursiv ee
+		{ (uchar) '\xa3' /* £ */, r_cu_z, 0 }, //   r_cu_z  0xf8     cursiv g
+		{ (uchar) '\xa0' /* † */, r_cu_a, 0 }, //   r_cu_a  0xfd     a
+		{ (uchar) '\xf1' /* с */, r_e_2dot, 0 }, //   r_e_2dot   0xC0  russian e ..  = 192
+		{ (uchar) '\xf0' /* р */, r_EE_2dot, 0 }, //   r_EE_2dot  0xC8  russian E ..  = 200
+		{ (uchar) '\x88' /* И */, (uchar) '\x89' /* Й */, 0 } };
 
 #define EQU_d   0
 #define EQU_t   EQU_d+sizeof(eq_list.d)
@@ -983,12 +983,12 @@ static int32_t add_sect(int32_t il, int32_t ir, uchar nlet, Bool rerecog,
 		lc = lc->prev;
 	while (!fict(lc) && !let_or_bad(lc));
 
-	//чтобы распозналась палка присваиваем версию 'ь'
+	//чтобы распозналась палка присваиваем версию '\xfc' /* ь */
 	if (let == '|' && !fict(lc) && !is_baltic_language(param->language) && // 17.07.2001 E.P.
 			!is_turkish_language(param->language) // 21.05.2002 E.P.
 	) {
 		left_let = lc->vers[0].let;
-		lc->vers[0].let = (uchar) 'м';
+		lc->vers[0].let = (uchar) '\xec' /* м */;
 	}
 
 	memset(&vers, 0, sizeof(SVERS));

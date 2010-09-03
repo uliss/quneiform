@@ -179,12 +179,12 @@ int16_t abris(s_glue *GL, cell *cl, uchar Let, int16_t prob) {
 				return CR_filt(); // »справил 21.05.2002 E.P.
 			break;
 
-		case (uchar) 'о':
+		case (uchar) '\xee' /* о */:
 			//  онфликтный код 17.07.2001 E.P.
 			if (is_baltic_language(language) || is_turkish_language(language) // 21.05.2002 E.P.
 			)
 				break;
-		case (uchar) 'Ю':
+		case (uchar) '\x9e' /* Ю */:
 			return yu_filt();
 		}
 		return prob;

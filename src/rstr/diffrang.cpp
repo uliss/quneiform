@@ -300,7 +300,7 @@ int16_t discr_angles(uchar let, int16_t h, int16_t type) {
 
 	memcpy(&cut_crn, &cut_crn0, sizeof(cut_crn));
 #ifdef UFA
-	default_corners[(uchar)'Å'].tr=0;
+	default_corners[(uchar)'\x81' /* Å */].tr=0;
 	if( MEMCHR(Let_Width_Bottom_Right_Curve,let,
 					sizeof(Let_Width_Bottom_Right_Curve)) )
 	memcpy(&cut_crn,&cut_crn1,sizeof(cut_crn));
@@ -311,9 +311,9 @@ int16_t discr_angles(uchar let, int16_t h, int16_t type) {
 		default_corners[(uchar) '5'].bl = A_C;
 
 		if (!is_turkish_language(language)) // 21.05.2002 E.P.
-			default_corners[(uchar) '©'].tr = N_C;
+			default_corners[(uchar) '\xa9' /* © */].tr = N_C;
 
-		default_corners[(uchar) 'â'].tr = N_C;
+		default_corners[(uchar) '\x89' /* â */].tr = N_C;
 	}
 
 	return check_angles(let, h);

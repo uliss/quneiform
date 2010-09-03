@@ -983,10 +983,10 @@ uchar p2_to_upperASCII(uchar c) {
         return c - (uchar) 'a' + (uchar) 'A';
     if (p2globals.language == LANGUAGE_RUSSIAN) {
         // for ASCII
-        if (c >= (uchar) '†' && c <= (uchar) 'Ø')
-            return c - (uchar) '†' + (uchar) 'Ä';
-        if (c >= (uchar) '‡' && c <= (uchar) 'Ô')
-            return c - (uchar) '‡' + (uchar) 'ê';
+        if (c >= (uchar) '\xa0' /* † */ && c <= (uchar) '\xaf' /* Ø */)
+            return c - (uchar) '\xa0' /* † */ + (uchar) '\x80' /* Ä */;
+        if (c >= (uchar) '\xe0' /* ‡ */ && c <= (uchar) '\xef' /* Ô */)
+            return c - (uchar) '\xe0' /* ‡ */ + (uchar) '\x90' /* ê */;
     }
     return c;
 }
@@ -997,10 +997,10 @@ uchar p2_to_lowerASCII(uchar c) {
         return c - (uchar) 'A' + (uchar) 'a';
     if (p2globals.language == LANGUAGE_RUSSIAN) {
         // for ASCII
-        if (c >= (uchar) 'Ä' && c <= (uchar) 'è')
-            return c - (uchar) 'Ä' + (uchar) '†';
-        if (c >= (uchar) 'ê' && c <= (uchar) 'ü')
-            return c - (uchar) 'ê' + (uchar) '‡';
+        if (c >= (uchar) '\x80' /* Ä */ && c <= (uchar) '\x8f' /* è */)
+            return c - (uchar) '\x80' /* Ä */ + (uchar) '\xa0' /* † */;
+        if (c >= (uchar) '\x90' /* ê */ && c <= (uchar) '\x9f' /* ü */)
+            return c - (uchar) '\x90' /* ê */ + (uchar) '\xe0' /* ‡ */;
     }
     return c;
 }
@@ -1009,7 +1009,7 @@ Bool32 p2_is_lowerASCII(uchar ch) {
 
     if (p2globals.language == LANGUAGE_RUSSIAN) {
         // for ASCII
-        if ((ch >= (uchar) '†' && ch <= (uchar) 'Ø') || (ch >= (uchar) '‡' && ch <= (uchar) 'Ô'))
+        if ((ch >= (uchar) '\xa0' /* † */ && ch <= (uchar) '\xaf' /* Ø */) || (ch >= (uchar) '\xe0' /* ‡ */ && ch <= (uchar) '\xef' /* Ô */))
             return TRUE;
     }
     if (ch >= 'a' && ch <= 'z')
@@ -1019,7 +1019,7 @@ Bool32 p2_is_lowerASCII(uchar ch) {
 /////////////////////
 Bool32 p2_is_upperASCII(uchar ch) {
     if (p2globals.language == LANGUAGE_RUSSIAN) {
-        if (ch >= (uchar) 'Ä' && ch <= (uchar) 'ü')
+        if (ch >= (uchar) '\x80' /* Ä */ && ch <= (uchar) '\x9f' /* ü */)
             return 1;
     }
     if (ch >= 'A' && ch <= 'Z')

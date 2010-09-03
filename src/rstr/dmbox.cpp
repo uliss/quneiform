@@ -272,9 +272,9 @@ static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC) {
     BC->col = SBOX.math_col;
     if (rq) {
         if (language == LANGUAGE_RUSSIAN) { // Valdemar
-            BC->vers[0].let = (uchar) ' ';
-            BC->vers[1].let = (uchar) '€';
-            BC->vers[2].let = (uchar) 'ã';
+            BC->vers[0].let = (uchar) '\xa0' /*   */;
+            BC->vers[1].let = (uchar) '\x80' /* € */;
+            BC->vers[2].let = (uchar) '\xe3' /* ã */;
         } else {
             BC->vers[0].let = 'a';
             BC->vers[1].let = 'A';
@@ -295,23 +295,23 @@ static int16_t recBOX(int16_t rq, int16_t tpl, int16_t ftv, cell *BC) {
         c3 = BC->vers[2].let;
         pa = pA = py = 0;
         if (language == LANGUAGE_RUSSIAN) {
-            if (c1 == (uchar) ' ')
+            if (c1 == (uchar) '\xa0' /*   */)
                 pa = p1;
-            if (c1 == (uchar) '€')
+            if (c1 == (uchar) '\x80' /* € */)
                 pA = p1;
-            if (c1 == (uchar) 'ã')
+            if (c1 == (uchar) '\xe3' /* ã */)
                 py = p1;
-            if (c2 == (uchar) ' ')
+            if (c2 == (uchar) '\xa0' /*   */)
                 pa = p2;
-            if (c2 == (uchar) '€')
+            if (c2 == (uchar) '\x80' /* € */)
                 pA = p2;
-            if (c2 == (uchar) 'ã')
+            if (c2 == (uchar) '\xe3' /* ã */)
                 py = p2;
-            if (c3 == (uchar) ' ')
+            if (c3 == (uchar) '\xa0' /*   */)
                 pa = p3;
-            if (c3 == (uchar) '€')
+            if (c3 == (uchar) '\x80' /* € */)
                 pA = p3;
-            if (c3 == (uchar) 'ã')
+            if (c3 == (uchar) '\xe3' /* ã */)
                 py = p3;
         } else {
             if (c1 == 'a')
@@ -513,8 +513,8 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
                 if (db_status && (db_trace_flag & 4))
                     est_snap(db_pass, BC, "u-->n");
             }
-            if (language == LANGUAGE_RUSSIAN && c == (uchar) '÷') {
-                c = (uchar) '¯';
+            if (language == LANGUAGE_RUSSIAN && c == (uchar) '\xf7' /* ÷ */) {
+                c = (uchar) '\xaf' /* ¯ */;
                 if (db_status && (db_trace_flag & 4))
                     est_snap(db_pass, BC, "÷-->¯");
             }
@@ -1034,8 +1034,8 @@ int16_t crepat(cell *A, s_glue *GL, int16_t var, int16_t flag) {
         if (DC->flg & c_f_let)
             break;
         // Valdemar 08.11.93 to paste ë
-        if (language == LANGUAGE_RUSSIAN && (BC->vers[0].let == (uchar) 'ì' || BC->vers[0].let
-                == (uchar) 'œ'))
+        if (language == LANGUAGE_RUSSIAN && (BC->vers[0].let == (uchar) '\xec' /* ì */ || BC->vers[0].let
+                == (uchar) '\x9c' /* œ */))
             if (d1 > 5)
                 break;
             else if (d1 > 4)

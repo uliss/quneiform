@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- –‡ÁÂ¯‡ÂÚÒˇ ÔÓ‚ÚÓÌÓÂ ‡ÒÔÓÒÚ‡ÌÂÌËÂ Ë ËÒÔÓÎ¸ÁÓ‚‡ÌËÂ Í‡Í ‚ ‚Ë‰Â ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡,
- Ú‡Í Ë ‚ ‰‚ÓË˜ÌÓÈ ÙÓÏÂ, Ò ËÁÏÂÌÂÌËˇÏË ËÎË ·ÂÁ, ÔË ÒÓ·Î˛‰ÂÌËË ÒÎÂ‰Û˛˘Ëı ÛÒÎÓ‚ËÈ:
+ ‚ï®—Ä—á–Å—Ö¬∞—Ä—Ö–Ñ—ë¬† —è—é—Ç–Ñ—é–Å—ç—é—Ö –Å—Ä—ë—è–Å—é—ë–Ñ–Å—Ä—ç—Ö—ç—à—Ö —à —à—ë—è—é—ã‚Ññ—á—é—Ç—Ä—ç—à—Ö —ä—Ä—ä —Ç —Ç—à—Ñ—Ö —à—ë—ó—é—Ñ—ç—é—É—é —ä—é—Ñ—Ä,
+ –Ñ—Ä—ä —à —Ç —Ñ—Ç—é—à—û—ç—é—â –á—é–Å—å—Ö, —ë —à—á—å—Ö—ç—Ö—ç—à¬†—å—à —à—ã—à —Å—Ö—á, —è–Å—à —ë—é—Å—ã‚ñ†—Ñ—Ö—ç—à—à —ë—ã—Ö—Ñ—î‚ñ†‚àô—à—ó —î—ë—ã—é—Ç—à—â:
 
- * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡ ‰ÓÎÊÌ˚ ÓÒÚ‡‚‡Ú¸Òˇ ÛÍ‡Á‡ÌÌÓÂ
- ‚˚¯Â Û‚Â‰ÓÏÎÂÌËÂ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë ÔÓÒÎÂ‰Û˛˘ËÈ
- ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
- * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ‰‚ÓË˜ÌÓ„Ó ÍÓ‰‡ ‚ ‰ÓÍÛÏÂÌÚ‡ˆËË Ë/ËÎË ‚
- ‰Û„Ëı Ï‡ÚÂË‡Î‡ı, ÔÓÒÚ‡‚ÎˇÂÏ˚ı ÔË ‡ÒÔÓÒÚ‡ÌÂÌËË, ‰ÓÎÊÌ˚ ÒÓı‡ÌˇÚ¸Òˇ
- ÛÍ‡Á‡ÌÌ‡ˇ ‚˚¯Â ËÌÙÓÏ‡ˆËˇ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë
- ÔÓÒÎÂ‰Û˛˘ËÈ ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
- * ÕË Ì‡Á‚‡ÌËÂ Cognitive Technologies, ÌË ËÏÂÌ‡ ÂÂ ÒÓÚÛ‰ÌËÍÓ‚ ÌÂ ÏÓ„ÛÚ
- ·˚Ú¸ ËÒÔÓÎ¸ÁÓ‚‡Ì˚ ‚ Í‡˜ÂÒÚ‚Â ÒÂ‰ÒÚ‚‡ ÔÓ‰‰ÂÊÍË Ë/ËÎË ÔÓ‰‚ËÊÂÌËˇ
- ÔÓ‰ÛÍÚÓ‚, ÓÒÌÓ‚‡ÌÌ˚ı Ì‡ ˝ÚÓÏ œŒ, ·ÂÁ ÔÂ‰‚‡ËÚÂÎ¸ÌÓ„Ó ÔËÒ¸ÏÂÌÌÓ„Ó
- ‡ÁÂ¯ÂÌËˇ.
+ * ‚ïß–Å—à —è—é—Ç–Ñ—é–Å—ç—é—å –Å—Ä—ë—è–Å—é—ë–Ñ–Å—Ä—ç—Ö—ç—à—à —à—ë—ó—é—Ñ—ç—é—É—é —ä—é—Ñ—Ä —Ñ—é—ã—Ü—ç‚àö —é—ë–Ñ—Ä—Ç—Ä–Ñ‚Ññ—ë¬† —î—ä—Ä—á—Ä—ç—ç—é—Ö
+ —Ç‚àö¬∞—Ö —î—Ç—Ö—Ñ—é—å—ã—Ö—ç—à—Ö —é—Å —Ä—Ç–Ñ—é–Å—ë—ä—é—å —è–Å—Ä—Ç—Ö, ¬§–Ñ—é–Ñ —ë—è—à—ë—é—ä —î—ë—ã—é—Ç—à—â —à —è—é—ë—ã—Ö—Ñ—î‚ñ†‚àô—à—â
+ —é–Ñ—ä—Ä—á —é–Ñ —É—Ä–Å—Ä—ç–Ñ—à—â.
+ * ‚ïß–Å—à —è—é—Ç–Ñ—é–Å—ç—é—å –Å—Ä—ë—è–Å—é—ë–Ñ–Å—Ä—ç—Ö—ç—à—à —Ñ—Ç—é—à—û—ç—é—É—é —ä—é—Ñ—Ä —Ç —Ñ—é—ä—î—å—Ö—ç–Ñ—Ä–é—à—à —à/—à—ã—à —Ç
+ —Ñ–Å—î—É—à—ó —å—Ä–Ñ—Ö–Å—à—Ä—ã—Ä—ó, —è—é—ë–Ñ—Ä—Ç—ã¬†—Ö—å‚àö—ó —è–Å—à –Å—Ä—ë—è–Å—é—ë–Ñ–Å—Ä—ç—Ö—ç—à—à, —Ñ—é—ã—Ü—ç‚àö —ë—é—ó–Å—Ä—ç¬†–Ñ‚Ññ—ë¬†
+ —î—ä—Ä—á—Ä—ç—ç—Ä¬† —Ç‚àö¬∞—Ö —à—ç–á—é–Å—å—Ä–é—à¬† —é—Å —Ä—Ç–Ñ—é–Å—ë—ä—é—å —è–Å—Ä—Ç—Ö, ¬§–Ñ—é–Ñ —ë—è—à—ë—é—ä —î—ë—ã—é—Ç—à—â —à
+ —è—é—ë—ã—Ö—Ñ—î‚ñ†‚àô—à—â —é–Ñ—ä—Ä—á —é–Ñ —É—Ä–Å—Ä—ç–Ñ—à—â.
+ * ‚ïê—à —ç—Ä—á—Ç—Ä—ç—à—Ö Cognitive Technologies, —ç—à —à—å—Ö—ç—Ä —Ö—Ö —ë—é–Ñ–Å—î—Ñ—ç—à—ä—é—Ç —ç—Ö —å—é—É—î–Ñ
+ —Å‚àö–Ñ‚Ññ —à—ë—è—é—ã‚Ññ—á—é—Ç—Ä—ç‚àö —Ç —ä—Ä—û—Ö—ë–Ñ—Ç—Ö —ë–Å—Ö—Ñ—ë–Ñ—Ç—Ä —è—é—Ñ—Ñ—Ö–Å—Ü—ä—à —à/—à—ã—à —è–Å—é—Ñ—Ç—à—Ü—Ö—ç—à¬†
+ —è–Å—é—Ñ—î—ä–Ñ—é—Ç, —é—ë—ç—é—Ç—Ä—ç—ç‚àö—ó —ç—Ä ¬§–Ñ—é—å ‚ïß‚ï¨, —Å—Ö—á —è–Å—Ö—Ñ—Ç—Ä–Å—à–Ñ—Ö—ã‚Ññ—ç—é—É—é —è—à—ë‚Ññ—å—Ö—ç—ç—é—É—é
+ –Å—Ä—á–Å—Ö¬∞—Ö—ç—à¬†.
 
- ›“¿ œ–Œ√–¿ÃÃ¿ œ–≈ƒŒ—“¿¬À≈Õ¿ ¬À¿ƒ≈À‹÷¿Ã» ¿¬“Œ–— »’ œ–¿¬ »/»À» ƒ–”√»Ã» À»÷¿Ã» " ¿ 
- ŒÕ¿ ≈—“‹" ¡≈«  ¿ Œ√Œ-À»¡Œ ¬»ƒ¿ √¿–¿Õ“»…, ¬€–¿∆≈ÕÕ€’ ﬂ¬ÕŒ »À» œŒƒ–¿«”Ã≈¬¿≈Ã€’,
- ¬ Àﬁ◊¿ﬂ √¿–¿Õ“»»  ŒÃÃ≈–◊≈— Œ… ÷≈ÕÕŒ—“» » œ–»√ŒƒÕŒ—“» ƒÀﬂ  ŒÕ –≈“ÕŒ… ÷≈À», ÕŒ Õ≈
- Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã». Õ» ¬À¿ƒ≈À≈÷ ¿¬“Œ–— »’ œ–¿¬ » Õ» ŒƒÕŒ ƒ–”√Œ≈ À»÷Œ,  Œ“Œ–Œ≈
- ÃŒ∆≈“ »«Ã≈Õﬂ“‹ »/»À» œŒ¬“Œ–ÕŒ –¿—œ–Œ—“–¿Õﬂ“‹ œ–Œ√–¿ÃÃ”, Õ» ¬  Œ≈Ã —À”◊¿≈ Õ≈
- Õ≈—®“ Œ“¬≈“—“¬≈ÕÕŒ—“», ¬ Àﬁ◊¿ﬂ Àﬁ¡€≈ Œ¡Ÿ»≈, —À”◊¿…Õ€≈, —œ≈÷»¿À‹Õ€≈ »À»
- œŒ—À≈ƒŒ¬¿¬ÿ»≈ ”¡€“ », —¬ﬂ«¿ÕÕ€≈ — »—œŒÀ‹«Œ¬¿Õ»≈Ã »À» œŒÕ≈—≈ÕÕ€≈ ¬—À≈ƒ—“¬»≈
- Õ≈¬Œ«ÃŒ∆ÕŒ—“» »—œŒÀ‹«Œ¬¿Õ»ﬂ œ–Œ√–¿ÃÃ€ (¬ Àﬁ◊¿ﬂ œŒ“≈–» ƒ¿ÕÕ€’, »À» ƒ¿ÕÕ€≈,
- —“¿¬ÿ»≈ Õ≈√ŒƒÕ€Ã», »À» ”¡€“ » »/»À» œŒ“≈–» ƒŒ’ŒƒŒ¬, œŒÕ≈—≈ÕÕ€≈ »«-«¿ ƒ≈…—“¬»…
- “–≈“‹»’ À»÷ »/»À» Œ“ ¿«¿ œ–Œ√–¿ÃÃ€ –¿¡Œ“¿“‹ —Œ¬Ã≈—“ÕŒ — ƒ–”√»Ã» œ–Œ√–¿ÃÃ¿Ã»,
- ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ ›“»Ã» —À”◊¿ﬂÃ»), ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã», ƒ¿∆≈ ≈—À» “¿ Œ…
- ¬À¿ƒ≈À≈÷ »À» ƒ–”√Œ≈ À»÷Œ ¡€À» »«¬≈Ÿ≈Õ€ Œ ¬Œ«ÃŒ∆ÕŒ—“» “¿ »’ ”¡€“ Œ¬ » œŒ“≈–‹.
+ ‚ñå‚ï•‚îî ‚ïß‚ï®‚ï¨‚îú‚ï®‚îî‚ï†‚ï†‚îî ‚ïß‚ï®‚îº‚îÄ‚ï¨‚ï§‚ï•‚îî‚î¨‚ï¶‚îº‚ïê‚îî ‚î¨‚ï¶‚îî‚îÄ‚îº‚ï¶‚ñÑ‚ïì‚îî‚ï†‚ïö ‚îî‚î¨‚ï•‚ï¨‚ï®‚ï§‚ï©‚ïö‚ïí ‚ïß‚ï®‚îî‚î¨ ‚ïö/‚ïö‚ï¶‚ïö ‚îÄ‚ï®‚ïô‚îú‚ïö‚ï†‚ïö ‚ï¶‚ïö‚ïì‚îî‚ï†‚ïö "‚ï©‚îî‚ï©
+ ‚ï¨‚ïê‚îî ‚îº‚ï§‚ï•‚ñÑ" ‚î¥‚îº‚ïü ‚ï©‚îî‚ï©‚ï¨‚îú‚ï¨-‚ï¶‚ïö‚î¥‚ï¨ ‚î¨‚ïö‚îÄ‚îî ‚îú‚îî‚ï®‚îî‚ïê‚ï•‚ïö‚ïî, ‚î¨‚ñà‚ï®‚îî‚ïû‚îº‚ïê‚ïê‚ñà‚ïí ‚ñÄ‚î¨‚ïê‚ï¨ ‚ïö‚ï¶‚ïö ‚ïß‚ï¨‚îÄ‚ï®‚îî‚ïü‚ïô‚ï†‚îº‚î¨‚îî‚îº‚ï†‚ñà‚ïí,
+ ‚î¨‚ï©‚ï¶‚ñê‚ï´‚îî‚ñÄ ‚îú‚îî‚ï®‚îî‚ïê‚ï•‚ïö‚ïö ‚ï©‚ï¨‚ï†‚ï†‚îº‚ï®‚ï´‚îº‚ï§‚ï©‚ï¨‚ïî ‚ïì‚îº‚ïê‚ïê‚ï¨‚ï§‚ï•‚ïö ‚ïö ‚ïß‚ï®‚ïö‚îú‚ï¨‚îÄ‚ïê‚ï¨‚ï§‚ï•‚ïö ‚îÄ‚ï¶‚ñÄ ‚ï©‚ï¨‚ïê‚ï©‚ï®‚îº‚ï•‚ïê‚ï¨‚ïî ‚ïì‚îº‚ï¶‚ïö, ‚ïê‚ï¨ ‚ïê‚îº
+ ‚ï¨‚îú‚ï®‚îî‚ïê‚ïö‚ï´‚ïö‚î¨‚îî‚ñÄ‚ï§‚ñÑ ‚ïö‚ï†‚ïö. ‚ïê‚ïö ‚î¨‚ï¶‚îî‚îÄ‚îº‚ï¶‚îº‚ïì ‚îî‚î¨‚ï•‚ï¨‚ï®‚ï§‚ï©‚ïö‚ïí ‚ïß‚ï®‚îî‚î¨ ‚ïö ‚ïê‚ïö ‚ï¨‚îÄ‚ïê‚ï¨ ‚îÄ‚ï®‚ïô‚îú‚ï¨‚îº ‚ï¶‚ïö‚ïì‚ï¨, ‚ï©‚ï¨‚ï•‚ï¨‚ï®‚ï¨‚îº
+ ‚ï†‚ï¨‚ïû‚îº‚ï• ‚ïö‚ïü‚ï†‚îº‚ïê‚ñÄ‚ï•‚ñÑ ‚ïö/‚ïö‚ï¶‚ïö ‚ïß‚ï¨‚î¨‚ï•‚ï¨‚ï®‚ïê‚ï¨ ‚ï®‚îî‚ï§‚ïß‚ï®‚ï¨‚ï§‚ï•‚ï®‚îî‚ïê‚ñÄ‚ï•‚ñÑ ‚ïß‚ï®‚ï¨‚îú‚ï®‚îî‚ï†‚ï†‚ïô, ‚ïê‚ïö ‚î¨ ‚ï©‚ï¨‚îº‚ï† ‚ï§‚ï¶‚ïô‚ï´‚îî‚îº ‚ïê‚îº
+ ‚ïê‚îº‚ï§–∏‚ï• ‚ï¨‚ï•‚î¨‚îº‚ï•‚ï§‚ï•‚î¨‚îº‚ïê‚ïê‚ï¨‚ï§‚ï•‚ïö, ‚î¨‚ï©‚ï¶‚ñê‚ï´‚îî‚ñÄ ‚ï¶‚ñê‚î¥‚ñà‚îº ‚ï¨‚î¥‚îò‚ïö‚îº, ‚ï§‚ï¶‚ïô‚ï´‚îî‚ïî‚ïê‚ñà‚îº, ‚ï§‚ïß‚îº‚ïì‚ïö‚îî‚ï¶‚ñÑ‚ïê‚ñà‚îº ‚ïö‚ï¶‚ïö
+ ‚ïß‚ï¨‚ï§‚ï¶‚îº‚îÄ‚ï¨‚î¨‚îî‚î¨‚ï™‚ïö‚îº ‚ïô‚î¥‚ñà‚ï•‚ï©‚ïö, ‚ï§‚î¨‚ñÄ‚ïü‚îî‚ïê‚ïê‚ñà‚îº ‚ï§ ‚ïö‚ï§‚ïß‚ï¨‚ï¶‚ñÑ‚ïü‚ï¨‚î¨‚îî‚ïê‚ïö‚îº‚ï† ‚ïö‚ï¶‚ïö ‚ïß‚ï¨‚ïê‚îº‚ï§‚îº‚ïê‚ïê‚ñà‚îº ‚î¨‚ï§‚ï¶‚îº‚îÄ‚ï§‚ï•‚î¨‚ïö‚îº
+ ‚ïê‚îº‚î¨‚ï¨‚ïü‚ï†‚ï¨‚ïû‚ïê‚ï¨‚ï§‚ï•‚ïö ‚ïö‚ï§‚ïß‚ï¨‚ï¶‚ñÑ‚ïü‚ï¨‚î¨‚îî‚ïê‚ïö‚ñÄ ‚ïß‚ï®‚ï¨‚îú‚ï®‚îî‚ï†‚ï†‚ñà (‚î¨‚ï©‚ï¶‚ñê‚ï´‚îî‚ñÄ ‚ïß‚ï¨‚ï•‚îº‚ï®‚ïö ‚îÄ‚îî‚ïê‚ïê‚ñà‚ïí, ‚ïö‚ï¶‚ïö ‚îÄ‚îî‚ïê‚ïê‚ñà‚îº,
+ ‚ï§‚ï•‚îî‚î¨‚ï™‚ïö‚îº ‚ïê‚îº‚îú‚ï¨‚îÄ‚ïê‚ñà‚ï†‚ïö, ‚ïö‚ï¶‚ïö ‚ïô‚î¥‚ñà‚ï•‚ï©‚ïö ‚ïö/‚ïö‚ï¶‚ïö ‚ïß‚ï¨‚ï•‚îº‚ï®‚ïö ‚îÄ‚ï¨‚ïí‚ï¨‚îÄ‚ï¨‚î¨, ‚ïß‚ï¨‚ïê‚îº‚ï§‚îº‚ïê‚ïê‚ñà‚îº ‚ïö‚ïü-‚ïü‚îî ‚îÄ‚îº‚ïî‚ï§‚ï•‚î¨‚ïö‚ïî
+ ‚ï•‚ï®‚îº‚ï•‚ñÑ‚ïö‚ïí ‚ï¶‚ïö‚ïì ‚ïö/‚ïö‚ï¶‚ïö ‚ï¨‚ï•‚ï©‚îî‚ïü‚îî ‚ïß‚ï®‚ï¨‚îú‚ï®‚îî‚ï†‚ï†‚ñà ‚ï®‚îî‚î¥‚ï¨‚ï•‚îî‚ï•‚ñÑ ‚ï§‚ï¨‚î¨‚ï†‚îº‚ï§‚ï•‚ïê‚ï¨ ‚ï§ ‚îÄ‚ï®‚ïô‚îú‚ïö‚ï†‚ïö ‚ïß‚ï®‚ï¨‚îú‚ï®‚îî‚ï†‚ï†‚îî‚ï†‚ïö,
+ ‚ïê‚ï¨ ‚ïê‚îº ‚ï¨‚îú‚ï®‚îî‚ïê‚ïö‚ï´‚ïö‚î¨‚îî‚ñÄ‚ï§‚ñÑ ‚ñå‚ï•‚ïö‚ï†‚ïö ‚ï§‚ï¶‚ïô‚ï´‚îî‚ñÄ‚ï†‚ïö), ‚ïê‚ï¨ ‚ïê‚îº ‚ï¨‚îú‚ï®‚îî‚ïê‚ïö‚ï´‚ïö‚î¨‚îî‚ñÄ‚ï§‚ñÑ ‚ïö‚ï†‚ïö, ‚îÄ‚îî‚ïû‚îº ‚îº‚ï§‚ï¶‚ïö ‚ï•‚îî‚ï©‚ï¨‚ïî
+ ‚î¨‚ï¶‚îî‚îÄ‚îº‚ï¶‚îº‚ïì ‚ïö‚ï¶‚ïö ‚îÄ‚ï®‚ïô‚îú‚ï¨‚îº ‚ï¶‚ïö‚ïì‚ï¨ ‚î¥‚ñà‚ï¶‚ïö ‚ïö‚ïü‚î¨‚îº‚îò‚îº‚ïê‚ñà ‚ï¨ ‚î¨‚ï¨‚ïü‚ï†‚ï¨‚ïû‚ïê‚ï¨‚ï§‚ï•‚ïö ‚ï•‚îî‚ï©‚ïö‚ïí ‚ïô‚î¥‚ñà‚ï•‚ï©‚ï¨‚î¨ ‚ïö ‚ïß‚ï¨‚ï•‚îº‚ï®‚ñÑ.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -186,11 +186,11 @@ static int16_t DiskrII(uchar *raster,int16_t D_X,int16_t hei);
 
 #define bytlen(bits)  ((bits+7)>>3)
 
-extern uchar BUFFER[256]; /* ¢•‡‚®™†´Ï≠†Ô   Ø‡o•™Ê®Ô              */
-extern uchar LOCAL[50]; /* ™ÆÆ‡§®≠†‚Î     ≠Æ£          		*/
-extern uchar LOCAL_W[50]; /* Ë®‡®≠Î         ≠Æ£          		*/
-extern uchar end1, beg2; /* ™Æ≠•Ê 1 ® ≠†Á†´Æ 2-Æ© ≠Æ£ ®≠Ø	*/
-extern int broken_ii; /* ‰´†£ §¢„Â Ø†´Æ™			*/
+extern uchar BUFFER[256]; /* –≤–µ—Ä—Ç–∏–∫–∞–ª—å–Ω–∞—è   –ø—Äo–µ–∫—Ü–∏—è              */
+extern uchar LOCAL[50]; /* –∫–æ–æ—Ä–¥–∏–Ω–∞—Ç—ã     –Ω–æ–≥          		*/
+extern uchar LOCAL_W[50]; /* —à–∏—Ä–∏–Ω—ã         –Ω–æ–≥          		*/
+extern uchar end1, beg2; /* –∫–æ–Ω–µ—Ü 1 –∏ –Ω–∞—á–∞–ª–æ 2-–æ–π –Ω–æ–≥ –∏–Ω–ø	*/
+extern int broken_ii; /* —Ñ–ª–∞–≥ –¥–≤—É—Ö –ø–∞–ª–æ–∫			*/
 extern int16_t dnri_hook; // bottom right hook in small russian italic II,III
 extern int16_t uple_hook; // bottom left  hook in small russian italic II,III
 extern int16_t up_jack; // upper jack
@@ -207,8 +207,8 @@ int16_t left_dist[4], right_dist[4], num_foot, c_or_e, d_c, d_e, right_max,
 		left_max, left_line, right_line, left_dist_big[4], right_dist_big[4],
 		lower_long_line;
 int16_t av_tl, av_bl, av_br, rotate;
-/* g-Ü, sh-ò, b-B, k-K, ju-û, f2-àçè, tsh-ô, ii-õ, o-O, c-C, e-E,
- h-ï, ja-ü, z-á, ee-ù, d-Ñ, ce-ñ  */
+/* g-–ñ, sh-–®, b-B, k-K, ju-–Æ, f2-–ò–ù–ü, tsh-–©, ii-–´, o-O, c-C, e-E,
+ h-–•, ja-–Ø, z-–ó, ee-–≠, d-–î, ce-–¶  */
 int16_t fill_center, up_down_serif, up_down_serif_B, IN_horiz_dis, broken_M_pen;
 
 /*  clear diskrimination flags */
@@ -325,7 +325,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		raster += bytlen(D_X) * upper_skip_lines;
 		dy -= upper_skip_lines;
 	}
-	if (lower_skip_lines && !(memchr("ÊñÈô", let, 4)
+	if (lower_skip_lines && !(memchr("\xE6\x96\xE9\x99" /*—Ü–¶—â–©*/, let, 4)
 			&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 			)) {
 		dy -= lower_skip_lines;
@@ -395,8 +395,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		IN_M = 0;
 		break;
 
-	case (uchar) 'å':
-	case (uchar) '¨':
+	case (uchar) '\x8c' /* –ú */:
+	case (uchar) '\xac' /* –º */:
 		if (omni) {
 			if (diskr_m < 0) {
 				if (mii < -100) {
@@ -428,8 +428,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 				P = diskr_m;
 		}
 		break;
-	case (uchar) 'õ':
-	case (uchar) 'Î':
+	case (uchar) '\x9b' /* –´ */:
+	case (uchar) '\xeb' /* —ã */:
 		if (diskr_ii < 0) {
 			if (omni) {
 				if (mii < -100)
@@ -447,7 +447,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_ii;
 		break;
 
-	case (uchar) 'Å':
+	case (uchar) '\x81' /* –ë */:
 		if (omni) {
 			if (diskr_B < 0) {
 				if (!DiskrRight(rastr0, D_X, Dx, dy, 2))
@@ -457,7 +457,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 				P = diskr_B;
 		}
 		break;
-	case (uchar) 'Ö':
+	case (uchar) '\x85' /* –ï */:
 		if (omni) {
 			if (diskr_E < 0) {
 				if (!horiz_density(rastr0, D_X, dx, Hy, dy))
@@ -467,8 +467,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 				P = diskr_E;
 		}
 		break;
-	case (uchar) 'Ñ':
-	case (uchar) '§':
+	case (uchar) '\x84' /* –î */:
+	case (uchar) '\xa4' /* –¥ */:
 		if (diskr_d < 0) {
 			if (average_bl_angle(rastr0, D_X, Dx, dy, 0) > d_l)
 				P = 4 * step_diskr;
@@ -480,8 +480,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_d;
 		break;
-	case (uchar) 'ä':
-	case (uchar) '™':
+	case (uchar) '\x8a' /* –ö */:
+	case (uchar) '\xaa' /* –∫ */:
 		if (diskr_k < 0) {
 			if (font_type == 0) { /* Poly 	*/
 				if (!DiskrRightBig(rastr0, D_X, Dx, dy, 2))
@@ -505,22 +505,22 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_k;
 		break;
-	case (uchar) 'Ç': /*     case '¢' :*/
+	case (uchar) '\x82' /* –í */: /*     case '\xa2'  –≤  :*/
 #ifdef INTERSEPTOR
-		case (uchar)'¢' :
+		case (uchar)'\xa2' /* –≤ */ :
 #endif
 		if (diskr_b < 0) {
 #ifdef INTERSEPTOR
 			if( DiskrVV(rastr0,D_X,dy)==2 )
 			P += 100;
 #endif
-			if (!DiskrRight(rastr0, D_X, Dx, dy, 1)) { /* ≠•‚ §Î‡™® */
-				if (dy <= 19) /* ¨†´•≠Ï™®• '¢' ≠• ®¨•Ó‚ §Î‡ÆÁ™® */
+			if (!DiskrRight(rastr0, D_X, Dx, dy, 1)) { /* –Ω–µ—Ç –¥—ã—Ä–∫–∏ */
+				if (dy <= 19) /* –º–∞–ª–µ–Ω—å–∫–∏–µ '\xa2'  '–≤' –Ω–µ –∏–º–µ—é—Ç –¥—ã—Ä–æ—á–∫–∏ */
 				{
 					if (!omni)
 						if (!NoSymmLastColumn(rastr0, D_X, Dx, dy))
 							P += 3 * step_diskr;
-				} else /* °Æ´ÏË®• §Æ´¶≠Î ®¨•‚Ï ¢¨Ô‚®≠„ */
+				} else /* –±–æ–ª—å—à–∏–µ –¥–æ–ª–∂–Ω—ã –∏–º–µ—Ç—å –≤–º—è—Ç–∏–Ω—É */
 				{
 #ifdef INTERSEPTOR
 					if( dy>22 )
@@ -528,7 +528,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 #endif
 					P += 2 * step_diskr;
 				}
-			} else { /* ¢¨Ô‚®≠† •·‚Ï */
+			} else { /* –≤–º—è—Ç–∏–Ω–∞ –µ—Å—Ç—å */
 				if ((n = up_down_zones_for_B(rastr0, D_X, Dx, dx, 0,
 						(int16_t) (dy >> 2), Hy, dy)) == 1) {
 					if (!omni)
@@ -543,19 +543,19 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_b;
 		break;
 	case '3':
-	case (uchar) 'á':
-	case (uchar) 'ß':
+	case (uchar) '\x87' /* –ó */:
+	case (uchar) '\xa7' /* –∑ */:
 		if (diskr_z < 0) {
-			if (!DiskrRight(rastr0, D_X, Dx, dy, 1)) { /* ≠•‚ §Î‡™® */
+			if (!DiskrRight(rastr0, D_X, Dx, dy, 1)) { /* –Ω–µ—Ç –¥—ã—Ä–∫–∏ */
 				if (dy < 14 && DiskrEZ(rastr0, D_X, dx, dy) == 1)
 					P += step_diskr;
-				else if ((dy < 21) || (cg_flag & 16)) /* ¨†´•≠Ï™®• 'ß' ≠• ®¨•Ó‚ §Î‡ÆÁ™® */
+				else if ((dy < 21) || (cg_flag & 16)) /* –º–∞–ª–µ–Ω—å–∫–∏–µ '\xa7'  –∑ –Ω–µ –∏–º–µ—é—Ç –¥—ã—Ä–æ—á–∫–∏ */
 				{
 					if (dy > 13 && (!(cg_flag & 16)))
 						if (!NoSymmLastColumn(rastr0, D_X, Dx, dy))
 							P += 3*step_diskr;
 				} else
-					/* °Æ´ÏË®• §Æ´¶≠Î ®¨•‚Ï ¢¨Ô‚®≠„ */
+					/* –±–æ–ª—å—à–∏–µ –¥–æ–ª–∂–Ω—ã –∏–º–µ—Ç—å –≤–º—è—Ç–∏–Ω—É */
 					P += 2*step_diskr;
 			}
 #ifdef UFA
@@ -569,10 +569,10 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_z;
 		break;
 
-	case (uchar) 'ù':
-	case (uchar) 'Ì':
+	case (uchar) '\x9d' /* –≠ */:
+	case (uchar) '\xed' /* —ç */:
 
-		// ¬ ·ÓÎ„‡ÒÍÓÏ ÌÂÚ ›˝. 08.09.2000 E.P.
+		// ‚î¨ —Å—é—ã—É—Ä–Å—ë—ä—é—å —ç—Ö–Ñ ‚ñå¬§. 08.09.2000 E.P.
 		if (language == LANGUAGE_RUSSIAN && langBul) {
 			P = 200;
 			break;
@@ -599,11 +599,11 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_ee;
 
 		break;
-		/* case (uchar)'ü' : */case (uchar) 'Ô': /*Valdemar 9.03.94*/
+		/* case (uchar)'\x9f'  –Ø  : */case (uchar) '\xef' /* —è */: /*Valdemar 9.03.94*/
 		if (diskr_ja < 0) {
 			if (!DiskrLeft(rastr0, D_X, Dx, dy, 1))
 				P = 2 * step_diskr;
-			if (!omni) { /* §´Ô omni •·‚Ï §®·™‡®¨®≠†‚Æ‡Î „£´Æ¢ */
+			if (!omni) { /* –¥–ª—è omni –µ—Å—Ç—å –¥–∏—Å–∫—Ä–∏–º–∏–Ω–∞—Ç–æ—Ä—ã —É–≥–ª–æ–≤ */
 				if (average_bl_angle(rastr0, D_X, Dx, dy, 1)
 						>= average_tl_angle(rastr0, D_X, Dx, dy, 1))
 					P += 2 * step_diskr;
@@ -613,10 +613,10 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_ja;
 		break;
 		/*  case '8' :*/
-	case (uchar) 'ï':
+	case (uchar) '\x95' /* –• */:
 		if (is_turkish_language(language)) // 21.05.2002 E.P.
 			break;
-	case (uchar) 'Â':
+	case (uchar) '\xe5' /* —Ö */:
 		if (diskr_h < 0) {
 			if (!DiskrLeftBig(rastr0, D_X, Dx, dy, 1))
 				P += 3 * step_diskr;
@@ -630,8 +630,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_h;
 		break;
-	case (uchar) 'Ü':
-	case (uchar) '¶':
+	case (uchar) '\x86' /* –ñ */:
+	case (uchar) '\xa6' /* –∂ */:
 		if (diskr_g < 0) {
 			if (!DiskrLeftBig(rastr0, D_X, (uchar) Dx, (uchar) dy, 2))
 				P += 3 * step_diskr;
@@ -639,25 +639,25 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 				P += 3 * step_diskr;
 			F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
 			if (F != 3 && (n = DiskrJ0(rastr, D_X, Dx, Hy,
-					(int16_t) (dy < 18 ? 4 : 5))) != 0) { /* ¢ ·‡•§≠•© ØÆ´Æ¢®≠• ≠•‚ 3-Á†·‚≠ÎÂ ´®≠®© */
+					(int16_t) (dy < 18 ? 4 : 5))) != 0) { /* –≤ —Å—Ä–µ–¥–Ω–µ–π –ø–æ–ª–æ–≤–∏–Ω–µ –Ω–µ—Ç 3-—á–∞—Å—Ç–Ω—ã—Ö –ª–∏–Ω–∏–π */
 				if (!DiskrJ(rastr0, D_X, Dx, dy))
 					P += 2 * n * step_diskr;
 			}
 			if (F != 3 && (n = DiskrJ0(rastr0, D_X, Dx, Hy,
-					(int16_t) (dy < 18 ? 2 : 3))) != 0) { /* ¢ ¢•‡Â≠•© ØÆ´Æ¢®≠• ≠•‚ 3-Á†·‚≠ÎÂ ´®≠®© */
+					(int16_t) (dy < 18 ? 2 : 3))) != 0) { /* –≤ –≤–µ—Ä—Ö–Ω–µ–π –ø–æ–ª–æ–≤–∏–Ω–µ –Ω–µ—Ç 3-—á–∞—Å—Ç–Ω—ã—Ö –ª–∏–Ω–∏–π */
 				if (!DiskrJ(rastr0, D_X, Dx, dy))
 					P += 2 * n * step_diskr;
 			}
 #ifdef INTERSEPTOR
-			if( let==(uchar)'¶' && dx>55 )
+			if( let==(uchar)'\xa6' /* –∂ */ && dx>55 )
 			P += 160;
 #endif
 			diskr_g = P;
 		} else
 			P = diskr_g;
 		break;
-	case (uchar) 'û':
-	case (uchar) 'Ó':
+	case (uchar) '\x9e' /* –Æ */:
+	case (uchar) '\xee' /* —é */:
 		if (is_turkish_language(language)) // 21.05.2002 E.P.
 			break;
 		if (diskr_ju < 0) {
@@ -669,15 +669,15 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			if (DiskrRight(rastr0, D_X, Dx, dy, 2))
 				P += 2 * step_diskr;
 #ifdef INTERSEPTOR
-			if( let==(uchar)'Ó' && dx>55 )
+			if( let==(uchar)'\xee' /* —é */ && dx>55 )
 			P += 160;
 #endif
 			diskr_ju = P;
 		} else
 			P = diskr_ju;
 		break;
-	case (uchar) 'ñ':
-	case (uchar) 'Ê':
+	case (uchar) '\x96' /* –¶ */:
+	case (uchar) '\xe6' /* —Ü */:
 		if (diskr_ce < 0) {
 			if ((F = FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx, (uchar) Hy, 0))
 					!= 2)
@@ -692,8 +692,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_ce;
 		break;
-	case (uchar) 'ò':
-	case (uchar) 'Ë':
+	case (uchar) '\x98' /* –® */:
+	case (uchar) '\xe8' /* —à */:
 		if (diskr_sh < 0) {
 			FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
 			if (rotate) // OLEG : ERECTION conditions : 09-20-95
@@ -737,8 +737,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_sh;
 		break;
 
-	case (uchar) 'è':
-	case (uchar) 'Ø':
+	case (uchar) '\x8f' /* –ü */:
+	case (uchar) '\xaf' /* –ø */:
 		if (diskr_p) {
 			if (dy > 13)
 				F = FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx, (uchar)(dy - 4), 0);
@@ -788,8 +788,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_p;
 		break;
-	case (uchar) 'à':
-	case (uchar) '®':
+	case (uchar) '\x88' /* –ò */:
+	case (uchar) '\xa8' /* –∏ */:
 		if (diskr_i < 0) {
 			F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
 			if (F != 2 || MIN(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1 < 3) {
@@ -824,7 +824,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 					P += MIN(2 * (7 - IN_I + IN_equ) * step_diskr, 160) / 2;
 				else if (IN_I == 3 && IN_equ > 2)
 					P += IN_equ * step_diskr;
-				if (IN_I >= 9) { /* ÆÁ•≠Ï ≠•£Æ‡®ßÆ≠‚†´Ï≠†Ô Ø•‡•™´†§®≠† */
+				if (IN_I >= 9) { /* –æ—á–µ–Ω—å –Ω–µ–≥–æ—Ä–∏–∑–æ–Ω—Ç–∞–ª—å–Ω–∞—è –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω–∞ */
 					if ((F = up_down_hist_M(rastr0 + D_X, D_X, Dx,
 							(int16_t) (dy - 2))) > 0)
 						P += F * step_diskr >> 2;
@@ -845,8 +845,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_i;
 		break;
-	case (uchar) 'ç':
-	case (uchar) '≠':
+	case (uchar) '\x8d' /* –ù */:
+	case (uchar) '\xad' /* –Ω */:
 		if (diskr_n < 0) {
 			F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
 			if (F != 2 || MIN(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1 < 3) {
@@ -865,7 +865,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 				else
 					fill_center_zone(rastr, D_X, Hy, end1, beg2, 0);
 				DiskrIN(rastr0, D_X, dy, bw, dx);
-				if (DiskrHorizIN(rastr0, D_X, dy)) { /* ¶®‡≠†Ô Ø•‡•™´†§®≠† */
+				if (DiskrHorizIN(rastr0, D_X, dy)) { /* –∂–∏—Ä–Ω–∞—è –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω–∞ */
 					IN_N = 3;
 					IN_I = 2;
 				}
@@ -915,8 +915,8 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		 */
 		break;
 	case '0':
-	case (uchar) 'é':
-	case (uchar) 'Æ':
+	case (uchar) '\x8e' /* –û */:
+	case (uchar) '\xae' /* –æ */:
 		if (is_turkish_language(language)) // 21.05.2002 E.P.
 			break;
 
@@ -927,33 +927,33 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_o;
 		break;
-	case (uchar) 'ë':
-	case (uchar) '·':
+	case (uchar) '\x91' /* –° */:
+	case (uchar) '\xe1' /* —Å */:
 		if (diskr_c < 0) {
 			if (!DiskrRight(rastr0, D_X, Dx, dy, 2))
 				P = step_diskr;
-			if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '·',
+			if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '\xe1' /* —Å */,
 					(uchar) inc)) != 0)
 				P += n * step_diskr;
 			diskr_c = P;
 		} else
 			P = diskr_c;
 		break;
-	case (uchar) '•':
+	case (uchar) '\xa5' /* –µ */:
 	case (uchar) UKR_e:
 	case (uchar) UKR_E:
 		if (diskr_e < 0) {
-			if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '•',
+			if ((n = DiskrVertCE(rastr0, D_X, dx, dy, X, (uchar) '\xa5' /* –µ */,
 					(uchar) inc)) > 2)
 				P += (n - 2) * step_diskr;
 			diskr_e = P;
 		} else
 			P = diskr_e;
 		break;
-	case (uchar) 'Á':
+	case (uchar) '\xe7' /* —á */:
 		if (is_turkish_language(language)) // 21.05.2002 E.P.
 			break;
-	case (uchar) 'ó':
+	case (uchar) '\x97' /* –ß */:
 	case '4':
 		if (diskr_tsche < 0) {
 			if (dy > 16)
@@ -975,12 +975,12 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		} else
 			P = diskr_tsche;
 		break;
-	case (uchar) 'ô':
+	case (uchar) '\x99' /* –© */:
 		if (is_turkish_language(language)) // 21.05.2002 E.P.
 			break;
-	case (uchar) 'È':
+	case (uchar) '\xe9' /* —â */:
 		if (diskr_tsh < 0) {
-			F = ((uchar) let == (uchar) 'ô') ? 4 : 2;
+			F = ((uchar) let == (uchar) '\x99' /* –© */) ? 4 : 2;
 			if ((F = FOOT(rastr0 + F * D_X, D_X, (uchar) Dx, (uchar) Hy, 0))
 					!= 3)
 				P = 10 * step_diskr;
@@ -998,7 +998,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 			P = diskr_tsh;
 		break;
 #ifdef UFA
-		case (uchar)'°':
+		case (uchar)'\xa1' /* –± */:
 #endif
 	case '6':
 		if (diskr_6 < 0) {
@@ -1075,7 +1075,7 @@ int16_t Diskrim(uchar let, puchar raster, int16_t D_X, int16_t X, int16_t Y,
 		}
 		else P = diskr_2;
 		break;
-		case (uchar)'É' :
+		case (uchar)'\x83' /* –ì */ :
 		if( DiskrHoriz(rastr,D_X,dy/2) &&
 				(F=FOOT(rastr0+2*D_X, D_X,Dx, Hy,0))!=1 )
 		P = 4*step_diskr;
@@ -1318,13 +1318,13 @@ int16_t Num2Interval(uchar *r, int16_t D_X, int16_t dx, int16_t dy) {
 			return (0);
 	for (n2 = i = 0; i < dy; i++, r += D_X) {
 		p = NumHorizInterval(r, d);
-		/*  NumHorizInterval : Á®·´Æ ®≠‚•‡¢†´Æ¢ ¢ ·‚‡Æ™• */
+		/*  NumHorizInterval : —á–∏—Å–ª–æ –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ –≤ —Å—Ç—Ä–æ–∫–µ */
 		n2 += (p == 2);
 	}
 	return (n2 == dy);
 }
 
-/* broken_M : ·ÂÆ§·‚¢Æ · Æ°´Æ¨™Æ¨ å °•ß ´•¢Æ£Æ ™ÆØÎ‚Ê† */
+/* broken_M : —Å—Ö–æ–¥—Å—Ç–≤–æ —Å –æ–±–ª–æ–º–∫–æ–º –ú –±–µ–∑ –ª–µ–≤–æ–≥–æ –∫–æ–ø—ã—Ç—Ü–∞ */
 int16_t broken_M(uchar * r, int16_t D_X, int16_t dy, int16_t left_lim,
 		int16_t ll) {
 	int16_t i, old, neue, dest, sign, fc, maxd, incr;
@@ -1335,10 +1335,10 @@ int16_t broken_M(uchar * r, int16_t D_X, int16_t dy, int16_t left_lim,
 	for (rr = r + D_X, i = 1; i < dy; i++, rr += D_X) {
 		neue = RightDistance(rr, D_X);
 		if (abs(neue - old) > 1)
-			return (broken_M_pen = 0);/* ≠•Ø‡Ô¨Æ© Ø‡†¢Î© †°‡®· */
+			return (broken_M_pen = 0);/* –Ω–µ–ø—Ä—è–º–æ–π –ø—Ä–∞–≤—ã–π –∞–±—Ä–∏—Å */
 		old = neue;
 	}
-	/* Ø‡Ô¨Æ© Ø‡†¢Î© †°‡®· */
+	/* –ø—Ä—è–º–æ–π –ø—Ä–∞–≤—ã–π –∞–±—Ä–∏—Å */
 	old = LeftDistance(r, D_X);
 	dest = old;
 
@@ -1352,7 +1352,7 @@ int16_t broken_M(uchar * r, int16_t D_X, int16_t dy, int16_t left_lim,
 				else
 					sign = 1;
 			} else
-				return (broken_M_pen = 0);/* ≠•¨Æ≠Æ‚Æ≠≠Æ·‚Ï ´•¢Æ£Æ †°‡®·† */
+				return (broken_M_pen = 0);/* –Ω–µ–º–æ–Ω–æ—Ç–æ–Ω–Ω–æ—Å—Ç—å –ª–µ–≤–æ–≥–æ –∞–±—Ä–∏—Å–∞ */
 		}
 		if (neue >= ll)
 			fc++;
@@ -1362,14 +1362,14 @@ int16_t broken_M(uchar * r, int16_t D_X, int16_t dy, int16_t left_lim,
 			incr++;
 		old = neue;
 	}
-	dest = neue - dest; /* ·™†ÁÆ™ ¨Æ≠Æ‚Æ≠≠Æ£Æ ´•¢Æ£Æ †°‡®·† */
+	dest = neue - dest; /* —Å–∫–∞—á–æ–∫ –º–æ–Ω–æ—Ç–æ–Ω–Ω–æ–≥–æ –ª–µ–≤–æ–≥–æ –∞–±—Ä–∏—Å–∞ */
 	if (left_lim == ll)
 		left_lim = 3;
 	return (broken_M_pen = ((dest > left_lim || (dest > left_lim - 2
 			&& left_lim > 5 || dest == left_lim && left_lim > 4) && incr > dy
 			/ 2) && fc < 3 && maxd > 3));
 }
-/* descr_ce : §®™‡®¨®≠†‚Æ‡ 'ñ','Ê' · ÆÁ•≠Ï ™Æ‡Æ‚™®¨® Â¢Æ·‚†¨® */
+/* descr_ce : –¥–∏–∫—Ä–∏–º–∏–Ω–∞—Ç–æ—Ä '\x96'  –¶ ,'\xe6'  —Ü  —Å –æ—á–µ–Ω—å –∫–æ—Ä–æ—Ç–∫–∏–º–∏ —Ö–≤–æ—Å—Ç–∞–º–∏ */
 static int16_t descr_ce(uchar *r, int16_t D_X, int16_t hy) {
 	uchar *rr = r + D_X;
 	int16_t i;
@@ -1377,14 +1377,14 @@ static int16_t descr_ce(uchar *r, int16_t D_X, int16_t hy) {
 	int16_t e2 = LOCAL[1] + (LOCAL_W[1] >> 1);
 	int16_t i1 = SumIntervalBits(r + 2 * D_X, b1, (int16_t) (e2 + 1)) / 3;
 	int16_t num;
-	/* ß†´®¢™† 1-Æ© ·≠®ß„ ´®≠®®             */
+	/* –∑–∞–ª–∏–≤–∫–∞ 1-–æ–π —Å–Ω–∏–∑—É –ª–∏–Ω–∏–∏             */
 	int16_t i2 = SumIntervalBits(r + D_X, b1, (int16_t) (e2 + 1)) / 3;
-	/* ß†´®¢™† 2-Æ© ·≠®ß„ ´®≠®®             */
-	int16_t diap = e2 - b1; /* ™Æ≠•Ê 2-Æ© ≠Æ£® - ≠†Á†´Æ 1-Æ© ≠Æ£®   */
+	/* –∑–∞–ª–∏–≤–∫–∞ 2-–æ–π —Å–Ω–∏–∑—É –ª–∏–Ω–∏–∏             */
+	int16_t diap = e2 - b1; /* –∫–æ–Ω–µ—Ü 2-–æ–π –Ω–æ–≥–∏ - –Ω–∞—á–∞–ª–æ 1-–æ–π –Ω–æ–≥–∏   */
 
 	diap -= (diap >> 3); /* 7/8 					*/
 
-	if (i2 > diap || i1 > diap) /* ß†´®¢™† ≠†Á†‚† ¢Æ 2-Æ© ®´® 3-•© ´®≠®®*/
+	if (i2 > diap || i1 > diap) /* –∑–∞–ª–∏–≤–∫–∞ –Ω–∞—á–∞—Ç–∞ –≤–æ 2-–æ–π –∏–ª–∏ 3-–µ–π –ª–∏–Ω–∏–∏*/
 		return (1);
 	if (broken_flag)
 		return (0);
@@ -1392,15 +1392,15 @@ static int16_t descr_ce(uchar *r, int16_t D_X, int16_t hy) {
 		num += (NumHorizInterval(rr, D_X) == 2);
 		if (SumIntervalBits(rr, b1, (int16_t) (e2 + 1)) / 3 >= diap) {
 			if (i > 2 && num >= i - 1)
-				return (1);/* ØÆ 2 ®≠‚•‡¢†´† ¢Æ ¢·•Â ·‚‡Æ™†Â i>=3 */
+				return (1);/* –ø–æ 2 –∏–Ω—Ç–µ—Ä–≤–∞–ª–∞ –≤–æ –≤—Å–µ—Ö —Å—Ç—Ä–æ–∫–∞—Ö i>=3 */
 			else
-				return (0);/* •·‚Ï ß†´®‚†Ô ´®≠®Ô                   */
+				return (0);/* –µ—Å—Ç—å –∑–∞–ª–∏—Ç–∞—è –ª–∏–Ω–∏—è                   */
 		}
 	}
-	return (1); /* ¢ ≠®¶≠•© ßÆ≠• ≠•‚ ß†´®‚ÎÂ ´®≠®©      */
+	return (1); /* –≤ –Ω–∏–∂–Ω–µ–π –∑–æ–Ω–µ –Ω–µ—Ç –∑–∞–ª–∏—Ç—ã—Ö –ª–∏–Ω–∏–π      */
 }
 
-/*  DiskrJu : §®·™‡®¨®≠†‚Æ‡ û (¢ ·‡•§≠•¨ 3 ®≠‚•‡¢†´† ¢ ™†¶§Æ¨ ·•Á•≠®®) */
+/*  DiskrJu : –¥–∏—Å–∫—Ä–∏–º–∏–Ω–∞—Ç–æ—Ä –Æ (–≤ —Å—Ä–µ–¥–Ω–µ–º 3 –∏–Ω—Ç–µ—Ä–≤–∞–ª–∞ –≤ –∫–∞–∂–¥–æ–º —Å–µ—á–µ–Ω–∏–∏) */
 #ifdef INTERSEPTOR
 static int16_t DiskrJu1(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy)
 {
@@ -1414,7 +1414,7 @@ static int16_t DiskrJu1(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy)
 		r = NumHorizInterval(RASTER,ddx);
 		s2 += (r==2);
 	}
-	/*  NumHorizInterval : Á®·´Æ ®≠‚•‡¢†´Æ¢ ¢ ·‚‡Æ™• */
+	/*  NumHorizInterval : —á–∏—Å–ª–æ –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ –≤ —Å—Ç—Ä–æ–∫–µ */
 
 	n = dy/3;
 	ret = 0;
@@ -1454,7 +1454,7 @@ static int16_t DiskrJu1(uchar *RASTR,int16_t D_X,int16_t dx,int16_t dy)
 }
 #endif
 
-/* for letters '¶' */
+/* for letters '\xa6'  –∂  */
 static int16_t DiskrJ0(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly,
 		int16_t lim) {
 	uchar *RASTER = RASTR;
@@ -1462,7 +1462,7 @@ static int16_t DiskrJ0(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly,
 	dx = bytlen(dx);
 	for (one = all = three = i = 0; i < Ly; i++, RASTER += D_X) {
 		n = NumHorizInterval(RASTER, dx);
-		/*  NumHorizInterval : Á®·´Æ ®≠‚•‡¢†´Æ¢ ¢ ·‚‡Æ™• */
+		/*  NumHorizInterval : —á–∏—Å–ª–æ –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ –≤ —Å—Ç—Ä–æ–∫–µ */
 		three += (n == 3);
 		all += (n >= 3);
 		one += (n == 1);
@@ -1470,9 +1470,9 @@ static int16_t DiskrJ0(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly,
 
 	if (Ly > 9) {
 		ret = (three < lim) ? lim - three : 0;
-		if (all == Ly && lim > 3) /* ¢ ·•‡•§®≠• */
+		if (all == Ly && lim > 3) /* –≤ —Å–µ—Ä–µ–¥–∏–Ω–µ */
 			ret = 2;
-	} else { /* ¨†´•≠Ï™®• ¶ */
+	} else { /* –º–∞–ª–µ–Ω—å–∫–∏–µ –∂ */
 		if (three >= lim)
 			ret = 0;
 		else
@@ -1489,7 +1489,7 @@ static int16_t Diskr3(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly) {
 	dx = bytlen(dx);
 	for (one = all = i = 0; i < Ly; i++, RASTER += D_X) {
 		n = NumHorizInterval(RASTER, dx);
-		/*  NumHorizInterval : Á®·´Æ ®≠‚•‡¢†´Æ¢ ¢ ·‚‡Æ™• */
+		/*  NumHorizInterval : —á–∏—Å–ª–æ –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ –≤ —Å—Ç—Ä–æ–∫–µ */
 		all += (n >= 3);
 		one += (n == 1);
 	}
@@ -1513,24 +1513,24 @@ static int DiskrJ(unsigned char *RASTR, int D_X, int dx, int dy) {
 	}
 	for (; i < dy; i++, RASTR += D_X)
 		td += (NumHorizInterval(RASTR, (uchar) dx) == 3);
-	/*  NumHorizInterval : Á®·´Æ ®≠‚•‡¢†´Æ¢ ¢ ·‚‡Æ™• */
+	/*  NumHorizInterval : —á–∏—Å–ª–æ –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ –≤ —Å—Ç—Ä–æ–∫–µ */
 	return (tu > 3 && t >= 2 && td > 3 || tu > 1 && t > 2 && td > 1 && tu + td
 			> 3);
 }
 
-/* for letters 'Ë' */
+/* for letters '\xe8'  —à  */
 static int16_t DiskrSh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly) {
 	uchar *RASTER = RASTR;
 	int16_t i, num, n2, p, ddx;
 	ddx = bytlen(dx);
 	for (n2 = num = i = 0; i < Ly; i++, RASTER += D_X) {
 		p = NumHorizInterval(RASTER, ddx);
-		/*  NumHorizInterval : Á®·´Æ ®≠‚•‡¢†´Æ¢ ¢ ·‚‡Æ™• */
+		/*  NumHorizInterval : —á–∏—Å–ª–æ –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ –≤ —Å—Ç—Ä–æ–∫–µ */
 		num += (p != 3);
 		n2 += (p == 2);
 	}
 
-	if (n2) { /* •·‚Ï §¢„Â®≠‚•‡¢†´Ï≠Î• ·‚‡Æ™® */
+	if (n2) { /* –µ—Å—Ç—å –¥–≤—É—Ö–∏–Ω—Ç–µ—Ä–≤–∞–ª—å–Ω—ã–µ —Å—Ç—Ä–æ–∫–∏ */
 		int16_t b = (LOCAL[0] + LOCAL[1]) / 2, dd = (LOCAL[1] - LOCAL[0])
 				+ (LOCAL_W[1] + LOCAL_W[0]) / 2;
 		i = Ly << 1;
@@ -1545,7 +1545,7 @@ static int16_t DiskrSh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly) {
 	return (num > 2 ? num - 2 : 0);
 }
 
-/* for letters 'Ë' */
+/* for letters '\xe8'  —à  */
 static int16_t DiskrSh0(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 		int16_t dx0) {
 	uchar *RASTER = RASTR + D_X * (dy - (dy >> 2));
@@ -1555,13 +1555,13 @@ static int16_t DiskrSh0(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 		for (num = 0, i = dy - (dy >> 2); i < dy; i++, RASTER += D_X)
 			num += (NumHorizInterval(RASTER, dx) == 1 && SumBits(RASTER, dx)
 					> l);
-		/*  num : Á®·´Æ ·‚‡Æ™ · Æ§≠®¨ §´®≠≠Î¨ ®≠‚•‡¢†´Æ¨ */
-		lower_long_line = num; /* Á®·´Æ ß†´®‚ÎÂ ·‚‡Æ™ */
+		/*  num : —á–∏—Å–ª–æ —Å—Ç—Ä–æ–∫ —Å –æ–¥–Ω–∏–º –¥–ª–∏–Ω–Ω—ã–º –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–º */
+		lower_long_line = num; /* —á–∏—Å–ª–æ –∑–∞–ª–∏—Ç—ã—Ö —Å—Ç—Ä–æ–∫ */
 	}
 	return (lower_long_line);
 }
 
-/*  DiskrLeft : •·‚Ï ´® §Î‡† ·Ø‡†¢† ? */
+/*  DiskrLeft : –µ—Å—Ç—å –ª–∏ –¥—ã—Ä–∞ —Å–ø—Ä–∞–≤–∞ ? */
 int16_t DiskrLeft(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L) {
 	int16_t sum, p, x, i, Ly, p_old, curr_sum, h;
 	int16_t minr, maxr;
@@ -1592,14 +1592,14 @@ int16_t DiskrLeft(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L) 
 				minr++;
 		for (p_old = -1, curr_sum = sum = 0, i = minr; i <= maxr; i++) {
 			p = NumVertInterval(R, D_X, h, i);
-			if (p >= 2) { /* ≠†Á†´Æ ·•‡®® 2-®≠‚•‡¢†´Ï≠ÎÂ ·‚Æ´°ÊÆ¢ */
+			if (p >= 2) { /* –Ω–∞—á–∞–ª–æ —Å–µ—Ä–∏–∏ 2-–∏–Ω—Ç–µ—Ä–≤–∞–ª—å–Ω—ã—Ö —Å—Ç–æ–ª–±—Ü–æ–≤ */
 				if (p_old != 2)
 					curr_sum = 1;
 				else
-					curr_sum++; /* ≠†™ÆØ´•≠®• Ë®‡®≠Î §Î‡™® */
+					curr_sum++; /* –Ω–∞–∫–æ–ø–ª–µ–Ω–∏–µ —à–∏—Ä–∏–Ω—ã –¥—ã—Ä–∫–∏ */
 				if (curr_sum > L)
 					break;
-			} else if (p_old >= 2) { /* ™Æ≠•Ê ·•‡®® 2-®≠‚•‡¢†´Ï≠ÎÂ ·‚Æ´°ÊÆ¢ */
+			} else if (p_old >= 2) { /* –∫–æ–Ω–µ—Ü —Å–µ—Ä–∏–∏ 2-–∏–Ω—Ç–µ—Ä–≤–∞–ª—å–Ω—ã—Ö —Å—Ç–æ–ª–±—Ü–æ–≤ */
 				if (curr_sum > sum)
 					sum = curr_sum;
 				if (sum >= L)
@@ -1616,7 +1616,7 @@ int16_t DiskrLeft(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L) 
 	return (left_dist[L]);
 }
 
-/*  DiskrLeftBig : •·‚Ï ´® °´ÏË†Ô §Î‡† ·´•¢† ? */
+/*  DiskrLeftBig : –µ—Å—Ç—å –ª–∏ –±–ª—å—à–∞—è –¥—ã—Ä–∞ —Å–ª–µ–≤–∞ ? */
 int16_t DiskrLeftBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 		int16_t L) {
 	int16_t sum, p, x, i, Ly, p_old, curr_sum, h;
@@ -1643,14 +1643,14 @@ int16_t DiskrLeftBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 				minr++;
 		for (p_old = -1, curr_sum = sum = 0, i = minr; i <= maxr; i++) {
 			p = NumVertInterval(R, D_X, h, i);
-			if (p >= 2) { /* ≠†Á†´Æ ·•‡®® 2-®≠‚•‡¢†´Ï≠ÎÂ ·‚Æ´°ÊÆ¢ */
+			if (p >= 2) { /* –Ω–∞—á–∞–ª–æ —Å–µ—Ä–∏–∏ 2-–∏–Ω—Ç–µ—Ä–≤–∞–ª—å–Ω—ã—Ö —Å—Ç–æ–ª–±—Ü–æ–≤ */
 				if (p_old != 2)
 					curr_sum = 1;
 				else
-					curr_sum++; /* ≠†™ÆØ´•≠®• Ë®‡®≠Î §Î‡™® */
+					curr_sum++; /* –Ω–∞–∫–æ–ø–ª–µ–Ω–∏–µ —à–∏—Ä–∏–Ω—ã –¥—ã—Ä–∫–∏ */
 				if (curr_sum > L)
 					break;
-			} else if (p_old >= 2) { /* ™Æ≠•Ê ·•‡®® 2-®≠‚•‡¢†´Ï≠ÎÂ ·‚Æ´°ÊÆ¢ */
+			} else if (p_old >= 2) { /* –∫–æ–Ω–µ—Ü —Å–µ—Ä–∏–∏ 2-–∏–Ω—Ç–µ—Ä–≤–∞–ª—å–Ω—ã—Ö —Å—Ç–æ–ª–±—Ü–æ–≤ */
 				if (curr_sum > sum)
 					sum = curr_sum;
 				if (sum >= L)
@@ -1666,7 +1666,7 @@ int16_t DiskrLeftBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 	return (left_dist_big[L]);
 }
 
-/*  DiskrRight : •·‚Ï ´® §Î‡† ·Ø‡†¢† ? */
+/*  DiskrRight : –µ—Å—Ç—å –ª–∏ –¥—ã—Ä–∞ —Å–ø—Ä–∞–≤–∞ ? */
 int16_t DiskrRight(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L) {
 	int16_t sum, p, x, dl, Ly, i, p_old, curr_sum, h;
 	int16_t minr, maxr, ddy;
@@ -1698,14 +1698,14 @@ int16_t DiskrRight(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L)
 		{
 			p = NumVertInterval(R, D_X, h, (uchar)(dl-i));
 			if( p>=2 )
-			{ /* ≠†Á†´Æ ·•‡®® 2-®≠‚•‡¢†´Ï≠ÎÂ ·‚Æ´°ÊÆ¢ */
+			{ /* –Ω–∞—á–∞–ª–æ —Å–µ—Ä–∏–∏ 2-–∏–Ω—Ç–µ—Ä–≤–∞–ª—å–Ω—ã—Ö —Å—Ç–æ–ª–±—Ü–æ–≤ */
 				if( p_old<2 )
 				curr_sum=1;
-				else curr_sum++; /* ≠†™ÆØ´•≠®• Ë®‡®≠Î §Î‡™® */
+				else curr_sum++; /* –Ω–∞–∫–æ–ø–ª–µ–Ω–∏–µ —à–∏—Ä–∏–Ω—ã –¥—ã—Ä–∫–∏ */
 				if( curr_sum>L )break;
 			}
 			else if( p_old>=2 )
-			{ /* ™Æ≠•Ê ·•‡®® 2-®≠‚•‡¢†´Ï≠ÎÂ ·‚Æ´°ÊÆ¢ */
+			{ /* –∫–æ–Ω–µ—Ü —Å–µ—Ä–∏–∏ 2-–∏–Ω—Ç–µ—Ä–≤–∞–ª—å–Ω—ã—Ö —Å—Ç–æ–ª–±—Ü–æ–≤ */
 				if( curr_sum>sum )
 				sum=curr_sum;
 				if( sum>=L )break;
@@ -1723,7 +1723,7 @@ int16_t DiskrRight(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L)
 	return( right_dist[L] );
 }
 
-	/*  DiskrRightBig : •·‚Ï ´® °Æ´ÏË†Ô §Î‡† ·Ø‡†¢† ? */
+	/*  DiskrRightBig : –µ—Å—Ç—å –ª–∏ –±–æ–ª—å—à–∞—è –¥—ã—Ä–∞ —Å–ø—Ä–∞–≤–∞ ? */
 int16_t DiskrRightBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 		int16_t L) {
 	int16_t sum, p, x, dl, Ly, i, p_old, curr_sum, h;
@@ -1747,16 +1747,16 @@ int16_t DiskrRightBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 						minr++;
 				for (p_old = -1, sum = curr_sum = 0, i = minr; i <= maxr; i++) {
 					p = NumVertInterval(R, D_X, h, (uchar)(dl - i));
-					if (p >= 2) { /* ≠†Á†´Æ ·•‡®® 2-®≠‚•‡¢†´Ï≠ÎÂ ·‚Æ´°ÊÆ¢ */
+					if (p >= 2) { /* –Ω–∞—á–∞–ª–æ —Å–µ—Ä–∏–∏ 2-–∏–Ω—Ç–µ—Ä–≤–∞–ª—å–Ω—ã—Ö —Å—Ç–æ–ª–±—Ü–æ–≤ */
 						if (p_old < 2)
 							curr_sum = 1;
 						else
-							curr_sum++; /* ≠†™ÆØ´•≠®• Ë®‡®≠Î §Î‡™® */
+							curr_sum++; /* –Ω–∞–∫–æ–ø–ª–µ–Ω–∏–µ —à–∏—Ä–∏–Ω—ã –¥—ã—Ä–∫–∏ */
 						if (curr_sum > L) {
 							sum = curr_sum;
 							break;
 						}
-					} else if (p_old >= 2) { /* ™Æ≠•Ê ·•‡®® 2-®≠‚•‡¢†´Ï≠ÎÂ ·‚Æ´°ÊÆ¢ */
+					} else if (p_old >= 2) { /* –∫–æ–Ω–µ—Ü —Å–µ—Ä–∏–∏ 2-–∏–Ω—Ç–µ—Ä–≤–∞–ª—å–Ω—ã—Ö —Å—Ç–æ–ª–±—Ü–æ–≤ */
 						if (curr_sum > sum)
 							sum = curr_sum;
 						if (sum >= L)
@@ -1788,7 +1788,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 
 	if (c_or_e < 0) {
 		d_c = 0;
-		/* £Æ‡®ßÆ≠‚†´Ï≠Î• ®··´•§Æ¢†≠®Ô 	*/
+		/* –≥–æ—Ä–∏–∑–æ–Ω—Ç–∞–ª—å–Ω—ã–µ –∏—Å—Å–ª–µ–¥–æ–≤–∞–Ω–∏—è 	*/
 		for (minnum = dx, n2 = num = num1 = num2 = num3 = 0, i = ody; i < l; i++, r
 				+= D_X) {
 			t1 = NumHorizInterval(r, wid);
@@ -1809,16 +1809,16 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 			num1 += (t1 == 1 && t2 >= z - 1);
 			num2 += (t2 >= z);
 		}
-		/*  num : Á®·´Æ ·‚‡Æ™ · Æ§≠®¨ §´®≠≠Î¨ ®≠‚•‡¢†´Æ¨ */
-		if (num > 1 || num1 > 2 || num2 > 3 || num3 > 1) { /* •·‚Ï ≠•Ø‡•‡Î¢≠†Ô Ø•‡•™´†§®≠† */
-			c_or_e = 1; /* ®´® ≠†°Æ‡ ß†´®‚ÎÂ ·‚‡Æ™       */
+		/*  num : —á–∏—Å–ª–æ —Å—Ç—Ä–æ–∫ —Å –æ–¥–Ω–∏–º –¥–ª–∏–Ω–Ω—ã–º –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–º */
+		if (num > 1 || num1 > 2 || num2 > 3 || num3 > 1) { /* –µ—Å—Ç—å –Ω–µ–ø—Ä–µ—Ä—ã–≤–Ω–∞—è –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω–∞ */
+			c_or_e = 1; /* –∏–ª–∏ –Ω–∞–±–æ—Ä –∑–∞–ª–∏—Ç—ã—Ö —Å—Ç—Ä–æ–∫       */
 			d_e = 0;
 			d_c = num;
 			if (num3)
 				d_c += (minnum == 1 ? 4 : 3);
-			return ((let == (uchar) '•') ? d_e : d_c);
+			return ((let == (uchar) '\xa5' /* –µ */) ? d_e : d_c);
 		}
-		if (num == 0 && num1 == 0 && num2 == 0 && dy < 24) { /* ®È„ Ø‡ÎÈ ≠†Ø‡Æ‚®¢ ™Æ≠Ê† Ø‡†¢Æ£Æ ‡Æ£† */
+		if (num == 0 && num1 == 0 && num2 == 0 && dy < 24) { /* –∏—â—É –ø—Ä—ã—â –Ω–∞–ø—Ä–æ—Ç–∏–≤ –∫–æ–Ω—Ü–∞ –ø—Ä–∞–≤–æ–≥–æ —Ä–æ–≥–∞ */
 			r = RASTR + ody * D_X;
 			t2 = dx >> 1;
 			for (i = ody; i < l; i++, r += D_X) {
@@ -1850,15 +1850,15 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 					break;
 			if (inc && t2 - t1 < 3)
 				t2 = t1; // Oleg : ERECTION conditions : 09-08-95 09:47pm
-			if (t3 > 2 && t2 > t1 && num1 >= 0 && num2 < 7) { /* ¢Æ‚ Ø‡ÎÈ®™ */
-				c_or_e = 1; /* ®´® ≠†°Æ‡ ß†´®‚ÎÂ ·‚‡Æ™       */
+			if (t3 > 2 && t2 > t1 && num1 >= 0 && num2 < 7) { /* –≤–æ—Ç –ø—Ä—ã—â–∏–∫ */
+				c_or_e = 1; /* –∏–ª–∏ –Ω–∞–±–æ—Ä –∑–∞–ª–∏—Ç—ã—Ö —Å—Ç—Ä–æ–∫       */
 				d_e = 0;
 				d_c = 1 + t2 - t1;
-				if ((let == (uchar) '•'))
+				if ((let == (uchar) '\xa5' /* –µ */))
 					return (d_e);
 			}
 		}
-		/* §†´•• ¢•‡‚®™†´Ï≠Î• ®··´•§Æ¢†≠®Ô	*/
+		/* –¥–∞–ª–µ–µ –≤–µ—Ä—Ç–∏–∫–∞–ª—å–Ω—ã–µ –∏—Å—Å–ª–µ–¥–æ–≤–∞–Ω–∏—è	*/
 
 		dx -= d;
 		X &= 7;
@@ -1868,7 +1868,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 			if (p == 3 || p == 2)
 				n++;
 		}
-		/*  NumVertInterval : Á®·´Æ ´®≠®© ¢ ·‚Æ´°Ê• */
+		/*  NumVertInterval : —á–∏—Å–ª–æ –ª–∏–Ω–∏–π –≤ —Å—Ç–æ–ª–±—Ü–µ */
 		p = n;
 		n *= 4;
 		n /= 10; /* 40 % */
@@ -1880,7 +1880,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 			d_e = 4;
 		d_c = MAX(d_c, (s3 > n) ? s3 - n + 1 : 0);
 	}
-	return ((let == (uchar) '•') ? d_e : d_c);
+	return ((let == (uchar) '\xa5' /* –µ */) ? d_e : d_c);
 }
 
 static int16_t average_tl_angle(uchar *RASTER, int16_t D_X, int16_t dx,
@@ -1910,7 +1910,7 @@ static int16_t average_br_angle(uchar *RASTER, int16_t D_X, int16_t dx,
 static int16_t average_angle(uchar *RASTER, int16_t D_X, int16_t dx,
 		int16_t dy, int16_t(*Distance)(uchar *, int16_t), int16_t t) {
 	int16_t i = 0, n, p, H;
-	if (t == 0) { /* Ø‡® t=0 ·‡•ß†•¨ ¨†··®¢≠Î• ·‚‡Æ™® - ®È•¨ ™Æ‡≠® */
+	if (t == 0) { /* –ø—Ä–∏ t=0 —Å—Ä–µ–∑–∞–µ–º –º–∞—Å—Å–∏–≤–Ω—ã–µ —Å—Ç—Ä–æ–∫–∏ - –∏—â–µ–º –∫–æ—Ä–Ω–∏ */
 		while (SumBits(RASTER, (uchar)bytlen(dx)) > (dx >> 1) && i < dy) {
 			i++;
 			RASTER += D_X; /* black strings */
@@ -1932,21 +1932,21 @@ static int16_t NoSymmLastColumn(uchar *raster, int16_t D_X, int16_t Dx,
 		int16_t dy) {
 	int16_t up, down, col = Dx - 1, h = dy >> 1;
 	up = VertSum(raster, D_X, h, col);
-	down = VertSum(raster + D_X * h, D_X, (int16_t) (dy - h), col); /* ØÆ·´•§≠®© ·‚Æ´°®™ */
+	down = VertSum(raster + D_X * h, D_X, (int16_t) (dy - h), col); /* –ø–æ—Å–ª–µ–¥–Ω–∏–π —Å—Ç–æ–ª–±–∏–∫ */
 	if (up + down == 1) {
 		col--;
 		up = VertSum(raster, D_X, h, col);
-		down = VertSum(raster + D_X * h, D_X, (int16_t) (dy - h), col); /* ØÆ·´•§≠®© ·‚Æ´°®™ */
+		down = VertSum(raster + D_X * h, D_X, (int16_t) (dy - h), col); /* –ø–æ—Å–ª–µ–¥–Ω–∏–π —Å—Ç–æ–ª–±–∏–∫ */
 	}
-	if (dy < 15) { /* ™•£´Ï 6 */
+	if (dy < 15) { /* –∫–µ–≥–ª—å 6 */
 		return ((down > 2 && down > up + 2) || (down > 1 && up == 0));
 	}
 	if (up + down <= 3) {
 		col--;
 		up = VertSum(raster, D_X, h, col);
 		down = VertSum(raster + D_X * h, D_X, (int16_t) (dy - h), col);
-	} /* Ø‡•§ØÆ·´•§≠®© ·‚Æ´°®™ */
-	return (down > 3 && down > up + 2); /* ¢≠®ß„ °Æ´ÏË• Á•¨ ≠†¢•‡Â„ */
+	} /* –ø—Ä–µ–¥–ø–æ—Å–ª–µ–¥–Ω–∏–π —Å—Ç–æ–ª–±–∏–∫ */
+	return (down > 3 && down > up + 2); /* –≤–Ω–∏–∑—É –±–æ–ª—å—à–µ —á–µ–º –Ω–∞–≤–µ—Ä—Ö—É */
 }
 
 int16_t fill_center_zone(uchar *raster, int16_t D_X, int16_t dy, int16_t beg,
@@ -2002,7 +2002,7 @@ int16_t fill_center_zone(uchar *raster, int16_t D_X, int16_t dy, int16_t beg,
 	return (fill_center);
 }
 
-/* ™Æ‡‡•™‚≠Æ·‚Ï ·´®‚®Ô ™‡ÎË® ® ≠®¶≠®Â ·•‡®‰Æ¢ §´Ô 'è','Ø' */
+/* –∫–æ—Ä—Ä–µ–∫—Ç–Ω–æ—Å—Ç—å —Å–ª–∏—Ç–∏—è –∫—Ä—ã—à–∏ –∏ –Ω–∏–∂–Ω–∏—Ö —Å–µ—Ä–∏—Ñ–æ–≤ –¥–ª—è '\x8f'  –ü ,'\xaf'  –ø  */
 int16_t up_down_zones(uchar *raster, int16_t D_X, int16_t dx, int16_t dx0,
 		int16_t start1, int16_t stop1, int16_t start2, int16_t stop2) {
 	int16_t i, num1, num2, l = dx0 - (dx0 >> 3);
@@ -2015,24 +2015,24 @@ int16_t up_down_zones(uchar *raster, int16_t D_X, int16_t dx, int16_t dx0,
 	for (r = raster + start1 * D_X, num1 = 0, i = start1; i < stop1; i++, r
 			+= D_X) {
 		num1 += (NumHorizInterval(r, dx) == 1 && SumBits(r, dx) >= l);
-		/*  num1 : Á®·´Æ ·‚‡Æ™ · Æ§≠®¨ §´®≠≠Î¨ ®≠‚•‡¢†´Æ¨ ≠† ™‡ÎË• */
+		/*  num1 : —á–∏—Å–ª–æ —Å—Ç—Ä–æ–∫ —Å –æ–¥–Ω–∏–º –¥–ª–∏–Ω–Ω—ã–º –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–º –Ω–∞ –∫—Ä—ã—à–µ */
 	}
 
 	for (r = raster + start2 * D_X, num2 = 0, i = start2; i < stop2; i++, r
 			+= D_X) {
 		num2 += (NumHorizInterval(r, dx) == 1 && SumBits(r, dx) >= l);
-		/*  num2 : Á®·´Æ ·‚‡Æ™ · Æ§≠®¨ §´®≠≠Î¨ ®≠‚•‡¢†´Æ¨ ¢≠®ß„ */
+		/*  num2 : —á–∏—Å–ª–æ —Å—Ç—Ä–æ–∫ —Å –æ–¥–Ω–∏–º –¥–ª–∏–Ω–Ω—ã–º –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–º –≤–Ω–∏–∑—É */
 	}
 
-	if (num1 == 0 && num2 >= 1) /* ≠®¶≠®• ·•‡®‰Î ·´®Ø´®·Ï, † ™‡ÎË† ‡†ßÆ‡¢†≠† */
+	if (num1 == 0 && num2 >= 1) /* –Ω–∏–∂–Ω–∏–µ —Å–µ—Ä–∏—Ñ—ã —Å–ª–∏–ø–ª–∏—Å—å, –∞ –∫—Ä—ã—à–∞ —Ä–∞–∑–æ—Ä–≤–∞–Ω–∞ */
 		return ((up_down_serif = 2));
-	if (num1 == 0 && num2 == 0) /* §¢• Ø†´™® */
+	if (num1 == 0 && num2 == 0) /* –¥–≤–µ –ø–∞–ª–∫–∏ */
 		return ((up_down_serif = 1));
 
 	return ((up_down_serif = 0));
 }
 
-/* ™Æ‡‡•™‚≠Æ·‚Ï ·´®‚®Ô ™‡ÎË® ® ≠®¶≠®Â ·•‡®‰Æ¢ §´Ô 'Ç','¢' */
+/* –∫–æ—Ä—Ä–µ–∫—Ç–Ω–æ—Å—Ç—å —Å–ª–∏—Ç–∏—è –∫—Ä—ã—à–∏ –∏ –Ω–∏–∂–Ω–∏—Ö —Å–µ—Ä–∏—Ñ–æ–≤ –¥–ª—è '\x82'  –í ,'\xa2'  –≤  */
 int16_t up_down_zones_for_B(uchar *raster, int16_t D_X, int16_t dx,
 		int16_t dx0, int16_t start1, int16_t stop1, int16_t start2,
 		int16_t stop2) {
@@ -2049,7 +2049,7 @@ int16_t up_down_zones_for_B(uchar *raster, int16_t D_X, int16_t dx,
 		if (p == 1 && SumBits(r, dx) >= l)
 			break;
 		num1 += (p == 2 && i > 0);
-		/*  num1 : Á®·´Æ ·‚‡Æ™ · §¢„¨Ô ®≠‚•‡¢†´†¨¨ ≠† ™‡ÎË• */
+		/*  num1 : —á–∏—Å–ª–æ —Å—Ç—Ä–æ–∫ —Å –¥–≤—É–º—è –∏–Ω—Ç–µ—Ä–≤–∞–ª–∞–º–º –Ω–∞ –∫—Ä—ã—à–µ */
 	}
 
 	for (r = raster + (stop2 - 1) * D_X, num2 = 0, i = stop2 - 1; i >= start2; i--, r
@@ -2058,7 +2058,7 @@ int16_t up_down_zones_for_B(uchar *raster, int16_t D_X, int16_t dx,
 		if (p == 1 && SumBits(r, dx) >= l)
 			break;
 		num2 += (p == 2 && i < stop2 - 1);
-		/*  num2 : Á®·´Æ ·‚‡Æ™ · §¢„¨Ô ®≠‚•‡¢†´†¨® ¢≠®ß„ */
+		/*  num2 : —á–∏—Å–ª–æ —Å—Ç—Ä–æ–∫ —Å –¥–≤—É–º—è –∏–Ω—Ç–µ—Ä–≤–∞–ª–∞–º–∏ –≤–Ω–∏–∑—É */
 	}
 
 	up_down_serif_B = (num1 > 2) + (num2 > 2);
@@ -2067,20 +2067,20 @@ int16_t up_down_zones_for_B(uchar *raster, int16_t D_X, int16_t dx,
 
 /***************************************************************************/
 /*                                                                         */
-/*   ¢Æß¢‡†È†•‚   1   •·´®   ·´®‚®•   'i'  ·   '§'                         */
-/*   ¢Æß¢‡†È†•‚   0   ®≠†Á•                                                */
+/*   –≤–æ–∑–≤—Ä–∞—â–∞–µ—Ç   1   –µ—Å–ª–∏   —Å–ª–∏—Ç–∏–µ   'i'  —Å   '\xa4'  –¥                          */
+/*   –≤–æ–∑–≤—Ä–∞—â–∞–µ—Ç   0   –∏–Ω–∞—á–µ                                                */
 /*                                                                         */
 /***************************************************************************/
 static int16_t DiskrTsh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 		int16_t Dx)
 /***************************************************************************/
-/****     *RASTR     „™†ß†‚•´Ï   ≠†  ¨†·®¢  ·  „Á•‚Æ¨  Ø‡ÆØ„·™†     ********/
-/****			      Ø•‡¢Æ©  ·‚‡ÆÁ™®                       ********/
-/****      dx        ™Æ´®Á•·‚¢Æ  °®‚Æ¢  ¢  ·‚‡Æ™•                   ********/
-/****	   dy        kÆ´®Á•·‚¢Æ  ·‚‡Æ™                              ********/
-/****      D_X       ™Æ´®Á•·‚¢Æ  °†©‚Æ¢  ¢  ·‚‡Æ™•                  ********/
-/****      Dx        ™Æ´®Á•·‚¢Æ  °®‚Æ¢  ¢  ·‚‡Æ™•  ·  „Á•‚Æ¨        ********/
-/****			      Ø‡ÆØ„·™†   Ø•‡¢ÎÂ  °®‚Æ¢              ********/
+/****     *RASTR     —É–∫–∞–∑–∞—Ç–µ–ª—å   –Ω–∞  –º–∞—Å–∏–≤  —Å  —É—á–µ—Ç–æ–º  –ø—Ä–æ–ø—É—Å–∫–∞     ********/
+/****			      –ø–µ—Ä–≤–æ–π  —Å—Ç—Ä–æ—á–∫–∏                       ********/
+/****      dx        –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∏—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                   ********/
+/****	   dy        k–æ–ª–∏—á–µ—Å—Ç–≤–æ  —Å—Ç—Ä–æ–∫                              ********/
+/****      D_X       –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∞–π—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                  ********/
+/****      Dx        –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∏—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ  —Å  —É—á–µ—Ç–æ–º        ********/
+/****			      –ø—Ä–æ–ø—É—Å–∫–∞   –ø–µ—Ä–≤—ã—Ö  –±–∏—Ç–æ–≤              ********/
 /***************************************************************************/
 {
 	uchar j, n4 = dy >> 2, bool_foot = 1;
@@ -2088,7 +2088,7 @@ static int16_t DiskrTsh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 	int16_t i, fine = 0;
 	uchar *RAST;
 
-	/****************   Ø‡Æ¢•‡™†   ≠†´®Á®Ô   §¢„Â  Â¢Æ·‚®™Æ¢  ******************/
+	/****************   –ø—Ä–æ–≤–µ—Ä–∫–∞   –Ω–∞–ª–∏—á–∏—è   –¥–≤—É—Ö  —Ö–≤–æ—Å—Ç–∏–∫–æ–≤  ******************/
 
 	for (RAST = RASTR + (dy - 3) * D_X, i = dy - 3;; i--, RAST -= D_X) {
 		j = SumIntervalBits(RAST, (int16_t) 0, (int16_t) dx) / 3;
@@ -2102,13 +2102,13 @@ static int16_t DiskrTsh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 		return (0);
 	}
 
-	/****************          ØÆ´Æ¶•≠®•      ≠Æ£             ******************/
+	/****************          –ø–æ–ª–æ–∂–µ–Ω–∏–µ      –Ω–æ–≥             ******************/
 
 	bit0 = LOCAL[0];
 	bit1 = LOCAL[1];
 	bit2 = LOCAL[2];
 
-	/************   Ø‡Æ¢•‡™†   ·´®‚®Ô   ¢  ¢•‡Â≠•¨   ´•¢Æ¨   „£´„  *************/
+	/************   –ø—Ä–æ–≤–µ—Ä–∫–∞   —Å–ª–∏—Ç–∏—è   –≤  –≤–µ—Ä—Ö–Ω–µ–º   –ª–µ–≤–æ–º   —É–≥–ª—É  *************/
 
 	fine = 0;
 	for (RAST = RASTR, i = 0; i < n4; i++, RAST += D_X) {
@@ -2118,7 +2118,7 @@ static int16_t DiskrTsh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 	}
 	if( fine < 40 ) {goto bbb;}/*razriv */
 
-	/******************  §•´†•‚   £®·‚Æ£‡†¨¨„   ********************************/
+	/******************  –¥–µ–ª–∞–µ—Ç   –≥–∏—Å—Ç–æ–≥—Ä–∞–º–º—É   ********************************/
 
 	FOOT_A(RASTR, D_X, (uchar)Dx, (uchar)n4); bool_foot=0;
 
@@ -2127,7 +2127,7 @@ static int16_t DiskrTsh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 	}
 	goto end;/* slilos */
 
-	/************   Ø‡Æ¢•‡™†   ·´®‚®Ô   ¢  ¢•‡Â≠•¨   Ø‡†¢Æ¨   „£´„  ************/
+	/************   –ø—Ä–æ–≤–µ—Ä–∫–∞   —Å–ª–∏—Ç–∏—è   –≤  –≤–µ—Ä—Ö–Ω–µ–º   –ø—Ä–∞–≤–æ–º   —É–≥–ª—É  ************/
 
 	bbb:fine=0;
 	for (RAST=RASTR,i=0;i<n4;i++,RAST+=D_X) {
@@ -2137,7 +2137,7 @@ static int16_t DiskrTsh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 	}
 	if( fine < 40 ) goto end;/*razriv */
 
-	/******************  §•´†•‚   £®·‚Æ£‡†¨¨„   ********************************/
+	/******************  –¥–µ–ª–∞–µ—Ç   –≥–∏—Å—Ç–æ–≥—Ä–∞–º–º—É   ********************************/
 
 	if( bool_foot ) FOOT_A(RASTR, D_X, (uchar)Dx, (uchar)n4);
 	for(i=bit1+1;i<bit2+1;i++) {
@@ -2196,15 +2196,15 @@ int16_t vert_stairs(int16_t arr[], int16_t lim) {
 
 /***************************************************************************/
 /*                                                                         */
-/*  ¢Æß¢‡†È†•‚   ÆÊ•≠™„ ¢Æß‡†·‚†≠®Ô ·•‡•§®≠ ®≠‚•‡¢†´Æ¢ Ø•‡™´†§®≠Î àç       */
+/*  –≤–æ–∑–≤—Ä–∞—â–∞–µ—Ç   –æ—Ü–µ–Ω–∫—É –≤–æ–∑—Ä–∞—Å—Ç–∞–Ω–∏—è —Å–µ—Ä–µ–¥–∏–Ω –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ –ø–µ—Ä–∫–ª–∞–¥–∏–Ω—ã –ò–ù       */
 /*                                                                         */
 /***************************************************************************/
 static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 		int16_t dx)
 /***************************************************************************/
-/****     *RASTR     „™†ß†‚•´Ï   ≠†  ¨†··®¢                         ********/
-/****	   dy        kÆ´®Á•·‚¢Æ  ·‚‡Æ™                              ********/
-/****      D_X       ™Æ´®Á•·‚¢Æ  °†©‚Æ¢  ¢  ·‚‡Æ™•                  ********/
+/****     *RASTR     —É–∫–∞–∑–∞—Ç–µ–ª—å   –Ω–∞  –º–∞—Å—Å–∏–≤                         ********/
+/****	   dy        k–æ–ª–∏—á–µ—Å—Ç–≤–æ  —Å—Ç—Ä–æ–∫                              ********/
+/****      D_X       –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∞–π—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                  ********/
 /***************************************************************************/
 {
 	uchar n[256] = {0}, hist[256] = {0};
@@ -2212,7 +2212,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 	int16_t i, n2 = dy - 2 * (dy >> 2), n4, mean, fine;
 	int16_t incr, decr, old, neue, equ;
 	int16_t l = beg2 - end1 - 1, l_real, t, jump, rmin, rmax;
-	int16_t ol = 1, or_ = 1; /* ß†ßÆ‡ ·´•¢† ® ·Ø‡†¢† */
+	int16_t ol = 1, or_ = 1; /* –∑–∞–∑–æ—Ä —Å–ª–µ–≤–∞ –∏ —Å–ø—Ä–∞–≤–∞ */
 	uchar *RAST, *R;
 
 	n4 = MAX(dy / 4, (LOCAL_W[0] + LOCAL_W[1]) / 4);
@@ -2228,10 +2228,10 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 	IN_M = 0;
 
 	if (l + ol + or_ < 2 && dy > 19) {
-		if (small_density(RAST, n2, D_X, bw)) { /* ≠•‚ ß†´®¢™® */
+		if (small_density(RAST, n2, D_X, bw)) { /* –Ω–µ—Ç –∑–∞–ª–∏–≤–∫–∏ */
 			IN_N = 4;
 			IN_I = 2;
-		} else { /* ß†´®¢™†	*/
+		} else { /* –∑–∞–ª–∏–≤–∫–∞	*/
 			IN_N = 4;
 			IN_I = 3;
 		}
@@ -2241,7 +2241,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 	}
 
 	memset(hist, 0, dy);
-	if (l < 3) { /* Æ‚¨•≠®‚Ï ß†ßÆ‡Î */
+	if (l < 3) { /* –æ—Ç–º–µ–Ω–∏—Ç—å –∑–∞–∑–æ—Ä—ã */
 		or_ = ol = 0;
 		l = beg2 - end1 + 1 - ol - or_;
 	}
@@ -2321,24 +2321,24 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 	memset(da, 0xFF, dy << 1);
 	i = end1 + ol - 1;
 	n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
-	/* ß†Ø†·≠Æ© ´•¢Î© Æ‚·Á•‚ 		*/
-	for (mean = l_real = 0, i = end1 + ol; i <= beg2 - or_; i++) { /* ‚†°´®Ê† Æ‚Á•‚Æ¢ ·•‡•§®≠ ¢•‡‚®™†´Ï≠ÎÂ ®≠‚•‡¢†´Æ¢ 	*/
+	/* –∑–∞–ø–∞—Å–Ω–æ–π –ª–µ–≤—ã–π –æ—Ç—Å—á–µ—Ç 		*/
+	for (mean = l_real = 0, i = end1 + ol; i <= beg2 - or_; i++) { /* —Ç–∞–±–ª–∏—Ü–∞ –æ—Ç—á–µ—Ç–æ–≤ —Å–µ—Ä–µ–¥–∏–Ω –≤–µ—Ä—Ç–∏–∫–∞–ª—å–Ω—ã—Ö –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ 	*/
 		n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
 		mean += n[i];
-		if (n[i]) /* mean	  - ·„¨¨†   Æ‚·Á•‚Æ¢		*/
-			l_real++; /* l_real - Á®·´Æ ≠•≠„´•¢ÎÂ Æ‚·Á•‚Æ¢ 	*/
+		if (n[i]) /* mean	  - —Å—É–º–º–∞   –æ—Ç—Å—á–µ—Ç–æ–≤		*/
+			l_real++; /* l_real - —á–∏—Å–ª–æ –Ω–µ–Ω—É–ª–µ–≤—ã—Ö –æ—Ç—Å—á–µ—Ç–æ–≤ 	*/
 	}
 	n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
-	/* ß†Ø†·≠Æ© Æ‚·Á•‚ 			*/
+	/* –∑–∞–ø–∞—Å–Ω–æ–π –æ—Ç—Å—á–µ—Ç 			*/
 	if (l != l_real && (l_real == 2 || (n[end1] | n[end1 + 1]) && (n[beg2]
-			| n[beg2 - 1]))) { /* Æ‚·„‚·‚¢®• Ø•‡•™´†§®≠Î 			*/
+			| n[beg2 - 1]))) { /* –æ—Ç—Å—É—Ç—Å—Ç–≤–∏–µ –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω—ã 			*/
 		IN_N_Bonus = 2;
 		IN_I_Bonus = 2;
 		if (l_real == 2)
 			IN_P_Bonus = 1;
 	}
 	if (l_real <= 1 && ((n[end1] == 0 && n[end1 + 1] == 0) || (n[beg2] == 0
-			&& n[beg2 - 1] == 0))) { /* Æ‚·„‚·‚¢®• Ø•‡•™´†§®≠Î 			*/
+			&& n[beg2 - 1] == 0))) { /* –æ—Ç—Å—É—Ç—Å—Ç–≤–∏–µ –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω—ã 			*/
 		IN_N_Bonus = 1;
 		IN_P_Bonus = 1;
 		IN_I_Bonus = 1;
@@ -2350,7 +2350,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 		}
 	}
 
-	if (no_serific(RASTR, dy, dx, bw)) { /* Æ°‡†‚≠Î© Ø•‡•·Á•‚ ¢ ®≠‚•‡¢†´ ¢Î·Æ‚ [dy/4,dy-dy/4] */
+	if (no_serific(RASTR, dy, dx, bw)) { /* –æ–±—Ä–∞—Ç–Ω—ã–π –ø–µ—Ä–µ—Å—á–µ—Ç –≤ –∏–Ω—Ç–µ—Ä–≤–∞–ª –≤—ã—Å–æ—Ç [dy/4,dy-dy/4] */
 		int16_t nn4, nn2, h;
 		nn4 = MAX(dy >> 2, (LOCAL_W[0] + LOCAL_W[1]) >> 1);
 		if (nn4 > dy / 3)
@@ -2378,7 +2378,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 	if (l_real < 4) {
 		i = beg2 - or_ + 1;
 		if (or_ && n[i] && VertSum(RAST, D_X, n2, i) < n2 - 1
-				&& NumVertInterval(RAST, D_X, n2, i) == 1) { /* „Á®‚Î¢†•¨ ØÆ·´•§≠®© Æ‚·Á•‚ */
+				&& NumVertInterval(RAST, D_X, n2, i) == 1) { /* —É—á–∏—Ç—ã–≤–∞–µ–º –ø–æ—Å–ª–µ–¥–Ω–∏–π –æ—Ç—Å—á–µ—Ç */
 			mean += n[i];
 			or_--;
 			l_real++;
@@ -2386,7 +2386,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 		}
 		i = end1 + ol - 1;
 		if (ol && n[i] && VertSum(RAST, D_X, n2, i) < n2 - 1
-				&& NumVertInterval(RAST, D_X, n2, i) == 1) { /* „Á®‚Î¢†•¨ ØÆ·´•§≠®© Æ‚·Á•‚ */
+				&& NumVertInterval(RAST, D_X, n2, i) == 1) { /* —É—á–∏—Ç—ã–≤–∞–µ–º –ø–æ—Å–ª–µ–¥–Ω–∏–π –æ—Ç—Å—á–µ—Ç */
 			mean += n[i];
 			ol--;
 			l_real++;
@@ -2409,7 +2409,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 			if (nn < 2)
 				break;
 		}
-		if (i < 3 || (minup * 2 < mindown && minup * 3 < zaz && zaz > 3)) { /* ØÆÁ‚® ß†´®‚†Ô ™‡ÎË™† */
+		if (i < 3 || (minup * 2 < mindown && minup * 3 < zaz && zaz > 3)) { /* –ø–æ—á—Ç–∏ –∑–∞–ª–∏—Ç–∞—è –∫—Ä—ã—à–∫–∞ */
 			IN_N_Bonus = IN_I_Bonus = 1;
 			IN_P_Bonus = 2;
 		} else {
@@ -2431,7 +2431,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 	{
 		int16_t z = beg2 - end1 + 1;
 		if (z > 4 && l_real * 2 > z)
-			IN_IN_Monus = 1; /* Ä Ø•‡•™´†§®≠Î ‡†ß‡Î¢ ‚Æ ¨†´•≠Ï™®© ! */
+			IN_IN_Monus = 1; /* –ê –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω—ã —Ä–∞–∑—Ä—ã–≤ —Ç–æ –º–∞–ª–µ–Ω—å–∫–∏–π ! */
 		if (l_real > 4 || l - l_real <= 3 && l > 5 || l_real == 4
 				&& fill_center || l_real < 2 && z < 4 && n4 < 6 || z > 10
 				&& l_real < 3) {
@@ -2446,7 +2446,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 				hist[neue]++;
 
 		mean = mean / l_real + ((mean % l_real) > (l_real >> 1));
-		/* mean	  - ·‡•§≠®© Æ‚·Á•‚		*/
+		/* mean	  - —Å—Ä–µ–¥–Ω–∏–π –æ—Ç—Å—á–µ—Ç		*/
 
 		if (hist[mean - 1] > l_real - 2)
 			mean--;
@@ -2456,7 +2456,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 		if (l_real != l && !(l_real == l - 1 && (n[end1] == 0 || n[beg2] == 0)))
 			if (!fill_center && l_real <= 4 || l_real <= 3) {
 				int16_t an[2], en[2], ll, dy1 = n2, san[2], sen[2], z;
-				/* ØÆ®·™ Ø‡ÎÈ•© Æ‚ 'ç' ≠† ·•‡•§®≠• ¢Î·Æ‚Î */
+				/* –ø–æ–∏—Å–∫ –ø—Ä—ã—â–µ–π –æ—Ç '\x8d' –ù –Ω–∞ —Å–µ—Ä–µ–¥–∏–Ω–µ –≤—ã—Å–æ—Ç—ã */
 				an[0] = n[end1];
 				an[1] = n[end1 + 1];
 				en[0] = n[beg2 - 1];
@@ -2495,7 +2495,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 						n[beg2 - i] = (uchar) sen[i];
 						n[end1 + i] = (uchar) san[i];
 					}
-					/* ØÆ®·™ Ø‡ÎÈ•© Æ‚ 'à' ØÆ ‡†ß≠Î• ·‚Æ‡Æ≠Î Æ‚ ·•‡•§®≠Î ¢Î·Æ‚Î */
+					/* –ø–æ–∏—Å–∫ –ø—Ä—ã—â–µ–π –æ—Ç '\x88' –ò –ø–æ —Ä–∞–∑–Ω—ã–µ —Å—Ç–æ—Ä–æ–Ω—ã –æ—Ç —Å–µ—Ä–µ–¥–∏–Ω—ã –≤—ã—Å–æ—Ç—ã */
 					an[0] = n[end1];
 					an[1] = n[end1 + 1];
 					en[0] = n[beg2 - 1];
@@ -2525,8 +2525,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 					for (t = 0, i = end1 + ol; i <= lim; i++)
 						if (n[i] > ((n2 - 2) << 1))
 							t++;
-					if (t >= MAX(2, (l_real >> 1))) { /* Ø•‡•™´†§®≠† ·´®Ë™Æ¨ ¢Î·Æ™Æ 			*/
-						fill_center = 0; /* ™Æ‡‡•™Ê®Ô Ë‚‡†‰† ß† Æ‚·‚„‚·‚¢®• Ø•‡•™´†§®≠Î 	*/
+					if (t >= MAX(2, (l_real >> 1))) { /* –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω–∞ —Å–ª–∏—à–∫–æ–º –≤—ã—Å–æ–∫–æ 			*/
+						fill_center = 0; /* –∫–æ—Ä—Ä–µ–∫—Ü–∏—è —à—Ç—Ä–∞—Ñ–∞ –∑–∞ –æ—Ç—Å—Ç—É—Ç—Å—Ç–≤–∏–µ –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω—ã 	*/
 						IN_N = 4;
 						IN_I = 1;
 						IN_dis = 1;
@@ -2534,8 +2534,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 					}
 				}
 
-				if (fill_center && l_real < 2 && l > 4) { /* ØÆ´≠Æ• Æ‚·„‚·‚¢®• Ø•‡•™´†§®≠Î 		*/
-					fill_center = 0; /* ™Æ‡‡•™Ê®Ô Ë‚‡†‰† ß† Æ‚·‚„‚·‚¢®• Ø•‡•™´†§®≠Î 	*/
+				if (fill_center && l_real < 2 && l > 4) { /* –ø–æ–ª–Ω–æ–µ –æ—Ç—Å—É—Ç—Å—Ç–≤–∏–µ –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω—ã 		*/
+					fill_center = 0; /* –∫–æ—Ä—Ä–µ–∫—Ü–∏—è —à—Ç—Ä–∞—Ñ–∞ –∑–∞ –æ—Ç—Å—Ç—É—Ç—Å—Ç–≤–∏–µ –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω—ã 	*/
 					IN_N = 4;
 					IN_I = 1;
 					IN_dis = 1;
@@ -2545,9 +2545,9 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
 		for (old = incr = decr = fine = 0, i = end1 + ol, rmin = dy, rmax = 0; i
 				<= beg2 - or_; i++)
-			if ((neue = n[i]) != 0) { /* fine - ·„¨¨† ‡†··‚ÆÔ≠®© Æ‚ ·‡•§≠•£Æ 	*/
+			if ((neue = n[i]) != 0) { /* fine - —Å—É–º–º–∞ —Ä–∞—Å—Å—Ç–æ—è–Ω–∏–π –æ—Ç —Å—Ä–µ–¥–Ω–µ–≥–æ 	*/
 				if (old == 0)
-					old = neue;/* Ø•‡¢Î© ≠•≠„´•¢Æ© Æ‚·Á•‚	*/
+					old = neue;/* –ø–µ—Ä–≤—ã–π –Ω–µ–Ω—É–ª–µ–≤–æ–π –æ—Ç—Å—á–µ—Ç	*/
 				if (neue > rmax)
 					rmax = neue;
 				if (neue < rmin)
@@ -2557,15 +2557,15 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 				else
 					fine += mean - neue;
 				if (neue > old)
-					incr++; /* Á®·´Æ ·™†Á™Æ¢ ¢Æß‡†·‚†≠®© 	*/
+					incr++; /* —á–∏—Å–ª–æ —Å–∫–∞—á–∫–æ–≤ –≤–æ–∑—Ä–∞—Å—Ç–∞–Ω–∏–π 	*/
 				else if (neue < old)
-					decr++; /* Á®·´Æ ·™†Á™Æ¢ „°Î¢†≠®© 	*/
+					decr++; /* —á–∏—Å–ª–æ —Å–∫–∞—á–∫–æ–≤ —É–±—ã–≤–∞–Ω–∏–π 	*/
 				old = neue;
 			}
 		if (fine && rmax - rmin <= 2 && !(l_real == 3 && incr == 2))
-			fine = 0; /* ¢·• Æ‚·Á•‚Î ¢ 2-Â ´®≠®ÔÂ */
+			fine = 0; /* –≤—Å–µ –æ—Ç—Å—á–µ—Ç—ã –≤ 2-—Ö –ª–∏–Ω–∏—è—Ö */
 		if (fine && l_real == 3 && incr == 2)
-			fine += 2; /* 2 ·™†Á™† ¢ 3-Â ·‚Æ´°Ê†Â */
+			fine += 2; /* 2 —Å–∫–∞—á–∫–∞ –≤ 3-—Ö —Å—Ç–æ–ª–±—Ü–∞—Ö */
 
 		if (omni) {
 			int16_t fin = fine, inc = incr, dec = decr;
@@ -2576,7 +2576,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 					fin += neue - mean;
 				else
 					fin += mean - neue;
-				inc++; /* Á®·´Æ ·™†Á™Æ¢ ¢Æß‡†·‚†≠®© 	*/
+				inc++; /* —á–∏—Å–ª–æ —Å–∫–∞—á–∫–æ–≤ –≤–æ–∑—Ä–∞—Å—Ç–∞–Ω–∏–π 	*/
 			}
 
 			neue = n[beg2];
@@ -2585,9 +2585,9 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 					fin += neue - mean;
 				else
 					fin += mean - neue;
-				inc++; /* Á®·´Æ ·™†Á™Æ¢ ¢Æß‡†·‚†≠®© 	*/
+				inc++; /* —á–∏—Å–ª–æ —Å–∫–∞—á–∫–æ–≤ –≤–æ–∑—Ä–∞—Å—Ç–∞–Ω–∏–π 	*/
 			}
-			/* °Æ´ÏËÆ• ·ÂÆ§·‚¢Æ · 'à' */
+			/* –±–æ–ª—å—à–æ–µ —Å—Ö–æ–¥—Å—Ç–≤–æ —Å '\x88'  –ò  */
 			if (fin > 10 && inc > 3 && dec < 1 && LOCAL[0] <= dx / 4)
 				IN_M = 80;
 			else if (fin > 10 && inc > 2 && dec == 0 && LOCAL[0] <= dx / 4)
@@ -2595,19 +2595,19 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 			else
 				IN_M = 0;
 		}
-		if (abs(incr - decr) < 2 && /* °´®ß™®• ß≠†Á•≠®Ô ·™†Á™Æ¢ 	*/
-		(incr > 1 && /* °Æ´•• 1 ¢Æß‡†·‚†≠®Ô		*/
-		decr > 1 || /* °Æ´•• 1 „°Î¢†≠®Ô		*/
-		incr && decr && incr + decr < 4) && /* ¨†´Æ ·™†Á™Æ¢ */
-		fine <= l /* ¨†´†Ô §®·Ø•‡·®Ô		*/
+		if (abs(incr - decr) < 2 && /* –±–ª–∏–∑–∫–∏–µ –∑–Ω–∞—á–µ–Ω–∏—è —Å–∫–∞—á–∫–æ–≤ 	*/
+		(incr > 1 && /* –±–æ–ª–µ–µ 1 –≤–æ–∑—Ä–∞—Å—Ç–∞–Ω–∏—è		*/
+		decr > 1 || /* –±–æ–ª–µ–µ 1 —É–±—ã–≤–∞–Ω–∏—è		*/
+		incr && decr && incr + decr < 4) && /* –º–∞–ª–æ —Å–∫–∞—á–∫–æ–≤ */
+		fine <= l /* –º–∞–ª–∞—è –¥–∏—Å–ø–µ—Ä—Å–∏—è		*/
 		)
 			fine = 0;
-		if (incr < 2 && /* ¨†´Æ¢†‚Æ ¢Æß‡†·‚†≠®©   */
-		l_real > 4 && /* ≠† Ë®‡Æ™Æ© Ø•‡•™´†§®≠• */
-		decr && incr + decr < 4) /* ·™†Á™Æ¢ ≠•¨≠Æ£Æ        */
+		if (incr < 2 && /* –º–∞–ª–æ–≤–∞—Ç–æ –≤–æ–∑—Ä–∞—Å—Ç–∞–Ω–∏–π   */
+		l_real > 4 && /* –Ω–∞ —à–∏—Ä–æ–∫–æ–π –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω–µ */
+		decr && incr + decr < 4) /* —Å–∫–∞—á–∫–æ–≤ –Ω–µ–º–Ω–æ–≥–æ        */
 			fine = 0;
 		if (fine > 2 && incr < 2 && decr > 1 && l > 3)
-			fine -= 2; /* ¢·•£Æ 1 ¢Æß‡†·‚†≠®•		*/
+			fine -= 2; /* –≤—Å–µ–≥–æ 1 –≤–æ–∑—Ä–∞—Å—Ç–∞–Ω–∏–µ		*/
 		t = (incr <= 1) && (decr <= 1);
 		for (i = end1 + ol; n[i] == 0 && i <= beg2 - or_; i++)
 			; /* skip empty columns */
@@ -2620,23 +2620,23 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 				incr += neue - old;
 			old = neue;
 		}
-		if (t == 0) /* °Æ´•• 1-£Æ ¢Æß‡†·‚†≠®Ô ®´® „°Î¢†≠®Ô 	*/
-			fine += incr; /* §Æ°†¢®´® Ë‚‡†‰ ß† ¢Æß‡†·‚†≠®•	*/
+		if (t == 0) /* –±–æ–ª–µ–µ 1-–≥–æ –≤–æ–∑—Ä–∞—Å—Ç–∞–Ω–∏—è –∏–ª–∏ —É–±—ã–≤–∞–Ω–∏—è 	*/
+			fine += incr; /* –¥–æ–±–∞–≤–∏–ª–∏ —à—Ç—Ä–∞—Ñ –∑–∞ –≤–æ–∑—Ä–∞—Å—Ç–∞–Ω–∏–µ	*/
 		for (t = equ = i = 0; i < dy; i++)
 			if (hist[i] > equ)
 				equ = hist[(t = i)];
 		if (fine > 1 && equ > 2 && t == mean && or_ == 0 && ol == 0 && n[end1]
 				< mean && mean < n[beg2] && equ + 2 == l_real)
-			fine = 0; /* 1-Î© ® ØÆ·´•§≠®© ·™†Á™® ¢	*/
-		/* ‡†ßÆ‡¢†≠≠Æ¨ ‡†·‚‡•, ®≠‚•‡¢†´	*/
-		/* ØÆ·‚ÆÔ≠·‚¢† §´®≠Î 3		*/
+			fine = 0; /* 1-—ã–π –∏ –ø–æ—Å–ª–µ–¥–Ω–∏–π —Å–∫–∞—á–∫–∏ –≤	*/
+		/* —Ä–∞–∑–æ—Ä–≤–∞–Ω–Ω–æ–º —Ä–∞—Å—Ç—Ä–µ, –∏–Ω—Ç–µ—Ä–≤–∞–ª	*/
+		/* –ø–æ—Å—Ç–æ—è–Ω—Å—Ç–≤–∞ –¥–ª–∏–Ω—ã 3		*/
 		if (equ > 1 && fine < 6) {
 			int16_t fineold = fine;
 			t = n4 + n2 - (t >> 1);
 			for (RAST = RASTR + D_X * (t - 2), i = t - 2; i <= t + 2; i++, RAST
 					+= D_X)
 				if (SumIntervalBits(RAST, end1, (int16_t) (beg2 + 1)) == (beg2
-						- end1 + 1) * 3) { /* •·‚Ï Ø•‡•™´†§®≠† */
+						- end1 + 1) * 3) { /* –µ—Å—Ç—å –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω–∞ */
 					fine = 0;
 					break;
 				}
@@ -2645,38 +2645,38 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 		}
 
 		if (l_real < 5 && equ > 2)
-			fine = 0; /* 3 ®ß 4(®´® <4) ·Æ¢Ø†§†Ó‚ 		*/
+			fine = 0; /* 3 –∏–∑ 4(–∏–ª–∏ <4) —Å–æ–≤–ø–∞–¥–∞—é—Ç 		*/
 		if (l_real > 4 && equ > l_real - 2)
-			fine = 0; /* ·Æ¢Ø†§†Ó‚ l-1 ®ß l Æ‚·Á•‚Æ¢		*/
+			fine = 0; /* —Å–æ–≤–ø–∞–¥–∞—é—Ç l-1 –∏–∑ l –æ—Ç—Å—á–µ—Ç–æ–≤		*/
 		jump = 0;
-		if (equ == l - 1) { /* •§®≠·‚¢•≠≠Î© ¢·Ø´•·™			*/
+		if (equ == l - 1) { /* –µ–¥–∏–Ω—Å—Ç–≤–µ–Ω–Ω—ã–π –≤—Å–ø–ª–µ—Å–∫			*/
 			i = end1 + ol;
 			if (n[i] != 0 && n[i] < n[i + 1] && n[i + 2] == n[i + 1]) {
-				fine = 0; /* •§®≠·‚¢•≠≠Î© ´•¢Î© ¢·Ø´•·™		*/
+				fine = 0; /* –µ–¥–∏–Ω—Å—Ç–≤–µ–Ω–Ω—ã–π –ª–µ–≤—ã–π –≤—Å–ø–ª–µ—Å–∫		*/
 				jump = 1;
 			} else {
 				i = beg2 - or_;
 				if (n[i - 1] != 0 && n[i] > n[i - 1] && n[i - 2] == n[i - 1]) {
 					fine = 0;
-					/* •§®≠·‚¢•≠≠Î© Ø‡†¢Î© ¢·Ø´•·™		*/
+					/* –µ–¥–∏–Ω—Å—Ç–≤–µ–Ω–Ω—ã–π –ø—Ä–∞–≤—ã–π –≤—Å–ø–ª–µ—Å–∫		*/
 					jump = 1;
 				}
 			}
 		}
-		if (l_real > 2) { /* ≠Æ‡¨®‡Æ¢™† ≠†™ÆØ´•≠≠Æ£Æ Ë‚‡†‰† 	*/
+		if (l_real > 2) { /* –Ω–æ—Ä–º–∏—Ä–æ–≤–∫–∞ –Ω–∞–∫–æ–ø–ª–µ–Ω–Ω–æ–≥–æ —à—Ç—Ä–∞—Ñ–∞ 	*/
 			fine <<= 5; /* *32 ?????????????			*/
-			fine /= l_real; /* ®·‚®≠≠†Ô Ë®‡®≠† 			*/
-			fine /= n2; /* ¢Î·Æ‚†				*/
+			fine /= l_real; /* –∏—Å—Ç–∏–Ω–Ω–∞—è —à–∏—Ä–∏–Ω–∞ 			*/
+			fine /= n2; /* –≤—ã—Å–æ—Ç–∞				*/
 		}
 
 	} else {
-		fine = 0; /* l_real<2 : ≠• ¨Æ¶•¨ ÆÊ•≠®‚Ï Æ°‡†ß 	*/
+		fine = 0; /* l_real<2 : –Ω–µ –º–æ–∂–µ–º –æ—Ü–µ–Ω–∏—Ç—å –æ–±—Ä–∞–∑ 	*/
 		IN_dis = 1;
 		IN_equ = IN_N = 0;
 		IN_I = 3;
 		IN_pics = 0;
 		if (fill_center && l > 2)
-			fill_center = 0; /* ™Æ‡‡•™Ê®Ô Ë‚‡†‰† ß† Æ‚·‚„‚·‚¢®• Ø•‡•™´†§®≠Î */
+			fill_center = 0; /* –∫–æ—Ä—Ä–µ–∫—Ü–∏—è —à—Ç—Ä–∞—Ñ–∞ –∑–∞ –æ—Ç—Å—Ç—É—Ç—Å—Ç–≤–∏–µ –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω—ã */
 		if (!fill_center && l_real == 1
 				&& (NumVertInterval(RAST, D_X, n2, end1) == 1 && VertSum(RAST,
 						D_X, n2, end1) < n4 && n[end1] && abs(n[end1] - (dy
@@ -2688,7 +2688,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 		return;
 	}
 
-	IN_N = IN_I = fine; /*           Ë‚‡†‰ ß† ¢Æß‡†·‚†≠®• 	*/
+	IN_N = IN_I = fine; /*           —à—Ç—Ä–∞—Ñ –∑–∞ –≤–æ–∑—Ä–∞—Å—Ç–∞–Ω–∏–µ 	*/
 	if (incr < 2 && l_real > 5 && decr > 4) {
 		if (fine > 6)
 			IN_N = 5;
@@ -2707,7 +2707,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 			if( l_real>5 )
 #endif
 			if (!rotate || l_real > 3)
-				fill_center = 1; /* ™Æ‡‡•™Ê®Ô Ë‚‡†‰† ß† Æ‚·‚„‚·‚¢®• Ø•‡•™´†§®≠Î */
+				fill_center = 1; /* –∫–æ—Ä—Ä–µ–∫—Ü–∏—è —à—Ç—Ä–∞—Ñ–∞ –∑–∞ –æ—Ç—Å—Ç—É—Ç—Å—Ç–≤–∏–µ –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω—ã */
 	}
 	if (fine > 5 && l_real == 2 && !broken_flag && incr == 0 && decr == 1) {
 		IN_N = 4;
@@ -2716,13 +2716,13 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 	}
 	IN_dis = 1;
 	equ -= l - 2;
-	IN_equ = (equ > 0) ? 2 + equ : 0; /* IN_equ -Ë‚‡†‰ ß† ØÆ·‚ÆÔ≠·‚¢Æ */
+	IN_equ = (equ > 0) ? 2 + equ : 0; /* IN_equ -—à—Ç—Ä–∞—Ñ –∑–∞ –ø–æ—Å—Ç–æ—è–Ω—Å—Ç–≤–æ */
 
-	if (DiskrHorizIN(RASTR, D_X, dy)) { /* ¶®‡≠†Ô Ø•‡•™´†§®≠† */
+	if (DiskrHorizIN(RASTR, D_X, dy)) { /* –∂–∏—Ä–Ω–∞—è –ø–µ—Ä–µ–∫–ª–∞–¥–∏–Ω–∞ */
 		IN_N = 3;
 		IN_I = 2;
 	}
-	if (omni) { /* 'à' Ø„‚†•‚·Ô · 'å' */
+	if (omni) { /* '\x88' –ò –ø—É—Ç–∞–µ—Ç—Å—è —Å '\x8c' –ú */
 		int16_t i, le, ri, nnn = (beg2 + end1 + ol - or_) / 2;
 		if (fine > 15 && decr > 3 || fine > 20 && decr > 2 || fine > 10 && incr
 				< 1 && decr > 3)
@@ -2770,9 +2770,9 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 /***************************************************************************/
 int16_t DiskrHorizIN(uchar *RASTR, int16_t D_X, int16_t dy)
 /***************************************************************************/
-/****     *RASTR     „™†ß†‚•´Ï   ≠†  ¨†··®¢                         ********/
-/****	   dy        kÆ´®Á•·‚¢Æ  ·‚‡Æ™                              ********/
-/****      D_X       ™Æ´®Á•·‚¢Æ  °†©‚Æ¢  ¢  ·‚‡Æ™•                  ********/
+/****     *RASTR     —É–∫–∞–∑–∞—Ç–µ–ª—å   –Ω–∞  –º–∞—Å—Å–∏–≤                         ********/
+/****	   dy        k–æ–ª–∏—á–µ—Å—Ç–≤–æ  —Å—Ç—Ä–æ–∫                              ********/
+/****      D_X       –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∞–π—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                  ********/
 /***************************************************************************/
 {
 	uchar n[256];
@@ -2784,13 +2784,13 @@ int16_t DiskrHorizIN(uchar *RASTR, int16_t D_X, int16_t dy)
 	return(IN_horiz_dis);
 
 	if( l<4 )
-	{ /* ¨†´Æ• ‡†··‚ÆÔ≠®• */
+	{ /* –º–∞–ª–æ–µ —Ä–∞—Å—Å—Ç–æ—è–Ω–∏–µ */
 		IN_horiz_dis=0;
 		return(IN_horiz_dis);
 	}
 
 	for(imax=nmax=kmax=-1,i=n4,j=0;j<=n2;j++,i++,RAST+=D_X)
-	{ /* ß†´®¢™® ´®≠®© 	*/
+	{ /* –∑–∞–ª–∏–≤–∫–∏ –ª–∏–Ω–∏–π 	*/
 		n[i] = SumIntervalBits(RAST,end1,beg2)/3;
 		if( n[i]>nmax )
 		{
@@ -2817,14 +2817,14 @@ int16_t DiskrHorizIN(uchar *RASTR, int16_t D_X, int16_t dy)
 
 static int16_t DiskrEZ(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy)
 /***************************************************************************/
-/****     *RASTR     „™†ß†‚•´Ï   ≠†  ¨†·®¢  ·  „Á•‚Æ¨  Ø‡ÆØ„·™†     ********/
-/****			      Ø•‡¢Æ©  ·‚‡ÆÁ™®                       ********/
-/****      dx        ™Æ´®Á•·‚¢Æ  °®‚Æ¢  ¢  ·‚‡Æ™•                   ********/
-/****	   dy        kÆ´®Á•·‚¢Æ  ·‚‡Æ™                              ********/
-/****      D_X       ™Æ´®Á•·‚¢Æ  °†©‚Æ¢  ¢  ·‚‡Æ™•                  ********/
+/****     *RASTR     —É–∫–∞–∑–∞—Ç–µ–ª—å   –Ω–∞  –º–∞—Å–∏–≤  —Å  —É—á–µ—Ç–æ–º  –ø—Ä–æ–ø—É—Å–∫–∞     ********/
+/****			      –ø–µ—Ä–≤–æ–π  —Å—Ç—Ä–æ—á–∫–∏                       ********/
+/****      dx        –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∏—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                   ********/
+/****	   dy        k–æ–ª–∏—á–µ—Å—Ç–≤–æ  —Å—Ç—Ä–æ–∫                              ********/
+/****      D_X       –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∞–π—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                  ********/
 
-/*  return   1  for   á    */
-/*      2  for   ù    */
+/*  return   1  for   –ó    */
+/*      2  for   –≠    */
 
 /***************************************************************************/
 {
@@ -2846,7 +2846,7 @@ static int16_t DiskrEZ(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy)
 		}
 	}
 	if (i == n2)
-		return (0); /* ≠•  ÆØ‡•§•´  Ø•‡•™´ */
+		return (0); /* –Ω–µ  –æ–ø—Ä–µ–¥–µ–ª  –ø–µ—Ä–µ–∫–ª */
 
 	for (RAST = RASTR + (dy - n4) * D_X, i = 0; i < n2; i++, RAST -= D_X) {
 		j = (uchar) SumIntervalBits(RAST, 2, dx);
@@ -2856,7 +2856,7 @@ static int16_t DiskrEZ(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy)
 		}
 	}
 	if (i == n2)
-		return (0); /* ≠•  ÆØ‡•§•´  Ø•‡•™´ */
+		return (0); /* –Ω–µ  –æ–ø—Ä–µ–¥–µ–ª  –ø–µ—Ä–µ–∫–ª */
 
 	j1 = (uchar) SumIntervalBits(r1 - D_X, 2, dx);
 	j2 = (uchar) SumIntervalBits(r1 - 2* D_X , 2, dx);
@@ -2867,22 +2867,22 @@ static int16_t DiskrEZ(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy)
 	j3 = (j3 - j4 >= 3);
 
 	if (j1 && j3)
-		diskr_EZ = 2; /* 2 ·‚„Ø•≠Ï™® */
+		diskr_EZ = 2; /* 2 —Å—Ç—É–ø–µ–Ω—å–∫–∏ */
 
 	if ((!j1) && (!j3))
-		diskr_EZ = 1; /* ≠•‚ ·‚„Ø•≠•™ */
+		diskr_EZ = 1; /* –Ω–µ—Ç —Å—Ç—É–ø–µ–Ω–µ–∫ */
 
-	return (diskr_EZ); /* ≠•ÆØ‡•§•´•≠≠Æ·‚Ï */
+	return (diskr_EZ); /* –Ω–µ–æ–ø—Ä–µ–¥–µ–ª–µ–Ω–Ω–æ—Å—Ç—å */
 } /* DiskrEZ */
 
 static int16_t horiz_density(uchar *RAST, int16_t D_X, int16_t dx, int16_t beg,
 		int16_t end)
 /***************************************************************************/
-/****     *RAST      „™†ß†‚•´Ï   ≠†  ¨†·®¢  ·  „Á•‚Æ¨  Ø‡ÆØ„·™†     ********/
-/****			      Ø•‡¢Æ©  ·‚‡ÆÁ™®                       ********/
-/****      dx        ™Æ´®Á•·‚¢Æ  °®‚Æ¢  ¢  ·‚‡Æ™•                   ********/
-/****	   dy        kÆ´®Á•·‚¢Æ  ·‚‡Æ™                              ********/
-/****      D_X       ™Æ´®Á•·‚¢Æ  °†©‚Æ¢  ¢  ·‚‡Æ™•                  ********/
+/****     *RAST      —É–∫–∞–∑–∞—Ç–µ–ª—å   –Ω–∞  –º–∞—Å–∏–≤  —Å  —É—á–µ—Ç–æ–º  –ø—Ä–æ–ø—É—Å–∫–∞     ********/
+/****			      –ø–µ—Ä–≤–æ–π  —Å—Ç—Ä–æ—á–∫–∏                       ********/
+/****      dx        –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∏—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                   ********/
+/****	   dy        k–æ–ª–∏—á–µ—Å—Ç–≤–æ  —Å—Ç—Ä–æ–∫                              ********/
+/****      D_X       –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∞–π—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                  ********/
 /***************************************************************************/
 {
 	uchar j, *r;
@@ -2900,10 +2900,10 @@ static int16_t horiz_density(uchar *RAST, int16_t D_X, int16_t dx, int16_t beg,
 
 static int16_t DiskrimM(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 /***************************************************************************/
-/****     *RAST      „™†ß†‚•´Ï   ≠†  ¨†·®¢                          ********/
-/****      dx        ™Æ´®Á•·‚¢Æ  °®‚Æ¢  ¢  ·‚‡Æ™•                   ********/
-/****	   dy        kÆ´®Á•·‚¢Æ  ·‚‡Æ™                              ********/
-/****      D_X       ™Æ´®Á•·‚¢Æ  °†©‚Æ¢  ¢  ·‚‡Æ™•                  ********/
+/****     *RAST      —É–∫–∞–∑–∞—Ç–µ–ª—å   –Ω–∞  –º–∞—Å–∏–≤                          ********/
+/****      dx        –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∏—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                   ********/
+/****	   dy        k–æ–ª–∏—á–µ—Å—Ç–≤–æ  —Å—Ç—Ä–æ–∫                              ********/
+/****      D_X       –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∞–π—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                  ********/
 /***************************************************************************/
 {
 	int16_t n2, n4 = dy >> 2, meanBit = dx >> 1; /* Oleg & Vova 09.03.94 */
@@ -2934,7 +2934,7 @@ static int16_t DiskrimM(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 		}
 	}
 	if (down == 0 && up == 0)
-		return (2); /* ¨ - hole is absent */
+		return (2); /* –º - hole is absent */
 
 	/*  calculate  heigth  of  hole  */
 	r = RAST + D_X;
@@ -2948,7 +2948,7 @@ static int16_t DiskrimM(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 			break;
 		}
 		byte += (prev - j);
-		/* for  'Î' */
+		/* for  '\xeb'  —ã  */
 		if ((byte < 2) && (i > n4 + 2)) {
 			break;
 		}
@@ -2978,15 +2978,15 @@ static int16_t DiskrimM(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 			if ((cUp == 0) || (cDown == 0))
 				return (0);
 			if (up * cDown <= down * cUp)
-				return (4); /* Î - too  wide  hole */
+				return (4); /* —ã - too  wide  hole */
 			if (byte < 3)
-				return (3); /* Î - too  wide  hole */
+				return (3); /* —ã - too  wide  hole */
 		}
 		byte += (prev - j);
 		if ((prev - j > 3) && (i > n4))
-			return (5); /* Î - too  big  jump */
+			return (5); /* —ã - too  big  jump */
 		if ((byte >= dx / 4) && (i > n4))
-			return (-6); /* ¨ - too  big  angle  for  cursive */
+			return (-6); /* –º - too  big  angle  for  cursive */
 		prev = j;
 	}
 
@@ -2995,21 +2995,21 @@ static int16_t DiskrimM(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 		down /= cDown;
 	}
 	if (down >= up)
-		return (5); /* Î - wide  hole on  the  bottom */
+		return (5); /* —ã - wide  hole on  the  bottom */
 	if (down < up)
-		return (-5); /* ¨ - wide  hole on  the  top */
+		return (-5); /* –º - wide  hole on  the  top */
 	if (!cDown)
-		return (6); /* Î - hole is absent */
+		return (6); /* —ã - hole is absent */
 
 	return (0);
 } /* DiskrM */
 
 static int16_t DiskrimM1(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 /***************************************************************************/
-/****     *RAST      „™†ß†‚•´Ï   ≠†  ¨†·®¢                          ********/
-/****      dx        ™Æ´®Á•·‚¢Æ  °®‚Æ¢  ¢  ·‚‡Æ™•                   ********/
-/****	   dy        kÆ´®Á•·‚¢Æ  ·‚‡Æ™                              ********/
-/****      D_X       ™Æ´®Á•·‚¢Æ  °†©‚Æ¢  ¢  ·‚‡Æ™•                  ********/
+/****     *RAST      —É–∫–∞–∑–∞—Ç–µ–ª—å   –Ω–∞  –º–∞—Å–∏–≤                          ********/
+/****      dx        –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∏—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                   ********/
+/****	   dy        k–æ–ª–∏—á–µ—Å—Ç–≤–æ  —Å—Ç—Ä–æ–∫                              ********/
+/****      D_X       –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∞–π—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                  ********/
 /***************************************************************************/
 {
 	int16_t n2, n4 = dy >> 2, meanBit = dx >> 1; /* Oleg & Vova 09.03.94 */
@@ -3053,7 +3053,7 @@ static int16_t DiskrimM1(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 			break;
 		}
 		byte += (prev - j);
-		/* for  'Î' */
+		/* for  '\xeb'  —ã  */
 		if ((byte < 1) && (i > n4 + 2)) {
 			break;
 		}
@@ -3082,15 +3082,15 @@ static int16_t DiskrimM1(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 			if ((cUp == 0) || (cDown == 0))
 				return (0);
 			if (up * cDown <= down * cUp)
-				return (4); /* Î - too  wide  hole */
+				return (4); /* —ã - too  wide  hole */
 			if (byte < 1)
-				return (3); /* Î - too  wide  hole */
+				return (3); /* —ã - too  wide  hole */
 		}
 		byte += (prev - j);
 		if ((prev - j > 3) && (i > n4))
-			return (5); /* Î - too  big  jump */
+			return (5); /* —ã - too  big  jump */
 		if ((byte > 1 + dx / 8) && (i > n4))
-			return (-6); /* ¨ - too  big  angle  for  cursive */
+			return (-6); /* –º - too  big  angle  for  cursive */
 		prev = j;
 	}
 
@@ -3099,21 +3099,21 @@ static int16_t DiskrimM1(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 		down /= cDown;
 	}
 	if (down >= up)
-		return (5); /* Î - wide  hole on  the  bottom */
+		return (5); /* —ã - wide  hole on  the  bottom */
 	if (down < up)
-		return (-5); /* ¨ - wide  hole on  the  top */
+		return (-5); /* –º - wide  hole on  the  top */
 	if (!cDown)
-		return (6); /* Î - hole is absent */
+		return (6); /* —ã - hole is absent */
 
 	return (0);
 } /* DiskrM1 */
 
 static int16_t whiteMeanBitLeft(uchar *RAST, int16_t D_X, int16_t meanBit)
 /***************************************************************************/
-/****     *RAST      „™†ß†‚•´Ï   ≠†  ¨†·®¢  ·  „Á•‚Æ¨  Ø‡ÆØ„·™†     ********/
-/****			      Ø•‡¢Æ©  ·‚‡ÆÁ™®                       ********/
-/****      dx        ™Æ´®Á•·‚¢Æ  °®‚Æ¢  ¢  ·‚‡Æ™•                   ********/
-/****      D_X       ™Æ´®Á•·‚¢Æ  °†©‚Æ¢  ¢  ·‚‡Æ™•                  ********/
+/****     *RAST      —É–∫–∞–∑–∞—Ç–µ–ª—å   –Ω–∞  –º–∞—Å–∏–≤  —Å  —É—á–µ—Ç–æ–º  –ø—Ä–æ–ø—É—Å–∫–∞     ********/
+/****			      –ø–µ—Ä–≤–æ–π  —Å—Ç—Ä–æ—á–∫–∏                       ********/
+/****      dx        –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∏—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                   ********/
+/****      D_X       –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∞–π—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                  ********/
 /***************************************************************************/
 {
 	int16_t meanByte, byte;
@@ -3159,10 +3159,10 @@ static int16_t whiteMeanBitLeft(uchar *RAST, int16_t D_X, int16_t meanBit)
 static int16_t whiteMeanBitRight(uchar *RAST, int16_t D_X, int16_t dx,
 		int16_t meanBit)
 /***************************************************************************/
-/****     *RAST      „™†ß†‚•´Ï   ≠†  ¨†·®¢  ·  „Á•‚Æ¨  Ø‡ÆØ„·™†     ********/
-/****			      Ø•‡¢Æ©  ·‚‡ÆÁ™®                       ********/
-/****      dx        ™Æ´®Á•·‚¢Æ  °®‚Æ¢  ¢  ·‚‡Æ™•                   ********/
-/****      D_X       ™Æ´®Á•·‚¢Æ  °†©‚Æ¢  ¢  ·‚‡Æ™•                  ********/
+/****     *RAST      —É–∫–∞–∑–∞—Ç–µ–ª—å   –Ω–∞  –º–∞—Å–∏–≤  —Å  —É—á–µ—Ç–æ–º  –ø—Ä–æ–ø—É—Å–∫–∞     ********/
+/****			      –ø–µ—Ä–≤–æ–π  —Å—Ç—Ä–æ—á–∫–∏                       ********/
+/****      dx        –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∏—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                   ********/
+/****      D_X       –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ  –±–∞–π—Ç–æ–≤  –≤  —Å—Ç—Ä–æ–∫–µ                  ********/
 /***************************************************************************/
 {
 	int16_t meanByte, byte;
@@ -3244,7 +3244,7 @@ int16_t LepikJurit(uchar *R, int16_t D_X, int16_t dy) {
 	return ((ugg < bg) || (uu >= 2)) ? 1 : 0;
 }
 
-/* 1 ·‚‡Æ™† Ø‡ÆØ„È•≠† ·¢•‡Â„, 1 - ·≠®ß„ */
+/* 1 —Å—Ç—Ä–æ–∫–∞ –ø—Ä–æ–ø—É—â–µ–Ω–∞ —Å–≤–µ—Ä—Ö—É, 1 - —Å–Ω–∏–∑—É */
 int16_t up_down_hist_M(uchar *rastr, int16_t D_X, int16_t Dx, int16_t dy) {
 	int16_t i, j, d, h = dy >> 1, s, t, n;
 	uchar *r;
@@ -3282,31 +3282,31 @@ int16_t up_down_hist_M(uchar *rastr, int16_t D_X, int16_t Dx, int16_t dy) {
 	return (4);
 }
 
-/*  §´Ô 'Ë': ≠Æ£® ≠† Æ§®≠†™Æ¢Æ¨ ‡†··‚ÆÔ≠®®? Ñ†: <0; ≠•‚: >0; ≠•Ô·≠Æ: 0 */
+/*  –¥–ª—è '\xe8' —à: –Ω–æ–≥–∏ –Ω–∞ –æ–¥–∏–Ω–∞–∫–æ–≤–æ–º —Ä–∞—Å—Å—Ç–æ—è–Ω–∏–∏? –î–∞: <0; –Ω–µ—Ç: >0; –Ω–µ—è—Å–Ω–æ: 0 */
 static int16_t DiskrSymSh(uchar *RASTER, int16_t Wx, uchar NWIDTH,
 		uchar NLENGTH) {
 	int16_t i, old, l, k, d;
 	uchar c, w, minw = 255, maxw = 0;
 
-	FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* Ø‡Æ•™Ê®Ô */
+	FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* –ø—Ä–æ–µ–∫—Ü–∏—è */
 
 	d = (NLENGTH + 1) >> 1;
 	for (i = 0; i < NWIDTH; i++)
-		BUFFER[i] = (BUFFER[i] >= d); /* °®≠†‡®ß†Ê®Ô */
+		BUFFER[i] = (BUFFER[i] >= d); /* –±–∏–Ω–∞—Ä–∏–∑–∞—Ü–∏—è */
 
 	for (old = l = k = i = 0; i <= NWIDTH; i++) {
 		c = (i < NWIDTH) ? BUFFER[i] : 0;
 		if (old ^ c) {
 			if (c)
-				l = i; /* Á•‡≠†Ô  : ≠†Á†´Æ ≠Æ£® */
-			else { /* °•´†Ô   : ™Æ≠•Ê ≠Æ£®  */
+				l = i; /* —á–µ—Ä–Ω–∞—è  : –Ω–∞—á–∞–ª–æ –Ω–æ–≥–∏ */
+			else { /* –±–µ–ª–∞—è   : –∫–æ–Ω–µ—Ü –Ω–æ–≥–∏  */
 				w = i - l;
 				if (w > maxw)
 					maxw = w;
 				if (w < minw)
 					minw = w;
-				LOCAL_W[k] = w; /* Ë®‡®≠† ≠Æ£®   */
-				LOCAL[k] = (l + i); /* Ê•≠‚‡+1/2 · ‚ÆÁ≠Æ·‚ÏÓ §Æ 1/2 Ø®™·•´† */
+				LOCAL_W[k] = w; /* —à–∏—Ä–∏–Ω–∞ –Ω–æ–≥–∏   */
+				LOCAL[k] = (l + i); /* —Ü–µ–Ω—Ç—Ä+1/2 —Å —Ç–æ—á–Ω–æ—Å—Ç—å—é –¥–æ 1/2 –ø–∏–∫—Å–µ–ª–∞ */
 				k++;
 			}
 		}
@@ -3314,8 +3314,8 @@ static int16_t DiskrSymSh(uchar *RASTER, int16_t Wx, uchar NWIDTH,
 	}
 
 	if (k != 3 || maxw - minw > 1)
-		return (0); //·‚‡†≠≠†Ô °„™¢†
-	i = LOCAL[2] + LOCAL[0] - (LOCAL[1] << 1); //†·®¨¨•‚‡®Ô
+		return (0); //—Å—Ç—Ä–∞–Ω–Ω–∞—è –±—É–∫–≤–∞
+	i = LOCAL[2] + LOCAL[0] - (LOCAL[1] << 1); //–∞—Å–∏–º–º–µ—Ç—Ä–∏—è
 	if (i == 0)
 		return (-2);
 	if (i < 0)

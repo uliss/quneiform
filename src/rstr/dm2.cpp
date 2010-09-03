@@ -200,14 +200,14 @@ void make_all_glues() {
 		sticks_right_to_bad[6] = '1';
 		sticks_right_to_bad[7] = '1';
 
-		results_left_to_bad[9][2] = '®';
-		results_left_to_bad[15][0] = '®';
+		results_left_to_bad[9][2] = '\xae' /* ® */;
+		results_left_to_bad[15][0] = '\xae' /* ® */;
 	}
 
 	if (langUkr) {
 		sticks_left_to_bad[10] = UKR_I;
 		sticks_left_to_bad[11] = UKR_II;
-		*((uchar*) &results_left_to_bad[0][7]) = (uchar) 'Š';
+		*((uchar*) &results_left_to_bad[0][7]) = (uchar) '\x8a' /* Š */;
 	}
 
 	snap_newpass('b');
@@ -347,7 +347,7 @@ static void glue_let_dust() {
 
 		if (decidust(BC))
 			p1 = discrid(BC, MONdust);
-		if (p1 > TRSG1 && !(language == LANGUAGE_RUSSIAN && memchr("£ƒ÷", c1, 3))) { // allow glue with good '¨' '£' 'u'
+		if (p1 > TRSG1 && !(language == LANGUAGE_RUSSIAN && memchr("£ƒ÷", c1, 3))) { // allow glue with good '\xa8' /* ¨ */ '\xa3' /* £ */ 'u'
 			BC->flg &= ~c_f_bad;
 			BC->flg |= c_f_let;
 			continue;
@@ -527,7 +527,7 @@ int16_t glue_to_o(uchar c2, uchar c3, cell *BC, cell *EC) {
 	return 0;
 }
 
-int broken_ii; // broken '¯','­','¨'
+int broken_ii; // broken '\xaf' /* ¯ */,'\xad' /* ­ */,'\xa8' /* ¨ */
 
 static void glue_let_bad() {
 	int16_t i, j, dist, ndist, wdg, bdiff, trsuccess;
@@ -562,7 +562,7 @@ static void glue_let_bad() {
 		if (BC->accent_leader)
 			continue; // Oleg : 06/10/97 17:51 : can't glued fictive images
 		fgd = 0; // no dust inside
-		rus_iee = 0; // flag to promote 'ë'
+		rus_iee = 0; // flag to promote '\xeb' /* ë */
 		broken_ii = 0; // two sticks flag
 		if (!tsimple(BC))
 			continue; // not simple ( "glued" earlier)
@@ -606,7 +606,7 @@ static void glue_let_bad() {
 						!is_russian_turkish_conflict(c2) && // 21.05.2002 E.P.
 						c3 == '|' && BC->vers[0].prob < 150)
 					goto asif2bad;
-				/* bad 'ì' try to paste ë */
+				/* bad '\xec' ì  try to paste ë */
 			}
 			if (memchr("lI1/J)!", c2, 7) || // stick character ?
 					c2 == liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
@@ -624,13 +624,13 @@ static void glue_let_bad() {
 					== liga_exm)
 				if (EC->cg_flag & c_cg_cutl) // cut at left  side
 					if ((c2 == 'c') || (c2 == '(') || (c2 == '<') || (c2
-							== (uchar) 'ƒ')) {
+							== (uchar) '\x83' /* ƒ */)) {
 						glsnap('b', BC, "<+I-->d");
 						goto asif2bad;
 					}
 		}
 		if (flb == 2)
-			continue; // 3nd pass - glue 'ë'
+			continue; // 3nd pass - glue '\xeb' /* ë */
 		if (flb)
 			goto backg; // 2nd pass - good to bad
 		if (!(BC->flg & c_f_bad) || (!(EC->flg & c_f_bad)))
@@ -875,12 +875,12 @@ static void glue_let_bad() {
 						0, 0);
 		}
 		fingb:
-		/* cursiv 'ë' confuse with '¬' let's promote him */
+		/* cursiv '\xeb'  ë  confuse with '\xac'  ¬  let's promote him */
 		if (language == LANGUAGE_RUSSIAN && rus_iee)
 			if (rus_iee == 1)
-				promote(1, BC, 'ë', 60);
+				promote(1, BC, '\xeb' /* ë */, 60);
 			else if (rus_iee == 2)
-				promote(1, BC, '›', 60);
+				promote(1, BC, '\x9b' /* › */, 60);
 
 		if (gtofl) {
 			uchar vers_c;
@@ -919,7 +919,7 @@ static void glue_let_bad() {
 				goto accel;
 		}
 		if (language == LANGUAGE_RUSSIAN && BC->vers[0].prob > 230 && c2
-				== (uchar) '¯' && c3 == (uchar) 'ø' && cw == (uchar) 'õ')
+				== (uchar) '\xaf' /* ¯ */ && c3 == (uchar) '\xf8' /* ø */ && cw == (uchar) '\xf5' /* õ */)
 			goto accel; // Oleg : 30-03-1995 : near cursive rus n+cursive rus ge
 		if (((BC->recsource & c_rs_ev) == 0) || (i < 220)
 				|| (MAX(p1, p2) > 170) || ((i + i) <= (p1 + p2)))
@@ -974,7 +974,7 @@ static void glue_let_bad() {
 		}
 		continue;
 	}
-	// russian have a special pass to paste 'ë'
+	// russian have a special pass to paste '\xeb' /* ë */
 	if ((flb && language != LANGUAGE_RUSSIAN) || (flb == 2 && language
 			== LANGUAGE_RUSSIAN))
 		return;
@@ -1267,9 +1267,9 @@ static void glue_all_dusts()
 Bool config_III(cell *BC, cell *EC, cell *ECN) {
 	return ((EC->flg & c_f_bad) && (ECN->flg & c_f_let) && BC->broken_II
 			&& (BC->flg & c_f_let) && BC->nvers > 0 && (BC->vers[0].let
-			== (uchar) '¯' || BC->vers[1].let == (uchar) '¯'
+			== (uchar) '\xaf' /* ¯ */ || BC->vers[1].let == (uchar) '\xaf' /* ¯ */
 			&& BC->vers[1].prob == BC->vers[0].prob || BC->vers[2].let
-			== (uchar) '¯' && BC->vers[2].prob == BC->vers[0].prob));
+			== (uchar) '\xaf' /* ¯ */ && BC->vers[2].prob == BC->vers[0].prob));
 
 }
 
@@ -1287,16 +1287,16 @@ Bool config_CapRusGe_and_bad(cell *BC, cell *EC) {
 			7) && !is_russian_baltic_conflict(BP->vers[0].let) && // 17.07.2001 E.P.
 			!is_russian_turkish_conflict(BP->vers[0].let) // 21.05.2002 E.P.
 			|| BP->nvers > 0 && BP->vers[0].let == '|' && BPP != NULL
-					&& BPP->nvers > 0 && BPP->vers[0].let == (uchar) 'ì'
+					&& BPP->nvers > 0 && BPP->vers[0].let == (uchar) '\xec' /* ì */
 					&& !is_russian_baltic_conflict(BPP->vers[0].let) && // 17.07.2001 E.P.
 					!is_russian_turkish_conflict(BPP->vers[0].let) // 21.05.2002 E.P.
-			) && BC->nvers > 0 && BC->vers[0].let == (uchar) 'ƒ'
+			) && BC->nvers > 0 && BC->vers[0].let == (uchar) '\x83' /* ƒ */
 			&& BC->vers[0].prob < 220 && EC->nvers < 1);
 }
 
 Bool config_brace_and_K(cell *BC, cell *EC) {
 	return (BC->nvers > 0 && BC->vers[0].let == (uchar) '>' && EC->nvers > 0
-			&& EC->vers[0].let == (uchar) 'ª' && EC->col - BC->col - BC->w < 3);
+			&& EC->vers[0].let == (uchar) '\xaa' /* ª */ && EC->col - BC->col - BC->w < 3);
 }
 s_glue GLG;
 cell *C;

@@ -509,7 +509,7 @@ uchar english_word_recognize(void) {
 		if (!is_eng && !BadWord) {
 			// nonenglish word - auxilary methodes
 
-			if (c->vers[0].let == (uchar) 'П' && II_place(c) && II_config(c)) { // разорванная буква П
+			if (c->vers[0].let == (uchar) '\x8f' /* П */ && II_place(c) && II_config(c)) { // разорванная буква П
 				eng++;
 				down_all_versions(c, 22);
 				mark_two_lang_word(c, e, 1);
@@ -632,9 +632,9 @@ Bool _spell(pchar s, uchar lang) {
 			//                ..  ..
 			// recode russian E   e
 			if (ss == r_e_2dot)
-				ss = (uchar) 'е';
+				ss = (uchar) '\xa5' /* е */;
 			if (ss == r_EE_2dot)
-				ss = (uchar) 'Е';
+				ss = (uchar) '\x85' /* Е */;
 
 		}
 		if (ss == liga_i)
@@ -698,7 +698,7 @@ uchar is_english_word(cell *b, cell *e) {
 		pr = b->vers[0].prob;
 		if (strchr((char*) punct_letters, ch)) //,sizeof(punct_letters)) )
 			return 0;
-		if (ch == (uchar) '■')
+		if (ch == (uchar) '\xfe' /* ■ */)
 			return 0;
 		if (is_digit(ch))
 			return 0;
@@ -738,7 +738,7 @@ uchar is_english_word(cell *b, cell *e) {
 		if (memchr(critical_digitals, ch, sizeof(critical_digitals)) && pr
 				< GOOD_PROB + 20) // Oleg : 28.12.94 : '1','8' too similar to 'I','S'
 			r1++;
-		if (ch == (uchar) '╝' && pr < GOOD_PROB && c != e->prev)
+		if (ch == (uchar) '\xbc' /* ╝ */ && pr < GOOD_PROB && c != e->prev)
 			r1++; // ! whith glued . too similar 'I'
 	}
 	if (n == 1 && rp == 1)
@@ -767,7 +767,7 @@ uchar change_Il1(cell *b, cell *e) {
 		return FALSE;
 	upper += digit;
 	upper = (upper == n);
-	if (n == 3 && b->vers[0].let == (uchar) 'А')
+	if (n == 3 && b->vers[0].let == (uchar) '\x80' /* А */)
 		upper = 0;
 	for (c = b; c != e; c = c->next)
 		if ((c->flg & c_f_let) && c->nvers > 0 && memchr("1!╝", c->vers[0].let,
@@ -1208,7 +1208,7 @@ Bool special_eng_to_rus(cell *b, cell *e) {
 			if (e == b || e != b && e->prev && e->prev->nvers && strchr(
 					"0123456789I", e->prev->vers[0].let)) {
 				e->nvers = 1;
-				e->vers[0].let = 'г';
+				e->vers[0].let = '\xa3' /* г */;
 				return TRUE;
 			}
 		}

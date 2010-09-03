@@ -922,7 +922,7 @@ static int16_t delta(cell *c1, cell *c2, uchar let1, uchar let2)
     if (language == LANGUAGE_FRENCH && let1 == 'l' && let2 == 0x27)
         d -= H / d_l_ast;
     if (language == LANGUAGE_RUSSIAN && ((c2->font | c2->font_new) & c_fp_it) && (let2
-            == (uchar) 'à' || let2 == (uchar) 'ã'))
+            == (uchar) '\xe0' /* à */ || let2 == (uchar) '\xe3' /* ã */))
         d += H / d_rus_lowered;
 
     return d;

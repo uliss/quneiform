@@ -100,7 +100,7 @@ extern uint16_t	mkma, mkmb, mkmc, mkmd;
 extern	uint16_t	left_mode_EEM;	// NOTA BENE:  NEPORJADOK; see ST_TOOLS, CHA;
 /*......................................................................*/
 #define MIN_ADD_DIS  10		/* max discrim for adding '(',')','!'	*/
-#define MAX_ADD_DIS  30		/* max discrim for adding '∫','1'	*/
+#define MAX_ADD_DIS  30		/* max discrim for adding '\xba'  ∫ ,'1'	*/
 /*----------------------------------------------------------------------*/
 #include "stic-mac.h"
 #include "stic-tab.h"
@@ -201,19 +201,19 @@ switch( let )
 	case '>' : dis = dis_sign_more(s);	break;
 	case '/' : dis = dis_slash(l,r,s);	break;
 	case 'J' : dis = dis_J(l,r,s);		break;
-  case (uchar)'£' :
-  case (uchar)'É' :
+  case (uchar)'\xa3' /* £ */ :
+  case (uchar)'\x83' /* É */ :
 		if( language==LANGUAGE_RUSSIAN )    dis = dis_RusG(l,r,s);
                                                 break;
 
-  case (uchar)'‚' :
+  case (uchar)'\xe2' /* ‚ */ :
 
 	if (is_baltic_language(language) || //  ÓÌÙÎËÍÚÌ˚È ÍÓ‰ a_macron 17.07.2001 E.P.
 		is_turkish_language(language)	// 21.05.2002 E.P.
 		)
 		{dis = 0; break;}
 
-  case (uchar)'í' : if( language!=LANGUAGE_RUSSIAN )    break;
+  case (uchar)'\x92' /* í */ : if( language!=LANGUAGE_RUSSIAN )    break;
 
   case 'T' : dis = dis_T(l,r,s);      break;
   case 'Y' : dis = dis_Y(l,r,s);      break;
@@ -231,7 +231,7 @@ switch( let )
           dis = dis_0xBA(l,r,s,0);
 	break;
 
-  case liga_j :   /*  'ª' */        /* 0xBB <-> j + point */
+  case liga_j :   /*  '\xbb'  ª  */        /* 0xBB <-> j + point */
              dis = dis_0xBB(l,r,s,0); break;
 
   // 31.08.2000 E.P.
@@ -322,7 +322,7 @@ return( dis );	// NOTA BENE: m.b.-444 for dis_t for "ft"
 /* ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞ */
 /*----------------------------------------------------------------------*/
 /*	letter ∫  (i+point)						*/
-/*	sign_add = 1 - put '∫' to list of versions - delicate discrim	*/
+/*	sign_add = 1 - put '\xba'  ∫  to list of versions - delicate discrim	*/
 static int16_t dis_0xBA (STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 		    int16_t sign_add)
 {
@@ -750,7 +750,7 @@ if( l->up_serif>1 && lmu<=lmd && lmu>1 && rmu<2 && rmd>1 && lmd>1 &&
 	dis += tab_1[12];	// min DIS for l-config			// 4
 
 if( s->neck>1 )
-	dis += tab_1[13];	// similar '∫'				// 20
+	dis += tab_1[13];	// similar '\xba' /* ∫ */				// 20
 
 if( wid*2 > s->height )
 	dis += tab_1[20];	// too wide stick : bad proportions	// 80
@@ -1062,16 +1062,16 @@ if( l->mount[1]>0 && r->mount[1]>0 && r->mount[4]>0 && sl==1 && sr==2 )
 			// 09,10,11.02.1993	CASE NECK=1 wid>=6 (see dis_0xBA)
 if ( (s->neck==1) && (wid>=6) &&
      (
-//     ( l->conc[1] && l->mount[2] &&	// stda91/37 "Wylie"  '∫'=>'l'
+//     ( l->conc[1] && l->mount[2] &&	// stda91/37 "Wylie"  '\xba' /* ∫ */=>'l'
 //	 l->ce_pos[1]==l->mb_pos[2]-1 )
 //	 ||
-       ( l->conc[0] && r->conc[0] &&	// fax 27/7 "Capability", first '∫'
+       ( l->conc[0] && r->conc[0] &&	// fax 27/7 "Capability", first '\xba' /* ∫ */
 //////	 ( l->cb_pos[0]==r->cb_pos[0] && l->cb_pos[0]!=0  ||
 	 ( l->cb_pos[0]==r->cb_pos[0] && abs(l->cb_pos[0]-s->base_2)<4  ||
 	   l->ce_pos[0]==r->ce_pos[0] && abs(l->ce_pos[0]-s->base_2)<4 ) &&
 	   l->cb_pos[0]!=l->ce_pos[0] && r->cb_pos[0]!=r->ce_pos[0] )
 	 ||
-       ( l->conc[1] && r->conc[1] &&	// fax ....................... '∫'
+       ( l->conc[1] && r->conc[1] &&	// fax ....................... '\xba' /* ∫ */
 	 ( l->cb_pos[1]==r->cb_pos[1] && abs(l->cb_pos[1]-s->base_2)<4  ||
 	   l->ce_pos[1]==r->ce_pos[1] && abs(l->ce_pos[1]-s->base_2)<4 ) &&
 	   l->cb_pos[1]!=l->ce_pos[1] && r->cb_pos[1]!=r->ce_pos[1] )
@@ -1336,12 +1336,12 @@ if( l->mount[1]>0 && r->mount[1]>0 && r->mount[4]>0 && sl==1 && sr==2 )
 			// 09,10,11.02.1993	CASE NECK=1 wid>=6 (see dis_0xBA)
 if ( (s->neck==1) && (wid>=6) &&
      (
-       ( l->conc[0] && r->conc[0] &&	// fax 27/7 "Capability", first '∫'
+       ( l->conc[0] && r->conc[0] &&	// fax 27/7 "Capability", first '\xba' /* ∫ */
 	 ( l->cb_pos[0]==r->cb_pos[0] && abs(l->cb_pos[0]-s->base_2)<4  ||
 	   l->ce_pos[0]==r->ce_pos[0] && abs(l->ce_pos[0]-s->base_2)<4 ) &&
 	   l->cb_pos[0]!=l->ce_pos[0] && r->cb_pos[0]!=r->ce_pos[0] )
 	 ||
-       ( l->conc[1] && r->conc[1] &&	// fax ....................... '∫'
+       ( l->conc[1] && r->conc[1] &&	// fax ....................... '\xba' /* ∫ */
 	 ( l->cb_pos[1]==r->cb_pos[1] && abs(l->cb_pos[1]-s->base_2)<4  ||
 	   l->ce_pos[1]==r->ce_pos[1] && abs(l->ce_pos[1]-s->base_2)<4 ) &&
 	   l->cb_pos[1]!=l->ce_pos[1] && r->cb_pos[1]!=r->ce_pos[1] )

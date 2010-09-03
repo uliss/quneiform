@@ -123,7 +123,7 @@
 
 #define NUMBER      '#'
 #define PRO_NUMBER  0xC3
-#define PRO_NUM_PART '‹'
+#define PRO_NUM_PART '\x8b' /* ‹ */
 
 #define BW_K_NOM     1
 #define BW_K_DENOM   2
@@ -396,7 +396,7 @@ static int16_t search_perc_vers() { /* searching the percent-symbol CIF::version
     int16_t i, rc;
     uchar l = gpt->BC->vers[0].let;
     if (language == LANGUAGE_RUSSIAN)
-        if (l == (uchar) '«' || l == (uchar) '‹')
+        if (l == (uchar) '\xab' /* « */ || l == (uchar) '\x8b' /* ‹ */)
             return PRO_NUM_PART;
 
     for (i = 0, rc = 0; i <= gpt->BC->nvers; i++) {
@@ -593,7 +593,7 @@ static int16_t test_O0(cell *pc) {
     memset(pc->vers, 0, 4 * sizeof(CIF::version));
     pc->nvers = 3;
     pc->vers[0].let = '0';
-    pc->vers[1].let = (uchar) 'Ž';
+    pc->vers[1].let = (uchar) '\x8e' /* Ž */;
     pc->vers[2].let = 'O';
     if (test_cell(pc))
         for (v = pc->vers; v->let; v++)
@@ -630,7 +630,7 @@ static int16_t rec_O0(cell *pc) {
     short_recog_cell(pc);
     for (wi = 0; wi < pc->nvers; wi++) {
         if ((pc->vers[wi].let == 'O') || (pc->vers[wi].let == 'o') || (language == LANGUAGE_RUSSIAN
-                && ((pc->vers[wi].let == (uchar) 'Ž') || (pc->vers[wi].let == (uchar) '®')))
+                && ((pc->vers[wi].let == (uchar) '\x8e' /* Ž */) || (pc->vers[wi].let == (uchar) '\xae' /* ® */)))
                 || (pc->vers[wi].let == '0')) {
             rc = pc->vers[wi].prob;
             goto Rexit;

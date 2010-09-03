@@ -172,9 +172,9 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp, seg_vers **versp,
 		cut = cut_list + ib2;
 		if (cut->duflm)
 			addij(LC, r, cut_list, vers_list, ncut, ib1, ib2, 0);
-		if ((let = cut->versm.vers[0].let) == (uchar) 'ì'
+		if ((let = cut->versm.vers[0].let) == (uchar) '\xec' /* ì */
 				&& !is_russian_baltic_conflict(let) || // 17.07.2001 E.P.
-				let == (uchar) 'œ')
+				let == (uchar) '\x9c' /* œ */)
 			fl_b = 1;
 	}
 
@@ -296,7 +296,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp, seg_vers **versp,
 						&& cut_list[i].versm.vers[0].prob >= 190) {
 					j = on_path(ir, iemax, cut_list);
 					vers0 = &cut_list[j].versm.vers[0];
-					if ((let = vers0->let) == (uchar) 'â'
+					if ((let = vers0->let) == (uchar) '\xe2' /* â */
 							&& !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 							!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 					)
@@ -317,7 +317,7 @@ void dp_pass0(cell *CP, raster *rp, struct cut_elm *cutp, seg_vers **versp,
 						&& cut_list[i2].versm.vers[0].prob >= 190) {
 					cut = cut_list + il;
 					vers0 = &cut->versm.vers[0];
-					if ((let = vers0->let) == (uchar) 'â'
+					if ((let = vers0->let) == (uchar) '\xe2' /* â */
 							&& !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 							!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 					)
@@ -574,8 +574,8 @@ static char l2r(int16_t *ib1, int16_t *ib2, int16_t *il) {
 			let = vers0->let;
 			if (let == '-')
 				*ib1 = ib1p;
-			else if ((let == (uchar) 'â' || let == (uchar) 'è' || let
-					== (uchar) '˜' || strchr((char*) sticks_left_to_bad, let))
+			else if ((let == (uchar) '\xe2' /* â */ || let == (uchar) '\xe8' /* è */ || let
+					== (uchar) '\x98' /* ˜ */ || strchr((char*) sticks_left_to_bad, let))
 					&& !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 					!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 			)
@@ -598,7 +598,7 @@ static char l2r(int16_t *ib1, int16_t *ib2, int16_t *il) {
 			if (*ib2 >= ie2)
 				if (*ib2 == ie2 || on_path(*ib2, iemax, cut_list))
 					return 1;
-			if ((let == (uchar) 'ì' || let == (uchar) 'œ')
+			if ((let == (uchar) '\xec' /* ì */ || let == (uchar) '\x9c' /* œ */)
 					&& !is_russian_baltic_conflict(let) // 17.07.2001 E.P.
 			) {
 				fl_b = 1;
@@ -834,7 +834,7 @@ static char r2l(int16_t *ir, int16_t *ie2, int16_t *ie1, int16_t mode) {
 				let = vers0->let;
 				if (let == '-')
 					*ie1 = ie1p;
-				else if ((let == (uchar) 'â' || strchr(
+				else if ((let == (uchar) '\xe2' /* â */ || strchr(
 						(char*) sticks_right_to_bad, let))
 						&& !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 						!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
@@ -1325,7 +1325,7 @@ static void spec_pairs() {
 		} else if (cut->dh != 0 && strchr("ªŠâ’ã“", let)
 				&& !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 				!is_russian_turkish_conflict(let) && // 21.05.2002 E.P.
-				(letp == (uchar) '£' || letp == (uchar) 'ƒ')) {
+				(letp == (uchar) '\xa3' /* £ */ || letp == (uchar) '\x83' /* ƒ */)) {
 			int16_t j, il = cut->px;
 			int16_t x0 = cut->x - ((cut_list[ip].x - cut->x) >> 1);
 			uchar *letr = &cut_list[ip].versm.vers[0].let;
@@ -1336,7 +1336,7 @@ static void spec_pairs() {
 				//			       break;
 				if (addij(LC, r, cut_list, vers_list, ncut, j, ip, 0) > 1)
 					continue;
-				if ((*letr == (uchar) 'â' || *letr == (uchar) '’')
+				if ((*letr == (uchar) '\xe2' /* â */ || *letr == (uchar) '\x92' /* ’ */)
 						&& !is_russian_baltic_conflict(*letr) && // 17.07.2001 E.P.
 						!is_russian_turkish_conflict(*letr) // 21.05.2002 E.P.
 				)
@@ -1346,7 +1346,7 @@ static void spec_pairs() {
 			if (cut->dh != 0 && strchr("¥¨ˆ­¯®Žá‘", let) && // "åèÈíÍïÏîÎñÑ"
 					!is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 					!is_russian_turkish_conflict(let) && // 21.05.2002 E.P.
-					(letp == (uchar) '£' || letp == (uchar) 'ƒ')) // ãÃ
+					(letp == (uchar) '\xa3' /* £ */ || letp == (uchar) '\x83' /* ƒ */)) // ãÃ
 			{
 				m_row = my_bases.bm + (int16_t) ((int32_t) nIncline * (r->left
 						+ cut->x) / 2048);
@@ -1354,24 +1354,24 @@ static void spec_pairs() {
 						(int16_t) (r->h - 1));
 			} else if (cut->dh != 0 && strchr("¥á‘", let)
 					&& !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
-					(letp == (uchar) '¯' || letp == (uchar) '')) {
+					(letp == (uchar) '\xaf' /* ¯ */ || letp == (uchar) '\x8f' /*  */)) {
 				m_row = my_bases.bm + (int16_t) ((int32_t) nIncline * (r->left
 						+ cut->x) / 2048);
 				x0 = right_bound(r, 0, cut->x, 0, (int16_t) (m_row - r->top));
-			} else if (cut->dh != 0 && (letp == (uchar) 'ì' || letp
-					== (uchar) 'œ') && !is_russian_baltic_conflict(letp) // 17.07.2001 E.P.
+			} else if (cut->dh != 0 && (letp == (uchar) '\xec' /* ì */ || letp
+					== (uchar) '\x9c' /* œ */) && !is_russian_baltic_conflict(letp) // 17.07.2001 E.P.
 			) {
 				x0 = cut->x - ((cut_list[ip].x - cut->x) >> 2);
-			} else if ((let == (uchar) 'ë' || let == (uchar) '›') && strchr(
-					(char*) letters_right_to_bad, letp) && letp != (uchar) 'ª'
-					&& letp != (uchar) 'Š' && !is_russian_baltic_conflict(let)
+			} else if ((let == (uchar) '\xeb' /* ë */ || let == (uchar) '\x9b' /* › */) && strchr(
+					(char*) letters_right_to_bad, letp) && letp != (uchar) '\xaa' /* ª */
+					&& letp != (uchar) '\x8a' /* Š */ && !is_russian_baltic_conflict(let)
 					&& // 17.07.2001 E.P.
 					!is_russian_baltic_conflict(letp) // 17.07.2001 E.P.
 			)
 				x0 = (cut_list[cut->px].x + (cut->x << 1)) / 3;
 			else if (let == '|' && strchr((char*) letters_right_to_bad, letp)
 					&& !is_russian_baltic_conflict(letp) && // 17.07.2001 E.P.
-					letp != (uchar) 'ª' && letp != (uchar) 'Š') {
+					letp != (uchar) '\xaa' /* ª */ && letp != (uchar) '\x8a' /* Š */) {
 				i = cut->px;
 				if (i == 0)
 					break;
