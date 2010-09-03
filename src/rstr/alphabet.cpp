@@ -196,21 +196,21 @@ Bool digital_last_context(void) {
 			p = curr->vers[0].prob;
 			if (c == (uchar) '_')
 				curr->vers[0].let = '-';
-			if (c == (uchar) 'ø')
+			if (c == (uchar) '\xf8' /* ø */)
 				curr->vers[0].let = '2';
-			if (c == (uchar) 'Ž' ||
+			if (c == (uchar) '\x8e' /* Ž */ ||
 			// 21.05.2002 E.P.
-					(c == (uchar) '®') && !is_russian_turkish_conflict(c))
+					(c == (uchar) '\xae' /* ® */) && !is_russian_turkish_conflict(c))
 				curr->vers[0].let = '0';
-			if (c == (uchar) '¡')
+			if (c == (uchar) '\xa1' /* ¡ */)
 				curr->vers[0].let = '6';
-			if (c == (uchar) '‡' || c == (uchar) '§')
+			if (c == (uchar) '\x87' /* ‡ */ || c == (uchar) '\xa7' /* § */)
 				curr->vers[0].let = '3';
-			if (c == (uchar) '‚')
+			if (c == (uchar) '\x82' /* ‚ */)
 				curr->vers[0].let = '8';
-			if (c == (uchar) '‘' && (p < 190 || num_broken + num_dig == num))
+			if (c == (uchar) '\x91' /* ‘ */ && (p < 190 || num_broken + num_dig == num))
 				curr->vers[0].let = '0';
-			if (c == (uchar) '’' || c == liga_exm || c == '!' || c == '|')
+			if (c == (uchar) '\x92' /* ’ */ || c == liga_exm || c == '!' || c == '|')
 				curr->vers[0].let = '1';
 			if (c == (uchar) 'l')
 				curr->vers[0].let = '1';
@@ -222,7 +222,7 @@ Bool digital_last_context(void) {
 				curr->nvers = 2;
 			}
 
-			if (c == '5' && curr->nvers > 2 && curr->vers[1].let == (uchar) '¡'
+			if (c == '5' && curr->nvers > 2 && curr->vers[1].let == (uchar) '\xa1' /* ¡ */
 					&& p == curr->vers[1].prob && curr->vers[2].let == '6'
 					&& curr->vers[2].prob > 150) { /* alternates : ¡56 -->>CONTEXT-->> 5¡6 */
 				curr->vers[0].let = '6';
@@ -322,13 +322,13 @@ void add_digital_versions(void) {
 			c = curr->vers[1].let;
 			p = curr->vers[1].prob;
 		}
-		if ((curr->nvers == 1 || c == (uchar) '’' && curr->nvers == 2) && p
+		if ((curr->nvers == 1 || c == (uchar) '\x92' /* ’ */ && curr->nvers == 2) && p
 				> 220)
 			switch (c) {
-			case (uchar) '’':
+			case (uchar) '\x92' /* ’ */:
 				add_stick_vers(curr, '1', p);
 				break;
-			case (uchar) '¡':
+			case (uchar) '\xa1' /* ¡ */:
 				add_stick_vers(curr, '6', p);
 				break;
 			default:
@@ -562,11 +562,11 @@ void set_digital_alphabet(void) {
 
 	// 21.05.2002 E.P.
 	if (!is_turkish_language(language))
-		add_alphabet_elem((uchar) '®');
+		add_alphabet_elem((uchar) '\xae' /* ® */);
 
-	add_alphabet_elem((uchar) 'Ž');
-	add_alphabet_elem((uchar) '¡');
-	add_alphabet_elem((uchar) '‡');
+	add_alphabet_elem((uchar) '\x8e' /* Ž */);
+	add_alphabet_elem((uchar) '\xa1' /* ¡ */);
+	add_alphabet_elem((uchar) '\x87' /* ‡ */);
 }
 
 void set_digital_mode(void) {
