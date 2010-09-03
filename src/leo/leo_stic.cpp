@@ -580,7 +580,7 @@ void leo_set_simple_sticks_group(RecVersions *ver, unsigned char alphabet[],
         }
     }
 
-    if (alphabet['|'] || (nIsPrint && alphabet[stdAnsiToAscii((uchar) 'û')])) {
+    if (alphabet['|'] || (nIsPrint && alphabet[stdAnsiToAscii((uchar) '\xfb' /* û */)])) {
         ver->Alt[ver->lnAltCnt].Code = '|';
         ver->Alt[ver->lnAltCnt].CodeExt = 0;
         ver->Alt[ver->lnAltCnt].Prob = (leo_typ_of_font & LEO_FONT_MTR) ? 255
@@ -992,7 +992,7 @@ Bool32 leo_is_stick(RecObject* object)
 
 static Bool32 leo_test_inclinable(RecVersions *v)
 {
-    static const uchar inc_let[] = "1ÉÖÅÍÃØÙÛÂÏÐ×ÈÒÜÁÞ";
+    static const uchar inc_let[] = "1\xC9\xD6\xC5\xCD\xC3\xD8\xD9\xDB\xC2\xCF\xD0\xD7\xC8\xD2\xDC\xC1\xDE"; //ÉÖÅÍÃØÙÛÂÏÐ×ÈÒÜÁÞ";
 
     if (v->lnAltCnt < 1)
         return FALSE;
@@ -1223,7 +1223,7 @@ static int32_t leo_get_incline(RecObject* object)
 
 void leo_add_inc(RecObject* object)
 {
-    static const uchar inc_let[] = "1ÉÖÅÍÃØÙÛÂÏÐ×ÈÒÜÁÞ";
+    static const uchar inc_let[] = "1\xC9\xD6\xC5\xCD\xC3\xD8\xD9\xDB\xC2\xCF\xD0\xD7\xC8\xD2\xDC\xC1\xDE"; //ÉÖÅÍÃØÙÛÂÏÐ×ÈÒÜÁÞ
     RecVersions *v;
     int inc;
     v = &object->recResults;
