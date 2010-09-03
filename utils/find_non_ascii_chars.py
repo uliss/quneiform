@@ -26,6 +26,12 @@ def replace_chars_by_code(str):
             new_str = result
         else:
             return new_str
+
+def find_non_ascii_str(str):
+    pattern = re.compile(u"\".*([^\u0000-\u007E]+).*\"")
+    m = pattern.search(str)
+    if m:
+        return True 
         
 
 def find_string_in_file(pattern, filename):
@@ -37,6 +43,10 @@ def find_string_in_file(pattern, filename):
     try:
         for line in f:
             new_line = replace_chars_by_code(line)
+
+            #find_non_ascii_str(line):
+            #     print "non ascii"
+
             if new_line != line:
                 new_f.write(new_line)
                 literals_num += 1
