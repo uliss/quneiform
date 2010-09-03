@@ -591,7 +591,7 @@ static CSTR_rast rpstr_end_word(CSTR_rast cs, uchar *str, Bool32 *hsp) {
 			if (vers.Alt[0].Code[0] == '>') {
 				if ((nc = CSTR_GetNext(c)) != 0) {
 					CSTR_GetCollectionUni(nc, &nuni);
-					if (nuni.lnAltCnt && nuni.Alt[0].Code[0] == (uchar) 'ê') {
+					if (nuni.lnAltCnt && nuni.Alt[0].Code[0] == (uchar) '\xea' /* ê */) {
 						CSTR_GetAttr(nc, &nattr);
 						CSTR_GetAttr(c, &attr);
 						if (attr.col + attr.w > nattr.col - 2)
@@ -624,17 +624,17 @@ static bool rpstr_is_digital(uchar w) {
 
 // for russian and english ansi codes
 static bool rpstr_is_upper(uchar w) {
-	return (w >= 'A' && w <= 'Z' || w >= (uchar) 'À' && w <= (uchar) 'ß');
+	return (w >= 'A' && w <= 'Z' || w >= (uchar) '\xc0' /* À */ && w <= (uchar) '\xdf' /* ß */);
 }
 
 static bool rpstr_is_lower(uchar w) {
-	return (w >= 'a' && w <= 'z' || w >= (uchar) 'à' && w <= (uchar) 'ÿ');
+	return (w >= 'a' && w <= 'z' || w >= (uchar) '\xe0' /* à */ && w <= (uchar) '\xff' /* ÿ */);
 }
 
 static bool rpstr_to_upper(uchar w) {
 	if (w >= 'a' && w <= 'z')
 		return (uchar)(w - 32);
-	if (w >= (uchar) 'à' && w <= (uchar) 'ÿ')
+	if (w >= (uchar) '\xe0' /* à */ && w <= (uchar) '\xff' /* ÿ */)
 		return (uchar)(w - 32);
 	return w;
 }
@@ -642,7 +642,7 @@ static bool rpstr_to_upper(uchar w) {
 static bool rpstr_to_lower(uchar w) {
 	if (w >= 'A' && w <= 'Z')
 		return (uchar)(w + 32);
-	if (w >= (uchar) 'À' && w <= (uchar) 'ß')
+	if (w >= (uchar) '\xc0' /* À */ && w <= (uchar) '\xdf' /* ß */)
 		return (uchar)(w + 32);
 	return w;
 }
@@ -2132,9 +2132,9 @@ static Bool32 IsInAlter(uchar *Code, CSTR_rast c) {
 }
 
 static Bool rpstr_is_letter(uchar w) {
-	if (w >= 'A' && w <= 'Z' || w >= (uchar) 'À' && w <= (uchar) 'ß')
+	if (w >= 'A' && w <= 'Z' || w >= (uchar) '\xc0' /* À */ && w <= (uchar) '\xdf' /* ß */)
 		return TRUE;
-	if (w >= 'a' && w <= 'z' || w >= (uchar) 'à' && w <= (uchar) 'ÿ')
+	if (w >= 'a' && w <= 'z' || w >= (uchar) '\xe0' /* à */ && w <= (uchar) '\xff' /* ÿ */)
 		return TRUE;
 
 	return FALSE;
