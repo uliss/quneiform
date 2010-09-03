@@ -158,8 +158,8 @@ int16_t is_lower(uchar ch)
         switch (fEdCode) {
             case ED_ASCII: // for ASCII
 
-                if ((ch >= (uchar) '†' && ch <= (uchar) 'Ø')
-                        || (ch >= (uchar) '‡' && ch <= (uchar) 'Ô') || memchr("Òı˜¯˝¿", ch, 7))
+                if ((ch >= (uchar) '\xa0' /* † */ && ch <= (uchar) '\xaf' /* Ø */)
+                        || (ch >= (uchar) '\xe0' /* ‡ */ && ch <= (uchar) '\xef' /* Ô */) || memchr("Òı˜¯˝¿", ch, 7))
                     return 1;
 
                 break;
@@ -190,7 +190,7 @@ int16_t is_upper(uchar ch)
             case ED_ASCII:
             case ED_MAC: // for ASCII and Macintosh
 
-                if (ch >= (uchar) 'Ä' && ch <= (uchar) 'ü' || ch == (uchar) r_EE_2dot)
+                if (ch >= (uchar) '\x80' /* Ä */ && ch <= (uchar) '\x9f' /* ü */ || ch == (uchar) r_EE_2dot)
                     return 1;
 
                 break;
@@ -229,7 +229,7 @@ int16_t isletter(uchar ch)
 uchar get_homot(uchar ch)
 {
     if (ch == '0')
-        return ((uchar) 'Æ');
+        return ((uchar) '\xae' /* Æ */);
 
     if (is_upper(ch))
         return to_lower(ch);
@@ -272,11 +272,11 @@ uchar to_upper(uchar c)
         switch (fEdCode) {
             case ED_ASCII: // for ASCII
 
-                if (c >= (uchar) '†' && c <= (uchar) 'Ø')
-                    return c - (uchar) '†' + (uchar) 'Ä';
+                if (c >= (uchar) '\xa0' /* † */ && c <= (uchar) '\xaf' /* Ø */)
+                    return c - (uchar) '\xa0' /* † */ + (uchar) '\x80' /* Ä */;
 
-                if (c >= (uchar) '‡' && c <= (uchar) 'Ô')
-                    return c - (uchar) '‡' + (uchar) 'ê';
+                if (c >= (uchar) '\xe0' /* ‡ */ && c <= (uchar) '\xef' /* Ô */)
+                    return c - (uchar) '\xe0' /* ‡ */ + (uchar) '\x90' /* ê */;
 
                 break;
             case ED_WIN: // for Windows (ANSI)
@@ -309,11 +309,11 @@ uchar to_lower(uchar c)
         switch (fEdCode) {
             case ED_ASCII: // for ASCII
 
-                if (c >= (uchar) 'Ä' && c <= (uchar) 'è')
-                    return c - (uchar) 'Ä' + (uchar) '†';
+                if (c >= (uchar) '\x80' /* Ä */ && c <= (uchar) '\x8f' /* è */)
+                    return c - (uchar) '\x80' /* Ä */ + (uchar) '\xa0' /* † */;
 
-                if (c >= (uchar) 'ê' && c <= (uchar) 'ü')
-                    return c - (uchar) 'ê' + (uchar) '‡';
+                if (c >= (uchar) '\x90' /* ê */ && c <= (uchar) '\x9f' /* ü */)
+                    return c - (uchar) '\x90' /* ê */ + (uchar) '\xe0' /* ‡ */;
 
                 break;
             case ED_WIN: // for Windows
