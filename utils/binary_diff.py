@@ -33,10 +33,10 @@ if os.path.exists(md5_file):
         new_hash = cuneiform_md5.md5sum(pair[1].rstrip())    
         name = os.path.basename(pair[1].rstrip())
         if pair[0] != new_hash.keys()[0]:
-            print "%s%-25s Diff%s" % (bcolor.FAIL, name, bcolor.END)
+            print "%s%-30s Diff%s" % (bcolor.FAIL, name, bcolor.END)
             count += 1
         else:
-            print "%-25s %sOk%s" % (name, bcolor.OK, bcolor.END) 
+            print "%-30s %sOk%s" % (name, bcolor.OK, bcolor.END) 
     
     if count > 0:
         print "\n%sWarning!%s %d binary files changed" % (bcolor.FAIL, bcolor.END, count)
