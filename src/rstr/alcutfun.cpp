@@ -2,33 +2,34 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- пЮГПЕЬЮЕРЯЪ ОНБРНПМНЕ ПЮЯОПНЯРПЮМЕМХЕ Х ХЯОНКЭГНБЮМХЕ ЙЮЙ Б БХДЕ ХЯУНДМНЦН ЙНДЮ,
- РЮЙ Х Б ДБНХВМНИ ТНПЛЕ, Я ХГЛЕМЕМХЪЛХ ХКХ АЕГ, ОПХ ЯНАКЧДЕМХХ ЯКЕДСЧЫХУ СЯКНБХИ:
+ Разрешается повторное распространение и использование как в виде исходного кода,
+ так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
- * оПХ ОНБРНПМНЛ ПЮЯОПНЯРПЮМЕМХХ ХЯУНДМНЦН ЙНДЮ ДНКФМШ НЯРЮБЮРЭЯЪ СЙЮГЮММНЕ
- БШЬЕ СБЕДНЛКЕМХЕ НА ЮБРНПЯЙНЛ ОПЮБЕ, ЩРНР ЯОХЯНЙ СЯКНБХИ Х ОНЯКЕДСЧЫХИ
- НРЙЮГ НР ЦЮПЮМРХИ.
- * оПХ ОНБРНПМНЛ ПЮЯОПНЯРПЮМЕМХХ ДБНХВМНЦН ЙНДЮ Б ДНЙСЛЕМРЮЖХХ Х/ХКХ Б
- ДПСЦХУ ЛЮРЕПХЮКЮУ, ОНЯРЮБКЪЕЛШУ ОПХ ПЮЯОПНЯРПЮМЕМХХ, ДНКФМШ ЯНУПЮМЪРЭЯЪ
- СЙЮГЮММЮЪ БШЬЕ ХМТНПЛЮЖХЪ НА ЮБРНПЯЙНЛ ОПЮБЕ, ЩРНР ЯОХЯНЙ СЯКНБХИ Х
- ОНЯКЕДСЧЫХИ НРЙЮГ НР ЦЮПЮМРХИ.
- * мХ МЮГБЮМХЕ Cognitive Technologies, МХ ХЛЕМЮ ЕЕ ЯНРПСДМХЙНБ МЕ ЛНЦСР
- АШРЭ ХЯОНКЭГНБЮМШ Б ЙЮВЕЯРБЕ ЯПЕДЯРБЮ ОНДДЕПФЙХ Х/ХКХ ОПНДБХФЕМХЪ
- ОПНДСЙРНБ, НЯМНБЮММШУ МЮ ЩРНЛ он, АЕГ ОПЕДБЮПХРЕКЭМНЦН ОХЯЭЛЕММНЦН
- ПЮГПЕЬЕМХЪ.
+ * При повторном распространении исходного кода должны оставаться указанное
+ выше уведомление об авторском праве, этот список условий и последующий
+ отказ от гарантий.
+ * При повторном распространении двоичного кода в документации и/или в
+ других материалах, поставляемых при распространении, должны сохраняться
+ указанная выше информация об авторском праве, этот список условий и
+ последующий отказ от гарантий.
+ * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+ быть использованы в качестве средства поддержки и/или продвижения
+ продуктов, основанных на этом ПО, без предварительного письменного
+ разрешения.
 
- щрю опнцпюллю опеднярюбкемю бкюдекэжюлх юбрнпяйху опюб х/хкх дпсцхлх кхжюлх "йюй
- нмю еярэ" аег йюйнцн-кхан бхдю цюпюмрхи, бшпюфеммшу ъбмн хкх ондпюгслебюелшу,
- бйкчвюъ цюпюмрхх йнллепвеяйни жеммнярх х опхцндмнярх дкъ йнмйпермни жекх, мн ме
- нцпюмхвхбюъяэ хлх. мх бкюдекеж юбрнпяйху опюб х мх ндмн дпсцне кхжн, йнрнпне
- лнфер хглемърэ х/хкх онбрнпмн пюяопнярпюмърэ опнцпюллс, мх б йнел яксвюе ме
- мея╗р нрберярбеммнярх, бйкчвюъ кчаше наыхе, яксвюимше, яоежхюкэмше хкх
- онякеднбюбьхе сашрйх, ябъгюммше я хяонкэгнбюмхел хкх онмеяеммше бякедярбхе
- мебнглнфмнярх хяонкэгнбюмхъ опнцпюллш (бйкчвюъ онрепх дюммшу, хкх дюммше,
- ярюбьхе мецндмшлх, хкх сашрйх х/хкх онрепх днунднб, онмеяеммше хг-гю деиярбхи
- рперэху кхж х/хкх нрйюгю опнцпюллш пюанрюрэ янблеярмн я дпсцхлх опнцпюллюлх,
- мн ме нцпюмхвхбюъяэ щрхлх яксвюълх), мн ме нцпюмхвхбюъяэ хлх, дюфе еякх рюйни
- бкюдекеж хкх дпсцне кхжн ашкх хгбеыемш н бнглнфмнярх рюйху сашрйнб х онрепэ.
+ ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
+ ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+ МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+ НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+ НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+ СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+ НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
+ ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -86,7 +87,7 @@ static char
 				2, 2, 3, 2, 2, 2, 3, 3, 3, 2, 3, 2, 2, 1, 2, 2, 2, 2, 3, 2, 2,
 				1, 2, 2, 2, 1, 2, 1, 1 };
 
-static char sum_table[256] = /* ╓╝╚╕╜═ ╞Ю╔╓Х╔АБ╒╝╒═БЛ Б═║╚╗Ф╔ fb_table  !!!!  */
+static char sum_table[256] = /* должна предшествовать таблице fb_table  !!!!  */
 { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3,
 		3, 4, 3, 4, 4, 5, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3,
 		3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3,
@@ -99,7 +100,7 @@ static char sum_table[256] = /* ╓╝╚╕╜═ ╞Ю╔╓Х╔АБ╒╝╒
 		5, 6, 5, 6, 6, 7, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 4, 5,
 		5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8 };
 
-static char fb_table[512] = /* Б═║╚╗Ф═ ╜╝╛╔Ю═ А═╛╝ё╝ ╚╔╒╝ё╝ ╔╓╗╜╗Г╜╝ё╝ ║╗Б═ */
+static char fb_table[512] = /* таблица номера самого левого единичного бита */
 { 0, 7, 6, 6, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
 		3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
 		2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -111,7 +112,7 @@ static char fb_table[512] = /* Б═║╚╗Ф═ ╜╝╛╔Ю═ А═╛╝
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		/* Б═║╚╗Ф═ ╜╝╛╔Ю═ А═╛╝ё╝ ╞Ю═╒╝ё╝ ╔╓╗╜╗Г╜╝ё╝ ║╗Б═*/
+		/* таблица номера самого правого единичного бита*/
 		0, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0,
 		3, 0, 1, 0, 2, 0, 1, 0, 5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
 		4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 6, 0, 1, 0, 2, 0, 1, 0,
@@ -217,12 +218,12 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 	i = ((row + dy) - (minrow + bbs3) + 1);
 	dif = abs((row + dy + 1) - (minrow + bbs3));
 	if (i > 2) {
-		/*  ┌КГ╔А╚О╔БАО ╝А╜╝╒═╜╗╔ └ */
+	    /*  Вычесляется основание Д */
 #ifdef Alikd
 		if(db_status && snap_activity('j'))
 		{
 			buf=snap;
-			buf+=SPRINTF(buf,"       ▌А╜╝╒═╜╗╔ └ \n");
+			buf+=SPRINTF(buf,"       Основание Д \n");
 		}
 #endif
 
@@ -238,7 +239,7 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 				rb = *(IntBuf + (j << 1) + 1);
 
 				if (j < Col - 1) {
-					/*А╙╚╔╗╒═╔╛ А╚╔╓. ╗╜Б╔Ю╒═╚ ╔А╚╗ Ю═АБ╝О╜╗╔ ╛═╚.*/
+				    /*склеиваем след. интервал если растояние мал.*/
 					nlb = *(IntBuf + ((j + 1) << 1));
 					if (nlb - rb <= 2) {
 						j++;
@@ -260,7 +261,7 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 				break;
 		}
 
-		/* ⌠╓═╚ОН ╞╚╝Е╗╔ ЦГ═АБ╙╗ ╓╚О ╝А╜╝╒═╜╗О └*/
+		/* Удаляю плохие участки для основания Д*/
 		for (j = 0, ColOst = 0; j < ColOsn; j++) {
 			lb = MI1[j].osnl;
 			rb = MI1[j].osnr;
@@ -312,7 +313,7 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 
 		if (ColOst) {
 
-			/*  ┌КГ╔А╚ОНБАО ╚═╞╙╗ └ */
+		    /*  Вычесляются лапки Д */
 			CurPos = SourceRaster + dy * hor_byte;
 
 			for (j = 1; j < i; j++) {
@@ -334,7 +335,7 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 							>= MI[i].osnr && rb >= MI[i].osnr))
 						continue;
 
-					/*  ▀╔╒═О  ╚═╞╙═ └ */
+					 /*  Левая  лапка Д */
 					if (!MI[i].cvl) {
 						MI[i].lb = lb;
 						MI[i].cvl++;
@@ -352,7 +353,7 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 						if (lb - MI[i].lb < MINCOL)
 							continue;
 					}
-					/*  ┘АБЛ АЮ╔╓╜ОО  ╚═╞╙═ └└ */
+					 /*  Есть средняя  лапка ДД */
 					if (MI[i].cvl && MI[i].cvr && lb > MI[i].lb + MAX(
 							(MIN_OSNOV_D >> 1), (MI[i].rb - MI[i].lb) / 3)
 							&& rb < MI[i].rb - (MI[i].rb - MI[i].lb) / 3) {
@@ -360,7 +361,7 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 						MI[i].cvm++;
 						goto con;
 					}
-					/*  ▐Ю═╒═О  ╚═╞╙═ └ */
+					/*  Правая  лапка Д */
 					if (MI[i].cvl) {
 						if (!MI[i].cvr) {
 							MI[i].rb = rb;
@@ -381,7 +382,7 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 						}
 					}
 					continue;
-					/* ╛═╙А╗╛═╚Л╜═О Х╗Ю╗╜═ ╜╝ё╗ */
+					 /* максимальная ширина ноги */
 					con: MI[i].wf = MAX(MI[i].wf, rb - lb + 1);
 				}
 			}
@@ -400,7 +401,7 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 					if( db_status && snap_activity('j'))
 					{
 						buf=snap;
-						buf+=SPRINTF(buf," ╓ left position=%3d ",MI[i].lb-1);
+						buf+=SPRINTF(buf," д left position=%3d ",MI[i].lb-1);
 						Alik_snap_show_raster(raster_frag,SourceRaster,snap,dy,dx,
 								product,product_two,penalty);
 					}
@@ -423,12 +424,12 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 							buf=snap;
 
 							if(MI[i].cvl && !MI[i].cvm && !MI[i].cvr)
-							buf+=SPRINTF(buf," Ф ╗╚╗ И right position=%3d ",MI[i].lb+MI[i].wf);
+							buf+=SPRINTF(buf," ц или щ right position=%3d ",MI[i].lb+MI[i].wf);
 							else
 							if(MI[i].cvr)
-							buf+=SPRINTF(buf," ╓ right position=%3d ",MI[i].rb);
+							buf+=SPRINTF(buf," д right position=%3d ",MI[i].rb);
 							else
-							buf+=SPRINTF(buf," ╓ right position=%3d ",MI[i].mb);
+							buf+=SPRINTF(buf," д right position=%3d ",MI[i].mb);
 
 							Alik_snap_show_raster(raster_frag,SourceRaster,snap,dy,dx,
 									product,product_two,penalty);
@@ -454,7 +455,7 @@ void Alik_Check_Rus_D(pchar raster_frag, pchar SourceRaster, int16_t dy,
 						if( db_status && snap_activity('j'))
 						{
 							buf=snap;
-							buf+=SPRINTF(buf," ╓ seredina=%3d ",MI[i].mb);
+							buf+=SPRINTF(buf," д seredina=%3d ",MI[i].mb);
 							Alik_snap_show_raster(raster_frag,SourceRaster,snap,dy,dx,
 									product,product_two,penalty);
 						}
@@ -820,7 +821,7 @@ void Alik_find_brus(pchar raster_frag, pchar SourceRaster, pchar bufer,
 #ifdef AlikBrus
 					if( db_status && snap_activity('j'))
 					{
-						buf=snap; buf+=SPRINTF(buf," ╚ position=%3d ",CB[j].R-interval-1);
+						buf=snap; buf+=SPRINTF(buf," л position=%3d ",CB[j].R-interval-1);
 						Alik_snap_show_raster(raster_frag,SourceRaster,snap,hgt,rx_bite,
 								product,product_two,penalty);
 					}
@@ -849,7 +850,7 @@ void Alik_find_brus(pchar raster_frag, pchar SourceRaster, pchar bufer,
 					if( db_status && snap_activity('j'))
 					{
 						buf=snap;
-						buf+=SPRINTF(buf," Б position1=%3d position2=%3d",CB[j].L,CB[j+1].R);
+						buf+=SPRINTF(buf," т position1=%3d position2=%3d",CB[j].L,CB[j+1].R);
 						Alik_snap_show_raster(raster_frag,SourceRaster,snap,hgt,rx_bite,
 								product,product_two,penalty);
 					}
@@ -1025,12 +1026,12 @@ void Alik_cut_y(pchar raster_frag, pchar SourceRaster, pchar bufer, int16_t dy,
 	if (i >= 5) {
 		if (i == 5)
 			dw_ot_bbs3 = 2;
-		/*  ┌КГ╔А╚О╔БАО Е╒╝АБ╗╙ ╝Б ⌠ */
+		 /*  Вычесляется хвостик от У */
 #ifdef Aliky
 		if(db_status && snap_activity('j'))
 		{
 			buf=snap;
-			buf+=SPRINTF(buf,"       •╒╝АБ╗╙ ⌠ \n");
+			buf+=SPRINTF(buf,"       Хвостик У \n");
 		}
 #endif
 
@@ -1074,7 +1075,7 @@ void Alik_cut_y(pchar raster_frag, pchar SourceRaster, pchar bufer, int16_t dy,
 						product_two,penalty);
 			}
 #endif
-			/*************     ▌╞Ю╔╓╔╚О╔╛ ╚╔╒ЦН Б╝Г╙Ц      *************/
+			/*************     Определяем левую точку      *************/
 			if (left >= MINCOL) {
 				l_bound = MAX(0, left - 1);
 				r_bound = MAX(l_bound, right - LEFT_STEP);
@@ -1099,7 +1100,7 @@ void Alik_cut_y(pchar raster_frag, pchar SourceRaster, pchar bufer, int16_t dy,
 			}
 			CurPos = bufer + left * ver_byte;
 			LeftDist = LeftDistance((uchar*) CurPos, ver_byte);
-			/*************     ▌╞Ю╔╓╔╚О╔╛ ╞Ю═╒ЦН Б╝Г╙Ц      *************/
+			/*************     Определяем правую точку      *************/
 			if (dx - right >= MINCOL) {
 				l_bound = MIN(dx, right + Y_CUT);
 				r_bound = MIN(dx, l_bound + Y_CUT + LEFT_STEP);
@@ -1224,7 +1225,7 @@ void Alik_cut_hole(pchar trace, int16_t rx, pint16_t cut_points, int16_t first,
 	first = first;
 	HRastr = (uchar)((ry * 3) >> 2);
 	b0:
-	/* АД╝Ю╛╗Ю╝╒═╚╗ ═╓Ю╔А ╓╚О ЕЮ═╜╔╜╗О Б╝Г╔╙ Ю═╖Ю╔╖═*/
+	 /* сформировали адрес для хранения точек разреза*/
 	Pcut_points = Pcut_points1 = (pint16_t)((pchar) cut_points
 			+ ((int16_t) (*cut_points) << 1));
 	Ptrace = Ptrace1 = trace;
