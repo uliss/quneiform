@@ -54,23 +54,76 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-static const char *english_voc[] = { "at", "on", "pro", "more", "an", "mr", "many",
-                                     "him", "ran", "any", "or", "open", "one", "once", "be", "can", "of",
-                                     "we", "the", "him", "are", "it", "dos", "ocr", "ibm", "group", "by",
-                                     "is", "in", "if", "very", "cdrom", "fax", "cd", "rom", "new", "old",
-                                     "svga", "vga", "computer", "multimedia", "hp", "ascii", "soft", "copy",
-                                     "sorry", "as", "system", "isn", "samsung", "infoseek", "rtf", "dbf",
-                                     "odbc", "api", "sdk", "csv", "xls", "html", "pci", "pentium", "ide",
-                                     "vesa", "cisco", "scsi", "eisa", "cashe", "\0" // end of word list
-                                   };
-static const char *russian_voc[] = { "Є Є", "ҐЈ®", "§ ", "в Є", "­ ", "­Ґ", "ҐҐ",
-                                     "­®", "®­", "®­ ", "ў®в", "Ё", "б®", "ўбҐ", "ў", "ўбҐ©", "ў®", "Ї®«Ґ",
-                                     "Ї®", "­г", "з б", "®", "зҐЈ®", " ", "бҐЎҐ", "¦Ґ", "Їа®бв®", "Є®Ј®",
-                                     "Їа®", "зв®", "ва®Ґ", "би ", "®в", "¬Јж", "ЈЎ ©в", "®­Ё", "Єв®", "\0" // end of word list
-                                   };
+static const char *english_voc[] = { "at", "on", "pro", "more", "an", "mr", "many", "him", "ran",
+        "any", "or", "open", "one", "once", "be", "can", "of", "we", "the", "him", "are", "it",
+        "dos", "ocr", "ibm", "group", "by", "is", "in", "if", "very", "cdrom", "fax", "cd", "rom",
+        "new", "old", "svga", "vga", "computer", "multimedia", "hp", "ascii", "soft", "copy",
+        "sorry", "as", "system", "isn", "samsung", "infoseek", "rtf", "dbf", "odbc", "api", "sdk",
+        "csv", "xls", "html", "pci", "pentium", "ide", "vesa", "cisco", "scsi", "eisa", "cashe",
+        "\0" // end of word list
+        };
+static const char *russian_voc[] = {
+// cp866
+        "\xaa\xa0\xaa", // как
+        "\xa5\xa3\xae", // его
+        "\xa7\xa0", // за
+        "\xE2\xA0\xAA", // так
+        "\xad\xa0", // на
+        "\xad\xa5", // не
+        "\xa5\xa5", // ее
+        "\xad\xae", // но
+        "\xae\xad", // он
+        "\xae\xad\xa0", // она
+        "\xa2\xae\xe2", // вот
+        "\xa8", // и
+        "\xe1\xae", // со
+        "\xa2\xe1\xa5", // все
+        "\xa2", // в
+        "\xA2\xE1\xA5\xA9", // всей
+        "\xa2\xae", // во
+        "\xaf\xae\xab\xa5", // поле
+        "\xaf\xae", // по
+        "\xad\xe3", // ну
+        "\xe7\xa0\xe1", // час
+        "\xae", // о
+        "\xE7\xA5\xA3\xAE", // чего
+        "\xa0", // а
+        "\xE1\xA5\xA1\xA5", // себе
+        "\xa6\xa5", // же
+        "\xaf\xe0\xae\xe1\xe2\xae", // просто
+        "\xaa\xae\xa3\xae", // кого
+        "\xaf\xe0\xae", // про
+        "\xe7\xe2\xae", // что
+        "\xE2\xE0\xAE\xA5", // трое
+        "\xe1\xe8\xa0", // сша
+        "\xae\xe2", // от
+        "\xac\xa3\xe6", // мгц
+        "\xa3\xa1\xa0\xa9\xe2", // гбайт
+        "\xae\xad\xa8", // они
+        "\xaa\xe2\xae", // кто
+        "\0" // end of word list
+        };
 static const char *english_voc_all[] = { "for", "ole", "win", "\0" };
-static const char *russian_voc_all[] = { "или", "лет", "сил", "ним", "изо", "стр",
-                                         "неё", "её", "нём", "шёл", "бог", "\0"
-                                       };
 
-static const char *russian_voc_short[] = { "тыс", "соч", "стр", "рус", "\0" };
+static const char *russian_voc_all[] = {
+// cp1251
+        "\xe8\xeb\xe8", // или
+        "\xeb\xe5\xf2", // лет
+        "\xf1\xe8\xeb", // сил
+        "\xed\xe8\xec", // ним
+        "\xe8\xe7\xee", // изо
+        "\xf1\xf2\xf0", // стр
+        "\xed\xe5\xb8", // неё
+        "\xe5\xb8", //  её
+        "\xed\xb8\xec", // нём
+        "\xf8\xb8\xeb", //шёл
+        "\xe1\xee\xe3", //бог
+        "\0" };
+
+static const char *russian_voc_short[] = {
+// cp1251
+        "\xf2\xfb\xf1", // тыс
+        "\xf1\xee\xf7", // соч
+        "\xf1\xf2\xf0", // стр
+        "\xf0\xf3\xf1", //рус
+        "\0" };
