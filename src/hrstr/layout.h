@@ -446,7 +446,7 @@ struct _Block {
     int        nNumber;
     int        nUserNum;  // Number call of User ExractBlocks Piter 08-17-95 06:20pm
     //05-25-94 03:01pm,Pit
-    uchar        language; // ­  Є Є®¬ п§лЄҐ ­ ЇЁб ­®
+    uchar        language; // на каком языке написано
     RECTANGLE  Rect;
 
     int        nEmbedding;
@@ -486,7 +486,7 @@ struct _Block {
 
     int        *pHystogram;              // Hystogram for strings extraction
     int        nHystColumns;
-    int        hPicture;                   // Pit. ЋЇЁб ­ЁҐ Є авЁ­ЄЁ
+    int        hPicture;                   // Pit. Описание картинки
 };
 
 extern BLOCK *pBlocksList;
@@ -712,8 +712,8 @@ struct _BackupCopy {
     long         lPictures; // size of pictures buffer Pit 09-29-94 03:05pm
     puchar        pPictures; //         pictures buffer
 
-    int          nSheets;   // зЁб«® в Ў«Ёж
-    SHT          *sht;      // Ёе ®ЇЁб вҐ«Ё
+    int          nSheets;   // число таблиц
+    SHT          *sht;      // их описатели
 };
 
 extern BACKUP_COPY *pBC_First;

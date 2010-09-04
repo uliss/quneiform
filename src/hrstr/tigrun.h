@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RUN_1   RUN_EXTRCOMP|RUN_LAYOUT_1
 #define RUN_2   RUN_LAYOUT_2|RUN_FINAL_REC|RUN_FORMAT|RUN_ED_WRITE
 
-#define TSRO_RECOGLANG  64 // „гЎ«Ёа®ў ­® Ё§ tgcall.h !! Pit
+#define TSRO_RECOGLANG  64 // Дублировано из tgcall.h !! Pit
 
 //  Steps for Progress monitor
 
