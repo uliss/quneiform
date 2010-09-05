@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- Разрешается повторное распространение и использование как в виде исходного кода,
- так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+ С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
- * При повторном распространении исходного кода должны оставаться указанное
- выше уведомление об авторском праве, этот список условий и последующий
- отказ от гарантий.
- * При повторном распространении двоичного кода в документации и/или в
- других материалах, поставляемых при распространении, должны сохраняться
- указанная выше информация об авторском праве, этот список условий и
- последующий отказ от гарантий.
- * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
- быть использованы в качестве средства поддержки и/или продвижения
- продуктов, основанных на этом ПО, без предварительного письменного
- разрешения.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+ РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+ РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+ СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+ РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+ РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+ СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
- ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
- ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
- ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
- ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
- МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
- НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
- ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
- НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
- СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
- ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
- НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
- ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+ РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+ Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+ РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+ РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+ РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+ РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+ РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+ РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+ РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+ РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+ Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -102,7 +102,7 @@ static int16_t acc_semicircle(cell *cc, puchar r);
 
 //static void debug_print_raster(char *text, puchar r); 19.07.2001 E.P.
 
-/* См. ligas.h 31.08.2000 E.P.
+/* Г‘Г¬. ligas.h 31.08.2000 E.P.
  #define ACC_LEFT			1
  #define ACC_RIGHT			2
  #define ACC_LR				(ACC_LEFT|ACC_RIGHT)
@@ -114,10 +114,10 @@ static int16_t acc_semicircle(cell *cc, puchar r);
  #define ACC_UNKNOWN		  127
  #define ACC_SUPERUP		  128
  #define ACC_ROOF_INV	  256
- #define ACC_DOUBLE_RIGHT  512	// HUNGAR 30.08.2000 E.P. Над O, U
- #define ACC_SEMICIRCLE	 1024	// ROMAN 31.08.2000 E.P. Полукруг над А.
- #define ACC_WEAK_ROOF	 2048	// ROMAN 31.05.2001 E.P. Слабый акцент над 'i'
- #define ACC_MACRON		 4096	// LATVIAN 05.07.2001 E.P. Черта сверху над AEIU
+ #define ACC_DOUBLE_RIGHT  512	// HUNGAR 30.08.2000 E.P. РќР°Рґ O, U
+ #define ACC_SEMICIRCLE	 1024	// ROMAN 31.08.2000 E.P. РџРѕР»СѓРєСЂСѓРі РЅР°Рґ Рђ.
+ #define ACC_WEAK_ROOF	 2048	// ROMAN 31.05.2001 E.P. РЎР»Р°Р±С‹Р№ Р°РєС†РµРЅС‚ РЅР°Рґ 'i'
+ #define ACC_MACRON		 4096	// LATVIAN 05.07.2001 E.P. Р§РµСЂС‚Р° СЃРІРµСЂС…Сѓ РЅР°Рґ AEIU
  */
 //**************************************************************************
 void pass_accent(void) {
@@ -141,7 +141,7 @@ void pass_accent(void) {
 					== LANGUAGE_HUNGARIAN && memchr("AaEeIiOoUu", let, 10) || language
 					== LANGUAGE_SLOVENIAN && memchr("CcSsZz", let, 6) ||
 
-			// Как верхние, так и нижние акценты 10.07.2001 E.P.
+			// РљР°Рє РІРµСЂС…РЅРёРµ, С‚Р°Рє Рё РЅРёР¶РЅРёРµ Р°РєС†РµРЅС‚С‹ 10.07.2001 E.P.
 					language == LANGUAGE_LATVIAN && memchr(
 							"AaCcEeGgIiKkLlNnSsUuZz", let, 22) || language
 					== LANGUAGE_LITHUANIAN && memchr("AaCcEeIiSsUuZz", let, 14)
@@ -313,12 +313,12 @@ int16_t bottom_accent(cell *c) {
 			n++;
 		}
 
-		// Прибалтийские Iil _bottom_accent. Продолжить просмотр версий.
+		// РџСЂРёР±Р°Р»С‚РёР№СЃРєРёРµ Iil _bottom_accent. РџСЂРѕРґРѕР»Р¶РёС‚СЊ РїСЂРѕСЃРјРѕС‚СЂ РІРµСЂСЃРёР№.
 		else if ((language == LANGUAGE_LATVIAN || language == LANGUAGE_LITHUANIAN))
 			continue;
 
-		// Турецкая c_bottom_accent после отрезания дает
-		// несколько версий с оценкой 254.
+		// РўСѓСЂРµС†РєР°СЏ c_bottom_accent РїРѕСЃР»Рµ РѕС‚СЂРµР·Р°РЅРёСЏ РґР°РµС‚
+		// РЅРµСЃРєРѕР»СЊРєРѕ РІРµСЂСЃРёР№ СЃ РѕС†РµРЅРєРѕР№ 254.
 		// 18.06.2002 E.P.
 		else if (language == LANGUAGE_TURKISH) {
 			if ((i + 1 < c->nvers) && (v1 + 1)->prob >= 240)
@@ -368,7 +368,7 @@ int16_t accent(cell *c) {
 
 		if (language == LANGUAGE_ITALIAN && memchr("o", v1->let, 1) && acc_type
 				== ACC_LEFT || language == LANGUAGE_RUSSIAN && !langUkr && !langSer
-				&& memchr("Ґ…", v1->let, 2) && acc_type == ACC_2DOT)
+				&& memchr("\xA5\x85" /* РµР•*/, v1->let, 2) && acc_type == ACC_2DOT)
 			goto _ok;
 
 		if (language == LANGUAGE_CROATIAN && memchr("cC", v1->let, 2) && acc_type
@@ -424,10 +424,10 @@ int16_t accent(cell *c) {
 				== ACC_ROOF_INV))
 			goto _ok;
 
-		// Балтийские акценты. 10.07.2001 E.P.
+		// Р‘Р°Р»С‚РёР№СЃРєРёРµ Р°РєС†РµРЅС‚С‹. 10.07.2001 E.P.
 		if (language == LANGUAGE_LATVIAN && (memchr("AaEeIiUu", v1->let, 8)
 				&& acc_type == ACC_MACRON || memchr("CcSsZz", v1->let, 6)
-				&& acc_type == ACC_ROOF_INV || v1->let == 'g' && acc_type // Все что ловится
+				&& acc_type == ACC_ROOF_INV || v1->let == 'g' && acc_type // Р’СЃРµ С‡С‚Рѕ Р»РѕРІРёС‚СЃСЏ
 				) ||
 
 		language == LANGUAGE_LITHUANIAN && (memchr("CcSsZz", v1->let, 6)
@@ -441,7 +441,7 @@ int16_t accent(cell *c) {
 				== ACC_ROOF_INV))
 			goto _ok;
 
-		// Турецкие акценты 30.05.2002 E.P.
+		// РўСѓСЂРµС†РєРёРµ Р°РєС†РµРЅС‚С‹ 30.05.2002 E.P.
 		if (language == LANGUAGE_TURKISH && memchr("AaIiUu", v1->let, 6)
 				&& acc_type == ACC_ROOF || memchr("Gg", v1->let, 2) && acc_type
 				== ACC_SEMICIRCLE || memchr("OoUu", v1->let, 4) && acc_type
@@ -464,7 +464,7 @@ int16_t accent(cell *c) {
 					break;
 
 				case ACC_ROOF_INV: // CROAT,CZECH 04.09.2000 E.P.
-					// А также балтийские языки. 10.07.2001 E.P.
+					// Рђ С‚Р°РєР¶Рµ Р±Р°Р»С‚РёР№СЃРєРёРµ СЏР·С‹РєРё. 10.07.2001 E.P.
 					v2->let = c_inv_roof;
 					break;
 
@@ -479,7 +479,7 @@ int16_t accent(cell *c) {
 					break;
 
 				case ACC_ROOF_INV: // CROAT,CZECH 04.09.2000 E.P.
-					// А также балтийские языки. 10.07.2001 E.P.
+					// Рђ С‚Р°РєР¶Рµ Р±Р°Р»С‚РёР№СЃРєРёРµ СЏР·С‹РєРё. 10.07.2001 E.P.
 					v2->let = CC_inv_roof;
 					break;
 
@@ -494,7 +494,7 @@ int16_t accent(cell *c) {
 					break;
 
 				case ACC_ROOF_INV: // CROAT,CZECH 04.09.2000 E.P.
-					// А также балтийские языки. 10.07.2001 E.P.
+					// Рђ С‚Р°РєР¶Рµ Р±Р°Р»С‚РёР№СЃРєРёРµ СЏР·С‹РєРё. 10.07.2001 E.P.
 					v2->let = s_inv_roof;
 					break;
 
@@ -510,7 +510,7 @@ int16_t accent(cell *c) {
 					break;
 
 				case ACC_ROOF_INV: // CROAT,CZECH 04.09.2000 E.P.
-					// А также балтийские языки. 10.07.2001 E.P.
+					// Рђ С‚Р°РєР¶Рµ Р±Р°Р»С‚РёР№СЃРєРёРµ СЏР·С‹РєРё. 10.07.2001 E.P.
 					v2->let = SS_inv_roof;
 					break;
 
@@ -531,7 +531,7 @@ int16_t accent(cell *c) {
 					break;
 
 				case ACC_ROOF_INV: // CROAT, CZECH 04.09.2000 E.P.
-					// А также балтийские языки. 10.07.2001 E.P.
+					// Рђ С‚Р°РєР¶Рµ Р±Р°Р»С‚РёР№СЃРєРёРµ СЏР·С‹РєРё. 10.07.2001 E.P.
 					v2->let = z_inv_roof;
 					break;
 
@@ -551,7 +551,7 @@ int16_t accent(cell *c) {
 					break;
 
 				case ACC_ROOF_INV: // CROAT, CZECH 04.09.2000 E.P.
-					// А также балтийские языки. 10.07.2001 E.P.
+					// Рђ С‚Р°РєР¶Рµ Р±Р°Р»С‚РёР№СЃРєРёРµ СЏР·С‹РєРё. 10.07.2001 E.P.
 					v2->let = ZZ_inv_roof;
 					break;
 
@@ -785,7 +785,7 @@ int16_t accent(cell *c) {
 					break;
 				case ACC_TILD:
 
-					// Тильда от версии 'o'. 16.08.2001 E.P.
+					// РўРёР»СЊРґР° РѕС‚ РІРµСЂСЃРёРё 'o'. 16.08.2001 E.P.
 					if (language != LANGUAGE_ESTONIAN)
 						v2->let = a_tild_accent;
 					break;
@@ -864,7 +864,7 @@ int16_t accent(cell *c) {
 					continue;
 				}
 				break;
-			case (uchar) '\xa5' /* Ґ */:
+			case (uchar) '\xa5' /* cp866: russian e (Рµ) */:
 				switch (acc_type) {
 				case ACC_2DOT:
 					if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer
@@ -877,7 +877,7 @@ int16_t accent(cell *c) {
 					continue;
 				}
 				break;
-			case (uchar) '\x85' /* … */:
+			case (uchar) '\x85' /* cp866: russian E (Р•) */:
 				switch (acc_type) {
 				case ACC_2DOT:
 					if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer
@@ -892,7 +892,7 @@ int16_t accent(cell *c) {
 				break;
 
 			case 'g':
-				// Над LATVIAN_g все что ловится. 10.07.2001 E.P.
+				// РќР°Рґ LATVIAN_g РІСЃРµ С‡С‚Рѕ Р»РѕРІРёС‚СЃСЏ. 10.07.2001 E.P.
 				if (language == LANGUAGE_LATVIAN) {
 					v2->let = LATVIAN_g;
 					break;
@@ -936,7 +936,7 @@ int16_t accent(cell *c) {
 					// TURKISH 30.05.2002 E.P.
 				case ACC_WEAK_ROOF:
 					if (n < VERS_IN_CELL - 2) {
-						// Сохранить версию 'i'
+						// РЎРѕС…СЂР°РЅРёС‚СЊ РІРµСЂСЃРёСЋ 'i'
 						v2->let = 'i';
 						v2->prob = MAX(10, v1->prob - 10);
 						v2++;
@@ -1138,8 +1138,8 @@ int16_t accent(cell *c) {
 			{
 				uchar add_prob = 84; // 27.06.2002 E.P.
 
-				// Для разваленной турецкой g_semicircle вредно добавлять
-				// слишком много. 27.06.2002 E.P.
+				// Р”Р»СЏ СЂР°Р·РІР°Р»РµРЅРЅРѕР№ С‚СѓСЂРµС†РєРѕР№ g_semicircle РІСЂРµРґРЅРѕ РґРѕР±Р°РІР»СЏС‚СЊ
+				// СЃР»РёС€РєРѕРј РјРЅРѕРіРѕ. 27.06.2002 E.P.
 				if (language == LANGUAGE_TURKISH && v2->let == g_semicircle
 						&& v1->prob < 60)
 					add_prob = 10;
@@ -1240,7 +1240,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 		memcpy(acc_base, "SZCszc", acc_base_num);
 	} else if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer) {
 		acc_base_num = 2;
-		memcpy(acc_base, "Ґ…", acc_base_num);
+		memcpy(acc_base, "\xA5\x85", /*РµР•*/ acc_base_num);
 	} else if (language == LANGUAGE_DANISH) {
 		acc_base_num = 2;
 		memcpy(acc_base, "Aa", acc_base_num);
@@ -1269,7 +1269,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 		memcpy(acc_base, "CcSsZz", acc_base_num);
 	}
 
-	// Только верхние акценты
+	// РўРѕР»СЊРєРѕ РІРµСЂС…РЅРёРµ Р°РєС†РµРЅС‚С‹
 	else if (language == LANGUAGE_LATVIAN) {
 		acc_base_num = 15;
 		memcpy(acc_base, "AaCcEegIiSsUuZz", acc_base_num);
@@ -1287,22 +1287,22 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 		memcpy(acc_base, "AEINOUaeinou", acc_base_num);
 	}
 
-	// Пропустить версии без акцентов
+	// РџСЂРѕРїСѓСЃС‚РёС‚СЊ РІРµСЂСЃРёРё Р±РµР· Р°РєС†РµРЅС‚РѕРІ
 	for (i = 0; i < c->nvers && !memchr(acc_base, let_sans_acc[c->vers[i].let],
 			acc_base_num); i++)
 		;
 
-	// Просмотр мусора
+	// РџСЂРѕСЃРјРѕС‚СЂ РјСѓСЃРѕСЂР°
 	let = let_sans_acc[c->vers[i].let];
 	e = c->col + c->w;
 
-	// ACC_ROOF_INF над d,t в Чешском похож на апостроф. 04.09.2000 E.P.
+	// ACC_ROOF_INF РЅР°Рґ d,t РІ Р§РµС€СЃРєРѕРј РїРѕС…РѕР¶ РЅР° Р°РїРѕСЃС‚СЂРѕС„. 04.09.2000 E.P.
 	if (language == LANGUAGE_CZECH && memchr("dt", let, 2))
 		e += MAX(2, c->w / 8);
 
 	for (fld = 0, cc = c->prevl->next; cc->col <= e && cc != cell_l(); cc
 			= cc->next)
-		// Первая проверка
+		// РџРµСЂРІР°СЏ РїСЂРѕРІРµСЂРєР°
 		if ((cc->flg & (c_f_dust | c_f_punct) && cc->env) && // dust
 				8* cc ->h < 5* H && // not too big
 				(cc->row + cc->h - 1 <= c->row || // upper position
@@ -1325,15 +1325,15 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 							10) || language == LANGUAGE_SWEDISH && memchr("Ee",
 					let, 2) ||
 
-			// Балтийский ACC_INV_ROOF и LATVIAN_g 10.07.2001 E.P.
+			// Р‘Р°Р»С‚РёР№СЃРєРёР№ ACC_INV_ROOF Рё LATVIAN_g 10.07.2001 E.P.
 					language == LANGUAGE_LATVIAN && memchr("CcgSsZz", let, 7)
 					|| language == LANGUAGE_LITHUANIAN && memchr("CcSsZz", let, 6)
 					|| language == LANGUAGE_ESTONIAN && memchr("SsZz", let, 4) ||
 
-			// Только верхние акценты
+			// РўРѕР»СЊРєРѕ РІРµСЂС…РЅРёРµ Р°РєС†РµРЅС‚С‹
 					language == LANGUAGE_TURKISH && memchr("AaGgIiOoUu", let, 10)
 					|| 0) {
-				// Вторая проверка
+				// Р’С‚РѕСЂР°СЏ РїСЂРѕРІРµСЂРєР°
 				if (cc->row + cc->h - ((let == 'i') ? 0 : 1) <= c->row && cc->h
 						+ cc->w >= 8 && (cc->h + cc->w >= H / 2 || 3* cc ->h
 						<= 2* cc ->w) && (let != 'i' || cc->h + cc->w >= 3*
@@ -1350,8 +1350,8 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 						goto non_zero_ret;
 					}
 
-					// В румынском есть ACC_ROOF и ACC_SEMICIRCLE,
-					// но нет ACC_ROOF_INV. 04.09.2000 E.P.
+					// Р’ СЂСѓРјС‹РЅСЃРєРѕРј РµСЃС‚СЊ ACC_ROOF Рё ACC_SEMICIRCLE,
+					// РЅРѕ РЅРµС‚ ACC_ROOF_INV. 04.09.2000 E.P.
 					if (language == LANGUAGE_ROMANIAN) {
 						// ACC_ROOF
 						if (memchr("AOIi", let, 4) && acc_roof(cc, raster)) {
@@ -1359,7 +1359,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 							goto non_zero_ret;
 						}
 
-						// Слабый acc_roof над румынской 'i'
+						// РЎР»Р°Р±С‹Р№ acc_roof РЅР°Рґ СЂСѓРјС‹РЅСЃРєРѕР№ 'i'
 						if (let == 'i' && acc_weak_roof(cc, raster)) {
 							ret = ACC_WEAK_ROOF;
 							goto non_zero_ret;
@@ -1383,7 +1383,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 							goto non_zero_ret;
 						}
 
-						// Слабый acc_roof над турецкой 'i'
+						// РЎР»Р°Р±С‹Р№ acc_roof РЅР°Рґ С‚СѓСЂРµС†РєРѕР№ 'i'
 						if (let == 'i' && acc_weak_roof(cc, raster)) {
 							ret = ACC_WEAK_ROOF;
 							goto non_zero_ret;
@@ -1430,13 +1430,13 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 					}
 
 					/*
-					 В cp1250 есть правый акцент и акцент справа от dt,
-					 но нет левого акцента. 04.09.2000 E.P.
-					 Здесь ловится все что похоже на ACC_LEFT,ACC_RIGHT:
+					 Р’ cp1250 РµСЃС‚СЊ РїСЂР°РІС‹Р№ Р°РєС†РµРЅС‚ Рё Р°РєС†РµРЅС‚ СЃРїСЂР°РІР° РѕС‚ dt,
+					 РЅРѕ РЅРµС‚ Р»РµРІРѕРіРѕ Р°РєС†РµРЅС‚Р°. 04.09.2000 E.P.
+					 Р—РґРµСЃСЊ Р»РѕРІРёС‚СЃСЏ РІСЃРµ С‡С‚Рѕ РїРѕС…РѕР¶Рµ РЅР° ACC_LEFT,ACC_RIGHT:
 					 */
 					if (is_cen_language(language)
 							&& (r = acc_lr(c, cc, raster)) != 0) {
-						// Акцент над d,t в Чешском похож на апостроф. 04.09.2000 E.P.
+						// РђРєС†РµРЅС‚ РЅР°Рґ d,t РІ Р§РµС€СЃРєРѕРј РїРѕС…РѕР¶ РЅР° Р°РїРѕСЃС‚СЂРѕС„. 04.09.2000 E.P.
 						if (language == LANGUAGE_CZECH && memchr("dt", let, 2))
 							ret = ACC_ROOF_INV;
 						else
@@ -1445,9 +1445,9 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 						goto non_zero_ret;
 					}
 
-					// Над LATVIAN_g ловится все что похоже на ACC_LEFT,ACC_RIGHT
+					// РќР°Рґ LATVIAN_g Р»РѕРІРёС‚СЃСЏ РІСЃРµ С‡С‚Рѕ РїРѕС…РѕР¶Рµ РЅР° ACC_LEFT,ACC_RIGHT
 					if ((language == LANGUAGE_LATVIAN ||
-					// И над турецкой g_semicircle тоже
+					// Р РЅР°Рґ С‚СѓСЂРµС†РєРѕР№ g_semicircle С‚РѕР¶Рµ
 							language == LANGUAGE_TURKISH) // 30.05.2002 E.P.
 							&& let == 'g' && (r = acc_lr(c, cc, raster)) != 0) {
 						ret = r;
@@ -1523,14 +1523,14 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 					c->vers[1].let, 2)) || language == LANGUAGE_SPANISH && memchr(
 					"Uu", let, 2) || language == LANGUAGE_RUSSIAN && !langUkr
 					&& !langSer && !langBul && // 04.09.2000 E.P.
-					memchr("…Ґ", let, 2) ||
+					memchr("\x85\xA5"/* cp866: russian Ee (Р•Рµ) */, let, 2) ||
 
 			language == LANGUAGE_HUNGARIAN && // 04.09.2000 E.P.
 					memchr("OoUu", let, 4) ||
 
 			language == LANGUAGE_ESTONIAN && memchr("AaOoUu", let, 6) || // 10.07.2001 E.P.
 
-					// Турецкие умляуты по аналогии с немецкими 30.05.2002 E.P.
+					// РўСѓСЂРµС†РєРёРµ СѓРјР»СЏСѓС‚С‹ РїРѕ Р°РЅР°Р»РѕРіРёРё СЃ РЅРµРјРµС†РєРёРјРё 30.05.2002 E.P.
 					language == LANGUAGE_TURKISH && (memchr("OUou", let, 4)
 							|| memchr("ou", c->vers[1].let, 2)) || 0)
 					&& acc_2dot(c, cc, raster, let)) {
@@ -1583,28 +1583,28 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 					|| memchr("aeIiUu", c->vers[1].let, 6)) || language
 					== LANGUAGE_LITHUANIAN && (let == 'U' || let == 'u'
 					|| c->vers[1].let == 'U' || c->vers[1].let == 'u')) {
-				int16_t wlet = 1; // Обычные буквы: aEe
+				int16_t wlet = 1; // РћР±С‹С‡РЅС‹Рµ Р±СѓРєРІС‹: aEe
 
-				// Узкие буквы
+				// РЈР·РєРёРµ Р±СѓРєРІС‹
 				if (strchr("Ii", let))
 					wlet = 0;
-				// Широкие буквы
+				// РЁРёСЂРѕРєРёРµ Р±СѓРєРІС‹
 				else if (memchr("AUu", let, 8))
 					wlet = 2;
 
-				// Достаточно ли широкий акцент
-				if (wlet == 0 && cc->w >= c->w || // Для узких букв   Ii
-						wlet == 1 && 2* cc ->w >= c->w || // Для обычных букв aEe
-						wlet == 2 && 5* cc ->w >= 2* c ->w // Для широких букв AUu
+				// Р”РѕСЃС‚Р°С‚РѕС‡РЅРѕ Р»Рё С€РёСЂРѕРєРёР№ Р°РєС†РµРЅС‚
+				if (wlet == 0 && cc->w >= c->w || // Р”Р»СЏ СѓР·РєРёС… Р±СѓРєРІ   Ii
+						wlet == 1 && 2* cc ->w >= c->w || // Р”Р»СЏ РѕР±С‹С‡РЅС‹С… Р±СѓРєРІ aEe
+						wlet == 2 && 5* cc ->w >= 2* c ->w // Р”Р»СЏ С€РёСЂРѕРєРёС… Р±СѓРєРІ AUu
 				) {
-					// Горизонтальное смещение центра акцента от центра буквы
+					// Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРµ СЃРјРµС‰РµРЅРёРµ С†РµРЅС‚СЂР° Р°РєС†РµРЅС‚Р° РѕС‚ С†РµРЅС‚СЂР° Р±СѓРєРІС‹
 					d = cc->col + cc->w / 2 - (c->col + c->w / 2);
 
-					if (5* cc ->h <= 2* bl .ps && // Не слишком высокий
-							d <= MAX(5, cc->w / 2) && // Не слишком справа от буквы
-							d >= -MAX(3, cc->w / 3) && // Не слишком слева от буквы
-							c->col + (3* c ->w) / 2 > cc->col + cc->w / 2 && // Над буквой Nick 20.08.01
-							c->col - (c->w) / 2 < cc->col + cc->w / 2 // Над буквой
+					if (5* cc ->h <= 2* bl .ps && // РќРµ СЃР»РёС€РєРѕРј РІС‹СЃРѕРєРёР№
+							d <= MAX(5, cc->w / 2) && // РќРµ СЃР»РёС€РєРѕРј СЃРїСЂР°РІР° РѕС‚ Р±СѓРєРІС‹
+							d >= -MAX(3, cc->w / 3) && // РќРµ СЃР»РёС€РєРѕРј СЃР»РµРІР° РѕС‚ Р±СѓРєРІС‹
+							c->col + (3* c ->w) / 2 > cc->col + cc->w / 2 && // РќР°Рґ Р±СѓРєРІРѕР№ Nick 20.08.01
+							c->col - (c->w) / 2 < cc->col + cc->w / 2 // РќР°Рґ Р±СѓРєРІРѕР№
 					) {
 						if (acc_macron(cc, raster)) {
 							ret = ACC_MACRON;
@@ -1615,7 +1615,7 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 			}
 		}
 
-	// "Второй проход"
+	// "Р’С‚РѕСЂРѕР№ РїСЂРѕС…РѕРґ"
 	if (fld) {
 		d = 0;
 		for (cc = c->prevl->next; cc->col <= e; cc = cc->next) {
@@ -1745,7 +1745,7 @@ static int16_t acc_lr(cell *c, cell *cc, puchar r) {
 	}
 	// 04.09.2000 E.P.
 	else if (language == LANGUAGE_CZECH) {
-		sCanHaveLRAccents = "AaEeIiOoUuYydt"; // Сюда же dt с апострофом
+		sCanHaveLRAccents = "AaEeIiOoUuYydt"; // РЎСЋРґР° Р¶Рµ dt СЃ Р°РїРѕСЃС‚СЂРѕС„РѕРј
 		nCanHaveLRAccents = 14;
 	} else if (language == LANGUAGE_HUNGARIAN) {
 		sCanHaveLRAccents = "AaEeIiOoUu";
@@ -2277,7 +2277,7 @@ int16_t find_bottom_accent(cell *c) {
 	for (fld = 0, e = c->col + c->w, cc = c->prevl->next; cc && cc->col <= e; cc
 			= cc->next) {
 		int ccx = cc->col;
-		ccx = ccx; // Отладка 05.07.2002 E.P.
+		ccx = ccx; // РћС‚Р»Р°РґРєР° 05.07.2002 E.P.
 
 		if ((cc->flg & (c_f_dust | c_f_punct) && cc->env) && // dust
 				// not too big
@@ -2290,7 +2290,7 @@ int16_t find_bottom_accent(cell *c) {
 				>= bl.ps / 5 && // not too small
 				cc->col + cc->w >= c->col + c->w / 2 // not too left ">=" 05.07.2002 E.P.
 		) {
-			// Узкие румынские акценты под t, s. 16.07.2001 E.P.
+			// РЈР·РєРёРµ СЂСѓРјС‹РЅСЃРєРёРµ Р°РєС†РµРЅС‚С‹ РїРѕРґ t, s. 16.07.2001 E.P.
 			if (language == LANGUAGE_ROMANIAN && (let == 't' || let == 's')) {
 				if (8* cc ->w < 5* c ->w && // not too wide
 						2* cc ->w >= cc->h // proportion: not too thin
@@ -2300,13 +2300,13 @@ int16_t find_bottom_accent(cell *c) {
 				}
 			}
 
-			// Узкие прибалтийские буквы и узкие акценты. 16.07.2001 E.P.
+			// РЈР·РєРёРµ РїСЂРёР±Р°Р»С‚РёР№СЃРєРёРµ Р±СѓРєРІС‹ Рё СѓР·РєРёРµ Р°РєС†РµРЅС‚С‹. 16.07.2001 E.P.
 			else if (language == LANGUAGE_LATVIAN &&
-			// Узкая буква
+			// РЈР·РєР°СЏ Р±СѓРєРІР°
 					((let == 'l' || c->h > 3* c ->w) && cc->w < 3* c ->w && // not too wide
 							2* cc ->w >= cc->h // proportion: not too thin
 					) ||
-			// Узкие акценты типа запятой в центре под буквой
+			// РЈР·РєРёРµ Р°РєС†РµРЅС‚С‹ С‚РёРїР° Р·Р°РїСЏС‚РѕР№ РІ С†РµРЅС‚СЂРµ РїРѕРґ Р±СѓРєРІРѕР№
 					strchr("GKkLNn", let) && 8* cc ->w < 5* c ->w && // not too wide
 							7* cc ->w > 3* cc ->h // proportion: not too thin (old 2>=1)
 			) {
@@ -2315,7 +2315,7 @@ int16_t find_bottom_accent(cell *c) {
 			}
 
 			else if (language == LANGUAGE_LITHUANIAN &&
-			// Узкие буквы
+			// РЈР·РєРёРµ Р±СѓРєРІС‹
 					(let == 'i' || let == 'I' || c->h > 3* c ->w) && cc->w < 3*
 					c ->w && // not too wide
 					2* cc ->w >= cc->h // proportion: not too thin
@@ -2325,7 +2325,7 @@ int16_t find_bottom_accent(cell *c) {
 			}
 
 			else if (language == LANGUAGE_TURKISH &&
-			// Узкие буквы
+			// РЈР·РєРёРµ Р±СѓРєРІС‹
 					(let == 's') && 2* cc ->w < c->w && // not too wide
 					2* cc ->w >= cc->h // proportion: not too thin
 			) {
@@ -2333,7 +2333,7 @@ int16_t find_bottom_accent(cell *c) {
 				return 1;
 			}
 
-			// Нормальные буквы с хвостиками: AaEeCcNnUu...
+			// РќРѕСЂРјР°Р»СЊРЅС‹Рµ Р±СѓРєРІС‹ СЃ С…РІРѕСЃС‚РёРєР°РјРё: AaEeCcNnUu...
 			else if (8* cc ->w < 5* c ->w && // not too wide
 					3* cc ->w >= 2* cc ->h // proportion: not too thin
 			) {
@@ -2348,12 +2348,12 @@ int16_t find_bottom_accent(cell *c) {
 }
 //**************************************************************************
 static int16_t acc_semicircle(cell *cc, puchar r) {
-	/* ACC_SEMICIRCLE - акцент в форме полукруга над румынской Аа.
+	/* ACC_SEMICIRCLE - Р°РєС†РµРЅС‚ РІ С„РѕСЂРјРµ РїРѕР»СѓРєСЂСѓРіР° РЅР°Рґ СЂСѓРјС‹РЅСЃРєРѕР№ РђР°.
 
-	 Функция работает на перевернутом растре и распознает
-	 полукруг выпуклостью вверх, аналогично acc_roof
+	 Р¤СѓРЅРєС†РёСЏ СЂР°Р±РѕС‚Р°РµС‚ РЅР° РїРµСЂРµРІРµСЂРЅСѓС‚РѕРј СЂР°СЃС‚СЂРµ Рё СЂР°СЃРїРѕР·РЅР°РµС‚
+	 РїРѕР»СѓРєСЂСѓРі РІС‹РїСѓРєР»РѕСЃС‚СЊСЋ РІРІРµСЂС…, Р°РЅР°Р»РѕРіРёС‡РЅРѕ acc_roof
 
-	 Скопирован из acc_roof().
+	 РЎРєРѕРїРёСЂРѕРІР°РЅ РёР· acc_roof().
 	 04.09.2000 E.P.
 	 */
 	int16_t r1, r2, r3, b, s11, s12, s21, s22, s31, s32, ss13, ss2, sp, sm, ss,
@@ -2579,9 +2579,9 @@ static int16_t Test2Cell2(cell *c1, cell *c2, int *lUAngle, int *rUAngle,
 }
 //**************************************************************************
 static int16_t acc_double_right(cell *c, cell *cc, puchar r) {
-	// ACC_DOUBLE_RIGHT - двойной правый акцент
+	// ACC_DOUBLE_RIGHT - РґРІРѕР№РЅРѕР№ РїСЂР°РІС‹Р№ Р°РєС†РµРЅС‚
 
-	// Котович 04.09.2000
+	// РљРѕС‚РѕРІРёС‡ 04.09.2000
 	int numInt;
 	int leftUAngle, rightUAngle; // up angles
 	int leftDAngle, rightDAngle; // down angles
@@ -2738,17 +2738,17 @@ static Bool NotEmptyInside(puchar r, int16_t w, int16_t h) {
 }
 ////////////////
 static int16_t acc_macron(cell *c, puchar r) {
-	// Изучение растра акцента типа "макрон" - черта сверху над буквой
+	// РР·СѓС‡РµРЅРёРµ СЂР°СЃС‚СЂР° Р°РєС†РµРЅС‚Р° С‚РёРїР° "РјР°РєСЂРѕРЅ" - С‡РµСЂС‚Р° СЃРІРµСЂС…Сѓ РЅР°Рґ Р±СѓРєРІРѕР№
 	int16_t i, j;
 	int16_t h, w, l, s, start;
 
 	h = c->h;
 	w = c->w;
-	l = (w + 7) / 8; // Ширина растра в байтах
+	l = (w + 7) / 8; // РЁРёСЂРёРЅР° СЂР°СЃС‚СЂР° РІ Р±Р°Р№С‚Р°С…
 
 	accadr1 = c;
 
-	// Высота достаточно малая, а форма достаточно вытянутая
+	// Р’С‹СЃРѕС‚Р° РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РјР°Р»Р°СЏ, Р° С„РѕСЂРјР° РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РІС‹С‚СЏРЅСѓС‚Р°СЏ
 	if (h <= 3 && w > 2* h ) // Nick 28.08.01.  Old CIF::version - >= 3*h
 	{
 		//Nick 20.08.01
@@ -2756,41 +2756,41 @@ static int16_t acc_macron(cell *c, puchar r) {
 			return 1;
 	}
 
-	// Обрить тонкие слои сверху
+	// РћР±СЂРёС‚СЊ С‚РѕРЅРєРёРµ СЃР»РѕРё СЃРІРµСЂС…Сѓ
 	for (i = 0, start = 0; i < c->h / 2; i++) {
 		s = 0;
 		for (j = 0; j < w; j++) {
-			// Черная точка
+			// Р§РµСЂРЅР°СЏ С‚РѕС‡РєР°
 			if (r[l * i + j / 8] & (128 >> (j % 8)))
 				s++;
 		}
 
-		// Какова накопленная ширина среза
+		// РљР°РєРѕРІР° РЅР°РєРѕРїР»РµРЅРЅР°СЏ С€РёСЂРёРЅР° СЃСЂРµР·Р°
 		if (s < w / 2) {
-			h--; // Тонкий слой сверху
+			h--; // РўРѕРЅРєРёР№ СЃР»РѕР№ СЃРІРµСЂС…Сѓ
 			start++;
 		} else
 			break;
 	}
 
-	// Обрить тонкие слои снизу
-	for (i = c->h - 1; i >= c->h / 2; i--) // От исходной высоты
+	// РћР±СЂРёС‚СЊ С‚РѕРЅРєРёРµ СЃР»РѕРё СЃРЅРёР·Сѓ
+	for (i = c->h - 1; i >= c->h / 2; i--) // РћС‚ РёСЃС…РѕРґРЅРѕР№ РІС‹СЃРѕС‚С‹
 	{
 		s = 0;
 		for (j = 0; j < w; j++) {
-			// Черная точка
+			// Р§РµСЂРЅР°СЏ С‚РѕС‡РєР°
 			if (r[l * i + j / 8] & (128 >> (j % 8)))
 				s++;
 		}
 
-		// Какова накопленная ширина среза
+		// РљР°РєРѕРІР° РЅР°РєРѕРїР»РµРЅРЅР°СЏ С€РёСЂРёРЅР° СЃСЂРµР·Р°
 		if (s < w / 2)
-			h--; // Тонкий слой снизу
+			h--; // РўРѕРЅРєРёР№ СЃР»РѕР№ СЃРЅРёР·Сѓ
 		else
 			break;
 	}
 
-	// Оставшаяся форма достаточно вытянутая
+	// РћСЃС‚Р°РІС€Р°СЏСЃСЏ С„РѕСЂРјР° РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РІС‹С‚СЏРЅСѓС‚Р°СЏ
 	if (w > 2* h ) // Nick 28.08.01
 	{
 		//Nick 20.08.01
@@ -2805,7 +2805,7 @@ static int16_t acc_macron(cell *c, puchar r) {
 /*
  void debug_print_raster(char *text, puchar r)
  {
- // Отладочная печать растра 19.07.2001 E.P.
+ // РћС‚Р»Р°РґРѕС‡РЅР°СЏ РїРµС‡Р°С‚СЊ СЂР°СЃС‚СЂР° 19.07.2001 E.P.
  char buf[500]={0};
  char *p=buf;
  long n;
