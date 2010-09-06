@@ -91,7 +91,8 @@ extern uchar CodePages[];
 
 Bool isLikeDigit(uchar c) {
 	// Ñ ó÷åòîì òóğåöêî-ğóññêèõ êîíôëèêòîâ. 21.05.2002 E.P.
-	if (memchr("0123456789®¡‡§’‚øl", c, 19) && !is_russian_turkish_conflict(c))
+	//if (memchr("0123456789®¡‡§’‚øl", c, 19) && !is_russian_turkish_conflict(c))
+	if (memchr("0123456789\x8E\xAE\xA1\x87\xA7\x92\x82\xF8l", c, 19) && !is_russian_turkish_conflict(c))
 		return TRUE;
 
 	return FALSE;
@@ -166,7 +167,8 @@ Bool digital_last_context(void) {
 					curr->vers[0].prob > 150 // Nick 26.02.2001
 			)
 				num_dig++;
-			if (memchr("‘", c, 1))
+			//if (memchr("‘", c, 1))
+			if (memchr("\x91", c, 1))
 				num_broken++;
 			if (curr->flg & c_f_let)
 				num++;
@@ -341,9 +343,11 @@ void setup_digital_mode_pass2(str_info *str, int16_t first_pass) {
 	cell *curr;
 	int16_t num_dig, num_let, num_bad, num_all, num_dig_let;
 	///char dig_list[]="|1234567890¡®‡§‚ø¢", 21.05.2002 E.P.
-	char dig_let_list[] = "036", let_dig_list[] = "‚¢ø";
+	//char dig_let_list[] = "036", let_dig_list[] = "‚¢ø";
+	char dig_let_list[] = "036", let_dig_list[] = "\x82\xA2\xF8";
 	// letters_ini ïóíêòóàöèş ïåğåâîäèò â letter !!!
-	char punct_list[] = "'\"=:!¼?\\.,-"; // remove (){}[]/
+	//char punct_list[] = "'\"=:!¼?\\.,-"; // remove (){}[]/
+	char punct_list[] = "\x27\"\x3D\x3A!\xBC\x3F\\\x2E\x2C\x2D"; // remove (){}[]/
 	uchar c, p;
 
 	digital_mode = 0;
@@ -395,7 +399,8 @@ void setup_digital_mode(str_info *str, int16_t first_pass) {
 	int16_t num_dig, num_let, num_bad, num_all, num_dig_let;
 	int16_t num_asOne;
 	//char dig_list[]="|1234567890¡®‡§‚ø¢",
-	char dig_let_list[] = "036", let_dig_list[] = "‚¢ø";
+	//char dig_let_list[] = "036", let_dig_list[] = "‚¢ø";
+	char dig_let_list[] = "036", let_dig_list[] = "\x82\xA2\xF8";
 	//char punct_list[]="'\"=:!(){}[]!¼?\\/";
 	char punct_list[] = "'\"=:;";
 	char asOne_list[] = "1[]/!|";
