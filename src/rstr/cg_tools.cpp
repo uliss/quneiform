@@ -435,7 +435,8 @@ void adjust_3x5(Bool prerecog) {
 					set_bad(B);
 				full_recog(B, NULL, (int16_t) (-((int16_t) trs2)), trs2);
 				if (let(B) && language != LANGUAGE_RUSSIAN || B->nvers && memchr(
-						"¬­¯æë", B->vers[0].let, 5)
+						//"¬­¯æë", B->vers[0].let, 5)
+						"\xAC\xAD\xAF\xE6\xEB", B->vers[0].let, 5)
 						&& !is_russian_baltic_conflict(B->vers[0].let) // 17.07.2001 E.P.
 				)
 					if (dust_monus = up_dust_mon(B))
