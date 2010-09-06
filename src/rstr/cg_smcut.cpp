@@ -1322,7 +1322,8 @@ static void spec_pairs() {
 				; //¯à¨ª«¥¨«¨
 			else if (cut->dh != 0) //dust ®âà¥§ ­ á¯à ¢ 
 				addij(LC, r, cut_list, vers_list, ncut, i, ip, 0);
-		} else if (cut->dh != 0 && strchr("ªŠâ’ã“", let)
+		//} else if (cut->dh != 0 && strchr("ªŠâ’ã“", let)
+		} else if (cut->dh != 0 && strchr("\xAA\x8A\xE2\x92\xE3\x93", let)
 				&& !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 				!is_russian_turkish_conflict(let) && // 21.05.2002 E.P.
 				(letp == (uchar) '\xa3' /* £ */ || letp == (uchar) '\x83' /* ƒ */)) {
@@ -1343,7 +1344,8 @@ static void spec_pairs() {
 					break;
 			}
 		} else {
-			if (cut->dh != 0 && strchr("¥¨ˆ­¯®Žá‘", let) && // "åèÈíÍïÏîÎñÑ"
+			//if (cut->dh != 0 && strchr("¥¨ˆ­¯®Žá‘", let) && // "åèÈíÍïÏîÎñÑ"
+			if (cut->dh != 0 && strchr("\xA5\xA8\x88\xAD\x8D\xAF\x8F\xAE\x8E\xE1\x91", let) && // "åèÈíÍïÏîÎñÑ"
 					!is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 					!is_russian_turkish_conflict(let) && // 21.05.2002 E.P.
 					(letp == (uchar) '\xa3' /* £ */ || letp == (uchar) '\x83' /* ƒ */)) // ãÃ
@@ -1352,7 +1354,8 @@ static void spec_pairs() {
 						+ cut->x) / 2048);
 				x0 = right_bound(r, 0, cut->x, (int16_t) (m_row - r->top + 1),
 						(int16_t) (r->h - 1));
-			} else if (cut->dh != 0 && strchr("¥á‘", let)
+			//} else if (cut->dh != 0 && strchr("¥á‘", let)
+			} else if (cut->dh != 0 && strchr("\xA5\xE1\x91", let)
 					&& !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 					(letp == (uchar) '\xaf' /* ¯ */ || letp == (uchar) '\x8f' /*  */)) {
 				m_row = my_bases.bm + (int16_t) ((int32_t) nIncline * (r->left
