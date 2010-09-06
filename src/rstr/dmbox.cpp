@@ -400,7 +400,8 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
     SBOX.best_BOX[0].ltr = 0;
 
     if (ftv // solid tiger versions present
-            && !(language == LANGUAGE_RUSSIAN && strchr("®‡§3", BC->vers[0].let))) //Pual 23-12-96
+            //&& !(language == LANGUAGE_RUSSIAN && strchr("®‡§3", BC->vers[0].let))) //Pual 23-12-96
+            && !(language == LANGUAGE_RUSSIAN && strchr("\xAE\x87\xA7\x33", BC->vers[0].let))) //Pual 23-12-96
     {
         if (stick && (BC->w <= 5)) {
             if (db_status && (db_trace_flag & 4))
@@ -796,7 +797,8 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
         if (c == '\xb6')
             flag_m |= 2; // "ri"
 
-        if ((w1max >= 60) && (memchr("sSaoO0QGDwWMNHURdxq6<>cCkBEAîž", c, 30)
+        //if ((w1max >= 60) && (memchr("sSaoO0QGDwWMNHURdxq6<>cCkBEAîž", c, 30)
+        if ((w1max >= 60) && (memchr("sSaoO0QGDwWMNHURdxq6<>cCkBEA\xEE\x9E", c, 30)
                 && !is_russian_baltic_conflict(c) && // 17.07.2001 E.P.
                 !is_russian_turkish_conflict(c) // 21.05.2002 E.P.
                 || (c == ss_deaf_sound) || (c == (uchar) liga_CC) || (c == (uchar) liga_CR)))
@@ -811,7 +813,8 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
                 w1 = 2;
         }
 
-        if (memchr("YTIJL1il![]<>()/F7â’£ƒø|", c, 24) && !is_russian_baltic_conflict(c) && // 17.07.2001 E.P.
+        //if (memchr("YTIJL1il![]<>()/F7â’£ƒø|", c, 24) && !is_russian_baltic_conflict(c) && // 17.07.2001 E.P.
+        if (memchr("YTIJL1il![]<>()/F7\xE2\x92\xA3\x83\xF8\x7C", c, 24) && !is_russian_baltic_conflict(c) && // 17.07.2001 E.P.
                 !is_russian_turkish_conflict(c) // 21.05.2002 E.P.
                 || // "03.03.1993 RESTORE"
                 language != LANGUAGE_RUSSIAN && (c == liga_i || c == liga_j ||
