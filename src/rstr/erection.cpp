@@ -81,17 +81,23 @@
 #include "minmax.h"
 
 static uchar solid_sticks[] = "|1!Il\xbb"; // liga_i, liga_j // liga_i ìàêğà 08.09.2000 E.P.
-static uchar incline_main[] = "­è¯ç¨â…ƒ˜—ˆ’irbtfnBTEIPDFHLN"; // "íøï÷èòÅÍÃØÏĞ×ÈÒirbtfnBTEIPDFHLN"
+//static uchar incline_main[] = "­è¯ç¨â…ƒ˜—ˆ’irbtfnBTEIPDFHLN"; // "íøï÷èòÅÍÃØÏĞ×ÈÒirbtfnBTEIPDFHLN"
+static uchar incline_main[] = "\xAD\xE8\xAF\xE7\xA8\xE2\x85\x8D\x83\x98\x8F\x90\x97\x88\x92irbtfnBTEIPDFHLN"; // "íøï÷èòÅÍÃØÏĞ×ÈÒirbtfnBTEIPDFHLN"
 static uchar incline_chars[] =
-		"©æ­£èéêäë¢¯àïç¨âêì¡î‰–…ƒ˜™š”›‚Ÿ—ˆ’œš\xf7\xf5ijbrtfnBTEIPDFHLNR";
+		//"©æ­£èéêäë¢¯àïç¨âêì¡î‰–…ƒ˜™š”›‚Ÿ—ˆ’œš\xf7\xf5ijbrtfnBTEIPDFHLNR";
+		"\xA9\xE6\xAD\xA3\xE8\xE9\xEA\xE4\xEB\xA2\xAF\xE0\xEF\xE7\xA8\xE2\xEA\xEC\xA1\xEE\x89\x96\x85\x8D\x83\x98\x99\x9A\x94\x9B\x82\x8F\x90\x9F\x97\x88\x92\x9C\x9A\x81\x9E\xf7\xf5ijbrtfnBTEIPDFHLNR";
 //	"éöíãøùúôûâïğÿ÷èòúüáşÉÖÅÍÃØÙÚÔÛÂÏĞß×ÈÒÜÚÁŞ\xf7\xf5ijbrtfnBTEIPDFHLNR";
 // cursive ¨,â
-static uchar aux_inc_chars[] = "ªê¥ ı®¦íá¬Š†‘ŒukdhqecmoKUOCM";
-static uchar disable_rerecog[] = "á¨¬¢ìcb";
+//static uchar aux_inc_chars[] = "ªê¥ ı®¦íá¬Š†‘ŒukdhqecmoKUOCM";
+static uchar aux_inc_chars[] = "\xAA\xEA\xA5\xA0\xFD\xAE\xA6\xED\xE1\xAC\x8A\x8E\x86\x91\x8CukdhqecmoKUOCM";
+//static uchar disable_rerecog[] = "á¨¬¢ìcb";
+static uchar disable_rerecog[] = "\xE1\xA8\xAC\xA2\xEC\x63\x62";
 static uchar incline_alias[] = "¡||";
 static uchar nonincline_alias[] = "6)>";
-static uchar incline_alias2[] = "¯";
-static uchar nonincline_alias2[] = "«‹";
+//static uchar incline_alias2[] = "¯";
+static uchar incline_alias2[] = "\xAF\x8F";
+//static uchar nonincline_alias2[] = "«‹";
+static uchar nonincline_alias2[] = "\xAB\x8B";
 static int16_t local_pass;
 static int16_t hist[256], num_extr, max_incline, line_incline;
 static uchar extr[4];
