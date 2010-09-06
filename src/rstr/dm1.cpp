@@ -979,7 +979,8 @@ int16_t estcomp(char user, cell *B1, SVERS *save, int16_t trs, int16_t bnd1, int
         uchar let = B1->vers[0].let;
         if (language != LANGUAGE_ENGLISH && language != LANGUAGE_CROATIAN && language
                 != LANGUAGE_RUSSIAN && memchr("aoeu", let, 4) || language == LANGUAGE_RUSSIAN
-                && memchr("¥…", let, 2) || language == LANGUAGE_POLISH && memchr("SCZNOsczno", let,
+                //&& memchr("¥…", let, 2) || language == LANGUAGE_POLISH && memchr("SCZNOsczno", let,
+                && memchr("\xA5\x85", let, 2) || language == LANGUAGE_POLISH && memchr("SCZNOsczno", let,
                 10) ||
 
         // 05.09.2000 E.P.
@@ -1088,7 +1089,8 @@ int16_t estcomp(char user, cell *B1, SVERS *save, int16_t trs, int16_t bnd1, int
             goto deciBOX;
         }
 
-        if (memchr("rtfTJ()<>[]LI1il!/F7â’£ƒø|", c, 26) && !is_russian_baltic_conflict(c) && // 17.07.2001 E.P.
+        //if (memchr("rtfTJ()<>[]LI1il!/F7â’£ƒø|", c, 26) && !is_russian_baltic_conflict(c) && // 17.07.2001 E.P.
+        if (memchr("rtfTJ\x28\x29\x3C\x3E\x5B\x5DLI1il!\x2F\x46\x37\xE2\x92\xA3\x83\xF8\x7C", c, 26) && !is_russian_baltic_conflict(c) && // 17.07.2001 E.P.
                 !is_russian_turkish_conflict(c) // 21.05.2002 E.P.
 
                 || // 07.01.1993 (see S_TOOLS.C)
