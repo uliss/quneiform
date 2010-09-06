@@ -132,35 +132,56 @@ Handle hSnapBLcut;
 
 uchar sticks_left_to_bad[] = { "  1/!|l1IJ)}[]" }; // 0,1st pos reserved for liga_i, liga_exm
 // 2nd	for turkish i_sans_accent - Nick 12.06.02
-uchar letters_left_to_bad[] = { " nrvtcC(u<>ìœ¨ˆ÷ªŠ«­¯á‘£ƒ" }; // 0th pos for sticks " nrvtcC(u<>üÜèÈ÷êÊëíÍïÏñÑãÃ"
+//uchar letters_left_to_bad[] = { " nrvtcC(u<>ìœ¨ˆ÷ªŠ«­¯á‘£ƒ" }; // 0th pos for sticks " nrvtcC(u<>üÜèÈ÷êÊëíÍïÏñÑãÃ"
+uchar letters_left_to_bad[] = { " nrvtcC\x28u\x3C\x3E\xEC\x9C\xA8\x88\xF7\xAA\x8A\xAB\xAD\x8D\xAF\x8F\xE1\x91\xA3\x83" }; // 0th pos for sticks " nrvtcC(u<>üÜèÈ÷êÊëíÍïÏñÑãÃ"
 
-static char ltmp0[] = "kDPbh¢‚­¨ˆ¯ªŠ¬Œæ–è˜é™î";
+//static char ltmp0[] = "kDPbh¢‚­¨ˆ¯ªŠ¬Œæ–è˜é™î";
+static char ltmp0[] = "kDPbh\xA2\x82\xAD\x8D\xA8\x88\xAF\x8F\xAA\x8A\xAC\x8C\xE6\x96\xE8\x98\xE9\x99\xEE\x9E";
 static char ltmp1[] = "m"; /* m */
 static char ltmp2[] = "nm"; /* r */
 static char ltmp3[] = "w"; /* v */
 static char ltmp4[] = "u"; /* t */
 static char ltmp5[] = "ao"; /* c */
 static char ltmp6[] = "O6"; /* C */
-static char ltmp7[] = "oO®06"; /* ( */
+//static char ltmp7[] = "oO®06"; /* ( */
+static char ltmp7[] = "oO\xAE\x8E\x30\x36"; /* ( */
 static char ltmp8[] = "w"; /* u */
-static char ltmp9[] = "od®"; /* < */
-static char ltmp10[] = "xX¦†å"; /* > */
-static char ltmp11[] = "ë"; /* ü */
-static char ltmp12[] = "›"; /* Ü */
-static char ltmp13[] = "¬èé"; /* è */
-static char ltmp14[] = "˜™"; /* È */
-static char ltmp15[] = "èé"; /* ÷ */
-static char ltmp16[] = "î"; /* ê */
-static char ltmp17[] = "";
-static char ltmp18[] = "¬"; /* ë */
-static char ltmp19[] = "èéî"; /* í */
-static char ltmp20[] = "˜™"; /* Í */
-static char ltmp21[] = "õèé"; /* ï */
-static char ltmp22[] = "˜™"; /* Ï */
-static char ltmp23[] = "®ä"; /* ñ */
-static char ltmp24[] = ""; /* Ñ */
-static char ltmp25[] = "¯"; /* ã */
-static char ltmp26[] = ""; /* Ã */
+//static char ltmp9[] = "od®"; /* < */
+static char ltmp9[] = "od\xAE"; /* < */
+//static char ltmp10[] = "xX¦†å"; /* > */
+static char ltmp10[] = "xX\xA6\x86\xE5"; /* > */
+//static char ltmp11[] = "ë"; /* ü */
+static char ltmp11[] = "\xEB"; /* ü */
+//static char ltmp12[] = "›"; /* Ü */
+static char ltmp12[] = "\x9B"; /* Ü */
+//static char ltmp13[] = "¬èé"; /* è */
+static char ltmp13[] = "\xAC\xE8\xE9"; /* è */
+//static char ltmp14[] = "˜™"; /* È */
+static char ltmp14[] = "\x98\x99"; /* È */
+//static char ltmp15[] = "èé"; /* ÷ */
+static char ltmp15[] = "\xE8\xE9"; /* ÷ */
+//static char ltmp16[] = "î"; /* ê */
+static char ltmp16[] = "\xEE"; /* ê */
+//static char ltmp17[] = "";
+static char ltmp17[] = "\x9E";
+//static char ltmp18[] = "¬"; /* ë */
+static char ltmp18[] = "\xAC"; /* ë */
+//static char ltmp19[] = "èéî"; /* í */
+static char ltmp19[] = "\xE8\xE9\xEE"; /* í */
+//static char ltmp20[] = "˜™"; /* Í */
+static char ltmp20[] = "\x98\x99\x9E"; /* Í */
+//static char ltmp21[] = "õèé"; /* ï */
+static char ltmp21[] = "\xF5\xE8\xE9"; /* ï */
+//static char ltmp22[] = "˜™"; /* Ï */
+static char ltmp22[] = "\x98\x99"; /* Ï */
+//static char ltmp23[] = "®ä"; /* ñ */
+static char ltmp23[] = "\xAE\xE4"; /* ñ */
+//static char ltmp24[] = ""; /* Ñ */
+static char ltmp24[] = "\x8E"; /* Ñ */
+//static char ltmp25[] = "¯"; /* ã */
+static char ltmp25[] = "\xAF"; /* ã */
+//static char ltmp26[] = ""; /* Ã */
+static char ltmp26[] = "\x8F"; /* Ã */
 
 char *results_left_to_bad[] = { ltmp0, ltmp1, ltmp2, ltmp3, ltmp4, ltmp5,
 		ltmp6, ltmp7, ltmp8, ltmp9, ltmp10, ltmp11, ltmp12, ltmp13, ltmp14,
@@ -182,38 +203,61 @@ uchar prob_left_to_bad[] = { MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO,
  */
 uchar sticks_right_to_bad[] = { "1111/!|l1I[]" };
 
-uchar letters_right_to_bad[] = { " cJnNvt)u><£ƒá‘æ–¨ˆ÷­®¯ªŠ«" }; // " cJnNvt)u><ãÃñÑöÖèÈ÷íÍîÎïÏêÊë"
+//uchar letters_right_to_bad[] = { " cJnNvt)u><£ƒá‘æ–¨ˆ÷­®¯ªŠ«" }; // " cJnNvt)u><ãÃñÑöÖèÈ÷íÍîÎïÏêÊë"
+uchar letters_right_to_bad[] = { " cJnNvt\x29u\x3E\x3C\xA3\x83\xE1\x91\xE6\x96\xA8\x88\xF7\xAD\x8D\xAE\x8E\xAF\x8F\xAA\x8A\xAB" }; // " cJnNvt)u><ãÃñÑöÖèÈ÷íÍîÎïÏêÊë"
 // 0th pos for sticks
 
-static char tmp0[] = "dU«‹¬Œ­¨ˆ¯è˜ë›";
+//static char tmp0[] = "dU«‹¬Œ­¨ˆ¯è˜ë›";
+static char tmp0[] = "dU\xAB\x8B\xAC\x8C\xAD\x8D\xA8\x88\xAF\x8F\xE8\x98\xEB\x9B";
 static char tmp1[] = "k"; /* c */
 static char tmp2[] = "U"; /* J */
 static char tmp3[] = "m"; /* n */
 static char tmp4[] = "W"; /* N */
 static char tmp5[] = "w"; /* v */
 static char tmp6[] = "u"; /* t */
-static char tmp7[] = "oO®0"; /* ) */
+//static char tmp7[] = "oO®0"; /* ) */
+static char tmp7[] = "oO\xAE\x8E\x30"; /* ) */
 static char tmp8[] = "w"; /* u */
-static char tmp9[] = "bop6D®à"; /* > */
-static char tmp10[] = "kxXªŠ¦†å•"; /* < */
-static char tmp11[] = "â"; /* £ */
-static char tmp12[] = "’"; /* ƒ */
-static char tmp13[] = "ª¦"; /* á */
-static char tmp14[] = "Š†"; /* ‘ */
-static char tmp15[] = "é"; /* æ */
-static char tmp16[] = "™"; /* æ */
-static char tmp17[] = "¬è"; /* ÷ */
-static char tmp18[] = "˜"; /* ˆ */
-static char tmp19[] = "è"; /* ÷ */
-static char tmp20[] = "è"; /* ­ */
-static char tmp21[] = "˜"; /*  */
-static char tmp22[] = "î"; /* ® */
-static char tmp23[] = ""; /*  */
-static char tmp24[] = "õè"; /* ¯ */
-static char tmp25[] = "˜"; /*  */
-static char tmp26[] = "¦"; /* ª */
-static char tmp27[] = "†"; /* Š */
-static char tmp28[] = "¬"; /* « */
+//static char tmp9[] = "bop6D®à"; /* > */
+static char tmp9[] = "bop6D\xAE\xE0"; /* > */
+//static char tmp10[] = "kxXªŠ¦†å•"; /* < */
+static char tmp10[] = "kxX\xAA\x8A\xA6\x86\xE5\x95"; /* < */
+//static char tmp11[] = "â"; /* £ */
+static char tmp11[] = "\xE2"; /* £ */
+//static char tmp12[] = "’"; /* ƒ */
+static char tmp12[] = "\x92"; /* ƒ */
+//static char tmp13[] = "ª¦"; /* á */
+static char tmp13[] = "\xAA\xA6"; /* á */
+//static char tmp14[] = "Š†"; /* ‘ */
+static char tmp14[] = "\x8A\x86"; /* ‘ */
+//static char tmp15[] = "é"; /* æ */
+static char tmp15[] = "\xE9"; /* æ */
+//static char tmp16[] = "™"; /* æ */
+static char tmp16[] = "\x99"; /* æ */
+//static char tmp17[] = "¬è"; /* ÷ */
+static char tmp17[] = "\xAC\xE8"; /* ÷ */
+//static char tmp18[] = "˜"; /* ˆ */
+static char tmp18[] = "\x98"; /* ˆ */
+//static char tmp19[] = "è"; /* ÷ */
+static char tmp19[] = "\xE8"; /* ÷ */
+//static char tmp20[] = "è"; /* ­ */
+static char tmp20[] = "\xE8"; /* ­ */
+//static char tmp21[] = "˜"; /*  */
+static char tmp21[] = "\x98"; /*  */
+//static char tmp22[] = "î"; /* ® */
+static char tmp22[] = "\xEE"; /* ® */
+//static char tmp23[] = ""; /*  */
+static char tmp23[] = "\x9E"; /*  */
+//static char tmp24[] = "õè"; /* ¯ */
+static char tmp24[] = "\xF5\xE8"; /* ¯ */
+//static char tmp25[] = "˜"; /*  */
+static char tmp25[] = "\x98"; /*  */
+//static char tmp26[] = "¦"; /* ª */
+static char tmp26[] = "\xA6"; /* ª */
+//static char tmp27[] = "†"; /* Š */
+static char tmp27[] = "\x86"; /* Š */
+//static char tmp28[] = "¬"; /* « */
+static char tmp28[] = "\xAC"; /* « */
 
 char *results_right_to_bad[] = { tmp0, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6,
 		tmp7, tmp8, tmp9, tmp10, tmp11, tmp12, tmp13, tmp14, tmp15, tmp16,
@@ -231,15 +275,20 @@ uchar prob_right_to_bad[] = { MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO,
 #define RESLEN 26 //¬ ªá¨¬ «ì­ ï ¤«¨­  ¯¥à¥á¥ç¥­¨ï results_left_to_bad ¨
 // results_right_to_bad
 
-static uchar left_to_bad[] = { " /!l1IJ)}]cCnrvt£ƒá÷‘ç(u<>ìœ¯|\x0" }; // 0 =>liga_exm.  10.09.2000 E.P.
-static uchar right_to_bad[] = { "/|!l1I]nvt)u><£ƒ÷¯á‘ªŠæ–ç®\x0" };
+//static uchar left_to_bad[] = { " /!l1IJ)}]cCnrvt£ƒá÷‘ç(u<>ìœ¯|\x0" }; // 0 =>liga_exm.  10.09.2000 E.P.
+static uchar left_to_bad[] = { " \x2F!l1IJ\x29\x7D\x5D\x63\x43nrvt\xA3\x83\xE1\xF7\x91\xE7\x28u\x3C\x3E\xEC\x9C\xAF\x8F\x7C\x0" }; // 0 =>liga_exm.  10.09.2000 E.P.
+//static uchar right_to_bad[] = { "/|!l1I]nvt)u><£ƒ÷¯á‘ªŠæ–ç®\x0" };
+static uchar right_to_bad[] = { "\x2F\x7C!l1I\x5Dnvt\x29u\x3E\x3C\xA3\x83\xF7\xAF\x8F\xE1\x91\xAA\x8A\xE6\x96\xE7\xAE\x8E\x0" };
 static uchar sticks[] = { "  1lI1]!" }; // 0,1 -> liga_i,liga_exm // 08.09.2000 E.P.
 // 2 -> turkish i_sans_accent	Nick 12.06.02
-static uchar left_to_dust[] = { "«®ç1!" };
-static uchar right_to_dust[] = { "£ƒ®¨ç!" };
+//static uchar left_to_dust[] = { "«®ç1!" };
+static uchar left_to_dust[] = { "\xAB\xAE\xE7\x31!" };
+//static uchar right_to_dust[] = { "£ƒ®¨ç!" };
+static uchar right_to_dust[] = { "\xA3\x83\xAE\xA8\xE7!" };
 
 static uchar unify_width[] = //á¨¬¢®«ë "áâ ­¤ àâ­®©" è¨à¨­ë
-		{ "023456789 ¡¢£¥§¨ª«­®¯àáâãäåæçêìíï€‚ƒ…‡ˆŠ‹‘’“”•–—šœŸğñ÷øı" };
+		//{ "023456789 ¡¢£¥§¨ª«­®¯àáâãäåæçêìíï€‚ƒ…‡ˆŠ‹‘’“”•–—šœŸğñ÷øı" };
+		{ "023456789\xA0\xA1\xA2\xA3\xA5\xA7\xA8\xAA\xAB\xAD\xAE\xAF\xE0\xE1\xE2\xE3\xE4\xE5\xE6\xE7\xEA\xEC\xED\xEF\x80\x81\x82\x83\x85\x87\x88\x8A\x8B\x8D\x8E\x8F\x90\x91\x92\x93\x94\x95\x96\x97\x9A\x9C\x9D\x9F\xF0\xF1\xF7\xF8\xFD" };
 
 B_LINES my_bases; //¡ §®¢ë¥ «¨­¨¨
 int16_t blank; //è¨à¨­  ¯à®¡¥« 
@@ -701,7 +750,8 @@ cell *process_word(cell *WB, cell *WE) {
 							full_recog(E, NULL, 0, trs2);
 						}
 				} else if (!dust(E) && E->nvers) {
-					if (ST && strchr("®áCæ–", let) && // "îÎñCöÖ"
+					//if (ST && strchr("®áCæ–", let) && // "îÎñCöÖ"
+					if (ST && strchr("\xAE\x8E\xE1\x43\xE6\x96", let) && // "îÎñCöÖ"
 							!is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 							!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 					)
@@ -1818,7 +1868,8 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 				case '|':
 				case (uchar) '\xeb' /* ë */:
 				case (uchar) '\x9b' /* › */:
-					if (pass == 1 && strchr("®áCæ–", // "îÎñCöÖ"
+					//if (pass == 1 && strchr("®áCæ–", // "îÎñCöÖ"
+					if (pass == 1 && strchr("\xAE\x8E\xE1\x43\xE6\x96", // "îÎñCöÖ"
 							(cut_list + ip)->versm.vers[0].let) &&
 					//"üş","ûî" è ò.ï.
 							!is_russian_baltic_conflict(
@@ -2013,7 +2064,8 @@ uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
 			} else
 				seci->lv.v1 = (cut_list + ip)->lv.v1 + seci->rv.v1;
 		}
-		flngp = strchr("£ƒ¯", let1) == NULL;
+		//flngp = strchr("£ƒ¯", let1) == NULL;
+		flngp = strchr("\xA3\x83\xAF\x8F", let1) == NULL;
 		for (j = i - 1, secj = cut_list + j; j >= i0; j--, secj--) {
 			int16_t cur_meas;
 			if (!secj->versm.flg)
@@ -2040,7 +2092,8 @@ uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
 				memcpy(&seci->versm, &cur_vers->vers, sizeof(SVERS));
 				seci->gvarr = 1; //¢¥àá¨¨ ¨§¬¥­¨«¨áì
 				let1 = (seci->versm.nvers) ? seci->versm.vers[0].let : bad_char;
-				flngp = strchr("£ƒ¯", let1) == NULL;
+				//flngp = strchr("£ƒ¯", let1) == NULL;
+				flngp = strchr("\xA3\x83\xAF\x8F", let1) == NULL;
 			}
 		}
 	}
@@ -3522,7 +3575,8 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 						!is_russian_turkish_conflict(v0->let) && // 21.05.2002 E.P.
 						v0->prob < prob_left_to_bad[(uchar*) ilet
 								- letters_left_to_bad])) {
-					if (strchr("¨ˆ­¯è˜é™", v0->let)
+					//if (strchr("¨ˆ­¯è˜é™", v0->let)
+					if (strchr("\xA8\x88\xAD\x8D\xAF\x8F\xE8\x98\xE9\x99", v0->let)
 							&& !is_russian_turkish_conflict(v0->let) // 21.05.2002 E.P.
 					) // "èÈíÍïÏøØùÙ"
 						set_bad(versi0);
@@ -3811,7 +3865,8 @@ static void paste() {
 			if (!is_turkish_language(language) && // 21.05.2002 E.P.
 					glue_to_o(c2, c3, BC, EC))
 				expect = (uchar) '\xae' /* ® */;
-			else if (memchr("ìœš", c2, 3) && (memchr("/1!()ø", c3, 6) || c3
+			//else if (memchr("ìœš", c2, 3) && (memchr("/1!()ø", c3, 6) || c3
+			else if (memchr("\xEC\x9C\x9A", c2, 3) && (memchr("/1!()ø", c3, 6) || c3
 					== liga_exm) // 10.09.2000 E.P.
 					&& abs(BC->h - EC->h) < 4 && abs(BC->row - EC->row) < 4
 					&& EC->r_col - (BC->r_col + BC->w) < BC->h / 10 + 4) /*to paste ë */
@@ -3845,7 +3900,8 @@ static void paste() {
 
 			p = (B->nvers) ? B->vers[0].prob : 0;
 			if (expect == (uchar) '\xae' /* ® */) {
-				if (!memchr("oO0®", B->vers[0].let, 5)) {
+				//if (!memchr("oO0®", B->vers[0].let, 5)) {
+				if (!memchr("oO0\xAE\x8E", B->vers[0].let, 5)) {
 					del_cell(B);
 					BC = EC;
 					continue;
@@ -3974,7 +4030,8 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 	//                all cutten letters with simple structure
 
 	if ((B1->flg & c_f_let) && (B1->nvers == 1)) {
-		if (language == LANGUAGE_RUSSIAN && strchr("®‡§3", c))
+		//if (language == LANGUAGE_RUSSIAN && strchr("®‡§3", c))
+		if (language == LANGUAGE_RUSSIAN && strchr("\xAE\x87\xA7\x33", c))
 			goto estiBOX;
 		if ((language != LANGUAGE_ENGLISH) && (memchr("aoeu", B1->vers[0].let, 4))) {
 			accent(B1);
@@ -4054,7 +4111,8 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 			goto deciBOX;
 		}
 
-		if (memchr("rtfTJ()<>[]LI1il!/F7â’£ƒø|", c, 26)
+		//if (memchr("rtfTJ()<>[]LI1il!/F7â’£ƒø|", c, 26)
+		if (memchr("rtfTJ\x28\x29\x3C\x3E\x5B\x5DLI1il!\x2F\x46\x37\xE2\x92\xA3\x83\xF8\x7C", c, 26)
 				&& !is_russian_turkish_conflict(c) // 21.05.2002 E.P.
 				|| // 07.01.1993 (see S_TOOLS.C)
 				(language != LANGUAGE_RUSSIAN && (c == liga_i || // FARA REDACTION
