@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- Разрешается повторное распространение и использование как в виде исходного кода,
- так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+ С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
- * При повторном распространении исходного кода должны оставаться указанное
- выше уведомление об авторском праве, этот список условий и последующий
- отказ от гарантий.
- * При повторном распространении двоичного кода в документации и/или в
- других материалах, поставляемых при распространении, должны сохраняться
- указанная выше информация об авторском праве, этот список условий и
- последующий отказ от гарантий.
- * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
- быть использованы в качестве средства поддержки и/или продвижения
- продуктов, основанных на этом ПО, без предварительного письменного
- разрешения.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+ РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+ РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+ СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+ РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+ РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+ СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
- ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
- ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
- ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
- ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
- МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
- НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
- ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
- НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
- СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
- ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
- НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
- ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+ РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+ Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+ РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+ РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+ РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+ РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+ РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+ РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+ РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+ РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+ Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -235,20 +235,20 @@ uint16_t accent_tab_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
  <upper_type> * 16 + <down_type>
  upper_types: 	1: large  -    l
  2: small at bs2
- 3: t [ ] { }  ©
+ 3: t [ ] { }  В©
  4: ( )
- 5: g, p -- bs2 or upper  д
+ 5: g, p -- bs2 or upper  Г¤
  2+8: j, y -- at bs2, not a small
- 1+8: at bs1, not a large   Ў
+ 1+8: at bs1, not a large   ВЎ
  0: free
 
  down_types :	1: at base-3 lst
- 2: sunk      dQ–™„аг
+ 2: sunk      dQР¦Р©Р”СЂСѓ
  3: p         dqQ(
  4: !?
  5: []{}	     qQ(
- 6: ()f       lower than bbs3 or at bbs3  Љ,џ,†
- 7: slightly lower bbs3  ¤,ж,й
+ 6: ()f       lower than bbs3 or at bbs3  Рљ,РЇ,Р–
+ 7: slightly lower bbs3  В¤,Г¦,Г©
  0: free
  ************/
 
@@ -490,7 +490,7 @@ static uchar let_linpos_rus[256] = { 0, 0, 0,
 		0x11,
 		0x11,
 		0x11,
-		// Ђ    Ѓ    ‚    ѓ    „    …    †    ‡    €    ‰    Љ    ‹    Њ    Ќ    Ћ    Џ
+		// Рђ    Р‘    Р’    Р“    Р”    Р•    Р–    Р—    Р    Р™    Рљ    Р›    Рњ    Рќ    Рћ    Рџ
 		0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x12, 0x11, 0x11, 0x12,
 		0x11,
 		0x11,
@@ -498,14 +498,14 @@ static uchar let_linpos_rus[256] = { 0, 0, 0,
 		0x11,
 		0x11,
 		0x16,
-		// ђ    ‘    ’    “    ”    •    –    —        ™    љ    ›    њ    ќ    ћ    џ
+		// Р     РЎ    Рў    РЈ    Р¤    РҐ    Р¦    Р§    РЁ    Р©    РЄ    Р«    Р¬    Р­    Р®    РЇ
 		0x21, 0x11, 0x21, 0x21, 0x27, 0x21, 0x21, 0x21, 0x21, 0x31, 0x21,
 		0x21,
 		0x21,
 		0x21,
 		0x21,
 		0x21,
-		//      Ў    ў    Ј    ¤    Ґ    ¦    §    Ё    ©    Є    «    ¬    ­    ®    Ї      OE       oe
+		// Р°    Р±    РІ    Рі    Рґ    Рµ    Р¶    Р·    Рё    Р№    Рє    Р»    Рј    РЅ    Рѕ    Рї      OE       oe
 		0, 0x16, 0x16, 0x16, 0x16, 0x31, 0x21, 0x10,
 		0x10,
 		0x16,
@@ -530,7 +530,7 @@ static uchar let_linpos_rus[256] = { 0, 0, 0,
 		0x21, 0x21,
 		0x21,
 		0x21, // a, e, i
-		// а    б    в    г    д    е    ж    з    и    й    к    л    м    н    о    п
+		// СЂ    СЃ    С‚    Сѓ    С„    С…    С†    С‡    С€    С‰    СЉ    С‹    СЊ    СЌ    СЋ    СЏ
 		0x11, 0x22, 0x21, 0x21, 0x21, 0x21, 0x21, 0x21, 0x21, 0x21, 0x21, 0x21,
 		0x21, 0x21, 0, 0xa2 //  n, o, u, y^ y:
 		// d    g                   m          u   z                        a
@@ -666,8 +666,8 @@ static uchar let_lindef_lat[256] = {
 		// f0 n o accents                      u accents
 		};
 
-// Nick 25/01/2001 для русского маленького '\xee' /* о */ изменено с 0x34 на 0x36
-//                 для i с 6 на 4
+// Nick 25/01/2001 РґР»СЏ СЂСѓСЃСЃРєРѕРіРѕ РјР°Р»РµРЅСЊРєРѕРіРѕ '\xee' /* Рѕ */ РёР·РјРµРЅРµРЅРѕ СЃ 0x34 РЅР° 0x36
+//                 РґР»СЏ i СЃ 6 РЅР° 4
 static uchar let_lindef_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0,
 		0,
@@ -734,8 +734,8 @@ static uchar let_lindef_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0x25,
 		0x35,
 		0x25,
-		// А  Б   В    Г     Д  Е  Ж    З    И    Й    К    Л    М    Н    О     П
-		// Ђ  Ѓ  ‚  ѓ  „  …  †  ‡  €  ‰   Љ  ‹  Њ  Ќ  Ћ  Џ
+		// Рђ  Р‘   Р’    Р“     Р”  Р•  Р–    Р—    Р    Р™    Рљ    Р›    Рњ    Рќ    Рћ     Рџ
+		// Рђ  Р‘  Р’  Р“  Р”  Р•  Р–  Р—  Р  Р™   Рљ  Р›  Рњ  Рќ  Рћ  Рџ
 		0x25, 0x35, 0x25, 0x25, 5, 0x25, 0x21, 0x25, 0x25, 0x21,
 		0x25,
 		0x25,
@@ -743,15 +743,15 @@ static uchar let_lindef_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0x25,
 		0x25,
 		0x21,
-		// Р     С    Т    У   Ф   Х    Ц    Ч    Ш    Щ    Ъ    Ы    Ь    Э    Ю    Я
-		// ђ  ‘  ’  “  ”  •  –  —    ™   љ  ›  њ  ќ  ћ  џ
+		// Р      РЎ    Рў    РЈ   Р¤   РҐ    Р¦    Р§    РЁ    Р©    РЄ    Р«    Р¬    Р­    Р®    РЇ
+		// Р   РЎ  Рў  РЈ  Р¤  РҐ  Р¦  Р§  РЁ  Р©   РЄ  Р«  Р¬  Р­  Р®  РЇ
 		0x16, 5, 0x26, 0x26, 0x22, 6, 0x26, 0x26, 0x26, 0x64, 0x26, 0x26,
 		0x26,
 		0x26,
 		0x36,
 		0x26,
-		// а     б   в    г     д  е  ж    з    и    й    к    л    м    н    о     п
-		//    Ў  ў  Ј  ¤  Ґ  ¦  §  Ё  ©   Є  «  ¬  ­  ®  Ї
+		// Р°     Р±   РІ    Рі     Рґ  Рµ  Р¶    Р·    Рё    Р№    Рє    Р»    Рј    РЅ    Рѕ     Рї
+		// Р°  Р±  РІ  Рі  Рґ  Рµ  Р¶  Р·  Рё  Р№   Рє  Р»  Рј  РЅ  Рѕ  Рї
 		0x00, 0x01, 0x01, 0x01, 0x01, 0x44, 0x06, 0x01, 0x01, 0x01, 0x44, 0x48,
 		40, 40, 00,
 		00,
@@ -763,8 +763,8 @@ static uchar let_lindef_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		// d0
 		0x2a, 0x36, 0x26, 0x2a, 0xC0, 0x26, 0x22, 0x26, 0x26, 0x22, 0x26, 0x26,
 		0x26, 0x26, 0x26, 0x26,
-		// р     с    т    у    ф     х    ц    ч    ш    щ    ъ    ы    ь    э    ю    я
-		// а     б    в    г    д     е    ж    з    и    й    к    л    м    н    о    п
+		// СЂ     СЃ    С‚    Сѓ    С„     С…    С†    С‡    С€    С‰    СЉ    С‹    СЊ    СЌ    СЋ    СЏ
+		// СЂ     СЃ    С‚    Сѓ    С„     С…    С†    С‡    С€    С‰    СЉ    С‹    СЊ    СЌ    СЋ    СЏ
 		5, 0xA, 0, 0, 0, 6, 0, 6, 6, 0, 0, 0, 0, 6, 0, 0
 // d  g        m   u z         a
 		};
@@ -899,11 +899,11 @@ static uchar let_lindef3_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0,
 		// p    q    r s    t    u    v    w    x    y    z
 		5, 5, 37, 37, 33, 5, 37, 37, 37, 100, 33, 37, 37, 37, 53, 37,
-		// Ђ  Ѓ  ‚  ѓ  „  …  †  ‡  €  ‰   Љ  ‹  Њ  Ќ  Ћ  Џ
+		// Рђ  Р‘  Р’  Р“  Р”  Р•  Р–  Р—  Р  Р™   Рљ  Р›  Рњ  Рќ  Рћ  Рџ
 		5, 53, 37, 5, 5, 37, 33, 37, 37, 33, 37, 37, 37, 37, 37, 33,
-		// ђ ‘  ’  “  ”  •  –  —    ™   љ  ›  њ  ќ  ћ  џ
+		// Р  РЎ  Рў  РЈ  Р¤  РҐ  Р¦  Р§  РЁ  Р©   РЄ  Р«  Р¬  Р­  Р®  РЇ
 		22, 5, 38, 38, 50, 6, 38, 38, 38, 100, 38, 38, 38, 38, 52, 38,
-		//    Ў  ў  Ј  ¤  Ґ  ¦  §  Ё  ©   Є  «  ¬  ­  ®  Ї
+		// В   ВЎ  Вў  ВЈ  В¤  ВҐ  В¦  В§  ВЁ  В©   ВЄ  В«  В¬  В­  В®  ВЇ
 		0x00, 0x01, 0x01, 0x01, 0x01, 0x44, 0x06, 0x01, 0x01, 0x01, 0x44, 0x48,
 		40, 40, 00, 00,
 		// b0   b1   b2   b3   b4   b5   b6   b7   b8   b9   ba   ba   bc bd be bf
@@ -913,7 +913,7 @@ static uchar let_lindef3_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 0, 0,
 		// d0
 		2, 52, 38, 2, 192, 38, 34, 38, 38, 34, 38, 38, 38, 38, 38, 38,
-		// а   б   в   г   д   е   ж   з   и   й   к   л   м   н   о   п
+		// Г    ГЎ   Гў   ГЈ   Г¤   ГҐ   Г¦   Г§   ГЁ   Г©   ГЄ   Г«   Г¬   Г­   Г®   ГЇ
 		5, 10, 0, 0, 0, 6, 0, 6, 6, 0, 0, 0, 0, 6, 0, 0
 // d g        m   u z         a
 		};
@@ -993,11 +993,11 @@ static uchar let_lincomp_rus[256] = { 9, 3, 9, 10, 9, 2, 9, 12, 9, 1, 0, 10, 0,
 		3, 3, 4, 11, 0, 3, 0, 0, 0,
 		//   a b c d e f  g  h i j k l m n o p  q r s t  u v w x y z
 		2, 2, 2, 2, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-		//   Ђ Ѓ ‚ ѓ „  … † ‡ € ‰ Љ ‹ Њ Ќ Ћ Џ
+		//   Рђ Р‘ Р’ Р“ Р”  Р• Р– Р— Р Р™ Рљ Р› Рњ Рќ Рћ Рџ
 		2, 2, 2, 2, 2, 2, 14, 2, 2, 14, 2, 2, 2, 2, 2, 10,
-		//   ђ ‘ ’ “ ” • –  —  ™  љ › њ ќ ћ џ
+		//   Р  РЎ Рў РЈ Р¤ РҐ Р¦  Р§ РЁ Р©  РЄ Р« Р¬ Р­ Р® РЇ
 		1, 2, 1, 1, 13, 1, 1, 1, 1, 10, 1, 1, 1, 1, 1, 1,
-		//     Ў ў Ј ¤  Ґ ¦ § Ё ©  Є « ¬ ­ ® Ї
+		//   В  ВЎ Вў ВЈ В¤  ВҐ В¦ В§ ВЁ В©  ВЄ В« В¬ В­ В® ВЇ
 		0x00, 2, 2, 2, 2, 11, 11, 3, 3, 2, 2, 15, 15, 15, 00, 00,
 		//   b0   b1   b2   b3   b4   b5   b6   b7   b8   b9   ba   ba   bc bd be bf
 		//        fi   fl   ff  ffi   rt   ri    %    %   ffl  i.   j.   !. ?.
@@ -1006,7 +1006,7 @@ static uchar let_lincomp_rus[256] = { 9, 3, 9, 10, 9, 2, 9, 12, 9, 1, 0, 10, 0,
 		0, 0, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 10, 10, 10, //  OO, UU, YY  'ss'
 		//       O  O  O  O  O        U  U  U  U  Y
 		5, 1, 1, 5, 8, 1, 13, 1, 1, 13, 1, 1, 1, 1, 1, 1, // a, e, i
-		// а б в г д е ж  з и й  к л м н о п
+		// Г  ГЎ Гў ГЈ Г¤ ГҐ Г¦  Г§ ГЁ Г©  ГЄ Г« Г¬ Г­ Г® ГЇ
 		2, 4, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0 //  n, o, u, y^ y:
 		// d g       m   u z         a
 		};
@@ -1078,11 +1078,11 @@ static uchar let_linshape_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		8, 8, 8, 8, 0x0a, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0,
 		// p  q  r  s  t     u  v  w  x  y  z  {  |  }  ~
 		1, 1, 0, 6, 0, 1, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0,
-		// Ђ Ѓ ‚ ѓ „ … † ‡ € ‰  Љ ‹ Њ Ќ Ћ Џ
+		// Рђ Р‘ Р’ Р“ Р” Р• Р– Р— Р Р™  Рљ Р› Рњ Рќ Рћ Рџ
 		0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		// ђ ‘ ’ “ ” • – —  ™ љ › њ ќ ћ џ
+		// Р  РЎ Рў РЈ Р¤ РҐ Р¦ Р§ РЁ Р© РЄ Р« Р¬ Р­ Р® РЇ
 		8, 8, 8, 10, 8, 8, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8,
-		//   Ў ў Ј  ¤ Ґ ¦ § Ё © Є « ¬ ­ ® Ї
+		// В  ВЎ Вў ВЈ  В¤ ВҐ В¦ В§ ВЁ В© ВЄ В« В¬ В­ В® ВЇ
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
 		//     fi  fl  ff  ffi rt  ri  %   %   ffl i.  j.  !.  ?.
 		1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 6, 6, 6, 6,
@@ -1090,7 +1090,7 @@ static uchar let_linshape_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
 		// d0                         U  U  U  U
 		8, 8, 10, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-		// а б в  г д е ж з и й к л м н о п
+		// Г  ГЎ Гў  ГЈ Г¤ ГҐ Г¦ Г§ ГЁ Г© ГЄ Г« Г¬ Г­ Г® ГЇ
 		8, 8, 0, 0, 0, 8, 0, 8, 8, 0, 0, 0, 0, 8, 0, 0
 // d  g           m     u  z              a
 		};
@@ -1126,20 +1126,26 @@ static uchar let_sans_acc_lat[257] = { "\0               "
 		" nooooo  uuuuy y" };
 static uchar let_sans_acc_rus[257] = { "\0               "
 	"                "
-	".!\"#$%&'()*+,-./"
-	"0123456789:;<=>?"
+	"\x2E!\"\x23\x24\x25\x26\x27\x28\x29\x2A\x2B\x2C\x2D\x2E\x2F"
+	"0123456789\x3A;\x3C\x3D\x3E\x3F"
 	"@ABCDEFGHIJKLMNO"
-	"PQRSTUVWXYZ[\\]^_"
+	"PQRSTUVWXYZ[\\]\x5E\x5F"
 	"`abcdefghijklmno"
 	"pqrstuvwxyz{|}~a"
-	"ЂЃ‚ѓ„…†‡€‰Љ‹ЊЌЋЏ"
-	"ђ‘’“”•–—™љ›њќћџ"
-	" ЎўЈ¤Ґ¦§Ё©Є«¬­®Ї"
+	//"РђР‘Р’Р“Р”Р•Р–Р—РР™РљР›РњРќРћРџ"
+	"\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8A\x8B\x8C\x8D\x8E\x8F"
+	//"Р РЎРўРЈР¤РҐР¦Р§РЁР©РЄР«Р¬Р­Р®РЇ"
+	"\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9A\x9B\x9C\x9D\x9E\x9F"
+	//"Р°Р±РІРіРґРµР¶Р·РёР№РєР»РјРЅРѕРї"
+	"\xA0\xA1\xA2\xA3\xA4\xA5\xA6\xA7\xA8\xA9\xAA\xAB\xAC\xAD\xAE\xAF"
 	" \xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf"
-	"Ґ…AAAA  EEEEIIII"
+	//"РµР•AAAA  EEEEIIII"
+	"\xA5\x85\x41\x41\x41\x41  EEEEIIII"
 	" NOOOOO  UUUU\xdd\xde\xdf"
-	"абвгдежзийклмноп"
-	"рсoooхoчшuuuuэ y" };
+	//"СЂСЃС‚СѓС„С…С†С‡С€С‰СЉС‹СЊСЌСЋСЏ"
+	"\xE0\xE1\xE2\xE3\xE4\xE5\xE6\xE7\xE8\xE9\xEA\xEB\xEC\xED\xEE\xEF"
+	//"РЃС‘oooС—oСћВ°uuuuВ¤ y" };
+	"\xF0\xF1ooo\xF5o\xF7\xF8uuuu\xFD y" };
 /************/
 uchar *let_linpos, *let_lindef, *let_lincomp, *let_linshape, *let_sans_acc,
 		*let_lindef3;
@@ -1222,8 +1228,8 @@ static uchar alph_ce[256] = {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // e
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // f
 		};
-// [3] - Nick 20.10.2000 - на странице может быть 3 языка одновременно -
-// русский, английский и цифровой !!!
+// [3] - Nick 20.10.2000 - РЅР° СЃС‚СЂР°РЅРёС†Рµ РјРѕР¶РµС‚ Р±С‹С‚СЊ 3 СЏР·С‹РєР° РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ -
+// СЂСѓСЃСЃРєРёР№, Р°РЅРіР»РёР№СЃРєРёР№ Рё С†РёС„СЂРѕРІРѕР№ !!!
 uchar fon_alphabet_language[3][256];
 
 uchar *alphabet_language[LANG_TOTAL] = { // 31.08.2000 E.P.
@@ -1337,8 +1343,8 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_linshape[r_e_2dot] = 0x08;
 
 			// for accent is used in abris
-			let_sans_acc[r_EE_2dot] = (uchar) '\x85' /* … */;
-			let_sans_acc[r_e_2dot] = (uchar) '\xa5' /* Ґ */;
+			let_sans_acc[r_EE_2dot] = (uchar) '\x85' /* Р• */;
+			let_sans_acc[r_e_2dot] = (uchar) '\xa5' /* Рµ */;
 
 			// ???
 			let_lindef3[r_EE_2dot] = 0;
@@ -1559,8 +1565,8 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_lindef3['J'] = 0;
 			let_lindef3['j'] = 0;
 		}
-		if (langBul) { // В Болгарском нет трех русских букв. 31.08.2000 E.P.
-			// Ы=155, ы=235, Э= 157, э=237
+		if (langBul) { // Р’ Р‘РѕР»РіР°СЂСЃРєРѕРј РЅРµС‚ С‚СЂРµС… СЂСѓСЃСЃРєРёС… Р±СѓРєРІ. 31.08.2000 E.P.
+			// Р«=155, С‹=235, Р­= 157, СЌ=237
 			// BULGAR
 			alphabet[r_EE_2dot] = 0;
 			alphabet[r_e_2dot] = 0;
@@ -1636,7 +1642,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 		let_sans_acc = let_sans_acc_lat;
 		let_lindef3 = let_lindef3_lat;
 
-		// В связи с новыми кодами лиг для cp1250 01.09.2000 E.P.
+		// Р’ СЃРІСЏР·Рё СЃ РЅРѕРІС‹РјРё РєРѕРґР°РјРё Р»РёРі РґР»СЏ cp1250 01.09.2000 E.P.
 		if (is_cen_language(language)) {
 			alphabet[liga_i] = 1;
 			alphabet[liga_exm] = 1;
@@ -1704,7 +1710,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 		}
 
-		// Балтийские лиги для cp1257 06.07.2001 E.P.
+		// Р‘Р°Р»С‚РёР№СЃРєРёРµ Р»РёРіРё РґР»СЏ cp1257 06.07.2001 E.P.
 		if (is_baltic_language(language)) {
 			alphabet[low_quotes] = 1;
 			alphabet[liga_exm] = 1;
@@ -1889,8 +1895,8 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			accent_tab[POLISH_c] = 2;
 			accent_tab[POLISH_EE] = 0x82;
 			accent_tab[POLISH_e] = 2;
-			accent_tab[POLISH_NN] = 0x82; // ў¬Ґбв® вЁ«м¤л 0x88
-			accent_tab[POLISH_n] = 2; // ў¬Ґбв® вЁ«м¤л 8
+			accent_tab[POLISH_NN] = 0x82; // РІРјРµСЃС‚Рѕ С‚РёР»СЊРґС‹ 0x88
+			accent_tab[POLISH_n] = 2; // РІРјРµСЃС‚Рѕ С‚РёР»СЊРґС‹ 8
 			accent_tab[POLISH_OO] = 0x82;
 			accent_tab[POLISH_o] = 2;
 
@@ -1903,7 +1909,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_linpos[POLISH_AA] = 0x16;
 			let_linpos[POLISH_a] = 0x22;
 			let_linpos[POLISH_ZZD] = 0x11;
-			let_linpos[POLISH_zd] = 0x31; // Like russian "©". 23.10.97
+			let_linpos[POLISH_zd] = 0x31; // Like russian "Р№". 23.10.97
 			let_linpos[POLISH_CC] = 0x11;
 			let_linpos[POLISH_c] = 0x11;
 			let_linpos[POLISH_EE] = 0x16;
@@ -1922,9 +1928,9 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_lindef[POLISH_l] = 5; // as l
 			let_lindef[POLISH_AA] = 0x19; // bottom accent
 			let_lindef[POLISH_a] = 0x1a; // bottom accent
-			let_lindef[POLISH_ZZD] = 0x25; // Как Z
-			let_lindef[POLISH_zd] = 0x26; // Как z
-			let_lindef[POLISH_CC] = 0x35; // Как С
+			let_lindef[POLISH_ZZD] = 0x25; // РљР°Рє Z
+			let_lindef[POLISH_zd] = 0x26; // РљР°Рє z
+			let_lindef[POLISH_CC] = 0x35; // РљР°Рє РЎ
 			let_lindef[POLISH_c] = 0x36;
 			let_lindef[POLISH_EE] = 0x19; // bottom accent
 			let_lindef[POLISH_e] = 0x1a; // bottom accent
@@ -2054,7 +2060,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_linpos[SS_inv_roof_latin] = 1;
 			let_linpos[s_inv_roof_latin] = 0x11;
 			let_linpos[TT_inv_roof] = 1;
-			let_linpos[t_inv_roof] = 0x31; // Как t
+			let_linpos[t_inv_roof] = 0x31; // ГЉГ ГЄ t
 			let_linpos[UU_right_accent] = 1;
 			let_linpos[u_right_accent] = 0x11;
 			let_linpos[UU_circle_accent] = 1;
@@ -2065,9 +2071,9 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_linpos[z_inv_roof_latin] = 0x11;
 
 			// base lines for its determination (CZECH)
-			let_lindef[AA_right_accent] = 4; // Только bs3
+			let_lindef[AA_right_accent] = 4; // РўРѕР»СЊРєРѕ bs3
 			let_lindef[a_right_accent] = 4;
-			let_lindef[CC_inv_roof] = 0x14; // 10-круглая, 4 - bs3
+			let_lindef[CC_inv_roof] = 0x14; // 10-РєСЂСѓРіР»Р°СЏ, 4 - bs3
 			let_lindef[c_inv_roof] = 0x15;
 			let_lindef[DD_inv_roof] = 4;
 			let_lindef[d_inv_roof] = 5;
@@ -2079,15 +2085,15 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_lindef[i_right_accent] = 6; // 2 - bs2, 3 - bs3 (like i)
 			let_lindef[NN_inv_roof] = 4;
 			let_lindef[n_inv_roof] = 5;
-			let_lindef[OO_right_accent] = 0x14; // 10-круглая, 4 - bs3
+			let_lindef[OO_right_accent] = 0x14; // 10-РєСЂСѓРіР»Р°СЏ, 4 - bs3
 			let_lindef[o_right_accent] = 0x14;
 			let_lindef[RR_inv_roof] = 4;
 			let_lindef[r_inv_roof] = 5;
-			let_lindef[SS_inv_roof_latin] = 0x14; // 10-круглая, 4 - bs3
+			let_lindef[SS_inv_roof_latin] = 0x14; // 10-РєСЂСѓРіР»Р°СЏ, 4 - bs3
 			let_lindef[s_inv_roof_latin] = 0x15;
 			let_lindef[TT_inv_roof] = 4;
 			let_lindef[t_inv_roof] = 4;
-			let_lindef[UU_right_accent] = 0x14; // 10-круглая, 4 - bs3
+			let_lindef[UU_right_accent] = 0x14; // 10-РєСЂСѓРіР»Р°СЏ, 4 - bs3
 			let_lindef[u_right_accent] = 0x14;
 			let_lindef[UU_circle_accent] = 0x14;
 			let_lindef[u_circle_accent] = 0x14;
@@ -2215,7 +2221,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			accent_tab[CC_inv_roof] = ACC_ROOF_INV | ACC_SUPERUP;
 			accent_tab[c_inv_roof] = ACC_ROOF_INV;
 			accent_tab[DD_inv_roof] = ACC_ROOF_INV | ACC_SUPERUP;
-			accent_tab[d_inv_roof] = 0; // Не пытаться отрезать ACC_ROOF_INV;
+			accent_tab[d_inv_roof] = 0; // РќРµ РїС‹С‚Р°С‚СЊСЃСЏ РѕС‚СЂРµР·Р°С‚СЊ ACC_ROOF_INV;
 			accent_tab[EE_right_accent] = ACC_RIGHT | ACC_SUPERUP;
 			accent_tab[e_right_accent] = ACC_RIGHT;
 			accent_tab[EE_inv_roof] = ACC_ROOF_INV | ACC_SUPERUP;
@@ -2272,10 +2278,10 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_lindef[a_roof_accent] = 0x84;
 			let_lindef[II_roof_accent] = 4;
 			let_lindef[i_roof_accent] = 0x84;
-			let_lindef[SS_bottom_accent_latin] = 0x31; // 20 - есть близнец, 10 - круглая, 1 - bs1
-			let_lindef[s_bottom_accent_latin] = 0x32; // 20 - есть близнец, 10 - круглая, 2 - bs2
+			let_lindef[SS_bottom_accent_latin] = 0x31; // 20 - РµСЃС‚СЊ Р±Р»РёР·РЅРµС†, 10 - РєСЂСѓРіР»Р°СЏ, 1 - bs1
+			let_lindef[s_bottom_accent_latin] = 0x32; // 20 - РµСЃС‚СЊ Р±Р»РёР·РЅРµС†, 10 - РєСЂСѓРіР»Р°СЏ, 2 - bs2
 			let_lindef[TT_bottom_accent] = 0;
-			let_lindef[t_bottom_accent] = 0x40; // 40-agrees to be b1, как t
+			let_lindef[t_bottom_accent] = 0x40; // 40-agrees to be b1, РєР°Рє t
 
 			// detems klasres for 3x5 (ROMAN)
 			let_lincomp[AA_semicircle] = let_lincomp[a_semicircle] = 2;
@@ -2364,13 +2370,13 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_linpos[u_double_right] = 0x11;
 
 			// base lines for its determination (HUNGAR)
-			let_lindef[AA_right_accent] = 4; // Только bs3
+			let_lindef[AA_right_accent] = 4; // Г’Г®Г«ГјГЄГ® bs3
 			let_lindef[a_right_accent] = 4;
 			let_lindef[EE_right_accent] = 4;
 			let_lindef[e_right_accent] = 4;
 			let_lindef[II_right_accent] = 4;
 			let_lindef[i_right_accent] = 6; // 2 - bs2, 3 - bs3 (like i)
-			let_lindef[OO_right_accent] = 0x14; // 10-круглая, 4 - bs3
+			let_lindef[OO_right_accent] = 0x14; // 10-РєСЂСѓРіР»Р°СЏ, 4 - bs3
 			let_lindef[o_right_accent] = 0x14;
 			let_lindef[OO_2dot_accent] = 0x14;
 			let_lindef[o_2dot_accent] = 0x14;
@@ -2507,9 +2513,9 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_linpos[z_inv_roof_latin] = 0x11;
 
 			// base lines for its determination (SLOVENIAN)
-			let_lindef[CC_inv_roof] = 0x14; // 10-круглая, 4 - bs3
+			let_lindef[CC_inv_roof] = 0x14; // 10-РєСЂСѓРіР»Р°СЏ, 4 - bs3
 			let_lindef[c_inv_roof] = 0x15;
-			let_lindef[SS_inv_roof_latin] = 0x14; // 10-круглая, 4 - bs3
+			let_lindef[SS_inv_roof_latin] = 0x14; // 10-РєСЂСѓРіР»Р°СЏ, 4 - bs3
 			let_lindef[s_inv_roof_latin] = 0x15;
 			let_lindef[ZZ_inv_roof_latin] = 4;
 			let_lindef[z_inv_roof_latin] = 5;
@@ -2553,7 +2559,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 		} // SLOVENIAN
 
-		//  Конец фигурной скобки RUSSIAN перенес ниже  01.09.2000 E.P.
+		//  РљРѕРЅРµС† С„РёРіСѓСЂРЅРѕР№ СЃРєРѕР±РєРё RUSSIAN РїРµСЂРµРЅРµСЃ РЅРёР¶Рµ  01.09.2000 E.P.
 		if (language == LANGUAGE_GERMAN) {
 			alphabet[AA_2dot_accent] = 1;
 			alphabet[a_2dot_accent] = 1;
@@ -2721,7 +2727,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			alphabet[u_2dot_accent] = 1;
 		}
 
-		// Прибалтийские языки. 09.07.2001 E.P.
+		// РџСЂРёР±Р°Р»С‚РёР№СЃРєРёРµ СЏР·С‹РєРё. 09.07.2001 E.P.
 		if (language == LANGUAGE_LATVIAN) {
 			// LATVIAN 09.07.2001 E.P.
 			alphabet[AA_macron] = alphabet[a_macron] = 1;
@@ -2767,8 +2773,8 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			/*
 			 base lines for its determination (LATVIAN)
 
-			 Старшая цифра: 20 - has twin, 10-круглая
-			 Младшая цифра: определение базовых линий 1-bs1, 2-bs2, 4-bs3, 8-bs4
+			 РЎС‚Р°СЂС€Р°СЏ С†РёС„СЂР°: 20 - has twin, 10-РєСЂСѓРіР»Р°СЏ
+			 РњР»Р°РґС€Р°СЏ С†РёС„СЂР°: РѕРїСЂРµРґРµР»РµРЅРёРµ Р±Р°Р·РѕРІС‹С… Р»РёРЅРёР№ 1-bs1, 2-bs2, 4-bs3, 8-bs4
 
 			 */
 			let_lindef[AA_macron] = 4;
@@ -2976,10 +2982,10 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			/*
 			 base lines for its determination (LITHUANIAN)
 
-			 Старшая цифра: 20 - has twin, 10-круглая
-			 Младшая цифра: определение базовых линий 1-bs1, 2-bs2, 4-bs3, 8-bs4
+			 РЎС‚Р°СЂС€Р°СЏ С†РёС„СЂР°: 20 - has twin, 10-РєСЂСѓРіР»Р°СЏ
+			 РњР»Р°РґС€Р°СЏ С†РёС„СЂР°: РѕРїСЂРµРґРµР»РµРЅРёРµ Р±Р°Р·РѕРІС‹С… Р»РёРЅРёР№ 1-bs1, 2-bs2, 4-bs3, 8-bs4
 
-			 Макрон или точка над малой буквой дает bs1.
+			 РњР°РєСЂРѕРЅ РёР»Рё С‚РѕС‡РєР° РЅР°Рґ РјР°Р»РѕР№ Р±СѓРєРІРѕР№ РґР°РµС‚ bs1.
 			 */
 			let_lindef[AA_bottom_accent] = 1;
 			let_lindef[a_bottom_accent] = 0x12;
@@ -3154,10 +3160,10 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			/*
 			 base lines for its determination (ESTONIAN)
 
-			 Старшая цифра: 20 - has twin, 10-круглая
-			 Младшая цифра: определение базовых линий 1-bs1, 2-bs2, 4-bs3, 8-bs4
+			 РЎС‚Р°СЂС€Р°СЏ С†РёС„СЂР°: 20 - has twin, 10-РєСЂСѓРіР»Р°СЏ
+			 РњР»Р°РґС€Р°СЏ С†РёС„СЂР°: РѕРїСЂРµРґРµР»РµРЅРёРµ Р±Р°Р·РѕРІС‹С… Р»РёРЅРёР№ 1-bs1, 2-bs2, 4-bs3, 8-bs4
 
-			 Макрон или точка над малой буквой дает bs1.
+			 РњР°РєСЂРѕРЅ РёР»Рё С‚РѕС‡РєР° РЅР°Рґ РјР°Р»РѕР№ Р±СѓРєРІРѕР№ РґР°РµС‚ bs1.
 			 */
 			let_lindef[AA_2dot_accent] = 4;
 			let_lindef[a_2dot_accent] = 0x14;
@@ -3254,9 +3260,9 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 
 		} // ESTONIAN
 
-		// Турецкий язык. 20.05.2002 E.P.
+		// РўСѓСЂРµС†РєРёР№ СЏР·С‹Рє. 20.05.2002 E.P.
 		if (language == LANGUAGE_TURKISH) {
-			// Турецкие лиги, отличные от западноевропейских
+			// РўСѓСЂРµС†РєРёРµ Р»РёРіРё, РѕС‚Р»РёС‡РЅС‹Рµ РѕС‚ Р·Р°РїР°РґРЅРѕРµРІСЂРѕРїРµР№СЃРєРёС…
 
 			alphabet[liga_TM] = 1;
 			alphabet[liga_CC] = 1;
@@ -3293,7 +3299,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_lindef3[liga_CR] = let_lindef3[liga_CR_usual];
 			let_lindef3[liga_bull] = let_lindef3[liga_bull_usual];
 
-			// Турецкие буквы, отличные от западноевропейских
+			// РўСѓСЂРµС†РєРёРµ Р±СѓРєРІС‹, РѕС‚Р»РёС‡РЅС‹Рµ РѕС‚ Р·Р°РїР°РґРЅРѕРµРІСЂРѕРїРµР№СЃРєРёС…
 			alphabet[GG_semicircle] = 1;
 			alphabet[g_semicircle] = 1;
 			alphabet[II_dot_accent] = 1;
@@ -3304,7 +3310,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			alphabet[(uchar) 'W'] = alphabet[(uchar) 'w'] = 0;
 			alphabet[(uchar) 'X'] = alphabet[(uchar) 'x'] = 0;
 
-			// Для линейного критерия (TURKISH)
+			// Р”Р»СЏ Р»РёРЅРµР№РЅРѕРіРѕ РєСЂРёС‚РµСЂРёСЏ (TURKISH)
 			let_linpos[GG_semicircle] = 1;
 			let_linpos[g_semicircle] = 0x52; // 27.06.2002 E.P.
 			let_linpos[II_dot_accent] = 0x11; // 27.06.2002 E.P.
@@ -3312,20 +3318,20 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_linpos[SS_bottom_accent_turkish] = 0x16;
 			let_linpos[s_bottom_accent_turkish] = 0x22;
 
-			// Для определения базовых линий (TURKISH)
-			// Старшая цифра: 20 - есть близнец, 10-круглая
-			// Младшая цифра: определение базовых линий
+			// Р”Р»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ Р±Р°Р·РѕРІС‹С… Р»РёРЅРёР№ (TURKISH)
+			// РЎС‚Р°СЂС€Р°СЏ С†РёС„СЂР°: 20 - РµСЃС‚СЊ Р±Р»РёР·РЅРµС†, 10-РєСЂСѓРіР»Р°СЏ
+			// РњР»Р°РґС€Р°СЏ С†РёС„СЂР°: РѕРїСЂРµРґРµР»РµРЅРёРµ Р±Р°Р·РѕРІС‹С… Р»РёРЅРёР№
 			// 1-bs1, 2-bs2, 4-bs3, 8-bs4
-			let_lindef[GG_semicircle] = 0x14; // 10 - круглая, 4 - bs3
+			let_lindef[GG_semicircle] = 0x14; // 10 - РєСЂСѓРіР»Р°СЏ, 4 - bs3
 			let_lindef[g_semicircle] = 0; //
-			let_lindef[II_dot_accent] = 0x24; // 20 - есть близнец 'i', 4 - bs3 // 27.06.2002 E.P.
-			let_lindef[i_sans_accent] = 0x26; // 20 - есть близнец 'I', 2 - bs2, 4 - bs3
-			let_lindef['I'] = 0x25; // 20 - есть близнец i_sans_accent, 1 - bs1, 4 - bs3
-			let_lindef['i'] = 0x24; // 20 - есть близнец II_dot_accent, 4 - bs3
-			let_lindef[SS_bottom_accent_turkish] = 0x31; // 20 - есть близнец, 10 - круглая, 1 - bs1
-			let_lindef[s_bottom_accent_turkish] = 0x32; // 20 - есть близнец, 10 - круглая, 2 - bs2
+			let_lindef[II_dot_accent] = 0x24; // 20 - РµСЃС‚СЊ Р±Р»РёР·РЅРµС† 'i', 4 - bs3 // 27.06.2002 E.P.
+			let_lindef[i_sans_accent] = 0x26; // 20 - РµСЃС‚СЊ Р±Р»РёР·РЅРµС† 'I', 2 - bs2, 4 - bs3
+			let_lindef['I'] = 0x25; // 20 - РµСЃС‚СЊ Р±Р»РёР·РЅРµС† i_sans_accent, 1 - bs1, 4 - bs3
+			let_lindef['i'] = 0x24; // 20 - РµСЃС‚СЊ Р±Р»РёР·РЅРµС† II_dot_accent, 4 - bs3
+			let_lindef[SS_bottom_accent_turkish] = 0x31; // 20 - РµСЃС‚СЊ Р±Р»РёР·РЅРµС†, 10 - РєСЂСѓРіР»Р°СЏ, 1 - bs1
+			let_lindef[s_bottom_accent_turkish] = 0x32; // 20 - РµСЃС‚СЊ Р±Р»РёР·РЅРµС†, 10 - РєСЂСѓРіР»Р°СЏ, 2 - bs2
 
-			// Допустимый размер буквы, определяет кластер для 3x5 (TURKISH)
+			// Р”РѕРїСѓСЃС‚РёРјС‹Р№ СЂР°Р·РјРµСЂ Р±СѓРєРІС‹, РѕРїСЂРµРґРµР»СЏРµС‚ РєР»Р°СЃС‚РµСЂ РґР»СЏ 3x5 (TURKISH)
 			// 1 - small; 2 - capital, 4 - low (like 'y'), 8 - other
 			let_lincomp[GG_semicircle] = 2;
 			let_lincomp[g_semicircle] = 0x0e; // 2 - capital, 4 - low, 8 - other
@@ -3335,29 +3341,29 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_lincomp[s_bottom_accent_turkish] = 0x0d; // 1 - small,   4 - low, 8 - other
 
 			/*
-			 Форма буквы (TURKISH):
-			 1 - прописная
-			 2 - палка
-			 4 - палка позволяет определить bs1
-			 8 - строчная
-			 0x10 - может быть выше b1 ($)
-			 0x20 - d,b,h (может быть выше b1)
+			 Р¤РѕСЂРјР° Р±СѓРєРІС‹ (TURKISH):
+			 1 - РїСЂРѕРїРёСЃРЅР°СЏ
+			 2 - РїР°Р»РєР°
+			 4 - РїР°Р»РєР° РїРѕР·РІРѕР»СЏРµС‚ РѕРїСЂРµРґРµР»РёС‚СЊ bs1
+			 8 - СЃС‚СЂРѕС‡РЅР°СЏ
+			 0x10 - РјРѕР¶РµС‚ Р±С‹С‚СЊ РІС‹С€Рµ b1 ($)
+			 0x20 - d,b,h (РјРѕР¶РµС‚ Р±С‹С‚СЊ РІС‹С€Рµ b1)
 			 */
 
-			let_linshape[GG_semicircle] = 0x11; // 10 - может быть выше b1, 1 - прописная
-			let_linshape[g_semicircle] = 8; // 8 - строчная
+			let_linshape[GG_semicircle] = 0x11; // 10 - РјРѕР¶РµС‚ Р±С‹С‚СЊ РІС‹С€Рµ b1, 1 - РїСЂРѕРїРёСЃРЅР°СЏ
+			let_linshape[g_semicircle] = 8; // 8 - СЃС‚СЂРѕС‡РЅР°СЏ
 
-			// 10 - может быть выше b1, 1 - прописная, 2 - палка,
-			// 4 - палка позволяет определить bs1
+			// 10 - РјРѕР¶РµС‚ Р±С‹С‚СЊ РІС‹С€Рµ b1, 1 - РїСЂРѕРїРёСЃРЅР°СЏ, 2 - РїР°Р»РєР°,
+			// 4 - РїР°Р»РєР° РїРѕР·РІРѕР»СЏРµС‚ РѕРїСЂРµРґРµР»РёС‚СЊ bs1
 			let_linshape[II_dot_accent] = 0x17;
 
-			// 8 - строчная, 2 - палка, 4 - палка позволяет определить bs1
+			// 8 - СЃС‚СЂРѕС‡РЅР°СЏ, 2 - РїР°Р»РєР°, 4 - РїР°Р»РєР° РїРѕР·РІРѕР»СЏРµС‚ РѕРїСЂРµРґРµР»РёС‚СЊ bs1
 			let_linshape[i_sans_accent] = 0x0e;
 
-			let_linshape[SS_bottom_accent_turkish] = 1; // 1 - прописная
-			let_linshape[s_bottom_accent_turkish] = 8; // 8 - строчная
+			let_linshape[SS_bottom_accent_turkish] = 1; // 1 - РїСЂРѕРїРёСЃРЅР°СЏ
+			let_linshape[s_bottom_accent_turkish] = 8; // 8 - СЃС‚СЂРѕС‡РЅР°СЏ
 
-			// Буква без акцента (TURKISH)
+			// Р‘СѓРєРІР° Р±РµР· Р°РєС†РµРЅС‚Р° (TURKISH)
 			let_sans_acc[GG_semicircle] = 'G';
 			let_sans_acc[g_semicircle] = 'g';
 			let_sans_acc[II_dot_accent] = 'I';
@@ -3366,7 +3372,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_sans_acc[SS_bottom_accent_turkish] = 'S';
 			let_sans_acc[s_bottom_accent_turkish] = 's';
 
-			// Неизвестно что (TURKISH)
+			// РќРµРёР·РІРµСЃС‚РЅРѕ С‡С‚Рѕ (TURKISH)
 			let_lindef3[GG_semicircle] = 0;
 			let_lindef3[g_semicircle] = 0;
 			let_lindef3[II_dot_accent] = 0;
@@ -3374,7 +3380,7 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_lindef3[SS_bottom_accent_turkish] = 0;
 			let_lindef3[s_bottom_accent_turkish] = 0;
 
-			// Тип верхнего акцента (TURKISH)
+			// РўРёРї РІРµСЂС…РЅРµРіРѕ Р°РєС†РµРЅС‚Р° (TURKISH)
 			accent_tab[GG_semicircle] = ACC_ROOF_INV | ACC_SUPERUP;
 			accent_tab[g_semicircle] = ACC_ROOF_INV;
 			accent_tab[II_dot_accent] = ACC_DOT;
@@ -3388,9 +3394,12 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 	// for all code pages :
 	strcpy((char*) decode_ASCII_to_[(uchar) '!'], "!");
 	strcpy((char*) decode_ASCII_to_[(uchar) '?'], "?");
-	strcpy((char*) decode_ASCII_to_[(uchar) liga_TM], "™");
-	strcpy((char*) decode_ASCII_to_[(uchar) liga_CC], "©");
-	strcpy((char*) decode_ASCII_to_[(uchar) liga_CR], "®");
+	//strcpy((char*) decode_ASCII_to_[(uchar) liga_TM], "Р©");
+	strcpy((char*) decode_ASCII_to_[(uchar) liga_TM], "\x99");
+	//strcpy((char*) decode_ASCII_to_[(uchar) liga_CC], "Р№");
+	strcpy((char*) decode_ASCII_to_[(uchar) liga_CC], "\xA9");
+	//strcpy((char*) decode_ASCII_to_[(uchar) liga_CR], "Рѕ");
+	strcpy((char*) decode_ASCII_to_[(uchar) liga_CR], "\xAE");
 	strcpy((char*) decode_ASCII_to_[(uchar) SS_NEG_HALF_SPACE], "");
 	strcpy((char*) decode_ASCII_to_[(uchar) SS_POS_HALF_SPACE], " ");
 
@@ -3413,12 +3422,15 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_bull], "\xB0");
 
 #ifndef SPEC_PROJECT1
-		strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "«");
+		//strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "В«");
+		strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "\xAB");
 #else
 		strcpy((char*) decode_ASCII_to_[left_quocket],"<<");
 #endif
-		strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "»");
-		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "„");
+		//strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "В»");
+		strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "\xBB");
+		//strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "вЂћ");
+		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "\x84");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_rt], "rt");
 		strcpy((char*) decode_ASCII_to_[(uchar) AA_left_accent], "\xC0");
 		strcpy((char*) decode_ASCII_to_[(uchar) a_left_accent], "\xE0");
@@ -3486,16 +3498,25 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 	}
 
 	if (CodePages[language] == CHARSET_RUSSIAN) {
-		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_d], "д");
-		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_g], "д");
-		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_m], "т");
-		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_u], "и");
-		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_z], "г");
-		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_a], "а");
-		strcpy((char*) decode_ASCII_to_[(uchar) r_EE_2dot], "Ё");
-		strcpy((char*) decode_ASCII_to_[(uchar) r_e_2dot], "ё");
+		//strcpy((char*) decode_ASCII_to_[(uchar) r_cu_d], "Рґ");
+		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_d], "\xE4");
+		//strcpy((char*) decode_ASCII_to_[(uchar) r_cu_g], "Рґ");
+		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_g], "\xE4");
+		//strcpy((char*) decode_ASCII_to_[(uchar) r_cu_m], "С‚");
+		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_m], "\xF2");
+		//strcpy((char*) decode_ASCII_to_[(uchar) r_cu_u], "Рё");
+		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_u], "\xE8");
+		//strcpy((char*) decode_ASCII_to_[(uchar) r_cu_z], "Рі");
+		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_z], "\xE3");
+		//strcpy((char*) decode_ASCII_to_[(uchar) r_cu_a], "Р°");
+		strcpy((char*) decode_ASCII_to_[(uchar) r_cu_a], "\xE0");
+		//strcpy((char*) decode_ASCII_to_[(uchar) r_EE_2dot], "РЃ");
+		strcpy((char*) decode_ASCII_to_[(uchar) r_EE_2dot], "\xA8");
+		//strcpy((char*) decode_ASCII_to_[(uchar) r_e_2dot], "С‘");
+		strcpy((char*) decode_ASCII_to_[(uchar) r_e_2dot], "\xB8");
 		strcpy((char*) decode_ASCII_to_[(uchar) 0xC3], "_#_");
-		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes_rus], "„");
+		//strcpy((char*) decode_ASCII_to_[(uchar) low_quotes_rus], "вЂћ");
+		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes_rus], "\x84");
 	}
 
 	if (CodePages[language] == CHARSET_EASTEUROPE) {
@@ -3515,12 +3536,15 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_inv_exm], "_!!_");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_inv_qm], "_??_");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_bull], "\xB0");
-		strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "«");
-		strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "»");
-		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "„");
+		//strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "В«");
+		strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "\xAB");
+		//strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "В»");
+		strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "\xBB");
+		//strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "вЂћ");
+		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "\x84");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_rt], "rt");
 
-		// Список букв cp1250
+		// РЎРїРёСЃРѕРє Р±СѓРєРІ cp1250
 		list_latin_letters();
 
 	}
@@ -3545,12 +3569,15 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_exm], "_!_");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_qm], "_?_");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_bull], "\x95");
-		strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "«");
-		strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "»");
-		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "„");
+		//strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "В«");
+		strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "\xAB");
+		//strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "В»");
+		strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "\xBB");
+		//strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "вЂћ");
+		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "\x84");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_rt], "rt");
 
-		// Список букв cp1257
+		// РЎРїРёСЃРѕРє Р±СѓРєРІ cp1257
 		list_baltic_letters();
 
 	}
@@ -3575,12 +3602,15 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_j], "_j_");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_exm], "_!_");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_qm], "_?_");
-		strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "«");
-		strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "»");
-		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "„");
+		//strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "В«");
+		strcpy((char*) decode_ASCII_to_[(uchar) left_quocket], "\xAB");
+		//strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "В»");
+		strcpy((char*) decode_ASCII_to_[(uchar) right_quocket], "\xBB");
+		//strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "вЂћ");
+		strcpy((char*) decode_ASCII_to_[(uchar) low_quotes], "\x84");
 		strcpy((char*) decode_ASCII_to_[(uchar) liga_rt], "rt");
 
-		// Список букв cp1254
+		// РЎРїРёСЃРѕРє Р±СѓРєРІ cp1254
 		list_turkish_letters();
 
 	}
@@ -3631,7 +3661,7 @@ Bool is_russian_language(uchar lang) {
 //************************************************************
 void list_latin_letters() // 05.09.2000 E.P.
 {
-	// Список букв cp1250
+	// РЎРїРёСЃРѕРє Р±СѓРєРІ cp1250
 
 	uchar tab[] = {
 
@@ -3660,9 +3690,9 @@ void list_latin_letters() // 05.09.2000 E.P.
 	uchar *p;
 	extern uchar decode_ASCII_to_[256][4];
 
-	// Здесь нужно оставить код без изменения,
-	// а вот в ROUT/CodeTables.cpp функция fromcp1250_to_cp852()
-	// перекодирует из cp1250 в cp852. См. ROUT/CodeTables.cpp.
+	// Р—РґРµСЃСЊ РЅСѓР¶РЅРѕ РѕСЃС‚Р°РІРёС‚СЊ РєРѕРґ Р±РµР· РёР·РјРµРЅРµРЅРёСЏ,
+	// Р° РІРѕС‚ РІ ROUT/CodeTables.cpp С„СѓРЅРєС†РёСЏ fromcp1250_to_cp852()
+	// РїРµСЂРµРєРѕРґРёСЂСѓРµС‚ РёР· cp1250 РІ cp852. РЎРј. ROUT/CodeTables.cpp.
 	for (p = tab; *p; p++) {
 		uchar c = *p;
 		decode_ASCII_to_[c][0] = c;
@@ -3673,7 +3703,7 @@ void list_latin_letters() // 05.09.2000 E.P.
 //************************************************************
 void list_baltic_letters() // 09.07.2001 E.P.
 {
-	// Список букв cp1257
+	// РЎРїРёСЃРѕРє Р±СѓРєРІ cp1257
 
 	uchar tab[] = { AA_2dot_accent, a_2dot_accent, AA_macron, a_macron,
 			AA_bottom_accent_baltic, a_bottom_accent_baltic, CC_inv_roof,
@@ -3700,7 +3730,7 @@ void list_baltic_letters() // 09.07.2001 E.P.
 //************************************************************
 void list_turkish_letters() // 20.05.2002 E.P.
 {
-	// Список букв cp1254
+	// РЎРїРёСЃРѕРє Р±СѓРєРІ cp1254
 
 	uchar tab[] = { OO_2dot_accent, o_2dot_accent, UU_2dot_accent,
 			u_2dot_accent, AA_roof_accent, a_roof_accent, CC_bottom_accent,
