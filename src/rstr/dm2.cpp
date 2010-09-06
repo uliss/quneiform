@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- Разрешается повторное распространение и использование как в виде исходного кода,
- так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+ С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
- * При повторном распространении исходного кода должны оставаться указанное
- выше уведомление об авторском праве, этот список условий и последующий
- отказ от гарантий.
- * При повторном распространении двоичного кода в документации и/или в
- других материалах, поставляемых при распространении, должны сохраняться
- указанная выше информация об авторском праве, этот список условий и
- последующий отказ от гарантий.
- * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
- быть использованы в качестве средства поддержки и/или продвижения
- продуктов, основанных на этом ПО, без предварительного письменного
- разрешения.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+ РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+ РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+ СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+ РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+ РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+ СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
- ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
- ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
- ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
- ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
- МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
- НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
- ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
- НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
- СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
- ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
- НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
- ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+ РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+ Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+ РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+ РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+ РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+ РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+ РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+ РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+ РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+ РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+ Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -97,10 +97,10 @@ static char txg6[] = { "n,a,m,e,l" };
  */
 static uchar sticks_left_to_bad[] = { "  /l1IJ)}]  11" };
 
-//static uchar letters_left_to_bad[] = { " nrvtcC(u<>мњЇ|б‘Ј" }; // 0th pos for sticks
+//static uchar letters_left_to_bad[] = { " nrvtcC(u<>СЊР¬Рї|СЃРЎРі" }; // 0th pos for sticks
 static uchar letters_left_to_bad[] = { " nrvtcC\x28u\x3C\x3E\xEC\x9C\xAF\x7C\xE1\x91\xA3" }; // 0th pos for sticks
 
-//static char ltmp0[] = "kDPbhЏЇ "; /* stick */
+//static char ltmp0[] = "kDPbhРџРї "; /* stick */
 static char ltmp0[] = "kDPbh\x8F\xAF "; /* stick */
 static char ltmp1[] = "m"; /* n */
 static char ltmp2[] = "nm"; /* r */
@@ -110,24 +110,24 @@ static char ltmp5[] = "ao"; /* c */
 static char ltmp6[] = "O6"; /* C */
 static char ltmp7[] = "oO6"; /* ( */
 static char ltmp8[] = "w"; /* u */
-//static char ltmp9[] = "od®"; /* < */
+//static char ltmp9[] = "odРѕ"; /* < */
 static char ltmp9[] = "od\xAE"; /* < */
-//static char ltmp10[] = "xXе"; /* > */
+//static char ltmp10[] = "xXС…"; /* > */
 static char ltmp10[] = "xX\xE5"; /* > */
-//static char ltmp11[] = "л"; /* м */
-static char ltmp11[] = "\xEB"; /* м */
-//static char ltmp12[] = "›"; /* › */
-static char ltmp12[] = "\x9B"; /* › */
-//static char ltmp13[] = "ий"; /* Ї */
-static char ltmp13[] = "\xE8\xE9"; /* Ї */
-//static char ltmp14[] = "­ЌЁ€ЇЏЄЉ¬Њ"; /* | */
+//static char ltmp11[] = "С‹"; /* СЊ */
+static char ltmp11[] = "\xEB"; /* СЊ */
+//static char ltmp12[] = "Р«"; /* Р« */
+static char ltmp12[] = "\x9B"; /* Р« */
+//static char ltmp13[] = "С€С‰"; /* Рї */
+static char ltmp13[] = "\xE8\xE9"; /* Рї */
+//static char ltmp14[] = "РЅРќРёРРїРџРєРљРјРњ"; /* | */
 static char ltmp14[] = "\xAD\x8D\xA8\x88\xAF\x8F\xAA\x8A\xAC\x8C"; /* | */
-//static char ltmp15[] = "®"; /* б */
-static char ltmp15[] = "\xAE"; /* б */
-//static char ltmp16[] = "Ћ"; /* ‘ */
-static char ltmp16[] = "\x8E"; /* ‘ */
-//static char ltmp17[] = "Ї"; /* Ј */
-static char ltmp17[] = "\xAF"; /* Ј */
+//static char ltmp15[] = "Рѕ"; /* СЃ */
+static char ltmp15[] = "\xAE"; /* СЃ */
+//static char ltmp16[] = "Рћ"; /* РЎ */
+static char ltmp16[] = "\x8E"; /* РЎ */
+//static char ltmp17[] = "Рї"; /* Рі */
+static char ltmp17[] = "\xAF"; /* Рі */
 
 static char *results_left_to_bad[] = { ltmp0, ltmp1, ltmp2, ltmp3, ltmp4,
 		ltmp5, ltmp6, ltmp7, ltmp8, ltmp9, ltmp10, ltmp11, ltmp12, ltmp13,
@@ -141,31 +141,31 @@ static char *results_left_to_bad[] = { ltmp0, ltmp1, ltmp2, ltmp3, ltmp4,
 static uchar sticks_right_to_bad[] = { " /l1I]11" }; // 1st pos reserved for liga_i
 static uchar letters_right_to_bad[] = { " nvt\x29u\x3E\x3C\xE1\xE6\x96\xAE\x8E\xAA\xF7" }; // 0th pos for sticks
 
-//static char rtmp0[] = "d­ЁЇЏ";
+//static char rtmp0[] = "dРЅРёРїРџ";
 static char rtmp0[] = "d\xAD\xA8\xAF\x8F";
 static char rtmp1[] = "m"; /* n */
 static char rtmp2[] = "w"; /* v */
 static char rtmp3[] = "u"; /* t */
 static char rtmp4[] = "o"; /* ) */
 static char rtmp5[] = "w"; /* u */
-//static char rtmp6[] = "bop6D®"; /* < */
+//static char rtmp6[] = "bop6DРѕ"; /* < */
 static char rtmp6[] = "bop6D\xAE"; /* < */
-//static char rtmp7[] = "kXxЄ¦"; /* > */
+//static char rtmp7[] = "kXxРєР¶"; /* > */
 static char rtmp7[] = "kXx\xAA\xA6"; /* > */
-//static char rtmp8[] = "Є¦"; /* б */
-static char rtmp8[] = "\xAA\xA6"; /* б */
-//static char rtmp9[] = "й"; /* ж */
-static char rtmp9[] = "\xE9"; /* ж */
-//static char rtmp10[] = "™"; /* – */
-static char rtmp10[] = "\x99"; /* – */
-//static char rtmp11[] = "о"; /* ® */
-static char rtmp11[] = "\xEE"; /* ® */
-//static char rtmp12[] = "ћ"; /* Ћ */
-static char rtmp12[] = "\x9E"; /* Ћ */
-//static char rtmp13[] = "¦"; /* Є */
-static char rtmp13[] = "\xA6"; /* Є */
-//static char rtmp14[] = "и"; /* ч */
-static char rtmp14[] = "\xE8"; /* ч */
+//static char rtmp8[] = "РєР¶"; /* СЃ */
+static char rtmp8[] = "\xAA\xA6"; /* СЃ */
+//static char rtmp9[] = "С‰"; /* С† */
+static char rtmp9[] = "\xE9"; /* С† */
+//static char rtmp10[] = "Р©"; /* Р¦ */
+static char rtmp10[] = "\x99"; /* Р¦ */
+//static char rtmp11[] = "СЋ"; /* Рѕ */
+static char rtmp11[] = "\xEE"; /* Рѕ */
+//static char rtmp12[] = "Р®"; /* Рћ */
+static char rtmp12[] = "\x9E"; /* Рћ */
+//static char rtmp13[] = "Р¶"; /* Рє */
+static char rtmp13[] = "\xA6"; /* Рє */
+//static char rtmp14[] = "С€"; /* Сћ */
+static char rtmp14[] = "\xE8"; /* Сћ */
 
 static char *results_right_to_bad[] = { rtmp0, rtmp1, rtmp2, rtmp3, rtmp4,
 		rtmp5, rtmp6, rtmp7, rtmp8, rtmp9, rtmp10, rtmp11, rtmp12, rtmp13,
@@ -205,7 +205,7 @@ void make_all_glues() {
 	sticks_left_to_bad[0] = liga_i; // 10.09.2000 E.P.
 	sticks_left_to_bad[1] = liga_exm; // 10.09.2000 E.P.
 
-	// Турецкие палки
+	// РўСѓСЂРµС†РєРёРµ РїР°Р»РєРё
 	if (is_turkish_language(language)) {
 		sticks_left_to_bad[12] = II_dot_accent;
 		sticks_left_to_bad[13] = i_sans_accent;
@@ -222,14 +222,14 @@ void make_all_glues() {
 		sticks_right_to_bad[6] = '1';
 		sticks_right_to_bad[7] = '1';
 
-		results_left_to_bad[9][2] = '\xae' /* ® */;
-		results_left_to_bad[15][0] = '\xae' /* ® */;
+		results_left_to_bad[9][2] = '\xae' /* Рѕ */;
+		results_left_to_bad[15][0] = '\xae' /* Рѕ */;
 	}
 
 	if (langUkr) {
 		sticks_left_to_bad[10] = UKR_I;
 		sticks_left_to_bad[11] = UKR_II;
-		*((uchar*) &results_left_to_bad[0][7]) = (uchar) '\x8a' /* Љ */;
+		*((uchar*) &results_left_to_bad[0][7]) = (uchar) '\x8a' /* Рљ */;
 	}
 
 	snap_newpass('b');
@@ -369,8 +369,8 @@ static void glue_let_dust() {
 
 		if (decidust(BC))
 			p1 = discrid(BC, MONdust);
-		//if (p1 > TRSG1 && !(language == LANGUAGE_RUSSIAN && memchr("Јѓч", c1, 3))) { // allow glue with good '\xa8' /* Ё */ '\xa3' /* Ј */ 'u'
-		if (p1 > TRSG1 && !(language == LANGUAGE_RUSSIAN && memchr("\xA3\x83\xF7", c1, 3))) { // allow glue with good '\xa8' /* Ё */ '\xa3' /* Ј */ 'u'
+		//if (p1 > TRSG1 && !(language == LANGUAGE_RUSSIAN && memchr("РіР“Сћ", c1, 3))) { // allow glue with good '\xa8' /* Рё */ '\xa3' /* Рі */ 'u'
+		if (p1 > TRSG1 && !(language == LANGUAGE_RUSSIAN && memchr("\xA3\x83\xF7", c1, 3))) { // allow glue with good '\xa8' /* Рё */ '\xa3' /* Рі */ 'u'
 			BC->flg &= ~c_f_bad;
 			BC->flg |= c_f_let;
 			continue;
@@ -540,7 +540,7 @@ static int lll = 0;
 int16_t glue_to_o(uchar c2, uchar c3, cell *BC, cell *EC) {
 	if (((c2 == '(') || (c2 == '<')) && ((c3 == ')') || (c3 == '>')))
 		return 1;
-	//if (memchr("cCб‘", c2, 4) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
+	//if (memchr("cCСЃРЎ", c2, 4) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
 	if (memchr("cC\xE1\x91", c2, 4) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
 			!is_russian_turkish_conflict(c2) // 21.05.2002 E.P.
 	)
@@ -551,7 +551,7 @@ int16_t glue_to_o(uchar c2, uchar c3, cell *BC, cell *EC) {
 	return 0;
 }
 
-int broken_ii; // broken '\xaf' /* Ї */,'\xad' /* ­ */,'\xa8' /* Ё */
+int broken_ii; // broken '\xaf' /* Рї */,'\xad' /* РЅ */,'\xa8' /* Рё */
 
 static void glue_let_bad() {
 	int16_t i, j, dist, ndist, wdg, bdiff, trsuccess;
@@ -586,7 +586,7 @@ static void glue_let_bad() {
 		if (BC->accent_leader)
 			continue; // Oleg : 06/10/97 17:51 : can't glued fictive images
 		fgd = 0; // no dust inside
-		rus_iee = 0; // flag to promote '\xeb' /* л */
+		rus_iee = 0; // flag to promote '\xeb' /* С‹ */
 		broken_ii = 0; // two sticks flag
 		if (!tsimple(BC))
 			continue; // not simple ( "glued" earlier)
@@ -616,24 +616,24 @@ static void glue_let_bad() {
 				if (((c2 == '>' && c3 == '>') || (c2 == '<' && c3 == '<'))
 						&& BC->vers[0].prob > 200 && EC->vers[0].prob > 200)
 					continue; // stay till punctuation
-				//if (memchr("мњљ", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
+				//if (memchr("СЊР¬РЄ", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
 				if (memchr("\xEC\x9C\x9A", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
 						!is_russian_turkish_conflict(c2) && // 21.05.2002 E.P.
-						//(memchr("/1!()ш", c3, 6) || c3 == liga_exm) && // 10.09.2000 E.P.
+						//(memchr("/1!()В°", c3, 6) || c3 == liga_exm) && // 10.09.2000 E.P.
 						(memchr("/1!()\xF8", c3, 6) || c3 == liga_exm) && // 10.09.2000 E.P.
 						flb == 2 && abs(BC->h - EC->h) < 4 && abs(BC->row
-						- EC->row) < 4) /*to paste л */
+						- EC->row) < 4) /*to paste С‹ */
 				{
 					rus_iee = is_lower(c2) ? 1 : 2;
 					goto asif2bad;
 				}
 
-				//if (memchr("мњљ", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
+				//if (memchr("СЊР¬РЄ", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
 				if (memchr("\xEC\x9C\x9A", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
 						!is_russian_turkish_conflict(c2) && // 21.05.2002 E.P.
 						c3 == '|' && BC->vers[0].prob < 150)
 					goto asif2bad;
-				/* bad '\xec' м  try to paste л */
+				/* bad '\xec' СЊ  try to paste С‹ */
 			}
 			if (memchr("lI1/J)!", c2, 7) || // stick character ?
 					c2 == liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
@@ -651,13 +651,13 @@ static void glue_let_bad() {
 					== liga_exm)
 				if (EC->cg_flag & c_cg_cutl) // cut at left  side
 					if ((c2 == 'c') || (c2 == '(') || (c2 == '<') || (c2
-							== (uchar) '\x83' /* ѓ */)) {
+							== (uchar) '\x83' /* Р“ */)) {
 						glsnap('b', BC, "<+I-->d");
 						goto asif2bad;
 					}
 		}
 		if (flb == 2)
-			continue; // 3nd pass - glue '\xeb' /* л */
+			continue; // 3nd pass - glue '\xeb' /* С‹ */
 		if (flb)
 			goto backg; // 2nd pass - good to bad
 		if (!(BC->flg & c_f_bad) || (!(EC->flg & c_f_bad)))
@@ -770,13 +770,13 @@ static void glue_let_bad() {
 			ndist = 6;
 		}
 		/* Valdemar 12.11.93
-		 There is none-serific л that lay so far */
+		 There is none-serific С‹ that lay so far */
 		if (language == LANGUAGE_RUSSIAN) {
 			if (BC->stick_inc == NO_INCLINE) // inc don't counted
 				stick_center_study(BC, NULL, 1);
 			if (EC->stick_inc == NO_INCLINE)
 				stick_center_study(EC, NULL, 1);
-			//if (memchr("мњљ", BC->vers[0].let, 3)
+			//if (memchr("СЊР¬РЄ", BC->vers[0].let, 3)
 			if (memchr("\xEC\x9C\x9A", BC->vers[0].let, 3)
 					&& !is_russian_baltic_conflict(BC->vers[0].let) && // 17.07.2001 E.P.
 					!is_russian_turkish_conflict(BC->vers[0].let) // 21.05.2002 E.P.
@@ -903,17 +903,17 @@ static void glue_let_bad() {
 						0, 0);
 		}
 		fingb:
-		/* cursiv '\xeb'  л  confuse with '\xac'  ¬  let's promote him */
+		/* cursiv '\xeb'  С‹  confuse with '\xac'  Рј  let's promote him */
 		if (language == LANGUAGE_RUSSIAN && rus_iee)
 			if (rus_iee == 1)
-				promote(1, BC, '\xeb' /* л */, 60);
+				promote(1, BC, '\xeb' /* С‹ */, 60);
 			else if (rus_iee == 2)
-				promote(1, BC, '\x9b' /* › */, 60);
+				promote(1, BC, '\x9b' /* Р« */, 60);
 
 		if (gtofl) {
 			uchar vers_c;
 			vers_c = BC->vers[0].let;
-			//if (!(memchr("oO0®Ћ", vers_c, 5) && !is_russian_turkish_conflict(
+			//if (!(memchr("oO0РѕРћ", vers_c, 5) && !is_russian_turkish_conflict(
 			if (!(memchr("oO0\xAE\x8E", vers_c, 5) && !is_russian_turkish_conflict(
 					BC->vers[0].let) // 21.05.2002 E.P.
 			)) {
@@ -937,7 +937,7 @@ static void glue_let_bad() {
 		if (strchr(ltoi, cw) && !is_russian_baltic_conflict(cw) && // 17.07.2001 E.P.
 				!is_russian_turkish_conflict(cw) && // 21.05.2002 E.P.
 				(
-				// Сомнительные приклейки i_sans_accent 27.06.2002 E.P.
+				// РЎРѕРјРЅРёС‚РµР»СЊРЅС‹Рµ РїСЂРёРєР»РµР№РєРё i_sans_accent 27.06.2002 E.P.
 				!is_bad_turkish_glue(c2, c3, cw) || (i > 220 && (i + i) > (p1
 						+ p2))))
 			goto accel;
@@ -948,7 +948,7 @@ static void glue_let_bad() {
 				goto accel;
 		}
 		if (language == LANGUAGE_RUSSIAN && BC->vers[0].prob > 230 && c2
-				== (uchar) '\xaf' /* Ї */ && c3 == (uchar) '\xf8' /* ш */ && cw == (uchar) '\xf5' /* х */)
+				== (uchar) '\xaf' /* Рї */ && c3 == (uchar) '\xf8' /* В° */ && cw == (uchar) '\xf5' /* С— */)
 			goto accel; // Oleg : 30-03-1995 : near cursive rus n+cursive rus ge
 		if (((BC->recsource & c_rs_ev) == 0) || (i < 220)
 				|| (MAX(p1, p2) > 170) || ((i + i) <= (p1 + p2)))
@@ -1003,7 +1003,7 @@ static void glue_let_bad() {
 		}
 		continue;
 	}
-	// russian have a special pass to paste '\xeb' /* л */
+	// russian have a special pass to paste '\xeb' /* С‹ */
 	if ((flb && language != LANGUAGE_RUSSIAN) || (flb == 2 && language
 			== LANGUAGE_RUSSIAN))
 		return;
@@ -1296,9 +1296,9 @@ static void glue_all_dusts()
 Bool config_III(cell *BC, cell *EC, cell *ECN) {
 	return ((EC->flg & c_f_bad) && (ECN->flg & c_f_let) && BC->broken_II
 			&& (BC->flg & c_f_let) && BC->nvers > 0 && (BC->vers[0].let
-			== (uchar) '\xaf' /* Ї */ || BC->vers[1].let == (uchar) '\xaf' /* Ї */
+			== (uchar) '\xaf' /* Рї */ || BC->vers[1].let == (uchar) '\xaf' /* Рї */
 			&& BC->vers[1].prob == BC->vers[0].prob || BC->vers[2].let
-			== (uchar) '\xaf' /* Ї */ && BC->vers[2].prob == BC->vers[0].prob));
+			== (uchar) '\xaf' /* Рї */ && BC->vers[2].prob == BC->vers[0].prob));
 
 }
 
@@ -1312,21 +1312,21 @@ Bool config_CapRusGe_and_bad(cell *BC, cell *EC) {
 		return FALSE;
 
 	return (!(BP->flg & c_f_fict) && !(BC->flg & c_f_fict) && !(EC->flg
-			//& c_f_fict) && (BP->nvers > 0 && memchr("л®г ҐЁн", BP->vers[0].let,
+			//& c_f_fict) && (BP->nvers > 0 && memchr("С‹РѕСѓР°РµРёСЌ", BP->vers[0].let,
 			& c_f_fict) && (BP->nvers > 0 && memchr("\xEB\xAE\xE3\xA0\xA5\xA8\xED", BP->vers[0].let,
 			7) && !is_russian_baltic_conflict(BP->vers[0].let) && // 17.07.2001 E.P.
 			!is_russian_turkish_conflict(BP->vers[0].let) // 21.05.2002 E.P.
 			|| BP->nvers > 0 && BP->vers[0].let == '|' && BPP != NULL
-					&& BPP->nvers > 0 && BPP->vers[0].let == (uchar) '\xec' /* м */
+					&& BPP->nvers > 0 && BPP->vers[0].let == (uchar) '\xec' /* СЊ */
 					&& !is_russian_baltic_conflict(BPP->vers[0].let) && // 17.07.2001 E.P.
 					!is_russian_turkish_conflict(BPP->vers[0].let) // 21.05.2002 E.P.
-			) && BC->nvers > 0 && BC->vers[0].let == (uchar) '\x83' /* ѓ */
+			) && BC->nvers > 0 && BC->vers[0].let == (uchar) '\x83' /* Р“ */
 			&& BC->vers[0].prob < 220 && EC->nvers < 1);
 }
 
 Bool config_brace_and_K(cell *BC, cell *EC) {
 	return (BC->nvers > 0 && BC->vers[0].let == (uchar) '>' && EC->nvers > 0
-			&& EC->vers[0].let == (uchar) '\xaa' /* Є */ && EC->col - BC->col - BC->w < 3);
+			&& EC->vers[0].let == (uchar) '\xaa' /* Рє */ && EC->col - BC->col - BC->w < 3);
 }
 s_glue GLG;
 cell *C;
@@ -1348,20 +1348,20 @@ void glue_III() {
 		EC = BC->next;
 		res[0] = '\0';
 		if (config_III(BC, EC, EC->next) || config_III(EC, BC, BC->prev))
-			//strcat((char*) res, "и");
+			//strcat((char*) res, "С€РЁ");
 			strcat((char*) res, "\xE8\x98");
 
 		if (config_CapRusGe_and_bad(BC, EC)) {
 			if (is_turkish_language(language)) // 21.05.2002 E.P.
-				//strcat((char*) res, "‰");
+				//strcat((char*) res, "Р™");
 				strcat((char*) res, "\x89");
 			else
-				//strcat((char*) res, "©‰");
+				//strcat((char*) res, "Р№Р™");
 				strcat((char*) res, "\xA9\x89");
 		}
 
 		if (config_brace_and_K(BC, EC))
-			//strcat((char*) res, "¦†");
+			//strcat((char*) res, "Р¶Р–");
 			strcat((char*) res, "\xA6\x86");
 		if (res[0]) {
 			memset(&GLG, 0, sizeof(GLG));
@@ -1459,11 +1459,11 @@ void glue_III() {
 // 27.06.2002 E.P.
 int16_t is_bad_turkish_glue(uchar c1, uchar c2, uchar c3) {
 	/*
-	 Определение неудачной турецкой склейки. 27.06.2002 E.P.
+	 РћРїСЂРµРґРµР»РµРЅРёРµ РЅРµСѓРґР°С‡РЅРѕР№ С‚СѓСЂРµС†РєРѕР№ СЃРєР»РµР№РєРё. 27.06.2002 E.P.
 
-	 с1 - левая половина
-	 с2 - правая половина
-	 с3 - результат склейки
+	 СЃ1 - Р»РµРІР°СЏ РїРѕР»РѕРІРёРЅР°
+	 СЃ2 - РїСЂР°РІР°СЏ РїРѕР»РѕРІРёРЅР°
+	 СЃ3 - СЂРµР·СѓР»СЊС‚Р°С‚ СЃРєР»РµР№РєРё
 
 	 */
 	if (!is_turkish_language(language))
