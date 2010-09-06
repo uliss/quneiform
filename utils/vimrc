@@ -1,0 +1,12 @@
+map  <F7>      :.!iconv -f cp1251<CR>
+vmap <F7>      !iconv -f cp1251<CR>
+imap <F7>      <C-O><F7>
+
+map <F6>       :.!iconv -f cp866<CR>
+vmap <F6>      !iconv -f cp866<CR>
+imap <F6>      <C-O><F6>
+
+" Convert current line to percent-encoded hex for non ascii
+vmap <F10>      :s@\%V\([^a-zA-Z0-9 -"\\;]\)@\=printf('\\x%02X',char2nr(submatch(1)))@g<CR>
+
+
