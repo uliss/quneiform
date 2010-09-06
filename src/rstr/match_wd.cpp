@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- –‡ÁÂ¯‡ÂÚÒˇ ÔÓ‚ÚÓÌÓÂ ‡ÒÔÓÒÚ‡ÌÂÌËÂ Ë ËÒÔÓÎ¸ÁÓ‚‡ÌËÂ Í‡Í ‚ ‚Ë‰Â ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡,
- Ú‡Í Ë ‚ ‰‚ÓË˜ÌÓÈ ÙÓÏÂ, Ò ËÁÏÂÌÂÌËˇÏË ËÎË ·ÂÁ, ÔË ÒÓ·Î˛‰ÂÌËË ÒÎÂ‰Û˛˘Ëı ÛÒÎÓ‚ËÈ:
+ –†–∞–∑—Ä–µ—à–∞–µ—Ç—Å—è –ø–æ–≤—Ç–æ—Ä–Ω–æ–µ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–µ –∏ –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–∏–µ –∫–∞–∫ –≤ –≤–∏–¥–µ –∏—Å—Ö–æ–¥–Ω–æ–≥–æ –∫–æ–¥–∞,
+ —Ç–∞–∫ –∏ –≤ –¥–≤–æ–∏—á–Ω–æ–π —Ñ–æ—Ä–º–µ, —Å –∏–∑–º–µ–Ω–µ–Ω–∏—è–º–∏ –∏–ª–∏ –±–µ–∑, –ø—Ä–∏ —Å–æ–±–ª—é–¥–µ–Ω–∏–∏ —Å–ª–µ–¥—É—é—â–∏—Ö —É—Å–ª–æ–≤–∏–π:
 
- * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡ ‰ÓÎÊÌ˚ ÓÒÚ‡‚‡Ú¸Òˇ ÛÍ‡Á‡ÌÌÓÂ
- ‚˚¯Â Û‚Â‰ÓÏÎÂÌËÂ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë ÔÓÒÎÂ‰Û˛˘ËÈ
- ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
- * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ‰‚ÓË˜ÌÓ„Ó ÍÓ‰‡ ‚ ‰ÓÍÛÏÂÌÚ‡ˆËË Ë/ËÎË ‚
- ‰Û„Ëı Ï‡ÚÂË‡Î‡ı, ÔÓÒÚ‡‚ÎˇÂÏ˚ı ÔË ‡ÒÔÓÒÚ‡ÌÂÌËË, ‰ÓÎÊÌ˚ ÒÓı‡ÌˇÚ¸Òˇ
- ÛÍ‡Á‡ÌÌ‡ˇ ‚˚¯Â ËÌÙÓÏ‡ˆËˇ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë
- ÔÓÒÎÂ‰Û˛˘ËÈ ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
- * ÕË Ì‡Á‚‡ÌËÂ Cognitive Technologies, ÌË ËÏÂÌ‡ ÂÂ ÒÓÚÛ‰ÌËÍÓ‚ ÌÂ ÏÓ„ÛÚ
- ·˚Ú¸ ËÒÔÓÎ¸ÁÓ‚‡Ì˚ ‚ Í‡˜ÂÒÚ‚Â ÒÂ‰ÒÚ‚‡ ÔÓ‰‰ÂÊÍË Ë/ËÎË ÔÓ‰‚ËÊÂÌËˇ
- ÔÓ‰ÛÍÚÓ‚, ÓÒÌÓ‚‡ÌÌ˚ı Ì‡ ˝ÚÓÏ œŒ, ·ÂÁ ÔÂ‰‚‡ËÚÂÎ¸ÌÓ„Ó ÔËÒ¸ÏÂÌÌÓ„Ó
- ‡ÁÂ¯ÂÌËˇ.
+ * –ü—Ä–∏ –ø–æ–≤—Ç–æ—Ä–Ω–æ–º —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏ –∏—Å—Ö–æ–¥–Ω–æ–≥–æ –∫–æ–¥–∞ –¥–æ–ª–∂–Ω—ã –æ—Å—Ç–∞–≤–∞—Ç—å—Å—è —É–∫–∞–∑–∞–Ω–Ω–æ–µ
+ –≤—ã—à–µ —É–≤–µ–¥–æ–º–ª–µ–Ω–∏–µ –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —ç—Ç–æ—Ç —Å–ø–∏—Å–æ–∫ —É—Å–ª–æ–≤–∏–π –∏ –ø–æ—Å–ª–µ–¥—É—é—â–∏–π
+ –æ—Ç–∫–∞–∑ –æ—Ç –≥–∞—Ä–∞–Ω—Ç–∏–π.
+ * –ü—Ä–∏ –ø–æ–≤—Ç–æ—Ä–Ω–æ–º —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏ –¥–≤–æ–∏—á–Ω–æ–≥–æ –∫–æ–¥–∞ –≤ –¥–æ–∫—É–º–µ–Ω—Ç–∞—Ü–∏–∏ –∏/–∏–ª–∏ –≤
+ –¥—Ä—É–≥–∏—Ö –º–∞—Ç–µ—Ä–∏–∞–ª–∞—Ö, –ø–æ—Å—Ç–∞–≤–ª—è–µ–º—ã—Ö –ø—Ä–∏ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏, –¥–æ–ª–∂–Ω—ã —Å–æ—Ö—Ä–∞–Ω—è—Ç—å—Å—è
+ —É–∫–∞–∑–∞–Ω–Ω–∞—è –≤—ã—à–µ –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏—è –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —ç—Ç–æ—Ç —Å–ø–∏—Å–æ–∫ —É—Å–ª–æ–≤–∏–π –∏
+ –ø–æ—Å–ª–µ–¥—É—é—â–∏–π –æ—Ç–∫–∞–∑ –æ—Ç –≥–∞—Ä–∞–Ω—Ç–∏–π.
+ * –ù–∏ –Ω–∞–∑–≤–∞–Ω–∏–µ Cognitive Technologies, –Ω–∏ –∏–º–µ–Ω–∞ –µ–µ —Å–æ—Ç—Ä—É–¥–Ω–∏–∫–æ–≤ –Ω–µ –º–æ–≥—É—Ç
+ –±—ã—Ç—å –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω—ã –≤ –∫–∞—á–µ—Å—Ç–≤–µ —Å—Ä–µ–¥—Å—Ç–≤–∞ –ø–æ–¥–¥–µ—Ä–∂–∫–∏ –∏/–∏–ª–∏ –ø—Ä–æ–¥–≤–∏–∂–µ–Ω–∏—è
+ –ø—Ä–æ–¥—É–∫—Ç–æ–≤, –æ—Å–Ω–æ–≤–∞–Ω–Ω—ã—Ö –Ω–∞ —ç—Ç–æ–º –ü–û, –±–µ–∑ –ø—Ä–µ–¥–≤–∞—Ä–∏—Ç–µ–ª—å–Ω–æ–≥–æ –ø–∏—Å—å–º–µ–Ω–Ω–æ–≥–æ
+ —Ä–∞–∑—Ä–µ—à–µ–Ω–∏—è.
 
- ›“¿ œ–Œ√–¿ÃÃ¿ œ–≈ƒŒ—“¿¬À≈Õ¿ ¬À¿ƒ≈À‹÷¿Ã» ¿¬“Œ–— »’ œ–¿¬ »/»À» ƒ–”√»Ã» À»÷¿Ã» " ¿ 
- ŒÕ¿ ≈—“‹" ¡≈«  ¿ Œ√Œ-À»¡Œ ¬»ƒ¿ √¿–¿Õ“»…, ¬€–¿∆≈ÕÕ€’ ﬂ¬ÕŒ »À» œŒƒ–¿«”Ã≈¬¿≈Ã€’,
- ¬ Àﬁ◊¿ﬂ √¿–¿Õ“»»  ŒÃÃ≈–◊≈— Œ… ÷≈ÕÕŒ—“» » œ–»√ŒƒÕŒ—“» ƒÀﬂ  ŒÕ –≈“ÕŒ… ÷≈À», ÕŒ Õ≈
- Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã». Õ» ¬À¿ƒ≈À≈÷ ¿¬“Œ–— »’ œ–¿¬ » Õ» ŒƒÕŒ ƒ–”√Œ≈ À»÷Œ,  Œ“Œ–Œ≈
- ÃŒ∆≈“ »«Ã≈Õﬂ“‹ »/»À» œŒ¬“Œ–ÕŒ –¿—œ–Œ—“–¿Õﬂ“‹ œ–Œ√–¿ÃÃ”, Õ» ¬  Œ≈Ã —À”◊¿≈ Õ≈
- Õ≈—®“ Œ“¬≈“—“¬≈ÕÕŒ—“», ¬ Àﬁ◊¿ﬂ Àﬁ¡€≈ Œ¡Ÿ»≈, —À”◊¿…Õ€≈, —œ≈÷»¿À‹Õ€≈ »À»
- œŒ—À≈ƒŒ¬¿¬ÿ»≈ ”¡€“ », —¬ﬂ«¿ÕÕ€≈ — »—œŒÀ‹«Œ¬¿Õ»≈Ã »À» œŒÕ≈—≈ÕÕ€≈ ¬—À≈ƒ—“¬»≈
- Õ≈¬Œ«ÃŒ∆ÕŒ—“» »—œŒÀ‹«Œ¬¿Õ»ﬂ œ–Œ√–¿ÃÃ€ (¬ Àﬁ◊¿ﬂ œŒ“≈–» ƒ¿ÕÕ€’, »À» ƒ¿ÕÕ€≈,
- —“¿¬ÿ»≈ Õ≈√ŒƒÕ€Ã», »À» ”¡€“ » »/»À» œŒ“≈–» ƒŒ’ŒƒŒ¬, œŒÕ≈—≈ÕÕ€≈ »«-«¿ ƒ≈…—“¬»…
- “–≈“‹»’ À»÷ »/»À» Œ“ ¿«¿ œ–Œ√–¿ÃÃ€ –¿¡Œ“¿“‹ —Œ¬Ã≈—“ÕŒ — ƒ–”√»Ã» œ–Œ√–¿ÃÃ¿Ã»,
- ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ ›“»Ã» —À”◊¿ﬂÃ»), ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã», ƒ¿∆≈ ≈—À» “¿ Œ…
- ¬À¿ƒ≈À≈÷ »À» ƒ–”√Œ≈ À»÷Œ ¡€À» »«¬≈Ÿ≈Õ€ Œ ¬Œ«ÃŒ∆ÕŒ—“» “¿ »’ ”¡€“ Œ¬ » œŒ“≈–‹.
+ –≠–¢–ê –ü–†–û–ì–†–ê–ú–ú–ê –ü–†–ï–î–û–°–¢–ê–í–õ–ï–ù–ê –í–õ–ê–î–ï–õ–¨–¶–ê–ú–ò –ê–í–¢–û–†–°–ö–ò–• –ü–†–ê–í –ò/–ò–õ–ò –î–†–£–ì–ò–ú–ò –õ–ò–¶–ê–ú–ò "–ö–ê–ö
+ –û–ù–ê –ï–°–¢–¨" –ë–ï–ó –ö–ê–ö–û–ì–û-–õ–ò–ë–û –í–ò–î–ê –ì–ê–†–ê–ù–¢–ò–ô, –í–´–†–ê–ñ–ï–ù–ù–´–• –Ø–í–ù–û –ò–õ–ò –ü–û–î–†–ê–ó–£–ú–ï–í–ê–ï–ú–´–•,
+ –í–ö–õ–Æ–ß–ê–Ø –ì–ê–†–ê–ù–¢–ò–ò –ö–û–ú–ú–ï–†–ß–ï–°–ö–û–ô –¶–ï–ù–ù–û–°–¢–ò –ò –ü–†–ò–ì–û–î–ù–û–°–¢–ò –î–õ–Ø –ö–û–ù–ö–†–ï–¢–ù–û–ô –¶–ï–õ–ò, –ù–û –ù–ï
+ –û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –ò–ú–ò. –ù–ò –í–õ–ê–î–ï–õ–ï–¶ –ê–í–¢–û–†–°–ö–ò–• –ü–†–ê–í –ò –ù–ò –û–î–ù–û –î–†–£–ì–û–ï –õ–ò–¶–û, –ö–û–¢–û–†–û–ï
+ –ú–û–ñ–ï–¢ –ò–ó–ú–ï–ù–Ø–¢–¨ –ò/–ò–õ–ò –ü–û–í–¢–û–†–ù–û –†–ê–°–ü–†–û–°–¢–†–ê–ù–Ø–¢–¨ –ü–†–û–ì–†–ê–ú–ú–£, –ù–ò –í –ö–û–ï–ú –°–õ–£–ß–ê–ï –ù–ï
+ –ù–ï–°–Å–¢ –û–¢–í–ï–¢–°–¢–í–ï–ù–ù–û–°–¢–ò, –í–ö–õ–Æ–ß–ê–Ø –õ–Æ–ë–´–ï –û–ë–©–ò–ï, –°–õ–£–ß–ê–ô–ù–´–ï, –°–ü–ï–¶–ò–ê–õ–¨–ù–´–ï –ò–õ–ò
+ –ü–û–°–õ–ï–î–û–í–ê–í–®–ò–ï –£–ë–´–¢–ö–ò, –°–í–Ø–ó–ê–ù–ù–´–ï –° –ò–°–ü–û–õ–¨–ó–û–í–ê–ù–ò–ï–ú –ò–õ–ò –ü–û–ù–ï–°–ï–ù–ù–´–ï –í–°–õ–ï–î–°–¢–í–ò–ï
+ –ù–ï–í–û–ó–ú–û–ñ–ù–û–°–¢–ò –ò–°–ü–û–õ–¨–ó–û–í–ê–ù–ò–Ø –ü–†–û–ì–†–ê–ú–ú–´ (–í–ö–õ–Æ–ß–ê–Ø –ü–û–¢–ï–†–ò –î–ê–ù–ù–´–•, –ò–õ–ò –î–ê–ù–ù–´–ï,
+ –°–¢–ê–í–®–ò–ï –ù–ï–ì–û–î–ù–´–ú–ò, –ò–õ–ò –£–ë–´–¢–ö–ò –ò/–ò–õ–ò –ü–û–¢–ï–†–ò –î–û–•–û–î–û–í, –ü–û–ù–ï–°–ï–ù–ù–´–ï –ò–ó-–ó–ê –î–ï–ô–°–¢–í–ò–ô
+ –¢–†–ï–¢–¨–ò–• –õ–ò–¶ –ò/–ò–õ–ò –û–¢–ö–ê–ó–ê –ü–†–û–ì–†–ê–ú–ú–´ –†–ê–ë–û–¢–ê–¢–¨ –°–û–í–ú–ï–°–¢–ù–û –° –î–†–£–ì–ò–ú–ò –ü–†–û–ì–†–ê–ú–ú–ê–ú–ò,
+ –ù–û –ù–ï –û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –≠–¢–ò–ú–ò –°–õ–£–ß–ê–Ø–ú–ò), –ù–û –ù–ï –û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –ò–ú–ò, –î–ê–ñ–ï –ï–°–õ–ò –¢–ê–ö–û–ô
+ –í–õ–ê–î–ï–õ–ï–¶ –ò–õ–ò –î–†–£–ì–û–ï –õ–ò–¶–û –ë–´–õ–ò –ò–ó–í–ï–©–ï–ù–´ –û –í–û–ó–ú–û–ñ–ù–û–°–¢–ò –¢–ê–ö–ò–• –£–ë–´–¢–ö–û–í –ò –ü–û–¢–ï–†–¨.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -108,13 +108,13 @@ typedef struct tagGraphNode {
 	// SVERS  vers;  //versions for segment from prev to current
 } GraphNode;
 
-typedef struct tagStrRaster //‡†·‚‡ ·‚‡Æ™®
+typedef struct tagStrRaster //—Ä–∞—Å—Ç—Ä —Å—Ç—Ä–æ–∫–∏
 {
-	int32_t w; //Ë®‡®≠†
-	int32_t h; //¢Î·Æ‚†
-	int32_t top; //·‚‡Æ™† ´•¢Æ£Æ ¢•‡Â≠•£Æ „£´†
-	int32_t left; //·‚Æ´°•Ê  -""-
-	uchar pict[LINE_WIDTH * LINE_HEIGHT / 8]; //‡†·‚‡
+	int32_t w; //—à–∏—Ä–∏–Ω–∞
+	int32_t h; //–≤—ã—Å–æ—Ç–∞
+	int32_t top; //—Å—Ç—Ä–æ–∫–∞ –ª–µ–≤–æ–≥–æ –≤–µ—Ä—Ö–Ω–µ–≥–æ —É–≥–ª–∞
+	int32_t left; //—Å—Ç–æ–ª–±–µ—Ü  -""-
+	uchar pict[LINE_WIDTH * LINE_HEIGHT / 8]; //—Ä–∞—Å—Ç—Ä
 } StrRaster;
 
 typedef struct tagCutAdd {
@@ -123,7 +123,7 @@ typedef struct tagCutAdd {
 	int16_t right;
 	int16_t bottom;
 	int32_t nbig;
-	SVERS vers; //•£Æ ¢•‡·®®
+	SVERS vers; //–µ–≥–æ –≤–µ—Ä—Å–∏–∏
 } CutAdd;
 
 static void set_param(MatchWordPar *param);
@@ -168,9 +168,9 @@ static GraphNode layer1[MAX_CUT_POINT], layer2[MAX_CUT_POINT], *cur_layer =
 static int32_t ncut;
 static uchar *templ, alpha[256] = { 0 };
 static int16_t com_inc;
-struct dp_vers_struct vers_pool; //™„Á† ¢•‡·®© dp
+struct dp_vers_struct vers_pool; //–∫—É—á–∞ –≤–µ—Ä—Å–∏–π dp
 #define vers_list (vers_pool.node)
-static int32_t min_cut_width = 0; //Ø‡® Ë®‡®≠• > min_cut_width ¨Æ¶≠Æ ‡•ß†‚Ï
+static int32_t min_cut_width = 0; //–ø—Ä–∏ —à–∏—Ä–∏–Ω–µ > min_cut_width –º–æ–∂–Ω–æ —Ä–µ–∑–∞—Ç—å
 static int32_t wmin;
 static MatchWordPar *param;
 
@@ -183,15 +183,15 @@ static struct {
 	uchar e2[3];
 	uchar E2[3];
 	uchar ii[3];
-} eq_list = { { (uchar) '\xa4' /* § */, r_cu_d, r_cu_g, 0 }, //   r_cu_d  0xf0     cursiv d tail up
+} eq_list = { { (uchar) '\xa4' /* –¥ */, r_cu_d, r_cu_g, 0 }, //   r_cu_d  0xf0     cursiv d tail up
 		//   r_cu_g  0xf1     cursiv d tail down
-		{ (uchar) '\xe2' /* ‚ */, r_cu_m, 0 }, //   r_cu_m  0xf5     cursiv t
-		{ (uchar) '\xa8' /* ® */, (uchar) '\xa9' /* © */, r_cu_u, 0 }, //   r_cu_u  0xf7     cursiv ee
-		{ (uchar) '\xa3' /* £ */, r_cu_z, 0 }, //   r_cu_z  0xf8     cursiv g
-		{ (uchar) '\xa0' /* † */, r_cu_a, 0 }, //   r_cu_a  0xfd     a
-		{ (uchar) '\xf1' /* Ò */, r_e_2dot, 0 }, //   r_e_2dot   0xC0  russian e ..  = 192
-		{ (uchar) '\xf0' /*  */, r_EE_2dot, 0 }, //   r_EE_2dot  0xC8  russian E ..  = 200
-		{ (uchar) '\x88' /* à */, (uchar) '\x89' /* â */, 0 } };
+		{ (uchar) '\xe2' /* —Ç */, r_cu_m, 0 }, //   r_cu_m  0xf5     cursiv t
+		{ (uchar) '\xa8' /* –∏ */, (uchar) '\xa9' /* –π */, r_cu_u, 0 }, //   r_cu_u  0xf7     cursiv ee
+		{ (uchar) '\xa3' /* –≥ */, r_cu_z, 0 }, //   r_cu_z  0xf8     cursiv g
+		{ (uchar) '\xa0' /* –∞ */, r_cu_a, 0 }, //   r_cu_a  0xfd     a
+		{ (uchar) '\xf1' /* —ë */, r_e_2dot, 0 }, //   r_e_2dot   0xC0  russian e ..  = 192
+		{ (uchar) '\xf0' /* –Å */, r_EE_2dot, 0 }, //   r_EE_2dot  0xC8  russian E ..  = 200
+		{ (uchar) '\x88' /* –ò */, (uchar) '\x89' /* –ô */, 0 } };
 
 #define EQU_d   0
 #define EQU_t   EQU_d+sizeof(eq_list.d)
@@ -305,7 +305,7 @@ Weight match_string(CSTR_line ln, uchar *str, MatchWordPar *param) {
 	get_b_lines(NULL, &my_bases);
 	wmin = my_bases.ps / 5;
 
-	//„‚ÆÁ≠Ô•¨ ÆÊ•≠™® ® ‡†··‚†¢´Ô•¨ ‚ÆÁ™® ≠†§ 'i'
+	//—É—Ç–æ—á–Ω—è–µ–º –æ—Ü–µ–Ω–∫–∏ –∏ —Ä–∞—Å—Å—Ç–∞–≤–ª—è–µ–º —Ç–æ—á–∫–∏ –Ω–∞–¥ 'i'
 	adjust_3x5(FALSE);
 
 	wb = cell_f()->next;
@@ -454,14 +454,14 @@ static void inttorast(StrRaster *r, int32_t h, int32_t end, int32_t lth) {
 static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) {
 	char x;
 	int16_t i, j, ro, wide = MAXINT;
-	int16_t nc; //™Æ´®Á•·‚¢Æ ·•Á•≠®© cell'†
-	int16_t dust_sect = 0;//‰´†£: ·•Á•≠®• ®ß dust'Æ¢
-	int16_t mincl = MAXINT16, maxcl = rastlc; //¨®≠. ® ¨†Â. ÆÊ•≠™® §´Ô Ø‡†¢Æ£Æ ™‡†Ô dust-·•™Ê®®
-	CutPoint *seci = cut_list + 1; //‚•™„È•• ·•Á•≠®•
+	int16_t nc; //–∫–æ–ª–∏—á–µ—Å—Ç–≤–æ —Å–µ—á–µ–Ω–∏–π cell'–∞
+	int16_t dust_sect = 0;//—Ñ–ª–∞–≥: —Å–µ—á–µ–Ω–∏–µ –∏–∑ dust'–æ–≤
+	int16_t mincl = MAXINT16, maxcl = rastlc; //–º–∏–Ω. –∏ –º–∞—Ö. –æ—Ü–µ–Ω–∫–∏ –¥–ª—è –ø—Ä–∞–≤–æ–≥–æ –∫—Ä–∞—è dust-—Å–µ–∫—Ü–∏–∏
+	CutPoint *seci = cut_list + 1; //—Ç–µ–∫—É—â–µ–µ —Å–µ—á–µ–Ω–∏–µ
 	CutAdd cut_add[MAX_CUT_POINT];
 	CutAdd *seci_add = cut_add + 1;
 	GraphNode *nodei;
-	cell *C, box; //®·ØÆ´Ïß„Ó‚·Ô ‚Æ´Ï™Æ row, col, w, h - ‡†ß¨•‡Î ™Æ‡Æ°™®
+	cell *C, box; //–∏—Å–ø–æ–ª—å–∑—É—é—Ç—Å—è —Ç–æ–ª—å–∫–æ row, col, w, h - —Ä–∞–∑–º–µ—Ä—ã –∫–æ—Ä–æ–±–∫–∏
 	memset(&box, 0, sizeof(cell));
 
 	memset(&vers_pool.node, 0, MAX_SEG_VERS * sizeof(seg_vers *));
@@ -471,19 +471,19 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 	prev_layer = layer2;
 	nodei = prev_layer + 1;
 
-	ncut = 1; //Æ°È•• Á®·´Æ ·•Á•≠®©
+	ncut = 1; //–æ–±—â–µ–µ —á–∏—Å–ª–æ —Å–µ—á–µ–Ω–∏–π
 
-	/* dust-ÒÂÍˆËˇ ÙÓÏËÛÂÚÒˇ, ÂÒÎË:
-	 - ÒÛ˘ÂÒÚ‚ÛÂÚ dust, ÍÓÚÓ˚È ÌÂ ÔÓÍ˚‚‡ÂÚÒˇ ÒÓÒÂ‰ÌËÏË "·ÓÎ¸¯ËÏË" ÍÓÏÔÓÌÂÌÚ‡ÏË
-	 - dust ÔÓ ‡ÒÔÓÎÓÊÂÌË˛ ÔÓıÓ‰ËÚ Ì‡ ÚÓ˜ÍÛ ËÎË Á‡ÔˇÚÛ˛  */
+	/* dust-—Å–µ–∫—Ü–∏—è —Ñ–æ—Ä–º–∏—Ä—É–µ—Ç—Å—è, –µ—Å–ª–∏:
+	 - —Å—É—â–µ—Å—Ç–≤—É–µ—Ç dust, –∫–æ—Ç–æ—Ä—ã–π –Ω–µ –ø–æ–∫—Ä—ã–≤–∞–µ—Ç—Å—è —Å–æ—Å–µ–¥–Ω–∏–º–∏ "–±–æ–ª—å—à–∏–º–∏" –∫–æ–º–ø–æ–Ω–µ–Ω—Ç–∞–º–∏
+	 - dust –ø–æ —Ä–∞—Å–ø–æ–ª–æ–∂–µ–Ω–∏—é –ø–æ—Ö–æ–¥–∏—Ç –Ω–∞ —Ç–æ—á–∫—É –∏–ª–∏ –∑–∞–ø—è—Ç—É—é  */
 
-	//‡ÒÒÚ‡‚ÎˇÂÏ ÒÂ˜ÂÌËˇ
+	//—Ä–∞—Å—Å—Ç–∞–≤–ª—è–µ–º —Å–µ—á–µ–Ω–∏—è
 
-	fict_sect(cut_list, cut_add, prev_layer, 0, 0); //0-• ‰®™‚®¢≠Æ• ·•Á•≠®•
+	fict_sect(cut_list, cut_add, prev_layer, 0, 0); //0-–µ —Ñ–∏–∫—Ç–∏–≤–Ω–æ–µ —Å–µ—á–µ–Ω–∏–µ
 	for (C = wb; C != we; C = C->next) {
 		if (dust(C)) {
 			if (C->r_col >= maxcl) {
-				if (dust_sect) { //ß†™‡Î¢†•¨ ·‚†‡„Ó dust-·•™Ê®Ó
+				if (dust_sect) { //–∑–∞–∫—Ä—ã–≤–∞–µ–º —Å—Ç–∞—Ä—É—é dust-—Å–µ–∫—Ü–∏—é
 					close_ds(seci, seci_add, nodei, (int16_t) (maxcl - rastlc),
 							(int16_t) (ncut - 1));
 					ncut++;
@@ -496,25 +496,25 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 					}
 				} else
 					(seci - 1)->x = maxcl - rastlc;
-				//Æ‚™‡Î¢†•¨ ≠Æ¢„Ó dust-·•™Ê®Ó
+				//–æ—Ç–∫—Ä—ã–≤–∞–µ–º –Ω–æ–≤—É—é dust-—Å–µ–∫—Ü–∏—é
 				dust_sect = 1;
 				mincl = (C->r_col + C->w);
-			} else if (!dust_sect //dust Ø•‡•™‡Î¢†•‚·Ô "°Æ´ÏË®¨" ™Æ¨ØÆ≠•≠‚Æ¨
+			} else if (!dust_sect //dust –ø–µ—Ä–µ–∫—Ä—ã–≤–∞–µ—Ç—Å—è "–±–æ–ª—å—à–∏–º" –∫–æ–º–ø–æ–Ω–µ–Ω—Ç–æ–º
 					&& C->r_col + C->w > maxcl && C->row + C->h < my_bases.b3
 					+ (my_bases.ps >> 1) && (C->row > my_bases.bm
-					|| is_defis(C))) //¨Æ¶•‚ °Î‚Ï ‚ÆÁ™† ®´® ß†ØÔ‚†Ô
-			{ //Æ‚™‡Î¢†•¨ dust-·•™Ê®Ó
+					|| is_defis(C))) //–º–æ–∂–µ—Ç –±—ã—Ç—å —Ç–æ—á–∫–∞ –∏–ª–∏ –∑–∞–ø—è—Ç–∞—è
+			{ //–æ—Ç–∫—Ä—ã–≤–∞–µ–º dust-—Å–µ–∫—Ü–∏—é
 				(seci - 1)->x = ((seci - 1)->x + (C->r_col - rastlc)) >> 1;
 				dust_sect = 1;
 				mincl = maxcl = C->r_col + C->w;
 			}
 			maxcl = MAX(maxcl, C->r_col + C->w);
 			mincl = MIN(mincl, C->r_col + C->w);
-		} else //≠• dust
+		} else //–Ω–µ dust
 		{
 			if (dust_sect) {
 				dust_sect = 0;
-				if (mincl <= C->r_col) //ß†™‡Î¢†•¨  dust-·•™Ê®Ó
+				if (mincl <= C->r_col) //–∑–∞–∫—Ä—ã–≤–∞–µ–º  dust-—Å–µ–∫—Ü–∏—é
 				{
 					if (maxcl > C->r_col)
 						x = mincl - rastlc;
@@ -530,7 +530,7 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 					if (ncut == MAX_CUTS)
 						break;
 				} else if (mincl == maxcl && ((seci - 1)->x + rastlc + mincl)
-						>> 1 < C->r_col) { //ß†™‡Î¢†•¨  dust-·•™Ê®Ó
+						>> 1 < C->r_col) { //–∑–∞–∫—Ä—ã–≤–∞–µ–º  dust-—Å–µ–∫—Ü–∏—é
 					close_ds(seci, seci_add, nodei, (int16_t) (mincl - rastlc),
 							(int16_t) (ncut - 1));
 					ncut++;
@@ -540,16 +540,16 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 					if (ncut == MAX_CUTS)
 						break;
 				}
-				//        else                            //dust-·•™Ê®Ô †≠„´®‡„•‚·Ô
+				//        else                            //dust-—Å–µ–∫—Ü–∏—è –∞–Ω—É–ª–∏—Ä—É–µ—Ç—Å—è
 				//          (seci-1)->x=((seci-1)->x+C->r_col-rastlc)>>1;
 			} else // !dust_sect
-			if (maxcl > C->r_col) //¢≠†Â´•·‚
+			if (maxcl > C->r_col) //–≤–Ω–∞—Ö–ª–µ—Å—Ç
 			{
 				//          x=((seci-1)->x+C->r_col-rastlc)>>1;
 				//          ro=middle(C)-rastlc;
 				//          (seci-1)->x=MIN(x,ro);
-				if (lefter(C,(seci-1)->x+rastlc)) //Ø•‡•™‡Î¢†•‚·Ô Ø‡•§Î§„È®¨
-				{ // "°Æ´ÏË®¨" - Æ°ÂÆ§®¨·Ô ™†™ · dust'Æ¨
+				if (lefter(C,(seci-1)->x+rastlc)) //–ø–µ—Ä–µ–∫—Ä—ã–≤–∞–µ—Ç—Å—è –ø—Ä–µ–¥—ã–¥—É—â–∏–º
+				{ // "–±–æ–ª—å—à–∏–º" - –æ–±—Ö–æ–¥–∏–º—Å—è –∫–∞–∫ —Å dust'–æ–º
 					maxcl = MAX(maxcl, C->r_col + C->w);
 					continue;
 				} else
@@ -559,22 +559,22 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 			maxcl = MAX(maxcl, C->r_col + C->w);
 			nc = 0;
 			if (bad(C) && (C->w > (int16_t) min_cut_width || C->r_col < (seci
-					- 1)->x + rastlc || C->r_col + C->w > C->nextl->r_col) //Ø•‡•™‡Î¢†•‚·Ô · ·Æ·•§Ô¨®
-			) { //‡•¶•¨
+					- 1)->x + rastlc || C->r_col + C->w > C->nextl->r_col) //–ø–µ—Ä–µ–∫—Ä—ã–≤–∞–µ—Ç—Å—è —Å —Å–æ—Å–µ–¥—è–º–∏
+			) { //—Ä–µ–∂–µ–º
 				nc = get_points(C, seci, (int16_t) (MAX_CUT_POINT - ncut - 1));
-				for (j = (int16_t) ncut; j < ncut + nc; j++) //™Æ‡‡•™‚®‡„•¨ ≠† ØÆ´Æ¶•≠®•
-					cor_sect(C, &cut_list[j], rastlc, rastdr); //cell'Æ¢ ¢ ‡†·‚‡•
+				for (j = (int16_t) ncut; j < ncut + nc; j++) //–∫–æ—Ä—Ä–µ–∫—Ç–∏—Ä—É–µ–º –Ω–∞ –ø–æ–ª–æ–∂–µ–Ω–∏–µ
+					cor_sect(C, &cut_list[j], rastlc, rastdr); //cell'–æ–≤ –≤ —Ä–∞—Å—Ç—Ä–µ
 				ncut += nc;
 				seci += nc;
 				seci_add += nc;
 				nodei += nc;
 			}
-			nc = ncut - nc - 1; //·•Á•≠®• ·´•¢† Æ‚ C
+			nc = ncut - nc - 1; //—Å–µ—á–µ–Ω–∏–µ —Å–ª–µ–≤–∞ –æ—Ç C
 			fict_sect(seci, seci_add, nodei, (int16_t) (C->r_col + C->w
 					- rastlc), nc);
 			if (nc == 0) {
-				cut_list->n = C->cg_flag; //Ø‡®ß≠†™ ‡†ß‡•ß†
-				//        cut_list->gvarr = C->cg_flag_fine;     //‚®Ø ‡†ß‡•ß†
+				cut_list->n = C->cg_flag; //–ø—Ä–∏–∑–Ω–∞–∫ —Ä–∞–∑—Ä–µ–∑–∞
+				//        cut_list->gvarr = C->cg_flag_fine;     //—Ç–∏–ø —Ä–∞–∑—Ä–µ–∑–∞
 			}
 			seci_add->top = C->row;
 			seci_add->left = C->col;
@@ -588,7 +588,7 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 				break;
 		}
 	}
-	if (dust_sect) //ØÆ·´•§≠ÔÔ ·•™Ê®Ô -  dust-·•™Ê®Ô
+	if (dust_sect) //–ø–æ—Å–ª–µ–¥–Ω—è—è —Å–µ–∫—Ü–∏—è -  dust-—Å–µ–∫—Ü–∏—è
 	{
 		close_ds(seci, seci_add, nodei, (int16_t) (maxcl - rastlc),
 				(int16_t) (ncut - 1));
@@ -597,10 +597,10 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 		ro = maxcl - rastlc;
 		(seci - 1)->x = ro;
 	}
-	cut_list->x = 0; //¨Æ£´† ®·ØÆ‡‚®‚Ï·Ô Ø‡® Æ‚™‡Î¢†≠®® ®´® †≠≠„´®‡Æ¢†≠®®
-	//Ø•‡¢Æ© dust-·•™Ê®®
+	cut_list->x = 0; //–º–æ–≥–ª–∞ –∏—Å–ø–æ—Ä—Ç–∏—Ç—å—Å—è –ø—Ä–∏ –æ—Ç–∫—Ä—ã–≤–∞–Ω–∏–∏ –∏–ª–∏ –∞–Ω–Ω—É–ª–∏—Ä–æ–≤–∞–Ω–∏–∏
+	//–ø–µ—Ä–≤–æ–π dust-—Å–µ–∫—Ü–∏–∏
 
-	//‡†·Ø‡•§•´Ô•¨ cell'Î  ØÆ ·•Á•≠®Ô¨
+	//—Ä–∞—Å–ø—Ä–µ–¥–µ–ª—è–µ–º cell'—ã  –ø–æ —Å–µ—á–µ–Ω–∏—è–º
 
 	for (C = wb; C != we; C = C->next) {
 		for (i = 1, seci = cut_list + 1, seci_add = cut_add + 1, nodei
@@ -608,16 +608,16 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 			if (seci->dh == 0 && lefter(C,seci->x+rastlc))
 				break;
 		if (i == ncut)
-			continue; //‡†ß‡•ßÆ¢ ≠• Â¢†‚®´Æ
+			continue; //—Ä–∞–∑—Ä–µ–∑–æ–≤ –Ω–µ —Ö–≤–∞—Ç–∏–ª–æ
 
-		seci->n++; //Á®·´Æ ™Æ¨ØÆ≠•≠‚ ¢ ·•£¨•≠‚•
+		seci->n++; //—á–∏—Å–ª–æ –∫–æ–º–ø–æ–Ω–µ–Ω—Ç –≤ —Å–µ–≥–º–µ–Ω—Ç–µ
 		if (let_or_bad(C))
-			if (seci_add->nbig++) // °Æ´ÏË• 1 "°Æ´ÏËÆ£Æ" - †≠≠„´®‡„•¨ ¢•‡·®®
+			if (seci_add->nbig++) // –±–æ–ª—å—à–µ 1 "–±–æ–ª—å—à–æ–≥–æ" - –∞–Ω–Ω—É–ª–∏—Ä—É–µ–º –≤–µ—Ä—Å–∏–∏
 			{
 				seci_add->vers.flg = 0;
 				set_bad_vers(&seci_add->vers);
 			} else if (!just(C))
-				save_alpha_vers(C, &seci_add->vers);//just(C) •È• ≠• ‡†·ØÆß≠†¢†´·Ô
+				save_alpha_vers(C, &seci_add->vers);//just(C) –µ—â–µ –Ω–µ —Ä–∞—Å–ø–æ–∑–Ω–∞–≤–∞–ª—Å—è
 
 		seci_add->top = MIN(seci_add->top, C->row);
 		seci_add->left = MIN(seci_add->left, C->col);
@@ -628,20 +628,20 @@ static Bool calc_cut_points(cell *wb, cell *we, int16_t rastlc, int16_t rastdr) 
 			cut_list->n |= C->cg_flag & c_cg_cutl;
 	}
 
-	//¢ÎÁ®·´Ô•¨ ¨•‡Î
+	//–≤—ã—á–∏—Å–ª—è–µ–º –º–µ—Ä—ã
 
 	for (i = 1; i < ncut; i++) {
 		seci = cut_list + i;
 		seci_add = cut_add + i;
 		nodei = prev_layer + i;
-		if (seci->dh == 0) //£‡†≠®Ê† ®·ÂÆ§≠Æ£Æ cell'†
+		if (seci->dh == 0) //–≥—Ä–∞–Ω–∏—Ü–∞ –∏—Å—Ö–æ–¥–Ω–æ–≥–æ cell'–∞
 		{
 			if (wide == MAXINT && seci->x >= wmin)
 				wide = seci->x;
-			if (seci_add->vers.flg != 0) //‡†·ØÆß≠†¢†´·Ô - ·ÆÂ‡†≠Ô•¨
+			if (seci_add->vers.flg != 0) //—Ä–∞—Å–ø–æ–∑–Ω–∞–≤–∞–ª—Å—è - —Å–æ—Ö—Ä–∞–Ω—è–µ–º
 			{
 				vers_list[0]->px = (int16_t) nodei->prev;
-				vers_list[0]->ro = (seci->n > 1) ? -1 : 0; //Á‚Æ°Î ‡†·ØÆß≠†¢†‚Ï · dust'†¨®
+				vers_list[0]->ro = (seci->n > 1) ? -1 : 0; //—á—Ç–æ–±—ã —Ä–∞—Å–ø–æ–∑–Ω–∞–≤–∞—Ç—å —Å dust'–∞–º–∏
 				memcpy(&vers_list[0]->vers, &seci_add->vers, sizeof(SVERS));
 				vers_list[0]->next = vers_list[i];
 				vers_list[i] = vers_list[0];
@@ -808,7 +808,7 @@ static Bool test_set(int32_t prev, int32_t h0, uchar nlet, int32_t tol,
 		cut->flg = FALSE;
 
 	for (set = 1; set <= 4; set++) {
-		//Ø•‡¢Î© ‡†ß‡•ß ≠† ‡†··‚ÆÔ≠®® Æ™Æ´Æ w0 §†´•• ·¨•È†•¨·Ô ¢ Æ°• ·‚Æ‡Æ≠Î
+		//–ø–µ—Ä–≤—ã–π —Ä–∞–∑—Ä–µ–∑ –Ω–∞ —Ä–∞—Å—Å—Ç–æ—è–Ω–∏–∏ –æ–∫–æ–ª–æ w0 –¥–∞–ª–µ–µ —Å–º–µ—â–∞–µ–º—Å—è –≤ –æ–±–µ —Å—Ç–æ—Ä–æ–Ω—ã
 		int32_t i = prev + 1;
 		cut = cut_list + i;
 		il = ir = -128;
@@ -839,7 +839,7 @@ static Bool test_set(int32_t prev, int32_t h0, uchar nlet, int32_t tol,
 			else {
 				cut_list[il].flg = TRUE;
 				cc = add_sect(prev, il, nlet, rerecog, &p);
-				if (cc & 4) //„ß™®©
+				if (cc & 4) //—É–∑–∫–∏–π
 					il = -128;
 				else {
 					if (cc == 0) {
@@ -861,7 +861,7 @@ static Bool test_set(int32_t prev, int32_t h0, uchar nlet, int32_t tol,
 			else {
 				cut_list[ir].flg = TRUE;
 				cc = add_sect(prev, ir, nlet, rerecog, &p);
-				if (cc & 8) //Ë®‡Æ™®©
+				if (cc & 8) //—à–∏—Ä–æ–∫–∏–π
 					ir = -128;
 				else {
 					if (cc == 0) {
@@ -919,7 +919,7 @@ static int32_t add_sect(int32_t il, int32_t ir, uchar nlet, Bool rerecog,
 		uchar *p) {
 	uchar let = templ[nlet];
 	CIF::version * v;
-	void *kit; //„™†ß†‚•´Ï ·‚•™† kit
+	void *kit; //—É–∫–∞–∑–∞—Ç–µ–ª—å —Å—Ç–µ–∫–∞ kit
 	cell *cells[MAX_CUTS];
 	cell **cp, *lc;
 	CutPoint *cutl = cut_list + il, *cutr = cut_list + ir;
@@ -929,11 +929,11 @@ static int32_t add_sect(int32_t il, int32_t ir, uchar nlet, Bool rerecog,
 	uchar cut_fl = ((cutl->dh != 0) ? c_cg_cutl : 0)
 			+ ((cutr->dh != 0) ? c_cg_cutr : 0);
 	uchar left_let = 0;
-	SVERS vers; //¢•‡·®® ·•£¨•≠‚† (i1,i0)
-	int16_t width; //•£Æ Ë®‡®≠†
-	char gvar; //·ØÆ·Æ° ·°Æ‡™®
+	SVERS vers; //–≤–µ—Ä—Å–∏–∏ —Å–µ–≥–º–µ–Ω—Ç–∞ (i1,i0)
+	int16_t width; //–µ–≥–æ —à–∏—Ä–∏–Ω–∞
+	char gvar; //—Å–ø–æ—Å–æ–± —Å–±–æ—Ä–∫–∏
 #define ROI_LEN 4
-	int16_t ro, roi[ROI_LEN]; //ro ® •£Æ ·Æ·‚†¢´ÔÓÈ®•
+	int16_t ro, roi[ROI_LEN]; //ro –∏ –µ–≥–æ —Å–æ—Å—Ç–∞–≤–ª—è—é—â–∏–µ
 	Weight wp = prev_layer[il].weight, wc = cur_layer[ir].weight, wt;
 	Bool change = TRUE;
 	seg_vers *cur_vers;
@@ -944,19 +944,19 @@ static int32_t add_sect(int32_t il, int32_t ir, uchar nlet, Bool rerecog,
 	if (wp.meas < 0)
 		return 16; //no path
 
-	//®È•¨ ·‡•§® ‡†≠•• ‡†·ØÆß≠†≠≠ÎÂ
+	//–∏—â–µ–º —Å—Ä–µ–¥–∏ —Ä–∞–Ω–µ–µ —Ä–∞—Å–ø–æ–∑–Ω–∞–Ω–Ω—ã—Ö
 
 	if (!rerecog)
 		if (cur_vers = find_vers((int16_t) il, (int16_t) ir, vers_list)) {
 			if (v = find_in_vers(&cur_vers->vers, let)) {
-				if (cur_vers->ro < 0) //≠†§Æ ‡†·ØÆß≠†‚Ï · dust'†¨®
+				if (cur_vers->ro < 0) //–Ω–∞–¥–æ —Ä–∞—Å–ø–æ–∑–Ω–∞—Ç—å —Å dust'–∞–º–∏
 				{
 					cur_vers->ro = -cur_vers->ro;
 					memcpy(&vers, &cur_vers->vers, sizeof(SVERS));
 					set_bad_vers(&vers);
 					vers.nvers = 1;
 					vers.vers[0] = *v;
-				} else //„¶• ‡†·ØÆß≠†¢†´·Ô
+				} else //—É–∂–µ —Ä–∞—Å–ø–æ–∑–Ω–∞–≤–∞–ª—Å—è
 				{
 					*p = v->prob;
 					goto result;
@@ -983,12 +983,12 @@ static int32_t add_sect(int32_t il, int32_t ir, uchar nlet, Bool rerecog,
 		lc = lc->prev;
 	while (!fict(lc) && !let_or_bad(lc));
 
-	//˜ÚÓ·˚ ‡ÒÔÓÁÌ‡Î‡Ò¸ Ô‡ÎÍ‡ ÔËÒ‚‡Ë‚‡ÂÏ ‚ÂÒË˛ '\xfc' /* ¸ */
+	//—á—Ç–æ–±—ã —Ä–∞—Å–ø–æ–∑–Ω–∞–ª–∞—Å—å –ø–∞–ª–∫–∞ –ø—Ä–∏—Å–≤–∞–∏–≤–∞–µ–º –≤–µ—Ä—Å–∏—é '\xfc' /* —å */
 	if (let == '|' && !fict(lc) && !is_baltic_language(param->language) && // 17.07.2001 E.P.
 			!is_turkish_language(param->language) // 21.05.2002 E.P.
 	) {
 		left_let = lc->vers[0].let;
-		lc->vers[0].let = (uchar) '\xec' /* Ï */;
+		lc->vers[0].let = (uchar) '\xec' /* —å */;
 	}
 
 	memset(&vers, 0, sizeof(SVERS));
@@ -1053,7 +1053,7 @@ static int32_t select_cells(int32_t il, int32_t ir, uchar cut_fl, cell **cells) 
 	cell *CI = cell_f();
 	int16_t minrow = my_bases.b2;
 	CutPoint *cuti;
-	uchar csv[32]; //Ø†‡†¨•‚‡Î ·•Á•≠®Ô
+	uchar csv[32]; //–ø–∞—Ä–∞–º–µ—Ç—Ä—ã —Å–µ—á–µ–Ω–∏—è
 	cut_pos cpos = { 0 };
 	struct cut_elm cutl, cutr;
 	int32_t xl = cut_list[il].x, xr = cut_list[ir].x;
@@ -1099,13 +1099,13 @@ static int32_t select_cells(int32_t il, int32_t ir, uchar cut_fl, cell **cells) 
 		CI = create_my_cell(mn, CI, 0, 0);
 		CI->stick_inc = NO_INCLINE;
 		if (!lefter(CI,xla) && lefter(CI,xra)) {
-			//ØÆ¨•Á†•¨ Æ‚‡•ß†≠≠Î•
+			//–ø–æ–º–µ—á–∞–µ–º –æ—Ç—Ä–µ–∑–∞–Ω–Ω—ã–µ
 			if (cut_fl & c_cg_cutl && CI->r_col == xla + 1)
 				CI->cg_flag |= c_cg_cutl;
 			if (cut_fl & c_cg_cutr && CI->r_col + CI->w == xra)
 				CI->cg_flag |= c_cg_cutr;
 
-			if (dust(CI) && cut(CI) && CI->w == 1) //Ä´®™Æ¢Î ‰Æ™„·Î
+			if (dust(CI) && cut(CI) && CI->w == 1) //–ê–ª–∏–∫–æ–≤—ã —Ñ–æ–∫—É—Å—ã
 				CI = del_cell(CI);
 			else {
 				*cells++ = CI;
