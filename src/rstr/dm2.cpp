@@ -97,9 +97,11 @@ static char txg6[] = { "n,a,m,e,l" };
  */
 static uchar sticks_left_to_bad[] = { "  /l1IJ)}]  11" };
 
-static uchar letters_left_to_bad[] = { " nrvtcC(u<>μ―|α‘£" }; // 0th pos for sticks
+//static uchar letters_left_to_bad[] = { " nrvtcC(u<>μ―|α‘£" }; // 0th pos for sticks
+static uchar letters_left_to_bad[] = { " nrvtcC\x28u\x3C\x3E\xEC\x9C\xAF\x7C\xE1\x91\xA3" }; // 0th pos for sticks
 
-static char ltmp0[] = "kDPbh― "; /* stick */
+//static char ltmp0[] = "kDPbh― "; /* stick */
+static char ltmp0[] = "kDPbh\x8F\xAF "; /* stick */
 static char ltmp1[] = "m"; /* n */
 static char ltmp2[] = "nm"; /* r */
 static char ltmp3[] = "w"; /* v */
@@ -108,15 +110,24 @@ static char ltmp5[] = "ao"; /* c */
 static char ltmp6[] = "O6"; /* C */
 static char ltmp7[] = "oO6"; /* ( */
 static char ltmp8[] = "w"; /* u */
-static char ltmp9[] = "od®"; /* < */
-static char ltmp10[] = "xXε"; /* > */
-static char ltmp11[] = "λ"; /* μ */
-static char ltmp12[] = "›"; /* › */
-static char ltmp13[] = "θι"; /* ― */
-static char ltmp14[] = "­¨―ª¬"; /* | */
-static char ltmp15[] = "®"; /* α */
-static char ltmp16[] = ""; /* ‘ */
-static char ltmp17[] = "―"; /* £ */
+//static char ltmp9[] = "od®"; /* < */
+static char ltmp9[] = "od\xAE"; /* < */
+//static char ltmp10[] = "xXε"; /* > */
+static char ltmp10[] = "xX\xE5"; /* > */
+//static char ltmp11[] = "λ"; /* μ */
+static char ltmp11[] = "\xEB"; /* μ */
+//static char ltmp12[] = "›"; /* › */
+static char ltmp12[] = "\x9B"; /* › */
+//static char ltmp13[] = "θι"; /* ― */
+static char ltmp13[] = "\xE8\xE9"; /* ― */
+//static char ltmp14[] = "­¨―ª¬"; /* | */
+static char ltmp14[] = "\xAD\x8D\xA8\x88\xAF\x8F\xAA\x8A\xAC\x8C"; /* | */
+//static char ltmp15[] = "®"; /* α */
+static char ltmp15[] = "\xAE"; /* α */
+//static char ltmp16[] = ""; /* ‘ */
+static char ltmp16[] = "\x8E"; /* ‘ */
+//static char ltmp17[] = "―"; /* £ */
+static char ltmp17[] = "\xAF"; /* £ */
 
 static char *results_left_to_bad[] = { ltmp0, ltmp1, ltmp2, ltmp3, ltmp4,
 		ltmp5, ltmp6, ltmp7, ltmp8, ltmp9, ltmp10, ltmp11, ltmp12, ltmp13,
@@ -126,24 +137,35 @@ static char *results_left_to_bad[] = { ltmp0, ltmp1, ltmp2, ltmp3, ltmp4,
  0 pos reserved for liga_i
  6-7 pos for turkish II_dot_accent, i_sans_accent 21.05.2002 E.P.
  */
+//static uchar sticks_right_to_bad[] = { " /l1I]11" }; // 1st pos reserved for liga_i
 static uchar sticks_right_to_bad[] = { " /l1I]11" }; // 1st pos reserved for liga_i
-static uchar letters_right_to_bad[] = { " nvt)u><αζ–®ªχ" }; // 0th pos for sticks
+static uchar letters_right_to_bad[] = { " nvt\x29u\x3E\x3C\xE1\xE6\x96\xAE\x8E\xAA\xF7" }; // 0th pos for sticks
 
-static char rtmp0[] = "d­¨―";
+//static char rtmp0[] = "d­¨―";
+static char rtmp0[] = "d\xAD\xA8\xAF\x8F";
 static char rtmp1[] = "m"; /* n */
 static char rtmp2[] = "w"; /* v */
 static char rtmp3[] = "u"; /* t */
 static char rtmp4[] = "o"; /* ) */
 static char rtmp5[] = "w"; /* u */
-static char rtmp6[] = "bop6D®"; /* < */
-static char rtmp7[] = "kXxª¦"; /* > */
-static char rtmp8[] = "ª¦"; /* α */
-static char rtmp9[] = "ι"; /* ζ */
-static char rtmp10[] = "™"; /* – */
-static char rtmp11[] = "ξ"; /* ® */
-static char rtmp12[] = ""; /*  */
-static char rtmp13[] = "¦"; /* ª */
-static char rtmp14[] = "θ"; /* χ */
+//static char rtmp6[] = "bop6D®"; /* < */
+static char rtmp6[] = "bop6D\xAE"; /* < */
+//static char rtmp7[] = "kXxª¦"; /* > */
+static char rtmp7[] = "kXx\xAA\xA6"; /* > */
+//static char rtmp8[] = "ª¦"; /* α */
+static char rtmp8[] = "\xAA\xA6"; /* α */
+//static char rtmp9[] = "ι"; /* ζ */
+static char rtmp9[] = "\xE9"; /* ζ */
+//static char rtmp10[] = "™"; /* – */
+static char rtmp10[] = "\x99"; /* – */
+//static char rtmp11[] = "ξ"; /* ® */
+static char rtmp11[] = "\xEE"; /* ® */
+//static char rtmp12[] = ""; /*  */
+static char rtmp12[] = "\x9E"; /*  */
+//static char rtmp13[] = "¦"; /* ª */
+static char rtmp13[] = "\xA6"; /* ª */
+//static char rtmp14[] = "θ"; /* χ */
+static char rtmp14[] = "\xE8"; /* χ */
 
 static char *results_right_to_bad[] = { rtmp0, rtmp1, rtmp2, rtmp3, rtmp4,
 		rtmp5, rtmp6, rtmp7, rtmp8, rtmp9, rtmp10, rtmp11, rtmp12, rtmp13,
@@ -347,7 +369,8 @@ static void glue_let_dust() {
 
 		if (decidust(BC))
 			p1 = discrid(BC, MONdust);
-		if (p1 > TRSG1 && !(language == LANGUAGE_RUSSIAN && memchr("£ƒχ", c1, 3))) { // allow glue with good '\xa8' /* ¨ */ '\xa3' /* £ */ 'u'
+		//if (p1 > TRSG1 && !(language == LANGUAGE_RUSSIAN && memchr("£ƒχ", c1, 3))) { // allow glue with good '\xa8' /* ¨ */ '\xa3' /* £ */ 'u'
+		if (p1 > TRSG1 && !(language == LANGUAGE_RUSSIAN && memchr("\xA3\x83\xF7", c1, 3))) { // allow glue with good '\xa8' /* ¨ */ '\xa3' /* £ */ 'u'
 			BC->flg &= ~c_f_bad;
 			BC->flg |= c_f_let;
 			continue;
@@ -517,7 +540,8 @@ static int lll = 0;
 int16_t glue_to_o(uchar c2, uchar c3, cell *BC, cell *EC) {
 	if (((c2 == '(') || (c2 == '<')) && ((c3 == ')') || (c3 == '>')))
 		return 1;
-	if (memchr("cCα‘", c2, 4) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
+	//if (memchr("cCα‘", c2, 4) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
+	if (memchr("cC\xE1\x91", c2, 4) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
 			!is_russian_turkish_conflict(c2) // 21.05.2002 E.P.
 	)
 		if ((c3 == ')') || (c3 == '>'))
@@ -592,9 +616,11 @@ static void glue_let_bad() {
 				if (((c2 == '>' && c3 == '>') || (c2 == '<' && c3 == '<'))
 						&& BC->vers[0].prob > 200 && EC->vers[0].prob > 200)
 					continue; // stay till punctuation
-				if (memchr("μ", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
+				//if (memchr("μ", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
+				if (memchr("\xEC\x9C\x9A", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
 						!is_russian_turkish_conflict(c2) && // 21.05.2002 E.P.
-						(memchr("/1!()ψ", c3, 6) || c3 == liga_exm) && // 10.09.2000 E.P.
+						//(memchr("/1!()ψ", c3, 6) || c3 == liga_exm) && // 10.09.2000 E.P.
+						(memchr("/1!()\xF8", c3, 6) || c3 == liga_exm) && // 10.09.2000 E.P.
 						flb == 2 && abs(BC->h - EC->h) < 4 && abs(BC->row
 						- EC->row) < 4) /*to paste λ */
 				{
@@ -602,7 +628,8 @@ static void glue_let_bad() {
 					goto asif2bad;
 				}
 
-				if (memchr("μ", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
+				//if (memchr("μ", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
+				if (memchr("\xEC\x9C\x9A", c2, 3) && !is_russian_baltic_conflict(c2) && // 17.07.2001 E.P.
 						!is_russian_turkish_conflict(c2) && // 21.05.2002 E.P.
 						c3 == '|' && BC->vers[0].prob < 150)
 					goto asif2bad;
@@ -749,7 +776,8 @@ static void glue_let_bad() {
 				stick_center_study(BC, NULL, 1);
 			if (EC->stick_inc == NO_INCLINE)
 				stick_center_study(EC, NULL, 1);
-			if (memchr("μ", BC->vers[0].let, 3)
+			//if (memchr("μ", BC->vers[0].let, 3)
+			if (memchr("\xEC\x9C\x9A", BC->vers[0].let, 3)
 					&& !is_russian_baltic_conflict(BC->vers[0].let) && // 17.07.2001 E.P.
 					!is_russian_turkish_conflict(BC->vers[0].let) // 21.05.2002 E.P.
 			)
@@ -885,7 +913,8 @@ static void glue_let_bad() {
 		if (gtofl) {
 			uchar vers_c;
 			vers_c = BC->vers[0].let;
-			if (!(memchr("oO0®", vers_c, 5) && !is_russian_turkish_conflict(
+			//if (!(memchr("oO0®", vers_c, 5) && !is_russian_turkish_conflict(
+			if (!(memchr("oO0\xAE\x8E", vers_c, 5) && !is_russian_turkish_conflict(
 					BC->vers[0].let) // 21.05.2002 E.P.
 			)) {
 				if (db_status)
@@ -1283,7 +1312,8 @@ Bool config_CapRusGe_and_bad(cell *BC, cell *EC) {
 		return FALSE;
 
 	return (!(BP->flg & c_f_fict) && !(BC->flg & c_f_fict) && !(EC->flg
-			& c_f_fict) && (BP->nvers > 0 && memchr("λ®γ ¥¨ν", BP->vers[0].let,
+			//& c_f_fict) && (BP->nvers > 0 && memchr("λ®γ ¥¨ν", BP->vers[0].let,
+			& c_f_fict) && (BP->nvers > 0 && memchr("\xEB\xAE\xE3\xA0\xA5\xA8\xED", BP->vers[0].let,
 			7) && !is_russian_baltic_conflict(BP->vers[0].let) && // 17.07.2001 E.P.
 			!is_russian_turkish_conflict(BP->vers[0].let) // 21.05.2002 E.P.
 			|| BP->nvers > 0 && BP->vers[0].let == '|' && BPP != NULL
@@ -1318,17 +1348,21 @@ void glue_III() {
 		EC = BC->next;
 		res[0] = '\0';
 		if (config_III(BC, EC, EC->next) || config_III(EC, BC, BC->prev))
-			strcat((char*) res, "θ");
+			//strcat((char*) res, "θ");
+			strcat((char*) res, "\xE8\x98");
 
 		if (config_CapRusGe_and_bad(BC, EC)) {
 			if (is_turkish_language(language)) // 21.05.2002 E.P.
-				strcat((char*) res, "‰");
+				//strcat((char*) res, "‰");
+				strcat((char*) res, "\x89");
 			else
-				strcat((char*) res, "©‰");
+				//strcat((char*) res, "©‰");
+				strcat((char*) res, "\xA9\x89");
 		}
 
 		if (config_brace_and_K(BC, EC))
-			strcat((char*) res, "¦†");
+			//strcat((char*) res, "¦†");
+			strcat((char*) res, "\xA6\x86");
 		if (res[0]) {
 			memset(&GLG, 0, sizeof(GLG));
 			row = BC->row;
