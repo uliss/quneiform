@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- –‡ÁÂ¯‡ÂÚÒˇ ÔÓ‚ÚÓÌÓÂ ‡ÒÔÓÒÚ‡ÌÂÌËÂ Ë ËÒÔÓÎ¸ÁÓ‚‡ÌËÂ Í‡Í ‚ ‚Ë‰Â ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡,
- Ú‡Í Ë ‚ ‰‚ÓË˜ÌÓÈ ÙÓÏÂ, Ò ËÁÏÂÌÂÌËˇÏË ËÎË ·ÂÁ, ÔË ÒÓ·Î˛‰ÂÌËË ÒÎÂ‰Û˛˘Ëı ÛÒÎÓ‚ËÈ:
+ –†–∞–∑—Ä–µ—à–∞–µ—Ç—Å—è –ø–æ–≤—Ç–æ—Ä–Ω–æ–µ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–µ –∏ –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–∏–µ –∫–∞–∫ –≤ –≤–∏–¥–µ –∏—Å—Ö–æ–¥–Ω–æ–≥–æ –∫–æ–¥–∞,
+ —Ç–∞–∫ –∏ –≤ –¥–≤–æ–∏—á–Ω–æ–π —Ñ–æ—Ä–º–µ, —Å –∏–∑–º–µ–Ω–µ–Ω–∏—è–º–∏ –∏–ª–∏ –±–µ–∑, –ø—Ä–∏ —Å–æ–±–ª—é–¥–µ–Ω–∏–∏ —Å–ª–µ–¥—É—é—â–∏—Ö —É—Å–ª–æ–≤–∏–π:
 
- * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡ ‰ÓÎÊÌ˚ ÓÒÚ‡‚‡Ú¸Òˇ ÛÍ‡Á‡ÌÌÓÂ
- ‚˚¯Â Û‚Â‰ÓÏÎÂÌËÂ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë ÔÓÒÎÂ‰Û˛˘ËÈ
- ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
- * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ‰‚ÓË˜ÌÓ„Ó ÍÓ‰‡ ‚ ‰ÓÍÛÏÂÌÚ‡ˆËË Ë/ËÎË ‚
- ‰Û„Ëı Ï‡ÚÂË‡Î‡ı, ÔÓÒÚ‡‚ÎˇÂÏ˚ı ÔË ‡ÒÔÓÒÚ‡ÌÂÌËË, ‰ÓÎÊÌ˚ ÒÓı‡ÌˇÚ¸Òˇ
- ÛÍ‡Á‡ÌÌ‡ˇ ‚˚¯Â ËÌÙÓÏ‡ˆËˇ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë
- ÔÓÒÎÂ‰Û˛˘ËÈ ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
- * ÕË Ì‡Á‚‡ÌËÂ Cognitive Technologies, ÌË ËÏÂÌ‡ ÂÂ ÒÓÚÛ‰ÌËÍÓ‚ ÌÂ ÏÓ„ÛÚ
- ·˚Ú¸ ËÒÔÓÎ¸ÁÓ‚‡Ì˚ ‚ Í‡˜ÂÒÚ‚Â ÒÂ‰ÒÚ‚‡ ÔÓ‰‰ÂÊÍË Ë/ËÎË ÔÓ‰‚ËÊÂÌËˇ
- ÔÓ‰ÛÍÚÓ‚, ÓÒÌÓ‚‡ÌÌ˚ı Ì‡ ˝ÚÓÏ œŒ, ·ÂÁ ÔÂ‰‚‡ËÚÂÎ¸ÌÓ„Ó ÔËÒ¸ÏÂÌÌÓ„Ó
- ‡ÁÂ¯ÂÌËˇ.
+ * –ü—Ä–∏ –ø–æ–≤—Ç–æ—Ä–Ω–æ–º —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏ –∏—Å—Ö–æ–¥–Ω–æ–≥–æ –∫–æ–¥–∞ –¥–æ–ª–∂–Ω—ã –æ—Å—Ç–∞–≤–∞—Ç—å—Å—è —É–∫–∞–∑–∞–Ω–Ω–æ–µ
+ –≤—ã—à–µ —É–≤–µ–¥–æ–º–ª–µ–Ω–∏–µ –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —ç—Ç–æ—Ç —Å–ø–∏—Å–æ–∫ —É—Å–ª–æ–≤–∏–π –∏ –ø–æ—Å–ª–µ–¥—É—é—â–∏–π
+ –æ—Ç–∫–∞–∑ –æ—Ç –≥–∞—Ä–∞–Ω—Ç–∏–π.
+ * –ü—Ä–∏ –ø–æ–≤—Ç–æ—Ä–Ω–æ–º —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏ –¥–≤–æ–∏—á–Ω–æ–≥–æ –∫–æ–¥–∞ –≤ –¥–æ–∫—É–º–µ–Ω—Ç–∞—Ü–∏–∏ –∏/–∏–ª–∏ –≤
+ –¥—Ä—É–≥–∏—Ö –º–∞—Ç–µ—Ä–∏–∞–ª–∞—Ö, –ø–æ—Å—Ç–∞–≤–ª—è–µ–º—ã—Ö –ø—Ä–∏ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏, –¥–æ–ª–∂–Ω—ã —Å–æ—Ö—Ä–∞–Ω—è—Ç—å—Å—è
+ —É–∫–∞–∑–∞–Ω–Ω–∞—è –≤—ã—à–µ –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏—è –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —ç—Ç–æ—Ç —Å–ø–∏—Å–æ–∫ —É—Å–ª–æ–≤–∏–π –∏
+ –ø–æ—Å–ª–µ–¥—É—é—â–∏–π –æ—Ç–∫–∞–∑ –æ—Ç –≥–∞—Ä–∞–Ω—Ç–∏–π.
+ * –ù–∏ –Ω–∞–∑–≤–∞–Ω–∏–µ Cognitive Technologies, –Ω–∏ –∏–º–µ–Ω–∞ –µ–µ —Å–æ—Ç—Ä—É–¥–Ω–∏–∫–æ–≤ –Ω–µ –º–æ–≥—É—Ç
+ –±—ã—Ç—å –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω—ã –≤ –∫–∞—á–µ—Å—Ç–≤–µ —Å—Ä–µ–¥—Å—Ç–≤–∞ –ø–æ–¥–¥–µ—Ä–∂–∫–∏ –∏/–∏–ª–∏ –ø—Ä–æ–¥–≤–∏–∂–µ–Ω–∏—è
+ –ø—Ä–æ–¥—É–∫—Ç–æ–≤, –æ—Å–Ω–æ–≤–∞–Ω–Ω—ã—Ö –Ω–∞ —ç—Ç–æ–º –ü–û, –±–µ–∑ –ø—Ä–µ–¥–≤–∞—Ä–∏—Ç–µ–ª—å–Ω–æ–≥–æ –ø–∏—Å—å–º–µ–Ω–Ω–æ–≥–æ
+ —Ä–∞–∑—Ä–µ—à–µ–Ω–∏—è.
 
- ›“¿ œ–Œ√–¿ÃÃ¿ œ–≈ƒŒ—“¿¬À≈Õ¿ ¬À¿ƒ≈À‹÷¿Ã» ¿¬“Œ–— »’ œ–¿¬ »/»À» ƒ–”√»Ã» À»÷¿Ã» " ¿ 
- ŒÕ¿ ≈—“‹" ¡≈«  ¿ Œ√Œ-À»¡Œ ¬»ƒ¿ √¿–¿Õ“»…, ¬€–¿∆≈ÕÕ€’ ﬂ¬ÕŒ »À» œŒƒ–¿«”Ã≈¬¿≈Ã€’,
- ¬ Àﬁ◊¿ﬂ √¿–¿Õ“»»  ŒÃÃ≈–◊≈— Œ… ÷≈ÕÕŒ—“» » œ–»√ŒƒÕŒ—“» ƒÀﬂ  ŒÕ –≈“ÕŒ… ÷≈À», ÕŒ Õ≈
- Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã». Õ» ¬À¿ƒ≈À≈÷ ¿¬“Œ–— »’ œ–¿¬ » Õ» ŒƒÕŒ ƒ–”√Œ≈ À»÷Œ,  Œ“Œ–Œ≈
- ÃŒ∆≈“ »«Ã≈Õﬂ“‹ »/»À» œŒ¬“Œ–ÕŒ –¿—œ–Œ—“–¿Õﬂ“‹ œ–Œ√–¿ÃÃ”, Õ» ¬  Œ≈Ã —À”◊¿≈ Õ≈
- Õ≈—®“ Œ“¬≈“—“¬≈ÕÕŒ—“», ¬ Àﬁ◊¿ﬂ Àﬁ¡€≈ Œ¡Ÿ»≈, —À”◊¿…Õ€≈, —œ≈÷»¿À‹Õ€≈ »À»
- œŒ—À≈ƒŒ¬¿¬ÿ»≈ ”¡€“ », —¬ﬂ«¿ÕÕ€≈ — »—œŒÀ‹«Œ¬¿Õ»≈Ã »À» œŒÕ≈—≈ÕÕ€≈ ¬—À≈ƒ—“¬»≈
- Õ≈¬Œ«ÃŒ∆ÕŒ—“» »—œŒÀ‹«Œ¬¿Õ»ﬂ œ–Œ√–¿ÃÃ€ (¬ Àﬁ◊¿ﬂ œŒ“≈–» ƒ¿ÕÕ€’, »À» ƒ¿ÕÕ€≈,
- —“¿¬ÿ»≈ Õ≈√ŒƒÕ€Ã», »À» ”¡€“ » »/»À» œŒ“≈–» ƒŒ’ŒƒŒ¬, œŒÕ≈—≈ÕÕ€≈ »«-«¿ ƒ≈…—“¬»…
- “–≈“‹»’ À»÷ »/»À» Œ“ ¿«¿ œ–Œ√–¿ÃÃ€ –¿¡Œ“¿“‹ —Œ¬Ã≈—“ÕŒ — ƒ–”√»Ã» œ–Œ√–¿ÃÃ¿Ã»,
- ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ ›“»Ã» —À”◊¿ﬂÃ»), ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã», ƒ¿∆≈ ≈—À» “¿ Œ…
- ¬À¿ƒ≈À≈÷ »À» ƒ–”√Œ≈ À»÷Œ ¡€À» »«¬≈Ÿ≈Õ€ Œ ¬Œ«ÃŒ∆ÕŒ—“» “¿ »’ ”¡€“ Œ¬ » œŒ“≈–‹.
+ –≠–¢–ê –ü–†–û–ì–†–ê–ú–ú–ê –ü–†–ï–î–û–°–¢–ê–í–õ–ï–ù–ê –í–õ–ê–î–ï–õ–¨–¶–ê–ú–ò –ê–í–¢–û–†–°–ö–ò–• –ü–†–ê–í –ò/–ò–õ–ò –î–†–£–ì–ò–ú–ò –õ–ò–¶–ê–ú–ò "–ö–ê–ö
+ –û–ù–ê –ï–°–¢–¨" –ë–ï–ó –ö–ê–ö–û–ì–û-–õ–ò–ë–û –í–ò–î–ê –ì–ê–†–ê–ù–¢–ò–ô, –í–´–†–ê–ñ–ï–ù–ù–´–• –Ø–í–ù–û –ò–õ–ò –ü–û–î–†–ê–ó–£–ú–ï–í–ê–ï–ú–´–•,
+ –í–ö–õ–Æ–ß–ê–Ø –ì–ê–†–ê–ù–¢–ò–ò –ö–û–ú–ú–ï–†–ß–ï–°–ö–û–ô –¶–ï–ù–ù–û–°–¢–ò –ò –ü–†–ò–ì–û–î–ù–û–°–¢–ò –î–õ–Ø –ö–û–ù–ö–†–ï–¢–ù–û–ô –¶–ï–õ–ò, –ù–û –ù–ï
+ –û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –ò–ú–ò. –ù–ò –í–õ–ê–î–ï–õ–ï–¶ –ê–í–¢–û–†–°–ö–ò–• –ü–†–ê–í –ò –ù–ò –û–î–ù–û –î–†–£–ì–û–ï –õ–ò–¶–û, –ö–û–¢–û–†–û–ï
+ –ú–û–ñ–ï–¢ –ò–ó–ú–ï–ù–Ø–¢–¨ –ò/–ò–õ–ò –ü–û–í–¢–û–†–ù–û –†–ê–°–ü–†–û–°–¢–†–ê–ù–Ø–¢–¨ –ü–†–û–ì–†–ê–ú–ú–£, –ù–ò –í –ö–û–ï–ú –°–õ–£–ß–ê–ï –ù–ï
+ –ù–ï–°–Å–¢ –û–¢–í–ï–¢–°–¢–í–ï–ù–ù–û–°–¢–ò, –í–ö–õ–Æ–ß–ê–Ø –õ–Æ–ë–´–ï –û–ë–©–ò–ï, –°–õ–£–ß–ê–ô–ù–´–ï, –°–ü–ï–¶–ò–ê–õ–¨–ù–´–ï –ò–õ–ò
+ –ü–û–°–õ–ï–î–û–í–ê–í–®–ò–ï –£–ë–´–¢–ö–ò, –°–í–Ø–ó–ê–ù–ù–´–ï –° –ò–°–ü–û–õ–¨–ó–û–í–ê–ù–ò–ï–ú –ò–õ–ò –ü–û–ù–ï–°–ï–ù–ù–´–ï –í–°–õ–ï–î–°–¢–í–ò–ï
+ –ù–ï–í–û–ó–ú–û–ñ–ù–û–°–¢–ò –ò–°–ü–û–õ–¨–ó–û–í–ê–ù–ò–Ø –ü–†–û–ì–†–ê–ú–ú–´ (–í–ö–õ–Æ–ß–ê–Ø –ü–û–¢–ï–†–ò –î–ê–ù–ù–´–•, –ò–õ–ò –î–ê–ù–ù–´–ï,
+ –°–¢–ê–í–®–ò–ï –ù–ï–ì–û–î–ù–´–ú–ò, –ò–õ–ò –£–ë–´–¢–ö–ò –ò/–ò–õ–ò –ü–û–¢–ï–†–ò –î–û–•–û–î–û–í, –ü–û–ù–ï–°–ï–ù–ù–´–ï –ò–ó-–ó–ê –î–ï–ô–°–¢–í–ò–ô
+ –¢–†–ï–¢–¨–ò–• –õ–ò–¶ –ò/–ò–õ–ò –û–¢–ö–ê–ó–ê –ü–†–û–ì–†–ê–ú–ú–´ –†–ê–ë–û–¢–ê–¢–¨ –°–û–í–ú–ï–°–¢–ù–û –° –î–†–£–ì–ò–ú–ò –ü–†–û–ì–†–ê–ú–ú–ê–ú–ò,
+ –ù–û –ù–ï –û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –≠–¢–ò–ú–ò –°–õ–£–ß–ê–Ø–ú–ò), –ù–û –ù–ï –û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –ò–ú–ò, –î–ê–ñ–ï –ï–°–õ–ò –¢–ê–ö–û–ô
+ –í–õ–ê–î–ï–õ–ï–¶ –ò–õ–ò –î–†–£–ì–û–ï –õ–ò–¶–û –ë–´–õ–ò –ò–ó–í–ï–©–ï–ù–´ –û –í–û–ó–ú–û–ñ–ù–û–°–¢–ò –¢–ê–ö–ò–• –£–ë–´–¢–ö–û–í –ò –ü–û–¢–ï–†–¨.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -72,34 +72,36 @@ int16_t russian_context_process(cell * c) {
 	return_code = NO_ACTION;
 	if (n_ltr == 1) /** single letter case: **/
 	{
-		nv = get_nvers(c, (uchar) '\x8e' /* é */);
+		nv = get_nvers(c, (uchar) '\x8e' /* –û */);
 		if (nv > 0 && memchr("0", c->vers[0].let, 1) && ((c->prev->flg
 				& c_f_let) || (c->next->flg & c_f_let) || (c->next->nvers > 0
 				&& memchr(".,", c->next->vers[0].let, 2)))) {
-			vers_to_first_place(c, get_nvers(c, (uchar) '\x8e' /* é */)); // make it first
+			vers_to_first_place(c, get_nvers(c, (uchar) '\x8e' /* –û */)); // make it first
 			sort_vers(c);
 			return_code = CONTINUE_ACTION;
 		}
 
 		nv = get_nvers(c, (uchar) '3');
-		if (nv > 0 && memchr("ßá", c->vers[0].let, 2)) {
+		//if (nv > 0 && memchr("–∑–ó", c->vers[0].let, 2)) {
+		if (nv > 0 && memchr("\xA7\x87", c->vers[0].let, 2)) {
 			vers_to_first_place(c, get_nvers(c, (uchar) '3')); // make it first
 			sort_vers(c);
 			return_code = CONTINUE_ACTION;
 		}
 
-		nv = get_nvers(c, (uchar) '\xa8' /* ® */);
+		nv = get_nvers(c, (uchar) '\xa8' /* –∏ */);
 		if (((c->font | c->font_new) & c_fp_it) || (c->cg_flag & c_cg_comp))
-			if (nv > 0 && get_nvers(c, (uchar) '\xef' /* Ô */) != 0) // Oleg : 12-07-1994 : '\x9f' /* ü */in first
+			if (nv > 0 && get_nvers(c, (uchar) '\xef' /* —è */) != 0) // Oleg : 12-07-1994 : '\x9f' /* –Ø */in first
 			{
 				if (c->vers[nv].prob > 120) {
-					promote(0, c, (uchar) '\xa8' /* ® */, 30);
+					promote(0, c, (uchar) '\xa8' /* –∏ */, 30);
 					sort_vers(c);
 					return_code = CONTINUE_ACTION;
 				}
-			} else if (memchr("≠Ø", c->vers[0].let, 2)) { //return return_code;
-				promote(0, c, (uchar) '\xa8' /* ® */, 0); //  add vers
-				vers_to_first_place(c, get_nvers(c, (uchar) '\xa8' /* ® */)); // make it first
+			//} else if (memchr("–Ω–ø", c->vers[0].let, 2)) { //return return_code;
+			} else if (memchr("\xAD\xAF", c->vers[0].let, 2)) { //return return_code;
+				promote(0, c, (uchar) '\xa8' /* –∏ */, 0); //  add vers
+				vers_to_first_place(c, get_nvers(c, (uchar) '\xa8' /* –∏ */)); // make it first
 				sort_vers(c);
 				return_code = CONTINUE_ACTION;
 			}
@@ -112,19 +114,21 @@ int16_t russian_context_process(cell * c) {
 		uchar let;
 #ifdef INTERSEPTOR
 		for( wc=c,num_dig=i=0; i < n_ltr;wc=wc->nextl,i++ ) // scan to word end
-		if( memchr("1234567890+-/é°áíÇ.,",wc->vers[0].let,20) )
+		//if( memchr("1234567890+-/–û–±–ó–¢–í.,",wc->vers[0].let,20) )
+		if( memchr("1234567890+-/\x8E\xA1\x87\x92\x82.,",wc->vers[0].let,20) )
 		num_dig++;
 		if( num_dig==n_ltr )
 		{ // russian word
 			for( wc=c,num_dig=i=0; i < n_ltr;wc=wc->nextl,i++ ) // scan to word end
-			if( memchr("éá°Ç",wc->vers[0].let,4) )
+			//if( memchr("–û–ó–±–í",wc->vers[0].let,4) )
+			if( memchr("\x8E\x87\xA1\x82",wc->vers[0].let,4) )
 			{ // add russian versions
 				switch( wc->vers[0].let )
 				{
-					case '\x82' /* Ç */: let=(uchar)'8'; break;
-					case '\x8e' /* é */: let=(uchar)'0'; break;
-					case '\x87' /* á */: let=(uchar)'3'; break;
-					case '\xa1' /* ° */: let=(uchar)'6'; break;
+					case '\x82' /* –í */: let=(uchar)'8'; break;
+					case '\x8e' /* –û */: let=(uchar)'0'; break;
+					case '\x87' /* –ó */: let=(uchar)'3'; break;
+					case '\xa1' /* –± */: let=(uchar)'6'; break;
 				}
 				nv = get_nvers(wc, let);
 				if( nv==-1 )
@@ -142,20 +146,21 @@ int16_t russian_context_process(cell * c) {
 		}
 #endif
 		for (wc = c, num_dig = i = 0; i < n_ltr; wc = wc->nextl, i++) // scan to word end
-			if (memchr("036éá°", wc->vers[0].let, 6))
+			//if (memchr("036–û–ó–±", wc->vers[0].let, 6))
+			if (memchr("036\x8E\x87\xA1", wc->vers[0].let, 6))
 				num_dig++;
 		if (num_dig != n_ltr) { // russian word
 			for (wc = c, num_dig = i = 0; i < n_ltr; wc = wc->nextl, i++) // scan to word end
 				if (memchr("036", wc->vers[0].let, 3)) { // add russian versions
 					switch (wc->vers[0].let) {
 					case '0':
-						let = (uchar) '\x8e' /* é */;
+						let = (uchar) '\x8e' /* –û */;
 						break;
 					case '3':
-						let = (uchar) '\x87' /* á */;
+						let = (uchar) '\x87' /* –ó */;
 						break;
 					case '6':
-						let = (uchar) '\xa1' /* ° */;
+						let = (uchar) '\xa1' /* –± */;
 						break;
 					}
 					nv = get_nvers(wc, let);
@@ -169,19 +174,19 @@ int16_t russian_context_process(cell * c) {
 		if (n_ltr > 3)
 			for (wc = c, i = 0; i < n_ltr; wc = wc->nextl, i++) // scan to word end
 			{
-				if (wc->nvers == 1 && wc->vers[0].let == (uchar) '\xe1' /* · */
+				if (wc->nvers == 1 && wc->vers[0].let == (uchar) '\xe1' /* —Å */
 						&& wc->vers[0].prob < 254 && !(wc->cg_flag & c_cg_cut)
 						&& wc->recsource & c_rs_ev) {
-					promote(0, wc, (uchar) '\xa5' /* • */, 0); //  add vers
-					promote(0, wc, (uchar) '\xa5' /* • */, -48); // spell checker may correct this word
+					promote(0, wc, (uchar) '\xa5' /* –µ */, 0); //  add vers
+					promote(0, wc, (uchar) '\xa5' /* –µ */, -48); // spell checker may correct this word
 					sort_vers(wc);
 					return_code = NO_ACTION; // Oleg : 12-07-1994 : go complex word
 				}
-				if (wc->vers[0].let == (uchar) '\xea' /* Í */) {
-					// Ã‡Î˚È Ú‚Â‰˚È ÁÌ‡Í ‚ ¡ÓÎ„‡ÒÍÓÏ ÓÒÌÓ‚Ì‡ˇ ·ÛÍ‚‡.  08.09.2000 E.P.
+				if (wc->vers[0].let == (uchar) '\xea' /* —ä */) {
+					// –ú–∞–ª—ã–π —Ç–≤–µ—Ä–¥—ã–π –∑–Ω–∞–∫ –≤ –ë–æ–ª–≥–∞—Ä—Å–∫–æ–º –æ—Å–Ω–æ–≤–Ω–∞—è –±—É–∫–≤–∞.  08.09.2000 E.P.
 					if (!langBul && i == n_ltr - 1 && wc->vers[0].prob > 150) // last letter in word
 					{
-						wc->vers[0].let = (uchar) '\xec' /* Ï */;
+						wc->vers[0].let = (uchar) '\xec' /* —å */;
 						/*  else  wc->vers[0].prob=MAX(0,wc->vers[0].prob-20); // decrease prob
 						 sort_vers(wc);*/
 						return_code = NO_ACTION; // Oleg : 12-07-1994 : go complex word
@@ -200,12 +205,13 @@ int16_t final_crit_russian(cell * c) {
 	return cnt > 0;
 }
 
-static uchar predessor[] = "ÆÓ•·„Ì";
+//static uchar predessor[] = "–æ—é–µ—Å—É—ç";
+static uchar predessor[] = "\xAE\xEE\xA5\xE1\xE3\xED";
 
 int16_t help_spelling_checker(cell * c) {
 	if (!(c->flg & (c_f_let | c_f_bad)))
 		return 0;
-	if (c->vers[0].let != (uchar) '\xa3' /* £ */)
+	if (c->vers[0].let != (uchar) '\xa3' /* –≥ */)
 		return 0;
 
 	if (memchr(predessor, c->prevl->vers[0].let, sizeof(predessor))
@@ -213,10 +219,10 @@ int16_t help_spelling_checker(cell * c) {
 		if (c->vers[0].prob > 120) {
 			CIF::version * v0;
 			for (v0 = c->vers; v0->let != 0; v0++)
-				if (v0->let == (uchar) '\xe2' /* ‚ */)
+				if (v0->let == (uchar) '\xe2' /* —Ç */)
 					return 0; // already exist - OK
-			promote(0, c, (uchar) '\xe2' /* ‚ */, 0); //  add vers
-			promote(0, c, (uchar) '\xe2' /* ‚ */, -48); // promotion
+			promote(0, c, (uchar) '\xe2' /* —Ç */, 0); //  add vers
+			promote(0, c, (uchar) '\xe2' /* —Ç */, -48); // promotion
 			c->vers[c->nvers].let = c->vers[c->nvers].prob = 0;
 			return 1;
 		}
@@ -230,8 +236,10 @@ static Bool case_convert(cell *b, cell *e);
 static uchar wave_up_abris(cell *b, cell *e);
 static void make_convert(cell *b, cell *e, uchar r);
 
-static uchar capital_rus[] = "âñäçÉòôáïöîõÇèéãÑÜùüóëåàíúû";
-static uchar small_rus[] = "©Ê™≠£ËÈßÂÍ‰Î¢ØÆ´§¶ÌÔÁ·¨®‚ÏÓ";
+//static uchar capital_rus[] = "–ô–¶–ö–ù–ì–®–©–ó–•–™–§–´–í–ü–û–õ–î–ñ–≠–Ø–ß–°–ú–ò–¢–¨–Æ";
+static uchar capital_rus[] = "\x89\x96\x8A\x8D\x83\x98\x99\x87\x95\x9A\x94\x9B\x82\x8F\x8E\x8B\x84\x86\x9D\x9F\x97\x91\x8C\x88\x92\x9C\x9E";
+//static uchar small_rus[] = "–π—Ü–∫–Ω–≥—à—â–∑—Ö—ä—Ñ—ã–≤–ø–æ–ª–¥–∂—ç—è—á—Å–º–∏—Ç—å—é";
+static uchar small_rus[] = "\xA9\xE6\xAA\xAD\xA3\xE8\xE9\xA7\xE5\xEA\xE4\xEB\xA2\xAF\xAE\xAB\xA4\xA6\xED\xEF\xE7\xE1\xAC\xA8\xE2\xEC\xEE";
 //
 // TRY CONVERT CASE FOR ANY CELL
 //
