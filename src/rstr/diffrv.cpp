@@ -201,13 +201,15 @@ uchar *segment_pool;
 /*========= Global data ===================*/
 
 /*========= Local data ===================*/
-static uchar Rus_similar_Eng[] = "£¯rn$ç—";//"£¯rNn$ç—";
+//static uchar Rus_similar_Eng[] = "£¯rn$ç—";//"£¯rNn$ç—";
+static uchar Rus_similar_Eng[] = "\xA3\xAFrn\x24\xE7\x97\x90";//"£¯rNn$ç—";
 static uchar abris_online;
 static uchar corners[4];
 static int16_t hist_n[128], hist_d[128];/* ç¨á«® ¨­â¥à¢ «®¢ ¢ áâà®ª¥ ¨ ¯«®â­®áâì */
 static int16_t hist_white[128]; /* à ááâ®ï­¨¥ ¬¥¦¤ã 1-®© ¨ ¢â®à®© ¯ «ª®© */
 static int16_t hist_black[128]; /* ª®­¥æ 1-®© ¯ «ª¨                      */
-static uchar rus_like[] = "å"; // "®Žå"
+//static uchar rus_like[] = "å"; // "®Žå"
+static uchar rus_like[] = "\xE5"; // "®Žå"
 static uchar emu_like[] = "x"; // "oOx"
 static STICK *stick; // pointer to array of stick if NULL no calculated stick
 static STICK stic[30];
@@ -614,7 +616,8 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 			d += dd;
 		d_ang = discr_angles(v0->let, _rst.h, (int16_t) (cc ? (cc->pos_inc
 				& erect_rot) : 0)); // rotation
-		if (flag_m && pen_m == 0 && (d != 0 || v0->prob < 232) && memchr("èé¨",
+		//if (flag_m && pen_m == 0 && (d != 0 || v0->prob < 232) && memchr("èé¨",
+		if (flag_m && pen_m == 0 && (d != 0 || v0->prob < 232) && memchr("\xE8\xE9\xA8",
 				v0->let, 3))
 			d_cun += 60;
 		if (memchr(rus_like, v0->let, sizeof rus_like)) { // Here abris discrim for rus letters that looks like english
@@ -629,9 +632,12 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 		if ( //iFont!=FONT_MASH &&               // TypeWriter
 		!(cc && (cc->pos_inc & erect_rot)) && // rotation
 				!(cc && (cc->pos_inc & erect_zero))) // zero incline
-			if ((d > 0 || memchr("¨ˆ­ªŠ", v0->let, 6)) && cc != NULL)
-				if (sym_italic(cc, v0->let) || (memchr("é™", v0->let, 2)
-						&& suspect_italic_III_bend(cc) == 0) || (memchr("æ–",
+			//if ((d > 0 || memchr("¨ˆ­ªŠ", v0->let, 6)) && cc != NULL)
+			if ((d > 0 || memchr("\xA8\x88\xAD\x8D\xAA\x8A", v0->let, 6)) && cc != NULL)
+				//if (sym_italic(cc, v0->let) || (memchr("é™", v0->let, 2)
+				if (sym_italic(cc, v0->let) || (memchr("\xE9\x99", v0->let, 2)
+						//&& suspect_italic_III_bend(cc) == 0) || (memchr("æ–",
+						&& suspect_italic_III_bend(cc) == 0) || (memchr("\xE6\x96",
 						v0->let, 2) && suspect_italic_ce(cc) == 0)) {
 					d_cun
 							+= check_cursiv(cc, v0->let, (int16_t) d,
@@ -3128,7 +3134,8 @@ uint16_t stick_bI(cell * cl) {
 	else
 		goto kill; // stick first in line
 
-	if (memchr("ìœšê", c->vers[0].let, 4) && c->vers[0].prob > 12 && dist
+	//if (memchr("ìœšê", c->vers[0].let, 4) && c->vers[0].prob > 12 && dist
+	if (memchr("\xEC\x9C\x9A\xEA", c->vers[0].let, 4) && c->vers[0].prob > 12 && dist
 			< c->w)
 		return 0;
 	else
@@ -3164,7 +3171,8 @@ void proc_bI(int32_t pass) {
 		if (!c->nextl || !(c->nextl->flg & (c_f_let + c_f_bad)))
 			continue;
 		let = c->vers[0].let;
-		if (memchr("ìœê", let, 3) && c->nextl->vers[0].let == '|')
+		//if (memchr("ìœê", let, 3) && c->nextl->vers[0].let == '|')
+		if (memchr("\xEC\x9C\xEA", let, 3) && c->nextl->vers[0].let == '|')
 		//(c->nextl->vers[0].let == '|' || p2_active && c->nextl->vers[0].let=='1' && test_I(c->nextl)) )
 		{
 			if (pass == 0 && !(c->nextl->cg_flag & c_cg_cut))
