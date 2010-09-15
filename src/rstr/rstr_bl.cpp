@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- Разрешается повторное распространение и использование как в виде исходного кода,
- так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+ С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
- * При повторном распространении исходного кода должны оставаться указанное
- выше уведомление об авторском праве, этот список условий и последующий
- отказ от гарантий.
- * При повторном распространении двоичного кода в документации и/или в
- других материалах, поставляемых при распространении, должны сохраняться
- указанная выше информация об авторском праве, этот список условий и
- последующий отказ от гарантий.
- * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
- быть использованы в качестве средства поддержки и/или продвижения
- продуктов, основанных на этом ПО, без предварительного письменного
- разрешения.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+ РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+ РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+ СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+ РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+ РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+ СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
- ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
- ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
- ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
- ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
- МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
- НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
- ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
- НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
- СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
- ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
- НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
- ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+ РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+ Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+ РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+ РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+ РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+ РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+ РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+ РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+ РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+ РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+ Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -252,11 +252,11 @@ int16_t draft_cut_hyps(int16_t bs, int16_t fl);
 
 /*============= Source code ============*/
 Bool is_liga_ff(uchar c) {
-	// Код лиги определен через макру в ligas.h 05.09.2000 E.P.
+	// РљРѕРґ Р»РёРіРё РѕРїСЂРµРґРµР»РµРЅ С‡РµСЂРµР· РјР°РєСЂСѓ РІ ligas.h 05.09.2000 E.P.
 	return (c == liga_ff);
 }
 Bool is_liga_ffl(uchar c) {
-	// Код лиги определен через макру в ligas.h 05.09.2000 E.P.
+	// РљРѕРґ Р»РёРіРё РѕРїСЂРµРґРµР»РµРЅ С‡РµСЂРµР· РјР°РєСЂСѓ РІ ligas.h 05.09.2000 E.P.
 	return (c == liga_ffl);
 }
 
@@ -264,15 +264,15 @@ int16_t is_russian(uchar ch) {
 	if (language == LANGUAGE_RUSSIAN || language == LANGUAGE_ENGLISH && multy_language)
 		switch (fEdCode) {
 		case ED_ASCII: // for ASCII
-			if ((ch >= (uchar) '\xa0' /*   */ && ch <= (uchar) '\xaf' /* Ї */) || (ch >= (uchar) '\xe0' /* а */
-					&& ch <= (uchar) '\xef' /* п */) || (ch >= (uchar) '\x80' /* Ђ */ && ch
-					//<= (uchar) '\x9f' /* џ */) || memchr("рсхчшэИА", ch, 8))
-					<= (uchar) '\x9f' /* џ */) || memchr("\xF0\xF1\xF5\xF7\xF8\xFD\xC8\xC0", ch, 8))
+			if ((ch >= (uchar) '\xa0' /* Р° */ && ch <= (uchar) '\xaf' /* Рї */) || (ch >= (uchar) '\xe0' /* СЂ */
+					&& ch <= (uchar) '\xef' /* СЏ */) || (ch >= (uchar) '\x80' /* Рђ */ && ch
+					//<= (uchar) '\x9f' /* cp866: РЇ */) || cp1251: memchr("СЂСЃС…С‡С€СЌРРђ", ch, 8))
+					<= (uchar) '\x9f' /* РЇ */) || memchr("\xF0\xF1\xF5\xF7\xF8\xFD\xC8\xC0", ch, 8))
 				return 1;
 			break;
 		case ED_WIN: // for Windows (ANSI)
-			if ((ch >= 0xE0 && ch <= 0xFF) || (ch >= (uchar) '\x80' /* Ђ */ && ch
-					<= (uchar) '\x9f' /* џ */))
+			if ((ch >= 0xE0 && ch <= 0xFF) || (ch >= (uchar) '\x80' /* Рђ */ && ch
+					<= (uchar) '\x9f' /* РЇ */))
 				return 1;
 			break;
 		case ED_MAC: // for Macintosh
@@ -352,7 +352,7 @@ int16_t isnot_slovenian(uchar let) {
 }
 
 int16_t is_baltic_palka(uchar c) {
-	// Определение балтийских палок. 30.05.2002 E.P.
+	// РћРїСЂРµРґРµР»РµРЅРёРµ Р±Р°Р»С‚РёР№СЃРєРёС… РїР°Р»РѕРє. 30.05.2002 E.P.
 
 	if (!is_baltic_language(language))
 		return 0;
@@ -423,7 +423,7 @@ int16_t is_turkish_special(uchar let) {
 }
 
 int16_t is_turkish_bottom_accent(uchar c) {
-	// Определение нижнего акцента. 20.05.2002 E.P.
+	// РћРїСЂРµРґРµР»РµРЅРёРµ РЅРёР¶РЅРµРіРѕ Р°РєС†РµРЅС‚Р°. 20.05.2002 E.P.
 	return (
 
 	c == CC_bottom_accent || c == c_bottom_accent || c == SS_bottom_accent || c
@@ -433,7 +433,7 @@ int16_t is_turkish_bottom_accent(uchar c) {
 }
 
 int16_t is_turkish_palka(uchar c) {
-	// Определение турецких палок. 21.05.2002 E.P.
+	// РћРїСЂРµРґРµР»РµРЅРёРµ С‚СѓСЂРµС†РєРёС… РїР°Р»РѕРє. 21.05.2002 E.P.
 
 	if (!is_turkish_language(language))
 		return 0;
@@ -444,35 +444,35 @@ int16_t is_turkish_palka(uchar c) {
 
 int16_t is_russian_turkish_conflict(uchar c) {
 	/*
-	 Определение конфликта между русскими
-	 и турецкими буквами. 21.05.2002 E.P.
+	 РћРїСЂРµРґРµР»РµРЅРёРµ РєРѕРЅС„Р»РёРєС‚Р° РјРµР¶РґСѓ СЂСѓСЃСЃРєРёРјРё
+	 Рё С‚СѓСЂРµС†РєРёРјРё Р±СѓРєРІР°РјРё. 21.05.2002 E.P.
 
-	 Список конфликтных русских букв:
+	 РЎРїРёСЃРѕРє РєРѕРЅС„Р»РёРєС‚РЅС‹С… СЂСѓСЃСЃРєРёС… Р±СѓРєРІ:
 
-	 - ХЩйо - выглядят как •, ™, ©, ®
-	 - украинские UKR_ii, UKR_G, UKR_g - выглядят как
-	 русские буквы В,З,Ц
-	 - тчю - выглядят как русские буквы в, з, о
-	 - r_cu_a, r_cu_d  - выглядят как русские буквы р,э
+	 - РҐР©Р№Рѕ - РІС‹РіР»СЏРґСЏС‚ РєР°Рє вЂў, в„ў, В©, В®
+	 - СѓРєСЂР°РёРЅСЃРєРёРµ UKR_ii, UKR_G, UKR_g - РІС‹РіР»СЏРґСЏС‚ РєР°Рє
+	 СЂСѓСЃСЃРєРёРµ Р±СѓРєРІС‹ Р’,Р—,Р¦
+	 - С‚С‡СЋ - РІС‹РіР»СЏРґСЏС‚ РєР°Рє СЂСѓСЃСЃРєРёРµ Р±СѓРєРІС‹ РІ, Р·, Рѕ
+	 - r_cu_a, r_cu_d  - РІС‹РіР»СЏРґСЏС‚ РєР°Рє СЂСѓСЃСЃРєРёРµ Р±СѓРєРІС‹ СЂ,СЌ
 
-	 Полный список конфликтных букв выглядит так:
-	 "•™©®ВЗЦвзорэ"
+	 РџРѕР»РЅС‹Р№ СЃРїРёСЃРѕРє РєРѕРЅС„Р»РёРєС‚РЅС‹С… Р±СѓРєРІ РІС‹РіР»СЏРґРёС‚ С‚Р°Рє:
+	 "вЂўв„ўВ©В®Р’Р—Р¦РІР·РѕСЂСЌ"
 	 */
 	if (!is_turkish_language(language))
 		return FALSE;
 
-	if (c == liga_bull_turkish || // '\x95' /* • */
-			c == liga_TM_turkish || // '\x99' /* ™ */
-			c == liga_CC_turkish || // '\xa9' /* © */
-			c == liga_CR_turkish || // '\xae' /* ® */
-			c == AA_roof_accent || // '\xc2' /* В */
-			c == a_roof_accent || // '\xe2' /* в */
-			c == CC_bottom_accent || // '\xc7' /* З */
-			c == c_bottom_accent || // '\xe7' /* з */
-			c == OO_2dot_accent || // '\xd6' /* Ц */
-			c == i_roof_accent || // '\xee' /* о */
-			c == r_cu_a || // '\xf0' /* р */
-			c == r_cu_d || // '\xfd' /* э */
+	if (c == liga_bull_turkish || // '\x95' /* вЂў */
+			c == liga_TM_turkish || // '\x99' /* в„ў */
+			c == liga_CC_turkish || // '\xa9' /* В© */
+			c == liga_CR_turkish || // '\xae' /* В® */
+			c == AA_roof_accent || // '\xc2' /* Г‚ */
+			c == a_roof_accent || // '\xe2' /* Гў */
+			c == CC_bottom_accent || // '\xc7' /* Г‡ */
+			c == c_bottom_accent || // '\xe7' /* Г§ */
+			c == OO_2dot_accent || // '\xd6' /* Г– */
+			c == i_roof_accent || // '\xee' /* Г® */
+			c == r_cu_a || // '\xf0' /* Г° */
+			c == r_cu_d || // '\xfd' /* ГЅ */
 			0)
 		return TRUE;
 
@@ -482,7 +482,7 @@ int16_t is_russian_turkish_conflict(uchar c) {
 int16_t isnot_turkish(uchar let) {
 	extern char alphabet[256];
 
-	return (!alphabet[let] || // Отсекаю французские акценты. 09.06.2002 E.P.
+	return (!alphabet[let] || // РћС‚СЃРµРєР°СЋ С„СЂР°РЅС†СѓР·СЃРєРёРµ Р°РєС†РµРЅС‚С‹. 09.06.2002 E.P.
 			let == 'Q' || let == 'q' || let == 'W' || let == 'w' || let == 'X'
 			|| let == 'x');
 }
@@ -493,9 +493,9 @@ int16_t is_lower(uchar ch) {
 	if (language == LANGUAGE_RUSSIAN)
 		switch (fEdCode) {
 		case ED_ASCII: // for ASCII
-			if ((ch >= (uchar) '\xa0' /*   */ && ch <= (uchar) '\xaf' /* Ї */) || (ch >= (uchar) '\xe0' /* а */
-					//&& ch <= (uchar) '\xef' /* п */) || memchr("рсхчшэА", ch, 7))
-					&& ch <= (uchar) '\xef' /* п */) || memchr("\xF0\xF1\xF5\xF7\xF8\xFD\xC0", ch, 7))
+			if ((ch >= (uchar) '\xa0' /* Р° */ && ch <= (uchar) '\xaf' /* Рї */) || (ch >= (uchar) '\xe0' /* СЂ */
+					//&& ch <= (uchar) '\xef' /* Рї */) || memchr("СЂСЃС…С‡С€СЌРђ", ch, 7))
+					&& ch <= (uchar) '\xef' /* СЏ */) || memchr("\xF0\xF1\xF5\xF7\xF8\xFD\xC0", ch, 7))
 				return 1;
 			break;
 		case ED_WIN: // for Windows (ANSI)
@@ -516,7 +516,7 @@ int16_t is_upper(uchar ch) {
 		switch (fEdCode) {
 		case ED_ASCII:
 		case ED_MAC: // for ASCII and Macintosh
-			if (ch >= (uchar) '\x80' /* Ђ */ && ch <= (uchar) '\x9f' /* џ */ || ch
+			if (ch >= (uchar) '\x80' /* Рђ */ && ch <= (uchar) '\x9f' /* РЇ */ || ch
 					== (uchar) r_EE_2dot)
 				return 1;
 			break;
@@ -544,7 +544,7 @@ int16_t isletter(uchar ch) {
 		return 0;
 }
 
-//static const uchar non_twin[] = " ЂЎЃҐ…";
+//static const uchar non_twin[] = "Р°РђР±Р‘РµР•";
 static const uchar non_twin[] = "\xA0\x80\xA1\x81\xA5\x85";
 static const uchar lat_twins[] = "cCoOpPsSvVwWxXzZ";
 
@@ -563,7 +563,7 @@ int16_t twin(uchar ch) {
 
 uchar get_homot(uchar ch) {
 	if (ch == '0')
-		return ((uchar) '\xae' /* ® */);
+		return ((uchar) '\xae' /* Рѕ */);
 	if (is_upper(ch))
 		return to_lower(ch);
 	if (is_lower(ch))
@@ -578,10 +578,10 @@ uchar to_upper(uchar c) {
 	if (language == LANGUAGE_RUSSIAN)
 		switch (fEdCode) {
 		case ED_ASCII: // for ASCII
-			if (c >= (uchar) '\xa0' /*   */ && c <= (uchar) '\xaf' /* Ї */)
-				return c - (uchar) '\xa0' /*   */ + (uchar) '\x80' /* Ђ */;
-			if (c >= (uchar) '\xe0' /* а */ && c <= (uchar) '\xef' /* п */)
-				return c - (uchar) '\xe0' /* а */ + (uchar) '\x90' /* ђ */;
+			if (c >= (uchar) '\xa0' /* Р° */ && c <= (uchar) '\xaf' /* Рї */)
+				return c - (uchar) '\xa0' /* Р° */ + (uchar) '\x80' /* Рђ */;
+			if (c >= (uchar) '\xe0' /* СЂ */ && c <= (uchar) '\xef' /* СЏ */)
+				return c - (uchar) '\xe0' /* СЂ */ + (uchar) '\x90' /* Р  */;
 			break;
 		case ED_WIN: // for Windows (ANSI)
 			if (c >= 0xE0 && c <= 0xFF)
@@ -604,10 +604,10 @@ uchar to_lower(uchar c) {
 	if (language == LANGUAGE_RUSSIAN)
 		switch (fEdCode) {
 		case ED_ASCII: // for ASCII
-			if (c >= (uchar) '\x80' /* Ђ */ && c <= (uchar) '\x8f' /* Џ */)
-				return c - (uchar) '\x80' /* Ђ */ + (uchar) '\xa0' /*   */;
-			if (c >= (uchar) '\x90' /* ђ */ && c <= (uchar) '\x9f' /* џ */)
-				return c - (uchar) '\x90' /* ђ */ + (uchar) '\xe0' /* а */;
+			if (c >= (uchar) '\x80' /* Рђ */ && c <= (uchar) '\x8f' /* Рџ */)
+				return c - (uchar) '\x80' /* Рђ */ + (uchar) '\xa0' /* Р° */;
+			if (c >= (uchar) '\x90' /* Р  */ && c <= (uchar) '\x9f' /* РЇ */)
+				return c - (uchar) '\x90' /* Р  */ + (uchar) '\xe0' /* СЂ */;
 			break;
 		case ED_WIN: // for Windows
 			if (c >= 0xC0 && c <= 0xDF)
@@ -624,7 +624,7 @@ uchar to_lower(uchar c) {
 }
 
 int16_t is_cen_bottom_accent(uchar c) {
-	// Определение нижнего акцента 12.09.2000 E.P.
+	// РћРїСЂРµРґРµР»РµРЅРёРµ РЅРёР¶РЅРµРіРѕ Р°РєС†РµРЅС‚Р° 12.09.2000 E.P.
 	return (
 
 	c == AA_bottom_accent || c == a_bottom_accent || c == CC_bottom_accent || c
@@ -636,7 +636,7 @@ int16_t is_cen_bottom_accent(uchar c) {
 }
 
 int16_t is_baltic_bottom_accent(uchar c) {
-	// Определение нижнего акцента 10.07.2001 E.P.
+	// РћРїСЂРµРґРµР»РµРЅРёРµ РЅРёР¶РЅРµРіРѕ Р°РєС†РµРЅС‚Р° 10.07.2001 E.P.
 	return (
 
 	c == AA_bottom_accent_baltic || c == a_bottom_accent_baltic || c
@@ -649,11 +649,11 @@ int16_t is_baltic_bottom_accent(uchar c) {
 }
 
 int16_t is_russian_baltic_conflict(uchar c) {
-	// Определение конфликта между русскими и балтийскими буквами. 17.07.2001 E.P.
+	// РћРїСЂРµРґРµР»РµРЅРёРµ РєРѕРЅС„Р»РёРєС‚Р° РјРµР¶РґСѓ СЂСѓСЃСЃРєРёРјРё Рё Р±Р°Р»С‚РёР№СЃРєРёРјРё Р±СѓРєРІР°РјРё. 17.07.2001 E.P.
 	if (!is_baltic_language(language))
 		return FALSE;
 
-	//if (strchr("абвджзилмноп", c))
+	//if (strchr("Р°Р±РІРґР¶Р·РёР»РјРЅРѕРї", c))
 	if (strchr("\xE0\xE1\xE2\xE4\xE6\xE7\xE8\xEB\xEC\xED\xEE\xEF", c))
 		return TRUE;
 
@@ -897,11 +897,11 @@ static uint16_t RestoreScaleLine(CSTR_line ln, uint16_t scale) {
 ///////////////
 void clear_cells(void);
 void Cells2CSTR(CSTR_line lin, CSTR_line lino, cell *cur, Bool32 enable_scaled);
-// для CopyAttr2CSTR в Cells2CSTR() !!!
+// РґР»СЏ CopyAttr2CSTR РІ Cells2CSTR() !!!
 Bool SetFontReady(Bool fready);
 int32_t p2_Cstr2Cell(CSTR_line lin, CSTR_rast first, CSTR_rast last,
 		Bool32 needVers, uint32_t disable);
-// предварительный поиск базовых линий
+// РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅС‹Р№ РїРѕРёСЃРє Р±Р°Р·РѕРІС‹С… Р»РёРЅРёР№
 void basedraft(CSTR_line ln) {
 	BAL_RSTR_GLOBALS rstrGlob;
 	BAL_INOUT_GLOBALS balGlob;
@@ -925,8 +925,8 @@ void basedraft(CSTR_line ln) {
 	if (!line_bal)
 		return;
 
-	// переведем cell_f()-> в нашу линию, используя
-	// атрибуты ln
+	// РїРµСЂРµРІРµРґРµРј cell_f()-> РІ РЅР°С€Сѓ Р»РёРЅРёСЋ, РёСЃРїРѕР»СЊР·СѓСЏ
+	// Р°С‚СЂРёР±СѓС‚С‹ ln
 	{
 		Bool old_ready = SetFontReady(TRUE);
 		Cells2CSTR(ln, line_bal, NULL, 1);
@@ -936,12 +936,12 @@ void basedraft(CSTR_line ln) {
 	SetRstrGlobals(&rstrGlob);
 	SetBalGlobals(&balGlob);
 
-	// установим - как будто не было шкалирования -
-	// как в версии с cell()
+	// СѓСЃС‚Р°РЅРѕРІРёРј - РєР°Рє Р±СѓРґС‚Рѕ РЅРµ Р±С‹Р»Рѕ С€РєР°Р»РёСЂРѕРІР°РЅРёСЏ -
+	// РєР°Рє РІ РІРµСЂСЃРёРё СЃ cell()
 	saveScale = SetNoScaleLine(line_bal);
 
-	// установим row,hei как у исходной - чтобы было совпадение с
-	// старой версией для skew_corr()
+	// СѓСЃС‚Р°РЅРѕРІРёРј row,hei РєР°Рє Сѓ РёСЃС…РѕРґРЅРѕР№ - С‡С‚РѕР±С‹ Р±С‹Р»Рѕ СЃРѕРІРїР°РґРµРЅРёРµ СЃ
+	// СЃС‚Р°СЂРѕР№ РІРµСЂСЃРёРµР№ РґР»СЏ skew_corr()
 	//
 	CSTR_GetLineAttr(line_bal, &lattr_bal);
 	lattr_bal.row = lattr.row;
@@ -951,41 +951,41 @@ void basedraft(CSTR_line ln) {
 	dust_in = 0;
 	BAL_basedraft(line_bal, 0, &rstrGlob, &balGlob, all_bases);
 
-	//  вернем истину
+	//  РІРµСЂРЅРµРј РёСЃС‚РёРЅСѓ
 	if (saveScale)
 		RestoreScaleLine(line_bal, saveScale);
 
 	GetBalGlobals(&balGlob);
 
-	// переведем в cell
+	// РїРµСЂРµРІРµРґРµРј РІ cell
 	clear_cells();
 	ret = p2_Cstr2Cell(line_bal, NULL, NULL, TRUE, CSTR_f_space);
 
-	// добавим мусор
+	// РґРѕР±Р°РІРёРј РјСѓСЃРѕСЂ
 	dust_ini(ln); //bring_dust(0);
 	dust_in = 1;
 
-	// очистим нашу линию
+	// РѕС‡РёСЃС‚РёРј РЅР°С€Сѓ Р»РёРЅРёСЋ
 	for (rast = CSTR_GetNext(CSTR_GetFirstRaster(line_bal)); rast; rast
 			= CSTR_DelRaster(rast))
 		;
 
-	// переведем cell_f()-> в нашу линию, используя
-	// атрибуты ln
+	// РїРµСЂРµРІРµРґРµРј cell_f()-> РІ РЅР°С€Сѓ Р»РёРЅРёСЋ, РёСЃРїРѕР»СЊР·СѓСЏ
+	// Р°С‚СЂРёР±СѓС‚С‹ ln
 	{
 		Bool old_ready = SetFontReady(TRUE);
 		Cells2CSTR(ln, line_bal, NULL, 1);
 		SetFontReady(old_ready);
 	}
 
-	// установим - как будто не было шкалирования -
-	// как в версии с cell()
+	// СѓСЃС‚Р°РЅРѕРІРёРј - РєР°Рє Р±СѓРґС‚Рѕ РЅРµ Р±С‹Р»Рѕ С€РєР°Р»РёСЂРѕРІР°РЅРёСЏ -
+	// РєР°Рє РІ РІРµСЂСЃРёРё СЃ cell()
 	saveScale = SetNoScaleLine(line_bal);
 
 	SetBalGlobals(&balGlob);
 
-	// установим row,hei как у исходной - чтобы было совпадение с
-	// старой версией для skew_corr()
+	// СѓСЃС‚Р°РЅРѕРІРёРј row,hei РєР°Рє Сѓ РёСЃС…РѕРґРЅРѕР№ - С‡С‚РѕР±С‹ Р±С‹Р»Рѕ СЃРѕРІРїР°РґРµРЅРёРµ СЃ
+	// СЃС‚Р°СЂРѕР№ РІРµСЂСЃРёРµР№ РґР»СЏ skew_corr()
 	//
 	CSTR_GetLineAttr(line_bal, &lattr_bal);
 	lattr_bal.row = lattr.row;
@@ -994,39 +994,39 @@ void basedraft(CSTR_line ln) {
 
 	retBaseDraft = BAL_basedraft(line_bal, 1, &rstrGlob, &balGlob, all_bases);
 	GetBalGlobals(&balGlob);
-	//  вернем истину
+	//  РІРµСЂРЅРµРј РёСЃС‚РёРЅСѓ
 	if (saveScale)
 		RestoreScaleLine(line_bal, saveScale);
 
-	// переведем в cell
+	// РїРµСЂРµРІРµРґРµРј РІ cell
 	clear_cells();
 	ret = p2_Cstr2Cell(line_bal, NULL, NULL, TRUE, CSTR_f_space);
 
-	// есть сомнения (и есть дополнительные возможности)
+	// РµСЃС‚СЊ СЃРѕРјРЅРµРЅРёСЏ (Рё РµСЃС‚СЊ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё)
 	if (!retBaseDraft) {
-		// добавим мусор
+		// РґРѕР±Р°РІРёРј РјСѓСЃРѕСЂ
 		dust_ini(ln); //bring_dust(0);
 		dust_in = 1;
 
-		// очистим нашу линию
+		// РѕС‡РёСЃС‚РёРј РЅР°С€Сѓ Р»РёРЅРёСЋ
 		for (rast = CSTR_GetNext(CSTR_GetFirstRaster(line_bal)); rast; rast
 				= CSTR_DelRaster(rast))
 			;
 
-		// переведем cell_f()-> в нашу линию, используя
-		// атрибуты ln
+		// РїРµСЂРµРІРµРґРµРј cell_f()-> РІ РЅР°С€Сѓ Р»РёРЅРёСЋ, РёСЃРїРѕР»СЊР·СѓСЏ
+		// Р°С‚СЂРёР±СѓС‚С‹ ln
 		{
 			Bool old_ready = SetFontReady(TRUE);
 			Cells2CSTR(ln, line_bal, NULL, 1);
 			SetFontReady(old_ready);
 		}
 
-		// установим - как будто не было шкалирования -
-		// как в версии с cell()
+		// СѓСЃС‚Р°РЅРѕРІРёРј - РєР°Рє Р±СѓРґС‚Рѕ РЅРµ Р±С‹Р»Рѕ С€РєР°Р»РёСЂРѕРІР°РЅРёСЏ -
+		// РєР°Рє РІ РІРµСЂСЃРёРё СЃ cell()
 		saveScale = SetNoScaleLine(line_bal);
 
-		// установим row,hei как у исходной - чтобы было совпадение с
-		// старой версией для skew_corr()
+		// СѓСЃС‚Р°РЅРѕРІРёРј row,hei РєР°Рє Сѓ РёСЃС…РѕРґРЅРѕР№ - С‡С‚РѕР±С‹ Р±С‹Р»Рѕ СЃРѕРІРїР°РґРµРЅРёРµ СЃ
+		// СЃС‚Р°СЂРѕР№ РІРµСЂСЃРёРµР№ РґР»СЏ skew_corr()
 		//
 		CSTR_GetLineAttr(line_bal, &lattr_bal);
 		lattr_bal.row = lattr.row;
@@ -1037,11 +1037,11 @@ void basedraft(CSTR_line ln) {
 		retBaseDraft = BAL_basedraft(line_bal, 2, &rstrGlob, &balGlob,
 				all_bases);
 		GetBalGlobals(&balGlob);
-		//  вернем истину
+		//  РІРµСЂРЅРµРј РёСЃС‚РёРЅСѓ
 		if (saveScale)
 			RestoreScaleLine(line_bal, saveScale);
 
-		// переведем в cell
+		// РїРµСЂРµРІРµРґРµРј РІ cell
 		clear_cells();
 		ret = p2_Cstr2Cell(line_bal, NULL, NULL, TRUE, CSTR_f_space);
 	}
@@ -1049,7 +1049,7 @@ void basedraft(CSTR_line ln) {
 	CSTR_DeleteLine(line_bal);
 }
 ///////////////
-// окончательно уточнить базовые линии
+// РѕРєРѕРЅС‡Р°С‚РµР»СЊРЅРѕ СѓС‚РѕС‡РЅРёС‚СЊ Р±Р°Р·РѕРІС‹Рµ Р»РёРЅРёРё
 void basefin(CSTR_line ln) {
 	BAL_RSTR_GLOBALS rstrGlob;
 	BAL_INOUT_GLOBALS balGlob;
@@ -1069,8 +1069,8 @@ void basefin(CSTR_line ln) {
 	if (!line_bal)
 		return;
 
-	// переведем cell_f()-> в нашу линию, используя
-	// атрибуты ln
+	// РїРµСЂРµРІРµРґРµРј cell_f()-> РІ РЅР°С€Сѓ Р»РёРЅРёСЋ, РёСЃРїРѕР»СЊР·СѓСЏ
+	// Р°С‚СЂРёР±СѓС‚С‹ ln
 	{
 		Bool old_ready = SetFontReady(TRUE);
 		Cells2CSTR(ln, line_bal, NULL, 1);
@@ -1080,25 +1080,25 @@ void basefin(CSTR_line ln) {
 	SetRstrGlobals(&rstrGlob);
 	SetBalGlobals(&balGlob);
 
-	// установим - как будто не было шкалирования -
-	// как в версии с cell()
+	// СѓСЃС‚Р°РЅРѕРІРёРј - РєР°Рє Р±СѓРґС‚Рѕ РЅРµ Р±С‹Р»Рѕ С€РєР°Р»РёСЂРѕРІР°РЅРёСЏ -
+	// РєР°Рє РІ РІРµСЂСЃРёРё СЃ cell()
 	saveScale = SetNoScaleLine(line_bal);
 
 	BAL_basefin(line_bal, &rstrGlob, &balGlob, all_bases);
 	GetBalGlobals(&balGlob);
-	//  вернем истину
+	//  РІРµСЂРЅРµРј РёСЃС‚РёРЅСѓ
 	if (saveScale)
 		RestoreScaleLine(line_bal, saveScale);
 
-	// переведем в cell
+	// РїРµСЂРµРІРµРґРµРј РІ cell
 	clear_cells();
 	ret = p2_Cstr2Cell(line_bal, NULL, NULL, TRUE, 0);
 
 	CSTR_DeleteLine(line_bal);
 }
 ////////////////////
-// уточнить базовые линии, проверить multi-base
-// оштрафовать - удалить версии по базовым линиям
+// СѓС‚РѕС‡РЅРёС‚СЊ Р±Р°Р·РѕРІС‹Рµ Р»РёРЅРёРё, РїСЂРѕРІРµСЂРёС‚СЊ multi-base
+// РѕС€С‚СЂР°С„РѕРІР°С‚СЊ - СѓРґР°Р»РёС‚СЊ РІРµСЂСЃРёРё РїРѕ Р±Р°Р·РѕРІС‹Рј Р»РёРЅРёСЏРј
 void linpos(CSTR_line ln) {
 	BAL_RSTR_GLOBALS rstrGlob;
 	BAL_INOUT_GLOBALS balGlob;
@@ -1118,8 +1118,8 @@ void linpos(CSTR_line ln) {
 	if (!line_bal)
 		return;
 
-	// переведем cell_f()-> в нашу линию, используя
-	// атрибуты ln
+	// РїРµСЂРµРІРµРґРµРј cell_f()-> РІ РЅР°С€Сѓ Р»РёРЅРёСЋ, РёСЃРїРѕР»СЊР·СѓСЏ
+	// Р°С‚СЂРёР±СѓС‚С‹ ln
 	{
 		Bool old_ready = SetFontReady(TRUE);
 		Cells2CSTR(ln, line_bal, NULL, 1);
@@ -1129,17 +1129,17 @@ void linpos(CSTR_line ln) {
 	SetRstrGlobals(&rstrGlob);
 	SetBalGlobals(&balGlob);
 
-	// установим - как будто не было шкалирования -
-	// как в версии с cell()
+	// СѓСЃС‚Р°РЅРѕРІРёРј - РєР°Рє Р±СѓРґС‚Рѕ РЅРµ Р±С‹Р»Рѕ С€РєР°Р»РёСЂРѕРІР°РЅРёСЏ -
+	// РєР°Рє РІ РІРµСЂСЃРёРё СЃ cell()
 	saveScale = SetNoScaleLine(line_bal);
 
 	BAL_linpos(line_bal, &rstrGlob, &balGlob, all_bases);
 	GetBalGlobals(&balGlob);
-	//  вернем истину
+	//  РІРµСЂРЅРµРј РёСЃС‚РёРЅСѓ
 	if (saveScale)
 		RestoreScaleLine(line_bal, saveScale);
 
-	// переведем в cell
+	// РїРµСЂРµРІРµРґРµРј РІ cell
 	clear_cells();
 	ret = p2_Cstr2Cell(line_bal, NULL, NULL, TRUE, 0);
 
