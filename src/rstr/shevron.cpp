@@ -164,7 +164,8 @@ int16_t find_word()
 #define MIN_PROB  150
 #define MID_PROB  200
 #define ok_K_hgt  10
-static uchar ruslet[] = "‰–“Š…ƒ˜™‡•š”›‚€Ž‹„†Ÿ—‘Œˆ’œžã¥ë ®ï¨î";
+//static uchar ruslet[] = "‰–“Š…ƒ˜™‡•š”›‚€Ž‹„†Ÿ—‘Œˆ’œžã¥ë ®ï¨î";
+static uchar ruslet[] = "\x89\x96\x93\x8A\x85\x8D\x83\x98\x99\x87\x95\x9A\x94\x9B\x82\x80\x8F\x90\x8E\x8B\x84\x86\x9D\x9F\x97\x91\x8C\x88\x92\x9C\x81\x9E\xE3\xA5\xEB\xA0\xAE\xEF\xA8\xEE";
 //					   "ÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏÐÎËÄÆÝß×ÑÌÈÒÜÁÞóåûàîÿèþ"
 /***************************************************************/
 void analysis_words(void)
@@ -196,7 +197,8 @@ void analysis_words(void)
     /*  ---------------- LEFT -----------------------------*/
     if (WB->vers[0].let == left_quocket)
         left = 100;
-    else if ((WB->flg & c_f_bad) || (memchr("ï ¥¢ýª", WB->vers[0].let, 6)
+    //else if ((WB->flg & c_f_bad) || (memchr("ï ¥¢ýª", WB->vers[0].let, 6)
+    else if ((WB->flg & c_f_bad) || (memchr("\xEF\xA0\xA5\xA2\xFD\xAA", WB->vers[0].let, 6)
             && !is_russian_baltic_conflict(WB->vers[0].let) && // 17.07.2001 E.P.
             !is_russian_turkish_conflict(WB->vers[0].let) && // 21.05.2002 E.P.
             WB->vers[0].prob < MAX_PROB) || (memchr("Cc", WB->vers[0].let, 2) && WB->vers[0].prob
@@ -215,10 +217,13 @@ void analysis_words(void)
     /*  ---------------- RIGHT -----------------------------*/
     if (WE->vers[0].let == right_quocket)
         right = 100;
-    else if ((WE->flg & c_f_bad) || (memchr("ï¢ í¬¥", WE->vers[0].let, 6)
+    //else if ((WE->flg & c_f_bad) || (memchr("ï¢ í¬¥", WE->vers[0].let, 6)
+    else if ((WE->flg & c_f_bad) || (memchr("\xEF\xA2\xA0\xED\xAC\xA5", WE->vers[0].let, 6)
             && !is_russian_baltic_conflict(WE->vers[0].let) && // 17.07.2001 E.P.
-            WE->vers[0].prob < MAX_PROB) || (memchr("sê", WE->vers[0].let, 2) && WE->vers[0].prob
-            < MIN_PROB) || (memchr("ì", WE->vers[0].let, 1) && !is_russian_baltic_conflict(
+            //WE->vers[0].prob < MAX_PROB) || (memchr("sê", WE->vers[0].let, 2) && WE->vers[0].prob
+            WE->vers[0].prob < MAX_PROB) || (memchr("s\xEA", WE->vers[0].let, 2) && WE->vers[0].prob
+            //< MIN_PROB) || (memchr("ì", WE->vers[0].let, 1) && !is_russian_baltic_conflict(
+            < MIN_PROB) || (memchr("\xEC", WE->vers[0].let, 1) && !is_russian_baltic_conflict(
             WE->vers[0].let) && // 17.07.2001 E.P.
             WE->vers[0].prob < PROB_OK) || (WE->vers[0].let == r_cu_u && WE->vers[0].prob
             <= MIN_PROB && WE->h <= ok_K_hgt) || (memchr("e", WE->vers[0].let, 1)
