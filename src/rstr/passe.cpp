@@ -679,12 +679,16 @@ Bool _spell_agressive(pchar s, uchar lang) {
 	return ret > 0;
 }
 
-static uchar russian_letters[] = "©æ­èéêäë¢«¤¦íï¬¨âì¡‰–“ƒ˜™š”‹„†Ÿ—ˆğñ÷øÀÈ";
+//static uchar russian_letters[] = "©æ­èéêäë¢«¤¦íï¬¨âì¡‰–“ƒ˜™š”‹„†Ÿ—ˆğñ÷øÀÈ";
+static uchar russian_letters[] = "\xA9\xE6\xAD\xE8\xE9\xEA\xE4\xEB\xA2\xAB\xA4\xA6\xED\xEF\xAC\xA8\xE2\xEC\xA1\x89\x96\x93\x83\x98\x99\x9A\x94\x8F\x8B\x84\x86\x9D\x9F\x97\x88\x81\xF0\xF1\xF7\xF8\xC0\xC8";
 static uchar english_letters[] = "Ili";
-static uchar two_lang_letters[] = "ş234567890ã“ªŠ¥…£§‡å•‚ €¯à®çá‘Œ’œõ";
+//static uchar two_lang_letters[] = "ş234567890ã“ªŠ¥…£§‡å•‚ €¯à®çá‘Œ’œõ";
+static uchar two_lang_letters[] = "\xFE\x32\x33\x34\x35\x36\x37\x38\x39\x30\xE3\x93\xAA\x8A\xA5\x85\x8D\xA3\xA7\x87\xE5\x95\x82\xA0\x80\xAF\xE0\x90\xAE\x8E\xE7\xE1\x91\x8C\x92\x9C\xF5";
 //static uchar eng_lang_letters[]="ş234567890yYkKeEHr33xXBaAnpPoOvcCMTbm";
-static uchar punct_letters[] = "(){}[]!¼,.\"':?\\/-_";
-static uchar russian_prepositions[] = " ¢á®ªã€‚‘Š“ı÷";
+//static uchar punct_letters[] = "(){}[]!¼,.\"':?\\/-_";
+static uchar punct_letters[] = "(){}[]!\xBC,.\"':?\\/-_";
+//static uchar russian_prepositions[] = " ¢á®ªã€‚‘Š“ı÷";
+static uchar russian_prepositions[] = "\xA0\xA2\xE1\xAE\xAA\xE3\x80\x82\x91\x8E\x8A\x93\xFD\xF7";
 static uchar critical_digitals[] = "183";
 
 // return : 0 - russian, 1 - english, 2 - russian or english
@@ -725,9 +729,11 @@ uchar is_english_word(cell *b, cell *e) {
 		if (memchr(two_lang_letters, ch, sizeof(two_lang_letters)) && pr
 				> GOOD_PROB)
 			re++;
-		if (memchr("î", ch, 2) && pr > GOOD_PROB && !(c->cg_flag & c_cg_comp))
+		//if (memchr("î", ch, 2) && pr > GOOD_PROB && !(c->cg_flag & c_cg_comp))
+		if (memchr("\xEE\x9E", ch, 2) && pr > GOOD_PROB && !(c->cg_flag & c_cg_comp))
 			re++;
-		if (memchr("î", ch, 2) && pr > GOOD_PROB + 30 && (c->cg_flag
+		//if (memchr("î", ch, 2) && pr > GOOD_PROB + 30 && (c->cg_flag
+		if (memchr("\xEE\x9E", ch, 2) && pr > GOOD_PROB + 30 && (c->cg_flag
 				& c_cg_comp))
 			re++;
 		if (memchr(russian_prepositions, ch, sizeof(russian_prepositions))
@@ -770,7 +776,8 @@ uchar change_Il1(cell *b, cell *e) {
 	if (n == 3 && b->vers[0].let == (uchar) '\x80' /* € */)
 		upper = 0;
 	for (c = b; c != e; c = c->next)
-		if ((c->flg & c_f_let) && c->nvers > 0 && memchr("1!¼", c->vers[0].let,
+		//if ((c->flg & c_f_let) && c->nvers > 0 && memchr("1!¼", c->vers[0].let,
+		if ((c->flg & c_f_let) && c->nvers > 0 && memchr("1!\xBC", c->vers[0].let,
 				3)) {
 			saveN = (uchar) c->nvers;
 			memcpy(saveV, c->vers, VERS_IN_CELL * sizeof(CIF::version));
@@ -803,7 +810,8 @@ uchar eng_recognize(cell *b, cell *e) {
 			continue;
 		}
 		if (memchr(two_lang_letters, let, sizeof(two_lang_letters)) && !memchr(
-				"§‡", let, 2)) {
+				//"§‡", let, 2)) {
+				"\xA7\x87", let, 2)) {
 			if (c->vers[0].prob > GOOD_PROB)
 				two_l++;
 			else {
@@ -819,7 +827,8 @@ uchar eng_recognize(cell *b, cell *e) {
 			continue;
 		}
 		if (c->nvers < 1 || memchr(russian_letters, let,
-				sizeof(russian_letters)) || memchr("§‡", let, 2)) {
+				//sizeof(russian_letters)) || memchr("§‡", let, 2)) {
+				sizeof(russian_letters)) || memchr("\xA7\x87", let, 2)) {
 			if (c->vers[0].prob > GOOD_PROB)
 				return 0; /* not english word : good russian letter */
 			else { /* bad russian letter */
@@ -897,7 +906,8 @@ Bool small_prob_in_word(cell *b, cell *e) {
 
 uchar small_english_str(void) {
 	cell *c;
-	uchar non_base_define_letters[] = "TYUuOoSsKZzXxCcVvHB3Ii1°0";
+	//uchar non_base_define_letters[] = "TYUuOoSsKZzXxCcVvHB3Ii1°0";
+	uchar non_base_define_letters[] = "TYUuOoSsKZzXxCcVvHB3Ii1\xB0\x30";
 	int16_t n, m;
 
 	for (c = cell_f()->nextl, n = 0; c != cell_l(); c = c->nextl, n++)
@@ -952,8 +962,10 @@ Bool more_alt(cell *b, cell *e) {
 		return FALSE;
 }
 
-static uchar russian_ligas[] = "ğñõ÷øıÀÈ";
-static uchar russian_ligas_recode[] = "¤¤â¨£ ¥…";
+//static uchar russian_ligas[] = "ğñõ÷øıÀÈ";
+static uchar russian_ligas[] = "\xF0\xF1\xF5\xF7\xF8\xFD\xC0\xC8";
+//static uchar russian_ligas_recode[] = "¤¤â¨£ ¥…";
+static uchar russian_ligas_recode[] = "\xA4\xA4\xE2\xA8\xA3\xA0\xA5\x85";
 Bool russian_word(uchar *wrd) {
 	int16_t i, ii, iv;
 	uchar w[MAX_LEN_WORD], c, *oc;
@@ -1049,10 +1061,13 @@ Bool english_word_all(uchar *wrd, uchar language) {
 }
 
 static uchar rus_two_lang_letters[] =
-		"…’“€Š•‘‚Œ¥ã¨®à åá¯1234567890,ş×Ø!._<>;";
+		//"…’“€Š•‘‚Œ¥ã¨®à åá¯1234567890,ş×Ø!._<>;";
+		"\x85\x92\x93\x8E\x90\x80\x8D\x8A\x95\x91\x82\x8C\xA5\xE3\xA8\xAE\xE0\xA0\xE5\xE1\xAF\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x2C\xFE\xD7\xD8!\x2E\x5F\x3C\x3E;";
 static uchar eng_two_lang_letters[] =
-		"ETYOPAHKXCBMeyuopaxcn1234567890,ş×Ø!._<>;";
-static uchar rus_two_lang_letters1[] = "…’“€Š•‘‚Œ¥ã¨®à åá¯";
+		//"ETYOPAHKXCBMeyuopaxcn1234567890,ş×Ø!._<>;";
+		"ETYOPAHKXCBMeyuopaxcn1234567890\x2C\xFE\xD7\xD8!\x2E\x5F\x3C\x3E;";
+//static uchar rus_two_lang_letters1[] = "…’“€Š•‘‚Œ¥ã¨®à åá¯";
+static uchar rus_two_lang_letters1[] = "\x85\x92\x93\x8E\x90\x80\x8D\x8A\x95\x91\x82\x8C\xA5\xE3\xA8\xAE\xE0\xA0\xE5\xE1\xAF";
 static uchar eng_two_lang_letters1[] = "ETYOPAHKXCBMeyuopaxcn";
 
 static Bool mixed_eng_rus_word(cell *b, cell *e);
