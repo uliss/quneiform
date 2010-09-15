@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- Разрешается повторное распространение и использование как в виде исходного кода,
- так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
+ Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+ С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
- * При повторном распространении исходного кода должны оставаться указанное
- выше уведомление об авторском праве, этот список условий и последующий
- отказ от гарантий.
- * При повторном распространении двоичного кода в документации и/или в
- других материалах, поставляемых при распространении, должны сохраняться
- указанная выше информация об авторском праве, этот список условий и
- последующий отказ от гарантий.
- * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
- быть использованы в качестве средства поддержки и/или продвижения
- продуктов, основанных на этом ПО, без предварительного письменного
- разрешения.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+ РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+ РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+ СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+ РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+ РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+ СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
- ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
- ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
- ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
- ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
- МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
- НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
- ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
- НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
- СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
- ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
- НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
- ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
+ Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+ РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+ Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+ РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+ РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+ РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+ РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+ РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+ РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+ РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+ РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+ Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -204,14 +204,15 @@ void set_spell_solid(void) {
 	cell *c, *e, *cc, *ce, *ee, *t;
 	uchar word_len, buf[MAX_LEN_WORD + 40], *wrd, *pwrd,
 			buff[MAX_LEN_WORD + 40], llanguage,
-			//      left_terms[]="<(Ч\"\'/[",
+			//      left_terms[]="<(Г—\"\'/[",
 			left_terms[] = "//<(\"\'/[",
-			//      right_terms[]="/)>ХШј\"!\';?\x1e\x1f",
-			right_terms[] = "///)>ј\"!\';?\x1e\x1f", // 31.05.2001 E.P.
+			//      right_terms[]="/)>РҐРЁС\"!\';?\x1e\x1f",
+			//right_terms[] = "///)>С\"!\';?\x1e\x1f", // 31.05.2001 E.P.
+			right_terms[] = "///)>\xBC\"!\';?\x1e\x1f", // 31.05.2001 E.P.
 			nextlet;
 	int16_t l, n = sizeof(buf) - 1;
 
-	// Лиги задаются макросами и зависят от языка. 31.05.2001 E.P.
+	// Р›РёРіРё Р·Р°РґР°СЋС‚СЃСЏ РјР°РєСЂРѕСЃР°РјРё Рё Р·Р°РІРёСЃСЏС‚ РѕС‚ СЏР·С‹РєР°. 31.05.2001 E.P.
 	left_terms[0] = low_quotes;
 	left_terms[1] = left_quocket;
 
@@ -292,7 +293,8 @@ void set_spell_solid(void) {
 
 				}
 				if (language == LANGUAGE_RUSSIAN && u > 2 && d == 1 && cd) {
-					if (!strchr(" ЎҐ\xf0\xf1\xf5\xf7\xf8\xfd", cd->vers[0].let)) {
+					//if (!strchr("В ВЎВҐ\xf0\xf1\xf5\xf7\xf8\xfd", cd->vers[0].let)) {
+					if (!strchr("\xA0\xA1\xA5\xf0\xf1\xf5\xf7\xf8\xfd", cd->vers[0].let)) {
 						cd->vers[0].let = to_upper(cd->vers[0].let);
 					}
 				}
@@ -509,7 +511,7 @@ uchar english_word_recognize(void) {
 		if (!is_eng && !BadWord) {
 			// nonenglish word - auxilary methodes
 
-			if (c->vers[0].let == (uchar) '\x8f' /* Џ */ && II_place(c) && II_config(c)) { // а §®аў ­­ п ЎгЄў  Џ
+			if (c->vers[0].let == (uchar) '\x8f' /* Рџ */ && II_place(c) && II_config(c)) { // СЂР°Р·РѕСЂРІР°РЅРЅР°СЏ Р±СѓРєРІР° Рџ
 				eng++;
 				down_all_versions(c, 22);
 				mark_two_lang_word(c, e, 1);
@@ -610,7 +612,8 @@ Bool russian_dictionary_word(cell * first, cell * last, puchar BadWord) {
 				else
 					*BadWord = 0;
 
-				if (cl == 2 && !memcmp(word, " §", 2))
+				//if (cl == 2 && !memcmp(word, "В В§", 2))
+				if (cl == 2 && !memcmp(word, "\xA0\xA7", 2))
 					return FALSE;
 
 				return TRUE;
@@ -632,9 +635,9 @@ Bool _spell(pchar s, uchar lang) {
 			//                ..  ..
 			// recode russian E   e
 			if (ss == r_e_2dot)
-				ss = (uchar) '\xa5' /* Ґ */;
+				ss = (uchar) '\xa5' /* Рµ */;
 			if (ss == r_EE_2dot)
-				ss = (uchar) '\x85' /* … */;
+				ss = (uchar) '\x85' /* Р• */;
 
 		}
 		if (ss == liga_i)
@@ -679,15 +682,15 @@ Bool _spell_agressive(pchar s, uchar lang) {
 	return ret > 0;
 }
 
-//static uchar russian_letters[] = "©ж­ийкдлў«¤¦нп¬ЁвмЎ‰–“ѓ™љ”Џ‹„†ќџ—€ЃрсчшАИ";
+//static uchar russian_letters[] = "Р№С†РЅС€С‰СЉС„С‹РІР»РґР¶СЌСЏРјРёС‚СЊР±Р™Р¦РЈР“РЁР©РЄР¤РџР›Р”Р–Р­РЇР§РР‘РЃС‘СћВ°в””в•љ";
 static uchar russian_letters[] = "\xA9\xE6\xAD\xE8\xE9\xEA\xE4\xEB\xA2\xAB\xA4\xA6\xED\xEF\xAC\xA8\xE2\xEC\xA1\x89\x96\x93\x83\x98\x99\x9A\x94\x8F\x8B\x84\x86\x9D\x9F\x97\x88\x81\xF0\xF1\xF7\xF8\xC0\xC8";
 static uchar english_letters[] = "Ili";
-//static uchar two_lang_letters[] = "ю234567890г“ЄЉҐ…ЌЈ§‡е•‚ ЂЇађ®Ћзб‘Њ’њх";
+//static uchar two_lang_letters[] = "в– 234567890СѓРЈРєРљРµР•РќРіР·Р—С…РҐР’Р°РђРїСЂР РѕРћС‡СЃРЎРњРўР¬С—";
 static uchar two_lang_letters[] = "\xFE\x32\x33\x34\x35\x36\x37\x38\x39\x30\xE3\x93\xAA\x8A\xA5\x85\x8D\xA3\xA7\x87\xE5\x95\x82\xA0\x80\xAF\xE0\x90\xAE\x8E\xE7\xE1\x91\x8C\x92\x9C\xF5";
-//static uchar eng_lang_letters[]="ю234567890yYkKeEHr33xXBaAnpPoOvcCMTbm";
-//static uchar punct_letters[] = "(){}[]!ј,.\"':?\\/-_";
+//static uchar eng_lang_letters[]="в– 234567890yYkKeEHr33xXBaAnpPoOvcCMTbm";
+//static uchar punct_letters[] = "(){}[]!С,.\"':?\\/-_";
 static uchar punct_letters[] = "(){}[]!\xBC,.\"':?\\/-_";
-//static uchar russian_prepositions[] = " ўб®ЄгЂ‚‘ЋЉ“эч";
+//static uchar russian_prepositions[] = "Р°РІСЃРѕРєСѓРђР’РЎРћРљРЈВ¤Сћ";
 static uchar russian_prepositions[] = "\xA0\xA2\xE1\xAE\xAA\xE3\x80\x82\x91\x8E\x8A\x93\xFD\xF7";
 static uchar critical_digitals[] = "183";
 
@@ -702,7 +705,7 @@ uchar is_english_word(cell *b, cell *e) {
 		pr = b->vers[0].prob;
 		if (strchr((char*) punct_letters, ch)) //,sizeof(punct_letters)) )
 			return 0;
-		if (ch == (uchar) '\xfe' /* ю */)
+		if (ch == (uchar) '\xfe' /* СЋ */)
 			return 0;
 		if (is_digit(ch))
 			return 0;
@@ -729,10 +732,10 @@ uchar is_english_word(cell *b, cell *e) {
 		if (memchr(two_lang_letters, ch, sizeof(two_lang_letters)) && pr
 				> GOOD_PROB)
 			re++;
-		//if (memchr("оћ", ch, 2) && pr > GOOD_PROB && !(c->cg_flag & c_cg_comp))
+		//if (memchr("СЋР®", ch, 2) && pr > GOOD_PROB && !(c->cg_flag & c_cg_comp))
 		if (memchr("\xEE\x9E", ch, 2) && pr > GOOD_PROB && !(c->cg_flag & c_cg_comp))
 			re++;
-		//if (memchr("оћ", ch, 2) && pr > GOOD_PROB + 30 && (c->cg_flag
+		//if (memchr("СЋР®", ch, 2) && pr > GOOD_PROB + 30 && (c->cg_flag
 		if (memchr("\xEE\x9E", ch, 2) && pr > GOOD_PROB + 30 && (c->cg_flag
 				& c_cg_comp))
 			re++;
@@ -744,7 +747,7 @@ uchar is_english_word(cell *b, cell *e) {
 		if (memchr(critical_digitals, ch, sizeof(critical_digitals)) && pr
 				< GOOD_PROB + 20) // Oleg : 28.12.94 : '1','8' too similar to 'I','S'
 			r1++;
-		if (ch == (uchar) '\xbc' /* ј */ && pr < GOOD_PROB && c != e->prev)
+		if (ch == (uchar) '\xbc' /* С */ && pr < GOOD_PROB && c != e->prev)
 			r1++; // ! whith glued . too similar 'I'
 	}
 	if (n == 1 && rp == 1)
@@ -773,10 +776,10 @@ uchar change_Il1(cell *b, cell *e) {
 		return FALSE;
 	upper += digit;
 	upper = (upper == n);
-	if (n == 3 && b->vers[0].let == (uchar) '\x80' /* Ђ */)
+	if (n == 3 && b->vers[0].let == (uchar) '\x80' /* Рђ */)
 		upper = 0;
 	for (c = b; c != e; c = c->next)
-		//if ((c->flg & c_f_let) && c->nvers > 0 && memchr("1!ј", c->vers[0].let,
+		//if ((c->flg & c_f_let) && c->nvers > 0 && memchr("1!С", c->vers[0].let,
 		if ((c->flg & c_f_let) && c->nvers > 0 && memchr("1!\xBC", c->vers[0].let,
 				3)) {
 			saveN = (uchar) c->nvers;
@@ -810,7 +813,7 @@ uchar eng_recognize(cell *b, cell *e) {
 			continue;
 		}
 		if (memchr(two_lang_letters, let, sizeof(two_lang_letters)) && !memchr(
-				//"§‡", let, 2)) {
+				//"Р·Р—", let, 2)) {
 				"\xA7\x87", let, 2)) {
 			if (c->vers[0].prob > GOOD_PROB)
 				two_l++;
@@ -827,7 +830,7 @@ uchar eng_recognize(cell *b, cell *e) {
 			continue;
 		}
 		if (c->nvers < 1 || memchr(russian_letters, let,
-				//sizeof(russian_letters)) || memchr("§‡", let, 2)) {
+				//sizeof(russian_letters)) || memchr("Р·Р—", let, 2)) {
 				sizeof(russian_letters)) || memchr("\xA7\x87", let, 2)) {
 			if (c->vers[0].prob > GOOD_PROB)
 				return 0; /* not english word : good russian letter */
@@ -906,7 +909,7 @@ Bool small_prob_in_word(cell *b, cell *e) {
 
 uchar small_english_str(void) {
 	cell *c;
-	//uchar non_base_define_letters[] = "TYUuOoSsKZzXxCcVvHB3Ii1°0";
+	//uchar non_base_define_letters[] = "TYUuOoSsKZzXxCcVvHB3Ii1В°0";
 	uchar non_base_define_letters[] = "TYUuOoSsKZzXxCcVvHB3Ii1\xB0\x30";
 	int16_t n, m;
 
@@ -922,7 +925,7 @@ uchar small_english_str(void) {
 	return (m < 3);
 }
 
-/* Ў« Ј®ЇаЁпв­®Ґ ¬Ґбв®а бЇ®«®¦Ґ­ЁҐ ¤«п Ї ал II */
+/* Р±Р»Р°РіРѕРїСЂРёСЏС‚РЅРѕРµ РјРµСЃС‚РѕСЂР°СЃРїРѕР»РѕР¶РµРЅРёРµ РґР»СЏ РїР°СЂС‹ II */
 Bool II_place(cell *c) {
 	if (c->prev && (c->prev->flg & c_f_space) && c->next && (c->next->flg
 			& c_f_space) && c->prevl && (c->prevl->flg & (c_f_let | c_f_bad))
@@ -962,9 +965,9 @@ Bool more_alt(cell *b, cell *e) {
 		return FALSE;
 }
 
-//static uchar russian_ligas[] = "рсхчшэАИ";
+//static uchar russian_ligas[] = "СЂСЃС…С‡С€СЌРђР";
 static uchar russian_ligas[] = "\xF0\xF1\xF5\xF7\xF8\xFD\xC0\xC8";
-//static uchar russian_ligas_recode[] = "¤¤вЁЈ Ґ…";
+//static uchar russian_ligas_recode[] = "РґРґС‚РёРіР°РµР•";
 static uchar russian_ligas_recode[] = "\xA4\xA4\xE2\xA8\xA3\xA0\xA5\x85";
 Bool russian_word(uchar *wrd) {
 	int16_t i, ii, iv;
@@ -1061,12 +1064,12 @@ Bool english_word_all(uchar *wrd, uchar language) {
 }
 
 static uchar rus_two_lang_letters[] =
-		//"…’“ЋђЂЌЉ•‘‚ЊҐгЁ®а ебЇ1234567890,юЧШ!._<>;";
+		//"Р•РўРЈРћР РђРќРљРҐРЎР’РњРµСѓРёРѕСЂР°С…СЃРї1234567890,в– в•«в•Є!._<>;";
 		"\x85\x92\x93\x8E\x90\x80\x8D\x8A\x95\x91\x82\x8C\xA5\xE3\xA8\xAE\xE0\xA0\xE5\xE1\xAF\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x2C\xFE\xD7\xD8!\x2E\x5F\x3C\x3E;";
 static uchar eng_two_lang_letters[] =
-		//"ETYOPAHKXCBMeyuopaxcn1234567890,юЧШ!._<>;";
+		//"ETYOPAHKXCBMeyuopaxcn1234567890,в– в•«в•Є!._<>;";
 		"ETYOPAHKXCBMeyuopaxcn1234567890\x2C\xFE\xD7\xD8!\x2E\x5F\x3C\x3E;";
-//static uchar rus_two_lang_letters1[] = "…’“ЋђЂЌЉ•‘‚ЊҐгЁ®а ебЇ";
+//static uchar rus_two_lang_letters1[] = "Р•РўРЈРћР РђРќРљРҐРЎР’РњРµСѓРёРѕСЂР°С…СЃРї";
 static uchar rus_two_lang_letters1[] = "\x85\x92\x93\x8E\x90\x80\x8D\x8A\x95\x91\x82\x8C\xA5\xE3\xA8\xAE\xE0\xA0\xE5\xE1\xAF";
 static uchar eng_two_lang_letters1[] = "ETYOPAHKXCBMeyuopaxcn";
 
@@ -1223,7 +1226,7 @@ Bool special_eng_to_rus(cell *b, cell *e) {
 			if (e == b || e != b && e->prev && e->prev->nvers && strchr(
 					"0123456789I", e->prev->vers[0].let)) {
 				e->nvers = 1;
-				e->vers[0].let = '\xa3' /* Ј */;
+				e->vers[0].let = '\xa3' /* Рі */;
 				return TRUE;
 			}
 		}
@@ -1339,7 +1342,7 @@ Bool exist_symbol(cell *b, cell *e, uchar ch) {
 }
 
 //static uchar left_limit_word[] =" .";
-//static uchar right_limit_word[]=" -.РЭЮ.";
+//static uchar right_limit_word[]=" -.Р Р­Р®.";
 static uchar left_limit_word[] = " \x1f";
 static uchar right_limit_word[] = " -\x1f\x2e"; // 31.05.2001 E.P.
 
@@ -1367,7 +1370,7 @@ cell * end_word(cell *cs, uchar *str, uchar *word_len, uchar *add_letters) {
 		i++;
 	} while ((!c->nvers || !strchr((char*) right_limit_word, (let
 			= c->vers[0].let)) && (
-	// Лиги задаются макросами и зависят от языка. 31.05.2001 E.P.
+	// Р›РёРіРё Р·Р°РґР°СЋС‚СЃСЏ РјР°РєСЂРѕСЃР°РјРё Рё Р·Р°РІРёСЃСЏС‚ РѕС‚ СЏР·С‹РєР°. 31.05.2001 E.P.
 			let != liga_TM && let != liga_CR && let != liga_CC) && !strchr(
 			(char*) add_letters, c->vers[0].let)) && !(c->flg & c_f_fict) && i
 			< MAX_LEN_WORD - 1);
