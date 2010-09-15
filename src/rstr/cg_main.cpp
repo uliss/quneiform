@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- ђ §аҐи Ґвбп Ї®ўв®а­®Ґ а бЇа®бва ­Ґ­ЁҐ Ё ЁбЇ®«м§®ў ­ЁҐ Є Є ў ўЁ¤Ґ Ёбе®¤­®Ј® Є®¤ ,
- в Є Ё ў ¤ў®Ёз­®© д®а¬Ґ, б Ё§¬Ґ­Ґ­Ёп¬Ё Ё«Ё ЎҐ§, ЇаЁ б®Ў«о¤Ґ­ЁЁ б«Ґ¤гойЁе гб«®ўЁ©:
+ Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР°Рє РІ РІРёРґРµ РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР°,
+ С‚Р°Рє Рё РІ РґРІРѕРёС‡РЅРѕР№ С„РѕСЂРјРµ, СЃ РёР·РјРµРЅРµРЅРёСЏРјРё РёР»Рё Р±РµР·, РїСЂРё СЃРѕР±Р»СЋРґРµРЅРёРё СЃР»РµРґСѓСЋС‰РёС… СѓСЃР»РѕРІРёР№:
 
- * ЏаЁ Ї®ўв®а­®¬ а бЇа®бва ­Ґ­ЁЁ Ёбе®¤­®Ј® Є®¤  ¤®«¦­л ®бв ў вмбп гЄ § ­­®Ґ
- ўлиҐ гўҐ¤®¬«Ґ­ЁҐ ®Ў  ўв®абЄ®¬ Їа ўҐ, нв®в бЇЁб®Є гб«®ўЁ© Ё Ї®б«Ґ¤гойЁ©
- ®вЄ § ®в Ј а ­вЁ©.
- * ЏаЁ Ї®ўв®а­®¬ а бЇа®бва ­Ґ­ЁЁ ¤ў®Ёз­®Ј® Є®¤  ў ¤®Єг¬Ґ­в жЁЁ Ё/Ё«Ё ў
- ¤агЈЁе ¬ вҐаЁ « е, Ї®бв ў«пҐ¬ле ЇаЁ а бЇа®бва ­Ґ­ЁЁ, ¤®«¦­л б®еа ­пвмбп
- гЄ § ­­ п ўлиҐ Ё­д®а¬ жЁп ®Ў  ўв®абЄ®¬ Їа ўҐ, нв®в бЇЁб®Є гб«®ўЁ© Ё
- Ї®б«Ґ¤гойЁ© ®вЄ § ®в Ј а ­вЁ©.
- * ЌЁ ­ §ў ­ЁҐ Cognitive Technologies, ­Ё Ё¬Ґ­  ҐҐ б®ваг¤­ЁЄ®ў ­Ґ ¬®Јгв
- Ўлвм ЁбЇ®«м§®ў ­л ў Є зҐбвўҐ баҐ¤бвў  Ї®¤¤Ґа¦ЄЁ Ё/Ё«Ё Їа®¤ўЁ¦Ґ­Ёп
- Їа®¤гЄв®ў, ®б­®ў ­­ле ­  нв®¬ ЏЋ, ЎҐ§ ЇаҐ¤ў аЁвҐ«м­®Ј® ЇЁбм¬Ґ­­®Ј®
- а §аҐиҐ­Ёп.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РёСЃС…РѕРґРЅРѕРіРѕ РєРѕРґР° РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ СѓРєР°Р·Р°РЅРЅРѕРµ
+ РІС‹С€Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё РїРѕСЃР»РµРґСѓСЋС‰РёР№
+ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РџСЂРё РїРѕРІС‚РѕСЂРЅРѕРј СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё РґРІРѕРёС‡РЅРѕРіРѕ РєРѕРґР° РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Рё/РёР»Рё РІ
+ РґСЂСѓРіРёС… РјР°С‚РµСЂРёР°Р»Р°С…, РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… РїСЂРё СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРё, РґРѕР»Р¶РЅС‹ СЃРѕС…СЂР°РЅСЏС‚СЊСЃСЏ
+ СѓРєР°Р·Р°РЅРЅР°СЏ РІС‹С€Рµ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕСЂСЃРєРѕРј РїСЂР°РІРµ, СЌС‚РѕС‚ СЃРїРёСЃРѕРє СѓСЃР»РѕРІРёР№ Рё
+ РїРѕСЃР»РµРґСѓСЋС‰РёР№ РѕС‚РєР°Р· РѕС‚ РіР°СЂР°РЅС‚РёР№.
+ * РќРё РЅР°Р·РІР°РЅРёРµ Cognitive Technologies, РЅРё РёРјРµРЅР° РµРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅРµ РјРѕРіСѓС‚
+ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РІ РєР°С‡РµСЃС‚РІРµ СЃСЂРµРґСЃС‚РІР° РїРѕРґРґРµСЂР¶РєРё Рё/РёР»Рё РїСЂРѕРґРІРёР¶РµРЅРёСЏ
+ РїСЂРѕРґСѓРєС‚РѕРІ, РѕСЃРЅРѕРІР°РЅРЅС‹С… РЅР° СЌС‚РѕРј РџРћ, Р±РµР· РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРіРѕ РїРёСЃСЊРјРµРЅРЅРѕРіРѕ
+ СЂР°Р·СЂРµС€РµРЅРёСЏ.
 
- ќ’Ђ ЏђЋѓђЂЊЊЂ Џђ…„Ћ‘’Ђ‚‹…ЌЂ ‚‹Ђ„…‹њ–ЂЊ€ Ђ‚’Ћђ‘Љ€• ЏђЂ‚ €/€‹€ „ђ“ѓ€Њ€ ‹€–ЂЊ€ "ЉЂЉ
- ЋЌЂ …‘’њ" Ѓ…‡ ЉЂЉЋѓЋ-‹€ЃЋ ‚€„Ђ ѓЂђЂЌ’€‰, ‚›ђЂ†…ЌЌ›• џ‚ЌЋ €‹€ ЏЋ„ђЂ‡“Њ…‚Ђ…Њ›•,
- ‚Љ‹ћ—Ђџ ѓЂђЂЌ’€€ ЉЋЊЊ…ђ—…‘ЉЋ‰ –…ЌЌЋ‘’€ € Џђ€ѓЋ„ЌЋ‘’€ „‹џ ЉЋЌЉђ…’ЌЋ‰ –…‹€, ЌЋ Ќ…
- ЋѓђЂЌ€—€‚Ђџ‘њ €Њ€. Ќ€ ‚‹Ђ„…‹…– Ђ‚’Ћђ‘Љ€• ЏђЂ‚ € Ќ€ Ћ„ЌЋ „ђ“ѓЋ… ‹€–Ћ, ЉЋ’ЋђЋ…
- ЊЋ†…’ €‡Њ…Ќџ’њ €/€‹€ ЏЋ‚’ЋђЌЋ ђЂ‘ЏђЋ‘’ђЂЌџ’њ ЏђЋѓђЂЊЊ“, Ќ€ ‚ ЉЋ…Њ ‘‹“—Ђ… Ќ…
- Ќ…‘р’ Ћ’‚…’‘’‚…ЌЌЋ‘’€, ‚Љ‹ћ—Ђџ ‹ћЃ›… ЋЃ™€…, ‘‹“—Ђ‰Ќ›…, ‘Џ…–€Ђ‹њЌ›… €‹€
- ЏЋ‘‹…„Ћ‚Ђ‚€… “Ѓ›’Љ€, ‘‚џ‡ЂЌЌ›… ‘ €‘ЏЋ‹њ‡Ћ‚ЂЌ€…Њ €‹€ ЏЋЌ…‘…ЌЌ›… ‚‘‹…„‘’‚€…
- Ќ…‚Ћ‡ЊЋ†ЌЋ‘’€ €‘ЏЋ‹њ‡Ћ‚ЂЌ€џ ЏђЋѓђЂЊЊ› (‚Љ‹ћ—Ђџ ЏЋ’…ђ€ „ЂЌЌ›•, €‹€ „ЂЌЌ›…,
- ‘’Ђ‚€… Ќ…ѓЋ„Ќ›Њ€, €‹€ “Ѓ›’Љ€ €/€‹€ ЏЋ’…ђ€ „Ћ•Ћ„Ћ‚, ЏЋЌ…‘…ЌЌ›… €‡-‡Ђ „…‰‘’‚€‰
- ’ђ…’њ€• ‹€– €/€‹€ Ћ’ЉЂ‡Ђ ЏђЋѓђЂЊЊ› ђЂЃЋ’Ђ’њ ‘Ћ‚Њ…‘’ЌЋ ‘ „ђ“ѓ€Њ€ ЏђЋѓђЂЊЊЂЊ€,
- ЌЋ Ќ… ЋѓђЂЌ€—€‚Ђџ‘њ ќ’€Њ€ ‘‹“—ЂџЊ€), ЌЋ Ќ… ЋѓђЂЌ€—€‚Ђџ‘њ €Њ€, „Ђ†… …‘‹€ ’ЂЉЋ‰
- ‚‹Ђ„…‹…– €‹€ „ђ“ѓЋ… ‹€–Ћ Ѓ›‹€ €‡‚…™…Ќ› Ћ ‚Ћ‡ЊЋ†ЌЋ‘’€ ’ЂЉ€• “Ѓ›’ЉЋ‚ € ЏЋ’…ђњ.
+ Р­РўРђ РџР РћР“Р РђРњРњРђ РџР Р•Р”РћРЎРўРђР’Р›Р•РќРђ Р’Р›РђР”Р•Р›Р¬Р¦РђРњР РђР’РўРћР РЎРљРРҐ РџР РђР’ Р/РР›Р Р”Р РЈР“РРњР Р›РР¦РђРњР "РљРђРљ
+ РћРќРђ Р•РЎРўР¬" Р‘Р•Р— РљРђРљРћР“Рћ-Р›РР‘Рћ Р’РР”Рђ Р“РђР РђРќРўРР™, Р’Р«Р РђР–Р•РќРќР«РҐ РЇР’РќРћ РР›Р РџРћР”Р РђР—РЈРњР•Р’РђР•РњР«РҐ,
+ Р’РљР›Р®Р§РђРЇ Р“РђР РђРќРўРР РљРћРњРњР•Р Р§Р•РЎРљРћР™ Р¦Р•РќРќРћРЎРўР Р РџР РР“РћР”РќРћРЎРўР Р”Р›РЇ РљРћРќРљР Р•РўРќРћР™ Р¦Р•Р›Р, РќРћ РќР•
+ РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР. РќР Р’Р›РђР”Р•Р›Р•Р¦ РђР’РўРћР РЎРљРРҐ РџР РђР’ Р РќР РћР”РќРћ Р”Р РЈР“РћР• Р›РР¦Рћ, РљРћРўРћР РћР•
+ РњРћР–Р•Рў РР—РњР•РќРЇРўР¬ Р/РР›Р РџРћР’РўРћР РќРћ Р РђРЎРџР РћРЎРўР РђРќРЇРўР¬ РџР РћР“Р РђРњРњРЈ, РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР• РќР•
+ РќР•РЎРЃРў РћРўР’Р•РўРЎРўР’Р•РќРќРћРЎРўР, Р’РљР›Р®Р§РђРЇ Р›Р®Р‘Р«Р• РћР‘Р©РР•, РЎР›РЈР§РђР™РќР«Р•, РЎРџР•Р¦РРђР›Р¬РќР«Р• РР›Р
+ РџРћРЎР›Р•Р”РћР’РђР’РЁРР• РЈР‘Р«РўРљР, РЎР’РЇР—РђРќРќР«Р• РЎ РРЎРџРћР›Р¬Р—РћР’РђРќРР•Рњ РР›Р РџРћРќР•РЎР•РќРќР«Р• Р’РЎР›Р•Р”РЎРўР’РР•
+ РќР•Р’РћР—РњРћР–РќРћРЎРўР РРЎРџРћР›Р¬Р—РћР’РђРќРРЇ РџР РћР“Р РђРњРњР« (Р’РљР›Р®Р§РђРЇ РџРћРўР•Р Р Р”РђРќРќР«РҐ, РР›Р Р”РђРќРќР«Р•,
+ РЎРўРђР’РЁРР• РќР•Р“РћР”РќР«РњР, РР›Р РЈР‘Р«РўРљР Р/РР›Р РџРћРўР•Р Р Р”РћРҐРћР”РћР’, РџРћРќР•РЎР•РќРќР«Р• РР—-Р—Рђ Р”Р•Р™РЎРўР’РР™
+ РўР Р•РўР¬РРҐ Р›РР¦ Р/РР›Р РћРўРљРђР—Рђ РџР РћР“Р РђРњРњР« Р РђР‘РћРўРђРўР¬ РЎРћР’РњР•РЎРўРќРћ РЎ Р”Р РЈР“РРњР РџР РћР“Р РђРњРњРђРњР,
+ РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ Р­РўРРњР РЎР›РЈР§РђРЇРњР), РќРћ РќР• РћР“Р РђРќРР§РР’РђРЇРЎР¬ РРњР, Р”РђР–Р• Р•РЎР›Р РўРђРљРћР™
+ Р’Р›РђР”Р•Р›Р•Р¦ РР›Р Р”Р РЈР“РћР• Р›РР¦Рћ Р‘Р«Р›Р РР—Р’Р•Р©Р•РќР« Рћ Р’РћР—РњРћР–РќРћРЎРўР РўРђРљРРҐ РЈР‘Р«РўРљРћР’ Р РџРћРўР•Р Р¬.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -54,7 +54,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//Ў §®ўлҐ Їа®жҐ¤гал а §аҐ§ ­Ёп-бЄ«ҐЁў ­Ёп
+//Р±Р°Р·РѕРІС‹Рµ РїСЂРѕС†РµРґСѓСЂС‹ СЂР°Р·СЂРµР·Р°РЅРёСЏ-СЃРєР»РµРёРІР°РЅРёСЏ
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -78,46 +78,46 @@
 
 extern uchar langUkr, langSer;
 
-#define  MAX_GATE  RASTER_WIDTH  //¬ Єб. Їа®бўҐв ў­гваЁ бЁ¬ў®« 
-#define  MAX_WIDTH RASTER_WIDTH  //¬ Єб. иЁаЁ­  бЁ¬ў®« 
-#define  CUT_PEN   15  //ива д §  а §аҐ§
-#define  PASS_PEN  45  //ива д §  Їа®ЇгйҐ­­л© dust
-#define  CUT_rlI   30  //ива д ®ваҐ§ ­­л¬ "rlI"
-#define  PEN_TOP_DUST    15      //ива д ¤«п ¬,­,Ї,ж,л, Ґб«Ё бўҐаег Ґбвм dust
-#define  RO_DUST_OFF     80      //¬ Єб. ®иЁЎЄ  ¤«п а бЇ®§­ ў ­Ёп ЎҐ§ dust'®ў
-#define  RO_COMPOSE     210      //¬ ЄбЁ¬ «м­ п ®иЁЎЄ  ¤«п б®Ўа ­­®© ЎгЄўл
-#define  RO_BAD  MAX_RO-MINlet   //¬ ЄбЁ¬ «м­ п ®иЁЎЄ  г Ї«®е®© ЎгЄўл
-#define  RELIABLE_A     190      //­ ¤Ґ¦­ п " " (­Ґ ¬®¦Ґв Ўлвм з бвмо
-#define  RELIABLE_9     150      //­ ¤Ґ¦­ п "9"  ¤агЈ®Ј® бЁ¬ў®« )
-#define  I_wo_point     150      //ўҐа®пв­®бвм ¤«п "i" ЎҐ§ в®зЄЁ
-#define  G_to_T   100  //д®а  ¤«п '\xe2' /* в */
-#define  P_to_L    35  //д®а  ¤«п '\xab' /* « */
-#define  O_to_B    60  //д®а  ¤«п '\xa1' /* Ў */
-#define  mi_PEN    60  //ива д ¤«п 'm', Ґб«Ё Ґбвм i
-#define  m_nc_PEN  30  //ива д ¤«п 'm', Ґб«Ё ­Ґбўп§­ п
-#define  H_PEN     30  //ива д ¤«п б®Ўа ­­®© 'H'
-#define  IEE_IU_PEN 40 //ива д ў б®зҐв ­Ёпе 'л®' Ё  'мо'
+#define  MAX_GATE  RASTER_WIDTH  //РјР°РєСЃ. РїСЂРѕСЃРІРµС‚ РІРЅСѓС‚СЂРё СЃРёРјРІРѕР»Р°
+#define  MAX_WIDTH RASTER_WIDTH  //РјР°РєСЃ. С€РёСЂРёРЅР° СЃРёРјРІРѕР»Р°
+#define  CUT_PEN   15  //С€С‚СЂР°С„ Р·Р° СЂР°Р·СЂРµР·
+#define  PASS_PEN  45  //С€С‚СЂР°С„ Р·Р° РїСЂРѕРїСѓС‰РµРЅРЅС‹Р№ dust
+#define  CUT_rlI   30  //С€С‚СЂР°С„ РѕС‚СЂРµР·Р°РЅРЅС‹Рј "rlI"
+#define  PEN_TOP_DUST    15      //С€С‚СЂР°С„ РґР»СЏ Рј,РЅ,Рї,С†,С‹, РµСЃР»Рё СЃРІРµСЂС…Сѓ РµСЃС‚СЊ dust
+#define  RO_DUST_OFF     80      //РјР°РєСЃ. РѕС€РёР±РєР° РґР»СЏ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ Р±РµР· dust'РѕРІ
+#define  RO_COMPOSE     210      //РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РѕС€РёР±РєР° РґР»СЏ СЃРѕР±СЂР°РЅРЅРѕР№ Р±СѓРєРІС‹
+#define  RO_BAD  MAX_RO-MINlet   //РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РѕС€РёР±РєР° Сѓ РїР»РѕС…РѕР№ Р±СѓРєРІС‹
+#define  RELIABLE_A     190      //РЅР°РґРµР¶РЅР°СЏ "Р°" (РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ С‡Р°СЃС‚СЊСЋ
+#define  RELIABLE_9     150      //РЅР°РґРµР¶РЅР°СЏ "9"  РґСЂСѓРіРѕРіРѕ СЃРёРјРІРѕР»Р°)
+#define  I_wo_point     150      //РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РґР»СЏ "i" Р±РµР· С‚РѕС‡РєРё
+#define  G_to_T   100  //С„РѕСЂР° РґР»СЏ '\xe2' /* С‚ */
+#define  P_to_L    35  //С„РѕСЂР° РґР»СЏ '\xab' /* Р» */
+#define  O_to_B    60  //С„РѕСЂР° РґР»СЏ '\xa1' /* Р± */
+#define  mi_PEN    60  //С€С‚СЂР°С„ РґР»СЏ 'm', РµСЃР»Рё РµСЃС‚СЊ i
+#define  m_nc_PEN  30  //С€С‚СЂР°С„ РґР»СЏ 'm', РµСЃР»Рё РЅРµСЃРІСЏР·РЅР°СЏ
+#define  H_PEN     30  //С€С‚СЂР°С„ РґР»СЏ СЃРѕР±СЂР°РЅРЅРѕР№ 'H'
+#define  IEE_IU_PEN 40 //С€С‚СЂР°С„ РІ СЃРѕС‡РµС‚Р°РЅРёСЏС… 'С‹Рѕ' Рё  'СЊСЋ'
 //---------------------  types   --------------------------------------
 
-struct cell_list_struct //бЇЁб®Є cell'®ў
+struct cell_list_struct //СЃРїРёСЃРѕРє cell'РѕРІ
 {
-	int16_t N; //Є®«ЁзҐбвў®
+	int16_t N; //РєРѕР»РёС‡РµСЃС‚РІРѕ
 	cell *cells[MAX_SECT];
 };
 typedef struct cell_list_struct cell_list;
 
-struct dubble_list_struct //бЇЁб®Є а §­ле cell'®ў
+struct dubble_list_struct //СЃРїРёСЃРѕРє СЂР°Р·РЅС‹С… cell'РѕРІ
 {
-	cell_list b; //Є®«ЁзҐбвў® Ё бЇЁб®Є Ў®«миЁе cell'®ў
-	cell_list d; //Є®«ЁзҐбвў® Ё бЇЁб®Є dust'®ў
+	cell_list b; //РєРѕР»РёС‡РµСЃС‚РІРѕ Рё СЃРїРёСЃРѕРє Р±РѕР»СЊС€РёС… cell'РѕРІ
+	cell_list d; //РєРѕР»РёС‡РµСЃС‚РІРѕ Рё СЃРїРёСЃРѕРє dust'РѕРІ
 };
 typedef struct dubble_list_struct dubble_list;
 
-struct grup_struct //ЈагЇЇ  cell'®ў
+struct grup_struct //РіСЂСѓРїРїР° cell'РѕРІ
 {
-	int16_t n; //Є®«ЁзҐбвў®
-	int16_t a; //ўҐае­Ё© Єа ©
-	int16_t b; //­Ё¦­Ё© Єа ©
+	int16_t n; //РєРѕР»РёС‡РµСЃС‚РІРѕ
+	int16_t a; //РІРµСЂС…РЅРёР№ РєСЂР°Р№
+	int16_t b; //РЅРёР¶РЅРёР№ РєСЂР°Р№
 };
 typedef struct grup_struct grup;
 
@@ -126,16 +126,18 @@ typedef struct grup_struct grup;
 //extern char accent_tab[];
 extern uchar db_status; // snap presence byte
 extern uchar db_trace_flag; // 2 - more detailed estimate (ALT-F7)
-extern Bool pass4_in; //д« Ј: ўв®а®© Їа®е®¤ Ї® бва ­ЁжҐ
-extern int16_t sMALL_SIZE; //¬Ё­Ё¬ «м­ п ўлб®в  "Ў®«ми®Ј®" н«Ґ¬Ґ­в 
+extern Bool pass4_in; //С„Р»Р°Рі: РІС‚РѕСЂРѕР№ РїСЂРѕС…РѕРґ РїРѕ СЃС‚СЂР°РЅРёС†Рµ
+extern int16_t sMALL_SIZE; //РјРёРЅРёРјР°Р»СЊРЅР°СЏ РІС‹СЃРѕС‚Р° "Р±РѕР»СЊС€РѕРіРѕ" СЌР»РµРјРµРЅС‚Р°
 Handle hSnapBLcut;
 
-uchar sticks_left_to_bad[] = { "  1/!|l1IJ)}[]" }; // 0,1st pos reserved for liga_i, liga_exm
+//uchar sticks_left_to_bad[] = { "  1/!|l1IJ)}[]" }; // 0,1st pos reserved for liga_i, liga_exm
+uchar sticks_left_to_bad[] = { "  1\x2F!\x7Cl1IJ\x29\x7D\x5B\x5D" }; // 0,1st pos reserved for liga_i, liga_exm
 // 2nd	for turkish i_sans_accent - Nick 12.06.02
-//uchar letters_left_to_bad[] = { " nrvtcC(u<>мњЁ€чЄЉ«­ЌЇЏб‘Јѓ" }; // 0th pos for sticks " nrvtcC(u<>ьЬиИчкКлнНпПсСгГ"
-uchar letters_left_to_bad[] = { " nrvtcC\x28u\x3C\x3E\xEC\x9C\xA8\x88\xF7\xAA\x8A\xAB\xAD\x8D\xAF\x8F\xE1\x91\xA3\x83" }; // 0th pos for sticks " nrvtcC(u<>ьЬиИчкКлнНпПсСгГ"
+//uchar letters_left_to_bad[] = { " nrvtcC(u<>СЊР¬РёРСћРєРљР»РЅРќРїРџСЃРЎРіР“" };
+ // 0th pos for sticks " nrvtcC(u<>СЊР¬РёРС‡РєРљР»РЅРќРїРџСЃРЎРіР“"
+uchar letters_left_to_bad[] = { " nrvtcC\x28u\x3C\x3E\xEC\x9C\xA8\x88\xF7\xAA\x8A\xAB\xAD\x8D\xAF\x8F\xE1\x91\xA3\x83" }; // 0th pos for sticks " nrvtcC(u<>СЊР¬РёРС‡РєРљР»РЅРќРїРџСЃРЎРіР“"
 
-//static char ltmp0[] = "kDPbhў‚­ЌЁ€ЇЏЄЉ¬Њж–ий™оћ";
+//static char ltmp0[] = "kDPbhРІР’РЅРќРёРРїРџРєРљРјРњС†Р¦С€РЁС‰Р©СЋР®";
 static char ltmp0[] = "kDPbh\xA2\x82\xAD\x8D\xA8\x88\xAF\x8F\xAA\x8A\xAC\x8C\xE6\x96\xE8\x98\xE9\x99\xEE\x9E";
 static char ltmp1[] = "m"; /* m */
 static char ltmp2[] = "nm"; /* r */
@@ -143,45 +145,45 @@ static char ltmp3[] = "w"; /* v */
 static char ltmp4[] = "u"; /* t */
 static char ltmp5[] = "ao"; /* c */
 static char ltmp6[] = "O6"; /* C */
-//static char ltmp7[] = "oO®Ћ06"; /* ( */
+//static char ltmp7[] = "oOРѕРћ06"; /* ( */
 static char ltmp7[] = "oO\xAE\x8E\x30\x36"; /* ( */
 static char ltmp8[] = "w"; /* u */
-//static char ltmp9[] = "od®"; /* < */
+//static char ltmp9[] = "odРѕ"; /* < */
 static char ltmp9[] = "od\xAE"; /* < */
-//static char ltmp10[] = "xX¦†е"; /* > */
+//static char ltmp10[] = "xXР¶Р–С…"; /* > */
 static char ltmp10[] = "xX\xA6\x86\xE5"; /* > */
-//static char ltmp11[] = "л"; /* ь */
-static char ltmp11[] = "\xEB"; /* ь */
-//static char ltmp12[] = "›"; /* Ь */
-static char ltmp12[] = "\x9B"; /* Ь */
-//static char ltmp13[] = "¬ий"; /* и */
-static char ltmp13[] = "\xAC\xE8\xE9"; /* и */
-//static char ltmp14[] = "™"; /* И */
-static char ltmp14[] = "\x98\x99"; /* И */
-//static char ltmp15[] = "ий"; /* ч */
-static char ltmp15[] = "\xE8\xE9"; /* ч */
-//static char ltmp16[] = "о"; /* к */
-static char ltmp16[] = "\xEE"; /* к */
-//static char ltmp17[] = "ћ";
+//static char ltmp11[] = "С‹"; /* в„– */
+static char ltmp11[] = "\xEB"; /* в„– */
+//static char ltmp12[] = "Р«"; /* в–„ */
+static char ltmp12[] = "\x9B"; /* в–„ */
+//static char ltmp13[] = "РјС€С‰"; /* С€ */
+static char ltmp13[] = "\xAC\xE8\xE9"; /* С€ */
+//static char ltmp14[] = "РЁР©"; /* в•љ */
+static char ltmp14[] = "\x98\x99"; /* в•љ */
+//static char ltmp15[] = "С€С‰"; /* Сћ */
+static char ltmp15[] = "\xE8\xE9"; /* Г· */
+//static char ltmp16[] = "СЋ"; /* СЉ */
+static char ltmp16[] = "\xEE"; /* СЉ */
+//static char ltmp17[] = "Р®";
 static char ltmp17[] = "\x9E";
-//static char ltmp18[] = "¬"; /* л */
-static char ltmp18[] = "\xAC"; /* л */
-//static char ltmp19[] = "ийо"; /* н */
-static char ltmp19[] = "\xE8\xE9\xEE"; /* н */
-//static char ltmp20[] = "™ћ"; /* Н */
-static char ltmp20[] = "\x98\x99\x9E"; /* Н */
-//static char ltmp21[] = "хий"; /* п */
-static char ltmp21[] = "\xF5\xE8\xE9"; /* п */
-//static char ltmp22[] = "™"; /* П */
-static char ltmp22[] = "\x98\x99"; /* П */
-//static char ltmp23[] = "®д"; /* с */
-static char ltmp23[] = "\xAE\xE4"; /* с */
-//static char ltmp24[] = "Ћ"; /* С */
-static char ltmp24[] = "\x8E"; /* С */
-//static char ltmp25[] = "Ї"; /* г */
-static char ltmp25[] = "\xAF"; /* г */
-//static char ltmp26[] = "Џ"; /* Г */
-static char ltmp26[] = "\x8F"; /* Г */
+//static char ltmp18[] = "Рј"; /* С‹ */
+static char ltmp18[] = "\xAC"; /* Р» */
+//static char ltmp19[] = "С€С‰СЋ"; /* СЌ */
+static char ltmp19[] = "\xE8\xE9\xEE"; /* РЅ */
+//static char ltmp20[] = "РЁР©Р®"; /* в•ђ */
+static char ltmp20[] = "\x98\x99\x9E"; /* Рќ */
+//static char ltmp21[] = "С…РёР№"; /* Рї */
+static char ltmp21[] = "\xF5\xE8\xE9"; /* Рї */
+//static char ltmp22[] = "РЁР©"; /* в•§ */
+static char ltmp22[] = "\x98\x99"; /* ГЏ */
+//static char ltmp23[] = "РѕС„"; /* С‘ */
+static char ltmp23[] = "\xAE\xE4"; /* Г± */
+//static char ltmp24[] = "Рћ"; /* в•¤ */
+static char ltmp24[] = "\x8E"; /* РЎ */
+//static char ltmp25[] = "Рї"; /* Сѓ */
+static char ltmp25[] = "\xAF"; /* Сѓ */
+//static char ltmp26[] = "Рџ"; /* в”њ */
+static char ltmp26[] = "\x8F"; /* Р“ */
 
 char *results_left_to_bad[] = { ltmp0, ltmp1, ltmp2, ltmp3, ltmp4, ltmp5,
 		ltmp6, ltmp7, ltmp8, ltmp9, ltmp10, ltmp11, ltmp12, ltmp13, ltmp14,
@@ -192,22 +194,24 @@ uchar prob_left_to_bad[] = { MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO,
 		MAX_RO, MAX_RO, MAX_RO,
 		//     stick   n       r       v       t       c       C       (       u
 		MAX_RO, MAX_RO, MAX_RO, MAX_RO, 240, 240, MAX_RO, MAX_RO, MAX_RO,
-		//     <       >       ь       Ь       и    И    ч       к       К
+		//     <       >       СЊ       Р¬       Рё    Р    С‡       Рє       Рљ
 		240, 240, 240, MAX_RO, 240, MAX_RO, MAX_RO, MAX_RO, MAX_RO };
-//     л    н    Н    п       П    с       С       г       Г
+//     Р»    РЅ    Рќ    Рї       Рџ    СЃ       РЎ       Рі       Р“
 
 /*
  0 pos reserved for liga_i
  1st pos reserved for liga_exm,
  2-3 pos for turkish II_dot_accent, i_sans_accent 21.05.2002 E.P.
  */
-uchar sticks_right_to_bad[] = { "1111/!|l1I[]" };
+//uchar sticks_right_to_bad[] = { "1111/!|l1I[]" };
+uchar sticks_right_to_bad[] = { "1111\x2F!\x7Cl1I[]" };
 
-//uchar letters_right_to_bad[] = { " cJnNvt)u><Јѓб‘ж–Ё€ч­Ќ®ЋЇЏЄЉ«" }; // " cJnNvt)u><гГсСцЦиИчнНоОпПкКл"
-uchar letters_right_to_bad[] = { " cJnNvt\x29u\x3E\x3C\xA3\x83\xE1\x91\xE6\x96\xA8\x88\xF7\xAD\x8D\xAE\x8E\xAF\x8F\xAA\x8A\xAB" }; // " cJnNvt)u><гГсСцЦиИчнНоОпПкКл"
+//uchar letters_right_to_bad[] = { " cJnNvt)u><РіР“СЃРЎС†Р¦РёРСћРЅРќРѕРћРїРџРєРљР»" };
+ // " cJnNvt)u><РіР“СЃРЎС†Р¦РёРС‡РЅРќРѕРћРїРџРєРљР»"
+uchar letters_right_to_bad[] = { " cJnNvt\x29u\x3E\x3C\xA3\x83\xE1\x91\xE6\x96\xA8\x88\xF7\xAD\x8D\xAE\x8E\xAF\x8F\xAA\x8A\xAB" }; // " cJnNvt)u><РіР“СЃРЎС†Р¦РёРС‡РЅРќРѕРћРїРџРєРљР»"
 // 0th pos for sticks
 
-//static char tmp0[] = "dU«‹¬Њ­ЌЁ€ЇЏил›";
+//static char tmp0[] = "dUР»Р›РјРњРЅРќРёРРїРџС€РЁС‹Р«";
 static char tmp0[] = "dU\xAB\x8B\xAC\x8C\xAD\x8D\xA8\x88\xAF\x8F\xE8\x98\xEB\x9B";
 static char tmp1[] = "k"; /* c */
 static char tmp2[] = "U"; /* J */
@@ -215,95 +219,95 @@ static char tmp3[] = "m"; /* n */
 static char tmp4[] = "W"; /* N */
 static char tmp5[] = "w"; /* v */
 static char tmp6[] = "u"; /* t */
-//static char tmp7[] = "oO®Ћ0"; /* ) */
+//static char tmp7[] = "oOРѕРћ0"; /* ) */
 static char tmp7[] = "oO\xAE\x8E\x30"; /* ) */
 static char tmp8[] = "w"; /* u */
-//static char tmp9[] = "bop6D®а"; /* > */
+//static char tmp9[] = "bop6DРѕСЂ"; /* > */
 static char tmp9[] = "bop6D\xAE\xE0"; /* > */
-//static char tmp10[] = "kxXЄЉ¦†е•"; /* < */
+//static char tmp10[] = "kxXРєРљР¶Р–С…РҐ"; /* < */
 static char tmp10[] = "kxX\xAA\x8A\xA6\x86\xE5\x95"; /* < */
-//static char tmp11[] = "в"; /* Ј */
-static char tmp11[] = "\xE2"; /* Ј */
-//static char tmp12[] = "’"; /* ѓ */
-static char tmp12[] = "\x92"; /* ѓ */
-//static char tmp13[] = "Є¦"; /* б */
-static char tmp13[] = "\xAA\xA6"; /* б */
-//static char tmp14[] = "Љ†"; /* ‘ */
-static char tmp14[] = "\x8A\x86"; /* ‘ */
-//static char tmp15[] = "й"; /* ж */
-static char tmp15[] = "\xE9"; /* ж */
-//static char tmp16[] = "™"; /* ж */
-static char tmp16[] = "\x99"; /* ж */
-//static char tmp17[] = "¬и"; /* ч */
-static char tmp17[] = "\xAC\xE8"; /* ч */
-//static char tmp18[] = ""; /* € */
-static char tmp18[] = "\x98"; /* € */
-//static char tmp19[] = "и"; /* ч */
-static char tmp19[] = "\xE8"; /* ч */
-//static char tmp20[] = "и"; /* ­ */
-static char tmp20[] = "\xE8"; /* ­ */
-//static char tmp21[] = ""; /* Ќ */
-static char tmp21[] = "\x98"; /* Ќ */
-//static char tmp22[] = "о"; /* ® */
-static char tmp22[] = "\xEE"; /* ® */
-//static char tmp23[] = "ћ"; /* Ћ */
-static char tmp23[] = "\x9E"; /* Ћ */
-//static char tmp24[] = "хи"; /* Ї */
-static char tmp24[] = "\xF5\xE8"; /* Ї */
-//static char tmp25[] = ""; /* Џ */
-static char tmp25[] = "\x98"; /* Џ */
-//static char tmp26[] = "¦"; /* Є */
-static char tmp26[] = "\xA6"; /* Є */
-//static char tmp27[] = "†"; /* Љ */
-static char tmp27[] = "\x86"; /* Љ */
-//static char tmp28[] = "¬"; /* « */
-static char tmp28[] = "\xAC"; /* « */
+//static char tmp11[] = "С‚"; /* Рі */
+static char tmp11[] = "\xE2"; /* Рі */
+//static char tmp12[] = "Рў"; /* Р“ */
+static char tmp12[] = "\x92"; /* Р“ */
+//static char tmp13[] = "РєР¶"; /* СЃ */
+static char tmp13[] = "\xAA\xA6"; /* СЃ */
+//static char tmp14[] = "РљР–"; /* РЎ */
+static char tmp14[] = "\x8A\x86"; /* РЎ */
+//static char tmp15[] = "С‰"; /* С† */
+static char tmp15[] = "\xE9"; /* С† */
+//static char tmp16[] = "Р©"; /* С† */
+static char tmp16[] = "\x99"; /* С† */
+//static char tmp17[] = "РјС€"; /* Сћ */
+static char tmp17[] = "\xAC\xE8"; /* Сћ */
+//static char tmp18[] = "РЁ"; /* Р */
+static char tmp18[] = "\x98"; /* Р */
+//static char tmp19[] = "С€"; /* Сћ */
+static char tmp19[] = "\xE8"; /* Сћ */
+//static char tmp20[] = "С€"; /* РЅ */
+static char tmp20[] = "\xE8"; /* РЅ */
+//static char tmp21[] = "РЁ"; /* Рќ */
+static char tmp21[] = "\x98"; /* Рќ */
+//static char tmp22[] = "СЋ"; /* Рѕ */
+static char tmp22[] = "\xEE"; /* Рѕ */
+//static char tmp23[] = "Р®"; /* Рћ */
+static char tmp23[] = "\x9E"; /* Рћ */
+//static char tmp24[] = "С…Рё"; /* Р‡ */
+static char tmp24[] = "\xF5\xE8"; /* Рї */
+//static char tmp25[] = "РЁ"; /* Рџ */
+static char tmp25[] = "\x98"; /* Рџ */
+//static char tmp26[] = "Р¶"; /* Рє */
+static char tmp26[] = "\xA6"; /* Рє */
+//static char tmp27[] = "Р–"; /* Рљ */
+static char tmp27[] = "\x86"; /* Рљ */
+//static char tmp28[] = "Рј"; /* Р» */
+static char tmp28[] = "\xAC"; /* Р» */
 
 char *results_right_to_bad[] = { tmp0, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6,
 		tmp7, tmp8, tmp9, tmp10, tmp11, tmp12, tmp13, tmp14, tmp15, tmp16,
 		tmp17, tmp18, tmp19, tmp20, tmp21, tmp22, tmp23, tmp24, tmp25, tmp26,
 		tmp27, tmp28 };
-//  Є   Љ   «
+//  Рє   Рљ   Р»
 uchar prob_right_to_bad[] = { MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO, MAX_RO,
 		MAX_RO, MAX_RO, MAX_RO,
 		//     stick   c       J       n       N       v       t       )       u
 		MAX_RO, MAX_RO, MAX_RO, MAX_RO, 240, 240, MAX_RO, MAX_RO, 240, 240,
-		//     >       <       Ј       ѓ       б    ‘    ж       –       Ё    €
+		//     >       <       Рі       Р“       СЃ    РЎ    С†       Р¦       Рё    Р
 		MAX_RO, 240, 240, MAX_RO, MAX_RO, MAX_RO, 240, MAX_RO, MAX_RO, 240 };
-//     ч       ­    Ќ    ®       Ћ       Ї       Џ    Є       Љ       «
+//     Сћ       РЅ    Рќ    Рѕ       Рћ       Рї       Рџ    Рє       Рљ       Р»
 
-#define RESLEN 26 //¬ ЄбЁ¬ «м­ п ¤«Ё­  ЇҐаҐбҐзҐ­Ёп results_left_to_bad Ё
+#define RESLEN 26 //РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° РїРµСЂРµСЃРµС‡РµРЅРёСЏ results_left_to_bad Рё
 // results_right_to_bad
 
-//static uchar left_to_bad[] = { " /!l1IJ)}]cCnrvtЈѓбч‘з(u<>мњЇЏ|\x0" }; // 0 =>liga_exm.  10.09.2000 E.P.
+//static uchar left_to_bad[] = { " /!l1IJ)}]cCnrvtРіР“СЃСћРЎС‡(u<>СЊР¬РїРџ|\x0" }; // 0 =>liga_exm.  10.09.2000 E.P.
 static uchar left_to_bad[] = { " \x2F!l1IJ\x29\x7D\x5D\x63\x43nrvt\xA3\x83\xE1\xF7\x91\xE7\x28u\x3C\x3E\xEC\x9C\xAF\x8F\x7C\x0" }; // 0 =>liga_exm.  10.09.2000 E.P.
-//static uchar right_to_bad[] = { "/|!l1I]nvt)u><ЈѓчЇЏб‘ЄЉж–з®Ћ\x0" };
+//static uchar right_to_bad[] = { "/|!l1I]nvt)u><РіР“СћРїРџСЃРЎРєРљС†Р¦С‡РѕРћ\x0" };
 static uchar right_to_bad[] = { "\x2F\x7C!l1I\x5Dnvt\x29u\x3E\x3C\xA3\x83\xF7\xAF\x8F\xE1\x91\xAA\x8A\xE6\x96\xE7\xAE\x8E\x0" };
-static uchar sticks[] = { "  1lI1]!" }; // 0,1 -> liga_i,liga_exm // 08.09.2000 E.P.
+static uchar sticks[] = { "  1lI1\x5D!" }; // 0,1 -> liga_i,liga_exm // 08.09.2000 E.P.
 // 2 -> turkish i_sans_accent	Nick 12.06.02
-//static uchar left_to_dust[] = { "«®з1!" };
+//static uchar left_to_dust[] = { "Р»РѕС‡1!" };
 static uchar left_to_dust[] = { "\xAB\xAE\xE7\x31!" };
-//static uchar right_to_dust[] = { "Јѓ®Ёз!" };
+//static uchar right_to_dust[] = { "РіР“РѕРёС‡!" };
 static uchar right_to_dust[] = { "\xA3\x83\xAE\xA8\xE7!" };
 
-static uchar unify_width[] = //бЁ¬ў®«л "бв ­¤ ав­®©" иЁаЁ­л
-		//{ "023456789 ЎўЈҐ§ЁЄ«­®ЇабвгдежзкмнпЂЃ‚ѓ…‡€Љ‹ЌЋЏђ‘’“”•–—љњќџрсчшэ" };
+static uchar unify_width[] = //СЃРёРјРІРѕР»С‹ "СЃС‚Р°РЅРґР°СЂС‚РЅРѕР№" С€РёСЂРёРЅС‹
+		//{ "023456789Р°Р±РІРіРµР·РёРєР»РЅРѕРїСЂСЃС‚СѓС„С…С†С‡СЉСЊСЌСЏРђР‘Р’Р“Р•Р—РРљР›РќРћРџР РЎРўРЈР¤РҐР¦Р§РЄР¬Р­РЇРЃС‘СћВ°В¤" };
 		{ "023456789\xA0\xA1\xA2\xA3\xA5\xA7\xA8\xAA\xAB\xAD\xAE\xAF\xE0\xE1\xE2\xE3\xE4\xE5\xE6\xE7\xEA\xEC\xED\xEF\x80\x81\x82\x83\x85\x87\x88\x8A\x8B\x8D\x8E\x8F\x90\x91\x92\x93\x94\x95\x96\x97\x9A\x9C\x9D\x9F\xF0\xF1\xF7\xF8\xFD" };
 
-B_LINES my_bases; //Ў §®ўлҐ «Ё­ЁЁ
-int16_t blank; //иЁаЁ­  Їа®ЎҐ« 
-int16_t minw; //¬Ё­Ё¬ «м­ п иЁаЁ­  ЎгЄўл
-int16_t minp; //¬Ё­Ё¬ «м­ п иЁаЁ­  в®зЄЁ
-int16_t ps3; // 1/3 ўлб®вл бва®з­®© ЎгЄўл
-int16_t sym_dist = 0; //баҐ¤­ҐҐ а ббв®п­ЁҐ ¬Ґ¦¤г бЁ¬ў®« ¬Ё
-int16_t line_sym_width = 0; //баҐ¤­пп иЁаЁ­  бЁ¬ў®«  ў бва®ЄҐ
-int16_t sym_width = 0; // в® ¦Ґ ў вҐЄгйҐ¬ б«®ўҐ
-int16_t cut_width = 0; //ЇаЁ иЁаЁ­Ґ > cut_width ¬®¦­® аҐ§ вм
+B_LINES my_bases; //Р±Р°Р·РѕРІС‹Рµ Р»РёРЅРёРё
+int16_t blank; //С€РёСЂРёРЅР° РїСЂРѕР±РµР»Р°
+int16_t minw; //РјРёРЅРёРјР°Р»СЊРЅР°СЏ С€РёСЂРёРЅР° Р±СѓРєРІС‹
+int16_t minp; //РјРёРЅРёРјР°Р»СЊРЅР°СЏ С€РёСЂРёРЅР° С‚РѕС‡РєРё
+int16_t ps3; // 1/3 РІС‹СЃРѕС‚С‹ СЃС‚СЂРѕС‡РЅРѕР№ Р±СѓРєРІС‹
+int16_t sym_dist = 0; //СЃСЂРµРґРЅРµРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ РјРµР¶РґСѓ СЃРёРјРІРѕР»Р°РјРё
+int16_t line_sym_width = 0; //СЃСЂРµРґРЅСЏСЏ С€РёСЂРёРЅР° СЃРёРјРІРѕР»Р° РІ СЃС‚СЂРѕРєРµ
+int16_t sym_width = 0; // С‚Рѕ Р¶Рµ РІ С‚РµРєСѓС‰РµРј СЃР»РѕРІРµ
+int16_t cut_width = 0; //РїСЂРё С€РёСЂРёРЅРµ > cut_width РјРѕР¶РЅРѕ СЂРµР·Р°С‚СЊ
 
 char snap_text[80] = { 0 }, *snap = snap_text;
 
-uchar trs2; // >trs2 - ЎгЄў  е®а®и п ў® ўбҐе ®в­®иҐ­Ёпе
-uchar trg; //Ї®а®Ј ¤«п бЄ«ҐЁў ­Ёп
+uchar trs2; // >trs2 - Р±СѓРєРІР° С…РѕСЂРѕС€Р°СЏ РІРѕ РІСЃРµС… РѕС‚РЅРѕС€РµРЅРёСЏС…
+uchar trg; //РїРѕСЂРѕРі РґР»СЏ СЃРєР»РµРёРІР°РЅРёСЏ
 
 #ifdef PROTOCOL
 extern int16_t line_number;
@@ -312,8 +316,8 @@ extern int16_t line_number;
 //---------------------  macros  --------------------------------------
 
 
-#define loc_err(x) (MAX_RO-(x)->vers[0].prob) //«®Є «м­ п ¬Ґа 
-#define norm(m,l)  ( (m)*(l)>>2 )             //­®а¬Ёа®ўЄ  ¬Ґал
+#define loc_err(x) (MAX_RO-(x)->vers[0].prob) //Р»РѕРєР°Р»СЊРЅР°СЏ РјРµСЂР°
+#define norm(m,l)  ( (m)*(l)>>2 )             //РЅРѕСЂРјРёСЂРѕРІРєР° РјРµСЂС‹
 #define stick(x)   ( strchr((char*) sticks,(x)) )
 
 #define Alik cuts_point_methode
@@ -400,8 +404,8 @@ void set_bad_vers(SVERS *); //AK 23.03.97 add
 
 void cuts_glues() {
 	cell *B;
-	cell *WB, *WE; //­ з «® Ё Є®­Ґж б«®ў 
-	int16_t end_col; //Їа ў п Ја ­Ёж  б«®ў 
+	cell *WB, *WE; //РЅР°С‡Р°Р»Рѕ Рё РєРѕРЅРµС† СЃР»РѕРІР°
+	int16_t end_col; //РїСЂР°РІР°СЏ РіСЂР°РЅРёС†Р° СЃР»РѕРІР°
 
 	Z = &string;
 
@@ -416,7 +420,7 @@ void cuts_glues() {
 	sticks_right_to_bad[0] = liga_i;
 	sticks_right_to_bad[1] = liga_exm;
 
-	// Турецкие палки
+	// РўСѓСЂРµС†РєРёРµ РїР°Р»РєРё
 	if (is_turkish_language(language)) {
 		sticks_right_to_bad[2] = II_dot_accent;
 		sticks_right_to_bad[3] = i_sans_accent;
@@ -451,9 +455,9 @@ void cuts_glues() {
 		glsnap('a', WB, bb);
 	}
 
-	//®жҐ­Ёў Ґ¬ ўҐ«ЁзЁ­г Їа®ЎҐ«  Ё ¬Ё­. иЁаЁ­г ЎгЄўл
+	//РѕС†РµРЅРёРІР°РµРј РІРµР»РёС‡РёРЅСѓ РїСЂРѕР±РµР»Р° Рё РјРёРЅ. С€РёСЂРёРЅСѓ Р±СѓРєРІС‹
 
-	blank = my_bases.ps >> 1; // 1/2 ўлб®вл бва®з­®© ЎгЄўл
+	blank = my_bases.ps >> 1; // 1/2 РІС‹СЃРѕС‚С‹ СЃС‚СЂРѕС‡РЅРѕР№ Р±СѓРєРІС‹
 	ps3 = my_bases.ps / 3;
 	minw = my_bases.ps / 5;
 	minp = minw >> 1;
@@ -469,11 +473,11 @@ void cuts_glues() {
 	//   minw=minp=my_bases.ps/10;
 	// minw=MAX(minw,1); minp=max(minp,1);
 
-	//гв®з­пҐ¬ ®жҐ­ЄЁ Ё а ббв ў«пҐ¬ в®зЄЁ ­ ¤ 'i'
+	//СѓС‚РѕС‡РЅСЏРµРј РѕС†РµРЅРєРё Рё СЂР°СЃСЃС‚Р°РІР»СЏРµРј С‚РѕС‡РєРё РЅР°Рґ 'i'
 
 	adjust_3x5(TRUE);
 
-	//ҐйҐ а § Їа®ЎгҐ¬ ®жҐ­Ёвм иЁаЁ­г бЁ¬ў®« 
+	//РµС‰Рµ СЂР°Р· РїСЂРѕР±СѓРµРј РѕС†РµРЅРёС‚СЊ С€РёСЂРёРЅСѓ СЃРёРјРІРѕР»Р°
 	if (line_sym_width == 0)
 		line_sym_width = get_sym_width2();
 	sprintf(snap, "dist=%d  width: aver=%d max=%d", sym_dist, line_sym_width,
@@ -485,10 +489,10 @@ void cuts_glues() {
 	test_match_cell_word(&my_bases,cut_width);
 #endif
 
-	perc(); //// '\xb9' /* № */ и '%'
+	perc(); //// '\xb9' /* в•Ј */ С€ '%'
 
 	WB = cell_f()->next;
-	do // жЁЄ« Ї® б«®ў ¬
+	do // С†РёРєР» РїРѕ СЃР»РѕРІР°Рј
 	{
 		WE = WB;
 		end_col = 0;
@@ -516,7 +520,7 @@ void cuts_glues() {
 	//  wr_prot ("pro",'c',(int16_t)'\n');
 #endif
 
-	//Ґб«Ё p>MINlet, в® "е®а®и п"
+	//РµСЃР»Рё p>MINlet, С‚Рѕ "С…РѕСЂРѕС€Р°СЏ"
 
 	B = cell_f()->nextl;
 	glsnap('a', B, "cut end, corr start");
@@ -527,25 +531,25 @@ void cuts_glues() {
 }
 
 /*----------------------------------------------------------------------
- get_sym_width -  ўлзЁб«пҐв баҐ¤­оо sw Ё ¬ ЄбЁ¬ «м­го mw иЁаЁ­г бЁ¬ў®« 
- Ё ¬Ё­Ё¬ «м­®Ґ а ббв®п­ЁҐ ¬Ґ¦¤г бЁ¬ў®« ¬Ё sd;
- Ґб«Ё гбЇҐи­®, ў®§ўа й Ґв 1, Ё­ зҐ ў®§ўа й Ґв 0 Ё mw=0,
+ get_sym_width -  РІС‹С‡РёСЃР»СЏРµС‚ СЃСЂРµРґРЅСЋСЋ sw Рё РјР°РєСЃРёРјР°Р»СЊРЅСѓСЋ mw С€РёСЂРёРЅСѓ СЃРёРјРІРѕР»Р°
+ Рё РјРёРЅРёРјР°Р»СЊРЅРѕРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ РјРµР¶РґСѓ СЃРёРјРІРѕР»Р°РјРё sd;
+ РµСЃР»Рё СѓСЃРїРµС€РЅРѕ, РІРѕР·РІСЂР°С‰Р°РµС‚ 1, РёРЅР°С‡Рµ РІРѕР·РІСЂР°С‰Р°РµС‚ 0 Рё mw=0,
  sd=0, sw=my_bases.ps
  ----------------------------------------------------------------------*/
 static char get_sym_width(int16_t *sw, int16_t *mw, int16_t *md) {
 	cell *B = cell_f()->next;
-	char proj[MAX_COL], *p = proj; //Їа®ҐЄжЁп бва®ЄЁ ­  Ј®аЁ§®­в «м­го ®бм
-	int16_t maxcl = 0; //ҐҐ Є®­Ґж
-	int16_t gate_hist[MAX_GATE] = { 0 }; //ЈЁбв®Ја ¬¬  "ЎҐ«ле" ®ваҐ§Є®ў
-	int16_t width_hist[MAX_WIDTH] = { 0 }; //ЈЁбв®Ја ¬¬  "зҐа­ле" ®ваҐ§Є®ў
-	int16_t *top1, *top2, *bot; //ўҐаиЁ­л I Ё II ¬®¤ Ё Ја ­Ёж  ¬Ґ¦¤г ­Ё¬Ё
-	int16_t sq_hist = 0, main_sq; //Ї«®й ¤Ё: ®Ўй п Ё II ¬®¤л
+	char proj[MAX_COL], *p = proj; //РїСЂРѕРµРєС†РёСЏ СЃС‚СЂРѕРєРё РЅР° РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅСѓСЋ РѕСЃСЊ
+	int16_t maxcl = 0; //РµРµ РєРѕРЅРµС†
+	int16_t gate_hist[MAX_GATE] = { 0 }; //РіРёСЃС‚РѕРіСЂР°РјРјР° "Р±РµР»С‹С…" РѕС‚СЂРµР·РєРѕРІ
+	int16_t width_hist[MAX_WIDTH] = { 0 }; //РіРёСЃС‚РѕРіСЂР°РјРјР° "С‡РµСЂРЅС‹С…" РѕС‚СЂРµР·РєРѕРІ
+	int16_t *top1, *top2, *bot; //РІРµСЂС€РёРЅС‹ I Рё II РјРѕРґ Рё РіСЂР°РЅРёС†Р° РјРµР¶РґСѓ РЅРёРјРё
+	int16_t sq_hist = 0, main_sq; //РїР»РѕС‰Р°РґРё: РѕР±С‰Р°СЏ Рё II РјРѕРґС‹
 	int16_t ps2 = my_bases.ps >> 1;
 	int16_t w, pick;
 
 	memset(proj, '0', MAX_COL);
 
-	//Їа®ҐЄжЁп бва®ЄЁ ­  Ј®аЁ§®­в «м­го ®бм
+	//РїСЂРѕРµРєС†РёСЏ СЃС‚СЂРѕРєРё РЅР° РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅСѓСЋ РѕСЃСЊ
 	do {
 		int16_t beg = B->r_col;
 		int16_t len = B->w;
@@ -558,8 +562,8 @@ static char get_sym_width(int16_t *sw, int16_t *mw, int16_t *md) {
 	} while (B->next);
 	proj[maxcl] = 0;
 
-	p += strspn(p, "0"); //­г«Ё ў ­ з «Ґ бва®ЄЁ
-	w = strspn(p, "1"); //ЇҐаў п Їа®ҐЄжЁп
+	p += strspn(p, "0"); //РЅСѓР»Рё РІ РЅР°С‡Р°Р»Рµ СЃС‚СЂРѕРєРё
+	w = strspn(p, "1"); //РїРµСЂРІР°СЏ РїСЂРѕРµРєС†РёСЏ
 	if (w < MAX_WIDTH)
 		width_hist[w]++;
 	p += w;
@@ -576,19 +580,19 @@ static char get_sym_width(int16_t *sw, int16_t *mw, int16_t *md) {
 		p += w;
 	}
 
-	top1 = arr_top(width_hist + 1, ps2); // I  ¬®¤ 
-	top2 = arr_top(width_hist + ps2, my_bases.ps); // II ¬®¤  (иЁаЁ­  ЎгЄў)
-	bot = arr_bot(top1, (int16_t) (top2 - top1)); //Ја ­Ёж  ¬Ґ¦¤г ­Ё¬Ё
-	main_sq = hist_sq(bot, top2); //Ї«®й ¤м II ¬®¤л
-	if (main_sq + (main_sq << 1) <= sq_hist << 1) { //®жҐ­Є  ­Ґ¤®бв®ўҐа­ 
+	top1 = arr_top(width_hist + 1, ps2); // I  РјРѕРґР°
+	top2 = arr_top(width_hist + ps2, my_bases.ps); // II РјРѕРґР° (С€РёСЂРёРЅР° Р±СѓРєРІ)
+	bot = arr_bot(top1, (int16_t) (top2 - top1)); //РіСЂР°РЅРёС†Р° РјРµР¶РґСѓ РЅРёРјРё
+	main_sq = hist_sq(bot, top2); //РїР»РѕС‰Р°РґСЊ II РјРѕРґС‹
+	if (main_sq + (main_sq << 1) <= sq_hist << 1) { //РѕС†РµРЅРєР° РЅРµРґРѕСЃС‚РѕРІРµСЂРЅР°
 		*sw = 0;
 		*mw = 0;
 		*md = 0;
 		return 0;
 	} else {
-		*sw = top2 - width_hist; //ўҐаиЁ­  II ¬®¤л
+		*sw = top2 - width_hist; //РІРµСЂС€РёРЅР° II РјРѕРґС‹
 		while (*top2 != 0)
-			top2++; //ҐҐ Їа ўл© Єа ©+1
+			top2++; //РµРµ РїСЂР°РІС‹Р№ РєСЂР°Р№+1
 		*mw = top2 - 1 - width_hist;
 		top1 = arr_top(gate_hist + 1, ps2);
 		pick = (*top1) >> 1;
@@ -600,7 +604,7 @@ static char get_sym_width(int16_t *sw, int16_t *mw, int16_t *md) {
 }
 
 /*----------------------------------------------------------------
- arr_top  ЁйҐв  ¤аҐб ¬ ЄбЁ¬ «м­®Ј® н«Ґ¬Ґ­в  ў ¬ ббЁўҐ arr ¤«Ё­л
+ arr_top  РёС‰РµС‚ Р°РґСЂРµСЃ РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ РјР°СЃСЃРёРІРµ arr РґР»РёРЅС‹
  len
  ----------------------------------------------------------------*/
 static int16_t *arr_top(int16_t *arr, int16_t len) {
@@ -613,8 +617,8 @@ static int16_t *arr_top(int16_t *arr, int16_t len) {
 	return topi;
 }
 /*----------------------------------------------------------------
- arr_top  ЁйҐв  ¤аҐб ¬Ё­Ё¬ «м­®Ј® н«Ґ¬Ґ­в  (Ґб«Ё ­ҐбЄ®«мЄ®, в® -
- Ї®б«Ґ¤­ҐЈ® Ё§ ­Ёе) ў ¬ ббЁўҐ arr ¤«Ё­л len
+ arr_top  РёС‰РµС‚ Р°РґСЂРµСЃ РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° (РµСЃР»Рё РЅРµСЃРєРѕР»СЊРєРѕ, С‚Рѕ -
+ РїРѕСЃР»РµРґРЅРµРіРѕ РёР· РЅРёС…) РІ РјР°СЃСЃРёРІРµ arr РґР»РёРЅС‹ len
  ----------------------------------------------------------------*/
 static int16_t *arr_bot(int16_t *arr, int16_t len) {
 	int16_t i, botv = *arr, *boti = arr, *cur = arr + 1;
@@ -627,8 +631,8 @@ static int16_t *arr_bot(int16_t *arr, int16_t len) {
 }
 
 /*-----------------------------------------------------------------
- mode_sq  ўлзЁб«пҐв Ї«®й ¤м ЈЁбв®Ја ¬¬л hist, ®Ја ­ЁзҐ­­®© ­г«Ґ¬
- бЇа ў  ®в ўҐаиЁ­л top
+ mode_sq  РІС‹С‡РёСЃР»СЏРµС‚ РїР»РѕС‰Р°РґСЊ РіРёСЃС‚РѕРіСЂР°РјРјС‹ hist, РѕРіСЂР°РЅРёС‡РµРЅРЅРѕР№ РЅСѓР»РµРј
+ СЃРїСЂР°РІР° РѕС‚ РІРµСЂС€РёРЅС‹ top
  ----------------------------------------------------------------*/
 static int16_t hist_sq(int16_t *hist, int16_t *top) {
 	int16_t *cur, sq = 0;
@@ -638,17 +642,17 @@ static int16_t hist_sq(int16_t *hist, int16_t *top) {
 }
 
 /*-----------------------------------------------------------------
- get_sym_width2() ®жҐ­Ёў Ґв иЁаЁ­г бЁ¬ў®«  Ї® ўбҐ© бва®ЄҐ
+ get_sym_width2() РѕС†РµРЅРёРІР°РµС‚ С€РёСЂРёРЅСѓ СЃРёРјРІРѕР»Р° РїРѕ РІСЃРµР№ СЃС‚СЂРѕРєРµ
  -----------------------------------------------------------------*/
 static int16_t get_sym_width2() {
 	cell *B;
 	uchar *ip, *ip2;
-	int16_t ws = 0; //ЁбЄ®¬ п иЁаЁ­ 
-	uchar hist[256] = { 0 }; //ЈЁбв®Ја ¬¬  иЁаЁ­л
-	uchar top = 0, *itop; //ўҐаиЁ­  ЈЁбв®Ја ¬¬л
-	int16_t s = 0, s1 = 0; //Ї«®й ¤м ЈЁбв®Ја ¬¬л: ®Ўй п Ё ў ®Ў« бвЁ (3/4;5/4)ws
+	int16_t ws = 0; //РёСЃРєРѕРјР°СЏ С€РёСЂРёРЅР°
+	uchar hist[256] = { 0 }; //РіРёСЃС‚РѕРіСЂР°РјРјР° С€РёСЂРёРЅС‹
+	uchar top = 0, *itop; //РІРµСЂС€РёРЅР° РіРёСЃС‚РѕРіСЂР°РјРјС‹
+	int16_t s = 0, s1 = 0; //РїР»РѕС‰Р°РґСЊ РіРёСЃС‚РѕРіСЂР°РјРјС‹: РѕР±С‰Р°СЏ Рё РІ РѕР±Р»Р°СЃС‚Рё (3/4;5/4)ws
 
-	//бва®Ё¬ ЈЁбв®Ја ¬¬г
+	//СЃС‚СЂРѕРёРј РіРёСЃС‚РѕРіСЂР°РјРјСѓ
 
 	B = cell_f()->nextl;
 	while (!fict(B)) {
@@ -666,7 +670,7 @@ static int16_t get_sym_width2() {
 		return 0;
 	ws /= s;
 
-	//ЁйҐ¬ ¬ ЄбЁ¬г¬ ў ®Ў« бвЁ баҐ¤­Ґ© иЁаЁ­л
+	//РёС‰РµРј РјР°РєСЃРёРјСѓРј РІ РѕР±Р»Р°СЃС‚Рё СЃСЂРµРґРЅРµР№ С€РёСЂРёРЅС‹
 
 	ip2 = hist + ws + (ws >> 1);
 	for (ip = ip2 - ws; ip <= ip2; ip++)
@@ -675,7 +679,7 @@ static int16_t get_sym_width2() {
 			itop = ip;
 		}
 
-	//аҐ§г«мв в ¤®бв®ўҐаҐ­, Ґб«Ё ў ®Ў« бвЁ ¬ ЄбЁ¬г¬  б®баҐ¤®в®зҐ­® Ў®«миҐ 3/4s
+	//СЂРµР·СѓР»СЊС‚Р°С‚ РґРѕСЃС‚РѕРІРµСЂРµРЅ, РµСЃР»Рё РІ РѕР±Р»Р°СЃС‚Рё РјР°РєСЃРёРјСѓРјР° СЃРѕСЃСЂРµРґРѕС‚РѕС‡РµРЅРѕ Р±РѕР»СЊС€Рµ 3/4s
 
 	if (top > 2)
 		ws = itop - hist;
@@ -692,7 +696,7 @@ static int16_t get_sym_width2() {
 }
 
 /*-----------------------------------------------------------------
- get_sym_width3() ®жҐ­Ёў Ґв иЁаЁ­г бЁ¬ў®«  Ї® вҐЄгйҐ¬г б«®ўг
+ get_sym_width3() РѕС†РµРЅРёРІР°РµС‚ С€РёСЂРёРЅСѓ СЃРёРјРІРѕР»Р° РїРѕ С‚РµРєСѓС‰РµРјСѓ СЃР»РѕРІСѓ
  -----------------------------------------------------------------*/
 static int16_t get_sym_width3(cell *WB, cell *WE) {
 	cell *B;
@@ -712,16 +716,16 @@ static int16_t get_sym_width3(cell *WB, cell *WE) {
 }
 
 /*-----------------06-22-95 11:12am--------------------------------
- process_word - поиск и распознавание "компактных" участков, между
- cell'ами WB и WE; возвращает WE->next
+ process_word - РїРѕРёСЃРє Рё СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ "РєРѕРјРїР°РєС‚РЅС‹С…" СѓС‡Р°СЃС‚РєРѕРІ, РјРµР¶РґСѓ
+ cell'Р°РјРё WB Рё WE; РІРѕР·РІСЂР°С‰Р°РµС‚ WE->next
  -----------------------------------------------------------------*/
 cell *process_word(cell *WB, cell *WE) {
-	cell *B; //начало "компактного" участка
-	cell *E; //конец        -"-
-	int16_t end_col; //правый край  -"-
-	int16_t max_gate;//макс. "просвет" внутри развалившегося символа
-	cell *RW; //cell справа от слова
-	cell * ST; //палка после "ь"
+	cell *B; //РЅР°С‡Р°Р»Рѕ "РєРѕРјРїР°РєС‚РЅРѕРіРѕ" СѓС‡Р°СЃС‚РєР°
+	cell *E; //РєРѕРЅРµС†        -"-
+	int16_t end_col; //РїСЂР°РІС‹Р№ РєСЂР°Р№  -"-
+	int16_t max_gate;//РјР°РєСЃ. "РїСЂРѕСЃРІРµС‚" РІРЅСѓС‚СЂРё СЂР°Р·РІР°Р»РёРІС€РµРіРѕСЃСЏ СЃРёРјРІРѕР»Р°
+	cell *RW; //cell СЃРїСЂР°РІР° РѕС‚ СЃР»РѕРІР°
+	cell * ST; //РїР°Р»РєР° РїРѕСЃР»Рµ "СЊ"
 	uchar let;
 	cell * C;
 
@@ -730,7 +734,7 @@ cell *process_word(cell *WB, cell *WE) {
 	max_gate = my_bases.ps / 3;
 
 	B = WB;
-	do // жЁЄ« Ї® "Є®¬Ї Єв­л¬" гз бвЄ ¬
+	do // С†РёРєР» РїРѕ "РєРѕРјРїР°РєС‚РЅС‹Рј" СѓС‡Р°СЃС‚РєР°Рј
 	{
 		E = B;
 		end_col = B->col + B->w;
@@ -740,9 +744,9 @@ cell *process_word(cell *WB, cell *WE) {
 			if (language == LANGUAGE_RUSSIAN) {
 				let = E->vers[0].let;
 
-				if (let(E) && (let == (uchar) '\xe2' /* в */
+				if (let(E) && (let == (uchar) '\xe2' /* С‚ */
 						&& !is_russian_turkish_conflict(let) || // 21.05.2002 E.P.
-						let == (uchar) '\x92' /* ’ */)) { //"в" ­Ґ ўбҐЈ¤  ­ ¤Ґ¦­® Ї® нўҐ­в ¬
+						let == (uchar) '\x92' /* Рў */)) { //"С‚" РЅРµ РІСЃРµРіРґР° РЅР°РґРµР¶РЅРѕ РїРѕ СЌРІРµРЅС‚Р°Рј
 					if (!complete_recog(E))
 						if (E != WB && !let(E->prev) || E != WE
 								&& !let(E->next)) {
@@ -750,12 +754,12 @@ cell *process_word(cell *WB, cell *WE) {
 							full_recog(E, NULL, 0, trs2);
 						}
 				} else if (!dust(E) && E->nvers) {
-					//if (ST && strchr("®ЋбCж–", let) && // "оОсCцЦ"
-					if (ST && strchr("\xAE\x8E\xE1\x43\xE6\x96", let) && // "оОсCцЦ"
+					//if (ST && strchr("РѕРћСЃCС†Р¦", let) && // "СЋв•¬С‘CРЋв•“"
+					if (ST && strchr("\xAE\x8E\xE1\x43\xE6\x96", let) && // "РѕРћСЃCС†Р¦"
 							!is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 							!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 					)
-						set_bad(ST); //"ыо","ью","ьк" или "ьщ" - надо исследовать
+						set_bad(ST); //"С‹Рѕ","СЊСЋ","СЊРє" РёР»Рё "СЊС‰" - РЅР°РґРѕ РёСЃСЃР»РµРґРѕРІР°С‚СЊ
 					else if (E->vers[0].let == '|')
 						ST = E;
 					else
@@ -776,7 +780,7 @@ cell *process_word(cell *WB, cell *WE) {
 					if (dust(C))
 						break;
 					if (!let_or_bad(C->prevl))
-						break; //дЁЄвЁў­л© ў ­ з «Ґ бва®ЄЁ
+						break; //С„РёРєС‚РёРІРЅС‹Р№ РІ РЅР°С‡Р°Р»Рµ СЃС‚СЂРѕРєРё
 					if (!is_stick(C) || !is_stick(C->prevl))
 						break;
 				} else
@@ -794,38 +798,38 @@ cell *process_word(cell *WB, cell *WE) {
 }
 
 /*-----------------02-20-95 06:41pm---------------------------------------
- process_frame - Ї®ЁбЄ Ё а бЇ®§­ ў ­ЁҐ "Ї«®еЁе" гз бвЄ®ў, ¬Ґ¦¤г
- cell' ¬Ё WB Ё WE; ў®§ўа й Ґв WE->next
+ process_frame - РїРѕРёСЃРє Рё СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ "РїР»РѕС…РёС…" СѓС‡Р°СЃС‚РєРѕРІ, РјРµР¶РґСѓ
+ cell'Р°РјРё WB Рё WE; РІРѕР·РІСЂР°С‰Р°РµС‚ WE->next
  -------------------------------------------------------------------------*/
 static cell *process_frame(cell *WB, cell *WE) {
-	cell *LW, *RW;//cell'л б«Ґў  Ё бЇа ў  ®в б«®ў 
-	cell * C; //вҐЄгйЁ© cell
-	cell *B, *E; //­ з «® Ё б«Ґ¤гойЁ© §  Є®­ж®¬ "Ї«®е®Ј®" гз бвЄ 
-	cell *E2; //Ёбе®¤­®Ґ §­ зҐ­ЁҐ E, Є®Ј¤  E б¤ўЁЈ Ґвбп ў«Ґў®
-	cell *E1, *E1P;//бЇа ў  ®в Є®­ж  Ё­вҐаў « , ®Ўа Ў влў Ґ¬®Ј® cut_glue
-	int16_t w, dh; //ҐЈ® а §¬Ґал
-	int16_t n; //Є®«ЁзҐбвў® cell'®ў ў ­Ґ¬
-	int16_t maxcl; //Їа ўл© бв®«ЎҐж + 1
-	uchar let; //«гзи п ўҐабЁп cell' 
-	int16_t p; //ҐҐ ўҐа®пв­®бвм
+	cell *LW, *RW;//cell'С‹ СЃР»РµРІР° Рё СЃРїСЂР°РІР° РѕС‚ СЃР»РѕРІР°
+	cell * C; //С‚РµРєСѓС‰РёР№ cell
+	cell *B, *E; //РЅР°С‡Р°Р»Рѕ Рё СЃР»РµРґСѓСЋС‰РёР№ Р·Р° РєРѕРЅС†РѕРј "РїР»РѕС…РѕРіРѕ" СѓС‡Р°СЃС‚РєР°
+	cell *E2; //РёСЃС…РѕРґРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ E, РєРѕРіРґР° E СЃРґРІРёРіР°РµС‚СЃСЏ РІР»РµРІРѕ
+	cell *E1, *E1P;//СЃРїСЂР°РІР° РѕС‚ РєРѕРЅС†Р° РёРЅС‚РµСЂРІР°Р»Р°, РѕР±СЂР°Р±Р°С‚С‹РІР°РµРјРѕРіРѕ cut_glue
+	int16_t w, dh; //РµРіРѕ СЂР°Р·РјРµСЂС‹
+	int16_t n; //РєРѕР»РёС‡РµСЃС‚РІРѕ cell'РѕРІ РІ РЅРµРј
+	int16_t maxcl; //РїСЂР°РІС‹Р№ СЃС‚РѕР»Р±РµС† + 1
+	uchar let; //Р»СѓС‡С€Р°СЏ РІРµСЂСЃРёСЏ cell'Р°
+	int16_t p; //РµРµ РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ
 	int16_t h1, h2;
 
 	LW = WB->prev;
 	RW = WE->next;
 
 	B = WB;
-	do // жЁЄ« Ї® "Ї«®еЁ¬" гз бвЄ ¬
+	do // С†РёРєР» РїРѕ "РїР»РѕС…РёРј" СѓС‡Р°СЃС‚РєР°Рј
 	{
 
 		//   C=NULL;
-		while (let(B) || !may_glue(B)) //ЁйҐ¬ ­ з «®
+		while (let(B) || !may_glue(B)) //РёС‰РµРј РЅР°С‡Р°Р»Рѕ
 		{
 			B = B->next;
 			if (B == RW)
 				return B;
 		};
 
-		E = B->next; //ЁйҐ¬ Є®­Ґж
+		E = B->next; //РёС‰РµРј РєРѕРЅРµС†
 		h1 = B->row;
 		h2 = h1 + B->h;
 		maxcl = B->col + B->w;
@@ -836,9 +840,9 @@ static cell *process_frame(cell *WB, cell *WE) {
 			w = maxcl - B->col;
 			E = E->next;
 		}
-		dh = h2 - h1; //®Ўй п ўлб®в 
+		dh = h2 - h1; //РѕР±С‰Р°СЏ РІС‹СЃРѕС‚Р°
 
-		if (n > 1) //­ҐбЄ®«мЄ® ЄгбЄ®ў - Є«ҐЁ¬
+		if (n > 1) //РЅРµСЃРєРѕР»СЊРєРѕ РєСѓСЃРєРѕРІ - РєР»РµРёРј
 		{
 			Bool dis = FALSE; // OLEG : SERBIAN PASS4
 
@@ -855,101 +859,101 @@ static cell *process_frame(cell *WB, cell *WE) {
 					if ((C = B->prev) == LW || !lefter(B, C->r_col + C->w))
 						if (E == RW || lefter(E->prev, E->r_col)) {
 							if (one_glue(n, &B, trs2))
-								continue; //¤ «миҐ Ї® б«®ўг
+								continue; //РґР°Р»СЊС€Рµ РїРѕ СЃР»РѕРІСѓ
 						}
 		} else //n==1
 		{
-			if (dust(B)) //®¤Ё­®з­л© dust Є«ҐЁ¬ ў бЇҐжЁ «м­ле б«гз пе
+			if (dust(B)) //РѕРґРёРЅРѕС‡РЅС‹Р№ dust РєР»РµРёРј РІ СЃРїРµС†РёР°Р»СЊРЅС‹С… СЃР»СѓС‡Р°СЏС…
 			{
-				int16_t bottom = B->row + B->h; //­Ё¦­пп Ја ­Ёж  dust' 
-				int16_t middle = (B->row + bottom) >> 1; //бҐаҐ¤Ё­ 
+				int16_t bottom = B->row + B->h; //РЅРёР¶РЅСЏСЏ РіСЂР°РЅРёС†Р° dust'Р°
+				int16_t middle = (B->row + bottom) >> 1; //СЃРµСЂРµРґРёРЅР°
 
-				//­ Їа ў®
+				//РЅР°РїСЂР°РІРѕ
 				C = B->next;
-				if (C != RW && !dust(C) && may_glue(C)) //­Ґ Є®­Ґж б«®ў 
-					//C - dust, Ґб«Ё C - в®зЄ  ­ ¤ "i"
+				if (C != RW && !dust(C) && may_glue(C)) //РЅРµ РєРѕРЅРµС† СЃР»РѕРІР°
+					//C - dust, РµСЃР»Рё C - С‚РѕС‡РєР° РЅР°Рґ "i"
 					if ((let = C->vers[0].let) != '!' && let != '?') {
 						int16_t midc = C->row + (C->h >> 1);
 						char fl = middle > C->row && bottom < midc && (let
-								== (uchar) '\xa3' /* Ј */ || let == (uchar) '\x83' /* ѓ */);
-						if (B->r_col + B->w > C->r_col || fl) //C Ё dust ЇҐаҐЄалў овбп
-						{ //Ё«Ё ¬®¦Ґв Ўлвм "’"("в")
+								== (uchar) '\xa3' /* Рі */ || let == (uchar) '\x83' /* Р“ */);
+						if (B->r_col + B->w > C->r_col || fl) //C Рё dust РїРµСЂРµРєСЂС‹РІР°СЋС‚СЃСЏ
+						{ //РёР»Рё РјРѕР¶РµС‚ Р±С‹С‚СЊ "Рў"("С‚")
 							if (!complete_recog(C)) {
 								let_to_bad(C);
 								full_recog(C, NULL, 0, trs2);
 							}
 							p = C->vers[0].prob;
-							//д®а  ¤«п а §ў «ЁўиЁебп ЎгЄў:
+							//С„РѕСЂР° РґР»СЏ СЂР°Р·РІР°Р»РёРІС€РёС…СЃСЏ Р±СѓРєРІ:
 							if (fl)
-								p -= 60; //’,в
-							else if (middle < C->row && let == (uchar) '\xae' /* ® */
+								p -= 60; //Рў,С‚
+							else if (middle < C->row && let == (uchar) '\xae' /* Рѕ */
 									&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 							)
-								p -= 50; //Ў
-							else if (B->row > midc && let == (uchar) '\xe7' /* з */
+								p -= 50; //Р±
+							else if (B->row > midc && let == (uchar) '\xe7' /* С‡ */
 									&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 							)
-								p -= 30; //г,­
+								p -= 30; //Сѓ,РЅ
 
 							if (one_glue(2, &B, p))
-								continue; //¤ «миҐ Ї® б«®ўг
+								continue; //РґР°Р»СЊС€Рµ РїРѕ СЃР»РѕРІСѓ
 						}
 					}
 
-				//­ «Ґў®
+				//РЅР°Р»РµРІРѕ
 				C = B->prev;
-				if (C != LW && !dust(C) && may_glue(C)) //­Ґ ­ з «® б«®ў 
+				if (C != LW && !dust(C) && may_glue(C)) //РЅРµ РЅР°С‡Р°Р»Рѕ СЃР»РѕРІР°
 					if ((let = C->vers[0].let) != '!' && let != '?') {
 						int16_t midc = C->row + (C->h >> 1);
 						char fl = middle > C->row && bottom < midc && let
-								== '1'; //¬®¦Ґв Ўлвм "ѓ"
-						if (fl || lefter(B, C->r_col + C->w)) //¬®¦Ґв Ўлвм"ѓ"
-						{ // Ё«Ё dust Ї®Єалў Ґвбп C
+								== '1'; //РјРѕР¶РµС‚ Р±С‹С‚СЊ "Р“"
+						if (fl || lefter(B, C->r_col + C->w)) //РјРѕР¶РµС‚ Р±С‹С‚СЊ"Р“"
+						{ // РёР»Рё dust РїРѕРєСЂС‹РІР°РµС‚СЃСЏ C
 							if (!complete_recog(C)) {
 								let_to_bad(C);
 								full_recog(C, NULL, 0, trs2);
 							}
 							p = C->vers[0].prob;
-							//д®а  ¤«п а §ў «ЁўиЁебп ЎгЄў:
-							if (fl || bottom < midc && let == (uchar) '\xab' /* « */ //ѓ,е
-									|| B->row > midc && let == (uchar) '\xe7' /* з */
+							//С„РѕСЂР° РґР»СЏ СЂР°Р·РІР°Р»РёРІС€РёС…СЃСЏ Р±СѓРєРІ:
+							if (fl || bottom < midc && let == (uchar) '\xab' /* Р» */ //Р“,С…
+									|| B->row > midc && let == (uchar) '\xe7' /* С‡ */
 											&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
-							) //­,г
+							) //РЅ,Сѓ
 								p -= 30;
-							else if (middle < C->row && let == (uchar) '\xae' /* ® */
+							else if (middle < C->row && let == (uchar) '\xae' /* Рѕ */
 									&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 							)
-								p -= 50; //Ў
-							else if ((let == (uchar) '\xa3' /* Ј */ || let == (uchar) '\x83' /* ѓ */)
+								p -= 50; //Р±
+							else if ((let == (uchar) '\xa3' /* Рі */ || let == (uchar) '\x83' /* Р“ */)
 									&& B->row > C->row && middle < C->row
-									+ C->h //Ї
-									|| (let == (uchar) '\xec' /* м */ || let
-											== (uchar) '\x9c' /* њ */) && middle > C->row
-											&& middle < midc)//ў
+									+ C->h //Рї
+									|| (let == (uchar) '\xec' /* СЊ */ || let
+											== (uchar) '\x9c' /* Р¬ */) && middle > C->row
+											&& middle < midc)//РІ
 								p -= 20;
 							B = C;
 
 							if (one_glue(2, &B, p))
-								continue; //¤ «миҐ Ї® б«®ўг
+								continue; //РґР°Р»СЊС€Рµ РїРѕ СЃР»РѕРІСѓ
 						}
 					}
 				B = E;
-				continue; //dust ­Ґ ЇаЁЄ«ҐЁ«бп - Їа®ЇгбЄ Ґ¬
+				continue; //dust РЅРµ РїСЂРёРєР»РµРёР»СЃСЏ - РїСЂРѕРїСѓСЃРєР°РµРј
 			}
 		}
 
-		//добавляем  по одному cell'у слева и справа, если перекрывается dust'ом
-		// и (или) содержится в списке
-		//слева:
+		//РґРѕР±Р°РІР»СЏРµРј  РїРѕ РѕРґРЅРѕРјСѓ cell'Сѓ СЃР»РµРІР° Рё СЃРїСЂР°РІР°, РµСЃР»Рё РїРµСЂРµРєСЂС‹РІР°РµС‚СЃСЏ dust'РѕРј
+		// Рё (РёР»Рё) СЃРѕРґРµСЂР¶РёС‚СЃСЏ РІ СЃРїРёСЃРєРµ
+		//СЃР»РµРІР°:
 
 		C = B->prev;
 		let = C->vers[0].let;
-		if (C != LW && !dust(C) && (may_glue(C) || let == (uchar) '\xec' /* м */ || let
-				== (uchar) '\x9c' /* њ */)) {
-			char add = 0; //флаг: добавить символ слева
-			if (dust(B) && lefter(B, C->r_col + C->w)) //C перекрывается dust'ом
+		if (C != LW && !dust(C) && (may_glue(C) || let == (uchar) '\xec' /* СЊ */ || let
+				== (uchar) '\x9c' /* Р¬ */)) {
+			char add = 0; //С„Р»Р°Рі: РґРѕР±Р°РІРёС‚СЊ СЃРёРјРІРѕР» СЃР»РµРІР°
+			if (dust(B) && lefter(B, C->r_col + C->w)) //C РїРµСЂРµРєСЂС‹РІР°РµС‚СЃСЏ dust'РѕРј
 			{
-				if (!complete_recog(C)) //Ї® 3x5, Ґб«Ё ­Ґ а бЇ®§­ ў « бм
+				if (!complete_recog(C)) //РїРѕ 3x5, РµСЃР»Рё РЅРµ СЂР°СЃРїРѕР·РЅР°РІР°Р»Р°СЃСЊ
 				{
 					let_to_bad(C);
 					full_recog(C, NULL, 0, trs2);
@@ -961,7 +965,7 @@ static cell *process_frame(cell *WB, cell *WE) {
 					&& !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
 					!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 			) {
-				if (!complete_recog(C)) //Ї® 3x5, Ґб«Ё ­Ґ а бЇ®§­ ў « бм
+				if (!complete_recog(C)) //РїРѕ 3x5, РµСЃР»Рё РЅРµ СЂР°СЃРїРѕР·РЅР°РІР°Р»Р°СЃСЊ
 				{
 					let_to_bad(C);
 					full_recog(C, NULL, 0, trs2);
@@ -970,12 +974,12 @@ static cell *process_frame(cell *WB, cell *WE) {
 			}
 			if (add) {
 				B = C;
-				set_let(B); //¤®Ў ў«пҐ¬ C, ­® аҐ§ вм ­Ґ Ўг¤Ґ¬
+				set_let(B); //РґРѕР±Р°РІР»СЏРµРј C, РЅРѕ СЂРµР·Р°С‚СЊ РЅРµ Р±СѓРґРµРј
 				if (let == '!') {
 					C = B->prev;
 					if (C != LW && dust(C))
 						if (C->r_col + C->w > B->r_col)
-							B = C; //в®зЄ  ®в '!'
+							B = C; //С‚РѕС‡РєР° РѕС‚ '!'
 				}
 			} else
 				while (dust(B) && lefter(B, C->r_col + C->w) && B != E)
@@ -984,7 +988,7 @@ static cell *process_frame(cell *WB, cell *WE) {
 		if (B == E)
 			continue;
 
-		//бЇа ў :
+		//СЃРїСЂР°РІР°:
 
 		E2 = E;
 		C = E->prev;
@@ -996,7 +1000,7 @@ static cell *process_frame(cell *WB, cell *WE) {
 					!is_russian_turkish_conflict(E->vers[0].let) // 21.05.2002 E.P.
 			) {
 				maxcl = MAX(maxcl, E->col + E->w);
-				if (!complete_recog(E)) //Ї® 3x5, Ґб«Ё ­Ґ а бЇ®§­ ў « бм
+				if (!complete_recog(E)) //РїРѕ 3x5, РµСЃР»Рё РЅРµ СЂР°СЃРїРѕР·РЅР°РІР°Р»Р°СЃСЊ
 				{
 					let_to_bad(E);
 					full_recog(E, NULL, 0, trs2);
@@ -1005,9 +1009,9 @@ static cell *process_frame(cell *WB, cell *WE) {
 				let = E->vers[0].let;
 				E = E->next;
 				if (E != RW && let == '!' && dust(E) && E->r_col < maxcl)
-					E = E->next; //E - в®зЄ  ®в '!'
+					E = E->next; //E - С‚РѕС‡РєР° РѕС‚ '!'
 				E2 = E;
-			} else //бЇа ў  ­Ґ ¤®Ў ў«пҐ¬
+			} else //СЃРїСЂР°РІР° РЅРµ РґРѕР±Р°РІР»СЏРµРј
 			{
 				while (dust(C) && !lefter(C, E->r_col) && C != B)
 					C = C->prev;
@@ -1018,15 +1022,15 @@ static cell *process_frame(cell *WB, cell *WE) {
 			continue;
 		}
 
-		//а §аҐ§ ­ЁҐ-бЄ«ҐЁў ­ЁҐ
+		//СЂР°Р·СЂРµР·Р°РЅРёРµ-СЃРєР»РµРёРІР°РЅРёРµ
 
 		E1P = NULL;
-		while (1) //Ї® Ї®¤Ё­вҐаў « ¬ Є®а®зҐ RASTER_WIDTH
+		while (1) //РїРѕ РїРѕРґРёРЅС‚РµСЂРІР°Р»Р°Рј РєРѕСЂРѕС‡Рµ RASTER_WIDTH
 		{
 			while (1) {
 				w = maxcl - B->col;
 				E1 = E;
-				if (w > RASTER_WIDTH) //­ ¤® ўл¤Ґ«Ёвм Ї®¤Ё­вҐаў « Є®а®зҐ RASTER_WIDTH
+				if (w > RASTER_WIDTH) //РЅР°РґРѕ РІС‹РґРµР»РёС‚СЊ РїРѕРґРёРЅС‚РµСЂРІР°Р» РєРѕСЂРѕС‡Рµ RASTER_WIDTH
 				{
 					int16_t right_col = MININT;
 					int16_t right_col1 = MININT;
@@ -1040,8 +1044,8 @@ static cell *process_frame(cell *WB, cell *WE) {
 				}
 				if (E1 != E1P || B == E)
 					break;
-				//Ї®«гзЁ«бп в®в ¦Ґ Ї®¤Ё­вҐаў «, зв® ў Їа®и«л© а §
-				B = E1; //Їа®ЇгбЄ Ґ¬ ҐЈ® Ї®«­®бвмо
+				//РїРѕР»СѓС‡РёР»СЃСЏ С‚РѕС‚ Р¶Рµ РїРѕРґРёРЅС‚РµСЂРІР°Р», С‡С‚Рѕ РІ РїСЂРѕС€Р»С‹Р№ СЂР°Р·
+				B = E1; //РїСЂРѕРїСѓСЃРєР°РµРј РµРіРѕ РїРѕР»РЅРѕСЃС‚СЊСЋ
 			}
 			if (w < minw || B == E)
 				break;
@@ -1052,30 +1056,30 @@ static cell *process_frame(cell *WB, cell *WE) {
 				break;
 			if (B == NULL)
 				B = E1;
-		} //а §аҐ§ ­ЁҐ-бЄ«ҐЁў ­ЁҐ § Є®­зҐ­®
+		} //СЂР°Р·СЂРµР·Р°РЅРёРµ-СЃРєР»РµРёРІР°РЅРёРµ Р·Р°РєРѕРЅС‡РµРЅРѕ
 		B = E2;
 	} while (B != RW);
 	return B;
 }
 
 /*************************************************************************/
-/*    one_glue  Їлв Ґвбп бЄ«ҐЁвм n Є®¬Ї®­Ґ­в®ў, ­ зЁ­ п б *S, Ё          */
-/*              а бЇ®§­ Ґв в®, зв® Ї®«гзЁвбп:                            */
-/*                Ґб«Ё г¤ з­® (ўҐа®пв­®бвм Ў®«миҐ tol), ў®§ўа й Ґв 1     */
-/*              Ё *S гЄ §лў Ґв ­  б«Ґ¤гойЁ© §  бЄ®¬Ї®­®ў ­­л¬ н«Ґ¬Ґ­в®¬, */
-/*                Ґб«Ё ­Ґг¤ з­®, ў®§ўа й Ґв 0 Ё *S гЄ §лў Ґв ­           */
-/*              ЇҐаўл© ­Ґа бЇ®§­ ­­л© н«Ґ¬Ґ­в                            */
+/*    one_glue  РїС‹С‚Р°РµС‚СЃСЏ СЃРєР»РµРёС‚СЊ n РєРѕРјРїРѕРЅРµРЅС‚РѕРІ, РЅР°С‡РёРЅР°СЏ СЃ *S, Рё          */
+/*              СЂР°СЃРїРѕР·РЅР°РµС‚ С‚Рѕ, С‡С‚Рѕ РїРѕР»СѓС‡РёС‚СЃСЏ:                            */
+/*                РµСЃР»Рё СѓРґР°С‡РЅРѕ (РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ Р±РѕР»СЊС€Рµ tol), РІРѕР·РІСЂР°С‰Р°РµС‚ 1     */
+/*              Рё *S СѓРєР°Р·С‹РІР°РµС‚ РЅР° СЃР»РµРґСѓСЋС‰РёР№ Р·Р° СЃРєРѕРјРїРѕРЅРѕРІР°РЅРЅС‹Рј СЌР»РµРјРµРЅС‚РѕРј, */
+/*                РµСЃР»Рё РЅРµСѓРґР°С‡РЅРѕ, РІРѕР·РІСЂР°С‰Р°РµС‚ 0 Рё *S СѓРєР°Р·С‹РІР°РµС‚ РЅР°          */
+/*              РїРµСЂРІС‹Р№ РЅРµСЂР°СЃРїРѕР·РЅР°РЅРЅС‹Р№ СЌР»РµРјРµРЅС‚                            */
 /*************************************************************************/
 
 static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
-	cell *LB; //cell б«Ґў  ®в ­ з « 
-	cell *B; //вҐЄгйЁ© cell
-	s_glue GL = { 0 };//бЇЁб®Є бЄ«ҐЁў Ґ¬ле Є®¬Ї®­Ґ­в
-	MN *mn; //Їа®¬Ґ¦гв®з­л© аҐ§г«мв в бЄ«Ґ©ЄЁ
-	int16_t i; //ўбЇ®¬®Ј вҐ«м­лҐ ЇҐаҐ¬Ґ­­лҐ
-	int16_t nstick = 0; //зЁб«® Ї «®Є
-	uchar fl_b = 0; //д« Ј "м"
-	int16_t inc; //гбаҐ¤­Ґ­­л© ­ Є«®­
+	cell *LB; //cell СЃР»РµРІР° РѕС‚ РЅР°С‡Р°Р»Р°
+	cell *B; //С‚РµРєСѓС‰РёР№ cell
+	s_glue GL = { 0 };//СЃРїРёСЃРѕРє СЃРєР»РµРёРІР°РµРјС‹С… РєРѕРјРїРѕРЅРµРЅС‚
+	MN *mn; //РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ СЃРєР»РµР№РєРё
+	int16_t i; //РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ
+	int16_t nstick = 0; //С‡РёСЃР»Рѕ РїР°Р»РѕРє
+	uchar fl_b = 0; //С„Р»Р°Рі "СЊ"
+	int16_t inc; //СѓСЃСЂРµРґРЅРµРЅРЅС‹Р№ РЅР°РєР»РѕРЅ
 	uchar cg_flag = 0;
 
 	B = *S;
@@ -1084,7 +1088,7 @@ static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
 	n = MIN(n, MAX_CELLS_IN_LIST - 1);
 	LB = B->prev;
 
-	//б®бв ў«пҐ¬ бЇЁб®Є
+	//СЃРѕСЃС‚Р°РІР»СЏРµРј СЃРїРёСЃРѕРє
 
 	GL.ncell = (uchar) n;
 	GL.ngluc = 1;
@@ -1095,19 +1099,19 @@ static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
 				switch (fl_b) {
 				uchar let;
 
-			case 0: //ЇҐаўл© а §
-				if (B->nvers && ((let = B->vers[0].let) == (uchar) '\xec' /* м */ || let
-						== (uchar) '\x9c' /* њ */)) {
+			case 0: //РїРµСЂРІС‹Р№ СЂР°Р·
+				if (B->nvers && ((let = B->vers[0].let) == (uchar) '\xec' /* СЊ */ || let
+						== (uchar) '\x9c' /* Р¬ */)) {
 					fl_b = 2;
 					break;
 				} else
 					fl_b = 1;
 
-			case 1: //ЇҐаўл© ­Ґ "м"
+			case 1: //РїРµСЂРІС‹Р№ РЅРµ "СЊ"
 				nstick += is_stick(B);
 				break;
 
-			case 2: //ЇҐаўл© "м" Є "Ў®«ми®¬г" ­Ґ Є«ҐЁвм
+			case 2: //РїРµСЂРІС‹Р№ "СЊ" Рє "Р±РѕР»СЊС€РѕРјСѓ" РЅРµ РєР»РµРёС‚СЊ
 				nstick = 2;
 				break;
 				}
@@ -1119,18 +1123,18 @@ static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
 	}
 	inc = erection_compose_inc(n, GL.celist);
 
-	//Є«ҐЁ¬
+	//РєР»РµРёРј
 
 	if (nstick < 2) {
 		if (mn = glue(GL.complist, 2))
-			if (!mn->mnnext) { //бЄ«ҐЁ«®бм
-				B = create_my_cell(mn, LB, 0, 0); //б®ў®ЄгЇ­л© н«Ґ¬Ґ­в
+			if (!mn->mnnext) { //СЃРєР»РµРёР»РѕСЃСЊ
+				B = create_my_cell(mn, LB, 0, 0); //СЃРѕРІРѕРєСѓРїРЅС‹Р№ СЌР»РµРјРµРЅС‚
 				if (dust(B))
 					goto ret;
 				B->cg_flag = cg_flag;
 				inter_diff(B);
 				set_erection(B, inc);
-				if (full_recog(B, NULL, tol, tol)) { //ЇаЁ­Ё¬ Ґ¬ аҐ§г«мв в
+				if (full_recog(B, NULL, tol, tol)) { //РїСЂРёРЅРёРјР°РµРј СЂРµР·СѓР»СЊС‚Р°С‚
 					B->cg_flag &= ~c_cg_cut;
 					for (i = 0; i < n; i++)
 						del_cell(GL.celist[i]);
@@ -1139,24 +1143,24 @@ static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
 					return 1;
 				}
 				goto ret;
-				//бЄ«Ґ©Є  ­Ґг¤ з­ 
+				//СЃРєР»РµР№РєР° РЅРµСѓРґР°С‡РЅР°
 			}
 	}
 
-	// а бЇ®§­ ў ­ЁҐ ЎҐ§ бЄ«Ґ©ЄЁ
+	// СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ Р±РµР· СЃРєР»РµР№РєРё
 
 	B = comp_to_cell(LB, GL.complist, n, 0, 0);
 	B->cg_flag = cg_flag;
 	inter_diff(B);
 	GL.var = GL.fres = GL.arg = 0;
 	GL.flarg = GFsrc;
-	if (!dust(B) && crecell(B, &GL, 3) >= 0) //б®ў®ЄгЇ­л© а бва - ў BOX'Ґ,
-	{ //B ­Ґ Ё§¬Ґ­Ё«бп
+	if (!dust(B) && crecell(B, &GL, 3) >= 0) //СЃРѕРІРѕРєСѓРїРЅС‹Р№ СЂР°СЃС‚СЂ - РІ BOX'Рµ,
+	{ //B РЅРµ РёР·РјРµРЅРёР»СЃСЏ
 		B->broken_II = nstick == 2;
 		set_erection(B, inc);
 		dmBOX(B, &GL);
 		if (B->nvers)
-			if (B->vers[0].prob > tol) { //ЇаЁ­Ё¬ Ґ¬ аҐ§г«мв в
+			if (B->vers[0].prob > tol) { //РїСЂРёРЅРёРјР°РµРј СЂРµР·СѓР»СЊС‚Р°С‚
 				for (i = 0; i < n; i++)
 					del_cell(GL.celist[i]);
 				glsnap('a', B, "BOX OK");
@@ -1165,7 +1169,7 @@ static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
 			}
 	}
 
-	// ­Ґг¤ з 
+	// РЅРµСѓРґР°С‡Р°
 
 	ret: del_cell(B);
 	glsnap('a', LB->next, "glue end");
@@ -1174,24 +1178,24 @@ static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
 }
 
 /*-----------------02-21-95 06:28pm-----------------------------------
- cut_glue  распознает участок строки между LC и E (LC и E не вкл.);
- возвращает E, если ovfl == 0 и указатель на cell, куда надо
- возвращаться, если ovfl != 0; если распознавание не
- проводилось возвращает NULL
+ cut_glue  СЂР°СЃРїРѕР·РЅР°РµС‚ СѓС‡Р°СЃС‚РѕРє СЃС‚СЂРѕРєРё РјРµР¶РґСѓ LC Рё E (LC Рё E РЅРµ РІРєР».);
+ РІРѕР·РІСЂР°С‰Р°РµС‚ E, РµСЃР»Рё ovfl == 0 Рё СѓРєР°Р·Р°С‚РµР»СЊ РЅР° cell, РєСѓРґР° РЅР°РґРѕ
+ РІРѕР·РІСЂР°С‰Р°С‚СЊСЃСЏ, РµСЃР»Рё ovfl != 0; РµСЃР»Рё СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ РЅРµ
+ РїСЂРѕРІРѕРґРёР»РѕСЃСЊ РІРѕР·РІСЂР°С‰Р°РµС‚ NULL
  ---------------------------------------------------------------------*/
 static cell *cut_glue(cell *LC, cell *E, char ovfl) {
 	int16_t i, j;
-	cell * C; //а Ў®зЁ© cell
-	cell *B = LC->next; //­ з «®
-	cell_list org_cells; //Ёбе®¤­лҐ cell'л
-	raster r; //б®ў®ЄгЇ­л© а бва
-	int16_t st_inc; //баҐ¤­Ё© ­ Є«®­
-	int16_t ncut; //®ЎйҐҐ зЁб«® бҐзҐ­Ё©
-	struct cut_elm cut_list[MAX_CUTS], *cut; //бЇЁб®Є бҐзҐ­Ё© Ё вҐЄгйҐҐ бҐзҐ­ЁҐ
-	struct dp_vers_struct vers_pool; //Єгз  ўҐабЁ© dp
+	cell * C; //СЂР°Р±РѕС‡РёР№ cell
+	cell *B = LC->next; //РЅР°С‡Р°Р»Рѕ
+	cell_list org_cells; //РёСЃС…РѕРґРЅС‹Рµ cell'С‹
+	raster r; //СЃРѕРІРѕРєСѓРїРЅС‹Р№ СЂР°СЃС‚СЂ
+	int16_t st_inc; //СЃСЂРµРґРЅРёР№ РЅР°РєР»РѕРЅ
+	int16_t ncut; //РѕР±С‰РµРµ С‡РёСЃР»Рѕ СЃРµС‡РµРЅРёР№
+	struct cut_elm cut_list[MAX_CUTS], *cut; //СЃРїРёСЃРѕРє СЃРµС‡РµРЅРёР№ Рё С‚РµРєСѓС‰РµРµ СЃРµС‡РµРЅРёРµ
+	struct dp_vers_struct vers_pool; //РєСѓС‡Р° РІРµСЂСЃРёР№ dp
 #define vers_list vers_pool.node[0]
-	int16_t pass; //­®¬Ґа Їа®е®¤ 
-	void *kita; //гЄ § вҐ«м бвҐЄ  kit
+	int16_t pass; //РЅРѕРјРµСЂ РїСЂРѕС…РѕРґР°
+	void *kita; //СѓРєР°Р·Р°С‚РµР»СЊ СЃС‚РµРєР° kit
 	int16_t b4 = my_bases.b2 + (my_bases.ps << 1);
 
 	snap_newcut();
@@ -1200,38 +1204,38 @@ static cell *cut_glue(cell *LC, cell *E, char ovfl) {
 	memset(&vers_pool.node, 0, MAX_SEG_VERS * sizeof(seg_vers *));
 	vers_list = (seg_vers*) &vers_pool.pool;
 
-	//­ Є«®­ ¤«п ўбҐе
+	//РЅР°РєР»РѕРЅ РґР»СЏ РІСЃРµС…
 
 	for (i = 0; i < MAX_SECT && B != E; i++, B = B->next)
 		org_cells.cells[i] = B;
 
 	st_inc = erection_compose_inc(i, org_cells.cells);
 
-	//а бблЇ Ґ¬ б®бв ў­лҐ cell'л
+	//СЂР°СЃСЃС‹РїР°РµРј СЃРѕСЃС‚Р°РІРЅС‹Рµ cell'С‹
 
 	B = LC->next;
 	while (B != E) {
 		if (!(B = break_cell(B))) {
 			if (bad(B))
-				set_let(B); //­Ґ а бблЇ « бм - ­Ґ аҐ¦Ґ¬
+				set_let(B); //РЅРµ СЂР°СЃСЃС‹РїР°Р»Р°СЃСЊ - РЅРµ СЂРµР¶РµРј
 			B = B->next;
 		}
 	}
 
-	//бЄ«ҐЁў Ґ¬ ­ « Ј ойЁҐбп ¤агЈ ­  ¤агЈ 
+	//СЃРєР»РµРёРІР°РµРј РЅР°Р»Р°РіР°СЋС‰РёРµСЃСЏ РґСЂСѓРі РЅР° РґСЂСѓРіР°
 
 	if (!glue_overlap(LC, E))
 		return NULL;
 
-	//бЇЁб®Є org_cells
+	//СЃРїРёСЃРѕРє org_cells
 
 	B = LC->next;
 	for (j = 0, C = B; C != E; C = C->next) {
 		if (dust(C)) {
 			int16_t mid = C->row + (C->h >> 1);
 			if (C->h > my_bases.ps >> 1 && mid < my_bases.b1 || mid > b4)
-				continue; //б б®бҐ¤­Ґ© бва®ЄЁ
-		} //б б®бҐ¤­Ґ© бва®ЄЁ
+				continue; //СЃ СЃРѕСЃРµРґРЅРµР№ СЃС‚СЂРѕРєРё
+		} //СЃ СЃРѕСЃРµРґРЅРµР№ СЃС‚СЂРѕРєРё
 
 		if (j >= MAX_SECT) {
 			glsnap('a', B, "too many cells");
@@ -1248,7 +1252,7 @@ static cell *cut_glue(cell *LC, cell *E, char ovfl) {
 	}
 	org_cells.N = j;
 
-	//Ї®бва®Ґ­ЁҐ а бва 
+	//РїРѕСЃС‚СЂРѕРµРЅРёРµ СЂР°СЃС‚СЂР°
 
 	kita = give_kit_addr();
 	if (!compose_raster(&r, (cell**) &org_cells.cells, org_cells.N) || r.w
@@ -1257,7 +1261,7 @@ static cell *cut_glue(cell *LC, cell *E, char ovfl) {
 		return NULL;
 	}
 
-	//бЇЁб®Є бҐзҐ­Ё© Ё ­ з «м­лҐ §­ зҐ­Ёп
+	//СЃРїРёСЃРѕРє СЃРµС‡РµРЅРёР№ Рё РЅР°С‡Р°Р»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ
 
 
 	ncut = init_dp(cut_list, &vers_list, &org_cells, r.left, (int16_t) (r.top
@@ -1269,11 +1273,11 @@ static cell *cut_glue(cell *LC, cell *E, char ovfl) {
 
 #ifndef MY_DEBUG
 	if (!det_trace)
-		cg_show_rast(LC, &r, "", cut_list); //а бва - ­  нЄа ­
+		cg_show_rast(LC, &r, "", cut_list); //СЂР°СЃС‚СЂ - РЅР° СЌРєСЂР°РЅ
 #endif
 
 	for (i = 2, cut = cut_list + 1; i < ncut; i++, cut++)
-		cut->var |= NOT_CUT; //­Ґ аҐ§ вм
+		cut->var |= NOT_CUT; //РЅРµ СЂРµР·Р°С‚СЊ
 
 	if (language == LANGUAGE_RUSSIAN)
 		dp_pass0(LC, &r, cut_list, &vers_list, ncut);
@@ -1296,7 +1300,7 @@ static cell *cut_glue(cell *LC, cell *E, char ovfl) {
 			snap_monitor();
 		}
 
-	//ў®ббв ­®ў«Ґ­ЁҐ cell'®ў ®ЇвЁ¬ «м­®Ј® ЇгвЁ
+	//РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ cell'РѕРІ РѕРїС‚РёРјР°Р»СЊРЅРѕРіРѕ РїСѓС‚Рё
 	C = recover_path(kita, &r, cut_list, ncut, LC, E, ovfl);
 
 	if (C) {
@@ -1316,12 +1320,12 @@ static cell *cut_glue(cell *LC, cell *E, char ovfl) {
 }
 
 /*------------------------------------------------------------------
- break_cell - а бблЇ Ґв б®бв ў­®© cell ­  Є®¬Ї®­Ґ­вл бўп§­®бвЁ;
- ў®§ўа й Ґв гЄ § вҐ«м ­  б«Ґ¤гойЁ© (¤® а бблЇ ­Ёп)
+ break_cell - СЂР°СЃСЃС‹РїР°РµС‚ СЃРѕСЃС‚Р°РІРЅРѕР№ cell РЅР° РєРѕРјРїРѕРЅРµРЅС‚С‹ СЃРІСЏР·РЅРѕСЃС‚Рё;
+ РІРѕР·РІСЂР°С‰Р°РµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ (РґРѕ СЂР°СЃСЃС‹РїР°РЅРёСЏ)
  -------------------------------------------------------------------*/
 static cell *break_cell(cell *B) {
 	MN *mn1;
-	uchar *rp1; //Їа®¬Ґ¦гв®з­л© а бва
+	uchar *rp1; //РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹Р№ СЂР°СЃС‚СЂ
 	cell *C = NULL, *RC = B->next; //AK C=NULL
 
 	if (!composed(B))
@@ -1345,19 +1349,19 @@ static cell *break_cell(cell *B) {
 }
 
 /*-----------------03-01-95 04:52pm---------------------------------
- compose_raster  Ї®  ¤аҐбг raster д®а¬ЁагҐв а бва N cell'®ў, § ¤ ­­ле
- бЇЁбЄ®¬ clist, Ё ўлзЁб«пҐв а §¬Ґал а бва  w,h Ё Є®-
- ®а¤Ё­ вл ur,lc «Ґў®Ј® ўҐае­ҐЈ® гЈ« ;
- ў®§ўа й Ґв 1, Ґб«Ё гбЇҐи­®, Ё 0, Ґб«Ё ­Ґв
+ compose_raster  РїРѕ Р°РґСЂРµСЃСѓ raster С„РѕСЂРјРёСЂСѓРµС‚ СЂР°СЃС‚СЂ N cell'РѕРІ, Р·Р°РґР°РЅРЅС‹С…
+ СЃРїРёСЃРєРѕРј clist, Рё РІС‹С‡РёСЃР»СЏРµС‚ СЂР°Р·РјРµСЂС‹ СЂР°СЃС‚СЂР° w,h Рё РєРѕ-
+ РѕСЂРґРёРЅР°С‚С‹ ur,lc Р»РµРІРѕРіРѕ РІРµСЂС…РЅРµРіРѕ СѓРіР»Р°;
+ РІРѕР·РІСЂР°С‰Р°РµС‚ 1, РµСЃР»Рё СѓСЃРїРµС€РЅРѕ, Рё 0, РµСЃР»Рё РЅРµС‚
  -------------------------------------------------------------------*/
 static int16_t compose_raster(raster *r, cell **clist, int16_t N) {
 	cell *c;
-	uchar *rp1; //Їа®¬Ґ¦гв®з­л© а бва
+	uchar *rp1; //РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹Р№ СЂР°СЃС‚СЂ
 	c_comp *elist[MAX_CUTS];
 	int16_t i, top, bot, left, right;
 
-	//®ЎкҐ¤Ё­пҐ¬ ўбҐ cell'л ў ®¤Ё­
-	//ўлзЁб«пҐ¬ а §¬Ґал Ё Є®®а¤Ё­ вл а бва 
+	//РѕР±СЉРµРґРёРЅСЏРµРј РІСЃРµ cell'С‹ РІ РѕРґРёРЅ
+	//РІС‹С‡РёСЃР»СЏРµРј СЂР°Р·РјРµСЂС‹ Рё РєРѕРѕСЂРґРёРЅР°С‚С‹ СЂР°СЃС‚СЂР°
 
 	c = new_cell();
 	for (top = left = 10000, bot = right = -10000, i = 0; i < N && i < MAX_CUTS; i++) {
@@ -1384,7 +1388,7 @@ static int16_t compose_raster(raster *r, cell **clist, int16_t N) {
 	}
 	c->env = compose_comp(i, elist);
 
-	//д®а¬ЁагҐ¬ а бва
+	//С„РѕСЂРјРёСЂСѓРµРј СЂР°СЃС‚СЂ
 
 	rp1 = (uchar*) save_raster(c);
 	memcpy(r->pict, rp1, ((c->w + 7) >> 3) * c->h);
@@ -1399,40 +1403,40 @@ static int16_t compose_raster(raster *r, cell **clist, int16_t N) {
 }
 
 /*-----------------03-02-95 01:22pm----------------------------------
- init_dp  д®а¬ЁагҐв бЇЁб®Є бҐзҐ­Ё© ¤«п жҐЇ®зЄЁ list, бЇЁб®Є ўЄ«оз Ґв
- «Ґўго Ё Їа ўго Ја ­Ёжл жҐЇ®зЄЁ; Ї®«®¦Ґ­Ёп бҐзҐ­Ё© ®ЇаҐ¤Ґ«п-
- овбп ®в­®бЁвҐ«м­® «Ґў®© rastlc Ё ­Ё¦­Ґ© rastdr Ја ­Ёж б®ў®-
- ЄгЇ­®Ј® а бва ; д®а¬ЁагҐв ­ з «м­л© Їгвм, § ¤ ў Ґ¬л© cell'
-  ¬Ё Ё§ list;
- ў®§ўа й Ґв зЁб«® бҐзҐ­Ё©
+ init_dp  С„РѕСЂРјРёСЂСѓРµС‚ СЃРїРёСЃРѕРє СЃРµС‡РµРЅРёР№ РґР»СЏ С†РµРїРѕС‡РєРё list, СЃРїРёСЃРѕРє РІРєР»СЋС‡Р°РµС‚
+ Р»РµРІСѓСЋ Рё РїСЂР°РІСѓСЋ РіСЂР°РЅРёС†С‹ С†РµРїРѕС‡РєРё; РїРѕР»РѕР¶РµРЅРёСЏ СЃРµС‡РµРЅРёР№ РѕРїСЂРµРґРµР»СЏ-
+ СЋС‚СЃСЏ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ Р»РµРІРѕР№ rastlc Рё РЅРёР¶РЅРµР№ rastdr РіСЂР°РЅРёС† СЃРѕРІРѕ-
+ РєСѓРїРЅРѕРіРѕ СЂР°СЃС‚СЂР°; С„РѕСЂРјРёСЂСѓРµС‚ РЅР°С‡Р°Р»СЊРЅС‹Р№ РїСѓС‚СЊ, Р·Р°РґР°РІР°РµРјС‹Р№ cell'
+ Р°РјРё РёР· list;
+ РІРѕР·РІСЂР°С‰Р°РµС‚ С‡РёСЃР»Рѕ СЃРµС‡РµРЅРёР№
  ---------------------------------------------------------------------*/
 static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 		cell_list *list, int16_t rastlc, int16_t rastdr) {
 	char x;
 	int16_t i, j, ro;
-	int16_t nc; //Є®«ЁзҐбвў® бҐзҐ­Ё© cell' 
-	int16_t ncut = 1; //®ЎйҐҐ зЁб«® бҐзҐ­Ё©
-	int16_t dust_sect = 0;//д« Ј: бҐзҐ­ЁҐ Ё§ dust'®ў
-	int16_t mincl = MAXINT, maxcl = rastlc; //¬Ё­. Ё ¬ е. ®жҐ­ЄЁ ¤«п Їа ў®Ј® Єа п dust-бҐЄжЁЁ
-	struct cut_elm *seci = cut_list + 1; //вҐЄгйҐҐ бҐзҐ­ЁҐ
-	SVERS *versi; //ҐЈ® ўҐабЁЁ
-	cell *C, box; //ЁбЇ®«м§говбп в®«мЄ® row, col, w, h - а §¬Ґал Є®а®ЎЄЁ
+	int16_t nc; //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРµС‡РµРЅРёР№ cell'Р°
+	int16_t ncut = 1; //РѕР±С‰РµРµ С‡РёСЃР»Рѕ СЃРµС‡РµРЅРёР№
+	int16_t dust_sect = 0;//С„Р»Р°Рі: СЃРµС‡РµРЅРёРµ РёР· dust'РѕРІ
+	int16_t mincl = MAXINT, maxcl = rastlc; //РјРёРЅ. Рё РјР°С…. РѕС†РµРЅРєРё РґР»СЏ РїСЂР°РІРѕРіРѕ РєСЂР°СЏ dust-СЃРµРєС†РёРё
+	struct cut_elm *seci = cut_list + 1; //С‚РµРєСѓС‰РµРµ СЃРµС‡РµРЅРёРµ
+	SVERS *versi; //РµРіРѕ РІРµСЂСЃРёРё
+	cell *C, box; //РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ С‚РѕР»СЊРєРѕ row, col, w, h - СЂР°Р·РјРµСЂС‹ РєРѕСЂРѕР±РєРё
 	memset(&box, 0, sizeof(cell));
 
-	/* dust-бҐЄжЁп д®а¬ЁагҐвбп, Ґб«Ё:
-	 - бгйҐбвўгҐв dust, Є®в®ал© ­Ґ Ї®Єалў Ґвбп б®бҐ¤­Ё¬Ё "Ў®«миЁ¬Ё" Є®¬Ї®­Ґ­в ¬Ё
-	 - dust Ї® а бЇ®«®¦Ґ­Ёо Ї®е®¤Ёв ­  в®зЄг Ё«Ё § Їпвго  */
+	/* dust-СЃРµРєС†РёСЏ С„РѕСЂРјРёСЂСѓРµС‚СЃСЏ, РµСЃР»Рё:
+	 - СЃСѓС‰РµСЃС‚РІСѓРµС‚ dust, РєРѕС‚РѕСЂС‹Р№ РЅРµ РїРѕРєСЂС‹РІР°РµС‚СЃСЏ СЃРѕСЃРµРґРЅРёРјРё "Р±РѕР»СЊС€РёРјРё" РєРѕРјРїРѕРЅРµРЅС‚Р°РјРё
+	 - dust РїРѕ СЂР°СЃРїРѕР»РѕР¶РµРЅРёСЋ РїРѕС…РѕРґРёС‚ РЅР° С‚РѕС‡РєСѓ РёР»Рё Р·Р°РїСЏС‚СѓСЋ  */
 
-	//а ббв ў«пҐ¬ бҐзҐ­Ёп
+	//СЂР°СЃСЃС‚Р°РІР»СЏРµРј СЃРµС‡РµРЅРёСЏ
 
-	fict_sect(cut_list, 0, 0); //0-Ґ дЁЄвЁў­®Ґ бҐзҐ­ЁҐ
+	fict_sect(cut_list, 0, 0); //0-Рµ С„РёРєС‚РёРІРЅРѕРµ СЃРµС‡РµРЅРёРµ
 	for (i = 0; i < list->N; i++) {
 
 		C = list->cells[i];
 		if (dust(C)) {
 
 			if (C->r_col >= maxcl) {
-				if (dust_sect) { //§ Єалў Ґ¬ бв аго dust-бҐЄжЁо
+				if (dust_sect) { //Р·Р°РєСЂС‹РІР°РµРј СЃС‚Р°СЂСѓСЋ dust-СЃРµРєС†РёСЋ
 					close_ds(seci, (int16_t) (maxcl - rastlc), (int16_t) (ncut
 							- 1));
 					ncut++;
@@ -1443,26 +1447,26 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 					}
 				} else
 					(seci - 1)->x = maxcl - rastlc;
-				//®вЄалў Ґ¬ ­®ўго dust-бҐЄжЁо
+				//РѕС‚РєСЂС‹РІР°РµРј РЅРѕРІСѓСЋ dust-СЃРµРєС†РёСЋ
 				dust_sect = 1;
 				mincl = C->r_col + C->w;
-			} else if (!dust_sect //dust ЇҐаҐЄалў Ґвбп "Ў®«миЁ¬" Є®¬Ї®­Ґ­в®¬
+			} else if (!dust_sect //dust РїРµСЂРµРєСЂС‹РІР°РµС‚СЃСЏ "Р±РѕР»СЊС€РёРј" РєРѕРјРїРѕРЅРµРЅС‚РѕРј
 					&& C->r_col + C->w > maxcl && C->row + C->h < my_bases.b3
 					+ (my_bases.ps >> 1) && (C->row > my_bases.bm
-					|| is_defis(C))) //¬®¦Ґв Ўлвм в®зЄ  Ё«Ё § Їпв п
-			{ //®вЄалў Ґ¬ dust-бҐЄжЁо
+					|| is_defis(C))) //РјРѕР¶РµС‚ Р±С‹С‚СЊ С‚РѕС‡РєР° РёР»Рё Р·Р°РїСЏС‚Р°СЏ
+			{ //РѕС‚РєСЂС‹РІР°РµРј dust-СЃРµРєС†РёСЋ
 				(seci - 1)->x = ((seci - 1)->x + (C->r_col - rastlc)) >> 1;
 				dust_sect = 1;
 				mincl = maxcl = C->r_col + C->w;
 			}
 			maxcl = MAX(maxcl, C->r_col + C->w);
 			mincl = MIN(mincl, C->r_col + C->w);
-		} else //­Ґ dust
+		} else //РЅРµ dust
 		{
 
 			if (dust_sect) {
 				dust_sect = 0;
-				if (mincl <= C->r_col) //§ Єалў Ґ¬  dust-бҐЄжЁо
+				if (mincl <= C->r_col) //Р·Р°РєСЂС‹РІР°РµРј  dust-СЃРµРєС†РёСЋ
 				{
 					if (maxcl > C->r_col)
 						x = mincl - rastlc;
@@ -1480,7 +1484,7 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 				} else {
 					if (mincl == maxcl && ((seci - 1)->x + rastlc + mincl) >> 1
 							< C->r_col) {
-						//§ Єалў Ґ¬  dust-бҐЄжЁо
+						//Р·Р°РєСЂС‹РІР°РµРј  dust-СЃРµРєС†РёСЋ
 						close_ds(seci, (int16_t) (mincl - rastlc),
 								(int16_t) (ncut - 1));
 						ncut++;
@@ -1489,19 +1493,19 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 						if (ncut == MAX_CUTS)
 							break;
 					}
-					//        else                            //dust-бҐЄжЁп  ­г«ЁагҐвбп
+					//        else                            //dust-СЃРµРєС†РёСЏ Р°РЅСѓР»РёСЂСѓРµС‚СЃСЏ
 					//          (seci-1)->x=((seci-1)->x+C->r_col-rastlc)>>1;
 				}
 			} else // !dust_sect
 			{
 
-				if (maxcl > C->r_col) //ў­ е«Ґбв
+				if (maxcl > C->r_col) //РІРЅР°С…Р»РµСЃС‚
 				{
 					//          x=((seci-1)->x+C->r_col-rastlc)>>1;
 					//          ro=middle(C)-rastlc;
 					//          (seci-1)->x=MIN(x,ro);
-					if (lefter(C, (seci - 1)->x + rastlc)) //ЇҐаҐЄалў Ґвбп ЇаҐ¤л¤гйЁ¬
-					{ // "Ў®«миЁ¬" - ®Ўе®¤Ё¬бп Є Є б dust'®¬
+					if (lefter(C, (seci - 1)->x + rastlc)) //РїРµСЂРµРєСЂС‹РІР°РµС‚СЃСЏ РїСЂРµРґС‹РґСѓС‰РёРј
+					{ // "Р±РѕР»СЊС€РёРј" - РѕР±С…РѕРґРёРјСЃСЏ РєР°Рє СЃ dust'РѕРј
 						maxcl = MAX(maxcl, C->r_col + C->w);
 						continue;
 					} else
@@ -1514,23 +1518,23 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 			maxcl = MAX(maxcl, C->r_col + C->w);
 			nc = 0;
 			if (bad(C) && (C->w > cut_width || C->r_col < (seci - 1)->x
-					+ rastlc || C->r_col + C->w > C->nextl->r_col) //ЇҐаҐЄалў Ґвбп б б®бҐ¤п¬Ё
+					+ rastlc || C->r_col + C->w > C->nextl->r_col) //РїРµСЂРµРєСЂС‹РІР°РµС‚СЃСЏ СЃ СЃРѕСЃРµРґСЏРјРё
 			) {
-				//аҐ¦Ґ¬
+				//СЂРµР¶РµРј
 				nc = get_cuts(C, seci, (int16_t) (MAX_CUTS - ncut - 1));
 
-				for (j = ncut; j < ncut + nc; j++) //Є®ааҐЄвЁагҐ¬ ­  Ї®«®¦Ґ­ЁҐ
-					cor_sect(C, &cut_list[j], rastlc, rastdr); //cell'®ў ў а бваҐ
+				for (j = ncut; j < ncut + nc; j++) //РєРѕСЂСЂРµРєС‚РёСЂСѓРµРј РЅР° РїРѕР»РѕР¶РµРЅРёРµ
+					cor_sect(C, &cut_list[j], rastlc, rastdr); //cell'РѕРІ РІ СЂР°СЃС‚СЂРµ
 
 				ncut += nc;
 				seci += nc;
 			}
 
-			nc = ncut - nc - 1; //бҐзҐ­ЁҐ б«Ґў  ®в C
+			nc = ncut - nc - 1; //СЃРµС‡РµРЅРёРµ СЃР»РµРІР° РѕС‚ C
 			fict_sect(seci, (int16_t) (C->r_col + C->w - rastlc), nc);
 			if (nc == 0) {
-				cut_list->gvarm = C->cg_flag; //ЇаЁ§­ Є а §аҐ§ 
-				cut_list->gvarr = C->cg_flag_fine; //вЁЇ а §аҐ§ 
+				cut_list->gvarm = C->cg_flag; //РїСЂРёР·РЅР°Рє СЂР°Р·СЂРµР·Р°
+				cut_list->gvarr = C->cg_flag_fine; //С‚РёРї СЂР°Р·СЂРµР·Р°
 			}
 			seci->lv.v2 = C->row;
 			seci->lv.v3 = C->col;
@@ -1545,7 +1549,7 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 
 	}
 
-	if (dust_sect) //Ї®б«Ґ¤­пп бҐЄжЁп -  dust-бҐЄжЁп
+	if (dust_sect) //РїРѕСЃР»РµРґРЅСЏСЏ СЃРµРєС†РёСЏ -  dust-СЃРµРєС†РёСЏ
 	{
 		close_ds(seci, (int16_t) (maxcl - rastlc), (int16_t) (ncut - 1));
 		ncut++;
@@ -1553,10 +1557,10 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 		ro = maxcl - rastlc;
 		(seci - 1)->x = MIN(ro, 127);
 	}
-	cut_list->x = 0; //¬®Ј«  ЁбЇ®авЁвмбп ЇаЁ ®вЄалў ­ЁЁ Ё«Ё  ­­г«Ёа®ў ­ЁЁ
-	//ЇҐаў®© dust-бҐЄжЁЁ
+	cut_list->x = 0; //РјРѕРіР»Р° РёСЃРїРѕСЂС‚РёС‚СЊСЃСЏ РїСЂРё РѕС‚РєСЂС‹РІР°РЅРёРё РёР»Рё Р°РЅРЅСѓР»РёСЂРѕРІР°РЅРёРё
+	//РїРµСЂРІРѕР№ dust-СЃРµРєС†РёРё
 
-	//а бЇаҐ¤Ґ«пҐ¬ cell'л  Ї® бҐзҐ­Ёп¬
+	//СЂР°СЃРїСЂРµРґРµР»СЏРµРј cell'С‹  РїРѕ СЃРµС‡РµРЅРёСЏРј
 
 	for (j = 0; j < list->N; j++) {
 		C = list->cells[j];
@@ -1564,21 +1568,21 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 			if (seci->dh == 0 && lefter(C, seci->x + rastlc))
 				break;
 		if (i == ncut)
-			continue; //а §аҐ§®ў ­Ґ еў вЁ«®
+			continue; //СЂР°Р·СЂРµР·РѕРІ РЅРµ С…РІР°С‚РёР»Рѕ
 
-		seci->duflm++; //зЁб«® Є®¬Ї®­Ґ­в ў бҐЈ¬Ґ­вҐ
+		seci->duflm++; //С‡РёСЃР»Рѕ РєРѕРјРїРѕРЅРµРЅС‚ РІ СЃРµРіРјРµРЅС‚Рµ
 		if (dust(C)) {
 			if (is_defis(C)) {
 				C->nvers = 1;
 				C->vers[0].let = '-';
 				save_vers(C, &seci->versm);
 			}
-		} else if (seci->rv.v1++) // Ў®«миҐ 1 "Ў®«ми®Ј®" -  ­­г«ЁагҐ¬ ўҐабЁЁ
+		} else if (seci->rv.v1++) // Р±РѕР»СЊС€Рµ 1 "Р±РѕР»СЊС€РѕРіРѕ" - Р°РЅРЅСѓР»РёСЂСѓРµРј РІРµСЂСЃРёРё
 		{
 			seci->versm.flg = 0;
 			set_bad_vers(&seci->versm);
 		} else if (!just(C))
-			save_vers(C, &seci->versm);//just(C) ҐйҐ ­Ґ а бЇ®§­ ў «бп
+			save_vers(C, &seci->versm);//just(C) РµС‰Рµ РЅРµ СЂР°СЃРїРѕР·РЅР°РІР°Р»СЃСЏ
 		seci->lv.v2 = MIN(seci->lv.v2, C->row);
 		seci->lv.v3 = MIN(seci->lv.v3, C->col);
 		seci->rv.v2 = MAX(seci->rv.v2, C->row + C->h);
@@ -1589,12 +1593,12 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 			cut_list->gvarm |= C->cg_flag & c_cg_cutr;
 	}
 
-	//ўлзЁб«пҐ¬ ¬Ґал
+	//РІС‹С‡РёСЃР»СЏРµРј РјРµСЂС‹
 
 	for (i = 1; i < ncut; i++) {
 		seci = cut_list + i;
 		versi = &seci->versm;
-		if (seci->dh == 0) //Ја ­Ёж  Ёбе®¤­®Ј® cell' 
+		if (seci->dh == 0) //РіСЂР°РЅРёС†Р° РёСЃС…РѕРґРЅРѕРіРѕ cell'Р°
 		{
 			char isdust;
 
@@ -1603,7 +1607,7 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 			C->row = seci->lv.v2;
 			C->col = seci->lv.v3;
 			C->h = seci->rv.v2 - seci->lv.v2;
-			if (--seci->duflm) //Ґбвм б®ЇгвбвўгойЁҐ dust'л
+			if (--seci->duflm) //РµСЃС‚СЊ СЃРѕРїСѓС‚СЃС‚РІСѓСЋС‰РёРµ dust'С‹
 				isdust = C->row > my_bases.bm || C->row + C->h < my_bases.b2
 						|| if_dust(C) & 0xC;
 			else
@@ -1620,11 +1624,11 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 			seci->rv.v1 = ro;
 			seci->rv.v2 = C->w;
 			seci->lv.v1 = cut_list[seci->px].lv.v1 + ro;
-			if (versi->flg != 0) //а бЇ®§­ ў «бп - б®еа ­пҐ¬
+			if (versi->flg != 0) //СЂР°СЃРїРѕР·РЅР°РІР°Р»СЃСЏ - СЃРѕС…СЂР°РЅСЏРµРј
 			{
 				(*vers_list)->px = seci->px;
 				if (seci->duflm)
-					ro = -ro; //зв®Ўл а бЇ®§­ ў вм б dust' ¬Ё
+					ro = -ro; //С‡С‚РѕР±С‹ СЂР°СЃРїРѕР·РЅР°РІР°С‚СЊ СЃ dust'Р°РјРё
 				(*vers_list)->ro = ro;
 				(*vers_list)->gvar = 0;
 				(*vers_list)->width = C->w;
@@ -1634,24 +1638,24 @@ static int16_t init_dp(struct cut_elm *cut_list, seg_vers **vers_list,
 				(*vers_list)++;
 			}
 			seci = cut_list + (seci->px);
-			seci->rv.v3 = C->col - (seci->lv.v3 + seci->rv.v2); //иЁаЁ­  Їа®бўҐв 
-		} else //а §аҐ§ Ёбе®¤­®Ј® cell' 
+			seci->rv.v3 = C->col - (seci->lv.v3 + seci->rv.v2); //С€РёСЂРёРЅР° РїСЂРѕСЃРІРµС‚Р°
+		} else //СЂР°Р·СЂРµР· РёСЃС…РѕРґРЅРѕРіРѕ cell'Р°
 		{
-			seci->lv.v1 = seci->rv.v1 = MAXINT; //¬Ґа  бҐЈ¬Ґ­в  (0,i)
-			seci->rv.v3 = 0; //иЁаЁ­  Їа®бўҐв  ў i-в®¬ бҐзҐ­ЁЁ
+			seci->lv.v1 = seci->rv.v1 = MAXINT; //РјРµСЂР° СЃРµРіРјРµРЅС‚Р° (0,i)
+			seci->rv.v3 = 0; //С€РёСЂРёРЅР° РїСЂРѕСЃРІРµС‚Р° РІ i-С‚РѕРј СЃРµС‡РµРЅРёРё
 		}
 	}
 	seci = cut_list + ncut;
 	(seci--)->x = 127;
 	seci->rv.v3 = MAX_COL;
 	cut_list[0].rv.v3 = MAX_COL;
-	cut_list[0].rv.v1 = seci->lv.v1; //¬Ґа  ўбҐЈ® ЇгвЁ
+	cut_list[0].rv.v1 = seci->lv.v1; //РјРµСЂР° РІСЃРµРіРѕ РїСѓС‚Рё
 	return ncut;
 }
 
 /*-----------------02-28-95 01:51pm------------------------------------
- fict_sect  гбв ­ ў«Ёў Ґв бҐзҐ­ЁҐ ¬Ґ¦¤г н«Ґ¬Ґ­в ¬Ё
- (а §аҐ§ д ЄвЁзҐбЄЁ ­Ґ Їа®Ё§ў®¤Ёвбп);
+ fict_sect  СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СЃРµС‡РµРЅРёРµ РјРµР¶РґСѓ СЌР»РµРјРµРЅС‚Р°РјРё
+ (СЂР°Р·СЂРµР· С„Р°РєС‚РёС‡РµСЃРєРё РЅРµ РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ);
  ---------------------------------------------------------------------*/
 static void fict_sect(struct cut_elm *cut, int16_t x, int16_t px) {
 	//   init_sect(cut);
@@ -1664,12 +1668,12 @@ static void fict_sect(struct cut_elm *cut, int16_t x, int16_t px) {
 }
 
 /*-----------------03-09-95 02:34pm----------------------------------
- init_sect  ­ з «м­лҐ §­ зҐ­Ёп ¤«п ®ЇЁб вҐ«п бҐзҐ­Ёп
+ init_sect  РЅР°С‡Р°Р»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РѕРїРёСЃР°С‚РµР»СЏ СЃРµС‡РµРЅРёСЏ
  -------------------------------------------------------------------*/
 static void init_sect(struct cut_elm *cpnti) {
-	cpnti->px = 0; //ЇаҐ¤л¤гйҐҐ бҐзҐ­ЁҐ ­  ®ЇвЁ¬ «м­®¬ ЇгвЁ
-	cpnti->lv.v1 = cpnti->lv.v3 = 0; //­ Є®Ї«Ґ­­ п ¬Ґа 
-	cpnti->lv.v2 = 0; //¤«Ё­  ЇгвЁ
+	cpnti->px = 0; //РїСЂРµРґС‹РґСѓС‰РµРµ СЃРµС‡РµРЅРёРµ РЅР° РѕРїС‚РёРјР°Р»СЊРЅРѕРј РїСѓС‚Рё
+	cpnti->lv.v1 = cpnti->lv.v3 = 0; //РЅР°РєРѕРїР»РµРЅРЅР°СЏ РјРµСЂР°
+	cpnti->lv.v2 = 0; //РґР»РёРЅР° РїСѓС‚Рё
 	cpnti->rv.v1 = 0;
 	cpnti->var = 0;
 	cpnti->x = 127;
@@ -1678,9 +1682,9 @@ static void init_sect(struct cut_elm *cpnti) {
 }
 
 /*-----------------05-23-95 12:28pm----------------------------------
- close_ds  § Єалў Ґв dust-бҐЄжЁо, § Ї®«­пп бҐзҐ­ЁҐ *cut;
- x - Є®®®а¤Ё­ в  бҐзҐ­Ёп cut ў а бваҐ;
- px - ­®¬Ґа бҐзҐ­Ёп - ­ з «  dust-бҐЄжЁЁ;
+ close_ds  Р·Р°РєСЂС‹РІР°РµС‚ dust-СЃРµРєС†РёСЋ, Р·Р°РїРѕР»РЅСЏСЏ СЃРµС‡РµРЅРёРµ *cut;
+ x - РєРѕРѕРѕСЂРґРёРЅР°С‚Р° СЃРµС‡РµРЅРёСЏ cut РІ СЂР°СЃС‚СЂРµ;
+ px - РЅРѕРјРµСЂ СЃРµС‡РµРЅРёСЏ - РЅР°С‡Р°Р»Р° dust-СЃРµРєС†РёРё;
  -------------------------------------------------------------------*/
 static void close_ds(struct cut_elm *cut, int16_t x, int16_t px) {
 	fict_sect(cut, x, px);
@@ -1691,8 +1695,8 @@ static void close_ds(struct cut_elm *cut, int16_t x, int16_t px) {
 }
 
 /*-----------------02-28-95 02:14pm------------------------------------
- cor_sect  Є®ааҐЄвЁагҐв Ї®«®¦Ґ­ЁҐ а §аҐ§®ў cell'  *C ®в­®бЁвҐ«м­®
- б®ў®ЄгЇ­®Ј® а бва  б Є®®а¤Ё­ в ¬Ё left Ё down
+ cor_sect  РєРѕСЂСЂРµРєС‚РёСЂСѓРµС‚ РїРѕР»РѕР¶РµРЅРёРµ СЂР°Р·СЂРµР·РѕРІ cell'Р° *C РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ
+ СЃРѕРІРѕРєСѓРїРЅРѕРіРѕ СЂР°СЃС‚СЂР° СЃ РєРѕРѕСЂРґРёРЅР°С‚Р°РјРё left Рё down
  ----------------------------------------------------------------------*/
 static void cor_sect(cell *C, struct cut_elm *cut, int16_t left, int16_t down) {
 	cut->x += C->r_col - left;
@@ -1700,23 +1704,23 @@ static void cor_sect(cell *C, struct cut_elm *cut, int16_t left, int16_t down) {
 }
 
 /*-----------------02-23-95 04:13pm--------------------------------------
- get_cuts  д®а¬ЁагҐв бЇЁб®Є а §аҐ§®ў ¤«п cell'  (¬ ЄбЁ¬г¬ nmax);
- ў®§ўа й Ґв зЁб«® ®в®Ўа ­­ле а §аҐ§®ў (>=0)
+ get_cuts  С„РѕСЂРјРёСЂСѓРµС‚ СЃРїРёСЃРѕРє СЂР°Р·СЂРµР·РѕРІ РґР»СЏ cell'Р° (РјР°РєСЃРёРјСѓРј nmax);
+ РІРѕР·РІСЂР°С‰Р°РµС‚ С‡РёСЃР»Рѕ РѕС‚РѕР±СЂР°РЅРЅС‹С… СЂР°Р·СЂРµР·РѕРІ (>=0)
  -----------------------------------------------------------------------*/
 int16_t get_cuts(cell *C, struct cut_elm *list, int16_t nmax) {
-	int16_t i; //Ї а ¬Ґва жЁЄ« 
-	int16_t mw, mh, mrr, mrc; //а §¬Ґал Ё Є®®а¤Ё­ вл н«Ґ¬Ґ­в 
-	uchar *rp1; //а бва ¤«п Ї®ЁбЄ  бҐзҐ­Ё©
-	int16_t N0, N; //Є®«ЁзҐбвў® бҐзҐ­Ё©: ўбҐе Ё ®в®Ўа ­­ле
-	struct cut_elm list0[MAX_CUTS]; //Ї®«­л© бЇЁб®Є бҐзҐ­Ё©
-	struct cut_elm *cpnti, *spnti; //Ёбе®¤­лҐ Ё ®в®Ўа ­­лҐ бҐзҐ­Ёп
-	char x_prev, v_prev; //Є®®а¤Ё­ в  Ё вЁЇ а §аҐ§  ЇаҐ¤л¤гйҐЈ® бҐзҐ­Ёп
-	//  uchar raster[RASTER_WIDTH*RASTER_HEIGHT/8];  //а бва ¤«п а §аҐ§ ­Ёп
+	int16_t i; //РїР°СЂР°РјРµС‚СЂ С†РёРєР»Р°
+	int16_t mw, mh, mrr, mrc; //СЂР°Р·РјРµСЂС‹ Рё РєРѕРѕСЂРґРёРЅР°С‚С‹ СЌР»РµРјРµРЅС‚Р°
+	uchar *rp1; //СЂР°СЃС‚СЂ РґР»СЏ РїРѕРёСЃРєР° СЃРµС‡РµРЅРёР№
+	int16_t N0, N; //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРµС‡РµРЅРёР№: РІСЃРµС… Рё РѕС‚РѕР±СЂР°РЅРЅС‹С…
+	struct cut_elm list0[MAX_CUTS]; //РїРѕР»РЅС‹Р№ СЃРїРёСЃРѕРє СЃРµС‡РµРЅРёР№
+	struct cut_elm *cpnti, *spnti; //РёСЃС…РѕРґРЅС‹Рµ Рё РѕС‚РѕР±СЂР°РЅРЅС‹Рµ СЃРµС‡РµРЅРёСЏ
+	char x_prev, v_prev; //РєРѕРѕСЂРґРёРЅР°С‚Р° Рё С‚РёРї СЂР°Р·СЂРµР·Р° РїСЂРµРґС‹РґСѓС‰РµРіРѕ СЃРµС‡РµРЅРёСЏ
+	//  uchar raster[RASTER_WIDTH*RASTER_HEIGHT/8];  //СЂР°СЃС‚СЂ РґР»СЏ СЂР°Р·СЂРµР·Р°РЅРёСЏ
 	MN *mn1;
-	uchar csv[32]; //Ї а ¬Ґвал бҐзҐ­Ёп
+	uchar csv[32]; //РїР°СЂР°РјРµС‚СЂС‹ СЃРµС‡РµРЅРёСЏ
 	cut_pos cpos;
 
-	//­ з «м­лҐ §­ зҐ­Ёп
+	//РЅР°С‡Р°Р»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ
 
 	mh = C->h;
 	mw = C->w;
@@ -1729,7 +1733,7 @@ int16_t get_cuts(cell *C, struct cut_elm *list, int16_t nmax) {
 	for (i = 0, cpnti = list0; i < MAX_CUTS; i++, cpnti++)
 		init_sect(cpnti);
 
-	//ўлзЁб«Ґ­ЁҐ в®зҐЄ а §аҐ§ 
+	//РІС‹С‡РёСЃР»РµРЅРёРµ С‚РѕС‡РµРє СЂР°Р·СЂРµР·Р°
 
 	rp1 = (uchar*) save_raster(C);
 
@@ -1747,28 +1751,28 @@ int16_t get_cuts(cell *C, struct cut_elm *list, int16_t nmax) {
 
 	N0 = MIN(N0, MAX_CUTS);
 
-	//®вЎЁа Ґ¬ ¤®ЇгбвЁ¬лҐ
+	//РѕС‚Р±РёСЂР°РµРј РґРѕРїСѓСЃС‚РёРјС‹Рµ
 
 	x_prev = list0->x;
 	v_prev = list0->var;
-	for (i = 1, //0-© а §аҐ§ дЁЄвЁў­л©
+	for (i = 1, //0-Р№ СЂР°Р·СЂРµР· С„РёРєС‚РёРІРЅС‹Р№
 	N = 0, spnti = list, cpnti = list0 + 1; i <= N0 && N < nmax; i++, cpnti++) {
 
 		if (cpnti->x >= C->w - 2)
-			continue; //Ў«Ё§Є® Є Єа о
+			continue; //Р±Р»РёР·РєРѕ Рє РєСЂР°СЋ
 		if (cpnti->x <= 1)
-			continue; //Ў«Ё§Є® Є Єа о
+			continue; //Р±Р»РёР·РєРѕ Рє РєСЂР°СЋ
 		mn1 = cut_rast(rp1, mw, mh, mrr, mrc, list0, (char) i, 2, (char*) csv,
-				&cpos); //аҐ¦Ґ¬
+				&cpos); //СЂРµР¶РµРј
 		if (mn1) {
 			memcpy(spnti, cpnti, sizeof(struct cut_elm));
-			if (!mn1->mnnext) { //­Ґ а §аҐ§ «®бм,
-				spnti->var |= 32; //гбв ­ ў«Ёў Ґ¬ Ї®«­л© а §аҐ§
+			if (!mn1->mnnext) { //РЅРµ СЂР°Р·СЂРµР·Р°Р»РѕСЃСЊ,
+				spnti->var |= 32; //СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРѕР»РЅС‹Р№ СЂР°Р·СЂРµР·
 				spnti->h = spnti->dh = (char) mh;
 				if (spnti->x != x_prev || (spnti->var ^ v_prev) & 40) {
 					N++;
 					spnti++;
-				} //­Ґ Ї®ўв®апҐв ЇаҐ¤л¤гйЁ© - ўЄ«оз Ґ¬
+				} //РЅРµ РїРѕРІС‚РѕСЂСЏРµС‚ РїСЂРµРґС‹РґСѓС‰РёР№ - РІРєР»СЋС‡Р°РµРј
 			} else {
 				N++;
 				spnti++;
@@ -1776,85 +1780,85 @@ int16_t get_cuts(cell *C, struct cut_elm *list, int16_t nmax) {
 			x_prev = cpnti->x;
 			v_prev = cpnti->var;
 		}
-		cut_rast(rp1, mw, mh, mrr, mrc, list0, (char) i, 0, (char*) csv, &cpos); //Є«ҐЁ¬ ®Ўа в­®
+		cut_rast(rp1, mw, mh, mrr, mrc, list0, (char) i, 0, (char*) csv, &cpos); //РєР»РµРёРј РѕР±СЂР°С‚РЅРѕ
 	}
 	return N;
 }
 
 /*-------------------------------------------------------------------
- dp_passi  i-л© Їа®е®¤ „Џ: е®а®иЁҐ Ё§®«Ёа®ў ­­лҐ бҐЈ¬Ґ­вл бЇа ў  Ё
- б«Ґў  Їа®ЇгбЄ Ґ¬, ­  Ї«®еЁе - ўбҐ а §аҐ§л; ncut - зЁб«®
- в®зҐЄ ў cut_list; ®бв «м­лҐ Ї а ¬Ґвал ¤«п glob_measure
+ dp_passi  i-С‹Р№ РїСЂРѕС…РѕРґ Р”Рџ: С…РѕСЂРѕС€РёРµ РёР·РѕР»РёСЂРѕРІР°РЅРЅС‹Рµ СЃРµРіРјРµРЅС‚С‹ СЃРїСЂР°РІР° Рё
+ СЃР»РµРІР° РїСЂРѕРїСѓСЃРєР°РµРј, РЅР° РїР»РѕС…РёС… - РІСЃРµ СЂР°Р·СЂРµР·С‹; ncut - С‡РёСЃР»Рѕ
+ С‚РѕС‡РµРє РІ cut_list; РѕСЃС‚Р°Р»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ glob_measure
  -------------------------------------------------------------------*/
 static char dp_passi(cell *LC, raster *r, struct cut_elm *cut_list,
 		seg_vers **vers_list, int16_t ncut, int16_t pass) {
 	int16_t i, j;
-	int16_t ib = 0, ie = ncut - 1; //­ з «® Ё Є®­Ґж „Џ
+	int16_t ib = 0, ie = ncut - 1; //РЅР°С‡Р°Р»Рѕ Рё РєРѕРЅРµС† Р”Рџ
 
 	dp_bound(cut_list, vers_list, pass, &ib, &ie);
 	if (ie <= ib)
-		return 1; //„Џ § Є®­зҐ­®
+		return 1; //Р”Рџ Р·Р°РєРѕРЅС‡РµРЅРѕ
 
 #ifndef MY_DEBUG
 	if (det_trace)
 #endif
 	{
 		sprintf(snap_text, "pass=%d", pass);
-		cg_show_rast(LC, r, snap_text, cut_list); //а бва - ­  нЄа ­
+		cg_show_rast(LC, r, snap_text, cut_list); //СЂР°СЃС‚СЂ - РЅР° СЌРєСЂР°РЅ
 	}
 
-	//ўлзЁб«пҐ¬ ¬Ґал
+	//РІС‹С‡РёСЃР»СЏРµРј РјРµСЂС‹
 
 	for (i = ib + 1; i <= ie; i++) {
-		if (!ben_cut(cut_list + i)) //а §аҐиҐ­ ­  ¤ ­­®¬ Їа®е®¤Ґ
+		if (!ben_cut(cut_list + i)) //СЂР°Р·СЂРµС€РµРЅ РЅР° РґР°РЅРЅРѕРј РїСЂРѕС…РѕРґРµ
 		{
 			snap_newpoint(i);
 			for (j = i - 1; j >= ib; j--)
 				if (!ben_cut(cut_list + j))
 					if (addij(LC, r, cut_list, vers_list, ncut, j, i, 0) & 8)
-						break; //8-иЁа®ЄЁ©
+						break; //8-С€РёСЂРѕРєРёР№
 		}
 	}
 	return 0;
 }
 
 /*--------------------------------------------------------------------------
- dp_bound  определяет левую ib и правую ie границы ДП и разрешает разрезы;
- cut_list - список ncut сечений;
- vers_list - список результатов для каждого сечения;
- pass - номер прохода ДП;
+ dp_bound  РѕРїСЂРµРґРµР»СЏРµС‚ Р»РµРІСѓСЋ ib Рё РїСЂР°РІСѓСЋ ie РіСЂР°РЅРёС†С‹ Р”Рџ Рё СЂР°Р·СЂРµС€Р°РµС‚ СЂР°Р·СЂРµР·С‹;
+ cut_list - СЃРїРёСЃРѕРє ncut СЃРµС‡РµРЅРёР№;
+ vers_list - СЃРїРёСЃРѕРє СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РґР»СЏ РєР°Р¶РґРѕРіРѕ СЃРµС‡РµРЅРёСЏ;
+ pass - РЅРѕРјРµСЂ РїСЂРѕС…РѕРґР° Р”Рџ;
  --------------------------------------------------------------------------*/
 void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 		int16_t *ib, int16_t *ie) {
 	int16_t i, ip, ibp, i1, i2, i2p, et, type, x, ie1 = *ie, ib1 = *ib;
 	struct cut_elm *cut, *cut1;
-	SVERS *versi; //ўҐабЁЁ i-Ј® бҐзҐ­Ёп
+	SVERS *versi; //РІРµСЂСЃРёРё i-РіРѕ СЃРµС‡РµРЅРёСЏ
 	uchar let, let1;
-	char resstr[RESLEN], *res; //®¦Ё¤ Ґ¬л© аҐ§г«мв в ®ЎкҐ¤Ё­Ґ­Ёп бҐЈ¬Ґ­в®ў
+	char resstr[RESLEN], *res; //РѕР¶РёРґР°РµРјС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ РѕР±СЉРµРґРёРЅРµРЅРёСЏ СЃРµРіРјРµРЅС‚РѕРІ
 
 	for (i = ib1; i < ie1; i++)
-		cut_list[i].var |= NOT_CUT; //­Ґ аҐ§ вм
+		cut_list[i].var |= NOT_CUT; //РЅРµ СЂРµР·Р°С‚СЊ
 
 	{
 		ip = i;
 		*ie = ibp = 0;
-		i2 = i2p = 0; //Ї®б«Ґ¤­Ё© е®а®иЁ© ў вҐЄгйҐ¬ Ё ЇаҐ¤л¤гйҐ¬ бҐЈ¬Ґ­в е
+		i2 = i2p = 0; //РїРѕСЃР»РµРґРЅРёР№ С…РѕСЂРѕС€РёР№ РІ С‚РµРєСѓС‰РµРј Рё РїСЂРµРґС‹РґСѓС‰РµРј СЃРµРіРјРµРЅС‚Р°С…
 		while (i > ib1) {
-			//®ЇаҐ¤Ґ«пҐ¬ вЁЇ Ё§®«Ёа®ў ­­®Ј® бҐЈ¬Ґ­в :
-			// 0 - е®а®иЁ©, 1 - Ї«®е®©, 2 - dust-бҐЄжЁп
+			//РѕРїСЂРµРґРµР»СЏРµРј С‚РёРї РёР·РѕР»РёСЂРѕРІР°РЅРЅРѕРіРѕ СЃРµРіРјРµРЅС‚Р°:
+			// 0 - С…РѕСЂРѕС€РёР№, 1 - РїР»РѕС…РѕР№, 2 - dust-СЃРµРєС†РёСЏ
 			type = 0;
 			i1 = i;
 			cut = cut_list + i;
-			et = 0; //Їа ўл© Єа © "Ј"
+			et = 0; //РїСЂР°РІС‹Р№ РєСЂР°Р№ "Рі"
 			do {
 				seg_vers *cur_vers;
-				cut->var &= ~NOT_CUT; //а §аҐи Ґ¬ а §аҐ§ Ї® ®ЇвЁ¬ «м­®¬г ЇгвЁ
+				cut->var &= ~NOT_CUT; //СЂР°Р·СЂРµС€Р°РµРј СЂР°Р·СЂРµР· РїРѕ РѕРїС‚РёРјР°Р»СЊРЅРѕРјСѓ РїСѓС‚Рё
 				versi = &cut->versm;
 				if (dust(versi)) {
 					if (pass == 1)
 						type = 1;
 				} else if (bad(versi) || !(versi->nvers > 0
-						&& versi->vers[0].prob > trs2) || //­Ґ а бЇ®§­ ў «бп б dust' ¬Ё
+						&& versi->vers[0].prob > trs2) || //РЅРµ СЂР°СЃРїРѕР·РЅР°РІР°Р»СЃСЏ СЃ dust'Р°РјРё
 						(cur_vers = find_vers(cut->px, i, vers_list))
 								&& cur_vers->ro < 0)
 					type = 1;
@@ -1866,12 +1870,12 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 					char weakp;
 
 				case '|':
-				case (uchar) '\xeb' /* л */:
-				case (uchar) '\x9b' /* › */:
-					//if (pass == 1 && strchr("®ЋбCж–", // "оОсCцЦ"
-					if (pass == 1 && strchr("\xAE\x8E\xE1\x43\xE6\x96", // "оОсCцЦ"
+				case (uchar) '\xeb' /* С‹ */:
+				case (uchar) '\x9b' /* Р« */:
+					//if (pass == 1 && strchr("РѕРћСЃCС†Р¦", // "СЋв•¬С‘CРЋв•“"
+					if (pass == 1 && strchr("\xAE\x8E\xE1\x43\xE6\x96", // "РѕРћСЃCС†Р¦"
 							(cut_list + ip)->versm.vers[0].let) &&
-					//"ью","ыо" и т.п.
+					//"СЊСЋ","С‹Рѕ" Рё С‚.Рї.
 							!is_russian_baltic_conflict(
 									(cut_list + ip)->versm.vers[0].let) && // 17.07.2001 E.P.
 							!is_russian_turkish_conflict(
@@ -1879,38 +1883,38 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 					) {
 						if (et == 0)
 							et = ip;
-						(cut_list + ip)->var &= ~NOT_CUT; //¬®¦­® аҐ§ вм
-						if (let == '|') { //а §аҐ§л ў®ЄагЈ "м"
+						(cut_list + ip)->var &= ~NOT_CUT; //РјРѕР¶РЅРѕ СЂРµР·Р°С‚СЊ
+						if (let == '|') { //СЂР°Р·СЂРµР·С‹ РІРѕРєСЂСѓРі "СЊ"
 							cut1->var &= ~NOT_CUT;
 							if (cut1 != cut_list)
 								(cut_list + cut1->px)->var &= ~NOT_CUT;
 						} else
-							//аҐ§ вм "л"
+							//СЂРµР·Р°С‚СЊ "С‹"
 							for (cuti = cut1; cuti < cut; cuti++)
 								cuti->var &= ~NOT_CUT;
 					}
 					break;
 
-				case (uchar) '\xee' /* о */:
+				case (uchar) '\xee' /* СЋ */:
 					if (is_russian_turkish_conflict(let)) // 21.05.2002 E.P.
 						break;
-				case (uchar) '\x9e' /* ћ */:
+				case (uchar) '\x9e' /* Р® */:
 					if (cut1->dh != 0 && ((let1 = cut1->versm.vers[0].let)
-							== (uchar) '\xaf' /* Ї */ || let1 == (uchar) '\x8f' /* Џ */)
+							== (uchar) '\xaf' /* Рї */ || let1 == (uchar) '\x8f' /* Рџ */)
 							&& not_connect_sect(cut->px, i, cut_list))
 						type = 1;
 					break;
 
-				case (uchar) '\xa3' /* Ј */:
-				case (uchar) '\x83' /* ѓ */:
-					if (cut1->dh != 0) //"Ј"->"в"
+				case (uchar) '\xa3' /* Рі */:
+				case (uchar) '\x83' /* Р“ */:
+					if (cut1->dh != 0) //"Рі"->"С‚"
 					{
 						if (et == 0)
 							et = i;
-						cut->var &= ~NOT_CUT; //¬®¦­® аҐ§ вм
+						cut->var &= ~NOT_CUT; //РјРѕР¶РЅРѕ СЂРµР·Р°С‚СЊ
 						(cut_list + cut1->px)->var &= ~NOT_CUT;
-						x = cut->x; //Є®­Ґж "Ј"
-						x = cut1->x - ((x - cut1->x) >> 1); //ў®§¬®¦­®Ґ ­ з «® "в"
+						x = cut->x; //РєРѕРЅРµС† "Рі"
+						x = cut1->x - ((x - cut1->x) >> 1); //РІРѕР·РјРѕР¶РЅРѕРµ РЅР°С‡Р°Р»Рѕ "С‚"
 						cuti = cut1 - 1;
 						while (cuti->dh != 0 && cuti->x > x) {
 							if (point_fit(cuti, pass))
@@ -1921,9 +1925,9 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 					i2 = i;
 					break;
 
-				case (uchar) '\xaf' /* Ї */:
-				case (uchar) '\x8f' /* Џ */: //в®«мЄ® ¤ў®©­лҐ а §аҐ§л ў­гваЁ -
-					weakp = 0; // "Ї" ­Ґ­ ¤Ґ¦­®Ґ
+				case (uchar) '\xaf' /* Рї */:
+				case (uchar) '\x8f' /* Рџ */: //С‚РѕР»СЊРєРѕ РґРІРѕР№РЅС‹Рµ СЂР°Р·СЂРµР·С‹ РІРЅСѓС‚СЂРё -
+					weakp = 0; // "Рї" РЅРµРЅР°РґРµР¶РЅРѕРµ
 					for (cuti = cut1 + 1; cuti < cut; cuti++)
 						if (cuti->var & 40)
 							weakp = 1;
@@ -1942,7 +1946,7 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 					}
 				}
 				ip = i;
-				i = cut->px; //б«Ґ¤гойЁ© ­  ®ЇвЁ¬ «м­®¬ ЇгвЁ
+				i = cut->px; //СЃР»РµРґСѓСЋС‰РёР№ РЅР° РѕРїС‚РёРјР°Р»СЊРЅРѕРј РїСѓС‚Рё
 				cut = cut_list + i;
 			} while (cut->dh != 0 && i > ib1);
 			if (i == (cut_list + i1)->px && dust(versi))
@@ -1952,13 +1956,13 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 				cut = cut_list + ib1;
 			}
 
-			//Ї«®е®© ¬®¦­® аҐ§ вм, е®а®иЁ© - ­Ґ«м§п
+			//РїР»РѕС…РѕР№ РјРѕР¶РЅРѕ СЂРµР·Р°С‚СЊ, С…РѕСЂРѕС€РёР№ - РЅРµР»СЊР·СЏ
 			if (type)
 				for (cut1 = cut_list + i1; cut1 >= cut; cut1--)
 					if (point_fit(cut1, pass))
-						cut1->var &= ~NOT_CUT; //¬®¦­® аҐ§ вм
+						cut1->var &= ~NOT_CUT; //РјРѕР¶РЅРѕ СЂРµР·Р°С‚СЊ
 
-			//гбв ­ ў«Ёў Ґ¬ Ја ­Ёжл „Џ
+			//СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РіСЂР°РЅРёС†С‹ Р”Рџ
 			switch (type) {
 			case 0:
 				if (et != 0) {
@@ -1978,7 +1982,7 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 								cut_list, vers_list);
 						if (!res || strlen(res) != 0)
 							*ie = i2p;
-						(cut_list + *ie)->var &= ~NOT_CUT; //¬®¦­® аҐ§ вм
+						(cut_list + *ie)->var &= ~NOT_CUT; //РјРѕР¶РЅРѕ СЂРµР·Р°С‚СЊ
 					} else
 						*ie = ie1;
 				break;
@@ -1995,7 +1999,7 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 		 for (cut=cut_list+(*ib+1),cut1=cut_list+*ie; cut<cut1; cut++)
 		 if (cut->dh==0)  cut->var &= ~NOT_CUT;
 		 */
-		//¤®Ў ў«пҐ¬ б«Ґў  е®а®иЁ© Ё§ бЇЁбЄ 
+		//РґРѕР±Р°РІР»СЏРµРј СЃР»РµРІР° С…РѕСЂРѕС€РёР№ РёР· СЃРїРёСЃРєР°
 
 		if (*ib > ib1) {
 			cut = cut_list + (*ib);
@@ -2006,20 +2010,20 @@ void dp_bound(struct cut_elm *cut_list, seg_vers **vers_list, int16_t pass,
 					!is_russian_turkish_conflict(cut->versm.vers[0].let) // 21.05.2002 E.P.
 			) {
 				*ib = i1;
-				cut_list[*ib].var &= ~NOT_CUT; //¬®¦­® аҐ§ вм
+				cut_list[*ib].var &= ~NOT_CUT; //РјРѕР¶РЅРѕ СЂРµР·Р°С‚СЊ
 			}
 		}
 	}
 }
 
 /*-----------------04-30-96 11:00am----------------------------------
- addij распознает сегмент (i1,i0), если еще не распознавался (при
- mode=2 независимо от меры в i1) и корректирует накопленную
- меру сечений из списка *cut_list (ncut точек) растра *r0;
- возвращает код завершения accept_segment
- vers_list - массив указателей на список имеющихся результатов для
- каждого сегмента;
- *C задает обрабатываемую строку
+ addij СЂР°СЃРїРѕР·РЅР°РµС‚ СЃРµРіРјРµРЅС‚ (i1,i0), РµСЃР»Рё РµС‰Рµ РЅРµ СЂР°СЃРїРѕР·РЅР°РІР°Р»СЃСЏ (РїСЂРё
+ mode=2 РЅРµР·Р°РІРёСЃРёРјРѕ РѕС‚ РјРµСЂС‹ РІ i1) Рё РєРѕСЂСЂРµРєС‚РёСЂСѓРµС‚ РЅР°РєРѕРїР»РµРЅРЅСѓСЋ
+ РјРµСЂСѓ СЃРµС‡РµРЅРёР№ РёР· СЃРїРёСЃРєР° *cut_list (ncut С‚РѕС‡РµРє) СЂР°СЃС‚СЂР° *r0;
+ РІРѕР·РІСЂР°С‰Р°РµС‚ РєРѕРґ Р·Р°РІРµСЂС€РµРЅРёСЏ accept_segment
+ vers_list - РјР°СЃСЃРёРІ СѓРєР°Р·Р°С‚РµР»РµР№ РЅР° СЃРїРёСЃРѕРє РёРјРµСЋС‰РёС…СЃСЏ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РґР»СЏ
+ РєР°Р¶РґРѕРіРѕ СЃРµРіРјРµРЅС‚Р°;
+ *C Р·Р°РґР°РµС‚ РѕР±СЂР°Р±Р°С‚С‹РІР°РµРјСѓСЋ СЃС‚СЂРѕРєСѓ
  --------------------------------------------------------------------*/
 uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
 		seg_vers **vers_list, int16_t ncut, int16_t i1, int16_t i0, char mode) {
@@ -2027,18 +2031,18 @@ uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
 	int16_t ie = ncut - 1;
 	uchar let1;
 	seg_vers *cur_vers;
-	struct cut_elm *seci0, *seci, *secj; //®ЇЁб вҐ«Ё бҐзҐ­Ё©
-	uchar let0; //вҐЄгй п ўҐабЁп i0-Ј® бҐзҐ­Ёп
+	struct cut_elm *seci0, *seci, *secj; //РѕРїРёСЃР°С‚РµР»Рё СЃРµС‡РµРЅРёР№
+	uchar let0; //С‚РµРєСѓС‰Р°СЏ РІРµСЂСЃРёСЏ i0-РіРѕ СЃРµС‡РµРЅРёСЏ
 	char msg[500], *s;
 	uchar err = accept_segment(C, r0, cut_list, vers_list, i1, i0, mode);
 
 	if (err)
 		return err;
 
-	//Є®ааҐЄвЁагҐ¬ ­ Є®Ї«Ґ­­лҐ ¬Ґал
+	//РєРѕСЂСЂРµРєС‚РёСЂСѓРµРј РЅР°РєРѕРїР»РµРЅРЅС‹Рµ РјРµСЂС‹
 
 	seci0 = cut_list + i0;
-	seci0->gvarr = 1; //ўҐабЁЁ Ё§¬Ґ­Ё«Ёбм
+	seci0->gvarr = 1; //РІРµСЂСЃРёРё РёР·РјРµРЅРёР»РёСЃСЊ
 	for (seci = cut_list + ie - 1; seci > seci0; seci--)
 		seci->gvarr = 0;
 	let0 = (seci0->versm.nvers) ? seci0->versm.vers[0].let : 0;
@@ -2049,39 +2053,39 @@ uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
 		seci->gvarr = (cut_list + ip)->gvarr;
 		let1 = (seci->versm.nvers) ? seci->versm.vers[0].let : bad_char;
 		if (ip >= i0) {
-			if (ip == i0 && (let0 == (uchar) '\xec' /* м */ && let1 != (uchar) '|'
+			if (ip == i0 && (let0 == (uchar) '\xec' /* СЊ */ && let1 != (uchar) '|'
 					&& (seci->x - seci0->x) < (seci0->x
 							- (cut_list + seci0->px)->x) || let1 == (uchar) '|'
-					&& let0 != (uchar) '\xec' /* м */)) { //вҐЄгй п versi ¤®«¦­  Ўлвм § ¬Ґ­Ґ­ 
+					&& let0 != (uchar) '\xec' /* СЊ */)) { //С‚РµРєСѓС‰Р°СЏ versi РґРѕР»Р¶РЅР° Р±С‹С‚СЊ Р·Р°РјРµРЅРµРЅР°
 				int16_t width = seci->x - seci0->x;
 				width = MAX(width, my_bases.ps);
 				seci->rv.v1 = norm(MAX_RO,width);
 				seci->lv.v1 = seci0->lv.v1 + seci->rv.v1;
-				if (accept_segment(C, r0, cut_list, vers_list, i0, i, 1) == 0) { //ўҐабЁп § ¬Ґ­Ґ­ 
+				if (accept_segment(C, r0, cut_list, vers_list, i0, i, 1) == 0) { //РІРµСЂСЃРёСЏ Р·Р°РјРµРЅРµРЅР°
 					let1 = (seci->versm.nvers) ? seci->versm.vers[0].let
 							: bad_char;
 				}
 			} else
 				seci->lv.v1 = (cut_list + ip)->lv.v1 + seci->rv.v1;
 		}
-		//flngp = strchr("ЈѓЇЏ", let1) == NULL;
+		//flngp = strchr("РіР“РїРџ", let1) == NULL;
 		flngp = strchr("\xA3\x83\xAF\x8F", let1) == NULL;
 		for (j = i - 1, secj = cut_list + j; j >= i0; j--, secj--) {
 			int16_t cur_meas;
 			if (!secj->versm.flg)
-				continue; //Ё§ j ­Ґв ЇгвЁ
+				continue; //РёР· j РЅРµС‚ РїСѓС‚Рё
 			if (seci->x - secj->x > r0->h << 1)
 				break;
-			if (!secj->gvarr || //ўҐабЁЁ ­Ґ Ё§¬Ґ­Ё«Ёбм
-					!(cur_vers = find_vers(j, i, vers_list)) //­Ґ а бЇ®§­ ў «бп
+			if (!secj->gvarr || //РІРµСЂСЃРёРё РЅРµ РёР·РјРµРЅРёР»РёСЃСЊ
+					!(cur_vers = find_vers(j, i, vers_list)) //РЅРµ СЂР°СЃРїРѕР·РЅР°РІР°Р»СЃСЏ
 			)
 				continue;
 			if (flngp || j >= ip)
 				if (secj->lv.v1 > seci->lv.v1 || secj->lv.v1 > cut_list->rv.v1)
-					continue; //®жҐ­Єг ­Ґ г«гзиЁвм
+					continue; //РѕС†РµРЅРєСѓ РЅРµ СѓР»СѓС‡С€РёС‚СЊ
 
 			ro = abs(cur_vers->ro);
-			cur_meas = secj->lv.v1 + ro; //¬Ґа  i-Ј® бҐзҐ­Ёп
+			cur_meas = secj->lv.v1 + ro; //РјРµСЂР° i-РіРѕ СЃРµС‡РµРЅРёСЏ
 			if (accept_vers(msg, cut_list, j, i, &cur_vers->vers,
 					cur_vers->gvar, cur_vers->width, cur_meas)) {
 				seci->lv.v1 = cur_meas;
@@ -2090,9 +2094,9 @@ uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
 				seci->px = (char) j;
 				seci->gvarm = cur_vers->gvar;
 				memcpy(&seci->versm, &cur_vers->vers, sizeof(SVERS));
-				seci->gvarr = 1; //ўҐабЁЁ Ё§¬Ґ­Ё«Ёбм
+				seci->gvarr = 1; //РІРµСЂСЃРёРё РёР·РјРµРЅРёР»РёСЃСЊ
 				let1 = (seci->versm.nvers) ? seci->versm.vers[0].let : bad_char;
-				//flngp = strchr("ЈѓЇЏ", let1) == NULL;
+				//flngp = strchr("РіР“РїРџ", let1) == NULL;
 				flngp = strchr("\xA3\x83\xAF\x8F", let1) == NULL;
 			}
 		}
@@ -2111,18 +2115,18 @@ uchar addij(cell *C, raster *r0, struct cut_elm *cut_list,
 }
 
 /*----------------------04-30-96 02:03pm-----------------------------
- accept_segment - а бЇ®§­ Ґв бҐЈ¬Ґ­в (i1,i0) а бва  *r0, § ¤ ­­л©
- бЇЁбЄ®¬ *cut_list;
+ accept_segment - СЂР°СЃРїРѕР·РЅР°РµС‚ СЃРµРіРјРµРЅС‚ (i1,i0) СЂР°СЃС‚СЂР° *r0, Р·Р°РґР°РЅРЅС‹Р№
+ СЃРїРёСЃРєРѕРј *cut_list;
  mode=XX
- іАДЁЈ­®аЁа®ў вм ЇаҐ¦­ЁҐ ўҐабЁЁ бҐЈ¬Ґ­в 
- АДДЁЈ­®аЁа®ў вм i1-о ¬Ґаг;
- vers_list - ¬ ббЁў гЄ § вҐ«Ґ© ¤«п § ЇЁбЁ аҐ§г«мв в®ў;
- *C § ¤ Ґв ®Ўа Ў влў Ґ¬го бва®Єг;
- Є®¤ § ўҐаиҐ­Ёп - бг¬¬  §­ зҐ­Ё©:
- 0 - ўҐабЁп ЇаЁ­пв              8 - б«ЁиЄ®¬ иЁа®ЄЁ©
- 1 - г¦Ґ а бЇ®§­ ­             16 - Ё§ i1 ­Ґв ЇгвЁ
- 2 - аҐ§г«мв в  ­Ґв ў бЇЁбЄҐ   32 - ег¦Ґ ¬Ґа 
- 4 - б«ЁиЄ®¬ г§ЄЁ©
+ в”‚в””в”ЂРёРіРЅРѕСЂРёСЂРѕРІР°С‚СЊ РїСЂРµР¶РЅРёРµ РІРµСЂСЃРёРё СЃРµРіРјРµРЅС‚Р°
+ в””в”Ђв”ЂРёРіРЅРѕСЂРёСЂРѕРІР°С‚СЊ i1-СЋ РјРµСЂСѓ;
+ vers_list - РјР°СЃСЃРёРІ СѓРєР°Р·Р°С‚РµР»РµР№ РґР»СЏ Р·Р°РїРёСЃРё СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ;
+ *C Р·Р°РґР°РµС‚ РѕР±СЂР°Р±Р°С‚С‹РІР°РµРјСѓСЋ СЃС‚СЂРѕРєСѓ;
+ РєРѕРґ Р·Р°РІРµСЂС€РµРЅРёСЏ - СЃСѓРјРјР° Р·РЅР°С‡РµРЅРёР№:
+ 0 - РІРµСЂСЃРёСЏ РїСЂРёРЅСЏС‚Р°             8 - СЃР»РёС€РєРѕРј С€РёСЂРѕРєРёР№
+ 1 - СѓР¶Рµ СЂР°СЃРїРѕР·РЅР°РЅ             16 - РёР· i1 РЅРµС‚ РїСѓС‚Рё
+ 2 - СЂРµР·СѓР»СЊС‚Р°С‚Р° РЅРµС‚ РІ СЃРїРёСЃРєРµ   32 - С…СѓР¶Рµ РјРµСЂР°
+ 4 - СЃР»РёС€РєРѕРј СѓР·РєРёР№
  -------------------------------------------------------------------*/
 static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 		seg_vers **vers_list, int16_t i1, int16_t i0, char mode) {
@@ -2130,28 +2134,28 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 	uchar let;
 	cell **CI;
 	seg_vers *cur_vers;
-	uchar cut_fl; //д« Ј: бҐЈ¬Ґ­в (i1,i0) Ї®«гзҐ­ а §аҐ§ ­ЁҐ¬
-	uchar cut_fine; //в® ¦Ґ ¤«п Ђ«ЁЄ 
-	struct cut_elm *seci0, *seci1; //®ЇЁб вҐ«Ё i0-Ј® Ё i1-Ј® бҐзҐ­Ё©
-	SVERS *versi0, *versi1; //ўҐабЁЁ i0-Ј®,i1-Ј® бҐзҐ­Ё©
-	int16_t x0, x1; //Є®®а¤Ё­ вл i0-Ј® Ё i1-Ј® бҐзҐ­Ё©
-	int16_t x0a, x1a; //в® ¦Ґ  Ўб®«ов­лҐ
-	SVERS vers; //ўҐабЁЁ бҐЈ¬Ґ­в  (i1,i0)
-	int16_t width; //ҐЈ® иЁаЁ­ 
-	char gvar; //бЇ®б®Ў бЎ®аЄЁ
-	int16_t ro, cur_meas; //­®ўлҐ «®Є «м­ п Ё Ј«®Ў «м­ п вҐЄгйЁҐ ¬Ґал i0-Ј® бҐзҐ­Ёп
+	uchar cut_fl; //С„Р»Р°Рі: СЃРµРіРјРµРЅС‚ (i1,i0) РїРѕР»СѓС‡РµРЅ СЂР°Р·СЂРµР·Р°РЅРёРµРј
+	uchar cut_fine; //С‚Рѕ Р¶Рµ РґР»СЏ РђР»РёРєР°
+	struct cut_elm *seci0, *seci1; //РѕРїРёСЃР°С‚РµР»Рё i0-РіРѕ Рё i1-РіРѕ СЃРµС‡РµРЅРёР№
+	SVERS *versi0, *versi1; //РІРµСЂСЃРёРё i0-РіРѕ,i1-РіРѕ СЃРµС‡РµРЅРёР№
+	int16_t x0, x1; //РєРѕРѕСЂРґРёРЅР°С‚С‹ i0-РіРѕ Рё i1-РіРѕ СЃРµС‡РµРЅРёР№
+	int16_t x0a, x1a; //С‚Рѕ Р¶Рµ Р°Р±СЃРѕР»СЋС‚РЅС‹Рµ
+	SVERS vers; //РІРµСЂСЃРёРё СЃРµРіРјРµРЅС‚Р° (i1,i0)
+	int16_t width; //РµРіРѕ С€РёСЂРёРЅР°
+	char gvar; //СЃРїРѕСЃРѕР± СЃР±РѕСЂРєРё
+	int16_t ro, cur_meas; //РЅРѕРІС‹Рµ Р»РѕРєР°Р»СЊРЅР°СЏ Рё РіР»РѕР±Р°Р»СЊРЅР°СЏ С‚РµРєСѓС‰РёРµ РјРµСЂС‹ i0-РіРѕ СЃРµС‡РµРЅРёСЏ
 #define ROI_LEN 4
 #define ROI_SIZE ROI_LEN*sizeof(int16_t)
-	int16_t roi[ROI_LEN]; //б®бв ў«пойЁҐ ro
-	uchar csv0[32], csv1[32]; //Ї а ¬Ґвал бҐзҐ­Ёп
+	int16_t roi[ROI_LEN]; //СЃРѕСЃС‚Р°РІР»СЏСЋС‰РёРµ ro
+	uchar csv0[32], csv1[32]; //РїР°СЂР°РјРµС‚СЂС‹ СЃРµС‡РµРЅРёСЏ
 	cut_pos cpos0 = { 0 }, cpos1 = { 0 }, cposc;
-	MN *mn1; //ЇаҐ®Ўа §®ў ­­л© а бва
-	void *kit; //гЄ § вҐ«м бвҐЄ  kit
-	cell_list left_list, right_list; //бЇЁбЄЁ cell'®ў б«Ґў  Ё бЇа ў  ®в бҐзҐ­Ёп i1
-	int16_t d_row; //а §­®бвм Є®®а¤Ё­ в аҐ «м­®© Ё Ї®ўҐа­гв®© бва®ЄЁ ў
-	//бҐзҐ­ЁЁ i0
-	char resstr[RESLEN], *res; //®¦Ё¤ Ґ¬л© аҐ§г«мв в ®ЎкҐ¤Ё­Ґ­Ёп бҐЈ¬Ґ­в®ў
-	uchar retv = 0; //ў®§ўа й Ґ¬®Ґ §­ зҐ­ЁҐ
+	MN *mn1; //РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРЅС‹Р№ СЂР°СЃС‚СЂ
+	void *kit; //СѓРєР°Р·Р°С‚РµР»СЊ СЃС‚РµРєР° kit
+	cell_list left_list, right_list; //СЃРїРёСЃРєРё cell'РѕРІ СЃР»РµРІР° Рё СЃРїСЂР°РІР° РѕС‚ СЃРµС‡РµРЅРёСЏ i1
+	int16_t d_row; //СЂР°Р·РЅРѕСЃС‚СЊ РєРѕРѕСЂРґРёРЅР°С‚ СЂРµР°Р»СЊРЅРѕР№ Рё РїРѕРІРµСЂРЅСѓС‚РѕР№ СЃС‚СЂРѕРєРё РІ
+	//СЃРµС‡РµРЅРёРё i0
+	char resstr[RESLEN], *res; //РѕР¶РёРґР°РµРјС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ РѕР±СЉРµРґРёРЅРµРЅРёСЏ СЃРµРіРјРµРЅС‚РѕРІ
+	uchar retv = 0; //РІРѕР·РІСЂР°С‰Р°РµРјРѕРµ Р·РЅР°С‡РµРЅРёРµ
 	char msg[500], *s = msg;
 
 	s += sprintf(s, "%d-%d ", i1, i0);
@@ -2166,30 +2170,30 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 		s += sprintf(s, "too thick");
 		retv = 4;
 		goto ret;
-		//б«ЁиЄ®¬ г§ЄЁ©
+		//СЃР»РёС€РєРѕРј СѓР·РєРёР№
 	}
 
-	//ЁйҐ¬ баҐ¤Ё а ­ҐҐ а бЇ®§­ ­­ле
+	//РёС‰РµРј СЃСЂРµРґРё СЂР°РЅРµРµ СЂР°СЃРїРѕР·РЅР°РЅРЅС‹С…
 
 	if (cur_vers = find_vers(i1, i0, vers_list))
-		if (cur_vers->ro < 0) //­ ¤® а бЇ®§­ вм б dust' ¬Ё
+		if (cur_vers->ro < 0) //РЅР°РґРѕ СЂР°СЃРїРѕР·РЅР°С‚СЊ СЃ dust'Р°РјРё
 		{
 			cur_vers->ro = -cur_vers->ro;
-			width = cur_vers->width; //­  б«гз ©, Ґб«Ё ®бв ­Ґвбп бв а п ўҐабЁп
+			width = cur_vers->width; //РЅР° СЃР»СѓС‡Р°Р№, РµСЃР»Рё РѕСЃС‚Р°РЅРµС‚СЃСЏ СЃС‚Р°СЂР°СЏ РІРµСЂСЃРёСЏ
 			gvar = cur_vers->gvar;
 			memcpy(&vers, &cur_vers->vers, sizeof(SVERS));
-		} else //г¦Ґ а бЇ®§­ ў «бп
+		} else //СѓР¶Рµ СЂР°СЃРїРѕР·РЅР°РІР°Р»СЃСЏ
 		if (!(mode & 1))
 			return 1;
 
-	//¬®¦­® «Ё г«гзиЁвм ¬Ґаг?
+	//РјРѕР¶РЅРѕ Р»Рё СѓР»СѓС‡С€РёС‚СЊ РјРµСЂСѓ?
 
 	if (i1 > 0 && !(mode & 2) && seci1->versm.flg) {
 		let = (versi0->nvers) ? versi0->vers[0].let : 0;
-		if (let == (uchar) '\xa3' /* Ј */ || let == (uchar) '\x83' /* ѓ */)
-			fora = G_to_T; //д®а  ¤«п '\xe2' /* в */
-		else if (let == (uchar) '\xaf' /* Ї */ || let == (uchar) '\x8f' /* Џ */)
-			fora = P_to_L; //д®а  ¤«п '\xab' /* « */
+		if (let == (uchar) '\xa3' /* Рі */ || let == (uchar) '\x83' /* Р“ */)
+			fora = G_to_T; //С„РѕСЂР° РґР»СЏ '\xe2' /* С‚ */
+		else if (let == (uchar) '\xaf' /* Рї */ || let == (uchar) '\x8f' /* Рџ */)
+			fora = P_to_L; //С„РѕСЂР° РґР»СЏ '\xab' /* Р» */
 		else
 			fora = 0;
 		fora = seci1->lv.v1 - norm(fora,x0-x1);
@@ -2200,8 +2204,8 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 		}
 	}
 
-	//Ґб«Ё е®а®и® а бЇ®§­ ­­л© бҐ¬Ґ­в ®ЎкҐ¤Ё­пҐвбп б ¤агЈЁ¬, ­® ®ЎкҐ¤Ё­Ґ­ЁҐ
-	//­Ґ ЇаҐ¤гб¬®ваҐ­® бЇЁбЄ®¬ - Їа®ЇгбЄ Ґ¬
+	//РµСЃР»Рё С…РѕСЂРѕС€Рѕ СЂР°СЃРїРѕР·РЅР°РЅРЅС‹Р№ СЃРµРјРµРЅС‚ РѕР±СЉРµРґРёРЅСЏРµС‚СЃСЏ СЃ РґСЂСѓРіРёРј, РЅРѕ РѕР±СЉРµРґРёРЅРµРЅРёРµ
+	//РЅРµ РїСЂРµРґСѓСЃРјРѕС‚СЂРµРЅРѕ СЃРїРёСЃРєРѕРј - РїСЂРѕРїСѓСЃРєР°РµРј
 
 	res = unite_list(resstr, i1, i0, cut_list, vers_list);
 	if (res)
@@ -2217,34 +2221,34 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 	x1a = x1 + r0->left;
 	x0a = x0 + r0->left;
 
-	//а §аҐ§ Ґ¬
+	//СЂР°Р·СЂРµР·Р°РµРј
 
 	kit = give_kit_addr();
-	cut_fl = (seci0->dh != 0) ? c_cg_cutr : 0; //а §аҐ§ бЇа ў 
+	cut_fl = (seci0->dh != 0) ? c_cg_cutr : 0; //СЂР°Р·СЂРµР· СЃРїСЂР°РІР°
 	mn1 = cut_rast((uchar*) &r0->pict, r0->w, r0->h, r0->top, r0->left,
 			cut_list, (char) i0, 1, (char*) csv0, &cpos0);
 	d_row = (int32_t) nIncline * (r0->left + x0) / 2048;
 	cpos0.row1 -= d_row;
-	cpos0.row2 -= d_row; //¤«п forbid_stick_cut
+	cpos0.row2 -= d_row; //РґР»СЏ forbid_stick_cut
 
 	if (seci1->dh != 0)
-		cut_fl |= c_cg_cutl; //а §аҐ§ б«Ґў 
+		cut_fl |= c_cg_cutl; //СЂР°Р·СЂРµР· СЃР»РµРІР°
 	mn1 = cut_rast((uchar*) &r0->pict, r0->w, r0->h, r0->top, r0->left,
 			cut_list, (char) i1, 2, (char*) csv1, &cpos1);
 	cpos1.row1 -= d_row;
 	cpos1.row2 -= d_row;
 
-	//ў®ббв ­ ў«Ёў Ґ¬ а бва
+	//РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂР°СЃС‚СЂ
 
 	cut_rast((uchar*) &r0->pict, r0->w, r0->h, r0->top, r0->left, cut_list,
 			(char) i0, 0, (char*) csv0, &cposc);
 	cut_rast((uchar*) &r0->pict, r0->w, r0->h, r0->top, r0->left, cut_list,
 			(char) i1, 0, (char*) csv1, &cposc);
 
-	//ўл¤Ґ«пҐ¬ cell'л Ё§ mn1
+	//РІС‹РґРµР»СЏРµРј cell'С‹ РёР· mn1
 
 	dh = select_cells(C, mn1, x1a, x0a, cut_fl, &left_list, &right_list);
-	if (x0 - x1 - 1 - MAX(seci1->rv.v3, 0) > (dh << 1) + (dh >> 2)) //б«ЁиЄ®¬ иЁа®ЄЁ©
+	if (x0 - x1 - 1 - MAX(seci1->rv.v3, 0) > (dh << 1) + (dh >> 2)) //СЃР»РёС€РєРѕРј С€РёСЂРѕРєРёР№
 	{
 		for (i = 0; i < left_list.N; i++)
 			del_cell(left_list.cells[i]);
@@ -2256,15 +2260,15 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 		goto ret;
 	}
 
-	//зв®Ўл а бЇ®§­ « бм Ї «Є  ЇаЁбў Ёў Ґ¬ ўҐабЁо '\xec' /* м */
+	//С‡С‚РѕР±С‹ СЂР°СЃРїРѕР·РЅР°Р»Р°СЃСЊ РїР°Р»РєР° РїСЂРёСЃРІР°РёРІР°РµРј РІРµСЂСЃРёСЋ '\xec' /* СЊ */
 
 	let = (versi1->nvers) ? versi1->vers[0].let : 0;
-	if (let == (uchar) '\xec' /* м */)
+	if (let == (uchar) '\xec' /* СЊ */)
 		for (i = 0, CI = left_list.cells; i < left_list.N; i++, CI++)
 			if (!dust(*CI))
 				rest_vers(*CI, versi1);
 
-	//Ђ«ЁЄ®ў д« Ј
+	//РђР»РёРєРѕРІ С„Р»Р°Рі
 
 	if (cut_fl) {
 		cell B;
@@ -2277,7 +2281,7 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 	} else
 		cut_fine = 0;
 
-	//а бЇ®§­ Ґ¬
+	//СЂР°СЃРїРѕР·РЅР°РµРј
 
 	ro = recogij(C, right_list.cells, right_list.N, cut_fl, cut_fine,
 			cut_list->rv.v2, roi, (uchar*) &gvar, &vers, &width);
@@ -2286,10 +2290,10 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 		del_cell(left_list.cells[i]);
 	take_kit_addr((uchar*) kit);
 
-	if (vers.flg == 0) //­Ґ а бЇ®§­ ў «бп
+	if (vers.flg == 0) //РЅРµ СЂР°СЃРїРѕР·РЅР°РІР°Р»СЃСЏ
 	{
 		if (debug_on)
-			snap_show_raster(NULL, 0, 0); //бвЁа ­ЁҐ Є авЁ­ЄЁ
+			snap_show_raster(NULL, 0, 0); //СЃС‚РёСЂР°РЅРёРµ РєР°СЂС‚РёРЅРєРё
 		width = x0 - x1;
 		if (i1 != i0 - 1) {
 			set_bad(&vers);
@@ -2307,7 +2311,7 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 		}
 	}
 
-	if (x0 - x1 > width + (blank << 1)) //®иЁЎЄЁ а §аҐ§ ­Ёп
+	if (x0 - x1 > width + (blank << 1)) //РѕС€РёР±РєРё СЂР°Р·СЂРµР·Р°РЅРёСЏ
 	{
 		width = x0 - x1;
 		set_bad_vers(&vers);
@@ -2316,7 +2320,7 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 
 	let = vers.vers[0].let;
 
-	//аҐ§г«мв в ¤®«¦Ґ­ Ўлвм ў бЇЁбЄҐ, Ґб«Ё в Є®ў®© Ё¬ҐҐвбп
+	//СЂРµР·СѓР»СЊС‚Р°С‚ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РІ СЃРїРёСЃРєРµ, РµСЃР»Рё С‚Р°РєРѕРІРѕР№ РёРјРµРµС‚СЃСЏ
 	if (res)
 		if (vers.nvers && !strchr(res, let)) {
 			ro = MAX_RO;
@@ -2329,19 +2333,19 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 	} else if (width < ps3)
 		width = ps3;
 
-	if (let == 'm') { //ива д ¤«п 'm', Ґб«Ё б®Ўа ­  Ё§ ЄгбЄ®ў
+	if (let == 'm') { //С€С‚СЂР°С„ РґР»СЏ 'm', РµСЃР»Рё СЃРѕР±СЂР°РЅР° РёР· РєСѓСЃРєРѕРІ
 		if (not_connect_sect(i1, i0, cut_list))
 			roi[1] = m_nc_PEN;
-	} else //ива д §  бЎ®аЄг ®ваҐ§ ­­ле ЄгбЄ®ў
+	} else //С€С‚СЂР°С„ Р·Р° СЃР±РѕСЂРєСѓ РѕС‚СЂРµР·Р°РЅРЅС‹С… РєСѓСЃРєРѕРІ
 	if (cut_fl) {
 		i = i0;
 		while ((i = not_connect_sect(i1, i, cut_list)) > 0) {
 			int16_t dr = (cut_list + i)->rv.v3;
-			roi[1] = MAX(dr, 0) * 200 / my_bases.ps; //20 Ў ««®ў §  1/10ps
+			roi[1] = MAX(dr, 0) * 200 / my_bases.ps; //20 Р±Р°Р»Р»РѕРІ Р·Р° 1/10ps
 		}
 	}
 
-	//ива д ¤«п ®ваҐ§ ­­®© Ї «ЄЁ
+	//С€С‚СЂР°С„ РґР»СЏ РѕС‚СЂРµР·Р°РЅРЅРѕР№ РїР°Р»РєРё
 	if (!dust(&vers) && ro < RO_BAD) {
 		if (cut_fl & c_cg_cutl && forbid_stick_cut(C, &vers, r0->h, &cpos1, 2))
 			roi[2] += MONstick;
@@ -2361,17 +2365,17 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 	ro = norm(ro,width);
 	s += sprintf(s, ")*%d/4=%d", width, ro);
 
-	//б®еа ­пҐ¬ аҐ§г«мв в ¤«п бҐЈ¬Ґ­в  (i1,i0) ­  Ўг¤гйҐҐ
+	//СЃРѕС…СЂР°РЅСЏРµРј СЂРµР·СѓР»СЊС‚Р°С‚ РґР»СЏ СЃРµРіРјРµРЅС‚Р° (i1,i0) РЅР° Р±СѓРґСѓС‰РµРµ
 
 	if (!cur_vers)
 		store_vers(NULL, vers_list, i1, i0, &vers, ro, width, gvar);
 
 	if (!versi1->flg && i1 > 0) {
-		s += sprintf(s, "no path"); //Ё§ i1 ­Ґв ЇгвЁ
+		s += sprintf(s, "no path"); //РёР· i1 РЅРµС‚ РїСѓС‚Рё
 		retv |= 16;
 		goto ret;
 	}
-	cur_meas = seci1->lv.v1 + ro; //¬Ґа  i0-Ј® бҐзҐ­Ёп
+	cur_meas = seci1->lv.v1 + ro; //РјРµСЂР° i0-РіРѕ СЃРµС‡РµРЅРёСЏ
 	if (accept_vers(s, cut_list, i1, i0, &vers, gvar, width, cur_meas)) {
 		if (debug_on)
 #ifndef MY_DEBUG
@@ -2405,9 +2409,9 @@ static uchar accept_segment(cell *C, raster *r0, struct cut_elm *cut_list,
 }
 
 /*---------------------------------------------------------------------
- unite_list - формирует список допустимых результатов при объединении
- несвязных сегментов; если любой результат допустим,
- возвращает NULL, а если объединять нельзя - пустой список
+ unite_list - С„РѕСЂРјРёСЂСѓРµС‚ СЃРїРёСЃРѕРє РґРѕРїСѓСЃС‚РёРјС‹С… СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїСЂРё РѕР±СЉРµРґРёРЅРµРЅРёРё
+ РЅРµСЃРІСЏР·РЅС‹С… СЃРµРіРјРµРЅС‚РѕРІ; РµСЃР»Рё Р»СЋР±РѕР№ СЂРµР·СѓР»СЊС‚Р°С‚ РґРѕРїСѓСЃС‚РёРј,
+ РІРѕР·РІСЂР°С‰Р°РµС‚ NULL, Р° РµСЃР»Рё РѕР±СЉРµРґРёРЅСЏС‚СЊ РЅРµР»СЊР·СЏ - РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє
  ---------------------------------------------------------------------*/
 static char *unite_list(char *resstr, int16_t i1, int16_t i0,
 		struct cut_elm *cut_list, seg_vers **vers_list) { // for segments of the left and right
@@ -2433,12 +2437,12 @@ static char *unite_list(char *resstr, int16_t i1, int16_t i0,
 		results_left_to_bad[7][0] = '6';
 		results_left_to_bad[7][2] = '6';
 		results_left_to_bad[9][2] = 'd';
-		results_left_to_bad[14][1] = '\x98' /*  */;
+		results_left_to_bad[14][1] = '\x98' /* РЁ */;
 		results_left_to_bad[16][0] = 0;
-		results_left_to_bad[19][2] = '\xe8' /* и */;
-		results_left_to_bad[20][1] = '\x98' /*  */;
-		results_left_to_bad[22][1] = '\x98' /*  */;
-		results_left_to_bad[23][0] = '\xe4' /* д */;
+		results_left_to_bad[19][2] = '\xe8' /* С€ */;
+		results_left_to_bad[20][1] = '\x98' /* РЁ */;
+		results_left_to_bad[22][1] = '\x98' /* РЁ */;
+		results_left_to_bad[23][0] = '\xe4' /* С„ */;
 
 		results_right_to_bad[7][2] = 'o';
 		results_right_to_bad[9][5] = 'b';
@@ -2448,24 +2452,24 @@ static char *unite_list(char *resstr, int16_t i1, int16_t i0,
 		results_right_to_bad[22][0] = 0;
 
 	} else {
-		results_left_to_bad[0][22] = '\x99' /* ™ */;
-		results_left_to_bad[0][23] = '\xee' /* о */;
+		results_left_to_bad[0][22] = '\x99' /* Р© */;
+		results_left_to_bad[0][23] = '\xee' /* СЋ */;
 		results_left_to_bad[7][0] = 'o';
-		results_left_to_bad[7][2] = '\xae' /* ® */;
-		results_left_to_bad[9][2] = '\xae' /* ® */;
-		results_left_to_bad[14][1] = '\x99' /* ™ */;
-		results_left_to_bad[16][0] = '\xee' /* о */;
-		results_left_to_bad[19][2] = '\xee' /* о */;
-		results_left_to_bad[20][1] = '\x99' /* ™ */;
-		results_left_to_bad[22][1] = '\x99' /* ™ */;
-		results_left_to_bad[23][0] = '\xae' /* ® */;
+		results_left_to_bad[7][2] = '\xae' /* Рѕ */;
+		results_left_to_bad[9][2] = '\xae' /* Рѕ */;
+		results_left_to_bad[14][1] = '\x99' /* Р© */;
+		results_left_to_bad[16][0] = '\xee' /* СЋ */;
+		results_left_to_bad[19][2] = '\xee' /* СЋ */;
+		results_left_to_bad[20][1] = '\x99' /* Р© */;
+		results_left_to_bad[22][1] = '\x99' /* Р© */;
+		results_left_to_bad[23][0] = '\xae' /* Рѕ */;
 
-		results_right_to_bad[7][2] = '\xae' /* ® */;
-		results_right_to_bad[9][5] = '\xae' /* ® */;
-		results_right_to_bad[10][8] = '\x95' /* • */;
-		results_right_to_bad[11][0] = '\xe2' /* в */;
-		results_right_to_bad[16][0] = '\x99' /* ™ */;
-		results_right_to_bad[22][0] = '\xee' /* о */;
+		results_right_to_bad[7][2] = '\xae' /* Рѕ */;
+		results_right_to_bad[9][5] = '\xae' /* Рѕ */;
+		results_right_to_bad[10][8] = '\x95' /* РҐ */;
+		results_right_to_bad[11][0] = '\xe2' /* С‚ */;
+		results_right_to_bad[16][0] = '\x99' /* Р© */;
+		results_right_to_bad[22][0] = '\xee' /* СЋ */;
 
 	}
 
@@ -2478,7 +2482,7 @@ static char *unite_list(char *resstr, int16_t i1, int16_t i0,
 				if (!dust(vers2 = &cur_vers->vers)) {
 					if (vers1->nvers) {
 						let = vers1->vers[0].let;
-						pt = (let == (uchar) '\xe2' /* в */
+						pt = (let == (uchar) '\xe2' /* С‚ */
 								&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 								) ? trs2 : trg;
 						if (vers1->vers[0].prob >= pt) {
@@ -2486,12 +2490,12 @@ static char *unite_list(char *resstr, int16_t i1, int16_t i0,
 									letters_left_to_bad, results_left_to_bad);
 							if (!res1)
 								goto empty_list;
-							//е®а®и п, ­® ­Ґв ў бЇЁбЄҐ
+							//С…РѕСЂРѕС€Р°СЏ, РЅРѕ РЅРµС‚ РІ СЃРїРёСЃРєРµ
 						}
 					}
 					if (vers2->nvers) {
 						let = vers2->vers[0].let;
-						pt = (let == (uchar) '\xe2' /* в */
+						pt = (let == (uchar) '\xe2' /* С‚ */
 								&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 								) ? trs2 : trg;
 						if (vers2->vers[0].prob >= pt) {
@@ -2508,29 +2512,29 @@ static char *unite_list(char *resstr, int16_t i1, int16_t i0,
 					else
 						res = res2;
 					if (res) {
-						// Исключить конфликтные коды из results_left_to_bad, results_right_to_bad
+						// РСЃРєР»СЋС‡РёС‚СЊ РєРѕРЅС„Р»РёРєС‚РЅС‹Рµ РєРѕРґС‹ РёР· results_left_to_bad, results_right_to_bad
 						// 17.07.2001 E.P.
 						if (is_baltic_language(language)
 								|| is_turkish_language(language) // 21.05.2002 E.P.
 						) {
 							int16_t n1, n2;
 							for (n1 = 0, n2 = 0; res[n2]; n2++) {
-								// Пропустить конфликтный код
+								// РџСЂРѕРїСѓСЃС‚РёС‚СЊ РєРѕРЅС„Р»РёРєС‚РЅС‹Р№ РєРѕРґ
 								if (is_russian_baltic_conflict(res[n2]))
 									continue;
 
-								// Пропустить конфликтный код 21.05.2002 E.P.
+								// РџСЂРѕРїСѓСЃС‚РёС‚СЊ РєРѕРЅС„Р»РёРєС‚РЅС‹Р№ РєРѕРґ 21.05.2002 E.P.
 								if (is_russian_turkish_conflict(res[n2]))
 									continue;
 
-								// Уплотнить результат
+								// РЈРїР»РѕС‚РЅРёС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚
 								if (n1 < n2)
 									res[n1++] = res[n2];
 							}
-							res[n2] = 0; // Нуль на конце
+							res[n2] = 0; // РќСѓР»СЊ РЅР° РєРѕРЅС†Рµ
 							if (!n2)
 								goto empty_list;
-						} // Конец вставки 17.07.2001 E.P.
+						} // РљРѕРЅРµС† РІСЃС‚Р°РІРєРё 17.07.2001 E.P.
 
 						if (strlen(resstr) > 0) {
 							if (strlen(strXcrs(wrk2, res, resstr)) == 0)
@@ -2550,9 +2554,9 @@ static char *unite_list(char *resstr, int16_t i1, int16_t i0,
 }
 
 /*--------------------------------------------------------------------
- res_for  возвращает строку результатов из массива results для буквы
- let, если она содержится в массивах sticks и letters, иначе
- возвращает NULL
+ res_for  РІРѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєСѓ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РёР· РјР°СЃСЃРёРІР° results РґР»СЏ Р±СѓРєРІС‹
+ let, РµСЃР»Рё РѕРЅР° СЃРѕРґРµСЂР¶РёС‚СЃСЏ РІ РјР°СЃСЃРёРІР°С… sticks Рё letters, РёРЅР°С‡Рµ
+ РІРѕР·РІСЂР°С‰Р°РµС‚ NULL
  --------------------------------------------------------------------*/
 static char *res_for(uchar let, uchar *sticks, uchar *letters, char **results) {
 	char *pos;
@@ -2574,8 +2578,8 @@ static char *res_for(uchar let, uchar *sticks, uchar *letters, char **results) {
 }
 
 /*--------------------------------------------------------------------
- strXcrs  формирует строку из символов, содержащихся одновременно в
- str1 и str2 и помещает ее в resstr; возвращает *resstr
+ strXcrs  С„РѕСЂРјРёСЂСѓРµС‚ СЃС‚СЂРѕРєСѓ РёР· СЃРёРјРІРѕР»РѕРІ, СЃРѕРґРµСЂР¶Р°С‰РёС…СЃСЏ РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ РІ
+ str1 Рё str2 Рё РїРѕРјРµС‰Р°РµС‚ РµРµ РІ resstr; РІРѕР·РІСЂР°С‰Р°РµС‚ *resstr
  --------------------------------------------------------------------*/
 static char *strXcrs(char *resstr, char *str1, char *str2) {
 	char *res;
@@ -2591,18 +2595,18 @@ static char *strXcrs(char *resstr, char *str1, char *str2) {
 }
 
 /*-----------------03-02-95 06:47pm-------------------------------------
- select_cells  д®а¬ЁагҐв cell'л Ё§ бвагЄвгал mn1, ­ е®¤пйЁҐбп «ҐўҐҐ
- pos2, Ї®¬Ґй Ґв ў бва®Єг, § ¤ ­­го *C, а бЇаҐ¤Ґ«пҐв
- Ї® бЇЁбЄ ¬ left_list Ё right_list ®в­®бЁвҐ«м­®
- Є®®а¤Ё­ вл pos1 (pos1 Ё pos2 - аҐ «м­лҐ), Ї®¬Ґз Ґв
- ®ваҐ§ ­­лҐ cell'л ў бЇЁбЄҐ right_list; ў®§ўа й Ґв
- ўлб®вг бЇЁбЄ  right_list ­ ¤ my_bases.b3
+ select_cells  С„РѕСЂРјРёСЂСѓРµС‚ cell'С‹ РёР· СЃС‚СЂСѓРєС‚СѓСЂС‹ mn1, РЅР°С…РѕРґСЏС‰РёРµСЃСЏ Р»РµРІРµРµ
+ pos2, РїРѕРјРµС‰Р°РµС‚ РІ СЃС‚СЂРѕРєСѓ, Р·Р°РґР°РЅРЅСѓСЋ *C, СЂР°СЃРїСЂРµРґРµР»СЏРµС‚
+ РїРѕ СЃРїРёСЃРєР°Рј left_list Рё right_list РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ
+ РєРѕРѕСЂРґРёРЅР°С‚С‹ pos1 (pos1 Рё pos2 - СЂРµР°Р»СЊРЅС‹Рµ), РїРѕРјРµС‡Р°РµС‚
+ РѕС‚СЂРµР·Р°РЅРЅС‹Рµ cell'С‹ РІ СЃРїРёСЃРєРµ right_list; РІРѕР·РІСЂР°С‰Р°РµС‚
+ РІС‹СЃРѕС‚Сѓ СЃРїРёСЃРєР° right_list РЅР°Рґ my_bases.b3
  ----------------------------------------------------------------------*/
 static int16_t select_cells(cell *C, MN *mn1, int16_t pos1, int16_t pos2,
 		uchar cut_fl, cell_list *left_list, cell_list *right_list) {
 	int16_t i;
-	int16_t minrow = my_bases.b2; //¬Ё­Ё¬ «м­ п бва®Є  ¤«п right_list
-	int16_t li = 0, ri = 0; //бзҐвзЁЄЁ cell'®ў б«Ґў  Ё бЇа ў 
+	int16_t minrow = my_bases.b2; //РјРёРЅРёРјР°Р»СЊРЅР°СЏ СЃС‚СЂРѕРєР° РґР»СЏ right_list
+	int16_t li = 0, ri = 0; //СЃС‡РµС‚С‡РёРєРё cell'РѕРІ СЃР»РµРІР° Рё СЃРїСЂР°РІР°
 	cell *CI;
 
 	for (i = 0; i < MAX_SECT && mn1; i++) {
@@ -2611,13 +2615,13 @@ static int16_t select_cells(cell *C, MN *mn1, int16_t pos1, int16_t pos2,
 		if (lefter(CI, pos1))
 			left_list->cells[li++] = CI;
 		else if (lefter(CI, pos2)) {
-			//Ї®¬Ґз Ґ¬ ®ваҐ§ ­­лҐ
+			//РїРѕРјРµС‡Р°РµРј РѕС‚СЂРµР·Р°РЅРЅС‹Рµ
 			if (cut_fl & c_cg_cutl && CI->r_col == pos1 + 1)
 				CI->cg_flag |= c_cg_cutl;
 			if (cut_fl & c_cg_cutr && CI->r_col + CI->w == pos2)
 				CI->cg_flag |= c_cg_cutr;
 
-			if (dust(CI) && cut(CI) && CI->w == 1) //Ђ«ЁЄ®ўл д®Єгбл
+			if (dust(CI) && cut(CI) && CI->w == 1) //РђР»РёРєРѕРІС‹ С„РѕРєСѓСЃС‹
 				del_cell(CI);
 			else {
 				right_list->cells[ri++] = CI;
@@ -2633,31 +2637,31 @@ static int16_t select_cells(cell *C, MN *mn1, int16_t pos1, int16_t pos2,
 }
 
 /*-----------------04-05-95 05:35pm-----------------------------------
- recognij  ®Ўа §гҐв cell Ё§ бЇЁбЄ  org_cells Ё§ N cell'®ў Ё а бЇ®§­ Ґв
- ҐЈ®; ў®§ўа й Ґв ¬Ґаг, ў аЁ ­в ®ЎкҐ¤Ё­Ґ­Ёп gvar, ўҐабЁЁ
- а бЇ®§­ ў ­Ёп vers Ё иЁаЁ­г cell' ;
- cut_fl - cell'л Ї®«гзҐ­л Ї®б«Ґ а §аҐ§ ­Ёп,
- *C гЄ §лў Ґв вҐЄгйго бва®Єг; cut_fl б®¤Ґа¦Ёв ЎЁвл c_cg_cutl
- Ё c_cg_cutr; inc - Ї а ¬Ґва ­ Є«®­  (ЄгабЁў ); *vers ­ 
- ўе®¤Ґ ¤®«¦Ґ­ б®¤Ґа¦ вм ўҐабЁЁ а бЇ®§­ ў ­Ёп ЎҐ§ dust'®ў
- (Ґб«Ё ®­Ё Ґбвм) Ё«Ё ўбҐ ­г«Ё
+ recognij  РѕР±СЂР°Р·СѓРµС‚ cell РёР· СЃРїРёСЃРєР° org_cells РёР· N cell'РѕРІ Рё СЂР°СЃРїРѕР·РЅР°РµС‚
+ РµРіРѕ; РІРѕР·РІСЂР°С‰Р°РµС‚ РјРµСЂСѓ, РІР°СЂРёР°РЅС‚ РѕР±СЉРµРґРёРЅРµРЅРёСЏ gvar, РІРµСЂСЃРёРё
+ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ vers Рё С€РёСЂРёРЅСѓ cell'Р°;
+ cut_fl - cell'С‹ РїРѕР»СѓС‡РµРЅС‹ РїРѕСЃР»Рµ СЂР°Р·СЂРµР·Р°РЅРёСЏ,
+ *C СѓРєР°Р·С‹РІР°РµС‚ С‚РµРєСѓС‰СѓСЋ СЃС‚СЂРѕРєСѓ; cut_fl СЃРѕРґРµСЂР¶РёС‚ Р±РёС‚С‹ c_cg_cutl
+ Рё c_cg_cutr; inc - РїР°СЂР°РјРµС‚СЂ РЅР°РєР»РѕРЅР° (РєСѓСЂСЃРёРІР°); *vers РЅР°
+ РІС…РѕРґРµ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РІРµСЂСЃРёРё СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ Р±РµР· dust'РѕРІ
+ (РµСЃР»Рё РѕРЅРё РµСЃС‚СЊ) РёР»Рё РІСЃРµ РЅСѓР»Рё
  ---------------------------------------------------------------------*/
 int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 		uchar cut_fine, int16_t inc, int16_t *roi, uchar *gvar, SVERS *vers,
 		int16_t *width) {
 	int16_t i;
-	cell *B, *B0, **P; //вҐЄгйЁ© cell
-	int16_t ro = MAX_RO - vers->vers[0].prob; //®иЁЎЄ  а бЇ®§­ ў ­Ёп
-	int16_t rod = MAX_RO; //в® ¦Ґ б dust' ¬Ё
-	uchar gvard; //ў аЁ ­в бЄ«ҐЁў ­Ёп б dust'¬Ё
-	SVERS versd; //ўҐабЁЁ б dust'¬Ё
-	int16_t widthd; //иЁаЁ­  б dust' ¬Ё
-	grup box, top, bottom, far_top, far_bottom; //®ЇЁб вҐ«Ё ЈагЇЇ cell'®ў
-	int16_t nstick = 0; //Є®«ЁзҐбвў® Ў®«миЁе Ё Ї «®Є ў Ёбе®¤­ле cell' е
-	int16_t Nfar; //Є®«ЁзҐбвў® ¤ «м­Ёе
-	int16_t fora = 0; //д®а  ¤«п "Ў"
-	uchar up_used = 0; //д« Ј: ўҐае­ЁҐ dust'л г¦Ґ ЁбЇ®«м§®ў ­л
-	uchar cut_up = 0, cut_low = 0, cut_far = 0; //д« ЈЁ: б®®вўҐвбвўгойЁҐ dust'л ®ваҐ§ ­л
+	cell *B, *B0, **P; //С‚РµРєСѓС‰РёР№ cell
+	int16_t ro = MAX_RO - vers->vers[0].prob; //РѕС€РёР±РєР° СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ
+	int16_t rod = MAX_RO; //С‚Рѕ Р¶Рµ СЃ dust'Р°РјРё
+	uchar gvard; //РІР°СЂРёР°РЅС‚ СЃРєР»РµРёРІР°РЅРёСЏ СЃ dust'РјРё
+	SVERS versd; //РІРµСЂСЃРёРё СЃ dust'РјРё
+	int16_t widthd; //С€РёСЂРёРЅР° СЃ dust'Р°РјРё
+	grup box, top, bottom, far_top, far_bottom; //РѕРїРёСЃР°С‚РµР»Рё РіСЂСѓРїРї cell'РѕРІ
+	int16_t nstick = 0; //РєРѕР»РёС‡РµСЃС‚РІРѕ Р±РѕР»СЊС€РёС… Рё РїР°Р»РѕРє РІ РёСЃС…РѕРґРЅС‹С… cell'Р°С…
+	int16_t Nfar; //РєРѕР»РёС‡РµСЃС‚РІРѕ РґР°Р»СЊРЅРёС…
+	int16_t fora = 0; //С„РѕСЂР° РґР»СЏ "Р±"
+	uchar up_used = 0; //С„Р»Р°Рі: РІРµСЂС…РЅРёРµ dust'С‹ СѓР¶Рµ РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹
+	uchar cut_up = 0, cut_low = 0, cut_far = 0; //С„Р»Р°РіРё: СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРµ dust'С‹ РѕС‚СЂРµР·Р°РЅС‹
 
 	*gvar = 0;
 
@@ -2667,7 +2671,7 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 			if (det_trace)
 #endif
 			{
-				snap_show_raster(NULL, 0, 0); //бвЁа ­ЁҐ Є авЁ­ЄЁ
+				snap_show_raster(NULL, 0, 0); //СЃС‚РёСЂР°РЅРёРµ РєР°СЂС‚РёРЅРєРё
 				show_and_wait("no cells");
 			}
 		return MAX_RO;
@@ -2685,7 +2689,7 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 
 	cg_show_list(org_cells, N, (uchar*) "to_recog");
 
-	//а бЇаҐ¤Ґ«пҐ¬ cell'л Ї® ЈагЇЇ ¬
+	//СЂР°СЃРїСЂРµРґРµР»СЏРµРј cell'С‹ РїРѕ РіСЂСѓРїРїР°Рј
 
 	if (!classify(org_cells, N, &box, &bottom, &top, &far_bottom, &far_top)) {
 		vers->flg = 0;
@@ -2699,7 +2703,7 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 		goto ret;
 	}
 
-	//ўлзЁб«пҐ¬ cut_* Ё г¤ «пҐ¬ ¤ «ҐЄЁҐ
+	//РІС‹С‡РёСЃР»СЏРµРј cut_* Рё СѓРґР°Р»СЏРµРј РґР°Р»РµРєРёРµ
 
 	P = org_cells + box.n;
 	for (i = 0; i < bottom.n; i++, P++)
@@ -2723,7 +2727,7 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 		goto ret;
 	}
 
-	//Ў®«миҐ ®¤­®© Ї «ЄЁ Є«ҐЁвм ­Ґ«м§п
+	//Р±РѕР»СЊС€Рµ РѕРґРЅРѕР№ РїР°Р»РєРё РєР»РµРёС‚СЊ РЅРµР»СЊР·СЏ
 
 	if (language == LANGUAGE_RUSSIAN)
 		for (i = 0; i < box.n; i++)
@@ -2734,19 +2738,19 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 					nstick = 3;
 	*gvar = gvard = (uchar) nstick;
 
-	//а бЇ®§­ Ґ¬
+	//СЂР°СЃРїРѕР·РЅР°РµРј
 
 	if (vers->flg == 0 || box.n > 1)
 		ro = recog_set(C, org_cells, box.n, cut_fl, cut_fine, inc, trs2, gvar,
 				vers, width);
 	if (let_or_bad(vers))
 		switch (vers->vers[0].let) {
-		case (uchar) '\xeb' /* л */: //"¬" Ё "л" Є«Ґпвбп ¤агЈ ў ¤агЈ 
-		case (uchar) '\xac' /* ¬ */:
-		case (uchar) '\xe6' /* ж */: //"ж" Ё­®Ј¤  Ї«®е® Є«ҐЁвбп
+		case (uchar) '\xeb' /* С‹ */: //"Рј" Рё "С‹" РєР»РµСЏС‚СЃСЏ РґСЂСѓРі РІ РґСЂСѓРіР°
+		case (uchar) '\xac' /* Рј */:
+		case (uchar) '\xe6' /* С† */: //"С†" РёРЅРѕРіРґР° РїР»РѕС…Рѕ РєР»РµРёС‚СЃСЏ
 		case '%':
 			if (*gvar & glued) {
-				uchar gvardd = 2; //ЎҐ§ бЄ«ҐЁў ­Ёп
+				uchar gvardd = 2; //Р±РµР· СЃРєР»РµРёРІР°РЅРёСЏ
 				rod = recog_set(C, org_cells, box.n, cut_fl, cut_fine, inc,
 						trs2, &gvardd, &versd, width);
 				if (rod < ro) {
@@ -2755,20 +2759,20 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 					memcpy(vers, &versd, sizeof(SVERS));
 				}
 			}
-		case (uchar) '\xad' /* ­ */:
-		case (uchar) '\xaf' /* Ї */:
+		case (uchar) '\xad' /* РЅ */:
+		case (uchar) '\xaf' /* Рї */:
 			if (top.n)
-				ro += PEN_TOP_DUST; //ў®§¬®¦­® "©"
+				ro += PEN_TOP_DUST; //РІРѕР·РјРѕР¶РЅРѕ "Р№"
 			break;
-		case (uchar) '\xa8' /* Ё */:
-			if (ro < RO_DUST_OFF && top.b < my_bases.b2 && !bottom.n) //"©"
+		case (uchar) '\xa8' /* Рё */:
+			if (ro < RO_DUST_OFF && top.b < my_bases.b2 && !bottom.n) //"Р№"
 				goto ret;
 			break;
-		case (uchar) '\xae' /* ® */:
+		case (uchar) '\xae' /* Рѕ */:
 			if (is_russian_turkish_conflict(vers->vers[0].let)) // 21.05.2002 E.P.
 				break;
 			if (top.n) {
-				//¬Ґ­пҐ¬ ¬Ґбв ¬Ё бЇЁбЄЁ top Ё bottom
+				//РјРµРЅСЏРµРј РјРµСЃС‚Р°РјРё СЃРїРёСЃРєРё top Рё bottom
 				int16_t nd = MIN(top.n, bottom.n);
 				cell *buff[MAX_CELLS_IN_LIST];
 				memcpy(buff, org_cells + box.n, sizeof(cell *) * nd);
@@ -2776,9 +2780,9 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 						sizeof(cell *) * nd);
 				memcpy(org_cells + box.n + top.n, buff, sizeof(cell *) * nd);
 
-				fora = O_to_B; //д®а  ¤«п "Ў"
+				fora = O_to_B; //С„РѕСЂР° РґР»СЏ "Р±"
 				up_used = 1;
-				//а бЇ®§­ Ґ¬ б ўҐае­Ё¬ dust'®¬
+				//СЂР°СЃРїРѕР·РЅР°РµРј СЃ РІРµСЂС…РЅРёРј dust'РѕРј
 				rod = recog_set(C, org_cells, (int16_t) (box.n + top.n),
 						cut_fl, cut_fine, inc, trs2, &gvard, &versd, &widthd);
 				if (rod < ro + fora) {
@@ -2796,11 +2800,11 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 			if (bottom.a > my_bases.bm && bottom.b < my_bases.b3 + 3)
 				goto ret;
 			break;
-		case '\xe7' /* з */:
+		case '\xe7' /* С‡ */:
 			if (is_russian_turkish_conflict(vers->vers[0].let)) // 21.05.2002 E.P.
 				break;
 
-			if (bottom.n && !(vers->source & c_rs_BOX)) //Ї® 3x5
+			if (bottom.n && !(vers->source & c_rs_BOX)) //РїРѕ 3x5
 				ro = recog_set(C, org_cells, box.n, cut_fl, cut_fine, inc, 0,
 						gvar, vers, width);
 			break;
@@ -2808,14 +2812,14 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 		case 'r':
 			if (ro < 110 && bottom.n == 0)
 				goto ret;
-			//зв®Ўл ­Ґ Є«ҐЁвм ў 'l'
+			//С‡С‚РѕР±С‹ РЅРµ РєР»РµРёС‚СЊ РІ 'l'
 			break;
 		default:
 			if (MAX_RO - ro > trs2)
 				goto ret;
 		}
 
-	//ўбҐ ў¬ҐбвҐ
+	//РІСЃРµ РІРјРµСЃС‚Рµ
 
 	if (top.n && !up_used || bottom.n) {
 		rod = recog_set(C, org_cells, (int16_t) (box.n + top.n + bottom.n),
@@ -2823,13 +2827,13 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 		if (let_or_bad(&versd))
 			if (rod < ro + fora || dust(vers)) {
 				ro = rod;
-				*gvar = gvard | all; //ўбҐ ў ®¤­®¬ cell'Ґ
+				*gvar = gvard | all; //РІСЃРµ РІ РѕРґРЅРѕРј cell'Рµ
 				memcpy(vers, &versd, sizeof(SVERS));
 				*width = widthd;
 			}
 	}
 
-	//Ґб«Ё Ї«®е® Ї®«гзЁ«®бм - а бблЇ Ґ¬
+	//РµСЃР»Рё РїР»РѕС…Рѕ РїРѕР»СѓС‡РёР»РѕСЃСЊ - СЂР°СЃСЃС‹РїР°РµРј
 
 	if (ro > RO_COMPOSE)
 		*gvar = 0;
@@ -2845,11 +2849,11 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 
 	ret: for (i = 0; i < N; i++)
 		del_cell(org_cells[i]);
-	if (cut_fl) //ива д §  а §аҐ§
+	if (cut_fl) //С€С‚СЂР°С„ Р·Р° СЂР°Р·СЂРµР·
 	{
 		uchar let = vers->vers[0].let;
 		if (dust(vers) && let != '-' || cut_up && !(*gvar & up_dust) && let
-				!= 'i' && !(let = '\xa9' /* © */ && !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
+				!= 'i' && !(let = '\xa9' /* Р№ */ && !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 				) || cut_low && !(*gvar & low_dust) && let != '!' && let != '?'
 				|| cut_far)
 			roi[3] += CUT_PEN << 1;
@@ -2862,14 +2866,14 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 }
 
 /*-----------------07-21-95 01:54pm---------------------------------
- recog_one  а бЇ®§­ Ґв cell B0 Ё ў®§ўа й Ґв ®иЁЎЄг а бЇ®§­ ў ­Ёп Ё
- ўҐабЁЁ vers;
- *GL Ё tol - Ї а ¬Ґвал ¤«п full_recog
+ recog_one  СЂР°СЃРїРѕР·РЅР°РµС‚ cell B0 Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РѕС€РёР±РєСѓ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ Рё
+ РІРµСЂСЃРёРё vers;
+ *GL Рё tol - РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ full_recog
  -------------------------------------------------------------------*/
 static int16_t recog_one(cell *B0, s_glue *GL, int16_t tol, SVERS *vers) {
-	int16_t ro = MAX_RO; //®иЁЎЄ  а бЇ®§­ ў ­Ёп
+	int16_t ro = MAX_RO; //РѕС€РёР±РєР° СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ
 
-	if (dust(B0)) //ўбҐ ў¬ҐбвҐ - dust; ­Ґ а бЇ®§­ Ґ¬
+	if (dust(B0)) //РІСЃРµ РІРјРµСЃС‚Рµ - dust; РЅРµ СЂР°СЃРїРѕР·РЅР°РµРј
 	{
 		if (B0->w < minp)
 			ro = 0;
@@ -2891,7 +2895,7 @@ static int16_t recog_one(cell *B0, s_glue *GL, int16_t tol, SVERS *vers) {
 }
 
 /*----------------------------------------------------------------
- wide  ў®§ўа й Ґв 1, Ґб«Ё cell б«ЁиЄ®¬ иЁа®Є, Ё­ зҐ - 0
+ wide  РІРѕР·РІСЂР°С‰Р°РµС‚ 1, РµСЃР»Рё cell СЃР»РёС€РєРѕРј С€РёСЂРѕРє, РёРЅР°С‡Рµ - 0
  -----------------------------------------------------------------*/
 /*
  static char wide (cell *C)
@@ -2902,31 +2906,31 @@ static int16_t recog_one(cell *B0, s_glue *GL, int16_t tol, SVERS *vers) {
  */
 
 /*-----------------06-23-95 03:59pm-------------------------------
- recog_set  а бЇ®§­ Ґв б®ў®ЄгЇ­®бвм N cell'®ў org_cells Є Є ®¤Ё­;
- ў®§ўа й Ґв ўҐабЁЁ vers Ё ўҐа®пв­®бвм ­ Ё«гзиҐ©;
- cut_fl гЄ §лў Ґв, зв® cell'л Ї®«гзҐ­л а §аҐ§ ­ЁҐ¬;
- inc - Ї а ¬Ґва ­ Є«®­  (ЄгабЁў ); gvar=glued ­  ўе®¤Ґ,
- Ґб«Ё бЄ«Ґ©Є  а §аҐиҐ­ , ­  ўле®¤Ґ gvar - ў аЁ ­в ®Ўк-
- Ґ¤Ё­Ґ­Ёп, width-иЁаЁ­ ; tolbox - Ї а ¬Ґва ¤«п full_recog;
+ recog_set  СЂР°СЃРїРѕР·РЅР°РµС‚ СЃРѕРІРѕРєСѓРїРЅРѕСЃС‚СЊ N cell'РѕРІ org_cells РєР°Рє РѕРґРёРЅ;
+ РІРѕР·РІСЂР°С‰Р°РµС‚ РІРµСЂСЃРёРё vers Рё РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РЅР°РёР»СѓС‡С€РµР№;
+ cut_fl СѓРєР°Р·С‹РІР°РµС‚, С‡С‚Рѕ cell'С‹ РїРѕР»СѓС‡РµРЅС‹ СЂР°Р·СЂРµР·Р°РЅРёРµРј;
+ inc - РїР°СЂР°РјРµС‚СЂ РЅР°РєР»РѕРЅР° (РєСѓСЂСЃРёРІР°); gvar=glued РЅР° РІС…РѕРґРµ,
+ РµСЃР»Рё СЃРєР»РµР№РєР° СЂР°Р·СЂРµС€РµРЅР°, РЅР° РІС‹С…РѕРґРµ gvar - РІР°СЂРёР°РЅС‚ РѕР±СЉ-
+ РµРґРёРЅРµРЅРёСЏ, width-С€РёСЂРёРЅР°; tolbox - РїР°СЂР°РјРµС‚СЂ РґР»СЏ full_recog;
  -----------------------------------------------------------------*/
 static int16_t recog_set(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 		uchar cut_fine, int16_t inc, int16_t tolbox, uchar *gvar, SVERS *vers,
 		int16_t *width) {
 	int16_t i;
-	cell *B0 = NULL; //cell ¤«п а бЇ®§­ ў ­Ёп
+	cell *B0 = NULL; //cell РґР»СЏ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ
 	s_glue GL = { 0 };
-	int16_t ro = MAX_RO; //®иЁЎЄ  а бЇ®§­ ў ­Ёп
-	uchar broken_II = 0; //д« Ј: ¤ўҐ Ї «ЄЁ
+	int16_t ro = MAX_RO; //РѕС€РёР±РєР° СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ
+	uchar broken_II = 0; //С„Р»Р°Рі: РґРІРµ РїР°Р»РєРё
 
 	memset(vers, 0, sizeof(SVERS));
 	*width = 0;
-	if (*gvar > 1) // >1 Ї «ЄЁ
+	if (*gvar > 1) // >1 РїР°Р»РєРё
 	{
 		if (*gvar == 2)
 			broken_II = 1;
-		*gvar = 0; //­Ґ Є«ҐЁвм
+		*gvar = 0; //РЅРµ РєР»РµРёС‚СЊ
 	} else
-		*gvar = glued; //Є«ҐЁвм
+		*gvar = glued; //РєР»РµРёС‚СЊ
 
 	B0 = unite(C, org_cells, N, &GL, gvar);
 	if (!B0)
@@ -2953,14 +2957,14 @@ static int16_t recog_set(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 }
 
 /*-----------------06-26-95 05:46pm--------------------------------
- unite  формирует совокупный cell, из списка N cell'ов org_cells;
- если gvar==glued, пытается склеить;
- на выходе:
- gvar==glued, если что-нибудь склеилось, иначе - 0;
- GL - cell'ы, полученные после склеивания;
- org_cells - исходные cell'ы, если не склеилось, и cell'ы,
- сохраненные в kit, если склеилось;
- возвращает полученный cell
+ unite  С„РѕСЂРјРёСЂСѓРµС‚ СЃРѕРІРѕРєСѓРїРЅС‹Р№ cell, РёР· СЃРїРёСЃРєР° N cell'РѕРІ org_cells;
+ РµСЃР»Рё gvar==glued, РїС‹С‚Р°РµС‚СЃСЏ СЃРєР»РµРёС‚СЊ;
+ РЅР° РІС‹С…РѕРґРµ:
+ gvar==glued, РµСЃР»Рё С‡С‚Рѕ-РЅРёР±СѓРґСЊ СЃРєР»РµРёР»РѕСЃСЊ, РёРЅР°С‡Рµ - 0;
+ GL - cell'С‹, РїРѕР»СѓС‡РµРЅРЅС‹Рµ РїРѕСЃР»Рµ СЃРєР»РµРёРІР°РЅРёСЏ;
+ org_cells - РёСЃС…РѕРґРЅС‹Рµ cell'С‹, РµСЃР»Рё РЅРµ СЃРєР»РµРёР»РѕСЃСЊ, Рё cell'С‹,
+ СЃРѕС…СЂР°РЅРµРЅРЅС‹Рµ РІ kit, РµСЃР»Рё СЃРєР»РµРёР»РѕСЃСЊ;
+ РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕР»СѓС‡РµРЅРЅС‹Р№ cell
  ------------------------------------------------------------------*/
 static cell *unite(cell *C, cell **org_cells, int16_t N, s_glue *GL,
 		uchar *gvar) {
@@ -2988,7 +2992,7 @@ static cell *unite(cell *C, cell **org_cells, int16_t N, s_glue *GL,
 	GL->complist[N] = NULL;
 	GL->ncell = (uchar) N;
 
-	//Є«ҐЁ¬
+	//РєР»РµРёРј
 
 	if (N == 1)
 		*gvar = 0;
@@ -2996,7 +3000,7 @@ static cell *unite(cell *C, cell **org_cells, int16_t N, s_glue *GL,
 		mn1 = mn = glue((c_comp**) &GL->complist, 1);
 		for (i = 0; mn1; i++, mn1 = mn1->mnnext)
 			;
-		if (i > 0 && i < N) //бЄ«ҐЁ«®бм
+		if (i > 0 && i < N) //СЃРєР»РµРёР»РѕСЃСЊ
 		{
 			for (i = 0; mn; i++, mn = mn->mnnext) {
 				B = create_my_cell(mn, C, 0, 0);
@@ -3012,7 +3016,7 @@ static cell *unite(cell *C, cell **org_cells, int16_t N, s_glue *GL,
 			*gvar = 0;
 	}
 
-	//Ґб«Ё ­ҐбЄ®«мЄ® - ®ЎкҐ¤Ё­пҐ¬
+	//РµСЃР»Рё РЅРµСЃРєРѕР»СЊРєРѕ - РѕР±СЉРµРґРёРЅСЏРµРј
 
 	B = GL->celist[0];
 	if (GL->ncell > 1) {
@@ -3028,47 +3032,47 @@ static cell *unite(cell *C, cell **org_cells, int16_t N, s_glue *GL,
 }
 
 /*-----------------06-23-95 11:07am--------------------------------
- classify  аҐ®аЈ ­Ё§гҐв бЇЁб®Є cells Ё§ N cell'®ў, ®Ўа §гп ЈагЇЇл
- ў Ї®ап¤ЄҐ ЇҐаҐзЁб«Ґ­Ёп:
- -  ®Ўа §гойЁҐ ®б­®ў­®© Ў®Єб (box);
- -  ­Ё¦­ЁҐ dust'л (bottom);
- -  ўҐае­ЁҐ dust'л (top);
- -  ¤ «м­ЁҐ ­Ё¦­ЁҐ dust'л (far_bottom);
- -  ¤ «м­ЁҐ ўҐае­ЁҐ dust'л (far_top);
- ¤«п Є ¦¤®© ЈагЇЇл ўлзЁб«повбп: Є®«ЁзҐбвў® cell'®ў ў
- ЈагЇЇҐ n Ё Ја ­Ёжл a Ё b (ўҐае­пп Ё ­Ё¦­пп);
- ў®§ўа й Ґв 1 ў б«гз Ґ гбЇҐе  Ё 0 ў Їа®вЁў­®¬ б«гз Ґ
+ classify  СЂРµРѕСЂРіР°РЅРёР·СѓРµС‚ СЃРїРёСЃРѕРє cells РёР· N cell'РѕРІ, РѕР±СЂР°Р·СѓСЏ РіСЂСѓРїРїС‹
+ РІ РїРѕСЂСЏРґРєРµ РїРµСЂРµС‡РёСЃР»РµРЅРёСЏ:
+ -  РѕР±СЂР°Р·СѓСЋС‰РёРµ РѕСЃРЅРѕРІРЅРѕР№ Р±РѕРєСЃ (box);
+ -  РЅРёР¶РЅРёРµ dust'С‹ (bottom);
+ -  РІРµСЂС…РЅРёРµ dust'С‹ (top);
+ -  РґР°Р»СЊРЅРёРµ РЅРёР¶РЅРёРµ dust'С‹ (far_bottom);
+ -  РґР°Р»СЊРЅРёРµ РІРµСЂС…РЅРёРµ dust'С‹ (far_top);
+ РґР»СЏ РєР°Р¶РґРѕР№ РіСЂСѓРїРїС‹ РІС‹С‡РёСЃР»СЏСЋС‚СЃСЏ: РєРѕР»РёС‡РµСЃС‚РІРѕ cell'РѕРІ РІ
+ РіСЂСѓРїРїРµ n Рё РіСЂР°РЅРёС†С‹ a Рё b (РІРµСЂС…РЅСЏСЏ Рё РЅРёР¶РЅСЏСЏ);
+ РІРѕР·РІСЂР°С‰Р°РµС‚ 1 РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС…Р° Рё 0 РІ РїСЂРѕС‚РёРІРЅРѕРј СЃР»СѓС‡Р°Рµ
  -----------------------------------------------------------------*/
 static uchar classify(cell **cells, int16_t N, grup *box, grup *bottom,
 		grup *top, grup *far_bottom, grup *far_top) {
 	int16_t i;
-	int16_t upper; //ўҐае­пп бва®Є  а бва 
-	int16_t gb, ge; //­ з «® Ё Є®­Ґж Їа®бўҐв 
-	int16_t gba, gea, gma; //в® ¦Ґ Ї«об бҐаҐ¤Ё­   Ўб®«ов­лҐ
-	int16_t width; //иЁаЁ­  Їа®бўҐв : иЁа®ЄЁ©,
-	int16_t wide = my_bases.ps >> 1; // Ґб«Ё ­  Єа о иЁаҐ wide,
-	int16_t mid = my_bases.ps / 3; //   ў бҐаҐ¤Ё­Ґ иЁаҐ mid
-	uchar proj[RASTER_HEIGHT + 1]; //Їа®ҐЄжЁп ­  ўҐавЁЄ «м­го ®бм
+	int16_t upper; //РІРµСЂС…РЅСЏСЏ СЃС‚СЂРѕРєР° СЂР°СЃС‚СЂР°
+	int16_t gb, ge; //РЅР°С‡Р°Р»Рѕ Рё РєРѕРЅРµС† РїСЂРѕСЃРІРµС‚Р°
+	int16_t gba, gea, gma; //С‚Рѕ Р¶Рµ РїР»СЋСЃ СЃРµСЂРµРґРёРЅР° Р°Р±СЃРѕР»СЋС‚РЅС‹Рµ
+	int16_t width; //С€РёСЂРёРЅР° РїСЂРѕСЃРІРµС‚Р°: С€РёСЂРѕРєРёР№,
+	int16_t wide = my_bases.ps >> 1; // РµСЃР»Рё РЅР° РєСЂР°СЋ С€РёСЂРµ wide,
+	int16_t mid = my_bases.ps / 3; // Р° РІ СЃРµСЂРµРґРёРЅРµ С€РёСЂРµ mid
+	uchar proj[RASTER_HEIGHT + 1]; //РїСЂРѕРµРєС†РёСЏ РЅР° РІРµСЂС‚РёРєР°Р»СЊРЅСѓСЋ РѕСЃСЊ
 
 	far_top->n = far_bottom->n = top->n = bottom->n = 0;
 	upper = horiz_proj(cells, N, (uchar*) &proj, RASTER_HEIGHT + 1);
 
-	//ЁйҐ¬ ¤ «м­ЁҐ
+	//РёС‰РµРј РґР°Р»СЊРЅРёРµ
 
 	far_top->a = far_top->b = upper;
 	far_bottom->a = far_bottom->b = (strrchr((char*) proj, '1')
 			- ((char*) proj)) + upper;
 	ge = 0;
-	do //жЁЄ« Ї® Їа®бўҐв ¬
+	do //С†РёРєР» РїРѕ РїСЂРѕСЃРІРµС‚Р°Рј
 	{
-		gb = strspn((char*) proj + ge, "1") + ge; //­ з «® Їа®бўҐв 
-		ge = strspn((char*) proj + gb, "0") + gb; //Є®­Ґж Їа®бўҐв  + 1
+		gb = strspn((char*) proj + ge, "1") + ge; //РЅР°С‡Р°Р»Рѕ РїСЂРѕСЃРІРµС‚Р°
+		ge = strspn((char*) proj + gb, "0") + gb; //РєРѕРЅРµС† РїСЂРѕСЃРІРµС‚Р° + 1
 		gba = gb + upper;
 		gea = ge + upper;
 		gma = (gba + gea) >> 1;
 		width = ge - gb;
-		if (width > wide) //иЁа®ЄЁ©
-			if (gma < my_bases.b2) //ўҐае­ЁҐ dust'л
+		if (width > wide) //С€РёСЂРѕРєРёР№
+			if (gma < my_bases.b2) //РІРµСЂС…РЅРёРµ dust'С‹
 			{
 				i = 0;
 				while (i < N)
@@ -3079,7 +3083,7 @@ static uchar classify(cell **cells, int16_t N, grup *box, grup *bottom,
 					} else
 						i++;
 				far_top->b = gba;
-			} else if (gma > my_bases.b3) //­Ё¦­ЁҐ dust'л
+			} else if (gma > my_bases.b3) //РЅРёР¶РЅРёРµ dust'С‹
 			{
 				i = 0;
 				while (i < N)
@@ -3093,27 +3097,27 @@ static uchar classify(cell **cells, int16_t N, grup *box, grup *bottom,
 				proj[gb] = 0;
 				break;
 			} else
-				//иЁа®ЄЁ© Їа®бўҐв ў бҐаҐ¤Ё­Ґ
+				//С€РёСЂРѕРєРёР№ РїСЂРѕСЃРІРµС‚ РІ СЃРµСЂРµРґРёРЅРµ
 				return 0;
 		else if (width >= mid && gma > my_bases.b2 && gma < my_bases.b3)
 			return 0;
 	} while (width > 0);
 
-	//ЁйҐ¬ Ў«Ё¦­ЁҐ
+	//РёС‰РµРј Р±Р»РёР¶РЅРёРµ
 
 	ge = far_top->b - upper;
-	ge = strspn((char*) proj + ge, "0") + ge; //ЇҐаўл© ­Ґ ­®«м
+	ge = strspn((char*) proj + ge, "0") + ge; //РїРµСЂРІС‹Р№ РЅРµ РЅРѕР»СЊ
 	top->a = top->b = ge + upper;
 	bottom->a = bottom->b = (strrchr((char*) proj, '1') - (char*) proj) + upper;
-	do //жЁЄ« Ї® Їа®бўҐв ¬
+	do //С†РёРєР» РїРѕ РїСЂРѕСЃРІРµС‚Р°Рј
 	{
-		gb = strspn((char*) proj + ge, "1") + ge; //­ з «® Їа®бўҐв 
-		ge = strspn((char*) proj + gb, "0") + gb; //Є®­Ґж Їа®бўҐв  + 1
+		gb = strspn((char*) proj + ge, "1") + ge; //РЅР°С‡Р°Р»Рѕ РїСЂРѕСЃРІРµС‚Р°
+		ge = strspn((char*) proj + gb, "0") + gb; //РєРѕРЅРµС† РїСЂРѕСЃРІРµС‚Р° + 1
 		gba = gb + upper;
 		gea = ge + upper;
 		width = ge - gb;
 		if (width > 0)
-			if (gba <= my_bases.b2) //ўҐае­ЁҐ dust'л
+			if (gba <= my_bases.b2) //РІРµСЂС…РЅРёРµ dust'С‹
 			{
 				i = 0;
 				while (i < N)
@@ -3124,7 +3128,7 @@ static uchar classify(cell **cells, int16_t N, grup *box, grup *bottom,
 						top->b = gba;
 					} else
 						i++;
-			} else if (gea >= my_bases.bm) //­Ё¦­ЁҐ dust'л
+			} else if (gea >= my_bases.bm) //РЅРёР¶РЅРёРµ dust'С‹
 			{
 				i = 0;
 				while (i < N)
@@ -3141,7 +3145,7 @@ static uchar classify(cell **cells, int16_t N, grup *box, grup *bottom,
 	} while (width > 0);
 
 	ge = top->b - upper;
-	ge = strspn((char*) proj + ge, "0") + ge; //ЇҐаўл© ­Ґ ­®«м
+	ge = strspn((char*) proj + ge, "0") + ge; //РїРµСЂРІС‹Р№ РЅРµ РЅРѕР»СЊ
 	box->n = N;
 	box->a = ge + upper;
 	box->b = (strrchr((char*) proj, '1') - (char*) proj) + upper;
@@ -3153,24 +3157,24 @@ static uchar classify(cell **cells, int16_t N, grup *box, grup *bottom,
 }
 
 /*-----------------06-26-95 03:27pm-----------------------------
- horiz_proj ўлзЁб«пҐв Їа®ҐЄжЁо proj ­  ўҐавЁЄ «м­го ®бм N
- cell'®ў cells; ў®§ўа й Ґв б¬ҐйҐ­ЁҐ ¬ ббЁў  proj
+ horiz_proj РІС‹С‡РёСЃР»СЏРµС‚ РїСЂРѕРµРєС†РёСЋ proj РЅР° РІРµСЂС‚РёРєР°Р»СЊРЅСѓСЋ РѕСЃСЊ N
+ cell'РѕРІ cells; РІРѕР·РІСЂР°С‰Р°РµС‚ СЃРјРµС‰РµРЅРёРµ РјР°СЃСЃРёРІР° proj
  ---------------------------------------------------------------*/
 static int16_t horiz_proj(cell **cells, int16_t N, uchar *proj, int16_t size) {
 	int16_t i;
-	int16_t upper = 10000; //ўҐае­пп Ја ­Ёж  cell'®ў
-	int16_t beg, len; //­ з «® Ё ¤«Ё­  Їа®ҐЄжЁЁ cell' 
+	int16_t upper = 10000; //РІРµСЂС…РЅСЏСЏ РіСЂР°РЅРёС†Р° cell'РѕРІ
+	int16_t beg, len; //РЅР°С‡Р°Р»Рѕ Рё РґР»РёРЅР° РїСЂРѕРµРєС†РёРё cell'Р°
 	cell *B;
 
 	memset(proj, '0', size);
 	proj[size - 1] = 0;// Piter add "-1"
 
-	//ЁйҐ¬ ўҐае­оо Ја ­Ёжг (б¬ҐйҐ­ЁҐ)
+	//РёС‰РµРј РІРµСЂС…РЅСЋСЋ РіСЂР°РЅРёС†Сѓ (СЃРјРµС‰РµРЅРёРµ)
 
 	for (i = 0; i < N; i++)
 		upper = MIN(upper, (cells[i])->row);
 
-	//бва®Ё¬ Їа®ҐЄжЁо
+	//СЃС‚СЂРѕРёРј РїСЂРѕРµРєС†РёСЋ
 
 	for (i = 0; i < N; i++) {
 		B = cells[i];
@@ -3188,7 +3192,7 @@ static int16_t horiz_proj(cell **cells, int16_t N, uchar *proj, int16_t size) {
 }
 
 /*-----------------06-26-95 04:18pm---------------------------------
- change  ¬Ґ­пҐв ¬Ґбв ¬Ё i-л© j-л© н«Ґ¬Ґ­вл ¬ ббЁў  arr
+ change  РјРµРЅСЏРµС‚ РјРµСЃС‚Р°РјРё i-С‹Р№ j-С‹Р№ СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР° arr
  ------------------------------------------------------------------*/
 static void change(void **arr, int16_t i, int16_t j) {
 	void *p;
@@ -3199,14 +3203,14 @@ static void change(void **arr, int16_t i, int16_t j) {
 }
 
 /*-----------------07-07-95 11:39am-----------------------------
- accept_vers  возвращает 1, если версии vers сегмента (i1,i0)
- принимаются, и 0 в противном случае;
- s - буфер для вывода на экран
- res - предполагаемый результат
- width - ширина сегмента (i1,i0)
- gvar - способ сборки
- cur_meas - накопленная мера в случае принятия
- версий vers
+ accept_vers  РІРѕР·РІСЂР°С‰Р°РµС‚ 1, РµСЃР»Рё РІРµСЂСЃРёРё vers СЃРµРіРјРµРЅС‚Р° (i1,i0)
+ РїСЂРёРЅРёРјР°СЋС‚СЃСЏ, Рё 0 РІ РїСЂРѕС‚РёРІРЅРѕРј СЃР»СѓС‡Р°Рµ;
+ s - Р±СѓС„РµСЂ РґР»СЏ РІС‹РІРѕРґР° РЅР° СЌРєСЂР°РЅ
+ res - РїСЂРµРґРїРѕР»Р°РіР°РµРјС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚
+ width - С€РёСЂРёРЅР° СЃРµРіРјРµРЅС‚Р° (i1,i0)
+ gvar - СЃРїРѕСЃРѕР± СЃР±РѕСЂРєРё
+ cur_meas - РЅР°РєРѕРїР»РµРЅРЅР°СЏ РјРµСЂР° РІ СЃР»СѓС‡Р°Рµ РїСЂРёРЅСЏС‚РёСЏ
+ РІРµСЂСЃРёР№ vers
  ----------------------------------------------------------------*/
 static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 		int16_t i0, SVERS *vers, char gvar, int16_t width, int16_t cur_meas) {
@@ -3215,37 +3219,37 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 	SVERS *versi;
 	struct cut_elm *secl, *secm, *secr = cut_list + i0;
 	int16_t il, im, xl, xm, xr;
-	//«Ґў®Ґ, баҐ¤­ҐҐ Ё Їа ў®Ґ бҐзҐ­Ёп Ё Ёе Є®®а¤Ё­ вл
+	//Р»РµРІРѕРµ, СЃСЂРµРґРЅРµРµ Рё РїСЂР°РІРѕРµ СЃРµС‡РµРЅРёСЏ Рё РёС… РєРѕРѕСЂРґРёРЅР°С‚С‹
 	SVERS *vers0, *versl, *versr;
 	uchar let0, letl, letr;
-	//ўҐабЁЁ бҐЈ¬Ґ­в  (i2,i0), ҐЈ® «Ґў®© Ё Їа ў®© з бвҐ©
-	int16_t pen = 0; //ива д: ў Ї®«м§г бЎ®аЄЁ >0, ў Ї®«м§г а §аҐ§ ­Ёп <0
-	int16_t ip = secr->px; //ЇаҐ¤л¤гй п в®зЄ  ®ЇвЁ¬ «м­®Ј® ЇгвЁ
+	//РІРµСЂСЃРёРё СЃРµРіРјРµРЅС‚Р° (i2,i0), РµРіРѕ Р»РµРІРѕР№ Рё РїСЂР°РІРѕР№ С‡Р°СЃС‚РµР№
+	int16_t pen = 0; //С€С‚СЂР°С„: РІ РїРѕР»СЊР·Сѓ СЃР±РѕСЂРєРё >0, РІ РїРѕР»СЊР·Сѓ СЂР°Р·СЂРµР·Р°РЅРёСЏ <0
+	int16_t ip = secr->px; //РїСЂРµРґС‹РґСѓС‰Р°СЏ С‚РѕС‡РєР° РѕРїС‚РёРјР°Р»СЊРЅРѕРіРѕ РїСѓС‚Рё
 	static char except[] = "(by exception)", rule[] = "";
 	char *reason = except;
 
 	if (!secr->versm.flg) {
 		reason = rule;
 		goto ret1;
-		//­Ґ а бЇ®§­ ў «бп
+		//РЅРµ СЂР°СЃРїРѕР·РЅР°РІР°Р»СЃСЏ
 	}
 
 	if (i1 == ip) {
 		uchar new_let = vers->vers[0].let;
 		uchar old_let = secr->versm.vers[0].let;
 		switch (new_let) {
-		//а биЁаҐ­ЁҐ '\xae' /* ® */ ¤® '\xa1' /* Ў */
-		case (uchar) '\xa1' /* Ў */:
-			if (old_let == (uchar) '\xae' /* ® */ && !is_russian_turkish_conflict(old_let) // 21.05.2002 E.P.
+		//СЂР°СЃС€РёСЂРµРЅРёРµ '\xae' /* Рѕ */ РґРѕ '\xa1' /* Р± */
+		case (uchar) '\xa1' /* Р± */:
+			if (old_let == (uchar) '\xae' /* Рѕ */ && !is_russian_turkish_conflict(old_let) // 21.05.2002 E.P.
 			)
 				pen = -O_to_B;
 			break;
 
-			//а биЁаҐ­ЁҐ '\xa3' /* Ј */¤®  '\xaf' /* Ї */
-		case (uchar) '\xaf' /* Ї */:
-		case (uchar) '\x8f' /* Џ */:
-			if ((old_let == (uchar) '\xa3' /* Ј */ || old_let == (uchar) '\x83' /* ѓ */) && !(gvar
-					& (up_dust + low_dust)) //dust'л в®«мЄ® Ё§ Є®а®ЎЄЁ
+			//СЂР°СЃС€РёСЂРµРЅРёРµ '\xa3' /* Рі */РґРѕ  '\xaf' /* Рї */
+		case (uchar) '\xaf' /* Рї */:
+		case (uchar) '\x8f' /* Рџ */:
+			if ((old_let == (uchar) '\xa3' /* Рі */ || old_let == (uchar) '\x83' /* Р“ */) && !(gvar
+					& (up_dust + low_dust)) //dust'С‹ С‚РѕР»СЊРєРѕ РёР· РєРѕСЂРѕР±РєРё
 			)
 				pen = -40;
 			break;
@@ -3274,97 +3278,97 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 		xr = secr->x;
 
 		switch (let0) {
-		//а биЁаҐ­ЁҐ '\xa3' /* Ј */ ¤® '\xe2' /* в */
-		case (uchar) '\xe2' /* в */:
+		//СЂР°СЃС€РёСЂРµРЅРёРµ '\xa3' /* Рі */ РґРѕ '\xe2' /* С‚ */
+		case (uchar) '\xe2' /* С‚ */:
 			if (is_russian_turkish_conflict(let0))
 				break; // 21.05.2002 E.P.
-		case (uchar) '\x92' /* ’ */:
-			if ((letr == (uchar) '\xa3' /* Ј */ || letr == (uchar) '\x83' /* ѓ */) && xm - xl < (xr
+		case (uchar) '\x92' /* Рў */:
+			if ((letr == (uchar) '\xa3' /* Рі */ || letr == (uchar) '\x83' /* Р“ */) && xm - xl < (xr
 					- xl) >> 1)
-				pen = (letl == (uchar) '\xe3' /* г */ || letl == (uchar) '\x93' /* “ */) ? 30
+				pen = (letl == (uchar) '\xe3' /* Сѓ */ || letl == (uchar) '\x93' /* РЈ */) ? 30
 						: G_to_T;
 			break;
 
-			//а биЁаҐ­ЁҐ '\xaf' /* Ї */ ¤® '\xab' /* « */
-		case (uchar) '\xab' /* « */:
-		case (uchar) '\x8b' /* ‹ */:
-			if ((letr == (uchar) '\xaf' /* Ї */ || letr == (uchar) '\x8f' /* Џ */) && secm->dh != 0
+			//СЂР°СЃС€РёСЂРµРЅРёРµ '\xaf' /* Рї */ РґРѕ '\xab' /* Р» */
+		case (uchar) '\xab' /* Р» */:
+		case (uchar) '\x8b' /* Р› */:
+			if ((letr == (uchar) '\xaf' /* Рї */ || letr == (uchar) '\x8f' /* Рџ */) && secm->dh != 0
 					&& xm - xl <= (xr - xl) >> 2)
 				pen = P_to_L;
 			break;
 
-			//"х" Ё«Ё "вЇ"
-		case (uchar) '\xf5' /* х */:
-			if (letl == (uchar) '\xe2' /* в */ && !is_russian_turkish_conflict(letl) && // 21.05.2002 E.P.
-					letr == (uchar) '\xaf' /* Ї */)
+			//"С—" РёР»Рё "С‚Рї"
+		case (uchar) '\xf5' /* С— */:
+			if (letl == (uchar) '\xe2' /* С‚ */ && !is_russian_turkish_conflict(letl) && // 21.05.2002 E.P.
+					letr == (uchar) '\xaf' /* Рї */)
 				pen = 30;
 			break;
 
-			//"л®" Ё«Ё "мо"
-		case (uchar) '\xee' /* о */:
-		case (uchar) '\x9e' /* ћ */:
+			//"С‹Рѕ" РёР»Рё "СЊСЋ"
+		case (uchar) '\xee' /* СЋ */:
+		case (uchar) '\x9e' /* Р® */:
 			if (is_russian_turkish_conflict(let0)) // 21.05.2002 E.P.
 				break;
-			if (letl == (uchar) '|' || letl == liga_exm || letl == (uchar) '\xeb' /* л */
-					|| letl == (uchar) '\x9b' /* › */ // ыЫ
+			if (letl == (uchar) '|' || letl == liga_exm || letl == (uchar) '\xeb' /* С‹ */
+					|| letl == (uchar) '\x9b' /* вЂє */ // С‹Р«
 			)
-				if (secl->dh == 0 && secm->dh == 0) //палка никуда не приклеена
-				{ //приоритет "о", если палка ближе к "ь"
+				if (secl->dh == 0 && secm->dh == 0) //РїР°Р»РєР° РЅРёРєСѓРґР° РЅРµ РїСЂРёРєР»РµРµРЅР°
+				{ //РїСЂРёРѕСЂРёС‚РµС‚ "Рѕ", РµСЃР»Рё РїР°Р»РєР° Р±Р»РёР¶Рµ Рє "СЊ"
 					if (secm->rv.v3 > secl->rv.v3 << 1)
-						pen = -IEE_IU_PEN; //режем "ю"
+						pen = -IEE_IU_PEN; //СЂРµР¶РµРј "СЋ"
 					else
-						pen = IEE_IU_PEN; //режем "ы"
-				} else //приоритет "о", если палка приклеена только к "ь"
+						pen = IEE_IU_PEN; //СЂРµР¶РµРј "С‹"
+				} else //РїСЂРёРѕСЂРёС‚РµС‚ "Рѕ", РµСЃР»Рё РїР°Р»РєР° РїСЂРёРєР»РµРµРЅР° С‚РѕР»СЊРєРѕ Рє "СЊ"
 				if (secm->dh == 0)
 					pen = -IEE_IU_PEN;
 				else
 					pen = IEE_IU_PEN;
 			if (pen > 0 && vers0->source & 1)
-				pen = pen << 1; //"о" Ї® нўҐ­в ¬
+				pen = pen << 1; //"СЋ" РїРѕ СЌРІРµРЅС‚Р°Рј
 			break;
 
-			//штраф для 'L', если собрана из палки и точки
+			//С€С‚СЂР°С„ РґР»СЏ 'L', РµСЃР»Рё СЃРѕР±СЂР°РЅР° РёР· РїР°Р»РєРё Рё С‚РѕС‡РєРё
 		case 'L':
 			if (dust(versr) && secm->dh == 0 && stick(letl))
 				pen = -30;
 			break;
 
-			//штраф для 'U', если собрана из 'L' и палки
+			//С€С‚СЂР°С„ РґР»СЏ 'U', РµСЃР»Рё СЃРѕР±СЂР°РЅР° РёР· 'L' Рё РїР°Р»РєРё
 		case 'U':
 			if (secm->dh == 0 && stick(letr) || letr == 'i'
-					&& versr->vers[0].prob > I_wo_point //'i' б в®зЄ®©
+					&& versr->vers[0].prob > I_wo_point //'i' СЃ С‚РѕС‡РєРѕР№
 			)
 				if (letl == 'l' || letl == 'L')
 					pen = -2*CUT_PEN;
 			break;
 
-			//штраф для собранной 'H'
+			//С€С‚СЂР°С„ РґР»СЏ СЃРѕР±СЂР°РЅРЅРѕР№ 'H'
 		case 'H':
 			if (secm->dh == 0 && stick(letl) && stick(letr))
 				pen = -H_PEN;
 			break;
 
-			//штраф для 'm', если собрана из 'i'
+			//С€С‚СЂР°С„ РґР»СЏ 'm', РµСЃР»Рё СЃРѕР±СЂР°РЅР° РёР· 'i'
 		case 'm':
 			if (letl == 'i' || letr == 'i')
 				pen = -mi_PEN;
 			break;
 
-			// 'c-l' => 'd', Ґб«Ё бЄ«ҐҐ­л
+			// 'c-l' => 'd', РµСЃР»Рё СЃРєР»РµРµРЅС‹
 		case 'd':
 			p = versr->vers[0].prob;
 			if ((stick(letr) || letr == 'f' && p < 180) // 'l'
 					&& memchr("c(<", letl, 3) // 'c'
 			)
-				if (secm->dh != 0) //'c' Ё 'l' бЄ«ҐҐ­л
+				if (secm->dh != 0) //'c' Рё 'l' СЃРєР»РµРµРЅС‹
 				{
 					if (vers0->vers[0].prob > MINlet)
 						goto retu;
-					//ЇаЁ­Ё¬ Ґ¬ 'd'
-				} else //'c' Ё 'l' ­Ґ бЄ«ҐҐ­л
+					//РїСЂРёРЅРёРјР°РµРј 'd'
+				} else //'c' Рё 'l' РЅРµ СЃРєР»РµРµРЅС‹
 				if (p > MINlet && versl->vers[0].prob > MINlet)
 					goto retb;
-			//®бв ў«пҐ¬ 'c' Ё 'l'
+			//РѕСЃС‚Р°РІР»СЏРµРј 'c' Рё 'l'
 			break;
 		}
 		if (i1 < ip)
@@ -3372,16 +3376,16 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 	}
 
 	pen = norm(pen,width);
-	if (cur_meas + pen < secr->lv.v1) { //­®ў п ¬Ґа  «гзиҐ; Їа®ўҐапҐ¬ ЁбЄ«озҐ­Ёп
+	if (cur_meas + pen < secr->lv.v1) { //РЅРѕРІР°СЏ РјРµСЂР° Р»СѓС‡С€Рµ; РїСЂРѕРІРµСЂСЏРµРј РёСЃРєР»СЋС‡РµРЅРёСЏ
 		if (i1 != ip) {
-			//­ҐбЄ®«мЄ® ­Ґбўп§­ле бҐЄжЁ© б®Ўа «Ёбм ў "Ї«®е®©"
+			//РЅРµСЃРєРѕР»СЊРєРѕ РЅРµСЃРІСЏР·РЅС‹С… СЃРµРєС†РёР№ СЃРѕР±СЂР°Р»РёСЃСЊ РІ "РїР»РѕС…РѕР№"
 			if (!dust(vers0) && vers0->vers[0].prob < MAX_RO - RO_COMPOSE
 					&& not_connect_chain(il, i0, cut_list))
 				goto retb;
 
-			//®ЎкҐ¤Ё­Ґ­ЁҐ ¤ўге бҐЈ¬Ґ­в®ў
+			//РѕР±СЉРµРґРёРЅРµРЅРёРµ РґРІСѓС… СЃРµРіРјРµРЅС‚РѕРІ
 			if (il == secm->px) {
-				//§ ЇаҐй Ґвбп ЇаЁЄ«ҐЁў вм 'i', Ґб«Ё Ї®«гз Ґвбп в  ¦Ґ ЎгЄў 
+				//Р·Р°РїСЂРµС‰Р°РµС‚СЃСЏ РїСЂРёРєР»РµРёРІР°С‚СЊ 'i', РµСЃР»Рё РїРѕР»СѓС‡Р°РµС‚СЃСЏ С‚Р° Р¶Рµ Р±СѓРєРІР°
 				if (letl == let0 && (letr == 'i' || letr == liga_i || language
 						== LANGUAGE_TURKISH && // 30.05.2002 E.P.
 						(letr == i_sans_accent || letr == II_dot_accent)) // X+i=X
@@ -3393,17 +3397,17 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 			}
 
 			switch (let0) {
-			//исключение "универсальных" букв
-			case (uchar) '\xac' /* ¬ */: // '\xec' /* м */
-			case (uchar) '\x8c' /* Њ */: // '\xcc' /* М */
-			case (uchar) '\xf5' /* х */:
+			//РёСЃРєР»СЋС‡РµРЅРёРµ "СѓРЅРёРІРµСЂСЃР°Р»СЊРЅС‹С…" Р±СѓРєРІ
+			case (uchar) '\xac' /* Рј */: // '\xec' /* в”ђ */
+			case (uchar) '\x8c' /* Рњ */: // '\xcc' /* в•  */
+			case (uchar) '\xf5' /* С— */:
 				seci = secr;
 				while (seci > secl) {
 					versi = &seci->versm;
 					let = versi->vers[0].let;
-					if ((let == (uchar) '\xae' /* ® */
+					if ((let == (uchar) '\xae' /* Рѕ */
 							&& !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
-							|| let == (uchar) '\x8e' /* Ћ */) && versi->vers[0].prob
+							|| let == (uchar) '\x8e' /* Рћ */) && versi->vers[0].prob
 							> trs2)
 						goto retb;
 
@@ -3411,8 +3415,8 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 				}
 				break;
 
-				//§ ЇаҐй Ґвбп а биЁапвм "9" ¤® "€"
-			case (uchar) '\x88' /* € */:
+				//Р·Р°РїСЂРµС‰Р°РµС‚СЃСЏ СЂР°СЃС€РёСЂСЏС‚СЊ "9" РґРѕ "Р"
+			case (uchar) '\x88' /* Р */:
 				if (letr == '9' && versr->vers[0].prob >= RELIABLE_9)
 					goto retb;
 				break;
@@ -3422,20 +3426,20 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 		goto ret1;
 	}
 
-	//­®ў п ¬Ґа  ег¦Ґ; Їа®ўҐапҐ¬ ЁбЄ«озҐ­Ёп
+	//РЅРѕРІР°СЏ РјРµСЂР° С…СѓР¶Рµ; РїСЂРѕРІРµСЂСЏРµРј РёСЃРєР»СЋС‡РµРЅРёСЏ
 
 	if (i1 == ip) {
-		//dust-бҐЄжЁп б®Ўа « бм ў ­Ґ-dust
+		//dust-СЃРµРєС†РёСЏ СЃРѕР±СЂР°Р»Р°СЃСЊ РІ РЅРµ-dust
 		if (dust(&secr->versm) && !dust(vers) && vers->vers[0].prob >= MAX_RO
 				- RO_COMPOSE)
 			goto ret1;
 	} else {
-		//dust-бҐЄжЁЁ б®Ўа «Ёбм ў ­Ґ-dust
+		//dust-СЃРµРєС†РёРё СЃРѕР±СЂР°Р»РёСЃСЊ РІ РЅРµ-dust
 		if (!dust(vers0) && vers0->vers[0].prob >= MAX_RO - RO_COMPOSE
 				&& dust_chain(il, i0, cut_list))
 			goto retu;
 
-		//Ў®«ми®© н«Ґ¬Ґ­в а §аҐ§ ­ ­  2 dust' 
+		//Р±РѕР»СЊС€РѕР№ СЌР»РµРјРµРЅС‚ СЂР°Р·СЂРµР·Р°РЅ РЅР° 2 dust'Р°
 		if (let_or_bad(vers0) && dust(versr) && dust(versl) && il == secm->px
 				&& secm->dh != 0)
 			goto retu;
@@ -3443,7 +3447,7 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 
 	reason = rule;
 
-	//®вўҐаЈ Ґ¬
+	//РѕС‚РІРµСЂРіР°РµРј
 	ret0: if (debug_on)
 #ifndef MY_DEBUG
 		if (det_trace)
@@ -3451,7 +3455,7 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 			s += sprintf(s, " pen=%d => decline %s", pen, reason);
 	return 0;
 
-	//ЇаЁ­Ё¬ Ґ¬
+	//РїСЂРёРЅРёРјР°РµРј
 	ret1: if (debug_on)
 #ifndef MY_DEBUG
 		if (det_trace)
@@ -3462,13 +3466,13 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 		}
 	return 1;
 
-	retu: //®ЎкҐ¤Ё­Ёвм
+	retu: //РѕР±СЉРµРґРёРЅРёС‚СЊ
 	if (i1 < ip)
 		goto ret1;
 	else
 		goto ret0;
 
-	retb: //а §аҐ§ вм
+	retb: //СЂР°Р·СЂРµР·Р°С‚СЊ
 	if (i1 < ip)
 		goto ret0;
 	else
@@ -3476,12 +3480,12 @@ static uchar accept_vers(char *s, struct cut_elm *cut_list, int16_t i1,
 }
 
 /*-----------------06-15-95 03:19pm---------------------------------
- not_connect_chain  Їа®ўҐапҐв ­ «ЁзЁҐ жҐЇ®зЄЁ Ё§ Ё§®«Ёа®ў ­­ле бҐЄ-
- жЁ© ®в i1-Ј® ¤® i0-Ј® бҐзҐ­Ёп;
- cut_list - бЇЁб®Є бҐзҐ­Ё©
+ not_connect_chain  РїСЂРѕРІРµСЂСЏРµС‚ РЅР°Р»РёС‡РёРµ С†РµРїРѕС‡РєРё РёР· РёР·РѕР»РёСЂРѕРІР°РЅРЅС‹С… СЃРµРє-
+ С†РёР№ РѕС‚ i1-РіРѕ РґРѕ i0-РіРѕ СЃРµС‡РµРЅРёСЏ;
+ cut_list - СЃРїРёСЃРѕРє СЃРµС‡РµРЅРёР№
  ------------------------------------------------------------------*/
 static uchar not_connect_chain(int16_t i1, int16_t i0, struct cut_elm *cut_list) {
-	struct cut_elm *cur; //вҐЄгйҐҐ бҐзҐ­ЁҐ ­  ®ЇвЁ¬ «м­®¬ ЇгвЁ
+	struct cut_elm *cur; //С‚РµРєСѓС‰РµРµ СЃРµС‡РµРЅРёРµ РЅР° РѕРїС‚РёРјР°Р»СЊРЅРѕРј РїСѓС‚Рё
 	int16_t i;
 
 	cur = cut_list + i0;
@@ -3492,7 +3496,7 @@ static uchar not_connect_chain(int16_t i1, int16_t i0, struct cut_elm *cut_list)
 	while (i > i1) {
 		cur = cut_list + i;
 		if (cur->dh != 0)
-			return 0; //Ўл« а §аҐ§
+			return 0; //Р±С‹Р» СЂР°Р·СЂРµР·
 		i = cur->px;
 	}
 	if (i == i1)
@@ -3502,8 +3506,8 @@ static uchar not_connect_chain(int16_t i1, int16_t i0, struct cut_elm *cut_list)
 }
 
 /*-----------------06-15-95 03:19pm---------------------------------
- dust_chain  Їа®ўҐапҐв ­ «ЁзЁҐ жҐЇ®зЄЁ Ё§ dust-бҐЄжЁ© ¬Ґ¦¤г i1-л¬ Ё
- i0-л¬ бҐзҐ­ЁҐ¬
+ dust_chain  РїСЂРѕРІРµСЂСЏРµС‚ РЅР°Р»РёС‡РёРµ С†РµРїРѕС‡РєРё РёР· dust-СЃРµРєС†РёР№ РјРµР¶РґСѓ i1-С‹Рј Рё
+ i0-С‹Рј СЃРµС‡РµРЅРёРµРј
  ------------------------------------------------------------------*/
 static uchar dust_chain(int16_t i1, int16_t i0, struct cut_elm *cut_list) {
 	struct cut_elm *cur, *last;
@@ -3515,26 +3519,26 @@ static uchar dust_chain(int16_t i1, int16_t i0, struct cut_elm *cut_list) {
 }
 
 /*-----------------05-23-95 12:45pm---------------------------------
- recover_path  восстанавливает cell'ы оптимального пути, заданного
- массивом cut_list из N сечений с заданным наклоном inc;
- LC,RC - границы интервала (не вкл.);
- ovfl - флаг: исследуемый участок не поместился в растр;
- kita - место для новых cell'ов;
- возвращает указатель на cell, куда надо вернуться при
- продолжении; при неудаче возвращает NULL
+ recover_path  РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ cell'С‹ РѕРїС‚РёРјР°Р»СЊРЅРѕРіРѕ РїСѓС‚Рё, Р·Р°РґР°РЅРЅРѕРіРѕ
+ РјР°СЃСЃРёРІРѕРј cut_list РёР· N СЃРµС‡РµРЅРёР№ СЃ Р·Р°РґР°РЅРЅС‹Рј РЅР°РєР»РѕРЅРѕРј inc;
+ LC,RC - РіСЂР°РЅРёС†С‹ РёРЅС‚РµСЂРІР°Р»Р° (РЅРµ РІРєР».);
+ ovfl - С„Р»Р°Рі: РёСЃСЃР»РµРґСѓРµРјС‹Р№ СѓС‡Р°СЃС‚РѕРє РЅРµ РїРѕРјРµСЃС‚РёР»СЃСЏ РІ СЂР°СЃС‚СЂ;
+ kita - РјРµСЃС‚Рѕ РґР»СЏ РЅРѕРІС‹С… cell'РѕРІ;
+ РІРѕР·РІСЂР°С‰Р°РµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° cell, РєСѓРґР° РЅР°РґРѕ РІРµСЂРЅСѓС‚СЊСЃСЏ РїСЂРё
+ РїСЂРѕРґРѕР»Р¶РµРЅРёРё; РїСЂРё РЅРµСѓРґР°С‡Рµ РІРѕР·РІСЂР°С‰Р°РµС‚ NULL
  -------------------------------------------------------------------*/
 static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 		int16_t N, cell *LC, cell *RC, char ovfl) {
 	int16_t i, i0;
 	cell *B; // current cell
-	int16_t ib = N - 1; //номер сечения, куда возвращаться
-	cell *opt_cell[MAX_SECT] = { NULL }; //cell'ы сечений оптимального пути
-	cell *dcell[MAX_SECT]; //все cell'ы одного сегмента
-	int16_t Nd; //их количество
-	grup box, top, bottom, far_top, far_bottom; //описатели групп cell'ов
-	struct cut_elm *seci, *seci0; //описатели i-го и i0-го сечения
-	SVERS *versi0; //версии сечения
-	uchar csv[32]; //параметры сечения
+	int16_t ib = N - 1; //РЅРѕРјРµСЂ СЃРµС‡РµРЅРёСЏ, РєСѓРґР° РІРѕР·РІСЂР°С‰Р°С‚СЊСЃСЏ
+	cell *opt_cell[MAX_SECT] = { NULL }; //cell'С‹ СЃРµС‡РµРЅРёР№ РѕРїС‚РёРјР°Р»СЊРЅРѕРіРѕ РїСѓС‚Рё
+	cell *dcell[MAX_SECT]; //РІСЃРµ cell'С‹ РѕРґРЅРѕРіРѕ СЃРµРіРјРµРЅС‚Р°
+	int16_t Nd; //РёС… РєРѕР»РёС‡РµСЃС‚РІРѕ
+	grup box, top, bottom, far_top, far_bottom; //РѕРїРёСЃР°С‚РµР»Рё РіСЂСѓРїРї cell'РѕРІ
+	struct cut_elm *seci, *seci0; //РѕРїРёСЃР°С‚РµР»Рё i-РіРѕ Рё i0-РіРѕ СЃРµС‡РµРЅРёСЏ
+	SVERS *versi0; //РІРµСЂСЃРёРё СЃРµС‡РµРЅРёСЏ
+	uchar csv[32]; //РїР°СЂР°РјРµС‚СЂС‹ СЃРµС‡РµРЅРёСЏ
 	s_glue GL;
 	cut_pos cpos;
 	MN *mn1;
@@ -3542,7 +3546,7 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 	if (langBul && LC && LC->nvers > 0 && (LC->vers[0].let == 154
 			|| LC->vers[0].let == 234 || LC->vers[0].let == 156
 			|| LC->vers[0].let == 236)) // Nick 29.09.2000
-	{ // В болгарском нет ы - не отрезать палку после ь,ъ
+	{ // Р’ Р±РѕР»РіР°СЂСЃРєРѕРј РЅРµС‚ С‹ - РЅРµ РѕС‚СЂРµР·Р°С‚СЊ РїР°Р»РєСѓ РїРѕСЃР»Рµ СЊ,СЉ
 		for (i0 = N - 1; i0 > 0; i0 = seci0->px) {
 			seci0 = &cut_list[i0];
 			versi0 = &seci0->versm;
@@ -3554,9 +3558,9 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 			return NULL;
 	}
 
-	if (ovfl) //­ ¤® ®вбвгЇЁвм ў«Ґў®;  Єг¤ ?
+	if (ovfl) //РЅР°РґРѕ РѕС‚СЃС‚СѓРїРёС‚СЊ РІР»РµРІРѕ;  РєСѓРґР°?
 	{
-		seci0 = cut_list + ib; //®вбвгЇ Ґ¬ ­  dust'л
+		seci0 = cut_list + ib; //РѕС‚СЃС‚СѓРїР°РµРј РЅР° dust'С‹
 		while (ib > 0 && dust(&seci0->versm)) {
 			ib = seci0->px;
 			seci0 = cut_list + ib;
@@ -3569,19 +3573,19 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 			if (versi0->nvers && v0->prob < trs2)
 				set_bad(versi0);
 			if (seci0->px != 0)
-				if (bad(versi0) || v0->let == (uchar) '\xeb' /* л */ || ((ilet = strchr(
+				if (bad(versi0) || v0->let == (uchar) '\xeb' /* С‹ */ || ((ilet = strchr(
 						(char*) letters_left_to_bad, v0->let))
 						&& !is_russian_baltic_conflict(v0->let) && // 17.07.2001 E.P.
 						!is_russian_turkish_conflict(v0->let) && // 21.05.2002 E.P.
 						v0->prob < prob_left_to_bad[(uchar*) ilet
 								- letters_left_to_bad])) {
-					//if (strchr("Ё€­ЌЇЏий™", v0->let)
+					//if (strchr("РёРРЅРќРїРџС€РЁС‰Р©", v0->let)
 					if (strchr("\xA8\x88\xAD\x8D\xAF\x8F\xE8\x98\xE9\x99", v0->let)
 							&& !is_russian_turkish_conflict(v0->let) // 21.05.2002 E.P.
-					) // "иИнНпПшШщЩ"
+					) // "РёРРЅРќРїРџС€РЁС‰Р©"
 						set_bad(versi0);
-					ib = seci0->px; //®вбвгЇ Ґ¬ ­  ®¤Ё­ бЁ¬ў®«
-					seci0 = cut_list + ib; //®вбвгЇ Ґ¬ ­  dust'л
+					ib = seci0->px; //РѕС‚СЃС‚СѓРїР°РµРј РЅР° РѕРґРёРЅ СЃРёРјРІРѕР»
+					seci0 = cut_list + ib; //РѕС‚СЃС‚СѓРїР°РµРј РЅР° dust'С‹
 					while (ib > 0 && dust(&seci0->versm)) {
 						ib = seci0->px;
 						seci0 = cut_list + ib;
@@ -3590,14 +3594,14 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 		}
 	}
 
-	//¤Ґ« Ґ¬ ўбҐ а §аҐ§л
+	//РґРµР»Р°РµРј РІСЃРµ СЂР°Р·СЂРµР·С‹
 
-	i = cut_list[N - 1].px; //(N-1)-л© - дЁЄвЁў­л©
+	i = cut_list[N - 1].px; //(N-1)-С‹Р№ - С„РёРєС‚РёРІРЅС‹Р№
 	while (i > 0) {
 		seci = &cut_list[i];
 		mn1 = cut_rast((uchar*) &r->pict, r->w, r->h, r->top, r->left,
 				cut_list, (char) i, 2, (char*) csv, &cpos);
-		i = seci->px; //б«Ґ¤гойЁ© ­  ®ЇвЁ¬ «м­®¬ ЇгвЁ
+		i = seci->px; //СЃР»РµРґСѓСЋС‰РёР№ РЅР° РѕРїС‚РёРјР°Р»СЊРЅРѕРј РїСѓС‚Рё
 	}
 	mn1 = cut_rast((uchar*) &r->pict, r->w, r->h, r->top, r->left, cut_list, 0,
 			3, (char*) csv, &cpos);
@@ -3606,7 +3610,7 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 
 	take_kit_addr((uchar*) kita);
 
-	//б®§¤ Ґ¬ Є®¬Ї®­Ґ­вл Ё а бЇаҐ¤Ґ«пҐ¬ Ї® бҐзҐ­Ёп¬
+	//СЃРѕР·РґР°РµРј РєРѕРјРїРѕРЅРµРЅС‚С‹ Рё СЂР°СЃРїСЂРµРґРµР»СЏРµРј РїРѕ СЃРµС‡РµРЅРёСЏРј
 
 	for (i = 0; i < MAX_SECT && mn1; i++) {
 		B = create_my_cell(mn1, LC, 0, 0);
@@ -3615,7 +3619,7 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 		i0 = locate(B, cut_list, N, r->left);
 		seci0 = cut_list + i0;
 		seci = cut_list + seci0->px;
-		B->cg_flag |= c_cg_cutdone; //бд®а¬Ёа®ў ­ Їа®Ја ¬¬®© cut_glue
+		B->cg_flag |= c_cg_cutdone; //СЃС„РѕСЂРјРёСЂРѕРІР°РЅ РїСЂРѕРіСЂР°РјРјРѕР№ cut_glue
 		if (seci->dh != 0 && B->r_col <= seci->x + r->left + 1)
 			B->cg_flag |= c_cg_cutl;
 		if (seci0->dh != 0 && B->r_col + B->w >= seci0->x + r->left)
@@ -3625,45 +3629,45 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 		mn1 = mn1->mnnext;
 	}
 
-	//®ЎкҐ¤Ё­пҐ¬, Ґб«Ё ­г¦­®, Ё § Ї®«­пҐ¬ ўҐабЁЁ
+	//РѕР±СЉРµРґРёРЅСЏРµРј, РµСЃР»Рё РЅСѓР¶РЅРѕ, Рё Р·Р°РїРѕР»РЅСЏРµРј РІРµСЂСЃРёРё
 
 	i0 = N - 1;
 	while (i0 > 0) {
 		seci0 = &cut_list[i0];
 		versi0 = &seci0->versm;
 		if (let_or_bad(versi0) && (B = opt_cell[i0])) {
-			if (seci0->gvarm) //Є®¬Ї®­Ґ­вл ¬®¤ЁдЁжЁа®ў «Ёбм
+			if (seci0->gvarm) //РєРѕРјРїРѕРЅРµРЅС‚С‹ РјРѕРґРёС„РёС†РёСЂРѕРІР°Р»РёСЃСЊ
 			{
-				//Ё§ бўп§­®Ј® бЇЁбЄ  - ў dcell
+				//РёР· СЃРІСЏР·РЅРѕРіРѕ СЃРїРёСЃРєР° - РІ dcell
 				Nd = 0;
 				do {
 					dcell[Nd++] = B;
 					B = (cell *) B->complist;
 				} while (B);
 
-				//Є« ббЁдЁЄ жЁп Ї® а бЇ®«®¦Ґ­Ёо
+				//РєР»Р°СЃСЃРёС„РёРєР°С†РёСЏ РїРѕ СЂР°СЃРїРѕР»РѕР¶РµРЅРёСЋ
 				if (classify(dcell, Nd, &box, &bottom, &top, &far_bottom,
 						&far_top)) {
-					Nd -= far_bottom.n + far_top.n; //г¤ «пҐ¬ ¤ «ҐЄЁҐ
+					Nd -= far_bottom.n + far_top.n; //СѓРґР°Р»СЏРµРј РґР°Р»РµРєРёРµ
 					if (!(seci0->gvarm & up_dust))
-						Nd -= top.n; //г¤ «пҐ¬ ўҐае­ЁҐ dust'л
-					if (!(seci0->gvarm & low_dust)) { //г¤ «пҐ¬ ­Ё¦­ЁҐ dust'л
+						Nd -= top.n; //СѓРґР°Р»СЏРµРј РІРµСЂС…РЅРёРµ dust'С‹
+					if (!(seci0->gvarm & low_dust)) { //СѓРґР°Р»СЏРµРј РЅРёР¶РЅРёРµ dust'С‹
 						memcpy(&dcell[box.n], &dcell[box.n + bottom.n],
 								sizeof(cell *) * top.n);
 						Nd -= bottom.n;
 					}
 				}
 
-				//б®ў®ЄгЇ­л© н«Ґ¬Ґ­в
+				//СЃРѕРІРѕРєСѓРїРЅС‹Р№ СЌР»РµРјРµРЅС‚
 				seci0->gvarm &= glued;
 				B = unite(LC, dcell, Nd, &GL, (uchar*) &seci0->gvarm);
 				if (B) {
 					set_erection(B, cut_list->rv.v2);
-					if (GL.ncell > 1) //Ґб«Ё ncell==1, в®Ј¤  celist[0]=B
+					if (GL.ncell > 1) //РµСЃР»Рё ncell==1, С‚РѕРіРґР° celist[0]=B
 						for (i = 0; i < GL.ncell; i++)
 							del_cell(GL.celist[i]);
 				}
-			} else //Є®¬Ї®­Ґ­вл ­Ґ ¬®¤ЁдЁжЁа®ў «Ёбм
+			} else //РєРѕРјРїРѕРЅРµРЅС‚С‹ РЅРµ РјРѕРґРёС„РёС†РёСЂРѕРІР°Р»РёСЃСЊ
 			{
 				cell *C = B;
 				while (B) {
@@ -3671,14 +3675,14 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 						break;
 					B = (cell *) B->complist;
 				}
-				if (!B && let_or_bad(versi0) && versi0->nvers) { //ўбҐ dust'л, ­® Ґбвм ўҐабЁп
-					B = C; //ЁйҐ¬ Ї®¤е®¤пйЁ© Ї® а §¬Ґаг
+				if (!B && let_or_bad(versi0) && versi0->nvers) { //РІСЃРµ dust'С‹, РЅРѕ РµСЃС‚СЊ РІРµСЂСЃРёСЏ
+					B = C; //РёС‰РµРј РїРѕРґС…РѕРґСЏС‰РёР№ РїРѕ СЂР°Р·РјРµСЂСѓ
 					while (B != 0) {
 						if (B->h > sMALL_SIZE)
 							break;
 						B = (cell *) B->complist;
 					}
-					if (B) //ЇаҐ®Ўа §гҐ¬ ў Ў®«ми®©
+					if (B) //РїСЂРµРѕР±СЂР°Р·СѓРµРј РІ Р±РѕР»СЊС€РѕР№
 					{
 						cell *LB = B->prev;
 						(B->next)->prev = LB;
@@ -3707,10 +3711,10 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 						B->cg_flag |= cut_list->gvarm & c_cg_cutr;
 				}
 		}
-		i0 = seci0->px; //б«Ґ¤гойЁ© ­  ®ЇвЁ¬ «м­®¬ ЇгвЁ
+		i0 = seci0->px; //СЃР»РµРґСѓСЋС‰РёР№ РЅР° РѕРїС‚РёРјР°Р»СЊРЅРѕРј РїСѓС‚Рё
 	}
 
-	//ЁйҐ¬ ЇҐаўл© cell Їа ўҐҐ ib
+	//РёС‰РµРј РїРµСЂРІС‹Р№ cell РїСЂР°РІРµРµ ib
 
 	ib = r->left + (cut_list + ib)->x;
 	for (B = LC->next; B != RC && lefter(B, ib); B = B->next)
@@ -3720,14 +3724,14 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 }
 
 /*-----------------05-24-95 11:06am---------------------------------
- locate  ®ЇаҐ¤Ґ«пҐв ­®¬Ґа бҐЈ¬Ґ­в , Є®в®а®¬г ЇаЁ­ ¤«Ґ¦Ёв cell B;
- ­®¬Ґа бҐЈ¬Ґ­в  а ўҐ­ ­®¬Ґаг ҐЈ® Їа ў®Ј® бҐзҐ­Ёп Ё§ бЇЁбЄ 
- cut_list N бҐзҐ­Ё©
+ locate  РѕРїСЂРµРґРµР»СЏРµС‚ РЅРѕРјРµСЂ СЃРµРіРјРµРЅС‚Р°, РєРѕС‚РѕСЂРѕРјСѓ РїСЂРёРЅР°РґР»РµР¶РёС‚ cell B;
+ РЅРѕРјРµСЂ СЃРµРіРјРµРЅС‚Р° СЂР°РІРµРЅ РЅРѕРјРµСЂСѓ РµРіРѕ РїСЂР°РІРѕРіРѕ СЃРµС‡РµРЅРёСЏ РёР· СЃРїРёСЃРєР°
+ cut_list N СЃРµС‡РµРЅРёР№
  -------------------------------------------------------------------*/
 static int16_t locate(cell *B, struct cut_elm *cut_list, int16_t N,
 		int16_t left) {
-	int16_t i, ip; //вҐЄгйҐҐ Ё ЇаҐ¤л¤гйҐҐ бҐзҐ­Ёп ­  ®ЇвЁ¬ «м­®¬ ЇгвЁ
-	struct cut_elm *seci; //®ЇЁб вҐ«м i-Ј® бҐзҐ­Ёп
+	int16_t i, ip; //С‚РµРєСѓС‰РµРµ Рё РїСЂРµРґС‹РґСѓС‰РµРµ СЃРµС‡РµРЅРёСЏ РЅР° РѕРїС‚РёРјР°Р»СЊРЅРѕРј РїСѓС‚Рё
+	struct cut_elm *seci; //РѕРїРёСЃР°С‚РµР»СЊ i-РіРѕ СЃРµС‡РµРЅРёСЏ
 
 	ip = i = N - 1;
 	while (i > 0) {
@@ -3735,20 +3739,20 @@ static int16_t locate(cell *B, struct cut_elm *cut_list, int16_t N,
 		if (!lefter(B, seci->x + left))
 			break;
 		ip = i;
-		i = seci->px; //б«Ґ¤гойЁ© ­  ®ЇвЁ¬ «м­®¬ ЇгвЁ
+		i = seci->px; //СЃР»РµРґСѓСЋС‰РёР№ РЅР° РѕРїС‚РёРјР°Р»СЊРЅРѕРј РїСѓС‚Рё
 	}
 	return ip;
 }
 
 /*--------------------------------------------------------------------
- set_type  ЇаЁў®¤Ёв вЁЇ cell'  C (dust - ­Ґ dust) Є вЁЇг vers
+ set_type  РїСЂРёРІРѕРґРёС‚ С‚РёРї cell'Р° C (dust - РЅРµ dust) Рє С‚РёРїСѓ vers
  --------------------------------------------------------------------*/
 /*
  static void set_type(cell * C, SVERS *vers)
  {
  char new_dust=dust(vers);
 
- if( dust(C) && !new_dust && C->h>sMALL_SIZE)   //¬Ґ­пҐ¬ dust ­  ­Ґ dust
+ if( dust(C) && !new_dust && C->h>sMALL_SIZE)   //РјРµРЅСЏРµРј dust РЅР° РЅРµ dust
  {
  cell *LC=C->prev;
  (C->next)->prev=LC; LC->next=C->next; // DELETE
@@ -3757,7 +3761,7 @@ static int16_t locate(cell *B, struct cut_elm *cut_list, int16_t N,
  insert_cell1(C,LC);
  }
  else
- if( !dust(C) && new_dust )         //¬Ґ­пҐ¬ ­Ґ dust ­  dust
+ if( !dust(C) && new_dust )         //РјРµРЅСЏРµРј РЅРµ dust РЅР° dust
  {
  set_dust(C);
  set_bad_cell(C);
@@ -3768,31 +3772,31 @@ static int16_t locate(cell *B, struct cut_elm *cut_list, int16_t N,
  }
  */
 /*--------------------------------------------------------------------
- is_stick  ў®§ўа й Ґв 1, Ґб«Ё cell B - stick, Ё 0 ў Їа®вЁў­®¬ б«гз Ґ
+ is_stick  РІРѕР·РІСЂР°С‰Р°РµС‚ 1, РµСЃР»Рё cell B - stick, Рё 0 РІ РїСЂРѕС‚РёРІРЅРѕРј СЃР»СѓС‡Р°Рµ
  --------------------------------------------------------------------*/
 static int16_t is_stick(cell *B) {
 #define hist_len RASTER_HEIGHT*2/3+1
 	int16_t i, j;
-	uchar hist[hist_len], *hp, *he; //ЈЁбв®Ја ¬¬ 
-	char emax; //Їа ўл© Єа © ЈЁбв®Ја ¬¬л + 1
-	uchar hmax, hmax2; //ўлб®в  Ј®аЎ  Ё 1/2
-	int16_t w; //иЁаЁ­  Ј®аЎ 
-	int16_t s0, s1; //Ї«®й ¤м Ј®аЎ  Ё ®бв «м­®© з бвЁ
+	uchar hist[hist_len], *hp, *he; //РіРёСЃС‚РѕРіСЂР°РјРјР°
+	char emax; //РїСЂР°РІС‹Р№ РєСЂР°Р№ РіРёСЃС‚РѕРіСЂР°РјРјС‹ + 1
+	uchar hmax, hmax2; //РІС‹СЃРѕС‚Р° РіРѕСЂР±Р° Рё 1/2
+	int16_t w; //С€РёСЂРёРЅР° РіРѕСЂР±Р°
+	int16_t s0, s1; //РїР»РѕС‰Р°РґСЊ РіРѕСЂР±Р° Рё РѕСЃС‚Р°Р»СЊРЅРѕР№ С‡Р°СЃС‚Рё
 	c_comp *cp; //envelope C
-	lnhead *lp; //вҐЄгй п «Ё­Ёп
-	interval *intp; //вҐЄгйЁ© Ё­вҐаў «
+	lnhead *lp; //С‚РµРєСѓС‰Р°СЏ Р»РёРЅРёСЏ
+	interval *intp; //С‚РµРєСѓС‰РёР№ РёРЅС‚РµСЂРІР°Р»
 
 	if (!B->env || B->h < my_bases.ps - (my_bases.ps >> 2) || (B->w + (B->w
 			>> 1) > B->h))
 		return 0;
 
-	//бва®Ё¬ ЈЁбв®Ја ¬¬г Ё ўлзЁб«пҐ¬ hmax
+	//СЃС‚СЂРѕРёРј РіРёСЃС‚РѕРіСЂР°РјРјСѓ Рё РІС‹С‡РёСЃР»СЏРµРј hmax
 
 	memset(hist, 0, hist_len);
 	hmax = 0;
 	emax = 0;
 	cp = B->env;
-	lp = (lnhead *) ((char *) cp + cp->lines + 2); //и ЇЄ  ЇҐаў®© «Ё­ЁЁ
+	lp = (lnhead *) ((char *) cp + cp->lines + 2); //С€Р°РїРєР° РїРµСЂРІРѕР№ Р»РёРЅРёРё
 	for (i = 0; i < cp->nl; i++) {
 		intp = (interval*) (lp + 1);
 		for (j = 0; j < lp->h; j++, intp++) {
@@ -3806,7 +3810,7 @@ static int16_t is_stick(cell *B) {
 		lp = (lnhead *) ((char *) lp + lp->lth);
 	}
 
-	//ўлзЁб«пҐ¬ Ї«®й ¤Ё
+	//РІС‹С‡РёСЃР»СЏРµРј РїР»РѕС‰Р°РґРё
 
 	if ((hmax2 = hmax >> 1) == 0)
 		return 0;
@@ -3824,7 +3828,7 @@ static int16_t is_stick(cell *B) {
 		s1 += *hp++;
 	if ((w << 1) + (w >> 1) > hmax)
 		return 0;
-	s1 += (B->h * w - s0); //ива д §  Ї«®е®© Ј®аЎ
+	s1 += (B->h * w - s0); //С€С‚СЂР°С„ Р·Р° РїР»РѕС…РѕР№ РіРѕСЂР±
 	if (s1 << 1 > s0)
 		return 0;
 	det_snap(B, "bring sticks");
@@ -3833,7 +3837,7 @@ static int16_t is_stick(cell *B) {
 }
 
 /*-----------------05-04-95 05:35pm-----------------
- paste  б®ЎЁа Ґв '\xeb'  л  Ё '\xae'  ®  Ї® ўбҐ© бва®ЄҐ
+ paste  СЃРѕР±РёСЂР°РµС‚ '\xeb'  С‹  Рё '\xae'  Рѕ  РїРѕ РІСЃРµР№ СЃС‚СЂРѕРєРµ
  --------------------------------------------------*/
 static void paste() {
 	cell *B, *BC, *EC;
@@ -3841,8 +3845,8 @@ static void paste() {
 	int16_t bdiff;
 	char dflag;
 	s_glue GL;
-	uchar expect; //®¦Ё¤ Ґ¬л© аҐ§г«мв в
-	int16_t inc; //гбаҐ¤­Ґ­­л© ­ Є«®­
+	uchar expect; //РѕР¶РёРґР°РµРјС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚
+	int16_t inc; //СѓСЃСЂРµРґРЅРµРЅРЅС‹Р№ РЅР°РєР»РѕРЅ
 
 	BC = cell_f();
 	while (1) {
@@ -3864,13 +3868,13 @@ static void paste() {
 			c3 = EC->vers[0].let;
 			if (!is_turkish_language(language) && // 21.05.2002 E.P.
 					glue_to_o(c2, c3, BC, EC))
-				expect = (uchar) '\xae' /* ® */;
-			//else if (memchr("мњљ", c2, 3) && (memchr("/1!()ш", c3, 6) || c3
-			else if (memchr("\xEC\x9C\x9A", c2, 3) && (memchr("/1!()ш", c3, 6) || c3
+				expect = (uchar) '\xae' /* Рѕ */;
+			//else if (memchr("СЊР¬РЄ", c2, 3) && (memchr("/1!()В°", c3, 6) || c3
+			else if (memchr("\xEC\x9C\x9A", c2, 3) && (memchr("/1!()\xF8", c3, 6) || c3
 					== liga_exm) // 10.09.2000 E.P.
 					&& abs(BC->h - EC->h) < 4 && abs(BC->row - EC->row) < 4
-					&& EC->r_col - (BC->r_col + BC->w) < BC->h / 10 + 4) /*to paste л */
-				expect = is_lower(c2) ? (uchar) '\xeb' /* л */ : (uchar) '\x9b' /* › */;
+					&& EC->r_col - (BC->r_col + BC->w) < BC->h / 10 + 4) /*to paste С‹ */
+				expect = is_lower(c2) ? (uchar) '\xeb' /* С‹ */ : (uchar) '\x9b' /* Р« */;
 			else
 				continue;
 
@@ -3888,7 +3892,7 @@ static void paste() {
 			B = comp_to_cell(BC, GL.complist, 2, (char) bdiff, dflag);
 			GL.var = GL.fres = GL.arg = 0;
 			GL.flarg = GFsrc;
-			if ((B->flg & c_f_dust) || crecell(B, &GL, 3) < 0) //б®ў®ЄгЇ­л© а бва - ў BOX'Ґ, B ­Ґ Ё§¬Ґ­Ё«бп
+			if ((B->flg & c_f_dust) || crecell(B, &GL, 3) < 0) //СЃРѕРІРѕРєСѓРїРЅС‹Р№ СЂР°СЃС‚СЂ - РІ BOX'Рµ, B РЅРµ РёР·РјРµРЅРёР»СЃСЏ
 			{
 				del_cell(B);
 				BC = EC;
@@ -3899,15 +3903,15 @@ static void paste() {
 			dmBOX(B, &GL);
 
 			p = (B->nvers) ? B->vers[0].prob : 0;
-			if (expect == (uchar) '\xae' /* ® */) {
-				//if (!memchr("oO0®Ћ", B->vers[0].let, 5)) {
+			if (expect == (uchar) '\xae' /* Рѕ */) {
+				//if (!memchr("oO0РѕРћ", B->vers[0].let, 5)) {
 				if (!memchr("oO0\xAE\x8E", B->vers[0].let, 5)) {
 					del_cell(B);
 					BC = EC;
 					continue;
 				}
 			} else
-				// л
+				// С‹
 				promote('a', B, expect, 60);
 			if (p > 70) {
 				del_cell(BC);
@@ -3922,8 +3926,8 @@ static void paste() {
 }
 
 /*-----------------------------------------------------------------------
- compose_cg_flags гбв ­ ў«Ёў Ґв cg_flag Ё cg_flag_fine cell'  B, ў ЇаҐ¤-
- Ї®«®¦Ґ­ЁЁ, зв® ®­ бд®а¬Ёа®ў ­ Ё§ L(«Ґўл©) Ё R(Їа ўл©)
+ compose_cg_flags СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ cg_flag Рё cg_flag_fine cell'Р° B, РІ РїСЂРµРґ-
+ РїРѕР»РѕР¶РµРЅРёРё, С‡С‚Рѕ РѕРЅ СЃС„РѕСЂРјРёСЂРѕРІР°РЅ РёР· L(Р»РµРІС‹Р№) Рё R(РїСЂР°РІС‹Р№)
  ------------------------------------------------------------------------*/
 static void compose_cg_flags(cell *B, cell *L, cell *R) {
 	B->cg_flag = B->cg_flag & ~(c_cg_cutl | c_cg_cutr) | L->cg_flag & c_cg_cutl
@@ -3934,14 +3938,14 @@ static void compose_cg_flags(cell *B, cell *L, cell *R) {
 }
 
 /*-----------------02-15-95 05:29pm--------------------------------------
- full_recog а бЇ®§­ Ґв cell B Ё ў®§ўа й Ґв 1, Ґб«Ё аҐ§г«мв в «гзиҐ
- Ї®а®Ј  tol Ё 0, Ґб«Ё ­Ґв;
- а бЇ®§­ ў ­ЁҐ Ї® нўҐ­в ¬ Їа®Ё§ў®¤Ёвбп, Ґб«Ё trs>0;
- а бЇ®§­ ў ­ЁҐ Ї® 3x5:
- - ®Ўп§ вҐ«м­® ЇаЁ trs==0,
- - Є Є Їа ўЁ«® ЇаЁ trs>0,
- - Ґб«Ё вҐЄгйЁ© аҐ§г«мв в ег¦Ґ abs(trs) ЇаЁ trs<0;
- бвагЄвга  gl0, Ґб«Ё § ¤ ­ , ЁбЇ®«м§гҐвбп ¤ЁбЄаЁ¬Ё­ в®а ¬Ё;
+ full_recog СЂР°СЃРїРѕР·РЅР°РµС‚ cell B Рё РІРѕР·РІСЂР°С‰Р°РµС‚ 1, РµСЃР»Рё СЂРµР·СѓР»СЊС‚Р°С‚ Р»СѓС‡С€Рµ
+ РїРѕСЂРѕРіР° tol Рё 0, РµСЃР»Рё РЅРµС‚;
+ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ РїРѕ СЌРІРµРЅС‚Р°Рј РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ, РµСЃР»Рё trs>0;
+ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ РїРѕ 3x5:
+ - РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РїСЂРё trs==0,
+ - РєР°Рє РїСЂР°РІРёР»Рѕ РїСЂРё trs>0,
+ - РµСЃР»Рё С‚РµРєСѓС‰РёР№ СЂРµР·СѓР»СЊС‚Р°С‚ С…СѓР¶Рµ abs(trs) РїСЂРё trs<0;
+ СЃС‚СЂСѓРєС‚СѓСЂР° gl0, РµСЃР»Рё Р·Р°РґР°РЅР°, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґРёСЃРєСЂРёРјРёРЅР°С‚РѕСЂР°РјРё;
  ------------------------------------------------------------------------*/
 int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 	SVERS svown, svorg;
@@ -3987,23 +3991,23 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 	}
 
 	GL->ncell = 1;
-	GL->ngluc = 1; //¤ ­­лҐ ¤«п crecell
+	GL->ngluc = 1; //РґР°РЅРЅС‹Рµ РґР»СЏ crecell
 	GL->celist[0] = B1;
 	GL->complist[0] = B1->env;
 	GL->celist[1] = NULL;
 	GL->complist[1] = NULL;
-	//  if ( cut(B1) ) GL->flarg=GFcut;          //®ваҐ§ ­­лҐ гв®з­повбп Ї® 3x5
+	//  if ( cut(B1) ) GL->flarg=GFcut;          //РѕС‚СЂРµР·Р°РЅРЅС‹Рµ СѓС‚РѕС‡РЅСЏСЋС‚СЃСЏ РїРѕ 3x5
 	//  else           GL->flarg=0;
 	//  GL->flarg=0; GL->ncell=n;
 	GL->arg = 0;
 	GL->flarg = 0;
 	if (trs == 0)
-		GL->arg |= GABOXR; //®Ўп§ вҐ«м­® Ї® 3x5
+		GL->arg |= GABOXR; //РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РїРѕ 3x5
 	else if (trs > 0) {
-		GL->arg |= GAtigr; //Ї® нўҐ­в ¬
-		GL->flarg = GFcut; //Ї® 3x5, Є Є Їа ўЁ«®,
+		GL->arg |= GAtigr; //РїРѕ СЌРІРµРЅС‚Р°Рј
+		GL->flarg = GFcut; //РїРѕ 3x5, РєР°Рє РїСЂР°РІРёР»Рѕ,
 	} else
-		trs = -trs; //Ї® 3x5 ЇаЁ ­Ґ®Ўе®¤Ё¬®бвЁ
+		trs = -trs; //РїРѕ 3x5 РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё
 	//  if (trs<0)  trs = -trs;
 	//  else
 	//  {
@@ -4030,7 +4034,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 	//                all cutten letters with simple structure
 
 	if ((B1->flg & c_f_let) && (B1->nvers == 1)) {
-		//if (language == LANGUAGE_RUSSIAN && strchr("®‡§3", c))
+		//if (language == LANGUAGE_RUSSIAN && strchr("РѕР—Р·3", c))
 		if (language == LANGUAGE_RUSSIAN && strchr("\xAE\x87\xA7\x33", c))
 			goto estiBOX;
 		if ((language != LANGUAGE_ENGLISH) && (memchr("aoeu", B1->vers[0].let, 4))) {
@@ -4111,7 +4115,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 			goto deciBOX;
 		}
 
-		//if (memchr("rtfTJ()<>[]LI1il!/F7в’Јѓш|", c, 26)
+		//if (memchr("rtfTJ()<>[]LI1il!/F7С‚РўРіР“В°|", c, 26)
 		if (memchr("rtfTJ\x28\x29\x3C\x3E\x5B\x5DLI1il!\x2F\x46\x37\xE2\x92\xA3\x83\xF8\x7C", c, 26)
 				&& !is_russian_turkish_conflict(c) // 21.05.2002 E.P.
 				|| // 07.01.1993 (see S_TOOLS.C)
@@ -4123,15 +4127,15 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 										== II_right_accent || c
 										== II_roof_accent ||
 
-								// Конфликтные коды 07.09.2000 E.P.
+								// РљРѕРЅС„Р»РёРєС‚РЅС‹Рµ РєРѕРґС‹ 07.09.2000 E.P.
 										!is_cen_language(language) && (c
 												== i_left_accent || c
 												== i_2dot_accent || c
 												== II_left_accent || c
 												== II_2dot_accent)) ||
 
-				is_baltic_palka(c) || // Балтийские палки. 10.07.2001 E.P.
-						is_turkish_palka(c) // Турецкие палки. 21.05.2002 E.P.
+				is_baltic_palka(c) || // Р‘Р°Р»С‚РёР№СЃРєРёРµ РїР°Р»РєРё. 10.07.2001 E.P.
+						is_turkish_palka(c) // РўСѓСЂРµС†РєРёРµ РїР°Р»РєРё. 21.05.2002 E.P.
 						))) {
 			stick_center_study(B1, GL, 1); // Oleg : 07.08.92.
 			p1 = B1->vers[0].prob;
@@ -4197,7 +4201,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 			goto estiBOX;
 			// cutten CIF::version - estimate by BOX
 		}
-		if (memchr("1lI()[]{}!", c, 10) || c == liga_i || language
+		if (memchr("1lI\x28\x29\x5B\x5D\x7B\x7D!", c, 10) || c == liga_i || language
 				== LANGUAGE_TURKISH && // 30.05.2002 E.P.
 				(c == i_sans_accent || c == II_dot_accent) || c == liga_exm)
 			if (signif_line_count(B1) == 1) {
@@ -4262,11 +4266,11 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 		if (db_status && (db_trace_flag & 2))
 			est_snap(db_pass, B1, "to make all BOXes");
 		flg_own = 0; // estimated by 5-box
-		if (crecell(B1, GL, 3) < 0) //а бва ў BOX'Ґ, B ­Ґ Ё§¬Ґ­Ё«бп
+		if (crecell(B1, GL, 3) < 0) //СЂР°СЃС‚СЂ РІ BOX'Рµ, B РЅРµ РёР·РјРµРЅРёР»СЃСЏ
 			return 0;
 		if (gl0)
 			GL = gl0;
-		//    if ( composed(B1) )  GL->ncell=2;        //¤«п diffrv
+		//    if ( composed(B1) )  GL->ncell=2;        //В¤В«ГЇ diffrv
 		save_vers(B1, &svorg);
 		if (B1->nvers)
 			porg = B1->vers[0].prob;
@@ -4288,7 +4292,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 			 if ( (c=B1->vers[0].let)=='l' || c=='I' )
 			 {
 			 int16_t p=(int16_t)B1->vers[0].prob-trs2-2;
-			 if ( p>0 )  discr_vers(B1,p,1);   //¤«п ўбҐе ўҐабЁ© -p1
+			 if ( p>0 )  discr_vers(B1,p,1);   //РґР»СЏ РІСЃРµС… РІРµСЂСЃРёР№ -p1
 			 }
 			 */
 		} else if (bad(B1) && !cut(B1) && B1->env && (B1->env->nl == 1) && 3*
@@ -4297,7 +4301,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 
 			if (is_stick(B1) && B1->row >= my_bases.b2 - d && B1->row
 					<= my_bases.b2 + d && bottom >= my_bases.b3 - d && bottom
-					<= my_bases.b3 + d) { //'i' ЎҐ§ в®зЄЁ ­Ґ а бЇ®§­ Ґвбп
+					<= my_bases.b3 + d) { //'i' Р±РµР· С‚РѕС‡РєРё РЅРµ СЂР°СЃРїРѕР·РЅР°РµС‚СЃСЏ
 				B1->vers[0].prob = I_wo_point;
 				B1->nvers = 1;
 				B1->vers[0].let = liga_i;
@@ -4328,7 +4332,7 @@ static void corr_cut() {
 	while ((b2 = b2->nextl)->nextl) {
 		if (!b2->nvers) {
 			if (language == LANGUAGE_RUSSIAN && (b2->env && (b2->env->nl == 1)
-					|| 3* b2 ->w <= b2->h)) { //Ї®ЇлвЄ  а бЇ®§­ вм "!"
+					|| 3* b2 ->w <= b2->h)) { //РїРѕРїС‹С‚РєР° СЂР°СЃРїРѕР·РЅР°С‚СЊ "!"
 				stick_center_study(b2, NULL, 1);
 				det_snap(b2, "bring sticks");
 			}
@@ -4343,7 +4347,7 @@ static void corr_cut() {
 			c1 = b1->vers[0].let;
 			c3 = b3->vers[0].let;
 			// try to recover "stick_to_something" producing 'k', 'd', 'b'
-			if (memchr("lI1/J)!", c2, 7) || // stick character ?
+			if (memchr("lI1\x2FJ\x29!", c2, 7) || // stick character ?
 					c2 == liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 					(c2 == i_sans_accent || c2 == II_dot_accent) || c2
 					== liga_exm)
@@ -4447,7 +4451,7 @@ static int16_t forbid_stick_cut(cell *c, SVERS *vers, int16_t h, cut_pos *cpos,
 cell * create_my_cell(MN * mn, cell * ci, char bdiff, char dflag) {
 	cell * C = create_cell1(mn, ci, bdiff, dflag);
 
-	//¬Ґ­пҐ¬ ­Ґ dust ­  dust, Ґб«Ё б¬ҐйҐ­ Ї® ўлб®вҐ
+	//РјРµРЅСЏРµРј РЅРµ dust РЅР° dust, РµСЃР»Рё СЃРјРµС‰РµРЅ РїРѕ РІС‹СЃРѕС‚Рµ
 
 	if (!dust(C) && (C->row > my_bases.bm || C->row + C->h < my_bases.b2)
 	// Nick - 17.05.99
