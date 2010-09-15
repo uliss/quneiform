@@ -266,7 +266,8 @@ int16_t is_russian(uchar ch) {
 		case ED_ASCII: // for ASCII
 			if ((ch >= (uchar) '\xa0' /*   */ && ch <= (uchar) '\xaf' /* ¯ */) || (ch >= (uchar) '\xe0' /* à */
 					&& ch <= (uchar) '\xef' /* ï */) || (ch >= (uchar) '\x80' /* € */ && ch
-					<= (uchar) '\x9f' /* Ÿ */) || memchr("ðñõ÷øýÈÀ", ch, 8))
+					//<= (uchar) '\x9f' /* Ÿ */) || memchr("ðñõ÷øýÈÀ", ch, 8))
+					<= (uchar) '\x9f' /* Ÿ */) || memchr("\xF0\xF1\xF5\xF7\xF8\xFD\xC8\xC0", ch, 8))
 				return 1;
 			break;
 		case ED_WIN: // for Windows (ANSI)
@@ -493,7 +494,8 @@ int16_t is_lower(uchar ch) {
 		switch (fEdCode) {
 		case ED_ASCII: // for ASCII
 			if ((ch >= (uchar) '\xa0' /*   */ && ch <= (uchar) '\xaf' /* ¯ */) || (ch >= (uchar) '\xe0' /* à */
-					&& ch <= (uchar) '\xef' /* ï */) || memchr("ðñõ÷øýÀ", ch, 7))
+					//&& ch <= (uchar) '\xef' /* ï */) || memchr("ðñõ÷øýÀ", ch, 7))
+					&& ch <= (uchar) '\xef' /* ï */) || memchr("\xF0\xF1\xF5\xF7\xF8\xFD\xC0", ch, 7))
 				return 1;
 			break;
 		case ED_WIN: // for Windows (ANSI)
@@ -542,7 +544,8 @@ int16_t isletter(uchar ch) {
 		return 0;
 }
 
-static const uchar non_twin[] = " €¡¥…";
+//static const uchar non_twin[] = " €¡¥…";
+static const uchar non_twin[] = "\xA0\x80\xA1\x81\xA5\x85";
 static const uchar lat_twins[] = "cCoOpPsSvVwWxXzZ";
 
 int16_t twin(uchar ch) {
@@ -650,7 +653,8 @@ int16_t is_russian_baltic_conflict(uchar c) {
 	if (!is_baltic_language(language))
 		return FALSE;
 
-	if (strchr("àáâäæçèëìíîï", c))
+	//if (strchr("àáâäæçèëìíîï", c))
+	if (strchr("\xE0\xE1\xE2\xE4\xE6\xE7\xE8\xEB\xEC\xED\xEE\xEF", c))
 		return TRUE;
 
 	return FALSE;
