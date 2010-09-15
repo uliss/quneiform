@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- –‡ÁÂ¯‡ÂÚÒˇ ÔÓ‚ÚÓÌÓÂ ‡ÒÔÓÒÚ‡ÌÂÌËÂ Ë ËÒÔÓÎ¸ÁÓ‚‡ÌËÂ Í‡Í ‚ ‚Ë‰Â ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡,
- Ú‡Í Ë ‚ ‰‚ÓË˜ÌÓÈ ÙÓÏÂ, Ò ËÁÏÂÌÂÌËˇÏË ËÎË ·ÂÁ, ÔË ÒÓ·Î˛‰ÂÌËË ÒÎÂ‰Û˛˘Ëı ÛÒÎÓ‚ËÈ:
+ –†–∞–∑—Ä–µ—à–∞–µ—Ç—Å—è –ø–æ–≤—Ç–æ—Ä–Ω–æ–µ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–µ –∏ –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–∏–µ –∫–∞–∫ –≤ –≤–∏–¥–µ –∏—Å—Ö–æ–¥–Ω–æ–≥–æ –∫–æ–¥–∞,
+ —Ç–∞–∫ –∏ –≤ –¥–≤–æ–∏—á–Ω–æ–π —Ñ–æ—Ä–º–µ, —Å –∏–∑–º–µ–Ω–µ–Ω–∏—è–º–∏ –∏–ª–∏ –±–µ–∑, –ø—Ä–∏ —Å–æ–±–ª—é–¥–µ–Ω–∏–∏ —Å–ª–µ–¥—É—é—â–∏—Ö —É—Å–ª–æ–≤–∏–π:
 
- * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ËÒıÓ‰ÌÓ„Ó ÍÓ‰‡ ‰ÓÎÊÌ˚ ÓÒÚ‡‚‡Ú¸Òˇ ÛÍ‡Á‡ÌÌÓÂ
- ‚˚¯Â Û‚Â‰ÓÏÎÂÌËÂ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë ÔÓÒÎÂ‰Û˛˘ËÈ
- ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
- * œË ÔÓ‚ÚÓÌÓÏ ‡ÒÔÓÒÚ‡ÌÂÌËË ‰‚ÓË˜ÌÓ„Ó ÍÓ‰‡ ‚ ‰ÓÍÛÏÂÌÚ‡ˆËË Ë/ËÎË ‚
- ‰Û„Ëı Ï‡ÚÂË‡Î‡ı, ÔÓÒÚ‡‚ÎˇÂÏ˚ı ÔË ‡ÒÔÓÒÚ‡ÌÂÌËË, ‰ÓÎÊÌ˚ ÒÓı‡ÌˇÚ¸Òˇ
- ÛÍ‡Á‡ÌÌ‡ˇ ‚˚¯Â ËÌÙÓÏ‡ˆËˇ Ó· ‡‚ÚÓÒÍÓÏ Ô‡‚Â, ˝ÚÓÚ ÒÔËÒÓÍ ÛÒÎÓ‚ËÈ Ë
- ÔÓÒÎÂ‰Û˛˘ËÈ ÓÚÍ‡Á ÓÚ „‡‡ÌÚËÈ.
- * ÕË Ì‡Á‚‡ÌËÂ Cognitive Technologies, ÌË ËÏÂÌ‡ ÂÂ ÒÓÚÛ‰ÌËÍÓ‚ ÌÂ ÏÓ„ÛÚ
- ·˚Ú¸ ËÒÔÓÎ¸ÁÓ‚‡Ì˚ ‚ Í‡˜ÂÒÚ‚Â ÒÂ‰ÒÚ‚‡ ÔÓ‰‰ÂÊÍË Ë/ËÎË ÔÓ‰‚ËÊÂÌËˇ
- ÔÓ‰ÛÍÚÓ‚, ÓÒÌÓ‚‡ÌÌ˚ı Ì‡ ˝ÚÓÏ œŒ, ·ÂÁ ÔÂ‰‚‡ËÚÂÎ¸ÌÓ„Ó ÔËÒ¸ÏÂÌÌÓ„Ó
- ‡ÁÂ¯ÂÌËˇ.
+ * –ü—Ä–∏ –ø–æ–≤—Ç–æ—Ä–Ω–æ–º —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏ –∏—Å—Ö–æ–¥–Ω–æ–≥–æ –∫–æ–¥–∞ –¥–æ–ª–∂–Ω—ã –æ—Å—Ç–∞–≤–∞—Ç—å—Å—è —É–∫–∞–∑–∞–Ω–Ω–æ–µ
+ –≤—ã—à–µ —É–≤–µ–¥–æ–º–ª–µ–Ω–∏–µ –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —ç—Ç–æ—Ç —Å–ø–∏—Å–æ–∫ —É—Å–ª–æ–≤–∏–π –∏ –ø–æ—Å–ª–µ–¥—É—é—â–∏–π
+ –æ—Ç–∫–∞–∑ –æ—Ç –≥–∞—Ä–∞–Ω—Ç–∏–π.
+ * –ü—Ä–∏ –ø–æ–≤—Ç–æ—Ä–Ω–æ–º —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏ –¥–≤–æ–∏—á–Ω–æ–≥–æ –∫–æ–¥–∞ –≤ –¥–æ–∫—É–º–µ–Ω—Ç–∞—Ü–∏–∏ –∏/–∏–ª–∏ –≤
+ –¥—Ä—É–≥–∏—Ö –º–∞—Ç–µ—Ä–∏–∞–ª–∞—Ö, –ø–æ—Å—Ç–∞–≤–ª—è–µ–º—ã—Ö –ø—Ä–∏ —Ä–∞—Å–ø—Ä–æ—Å—Ç—Ä–∞–Ω–µ–Ω–∏–∏, –¥–æ–ª–∂–Ω—ã —Å–æ—Ö—Ä–∞–Ω—è—Ç—å—Å—è
+ —É–∫–∞–∑–∞–Ω–Ω–∞—è –≤—ã—à–µ –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏—è –æ–± –∞–≤—Ç–æ—Ä—Å–∫–æ–º –ø—Ä–∞–≤–µ, —ç—Ç–æ—Ç —Å–ø–∏—Å–æ–∫ —É—Å–ª–æ–≤–∏–π –∏
+ –ø–æ—Å–ª–µ–¥—É—é—â–∏–π –æ—Ç–∫–∞–∑ –æ—Ç –≥–∞—Ä–∞–Ω—Ç–∏–π.
+ * –ù–∏ –Ω–∞–∑–≤–∞–Ω–∏–µ Cognitive Technologies, –Ω–∏ –∏–º–µ–Ω–∞ –µ–µ —Å–æ—Ç—Ä—É–¥–Ω–∏–∫–æ–≤ –Ω–µ –º–æ–≥—É—Ç
+ –±—ã—Ç—å –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω—ã –≤ –∫–∞—á–µ—Å—Ç–≤–µ —Å—Ä–µ–¥—Å—Ç–≤–∞ –ø–æ–¥–¥–µ—Ä–∂–∫–∏ –∏/–∏–ª–∏ –ø—Ä–æ–¥–≤–∏–∂–µ–Ω–∏—è
+ –ø—Ä–æ–¥—É–∫—Ç–æ–≤, –æ—Å–Ω–æ–≤–∞–Ω–Ω—ã—Ö –Ω–∞ —ç—Ç–æ–º –ü–û, –±–µ–∑ –ø—Ä–µ–¥–≤–∞—Ä–∏—Ç–µ–ª—å–Ω–æ–≥–æ –ø–∏—Å—å–º–µ–Ω–Ω–æ–≥–æ
+ —Ä–∞–∑—Ä–µ—à–µ–Ω–∏—è.
 
- ›“¿ œ–Œ√–¿ÃÃ¿ œ–≈ƒŒ—“¿¬À≈Õ¿ ¬À¿ƒ≈À‹÷¿Ã» ¿¬“Œ–— »’ œ–¿¬ »/»À» ƒ–”√»Ã» À»÷¿Ã» " ¿ 
- ŒÕ¿ ≈—“‹" ¡≈«  ¿ Œ√Œ-À»¡Œ ¬»ƒ¿ √¿–¿Õ“»…, ¬€–¿∆≈ÕÕ€’ ﬂ¬ÕŒ »À» œŒƒ–¿«”Ã≈¬¿≈Ã€’,
- ¬ Àﬁ◊¿ﬂ √¿–¿Õ“»»  ŒÃÃ≈–◊≈— Œ… ÷≈ÕÕŒ—“» » œ–»√ŒƒÕŒ—“» ƒÀﬂ  ŒÕ –≈“ÕŒ… ÷≈À», ÕŒ Õ≈
- Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã». Õ» ¬À¿ƒ≈À≈÷ ¿¬“Œ–— »’ œ–¿¬ » Õ» ŒƒÕŒ ƒ–”√Œ≈ À»÷Œ,  Œ“Œ–Œ≈
- ÃŒ∆≈“ »«Ã≈Õﬂ“‹ »/»À» œŒ¬“Œ–ÕŒ –¿—œ–Œ—“–¿Õﬂ“‹ œ–Œ√–¿ÃÃ”, Õ» ¬  Œ≈Ã —À”◊¿≈ Õ≈
- Õ≈—®“ Œ“¬≈“—“¬≈ÕÕŒ—“», ¬ Àﬁ◊¿ﬂ Àﬁ¡€≈ Œ¡Ÿ»≈, —À”◊¿…Õ€≈, —œ≈÷»¿À‹Õ€≈ »À»
- œŒ—À≈ƒŒ¬¿¬ÿ»≈ ”¡€“ », —¬ﬂ«¿ÕÕ€≈ — »—œŒÀ‹«Œ¬¿Õ»≈Ã »À» œŒÕ≈—≈ÕÕ€≈ ¬—À≈ƒ—“¬»≈
- Õ≈¬Œ«ÃŒ∆ÕŒ—“» »—œŒÀ‹«Œ¬¿Õ»ﬂ œ–Œ√–¿ÃÃ€ (¬ Àﬁ◊¿ﬂ œŒ“≈–» ƒ¿ÕÕ€’, »À» ƒ¿ÕÕ€≈,
- —“¿¬ÿ»≈ Õ≈√ŒƒÕ€Ã», »À» ”¡€“ » »/»À» œŒ“≈–» ƒŒ’ŒƒŒ¬, œŒÕ≈—≈ÕÕ€≈ »«-«¿ ƒ≈…—“¬»…
- “–≈“‹»’ À»÷ »/»À» Œ“ ¿«¿ œ–Œ√–¿ÃÃ€ –¿¡Œ“¿“‹ —Œ¬Ã≈—“ÕŒ — ƒ–”√»Ã» œ–Œ√–¿ÃÃ¿Ã»,
- ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ ›“»Ã» —À”◊¿ﬂÃ»), ÕŒ Õ≈ Œ√–¿Õ»◊»¬¿ﬂ—‹ »Ã», ƒ¿∆≈ ≈—À» “¿ Œ…
- ¬À¿ƒ≈À≈÷ »À» ƒ–”√Œ≈ À»÷Œ ¡€À» »«¬≈Ÿ≈Õ€ Œ ¬Œ«ÃŒ∆ÕŒ—“» “¿ »’ ”¡€“ Œ¬ » œŒ“≈–‹.
+ –≠–¢–ê –ü–†–û–ì–†–ê–ú–ú–ê –ü–†–ï–î–û–°–¢–ê–í–õ–ï–ù–ê –í–õ–ê–î–ï–õ–¨–¶–ê–ú–ò –ê–í–¢–û–†–°–ö–ò–• –ü–†–ê–í –ò/–ò–õ–ò –î–†–£–ì–ò–ú–ò –õ–ò–¶–ê–ú–ò "–ö–ê–ö
+ –û–ù–ê –ï–°–¢–¨" –ë–ï–ó –ö–ê–ö–û–ì–û-–õ–ò–ë–û –í–ò–î–ê –ì–ê–†–ê–ù–¢–ò–ô, –í–´–†–ê–ñ–ï–ù–ù–´–• –Ø–í–ù–û –ò–õ–ò –ü–û–î–†–ê–ó–£–ú–ï–í–ê–ï–ú–´–•,
+ –í–ö–õ–Æ–ß–ê–Ø –ì–ê–†–ê–ù–¢–ò–ò –ö–û–ú–ú–ï–†–ß–ï–°–ö–û–ô –¶–ï–ù–ù–û–°–¢–ò –ò –ü–†–ò–ì–û–î–ù–û–°–¢–ò –î–õ–Ø –ö–û–ù–ö–†–ï–¢–ù–û–ô –¶–ï–õ–ò, –ù–û –ù–ï
+ –û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –ò–ú–ò. –ù–ò –í–õ–ê–î–ï–õ–ï–¶ –ê–í–¢–û–†–°–ö–ò–• –ü–†–ê–í –ò –ù–ò –û–î–ù–û –î–†–£–ì–û–ï –õ–ò–¶–û, –ö–û–¢–û–†–û–ï
+ –ú–û–ñ–ï–¢ –ò–ó–ú–ï–ù–Ø–¢–¨ –ò/–ò–õ–ò –ü–û–í–¢–û–†–ù–û –†–ê–°–ü–†–û–°–¢–†–ê–ù–Ø–¢–¨ –ü–†–û–ì–†–ê–ú–ú–£, –ù–ò –í –ö–û–ï–ú –°–õ–£–ß–ê–ï –ù–ï
+ –ù–ï–°–Å–¢ –û–¢–í–ï–¢–°–¢–í–ï–ù–ù–û–°–¢–ò, –í–ö–õ–Æ–ß–ê–Ø –õ–Æ–ë–´–ï –û–ë–©–ò–ï, –°–õ–£–ß–ê–ô–ù–´–ï, –°–ü–ï–¶–ò–ê–õ–¨–ù–´–ï –ò–õ–ò
+ –ü–û–°–õ–ï–î–û–í–ê–í–®–ò–ï –£–ë–´–¢–ö–ò, –°–í–Ø–ó–ê–ù–ù–´–ï –° –ò–°–ü–û–õ–¨–ó–û–í–ê–ù–ò–ï–ú –ò–õ–ò –ü–û–ù–ï–°–ï–ù–ù–´–ï –í–°–õ–ï–î–°–¢–í–ò–ï
+ –ù–ï–í–û–ó–ú–û–ñ–ù–û–°–¢–ò –ò–°–ü–û–õ–¨–ó–û–í–ê–ù–ò–Ø –ü–†–û–ì–†–ê–ú–ú–´ (–í–ö–õ–Æ–ß–ê–Ø –ü–û–¢–ï–†–ò –î–ê–ù–ù–´–•, –ò–õ–ò –î–ê–ù–ù–´–ï,
+ –°–¢–ê–í–®–ò–ï –ù–ï–ì–û–î–ù–´–ú–ò, –ò–õ–ò –£–ë–´–¢–ö–ò –ò/–ò–õ–ò –ü–û–¢–ï–†–ò –î–û–•–û–î–û–í, –ü–û–ù–ï–°–ï–ù–ù–´–ï –ò–ó-–ó–ê –î–ï–ô–°–¢–í–ò–ô
+ –¢–†–ï–¢–¨–ò–• –õ–ò–¶ –ò/–ò–õ–ò –û–¢–ö–ê–ó–ê –ü–†–û–ì–†–ê–ú–ú–´ –†–ê–ë–û–¢–ê–¢–¨ –°–û–í–ú–ï–°–¢–ù–û –° –î–†–£–ì–ò–ú–ò –ü–†–û–ì–†–ê–ú–ú–ê–ú–ò,
+ –ù–û –ù–ï –û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –≠–¢–ò–ú–ò –°–õ–£–ß–ê–Ø–ú–ò), –ù–û –ù–ï –û–ì–†–ê–ù–ò–ß–ò–í–ê–Ø–°–¨ –ò–ú–ò, –î–ê–ñ–ï –ï–°–õ–ò –¢–ê–ö–û–ô
+ –í–õ–ê–î–ï–õ–ï–¶ –ò–õ–ò –î–†–£–ì–û–ï –õ–ò–¶–û –ë–´–õ–ò –ò–ó–í–ï–©–ï–ù–´ –û –í–û–ó–ú–û–ñ–ù–û–°–¢–ò –¢–ê–ö–ò–• –£–ë–´–¢–ö–û–í –ò –ü–û–¢–ï–†–¨.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -98,7 +98,7 @@ int16_t cut_by_pos_ii(s_glue * const gl, uchar let);
 /*============ Export functions ==================*/
 
 segment * go_line(segment * seg_pool, uint16_t ln);
-void proc_bI(int32_t pass); // glue '\xeb' /* Î */
+void proc_bI(int32_t pass); // glue '\xeb' /* —ã */
 int16_t chkquocks2(cell * c, puchar r, int16_t h, int16_t w, int16_t d);
 void c_add_raster(puchar target, int16_t wb, int16_t y, int16_t col,
 		puchar source, int16_t sh, int16_t swb);
@@ -201,15 +201,15 @@ uchar *segment_pool;
 /*========= Global data ===================*/
 
 /*========= Local data ===================*/
-//static uchar Rus_similar_Eng[] = "£Ørn$Áóê";//"£ØrNn$Áóê";
-static uchar Rus_similar_Eng[] = "\xA3\xAFrn\x24\xE7\x97\x90";//"£ØrNn$Áóê";
+//static uchar Rus_similar_Eng[] = "–≥–ørn$—á–ß–†";//"–≥–ørNn$—á–ß–†";
+static uchar Rus_similar_Eng[] = "\xA3\xAFrn\x24\xE7\x97\x90";//"–≥–ørNn$—á–ß–†";
 static uchar abris_online;
 static uchar corners[4];
-static int16_t hist_n[128], hist_d[128];/* Á®·´Æ ®≠‚•‡¢†´Æ¢ ¢ ·‚‡Æ™• ® Ø´Æ‚≠Æ·‚Ï */
-static int16_t hist_white[128]; /* ‡†··‚ÆÔ≠®• ¨•¶§„ 1-Æ© ® ¢‚Æ‡Æ© Ø†´™Æ© */
-static int16_t hist_black[128]; /* ™Æ≠•Ê 1-Æ© Ø†´™®                      */
-//static uchar rus_like[] = "Â"; // "ÆéÂ"
-static uchar rus_like[] = "\xE5"; // "ÆéÂ"
+static int16_t hist_n[128], hist_d[128];/* —á–∏—Å–ª–æ –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ –≤ —Å—Ç—Ä–æ–∫–µ –∏ –ø–ª–æ—Ç–Ω–æ—Å—Ç—å */
+static int16_t hist_white[128]; /* —Ä–∞—Å—Å—Ç–æ—è–Ω–∏–µ –º–µ–∂–¥—É 1-–æ–π –∏ –≤—Ç–æ—Ä–æ–π –ø–∞–ª–∫–æ–π */
+static int16_t hist_black[128]; /* –∫–æ–Ω–µ—Ü 1-–æ–π –ø–∞–ª–∫–∏                      */
+//static uchar rus_like[] = "—Ö"; // "–æ–û—Ö"
+static uchar rus_like[] = "\xE5"; // "–æ–û—Ö"
 static uchar emu_like[] = "x"; // "oOx"
 static STICK *stick; // pointer to array of stick if NULL no calculated stick
 static STICK stic[30];
@@ -254,19 +254,19 @@ static uchar let_stick[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		// p q r s t u v w x y z { | } ~
 		0, 0, 0, 1, 0, 1, 1, 0, 2, 1, 1, 0, 0, 2, 0,
 		2,
-		// Ä Å Ç É Ñ Ö Ü á à â ä ã å ç é è
+		// –ê –ë –í –ì –î –ï –ñ –ó –ò –ô –ö –õ –ú –ù –û –ü
 		1, 0, 1, 0, 1, 1, 0, 1, 3, 0, 1, 0, 1, 0, 1,
 		1,
-		// ê ë í ì î ï ñ ó ò ô ö õ ú ù û ü
+		// –† –° –¢ –£ –§ –• –¶ –ß –® –© –™ –´ –¨ –≠ –Æ –Ø
 		0, 0, 0, 1, 0, 0, 1, 0, 2, 0, 1, 0, 0, 2, 0,
 		2,
-		// † ° ¢ £ § • ¶ ß ® © ™ ´ ¨ ≠ Æ Ø
+		// –∞ –± –≤ –≥ –¥ –µ –∂ –∑ –∏ –π –∫ –ª –º –Ω –æ –ø
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1,
-		// ‡ · ‚ „ ‰ Â Ê Á Ë È Í Î Ï Ì Ó Ô
+		// —Ä —Å —Ç —É —Ñ —Ö —Ü —á —à —â —ä —ã —å —ç —é —è
 		0, 0, 0, 0, 0, 3, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
-//  g       m   u z         a
+// –Å g       m   u z         a
 		};
 
 /*============= Source codes ===================*/
@@ -438,62 +438,62 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 					}
 				}/* if unique $ */
 				break;
-			case (uchar) '\xa3' /* £ */:
-			case (uchar) '\x83' /* É */:
-			case (uchar) '\xe2' /* ‚ */:
-			case (uchar) '\x92' /* í */:
+			case (uchar) '\xa3' /* –≥ */:
+			case (uchar) '\x83' /* –ì */:
+			case (uchar) '\xe2' /* —Ç */:
+			case (uchar) '\x92' /* –¢ */:
 				if (cc && !broken_flag)
 					d_cun += check_tg(cc, v0->let, _rst.raster, _rst.w, _rst.h);
 				if (cc && dust_near_rusG(cc))
 					d += 80;
 				break;
-			case (uchar) '\x85' /* Ö */:
-			case (uchar) '\x8a' /* ä */:
+			case (uchar) '\x85' /* –ï */:
+			case (uchar) '\x8a' /* –ö */:
 				if (cc)
 					d_cun += check_EK(v0->let, cc);
 				break;
-			case (uchar) '\xa2' /* ¢ */:
+			case (uchar) '\xa2' /* –≤ */:
 				d_cun += check_veza(cc, (segment*) segment_pool, _rst.h,
 						_rst.w, v0->let);
 				break;
-			case (uchar) '\xa5' /* • */:
+			case (uchar) '\xa5' /* –µ */:
 			case (uchar) UKR_e:
 				if (cc && (cc->recsource & c_rs_ev))
 					break;
 				d_cun += check_veza(cc, (segment*) segment_pool, _rst.h,
-						_rst.w, '\xa5' /* • */);
+						_rst.w, '\xa5' /* –µ */);
 				break;
-			case (uchar) '\xad' /* ≠ */:
+			case (uchar) '\xad' /* –Ω */:
 				if (cc)
 					d_cun += check_nn(cc);
 				break;
-			case (uchar) '\x80' /* Ä */:
+			case (uchar) '\x80' /* –ê */:
 				if (cc)
 					d_cun += check_AL(cc, v0->let);
 				break;
-			case (uchar) '\x8b' /* ã */:
+			case (uchar) '\x8b' /* –õ */:
 				if (cc)
 					d_cun += check_AL(cc, v0->let);
-			case (uchar) '\xab' /* ´ */:
-			case (uchar) '\xaf' /* Ø */:
-			case (uchar) '\x8f' /* è */:
+			case (uchar) '\xab' /* –ª */:
+			case (uchar) '\xaf' /* –ø */:
+			case (uchar) '\x8f' /* –ü */:
 				if (cc)
 					d_cun += check_pl(cc, c, v0->let, &_rst);
 				if (broken_flag && glc.ncell == 2 && dust_in_glue(cc, &glc, 33,
 						33, 66, 66))
 					d_cun += 80;
 				break;
-			case (uchar) '\xae' /* Æ */:
+			case (uchar) '\xae' /* –æ */:
 				if (cc)
 					if (!(erection_enable && (cc->pos_inc & erect_rot)))
-						d_cun = check_oa(cc, '\xae' /* Æ */, &_rst);
+						d_cun = check_oa(cc, '\xae' /* –æ */, &_rst);
 				break;
-			case (uchar) '\xa0' /* † */:
+			case (uchar) '\xa0' /* –∞ */:
 				d_cun += check_veza(cc, (segment*) segment_pool, _rst.h,
 						_rst.w, v0->let);
 				break;
-			case (uchar) '\xed' /* Ì */:
-				// ¬ ·ÓÎ„‡ÒÍÓÏ ÌÂÚ ›˝. 08.09.2000 E.P.
+			case (uchar) '\xed' /* —ç */:
+				// –í –±–æ–ª–≥–∞—Ä—Å–∫–æ–º –Ω–µ—Ç –≠—ç. 08.09.2000 E.P.
 				if (language == LANGUAGE_RUSSIAN && langBul) {
 					d_cun = 200;
 					break;
@@ -504,7 +504,7 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 				if (cc)
 					d_cun += check_ee(cc);
 				break;
-			case (uchar) '\xa7' /* ß */:
+			case (uchar) '\xa7' /* –∑ */:
 				d_cun += check_veza(cc, (segment*) segment_pool, _rst.h,
 						_rst.w, v0->let);
 				if (cc)
@@ -512,53 +512,53 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 				if (cc)
 					d_cun += check_ee(cc);
 				break;
-			case (uchar) '\xef' /* Ô */:
+			case (uchar) '\xef' /* —è */:
 				if (cc)
 					d_cun = check_ya(cc);
 				break;
-			case (uchar) '\x9b' /* õ */:
-			case (uchar) '\xeb' /* Î */:
+			case (uchar) '\x9b' /* –´ */:
+			case (uchar) '\xeb' /* —ã */:
 				if (cc && !broken_flag)
 					d_cun = check_iee(cc, v0->let);
 				break;
-			case (uchar) '\xe5' /* Â */:
+			case (uchar) '\xe5' /* —Ö */:
 				if (cc)
 					d_cun += check_xX(cc);
 				d_cun += check_xk(_rst.h, v0->let);
 				break;
-			case (uchar) '\x95' /* ï */:
+			case (uchar) '\x95' /* –• */:
 				if (cc)
 					d_cun = check_xX(cc);
 				break;
-			case (uchar) '\xaa' /* ™ */:
+			case (uchar) '\xaa' /* –∫ */:
 				d_cun += check_xk(_rst.h, v0->let);
 				if (inc && !(corners[0] == 128 && corners[2] == 128))
 					if (dnri_hook && !upri_hook)
 						d_cun += 40;
 				break;
-			case (uchar) '\xec' /* Ï */:
+			case (uchar) '\xec' /* —å */:
 				d_cun = check_bb();
-			case (uchar) '\x9c' /* ú */:
+			case (uchar) '\x9c' /* –¨ */:
 				if (dust_in_glue(cc, &glc, 60, 0, 100, 33))
 					d += 80;
 				break;
-			case (uchar) '\xa9' /* © */:
-			case (uchar) '\x89' /* â */:
+			case (uchar) '\xa9' /* –π */:
+			case (uchar) '\x89' /* –ô */:
 				d_cun = cut_by_pos_ii(&glc, v0->let);
 				break;
-			case (uchar) '\xe7' /* Á */:
-			case (uchar) '\x97' /* ó */:
+			case (uchar) '\xe7' /* —á */:
+			case (uchar) '\x97' /* –ß */:
 				if (dust_in_glue(cc, &glc, 0 - 20, 66 - 20, 33, 100))
 					d += 80;
 				break;
-			case (uchar) '\xe1' /* · */:
-			case (uchar) '\x91' /* ë */:
+			case (uchar) '\xe1' /* —Å */:
+			case (uchar) '\x91' /* –° */:
 				if (cc && dust_in_glue(cc, NULL, 25, 33, 75, 66))
 					d += 80;
 				break;
 			case (uchar) r_cu_a:
 				if (cc)
-					d_cun += check_oa(cc, '\xa0' /* † */, &_rst);
+					d_cun += check_oa(cc, '\xa0' /* –∞ */, &_rst);
 				break;
 			case (uchar) r_cu_u:
 				d_cun = check_uu(cc, _rst.h);
@@ -603,7 +603,7 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 			dd = Diskrim(v0->let, _rst.raster, _rst.w, 0, 0, _rst.w, _rst.h,
 					c->cg_flag, (int16_t) inc);
 
-		if (dd < 0) { // Bonus §´Ô 2-Â Ø†´Æ™ àçè
+		if (dd < 0) { // Bonus –¥–ª—è 2-—Ö –ø–∞–ª–æ–∫ –ò–ù–ü
 			switch (dd) {
 			case -254:
 				v0->prob = MIN(254, maxprob + 4);
@@ -616,7 +616,7 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 			d += dd;
 		d_ang = discr_angles(v0->let, _rst.h, (int16_t) (cc ? (cc->pos_inc
 				& erect_rot) : 0)); // rotation
-		//if (flag_m && pen_m == 0 && (d != 0 || v0->prob < 232) && memchr("ËÈ®",
+		//if (flag_m && pen_m == 0 && (d != 0 || v0->prob < 232) && memchr("—à—â–∏",
 		if (flag_m && pen_m == 0 && (d != 0 || v0->prob < 232) && memchr("\xE8\xE9\xA8",
 				v0->let, 3))
 			d_cun += 60;
@@ -632,11 +632,11 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 		if ( //iFont!=FONT_MASH &&               // TypeWriter
 		!(cc && (cc->pos_inc & erect_rot)) && // rotation
 				!(cc && (cc->pos_inc & erect_zero))) // zero incline
-			//if ((d > 0 || memchr("®à≠ç™ä", v0->let, 6)) && cc != NULL)
+			//if ((d > 0 || memchr("–∏–ò–Ω–ù–∫–ö", v0->let, 6)) && cc != NULL)
 			if ((d > 0 || memchr("\xA8\x88\xAD\x8D\xAA\x8A", v0->let, 6)) && cc != NULL)
-				//if (sym_italic(cc, v0->let) || (memchr("Èô", v0->let, 2)
+				//if (sym_italic(cc, v0->let) || (memchr("—â–©", v0->let, 2)
 				if (sym_italic(cc, v0->let) || (memchr("\xE9\x99", v0->let, 2)
-						//&& suspect_italic_III_bend(cc) == 0) || (memchr("Êñ",
+						//&& suspect_italic_III_bend(cc) == 0) || (memchr("—Ü–¶",
 						&& suspect_italic_III_bend(cc) == 0) || (memchr("\xE6\x96",
 						v0->let, 2) && suspect_italic_ce(cc) == 0)) {
 					d_cun
@@ -664,9 +664,9 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 			d += d_cun;
 		d += d_abris; // sum penalty
 		if (TM_check_active && (v0->let == 'T' || v0->let == 't' || v0->let
-				== (uchar) '\x92' /* í */ || v0->let == (uchar) '\xe2' /* ‚ */ || v0->let == 'M'
-				|| v0->let == 'm' || v0->let == (uchar) '\x8c' /* å */ || v0->let
-				== (uchar) '\xac' /* ¨ */))
+				== (uchar) '\x92' /* –¢ */ || v0->let == (uchar) '\xe2' /* —Ç */ || v0->let == 'M'
+				|| v0->let == 'm' || v0->let == (uchar) '\x8c' /* –ú */ || v0->let
+				== (uchar) '\xac' /* –º */))
 			v0->prob = MAX_TM_PROB;
 		else {
 			if (v0->prob < d)
@@ -802,10 +802,10 @@ uint16_t check_xk(int16_t h, uchar let) {
 		}
 	}
 
-	return let == (uchar) '\xe5' /* Â */ ? pen_rx + pen_lx : pen_rk + pen_lk;
+	return let == (uchar) '\xe5' /* —Ö */ ? pen_rx + pen_lx : pen_rk + pen_lk;
 }
 /////////////////////////////////////////////////////////////////////
-// '\xec' /* Ï */ refuse with 'a' that have no upper bend
+// '\xec' /* —å */ refuse with 'a' that have no upper bend
 uint16_t check_bb(void) {
 	if (dens > 210)
 		return 80;
@@ -979,9 +979,9 @@ uint16_t check_AL(cell * c, uchar let) {
 				else if (line->row > c->h / 2 && line->h < 3)
 					gaps--;
 
-	if (let == (uchar) '\x80' /* Ä */ && gaps != 1)
+	if (let == (uchar) '\x80' /* –ê */ && gaps != 1)
 		return 40;
-	if (let == (uchar) '\x8b' /* ã */ && gaps > 0)
+	if (let == (uchar) '\x8b' /* –õ */ && gaps > 0)
 		return 40;
 	return 0;
 }
@@ -1000,17 +1000,17 @@ uint16_t check_EK(uchar let, cell * c) {
 			pen_E += 100;
 
 	switch (let) {
-	case (uchar) '\x8a' /* ä */:
+	case (uchar) '\x8a' /* –ö */:
 		return (pen_K + (pen_E == 0 ? 100 : 0));
 		break;
-	case (uchar) '\x85' /* Ö */:
+	case (uchar) '\x85' /* –ï */:
 		return pen_E;
 		break;
 	}
 
 	return 0;
 }
-// Î
+// √´
 uint16_t check_iee(cell * c, uchar let) {
 	lnhead *line;
 	int16_t l;
@@ -1018,9 +1018,9 @@ uint16_t check_iee(cell * c, uchar let) {
 
 	gaps = ((c_comp*) c->env)->nl - ((c_comp*) c->env)->begs
 			- ((c_comp*) c->env)->ends + 1;
-	if (gaps == 0 && let == (uchar) '\xeb' /* Î */)
+	if (gaps == 0 && let == (uchar) '\xeb' /* —ã */)
 		return 10;
-	else if (gaps == 0 && let == (uchar) '\x9b' /* õ */)
+	else if (gaps == 0 && let == (uchar) '\x9b' /* –´ */)
 		return 60;
 	// hole in top right square
 	for (line = (lnhead *) ((pchar)(c->env) + c->env->lines + sizeof(int16_t)); (l
@@ -1077,7 +1077,7 @@ uint16_t check_pl(cell * c, cell * ci, uchar let, struct rst * const rst) {
 	RASTR = rst->raster;
 	D_X = (dx + 7) >> 3;
 
-	//for  ã  if  stick  with  serif
+	//for  –õ  if  stick  with  serif
 	stick_online(c);
 	if (nstick != 2)
 		return 0;
@@ -1086,7 +1086,7 @@ uint16_t check_pl(cell * c, cell * ci, uchar let, struct rst * const rst) {
 			penP = 80;
 			goto retPL;
 		}
-	//for  è  if  ...
+	//for  –ü  if  ...
 	if ((stick[0].w >= 5) && (stick[0].incl <= 0) && (stick[0].bot >= 0)) {
 		penL = 80;
 		goto retPL;
@@ -1197,7 +1197,7 @@ uint16_t check_pl(cell * c, cell * ci, uchar let, struct rst * const rst) {
 				}
 				if ((stick[0].w <= 3) && (left > 2* nInvest )) {
 					// Oleg : ERECTION conditions : 09-08-95 08:33pm
-					if (!(c->pos_inc & erect_rot)) // 3 left vertical points ? ¨†‡†ß¨
+					if (!(c->pos_inc & erect_rot)) // 3 left vertical points ? –º–∞—Ä–∞–∑–º
 						penP = !(c->pos_inc & erect_rot) ? 80 : 20;
 					goto retPL;
 				}
@@ -1249,7 +1249,7 @@ uint16_t check_pl(cell * c, cell * ci, uchar let, struct rst * const rst) {
 				rst->raster[i+D_X] = 0xFF;
 			}
 
-			//cut  1/4  down  part  to  calculate   sticks  for  ã  without  errors
+			//cut  1/4  down  part  to  calculate   sticks  for  –õ  without  errors
 			mn = c_locomp(rst->raster,D_X,(int16_t)(dy-dy/4),0,0);
 			if(mn) cc=create_cell(mn,ci,0,0);
 			//recover  after  for  not  cut  left  black  rectangle
@@ -1427,9 +1427,9 @@ if( maxR > 0 )
 
 switch( let )
   {
-  case (uchar)'\xaf' /* Ø */:  case (uchar)'\x8f' /* è */:
+  case (uchar)'\xaf' /* –ø */:  case (uchar)'\x8f' /* –ü */:
     return  penP+pen_serif;
-  case (uchar)'\xab' /* ´ */:  case (uchar)'\x8b' /* ã */:
+  case (uchar)'\xab' /* –ª */:  case (uchar)'\x8b' /* –õ */:
     return  penL;
   }/* switch let */
 
@@ -1500,7 +1500,7 @@ uint16_t check_tg(cell * c, uchar let, puchar RASTR, int16_t dx, int16_t dy) {
 					else
 					tg = 0;
 					break;
-					case (uchar)'\xe2' /* ‚ */: case (uchar)'\x92' /* í */:
+					case (uchar)'\xe2' /* —Ç */: case (uchar)'\x92' /* –¢ */:
 					if( !((c->cg_flag_fine&c_cg_cut_tl) && left<right) ||
         !((c->cg_flag_fine==0) && (c->cg_flag&c_cg_cutl) && left<right) )
       {
@@ -1517,7 +1517,7 @@ uint16_t check_tg(cell * c, uchar let, puchar RASTR, int16_t dx, int16_t dy) {
     if( left > 2*right )
       tg += ( 40+5*(left-2*right) );
     break;
-   case (uchar)'\xa3' /* £ */:  case (uchar)'\x83' /* É */:
+   case (uchar)'\xa3' /* –≥ */:  case (uchar)'\x83' /* –ì */:
       if( tg<0 )
          tg = 20*(2-tg);
       else
@@ -1751,12 +1751,12 @@ Bool suspect_italic_ce(cell * c) {
 	stick_online(c);
 	if (nstick != 2 && nstick != 3)
 		return TRUE; // error or no sticks
-	if (nstick == 3) { // ™„‡·®¢≠†Ô ñ · Æ£‡Æ¨≠Æ© ´†Ø™Æ©
+	if (nstick == 3) { // –∫—É—Ä—Å–∏–≤–Ω–∞—è –¶ —Å –æ–≥—Ä–æ–º–Ω–æ–π –ª–∞–ø–∫–æ–π
 		for (i = 0; i < 2; i++)
 			if (h - stick[i].y - stick[i].l > 2 || stick[i].incl < 400)
-				return TRUE; // ≠†™´Æ≠≠Î• ≠Æ£® ≠†Á®≠†Ó‚·Ô ·¢•‡Â„
+				return TRUE; // –Ω–∞–∫–ª–æ–Ω–Ω—ã–µ –Ω–æ–≥–∏ –Ω–∞—á–∏–Ω–∞—é—Ç—Å—è —Å–≤–µ—Ä—Ö—É
 		if (stick[3].y > 0)
-			return TRUE; // ´†Ø™† ®§•‚ §Æ≠®ß„
+			return TRUE; // –ª–∞–ø–∫–∞ –∏–¥–µ—Ç –¥–æ–Ω–∏–∑—É
 	}
 
 	s += (stick[0].incl == 0) + (stick[1].incl == 0);
@@ -1791,7 +1791,7 @@ Bool two_stick_online(s_glue *GL, int16_t *dest_foot, int16_t *wid_foot) {
 
 	while ((c = GL->celist[ncells++]) != NULL)
 		;
-	ncells--; /* ¢·•£Æ ™Æ¨ØÆ≠•≠‚ ¢ ·Ø®·™• */
+	ncells--; /* –≤—Å–µ–≥–æ –∫–æ–º–ø–æ–Ω–µ–Ω—Ç –≤ —Å–ø–∏—Å–∫–µ */
 
 	for (j = i = 0; i < ncells; i++) {
 		if (j < 2 && (c = GL->celist[i])->env != NULL && c->h > 4)
@@ -1800,7 +1800,7 @@ Bool two_stick_online(s_glue *GL, int16_t *dest_foot, int16_t *wid_foot) {
 	if (j != 2)
 		return FALSE;
 
-	/* 2 Æ·™Æ´™† (™´•‚™† · ENV) */
+	/* 2 –æ—Å–∫–æ–ª–∫–∞ (–∫–ª–µ—Ç–∫–∞ —Å ENV) */
 	for (i = 0; i < 2; i++) {
 		save_flg = cc[i]->flg;
 		save_cg_flag = cc[i]->cg_flag;
@@ -1809,7 +1809,7 @@ Bool two_stick_online(s_glue *GL, int16_t *dest_foot, int16_t *wid_foot) {
 		cc[i]->flg = save_flg;
 		cc[i]->cg_flag = (uchar) save_cg_flag;
 		if (ns != 1)
-			return FALSE; /* ¢ Æ·™Æ´™• ≠• Æ§≠† ≠Æ£† ! */
+			return FALSE; /* –≤ –æ—Å–∫–æ–ª–∫–µ –Ω–µ –æ–¥–Ω–∞ –Ω–æ–≥–∞ ! */
 		memcpy(&ss[i], s[i], sizeof(STICK));
 	}
 
@@ -1836,7 +1836,7 @@ Bool broken_sym_italic(s_glue *GL, uchar let) {
 
 	while ((c = GL->celist[ncells++]) != NULL)
 		;
-	ncells--; /* ¢·•£Æ ™Æ¨ØÆ≠•≠‚ ¢ ·Ø®·™• */
+	ncells--; /* –≤—Å–µ–≥–æ –∫–æ–º–ø–æ–Ω–µ–Ω—Ç –≤ —Å–ø–∏—Å–∫–µ */
 
 	for (j = i = 0; i < ncells; i++) {
 		if (j < 2 && (c = GL->celist[i])->env != NULL && c->h > 4)
@@ -1845,7 +1845,7 @@ Bool broken_sym_italic(s_glue *GL, uchar let) {
 	if (j != 2)
 		return FALSE;
 
-	/* 2 Æ·™Æ´™† (™´•‚™† · ENV) */
+	/* 2 –æ—Å–∫–æ–ª–∫–∞ (–∫–ª–µ—Ç–∫–∞ —Å ENV) */
 	for (cs = i = 0; i < 2; i++) {
 		save_flg = cc[i]->flg;
 		save_cg_flag = cc[i]->cg_flag;
@@ -1854,7 +1854,7 @@ Bool broken_sym_italic(s_glue *GL, uchar let) {
 		cc[i]->flg = save_flg;
 		cc[i]->cg_flag = (uchar) save_cg_flag;
 		if (ns != 1)
-			return FALSE; /* ¢ Æ·™Æ´™• ≠• Æ§≠† ≠Æ£† ! */
+			return FALSE; /* –≤ –æ—Å–∫–æ–ª–∫–µ –Ω–µ –æ–¥–Ω–∞ –Ω–æ–≥–∞ ! */
 		if (s[0]->l * 5 >= cc[i]->h * 4)
 			cs += valid_inc(s[0]->incl);
 	}
@@ -1864,7 +1864,7 @@ Bool broken_sym_italic(s_glue *GL, uchar let) {
 
 uint16_t check_cursiv(cell * c, uchar let, int16_t old_diskr, uchar *rast) {
 	uint16_t pen = 0;
-	int16_t i, j, foot_wid, ind, t; /* ·‡•§≠ÔÔ Ë®‡®≠† ≠Æ£® */
+	int16_t i, j, foot_wid, ind, t; /* —Å—Ä–µ–¥–Ω—è—è —à–∏—Ä–∏–Ω–∞ –Ω–æ–≥–∏ */
 	int16_t dest_foot[4] = { 0 };
 
 	stick_online(c);
@@ -1898,67 +1898,67 @@ uint16_t check_cursiv(cell * c, uchar let, int16_t old_diskr, uchar *rast) {
 		dest_foot[0] = calc_dest_foot(c->h, c->w, dest_foot, foot_wid);
 
 	switch (let) {
-	case (uchar) '\xe8' /* Ë */:
-	case (uchar) '\x98' /* ò */:
+	case (uchar) '\xe8' /* —à */:
+	case (uchar) '\x98' /* –® */:
 		if (suspect_italic_III(c)) {
 			pen += old_diskr;
 			break;
 		}
 		pen = check_III(c, foot_wid, dest_foot);
 		break;
-	case (uchar) '\xe9' /* È */:
-	case (uchar) '\x99' /* ô */:
+	case (uchar) '\xe9' /* —â */:
+	case (uchar) '\x99' /* –© */:
 		if (suspect_italic_III_bend(c)) {
 			pen += old_diskr;
 			break;
 		}
 		pen = check_III_bend(c, dest_foot);
 		break;
-	case (uchar) '\xaf' /* Ø */:
-	case (uchar) '\x8f' /* è */:
+	case (uchar) '\xaf' /* –ø */:
+	case (uchar) '\x8f' /* –ü */:
 		if (suspect_italic_nn() && !dnri_hook) {
 			pen += old_diskr;
 			break;
 		}
 		if (!(nstick == 2 && stick[1].incl == 0))
 			pen += check_inc_foots(c, 2);
-		pen += check_cursiv_inp(rast, c->w, c->h, foot_wid, dest_foot[0], '\xaf' /* Ø */);
+		pen += check_cursiv_inp(rast, c->w, c->h, foot_wid, dest_foot[0], '\xaf' /* –ø */);
 		break;
-	case (uchar) '\xa8' /* ® */:
-	case (uchar) '\x88' /* à */:
+	case (uchar) '\xa8' /* –∏ */:
+	case (uchar) '\x88' /* –ò */:
 		if (suspect_italic_ii()) {
 			pen += old_diskr;
 			break;
 		}
-		pen += check_cursiv_inp(rast, c->w, c->h, foot_wid, dest_foot[0], '\xa8' /* ® */);
+		pen += check_cursiv_inp(rast, c->w, c->h, foot_wid, dest_foot[0], '\xa8' /* –∏ */);
 		break;
-	case (uchar) '\xad' /* ≠ */:
-	case (uchar) '\x8d' /* ç */:
+	case (uchar) '\xad' /* –Ω */:
+	case (uchar) '\x8d' /* –ù */:
 		if (suspect_italic_nn()) {
 			pen += old_diskr;
 			break;
 		}
 		pen += check_cursiv_inp(rast, c->w, c->h, foot_wid, dest_foot[0], let);
 		break;
-	case (uchar) '\xe7' /* Á */:
+	case (uchar) '\xe7' /* —á */:
 	case '4':
-	case (uchar) '\x97' /* ó */:
+	case (uchar) '\x97' /* –ß */:
 		if (suspect_italic_tche()) {
 			pen += old_diskr;
 			break;
 		}
 		pen = check_italic_ch(c->h);
 		break;
-	case (uchar) '\xeb' /* Î */:
-	case (uchar) '\x9b' /* õ */:
+	case (uchar) '\xeb' /* —ã */:
+	case (uchar) '\x9b' /* –´ */:
 		pen = old_diskr + suspect_italic_iee(); /* ??? */
 		break;
-	case (uchar) '\xa6' /* ¶ */:
-	case (uchar) '\x86' /* Ü */:
+	case (uchar) '\xa6' /* –∂ */:
+	case (uchar) '\x86' /* –ñ */:
 		pen = old_diskr;
 		break;
-	case (uchar) '\xaa' /* ™ */:
-	case (uchar) '\x8a' /* ä */:
+	case (uchar) '\xaa' /* –∫ */:
+	case (uchar) '\x8a' /* –ö */:
 		if (suspect_italic_kk()) {
 			pen += old_diskr;
 			break;
@@ -1984,12 +1984,12 @@ uint16_t check_III_bend(cell *c, int16_t dest_foot[]) {
 	stick_online(c);
 	if (nstick != 3 && nstick != 4)
 		return 80;
-	if (nstick == 4) { // ™„‡·®¢≠†Ô È · Æ£‡Æ¨≠Æ© ´†Ø™Æ©
+	if (nstick == 4) { // –∫—É—Ä—Å–∏–≤–Ω–∞—è —â —Å –æ–≥—Ä–æ–º–Ω–æ–π –ª–∞–ø–∫–æ–π
 		for (i = 0; i < 3; i++)
 			if (h - stick[i].y - stick[i].l > 2 || stick[i].incl < 400)
-				return 80; // ≠†™´Æ≠≠Î• ≠Æ£® ≠†Á®≠†Ó‚·Ô ·¢•‡Â„
+				return 80; // –Ω–∞–∫–ª–æ–Ω–Ω—ã–µ –Ω–æ–≥–∏ –Ω–∞—á–∏–Ω–∞—é—Ç—Å—è —Å–≤–µ—Ä—Ö—É
 		if (stick[3].y > 0)
-			return 80; // ´†Ø™† ®§•‚ §Æ≠®ß„
+			return 80; // –ª–∞–ø–∫–∞ –∏–¥–µ—Ç –¥–æ–Ω–∏–∑—É
 	}
 
 	if (nstick > 2 && abs(dest_foot[0] - dest_foot[1]) > 1 && MAX(dest_foot[0],
@@ -2041,7 +2041,7 @@ uint16_t check_III(cell *c, int16_t wid_foot, int16_t dest_foot[]) {
 			d++;
 	}
 
-	if (ss * 2 > s2) /* 1/8 ¢Î·Æ‚Î ´®≠®© · ≠•·Æ¢Ø†§†ÓÈ®¨ Á®·´Æ¨ ®≠‚•‡¢†´Æ¢ */
+	if (ss * 2 > s2) /* 1/8 –≤—ã—Å–æ—Ç—ã –ª–∏–Ω–∏–π —Å –Ω–µ—Å–æ–≤–ø–∞–¥–∞—é—â–∏–º —á–∏—Å–ª–æ–º –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ */
 		pen += MIN(120, 20* ss );
 	if (d > 2)
 		pen += 20* d ;
@@ -2049,7 +2049,7 @@ uint16_t check_III(cell *c, int16_t wid_foot, int16_t dest_foot[]) {
 	return pen;
 }
 
-/* ´•¢†Ô ≠Æ£† ®¨••‚ ‚‡•„£Æ´Ï≠Î© ¢•‡Â */
+/* –ª–µ–≤–∞—è –Ω–æ–≥–∞ –∏–º–µ–µ—Ç —Ç—Ä–µ—É–≥–æ–ª—å–Ω—ã–π –≤–µ—Ä—Ö */
 
 int16_t triangle_bottom(uchar *raster, int16_t dx, int16_t dy, int16_t wid) {
 	int16_t BD_X = (dx + 7) >> 3;
@@ -2073,7 +2073,7 @@ int16_t triangle_bottom(uchar *raster, int16_t dx, int16_t dy, int16_t wid) {
 	return (s > 3 && (old < wid + 2 || good_inc > 2));
 }
 
-/* Ø‡†¢†Ô ≠Æ£† ®¨••‚ ‚‡•„£Æ´Ï≠Î© ¢•‡Â */
+/* –ø—Ä–∞–≤–∞—è –Ω–æ–≥–∞ –∏–º–µ–µ—Ç —Ç—Ä–µ—É–≥–æ–ª—å–Ω—ã–π –≤–µ—Ä—Ö */
 int16_t triangle_top(uchar *raster, int16_t dx, int16_t dy, int16_t wid) {
 	int16_t BD_X = (dx + 7) >> 3;
 	uchar *R = &raster[0];
@@ -2147,7 +2147,7 @@ int16_t check_cursiv_inp(uchar *raster, int16_t w, int16_t h, int16_t foot_wid,
 	int16_t lstairs = 0;
 
 	if (dest_foot == 0)
-		return 0;/* ≠Æ£® ≠† ‡†··‚ÆÔ≠®® 0 */
+		return 0;/* –Ω–æ–≥–∏ –Ω–∞ —Ä–∞—Å—Å—Ç–æ—è–Ω–∏–∏ 0 */
 
 	if (dest_foot < 4)
 		dop = 0;
@@ -2170,17 +2170,17 @@ int16_t check_cursiv_inp(uchar *raster, int16_t w, int16_t h, int16_t foot_wid,
 	for (n_empty = n_long = 0, i = beg; i < end; i++) {
 		if (hist_white[i - 1] > dest_foot - 2 && hist_white[i] < 3
 				&& !up_ii_config(i))
-			up_n_signum = 1; /* ¢•‡Â≠®© ·™†ÁÆ™ Ø´Æ‚≠Æ·‚® „ ç */
+			up_n_signum = 1; /* –≤–µ—Ä—Ö–Ω–∏–π —Å–∫–∞—á–æ–∫ –ø–ª–æ—Ç–Ω–æ—Å—Ç–∏ —É –ù */
 		if (hist_white[i - 2] > dest_foot - 2 && hist_white[i - 1] == dest_foot
 				- 2 && hist_white[i] < 1 && !up_ii_config(i))
-			up_n_signum = 1; /* ¢•‡Â≠®© ·™†ÁÆ™ Ø´Æ‚≠Æ·‚® „ ç */
+			up_n_signum = 1; /* –≤–µ—Ä—Ö–Ω–∏–π —Å–∫–∞—á–æ–∫ –ø–ª–æ—Ç–Ω–æ—Å—Ç–∏ —É –ù */
 
 		if (hist_white[i + 1] > dest_foot - 2 && hist_white[i] < 3
 				&& !down_ii_config(i))
-			down_n_signum = 1;/* ≠®¶≠®© ·™†ÁÆ™ Ø´Æ‚≠Æ·‚® „ ç */
+			down_n_signum = 1;/* –Ω–∏–∂–Ω–∏–π —Å–∫–∞—á–æ–∫ –ø–ª–æ—Ç–Ω–æ—Å—Ç–∏ —É –ù */
 		if (hist_white[i + 2] > dest_foot - 2 && hist_white[i + 1] == dest_foot
 				- 2 && hist_white[i] < 3 && !down_ii_config(i))
-			down_n_signum = 1;/* ≠®¶≠®© ·™†ÁÆ™ Ø´Æ‚≠Æ·‚® „ ç */
+			down_n_signum = 1;/* –Ω–∏–∂–Ω–∏–π —Å–∫–∞—á–æ–∫ –ø–ª–æ—Ç–Ω–æ—Å—Ç–∏ —É –ù */
 
 		if (hist_d[i] > lim - 3)
 			n_long++; /* flood lines          */
@@ -2210,7 +2210,7 @@ int16_t check_cursiv_inp(uchar *raster, int16_t w, int16_t h, int16_t foot_wid,
 
 	stair = similar_n = similar_i = 0;
 	if (up_n_signum == 0 || dest_foot - dop < 3) {
-		/* ¢•‡Â≠ÔÔ Ø´ÆÈ†§™† */
+		/* –≤–µ—Ä—Ö–Ω—è—è –ø–ª–æ—â–∞–¥–∫–∞ */
 
 		p = h / 2;
 		for (i = h / 3; i < p; i++) {
@@ -2233,13 +2233,13 @@ int16_t check_cursiv_inp(uchar *raster, int16_t w, int16_t h, int16_t foot_wid,
 				new_ = hist_white[i - j];
 				if (old) {
 					if (new_ > old && (new_ - old) < 4 || new_ == old
-							&& hist_white[i - j] + hist_black[i - j] > /* ·¨•·‚®´Æ·Ï ≠†Á†´Æ */
-							hist_white[i - j + 1] + hist_black[i - j + 1]) /* Ø‡†¢Æ© Ø†´™®    */
+							&& hist_white[i - j] + hist_black[i - j] > /* —Å–º–µ—Å—Ç–∏–ª–æ—Å—å –Ω–∞—á–∞–ª–æ */
+							hist_white[i - j + 1] + hist_black[i - j + 1]) /* –ø—Ä–∞–≤–æ–π –ø–∞–ª–∫–∏    */
 						stair++;
 					if (hist_black[i - j] < hist_black[i - j + 1])
 						lstairs++;
 				}
-				if (stair > 3 /*&& hist_white[i-4]<3 */) { /* ¢•‡Â≠ÔÔ ·‚„Ø•≠Ï™† */
+				if (stair > 3 /*&& hist_white[i-4]<3 */) { /* –≤–µ—Ä—Ö–Ω—è—è —Å—Ç—É–ø–µ–Ω—å–∫–∞ */
 					similar_n = 0;
 					if (lstairs < 2)
 						similar_i += 80;
@@ -2256,7 +2256,7 @@ int16_t check_cursiv_inp(uchar *raster, int16_t w, int16_t h, int16_t foot_wid,
 
 	if (down_n_signum == 0 || dest_foot - dop < 3) {
 		up_stair = stair;
-		/* ≠®¶≠ÔÔ Ø´ÆÈ†§™† */
+		/* –Ω–∏–∂–Ω—è—è –ø–ª–æ—â–∞–¥–∫–∞ */
 		p = h - h / 3;
 		stair = 0;
 		for (i = p; i >= h / 2; i--) {
@@ -2278,14 +2278,14 @@ int16_t check_cursiv_inp(uchar *raster, int16_t w, int16_t h, int16_t foot_wid,
 			for (rstairs = stair = 0, old = hist_white[i], j = 1; j < 5; j++) {
 				new_ = hist_white[i + j];
 				if (old) {
-					if (new_ > old && (new_ - old) < 4 || new_ == old && /* ·¨•·‚®´·Ô ™Æ≠•Ê */
-					hist_black[i + j] > hist_black[i + j - 1])/* Ø•‡¢Æ© Ø†´™®    */
+					if (new_ > old && (new_ - old) < 4 || new_ == old && /* —Å–º–µ—Å—Ç–∏–ª—Å—è –∫–æ–Ω–µ—Ü */
+					hist_black[i + j] > hist_black[i + j - 1])/* –ø–µ—Ä–≤–æ–π –ø–∞–ª–∫–∏    */
 						stair++;
 					if (hist_black[i + j] + hist_white[i + j] > hist_black[i
 							+ j - 1] + hist_white[i + j - 1])
 						rstairs++;
 				}
-				if (stair > 3 /*&& hist_white[i]<3*/) { /* ≠®¶≠ÔÔ ·‚„Ø•≠Ï™† */
+				if (stair > 3 /*&& hist_white[i]<3*/) { /* –Ω–∏–∂–Ω—è—è —Å—Ç—É–ø–µ–Ω—å–∫–∞ */
 					similar_n = 0;
 					similar_i += 80;
 					break;
@@ -2308,30 +2308,30 @@ int16_t check_cursiv_inp(uchar *raster, int16_t w, int16_t h, int16_t foot_wid,
 			foot_wid);
 
 	switch (let) {
-	case (uchar) '\xaf' /* Ø */:
-	case (uchar) '\x8f' /* è */:
+	case (uchar) '\xaf' /* –ø */:
+	case (uchar) '\x8f' /* –ü */:
 		if (n_long_p > 2)
 			pen += 80;
 		if (n_3 > 3)
 			pen += 80;
 		if (p)
-			pen += 160; /* similar to à */
+			pen += 160; /* similar to –ò */
 		if (dest_foot > 4 && min_dest < dest_foot / 2)
 			pen += 40;
 
 		break;
 
-	case (uchar) '\xad' /* ≠ */:
-	case (uchar) '\x8d' /* ç */:
+	case (uchar) '\xad' /* –Ω */:
+	case (uchar) '\x8d' /* –ù */:
 		if (n_long == 0)
 			pen += 160;
 		if (p)
-			pen += 160; /* similar to à */
+			pen += 160; /* similar to –ò */
 		if (similar_n < 2)
 			pen += /*30**/similar_i;
 		break;
-	case (uchar) '\xa8' /* ® */:
-	case (uchar) '\x88' /* à */:
+	case (uchar) '\xa8' /* –∏ */:
+	case (uchar) '\x88' /* –ò */:
 		if (!p) {
 			if (n_3 == 0 && n_long == 0)
 				pen += 160;
@@ -2363,15 +2363,15 @@ int16_t check_cursiv_inp(uchar *raster, int16_t w, int16_t h, int16_t foot_wid,
 		else if (similar_n && n_1 > 3 && stair < 3)
 			pen += 60;
 		break;
-	case (uchar) '\xaa' /* ™ */:
-	case (uchar) '\x8a' /* ä */:
+	case (uchar) '\xaa' /* –∫ */:
+	case (uchar) '\x8a' /* –ö */:
 		if (!(stick[0].incl != stick[1].incl && uple_hook && dnri_hook))
 			if (nstick == 2 && stick[1].incl || nstick_broken == 2) {
 				if (up_n_signum && dest_foot - dop >= 2)
 					pen += 80;
 				if (down_n_signum && dest_foot - dop >= 2)
 					pen += 80;
-				if (let == (uchar) '\x8a' /* ä */)
+				if (let == (uchar) '\x8a' /* –ö */)
 					pen >>= 1;
 			}
 		break;
@@ -2424,7 +2424,7 @@ uint16_t check_num_foots(int16_t nums, int16_t dy) {
 		else
 			ss++;
 
-	if (ss * 3 > s2) /* 1/3 ¢Î·Æ‚Î ´®≠®© · ≠•·Æ¢Ø†§†ÓÈ®¨ Á®·´Æ¨ ®≠‚•‡¢†´Æ¢ */
+	if (ss * 3 > s2) /* 1/3 –≤—ã—Å–æ—Ç—ã –ª–∏–Ω–∏–π —Å –Ω–µ—Å–æ–≤–ø–∞–¥–∞—é—â–∏–º —á–∏—Å–ª–æ–º –∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ */
 		dis = MIN(120, 20* ss );
 
 	return dis;
@@ -2444,7 +2444,7 @@ uint16_t check_oa(cell * c, uchar let, struct rst * const rst) {
 	futuris = check_futuris_aa(rst);
 	pen_o += futuris;
 
-	if (let == (uchar) '\xa0' /* † */ && (corner_type(corners[0]) == SERIF || corner_type(
+	if (let == (uchar) '\xa0' /* –∞ */ && (corner_type(corners[0]) == SERIF || corner_type(
 			corners[0]) == NON_CURVE))
 		pen_a += 80;
 
@@ -2459,14 +2459,14 @@ uint16_t check_oa(cell * c, uchar let, struct rst * const rst) {
 				pen_o += 10; // 1 short line
 		}
 	}
-	if (let == (uchar) '\xa0' /* † */ && !check_bend_up(c) && !check_bend_dn(c)
+	if (let == (uchar) '\xa0' /* –∞ */ && !check_bend_up(c) && !check_bend_dn(c)
 			&& corner_type(corners[3]) == CURVE && futuris < 50)
 		pen_a += r > 0 ? 80 : 90;// 'a' bend
-	else if (let == (uchar) '\xa0' /* † */ && !check_bend_up(c) && !check_bend_dn(c)
+	else if (let == (uchar) '\xa0' /* –∞ */ && !check_bend_up(c) && !check_bend_dn(c)
 			&& futuris < 50)
 		pen_a += o_symmetric(c->h, c->w);
 
-	return (let == (uchar) '\xa0' /* † */) ? pen_a : pen_o;
+	return (let == (uchar) '\xa0' /* –∞ */) ? pen_a : pen_o;
 }
 int16_t o_symmetric(int16_t h, int16_t w) {
 	int16_t i, asym = 0, center_l, center_r;
@@ -2570,12 +2570,12 @@ uint16_t check_futuris_aa(struct rst * const rst) {
 		}
 	} // if not round by histo
 	else { // cursiv futuris 'a' or 'o'
-		if (max_value * 7 < h) { // „°Î¢†•‚ · ¢•‡Â„ §Æ ≠®ß„
+		if (max_value * 7 < h) { // —É–±—ã–≤–∞–µ—Ç —Å –≤–µ—Ä—Ö—É –¥–æ –Ω–∏–∑—É
 			for (i = max_value; i < h - 1; i++)
 				if (r_abris[i] - r_abris[i + 1] < 0 || r_abris[i] - r_abris[i
 						+ 1] > 2)
 					break;
-			if (i >= h * 6 / 7) { // ¨Æ≠Æ‚Æ≠≠Æ £´†§™Æ „°Î¢†•‚ ! Ä ≠†·™Æ´Ï™Æ ‡†¢≠Æ¨•‡≠Æ ?
+			if (i >= h * 6 / 7) { // –º–æ–Ω–æ—Ç–æ–Ω–Ω–æ –≥–ª–∞–¥–∫–æ —É–±—ã–≤–∞–µ—Ç ! –ê –Ω–∞—Å–∫–æ–ª—å–∫–æ —Ä–∞–≤–Ω–æ–º–µ—Ä–Ω–æ ?
 				int16_t tan, lbound = i, sum = 0;
 				tan = (i - max_value) / (r_abris[max_value] - r_abris[i]) + ((i
 						- max_value) % (r_abris[max_value] - r_abris[i])) / ((i
@@ -2587,7 +2587,7 @@ uint16_t check_futuris_aa(struct rst * const rst) {
 				if (h < 18) {
 					if (sum < 3)
 						pen += 80;
-				}// ‡†¢≠Æ¨•‡≠Æ - Ì‚Æ ™„‡·®¢≠†Ô ‰„‚„‡®· †
+				}// —Ä–∞–≤–Ω–æ–º–µ—Ä–Ω–æ - —ç—Ç–æ –∫—É—Ä—Å–∏–≤–Ω–∞—è —Ñ—É—Ç—É—Ä–∏—Å –∞
 				else if (sum < 5)
 					pen += 80;
 			}
@@ -2717,19 +2717,19 @@ uint16_t check_veza(cell * c, segment * segm, int16_t h, int16_t w, uchar let) {
 	if (c)
 		gaps = ((c_comp*) c->env)->nl - ((c_comp*) c->env)->begs
 				- ((c_comp*) c->env)->ends + 1;
-	if (let == (uchar) '\xa0' /* † */ && gaps == 1 && c->recsource & c_rs_ev)
+	if (let == (uchar) '\xa0' /* –∞ */ && gaps == 1 && c->recsource & c_rs_ev)
 		goto ret; // I trust events
 	if (!abris_online) {
 		calc_abris((puchar) segm, h);
 		abris_online = TRUE;
 	}
 	if (!broken_flag) {
-		if (c && let != (uchar) '\xa0' /* † */ && check_bend_up(c)) {
+		if (c && let != (uchar) '\xa0' /* –∞ */ && check_bend_up(c)) {
 			pen_v += 80;
 			pen_z += 80;
 			pen_ie += 80;
 		}
-		if (c && let != (uchar) '\xa0' /* † */ && check_bend_dn(c)) {
+		if (c && let != (uchar) '\xa0' /* –∞ */ && check_bend_dn(c)) {
 			pen_v += 80;
 			pen_z += 80;
 			pen_ie += 80;
@@ -2754,11 +2754,11 @@ uint16_t check_veza(cell * c, segment * segm, int16_t h, int16_t w, uchar let) {
 				pen_e += 30;
 			}
 
-	if (let == (uchar) '\xa5' /* • */ && dens > BOLD && gaps == 2 && corner_type(
+	if (let == (uchar) '\xa5' /* –µ */ && dens > BOLD && gaps == 2 && corner_type(
 			corners[3]) != CURVE)
 		pen_e += 40;
 
-	if (corner_type(corners[0]) == NON_CURVE && // refuse ß -- ¢
+	if (corner_type(corners[0]) == NON_CURVE && // refuse –∑ -- –≤
 			corner_type(corners[2]) == CURVE)
 		if (dens > BOLD) {
 			pen_e += 60;
@@ -2772,7 +2772,7 @@ uint16_t check_veza(cell * c, segment * segm, int16_t h, int16_t w, uchar let) {
 	tresh = h / 10 + h % 10 / 5;
 	smooth = 0;
 	/* find  left pad */
-	if (let == (uchar) '\xa2' /* ¢ */) {
+	if (let == (uchar) '\xa2' /* –≤ */) {
 		char jm1, jm2, jm3, jm4, pn;
 		jm1 = jm2 = jm3 = jm4 = pn = 0;
 		for (i = h / 4 + h % 4 / 2, cnt = 0; i < h * 3 / 4 - 1; i++)
@@ -2799,8 +2799,8 @@ uint16_t check_veza(cell * c, segment * segm, int16_t h, int16_t w, uchar let) {
 				}
 		pen_v += pn;
 	}
-	if (let == (uchar) '\xa2' /* ¢ */ && c && dens > BOLD && gaps == 2 && corner_type(
-			corners[0]) == CURVE && corner_type(corners[2]) == CURVE) { // refuse ¢ -- blood • with 2 gaps
+	if (let == (uchar) '\xa2' /* –≤ */ && c && dens > BOLD && gaps == 2 && corner_type(
+			corners[0]) == CURVE && corner_type(corners[2]) == CURVE) { // refuse –≤ -- blood –µ with 2 gaps
 		for (line = (lnhead *) ((pchar)(c->env) + c->env->lines
 				+ sizeof(int16_t)); (l = line->lth) > 0; line
 				= (lnhead *) ((pchar) line + l)) {
@@ -2823,20 +2823,20 @@ uint16_t check_veza(cell * c, segment * segm, int16_t h, int16_t w, uchar let) {
 	ret:
 	// get out result
 	switch (let) {
-	case (uchar) '\xa0' /* † */:
+	case (uchar) '\xa0' /* –∞ */:
 		return pen_a;
-	case (uchar) '\xa2' /* ¢ */:
+	case (uchar) '\xa2' /* –≤ */:
 		return pen_v;
-	case (uchar) '\xa7' /* ß */:
+	case (uchar) '\xa7' /* –∑ */:
 		return pen_z;
-	case (uchar) '\xed' /* Ì */:
-		// ¬ ·ÓÎ„‡ÒÍÓÏ ÌÂÚ ˝. 08.09.2000 E.P.
+	case (uchar) '\xed' /* —ç */:
+		// –í –±–æ–ª–≥–∞—Ä—Å–∫–æ–º –Ω–µ—Ç —ç. 08.09.2000 E.P.
 		if (language == LANGUAGE_RUSSIAN && langBul)
 			return 200;
 
 		return pen_ie;
 
-	case (uchar) '\xa5' /* • */:
+	case (uchar) '\xa5' /* –µ */:
 		return pen_e;
 	default:
 		return 0;
@@ -3023,11 +3023,11 @@ void c_add_raster(puchar target, int16_t wb, int16_t y, int16_t col,
 }
 
 /******************************************************************/
-/********** ‰„≠™Ê®® §´Ô §®·™‡®¨®≠†Ê®® ØÆ £®·‚Æ£‡†¨¨†¨ *************/
+/********** —Ñ—É–Ω–∫—Ü–∏–∏ –¥–ª—è –¥–∏—Å–∫—Ä–∏–º–∏–Ω–∞—Ü–∏–∏ –ø–æ –≥–∏—Å—Ç–æ–≥—Ä–∞–º–º–∞–º *************/
 /******************************************************************/
 
-/* multicell_hist : ¢ÎÁ®·´®‚Ï £®·‚Æ£‡†¨¨Î Á®·´† */
-/* 	®≠‚•‡¢†´Æ¢ ¢ ·‚‡ÆÁ™†Â ® ß†´®¢™® ·‚‡ÆÁ•™	*/
+/* multicell_hist : –≤—ã—á–∏—Å–ª–∏—Ç—å –≥–∏—Å—Ç–æ–≥—Ä–∞–º–º—ã —á–∏—Å–ª–∞ */
+/* 	–∏–Ω—Ç–µ—Ä–≤–∞–ª–æ–≤ –≤ —Å—Ç—Ä–æ—á–∫–∞—Ö –∏ –∑–∞–ª–∏–≤–∫–∏ —Å—Ç—Ä–æ—á–µ–∫	*/
 /* base_c + GL - multicell 			*/
 /* hist_n - number of intervals in row 		*/
 /* hist_d - number of bits      in row 		*/
@@ -3078,8 +3078,8 @@ int16_t multicell_hist(cell *base_c, const s_glue *GL, int16_t hist_n[],
 	return dy;
 }
 
-/* add_cell_to_hist : Æ°≠Æ¢®‚Ï £®·‚Æ£‡†¨¨Î ØÆ ®≠‚•‡¢†´†¨ ™´•‚™®	*/
-/* 	off_str - ·¨•È•≠®• ™´•‚™® ØÆ ¢Î·Æ‚•			*/
+/* add_cell_to_hist : –æ–±–Ω–æ–≤–∏—Ç—å –≥–∏—Å—Ç–æ–≥—Ä–∞–º–º—ã –ø–æ –∏–Ω—Ç–µ—Ä–≤–∞–ª–∞–º –∫–ª–µ—Ç–∫–∏	*/
+/* 	off_str - —Å–º–µ—â–µ–Ω–∏–µ –∫–ª–µ—Ç–∫–∏ –ø–æ –≤—ã—Å–æ—Ç–µ			*/
 void add_cell_to_hist(cell *c, int16_t off_str, int16_t hist_n[],
 		int16_t hist_d[]) {
 	int16_t ll, ind, h;
@@ -3134,7 +3134,7 @@ uint16_t stick_bI(cell * cl) {
 	else
 		goto kill; // stick first in line
 
-	//if (memchr("ÏúöÍ", c->vers[0].let, 4) && c->vers[0].prob > 12 && dist
+	//if (memchr("—å–¨–™—ä", c->vers[0].let, 4) && c->vers[0].prob > 12 && dist
 	if (memchr("\xEC\x9C\x9A\xEA", c->vers[0].let, 4) && c->vers[0].prob > 12 && dist
 			< c->w)
 		return 0;
@@ -3171,13 +3171,13 @@ void proc_bI(int32_t pass) {
 		if (!c->nextl || !(c->nextl->flg & (c_f_let + c_f_bad)))
 			continue;
 		let = c->vers[0].let;
-		//if (memchr("ÏúÍ", let, 3) && c->nextl->vers[0].let == '|')
+		//if (memchr("—å–¨—ä", let, 3) && c->nextl->vers[0].let == '|')
 		if (memchr("\xEC\x9C\xEA", let, 3) && c->nextl->vers[0].let == '|')
 		//(c->nextl->vers[0].let == '|' || p2_active && c->nextl->vers[0].let=='1' && test_I(c->nextl)) )
 		{
 			if (pass == 0 && !(c->nextl->cg_flag & c_cg_cut))
 				continue;
-			if (langBul || // ¬ ¡ÓÎ„‡ÒÍÓÏ ÌÂÚ €˚! // 08.09.2000 E.P.
+			if (langBul || // –í –ë–æ–ª–≥–∞—Ä—Å–∫–æ–º –Ω–µ—Ç –´—ã! // 08.09.2000 E.P.
 
 					// heights very different
 					abs(c->h - c->nextl->h) > 3 || abs(c->row - c->nextl->row)
@@ -3189,7 +3189,7 @@ void proc_bI(int32_t pass) {
 			clist[0] = c;
 			clist[1] = c->nextl;
 			compose_cell(2, clist, c);
-			let = is_lower(let) ? (uchar) '\xeb' /* Î */ : (uchar) '\x9b' /* õ */;
+			let = is_lower(let) ? (uchar) '\xeb' /* —ã */ : (uchar) '\x9b' /* –´ */;
 			c->vers[0].let = let;
 			c->recsource = 0; // artifact
 			c->dens = 255; // undef
@@ -3228,10 +3228,10 @@ uint16_t check_I_dot(cell * c, uchar let) {
 
 //  Dust study section (Oleg zone)
 
-/* dust_in_glue : •·‚Ï ´® §„·‚ ¢ Æ‚¨•Á•≠≠Æ© Æ°´†·‚® ?			*/
-/*	s - ¢•§„È†Ô ™´•‚™† ·™´•©™® GL; [(c1,r1),(c2,r2)] - Æ°´†·‚Ï	*/
-/*	c1,c2,r1,r2 - ™ÆÆ‡§®≠†‚Î ¢≠„‚‡•≠≠•£Æ Ø‡Ô¨Æ„£Æ´Ï≠®™†		*/
-/*		¢Î‡†¶•≠≠Î• ¢ Ø‡ÆÊ•≠‚†Â (Æ‚ ‡†ß¨•‡Æ¢ Æ°Æ´ÆÁ™®)		*/
+/* dust_in_glue : –µ—Å—Ç—å –ª–∏ –¥—É—Å—Ç –≤ –æ—Ç–º–µ—á–µ–Ω–Ω–æ–π –æ–±–ª–∞—Å—Ç–∏ ?			*/
+/*	s - –≤–µ–¥—É—â–∞—è –∫–ª–µ—Ç–∫–∞ —Å–∫–ª–µ–π–∫–∏ GL; [(c1,r1),(c2,r2)] - –æ–±–ª–∞—Å—Ç—å	*/
+/*	c1,c2,r1,r2 - –∫–æ–æ—Ä–¥–∏–Ω–∞—Ç—ã –≤–Ω—É—Ç—Ä–µ–Ω–Ω–µ–≥–æ –ø—Ä—è–º–æ—É–≥–æ–ª—å–Ω–∏–∫–∞		*/
+/*		–≤—ã—Ä–∞–∂–µ–Ω–Ω—ã–µ –≤ –ø—Ä–æ—Ü–µ–Ω—Ç–∞—Ö (–æ—Ç —Ä–∞–∑–º–µ—Ä–æ–≤ –æ–±–æ–ª–æ—á–∫–∏)		*/
 Bool dust_in_glue(cell *s, s_glue *GL, int16_t c1, int16_t r1, int16_t c2,
 		int16_t r2) {
 	cell *c, *ss = NULL;
@@ -3275,7 +3275,7 @@ Bool dust_in_glue(cell *s, s_glue *GL, int16_t c1, int16_t r1, int16_t c2,
 	maxrow = minrow + (h * r2) / 100 + 1;
 	minrow = minrow + (h * r1) / 100 - 1;
 
-	if (GL) { //	®È•¨ ØÆ§Æß‡®‚•´Ï≠Î© §„·‚ ®ß Á®·´† ™„·™Æ¢ ·™´•©™®
+	if (GL) { //	–∏—â–µ–º –ø–æ–¥–æ–∑—Ä–∏—Ç–µ–ª—å–Ω—ã–π –¥—É—Å—Ç –∏–∑ —á–∏—Å–ª–∞ –∫—É—Å–∫–æ–≤ —Å–∫–ª–µ–π–∫–∏
 		ncells = 0;
 		while ((c = GL->celist[ncells++]) != NULL) {
 			if (c->env == NULL || !(c->flg & c_f_dust))
@@ -3286,7 +3286,7 @@ Bool dust_in_glue(cell *s, s_glue *GL, int16_t c1, int16_t r1, int16_t c2,
 		}
 	}
 
-	if (ss) { //	®È•¨ ØÆ§Æß‡®‚•´Ï≠Î© §„·‚ ®ß Á®·´† Æ™‡„¶†ÓÈ®Â §„·‚Æ¢
+	if (ss) { //	–∏—â–µ–º –ø–æ–¥–æ–∑—Ä–∏—Ç–µ–ª—å–Ω—ã–π –¥—É—Å—Ç –∏–∑ —á–∏—Å–ª–∞ –æ–∫—Ä—É–∂–∞—é—â–∏—Ö –¥—É—Å—Ç–æ–≤
 		cell *e = ss->nextl, *b = ss->prevl;
 		if ((e->flg & c_f_bad) && e->col >= maxcol)
 			e = e->next;
@@ -3386,12 +3386,12 @@ void RE_final_descr(cell *c) {
 	multicell_hist(c, NULL, hist_n, hist_d);
 
 	switch (c->vers[0].let) {
-	case (uchar) '\x90' /* ê */:
+	case (uchar) '\x90' /* –† */:
 		if (c->nvers == 1 && c->vers[0].prob == 254 && similar_R(hist_n, c->h))
 			down_all_versions(c, 40);
 		break;
-	case (uchar) '\xe7' /* Á */:
-	case (uchar) '\x97' /* ó */:
+	case (uchar) '\xe7' /* —á */:
+	case (uchar) '\x97' /* –ß */:
 		if (c->nvers == 1 && c->vers[0].prob == 254)
 			r_criteria(c, NULL);
 		break;
@@ -3400,8 +3400,8 @@ void RE_final_descr(cell *c) {
 			down_all_versions(c, 40);
 		break;
 
-	case (uchar) '\xaf' /* Ø */:
-	case (uchar) '\xa3' /* £ */:
+	case (uchar) '\xaf' /* –ø */:
+	case (uchar) '\xa3' /* –≥ */:
 		if ((F = RE_rus_Ge(hist_n, hist_d, (int16_t) (c->h < 30 ? 4 : 6), c->w))
 				> 0)
 			down_all_versions(c, (int16_t) (2 + F * 20));
