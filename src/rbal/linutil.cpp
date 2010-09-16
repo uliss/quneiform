@@ -159,7 +159,8 @@ int16_t is_lower(uchar ch)
             case ED_ASCII: // for ASCII
 
                 if ((ch >= (uchar) '\xa0' /*   */ && ch <= (uchar) '\xaf' /* ¯ */)
-                        || (ch >= (uchar) '\xe0' /* à */ && ch <= (uchar) '\xef' /* ï */) || memchr("ðñõ÷øýÀ", ch, 7))
+                        //|| (ch >= (uchar) '\xe0' /* à */ && ch <= (uchar) '\xef' /* ï */) || memchr("ðñõ÷øýÀ", ch, 7))
+                        || (ch >= (uchar) '\xe0' /* à */ && ch <= (uchar) '\xef' /* ï */) || memchr("\xF0\xF1\xF5\xF7\xF8\xFD\xC0", ch, 7))
                     return 1;
 
                 break;
@@ -240,7 +241,8 @@ uchar get_homot(uchar ch)
     return ch;
 }
 
-static const uchar non_twin[] = " €¡¥…";
+//static const uchar non_twin[] = " €¡¥…";
+static const uchar non_twin[] = "\xA0\x80\xA1\x81\xA5\x85";
 static const uchar lat_twins[] = "cCoOpPsSvVwWxXzZ";
 
 int16_t twin(uchar ch)
@@ -632,10 +634,12 @@ int16_t draft_cut_hyps(int16_t bs, int16_t flag)
                 let = vers.Alt[i].Liga;
                 ldef = let_linpos[let] & 0x0f;
 
-                if (memchr("ŠŸ†", let, 3))
+                //if (memchr("ŠŸ†", let, 3))
+                if (memchr("\x8A\x9F\x86", let, 3))
                     continue; // don't discrim
 
-                if (memchr("à“ã", let, 4))
+                //if (memchr("à“ã", let, 4))
+                if (memchr("\x90\xE0\x93\xE3", let, 4))
                     gtwin = 1;
 
                 if (ldef == 2) { // Is it sunk letter
@@ -766,7 +770,8 @@ void set_rus_difflg(CSTR_rast B1, int16_t filter)
             continue;
 
         if (disable_twins == 2) {
-            if (memchr("à“ã", let, 4))
+            //if (memchr("à“ã", let, 4))
+            if (memchr("\x90\xE0\x93\xE3", let, 4))
                 notwins = 1;
         }
 
