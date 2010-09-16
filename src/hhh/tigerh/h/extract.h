@@ -83,7 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "cttypes.h"
 # include "lterrors.h"
 # include "roots.h"
-# include "strings.h"
+# include "cfstrings.h"
 # include "madebug.h"
 # include "layout.h"
 
