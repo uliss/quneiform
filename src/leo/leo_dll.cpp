@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- Ðàçðåøàåòñÿ ïîâòîðíîå ðàñïðîñòðàíåíèå è èñïîëüçîâàíèå êàê â âèäå èñõîäíîãî êîäà,
- òàê è â äâîè÷íîé ôîðìå, ñ èçìåíåíèÿìè èëè áåç, ïðè ñîáëþäåíèè ñëåäóþùèõ óñëîâèé:
+ Ð Ð°Ð·Ñ€ÐµÑˆÐ°ÐµÑ‚ÑÑ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð¸ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ ÐºÐ°Ðº Ð² Ð²Ð¸Ð´Ðµ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð°,
+ Ñ‚Ð°Ðº Ð¸ Ð² Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð¹ Ñ„Ð¾Ñ€Ð¼Ðµ, Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸ÑÐ¼Ð¸ Ð¸Ð»Ð¸ Ð±ÐµÐ·, Ð¿Ñ€Ð¸ ÑÐ¾Ð±Ð»ÑŽÐ´ÐµÐ½Ð¸Ð¸ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ñ… ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹:
 
- * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè èñõîäíîãî êîäà äîëæíû îñòàâàòüñÿ óêàçàííîå
- âûøå óâåäîìëåíèå îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è ïîñëåäóþùèé
- îòêàç îò ãàðàíòèé.
- * Ïðè ïîâòîðíîì ðàñïðîñòðàíåíèè äâîè÷íîãî êîäà â äîêóìåíòàöèè è/èëè â
- äðóãèõ ìàòåðèàëàõ, ïîñòàâëÿåìûõ ïðè ðàñïðîñòðàíåíèè, äîëæíû ñîõðàíÿòüñÿ
- óêàçàííàÿ âûøå èíôîðìàöèÿ îá àâòîðñêîì ïðàâå, ýòîò ñïèñîê óñëîâèé è
- ïîñëåäóþùèé îòêàç îò ãàðàíòèé.
- * Íè íàçâàíèå Cognitive Technologies, íè èìåíà åå ñîòðóäíèêîâ íå ìîãóò
- áûòü èñïîëüçîâàíû â êà÷åñòâå ñðåäñòâà ïîääåðæêè è/èëè ïðîäâèæåíèÿ
- ïðîäóêòîâ, îñíîâàííûõ íà ýòîì ÏÎ, áåç ïðåäâàðèòåëüíîãî ïèñüìåííîãî
- ðàçðåøåíèÿ.
+ * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð¾ÑÑ‚Ð°Ð²Ð°Ñ‚ÑŒÑÑ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ðµ
+ Ð²Ñ‹ÑˆÐµ ÑƒÐ²ÐµÐ´Ð¾Ð¼Ð»ÐµÐ½Ð¸Ðµ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹
+ Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+ * ÐŸÑ€Ð¸ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¼ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸ Ð´Ð²Ð¾Ð¸Ñ‡Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð´Ð° Ð² Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ Ð¸/Ð¸Ð»Ð¸ Ð²
+ Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ð°Ñ…, Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼Ñ‹Ñ… Ð¿Ñ€Ð¸ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½Ð¸Ð¸, Ð´Ð¾Ð»Ð¶Ð½Ñ‹ ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÑ‚ÑŒÑÑ
+ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð°Ñ Ð²Ñ‹ÑˆÐµ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÑ‚Ð¾Ñ‚ ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÑÐ»Ð¾Ð²Ð¸Ð¹ Ð¸
+ Ð¿Ð¾ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ Ð¾Ñ‚ÐºÐ°Ð· Ð¾Ñ‚ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ð¹.
+ * ÐÐ¸ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Cognitive Technologies, Ð½Ð¸ Ð¸Ð¼ÐµÐ½Ð° ÐµÐµ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ¾Ð² Ð½Ðµ Ð¼Ð¾Ð³ÑƒÑ‚
+ Ð±Ñ‹Ñ‚ÑŒ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ñ‹ Ð² ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ðµ ÑÑ€ÐµÐ´ÑÑ‚Ð²Ð° Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ¸ Ð¸/Ð¸Ð»Ð¸ Ð¿Ñ€Ð¾Ð´Ð²Ð¸Ð¶ÐµÐ½Ð¸Ñ
+ Ð¿Ñ€Ð¾Ð´ÑƒÐºÑ‚Ð¾Ð², Ð¾ÑÐ½Ð¾Ð²Ð°Ð½Ð½Ñ‹Ñ… Ð½Ð° ÑÑ‚Ð¾Ð¼ ÐŸÐž, Ð±ÐµÐ· Ð¿Ñ€ÐµÐ´Ð²Ð°Ñ€Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ð³Ð¾ Ð¿Ð¸ÑÑŒÐ¼ÐµÐ½Ð½Ð¾Ð³Ð¾
+ Ñ€Ð°Ð·Ñ€ÐµÑˆÐµÐ½Ð¸Ñ.
 
- ÝÒÀ ÏÐÎÃÐÀÌÌÀ ÏÐÅÄÎÑÒÀÂËÅÍÀ ÂËÀÄÅËÜÖÀÌÈ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È/ÈËÈ ÄÐÓÃÈÌÈ ËÈÖÀÌÈ "ÊÀÊ
- ÎÍÀ ÅÑÒÜ" ÁÅÇ ÊÀÊÎÃÎ-ËÈÁÎ ÂÈÄÀ ÃÀÐÀÍÒÈÉ, ÂÛÐÀÆÅÍÍÛÕ ßÂÍÎ ÈËÈ ÏÎÄÐÀÇÓÌÅÂÀÅÌÛÕ,
- ÂÊËÞ×Àß ÃÀÐÀÍÒÈÈ ÊÎÌÌÅÐ×ÅÑÊÎÉ ÖÅÍÍÎÑÒÈ È ÏÐÈÃÎÄÍÎÑÒÈ ÄËß ÊÎÍÊÐÅÒÍÎÉ ÖÅËÈ, ÍÎ ÍÅ
- ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ. ÍÈ ÂËÀÄÅËÅÖ ÀÂÒÎÐÑÊÈÕ ÏÐÀÂ È ÍÈ ÎÄÍÎ ÄÐÓÃÎÅ ËÈÖÎ, ÊÎÒÎÐÎÅ
- ÌÎÆÅÒ ÈÇÌÅÍßÒÜ È/ÈËÈ ÏÎÂÒÎÐÍÎ ÐÀÑÏÐÎÑÒÐÀÍßÒÜ ÏÐÎÃÐÀÌÌÓ, ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ
- ÍÅÑ¨Ò ÎÒÂÅÒÑÒÂÅÍÍÎÑÒÈ, ÂÊËÞ×Àß ËÞÁÛÅ ÎÁÙÈÅ, ÑËÓ×ÀÉÍÛÅ, ÑÏÅÖÈÀËÜÍÛÅ ÈËÈ
- ÏÎÑËÅÄÎÂÀÂØÈÅ ÓÁÛÒÊÈ, ÑÂßÇÀÍÍÛÅ Ñ ÈÑÏÎËÜÇÎÂÀÍÈÅÌ ÈËÈ ÏÎÍÅÑÅÍÍÛÅ ÂÑËÅÄÑÒÂÈÅ
- ÍÅÂÎÇÌÎÆÍÎÑÒÈ ÈÑÏÎËÜÇÎÂÀÍÈß ÏÐÎÃÐÀÌÌÛ (ÂÊËÞ×Àß ÏÎÒÅÐÈ ÄÀÍÍÛÕ, ÈËÈ ÄÀÍÍÛÅ,
- ÑÒÀÂØÈÅ ÍÅÃÎÄÍÛÌÈ, ÈËÈ ÓÁÛÒÊÈ È/ÈËÈ ÏÎÒÅÐÈ ÄÎÕÎÄÎÂ, ÏÎÍÅÑÅÍÍÛÅ ÈÇ-ÇÀ ÄÅÉÑÒÂÈÉ
- ÒÐÅÒÜÈÕ ËÈÖ È/ÈËÈ ÎÒÊÀÇÀ ÏÐÎÃÐÀÌÌÛ ÐÀÁÎÒÀÒÜ ÑÎÂÌÅÑÒÍÎ Ñ ÄÐÓÃÈÌÈ ÏÐÎÃÐÀÌÌÀÌÈ,
- ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÝÒÈÌÈ ÑËÓ×ÀßÌÈ), ÍÎ ÍÅ ÎÃÐÀÍÈ×ÈÂÀßÑÜ ÈÌÈ, ÄÀÆÅ ÅÑËÈ ÒÀÊÎÉ
- ÂËÀÄÅËÅÖ ÈËÈ ÄÐÓÃÎÅ ËÈÖÎ ÁÛËÈ ÈÇÂÅÙÅÍÛ Î ÂÎÇÌÎÆÍÎÑÒÈ ÒÀÊÈÕ ÓÁÛÒÊÎÂ È ÏÎÒÅÐÜ.
+ Ð­Ð¢Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ ÐŸÐ Ð•Ð”ÐžÐ¡Ð¢ÐÐ’Ð›Ð•ÐÐ Ð’Ð›ÐÐ”Ð•Ð›Ð¬Ð¦ÐÐœÐ˜ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜/Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ Ð›Ð˜Ð¦ÐÐœÐ˜ "ÐšÐÐš
+ ÐžÐÐ Ð•Ð¡Ð¢Ð¬" Ð‘Ð•Ð— ÐšÐÐšÐžÐ“Ðž-Ð›Ð˜Ð‘Ðž Ð’Ð˜Ð”Ð Ð“ÐÐ ÐÐÐ¢Ð˜Ð™, Ð’Ð«Ð ÐÐ–Ð•ÐÐÐ«Ð¥ Ð¯Ð’ÐÐž Ð˜Ð›Ð˜ ÐŸÐžÐ”Ð ÐÐ—Ð£ÐœÐ•Ð’ÐÐ•ÐœÐ«Ð¥,
+ Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð“ÐÐ ÐÐÐ¢Ð˜Ð˜ ÐšÐžÐœÐœÐ•Ð Ð§Ð•Ð¡ÐšÐžÐ™ Ð¦Ð•ÐÐÐžÐ¡Ð¢Ð˜ Ð˜ ÐŸÐ Ð˜Ð“ÐžÐ”ÐÐžÐ¡Ð¢Ð˜ Ð”Ð›Ð¯ ÐšÐžÐÐšÐ Ð•Ð¢ÐÐžÐ™ Ð¦Ð•Ð›Ð˜, ÐÐž ÐÐ•
+ ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜. ÐÐ˜ Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ ÐÐ’Ð¢ÐžÐ Ð¡ÐšÐ˜Ð¥ ÐŸÐ ÐÐ’ Ð˜ ÐÐ˜ ÐžÐ”ÐÐž Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž, ÐšÐžÐ¢ÐžÐ ÐžÐ•
+ ÐœÐžÐ–Ð•Ð¢ Ð˜Ð—ÐœÐ•ÐÐ¯Ð¢Ð¬ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ’Ð¢ÐžÐ ÐÐž Ð ÐÐ¡ÐŸÐ ÐžÐ¡Ð¢Ð ÐÐÐ¯Ð¢Ð¬ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ£, ÐÐ˜ Ð’ ÐšÐžÐ•Ðœ Ð¡Ð›Ð£Ð§ÐÐ• ÐÐ•
+ ÐÐ•Ð¡ÐÐ¢ ÐžÐ¢Ð’Ð•Ð¢Ð¡Ð¢Ð’Ð•ÐÐÐžÐ¡Ð¢Ð˜, Ð’ÐšÐ›Ð®Ð§ÐÐ¯ Ð›Ð®Ð‘Ð«Ð• ÐžÐ‘Ð©Ð˜Ð•, Ð¡Ð›Ð£Ð§ÐÐ™ÐÐ«Ð•, Ð¡ÐŸÐ•Ð¦Ð˜ÐÐ›Ð¬ÐÐ«Ð• Ð˜Ð›Ð˜
+ ÐŸÐžÐ¡Ð›Ð•Ð”ÐžÐ’ÐÐ’Ð¨Ð˜Ð• Ð£Ð‘Ð«Ð¢ÐšÐ˜, Ð¡Ð’Ð¯Ð—ÐÐÐÐ«Ð• Ð¡ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð•Ðœ Ð˜Ð›Ð˜ ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð’Ð¡Ð›Ð•Ð”Ð¡Ð¢Ð’Ð˜Ð•
+ ÐÐ•Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐÐ˜Ð¯ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« (Ð’ÐšÐ›Ð®Ð§ÐÐ¯ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐÐÐÐ«Ð¥, Ð˜Ð›Ð˜ Ð”ÐÐÐÐ«Ð•,
+ Ð¡Ð¢ÐÐ’Ð¨Ð˜Ð• ÐÐ•Ð“ÐžÐ”ÐÐ«ÐœÐ˜, Ð˜Ð›Ð˜ Ð£Ð‘Ð«Ð¢ÐšÐ˜ Ð˜/Ð˜Ð›Ð˜ ÐŸÐžÐ¢Ð•Ð Ð˜ Ð”ÐžÐ¥ÐžÐ”ÐžÐ’, ÐŸÐžÐÐ•Ð¡Ð•ÐÐÐ«Ð• Ð˜Ð—-Ð—Ð Ð”Ð•Ð™Ð¡Ð¢Ð’Ð˜Ð™
+ Ð¢Ð Ð•Ð¢Ð¬Ð˜Ð¥ Ð›Ð˜Ð¦ Ð˜/Ð˜Ð›Ð˜ ÐžÐ¢ÐšÐÐ—Ð ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ« Ð ÐÐ‘ÐžÐ¢ÐÐ¢Ð¬ Ð¡ÐžÐ’ÐœÐ•Ð¡Ð¢ÐÐž Ð¡ Ð”Ð Ð£Ð“Ð˜ÐœÐ˜ ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐÐœÐ˜,
+ ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð­Ð¢Ð˜ÐœÐ˜ Ð¡Ð›Ð£Ð§ÐÐ¯ÐœÐ˜), ÐÐž ÐÐ• ÐžÐ“Ð ÐÐÐ˜Ð§Ð˜Ð’ÐÐ¯Ð¡Ð¬ Ð˜ÐœÐ˜, Ð”ÐÐ–Ð• Ð•Ð¡Ð›Ð˜ Ð¢ÐÐšÐžÐ™
+ Ð’Ð›ÐÐ”Ð•Ð›Ð•Ð¦ Ð˜Ð›Ð˜ Ð”Ð Ð£Ð“ÐžÐ• Ð›Ð˜Ð¦Ðž Ð‘Ð«Ð›Ð˜ Ð˜Ð—Ð’Ð•Ð©Ð•ÐÐ« Ðž Ð’ÐžÐ—ÐœÐžÐ–ÐÐžÐ¡Ð¢Ð˜ Ð¢ÐÐšÐ˜Ð¥ Ð£Ð‘Ð«Ð¢ÐšÐžÐ’ Ð˜ ÐŸÐžÐ¢Ð•Ð Ð¬.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -444,10 +444,12 @@ int32_t LEOOpenCont()
 
 Bool32 LEOPushAlphabetType(uchar alpha_valid, uchar isPrint)
 {
-    static const char my_alpha_cap[] = "ÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏÐÎËÄÆÝß×ÑÌÈÒÜÁÞ";
+    //static const char my_alpha_cap[] = "Ð™Ð¦Ð£ÐšÐ•ÐÐ“Ð¨Ð©Ð—Ð¥ÐªÐ¤Ð«Ð’ÐÐŸÐ ÐžÐ›Ð”Ð–Ð­Ð¯Ð§Ð¡ÐœÐ˜Ð¢Ð¬Ð‘Ð®";
+    static const char my_alpha_cap[] = "\xC9\xD6\xD3\xCA\xC5\xCD\xC3\xD8\xD9\xC7\xD5\xDA\xD4\xDB\xC2\xC0\xCF\xD0\xCE\xCB\xC4\xC6\xDD\xDF\xD7\xD1\xCC\xC8\xD2\xDC\xC1\xDE";
     static const char my_digit[] = "0123456789";
     static const char my_roma[] = "VIX"; //MCD";
-    static const char my_alpha_cap_and_digit[] = "ÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏÐÎËÄÆÝß×ÑÌÈÒÜÁÞ/0123456789";
+    //static const char my_alpha_cap_and_digit[] = "Ð™Ð¦Ð£ÐšÐ•ÐÐ“Ð¨Ð©Ð—Ð¥ÐªÐ¤Ð«Ð’ÐÐŸÐ ÐžÐ›Ð”Ð–Ð­Ð¯Ð§Ð¡ÐœÐ˜Ð¢Ð¬Ð‘Ð®/0123456789";
+    static const char my_alpha_cap_and_digit[] = "\xC9\xD6\xD3\xCA\xC5\xCD\xC3\xD8\xD9\xC7\xD5\xDA\xD4\xDB\xC2\xC0\xCF\xD0\xCE\xCB\xC4\xC6\xDD\xDF\xD7\xD1\xCC\xC8\xD2\xDC\xC1\xDE\x2F\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39";
     const char * palph;
     char al[256] = { 0 };
 
@@ -541,8 +543,8 @@ Bool32 LEOSetAlphabet(char ansi_letters[]) // char table[0-255]
     }
 
     leo_current_alpha_ndx = leo_register_alphabet((char*) alphabet);
-    prn_roma_regim = (!ansi_letters[(uchar) '\xc0' /* À */] && ansi_letters['I'] && ansi_letters[(uchar) '\xcf' /* Ï */]
-                      && ansi_letters[(uchar) '\xd3' /* Ó */] && ansi_letters[(uchar) '\xd5' /* Õ */] && ansi_letters[(uchar) '\xd8' /* Ø */]
+    prn_roma_regim = (!ansi_letters[(uchar) '\xc0' /* Ð */] && ansi_letters['I'] && ansi_letters[(uchar) '\xcf' /* ÐŸ */]
+                      && ansi_letters[(uchar) '\xd3' /* Ð£ */] && ansi_letters[(uchar) '\xd5' /* Ð¥ */] && ansi_letters[(uchar) '\xd8' /* Ð¨ */]
                       && ansi_letters['1']);
 
     if (leo_alpha_type & ALPH_R_E)
@@ -954,19 +956,30 @@ static Bool32 leo_near_letters(RecVersions *fon, uchar leo_code)
     if (fon->lnAltCnt < 2)
         return FALSE;
 
-    if (!(leo_strchr_codes_ansi((uchar*) "0îÎ", fon->Alt[0].Code) && leo_strchr_codes_ansi(
-                (uchar*) "0îÎ", leo_code) && leo_strchr_codes_ansi((uchar*) "0îÎ", fon->Alt[1].Code))
-            && !(leo_strchr_codes_ansi((uchar*) "3çÇ", fon->Alt[0].Code) && leo_strchr_codes_ansi(
-                     (uchar*) "3çÇ", leo_code) && leo_strchr_codes_ansi((uchar*) "3çÇ",
+    //if (!(leo_strchr_codes_ansi((uchar*) "0Ð¾Ðž", fon->Alt[0].Code) && leo_strchr_codes_ansi(
+    if (!(leo_strchr_codes_ansi((uchar*) "0\xEE\xCE", fon->Alt[0].Code) && leo_strchr_codes_ansi(
+                //(uchar*) "0Ð¾Ðž", leo_code) && leo_strchr_codes_ansi((uchar*) "0Ð¾Ðž", fon->Alt[1].Code))
+                (uchar*) "0\xEE\xCE", leo_code) && leo_strchr_codes_ansi((uchar*) "0\xEE\xCE", fon->Alt[1].Code))
+            //&& !(leo_strchr_codes_ansi((uchar*) "3Ð·Ð—", fon->Alt[0].Code) && leo_strchr_codes_ansi(
+            && !(leo_strchr_codes_ansi((uchar*) "3\xE7\xC7", fon->Alt[0].Code) && leo_strchr_codes_ansi(
+                     //(uchar*) "3Ð·Ð—", leo_code) && leo_strchr_codes_ansi((uchar*) "3Ð·Ð—",
+                     (uchar*) "3\xE7\xC7", leo_code) && leo_strchr_codes_ansi((uchar*) "3\xE7\xC7",
                                                                         fon->Alt[1].Code))
-            && !(leo_strchr_codes_ansi((uchar*) "ïÏëË", fon->Alt[0].Code) && leo_strchr_codes_ansi(
-                     (uchar*) "ïÏëË", leo_code) && leo_strchr_codes_ansi((uchar*) "ïÏëË",
+            //&& !(leo_strchr_codes_ansi((uchar*) "Ð¿ÐŸÐ»Ð›", fon->Alt[0].Code) && leo_strchr_codes_ansi(
+            && !(leo_strchr_codes_ansi((uchar*) "\xEF\xCF\xEB\xCB", fon->Alt[0].Code) && leo_strchr_codes_ansi(
+                     //(uchar*) "Ð¿ÐŸÐ»Ð›", leo_code) && leo_strchr_codes_ansi((uchar*) "Ð¿ÐŸÐ»Ð›",
+                     (uchar*) "\xEF\xCF\xEB\xCB", leo_code) && leo_strchr_codes_ansi((uchar*) "\xEF\xCF\xEB\xCB",
                                                                          fon->Alt[1].Code))
-            && !(leo_strchr_codes_ansi((uchar*) "èÈíÍ", fon->Alt[0].Code) && leo_strchr_codes_ansi(
-                     (uchar*) "èÈíÍ", leo_code) && leo_strchr_codes_ansi((uchar*) "èÈíÍ",
-                                                                         fon->Alt[1].Code)) && !(leo_strchr_codes_ansi((uchar*) "á6", fon->Alt[0].Code)
-                                                                                                 && leo_strchr_codes_ansi((uchar*) "á6", leo_code) && leo_strchr_codes_ansi(
-                                                                                                     (uchar*) "á6", fon->Alt[1].Code)))
+            //&& !(leo_strchr_codes_ansi((uchar*) "Ð¸Ð˜Ð½Ð", fon->Alt[0].Code) && leo_strchr_codes_ansi(
+            && !(leo_strchr_codes_ansi((uchar*) "\xE8\xC8\xED\xCD", fon->Alt[0].Code) && leo_strchr_codes_ansi(
+                     //(uchar*) "Ð¸Ð˜Ð½Ð", leo_code) && leo_strchr_codes_ansi((uchar*) "Ð¸Ð˜Ð½Ð",
+                     (uchar*) "\xE8\xC8\xED\xCD", leo_code) && leo_strchr_codes_ansi((uchar*) "\xE8\xC8\xED\xCD",
+                                                                         //fon->Alt[1].Code)) && !(leo_strchr_codes_ansi((uchar*) "Ð±6", fon->Alt[0].Code)
+                                                                         fon->Alt[1].Code)) && !(leo_strchr_codes_ansi((uchar*) "\xE1\x36", fon->Alt[0].Code)
+                                                                                                 //&& leo_strchr_codes_ansi((uchar*) "Ð±6", leo_code) && leo_strchr_codes_ansi(
+                                                                                                 && leo_strchr_codes_ansi((uchar*) "\xE1\x36", leo_code) && leo_strchr_codes_ansi(
+                                                                                                     //(uchar*) "Ð±6", fon->Alt[1].Code)))
+                                                                                                     (uchar*) "\xE1\x36", fon->Alt[1].Code)))
         return FALSE;
 
     return (fon->Alt[0].Prob - fon->Alt[1].Prob < 5);
@@ -1000,11 +1013,11 @@ static void RecVersions2data(RecVersions *ver, uchar *data)
     }
 }
 
-// âûáîð è ðñïîçíàâàíèå
+// Ð²Ñ‹Ð±Ð¾Ñ€ Ð¸ Ñ€ÑÐ¿Ð¾Ð·Ð½Ð°Ð²Ð°Ð½Ð¸Ðµ
 const int POROG_NICE = 250;
 const int VERY_GOOD_FON = 245;
 
-// óñòàíîâèòü íîâóþ îöåíêó
+// ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ Ð½Ð¾Ð²ÑƒÑŽ Ð¾Ñ†ÐµÐ½ÐºÑƒ
 static int GetNewProb(int oldRec, int newRec, int nice)
 {
     int addRec = 2;
@@ -1032,8 +1045,8 @@ static int GetNewProb(int oldRec, int newRec, int nice)
     return std::min(254, std::max(newRec, oldRec + addRec));
 }
 
-// íàäî âçÿòü èíóþ ïåðâóþ àëüòåðíàòèâó ?
-// (óæå çíàåì, ÷òî íîâàÿ - íåïëîõàÿ, èíà÷å ñþäà è íå èäåì)
+// Ð½Ð°Ð´Ð¾ Ð²Ð·ÑÑ‚ÑŒ Ð¸Ð½ÑƒÑŽ Ð¿ÐµÑ€Ð²ÑƒÑŽ Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ñƒ ?
+// (ÑƒÐ¶Ðµ Ð·Ð½Ð°ÐµÐ¼, Ñ‡Ñ‚Ð¾ Ð½Ð¾Ð²Ð°Ñ - Ð½ÐµÐ¿Ð»Ð¾Ñ…Ð°Ñ, Ð¸Ð½Ð°Ñ‡Ðµ ÑÑŽÐ´Ð° Ð¸ Ð½Ðµ Ð¸Ð´ÐµÐ¼)
 static Bool32 FonIsBetter(int newProb, int oldProb)
 {
     if (newProb <= 100)
@@ -1048,8 +1061,8 @@ static Bool32 FonIsBetter(int newProb, int oldProb)
     return FALSE;
 }
 
-// Ôóíêöèÿ âûáîðà - ÿ ïîêà â ýêñïåðèìåíòàõ ìåíÿë
-// òîëüêî ïåðâóþ àëüòåðíàòèâó è/èëè îöåíêó
+// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð²Ñ‹Ð±Ð¾Ñ€Ð° - Ñ Ð¿Ð¾ÐºÐ° Ð² ÑÐºÑÐ¿ÐµÑ€Ð¸Ð¼ÐµÐ½Ñ‚Ð°Ñ… Ð¼ÐµÐ½ÑÐ»
+// Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð¿ÐµÑ€Ð²ÑƒÑŽ Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ñƒ Ð¸/Ð¸Ð»Ð¸ Ð¾Ñ†ÐµÐ½ÐºÑƒ
 
 Bool32 LEO_SelectOldNewOkr(RecVersions *verOld, RecVersions *verNew)
 {
@@ -1058,7 +1071,7 @@ Bool32 LEO_SelectOldNewOkr(RecVersions *verOld, RecVersions *verNew)
 
     if (verOld->Alt[0].Code != verNew->Alt[0].Code) {
         //    fprintf(basOut," MISS");
-        // Íîâàÿ àëüòåðíàòèâà äîñòîéíà âíèìàíèÿ ?
+        // ÐÐ¾Ð²Ð°Ñ Ð°Ð»ÑŒÑ‚ÐµÑ€Ð½Ð°Ñ‚Ð¸Ð²Ð° Ð´Ð¾ÑÑ‚Ð¾Ð¹Ð½Ð° Ð²Ð½Ð¸Ð¼Ð°Ð½Ð¸Ñ ?
         if ((verNew->lnAltCnt == 1 || verNew->lnAltCnt > 1 && verNew->Alt[0].Prob
                 > verOld->Alt[1].Prob + 40)
                 && FonIsBetter(verNew->Alt[0].Prob, verOld->Alt[0].Prob) // data[14]
@@ -1070,7 +1083,7 @@ Bool32 LEO_SelectOldNewOkr(RecVersions *verOld, RecVersions *verNew)
         return ret;
     }
 
-    // âåðñèè ñîâïàëè - èçìåíèòü (âîçìîæíî) îöåíêó
+    // Ð²ÐµÑ€ÑÐ¸Ð¸ ÑÐ¾Ð²Ð¿Ð°Ð»Ð¸ - Ð¸Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ (Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾) Ð¾Ñ†ÐµÐ½ÐºÑƒ
     oldprob = verOld->Alt[0].Prob;
     verOld->Alt[0].Prob = GetNewProb(verOld->Alt[0].Prob, verNew->Alt[0].Prob, POROG_NICE);
 
