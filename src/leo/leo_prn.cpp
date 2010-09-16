@@ -114,8 +114,10 @@ static void leo_kill_3x5_unique(RecVersions *ver, uchar first)
 // return : complemetary case letter if homotetical, otherwhise 0
 uchar leo_reverse_case(uchar in)
 {
-    static const uchar sr[] = "©æãª­£èé§åêäë¢¯à®«¤¦íïçá¬¨âìîŽ‡";
-    static const uchar cr[] = "‰–“Šƒ˜™‡•š”›‚Ž‹„†Ÿ—‘Œˆ’œž03";
+    //static const uchar sr[] = "©æãª­£èé§åêäë¢¯à®«¤¦íïçá¬¨âìîŽ‡";
+    static const uchar sr[] = "\xA9\xE6\xE3\xAA\xAD\xA3\xE8\xE9\xA7\xE5\xEA\xE4\xEB\xA2\xAF\xE0\xAE\xAB\xA4\xA6\xED\xEF\xE7\xE1\xAC\xA8\xE2\xEC\xEE\x8E\x87";
+    //static const uchar cr[] = "‰–“Šƒ˜™‡•š”›‚Ž‹„†Ÿ—‘Œˆ’œž03";
+    static const uchar cr[] = "\x89\x96\x93\x8A\x8D\x83\x98\x99\x87\x95\x9A\x94\x9B\x82\x8F\x90\x8E\x8B\x84\x86\x9D\x9F\x97\x91\x8C\x88\x92\x9C\x9E\x30\x33";
     const uchar *p;
     p = (uchar*) strchr((char*) sr, in);
 
@@ -393,7 +395,8 @@ int32_t LEO_DIFPenaltyCharMTR(RecRaster *rr, int16_t *Im3x5, RecVersions *loc)
                 r = pen = 0;
 
                 if (i == 1
-                        && leo_strchr_codes_ansi((uchar*) "ïÏ", loc->Alt[0].Code)
+                        //&& leo_strchr_codes_ansi((uchar*) "ïÏ", loc->Alt[0].Code)
+                        && leo_strchr_codes_ansi((uchar*) "\xEF\xCF", loc->Alt[0].Code)
                         && leo_diskr16x16_down(rr) < 1 && leo_diskr16x16_right(rr)
                         < 3)
                     r = leo_diskr16x16_left(rr);
@@ -765,7 +768,8 @@ Bool32 leoRecogPrintAllChar(RecObject* object)
         over[ver.Alt[0].Code]++;
 
     if (ver.lnAltCnt && per.lnAltCnt && per.Alt[0].Prob > 80
-            && !leo_strchr_codes_ansi((uchar*) "üÜ", per.Alt[0].Code))
+            //&& !leo_strchr_codes_ansi((uchar*) "üÜ", per.Alt[0].Code))
+            && !leo_strchr_codes_ansi((uchar*) "\xFC\xDC", per.Alt[0].Code))
         if ((ver.lnAltCnt == 1 && leo_comp_codes(ver.Alt[0].Code,
                                                  per.Alt[0].Code)) || (per.Alt[0].Prob > 200 && leo_exist_code(
                                                                            &ver, per.Alt[0].Code) != -1)) {
@@ -960,7 +964,8 @@ Bool32 leoRecogPrintAllChar(RecObject* object)
                 }
         }
 
-        if (!leo_strchr_codes_ansi((uchar*) "ØÙÆÇÝ", ver.Alt[0].Code)) {
+        //if (!leo_strchr_codes_ansi((uchar*) "ØÙÆÇÝ", ver.Alt[0].Code)) {
+        if (!leo_strchr_codes_ansi((uchar*) "\xD8\xD9\xC6\xC7\xDD", ver.Alt[0].Code)) {
             uchar first = ver.Alt[0].Code;
             int32_t i_r35 = leo_exist_code(&r35, first);
             int32_t i_msk = leo_exist_code(&msk, first);
@@ -1036,7 +1041,8 @@ Bool32 leoRecogPrintAllChar(RecObject* object)
     }
 
     if (wid * 3 <= hei && ver.lnAltCnt > 1 && (leo_strchr_codes_ansi(
-                                                   (uchar*) "ÝÇ3", ver.Alt[0].Code) && ver.Alt[1].Code == ')'
+                                                   //(uchar*) "ÝÇ3", ver.Alt[0].Code) && ver.Alt[1].Code == ')'
+                                                   (uchar*) "\xDD\xC7\x33", ver.Alt[0].Code) && ver.Alt[1].Code == ')'
                                                || leo_strchr_codes_ansi((uchar*) "C", ver.Alt[0].Code)
                                                && ver.Alt[1].Code == '(')) {
         uchar tmp = ver.Alt[1].Code;
@@ -1045,7 +1051,8 @@ Bool32 leoRecogPrintAllChar(RecObject* object)
         leo_snapChar(&ver, "LEO PRN up braces : ", 0);
     }
 
-    if (leo_strchr_codes((uchar*) "1|iI()[]tl", ver.Alt[0].Code)) {
+    //if (leo_strchr_codes((uchar*) "1|iI()[]tl", ver.Alt[0].Code)) {
+    if (leo_strchr_codes((uchar*) "1\x7CiI\x28\x29\x5B\x5Dtl", ver.Alt[0].Code)) {
         if (!(wid * 5 >= hei * 2 && disable_dis && (ver.lnAltCnt == 1
                                                     || ver.lnAltCnt > 1 && ver.Alt[0].Prob > ver.Alt[1].Prob + 100))) {
             leo_snapChar(&ver, "LEO PRN BEFORE DISKRIM STICKS : ", 0);
@@ -1056,9 +1063,11 @@ Bool32 leoRecogPrintAllChar(RecObject* object)
 
     else { // NON STICKs
         Bool32 inp = (ver.lnAltCnt > 1 && // òóò äîëæíû áûòü ðàçäåëèòåëè
-                      leo_strchr_codes_ansi((uchar*) "ÌNÈÍÏÂìèíïâ", ver.Alt[0].Code));
+                      //leo_strchr_codes_ansi((uchar*) "ÌNÈÍÏÂìèíïâ", ver.Alt[0].Code));
+                      leo_strchr_codes_ansi((uchar*) "\xCCN\xC8\xCD\xCF\xC2\xEC\xE8\xED\xEF\xE2", ver.Alt[0].Code));
         Bool32 ce = (ver.lnAltCnt > 1 && // òóò äîëæíû áûòü ðàçäåëèòåëè
-                     leo_strchr_codes_ansi((uchar*) "Ññå", ver.Alt[0].Code));
+                     //leo_strchr_codes_ansi((uchar*) "Ññå", ver.Alt[0].Code));
+                     leo_strchr_codes_ansi((uchar*) "\xD1\xF1\xE5", ver.Alt[0].Code));
 
         if ((inp && (object->recData.lwStatus & REC_STATUS_BROKEN_II))) {
             leo_snapChar(&ver, "LEO PRN Broken II disable rerecog 3x5 : ", 0);
@@ -1159,7 +1168,8 @@ XOPOIII_HET3X5:
     }
 
     if (!(leo_alpha_type == ALPH_ALL && ver.lnAltCnt && leo_strchr_codes_ansi(
-                (uchar*) "ÎÇ", ver.Alt[0].Code)))
+                //(uchar*) "ÎÇ", ver.Alt[0].Code)))
+                (uchar*) "\xCE\xC7", ver.Alt[0].Code)))
         if (per.lnAltCnt && ver.lnAltCnt && leo_comp_codes(ver.Alt[1].Code,
                                                            per.Alt[0].Code)) {
             switch (leo_prn_undef(&ver)) {
@@ -1422,7 +1432,8 @@ NOT_N:
             }
         }
 
-        if (!leo_strchr_codes_ansi((uchar*) "ØÙÆ", ver.Alt[0].Code)) {
+        //if (!leo_strchr_codes_ansi((uchar*) "ØÙÆ", ver.Alt[0].Code)) {
+        if (!leo_strchr_codes_ansi((uchar*) "\xD8\xD9\xC6", ver.Alt[0].Code)) {
             uchar first = ver.Alt[0].Code;
             int32_t i_r35 = leo_exist_code(&r35, first);
             int32_t i_msk = leo_exist_code(&msk, first);
@@ -1498,7 +1509,8 @@ NOT_N:
     }
 
     { // NON STICKs
-        if (!disable_r35 && !leo_strchr_codes((uchar*) "1|iI()[]tl",
+        //if (!disable_r35 && !leo_strchr_codes((uchar*) "1|iI()[]tl",
+        if (!disable_r35 && !leo_strchr_codes((uchar*) "1\x7CiI\x28\x29\x5B\x5Dtl",
                                               ver.Alt[0].Code)) {
             leo_snapChar(&ver, "LEO PRN MTR BEFORE RERECOG3x5 : ", 0);
             leo_expert_prob(&ver, object->recData.v3x5,
