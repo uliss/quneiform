@@ -88,11 +88,14 @@
 #define SS_POS_HALF_SPACE 0x1f
 #define MAX_LEN_WORD  48
 
-static char dash[] = "-\x5F—";
+//static char dash[] = "-\x5F—";
+static char dash[] = "\x2D\x5F\x97";
 static uchar ed_left_limit_word[] =
-		" -()[{.,:!\'\"\xbb\xab?\x84</—\x99\xa9\xae";
+		//" -()[{.,:!\'\"\xbb\xab?\x84</—\x99\xa9\xae";
+		" -()[{.,:!\'\"\xbb\xab?\x84</\x97\x99\xa9\xae";
 static uchar ed_right_limit_word[] =
-		" -()]}.,:;!\'\"\xbb\xab?/>\x84—\x99\xa9\xae";
+		//" -()]}.,:;!\'\"\xbb\xab?/>\x84—\x99\xa9\xae";
+		" -()]}.,:;!\'\"\xbb\xab?/>\x84\x97\x99\xa9\xae";
 static uchar ed_half_spaces[3] = "\x1e\x1f";
 static uchar multy_language;
 extern Bool32 skip_line, snap_enable;
@@ -806,7 +809,7 @@ Bool32 rpstr_alphabet_check(uchar *s) {
 		else if (SS_POS_HALF_SPACE == *s)
 			d++;
 
-		if (strchr("VIXХ", *s))
+		if (strchr("VIX\xD5", *s))
 			r++;
 
 		if (SS_NEG_HALF_SPACE == *s)
@@ -943,7 +946,7 @@ Bool32 rpstr_normal_spell(char *sec_wrd) {
 	return ed_exclude_to_vers(sizeout, (uchar*) sec_wrd);
 }
 
-static uchar non_letters[] = "«»()\x1f\x1e,.!?";
+static uchar non_letters[] = "\xAB\xBB\x28\x29\x1f\x1e,.!?";
 Bool32 rpstr_get_solid(CSTR_rast rus, CSTR_rast ruse) {
 	CSTR_rast r;
 	CSTR_rast_attr a;
@@ -1057,7 +1060,8 @@ int32_t uni_correct_check(CSTR_rast b, CSTR_rast e, int32_t *start) {
 		i = *start;
 		c = b;
 		CSTR_GetCollectionUni(c, &vrs);
-		if (strchr("иИ", vrs.Alt[0].Code[0]) && strchr("Йй",
+		//if (strchr("иИ", vrs.Alt[0].Code[0]) && strchr("Йй",
+		if (strchr("\xE8\xC8", vrs.Alt[0].Code[0]) && strchr("\xC9\xE9",
 				rejo_vers[i].Alt[0].Code[0]))
 			pen++;
 	}
@@ -1099,11 +1103,15 @@ Bool32 uni_correct_cstr(CSTR_rast b, CSTR_rast e, int32_t *start,
 							|| // символ с хороше шрифтовой оценкой
 							(attr.RecogHistory & CSTR_hi_3x5)
 									&& vrs.Alt[0].Prob > 246) && // символ с хорошей оценкой 3х5
-					!(strchr("ЙйиИ", vrs.Alt[0].Code[0]) && strchr("иИЙй",
+					//!(strchr("ЙйиИ", vrs.Alt[0].Code[0]) && strchr("иИЙй",
+					!(strchr("\xC9\xE9\xE8\xC8", vrs.Alt[0].Code[0]) && strchr("\xE8\xC8\xC9\xE9",
 							rejo_vers[i].Alt[0].Code[0])) && !(attr.keg < 18
-					&& strchr("зэ", vrs.Alt[0].Code[0]) && strchr("зэ",
-					rejo_vers[i].Alt[0].Code[0])) && !(strchr("ГгТт",
-					vrs.Alt[0].Code[0]) && strchr("гГтТ",
+					//&& strchr("зэ", vrs.Alt[0].Code[0]) && strchr("зэ",
+					&& strchr("\xE7\xFD", vrs.Alt[0].Code[0]) && strchr("\xE7\xFD",
+					//rejo_vers[i].Alt[0].Code[0])) && !(strchr("ГгТт",
+					rejo_vers[i].Alt[0].Code[0])) && !(strchr("\xC3\xE3\xD2\xF2",
+					//vrs.Alt[0].Code[0]) && strchr("гГтТ",
+					vrs.Alt[0].Code[0]) && strchr("\xE3\xC3\xF2\xD2",
 					rejo_vers[i].Alt[0].Code[0])))
 			// образы "ЙйиИ" и "ГгТт" переходят друг в друга, несмотря на оценки
 			{
@@ -1187,18 +1195,25 @@ Bool32 rec_correct_cstr(CSTR_rast b, CSTR_rast e, Bool32 ret_space,
 						(attr.RecogHistory & CSTR_hi_3x5) && vrs.Alt[0].Prob
 								> 246) // символ с хорошей оценкой 3х5
 		) {
-			if (!(strchr("ЙйиИ", vrs.Alt[0].Code[0]) && strchr("иИЙй",
-					ed_vers[i].Alt[0].Code)) && !(strchr("сСеоО",
-					vrs.Alt[0].Code[0]) && strchr("сСеоО",
+			//if (!(strchr("ЙйиИ", vrs.Alt[0].Code[0]) && strchr("иИЙй",
+			if (!(strchr("\xC9\xE9\xE8\xC8", vrs.Alt[0].Code[0]) && strchr("\xE8\xC8\xC9\xE9",
+					//ed_vers[i].Alt[0].Code)) && !(strchr("сСеоО",
+					ed_vers[i].Alt[0].Code)) && !(strchr("\xF1\xD1\xE5\xEE\xCE",
+					//vrs.Alt[0].Code[0]) && strchr("сСеоО",
+					vrs.Alt[0].Code[0]) && strchr("\xF1\xD1\xE5\xEE\xCE",
 					ed_vers[i].Alt[0].Code)) && !(strchr("il1",
 					vrs.Alt[0].Code[0])
 					&& strchr("il1", ed_vers[i].Alt[0].Code)) && !(strchr(
-					"ГгТт", vrs.Alt[0].Code[0]) && strchr("гГтТ",
+					//"ГгТт", vrs.Alt[0].Code[0]) && strchr("гГтТ",
+					"\xC3\xE3\xD2\xF2", vrs.Alt[0].Code[0]) && strchr("\xE3\xC3\xF2\xD2",
 					ed_vers[i].Alt[0].Code))) {
-				if (test_cursive && iscursive && (strchr("ве",
-						vrs.Alt[0].Code[0]) && strchr("ве",
-						ed_vers[i].Alt[0].Code) || strchr("кхн",
-						vrs.Alt[0].Code[0]) && strchr("кхн",
+				//if (test_cursive && iscursive && (strchr("ве",
+				if (test_cursive && iscursive && (strchr("\xE2\xE5",
+						vrs.Alt[0].Code[0]) && strchr("\xE2\xE5",
+						//ed_vers[i].Alt[0].Code) || strchr("кхн",
+						ed_vers[i].Alt[0].Code) || strchr("\xEA\xF5\xED",
+						//vrs.Alt[0].Code[0]) && strchr("кхн",
+						vrs.Alt[0].Code[0]) && strchr("\xEA\xF5\xED",
 						ed_vers[i].Alt[0].Code)))
 					continue;
 				return FALSE;
@@ -1220,7 +1235,8 @@ CSTR_rast exist_pos_half(CSTR_rast b, CSTR_rast e) {
 }
 
 static char double_eng[] = "ETYOPAHKXCBMeyuopaxcnr";
-static char double_rus[] = "ЕТУОРАНКХСВМеуиорахспг";
+//static char double_rus[] = "ЕТУОРАНКХСВМеуиорахспг";
+static char double_rus[] = "\xC5\xD2\xD3\xCE\xD0\xC0\xCD\xCA\xD5\xD1\xC2\xCC\xE5\xF3\xE8\xEE\xF0\xE0\xF5\xF1\xEF\xE3";
 //static  char    double_rus[]="…’“ЋђЂЌЉ•‘‚ЊҐгЁ®а ебЇ";
 Bool32 rpstr_double_word(CSTR_rast beg, CSTR_rast end, uchar lang) {
 	CSTR_rast_attr a;
@@ -1507,12 +1523,18 @@ int32_t rstr_hsp_num(uchar *wrd) {
 	return n;
 }
 
-static char *rpstr_short_prefix[] = { "по", "в", "и", "а", "но", "ее", "По",
-		"В", "И", "А", "Но", "Не", "не", "Ее", "Он", "он", "Кто", "кто", "\0" };
-static char *rpstr_short_postfix[] = { "по", "в", "и", "а", "но", "ее", "По",
-		"В", "И", "А", "Но", "Ее", "Он", "он", "Не", "не", "Кто", "кто", "\0" };
-static char *rpstr_disable_words[] = { "=", "+", "-", "см", "шт", "кг", "Мб",
-		"её", "млн", "Млн", "мая", "Мая", "№", "#", "\0" };
+//static char *rpstr_short_prefix[] = { "по", "в", "и", "а", "но", "ее", "По",
+static char *rpstr_short_prefix[] = { "\xEF\xEE", "\xE2", "\xE8", "\xE0", "\xED\xEE", "\xE5\xE5", "\xCF\xEE",
+		//"В", "И", "А", "Но", "Не", "не", "Ее", "Он", "он", "Кто", "кто", "\0" };
+		"\xC2", "\xC8", "\xC0", "\xCD\xEE", "\xCD\xE5", "\xED\xE5", "\xC5\xE5", "\xCE\xED", "\xEE\xED", "\xCA\xF2\xEE", "\xEA\xF2\xEE", "\0" };
+//static char *rpstr_short_postfix[] = { "по", "в", "и", "а", "но", "ее", "По",
+static char *rpstr_short_postfix[] = { "\xEF\xEE", "\xE2", "\xE8", "\xE0", "\xED\xEE", "\xE5\xE5", "\xCF\xEE",
+		//"В", "И", "А", "Но", "Ее", "Он", "он", "Не", "не", "Кто", "кто", "\0" };
+		"\xC2", "\xC8", "\xC0", "\xCD\xEE", "\xC5\xE5", "\xCE\xED", "\xEE\xED", "\xCD\xE5", "\xED\xE5", "\xCA\xF2\xEE", "\xEA\xF2\xEE", "\0" };
+//static char *rpstr_disable_words[] = { "=", "+", "-", "см", "шт", "кг", "Мб",
+static char *rpstr_disable_words[] = { "\x3D", "+", "\x2D", "\xF1\xEC", "\xF8\xF2", "\xEA\xE3", "\xCC\xE1",
+		//"её", "млн", "Млн", "мая", "Мая", "№", "#", "\0" };
+		"\xE5\xB8", "\xEC\xEB\xED", "\xCC\xEB\xED", "\xEC\xE0\xFF", "\xCC\xE0\xFF", "\xB9", "#", "\0" };
 
 Bool32 rpstr_is_voc_word(uchar *wrd, char *voc[]) {
 	int32_t i;
@@ -2079,21 +2101,29 @@ static const char *twinAlts[256] = { "", "", "", "", "", "", "", "", "", "", "",
 		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", // 160
 		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", // 176
 		//АБВГДЕЖЗ
-		"Д", "ВЕ", "БЕ", "Т", "А", "БВ", "", "Э", //192
+		//"Д", "ВЕ", "БЕ", "Т", "А", "БВ", "", "Э", //192
+		"\xC4", "\xC2\xC5", "\xC1\xC5", "\xD2", "\xC0", "\xC1\xC2", "", "\xDD", //192
 		//ИЙКЛМНОП
-		"Й", "И", "ИМНХЬ", "АП", "КИНП", "КИМПХЫЯ", "С", "КЛИМН", //200
+		//"Й", "И", "ИМНХЬ", "АП", "КИНП", "КИМПХЫЯ", "С", "КЛИМН", //200
+		"\xC9", "\xC8", "\xC8\xCC\xCD\xD5\xDC", "\xC0\xCF", "\xCA\xC8\xCD\xCF", "\xCA\xC8\xCC\xCF\xD5\xDB\xDF", "\xD1", "\xCA\xCB\xC8\xCC\xCD", //200
 		//РСТУФХЦЧ
-		"", "О", "Г", "", "", "КН", "Ч", "Ц", // 208
+		//"", "О", "Г", "", "", "КН", "Ч", "Ц", // 208
+		"", "\xCE", "\xC3", "", "", "\xCA\xCD", "\xD7", "\xD6", // 208
 		//ШЩЪЫЬЭЮЯ
-		"Щ", "Ш", "ЬЫ", "НЬЪ", "КЪЫ", "З", "", "Н", // 216
+		//"Щ", "Ш", "ЬЫ", "НЬЪ", "КЪЫ", "З", "", "Н", // 216
+		"\xD9", "\xD8", "\xDC\xDB", "\xCD\xDC\xDA", "\xCA\xDA\xDB", "\xC7", "", "\xCD", // 216
 		//абвгдежз
-		"вно", "ое", "ае", "т", "", "авс", "", "аэ", //224
+		//"вно", "ое", "ае", "т", "", "авс", "", "аэ", //224
+		"\xE2\xED\xEE", "\xEE\xE5", "\xE0\xE5", "\xF2", "", "\xE0\xE2\xF1", "", "\xE0\xFD", //224
 		//ийклмноп
-		"кмнйя", "ип", "имнпхь", "инп", "кинп", "акимпхыя", "с", "клиймн", //232
+		//"кмнйя", "ип", "имнпхь", "инп", "кинп", "акимпхыя", "с", "клиймн", //232
+		"\xEA\xEC\xED\xE9\xFF", "\xE8\xEF", "\xE8\xEC\xED\xEF\xF5\xFC", "\xE8\xED\xEF", "\xEA\xE8\xED\xEF", "\xE0\xEA\xE8\xEC\xEF\xF5\xFB\xFF", "\xF1", "\xEA\xEB\xE8\xE9\xEC\xED", //232
 		//рстуфхцч
-		"", "о", "г", "", "", "кн", "ч", "ц", // 240
+		//"", "о", "г", "", "", "кн", "ч", "ц", // 240
+		"", "\xEE", "\xE3", "", "", "\xEA\xED", "\xF7", "\xF6", // 240
 		//шщъыьэю
-		"щ", "ш", "ьы", "ньъ", "къы", "аз", "", "ан" // 248
+		//"щ", "ш", "ьы", "ньъ", "къы", "аз", "", "ан" // 248
+		"\xF9", "\xF8", "\xFC\xFB", "\xED\xFC\xFA", "\xEA\xFA\xFB", "\xE0\xE7", "", "\xE0\xED" // 248
 		};
 //////////////////
 static Bool32 IsInAlter(uchar *Code, CSTR_rast c) {
