@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- ����������� ��������� ��������������� � ������������� ��� � ���� ��������� ����,
- ��� � � �������� �����, � ����������� ��� ���, ��� ���������� ��������� �������:
+ Разрешается повторное распространение и использование как в виде исходного кода,
+ так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
- * ��� ��������� ��������������� ��������� ���� ������ ���������� ���������
- ���� ����������� �� ��������� �����, ���� ������ ������� � �����������
- ����� �� ��������.
- * ��� ��������� ��������������� ��������� ���� � ������������ �/��� �
- ������ ����������, ������������ ��� ���������������, ������ �����������
- ��������� ���� ���������� �� ��������� �����, ���� ������ ������� �
- ����������� ����� �� ��������.
- * �� �������� Cognitive Technologies, �� ����� �� ����������� �� �����
- ���� ������������ � �������� �������� ��������� �/��� �����������
- ���������, ���������� �� ���� ��, ��� ���������������� �����������
- ����������.
+ * При повторном распространении исходного кода должны оставаться указанное
+ выше уведомление об авторском праве, этот список условий и последующий
+ отказ от гарантий.
+ * При повторном распространении двоичного кода в документации и/или в
+ других материалах, поставляемых при распространении, должны сохраняться
+ указанная выше информация об авторском праве, этот список условий и
+ последующий отказ от гарантий.
+ * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+ быть использованы в качестве средства поддержки и/или продвижения
+ продуктов, основанных на этом ПО, без предварительного письменного
+ разрешения.
 
- ��� ��������� ������������� ����������� ��������� ���� �/��� ������� ������ "���
- ��� ����" ��� ������-���� ���� ��������, ���������� ���� ��� ���������������,
- ������� �������� ������������ �������� � ����������� ��� ���������� ����, �� ��
- ������������� ���. �� �������� ��������� ���� � �� ���� ������ ����, �������
- ����� �������� �/��� �������� �������������� ���������, �� � ���� ������ ��
- ��Ѩ� ���������������, ������� ����� �����, ���������, ����������� ���
- ������������� ������, ��������� � �������������� ��� ���������� ����������
- ������������� ������������� ��������� (������� ������ ������, ��� ������,
- ������� ���������, ��� ������ �/��� ������ �������, ���������� ��-�� ��������
- ������� ��� �/��� ������ ��������� �������� ��������� � ������� �����������,
- �� �� ������������� ����� ��������), �� �� ������������� ���, ���� ���� �����
- �������� ��� ������ ���� ���� �������� � ����������� ����� ������� � ������.
+ ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
+ ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+ МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+ НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+ НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+ СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+ НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
+ ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -148,29 +148,29 @@ void ErrorFile (void)
 #define sizeof(a) ((long)sizeof(a))
 
 #ifdef DebugFile
-//  03-24-94 06:30pm,Pit �� ����祭�� DebugFile:
-//      1. �뢮����� �⫠��筠� ���ଠ�� � 䠩� FileError
-extern char StringError[]; // �६����� ��ப� ��� ᮮ�饭��
-extern FILE * FileError; // 䠩� ��� ᮮ�饭��
-char * TemporaleString[80]; // �६����� ��ப� ��� ᮮ�饭��
+//  03-24-94 06:30pm,Pit при включении DebugFile:
+//      1. Выводится отладочная информация в файл FileError
+        extern char   StringError[];           // временная строка для сообщений
+        extern FILE * FileError;               // файл для сообщений
+               char * TemporaleString[80];     // временная строка для сообщений
 #endif
 
-struct MemAllocate
-{
-#define MEMFREE         0x00   // ������ ᢮�����
-#define MEMMALLOC       0x01   // ������ �⢥���� �� malloc
-#define MEMEND          0x04   // ��� ��᫥����� �����
-        char id; // ����⥫� ����� �.���
-        long size; // ࠧ��� �����
-};
-typedef struct MemAllocate Memory;
+               struct MemAllocate {
+                          #define MEMFREE         0x00   // память свободна
+                          #define MEMMALLOC       0x01   // память отведена при malloc
+                          #define MEMEND          0x04   // код последнего блока
+                          char   id;                     // описатель блока см.выше
+                          long   size;                   // размер блока
+                          };
+                  typedef struct MemAllocate Memory;
 
-char * lout_memory = NULL; // ���� ��砫� ����
+                  char *  lout_memory=NULL;            // адрес начала буфера
 
-#define SizeBuffer      (2048*1024L)// ࠧ��� �� ��� ࠡ��� � ��ப���
-static long SizeAllocate = 0; // �᫮ ࠧ��饭��� ����
-static long SizeFree = 0; // �᫮ �᢮��������� ����
-static long SizeMemory = 0; // ࠧ��� ����⮩ ���
+                  #define SizeBuffer      (2048*1024L)// размер ОП под работу со строками
+
+                  static long   SizeAllocate=0;           // число размещенных байт
+                  static long   SizeFree    =0;           // число освобожденных байт
+                  static long   SizeMemory  =0;           // размер занятой кучи
 
 #ifdef DebugFile
 void PrintBlocks()
@@ -195,9 +195,9 @@ int SetupMemoryLayout() {
 
     Block = (Memory *) lout_memory;
     Block->id = MEMEND;
-    Block->size = SizeBuffer - sizeof(Memory); // �ᥣ� ����� � ����稨
-    SizeAllocate = 0; // �᫮ ࠧ��饭��� ����
-    SizeFree = 0; // �᫮ �᢮��������� ����
+    Block->size=SizeBuffer-sizeof(Memory);  // всего памяти в наличии
+    SizeAllocate=0;                         // число размещенных байт
+    SizeFree    =0;                         // число освобожденных байт
 #endif
     return 0;
 }
@@ -214,10 +214,9 @@ static void JoinEmptyBlocks() {
     Memory * Block;
     Memory * NextBlock;
 
-    if (lout_memory == NULL)
-        ErrorInternal("Malloc:��� �� ���!");
-
-    // ���㯭���� ������ ������
+    if(lout_memory==NULL)
+           ErrorInternal("Malloc:Кучи еще нет!");
+    // Укрупнение пустых блоков
     for (Block = (Memory *) lout_memory; Block->id != MEMEND; Block = (Memory *) ((char *) Block
             + Block->size + sizeof(Memory))) {
         NextBlock = (Memory *) ((char *) Block + Block->size + sizeof(Memory));
@@ -246,14 +245,14 @@ void * DebugMalloc(size_t size) {
     Memory * NextBlock;
 
     if (lout_memory == NULL)
-        ErrorInternal("Malloc:��� �� ���!");
+    	ErrorInternal("Malloc:Кучи еще нет!");
 
     if (size == 0)
         return NULL;
 
     JoinEmptyBlocks();
 
-    // ���� ᢮������� ����
+    // поиск свободного места
     for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory + SizeBuffer); Block
             = (Memory *) ((char *) Block + sizeof(Memory) + Block->size)) {
         idblock = Block->id;
@@ -262,11 +261,11 @@ void * DebugMalloc(size_t size) {
 
         if (idblock == MEMEND || idblock == MEMFREE) {
             if (sizeblock >= size + sizeof(Memory)) {
-                // ������塞 �������� ᢮����� ����
+            	// заполняем найденный свободный блок
                 Block->id = MEMMALLOC;
                 Block->size = size;
                 memvoid = (void *) ((char *) Block + sizeof(Memory));
-                // ᮧ���� ���� ᢮����� ����
+                // создаем новый свободный блок
                 Block = (Memory *) ((char *) Block + size + sizeof(Memory));
                 Block->id = idblock;
                 Block->size = sizeblock - (size + sizeof(Memory));
@@ -279,12 +278,12 @@ void * DebugMalloc(size_t size) {
 
             else {
                 if (idblock == MEMEND)
-                    return NULL; //  ErrorNoEnoughMemory("��� ������ ���௠��...");
+                    return NULL; //  ErrorNoEnoughMemory("Вся память исчерпана...");
             }
         } // if ...
     }// for ...
 
-    ErrorNoEnoughMemory("���� �� ���᪥ ᢮������� ����...");
+    ErrorNoEnoughMemory("Сбой при поиске свободного места...");
     return NULL;
     YES:
 #ifdef DebugFile
@@ -300,7 +299,7 @@ void * DebugMalloc(size_t size) {
 #endif
     return memvoid;
 }
-// ���� 㦥 ࠧ��饭���� �����
+// поиск уже размещенного блока
 Memory * FindMem(void * blk) {
     Memory * Block;
 
@@ -309,7 +308,7 @@ Memory * FindMem(void * blk) {
 #ifdef DebugFile
 
         if ((char *)Block > (lout_memory + SizeBuffer))
-        ErrorInternal("\n���� ����� �� ���᪥ �����...");
+        	ErrorInternal("\nСбой памяти при поиске блока...");
 
 #endif
 
@@ -317,7 +316,7 @@ Memory * FindMem(void * blk) {
 #ifdef DebugFile
 
             if (Block->id == MEMFREE)
-            fprintf(FileError, "\n������ �᢮�������� ����...");
+            	fprintf(FileError,"\nНайден освобожденный блок...");
 
 #endif
             return Block;
@@ -331,18 +330,15 @@ void DebugFree(void * blk) {
     Memory * Block;
 
     if (lout_memory == NULL)
-        ErrorInternal("Free:��� �� ���!");
-
-    if (blk == NULL)
-        ErrorInternal("����⪠ �᢮������ ������ �� �� ࠧ��饭�� !");
-
-    if ((Block = FindMem(blk)) == NULL) {
-        //ErrorInternal("�᢮��������� ������ �� ������� !");
-        return;
-    }
-
-    //�᢮�������� �����
-    Block->id = MEMFREE;
+		ErrorInternal("Free:Кучи еще нет!");
+	if (blk == NULL)
+		ErrorInternal("Попытка освободить память до ее размещения !");
+	if ((Block = FindMem(blk)) == NULL) {
+		//ErrorInternal("Освобождаемая память не найдена !");
+		return;
+	}
+	//освобождение блока
+	Block->id = MEMFREE;
     SizeFree += Block->size;
 #ifdef DebugFile
 
@@ -361,7 +357,7 @@ void * DebugRealloc(void * old_blk, size_t size) {
     Memory * Block;
 
     if (lout_memory == NULL)
-        ErrorInternal("Realloc:��� �� ���!");
+    	 ErrorInternal("Realloc:Кучи еще нет!");
 
     if (size == 0)
         return NULL;
@@ -372,10 +368,10 @@ void * DebugRealloc(void * old_blk, size_t size) {
     }
 
     if ((Block = FindMem(old_blk)) == NULL)
-        ErrorInternal("\n��室�� ���� ��� REALLOC �� ������!");
+    	ErrorInternal("\nИсходный буфер для REALLOC не найден!");
 
     if (Block->size <= size + sizeof(Memory)) {
-        // �ॡ���� ���� ������ ࠧ��஢
+    	// требуется блок больших размеров
         new_blk = DebugMalloc(size);
 
         if (new_blk != NULL && old_blk != NULL)
@@ -386,7 +382,7 @@ void * DebugRealloc(void * old_blk, size_t size) {
     }
 
     else {
-        // �ॡ���� ���� ������ ࠧ��஢
+        // требуется блок меньших размеров
         Memory * NewBlock = (Memory *) ((char *) Block + size + sizeof(Memory));
         NewBlock->id = MEMFREE;
         NewBlock->size = Block->size - (size + sizeof(Memory));
@@ -429,12 +425,12 @@ long GetMaxSizeFreeMem() {
     Memory * Block;
 
     if (lout_memory == NULL)
-        ErrorInternal("Malloc:��� �� ���!");
+    	ErrorInternal("Malloc:Кучи еще нет!");
 
     JoinEmptyBlocks();
     MaxSizeBlock = 0L;
 
-    // ���� ᢮������� ����
+    // поиск свободного места
     for (Block = (Memory *) lout_memory; (char *) Block < (lout_memory + SizeBuffer); Block
             = (Memory *) ((char *) Block + sizeof(Memory) + Block->size)) {
         idblock = Block->id;
