@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- ����������� ��������� ��������������� � ������������� ��� � ���� ��������� ����,
- ��� � � �������� �����, � ����������� ��� ���, ��� ���������� ��������� �������:
+ Разрешается повторное распространение и использование как в виде исходного кода,
+ так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
- * ��� ��������� ��������������� ��������� ���� ������ ���������� ���������
- ���� ����������� �� ��������� �����, ���� ������ ������� � �����������
- ����� �� ��������.
- * ��� ��������� ��������������� ��������� ���� � ������������ �/��� �
- ������ ����������, ������������ ��� ���������������, ������ �����������
- ��������� ���� ���������� �� ��������� �����, ���� ������ ������� �
- ����������� ����� �� ��������.
- * �� �������� Cognitive Technologies, �� ����� �� ����������� �� �����
- ���� ������������ � �������� �������� ��������� �/��� �����������
- ���������, ���������� �� ���� ��, ��� ���������������� �����������
- ����������.
+ * При повторном распространении исходного кода должны оставаться указанное
+ выше уведомление об авторском праве, этот список условий и последующий
+ отказ от гарантий.
+ * При повторном распространении двоичного кода в документации и/или в
+ других материалах, поставляемых при распространении, должны сохраняться
+ указанная выше информация об авторском праве, этот список условий и
+ последующий отказ от гарантий.
+ * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+ быть использованы в качестве средства поддержки и/или продвижения
+ продуктов, основанных на этом ПО, без предварительного письменного
+ разрешения.
 
- ��� ��������� ������������� ����������� ��������� ���� �/��� ������� ������ "���
- ��� ����" ��� ������-���� ���� ��������, ���������� ���� ��� ���������������,
- ������� �������� ������������ �������� � ����������� ��� ���������� ����, �� ��
- ������������� ���. �� �������� ��������� ���� � �� ���� ������ ����, �������
- ����� �������� �/��� �������� �������������� ���������, �� � ���� ������ ��
- ��Ѩ� ���������������, ������� ����� �����, ���������, ����������� ���
- ������������� ������, ��������� � �������������� ��� ���������� ����������
- ������������� ������������� ��������� (������� ������ ������, ��� ������,
- ������� ���������, ��� ������ �/��� ������ �������, ���������� ��-�� ��������
- ������� ��� �/��� ������ ��������� �������� ��������� � ������� �����������,
- �� �� ������������� ����� ��������), �� �� ������������� ���, ���� ���� �����
- �������� ��� ������ ���� ���� �������� � ����������� ����� ������� � ������.
+ ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
+ ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+ МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+ НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+ НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+ СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+ НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
+ ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -67,9 +67,9 @@
 extern const int Num11[256];
 /**************************************/
 //
-//  ���� ��⠥� - ࠧ��� ���⨭�� ������
-//  � MAXSINT !
-//  ��ୠ� �窠 == 1  !!!
+//  Всюду считаем - размер картинки влазит
+//  в MAXSINT !
+//  Черная точка == 1  !!!
 //
 int16_t MoveUpDownBitmap(uchar *bSource, int16_t xbyte, int16_t yrow, uchar *bDest)
 {
@@ -77,14 +77,14 @@ int16_t MoveUpDownBitmap(uchar *bSource, int16_t xbyte, int16_t yrow, uchar *bDe
     uchar *b1;
     uchar *b2;
     int16_t size = xbyte * yrow;
-    // ࠧ����� ����
+	 // размажем вниз
     b2 = bDest + xbyte;
     b1 = bSource;
 
     for (i = 0; i < size; i++)
         b2[i] |= b1[i];
 
-    // ⥯��� �����
+	 // теперь вверх
     b2 = bDest;
     b1 = bSource + xbyte;
     size -= xbyte;
@@ -103,14 +103,14 @@ int16_t MoveLeftRightBitmap(uchar *bSource, int16_t xbyte, int16_t yrow)
     uchar *b1;
 
     for (i = 0, b1 = bSource; i < yrow; i++, b1 += xbyte) {
-        // ���� �� ������ ��ப�
+    	// идем по каждой строке
         for (j = 0, stay1 = 0; j < xbyte; j++) {
-            // �������� last bit
+        	// запомним last bit
             stay = b1[j] & 1;
             // first bit from next byte
             stay2 = (j + 1 < xbyte ? (b1[j + 1] & 128) >> 7 : 0);
             b1[j] |= (b1[j] >> 1) | (b1[j] << 1) | stay1 | stay2;
-            // ��࠭���� last bit - ������ � ᫥���騩 ����
+        	// сохраненный last bit - пойдет в следующий байт
             stay1 = stay << 7;
         }
     }
@@ -139,7 +139,7 @@ int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit, int16_
     int16_t i, j;
     uchar mas;
     uchar *b1;
-    //  ���㫨�  墮�� � ���筨�� - ���� �� �� �����?
+    //  обнулим  хвост в источнике - вдруг не был пустым?
     j = xbit & 7;
 
     if (j != 0) {
@@ -149,7 +149,7 @@ int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit, int16_
             * b1 &= mas;
     }
 
-    // �᫨ ���� ��譨� ���� � ���筨�� - ���㫨�
+    // если есть лишний байт в источнике - обнулим
     else {
         for (i = 0, b1 = bSource + xbyte - 1; i < yrow; i++, b1 += xbyte)
             * b1 = 0;
@@ -157,13 +157,13 @@ int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit, int16_
 
     // if(!fat)
     fat = VeryFat(bSource, xbit, yrow, xbyte);
-    // ���㫨� ��᫥���� ��ப� '⮫�⮣�'
+    // обнулим последнюю строку 'толстого'
     memset(bDest + xbyte * yrow, 0, xbyte);
 #ifdef _SPECSMALL_
 
     // not add angles
     if (yrow <= SMALLPOROG || fat) {
-        // ᪮���㥬
+    	// скопируем
         memcpy(bDest, bSource, xbyte * yrow);
         MoveLeftRightBitmap(bDest, xbyte, yrow);
         MoveUpDownBitmap(bSource, xbyte, yrow, bDest);
@@ -171,12 +171,12 @@ int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit, int16_
 
     else {
 #endif
-        // ᪮���㥬
+    	// скопируем
         memcpy(bDest, bSource, xbyte * yrow);
-        // � ������� ࠧ�����
-        //  �����-����
+        // и наконец размажем
+        //  вверх-вниз
         MoveUpDownBitmap(bSource, xbyte, yrow, bDest);
-        // � ��ࠢ�-�����
+        // и вправо-влево
         MoveLeftRightBitmap(bDest, xbyte, (int16_t) (yrow + 1));
 #ifdef _SPECSMALL_
     }
@@ -194,9 +194,9 @@ int16_t Razmaz(uchar *bSource, uchar *bDest, int16_t xbyte, int16_t xbit, int16_
 #ifdef _ADDCLU_
 /**************************************/
 //
-//  ���� ��⠥� - ࠧ��� ���⨭�� ������
-//  � MAXSINT !
-//  ��ୠ� �窠 == 1  !!!
+//  Всюду считаем - размер картинки влазит
+//  в MAXSINT !
+//  Черная точка == 1  !!!
 //
 static uchar tmpbuf[(WR_MAX_WIDTH >> 3) * WR_MAX_HEIGHT];
 int16_t MoveUpDownBitmap2(int16_t xbyte, int16_t yrow, uchar *bDest)
@@ -207,14 +207,14 @@ int16_t MoveUpDownBitmap2(int16_t xbyte, int16_t yrow, uchar *bDest)
     int16_t size = xbyte * yrow;
     uchar *bSource = tmpbuf;
     memcpy(bSource, bDest + xbyte, xbyte * yrow);
-    // ࠧ����� ����
+    // размажем вниз
     b2 = bDest + 2 * xbyte ;
     b1 = bSource;
 
     for (i = 0; i < size; i++)
         b2[i] |= b1[i];
 
-    // ⥯��� �����
+    // теперь вверх
     b2 = bDest;
     b1 = bSource;
 
@@ -232,7 +232,7 @@ static int16_t MoveUpDownNoAngle(uchar *bSource, int16_t xbyte1, int16_t xbyte2,
     uchar *b2;
     uchar stay;
     int16_t xbyte = MIN(xbyte1, xbyte2);
-    // ࠧ����� ����
+    // размажем вниз
     b2 = bDest;
     b1 = bSource;
 
@@ -270,12 +270,12 @@ static int16_t MoveLeftRightBitmap2(uchar *bSource, int16_t xbyte, int16_t yrow)
     uchar *b1;
 
     for (i = 0, b1 = bSource; i < yrow; i++, b1 += xbyte) {
-        // ���� �� ������ ��ப�
+    	 // идем по каждой строке
         for (j = 0, stay1 = 0; j < xbyte; j++) {
-            // ��������  last bits
+        	 // запомним  last bits
             stay = ((b1[j] & 1) << 7) | ((b1[j] & 3) << 6);
             b1[j] |= (b1[j] >> 1) | (b1[j] >> 2) | stay1; // | stay2;
-            // ��࠭���� last bits - ������ � ᫥���騩 ����
+            // сохраненные last bits - пойдут в следующий байт
             stay1 = stay;
         }
     }
@@ -291,7 +291,7 @@ int16_t Razmaz2(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow, int16_
     uchar *b1, *b2;
     int16_t xbyte = (xbit + 7) >> 3; // bytes in row bSource
     int16_t xbyte2 = (xbit + 9) >> 3; // bytes in row bDest
-    //  ���㫨�  墮�� � ���筨�� - ���� �� �� �����?
+    //  обнулим  хвост в источнике - вдруг не был пустым?
     j = xbit & 7;
 
     if (j != 0) {
@@ -301,18 +301,18 @@ int16_t Razmaz2(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow, int16_
             * b1 &= mas;
     }
 
-    // ᪮���㥬
+    // скопируем
     for (i = 0, b2 = bDest + xbyte2, b1 = bSource; i < yrow; i++, b1 += xbyte, b2
             += xbyte2)
         memcpy(b2, b1, xbyte);
 
-    // �᫨ ���� ��譨� ���� � Dest - ���㫨�
+    // если есть лишний байт в Dest - обнулим
     if (xbyte < xbyte2) {
         for (i = 0, b1 = bDest + xbyte2 + xbyte; i < yrow; i++, b1 += xbyte2)
             * b1 = 0;
     }
 
-    // ���㫨� first & ��᫥���� ��ப� '⮫�⮣�'
+    // обнулим first & последнюю строку 'толстого'
     memset(bDest, 0, xbyte2);
     memset(bDest + xbyte2 * (yrow + 1), 0, xbyte2);
     MoveLeftRightBitmap2(bDest + xbyte2, xbyte2, yrow);
@@ -326,7 +326,7 @@ int16_t Razmaz2(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow, int16_
 
     //#ifdef _SPECSMALL_
     // not add angles
-    return 0; //  � ����� �� 0 ?
+    return 0; //  а когда не 0 ?
 }
 //////////////////////////
 /***********************/
@@ -338,7 +338,7 @@ int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll, int16_t xbi
     uchar *b1, *b2;
     int16_t xbyte = (xbit + 7) >> 3; // actual bytes in row bSource
     int16_t xbyte2 = (xbit + 9) >> 3; // bytes in row bDest
-    //  ���㫨�  墮�� � ���筨�� - ���� �� �� �����?
+    //  обнулим  хвост в источнике - вдруг не был пустым?
     j = xbit & 7;
 
     if (j != 0) {
@@ -348,18 +348,18 @@ int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll, int16_t xbi
             * b1 &= mas;
     }
 
-    // ᪮���㥬
+    // скопируем
     for (i = 0, b2 = bDest + xbyte2, b1 = bSource; i < yrow; i++, b1
             += xbyteAll, b2 += xbyte2)
         memcpy(b2, b1, xbyte);
 
-    // �᫨ ���� ��譨� ���� � Dest - ���㫨�
+    // если есть лишний байт в Dest - обнулим
     if (xbyte < xbyte2) {
         for (i = 0, b1 = bDest + xbyte2 + xbyte; i < yrow; i++, b1 += xbyte2)
             * b1 = 0;
     }
 
-    // ���㫨� first & ��᫥���� ��ப� '⮫�⮣�'
+    // обнулим first & последнюю строку 'толстого'
     memset(bDest, 0, xbyte2);
     memset(bDest + xbyte2 * (yrow + 1), 0, xbyte2);
     MoveLeftRightBitmap2(bDest + xbyte2, xbyte2, yrow);
@@ -373,7 +373,7 @@ int16_t Razmaz2xByte(uchar *bSource, uchar *bDest, int16_t xbyteAll, int16_t xbi
 
     //#ifdef _SPECSMALL_
     // not add angles
-    return 0; //  � ����� �� 0 ?
+    return 0; //  а когда не 0 ?
 }
 //////////////////////////
 //
@@ -385,7 +385,7 @@ static void MoveDownBitmap(uchar *bSource, int16_t xbyte, int16_t yrow, uchar *b
     int16_t i;
     uchar *b1;
     uchar *b2;
-    // ࠧ����� ����
+    // размажем вниз
     b2 = bDest + xbyte;
     b1 = bSource;
 
@@ -433,17 +433,17 @@ int16_t RazmazHalf(uchar *bSource, uchar *bDest, int16_t xbit, int16_t yrow)
             += xbyte2)
         memcpy(b2, b1, xbyte);
 
-    // �᫨ ���� ��譨� ���� � Dest - ���㫨�
+    // если есть лишний байт в Dest - обнулим
     if (xbyte < xbyte2) {
         for (i = 0, b1 = bDest + xbyte2 - 1; i < yrow; i++, b1 += xbyte2)
             * b1 = 0;
     }
 
-    // ���㫨� ��᫥���� ��ப� '⮫�⮣�'
+    // обнулим последнюю строку 'толстого'
     memset(bDest + xbyte2 * yrow, 0, xbyte2);
     MoveDownBitmap(bSource, xbyte, yrow, bDest, xbyte2);
     MoveRightBitmap(bDest, xbyte2, yrow);
-    return 0; //  � ����� �� 0 ?
+    return 0; //  а когда не 0 ?
 }
 //////////////////////////
 //////////////////////
@@ -543,7 +543,7 @@ int16_t DistBitRas(puchar r, int16_t w, int16_t h, // b/w bitmap
 }
 ////////////////////////
 //
-// for razmaz   -  �饬 �窨, ����� �뫠��� � wel
+// for razmaz   -  ищем точки, которые вылазят в wel
 //
 int16_t DistRasBit(puchar r, int16_t w, int16_t h, // b/w bitmap
                    pchar wr, int16_t ww, int16_t wh, char wei, // grey raster
