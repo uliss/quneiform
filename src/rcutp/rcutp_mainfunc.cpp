@@ -2,33 +2,33 @@
 Copyright (c) 1993-2008, Cognitive Technologies
 All rights reserved.
 
-����������� ��������� ��������������� � ������������� ��� � ���� ��������� ����,
-��� � � �������� �����, � ����������� ��� ���, ��� ���������� ��������� �������:
+Разрешается повторное распространение и использование как в виде исходного кода,
+так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
-      * ��� ��������� ��������������� ��������� ���� ������ ���������� ���������
-        ���� ����������� �� ��������� �����, ���� ������ ������� � �����������
-        ����� �� ��������.
-      * ��� ��������� ��������������� ��������� ���� � ������������ �/��� �
-        ������ ����������, ������������ ��� ���������������, ������ �����������
-        ��������� ���� ���������� �� ��������� �����, ���� ������ ������� �
-        ����������� ����� �� ��������.
-      * �� �������� Cognitive Technologies, �� ����� �� ����������� �� �����
-        ���� ������������ � �������� �������� ��������� �/��� �����������
-        ���������, ���������� �� ���� ��, ��� ���������������� �����������
-        ����������.
+      * При повторном распространении исходного кода должны оставаться указанное
+        выше уведомление об авторском праве, этот список условий и последующий
+        отказ от гарантий.
+      * При повторном распространении двоичного кода в документации и/или в
+        других материалах, поставляемых при распространении, должны сохраняться
+        указанная выше информация об авторском праве, этот список условий и
+        последующий отказ от гарантий.
+      * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+        быть использованы в качестве средства поддержки и/или продвижения
+        продуктов, основанных на этом ПО, без предварительного письменного
+        разрешения.
 
-��� ��������� ������������� ����������� ��������� ���� �/��� ������� ������ "���
-��� ����" ��� ������-���� ���� ��������, ���������� ���� ��� ���������������,
-������� �������� ������������ �������� � ����������� ��� ���������� ����, �� ��
-������������� ���. �� �������� ��������� ���� � �� ���� ������ ����, �������
-����� �������� �/��� �������� �������������� ���������, �� � ���� ������ ��
-��Ѩ� ���������������, ������� ����� �����, ���������, ����������� ���
-������������� ������, ��������� � �������������� ��� ���������� ����������
-������������� ������������� ��������� (������� ������ ������, ��� ������,
-������� ���������, ��� ������ �/��� ������ �������, ���������� ��-�� ��������
-������� ��� �/��� ������ ��������� �������� ��������� � ������� �����������,
-�� �� ������������� ����� ��������), �� �� ������������� ���, ���� ���� �����
-�������� ��� ������ ���� ���� �������� � ����������� ����� ������� � ������.
+ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
+ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
+ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -90,8 +90,8 @@ static int16_t GDE_KAK[13][3] = {{1, 0, 0} , {4, 0, 0}  , {8, 0, 0} ,
 int16_t Alik_define_cut_points(
     pchar raster_frag,
     struct own_cut *ans,
-    int16_t dx,                  /* ࠡ��� �ਭ� ����          */
-    int16_t dy,                   /* ࠡ��� ���� ����          */
+    int16_t dx,                   /* рабочая ширина растра          */
+    int16_t dy,                   /* рабочая высота растра          */
     int16_t row
 )
 
@@ -115,44 +115,44 @@ int16_t Alik_define_cut_points(
     CP = ver_byte * dx;
     i = hor_byte * dy;
     tret_h = (dy << 1) / 3;
-    adr_raster = (pchar)MemForCutPoints;      /* ��� ��室�� �࠭ᯮ��஢���� ���� */
-    adrw = adr_raster + CP;            /* ��� ��ࠡ�⠭�� �࠭ᯮ��஢���� ���� */
-    trace = adrw + (CP > i ? CP : i);  /* ��� ��室  */
-    penalty = (pint16_t)trace + dx;        /* ��� ����� */
-    product = (pchar)(penalty + dx);   /* ��� �ந�������� ��᫥����⥫��� �⮫�殢 */
-    cut_points = (pint16_t)(product + dx); /* ��� �窨 ࠧ१���� */
+    adr_raster = (pchar)MemForCutPoints;       /* под исходный транспонированный растр */
+    adrw = adr_raster + CP;             /* под обработанный транспонированный растр */
+    trace = adrw + (CP > i ? CP : i);  /* под обход  */
+    penalty = (pint16_t)trace + dx;       /* под штрафы */
+    product = (pchar)(penalty + dx);   /* под произведения последовательных столбцов */
+    cut_points = (pint16_t)(product + dx); /* под точки разрезания */
     adrw_two = (pchar)MemForCutPointsTwo;
     adr_ras_two = adrw_two + (CP > i ? CP : i);
-    product_two = adr_ras_two + (CP > i ? CP : i); /* ��� �ந�������� ��᫥����⥫��� �⮫�殢 ᫥�� � �ࠢ�*/
+    product_two = adr_ras_two + (CP > i ? CP : i); /* под произведения последовательных столбцов слева и справа*/
     UpBlackPoint = (puchar)(product_two + dx);
     CountCut    = (puchar)(UpBlackPoint + dx);
     SourceRaster = (pchar)(CountCut + dx);
     my_penalty  = (pint16_t)(SourceRaster + (CP > i ? CP : i));
     IntBuf      = (puchar)(my_penalty + dx);
-    CP = (dx < 3 || dy < 3) ? 0 : 1;   /* १��� �� �㤥�, �᫨ ���� ��� �� ������ �� ���ࠢ����� */
+    CP = (dx < 3 || dy < 3) ? 0 : 1;   /* резать не будем, если растр мал по одному из направлений */
 
     if (CP) {
         memcpy(SourceRaster, raster_frag, hor_byte*dy);
         memset((puchar)adr_cut_points, 0, R_S);
         memset(CountCut, 0, dx);
-        Alik_tr_bit_matr(ver_byte, dy, raster_frag, adr_raster, hor_byte, dx); /* �࠭ᯮ��஢���� ��室���� ���� */
-        memset((pint16_t)trace, 0, sizeof(int16_t)*dx);    /* ���㫥��� ���� ���⮢�� ���ᨢ�� */
-        memset(penalty, 0, sizeof(int16_t)*dx);        /* ���㫥��� ���ᨢ� ���䮢 */
+        Alik_tr_bit_matr(ver_byte, dy, raster_frag, adr_raster, hor_byte, dx); /* транспонирование исходного растра */
+        memset((pint16_t)trace, 0, sizeof(int16_t)*dx);    /* зануление двух байтовых массивов */
+        memset(penalty, 0, sizeof(int16_t)*dx);        /* зануление массива штрафов */
         CP = Alik_del_detail(raster_frag, dx, (int16_t)(dy * hor_byte), penalty);
 
         if (!CP && dx > 20 && dx <= 128) CP = 1;   //10-09-96 03:24pm  Alik  cten33.tif
 
-        if (!CP) {                     /* ���� �ᯠ��� */
-            memset(penalty, 0, sizeof(int16_t)*dx);      /* ���㫥��� ���ᨢ� ���䮢 */
+        if (!CP) {                     /* растр распался */
+            memset(penalty, 0, sizeof(int16_t)*dx);       /* зануление массива штрафов */
             memcpy(adr_raster, adrw, ver_byte*dx);
         }
 
         else
-            Alik_tr_bit_matr(ver_byte, dy, raster_frag, adrw, hor_byte, dx);    /* �࠭ᯮ��஢���� ��⮢�� ������ */
+            Alik_tr_bit_matr(ver_byte, dy, raster_frag, adrw, hor_byte, dx);   /* транспонирование битовой матрицы */
 
         if (CP) CP = Alik_search_bound_point_in_raster(adrw, ver_byte, dx);
 
-        if (CP) {    /*  ���� ������ */
+        if (CP) {    /*  растр непуст */
             Alik_form_bound(adrw, dx, dy, ver_byte, trace, 0);
             memcpy(adr_ras_two, adrw, ver_byte*dx);
             memcpy(adrw_two, adrw, ver_byte*dx);
@@ -244,7 +244,7 @@ int16_t Alik_define_cut_points(
         if (CP) {
             Alik_cor_pnt((pint16_t)adr_cut_points, penalty, cut_points, CP, dx, dy, ver_byte, (pchar)adrw, (pchar)trace);
             Alik_form_bound(adr_raster, dx, dy, ver_byte, trace, 1);
-            stek = (pchar)(penalty + ((CP + 1) << 2) - (CP + 1));  /* ��९��뢠�� �ࠣ����� ����� ��室� */
+            stek = (pchar)(penalty + ((CP + 1) << 2) - (CP + 1));  /* переписываем фрагменты трассы обхода */
             cut_points = penalty + 3 * (CP - 1) + 1;
 
             for (j = CP; j > 0; j--, cut_points -= 4, stek++) {
@@ -450,31 +450,31 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem, struct own_cut *ans,
     }
 
     switch (CountGrupElem) {
-            /******************** ���� �窠*******************************/
-            /*        0       1         2                                 */
-            /*    {1,0,0} ,{4,0,0} ,{8,0,0}                              */
-            /**************************************************************/
-        case 0: /* ���� �窠 */
+    /******************** одна точка*******************************/
+    /*        0       1         2                                 */
+    /*    {1,0,0} ,{4,0,0} ,{8,0,0}                               */
+    /**************************************************************/
+        case 0:  /* одна точка */
 
             if (ans->dh < min_dh + 3)     return 0;
 
             if (ans->dh <= two_min_dh)  return 1;
 
             return 2;
-            /******************** ��� �窨 *******************************/
+            /******************** две точки *******************************/
             /*        3         4          5                              */
-            /*    {1,8,0} ,{8,1,0} ,{8,8,0}                           */
+            /*    {1,8,0} ,{8,1,0} ,{8,8,0}                               */
             /**************************************************************/
         case 1:
 
-            /* ���� min */
+        	/* есть min */
             if (ans->dh < min_dh + 3 || (ans + 1)->dh < min_dh + 3 ) {
                 if (ans->dh < (min_dh + 3) && ans->dh < (ans + 1)->dh)  return 3;
 
                 return 4;
             }
 
-            /* ������� ��� ���⪨� ���������� */
+            /* наверху две коротких одинаковых */
             if ((ans->dh <= min_dh || (ans + 1)->dh <= min_dh) &&
                     end[0] < tret_h    &&  end[1]  < tret_h) {
                 if (ans->dh < (ans + 1)->dh)  return 3;
@@ -482,7 +482,7 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem, struct own_cut *ans,
                 else                     return 4;
             }
 
-            /* � �।��� ��� ���⪨� ���������� */
+            /* в середине две коротких одинаковых */
             if ((ans->dh <= min_dh  || (ans + 1)->dh <= min_dh) &&
                     begin[0] >= tret_h   && begin[1] >= tret_h    &&
                     end[0] <= dve_tret_h && end[1] <= dve_tret_h) {
@@ -491,13 +491,13 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem, struct own_cut *ans,
                 else                     return 4;
             }
 
-            /* � �।��� ��� ������� */
+            /* в середине две длинных */
             if (ans->dh >= tret_h      && (ans + 1)->dh >= tret_h     &&
                     begin[0] >= chetvert_h && begin[1] >= chetvert_h    &&
                     ans->h  >= chetvert_h && (ans + 1)->h >= chetvert_h)
                 return 5;
 
-            /*����� ��� ���⪨� ����������*/
+            /* внизу две коротких одинаковых */
             if (ans->h <= chetvert_h && (ans + 1)->h <= chetvert_h) {
                 if (ans->dh < (ans + 1)->dh)  return 4;
 
@@ -509,13 +509,13 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem, struct own_cut *ans,
             if ((ans + 1)->dh <= min_dh) return 4;
 
             return 5;
-            /******************** �� �窨 *******************************/
+            /******************** три точки *******************************/
             /*          6         7         8          9                  */
-            /*   {1,8,8},{8,8,4},{8,1,8},{8,8,8}                 */
+            /*   {1,8,8},{8,8,4},{8,1,8},{8,8,8}                          */
             /**************************************************************/
         case 2:
 
-            /* ���� min */
+        	/* есть min */
             if (ans->dh == min_dh || (ans + 1)->dh == min_dh || (ans + 2)->dh == min_dh) {
                 if (ans->dh == min_dh)      return 6;
 
@@ -524,7 +524,7 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem, struct own_cut *ans,
                 return 7;
             }
 
-            /* ���� min+2 */
+            /* есть min+2 */
             if (ans->dh < min_dh + 3 || (ans + 1)->dh < min_dh + 3 || (ans + 2)->dh < min_dh + 3) {
                 if (ans->dh < min_dh + 3)      return 10;
 
@@ -533,7 +533,7 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem, struct own_cut *ans,
                 return 12;
             }
 
-            /*������� �� ���⪨� ����������*/
+            /*наверху три коротких одинаковых*/
             if (end[0] <= tret_h && end[1] <= tret_h && end[2] <= tret_h) {
                 if (ans->h == min_dh && (ans + 1)->h == min_dh && (ans + 2)->h == min_dh)
                     return 8;
@@ -547,25 +547,25 @@ uchar Alik_gde_i_kak_naxodjatsa_tochki(uchar CountGrupElem, struct own_cut *ans,
                 return 8;
             }
 
-            /*� �।��� �� ���⪨� ���������� � ���ꥬ��*/
+            /*в середине три коротких одинаковых с подъемом*/
             if (ans->dh < chetvert_h && (ans + 1)->dh < chetvert_h && (ans + 2)->dh < chetvert_h &&
                     begin[0] >= tret_h   && begin[1] >= tret_h       && begin[2] >= tret_h       &&
                     end[0] <= dve_tret_h && end[1] <= dve_tret_h     && end[2] <= dve_tret_h     &&
                     ans->h < (ans + 1)->h  && (ans + 1)->h < (ans + 2)->h)
                 return 9;
 
-            /*� �।��� �� �������*/
+            /*в середине три длинных*/
             if (ans->dh >= tret_h  && (ans + 1)->dh >= tret_h &&  (ans + 2)->dh >= tret_h &&
                     begin[0] >= chetvert_h && begin[1] >= chetvert_h && begin[2] >= chetvert_h &&
                     ans->h  >= chetvert_h && (ans + 1)->h >= chetvert_h && (ans + 2)->h >= chetvert_h)
                 return 9;
 
-            /*�� �ᥩ ���� �� �������*/
+            /*по всей высоте три длинных*/
             if (abs(ans->dh - height) < 4 && abs((ans + 1)->dh - height) < 4 &&
                     abs((ans + 2)->dh - height) < 4)
                 return 8;
 
-            /*����� �� ���⪨� ����������*/
+            /*внизу три коротких одинаковых*/
             if (ans->h <= chetvert_h && (ans + 1)->h <= chetvert_h && (ans + 2)->h <= chetvert_h) {
                 max_h = MAX(MAX(ans->h, (ans + 1)->h), MAX((ans + 1)->h, (ans + 2)->h));
 
