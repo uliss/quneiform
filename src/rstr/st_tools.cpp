@@ -2,33 +2,33 @@
  Copyright (c) 1993-2008, Cognitive Technologies
  All rights reserved.
 
- пЮГПЕЬЮЕРЯЪ ОНБРНПМНЕ ПЮЯОПНЯРПЮМЕМХЕ Х ХЯОНКЭГНБЮМХЕ ЙЮЙ Б БХДЕ ХЯУНДМНЦН ЙНДЮ,
- РЮЙ Х Б ДБНХВМНИ ТНПЛЕ, Я ХГЛЕМЕМХЪЛХ ХКХ АЕГ, ОПХ ЯНАКЧДЕМХХ ЯКЕДСЧЫХУ СЯКНБХИ:
+ Разрешается повторное распространение и использование как в виде исходного кода,
+ так и в двоичной форме, с изменениями или без, при соблюдении следующих условий:
 
- * оПХ ОНБРНПМНЛ ПЮЯОПНЯРПЮМЕМХХ ХЯУНДМНЦН ЙНДЮ ДНКФМШ НЯРЮБЮРЭЯЪ СЙЮГЮММНЕ
- БШЬЕ СБЕДНЛКЕМХЕ НА ЮБРНПЯЙНЛ ОПЮБЕ, ЩРНР ЯОХЯНЙ СЯКНБХИ Х ОНЯКЕДСЧЫХИ
- НРЙЮГ НР ЦЮПЮМРХИ.
- * оПХ ОНБРНПМНЛ ПЮЯОПНЯРПЮМЕМХХ ДБНХВМНЦН ЙНДЮ Б ДНЙСЛЕМРЮЖХХ Х/ХКХ Б
- ДПСЦХУ ЛЮРЕПХЮКЮУ, ОНЯРЮБКЪЕЛШУ ОПХ ПЮЯОПНЯРПЮМЕМХХ, ДНКФМШ ЯНУПЮМЪРЭЯЪ
- СЙЮГЮММЮЪ БШЬЕ ХМТНПЛЮЖХЪ НА ЮБРНПЯЙНЛ ОПЮБЕ, ЩРНР ЯОХЯНЙ СЯКНБХИ Х
- ОНЯКЕДСЧЫХИ НРЙЮГ НР ЦЮПЮМРХИ.
- * мХ МЮГБЮМХЕ Cognitive Technologies, МХ ХЛЕМЮ ЕЕ ЯНРПСДМХЙНБ МЕ ЛНЦСР
- АШРЭ ХЯОНКЭГНБЮМШ Б ЙЮВЕЯРБЕ ЯПЕДЯРБЮ ОНДДЕПФЙХ Х/ХКХ ОПНДБХФЕМХЪ
- ОПНДСЙРНБ, НЯМНБЮММШУ МЮ ЩРНЛ он, АЕГ ОПЕДБЮПХРЕКЭМНЦН ОХЯЭЛЕММНЦН
- ПЮГПЕЬЕМХЪ.
+ * При повторном распространении исходного кода должны оставаться указанное
+ выше уведомление об авторском праве, этот список условий и последующий
+ отказ от гарантий.
+ * При повторном распространении двоичного кода в документации и/или в
+ других материалах, поставляемых при распространении, должны сохраняться
+ указанная выше информация об авторском праве, этот список условий и
+ последующий отказ от гарантий.
+ * Ни название Cognitive Technologies, ни имена ее сотрудников не могут
+ быть использованы в качестве средства поддержки и/или продвижения
+ продуктов, основанных на этом ПО, без предварительного письменного
+ разрешения.
 
- щрю опнцпюллю опеднярюбкемю бкюдекэжюлх юбрнпяйху опюб х/хкх дпсцхлх кхжюлх "йюй
- нмю еярэ" аег йюйнцн-кхан бхдю цюпюмрхи, бшпюфеммшу ъбмн хкх ондпюгслебюелшу,
- бйкчвюъ цюпюмрхх йнллепвеяйни жеммнярх х опхцндмнярх дкъ йнмйпермни жекх, мн ме
- нцпюмхвхбюъяэ хлх. мх бкюдекеж юбрнпяйху опюб х мх ндмн дпсцне кхжн, йнрнпне
- лнфер хглемърэ х/хкх онбрнпмн пюяопнярпюмърэ опнцпюллс, мх б йнел яксвюе ме
- мея╗р нрберярбеммнярх, бйкчвюъ кчаше наыхе, яксвюимше, яоежхюкэмше хкх
- онякеднбюбьхе сашрйх, ябъгюммше я хяонкэгнбюмхел хкх онмеяеммше бякедярбхе
- мебнглнфмнярх хяонкэгнбюмхъ опнцпюллш (бйкчвюъ онрепх дюммшу, хкх дюммше,
- ярюбьхе мецндмшлх, хкх сашрйх х/хкх онрепх днунднб, онмеяеммше хг-гю деиярбхи
- рперэху кхж х/хкх нрйюгю опнцпюллш пюанрюрэ янблеярмн я дпсцхлх опнцпюллюлх,
- мн ме нцпюмхвхбюъяэ щрхлх яксвюълх), мн ме нцпюмхвхбюъяэ хлх, дюфе еякх рюйни
- бкюдекеж хкх дпсцне кхжн ашкх хгбеыемш н бнглнфмнярх рюйху сашрйнб х онрепэ.
+ ЭТА ПРОГРАММА ПРЕДОСТАВЛЕНА ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И/ИЛИ ДРУГИМИ ЛИЦАМИ "КАК
+ ОНА ЕСТЬ" БЕЗ КАКОГО-ЛИБО ВИДА ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ,
+ ВКЛЮЧАЯ ГАРАНТИИ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ, НО НЕ
+ ОГРАНИЧИВАЯСЬ ИМИ. НИ ВЛАДЕЛЕЦ АВТОРСКИХ ПРАВ И НИ ОДНО ДРУГОЕ ЛИЦО, КОТОРОЕ
+ МОЖЕТ ИЗМЕНЯТЬ И/ИЛИ ПОВТОРНО РАСПРОСТРАНЯТЬ ПРОГРАММУ, НИ В КОЕМ СЛУЧАЕ НЕ
+ НЕСЁТ ОТВЕТСТВЕННОСТИ, ВКЛЮЧАЯ ЛЮБЫЕ ОБЩИЕ, СЛУЧАЙНЫЕ, СПЕЦИАЛЬНЫЕ ИЛИ
+ ПОСЛЕДОВАВШИЕ УБЫТКИ, СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ИЛИ ПОНЕСЕННЫЕ ВСЛЕДСТВИЕ
+ НЕВОЗМОЖНОСТИ ИСПОЛЬЗОВАНИЯ ПРОГРАММЫ (ВКЛЮЧАЯ ПОТЕРИ ДАННЫХ, ИЛИ ДАННЫЕ,
+ СТАВШИЕ НЕГОДНЫМИ, ИЛИ УБЫТКИ И/ИЛИ ПОТЕРИ ДОХОДОВ, ПОНЕСЕННЫЕ ИЗ-ЗА ДЕЙСТВИЙ
+ ТРЕТЬИХ ЛИЦ И/ИЛИ ОТКАЗА ПРОГРАММЫ РАБОТАТЬ СОВМЕСТНО С ДРУГИМИ ПРОГРАММАМИ,
+ НО НЕ ОГРАНИЧИВАЯСЬ ЭТИМИ СЛУЧАЯМИ), НО НЕ ОГРАНИЧИВАЯСЬ ИМИ, ДАЖЕ ЕСЛИ ТАКОЙ
+ ВЛАДЕЛЕЦ ИЛИ ДРУГОЕ ЛИЦО БЫЛИ ИЗВЕЩЕНЫ О ВОЗМОЖНОСТИ ТАКИХ УБЫТКОВ И ПОТЕРЬ.
 
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -62,13 +62,13 @@
 /*----------------------------------------------------------------------*/
 /*
 
- ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟
- ╟╟                                                              ╟╟
- ╟╟     S_TOOLS.C                                                ╟╟
- ╟╟	 functions cell-manipulations and abris modification      ╟╟
- ╟╟     data of last modification :  03.11.92.                   ╟╟
- ╟╟                                                              ╟╟
- ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟
+ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ ░░                                                              ░░
+ ░░     S_TOOLS.C                                                ░░
+ ░░     functions cell-manipulations and abris modification      ░░
+ ░░     data of last modification :  03.11.92.                   ░░
+ ░░                                                              ░░
+ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
  */
 
 #include <stdio.h>
@@ -120,11 +120,11 @@ uchar left_letter_EEM; // 17.01.1994
 
 #define bytlen(bit) (((bit)+7)>>3)
 
-/* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
-/* ╟╟╟           FUNCTIONS FOR CELL-MANIPULATIONS               ╟╟╟  */
-/* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
+/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  */
+/* ░░░           FUNCTIONS FOR CELL-MANIPULATIONS               ░░░  */
+/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  */
 
-/* add CIF::version : if '*' or  'Ч' (spec symbols) then kill primary versions */
+/* add CIF::version : if '*' or  '■' (spec symbols) then kill primary versions */
 void new_vers(cell *c, uchar vers, uchar prob)
 {
 
@@ -204,13 +204,13 @@ void down_all_versions(cell *c, int16_t monus)
     return;
 }
 
-/* add CIF::version (let,prob) if she not exist, else correct propability */
+/* add version (let,prob) if she not exist, else correct propability */
 void add_stick_vers(cell *c, char let, uchar prob)
 {
     if (!check_let(c, let))
-        new_vers(c, let, prob); /* adding new CIF::version */
+        new_vers(c, let, prob); /* adding new version */
     else
-        set_prob(c, let, prob); /* increasing old CIF::version */
+        set_prob(c, let, prob); /* increasing old version */
     return;
 }
 
@@ -308,7 +308,7 @@ static int16_t kill_stick(CIF::version *v)
             !is_turkish_language(language) && (let == i_right_accent || // 08.07.1993 FRENCH:
             let == i_roof_accent || let == II_right_accent || let == II_roof_accent ||
 
-    // йНМТКХЙРМШЕ ЙНДШ // 07.09.2000 E.P.
+    // Конфликтные коды // 07.09.2000 E.P.
             !is_cen_language(language) && (
 
             let == i_left_accent || let == i_2dot_accent || let == II_left_accent || let
@@ -318,8 +318,8 @@ static int16_t kill_stick(CIF::version *v)
             is_cen_language(language) && (let == 'd' || let == 't' || let == d_inv_roof || let
                     == t_inv_roof || let == t_bottom_accent) ||
 
-    is_baltic_palka(let) || // аЮКРХИЯЙХЕ ОЮКЙХ. 10.07.2001 E.P.
-            is_turkish_palka(let) // рСПЕЖЙХЕ ОЮКЙХ. 21.05.2002 E.P.
+    is_baltic_palka(let) || // Балтийские палки. 10.07.2001 E.P.
+            is_turkish_palka(let) // Турецкие палки. 21.05.2002 E.P.
 
     )
         v->prob = (uchar) kill_version(v->prob);
@@ -418,9 +418,9 @@ int16_t discrim_all_sticks(cell *c, STICK_CHARS *left_chars, STICK_CHARS *right_
     return (num);
 }
 /*----------------------------------------------------------------------*/
-/* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
-/* ╟╟╟           FUNCTIONS FOR FILTRATE ABRIS-ARRAY             ╟╟╟  */
-/* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
+/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  */
+/* ░░░           FUNCTIONS FOR FILTRATE ABRIS-ARRAY             ░░░  */
+/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  */
 /* shave near pimples              */
 void filtr_short(uchar fun[], int16_t n, int16_t lev)
 {
@@ -500,11 +500,11 @@ int16_t find_minimum(uchar fun[], int16_t n, uchar *_imin)
     return (minim);
 }
 
-/* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
-/* ╟╟╟           FUNCTIONS FOR ADDING NEW VERSIONS              ╟╟╟  */
-/* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
+/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  */
+/* ░░░           FUNCTIONS FOR ADDING NEW VERSIONS              ░░░  */
+/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  */
 /*----------------------------------------------------------------------*/
-// add '╨','1','!', liga_exm, invers_exm to cell:
+// add '║','1','!', liga_exm, invers_exm to cell:
 void add_thick_stick_versions(cell *c, int16_t dx, int16_t wide, int16_t inc, int16_t typ_snap,
         STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 {
@@ -524,29 +524,29 @@ void add_thick_stick_versions(cell *c, int16_t dx, int16_t wide, int16_t inc, in
     //////mkm1 = full_wide;
     //////mkm2 = (l->max_flag<<8) | r->max_flag;
 
-    if (s->neck == 3) // 16.12.1993  ADD ╨ FIRST:
+    if (s->neck == 3) // 16.12.1993  ADD ║ FIRST:
     //////	add_stick_vers (c, liga_i, cut_by_pos(c,liga_i,prob,1,1));
         if (language != LANGUAGE_RUSSIAN)
             add_stick_vers(c, (char) liga_i, // 17.01.1994, 140 for der Laterne:
                     (uchar) cut_by_pos(c, liga_i, (char) (MAX(prob,140)), 1, 1));
 
-    if (!inc && wide << 1 <= dx && // ADD ╨ SECOND:
+    if (!inc && wide << 1 <= dx && // ADD ║ SECOND:
             s->neck && typ_snap && similar_0xBA(l, r, s))
-        /* no inc; exist neck; thin stick; similar '╨' */
-        //////	add_stick_vers (c,'╨',cut_by_pos(c,'╨',prob,1,1));
+        /* no inc; exist neck; thin stick; similar '║' */
+        //////	add_stick_vers (c,'║',cut_by_pos(c,'║',prob,1,1));
         if (language != LANGUAGE_RUSSIAN)
             add_stick_vers(c, (char) liga_i, (uchar) cut_by_pos(c, liga_i, prob, 1, 1));
 
-    if (inc < 2 && // ADD ╩ SECOND:
+    if (inc < 2 && // ADD » SECOND:
             s->neck && typ_snap && similar_0xBB(l, r, s))
         if (language != LANGUAGE_RUSSIAN)
             add_stick_vers(c, (char) liga_j, (uchar) cut_by_pos(c, liga_j, prob, 1, 1));
 
-    if (!(c->cg_flag & c_cg_cutl) && (dot_ij(c) == NULL) && typ_snap) // ╨,1 ???
+    if (!(c->cg_flag & c_cg_cutl) && (dot_ij(c) == NULL) && typ_snap) // ║,1 ???
     { /* not left cut and not i-dot */
-        if (similar_0xBA(l, r, s)) // ADD ╨ THIRD:
+        if (similar_0xBA(l, r, s)) // ADD ║ THIRD:
             if (c->nvers == 0 || c->vers[0].let != '/') // PROBA 25.06.1993
-            //////		add_stick_vers(c,'╨',cut_by_pos(c,'╨',prob,1,1));
+            //////		add_stick_vers(c,'║',cut_by_pos(c,'║',prob,1,1));
                 if (language != LANGUAGE_RUSSIAN)
                     add_stick_vers(c, (char) liga_i, (uchar) cut_by_pos(c, liga_i, prob, 1, 1));
         /*......................................................................*/
@@ -753,9 +753,9 @@ int16_t conv_prob(int16_t prob)
     return (prob);
 }
 
-/* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
-/* ╟╟╟                       SNAP-FUNCTIONS                     ╟╟╟  */
-/* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
+/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  */
+/* ░░░                       SNAP-FUNCTIONS                     ░░░  */
+/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  */
 
 /* out text string */
 void short_snap(char *s, int16_t typ_snap)
@@ -830,13 +830,13 @@ void full_snap(cell *c,
          Fl Co Co Fl    SERIFS     Fl Co Co Fl
          Mo Co Co Mo    _HOOK_     Mo Co Co Mo
          --------------------------------------------------------------------------------
-         0)╨ 0Ё 0╨ 0Ё 0╨V здддбддд© C╨ 0Ё 0╨ 0Ё 0╨ wid=4 (2Ж5) col=3.5 inc=0(8) {INC}
-         1)╨ 0Ё 0╨ 0Ё 0╨A Ё~0 Ё 0~Ё O╨ 0Ё 0╨ 0Ё 0╨ base_2=7  NO NECK  NO CUT
-         2)╨ 0Ё 0╨ 0Ё 0╨L цдддеддд╢ O╨ 0Ё 0╨ 0Ё 0╨ typ_1=1  typ_f=1,0  T40  Y80  {Ь}
-         3)╨ 0Ё 0╨ 0Ё 0╨U Ё_1 Ё 2_Ё R╨ 0Ё 0╨ 0Ё 0╨ dis_1=0  d_/=0  d_╨=0  d_()=0,0
-         4)╨ 0Ё 0╨ 0Ё 0╨E юдддаддды D╨ 0Ё 0╨ 0Ё 0╨ MK: 1111 2222 3333 4444 5555
-         n)1,5Ё 0Ё 0Ё4,2  SER.HOOK  m) 0Ё 0Ё 0Ё 0 (meandr)
-         Discrim: F-180 f-50 ╨-20 t-10 i-0 l-0
+         0)║ 0│ 0║ 0│ 0║V ┌───┬───┐ C║ 0│ 0║ 0│ 0║ wid=4 (2Ў5) col=3.5 inc=0(8) {INC}
+         1)║ 0│ 0║ 0│ 0║A │~0 │ 0~│ O║ 0│ 0║ 0│ 0║ base_2=7  NO NECK  NO CUT
+         2)║ 0│ 0║ 0│ 0║L ├───┼───┤ O║ 0│ 0║ 0│ 0║ typ_1=1  typ_f=1,0  T40  Y80  {°}
+         3)║ 0│ 0║ 0│ 0║U │_1 │ 2_│ R║ 0│ 0║ 0│ 0║ dis_1=0  d_/=0  d_║=0  d_()=0,0
+         4)║ 0│ 0║ 0│ 0║E └───┴───┘ D║ 0│ 0║ 0│ 0║ MK: 1111 2222 3333 4444 5555
+         n)1,5│ 0│ 0│4,2  SER.HOOK  m) 0│ 0│ 0│ 0 (meandr)
+         Discrim: F-180 f-50 ║-20 t-10 i-0 l-0
          --------------------------------------------------------------------------------
          123456789o123456789o123456789o123456789o123456789o123456789o123456789o123456789o
          1         2         3         4         5         6         7         8
@@ -872,7 +872,7 @@ void full_snap(cell *c,
             pbuf += sprintf(pbuf, "|%2d|%2d|%2d|%2d| ", l->m_pos[i], l->c_pos[i], r->c_pos[i],
                     r->m_pos[i]);
             switch (i) { // SECOND SWITCH
-            // wid=4 (2Ж5) col=3.5 inc=0(8) {INC}
+            // wid=4 (2Ў5) col=3.5 inc=0(8) {INC}
             case 0:
                 pbuf
                         += sprintf(pbuf, // 25.01.1994 BREAK ONE PRINT to TWO;
@@ -913,11 +913,11 @@ void full_snap(cell *c,
                 pbuf += sprintf(pbuf, "%s  ", vars_cut_0123[cut_0123]);
                 pbuf += sprintf(pbuf, "Psz=%d", pitchsize);
                 break;
-                // typ_1=1  typ_f=1,0  T40  Y80  {Ь}
-                // typ_1=1  typ_f=1,0  T40  Y80  ijЬ0
-                // typ_1=1  typ_f=1,0  T1,2,3,4  ijЬ0
-                //case 2:   pbuf += sprintf(pbuf, "typ_1=%d  typ_f=%d,%d  T%d  Y%d  ijЬ%d",
-                //case 2:   pbuf += sprintf(pbuf, "typ_1=%d%c t_f=%d,%d T%d,%d,%d,%d:%d ijЬ%d",
+                // typ_1=1  typ_f=1,0  T40  Y80  {°}
+                // typ_1=1  typ_f=1,0  T40  Y80  ij°0
+                // typ_1=1  typ_f=1,0  T1,2,3,4  ij°0
+                //case 2:   pbuf += sprintf(pbuf, "typ_1=%d  typ_f=%d,%d  T%d  Y%d  ij°%d",
+                //case 2:   pbuf += sprintf(pbuf, "typ_1=%d%c t_f=%d,%d T%d,%d,%d,%d:%d ij°%d",
             case 2:
                 pbuf += sprintf(pbuf, "typ_1=%d%c f%d,%d t%c T%d,%d,%d,%d:%d ij-%d", s->typ_nose_1,
                         (s->lll_nose_1) ? '*' : ' ', s->l_f_symptom, s->r_f_symptom, (s->t_TOP)
@@ -934,7 +934,7 @@ void full_snap(cell *c,
                 if (s->up_dot_H) // 26.08.1993
                     pbuf += sprintf(pbuf, ",%d*%d,%d", s->up_dot_H, s->up_dot_W, s->up_dot_dCOL);
                 break;
-                // dis_1=0  d_/=0  d_╨=0  d_()=0,0
+                // dis_1=0  d_/=0  d_║=0  d_()=0,0
             case 3:
                 pbuf += sprintf(pbuf, "dis_1=%d d_/=%d d_jj=%d", s->dis_nose_1, s->dis_slash,
                         s->dis_0xBA);
@@ -969,10 +969,10 @@ void full_snap(cell *c,
         } // FOR I
         /*......................................................................*/
         // LINE-5:
-        //n)1,5Ё 0Ё 0Ё4,2  SER.HOOK  m) 0Ё 0Ё 0Ё 0 (meandr)
+        //n)1,5│ 0│ 0│4,2  SER.HOOK  m) 0│ 0│ 0│ 0 (meandr)
         pbuf += sprintf(
                 pbuf,
-                //////		"n)%d,%dЁ%2dЁ%2dЁ%d,%d  SER.HOOK  m)%2dЁ%2dЁ%2dЁ%2d (meandr)",
+                //////		"n)%d,%d│%2d│%2d│%d,%d  SER.HOOK  m)%2d│%2d│%2d│%2d (meandr)",
                 //////		"n)%d,%d %2d %2d %d,%d  SER.HOOK  m)%2d %2d %2d %2d (meandr)",
                 //////		"  %d,%d %2d %2d %d,%d  SER.HOOK    %2d %2d %2d %2d (meandrs)",
                 "  %d,%d %2d %2d %d,%d SER.HOOK %2d %2d %2d %2d (meandrs)", l->num_long_flags,
@@ -1045,9 +1045,9 @@ void full_snap(cell *c,
     return;
 }
 /*----------------------------------------------------------------------*/
-/* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
-/* ╟╟╟           RASTER OPERATIONS FOR SNAP-DEBUG               ╟╟╟  */
-/* ╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟╟  */
+/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  */
+/* ░░░           RASTER OPERATIONS FOR SNAP-DEBUG               ░░░  */
+/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  */
 
 /*----------------------------------------------------------------------*/
 /* position of first bit in string */
