@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __LIGAS__
 
 #include "cttypes.h"    // uchar 01.09.2000 E.P.
-#include "lang_def.h"   // 12.09.2000 E.P.
+#include "common/lang_def.h"   // 12.09.2000 E.P.
 
 #define ligas_beg       0xb1
 #define liga_fi         0xb1

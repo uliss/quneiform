@@ -23,7 +23,6 @@
 #include <boost/noncopyable.hpp>
 #include "common/language.h"
 #include "alphabet.h"
-#include "lang_def.h"
 #include "globus.h"
 
 namespace CIF

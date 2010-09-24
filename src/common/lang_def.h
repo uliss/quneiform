@@ -89,7 +89,7 @@ enum language_t {
     LANGUAGE_TURKISH    = 27,
     LANG_TOTAL      = 28,
     LG_LAT          =  1,
-    LG_CYR          =  2,
+    LG_CYR          =  2
 };
 
 #endif

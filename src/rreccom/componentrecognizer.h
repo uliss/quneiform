@@ -19,9 +19,9 @@
 #ifndef COMPONENTRECOGNIZER_H_
 #define COMPONENTRECOGNIZER_H_
 
-#include "lang_def.h"
 #include "cttypes.h"
 #include "globus.h"
+#include "common/lang_def.h"
 #include "common/exception.h"
 
 struct CCOM_cont;

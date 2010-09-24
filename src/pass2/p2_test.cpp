@@ -59,7 +59,7 @@
 #include <memory.h>
 
 #include "minmax.h"
-#include "lang_def.h"
+#include "common/lang_def.h"
 #include "cstr/cstr.h"
 #include "fon/fon.h"
 #include "p2libr.h"

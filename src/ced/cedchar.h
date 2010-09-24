@@ -23,8 +23,8 @@
 #include <vector>
 
 #include "globus.h"
-#include "lang_def.h"
 #include "element.h"
+#include "common/lang_def.h"
 #include "common/letter.h"
 #include "common/serialize.h"
 

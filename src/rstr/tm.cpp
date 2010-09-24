@@ -73,7 +73,7 @@ All rights reserved.
 #include "status.h"
 #include "msgerr.h"
 #include "ligas.h"
-#include "lang_def.h"
+#include "common/lang_def.h"
 #include "tm_int.h"
 #include "linutil.h"
 

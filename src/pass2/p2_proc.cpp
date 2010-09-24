@@ -119,7 +119,6 @@
 #include <memory.h>
 #include <time.h>
 
-#include "lang_def.h"
 #include "cstr/cstr.h" // OLEG
 #include "fon/fon.h"
 #include "std/std.h"

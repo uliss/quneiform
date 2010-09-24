@@ -69,7 +69,6 @@
 // проверять целиком куски (пример М - iii) а не три раза М-i
 #define _TEST_FEW_MULTI_          // 29.01.2001
 #include "ligas.h"
-#include "lang_def.h"
 #include "cstr/cstr.h" // OLEG
 #include "fon/fon.h"
 #include "p2libr.h"

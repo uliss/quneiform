@@ -58,7 +58,7 @@
 #define __CED_H
 
 #include "globus.h"
-#include "lang_def.h"
+#include "common/lang_def.h"
 #include "common/size.h"
 #include "common/rect.h"
 #include "common/letter.h"

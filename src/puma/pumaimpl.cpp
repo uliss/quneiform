@@ -90,8 +90,9 @@ static double portion_of_rus_letters(CSTR_line lin_ruseng) {
         CSTR_GetCollectionUni(rast, &uv);
 
         if (attr.flg & (CSTR_f_let)) {
-            if (attr.language == LANGUAGE_RUSSIAN && uv.lnAltCnt && uv.Alt[0].Prob > 100
-                    && !strchr("0123456789/%", uv.Alt[0].Code[0]))
+            if (attr.language == LANGUAGE_RUSSIAN && uv.lnAltCnt
+                    && uv.Alt[0].Prob > 100 && !strchr("0123456789/%",
+                    uv.Alt[0].Code[0]))
                 nRus++;
 
             nAll++;
@@ -114,8 +115,7 @@ using namespace std;
 
 static Handle ghStorage = NULL;
 
-namespace CIF
-{
+namespace CIF {
 
 static char global_buf[64000]; // OLEG fot Consistent
 static int32_t global_buf_len = 0; // OLEG fot Consistent
@@ -133,13 +133,13 @@ void SetUpdate(uint32_t flgAdd, uint32_t flgRemove) {
 }
 
 PumaImpl::PumaImpl() :
-    rect_template_(Point(-1, -1), Point(-1, -1)), do_spell_corretion_(true), fax100_(false),
-            one_column_(false), dot_matrix_(false), auto_rotate_(false),
-            language_(LANGUAGE_RUS_ENG), layout_filename_("layout.bin"),
-            pictures_(PUMA_PICTURE_ALL), tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(
-                    NULL), tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL), cline_(
-                    NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(TRUE),
-            need_clean_line_(FALSE), recog_name_(NULL), special_project_(SPEC_PRJ_NO) {
+    rect_template_(Point(-1, -1), Point(-1, -1)), language_(LANGUAGE_RUS_ENG),
+            layout_filename_("layout.bin"), pictures_(PUMA_PICTURE_ALL),
+            tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL),
+            tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL),
+            cline_(NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(
+                    TRUE), need_clean_line_(FALSE), recog_name_(NULL),
+            special_project_(SPEC_PRJ_NO) {
     format_options_.setLanguage(language_);
     modulesInit();
 }
@@ -159,7 +159,8 @@ void PumaImpl::binarizeImage() {
     getImageInfo(PUMA_IMAGE_USER);
 
     if (Config::instance().debug())
-        Debug() << "The image depth is " << info_.biBitCount << " at this point.\n";
+        Debug() << "The image depth is " << info_.biBitCount
+                << " at this point.\n";
 
     if (info_.biBitCount > 1) {
         //RIMAGE_BINARISE_KRONROD
@@ -245,9 +246,9 @@ void PumaImpl::extractComponents() {
     if (pictures_ != PUMA_PICTURE_NONE)
         exc.Control |= Ex_PictureLarge;
 
-    uchar w8 = dot_matrix_ ? TRUE : FALSE;
+    uchar w8 = recognize_options_.dotMatrix() ? TRUE : FALSE;
     REXC_SetImportData(REXC_Word8_Matrix, &w8);
-    w8 = fax100_ ? TRUE : FALSE;
+    w8 = recognize_options_.fax() ? TRUE : FALSE;
     REXC_SetImportData(REXC_Word8_Fax1x2, &w8);
     CIMAGEIMAGECALLBACK clbk;
 
@@ -256,7 +257,8 @@ void PumaImpl::extractComponents() {
 
     if (!REXCExtracomp3CB(
             exc, // поиск компонент by 3CallBacks
-            (TImageOpen) clbk.CIMAGE_ImageOpen, (TImageClose) clbk.CIMAGE_ImageClose,
+            (TImageOpen) clbk.CIMAGE_ImageOpen,
+            (TImageClose) clbk.CIMAGE_ImageClose,
             (TImageRead) clbk.CIMAGE_ImageRead))
         throw PumaException("REXCExtracomp3CB failed");
 
@@ -324,7 +326,7 @@ void PumaImpl::layout() {
     CBforRS.pDPumaSkipTurn = (void*) DPumaSkipTurn;
     CBforRS.pSetUpdate = (void*) SetUpdate;
 
-    DataforRS.gbAutoRotate = auto_rotate_;
+    DataforRS.gbAutoRotate = recognize_options_.autoRotate();
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
     DataforRS.pinfo = &info_;
     DataforRS.hCPAGE = cpage_;
@@ -333,8 +335,8 @@ void PumaImpl::layout() {
     DataforRS.phLinesCCOM = &lines_ccom_;
     DataforRS.gnPictures = pictures_;
     DataforRS.gnLanguage = language_;
-    DataforRS.gbDotMatrix = dot_matrix_;
-    DataforRS.gbFax100 = fax100_;
+    DataforRS.gbDotMatrix = recognize_options_.dotMatrix();
+    DataforRS.gbFax100 = recognize_options_.fax();
     DataforRS.pglpRecogName = &recog_name_;
     DataforRS.pgrc_line = &rc_line_;
     DataforRS.gnTables = tables_;
@@ -361,13 +363,14 @@ void PumaImpl::layout() {
     // калбэки
     if (RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS)) {
         ///нормализуем - обработка, поиск картинок, поиск линий
-        if (!RSTUFF_RSNormalise(&DataforRS, MemBuf, size_buf, MemWork, size_work))
+        if (!RSTUFF_RSNormalise(&DataforRS, MemBuf, size_buf, MemWork,
+                size_work))
             throw PumaException("RSTUFF_RSNormalise failed");
     }
 
     // Gleb 02.11.2000
     // Далее - разметка. Вынесена в RMARKER.DLL
-    DataforRM.gbOneColumn = one_column_;
+    DataforRM.gbOneColumn = recognize_options_.oneColumn();
     DataforRM.gKillVSLComponents = kill_vsl_components_;
     DataforRM.hCPAGE = cpage_;
     DataforRM.hCCOM = ccom_;
@@ -392,9 +395,9 @@ void PumaImpl::layout() {
         Handle block = CPAGE_GetBlockFirst(cpage_, 0);
 
         while (block) {
-            Debug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block)) << " : "
-                    << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0)
-                    << "\n";
+            Debug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_,
+                    block)) << " : " << CPAGE_GetBlockData(cpage_, block,
+                    CPAGE_GetBlockType(cpage_, block), NULL, 0) << "\n";
             block = CPAGE_GetBlockNext(cpage_, block, 0);
         }
     }
@@ -617,7 +620,7 @@ void PumaImpl::spellCorrection() {
     CSTR_SortFragm(1);
     RPSTR_CollectCapDrops(1);
 
-    if (!do_spell_corretion_)
+    if (!recognize_options_.spellCorection())
         return;
 
     if (!RPSTR_CorrectSpell(1))
@@ -654,17 +657,6 @@ void PumaImpl::preprocessImage() {
     SetPageInfo(cpage_, PInfo);
 }
 
-void PumaImpl::printRecognizeOptions() {
-    Debug() << "##################################################################\n"
-            << " Recognize options:\n" << boolalpha << std::left << setw(25) << "  Spell: "
-            << do_spell_corretion_ << "\n" << setw(25) << "  Fax:   " << fax100_ << "\n"
-            << setw(25) << "  Single column layout: " << one_column_ << "\n" << setw(25)
-            << "  Dot matix: " << dot_matrix_ << "\n" << setw(25) << "  Autorotate: "
-            << auto_rotate_ << "\n" << setw(25) << "  Language: " << Language(language_) << "\n"
-            << setw(10) << "  Page: " << rect_template_ << "\n" << "  " << format_options_
-            << "##################################################################\n";
-}
-
 void PumaImpl::printResult(std::ostream& os) {
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++)
         printResultLine(os, i);
@@ -683,7 +675,8 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
         Handle hBlock = CPAGE_GetBlockFirst(cpage_, 0);
 
         while (hBlock) {
-            if ((int) CPAGE_GetBlockInterNum(cpage_, hBlock) == line_attr.fragment) {
+            if ((int) CPAGE_GetBlockInterNum(cpage_, hBlock)
+                    == line_attr.fragment) {
                 nFragment = line_attr.fragment;
                 break;
             }
@@ -692,7 +685,8 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
         }
     }
 
-    os << "Fragment" << setw(2) << line_attr.fragment << " Line" << setw(3) << lineNumber << ": <";
+    os << "Fragment" << setw(2) << line_attr.fragment << " Line" << setw(3)
+            << lineNumber << ": <";
 
     if (start && stop) {
         CSTR_rast_attr attr;
@@ -702,7 +696,8 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
         for (; c && c != stop; c = CSTR_GetNextRaster(c, CSTR_f_all)) {
             CSTR_GetAttr(c, &attr);
 
-            if (!(attr.flg & (CSTR_f_let | CSTR_f_punct | CSTR_f_bad | CSTR_f_space | CSTR_f_solid)))
+            if (!(attr.flg & (CSTR_f_let | CSTR_f_punct | CSTR_f_bad
+                    | CSTR_f_space | CSTR_f_solid)))
                 continue;
 
             if (CSTR_GetCollectionUni(c, &vers)) {
@@ -730,8 +725,7 @@ void PumaImpl::recognize() {
         layout();
 
     if (Config::instance().debug()) {
-        Debug() << "Puma recognize\n";
-        printRecognizeOptions();
+        Debug() << "Puma recognize\n" << recognize_options_;
     }
 
     CSTR_DeleteAll();
@@ -816,7 +810,9 @@ void PumaImpl::recognizeCorrection() {
     // Скорректируем результат распознавани
     CSTR_SortFragm(1);
 
-    if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100, &fax100_) || !RCORRKEGL_CorrectKegl(1))
+    Bool32 fax100 = recognize_options_.fax();
+    if (!RCORRKEGL_SetImportData(RCORRKEGL_Bool32_Fax100, &fax100)
+            || !RCORRKEGL_CorrectKegl(1))
         throw PumaException("PumaImpl::recognizeCorrection() failed");
 
     CSTR_SortFragm(1);
@@ -917,9 +913,9 @@ void PumaImpl::recognizeSetup() {
     RSTR_SetImportData(RSTR_Word8_Language, &w8);
     uint16_t w16 = (uint16_t) info.DPIY;//300;
     RSTR_SetImportData(RSTR_Word16_Resolution, &w16);
-    w8 = fax100_ ? TRUE : FALSE;
+    w8 = recognize_options_.fax() ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Fax1x2, &w8);
-    w8 = dot_matrix_ ? TRUE : FALSE;
+    w8 = recognize_options_.dotMatrix() ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Matrix, &w8);
     w8 = 0;
     RSTR_SetImportData(RSTR_Word8_P2_active, &w8);
@@ -928,7 +924,7 @@ void PumaImpl::recognizeSetup() {
     if (!LDPUMA_Skip(hDebugCancelStringsPass2))
         RSTR_SetImportData(RSTR_Word8_P2_disable, &w8);
 
-    w8 = do_spell_corretion_ ? TRUE : FALSE;
+    w8 = recognize_options_.spellCorection() ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Spell_check, &w8);
     RSTR_SetImportData(RSTR_pchar_user_dict_name, user_dict_name_.c_str());
     // Передать язык в словарный контроль. 12.06.2002 E.P.
@@ -974,13 +970,15 @@ void PumaImpl::rotate(void * dib, Point * p) {
             throw PumaException("CIMAGE_GetImageInfo failed");
 
         if (PInfo.Incline2048 > 0) {
-            p->rx() = info.biWidth * PInfo.Incline2048 / 2048 * PInfo.Incline2048 / 2048;
+            p->rx() = info.biWidth * PInfo.Incline2048 / 2048
+                    * PInfo.Incline2048 / 2048;
             p->ry() = info.biWidth * PInfo.Incline2048 / 2048;
         }
 
         else {
-            p->rx() = -(int32_t) info.biHeight * PInfo.Incline2048 / 2048 + (int32_t) info.biWidth
-                    * PInfo.Incline2048 / 2048 * PInfo.Incline2048 / 2048;
+            p->rx() = -(int32_t) info.biHeight * PInfo.Incline2048 / 2048
+                    + (int32_t) info.biWidth * PInfo.Incline2048 / 2048
+                            * PInfo.Incline2048 / 2048;
             p->ry() = 0;
         }
     }
@@ -990,8 +988,8 @@ void PumaImpl::rotate(void * dib, Point * p) {
     CIMAGE_DeleteImage(PUMA_IMAGE_ROTATE);
     CIMAGE_EnableMask(PUMA_IMAGE_USER, "r", false);
 
-    if (!RIMAGE_Rotate((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_ROTATE, PInfo.Incline2048,
-            2048, 0))
+    if (!RIMAGE_Rotate((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_ROTATE,
+            PInfo.Incline2048, 2048, 0))
         throw PumaException("RIMAGE_Rotate failed");
 
     if (!CIMAGE_ReadDIB(PUMA_IMAGE_ROTATE, (void**) dib, true))
@@ -1050,33 +1048,20 @@ void PumaImpl::setFormatOptions(const FormatOptions& opt) {
     format_options_ = opt;
 }
 
+void PumaImpl::setRecognizeOptions(const RecognizeOptions& opt) {
+    recognize_options_ = opt;
+    SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
+    SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
+    SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
+}
+
 void PumaImpl::setImageOutputDir(const std::string& path) {
     output_image_dir_ = path;
-}
-
-void PumaImpl::setOptionAutoRotate(bool val) {
-    auto_rotate_ = val;
-    SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionDotMatrix(bool val) {
-    dot_matrix_ = val;
-    SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionFax100(bool val) {
-    fax100_ = val;
-    SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
 }
 
 void PumaImpl::setOptionLanguage(language_t lang) {
     language_ = lang;
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionOneColumn(bool val) {
-    one_column_ = val;
-    SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
 void PumaImpl::setOptionPictures(puma_picture_t type) {
@@ -1093,10 +1078,6 @@ void PumaImpl::setOptionUserDictionaryName(const char * name) {
     user_dict_name_ = name;
 }
 
-void PumaImpl::setOptionUseSpeller(bool value) {
-    do_spell_corretion_ = value;
-}
-
 void PumaImpl::setPageTemplate(const Rect& r) {
     Rect old_rect = rect_template_;
     Rect rect = r;
@@ -1109,7 +1090,8 @@ void PumaImpl::setPageTemplate(const Rect& r) {
         //      PInfo.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
         PInfo.status &= ~3;
 
-        if (rect.left() < 0 && rect.right() < 0 && rect.bottom() < 0 && rect.top() < 0) {
+        if (rect.left() < 0 && rect.right() < 0 && rect.bottom() < 0
+                && rect.top() < 0) {
             rect.set(Point(full.dwX, full.dwY), full.dwWidth, full.dwHeight);
         }
 
@@ -1121,16 +1103,18 @@ void PumaImpl::setPageTemplate(const Rect& r) {
         }
 
         if (CIMAGE_AddReadCloseRects(PUMA_IMAGE_USER, 1, &full)) {
-            if (rect.left() >= 0 && rect.top() >= 0 && rect.width() <= info.biWidth
-                    && rect.height() <= info.biHeight) {
-                CIMAGE_Rect rtmp = { rect.left(), rect.top(), rect.width(), rect.height() };
+            if (rect.left() >= 0 && rect.top() >= 0 && rect.width()
+                    <= info.biWidth && rect.height() <= info.biHeight) {
+                CIMAGE_Rect rtmp = { rect.left(), rect.top(), rect.width(),
+                        rect.height() };
                 CIMAGE_RemoveReadCloseRects(PUMA_IMAGE_USER, 1, &rtmp);
                 PInfo.X = rect.left();
                 PInfo.Y = rect.top();
             }
 
             else {
-                CIMAGE_Rect rtmp = { 0, 0, info.biWidth - 1, info.biHeight - 1 };
+                CIMAGE_Rect rtmp =
+                        { 0, 0, info.biWidth - 1, info.biHeight - 1 };
                 CIMAGE_RemoveReadCloseRects(PUMA_IMAGE_USER, 1, &rtmp);
                 PInfo.X = 0;
                 PInfo.Y = 0;

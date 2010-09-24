@@ -23,7 +23,7 @@
 #include <iostream>
 #include <boost/shared_ptr.hpp>
 #include "common/exception.h"
-#include "lang_def.h"
+#include "common/lang_def.h"
 #include "globus.h"
 
 namespace CIF

@@ -16,45 +16,53 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "ukrainian.h"
-#include "alphabetfactory.h"
-#include "ligas.h"
+#ifndef RECOGNIZEOPTIONS_H_
+#define RECOGNIZEOPTIONS_H_
 
-namespace
+#include <iostream>
+#include "lang_def.h"
+#include "globus.h"
+
+namespace CIF {
+
+class CLA_EXPO RecognizeOptions
 {
-using namespace CIF;
-Alphabet * create()
-{
-    return new UkrainianAlphabet;
+    public:
+        RecognizeOptions();
+
+        bool autoRotate() const;
+        bool dotMatrix() const;
+        bool fax() const;
+
+        /**
+         * Sets recognition language
+         */
+        language_t language() const;
+        bool oneColumn() const;
+        bool spellCorection() const;
+
+        void setAutoRotate(bool value);
+        void setFax(bool value);
+        void setDotMatrix(bool value);
+        void setLanguage(language_t language);
+
+        /**
+         * Sets one column layout
+         */
+        void setOneColumn(bool value);
+
+        void setSpellCorrection(bool value);
+    private:
+        language_t language_;
+        bool auto_rotate_;
+        bool dot_matrix_;
+        bool do_spell_correction_;
+        bool fax100_;
+        bool one_column_;
+};
+
+std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts);
+
 }
 
-const bool registered = AlphabetFactory::instance().registerCreator(LANGUAGE_UKRAINIAN, create);
-const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_UKRAINIAN,
-        AlphabetFactory::AlphabetTables("rec1rus.dat", "rec2rus.dat"));
-}
-
-namespace CIF
-{
-
-UkrainianAlphabet::UkrainianAlphabet()
-{
-    const language_t language = LANGUAGE_UKRAINIAN;
-    addSymbol('I');
-    addSymbol('i');
-    addSymbol(UKR_I);
-    addSymbol(UKR_i);
-    addSymbol(UKR_II);
-    addSymbol(UKR_ii);
-    addSymbol(UKR_E);
-    addSymbol(UKR_e);
-    addSymbol(UKR_G);
-    addSymbol(UKR_g);
-    addSymbol(liga_i);
-}
-
-language_t UkrainianAlphabet::language() const
-{
-    return LANGUAGE_UKRAINIAN;
-}
-
-}
+#endif /* RECOGNIZEOPTIONS_H_ */

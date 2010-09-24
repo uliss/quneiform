@@ -64,7 +64,7 @@
 #include "ligas.h"
 
 #include "status.h"	// 08.09.2000 E.P.
-#include "lang_def.h"	// 08.09.2000 E.P.
+#include "common/lang_def.h"	// 08.09.2000 E.P.
 #include "linutil.h"
 
 #include "compat_defs.h"

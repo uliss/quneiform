@@ -23,6 +23,7 @@
 #include "common/cifconfig.h"
 #include "common/language.h"
 #include "common/outputformat.h"
+#include "common/recognizeoptions.h"
 #include "puma/puma.h"
 #include "rdib/imageloaderfactory.h"
 

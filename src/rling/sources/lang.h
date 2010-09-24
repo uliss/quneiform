@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "lang_def.h"
+#include "common/lang_def.h"
 extern uchar language;
 
 #endif  // #ifndef _LANG_INCLUDED_

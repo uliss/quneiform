@@ -59,7 +59,7 @@
 #include "cstr/cstr.h"
 #include "ccom/ccom.h"
 #include "cap_drop.h"
-#include "lang_def.h"
+#include "common/lang_def.h"
 
 static const int SS_NEG_HALF_SPACE = 0x1E;
 static const int SS_POS_HALF_SPACE = 0x1F;

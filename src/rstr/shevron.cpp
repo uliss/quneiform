@@ -61,7 +61,7 @@
 #include "func.h"
 #include "struct.h"
 #include "status.h"		// 31.08.2000 E.P.
-#include "lang_def.h"	// 31.08.2000 E.P.
+#include "common/lang_def.h"	// 31.08.2000 E.P.
 #include "ligas.h"
 #include "linutil.h"
 

@@ -67,7 +67,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cutstr.h"
 #include "dmconst.h"
 #include "alik_rec.h"
-#include "lang_def.h"
+#include "common/lang_def.h"
 #include "recdefs.h"
 #include "minmax.h"
 

@@ -59,8 +59,8 @@
 #include "stick.h"
 #include "inc_tab.h"
 #include "recdefs.h"
-#include "lang_def.h"
 #include "lnhead.h"
+#include "common/lang_def.h"
 #include "common/interval.h"
 
 #include "minmax.h"

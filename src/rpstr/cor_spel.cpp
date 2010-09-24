@@ -75,7 +75,7 @@
 
 #pragma pack(push, 1)
 #include "cor_spel.h"
-#include "lang_def.h"
+#include "common/lang_def.h"
 #pragma pack(pop)
 
 // проверять альтернативы ?

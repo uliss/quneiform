@@ -75,7 +75,6 @@ add_subdirectory(std)
 
 install(FILES 
     h/globus.h
-    h/lang_def.h
     h/specprj.h
     h/cttypes.h
     h/err16.h

@@ -57,7 +57,7 @@
 #ifndef __PUMADEF_H__
 #define __PUMADEF_H__
 
-#include "lang_def.h"
+#include "common/lang_def.h"
 #include <climits>
 
 enum puma_format_mode_t

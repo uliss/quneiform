@@ -66,7 +66,7 @@
 #include <algorithm> // for std::min/max
 #include "cstr/cstr.h"
 #include "rsadd.h"
-#include "lang_def.h"
+#include "common/lang_def.h"
 #include "leo/leodefs.h"
 #include "resource.h"
 

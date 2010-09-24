@@ -68,7 +68,7 @@
 #include "alphabet.h"
 #include "p2libr.h"
 #include "leo/leo.h"
-#include "lang_def.h"
+#include "common/lang_def.h"
 #include "ccom/ccom.h"
 #include "fon/fon.h"
 #include "std/std.h"

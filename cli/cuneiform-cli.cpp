@@ -95,9 +95,11 @@ static string supported_languages() {
 
     LanguageList langs = AlphabetFactory::instance().supportedLanguages();
     Language::sortByName(langs);
-    for (LanguageList::iterator it = langs.begin(), end = langs.end(); it != end; ++it)
-        os << "    " << left << setw(12) << Language::isoCode3(*it) << " " << setw(12)
-                << Language::isoCode2(*it) << Language::isoName(*it) << "\n";
+    for (LanguageList::iterator it = langs.begin(), end = langs.end(); it
+            != end; ++it)
+        os << "    " << left << setw(12) << Language::isoCode3(*it) << " "
+                << setw(12) << Language::isoCode2(*it)
+                << Language::isoName(*it) << "\n";
 
     return os.str();
 }
@@ -106,7 +108,8 @@ static string supported_formats() {
     ostringstream os;
     os << "Supported formats:\n";
     OutputFormatList formats = OutputFormat::formats();
-    for (OutputFormatList::iterator it = formats.begin(), end = formats.end(); it != end; ++it)
+    for (OutputFormatList::iterator it = formats.begin(), end = formats.end(); it
+            != end; ++it)
         os << "    " << left << setw(12) << OutputFormat::name(*it) << " "
                 << OutputFormat::description(*it) << "\n";
     return os.str();
@@ -115,44 +118,45 @@ static string supported_formats() {
 static string usage() {
     ostringstream os;
     os << "Usage: " << program_name << " [options] imagefile\n";
-    os << ""
-        "  -h   --help                   Print this help message                     \n"
-        "  -v   --verbose                Print verbose debugging messages            \n"
-        "  -V   --version                Print program version and exit              \n"
-        "       --debug-dump             Dumps various temporary recognition data    \n"
-        "                                   to current directory                     \n"
-        "       --autorotate             Automatically rotate input image            \n"
-        "  -f   --format   FORMAT        Sets output format                          \n"
-        "                                   type --format help to get full list      \n"
-        "  -l   --language LANGUAGE      Sets recognition language                   \n"
-        "                                   (iso code or language name)              \n"
-        "                                   type --language help to gel full list    \n"
-        "       --spell                  Use spell correction                        \n"
-        "       --onecolumn              Use one column layout                       \n"
-        "       --dotmatrix                                                          \n"
-        "       --fax                                                                \n"
-        "       --tables   MODE                                                      \n"
-        "       --pictures               Search pictures (default)                   \n"
-        "       --nopictures             Do not search pictures                      \n"
-        "  Output options:                                                           \n"
-        "  -a   --append                 Appends output to existing document         \n"
-        "                                   (supported not for all formats)          \n"
-        "  -o   --output   FILENAME      Sets output filename                        \n"
-        "       --output-image-dir PATH  Sets image output directory                 \n"
-        "       --stdout                 Puts result to standard output              \n"
-        "  Output formatting options:                                                \n"
-        "       --preserve-line-breaks   Preserves line-breaking                     \n"
-        "       --unrecognized CHAR      Set symbol, that shown instead of           \n"
-        "                                    unrecognized characters.                \n"
-        "                                    Default is '~'.                         \n"
-        "       --no-font-size           Do not use font size                        \n"
-        "       --no-bold                Use normal font for bold text               \n"
-        "       --no-italic              Use normal font for italic text             \n"
-        "       --show-alternatives      Show alternatives of recognition            \n"
-        "                                    (now HTML only)                         \n"
-        "       --monospace-name         Use specified monospace font in RTF output  \n"
-        "       --serif-name             Use specified serif font in RTF output      \n"
-        "       --sansserif-name         Use specified sans-serif font in RTF output \n";
+    os
+            << ""
+                "  -h   --help                   Print this help message                     \n"
+                "  -v   --verbose                Print verbose debugging messages            \n"
+                "  -V   --version                Print program version and exit              \n"
+                "       --debug-dump             Dumps various temporary recognition data    \n"
+                "                                   to current directory                     \n"
+                "       --autorotate             Automatically rotate input image            \n"
+                "  -f   --format   FORMAT        Sets output format                          \n"
+                "                                   type --format help to get full list      \n"
+                "  -l   --language LANGUAGE      Sets recognition language                   \n"
+                "                                   (iso code or language name)              \n"
+                "                                   type --language help to gel full list    \n"
+                "       --spell                  Use spell correction                        \n"
+                "       --onecolumn              Use one column layout                       \n"
+                "       --dotmatrix                                                          \n"
+                "       --fax                                                                \n"
+                "       --tables   MODE                                                      \n"
+                "       --pictures               Search pictures (default)                   \n"
+                "       --nopictures             Do not search pictures                      \n"
+                "  Output options:                                                           \n"
+                "  -a   --append                 Appends output to existing document         \n"
+                "                                   (supported not for all formats)          \n"
+                "  -o   --output   FILENAME      Sets output filename                        \n"
+                "       --output-image-dir PATH  Sets image output directory                 \n"
+                "       --stdout                 Puts result to standard output              \n"
+                "  Output formatting options:                                                \n"
+                "       --preserve-line-breaks   Preserves line-breaking                     \n"
+                "       --unrecognized CHAR      Set symbol, that shown instead of           \n"
+                "                                    unrecognized characters.                \n"
+                "                                    Default is '~'.                         \n"
+                "       --no-font-size           Do not use font size                        \n"
+                "       --no-bold                Use normal font for bold text               \n"
+                "       --no-italic              Use normal font for italic text             \n"
+                "       --show-alternatives      Show alternatives of recognition            \n"
+                "                                    (now HTML only)                         \n"
+                "       --monospace-name         Use specified monospace font in RTF output  \n"
+                "       --serif-name             Use specified serif font in RTF output      \n"
+                "       --sansserif-name         Use specified sans-serif font in RTF output \n";
     return os.str();
 }
 
@@ -211,11 +215,12 @@ int main(int argc, char **argv) {
     std::string dictionaries;
     char unrecognized_char = 0;
 
-    int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller = FALSE,
-            do_singlecolumn = FALSE, do_pictures = TRUE, do_tables = FALSE, do_autorotate = FALSE,
-            preserve_line_breaks = FALSE, do_dump = FALSE, no_bold = FALSE, no_italic = FALSE,
-            no_font_size = FALSE, stdout_output = FALSE, do_append = FALSE, show_alternatives =
-                    FALSE;
+    int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller =
+            FALSE, do_singlecolumn = FALSE, do_pictures = TRUE, do_tables =
+            FALSE, do_autorotate = FALSE, preserve_line_breaks = FALSE,
+            do_dump = FALSE, no_bold = FALSE, no_italic = FALSE, no_font_size =
+                    FALSE, stdout_output = FALSE, do_append = FALSE,
+            show_alternatives = FALSE;
 
     const char * const short_options = ":aho:vVl:f:d:u:";
     const struct option long_options[] = {
@@ -250,11 +255,13 @@ int main(int argc, char **argv) {
             { "version", no_argument, NULL, 'V' },//
             { NULL, 0, NULL, 0 } };
 
-    string outfilename, output_image_dir, infilename, monospace, serif, sansserif;
+    string outfilename, output_image_dir, infilename, monospace, serif,
+            sansserif;
     format_t outputformat = FORMAT_TEXT;
     language_t langcode = LANGUAGE_ENGLISH;
     int code;
-    while ((code = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
+    while ((code = getopt_long(argc, argv, short_options, long_options, NULL))
+            != -1) {
         switch (code) {
         case 'a':
             do_append = TRUE;
@@ -285,7 +292,8 @@ int main(int argc, char **argv) {
             do_verbose = 1;
             break;
         case 'V':
-            cout << "Cuneiform for Linux " << CF_VERSION << "; build: " << CF_BUILD_NUMBER << "\n";
+            cout << "Cuneiform for Linux " << CF_VERSION << "; build: "
+                    << CF_BUILD_NUMBER << "\n";
             return EXIT_SUCCESS;
             break;
         case 'x':
@@ -301,7 +309,8 @@ int main(int argc, char **argv) {
             /*getopt_long() set option, just continue*/
             break;
         case ':':
-            cerr << program_name << ": option '-" << (char) optopt << "' requires an argument\n";
+            cerr << program_name << ": option '-" << (char) optopt
+                    << "' requires an argument\n";
             if (optopt == 'f')
                 cerr << supported_formats();
             else if (optopt == 'l')
@@ -311,7 +320,8 @@ int main(int argc, char **argv) {
             break;
         case '?':
         default:
-            cerr << program_name << ": option '-" << (char) optopt << "' is invalid: ignored\n";
+            cerr << program_name << ": option '-" << (char) optopt
+                    << "' is invalid: ignored\n";
             return EXIT_FAILURE;
             break;
         }
@@ -345,11 +355,15 @@ int main(int argc, char **argv) {
             return EXIT_FAILURE;
 
         Puma::instance().setOptionLanguage(langcode);
-        Puma::instance().setOptionOneColumn(do_singlecolumn);
-        Puma::instance().setOptionFax100(do_fax);
-        Puma::instance().setOptionDotMatrix(do_dotmatrix);
-        Puma::instance().setOptionUseSpeller(do_speller);
-        Puma::instance().setOptionAutoRotate(do_autorotate);
+
+        RecognizeOptions recognize_options;
+        recognize_options.setLanguage(langcode);
+        recognize_options.setOneColumn(do_singlecolumn);
+        recognize_options.setFax(do_fax);
+        recognize_options.setDotMatrix(do_dotmatrix);
+        recognize_options.setSpellCorrection(do_speller);
+        recognize_options.setAutoRotate(do_autorotate);
+        Puma::instance().setRecognizeOptions(recognize_options);
 
         FormatOptions opt = Puma::instance().formatOptions();
         if (!serif.empty())

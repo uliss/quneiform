@@ -63,7 +63,7 @@
 extern uchar lpool[];
 extern uint lpool_lth;
 
-#include "lang_def.h"
+#include "common/lang_def.h"
 #include "ligas.h"  // 04.06.2002 E.P.
 #include "ccom/ccomdefs.h"
 #include "dif/dif.h"

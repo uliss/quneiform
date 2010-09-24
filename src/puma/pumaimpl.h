@@ -32,6 +32,7 @@
 #include "common/memorybuffer.h"
 #include "common/outputformat.h"
 #include "common/image.h"
+#include "common/recognizeoptions.h"
 #include "cimage/imageinfo.h"
 #include "export/exporter.h"
 #include "globus.h"
@@ -39,8 +40,7 @@
 class CTIControl;
 struct CCOM_cont;
 
-namespace CIF
-{
+namespace CIF {
 
 class RMarker;
 class ComponentExtractor;
@@ -121,31 +121,26 @@ class CLA_EXPO PumaImpl
 
         /**
          * Sets format options
+         * @see setRecognizeOptions()
          */
         void setFormatOptions(const FormatOptions& opt);
+
+        /**
+         * Sets recognize options
+         * @see setFormatOptions()
+         */
+        void setRecognizeOptions(const RecognizeOptions& opt);
+
         void setImageOutputDir(const std::string& path);
-        void setOptionAutoRotate(bool val);
-        void setOptionDotMatrix(bool val);
-        void setOptionFax100(bool val);
         void setOptionFormatMode(puma_format_mode_t format);
 
         /**
          * Sets recognition language
          */
         void setOptionLanguage(language_t language);
-
-        /**
-         * Sets one column layout
-         */
-        void setOptionOneColumn(bool val);
         void setOptionPictures(puma_picture_t type);
         void setOptionTable(puma_table_t mode);
         void setOptionUserDictionaryName(const char * name);
-
-        /**
-         * Sets use speller after recognition process
-         */
-        void setOptionUseSpeller(bool value = true);
 
         /**
          * Sets working region on input image
@@ -176,7 +171,6 @@ class CLA_EXPO PumaImpl
         void pass2special();
         void preOpenInitialize();
         void preprocessImage();
-        void printRecognizeOptions();
         void printResult(std::ostream& os);
         void printResultLine(std::ostream& os, size_t lineNumber);
         void postOpenInitialize();
@@ -201,17 +195,13 @@ class CLA_EXPO PumaImpl
         std::auto_ptr<Formatter> formatter_;
         BitmapInfoHeader info_;
         Rect rect_template_;
-        bool do_spell_corretion_;
-        bool fax100_;
-        bool one_column_;
-        bool dot_matrix_;
-        bool auto_rotate_;
         language_t language_;
         std::string user_dict_name_;
         std::string input_filename_;
         std::string layout_filename_;
         std::string output_image_dir_;
         FormatOptions format_options_;
+        RecognizeOptions recognize_options_;
         puma_picture_t pictures_;
         puma_table_t tables_;
         void * input_dib_;

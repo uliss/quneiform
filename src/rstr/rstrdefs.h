@@ -57,7 +57,7 @@
 #ifndef __RSTRDEFS_H
 #define __RSTRDEFS_H
 
-#include "lang_def.h"
+#include "common/lang_def.h"
 
 #pragma pack(1)
 

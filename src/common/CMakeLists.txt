@@ -15,12 +15,14 @@ add_library(cuneiform-common ${LIBTYPE}
     imagerawdata.cpp
     language.cpp
     outputformat.cpp
+    recognizeoptions.cpp
 )
 
 set(COMMON_HEADER_INSTALL "common")
 install(FILES 
     align.h
     language.h
+    lang_def.h
     exception.h
     image.h
     imagerawdata.h
@@ -31,6 +33,7 @@ install(FILES
     size.h
     singleton.h
     outputformat.h
+    recognizeoptions.h
     cifconfig.h
     memorybuffer.h 
     DESTINATION include/${CF_HEADER_INSTALL}/${COMMON_HEADER_INSTALL})

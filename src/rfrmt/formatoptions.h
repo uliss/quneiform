@@ -23,7 +23,7 @@
 #include <iostream>
 #include <cstddef>
 
-#include "lang_def.h"
+#include "common/lang_def.h"
 #include "globus.h"
 #include "puma/pumadef.h"
 #include "rdib/imageformats.h"

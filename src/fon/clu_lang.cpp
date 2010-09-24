@@ -59,7 +59,6 @@
 #include <stdio.h>
 
 #include "leo/leo.h"
-#include "lang_def.h"
 #include "ligas.h"
 
 extern uchar language;

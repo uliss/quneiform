@@ -69,7 +69,7 @@
 #include "sectorinfo.h"
 #include "recdefs.h"
 #include "cfcompat.h"
-#include "lang_def.h"
+#include "common/lang_def.h"
 
 namespace CIF
 {

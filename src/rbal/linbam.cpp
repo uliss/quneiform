@@ -61,7 +61,6 @@
 #include "status.h"
 #include "linear.h"
 #include "ligas.h"
-#include "lang_def.h"   // 08.09.2000 E.P.
 #include "minmax.h"
 
 extern int line_BL;

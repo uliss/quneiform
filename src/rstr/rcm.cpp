@@ -80,7 +80,7 @@
 #include "ccom/ccom.h"
 #include "resource.h"
 #include "common.h"
-#include "lang_def.h"
+#include "common/lang_def.h"
 #include "crling.h"
 #include "dpuma.h"
 #include "cline/cline.h"
