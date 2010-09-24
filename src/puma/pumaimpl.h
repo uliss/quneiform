@@ -133,7 +133,6 @@ class CLA_EXPO PumaImpl
 
         void setImageOutputDir(const std::string& path);
         void setOptionFormatMode(puma_format_mode_t format);
-        void setOptionTable(puma_table_t mode);
         void setOptionUserDictionaryName(const char * name);
 
         /**
@@ -195,7 +194,6 @@ class CLA_EXPO PumaImpl
         std::string output_image_dir_;
         FormatOptions format_options_;
         RecognizeOptions recognize_options_;
-        puma_table_t tables_;
         void * input_dib_;
         void * recog_dib_;
         int tables_num_;

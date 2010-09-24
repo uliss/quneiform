@@ -25,7 +25,7 @@ namespace CIF {
 RecognizeOptions::RecognizeOptions() :
     language_(LANGUAGE_ENGLISH), auto_rotate_(false), dot_matrix_(false),
             do_spell_correction_(true), fax100_(false), one_column_(false),
-            find_pictures_(true) {
+            find_pictures_(true), table_mode_(TABLE_DEFAULT) {
 
 }
 
@@ -81,8 +81,16 @@ void RecognizeOptions::setSpellCorrection(bool value) {
     do_spell_correction_ = value;
 }
 
+void RecognizeOptions::setTableMode(table_mode_t mode) {
+    table_mode_ = mode;
+}
+
 bool RecognizeOptions::spellCorection() const {
     return do_spell_correction_;
+}
+
+RecognizeOptions::table_mode_t RecognizeOptions::tableMode() const {
+    return table_mode_;
 }
 
 std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
@@ -95,9 +103,11 @@ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
             << "  Single column layout: " << opts.oneColumn() << "\n" << setw(
             25) //
             << "  Dot matix: " << opts.dotMatrix() << "\n" << setw(25)
-            << "  Pictures search: " << opts.pictureSearch() << "\n" << setw(25)
-            << "  Autorotate: " << opts.autoRotate() << "\n" << setw(25)
-            << "  Language: " << Language(opts.language()) << "\n" << setw(10)
+            << "  Pictures search: " << opts.pictureSearch() << "\n"
+            << setw(25) << "  Table mode: " << opts.tableMode() << "\n"
+            << setw(25) << "  Autorotate: " << opts.autoRotate() << "\n"
+            << setw(25) << "  Language: " << Language(opts.language()) << "\n"
+            << setw(10)
             << "##################################################################\n";
     return os;
 }

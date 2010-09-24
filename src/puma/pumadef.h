@@ -70,15 +70,6 @@ enum puma_format_mode_t
     PUMA_FORMAT_ONLY_FRAME = 0x0002
 };
 
-enum puma_table_t
-{
-    PUMA_TABLE_NONE = 0,
-    PUMA_TABLE_DEFAULT = 1,
-    PUMA_TABLE_ONLY_LINE = 2,
-    PUMA_TABLE_ONLY_TEXT = 3,
-    PUMA_TABLE_LINE_TEXT = 4
-};
-
 // Флаги обновления контейнеров
 enum puma_update_flag_t
 {

@@ -30,10 +30,20 @@ class CLA_EXPO RecognizeOptions
     public:
         RecognizeOptions();
 
+        enum table_mode_t
+        {
+            TABLE_NONE = 0,
+            TABLE_DEFAULT,
+            TABLE_ONLY_LINE,
+            TABLE_ONLY_TEXT,
+            TABLE_LINE_TEXT
+        };
+
         bool autoRotate() const;
         bool dotMatrix() const;
         bool fax() const;
         bool pictureSearch() const;
+        table_mode_t tableMode() const;
 
         /**
          * Sets recognition language
@@ -53,6 +63,7 @@ class CLA_EXPO RecognizeOptions
         void setOneColumn(bool value);
         void setPictureSearch(bool value);
         void setSpellCorrection(bool value);
+        void setTableMode(table_mode_t mode);
     private:
         language_t language_;
         bool auto_rotate_;
@@ -61,6 +72,7 @@ class CLA_EXPO RecognizeOptions
         bool fax100_;
         bool one_column_;
         bool find_pictures_;
+        table_mode_t table_mode_;
 };
 
 std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts);

@@ -134,12 +134,11 @@ void SetUpdate(uint32_t flgAdd, uint32_t flgRemove) {
 
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)),
-            layout_filename_("layout.bin"), tables_(PUMA_TABLE_DEFAULT),
-            input_dib_(NULL), recog_dib_(NULL), tables_num_(0), ccom_(NULL),
-            cpage_(NULL), lines_ccom_(NULL), cline_(NULL), ed_page_(NULL),
-            rc_line_(TRUE), kill_vsl_components_(TRUE),
-            need_clean_line_(FALSE), recog_name_(NULL), special_project_(
-                    SPEC_PRJ_NO) {
+            layout_filename_("layout.bin"), input_dib_(NULL), recog_dib_(NULL),
+            tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL),
+            cline_(NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(
+                    TRUE), need_clean_line_(FALSE), recog_name_(NULL),
+            special_project_(SPEC_PRJ_NO) {
     modulesInit();
 }
 
@@ -338,7 +337,7 @@ void PumaImpl::layout() {
     DataforRS.gbFax100 = recognize_options_.fax();
     DataforRS.pglpRecogName = &recog_name_;
     DataforRS.pgrc_line = &rc_line_;
-    DataforRS.gnTables = tables_;
+    DataforRS.gnTables = recognize_options_.tableMode();
     DataforRS.pgnNumberTables = &tables_num_;
     DataforRS.pgneed_clean_line = &need_clean_line_;
     DataforRS.gRectTemplate = rect_template_;
@@ -1057,11 +1056,6 @@ void PumaImpl::setRecognizeOptions(const RecognizeOptions& opt) {
 
 void PumaImpl::setImageOutputDir(const std::string& path) {
     output_image_dir_ = path;
-}
-
-void PumaImpl::setOptionTable(puma_table_t mode) {
-    tables_ = mode;
-    SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
 void PumaImpl::setOptionUserDictionaryName(const char * name) {
