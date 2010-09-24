@@ -133,14 +133,13 @@ void SetUpdate(uint32_t flgAdd, uint32_t flgRemove) {
 }
 
 PumaImpl::PumaImpl() :
-    rect_template_(Point(-1, -1), Point(-1, -1)), language_(LANGUAGE_RUS_ENG),
-            layout_filename_("layout.bin"), pictures_(PUMA_PICTURE_ALL),
-            tables_(PUMA_TABLE_DEFAULT), input_dib_(NULL), recog_dib_(NULL),
-            tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL),
-            cline_(NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(
-                    TRUE), need_clean_line_(FALSE), recog_name_(NULL),
-            special_project_(SPEC_PRJ_NO) {
-    format_options_.setLanguage(language_);
+    rect_template_(Point(-1, -1), Point(-1, -1)),
+            layout_filename_("layout.bin"), tables_(PUMA_TABLE_DEFAULT),
+            input_dib_(NULL), recog_dib_(NULL), tables_num_(0), ccom_(NULL),
+            cpage_(NULL), lines_ccom_(NULL), cline_(NULL), ed_page_(NULL),
+            rc_line_(TRUE), kill_vsl_components_(TRUE),
+            need_clean_line_(FALSE), recog_name_(NULL), special_project_(
+                    SPEC_PRJ_NO) {
     modulesInit();
 }
 
@@ -243,7 +242,7 @@ void PumaImpl::extractComponents() {
     exc.Control = Ex_ExtraComp | Ex_Picture;
 
     //Andrey: orientation is obtained from new library RNORM
-    if (pictures_ != PUMA_PICTURE_NONE)
+    if (recognize_options_.pictureSearch())
         exc.Control |= Ex_PictureLarge;
 
     uchar w8 = recognize_options_.dotMatrix() ? TRUE : FALSE;
@@ -333,8 +332,8 @@ void PumaImpl::layout() {
     DataforRS.phCCOM = &ccom_;
     DataforRS.phCLINE = &cline_;
     DataforRS.phLinesCCOM = &lines_ccom_;
-    DataforRS.gnPictures = pictures_;
-    DataforRS.gnLanguage = language_;
+    DataforRS.gnPictures = recognize_options_.pictureSearch();
+    DataforRS.gnLanguage = recognize_options_.language();
     DataforRS.gbDotMatrix = recognize_options_.dotMatrix();
     DataforRS.gbFax100 = recognize_options_.fax();
     DataforRS.pglpRecogName = &recog_name_;
@@ -375,8 +374,8 @@ void PumaImpl::layout() {
     DataforRM.hCPAGE = cpage_;
     DataforRM.hCCOM = ccom_;
     DataforRM.hCLINE = cline_;
-    DataforRM.gnPictures = pictures_;
-    DataforRM.gnLanguage = language_;
+    DataforRM.gnPictures = recognize_options_.pictureSearch();
+    DataforRM.gnLanguage = recognize_options_.language();
     DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
     DataforRM.hDebugLayoutFromFile = hDebugLayoutFromFile;
     DataforRM.hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
@@ -576,7 +575,8 @@ void PumaImpl::pass2() {
     if (Config::instance().debugDump())
         saveCSTR(2);
 
-    if (SPEC_PRJ_GIP == special_project_ && language_ == LANGUAGE_RUS_ENG)
+    if (SPEC_PRJ_GIP == special_project_ && recognize_options_.language()
+            == LANGUAGE_RUS_ENG)
         pass2special();
 
     if (RSTR_NeedPass2())
@@ -606,7 +606,7 @@ void PumaImpl::pass2special() {
             }
         }
 
-        language_ = LANGUAGE_ENGLISH;
+        recognize_options_.setLanguage(LANGUAGE_ENGLISH);
         recognizeSetup();
         recognizePass1();
     }
@@ -899,7 +899,7 @@ void PumaImpl::recognizeSetup() {
     RSTR_Options opt;
     opt.pageSkew2048 = info.Incline2048;//0
     int32_t nResolutionY = info.DPIY;//300;
-    opt.language = language_;
+    opt.language = recognize_options_.language();
     global_buf_len = 0; // OLEG fot Consistent
 
     if (!RSTR_NewPage(nResolutionY, cpage_))
@@ -909,7 +909,7 @@ void PumaImpl::recognizeSetup() {
         throw PumaException("RSTR_SetOptions failed");
 
     // Настройка параметров
-    uchar w8 = (uchar) language_;
+    uchar w8 = (uchar) recognize_options_.language();
     RSTR_SetImportData(RSTR_Word8_Language, &w8);
     uint16_t w16 = (uint16_t) info.DPIY;//300;
     RSTR_SetImportData(RSTR_Word16_Resolution, &w16);
@@ -930,7 +930,7 @@ void PumaImpl::recognizeSetup() {
     // Передать язык в словарный контроль. 12.06.2002 E.P.
     // причем всегда 08.02.2008 DVP
     {
-        uchar w8 = (uchar) language_;
+        uchar w8 = (uchar) recognize_options_.language();
         RPSTR_SetImportData(RPSTR_FNIMP_LANGUAGE, &w8);
         RCORRKEGL_SetImportData(RCORRKEGL_FNIMP_LANGUAGE, &w8);
     }
@@ -1057,16 +1057,6 @@ void PumaImpl::setRecognizeOptions(const RecognizeOptions& opt) {
 
 void PumaImpl::setImageOutputDir(const std::string& path) {
     output_image_dir_ = path;
-}
-
-void PumaImpl::setOptionLanguage(language_t lang) {
-    language_ = lang;
-    SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setOptionPictures(puma_picture_t type) {
-    pictures_ = type;
-    SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
 }
 
 void PumaImpl::setOptionTable(puma_table_t mode) {

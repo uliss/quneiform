@@ -24,7 +24,8 @@ namespace CIF {
 
 RecognizeOptions::RecognizeOptions() :
     language_(LANGUAGE_ENGLISH), auto_rotate_(false), dot_matrix_(false),
-            do_spell_correction_(true), fax100_(false), one_column_(false) {
+            do_spell_correction_(true), fax100_(false), one_column_(false),
+            find_pictures_(true) {
 
 }
 
@@ -48,6 +49,10 @@ bool RecognizeOptions::oneColumn() const {
     return one_column_;
 }
 
+bool RecognizeOptions::pictureSearch() const {
+    return find_pictures_;
+}
+
 void RecognizeOptions::setAutoRotate(bool value) {
     auto_rotate_ = value;
 }
@@ -68,6 +73,10 @@ void RecognizeOptions::setOneColumn(bool value) {
     one_column_ = value;
 }
 
+void RecognizeOptions::setPictureSearch(bool value) {
+    find_pictures_ = value;
+}
+
 void RecognizeOptions::setSpellCorrection(bool value) {
     do_spell_correction_ = value;
 }
@@ -86,6 +95,7 @@ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
             << "  Single column layout: " << opts.oneColumn() << "\n" << setw(
             25) //
             << "  Dot matix: " << opts.dotMatrix() << "\n" << setw(25)
+            << "  Pictures search: " << opts.pictureSearch() << "\n" << setw(25)
             << "  Autorotate: " << opts.autoRotate() << "\n" << setw(25)
             << "  Language: " << Language(opts.language()) << "\n" << setw(10)
             << "##################################################################\n";

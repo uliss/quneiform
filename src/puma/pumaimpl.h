@@ -133,12 +133,6 @@ class CLA_EXPO PumaImpl
 
         void setImageOutputDir(const std::string& path);
         void setOptionFormatMode(puma_format_mode_t format);
-
-        /**
-         * Sets recognition language
-         */
-        void setOptionLanguage(language_t language);
-        void setOptionPictures(puma_picture_t type);
         void setOptionTable(puma_table_t mode);
         void setOptionUserDictionaryName(const char * name);
 
@@ -195,14 +189,12 @@ class CLA_EXPO PumaImpl
         std::auto_ptr<Formatter> formatter_;
         BitmapInfoHeader info_;
         Rect rect_template_;
-        language_t language_;
         std::string user_dict_name_;
         std::string input_filename_;
         std::string layout_filename_;
         std::string output_image_dir_;
         FormatOptions format_options_;
         RecognizeOptions recognize_options_;
-        puma_picture_t pictures_;
         puma_table_t tables_;
         void * input_dib_;
         void * recog_dib_;

@@ -354,8 +354,6 @@ int main(int argc, char **argv) {
         if (!image.get())
             return EXIT_FAILURE;
 
-        Puma::instance().setOptionLanguage(langcode);
-
         RecognizeOptions recognize_options;
         recognize_options.setLanguage(langcode);
         recognize_options.setOneColumn(do_singlecolumn);
@@ -363,6 +361,8 @@ int main(int argc, char **argv) {
         recognize_options.setDotMatrix(do_dotmatrix);
         recognize_options.setSpellCorrection(do_speller);
         recognize_options.setAutoRotate(do_autorotate);
+        recognize_options.setPictureSearch(do_pictures);
+        //  Puma::instance().setOptionTables(puma_table_t mode);
         Puma::instance().setRecognizeOptions(recognize_options);
 
         FormatOptions opt = Puma::instance().formatOptions();
@@ -389,13 +389,6 @@ int main(int argc, char **argv) {
 
         Puma::instance().setFormatOptions(opt);
         Puma::instance().setImageOutputDir(output_image_dir);
-
-        if (do_pictures)
-            Puma::instance().setOptionPictures(PUMA_PICTURE_ALL);
-        else
-            Puma::instance().setOptionPictures(PUMA_PICTURE_NONE);
-
-        //  Puma::instance().setOptionTables(puma_table_t mode);
 
         Puma::instance().open(image);
         Puma::instance().recognize();

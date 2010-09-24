@@ -33,6 +33,7 @@ class CLA_EXPO RecognizeOptions
         bool autoRotate() const;
         bool dotMatrix() const;
         bool fax() const;
+        bool pictureSearch() const;
 
         /**
          * Sets recognition language
@@ -50,7 +51,7 @@ class CLA_EXPO RecognizeOptions
          * Sets one column layout
          */
         void setOneColumn(bool value);
-
+        void setPictureSearch(bool value);
         void setSpellCorrection(bool value);
     private:
         language_t language_;
@@ -59,6 +60,7 @@ class CLA_EXPO RecognizeOptions
         bool do_spell_correction_;
         bool fax100_;
         bool one_column_;
+        bool find_pictures_;
 };
 
 std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts);

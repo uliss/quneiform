@@ -79,11 +79,6 @@ enum puma_table_t
     PUMA_TABLE_LINE_TEXT = 4
 };
 
-enum puma_picture_t
-{
-    PUMA_PICTURE_NONE = 0, PUMA_PICTURE_ALL = 1
-};
-
 // Флаги обновления контейнеров
 enum puma_update_flag_t
 {
