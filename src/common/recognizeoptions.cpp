@@ -85,6 +85,10 @@ void RecognizeOptions::setTableMode(table_mode_t mode) {
     table_mode_ = mode;
 }
 
+void RecognizeOptions::setUserDict(const std::string& user_dict) {
+    user_dict_name_ = user_dict;
+}
+
 bool RecognizeOptions::spellCorection() const {
     return do_spell_correction_;
 }
@@ -93,21 +97,25 @@ RecognizeOptions::table_mode_t RecognizeOptions::tableMode() const {
     return table_mode_;
 }
 
+const std::string& RecognizeOptions::userDict() const {
+    return user_dict_name_;
+}
+
 std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
     using namespace std;
+    const int FLD_WD = 25;
     os
             << "##################################################################\n"
-            << " Recognize options:\n" << boolalpha << std::left << setw(25)
-            << "  Spell: " << opts.spellCorection() << "\n" << setw(25)
-            << "  Fax:   " << opts.fax() << "\n" << setw(25) //
-            << "  Single column layout: " << opts.oneColumn() << "\n" << setw(
-            25) //
-            << "  Dot matix: " << opts.dotMatrix() << "\n" << setw(25)
-            << "  Pictures search: " << opts.pictureSearch() << "\n"
-            << setw(25) << "  Table mode: " << opts.tableMode() << "\n"
-            << setw(25) << "  Autorotate: " << opts.autoRotate() << "\n"
-            << setw(25) << "  Language: " << Language(opts.language()) << "\n"
-            << setw(10)
+            << " Recognize options:\n" << boolalpha << std::left
+            << setw(FLD_WD) << "  Spell: " << opts.spellCorection() << "\n"
+            << setw(FLD_WD) << "  Fax:   " << opts.fax() << "\n"
+            << setw(FLD_WD) << "  Single column layout: " << opts.oneColumn() << "\n"
+            << setw(FLD_WD) << "  Dot matix: " << opts.dotMatrix() << "\n"
+            << setw(FLD_WD) << "  Pictures search: " << opts.pictureSearch() << "\n"
+            << setw(FLD_WD) << "  Table mode: " << opts.tableMode() << "\n"
+            << setw(FLD_WD) << "  Autorotate: " << opts.autoRotate() << "\n"
+            << setw(FLD_WD) << "  Language: " << Language(opts.language()) << "\n"
+            << setw(FLD_WD) << "  User dictionary: " << opts.userDict() << "\n"
             << "##################################################################\n";
     return os;
 }

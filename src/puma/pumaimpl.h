@@ -133,7 +133,6 @@ class CLA_EXPO PumaImpl
 
         void setImageOutputDir(const std::string& path);
         void setOptionFormatMode(puma_format_mode_t format);
-        void setOptionUserDictionaryName(const char * name);
 
         /**
          * Sets working region on input image
@@ -188,7 +187,6 @@ class CLA_EXPO PumaImpl
         std::auto_ptr<Formatter> formatter_;
         BitmapInfoHeader info_;
         Rect rect_template_;
-        std::string user_dict_name_;
         std::string input_filename_;
         std::string layout_filename_;
         std::string output_image_dir_;

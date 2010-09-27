@@ -925,7 +925,7 @@ void PumaImpl::recognizeSetup() {
 
     w8 = recognize_options_.spellCorection() ? TRUE : FALSE;
     RSTR_SetImportData(RSTR_Word8_Spell_check, &w8);
-    RSTR_SetImportData(RSTR_pchar_user_dict_name, user_dict_name_.c_str());
+    RSTR_SetImportData(RSTR_pchar_user_dict_name, recognize_options_.userDict().c_str());
     // Передать язык в словарный контроль. 12.06.2002 E.P.
     // причем всегда 08.02.2008 DVP
     {
@@ -1056,10 +1056,6 @@ void PumaImpl::setRecognizeOptions(const RecognizeOptions& opt) {
 
 void PumaImpl::setImageOutputDir(const std::string& path) {
     output_image_dir_ = path;
-}
-
-void PumaImpl::setOptionUserDictionaryName(const char * name) {
-    user_dict_name_ = name;
 }
 
 void PumaImpl::setPageTemplate(const Rect& r) {

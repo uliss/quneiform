@@ -20,6 +20,7 @@
 #define RECOGNIZEOPTIONS_H_
 
 #include <iostream>
+#include <string>
 #include "lang_def.h"
 #include "globus.h"
 
@@ -44,6 +45,7 @@ class CLA_EXPO RecognizeOptions
         bool fax() const;
         bool pictureSearch() const;
         table_mode_t tableMode() const;
+        const std::string& userDict() const;
 
         /**
          * Sets recognition language
@@ -64,6 +66,7 @@ class CLA_EXPO RecognizeOptions
         void setPictureSearch(bool value);
         void setSpellCorrection(bool value);
         void setTableMode(table_mode_t mode);
+        void setUserDict(const std::string& user_dict);
     private:
         language_t language_;
         bool auto_rotate_;
@@ -73,6 +76,7 @@ class CLA_EXPO RecognizeOptions
         bool one_column_;
         bool find_pictures_;
         table_mode_t table_mode_;
+        std::string user_dict_name_;
 };
 
 std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts);
