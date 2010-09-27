@@ -26,12 +26,12 @@ namespace CIF
 FormatOptions::FormatOptions() :
     serif_name_("Times New Roman"), sans_serif_name_("Arial"), monospace_name_("Courier New"),
             use_bold_(true), use_italic_(true), use_styles_(true), use_underlined_(true),
-            use_font_size_(true), preserve_line_breaks_(false), format_mode_(PUMA_FORMAT_ALL),
+            use_font_size_(true), preserve_line_breaks_(false), format_mode_(FormatOptions::FORMAT_ALL),
             unrecognized_char_('~'), language_(LANGUAGE_RUS_ENG), image_format_(FORMAT_UNKNOWN),
             preserve_line_hyphens_(false), show_alternatives_(false) {
 }
 
-puma_format_mode_t FormatOptions::formatMode() const {
+FormatOptions::format_mode_t FormatOptions::formatMode() const {
     return format_mode_;
 }
 
@@ -79,7 +79,7 @@ std::string FormatOptions::serifName() const {
     return serif_name_;
 }
 
-void FormatOptions::setFormatMode(puma_format_mode_t format) {
+void FormatOptions::setFormatMode(format_mode_t format) {
     format_mode_ = format;
 }
 

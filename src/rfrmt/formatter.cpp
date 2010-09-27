@@ -113,7 +113,7 @@ void Formatter::setInnerOptions() const {
     // set to true in debug mode
     RfrmtOptions::setLineTransfer(false);
 
-    if (opts_.formatMode() == PUMA_FORMAT_ALL && extended_mode_ == FALSE)
+    if (opts_.formatMode() == FormatOptions::FORMAT_ALL && extended_mode_ == FALSE)
         RfrmtOptions::setFlag(USE_FRAME_AND_COLUMN);
     else
         RfrmtOptions::setFlag(USE_NONE);

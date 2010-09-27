@@ -25,18 +25,26 @@
 
 #include "common/lang_def.h"
 #include "globus.h"
-#include "puma/pumadef.h"
 #include "rdib/imageformats.h"
 
-namespace CIF
-{
+namespace CIF {
 
 class CLA_EXPO FormatOptions
 {
     public:
         FormatOptions();
 
-        puma_format_mode_t formatMode() const;
+        enum format_mode_t
+        {
+            // no formatting
+            FORMAT_NONE = 0x0040,
+            // format output into frames and columns
+            FORMAT_ALL = 0x0001,
+            // format output into frames only
+            FORMAT_ONLY_FRAME = 0x0002
+        };
+
+        format_mode_t formatMode() const;
         image_format_t imageExportFormat() const;
         bool isBoldUsed() const;
         bool isFontSizeUsed() const;
@@ -48,7 +56,7 @@ class CLA_EXPO FormatOptions
         bool preserveLineBreaks() const;
         std::string sansSerifName() const;
         std::string serifName() const;
-        void setFormatMode(puma_format_mode_t format);
+        void setFormatMode(format_mode_t format);
         void setImageExportFormat(image_format_t format);
         void setLanguage(language_t lang);
         void setMonospaceName(const std::string& name);
@@ -75,7 +83,7 @@ class CLA_EXPO FormatOptions
         bool use_underlined_;
         bool use_font_size_;
         bool preserve_line_breaks_;
-        puma_format_mode_t format_mode_;
+        format_mode_t format_mode_;
         wchar_t unrecognized_char_;
         language_t language_;
         image_format_t image_format_;

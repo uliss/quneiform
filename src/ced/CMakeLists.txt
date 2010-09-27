@@ -21,3 +21,6 @@ target_link_libraries(cuneiform-ced
     cuneiform-compat)
 
 library_hook(cuneiform-ced)
+
+set(CED_HEADER_INSTALL "ced")
+install(FILES cedexporter.h DESTINATION include/${CF_HEADER_INSTALL}/${CED_HEADER_INSTALL})

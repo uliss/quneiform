@@ -60,16 +60,6 @@
 #include "common/lang_def.h"
 #include <climits>
 
-enum puma_format_mode_t
-{
-    // no formatting
-    PUMA_FORMAT_NONE = 0x0040,
-    // format output into frames and columns
-    PUMA_FORMAT_ALL = 0x0001,
-    // format output into frames only
-    PUMA_FORMAT_ONLY_FRAME = 0x0002
-};
-
 // Флаги обновления контейнеров
 enum puma_update_flag_t
 {

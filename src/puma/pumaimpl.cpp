@@ -124,7 +124,7 @@ static uint32_t g_flgUpdate = 0;
 FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
-Bool32 IsUpdate(uint32_t flg) {
+bool IsUpdate(uint32_t flg) {
     return (g_flgUpdate & flg) > 0;
 }
 

@@ -23,7 +23,6 @@
 #include <iosfwd>
 #include <memory>
 
-#include "pumadef.h"
 #include "cfcompat.h"
 #include "rfrmt/formatoptions.h"
 #include "specprj.h"
@@ -48,7 +47,7 @@ class CEDPage;
 class Formatter;
 class CRtfPage;
 
-Bool32 IsUpdate(uint32_t flg);
+bool IsUpdate(uint32_t flg);
 void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
 
 class CLA_EXPO PumaImpl
@@ -132,7 +131,6 @@ class CLA_EXPO PumaImpl
         void setRecognizeOptions(const RecognizeOptions& opt);
 
         void setImageOutputDir(const std::string& path);
-        void setOptionFormatMode(puma_format_mode_t format);
 
         /**
          * Sets working region on input image
