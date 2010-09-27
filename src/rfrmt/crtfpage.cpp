@@ -27,10 +27,10 @@
 #include "creatertf.h"
 #include "frmtpict.h"
 #include "rfrmtoptions.h"
-#include "formatoptions.h"
 
 // common module
 #include "common/debug.h"
+#include "common/formatoptions.h"
 // ced module
 #include "ced/ced.h"
 #include "ced/cedcolumn.h"

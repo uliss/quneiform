@@ -23,7 +23,7 @@
 #include <string>
 
 #include "globus.h"
-#include "formatoptions.h"
+#include "common/formatoptions.h"
 
 namespace CIF
 {

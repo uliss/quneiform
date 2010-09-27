@@ -27,7 +27,7 @@
 #include "imageexporter.h"
 #include "common/exception.h"
 #include "ced/cedexporter.h"
-#include "rfrmt/formatoptions.h"
+#include "common/formatoptions.h"
 
 namespace CIF
 {

@@ -12,7 +12,6 @@ formatdebug.cpp
 formatter.cpp
 frmtfile.cpp
 frmtpict.cpp
-formatoptions.cpp
 pagetree.cpp
 rfrmtoptions.cpp
 sort_int.cpp
@@ -35,7 +34,6 @@ install(FILES
     crtfpage.h
     crtffragment.h
     crtfstruct.h
-    formatoptions.h 
     rfrmtoptions.h
     DESTINATION 
     include/${CF_HEADER_INSTALL}/${RFRMT_HEADER_INSTALL})

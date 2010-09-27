@@ -8,6 +8,7 @@ endif()
 
 add_library(cuneiform-common ${LIBTYPE}
     cifconfig.cpp
+    formatoptions.cpp
     helper.cpp
     iconv_local.cpp
     iconvimpl.cpp
@@ -24,6 +25,7 @@ install(FILES
     language.h
     lang_def.h
     exception.h
+    formatoptions.h
     image.h
     imagerawdata.h
     letter.h

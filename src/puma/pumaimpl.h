@@ -24,8 +24,8 @@
 #include <memory>
 
 #include "cfcompat.h"
-#include "rfrmt/formatoptions.h"
 #include "specprj.h"
+#include "common/formatoptions.h"
 #include "common/rect.h"
 #include "common/exception.h"
 #include "common/memorybuffer.h"
@@ -77,12 +77,6 @@ class CLA_EXPO PumaImpl
          * Returns format options
          */
         FormatOptions formatOptions() const;
-
-        /**
-         * Returns pointer to formatted page
-         * @return NULL if not formatted
-         */
-        CRtfPage * formatPage();
 
         /**
          * Formats results of recognition to CEDPage * tree

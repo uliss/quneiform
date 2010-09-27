@@ -23,7 +23,7 @@
 #include "common/singleton.h"
 #include "common/exception.h"
 #include "common/outputformat.h"
-#include "rfrmt/formatoptions.h"
+#include "common/formatoptions.h"
 #include "exporter.h"
 #include "globus.h"
 

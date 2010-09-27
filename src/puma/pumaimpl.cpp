@@ -284,10 +284,6 @@ FormatOptions PumaImpl::formatOptions() const {
     return format_options_;
 }
 
-CRtfPage * PumaImpl::formatPage() {
-    return formatter_.get() ? formatter_->page() : NULL;
-}
-
 void PumaImpl::formatResult() {
     formatter_.reset(new Formatter(format_options_));
 
