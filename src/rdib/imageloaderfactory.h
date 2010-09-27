@@ -26,8 +26,8 @@
 #include <boost/noncopyable.hpp>
 
 #include "common/image.h"
+#include "common/imageformats.h"
 #include "imageloader.h"
-#include "imageformats.h"
 #include "globus.h"
 
 namespace CIF

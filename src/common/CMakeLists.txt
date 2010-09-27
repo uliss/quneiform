@@ -28,6 +28,7 @@ install(FILES
     formatoptions.h
     image.h
     imagerawdata.h
+    imageformats.h
     letter.h
     rect.h
     point.h

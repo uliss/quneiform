@@ -35,6 +35,5 @@ library_hook(cuneiform-rdib)
 install(FILES 
     imageloaderfactory.h
     imageloader.h
-    imageformats.h
     qtimageloader.h
     DESTINATION include/${CF_HEADER_INSTALL}/rdib)

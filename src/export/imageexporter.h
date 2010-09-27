@@ -24,7 +24,7 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 #include "common/exception.h"
-#include "rdib/imageformats.h"
+#include "common/imageformats.h"
 
 namespace CIF
 {

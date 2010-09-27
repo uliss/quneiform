@@ -20,7 +20,7 @@
 #define MAGICKIMAGEEXPORTER_H_
 
 #include "imageexporter.h"
-#include "rdib/imageformats.h"
+#include "common/imageformats.h"
 
 namespace CIF
 {

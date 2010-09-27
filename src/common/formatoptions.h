@@ -23,9 +23,9 @@
 #include <iostream>
 #include <cstddef>
 
-#include "common/lang_def.h"
+#include "lang_def.h"
 #include "globus.h"
-#include "rdib/imageformats.h"
+#include "imageformats.h"
 
 namespace CIF {
 

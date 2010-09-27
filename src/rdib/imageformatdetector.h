@@ -25,7 +25,7 @@
 #include <vector>
 #include <boost/noncopyable.hpp>
 
-#include "imageformats.h"
+#include "common/imageformats.h"
 
 namespace CIF
 {
