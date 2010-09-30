@@ -64,7 +64,6 @@
 #include "leo/leodefs.h"
 #include "dif.h"
 
-extern uchar broken_flag;
 uchar rec5_flag = 1, font_type = 0, omni = 1;
 int16_t NumVertInterval(uchar *RASTER, int16_t D_X, int16_t dy, int16_t i);
 int16_t VertSum(uchar *rastr, int16_t D_X, int16_t dy, int16_t i);
@@ -109,12 +108,20 @@ int16_t no_serific(uchar *RASTR, int16_t dy, int16_t dx, int16_t wb);
 
 #define bytlen(bits)  (REC_GW_WORD8(bits))
 
+namespace cf {
+namespace dif {
 extern uchar BUFFER[256]; /* вертикальная   прoекция              */
 extern uchar LOCAL[50]; /* координаты     ног             */
 extern uchar LOCAL_W[50]; /* ширины         ног             */
 extern uchar end1, beg2; /* конец 1 и начало 2-ой ног инп  */
 extern int broken_ii; /* флаг двух палок            */
+extern uchar broken_flag;
 extern int16_t dnri_hook; // bottom right hook in small russian italic II,III
+}
+}
+
+using namespace cf;
+
 extern int16_t uple_hook; // bottom left  hook in small russian italic II,III
 extern int16_t up_jack; // upper jack
 
@@ -386,7 +393,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                 rastr = rastr0 + D_X * (dy >> 2);
                 F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
 
-                if (F != 2 || std::min(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1
+                if (F != 2 || std::min(dif::LOCAL_W[0], dif::LOCAL_W[1]) > 3 && dif::beg2 - dif::end1
                         < 3) {
                     if (dy > 13)
                         F = FOOT(rastr0 + 2 * D_X , D_X, (uchar) Dx,
@@ -412,8 +419,8 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                     DiskrIN(rastr0, D_X, dy, bw, dx);
                     IN_dis = -1;
 
-                    if (2 * LOCAL[0] > 5 * LOCAL_W[0] && 2 * (dx - LOCAL[1]) < 3
-                            * LOCAL_W[1])
+                    if (2 * dif::LOCAL[0] > 5 * dif::LOCAL_W[0] && 2 * (dx - dif::LOCAL[1]) < 3
+                            * dif::LOCAL_W[1])
                         P += 2 * step_diskr;
 
                     if (IN_I < 3)
@@ -445,12 +452,12 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             if (diskr_i < 0) {
                 F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
 
-                if (F == 2 && LOCAL[1] * 2 <= Dx) {
+                if (F == 2 && dif::LOCAL[1] * 2 <= Dx) {
                     diskr_i = P = 120;
                     break;
                 }
 
-                if (F != 2 || std::min(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1
+                if (F != 2 || std::min(dif::LOCAL_W[0], dif::LOCAL_W[1]) > 3 && dif::beg2 - dif::end1
                         < 3) {
                     if (dy > 13)
                         F = FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx,
@@ -474,7 +481,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                 else {
                     DiskrIN(rastr0, D_X, dy, bw, dx);
 
-                    if (2 * LOCAL[0] > 5 * LOCAL_W[0])
+                    if (2 * dif::LOCAL[0] > 5 * dif::LOCAL_W[0])
                         P += 2 * step_diskr;
 
                     if (IN_I < 3)
@@ -488,7 +495,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                 if (inc > 0) // OLEG : ERECTION conditions : 09-12-95 07:29pm
                     P >>= 1;
 
-                if (IN_I_Bonus && broken_flag && (broken_ii || !IN_IN_Monus
+                if (IN_I_Bonus && dif::broken_flag && (dif::broken_ii || !IN_IN_Monus
                                                   && Num2Interval(rastr0 + 2* D_X , (int16_t) D_X,
                                                                   (int16_t) Dx, (int16_t) (dy - 4))))
                     P = (IN_I_Bonus == 2) ? -254 : -250;
@@ -507,7 +514,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             if (diskr_n < 0) {
                 F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
 
-                if (F != 2 || std::min(LOCAL_W[0], LOCAL_W[1]) > 3 && beg2 - end1
+                if (F != 2 || std::min(dif::LOCAL_W[0], dif::LOCAL_W[1]) > 3 && dif::beg2 - dif::end1
                         < 3) {
                     if (dy > 13)
                         F = FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx,
@@ -532,7 +539,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                         P += std::min(IN_N * step_diskr, 160) / 2;
                 }
 
-                if (IN_N_Bonus && broken_flag && (broken_ii || !IN_IN_Monus
+                if (IN_N_Bonus && dif::broken_flag && (dif::broken_ii || !IN_IN_Monus
                                                   && Num2Interval(rastr0 + 2 * D_X, (int16_t) D_X,
                                                                   (int16_t) Dx, (int16_t) (dy - 4))))
                     P = (IN_N_Bonus == 2) ? -254 : -250;
@@ -559,20 +566,20 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                     P = 6 * step_diskr;
 
                 else { // F==2
-                    if (rotate && (dnri_hook/*||dy<22&&up_jack>1*/))
+                    if (rotate && (dif::dnri_hook/*||dy<22&&up_jack>1*/))
                         fill_center_zone(rastr + D_X * (Hy >> 2), D_X,
-                                         (int16_t) (Hy - (Hy >> 2)), end1, beg2, 1);
+                                         (int16_t) (Hy - (Hy >> 2)), dif::end1, dif::beg2, 1);
 
                     else
-                        //fill_center_zone(rastr,D_X,Hy,end1,beg2,0);
+                        //fill_center_zone(rastr,D_X,Hy,dif::end1,dif::beg2,0);
                         fill_center_zone(rastr + D_X * (Hy >> 2), D_X,
-                                         (int16_t) (Hy - (Hy >> 2)), end1, beg2, 1);
+                                         (int16_t) (Hy - (Hy >> 2)), dif::end1, dif::beg2, 1);
 
                     {
                         int16_t f_c = fill_center;
                         DiskrIN(rastr0, D_X, dy, bw, dx);
 
-                        if (!(rotate && (dnri_hook/*||dy<22&&up_jack>1*/)))
+                        if (!(rotate && (dif::dnri_hook/*||dy<22&&up_jack>1*/)))
                             f_c = fill_center;
 
                         if (f_c == 1)
@@ -588,7 +595,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                     }
 
                     else { /* no omni  */
-                        if (!broken_flag || n == 2)
+                        if (!dif::broken_flag || n == 2)
                             P += 4 * step_diskr * n;
 
                         else
@@ -596,7 +603,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                     }
                 }
 
-                if (IN_P_Bonus && broken_flag && (broken_ii || !IN_IN_Monus
+                if (IN_P_Bonus && dif::broken_flag && (dif::broken_ii || !IN_IN_Monus
                                                   && Num2Interval(rastr0 + 2 * D_X, D_X, Dx, (int16_t) (dy
                                                                                                         - 4))))
                     P = (IN_P_Bonus == 2) ? -254 : -250;
@@ -629,16 +636,16 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                                                             (uchar) Hy);
                 }
 
-                if (inc <= 0 && !broken_flag && DiskrSh0(rastr0, D_X, Dx, dy, dx)
+                if (inc <= 0 && !dif::broken_flag && DiskrSh0(rastr0, D_X, Dx, dy, dx)
                         == 0)
                     P += step_diskr;
 
                 F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
 
                 // OLEG : ERECTION conditions : 09-20-95 08:34pm
-                if (inc > 0 && dnri_hook) {
-                    if (F > 1 && DiskrSh(rastr, D_X, (int16_t) (LOCAL[2]
-                                                                + LOCAL_W[2] / 2), Hy))
+                if (inc > 0 && dif::dnri_hook) {
+                    if (F > 1 && DiskrSh(rastr, D_X, (int16_t) (dif::LOCAL[2]
+                                                                + dif::LOCAL_W[2] / 2), Hy))
                         P += step_diskr;
                 }
 
@@ -760,7 +767,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             if (diskr_m < 0) {
                 if (mii < -100) {
-                    if (broken_flag)
+                    if (dif::broken_flag)
                         mii = DiskrimM1(rastr0, D_X, dx, dy);
 
                     else
@@ -782,7 +789,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                 if (F == 2) {
                     DiskrIN(rastr0, D_X, dy, bw, dx);
 
-                    if (LOCAL[0] > dx / 4)
+                    if (dif::LOCAL[0] > dx / 4)
                         P >>= 2;
 
                     P += IN_M;
@@ -801,7 +808,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             if (diskr_ii < 0) {
                 if (mii < -100) {
-                    if (broken_flag)
+                    if (dif::broken_flag)
                         mii = DiskrimM1(rastr0, D_X, dx, dy);
 
                     else
@@ -902,10 +909,10 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     int16_t ua[256], da[256];
     int16_t i, n2 = dy - 2 * (dy >> 2), n4, mean, fine;
     int16_t incr, decr, old, neue, equ;
-    int16_t l = beg2 - end1 - 1, l_real, t, jump, rmin, rmax;
+    int16_t l = dif::beg2 - dif::end1 - 1, l_real, t, jump, rmin, rmax;
     int16_t ol = 1, or_ = 1; /* зазор слева и справа */
     uchar * RAST, *R;
-    n4 = std::max(dy / 4, (LOCAL_W[0] + LOCAL_W[1]) / 4);
+    n4 = std::max(dy / 4, (dif::LOCAL_W[0] + dif::LOCAL_W[1]) / 4);
 
     if (n4 > dy / 3)
         n4 = dy / 4;
@@ -940,7 +947,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
     if (l < 3) { /* отменить зазоры */
         or_ = ol = 0;
-        l = beg2 - end1 + 1 - ol - or_;
+        l = dif::beg2 - dif::end1 + 1 - ol - or_;
     }
 
     if (l > 3) {
@@ -948,7 +955,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         int16_t up_fill = 0, down_fill = 0, d;
 
         for (R = RAST, i = n4; i <= dy - 2; i++, R += D_X) {
-            d = SumIntervalBits(R, (int16_t) (end1 + ol), (int16_t) (beg2 - or_
+            d = SumIntervalBits(R, (int16_t) (dif::end1 + ol), (int16_t) (dif::beg2 - or_
                                                                      + 1)) / 3;
             hist[i] = (uchar) d;
 
@@ -1028,11 +1035,11 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
     memset(ua, 0xFF, dy << 1);
     memset(da, 0xFF, dy << 1);
-    i = end1 + ol - 1;
+    i = dif::end1 + ol - 1;
     n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
 
     /* запасной левый отсчет        */
-    for (mean = l_real = 0, i = end1 + ol; i <= beg2 - or_; i++) { /* таблица отчетов середин вертикальных интервалов   */
+    for (mean = l_real = 0, i = dif::end1 + ol; i <= dif::beg2 - or_; i++) { /* таблица отчетов середин вертикальных интервалов   */
         n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
         mean += n[i];
 
@@ -1043,8 +1050,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
 
     /* запасной отсчет          */
-    if (l != l_real && (l_real == 2 || (n[end1] | n[end1 + 1]) && (n[beg2]
-                                                                   | n[beg2 - 1]))) { /* отсутствие перекладины            */
+    if (l != l_real && (l_real == 2 || (n[dif::end1] | n[dif::end1 + 1]) && (n[dif::beg2]
+                                                                   | n[dif::beg2 - 1]))) { /* отсутствие перекладины            */
         IN_N_Bonus = 2;
         IN_I_Bonus = 2;
 
@@ -1052,13 +1059,13 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             IN_P_Bonus = 1;
     }
 
-    if (l_real <= 1 && ((n[end1] == 0 && n[end1 + 1] == 0) || (n[beg2] == 0
-                                                               && n[beg2 - 1] == 0))) { /* отсутствие перекладины          */
+    if (l_real <= 1 && ((n[dif::end1] == 0 && n[dif::end1 + 1] == 0) || (n[dif::beg2] == 0
+                                                               && n[dif::beg2 - 1] == 0))) { /* отсутствие перекладины          */
         IN_N_Bonus = 1;
         IN_P_Bonus = 1;
         IN_I_Bonus = 1;
 
-        if (n[end1] == 0 && n[end1 + 1] == 0 && n[beg2] == 0 && n[beg2 - 1]
+        if (n[dif::end1] == 0 && n[dif::end1 + 1] == 0 && n[dif::beg2] == 0 && n[dif::beg2 - 1]
                 == 0) {
             IN_P_Bonus = 2;
             IN_N_Bonus = 1;
@@ -1068,7 +1075,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
     if (no_serific(RASTR, dy, dx, bw)) { /* обратный пересчет в интервал высот [dy/4,dy-dy/4] */
         int16_t nn4, nn2, h;
-        nn4 = std::max(dy >> 2, (LOCAL_W[0] + LOCAL_W[1]) >> 1);
+        nn4 = std::max(dy >> 2, (dif::LOCAL_W[0] + dif::LOCAL_W[1]) >> 1);
 
         if (nn4 > dy / 3)
             nn4 = dy / 4;
@@ -1076,7 +1083,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         nn2 = dy - (nn4 << 1);
         RAST = RASTR + D_X * n4;
 
-        for (mean = l_real = 0, i = end1; i <= beg2; i++) {
+        for (mean = l_real = 0, i = dif::end1; i <= dif::beg2; i++) {
             h = n2 + n4 - (n[i] >> 1);
 
             if (h < nn4 || h > nn4 + nn2)
@@ -1088,8 +1095,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                 if (n[i] >= (nn2 << 1))
                     n[i] = 0;
 
-                else if (n[i] && (i != end1 || (i == end1 && ol == 0)) && (i
-                                                                           != beg2 || i == beg2 && or_ == 0)) {
+                else if (n[i] && (i != dif::end1 || (i == dif::end1 && ol == 0)) && (i
+                                                                           != dif::beg2 || i == dif::beg2 && or_ == 0)) {
                     mean += n[i];
                     l_real++;
                 }
@@ -1101,7 +1108,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     }
 
     if (l_real < 4) {
-        i = beg2 - or_ + 1;
+        i = dif::beg2 - or_ + 1;
 
         if (or_ && n[i] && VertSum(RAST, D_X, n2, i) < n2 - 1
                 && NumVertInterval(RAST, D_X, n2, i) == 1) { /* учитываем последний отсчет */
@@ -1111,7 +1118,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             l++;
         }
 
-        i = end1 + ol - 1;
+        i = dif::end1 + ol - 1;
 
         if (ol && n[i] && VertSum(RAST, D_X, n2, i) < n2 - 1
                 && NumVertInterval(RAST, D_X, n2, i) == 1) { /* учитываем последний отсчет */
@@ -1125,16 +1132,16 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     if (l_real <= 1) {
         int16_t dy1 = n2, nn, mm, mm1, minup, mindown, zaz;
         uchar *rrrr, *rrrr1;
-        zaz = beg2 - end1;
+        zaz = dif::beg2 - dif::end1;
 
         for (minup = mindown = zaz, rrrr = RASTR, rrrr1 = RASTR + (dy - 1)
                                                           * D_X, i = 0; i < 3; i++, rrrr += D_X, rrrr1 -= D_X) {
-            mm = zaz - SumIntervalBits(rrrr, end1, beg2) / 3;
+            mm = zaz - SumIntervalBits(rrrr, dif::end1, dif::beg2) / 3;
 
             if (minup > mm)
                 minup = mm;
 
-            mm1 = zaz - SumIntervalBits(rrrr1, end1, beg2) / 3;
+            mm1 = zaz - SumIntervalBits(rrrr1, dif::end1, dif::beg2) / 3;
 
             if (mindown > mm1)
                 mindown = mm1;
@@ -1151,7 +1158,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         }
 
         else {
-            if ((nn = n[end1 + ol]) > 0) {
+            if ((nn = n[dif::end1 + ol]) > 0) {
                 IN_N_Bonus = IN_I_Bonus = IN_P_Bonus = 1;
 
                 if (abs(nn - dy1) < 3)
@@ -1161,7 +1168,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                     IN_I_Bonus = 2;
             }
 
-            else if ((nn = n[beg2 - or_]) > 0) {
+            else if ((nn = n[dif::beg2 - or_]) > 0) {
                 IN_N_Bonus = IN_I_Bonus = IN_P_Bonus = 1;
 
                 if (abs(nn - dy1) < 3)
@@ -1174,7 +1181,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     }
 
     {
-        int16_t z = beg2 - end1 + 1;
+        int16_t z = dif::beg2 - dif::end1 + 1;
 
         if (z > 4 && l_real * 2 > z)
             IN_IN_Monus = 1; /* А перекладины разрыв то маленький ! */
@@ -1191,7 +1198,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     }
 
     if (l_real > 1) {
-        for (i = end1 + ol; i <= beg2 - or_; i++)
+        for (i = dif::end1 + ol; i <= dif::beg2 - or_; i++)
             if ((neue = n[i]) != 0)
                 hist[neue]++;
 
@@ -1204,25 +1211,25 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         if (hist[mean + 1] > l_real - 2)
             mean++;
 
-        if (l_real != l && !(l_real == l - 1 && (n[end1] == 0 || n[beg2] == 0))) {
+        if (l_real != l && !(l_real == l - 1 && (n[dif::end1] == 0 || n[dif::beg2] == 0))) {
             if ((!fill_center && l_real <= 4) || l_real <= 3) {
                 int16_t an[2], en[2], ll, dy1 = n2, san[2], sen[2], z;
                 /* поиск прыщей от '\x8d' '\x8d' (Н) на середине высоты */
-                an[0] = n[end1];
-                an[1] = n[end1 + 1];
-                en[0] = n[beg2 - 1];
-                en[1] = n[beg2];
+                an[0] = n[dif::end1];
+                an[1] = n[dif::end1 + 1];
+                en[0] = n[dif::beg2 - 1];
+                en[1] = n[dif::beg2];
 
                 for (ll = i = 0; i < 2; i++) {
-                    sen[i] = n[beg2 - i];
-                    san[i] = n[end1 + i];
+                    sen[i] = n[dif::beg2 - i];
+                    san[i] = n[dif::end1 + i];
 
                     if (an[i] > 0) {
                         if (abs(an[i] - dy1) > 2)
                             an[i] = -1;
 
                         else
-                            n[end1 + i] = (uchar) dy1, ll++;
+                            n[dif::end1 + i] = (uchar) dy1, ll++;
                     }
 
                     if (en[i] > 0) {
@@ -1230,20 +1237,20 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                             en[i] = -1;
 
                         else
-                            n[beg2 - i] = (uchar) dy1, ll++;
+                            n[dif::beg2 - i] = (uchar) dy1, ll++;
                     }
                 }
 
                 if (IN_I_Bonus == 2 && ll == 1)
                     IN_I_Bonus = 1;
 
-                if (ll > 2 || ll == 2 && broken_flag) {
+                if (ll > 2 || ll == 2 && dif::broken_flag) {
                     for (i = 0; i < 2; i++) {
                         if (an[i] > 0)
-                            n[end1 + i] = (uchar) dy1;
+                            n[dif::end1 + i] = (uchar) dy1;
 
                         if (en[i] > 0)
-                            n[beg2 - i] = (uchar) dy1;
+                            n[dif::beg2 - i] = (uchar) dy1;
                     }
 
                     mean = dy1;
@@ -1254,23 +1261,23 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
                 else {
                     for (i = 0; i < 2; i++) {
-                        n[beg2 - i] = (uchar) sen[i];
-                        n[end1 + i] = (uchar) san[i];
+                        n[dif::beg2 - i] = (uchar) sen[i];
+                        n[dif::end1 + i] = (uchar) san[i];
                     }
 
                     /* поиск прыщей от '\x88' (И) по разные стороны от середины высоты */
-                    an[0] = n[end1];
-                    an[1] = n[end1 + 1];
-                    en[0] = n[beg2 - 1];
-                    en[1] = n[beg2];
+                    an[0] = n[dif::end1];
+                    an[1] = n[dif::end1 + 1];
+                    en[0] = n[dif::beg2 - 1];
+                    en[1] = n[dif::beg2];
 
                     for (ll = i = 0; i < 2; i++) {
-                        z = VertSum(RAST, D_X, n2, (int16_t) (end1 + i));
+                        z = VertSum(RAST, D_X, n2, (int16_t) (dif::end1 + i));
 
                         if (an[i] > 0 && an[i] < dy1 - 2 && z < n4)
                             ll++;
 
-                        z = VertSum(RAST, D_X, n2, (int16_t) (beg2 - i));
+                        z = VertSum(RAST, D_X, n2, (int16_t) (dif::beg2 - i));
 
                         if (en[i] > 0 && en[i] > dy1 + 2 && z < n4)
                             ll++;
@@ -1278,9 +1285,9 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
 #ifndef Int16ERSEPTOR
 
-                    if (ll > 2 || ll == 2 && broken_flag && !rotate)
+                    if (ll > 2 || ll == 2 && dif::broken_flag && !rotate)
 #else
-                    if ( ll > 3 || ll == 2 && broken_flag && !rotate)
+                    if ( ll > 3 || ll == 2 && dif::broken_flag && !rotate)
 #endif
                     {
                         fill_center = 1;
@@ -1292,9 +1299,9 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
             else {
                 if (fill_center && l_real > l - 3 && l > 2) {
-                    int16_t lim = (beg2 - or_ - end1 + ol) >> 1;
+                    int16_t lim = (dif::beg2 - or_ - dif::end1 + ol) >> 1;
 
-                    for (t = 0, i = end1 + ol; i <= lim; i++)
+                    for (t = 0, i = dif::end1 + ol; i <= lim; i++)
                         if (n[i] > ((n2 - 2) << 1))
                             t++;
 
@@ -1317,8 +1324,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             }
         }
 
-        for (old = incr = decr = fine = 0, i = end1 + ol, rmin = dy, rmax = 0; i
-                <= beg2 - or_; i++)
+        for (old = incr = decr = fine = 0, i = dif::end1 + ol, rmin = dy, rmax = 0; i
+                <= dif::beg2 - or_; i++)
             if ((neue = n[i]) != 0) { /* fine - сумма расстояний от среднего    */
                 if (old == 0)
                     old = neue;/* первый ненулевой отсчет   */
@@ -1352,9 +1359,9 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
         if (omni) {
             int16_t fin = fine, inc = incr, dec = decr;
-            neue = n[end1];
+            neue = n[dif::end1];
 
-            if (ol && neue && neue < n[end1 + 1]) {
+            if (ol && neue && neue < n[dif::end1 + 1]) {
                 if (neue > mean)
                     fin += neue - mean;
 
@@ -1364,9 +1371,9 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                 inc++; /* число скачков возрастаний     */
             }
 
-            neue = n[beg2];
+            neue = n[dif::beg2];
 
-            if (or_ && neue && neue > n[beg2 - 1]) {
+            if (or_ && neue && neue > n[dif::beg2 - 1]) {
                 if (neue > mean)
                     fin += neue - mean;
 
@@ -1377,10 +1384,10 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             }
 
             /* большое сходство с '\x88' (И) */
-            if (fin > 10 && inc > 3 && dec < 1 && LOCAL[0] <= dx / 4)
+            if (fin > 10 && inc > 3 && dec < 1 && dif::LOCAL[0] <= dx / 4)
                 IN_M = 80;
 
-            else if (fin > 10 && inc > 2 && dec == 0 && LOCAL[0] <= dx / 4)
+            else if (fin > 10 && inc > 2 && dec == 0 && dif::LOCAL[0] <= dx / 4)
                 IN_M = 80;
 
             else
@@ -1408,10 +1415,10 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
         t = (incr <= 1) && (decr <= 1);
 
-        for (i = end1 + ol; n[i] == 0 && i <= beg2 - or_; i++)
+        for (i = dif::end1 + ol; n[i] == 0 && i <= dif::beg2 - or_; i++)
             ; /* skip empty columns */
 
-        for (equ = incr = 0, old = n[i++]; i <= beg2 - or_; i++) {
+        for (equ = incr = 0, old = n[i++]; i <= dif::beg2 - or_; i++) {
             if (n[i])
                 neue = n[i];
 
@@ -1431,8 +1438,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             if (hist[i] > equ)
                 equ = hist[(t = i)];
 
-        if (fine > 1 && equ > 2 && t == mean && or_ == 0 && ol == 0 && n[end1]
-                < mean && mean < n[beg2] && equ + 2 == l_real)
+        if (fine > 1 && equ > 2 && t == mean && or_ == 0 && ol == 0 && n[dif::end1]
+                < mean && mean < n[dif::beg2] && equ + 2 == l_real)
             fine = 0; /* 1-ый и последний скачки в  */
 
         /* разорванном растре, интервал */
@@ -1444,13 +1451,13 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
             for (RAST = RASTR + D_X * (t - 2), i = t - 2; i <= t + 2; i++, RAST
                     += D_X)
-                if (SumIntervalBits(RAST, end1, (int16_t) (beg2 + 1)) == (beg2
-                                                                          - end1 + 1) * 3) { /* есть перекладина */
+                if (SumIntervalBits(RAST, dif::end1, (int16_t) (dif::beg2 + 1)) == (dif::beg2
+                                                                          - dif::end1 + 1) * 3) { /* есть перекладина */
                     fine = 0;
                     break;
                 }
 
-            if (equ == 2 && (ol && n[end1 + ol] || or_ && n[beg2 - or_]))
+            if (equ == 2 && (ol && n[dif::end1 + ol] || or_ && n[dif::beg2 - or_]))
                 fine = fineold;
         }
 
@@ -1463,7 +1470,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         jump = 0;
 
         if (equ == l - 1) { /* единственный всплеск         */
-            i = end1 + ol;
+            i = dif::end1 + ol;
 
             if (n[i] != 0 && n[i] < n[i + 1] && n[i + 2] == n[i + 1]) {
                 fine = 0; /* единственный левый всплеск     */
@@ -1471,7 +1478,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             }
 
             else {
-                i = beg2 - or_;
+                i = dif::beg2 - or_;
 
                 if (n[i - 1] != 0 && n[i] > n[i - 1] && n[i - 2] == n[i - 1]) {
                     fine = 0;
@@ -1499,11 +1506,11 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             fill_center = 0; /* коррекция штрафа за отстутствие перекладины */
 
         if (!fill_center && l_real == 1
-                && (NumVertInterval(RAST, D_X, n2, end1) == 1 && VertSum(RAST,
-                                                                         D_X, n2, end1) < n4 && n[end1] && abs(n[end1] - (dy
-                                                                                                                          >> 1)) < 3 || NumVertInterval(RAST, D_X, n2, beg2) == 1
-                    && VertSum(RAST, D_X, n2, beg2) < n4 && n[beg2] && abs(
-                        n[beg2] - (dy >> 1)) < 3))
+                && (NumVertInterval(RAST, D_X, n2, dif::end1) == 1 && VertSum(RAST,
+                                                                         D_X, n2, dif::end1) < n4 && n[dif::end1] && abs(n[dif::end1] - (dy
+                                                                                                                          >> 1)) < 3 || NumVertInterval(RAST, D_X, n2, dif::beg2) == 1
+                    && VertSum(RAST, D_X, n2, dif::beg2) < n4 && n[dif::beg2] && abs(
+                        n[dif::beg2] - (dy >> 1)) < 3))
             fill_center = 2;
 
         return;
@@ -1533,7 +1540,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
     if (!fill_center && (l_real > 3 || l_real > l - 3) && l > 2 && mean * 4
             < dy * 3) {
-        if (l_real > 2 || n[end1] && n[beg2])
+        if (l_real > 2 || n[dif::end1] && n[dif::beg2])
 #ifdef Int16ERSEPTOR
             if ( l_real > 5 )
 #endif
@@ -1541,7 +1548,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                     fill_center = 1; /* коррекция штрафа за отстутствие перекладины */
     }
 
-    if (fine > 5 && l_real == 2 && !broken_flag && incr == 0 && decr == 1) {
+    if (fine > 5 && l_real == 2 && !dif::broken_flag && incr == 0 && decr == 1) {
         IN_N = 4;
         IN_I = 2;
         fill_center = 0;
@@ -1557,14 +1564,14 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     }
 
     if (omni) { /* '\x88' (И) путается с '\x88' (И) */
-        int16_t i, le, ri, nnn = (beg2 + end1 + ol - or_) / 2;
+        int16_t i, le, ri, nnn = (dif::beg2 + dif::end1 + ol - or_) / 2;
 
         if (fine > 15 && decr > 3 || fine > 20 && decr > 2 || fine > 10 && incr
                 < 1 && decr > 3) //RUS_ENG_LANG
             IN_I = 1;
 
         if (l_real > 4 && fine > 9) {
-            for (old = n[end1 + ol], le = 0, i = end1 + ol; i < nnn; i++) {
+            for (old = n[dif::end1 + ol], le = 0, i = dif::end1 + ol; i < nnn; i++) {
                 neue = n[i];
 
                 if (neue) {
@@ -1575,7 +1582,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                 }
             }
 
-            for (old = n[i], ri = 0; i < beg2 - or_; i++) {
+            for (old = n[i], ri = 0; i < dif::beg2 - or_; i++) {
                 neue = n[i];
 
                 if (neue) {
@@ -1592,8 +1599,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     }
 
     {
-        int16_t up_skip = vert_stairs(&ua[end1], (int16_t) (beg2 - end1 + 1));
-        int16_t down_skip = vert_stairs(&da[end1], (int16_t) (beg2 - end1 + 1));
+        int16_t up_skip = vert_stairs(&ua[dif::end1], (int16_t) (dif::beg2 - dif::end1 + 1));
+        int16_t down_skip = vert_stairs(&da[dif::end1], (int16_t) (dif::beg2 - dif::end1 + 1));
 
         if (IN_I <= 3)
             if (up_skip > 3 && down_skip > 3 || up_skip > 1 && down_skip > 1
@@ -1619,7 +1626,7 @@ int16_t DiskrHorizIN(uchar *RASTR, int16_t D_X, int16_t dy)
 {
     uchar n[256];
     int16_t i, j, n2 = dy - 2 * (dy >> 2), n4 = dy >> 2, imax, nmax, kmax;
-    int16_t l = beg2 - end1, h;
+    int16_t l = dif::beg2 - dif::end1, h;
     uchar * RAST = RASTR + D_X * n4;
 
     if (IN_horiz_dis >= 0)
@@ -1631,7 +1638,7 @@ int16_t DiskrHorizIN(uchar *RASTR, int16_t D_X, int16_t dy)
     }
 
     for (imax = nmax = kmax = -1, i = n4, j = 0; j <= n2; j++, i++, RAST += D_X) { /* заливки линий     */
-        n[i] = SumIntervalBits(RAST, end1, beg2) / 3;
+        n[i] = SumIntervalBits(RAST, dif::end1, dif::beg2) / 3;
 
         if (n[i] > nmax) {
             nmax = n[i];
@@ -1700,7 +1707,7 @@ int16_t fill_center_zone(uchar *raster, int16_t D_X, int16_t dy, int16_t beg,
     }
 
     if (ny) {
-        if (!(rotate && (dnri_hook || II))) {
+        if (!(rotate && (dif::dnri_hook || II))) {
             if (end - beg < 5)
                 fill_center = (num > ny);
 
@@ -1712,7 +1719,7 @@ int16_t fill_center_zone(uchar *raster, int16_t D_X, int16_t dy, int16_t beg,
             fill_center = 0;
 
             if (rotate) {
-                if (white < 2 && dnri_hook)
+                if (white < 2 && dif::dnri_hook)
                     fill_center = 1;
 
                 else if (d > 2 && white < d)
@@ -1934,10 +1941,10 @@ static int16_t DiskrSymSh(uchar *RASTER, int16_t Wx, uchar NWIDTH,
     d = (NLENGTH + 1) >> 1;
 
     for (i = 0; i < NWIDTH; i++)
-        BUFFER[i] = (BUFFER[i] >= d); /* binarazing */
+        dif::BUFFER[i] = (dif::BUFFER[i] >= d); /* binarazing */
 
     for (old = l = k = i = 0; i <= NWIDTH; i++) {
-        c = (i < NWIDTH) ? BUFFER[i] : 0;
+        c = (i < NWIDTH) ? dif::BUFFER[i] : 0;
 
         if (old ^ c) {
             if (c)
@@ -1952,8 +1959,8 @@ static int16_t DiskrSymSh(uchar *RASTER, int16_t Wx, uchar NWIDTH,
                 if (w < minw)
                     minw = w;
 
-                LOCAL_W[k] = w; /* width of foot   */
-                LOCAL[k] = (l + i); /* center+1/2. Accuracy 1/2 pixelа */
+                dif::LOCAL_W[k] = w; /* width of foot   */
+                dif::LOCAL[k] = (l + i); /* center+1/2. Accuracy 1/2 pixelа */
                 k++;
             }
         }
@@ -1964,7 +1971,7 @@ static int16_t DiskrSymSh(uchar *RASTER, int16_t Wx, uchar NWIDTH,
     if (k != 3 || maxw - minw > 1)
         return (0); // enigmatic image
 
-    i = LOCAL[2] + LOCAL[0] - (LOCAL[1] << 1); //аassimetry
+    i = dif::LOCAL[2] + dif::LOCAL[0] - (dif::LOCAL[1] << 1); //аassimetry
 
     if (i == 0)
         return (-2);
@@ -1997,8 +2004,8 @@ static int16_t DiskrSh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly)
     }
 
     if (n2) { /* 2-interval lines are exist */
-        int16_t b = (LOCAL[0] + LOCAL[1]) / 2, dd = (LOCAL[1] - LOCAL[0])
-                                                    + (LOCAL_W[1] + LOCAL_W[0]) / 2;
+        int16_t b = (dif::LOCAL[0] + dif::LOCAL[1]) / 2, dd = (dif::LOCAL[1] - dif::LOCAL[0])
+                                                    + (dif::LOCAL_W[1] + dif::LOCAL_W[0]) / 2;
         i = Ly << 1;
         i = Ly / 3 - (Ly >> 2);
         Ly -= i;
@@ -2332,9 +2339,9 @@ static int16_t DiskrTsh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
     }
 
     //****************    foots configuration       ******************
-    bit0 = LOCAL[0];
-    bit1 = LOCAL[1];
-    bit2 = LOCAL[2];
+    bit0 = dif::LOCAL[0];
+    bit1 = dif::LOCAL[1];
+    bit2 = dif::LOCAL[2];
     //************   check gluing in upper left angle gluing  *************
     fine = 0;
 
@@ -2357,7 +2364,7 @@ static int16_t DiskrTsh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
     bool_foot = 0;
 
     for (i = bit0 + 1; i < bit1 + 1; i++) {
-        if (BUFFER[i] == 0)
+        if (dif::BUFFER[i] == 0)
             goto bbb;
 
         //* breaking
@@ -2388,7 +2395,7 @@ bbb:
         FOOT_A(RASTR, D_X, (uchar) Dx, (uchar) n4);
 
     for (i = bit1 + 1; i < bit2 + 1; i++) {
-        if (BUFFER[i] == 0)
+        if (dif::BUFFER[i] == 0)
             goto end;
 
         // breaking
@@ -2450,7 +2457,7 @@ static int16_t DiskrJu(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly)
     if (s3 < n)
         ret += n - s3;
 
-    if (!broken_flag && s2 == 0)
+    if (!dif::broken_flag && s2 == 0)
         ret += 2;
 
     return (ret);
@@ -3052,7 +3059,7 @@ Bool32 DiskrJuCut(int16_t nfoot, int16_t dx)
     d = dx / 5;
 
     for (i = 0; i < nfoot; i++)
-        if (LOCAL[i] > l && LOCAL_W[i] > d)
+        if (dif::LOCAL[i] > l && dif::LOCAL_W[i] > d)
             return TRUE;
 
     return FALSE;
@@ -3063,9 +3070,9 @@ int16_t DIF_GetNoCutPoint(uchar *RASTER, int16_t Wx, uchar NWIDTH,
 {
     int16_t f = FOOT_HEI(RASTER, Wx, NWIDTH, NLENGTH);
 
-    if (f != 2 || f == 2 && (LOCAL[0] - (LOCAL_W[0] + 1) / 2)
-            > (LOCAL_W[0] + 1) / 2)
+    if (f != 2 || f == 2 && (dif::LOCAL[0] - (dif::LOCAL_W[0] + 1) / 2)
+            > (dif::LOCAL_W[0] + 1) / 2)
         return 0;
 
-    return LOCAL[1] + (LOCAL_W[1] + 1) / 2;
+    return dif::LOCAL[1] + (dif::LOCAL_W[1] + 1) / 2;
 }

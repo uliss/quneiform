@@ -87,6 +87,8 @@
 #include "leo/leodefs.h"
 #include "diskrtab.h"       /* таблицы      */
 
+namespace cf {
+namespace dif {
 uchar BUFFER[256]; /* вертикальная проекция  */
 uchar LOCAL[50]; /* список центров ног     */
 uchar LOCAL_W[50]; /* список ширин   ног     */
@@ -97,6 +99,10 @@ uchar beg2, end1; /* начало 2-ой, конец 1-ой ног  */
 int16_t dnri_hook;
 int broken_ii = 0;
 uchar broken_flag = 0;
+}
+}
+
+using namespace cf;
 
 /* LeftDistance - расстояние до первого слева бита          */
 int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH)
@@ -222,7 +228,7 @@ int16_t FOOT_A(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
     int16_t i, j, k, d;
     uchar *p, c;
     d = bytlen(NWIDTH);
-    memset(BUFFER, 0, NWIDTH);
+    memset(dif::BUFFER, 0, NWIDTH);
 
     for (i = 0; i < NLENGTH; i++, RASTER += Wx) {
         p = RASTER;
@@ -230,17 +236,17 @@ int16_t FOOT_A(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
         for (k = j = 0; j < d; j++) {
             c = *p++;
 #ifndef __MAC__
-            *((uint32_t *) &BUFFER[k]) += tab_4bits_to_DWORD[c >> 4];
-            *((uint32_t *) &BUFFER[k + 4]) += tab_4bits_to_DWORD[c & 15];
+            *((uint32_t *) &dif::BUFFER[k]) += tab_4bits_to_DWORD[c >> 4];
+            *((uint32_t *) &dif::BUFFER[k + 4]) += tab_4bits_to_DWORD[c & 15];
 #else
-            BUFFER[k+7] += ((c & 0x01) != 0);
-            BUFFER[k+6] += ((c & 0x02) != 0);
-            BUFFER[k+5] += ((c & 0x04) != 0);
-            BUFFER[k+4] += ((c & 0x08) != 0);
-            BUFFER[k+3] += ((c & 0x10) != 0);
-            BUFFER[k+2] += ((c & 0x20) != 0);
-            BUFFER[k+1] += ((c & 0x40) != 0);
-            BUFFER[k ] += ((c & 0x80) != 0);
+            dif::BUFFER[k+7] += ((c & 0x01) != 0);
+            dif::BUFFER[k+6] += ((c & 0x02) != 0);
+            dif::BUFFER[k+5] += ((c & 0x04) != 0);
+            dif::BUFFER[k+4] += ((c & 0x08) != 0);
+            dif::BUFFER[k+3] += ((c & 0x10) != 0);
+            dif::BUFFER[k+2] += ((c & 0x20) != 0);
+            dif::BUFFER[k+1] += ((c & 0x40) != 0);
+            dif::BUFFER[k ] += ((c & 0x80) != 0);
 #endif
             k += 8;
         }
@@ -255,21 +261,21 @@ int16_t FOOT(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH,
 {
     int16_t i, old, d, l, k;
     uchar c, curr, first, second;
-    memset(LOCAL, 0, 50);
-    memset(LOCAL_W, 0, 50);
+    memset(dif::LOCAL, 0, 50);
+    memset(dif::LOCAL_W, 0, 50);
     FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* проекция */
     d = NLENGTH;
     d -= (d >> 3); /* 7/8 */
 
     for (old = 9999, i = 0; i < NWIDTH; i++)
-        if (old > BUFFER[i])
-            old = BUFFER[i];
+        if (old > dif::BUFFER[i])
+            old = dif::BUFFER[i];
 
     for (i = 0; i < NWIDTH; i++)
-        BUFFER[i] = (BUFFER[i] >= d); /* бинаризация */
+        dif::BUFFER[i] = (dif::BUFFER[i] >= d); /* бинаризация */
 
     for (old = d = i = 0; i < NWIDTH; i++) {
-        c = BUFFER[i];
+        c = dif::BUFFER[i];
 
         if (old == 0 && c == 1)
             d++;
@@ -278,14 +284,14 @@ int16_t FOOT(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH,
     } /* d - число ног */
 
     if (HARD_FILTER == 0 || d <= 2 && HARD_FILTER != 2) { /* слабый фильтр */
-        first = BUFFER[0];
-        second = BUFFER[1];
+        first = dif::BUFFER[0];
+        second = dif::BUFFER[1];
 
         for (i = 2; i < NWIDTH; i++) {
-            curr = BUFFER[i];
+            curr = dif::BUFFER[i];
 
             if (first == 1 && second == 0 && curr == 1)
-                BUFFER[i - 1] = 1;
+                dif::BUFFER[i - 1] = 1;
 
             first = second;
             second = curr;
@@ -293,17 +299,17 @@ int16_t FOOT(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH,
     }
 
     else { /* сильный фильтр */
-        first = BUFFER[0];
-        second = BUFFER[1];
+        first = dif::BUFFER[0];
+        second = dif::BUFFER[1];
 
         for (i = 2; i < NWIDTH; i++) {
-            curr = BUFFER[i];
+            curr = dif::BUFFER[i];
 
             if (first == 1 && second == 0 && curr == 1)
-                BUFFER[i - 1] = 1;
+                dif::BUFFER[i - 1] = 1;
 
             if (first == 0 && second == 1 && curr == 0)
-                BUFFER[i - 1] = 0;
+                dif::BUFFER[i - 1] = 0;
 
             first = second;
             second = curr;
@@ -313,24 +319,24 @@ int16_t FOOT(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH,
     /* отфильтровали */
 
     for (old = k = l = i = 0; i < NWIDTH; i++) {
-        c = BUFFER[i];
+        c = dif::BUFFER[i];
 
         if (old ^ c) {
             if (c)
                 l = i; /* черная  : начало ноги */
 
             else
-                LOCAL_W[k++] = i - l; /* белая : ширина ноги      */
+                dif::LOCAL_W[k++] = i - l; /* белая : ширина ноги      */
         }
 
         old = c;
     }
 
     if (old)
-        LOCAL_W[k++] = i - l; /* последняя точка черная : ширина ноги */
+        dif::LOCAL_W[k++] = i - l; /* последняя точка черная : ширина ноги */
 
     for (old = d = l = k = i = 0; i < NWIDTH; i++) {
-        c = BUFFER[i];
+        c = dif::BUFFER[i];
 
         if (old ^ c) {
             d++;
@@ -339,7 +345,7 @@ int16_t FOOT(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH,
                 l = i; /* начало ноги     */
 
             else {
-                LOCAL[k++] = (l + i) >> 1; /* конец ноги   */
+                dif::LOCAL[k++] = (l + i) >> 1; /* конец ноги   */
             }
         }
 
@@ -347,7 +353,7 @@ int16_t FOOT(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH,
     }
 
     if (old) {
-        LOCAL[k++] = (l + i) >> 1; /* конец последней ноги */
+        dif::LOCAL[k++] = (l + i) >> 1; /* конец последней ноги */
         d++;
     }
 
@@ -358,16 +364,16 @@ int16_t FOOT(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH,
 
     /* 2 ноги */
     for (i = 1; i < NWIDTH; i++)
-        if (BUFFER[i] == 0 && BUFFER[i - 1] == 1)
+        if (dif::BUFFER[i] == 0 && dif::BUFFER[i - 1] == 1)
             break;
 
-    end1 = (uchar) i; /* конец 1-ой ноги */
+    dif::end1 = (uchar) i; /* конец 1-ой ноги */
 
     for (i = NWIDTH - 2; i >= 0; i--)
-        if (BUFFER[i] == 0 && BUFFER[i + 1] == 1)
+        if (dif::BUFFER[i] == 0 && dif::BUFFER[i + 1] == 1)
             break;
 
-    beg2 = (uchar) i; /* начало 2-ой ноги */
+    dif::beg2 = (uchar) i; /* начало 2-ой ноги */
     return (2);
 }
 
@@ -492,10 +498,10 @@ int16_t FOOT3_2(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
     FOOT_A(RASTER, Wx, NWIDTH, (uchar)(NLENGTH / 2)); /* проекция */
 
     for (i = 0; i < NWIDTH; i++)
-        BUFFER[i] = (BUFFER[i] > 0); /* бинаризация */
+        dif::BUFFER[i] = (dif::BUFFER[i] > 0); /* бинаризация */
 
     for (old = du = i = 0; i < NWIDTH; i++) {
-        c = BUFFER[i];
+        c = dif::BUFFER[i];
 
         if (old ^ c)
             du++;
@@ -510,10 +516,10 @@ int16_t FOOT3_2(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
     FOOT_A(RASTER + (NLENGTH / 2) * Wx, Wx, NWIDTH, (uchar)(NLENGTH / 2)); /* проекция */
 
     for (i = 0; i < NWIDTH; i++)
-        BUFFER[i] = (BUFFER[i] > 0); /* бинаризация */
+        dif::BUFFER[i] = (dif::BUFFER[i] > 0); /* бинаризация */
 
     for (old = dd = i = 0; i < NWIDTH; i++) {
-        c = BUFFER[i];
+        c = dif::BUFFER[i];
 
         if (old ^ c)
             dd++;
@@ -539,10 +545,10 @@ int16_t FOOT3(uchar *RASTER, int16_t Wx, uchar START, uchar NWIDTH,
     d = (d >> SHIFT); /* 1/4 */
 
     for (i = 0; i < NWIDTH; i++)
-        BUFFER[i] = (BUFFER[i] >= d); /* бинаризация */
+        dif::BUFFER[i] = (dif::BUFFER[i] >= d); /* бинаризация */
 
     for (old = d = 0, i = START; i < NWIDTH; i++) {
-        c = BUFFER[i];
+        c = dif::BUFFER[i];
 
         if (old ^ c)
             d++;
@@ -604,21 +610,21 @@ int16_t FOOT_HEI(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
 {
     int16_t i, old, d, l, k;
     uchar c, curr, first, second;
-    memset(LOCAL, 0, 50);
-    memset(LOCAL_W, 0, 50);
+    memset(dif::LOCAL, 0, 50);
+    memset(dif::LOCAL_W, 0, 50);
     FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* проекция */
     d = NLENGTH;
     d -= 2; // full heigh
 
     for (old = 9999, i = 0; i < NWIDTH; i++)
-        if (old > BUFFER[i])
-            old = BUFFER[i];
+        if (old > dif::BUFFER[i])
+            old = dif::BUFFER[i];
 
     for (i = 0; i < NWIDTH; i++)
-        BUFFER[i] = (BUFFER[i] >= d); /* бинаризация */
+        dif::BUFFER[i] = (dif::BUFFER[i] >= d); /* бинаризация */
 
     for (old = d = i = 0; i < NWIDTH; i++) {
-        c = BUFFER[i];
+        c = dif::BUFFER[i];
 
         if (old == 0 && c == 1)
             d++;
@@ -626,14 +632,14 @@ int16_t FOOT_HEI(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
         old = c;
     } /* d - число ног */
 
-    first = BUFFER[0];
-    second = BUFFER[1];
+    first = dif::BUFFER[0];
+    second = dif::BUFFER[1];
 
     for (i = 2; i < NWIDTH; i++) {
-        curr = BUFFER[i];
+        curr = dif::BUFFER[i];
 
         if (first == 1 && second == 0 && curr == 1)
-            BUFFER[i - 1] = 1;
+            dif::BUFFER[i - 1] = 1;
 
         first = second;
         second = curr;
@@ -642,24 +648,24 @@ int16_t FOOT_HEI(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
     /* отфильтровали */
 
     for (old = k = l = i = 0; i < NWIDTH; i++) {
-        c = BUFFER[i];
+        c = dif::BUFFER[i];
 
         if (old ^ c) {
             if (c)
                 l = i; /* черная  : начало ноги */
 
             else
-                LOCAL_W[k++] = i - l; /* белая : ширина ноги      */
+                dif::LOCAL_W[k++] = i - l; /* белая : ширина ноги      */
         }
 
         old = c;
     }
 
     if (old)
-        LOCAL_W[k++] = i - l; /* последняя точка черная : ширина ноги */
+        dif::LOCAL_W[k++] = i - l; /* последняя точка черная : ширина ноги */
 
     for (old = d = l = k = i = 0; i < NWIDTH; i++) {
-        c = BUFFER[i];
+        c = dif::BUFFER[i];
 
         if (old ^ c) {
             d++;
@@ -668,7 +674,7 @@ int16_t FOOT_HEI(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
                 l = i; /* начало ноги     */
 
             else {
-                LOCAL[k++] = (l + i) >> 1; /* конец ноги   */
+                dif::LOCAL[k++] = (l + i) >> 1; /* конец ноги   */
             }
         }
 
@@ -676,7 +682,7 @@ int16_t FOOT_HEI(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
     }
 
     if (old) {
-        LOCAL[k++] = (l + i) >> 1; /* конец последней ноги */
+        dif::LOCAL[k++] = (l + i) >> 1; /* конец последней ноги */
         d++;
     }
 

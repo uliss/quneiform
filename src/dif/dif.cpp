@@ -84,14 +84,14 @@ namespace cf {
 namespace dif {
 uchar alphabet[256];
 uchar language;
+extern int broken_ii;
+extern uchar broken_flag;
 }
 }
 
 Bool32 digit_mode = FALSE, dif_adding_mode;
 int32_t dif_typ_of_font = 0;
 
-extern int broken_ii;
-extern uchar broken_flag;
 uchar cutl_flag, cutr_flag;
 
 void DIFSetFont(int32_t typ_of_font)
@@ -103,8 +103,8 @@ void DIFSetFont(int32_t typ_of_font)
 Bool32 DIFInit(RecRaster *r, Bool32 broken, Bool32 broken_II, Bool32 cut_left,
                Bool32 cut_right)
 {
-    broken_ii = (int) (broken_II != 0);
-    broken_flag = (uchar) broken;
+    cf::dif::broken_ii = (int) (broken_II != 0);
+    cf::dif::broken_flag = (uchar) broken;
     cutl_flag = (uchar)(cut_left != 0);
     cutr_flag = (uchar)(cut_right != 0);
     init_diskrim(r->Raster, (int16_t) r->lnPixHeight, (int16_t) r->lnPixWidth);
@@ -127,7 +127,7 @@ Bool32 DIFPenaltyChar(RecRaster* r, RecVersions* res)
         pen = Diskrim((char) (res->Alt[i].Code), r->Raster,
                       (int16_t) REC_GW_WORD8(dx), (int16_t) dx, (int16_t) dy, 0, 0);
 
-        if (pen < 0 && broken_flag && broken_ii) { // broken II
+        if (pen < 0 && cf::dif::broken_flag && cf::dif::broken_ii) { // broken II
             switch (pen) {
                 case -254:
                     res->Alt[i].Prob = std::min(255, maxprob + 4);
