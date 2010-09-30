@@ -18,8 +18,17 @@ if(APPLE)
     FIND_PATH(ICONV_INCLUDE_DIR NAMES iconv.h PATHS /opt/local/include NO_DEFAULT_PATH) 
     FIND_LIBRARY(ICONV_LIBRARIES NAMES iconv libiconv libiconv-2 PATHS /opt/local/lib NO_DEFAULT_PATH)
 else()
-    FIND_PATH(ICONV_INCLUDE_DIR iconv.h)
-    FIND_LIBRARY(ICONV_LIBRARIES NAMES iconv libiconv libiconv-2 c)
+    FIND_PATH(ICONV_INCLUDE_DIR iconv.h
+		PATHS
+        "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\LibIconv;InstallPath]/include"
+		"[HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\GnuWin32\\LibIconv;InstallPath]/include"
+	)
+    FIND_LIBRARY(ICONV_LIBRARIES 
+		NAMES iconv libiconv libiconv-2 c
+		PATHS
+		"[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\LibIconv;InstallPath]/lib"
+		"[HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\GnuWin32\\LibIconv;InstallPath]/lib"
+	)
 endif()
 
 message(STATUS "iconv include path found: ${ICONV_INCLUDE_DIR}")
@@ -32,18 +41,22 @@ ENDIF(ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
 set(CMAKE_REQUIRED_INCLUDES ${ICONV_INCLUDE_DIR})
 set(CMAKE_REQUIRED_LIBRARIES ${ICONV_LIBRARIES})
 IF(ICONV_FOUND)
-  check_cxx_source_compiles("
-  #include <iconv.h>
-  int main(){
-    iconv_t conv = 0;
-    const char* in = 0;
-    size_t ilen = 0;
-    char* out = 0;
-    size_t olen = 0;
-    iconv(conv, &in, &ilen, &out, &olen);
-    return 0;
-  }
-" ICONV_SECOND_ARGUMENT_IS_CONST )
+  if(MSVC)
+	set(ICONV_SECOND_ARGUMENT_IS_CONST 1)
+  else()
+	check_cxx_source_compiles("
+    #include <iconv.h>
+    int main(){
+		iconv_t conv = 0;
+		const char* in = 0;
+		size_t ilen = 0;
+		char* out = 0;
+		size_t olen = 0;
+		iconv(conv, &in, &ilen, &out, &olen);
+		return 0;
+    }
+    " ICONV_SECOND_ARGUMENT_IS_CONST )
+  endif()
 ENDIF(ICONV_FOUND)
 set(CMAKE_REQUIRED_INCLUDES)
 set(CMAKE_REQUIRED_LIBRARIES)
