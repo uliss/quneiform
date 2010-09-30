@@ -208,8 +208,11 @@ GL_right0[LIMIT_HEIGHT]; // NO STATIC from 19.01.1993
 static int16_t GL_tab_angle[LIMIT_HEIGHT]; /* optimal center inc line */
 static int16_t num_lines;
 int nIncline = 0;
+namespace CIF {
+namespace dif {
 extern uchar language;
-
+}
+}
 ////////////////////Functions prototypes/////////////////////////////
 uchar lnhead_stick_center_study(lnhead *lin, int16_t dy, int16_t dx,
                                 STICK_CHARS *res_left_chars, STICK_CHARS *res_right_chars,
@@ -2457,7 +2460,7 @@ uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx)
     if (dy > 16 && dx < 4)
         ret |= 0x0C; // 09.07.1993 SUPPRESS 'r'
 
-    if (language == LANGUAGE_POLISH && similar_l_stroked(&left_chars, &right_chars,
+    if (CIF::dif::language == LANGUAGE_POLISH && similar_l_stroked(&left_chars, &right_chars,
                                                      &signums))
         ret |= 0x300;
 
