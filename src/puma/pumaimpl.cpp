@@ -113,8 +113,6 @@ using namespace std;
 #define DBG(msg) ;
 #endif
 
-static Handle ghStorage = NULL;
-
 namespace CIF {
 
 static char global_buf[64000]; // OLEG fot Consistent
@@ -459,62 +457,62 @@ void PumaImpl::modulesInit() {
         if (!CCOM_Init(PUMA_MODULE_CCOM))
             throw PumaException("CCOM_Init failed.");
 
-        if (!CPAGE_Init(PUMA_MODULE_CPAGE, ghStorage))
+        if (!CPAGE_Init(PUMA_MODULE_CPAGE, NULL))
             throw PumaException("CPAGE_Init failed.");
 
-        if (!CSTR_Init(PUMA_MODULE_CSTR, ghStorage))
+        if (!CSTR_Init(PUMA_MODULE_CSTR, NULL))
             throw PumaException("CSTR_Init failed.");
 
         // инициализация библиотеки поиска компонент
         comp_extractor_.reset(new ComponentExtractor);
 
-        if (!RLINE_Init(PUMA_MODULE_RLINE, ghStorage))
+        if (!RLINE_Init(PUMA_MODULE_RLINE, NULL))
             throw PumaException("RLINE_Init failed.");
 
-        if (!RSL_Init(PUMA_MODULE_RSL, ghStorage))
+        if (!RSL_Init(PUMA_MODULE_RSL, NULL))
             throw PumaException("RSL_Init failed.");
 
-        if (!RSTUFF_Init(PUMA_MODULE_RSTUFF, ghStorage))
+        if (!RSTUFF_Init(PUMA_MODULE_RSTUFF, NULL))
             throw PumaException("RSTUFF_Init failed.");
 
         rmarker_.reset(new RMarker);
 
-        if (!RBLOCK_Init(PUMA_MODULE_RBLOCK, ghStorage))
+        if (!RBLOCK_Init(PUMA_MODULE_RBLOCK, NULL))
             throw PumaException("RBLOCK_Init failed.");
 
-        if (!RSELSTR_Init(PUMA_MODULE_RBLOCK, ghStorage))
+        if (!RSELSTR_Init(PUMA_MODULE_RBLOCK, NULL))
             throw PumaException("RSELSTR_Init failed.");
 
         RSTR_SetImportData(RSTR_OcrPath, modulePath());
         RSTR_SetImportData(RSTR_pchar_temp_dir, moduleTmpPath());
 
-        if (!RSTR_Init(PUMA_MODULE_RSTR, ghStorage))
+        if (!RSTR_Init(PUMA_MODULE_RSTR, NULL))
             throw PumaException("RSTR_Init failed.");
 
-        if (!RIMAGE_Init(PUMA_MODULE_RIMAGE, ghStorage))
+        if (!RIMAGE_Init(PUMA_MODULE_RIMAGE, NULL))
             throw PumaException("RIMAGE_Init failed.");
 
         // Инициализируем виртуальные функции
-        if (!RPSTR_Init(PUMA_MODULE_RPSTR, ghStorage))
+        if (!RPSTR_Init(PUMA_MODULE_RPSTR, NULL))
             throw PumaException("RPSTR_Init failed.");
 
-        if (!RPIC_Init(PUMA_MODULE_RPIC, ghStorage))
+        if (!RPIC_Init(PUMA_MODULE_RPIC, NULL))
             throw PumaException("RPIC_Init failed.");
 
 #ifdef _USE_RVERLINE_
 
-        if (!RVERLINE_Init(PUMA_MODULE_RVERLINE, ghStorage))
+        if (!RVERLINE_Init(PUMA_MODULE_RVERLINE, NULL))
         throw PumaException("RVERLINE_Init failed.");
 
 #endif
 #ifdef _USE_RMSEGMENT_
 
-        if (!RMSEGMENT_Init(PUMA_MODULE_RMSEGMENT, ghStorage))
+        if (!RMSEGMENT_Init(PUMA_MODULE_RMSEGMENT, NULL))
         throw PumaException("RMSEGMENT_Init failed.");
 
 #endif
 
-        if (!RCORRKEGL_Init(PUMA_MODULE_RCORRKEGL, ghStorage))
+        if (!RCORRKEGL_Init(PUMA_MODULE_RCORRKEGL, NULL))
             throw PumaException("CORRKEGL_Init failed.");
     }
 
