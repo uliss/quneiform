@@ -2388,6 +2388,10 @@ static uchar config_1(STICK_CHARS *l, STICK_CHARS *r) {
 
     return (ret);
 }
+
+namespace cf {
+namespace dif {
+
 uchar similar_wide_frt1(STICK_CHARS *left_chars, STICK_CHARS *right_chars) {
     uchar ret = 0;
     ret |= config_f(left_chars, right_chars);
@@ -2400,6 +2404,7 @@ uchar similar_wide_frt1(STICK_CHARS *left_chars, STICK_CHARS *right_chars) {
 int16_t similar_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
     return (dis_l_stroked(l, r, s) < MAX_ADD_DIS);
 }
+
 //////////////////////////////////////////////////////////////////////
 // typ_thin_stick : study thin stick (width<=4) for EVENTS-pass
 //     *lin - list of intervals, dy - height, dx - width of c_comp
@@ -2437,14 +2442,19 @@ uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx) {
             (int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])), 0, 0,
             0, 0, 0, &left_chars, &right_chars, &signums, &left_mode,
             &right_mode);
-    ret = similar_wide_frt1(&left_chars, &right_chars);
+    ret = cf::dif::similar_wide_frt1(&left_chars, &right_chars);
 
     if (dy > 16 && dx < 4)
         ret |= 0x0C; // 09.07.1993 SUPPRESS 'r'
 
-    if (dif::language == LANGUAGE_POLISH && similar_l_stroked(&left_chars,
+    if (dif::language == LANGUAGE_POLISH && cf::dif::similar_l_stroked(&left_chars,
             &right_chars, &signums))
         ret |= 0x300;
 
     return (ret);
 }
+
+
+}
+}
+

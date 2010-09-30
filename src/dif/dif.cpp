@@ -72,7 +72,11 @@ extern uchar lnhead_stick_center_study(lnhead *lin, int16_t dy, int16_t dx,
 extern int lnhead_stick_get_incline(lnhead * pool, int dy, int dx);
 extern void clear_right_bites(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE,
                               int16_t NHEIGHT);
+namespace cf {
+namespace dif {
 extern uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx);
+}
+}
 extern int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH);
 extern int16_t RightDistance(uchar *RASTER, int16_t NWIDTH);
 
@@ -398,5 +402,5 @@ Bool32 DIF_SetLanguage(uchar lang)
 
 uint16_t DIF_typ_thin_stick(uchar *lin, int16_t dy, int16_t dx)
 {
-    return typ_thin_stick((lnhead *) lin, dy, dx);
+    return cf::dif::typ_thin_stick((lnhead *) lin, dy, dx);
 }
