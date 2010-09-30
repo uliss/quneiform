@@ -70,12 +70,15 @@ extern uchar GL_hist[2* LIMIT_HEIGHT ]; // array for histogramm
 extern center_interval GL_cent[LIMIT_HEIGHT]; // center of intervals
 extern uchar GL_left1[LIMIT_HEIGHT], // auxiliary left and
 GL_right1[LIMIT_HEIGHT]; //    right abris-arrays
+int inc_num_EEM;
+uchar inc_char_EEM;
 }
 }
 
+using namespace cf;
+
 static int16_t inc_periods[LIMIT_HEIGHT];
-int inc_num_EEM;
-uchar inc_char_EEM;
+
 /////////////////////// Functions prototypes //////////////////////////
 int16_t make_center_line_dif(center_interval center[], int16_t nc,
                              uchar left[], uchar right[], int16_t dy, int16_t dx,
@@ -329,27 +332,27 @@ m_OK: //dis_LIMIT_EEM = mk_len_limit ? 100 : 0; // 18.11.1993
         imax = 0;
 
     if (en == 3)
-        inc_num_EEM = *inc_v = 0; // 17.11.1993
+        dif::inc_num_EEM = *inc_v = 0; // 17.11.1993
 
     else {
-        inc_num_EEM = angles[imax]->num; // 17.11.1993
+        dif::inc_num_EEM = angles[imax]->num; // 17.11.1993
         *inc_v = angles[imax]->tg; // 16.11.1993
 
-        if (inc_char_EEM == ' ') { // m.b. L ( _ ) R;
-            if (inc_num_EEM > 0)
-                inc_char_EEM = '/'; // FORW INC;
+        if (dif::inc_char_EEM == ' ') { // m.b. L ( _ ) R;
+            if (dif::inc_num_EEM > 0)
+                dif::inc_char_EEM = '/'; // FORW INC;
 
-            if (inc_num_EEM < 0)
-                inc_char_EEM = '\\'; // BACK INC;
+            if (dif::inc_num_EEM < 0)
+                dif::inc_char_EEM = '\\'; // BACK INC;
         }
     }
 
     if (enable_correct) {
-        //////if (inc_num_EEM)  // 22.11.1993 move it here with new condition;
-        if (inc_num_EEM > 0) // 10.12.1993: FORW/BACK INC:
+        //////if (dif::inc_num_EEM)  // 22.11.1993 move it here with new condition;
+        if (dif::inc_num_EEM > 0) // 10.12.1993: FORW/BACK INC:
             correct_result(cf::dif::GL_cent, tab_angle, dy);
 
-        if (inc_num_EEM < 0)
+        if (dif::inc_num_EEM < 0)
             correct_result_BACK(cf::dif::GL_cent, tab_angle, dy);
     }
 
@@ -662,26 +665,26 @@ static int16_t enable_shift(uchar left[], uchar right[], int16_t h, int16_t w,
                             int16_t inc[])
 {
     if (abris_convexity(left, h, w)) {
-        inc_char_EEM = '(';
+        dif::inc_char_EEM = '(';
         return (1);
     } /* left arc         */
 
     if (abris_convexity(right, h, w)) {
-        inc_char_EEM = ')';
+        dif::inc_char_EEM = ')';
         return (2);
     } /* right arc        */
 
     if (abris_inc_line(left, h, inc, 0)) {
-        inc_char_EEM = 'L';
+        dif::inc_char_EEM = 'L';
         return (3);
     } /* left vert line   */
 
     if (abris_inc_line(right, h, inc, 1)) {
-        inc_char_EEM = 'R';
+        dif::inc_char_EEM = 'R';
         return (3);
     } /* right vert line  */
 
-    inc_char_EEM = ' ';
+    dif::inc_char_EEM = ' ';
     return (0); /* no lines, no arcs */
 }
 
