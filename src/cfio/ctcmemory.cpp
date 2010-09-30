@@ -68,7 +68,7 @@
 //                                                                              //
 //////////////////////////////////////////////////////////////////////////////////
 #include "ctcclasses.h"
-using namespace CIF::CTC;
+using namespace cf::CTC;
 //////////////////////////////////////////////////////////////////GLOBAL
 //
 extern void SetReturnCode_cfio(uint16_t rc);

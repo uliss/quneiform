@@ -24,7 +24,7 @@
 #include "textexporter.h"
 #include "common/rect.h"
 
-namespace CIF
+namespace cf
 {
 
 class DjvuTxtExporter: public TextExporter

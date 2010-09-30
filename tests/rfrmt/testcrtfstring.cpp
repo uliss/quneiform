@@ -22,7 +22,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfString);
 #include "rfrmt/crtfword.h"
 #include "rfrmt/crtfchar.h"
 #include "rfrmt/creatertf.h"
-using namespace CIF;
+using namespace cf;
 
 void TestCRtfString::testInit() {
     CRtfString str;

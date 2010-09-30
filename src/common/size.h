@@ -21,7 +21,7 @@
 
 #include "serialize.h"
 
-namespace CIF
+namespace cf
 {
 
 template<class T>

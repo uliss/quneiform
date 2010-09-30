@@ -24,7 +24,7 @@
 
 #include "styleexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class CssExporter: public StyleExporter

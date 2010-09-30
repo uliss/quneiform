@@ -143,7 +143,7 @@ typedef struct tagUniVersions {
 } UniVersions;
 
 typedef struct tagRecVector {
-    CIF::Point16 beg, end;
+    cf::Point16 beg, end;
     int32_t incline; // 2048 * tangens
 #define INCLINE_UNKNOWN (-0x41414141)     ///         _______
     int32_t len; // -1 - It isn't vector;  metric Eucleede ы xэ + yэ

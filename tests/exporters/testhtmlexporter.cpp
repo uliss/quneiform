@@ -32,7 +32,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #include <ced/cedpicture.h>
 #include <ced/cedparagraph.h>
 #include <rdib/imageloaderfactory.h>
-using namespace CIF;
+using namespace cf;
 using namespace std;
 
 inline void clearBuffer(HtmlExporter * exp) {

@@ -72,7 +72,7 @@
 #include "status.h"
 #include "minmax.h"
 
-using namespace CIF;
+using namespace cf;
 
 #define INCL_FAC 2048
 

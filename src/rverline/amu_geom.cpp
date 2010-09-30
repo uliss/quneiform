@@ -60,7 +60,7 @@
 /*  interface my-my      */
 #include "amt_geom.h"
 
-using namespace CIF;
+using namespace cf;
 
 void RotateRect(Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew) {
 	Point DirIdeal;

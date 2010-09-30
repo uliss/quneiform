@@ -25,37 +25,37 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestFormatDetector);
 #define LOADER_TEST_IMAGE_DIR "./"
 #endif
 
-using namespace CIF;
+using namespace cf;
 
 void TestFormatDetector::testDetectByFilename() {
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_BMP, ImageFormatDetector::instance().detect("test.bmp"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_BMP, ImageFormatDetector::instance().detect("test.BMP"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_BMP, ImageFormatDetector::instance().detect("test.bMp"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_BMP, ImageFormatDetector::instance().detect(".bmp"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("bmp"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("test.bmpbmp"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("test."));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect(""));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_BMP, ImageFormatDetector::instance().detect("test.bmp"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_BMP, ImageFormatDetector::instance().detect("test.BMP"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_BMP, ImageFormatDetector::instance().detect("test.bMp"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_BMP, ImageFormatDetector::instance().detect(".bmp"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("bmp"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("test.bmpbmp"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("test."));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect(""));
 
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_GIF, ImageFormatDetector::instance().detect("test.gif"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_JPEG, ImageFormatDetector::instance().detect("test.jpg"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_JPEG, ImageFormatDetector::instance().detect("test.JPEG"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_PNG, ImageFormatDetector::instance().detect("test.png"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_PNM, ImageFormatDetector::instance().detect("test.ppm"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_PNM, ImageFormatDetector::instance().detect("test.pbm"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_PNM, ImageFormatDetector::instance().detect("test.pgm"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_PNM, ImageFormatDetector::instance().detect("test.pnm"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_XPM, ImageFormatDetector::instance().detect("test.xpm"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_TIFF, ImageFormatDetector::instance().detect("test.tiff"));
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_TIFF, ImageFormatDetector::instance().detect("test.tif"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_GIF, ImageFormatDetector::instance().detect("test.gif"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_JPEG, ImageFormatDetector::instance().detect("test.jpg"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_JPEG, ImageFormatDetector::instance().detect("test.JPEG"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_PNG, ImageFormatDetector::instance().detect("test.png"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_PNM, ImageFormatDetector::instance().detect("test.ppm"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_PNM, ImageFormatDetector::instance().detect("test.pbm"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_PNM, ImageFormatDetector::instance().detect("test.pgm"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_PNM, ImageFormatDetector::instance().detect("test.pnm"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_XPM, ImageFormatDetector::instance().detect("test.xpm"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_TIFF, ImageFormatDetector::instance().detect("test.tiff"));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_TIFF, ImageFormatDetector::instance().detect("test.tif"));
 }
 
 void TestFormatDetector::testDetectByContent() {
     std::stringstream stream;
     stream << "GIFsssstegggggggggg";
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_GIF, ImageFormatDetector::instance().detect(stream));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_GIF, ImageFormatDetector::instance().detect(stream));
     std::ifstream bad_stream;
-    CPPUNIT_ASSERT_EQUAL(CIF::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect(bad_stream));
+    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect(bad_stream));
     std::vector<std::string> extensions = ImageFormatDetector::instance().knownExtensions();
     for (size_t i = 0; i < extensions.size(); i++) {
         std::string name = LOADER_TEST_IMAGE_DIR + std::string("test.") + extensions[i];

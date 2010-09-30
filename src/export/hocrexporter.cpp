@@ -22,7 +22,7 @@
 #include "ced/cedpage.h"
 #include "common/helper.h"
 
-namespace CIF
+namespace cf
 {
 
 static const int BOXES_TO_RESERVE = 200;

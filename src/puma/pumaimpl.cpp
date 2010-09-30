@@ -113,7 +113,7 @@ using namespace std;
 #define DBG(msg) ;
 #endif
 
-namespace CIF {
+namespace cf {
 
 static char global_buf[64000]; // OLEG fot Consistent
 static int32_t global_buf_len = 0; // OLEG fot Consistent
@@ -347,10 +347,10 @@ void PumaImpl::layout() {
     DataforRS.szLayoutFileName = (char*) layout_filename_.c_str();
     DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
-    void* MemBuf = CIF::PumaImpl::mainBuffer();
-    size_t size_buf = CIF::PumaImpl::MainBufferSize;
-    void* MemWork = CIF::PumaImpl::workBuffer();
-    int size_work = CIF::PumaImpl::WorkBufferSize;
+    void* MemBuf = cf::PumaImpl::mainBuffer();
+    size_t size_buf = cf::PumaImpl::MainBufferSize;
+    void* MemWork = cf::PumaImpl::workBuffer();
+    int size_work = cf::PumaImpl::WorkBufferSize;
 
     // калбэки
     if (RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS)) {

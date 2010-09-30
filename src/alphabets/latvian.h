@@ -21,7 +21,7 @@
 
 #include "baltic.h"
 
-namespace CIF
+namespace cf
 {
 
 class LatvianAlphabet: public BalticAlphabet

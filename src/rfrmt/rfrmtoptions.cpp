@@ -19,7 +19,7 @@
 #include "rfrmtoptions.h"
 #include "creatertf.h"
 
-namespace CIF
+namespace cf
 {
 
 unsigned int RfrmtOptions::format_mode_ = 0;

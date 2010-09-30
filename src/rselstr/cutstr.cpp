@@ -73,7 +73,7 @@
 #include "minmax.h"
 #include "cfcompat.h"
 
-using namespace CIF;
+using namespace cf;
 
 #define TYPE_NormalZone		CPAGE_GetInternalType("TYPE_NormalZone")
 #define TYPE_NormalRazrezZone		CPAGE_GetInternalType("TYPE_NormalRazrezZone")
@@ -124,7 +124,7 @@ Bool IfEqv(Rect16 r1, Rect16 r2);
 Bool AddLenBlockMas(POLY_** ppRc, int& len, int add);
 void DelBlockMas(POLY_* masp);
 Bool InitBlockMas(POLY_** ppRc, int len);
-int IsInPoly(const CIF::Point16& a, POLY_* pPoly);
+int IsInPoly(const cf::Point16& a, POLY_* pPoly);
 Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound,
 		Bool fl_cut);
 void UndoCutInRect(Handle hCPAGE, CCOM_handle hCCOM, Rect32* Rc);
@@ -133,7 +133,7 @@ void RSELSTR_CutCompInTableZones(Handle hCPAGE, CCOM_handle hCCOM) {
 }
 
 
-int IsInPoly(const CIF::Point16& a, POLY_* pPoly)
+int IsInPoly(const cf::Point16& a, POLY_* pPoly)
 {
     int y, ind;
     int Count = 0;

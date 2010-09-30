@@ -105,7 +105,7 @@ static void clear_up_spec(void) {
 Bool tradeCR(cell *c) {
 	cell *nextc, *clist[2];
 	uchar snap[80], *s = snap, save_flg, save_language;
-	uchar saveN, saveV[VERS_IN_CELL * sizeof(CIF::version)];
+	uchar saveN, saveV[VERS_IN_CELL * sizeof(cf::version)];
 
 	int16_t i, tm = 0;
 
@@ -141,7 +141,7 @@ Bool tradeCR(cell *c) {
 					|| c->vers[0].let == (uchar) '\x8e' /* О */ || c->vers[0].let
 					== (uchar) 'Q') {
 				saveN = (uchar) nextc->nvers;
-				memcpy(saveV, nextc->vers, VERS_IN_CELL * sizeof(CIF::version));
+				memcpy(saveV, nextc->vers, VERS_IN_CELL * sizeof(cf::version));
 				language = LANGUAGE_ENGLISH;
 				short_recog_cell(nextc);
 				if (db_status && snap_activity(TM_SNAP_PASS)) {
@@ -198,7 +198,7 @@ Bool tradeCR(cell *c) {
 				}
 				if (!tm) {
 					nextc->nvers = saveN;
-					memcpy(nextc->vers, saveV, VERS_IN_CELL * sizeof(CIF::version));
+					memcpy(nextc->vers, saveV, VERS_IN_CELL * sizeof(cf::version));
 					nextc->flg = save_flg;
 				}
 			}

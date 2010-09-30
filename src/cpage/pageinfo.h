@@ -21,7 +21,7 @@
 
 #include <string>
 
-namespace CIF
+namespace cf
 {
 namespace CPAGE
 {

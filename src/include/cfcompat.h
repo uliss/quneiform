@@ -91,7 +91,7 @@ CFCOMPAT_FUNC void OutputDebugString(const char * lpOutputString);
 CFCOMPAT_FUNC int MessageBox(HWND hWnd, const char * lpText, const char * lpCaption, uint uType);
 CFCOMPAT_FUNC int wsprintf(char* lpOut, const char * lpFmt, ...);
 CFCOMPAT_FUNC Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom);
-CFCOMPAT_FUNC Bool PtInRect(const RECT *lprc, const CIF::Point16& pt);
+CFCOMPAT_FUNC Bool PtInRect(const RECT *lprc, const cf::Point16& pt);
 CFCOMPAT_FUNC Bool IntersectRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2);
 CFCOMPAT_FUNC Bool UnionRect(LPRECT lprcDst, const RECT *lprcSrc1, const RECT *lprcSrc2);
 CFCOMPAT_FUNC Bool Rectangle(HDC hdc, int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);

@@ -21,7 +21,7 @@
 #include "componentextractor.h"
 #include "exc.h"
 
-namespace CIF
+namespace cf
 {
 
 ComponentExtractor::ComponentExtractor()

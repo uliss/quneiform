@@ -60,7 +60,7 @@
 #include "lnscheck.h"
 #include "skew1024.h"
 
-using namespace CIF;
+using namespace cf;
 
 #define PPSArray TArray
 
@@ -344,7 +344,7 @@ Bool IsHCloseCovering(Point16 S, int n) // expanding S1 covers S2
     return FALSE;
 }
 
-Bool IsVCloseCovering(const CIF::Point16& S, int n) // expanding S1 covers S2
+Bool IsVCloseCovering(const cf::Point16& S, int n) // expanding S1 covers S2
 { // where |S1|>|S2|
     int S1Ay = v_lns[S.x()].A.y();
     int S1By = v_lns[S.y()].B.y();
@@ -506,7 +506,7 @@ Bool VExp(int& counter, int nl)
 {
     int StripCount = 0;
     int r, num;
-    CIF::Point16 P, SSp;
+    cf::Point16 P, SSp;
     XSEGM S;
     int NVL = v_count - 1;
     int order = XLnsOrder[nl];

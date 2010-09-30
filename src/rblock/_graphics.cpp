@@ -65,7 +65,7 @@
 #include "puma/pumadef.h"
 #include "cfcompat.h"
 
-using namespace CIF;
+using namespace cf;
 
 extern void EnableDebug(void);
 

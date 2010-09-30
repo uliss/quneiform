@@ -22,7 +22,7 @@
 #include "formatdebug.h"
 #include "common/debug.h"
 
-namespace CIF
+namespace cf
 {
 
 //int FormatDebug::flags_ = FormatDebug::COMMON;

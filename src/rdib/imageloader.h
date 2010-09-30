@@ -25,7 +25,7 @@
 #include "common/exception.h"
 #include "common/image.h"
 
-namespace CIF
+namespace cf
 {
 
 class Image;

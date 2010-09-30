@@ -26,7 +26,7 @@
 #include "imageformatdetector.h"
 #include "cfcompat.h"
 
-namespace CIF
+namespace cf
 {
 
 ImageLoaderFactory::ImageLoaderFactory()

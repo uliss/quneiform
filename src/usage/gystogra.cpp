@@ -60,7 +60,7 @@
 /*  interface our util  */
 #include "skew1024.h"
 
-using namespace CIF;
+using namespace cf;
 /*---------------------------------------------------------------------------*/
 Bool MakeTopBotGysts(Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
 		Un_GYST *pBegGt, Un_GYST *pEndGt) {

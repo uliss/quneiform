@@ -22,7 +22,7 @@
 #include "imageexporter.h"
 #include "common/imageformats.h"
 
-namespace CIF
+namespace cf
 {
 
 class MagickImageExporter: public ImageExporter

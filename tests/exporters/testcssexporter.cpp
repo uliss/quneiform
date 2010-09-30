@@ -23,7 +23,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCssExporter);
 
 #define CSS_INDENT "    "
 
-using namespace CIF;
+using namespace cf;
 
 #define ASSERT_PAR(str, e, par) {\
 	CPPUNIT_ASSERT_EQUAL(std::string(CSS_INDENT str), e.makeCssStyle(par));\

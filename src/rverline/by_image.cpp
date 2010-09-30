@@ -76,7 +76,7 @@
 #include "vl_rule.h"
 #include "myraster.h"
 
-using namespace CIF;
+using namespace cf;
 /*---------------------------------------------------------------------------*/
 #define       MaxRastrHeight         33
 #define       MaxRastrSize         1000

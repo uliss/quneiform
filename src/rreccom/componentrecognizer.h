@@ -27,7 +27,7 @@
 struct CCOM_cont;
 struct CCOM_comp;
 
-namespace CIF
+namespace cf
 {
 
 class CLA_EXPO ComponentRecognizer

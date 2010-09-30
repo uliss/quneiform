@@ -21,7 +21,7 @@
 
 #include <memory>
 
-namespace CIF
+namespace cf
 {
 
 template<class T>

@@ -71,7 +71,7 @@
 #include "cfcompat.h"
 #include "common/lang_def.h"
 
-namespace CIF
+namespace cf
 {
 class CEDPage;
 class CRtfSector;

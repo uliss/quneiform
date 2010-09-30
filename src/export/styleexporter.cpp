@@ -24,7 +24,7 @@
 #include "common/helper.h"
 #include "common/tostring.h"
 
-namespace CIF
+namespace cf
 {
 
 StyleExporter::StyleExporter(CEDPage * page, const FormatOptions& opts) :

@@ -22,7 +22,7 @@
 #include "common/singleton.h"
 #include "imageexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class ImageExporterFactoryImpl

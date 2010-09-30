@@ -21,7 +21,7 @@
 
 #include "alphabet.h"
 
-namespace CIF
+namespace cf
 {
 
 class RussianEnglishAlphabet: public Alphabet

@@ -22,7 +22,7 @@
 
 #include "image.h"
 
-namespace CIF
+namespace cf
 {
 
 Image::Image() {

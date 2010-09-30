@@ -21,7 +21,7 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(TestImage);
 #include <common/image.h>
 #include <common/tostring.h>
-using namespace CIF;
+using namespace cf;
 
 void TestImage::testInit() {
     ImagePtr im(new Image(NULL, 0, Image::AllocatorMalloc));

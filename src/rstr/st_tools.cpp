@@ -88,7 +88,7 @@ static int16_t correct_braces(uchar fun[], int16_t n, int16_t lev, int16_t typ);
 static int16_t num_zero_intervals(uchar fun[], int16_t n, int16_t lev);
 static int16_t dest_to_comp(uchar raster[], int16_t hei, int16_t wid);
 static int16_t off_shift_string(uchar string[], int16_t len);
-static int16_t kill_stick(CIF::version *v);
+static int16_t kill_stick(cf::version *v);
 static int16_t kill_version(uchar prob);
 
 extern uchar db_status; // snap presence byte
@@ -124,7 +124,7 @@ uchar left_letter_EEM; // 17.01.1994
 /* ░░░           FUNCTIONS FOR CELL-MANIPULATIONS               ░░░  */
 /* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  */
 
-/* add CIF::version : if '*' or  '■' (spec symbols) then kill primary versions */
+/* add cf::version : if '*' or  '■' (spec symbols) then kill primary versions */
 void new_vers(cell *c, uchar vers, uchar prob)
 {
 
@@ -217,7 +217,7 @@ void add_stick_vers(cell *c, char let, uchar prob)
 Bool check_let(cell *c, char let)
 {
     uchar i, l = (uchar) let, n = (uchar) c->nvers;
-    CIF::version *bv;
+    cf::version *bv;
 
     for (bv = c->vers, i = 0; i < n; i++, bv++)
         if (bv->let == l)
@@ -259,7 +259,7 @@ int16_t del_sticks(cell *c, char let)
         if (language == LANGUAGE_CROATIAN && (c->vers[i].let == 'd' || c->vers[i].let == CROAT_d))
             continue;
 
-        kill_stick(&(c->vers[i])); // stick CIF::version (wkl. "[]")
+        kill_stick(&(c->vers[i])); // stick cf::version (wkl. "[]")
     } // FOR I
 
     sort_vers(c); // verions changed
@@ -296,7 +296,7 @@ int16_t del_sticks_F_60(cell *c)
 }
 /*----------------------------------------------------------------------*/
 /* decrease letter-propability for stick codes  */
-static int16_t kill_stick(CIF::version *v)
+static int16_t kill_stick(cf::version *v)
 {
     uchar let = v->let; // A.A.LEMAN from 28.06.1993
     char stick_list[] = "frtIJT1l!ij/[]{}LFY"; // 22.11.1993		//17/19
@@ -377,7 +377,7 @@ static int dotIsGlue(cell *c)
 }
 ////////////////
 /*----------------------------------------------------------------------*/
-/* revaluation all propabilitys in list of CIF::version  */
+/* revaluation all propabilitys in list of cf::version  */
 int16_t discrim_all_sticks(cell *c, STICK_CHARS *left_chars, STICK_CHARS *right_chars,
         STICK_SIGNUMS *signums)
 { // 27.01.1994

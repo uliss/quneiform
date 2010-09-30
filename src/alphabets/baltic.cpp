@@ -19,7 +19,7 @@
 #include "baltic.h"
 #include "ligas.h"
 
-namespace CIF
+namespace cf
 {
 
 BalticAlphabet::BalticAlphabet()

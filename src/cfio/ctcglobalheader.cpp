@@ -18,7 +18,7 @@
 
 #include "ctcglobalheader.h"
 
-namespace CIF
+namespace cf
 {
 
 namespace CTC

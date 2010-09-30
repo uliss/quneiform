@@ -29,7 +29,7 @@
 #include "globus.h"
 #include "common/exception.h"
 
-namespace CIF
+namespace cf
 {
 
 class IconvImpl;

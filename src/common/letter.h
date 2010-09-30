@@ -21,7 +21,7 @@
 
 #include "common/serialize.h"
 
-namespace CIF
+namespace cf
 {
 
 class Letter

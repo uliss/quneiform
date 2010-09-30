@@ -29,7 +29,7 @@
 #include "common/letter.h"
 #include "common/rect.h"
 
-namespace CIF
+namespace cf
 {
 
 class SectorInfo;

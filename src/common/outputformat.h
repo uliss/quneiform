@@ -23,7 +23,7 @@
 #include <list>
 #include "globus.h"
 
-namespace CIF
+namespace cf
 {
 
 enum format_t

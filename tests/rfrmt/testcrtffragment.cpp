@@ -24,7 +24,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfFragment);
 #include "rfrmt/crtfword.h"
 #include "rfrmt/crtfchar.h"
 
-using namespace CIF;
+using namespace cf;
 
 #define INIT_STR(str, left, right) \
         { \

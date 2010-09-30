@@ -22,7 +22,7 @@
 #include "alphabetfactory.h"
 #include "cfcompat.h"
 
-namespace CIF
+namespace cf
 {
 
 AlphabetFactory::AlphabetFactory()

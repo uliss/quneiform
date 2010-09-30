@@ -76,7 +76,7 @@
 #include "fon/fon.h"
 #include "minmax.h"
 
-using namespace CIF;
+using namespace cf;
 
 static void snap_sticks(cell *, char *);
 

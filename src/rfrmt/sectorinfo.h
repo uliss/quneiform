@@ -60,7 +60,7 @@
 #include "cfcompat.h"
 #include "common/point.h"
 
-namespace CIF
+namespace cf
 {
 
 class CEDPage;

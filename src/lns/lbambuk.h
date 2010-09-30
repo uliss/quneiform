@@ -81,8 +81,8 @@
  */
 
 struct Line {
-    CIF::Point start;
-    CIF::Point end;
+    cf::Point start;
+    cf::Point end;
     int16_t width10;
     int16_t flags; // LF_,,, in LnsFrag from lnsdefs.h
 #define LF_DONTLINK 0x0001 // don't try to link

@@ -22,7 +22,7 @@
 
 namespace
 {
-using namespace CIF;
+using namespace cf;
 Alphabet * create()
 {
     return new DutchAlphabet;
@@ -33,7 +33,7 @@ const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_DUT
         AlphabetFactory::AlphabetTables("rec1n.dat", "rec2n.dat"));
 }
 
-namespace CIF
+namespace cf
 {
 
 DutchAlphabet::DutchAlphabet()

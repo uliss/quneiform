@@ -28,7 +28,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestTextExporter);
 #define private public
 #include "export/textexporter.h"
 
-using namespace CIF;
+using namespace cf;
 
 inline CEDChar * makeChar(char l, int style = 0) {
     CEDChar * c = new CEDChar;

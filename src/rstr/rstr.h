@@ -80,21 +80,21 @@ class IRstrDelta
 {
     public:
         Rect16 dr; // bounds delta
-        CIF::Point16 dc; // centers delta
-        CIF::Point16 dhw; // height-width delta
-        IRstrDelta(const Rect16 & r, const CIF::Point16 & p) :
+        cf::Point16 dc; // centers delta
+        cf::Point16 dhw; // height-width delta
+        IRstrDelta(const Rect16 & r, const cf::Point16 & p) :
                 dr(r), dc(p), dhw(p) {
         }
-        IRstrDelta(const Rect16 & r, const CIF::Point16 & p,
-                   const CIF::Point16 & hw) :
+        IRstrDelta(const Rect16 & r, const cf::Point16 & p,
+                   const cf::Point16 & hw) :
                 dr(r), dc(p), dhw(hw) {
         }
-        void Set(const Rect16 & r, const CIF::Point16 & p) {
+        void Set(const Rect16 & r, const cf::Point16 & p) {
             dr = r;
             dc = p;
             dhw = p;
         }
-        void Set(const Rect16 & r, const CIF::Point16 & p, const CIF::Point16 & hw) {
+        void Set(const Rect16 & r, const cf::Point16 & p, const cf::Point16 & hw) {
             dr = r;
             dc = p;
             dhw = hw;
@@ -244,10 +244,10 @@ class IRstr
     public:
         Rect16 rmn;
         Rect16 rmx;
-        CIF::Point16 cmn;
-        CIF::Point16 cmx;
-        CIF::Point16 hwmn;
-        CIF::Point16 hwmx;
+        cf::Point16 cmn;
+        cf::Point16 cmx;
+        cf::Point16 hwmn;
+        cf::Point16 hwmx;
         IRstr(const Rect16 & rc) {
             Set(rc);
         }

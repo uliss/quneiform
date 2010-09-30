@@ -23,7 +23,7 @@
 #include "htmlexporter.h"
 #include "common/rect.h"
 
-namespace CIF
+namespace cf
 {
 
 class HocrExporter: public HtmlExporter

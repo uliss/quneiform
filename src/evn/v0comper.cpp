@@ -80,7 +80,7 @@ extern Bool32 enable_save_stat;
 // Oleg
 extern c_comp wcomp;
 extern uchar work_raster[], work_raster_1[];
-extern CIF::version * start_rec, *rec_ptr;
+extern cf::version * start_rec, *rec_ptr;
 extern uchar recors_change;
 extern uchar* events_tree_rt;
 extern uchar evline[], evline1[];
@@ -118,7 +118,7 @@ uint16_t events_recog_rt()
 {
     MN *mn;
     int16_t n, k;
-    CIF::version * a, *b;
+    cf::version * a, *b;
     ev_rt_num_ln = 0;
     save_rot_comp();
     make_raster();
@@ -695,7 +695,7 @@ static int16_t net_comp(MN *mn)
 
 void ev_lang_filter()
 {
-    CIF::version *v1, *v2;
+    cf::version *v1, *v2;
 
     for (v1 = v2 = start_rec; v1 != rec_ptr; v1++)
         if (alphabet[v1->let]) {

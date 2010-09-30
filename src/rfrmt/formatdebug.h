@@ -19,7 +19,7 @@
 #ifndef FORMATDEBUG_H_
 #define FORMATDEBUG_H_
 
-namespace CIF
+namespace cf
 {
 
 class FormatDebug

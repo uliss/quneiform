@@ -21,7 +21,7 @@
 
 #include "russian.h"
 
-namespace CIF
+namespace cf
 {
 
 class UkrainianAlphabet: public RussianAlphabet

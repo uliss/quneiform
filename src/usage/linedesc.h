@@ -83,8 +83,8 @@ typedef struct tagRLT_LINEATDIR {// в данном направлении - п�
 
 typedef struct tagRLT_LINE {
     /*  primary values  */
-    CIF::Point16  Beg;
-    CIF::Point16  End;
+    cf::Point16  Beg;
+    cf::Point16  End;
     int      Wid;
     int16_t    nSeg;
     uchar    Plot;

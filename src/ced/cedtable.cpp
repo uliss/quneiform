@@ -19,7 +19,7 @@
 #include "cedtable.h"
 #include "cedexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 CEDTable::CEDTable(BlockElement * parent) :

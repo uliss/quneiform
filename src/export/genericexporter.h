@@ -24,7 +24,7 @@
 #include "common/size.h"
 #include "common/iconv_local.h"
 
-namespace CIF
+namespace cf
 {
 
 class CEDPage;

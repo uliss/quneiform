@@ -124,7 +124,7 @@ int16_t compare_vect(v_val *a, v_val *b) {
 
 void save_vers(cell *C, SVERS *S) {
     int16_t i, nn;
-    CIF::version *s, *d;
+    cf::version *s, *d;
     S->nvers = C->nvers;
     S->source = C->recsource;
     S->pos = C->cpos;
@@ -154,7 +154,7 @@ void save_vers(cell *C, SVERS *S) {
 
 void rest_vers(cell *C, SVERS *S) {
     int16_t i, nn;
-    CIF::version *s, *d;
+    cf::version *s, *d;
     C->nvers = S->nvers;
     C->flg = S->flg;
     C->cpos = S->pos;
@@ -233,10 +233,10 @@ int16_t cell_is_BOX_solid(cell *B1) {
 // for BAL - new version 6.02.2001
 void save_rast_vers(CSTR_rast C, SVERS *S) {
     int16_t i, nn;
-    // CIF::version *s, *d;
+    // cf::version *s, *d;
     UniVersions vers;
     CSTR_rast_attr attr;
-    CIF::version *d;
+    cf::version *d;
 
     CSTR_GetCollectionUni(C, &vers);
     CSTR_GetAttr(C, &attr);

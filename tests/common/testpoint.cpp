@@ -22,7 +22,7 @@
 #include "../test_common.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestPoint);
 
-using namespace CIF;
+using namespace cf;
 
 void TestPoint::testInit() {
     Point pt;

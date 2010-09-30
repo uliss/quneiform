@@ -21,7 +21,7 @@
 #include <ced/cedpicture.h>
 #include <common/tostring.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDPicture);
-using namespace CIF;
+using namespace cf;
 
 void TestCEDPicture::testSerialize() {
 #ifdef CF_SERIALIZE

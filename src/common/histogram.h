@@ -22,7 +22,7 @@
 #include <vector>
 #include <algorithm>
 
-namespace CIF
+namespace cf
 {
 
 template<class T>

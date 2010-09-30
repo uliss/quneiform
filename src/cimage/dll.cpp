@@ -73,7 +73,7 @@ static uint16_t gwLowRC = 0;
 
 void CIMAGE_Init()
 {
-    CIF::CImage::instance();
+    cf::CImage::instance();
 }
 
 void CIMAGE_Done()

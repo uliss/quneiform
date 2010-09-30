@@ -25,7 +25,7 @@
 #include "common/size.h"
 #include "common/font.h"
 
-namespace CIF
+namespace cf
 {
 
 class CEDSection;

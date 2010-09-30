@@ -21,7 +21,7 @@
 
 #include "imageexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class BmpImageExporter : public ImageExporter

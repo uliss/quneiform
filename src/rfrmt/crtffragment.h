@@ -28,7 +28,7 @@
 #include "common/font.h"
 #include "common/rect.h"
 
-namespace CIF
+namespace cf
 {
 
 struct SectorInfo;

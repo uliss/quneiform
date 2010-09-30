@@ -73,7 +73,7 @@ extern BOX * boxchain, *dl_last_in_chain;
 extern uchar lpool[];
 extern uint lpool_lth;
 extern uchar work_raster[];
-extern CIF::version * start_rec, *rec_ptr;
+extern cf::version * start_rec, *rec_ptr;
 extern uchar records_change;
 extern uchar *events_tree, *events_tree_rt;
 static void boxes_to_line();
@@ -304,7 +304,7 @@ void MN_to_line(MN * mn)
     wcomp.type = 0;
 }
 
-//void save_component(c_comp *,CIF::version *,CIF::version *,uchar*,uint16_t);
+//void save_component(c_comp *,cf::version *,cf::version *,uchar*,uint16_t);
 void save_wcomp()
 {
     // save_component(&wcomp,start_rec,rec_ptr,lpool,lpool_lth);
@@ -574,7 +574,7 @@ uchar byte_seg_size[256] = {
 
 uint16_t sort_events_vers()
 {
-    CIF::version * v, *a;
+    cf::version * v, *a;
     uint16_t n;
     uchar let, prob;
 

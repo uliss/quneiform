@@ -29,7 +29,7 @@
 #include "ced/cedexporter.h"
 #include "common/formatoptions.h"
 
-namespace CIF
+namespace cf
 {
 
 class CLA_EXPO Exporter: public CEDExporter

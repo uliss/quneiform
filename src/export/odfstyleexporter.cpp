@@ -28,7 +28,7 @@
 #include "common/helper.h"
 #include "common/tostring.h"
 
-namespace CIF
+namespace cf
 {
 
 inline std::string pixel2odf(int pixel) {

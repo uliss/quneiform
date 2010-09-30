@@ -94,7 +94,7 @@ uchar *events_treeh = NULL, *events_tree_rth = NULL; // event tables hnd
 uchar *events_treep = NULL, *events_tree_rtp = NULL; // event tables prn
 uchar *events_tree = NULL, *events_tree_rt = NULL; // event tables
 extern c_comp wcomp; // working component structure
-extern CIF::version* start_rec; // ptr to answer
+extern cf::version* start_rec; // ptr to answer
 extern uchar lpool[];
 extern uchar evline[], evline1[];
 
@@ -626,5 +626,5 @@ MN * EVN_CLocomp(uchar* raster, int32_t bw, int32_t h, int16_t upper, int16_t le
 
 BWS * EVN_GetSegmentPool()
 {
-    return CIF::EVN_LinePool::instance().begin();
+    return cf::EVN_LinePool::instance().begin();
 }

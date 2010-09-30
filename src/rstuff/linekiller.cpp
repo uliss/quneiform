@@ -102,8 +102,8 @@ Bool32 SearchAndKill(PRSPreProcessImage Image, LinesTotalInfo *LTInfo) {
     char str[255];
     Rect16 ZoomRect;
     int32_t LineCount;
-    CIF::Point16 LinePoints[4];
-    CIF::Point16 KillPoints[4];
+    cf::Point16 LinePoints[4];
+    cf::Point16 KillPoints[4];
     int32_t HalfThickness;
     int32_t HalfThicknessB;
 
@@ -451,7 +451,7 @@ Bool32 ChekComponentAndLine(LineInfo *Line, Rect16 *Rect, uint32_t KillZone) {
     int32_t As, Bs, C;
     Bool32 bRet = FALSE;
     uint32_t wN, wP, wZ;
-    CIF::Point16 pPoints[4];
+    cf::Point16 pPoints[4];
     int32_t Zone = KillZone;
 
     if (Line->A.x() == Line->B.x() || Line->A.y() == Line->B.y()) {
@@ -715,7 +715,7 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, uint32_t KillZone, uint32_t Rat
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-void DebugDPumaDrawRect(Handle hWindow, CIF::Point16 * Points, uint32_t Color, int32_t Thickness,
+void DebugDPumaDrawRect(Handle hWindow, cf::Point16 * Points, uint32_t Color, int32_t Thickness,
         uint32_t Group) {
     LDPUMA_DrawLine(hWindow, &Points[0], &Points[1], 0, Color, (int16_t) Thickness, Group);
     LDPUMA_DrawLine(hWindow, &Points[1], &Points[2], 0, Color, (int16_t) Thickness, Group);

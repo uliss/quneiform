@@ -27,7 +27,7 @@
 #include "ced/cedchar.h"
 #include "ced/cedparagraph.h"
 
-namespace CIF
+namespace cf
 {
 
 inline std::string color2css(const Color& c) {

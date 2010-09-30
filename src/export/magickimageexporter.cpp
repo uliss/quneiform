@@ -20,7 +20,7 @@
 #include "magickimageexporter.h"
 #include "common/imagerawdata.h"
 
-namespace CIF
+namespace cf
 {
 
 MagickImageExporter::MagickImageExporter(image_format_t format) {

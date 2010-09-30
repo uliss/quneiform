@@ -20,7 +20,7 @@
 #include "formatoptions.h"
 #include "common/language.h"
 
-namespace CIF
+namespace cf
 {
 
 FormatOptions::FormatOptions() :

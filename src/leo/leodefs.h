@@ -79,7 +79,7 @@ typedef struct tagLeoPageSetup {
 
 typedef struct tagLeoFieldSetup {
     uint32_t nStyle;
-    CIF::Point16 BoxSize;
+    cf::Point16 BoxSize;
     uchar AlphaTable[256]; // AlphaTable[i]==0 <=> no such letter
     /// multi-passing:
     int32_t nLeoInternal; // initially set to 0; modifyed only by LEO

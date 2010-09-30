@@ -609,7 +609,7 @@ static void dots() {
 	cell *c, *cc, csv;
 	uchar let;
 	int16_t i, nv;
-	CIF::version vers[VERS_IN_CELL];
+	cf::version vers[VERS_IN_CELL];
 
 	for (c = (cell_f())->next; c->next != NULL; c = c->next) {
 		c->left = c->col;

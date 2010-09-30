@@ -33,7 +33,7 @@
 #include <boost/serialization/base_object.hpp>
 #endif
 
-namespace CIF
+namespace cf
 {
 
 class CLA_EXPO CEDChar: public Element

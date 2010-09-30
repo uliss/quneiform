@@ -22,7 +22,7 @@
 #include <common/tostring.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestRect);
 
-using namespace CIF;
+using namespace cf;
 
 void TestRect::testInit() {
     Rect r;

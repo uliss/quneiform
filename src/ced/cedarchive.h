@@ -27,7 +27,7 @@
 #include <boost/archive/xml_oarchive.hpp>
 #include <boost/archive/xml_iarchive.hpp>
 
-namespace CIF
+namespace cf
 {
 typedef boost::archive::text_iarchive CEDInputArchive;
 typedef boost::archive::text_oarchive CEDOutputArchive;

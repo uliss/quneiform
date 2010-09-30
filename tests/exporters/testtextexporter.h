@@ -22,7 +22,7 @@
 #include <sstream>
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace CIF {
+namespace cf {
     class TextExporter;
 }
 
@@ -45,7 +45,7 @@ public:
     void setUp();
     void tearDown();
 private:
-    CIF::TextExporter * exp_;
+    cf::TextExporter * exp_;
     std::ostringstream buffer_;
 };
 

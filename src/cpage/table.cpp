@@ -60,7 +60,7 @@
 #include "polyblock.h"
 #include "resource.h"
 
-using namespace CIF;
+using namespace cf;
 
 // Конверторы преобразования из TYPE_DESC в CPAGE_TABLE
 uint32_t TYPE_DESK_to_CPAGE_TABLE(TABLE_DESC * lpDataIn, uint32_t SizeIn,

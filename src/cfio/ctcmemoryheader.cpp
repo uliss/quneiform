@@ -19,7 +19,7 @@
 #include "ctcmemoryheader.h"
 #include "ctcclasses.h"
 
-namespace CIF
+namespace cf
 {
 namespace CTC
 {

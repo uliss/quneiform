@@ -22,7 +22,7 @@
 #include "bwsegment.h"
 #include "common/singleton.h"
 
-namespace CIF
+namespace cf
 {
 
 class LinePool

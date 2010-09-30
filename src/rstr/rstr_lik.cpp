@@ -1044,7 +1044,7 @@ int16_t levcut(cell *C, int16_t arg)
 {
  int16_t ncut, nalive, wp, np;
  int16_t pold, pnew, flcv;
- CIF::version  *v0;
+ cf::version  *v0;
  uchar  chr, surviver;
 
  top=C->row-minrow;
@@ -1101,7 +1101,7 @@ int16_t levcut(cell *C, int16_t arg)
      ((nalive==1) && (surviver == invers_exm) && language != LANGUAGE_RUSSIAN)
     )
  // entirely killed cell
- { CIF::version *v0; uchar chr;
+ { cf::version *v0; uchar chr;
    for (v0=C->vers; (chr=v0->let) !=0; v0++)
    {
      if(! memchr("LTJ()<>[]trI1l!/",chr,16) &&

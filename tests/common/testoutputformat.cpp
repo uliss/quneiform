@@ -20,7 +20,7 @@
 #include "common/outputformat.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestOutputFormat);
 
-using namespace CIF;
+using namespace cf;
 
 void TestOutputFormat::testInit()
 {

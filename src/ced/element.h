@@ -24,7 +24,7 @@
 #include "common/rect.h"
 #include "common/serialize.h"
 
-namespace CIF
+namespace cf
 {
 
 class CEDExporter;

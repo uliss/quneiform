@@ -61,7 +61,7 @@
 
 #include "hliner.h"
 
-using namespace CIF;
+using namespace cf;
 
 int compFragLevels(const void *frag1, const void *frag2); //used by qsort()
 

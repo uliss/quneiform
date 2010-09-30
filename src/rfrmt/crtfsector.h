@@ -25,7 +25,7 @@
 #include "creatertf.h"
 #include "cfcompat.h"
 
-namespace CIF
+namespace cf
 {
 
 class CEDSection;
@@ -73,7 +73,7 @@ class CRtfSector
 
         VectorWord m_arRightBoundTerminalColumns;
         VectorWord m_arWidthTerminalColumns;
-        CIF::SectorInfo SectorInfo;
+        cf::SectorInfo SectorInfo;
 
         RECT m_rect;
         RECT m_rectReal;

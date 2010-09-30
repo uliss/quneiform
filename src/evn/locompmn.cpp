@@ -96,7 +96,7 @@ static void new_line_cont();
 static void merge_line();
 static void dead_line();
 
-using namespace CIF;
+using namespace cf;
 
 MN * c_locomp(uchar* raster, int bw, int h, int upper, int left)
 {

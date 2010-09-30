@@ -19,7 +19,7 @@
 #include "common/language.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestLanguage);
 
-using namespace CIF;
+using namespace cf;
 
 void TestLanguage::testInit() {
     Language l(LANGUAGE_RUSSIAN);

@@ -27,7 +27,7 @@
 #include "common/rect.h"
 #include "creatertf.h"
 
-namespace CIF
+namespace cf
 {
 
 class SectorInfo;
@@ -106,7 +106,7 @@ class CLA_EXPO CRtfVerticalColumn
          */
         void setPage(CRtfPage * page);
 
-        void setRealRect(const CIF::Rect& r);
+        void setRealRect(const cf::Rect& r);
 
         /**
          * Sets column small

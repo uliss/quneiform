@@ -22,7 +22,7 @@
 #include "common/rect.h"
 #include "globus.h"
 
-namespace CIF
+namespace cf
 {
 
 // Formatting Mode

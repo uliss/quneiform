@@ -21,7 +21,7 @@
 #include <sstream>
 #include "alphabet.h"
 
-namespace CIF
+namespace cf
 {
 
 Alphabet::Alphabet()

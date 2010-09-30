@@ -124,7 +124,7 @@ enum ed_align_t
 // align picture top to base line
 };
 
-namespace CIF
+namespace cf
 {
 class CEDPage;
 class CEDLine;
@@ -134,7 +134,7 @@ class CEDColumn;
 class BlockElement;
 class CEDFrame;
 }
-CED_FUNC CIF::CEDSection* CED_CreateSection(CIF::CEDPage* page, const CIF::Rect& border,
+CED_FUNC cf::CEDSection* CED_CreateSection(cf::CEDPage* page, const cf::Rect& border,
         int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height);
 
 #endif

@@ -1227,7 +1227,7 @@ static int16_t LiliI(cell *NC)
 //
  {
  int16_t i;
- CIF::version *v;
+ cf::version *v;
 
  bon_to_dig(NC);                    // monus to non- "1"
  for (i=0,v=NC->vers; i < NC->nvers; i++,v++)
@@ -1254,7 +1254,7 @@ static int16_t bon_to_dig(cell *NC)
 //
  {
  int16_t i;
- CIF::version *v;
+ cf::version *v;
 
  for (i=0,v=NC->vers; i < NC->nvers; i++,v++)
   if ((v->let >= '0')  && (v->let <= '9'))
@@ -1276,7 +1276,7 @@ static Bool apostr_ll(cell *NC)
 //
 {
  int16_t i;
- CIF::version *v;
+ cf::version *v;
 
  for (i=0,v=NC->vers; i < NC->nvers; i++,v++)
   if (v->let == 'l')
@@ -1497,7 +1497,7 @@ int16_t n;
 
 void vers_to_first_place ( cell *A, int16_t nver)
 {
-CIF::version *v, wver;
+cf::version *v, wver;
  v = A->vers;
  v+=nver;
  if (nver == 0) return;

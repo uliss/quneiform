@@ -19,7 +19,7 @@
 #include "cedchar.h"
 #include "cedexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 CEDChar::CEDChar(Element * parent) :

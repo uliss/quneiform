@@ -19,7 +19,7 @@
 #include "cedframe.h"
 #include "cedexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 CEDFrame::CEDFrame(BlockElement * parent, hposition_t hpos, vposition_t vpos) :

@@ -437,7 +437,7 @@ void embBOX(servBOX *SBOX, SVERS *tvers, Bool erection)
 //
 {
 	int16_t i, hyp, fll, cnt;
-	CIF::version *hypa;
+	cf::version *hypa;
 	uint16_t probest;
 	uchar ocurlet;
 	uint16_t vect[16];

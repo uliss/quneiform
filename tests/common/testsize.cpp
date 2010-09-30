@@ -19,7 +19,7 @@
 #include "testsize.h"
 #include "../test_common.h"
 #include <common/size.h>
-using namespace CIF;
+using namespace cf;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestSize);
 
 void TestSize::testSerialize() {

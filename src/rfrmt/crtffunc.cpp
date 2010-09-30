@@ -49,17 +49,17 @@ void RtfAssignRect_CRect_Rect16(RECT *s1, Rect16 *s2) {
 
 int16_t GetRealSize(const char* str, int16_t len, int16_t FontSize, int16_t FontNumber,
         int16_t* strHeight) {
-    CIF::Size size;
+    cf::Size size;
     int n_Weight = 600;
     uchar bItalic;
 
-    if (CIF::RfrmtOptions::useBold() && ((char) FontNumber & CIF::FORMAT_FONT_BOLD))
+    if (cf::RfrmtOptions::useBold() && ((char) FontNumber & cf::FORMAT_FONT_BOLD))
         n_Weight = 800;
 
-    if (CIF::RfrmtOptions::useSize())
-        FontSize = CIF::DefFontSize / 2;
+    if (cf::RfrmtOptions::useSize())
+        FontSize = cf::DefFontSize / 2;
 
-    if (CIF::RfrmtOptions::useItalic() && ((char) FontNumber & CIF::FORMAT_FONT_ITALIC))
+    if (cf::RfrmtOptions::useItalic() && ((char) FontNumber & cf::FORMAT_FONT_ITALIC))
         bItalic = TRUE;
     else
         bItalic = FALSE;
@@ -85,7 +85,7 @@ int16_t GetRealSizeKegl(const char* str, int16_t width, int16_t FontPointSize, i
 
     //      *str +=" ";
 
-    if (CIF::RfrmtOptions::useBold() && ((char) FontNumber & CIF::FORMAT_FONT_BOLD))
+    if (cf::RfrmtOptions::useBold() && ((char) FontNumber & cf::FORMAT_FONT_BOLD))
         koef = float(4. / 5.);
 
     sz = new char[len + 1];
@@ -97,8 +97,8 @@ int16_t GetRealSizeKegl(const char* str, int16_t width, int16_t FontPointSize, i
     memset(sz + strlen(str), ' ', len - strlen(str));
     sz[len] = 0;
 
-    if (FontPointSize > CIF::ChangedKeglSize) {
-        int Count = FontPointSize - CIF::ChangedKeglSize;
+    if (FontPointSize > cf::ChangedKeglSize) {
+        int Count = FontPointSize - cf::ChangedKeglSize;
 
         for (int i = 0; i < Count; i++) {
             int16_t RealSize = GetRealSize(sz, strlen(sz), FontPointSize, FontNumber, &strHeight);
@@ -118,7 +118,7 @@ int16_t GetRealSizeKegl(const char* str, int16_t width, int16_t FontPointSize, i
     return FontPointSize;
 }
 
-Bool CheckLines(RECT* Rect, Bool FlagVer, CIF::SectorInfo *SectorInfo) {
+Bool CheckLines(RECT* Rect, Bool FlagVer, cf::SectorInfo *SectorInfo) {
     const int LMin = 500;
 
     if (FlagVer == TRUE && Rect->bottom - Rect->top < LMin / 2)

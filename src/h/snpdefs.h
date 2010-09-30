@@ -176,7 +176,7 @@ class SnpTreeNode   // !!! NOTE: You should place it in static dll's data segmen
 // User implemented handlers of events, called from application:
 typedef
 void (*FTOnMouseDown)( // called when mouse clicked in zone
-    CIF::Point16* mouse_pt,
+    cf::Point16* mouse_pt,
     // in image real coords
     Rect16* zone_rect,
     // in image real coords
@@ -226,7 +226,7 @@ void (*FTHideRects)( // hides rects with specified key, 0-hides all
 
 typedef
 void (*FTDrawLine)( // adds line to be drawn
-    CIF::Point16* start, CIF::Point16* end,
+    cf::Point16* start, cf::Point16* end,
     // in image ideal coords
     int32_t skew,
     // ideal-to-real coords skew (Tangens/1024)
@@ -294,7 +294,7 @@ typedef Bool16 (*FTGetUserRect)( // starts mouse rect input
 );
 
 typedef Bool16 (*FTGetUserPoint)( // starts mouse point input
-    CIF::Point16* rect
+    cf::Point16* rect
 // point to be returned in image real coords
 );
 

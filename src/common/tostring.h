@@ -27,7 +27,7 @@
 #include "size.h"
 #include "color.h"
 
-namespace CIF
+namespace cf
 {
 
 template<class T>

@@ -80,7 +80,7 @@
 
 #include "skew1024.h"
 
-using namespace CIF;
+using namespace cf;
 /*------------own functions---------------------------------------------------*/
 Bool FullMyLines_Mod(void *vLns, int nLns, void *vB, int *pForw, int *SizeForw,
 		int ShifValuForw, Rect16 *pRcReg, int32_t SkewReg, Bool Hori,

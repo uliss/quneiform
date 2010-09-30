@@ -66,7 +66,7 @@
 
 #include "common/rect.h"
 
-namespace CIF
+namespace cf
 {
 
 /**  Определение кол-ва картин на странице */

@@ -22,7 +22,7 @@
 
 namespace
 {
-using namespace CIF;
+using namespace cf;
 Alphabet * create()
 {
     return new TurkishAlphabet;
@@ -33,7 +33,7 @@ const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_TUR
         AlphabetFactory::AlphabetTables("rec1tur.dat", "rec2tur.dat"));
 }
 
-namespace CIF
+namespace cf
 {
 
 TurkishAlphabet::TurkishAlphabet()

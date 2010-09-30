@@ -24,7 +24,7 @@
 #include "common/color.h"
 #include "genericexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class StyleExporter: public GenericExporter

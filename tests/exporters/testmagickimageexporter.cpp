@@ -22,7 +22,7 @@
 #include <rdib/bmpimageloader.h>
 #include <rdib/magickimageloader.h>
 
-using namespace CIF;
+using namespace cf;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestMagickImageExporter);
 
 void TestMagickImageExporter::testSave() {

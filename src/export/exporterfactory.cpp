@@ -33,7 +33,7 @@
 #include "odfexporter.h"
 #endif
 
-namespace CIF
+namespace cf
 {
 
 ExporterFactoryImpl::ExporterFactoryImpl() :

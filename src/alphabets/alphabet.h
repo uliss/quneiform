@@ -26,7 +26,7 @@
 #include "common/lang_def.h"
 #include "globus.h"
 
-namespace CIF
+namespace cf
 {
 
 class CLA_EXPO Alphabet

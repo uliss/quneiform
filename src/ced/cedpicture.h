@@ -29,7 +29,7 @@
 #include <boost/serialization/shared_ptr.hpp>
 #endif
 
-namespace CIF
+namespace cf
 {
 
 class CLA_EXPO CEDPicture: public Element

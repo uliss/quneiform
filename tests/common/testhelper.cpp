@@ -19,7 +19,7 @@
 #include <common/helper.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestHelper);
 
-using namespace CIF;
+using namespace cf;
 
 void TestHelper::testBaseName() {
     CPPUNIT_ASSERT_EQUAL(std::string(""), baseName(""));

@@ -22,7 +22,7 @@
 #include "ccom/ccom.h"
 #include "alphabets/alphabetfactory.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestComponentRecognizer);
-using namespace CIF;
+using namespace cf;
 
 void TestComponentRecognizer::testInit() {
     ComponentRecognizer r;

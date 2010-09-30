@@ -227,8 +227,8 @@ extern Bool (*snap_monitor_rbal)(void);
 extern Bool (*snap_monitor_ori_rbal)(CSTR_line *snap_line, int32_t num_lines);
 extern Bool (*snap_is_marked_rbal)(CSTR_line ln);//IGOR
 extern Bool (*snap_baselines_rbal)(uchar a);//IGOR
-extern void (*snap_draw_line_rbal)(Handle wnd, CIF::Point16 *start,
-                                   CIF::Point16 *end, int32_t skew, uint32_t rgb, int16_t pen,
+extern void (*snap_draw_line_rbal)(Handle wnd, cf::Point16 *start,
+                                   cf::Point16 *end, int32_t skew, uint32_t rgb, int16_t pen,
                                    uint32_t key);//IGOR
 extern void (*snap_del_line_rbal)(Handle wnd, uint32_t key);
 //IGOR

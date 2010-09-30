@@ -21,7 +21,7 @@
 
 #include "easteurope.h"
 
-namespace CIF
+namespace cf
 {
 
 class RomanAlphabet: public EastEuropeAlphabet

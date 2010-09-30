@@ -21,7 +21,7 @@
 
 namespace
 {
-using namespace CIF;
+using namespace cf;
 Alphabet * create()
 {
     return new KazakhAlphabet;
@@ -32,7 +32,7 @@ Alphabet * create()
 //        AlphabetFactory::AlphabetTables("rec1kaz.dat", "rec2kaz.dat"));
 }
 
-namespace CIF
+namespace cf
 {
 
 KazakhAlphabet::KazakhAlphabet()

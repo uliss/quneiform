@@ -19,7 +19,7 @@
 #include "easteurope.h"
 #include "ligas.h"
 
-namespace CIF
+namespace cf
 {
 
 EastEuropeAlphabet::EastEuropeAlphabet()

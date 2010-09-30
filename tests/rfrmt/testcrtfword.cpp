@@ -20,11 +20,11 @@
 #include "rfrmt/crtfword.h"
 #include "rfrmt/crtfchar.h"
 #include <common/tostring.h>
-using namespace CIF;
+using namespace cf;
 CPPUNIT_TEST_SUITE_REGISTRATION( TestCRtfWord);
 
 void TestCRtfWord::testInit() {
-    CIF::CRtfWord wd;
+    cf::CRtfWord wd;
     CPPUNIT_ASSERT(wd.bRect() == Rect());
     CPPUNIT_ASSERT(wd.charCount() == 0);
     CPPUNIT_ASSERT_THROW(wd.charAt(0), std::out_of_range);

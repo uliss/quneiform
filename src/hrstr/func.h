@@ -164,7 +164,7 @@ Bool snap_newpass(uchar);
 Bool snap_show_text(const char *);
 Bool snap_show_text1(puchar);
 Bool snap_monitor(void);
-void snap_draw_line(Handle wnd, CIF::Point16 *start, CIF::Point16 *end, int32_t skew,
+void snap_draw_line(Handle wnd, cf::Point16 *start, cf::Point16 *end, int32_t skew,
                     uint32_t rgb, int16_t pen, uint32_t key);//IGOR
 void snap_del_line(Handle wnd, uint32_t key);//IGOR
 Bool snap_baselines(uchar a);//IGOR
@@ -495,10 +495,10 @@ void preprocess();
 void write_prot(cell *);
 
 // module tools.c
-Bool comp_versions(CIF::version *v, CIF::version *w, int16_t n, int16_t snvers);
+Bool comp_versions(cf::version *v, cf::version *w, int16_t n, int16_t snvers);
 void set_bad_cell(cell *);
 void sort_vers(cell *);
-void sort_v_vect(int16_t, CIF::version *);
+void sort_v_vect(int16_t, cf::version *);
 void setup_string();
 void kit_init();
 puchar il1_pool_ptr();
@@ -536,12 +536,12 @@ int16_t reco2_cell(cell *);
 puchar save_raster(cell *);
 puchar give_kit_addr();
 void take_kit_addr(puchar a);
-void add_vers(cell *, CIF::version *);
+void add_vers(cell *, cf::version *);
 void del_version(cell *c, uchar let);
 void online_comp(c_comp *);
 Bool save_MN(MN *);
 void cell_bonus_let(cell *C, char Let, int16_t BonVal);
-void cell_bonus(cell *C, CIF::version *pVer, int16_t BonVal);
+void cell_bonus(cell *C, cf::version *pVer, int16_t BonVal);
 
 // module baton.c
 int16_t sticks_in_letter(cell *, int16_t, STICK **);

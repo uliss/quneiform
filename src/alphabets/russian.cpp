@@ -22,7 +22,7 @@
 
 namespace
 {
-using namespace CIF;
+using namespace cf;
 Alphabet * create()
 {
     return new RussianAlphabet;
@@ -33,7 +33,7 @@ const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_RUS
         AlphabetFactory::AlphabetTables("rec1rus.dat", "rec2rus.dat"));
 }
 
-namespace CIF
+namespace cf
 {
 
 RussianAlphabet::RussianAlphabet()

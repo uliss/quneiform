@@ -19,7 +19,7 @@
 #include "smarttextexporter.h"
 #include "ced/cedparagraph.h"
 
-namespace CIF
+namespace cf
 {
 
 static const std::string PAR_INDENT = "  ";

@@ -19,7 +19,7 @@
 #ifndef ALIGN_H_
 #define ALIGN_H_
 
-namespace CIF {
+namespace cf {
 
 enum align_t {
         ALIGN_NONE = 0,

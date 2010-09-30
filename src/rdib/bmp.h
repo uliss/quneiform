@@ -31,7 +31,7 @@
 using Exact::EndianessConverter;
 using Exact::LittleEndianTraits;
 
-namespace CIF
+namespace cf
 {
 
 enum BMPType

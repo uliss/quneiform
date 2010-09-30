@@ -26,7 +26,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCedLine);
 #include <ced/cedline.h>
 #include <ced/cedpicture.h>
 #include <ced/cedarchive.h>
-using namespace CIF;
+using namespace cf;
 
 void TestCedLine::testEndsWithHyphen() {
     CEDLine ln;

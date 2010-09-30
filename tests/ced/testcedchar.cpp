@@ -23,7 +23,7 @@
 #include <ced/cedchar.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDChar);
 
-using namespace CIF;
+using namespace cf;
 
 void TestCEDChar::testInit() {
 }

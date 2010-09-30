@@ -71,14 +71,14 @@
 #include "cttypes.h"
 #include "common/point.h"
 
-inline CIF::Point& GetCenter(const Rect32& rc, CIF::Point& center)
+inline cf::Point& GetCenter(const Rect32& rc, cf::Point& center)
 {
     center.rx() = (rc.left + rc.right) >> 1;
     center.ry() = (rc.top + rc.bottom) >> 1;
     return center;
 }
 
-inline CIF::Point16& GetCenter(const Rect16& rc, CIF::Point16& center)
+inline cf::Point16& GetCenter(const Rect16& rc, cf::Point16& center)
 {
     center.rx() = (rc.left + rc.right) >> 1;
     center.ry() = (rc.top + rc.bottom) >> 1;
@@ -103,7 +103,7 @@ inline Rect16& Copy(Rect16& dst, Rect32& src)
 }
 
 // diagonal points => rect
-inline Rect32& Pt2Rc(Rect32& dst, CIF::Point16& a, CIF::Point16& b)
+inline Rect32& Pt2Rc(Rect32& dst, cf::Point16& a, cf::Point16& b)
 {
     dst.left = a.x();
     dst.right = b.x();
@@ -111,7 +111,7 @@ inline Rect32& Pt2Rc(Rect32& dst, CIF::Point16& a, CIF::Point16& b)
     dst.bottom = b.y();
     return dst;
 }
-inline Rect16& Pt2Rc(Rect16& dst, CIF::Point16& a, CIF::Point16& b)
+inline Rect16& Pt2Rc(Rect16& dst, cf::Point16& a, cf::Point16& b)
 {
     dst.left = a.x();
     dst.right = b.x();
@@ -119,7 +119,7 @@ inline Rect16& Pt2Rc(Rect16& dst, CIF::Point16& a, CIF::Point16& b)
     dst.bottom = b.y();
     return dst;
 }
-inline Rect32& Pt2Rc(Rect32& dst, CIF::Point& a, CIF::Point& b)
+inline Rect32& Pt2Rc(Rect32& dst, cf::Point& a, cf::Point& b)
 {
     dst.left = a.x();
     dst.right = b.x();
@@ -127,7 +127,7 @@ inline Rect32& Pt2Rc(Rect32& dst, CIF::Point& a, CIF::Point& b)
     dst.bottom = b.y();
     return dst;
 }
-inline Rect16& Pt2Rc(Rect16& dst, CIF::Point& a, CIF::Point& b)
+inline Rect16& Pt2Rc(Rect16& dst, cf::Point& a, cf::Point& b)
 {
     dst.left = (int16_t) a.x();
     dst.right = (int16_t) b.x();
@@ -137,7 +137,7 @@ inline Rect16& Pt2Rc(Rect16& dst, CIF::Point& a, CIF::Point& b)
 }
 
 // movements ( -=, += )
-inline Rect32& operator -=(Rect32 & rc, CIF::Point & pt)
+inline Rect32& operator -=(Rect32 & rc, cf::Point & pt)
 {
     rc.left -= pt.x();
     rc.right -= pt.x();
@@ -146,7 +146,7 @@ inline Rect32& operator -=(Rect32 & rc, CIF::Point & pt)
     return rc;
 }
 
-inline Rect16& operator -=(Rect16 & rc, CIF::Point16 & pt)
+inline Rect16& operator -=(Rect16 & rc, cf::Point16 & pt)
 {
     rc.left -= pt.x();
     rc.right -= pt.x();
@@ -155,7 +155,7 @@ inline Rect16& operator -=(Rect16 & rc, CIF::Point16 & pt)
     return rc;
 }
 
-inline Rect32& operator+=(Rect32 & rc, CIF::Point & pt)
+inline Rect32& operator+=(Rect32 & rc, cf::Point & pt)
 {
     rc.left += pt.x();
     rc.right += pt.x();
@@ -164,7 +164,7 @@ inline Rect32& operator+=(Rect32 & rc, CIF::Point & pt)
     return rc;
 }
 
-inline Rect16& operator+=(Rect16 & rc, CIF::Point16 & pt)
+inline Rect16& operator+=(Rect16 & rc, cf::Point16 & pt)
 {
     rc.left += pt.x();
     rc.right += pt.x();
@@ -175,9 +175,9 @@ inline Rect16& operator+=(Rect16 & rc, CIF::Point16 & pt)
 
 inline Rect32& DeskewCenter(Rect32& rc, int32_t skew1024)
 {
-    CIF::Point center;
+    cf::Point center;
     GetCenter(rc, center);
-    CIF::Point old_center = center;
+    cf::Point old_center = center;
     center.deskew(skew1024);
     center -= old_center; // diff
     rc += center;
@@ -186,9 +186,9 @@ inline Rect32& DeskewCenter(Rect32& rc, int32_t skew1024)
 
 inline Rect16& DeskewCenter(Rect16& rc, int32_t skew1024)
 {
-    CIF::Point16 center;
+    cf::Point16 center;
     GetCenter(rc, center);
-    CIF::Point16 old_center = center;
+    cf::Point16 old_center = center;
     center.deskew(skew1024);
     center -= old_center; // diff
     rc += center;
@@ -214,22 +214,22 @@ inline Rect32& Expand(Rect32& rc, int32_t delta)
 }
 
 // make points: lt & rb (main diag) or rt & lb (other)
-inline void GetDiag1(Rect32& rc, CIF::Point& lt, CIF::Point& rb)
+inline void GetDiag1(Rect32& rc, cf::Point& lt, cf::Point& rb)
 {
     lt.set(rc.left, rc.top);
     rb.set(rc.right, rc.bottom);
 }
-inline void GetDiag1(Rect16& rc, CIF::Point16& lt, CIF::Point16& rb)
+inline void GetDiag1(Rect16& rc, cf::Point16& lt, cf::Point16& rb)
 {
     lt.set(rc.left, rc.top);
     rb.set(rc.right, rc.bottom);
 }
-inline void GetDiag2(Rect32& rc, CIF::Point& rt, CIF::Point& lb)
+inline void GetDiag2(Rect32& rc, cf::Point& rt, cf::Point& lb)
 {
     rt.set(rc.right, rc.top);
     lb.set(rc.left, rc.bottom);
 }
-inline void GetDiag2(Rect16& rc, CIF::Point16& rt, CIF::Point16& lb)
+inline void GetDiag2(Rect16& rc, cf::Point16& rt, cf::Point16& lb)
 {
     rt.set(rc.right, rc.top);
     lb.set(rc.left, rc.bottom);
@@ -238,11 +238,11 @@ inline void GetDiag2(Rect16& rc, CIF::Point16& rt, CIF::Point16& lb)
 inline Rect32& GetBounding(Rect32& rc_src, Rect32& rc_dest, int32_t skew1024)
 // dest rect can be the same as source
 {
-    CIF::Point lt, rb;
+    cf::Point lt, rb;
     GetDiag1(rc_src, lt, rb);
     lt.deskew(skew1024);
     rb.deskew(skew1024);
-    CIF::Point rt, lb;
+    cf::Point rt, lb;
     GetDiag2(rc_src, rt, lb);
     rt.deskew(skew1024);
     lb.deskew(skew1024);
@@ -267,11 +267,11 @@ inline Rect32& GetBounding(Rect32& rc_src, Rect32& rc_dest, int32_t skew1024)
 inline Rect16& GetBounding(Rect16& rc_src, Rect16& rc_dest, int32_t skew1024)
 // dest rect can be the same as source
 {
-    CIF::Point16 lt, rb;
+    cf::Point16 lt, rb;
     GetDiag1(rc_src, lt, rb);
     lt.deskew(skew1024);
     rb.deskew(skew1024);
-    CIF::Point16 rt, lb;
+    cf::Point16 rt, lb;
     GetDiag2(rc_src, rt, lb);
     rt.deskew(skew1024);
     lb.deskew(skew1024);
@@ -426,12 +426,12 @@ inline Bool Overlap(const Rect32& r1, const Rect32& r2)
                                                               > r1.right) || (r2.top > r1.bottom));
 }
 
-inline Bool Inside(const Rect16& r, const CIF::Point16 & p)
+inline Bool Inside(const Rect16& r, const cf::Point16 & p)
 {
     return !((p.x() < r.left) || (p.x() > r.right) || (p.x() < r.top) || (p.x()
                                                                           > r.bottom));
 }
-inline Bool Inside(const Rect32& r, const CIF::Point & p)
+inline Bool Inside(const Rect32& r, const cf::Point & p)
 {
     return !((p.x() < r.left) || (p.x() > r.right) || (p.x() < r.top) || (p.x()
                                                                           > r.bottom));
@@ -443,7 +443,7 @@ inline Bool Overlap(int a1, int a2, int b1, int b2) // two ranges intersection
 }
 
 template<class T, class U>
-double PointDistance(const CIF::PointImpl<T>& p0, const CIF::PointImpl<U>& p1)
+double PointDistance(const cf::PointImpl<T>& p0, const cf::PointImpl<U>& p1)
 {
     return ::sqrt(static_cast<float>((p0.x() - p1.x()) * (p0.x() - p1.x())
                   + (p0.y() - p1.y()) * (p0.y() - p1.y())));

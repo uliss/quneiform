@@ -24,7 +24,7 @@
 #include <ced/cedarchive.h>
 
 template<class T>
-void writeToXml(CIF::CEDXmlOutputArchive& ar, const std::string& obj_name, const T& object) {
+void writeToXml(cf::CEDXmlOutputArchive& ar, const std::string& obj_name, const T& object) {
     ar << boost::serialization::make_nvp(obj_name.c_str(), object);
 }
 
@@ -32,7 +32,7 @@ template<class T>
 void writeToXmlArchive(const std::string& filename, const std::string& obj_name, const T& object) {
     std::ofstream xml(filename.c_str());
     assert(xml);
-    CIF::CEDXmlOutputArchive ar(xml);
+    cf::CEDXmlOutputArchive ar(xml);
     writeToXml(ar, obj_name, object);
 }
 
@@ -40,26 +40,26 @@ template<class T>
 void writeToTextArchive(const std::string& filename, const T& object) {
     std::ofstream txt(filename.c_str());
     assert(txt);
-    CIF::CEDOutputArchive ar(txt);
+    cf::CEDOutputArchive ar(txt);
     ar << object;
 }
 
 template<class T>
-void readFromXml(CIF::CEDXmlInputArchive& ar, const std::string& obj_name, T& object) {
+void readFromXml(cf::CEDXmlInputArchive& ar, const std::string& obj_name, T& object) {
     ar >> boost::serialization::make_nvp(obj_name.c_str(), object);
 }
 
 template<class T>
 void readFromXmlArchive(const std::string& filename, const std::string& obj_name, T& object) {
     std::ifstream xml(filename.c_str());
-    CIF::CEDXmlInputArchive ar(xml);
+    cf::CEDXmlInputArchive ar(xml);
     readFromXml(ar, obj_name, object);
 }
 
 template<class T>
 void readFromTextArchive(const std::string& filename, T& object) {
     std::ifstream xml(filename.c_str());
-    CIF::CEDInputArchive ar(xml);
+    cf::CEDInputArchive ar(xml);
     ar >> object;
 }
 

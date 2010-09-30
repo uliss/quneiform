@@ -22,7 +22,7 @@
 
 namespace
 {
-using namespace CIF;
+using namespace cf;
 Alphabet * create()
 {
     return new EstonianAlphabet;
@@ -33,7 +33,7 @@ const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_EST
         AlphabetFactory::AlphabetTables("rec1blt.dat", "rec2blt.dat"));
 }
 
-namespace CIF
+namespace cf
 {
 
 EstonianAlphabet::EstonianAlphabet()

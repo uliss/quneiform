@@ -25,7 +25,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDFrame);
 #include "ced/cedline.h"
 #include "ced/cedchar.h"
 
-using namespace CIF;
+using namespace cf;
 
 void TestCEDFrame::testSerialize() {
 #ifdef CF_SERIALIZE

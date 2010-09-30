@@ -1987,12 +1987,12 @@ void delete_far_dust(CSTR_line lin) {
 }
 
 static void postrecog() {
-    CIF::version vers[VERS_IN_CELL];
+    cf::version vers[VERS_IN_CELL];
     cell *c;
     int16_t i, j;
 
     for (c = cell_f()->next; c->next != NULL; c = c->next) {
-        memcpy(vers, c->vers, VERS_IN_CELL * sizeof(CIF::version));
+        memcpy(vers, c->vers, VERS_IN_CELL * sizeof(cf::version));
         short_recog_cell(c);
         for (i = 0; vers[i].let; i++) {
             for (j = 0; j < c->nvers; j++)
@@ -2475,7 +2475,7 @@ void accept_cell(cell *c, c_comp *cmp) {
     c->row = cmp->upper - (int16_t) ((int32_t) nIncline * cmp->left / 2048);
     c->col = cmp->left + (int16_t) ((int32_t) nIncline * cmp->upper / 2048);
     if ((c->nvers = cmp->nvers) > 0) {
-        memcpy(c->vers, (pchar) cmp + cmp->records, c->nvers * sizeof(CIF::version));
+        memcpy(c->vers, (pchar) cmp + cmp->records, c->nvers * sizeof(cf::version));
         c->vers[c->nvers].let = 0;
         c->recsource = c_rs_ev; // events done
         c->history = c_rs_ev;

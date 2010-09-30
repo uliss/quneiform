@@ -22,7 +22,7 @@
 #include <common/tostring.h>
 #include <common/image.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpLoader);
-using namespace CIF;
+using namespace cf;
 
 void TestBmpLoader::testInit() {
     std::auto_ptr<ImageLoader> loader(new BmpImageLoader);
@@ -31,7 +31,7 @@ void TestBmpLoader::testInit() {
     CPPUNIT_ASSERT_THROW(loader->load(LOADER_TEST_IMAGE_DIR + std::string("test_not_exists.bmp")), ImageLoader::Exception);
     //    test empty stream
     std::stringstream is;
-    CPPUNIT_ASSERT_THROW(loader->load(is), CIF::ImageLoader::Exception);
+    CPPUNIT_ASSERT_THROW(loader->load(is), cf::ImageLoader::Exception);
 }
 
 void TestBmpLoader::testMagick() {
@@ -39,11 +39,11 @@ void TestBmpLoader::testMagick() {
     {
         std::stringstream is;
         // test empty
-        CPPUNIT_ASSERT_THROW(loader->readBmpMagick(is), CIF::ImageLoader::Exception);
+        CPPUNIT_ASSERT_THROW(loader->readBmpMagick(is), cf::ImageLoader::Exception);
         // test wrong magick
         is.clear();
         is << "GB";
-        CPPUNIT_ASSERT_THROW(loader->readBmpMagick(is), CIF::ImageLoader::Exception);
+        CPPUNIT_ASSERT_THROW(loader->readBmpMagick(is), cf::ImageLoader::Exception);
     }
 
     // test valid magick
@@ -57,7 +57,7 @@ void TestBmpLoader::testMagick() {
     {
         std::stringstream is;
         is << "B";
-        CPPUNIT_ASSERT_THROW(loader->readBmpMagick(is), CIF::ImageLoader::Exception);
+        CPPUNIT_ASSERT_THROW(loader->readBmpMagick(is), cf::ImageLoader::Exception);
     }
 }
 
@@ -66,7 +66,7 @@ void TestBmpLoader::testReadBmpHeader() {
     // test empty
     {
         std::stringstream is;
-        CPPUNIT_ASSERT_THROW(loader->readBmpFileHeader(is), CIF::ImageLoader::Exception);
+        CPPUNIT_ASSERT_THROW(loader->readBmpFileHeader(is), cf::ImageLoader::Exception);
     }
 
     // test offsetbits
@@ -88,7 +88,7 @@ void TestBmpLoader::testReadBmpInfoHeaderVersion() {
     // test empty
     {
         std::stringstream is;
-        CPPUNIT_ASSERT_THROW(loader->readBmpInfoHeaderVersion(is), CIF::ImageLoader::Exception);
+        CPPUNIT_ASSERT_THROW(loader->readBmpInfoHeaderVersion(is), cf::ImageLoader::Exception);
     }
 
     // test wrong BMP version
@@ -98,7 +98,7 @@ void TestBmpLoader::testReadBmpInfoHeaderVersion() {
         is.write(data, 14);
         uint32_t sz = BIH_WIN4SIZE + 1;
         is.write((char*) &sz, sizeof(sz));
-        CPPUNIT_ASSERT_THROW(loader->readBmpInfoHeaderVersion(is), CIF::ImageLoader::Exception);
+        CPPUNIT_ASSERT_THROW(loader->readBmpInfoHeaderVersion(is), cf::ImageLoader::Exception);
     }
 
     // test version 3

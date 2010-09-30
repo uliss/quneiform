@@ -78,7 +78,7 @@
 #include "snptools.h"
 #include "snpdefs.h"
 
-using namespace CIF;
+using namespace cf;
 
 uchar field_number = 0;
 Bool32 leo_enable_fon_recog = FALSE;

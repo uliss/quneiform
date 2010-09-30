@@ -18,7 +18,7 @@
 
 #include "imageloader.h"
 
-namespace CIF
+namespace cf
 {
 
 ImageLoader::ImageLoader() :

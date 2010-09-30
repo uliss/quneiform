@@ -22,7 +22,7 @@
 #include "globus.h"
 #include <boost/noncopyable.hpp>
 
-namespace CIF
+namespace cf
 {
 
 class CEDChar;

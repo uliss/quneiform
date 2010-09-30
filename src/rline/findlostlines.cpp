@@ -74,7 +74,7 @@ using namespace std;
 #include "cfcompat.h"
 #include "minmax.h"
 
-using namespace CIF;
+using namespace cf;
 
 /***********************************************************************************************/
 #define INCLINE_FACTOR 2048

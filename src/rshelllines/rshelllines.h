@@ -82,8 +82,8 @@
 #define SizeBlackPicsels 16
 #define MAXRASTERSIZE    1000
 
-int SL_IsInPoly(CIF::Point* a, CLINE_SL_POLY* p); //
-Bool SL_IsPointInAB(CIF::Point *P, CIF::Point *A, CIF::Point *B); //
+int SL_IsInPoly(cf::Point* a, CLINE_SL_POLY* p); //
+Bool SL_IsPointInAB(cf::Point *P, cf::Point *A, cf::Point *B); //
 void CalculateRectForRaster(DLine* pCLine, PAGEINFO* page_info); //
 void CalculatePolynomia(DLine* pCLine, PAGEINFO* page_info); //
 void DrowRectForRaster(Rect32* rect); //

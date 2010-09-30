@@ -126,8 +126,8 @@ struct CCOM_comp
 typedef lnhead CCOM_lnhead;
 typedef lnhead CCOM_linerep; // alias
 
-typedef CIF::IntervalImpl<unsigned char> CCOM_interval;
-typedef CIF::IntervalImpl<uint16_t> CCOM_interval16;
+typedef cf::IntervalImpl<unsigned char> CCOM_interval;
+typedef cf::IntervalImpl<uint16_t> CCOM_interval16;
 
 struct CCOM_cont
 {

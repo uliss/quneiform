@@ -37,7 +37,7 @@
 #include "common/helper.h"
 #include "common/iconv_local.h"
 #include "rout_own.h" // for font_style_t
-namespace CIF
+namespace cf
 {
 
 GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :

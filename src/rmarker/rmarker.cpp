@@ -71,7 +71,7 @@
 #include "rselstr/rselstr.h"
 #include "rline/rline.h"
 
-namespace CIF
+namespace cf
 {
 RMarker::RMarker() :
     cpage_(NULL), ccom_(NULL), cline_(NULL), language_(LANGUAGE_RUS_ENG), pictures_(0), fax_(false),

@@ -62,9 +62,9 @@
 
 void RotateRect(Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);
 void FindMinimIdealRegion(int nRc, int *pDo, Rect16 *pRcIdeal, Rect16 *pMIR);
-Bool CanUse(CIF::Point16 *pA, CIF::Point16 *pB, int Lev, int Lev_A, int Lev_B,
+Bool CanUse(cf::Point16 *pA, cf::Point16 *pB, int Lev, int Lev_A, int Lev_B,
             int LimIsMax, int Near);
-Bool HaveLinePartAtReg(CIF::Point16 *pA, CIF::Point16 *pB, Rect16 *pRc,
+Bool HaveLinePartAtReg(cf::Point16 *pA, cf::Point16 *pB, Rect16 *pRc,
                        int32_t Skew, int NearHor, int NearVer);
 Bool IsRectsCross(Rect16 *pRc1, Rect16 *pRc2);
 Bool MakeInternalRectId(Rect16 *pRcRe, Rect16 *pRcId, int32_t Skew);

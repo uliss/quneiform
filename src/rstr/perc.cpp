@@ -164,7 +164,7 @@ typedef struct perc_struct
         cell * rdcp; /* pointer to the 'right dust' cell */
         uchar FL; /* existing 'good' dusts flag */
         int16_t rcps; /* the return code of the percent searching */
-        int16_t n_ver_perc; /* the number of the found percent CIF::version */
+        int16_t n_ver_perc; /* the number of the found percent cf::version */
         /* the allowed boundaries of the upper dust */
         int16_t ubw, /* beginning of the widht interval */
         uew, /* end of the widht interval */
@@ -233,7 +233,7 @@ void number(void) // Andrew for compose number
         if (language == LANGUAGE_ROMANIAN)
             continue;
 
-        if ((gpt->rcps = search_perc_vers()) != (uchar) PRO_NUMBER && /* find the proNumber CIF::version */
+        if ((gpt->rcps = search_perc_vers()) != (uchar) PRO_NUMBER && /* find the proNumber cf::version */
         gpt->rcps != 'N')
             continue;
 
@@ -278,7 +278,7 @@ void perc() {
             break;
         if (!gpt->BC->next)
             break; /* dummy cell at end reached  */
-        if ((gpt->rcps = search_perc_vers()) == 0) /* find the percent CIF::version */
+        if ((gpt->rcps = search_perc_vers()) == 0) /* find the percent cf::version */
             continue;
 
         if (db_status && snap_activity('h')) {
@@ -391,7 +391,7 @@ static void proc_perc()
     return;
 } /*------------------------------------------------------------------*/
 
-static int16_t search_perc_vers() { /* searching the percent-symbol CIF::version */
+static int16_t search_perc_vers() { /* searching the percent-symbol cf::version */
 
     int16_t i, rc;
     uchar l = gpt->BC->vers[0].let;
@@ -581,16 +581,16 @@ static int16_t test_O0(cell *pc) {
     uchar rc = 0;
     uint16_t save_c_flg;
     int16_t saveN;
-    uchar saveV[VERS_IN_CELL * sizeof(CIF::version)];
-    CIF::version *v;
+    uchar saveV[VERS_IN_CELL * sizeof(cf::version)];
+    cf::version *v;
 
     save_c_flg = pc->flg; /* save flag of the cell */
     saveN = pc->nvers;
     if (saveN > 0)
-        memcpy(saveV, pc->vers, VERS_IN_CELL * sizeof(CIF::version));
+        memcpy(saveV, pc->vers, VERS_IN_CELL * sizeof(cf::version));
     /* the flag storing is necessary because of short_recog_cell may change
      this flag but doas not correct the lists of the cells  */
-    memset(pc->vers, 0, 4 * sizeof(CIF::version));
+    memset(pc->vers, 0, 4 * sizeof(cf::version));
     pc->nvers = 3;
     pc->vers[0].let = '0';
     pc->vers[1].let = (uchar) '\x8e' /* О */;
@@ -608,7 +608,7 @@ static int16_t test_O0(cell *pc) {
     pc->flg = save_c_flg;
     pc->nvers = saveN;
     if (saveN > 0)
-        memcpy(pc->vers, saveV, VERS_IN_CELL * sizeof(CIF::version));
+        memcpy(pc->vers, saveV, VERS_IN_CELL * sizeof(cf::version));
     else
         set_bad_cell(pc);
     return (rc);
@@ -619,12 +619,12 @@ static int16_t rec_O0(cell *pc) {
     int16_t wi, rc;
     uint16_t save_c_flg;
     int16_t saveN;
-    uchar saveV[VERS_IN_CELL * sizeof(CIF::version)];
+    uchar saveV[VERS_IN_CELL * sizeof(cf::version)];
 
     save_c_flg = pc->flg; /* save flag of the cell */
     saveN = pc->nvers;
     if (saveN > 0)
-        memcpy(saveV, pc->vers, VERS_IN_CELL * sizeof(CIF::version));
+        memcpy(saveV, pc->vers, VERS_IN_CELL * sizeof(cf::version));
     /* the flag storing is necessary because of short_recog_cell may change
      this flag but doas not correct the lists of the cells  */
     short_recog_cell(pc);
@@ -645,7 +645,7 @@ static int16_t rec_O0(cell *pc) {
     pc->flg = save_c_flg;
     pc->nvers = saveN;
     if (saveN > 0)
-        memcpy(pc->vers, saveV, VERS_IN_CELL * sizeof(CIF::version));
+        memcpy(pc->vers, saveV, VERS_IN_CELL * sizeof(cf::version));
     return (rc);
 } /*------------------------------------------------------------------*/
 
@@ -780,7 +780,7 @@ Bool test_cell(cell *c) {
     RecVersions* result;
     RecObject recobj;
     RecAlt* alt;
-    CIF::version *v;
+    cf::version *v;
     c_comp* comp = c->env;
     int16_t i;
 

@@ -18,7 +18,7 @@
 
 #include "element.h"
 
-namespace CIF
+namespace cf
 {
 
 Element::Element(Element * parent) :

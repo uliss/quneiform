@@ -83,7 +83,7 @@
 #include "un_buff.h"
 #include "cfcompat.h"
 
-using namespace CIF;
+using namespace cf;
 
 #define CRIME_CUT   50
 #define RESULT      2

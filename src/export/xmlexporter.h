@@ -23,7 +23,7 @@
 #include <string>
 #include "textexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class XmlExporter: public TextExporter

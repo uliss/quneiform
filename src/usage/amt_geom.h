@@ -98,7 +98,7 @@ void FindMinimIdealRegion(const int nRc, const int *pDo,
  \retval bool        - так пересекает или нет
  \note  Используется в RVerLine и USAGE
  */
-bool HaveLinePartAtReg(CIF::Point16 *pA, CIF::Point16 *pB, const Rect16 *pRc,
+bool HaveLinePartAtReg(cf::Point16 *pA, cf::Point16 *pB, const Rect16 *pRc,
                        const int32_t Skew, const int NearHor, const int NearVer);
 /**
  \brief Функция проверяет, пересекаются ли два прямоугольника

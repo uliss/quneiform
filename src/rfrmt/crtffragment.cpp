@@ -39,7 +39,7 @@
 #include "common/tostring.h"
 #include "minmax.h"
 
-namespace CIF
+namespace cf
 {
 
 const int SMALL_FONT_SIZE = 5;

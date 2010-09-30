@@ -67,7 +67,7 @@
 #include "cpage/cpage.h"
 #include "cfcompat.h"
 
-using namespace CIF;
+using namespace cf;
 
 void _setvideomode(int mode) {
 }

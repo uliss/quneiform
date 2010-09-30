@@ -20,7 +20,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestMagickLoader);
 #include <rdib/magickimageloader.h>
 #include <memory>
 #include <fstream>
-using namespace CIF;
+using namespace cf;
 typedef std::auto_ptr<MagickImageLoader> LoaderPtr;
 void TestMagickLoader::testInit() {
     LoaderPtr loader(new MagickImageLoader);

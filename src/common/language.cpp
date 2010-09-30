@@ -18,7 +18,7 @@
 
 #include "language.h"
 
-namespace CIF
+namespace cf
 {
 
 struct LanguageData

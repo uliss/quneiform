@@ -33,7 +33,7 @@
 #include "cstr/cstrdefs.h"
 #include "minmax.h"
 
-namespace CIF
+namespace cf
 {
 
 const int SMALLEST_FONT_SIZE = 3;

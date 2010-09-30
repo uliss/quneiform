@@ -29,7 +29,7 @@
 #include "common/helper.h"
 #include "common/debug.h"
 
-namespace CIF
+namespace cf
 {
 
 TextExporter::TextExporter(CEDPage * page, const FormatOptions& opts) :

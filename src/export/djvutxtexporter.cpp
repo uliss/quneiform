@@ -25,7 +25,7 @@
 #include "ced/cedpage.h"
 #include "ced/cedparagraph.h"
 
-namespace CIF
+namespace cf
 {
 
 inline bool isSpace(const CEDChar& chr) {

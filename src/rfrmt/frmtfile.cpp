@@ -78,11 +78,11 @@
 #include "frmtpict.h"
 #include "minmax.h"
 
-using namespace CIF;
+using namespace cf;
 
 int32_t PageIncline2048 = 2048;
 uint32_t CountPict = 0, CountTable = 0;
-CIF::Point TemplateOffset;
+cf::Point TemplateOffset;
 extern uchar Frmt_CharSet;
 
 #define HalfDefMargL   900 // Left margin in twips    (the default is 1800).
@@ -116,11 +116,11 @@ Bool CreateInternalFileForFormatter(FILE *pIFName) {
         line = CSTR_NextLine(line, 1);
     }
 
-    CountPict = CIF::GetPictCount();
+    CountPict = cf::GetPictCount();
     // CountTable = GetTablCount();
 
     if (Page.Count.Chars > 32000) {
-        CIF::Formatter::extended_mode_ = true;
+        cf::Formatter::extended_mode_ = true;
     }
 
     if (!(Page.Count.Frags + (int) CountPict + (int) CountTable)) {
@@ -590,7 +590,7 @@ void CChar::AddingLetter(CSTR_rast* rast, int index, Bool* FlagCapDrop) {
 
     if (!vers.lnAltCnt) {
         m_wCountAlt = 1;
-        m_chrVersions[0].m_bChar = CIF::Formatter::unrecognized_char;
+        m_chrVersions[0].m_bChar = cf::Formatter::unrecognized_char;
         m_chrVersions[0].m_bProbability = 0;
     }
 
@@ -643,7 +643,7 @@ Bool CheckRect(InternalRect* Inner) {
     if (Inner->top >= Inner->bottom || Inner->left >= Inner->right) {
         sprintf(str, " Left = %d, Right = %d, Top = %d, Bottom = %d ", Inner->left, Inner->right,
                 Inner->top, Inner->bottom);
-		CIF::Debug() << str << "\n";
+		cf::Debug() << str << "\n";
         //SetReturnCode_rfrmt(IDS_ERR_SIZEFRAGMENT);
         return FALSE;
     }

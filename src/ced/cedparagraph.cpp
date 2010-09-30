@@ -22,7 +22,7 @@
 #include "cedline.h"
 #include "cedexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 CEDParagraph::CEDParagraph() :

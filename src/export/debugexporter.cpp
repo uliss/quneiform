@@ -21,7 +21,7 @@
 #include "cstr/cstr.h"
 #include "common/iconv_local.h"
 
-namespace CIF
+namespace cf
 {
 
 DebugExporter::DebugExporter(const FormatOptions& opts) :

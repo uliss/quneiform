@@ -21,10 +21,10 @@
 
 #include "english.h"
 
-namespace CIF
+namespace cf
 {
 
-class PortugueseAlphabet: public CIF::EnglishAlphabet
+class PortugueseAlphabet: public cf::EnglishAlphabet
 {
     public:
         PortugueseAlphabet();

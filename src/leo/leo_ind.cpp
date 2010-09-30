@@ -71,7 +71,7 @@
 #include "snptools.h"
 #include "cfcompat.h"
 
-using namespace CIF;
+using namespace cf;
 
 static Bool32 leo_ndx_in_rect;
 extern int LEO_error_code;

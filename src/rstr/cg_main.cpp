@@ -3567,7 +3567,7 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 		}
 		if (seci0 > cut_list) {
 			char *ilet;
-			CIF::version *v0;
+			cf::version *v0;
 			versi0 = &seci0->versm;
 			v0 = &versi0->vers[0];
 			if (versi0->nvers && v0->prob < trs2)
@@ -4199,7 +4199,7 @@ int16_t full_recog(cell *B1, s_glue *gl0, int16_t trs, int16_t tol) {
 			if (db_status && (db_trace_flag & 2))
 				est_snap(db_pass, B1, "CUT/GLUE to BOX");
 			goto estiBOX;
-			// cutten CIF::version - estimate by BOX
+			// cutten cf::version - estimate by BOX
 		}
 		if (memchr("1lI\x28\x29\x5B\x5D\x7B\x7D!", c, 10) || c == liga_i || language
 				== LANGUAGE_TURKISH && // 30.05.2002 E.P.

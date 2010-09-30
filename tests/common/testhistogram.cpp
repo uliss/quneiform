@@ -19,7 +19,7 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(TestHistogram);
 #include "common/histogram.h"
 
-using namespace CIF;
+using namespace cf;
 
 void TestHistogram::testInit() {
     Histogram h(0);

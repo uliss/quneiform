@@ -61,7 +61,7 @@
 #include "tableclass.h"
 #include "compat_defs.h"
 
-using namespace CIF;
+using namespace cf;
 
 Handle CPAGE_ExTableCreate(Handle hPage, int32_t Skew2048, uint32_t nVer,
                            int32_t * lpVCor, uint32_t nHor, int32_t * lpHCor)

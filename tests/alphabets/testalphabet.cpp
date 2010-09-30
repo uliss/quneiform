@@ -21,7 +21,7 @@
 #include "alphabets/english.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestAlphabet);
 
-using namespace CIF;
+using namespace cf;
 using namespace std;
 
 class AAlphabet: public Alphabet

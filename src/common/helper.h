@@ -26,7 +26,7 @@
 
 #include "globus.h"
 
-namespace CIF
+namespace cf
 {
 FUN_EXPO__ std::string escapeHtmlSpecialChars(const std::string& path);
 

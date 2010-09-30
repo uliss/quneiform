@@ -22,7 +22,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfHorizontalColumn);
 #define private public
 #include "rfrmt/crtfhorizontalcolumn.h"
 #include "rfrmt/crtfverticalcolumn.h"
-using namespace CIF;
+using namespace cf;
 
 typedef CRtfHorizontalColumn::IndexList IndexList;
 

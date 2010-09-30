@@ -106,7 +106,7 @@ typedef struct tagRSPreProcessImage {
     int * pgnNumberTables;
     uint32_t gnPictures;
     Bool32* pgrc_line;
-    CIF::Rect gRectTemplate;
+    cf::Rect gRectTemplate;
     char *szLayoutFileName;
 } RSPreProcessImage, *PRSPreProcessImage;
 

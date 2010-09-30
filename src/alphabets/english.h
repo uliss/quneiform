@@ -21,7 +21,7 @@
 
 #include "digits.h"
 
-namespace CIF
+namespace cf
 {
 class EnglishAlphabet: public DigitsAlphabet
 {

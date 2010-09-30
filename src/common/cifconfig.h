@@ -21,7 +21,7 @@
 
 #include "globus.h"
 
-namespace CIF
+namespace cf
 {
 
 class CLA_EXPO Config

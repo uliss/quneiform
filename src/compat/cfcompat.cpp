@@ -62,7 +62,7 @@
 #include "cfcompat.hpp"
 #include "cfcompat.h"
 
-using namespace CIF;
+using namespace cf;
 
 #ifndef WIN32
 
@@ -248,7 +248,7 @@ Bool SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
     return TRUE;
 }
 
-Bool PtInRect(const RECT *lprc, const CIF::Point16& pt) {
+Bool PtInRect(const RECT *lprc, const cf::Point16& pt) {
     if (pt.x() >= lprc->left && pt.x() < lprc->right && pt.y() >= lprc->top && pt.y()
             < lprc->bottom)
         return TRUE;
@@ -582,7 +582,7 @@ FILE* create_temp_file(void) {
 }
 #endif
 
-namespace CIF
+namespace cf
 {
 
 std::string InstallPath() {

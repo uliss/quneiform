@@ -26,7 +26,7 @@
 #include "cedparagraph.h"
 #include "cedexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 CEDSection::CEDSection() :

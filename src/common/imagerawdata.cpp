@@ -18,7 +18,7 @@
 
 #include "imagerawdata.h"
 
-namespace CIF
+namespace cf
 {
 
 ImageRawData::ImageRawData() :
@@ -69,7 +69,7 @@ void ImageRawData::set(unsigned char * data, size_t size, allocator_t allocator)
 
 }
 
-std::ostream& operator<<(std::ostream& os, const CIF::ImageRawData& image) {
+std::ostream& operator<<(std::ostream& os, const cf::ImageRawData& image) {
     os.write((char*) image.data(), image.dataSize());
     return os;
 }

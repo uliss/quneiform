@@ -341,7 +341,7 @@ Bool32 ExtractComponents(Bool32 bIsRotate, Handle * prev_ccom,
 			rc = FALSE;
 		}
 
-		CIF::ComponentRecognizer recognizer;
+		cf::ComponentRecognizer recognizer;
 		recognizer.recognize(*(Image->phCCOM), (language_t) Image->gnLanguage);
 	}
 	if (rc)

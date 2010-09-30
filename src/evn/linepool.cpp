@@ -19,7 +19,7 @@
 #include <cstring>
 #include "linepool.h"
 
-namespace CIF
+namespace cf
 {
 
 LinePool::LinePool()

@@ -26,7 +26,7 @@
 #include "common/exception.h"
 #include "common/imageformats.h"
 
-namespace CIF
+namespace cf
 {
 
 class ImageRawData;

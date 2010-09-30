@@ -26,7 +26,7 @@
 #include <iconv.h>
 #endif
 
-namespace CIF
+namespace cf
 {
 
 class IconvImpl

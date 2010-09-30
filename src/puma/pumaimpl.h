@@ -39,7 +39,7 @@
 class CTIControl;
 struct CCOM_cont;
 
-namespace CIF {
+namespace cf {
 
 class RMarker;
 class ComponentExtractor;

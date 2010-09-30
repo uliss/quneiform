@@ -34,7 +34,7 @@
 #include "ced/cedsection.h"
 #include "minmax.h"
 
-namespace CIF
+namespace cf
 {
 
 struct VColumnBigTextAndFrame
@@ -596,7 +596,7 @@ uint16_t CRtfHorizontalColumn::GetFreeSpaceBetweenPrevAndCurrentFragments(int To
 }
 
 Bool CRtfHorizontalColumn::getOverLayedFlag(int CurFragmentNumber) {
-    CIF::Point pt;
+    cf::Point pt;
     int number = CurFragmentNumber;
 
     if (ordering_number_.size())

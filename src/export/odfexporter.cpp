@@ -39,7 +39,7 @@
 #define CF_VERSION ""
 #endif
 
-namespace CIF
+namespace cf
 {
 
 static const std::string ODF_PICT_DIR = "Pictures/";

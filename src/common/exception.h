@@ -23,7 +23,7 @@
 #include <stdexcept>
 #include "globus.h"
 
-namespace CIF
+namespace cf
 {
 
 template<class T>

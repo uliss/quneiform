@@ -68,7 +68,7 @@
 
 #include "minmax.h"
 
-using namespace CIF;
+using namespace cf;
 
 #define max_po_li 1000
 
@@ -116,7 +116,7 @@ extern BLOCK** pBlockPointer;
 
 //////////////////////////////////
 static void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM);
-int IsInPoly(const CIF::Point16& a, POLY_* pPoly);
+int IsInPoly(const cf::Point16& a, POLY_* pPoly);
 Bool dphShowString;
 
 void RotatePageToIdeal(void);

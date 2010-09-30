@@ -123,7 +123,7 @@ static int16_t erect_page_incline[2048 / 16], erect_page_incline_mode;
 static int16_t erect_page_num_represent, erect_page_words = 0;
 static Bool erect_solid_stick(cell *c);
 static int16_t erection_incline_word_set(cell *b, cell *e);
-static Bool add_versions(cell *c, CIF::version *save_versions, int16_t save_nvers);
+static Bool add_versions(cell *c, cf::version *save_versions, int16_t save_nvers);
 static Bool no_bad_alias(cell *c);
 static cell * convert_to_cells(cell *c);
 static Bool mode_incline(int16_t inc);
@@ -1205,7 +1205,7 @@ int16_t erection_incline_word(cell *b, cell *e, int16_t base_3, int16_t n_call) 
 	cell *c, *tmp, *cnext;
 	int32_t inc, i;
 	int16_t shave = (erection_enable == 2);
-	CIF::version save_versions[VERS_IN_CELL];
+	cf::version save_versions[VERS_IN_CELL];
 	int16_t save_nvers;
 
 	if ((inc = get_incline_of_word(b, e)) == 0)
@@ -1248,7 +1248,7 @@ int16_t erection_incline_word(cell *b, cell *e, int16_t base_3, int16_t n_call) 
 			erect_rotate_bl(tmp, base_3, inc, -1);//(int16_t)(line_scale?(base_3>>line_scale):base_3),inc,-1);
 			v2_pidx_crit(tmp);
 			if ((save_nvers = c->nvers) > 0)
-				memcpy(save_versions, c->vers, VERS_IN_CELL * sizeof(CIF::version));
+				memcpy(save_versions, c->vers, VERS_IN_CELL * sizeof(cf::version));
 			// recognizing corrected images
 			if ((tmp->flg & (c_f_bad | c_f_let)) && !local_pass) {
 				if (n_call == 0) {
@@ -1584,9 +1584,9 @@ cell *convert_to_cells(cell *start) {
 //
 // add_versions : adding versions from array save_versions[0:save_nvers-1]
 //                to cell c
-Bool add_versions(cell *c, CIF::version *save_vers, int16_t save_nvers) {
+Bool add_versions(cell *c, cf::version *save_vers, int16_t save_nvers) {
 	Bool res = FALSE;
-	CIF::version *v, *r;
+	cf::version *v, *r;
 	int16_t i, n;
 
 	if (save_nvers < 1)

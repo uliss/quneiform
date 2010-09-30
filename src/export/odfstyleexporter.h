@@ -23,7 +23,7 @@
 #include <boost/shared_ptr.hpp>
 #include "styleexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class OdfStyleExporter: public StyleExporter

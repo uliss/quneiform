@@ -133,9 +133,9 @@ void criteries()
 void criteria(cell *c)
 {
     uchar let = 0, *raster = 0;
-    CIF::version *vers = 0;
+    cf::version *vers = 0;
     int16_t r = 0, flacc = 0, flon = 0, inc = 0;
-    CIF::version save[VERS_IN_CELL] = { 0 };
+    cf::version save[VERS_IN_CELL] = { 0 };
     int16_t snvers = 0;
 
     // #define PROB_V_OK 170
@@ -402,7 +402,7 @@ static int16_t short_lines(cell *c)
  static int16_t n_or_ri(cell *c)
  {
  int16_t r;
- CIF::version *v1,*v2;
+ cf::version *v1,*v2;
 
  if (!pitchsize && dot_ri(c))
  {
@@ -453,10 +453,10 @@ cell *dot_ri(cell *c)
 }
 
 /*
- static void n_or_u(cell *c,CIF::version *vers)
+ static void n_or_u(cell *c,cf::version *vers)
  {
  uchar l1,l2;
- CIF::version *v1,*v2;
+ cf::version *v1,*v2;
  uchar str[5];
 
  if (tenv(c) && (l1=left_line(c))!=0)
@@ -509,7 +509,7 @@ cell *dot_ri(cell *c)
 
 int16_t ij_test(cell *c)
 {
-    CIF::version *v1, *v2;
+    cf::version *v1, *v2;
     cell cc;
     int16_t r, n;
 
@@ -564,7 +564,7 @@ int16_t ij_test(cell *c)
 // OLEG : SERBIAN PASS4
 int16_t ij_dot(cell *c)
 {
-    CIF::version *v, *v1, *v2;
+    cf::version *v, *v1, *v2;
     int16_t d;
     cell *cc = 0; // 17.06.2002 E.P.
 
@@ -587,17 +587,17 @@ int16_t ij_dot(cell *c)
             is_baltic_language(language) || // 16.07.2001 E.P.
             is_turkish_language(language) // 30.05.2002 E.P.
             )) {
-        uchar saveN, saveV[VERS_IN_CELL * sizeof(CIF::version)], rc, let;
+        uchar saveN, saveV[VERS_IN_CELL * sizeof(cf::version)], rc, let;
 
         saveN = (uchar) c->nvers;
-        memcpy(saveV, c->vers, VERS_IN_CELL * sizeof(CIF::version));
+        memcpy(saveV, c->vers, VERS_IN_CELL * sizeof(cf::version));
         c->vers[0].let = 'i';
         c->vers[0].prob = 254;
         c->vers[1].let = c->vers[1].prob = 0;
         stick_center_study(c, NULL, 1);
         rc = c->vers[0].prob;
         c->nvers = saveN;
-        memcpy(c->vers, saveV, VERS_IN_CELL * sizeof(CIF::version));
+        memcpy(c->vers, saveV, VERS_IN_CELL * sizeof(cf::version));
 
         if (c->stick_inc > 100 || rc < 200)
             goto ret0;
@@ -822,7 +822,7 @@ cell *dot_ij(cell *c)
 
 static int16_t excl_dot(cell *c)
 {
-    CIF::version *v1, *v2;
+    cf::version *v1, *v2;
 
     if (dot_excl(c)) {
         for (c->nvers = 0, v1 = v2 = c->vers; v1->let; v1++)
@@ -881,7 +881,7 @@ cell *dot_excl(cell *c)
 
 static int16_t inv_dot(cell *c)
 {
-    CIF::version *v1, *v2;
+    cf::version *v1, *v2;
 
     if (dot_inv(c)) {
         for (c->nvers = 0, v1 = v2 = c->vers; v1->let; v1++)
@@ -972,7 +972,7 @@ void c_to_ctail(cell * c, uchar compose)
 {
     cell *cc;
     int16_t e;
-    CIF::version * v;
+    cf::version * v;
     uchar str[10];
 
     for (e = c->col + c->w, cc = c->next; cc->col <= e; cc = cc->next)
@@ -1004,7 +1004,7 @@ void c_to_ctail(cell * c, uchar compose)
 
 static int16_t not_rt(cell *c)
 {
-    CIF::version *v1, *v2;
+    cf::version *v1, *v2;
 
     if (tenv(c) && long_lines_rt(c)) {
         for (c->nvers = 0, v1 = v2 = c->vers; v1->let; v1++)
@@ -1059,7 +1059,7 @@ static int16_t long_lines_rt(cell *c)
 
 static int16_t not_ff(cell *c)
 {
-    CIF::version *v1, *v2;
+    cf::version *v1, *v2;
 
     if (tenv(c) && long_lines_ff(c)) {
         for (c->nvers = 0, v1 = v2 = c->vers; v1->let; v1++)
@@ -1113,7 +1113,7 @@ static int16_t long_lines_ff(cell *c)
 /*
  static int16_t not_1(cell *c)
  {
- CIF::version *v1,*v2;
+ cf::version *v1,*v2;
 
  if ((c->cg_flag&c_cg_cutl) && tenv(c) && ((c->env)->nl==1) &&
  !(((c->env)->stairs[3])&0x20))
@@ -1145,7 +1145,7 @@ static int16_t long_lines_ff(cell *c)
 /*
  static int16_t not_no(cell *c)
  {
- CIF::version *v1,*v2;
+ cf::version *v1,*v2;
 
  if (tenv(c) && upper_right_line(c))
  {
@@ -1195,7 +1195,7 @@ static int16_t upper_right_line(cell *c)
 uint32_t check_letter(cell *c, uchar let)
 {
     // Проверяет наличие версии. 18.06.2002 E.P.
-    CIF::version *p = c->vers;
+    cf::version *p = c->vers;
 
     while (p < c->vers + c->nvers) {
         if (p->let == let)

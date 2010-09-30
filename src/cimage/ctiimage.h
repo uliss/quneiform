@@ -68,7 +68,7 @@
 #endif
 
 class CTIControl;
-namespace CIF
+namespace cf
 {
 typedef Singleton<CTIControl, CreateUsingStatic> CImage;
 }

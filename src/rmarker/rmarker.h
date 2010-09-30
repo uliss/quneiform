@@ -71,7 +71,7 @@
 #include "cttypes.h"
 #include "globus.h"
 
-namespace CIF
+namespace cf
 {
 class CLA_EXPO RMarker
 {

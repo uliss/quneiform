@@ -89,7 +89,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define                 CFIO_MEMORY_UNUSED           0x0004
 #define                 CFIO_MEMORY_FREE             0x0008
 
-class CTCMemoryHeader : public CIF::CTC::GlobalHeader
+class CTCMemoryHeader : public cf::CTC::GlobalHeader
 {
     public:
         CTCMemoryHeader();
@@ -98,7 +98,7 @@ class CTCMemoryHeader : public CIF::CTC::GlobalHeader
     public:
         CTCMemoryHeader(Handle hMemory, uint32_t wBlockSize, const char *OwnerName, const char *Commentary);
         CTCMemoryHeader * GetNext()    {
-            return (CTCMemoryHeader *)(CIF::CTC::GlobalHeader::GetNext());
+            return (CTCMemoryHeader *)(cf::CTC::GlobalHeader::GetNext());
         };
     private:
         char mcComment[CFIO_MAX_COMMENT];

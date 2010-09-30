@@ -18,7 +18,7 @@
 
 #include "nullimageexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 NullImageExporter::NullImageExporter() {

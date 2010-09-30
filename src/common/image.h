@@ -32,7 +32,7 @@
 #include <boost/serialization/shared_ptr.hpp>
 #endif
 
-namespace CIF
+namespace cf
 {
 
 class CLA_EXPO Image: public ImageRawData

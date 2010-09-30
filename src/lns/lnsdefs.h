@@ -71,7 +71,7 @@ typedef struct tagLnsFrag {
 #define LF_TEXT     0x0002 // fragment seems to be part of text (can be combined with LF_LINE)
     int32_t mass; // count of filtered black pixels
     Rect16 rc; // real image rect
-    CIF::Point16 A, B; // start and end - if ~LF_LINE - may be not linear, so...
+    cf::Point16 A, B; // start and end - if ~LF_LINE - may be not linear, so...
     double Xc;// center of mass in real coords
     double Yc;
     double Phi;// angle of own coords
@@ -101,12 +101,12 @@ typedef struct tagLnsCorner {
 
 typedef struct tagLineInfo {
     //========= Геометрическое положение =============================
-    CIF::Point16 A; // start
-    CIF::Point16 B; // end
-    CIF::Point16 Ar; // start at rotated coords
-    CIF::Point16 Br; // end at rotated coords
-    CIF::Point16 Anew; // start for sweep: if set LI_NOTWHOLE (real cords)
-    CIF::Point16 Bnew; // end for sweep: if set LI_NOTWHOLE (real cords)
+    cf::Point16 A; // start
+    cf::Point16 B; // end
+    cf::Point16 Ar; // start at rotated coords
+    cf::Point16 Br; // end at rotated coords
+    cf::Point16 Anew; // start for sweep: if set LI_NOTWHOLE (real cords)
+    cf::Point16 Bnew; // end for sweep: if set LI_NOTWHOLE (real cords)
 
     //========= Специальные характеристики ==========================
     uint32_t Flags; // common use info
@@ -210,8 +210,8 @@ typedef struct tagLinesTotalInfo {
     LnsInfoArray Hor;
     LnsInfoArray Ver;
     int32_t Skew1024;
-    CIF::Point16 ImgSize;
-    CIF::Point16 ImgResolution;
+    cf::Point16 ImgSize;
+    cf::Point16 ImgResolution;
     LCSetup LCS;
     uchar __buf[32];
 } LinesTotalInfo;

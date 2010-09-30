@@ -62,7 +62,7 @@
 #include "new_c.h"
 #include "minmax.h"
 
-using namespace CIF;
+using namespace cf;
 
 extern Handle hNotUseAntonCross;
 static int IsInPoly(Point a, POLY_ * pPoly);

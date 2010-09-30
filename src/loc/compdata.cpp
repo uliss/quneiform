@@ -65,7 +65,7 @@ BOX * boxchain, *dl_last_in_chain;
 c_comp wcomp;
 uchar work_raster[2048*32], work_raster_1[2048*32];
 struct main_memory_str Q;
-CIF::version * start_rec, *rec_ptr;
+cf::version * start_rec, *rec_ptr;
 uint lpool_lth;
 uchar lpool[6000];
 uchar records_change;

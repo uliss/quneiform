@@ -81,7 +81,7 @@
 
 #include "minmax.h"
 
-using namespace CIF;
+using namespace cf;
 
 # define INCLINE_FACTOR  2048
 #define OffsetCoor 4

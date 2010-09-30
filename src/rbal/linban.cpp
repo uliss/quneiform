@@ -73,7 +73,7 @@ static const bool MULTI = true;
 
 #include "wrgb.h" //IGOR
 #include "statsearchbl.h" //IGOR
-using namespace CIF;
+using namespace cf;
 
 //IGOR
 #define draw_puma_bl(n,l)   rs.ry() = re.ry() = minrow + bbs##n;    \

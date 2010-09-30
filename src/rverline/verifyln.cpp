@@ -75,7 +75,7 @@
 /*  interface our util  */
 #include "skew1024.h"
 
-using namespace CIF;
+using namespace cf;
 
 #define       MaxZherOnLine         50
 typedef struct tagAM_ZHERTVY {

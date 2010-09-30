@@ -171,7 +171,7 @@ uchar convert_eng_liga(uchar c);
 Bool32 enable_pass2 = TRUE;
 static Bool32 stop_user = FALSE;
 uchar valid_word_number = 0;
-CIF::version * start_rec, *rec_ptr;
+cf::version * start_rec, *rec_ptr;
 int16_t text_findstat(char * w);
 uchar db_pass;
 Work string;
@@ -1846,7 +1846,7 @@ Bool32 Reload_lang_vocs(uchar lang) {
 	lang = LANGUAGE_RUSSIAN;
 	if ( !RLING_LoadDictonary( lang , (pchar)lnOcrLingPath) )
 	{
-	    CIF::Debug() << "RLING_LoadDictonary failed: " << lnOcrLingPath << "\n";
+	    cf::Debug() << "RLING_LoadDictonary failed: " << lnOcrLingPath << "\n";
 		wLowRC = RSTR_ERR_NOINITRSTR;
 		local_ret_error_code=RLING_GetReturnCode();
 		local_ret_error_str =(fun_error)RLING_GetReturnString;
@@ -1939,18 +1939,18 @@ Bool32 RSTR_SetOptions(RSTR_Options *opt) {
 	if (old_language != opt->language) {
 		if (!trees_load()) {
 			wLowRC = RSTR_ERR_NOINITRSTR;
-			CIF::Debug() << "trees_load() error\n";
+			cf::Debug() << "trees_load() error\n";
 			return FALSE;
 		}
 
 		if (!Reload_lang_vocs(slanguage)) {
-		    CIF::Debug() << "Reload_lang_vocs() error\n";
+		    cf::Debug() << "Reload_lang_vocs() error\n";
 			wLowRC = RSTR_ERR_NOINITRSTR;
 			return FALSE;
 		}
 		if (language == LANGUAGE_RUSSIAN && multy_language) {
 			if (!Reload_lang_vocs_aux(LANGUAGE_ENGLISH)) {
-			    CIF::Debug() << "Reload_lang_vocs_aux() error\n";
+			    cf::Debug() << "Reload_lang_vocs_aux() error\n";
 				wLowRC = RSTR_ERR_NOINITRSTR;
 				return FALSE;
 			}

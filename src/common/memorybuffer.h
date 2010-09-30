@@ -22,7 +22,7 @@
 #include <cstring>
 #include <cassert>
 
-namespace CIF
+namespace cf
 {
 
 template<class T>

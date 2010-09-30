@@ -24,7 +24,7 @@
 #include "common/image.h"
 #include "rdib/bmp.h"
 
-namespace CIF
+namespace cf
 {
 
 class BmpImageLoader: public ImageLoader

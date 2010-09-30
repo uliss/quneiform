@@ -25,7 +25,7 @@
 #include "globus.h"
 #include "common/formatoptions.h"
 
-namespace CIF
+namespace cf
 {
 
 class CEDPage;

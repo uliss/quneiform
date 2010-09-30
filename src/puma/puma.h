@@ -60,7 +60,7 @@
 #include "common/singleton.h"
 #include "pumaimpl.h"
 
-namespace CIF
+namespace cf
 {
 class PumaImpl;
 typedef Singleton<PumaImpl, CreateUsingStatic> Puma;

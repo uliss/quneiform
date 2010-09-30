@@ -22,7 +22,7 @@
 #include <cstddef>
 #include "cttypes.h"
 
-namespace CIF
+namespace cf
 {
 
 namespace CTC

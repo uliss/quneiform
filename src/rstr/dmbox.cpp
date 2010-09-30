@@ -359,7 +359,7 @@ int16_t dmiBOX(cell *A, s_glue *GL, int16_t fl2) {
     int16_t i, ps, typl, fvers, ffull, fBOXvers, ftv, w1, w1max, upper, lower;
     int16_t *pi1, *pi2;
     SVERS svers, fsvers;
-    CIF::version *dv1, *dv2;
+    cf::version *dv1, *dv2;
     uint16_t wcos, beste, best3, *pb1, *pb2;
     uchar c, c_acc, pb, wc;
     int16_t flit;

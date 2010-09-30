@@ -28,7 +28,7 @@
 #include "ced/cedsection.h"
 #include "minmax.h"
 
-namespace CIF
+namespace cf
 {
 
 RfrmtDrawSectorFunction CRtfSector::draw_func_;

@@ -85,7 +85,7 @@
 #include "cuneiform.h"
 
 using namespace std;
-using namespace CIF;
+using namespace cf;
 
 static const char * program_name = "";
 

@@ -22,7 +22,7 @@
 #include <export/imageexporter.h>
 #include <export/bmpimageexporter.h>
 #include <rdib/bmpimageloader.h>
-using namespace CIF;
+using namespace cf;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpImageExporter);
 
 void TestBmpImageExporter::testSave() {

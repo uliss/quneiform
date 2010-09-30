@@ -20,7 +20,7 @@
 #include "cfcompat.h"
 #include "common/imagerawdata.h"
 
-namespace CIF
+namespace cf
 {
 
 BmpImageExporter::BmpImageExporter() {

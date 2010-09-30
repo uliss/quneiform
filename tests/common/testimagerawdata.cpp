@@ -24,7 +24,7 @@
 #include <common/imagerawdata.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestImageRawData);
 
-using namespace CIF;
+using namespace cf;
 
 void TestImageRawData::testInit() {
     ImageRawPtr ptr(new ImageRawData);

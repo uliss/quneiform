@@ -22,7 +22,7 @@
 #include "globus.h"
 #include "blockelement.h"
 
-namespace CIF
+namespace cf
 {
 
 class CEDPicture;

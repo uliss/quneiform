@@ -27,22 +27,22 @@
 namespace
 {
 
-CIF::ImageLoader * create() {
-    return new CIF::MagickImageLoader;
+cf::ImageLoader * create() {
+    return new cf::MagickImageLoader;
 }
 
-bool unkwnown = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_UNKNOWN, 100,
+bool unkwnown = cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_UNKNOWN, 100,
         create);
-bool bmp = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_BMP, 100, create);
-bool gif = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_GIF, 100, create);
-bool jpg = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_JPEG, 100, create);
-bool pnm = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_PNM, 100, create);
-bool png = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_PNG, 100, create);
-bool tif = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_TIFF, 100, create);
-bool xpm = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_XPM, 100, create);
+bool bmp = cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_BMP, 100, create);
+bool gif = cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_GIF, 100, create);
+bool jpg = cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_JPEG, 100, create);
+bool pnm = cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_PNM, 100, create);
+bool png = cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_PNG, 100, create);
+bool tif = cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_TIFF, 100, create);
+bool xpm = cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_XPM, 100, create);
 }
 
-namespace CIF
+namespace cf
 {
 
 const int MIN_DPI_FOR_VECTOR_FORMAT = 300;

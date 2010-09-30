@@ -49,7 +49,7 @@ extern uint32_t CountPict;
 extern uint32_t CountTable;
 uchar Frmt_CharSet = CHARSET_RUSSIAN;
 
-namespace CIF
+namespace cf
 {
 
 CRtfPage::CRtfPage(const std::string& imageName) :
@@ -810,7 +810,7 @@ int CRtfPage::freeSpaceBetweenSectors(CRtfSector * first, CRtfSector * second) {
 void CRtfPage::writeSectorsHeader(int i) {
     int CountHTerminalColumns;
     int EDCountHTerminalColumns;
-    CIF::Rect border;
+    cf::Rect border;
     EDCOL *pEDColumnFirst, *pEDColumn;
 
     CRtfSector * sector = m_arSectors[i];

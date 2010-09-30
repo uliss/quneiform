@@ -86,9 +86,9 @@
 
 #include "minmax.h"
 
-extern CIF::Point TemplateOffset;
+extern cf::Point TemplateOffset;
 
-namespace CIF
+namespace cf
 {
 
 size_t GetPictCount() {

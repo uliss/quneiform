@@ -20,7 +20,7 @@
 #include "common/helper.h"
 #include "ced/cedchar.h"
 
-namespace CIF
+namespace cf
 {
 
 XmlExporter::XmlExporter(CEDPage * page, const FormatOptions& opts) :

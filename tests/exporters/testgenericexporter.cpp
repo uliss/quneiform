@@ -24,7 +24,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestGenericExporter);
 #include <ced/cedpicture.h>
 #include <ced/cedpage.h>
 #include "cfcompat.h"
-using namespace CIF;
+using namespace cf;
 
 void TestGenericExporter::testInit() {
     FormatOptions opt;

@@ -23,7 +23,7 @@
 
 using namespace std;
 
-namespace CIF
+namespace cf
 {
 
 ImageExporter::ImageExporter() :

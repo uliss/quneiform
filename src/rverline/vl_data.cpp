@@ -78,7 +78,7 @@
 /*  interface my-my      */
 #include "am_buff.h"
 
-using namespace CIF;
+using namespace cf;
 /*------------own objects-----------------------------------------------------*/
 FNCPAGE_GetBlockFirst GetBlockFirst;
 FNCPAGE_GetBlockNext GetBlockNext;

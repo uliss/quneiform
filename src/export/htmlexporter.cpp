@@ -35,7 +35,7 @@
 #define CF_VERSION "unknown"
 #endif
 
-namespace CIF
+namespace cf
 {
 
 const std::string HTML_ALTERNATIVE_STYLE_CLASS("has_alternative");

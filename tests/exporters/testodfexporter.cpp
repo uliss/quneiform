@@ -20,7 +20,7 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(TestOdfExporter);
 
 #include "export/odfexporter.h"
-using namespace CIF;
+using namespace cf;
 
 void TestOdfExporter::testInit() {
     Exporter * e = new OdfExporter(NULL, FormatOptions());

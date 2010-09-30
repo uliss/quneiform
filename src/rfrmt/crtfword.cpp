@@ -30,7 +30,7 @@
 #include "common/debug.h"
 #include "common/tostring.h"
 
-namespace CIF
+namespace cf
 {
 
 RfrmtDrawWordFunction CRtfWord::draw_func_;
@@ -252,7 +252,7 @@ void CRtfWord::rotateRect(Rect& rect, int angle, int x_offset, int y_offset) {
         result.rbottom() = rect.right();
         break;
     default:
-        throw Exception("[CRtfWord::rotateRect] invalid rotate angle: " + CIF::toString(angle));
+        throw Exception("[CRtfWord::rotateRect] invalid rotate angle: " + cf::toString(angle));
     }
     rect = result;
 }

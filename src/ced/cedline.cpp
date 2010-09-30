@@ -21,7 +21,7 @@
 #include "cedpicture.h"
 #include "cedexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 CEDLine::CEDLine(BlockElement * parent) :

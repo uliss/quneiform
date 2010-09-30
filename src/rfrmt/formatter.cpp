@@ -28,7 +28,7 @@
 
 #include "cfcompat.h"
 
-namespace CIF
+namespace cf
 {
 
 bool Formatter::extended_mode_ = false;

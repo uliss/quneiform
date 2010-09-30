@@ -68,7 +68,7 @@
 #include "polyblock.h"
 #include "cfcompat.h"
 
-using namespace CIF;
+using namespace cf;
 
 int inf_cut_h = 15;
 int sup_cut_h;

@@ -25,7 +25,7 @@
 
 using namespace std;
 
-namespace CIF
+namespace cf
 {
 
 const char * DEFAULT_PICTURE_DIR = "cuneiform-out_files";

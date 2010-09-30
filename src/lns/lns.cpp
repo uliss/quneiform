@@ -65,7 +65,7 @@
 /// 10.02.99, VP ------- registering fragments for external usage
 #include "frag.h"
 
-using namespace CIF;
+using namespace cf;
 
 static Err16 lnserr = ER_NONE;
 

@@ -27,7 +27,7 @@
 #include "crtfstruct.h"
 #include "common/font.h"
 
-namespace CIF
+namespace cf
 {
 class CEDPage;
 class CRtfFragment;

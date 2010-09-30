@@ -21,7 +21,7 @@
 
 const int VERS_IN_CELL = 16;
 
-namespace CIF {
+namespace cf {
 
 /*
  * versions with probabilities

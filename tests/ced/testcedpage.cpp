@@ -23,7 +23,7 @@
 #include <common/tostring.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDPage);
 
-using namespace CIF;
+using namespace cf;
 
 #define CF_SERIALIZE
 

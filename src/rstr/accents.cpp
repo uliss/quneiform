@@ -157,7 +157,7 @@ void pass_accent(void) {
 //**************************************************************************
 int16_t bottom_accent(cell *c) {
 	int16_t i, n, chr;
-	CIF::version *v1, *v2, vers[VERS_IN_CELL];
+	cf::version *v1, *v2, vers[VERS_IN_CELL];
 	int16_t was_l = 0;
 
 	if (!find_bottom_accent(c))
@@ -334,13 +334,13 @@ int16_t bottom_accent(cell *c) {
 	v2->let = 0;
 	c->accent_leader = 1; // Nick 31.08.2001
 	c->bottom_accent = 1;
-	memcpy(c->vers, vers, VERS_IN_CELL * sizeof(CIF::version));
+	memcpy(c->vers, vers, VERS_IN_CELL * sizeof(cf::version));
 	return 1;
 }
 //**************************************************************************
 int16_t accent(cell *c) {
 	int16_t acc_type, i, n;
-	CIF::version *v1, *v2, vers[VERS_IN_CELL];
+	cf::version *v1, *v2, vers[VERS_IN_CELL];
 	char str[40];
 
 	if (!(acc_type = type_acc(c, TRUE)))
@@ -1157,7 +1157,7 @@ int16_t accent(cell *c) {
 	c->accent_leader = 1;
 	c->nvers = n;
 	v2->let = 0;
-	memcpy(c->vers, vers, VERS_IN_CELL * sizeof(CIF::version));
+	memcpy(c->vers, vers, VERS_IN_CELL * sizeof(cf::version));
 	if (db_status)
 		snap_newcell(c);
 	if (snap_activity('d')) {
@@ -2749,7 +2749,7 @@ static int16_t acc_macron(cell *c, puchar r) {
 	accadr1 = c;
 
 	// Высота достаточно малая, а форма достаточно вытянутая
-	if (h <= 3 && w > 2* h ) // Nick 28.08.01.  Old CIF::version - >= 3*h
+	if (h <= 3 && w > 2* h ) // Nick 28.08.01.  Old cf::version - >= 3*h
 	{
 		//Nick 20.08.01
 		if (NotEmptyInside(r, w, h))

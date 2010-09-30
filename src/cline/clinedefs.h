@@ -79,7 +79,7 @@ typedef union {
 
 typedef struct SL_POLOY_struct {
     int16_t count;
-    CIF::Point16 Vertex[CLINE_MaxVerticsNumber];
+    cf::Point16 Vertex[CLINE_MaxVerticsNumber];
 } CLINE_SL_POLY;
 
 typedef struct Interval_Data_struct {
@@ -124,8 +124,8 @@ typedef struct Component_Data_struct {
 typedef const DComponent* CPDComponent;
 
 typedef struct Lns_Data_struct {
-    CIF::Point16 Anew;
-    CIF::Point16 Bnew;
+    cf::Point16 Anew;
+    cf::Point16 Bnew;
 } DLns;
 
 typedef const DLns* CPDLns;

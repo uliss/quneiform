@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "am_comm.h"  // Own functions
 #include "am_err.h"
 
-using namespace CIF;
+using namespace cf;
 /*------------own objects-----------------------------------------------------*/
 static uint32_t wRltMainCode;
 #define     MaxResCodes   3

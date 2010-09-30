@@ -28,7 +28,7 @@
 #include "common/align.h"
 #include "common/serialize.h"
 
-namespace CIF
+namespace cf
 {
 
 class CEDLine;

@@ -122,7 +122,7 @@ typedef PAGEINFO * LPPAGEINFO;
 typedef struct tagCellInfo
 {
         int32_t Number; // Номер ячейки физической таблицы ( начиная с 1 )
-        CIF::Point PhCoord;// Координаты привязки к физической ячейке
+        cf::Point PhCoord;// Координаты привязки к физической ячейке
         int32_t Block; // Номер фрагмента
         int32_t GeCount;// число геометрических ячеек, входящих в физическую
         uint32_t wFlags[16];// флажки
@@ -143,7 +143,7 @@ typedef struct tagCPAGE_TABLE
 typedef struct tagCPAGE_PICTURE
 {
         uint16_t Number;
-        CIF::Point Corner[CPAGE_MAXCORNER];
+        cf::Point Corner[CPAGE_MAXCORNER];
 
 } CPAGE_PICTURE;
 

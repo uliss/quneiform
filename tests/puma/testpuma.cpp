@@ -19,7 +19,7 @@
 #define private public
 #include <puma/puma.h>
 #include <common/tostring.h>
-using namespace CIF;
+using namespace cf;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestPuma);
 
 void TestPuma::testInit() {

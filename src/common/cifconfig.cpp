@@ -18,7 +18,7 @@
 
 #include "cifconfig.h"
 
-namespace CIF
+namespace cf
 {
 
 Config::Config() :

@@ -22,7 +22,7 @@
 #include <sstream>
 #include "genericexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class TextExporter: public GenericExporter

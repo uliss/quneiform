@@ -217,7 +217,7 @@ int16_t help_spelling_checker(cell * c) {
 	if (memchr(predessor, c->prevl->vers[0].let, sizeof(predessor))
 			&& (c->cg_flag & c_cg_cutl)) {
 		if (c->vers[0].prob > 120) {
-			CIF::version * v0;
+			cf::version * v0;
 			for (v0 = c->vers; v0->let != 0; v0++)
 				if (v0->let == (uchar) '\xe2' /* т */)
 					return 0; // already exist - OK

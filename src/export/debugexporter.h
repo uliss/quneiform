@@ -21,7 +21,7 @@
 
 #include "exporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class DebugExporter: public Exporter

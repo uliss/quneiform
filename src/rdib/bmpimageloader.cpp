@@ -30,15 +30,15 @@
 
 namespace
 {
-CIF::ImageLoader * create() {
-    return new CIF::BmpImageLoader;
+cf::ImageLoader * create() {
+    return new cf::BmpImageLoader;
 }
 
-bool registered = CIF::ImageLoaderFactory::instance().registerCreator(CIF::FORMAT_BMP, 0, create);
+bool registered = cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_BMP, 0, create);
 
 }
 
-namespace CIF
+namespace cf
 {
 
 int last_bit_set(int v) {

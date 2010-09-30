@@ -126,13 +126,13 @@ typedef struct
 
 struct frame_struct
 {
-        CIF::Point16 topleft, topright, botleft, botright;
+        cf::Point16 topleft, topright, botleft, botright;
 };
 typedef struct frame_struct FRAME;
 
 struct rule_struct
 {
-        CIF::Point16 beg, end;
+        cf::Point16 beg, end;
         uchar width;
         uchar type;
 #define VERT_LN  0

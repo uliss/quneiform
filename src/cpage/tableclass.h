@@ -67,14 +67,14 @@
 class TableCell
 {
         int32_t m_nNumber; // Номер ячейки физической таблицы ( начиная с 1 )
-        CIF::Point m_PhCoord; // Координаты привязки к физической ячейке
+        cf::Point m_PhCoord; // Координаты привязки к физической ячейке
         int32_t m_nBlock; // Номер фрагмента
         int32_t m_nGeCount; // число геометрических ячеек, входящих в физическую
 
     public:
         TableCell();
         ~TableCell();
-        inline CIF::Point Point() const {
+        inline cf::Point Point() const {
             return m_PhCoord;
         }
 
@@ -90,7 +90,7 @@ class TableCell
             return m_nGeCount > 1;
         }
 
-        inline CIF::Point operator=(const CIF::Point& p) {
+        inline cf::Point operator=(const cf::Point& p) {
             m_PhCoord = p;
             return p;
         }
@@ -222,7 +222,7 @@ class TableClass
             return m_lpVerLines[nLine];
         }
 
-        inline TableCell & GetCell(const CIF::Point& pt) {
+        inline TableCell & GetCell(const cf::Point& pt) {
             assert(GetNumberRow() > (uint32_t)pt.y() &&
                    GetNumberColumn() > (uint32_t)pt.x() &&
                    pt.y() >= 0 && pt.x() >= 0);

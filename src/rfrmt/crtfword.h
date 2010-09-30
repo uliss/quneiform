@@ -29,7 +29,7 @@
 #include "common/font.h"
 #include "common/rect.h"
 
-namespace CIF
+namespace cf
 {
 class CRtfChar;
 class CEDChar;
@@ -44,7 +44,7 @@ class CLA_EXPO CRtfWord
         CRtfWord();
         ~CRtfWord();
 
-        typedef CIF::RuntimeExceptionImpl<CRtfWord> Exception;
+        typedef cf::RuntimeExceptionImpl<CRtfWord> Exception;
 
         /**
          * Adds char to the end of the word

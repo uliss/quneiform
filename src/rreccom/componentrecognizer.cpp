@@ -26,7 +26,7 @@
 #include "ccom/ccom.h"
 #include "struct.h"
 
-namespace CIF
+namespace cf
 {
 
 static void getExtComp(CCOM_comp* pcomp, CCOM_comp* ec)

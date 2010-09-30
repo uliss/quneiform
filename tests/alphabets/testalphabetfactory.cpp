@@ -22,7 +22,7 @@
 #include <list>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestAlphabetFactory);
 
-using namespace CIF;
+using namespace cf;
 using namespace std;
 
 void TestAlphabetFactory::testInit()

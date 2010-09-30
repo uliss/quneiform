@@ -77,7 +77,7 @@ struct cell
         int16_t r_row; // real row of cell
         int16_t r_col; // real collumn of cell
         int16_t nvers; // number of versions
-        CIF::version vers[VERS_IN_CELL];
+        cf::version vers[VERS_IN_CELL];
         uint16_t flg; // flag of cell
 #define c_f_let         1       // letter component
 #define c_f_bad     2   // badly recognized
@@ -205,7 +205,7 @@ struct cell
 #define c_fn_taken      0x00004000 // was taken from dust
         // 152
         int16_t nClust;
-        CIF::version pr_vers; //version from I pass
+        cf::version pr_vers; //version from I pass
         // 156
         uchar reserv[4];
 };

@@ -21,7 +21,7 @@
 
 #include "genericexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class SummaryExporter: public GenericExporter

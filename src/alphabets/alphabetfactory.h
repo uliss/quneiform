@@ -25,7 +25,7 @@
 #include "alphabet.h"
 #include "globus.h"
 
-namespace CIF
+namespace cf
 {
 
 class CLA_EXPO AlphabetFactory : public boost::noncopyable

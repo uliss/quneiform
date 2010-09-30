@@ -21,7 +21,7 @@
 
 #include "textexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class SmartTextExporter: public TextExporter

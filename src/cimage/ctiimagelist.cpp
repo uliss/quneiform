@@ -59,7 +59,7 @@
 #include "common/cifconfig.h"
 #include "common/debug.h"
 
-using namespace CIF;
+using namespace cf;
 
 CTIImageList::CTIImageList()
 {

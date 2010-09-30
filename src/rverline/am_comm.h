@@ -82,7 +82,7 @@ void AM_RegiVari(Handle owner, const char *lpName, void *lpData,
 void AM_RegiHelp(Handle owner, const char *lpName, Bool32 bAppend);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 uint32_t AM_WaitUserInput(Handle owner, Handle wnd);
-void AM_DrawLine(Handle wnd, CIF::Point16 *start, CIF::Point16 *end,
+void AM_DrawLine(Handle wnd, cf::Point16 *start, cf::Point16 *end,
                  int32_t skew, uint32_t rgb, int16_t pen, uint32_t key);
 void AM_DrawRect(Handle wnd, Rect16 *pRc, int32_t skew, uint32_t rgb,
                  int16_t pen, uint32_t key);

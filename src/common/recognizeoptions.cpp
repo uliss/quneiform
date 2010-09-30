@@ -20,7 +20,7 @@
 #include "recognizeoptions.h"
 #include "language.h"
 
-namespace CIF {
+namespace cf {
 
 RecognizeOptions::RecognizeOptions() :
     language_(LANGUAGE_ENGLISH), auto_rotate_(false), dot_matrix_(false),

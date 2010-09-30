@@ -21,7 +21,7 @@
 
 namespace
 {
-using namespace CIF;
+using namespace cf;
 Alphabet * create()
 {
     return new EnglishAlphabet;
@@ -53,7 +53,7 @@ const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_ENG
  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0  // f
  */
 
-namespace CIF
+namespace cf
 {
 
 EnglishAlphabet::EnglishAlphabet() :

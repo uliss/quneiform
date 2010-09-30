@@ -27,7 +27,7 @@
 #include "common/tostring.h"
 #include "common/helper.h"
 
-namespace CIF
+namespace cf
 {
 
 static const int DJVU_XML_INDENT = 2;

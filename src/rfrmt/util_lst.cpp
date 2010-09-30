@@ -63,7 +63,7 @@
 extern short FlagGraphic1, Graphic1Color;
 #endif
 
-using namespace CIF;
+using namespace cf;
 
 KNOT *inc_lst(KNOT **beg, KNOT **beg_free) {
     KNOT *ptr = *beg_free, *ptr1 = *beg;

@@ -20,7 +20,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestQtImageLoader);
 #include <rdib/qtimageloader.h>
 #include <memory>
 #include <fstream>
-using namespace CIF;
+using namespace cf;
 void TestQtImageLoader::testInit() {
     std::auto_ptr<QtImageLoader> loader(new QtImageLoader);
 }

@@ -23,7 +23,7 @@
 #include "common/rect.h"
 #include "xmlexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class DjvuXmlExporter: public XmlExporter

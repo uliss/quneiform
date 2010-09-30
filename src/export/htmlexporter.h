@@ -23,7 +23,7 @@
 #include <vector>
 #include "xmlexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 class CssExporter;

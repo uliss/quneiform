@@ -19,7 +19,7 @@
 #ifndef INCLINE_H_
 #define INCLINE_H_
 
-namespace CIF
+namespace cf
 {
 
 inline void IDEAL_XY(int& x, int& y, int Incline)

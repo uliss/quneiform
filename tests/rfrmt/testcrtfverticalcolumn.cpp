@@ -19,7 +19,7 @@
 CPPUNIT_TEST_SUITE_REGISTRATION( TestCRtfVerticalColumn);
 #include "rfrmt/crtfverticalcolumn.h"
 
-using namespace CIF;
+using namespace cf;
 
 void TestCRtfVerticalColumn::testInit() {
     CRtfVerticalColumn vcol;

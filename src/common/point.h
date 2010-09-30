@@ -35,7 +35,7 @@
 #include "cttypes.h"
 #include "serialize.h"
 
-namespace CIF
+namespace cf
 {
 
 struct OverflowCheckNumeric

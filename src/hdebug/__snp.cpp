@@ -63,7 +63,7 @@
 #include "cfcompat.h"
 #include "common/debug.h"
 
-using namespace CIF;
+using namespace cf;
 
 HINSTANCE hDPuma = NULL;
 

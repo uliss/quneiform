@@ -63,7 +63,7 @@
 #include "backup.h"
 #include "polyblock.h"
 
-using namespace CIF;
+using namespace cf;
 
 // extern functions
 Handle CPAGE_PictureGetFirst(Handle hPage)

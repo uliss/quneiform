@@ -20,7 +20,7 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCRtfChar);
 
 #include "rfrmt/crtfchar.h"
-using namespace CIF;
+using namespace cf;
 
 void TestCRtfChar::testInit() {
     CRtfChar ch;

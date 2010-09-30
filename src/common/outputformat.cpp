@@ -20,7 +20,7 @@
 #include "outputformat.h"
 #include "config-user.h" // for CF_USE_ODF
 
-namespace CIF
+namespace cf
 {
 
 struct OutputFormatEntry

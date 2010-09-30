@@ -71,7 +71,7 @@
 /*  общесорсовые мои (отдаваемые)  */
 #include "amt_geom.h"
 
-using namespace CIF;
+using namespace cf;
 /*----------    Управление локальное    ----------------------------------------------------------*/
 /*+ (AverageRoundToBig) +*/
 static const double HALF = .5; ///< половина :-)

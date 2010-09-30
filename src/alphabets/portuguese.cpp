@@ -22,7 +22,7 @@
 
 namespace
 {
-using namespace CIF;
+using namespace cf;
 Alphabet * create()
 {
     return new PortugueseAlphabet;
@@ -33,7 +33,7 @@ const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_POR
         AlphabetFactory::AlphabetTables("rec1n.dat", "rec2n.dat"));
 }
 
-namespace CIF
+namespace cf
 {
 
 PortugueseAlphabet::PortugueseAlphabet()

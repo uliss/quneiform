@@ -24,7 +24,7 @@
 #include "magickimageexporter.h"
 #endif
 
-namespace CIF
+namespace cf
 {
 
 ImageExporterPtr ImageExporterFactoryImpl::make() {

@@ -132,7 +132,7 @@ static char image_file_status = -1;
 static uchar image_invert = 0;
 //========== Global func ==========
 void extrcomp(void);
-void save_component(ExtComponent *c, CIF::version *vs, CIF::version *ve, uchar *lp, uint16_t lpl);
+void save_component(ExtComponent *c, cf::version *vs, cf::version *ve, uchar *lp, uint16_t lpl);
 void invert_tiff(uchar *p, uint16_t lth);
 void image_file_close(void);
 Bool image_file_open(void);
@@ -897,7 +897,7 @@ void alone_comp(void)
         save_gcomp(&wcomp);
 }
 
-void save_component(ExtComponent *c, CIF::version *vs, CIF::version *ve, uchar* lp, uint16_t lpl)
+void save_component(ExtComponent *c, cf::version *vs, cf::version *ve, uchar* lp, uint16_t lpl)
 {
     char pool[64 * 1024];
     char *p = pool;

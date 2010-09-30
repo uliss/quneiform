@@ -23,7 +23,7 @@
 
 #include "singleton.h"
 
-namespace CIF
+namespace cf
 {
 
 class DebugImpl

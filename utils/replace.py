@@ -3,7 +3,7 @@
 import os, sys, re, shutil
 
 def get_sources():
-    res = os.popen("find %s -name '*.h' -o -name '*.c' -o -name '*.cpp'" % "../src/rstr").read()
+    res = os.popen("find %s -name '*.h' -o -name '*.c' -o -name '*.cpp'" % "../src").read()
     return res.split("\n")
 
 

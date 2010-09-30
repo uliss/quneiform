@@ -63,9 +63,9 @@
 #include "cedsection.h"
 #include "cedparagraph.h"
 
-using namespace CIF;
+using namespace cf;
 
-CIF::CEDSection* CED_CreateSection(CIF::CEDPage * page, const CIF::Rect& border, int numOfCols,
+cf::CEDSection* CED_CreateSection(cf::CEDPage * page, const cf::Rect& border, int numOfCols,
         EDCOL* colInfo, char sectionBreak, int width, int height) {
     CEDSection * sect = new CEDSection;
     sect->setMargins(border);

@@ -109,7 +109,7 @@ int16_t smart_diff(cell * c);
 void tell_for_b3(int16_t hist_array[]);
 int16_t flood_peak(int16_t *Hh, int16_t ind);
 int16_t GetPsFromHeights(void);
-uchar BracketIn(CIF::version *v);
+uchar BracketIn(cf::version *v);
 int16_t def_upper_side(void);
 
 extern uchar page_stat, ufa, stable_b3;

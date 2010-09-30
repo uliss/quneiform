@@ -21,7 +21,7 @@
 #include "iconvimpl.h"
 #include "iconv_local.h"
 
-namespace CIF
+namespace cf
 {
 
 IconvImpl::IconvImpl() :

@@ -331,7 +331,7 @@ int16_t discrid(cell *B1, int16_t mon)
 {
     uchar p;
     int16_t fl, np, max, dd;
-    CIF::version * v;
+    cf::version * v;
     uchar c;
     dd = dust_usage = 0;
     if (B1->nvers == 0)
@@ -366,7 +366,7 @@ static int16_t dust_is_dot(all_cells *CL, cell *C)
 {
     cell *dot;
     char l;
-    CIF::version * v;
+    cf::version * v;
     int16_t nv, p;
     for (nv = 0, v = C->vers; nv < C->nvers; nv++, v++) {
         l = v->let;
@@ -1174,7 +1174,7 @@ int16_t estcomp(char user, cell *B1, SVERS *save, int16_t trs, int16_t bnd1, int
             if (db_status && (db_trace_flag & 2))
                 est_snap(db_pass, B1, "CUT/GLUE to BOX");
             goto estiBOX;
-            // cutten CIF::version - estimate by BOX
+            // cutten cf::version - estimate by BOX
         }
         if (memchr("1lI()[]{}!", c, 10) || c == liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
                 (c == i_sans_accent || c == II_dot_accent) || c == liga_exm)
@@ -2673,7 +2673,7 @@ static int16_t forbid_stick_cut(cell *c, cut_pos *cpos, int16_t edge)
 void promote(uchar sn, cell *cl, uchar let, int16_t delta)
 {
     uchar wl, wl_sacc, let_sacc;
-    CIF::version *vp1, *vp2;
+    cf::version *vp1, *vp2;
     uchar p1, pw;
     int16_t pwi, dlt, dlv, fld;
     if (cl->nvers == 0)

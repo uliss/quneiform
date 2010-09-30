@@ -382,7 +382,7 @@ static void dif_Sdol(cell *c)
 
 static void dif_add(cell *c)
  {
- CIF::version *v;
+ cf::version *v;
  puchar r;
  int16_t l,i,j,n1,n2;
  uchar b;
@@ -495,7 +495,7 @@ static Bool compadd(cell *c)
 
 static void dif_sae(cell *c)
  {
- CIF::version *v;
+ cf::version *v;
  puchar r;
  int16_t l,i,i1,i2,imin,j,max,min;
 
@@ -566,7 +566,7 @@ static void dif_uv(cell *c)
 
 static void dif_O0(cell *c)
  {
- CIF::version *v;
+ cf::version *v;
  uchar probO,prob0;
 
  for (probO=prob0=0,v=c->vers; v->let; v++)
@@ -1031,7 +1031,7 @@ static void dif_j_i_bottom_accent(cell *c1 )
   else
 	 return;  // unknown
 
-  // need add CIF::version ?
+  // need add cf::version ?
   if( goodLet == 'j' && prob_j <= 0 ||
 	  goodLet == i_bottom_accent && prob_i <= 0
 	)

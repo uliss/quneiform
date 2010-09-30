@@ -29,7 +29,7 @@
 #include <boost/serialization/binary_object.hpp>
 #endif
 
-namespace CIF
+namespace cf
 {
 
 class CLA_EXPO ImageRawData: public boost::noncopyable
@@ -108,6 +108,6 @@ inline bool ImageRawData::isNull() const {
 typedef boost::shared_ptr<ImageRawData> ImageRawPtr;
 
 }
-FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const CIF::ImageRawData& image);
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const cf::ImageRawData& image);
 
 #endif /* IMAGERAWDATA_H_ */

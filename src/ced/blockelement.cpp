@@ -18,7 +18,7 @@
 
 #include "blockelement.h"
 
-namespace CIF
+namespace cf
 {
 
 BlockElement::BlockElement(BlockElement * parent) :

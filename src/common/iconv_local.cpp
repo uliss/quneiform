@@ -20,7 +20,7 @@
 #include "iconv_local.h"
 #include "iconvimpl.h"
 
-namespace CIF
+namespace cf
 {
 
 Iconv::Iconv() {

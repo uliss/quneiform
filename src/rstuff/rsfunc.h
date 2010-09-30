@@ -79,7 +79,7 @@
 //общего назначения
 void SetReturnCode_rstuff(int);
 void DebugInit(void);
-void DebugDPumaDrawRect(Handle, CIF::Point16 *, uint32_t, int32_t, uint32_t);
+void DebugDPumaDrawRect(Handle, cf::Point16 *, uint32_t, int32_t, uint32_t);
 void DebugDPumaShowComponents(PRSPreProcessImage, Handle, uint32_t, int32_t,
                               uint32_t);
 

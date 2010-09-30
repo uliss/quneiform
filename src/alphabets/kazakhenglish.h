@@ -21,7 +21,7 @@
 
 #include "russianenglish.h"
 
-namespace CIF
+namespace cf
 {
 
 class KazakhEnglishAlphabet: public RussianEnglishAlphabet

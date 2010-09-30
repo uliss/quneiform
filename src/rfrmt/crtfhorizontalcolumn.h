@@ -27,7 +27,7 @@
 #include "common/histogram.h"
 #include "creatertf.h"
 
-namespace CIF
+namespace cf
 {
 
 class CRtfPage;

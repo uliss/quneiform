@@ -21,7 +21,7 @@
 
 #include "english.h"
 
-namespace CIF
+namespace cf
 {
 
 class ItalianAlphabet: public EnglishAlphabet

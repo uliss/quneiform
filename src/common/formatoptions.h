@@ -27,7 +27,7 @@
 #include "globus.h"
 #include "imageformats.h"
 
-namespace CIF {
+namespace cf {
 
 class CLA_EXPO FormatOptions
 {

@@ -76,7 +76,7 @@ extern uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx);
 extern int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH);
 extern int16_t RightDistance(uchar *RASTER, int16_t NWIDTH);
 
-namespace CIF {
+namespace cf {
 namespace dif {
 uchar alphabet[256];
 uchar language;
@@ -226,14 +226,14 @@ Bool32 DIFStick_expert(int16_t dx, int16_t dy, uchar *pool, RecVersions* res)
                     break;
                 case '(':
 
-                    if (!CIF::dif::alphabet['(']) {
+                    if (!cf::dif::alphabet['(']) {
                         res->Alt[i].Prob = 1;
                         break;
                     }
 
                 case ')':
 
-                    if (!CIF::dif::alphabet[')']) {
+                    if (!cf::dif::alphabet[')']) {
                         res->Alt[i].Prob = 1;
                         break;
                     }
@@ -371,10 +371,10 @@ void DIFClearRightZone(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE,
 Bool32 DIFSetAlphabet(char *alpha)
 {
     int i, d, a;
-    memcpy(CIF::dif::alphabet, alpha, 256);
+    memcpy(cf::dif::alphabet, alpha, 256);
 
     for (d = a = i = 0; i < 256; i++) {
-        if (CIF::dif::alphabet[i]) {
+        if (cf::dif::alphabet[i]) {
             if ((i > 47 && i < 58) || i == 40 || i == 41)
                 d++;
 
@@ -392,7 +392,7 @@ Bool32 DIFSetAlphabet(char *alpha)
 
 Bool32 DIF_SetLanguage(uchar lang)
 {
-    CIF::dif::language = lang;
+    cf::dif::language = lang;
     return TRUE;
 }
 

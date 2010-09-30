@@ -19,7 +19,7 @@
 #ifndef IMAGEFORMATS_H_
 #define IMAGEFORMATS_H_
 
-namespace CIF
+namespace cf
 {
 
 enum image_format_t

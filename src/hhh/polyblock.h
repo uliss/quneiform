@@ -122,7 +122,7 @@ typedef struct tagCommon {
     int16_t Color;
     Bool Select;//
     int16_t count;
-    CIF::Point Vertex[MaxNum];
+    cf::Point Vertex[MaxNum];
 // Almi 18.04.00
 #define POS_NEGTABCAP   0x00000001 // Вероятный негативный заголовок таблицы
 #define POS_NEGTXTCAP   0x00000002 // Вероятный негативный заголовок текста

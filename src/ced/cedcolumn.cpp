@@ -20,7 +20,7 @@
 #include "cedsection.h"
 #include "cedexporter.h"
 
-namespace CIF
+namespace cf
 {
 
 CEDColumn::CEDColumn(CEDSection * parent) :

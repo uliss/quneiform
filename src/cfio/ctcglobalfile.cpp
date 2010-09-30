@@ -24,9 +24,9 @@
 #include "compat_defs.h"
 #include "ctccontrol.h"
 
-extern CIF::CTC::CTCControl * Control_ctc;
+extern cf::CTC::CTCControl * Control_ctc;
 
-namespace CIF
+namespace cf
 {
 namespace CTC
 {

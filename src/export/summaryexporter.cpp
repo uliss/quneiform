@@ -25,7 +25,7 @@
 #include "ced/cedsection.h"
 #include "ced/cedpicture.h"
 
-namespace CIF
+namespace cf
 {
 
 SummaryExporter::SummaryExporter(CEDPage * page, const FormatOptions& opts) :

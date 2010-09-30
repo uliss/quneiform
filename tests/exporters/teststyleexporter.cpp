@@ -20,7 +20,7 @@
 #include "export/rout_own.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestStyleExporter);
 
-using namespace CIF;
+using namespace cf;
 
 void TestStyleExporter::testExportChar() {
     FormatOptions opts;

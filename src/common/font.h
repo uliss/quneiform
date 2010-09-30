@@ -22,7 +22,7 @@
 #include "globus.h"
 #include "common/serialize.h"
 
-namespace CIF
+namespace cf
 {
 
 typedef short font_number;

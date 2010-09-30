@@ -21,7 +21,7 @@
 #include <common/color.h>
 #include <common/tostring.h>
 CPPUNIT_TEST_SUITE_REGISTRATION(TestColor);
-using namespace CIF;
+using namespace cf;
 
 void TestColor::testSerialize() {
 #ifdef CF_SERIALIZE

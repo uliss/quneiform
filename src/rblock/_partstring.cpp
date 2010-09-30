@@ -60,7 +60,7 @@
 #include "new_c.h"
 #include "minmax.h"
 
-using namespace CIF;
+using namespace cf;
 
 #define __RGB__(r,g,b)          ((uint32_t)(((uchar)(r)|((uint16_t)((uchar)(g))<<8))|(((uint32_t)(uchar)(b))<<16)))
 

@@ -70,7 +70,7 @@
 #include "minmax.h"
 #include "cfcompat.h"
 
-using namespace CIF;
+using namespace cf;
 
 #ifndef MAXINT32
 #define  MAXINT32  0x7FFFFFFF

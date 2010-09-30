@@ -25,7 +25,7 @@
 class QImage;
 class QString;
 
-namespace CIF
+namespace cf
 {
 
 class CLA_EXPO QtImageLoader: public ImageLoader

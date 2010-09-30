@@ -59,7 +59,7 @@
 #include "ctiimage.h"
 #include "cticontrol.h"
 
-using namespace CIF;
+using namespace cf;
 
 Bool32 CIMAGE_WriteCallbackImage(const char * Name, CIMAGEIMAGECALLBACK Cbk)
 {

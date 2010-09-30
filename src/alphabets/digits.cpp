@@ -21,7 +21,7 @@
 
 namespace
 {
-using namespace CIF;
+using namespace cf;
 Alphabet * create()
 {
     return new DigitsAlphabet;
@@ -32,7 +32,7 @@ const bool tbl = AlphabetFactory::instance().registerAlphabetTables(LANGUAGE_DIG
         AlphabetFactory::AlphabetTables("rec1.dat", "rec2.dat"));
 }
 
-namespace CIF
+namespace cf
 {
 
 DigitsAlphabet::DigitsAlphabet()

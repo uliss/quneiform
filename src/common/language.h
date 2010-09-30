@@ -27,7 +27,7 @@
 #include "lang_def.h"
 #include "globus.h"
 
-namespace CIF
+namespace cf
 {
 
 typedef std::list<language_t> LanguageList;

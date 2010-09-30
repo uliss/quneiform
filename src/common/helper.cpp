@@ -18,7 +18,7 @@
 
 #include "helper.h"
 
-namespace CIF
+namespace cf
 {
 
 std::string escapeHtmlSpecialChars(const std::string& path) {

@@ -23,7 +23,7 @@
 #include "rfrmtoptions.h"
 #include "minmax.h"
 
-namespace CIF
+namespace cf
 {
 
 RfrmtDrawVColumnFunction CRtfVerticalColumn::draw_func_;

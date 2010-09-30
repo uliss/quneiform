@@ -21,7 +21,7 @@
 #include "common/helper.h"
 #include "common/debug.h"
 
-namespace CIF
+namespace cf
 {
 
 ImageFormatDetector::ImageFormatDetector()

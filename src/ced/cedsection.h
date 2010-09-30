@@ -25,7 +25,7 @@
 #include "common/color.h"
 #include "common/align.h"
 
-namespace CIF
+namespace cf
 {
 
 class CEDColumn;

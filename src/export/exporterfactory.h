@@ -27,7 +27,7 @@
 #include "exporter.h"
 #include "globus.h"
 
-namespace CIF
+namespace cf
 {
 
 class CEDPage;

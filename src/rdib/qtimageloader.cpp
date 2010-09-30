@@ -22,7 +22,7 @@
 #include "qtimageloader.h"
 #include "compat_defs.h"
 
-namespace CIF
+namespace cf
 {
 
 QtImageLoader::QtImageLoader(bool autoClear) :

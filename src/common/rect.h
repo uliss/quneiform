@@ -26,7 +26,7 @@
 #include "point.h"
 #include "size.h"
 
-namespace CIF
+namespace cf
 {
 
 struct RectCheckNormalized

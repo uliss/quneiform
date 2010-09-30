@@ -67,7 +67,7 @@
 
 #include "skew1024.h"
 
-using namespace CIF;
+using namespace cf;
 
 Bool ExtrLinesIsOk(void);
 /* Implementation ************************/

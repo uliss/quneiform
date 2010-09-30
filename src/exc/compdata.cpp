@@ -73,7 +73,7 @@ main_memory_str& Q()
     return g_Q;
 }
 
-CIF::version * start_rec, *rec_ptr;
+cf::version * start_rec, *rec_ptr;
 uint lpool_lth;
 uchar lpool[6000 * 10];
 uchar records_change;

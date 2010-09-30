@@ -28,7 +28,7 @@ class Image;
 class Blob;
 }
 
-namespace CIF
+namespace cf
 {
 
 class MagickImageLoader: public ImageLoader

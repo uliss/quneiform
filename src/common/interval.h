@@ -21,7 +21,7 @@
 
 #include "cttypes.h"
 
-namespace CIF
+namespace cf
 {
 
 template<class T> class IntervalImpl
@@ -33,7 +33,7 @@ template<class T> class IntervalImpl
 
 }
 
-typedef CIF::IntervalImpl<unsigned char> interval;
-typedef CIF::IntervalImpl<uint16_t> large_interval;
+typedef cf::IntervalImpl<unsigned char> interval;
+typedef cf::IntervalImpl<uint16_t> large_interval;
 
 #endif /* INTERVAL_H_ */

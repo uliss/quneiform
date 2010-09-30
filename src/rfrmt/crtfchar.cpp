@@ -36,9 +36,9 @@
 #include "ced/cedparagraph.h"
 #include "ced/cedsection.h"
 
-extern CIF::Point TemplateOffset;
+extern cf::Point TemplateOffset;
 
-namespace CIF
+namespace cf
 {
 
 RfrmtDrawCharFunction CRtfChar::draw_func_;
@@ -140,9 +140,9 @@ CRtfChar * CRtfChar::read(FILE * in) {
 
     ::Rect16 SRect;
     fread(&SRect, sizeof(Rect16), 1, in); //Ideal BOX
-    chr->setIdealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
+    chr->setIdealRect(cf::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
     fread(&SRect, sizeof(Rect16), 1, in); //Real BOX
-    chr->setRealRect(CIF::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
+    chr->setRealRect(cf::Rect(Point(SRect.left, SRect.top), Point(SRect.right, SRect.bottom)));
 
     uint16_t num;
     fread(&num, sizeof(uint16_t), 1, in);
