@@ -64,10 +64,15 @@ struct shift_inform {
     int16_t max, imax, opt, wide, over;
 };
 
+namespace cf {
+namespace dif {
 extern uchar GL_hist[2* LIMIT_HEIGHT ]; // array for histogramm
 extern center_interval GL_cent[LIMIT_HEIGHT]; // center of intervals
 extern uchar GL_left1[LIMIT_HEIGHT], // auxiliary left and
 GL_right1[LIMIT_HEIGHT]; //    right abris-arrays
+}
+}
+
 static int16_t inc_periods[LIMIT_HEIGHT];
 int inc_num_EEM;
 uchar inc_char_EEM;
@@ -139,10 +144,10 @@ int16_t make_center_line_dif(
     /*......................................................................*/
     // CALCULATIONS for LEN's:
     //////////wid = centers_len_to_hist (center, nc, dy, dx, hist_BBB);
-    len_hist_LENs = centers_len_to_hist(center, nc, dy, dx, GL_hist);
+    len_hist_LENs = centers_len_to_hist(center, nc, dy, dx, cf::dif::GL_hist);
     //wid = max_center_hist(hist,wid,center,nc,tab_angle,0)>>1; // calc average width
     //wid = max_center_hist_new(hist_BBB,wid,center,nc,tab_angle,0)>>1;//19.02.1993
-    wid = max_center_hist_new(GL_hist, len_hist_LENs, center, nc, tab_angle, 0)
+    wid = max_center_hist_new(cf::dif::GL_hist, len_hist_LENs, center, nc, tab_angle, 0)
           >> 1;
     // NB: tab_angle UNDEFINED now;
     /*......................................................................*/
@@ -153,13 +158,13 @@ int16_t make_center_line_dif(
 
     //////  for (k=wid*2/3,sum=0; k>=0; k++)  sum += GL_hist [k];  // ############
     for (k = wid * 2 / 3, sum = 0; k >= 0; k--)
-        sum += GL_hist[k]; // N small LENs
+        sum += cf::dif::GL_hist[k]; // N small LENs
 
     if (sum * 3 < nc)
         goto m_OK;
 
     mk_len_limit = wid * 2 / 3; // used here (LENs) and for CENTERs
-    wid = calc_LENs_LIMITED(GL_hist, mk_len_limit, sum) >> 1;
+    wid = calc_LENs_LIMITED(cf::dif::GL_hist, mk_len_limit, sum) >> 1;
 m_OK: //dis_LIMIT_EEM = mk_len_limit ? 100 : 0; // 18.11.1993
     /*......................................................................*/
     if ((wid * 5 > 4* dx && dx * 3 > dy * 2 && comp_wide) || // OLD CONDITION
@@ -170,11 +175,11 @@ m_OK: //dis_LIMIT_EEM = mk_len_limit ? 100 : 0; // 18.11.1993
     /*......................................................................*/
     // CALCULATION for CENTER's:
     if (mk_len_limit == 0)
-        make_hist(center, nc, GL_hist, tab_angle, dx, wid, (int16_t) (wid > 4
+        make_hist(center, nc, cf::dif::GL_hist, tab_angle, dx, wid, (int16_t) (wid > 4
                                                                       && sig_T == 0));
 
     else
-        make_hist_centers_LIMITED(center, nc, GL_hist, tab_angle, dx,
+        make_hist_centers_LIMITED(center, nc, cf::dif::GL_hist, tab_angle, dx,
                                   mk_len_limit);
 
     /* calc hist  for angle=0 */// NB: really - FOR BEGIN ANGLE !!!
@@ -185,20 +190,20 @@ m_OK: //dis_LIMIT_EEM = mk_len_limit ? 100 : 0; // 18.11.1993
     // BEFORE 14.10.1993:
     //////  opt=max_center_hist_new(hist_BBB,dx<<1,center,nc,tab_angle,(wid<<1)>dy);
     // 14.10.1993: (k11/14, h14/1):
-    opt = max_center_hist_new(GL_hist, (int16_t) (dx << 1), center, nc,
+    opt = max_center_hist_new(cf::dif::GL_hist, (int16_t) (dx << 1), center, nc,
                               tab_angle, 0); // ???
-    optmax = GL_hist[opt >> 1]; // find maximum in hist
+    optmax = cf::dif::GL_hist[opt >> 1]; // find maximum in hist
     //////dop_opt = MAX( hist_BBB[(opt>>1)-1],hist_BBB[(opt>>1)+1]);  MAC.ERROR
-    dop_opt_BBB_1 = (opt <= 2) ? 0 : GL_hist[(opt >> 1) - 1]; // 09.04.1993
-    dop_opt_BBB_2 = (opt >= 4 * dx - 2) ? 0 : GL_hist[(opt >> 1) + 1];
+    dop_opt_BBB_1 = (opt <= 2) ? 0 : cf::dif::GL_hist[(opt >> 1) - 1]; // 09.04.1993
+    dop_opt_BBB_2 = (opt >= 4 * dx - 2) ? 0 : cf::dif::GL_hist[(opt >> 1) + 1];
     dop_opt = std::max(dop_opt_BBB_1, dop_opt_BBB_2);
     /*......................................................................*/
-    wd = width_of_hist(GL_hist, (int16_t) (dx << 1));
+    wd = width_of_hist(cf::dif::GL_hist, (int16_t) (dx << 1));
     ov = overlay_interval(center, nc, (int16_t) (opt >> 2), (int16_t) (opt % 4
                                                                        == 0), tab_angle);
     // here was DEBUG_GRAPH
     ny = dy - 2;
-    memcpy(&GL_left1[0], &left[1], ny);
+    memcpy(&cf::dif::GL_left1[0], &left[1], ny);
     /*
      {
      int i;
@@ -208,16 +213,16 @@ m_OK: //dis_LIMIT_EEM = mk_len_limit ? 100 : 0; // 18.11.1993
      }
      }
      */
-    memcpy(&GL_right1[0], &right[1], ny); /* save for filtration */
+    memcpy(&cf::dif::GL_right1[0], &right[1], ny); /* save for filtration */
 
     if (dy > 20) { /* this manipulations for brace recognize only */
-        filtr_short(GL_left1, ny, 1);
-        filtr_short(GL_right1, ny, 1);
+        filtr_short(cf::dif::GL_left1, ny, 1);
+        filtr_short(cf::dif::GL_right1, ny, 1);
         //filtr_short (left, ny, 1);
         //filtr_short (right,ny, 1);
     }
 
-    en = enable_shift(GL_left1, GL_right1, ny, dx, &tab_angle[1]);
+    en = enable_shift(cf::dif::GL_left1, cf::dif::GL_right1, ny, dx, &tab_angle[1]);
 
     /*......................................................................*/
 
@@ -227,20 +232,20 @@ m_OK: //dis_LIMIT_EEM = mk_len_limit ? 100 : 0; // 18.11.1993
         memset(tab_angle, 0, dy * sizeof(int16_t)); // ZEROES to tab_angle and
 
         if (mk_len_limit == 0) // repeat CALCULATION for CENTER's;
-            make_hist(center, nc, GL_hist, tab_angle, dx, wid, (int16_t) (wid
+            make_hist(center, nc, cf::dif::GL_hist, tab_angle, dx, wid, (int16_t) (wid
                                                                           > 4 && sig_T == 0));
 
         else
-            make_hist_centers_LIMITED(center, nc, GL_hist, tab_angle, dx,
+            make_hist_centers_LIMITED(center, nc, cf::dif::GL_hist, tab_angle, dx,
                                       mk_len_limit);
 
-        opt = max_center_hist_new(GL_hist, (int16_t) (dx << 1), center, nc,
+        opt = max_center_hist_new(cf::dif::GL_hist, (int16_t) (dx << 1), center, nc,
                                   tab_angle, 0);
-        optmax = GL_hist[opt >> 1]; // find maximum in hist
-        dop_opt_BBB_1 = (opt <= 2) ? 0 : GL_hist[(opt >> 1) - 1];
-        dop_opt_BBB_2 = (opt >= 4 * dx - 2) ? 0 : GL_hist[(opt >> 1) + 1];
+        optmax = cf::dif::GL_hist[opt >> 1]; // find maximum in hist
+        dop_opt_BBB_1 = (opt <= 2) ? 0 : cf::dif::GL_hist[(opt >> 1) - 1];
+        dop_opt_BBB_2 = (opt >= 4 * dx - 2) ? 0 : cf::dif::GL_hist[(opt >> 1) + 1];
         dop_opt = std::max(dop_opt_BBB_1, dop_opt_BBB_2);
-        wd = width_of_hist(GL_hist, (int16_t) (dx << 1));
+        wd = width_of_hist(cf::dif::GL_hist, (int16_t) (dx << 1));
         ov = overlay_interval(center, nc, (int16_t) (opt >> 2), (int16_t) (opt
                                                                            % 4 == 0), tab_angle);
     }
@@ -251,16 +256,16 @@ m_OK: //dis_LIMIT_EEM = mk_len_limit ? 100 : 0; // 18.11.1993
         { /* almost one-line c_comp     */
             if (en == 1) /* similar '('             */
                 for (i = 0; i < ny; i++) /* can be convexity    */
-                    GL_hist[i] = dx - 1 - GL_right1[i]; /* axes symm */
+                    cf::dif::GL_hist[i] = dx - 1 - cf::dif::GL_right1[i]; /* axes symm */
 
             else
 
                 /* similar ')'              */
                 for (i = 0; i < ny; i++) /* can be concave  */
-                    GL_hist[i] = dx - 1 - GL_left1[i]; /* axes symm */
+                    cf::dif::GL_hist[i] = dx - 1 - cf::dif::GL_left1[i]; /* axes symm */
 
             /* checking center curve : convexity or concave     */
-            if (abris_convexity(GL_hist, ny, dx))
+            if (abris_convexity(cf::dif::GL_hist, ny, dx))
                 brace = en; /* OK -->> save result  */
         }
     }
@@ -280,7 +285,7 @@ m_OK: //dis_LIMIT_EEM = mk_len_limit ? 100 : 0; // 18.11.1993
         tmp.over = ov;
         tmp.opt = opt; /* first angle = 0         */
         imax = find_opt_shift(angles, num_angles, dy, dx, center, nc, wid,
-                              sig_T, sig_f, tab_angle, GL_hist, &tmp);
+                              sig_T, sig_f, tab_angle, cf::dif::GL_hist, &tmp);
         ov = tmp.over;
         opt = tmp.opt;
         optmax = tmp.max; /* optimal angle           */
@@ -299,7 +304,7 @@ m_OK: //dis_LIMIT_EEM = mk_len_limit ? 100 : 0; // 18.11.1993
     /* no stick : overlay base incline and c_comp is small */
     /*            ret_code = 4 (for wide c_comp) or  3     */
     make_result(dy, opt, tab_angle); /* step tab_angle = 4 */
-    compress_centers(center, nc, tab_angle, dy, GL_cent, hooks);
+    compress_centers(center, nc, tab_angle, dy, cf::dif::GL_cent, hooks);
     /************************************** BEFORE 22.11.1993 (see below);
      if (imax!=-1)      // correct base incline if exist inc
      correct_result (GL_cent, tab_angle, dy);
@@ -342,10 +347,10 @@ m_OK: //dis_LIMIT_EEM = mk_len_limit ? 100 : 0; // 18.11.1993
     if (enable_correct) {
         //////if (inc_num_EEM)  // 22.11.1993 move it here with new condition;
         if (inc_num_EEM > 0) // 10.12.1993: FORW/BACK INC:
-            correct_result(GL_cent, tab_angle, dy);
+            correct_result(cf::dif::GL_cent, tab_angle, dy);
 
         if (inc_num_EEM < 0)
-            correct_result_BACK(GL_cent, tab_angle, dy);
+            correct_result_BACK(cf::dif::GL_cent, tab_angle, dy);
     }
 
     return (0); /* normal return */

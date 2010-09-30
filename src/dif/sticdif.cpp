@@ -67,235 +67,234 @@
 
 #define MAX_ADD_DIS  30     /* max discrim for adding 'є','1'  */
 static uchar tab_t[] = { // dis_t 40, /* 0.  no flags                                  */
-                           20, /* 1.  no beam : exist only one flags>1          */
-                           50, /* 2.  no beam : exist only one flags=1          */
-                           4, /* 3.  beam : left flag>right                    */
-                           30, /* 4.  exist long pimple and beam                */
-                           2, /* 5.  short beam and wide stick                 */
-                           2, /* 6.  meandr and inc                            */
-                           40, /* 7.  meandr and no inc                         */
-                           24, /* 8.  for any superfluous flags                 */
-                           10, /* 9.  exist upper serif                         */
-                           40, /* 10. left downer flag                          */
-                           40, /* 11. for any long central flag                 */
-                           4, /* 12. for any near central flag                 */
-                           16, /* 13. for beam , belong down half of hei        */
-                           14, /* 14. head : similar to 'f' (18.11.1993: EVEN!) */
-                           60, /* 15. for sitution ] for left abris             */
-                           70, /* 16. without inc similar    f                  */
-                           120, /* 17. no beam : left flag==1 right = 0          */
-                           100, /* 18. for height beam : lower second b.l.       */
-                           10, /* 19. similar    'f'                            */
-                           MD, /* 20. MIN discrim for thin stick  (width<3)     */
-                           100, /* 21. too thick beam                            */
-                           40, /* 22. beam-flags not overlay , thin stick       */
-                           20, /* 23. upper rignt long flag for wide stick      */
-                           100, /* 24. no beam : right upper flag belong 0-zone  */
-                           40, /* 25. narrow stick + right meandr               */
-                           20, /* 26. meandr and no inc  by narrow stick        */
-                           40, /* 27. similar 'l'                               */
-                           40, /* 28. thick near flag for bold c_comp             */
-                           100, // 29. MK: too long hook: "t."==>'t'; fax12/32 "document."
-                           16, // 30. MK: about similar 'f'
-                           8, // 31. MK: about similar 'f'
-                           44 // 32. MK: about some CUT Cases (first was 60)
-                       };
+        20, /* 1.  no beam : exist only one flags>1          */
+        50, /* 2.  no beam : exist only one flags=1          */
+        4, /* 3.  beam : left flag>right                    */
+        30, /* 4.  exist long pimple and beam                */
+        2, /* 5.  short beam and wide stick                 */
+        2, /* 6.  meandr and inc                            */
+        40, /* 7.  meandr and no inc                         */
+        24, /* 8.  for any superfluous flags                 */
+        10, /* 9.  exist upper serif                         */
+        40, /* 10. left downer flag                          */
+        40, /* 11. for any long central flag                 */
+        4, /* 12. for any near central flag                 */
+        16, /* 13. for beam , belong down half of hei        */
+        14, /* 14. head : similar to 'f' (18.11.1993: EVEN!) */
+        60, /* 15. for sitution ] for left abris             */
+        70, /* 16. without inc similar    f                  */
+        120, /* 17. no beam : left flag==1 right = 0          */
+        100, /* 18. for height beam : lower second b.l.       */
+        10, /* 19. similar    'f'                            */
+        MD, /* 20. MIN discrim for thin stick  (width<3)     */
+        100, /* 21. too thick beam                            */
+        40, /* 22. beam-flags not overlay , thin stick       */
+        20, /* 23. upper rignt long flag for wide stick      */
+        100, /* 24. no beam : right upper flag belong 0-zone  */
+        40, /* 25. narrow stick + right meandr               */
+        20, /* 26. meandr and no inc  by narrow stick        */
+        40, /* 27. similar 'l'                               */
+        40, /* 28. thick near flag for bold c_comp             */
+        100, // 29. MK: too long hook: "t."==>'t'; fax12/32 "document."
+                16, // 30. MK: about similar 'f'
+                8, // 31. MK: about similar 'f'
+                44 // 32. MK: about some CUT Cases (first was 60)
+        };
 
 static uchar tab_l[] = { // dis_l 2, // 0. right upper flag > left or no left
-                           8, // 1. -- // -- + long right flag
-                           6, // 2. too different flags
-                           BR, // 3. for configurations : '[' , ']'
-                           2, // 4. for z-conf and not inc
-                           40, // 5. for s-conf
-                           LF, // 6. for any long center flag
-                           NF, // 7. for any near center flag
-                           10, // 8. for any point of curve
-                           DB, // 9. for any beam
-                           70, // 10. for 2 serifs
-                           48, // 11. for 1 half-serif
-                           SI, // 12. similar    'є' : exist neck
-                           80, // 13. similar    'L'
-                           BP, // 14. bad proportions
-                           ST, // 15. similar    't'
-                           14, // 16. for DIS_BEAM_MK
-                           8, // 17. SPEC CASE: NECK=1 wid>=6
-                           SI, // 18. thin LEG exist
-                           6 // 19. about thin '(' or ')'  09.06.1993
-                       };
+        8, // 1. -- // -- + long right flag
+                6, // 2. too different flags
+                BR, // 3. for configurations : '[' , ']'
+                2, // 4. for z-conf and not inc
+                40, // 5. for s-conf
+                LF, // 6. for any long center flag
+                NF, // 7. for any near center flag
+                10, // 8. for any point of curve
+                DB, // 9. for any beam
+                70, // 10. for 2 serifs
+                48, // 11. for 1 half-serif
+                SI, // 12. similar    'є' : exist neck
+                80, // 13. similar    'L'
+                BP, // 14. bad proportions
+                ST, // 15. similar    't'
+                14, // 16. for DIS_BEAM_MK
+                8, // 17. SPEC CASE: NECK=1 wid>=6
+                SI, // 18. thin LEG exist
+                6 // 19. about thin '(' or ')'  09.06.1993
+        };
 static uchar tab_slash[] = { 20, /* 0. for long central flag       */
-                             0, /* 1. for near central flag       */
-                             40 /* 2. central beam                */
-                           };
+0, /* 1. for near central flag       */
+40 /* 2. central beam                */
+};
 static uchar tab_I[] = { // dis_I 20, // 0. long halfserif
-                           8, // 1. too different flaghs
-                           30, // 2. two long and two small serifs
-                           LF, // 3. for every point long center flag
-                           NF, // 4. for any near center flag
-                           60, // 5. for any hook
-                           DB, // 6. FOR CENTRAL BEAM
-                           60, // 7. two zero and two long serifs
-                           70, // 8. similar    1 , f
-                           MD, // 9. for  up left,down left, down right
-                           SI, // 10. similar    є : exist neck
-                           70, // 11. low c_comp
-                           BP, // 12. bad proportions
-                           ST, // 13. similar    't'
-                           BR, // 14. similar    '(',')'
-                           SI, // 15. thin LEG exist
-                           14, // 16. for DIS_BEAM_MK
-                           6 // 17. about thin '(' or ')'  09.06.1993
-                       };
+        8, // 1. too different flaghs
+                30, // 2. two long and two small serifs
+                LF, // 3. for every point long center flag
+                NF, // 4. for any near center flag
+                60, // 5. for any hook
+                DB, // 6. FOR CENTRAL BEAM
+                60, // 7. two zero and two long serifs
+                70, // 8. similar    1 , f
+                MD, // 9. for  up left,down left, down right
+                SI, // 10. similar    є : exist neck
+                70, // 11. low c_comp
+                BP, // 12. bad proportions
+                ST, // 13. similar    't'
+                BR, // 14. similar    '(',')'
+                SI, // 15. thin LEG exist
+                14, // 16. for DIS_BEAM_MK
+                6 // 17. about thin '(' or ')'  09.06.1993
+        };
 
 static uchar tab_1[] = { // dis_1 60, /* 0. no left upper flag : zones 0, 1        */
-                           2, /* 1. for right upper flag : zone  0         */
-                           8, /* 2. bad downer serif for inc               */
-                           4, /* 3. bad downer serif for no inc            */
-                           6, /* 4. too different flags                    */
-                           20, /* 5. no serifs                              */
-                           LF, /* 6. for any long center flag               */
-                           NF, /* 7. for any near center flag               */
-                           BR, /* 8. for configurations [,]                 */
-                           30, /* 9. for hard meandr                        */
-                           40, /* 10. similar    'f'                        */
-                           20, /* 11. nose + upper near flag                */
-                           MD, /* 12. for  up left,down left, down right    */
-                           SI, /* 13. similar    є                          */
-                           40, /* 14. similar    'l'                        */
-                           70, /* 15. for 2 serifs                          */
-                           BR, /* 16. similar    '(',')'                    */
-                           20, /* 17. short nose                            */
-                           8, /* 18. solid stick - small dis               */
-                           MD, /* 19. cutting nose                          */
-                           BP /* 20. bad proportions                       */
-                       };
+        2, /* 1. for right upper flag : zone  0         */
+        8, /* 2. bad downer serif for inc               */
+        4, /* 3. bad downer serif for no inc            */
+        6, /* 4. too different flags                    */
+        20, /* 5. no serifs                              */
+        LF, /* 6. for any long center flag               */
+        NF, /* 7. for any near center flag               */
+        BR, /* 8. for configurations [,]                 */
+        30, /* 9. for hard meandr                        */
+        40, /* 10. similar    'f'                        */
+        20, /* 11. nose + upper near flag                */
+        MD, /* 12. for  up left,down left, down right    */
+        SI, /* 13. similar    є                          */
+        40, /* 14. similar    'l'                        */
+        70, /* 15. for 2 serifs                          */
+        BR, /* 16. similar    '(',')'                    */
+        20, /* 17. short nose                            */
+        8, /* 18. solid stick - small dis               */
+        MD, /* 19. cutting nose                          */
+        BP /* 20. bad proportions                       */
+        };
 
 static uchar tab_circle_brace[] = { 70, /* 0. up or down serif                 */
-                                    10, /* 1. '(' similar    't'               */
-                                    40, /* 2. '(' similar    '1'               */
-                                    20, /* 3. no conc in top and bootom angles */
-                                    60, /* 4. no flags : solid stick           */
-                                    40, /* 5. for cutting brace                */
-                                    28 /* 6. bad budgles                      */
-                                  };
+10, /* 1. '(' similar    't'               */
+40, /* 2. '(' similar    '1'               */
+20, /* 3. no conc in top and bootom angles */
+60, /* 4. no flags : solid stick           */
+40, /* 5. for cutting brace                */
+28 /* 6. bad budgles                      */
+};
 
 static uchar tab_sq_brace[] = { 44, /* 0. no flag : В  MK: 44 from 29.09.1993 (old 4)  */
-                                8, /* 1. bad paar flags : ВД  for ], ДВ for [         */
-                                20, /* 2. for any long center flag                     */
-                                8, /* 3. for any near center flag                     */
-                                26, /* 4. for up and down concaves : similar  '(',')'  */
-                                88, /* 5. MK ADD 29.09.1993 for 't' => '['   */
-                                222, /* 6. MK ADD 30.09.1993 for TERRIBLE case    */
-                                80 /* 7/ pen for cutting images */
-                              };
+8, /* 1. bad paar flags : ВД  for ], ДВ for [         */
+20, /* 2. for any long center flag                     */
+8, /* 3. for any near center flag                     */
+26, /* 4. for up and down concaves : similar  '(',')'  */
+88, /* 5. MK ADD 29.09.1993 for 't' => '['   */
+222, /* 6. MK ADD 30.09.1993 for TERRIBLE case    */
+80 /* 7/ pen for cutting images */
+};
 
 /*----------------------------------------------------------------------*/
 // GLOBAL VARIABLES :
-uchar GL_hist[2*LIMIT_HEIGHT]; /* array for histogramm  */
-
+namespace cf {
+namespace dif {
+uchar GL_hist[2 * LIMIT_HEIGHT]; /* array for histogramm  */
 center_interval GL_cent[LIMIT_HEIGHT]; /* center of intervals   */
-
 center_interval GL_center[LIMIT_CENTER]; // center of c_comp-intervals
-
 uchar GL_left1[LIMIT_HEIGHT], /* auxiliary left and     */
 GL_right1[LIMIT_HEIGHT]; /*    right abris-arrays   */
+uchar GL_left0[LIMIT_HEIGHT], /* left and right abris-arrays    */
+GL_right0[LIMIT_HEIGHT]; // NO STATIC from 19.01.1993
+
+extern uchar language;
+int nIncline = 0;
+}
+}
+
+using namespace cf;
 
 static int16_t GL_hooks[4]; /* array of "hooks"     */
 static int16_t GL_hist_int[LIMIT_HEIGHT]; /* number of intervals in any row */
 
-uchar GL_left0[LIMIT_HEIGHT], /* left and right abris-arrays    */
-GL_right0[LIMIT_HEIGHT]; // NO STATIC from 19.01.1993
-
 static int16_t GL_tab_angle[LIMIT_HEIGHT]; /* optimal center inc line */
 static int16_t num_lines;
-int nIncline = 0;
-namespace cf {
-namespace dif {
-extern uchar language;
-}
-}
+
 ////////////////////Functions prototypes/////////////////////////////
 uchar lnhead_stick_center_study(lnhead *lin, int16_t dy, int16_t dx,
-                                STICK_CHARS *res_left_chars, STICK_CHARS *res_right_chars,
-                                STICK_SIGNUMS *res_signums);
+        STICK_CHARS *res_left_chars, STICK_CHARS *res_right_chars,
+        STICK_SIGNUMS *res_signums);
 static int16_t lnhead_to_centers(lnhead *lin, int16_t wid,
-                                 center_interval center[], uchar left[], uchar right[]);
+        center_interval center[], uchar left[], uchar right[]);
 static int16_t num_of_lines(center_interval center[], int16_t nc, int16_t dy,
-                            int16_t hist[]);
+        int16_t hist[]);
 static int16_t first_tg(INC_BASE *tab_inc[], int16_t num_inc, int16_t tg2048);
 static int16_t abris_expansion(uchar left[], uchar right[], int16_t dy,
-                               int16_t dx, int16_t tab_angle[]);
+        int16_t dx, int16_t tab_angle[]);
 static int16_t dis_slash(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-                         int16_t typ_add);
+        int16_t typ_add);
 static int16_t dis_I(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 static int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-                     int16_t typ_add);
+        int16_t typ_add);
 static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 static int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-                     int16_t sign_f);
+        int16_t sign_f);
 static int16_t dis_circle_brace(STICK_CHARS *l, STICK_CHARS *r,
-                                STICK_SIGNUMS *s, int16_t typ);
+        STICK_SIGNUMS *s, int16_t typ);
 static int16_t dis_r_sq_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 static int16_t dis_l_sq_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s);
 static int16_t find_neck(STICK_CHARS *l, STICK_CHARS *r, int16_t lim_long);
 static int16_t find_beam(STICK_CHARS *l, STICK_CHARS *r, int16_t lim_long);
 
 extern int16_t set_stick_char(uchar left[], uchar right[], int16_t hooks[],
-                              int16_t dy, int16_t dx, int16_t opt, int16_t wide, int16_t corr_mode,
-                              int16_t skip_ul, int16_t skip_dl, int16_t skip_ur, int16_t skip_dr,
-                              int16_t inc_num, STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-                              int16_t *l_mode, int16_t *r_mode);
+        int16_t dy, int16_t dx, int16_t opt, int16_t wide, int16_t corr_mode,
+        int16_t skip_ul, int16_t skip_dl, int16_t skip_ur, int16_t skip_dr,
+        int16_t inc_num, STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
+        int16_t *l_mode, int16_t *r_mode);
 extern int16_t make_center_line_dif(center_interval center[], int16_t nc,
-                                    uchar left[], uchar right[], int16_t dy, int16_t dx,
-                                    INC_BASE *angles[], int16_t num_angles, int16_t tab_angle[],
-                                    Bool16 comp_wide, Bool16 sig_T, Bool16 sig_f, Bool16 sig_r,
-                                    int16_t *wide, int16_t hooks[], int16_t *inc_v, uchar enable_correct);
+        uchar left[], uchar right[], int16_t dy, int16_t dx,
+        INC_BASE *angles[], int16_t num_angles, int16_t tab_angle[],
+        Bool16 comp_wide, Bool16 sig_T, Bool16 sig_f, Bool16 sig_r,
+        int16_t *wide, int16_t hooks[], int16_t *inc_v, uchar enable_correct);
 extern Bool32 digit_mode, dif_adding_mode;
 //////////////////////////////////////////////////////////////////////////
 
 
 uchar lnhead_stick_center_study(lnhead *lin, int16_t dy, int16_t dx,
-                                STICK_CHARS *res_left_chars, STICK_CHARS *res_right_chars,
-                                STICK_SIGNUMS *res_signums)
-{
+        STICK_CHARS *res_left_chars, STICK_CHARS *res_right_chars,
+        STICK_SIGNUMS *res_signums) {
     int16_t wide, opt, left_mode, right_mode, inc_v, nc, num_angles, f_a;
     uchar ret_br = 0;
     STICK_CHARS left_chars, right_chars;
     STICK_SIGNUMS signums;
-    memset(GL_left0, 0xFF, dy);
-    memset(GL_right0, 0xFF, dy);
+    memset(dif::GL_left0, 0xFF, dy);
+    memset(dif::GL_right0, 0xFF, dy);
 
-    if ((nc = lnhead_to_centers(lin, dx, GL_center, GL_left0, GL_right0)) == 0)
+    if ((nc = lnhead_to_centers(lin, dx, dif::GL_center, dif::GL_left0, dif::GL_right0)) == 0)
         return (0); /* too many Int16ervals */
 
-    if (num_of_lines(GL_center, nc, dy, GL_hist_int))
+    if (num_of_lines(dif::GL_center, nc, dy, GL_hist_int))
         return (0); /* non stick:>1lines*/
 
     num_angles = sizeof(stick_inc) / sizeof(stick_inc[0]);
-    f_a = first_tg(stick_inc, num_angles, nIncline);
+    f_a = first_tg(stick_inc, num_angles, dif::nIncline);
     num_angles = MIN((dx * 2048 / dy) > 800 ? LIMIT_OF_ANGLES + 4
-                     : LIMIT_OF_ANGLES, (int16_t) (sizeof(stick_inc)
-                                                   / sizeof(stick_inc[0]) - f_a - 1));
+            : LIMIT_OF_ANGLES, (int16_t) (sizeof(stick_inc)
+                    / sizeof(stick_inc[0]) - f_a - 1));
 
-    if ((ret_br = (uchar) make_center_line_dif(GL_center, (int16_t) (nc
-                                                                     - (GL_center[nc - 1].len == 1)), GL_left0, GL_right0, dy, dx,
-                                               &stick_inc[f_a], num_angles, GL_tab_angle, 0, 0, 1, 0, &wide,
-                                               GL_hooks, &inc_v, 1))) { // with correct
+    if ((ret_br = (uchar) make_center_line_dif(dif::GL_center, (int16_t) (nc
+            - (dif::GL_center[nc - 1].len == 1)), dif::GL_left0, dif::GL_right0, dy, dx,
+            &stick_inc[f_a], num_angles, GL_tab_angle, 0, 0, 1, 0, &wide,
+            GL_hooks, &inc_v, 1))) { // with correct
         if (ret_br) {
             opt = 0;
             set_stick_char(
-                GL_left0,
-                GL_right0,
-                GL_hooks,
-                dy,
-                dx,
-                opt,
-                wide,
-                (int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])),
-                0, 0, 0, 0,
-                0, // NB: LAST ZERO PAR - inc_num (?????)
-                &left_chars, &right_chars, &signums, &left_mode,
-                &right_mode);
+                    dif::GL_left0,
+                    dif::GL_right0,
+                    GL_hooks,
+                    dy,
+                    dx,
+                    opt,
+                    wide,
+                    (int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])),
+                    0, 0, 0, 0,
+                    0, // NB: LAST ZERO PAR - inc_num (?????)
+                    &left_chars, &right_chars, &signums, &left_mode,
+                    &right_mode);
             return (ret_br + 1); // silmular to (,)
         }
 
@@ -306,11 +305,11 @@ uchar lnhead_stick_center_study(lnhead *lin, int16_t dy, int16_t dx,
     }
 
     opt = ((MAX(GL_tab_angle[0], GL_tab_angle[dy - 1])) >> 1) << 1;
-    abris_expansion(GL_left0, GL_right0, dy, dx, GL_tab_angle);
-    set_stick_char(GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-                   (int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])), 0, 0,
-                   0, 0, 0, // NB: LAST ZERO PAR - inc_num (?????)
-                   &left_chars, &right_chars, &signums, &left_mode, &right_mode);
+    abris_expansion(dif::GL_left0, dif::GL_right0, dy, dx, GL_tab_angle);
+    set_stick_char(dif::GL_left0, dif::GL_right0, GL_hooks, dy, dx, opt, wide,
+            (int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])), 0, 0,
+            0, 0, 0, // NB: LAST ZERO PAR - inc_num (?????)
+            &left_chars, &right_chars, &signums, &left_mode, &right_mode);
     signums.incline = inc_v;
     signums.inc = (inc_v > 256);
     *res_signums = signums;
@@ -319,41 +318,40 @@ uchar lnhead_stick_center_study(lnhead *lin, int16_t dy, int16_t dx,
     return 1;
 }
 
-uchar stick_recog(uchar let, STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
-{
+uchar stick_recog(uchar let, STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
     int16_t dis = 0;
     uchar ret;
 
     switch (let) {
-        case (uchar) 'l':
-            dis = dis_l(l, r, s);
-            break;
-        case (uchar) 't':
-            dis = dis_t(l, r, s, 0/*sign_f*/);
-            break;
-        case (uchar) '1':
-            dis = dis_1(l, r, s, (uchar) dif_adding_mode);
-            break;
-        case (uchar) '|':
-            dis = dis_I(l, r, s);
-            break;
-        case (uchar) '/':
-            dis = dis_slash(l, r, s, (uchar) dif_adding_mode);
-            break;
-        case (uchar) '(':
-            dis = dis_circle_brace(l, r, s, 1);
-            break;
-        case (uchar) ')':
-            dis = dis_circle_brace(l, r, s, 0);
-            break;
-        case (uchar) ']':
-            dis_r_sq_brace(l, r, s);
-            break;
-        case (uchar) '[':
-            dis_l_sq_brace(l, r, s);
-            break;
-        default:
-            break;
+    case (uchar) 'l':
+        dis = dis_l(l, r, s);
+        break;
+    case (uchar) 't':
+        dis = dis_t(l, r, s, 0/*sign_f*/);
+        break;
+    case (uchar) '1':
+        dis = dis_1(l, r, s, (uchar) dif_adding_mode);
+        break;
+    case (uchar) '|':
+        dis = dis_I(l, r, s);
+        break;
+    case (uchar) '/':
+        dis = dis_slash(l, r, s, (uchar) dif_adding_mode);
+        break;
+    case (uchar) '(':
+        dis = dis_circle_brace(l, r, s, 1);
+        break;
+    case (uchar) ')':
+        dis = dis_circle_brace(l, r, s, 0);
+        break;
+    case (uchar) ']':
+        dis_r_sq_brace(l, r, s);
+        break;
+    case (uchar) '[':
+        dis_l_sq_brace(l, r, s);
+        break;
+    default:
+        break;
     }
 
     if (dis > 255)
@@ -365,44 +363,42 @@ uchar stick_recog(uchar let, STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
     return ret;
 }
 
-int lnhead_stick_get_incline(lnhead *lin, int dy, int dx)
-{
+int lnhead_stick_get_incline(lnhead *lin, int dy, int dx) {
     int16_t wide, opt, left_mode, right_mode, inc_v, nc, num_angles, f_a;
     STICK_CHARS left_chars, right_chars;
     STICK_SIGNUMS signums;
-    memset(GL_left0, 0xFF, dy);
-    memset(GL_right0, 0xFF, dy);
+    memset(dif::GL_left0, 0xFF, dy);
+    memset(dif::GL_right0, 0xFF, dy);
 
-    if ((nc = lnhead_to_centers(lin, dx, GL_center, GL_left0, GL_right0)) == 0)
+    if ((nc = lnhead_to_centers(lin, dx, dif::GL_center, dif::GL_left0, dif::GL_right0)) == 0)
         return (-1); /* too many Int16ervals */
 
-    if (num_of_lines(GL_center, nc, dy, GL_hist_int))
+    if (num_of_lines(dif::GL_center, nc, dy, GL_hist_int))
         return (-1); /* non stick:>1lines*/
 
     num_angles = sizeof(stick_inc) / sizeof(stick_inc[0]);
-    f_a = first_tg(stick_inc, num_angles, nIncline);
+    f_a = first_tg(stick_inc, num_angles, dif::nIncline);
     num_angles = MIN((dx * 2048 / dy) > 800 ? LIMIT_OF_ANGLES + 4
-                     : LIMIT_OF_ANGLES, (int16_t) (sizeof(stick_inc)
-                                                   / sizeof(stick_inc[0]) - f_a - 1));
+            : LIMIT_OF_ANGLES, (int16_t) (sizeof(stick_inc)
+                    / sizeof(stick_inc[0]) - f_a - 1));
 
-    if (make_center_line_dif(GL_center, (int16_t) (nc - (GL_center[nc - 1].len
-                                                         == 1)), GL_left0, GL_right0, dy, dx, &stick_inc[f_a], num_angles,
-                             GL_tab_angle, 0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1)) // with correct
+    if (make_center_line_dif(dif::GL_center, (int16_t) (nc - (dif::GL_center[nc - 1].len
+            == 1)), dif::GL_left0, dif::GL_right0, dy, dx, &stick_inc[f_a], num_angles,
+            GL_tab_angle, 0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1)) // with correct
         return (-1); /* abnormal set of ceneters : silmular to (,) or */
 
     /* not exist center-line                         */
     opt = ((MAX(GL_tab_angle[0], GL_tab_angle[dy - 1])) >> 1) << 1;
-    abris_expansion(GL_left0, GL_right0, dy, dx, GL_tab_angle);
-    set_stick_char(GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-                   (int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])), 0, 0,
-                   0, 0, 0, // NB: LAST ZERO PAR - inc_num (?????)
-                   &left_chars, &right_chars, &signums, &left_mode, &right_mode);
+    abris_expansion(dif::GL_left0, dif::GL_right0, dy, dx, GL_tab_angle);
+    set_stick_char(dif::GL_left0, dif::GL_right0, GL_hooks, dy, dx, opt, wide,
+            (int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])), 0, 0,
+            0, 0, 0, // NB: LAST ZERO PAR - inc_num (?????)
+            &left_chars, &right_chars, &signums, &left_mode, &right_mode);
     return signums.incline;
 }
 
 static int16_t lnhead_to_centers(lnhead *lin, int16_t wid,
-                                 center_interval center[], uchar left[], uchar right[])
-{
+        center_interval center[], uchar left[], uchar right[]) {
     int16_t ll, ind, n;
     lnhead *line;
     interval *inter;
@@ -418,7 +414,7 @@ static int16_t lnhead_to_centers(lnhead *lin, int16_t wid,
             return (0);
 
         for (ind = line->row, inter = (interval *) ((uchar*) line
-                                                    + sizeof(lnhead)); h; ind++, h--, inter++) { /* one line    */
+                + sizeof(lnhead)); h; ind++, h--, inter++) { /* one line    */
             int16_t inter_e, inter_l;
 
             if (ind >= LIMIT_HEIGHT)
@@ -445,8 +441,7 @@ static int16_t lnhead_to_centers(lnhead *lin, int16_t wid,
 }
 
 static int16_t num_of_lines(center_interval center[], int16_t nc, int16_t dy,
-                            int16_t hist[])
-{
+        int16_t hist[]) {
     int16_t n, *r, *e, ret;
     center_interval *p_center, *p_end = &center[nc];
     memset(hist, 0, dy * sizeof(hist[0]));
@@ -486,8 +481,7 @@ static int16_t num_of_lines(center_interval center[], int16_t nc, int16_t dy,
     return (ret); /* 0 - OK, 1 - bad c_comp (>1 line) */
 }
 
-static int16_t first_tg(INC_BASE *tab_inc[], int16_t num_inc, int16_t tg2048)
-{
+static int16_t first_tg(INC_BASE *tab_inc[], int16_t num_inc, int16_t tg2048) {
     int16_t i;
 
     if (abs(tg2048) > 32) { /* nonzero incline      */
@@ -513,8 +507,7 @@ static int16_t first_tg(INC_BASE *tab_inc[], int16_t num_inc, int16_t tg2048)
 }
 
 static int16_t abris_expansion(uchar left[], uchar right[], int16_t dy,
-                               int16_t dx, int16_t tab_angle[])
-{
+        int16_t dx, int16_t tab_angle[]) {
     // 09.12.1993
     int16_t i, opt;
     int16_t k, max_negat_left = 0, max_negat_right = 0; // 09.12.1993
@@ -569,7 +562,7 @@ static int16_t abris_expansion(uchar left[], uchar right[], int16_t dy,
     return (1);
 }
 
-int16_t dis_I(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)   // 17.01.1994
+int16_t dis_I(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) // 17.01.1994
 {
     int16_t dis = 0, t, lmu, rmu, lmd, rmd, num_l, num_n, num_z, z;
     int16_t sl = l->num_flags, sr = r->num_flags;
@@ -645,8 +638,8 @@ int16_t dis_I(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)   // 17.01.1994
 
             if (lmu > 0 && s->dis_nose_1 == 0) // exist 1-nose, similar '1':
                 dis += (lmu == 1) ? 50 : // d13/5(6) "CRITIC"       // 50
-                       (lmu == 2) ? 60 : // MK Int16ERPOLATION;        // 60
-                       70; // c3/21 "3.1x"         // 70
+                        (lmu == 2) ? 60 : // MK Int16ERPOLATION;        // 60
+                                70; // c3/21 "3.1x"         // 70
         }
 
         if (num_z == 3 && lmd > 1) /* three empty half-serif */
@@ -734,18 +727,18 @@ int16_t dis_I(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)   // 17.01.1994
     if (s->neck < 2) {
         //////      if ( (!l->num_long_flags) && !s->cut_l &&   // OLD
         if (!s->cut_l &&
-                //////       (dy>24)  ||                // 27.07.1993 PROBA
+        //////       (dy>24)  ||                // 27.07.1993 PROBA
                 (dy > 24 && !s->neck) || // 29.07.1993 PROBA
                 (!l->num_long_flags) && ((wid >= 4 && dy > 18) || (wid == 3
-                                                                   && !l->num_flags)))
+                        && !l->num_flags)))
             d_L = 0;
 
         //////      if ( (!r->num_long_flags) && !s->cut_r &&   // OLD
         if (!s->cut_r &&
-                //////       (dy>24)  ||                // 27.07.1993 PROBA
+        //////       (dy>24)  ||                // 27.07.1993 PROBA
                 (dy > 24 && !s->neck) || // 29.07.1993 PROBA
                 (!r->num_long_flags) && ((wid >= 4 && dy > 18) || (wid == 3
-                                                                   && !r->num_flags)))
+                        && !r->num_flags)))
             d_R = 0;
     }
 
@@ -771,18 +764,18 @@ int16_t dis_I(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)   // 17.01.1994
 
         if (s->width <= 4 && !inc && // add 09.06.1993 about added thin '(' or ')'
                 (l->mount[2] && r->conc[2] && // '(' LEFT
-                 (s->dis_left_brace == 0) && (l->m_meandr == 1)
-                 && (r->c_meandr == 1) || l->conc[2] && r->mount[2] && // ')' RIGHT
-                 (s->dis_right_brace == 0) && (l->c_meandr == 1)
-                 && (r->m_meandr == 1)))
+                        (s->dis_left_brace == 0) && (l->m_meandr == 1)
+                        && (r->c_meandr == 1) || l->conc[2] && r->mount[2] && // ')' RIGHT
+                        (s->dis_right_brace == 0) && (l->c_meandr == 1)
+                        && (r->m_meandr == 1)))
             dis += tab_I[17]; // 6
     }
 
     else if (l->conc[0] && r->conc[0] && // 19.11.1993 GLISTA  similar 't'
-             l->mount[1] && r->mount[1] && // g14/32(33) "fastest" first 't'
-             wid < 5 && // g14/34(37) "Kit"
-             abs(l->mb_pos[1] - s->base_2) < 2 && abs(r->mb_pos[1] - s->base_2)
-             < 2)
+            l->mount[1] && r->mount[1] && // g14/32(33) "fastest" first 't'
+            wid < 5 && // g14/34(37) "Kit"
+            abs(l->mb_pos[1] - s->base_2) < 2 && abs(r->mb_pos[1] - s->base_2)
+            < 2)
         dis += 20; // 20
 
     if (wid < 3) {
@@ -807,7 +800,7 @@ int16_t dis_I(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)   // 17.01.1994
     // 12.02.1993   thin LEG exist:
     if (l->conc[4] && r->conc[4] && // j1/16 "CURTIS": 'R'=>"II"
             (l->ce_pos[4] - l->cb_pos[4] + r->ce_pos[4] - r->cb_pos[4]) >= (dy
-                                                                            >> 1))
+                    >> 1))
         dis += tab_I[15]; // 20
 
     // 19.11.1993   I,l  similar 'E' ("THEATRE")
@@ -822,8 +815,7 @@ int16_t dis_I(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)   // 17.01.1994
     return (dis);
 }
 int16_t dis_slash(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-                  int16_t typ_add)
-{
+        int16_t typ_add) {
     int16_t dis = 0; // 13.12.1993
     ////int16_t wid = s->stick_width; NOT USED NOW
     int16_t inc = s->incline;
@@ -868,7 +860,7 @@ int16_t dis_slash(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
 }
 
 extern int32_t dif_typ_of_font;
-int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)   // 17.01.1994
+int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add) // 17.01.1994
 {
     int16_t dis_sI = 0;
     int16_t dis = 0, t, lmu, rmu, lmd, rmd, dy = s->height;
@@ -953,7 +945,7 @@ int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
                         }
 
                         else {
-                            if ( rmu < 6 )
+                            if (rmu < 6)
                                 dis += tab_1[1] * 12 * (rmu - 1); // *2
 
                             else
@@ -963,90 +955,89 @@ int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
                 }
             }
 
-        if ( lmu*2 < rmu && lmd*2 < rmu && rmd < rmu )
+        if (lmu * 2 < rmu && lmd * 2 < rmu && rmd < rmu)
             dis += tab_1[1] * 20 * (rmu - 1);
 
-        if ( lmd >= lmu*2 && lmd > 5 && l->mb_pos[4] < s->height / 2 )
+        if (lmd >= lmu * 2 && lmd > 5 && l->mb_pos[4] < s->height / 2)
             dis += 60;
 
-        DIS_HALF_SERIF(l, r, 4, 0, tab_1[2]);   /* test downer serif */ // 8
+        DIS_HALF_SERIF(l, r, 4, 0, tab_1[2]); /* test downer serif */// 8
 
-        if ( l->down_serif && r->down_serif )
-            DIS_DIFFERENT_SERIFS(l, r, 4, 4, wid, tab_1[4]);    // 6
+        if (l->down_serif && r->down_serif)
+            DIS_DIFFERENT_SERIFS(l, r, 4, 4, wid, tab_1[4]); // 6
 
-        if ( inc && ( r->down_hook || r->mount[3] > 1 ))
-            dis += tab_1[14];       /* similar inc 'l' */       // 40
+        if (inc && (r->down_hook || r->mount[3] > 1))
+            dis += tab_1[14]; /* similar inc 'l' */// 40
 
         /*..................................................*/
-        if ( typ_add == 0 && !(s->typ_nose_1 && l->mount[0] > wid) ) { /* not add */
-            int16_t ser = l->up_serif + r->up_serif + l->down_serif + r->down_serif ;
+        if (typ_add == 0 && !(s->typ_nose_1 && l->mount[0] > wid)) { /* not add */
+            int16_t ser = l->up_serif + r->up_serif + l->down_serif
+                    + r->down_serif;
 
             if (0)
-//if(  language != LANGUAGE_RUSSIAN )
+            //if(  language != LANGUAGE_RUSSIAN )
             {
-                if ( lmu == 1 && rmu == 1 && lmd == 1 && rmd == 1 && ser > 5 ||   // study angle:
-/////lmu>1  && rmu>1  && lmd>1  && rmd>1  && ser>4 )    // flags+serifs-information
-                        lmu > tt && rmu > tt && lmd > tt && rmd > tt && ser > 4 )    // 25.02.1993
-                    dis += tab_1[15];                   // 70
+                if (lmu == 1 && rmu == 1 && lmd == 1 && rmd == 1 && ser > 5 || // study angle:
+                        /////lmu>1  && rmu>1  && lmd>1  && rmd>1  && ser>4 )    // flags+serifs-information
+                        lmu > tt && rmu > tt && lmd > tt && rmd > tt && ser > 4) // 25.02.1993
+                    dis += tab_1[15]; // 70
             }
 
-            DIS_BRACES_CIRCLE(l, r, wid, tab_1[16]);   // braces (,)           // 40
+            DIS_BRACES_CIRCLE(l, r, wid, tab_1[16]); // braces (,)           // 40
 
-            if ( !(lmd > wid && rmd > wid) )
-                if ( (r->conc[0] > 1 && r->conc[4] > 1) ||  // OLD OLEG
-                        (r->conc[0] > wid) )       // 01.06.1993 for ')' after INC
-                    dis += tab_1[16];       // this also ')'-config     // 40
+            if (!(lmd > wid && rmd > wid))
+                if ((r->conc[0] > 1 && r->conc[4] > 1) || // OLD OLEG
+                        (r->conc[0] > wid)) // 01.06.1993 for ')' after INC
+                    dis += tab_1[16]; // this also ')'-config     // 40
 
-            if ( (r->conc[0] || r->conc[1]) && r->mount[4] > 2 && l->mount[4] > 2 ) {  /* pitch є */
+            if ((r->conc[0] || r->conc[1]) && r->mount[4] > 2 && l->mount[4]
+                    > 2) { /* pitch є */
                 int16_t tt = find_neck(l, r, 1);
 
                 /****** if( tt<2 ) ******/
-                if ( tt >= 0  &&  tt < 2 )  // 31.05.1993 (WAS ERROR if FFFF)
-                    dis += tab_1[13];   // similar    є            // 20
+                if (tt >= 0 && tt < 2) // 31.05.1993 (WAS ERROR if FFFF)
+                    dis += tab_1[13]; // similar    є            // 20
             }
         }
 
         /*..................................................*/
-        if ( l->mount[4] == 0 && r->mount[4] == 0 && r->mount[0] == 0 &&
-                s->typ_nose_1 == 0 )    /* no down serif */
-            dis += tab_1[19];   // cutting nose         // 4
+        if (l->mount[4] == 0 && r->mount[4] == 0 && r->mount[0] == 0
+                && s->typ_nose_1 == 0) /* no down serif */
+            dis += tab_1[19]; // cutting nose         // 4
 
-        if ( (s->typ_nose_1 == 0)  &&   // 02.06.1993 PROBA:
-                wid > 5  &&
-                lmu > 3  &&
-                lmd > 2  &&            // add 17:30 (for #4 ???)
-                (s->lll_nose_1  ||  dy > 24 && l->m_pos[0] < 3) )
-//////      dis += 88;  // PROBA-88             // 88
-            dis += 20;  // PROBA-20             // 20
+        if ((s->typ_nose_1 == 0) && // 02.06.1993 PROBA:
+                wid > 5 && lmu > 3 && lmd > 2 && // add 17:30 (for #4 ???)
+                (s->lll_nose_1 || dy > 24 && l->m_pos[0] < 3))
+            //////      dis += 88;  // PROBA-88             // 88
+            dis += 20; // PROBA-20             // 20
 
         /******************************************************************
-        if (r->conc[0]>=MAX(wid,3)) // 09.06.1993  for CUT. 'h' to "ll"
-            dis += 80;      // PROBA-80             // 80
-            ***************************************************************/
+         if (r->conc[0]>=MAX(wid,3)) // 09.06.1993  for CUT. 'h' to "ll"
+         dis += 80;      // PROBA-80             // 80
+         ***************************************************************/
 
-        if (s->cut_r &&     // 09.06.1993 PROBA for CUT. "The" (stdj10);
-                (r->mount[0] || r->m_meandr == 0) &&
-                !r->down_serif &&
-////l->mount[0]>MAX(wid*2-3,5)) // first
+        if (s->cut_r && // 09.06.1993 PROBA for CUT. "The" (stdj10);
+                (r->mount[0] || r->m_meandr == 0) && !r->down_serif &&
+        ////l->mount[0]>MAX(wid*2-3,5)) // first
                 l->mount[0] > MAX(wid, 5)) // second
-//////  dis += 80;      // PROBA-80             // 80
-//////  dis += 160;     // PROBA-160                // 160
-            dis += (rmu + 2) * 80;  // PROBA-rmu"*80            // *80
+        //////  dis += 80;      // PROBA-80             // 80
+        //////  dis += 160;     // PROBA-160                // 160
+            dis += (rmu + 2) * 80; // PROBA-rmu"*80            // *80
     }
 
     /*.......................................................................*/
     else { /* no serifs */
-        if ( l->mount[1] + l->mount[2] + l->mount[3] +
-                r->mount[1] + r->mount[2] + r->mount[3] < 2 )
+        if (l->mount[1] + l->mount[2] + l->mount[3] + r->mount[1] + r->mount[2]
+                + r->mount[3] < 2)
             dis += tab_1[12] << 1; // small dis  for solid stick  // 8
 
         else
             dis += tab_1[18]; // exist central flags        // 8
 
-        if ( s->neck > 1 )
+        if (s->neck > 1)
             dis += tab_1[13]; // 20
 
-        else if ( s->neck == 1 )
+        else if (s->neck == 1)
             FOUR_CONC(l, r, tab_1[13]); // *20?
 
         /*************************************  DELETE IT 20.10.1993
@@ -1062,14 +1053,14 @@ int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
     ///if (l->mount[1]>2 && l->mb_pos[1]>5) // 21.10.1993 for TOO DOWN NOSE
     if (l->mount[1] > 2 && // 22.10.1993 for TOO DOWN NOSE
             l->mb_pos[1] > // 22.10.1993 vers-080
-            ////(s->cut_l ? 3 : 4))         // ok55/4(5) "22021"  (exotic Nose)
-            ////(s->cut_l ? 3 : 5))         // j8/13(15) "105/18" (exotic Nose)
-            (s->cut_l ? 3 : (inc ? 5 : 4))) { // fax25/12(17) "Windows": "nd" => "m1"
-        if ( !(l->conc[0] > 1) )
+                    ////(s->cut_l ? 3 : 4))         // ok55/4(5) "22021"  (exotic Nose)
+                    ////(s->cut_l ? 3 : 5))         // j8/13(15) "105/18" (exotic Nose)
+                    (s->cut_l ? 3 : (inc ? 5 : 4))) { // fax25/12(17) "Windows": "nd" => "m1"
+        if (!(l->conc[0] > 1))
             dis += tab_1[6]; // 60
     }
 
-    if ( digit_mode ) {
+    if (digit_mode) {
         int16_t s_dis = dis;
         dis = 0;
         DIS_CENTER_FLAGS(l, r, 2, wid, inc, tab_1[6], tab_1[7]); // 60,12
@@ -1090,22 +1081,22 @@ int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
     //////if( lmu==1 )  // OLD OLEG
     //////if ( (lmu==1) && (dy<22) )    // MK 19.01.1922:  stdh25/15 (???)
     //////if ( lmu==1 )     // OLD OLEG RESTORE OTLADKA 02.02.1992
-    if ( (lmu == 1) && (dy < 22) ) { // 28.07.1993    SNOWA PROBA ##############
+    if ((lmu == 1) && (dy < 22)) { // 28.07.1993    SNOWA PROBA ##############
         t = find_beam(l, r, 1);
 
-        if ( t >= 0 && t < 3 && r->mount[t] >= l->mount[t] )
+        if (t >= 0 && t < 3 && r->mount[t] >= l->mount[t])
             dis += tab_1[10] * (r->mount[t] - r->mount[t] + 1); // *40
 
         /* similar 'f' */
     }
 
-    if ( s->dis_nose_1 ) {
-        if ( !digit_mode )
+    if (s->dis_nose_1) {
+        if (!digit_mode)
             dis += s->dis_nose_1;
 
         else {
-            if ( typ_add ) {
-                if ( s->width > s->stick_width*2 )
+            if (typ_add) {
+                if (s->width > s->stick_width * 2)
                     dis += s->dis_nose_1;
 
                 else
@@ -1119,17 +1110,17 @@ int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
 
     /* primary discrim */
 
-    if ( wid > 4 && l->mount[0] == 1 && l->mount[1] == lmu )
+    if (wid > 4 && l->mount[0] == 1 && l->mount[1] == lmu)
         dis += r->conc[0] * tab_1[11]; // 20
 
-    if ( l->up_serif > 1 && lmu <= lmd && lmu > 1 && rmu<2 && rmd>1 && lmd > 1 &&
-            typ_add )
+    if (l->up_serif > 1 && lmu <= lmd && lmu > 1 && rmu < 2 && rmd > 1 && lmd
+            > 1 && typ_add)
         dis += tab_1[12]; // min DIS for l-config           // 4
 
-    if ( s->neck > 1 )
+    if (s->neck > 1)
         dis += tab_1[13]; // similar 'є'               // 20
 
-    if ( wid*2 > s->height )
+    if (wid * 2 > s->height)
         dis += tab_1[20]; // too wide stick : bad proportions   // 80
 
     /*......................................................................*/
@@ -1141,7 +1132,8 @@ int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
         dis += 60; // for der Laterne       // 60
 
     // h15/6, i15/28 {'l} => {1}
-    if ( lmu > 2*MAX(lmd, rmd) && l->me_pos[0]<4 && lmu>8 && lmu == l->mount[0])
+    if (lmu > 2 * MAX(lmd, rmd) && l->me_pos[0] < 4 && lmu > 8 && lmu
+            == l->mount[0])
         dis += 60;
 
     /*......................................................................*/
@@ -1149,23 +1141,26 @@ int16_t dis_1(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t typ_add)
     dis = MAX(dis, dis_sI);
 
     if (0)
-        //if( is_digital_string() )
-        //if( language==LANGUAGE_RUSSIAN )
+    //if( is_digital_string() )
+    //if( language==LANGUAGE_RUSSIAN )
     {
-        if ( dis > 100 ) dis = 40;
+        if (dis > 100)
+            dis = 40;
 
-        else if ( dis > 60 ) dis = 20;
+        else if (dis > 60)
+            dis = 20;
 
-        else if ( dis > 20 ) dis = 4;
+        else if (dis > 20)
+            dis = 4;
 
-        else dis = 0;
+        else
+            dis = 0;
     }
 
-    return(dis);
+    return (dis);
 }
 
-int16_t find_neck(STICK_CHARS *l, STICK_CHARS *r, int16_t lim_long)
-{
+int16_t find_neck(STICK_CHARS *l, STICK_CHARS *r, int16_t lim_long) {
     int16_t i, num, minim, m, rr, ll;
 
     for (num = -1, minim = m = i = 0; i < 3; i++) {
@@ -1182,8 +1177,7 @@ int16_t find_neck(STICK_CHARS *l, STICK_CHARS *r, int16_t lim_long)
     return (num);
 }
 
-int16_t find_beam(STICK_CHARS *l, STICK_CHARS *r, int16_t lim_long)
-{
+int16_t find_beam(STICK_CHARS *l, STICK_CHARS *r, int16_t lim_long) {
     int16_t i, num, maxim, m, rr, ll;
 
     for (num = -1, maxim = m = i = 0; i < 3; i++) {
@@ -1201,19 +1195,18 @@ int16_t find_beam(STICK_CHARS *l, STICK_CHARS *r, int16_t lim_long)
 }
 
 int16_t dis_circle_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
-                         int16_t typ)
-{
+        int16_t typ) {
     int16_t dis = 0;
     int16_t inc = s->inc;
     int16_t sl = l->num_flags, sr = r->num_flags, wid = s->stick_width;
     int16_t lu, ld, ru, rd;
 
     if (l->up_serif && r->up_serif && (!inc || l->down_serif + r->down_serif
-                                       > 2 && !inc))
+            > 2 && !inc))
         dis += tab_circle_brace[0]; /* up serif */
 
     if (l->down_serif && r->down_serif && (!inc || l->down_serif
-                                           + r->down_serif > 2 && !inc))
+            + r->down_serif > 2 && !inc))
         dis += tab_circle_brace[0]; /* down serif */
 
     if (r->mount[0] && r->mount[4]) { /* '('    */
@@ -1237,11 +1230,11 @@ int16_t dis_circle_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
             dis += tab_circle_brace[2]; /* similar '1' */
 
         if (l->conc[1] == 0 && l->conc[3] == 0 && l->conc[2] > (s->stick_width
-                                                                > 2 ? 2 : 1))
+                > 2 ? 2 : 1))
             dis += tab_circle_brace[6]; /* bad bugles in 1,3 zones  */
 
         if (!inc && r->mount[0] > 2 && r->mount[4] > 2 && abs(r->mount[0]
-                                                              - r->mount[4]) > MIN(r->mount[0], r->mount[4]))
+                - r->mount[4]) > MIN(r->mount[0], r->mount[4]))
             dis += tab_circle_brace[6]; /* differnets mounts  */
 
         if (s->width > 6 && l->conc[0] < 2 && l->conc[1] < 2 && r->mount[0] < 2
@@ -1264,11 +1257,11 @@ int16_t dis_circle_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
             dis += tab_circle_brace[2]; /* similar '1' */
 
         if (r->conc[1] == 0 && r->conc[3] == 0 && r->conc[2] > (s->stick_width
-                                                                > 2 ? 2 : 1))
+                > 2 ? 2 : 1))
             dis += tab_circle_brace[6]; /* bad bugles in 1,3 zones  */
 
         if (!inc && l->mount[0] > 2 && l->mount[4] > 2 && abs(l->mount[0]
-                                                              - l->mount[4]) > MIN(l->mount[0], l->mount[4]))
+                - l->mount[4]) > MIN(l->mount[0], l->mount[4]))
             dis += tab_circle_brace[6]; /* differnets mounts  */
 
         if (s->width > 6 && r->conc[0] < 2 && r->conc[1] < 2 && l->mount[0] < 2
@@ -1307,7 +1300,7 @@ int16_t dis_circle_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
             dis += tab_circle_brace[5]; // PROBA 24.06.1993
 
         if (wid < 7 && (r->mount[0] == 0 && r->mount[1] > 1 || r->mount[4] == 0
-                        && r->mount[3] > 1))
+                && r->mount[3] > 1))
             dis += tab_circle_brace[6]; /* bad bugles in 1,3 zones  */
 
         if (r->mount[0] > wid && r->mount[4] < 1 || r->mount[4] > wid
@@ -1339,7 +1332,7 @@ int16_t dis_circle_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
             dis += tab_circle_brace[5]; // PROBA 24.06.1993
 
         if (wid < 7 && (l->mount[0] == 0 && l->mount[1] > 1 || l->mount[4] == 0
-                        && l->mount[3] > 1))
+                && l->mount[3] > 1))
             dis += tab_circle_brace[6]; /* bad bugles in 1,3 zones  */
 
         if (l->mount[0] > wid && l->mount[4] < 1 || l->mount[4] > wid
@@ -1356,8 +1349,7 @@ int16_t dis_circle_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s,
     return (dis);
 }
 
-static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
-{
+static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
     // 17.01.1994
     int16_t dis = 0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy = s->height;
     int16_t sl = l->num_flags, sr = r->num_flags;
@@ -1412,7 +1404,7 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 
         if (l->up_serif && r->up_serif && !inc) {
             int16_t ser = l->up_serif + r->up_serif + l->down_serif
-                          + r->down_serif;
+                    + r->down_serif;
             DIS_CURVE(l, r, 4, 1, tab_l[8]); // 10
 
             if ((lmu + rmu) << 1 > (lmd + rmd)) {
@@ -1444,11 +1436,11 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 
         if ((num_z == 3) && // 01.06.1993
                 (rmu > 0 && s->r_f_symptom && s->l_f_symptom || // Similar 'f'  ||
-                 (s->lll_nose_1 == 0 && // Similar '1'
-                  (num_l == 1 && rmd == 0 && r->mount[3] == 0
-                   || (lmu > 1 || lmu > 0 && dy < 17)
-                   && s->dis_nose_1 == 0
-                   && r->mount[3] == 0))))
+                        (s->lll_nose_1 == 0 && // Similar '1'
+                                (num_l == 1 && rmd == 0 && r->mount[3] == 0
+                                        || (lmu > 1 || lmu > 0 && dy < 17)
+                                                && s->dis_nose_1 == 0
+                                                && r->mount[3] == 0))))
             dis += tab_l[11]; // similar 'f','1'    // 48
 
         if ((num_l == 1) && // 09.07.1993, 12.10.1993
@@ -1456,7 +1448,7 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
             dis += tab_l[11]; // similar 'L'        // 48
 
         if (num_l == 3 && lmu > 0 && s->typ_nose_1 == 1 && ((l->m_pos[0]
-                                                             >= MAX(wid, 5) - 1)) && lmu >= lmd) // 31.05.1993
+                >= MAX(wid, 5) - 1)) && lmu >= lmd) // 31.05.1993
             dis += tab_l[11]; // similar '1'            // 48
 
         if (num_l == 3 && abs(s->inc_num) > 1 && s->cut_r && rmu < 2) // 10.12.1993 EDIT;
@@ -1532,12 +1524,12 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
     if (s->neck < 2) { // see OLD VARIANT in dis_I !!!!!!!!!!!!!!
         if (!s->cut_l && (dy > 24 && !s->neck) || // 29.07.1993 PROBA
                 (!l->num_long_flags) && ((wid >= 4 && dy > 18) || (wid == 3
-                                                                   && !l->num_flags)))
+                        && !l->num_flags)))
             d_L = 0;
 
         if (!s->cut_r && (dy > 24 && !s->neck) || // 29.07.1993 PROBA
                 (!r->num_long_flags) && ((wid >= 4 && dy > 18) || (wid == 3
-                                                                   && !r->num_flags)))
+                        && !r->num_flags)))
             d_R = 0;
     }
 
@@ -1561,18 +1553,18 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 
         if (s->width <= 4 && !inc && // add 09.06.1993 about added thin '(' or ')'
                 (l->mount[2] && r->conc[2] && // '(' LEFT
-                 (s->dis_left_brace == 0) && (l->m_meandr == 1)
-                 && (r->c_meandr == 1) || l->conc[2] && r->mount[2] && // ')' RIGHT
-                 (s->dis_right_brace == 0) && (l->c_meandr == 1)
-                 && (r->m_meandr == 1)))
+                        (s->dis_left_brace == 0) && (l->m_meandr == 1)
+                        && (r->c_meandr == 1) || l->conc[2] && r->mount[2] && // ')' RIGHT
+                        (s->dis_right_brace == 0) && (l->c_meandr == 1)
+                        && (r->m_meandr == 1)))
             dis += tab_l[19]; // 6
     }
 
     else if (l->conc[0] && r->conc[0] && // 19.11.1993 GLISTA  similar 't'
-             l->mount[1] && r->mount[1] && // g14/32(33) "fastest" first 't'
-             wid < 5 && // g14/34(37) "Kit"
-             abs(l->mb_pos[1] - s->base_2) < 2 && abs(r->mb_pos[1] - s->base_2)
-             < 2)
+            l->mount[1] && r->mount[1] && // g14/32(33) "fastest" first 't'
+            wid < 5 && // g14/34(37) "Kit"
+            abs(l->mb_pos[1] - s->base_2) < 2 && abs(r->mb_pos[1] - s->base_2)
+            < 2)
         dis += 20; // 20
 
     if (wid < 3) {
@@ -1588,20 +1580,20 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
         dis += tab_l[15]; /* similar 't' */// 80
 
     if ((s->neck == 1) && (wid >= 6) && ((l->conc[0] && r->conc[0] && // fax 27/7 "Capability", first 'є'
-                                          (l->cb_pos[0] == r->cb_pos[0] && abs(l->cb_pos[0] - s->base_2) < 4
-                                           || l->ce_pos[0] == r->ce_pos[0] && abs(l->ce_pos[0]
-                                                                                  - s->base_2) < 4) && l->cb_pos[0] != l->ce_pos[0]
-                                          && r->cb_pos[0] != r->ce_pos[0]) || (l->conc[1] && r->conc[1] && // fax ....................... 'є'
-                                                                               (l->cb_pos[1] == r->cb_pos[1] && abs(l->cb_pos[1] - s->base_2) < 4
-                                                                                || l->ce_pos[1] == r->ce_pos[1] && abs(l->ce_pos[1]
-                                                                                                                       - s->base_2) < 4) && l->cb_pos[1] != l->ce_pos[1]
-                                                                               && r->cb_pos[1] != r->ce_pos[1])))
+            (l->cb_pos[0] == r->cb_pos[0] && abs(l->cb_pos[0] - s->base_2) < 4
+                    || l->ce_pos[0] == r->ce_pos[0] && abs(l->ce_pos[0]
+                            - s->base_2) < 4) && l->cb_pos[0] != l->ce_pos[0]
+            && r->cb_pos[0] != r->ce_pos[0]) || (l->conc[1] && r->conc[1] && // fax ....................... 'є'
+            (l->cb_pos[1] == r->cb_pos[1] && abs(l->cb_pos[1] - s->base_2) < 4
+                    || l->ce_pos[1] == r->ce_pos[1] && abs(l->ce_pos[1]
+                            - s->base_2) < 4) && l->cb_pos[1] != l->ce_pos[1]
+            && r->cb_pos[1] != r->ce_pos[1])))
         dis += tab_l[17]; // 6
 
     // 12.02.1993   thin LEG exist:
     if (l->conc[4] && r->conc[4] && // j1/16 "CURTIS": 'R'=>"II"
             (l->ce_pos[4] - l->cb_pos[4] + r->ce_pos[4] - r->cb_pos[4]) >= (dy
-                                                                            >> 1))
+                    >> 1))
         dis += tab_l[18]; // 20
 
     // 19.11.1993   l,I  similar 'E' ("THEATRE")
@@ -1615,8 +1607,7 @@ static int16_t dis_l(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
     return (dis);
 }
 
-static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
-{
+static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
     int16_t dis = 0, t, lmu, rmu, lmd, rmd, num_l, num_z, dy = s->height;
     int16_t sl = l->num_flags, sr = r->num_flags;
     int16_t wid = s->stick_width, inc = s->inc;
@@ -1667,7 +1658,7 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 
         if (l->up_serif && r->up_serif && !inc) {
             int16_t ser = l->up_serif + r->up_serif + l->down_serif
-                          + r->down_serif;
+                    + r->down_serif;
             DIS_CURVE(l, r, 4, 1, tab_l[8]); // 10
 
             if ((lmu + rmu) << 1 > (lmd + rmd)) {
@@ -1698,11 +1689,11 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 
         if ((num_z == 3) && // 01.06.1993
                 (rmu > 0 && s->r_f_symptom && s->l_f_symptom || // Similar 'f'  ||
-                 (s->lll_nose_1 == 0 && // Similar '1'
-                  (num_l == 1 && rmd == 0 && r->mount[3] == 0
-                   || (lmu > 1 || lmu > 0 && dy < 17)
-                   && s->dis_nose_1 == 0
-                   && r->mount[3] == 0))))
+                        (s->lll_nose_1 == 0 && // Similar '1'
+                                (num_l == 1 && rmd == 0 && r->mount[3] == 0
+                                        || (lmu > 1 || lmu > 0 && dy < 17)
+                                                && s->dis_nose_1 == 0
+                                                && r->mount[3] == 0))))
             dis += tab_l[11]; // similar 'f','1'    // 48
 
         if ((num_l == 1) && // 09.07.1993, 12.10.1993
@@ -1788,12 +1779,12 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
     if (s->neck < 2) { // see OLD VARIANT in dis_I !!!!!!!!!!!!!!
         if (!s->cut_l && (dy > 24 && !s->neck) || // 29.07.1993 PROBA
                 (!l->num_long_flags) && ((wid >= 4 && dy > 18) || (wid == 3
-                                                                   && !l->num_flags)))
+                        && !l->num_flags)))
             d_L = 0;
 
         if (!s->cut_r && (dy > 24 && !s->neck) || // 29.07.1993 PROBA
                 (!r->num_long_flags) && ((wid >= 4 && dy > 18) || (wid == 3
-                                                                   && !r->num_flags)))
+                        && !r->num_flags)))
             d_R = 0;
     }
 
@@ -1880,20 +1871,20 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 
     // 09,10,11.02.1993 CASE NECK=1 wid>=6 (see dis_0xBA)
     if ((s->neck == 1) && (wid >= 6) && ((l->conc[0] && r->conc[0] && // fax 27/7 "Capability", first 'є'
-                                          (l->cb_pos[0] == r->cb_pos[0] && abs(l->cb_pos[0] - s->base_2) < 4
-                                           || l->ce_pos[0] == r->ce_pos[0] && abs(l->ce_pos[0]
-                                                                                  - s->base_2) < 4) && l->cb_pos[0] != l->ce_pos[0]
-                                          && r->cb_pos[0] != r->ce_pos[0]) || (l->conc[1] && r->conc[1] && // fax ....................... 'є'
-                                                                               (l->cb_pos[1] == r->cb_pos[1] && abs(l->cb_pos[1] - s->base_2) < 4
-                                                                                || l->ce_pos[1] == r->ce_pos[1] && abs(l->ce_pos[1]
-                                                                                                                       - s->base_2) < 4) && l->cb_pos[1] != l->ce_pos[1]
-                                                                               && r->cb_pos[1] != r->ce_pos[1])))
+            (l->cb_pos[0] == r->cb_pos[0] && abs(l->cb_pos[0] - s->base_2) < 4
+                    || l->ce_pos[0] == r->ce_pos[0] && abs(l->ce_pos[0]
+                            - s->base_2) < 4) && l->cb_pos[0] != l->ce_pos[0]
+            && r->cb_pos[0] != r->ce_pos[0]) || (l->conc[1] && r->conc[1] && // fax ....................... 'є'
+            (l->cb_pos[1] == r->cb_pos[1] && abs(l->cb_pos[1] - s->base_2) < 4
+                    || l->ce_pos[1] == r->ce_pos[1] && abs(l->ce_pos[1]
+                            - s->base_2) < 4) && l->cb_pos[1] != l->ce_pos[1]
+            && r->cb_pos[1] != r->ce_pos[1])))
         dis += tab_l[17]; // 6
 
     // 12.02.1993   thin LEG exist:
     if (l->conc[4] && r->conc[4] && // j1/16 "CURTIS": 'R'=>"II"
             (l->ce_pos[4] - l->cb_pos[4] + r->ce_pos[4] - r->cb_pos[4]) >= (dy
-                                                                            >> 1))
+                    >> 1))
         dis += tab_l[18]; // 20
 
     // 19.11.1993   l,I  similar 'E' ("THEATRE")
@@ -1907,7 +1898,7 @@ static int16_t dis_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
     return (dis);
 }
 
-int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f)   // 10.01.1994
+int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) // 10.01.1994
 {
     int16_t i, dis = 0, t, lm, rm, dy = s->height, dx = s->width, t2;
     int16_t nl = l->num_long_flags, nr = r->num_long_flags;
@@ -1935,7 +1926,7 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
                 dis += lm * tab_t[1]; // *20
 
             else if ((s->cut_l || s->cut_r) && rm < 3 && // 19.10.1993
-                     rm > r->mount[4]) // 20.10.1993
+                    rm > r->mount[4]) // 20.10.1993
                 // 20.11.1993 fax8/19(21) "using" 'n' => "tl"
                 dis += (wid >= 5 ? 88 : 44); // 88/44
 
@@ -1943,7 +1934,7 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
                 dis += tab_t[1]; // 20
 
             if (t == 0 && r->mb_pos[0] < 2 && !(s->base_2 != -1 && // 18.11.1993
-                                                abs(r->m_pos[0] - s->base_2) < (/*fax1x2 ? 3 :*/2))
+                    abs(r->m_pos[0] - s->base_2) < (/*fax1x2 ? 3 :*/2))
                     && !(r->m_pos[0] > dy / 6 && r->me_pos[0] > dy / 3))
                 dis += tab_t[24]; //100
 
@@ -1978,7 +1969,7 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
 
         // MK PROBA 03.02.1993 about 'r'=>'t'
         if ((t == 0) && (wid >= 4) && (lm <= 1) && (rm >= 4) && (r->mount[4]
-                                                                 < 5)) // 07.01.1994 EDITION
+                < 5)) // 07.01.1994 EDITION
             dis += 22; // MK PROBA 04.02.1993           // 22
 
         if (1/*!fax1x2*/) { // OTLADKA 20.01.1993
@@ -2003,8 +1994,8 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
 #endif
 
             if (s->base_2 > MAX(s->height / 6, 3) && (MAX(l->m_pos[t],
-                                                          r->m_pos[t]) < s->base_2 - t2 || MAX(l->mb_pos[t],
-                                                                                               r->mb_pos[t]) > s->base_2 + 4)) // 19.10.1993
+                    r->m_pos[t]) < s->base_2 - t2 || MAX(l->mb_pos[t],
+                    r->mb_pos[t]) > s->base_2 + 4)) // 19.10.1993
                 dis += tab_t[18]; // 100
 
             else {/*if (inc_num_EEM>=2  &&      // 18.11.1993 similar '7'
@@ -2033,7 +2024,7 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
 
             // 26.08.1993   INCREASE for "ft"
             if (i == 0 && nl == 2 && nr == 2 && t > 0 && s->cut_l && (!inc
-                                                                      && l->mount[0] == lm || inc && l->mount[0] > lm) && rm >= 3
+                    && l->mount[0] == lm || inc && l->mount[0] > lm) && rm >= 3
                     && r->mount[4] >= 3) // second variant
                 return (-444); // NOTA BENE:  INCREASE !!!!!!!!!!
 
@@ -2065,7 +2056,7 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
             }
 
             if (s->width > 4 && im == 0 && ma >= r->mount[t] - 1 && !(ma == 1
-                                                                      && inc))
+                    && inc))
                 dis += tab_t[23]; // 20
         }
 
@@ -2090,14 +2081,14 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
 
             if (s->width > 2 && !(l->mount[3] == 1 && l->conc[4]))
                 dis += ((sl > 1) + (sr > 2)) * (inc ? tab_t[6] : // *2
-                                                (s->width < 4 ? tab_t[26] : tab_t[7])); //*20,40
+                        (s->width < 4 ? tab_t[26] : tab_t[7])); //*20,40
 
             else if (sl > 1 || sr > 2)
                 dis += tab_t[20]; // 4
 
             /* meandr and narrow beam */
             if (inc && wid < 5 && (l->me_pos[t] <= r->mb_pos[t] || r->me_pos[t]
-                                   <= l->mb_pos[t]))
+                    <= l->mb_pos[t]))
                 dis += tab_t[22]; // 40
         }
     } // IF ELSE: NORMAL BEEM;
@@ -2187,8 +2178,7 @@ int16_t dis_t(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s, int16_t sign_f) 
 }
 
 /* letter [ */// 22.11.1993
-int16_t dis_l_sq_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
-{
+int16_t dis_l_sq_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
     int16_t dis = 0, lmu, rmu, lmd, rmd, dy = s->height;
     int16_t wid = s->stick_width, inc = s->inc;
     lmu = l->mount[0];
@@ -2205,7 +2195,7 @@ int16_t dis_l_sq_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
     }
 
     else if (r->m_pos[0] >= 2 && // 29/30.09.1993  for 't'=>'[' MK ADD:
-             r->mb_pos[0] > 0) { // 19.11.1993 for j2/14 '[' (0-2-4)
+            r->mb_pos[0] > 0) { // 19.11.1993 for j2/14 '[' (0-2-4)
         dis += tab_sq_brace[0]; // FALSE U.R. FLAG  // 44
 
         if (r->m_pos[0] >= 3)
@@ -2220,8 +2210,8 @@ int16_t dis_l_sq_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
     }
 
     else if (rmd - rmu >= 2 && // 29.09.1993 for stdc20/13 "bit"
-             //////   ((l->conc[5]) && (dy - l->cb_pos[5] >= 2)))  #############
-             ((l->conc[4]) && (dy - l->cb_pos[4] >= 2))) // 19.11.1993
+            //////   ((l->conc[5]) && (dy - l->cb_pos[5] >= 2)))  #############
+            ((l->conc[4]) && (dy - l->cb_pos[4] >= 2))) // 19.11.1993
         dis += tab_sq_brace[5]; // for 't' => '[' // 88
 
     //////else  DELETE 29.09.1993
@@ -2268,8 +2258,7 @@ int16_t dis_l_sq_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 }
 /*----------------------------------------------------------------------*/
 /* letter ] */// 29.09.1993 MK
-int16_t dis_r_sq_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
-{
+int16_t dis_r_sq_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
     int16_t dis = 0, lmu, rmu, lmd, rmd, dy = s->height;
     int16_t wid = s->stick_width, inc = s->inc;
     lmu = l->mount[0];
@@ -2335,11 +2324,10 @@ int16_t dis_r_sq_brace(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 }
 
 /* rough propability of letter 'f' */
-static uchar config_f(STICK_CHARS *l, STICK_CHARS *r)
-{
+static uchar config_f(STICK_CHARS *l, STICK_CHARS *r) {
     uchar ret = 3, lf = (l->mount[0] != 0) + (l->mount[1] != 0) + (l->mount[2]
-                                                                   != 0), rf = (r->mount[0] != 0) + (r->mount[1] != 0) + (r->mount[2]
-                                                                                                                          != 0), br_l = (r->mount[0] && r->mount[4] && l->mount[2]);
+            != 0), rf = (r->mount[0] != 0) + (r->mount[1] != 0) + (r->mount[2]
+            != 0), br_l = (r->mount[0] && r->mount[4] && l->mount[2]);
 
     if (rf < 2 && r->m_meandr == 2 && r->mount[4] == 0 && r->mount[3] == 0)
         rf = 2;
@@ -2356,10 +2344,9 @@ static uchar config_f(STICK_CHARS *l, STICK_CHARS *r)
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter 'r' */
-static uchar config_r(STICK_CHARS *l, STICK_CHARS *r)
-{
+static uchar config_r(STICK_CHARS *l, STICK_CHARS *r) {
     uchar ret = 3, lf = (l->mount[0] != 0) + (l->mount[1] != 0) + (l->mount[2]
-                                                                   != 0), rf = (r->mount[0] != 0) + (r->mount[1] != 0);
+            != 0), rf = (r->mount[0] != 0) + (r->mount[1] != 0);
 
     if (lf == 0 && rf == 1)
         ret = r->mount[0] ? 2 : 1;
@@ -2371,11 +2358,10 @@ static uchar config_r(STICK_CHARS *l, STICK_CHARS *r)
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter 't' */
-static uchar config_t(STICK_CHARS *l, STICK_CHARS *r)
-{
+static uchar config_t(STICK_CHARS *l, STICK_CHARS *r) {
     uchar ret = 3, lf = (l->mount[0] != 0) + (l->mount[1] != 0) + (l->mount[2]
-                                                                   != 0), rf = (r->mount[0] != 0) + (r->mount[1] != 0) + (r->mount[2]
-                                                                                                                          != 0);
+            != 0), rf = (r->mount[0] != 0) + (r->mount[1] != 0) + (r->mount[2]
+            != 0);
 
     if (lf == 1 && l->m_meandr == 1 && rf == 1)
         ret = 2;
@@ -2387,8 +2373,7 @@ static uchar config_t(STICK_CHARS *l, STICK_CHARS *r)
 }
 /*----------------------------------------------------------------------*/
 /* rough propability of letter '1' */
-static uchar config_1(STICK_CHARS *l, STICK_CHARS *r)
-{
+static uchar config_1(STICK_CHARS *l, STICK_CHARS *r) {
     uchar ret = 3;
 
     if (r->mount[0] == 0 && r->mount[1] == 0 && r->mount[2] == 0 && r->mount[3]
@@ -2403,8 +2388,7 @@ static uchar config_1(STICK_CHARS *l, STICK_CHARS *r)
 
     return (ret);
 }
-uchar similar_wide_frt1(STICK_CHARS *left_chars, STICK_CHARS *right_chars)
-{
+uchar similar_wide_frt1(STICK_CHARS *left_chars, STICK_CHARS *right_chars) {
     uchar ret = 0;
     ret |= config_f(left_chars, right_chars);
     ret |= config_r(left_chars, right_chars) << 2;
@@ -2413,8 +2397,7 @@ uchar similar_wide_frt1(STICK_CHARS *left_chars, STICK_CHARS *right_chars)
     return (ret);
 }
 
-int16_t similar_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
-{
+int16_t similar_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s) {
     return (dis_l_stroked(l, r, s) < MAX_ADD_DIS);
 }
 //////////////////////////////////////////////////////////////////////
@@ -2423,45 +2406,44 @@ int16_t similar_l_stroked(STICK_CHARS *l, STICK_CHARS *r, STICK_SIGNUMS *s)
 //     return : propabilites letters 'f','r','t'  ( 0b00ttrrff or 0 )
 //              tt,rr,ff = 01(bad),10(good),11(verybad)
 //////////////////////////////////////////////////////////////////////
-uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx)
-{
+uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx) {
     int16_t wide, opt, left_mode, right_mode, inc_v, nc, num_angles, f_a;
     uint16_t ret = 0;
     STICK_CHARS left_chars, right_chars;
     STICK_SIGNUMS signums;
-    memset(GL_left0, 0xFF, dy);
-    memset(GL_right0, 0xFF, dy);
+    memset(dif::GL_left0, 0xFF, dy);
+    memset(dif::GL_right0, 0xFF, dy);
 
-    if ((nc = lnhead_to_centers(lin, dx, GL_center, GL_left0, GL_right0)) == 0)
+    if ((nc = lnhead_to_centers(lin, dx, dif::GL_center, dif::GL_left0, dif::GL_right0)) == 0)
         return (0); // too many intervals
 
-    if (num_of_lines(GL_center, nc, dy, GL_hist_int))
+    if (num_of_lines(dif::GL_center, nc, dy, GL_hist_int))
         return (0); // non stick:>1lines
 
     num_angles = sizeof(stick_inc) / sizeof(stick_inc[0]);
-    f_a = first_tg(stick_inc, num_angles, nIncline);
+    f_a = first_tg(stick_inc, num_angles, dif::nIncline);
     num_angles = MIN(LIMIT_OF_ANGLES, sizeof(stick_inc) / sizeof(stick_inc[0])
-                     - f_a - 1);
+            - f_a - 1);
 
-    if (make_center_line_dif(GL_center, (int16_t) (nc - (GL_center[nc - 1].len
-                                                         == 1)), GL_left0, GL_right0, dy, dx, &stick_inc[f_a], num_angles,
-                             GL_tab_angle, 0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1)) // with correct
+    if (make_center_line_dif(dif::GL_center, (int16_t) (nc - (dif::GL_center[nc - 1].len
+            == 1)), dif::GL_left0, dif::GL_right0, dy, dx, &stick_inc[f_a], num_angles,
+            GL_tab_angle, 0, 0, 1, 0, &wide, GL_hooks, &inc_v, 1)) // with correct
         return (0); // abnormal set of ceneters : silmular to (,) or
 
     // not exist center-line
     opt = ((MAX(GL_tab_angle[0], GL_tab_angle[dy - 1])) >> 1) << 1;
-    abris_expansion(GL_left0, GL_right0, dy, dx, GL_tab_angle);
-    set_stick_char(GL_left0, GL_right0, GL_hooks, dy, dx, opt, wide,
-                   (int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])), 0, 0,
-                   0, 0, 0, &left_chars, &right_chars, &signums, &left_mode,
-                   &right_mode);
+    abris_expansion(dif::GL_left0, dif::GL_right0, dy, dx, GL_tab_angle);
+    set_stick_char(dif::GL_left0, dif::GL_right0, GL_hooks, dy, dx, opt, wide,
+            (int16_t) (opt - MIN(GL_tab_angle[0], GL_tab_angle[dy - 1])), 0, 0,
+            0, 0, 0, &left_chars, &right_chars, &signums, &left_mode,
+            &right_mode);
     ret = similar_wide_frt1(&left_chars, &right_chars);
 
     if (dy > 16 && dx < 4)
         ret |= 0x0C; // 09.07.1993 SUPPRESS 'r'
 
-    if (cf::dif::language == LANGUAGE_POLISH && similar_l_stroked(&left_chars, &right_chars,
-                                                     &signums))
+    if (dif::language == LANGUAGE_POLISH && similar_l_stroked(&left_chars,
+            &right_chars, &signums))
         ret |= 0x300;
 
     return (ret);
