@@ -85,7 +85,13 @@ static const char * NAME_RTP = "rec2r&e.dat";
 //-------------- FROM DIF.DLL
 static int evn_error_code = ER_EVN_NO_ERROR;
 static char load_tab1[256], load_tab2[256];
+
+namespace cf {
+namespace evn {
 char alphabet[256];
+}
+}
+
 uchar language;
 Bool32 enable_save_stat = FALSE;
 uchar save_event_txt[36], save_eventr_txt[36];
@@ -316,7 +322,7 @@ int16_t EVNGetErr(void)
 Bool32 EVNSetAlphabet(char char_tbl_put_to[] // char table[0-255]
 )
 {
-    memcpy(alphabet, char_tbl_put_to, 256);
+    memcpy(cf::evn::alphabet, char_tbl_put_to, 256);
     return TRUE;
 }
 
@@ -341,7 +347,7 @@ Bool32 EVNRecog(RecRaster *rRaster, RecVersions *res)
     nvers = recog_letter(); // to recognize
 
     for (nvers1 = 0, i = 0; i < nvers; i++)
-        if (alphabet[(uchar) (start_rec + i)->let])
+        if (cf::evn::alphabet[(uchar) (start_rec + i)->let])
             nvers1++;
 
     if (!nvers) {
@@ -353,7 +359,7 @@ Bool32 EVNRecog(RecRaster *rRaster, RecVersions *res)
     res->lnAltCnt = nvers;
 
     for (ii = i = 0; i < nvers && ii < res->lnAltMax; i++) {
-        if (alphabet[(uchar) start_rec->let]) {
+        if (cf::evn::alphabet[(uchar) start_rec->let]) {
             res->Alt[ii].Code = (uchar) start_rec->let;
             res->Alt[ii].CodeExt = 0;
             res->Alt[ii].Prob = 126 + ((ev_num_ln > 4 * 16) + (ev_rt_num_ln > 4) + (nvers1 == 1))
@@ -558,7 +564,7 @@ int32_t EVNGetRepresent(RecRaster *rRaster, uchar *evn, uchar *evn_rot, int32_t 
     }
 
     for (int i = 0; save_event_txts[i]; i++)
-        if (alphabet[save_event_txts[i]])
+        if (cf::evn::alphabet[save_event_txts[i]])
             tmp += sprintf(tmp, "%c", save_event_txts[i]);
 
     tmp = (char*) evn_rot;
@@ -577,13 +583,13 @@ int32_t EVNGetRepresent(RecRaster *rRaster, uchar *evn, uchar *evn_rot, int32_t 
     }
 
     for (int i = 0; save_eventr_txts[i]; i++)
-        if (alphabet[save_eventr_txts[i]])
+        if (cf::evn::alphabet[save_eventr_txts[i]])
             tmp += sprintf(tmp, "%c", save_eventr_txts[i]);
 
     int i, nvers1;
 
     for (nvers1 = 0, i = 0; i < nvers; i++)
-        if (alphabet[(uchar) (start_rec + i)->let])
+        if (cf::evn::alphabet[(uchar) (start_rec + i)->let])
             nvers1++;
 
     return nvers1;
@@ -610,7 +616,7 @@ int32_t EVNRecog_lp(CCOM_comp *ec, uchar *lp, uint16_t lth, uchar *res)
         return 0;
 
     for (ii = i = 0; i < nvers; i++, start_rec++) {
-        if (alphabet[(uchar) start_rec->let])
+        if (cf::evn::alphabet[(uchar) start_rec->let])
             res[ii++] = (uchar) start_rec->let;
     }
 

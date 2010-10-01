@@ -90,7 +90,12 @@ extern uint16_t evcol_b1, evcol_b2, evcol_b3, evcol_b4, evcol_b5;
 extern uchar* seek_responce;
 extern MN *main_number_ptr;
 extern BOX *boxchain, *dl_last_in_chain;
+
+namespace cf {
+namespace evn {
 extern char alphabet[];
+}
+}
 
 static uchar ev;
 static VAR * vp;
@@ -698,7 +703,7 @@ void ev_lang_filter()
     cf::version *v1, *v2;
 
     for (v1 = v2 = start_rec; v1 != rec_ptr; v1++)
-        if (alphabet[v1->let]) {
+        if (cf::evn::alphabet[v1->let]) {
             v2->let = v1->let;
             v2->prob = v1->prob;
             v2++;
