@@ -63,7 +63,12 @@
 #include "msgerr.h"
 #include "excdefs.h"
 
+namespace cf {
+namespace exc {
 extern uchar fax1x2;
+}
+}
+
 extern int32_t box_number;
 //------------------------ Common working fields
 
@@ -112,7 +117,7 @@ void extrcomp()
     initdsect();
     allocboxes();
     // TGCV save_comp_ini();
-    double_fax = fax1x2;
+    double_fax = exc::fax1x2;
     begin();
 
     if (double_fax) {
