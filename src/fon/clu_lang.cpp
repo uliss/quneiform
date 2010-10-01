@@ -194,6 +194,9 @@ Bool32 SmallSymbol(int i)
     return FALSE;
 }
 /////////////
+namespace cf {
+namespace fon {
+
 Bool32 is_czech_special(uchar let)
 {
     return (let == AA_right_accent || let == a_right_accent || let
@@ -277,6 +280,8 @@ Bool32 is_turkish_special(uchar let)
             == u_2dot_accent || let == UU_roof_accent || let == u_roof_accent
             || 0);
 }
+}
+}
 ////////////////////////////
 Bool32 NotStandardSymbol(int i)
 {
@@ -287,43 +292,43 @@ Bool32 NotStandardSymbol(int i)
         if (i >= 0xC0 && i < 0xDE)
             return TRUE;
 
-        if (is_roman_special((uchar) i))
+        if (cf::fon::is_roman_special((uchar) i))
             return TRUE;
 
         switch (language) {
             case LANGUAGE_HUNGARIAN:
 
-                if (is_hungar_special((uchar) i))
+                if (cf::fon::is_hungar_special((uchar) i))
                     return TRUE;
 
                 break;
             case LANGUAGE_CZECH:
 
-                if (is_czech_special((uchar) i))
+                if (cf::fon::is_czech_special((uchar) i))
                     return TRUE;
 
                 break;
             case LANGUAGE_LITHUANIAN:
 
-                if (is_lithuanian_special((uchar) i))
+                if (cf::fon::is_lithuanian_special((uchar) i))
                     return TRUE;
 
                 break;
             case LANGUAGE_LATVIAN:
 
-                if (is_latvian_special((uchar) i))
+                if (cf::fon::is_latvian_special((uchar) i))
                     return TRUE;
 
                 break;
             case LANGUAGE_ESTONIAN:
 
-                if (is_estonian_special((uchar) i))
+                if (cf::fon::is_estonian_special((uchar) i))
                     return TRUE;
 
                 break;
             case LANGUAGE_TURKISH:
 
-                if (is_turkish_special((uchar) i))
+                if (cf::fon::is_turkish_special((uchar) i))
                     return TRUE;
 
                 break;
