@@ -109,6 +109,9 @@ void progress_stop(void)
     progress_rel = 0;
 }
 
+namespace cf {
+namespace exc {
+
 uint32_t progress_set_percent(uint32_t step)
 {
     uint32_t rel = (step / progress_vol) * 100;
@@ -119,14 +122,26 @@ uint32_t progress_set_percent(uint32_t step)
     progress_rel = rel;
     return step;
 }
+}
+}
+
 //------------------ Image attributes ---------------------
 uint16_t image_disp_byte, image_disp_end;
 uchar image_disp_mask;
+namespace cf {
+namespace exc {
+
 int image_blth; // pixels per line
 int image_height; // lines in file number
 int image_lth; // bytes per line
 uchar image_black; // mask for black pixels adding
 uchar image_white; // mask for wite pixels adding
+uchar fax1x2 = 0, matrix = 0;
+uchar language = -1;
+}
+}
+
+using namespace cf;
 
 static char image_file_status = -1;
 static uchar image_invert = 0;
@@ -160,7 +175,6 @@ extern uchar work_raster[];
 extern int32_t sz_work_raster, sz_work_raster_1;
 extern BOX *dl_last_in_chain;
 //========== Global data
-uchar language = -1;
 int32_t gra_type_ori = -1;
 int32_t gra_type_rec = -1;
 TImageOpen Tiger_ImageOpen;
@@ -168,7 +182,6 @@ TImageRead Tiger_ImageRead;
 TImageClose Tiger_ImageClose;
 Tiger_ProcComp Tiger_ProcessComp;
 int32_t box_number = BOX_NUMBER;
-uchar fax1x2 = 0, matrix = 0;
 uint16_t actual_resolution;
 uint16_t comp_max_h, comp_max_w, comp_min_h, comp_min_w;
 int16_t nBlack, nAll, nWid;
@@ -296,8 +309,8 @@ int32_t Extracomp(ExcControl ExCW, TImageOpen tio, TImageClose tic, TImageRead t
 
     image_file_open(); // call progress_start();
     nBlack = 0;
-    nAll = image_height;
-    nWid = image_lth;
+    nAll = exc::image_height;
+    nWid = exc::image_lth;
     extrcomp();
     //CCOM_CompressContatiner(NumContainer);
     progress_stop();
@@ -627,7 +640,7 @@ Bool32 REXCExtra(ExcControl ExCW, uchar *lpRaster, int32_t BWid, Bool32 ReverseO
 
     if (!(ExControl & Ex_NoContainer)) {
         NumContainer = CCOM_CreateContainer();
-        CCOM_SetLanguage(NumContainer, language);
+        CCOM_SetLanguage(NumContainer, exc::language);
 
         if (NumContainer == 0) {
             wLowRC = REXC_ERR_INTERNAL;
@@ -698,7 +711,7 @@ Bool32 REXCExtracomp3CB(ExcControl ExCW, TImageOpen tio, TImageClose tic, TImage
 
     if (!(ExControl & Ex_NoContainer)) {
         NumContainer = CCOM_CreateContainer();
-        CCOM_SetLanguage(NumContainer, language);
+        CCOM_SetLanguage(NumContainer, exc::language);
 
         if (NumContainer == 0) {
             wLowRC = REXC_ERR_INTERNAL;
@@ -795,7 +808,7 @@ void image_file_close(void)
         Tiger_ImageClose();
     }
 
-    if (matrix)
+    if (exc::matrix)
         matrix_close();
 
     image_file_status = -1;
@@ -812,26 +825,26 @@ Bool image_file_open(void)
     if (!Tiger_ImageOpen(&p))
         error_exit(ERR_image, ExRc_ErrorInCallback);
 
-    image_blth = p.wImageWidth;
+    exc::image_blth = p.wImageWidth;
 
-    if (image_blth > WORLD_MAX_WIDTH)
-        image_blth = WORLD_MAX_WIDTH - 1;
+    if (exc::image_blth > WORLD_MAX_WIDTH)
+        exc::image_blth = WORLD_MAX_WIDTH - 1;
 
-    image_height = p.wImageHeight;
+    exc::image_height = p.wImageHeight;
 
-    if (image_height > WORLD_MAX_HEIGHT)
-        image_height = WORLD_MAX_HEIGHT - 1;
+    if (exc::image_height > WORLD_MAX_HEIGHT)
+        exc::image_height = WORLD_MAX_HEIGHT - 1;
 
-    image_lth = p.wImageByteWidth;
+    exc::image_lth = p.wImageByteWidth;
 
-    if (image_blth <= 0)
+    if (exc::image_blth <= 0)
         error_exit(ERR_image, ExRc_IncorrectParam);
 
     image_invert = p.bFotoMetrics;
-    image_black = rest_line_mask_tab[image_blth & 7];
-    image_white = ~image_black;
+    exc::image_black = rest_line_mask_tab[exc::image_blth & 7];
+    exc::image_white = ~exc::image_black;
     actual_resolution = p.wResolutionX;
-    fax1x2 = 0; //(p.wResolutionX == 200 && p.wResolutionY == 100);
+    exc::fax1x2 = 0; //(p.wResolutionX == 200 && p.wResolutionY == 100);
 
     if ((actual_resolution < WORLD_MIN_RESOLUTION) || (actual_resolution > WORLD_MAX_RESOLUTION)) {
         //Никитин А. 11.12.2002
@@ -842,14 +855,14 @@ Bool image_file_open(void)
 
     image_disp_byte = p.wImageDisplacement / 8;
     image_disp_mask = start_line_mask_tab[p.wImageDisplacement & 7];
-    image_disp_end = (p.wImageDisplacement + image_blth + 7) / 8 - image_disp_byte;
+    image_disp_end = (p.wImageDisplacement + exc::image_blth + 7) / 8 - image_disp_byte;
 
-    if (image_disp_end + image_disp_byte > image_lth)
+    if (image_disp_end + image_disp_byte > exc::image_lth)
         error_exit(ERR_image, ExRc_IncorrectParam);
 
-    image_blth += p.wImageDisplacement & 7;
+    exc::image_blth += p.wImageDisplacement & 7;
 
-    if (matrix)
+    if (exc::matrix)
         matrix_open();
 
     progress_start(p.wImageHeight);
@@ -874,7 +887,7 @@ int16_t source_read(uchar* start, uchar* ptr, uchar* end)
     if (l && image_invert)
         invert_tiff(start, l);
 
-    if (l && matrix)
+    if (l && exc::matrix)
         matrix_read(start, l);
 
     return l;
@@ -943,10 +956,15 @@ void save_component(ExtComponent *c, cf::version *vs, cf::version *ve, uchar* lp
 
 //======= Dummy funcs
 
+namespace cf {
+namespace exc {
 void SpecCompPut(MN *mn)
 {
     mn = mn;
 }
+}
+}
+
 MN * accept_greate_picture(MN * mn)
 {
     return mn;
@@ -1092,8 +1110,8 @@ Bool32 REXC_SetImportData(uint32_t dwType, void * pData)
     wLowRC = REXC_ERR_NO;
 
     switch (dwType) {
-    CASE_DATA(REXC_Word8_Matrix , uchar, matrix)
-    CASE_DATA(REXC_Word8_Fax1x2 , uchar, fax1x2)
+    CASE_DATA(REXC_Word8_Matrix , uchar, exc::matrix)
+    CASE_DATA(REXC_Word8_Fax1x2 , uchar, exc::fax1x2)
     CASE_DATA(REXC_Word16_ActualResolution, uint16_t, actual_resolution)
     default:
         wLowRC = REXC_ERR_NOTIMPLEMENT;
@@ -1127,7 +1145,7 @@ Bool32 REXC_Init(uint16_t wHeightCode, Handle hStorage)
 void REXC_Done(void)
 {
     ExtrcompDone();
-    language = -1;
+    exc::language = -1;
     NumContainer = 0;
 }
 //////////// process large comps

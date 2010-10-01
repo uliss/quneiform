@@ -72,13 +72,20 @@ extern uchar image_disp_mask;
 extern uint16_t image_disp_end;
 extern uint16_t image_disp_byte;
 
+namespace cf {
+namespace exc {
 extern int image_lth; // bytes per line
 extern uchar image_black; // mask for black pixels adding
+uint32_t progress_set_percent(uint32_t volume);
+}
+}
+
+using namespace cf;
+
 extern uchar image_white; // mask for wite pixels adding
 
 void analise();
 BWS *extrcomp_seglist(uchar* raster, BWS *bwsp, BWS *bwe, int16_t width);
-uint32_t progress_set_percent(uint32_t volume);
 int16_t source_read(uchar* start, uchar* ptr, uchar* end);
 
 //---------------------- Internal working fields
@@ -128,7 +135,7 @@ void extrcomp()
 
         analise();
         // TGCV    if (Q().lineno >= progress_next)
-        progress_set_percent(Q().lineno);
+        cf::exc::progress_set_percent(Q().lineno);
         goto fax_loop;
     }
 
@@ -177,7 +184,7 @@ static void allocboxes()
 static void begin()
 {
     Q().dcodeptr = Q().scan_buffer;
-    Q().dcodeend = Q().dcodeptr + image_lth;
+    Q().dcodeend = Q().dcodeptr + exc::image_lth;
     emptyline();
 }
 
@@ -199,17 +206,17 @@ static uint16_t readline()
 {
     uchar* p;
     int16_t i;
-    p = Q().dcodeptr + image_lth;
+    p = Q().dcodeptr + exc::image_lth;
     after_read:
 
-    if (p + image_lth > Q().dcodeend)
+    if (p + exc::image_lth > Q().dcodeend)
         goto rd_source;
 
     Q().dcodeptr = p;
     exchangelines();
     p += image_disp_byte;
     *p &= image_disp_mask;
-    *(p + image_disp_end - 1) &= image_black;
+    *(p + image_disp_end - 1) &= exc::image_black;
     extrcomp_seglist(p, Q().newline, Q().newline + SEG_MAX_NUM, image_disp_end);
     return 1;
     rd_source: i = source_read(Q().scan_buffer, p, Q().dcodeend);

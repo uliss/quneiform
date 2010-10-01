@@ -71,7 +71,13 @@ static uchar *grim1 = NULL, *grim2; // Pointer to internal buffer
 static int16_t ls, nsb1; // Length of string and strings per buffer
 static uint16_t rest; // Length of rest in the buffer after previous read
 static uchar reserv[2048];
+
+namespace cf {
+namespace exc {
 extern int image_lth; // bytes per line
+}
+}
+
 static void matrix_process();
 
 void matrix_open()
@@ -82,7 +88,7 @@ void matrix_open()
         error_exit(ERR_comp, 13);
 
     grim2 = grim1 + LBUF;
-    ls = image_lth + 2;
+    ls = cf::exc::image_lth + 2;
     rest = 0;
 }
 

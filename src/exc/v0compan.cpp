@@ -70,7 +70,12 @@ extern MN * main_number_ptr;
 extern Bool16 component_account(void);
 extern void alone_comp(void);
 extern void picture_process(MN * mn);
+
+namespace cf {
+namespace exc {
 extern void SpecCompPut(MN * mn);
+}
+}
 
 void set_active_MN(MN * mnnew, MN * mnold); // pic_apx.c
 MN * accept_greate_picture(MN * mn); // pic_apx.c
@@ -530,7 +535,7 @@ static void no_box()
             break;
     }
 
-    SpecCompPut(mmax); // Save information about component to delete
+    cf::exc::SpecCompPut(mmax); // Save information about component to delete
     accept_greate_picture(mmax); // Vald for picture extaction
     // Mark all boxes within component
     for (i = 0, bp = mmax->mnfirstbox; i < n; i++, bp = bp->boxnext)
