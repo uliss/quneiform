@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //# include "pumadef.h"
 
 //////////////////////////////////
-Handle hDebugPictures = NULL;
+static Handle hDebugPictures = NULL;
 Handle hRectanglePictures = NULL;
 Handle hPolyPictures = NULL;
 Handle hShowFirstAttempt = NULL;

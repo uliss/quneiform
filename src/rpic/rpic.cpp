@@ -65,6 +65,7 @@
 #include <stdlib.h>
 
 #include "mainpic.h"
+#include "dpuma.h"
 #undef __RPIC_CPP__
 
 /************************* External Handles for DPUMA *************************/

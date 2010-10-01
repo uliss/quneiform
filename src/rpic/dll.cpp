@@ -60,7 +60,8 @@
 
 #include "compat_defs.h"
 
-# include "mainpic.h"
+#include "mainpic.h"
+#include "dpuma.h"
 
 ///////////////////////////////////GLOBAL VARIABLES///////////////////////////////
 static uint16_t gwHeightRC = 0;
