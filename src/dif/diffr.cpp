@@ -65,6 +65,10 @@
 #include "dif.h"
 
 uchar rec5_flag = 1, font_type = 0, omni = 1;
+
+namespace cf {
+namespace dif {
+
 int16_t NumVertInterval(uchar *RASTER, int16_t D_X, int16_t dy, int16_t i);
 int16_t VertSum(uchar *rastr, int16_t D_X, int16_t dy, int16_t i);
 int16_t SumBits(uchar *rastr, int16_t D_X);
@@ -74,27 +78,27 @@ int16_t FOOT3(uchar *RASTER, int16_t Wx, uchar START, uchar NWIDTH,
               uchar NLENGTH, int16_t SHIFT);
 int16_t EndBlackInterval(uchar *RASTER, int16_t NWIDTH);
 int16_t FOOT3_2(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH);
-int16_t FOOT_HEI(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH);
-
 int16_t MinMaxLeft(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NHEIGHT,
                    int16_t *Pmin, int16_t *Pmax);
 int16_t MinMaxRight(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NHEIGHT,
                     int16_t *Pmin, int16_t *Pmax);
-int16_t
-DiskrRight(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L);
+int16_t FOOT_A(uchar *raster, int16_t DX, uchar dx, uchar Ly);
+int16_t CenterVertInterval(uchar *, int16_t, int16_t, int16_t, int16_t *,
+                           int16_t *);
+int16_t SumIntervalBits(uchar *RASTER, int16_t bx, int16_t ex);
+int16_t LeftDistance(uchar *RASTER, int16_t dx);
+int16_t RightDistance(uchar *RASTER, int16_t dx);
+}
+}
+int16_t FOOT_HEI(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH);
+int16_t DiskrRight(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L);
 int16_t Num2Interval(uchar *r, int16_t D_X, int16_t dx, int16_t dy);
 int16_t broken_M(uchar * r, int16_t D_X, int16_t dy, int16_t left_lim,
                  int16_t ll);
-int16_t FOOT_A(uchar *raster, int16_t DX, uchar dx, uchar Ly);
 int16_t fill_center_zone(uchar *raster, int16_t D_X, int16_t dy, int16_t beg,
                          int16_t end, int16_t II);
 int16_t up_down_hist_M(uchar *rastr, int16_t D_X, int16_t Dx, int16_t dy);
 int16_t small_density(uchar *RAST, int16_t n, int16_t D_X, int16_t bw);
-int16_t LeftDistance(uchar *RASTER, int16_t dx);
-int16_t RightDistance(uchar *RASTER, int16_t dx);
-int16_t SumIntervalBits(uchar *RASTER, int16_t bx, int16_t ex);
-int16_t CenterVertInterval(uchar *, int16_t, int16_t, int16_t, int16_t *,
-                           int16_t *);
 void init_diskrim(uchar* raster, int16_t height, int16_t width);
 int16_t DiskrLeftBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
                      int16_t L);
@@ -195,13 +199,13 @@ void init_diskrim(uchar * raster, int16_t height, int16_t width)
     IN_IN_Monus = 0;
     r = raster;
 
-    for (i = 0; i < height && SumBits(r, D_X) < 3; i++, r += D_X)
+    for (i = 0; i < height && dif::SumBits(r, D_X) < 3; i++, r += D_X)
         ;
 
     upper_skip_lines = i;
     r = raster + D_X * (height - 1);
 
-    for (i = 0; i < 2 && SumBits(r, D_X) < 3; i++, r -= D_X)
+    for (i = 0; i < 2 && dif::SumBits(r, D_X) < 3; i++, r -= D_X)
         ;
 
     lower_skip_lines = i;
@@ -227,7 +231,7 @@ Bool32 LeftHole(uchar *rastr, int16_t D_X, int16_t Dx, int16_t Hy)
     ma = 0;
 
     for (; i < Hy; i++, rastr += D_X) {
-        t = LeftDistance(rastr, D_X);
+        t = dif::LeftDistance(rastr, D_X);
 
         if (t >= 0) {
             if (mi > t)
@@ -391,16 +395,16 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
                 rastr0 = rasterN + Y * D_X + (X >> 3);
                 rastr = rastr0 + D_X * (dy >> 2);
-                F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
+                F = dif::FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
 
                 if (F != 2 || std::min(dif::LOCAL_W[0], dif::LOCAL_W[1]) > 3 && dif::beg2 - dif::end1
                         < 3) {
                     if (dy > 13)
-                        F = FOOT(rastr0 + 2 * D_X , D_X, (uchar) Dx,
+                        F = dif::FOOT(rastr0 + 2 * D_X , D_X, (uchar) Dx,
                                  (uchar)(dy - 4), 0);
 
                     else
-                        F = FOOT(rastr0, D_X, (uchar) Dx, (uchar) dy, 0);
+                        F = dif::FOOT(rastr0, D_X, (uchar) Dx, (uchar) dy, 0);
                 }
 
                 if (F != 2) {
@@ -450,7 +454,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
         case (uchar) '\xa8' /* и */:
 
             if (diskr_i < 0) {
-                F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
+                F = dif::FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
 
                 if (F == 2 && dif::LOCAL[1] * 2 <= Dx) {
                     diskr_i = P = 120;
@@ -460,11 +464,11 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                 if (F != 2 || std::min(dif::LOCAL_W[0], dif::LOCAL_W[1]) > 3 && dif::beg2 - dif::end1
                         < 3) {
                     if (dy > 13)
-                        F = FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx,
+                        F = dif::FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx,
                                  (uchar)(dy - 4), 0);
 
                     else
-                        F = FOOT(rastr0, D_X, (uchar) Dx, (uchar) dy, 0);
+                        F = dif::FOOT(rastr0, D_X, (uchar) Dx, (uchar) dy, 0);
                 }
 
                 if (F != 2) {
@@ -512,16 +516,16 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
         case (uchar) '\xad' /* н */:
 
             if (diskr_n < 0) {
-                F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
+                F = dif::FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 1);
 
                 if (F != 2 || std::min(dif::LOCAL_W[0], dif::LOCAL_W[1]) > 3 && dif::beg2 - dif::end1
                         < 3) {
                     if (dy > 13)
-                        F = FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx,
+                        F = dif::FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx,
                                  (uchar)(dy - 4), 0);
 
                     else
-                        F = FOOT(rastr0, D_X, (uchar) Dx, (uchar) dy, 0);
+                        F = dif::FOOT(rastr0, D_X, (uchar) Dx, (uchar) dy, 0);
                 }
 
                 if (F != 2)
@@ -557,10 +561,10 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
 
             if (diskr_p) {
                 if (dy > 13)
-                    F = FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx, (uchar)(dy - 4), 0);
+                    F = dif::FOOT(rastr0 + 2 * D_X, D_X, (uchar) Dx, (uchar)(dy - 4), 0);
 
                 else
-                    F = FOOT(rastr0, D_X, (uchar) Dx, (uchar) dy, 0);
+                    F = dif::FOOT(rastr0, D_X, (uchar) Dx, (uchar) dy, 0);
 
                 if (F != 2)
                     P = 6 * step_diskr;
@@ -620,7 +624,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
         case (uchar) '\xe8' /* ш */:
 
             if (diskr_sh < 0) {
-                FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
+                dif::FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
 
                 if (rotate) { // OLEG : ERECTION conditions : 09-20-95
                     if (F != 3)
@@ -628,7 +632,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                 }
 
                 else {
-                    if ((F = FOOT3(rastr, D_X, 0, (uchar) Dx, (uchar) Hy, 2)) != 3)
+                    if ((F = dif::FOOT3(rastr, D_X, 0, (uchar) Dx, (uchar) Hy, 2)) != 3)
                         P = 10 * step_diskr;
 
                     else
@@ -640,7 +644,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                         == 0)
                     P += step_diskr;
 
-                F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
+                F = dif::FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
 
                 // OLEG : ERECTION conditions : 09-20-95 08:34pm
                 if (inc > 0 && dif::dnri_hook) {
@@ -663,7 +667,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                 if (DiskrRight(rastr0, D_X, Dx, dy, 2))
                     P += step_diskr / 2;
 
-                if (FOOT3_2(rastr0, D_X, (uchar) Dx, (uchar) dy))
+                if (dif::FOOT3_2(rastr0, D_X, (uchar) Dx, (uchar) dy))
                     P += step_diskr * 3;
 
                 diskr_sh = P;
@@ -684,7 +688,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                 if (!DiskrRightBig(rastr0, D_X, Dx, dy, 2))
                     P += 3 * step_diskr;
 
-                F = FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
+                F = dif::FOOT(rastr, D_X, (uchar) Dx, (uchar) Hy, 0);
 
                 if (F != 3 && (n = DiskrJ0(rastr, D_X, Dx, Hy,
                                            (int16_t) (dy < 18 ? 4 : 5))) != 0) { /* middle tail have'nt 3-interval lines */
@@ -712,7 +716,7 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
             if (diskr_tsh < 0) {
                 F = ((uchar) let == (uchar) '\x99') ? 4 : 2;
 
-                if ((F = FOOT(rastr0 + F * D_X, D_X, (uchar) Dx, (uchar) Hy, 0))
+                if ((F = dif::FOOT(rastr0 + F * D_X, D_X, (uchar) Dx, (uchar) Hy, 0))
                         != 3)
                     P = 10 * step_diskr;
 
@@ -781,10 +785,10 @@ int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx, int16_t dy,
                     P += 5 * step_diskr;
 
                 if (dy > 13)
-                    F = FOOT(rastr0 + 2 * D_X , D_X, (uchar) Dx, (uchar)(dy - 4), 0);
+                    F = dif::FOOT(rastr0 + 2 * D_X , D_X, (uchar) Dx, (uchar)(dy - 4), 0);
 
                 else
-                    F = FOOT(rastr0, D_X, (uchar) Dx, (uchar) dy, 0);
+                    F = dif::FOOT(rastr0, D_X, (uchar) Dx, (uchar) dy, 0);
 
                 if (F == 2) {
                     DiskrIN(rastr0, D_X, dy, bw, dx);
@@ -844,8 +848,8 @@ int16_t small_density(uchar *RAST, int16_t n, int16_t D_X, int16_t bw)
         return (1);
 
     for (l = i = 0; i < n; i++, RAST += D_X) {
-        w = b - RightDistance(RAST, bw) - LeftDistance(RAST, bw);
-        d = SumBits(RAST, bw);
+        w = b - dif::RightDistance(RAST, bw) - dif::LeftDistance(RAST, bw);
+        d = dif::SumBits(RAST, bw);
         l += (d > w - 2);
     }
 
@@ -854,12 +858,12 @@ int16_t small_density(uchar *RAST, int16_t n, int16_t D_X, int16_t bw)
 
 int16_t no_serific(uchar *RASTR, int16_t dy, int16_t dx, int16_t wb)
 {
-    int16_t l0 = VertSum(RASTR, wb, dy, 0);
-    int16_t l1 = VertSum(RASTR, wb, dy, 1);
-    int16_t l2 = VertSum(RASTR, wb, dy, 2);
-    int16_t r0 = VertSum(RASTR, wb, dy, (int16_t) (dx - 1));
-    int16_t r1 = VertSum(RASTR, wb, dy, (int16_t) (dx - 2));
-    int16_t r2 = VertSum(RASTR, wb, dy, (int16_t) (dx - 3));
+    int16_t l0 = dif::VertSum(RASTR, wb, dy, 0);
+    int16_t l1 = dif::VertSum(RASTR, wb, dy, 1);
+    int16_t l2 = dif::VertSum(RASTR, wb, dy, 2);
+    int16_t r0 = dif::VertSum(RASTR, wb, dy, (int16_t) (dx - 1));
+    int16_t r1 = dif::VertSum(RASTR, wb, dy, (int16_t) (dx - 2));
+    int16_t r2 = dif::VertSum(RASTR, wb, dy, (int16_t) (dx - 3));
     dy -= 2;
 
     if (l0 < dy && l1 <= dy && l1 > dy - 2 && l2 > dy)
@@ -955,7 +959,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         int16_t up_fill = 0, down_fill = 0, d;
 
         for (R = RAST, i = n4; i <= dy - 2; i++, R += D_X) {
-            d = SumIntervalBits(R, (int16_t) (dif::end1 + ol), (int16_t) (dif::beg2 - or_
+            d = dif::SumIntervalBits(R, (int16_t) (dif::end1 + ol), (int16_t) (dif::beg2 - or_
                                                                      + 1)) / 3;
             hist[i] = (uchar) d;
 
@@ -982,7 +986,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             if (up_space == -1)
                 if (old == 1 && neue >= l && hist[i + 1] >= l || old == 0
                         && neue >= l - 1 && hist[i + 1] >= l) {
-                    if (NumHorizInterval(RASTR + D_X * (i + 1), bw) == 1) {
+                    if (dif::NumHorizInterval(RASTR + D_X * (i + 1), bw) == 1) {
                         int16_t j, d;
                         up_space = (neue == l ? 0 : 1);
 
@@ -1009,7 +1013,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             if (down_space == -1)
                 if (neue == 1 && old >= l && hist[i - 2] >= l || neue == 0
                         && old >= l - 1 && hist[i - 2] >= l) {
-                    if (NumHorizInterval(RASTR + D_X * (i - 2), bw) == 1)
+                    if (dif::NumHorizInterval(RASTR + D_X * (i - 2), bw) == 1)
                         down_space = (old == l ? 0 : 1);
                 }
 
@@ -1036,18 +1040,18 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     memset(ua, 0xFF, dy << 1);
     memset(da, 0xFF, dy << 1);
     i = dif::end1 + ol - 1;
-    n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
+    n[i] = (uchar) dif::CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
 
     /* запасной левый отсчет        */
     for (mean = l_real = 0, i = dif::end1 + ol; i <= dif::beg2 - or_; i++) { /* таблица отчетов середин вертикальных интервалов   */
-        n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
+        n[i] = (uchar) dif::CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
         mean += n[i];
 
         if (n[i]) /* mean     - сумма   отсчетов        */
             l_real++; /* l_real - число ненулевых отсчетов  */
     }
 
-    n[i] = (uchar) CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
+    n[i] = (uchar) dif::CenterVertInterval(RAST, D_X, n2, i, &ua[i], &da[i]);
 
     /* запасной отсчет          */
     if (l != l_real && (l_real == 2 || (n[dif::end1] | n[dif::end1 + 1]) && (n[dif::beg2]
@@ -1110,8 +1114,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     if (l_real < 4) {
         i = dif::beg2 - or_ + 1;
 
-        if (or_ && n[i] && VertSum(RAST, D_X, n2, i) < n2 - 1
-                && NumVertInterval(RAST, D_X, n2, i) == 1) { /* учитываем последний отсчет */
+        if (or_ && n[i] && dif::VertSum(RAST, D_X, n2, i) < n2 - 1
+                && dif::NumVertInterval(RAST, D_X, n2, i) == 1) { /* учитываем последний отсчет */
             mean += n[i];
             or_--;
             l_real++;
@@ -1120,8 +1124,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
         i = dif::end1 + ol - 1;
 
-        if (ol && n[i] && VertSum(RAST, D_X, n2, i) < n2 - 1
-                && NumVertInterval(RAST, D_X, n2, i) == 1) { /* учитываем последний отсчет */
+        if (ol && n[i] && dif::VertSum(RAST, D_X, n2, i) < n2 - 1
+                && dif::NumVertInterval(RAST, D_X, n2, i) == 1) { /* учитываем последний отсчет */
             mean += n[i];
             ol--;
             l_real++;
@@ -1136,17 +1140,17 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
         for (minup = mindown = zaz, rrrr = RASTR, rrrr1 = RASTR + (dy - 1)
                                                           * D_X, i = 0; i < 3; i++, rrrr += D_X, rrrr1 -= D_X) {
-            mm = zaz - SumIntervalBits(rrrr, dif::end1, dif::beg2) / 3;
+            mm = zaz - dif::SumIntervalBits(rrrr, dif::end1, dif::beg2) / 3;
 
             if (minup > mm)
                 minup = mm;
 
-            mm1 = zaz - SumIntervalBits(rrrr1, dif::end1, dif::beg2) / 3;
+            mm1 = zaz - dif::SumIntervalBits(rrrr1, dif::end1, dif::beg2) / 3;
 
             if (mindown > mm1)
                 mindown = mm1;
 
-            nn = dx - SumBits(rrrr, bw);
+            nn = dx - dif::SumBits(rrrr, bw);
 
             if (nn < 2)
                 break;
@@ -1272,12 +1276,12 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
                     en[1] = n[dif::beg2];
 
                     for (ll = i = 0; i < 2; i++) {
-                        z = VertSum(RAST, D_X, n2, (int16_t) (dif::end1 + i));
+                        z = dif::VertSum(RAST, D_X, n2, (int16_t) (dif::end1 + i));
 
                         if (an[i] > 0 && an[i] < dy1 - 2 && z < n4)
                             ll++;
 
-                        z = VertSum(RAST, D_X, n2, (int16_t) (dif::beg2 - i));
+                        z = dif::VertSum(RAST, D_X, n2, (int16_t) (dif::beg2 - i));
 
                         if (en[i] > 0 && en[i] > dy1 + 2 && z < n4)
                             ll++;
@@ -1451,7 +1455,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
 
             for (RAST = RASTR + D_X * (t - 2), i = t - 2; i <= t + 2; i++, RAST
                     += D_X)
-                if (SumIntervalBits(RAST, dif::end1, (int16_t) (dif::beg2 + 1)) == (dif::beg2
+                if (dif::SumIntervalBits(RAST, dif::end1, (int16_t) (dif::beg2 + 1)) == (dif::beg2
                                                                           - dif::end1 + 1) * 3) { /* есть перекладина */
                     fine = 0;
                     break;
@@ -1506,10 +1510,10 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
             fill_center = 0; /* коррекция штрафа за отстутствие перекладины */
 
         if (!fill_center && l_real == 1
-                && (NumVertInterval(RAST, D_X, n2, dif::end1) == 1 && VertSum(RAST,
+                && (dif::NumVertInterval(RAST, D_X, n2, dif::end1) == 1 && dif::VertSum(RAST,
                                                                          D_X, n2, dif::end1) < n4 && n[dif::end1] && abs(n[dif::end1] - (dy
-                                                                                                                          >> 1)) < 3 || NumVertInterval(RAST, D_X, n2, dif::beg2) == 1
-                    && VertSum(RAST, D_X, n2, dif::beg2) < n4 && n[dif::beg2] && abs(
+                                                                                                                          >> 1)) < 3 || dif::NumVertInterval(RAST, D_X, n2, dif::beg2) == 1
+                    && dif::VertSum(RAST, D_X, n2, dif::beg2) < n4 && n[dif::beg2] && abs(
                         n[dif::beg2] - (dy >> 1)) < 3))
             fill_center = 2;
 
@@ -1638,7 +1642,7 @@ int16_t DiskrHorizIN(uchar *RASTR, int16_t D_X, int16_t dy)
     }
 
     for (imax = nmax = kmax = -1, i = n4, j = 0; j <= n2; j++, i++, RAST += D_X) { /* заливки линий     */
-        n[i] = SumIntervalBits(RAST, dif::end1, dif::beg2) / 3;
+        n[i] = dif::SumIntervalBits(RAST, dif::end1, dif::beg2) / 3;
 
         if (n[i] > nmax) {
             nmax = n[i];
@@ -1690,7 +1694,7 @@ int16_t fill_center_zone(uchar *raster, int16_t D_X, int16_t dy, int16_t beg,
     white = end + p - beg + 1;
 
     for (ny = num = i = 0; i < dy; i++, r += D_X) {
-        l = SumIntervalBits(r, beg, (int16_t) (end + p)) / 3;
+        l = dif::SumIntervalBits(r, beg, (int16_t) (end + p)) / 3;
 
         if (i == 0 && l >= d)
             continue;
@@ -1741,7 +1745,7 @@ int16_t up_down_hist_M(uchar *rastr, int16_t D_X, int16_t Dx, int16_t dy)
     Dx = bytlen(Dx);
 
     for (s = j = 0, i = 0, r = rastr + i * D_X; i < h; j++, i++, r += D_X) {
-        n = NumHorizInterval(r, Dx);
+        n = dif::NumHorizInterval(r, Dx);
         s += (n == 2);
 
         if (s > 2)
@@ -1756,7 +1760,7 @@ int16_t up_down_hist_M(uchar *rastr, int16_t D_X, int16_t Dx, int16_t dy)
 
     for (t = d = j = 0, i = dy - 1, r = rastr + i * D_X; i >= h; i--, j++, r
             -= D_X) {
-        n = NumHorizInterval(r, Dx);
+        n = dif::NumHorizInterval(r, Dx);
         t += (n == 3);
         d += (n == 2);
 
@@ -1788,10 +1792,10 @@ int16_t broken_M(uchar * r, int16_t D_X, int16_t dy, int16_t left_lim,
     if (broken_M_pen >= 0)
         return broken_M_pen;
 
-    old = RightDistance(r, D_X);
+    old = dif::RightDistance(r, D_X);
 
     for (rr = r + D_X, i = 1; i < dy; i++, rr += D_X) {
-        neue = RightDistance(rr, D_X);
+        neue = dif::RightDistance(rr, D_X);
 
         if (abs(neue - old) > 1)
             return (broken_M_pen = 0);/* непрямой правый абрис */
@@ -1800,12 +1804,12 @@ int16_t broken_M(uchar * r, int16_t D_X, int16_t dy, int16_t left_lim,
     }
 
     /* прямой правый абрис */
-    old = LeftDistance(r, D_X);
+    old = dif::LeftDistance(r, D_X);
     dest = old;
 
     for (maxd = fc = sign = incr = 0, dest = old, rr = r + D_X, i = 1; i < dy; i++, rr
             += D_X) {
-        neue = LeftDistance(rr, D_X);
+        neue = dif::LeftDistance(rr, D_X);
 
         if (neue < old) {
             if (neue == old - 1) {
@@ -1848,13 +1852,13 @@ int16_t Num2Interval(uchar *r, int16_t D_X, int16_t dx, int16_t dy)
     d = bytlen(dx);
 
     for (i = 1; i < 3; i++)
-        if ((p = NumHorizInterval(r - D_X * i, d)) == 1 && (n2 = SumBits(r
+        if ((p = dif::NumHorizInterval(r - D_X * i, d)) == 1 && (n2 = dif::SumBits(r
                                                                          - D_X * i, d)) > dx - 2)
             return (0);
 
     for (n2 = i = 0; i < dy; i++, r += D_X) {
-        p = NumHorizInterval(r, d);
-        /*  NumHorizInterval : number of intervals in line  */
+        p = dif::NumHorizInterval(r, d);
+        /*  dif::NumHorizInterval : number of intervals in line  */
         n2 += (p == 2);
     }
 
@@ -1875,7 +1879,7 @@ int16_t DiskrRight(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L)
     R = RASTER;
     dl = (((dx + 7) >> 3) << 3);
     ddy = dy > 30 ? (dy >> 3) : (dy >> 2);
-    MinMaxRight(RASTER, D_X, (uchar) dx, (uchar) Ly, &minr, &maxr);
+    dif::MinMaxRight(RASTER, D_X, (uchar) dx, (uchar) Ly, &minr, &maxr);
     x = maxr - minr;
 
     if (maxr - ((dx & 7) ? (8 - (dx & 7)) : 0) > (dx >> 1)) {
@@ -1890,12 +1894,12 @@ int16_t DiskrRight(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L)
         right_line = 0;
 
         if (dy > 17)
-            while (VertSum(R, D_X, h, (int16_t) (dl - minr)) < ddy && minr
+            while (dif::VertSum(R, D_X, h, (int16_t) (dl - minr)) < ddy && minr
                     < maxr)
                 minr++;
 
         for (p_old = -1, sum = curr_sum = 0, i = minr; i <= maxr; i++) {
-            p = NumVertInterval(R, D_X, h, (int16_t) (dl - i));
+            p = dif::NumVertInterval(R, D_X, h, (int16_t) (dl - i));
 
             if (p >= 2) { /* наbegin 2-intervalsаseries of columns */
                 if (p_old < 2)
@@ -1937,7 +1941,7 @@ static int16_t DiskrSymSh(uchar *RASTER, int16_t Wx, uchar NWIDTH,
 {
     int16_t i, old, l, k, d;
     uchar c, w, minw = 255, maxw = 0;
-    FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* projection to horiz axes */
+    dif::FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* projection to horiz axes */
     d = (NLENGTH + 1) >> 1;
 
     for (i = 0; i < NWIDTH; i++)
@@ -1997,8 +2001,8 @@ static int16_t DiskrSh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly)
     ddx = bytlen(dx);
 
     for (n2 = num = i = 0; i < Ly; i++, RASTER += D_X) {
-        p = NumHorizInterval(RASTER, ddx);
-        /*  NumHorizInterval : number of intervals in line */
+        p = dif::NumHorizInterval(RASTER, ddx);
+        /*  dif::NumHorizInterval : number of intervals in line */
         num += (p != 3);
         n2 += (p == 2);
     }
@@ -2011,9 +2015,9 @@ static int16_t DiskrSh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly)
         Ly -= i;
 
         for (RASTER = RASTR + D_X * i; i < Ly; i++, RASTER += D_X) {
-            p = SumIntervalBits(RASTER, b, dx) / 3;
+            p = dif::SumIntervalBits(RASTER, b, dx) / 3;
 
-            if (p >= dd && NumHorizInterval(RASTER, ddx) == 2)
+            if (p >= dd && dif::NumHorizInterval(RASTER, ddx) == 2)
                 return 4;
         }
     }
@@ -2032,7 +2036,7 @@ static int16_t DiskrSh0(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
         dx = bytlen(dx);
 
         for (num = 0, i = dy - (dy >> 2); i < dy; i++, RASTER += D_X)
-            num += (NumHorizInterval(RASTER, dx) == 1 && SumBits(RASTER, dx)
+            num += (dif::NumHorizInterval(RASTER, dx) == 1 && dif::SumBits(RASTER, dx)
                     > l);
 
         /*  num : number of lines haved one long interval */
@@ -2055,7 +2059,7 @@ int16_t DiskrLeft(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L)
     Ly = dy - 2 * (dy >> 2);
     h = Ly;
     R = RASTER;
-    MinMaxLeft(RASTER, D_X, (uchar) dx, (uchar) Ly, &minr, &maxr);
+    dif::MinMaxLeft(RASTER, D_X, (uchar) dx, (uchar) Ly, &minr, &maxr);
 
     if (minr && maxr) {
         minr--;
@@ -2076,11 +2080,11 @@ int16_t DiskrLeft(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy, int16_t L)
         left_line = 0;
 
         if (dy > 17)
-            while (VertSum(R, D_X, h, minr) < (dy >> 2) && minr < maxr)
+            while (dif::VertSum(R, D_X, h, minr) < (dy >> 2) && minr < maxr)
                 minr++;
 
         for (p_old = -1, curr_sum = sum = 0, i = minr; i <= maxr; i++) {
-            p = NumVertInterval(R, D_X, h, i);
+            p = dif::NumVertInterval(R, D_X, h, i);
 
             if (p >= 2) { /* begin 2-intervalsаseries of columns */
                 if (p_old != 2)
@@ -2131,7 +2135,7 @@ int16_t DiskrLeftBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
     Ly = dy - 2;
     h = dy;
     R = RASTR;
-    MinMaxLeft(RASTER, D_X, (uchar) dx, (uchar) Ly, &minr, &maxr);
+    dif::MinMaxLeft(RASTER, D_X, (uchar) dx, (uchar) Ly, &minr, &maxr);
 
     if (minr && maxr) {
         minr--;
@@ -2143,11 +2147,11 @@ int16_t DiskrLeftBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 
     if (left_dist_big[L]) { /* big hole */
         if (dy > 17)
-            while (VertSum(R, D_X, h, minr) < (dy >> 2) && minr < maxr)
+            while (dif::VertSum(R, D_X, h, minr) < (dy >> 2) && minr < maxr)
                 minr++;
 
         for (p_old = -1, curr_sum = sum = 0, i = minr; i <= maxr; i++) {
-            p = NumVertInterval(R, D_X, h, i);
+            p = dif::NumVertInterval(R, D_X, h, i);
 
             if (p >= 2) { /* наbegin 2-intervalsаseries of columns */
                 if (p_old != 2)
@@ -2193,20 +2197,20 @@ int16_t DiskrRightBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
         h = dy;
         R = RASTR;
         dl = (((dx + 7) >> 3) << 3);
-        MinMaxRight(RASTER, D_X, (uchar) dx, (uchar) Ly, &minr, &maxr);
+        dif::MinMaxRight(RASTER, D_X, (uchar) dx, (uchar) Ly, &minr, &maxr);
         x = maxr - minr;
         right_dist_big[L] = (x >= L);
 
         if (right_dist_big[L]) { /* big hole */
-            if (dy < 13 || VertSum(RASTR, D_X, dy, (int16_t) (dl - minr)) < dy
+            if (dy < 13 || dif::VertSum(RASTR, D_X, dy, (int16_t) (dl - minr)) < dy
                     - 2) {
                 if (dy > 17)
-                    while (VertSum(R, D_X, h, (int16_t) (dl - minr))
+                    while (dif::VertSum(R, D_X, h, (int16_t) (dl - minr))
                             < (dy >> 2) && minr < maxr)
                         minr++;
 
                 for (p_old = -1, sum = curr_sum = 0, i = minr; i <= maxr; i++) {
-                    p = NumVertInterval(R, D_X, h, (int16_t) (dl - i));
+                    p = dif::NumVertInterval(R, D_X, h, (int16_t) (dl - i));
 
                     if (p >= 2) { /* begin 2-intervalsаseries of columns */
                         if (p_old < 2)
@@ -2255,8 +2259,8 @@ static int16_t DiskrJ0(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly,
     dx = bytlen(dx);
 
     for (one = all = three = i = 0; i < Ly; i++, RASTER += D_X) {
-        n = NumHorizInterval(RASTER, dx);
-        /*  NumHorizInterval : number of intervals in line */
+        n = dif::NumHorizInterval(RASTER, dx);
+        /*  dif::NumHorizInterval : number of intervals in line */
         three += (n == 3);
         all += (n >= 3);
         one += (n == 1);
@@ -2289,10 +2293,10 @@ static int16_t DiskrJ(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy)
     dx = bytlen(dx);
 
     for (tu = i = 0; i < Ly; i++, RASTR += D_X)
-        tu += (NumHorizInterval(RASTR, dx) == 3);
+        tu += (dif::NumHorizInterval(RASTR, dx) == 3);
 
     for (td = t = 0; i < ly; i++, RASTR += D_X) {
-        p = NumHorizInterval(RASTR, dx);
+        p = dif::NumHorizInterval(RASTR, dx);
         t += (p == 1);
 
         if (i < l)
@@ -2303,9 +2307,9 @@ static int16_t DiskrJ(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy)
     }
 
     for (; i < dy; i++, RASTR += D_X)
-        td += (NumHorizInterval(RASTR, dx) == 3);
+        td += (dif::NumHorizInterval(RASTR, dx) == 3);
 
-    /*  NumHorizInterval : number of intervlas in line */
+    /*  dif::NumHorizInterval : number of intervlas in line */
     return (tu > 3 && t >= 2 && td > 3 || tu > 1 && t > 2 && td > 1 && tu + td
             > 3);
 }
@@ -2323,12 +2327,12 @@ static int16_t DiskrTsh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
     //****************   check existance two hooks  ******************
 
     for (RAST = RASTR + (dy - 3) * D_X, i = dy - 3;; i--, RAST -= D_X) {
-        j = SumIntervalBits(RAST, (int16_t) 0, (int16_t) dx) / 3;
+        j = dif::SumIntervalBits(RAST, (int16_t) 0, (int16_t) dx) / 3;
 
         if ((j > 5 * D_X) || (i < 2 * n4))
             break;
 
-        j = (uchar) NumHorizInterval(RAST, D_X);
+        j = (uchar) dif::NumHorizInterval(RAST, D_X);
 
         if (j > 1)
             fine += 20;
@@ -2346,7 +2350,7 @@ static int16_t DiskrTsh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
     fine = 0;
 
     for (RAST = RASTR, i = 0; i < n4; i++, RAST += D_X) {
-        j = SumIntervalBits(RAST, (int16_t) bit0, (int16_t) bit1) / 3;
+        j = dif::SumIntervalBits(RAST, (int16_t) bit0, (int16_t) bit1) / 3;
 
         if (j > 3 * (bit1 - bit0) / 5)
             fine += 20;
@@ -2360,7 +2364,7 @@ static int16_t DiskrTsh(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
     }//* breaking
 
     //******************  make histogramm   ********************************
-    FOOT_A(RASTR, D_X, (uchar) Dx, (uchar) n4);
+    dif::FOOT_A(RASTR, D_X, (uchar) Dx, (uchar) n4);
     bool_foot = 0;
 
     for (i = bit0 + 1; i < bit1 + 1; i++) {
@@ -2376,7 +2380,7 @@ bbb:
     fine = 0;
 
     for (RAST = RASTR, i = 0; i < n4; i++, RAST += D_X) {
-        j = SumIntervalBits(RAST, (int16_t) bit1, (int16_t) bit2) / 3;
+        j = dif::SumIntervalBits(RAST, (int16_t) bit1, (int16_t) bit2) / 3;
 
         if (j > 3 * (bit2 - bit1) / 5)
             fine += 20;
@@ -2392,7 +2396,7 @@ bbb:
     //******************  make histogramm  ********************************
 
     if (bool_foot)
-        FOOT_A(RASTR, D_X, (uchar) Dx, (uchar) n4);
+        dif::FOOT_A(RASTR, D_X, (uchar) Dx, (uchar) n4);
 
     for (i = bit1 + 1; i < bit2 + 1; i++) {
         if (dif::BUFFER[i] == 0)
@@ -2412,7 +2416,7 @@ static int16_t average_br_angle(uchar *RASTER, int16_t D_X, int16_t dx,
 {
     if (av_br < 0)
         av_br = average_angle(RASTER + D_X * (dy - (dy >> 2)), D_X, dx,
-                              (int16_t) (dy >> 2), RightDistance, t);
+                              (int16_t) (dy >> 2), dif::RightDistance, t);
 
     return (av_br);
 }
@@ -2423,7 +2427,7 @@ static int16_t average_angle(uchar *RASTER, int16_t D_X, int16_t dx,
     int16_t i = 0, n, p, H;
 
     if (t == 0) { /* cut long lines for finding corners */
-        while (SumBits(RASTER, (int16_t) (bytlen(dx))) > (dx >> 1) && i < dy) {
+        while (dif::SumBits(RASTER, (int16_t) (bytlen(dx))) > (dx >> 1) && i < dy) {
             i++;
             RASTER += D_X; /* black strings */
         }
@@ -2445,12 +2449,12 @@ static int16_t DiskrJu(uchar *RASTR, int16_t D_X, int16_t dx, int16_t Ly)
     dx = bytlen(dx);
 
     for (n = s2 = s3 = i = 0; i < Ly; i++, RASTER += D_X, n++) {
-        r = NumHorizInterval(RASTER, dx);
+        r = dif::NumHorizInterval(RASTER, dx);
         s2 += (r == 2);
         s3 += (r == 3);
     }
 
-    // NumHorizInterval : число интервалов в строке
+    // dif::NumHorizInterval : число интервалов в строке
     n = Ly / 3;
     ret = 0;
 
@@ -2472,10 +2476,10 @@ static int16_t DiskrimM1(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 
     /*  calculate  mean  of  hole  */
     for (r = RAST + D_X, i = 0; i < n4; i++, r += D_X) {
-        j = NumHorizInterval(r, D_X);
+        j = dif::NumHorizInterval(r, D_X);
 
         if (j == 2) {
-            if ((j = NumHorizInterval(r + D_X, D_X)) == 2) {
+            if ((j = dif::NumHorizInterval(r + D_X, D_X)) == 2) {
                 r += D_X;
             }
 
@@ -2598,7 +2602,7 @@ static int16_t DiskrimM(uchar *RAST, int16_t D_X, int16_t dx, int16_t dy)
 
     /*  calculate  mean  of  hole  */
     for (r = RAST + D_X, i = 0; i < n4; i++, r += D_X) {
-        j = NumHorizInterval(r, D_X);
+        j = dif::NumHorizInterval(r, D_X);
 
         if (j == 2) {
             for (k = 0; k < dx; k++) {
@@ -2836,13 +2840,13 @@ int16_t up_down_zones(uchar *raster, int16_t D_X, int16_t dx, int16_t dx0,
 
     for (r = raster + start1 * D_X, num1 = 0, i = start1; i < stop1; i++, r
             += D_X) {
-        num1 += (NumHorizInterval(r, dx) == 1 && SumBits(r, dx) >= l);
+        num1 += (dif::NumHorizInterval(r, dx) == 1 && dif::SumBits(r, dx) >= l);
         /*  num1 : число строк с одним длинным интервалом на крыше */
     }
 
     for (r = raster + start2 * D_X, num2 = 0, i = start2; i < stop2; i++, r
             += D_X) {
-        num2 += (NumHorizInterval(r, dx) == 1 && SumBits(r, dx) >= l);
+        num2 += (dif::NumHorizInterval(r, dx) == 1 && dif::SumBits(r, dx) >= l);
         /*  num2 : число строк с одним длинным интервалом внизу */
     }
 
@@ -2873,11 +2877,11 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
         /* горизонтальные исследования  */
         for (minnum = dx, n2 = num = num1 = num2 = num3 = 0, i = ody; i < l; i++, r
                 += D_X) {
-            t1 = NumHorizInterval(r, wid);
-            t2 = SumBits(r, wid);
+            t1 = dif::NumHorizInterval(r, wid);
+            t2 = dif::SumBits(r, wid);
 
             if (t1 == 2) {
-                t3 = (wid << 3) - LeftDistance(r, wid) - RightDistance(r, wid)
+                t3 = (wid << 3) - dif::LeftDistance(r, wid) - dif::RightDistance(r, wid)
                      - t2;
 
                 if (n2 > 0) {
@@ -2913,7 +2917,7 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
             t2 = dx >> 1;
 
             for (i = ody; i < l; i++, r += D_X) {
-                num1 = SumIntervalBits(r, t2, dx);
+                num1 = dif::SumIntervalBits(r, t2, dx);
 
                 if (i > ody && num != 0 && num1 == 0)
                     break;
@@ -2925,8 +2929,8 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
             r = RASTR + i * D_X;
 
             for (t3 = t2 = 0; t2 < 7; t2++, i++, r += D_X) {
-                nn[t2] = EndBlackInterval(r, wid);
-                t3 += (NumHorizInterval(r, wid) == 2);
+                nn[t2] = dif::EndBlackInterval(r, wid);
+                t3 += (dif::NumHorizInterval(r, wid) == 2);
             }
 
             for (t1 = t2 = nn[0], num = 0, num1 = 1; num1 < 7; num1++) {
@@ -2966,14 +2970,14 @@ static int16_t DiskrVertCE(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
         X &= 7;
 
         for (n = s3 = 0, i = d; i < dx; i++) {
-            p = NumVertInterval(RASTER, D_X, dy, (int16_t) (i + X));
+            p = dif::NumVertInterval(RASTER, D_X, dy, (int16_t) (i + X));
             s3 += (p == 3);
 
             if (p == 3 || p == 2)
                 n++;
         }
 
-        /*  NumVertInterval : число линий в столбце */
+        /*  dif::NumVertInterval : число линий в столбце */
         p = n;
         n *= 4;
         n /= 10; /* 40 % */
@@ -2996,10 +3000,10 @@ int16_t AngleBottomRight(uchar *raster, int16_t D_X, int16_t hei)
     uchar *r;
     raster += D_X * (hei - 2);
     hei >>= 2;
-    old = RightDistance(raster, D_X);
+    old = dif::RightDistance(raster, D_X);
 
     for (inc = 0, r = raster - D_X, i = 1; i < hei; i++, r -= D_X) {
-        neue = RightDistance(r, D_X);
+        neue = dif::RightDistance(r, D_X);
 
         if (neue < old)
             inc++;
@@ -3019,10 +3023,10 @@ int16_t AngleTopRight(uchar *raster, int16_t D_X, int16_t hei)
     uchar *r;
     raster += D_X;
     hei >>= 2;
-    old = RightDistance(raster, D_X);
+    old = dif::RightDistance(raster, D_X);
 
     for (inc = 0, r = raster + D_X, i = 1; i < hei; i++, r += D_X) {
-        neue = RightDistance(r, D_X);
+        neue = dif::RightDistance(r, D_X);
 
         if (neue < old)
             inc++;

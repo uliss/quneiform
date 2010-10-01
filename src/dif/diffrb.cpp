@@ -104,6 +104,9 @@ uchar broken_flag = 0;
 
 using namespace cf;
 
+namespace cf {
+namespace dif {
+
 /* LeftDistance - расстояние до первого слева бита          */
 int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH)
 {
@@ -115,7 +118,7 @@ int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH)
     if (i == NWIDTH)
         return (-1);
 
-    return ((i << 3) + start_pos[*RASTER]);
+    return ((i << 3) + dif::start_pos[*RASTER]);
 }
 
 /* RightDistance -расстояние до первого справа бита            */
@@ -130,7 +133,7 @@ int16_t RightDistance(uchar *RASTER, int16_t NWIDTH)
     if (i == NWIDTH)
         return (-1);
 
-    return ((i << 3) + last_pos[*RASTER]);
+    return ((i << 3) + dif::last_pos[*RASTER]);
 }
 
 /* SumIntervalBits  - посчитать сумму бит (начало и конец - биты )     */
@@ -141,16 +144,16 @@ int16_t SumIntervalBits(uchar *RASTER, int16_t n1, int16_t n2)
     l = n2 >> 3;
 
     if (i == l) /* начало и конец в одном байте */
-        return (3* bit_cnt [mask_l[n1 & 7] & RASTER[i] & mask_r[n2 & 7]]);
+        return (3* dif::bit_cnt [dif::mask_l[n1 & 7] & RASTER[i] & dif::mask_r[n2 & 7]]);
 
-    d = bit_cnt[RASTER[i] & mask_l[n1 & 7]];
-    d += bit_cnt[RASTER[l] & mask_r[n2 & 7]];
+    d = dif::bit_cnt[RASTER[i] & dif::mask_l[n1 & 7]];
+    d += dif::bit_cnt[RASTER[l] & dif::mask_r[n2 & 7]];
 
     if (l == i + 1) /* все уместилось в 2 байта  */
         return (3* d );
 
     for (i++; i < l; i++)/* более 2-х байт               */
-        d += bit_cnt[RASTER[i]];
+        d += dif::bit_cnt[RASTER[i]];
 
     return (3* d );
 }
@@ -161,7 +164,7 @@ int16_t SumBits(uchar *RASTER, int16_t NWIDTH)
     int16_t i, s;
 
     for (i = s = 0; i < NWIDTH; i++, RASTER++)
-        s += bit_cnt[*RASTER];
+        s += dif::bit_cnt[*RASTER];
 
     return (s);
 }
@@ -170,7 +173,7 @@ int16_t SumBits(uchar *RASTER, int16_t NWIDTH)
 int16_t VertSum(uchar *RASTER, int16_t Wx, int16_t NHEIGHT, int16_t Column)
 {
     int16_t i, d;
-    uchar mask = mask_byte[Column & 7];
+    uchar mask = dif::mask_byte[Column & 7];
     RASTER += (Column >> 3);
 
     for (i = d = 0; i < NHEIGHT; i++, RASTER += Wx)
@@ -187,7 +190,7 @@ int16_t NumHorizInterval(uchar *RASTER, int16_t NWIDTH)
 
     for (i = d = old = 0; i < NWIDTH; i++, RASTER++) {
         c = *RASTER;
-        d += piece_cnt[c];
+        d += dif::piece_cnt[c];
 
         if ((c & 0x80) && old)
             d--; /* продолжение */
@@ -203,7 +206,7 @@ int16_t NumVertInterval(uchar *RASTER, int16_t Wx, int16_t NHEIGHT,
                         int16_t Column)
 {
     int16_t i, d;
-    uchar c, old, mask = mask_byte[Column & 7];
+    uchar c, old, mask = dif::mask_byte[Column & 7];
     RASTER += (Column >> 3);
 
     for (d = 1, i = old = 0; i < NHEIGHT; i++, RASTER += Wx) {
@@ -236,8 +239,8 @@ int16_t FOOT_A(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
         for (k = j = 0; j < d; j++) {
             c = *p++;
 #ifndef __MAC__
-            *((uint32_t *) &dif::BUFFER[k]) += tab_4bits_to_DWORD[c >> 4];
-            *((uint32_t *) &dif::BUFFER[k + 4]) += tab_4bits_to_DWORD[c & 15];
+            *((uint32_t *) &dif::BUFFER[k]) += dif::tab_4bits_to_DWORD[c >> 4];
+            *((uint32_t *) &dif::BUFFER[k + 4]) += dif::tab_4bits_to_DWORD[c & 15];
 #else
             dif::BUFFER[k+7] += ((c & 0x01) != 0);
             dif::BUFFER[k+6] += ((c & 0x02) != 0);
@@ -381,7 +384,7 @@ int16_t FOOT(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH,
 int16_t CenterVertInterval(uchar *RASTER, int16_t Wx, int16_t NHEIGHT,
                            int16_t Column, int16_t *up, int16_t *down)
 {
-    uchar mask = mask_byte[Column & 7], c, old;
+    uchar mask = dif::mask_byte[Column & 7], c, old;
     int16_t i, num, center, up_center;
     *up = *down = -1;
     RASTER += (Column >> 3);
@@ -575,13 +578,16 @@ int16_t EndBlackInterval(uchar *RASTER, int16_t NWIDTH)
     if (i == NWIDTH)
         return (-1);
 
-    if (i < NWIDTH - 1 && ((*RASTER) & 0x01) == 1 && piece_cnt[*RASTER] == 1
+    if (i < NWIDTH - 1 && ((*RASTER) & 0x01) == 1 && dif::piece_cnt[*RASTER] == 1
             && ((*(RASTER + 1)) & 0x80) == 0x80) {
         RASTER++;
         i++;
     }
 
-    return ((i << 3) + tab_last_black_bit[*RASTER]);
+    return ((i << 3) + dif::tab_last_black_bit[*RASTER]);
+}
+
+}
 }
 
 void clear_right_bites(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE,
@@ -598,7 +604,7 @@ void clear_right_bites(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE,
 
     else {
         for (i = 0; i < NHEIGHT; i++, RASTER += WBYTE) {
-            RASTER[-1] &= mask_r[w];
+            RASTER[-1] &= dif::mask_r[w];
             memset(RASTER, 0, WBYTE - ww);
         }
     }
@@ -612,7 +618,7 @@ int16_t FOOT_HEI(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH)
     uchar c, curr, first, second;
     memset(dif::LOCAL, 0, 50);
     memset(dif::LOCAL_W, 0, 50);
-    FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* проекция */
+    dif::FOOT_A(RASTER, Wx, NWIDTH, NLENGTH); /* проекция */
     d = NLENGTH;
     d -= 2; // full heigh
 

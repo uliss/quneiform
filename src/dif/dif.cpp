@@ -75,13 +75,9 @@ extern void clear_right_bites(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE,
 namespace cf {
 namespace dif {
 extern uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx);
-}
-}
 extern int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH);
 extern int16_t RightDistance(uchar *RASTER, int16_t NWIDTH);
 
-namespace cf {
-namespace dif {
 uchar alphabet[256];
 uchar language;
 extern int broken_ii;
@@ -357,12 +353,12 @@ int16_t DIFGetErr(void)
 
 int16_t DIFLeftDistance(uchar *RASTER, int16_t NWIDTH)
 {
-    return LeftDistance(RASTER, NWIDTH);
+    return cf::dif::LeftDistance(RASTER, NWIDTH);
 }
 
 int16_t DIFRightDistance(uchar *RASTER, int16_t NWIDTH)
 {
-    return RightDistance(RASTER, NWIDTH);
+    return cf::dif::RightDistance(RASTER, NWIDTH);
 }
 
 void DIFClearRightZone(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE,
