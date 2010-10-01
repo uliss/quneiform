@@ -1567,6 +1567,9 @@ static int GetAsRecRaster(uchar *inBuf, int xbit, int yrow, RecRaster *rec,
 }
 ///////////////
 // from rcm.c
+namespace cf {
+namespace fon {
+
 uchar decode_ASCII_to_[256][4] = {
     /*       0    1      2      3      4      5      6      7      8      9      a      b      c      d      e      f  */
     /* 0*/"\x00", "\x01", "\x02", "\x03", "\x04", "\x05", "\x06", "\x07", "\x08",
@@ -1602,6 +1605,7 @@ uchar decode_ASCII_to_[256][4] = {
     /* f*/"\xe4", "\xe4", "\x20", "\x20", "\x20", "\xf2", "\x20", "\xe8",
     "\xe3", "\x20", "\x20", "\x20", "\x20", "\xe0", "\x95", "\x20"
 };
+
 //////////////////
 uchar CodePages[LANG_TOTAL] = { CHARSET_ANSI, // LANGUAGE_ENGLISH
                                 CHARSET_ANSI, // LANGUAGE_GERMAN
@@ -1632,6 +1636,10 @@ uchar CodePages[LANG_TOTAL] = { CHARSET_ANSI, // LANGUAGE_ENGLISH
                                 CHARSET_BALTIC, // LANGUAGE_ESTONIAN      26
                                 CHARSET_TURKISH // LANGUAGE_TURKISH   27
                               };
+
+}
+}
+
 //////////////////////
 Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver, int lang)
 {
@@ -1651,11 +1659,11 @@ Bool32 p2_StoreVersions(CSTR_rast rast, RecVersions *rver, int lang)
 
     for (i = 0; i < ver->lnAltCnt; i++) {
         let = rver->Alt[i].Code;
-        strcpy((char*) ver->Alt[i].Code, (char*) decode_ASCII_to_[let]);
+        strcpy((char*) ver->Alt[i].Code, (char*) cf::fon::decode_ASCII_to_[let]);
         ver->Alt[i].Liga = let;
         ver->Alt[i].Prob = rver->Alt[i].Prob;
         ver->Alt[i].Method = rver->Alt[i].Method;
-        ver->Alt[i].Charset = CodePages[lang]; // Oleg
+        ver->Alt[i].Charset = cf::fon::CodePages[lang]; // Oleg
         ver->Alt[i].Info = rver->Alt[i].Info;
     }
 
