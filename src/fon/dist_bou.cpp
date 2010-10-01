@@ -1027,8 +1027,9 @@ void MoveWindowRow2(uchar *outrow, uchar *inrow, int SizeByte, int fbit)
             return;
     }
 }
+
 ///////////////
-void MoveWindowRow1(uchar *outrow, uchar *inrow, int SizeByte, int fbit)
+static void MoveWindowRow1(uchar *outrow, uchar *inrow, int SizeByte, int fbit)
 {
     int i;
     SizeByte--;
