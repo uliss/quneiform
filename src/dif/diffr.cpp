@@ -88,6 +88,7 @@ int16_t CenterVertInterval(uchar *, int16_t, int16_t, int16_t, int16_t *,
 int16_t SumIntervalBits(uchar *RASTER, int16_t bx, int16_t ex);
 int16_t LeftDistance(uchar *RASTER, int16_t dx);
 int16_t RightDistance(uchar *RASTER, int16_t dx);
+int16_t no_serific(uchar *RASTR, int16_t dy, int16_t dx, int16_t wb);
 }
 }
 int16_t FOOT_HEI(uchar *RASTER, int16_t Wx, uchar NWIDTH, uchar NLENGTH);
@@ -108,7 +109,6 @@ int16_t DiskrRightBig(uchar *RASTR, int16_t D_X, int16_t dx, int16_t dy,
 static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t wb,
                     int16_t dx);
 static int16_t DiskrHorizIN(uchar *RASTR, int16_t D_X, int16_t dy);
-int16_t no_serific(uchar *RASTR, int16_t dy, int16_t dx, int16_t wb);
 
 #define bytlen(bits)  (REC_GW_WORD8(bits))
 
@@ -181,6 +181,9 @@ static int16_t AngleTopRight(uchar *raster, int16_t D_X, int16_t hei);
 static int16_t BonusAnglesCurve(uchar *raster, int16_t D_X, int16_t dy);
 static Bool32 DiskrJuCut(int16_t nfoot, int16_t dx);
 
+namespace cf {
+namespace dif {
+
 /*  clear diskrimination flags */
 void init_diskrim(uchar * raster, int16_t height, int16_t width)
 {
@@ -216,6 +219,8 @@ void init_diskrim(uchar * raster, int16_t height, int16_t width)
 
     lower_skip_lines = i;
     return;
+}
+}
 }
 
 Bool32 LeftHole(uchar *rastr, int16_t D_X, int16_t Dx, int16_t Hy)
@@ -862,6 +867,8 @@ int16_t small_density(uchar *RAST, int16_t n, int16_t D_X, int16_t bw)
     return (l <= (n / 3));
 }
 
+namespace cf {
+namespace dif {
 int16_t no_serific(uchar *RASTR, int16_t dy, int16_t dx, int16_t wb)
 {
     int16_t l0 = dif::VertSum(RASTR, wb, dy, 0);
@@ -900,6 +907,8 @@ int16_t vert_stairs(int16_t arr[], int16_t lim)
     }
 
     return (jmp);
+}
+}
 }
 
 /***************************************************************************/
@@ -1037,7 +1046,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         memset(hist, 0, dy << 1);
     } /* end of horiz study */
 
-    if (no_serific(RASTR, dy, dx, bw)) {
+    if (dif::no_serific(RASTR, dy, dx, bw)) {
         n4 = dy > 17 ? 4 : 2;
         n2 = dy - (n4 << 1);
         RAST = RASTR + D_X * n4;
@@ -1083,7 +1092,7 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
         }
     }
 
-    if (no_serific(RASTR, dy, dx, bw)) { /* обратный пересчет в интервал высот [dy/4,dy-dy/4] */
+    if (dif::no_serific(RASTR, dy, dx, bw)) { /* обратный пересчет в интервал высот [dy/4,dy-dy/4] */
         int16_t nn4, nn2, h;
         nn4 = std::max(dy >> 2, (dif::LOCAL_W[0] + dif::LOCAL_W[1]) >> 1);
 
@@ -1609,8 +1618,8 @@ static void DiskrIN(uchar *RASTR, int16_t D_X, int16_t dy, int16_t bw,
     }
 
     {
-        int16_t up_skip = vert_stairs(&ua[dif::end1], (int16_t) (dif::beg2 - dif::end1 + 1));
-        int16_t down_skip = vert_stairs(&da[dif::end1], (int16_t) (dif::beg2 - dif::end1 + 1));
+        int16_t up_skip = dif::vert_stairs(&ua[dif::end1], (int16_t) (dif::beg2 - dif::end1 + 1));
+        int16_t down_skip = dif::vert_stairs(&da[dif::end1], (int16_t) (dif::beg2 - dif::end1 + 1));
 
         if (IN_I <= 3)
             if (up_skip > 3 && down_skip > 3 || up_skip > 1 && down_skip > 1

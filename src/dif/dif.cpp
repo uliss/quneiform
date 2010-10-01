@@ -61,7 +61,6 @@
 #include "stick.h"
 #include "lnhead.h"
 
-extern void init_diskrim(uchar* raster, int16_t height, int16_t width);
 extern int16_t Diskrim(uchar let, uchar* raster, int16_t D_X, int16_t dx,
                        int16_t dy, uchar, int16_t);
 extern uchar stick_recog(uchar let, STICK_CHARS *l, STICK_CHARS *r,
@@ -74,6 +73,7 @@ extern void clear_right_bites(uchar *RASTER, int16_t NWIDTH, int16_t WBYTE,
                               int16_t NHEIGHT);
 namespace cf {
 namespace dif {
+extern void init_diskrim(uchar* raster, int16_t height, int16_t width);
 extern uint16_t typ_thin_stick(lnhead *lin, int16_t dy, int16_t dx);
 extern int16_t LeftDistance(uchar *RASTER, int16_t NWIDTH);
 extern int16_t RightDistance(uchar *RASTER, int16_t NWIDTH);
@@ -103,7 +103,7 @@ Bool32 DIFInit(RecRaster *r, Bool32 broken, Bool32 broken_II, Bool32 cut_left,
     cf::dif::broken_flag = (uchar) broken;
     cutl_flag = (uchar)(cut_left != 0);
     cutr_flag = (uchar)(cut_right != 0);
-    init_diskrim(r->Raster, (int16_t) r->lnPixHeight, (int16_t) r->lnPixWidth);
+    cf::dif::init_diskrim(r->Raster, (int16_t) r->lnPixHeight, (int16_t) r->lnPixWidth);
     return TRUE;
 }
 
