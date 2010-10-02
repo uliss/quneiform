@@ -79,7 +79,7 @@ class CLA_EXPO RecognizeOptions
         std::string user_dict_name_;
 };
 
-std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts);
+FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts);
 
 }
 
