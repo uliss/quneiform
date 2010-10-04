@@ -59,6 +59,12 @@ include(make_package)
 add_subdirectory(datafiles)
 add_subdirectory(src)
 add_subdirectory(cli)
+
+#if(CF_NO_GUI)
+    add_subdirectory(gui)
+    message(STATUS "QT4 gui will be build")
+#endif()
+
 add_subdirectory(utils)
 
 if(CF_TEST)
