@@ -25,6 +25,7 @@ include_directories(
 	../src/include
 	../src/h
     ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
  
 

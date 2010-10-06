@@ -25,6 +25,8 @@
 #include <QtGui/QMouseEvent>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QMessageBox>
+#include <QtGui/QIcon>
+#include <QtGui/QMenu>
 
 #include "thumbnailwidget.h"
 #include "thumbnaillist.h"
@@ -50,17 +52,13 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
 }
 
 void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
-//    ThumbnailWidgetContextMenu * menu = new ThumbnailWidgetContextMenu(this);
-//    // filling menu with common actions
-//    emit
-//    contextMenuCreated(menu);
-//    // filling with context with context
-//    QAction * act_delete = menu->addAction(KIcon("list-remove"), i18n("Delete"));
-//    connect(act_delete, SIGNAL(triggered(bool)), SLOT(removePage()));
-//
+    QMenu * menu = new QMenu(this);
+    emit contextMenuCreated(menu);
+    menu->addAction(QIcon(":/list_remove.png"), tr("Delete"), this, SLOT(removePage()));
+
 //    menu->setupActions();
-//    menu->exec(event->globalPos());
-//    delete menu;
+    menu->exec(event->globalPos());
+    delete menu;
 }
 
 void ThumbnailWidget::selectPage(bool value) {

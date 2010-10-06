@@ -19,13 +19,16 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QScopedPointer>
 #include <QtGui/QMainWindow>
+#include <QtGui/QGraphicsScene>
 
 namespace Ui {
 class MainWindow;
 }
 
 class Document;
+class Page;
 
 class MainWindow: public QMainWindow {
 Q_OBJECT
@@ -34,12 +37,22 @@ public:
 	MainWindow(QWidget *parent = 0);
 	~MainWindow();
 
+	void closeEvent(QCloseEvent *event);
 public slots:
 	void about();
+    void openImage(const QString& path);
     void openImages();
+    void showPageImage(Page * page);
 private:
-	Ui::MainWindow *ui;
-	Document * doc_;
+    void clearScene();
+    void createActions();
+    void readSettings();
+    void setupUi();
+    void writeSettings();
+private:
+    QScopedPointer<Ui::MainWindow> ui_;
+    Document * doc_;
+    QGraphicsScene scene_;
 };
 
 #endif // MAINWINDOW_H

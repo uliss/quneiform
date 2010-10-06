@@ -52,6 +52,7 @@ void ThumbnailList::setupContextMenu(QMenu * menu) {
     menu->addAction(tr("Select All"), this, SLOT(selectAll()), QKeySequence::SelectAll);
     menu->addAction(tr("Revert selected"), this, SLOT(revertSelection()));
     menu->addAction(tr("Delete selected"), this, SLOT(removeSelectedPages()));
+    menu->addSeparator();
 }
 
 int ThumbnailList::count() const {

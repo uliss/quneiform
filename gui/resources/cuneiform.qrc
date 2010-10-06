@@ -1,7 +1,8 @@
 <RCC>
-  <qresource prefix="img" >
-    <file>cuneiform_logo_32.png</file>
-    <file>cuneiform_logo_64.png</file>
-    <file>cuneiform_logo_16.png</file>
-  </qresource>
+    <qresource prefix="/img">
+        <file>cuneiform_logo_32.png</file>
+        <file>cuneiform_logo_64.png</file>
+        <file>cuneiform_logo_16.png</file>
+        <file>cuneiform_logo_22.png</file>
+    </qresource>
 </RCC>
