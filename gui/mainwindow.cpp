@@ -89,7 +89,7 @@ void MainWindow::openImage(const QString& path) {
 
 void MainWindow::openImages() {
 	QStringList files = QFileDialog::getOpenFileNames(NULL, "Open Dialog", "",
-			"Images (*.gif *.png *.xpm *.jpg *.tif)");
+			"Images (*.gif *.png *.xpm *.jpg *.tif *.bmp)");
 	qDebug() << "[openImages()]";
 	foreach(QString image_path, files) {
 		openImage(image_path);
