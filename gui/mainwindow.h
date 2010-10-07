@@ -42,6 +42,7 @@ public slots:
 	void about();
     void openImage(const QString& path);
     void openImages();
+    void recognizeAll();
     void recognizePage(Page * page);
     void showPageImage(Page * page);
     void showPageText(Page * page);

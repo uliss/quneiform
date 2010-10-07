@@ -72,6 +72,9 @@ void MainWindow::createActions() {
 	connect(ui_->actionZoom_Out, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomOut()));
 	connect(ui_->actionFitWidth, SIGNAL(triggered()), ui_->image_view_, SLOT(fitWidth()));
 	connect(ui_->actionFitPage, SIGNAL(triggered()), ui_->image_view_, SLOT(fitPage()));
+	connect(ui_->actionRecognizeAll, SIGNAL(triggered()), this, SLOT(recognizeAll()));
+	connect(ui_->image_view_, SIGNAL(scaled(qreal)), SLOT(updateZoomStatus(qreal)));
+	connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
 }
 
 void MainWindow::openImage(const QString& path) {
@@ -83,8 +86,17 @@ void MainWindow::openImage(const QString& path) {
 		return;
 	}
 
+	statusBar()->showMessage(QString(tr("Opening \"%1\"")).arg(path));
+
 	Page * p = new Page(0, path);
 	doc_->append(p);
+
+	statusBar()->showMessage("");
+
+	//	first page
+	if(doc_->pageCount() == 1) {
+		ui_->actionRecognizeAll->setEnabled(true);
+	}
 }
 
 void MainWindow::openImages() {
@@ -104,13 +116,25 @@ void MainWindow::readSettings() {
 	move(pos);
 }
 
+void MainWindow::recognizeAll() {
+	Q_CHECK_PTR(doc_);
+
+	if(!doc_->countSelected()) {
+		QMessageBox::warning(NULL, tr("Warning"), tr("No page selected"));
+		return;
+	}
+
+	for(int i = 0, total = doc_->pageCount(); i < total; i++) {
+		if(doc_->page(i)->isSelected())
+			doc_->page(i)->recognize();
+	}
+}
+
 void MainWindow::setupUi() {
 	ui_->setupUi(this);
 	ui_->thumbs_->setDocument(doc_);
 	ui_->image_view_->setScene(&scene_);
 	setZoomEnabled(false);
-	connect(ui_->image_view_, SIGNAL(scaled(qreal)), SLOT(updateZoomStatus(qreal)));
-	connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
 }
 
 void MainWindow::setZoomEnabled(bool value) {

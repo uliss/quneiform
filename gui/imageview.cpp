@@ -25,6 +25,8 @@ static const double MIN_SIZE = 0.1;
 
 ImageView::ImageView(QWidget * parent) :
 	QGraphicsView(parent) {
+	setBackgroundRole(QPalette::Dark);
+	setDragMode(QGraphicsView::ScrollHandDrag);
 }
 
 void ImageView::fitPage() {
@@ -42,19 +44,20 @@ void ImageView::fitPage() {
 }
 
 void ImageView::fitWidth() {
-	QRectF scene_rect = sceneRect();
-	scene_rect.setHeight(10);
-	scene_rect.setWidth(viewport()->width());
+	QTransform transform;
+	static const int CORRECTION = 6;
+	int view_wd = width() - verticalScrollBar()->width() - CORRECTION;
+	int scene_wd = sceneRect().width();
 
-	// if image is smaller then view area set it to 100% size
-	if (transform().m11() > 1) {
-		setTransform( QTransform());
-	}
-	else {
-		fitInView(scene_rect, Qt::KeepAspectRatio);
+	if(view_wd < scene_wd) {
+		qreal s = qreal(view_wd) / scene_wd;
+		transform.scale(s, s);
 	}
 
-	emit scaled(transform().m11());
+    setTransform(transform);
+    ensureVisible(QRectF());
+
+	emit scaled(transform.m11());
 }
 
 void ImageView::zoomIn() {
