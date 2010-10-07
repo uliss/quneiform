@@ -71,7 +71,8 @@ class ThumbnailWidget: public QFrame
     signals:
         void clicked();
         void contextMenuCreated(QMenu*);
-        void recognized();
+        void invalidImage(const QString& path);
+        void recognize(Page*);
         void removed(Page*);
         void toggled(bool);
     protected:
@@ -86,6 +87,7 @@ class ThumbnailWidget: public QFrame
         void setupPixmap();
         void setupToolTip();
     private slots:
+    	void recognizeThumb();
         void removePage();
         void selectPage(bool value);
         void showProperties();

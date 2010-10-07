@@ -20,6 +20,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QMenu>
+#include <qdebug.h>
 
 #include "document.h"
 #include "page.h"
@@ -40,7 +41,7 @@ void ThumbnailList::append(ThumbnailWidget * thumb) {
     thumbs_.append(thumb);
     layout_->addWidget(thumb, 0, Qt::AlignHCenter);
     connect(thumb, SIGNAL(clicked()), SLOT(thumbClick()));
-    connect(thumb, SIGNAL(recognized()), SLOT(thumbRecognize()));
+    connect(thumb, SIGNAL(recognize(Page*)), SIGNAL(thumbRecognize(Page*)));
     connect(thumb, SIGNAL(removed(Page*)), document_, SLOT(remove(Page*)));
 
     updateThumbNames();
@@ -57,6 +58,11 @@ void ThumbnailList::setupContextMenu(QMenu * menu) {
 
 int ThumbnailList::count() const {
     return thumbs_.count();
+}
+
+void ThumbnailList::handleInvalidImage(const QString& path) {
+	qDebug() << path;
+	throw 1;
 }
 
 void ThumbnailList::highlight(ThumbnailWidget * thumb) {
@@ -153,15 +159,6 @@ void ThumbnailList::thumbClick() {
 
     highlight(th);
     emit thumbSelected(th->page());
-}
-
-void ThumbnailList::thumbRecognize() {
-    ThumbnailWidget * th = dynamic_cast<ThumbnailWidget*> (QObject::sender());
-    if (!th)
-        return;
-
-    Q_CHECK_PTR(th->page());
-    th->page()->recognize();
 }
 
 void ThumbnailList::updateThumbNames() {

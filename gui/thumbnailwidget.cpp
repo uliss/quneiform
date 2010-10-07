@@ -30,7 +30,6 @@
 
 #include "thumbnailwidget.h"
 #include "thumbnaillist.h"
-//#include "thumbnailwidgetcontextmenu.h"
 #include "page.h"
 
 static const int THUMB_IMAGE_WIDTH = 90;
@@ -49,11 +48,13 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
 
     connect(checked_, SIGNAL(toggled(bool)), SLOT(selectPage(bool)));
     connect(this, SIGNAL(contextMenuCreated(QMenu*)), parent, SLOT(setupContextMenu(QMenu*)));
+    connect(this, SIGNAL(invalidImage(const QString&)), parent, SLOT(handleInvalidImage(const QString&)));
 }
 
 void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
     QMenu * menu = new QMenu(this);
     emit contextMenuCreated(menu);
+    menu->addAction(QIcon(":/list_recognize.png"), tr("Recognize"), this, SLOT(recognizeThumb()));
     menu->addAction(QIcon(":/list_remove.png"), tr("Delete"), this, SLOT(removePage()));
 
 //    menu->setupActions();
@@ -108,6 +109,10 @@ QString ThumbnailWidget::pageProperties() const {
     return res;
 }
 
+void ThumbnailWidget::recognizeThumb() {
+	emit recognize(page_);
+}
+
 void ThumbnailWidget::removePage() {
     emit removed(page_);
 }
@@ -160,6 +165,13 @@ void ThumbnailWidget::setupPixmap() {
     Q_CHECK_PTR(layout_);
 
     QPixmap image(page_->imagePath());
+
+    // TODO
+    if(image.isNull()) {
+    	emit invalidImage(page_->imagePath());
+    	return;
+    }
+
     // updates image size
     page_->setImageSize(image.size());
     thumb_ = new QLabel;

@@ -108,7 +108,7 @@ void Page::recognize() {
     //fillFormatLayout(Puma::instance().formatPage());
 
     std::ostringstream buf;
-    Puma::instance().save(buf, FORMAT_SMARTTEXT);
+    Puma::instance().save(buf, FORMAT_HTML);
 
     ocr_text_ = QString::fromUtf8(buf.str().c_str());
     is_recognized_ = true;

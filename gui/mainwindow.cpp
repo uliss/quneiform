@@ -23,6 +23,7 @@
 #include <QCloseEvent>
 #include <QPixmapCache>
 #include <qdebug.h>
+#include <cmath>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -66,10 +67,21 @@ void MainWindow::createActions() {
 	connect(ui_->actionAbout, SIGNAL(triggered()), SLOT(about()));
 	connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImages()));
 	connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
+	connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
+	connect(ui_->actionZoom_In, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomIn()));
+	connect(ui_->actionZoom_Out, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomOut()));
+	connect(ui_->actionFitWidth, SIGNAL(triggered()), ui_->image_view_, SLOT(fitWidth()));
+	connect(ui_->actionFitPage, SIGNAL(triggered()), ui_->image_view_, SLOT(fitPage()));
 }
 
 void MainWindow::openImage(const QString& path) {
 	Q_CHECK_PTR( doc_);
+
+	QFileInfo info(path);
+	if(!info.exists()) {
+		QMessageBox::critical(NULL, tr("Error"), QString(tr("File \"%1\" not exists")).arg(path));
+		return;
+	}
 
 	Page * p = new Page(0, path);
 	doc_->append(p);
@@ -77,7 +89,7 @@ void MainWindow::openImage(const QString& path) {
 
 void MainWindow::openImages() {
 	QStringList files = QFileDialog::getOpenFileNames(NULL, "Open Dialog", "",
-			"Images (*.gif *.png *.xpm *.jpg)");
+			"Images (*.gif *.png *.xpm *.jpg *.tif)");
 	qDebug() << "[openImages()]";
 	foreach(QString image_path, files) {
 		openImage(image_path);
@@ -96,6 +108,16 @@ void MainWindow::setupUi() {
 	ui_->setupUi(this);
 	ui_->thumbs_->setDocument(doc_);
 	ui_->image_view_->setScene(&scene_);
+	setZoomEnabled(false);
+	connect(ui_->image_view_, SIGNAL(scaled(qreal)), SLOT(updateZoomStatus(qreal)));
+	connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
+}
+
+void MainWindow::setZoomEnabled(bool value) {
+	ui_->actionZoom_In->setEnabled(value);
+	ui_->actionZoom_Out->setEnabled(value);
+	ui_->actionFitWidth->setEnabled(value);
+	ui_->actionFitPage->setEnabled(value);
 }
 
 void MainWindow::showPageImage(Page * page) {
@@ -109,8 +131,26 @@ void MainWindow::showPageImage(Page * page) {
 		QPixmapCache::insert(page->imagePath(), image);
 	}
 
-	scene_.setSceneRect(image.rect());
 	scene_.addPixmap(image);
+	scene_.setSceneRect(image.rect());
+	setZoomEnabled(true);
+}
+
+void MainWindow::showPageText(Page * page) {
+	Q_CHECK_PTR(page);
+	Q_CHECK_PTR(ui_->text_view_);
+	ui_->text_view_->document()->setHtml(page->ocrText());
+}
+
+void MainWindow::recognizePage(Page * page) {
+	Q_CHECK_PTR(page);
+
+	page->recognize();
+	showPageText(page);
+}
+
+void MainWindow::updateZoomStatus(qreal ratio) {
+	statusBar()->showMessage(QString(tr(" (%1%)")).arg(static_cast<int>(round(100.0 * ratio))));
 }
 
 void MainWindow::writeSettings() {

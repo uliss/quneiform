@@ -16,19 +16,57 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtGui/QApplication>
-#include "mainwindow.h"
+#include "imageview.h"
+#include <qdebug.h>
+#include <QScrollBar>
 
-int main(int argc, char *argv[]) {
-	QApplication app(argc, argv);
-//	app.setOrganizationName("openocr.org");
-	app.setApplicationName("Cuneiform OCR");
-	MainWindow w;
-	w.show();
+static const double MAX_SIZE = 4.0;
+static const double MIN_SIZE = 0.1;
 
-	for(int i = 1; i < argc; i++) {
-		w.openImage(argv[i]);
+ImageView::ImageView(QWidget * parent) :
+	QGraphicsView(parent) {
+}
+
+void ImageView::fitPage() {
+	QRectF scene_rect = sceneRect();
+
+	// if image is smaller then view area set it to 100% size
+	if (scene_rect.height() < height() && scene_rect.width() < width()) {
+		setTransform(QTransform());
+	}
+	else {
+		fitInView(scene_rect, Qt::KeepAspectRatio);
 	}
 
-	return app.exec();
+	emit scaled(transform().m11());
+}
+
+void ImageView::fitWidth() {
+	QRectF scene_rect = sceneRect();
+	scene_rect.setHeight(10);
+	scene_rect.setWidth(viewport()->width());
+
+	// if image is smaller then view area set it to 100% size
+	if (transform().m11() > 1) {
+		setTransform( QTransform());
+	}
+	else {
+		fitInView(scene_rect, Qt::KeepAspectRatio);
+	}
+
+	emit scaled(transform().m11());
+}
+
+void ImageView::zoomIn() {
+	if(transform().m11() < MAX_SIZE) {
+		scale(1.25, 1.25);
+		emit scaled(transform().m11());
+	}
+}
+
+void ImageView::zoomOut() {
+	if(transform().m11() > MIN_SIZE) {
+		scale(0.8, 0.8);
+		emit scaled(transform().m11());
+	}
 }

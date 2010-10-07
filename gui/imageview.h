@@ -16,19 +16,24 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtGui/QApplication>
-#include "mainwindow.h"
+#ifndef IMAGE_VIEW_H_
+#define IMAGE_VIEW_H_
 
-int main(int argc, char *argv[]) {
-	QApplication app(argc, argv);
-//	app.setOrganizationName("openocr.org");
-	app.setApplicationName("Cuneiform OCR");
-	MainWindow w;
-	w.show();
+#include <QGraphicsView>
 
-	for(int i = 1; i < argc; i++) {
-		w.openImage(argv[i]);
-	}
+class QGraphicsScene;
 
-	return app.exec();
-}
+class ImageView : public QGraphicsView {
+	Q_OBJECT
+signals:
+	void scaled(qreal ratio);
+public:
+	ImageView(QWidget * parent);
+public slots:
+	void fitPage();
+    void fitWidth();
+    void zoomIn();
+    void zoomOut();
+};
+
+#endif

@@ -70,8 +70,10 @@ class ThumbnailList: public QScrollArea
         ThumbnailWidget * thumb(Page * page);
     signals:
         void thumbSelected(Page * page);
+        void thumbRecognize(Page * page);
         void thumbRemovalFinished(Page * page);
     public slots:
+        void handleInvalidImage(const QString& path);
         void setupContextMenu(QMenu*);
         void selectAll();
     private:
@@ -86,7 +88,6 @@ class ThumbnailList: public QScrollArea
         void removeSelectedPages();
         void revertSelection();
         void thumbClick();
-        void thumbRecognize();
     private:
         Document * document_;
         QVBoxLayout * layout_;

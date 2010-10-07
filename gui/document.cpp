@@ -45,11 +45,10 @@ void Document::append(Page * page) {
 
 int Document::countSelected() const {
     int res = 0;
-    foreach(Page * page, pages_)
-        {
-            if (page->isSelected())
-                res++;
-        }
+    foreach(Page * page, pages_){
+        if (page->isSelected())
+            res++;
+    }
     return res;
 }
 

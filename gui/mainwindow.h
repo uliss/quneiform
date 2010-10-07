@@ -42,13 +42,17 @@ public slots:
 	void about();
     void openImage(const QString& path);
     void openImages();
+    void recognizePage(Page * page);
     void showPageImage(Page * page);
+    void showPageText(Page * page);
+    void updateZoomStatus(qreal ratio);
 private:
     void clearScene();
     void createActions();
     void readSettings();
     void setupUi();
     void writeSettings();
+    void setZoomEnabled(bool value);
 private:
     QScopedPointer<Ui::MainWindow> ui_;
     Document * doc_;

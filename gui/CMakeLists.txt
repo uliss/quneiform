@@ -2,6 +2,7 @@ set(PROJECT "quneiform")
 
 set (HEADERS 
     document.h
+    imageview.h
     mainwindow.h
     page.h
     thumbnaillist.h
@@ -10,6 +11,7 @@ set (HEADERS
  
 set (SOURCES 
     document.cpp
+    imageview.cpp
     mainwindow.cpp
     main.cpp
     page.cpp
@@ -75,4 +77,4 @@ source_group ("Resource Files" FILES ${QRC_SOURCES})
  
 add_executable (${PROJECT} ${HEADERS} ${SOURCES} ${MOC_SOURCES} ${UI_HEADERS} ${QRC_SOURCES} ${TRANSLATIONS})
  
-target_link_libraries (${PROJECT} ${LIBRARIES} ${QT_LIBRARIES} cuneiform)
+target_link_libraries (${PROJECT} ${LIBRARIES} ${QT_LIBRARIES} m cuneiform)
