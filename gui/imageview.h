@@ -30,7 +30,8 @@ public:
 	ImageView(QWidget * parent);
 	void setPage(Page * page);
 public slots:
-	void fitPage();
+    void deletePage();
+    void fitPage();
     void fitWidth();
     void originalSize();
     void updatePage();

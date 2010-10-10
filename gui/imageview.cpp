@@ -60,6 +60,13 @@ void ImageView::fitWidth() {
 	saveTransform();
 }
 
+void ImageView::deletePage() {
+    if(sender() == page_) {
+        qDebug() << "[ImageView::deletePage] " << page_;
+        page_ = NULL;
+    }
+}
+
 void ImageView::originalSize() {
 	Q_CHECK_PTR(page_);
 }
@@ -71,15 +78,16 @@ void ImageView::saveTransform() {
 
 void ImageView::setPage(Page * page) {
 	Q_CHECK_PTR(page);
-	if(page_) {
-		disconnect(page_, SIGNAL(transformed()), this, SLOT(updatePage()));
-		disconnect(page_, SIGNAL(rotated(int)), this, SLOT(updatePage()));
-	}
+        if(page_) {
+                disconnect(page_, SIGNAL(transformed()), this, SLOT(updatePage()));
+                disconnect(page_, SIGNAL(rotated(int)), this, SLOT(updatePage()));
+        }
 
 	page_ = page;
 
 	connect(page_, SIGNAL(transformed()), this, SLOT(updatePage()));
 	connect(page_, SIGNAL(rotated(int)), this, SLOT(updatePage()));
+        connect(page, SIGNAL(destroyed()), this, SLOT(deletePage()));
 
 	updatePage();
 }

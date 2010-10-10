@@ -240,6 +240,7 @@ void MainWindow::setZoomEnabled(bool value) {
 }
 
 void MainWindow::showPageImage(Page * page) {
+        qDebug() << "[MainWindow::showPageImage]" << page;
 	Q_CHECK_PTR(page);
 	statusBar()->showMessage(QFileInfo(page->imagePath()).fileName());
 	clearScene();
