@@ -110,6 +110,5 @@ void Document::removeSelected() {
 
 void Document::setLanguage(int lang) {
 	// TODO check
-	language_ = lang;
-	emit languageChanged(lang);
+        language_ = lang;
 }

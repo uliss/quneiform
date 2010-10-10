@@ -85,11 +85,6 @@ class Document: public QObject
         void imageDuplicated(const QString& imagePath);
 
         /**
-         * Emitted when document language changed
-         */
-        void languageChanged(int lang);
-
-        /**
          * Emitted when new page added
          */
         void pageAdded(Page * page);
