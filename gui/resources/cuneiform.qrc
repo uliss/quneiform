@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/img">
+    <file>oxygen/32x32/locale.png</file>
     <file>oxygen/22x22/1downarrow.png</file>
     <file>oxygen/22x22/1uparrow.png</file>
     <file>oxygen/22x22/2downarrow.png</file>

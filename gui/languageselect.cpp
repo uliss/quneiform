@@ -24,28 +24,31 @@
 LanguageSelect::LanguageSelect(QWidget * parent) : QToolButton(parent) {
 	menu_ = new QMenu(this);
 	setMenu(menu_);
-	setPopupMode(QToolButton::MenuButtonPopup);
+	setPopupMode(QToolButton::InstantPopup);
 	initLanguages();
+	setIcon(QIcon(":/img/oxygen/32x32/locale.png"));
 }
 
 QString LanguageSelect::currentLanguage() const {
 	return "en";
 }
 
-void LanguageSelect::initLanguages() {
-	Q_CHECK_PTR(menu_);
+void LanguageSelect::fillLanguageMenu(QMenu* menu) {
+	Q_CHECK_PTR(menu);
 	using namespace cf;
 	LanguageList langs = AlphabetFactory::instance().supportedLanguages();
 	Language::sortByName(langs);
+
 	for (LanguageList::iterator it = langs.begin(), end = langs.end(); it
 			!= end; ++it) {
-		QAction * lang_action = menu_->addAction(QString(Language::isoName(*it).c_str()), this, SLOT(selected()));
+		QAction * lang_action = menu->addAction(QString(Language::isoName(*it).c_str()));
 		lang_action->setData(*it);
+		lang_action->setCheckable(true);
 	}
 }
 
-void LanguageSelect::selected() {
-	//current_language_ = sender()->data().toInt();
+void LanguageSelect::initLanguages() {
+	fillLanguageMenu(menu_);
 }
 
 QStringList LanguageSelect::supportedLanguages() {

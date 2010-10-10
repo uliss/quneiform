@@ -30,8 +30,7 @@ public:
 	QString currentLanguage() const;
 public:
 	static QStringList supportedLanguages();
-public slots:
-	void selected();
+	static void fillLanguageMenu(QMenu* menu);
 private:
 	void initLanguages();
 private:

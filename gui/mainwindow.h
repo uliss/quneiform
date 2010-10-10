@@ -30,6 +30,7 @@ class MainWindow;
 class Document;
 class LanguageSelect;
 class Page;
+class QSignalMapper;
 
 class MainWindow: public QMainWindow {
 Q_OBJECT
@@ -41,6 +42,7 @@ public:
 	void closeEvent(QCloseEvent *event);
 public slots:
 	void about();
+	void changeDocumentLanguage(int lang);
     void openImage(const QString& path);
     void openImages();
     void recognizeAll();
@@ -53,7 +55,11 @@ public slots:
 private:
     void clearScene();
     void createActions();
+    void mapLanguageMenuActions();
+    void mapLanguageToolButtonActions();
     void readSettings();
+    void selectLanguage(int lang);
+    void setupLanguageUi();
     void setupUi();
     void writeSettings();
     void setZoomEnabled(bool value);
@@ -62,6 +68,8 @@ private:
     Document * doc_;
     QGraphicsScene scene_;
     LanguageSelect * lang_select_;
+    QSignalMapper * lang_mapper_;
+    QMenu * lang_menu_;
 };
 
 #endif // MAINWINDOW_H

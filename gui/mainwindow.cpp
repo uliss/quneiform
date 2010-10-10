@@ -23,6 +23,7 @@
 #include <QCloseEvent>
 #include <QPixmapCache>
 #include <QComboBox>
+#include <QSignalMapper>
 #include <qdebug.h>
 #include <cmath>
 
@@ -52,6 +53,12 @@ void MainWindow::about() {
 	QMessageBox::about(0, "About", "Cuneiform GUI");
 }
 
+void MainWindow::changeDocumentLanguage(int lang) {
+	qDebug() << "[MainWindow::changeDocumentLanguage(" << lang << ")]";
+	doc_->setLanguage(lang);
+	selectLanguage(lang);
+}
+
 void MainWindow::clearScene() {
 	foreach(QGraphicsItem * item, scene_.items()) {
 		scene_.removeItem(item);
@@ -77,6 +84,27 @@ void MainWindow::createActions() {
 	connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
 	connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
 	connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
+}
+
+void MainWindow::mapLanguageMenuActions() {
+	Q_CHECK_PTR(lang_menu_);
+	Q_CHECK_PTR(lang_mapper_);
+
+	foreach(QAction * act, lang_menu_->actions()) {
+		connect(act, SIGNAL(triggered()), lang_mapper_, SLOT(map()));
+		lang_mapper_->setMapping(act, act->data().toInt());
+	}
+}
+
+void MainWindow::mapLanguageToolButtonActions() {
+	Q_CHECK_PTR(lang_select_);
+	Q_CHECK_PTR(lang_select_->menu());
+	Q_CHECK_PTR(lang_mapper_);
+
+	foreach(QAction * act, lang_select_->menu()->actions()) {
+		connect(act, SIGNAL(triggered()), lang_mapper_, SLOT(map()));
+		lang_mapper_->setMapping(act, act->data().toInt());
+	}
 }
 
 void MainWindow::openImage(const QString& path) {
@@ -126,12 +154,7 @@ void MainWindow::recognizeAll() {
 		return;
 	}
 
-	for(int i = 0, total = doc_->pageCount(); i < total; i++) {
-		if(doc_->page(i)->isSelected()) {
-			doc_->page(i)->setLanguage(lang_select_->currentLanguage());
-			recognizePage(doc_->page(i));
-		}
-	}
+    doc_->recognizeSelected();
 }
 
 void MainWindow::recognizePage(Page * page) {
@@ -165,15 +188,46 @@ void MainWindow::rotateRight() {
 	rotate(90);
 }
 
+void MainWindow::selectLanguage(int lang) {
+	Q_CHECK_PTR(lang_menu_);
+	Q_CHECK_PTR(lang_select_);
+	Q_CHECK_PTR(lang_select_->menu());
+
+	foreach(QAction * act, lang_menu_->actions()) {
+		if(act->data().toInt() != lang)
+			act->setChecked(false);
+		else
+			act->setChecked(true);
+	}
+
+	foreach(QAction * act, lang_select_->menu()->actions()) {
+		if(act->data().toInt() != lang)
+			act->setChecked(false);
+		else
+			act->setChecked(true);
+	}
+}
+
+void MainWindow::setupLanguageUi() {
+	lang_mapper_ = new QSignalMapper(this);
+	lang_select_ = new LanguageSelect(this);
+	ui_->mainToolBar->addWidget(lang_select_);
+	lang_menu_  = ui_->menuRecognition->addMenu(tr("Language"));
+	LanguageSelect::fillLanguageMenu(lang_menu_);
+
+	mapLanguageMenuActions();
+	mapLanguageToolButtonActions();
+
+	connect(lang_mapper_, SIGNAL(mapped(int)), this, SLOT(changeDocumentLanguage(int)));
+}
+
 void MainWindow::setupUi() {
-	ui_->setupUi(this);
 	setUnifiedTitleAndToolBarOnMac(true);
+	ui_->setupUi(this);
 	ui_->thumbs_->setDocument(doc_);
 	ui_->image_view_->setScene(&scene_);
 	setZoomEnabled(false);
-	lang_select_ = new LanguageSelect(this);
-	ui_->mainToolBar->addWidget(lang_select_);
-	QMenu * lang_menu  = ui_->menuRecognition->addMenu(tr("Language"));
+	setupLanguageUi();
 }
 
 void MainWindow::setZoomEnabled(bool value) {

@@ -22,7 +22,7 @@
 
 
 Document::Document(QObject * parent) :
-    QObject(parent) {
+    QObject(parent), language_(-1) {
 }
 
 Document::~Document() {
@@ -52,6 +52,10 @@ int Document::countSelected() const {
     return res;
 }
 
+int Document::language() const {
+	return language_;
+}
+
 Page * Document::page(int index) {
     if (0 <= index && index < pages_.size())
         return pages_.at(index);
@@ -70,21 +74,19 @@ void Document::recognize(Page * page) {
 }
 
 void Document::recognizeAll() {
-    foreach(Page * page, pages_)
-        {
-            recognize(page);
-        }
+    foreach(Page * page, pages_) {
+    	recognize(page);
+    }
 
     emit allPagesRecognized();
 }
 
 void Document::recognizeSelected() {
-    foreach(Page * page, pages_)
-        {
-            if (!page->isSelected())
-                continue;
-            recognize(page);
-        }
+    foreach(Page * page, pages_) {
+    	if (!page->isSelected())
+    		continue;
+    	recognize(page);
+    }
 
     emit allPagesRecognized();
 }
@@ -93,18 +95,21 @@ void Document::remove(Page * page) {
     if (pages_.indexOf(page) < 0)
         return;
 
-    emit
-    pageRemoved(page);
+    emit pageRemoved(page);
     pages_.removeAll(page);
     delete page;
     qDebug() << "[Document::remove()]";
 }
 
 void Document::removeSelected() {
-    foreach(Page * page, pages_)
-        {
-            if (page->isSelected())
-                remove(page);
-        }
+	foreach(Page * page, pages_) {
+		if (page->isSelected())
+			remove(page);
+    }
 }
 
+void Document::setLanguage(int lang) {
+	// TODO check
+	language_ = lang;
+	emit languageChanged(lang);
+}

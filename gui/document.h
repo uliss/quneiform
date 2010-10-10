@@ -44,6 +44,11 @@ class Document: public QObject
         int countSelected() const;
 
         /**
+         * Returns document language
+         */
+        int language() const;
+
+        /**
          * Returns page at given position
          * @return NULL if page not found
          */
@@ -63,6 +68,11 @@ class Document: public QObject
          * Recognizes selected pages
          */
         void recognizeSelected();
+
+        /**
+         * Sets document language
+         */
+        void setLanguage(int lang);
     signals:
         /**
          * Emitted when all document pages recognized
@@ -73,6 +83,12 @@ class Document: public QObject
          * Emitted when page with such imagePath already exists in document
          */
         void imageDuplicated(const QString& imagePath);
+
+        /**
+         * Emitted when document language changed
+         */
+        void languageChanged(int lang);
+
         /**
          * Emitted when new page added
          */
@@ -101,6 +117,7 @@ class Document: public QObject
         void removeSelected();
     private:
         PageList pages_;
+        int language_;
 };
 
 
