@@ -28,15 +28,8 @@ LanguageSelect::LanguageSelect(QWidget * parent) : QToolButton(parent) {
 	initLanguages();
 }
 
-QString LanguageSelect::currentLanguageCode() const {
-//	Q_CHECK_PTR(list_);
-//	int idx = list_->currentIndex();
-//	return (idx == -1) ? "" : list_->itemData(idx).toString();
-}
-
 QString LanguageSelect::currentLanguage() const {
-//	Q_CHECK_PTR(list_);
-//	return list_->currentText();
+	return "en";
 }
 
 void LanguageSelect::initLanguages() {
@@ -46,12 +39,13 @@ void LanguageSelect::initLanguages() {
 	Language::sortByName(langs);
 	for (LanguageList::iterator it = langs.begin(), end = langs.end(); it
 			!= end; ++it) {
-		menu_->addAction(QString(Language::isoName(*it).c_str()), this, SLOT(selected()));
+		QAction * lang_action = menu_->addAction(QString(Language::isoName(*it).c_str()), this, SLOT(selected()));
+		lang_action->setData(*it);
 	}
 }
 
 void LanguageSelect::selected() {
-	qDebug() << "[selected]";
+	//current_language_ = sender()->data().toInt();
 }
 
 QStringList LanguageSelect::supportedLanguages() {

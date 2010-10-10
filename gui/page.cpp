@@ -22,6 +22,7 @@
 #include <QtCore/QDebug>
 #include <QtGui/QGraphicsScene>
 #include <QtGui/QGraphicsItem>
+#include <QMessageBox>
 
 #include "rdib/qtimageloader.h"
 #include "cuneiform.h"
@@ -94,36 +95,42 @@ QString Page::ocrText() const {
 void Page::recognize() {
     using namespace cf;
 
-    //    QtImageLoader loader;
-    ImagePtr image = ImageLoaderFactory::instance().load(image_path_.toStdString());
-    if (!image)
-        throw Exception("[Page::recognize] can't open image");
+    try {
+    	//    QtImageLoader loader;
+    	ImagePtr image = ImageLoaderFactory::instance().load(image_path_.toStdString());
+    	if (!image)
+    		throw Exception("[Page::recognize] can't open image");
 
-    // updates image size
-    setImageSize(QSize(image->width(), image->height()));
+    	// updates image size
+    	setImageSize(QSize(image->width(), image->height()));
 
-	RecognizeOptions recognize_options;
-	recognize_options.setLanguage(Language::byCode2(language_.toStdString()).get());
-//	recognize_options.setOneColumn(do_singlecolumn);
-//	recognize_options.setFax(do_fax);
-//	recognize_options.setDotMatrix(do_dotmatrix);
-//	recognize_options.setSpellCorrection(do_speller);
-//	recognize_options.setAutoRotate(do_autorotate);
-//	recognize_options.setPictureSearch(do_pictures);
-//  Puma::instance().setOptionTables(puma_table_t mode);
-	Puma::instance().setRecognizeOptions(recognize_options);
+    	RecognizeOptions recognize_options;
+    	recognize_options.setLanguage(Language::byCode2(language_.toStdString()).get());
+    	//	recognize_options.setOneColumn(do_singlecolumn);
+    	//	recognize_options.setFax(do_fax);
+    	//	recognize_options.setDotMatrix(do_dotmatrix);
+    	//	recognize_options.setSpellCorrection(do_speller);
+    	//	recognize_options.setAutoRotate(do_autorotate);
+    	//	recognize_options.setPictureSearch(do_pictures);
+    	//  Puma::instance().setOptionTables(puma_table_t mode);
+    	Puma::instance().setRecognizeOptions(recognize_options);
 
-	Puma::instance().open(image);
-	Puma::instance().recognize();
-	Puma::instance().formatResult();
+    	Puma::instance().open(image);
+    	Puma::instance().recognize();
+    	Puma::instance().formatResult();
 
-    //fillFormatLayout(Puma::instance().formatPage());
+    	//fillFormatLayout(Puma::instance().formatPage());
 
-    std::ostringstream buf;
-    Puma::instance().save(buf, FORMAT_HTML);
+    	std::ostringstream buf;
+    	Puma::instance().save(buf, FORMAT_HTML);
 
-    ocr_text_ = QString::fromUtf8(buf.str().c_str());
-    is_recognized_ = true;
+    	ocr_text_ = QString::fromUtf8(buf.str().c_str());
+    	is_recognized_ = true;
+    }
+    catch(Exception& e) {
+    	QMessageBox::critical(NULL, tr("Cuneiform error"),
+    			tr("Error while recognizing \"%1\":\n%2").arg(imagePath()).arg(e.what()));
+    }
 }
 
 void Page::rotate(int angle) {

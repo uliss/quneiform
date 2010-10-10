@@ -128,7 +128,7 @@ void MainWindow::recognizeAll() {
 
 	for(int i = 0, total = doc_->pageCount(); i < total; i++) {
 		if(doc_->page(i)->isSelected()) {
-			doc_->page(i)->setLanguage(lang_select_->currentLanguageCode());
+			doc_->page(i)->setLanguage(lang_select_->currentLanguage());
 			recognizePage(doc_->page(i));
 		}
 	}
@@ -171,8 +171,8 @@ void MainWindow::setupUi() {
 	ui_->thumbs_->setDocument(doc_);
 	ui_->image_view_->setScene(&scene_);
 	setZoomEnabled(false);
-//	lang_select_ = new LanguageSelect(this);
-//	ui_->mainToolBar->addWidget(lang_select_);
+	lang_select_ = new LanguageSelect(this);
+	ui_->mainToolBar->addWidget(lang_select_);
 	QMenu * lang_menu  = ui_->menuRecognition->addMenu(tr("Language"));
 }
 
