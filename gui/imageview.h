@@ -22,18 +22,24 @@
 #include <QGraphicsView>
 
 class QGraphicsScene;
+class Page;
 
 class ImageView : public QGraphicsView {
 	Q_OBJECT
-signals:
-	void scaled(qreal ratio);
 public:
 	ImageView(QWidget * parent);
+	void setPage(Page * page);
 public slots:
 	void fitPage();
     void fitWidth();
+    void originalSize();
+    void updatePage();
     void zoomIn();
     void zoomOut();
+private:
+    void saveTransform();
+private:
+    Page * page_;
 };
 
 #endif

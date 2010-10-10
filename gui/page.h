@@ -26,6 +26,7 @@
 #include <QtCore/QVector>
 #include <QtCore/QSize>
 #include <QtGui/QColor>
+#include <QTransform>
 
 class QGraphicsScene;
 
@@ -34,6 +35,7 @@ class CRtfPage;
 }
 
 class Page: public QObject {
+	Q_OBJECT
 public:
 	Page(unsigned int number, const QString& image_path);
 
@@ -87,15 +89,31 @@ public:
 	void recognize();
 
 	/**
+	 * Rotates page
+	 */
+	void rotate(int angle);
+
+	/**
 	 * Saves ocr result
 	 * @throw Exception if page is not recognized
 	 */
 	void save(const QString& file);
 
 	/**
+	 * Scales page
+	 */
+	void scale(qreal factor);
+
+	/**
 	 * Sets image size
 	 */
 	void setImageSize(const QSize& size);
+
+	/**
+	 * Sets recognition language
+	 * @param iso_code - language code, for ex. "ru"
+	 */
+	void setLanguage(const QString& iso_code);
 
 	/**
 	 * Sets page number
@@ -106,6 +124,22 @@ public:
 	 * Selects page
 	 */
 	void setSelected(bool value);
+
+	/**
+	 * Sets page transform
+	 */
+	void setTransform(const QTransform& t);
+
+	/**
+	 * Returns page transform
+	 */
+	QTransform transform() const;
+signals:
+	/**
+	 * Emmited then page is tranformed
+	 */
+	void transformed();
+	void rotated(int angle);
 private:
 	QString image_path_;
 	QSize image_size_;
@@ -116,6 +150,8 @@ private:
 	bool is_selected_;
 	RectList r_page_;
 	RectList r_fragment_;
+	QString language_;
+	QTransform transform_;
 private:
 	void drawFormatPageLayout(QGraphicsScene * scene) const;
 	void fillFormatLayout(const cf::CRtfPage * page);

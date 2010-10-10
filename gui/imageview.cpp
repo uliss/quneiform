@@ -16,60 +16,87 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "imageview.h"
 #include <qdebug.h>
 #include <QScrollBar>
 
-static const double MAX_SIZE = 4.0;
-static const double MIN_SIZE = 0.1;
+#include "imageview.h"
+#include "page.h"
 
 ImageView::ImageView(QWidget * parent) :
-	QGraphicsView(parent) {
+	QGraphicsView(parent), page_(NULL) {
 	setBackgroundRole(QPalette::Dark);
-	setDragMode(QGraphicsView::ScrollHandDrag);
 }
 
 void ImageView::fitPage() {
+	Q_CHECK_PTR(page_);
+	QRectF scene_rect = sceneRect();
+
+	// if image is smaller then view area set it to 100% size
+	if (scene_rect.height() < height() && scene_rect.width() < width())
+		originalSize();
+	else
+		fitInView(scene_rect, Qt::KeepAspectRatio);
+
+	saveTransform();
+}
+
+void ImageView::fitWidth() {
+	Q_CHECK_PTR( page_);
+
 	QRectF scene_rect = sceneRect();
 
 	// if image is smaller then view area set it to 100% size
 	if (scene_rect.height() < height() && scene_rect.width() < width()) {
-		setTransform(QTransform());
-	}
-	else {
+		originalSize();
+	} else {
+		if (transform().isRotating())
+			scene_rect.setWidth(30);
+		else
+			scene_rect.setHeight(30);
+
 		fitInView(scene_rect, Qt::KeepAspectRatio);
 	}
 
-	emit scaled(transform().m11());
+	saveTransform();
 }
 
-void ImageView::fitWidth() {
-	QTransform transform;
-	static const int CORRECTION = 6;
-	int view_wd = width() - verticalScrollBar()->width() - CORRECTION;
-	int scene_wd = sceneRect().width();
+void ImageView::originalSize() {
+	Q_CHECK_PTR(page_);
+}
 
-	if(view_wd < scene_wd) {
-		qreal s = qreal(view_wd) / scene_wd;
-		transform.scale(s, s);
+void ImageView::saveTransform() {
+	Q_CHECK_PTR(page_);
+	page_->setTransform(transform());
+}
+
+void ImageView::setPage(Page * page) {
+	Q_CHECK_PTR(page);
+	if(page_) {
+		disconnect(page_, SIGNAL(transformed()), this, SLOT(updatePage()));
+		disconnect(page_, SIGNAL(rotated(int)), this, SLOT(updatePage()));
 	}
 
-    setTransform(transform);
-    ensureVisible(QRectF());
+	page_ = page;
 
-	emit scaled(transform.m11());
+	connect(page_, SIGNAL(transformed()), this, SLOT(updatePage()));
+	connect(page_, SIGNAL(rotated(int)), this, SLOT(updatePage()));
+
+	updatePage();
+}
+
+void ImageView::updatePage() {
+	Q_CHECK_PTR(page_);
+
+	if(transform() != page_->transform())
+		setTransform(page_->transform());
 }
 
 void ImageView::zoomIn() {
-	if(transform().m11() < MAX_SIZE) {
-		scale(1.25, 1.25);
-		emit scaled(transform().m11());
-	}
+	Q_CHECK_PTR( page_);
+	page_->scale(1.25);
 }
 
 void ImageView::zoomOut() {
-	if(transform().m11() > MIN_SIZE) {
-		scale(0.8, 0.8);
-		emit scaled(transform().m11());
-	}
+	Q_CHECK_PTR(page_);
+	page_->scale(0.8);
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>624</width>
-    <height>480</height>
+    <height>498</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -70,7 +70,6 @@
      <string>&amp;File</string>
     </property>
     <addaction name="actionOpen"/>
-    <addaction name="actionRecognize_all"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -79,13 +78,16 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
-   <widget class="QMenu" name="menuView">
+   <widget class="QMenu" name="menuImage">
     <property name="title">
-     <string>View</string>
+     <string>Image</string>
     </property>
     <addaction name="actionZoom_In"/>
     <addaction name="actionZoom_Out"/>
+    <addaction name="actionFitPage"/>
     <addaction name="actionFitWidth"/>
+    <addaction name="actionRotateRight"/>
+    <addaction name="actionRotateLeft"/>
    </widget>
    <widget class="QMenu" name="menuRecognition">
     <property name="title">
@@ -95,21 +97,19 @@
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuRecognition"/>
-   <addaction name="menuView"/>
+   <addaction name="menuImage"/>
    <addaction name="menuHelp"/>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="mainToolBar">
    <property name="enabled">
     <bool>true</bool>
    </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
    <property name="movable">
-    <bool>false</bool>
+    <bool>true</bool>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftToolBarArea|Qt::RightToolBarArea|Qt::TopToolBarArea</set>
    </property>
    <property name="floatable">
     <bool>true</bool>
@@ -126,10 +126,11 @@
    <addaction name="actionZoom_Out"/>
    <addaction name="actionFitPage"/>
    <addaction name="actionFitWidth"/>
+   <addaction name="actionRotateLeft"/>
+   <addaction name="actionRotateRight"/>
    <addaction name="actionSelectRegion"/>
    <addaction name="actionRecognizeAll"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
@@ -147,6 +148,10 @@
    </property>
   </action>
   <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="resources/cuneiform.qrc">
+     <normaloff>:/img/oxygen/32x32/fileopen.png</normaloff>:/img/oxygen/32x32/fileopen.png</iconset>
+   </property>
    <property name="text">
     <string>Open images</string>
    </property>
@@ -166,6 +171,10 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resources/cuneiform.qrc">
+     <normaloff>:/img/oxygen/32x32/zoom_in.png</normaloff>:/img/oxygen/32x32/zoom_in.png</iconset>
+   </property>
    <property name="text">
     <string>Zoom In</string>
    </property>
@@ -176,6 +185,10 @@
   <action name="actionZoom_Out">
    <property name="enabled">
     <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources/cuneiform.qrc">
+     <normaloff>:/img/oxygen/32x32/zoom_out.png</normaloff>:/img/oxygen/32x32/zoom_out.png</iconset>
    </property>
    <property name="text">
     <string>Zoom Out</string>
@@ -207,6 +220,10 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resources/cuneiform.qrc">
+     <normaloff>:/img/oxygen/32x32/zoom_fit_best.png</normaloff>:/img/oxygen/32x32/zoom_fit_best.png</iconset>
+   </property>
    <property name="text">
     <string>Fit to page</string>
    </property>
@@ -223,6 +240,33 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionRotateRight">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources/cuneiform.qrc">
+     <normaloff>:/img/oxygen/32x32/object_rotate_right.png</normaloff>:/img/oxygen/32x32/object_rotate_right.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate right</string>
+   </property>
+   <property name="toolTip">
+    <string>Rotate right</string>
+   </property>
+  </action>
+  <action name="actionRotateLeft">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources/cuneiform.qrc">
+     <normaloff>:/img/oxygen/32x32/object_rotate_left.png</normaloff>:/img/oxygen/32x32/object_rotate_left.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate left</string>
    </property>
   </action>
  </widget>

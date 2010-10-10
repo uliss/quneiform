@@ -22,12 +22,14 @@
 #include <QFileDialog>
 #include <QCloseEvent>
 #include <QPixmapCache>
+#include <QComboBox>
 #include <qdebug.h>
 #include <cmath>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "document.h"
+#include "languageselect.h"
 #include "page.h"
 #include "thumbnailwidget.h"
 
@@ -41,7 +43,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	setupUi();
 	createActions();
 	readSettings();
-	setUnifiedTitleAndToolBarOnMac(true);
 }
 
 MainWindow::~MainWindow() {
@@ -73,8 +74,9 @@ void MainWindow::createActions() {
 	connect(ui_->actionFitWidth, SIGNAL(triggered()), ui_->image_view_, SLOT(fitWidth()));
 	connect(ui_->actionFitPage, SIGNAL(triggered()), ui_->image_view_, SLOT(fitPage()));
 	connect(ui_->actionRecognizeAll, SIGNAL(triggered()), this, SLOT(recognizeAll()));
-	connect(ui_->image_view_, SIGNAL(scaled(qreal)), SLOT(updateZoomStatus(qreal)));
 	connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
+	connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
+	connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
 }
 
 void MainWindow::openImage(const QString& path) {
@@ -125,16 +127,53 @@ void MainWindow::recognizeAll() {
 	}
 
 	for(int i = 0, total = doc_->pageCount(); i < total; i++) {
-		if(doc_->page(i)->isSelected())
-			doc_->page(i)->recognize();
+		if(doc_->page(i)->isSelected()) {
+			doc_->page(i)->setLanguage(lang_select_->currentLanguageCode());
+			recognizePage(doc_->page(i));
+		}
 	}
+}
+
+void MainWindow::recognizePage(Page * page) {
+	Q_CHECK_PTR(page);
+
+	if(page->isRecognized()) {
+		if(QMessageBox::Ok != QMessageBox::question(NULL, tr("Warning"), tr("Page already recognized. Do you want do rerecognize it?"))) {
+			return;
+		}
+	}
+
+	page->recognize();
+	showPageText(page);
+}
+
+void MainWindow::rotate(int factor) {
+	Page * p = ui_->thumbs_->currentPage();
+	if (!p) {
+		qDebug() << "No page selected";
+		return;
+	}
+
+	p->rotate(factor);
+}
+
+void MainWindow::rotateLeft() {
+	rotate(-90);
+}
+
+void MainWindow::rotateRight() {
+	rotate(90);
 }
 
 void MainWindow::setupUi() {
 	ui_->setupUi(this);
+	setUnifiedTitleAndToolBarOnMac(true);
 	ui_->thumbs_->setDocument(doc_);
 	ui_->image_view_->setScene(&scene_);
 	setZoomEnabled(false);
+//	lang_select_ = new LanguageSelect(this);
+//	ui_->mainToolBar->addWidget(lang_select_);
+	QMenu * lang_menu  = ui_->menuRecognition->addMenu(tr("Language"));
 }
 
 void MainWindow::setZoomEnabled(bool value) {
@@ -142,6 +181,8 @@ void MainWindow::setZoomEnabled(bool value) {
 	ui_->actionZoom_Out->setEnabled(value);
 	ui_->actionFitWidth->setEnabled(value);
 	ui_->actionFitPage->setEnabled(value);
+	ui_->actionRotateLeft->setEnabled(value);
+	ui_->actionRotateRight->setEnabled(value);
 }
 
 void MainWindow::showPageImage(Page * page) {
@@ -158,23 +199,14 @@ void MainWindow::showPageImage(Page * page) {
 	scene_.addPixmap(image);
 	scene_.setSceneRect(image.rect());
 	setZoomEnabled(true);
+	ui_->image_view_->setDragMode(QGraphicsView::ScrollHandDrag);
+	ui_->image_view_->setPage(page);
 }
 
 void MainWindow::showPageText(Page * page) {
 	Q_CHECK_PTR(page);
 	Q_CHECK_PTR(ui_->text_view_);
 	ui_->text_view_->document()->setHtml(page->ocrText());
-}
-
-void MainWindow::recognizePage(Page * page) {
-	Q_CHECK_PTR(page);
-
-	page->recognize();
-	showPageText(page);
-}
-
-void MainWindow::updateZoomStatus(qreal ratio) {
-	statusBar()->showMessage(QString(tr(" (%1%)")).arg(static_cast<int>(round(100.0 * ratio))));
 }
 
 void MainWindow::writeSettings() {

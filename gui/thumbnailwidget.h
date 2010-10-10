@@ -89,6 +89,7 @@ class ThumbnailWidget: public QFrame
     private slots:
     	void recognizeThumb();
         void removePage();
+        void rotate(int angle);
         void selectPage(bool value);
         void showProperties();
     private:

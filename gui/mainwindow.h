@@ -28,6 +28,7 @@ class MainWindow;
 }
 
 class Document;
+class LanguageSelect;
 class Page;
 
 class MainWindow: public QMainWindow {
@@ -44,9 +45,11 @@ public slots:
     void openImages();
     void recognizeAll();
     void recognizePage(Page * page);
+    void rotate(int factor);
+    void rotateLeft();
+    void rotateRight();
     void showPageImage(Page * page);
     void showPageText(Page * page);
-    void updateZoomStatus(qreal ratio);
 private:
     void clearScene();
     void createActions();
@@ -58,6 +61,7 @@ private:
     QScopedPointer<Ui::MainWindow> ui_;
     Document * doc_;
     QGraphicsScene scene_;
+    LanguageSelect * lang_select_;
 };
 
 #endif // MAINWINDOW_H

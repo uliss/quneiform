@@ -30,7 +30,7 @@
 static const int LIST_WIDTH = 180;
 
 ThumbnailList::ThumbnailList(QWidget *parent) :
-    QScrollArea(parent), document_(NULL), layout_(NULL) {
+    QScrollArea(parent), document_(NULL), layout_(NULL), current_page_(NULL) {
     setupLayout();
     setScrollBars();
 }
@@ -58,6 +58,10 @@ void ThumbnailList::setupContextMenu(QMenu * menu) {
 
 int ThumbnailList::count() const {
     return thumbs_.count();
+}
+
+Page * ThumbnailList::currentPage() {
+	return current_page_;
 }
 
 void ThumbnailList::handleInvalidImage(const QString& path) {
@@ -104,17 +108,15 @@ void ThumbnailList::thumbRemove(ThumbnailWidget * thumb) {
 }
 
 void ThumbnailList::revertSelection() {
-    foreach(ThumbnailWidget * thumb, thumbs_)
-        {
-            thumb->toggleSelection();
-        }
+    foreach(ThumbnailWidget * thumb, thumbs_) {
+    	thumb->toggleSelection();
+    }
 }
 
 void ThumbnailList::selectAll() {
-    foreach(ThumbnailWidget * thumb, thumbs_)
-        {
-            thumb->setChecked(true);
-        }
+    foreach(ThumbnailWidget * thumb, thumbs_) {
+    	thumb->setChecked(true);
+    }
 }
 
 void ThumbnailList::setDocument(Document * doc) {
@@ -157,8 +159,9 @@ void ThumbnailList::thumbClick() {
     if (!th)
         return;
 
+    current_page_ = th->page();
     highlight(th);
-    emit thumbSelected(th->page());
+    emit thumbSelected(current_page_);
 }
 
 void ThumbnailList::updateThumbNames() {

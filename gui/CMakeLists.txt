@@ -3,6 +3,7 @@ set(PROJECT "quneiform")
 set (HEADERS 
     document.h
     imageview.h
+    languageselect.h
     mainwindow.h
     page.h
     thumbnaillist.h
@@ -12,6 +13,7 @@ set (HEADERS
 set (SOURCES 
     document.cpp
     imageview.cpp
+    languageselect.cpp
     mainwindow.cpp
     main.cpp
     page.cpp

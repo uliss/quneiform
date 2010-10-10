@@ -39,6 +39,7 @@ static const int THUMB_HEIGHT = 150;
 
 ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
     QFrame(parent), page_(page), layout_(NULL), thumb_(NULL), checked_(NULL) {
+
     setupFrame();
     setupLayout();
     setupPixmap();
@@ -49,6 +50,7 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
     connect(checked_, SIGNAL(toggled(bool)), SLOT(selectPage(bool)));
     connect(this, SIGNAL(contextMenuCreated(QMenu*)), parent, SLOT(setupContextMenu(QMenu*)));
     connect(this, SIGNAL(invalidImage(const QString&)), parent, SLOT(handleInvalidImage(const QString&)));
+    connect(page, SIGNAL(rotated(int)), SLOT(rotate(int)));
 }
 
 void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
@@ -56,6 +58,7 @@ void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
     emit contextMenuCreated(menu);
     menu->addAction(QIcon(":/list_recognize.png"), tr("Recognize"), this, SLOT(recognizeThumb()));
     menu->addAction(QIcon(":/list_remove.png"), tr("Delete"), this, SLOT(removePage()));
+    menu->addAction(QIcon(":/img/oxygen/22x22/document_properties.png"), tr("Properties"), this, SLOT(showProperties()));
 
 //    menu->setupActions();
     menu->exec(event->globalPos());
@@ -105,13 +108,23 @@ QString ThumbnailWidget::pageProperties() const {
     Q_CHECK_PTR(page_);
 
     QString res = tr("Filename: \"%1\"\n").arg(page_->imagePath());
-    res += tr("Size: %1x%2").arg(page_->imageSize().width()).arg(page_->imageSize().height());
+    res += tr("Size: %1x%2\n").arg(page_->imageSize().width()).arg(page_->imageSize().height());
+//    res += tr("Rotation: %1\n").arg(page_->r);
     return res;
 }
 
 void ThumbnailWidget::recognizeThumb() {
 	emit recognize(page_);
 }
+
+void ThumbnailWidget::rotate(int angle) {
+	Q_CHECK_PTR(page_);
+
+	QTransform t;
+	QPixmap new_pixmap = thumb_->pixmap()->transformed(t.rotate(angle));
+	thumb_->setPixmap(new_pixmap);
+}
+
 
 void ThumbnailWidget::removePage() {
     emit removed(page_);
@@ -193,4 +206,3 @@ void ThumbnailWidget::toggleSelection() {
 
     checked_->toggle();
 }
-

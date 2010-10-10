@@ -22,6 +22,7 @@
 #include <QtCore/QDebug>
 #include <QtGui/QGraphicsScene>
 #include <QtGui/QGraphicsItem>
+
 #include "rdib/qtimageloader.h"
 #include "cuneiform.h"
 #include "rfrmt/rfrmtoptions.h"
@@ -34,7 +35,7 @@ QColor Page::format_page_color_(0, 255, 0, 200);
 
 Page::Page(unsigned int number, const QString& image_path) :
     image_path_(image_path), number_(number), is_recognized_(false), is_saved_(false),
-            is_selected_(false) {
+            is_selected_(false), language_("en") {
 }
 
 void Page::drawFormatLayout(QGraphicsScene * scene) const {
@@ -101,9 +102,20 @@ void Page::recognize() {
     // updates image size
     setImageSize(QSize(image->width(), image->height()));
 
-    Puma::instance().open(image);
-    Puma::instance().recognize();
-    Puma::instance().formatResult();
+	RecognizeOptions recognize_options;
+	recognize_options.setLanguage(Language::byCode2(language_.toStdString()).get());
+//	recognize_options.setOneColumn(do_singlecolumn);
+//	recognize_options.setFax(do_fax);
+//	recognize_options.setDotMatrix(do_dotmatrix);
+//	recognize_options.setSpellCorrection(do_speller);
+//	recognize_options.setAutoRotate(do_autorotate);
+//	recognize_options.setPictureSearch(do_pictures);
+//  Puma::instance().setOptionTables(puma_table_t mode);
+	Puma::instance().setRecognizeOptions(recognize_options);
+
+	Puma::instance().open(image);
+	Puma::instance().recognize();
+	Puma::instance().formatResult();
 
     //fillFormatLayout(Puma::instance().formatPage());
 
@@ -114,6 +126,11 @@ void Page::recognize() {
     is_recognized_ = true;
 }
 
+void Page::rotate(int angle) {
+	transform_.rotate(angle);
+	emit rotated(angle);
+}
+
 void Page::save(const QString& /*file*/) {
     if (!isRecognized())
         throw Exception("[Page::save] page is not recognized");
@@ -121,8 +138,20 @@ void Page::save(const QString& /*file*/) {
     is_saved_ = true;
 }
 
+void Page::scale(qreal factor) {
+	transform_.scale(factor, factor);
+	emit transformed();
+}
+
 void Page::setImageSize(const QSize& size) {
     image_size_ = size;
+}
+
+void Page::setLanguage(const QString& code) {
+	if(cf::Language::byCode2(code.toStdString()).isValid())
+		language_ = code;
+	else
+		qDebug() << "Invalid language code: " << code;
 }
 
 void Page::setNumber(unsigned int number) {
@@ -131,5 +160,16 @@ void Page::setNumber(unsigned int number) {
 
 void Page::setSelected(bool value) {
     is_selected_ = value;
+}
+
+void Page::setTransform(const QTransform& t) {
+	if(transform_ != t) {
+		transform_ = t;
+		emit transformed();
+	}
+}
+
+QTransform Page::transform() const {
+	return  transform_;
 }
 

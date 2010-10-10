@@ -42,6 +42,12 @@ class ThumbnailList: public QScrollArea
         void append(ThumbnailWidget * thumb);
 
         /**
+         * Returns current selected page
+         * if no page selected returns NULL
+         */
+        Page * currentPage();
+
+        /**
          * Returns number of thumbs in list
          */
         int count() const;
@@ -92,6 +98,7 @@ class ThumbnailList: public QScrollArea
         Document * document_;
         QVBoxLayout * layout_;
         ThumbList thumbs_;
+        Page * current_page_;
 };
 
 #endif /* THUMBNAILLIST_H_ */
