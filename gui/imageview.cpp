@@ -24,8 +24,11 @@
 #include "imageview.h"
 #include "page.h"
 
+static const int PIXMAP_CACHE_SIZE = 1024 * 1024 * 6;
+
 ImageView::ImageView(QWidget * parent) :
 	QGraphicsView(parent), page_(NULL) {
+	QPixmapCache::setCacheLimit(PIXMAP_CACHE_SIZE);
 	setBackgroundRole(QPalette::Dark);
 	setScene(&scene_);
 }

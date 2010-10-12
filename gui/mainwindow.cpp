@@ -21,7 +21,6 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QCloseEvent>
-#include <QPixmapCache>
 #include <QComboBox>
 #include <QSignalMapper>
 #include <qdebug.h>
@@ -36,11 +35,9 @@
 
 static const char * ORGANIZATION = "openocr.org";
 static const char * APPLICATION = "Cuneiform OCR";
-static const int PIXMAP_CACHE_SIZE = 1024 * 1024 * 6;
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent), ui_(new Ui::MainWindow), doc_(new Document(this)) {
-	QPixmapCache::setCacheLimit(PIXMAP_CACHE_SIZE);
 	setupUi();
 	createActions();
 	readSettings();
