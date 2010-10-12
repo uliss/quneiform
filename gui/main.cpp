@@ -16,19 +16,24 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtGui/QApplication>
+#include <QApplication>
+#include <QStringList>
 #include "mainwindow.h"
 
 int main(int argc, char *argv[]) {
-	QApplication app(argc, argv);
-//	app.setOrganizationName("openocr.org");
-	app.setApplicationName("Cuneiform OCR");
-	MainWindow w;
-	w.show();
+    QApplication app(argc, argv);
+    //	app.setOrganizationName("openocr.org");
+    app.setApplicationName("Cuneiform OCR");
+    MainWindow w;
+    w.show();
 
-	for(int i = 1; i < argc; i++) {
-		w.openImage(argv[i]);
-	}
+    if(argc > 1) {
+        QStringList files;
+        for(int i = 1; i < argc; i++)
+            files << argv[i];
 
-	return app.exec();
+        w.openImages(files);
+    }
+
+    return app.exec();
 }

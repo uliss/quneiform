@@ -21,8 +21,8 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QCloseEvent>
-#include <QComboBox>
 #include <QSignalMapper>
+#include <QProgressDialog>
 #include <qdebug.h>
 #include <cmath>
 
@@ -38,209 +38,222 @@ static const char * APPLICATION = "Cuneiform OCR";
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent), ui_(new Ui::MainWindow), doc_(new Document(this)) {
-	setupUi();
-	createActions();
-	readSettings();
+    setupUi();
+    createActions();
+    readSettings();
 }
 
 MainWindow::~MainWindow() {
 }
 
 void MainWindow::about() {
-	QMessageBox::about(0, tr("About"), tr("Cuneiform GUI"));
+    QMessageBox::about(0, tr("About"), tr("Cuneiform GUI"));
 }
 
 void MainWindow::changeDocumentLanguage(int lang) {
-	qDebug() << "[MainWindow::changeDocumentLanguage(" << lang << ")]";
-	doc_->setLanguage(lang);
-	selectLanguage(lang);
+    qDebug() << "[MainWindow::changeDocumentLanguage(" << lang << ")]";
+    doc_->setLanguage(lang);
+    selectLanguage(lang);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
-	writeSettings();
-	event->accept();
+    writeSettings();
+    event->accept();
 }
 
 void MainWindow::createActions() {
-	Q_ASSERT(!ui_.isNull());
-	connect(ui_->actionAbout, SIGNAL(triggered()), SLOT(about()));
-	connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImages()));
-	connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
-	connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
-	connect(ui_->actionZoom_In, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomIn()));
-	connect(ui_->actionZoom_Out, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomOut()));
-	connect(ui_->actionFitWidth, SIGNAL(triggered()), ui_->image_view_, SLOT(fitWidth()));
-	connect(ui_->actionFitPage, SIGNAL(triggered()), ui_->image_view_, SLOT(fitPage()));
-	connect(ui_->actionRecognizeAll, SIGNAL(triggered()), SLOT(recognizeAll()));
-	connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
-	connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
-	connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
+    Q_ASSERT(!ui_.isNull());
+    connect(ui_->actionAbout, SIGNAL(triggered()), SLOT(about()));
+    connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImages()));
+    connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
+    connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
+    connect(ui_->actionZoom_In, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomIn()));
+    connect(ui_->actionZoom_Out, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomOut()));
+    connect(ui_->actionFitWidth, SIGNAL(triggered()), ui_->image_view_, SLOT(fitWidth()));
+    connect(ui_->actionFitPage, SIGNAL(triggered()), ui_->image_view_, SLOT(fitPage()));
+    connect(ui_->actionRecognizeAll, SIGNAL(triggered()), SLOT(recognizeAll()));
+    connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
+    connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
+    connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
 }
 
 void MainWindow::mapLanguageActions(const QList<QAction*>& actions) {
-	Q_CHECK_PTR(lang_mapper_);
+    Q_CHECK_PTR(lang_mapper_);
 
-	foreach(QAction * act, actions) {
-		connect(act, SIGNAL(triggered()), lang_mapper_, SLOT(map()));
-		lang_mapper_->setMapping(act, act->data().toInt());
-	}
+    foreach(QAction * act, actions) {
+        connect(act, SIGNAL(triggered()), lang_mapper_, SLOT(map()));
+        lang_mapper_->setMapping(act, act->data().toInt());
+    }
 }
 
 void MainWindow::mapLanguageMenuActions() {
-	Q_CHECK_PTR(lang_menu_);
+    Q_CHECK_PTR(lang_menu_);
 
-	mapLanguageActions(lang_menu_->actions());
+    mapLanguageActions(lang_menu_->actions());
 }
 
 void MainWindow::mapLanguageToolButtonActions() {
-	Q_CHECK_PTR(lang_select_);
-	Q_CHECK_PTR(lang_select_->menu());
+    Q_CHECK_PTR(lang_select_);
+    Q_CHECK_PTR(lang_select_->menu());
 
-	mapLanguageActions(lang_select_->menu()->actions());
+    mapLanguageActions(lang_select_->menu()->actions());
 }
 
 void MainWindow::openImage(const QString& path) {
-	Q_CHECK_PTR( doc_);
+    Q_CHECK_PTR( doc_);
+    qDebug() << "[MainWindow::openImage]" << path;
 
-	QFileInfo info(path);
-	if(!info.exists()) {
-		QMessageBox::critical(NULL, tr("Error"), QString(tr("File \"%1\" not exists")).arg(path));
-		return;
-	}
+    QFileInfo info(path);
+    if(!info.exists()) {
+        QMessageBox::critical(NULL, tr("Error"), QString(tr("File \"%1\" not exists")).arg(path));
+        return;
+    }
 
-	statusBar()->showMessage(QString(tr("Opening \"%1\"")).arg(path));
+    Page * p = new Page(0, path);
+    doc_->append(p);
 
-	Page * p = new Page(0, path);
-	doc_->append(p);
-
-	statusBar()->showMessage("");
-
-	//	first page
-	if(doc_->pageCount() == 1) {
-		ui_->actionRecognizeAll->setEnabled(true);
-	}
+    //	first page
+    if(doc_->pageCount() == 1) {
+        ui_->actionRecognizeAll->setEnabled(true);
+    }
 }
 
 void MainWindow::openImages() {
-	QStringList files = QFileDialog::getOpenFileNames(NULL, "Open Dialog", "",
-			"Images (*.gif *.png *.xpm *.jpg *.tif *.bmp)");
-	qDebug() << "[openImages()]";
-	foreach(QString image_path, files) {
-		openImage(image_path);
-	}
+    QStringList files = QFileDialog::getOpenFileNames(NULL, "Open Dialog", "",
+                                                      "Images (*.gif *.png *.xpm *.jpg *.tif *.bmp)");
+    openImages(files);
+}
+
+void MainWindow::openImages(const QStringList& files) {
+    qDebug() << "[openImages()]";
+    QProgressDialog progress;
+    QString label(tr("Opening image \"%1\""));
+    progress.setWindowTitle(tr("Please, wait"));
+    progress.setMaximum(files.count());
+    progress.setMinimum(0);
+    progress.setMinimumDuration(10);
+    progress.setWindowModality(Qt::WindowModal);
+
+    for(int i = 0, total = files.count(); i < total; i++) {
+        progress.setValue(i);
+        if(progress.wasCanceled())
+            break;
+
+        progress.setLabelText(label.arg(files.at(i)));
+        openImage(files.at(i));
+    }
 }
 
 void MainWindow::readSettings() {
-	QSettings settings(ORGANIZATION, APPLICATION);
-	QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
-	QSize size = settings.value("size", QSize(650, 450)).toSize();
-	resize(size);
-	move(pos);
+    QSettings settings(ORGANIZATION, APPLICATION);
+    QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
+    QSize size = settings.value("size", QSize(650, 450)).toSize();
+    resize(size);
+    move(pos);
 }
 
 void MainWindow::recognizeAll() {
-	Q_CHECK_PTR(doc_);
+    Q_CHECK_PTR(doc_);
 
-	if(!doc_->countSelected()) {
-		QMessageBox::warning(NULL, tr("Warning"), tr("No page selected"));
-		return;
-	}
+    if(!doc_->countSelected()) {
+        QMessageBox::warning(NULL, tr("Warning"), tr("No page selected"));
+        return;
+    }
 
     doc_->recognizeSelected();
 }
 
 void MainWindow::recognizePage(Page * page) {
-	Q_CHECK_PTR(page);
+    Q_CHECK_PTR(page);
 
-	if(page->isRecognized()) {
-		if(QMessageBox::Ok != QMessageBox::question(NULL, tr("Warning"), tr("Page already recognized. Do you want do rerecognize it?"))) {
-			return;
-		}
-	}
+    if(page->isRecognized()) {
+        if(QMessageBox::Ok != QMessageBox::question(NULL, tr("Warning"), tr("Page already recognized. Do you want do rerecognize it?"))) {
+            return;
+        }
+    }
 
-	page->recognize();
-	showPageText(page);
+    page->recognize();
+    showPageText(page);
 }
 
 void MainWindow::rotate(int factor) {
-	Page * p = ui_->thumbs_->currentPage();
-	if (!p) {
-		qDebug() << "No page selected";
-		return;
-	}
+    Page * p = ui_->thumbs_->currentPage();
+    if (!p) {
+        qDebug() << "No page selected";
+        return;
+    }
 
-	p->rotate(factor);
+    p->rotate(factor);
 }
 
 void MainWindow::rotateLeft() {
-	rotate(-90);
+    rotate(-90);
 }
 
 void MainWindow::rotateRight() {
-	rotate(90);
+    rotate(90);
 }
 
 void MainWindow::selectLanguage(int lang) {
-	Q_CHECK_PTR(lang_menu_);
-	Q_CHECK_PTR(lang_select_);
-	Q_CHECK_PTR(lang_select_->menu());
+    Q_CHECK_PTR(lang_menu_);
+    Q_CHECK_PTR(lang_select_);
 
-	foreach(QAction * act, lang_menu_->actions()) {
-		if(act->data().toInt() != lang)
-			act->setChecked(false);
-		else
-			act->setChecked(true);
-	}
+    foreach(QAction * act, lang_menu_->actions()) {
+        if(act->data().toInt() != lang)
+            act->setChecked(false);
+        else
+            act->setChecked(true);
+    }
 
-	lang_select_->select(lang);
+    lang_select_->select(lang);
 }
 
 void MainWindow::setupLanguageUi() {
-	lang_mapper_ = new QSignalMapper(this);
-	lang_select_ = new LanguageSelect(this);
-	ui_->mainToolBar->addWidget(lang_select_);
-	lang_menu_  = ui_->menuRecognition->addMenu(tr("Language"));
-	LanguageSelect::fillLanguageMenu(lang_menu_);
+    lang_mapper_ = new QSignalMapper(this);
+    lang_select_ = new LanguageSelect(this);
+    ui_->mainToolBar->addWidget(lang_select_);
+    lang_menu_  = ui_->menuRecognition->addMenu(tr("Language"));
+    LanguageSelect::fillLanguageMenu(lang_menu_);
 
-	mapLanguageMenuActions();
-	mapLanguageToolButtonActions();
+    mapLanguageMenuActions();
+    mapLanguageToolButtonActions();
 
-	connect(lang_mapper_, SIGNAL(mapped(int)), this, SLOT(changeDocumentLanguage(int)));
+    connect(lang_mapper_, SIGNAL(mapped(int)), this, SLOT(changeDocumentLanguage(int)));
 }
 
 void MainWindow::setupUi() {
-	setUnifiedTitleAndToolBarOnMac(true);
-	ui_->setupUi(this);
-	ui_->thumbs_->setDocument(doc_);
-	setZoomEnabled(false);
-	setupLanguageUi();
+    setUnifiedTitleAndToolBarOnMac(true);
+    ui_->setupUi(this);
+    ui_->thumbs_->setDocument(doc_);
+    setZoomEnabled(false);
+    setupLanguageUi();
 }
 
 void MainWindow::setZoomEnabled(bool value) {
-	ui_->actionZoom_In->setEnabled(value);
-	ui_->actionZoom_Out->setEnabled(value);
-	ui_->actionFitWidth->setEnabled(value);
-	ui_->actionFitPage->setEnabled(value);
-	ui_->actionRotateLeft->setEnabled(value);
-	ui_->actionRotateRight->setEnabled(value);
+    ui_->actionZoom_In->setEnabled(value);
+    ui_->actionZoom_Out->setEnabled(value);
+    ui_->actionFitWidth->setEnabled(value);
+    ui_->actionFitPage->setEnabled(value);
+    ui_->actionRotateLeft->setEnabled(value);
+    ui_->actionRotateRight->setEnabled(value);
 }
 
 void MainWindow::showPageImage(Page * page) {
-        qDebug() << "[MainWindow::showPageImage]" << page;
-	Q_CHECK_PTR(page);
-	statusBar()->showMessage(QFileInfo(page->imagePath()).fileName());
-	setZoomEnabled(true);
-	ui_->image_view_->showPage(page);
+    qDebug() << "[MainWindow::showPageImage]" << page;
+    Q_CHECK_PTR(page);
+    statusBar()->showMessage(QFileInfo(page->imagePath()).fileName());
+    setZoomEnabled(true);
+    ui_->image_view_->showPage(page);
 }
 
 void MainWindow::showPageText(Page * page) {
-	Q_CHECK_PTR(page);
-	Q_CHECK_PTR(ui_->text_view_);
-	ui_->text_view_->document()->setHtml(page->ocrText());
+    Q_CHECK_PTR(page);
+    Q_CHECK_PTR(ui_->text_view_);
+    ui_->text_view_->document()->setHtml(page->ocrText());
 }
 
 void MainWindow::writeSettings() {
-	QSettings settings(ORGANIZATION, APPLICATION);
-	settings.setValue("pos", pos());
-	settings.setValue("size", size());
+    QSettings settings(ORGANIZATION, APPLICATION);
+    settings.setValue("pos", pos());
+    settings.setValue("size", size());
 }

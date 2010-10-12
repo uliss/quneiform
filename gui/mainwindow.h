@@ -44,6 +44,7 @@ public slots:
 	void changeDocumentLanguage(int lang);
     void openImage(const QString& path);
     void openImages();
+    void openImages(const QStringList& paths);
     void recognizeAll();
     void recognizePage(Page * page);
     void rotate(int factor);
