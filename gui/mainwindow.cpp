@@ -77,25 +77,26 @@ void MainWindow::createActions() {
 	connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
 }
 
-void MainWindow::mapLanguageMenuActions() {
-	Q_CHECK_PTR(lang_menu_);
+void MainWindow::mapLanguageActions(const QList<QAction*>& actions) {
 	Q_CHECK_PTR(lang_mapper_);
 
-	foreach(QAction * act, lang_menu_->actions()) {
+	foreach(QAction * act, actions) {
 		connect(act, SIGNAL(triggered()), lang_mapper_, SLOT(map()));
 		lang_mapper_->setMapping(act, act->data().toInt());
 	}
 }
 
+void MainWindow::mapLanguageMenuActions() {
+	Q_CHECK_PTR(lang_menu_);
+
+	mapLanguageActions(lang_menu_->actions());
+}
+
 void MainWindow::mapLanguageToolButtonActions() {
 	Q_CHECK_PTR(lang_select_);
 	Q_CHECK_PTR(lang_select_->menu());
-	Q_CHECK_PTR(lang_mapper_);
 
-	foreach(QAction * act, lang_select_->menu()->actions()) {
-		connect(act, SIGNAL(triggered()), lang_mapper_, SLOT(map()));
-		lang_mapper_->setMapping(act, act->data().toInt());
-	}
+	mapLanguageActions(lang_select_->menu()->actions());
 }
 
 void MainWindow::openImage(const QString& path) {
@@ -191,12 +192,7 @@ void MainWindow::selectLanguage(int lang) {
 			act->setChecked(true);
 	}
 
-	foreach(QAction * act, lang_select_->menu()->actions()) {
-		if(act->data().toInt() != lang)
-			act->setChecked(false);
-		else
-			act->setChecked(true);
-	}
+	lang_select_->select(lang);
 }
 
 void MainWindow::setupLanguageUi() {

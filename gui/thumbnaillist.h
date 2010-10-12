@@ -53,12 +53,6 @@ class ThumbnailList: public QScrollArea
         int count() const;
 
         /**
-         * Highlights given thumb and removes highlight of others
-         * @param thumb
-         */
-        void highlight(ThumbnailWidget * thumb);
-
-        /**
          * Removes thumbnail
          */
         void thumbRemove(ThumbnailWidget * thumb);
@@ -84,6 +78,12 @@ class ThumbnailList: public QScrollArea
         void selectAll();
     private:
         typedef QList<ThumbnailWidget*> ThumbList;
+
+        /**
+         * Highlights given thumb and removes highlight of others
+         * @param thumb
+         */
+        void highlightThumb(ThumbnailWidget * thumb);
         void setupLayout();
         void setScrollBars();
         /** Updates thumbnail names */

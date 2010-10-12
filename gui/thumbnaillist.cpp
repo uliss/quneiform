@@ -69,7 +69,7 @@ void ThumbnailList::handleInvalidImage(const QString& path) {
 	throw 1;
 }
 
-void ThumbnailList::highlight(ThumbnailWidget * thumb) {
+void ThumbnailList::highlightThumb(ThumbnailWidget * thumb) {
     Q_CHECK_PTR(thumb);
 
     for (int i = 0; i < thumbs_.count(); i++) {
@@ -164,7 +164,7 @@ void ThumbnailList::thumbClick() {
         return;
 
     current_page_ = th->page();
-    highlight(th);
+    highlightThumb(th);
     emit thumbSelected(current_page_);
 }
 

@@ -53,6 +53,7 @@ public slots:
     void showPageText(Page * page);
 private:
     void createActions();
+    void mapLanguageActions(const QList<QAction*>& actions);
     void mapLanguageMenuActions();
     void mapLanguageToolButtonActions();
     void readSettings();

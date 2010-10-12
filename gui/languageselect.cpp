@@ -51,6 +51,15 @@ void LanguageSelect::initLanguages() {
 	fillLanguageMenu(menu_);
 }
 
+void LanguageSelect::select(int langCode) {
+	foreach(QAction * act, menu()->actions()) {
+		if(act->data().toInt() != langCode)
+			act->setChecked(false);
+		else
+			act->setChecked(true);
+	}
+}
+
 QStringList LanguageSelect::supportedLanguages() {
 	QStringList res;
 	using namespace cf;
