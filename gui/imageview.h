@@ -37,9 +37,10 @@ public slots:
 	void fitPage();
     void fitWidth();
     void originalSize();
-    void updatePage();
     void zoomIn();
     void zoomOut();
+private slots:
+    void updatePage();
 private:
     void connectPage();
     void disconnectPage();
