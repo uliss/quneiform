@@ -19,8 +19,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QScopedPointer>
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 
 namespace Ui {
 class MainWindow;
@@ -64,7 +63,7 @@ private:
     void writeSettings();
     void setZoomEnabled(bool value);
 private:
-    QScopedPointer<Ui::MainWindow> ui_;
+    Ui::MainWindow * ui_;
     Document * doc_;
     LanguageSelect * lang_select_;
     QSignalMapper * lang_mapper_;

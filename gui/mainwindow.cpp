@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 MainWindow::~MainWindow() {
+    delete ui_;
 }
 
 void MainWindow::about() {
@@ -61,7 +62,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 void MainWindow::createActions() {
-    Q_ASSERT(!ui_.isNull());
+    Q_CHECK_PTR(ui_);
     connect(ui_->actionAbout, SIGNAL(triggered()), SLOT(about()));
     connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImages()));
     connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
