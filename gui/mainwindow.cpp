@@ -24,7 +24,6 @@
 #include <QSignalMapper>
 #include <QProgressDialog>
 #include <qdebug.h>
-#include <cmath>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
