@@ -127,10 +127,19 @@ void ImageView::showPage(Page * page) {
 	clear();
 
 	QPixmap image;
-	if (!QPixmapCache::find(page->imagePath(), &image)) {
-		image.load(page->imagePath());
-		QPixmapCache::insert(page->imagePath(), image);
-	}
+
+#if QT_VERSION <= 0x040600
+    if (!QPixmapCache::find(page->imagePath(), image)) {
+        image.load(page->imagePath());
+        QPixmapCache::insert(page->imagePath(), image);
+    }
+#else
+    if (!QPixmapCache::find(page->imagePath(), &image)) {
+        image.load(page->imagePath());
+        QPixmapCache::insert(page->imagePath(), image);
+    }
+#endif
+
 
 	scene_.addPixmap(image);
 	scene_.setSceneRect(image.rect());
