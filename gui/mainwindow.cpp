@@ -59,12 +59,6 @@ void MainWindow::changeDocumentLanguage(int lang) {
 	selectLanguage(lang);
 }
 
-void MainWindow::clearScene() {
-	foreach(QGraphicsItem * item, scene_.items()) {
-		scene_.removeItem(item);
-	}
-}
-
 void MainWindow::closeEvent(QCloseEvent *event) {
 	writeSettings();
 	event->accept();
@@ -80,10 +74,11 @@ void MainWindow::createActions() {
 	connect(ui_->actionZoom_Out, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomOut()));
 	connect(ui_->actionFitWidth, SIGNAL(triggered()), ui_->image_view_, SLOT(fitWidth()));
 	connect(ui_->actionFitPage, SIGNAL(triggered()), ui_->image_view_, SLOT(fitPage()));
-	connect(ui_->actionRecognizeAll, SIGNAL(triggered()), this, SLOT(recognizeAll()));
+	connect(ui_->actionRecognizeAll, SIGNAL(triggered()), SLOT(recognizeAll()));
 	connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
 	connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
 	connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
+	connect(ui_->image_view_, SIGNAL(clearView()), SLOT(clearScene()));
 }
 
 void MainWindow::mapLanguageMenuActions() {
@@ -225,7 +220,6 @@ void MainWindow::setupUi() {
 	setUnifiedTitleAndToolBarOnMac(true);
 	ui_->setupUi(this);
 	ui_->thumbs_->setDocument(doc_);
-	ui_->image_view_->setScene(&scene_);
 	setZoomEnabled(false);
 	setupLanguageUi();
 }
@@ -243,19 +237,8 @@ void MainWindow::showPageImage(Page * page) {
         qDebug() << "[MainWindow::showPageImage]" << page;
 	Q_CHECK_PTR(page);
 	statusBar()->showMessage(QFileInfo(page->imagePath()).fileName());
-	clearScene();
-
-	QPixmap image;
-	if (!QPixmapCache::find(page->imagePath(), &image)) {
-		image.load(page->imagePath());
-		QPixmapCache::insert(page->imagePath(), image);
-	}
-
-	scene_.addPixmap(image);
-	scene_.setSceneRect(image.rect());
 	setZoomEnabled(true);
-	ui_->image_view_->setDragMode(QGraphicsView::ScrollHandDrag);
-	ui_->image_view_->setPage(page);
+	ui_->image_view_->showPage(page);
 }
 
 void MainWindow::showPageText(Page * page) {

@@ -20,6 +20,7 @@
 #define IMAGE_VIEW_H_
 
 #include <QGraphicsView>
+#include <QGraphicsScene>
 
 class QGraphicsScene;
 class Page;
@@ -28,19 +29,24 @@ class ImageView : public QGraphicsView {
 	Q_OBJECT
 public:
 	ImageView(QWidget * parent);
+	void clear();
+	void showPage(Page * page);
 	void setPage(Page * page);
 public slots:
-    void deletePage();
-    void fitPage();
+	void deletePage();
+	void fitPage();
     void fitWidth();
     void originalSize();
     void updatePage();
     void zoomIn();
     void zoomOut();
 private:
+    void connectPage();
+    void disconnectPage();
     void saveTransform();
 private:
     Page * page_;
+    QGraphicsScene scene_;
 };
 
 #endif

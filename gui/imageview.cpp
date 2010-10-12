@@ -18,6 +18,8 @@
 
 #include <qdebug.h>
 #include <QScrollBar>
+#include <QPixmap>
+#include <QPixmapCache>
 
 #include "imageview.h"
 #include "page.h"
@@ -25,10 +27,48 @@
 ImageView::ImageView(QWidget * parent) :
 	QGraphicsView(parent), page_(NULL) {
 	setBackgroundRole(QPalette::Dark);
+	setScene(&scene_);
+}
+
+void ImageView::clear() {
+	qDebug() << "[ImageView::clear]";
+	foreach(QGraphicsItem * item, scene_.items()) {
+		scene_.removeItem(item);
+	}
+}
+
+void ImageView::connectPage() {
+	Q_CHECK_PTR(page_);
+
+	connect(page_, SIGNAL(transformed()), SLOT(updatePage()));
+	connect(page_, SIGNAL(rotated(int)), SLOT(updatePage()));
+	connect(page_, SIGNAL(destroyed()), SLOT(deletePage()));
+
+}
+
+void ImageView::deletePage() {
+    if(sender() == page_) {
+        qDebug() << "[ImageView::deletePage] " << page_;
+        page_ = NULL;
+        clear();
+    }
+}
+
+void ImageView::disconnectPage() {
+	if(!page_)
+		return;
+
+	disconnect(page_, SIGNAL(transformed()), this, SLOT(updatePage()));
+	disconnect(page_, SIGNAL(rotated(int)), this, SLOT(updatePage()));
+	disconnect(page_, SIGNAL(destroyed()), this, SLOT(deletePage()));
 }
 
 void ImageView::fitPage() {
-	Q_CHECK_PTR(page_);
+	if (!page_) {
+		qDebug() << "[ImageView::fitWidth] no current page";
+		return;
+	}
+
 	QRectF scene_rect = sceneRect();
 
 	// if image is smaller then view area set it to 100% size
@@ -41,7 +81,10 @@ void ImageView::fitPage() {
 }
 
 void ImageView::fitWidth() {
-	Q_CHECK_PTR( page_);
+	if (!page_) {
+		qDebug() << "[ImageView::fitWidth] no current page";
+		return;
+	}
 
 	QRectF scene_rect = sceneRect();
 
@@ -60,15 +103,8 @@ void ImageView::fitWidth() {
 	saveTransform();
 }
 
-void ImageView::deletePage() {
-    if(sender() == page_) {
-        qDebug() << "[ImageView::deletePage] " << page_;
-        page_ = NULL;
-    }
-}
-
 void ImageView::originalSize() {
-	Q_CHECK_PTR(page_);
+	// TODO
 }
 
 void ImageView::saveTransform() {
@@ -78,18 +114,26 @@ void ImageView::saveTransform() {
 
 void ImageView::setPage(Page * page) {
 	Q_CHECK_PTR(page);
-        if(page_) {
-                disconnect(page_, SIGNAL(transformed()), this, SLOT(updatePage()));
-                disconnect(page_, SIGNAL(rotated(int)), this, SLOT(updatePage()));
-        }
-
+	disconnectPage();
 	page_ = page;
-
-	connect(page_, SIGNAL(transformed()), this, SLOT(updatePage()));
-	connect(page_, SIGNAL(rotated(int)), this, SLOT(updatePage()));
-        connect(page, SIGNAL(destroyed()), this, SLOT(deletePage()));
-
+	connectPage();
 	updatePage();
+}
+
+void ImageView::showPage(Page * page) {
+	clear();
+
+	QPixmap image;
+	if (!QPixmapCache::find(page->imagePath(), &image)) {
+		image.load(page->imagePath());
+		QPixmapCache::insert(page->imagePath(), image);
+	}
+
+	scene_.addPixmap(image);
+	scene_.setSceneRect(image.rect());
+
+	setDragMode(QGraphicsView::ScrollHandDrag);
+	setPage(page);
 }
 
 void ImageView::updatePage() {
@@ -100,11 +144,19 @@ void ImageView::updatePage() {
 }
 
 void ImageView::zoomIn() {
-	Q_CHECK_PTR( page_);
+	if (!page_) {
+		qDebug() << "[ImageView::zoomIn] no current page";
+		return;
+	}
+
 	page_->scale(1.25);
 }
 
 void ImageView::zoomOut() {
-	Q_CHECK_PTR(page_);
+	if (!page_) {
+		qDebug() << "[ImageView::zoomOut] no current page";
+		return;
+	}
+
 	page_->scale(0.8);
 }

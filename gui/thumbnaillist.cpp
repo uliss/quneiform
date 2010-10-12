@@ -101,6 +101,10 @@ void ThumbnailList::thumbRemove(ThumbnailWidget * thumb) {
     Q_CHECK_PTR(layout_);
     Q_CHECK_PTR(thumb);
     Page * page = thumb->page();
+
+    if(current_page_ == page)
+    	current_page_ = NULL;
+
     layout_->removeWidget(thumb);
     thumbs_.removeAll(thumb);
     updateThumbNames();
@@ -123,8 +127,8 @@ void ThumbnailList::setDocument(Document * doc) {
     Q_CHECK_PTR(doc);
 
     document_ = doc;
-    connect(document_, SIGNAL(pageAdded(Page*)), this, SLOT(pageAdd(Page*)));
-    connect(document_, SIGNAL(pageRemoved(Page*)), this, SLOT(pageRemove(Page*)));
+    connect(document_, SIGNAL(pageAdded(Page*)), SLOT(pageAdd(Page*)));
+    connect(document_, SIGNAL(pageRemoved(Page*)), SLOT(pageRemove(Page*)));
 }
 
 void ThumbnailList::setupLayout() {

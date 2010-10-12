@@ -21,7 +21,6 @@
 
 #include <QScopedPointer>
 #include <QtGui/QMainWindow>
-#include <QtGui/QGraphicsScene>
 
 namespace Ui {
 class MainWindow;
@@ -53,7 +52,6 @@ public slots:
     void showPageImage(Page * page);
     void showPageText(Page * page);
 private:
-    void clearScene();
     void createActions();
     void mapLanguageMenuActions();
     void mapLanguageToolButtonActions();
@@ -66,7 +64,6 @@ private:
 private:
     QScopedPointer<Ui::MainWindow> ui_;
     Document * doc_;
-    QGraphicsScene scene_;
     LanguageSelect * lang_select_;
     QSignalMapper * lang_mapper_;
     QMenu * lang_menu_;
