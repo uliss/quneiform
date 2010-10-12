@@ -47,7 +47,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::about() {
-	QMessageBox::about(0, "About", "Cuneiform GUI");
+	QMessageBox::about(0, tr("About"), tr("Cuneiform GUI"));
 }
 
 void MainWindow::changeDocumentLanguage(int lang) {
@@ -75,7 +75,6 @@ void MainWindow::createActions() {
 	connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
 	connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
 	connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
-	connect(ui_->image_view_, SIGNAL(clearView()), SLOT(clearScene()));
 }
 
 void MainWindow::mapLanguageMenuActions() {
