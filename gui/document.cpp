@@ -37,8 +37,7 @@ void Document::append(Page * page) {
 
     pages_.append(page);
     page->setParent(this);
-    emit
-    pageAdded(page);
+    emit pageAdded(page);
 
     qDebug() << "[Document::append()]";
 }

@@ -38,7 +38,8 @@ static const char * APPLICATION = "Cuneiform OCR";
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent), ui_(new Ui::MainWindow), doc_(new Document(this)) {
     setupUi();
-    createActions();
+    connectActions();
+    connectThumbs();
     readSettings();
 }
 
@@ -61,20 +62,24 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     event->accept();
 }
 
-void MainWindow::createActions() {
+void MainWindow::connectActions() {
     Q_CHECK_PTR(ui_);
     connect(ui_->actionAbout, SIGNAL(triggered()), SLOT(about()));
     connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImages()));
-    connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
-    connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
     connect(ui_->actionZoom_In, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomIn()));
     connect(ui_->actionZoom_Out, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomOut()));
     connect(ui_->actionFitWidth, SIGNAL(triggered()), ui_->image_view_, SLOT(fitWidth()));
     connect(ui_->actionFitPage, SIGNAL(triggered()), ui_->image_view_, SLOT(fitPage()));
     connect(ui_->actionRecognizeAll, SIGNAL(triggered()), SLOT(recognizeAll()));
-    connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
     connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
     connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
+}
+
+void MainWindow::connectThumbs() {
+    Q_CHECK_PTR(ui_);
+    connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
+    connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
+    connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
 }
 
 void MainWindow::mapLanguageActions(const QList<QAction*>& actions) {

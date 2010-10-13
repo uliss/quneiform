@@ -31,16 +31,15 @@ class Page;
 class QSignalMapper;
 
 class MainWindow: public QMainWindow {
-Q_OBJECT
-
+    Q_OBJECT
 public:
-	MainWindow(QWidget *parent = 0);
-	~MainWindow();
+    MainWindow(QWidget *parent = 0);
+    ~MainWindow();
 
-	void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event);
 public slots:
-	void about();
-	void changeDocumentLanguage(int lang);
+    void about();
+    void changeDocumentLanguage(int lang);
     void openImage(const QString& path);
     void openImages();
     void openImages(const QStringList& paths);
@@ -52,7 +51,8 @@ public slots:
     void showPageImage(Page * page);
     void showPageText(Page * page);
 private:
-    void createActions();
+    void connectActions();
+    void connectThumbs();
     void mapLanguageActions(const QList<QAction*>& actions);
     void mapLanguageMenuActions();
     void mapLanguageToolButtonActions();
