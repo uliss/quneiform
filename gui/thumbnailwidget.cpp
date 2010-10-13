@@ -30,6 +30,7 @@
 
 #include "thumbnailwidget.h"
 #include "thumbnaillist.h"
+#include "imagecache.h"
 #include "page.h"
 
 static const int THUMB_IMAGE_WIDTH = 90;
@@ -177,12 +178,10 @@ void ThumbnailWidget::setupPixmap() {
     Q_CHECK_PTR(page_);
     Q_CHECK_PTR(layout_);
 
-    QPixmap image(page_->imagePath());
-
-    // TODO
-    if(image.isNull()) {
-    	emit invalidImage(page_->imagePath());
-    	return;
+    QPixmap image;
+    if(!ImageCache::load(page_->imagePath(), &image)) {
+        qDebug() << "[ThumbnailWidget::setupPixmap] can't load pixmap";
+        return;
     }
 
     // updates image size
