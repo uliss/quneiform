@@ -43,6 +43,7 @@ void ThumbnailList::append(ThumbnailWidget * thumb) {
     connect(thumb, SIGNAL(clicked()), SLOT(thumbClick()));
     connect(thumb, SIGNAL(recognize(Page*)), SIGNAL(thumbRecognize(Page*)));
     connect(thumb, SIGNAL(removed(Page*)), document_, SLOT(remove(Page*)));
+    connect(thumb, SIGNAL(save(Page*)), SIGNAL(save(Page*)));
 
     updateThumbNames();
 }

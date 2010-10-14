@@ -69,6 +69,7 @@ class ThumbnailList: public QScrollArea
          */
         ThumbnailWidget * thumb(Page * page);
     signals:
+        void save(Page * page);
         void thumbSelected(Page * page);
         void thumbRecognize(Page * page);
         void thumbRemovalFinished(Page * page);

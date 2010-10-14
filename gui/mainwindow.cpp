@@ -99,6 +99,7 @@ void MainWindow::connectThumbs() {
     connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
     connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
     connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
+    connect(ui_->thumbs_, SIGNAL(save(Page*)), SLOT(savePage(Page*)));
 }
 
 void MainWindow::mapLanguageActions(const QList<QAction*>& actions) {
@@ -204,7 +205,9 @@ void MainWindow::recognizePage(Page * page) {
     Q_CHECK_PTR(page);
 
     if(page->isRecognized()) {
-        if(QMessageBox::Ok != QMessageBox::question(this, tr("Warning"), tr("Page already recognized. Do you want do rerecognize it?"))) {
+        if(QMessageBox::Ok != QMessageBox::question(this,
+                                                    tr("Warning"),
+                                                    tr("Page already recognized. Do you want do rerecognize it?"))) {
             return;
         }
     }
@@ -229,6 +232,24 @@ void MainWindow::rotateLeft() {
 
 void MainWindow::rotateRight() {
     rotate(90);
+}
+
+void MainWindow::savePage(Page * page) {
+    Q_CHECK_PTR(page);
+
+    if(!page->isRecognized()) {
+        QMessageBox::warning(this,
+                             tr("Quneiform OCR"),
+                             tr("Page is not recognized yet"));
+        return;
+    }
+
+    QFileInfo info(page->imagePath());
+    QString filename_suggest = info.baseName() + ".html";
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save document to"),
+                                filename_suggest,
+                                tr("HTML documents (*.html *.htm)"));
+    page->save(filename);
 }
 
 void MainWindow::selectLanguage(int lang) {

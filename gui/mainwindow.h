@@ -48,6 +48,7 @@ public slots:
     void rotate(int factor);
     void rotateLeft();
     void rotateRight();
+    void savePage(Page * page);
     void showPageImage(Page * page);
     void showPageText(Page * page);
 private:

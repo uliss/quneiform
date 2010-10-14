@@ -23,6 +23,7 @@
 #include <QtGui/QGraphicsScene>
 #include <QtGui/QGraphicsItem>
 #include <QMessageBox>
+#include <QFile>
 
 #include "rdib/qtimageloader.h"
 #include "cuneiform.h"
@@ -139,7 +140,7 @@ void Page::recognize() {
     	is_recognized_ = true;
     }
     catch(Exception& e) {
-    	QMessageBox::critical(NULL, tr("Quneiform OCR"),
+        QMessageBox::critical(NULL, tr("Quneiform OCR"),
     			tr("Error while recognizing \"%1\":\n%2").arg(imagePath()).arg(e.what()));
     }
 }
@@ -149,9 +150,39 @@ void Page::rotate(int angle) {
 	emit rotated(angle);
 }
 
-void Page::save(const QString& /*file*/) {
+void Page::save(const QString& file) {
     if (!isRecognized())
         throw Exception("[Page::save] page is not recognized");
+
+    QFile output(file);
+
+    if(output.exists()) {
+        int ret = QMessageBox::question(NULL,
+                                        tr("Quneiform OCR"),
+                                        tr("File already exists. Overwrite?"),
+                                        QMessageBox::Yes | QMessageBox::No,
+                                        QMessageBox::Yes);
+        switch(ret) {
+        case QMessageBox::No:
+            qDebug() << "[Page::save] canceled for" << file;
+            return;
+        case QMessageBox::Yes:
+        default:
+            qDebug() << "[Page::save] overwriting" << file;
+            break;
+        }
+    }
+
+    if(!output.open(QIODevice::WriteOnly)) {
+        QMessageBox::critical(NULL,
+                              tr("Quneiform OCR"),
+                              tr("Saved failed. Can't open file \"%1\" for writing.").arg(file));
+    }
+
+    output.write(ocr_text_.toLocal8Bit());
+    output.close();
+
+    qDebug() << "[Page::save] saved" << file;
 
     is_saved_ = true;
 }

@@ -74,6 +74,7 @@ class ThumbnailWidget: public QFrame
         void invalidImage(const QString& path);
         void recognize(Page*);
         void removed(Page*);
+        void save(Page*);
         void toggled(bool);
     protected:
         void contextMenuEvent(QContextMenuEvent *event);
@@ -90,6 +91,7 @@ class ThumbnailWidget: public QFrame
     	void recognizeThumb();
         void removePage();
         void rotate(int angle);
+        void savePage();
         void selectPage(bool value);
         void showProperties();
     private:
