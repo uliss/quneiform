@@ -111,7 +111,7 @@ void Page::recognize() {
 
     try {
     	//    QtImageLoader loader;
-    	ImagePtr image = ImageLoaderFactory::instance().load(image_path_.toStdString());
+    	ImagePtr image = ImageLoaderFactory::instance().load(image_path_.toLocal8Bit().data());
     	if (!image)
     		throw Exception("[Page::recognize] can't open image");
 
@@ -139,7 +139,7 @@ void Page::recognize() {
     	is_recognized_ = true;
     }
     catch(Exception& e) {
-    	QMessageBox::critical(NULL, tr("Cuneiform error"),
+    	QMessageBox::critical(NULL, tr("Quneiform OCR"),
     			tr("Error while recognizing \"%1\":\n%2").arg(imagePath()).arg(e.what()));
     }
 }
