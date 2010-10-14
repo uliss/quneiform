@@ -34,6 +34,7 @@
 
 static const char * ORGANIZATION = "openocr.org";
 static const char * APPLICATION = "Cuneiform OCR";
+static const char * EMAIL = "serj.poltavski@gmail.com";
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
 static const int VERSION_PATCH = 1;
@@ -54,10 +55,19 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::about() {
-    QMessageBox::about(0,
+    QMessageBox::about(this,
                        tr("About"),
-                       tr("Quneiform OCR.\n"
-                          "Version: %1.%2.%3%4").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_PATCH).arg(VERSION_EXTRA));
+                       tr("<b>Quneiform OCR</b><br/>"
+                          "  Author:  Serj Poltavski<br/>"
+                          "  Email:   <a href=\"mailto:%1\">%2</a><br/>"
+                          "  Version: %3.%4.%5%6<br/>"
+                          "  License: GPL v.3")
+                       .arg(EMAIL)
+                       .arg(EMAIL)
+                       .arg(VERSION_MAJOR)
+                       .arg(VERSION_MINOR)
+                       .arg(VERSION_PATCH)
+                       .arg(VERSION_EXTRA));
 }
 
 void MainWindow::changeDocumentLanguage(int lang) {
