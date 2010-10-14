@@ -34,13 +34,19 @@
 
 static const char * ORGANIZATION = "openocr.org";
 static const char * APPLICATION = "Cuneiform OCR";
+static const int VERSION_MAJOR = 0;
+static const int VERSION_MINOR = 0;
+static const int VERSION_PATCH = 1;
+static const char * VERSION_EXTRA = "-alpha";
 
 MainWindow::MainWindow(QWidget *parent) :
-	QMainWindow(parent), ui_(new Ui::MainWindow), doc_(new Document(this)) {
+        QMainWindow(parent), ui_(new Ui::MainWindow), doc_(new Document(this)), progress_(NULL) {
     setupUi();
     connectActions();
     connectThumbs();
     readSettings();
+
+    qDebug() << pos();
 }
 
 MainWindow::~MainWindow() {
@@ -48,7 +54,10 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::about() {
-    QMessageBox::about(0, tr("About"), tr("Cuneiform GUI"));
+    QMessageBox::about(0,
+                       tr("About"),
+                       tr("Quneiform OCR.\n"
+                          "Version: %1.%2.%3%4").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_PATCH).arg(VERSION_EXTRA));
 }
 
 void MainWindow::changeDocumentLanguage(int lang) {
@@ -104,64 +113,77 @@ void MainWindow::mapLanguageToolButtonActions() {
     mapLanguageActions(lang_select_->menu()->actions());
 }
 
-void MainWindow::openImage(const QString& path) {
-    Q_CHECK_PTR( doc_);
+bool MainWindow::openImage(const QString& path) {
+    Q_CHECK_PTR(doc_);
     qDebug() << "[MainWindow::openImage]" << path;
 
     QFileInfo info(path);
     if(!info.exists()) {
-        QMessageBox::critical(NULL, tr("Error"), QString(tr("File \"%1\" not exists")).arg(path));
-        return;
+        QMessageBox warning(QMessageBox::Critical, tr("Quniform OCR"),
+                            tr("Error while opening \"%1\"").arg(path), QMessageBox::Ok, progress_);
+        warning.setInformativeText(tr("File not exists"));
+        warning.exec();
+        return false;
     }
 
-    Page * p = new Page(0, path);
+    Page * p = new Page(path);
+
+    if(p->isNull()) {
+        QMessageBox warning(QMessageBox::Critical, tr("Quniform OCR"),
+                            tr("Error while opening \"%1\"").arg(path), QMessageBox::Ok, progress_);
+        warning.setInformativeText(tr("Unable to load image"));
+        warning.exec();
+        return false;
+    }
+
     doc_->append(p);
 
-    //	first page
-    if(doc_->pageCount() == 1) {
-        ui_->actionRecognizeAll->setEnabled(true);
-    }
+    return true;
 }
 
 void MainWindow::openImages() {
-    QStringList files = QFileDialog::getOpenFileNames(NULL, "Open Dialog", "",
-                                                      "Images (*.gif *.png *.xpm *.jpg *.tif *.bmp)");
+    QStringList files = QFileDialog::getOpenFileNames(NULL, tr("Open images"), "",
+                                                      tr("Images (*.gif *.png *.xpm *.jpg *.tif *.bmp)"));
     openImages(files);
 }
 
 void MainWindow::openImages(const QStringList& files) {
     qDebug() << "[openImages()]";
-    QProgressDialog progress;
-    QString label(tr("Opening image \"%1\""));
-    progress.setWindowTitle(tr("Please, wait"));
-    progress.setMaximum(files.count());
-    progress.setMinimum(0);
-    progress.setMinimumDuration(10);
-    progress.setWindowModality(Qt::WindowModal);
+    delete progress_;
+    progress_ = new QProgressDialog(this);
+    progress_->setWindowTitle(tr("Quneiform OCR - opening images"));
+    progress_->setRange(0, files.count());
+    progress_->show();
+
 
     for(int i = 0, total = files.count(); i < total; i++) {
-        progress.setValue(i);
-        if(progress.wasCanceled())
+        progress_->setValue(i);
+        QApplication::processEvents();
+        if(progress_->wasCanceled())
             break;
 
-        progress.setLabelText(label.arg(files.at(i)));
+        progress_->setLabelText(tr("Opening image \"%1\"").arg(files.at(i)));
         openImage(files.at(i));
     }
+
+    delete progress_;
+    progress_ = NULL;
 }
 
 void MainWindow::readSettings() {
     QSettings settings(ORGANIZATION, APPLICATION);
-    QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
-    QSize size = settings.value("size", QSize(650, 450)).toSize();
-    resize(size);
-    move(pos);
+    settings.beginGroup("MainWindow");
+    resize(settings.value("size", QSize(800, 600)).toSize());
+    move(settings.value("pos", QPoint(200, 200)).toPoint());
+    settings.endGroup();
+    qDebug() << pos();
 }
 
 void MainWindow::recognizeAll() {
     Q_CHECK_PTR(doc_);
 
     if(!doc_->countSelected()) {
-        QMessageBox::warning(NULL, tr("Warning"), tr("No page selected"));
+        QMessageBox::warning(this, tr("Warning"), tr("No page selected"));
         return;
     }
 
@@ -172,7 +194,7 @@ void MainWindow::recognizePage(Page * page) {
     Q_CHECK_PTR(page);
 
     if(page->isRecognized()) {
-        if(QMessageBox::Ok != QMessageBox::question(NULL, tr("Warning"), tr("Page already recognized. Do you want do rerecognize it?"))) {
+        if(QMessageBox::Ok != QMessageBox::question(this, tr("Warning"), tr("Page already recognized. Do you want do rerecognize it?"))) {
             return;
         }
     }
@@ -259,6 +281,10 @@ void MainWindow::showPageText(Page * page) {
 
 void MainWindow::writeSettings() {
     QSettings settings(ORGANIZATION, APPLICATION);
-    settings.setValue("pos", pos());
+    settings.beginGroup("MainWindow");
     settings.setValue("size", size());
+    settings.setValue("pos", pos());
+    settings.endGroup();
+
+    qDebug() << pos();
 }

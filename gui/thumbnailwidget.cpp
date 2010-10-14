@@ -184,8 +184,6 @@ void ThumbnailWidget::setupPixmap() {
         return;
     }
 
-    // updates image size
-    page_->setImageSize(image.size());
     thumb_ = new QLabel;
     thumb_->setMargin(THUMB_IMAGE_MARGIN);
     thumb_->setPixmap(image.scaledToWidth(THUMB_IMAGE_WIDTH));

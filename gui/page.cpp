@@ -30,13 +30,23 @@
 #include "rfrmt/crtfchar.h"
 #include "rfrmt/crtfpage.h"
 #include "page.h"
+#include "imagecache.h"
 
 
 QColor Page::format_page_color_(0, 255, 0, 200);
 
-Page::Page(unsigned int number, const QString& image_path) :
-    image_path_(image_path), number_(number), is_recognized_(false), is_saved_(false),
+Page::Page(const QString& image_path) :
+    image_path_(image_path), number_(0), is_recognized_(false), is_saved_(false),
             is_selected_(false), language_("en") {
+
+    QPixmap pixmap;
+    if(ImageCache::load(image_path_, &pixmap)) {
+        is_null_ = false;
+        image_size_ = pixmap.size();
+    }
+    else {
+        is_null_ = true;
+    }
 }
 
 void Page::drawFormatLayout(QGraphicsScene * scene) const {
@@ -72,6 +82,10 @@ QSize Page::imageSize() const {
     return image_size_;
 }
 
+bool Page::isNull() const {
+    return is_null_;
+}
+
 bool Page::isRecognized() const {
     return is_recognized_;
 }
@@ -100,9 +114,6 @@ void Page::recognize() {
     	ImagePtr image = ImageLoaderFactory::instance().load(image_path_.toStdString());
     	if (!image)
     		throw Exception("[Page::recognize] can't open image");
-
-    	// updates image size
-    	setImageSize(QSize(image->width(), image->height()));
 
     	RecognizeOptions recognize_options;
     	recognize_options.setLanguage(Language::byCode2(language_.toStdString()).get());
@@ -148,10 +159,6 @@ void Page::save(const QString& /*file*/) {
 void Page::scale(qreal factor) {
 	transform_.scale(factor, factor);
 	emit transformed();
-}
-
-void Page::setImageSize(const QSize& size) {
-    image_size_ = size;
 }
 
 void Page::setLanguage(const QString& code) {

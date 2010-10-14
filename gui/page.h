@@ -37,7 +37,7 @@ class CRtfPage;
 class Page: public QObject {
 	Q_OBJECT
 public:
-	Page(unsigned int number, const QString& image_path);
+        Page(const QString& image_path);
 
 	typedef std::runtime_error Exception;
 	typedef QVector<QRect> RectList;
@@ -56,6 +56,12 @@ public:
 	 * Returns image size
 	 */
 	QSize imageSize() const;
+
+        /**
+          * Returns true if points to valid image
+          * otherwise returns false
+          */
+        bool isNull() const;
 
 	/**
 	 * Returns true if image recognized
@@ -105,11 +111,6 @@ public:
 	void scale(qreal factor);
 
 	/**
-	 * Sets image size
-	 */
-	void setImageSize(const QSize& size);
-
-	/**
 	 * Sets recognition language
 	 * @param iso_code - language code, for ex. "ru"
 	 */
@@ -152,6 +153,7 @@ private:
 	RectList r_fragment_;
 	QString language_;
 	QTransform transform_;
+        bool is_null_;
 private:
 	void drawFormatPageLayout(QGraphicsScene * scene) const;
 	void fillFormatLayout(const cf::CRtfPage * page);

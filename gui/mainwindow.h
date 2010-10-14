@@ -29,6 +29,7 @@ class Document;
 class LanguageSelect;
 class Page;
 class QSignalMapper;
+class QProgressDialog;
 
 class MainWindow: public QMainWindow {
     Q_OBJECT
@@ -40,7 +41,6 @@ public:
 public slots:
     void about();
     void changeDocumentLanguage(int lang);
-    void openImage(const QString& path);
     void openImages();
     void openImages(const QStringList& paths);
     void recognizeAll();
@@ -56,6 +56,7 @@ private:
     void mapLanguageActions(const QList<QAction*>& actions);
     void mapLanguageMenuActions();
     void mapLanguageToolButtonActions();
+    bool openImage(const QString& path);
     void readSettings();
     void selectLanguage(int lang);
     void setupLanguageUi();
@@ -68,6 +69,7 @@ private:
     LanguageSelect * lang_select_;
     QSignalMapper * lang_mapper_;
     QMenu * lang_menu_;
+    QProgressDialog * progress_;
 };
 
 #endif // MAINWINDOW_H

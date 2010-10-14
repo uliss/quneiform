@@ -22,7 +22,7 @@
 #include "imagecache.h"
 
 namespace {
-    static const int PIXMAP_CACHE_SIZE_KB = 20 * 1024;
+    static const int PIXMAP_CACHE_SIZE_KB = 40 * 1024;
     bool setLimit() {
         qDebug() << "[QPixmapCache::setCacheLimit]" << PIXMAP_CACHE_SIZE_KB << "kb";
         QPixmapCache::setCacheLimit(PIXMAP_CACHE_SIZE_KB);
@@ -52,7 +52,7 @@ bool ImageCache::load (const QString &path, QPixmap * pixmap)
     }
 
     if(pixmap->isNull()) {
-        qDebug() << "[ImageCache::load] failed." << path;
+        qDebug() << "[ImageCache::load] invalid pixmap: " << path;
         return false;
     }
     else {

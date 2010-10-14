@@ -24,6 +24,7 @@ class QPixmap;
 
 class ImageCache
 {
+    ImageCache();
 public:
     /**
       * Loads pixmap from cache, if not found load from file
