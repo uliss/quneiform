@@ -22,52 +22,56 @@
 #include "languageselect.h"
 
 LanguageSelect::LanguageSelect(QWidget * parent) : QToolButton(parent) {
-	menu_ = new QMenu(this);
-	setMenu(menu_);
-	setPopupMode(QToolButton::InstantPopup);
-	initLanguages();
-	setIcon(QIcon(":/img/oxygen/32x32/locale.png"));
+    menu_ = new QMenu(this);
+    setMenu(menu_);
+    setPopupMode(QToolButton::InstantPopup);
+    initLanguages();
+    setIcon(QIcon(":/img/oxygen/32x32/locale.png"));
 }
 
 QString LanguageSelect::currentLanguage() const {
-	return "en";
+    cf::Language lang(static_cast<language_t>(current_language_));
+    return lang.isValid() ? lang.isoCode2().c_str() : "en";
 }
 
 void LanguageSelect::fillLanguageMenu(QMenu* menu) {
-	Q_CHECK_PTR(menu);
-	using namespace cf;
-	LanguageList langs = AlphabetFactory::instance().supportedLanguages();
-	Language::sortByName(langs);
+    Q_CHECK_PTR(menu);
+    using namespace cf;
+    LanguageList langs = AlphabetFactory::instance().supportedLanguages();
+    Language::sortByName(langs);
 
-	for (LanguageList::iterator it = langs.begin(), end = langs.end(); it
-			!= end; ++it) {
-		QAction * lang_action = menu->addAction(QString(Language::isoName(*it).c_str()));
-		lang_action->setData(*it);
-		lang_action->setCheckable(true);
-	}
+    for (LanguageList::iterator it = langs.begin(), end = langs.end(); it
+                                                          != end; ++it) {
+        QAction * lang_action = menu->addAction(QString(Language::isoName(*it).c_str()));
+        lang_action->setData(*it);
+        lang_action->setCheckable(true);
+    }
 }
 
 void LanguageSelect::initLanguages() {
-	fillLanguageMenu(menu_);
+    fillLanguageMenu(menu_);
 }
 
 void LanguageSelect::select(int langCode) {
-	foreach(QAction * act, menu()->actions()) {
-		if(act->data().toInt() != langCode)
-			act->setChecked(false);
-		else
-			act->setChecked(true);
-	}
+    current_language_ = langCode;
+    foreach(QAction * act, menu()->actions()) {
+        if(act->data().toInt() != langCode)
+            act->setChecked(false);
+        else
+            act->setChecked(true);
+    }
+
+    qDebug() << "[LanguageSelect::select]" << cf::Language::isoName(static_cast<language_t>(langCode)).c_str();
 }
 
 QStringList LanguageSelect::supportedLanguages() {
-	QStringList res;
-	using namespace cf;
-	LanguageList langs = AlphabetFactory::instance().supportedLanguages();
-	Language::sortByName(langs);
-	for (LanguageList::iterator it = langs.begin(), end = langs.end(); it
-			!= end; ++it) {
-		res << Language::isoName(*it).c_str();
-	}
-	return res;
+    QStringList res;
+    using namespace cf;
+    LanguageList langs = AlphabetFactory::instance().supportedLanguages();
+    Language::sortByName(langs);
+    for (LanguageList::iterator it = langs.begin(), end = langs.end(); it
+                                                          != end; ++it) {
+        res << Language::isoName(*it).c_str();
+    }
+    return res;
 }

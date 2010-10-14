@@ -203,6 +203,7 @@ void MainWindow::recognizeAll() {
 
 void MainWindow::recognizePage(Page * page) {
     Q_CHECK_PTR(page);
+    Q_CHECK_PTR(lang_select_);
 
     if(page->isRecognized()) {
         if(QMessageBox::Ok != QMessageBox::question(this,
@@ -212,6 +213,7 @@ void MainWindow::recognizePage(Page * page) {
         }
     }
 
+    page->setLanguage(lang_select_->currentLanguage());
     page->recognize();
     showPageText(page);
 }

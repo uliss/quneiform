@@ -37,8 +37,8 @@
 QColor Page::format_page_color_(0, 255, 0, 200);
 
 Page::Page(const QString& image_path) :
-    image_path_(image_path), number_(0), is_recognized_(false), is_saved_(false),
-            is_selected_(false), language_("en") {
+        image_path_(image_path), number_(0), is_recognized_(false), is_saved_(false),
+        is_selected_(false), language_("en") {
 
     QPixmap pixmap;
     if(ImageCache::load(image_path_, &pixmap)) {
@@ -72,7 +72,7 @@ void Page::fillFormatLayout(const cf::CRtfPage * page) {
     Q_CHECK_PTR(page);
 
     r_page_.append(QRect(QPoint(page->m_rect.left, page->m_rect.top), QPoint(page->m_rect.right,
-            page->m_rect.bottom)));
+                                                                             page->m_rect.bottom)));
 }
 
 QString Page::imagePath() const {
@@ -114,7 +114,7 @@ void Page::recognize() {
     	//    QtImageLoader loader;
     	ImagePtr image = ImageLoaderFactory::instance().load(image_path_.toLocal8Bit().data());
     	if (!image)
-    		throw Exception("[Page::recognize] can't open image");
+            throw Exception("[Page::recognize] can't open image");
 
     	RecognizeOptions recognize_options;
     	recognize_options.setLanguage(Language::byCode2(language_.toStdString()).get());
@@ -141,13 +141,13 @@ void Page::recognize() {
     }
     catch(Exception& e) {
         QMessageBox::critical(NULL, tr("Quneiform OCR"),
-    			tr("Error while recognizing \"%1\":\n%2").arg(imagePath()).arg(e.what()));
+                              tr("Error while recognizing \"%1\":\n%2").arg(imagePath()).arg(e.what()));
     }
 }
 
 void Page::rotate(int angle) {
-	transform_.rotate(angle);
-	emit rotated(angle);
+    transform_.rotate(angle);
+    emit rotated(angle);
 }
 
 void Page::save(const QString& file) {
@@ -188,15 +188,18 @@ void Page::save(const QString& file) {
 }
 
 void Page::scale(qreal factor) {
-	transform_.scale(factor, factor);
-	emit transformed();
+    transform_.scale(factor, factor);
+    emit transformed();
 }
 
 void Page::setLanguage(const QString& code) {
-	if(cf::Language::byCode2(code.toStdString()).isValid())
-		language_ = code;
-	else
-		qDebug() << "Invalid language code: " << code;
+    if(cf::Language::byCode2(code.toStdString()).isValid()) {
+        language_ = code;
+        qDebug() << "[Page::setLanguage]" << code;
+    }
+    else {
+        qDebug() << "Invalid language code: " << code;
+    }
 }
 
 void Page::setNumber(unsigned int number) {
@@ -208,13 +211,13 @@ void Page::setSelected(bool value) {
 }
 
 void Page::setTransform(const QTransform& t) {
-	if(transform_ != t) {
-		transform_ = t;
-		emit transformed();
-	}
+    if(transform_ != t) {
+        transform_ = t;
+        emit transformed();
+    }
 }
 
 QTransform Page::transform() const {
-	return  transform_;
+    return  transform_;
 }
 

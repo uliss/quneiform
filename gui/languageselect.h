@@ -27,7 +27,7 @@ class LanguageSelect : public QToolButton {
 	Q_OBJECT
 public:
 	LanguageSelect(QWidget * parent = 0);
-	QString currentLanguage() const;
+        QString currentLanguage() const;
 	void select(int langCode);
 public:
 	static QStringList supportedLanguages();
