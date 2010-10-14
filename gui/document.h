@@ -29,91 +29,97 @@ typedef QList<Page*> PageList;
 class Document: public QObject
 {
     Q_OBJECT
-    public:
-        Document(QObject * parent = 0);
-        ~Document();
+public:
+    Document(QObject * parent = 0);
+    ~Document();
 
-        /**
+    /**
          * Appends page
          */
-        void append(Page * page);
+    void append(Page * page);
 
-        /**
+    /**
          * Returns numbers of selected pages
          */
-        int countSelected() const;
+    int countSelected() const;
 
-        /**
+    /**
          * Returns document language
          */
-        int language() const;
+    int language() const;
 
-        /**
+    /**
          * Returns page at given position
          * @return NULL if page not found
          */
-        Page * page(int index);
+    Page * page(int index);
 
-        /**
+    /**
          * Returns number of pages in document
          */
-        int pageCount() const;
+    int pageCount() const;
 
-        /**
+    /**
          * Recognizes all pages
          */
-        void recognizeAll();
+    void recognizeAll();
 
-        /**
+    /**
          * Recognizes selected pages
          */
-        void recognizeSelected();
+    void recognizeSelected();
 
-        /**
+    /**
          * Sets document language
          */
-        void setLanguage(int lang);
-    signals:
-        /**
+    void setLanguage(int lang);
+signals:
+    /**
          * Emitted when all document pages recognized
          */
-        void allPagesRecognized();
+    void allPagesRecognized();
 
-        /**
+    /**
          * Emitted when page with such imagePath already exists in document
          */
-        void imageDuplicated(const QString& imagePath);
+    void imageDuplicated(const QString& imagePath);
 
-        /**
+    /**
          * Emitted when new page added
          */
-        void pageAdded(Page * page);
+    void pageAdded(Page * page);
 
-        /**
+    /**
          * Emitted when page removed
          */
-        void pageRemoved(Page * page);
+    void pageRemoved(Page * page);
 
-        /**
+    /**
          * Emitted when page in document recognized
          */
-        void pageRecognized(Page * page);
-    public  slots:
-        void recognize(Page * page);
-        /**
+    void pageRecognized(Page * page);
+public  slots:
+    void recognize(Page * page);
+    /**
          * Removes page from list
          * If page not found do nothing
          */
-        void remove(Page * page);
+    void remove(Page * page);
 
-        /**
+    /**
          * Removes selected pages
          */
-        void removeSelected();
-    private:
-        PageList pages_;
-        int language_;
+    void removeSelected();
+private:
+    PageList pages_;
+    int language_;
+public:
+    friend QDataStream& operator<<(QDataStream& stream, const Document& doc);
+    friend QDataStream& operator>>(QDataStream& stream, Document& doc);
 };
+
+QDataStream& operator<<(QDataStream& stream, const Document& doc);
+QDataStream& operator>>(QDataStream& stream, Document& doc);
 
 
 #endif /* DOCUMENT_H_ */

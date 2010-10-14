@@ -40,6 +40,9 @@ namespace {
 
 bool ImageCache::load (const QString &path, QPixmap * pixmap)
 {
+    if(path.isEmpty())
+        return false;
+
     if(!pixmap) {
         qDebug() << "[ImageCache::find] NULL pointer given";
         return false;

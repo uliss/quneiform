@@ -29,6 +29,7 @@
 #include <QTransform>
 
 class QGraphicsScene;
+class QDataStream;
 
 namespace cf {
 class CRtfPage;
@@ -159,6 +160,12 @@ private:
 	void fillFormatLayout(const cf::CRtfPage * page);
 private:
 	static QColor format_page_color_;
+public:
+        friend QDataStream& operator<<(QDataStream& stream, const Page& page);
+        friend QDataStream& operator>>(QDataStream& stream, Page& page);
 };
+
+QDataStream& operator<<(QDataStream& stream, const Page& page);
+QDataStream& operator>>(QDataStream& stream, Page& page);
 
 #endif /* PAGE_H_ */

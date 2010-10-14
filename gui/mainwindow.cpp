@@ -92,6 +92,8 @@ void MainWindow::connectActions() {
     connect(ui_->actionRecognizeAll, SIGNAL(triggered()), SLOT(recognizeAll()));
     connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
     connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
+    connect(ui_->actionOpenPacket, SIGNAL(triggered()), SLOT(openPacket()));
+    connect(ui_->actionSavePacket, SIGNAL(triggered()), SLOT(savePacket()));
 }
 
 void MainWindow::connectThumbs() {
@@ -181,6 +183,22 @@ void MainWindow::openImages(const QStringList& files) {
     progress_ = NULL;
 }
 
+void MainWindow::openPacket() {
+    QString packet = QFileDialog::getOpenFileName(this, tr("Open Quneiform packet"), "",
+                                                      tr("Quneiform packets (*.qfp)"));
+    QFile file(packet);
+    if(file.open(QIODevice::ReadOnly)) {
+        QDataStream stream(&file);
+        stream.setVersion(QDataStream::Qt_4_5);
+        stream >> *doc_;
+        if(stream.status() != QDataStream::Ok) {
+            qDebug() << "[MainWindow::openPacket] read error";
+        }
+    }
+
+    file.close();
+}
+
 void MainWindow::readSettings() {
     QSettings settings(ORGANIZATION, APPLICATION);
     settings.beginGroup("MainWindow");
@@ -234,6 +252,23 @@ void MainWindow::rotateLeft() {
 
 void MainWindow::rotateRight() {
     rotate(90);
+}
+
+void MainWindow::savePacket() {
+    Q_CHECK_PTR(doc_);
+
+    QFile packet("test.qfp");
+
+    if(packet.open(QIODevice::WriteOnly)) {
+        QDataStream stream(&packet);
+        stream.setVersion(QDataStream::Qt_4_5);
+        stream << *doc_;
+        if(stream.status() != QDataStream::Ok) {
+            qDebug() << "[MainWindow::savePacket] write error";
+        }
+    }
+
+    packet.close();
 }
 
 void MainWindow::savePage(Page * page) {

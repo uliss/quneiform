@@ -43,11 +43,13 @@ public slots:
     void changeDocumentLanguage(int lang);
     void openImages();
     void openImages(const QStringList& paths);
+    void openPacket();
     void recognizeAll();
     void recognizePage(Page * page);
     void rotate(int factor);
     void rotateLeft();
     void rotateRight();
+    void savePacket();
     void savePage(Page * page);
     void showPageImage(Page * page);
     void showPageText(Page * page);

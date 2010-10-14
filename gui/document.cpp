@@ -22,7 +22,7 @@
 
 
 Document::Document(QObject * parent) :
-    QObject(parent), language_(-1) {
+        QObject(parent), language_(-1) {
 }
 
 Document::~Document() {
@@ -52,7 +52,7 @@ int Document::countSelected() const {
 }
 
 int Document::language() const {
-	return language_;
+    return language_;
 }
 
 Page * Document::page(int index) {
@@ -83,7 +83,7 @@ void Document::recognizeAll() {
 void Document::recognizeSelected() {
     foreach(Page * page, pages_) {
     	if (!page->isSelected())
-    		continue;
+            continue;
     	recognize(page);
     }
 
@@ -101,13 +101,44 @@ void Document::remove(Page * page) {
 }
 
 void Document::removeSelected() {
-	foreach(Page * page, pages_) {
-		if (page->isSelected())
-			remove(page);
+    foreach(Page * page, pages_) {
+        if (page->isSelected())
+            remove(page);
     }
 }
 
 void Document::setLanguage(int lang) {
-	// TODO check
-        language_ = lang;
+    // TODO check
+    language_ = lang;
 }
+
+QDataStream& operator<<(QDataStream& os, const Document& doc) {
+    os << doc.pageCount();
+    foreach(Page * p, doc.pages_) {
+        os << *p;
+    }
+
+    os << doc.language_;
+    return os;
+}
+
+QDataStream& operator>>(QDataStream& is, Document& doc) {
+    int page_count;
+    is >> page_count;
+
+    if(page_count < 0) {
+
+    }
+    else {
+        for(int i = 0; i < page_count; i++) {
+            Page * p = new Page("");
+            is >> *p;
+            doc.append(p);
+        }
+
+        is >> doc.language_;
+    }
+
+    return is;
+}
+

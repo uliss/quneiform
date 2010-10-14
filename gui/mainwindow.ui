@@ -70,6 +70,8 @@
      <string>&amp;File</string>
     </property>
     <addaction name="actionOpen"/>
+    <addaction name="actionOpenPacket"/>
+    <addaction name="actionSavePacket"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -128,8 +130,8 @@
    <addaction name="actionFitWidth"/>
    <addaction name="actionRotateLeft"/>
    <addaction name="actionRotateRight"/>
-   <addaction name="actionSelectRegion"/>
    <addaction name="actionRecognizeAll"/>
+   <addaction name="actionSelectRegion"/>
   </widget>
   <action name="actionAbout">
    <property name="text">
@@ -235,6 +237,10 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resources/cuneiform.qrc">
+     <normaloff>:/img/oxygen/32x32/document_preview.png</normaloff>:/img/oxygen/32x32/document_preview.png</iconset>
+   </property>
    <property name="text">
     <string>Recognize All</string>
    </property>
@@ -267,6 +273,20 @@
    </property>
    <property name="text">
     <string>Rotate left</string>
+   </property>
+  </action>
+  <action name="actionSavePacket">
+   <property name="icon">
+    <iconset resource="resources/cuneiform.qrc">
+     <normaloff>:/img/oxygen/32x32/filesave.png</normaloff>:/img/oxygen/32x32/filesave.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save packet</string>
+   </property>
+  </action>
+  <action name="actionOpenPacket">
+   <property name="text">
+    <string>Open packet</string>
    </property>
   </action>
  </widget>

@@ -24,6 +24,7 @@
 #include <QtGui/QGraphicsItem>
 #include <QMessageBox>
 #include <QFile>
+#include <QDataStream>
 
 #include "rdib/qtimageloader.h"
 #include "cuneiform.h"
@@ -221,3 +222,33 @@ QTransform Page::transform() const {
     return  transform_;
 }
 
+
+QDataStream& operator<<(QDataStream& os, const Page& page) {
+    os << page.image_path_
+            << page.image_size_
+            << page.ocr_text_
+            << page.number_
+            << page.is_recognized_
+            << page.is_saved_
+            << page.r_page_
+            << page.r_fragment_
+            << page.language_
+            << page.transform_
+            << page.is_null_;
+    return os;
+}
+
+QDataStream& operator>>(QDataStream& is, Page& page) {
+    is >> page.image_path_
+            >> page.image_size_
+            >> page.ocr_text_
+            >> page.number_
+            >> page.is_recognized_
+            >> page.is_saved_
+            >> page.r_page_
+            >> page.r_fragment_
+            >> page.language_
+            >> page.transform_
+            >> page.is_null_;
+    return is;
+}
