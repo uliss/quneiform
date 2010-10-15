@@ -57,7 +57,7 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
 void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
     QMenu * menu = new QMenu(this);
     emit contextMenuCreated(menu);
-    menu->addAction(QIcon(":/list_recognize.png"), tr("Recognize"), this, SLOT(recognizeThumb()));
+    menu->addAction(QIcon(":/img/oxygen/22x22/document_preview.png"), tr("Recognize"), this, SLOT(recognizeThumb()));
     menu->addAction(QIcon(":/list_remove.png"), tr("Delete"), this, SLOT(removePage()));
     menu->addAction(QIcon(":/img/oxygen/22x22/document_properties.png"), tr("Properties"), this, SLOT(showProperties()));
     menu->addAction(QIcon(":/img/oxygen/22x22/document_save_as.png"), tr("Save as"), this, SLOT(savePage()));
