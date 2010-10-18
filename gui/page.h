@@ -137,6 +137,7 @@ public:
 	 */
 	QTransform transform() const;
 signals:
+        void changed();
 	/**
 	 * Emmited then page is tranformed
 	 */

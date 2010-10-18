@@ -16,13 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtCore/QDebug>
+#include <QDebug>
+#include <QFile>
 #include "document.h"
 #include "page.h"
 
 
 Document::Document(QObject * parent) :
-        QObject(parent), language_(-1) {
+        QObject(parent), language_(-1), changed_(false) {
 }
 
 Document::~Document() {
@@ -37,6 +38,7 @@ void Document::append(Page * page) {
 
     pages_.append(page);
     page->setParent(this);
+    connect(page, SIGNAL(changed()), SLOT(pageChange()));
     emit pageAdded(page);
 
     qDebug() << "[Document::append()]";
@@ -61,8 +63,39 @@ int Document::countSelected() const {
     return res;
 }
 
+QString Document::fileName() const {
+    return filename_;
+}
+
+bool Document::isChanged() const {
+    return changed_;
+}
+
 int Document::language() const {
     return language_;
+}
+
+bool Document::open(const QString& filename) {
+    qDebug() << "[Document::open]" << filename;
+
+    QFile file(filename);
+    if(file.open(QIODevice::ReadOnly)) {
+        QDataStream stream(&file);
+        stream.setVersion(QDataStream::Qt_4_5);
+        clear();
+        stream >> *this;
+        if(stream.status() != QDataStream::Ok) {
+            qDebug() << "[Document::open] read error" << filename;
+            return false;
+        }
+    }
+    else
+        return false;
+
+    file.close();
+    filename_ = filename;
+    changed_ = false;
+    return true;
 }
 
 Page * Document::page(int index) {
@@ -70,6 +103,10 @@ Page * Document::page(int index) {
         return pages_.at(index);
     else
         return 0;
+}
+
+void Document::pageChange() {
+    changed_ = true;
 }
 
 int Document::pageCount() const {
@@ -115,6 +152,29 @@ void Document::removeSelected() {
         if (page->isSelected())
             remove(page);
     }
+}
+
+bool Document::save(const QString &filename) {
+    qDebug() << "[Document::save]" << filename;
+
+    QFile packet(filename);
+
+    if(packet.open(QIODevice::WriteOnly)) {
+        QDataStream stream(&packet);
+        stream.setVersion(QDataStream::Qt_4_5);
+        stream << *this;
+        if(stream.status() != QDataStream::Ok) {
+            qDebug() << "[Document::save] write error to file:" << filename;
+            return false;
+        }
+    }
+    else
+        return false;
+
+    packet.close();
+    filename_ = filename;
+    changed_ = false;
+    return true;
 }
 
 void Document::setLanguage(int lang) {

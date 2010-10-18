@@ -186,18 +186,20 @@ void MainWindow::openImages(const QStringList& files) {
 void MainWindow::openPacket() {
     QString packet = QFileDialog::getOpenFileName(this, tr("Open Quneiform packet"), "",
                                                       tr("Quneiform packets (*.qfp)"));
-    QFile file(packet);
-    if(file.open(QIODevice::ReadOnly)) {
-        QDataStream stream(&file);
-        stream.setVersion(QDataStream::Qt_4_5);
-        doc_->clear();
-        stream >> *doc_;
-        if(stream.status() != QDataStream::Ok) {
-            qDebug() << "[MainWindow::openPacket] read error";
-        }
-    }
+    openPacket(packet);
+}
 
-    file.close();
+void MainWindow::openPacket(const QString& path) {
+    Q_CHECK_PTR(doc_);
+
+    if(path.isEmpty())
+        return;
+
+    if(!doc_->open(path)) {
+        QMessageBox::warning(this,
+                             tr("Quneiform OCR"),
+                             tr("Can't read file \"%1\"").arg(path));
+    }
 }
 
 void MainWindow::readSettings() {
@@ -258,18 +260,27 @@ void MainWindow::rotateRight() {
 void MainWindow::savePacket() {
     Q_CHECK_PTR(doc_);
 
-    QFile packet("test.qfp");
+    QString fname;
 
-    if(packet.open(QIODevice::WriteOnly)) {
-        QDataStream stream(&packet);
-        stream.setVersion(QDataStream::Qt_4_5);
-        stream << *doc_;
-        if(stream.status() != QDataStream::Ok) {
-            qDebug() << "[MainWindow::savePacket] write error";
-        }
+    if(!doc_->fileName().isEmpty())
+        fname = doc_->fileName();
+    else
+        fname = QFileDialog::getSaveFileName(this, tr("Save Quneiform packet to"), "",
+                                                           tr("Quneiform packets (*.qfp)"));
+    savePacket(fname);
+}
+
+void MainWindow::savePacket(const QString& path) {
+    Q_CHECK_PTR(doc_);
+
+    if(path.isEmpty())
+        return;
+
+    if(!doc_->save(path)) {
+        QMessageBox::warning(this,
+                             tr("Quneiform OCR"),
+                             tr("Can't open file \"%1\" for writing. Check file permissions!").arg(path));
     }
-
-    packet.close();
 }
 
 void MainWindow::savePage(Page * page) {

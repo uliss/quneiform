@@ -50,9 +50,26 @@ public:
     int countSelected() const;
 
     /**
+      * Returns document filename
+      * if document is not saved returns empty string
+      */
+    QString fileName() const;
+
+    /**
+      * Returns true if document changed
+      */
+    bool isChanged() const;
+
+    /**
       * Returns document language
       */
     int language() const;
+
+    /**
+      * Opens document from filename
+      * current document replaced by new one
+      */
+    bool open(const QString& filename);
 
     /**
       * Returns page at given position
@@ -74,6 +91,12 @@ public:
       * Recognizes selected pages
       */
     void recognizeSelected();
+
+    /**
+      * Saves document to file
+      * @return true on success, false on saving error
+      */
+    bool save(const QString& filename);
 
     /**
       * Sets document language
@@ -117,9 +140,13 @@ public  slots:
       * Removes selected pages
       */
     void removeSelected();
+private slots:
+    void pageChange();
 private:
     PageList pages_;
+    QString filename_;
     int language_;
+    bool changed_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Document& doc);
     friend QDataStream& operator>>(QDataStream& stream, Document& doc);
