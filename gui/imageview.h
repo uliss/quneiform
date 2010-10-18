@@ -24,6 +24,8 @@
 
 class QGraphicsView;
 class QVBoxLayout;
+class QGestureEvent;
+class QPinchGesture;
 class Page;
 
 class ImageView : public QWidget {
@@ -31,6 +33,9 @@ class ImageView : public QWidget {
 public:
     ImageView(QWidget * parent);
     void clear();
+    bool event(QEvent * event);
+    bool gestureEvent(QGestureEvent * event);
+    void pinchTriggered(QPinchGesture * gesture);
     void showPage(Page * page);
     void setPage(Page * page);
 public slots:

@@ -24,17 +24,25 @@
 #include <QVBoxLayout>
 #include <QToolBar>
 #include <QIcon>
+#include <QGesture>
+#include <QEvent>
+#include <QPinchGesture>
+#include <QGestureEvent>
 
 #include "imageview.h"
 #include "imagecache.h"
 #include "page.h"
 #include "widgetbar.h"
 
+static const float GESTURE_SCALE_FACTOR = 1 / 30.0;
+static const int ROTATE_THRESHOLD = 3;
+
 ImageView::ImageView(QWidget * parent) : QWidget(parent),
 page_(NULL) {
     view_ = new QGraphicsView;
     view_->setBackgroundRole(QPalette::Dark);
     view_->setScene(&scene_);
+    this->grabGesture(Qt::PinchGesture);
 
     layout_ = new QVBoxLayout;
     layout_->setContentsMargins(0, 0, 0, 0);
@@ -78,6 +86,12 @@ void ImageView::disconnectPage() {
     disconnect(page_, SIGNAL(destroyed()), this, SLOT(deletePage()));
 }
 
+bool ImageView::event(QEvent * event) {
+    if (event->type() == QEvent::Gesture)
+        return gestureEvent(static_cast<QGestureEvent*>(event));
+    return QWidget::event(event);
+}
+
 void ImageView::fitPage() {
     if (!page_) {
         qDebug() << "[ImageView::fitWidth] no current page";
@@ -118,8 +132,32 @@ void ImageView::fitWidth() {
     saveTransform();
 }
 
+bool ImageView::gestureEvent(QGestureEvent * event) {
+    if (QGesture * swipe = event->gesture(Qt::PinchGesture))
+        pinchTriggered(static_cast<QPinchGesture *>(swipe));
+    return true;
+}
+
 void ImageView::originalSize() {
     // TODO
+}
+
+void ImageView::pinchTriggered(QPinchGesture * gesture) {
+    if(!page_)
+        return;
+
+    if (gesture->state() == Qt::GestureFinished) {
+        qreal rot_angle = gesture->rotationAngle();
+        if(rot_angle > ROTATE_THRESHOLD)
+            page_->rotate(-90);
+        else if (rot_angle < - ROTATE_THRESHOLD)
+            page_->rotate(90);
+    }
+    else if(gesture->state() == Qt::GestureUpdated) {
+        qreal scale = ((gesture->lastScaleFactor() - 1) * GESTURE_SCALE_FACTOR) + 1;
+        if(scale != 1)
+            page_->scale(scale);
+    }
 }
 
 void ImageView::saveTransform() {
