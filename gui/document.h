@@ -34,81 +34,88 @@ public:
     ~Document();
 
     /**
-         * Appends page
-         */
+      * Appends page
+      */
     void append(Page * page);
 
     /**
-         * Returns numbers of selected pages
-         */
+      * Clears document. Removes all pages
+      * @see remove(), removeSelected()
+      */
+    void clear();
+
+    /**
+      * Returns numbers of selected pages
+      */
     int countSelected() const;
 
     /**
-         * Returns document language
-         */
+      * Returns document language
+      */
     int language() const;
 
     /**
-         * Returns page at given position
-         * @return NULL if page not found
-         */
+      * Returns page at given position
+      * @return NULL if page not found
+      */
     Page * page(int index);
 
     /**
-         * Returns number of pages in document
-         */
+      * Returns number of pages in document
+      */
     int pageCount() const;
 
     /**
-         * Recognizes all pages
-         */
+      * Recognizes all pages
+      */
     void recognizeAll();
 
     /**
-         * Recognizes selected pages
-         */
+      * Recognizes selected pages
+      */
     void recognizeSelected();
 
     /**
-         * Sets document language
-         */
+      * Sets document language
+      */
     void setLanguage(int lang);
 signals:
     /**
-         * Emitted when all document pages recognized
-         */
+      * Emitted when all document pages recognized
+      */
     void allPagesRecognized();
 
     /**
-         * Emitted when page with such imagePath already exists in document
-         */
+      * Emitted when page with such imagePath already exists in document
+      */
     void imageDuplicated(const QString& imagePath);
 
     /**
-         * Emitted when new page added
-         */
+      * Emitted when new page added
+      */
     void pageAdded(Page * page);
 
     /**
-         * Emitted when page removed
-         */
+      * Emitted when page removed
+      */
     void pageRemoved(Page * page);
 
     /**
-         * Emitted when page in document recognized
-         */
+      * Emitted when page in document recognized
+      */
     void pageRecognized(Page * page);
 public  slots:
     void recognize(Page * page);
+
     /**
-         * Removes page from list
-         * If page not found do nothing
-         */
+      * Removes page from list
+      * If page not found do nothing
+      */
     void remove(Page * page);
 
     /**
-         * Removes selected pages
-         */
+      * Removes selected pages
+      */
     void removeSelected();
 private:
     PageList pages_;

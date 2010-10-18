@@ -190,6 +190,7 @@ void MainWindow::openPacket() {
     if(file.open(QIODevice::ReadOnly)) {
         QDataStream stream(&file);
         stream.setVersion(QDataStream::Qt_4_5);
+        doc_->clear();
         stream >> *doc_;
         if(stream.status() != QDataStream::Ok) {
             qDebug() << "[MainWindow::openPacket] read error";

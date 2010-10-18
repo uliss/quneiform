@@ -42,6 +42,16 @@ void Document::append(Page * page) {
     qDebug() << "[Document::append()]";
 }
 
+void Document::clear() {
+    for(int i = 0; i < pages_.count(); i++) {
+        Page * p = pages_.at(i);
+        emit pageRemoved(p);
+        delete p;
+    }
+
+    pages_.clear();
+}
+
 int Document::countSelected() const {
     int res = 0;
     foreach(Page * page, pages_){
