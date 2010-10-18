@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,41 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IMAGE_VIEW_H_
-#define IMAGE_VIEW_H_
+
+#ifndef WIDGETBAR_H
+#define WIDGETBAR_H
 
 #include <QWidget>
-#include <QGraphicsScene>
 
-class QGraphicsView;
-class QVBoxLayout;
-class Page;
+class QHBoxLayout;
 
-class ImageView : public QWidget {
+class WidgetBar : public QWidget
+{
     Q_OBJECT
 public:
-    ImageView(QWidget * parent);
-    void clear();
-    void showPage(Page * page);
-    void setPage(Page * page);
-public slots:
-    void deletePage();
-    void fitPage();
-    void fitWidth();
-    void originalSize();
-    void zoomIn();
-    void zoomOut();
-private slots:
-    void updatePage();
+    explicit WidgetBar(QWidget *parent = 0);
 private:
-    void connectPage();
-    void disconnectPage();
-    void saveTransform();
-private:
-    Page * page_;
-    QVBoxLayout * layout_;
-    QGraphicsView * view_;
-    QGraphicsScene scene_;
+    QHBoxLayout * layout_;
 };
 
-#endif
+#endif // WIDGETBAR_H

@@ -20,12 +20,14 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QMenu>
-#include <qdebug.h>
+#include <QToolButton>
+#include <QDebug>
 
 #include "document.h"
 #include "page.h"
 #include "thumbnaillist.h"
 #include "thumbnailwidget.h"
+#include "widgetbar.h"
 
 static const int LIST_WIDTH = 180;
 
@@ -140,8 +142,11 @@ void ThumbnailList::setupLayout() {
     widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setWidget(widget);
     layout_ = new QVBoxLayout(widget);
-    layout_->setSpacing(2);
+    layout_->setSpacing(0);
     layout_->setMargin(0);
+    layout_->setContentsMargins(0, 0, 0, 0);
+
+//    layout_->setMenuBar(new WidgetBar);
 }
 
 void ThumbnailList::setScrollBars() {

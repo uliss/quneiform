@@ -16,18 +16,33 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <qdebug.h>
+#include <QDebug>
 #include <QScrollBar>
 #include <QPixmap>
+#include <QLabel>
+#include <QGraphicsView>
+#include <QVBoxLayout>
+#include <QToolBar>
+#include <QIcon>
 
 #include "imageview.h"
 #include "imagecache.h"
 #include "page.h"
+#include "widgetbar.h"
 
-ImageView::ImageView(QWidget * parent) :
-        QGraphicsView(parent), page_(NULL) {
-    setBackgroundRole(QPalette::Dark);
-    setScene(&scene_);
+ImageView::ImageView(QWidget * parent) : QWidget(parent),
+page_(NULL) {
+    view_ = new QGraphicsView;
+    view_->setBackgroundRole(QPalette::Dark);
+    view_->setScene(&scene_);
+
+    layout_ = new QVBoxLayout;
+    layout_->setContentsMargins(0, 0, 0, 0);
+    layout_->setMargin(0);
+    layout_->setSpacing(0);
+    layout_->addWidget(view_);
+
+    setLayout(layout_);
 }
 
 void ImageView::clear() {
@@ -69,13 +84,13 @@ void ImageView::fitPage() {
         return;
     }
 
-    QRectF scene_rect = sceneRect();
+    QRectF scene_rect = view_->sceneRect();
 
     // if image is smaller then view area set it to 100% size
     if (scene_rect.height() < height() && scene_rect.width() < width())
         originalSize();
     else
-        fitInView(scene_rect, Qt::KeepAspectRatio);
+        view_->fitInView(scene_rect, Qt::KeepAspectRatio);
 
     saveTransform();
 }
@@ -86,18 +101,18 @@ void ImageView::fitWidth() {
         return;
     }
 
-    QRectF scene_rect = sceneRect();
+    QRectF scene_rect = view_->sceneRect();
 
     // if image is smaller then view area set it to 100% size
     if (scene_rect.height() < height() && scene_rect.width() < width()) {
         originalSize();
     } else {
-        if (transform().isRotating())
+        if (view_->transform().isRotating())
             scene_rect.setWidth(30);
         else
             scene_rect.setHeight(30);
 
-        fitInView(scene_rect, Qt::KeepAspectRatio);
+        view_->fitInView(scene_rect, Qt::KeepAspectRatio);
     }
 
     saveTransform();
@@ -109,7 +124,7 @@ void ImageView::originalSize() {
 
 void ImageView::saveTransform() {
     Q_CHECK_PTR(page_);
-    page_->setTransform(transform());
+    page_->setTransform(view_->transform());
 }
 
 void ImageView::setPage(Page * page) {
@@ -131,15 +146,15 @@ void ImageView::showPage(Page * page) {
     scene_.addPixmap(image);
     scene_.setSceneRect(image.rect());
 
-    setDragMode(QGraphicsView::ScrollHandDrag);
+    view_->setDragMode(QGraphicsView::ScrollHandDrag);
     setPage(page);
 }
 
 void ImageView::updatePage() {
     Q_CHECK_PTR(page_);
 
-    if(transform() != page_->transform())
-        setTransform(page_->transform());
+    if(view_->transform() != page_->transform())
+        view_->setTransform(page_->transform());
 }
 
 void ImageView::zoomIn() {

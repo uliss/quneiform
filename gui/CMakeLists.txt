@@ -9,6 +9,7 @@ set (HEADERS
     page.h
     thumbnaillist.h
     thumbnailwidget.h
+    widgetbar.h
 )
  
 set (SOURCES 
@@ -21,6 +22,7 @@ set (SOURCES
     page.cpp
     thumbnaillist.cpp
     thumbnailwidget.cpp
+    widgetbar.cpp
 )
 
 set (FORMS 
