@@ -41,6 +41,8 @@ public:
 public slots:
     void about();
     void changeDocumentLanguage(int lang);
+    void documentChange();
+    void documentSave();
     void openImages();
     void openImages(const QStringList& paths);
     void openPacket();

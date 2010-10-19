@@ -109,6 +109,11 @@ signals:
     void allPagesRecognized();
 
     /**
+      * Emitted when document changed
+      */
+    void changed();
+
+    /**
       * Emitted when page with such imagePath already exists in document
       */
     void imageDuplicated(const QString& imagePath);
@@ -127,6 +132,11 @@ signals:
       * Emitted when page in document recognized
       */
     void pageRecognized(Page * page);
+
+    /**
+      * Emitted when document saved
+      */
+    void saved();
 public  slots:
     void recognize(Page * page);
 

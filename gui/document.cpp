@@ -39,8 +39,9 @@ void Document::append(Page * page) {
     pages_.append(page);
     page->setParent(this);
     connect(page, SIGNAL(changed()), SLOT(pageChange()));
+    changed_ = true;
     emit pageAdded(page);
-
+    emit changed();
     qDebug() << "[Document::append()]";
 }
 
@@ -107,6 +108,7 @@ Page * Document::page(int index) {
 
 void Document::pageChange() {
     changed_ = true;
+    emit changed();
 }
 
 int Document::pageCount() const {
@@ -174,6 +176,7 @@ bool Document::save(const QString &filename) {
     packet.close();
     filename_ = filename;
     changed_ = false;
+    emit saved();
     return true;
 }
 

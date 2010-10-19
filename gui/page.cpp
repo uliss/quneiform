@@ -139,6 +139,7 @@ void Page::recognize() {
 
     	ocr_text_ = QString::fromUtf8(buf.str().c_str());
     	is_recognized_ = true;
+        emit changed();
     }
     catch(Exception& e) {
         QMessageBox::critical(NULL, tr("Quneiform OCR"),
@@ -148,6 +149,7 @@ void Page::recognize() {
 
 void Page::rotate(int angle) {
     transform_.rotate(angle);
+    emit changed();
     emit rotated(angle);
 }
 
@@ -190,6 +192,7 @@ void Page::save(const QString& file) {
 
 void Page::scale(qreal factor) {
     transform_.scale(factor, factor);
+    emit changed();
     emit transformed();
 }
 
@@ -197,6 +200,7 @@ void Page::setLanguage(const QString& code) {
     if(cf::Language::byCode2(code.toStdString()).isValid()) {
         language_ = code;
         qDebug() << "[Page::setLanguage]" << code;
+        emit changed();
     }
     else {
         qDebug() << "Invalid language code: " << code;
@@ -205,15 +209,18 @@ void Page::setLanguage(const QString& code) {
 
 void Page::setNumber(unsigned int number) {
     number_ = number;
+    emit changed();
 }
 
 void Page::setSelected(bool value) {
     is_selected_ = value;
+    emit changed();
 }
 
 void Page::setTransform(const QTransform& t) {
     if(transform_ != t) {
         transform_ = t;
+        emit changed();
         emit transformed();
     }
 }
@@ -230,6 +237,7 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.number_
             << page.is_recognized_
             << page.is_saved_
+            << page.is_selected_
             << page.r_page_
             << page.r_fragment_
             << page.language_
@@ -245,10 +253,15 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.number_
             >> page.is_recognized_
             >> page.is_saved_
+            >> page.is_selected_
             >> page.r_page_
             >> page.r_fragment_
             >> page.language_
             >> page.transform_
             >> page.is_null_;
+
+    if(page.is_selected_)
+        page.setSelected(true);
+
     return is;
 }

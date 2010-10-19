@@ -76,13 +76,30 @@ void MainWindow::changeDocumentLanguage(int lang) {
     selectLanguage(lang);
 }
 
-void MainWindow::closeEvent(QCloseEvent *event) {
+void MainWindow::closeEvent(QCloseEvent * event) {
+    if(doc_)  {
+        if(doc_->isChanged()) {
+            QMessageBox ask(QMessageBox::Question,
+                                  tr("Document is not saved"),
+                                  tr("Document is not saved!\nDo you want to save it?"),
+                                  QMessageBox::Cancel | QMessageBox::Save,
+                                  this);
+            ask.setDefaultButton(QMessageBox::Save);
+            int button = ask.exec();
+            if(button == QMessageBox::Save)
+                savePacket();
+        }
+    }
+
     writeSettings();
     event->accept();
 }
 
 void MainWindow::connectActions() {
     Q_CHECK_PTR(ui_);
+    Q_CHECK_PTR(doc_);
+    connect(doc_, SIGNAL(changed()), SLOT(documentChange()));
+    connect(doc_, SIGNAL(saved()), SLOT(documentSave()));
     connect(ui_->actionAbout, SIGNAL(triggered()), SLOT(about()));
     connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImages()));
     connect(ui_->actionZoom_In, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomIn()));
@@ -102,6 +119,19 @@ void MainWindow::connectThumbs() {
     connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
     connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
     connect(ui_->thumbs_, SIGNAL(save(Page*)), SLOT(savePage(Page*)));
+}
+
+void MainWindow::documentChange() {
+    if(!windowTitle().endsWith('*'))
+        setWindowTitle(windowTitle() + "*");
+}
+
+void MainWindow::documentSave() {
+    QString title = windowTitle();
+    if(title.endsWith('*')) {
+        title.chop(1);
+        setWindowTitle(title);
+    }
 }
 
 void MainWindow::mapLanguageActions(const QList<QAction*>& actions) {
