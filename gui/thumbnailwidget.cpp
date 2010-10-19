@@ -39,7 +39,7 @@ static const int THUMB_WIDTH = 150;
 static const int THUMB_HEIGHT = 150;
 
 ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
-    QFrame(parent), page_(page), layout_(NULL), thumb_(NULL), checked_(NULL) {
+        QFrame(parent), page_(page), layout_(NULL), thumb_(NULL), checked_(NULL) {
 
     setupFrame();
     setupLayout();
@@ -62,7 +62,7 @@ void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
     menu->addAction(QIcon(":/img/oxygen/22x22/document_properties.png"), tr("Properties"), this, SLOT(showProperties()));
     menu->addAction(QIcon(":/img/oxygen/22x22/document_save_as.png"), tr("Save as"), this, SLOT(savePage()));
 
-//    menu->setupActions();
+    //    menu->setupActions();
     menu->exec(event->globalPos());
     delete menu;
 }
@@ -120,15 +120,15 @@ QString ThumbnailWidget::pageProperties() const {
 }
 
 void ThumbnailWidget::recognizeThumb() {
-	emit recognize(page_);
+    emit recognize(page_);
 }
 
 void ThumbnailWidget::rotate(int angle) {
-	Q_CHECK_PTR(page_);
+    Q_CHECK_PTR(page_);
 
-	QTransform t;
-	QPixmap new_pixmap = thumb_->pixmap()->transformed(t.rotate(angle));
-	thumb_->setPixmap(new_pixmap);
+    QTransform t;
+    QPixmap new_pixmap = thumb_->pixmap()->transformed(t.rotate(angle));
+    thumb_->setPixmap(new_pixmap);
 }
 
 

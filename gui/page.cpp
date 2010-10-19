@@ -157,6 +157,14 @@ void Page::recognize() {
     }
 }
 
+void Page::resetScale() {
+    QTransform t;
+    t.rotate(angle());
+    transform_ = t;
+    emit changed();
+    emit transformed();
+}
+
 void Page::rotate(int angle) {
     transform_.rotate(angle);
     emit changed();

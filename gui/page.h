@@ -32,143 +32,148 @@ class QGraphicsScene;
 class QDataStream;
 
 namespace cf {
-class CRtfPage;
+    class CRtfPage;
 }
 
 class Page: public QObject {
-	Q_OBJECT
+    Q_OBJECT
 public:
-        Page(const QString& image_path);
+    Page(const QString& image_path);
 
-	typedef std::runtime_error Exception;
-	typedef QVector<QRect> RectList;
+    typedef std::runtime_error Exception;
+    typedef QVector<QRect> RectList;
 
-        /**
-          * Returns page rotation angle (0, 90, 180 or 270 degrees)
-          */
-        int angle() const;
+    /**
+      * Returns page rotation angle (0, 90, 180 or 270 degrees)
+      */
+    int angle() const;
 
-	/**
-	 * Draws layout on given scene
-	 */
-	void drawFormatLayout(QGraphicsScene * scene) const;
+    /**
+      * Draws layout on given scene
+      */
+    void drawFormatLayout(QGraphicsScene * scene) const;
 
-	/**
-	 * Returns image path
-	 */
-	QString imagePath() const;
+    /**
+      * Returns image path
+      */
+    QString imagePath() const;
 
-	/**
-	 * Returns image size
-	 */
-	QSize imageSize() const;
+    /**
+      * Returns image size
+      */
+    QSize imageSize() const;
 
-        /**
-          * Returns true if points to valid image
-          * otherwise returns false
-          */
-        bool isNull() const;
+    /**
+      * Returns true if points to valid image
+      * otherwise returns false
+      */
+    bool isNull() const;
 
-	/**
-	 * Returns true if image recognized
-	 */
-	bool isRecognized() const;
+    /**
+      * Returns true if image recognized
+      */
+    bool isRecognized() const;
 
-	/**
-	 * Returns true if image already saved
-	 */
-	bool isSaved() const;
+    /**
+      * Returns true if image already saved
+      */
+    bool isSaved() const;
 
-	/**
-	 * Returns true if page is selected
-	 */
-	bool isSelected() const;
+    /**
+      * Returns true if page is selected
+      */
+    bool isSelected() const;
 
-	/**
-	 * Returns page number
-	 */
-	unsigned int number() const;
+    /**
+      * Returns page number
+      */
+    unsigned int number() const;
 
-	/**
-	 * Returns OCR text
-	 */
-	QString ocrText() const;
+    /**
+      * Returns OCR text
+      */
+    QString ocrText() const;
 
-	/**
-	 * Recognizes image
-	 * @throw Exception if page is not loaded
-	 */
-	void recognize();
+    /**
+      * Recognizes image
+      * @throw Exception if page is not loaded
+      */
+    void recognize();
 
-	/**
-	 * Rotates page
-	 */
-	void rotate(int angle);
+    /**
+      * Resets page scaling, but saves rotate
+      */
+    void resetScale();
 
-	/**
-	 * Saves ocr result
-	 * @throw Exception if page is not recognized
-	 */
-	void save(const QString& file);
+    /**
+      * Rotates page
+      */
+    void rotate(int angle);
 
-	/**
-	 * Scales page
-	 */
-	void scale(qreal factor);
+    /**
+      * Saves ocr result
+      * @throw Exception if page is not recognized
+      */
+    void save(const QString& file);
 
-	/**
-	 * Sets recognition language
-	 * @param iso_code - language code, for ex. "ru"
-	 */
-	void setLanguage(const QString& iso_code);
+    /**
+      * Scales page
+      */
+    void scale(qreal factor);
 
-	/**
-	 * Sets page number
-	 */
-	void setNumber(unsigned int number);
+    /**
+      * Sets recognition language
+      * @param iso_code - language code, for ex. "ru"
+      */
+    void setLanguage(const QString& iso_code);
 
-	/**
-	 * Selects page
-	 */
-	void setSelected(bool value);
+    /**
+      * Sets page number
+      */
+    void setNumber(unsigned int number);
 
-	/**
-	 * Sets page transform
-	 */
-	void setTransform(const QTransform& t);
+    /**
+      * Selects page
+      */
+    void setSelected(bool value);
 
-	/**
-	 * Returns page transform
-	 */
-	QTransform transform() const;
+    /**
+      * Sets page transform
+      */
+    void setTransform(const QTransform& t);
+
+    /**
+      * Returns page transform
+      */
+    QTransform transform() const;
 signals:
-        void changed();
-	/**
-	 * Emmited then page is tranformed
-	 */
-	void transformed();
-	void rotated(int angle);
+    void changed();
+    /**
+      * Emmited then page is tranformed
+      */
+    void transformed();
+    void rotated(int angle);
 private:
-	QString image_path_;
-	QSize image_size_;
-	QString ocr_text_;
-	unsigned int number_;
-	bool is_recognized_;
-	bool is_saved_;
-	bool is_selected_;
-	RectList r_page_;
-	RectList r_fragment_;
-	QString language_;
-	QTransform transform_;
-        bool is_null_;
+    QString image_path_;
+    QSize image_size_;
+    QString ocr_text_;
+    unsigned int number_;
+    bool is_recognized_;
+    bool is_saved_;
+    bool is_selected_;
+    RectList r_page_;
+    RectList r_fragment_;
+    QString language_;
+    QTransform transform_;
+    bool is_null_;
 private:
-	void drawFormatPageLayout(QGraphicsScene * scene) const;
-	void fillFormatLayout(const cf::CRtfPage * page);
+    void drawFormatPageLayout(QGraphicsScene * scene) const;
+    void fillFormatLayout(const cf::CRtfPage * page);
 private:
-	static QColor format_page_color_;
+    static QColor format_page_color_;
 public:
-        friend QDataStream& operator<<(QDataStream& stream, const Page& page);
-        friend QDataStream& operator>>(QDataStream& stream, Page& page);
+    friend QDataStream& operator<<(QDataStream& stream, const Page& page);
+    friend QDataStream& operator>>(QDataStream& stream, Page& page);
 };
 
 QDataStream& operator<<(QDataStream& stream, const Page& page);

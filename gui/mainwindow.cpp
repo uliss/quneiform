@@ -106,6 +106,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionZoom_Out, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomOut()));
     connect(ui_->actionFitWidth, SIGNAL(triggered()), ui_->image_view_, SLOT(fitWidth()));
     connect(ui_->actionFitPage, SIGNAL(triggered()), ui_->image_view_, SLOT(fitPage()));
+    connect(ui_->actionOriginalSize, SIGNAL(triggered()), ui_->image_view_, SLOT(originalSize()));
     connect(ui_->actionRecognizeAll, SIGNAL(triggered()), SLOT(recognizeAll()));
     connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
     connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));

@@ -139,7 +139,10 @@ bool ImageView::gestureEvent(QGestureEvent * event) {
 }
 
 void ImageView::originalSize() {
-    // TODO
+    if(!page_)
+        return;
+
+    page_->resetScale();
 }
 
 void ImageView::pinchTriggered(QPinchGesture * gesture) {

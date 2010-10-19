@@ -88,6 +88,7 @@
     <addaction name="actionZoom_Out"/>
     <addaction name="actionFitPage"/>
     <addaction name="actionFitWidth"/>
+    <addaction name="actionOriginalSize"/>
     <addaction name="actionRotateRight"/>
     <addaction name="actionRotateLeft"/>
    </widget>
@@ -128,6 +129,7 @@
    <addaction name="actionZoom_Out"/>
    <addaction name="actionFitPage"/>
    <addaction name="actionFitWidth"/>
+   <addaction name="actionOriginalSize"/>
    <addaction name="actionRotateLeft"/>
    <addaction name="actionRotateRight"/>
    <addaction name="actionRecognizeAll"/>
@@ -287,6 +289,15 @@
   <action name="actionOpenPacket">
    <property name="text">
     <string>Open packet</string>
+   </property>
+  </action>
+  <action name="actionOriginalSize">
+   <property name="icon">
+    <iconset resource="resources/cuneiform.qrc">
+     <normaloff>:/img/oxygen/32x32/zoom_original.png</normaloff>:/img/oxygen/32x32/zoom_original.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom 1:1</string>
    </property>
   </action>
  </widget>
