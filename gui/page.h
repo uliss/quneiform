@@ -43,6 +43,11 @@ public:
 	typedef std::runtime_error Exception;
 	typedef QVector<QRect> RectList;
 
+        /**
+          * Returns page rotation angle (0, 90, 180 or 270 degrees)
+          */
+        int angle() const;
+
 	/**
 	 * Draws layout on given scene
 	 */

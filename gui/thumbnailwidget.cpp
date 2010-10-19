@@ -115,7 +115,7 @@ QString ThumbnailWidget::pageProperties() const {
 
     QString res = tr("Filename: \"%1\"\n").arg(page_->imagePath());
     res += tr("Size: %1x%2\n").arg(page_->imageSize().width()).arg(page_->imageSize().height());
-//    res += tr("Rotation: %1\n").arg(page_->r);
+    res += tr("Rotation: %1\n").arg(page_->angle());
     return res;
 }
 
@@ -191,7 +191,9 @@ void ThumbnailWidget::setupPixmap() {
 
     thumb_ = new QLabel;
     thumb_->setMargin(THUMB_IMAGE_MARGIN);
-    thumb_->setPixmap(image.scaledToWidth(THUMB_IMAGE_WIDTH));
+    QTransform thumb_rotate;
+    thumb_rotate.rotate(page_->angle());
+    thumb_->setPixmap(image.scaledToWidth(THUMB_IMAGE_WIDTH).transformed(thumb_rotate));
     // stretch image
     static const int STRETCH_KOEF = 4;
     layout_->addWidget(thumb_, STRETCH_KOEF, Qt::AlignHCenter);

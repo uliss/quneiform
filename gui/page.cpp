@@ -51,6 +51,16 @@ Page::Page(const QString& image_path) :
     }
 }
 
+int Page::angle() const {
+    QPointF pt = transform_.map(QPointF(0, 1));
+    if(pt.y() == 0)
+        return pt.x() > 0 ? 270 : 90;
+    else if(pt.x() == 0)
+        return pt.y() > 0 ? 0 : 180;
+    else
+        return 0;
+}
+
 void Page::drawFormatLayout(QGraphicsScene * scene) const {
     Q_CHECK_PTR(scene);
     drawFormatPageLayout(scene);
