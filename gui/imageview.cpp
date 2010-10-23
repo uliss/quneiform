@@ -30,6 +30,7 @@
 #include <QGestureEvent>
 
 #include "imageview.h"
+#include "imagegraphicsview.h"
 #include "imagecache.h"
 #include "page.h"
 #include "widgetbar.h"
@@ -39,10 +40,9 @@ static const int ROTATE_THRESHOLD = 3;
 
 ImageView::ImageView(QWidget * parent) : QWidget(parent),
 page_(NULL) {
-    view_ = new QGraphicsView;
-    view_->setBackgroundRole(QPalette::Dark);
+    view_ = new ImageGraphicsView;
     view_->setScene(&scene_);
-    this->grabGesture(Qt::PinchGesture);
+    grabGesture(Qt::PinchGesture);
 
     layout_ = new QVBoxLayout;
     layout_->setContentsMargins(0, 0, 0, 0);

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,47 +16,19 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IMAGE_VIEW_H_
-#define IMAGE_VIEW_H_
 
-#include <QWidget>
-#include <QGraphicsScene>
+#ifndef IMAGEGRAPHICSVIEW_H
+#define IMAGEGRAPHICSVIEW_H
 
-class QGraphicsView;
-class QVBoxLayout;
-class QGestureEvent;
-class QPinchGesture;
-class ImageGraphicsView;
-class Page;
+#include <QGraphicsView>
 
-class ImageView : public QWidget {
+class ImageGraphicsView : public QGraphicsView
+{
     Q_OBJECT
 public:
-    ImageView(QWidget * parent);
-    void clear();
-    bool event(QEvent * event);
-    bool gestureEvent(QGestureEvent * event);
-    void pinchTriggered(QPinchGesture * gesture);
-    void showPage(Page * page);
-    void setPage(Page * page);
-public slots:
-    void deletePage();
-    void fitPage();
-    void fitWidth();
-    void originalSize();
-    void zoomIn();
-    void zoomOut();
-private slots:
-    void updatePage();
-private:
-    void connectPage();
-    void disconnectPage();
-    void saveTransform();
-private:
-    Page * page_;
-    QVBoxLayout * layout_;
-    QGraphicsScene scene_;
-    ImageGraphicsView * view_;
+    explicit ImageGraphicsView(QWidget * parent = 0);
+protected:
+    void contextMenuEvent(QContextMenuEvent * event);
 };
 
-#endif
+#endif // IMAGEGRAPHICSVIEW_H

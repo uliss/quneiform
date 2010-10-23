@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,47 +16,23 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IMAGE_VIEW_H_
-#define IMAGE_VIEW_H_
+#include <QMenu>
+#include <QContextMenuEvent>
 
-#include <QWidget>
-#include <QGraphicsScene>
+#include "imagegraphicsview.h"
 
-class QGraphicsView;
-class QVBoxLayout;
-class QGestureEvent;
-class QPinchGesture;
-class ImageGraphicsView;
-class Page;
+ImageGraphicsView::ImageGraphicsView(QWidget * parent) :
+    QGraphicsView(parent)
+{
+    setBackgroundRole(QPalette::Dark);
+}
 
-class ImageView : public QWidget {
-    Q_OBJECT
-public:
-    ImageView(QWidget * parent);
-    void clear();
-    bool event(QEvent * event);
-    bool gestureEvent(QGestureEvent * event);
-    void pinchTriggered(QPinchGesture * gesture);
-    void showPage(Page * page);
-    void setPage(Page * page);
-public slots:
-    void deletePage();
-    void fitPage();
-    void fitWidth();
-    void originalSize();
-    void zoomIn();
-    void zoomOut();
-private slots:
-    void updatePage();
-private:
-    void connectPage();
-    void disconnectPage();
-    void saveTransform();
-private:
-    Page * page_;
-    QVBoxLayout * layout_;
-    QGraphicsScene scene_;
-    ImageGraphicsView * view_;
-};
+void ImageGraphicsView::contextMenuEvent(QContextMenuEvent * event) {
+    Q_CHECK_PTR(event);
 
-#endif
+    QMenu menu;
+    menu.addAction(QIcon(":/img/oxygen/22x22/document_rotate_left.png"),
+                   tr("Select recognize area"),
+                   this, SLOT(selectPageArea()));
+    menu.exec(event->globalPos());
+}
