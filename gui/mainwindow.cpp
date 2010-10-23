@@ -239,7 +239,6 @@ void MainWindow::readSettings() {
     resize(settings.value("size", QSize(800, 600)).toSize());
     move(settings.value("pos", QPoint(200, 200)).toPoint());
     settings.endGroup();
-    qDebug() << pos();
 }
 
 void MainWindow::recognizeAll() {
@@ -396,6 +395,4 @@ void MainWindow::writeSettings() {
     settings.setValue("size", size());
     settings.setValue("pos", pos());
     settings.endGroup();
-
-    qDebug() << pos();
 }
