@@ -28,6 +28,8 @@
 #include <QEvent>
 #include <QPinchGesture>
 #include <QGestureEvent>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsRectItem>
 
 #include "imageview.h"
 #include "imagegraphicsview.h"
@@ -39,9 +41,11 @@ static const float GESTURE_SCALE_FACTOR = 1 / 30.0;
 static const int ROTATE_THRESHOLD = 3;
 
 ImageView::ImageView(QWidget * parent) : QWidget(parent),
-page_(NULL) {
+page_(NULL), page_area_(NULL) {
     view_ = new ImageGraphicsView;
     view_->setScene(&scene_);
+    connect(view_, SIGNAL(pageAreaSelected(QRectF)), SLOT(selectPageArea(QRectF)));
+
     grabGesture(Qt::PinchGesture);
 
     layout_ = new QVBoxLayout;
@@ -66,7 +70,6 @@ void ImageView::connectPage() {
     connect(page_, SIGNAL(transformed()), SLOT(updatePage()));
     connect(page_, SIGNAL(rotated(int)), SLOT(updatePage()));
     connect(page_, SIGNAL(destroyed()), SLOT(deletePage()));
-
 }
 
 void ImageView::deletePage() {
@@ -168,6 +171,28 @@ void ImageView::saveTransform() {
     page_->setTransform(view_->transform());
 }
 
+void ImageView::selectPageArea(const QRectF& area) {
+    if(!page_)
+        return;
+
+    page_->setPageArea(area);
+
+    if(area.isValid()) {
+        if(!page_area_) {
+            page_area_ = scene_.addRect(area);
+            QPen pen(QColor(250, 0, 40, 50));
+            pen.setWidth(2);
+            page_area_->setPen(pen);
+        }
+        else {
+            page_area_->setRect(area);
+        }
+    }
+    else {
+        page_area_ = NULL;
+    }
+}
+
 void ImageView::setPage(Page * page) {
     Q_CHECK_PTR(page);
     disconnectPage();
@@ -184,10 +209,9 @@ void ImageView::showPage(Page * page) {
     if(!ImageCache::load(page->imagePath(), &image))
         return;
 
-    scene_.addPixmap(image);
+    QGraphicsPixmapItem * pixmap = scene_.addPixmap(image);
+    pixmap->setZValue(0);
     scene_.setSceneRect(image.rect());
-
-    view_->setDragMode(QGraphicsView::ScrollHandDrag);
     setPage(page);
 }
 
@@ -196,6 +220,8 @@ void ImageView::updatePage() {
 
     if(view_->transform() != page_->transform())
         view_->setTransform(page_->transform());
+
+    selectPageArea(page_->pageArea());
 }
 
 void ImageView::zoomIn() {

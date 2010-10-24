@@ -26,6 +26,7 @@ class QGraphicsView;
 class QVBoxLayout;
 class QGestureEvent;
 class QPinchGesture;
+class QGraphicsRectItem;
 class ImageGraphicsView;
 class Page;
 
@@ -47,6 +48,7 @@ public slots:
     void zoomIn();
     void zoomOut();
 private slots:
+    void selectPageArea(const QRectF& area);
     void updatePage();
 private:
     void connectPage();
@@ -57,6 +59,7 @@ private:
     QVBoxLayout * layout_;
     QGraphicsScene scene_;
     ImageGraphicsView * view_;
+    QGraphicsRectItem * page_area_;
 };
 
 #endif

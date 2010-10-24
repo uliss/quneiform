@@ -118,6 +118,10 @@ QString Page::ocrText() const {
     return ocr_text_;
 }
 
+const QRectF& Page::pageArea() const {
+    return page_area_;
+}
+
 void Page::recognize() {
     using namespace cf;
 
@@ -228,6 +232,10 @@ void Page::setLanguage(const QString& code) {
 void Page::setNumber(unsigned int number) {
     number_ = number;
     emit changed();
+}
+
+void Page::setPageArea(const QRectF& area) {
+    page_area_ = area;
 }
 
 void Page::setSelected(bool value) {

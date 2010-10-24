@@ -95,6 +95,11 @@ public:
     QString ocrText() const;
 
     /**
+      * Returns page area on image
+      */
+    const QRectF& pageArea() const;
+
+    /**
       * Recognizes image
       * @throw Exception if page is not loaded
       */
@@ -133,6 +138,11 @@ public:
     void setNumber(unsigned int number);
 
     /**
+      * Sets page area on image
+      */
+    void setPageArea(const QRectF& area);
+
+    /**
       * Selects page
       */
     void setSelected(bool value);
@@ -163,6 +173,7 @@ private:
     bool is_selected_;
     RectList r_page_;
     RectList r_fragment_;
+    QRectF page_area_;
     QString language_;
     QTransform transform_;
     bool is_null_;

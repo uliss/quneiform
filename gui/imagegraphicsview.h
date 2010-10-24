@@ -22,13 +22,36 @@
 
 #include <QGraphicsView>
 
+class QRubberBand;
+
 class ImageGraphicsView : public QGraphicsView
 {
     Q_OBJECT
 public:
     explicit ImageGraphicsView(QWidget * parent = 0);
+signals:
+    void pageAreaSelected(const QRectF&);
 protected:
     void contextMenuEvent(QContextMenuEvent * event);
+    void mouseMoveEvent(QMouseEvent * event);
+    void mousePressEvent(QMouseEvent * event);
+    void mouseReleaseEvent(QMouseEvent * event);
+private slots:
+    void selectPageArea();
+private:
+    void updateCursor();
+private:
+    enum select_mode_t {
+        NORMAL = 0,
+        SELECT_PAGE,
+        SELECT_TEXT,
+        SELECT_IMAGE,
+        SELECT_TABLE
+    };
+
+    select_mode_t select_mode_;
+    QRubberBand * rubber_band_;
+    QPoint selection_origin_;
 };
 
 #endif // IMAGEGRAPHICSVIEW_H
