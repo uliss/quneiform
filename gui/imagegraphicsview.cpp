@@ -20,6 +20,7 @@
 #include <QMenu>
 #include <QContextMenuEvent>
 #include <QRubberBand>
+#include <QGraphicsRectItem>
 
 #include "imagegraphicsview.h"
 
@@ -28,20 +29,36 @@ ImageGraphicsView::ImageGraphicsView(QWidget * parent) :
 {
     setBackgroundRole(QPalette::Dark);
     setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
-//    setInteractive(false);
+    setInteractive(true);
 }
 
 void ImageGraphicsView::contextMenuEvent(QContextMenuEvent * event) {
     Q_CHECK_PTR(event);
 
+    QGraphicsView::contextMenuEvent(event);
+
     QMenu menu;
-    menu.addAction(QIcon(":/img/oxygen/22x22/document_rotate_left.png"),
+    QAction * s_recognize = menu.addAction(QIcon(":/img/oxygen/22x22/.png"),
                    tr("Select recognize area"),
                    this, SLOT(selectPageArea()));
+    s_recognize->setCheckable(true);
+
+    QAction * s_text = menu.addAction(QIcon(":/img/oxygen/22x22/.png"),
+                   tr("Select text areas"),
+                   this, SLOT(selectPageArea()));
+    s_text->setCheckable(true);
+
+    QAction * s_image = menu.addAction(QIcon(":/img/oxygen/22x22/.png"),
+                   tr("Select images"),
+                   this, SLOT(selectPageArea()));
+    s_image->setCheckable(true);
+
     menu.exec(event->globalPos());
 }
 
 void ImageGraphicsView::mouseMoveEvent(QMouseEvent * event) {
+    QGraphicsView::mouseMoveEvent(event);
+
     if(select_mode_ == NORMAL)
         return;
 
@@ -49,9 +66,13 @@ void ImageGraphicsView::mouseMoveEvent(QMouseEvent * event) {
         if(rubber_band_)
             rubber_band_->setGeometry(QRect(selection_origin_, event->pos()).normalized());
     }
+
+
 }
 
 void ImageGraphicsView::mousePressEvent(QMouseEvent * event) {
+    QGraphicsView::mousePressEvent(event);
+
     if(select_mode_ == NORMAL)
         return;
 
@@ -67,6 +88,8 @@ void ImageGraphicsView::mousePressEvent(QMouseEvent * event) {
 }
 
 void ImageGraphicsView:: mouseReleaseEvent(QMouseEvent * event) {
+    QGraphicsView::mouseReleaseEvent(event);
+
     if(select_mode_ == NORMAL)
         return;
 

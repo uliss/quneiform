@@ -8,11 +8,12 @@ set (HEADERS
     languageselect.h
     mainwindow.h
     page.h
+    selection.h
     thumbnaillist.h
     thumbnailwidget.h
     widgetbar.h
 )
- 
+
 set (SOURCES 
     document.cpp
     imagecache.cpp
@@ -22,6 +23,7 @@ set (SOURCES
     mainwindow.cpp
     main.cpp
     page.cpp
+    selection.cpp
     thumbnaillist.cpp
     thumbnailwidget.cpp
     widgetbar.cpp

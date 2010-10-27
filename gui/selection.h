@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,50 +16,37 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IMAGE_VIEW_H_
-#define IMAGE_VIEW_H_
 
-#include <QWidget>
-#include <QGraphicsScene>
+#ifndef SELECTION_H
+#define SELECTION_H
 
-class QGraphicsView;
-class QVBoxLayout;
-class QGestureEvent;
-class QPinchGesture;
-class Selection;
-class ImageGraphicsView;
-class Page;
+#include <QGraphicsRectItem>
 
-class ImageView : public QWidget {
-    Q_OBJECT
+class Selection : public QGraphicsRectItem
+{
 public:
-    ImageView(QWidget * parent);
-    void clear();
-    bool event(QEvent * event);
-    bool gestureEvent(QGestureEvent * event);
-    void pinchTriggered(QPinchGesture * gesture);
-    void showPage(Page * page);
-    void setPage(Page * page);
-public slots:
-    void deletePage();
-    void fitPage();
-    void fitWidth();
-    void originalSize();
-    void zoomIn();
-    void zoomOut();
-private slots:
-    void selectPageArea(const QRectF& area);
-    void updatePage();
+    Selection(const QRectF& = QRectF());
+    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
+protected:
+    void hoverEnterEvent (QGraphicsSceneHoverEvent * event);
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent * event);
+    void hoverMoveEvent(QGraphicsSceneHoverEvent * event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
+    void mousePressEvent(QGraphicsSceneMouseEvent * event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
 private:
-    void connectPage();
-    void disconnectPage();
-    void saveTransform();
+    enum resize_t {
+        NONE = 0,
+        LEFT = 1,
+        RIGHT = 2,
+        UP = 4,
+        DOWN = 8
+    };
+
+    resize_t resizeMode(const QPointF& pos) const;
+    void setResizeCursor(const QPointF& pos);
 private:
-    Page * page_;
-    QVBoxLayout * layout_;
-    QGraphicsScene scene_;
-    ImageGraphicsView * view_;
-    Selection * page_area_;
+    resize_t resize_mode_;
 };
 
-#endif
+#endif // SELECTION_H

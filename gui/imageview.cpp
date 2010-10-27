@@ -36,6 +36,7 @@
 #include "imagecache.h"
 #include "page.h"
 #include "widgetbar.h"
+#include "selection.h"
 
 static const float GESTURE_SCALE_FACTOR = 1 / 30.0;
 static const int ROTATE_THRESHOLD = 3;
@@ -175,14 +176,10 @@ void ImageView::selectPageArea(const QRectF& area) {
     if(!page_)
         return;
 
-    page_->setPageArea(area);
-
     if(area.isValid()) {
         if(!page_area_) {
-            page_area_ = scene_.addRect(area);
-            QPen pen(QColor(250, 0, 40, 50));
-            pen.setWidth(2);
-            page_area_->setPen(pen);
+            page_area_ = new Selection(area);
+            scene_.addItem(page_area_);
         }
         else {
             page_area_->setRect(area);
@@ -191,6 +188,8 @@ void ImageView::selectPageArea(const QRectF& area) {
     else {
         page_area_ = NULL;
     }
+
+    page_->setPageArea(area);
 }
 
 void ImageView::setPage(Page * page) {
@@ -213,6 +212,7 @@ void ImageView::showPage(Page * page) {
     pixmap->setZValue(0);
     scene_.setSceneRect(image.rect());
     setPage(page);
+    selectPageArea(page->pageArea());
 }
 
 void ImageView::updatePage() {
@@ -220,8 +220,6 @@ void ImageView::updatePage() {
 
     if(view_->transform() != page_->transform())
         view_->setTransform(page_->transform());
-
-    selectPageArea(page_->pageArea());
 }
 
 void ImageView::zoomIn() {
