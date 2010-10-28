@@ -58,6 +58,33 @@ page_(NULL), page_area_(NULL) {
     setLayout(layout_);
 }
 
+void ImageView::changeSelectionCursor(int type) {
+    if(!page_area_)
+        return;
+
+    static const Qt::CursorShape cursors[][2]  = {
+        {Qt::ArrowCursor, Qt::ArrowCursor}, // Selection::NORMAL (0)
+        {Qt::SizeHorCursor, Qt::SizeVerCursor}, // Selection::HORIZONTAL (1)
+        {Qt::SizeVerCursor, Qt::SizeHorCursor},// Selection::VERTICAL (2)
+        {Qt::SizeFDiagCursor, Qt::SizeBDiagCursor}, // Selection::DIAGONAL_LEFT (3)
+        {Qt::SizeBDiagCursor, Qt::SizeFDiagCursor}
+    };
+
+//    qDebug() << type;
+
+    static const int cursors_num = sizeof(cursors) / sizeof(cursors[0]);
+
+    if(type < 0 || type >= cursors_num) {
+        qDebug() << "[ImageView::changeSelectionCursor] invalid cursor type" << type;
+        return;
+    }
+
+    if(view_->transform().isRotating())
+        page_area_->setCursor(cursors[type][1]);
+    else
+        page_area_->setCursor(cursors[type][0]);
+}
+
 void ImageView::clear() {
     qDebug() << "[ImageView::clear]";
     foreach(QGraphicsItem * item, scene_.items()) {
@@ -156,9 +183,9 @@ void ImageView::pinchTriggered(QPinchGesture * gesture) {
     if (gesture->state() == Qt::GestureFinished) {
         qreal rot_angle = gesture->rotationAngle();
         if(rot_angle > ROTATE_THRESHOLD)
-            page_->rotate(-90);
-        else if (rot_angle < - ROTATE_THRESHOLD)
             page_->rotate(90);
+        else if (rot_angle < - ROTATE_THRESHOLD)
+            page_->rotate(-90);
     }
     else if(gesture->state() == Qt::GestureUpdated) {
         qreal scale = ((gesture->lastScaleFactor() - 1) * GESTURE_SCALE_FACTOR) + 1;
@@ -179,6 +206,7 @@ void ImageView::selectPageArea(const QRectF& area) {
     if(area.isValid()) {
         if(!page_area_) {
             page_area_ = new Selection(area);
+            connect(page_area_, SIGNAL(cursorChange(int)), SLOT(changeSelectionCursor(int)));
             scene_.addItem(page_area_);
         }
         else {

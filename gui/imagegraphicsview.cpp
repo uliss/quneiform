@@ -66,8 +66,6 @@ void ImageGraphicsView::mouseMoveEvent(QMouseEvent * event) {
         if(rubber_band_)
             rubber_band_->setGeometry(QRect(selection_origin_, event->pos()).normalized());
     }
-
-
 }
 
 void ImageGraphicsView::mousePressEvent(QMouseEvent * event) {

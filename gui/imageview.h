@@ -48,6 +48,7 @@ public slots:
     void zoomIn();
     void zoomOut();
 private slots:
+    void changeSelectionCursor(int type);
     void selectPageArea(const QRectF& area);
     void updatePage();
 private:

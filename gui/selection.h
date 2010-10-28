@@ -21,20 +21,14 @@
 #define SELECTION_H
 
 #include <QGraphicsRectItem>
+#include <QObject>
 
-class Selection : public QGraphicsRectItem
+class Selection : public QObject, public QGraphicsRectItem
 {
+    Q_OBJECT
 public:
     Selection(const QRectF& = QRectF());
-    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
-protected:
-    void hoverEnterEvent (QGraphicsSceneHoverEvent * event);
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent * event);
-    void hoverMoveEvent(QGraphicsSceneHoverEvent * event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
-    void mousePressEvent(QGraphicsSceneMouseEvent * event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
-private:
+
     enum resize_t {
         NONE = 0,
         LEFT = 1,
@@ -43,10 +37,29 @@ private:
         DOWN = 8
     };
 
-    resize_t resizeMode(const QPointF& pos) const;
+    enum cursor_t {
+        NORMAL = 0,
+        HORIZONTAL = 1,
+        VERTICAL = 2,
+        DIAGONAL_LEFT = 3,
+        DIAGONAL_RIGHT = 4
+    };
+
+signals:
+    void cursorChange(int type);
+protected:
+    void hoverEnterEvent (QGraphicsSceneHoverEvent * event);
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent * event);
+    void hoverMoveEvent(QGraphicsSceneHoverEvent * event);
+    void keyPressEvent(QKeyEvent * event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
+    void mousePressEvent(QGraphicsSceneMouseEvent * event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
+private:
+    int resizeMode(const QPointF& pos) const;
     void setResizeCursor(const QPointF& pos);
 private:
-    resize_t resize_mode_;
+    char resize_;
 };
 
 #endif // SELECTION_H
