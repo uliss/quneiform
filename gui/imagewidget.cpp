@@ -16,52 +16,67 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QDebug>
+#include <QVBoxLayout>
 
-#ifndef SELECTION_H
-#define SELECTION_H
+#include "imagewidget.h"
+#include "imageview.h"
 
-#include <QGraphicsRectItem>
-#include <QObject>
+ImageWidget::ImageWidget(QWidget *parent) :
+    QWidget(parent), layout_(NULL), view_(NULL) {
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setupLayout();
+    setupView();
+}
 
-class Selection : public QObject, public QGraphicsRectItem
-{
-    Q_OBJECT
-public:
-    Selection(const QRectF& = QRectF());
+void ImageWidget::fitPage() {
+    Q_CHECK_PTR(view_);
+    view_->fitPage();
+}
 
-    enum resize_t {
-        NONE = 0,
-        LEFT = 1,
-        RIGHT = 2,
-        UP = 4,
-        DOWN = 8
-    };
+void ImageWidget::fitWidth() {
+    Q_CHECK_PTR(view_);
+    view_->fitWidth();
+}
 
-    enum cursor_t {
-        NORMAL = 0,
-        HORIZONTAL = 1,
-        VERTICAL = 2,
-        DIAGONAL_LEFT = 3,
-        DIAGONAL_RIGHT = 4
-    };
+void ImageWidget::originalSize() {
+    Q_CHECK_PTR(view_);
+    view_->originalSize();
+}
 
-signals:
-    void cursorChange(int type);
-    void selectionDeleted();
-    void resized();
-protected:
-    void hoverEnterEvent (QGraphicsSceneHoverEvent * event);
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent * event);
-    void hoverMoveEvent(QGraphicsSceneHoverEvent * event);
-    void keyPressEvent(QKeyEvent * event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
-    void mousePressEvent(QGraphicsSceneMouseEvent * event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
-private:
-    int resizeMode(const QPointF& pos) const;
-    void setResizeCursor(const QPointF& pos);
-private:
-    char resize_;
-};
+void ImageWidget::setupLayout() {
+    layout_ = new QVBoxLayout(this);
+    layout_->setContentsMargins(0, 0, 0, 0);
+    layout_->setMargin(0);
+    layout_->setSpacing(0);
+    setLayout(layout_);
+}
 
-#endif // SELECTION_H
+void ImageWidget::setupView() {
+    view_ = new ImageView(this);
+    connect(view_, SIGNAL(pageDeleted()), SIGNAL(pageDeleted()));
+    layout_->addWidget(view_);
+}
+
+void ImageWidget::showPage(Page * p) {
+    if(!view_) {
+        qDebug() << Q_FUNC_INFO << "no view";
+        return;
+    }
+
+    view_->showPage(p);
+}
+
+QSize ImageWidget::sizeHint () const {
+    return QSize(800, 600);
+}
+
+void ImageWidget::zoomIn() {
+    Q_CHECK_PTR(view_);
+    view_->zoomIn(1.25);
+}
+
+void ImageWidget::zoomOut() {
+    Q_CHECK_PTR(view_);
+    view_->zoomOut(0.8);
+}

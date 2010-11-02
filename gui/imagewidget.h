@@ -17,41 +17,36 @@
  ***************************************************************************/
 
 
-#ifndef IMAGEGRAPHICSVIEW_H
-#define IMAGEGRAPHICSVIEW_H
+#ifndef IMAGEWIDGET_H
+#define IMAGEWIDGET_H
 
-#include <QGraphicsView>
+#include <QWidget>
 
-class QRubberBand;
+class QVBoxLayout;
+class ImageView;
+class Page;
 
-class ImageGraphicsView : public QGraphicsView
+class ImageWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ImageGraphicsView(QWidget * parent = 0);
+    explicit ImageWidget(QWidget *parent = 0);
+    void showPage(Page * p);
+    QSize sizeHint () const;
 signals:
-    void pageAreaSelected(const QRectF&);
-protected:
-    void contextMenuEvent(QContextMenuEvent * event);
-    void mouseMoveEvent(QMouseEvent * event);
-    void mousePressEvent(QMouseEvent * event);
-    void mouseReleaseEvent(QMouseEvent * event);
-private slots:
-    void selectPageArea();
+    void pageDeleted();
+public slots:
+    void fitPage();
+    void fitWidth();
+    void originalSize();
+    void zoomIn();
+    void zoomOut();
 private:
-    void updateCursor();
+    void setupLayout();
+    void setupView();
 private:
-    enum select_mode_t {
-        NORMAL = 0,
-        SELECT_PAGE,
-        SELECT_TEXT,
-        SELECT_IMAGE,
-        SELECT_TABLE
-    };
-
-    select_mode_t select_mode_;
-    QRubberBand * rubber_band_;
-    QPoint selection_origin_;
+    QVBoxLayout * layout_;
+    ImageView * view_;
 };
 
-#endif // IMAGEGRAPHICSVIEW_H
+#endif // IMAGEWIDGET_H

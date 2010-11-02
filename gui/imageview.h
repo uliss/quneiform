@@ -19,48 +19,77 @@
 #ifndef IMAGE_VIEW_H_
 #define IMAGE_VIEW_H_
 
-#include <QWidget>
-#include <QGraphicsScene>
+#include <QGraphicsView>
 
-class QGraphicsView;
-class QVBoxLayout;
+class QGraphicsScene;
 class QGestureEvent;
 class QPinchGesture;
-class Selection;
-class ImageGraphicsView;
+class QMenu;
+class QRubberBand;
 class Page;
+class Selection;
 
-class ImageView : public QWidget {
+class ImageView : public QGraphicsView {
     Q_OBJECT
 public:
-    ImageView(QWidget * parent);
-    void clear();
-    bool event(QEvent * event);
-    bool gestureEvent(QGestureEvent * event);
-    void pinchTriggered(QPinchGesture * gesture);
-    void showPage(Page * page);
-    void setPage(Page * page);
-public slots:
-    void deletePage();
+    ImageView(QWidget * parent = 0);
+    void clearScene();
     void fitPage();
     void fitWidth();
     void originalSize();
-    void zoomIn();
-    void zoomOut();
+    void showPage(Page * page);
+    void zoomIn(qreal factor);
+    void zoomOut(qreal factor);
+signals:
+    void pageDeleted();
+protected:
+    void contextMenuEvent(QContextMenuEvent * event);
+    bool event(QEvent * event);
+    bool gestureEvent(QGestureEvent * event);
+    void mouseMoveEvent(QMouseEvent * event);
+    void mousePressEvent(QMouseEvent * event);
+    void mouseReleaseEvent(QMouseEvent * event);
+    void pinchTriggered(QPinchGesture * gesture);
 private slots:
     void changeSelectionCursor(int type);
-    void selectPageArea(const QRectF& area);
-    void updatePage();
+    void deletePage();
+    void deleteSelection();
+    void savePageSelection();
+    void selectPageArea();
+    void updateTransform();
 private:
-    void connectPage();
-    void disconnectPage();
-    void saveTransform();
+    void activate(bool value);
+    void connectPageSignals(Page * page);
+    void createContextMenu();
+    void createRubberBand();
+    void createPageSelection(const QRect& rect);
+    void disconnectPageSignals(Page * page);
+    void finishPageSelection(const QRect& rect);
+    void finishSelection(const QPoint& pos);
+    void resizeSelection(const QPoint& pos);
+    void restorePageSelection();
+    void saveViewTransform();
+    void setPageSelection(const QRect& rect);
+    void setupScene();
+    void showImage(const QString& path);
+    void startSelection(const QPoint& pos);
+    void updateSelectionCursor();
 private:
+    enum select_mode_t {
+        NORMAL = 0,
+        SELECT_PAGE,
+        SELECT_TEXT,
+        SELECT_IMAGE,
+        SELECT_TABLE
+    };
+
+    QGraphicsScene * scene_;
     Page * page_;
-    QVBoxLayout * layout_;
-    QGraphicsScene scene_;
-    ImageGraphicsView * view_;
-    Selection * page_area_;
+    QMenu * context_menu_;
+    QRubberBand * rubber_band_;
+    Selection * page_selection_;
+    QPoint selection_origin_;
+    select_mode_t select_mode_;
 };
 
 #endif

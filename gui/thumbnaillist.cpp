@@ -165,7 +165,7 @@ ThumbnailWidget * ThumbnailList::thumb(Page * page) {
 }
 
 void ThumbnailList::thumbClick() {
-    ThumbnailWidget * th = dynamic_cast<ThumbnailWidget*> (QObject::sender());
+    ThumbnailWidget * th = qobject_cast<ThumbnailWidget*> (QObject::sender());
     if (!th)
         return;
 

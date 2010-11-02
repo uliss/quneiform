@@ -151,6 +151,23 @@ bool isCloseToCorner(const QRectF& r, const QPointF& pt, corner_t corner) {
     }
 }
 
+bool isCloseToBorder(const QRectF& r, const QPointF& pt, border_t border) {
+    static const qreal DELTA = 5;
+
+    switch(border) {
+    case LEFT:
+        return borderDistance(r, pt, LEFT) < DELTA;
+    case RIGHT:
+        return borderDistance(r, pt, RIGHT) < DELTA;
+    case TOP:
+        return borderDistance(r, pt, TOP) < DELTA;
+    case BOTTOM:
+        return borderDistance(r, pt, BOTTOM) < DELTA;
+    default:
+        return false;
+    }
+}
+
 void Selection::hoverMoveEvent(QGraphicsSceneHoverEvent * event) {
     if(rect().adjusted(THRESHOLD, THRESHOLD, -THRESHOLD, -THRESHOLD).contains(event->pos()))
         setCursor(QCursor());
@@ -181,6 +198,8 @@ void Selection::keyPressEvent(QKeyEvent * event) {
     case Qt::Key_Right:
         setPos(pos() + QPoint(step, 0));
         break;
+    case Qt::Key_Delete:
+        emit selectionDeleted();
     default:
         break;
     }
@@ -220,6 +239,12 @@ void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
         r.setBottom(event->pos().y());
         setRect(r.normalized());
     }
+
+    if(resize_ == NONE)
+        QGraphicsRectItem::mouseMoveEvent(event);
+//    else
+
+    emit resized();
 }
 
 void Selection::mousePressEvent(QGraphicsSceneMouseEvent * event) {
@@ -237,11 +262,14 @@ void Selection::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
 
 int Selection::resizeMode(const QPointF& pos) const {
     corner_t corner = nearestCorner(rect(), pos);
+    border_t border = nearestBorder(rect(), pos);
 
     if(isCloseToCorner(rect(), pos, corner))
         return corner2resize(corner);
+    else if(isCloseToBorder(rect(), pos, border))
+        return border2resize(border);
     else
-        return border2resize(nearestBorder(rect(), pos));
+        return NONE;
 }
 
 inline bool isVertical(int mode) {

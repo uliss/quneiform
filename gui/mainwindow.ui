@@ -10,6 +10,9 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>Quneiform OCR</string>
   </property>
@@ -17,45 +20,7 @@
    <iconset resource="resources/cuneiform.qrc">
     <normaloff>:/img/cuneiform_logo_22.png</normaloff>:/img/cuneiform_logo_22.png</iconset>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="ThumbnailList" name="thumbs_" native="true"/>
-    </item>
-    <item>
-     <widget class="QSplitter" name="splitter">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <widget class="ImageView" name="image_view_">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>300</height>
-        </size>
-       </property>
-      </widget>
-      <widget class="QTextEdit" name="text_view_">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </widget>
-    </item>
-   </layout>
-  </widget>
+  <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -107,6 +72,9 @@
   <widget class="QToolBar" name="mainToolBar">
    <property name="enabled">
     <bool>true</bool>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::NoContextMenu</enum>
    </property>
    <property name="movable">
     <bool>false</bool>
@@ -302,19 +270,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>ThumbnailList</class>
-   <extends>QWidget</extends>
-   <header>thumbnaillist.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>ImageView</class>
-   <extends>QGraphicsView</extends>
-   <header>imageview.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="resources/cuneiform.qrc"/>
  </resources>

@@ -23,14 +23,19 @@
 #include <QCloseEvent>
 #include <QSignalMapper>
 #include <QProgressDialog>
-#include <qdebug.h>
+#include <QTextEdit>
+#include <QSplitter>
+#include <QHBoxLayout>
+#include <QDebug>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "document.h"
 #include "languageselect.h"
 #include "page.h"
+#include "imagewidget.h"
 #include "thumbnailwidget.h"
+#include "thumbnaillist.h"
 
 static const char * ORGANIZATION = "openocr.org";
 static const char * APPLICATION = "Cuneiform OCR";
@@ -102,11 +107,11 @@ void MainWindow::connectActions() {
     connect(doc_, SIGNAL(saved()), SLOT(documentSave()));
     connect(ui_->actionAbout, SIGNAL(triggered()), SLOT(about()));
     connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImages()));
-    connect(ui_->actionZoom_In, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomIn()));
-    connect(ui_->actionZoom_Out, SIGNAL(triggered()), ui_->image_view_, SLOT(zoomOut()));
-    connect(ui_->actionFitWidth, SIGNAL(triggered()), ui_->image_view_, SLOT(fitWidth()));
-    connect(ui_->actionFitPage, SIGNAL(triggered()), ui_->image_view_, SLOT(fitPage()));
-    connect(ui_->actionOriginalSize, SIGNAL(triggered()), ui_->image_view_, SLOT(originalSize()));
+    connect(ui_->actionZoom_In, SIGNAL(triggered()), image_widget_, SLOT(zoomIn()));
+    connect(ui_->actionZoom_Out, SIGNAL(triggered()), image_widget_, SLOT(zoomOut()));
+    connect(ui_->actionFitWidth, SIGNAL(triggered()), image_widget_, SLOT(fitWidth()));
+    connect(ui_->actionFitPage, SIGNAL(triggered()), image_widget_, SLOT(fitPage()));
+    connect(ui_->actionOriginalSize, SIGNAL(triggered()), image_widget_, SLOT(originalSize()));
     connect(ui_->actionRecognizeAll, SIGNAL(triggered()), SLOT(recognizeAll()));
     connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
     connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
@@ -116,10 +121,14 @@ void MainWindow::connectActions() {
 
 void MainWindow::connectThumbs() {
     Q_CHECK_PTR(ui_);
-    connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
-    connect(ui_->thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
-    connect(ui_->thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
-    connect(ui_->thumbs_, SIGNAL(save(Page*)), SLOT(savePage(Page*)));
+    connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
+    connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
+    connect(thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
+    connect(thumbs_, SIGNAL(save(Page*)), SLOT(savePage(Page*)));
+}
+
+void MainWindow::disableViewActions() {
+    setZoomEnabled(false);
 }
 
 void MainWindow::documentChange() {
@@ -159,7 +168,7 @@ void MainWindow::mapLanguageToolButtonActions() {
 
 bool MainWindow::openImage(const QString& path) {
     Q_CHECK_PTR(doc_);
-    qDebug() << "[MainWindow::openImage]" << path;
+    qDebug() << Q_FUNC_INFO << path;
 
     QFileInfo info(path);
     if(!info.exists()) {
@@ -192,7 +201,6 @@ void MainWindow::openImages() {
 }
 
 void MainWindow::openImages(const QStringList& files) {
-    qDebug() << "[openImages()]";
     delete progress_;
     progress_ = new QProgressDialog(this);
     progress_->setWindowTitle(tr("Quneiform OCR - opening images"));
@@ -270,7 +278,7 @@ void MainWindow::recognizePage(Page * page) {
 }
 
 void MainWindow::rotate(int factor) {
-    Page * p = ui_->thumbs_->currentPage();
+    Page * p = thumbs_->currentPage();
     if (!p) {
         qDebug() << "No page selected";
         return;
@@ -345,6 +353,11 @@ void MainWindow::selectLanguage(int lang) {
     lang_select_->select(lang);
 }
 
+void MainWindow::setupImageView() {
+    image_widget_ = new ImageWidget(this);
+    connect(image_widget_, SIGNAL(pageDeleted()), SLOT(disableViewActions()));
+}
+
 void MainWindow::setupLanguageUi() {
     lang_mapper_ = new QSignalMapper(this);
     lang_select_ = new LanguageSelect(this);
@@ -358,12 +371,43 @@ void MainWindow::setupLanguageUi() {
     connect(lang_mapper_, SIGNAL(mapped(int)), this, SLOT(changeDocumentLanguage(int)));
 }
 
+void MainWindow::setupTextView() {
+    text_view_ = new QTextEdit(this);
+    text_view_->setReadOnly(true);
+}
+
+void MainWindow::setupThumbs() {
+    thumbs_ = new ThumbnailList(this);
+    thumbs_->setDocument(doc_);
+}
+
 void MainWindow::setupUi() {
     setUnifiedTitleAndToolBarOnMac(true);
     ui_->setupUi(this);
-    ui_->thumbs_->setDocument(doc_);
     setZoomEnabled(false);
     setupLanguageUi();
+    setupThumbs();
+    setupImageView();
+    setupTextView();
+    setupUiLayout();
+}
+
+void MainWindow::setupUiLayout() {
+    main_layout_ = new QHBoxLayout;
+    main_layout_->setSpacing(0);
+    main_layout_->setMargin(1);
+    main_layout_->setContentsMargins(0, 0, 0, 0);
+
+    main_layout_->addWidget(thumbs_);
+
+    QSplitter * spl = new QSplitter(Qt::Vertical);
+    spl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    spl->addWidget(image_widget_);
+    spl->addWidget(text_view_);
+
+    main_layout_->addWidget(spl);
+
+    ui_->centralWidget->setLayout(main_layout_);
 }
 
 void MainWindow::setZoomEnabled(bool value) {
@@ -373,20 +417,22 @@ void MainWindow::setZoomEnabled(bool value) {
     ui_->actionFitPage->setEnabled(value);
     ui_->actionRotateLeft->setEnabled(value);
     ui_->actionRotateRight->setEnabled(value);
+    ui_->actionOriginalSize->setEnabled(value);
 }
 
 void MainWindow::showPageImage(Page * page) {
-    qDebug() << "[MainWindow::showPageImage]" << page;
+    qDebug() << Q_FUNC_INFO << page;
     Q_CHECK_PTR(page);
-    statusBar()->showMessage(QFileInfo(page->imagePath()).fileName());
+
     setZoomEnabled(true);
-    ui_->image_view_->showPage(page);
+    statusBar()->showMessage(QFileInfo(page->imagePath()).fileName());
+    image_widget_->showPage(page);
 }
 
 void MainWindow::showPageText(Page * page) {
     Q_CHECK_PTR(page);
-    Q_CHECK_PTR(ui_->text_view_);
-    ui_->text_view_->document()->setHtml(page->ocrText());
+    Q_CHECK_PTR(text_view_);
+    text_view_->document()->setHtml(page->ocrText());
 }
 
 void MainWindow::writeSettings() {

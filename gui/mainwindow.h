@@ -28,8 +28,12 @@ class MainWindow;
 class Document;
 class LanguageSelect;
 class Page;
+class ImageWidget;
+class ThumbnailList;
 class QSignalMapper;
 class QProgressDialog;
+class QTextEdit;
+class QHBoxLayout;
 
 class MainWindow: public QMainWindow {
     Q_OBJECT
@@ -57,6 +61,8 @@ public slots:
     void savePage(Page * page);
     void showPageImage(Page * page);
     void showPageText(Page * page);
+private slots:
+    void disableViewActions();
 private:
     void connectActions();
     void connectThumbs();
@@ -66,8 +72,12 @@ private:
     bool openImage(const QString& path);
     void readSettings();
     void selectLanguage(int lang);
+    void setupImageView();
     void setupLanguageUi();
+    void setupTextView();
+    void setupThumbs();
     void setupUi();
+    void setupUiLayout();
     void writeSettings();
     void setZoomEnabled(bool value);
 private:
@@ -77,6 +87,10 @@ private:
     QSignalMapper * lang_mapper_;
     QMenu * lang_menu_;
     QProgressDialog * progress_;
+    ImageWidget * image_widget_;
+    QTextEdit * text_view_;
+    ThumbnailList * thumbs_;
+    QHBoxLayout * main_layout_;
 };
 
 #endif // MAINWINDOW_H
