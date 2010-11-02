@@ -146,6 +146,7 @@ void Document::remove(Page * page) {
     emit pageRemoved(page);
     pages_.removeAll(page);
     delete page;
+    pageChange();
     qDebug() << "[Document::remove()]";
 }
 
