@@ -230,25 +230,36 @@ void Page::setLanguage(const QString& code) {
 }
 
 void Page::setNumber(unsigned int number) {
+    if(number_ == number)
+        return;
+
     number_ = number;
     emit changed();
 }
 
 void Page::setPageArea(const QRectF& area) {
+    if(page_area_ == area)
+        return;
+
     page_area_ = area;
+    emit changed();
 }
 
 void Page::setSelected(bool value) {
+    if(is_selected_ == value)
+        return;
+
     is_selected_ = value;
     emit changed();
 }
 
 void Page::setTransform(const QTransform& t) {
-    if(transform_ != t) {
-        transform_ = t;
-        emit changed();
-        emit transformed();
-    }
+    if(transform_ == t)
+        return;
+
+    transform_ = t;
+    emit changed();
+    emit transformed();
 }
 
 QTransform Page::transform() const {
