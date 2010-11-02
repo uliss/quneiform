@@ -266,6 +266,7 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.is_selected_
             << page.r_page_
             << page.r_fragment_
+            << page.page_area_
             << page.language_
             << page.transform_
             << page.is_null_;
@@ -282,6 +283,7 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.is_selected_
             >> page.r_page_
             >> page.r_fragment_
+            >> page.page_area_
             >> page.language_
             >> page.transform_
             >> page.is_null_;
