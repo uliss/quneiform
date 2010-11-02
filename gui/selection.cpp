@@ -242,7 +242,6 @@ void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
 
     if(resize_ == NONE)
         QGraphicsRectItem::mouseMoveEvent(event);
-//    else
 
     emit resized();
 }

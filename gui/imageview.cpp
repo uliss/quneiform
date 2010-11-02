@@ -126,7 +126,7 @@ void ImageView::createPageSelection(const QRect& rect) {
     page_selection_ = new Selection(mapToScene(rect).boundingRect());
     page_selection_->setZValue(1);
     connect(page_selection_, SIGNAL(cursorChange(int)), SLOT(changeSelectionCursor(int)));
-    connect(page_selection_, SIGNAL(selectionDeleted()), SLOT(deleteSelection()));
+    connect(page_selection_, SIGNAL(selectionDeleted()), SLOT(deletePageSelection()));
     connect(page_selection_, SIGNAL(resized()), SLOT(savePageSelection()));
     scene_->addItem(page_selection_);
 }
@@ -141,7 +141,7 @@ void ImageView::deletePage() {
     }
 }
 
-void ImageView::deleteSelection() {
+void ImageView::deletePageSelection() {
     delete page_selection_;
     page_selection_ = NULL;
 }
@@ -180,7 +180,7 @@ void ImageView::finishSelection(const QPoint& pos) {
 
     switch(select_mode_) {
     case SELECT_PAGE:
-        finishPageSelection(QRect(selection_origin_, pos).normalized());
+        finishPageSelection(QRect(selection_start_, pos).normalized());
         break;
     default:
         qDebug() << Q_FUNC_INFO << "not implemented yet for " << select_mode_;
@@ -197,7 +197,7 @@ void ImageView::fitPage() {
     else
         fitInView(sceneRect(), Qt::KeepAspectRatio);
 
-    saveViewTransform();
+    savePageTransform();
 }
 
 void ImageView::fitWidth() {
@@ -217,7 +217,7 @@ void ImageView::fitWidth() {
         fitInView(scene_rect, Qt::KeepAspectRatio);
     }
 
-    saveViewTransform();
+    savePageTransform();
 }
 
 bool ImageView::gestureEvent(QGestureEvent * event) {
@@ -277,7 +277,7 @@ void ImageView::resizeSelection(const QPoint& pos) {
         return;
 
     if(rubber_band_)
-        rubber_band_->setGeometry(QRect(selection_origin_, pos).normalized());
+        rubber_band_->setGeometry(QRect(selection_start_, pos).normalized());
 }
 
 void ImageView::restorePageSelection() {
@@ -289,24 +289,26 @@ void ImageView::restorePageSelection() {
     if(!page_selection_)
         createPageSelection(QRect());
 
+    page_selection_->setPos(QPointF());
     page_selection_->setRect(page_->pageArea());
+
 
     if(!scene_->items().contains(page_selection_))
         scene_->addItem(page_selection_);
-
-    qDebug() << "Selection restored: " << page_->pageArea();
-    qDebug() << page_selection_->rect();
 }
 
 void ImageView::savePageSelection() {
     HAS_PAGE()
-    if(page_selection_)
-        page_->setPageArea(page_selection_->rect());
+    if(page_selection_) {
+        QPointF p = page_selection_->pos() + page_selection_->rect().topLeft();
+        QRectF r(p, page_selection_->rect().size());
+        page_->setPageArea(r);
+    }
     else
         page_->setPageArea(QRect());
 }
 
-void ImageView::saveViewTransform() {
+void ImageView::savePageTransform() {
     HAS_PAGE()
     page_->setTransform(transform());
 }
@@ -369,14 +371,16 @@ void ImageView::startSelection(const QPoint& pos) {
     if(!page_ || select_mode_ == NORMAL)
         return;
 
-    selection_origin_ = pos;
+    // delete previous selection
+    deletePageSelection();
+
+    selection_start_ = pos;
 
     if (!rubber_band_)
         createRubberBand();
 
-    rubber_band_->setGeometry(QRect(selection_origin_, QSize()));
+    rubber_band_->setGeometry(QRect(selection_start_, QSize()));
     rubber_band_->show();
-    deleteSelection();
 }
 
 void ImageView::updateSelectionCursor() {

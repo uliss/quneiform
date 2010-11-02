@@ -53,7 +53,7 @@ protected:
 private slots:
     void changeSelectionCursor(int type);
     void deletePage();
-    void deleteSelection();
+    void deletePageSelection();
     void savePageSelection();
     void selectPageArea();
     void updateTransform();
@@ -68,7 +68,7 @@ private:
     void finishSelection(const QPoint& pos);
     void resizeSelection(const QPoint& pos);
     void restorePageSelection();
-    void saveViewTransform();
+    void savePageTransform();
     void setPageSelection(const QRect& rect);
     void setupScene();
     void showImage(const QString& path);
@@ -88,7 +88,7 @@ private:
     QMenu * context_menu_;
     QRubberBand * rubber_band_;
     Selection * page_selection_;
-    QPoint selection_origin_;
+    QPoint selection_start_;
     select_mode_t select_mode_;
 };
 
