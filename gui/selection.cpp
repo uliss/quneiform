@@ -170,16 +170,16 @@ void Selection::keyPressEvent(QKeyEvent * event) {
 
     switch(event->key()) {
     case Qt::Key_Up:
-        moveBy(QPointF(0, -step));
+        emit moved(QPointF(0, -step));
         break;
     case Qt::Key_Down:
-        moveBy(QPointF(0, step));
+        emit moved(QPointF(0, step));
         break;
     case Qt::Key_Left:
-        moveBy(QPointF(-step, 0));
+        emit moved(QPointF(-step, 0));
         break;
     case Qt::Key_Right:
-        moveBy(QPointF(step, 0));
+        emit moved(QPointF(step, 0));
         break;
     case Qt::Key_Delete:
         emit selectionDeleted();

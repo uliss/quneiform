@@ -129,6 +129,7 @@ void ImageView::createPageSelection(const QRect& rect) {
     connect(page_selection_, SIGNAL(cursorChange(int)), SLOT(changeSelectionCursor(int)));
     connect(page_selection_, SIGNAL(selectionDeleted()), SLOT(deletePageSelection()));
     connect(page_selection_, SIGNAL(resized()), SLOT(savePageSelection()));
+    connect(page_selection_, SIGNAL(moved(QPointF)), SLOT(movePageSelection(QPointF)));
     page_shadow_ = new SelectionShadow(page_selection_);
     scene_->addItem(page_selection_);
 }
@@ -253,6 +254,14 @@ void ImageView::mousePressEvent(QMouseEvent * event) {
 void ImageView:: mouseReleaseEvent(QMouseEvent * event) {
     QGraphicsView::mouseReleaseEvent(event);
     finishSelection(event->pos());
+}
+
+void ImageView::movePageSelection(const QPointF& delta) {
+    QTransform t = transform();
+    if(t.isRotating())
+        t.rotate(180);
+
+    page_selection_->moveBy(t.map(delta));
 }
 
 void ImageView::originalSize() {

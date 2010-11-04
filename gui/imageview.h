@@ -55,6 +55,7 @@ private slots:
     void changeSelectionCursor(int type);
     void deletePage();
     void deletePageSelection();
+    void movePageSelection(const QPointF& delta);
     void savePageSelection();
     void selectPageArea();
     void updateTransform();

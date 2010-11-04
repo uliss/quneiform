@@ -52,8 +52,11 @@ public:
         DIAGONAL_RIGHT = 4
     };
 
+    void moveBy(const QPointF& delta);
+
  signals:
     void cursorChange(int type);
+    void moved(const QPointF& delta);
     void selectionDeleted();
     void resized();
 protected:
@@ -70,7 +73,6 @@ private:
     bool isCloseToBorder(const QPointF& pt, Selection::border_t border) const;
     bool isCloseToCorner(const QPointF& pt, corner_t corner) const;
     bool isResizing() const;
-    void moveBy(const QPointF& delta);
     border_t nearestBorder(const QPointF& pt) const;
     qreal nearestBorderDistance(const QPointF& pt) const;
     corner_t nearestCorner(const QPointF& pt) const;
