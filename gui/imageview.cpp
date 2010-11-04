@@ -43,7 +43,7 @@ static const int ROTATE_THRESHOLD = 3;
 
 ImageView::ImageView(QWidget * parent) :
         QGraphicsView(parent), scene_(NULL), page_(NULL), context_menu_(NULL),
-        rubber_band_(NULL), page_selection_(NULL) {
+        rubber_band_(NULL), page_selection_(NULL), select_mode_(NORMAL) {
     activate(false);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setBackgroundRole(QPalette::Dark);

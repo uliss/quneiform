@@ -64,6 +64,7 @@ private:
     void createRubberBand();
     void createPageSelection(const QRect& rect);
     void disconnectPageSignals(Page * page);
+    void drawPageSelectionShadow();
     void finishPageSelection(const QRect& rect);
     void finishSelection(const QPoint& pos);
     void resizeSelection(const QPoint& pos);

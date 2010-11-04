@@ -3,13 +3,13 @@ set(PROJECT "quneiform")
 set (HEADERS 
     document.h
     imagecache.h
- #   imagegraphicsview.h
     imageview.h
     imagewidget.h
     languageselect.h
     mainwindow.h
     page.h
     selection.h
+    selectionshadow.h
     thumbnaillist.h
     thumbnailwidget.h
     widgetbar.h
@@ -18,7 +18,6 @@ set (HEADERS
 set (SOURCES 
     document.cpp
     imagecache.cpp
-#    imagegraphicsview.cpp
     imageview.cpp
     imagewidget.cpp
     languageselect.cpp
@@ -26,6 +25,7 @@ set (SOURCES
     main.cpp
     page.cpp
     selection.cpp
+    selectionshadow.cpp
     thumbnaillist.cpp
     thumbnailwidget.cpp
     widgetbar.cpp

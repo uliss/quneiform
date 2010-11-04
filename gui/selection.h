@@ -23,6 +23,8 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 
+class SelectionShadow;
+
 class Selection : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
@@ -79,6 +81,7 @@ private:
     void setResizeCursor(const QPointF& pos);
 private:
     char resize_;
+    SelectionShadow * shadow_;
 };
 
 #endif // SELECTION_H
