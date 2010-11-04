@@ -25,6 +25,7 @@
 #include <QGraphicsScene>
 #include <QKeyEvent>
 
+#include <map>
 #include <algorithm>
 
 #include "selection.h"
@@ -49,123 +50,33 @@ Selection::Selection(const QRectF& area) : QGraphicsRectItem(area), resize_(NONE
     setFlag(QGraphicsItem::ItemIsFocusable, true);
 }
 
+qreal Selection::borderDistance(const QPointF& pt, Selection::border_t border) const {
+    switch(border) {
+    case Selection::LEFT:
+        return qAbs(rect().left() - pt.x());
+    case Selection::RIGHT:
+        return qAbs(rect().right() - pt.x());
+    case Selection::TOP:
+        return qAbs(rect().top() - pt.y());
+    case Selection::BOTTOM:
+        return qAbs(rect().bottom() - pt.y());
+    }
+}
+
+int Selection::bordersResized(const QPointF& pos) const {
+    corner_t corner = nearestCorner(pos);
+    border_t border = nearestBorder(pos);
+
+    if(isCloseToCorner(pos, corner))
+        return corner;
+    else if(isCloseToBorder(pos, border))
+        return border;
+    else
+        return NONE;
+}
+
 void Selection::hoverEnterEvent(QGraphicsSceneHoverEvent * event) {
     setResizeCursor(event->pos());
-}
-
-template<class T> size_t array_size(const T& t) {
-    return sizeof(t) / sizeof(t[0]);
-}
-
-enum border_t {
-    // don't change sequential order!
-    LEFT = 0,
-    RIGHT = 1,
-    TOP = 2,
-    BOTTOM = 3
-};
-
-inline qreal borderDistance(const QRectF& r, const QPointF& pt, border_t border) {
-    switch(border) {
-    case LEFT:
-        return qAbs(r.left() - pt.x());
-    case RIGHT:
-        return qAbs(r.right() - pt.x());
-    case TOP:
-        return qAbs(r.top() - pt.y());
-    case BOTTOM:
-        return qAbs(r.bottom() - pt.y());
-    }
-}
-
-inline Selection::resize_t border2resize(border_t border) {
-    static const Selection::resize_t tbl[] = {
-        Selection::LEFT,
-        Selection::RIGHT,
-        Selection::UP,
-        Selection::DOWN
-    };
-
-    Q_ASSERT(0 <= border && border < array_size(tbl));
-
-    return tbl[border];
-}
-
-border_t nearestBorder(const QRectF& r, const QPointF& pt) {
-    qreal v[4];
-    const size_t sz = array_size(v);
-    v[LEFT] = borderDistance(r, pt, LEFT);
-    v[RIGHT] =  borderDistance(r, pt, RIGHT);
-    v[TOP] =  borderDistance(r, pt, TOP);
-    v[BOTTOM] =  borderDistance(r, pt, BOTTOM);
-
-    return static_cast<border_t>(std::distance(v, std::min_element(v, v + sz)));
-}
-
-qreal nearestBorderDistance(const QRectF& r, const QPointF& pt) {
-    return qMin(borderDistance(r, pt, LEFT),
-                qMin(borderDistance(r, pt, RIGHT),
-                     qMin(borderDistance(r, pt, TOP), borderDistance(r, pt, BOTTOM))));
-}
-
-enum corner_t {
-    LEFT_TOP = 0,
-    RIGHT_TOP = 1,
-    RIGHT_BOTTOM = 2,
-    LEFT_BOTTOM = 3
-};
-
-inline int corner2resize(corner_t corner) {
-    static const int tbl[] = {
-        Selection::LEFT | Selection::UP,
-        Selection::RIGHT | Selection::UP,
-        Selection::RIGHT | Selection::DOWN,
-        Selection::LEFT | Selection::DOWN
-    };
-
-    Q_ASSERT(0 <= corner && corner < array_size(tbl));
-
-    return tbl[corner];
-}
-
-corner_t nearestCorner(const QRectF& r, const QPointF& pt) {
-    QPointF rel = pt - r.center();
-    if(rel.x() > 0)
-        return rel.y() < 0 ? RIGHT_TOP : RIGHT_BOTTOM;
-    else
-        return rel.y() < 0 ? LEFT_TOP : LEFT_BOTTOM;
-}
-
-bool isCloseToCorner(const QRectF& r, const QPointF& pt, corner_t corner) {
-    static const qreal DELTA = 10.0;
-
-    switch(corner) {
-    case LEFT_TOP:
-        return qAbs(borderDistance(r, pt, LEFT) - borderDistance(r, pt, TOP)) < DELTA;
-    case LEFT_BOTTOM:
-        return qAbs(borderDistance(r, pt, LEFT) - borderDistance(r, pt, BOTTOM)) < DELTA;
-    case RIGHT_TOP:
-        return qAbs(borderDistance(r, pt, RIGHT) - borderDistance(r, pt, TOP)) < DELTA;
-    case RIGHT_BOTTOM:
-        return qAbs(borderDistance(r, pt, RIGHT) - borderDistance(r, pt, BOTTOM)) < DELTA;
-    }
-}
-
-bool isCloseToBorder(const QRectF& r, const QPointF& pt, border_t border) {
-    static const qreal DELTA = 5;
-
-    switch(border) {
-    case LEFT:
-        return borderDistance(r, pt, LEFT) < DELTA;
-    case RIGHT:
-        return borderDistance(r, pt, RIGHT) < DELTA;
-    case TOP:
-        return borderDistance(r, pt, TOP) < DELTA;
-    case BOTTOM:
-        return borderDistance(r, pt, BOTTOM) < DELTA;
-    default:
-        return false;
-    }
 }
 
 void Selection::hoverMoveEvent(QGraphicsSceneHoverEvent * event) {
@@ -179,8 +90,75 @@ void Selection::hoverLeaveEvent(QGraphicsSceneHoverEvent * event) {
    setCursor(QCursor());
 }
 
+bool Selection::isCloseToBorder(const QPointF& pt, Selection::border_t border) const {
+    static const qreal DELTA = 5;
+
+    switch(border) {
+    case Selection::LEFT:
+        return borderDistance(pt, Selection::LEFT) < DELTA;
+    case Selection::RIGHT:
+        return borderDistance(pt, Selection::RIGHT) < DELTA;
+    case Selection::TOP:
+        return borderDistance(pt, Selection::TOP) < DELTA;
+    case Selection::BOTTOM:
+        return borderDistance(pt, Selection::BOTTOM) < DELTA;
+    default:
+        return false;
+    }
+}
+
+bool Selection::isCloseToCorner(const QPointF& pt, corner_t corner) const {
+    static const qreal DELTA = 10.0;
+
+    switch(corner) {
+    case LEFT_TOP:
+        return qAbs(borderDistance(pt, Selection::LEFT) - borderDistance(pt, Selection::TOP)) < DELTA;
+    case LEFT_BOTTOM:
+        return qAbs(borderDistance(pt, Selection::LEFT) - borderDistance(pt, Selection::BOTTOM)) < DELTA;
+    case RIGHT_TOP:
+        return qAbs(borderDistance(pt, Selection::RIGHT) - borderDistance(pt, Selection::TOP)) < DELTA;
+    case RIGHT_BOTTOM:
+        return qAbs(borderDistance(pt, Selection::RIGHT) - borderDistance(pt, Selection::BOTTOM)) < DELTA;
+    }
+}
+
 bool Selection::isResizing() const {
     return resize_ != NONE;
+}
+
+typedef std::map<Selection::border_t, qreal> dist_map_t;
+typedef dist_map_t::value_type border_dist_t;
+
+bool distCmp(const border_dist_t& d0, const border_dist_t& d1) {
+    return d0.second < d1.second;
+}
+
+Selection::border_t Selection::nearestBorder(const QPointF& pt) const {
+    dist_map_t map;
+
+    map[Selection::LEFT] = borderDistance(pt, Selection::LEFT);
+    map[Selection::RIGHT] =  borderDistance(pt, Selection::RIGHT);
+    map[Selection::TOP] =  borderDistance(pt, Selection::TOP);
+    map[Selection::BOTTOM] =  borderDistance(pt, Selection::BOTTOM);
+
+    return std::min_element(map.begin(),
+                            map.end(),
+                            distCmp)->first;
+}
+
+qreal Selection::nearestBorderDistance(const QPointF& pt) const {
+    return qMin(borderDistance(pt, Selection::LEFT),
+                qMin(borderDistance(pt, Selection::RIGHT),
+                     qMin(borderDistance(pt, Selection::TOP),
+                          borderDistance(pt, Selection::BOTTOM))));
+}
+
+Selection::corner_t Selection::nearestCorner(const QPointF& pt) const {
+    QPointF rel = pt - rect().center();
+    if(rel.x() > 0)
+        return rel.y() < 0 ? RIGHT_TOP : RIGHT_BOTTOM;
+    else
+        return rel.y() < 0 ? LEFT_TOP : LEFT_BOTTOM;
 }
 
 void Selection::keyPressEvent(QKeyEvent * event) {
@@ -241,7 +219,7 @@ void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
 
 void Selection::mousePressEvent(QGraphicsSceneMouseEvent * event) {
     QGraphicsRectItem::mousePressEvent(event);
-    resize_ = resizeMode(event->pos());
+    resize_ = bordersResized(event->pos());
 
     if(!resize_)
         setCursor(Qt::SizeAllCursor);
@@ -271,7 +249,7 @@ void Selection::resizeBy(const QPointF& delta) {
             return;
     }
 
-    if(resize_ & UP) {
+    if(resize_ & TOP) {
         new_r.setTop(rect().top() + delta.y());
         if(new_r.top() < 0)
             new_r.setTop(0);
@@ -279,7 +257,7 @@ void Selection::resizeBy(const QPointF& delta) {
             return;
     }
 
-    if(resize_ & DOWN) {
+    if(resize_ & BOTTOM) {
         new_r.setBottom(rect().bottom() + delta.y());
         if(new_r.bottom() > sceneRect().bottom())
             new_r.setBottom(sceneRect().bottom());
@@ -290,20 +268,8 @@ void Selection::resizeBy(const QPointF& delta) {
     setRect(new_r.normalized());
 }
 
-int Selection::resizeMode(const QPointF& pos) const {
-    corner_t corner = nearestCorner(rect(), pos);
-    border_t border = nearestBorder(rect(), pos);
-
-    if(isCloseToCorner(rect(), pos, corner))
-        return corner2resize(corner);
-    else if(isCloseToBorder(rect(), pos, border))
-        return border2resize(border);
-    else
-        return NONE;
-}
-
 inline bool isVertical(int mode) {
-    return mode & Selection::UP || mode & Selection::DOWN;
+    return mode & Selection::TOP || mode & Selection::BOTTOM;
 }
 
 QRectF Selection::sceneRect() const {
@@ -311,7 +277,7 @@ QRectF Selection::sceneRect() const {
 }
 
 void Selection::setResizeCursor(const QPointF& pos) {
-    int mode = resizeMode(pos);
+    int mode = bordersResized(pos);
 
     if(!mode) {
         emit cursorChange(NORMAL);
@@ -320,9 +286,9 @@ void Selection::setResizeCursor(const QPointF& pos) {
 
     if(isVertical(mode)) {
         if(mode & LEFT)
-            emit cursorChange(mode & UP ? DIAGONAL_LEFT : DIAGONAL_RIGHT);
+            emit cursorChange(mode & TOP ? DIAGONAL_LEFT : DIAGONAL_RIGHT);
         else if(mode & RIGHT)
-            emit cursorChange(mode & DOWN ? DIAGONAL_LEFT : DIAGONAL_RIGHT);
+            emit cursorChange(mode & BOTTOM ? DIAGONAL_LEFT : DIAGONAL_RIGHT);
         else
             emit cursorChange(VERTICAL);
     }

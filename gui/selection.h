@@ -29,12 +29,19 @@ class Selection : public QObject, public QGraphicsRectItem
 public:
     Selection(const QRectF& = QRectF());
 
-    enum resize_t {
+    enum border_t {
         NONE = 0,
         LEFT = 1,
         RIGHT = 2,
-        UP = 4,
-        DOWN = 8
+        TOP = 4,
+        BOTTOM = 8
+    };
+
+    enum corner_t {
+        LEFT_TOP = Selection::LEFT | Selection::TOP,
+        RIGHT_TOP = Selection::RIGHT | Selection::TOP,
+        RIGHT_BOTTOM = Selection::RIGHT | Selection::BOTTOM,
+        LEFT_BOTTOM = Selection::LEFT | Selection::BOTTOM
     };
 
     enum cursor_t {
@@ -58,10 +65,16 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent * event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
 private:
+    qreal borderDistance(const QPointF& pt, Selection::border_t border) const;
+    int bordersResized(const QPointF& pos) const;
+    bool isCloseToBorder(const QPointF& pt, Selection::border_t border) const;
+    bool isCloseToCorner(const QPointF& pt, corner_t corner) const;
     bool isResizing() const;
     void moveBy(const QPointF& delta);
+    border_t nearestBorder(const QPointF& pt) const;
+    qreal nearestBorderDistance(const QPointF& pt) const;
+    corner_t nearestCorner(const QPointF& pt) const;
     void resizeBy(const QPointF& delta);
-    int resizeMode(const QPointF& pos) const;
     QRectF sceneRect() const;
     void setResizeCursor(const QPointF& pos);
 private:
