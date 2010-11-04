@@ -24,19 +24,19 @@
 class QMenu;
 
 class LanguageSelect : public QToolButton {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	LanguageSelect(QWidget * parent = 0);
-        QString currentLanguage() const;
-	void select(int langCode);
+    LanguageSelect(QWidget * parent = 0);
+    QString currentLanguage() const;
+    void select(int langCode);
 public:
-	static QStringList supportedLanguages();
-	static void fillLanguageMenu(QMenu* menu);
+    static QStringList supportedLanguages();
+    static void fillLanguageMenu(QMenu* menu);
 private:
-	void initLanguages();
+    void initLanguages();
 private:
-	QMenu * menu_;
-	int current_language_;
+    QMenu * menu_;
+    int current_language_;
 };
 
 
