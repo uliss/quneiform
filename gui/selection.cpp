@@ -179,65 +179,28 @@ void Selection::hoverLeaveEvent(QGraphicsSceneHoverEvent * event) {
    setCursor(QCursor());
 }
 
-bool Selection::isValidPoint(const QPointF& pos) const {
-    Q_CHECK_PTR(scene());
-    if(pos.x() < 0 || sceneRect().width() < pos.x())
-        return false;
-    if(pos.y() < 0 || sceneRect().height() < pos.y())
-        return false;
-    return true;
-}
-
-bool Selection::isValidRect(const QRectF& rect) const {
-    Q_CHECK_PTR(scene());
-    if(rect.left() < 0 || sceneRect().right() < rect.right())
-        return false;
-    if(rect.top() < 0 || sceneRect().bottom() < rect.bottom())
-        return false;
-
-    return true;
+bool Selection::isResizing() const {
+    return resize_ != NONE;
 }
 
 void Selection::keyPressEvent(QKeyEvent * event) {
-    int step = MOVE_STEP;
+    qreal step = MOVE_STEP;
 
     if(event->modifiers() & Qt::ControlModifier)
         step *= MOVE_FAST_FACTOR;
 
-    QRectF r = rect();
-
     switch(event->key()) {
     case Qt::Key_Up:
-        r.moveTo(r.topLeft() + QPoint(0, -step));
-
-        if(!isValidRect(r))
-            return;
-
-        setRect(r);
+        moveBy(QPointF(0, -step));
         break;
     case Qt::Key_Down:
-        r.moveTo(r.topLeft() + QPoint(0, step));
-
-        if(!isValidRect(r))
-            return;
-
-        setRect(r);
+        moveBy(QPointF(0, step));
         break;
     case Qt::Key_Left:
-        r.moveTo(r.topLeft() + QPoint(-step, 0));
-
-        if(!isValidRect(r))
-            return;
-
-        setRect(r);
+        moveBy(QPointF(-step, 0));
         break;
     case Qt::Key_Right:
-        r.moveTo(r.topLeft() + QPoint(step, 0));
-
-        if(!isValidRect(r))
-            return;
-
-        setRect(r);
+        moveBy(QPointF(step, 0));
         break;
     case Qt::Key_Delete:
         emit selectionDeleted();
@@ -266,22 +229,12 @@ void Selection::moveBy(const QPointF& delta) {
 }
 
 void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
-    QRectF r = rect();
+    QPointF move_delta = event->pos() - event->lastPos();
 
-    if(resize_ & LEFT)
-        resizeBy(LEFT, event->pos().x() - event->lastPos().x());
-
-    if(resize_ & RIGHT)
-        resizeBy(RIGHT, event->pos().x() - event->lastPos().x());
-
-    if(resize_ & UP)
-        resizeBy(UP, event->pos().y() - event->lastPos().y());
-
-    if(resize_ & DOWN)
-        resizeBy(DOWN, event->pos().y() - event->lastPos().y());
-
-    if(resize_ == NONE)
-        moveBy(event->pos() - event->lastPos());
+    if(isResizing())
+        resizeBy(move_delta);
+    else
+        moveBy(move_delta);
 
     emit resized();
 }
@@ -299,44 +252,39 @@ void Selection::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
 //    setSelected(false);
 }
 
-void Selection::resizeBy(resize_t border, qreal delta) {
+void Selection::resizeBy(const QPointF& delta) {
     QRectF new_r = rect();
 
-    switch(border) {
-    case LEFT: {
-            new_r.setLeft(rect().left() + delta);
-            if(new_r.left() < 0)
-                new_r.setLeft(0);
-            if(new_r.width() < MIN_WIDTH)
-                return;
-        }
-        break;
-    case RIGHT: {
-            new_r.setRight(rect().right() + delta);
-            if(new_r.right() > sceneRect().right())
-                new_r.setRight(sceneRect().right());
-            if(new_r.width() < MIN_WIDTH)
-                return;
-        }
-        break;
-    case UP: {
-            new_r.setTop(rect().top() + delta);
-            if(new_r.top() < 0)
-                new_r.setTop(0);
-            if(new_r.height() < MIN_HEIGHT)
-                return;
-        }
-        break;
-    case DOWN: {
-            new_r.setBottom(rect().bottom() + delta);
-            if(new_r.bottom() > sceneRect().bottom())
-                new_r.setBottom(sceneRect().bottom());
-            if(new_r.height() < MIN_HEIGHT)
-                return;
-        }
-        break;
-    default:
-        return;
+    if(resize_ & LEFT) {
+        new_r.setLeft(rect().left() + delta.x());
+        if(new_r.left() < 0)
+            new_r.setLeft(0);
+        if(new_r.width() < MIN_WIDTH)
+            return;
+    }
+
+    if(resize_ & RIGHT) {
+        new_r.setRight(rect().right() + delta.x());
+        if(new_r.right() > sceneRect().right())
+            new_r.setRight(sceneRect().right());
+        if(new_r.width() < MIN_WIDTH)
+            return;
+    }
+
+    if(resize_ & UP) {
+        new_r.setTop(rect().top() + delta.y());
+        if(new_r.top() < 0)
+            new_r.setTop(0);
+        if(new_r.height() < MIN_HEIGHT)
+            return;
+    }
+
+    if(resize_ & DOWN) {
+        new_r.setBottom(rect().bottom() + delta.y());
+        if(new_r.bottom() > sceneRect().bottom())
+            new_r.setBottom(sceneRect().bottom());
+        if(new_r.height() < MIN_HEIGHT)
+            return;
     }
 
     setRect(new_r.normalized());

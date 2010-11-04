@@ -58,10 +58,9 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent * event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
 private:
-    bool isValidPoint(const QPointF& pos) const;
-    bool isValidRect(const QRectF& rect) const;
+    bool isResizing() const;
     void moveBy(const QPointF& delta);
-    void resizeBy(resize_t direction, qreal delta);
+    void resizeBy(const QPointF& delta);
     int resizeMode(const QPointF& pos) const;
     QRectF sceneRect() const;
     void setResizeCursor(const QPointF& pos);
