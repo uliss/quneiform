@@ -45,7 +45,7 @@ public:
         DIAGONAL_RIGHT = 4
     };
 
-signals:
+ signals:
     void cursorChange(int type);
     void selectionDeleted();
     void resized();
@@ -58,6 +58,8 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent * event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
 private:
+    bool isValidPoint(const QPointF& pos) const;
+    bool isValidRect(const QRectF& rect) const;
     int resizeMode(const QPointF& pos) const;
     void setResizeCursor(const QPointF& pos);
 private:

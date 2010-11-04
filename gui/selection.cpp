@@ -179,24 +179,65 @@ void Selection::hoverLeaveEvent(QGraphicsSceneHoverEvent * event) {
    setCursor(QCursor());
 }
 
+bool Selection::isValidPoint(const QPointF& pos) const {
+    Q_CHECK_PTR(scene());
+    if(pos.x() < 0 || scene()->sceneRect().width() < pos.x())
+        return false;
+    if(pos.y() < 0 || scene()->sceneRect().height() < pos.y())
+        return false;
+    return true;
+}
+
+bool Selection::isValidRect(const QRectF& rect) const {
+    Q_CHECK_PTR(scene());
+    if(rect.x() < 0 || scene()->sceneRect().width() < rect.topRight().x())
+        return false;
+    if(rect.y() < 0 || scene()->sceneRect().height() < rect.bottomRight().y())
+        return false;
+
+    return true;
+}
+
 void Selection::keyPressEvent(QKeyEvent * event) {
     int step = MOVE_STEP;
 
     if(event->modifiers() & Qt::ControlModifier)
         step *= MOVE_FAST_FACTOR;
 
+    QRectF r = rect();
+
     switch(event->key()) {
     case Qt::Key_Up:
-        setPos(pos() + QPoint(0, -step));
+        r.moveTo(r.topLeft() + QPoint(0, -step));
+
+        if(!isValidRect(r))
+            return;
+
+        setRect(r);
         break;
     case Qt::Key_Down:
-        setPos(pos() + QPoint(0, step));
+        r.moveTo(r.topLeft() + QPoint(0, step));
+
+        if(!isValidRect(r))
+            return;
+
+        setRect(r);
         break;
     case Qt::Key_Left:
-        setPos(pos() + QPoint(-step, 0));
+        r.moveTo(r.topLeft() + QPoint(-step, 0));
+
+        if(!isValidRect(r))
+            return;
+
+        setRect(r);
         break;
     case Qt::Key_Right:
-        setPos(pos() + QPoint(step, 0));
+        r.moveTo(r.topLeft() + QPoint(step, 0));
+
+        if(!isValidRect(r))
+            return;
+
+        setRect(r);
         break;
     case Qt::Key_Delete:
         emit selectionDeleted();
@@ -212,12 +253,18 @@ void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
         if(r.width() < MIN_WIDTH && (r.left() < event->pos().x()))
             return;
 
+        if(!isValidPoint(event->pos()))
+            return;
+
         r.setLeft(event->pos().x());
         setRect(r.normalized());
     }
 
     if(resize_ & RIGHT) {
         if(r.width() < MIN_WIDTH && (event->pos().x() < r.right()))
+            return;
+
+        if(!isValidPoint(event->pos()))
             return;
 
         r.setRight(event->pos().x());
@@ -228,6 +275,9 @@ void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
         if(r.height() < MIN_HEIGHT && (r.top() < event->pos().y()))
             return;
 
+        if(!isValidPoint(event->pos()))
+            return;
+
         r.setTop(event->pos().y());
         setRect(r.normalized());
     }
@@ -236,12 +286,23 @@ void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
         if(r.height() < MIN_HEIGHT && (event->pos().y() < r.bottom()))
             return;
 
+        if(!isValidPoint(event->pos()))
+            return;
+
         r.setBottom(event->pos().y());
         setRect(r.normalized());
     }
 
-    if(resize_ == NONE)
-        QGraphicsRectItem::mouseMoveEvent(event);
+    if(resize_ == NONE) {
+        QPointF delta = event->pos() - event->lastPos();
+        QRectF new_r = rect();
+        new_r.moveTo(rect().topLeft() + delta);
+
+        if(!isValidRect(new_r))
+            return;
+
+        setRect(new_r);
+    }
 
     emit resized();
 }
