@@ -190,9 +190,9 @@ bool Selection::isValidPoint(const QPointF& pos) const {
 
 bool Selection::isValidRect(const QRectF& rect) const {
     Q_CHECK_PTR(scene());
-    if(rect.x() < 0 || scene()->sceneRect().width() < rect.topRight().x())
+    if(rect.left() < 0 || scene()->sceneRect().right() < rect.right())
         return false;
-    if(rect.y() < 0 || scene()->sceneRect().height() < rect.bottomRight().y())
+    if(rect.top() < 0 || scene()->sceneRect().bottom() < rect.bottom())
         return false;
 
     return true;
@@ -246,6 +246,25 @@ void Selection::keyPressEvent(QKeyEvent * event) {
     }
 }
 
+void Selection::moveBy(const QPointF& delta) {
+    QRectF new_r = rect();
+    new_r.moveTo(rect().topLeft() + delta);
+
+    if(delta.x() < 0 && new_r.left() < 0)
+        new_r.moveTo(0, new_r.top());
+
+    if(delta.x() > 0 && new_r.right() > scene()->sceneRect().right())
+        new_r.moveTo(scene()->sceneRect().right() - new_r.width(), new_r.top());
+
+    if(delta.y() < 0 && new_r.top() < 0)
+        new_r.moveTo(new_r.left(), 0);
+
+    if(delta.y() > 0 && new_r.bottom() > scene()->sceneRect().bottom())
+        new_r.moveTo(new_r.left(), scene()->sceneRect().bottom() - new_r.height());
+
+    setRect(new_r);
+}
+
 void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
     QRectF r = rect();
 
@@ -293,16 +312,8 @@ void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
         setRect(r.normalized());
     }
 
-    if(resize_ == NONE) {
-        QPointF delta = event->pos() - event->lastPos();
-        QRectF new_r = rect();
-        new_r.moveTo(rect().topLeft() + delta);
-
-        if(!isValidRect(new_r))
-            return;
-
-        setRect(new_r);
-    }
+    if(resize_ == NONE)
+        moveBy(event->pos() - event->lastPos());
 
     emit resized();
 }

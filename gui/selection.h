@@ -60,6 +60,7 @@ protected:
 private:
     bool isValidPoint(const QPointF& pos) const;
     bool isValidRect(const QRectF& rect) const;
+    void moveBy(const QPointF& delta);
     int resizeMode(const QPointF& pos) const;
     void setResizeCursor(const QPointF& pos);
 private:
