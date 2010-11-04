@@ -267,7 +267,9 @@ void MainWindow::recognizePage(Page * page) {
     if(page->isRecognized()) {
         if(QMessageBox::Ok != QMessageBox::question(this,
                                                     tr("Warning"),
-                                                    tr("Page already recognized. Do you want do rerecognize it?"))) {
+                                                    tr("Page already recognized. Do you want do recognize it again?"),
+                                                    QMessageBox::Ok,
+                                                    QMessageBox::Cancel)) {
             return;
         }
     }
