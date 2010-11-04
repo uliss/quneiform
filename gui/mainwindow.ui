@@ -96,7 +96,6 @@
    <addaction name="actionZoom_In"/>
    <addaction name="actionZoom_Out"/>
    <addaction name="actionFitPage"/>
-   <addaction name="actionFitWidth"/>
    <addaction name="actionOriginalSize"/>
    <addaction name="actionRotateLeft"/>
    <addaction name="actionRotateRight"/>
