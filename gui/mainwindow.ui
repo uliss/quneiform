@@ -181,6 +181,10 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resources/cuneiform.qrc">
+     <normaloff>:/img/oxygen/32x32/select_rectangular.png</normaloff>:/img/oxygen/32x32/select_rectangular.png</iconset>
+   </property>
    <property name="text">
     <string>Select Region</string>
    </property>
