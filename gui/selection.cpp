@@ -181,18 +181,18 @@ void Selection::hoverLeaveEvent(QGraphicsSceneHoverEvent * event) {
 
 bool Selection::isValidPoint(const QPointF& pos) const {
     Q_CHECK_PTR(scene());
-    if(pos.x() < 0 || scene()->sceneRect().width() < pos.x())
+    if(pos.x() < 0 || sceneRect().width() < pos.x())
         return false;
-    if(pos.y() < 0 || scene()->sceneRect().height() < pos.y())
+    if(pos.y() < 0 || sceneRect().height() < pos.y())
         return false;
     return true;
 }
 
 bool Selection::isValidRect(const QRectF& rect) const {
     Q_CHECK_PTR(scene());
-    if(rect.left() < 0 || scene()->sceneRect().right() < rect.right())
+    if(rect.left() < 0 || sceneRect().right() < rect.right())
         return false;
-    if(rect.top() < 0 || scene()->sceneRect().bottom() < rect.bottom())
+    if(rect.top() < 0 || sceneRect().bottom() < rect.bottom())
         return false;
 
     return true;
@@ -253,14 +253,14 @@ void Selection::moveBy(const QPointF& delta) {
     if(delta.x() < 0 && new_r.left() < 0)
         new_r.moveTo(0, new_r.top());
 
-    if(delta.x() > 0 && new_r.right() > scene()->sceneRect().right())
-        new_r.moveTo(scene()->sceneRect().right() - new_r.width(), new_r.top());
+    if(delta.x() > 0 && new_r.right() > sceneRect().right())
+        new_r.moveTo(sceneRect().right() - new_r.width(), new_r.top());
 
     if(delta.y() < 0 && new_r.top() < 0)
         new_r.moveTo(new_r.left(), 0);
 
-    if(delta.y() > 0 && new_r.bottom() > scene()->sceneRect().bottom())
-        new_r.moveTo(new_r.left(), scene()->sceneRect().bottom() - new_r.height());
+    if(delta.y() > 0 && new_r.bottom() > sceneRect().bottom())
+        new_r.moveTo(new_r.left(), sceneRect().bottom() - new_r.height());
 
     setRect(new_r);
 }
@@ -268,49 +268,17 @@ void Selection::moveBy(const QPointF& delta) {
 void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
     QRectF r = rect();
 
-    if(resize_ & LEFT) {
-        if(r.width() < MIN_WIDTH && (r.left() < event->pos().x()))
-            return;
+    if(resize_ & LEFT)
+        resizeBy(LEFT, event->pos().x() - event->lastPos().x());
 
-        if(!isValidPoint(event->pos()))
-            return;
+    if(resize_ & RIGHT)
+        resizeBy(RIGHT, event->pos().x() - event->lastPos().x());
 
-        r.setLeft(event->pos().x());
-        setRect(r.normalized());
-    }
+    if(resize_ & UP)
+        resizeBy(UP, event->pos().y() - event->lastPos().y());
 
-    if(resize_ & RIGHT) {
-        if(r.width() < MIN_WIDTH && (event->pos().x() < r.right()))
-            return;
-
-        if(!isValidPoint(event->pos()))
-            return;
-
-        r.setRight(event->pos().x());
-        setRect(r.normalized());
-    }
-
-    if(resize_ & UP) {
-        if(r.height() < MIN_HEIGHT && (r.top() < event->pos().y()))
-            return;
-
-        if(!isValidPoint(event->pos()))
-            return;
-
-        r.setTop(event->pos().y());
-        setRect(r.normalized());
-    }
-
-    if(resize_ & DOWN) {
-        if(r.height() < MIN_HEIGHT && (event->pos().y() < r.bottom()))
-            return;
-
-        if(!isValidPoint(event->pos()))
-            return;
-
-        r.setBottom(event->pos().y());
-        setRect(r.normalized());
-    }
+    if(resize_ & DOWN)
+        resizeBy(DOWN, event->pos().y() - event->lastPos().y());
 
     if(resize_ == NONE)
         moveBy(event->pos() - event->lastPos());
@@ -331,6 +299,49 @@ void Selection::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
 //    setSelected(false);
 }
 
+void Selection::resizeBy(resize_t border, qreal delta) {
+    QRectF new_r = rect();
+
+    switch(border) {
+    case LEFT: {
+            new_r.setLeft(rect().left() + delta);
+            if(new_r.left() < 0)
+                new_r.setLeft(0);
+            if(new_r.width() < MIN_WIDTH)
+                return;
+        }
+        break;
+    case RIGHT: {
+            new_r.setRight(rect().right() + delta);
+            if(new_r.right() > sceneRect().right())
+                new_r.setRight(sceneRect().right());
+            if(new_r.width() < MIN_WIDTH)
+                return;
+        }
+        break;
+    case UP: {
+            new_r.setTop(rect().top() + delta);
+            if(new_r.top() < 0)
+                new_r.setTop(0);
+            if(new_r.height() < MIN_HEIGHT)
+                return;
+        }
+        break;
+    case DOWN: {
+            new_r.setBottom(rect().bottom() + delta);
+            if(new_r.bottom() > sceneRect().bottom())
+                new_r.setBottom(sceneRect().bottom());
+            if(new_r.height() < MIN_HEIGHT)
+                return;
+        }
+        break;
+    default:
+        return;
+    }
+
+    setRect(new_r.normalized());
+}
+
 int Selection::resizeMode(const QPointF& pos) const {
     corner_t corner = nearestCorner(rect(), pos);
     border_t border = nearestBorder(rect(), pos);
@@ -345,6 +356,10 @@ int Selection::resizeMode(const QPointF& pos) const {
 
 inline bool isVertical(int mode) {
     return mode & Selection::UP || mode & Selection::DOWN;
+}
+
+QRectF Selection::sceneRect() const {
+    return scene()->sceneRect();
 }
 
 void Selection::setResizeCursor(const QPointF& pos) {

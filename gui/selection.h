@@ -61,7 +61,9 @@ private:
     bool isValidPoint(const QPointF& pos) const;
     bool isValidRect(const QRectF& rect) const;
     void moveBy(const QPointF& delta);
+    void resizeBy(resize_t direction, qreal delta);
     int resizeMode(const QPointF& pos) const;
+    QRectF sceneRect() const;
     void setResizeCursor(const QPointF& pos);
 private:
     char resize_;
