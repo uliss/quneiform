@@ -126,8 +126,23 @@ void Page::recognize() {
     using namespace cf;
 
     try {
-    	//    QtImageLoader loader;
-    	ImagePtr image = ImageLoaderFactory::instance().load(image_path_.toLocal8Bit().data());
+        QtImageLoader loader;
+        QImage img(image_path_);
+
+        if(angle() != 0) {
+            QTransform t;
+            t.rotate(angle());
+            img = img.transformed(t);
+        }
+
+        if(pageArea().isValid()) {
+            img = img.copy(page_area_.x(),
+                           page_area_.y(),
+                           page_area_.width(),
+                           page_area_.height());
+        }
+
+        ImagePtr image = loader.load(&img);
     	if (!image)
             throw Exception("[Page::recognize] can't open image");
 
