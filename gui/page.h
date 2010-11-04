@@ -180,6 +180,7 @@ private:
 private:
     void drawFormatPageLayout(QGraphicsScene * scene) const;
     void fillFormatLayout(const cf::CRtfPage * page);
+    bool isFormatConvertionNeeded(int format) const;
 private:
     static QColor format_page_color_;
 public:

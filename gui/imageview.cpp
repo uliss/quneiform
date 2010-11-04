@@ -146,6 +146,9 @@ void ImageView::deletePage() {
 void ImageView::deletePageSelection() {
     delete page_selection_;
     page_selection_ = NULL;
+
+    HAS_PAGE()
+    page_->setPageArea(QRectF());
 }
 
 void ImageView::disconnectPageSignals(Page * page) {

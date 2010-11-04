@@ -86,6 +86,12 @@ void Page::fillFormatLayout(const cf::CRtfPage * page) {
                                                                              page->m_rect.bottom)));
 }
 
+bool Page::isFormatConvertionNeeded(int format) const {
+    if(format != QImage::Format_Mono)
+        return false;
+    return true;
+}
+
 QString Page::imagePath() const {
     return image_path_;
 }
@@ -129,17 +135,23 @@ void Page::recognize() {
         QtImageLoader loader;
         QImage img(image_path_);
 
-        if(angle() != 0) {
-            QTransform t;
-            t.rotate(angle());
-            img = img.transformed(t);
-        }
+        // convert to 24-bit
+        if(isFormatConvertionNeeded(img.format()))
+            img = img.convertToFormat(QImage::Format_RGB888);
 
+        // select page area
         if(pageArea().isValid()) {
             img = img.copy(page_area_.x(),
                            page_area_.y(),
                            page_area_.width(),
                            page_area_.height());
+        }
+
+        // rotate
+        if(angle() != 0) {
+            QTransform t;
+            t.rotate(angle());
+            img = img.transformed(t);
         }
 
         ImagePtr image = loader.load(&img);
