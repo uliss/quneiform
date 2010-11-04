@@ -26,13 +26,10 @@ class Selection;
 
 class SelectionShadow : public QGraphicsItem
 {
-//    Q_OBJECT
 public:
     explicit SelectionShadow(Selection * parent = 0);
     QRectF boundingRect() const;
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
-private:
-    Selection * selection_;
 };
 
 #endif // SELECTIONSHADOW_H

@@ -49,8 +49,6 @@ Selection::Selection(const QRectF& area) : QGraphicsRectItem(area), resize_(NONE
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemIsFocusable, true);
-
-    shadow_ = new SelectionShadow(this);
 }
 
 qreal Selection::borderDistance(const QPointF& pt, Selection::border_t border) const {

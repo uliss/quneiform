@@ -28,6 +28,7 @@ class QMenu;
 class QRubberBand;
 class Page;
 class Selection;
+class SelectionShadow;
 
 class ImageView : public QGraphicsView {
     Q_OBJECT
@@ -89,6 +90,7 @@ private:
     QMenu * context_menu_;
     QRubberBand * rubber_band_;
     Selection * page_selection_;
+    SelectionShadow * page_shadow_;
     QPoint selection_start_;
     select_mode_t select_mode_;
 };

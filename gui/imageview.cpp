@@ -30,6 +30,7 @@
 #include "imagecache.h"
 #include "page.h"
 #include "selection.h"
+#include "selectionshadow.h"
 
 #define HAS_PAGE() {\
     if(!page_) {\
@@ -43,7 +44,7 @@ static const int ROTATE_THRESHOLD = 3;
 
 ImageView::ImageView(QWidget * parent) :
         QGraphicsView(parent), scene_(NULL), page_(NULL), context_menu_(NULL),
-        rubber_band_(NULL), page_selection_(NULL), select_mode_(NORMAL) {
+        rubber_band_(NULL), page_selection_(NULL), page_shadow_(NULL), select_mode_(NORMAL) {
     activate(false);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setBackgroundRole(QPalette::Dark);
@@ -128,6 +129,7 @@ void ImageView::createPageSelection(const QRect& rect) {
     connect(page_selection_, SIGNAL(cursorChange(int)), SLOT(changeSelectionCursor(int)));
     connect(page_selection_, SIGNAL(selectionDeleted()), SLOT(deletePageSelection()));
     connect(page_selection_, SIGNAL(resized()), SLOT(savePageSelection()));
+    page_shadow_ = new SelectionShadow(page_selection_);
     scene_->addItem(page_selection_);
 }
 
@@ -291,7 +293,7 @@ void ImageView::restorePageSelection() {
 
     page_selection_->setPos(QPointF());
     page_selection_->setRect(page_->pageArea());
-
+    page_shadow_->setParentItem(page_selection_);
 
     if(!scene_->items().contains(page_selection_))
         scene_->addItem(page_selection_);
