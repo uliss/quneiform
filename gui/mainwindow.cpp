@@ -338,6 +338,9 @@ void MainWindow::savePage(Page * page) {
     QString filename = QFileDialog::getSaveFileName(this, tr("Save document to"),
                                 filename_suggest,
                                 tr("HTML documents (*.html *.htm)"));
+    if(filename.isEmpty())
+        return;
+
     page->save(filename);
 }
 
