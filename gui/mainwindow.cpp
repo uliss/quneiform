@@ -48,11 +48,10 @@ static const char * VERSION_EXTRA = "-alpha";
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent), ui_(new Ui::MainWindow), doc_(new Document(this)), progress_(NULL) {
     setupUi();
+    setupDocument();
     connectActions();
     connectThumbs();
     readSettings();
-
-    qDebug() << pos();
 }
 
 MainWindow::~MainWindow() {
@@ -102,9 +101,6 @@ void MainWindow::closeEvent(QCloseEvent * event) {
 
 void MainWindow::connectActions() {
     Q_CHECK_PTR(ui_);
-    Q_CHECK_PTR(doc_);
-    connect(doc_, SIGNAL(changed()), SLOT(documentChange()));
-    connect(doc_, SIGNAL(saved()), SLOT(documentSave()));
     connect(ui_->actionAbout, SIGNAL(triggered()), SLOT(about()));
     connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImages()));
     connect(ui_->actionZoom_In, SIGNAL(triggered()), image_widget_, SLOT(zoomIn()));
@@ -144,6 +140,15 @@ void MainWindow::documentSave() {
     }
 }
 
+void MainWindow::imageDuplication(const QString& path) {
+    if(QMessageBox::Ok == QMessageBox::warning(this,
+                                               tr("Warning"),
+                                               tr("Image \"%1\" already opened. Do you want to add it anyway?").arg(path),
+                                               QMessageBox::Ok,
+                                               QMessageBox::Cancel))
+        openImage(path, true);
+}
+
 void MainWindow::mapLanguageActions(const QList<QAction*>& actions) {
     Q_CHECK_PTR(lang_mapper_);
 
@@ -166,7 +171,7 @@ void MainWindow::mapLanguageToolButtonActions() {
     mapLanguageActions(lang_select_->menu()->actions());
 }
 
-bool MainWindow::openImage(const QString& path) {
+bool MainWindow::openImage(const QString& path, bool allowDuplication) {
     Q_CHECK_PTR(doc_);
     qDebug() << Q_FUNC_INFO << path;
 
@@ -189,7 +194,7 @@ bool MainWindow::openImage(const QString& path) {
         return false;
     }
 
-    doc_->append(p);
+    doc_->append(p, allowDuplication);
 
     return true;
 }
@@ -356,6 +361,13 @@ void MainWindow::selectLanguage(int lang) {
     }
 
     lang_select_->select(lang);
+}
+
+void MainWindow::setupDocument() {
+    Q_CHECK_PTR(doc_);
+    connect(doc_, SIGNAL(changed()), SLOT(documentChange()));
+    connect(doc_, SIGNAL(saved()), SLOT(documentSave()));
+    connect(doc_, SIGNAL(imageDuplicated(QString)), SLOT(imageDuplication(QString)));
 }
 
 void MainWindow::setupImageView() {

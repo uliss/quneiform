@@ -47,6 +47,7 @@ public slots:
     void changeDocumentLanguage(int lang);
     void documentChange();
     void documentSave();
+    void imageDuplication(const QString& path);
     void openImages();
     void openImages(const QStringList& paths);
     void openPacket();
@@ -69,9 +70,10 @@ private:
     void mapLanguageActions(const QList<QAction*>& actions);
     void mapLanguageMenuActions();
     void mapLanguageToolButtonActions();
-    bool openImage(const QString& path);
+    bool openImage(const QString& path, bool allowDuplication = false);
     void readSettings();
     void selectLanguage(int lang);
+    void setupDocument();
     void setupImageView();
     void setupLanguageUi();
     void setupTextView();

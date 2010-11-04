@@ -36,7 +36,7 @@ public:
     /**
       * Appends page
       */
-    void append(Page * page);
+    void append(Page * page, bool allowDuplication = false);
 
     /**
       * Clears document. Removes all pages

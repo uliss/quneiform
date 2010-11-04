@@ -30,10 +30,14 @@ Document::~Document() {
 
 }
 
-void Document::append(Page * page) {
-    for (PageList::const_iterator it = pages_.begin(); it != pages_.end(); ++it) {
-        if ((*it)->imagePath() == page->imagePath())
-            emit imageDuplicated(page->imagePath());
+void Document::append(Page * page, bool allowDuplication) {
+    if(!allowDuplication) {
+        for (PageList::const_iterator it = pages_.begin(); it != pages_.end(); ++it) {
+            if ((*it)->imagePath() == page->imagePath()) {
+                emit imageDuplicated(page->imagePath());
+                return;
+            }
+        }
     }
 
     pages_.append(page);
