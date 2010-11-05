@@ -42,15 +42,12 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
  
-
-#set (LIBRARIES#
-#	cuneiform)
+set (LANGUAGES	rus)
  
-#set (LANGUAGES	rus	eng)
- 
-set (RESOURCE_PATH	resources)
-set (RESOURCES ${RESOURCE_PATH}/cuneiform.qrc)
-set (TRANSLATIONS_PATH	${RESOURCE_PATH}/translations)
+set (RESOURCE_PATH            resources)
+set (RESOURCES                ${RESOURCE_PATH}/cuneiform.qrc)
+set (TRANSLATIONS_PATH	      ${CMAKE_CURRENT_SOURCE_DIR})
+set (TRANSLATIONS_GEN_PATH    ${CMAKE_CURRENT_BINARY_DIR})
  
 find_package (Qt4 REQUIRED)
 include (${QT_USE_FILE})
@@ -62,7 +59,7 @@ qt4_wrap_ui (UI_HEADERS ${FORMS} )
 # translations
 foreach (LANGUAGE ${LANGUAGES})
 	set (TS ${TRANSLATIONS_PATH}/${LANGUAGE}.ts)
-	set (QM ${TRANSLATIONS_PATH}/${LANGUAGE}.qm)
+        set (QM ${TRANSLATIONS_GEN_PATH}/${LANGUAGE}.qm)
 	set (TRANSLATIONS ${TRANSLATIONS} ${TS})
 	set (TRANSLATIONS_BINARY ${TRANSLATIONS_BINARY} ${QM})
 	add_custom_command (
@@ -73,14 +70,10 @@ endforeach()
 
 add_custom_target (
 	translations 
-	COMMAND ${QT_LUPDATE_EXECUTABLE} ${HEADERS} ${SOURCES} -ts ${TRANSLATIONS})
+        COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}; ${QT_LUPDATE_EXECUTABLE} ${HEADERS} ${SOURCES} -ts ${TRANSLATIONS})
 add_custom_command (
 	TARGET translations
-	COMMAND ${QT_LRELEASE_EXECUTABLE} ${TRANSLATIONS})
- 
-#foreach (LIBRARY ${LIBRARIES})
-#	add_subdirectory (../${LIBRARY}/build bin/${LIBRARY})
-#endforeach ()
+        COMMAND ${QT_LRELEASE_EXECUTABLE} ${TRANSLATIONS})
  
 source_group ("Header Files" FILES ${HEADERS})
 source_group ("Source Files" FILES ${SOURCES})

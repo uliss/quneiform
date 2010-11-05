@@ -3,3 +3,4 @@
 .cproject
 builddir
 .settings
+*.qm

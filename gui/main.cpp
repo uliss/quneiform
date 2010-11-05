@@ -18,10 +18,14 @@
 
 #include <QApplication>
 #include <QStringList>
+#include <QTranslator>
 #include "mainwindow.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
+    QTranslator translator;
+    translator.load("rus.qm", ".");
+    app.installTranslator(&translator);
     //	app.setOrganizationName("openocr.org");
     app.setApplicationName("Cuneiform OCR");
     MainWindow w;
