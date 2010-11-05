@@ -350,7 +350,9 @@ void ImageView::showImage(const QString& path) {
     }
 
     scene_->setSceneRect(image.rect());
-    scene_->addPixmap(image)->setZValue(0);
+    QGraphicsPixmapItem * p = scene_->addPixmap(image);
+    p->setZValue(0);
+    p->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
 }
 
 void ImageView::showPage(Page * page) {
