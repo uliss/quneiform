@@ -18,6 +18,7 @@
 
 #include <QDebug>
 #include <QVBoxLayout>
+#include <QtOpenGL/QGLWidget>
 
 #include "imagewidget.h"
 #include "imageview.h"
@@ -55,6 +56,8 @@ void ImageWidget::setupLayout() {
 void ImageWidget::setupView() {
     view_ = new ImageView(this);
     connect(view_, SIGNAL(pageDeleted()), SIGNAL(pageDeleted()));
+//    view_->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+
     layout_->addWidget(view_);
 }
 

@@ -49,7 +49,7 @@ set (RESOURCES                ${RESOURCE_PATH}/cuneiform.qrc)
 set (TRANSLATIONS_PATH	      ${CMAKE_CURRENT_SOURCE_DIR})
 set (TRANSLATIONS_GEN_PATH    ${CMAKE_CURRENT_BINARY_DIR})
  
-find_package (Qt4 REQUIRED)
+find_package (Qt4 4.5 COMPONENTS QtCore QtGui QtOpenGl REQUIRED)
 include (${QT_USE_FILE})
 
 qt4_add_resources (QRC_SOURCES ${RESOURCES})

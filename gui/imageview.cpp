@@ -158,7 +158,7 @@ void ImageView::disconnectPageSignals(Page * page) {
     disconnect(page, SIGNAL(transformed()), this, SLOT(updateTransform()));
     disconnect(page, SIGNAL(rotated(int)), this, SLOT(updateTransform()));
     disconnect(page, SIGNAL(destroyed()), this, SLOT(deletePage()));
-}
+} 
 
 bool ImageView::event(QEvent * event) {
     if (event->type() == QEvent::Gesture)
@@ -244,6 +244,9 @@ void ImageView::mouseMoveEvent(QMouseEvent * event) {
 void ImageView::mousePressEvent(QMouseEvent * event) {
     QGraphicsView::mousePressEvent(event);
 
+    if(event->isAccepted())
+        return;
+
     // selection only with left button
     if(event->button() != Qt::LeftButton)
         return;
@@ -253,6 +256,7 @@ void ImageView::mousePressEvent(QMouseEvent * event) {
 
 void ImageView:: mouseReleaseEvent(QMouseEvent * event) {
     QGraphicsView::mouseReleaseEvent(event);
+
     finishSelection(event->pos());
 }
 

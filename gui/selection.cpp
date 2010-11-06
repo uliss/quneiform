@@ -214,8 +214,6 @@ void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
         resizeBy(move_delta);
     else
         moveBy(move_delta);
-
-    emit resized();
 }
 
 void Selection::mousePressEvent(QGraphicsSceneMouseEvent * event) {
@@ -228,6 +226,7 @@ void Selection::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 
 void Selection::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
     QGraphicsRectItem::mouseReleaseEvent(event);
+    emit resized();
 //    setSelected(false);
 }
 
