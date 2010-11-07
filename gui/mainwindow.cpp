@@ -38,7 +38,7 @@
 #include "thumbnaillist.h"
 
 static const char * ORGANIZATION = "openocr.org";
-static const char * APPLICATION = "Cuneiform OCR";
+static const char * APPLICATION = "Quneiform OCR";
 static const char * EMAIL = "serj.poltavski@gmail.com";
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -62,10 +62,10 @@ void MainWindow::about() {
     QMessageBox::about(this,
                        tr("About"),
                        tr("<b>Quneiform OCR</b><br/>"
-                          "  Author:  Serj Poltavski<br/>"
-                          "  Email:   <a href=\"mailto:%1\">%2</a><br/>"
-                          "  Version: %3.%4.%5%6<br/>"
-                          "  License: GPL v.3")
+                          "Author: Serj Poltavski<br/>"
+                          "Email: <a href=\"mailto:%1\">%2</a><br/>"
+                          "Version: %3.%4.%5%6<br/>"
+                          "License: GPL v.3")
                        .arg(EMAIL)
                        .arg(EMAIL)
                        .arg(VERSION_MAJOR)
@@ -84,8 +84,8 @@ void MainWindow::closeEvent(QCloseEvent * event) {
     if(doc_)  {
         if(doc_->isChanged()) {
             QMessageBox ask(QMessageBox::Question,
-                                  tr("Document is not saved"),
-                                  tr("Document is not saved!\nDo you want to save it?"),
+                                  tr("Recognition packet is not saved"),
+                                  tr("Recognition packet is not saved!\nDo you want to save it?"),
                                   QMessageBox::Cancel | QMessageBox::Save,
                                   this);
             ask.setDefaultButton(QMessageBox::Save);
@@ -177,7 +177,7 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication) {
 
     QFileInfo info(path);
     if(!info.exists()) {
-        QMessageBox warning(QMessageBox::Critical, tr("Quniform OCR"),
+        QMessageBox warning(QMessageBox::Critical, tr("Quneiform OCR"),
                             tr("Error while opening \"%1\"").arg(path), QMessageBox::Ok, progress_);
         warning.setInformativeText(tr("File not exists"));
         warning.exec();
@@ -187,9 +187,9 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication) {
     Page * p = new Page(path);
 
     if(p->isNull()) {
-        QMessageBox warning(QMessageBox::Critical, tr("Quniform OCR"),
+        QMessageBox warning(QMessageBox::Critical, tr("Quneiform OCR"),
                             tr("Error while opening \"%1\"").arg(path), QMessageBox::Ok, progress_);
-        warning.setInformativeText(tr("Unable to load image"));
+        warning.setInformativeText(tr("Unable to open image"));
         warning.exec();
         return false;
     }
@@ -242,7 +242,7 @@ void MainWindow::openPacket(const QString& path) {
     if(!doc_->open(path)) {
         QMessageBox::warning(this,
                              tr("Quneiform OCR"),
-                             tr("Can't read file \"%1\"").arg(path));
+                             tr("Can't read packet \"%1\"").arg(path));
     }
 }
 
@@ -272,7 +272,7 @@ void MainWindow::recognizePage(Page * page) {
     if(page->isRecognized()) {
         if(QMessageBox::Ok != QMessageBox::question(this,
                                                     tr("Warning"),
-                                                    tr("Page already recognized. Do you want do recognize it again?"),
+                                                    tr("Page already recognized. Do you want to recognize it again?"),
                                                     QMessageBox::Ok,
                                                     QMessageBox::Cancel)) {
             return;
@@ -340,7 +340,7 @@ void MainWindow::savePage(Page * page) {
 
     QFileInfo info(page->imagePath());
     QString filename_suggest = info.baseName() + ".html";
-    QString filename = QFileDialog::getSaveFileName(this, tr("Save document to"),
+    QString filename = QFileDialog::getSaveFileName(this, tr("Saving page"),
                                 filename_suggest,
                                 tr("HTML documents (*.html *.htm)"));
     if(filename.isEmpty())

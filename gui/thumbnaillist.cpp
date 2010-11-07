@@ -53,7 +53,7 @@ void ThumbnailList::append(ThumbnailWidget * thumb) {
 void ThumbnailList::setupContextMenu(QMenu * menu) {
     Q_CHECK_PTR(menu);
 
-    menu->addAction(tr("Select All"), this, SLOT(selectAll()), QKeySequence::SelectAll);
+    menu->addAction(tr("Select all"), this, SLOT(selectAll()), QKeySequence::SelectAll);
     menu->addAction(tr("Revert selected"), this, SLOT(revertSelection()));
     menu->addAction(tr("Delete selected"), this, SLOT(removeSelectedPages()));
     menu->addSeparator();
