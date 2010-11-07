@@ -1,5 +1,8 @@
 set(PROJECT "quneiform")
 
+set (TRANSLATIONS_QM ru.qm)
+set (TRANSLATIONS_TS ru.ts)
+
 set (HEADERS 
     document.h
     imagecache.h
@@ -35,51 +38,30 @@ set (FORMS
     mainwindow.ui)
 
 include_directories(
-	../src
-	../src/include
-	../src/h
+    ../src
+    ../src/include
+    ../src/h
     ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
- 
-set (LANGUAGES	rus)
- 
-set (RESOURCE_PATH            resources)
-set (RESOURCES                ${RESOURCE_PATH}/cuneiform.qrc)
-set (TRANSLATIONS_PATH	      ${CMAKE_CURRENT_SOURCE_DIR})
-set (TRANSLATIONS_GEN_PATH    ${CMAKE_CURRENT_BINARY_DIR})
- 
+
+set (RESOURCE_PATH resources)
+set (RESOURCES     ${RESOURCE_PATH}/cuneiform.qrc)
+
 find_package (Qt4 4.5 COMPONENTS QtCore QtGui QtOpenGl REQUIRED)
 include (${QT_USE_FILE})
 
 qt4_add_resources (QRC_SOURCES ${RESOURCES})
 qt4_wrap_cpp (MOC_SOURCES ${HEADERS})
-qt4_wrap_ui (UI_HEADERS ${FORMS} )
+qt4_wrap_ui (UI_HEADERS ${FORMS})
+qt4_create_translation(${TRANSLATIONS_QM} ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS} ${TRANSLATIONS_TS})
 
-# translations
-foreach (LANGUAGE ${LANGUAGES})
-	set (TS ${TRANSLATIONS_PATH}/${LANGUAGE}.ts)
-        set (QM ${TRANSLATIONS_GEN_PATH}/${LANGUAGE}.qm)
-	set (TRANSLATIONS ${TRANSLATIONS} ${TS})
-	set (TRANSLATIONS_BINARY ${TRANSLATIONS_BINARY} ${QM})
-	add_custom_command (
-		OUTPUT ${QM}
-		COMMAND ${QT_LRELEASE_EXECUTABLE} ${TS}
-		MAIN_DEPENDENCY ${TS})
-endforeach()
-
-add_custom_target (
-	translations 
-        COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}; ${QT_LUPDATE_EXECUTABLE} ${HEADERS} ${SOURCES} -ts ${TRANSLATIONS})
-add_custom_command (
-	TARGET translations
-        COMMAND ${QT_LRELEASE_EXECUTABLE} ${TRANSLATIONS})
  
 source_group ("Header Files" FILES ${HEADERS})
 source_group ("Source Files" FILES ${SOURCES})
 source_group ("Generated Files" FILES ${MOC_SOURCES})
 source_group ("Resource Files" FILES ${QRC_SOURCES})
  
-add_executable (${PROJECT} ${HEADERS} ${SOURCES} ${MOC_SOURCES} ${UI_HEADERS} ${QRC_SOURCES} ${TRANSLATIONS})
+add_executable (${PROJECT} ${HEADERS} ${SOURCES} ${MOC_SOURCES} ${UI_HEADERS} ${QRC_SOURCES} ${TRANSLATIONS_QM})
  
 target_link_libraries (${PROJECT} ${LIBRARIES} ${QT_LIBRARIES} m cuneiform)

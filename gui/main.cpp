@@ -19,16 +19,20 @@
 #include <QApplication>
 #include <QStringList>
 #include <QTranslator>
+#include <QLocale>
 #include "mainwindow.h"
 
 int main(int argc, char *argv[]) {
 #ifdef Q_WS_X11
     QApplication::setGraphicsSystem("raster");
 #endif
+    QTranslator translator;
+    QLocale locale;
+
+    QString qm_name = locale.name();
+    translator.load(qm_name, "gui");
 
     QApplication app(argc, argv);
-    QTranslator translator;
-    translator.load("rus.qm", ".");
     app.installTranslator(&translator);
     //	app.setOrganizationName("openocr.org");
     app.setApplicationName("Cuneiform OCR");
