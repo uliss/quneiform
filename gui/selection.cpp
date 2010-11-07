@@ -108,18 +108,24 @@ bool Selection::isCloseToBorder(const QPointF& pt, Selection::border_t border) c
     }
 }
 
+static const qreal DELTA = 10.0;
+
+inline bool isNear(qreal v0, qreal v1) {
+    return qAbs(v0 - v1) < DELTA && v0 < DELTA;
+}
+
 bool Selection::isCloseToCorner(const QPointF& pt, corner_t corner) const {
     static const qreal DELTA = 10.0;
 
     switch(corner) {
     case LEFT_TOP:
-        return qAbs(borderDistance(pt, Selection::LEFT) - borderDistance(pt, Selection::TOP)) < DELTA;
+        return isNear(borderDistance(pt, Selection::LEFT), borderDistance(pt, Selection::TOP));
     case LEFT_BOTTOM:
-        return qAbs(borderDistance(pt, Selection::LEFT) - borderDistance(pt, Selection::BOTTOM)) < DELTA;
+        return isNear(borderDistance(pt, Selection::LEFT), borderDistance(pt, Selection::BOTTOM));
     case RIGHT_TOP:
-        return qAbs(borderDistance(pt, Selection::RIGHT) - borderDistance(pt, Selection::TOP)) < DELTA;
+        return isNear(borderDistance(pt, Selection::RIGHT), borderDistance(pt, Selection::TOP));
     case RIGHT_BOTTOM:
-        return qAbs(borderDistance(pt, Selection::RIGHT) - borderDistance(pt, Selection::BOTTOM)) < DELTA;
+        return isNear(borderDistance(pt, Selection::RIGHT), borderDistance(pt, Selection::BOTTOM));
     }
 }
 
