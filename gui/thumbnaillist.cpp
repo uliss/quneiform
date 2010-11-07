@@ -22,6 +22,8 @@
 #include <QtGui/QMenu>
 #include <QToolButton>
 #include <QDebug>
+#include <QDragEnterEvent>
+#include <QUrl>
 
 #include "document.h"
 #include "page.h"
@@ -33,6 +35,7 @@ static const int LIST_WIDTH = 180;
 
 ThumbnailList::ThumbnailList(QWidget *parent) :
     QScrollArea(parent), document_(NULL), layout_(NULL), current_page_(NULL) {
+    setAcceptDrops(true);
     setupLayout();
     setScrollBars();
 }
@@ -48,6 +51,24 @@ void ThumbnailList::append(ThumbnailWidget * thumb) {
     connect(thumb, SIGNAL(save(Page*)), SIGNAL(save(Page*)));
 
     updateThumbNames();
+}
+
+void ThumbnailList::dragEnterEvent(QDragEnterEvent * event) {
+    if (event->mimeData()->hasUrls())
+        event->acceptProposedAction();
+}
+
+void ThumbnailList::dropEvent(QDropEvent *event) {
+    if(event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
+
+        QStringList paths;
+        foreach(QUrl url, event->mimeData()->urls()) {
+            paths << url.toLocalFile();
+        }
+
+        emit openDraggedImages(paths);
+    }
 }
 
 void ThumbnailList::setupContextMenu(QMenu * menu) {

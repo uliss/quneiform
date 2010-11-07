@@ -211,7 +211,7 @@ QDataStream& operator>>(QDataStream& is, Document& doc) {
         for(int i = 0; i < page_count; i++) {
             Page * p = new Page("");
             is >> *p;
-            doc.append(p);
+            doc.append(p, true);
         }
 
         is >> doc.language_;

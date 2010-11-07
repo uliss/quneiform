@@ -121,6 +121,7 @@ void MainWindow::connectThumbs() {
     connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
     connect(thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
     connect(thumbs_, SIGNAL(save(Page*)), SLOT(savePage(Page*)));
+    connect(thumbs_, SIGNAL(openDraggedImages(QStringList)), SLOT(openImages(QStringList)));
 }
 
 void MainWindow::disableViewActions() {
