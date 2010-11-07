@@ -33,6 +33,8 @@ public:
     explicit ImageWidget(QWidget *parent = 0);
     void showPage(Page * p);
     QSize sizeHint () const;
+protected:
+    void wheelEvent(QWheelEvent * event);
 signals:
     void pageDeleted();
 public slots:

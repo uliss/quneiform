@@ -18,7 +18,9 @@
 
 #include <QDebug>
 #include <QVBoxLayout>
-#include <QtOpenGL/QGLWidget>
+#include <QWheelEvent>
+
+//#include <QtOpenGL/QGLWidget>
 
 #include "imagewidget.h"
 #include "imageview.h"
@@ -72,6 +74,20 @@ void ImageWidget::showPage(Page * p) {
 
 QSize ImageWidget::sizeHint () const {
     return QSize(800, 600);
+}
+
+void ImageWidget::wheelEvent(QWheelEvent * event) {
+    Q_CHECK_PTR(view_);
+
+    if(!(event->modifiers() & Qt::ControlModifier))
+        return QWidget::wheelEvent(event);
+
+    if(event->delta() > 0)
+        view_->zoomIn(1.03);
+    else
+        view_->zoomOut(0.93);
+
+    event->accept();
 }
 
 void ImageWidget::zoomIn() {
