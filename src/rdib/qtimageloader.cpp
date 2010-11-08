@@ -22,6 +22,11 @@
 #include "qtimageloader.h"
 #include "compat_defs.h"
 
+#ifdef __MINGW32__
+#include <windows.h>
+#include <wingdi.h>
+#endif
+
 namespace cf
 {
 
@@ -63,8 +68,8 @@ ImagePtr QtImageLoader::load(QImage * image) {
 
     /*.rgbSwapped();*/
     const QImage& raster = image->mirrored();
-    BITMAPINFO dibInfo = { 0 };
-    dibInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+    ::BITMAPINFO dibInfo = { 0 };
+    dibInfo.bmiHeader.biSize = sizeof(::BITMAPINFOHEADER);
     dibInfo.bmiHeader.biWidth = raster.width();
     dibInfo.bmiHeader.biHeight = raster.height();
     dibInfo.bmiHeader.biPlanes = 1;
@@ -95,7 +100,7 @@ ImagePtr QtImageLoader::load(QImage * image) {
         sizePalete = sizeof(RGBQUAD);
     }
 
-    RGBQUAD rgbWhite = { 255, 255, 255, 0 };
+    ::RGBQUAD rgbWhite = { 255, 255, 255, 0 };
     dibInfo.bmiColors[0] = rgbWhite;
 
     const int dib_size = sizeInfo + sizePalete + sizeRaster;
