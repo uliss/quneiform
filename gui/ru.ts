@@ -163,7 +163,7 @@
     </message>
     <message>
         <source>Fit to page width</source>
-        <translation>По ширине страницы</translation>
+        <translation type="obsolete">По ширине страницы</translation>
     </message>
     <message>
         <source>Select Region</source>
@@ -207,7 +207,7 @@
     </message>
     <message>
         <source>Zoom 1:1</source>
-        <translation>Масштаб 1:1</translation>
+        <translation type="obsolete">Масштаб 1:1</translation>
     </message>
     <message>
         <source>&lt;b&gt;Quneiform OCR&lt;/b&gt;&lt;br/&gt;  Author:  Serj Poltavski&lt;br/&gt;  Email:   &lt;a href=&quot;mailto:%1&quot;&gt;%2&lt;/a&gt;&lt;br/&gt;  Version: %3.%4.%5%6&lt;br/&gt;  License: GPL v.3</source>
@@ -255,7 +255,7 @@
     </message>
     <message>
         <source>Save Quneiform packet to</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить пакет Quneiform</translation>
     </message>
     <message>
         <source>Can&apos;t open file &quot;%1&quot; for writing. Check file permissions!</source>
@@ -305,7 +305,15 @@ Do you want to save it?</source>
     </message>
     <message>
         <source>Ctrl+0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Fit to width</source>
+        <translation>Уместить по ширине</translation>
+    </message>
+    <message>
+        <source>Original size</source>
+        <translation>Исходный размер</translation>
     </message>
 </context>
 <context>
@@ -317,7 +325,7 @@ Do you want to save it?</source>
     <message>
         <source>Error while recognizing &quot;%1&quot;:
 %2</source>
-        <translation type="unfinished">Ошибка распознавания файла %1:
+        <translation>Ошибка распознавания файла %1:
 %2</translation>
     </message>
     <message>

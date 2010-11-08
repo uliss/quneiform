@@ -51,9 +51,9 @@
     </property>
     <addaction name="actionZoom_In"/>
     <addaction name="actionZoom_Out"/>
+    <addaction name="actionOriginalSize"/>
     <addaction name="actionFitPage"/>
     <addaction name="actionFitWidth"/>
-    <addaction name="actionOriginalSize"/>
     <addaction name="actionRotateRight"/>
     <addaction name="actionRotateLeft"/>
    </widget>
@@ -95,7 +95,6 @@
    <addaction name="actionOpen"/>
    <addaction name="actionZoom_In"/>
    <addaction name="actionZoom_Out"/>
-   <addaction name="actionFitPage"/>
    <addaction name="actionOriginalSize"/>
    <addaction name="actionRotateLeft"/>
    <addaction name="actionRotateRight"/>
@@ -161,7 +160,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Fit to page width</string>
+    <string>Fit to width</string>
    </property>
   </action>
   <action name="actionSelectRegion">
@@ -251,12 +250,15 @@
    </property>
   </action>
   <action name="actionOriginalSize">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="resources/cuneiform.qrc">
      <normaloff>:/img/oxygen/32x32/zoom_original.png</normaloff>:/img/oxygen/32x32/zoom_original.png</iconset>
    </property>
    <property name="text">
-    <string>Zoom 1:1</string>
+    <string>Original size</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+0</string>
