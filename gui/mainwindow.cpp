@@ -49,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent), ui_(new Ui::MainWindow), doc_(new Document(this)), progress_(NULL) {
     setupUi();
     setupDocument();
+    setupShortcuts();
     connectActions();
     connectThumbs();
     readSettings();
@@ -387,6 +388,13 @@ void MainWindow::setupLanguageUi() {
     mapLanguageToolButtonActions();
 
     connect(lang_mapper_, SIGNAL(mapped(int)), this, SLOT(changeDocumentLanguage(int)));
+}
+
+void MainWindow::setupShortcuts() {
+    ui_->actionExit->setShortcut(QKeySequence::Quit);
+    ui_->actionOpen->setShortcut(QKeySequence::Open);
+    ui_->actionZoom_In->setShortcut(QKeySequence::ZoomIn);
+    ui_->actionZoom_Out->setShortcut(QKeySequence::ZoomOut);
 }
 
 void MainWindow::setupTextView() {

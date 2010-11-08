@@ -76,6 +76,7 @@ private:
     void setupDocument();
     void setupImageView();
     void setupLanguageUi();
+    void setupShortcuts();
     void setupTextView();
     void setupThumbs();
     void setupUi();

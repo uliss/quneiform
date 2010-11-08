@@ -146,16 +146,8 @@
         <translation>Выход</translation>
     </message>
     <message>
-        <source>Ctrl+Q</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Open images</source>
         <translation>Открыть изображения</translation>
-    </message>
-    <message>
-        <source>Ctrl+O</source>
-        <translation></translation>
     </message>
     <message>
         <source>Recognize all</source>
@@ -166,16 +158,8 @@
         <translation>Увеличить</translation>
     </message>
     <message>
-        <source>Ctrl+=</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Zoom Out</source>
         <translation>Уменшить</translation>
-    </message>
-    <message>
-        <source>Ctrl+-</source>
-        <translation></translation>
     </message>
     <message>
         <source>Fit to page width</source>
@@ -318,6 +302,10 @@ Do you want to save it?</source>
     <message>
         <source>&lt;b&gt;Quneiform OCR&lt;/b&gt;&lt;br/&gt;Author: Serj Poltavski&lt;br/&gt;Email: &lt;a href=&quot;mailto:%1&quot;&gt;%2&lt;/a&gt;&lt;br/&gt;Version: %3.%4.%5%6&lt;br/&gt;License: GPL v.3</source>
         <translation>&lt;b&gt;Quneiform OCR&lt;/b&gt;&lt;br/&gt;Автор: Сергей Полтавский&lt;br/&gt;Email: &lt;a href=&quot;mailto:%1&quot;&gt;%2&lt;/a&gt;&lt;br/&gt;Версия: %3.%4.%5%6&lt;br/&gt;Лицензия: GPL v.3</translation>
+    </message>
+    <message>
+        <source>Ctrl+0</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

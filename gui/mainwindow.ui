@@ -114,9 +114,6 @@
    <property name="text">
     <string>Exit</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+Q</string>
-   </property>
   </action>
   <action name="actionOpen">
    <property name="icon">
@@ -125,9 +122,6 @@
    </property>
    <property name="text">
     <string>Open images</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionRecognize_all">
@@ -149,9 +143,6 @@
    <property name="text">
     <string>Zoom In</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+=</string>
-   </property>
   </action>
   <action name="actionZoom_Out">
    <property name="enabled">
@@ -163,9 +154,6 @@
    </property>
    <property name="text">
     <string>Zoom Out</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+-</string>
    </property>
   </action>
   <action name="actionFitWidth">
@@ -269,6 +257,9 @@
    </property>
    <property name="text">
     <string>Zoom 1:1</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+0</string>
    </property>
   </action>
  </widget>

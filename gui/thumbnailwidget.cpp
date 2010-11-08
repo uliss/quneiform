@@ -52,6 +52,8 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
     connect(this, SIGNAL(contextMenuCreated(QMenu*)), parent, SLOT(setupContextMenu(QMenu*)));
     connect(this, SIGNAL(invalidImage(const QString&)), parent, SLOT(handleInvalidImage(const QString&)));
     connect(page, SIGNAL(rotated(int)), SLOT(rotate(int)));
+
+    setFocusPolicy(Qt::ClickFocus);
 }
 
 void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
