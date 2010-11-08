@@ -87,7 +87,7 @@ void Page::fillFormatLayout(const cf::CRtfPage * page) {
 }
 
 bool Page::isFormatConvertionNeeded(int format) const {
-    if(format != QImage::Format_Mono)
+    if(format == QImage::Format_Mono)
         return false;
     return true;
 }
