@@ -39,8 +39,7 @@ public:
     void fitWidth();
     void originalSize();
     void showPage(Page * page);
-    void zoomIn(qreal factor);
-    void zoomOut(qreal factor);
+    void zoom(qreal factor);
 signals:
     void pageDeleted();
 protected:
@@ -51,6 +50,7 @@ protected:
     void mousePressEvent(QMouseEvent * event);
     void mouseReleaseEvent(QMouseEvent * event);
     void pinchTriggered(QPinchGesture * gesture);
+    void wheelEvent(QWheelEvent * event);
 private slots:
     void changeSelectionCursor(int type);
     void deletePage();
@@ -69,6 +69,8 @@ private:
     void drawPageSelectionShadow();
     void finishPageSelection(const QRect& rect);
     void finishSelection(const QPoint& pos);
+    bool isTooBig() const;
+    bool isTooSmall() const;
     void resizeSelection(const QPoint& pos);
     void restorePageSelection();
     void savePageTransform();

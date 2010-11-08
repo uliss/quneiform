@@ -25,6 +25,7 @@
 #include <QGestureEvent>
 #include <QMenu>
 #include <QRubberBand>
+#include <QWheelEvent>
 
 #include "imageview.h"
 #include "imagecache.h"
@@ -232,6 +233,17 @@ bool ImageView::gestureEvent(QGestureEvent * event) {
     return true;
 }
 
+bool ImageView::isTooBig() const {
+    qreal x = 0, y = 0;
+    transform().map(1.0, 1.0, &x, &y);
+    return qMax(qAbs(x), qAbs(y)) > 10;
+}
+
+bool ImageView::isTooSmall() const {
+    qreal x = 0, y = 0;
+    transform().map(1.0, 1.0, &x, &y);
+    return qMax(qAbs(x), qAbs(y)) < 0.1;
+}
 
 void ImageView::mouseMoveEvent(QMouseEvent * event) {
     QGraphicsView::mouseMoveEvent(event);
@@ -286,7 +298,7 @@ void ImageView::pinchTriggered(QPinchGesture * gesture) {
     else if(gesture->state() == Qt::GestureUpdated) {
         qreal scale = ((gesture->lastScaleFactor() - 1) * GESTURE_SCALE_FACTOR) + 1;
         if(scale != 1)
-            page_->scale(scale);
+            zoom(scale);
     }
 }
 
@@ -428,12 +440,23 @@ void ImageView::updateTransform() {
         setTransform(page_->transform());
 }
 
-void ImageView::zoomIn(qreal factor) {
-    HAS_PAGE()
-    page_->scale(factor);
+void ImageView::wheelEvent(QWheelEvent * event) {
+    if(!(event->modifiers() & Qt::ControlModifier))
+        return QGraphicsView::wheelEvent(event);
+
+    if(event->delta() > 0)
+        zoom(1.03);
+    else
+        zoom(0.93);
+
+    event->accept();
 }
 
-void ImageView::zoomOut(qreal factor) {
+void ImageView::zoom(qreal factor) {
     HAS_PAGE()
-    page_->scale(factor);
+
+    if(factor < 1.0 && !isTooSmall())
+        page_->scale(factor);
+    else if(factor > 1.0 && !isTooBig())
+        page_->scale(factor);
 }
