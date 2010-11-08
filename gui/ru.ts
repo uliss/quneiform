@@ -159,7 +159,7 @@
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>Уменшить</translation>
+        <translation>Уменьшить</translation>
     </message>
     <message>
         <source>Fit to page width</source>
