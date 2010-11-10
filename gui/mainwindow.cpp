@@ -318,8 +318,18 @@ void MainWindow::recognizeAll() {
     Q_CHECK_PTR(doc_);
 
     if(!doc_->countSelected()) {
-        QMessageBox::warning(this, tr("Warning"), tr("No page selected"));
-        return;
+        QMessageBox warn(QMessageBox::Warning,
+                      tr("Warning"),
+                      tr("No page selected"),
+                      QMessageBox::Cancel | QMessageBox::Ok,
+                      this);
+        warn.setInformativeText(tr("Do you want to recognize all?"));
+
+        int button = warn.exec();
+        if(button == QMessageBox::Cancel)
+            return;
+        else if(button == QMessageBox::Ok)
+            thumbs_->selectAll();
     }
 
     doc_->recognizeSelected();
@@ -428,6 +438,7 @@ void MainWindow::setupDocument() {
     connect(doc_, SIGNAL(changed()), SLOT(documentChange()));
     connect(doc_, SIGNAL(saved()), SLOT(documentSave()));
     connect(doc_, SIGNAL(imageDuplicated(QString)), SLOT(imageDuplication(QString)));
+    connect(doc_, SIGNAL(allPagesRecognized()), SLOT(updateCurrentPage()));
 }
 
 void MainWindow::setupImageView() {
@@ -507,6 +518,15 @@ void MainWindow::showPageText(Page * page) {
     Q_CHECK_PTR(page);
     Q_CHECK_PTR(text_view_);
     text_view_->document()->setHtml(page->ocrText());
+}
+
+void MainWindow::updateCurrentPage() {
+    Q_CHECK_PTR(thumbs_);
+    Page * current = thumbs_->currentPage();
+    if(!current)
+        return;
+
+    showPageText(current);
 }
 
 void MainWindow::writeSettings() {

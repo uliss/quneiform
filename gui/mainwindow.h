@@ -65,6 +65,7 @@ public slots:
 private slots:
     void disableViewActions();
     void openRecent();
+    void updateCurrentPage();
 private:
     void addRecentFile(const QString& path);
     void addRecentFileMenuAction(const QString& path);

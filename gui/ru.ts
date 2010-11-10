@@ -319,6 +319,10 @@ Do you want to save it?</source>
         <source>Recent files</source>
         <translation>Недавно открытые файлы</translation>
     </message>
+    <message>
+        <source>Do you want to recognize all?</source>
+        <translation>Распознать все?</translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
