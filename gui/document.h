@@ -56,6 +56,12 @@ public:
     QString fileName() const;
 
     /**
+      * Checks if document contains page with given image file path
+      * @return true if such page exists
+      */
+    bool hasPage(const QString& path) const;
+
+    /**
       * Returns true if document changed
       */
     bool isChanged() const;

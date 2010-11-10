@@ -32,11 +32,9 @@ Document::~Document() {
 
 void Document::append(Page * page, bool allowDuplication) {
     if(!allowDuplication) {
-        for (PageList::const_iterator it = pages_.begin(); it != pages_.end(); ++it) {
-            if ((*it)->imagePath() == page->imagePath()) {
-                emit imageDuplicated(page->imagePath());
-                return;
-            }
+        if(hasPage(page->imagePath())) {
+            emit imageDuplicated(page->imagePath());
+            return;
         }
     }
 
@@ -70,6 +68,14 @@ int Document::countSelected() const {
 
 QString Document::fileName() const {
     return filename_;
+}
+
+bool Document::hasPage(const QString& path) const {
+    for (PageList::const_iterator it = pages_.begin(); it != pages_.end(); ++it) {
+        if ((*it)->imagePath() == path)
+            return true;
+    }
+    return false;
 }
 
 bool Document::isChanged() const {

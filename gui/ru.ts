@@ -315,6 +315,10 @@ Do you want to save it?</source>
         <source>Original size</source>
         <translation>Исходный размер</translation>
     </message>
+    <message>
+        <source>Recent files</source>
+        <translation>Недавно открытые файлы</translation>
+    </message>
 </context>
 <context>
     <name>Page</name>

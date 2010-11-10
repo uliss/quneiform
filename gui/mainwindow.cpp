@@ -44,6 +44,7 @@ static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
 static const int VERSION_PATCH = 1;
 static const char * VERSION_EXTRA = "-alpha";
+static const int MAX_RECENT_FILES = 5;
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent), ui_(new Ui::MainWindow), doc_(new Document(this)), progress_(NULL) {
@@ -53,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connectActions();
     connectThumbs();
     readSettings();
+    populateRecentFiles();
 }
 
 MainWindow::~MainWindow() {
@@ -73,6 +75,25 @@ void MainWindow::about() {
                        .arg(VERSION_MINOR)
                        .arg(VERSION_PATCH)
                        .arg(VERSION_EXTRA));
+}
+
+void MainWindow::addRecentFile(const QString& file) {
+    if(recent_files_.contains(file))
+        recent_files_.removeAll(file);
+
+    recent_files_ << file;
+
+    while(recent_files_.size() > MAX_RECENT_FILES)
+        recent_files_.removeFirst();
+
+    populateRecentFiles();
+}
+
+void MainWindow::addRecentFileMenuAction(const QString& path) {
+    QAction * act = new QAction(path, NULL);
+    act->setData(path);
+    connect(act, SIGNAL(triggered()), SLOT(openRecent()));
+    ui_->menuRecentFiles->addAction(act);
 }
 
 void MainWindow::changeDocumentLanguage(int lang) {
@@ -198,6 +219,8 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication) {
 
     doc_->append(p, allowDuplication);
 
+    addRecentFile(path);
+
     return true;
 }
 
@@ -248,11 +271,35 @@ void MainWindow::openPacket(const QString& path) {
     }
 }
 
+void MainWindow::openRecent() {
+    Q_CHECK_PTR(doc_);
+
+    QAction * act = qobject_cast<QAction*>(sender());
+    if(!act)
+        return;
+
+    QString path = act->data().toString();
+    if(path.isEmpty())
+        return;
+
+    if(!doc_->hasPage(path))
+        openImage(path);
+}
+
+void MainWindow::populateRecentFiles() {
+    ui_->menuRecentFiles->clear();
+
+    QStringListIterator i(recent_files_);
+    for(i.toBack(); i.hasPrevious(); i.previous())
+        addRecentFileMenuAction(i.peekPrevious());
+}
+
 void MainWindow::readSettings() {
     QSettings settings(ORGANIZATION, APPLICATION);
     settings.beginGroup("MainWindow");
     resize(settings.value("size", QSize(800, 600)).toSize());
     move(settings.value("pos", QPoint(200, 200)).toPoint());
+    recent_files_ = settings.value("recent-files", QStringList()).toStringList();
     settings.endGroup();
 }
 
@@ -466,5 +513,6 @@ void MainWindow::writeSettings() {
     settings.beginGroup("MainWindow");
     settings.setValue("size", size());
     settings.setValue("pos", pos());
+    settings.setValue("recent-files", recent_files_);
     settings.endGroup();
 }

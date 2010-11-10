@@ -64,13 +64,17 @@ public slots:
     void showPageText(Page * page);
 private slots:
     void disableViewActions();
+    void openRecent();
 private:
+    void addRecentFile(const QString& path);
+    void addRecentFileMenuAction(const QString& path);
     void connectActions();
     void connectThumbs();
     void mapLanguageActions(const QList<QAction*>& actions);
     void mapLanguageMenuActions();
     void mapLanguageToolButtonActions();
     bool openImage(const QString& path, bool allowDuplication = false);
+    void populateRecentFiles();
     void readSettings();
     void selectLanguage(int lang);
     void setupDocument();
@@ -94,6 +98,7 @@ private:
     QTextEdit * text_view_;
     ThumbnailList * thumbs_;
     QHBoxLayout * main_layout_;
+    QStringList recent_files_;
 };
 
 #endif // MAINWINDOW_H
