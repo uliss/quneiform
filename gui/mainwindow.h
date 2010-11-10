@@ -70,6 +70,7 @@ private:
     void addRecentFileMenuAction(const QString& path);
     void connectActions();
     void connectThumbs();
+    void enablePageActions(bool value);
     void mapLanguageActions(const QList<QAction*>& actions);
     void mapLanguageMenuActions();
     void mapLanguageToolButtonActions();
@@ -86,7 +87,6 @@ private:
     void setupUi();
     void setupUiLayout();
     void writeSettings();
-    void setZoomEnabled(bool value);
 private:
     Ui::MainWindow * ui_;
     Document * doc_;

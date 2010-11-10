@@ -147,7 +147,7 @@ void MainWindow::connectThumbs() {
 }
 
 void MainWindow::disableViewActions() {
-    setZoomEnabled(false);
+    enablePageActions(false);
 }
 
 void MainWindow::documentChange() {
@@ -161,6 +161,17 @@ void MainWindow::documentSave() {
         title.chop(1);
         setWindowTitle(title);
     }
+}
+
+void MainWindow::enablePageActions(bool value) {
+    ui_->actionZoom_In->setEnabled(value);
+    ui_->actionZoom_Out->setEnabled(value);
+    ui_->actionFitWidth->setEnabled(value);
+    ui_->actionFitPage->setEnabled(value);
+    ui_->actionRotateLeft->setEnabled(value);
+    ui_->actionRotateRight->setEnabled(value);
+    ui_->actionOriginalSize->setEnabled(value);
+    ui_->actionRecognizeAll->setEnabled(value);
 }
 
 void MainWindow::imageDuplication(const QString& path) {
@@ -457,7 +468,7 @@ void MainWindow::setupThumbs() {
 void MainWindow::setupUi() {
     setUnifiedTitleAndToolBarOnMac(true);
     ui_->setupUi(this);
-    setZoomEnabled(false);
+    enablePageActions(false);
     setupLanguageUi();
     setupThumbs();
     setupImageView();
@@ -483,21 +494,11 @@ void MainWindow::setupUiLayout() {
     ui_->centralWidget->setLayout(main_layout_);
 }
 
-void MainWindow::setZoomEnabled(bool value) {
-    ui_->actionZoom_In->setEnabled(value);
-    ui_->actionZoom_Out->setEnabled(value);
-    ui_->actionFitWidth->setEnabled(value);
-    ui_->actionFitPage->setEnabled(value);
-    ui_->actionRotateLeft->setEnabled(value);
-    ui_->actionRotateRight->setEnabled(value);
-    ui_->actionOriginalSize->setEnabled(value);
-}
-
 void MainWindow::showPageImage(Page * page) {
     qDebug() << Q_FUNC_INFO << page;
     Q_CHECK_PTR(page);
 
-    setZoomEnabled(true);
+    enablePageActions(true);
     statusBar()->showMessage(QFileInfo(page->imagePath()).fileName());
     image_widget_->showPage(page);
 }
