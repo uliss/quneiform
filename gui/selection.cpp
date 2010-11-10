@@ -224,6 +224,9 @@ void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
 
 void Selection::mousePressEvent(QGraphicsSceneMouseEvent * event) {
     QGraphicsRectItem::mousePressEvent(event);
+    if(event->button() != Qt::LeftButton)
+        return;
+
     resize_ = bordersResized(event->pos());
 
     if(!resize_)
