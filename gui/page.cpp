@@ -289,10 +289,17 @@ void Page::setTransform(const QTransform& t) {
     emit transformed();
 }
 
+void Page::setViewScroll(const QPoint& pt) {
+    view_scroll_ = pt;
+}
+
 QTransform Page::transform() const {
     return  transform_;
 }
 
+QPoint Page::viewScroll() const {
+    return view_scroll_;
+}
 
 QDataStream& operator<<(QDataStream& os, const Page& page) {
     os << page.image_path_
@@ -307,7 +314,8 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.page_area_
             << page.language_
             << page.transform_
-            << page.is_null_;
+            << page.is_null_
+            << page.view_scroll_;
     return os;
 }
 
@@ -324,7 +332,8 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.page_area_
             >> page.language_
             >> page.transform_
-            >> page.is_null_;
+            >> page.is_null_
+            >> page.view_scroll_;
 
     if(page.is_selected_)
         page.setSelected(true);

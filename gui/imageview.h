@@ -73,11 +73,13 @@ private:
     bool isTooSmall() const;
     void resizeSelection(const QPoint& pos);
     void restorePageSelection();
+    void savePageViewScroll();
     void savePageTransform();
     void setPageSelection(const QRect& rect);
     void setupScene();
     void showImage(const QString& path);
     void startSelection(const QPoint& pos);
+    void restorePageScroll();
     void updateSelectionCursor();
 private:
     enum select_mode_t {

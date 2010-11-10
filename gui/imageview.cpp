@@ -26,6 +26,7 @@
 #include <QMenu>
 #include <QRubberBand>
 #include <QWheelEvent>
+#include <QScrollBar>
 
 #include "imageview.h"
 #include "imagecache.h"
@@ -338,6 +339,12 @@ void ImageView::savePageSelection() {
         page_->setPageArea(QRect());
 }
 
+void ImageView::savePageViewScroll() {
+    HAS_PAGE()
+
+    page_->setViewScroll(QPoint(horizontalScrollBar()->value(), verticalScrollBar()->value()));
+}
+
 void ImageView::savePageTransform() {
     HAS_PAGE()
     page_->setTransform(transform());
@@ -378,6 +385,8 @@ void ImageView::showPage(Page * page) {
     if(page_ == page)
         return;
 
+    // save old page view scroll
+    savePageViewScroll();
     // disconnect previous
     disconnectPageSignals(page_);
     // set current page
@@ -388,6 +397,7 @@ void ImageView::showPage(Page * page) {
     clearScene();
     updateTransform();
     showImage(page_->imagePath());
+    restorePageScroll();
     restorePageSelection();
     activate(true);
 }
@@ -413,6 +423,14 @@ void ImageView::startSelection(const QPoint& pos) {
 
     rubber_band_->setGeometry(QRect(selection_start_, QSize()));
     rubber_band_->show();
+}
+
+void ImageView::restorePageScroll() {
+    HAS_PAGE()
+
+    QPoint scroll = page_->viewScroll();
+    horizontalScrollBar()->setValue(scroll.x());
+    verticalScrollBar()->setValue(scroll.y());
 }
 
 void ImageView::updateSelectionCursor() {

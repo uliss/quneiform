@@ -153,9 +153,19 @@ public:
     void setTransform(const QTransform& t);
 
     /**
+      * Sets page view scroll
+      */
+    void setViewScroll(const QPoint& pt);
+
+    /**
       * Returns page transform
       */
     QTransform transform() const;
+
+    /**
+      * Returns page view scroll
+      */
+    QPoint viewScroll() const;
 signals:
     void changed();
     /**
@@ -176,6 +186,7 @@ private:
     QRectF page_area_;
     QString language_;
     QTransform transform_;
+    QPoint view_scroll_;
     bool is_null_;
 private:
     void drawFormatPageLayout(QGraphicsScene * scene) const;
