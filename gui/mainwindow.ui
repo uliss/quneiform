@@ -105,7 +105,6 @@
    <addaction name="actionRotateLeft"/>
    <addaction name="actionRotateRight"/>
    <addaction name="actionRecognizeAll"/>
-   <addaction name="actionSelectRegion"/>
   </widget>
   <action name="actionAbout">
    <property name="text">
