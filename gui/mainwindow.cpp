@@ -21,7 +21,6 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QCloseEvent>
-#include <QSignalMapper>
 #include <QProgressDialog>
 #include <QTextEdit>
 #include <QSplitter>
@@ -183,28 +182,6 @@ void MainWindow::imageDuplication(const QString& path) {
         openImage(path, true);
 }
 
-void MainWindow::mapLanguageActions(const QList<QAction*>& actions) {
-    Q_CHECK_PTR(lang_mapper_);
-
-    foreach(QAction * act, actions) {
-        connect(act, SIGNAL(triggered()), lang_mapper_, SLOT(map()));
-        lang_mapper_->setMapping(act, act->data().toInt());
-    }
-}
-
-void MainWindow::mapLanguageMenuActions() {
-    Q_CHECK_PTR(lang_menu_);
-
-    mapLanguageActions(lang_menu_->actions());
-}
-
-void MainWindow::mapLanguageToolButtonActions() {
-    Q_CHECK_PTR(lang_select_);
-    Q_CHECK_PTR(lang_select_->menu());
-
-    mapLanguageActions(lang_select_->menu()->actions());
-}
-
 bool MainWindow::openImage(const QString& path, bool allowDuplication) {
     Q_CHECK_PTR(doc_);
     qDebug() << Q_FUNC_INFO << path;
@@ -349,7 +326,7 @@ void MainWindow::recognizePage(Page * page) {
         }
     }
 
-    page->setLanguage(lang_select_->currentLanguage());
+//    page->setLanguage(lang_select_->currentLanguage());
     page->recognize();
     showPageText(page);
 }
@@ -419,6 +396,15 @@ void MainWindow::savePage(Page * page) {
     page->save(filename);
 }
 
+void MainWindow::selectLanguage() {
+    QAction * act = qobject_cast<QAction*>(sender());
+    if(!act)
+        return;
+
+    int language = act->data().toInt();
+    selectLanguage(language);
+}
+
 void MainWindow::selectLanguage(int lang) {
     Q_CHECK_PTR(lang_menu_);
     Q_CHECK_PTR(lang_select_);
@@ -446,17 +432,25 @@ void MainWindow::setupImageView() {
     connect(image_widget_, SIGNAL(pageDeleted()), SLOT(disableViewActions()));
 }
 
-void MainWindow::setupLanguageUi() {
-    lang_mapper_ = new QSignalMapper(this);
+void MainWindow::setupLanguageMenu() {
+    lang_menu_  = ui_->menuRecognition->addMenu(tr("Language"));
+    // fill actions
+    LanguageSelect::fillLanguageMenu(lang_menu_);
+    // connect actions
+    foreach(QAction * act, lang_menu_->actions()) {
+        connect(act, SIGNAL(triggered()), SLOT(selectLanguage()));
+    }
+}
+
+void MainWindow::setupLanguageSelect() {
     lang_select_ = new LanguageSelect(this);
     ui_->mainToolBar->addWidget(lang_select_);
-    lang_menu_  = ui_->menuRecognition->addMenu(tr("Language"));
-    LanguageSelect::fillLanguageMenu(lang_menu_);
+    connect(lang_select_, SIGNAL(languageSelected(int)), SLOT(changeDocumentLanguage(int)));
+}
 
-    mapLanguageMenuActions();
-    mapLanguageToolButtonActions();
-
-    connect(lang_mapper_, SIGNAL(mapped(int)), this, SLOT(changeDocumentLanguage(int)));
+void MainWindow::setupLanguageUi() {
+    setupLanguageMenu();
+    setupLanguageSelect();
 }
 
 void MainWindow::setupShortcuts() {

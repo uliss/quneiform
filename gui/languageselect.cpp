@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <QMenu>
+#include <QAction>
 #include <QtGlobal>
 #include <QDebug>
 #include <QApplication>
@@ -54,17 +55,9 @@ namespace {
     };
 }
 
-LanguageSelect::LanguageSelect(QWidget * parent) : QToolButton(parent) {
-    menu_ = new QMenu(this);
-    setMenu(menu_);
-    setPopupMode(QToolButton::InstantPopup);
+LanguageSelect::LanguageSelect(QWidget * parent) : QComboBox(parent) {
     initLanguages();
-    setIcon(QIcon(":/img/oxygen/32x32/locale.png"));
-}
-
-QString LanguageSelect::currentLanguage() const {
-    cf::Language lang(static_cast<language_t>(current_language_));
-    return lang.isValid() ? lang.isoCode2().c_str() : "en";
+    connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(languageChange(int)));
 }
 
 typedef QMap<QString, int> LanguageMap;
@@ -95,19 +88,26 @@ void LanguageSelect::fillLanguageMenu(QMenu* menu) {
 }
 
 void LanguageSelect::initLanguages() {
-    fillLanguageMenu(menu_);
+    LanguageMap langs = langMap();
+    for(LanguageMap::iterator it = langs.begin(), end = langs.end(); it != end; ++it)
+        addItem(it.key(), it.value());
 }
 
-void LanguageSelect::select(int langCode) {
-    current_language_ = langCode;
-    foreach(QAction * act, menu()->actions()) {
-        if(act->data().toInt() != langCode)
-            act->setChecked(false);
-        else
-            act->setChecked(true);
-    }
+void LanguageSelect::languageChange(int item_index) {
+    if(item_index < 0)
+        return;
 
-    qDebug() << "[LanguageSelect::select]" << cf::Language::isoName(static_cast<language_t>(langCode)).c_str();
+    QVariant data = itemData(item_index);
+    if(!data.isValid())
+        return;
+
+    emit languageSelected(data.toInt());
+}
+
+void LanguageSelect::select(int lang) {
+    int item_idx = findData(QVariant(lang));
+    if(item_idx != -1)
+        setCurrentIndex(item_idx);
 }
 
 QStringList LanguageSelect::supportedLanguages() {

@@ -30,7 +30,6 @@ class LanguageSelect;
 class Page;
 class ImageWidget;
 class ThumbnailList;
-class QSignalMapper;
 class QProgressDialog;
 class QTextEdit;
 class QHBoxLayout;
@@ -65,6 +64,7 @@ public slots:
 private slots:
     void disableViewActions();
     void openRecent();
+    void selectLanguage();
     void updateCurrentPage();
 private:
     void addRecentFile(const QString& path);
@@ -72,15 +72,14 @@ private:
     void connectActions();
     void connectThumbs();
     void enablePageActions(bool value);
-    void mapLanguageActions(const QList<QAction*>& actions);
-    void mapLanguageMenuActions();
-    void mapLanguageToolButtonActions();
     bool openImage(const QString& path, bool allowDuplication = false);
     void populateRecentFiles();
     void readSettings();
     void selectLanguage(int lang);
     void setupDocument();
     void setupImageView();
+    void setupLanguageMenu();
+    void setupLanguageSelect();
     void setupLanguageUi();
     void setupShortcuts();
     void setupTextView();
@@ -92,7 +91,6 @@ private:
     Ui::MainWindow * ui_;
     Document * doc_;
     LanguageSelect * lang_select_;
-    QSignalMapper * lang_mapper_;
     QMenu * lang_menu_;
     QProgressDialog * progress_;
     ImageWidget * image_widget_;

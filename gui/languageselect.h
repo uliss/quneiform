@@ -19,24 +19,24 @@
 #ifndef LANGUAGE_SELECT_H_
 #define LANGUAGE_SELECT_H_
 
-#include <QToolButton>
+#include <QComboBox>
 
 class QMenu;
 
-class LanguageSelect : public QToolButton {
+class LanguageSelect : public QComboBox {
     Q_OBJECT
 public:
     LanguageSelect(QWidget * parent = 0);
-    QString currentLanguage() const;
-    void select(int langCode);
+    void select(int lang);
+signals:
+    void languageSelected(int lang);
 public:
     static QStringList supportedLanguages();
     static void fillLanguageMenu(QMenu* menu);
 private:
     void initLanguages();
-private:
-    QMenu * menu_;
-    int current_language_;
+private slots:
+    void languageChange(int index);
 };
 
 
