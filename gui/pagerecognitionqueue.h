@@ -16,29 +16,31 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LANGUAGE_SELECT_H_
-#define LANGUAGE_SELECT_H_
 
-#include <QComboBox>
+#ifndef PAGERECOGNITIONQUEUE_H
+#define PAGERECOGNITIONQUEUE_H
 
-class QMenu;
+#include <QThread>
+#include <QQueue>
+#include <QMutex>
 
-class LanguageSelect : public QComboBox {
+class Document;
+class Page;
+
+class PageRecognitionQueue : public QThread
+{
     Q_OBJECT
 public:
-    LanguageSelect(QWidget * parent = 0);
-    int currentLanguage() const;
-    void select(int lang);
-signals:
-    void languageSelected(int lang);
-public:
-    static QStringList supportedLanguages();
-    static void fillLanguageMenu(QMenu* menu);
+    explicit PageRecognitionQueue(QObject *parent = 0);
+    void add(Document * doc);
+    void add(Page * p);
+    bool isEmpty() const;
+    void run();
+    void setLanguage(int language);
 private:
-    void initLanguages();
-private slots:
-    void languageChange(int index);
+    QQueue<Page*> pages_;
+    QMutex mutex_;
+    int language_;
 };
 
-
-#endif // LANGUAGE_SELECT_H_
+#endif // PAGERECOGNITIONQUEUE_H

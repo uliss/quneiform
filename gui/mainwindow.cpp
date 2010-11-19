@@ -35,6 +35,7 @@
 #include "imagewidget.h"
 #include "thumbnailwidget.h"
 #include "thumbnaillist.h"
+#include "pagerecognitionqueue.h"
 
 static const char * ORGANIZATION = "openocr.org";
 static const char * APPLICATION = "Quneiform OCR";
@@ -54,6 +55,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connectThumbs();
     readSettings();
     populateRecentFiles();
+    recognition_queue_ = new PageRecognitionQueue(this);
+    connect(recognition_queue_, SIGNAL(finished()), SLOT(updateCurrentPage()));
 }
 
 MainWindow::~MainWindow() {
@@ -98,6 +101,7 @@ void MainWindow::addRecentFileMenuAction(const QString& path) {
 void MainWindow::changeDocumentLanguage(int lang) {
     qDebug() << "[MainWindow::changeDocumentLanguage(" << lang << ")]";
     doc_->setLanguage(lang);
+    recognition_queue_->setLanguage(lang);
     selectLanguage(lang);
 }
 
@@ -309,7 +313,14 @@ void MainWindow::recognizeAll() {
             thumbs_->selectAll();
     }
 
-    doc_->recognizeSelected();
+    for(int i = 0; i < doc_->pageCount(); i++) {
+        Page * p = doc_->page(i);
+        if(p->isSelected())
+            recognition_queue_->add(p);
+    }
+
+    recognition_queue_->setLanguage(lang_select_->currentLanguage());
+    recognition_queue_->start();
 }
 
 void MainWindow::recognizePage(Page * page) {
@@ -326,9 +337,8 @@ void MainWindow::recognizePage(Page * page) {
         }
     }
 
-//    page->setLanguage(lang_select_->currentLanguage());
-    page->recognize();
-    showPageText(page);
+    recognition_queue_->add(page);
+    recognition_queue_->start();
 }
 
 void MainWindow::rotate(int factor) {
@@ -424,7 +434,6 @@ void MainWindow::setupDocument() {
     connect(doc_, SIGNAL(changed()), SLOT(documentChange()));
     connect(doc_, SIGNAL(saved()), SLOT(documentSave()));
     connect(doc_, SIGNAL(imageDuplicated(QString)), SLOT(imageDuplication(QString)));
-    connect(doc_, SIGNAL(allPagesRecognized()), SLOT(updateCurrentPage()));
 }
 
 void MainWindow::setupImageView() {

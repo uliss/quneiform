@@ -333,7 +333,7 @@ Do you want to save it?</source>
     <message>
         <source>Error while recognizing &quot;%1&quot;:
 %2</source>
-        <translation>Ошибка распознавания файла %1:
+        <translation type="obsolete">Ошибка распознавания файла %1:
 %2</translation>
     </message>
     <message>
@@ -343,6 +343,19 @@ Do you want to save it?</source>
     <message>
         <source>Saved failed. Can&apos;t open file &quot;%1&quot; for writing.</source>
         <translation>Ошибка сохранения. Невозможно открыть файл &quot;%1&quot; для записи.</translation>
+    </message>
+</context>
+<context>
+    <name>PageRecognizer</name>
+    <message>
+        <source>Quneiform OCR</source>
+        <translation type="obsolete">Quneiform OCR</translation>
+    </message>
+    <message>
+        <source>Error while recognizing &quot;%1&quot;:
+%2</source>
+        <translation type="obsolete">Ошибка распознавания файла %1:
+%2</translation>
     </message>
 </context>
 <context>

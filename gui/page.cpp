@@ -25,21 +25,14 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QDataStream>
+#include <QMutexLocker>
 
-#include "rdib/qtimageloader.h"
-#include "cuneiform.h"
-#include "rfrmt/rfrmtoptions.h"
-#include "rfrmt/crtfchar.h"
-#include "rfrmt/crtfpage.h"
 #include "page.h"
 #include "imagecache.h"
 
-
-QColor Page::format_page_color_(0, 255, 0, 200);
-
 Page::Page(const QString& image_path) :
         image_path_(image_path), number_(0), is_recognized_(false), is_saved_(false),
-        is_selected_(false), language_("en") {
+        is_selected_(false) {
 
     QPixmap pixmap;
     if(ImageCache::load(image_path_, &pixmap)) {
@@ -59,37 +52,6 @@ int Page::angle() const {
         return pt.y() > 0 ? 0 : 180;
     else
         return 0;
-}
-
-void Page::drawFormatLayout(QGraphicsScene * scene) const {
-    Q_CHECK_PTR(scene);
-    drawFormatPageLayout(scene);
-}
-
-void Page::drawFormatPageLayout(QGraphicsScene * scene) const {
-    QPen pen(Qt::SolidLine);
-    pen.setWidth(3);
-    pen.setColor(format_page_color_);
-
-    for (int i = 0; i < r_page_.count(); i++) {
-        QGraphicsItem * r = scene->addRect(r_page_[i], pen);
-        r->setZValue(i + 1);
-        r ->setToolTip(QString("Page layout: %1x%2").arg(r_page_[i].width()).arg(
-                r_page_[i].height()));
-    }
-}
-
-void Page::fillFormatLayout(const cf::CRtfPage * page) {
-    Q_CHECK_PTR(page);
-
-    r_page_.append(QRect(QPoint(page->m_rect.left, page->m_rect.top), QPoint(page->m_rect.right,
-                                                                             page->m_rect.bottom)));
-}
-
-bool Page::isFormatConvertionNeeded(int format) const {
-    if(format == QImage::Format_Mono)
-        return false;
-    return true;
 }
 
 QString Page::imagePath() const {
@@ -116,6 +78,10 @@ bool Page::isSelected() const {
     return is_selected_;
 }
 
+QMutex * Page::mutex() const {
+    return &mutex_;
+}
+
 unsigned int Page::number() const {
     return number_;
 }
@@ -128,67 +94,9 @@ const QRectF& Page::pageArea() const {
     return page_area_;
 }
 
-void Page::recognize() {
-    using namespace cf;
-
-    try {
-        QtImageLoader loader;
-        QImage img(image_path_);
-
-        // convert to 24-bit
-        if(isFormatConvertionNeeded(img.format()))
-            img = img.convertToFormat(QImage::Format_RGB888);
-
-        // select page area
-        if(pageArea().isValid()) {
-            img = img.copy(page_area_.x(),
-                           page_area_.y(),
-                           page_area_.width(),
-                           page_area_.height());
-        }
-
-        // rotate
-        if(angle() != 0) {
-            QTransform t;
-            t.rotate(angle());
-            img = img.transformed(t);
-        }
-
-        ImagePtr image = loader.load(&img);
-    	if (!image)
-            throw Exception("[Page::recognize] can't open image");
-
-    	RecognizeOptions recognize_options;
-    	recognize_options.setLanguage(Language::byCode2(language_.toStdString()).get());
-    	//	recognize_options.setOneColumn(do_singlecolumn);
-    	//	recognize_options.setFax(do_fax);
-    	//	recognize_options.setDotMatrix(do_dotmatrix);
-    	//	recognize_options.setSpellCorrection(do_speller);
-    	//	recognize_options.setAutoRotate(do_autorotate);
-    	//	recognize_options.setPictureSearch(do_pictures);
-    	//  Puma::instance().setOptionTables(puma_table_t mode);
-    	Puma::instance().setRecognizeOptions(recognize_options);
-
-    	Puma::instance().open(image);
-    	Puma::instance().recognize();
-    	Puma::instance().formatResult();
-
-    	//fillFormatLayout(Puma::instance().formatPage());
-
-    	std::ostringstream buf;
-    	Puma::instance().save(buf, FORMAT_HTML);
-
-    	ocr_text_ = QString::fromUtf8(buf.str().c_str());
-    	is_recognized_ = true;
-        emit changed();
-    }
-    catch(Exception& e) {
-        QMessageBox::critical(NULL, tr("Quneiform OCR"),
-                              tr("Error while recognizing \"%1\":\n%2").arg(imagePath()).arg(e.what()));
-    }
-}
-
 void Page::resetScale() {
+    QMutexLocker lock(&mutex_);
+
     QTransform t;
     t.rotate(angle());
     transform_ = t;
@@ -197,12 +105,16 @@ void Page::resetScale() {
 }
 
 void Page::rotate(int angle) {
+    QMutexLocker lock(&mutex_);
+
     transform_.rotate(angle);
     emit changed();
     emit rotated(angle);
 }
 
 void Page::save(const QString& file) {
+    QMutexLocker lock(&mutex_);
+
     if (!isRecognized())
         throw Exception("[Page::save] page is not recognized");
 
@@ -240,23 +152,16 @@ void Page::save(const QString& file) {
 }
 
 void Page::scale(qreal factor) {
+    QMutexLocker lock(&mutex_);
+
     transform_.scale(factor, factor);
     emit changed();
     emit transformed();
 }
 
-void Page::setLanguage(const QString& code) {
-    if(cf::Language::byCode2(code.toStdString()).isValid()) {
-        language_ = code;
-        qDebug() << "[Page::setLanguage]" << code;
-        emit changed();
-    }
-    else {
-        qDebug() << "Invalid language code: " << code;
-    }
-}
-
 void Page::setNumber(unsigned int number) {
+    QMutexLocker lock(&mutex_);
+
     if(number_ == number)
         return;
 
@@ -264,7 +169,16 @@ void Page::setNumber(unsigned int number) {
     emit changed();
 }
 
+void Page::setOcrText(const QString& text) {
+    QMutexLocker lock(&mutex_);
+
+    ocr_text_ = text;
+    is_recognized_ = true;
+}
+
 void Page::setPageArea(const QRectF& area) {
+    QMutexLocker lock(&mutex_);
+
     if(page_area_ == area)
         return;
 
@@ -281,6 +195,8 @@ void Page::setSelected(bool value) {
 }
 
 void Page::setTransform(const QTransform& t) {
+    QMutexLocker lock(&mutex_);
+
     if(transform_ == t)
         return;
 
@@ -302,6 +218,7 @@ QPoint Page::viewScroll() const {
 }
 
 QDataStream& operator<<(QDataStream& os, const Page& page) {
+    QMutexLocker lock(&page.mutex_);
     os << page.image_path_
             << page.image_size_
             << page.ocr_text_
@@ -312,7 +229,6 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.r_page_
             << page.r_fragment_
             << page.page_area_
-            << page.language_
             << page.transform_
             << page.is_null_
             << page.view_scroll_;
@@ -320,6 +236,7 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
 }
 
 QDataStream& operator>>(QDataStream& is, Page& page) {
+    QMutexLocker lock(&page.mutex_);
     is >> page.image_path_
             >> page.image_size_
             >> page.ocr_text_
@@ -330,7 +247,6 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.r_page_
             >> page.r_fragment_
             >> page.page_area_
-            >> page.language_
             >> page.transform_
             >> page.is_null_
             >> page.view_scroll_;

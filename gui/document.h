@@ -89,16 +89,6 @@ public:
     int pageCount() const;
 
     /**
-      * Recognizes all pages
-      */
-    void recognizeAll();
-
-    /**
-      * Recognizes selected pages
-      */
-    void recognizeSelected();
-
-    /**
       * Saves document to file
       * @return true on success, false on saving error
       */
@@ -109,11 +99,6 @@ public:
       */
     void setLanguage(int lang);
 signals:
-    /**
-      * Emitted when all document pages recognized
-      */
-    void allPagesRecognized();
-
     /**
       * Emitted when document changed
       */
@@ -135,17 +120,10 @@ signals:
     void pageRemoved(Page * page);
 
     /**
-      * Emitted when page in document recognized
-      */
-    void pageRecognized(Page * page);
-
-    /**
       * Emitted when document saved
       */
     void saved();
 public  slots:
-    void recognize(Page * page);
-
     /**
       * Removes page from list
       * If page not found do nothing

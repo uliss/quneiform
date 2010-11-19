@@ -11,6 +11,8 @@ set (HEADERS
     languageselect.h
     mainwindow.h
     page.h
+    pagerecognizer.h
+    pagerecognitionqueue.h
     selection.h
     selectionshadow.h
     thumbnaillist.h
@@ -27,6 +29,8 @@ set (SOURCES
     mainwindow.cpp
     main.cpp
     page.cpp
+    pagerecognizer.cpp
+    pagerecognitionqueue.cpp
     selection.cpp
     selectionshadow.cpp
     thumbnaillist.cpp

@@ -27,6 +27,7 @@
 #include <QtCore/QSize>
 #include <QtGui/QColor>
 #include <QTransform>
+#include <QMutex>
 
 class QGraphicsScene;
 class QDataStream;
@@ -100,12 +101,6 @@ public:
     const QRectF& pageArea() const;
 
     /**
-      * Recognizes image
-      * @throw Exception if page is not loaded
-      */
-    void recognize();
-
-    /**
       * Resets page scaling, but saves rotate
       */
     void resetScale();
@@ -127,15 +122,14 @@ public:
     void scale(qreal factor);
 
     /**
-      * Sets recognition language
-      * @param iso_code - language code, for ex. "ru"
-      */
-    void setLanguage(const QString& iso_code);
-
-    /**
       * Sets page number
       */
     void setNumber(unsigned int number);
+
+    /**
+      * Sets page ocr text
+      */
+    void setOcrText(const QString& text);
 
     /**
       * Sets page area on image
@@ -184,19 +178,18 @@ private:
     RectList r_page_;
     RectList r_fragment_;
     QRectF page_area_;
-    QString language_;
     QTransform transform_;
     QPoint view_scroll_;
     bool is_null_;
-private:
-    void drawFormatPageLayout(QGraphicsScene * scene) const;
-    void fillFormatLayout(const cf::CRtfPage * page);
-    bool isFormatConvertionNeeded(int format) const;
+    mutable QMutex mutex_;
 private:
     static QColor format_page_color_;
+private:
+    QMutex * mutex() const;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);
+    friend class PageRecognizer;
 };
 
 QDataStream& operator<<(QDataStream& stream, const Page& page);

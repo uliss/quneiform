@@ -28,6 +28,7 @@ class MainWindow;
 class Document;
 class LanguageSelect;
 class Page;
+class PageRecognitionQueue;
 class ImageWidget;
 class ThumbnailList;
 class QProgressDialog;
@@ -98,6 +99,7 @@ private:
     ThumbnailList * thumbs_;
     QHBoxLayout * main_layout_;
     QStringList recent_files_;
+    PageRecognitionQueue * recognition_queue_;
 };
 
 #endif // MAINWINDOW_H

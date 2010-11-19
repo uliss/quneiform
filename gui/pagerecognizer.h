@@ -16,29 +16,39 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LANGUAGE_SELECT_H_
-#define LANGUAGE_SELECT_H_
 
-#include <QComboBox>
+#ifndef PAGERECOGNIZER_H
+#define PAGERECOGNIZER_H
 
-class QMenu;
+#include <QThread>
+#include <QString>
+#include <QImage>
 
-class LanguageSelect : public QComboBox {
+class Page;
+
+class PageRecognizer : public QThread
+{
     Q_OBJECT
 public:
-    LanguageSelect(QWidget * parent = 0);
-    int currentLanguage() const;
-    void select(int lang);
+    explicit PageRecognizer(Page * p, QObject * parent = NULL);
+    void run();
+    void setLanguage(int language);
+    void setPage(Page * p);
 signals:
-    void languageSelected(int lang);
-public:
-    static QStringList supportedLanguages();
-    static void fillLanguageMenu(QMenu* menu);
+    void failed(const QString& msg);
+    void finished(int percent);
 private:
-    void initLanguages();
-private slots:
-    void languageChange(int index);
+    void doRecognize();
+    void formatResult();
+    bool isFormatConvertionNeeded(int format) const;
+    QImage loadImage() const;
+    void openImage();
+    void recognize();
+    void saveOcrText();
+    void setRecognizeOptions();
+private:
+    Page * page_;
+    int language_;
 };
 
-
-#endif // LANGUAGE_SELECT_H_
+#endif // PAGERECOGNIZER_H

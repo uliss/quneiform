@@ -21,7 +21,6 @@
 #include "document.h"
 #include "page.h"
 
-
 Document::Document(QObject * parent) :
         QObject(parent), language_(-1), changed_(false) {
 }
@@ -123,30 +122,6 @@ void Document::pageChange() {
 
 int Document::pageCount() const {
     return pages_.count();
-}
-
-void Document::recognize(Page * page) {
-    Q_CHECK_PTR(page);
-    page->recognize();
-    emit pageRecognized(page);
-}
-
-void Document::recognizeAll() {
-    foreach(Page * page, pages_) {
-    	recognize(page);
-    }
-
-    emit allPagesRecognized();
-}
-
-void Document::recognizeSelected() {
-    foreach(Page * page, pages_) {
-    	if (!page->isSelected())
-            continue;
-    	recognize(page);
-    }
-
-    emit allPagesRecognized();
 }
 
 void Document::remove(Page * page) {

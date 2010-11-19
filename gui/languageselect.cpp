@@ -60,6 +60,11 @@ LanguageSelect::LanguageSelect(QWidget * parent) : QComboBox(parent) {
     connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(languageChange(int)));
 }
 
+int LanguageSelect::currentLanguage() const {
+    QVariant l = itemData(currentIndex());
+    return l.isValid() ? l.toInt() : LANGUAGE_ENGLISH;
+}
+
 typedef QMap<QString, int> LanguageMap;
 
 LanguageMap langMap() {

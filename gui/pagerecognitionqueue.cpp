@@ -16,29 +16,51 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LANGUAGE_SELECT_H_
-#define LANGUAGE_SELECT_H_
+#include <QMutexLocker>
 
-#include <QComboBox>
+#include "pagerecognitionqueue.h"
+#include "pagerecognizer.h"
+#include "page.h"
+#include "document.h"
+#include "common/lang_def.h" // for language_t
 
-class QMenu;
+PageRecognitionQueue::PageRecognitionQueue(QObject *parent) :
+    QThread(parent), language_(LANGUAGE_ENGLISH)
+{
+}
 
-class LanguageSelect : public QComboBox {
-    Q_OBJECT
-public:
-    LanguageSelect(QWidget * parent = 0);
-    int currentLanguage() const;
-    void select(int lang);
-signals:
-    void languageSelected(int lang);
-public:
-    static QStringList supportedLanguages();
-    static void fillLanguageMenu(QMenu* menu);
-private:
-    void initLanguages();
-private slots:
-    void languageChange(int index);
-};
+void PageRecognitionQueue::add(Document * doc) {
+    Q_CHECK_PTR(doc);
 
+    for(int i = 0; i < doc->pageCount(); i++)
+        add(doc->page(i));
+}
 
-#endif // LANGUAGE_SELECT_H_
+void PageRecognitionQueue::add(Page * p) {
+    Q_CHECK_PTR(p);
+
+    QMutexLocker lock(&mutex_);
+    if(!pages_.contains(p))
+        pages_.enqueue(p);
+}
+
+bool PageRecognitionQueue::isEmpty() const {
+    return pages_.isEmpty();
+}
+
+void PageRecognitionQueue::run() {
+    QMutexLocker lock(&mutex_);
+
+    PageRecognizer r(NULL);
+    r.setLanguage(language_);
+    while(!pages_.empty()) {
+        Page * p = pages_.dequeue();
+        r.setPage(p);
+        r.start();
+        r.wait();
+    }
+}
+
+void PageRecognitionQueue::setLanguage(int language) {
+    language_ = language;
+}
