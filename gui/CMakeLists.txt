@@ -8,6 +8,8 @@ set (HEADERS
     imagecache.h
     imageview.h
     imagewidget.h
+    language_i18n.h
+    languagemenu.h
     languageselect.h
     mainwindow.h
     page.h
@@ -25,6 +27,8 @@ set (SOURCES
     imagecache.cpp
     imageview.cpp
     imagewidget.cpp
+    language_i18n.cpp
+    languagemenu.cpp
     languageselect.cpp
     mainwindow.cpp
     main.cpp

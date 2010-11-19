@@ -112,6 +112,13 @@
     </message>
 </context>
 <context>
+    <name>LanguageMenu</name>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished">Язык</translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <source>Quneiform OCR</source>
@@ -271,7 +278,7 @@
     </message>
     <message>
         <source>Language</source>
-        <translation>Язык</translation>
+        <translation type="obsolete">Язык</translation>
     </message>
     <message>
         <source>Recognition packet is not saved</source>

@@ -30,6 +30,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "document.h"
+#include "languagemenu.h"
 #include "languageselect.h"
 #include "page.h"
 #include "imagewidget.h"
@@ -99,10 +100,9 @@ void MainWindow::addRecentFileMenuAction(const QString& path) {
 }
 
 void MainWindow::changeDocumentLanguage(int lang) {
-    qDebug() << "[MainWindow::changeDocumentLanguage(" << lang << ")]";
+    qDebug() << Q_FUNC_INFO << lang;
     doc_->setLanguage(lang);
     recognition_queue_->setLanguage(lang);
-    selectLanguage(lang);
 }
 
 void MainWindow::closeEvent(QCloseEvent * event) {
@@ -261,6 +261,8 @@ void MainWindow::openPacket(const QString& path) {
                              tr("Quneiform OCR"),
                              tr("Can't read packet \"%1\"").arg(path));
     }
+
+    selectLanguage(doc_->language());
 }
 
 void MainWindow::openRecent() {
@@ -406,27 +408,13 @@ void MainWindow::savePage(Page * page) {
     page->save(filename);
 }
 
-void MainWindow::selectLanguage() {
-    QAction * act = qobject_cast<QAction*>(sender());
-    if(!act)
-        return;
-
-    int language = act->data().toInt();
-    selectLanguage(language);
-}
-
 void MainWindow::selectLanguage(int lang) {
-    Q_CHECK_PTR(lang_menu_);
     Q_CHECK_PTR(lang_select_);
-
-    foreach(QAction * act, lang_menu_->actions()) {
-        if(act->data().toInt() != lang)
-            act->setChecked(false);
-        else
-            act->setChecked(true);
-    }
+    Q_CHECK_PTR(lang_menu_);
 
     lang_select_->select(lang);
+    lang_menu_->select(lang);
+    changeDocumentLanguage(lang);
 }
 
 void MainWindow::setupDocument() {
@@ -442,19 +430,15 @@ void MainWindow::setupImageView() {
 }
 
 void MainWindow::setupLanguageMenu() {
-    lang_menu_  = ui_->menuRecognition->addMenu(tr("Language"));
-    // fill actions
-    LanguageSelect::fillLanguageMenu(lang_menu_);
-    // connect actions
-    foreach(QAction * act, lang_menu_->actions()) {
-        connect(act, SIGNAL(triggered()), SLOT(selectLanguage()));
-    }
+    lang_menu_ = new LanguageMenu;
+    ui_->menuRecognition->addMenu(lang_menu_);
+    connect(lang_menu_, SIGNAL(languageSelected(int)), SLOT(selectLanguage(int)));
 }
 
 void MainWindow::setupLanguageSelect() {
     lang_select_ = new LanguageSelect(this);
     ui_->mainToolBar->addWidget(lang_select_);
-    connect(lang_select_, SIGNAL(languageSelected(int)), SLOT(changeDocumentLanguage(int)));
+    connect(lang_select_, SIGNAL(languageSelected(int)), SLOT(selectLanguage(int)));
 }
 
 void MainWindow::setupLanguageUi() {

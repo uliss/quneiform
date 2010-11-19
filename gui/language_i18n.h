@@ -16,26 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LANGUAGE_SELECT_H_
-#define LANGUAGE_SELECT_H_
+#ifndef LANGUAGE_I18N_H
+#define LANGUAGE_I18N_H
 
-#include <QComboBox>
+#include <QMap>
+#include <QString>
 
-class QMenu;
+#include "common/lang_def.h"
 
-class LanguageSelect : public QComboBox {
-    Q_OBJECT
-public:
-    LanguageSelect(QWidget * parent = 0);
-    int currentLanguage() const;
-    void select(int lang);
-signals:
-    void languageSelected(int lang);
-private:
-    void initLanguages();
-private slots:
-    void languageChange(int index);
-};
+typedef QMap<QString, language_t> LanguageMap;
+LanguageMap supportedLanguages();
 
-
-#endif // LANGUAGE_SELECT_H_
+#endif // LANGUAGE_I18N_H

@@ -45,7 +45,9 @@ void PageRecognizer::formatResult() {
 }
 
 bool PageRecognizer::isFormatConvertionNeeded(int format) const {
-    return format != QImage::Format_Mono;
+    // on mono image segfault sometimes occures
+    return true;
+//    return format != QImage::Format_Mono;
 }
 
 QImage PageRecognizer::loadImage() const {

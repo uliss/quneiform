@@ -16,26 +16,42 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LANGUAGE_SELECT_H_
-#define LANGUAGE_SELECT_H_
+#include "languagemenu.h"
+#include "language_i18n.h"
 
-#include <QComboBox>
+LanguageMenu::LanguageMenu(QWidget *parent) :
+    QMenu(tr("Language"), parent)
+{
+    fillActions();
+}
 
-class QMenu;
+void LanguageMenu::fillActions() {
+    LanguageMap langs = supportedLanguages();
+    for(LanguageMap::iterator it = langs.begin(), end = langs.end();
+            it != end; ++it) {
+        QAction * lang_action = addAction(it.key());
+        lang_action->setData(it.value());
+        lang_action->setCheckable(true);
+        connect(lang_action, SIGNAL(triggered()), SLOT(selectAction()));
+    }
+}
 
-class LanguageSelect : public QComboBox {
-    Q_OBJECT
-public:
-    LanguageSelect(QWidget * parent = 0);
-    int currentLanguage() const;
-    void select(int lang);
-signals:
-    void languageSelected(int lang);
-private:
-    void initLanguages();
-private slots:
-    void languageChange(int index);
-};
+void LanguageMenu::selectAction() {
+    QAction * act = qobject_cast<QAction*>(sender());
+    if(!act)
+        return;
 
+    int lang = act->data().toInt();
+    select(lang);
 
-#endif // LANGUAGE_SELECT_H_
+    emit languageSelected(lang);
+}
+
+void LanguageMenu::select(int lang) {
+    foreach(QAction * act, actions()) {
+        if(act->data().toInt() != lang)
+            act->setChecked(false);
+        else
+            act->setChecked(true);
+    }
+}

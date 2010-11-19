@@ -16,26 +16,23 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LANGUAGE_SELECT_H_
-#define LANGUAGE_SELECT_H_
+#ifndef LANGUAGEMENU_H
+#define LANGUAGEMENU_H
 
-#include <QComboBox>
+#include <QMenu>
 
-class QMenu;
-
-class LanguageSelect : public QComboBox {
+class LanguageMenu : public QMenu
+{
     Q_OBJECT
 public:
-    LanguageSelect(QWidget * parent = 0);
-    int currentLanguage() const;
+    explicit LanguageMenu(QWidget *parent = 0);
     void select(int lang);
 signals:
     void languageSelected(int lang);
 private:
-    void initLanguages();
+    void fillActions();
 private slots:
-    void languageChange(int index);
+    void selectAction();
 };
 
-
-#endif // LANGUAGE_SELECT_H_
+#endif // LANGUAGEMENU_H
