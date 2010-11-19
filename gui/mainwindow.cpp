@@ -412,8 +412,12 @@ void MainWindow::selectLanguage(int lang) {
     Q_CHECK_PTR(lang_select_);
     Q_CHECK_PTR(lang_menu_);
 
-    lang_select_->select(lang);
-    lang_menu_->select(lang);
+    if(sender() != lang_select_)
+        lang_select_->select(lang);
+
+    if(sender() != lang_menu_)
+        lang_menu_->select(lang);
+
     changeDocumentLanguage(lang);
 }
 

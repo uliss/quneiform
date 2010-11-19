@@ -52,6 +52,8 @@ void LanguageSelect::languageChange(int item_index) {
 
 void LanguageSelect::select(int lang) {
     int item_idx = findData(QVariant(lang));
+    blockSignals(true);
     if(item_idx != -1)
         setCurrentIndex(item_idx);
+    blockSignals(false);
 }
