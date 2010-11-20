@@ -115,7 +115,7 @@
     <name>LanguageMenu</name>
     <message>
         <source>Language</source>
-        <translation type="unfinished">Язык</translation>
+        <translation>Язык</translation>
     </message>
 </context>
 <context>
@@ -330,6 +330,10 @@ Do you want to save it?</source>
         <source>Do you want to recognize all?</source>
         <translation>Распознать все?</translation>
     </message>
+    <message>
+        <source>Recent packets</source>
+        <translation>Недавно открытые пакеты</translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
@@ -363,13 +367,6 @@ Do you want to save it?</source>
 %2</source>
         <translation type="obsolete">Ошибка распознавания файла %1:
 %2</translation>
-    </message>
-</context>
-<context>
-    <name>RecentPackets</name>
-    <message>
-        <source>Open recent packets</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

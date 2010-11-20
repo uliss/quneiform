@@ -30,7 +30,7 @@ class LanguageMenu;
 class LanguageSelect;
 class Page;
 class PageRecognitionQueue;
-class RecentPackets;
+class RecentMenu;
 class ImageWidget;
 class ThumbnailList;
 class QProgressDialog;
@@ -53,7 +53,6 @@ public slots:
     void openImages(const QStringList& paths);
     void openPacket();
     void openPacket(const QString& path);
-    void openRecent();
     void recognizeAll();
     void recognizePage(Page * page);
     void rotate(int factor);
@@ -66,17 +65,16 @@ public slots:
     void showPageText(Page * page);
 private slots:
     void disableViewActions();
+    void openRecentImage(const QString& path);
     void selectLanguage(int lang);
     void updateCurrentPage();
 private:
-    void addRecentFile(const QString& path);
-    void addRecentFileMenuAction(const QString& path);
+    void addRecentMenu(QMenu * menu);
     void changeDocumentLanguage(int lang);
     void connectActions();
     void connectThumbs();
     void enablePageActions(bool value);
     bool openImage(const QString& path, bool allowDuplication = false);
-    void populateRecentFiles();
     void readSettings();
     void setupDocument();
     void setupImageView();
@@ -84,6 +82,7 @@ private:
     void setupLanguageSelect();
     void setupLanguageUi();
     void setupRecent();
+    void setupRecentImages();
     void setupRecentPackets();
     void setupShortcuts();
     void setupTextView();
@@ -101,9 +100,9 @@ private:
     QTextEdit * text_view_;
     ThumbnailList * thumbs_;
     QHBoxLayout * main_layout_;
-    QStringList recent_files_;
     PageRecognitionQueue * recognition_queue_;
-    RecentPackets * recent_packets_;
+    RecentMenu * recent_packets_;
+    RecentMenu * recent_images_;
 };
 
 #endif // MAINWINDOW_H

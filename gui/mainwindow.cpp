@@ -38,7 +38,7 @@
 #include "thumbnailwidget.h"
 #include "thumbnaillist.h"
 #include "pagerecognitionqueue.h"
-#include "recentpackets.h"
+#include "recentmenu.h"
 
 static const char * EMAIL = "serj.poltavski@gmail.com";
 static const int VERSION_MAJOR = 0;
@@ -55,7 +55,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connectActions();
     connectThumbs();
     readSettings();
-    populateRecentFiles();
     recognition_queue_ = new PageRecognitionQueue(this);
     connect(recognition_queue_, SIGNAL(finished()), SLOT(updateCurrentPage()));
 
@@ -82,23 +81,20 @@ void MainWindow::about() {
                        .arg(VERSION_EXTRA));
 }
 
-void MainWindow::addRecentFile(const QString& file) {
-    if(recent_files_.contains(file))
-        recent_files_.removeAll(file);
+void MainWindow::addRecentMenu(QMenu * menu) {
+    QMenu * file_menu = menuBar()->findChild<QMenu*>("menuFile");
+    if(!file_menu)
+        return;
 
-    recent_files_ << file;
+    QAction * separator = NULL;
+    foreach(QAction * a, file_menu->actions()) {
+        if(a->isSeparator()) {
+            separator = a;
+            break;
+        }
+    }
 
-    while(recent_files_.size() > MAX_RECENT_FILES)
-        recent_files_.removeFirst();
-
-    populateRecentFiles();
-}
-
-void MainWindow::addRecentFileMenuAction(const QString& path) {
-    QAction * act = new QAction(path, NULL);
-    act->setData(path);
-    connect(act, SIGNAL(triggered()), SLOT(openRecent()));
-    ui_->menuRecentFiles->addAction(act);
+    file_menu->insertMenu(separator, menu);
 }
 
 void MainWindow::changeDocumentLanguage(int lang) {
@@ -212,8 +208,7 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication) {
     }
 
     doc_->append(p, allowDuplication);
-
-    addRecentFile(path);
+    recent_images_->add(path);
 
     return true;
 }
@@ -268,27 +263,12 @@ void MainWindow::openPacket(const QString& path) {
     recent_packets_->add(path);
 }
 
-void MainWindow::openRecent() {
+void MainWindow::openRecentImage(const QString& path) {
     Q_CHECK_PTR(doc_);
-
-    QAction * act = qobject_cast<QAction*>(sender());
-    if(!act)
+    if(doc_->hasPage(path))
         return;
 
-    QString path = act->data().toString();
-    if(path.isEmpty())
-        return;
-
-    if(!doc_->hasPage(path))
-        openImage(path);
-}
-
-void MainWindow::populateRecentFiles() {
-    ui_->menuRecentFiles->clear();
-
-    QStringListIterator i(recent_files_);
-    for(i.toBack(); i.hasPrevious(); i.previous())
-        addRecentFileMenuAction(i.peekPrevious());
+    openImage(path, false);
 }
 
 void MainWindow::readSettings() {
@@ -296,7 +276,6 @@ void MainWindow::readSettings() {
     settings.beginGroup("MainWindow");
     resize(settings.value("size", QSize(800, 600)).toSize());
     move(settings.value("pos", QPoint(200, 200)).toPoint());
-    recent_files_ = settings.value("recent-files", QStringList()).toStringList();
     settings.endGroup();
 }
 
@@ -454,16 +433,19 @@ void MainWindow::setupLanguageUi() {
 }
 
 void MainWindow::setupRecent() {
+    setupRecentImages();
     setupRecentPackets();
 }
 
-void MainWindow::setupRecentPackets() {
-    recent_packets_ = new RecentPackets(this);
-    QMenu * menu = menuBar()->findChild<QMenu*>(QString("menuFile"));
-    if(!menu)
-        return;
+void MainWindow::setupRecentImages() {
+    recent_images_ = new RecentMenu(this, tr("Recent files"), "recent-files");
+    addRecentMenu(recent_images_);
+    connect(recent_images_, SIGNAL(selected(QString)), SLOT(openRecentImage(QString)));
+}
 
-    menu->insertMenu(ui_->actionSavePacket, recent_packets_);
+void MainWindow::setupRecentPackets() {
+    recent_packets_ = new RecentMenu(this, tr("Recent packets"), "recent-packets");
+    addRecentMenu(recent_packets_);
     connect(recent_packets_, SIGNAL(selected(QString)), SLOT(openPacket(QString)));
 }
 
@@ -542,6 +524,5 @@ void MainWindow::writeSettings() {
     settings.beginGroup("MainWindow");
     settings.setValue("size", size());
     settings.setValue("pos", pos());
-    settings.setValue("recent-files", recent_files_);
     settings.endGroup();
 }

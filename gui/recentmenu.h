@@ -16,63 +16,31 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QSettings>
-#include <QDebug>
+#ifndef RECENTMENU_H
+#define RECENTMENU_H
 
-#include "recentpackets.h"
+#include <QMenu>
 
-static const int MAX_RECENT_PACKETS = 5;
-
-RecentPackets::RecentPackets(QWidget * parent) : QMenu(tr("Open recent packets"), parent)
+class RecentMenu : public QMenu
 {
-    readSettings();
-}
+    Q_OBJECT
+public:
+    explicit RecentMenu(QWidget * parent, const QString& title, const QString& name, int maxItems = 5);
+    ~RecentMenu();
+    void add(const QString& path);
+signals:
+    void selected(const QString& path);
+private slots:
+    void selectItem();
+private:
+    void addMenuAction(const QString& path);
+    void fillActions();
+    void readSettings();
+    void writeSettings();
+private:
+    QStringList items_;
+    QString name_;
+    const int max_items_;
+};
 
-RecentPackets::~RecentPackets() {
-    writeSettings();
-}
-
-void RecentPackets::add(const QString& file) {
-    if(packets_.contains(file))
-        packets_.removeAll(file);
-
-    packets_ << file;
-
-    while(packets_.size() > MAX_RECENT_PACKETS)
-        packets_.removeFirst();
-
-    fillActions();
-}
-
-void RecentPackets::addMenuAction(const QString& path) {
-    QAction * act = addAction(path);
-    act->setData(path);
-    connect(act, SIGNAL(triggered()), SLOT(selectPacket()));
-}
-
-void RecentPackets::fillActions() {
-    clear();
-
-    QStringListIterator i(packets_);
-    for(i.toBack(); i.hasPrevious(); i.previous())
-        addMenuAction(i.peekPrevious());
-}
-
-void RecentPackets::readSettings() {
-    QSettings settings;
-    packets_ = settings.value("recent-packets").toStringList();
-    fillActions();
-}
-
-void RecentPackets::selectPacket() {
-    QAction * act = qobject_cast<QAction*>(sender());
-    if(!act)
-        return;
-
-    emit selected(act->data().toString());
-}
-
-void RecentPackets::writeSettings() {
-    QSettings settings;
-    settings.setValue("recent-packets", packets_);
-}
+#endif // RECENTMENU_H

@@ -15,7 +15,7 @@ set (HEADERS
     page.h
     pagerecognizer.h
     pagerecognitionqueue.h
-    recentpackets.h
+    recentmenu.h
     selection.h
     selectionshadow.h
     thumbnaillist.h
@@ -36,7 +36,7 @@ set (SOURCES
     page.cpp
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
-    recentpackets.cpp
+    recentmenu.cpp
     selection.cpp
     selectionshadow.cpp
     thumbnaillist.cpp

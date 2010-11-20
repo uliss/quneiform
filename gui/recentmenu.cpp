@@ -16,31 +16,62 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QSettings>
 
-#ifndef RECENTPACKETS_H
-#define RECENTPACKETS_H
+#include "recentmenu.h"
 
-#include <QMenu>
-#include <QStringList>
-
-class RecentPackets : public QMenu
+RecentMenu::RecentMenu(QWidget * parent, const QString& title, const QString& name, int maxItems) :
+    QMenu(title, parent), name_(name), max_items_(maxItems)
 {
-    Q_OBJECT
-public:
-    RecentPackets(QWidget * parent);
-    ~RecentPackets();
-    void add(const QString& path);
-signals:
-    void selected(const QString& path);
-private slots:
-    void selectPacket();
-private:
-    void addMenuAction(const QString& path);
-    void fillActions();
-    void readSettings();
-    void writeSettings();
-private:
-    QStringList packets_;
-};
+    readSettings();
+}
 
-#endif // RECENTPACKETS_H
+RecentMenu::~RecentMenu() {
+    writeSettings();
+}
+
+void RecentMenu::add(const QString& file) {
+    if(items_.contains(file))
+        items_.removeAll(file);
+
+    items_ << file;
+
+    while(items_.size() > max_items_)
+        items_.removeFirst();
+
+    fillActions();
+}
+
+void RecentMenu::addMenuAction(const QString& path) {
+    QAction * act = addAction(path);
+    act->setData(path);
+    connect(act, SIGNAL(triggered()), SLOT(selectItem()));
+}
+
+void RecentMenu::fillActions() {
+    clear();
+
+    QStringListIterator i(items_);
+    for(i.toBack(); i.hasPrevious(); i.previous())
+        addMenuAction(i.peekPrevious());
+}
+
+void RecentMenu::readSettings() {
+    QSettings settings;
+    items_ = settings.value(name_).toStringList();
+    fillActions();
+}
+
+void RecentMenu::selectItem() {
+    QAction * act = qobject_cast<QAction*>(sender());
+    if(!act)
+        return;
+
+    emit selected(act->data().toString());
+}
+
+void RecentMenu::writeSettings() {
+    QSettings settings;
+    settings.setValue(name_, items_);
+}
+
