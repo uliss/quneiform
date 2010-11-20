@@ -30,6 +30,7 @@ class LanguageMenu;
 class LanguageSelect;
 class Page;
 class PageRecognitionQueue;
+class RecentPackets;
 class ImageWidget;
 class ThumbnailList;
 class QProgressDialog;
@@ -82,6 +83,8 @@ private:
     void setupLanguageMenu();
     void setupLanguageSelect();
     void setupLanguageUi();
+    void setupRecent();
+    void setupRecentPackets();
     void setupShortcuts();
     void setupTextView();
     void setupThumbs();
@@ -100,6 +103,7 @@ private:
     QHBoxLayout * main_layout_;
     QStringList recent_files_;
     PageRecognitionQueue * recognition_queue_;
+    RecentPackets * recent_packets_;
 };
 
 #endif // MAINWINDOW_H

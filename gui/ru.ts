@@ -366,6 +366,13 @@ Do you want to save it?</source>
     </message>
 </context>
 <context>
+    <name>RecentPackets</name>
+    <message>
+        <source>Open recent packets</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ThumbnailList</name>
     <message>
         <source>Select All</source>

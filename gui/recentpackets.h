@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2010 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,37 +16,31 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QApplication>
+
+#ifndef RECENTPACKETS_H
+#define RECENTPACKETS_H
+
+#include <QMenu>
 #include <QStringList>
-#include <QTranslator>
-#include <QLocale>
-#include "mainwindow.h"
 
-int main(int argc, char *argv[]) {
-#ifdef Q_WS_X11
-    QApplication::setGraphicsSystem("raster");
-#endif
-    QTranslator translator;
-    QLocale locale;
+class RecentPackets : public QMenu
+{
+    Q_OBJECT
+public:
+    RecentPackets(QWidget * parent);
+    ~RecentPackets();
+    void add(const QString& path);
+signals:
+    void selected(const QString& path);
+private slots:
+    void selectPacket();
+private:
+    void addMenuAction(const QString& path);
+    void fillActions();
+    void readSettings();
+    void writeSettings();
+private:
+    QStringList packets_;
+};
 
-    QString qm_name = locale.name();
-    translator.load(qm_name, "gui");
-
-    QApplication app(argc, argv);
-    app.installTranslator(&translator);
-    app.setOrganizationName("openocr.org");
-    app.setApplicationName("Quneiform OCR");
-    app.setApplicationVersion("0.0.1");
-    MainWindow w;
-    w.show();
-
-    if(argc > 1) {
-        QStringList files;
-        for(int i = 1; i < argc; i++)
-            files << QString::fromLocal8Bit(argv[i]);
-
-        w.openImages(files);
-    }
-
-    return app.exec();
-}
+#endif // RECENTPACKETS_H

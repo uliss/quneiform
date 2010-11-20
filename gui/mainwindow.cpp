@@ -26,6 +26,7 @@
 #include <QSplitter>
 #include <QHBoxLayout>
 #include <QDebug>
+#include <QMenuBar>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -37,9 +38,8 @@
 #include "thumbnailwidget.h"
 #include "thumbnaillist.h"
 #include "pagerecognitionqueue.h"
+#include "recentpackets.h"
 
-static const char * ORGANIZATION = "openocr.org";
-static const char * APPLICATION = "Quneiform OCR";
 static const char * EMAIL = "serj.poltavski@gmail.com";
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -58,6 +58,8 @@ MainWindow::MainWindow(QWidget *parent) :
     populateRecentFiles();
     recognition_queue_ = new PageRecognitionQueue(this);
     connect(recognition_queue_, SIGNAL(finished()), SLOT(updateCurrentPage()));
+
+    setupRecent();
 }
 
 MainWindow::~MainWindow() {
@@ -263,6 +265,7 @@ void MainWindow::openPacket(const QString& path) {
     }
 
     selectLanguage(doc_->language());
+    recent_packets_->add(path);
 }
 
 void MainWindow::openRecent() {
@@ -289,7 +292,7 @@ void MainWindow::populateRecentFiles() {
 }
 
 void MainWindow::readSettings() {
-    QSettings settings(ORGANIZATION, APPLICATION);
+    QSettings settings;
     settings.beginGroup("MainWindow");
     resize(settings.value("size", QSize(800, 600)).toSize());
     move(settings.value("pos", QPoint(200, 200)).toPoint());
@@ -450,6 +453,20 @@ void MainWindow::setupLanguageUi() {
     setupLanguageSelect();
 }
 
+void MainWindow::setupRecent() {
+    setupRecentPackets();
+}
+
+void MainWindow::setupRecentPackets() {
+    recent_packets_ = new RecentPackets(this);
+    QMenu * menu = menuBar()->findChild<QMenu*>(QString("menuFile"));
+    if(!menu)
+        return;
+
+    menu->insertMenu(ui_->actionSavePacket, recent_packets_);
+    connect(recent_packets_, SIGNAL(selected(QString)), SLOT(openPacket(QString)));
+}
+
 void MainWindow::setupShortcuts() {
     ui_->actionExit->setShortcut(QKeySequence::Quit);
     ui_->actionOpen->setShortcut(QKeySequence::Open);
@@ -521,7 +538,7 @@ void MainWindow::updateCurrentPage() {
 }
 
 void MainWindow::writeSettings() {
-    QSettings settings(ORGANIZATION, APPLICATION);
+    QSettings settings;
     settings.beginGroup("MainWindow");
     settings.setValue("size", size());
     settings.setValue("pos", pos());
