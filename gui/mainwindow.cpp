@@ -55,9 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connectActions();
     connectThumbs();
     readSettings();
-    recognition_queue_ = new PageRecognitionQueue(this);
-    connect(recognition_queue_, SIGNAL(finished()), SLOT(updateCurrentPage()));
-
+    setupRecognitionQueue();
     setupRecent();
 }
 
@@ -148,7 +146,7 @@ void MainWindow::connectThumbs() {
 }
 
 void MainWindow::disableViewActions() {
-    enablePageActions(false);
+    enableViewActions(false);
 }
 
 void MainWindow::documentChange() {
@@ -164,7 +162,7 @@ void MainWindow::documentSave() {
     }
 }
 
-void MainWindow::enablePageActions(bool value) {
+void MainWindow::enableViewActions(bool value) {
     ui_->actionZoom_In->setEnabled(value);
     ui_->actionZoom_Out->setEnabled(value);
     ui_->actionFitWidth->setEnabled(value);
@@ -173,6 +171,10 @@ void MainWindow::enablePageActions(bool value) {
     ui_->actionRotateRight->setEnabled(value);
     ui_->actionOriginalSize->setEnabled(value);
     ui_->actionRecognizeAll->setEnabled(value);
+}
+
+void MainWindow::enableViewActions() {
+    enableViewActions(true);
 }
 
 void MainWindow::imageDuplication(const QString& path) {
@@ -449,6 +451,13 @@ void MainWindow::setupRecentPackets() {
     connect(recent_packets_, SIGNAL(selected(QString)), SLOT(openPacket(QString)));
 }
 
+void MainWindow::setupRecognitionQueue() {
+    recognition_queue_ = new PageRecognitionQueue(this);
+    connect(recognition_queue_, SIGNAL(started()), SLOT(disableViewActions()));
+    connect(recognition_queue_, SIGNAL(finished()), SLOT(updateCurrentPage()));
+    connect(recognition_queue_, SIGNAL(finished()), SLOT(enableViewActions()));
+}
+
 void MainWindow::setupShortcuts() {
     ui_->actionExit->setShortcut(QKeySequence::Quit);
     ui_->actionOpen->setShortcut(QKeySequence::Open);
@@ -469,7 +478,7 @@ void MainWindow::setupThumbs() {
 void MainWindow::setupUi() {
     setUnifiedTitleAndToolBarOnMac(true);
     ui_->setupUi(this);
-    enablePageActions(false);
+    enableViewActions(false);
     setupLanguageUi();
     setupThumbs();
     setupImageView();
@@ -499,7 +508,7 @@ void MainWindow::showPageImage(Page * page) {
     qDebug() << Q_FUNC_INFO << page;
     Q_CHECK_PTR(page);
 
-    enablePageActions(true);
+    enableViewActions(true);
     statusBar()->showMessage(QFileInfo(page->imagePath()).fileName());
     image_widget_->showPage(page);
 }

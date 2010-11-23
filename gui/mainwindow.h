@@ -65,6 +65,7 @@ public slots:
     void showPageText(Page * page);
 private slots:
     void disableViewActions();
+    void enableViewActions();
     void openRecentImage(const QString& path);
     void selectLanguage(int lang);
     void updateCurrentPage();
@@ -73,7 +74,7 @@ private:
     void changeDocumentLanguage(int lang);
     void connectActions();
     void connectThumbs();
-    void enablePageActions(bool value);
+    void enableViewActions(bool value);
     bool openImage(const QString& path, bool allowDuplication = false);
     void readSettings();
     void setupDocument();
@@ -84,6 +85,7 @@ private:
     void setupRecent();
     void setupRecentImages();
     void setupRecentPackets();
+    void setupRecognitionQueue();
     void setupShortcuts();
     void setupTextView();
     void setupThumbs();
