@@ -15,7 +15,9 @@ set (HEADERS
     page.h
     pagerecognizer.h
     pagerecognitionqueue.h
+    quneiform_debug.h
     recentmenu.h
+    recognitionprogressdialog.h
     selection.h
     selectionshadow.h
     thumbnaillist.h
@@ -37,6 +39,7 @@ set (SOURCES
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
     recentmenu.cpp
+    recognitionprogressdialog.cpp
     selection.cpp
     selectionshadow.cpp
     thumbnaillist.cpp
@@ -45,7 +48,9 @@ set (SOURCES
 )
 
 set (FORMS 
-    mainwindow.ui)
+    mainwindow.ui
+    recognitionprogressdialog.ui
+)
 
 include_directories(
     ../src

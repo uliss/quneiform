@@ -25,35 +25,47 @@
 #include "page.h"
 #include "cuneiform.h"
 #include "rdib/qtimageloader.h"
+#include "common/lang_def.h"
+#include "quneiform_debug.h"
 
 inline QRect toRect(const QRectF& r) {
     return QRect(r.x(), r.y(), r.width(), r.height());
 }
 
-PageRecognizer::PageRecognizer(Page *p, QObject * parent)
-    : QThread(parent), page_(p) {
+PageRecognizer::PageRecognizer(Page * p, QObject * parent)
+    : QThread(parent),
+    page_(p),
+    language_(LANGUAGE_ENGLISH),
+    paused_(false),
+    aborted_(false) {
+}
+
+void PageRecognizer::abort() {
+    aborted_ = true;
+    CF_INFO("aborted")
 }
 
 void PageRecognizer::doRecognize() {
-    qDebug() << Q_FUNC_INFO;
+    QMutexLocker lock(&pause_);
+
     cf::Puma::instance().recognize();
+    emit recognized();
 }
 
 void PageRecognizer::formatResult() {
-    qDebug() << Q_FUNC_INFO;
+    QMutexLocker lock(&pause_);
+
     cf::Puma::instance().formatResult();
+    emit formatted();
 }
 
-bool PageRecognizer::isFormatConvertionNeeded(int format) const {
-    // on mono image segfault sometimes occures
-    return true;
-//    return format != QImage::Format_Mono;
+bool PageRecognizer::isPaused() const {
+    return paused_;
 }
 
 QImage PageRecognizer::loadImage() const {
     Q_CHECK_PTR(page_);
 
-    qDebug() << Q_FUNC_INFO;
     QImage img(page_->imagePath());
 
     // select page area
@@ -67,14 +79,13 @@ QImage PageRecognizer::loadImage() const {
         img = img.transformed(t);
     }
 
-    // convert to 24-bit
-    if(isFormatConvertionNeeded(img.format()))
-        img = img.convertToFormat(QImage::Format_RGB888);
 
-    return img;
+    return img.convertToFormat(QImage::Format_RGB888);
 }
 
 void PageRecognizer::openImage() {
+    QMutexLocker lock(&pause_);
+
     cf::QtImageLoader loader;
     QImage img = loadImage();
 
@@ -83,26 +94,48 @@ void PageRecognizer::openImage() {
         throw Page::Exception("[PageRecognizer::openImage] can't open image");
 
     cf::Puma::instance().open(image);
+    emit opened();
+}
+
+Page * PageRecognizer::page() {
+    return page_;
+}
+
+void PageRecognizer::pause() {
+    if(paused_)
+        return;
+
+    paused_ = true;
+    pause_.lock();
+    CF_INFO("paused")
+}
+
+void PageRecognizer::resume() {
+    if(!paused_)
+        return;
+
+    paused_ = false;
+    pause_.unlock();
+    CF_INFO("resumed")
 }
 
 void PageRecognizer::run() {
+    aborted_ = false;
     recognize();
 }
 
 void PageRecognizer::recognize() {
-    try {
-        {
-//            QMutexLocker lock(page_->mutex());
+    try {       
+        if(!aborted_)
             setRecognizeOptions();
+        if(!aborted_)
             openImage();
-            emit finished(20);
+        if(!aborted_)
             doRecognize();
-            emit finished(90);
+        if(!aborted_)
             formatResult();
-        }
-
-        saveOcrText();
-        emit finished(100);
+        if(!aborted_)
+            saveOcrText();
     }
     catch(std::exception& e) {
         emit failed(e.what());
@@ -112,25 +145,39 @@ void PageRecognizer::recognize() {
 void PageRecognizer::saveOcrText() {
     Q_CHECK_PTR(page_);
 
-    qDebug() << Q_FUNC_INFO;
+    QMutexLocker lock(&pause_);
+
     std::ostringstream buf;
     cf::Puma::instance().save(buf, cf::FORMAT_TEXT);
     page_->setOcrText(QString::fromUtf8(buf.str().c_str()));
 }
 
 void PageRecognizer::setLanguage(int language) {
+    if(isRunning()) {
+        CF_WARNING("Recognition is running. Can't change language!")
+        return;
+    }
+
     language_ = language;
 }
 
 void PageRecognizer::setPage(Page * p) {
     Q_CHECK_PTR(p);
 
+    if(isRunning()) {
+        CF_WARNING("Recognition is running. Can't change page!")
+        return;
+    }
+
     page_ = p;
 }
 
 void PageRecognizer::setRecognizeOptions() {
+    QMutexLocker lock(&pause_);
+
     cf::RecognizeOptions recognize_options;
     recognize_options.setLanguage(static_cast<language_t>(language_));
     cf::Puma::instance().setRecognizeOptions(recognize_options);
     cf::Config::instance().setDebug(false);
 }
+

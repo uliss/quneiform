@@ -23,6 +23,7 @@
 #include <QThread>
 #include <QString>
 #include <QImage>
+#include <QMutex>
 
 class Page;
 
@@ -30,17 +31,69 @@ class PageRecognizer : public QThread
 {
     Q_OBJECT
 public:
-    explicit PageRecognizer(Page * p, QObject * parent = NULL);
-    void run();
+    PageRecognizer(Page * p, QObject * parent);
+
+    /**
+      * Abortes page recognition process
+      * @note abort is not immidiate - only next recognition stage aborted
+      */
+    void abort();
+
+    /**
+      * Returns true if recognizer is stopped; otherwise returns false.
+      */
+    bool isPaused() const;
+
+    /**
+      * Returns pointer to recogized page
+      */
+    Page * page();
+
+    /**
+      * Locks recognition thread
+      */
+    void pause();
+
+    /**
+      * Unlocks recognition thread
+      */
+    void resume();
+
+    /**
+      * Sets recognition language
+      */
     void setLanguage(int language);
+
+    /**
+      * Sets recognized page
+      */
     void setPage(Page * p);
+protected:
+    void run();
 signals:
+    /**
+      * Emitted if page recognition failed
+      * @param msg - error message
+      */
     void failed(const QString& msg);
-    void finished(int percent);
+
+    /**
+      * Emitted when page formatting is done.
+      */
+    void formatted();
+
+    /**
+      * Emmitted when page image is opened and loaded
+      */
+    void opened();
+
+    /**
+      * Emitted when page is recognized
+      */
+    void recognized();
 private:
     void doRecognize();
     void formatResult();
-    bool isFormatConvertionNeeded(int format) const;
     QImage loadImage() const;
     void openImage();
     void recognize();
@@ -49,6 +102,9 @@ private:
 private:
     Page * page_;
     int language_;
+    QMutex pause_;
+    volatile bool paused_;
+    volatile bool aborted_;
 };
 
 #endif // PAGERECOGNIZER_H

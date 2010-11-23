@@ -16,53 +16,17 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#ifndef QUNEIFORM_DEBUG_H
+#define QUNEIFORM_DEBUG_H
 
-#ifndef PAGERECOGNITIONQUEUE_H
-#define PAGERECOGNITIONQUEUE_H
+#include <QDebug>
 
-#include <QThread>
-#include <QQueue>
+#define CF_WARNING(msg) { \
+    qDebug() << "[Warning]" << Q_FUNC_INFO << "=>" << msg;\
+}
 
-class Document;
-class Page;
-class RecognitionProgressDialog;
-class PageRecognizer;
+#define CF_INFO(msg) {\
+    qDebug() << "[Info]" << Q_FUNC_INFO << "=>" << msg;\
+}
 
-class PageRecognitionQueue : public QThread
-{
-    Q_OBJECT
-public:
-    explicit PageRecognitionQueue(QObject * parent = 0);
-    void add(Document * doc);
-
-    /**
-      * Adds page to recognition queue
-      */
-    void add(Page * p);
-
-    /**
-      * Sets recognition language
-      */
-    void setLanguage(int language);
-public slots:
-    void abort();
-    void pause();
-    void resume();
-protected:
-    void run();
-signals:
-    void percentsDone(int perc);
-private slots:
-    void pageFault(const QString& msg);
-    void pageOpened();
-private:
-    void setupProgressDialog();
-    void setupPageRecognizer();
-private:
-    QQueue<Page*> pages_;
-    RecognitionProgressDialog * progress_;
-    PageRecognizer * recognizer_;
-    volatile bool abort_;
-};
-
-#endif // PAGERECOGNITIONQUEUE_H
+#endif // QUNEIFORM_DEBUG_H

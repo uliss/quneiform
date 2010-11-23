@@ -357,6 +357,17 @@ Do you want to save it?</source>
     </message>
 </context>
 <context>
+    <name>PageRecognitionQueue</name>
+    <message>
+        <source>Recognition abort</source>
+        <translation>Остановить распознавание</translation>
+    </message>
+    <message>
+        <source>Do you really want to abort recognition?</source>
+        <translation>Вы действительно хотите остановить распознавание?</translation>
+    </message>
+</context>
+<context>
     <name>PageRecognizer</name>
     <message>
         <source>Quneiform OCR</source>
@@ -367,6 +378,40 @@ Do you want to save it?</source>
 %2</source>
         <translation type="obsolete">Ошибка распознавания файла %1:
 %2</translation>
+    </message>
+</context>
+<context>
+    <name>RecognitionProgress</name>
+    <message>
+        <source>Abort</source>
+        <translation type="obsolete">Прервать</translation>
+    </message>
+</context>
+<context>
+    <name>RecognitionProgressDialog</name>
+    <message>
+        <source>Recognition Progress</source>
+        <translation>Распознавание</translation>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation>Прервать</translation>
+    </message>
+    <message>
+        <source>Recognition...</source>
+        <translation>Распознавание...</translation>
+    </message>
+    <message>
+        <source>Page recognition: &quot;%1&quot;</source>
+        <translation>Распознавание страницы: &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Пауза</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>Возобновить</translation>
     </message>
 </context>
 <context>

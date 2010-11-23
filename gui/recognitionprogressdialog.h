@@ -17,52 +17,60 @@
  ***************************************************************************/
 
 
-#ifndef PAGERECOGNITIONQUEUE_H
-#define PAGERECOGNITIONQUEUE_H
+#ifndef RECOGNITIONPROGRESSDIALOG_H
+#define RECOGNITIONPROGRESSDIALOG_H
 
-#include <QThread>
-#include <QQueue>
+#include <QDialog>
 
-class Document;
 class Page;
-class RecognitionProgressDialog;
-class PageRecognizer;
 
-class PageRecognitionQueue : public QThread
+namespace Ui {
+    class RecognitionProgressDialog;
+}
+
+class RecognitionProgressDialog : public QDialog
 {
     Q_OBJECT
+
 public:
-    explicit PageRecognitionQueue(QObject * parent = 0);
-    void add(Document * doc);
-
-    /**
-      * Adds page to recognition queue
-      */
-    void add(Page * p);
-
-    /**
-      * Sets recognition language
-      */
-    void setLanguage(int language);
-public slots:
-    void abort();
-    void pause();
-    void resume();
-protected:
-    void run();
+    explicit RecognitionProgressDialog(QWidget * parent = 0);
+    ~RecognitionProgressDialog();
 signals:
-    void percentsDone(int perc);
+    /**
+      * Emitted when Abort button is clicked
+      */
+    void aborted();
+
+    /**
+      * Emitted when Pause button is clicked
+      */
+    void paused();
+
+    /**
+      * Emitted when Resume button is clicked
+      */
+    void resumed();
+public slots:
+    /**
+      * Resets progress dialog
+      */
+    void reset();
+
+    /**
+      * Sets path of current page
+      */
+    void setCurrentPage(Page * const p);
+
+    /**
+      * Sets current progress in percent
+      * @param value - shoud be value in 0...100 range
+      */
+    void setTotalValue(int value);
 private slots:
-    void pageFault(const QString& msg);
-    void pageOpened();
+    void pause();
 private:
-    void setupProgressDialog();
-    void setupPageRecognizer();
-private:
-    QQueue<Page*> pages_;
-    RecognitionProgressDialog * progress_;
-    PageRecognizer * recognizer_;
-    volatile bool abort_;
+    Ui::RecognitionProgressDialog * ui;
+    bool paused_;
 };
 
-#endif // PAGERECOGNITIONQUEUE_H
+#endif // RECOGNITIONPROGRESSDIALOG_H

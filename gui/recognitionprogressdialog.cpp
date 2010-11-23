@@ -16,53 +16,49 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QDebug>
+#include <QFileInfo>
 
-#ifndef PAGERECOGNITIONQUEUE_H
-#define PAGERECOGNITIONQUEUE_H
+#include "page.h"
+#include "recognitionprogressdialog.h"
+#include "ui_recognitionprogressdialog.h"
 
-#include <QThread>
-#include <QQueue>
-
-class Document;
-class Page;
-class RecognitionProgressDialog;
-class PageRecognizer;
-
-class PageRecognitionQueue : public QThread
+RecognitionProgressDialog::RecognitionProgressDialog(QWidget * parent) :
+    QDialog(parent),
+    ui(new Ui::RecognitionProgressDialog), paused_(false)
 {
-    Q_OBJECT
-public:
-    explicit PageRecognitionQueue(QObject * parent = 0);
-    void add(Document * doc);
+    ui->setupUi(this);
+    connect(ui->abortButton, SIGNAL(clicked()), SLOT(close()));
+    connect(ui->abortButton, SIGNAL(clicked()), SIGNAL(aborted()));
+    connect(ui->pauseButton, SIGNAL(clicked()), SLOT(pause()));
+}
 
-    /**
-      * Adds page to recognition queue
-      */
-    void add(Page * p);
+RecognitionProgressDialog::~RecognitionProgressDialog()
+{
+    delete ui;
+}
 
-    /**
-      * Sets recognition language
-      */
-    void setLanguage(int language);
-public slots:
-    void abort();
-    void pause();
-    void resume();
-protected:
-    void run();
-signals:
-    void percentsDone(int perc);
-private slots:
-    void pageFault(const QString& msg);
-    void pageOpened();
-private:
-    void setupProgressDialog();
-    void setupPageRecognizer();
-private:
-    QQueue<Page*> pages_;
-    RecognitionProgressDialog * progress_;
-    PageRecognizer * recognizer_;
-    volatile bool abort_;
-};
+void RecognitionProgressDialog::pause() {
+    paused_ = !paused_;
+    ui->pauseButton->setText(paused_ ? tr("Resume") : tr("Pause"));
+    if(paused_)
+        emit paused();
+    else
+        emit resumed();
+}
 
-#endif // PAGERECOGNITIONQUEUE_H
+void RecognitionProgressDialog::reset() {
+    ui->pageLabel->setText("");
+    ui->totalProgress->reset();
+}
+
+void RecognitionProgressDialog::setCurrentPage(Page * const p) {
+    Q_CHECK_PTR(p);
+
+    QFileInfo fi(p->imagePath());
+    ui->pageLabel->setText(tr("Page recognition: \"%1\"").arg(fi.fileName()));
+}
+
+void RecognitionProgressDialog::setTotalValue(int value) {
+    ui->totalProgress->setValue(value);
+}
