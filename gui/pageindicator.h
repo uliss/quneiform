@@ -21,6 +21,7 @@
 #define PAGEINDICATOR_H
 
 #include <QWidget>
+#include <QPixmap>
 
 class QLabel;
 
@@ -31,8 +32,12 @@ public:
     explicit PageIndicator(QWidget * parent = 0);
     QSize sizeHint() const;
     void setRecognized(bool value);
+    void setSaved(bool value);
+private:
+    QPixmap indicatorIcon(const QString& path);
 private:
     QLabel * recognized_;
+    QLabel * saved_;
 };
 
 #endif // PAGEINDICATOR_H

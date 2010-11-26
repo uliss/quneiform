@@ -149,6 +149,7 @@ void Page::save(const QString& file) {
     qDebug() << "[Page::save] saved" << file;
 
     is_saved_ = true;
+    emit saved();
 }
 
 void Page::scale(qreal factor) {

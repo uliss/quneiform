@@ -16,31 +16,52 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QHBoxLayout>
 #include <QLabel>
 #include <QPixmap>
 
 #include "pageindicator.h"
+#include "imagecache.h"
 
-PageIndicator::PageIndicator(QWidget *parent) :
-    QWidget(parent), recognized_(NULL)
+static const QString RECOGNIZED(":/img/oxygen/22x22/dialog_ok.png");
+static const QString SAVED(":/img/oxygen/22x22/document_save.png");
+static const int ICON_WIDTH = 16;
+
+PageIndicator::PageIndicator(QWidget * parent) :
+    QWidget(parent), recognized_(NULL), saved_(NULL)
 {
-    QHBoxLayout * l = new QHBoxLayout;
-    l->setContentsMargins(0, 0, 0, 0);
-    l->setMargin(0);
-
     recognized_ = new QLabel(this);
+    recognized_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
+    saved_ = new QLabel(this);
+    saved_->move(ICON_WIDTH + 5, 0);
+    saved_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
+}
 
-    setLayout(l);
+QPixmap PageIndicator::indicatorIcon(const QString& path) {
+    QPixmap pixmap;
+
+    if(!ImageCache::find(path, &pixmap)) {
+        pixmap.load(path);
+        pixmap = pixmap.scaled(ICON_WIDTH, ICON_WIDTH, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        ImageCache::insert(path, pixmap);
+    }
+
+    return pixmap;
 }
 
 void PageIndicator::setRecognized(bool value) {
     if(value)
-        recognized_->setPixmap(QPixmap(":/img/oxygen/22x22/apply.png"));
+        recognized_->setPixmap(indicatorIcon(RECOGNIZED));
     else
         recognized_->setPixmap(QPixmap());
 }
 
+void PageIndicator::setSaved(bool value) {
+    if(value)
+        saved_->setPixmap(indicatorIcon(SAVED));
+    else
+        saved_->setPixmap(QPixmap());
+}
+
 QSize PageIndicator::sizeHint() const {
-    return QSize(22 * 4, 22);
+    return QSize(ICON_WIDTH * 3, ICON_WIDTH);
 }

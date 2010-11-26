@@ -479,5 +479,15 @@ Do you want to save it?</source>
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Page is saved
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page is not saved
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

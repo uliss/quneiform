@@ -173,6 +173,11 @@ signals:
     void recognized();
 
     void rotated(int angle);
+
+    /**
+      * Emitted when page saved
+      */
+    void saved();
 private:
     QString image_path_;
     QSize image_size_;

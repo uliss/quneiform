@@ -38,6 +38,14 @@ namespace {
 #define ARG_FIX(arg) arg
 #endif
 
+bool ImageCache::find(const QString &path, QPixmap * pixmap) {
+    return QPixmapCache::find(path, ARG_FIX(pixmap));
+}
+
+bool ImageCache::insert(const QString& path, const QPixmap& pixmap) {
+    return QPixmapCache::insert(path, pixmap);
+}
+
 bool ImageCache::load (const QString &path, QPixmap * pixmap)
 {
     if(path.isEmpty())
