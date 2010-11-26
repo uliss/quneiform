@@ -30,12 +30,11 @@ RecognitionProgressDialog::RecognitionProgressDialog(QWidget * parent) :
     setMinimumDuration(0);
     setMinimum(0);
     setMaximum(100);
-    setMaximumWidth(300);
     QLabel * label = new QLabel();
     label->setAlignment(Qt::AlignLeft);
     label->setTextFormat(Qt::PlainText);
+    label->setScaledContents(false);
     setLabel(label);
-    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 }
 
 void RecognitionProgressDialog::setCurrentPage(Page * const p) {
@@ -43,4 +42,8 @@ void RecognitionProgressDialog::setCurrentPage(Page * const p) {
 
     QFileInfo fi(p->imagePath());
     setLabelText(tr("Page recognition: \"%1\"").arg(fi.fileName()));
+}
+
+QSize RecognitionProgressDialog::sizeHint() const {
+    return QSize(350, QProgressDialog::sizeHint().height());
 }

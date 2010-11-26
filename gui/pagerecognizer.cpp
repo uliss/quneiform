@@ -33,7 +33,7 @@ inline QRect toRect(const QRectF& r) {
 }
 
 PageRecognizer::PageRecognizer(Page * p, QObject * parent)
-    : QThread(parent),
+    : QObject(parent),
     page_(p),
     language_(LANGUAGE_ENGLISH),
     paused_(false),
@@ -46,15 +46,11 @@ void PageRecognizer::abort() {
 }
 
 void PageRecognizer::doRecognize() {
-    QMutexLocker lock(&pause_);
-
     cf::Puma::instance().recognize();
     emit recognized();
 }
 
 void PageRecognizer::formatResult() {
-    QMutexLocker lock(&pause_);
-
     cf::Puma::instance().formatResult();
     emit formatted();
 }
@@ -83,20 +79,6 @@ QImage PageRecognizer::loadImage() const {
     return img.convertToFormat(QImage::Format_RGB888);
 }
 
-void PageRecognizer::openImage() {
-    QMutexLocker lock(&pause_);
-
-    cf::QtImageLoader loader;
-    QImage img = loadImage();
-
-    cf::ImagePtr image = loader.load(&img);
-    if (!image)
-        throw Page::Exception("[PageRecognizer::openImage] can't open image");
-
-    cf::Puma::instance().open(image);
-    emit opened();
-}
-
 Page * PageRecognizer::page() {
     return page_;
 }
@@ -119,23 +101,23 @@ void PageRecognizer::resume() {
     CF_INFO("resumed")
 }
 
-void PageRecognizer::run() {
-    aborted_ = false;
+void PageRecognizer::start() {
     recognize();
 }
 
 void PageRecognizer::recognize() {
     try {       
-        if(!aborted_)
-            setRecognizeOptions();
-        if(!aborted_)
-            openImage();
-        if(!aborted_)
-            doRecognize();
-        if(!aborted_)
-            formatResult();
-        if(!aborted_)
-            saveOcrText();
+        setRecognizeOptions();
+        cf::QtImageLoader loader;
+        QImage img = loadImage();
+        cf::ImagePtr image = loader.load(&img);
+        if (!image)
+            throw Page::Exception("[PageRecognizer::openImage] can't open image");
+
+        cf::Puma::instance().open(image);
+        doRecognize();
+        formatResult();
+        saveOcrText();
     }
     catch(std::exception& e) {
         emit failed(e.what());
@@ -145,36 +127,22 @@ void PageRecognizer::recognize() {
 void PageRecognizer::saveOcrText() {
     Q_CHECK_PTR(page_);
 
-    QMutexLocker lock(&pause_);
-
     std::ostringstream buf;
     cf::Puma::instance().save(buf, cf::FORMAT_TEXT);
     page_->setOcrText(QString::fromUtf8(buf.str().c_str()));
 }
 
 void PageRecognizer::setLanguage(int language) {
-    if(isRunning()) {
-        CF_WARNING("Recognition is running. Can't change language!")
-        return;
-    }
-
     language_ = language;
 }
 
 void PageRecognizer::setPage(Page * p) {
     Q_CHECK_PTR(p);
 
-    if(isRunning()) {
-        CF_WARNING("Recognition is running. Can't change page!")
-        return;
-    }
-
     page_ = p;
 }
 
 void PageRecognizer::setRecognizeOptions() {
-    QMutexLocker lock(&pause_);
-
     cf::RecognizeOptions recognize_options;
     recognize_options.setLanguage(static_cast<language_t>(language_));
     cf::Puma::instance().setRecognizeOptions(recognize_options);

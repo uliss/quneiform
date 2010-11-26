@@ -20,14 +20,14 @@
 #ifndef PAGERECOGNIZER_H
 #define PAGERECOGNIZER_H
 
-#include <QThread>
+#include <QObject>
 #include <QString>
 #include <QImage>
 #include <QMutex>
 
 class Page;
 
-class PageRecognizer : public QThread
+class PageRecognizer : public QObject
 {
     Q_OBJECT
 public:
@@ -68,8 +68,7 @@ public slots:
       * @note abort is not immidiate - only next recognition stage aborted
       */
     void abort();
-protected:
-    void run();
+    void start();
 signals:
     /**
       * Emitted if page recognition failed
@@ -95,7 +94,6 @@ private:
     void doRecognize();
     void formatResult();
     QImage loadImage() const;
-    void openImage();
     void recognize();
     void saveOcrText();
     void setRecognizeOptions();

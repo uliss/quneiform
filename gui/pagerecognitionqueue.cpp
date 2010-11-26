@@ -17,7 +17,7 @@
  ***************************************************************************/
 
 #include <QDebug>
-#include <QMessageBox>
+#include <QApplication>
 
 #include "pagerecognitionqueue.h"
 #include "pagerecognizer.h"
@@ -56,9 +56,12 @@ void PageRecognitionQueue::start() {
     const int total = pages_.count();
     int done = 0;
     progress_->reset();
+    progress_->show();
+    progress_->setValue(0);
     while(!pages_.empty()) {
         if(progress_->wasCanceled())
             break;
+        QApplication::processEvents();
 
         Page * p = pages_.dequeue();
 
@@ -66,8 +69,6 @@ void PageRecognitionQueue::start() {
 
         recognizer_->setPage(p);
         recognizer_->start();
-        recognizer_->wait();
-
         progress_->setValue((++done * 100) / total);
     }
     emit finished();
