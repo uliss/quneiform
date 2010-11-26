@@ -13,6 +13,7 @@ set (HEADERS
     languageselect.h
     mainwindow.h
     page.h
+    pageindicator.h
     pagerecognizer.h
     pagerecognitionqueue.h
     quneiform_debug.h
@@ -36,6 +37,7 @@ set (SOURCES
     mainwindow.cpp
     main.cpp
     page.cpp
+    pageindicator.cpp
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
     recentmenu.cpp

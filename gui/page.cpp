@@ -174,6 +174,7 @@ void Page::setOcrText(const QString& text) {
 
     ocr_text_ = text;
     is_recognized_ = true;
+    emit recognized();
 }
 
 void Page::setPageArea(const QRectF& area) {

@@ -32,6 +32,7 @@
 #include "thumbnaillist.h"
 #include "imagecache.h"
 #include "page.h"
+#include "pageindicator.h"
 
 static const int THUMB_IMAGE_WIDTH = 90;
 static const int THUMB_IMAGE_MARGIN = 5;
@@ -46,12 +47,14 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
     setupPixmap();
     setupLabel();
     setupToolTip();
+    setupIndicator();
     setupCheckBox();
 
     connect(checked_, SIGNAL(toggled(bool)), SLOT(selectPage(bool)));
     connect(this, SIGNAL(contextMenuCreated(QMenu*)), parent, SLOT(setupContextMenu(QMenu*)));
     connect(this, SIGNAL(invalidImage(const QString&)), parent, SLOT(handleInvalidImage(const QString&)));
     connect(page, SIGNAL(rotated(int)), SLOT(rotate(int)));
+    connect(page, SIGNAL(recognized()), SLOT(updatePageIndicators()));
 
     setFocusPolicy(Qt::ClickFocus);
 }
@@ -118,6 +121,12 @@ QString ThumbnailWidget::pageProperties() const {
     QString res = tr("Filename: \"%1\"\n").arg(page_->imagePath());
     res += tr("Size: %1x%2\n").arg(page_->imageSize().width()).arg(page_->imageSize().height());
     res += tr("Rotation: %1\n").arg(page_->angle());
+
+    if(page_->isRecognized())
+        res += tr("Page is recognized\n");
+    else
+        res += tr("Page is not recognized\n");
+
     return res;
 }
 
@@ -162,6 +171,11 @@ void ThumbnailWidget::setupCheckBox() {
 void ThumbnailWidget::setupFrame() {
     setAutoFillBackground(true);
     //setFrameShape(QFrame::Box);
+}
+
+void ThumbnailWidget::setupIndicator() {
+    indicator_ = new PageIndicator(this);
+    layout_->addWidget(indicator_);
 }
 
 void ThumbnailWidget::setupLabel() {
@@ -211,4 +225,9 @@ void ThumbnailWidget::toggleSelection() {
     Q_CHECK_PTR(checked_);
 
     checked_->toggle();
+}
+
+void ThumbnailWidget::updatePageIndicators() {
+    Q_CHECK_PTR(indicator_);
+    indicator_->setRecognized(page_->isRecognized());
 }

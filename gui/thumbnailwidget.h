@@ -29,76 +29,80 @@ class QVBoxLayout;
 class QMenu;
 
 class Page;
+class PageIndicator;
 class ThumbnailList;
 
 // ThumbnailWidget represents a single thumbnail in the ThumbnailList
 class ThumbnailWidget: public QFrame
 {
     Q_OBJECT
-    public:
-        ThumbnailWidget(Page * page, ThumbnailList * parent);
+public:
+    ThumbnailWidget(Page * page, ThumbnailList * parent);
 
-        /**
-         * Highlights thumbnail
-         * @see setChecked()
-         */
-        void highlight(bool value);
+    /**
+      * Highlights thumbnail
+      * @see setChecked()
+      */
+    void highlight(bool value);
 
-        /**
-         * Checks if thumb is checked
-         */
-        bool isChecked() const;
+    /**
+      * Checks if thumb is checked
+      */
+    bool isChecked() const;
 
-        /**
-         * Returns pointer to thumb page
-         */
-        Page * page() const;
+    /**
+      * Returns pointer to thumb page
+      */
+    Page * page() const;
 
-        /**
-         * Checks thumbnail checkbox
-         */
-        void setChecked(bool value);
+    /**
+      * Checks thumbnail checkbox
+      */
+    void setChecked(bool value);
 
-        /**
-         * Sets thumbnail name
-         */
-        void setName(const QString& name);
+    /**
+      * Sets thumbnail name
+      */
+    void setName(const QString& name);
 
-        /**
-         * Toggles thumb selection
-         */
-        void toggleSelection();
-    signals:
-        void clicked();
-        void contextMenuCreated(QMenu*);
-        void invalidImage(const QString& path);
-        void recognize(Page*);
-        void removed(Page*);
-        void save(Page*);
-        void toggled(bool);
-    protected:
-        void contextMenuEvent(QContextMenuEvent *event);
-        void mousePressEvent(QMouseEvent * event);
-    private:
-        QString pageProperties() const;
-        void setupCheckBox();
-        void setupFrame();
-        void setupLabel();
-        void setupLayout();
-        void setupPixmap();
-        void setupToolTip();
-    private slots:
-    	void recognizeThumb();
-        void removePage();
-        void rotate(int angle);
-        void savePage();
-        void selectPage(bool value);
-        void showProperties();
-    private:
-        Page * page_;
-        QVBoxLayout * layout_;
-        QLabel * thumb_;
-        QCheckBox * checked_;
+    /**
+      * Toggles thumb selection
+      */
+    void toggleSelection();
+signals:
+    void clicked();
+    void contextMenuCreated(QMenu*);
+    void invalidImage(const QString& path);
+    void recognize(Page*);
+    void removed(Page*);
+    void save(Page*);
+    void toggled(bool);
+protected:
+    void contextMenuEvent(QContextMenuEvent *event);
+    void mousePressEvent(QMouseEvent * event);
+private:
+    QString pageProperties() const;
+    void setupCheckBox();
+    void setupFrame();
+    void setupIndicator();
+    void setupLabel();
+    void setupLayout();
+    void setupPixmap();
+    void setupToolTip();
+private slots:
+    void recognizeThumb();
+    void removePage();
+    void rotate(int angle);
+    void savePage();
+    void selectPage(bool value);
+    void showProperties();
+    void updatePageIndicators();
+private:
+    Page * page_;
+    QVBoxLayout * layout_;
+    QLabel * thumb_;
+    QCheckBox * checked_;
+    PageIndicator * indicator_;
 };
 
 #endif /* THUMBNAILWIDGET_H_ */

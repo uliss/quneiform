@@ -469,5 +469,15 @@ Do you want to save it?</source>
         <translation>Поворот: %1
 </translation>
     </message>
+    <message>
+        <source>Page is recognized
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page is not recognized
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
