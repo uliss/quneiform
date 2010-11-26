@@ -49,7 +49,6 @@ set (SOURCES
 
 set (FORMS 
     mainwindow.ui
-    recognitionprogressdialog.ui
 )
 
 include_directories(

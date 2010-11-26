@@ -360,11 +360,11 @@ Do you want to save it?</source>
     <name>PageRecognitionQueue</name>
     <message>
         <source>Recognition abort</source>
-        <translation>Остановить распознавание</translation>
+        <translation type="obsolete">Остановить распознавание</translation>
     </message>
     <message>
         <source>Do you really want to abort recognition?</source>
-        <translation>Вы действительно хотите остановить распознавание?</translation>
+        <translation type="obsolete">Вы действительно хотите остановить распознавание?</translation>
     </message>
 </context>
 <context>
@@ -391,15 +391,15 @@ Do you want to save it?</source>
     <name>RecognitionProgressDialog</name>
     <message>
         <source>Recognition Progress</source>
-        <translation>Распознавание</translation>
+        <translation type="obsolete">Распознавание</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation>Прервать</translation>
+        <translation type="obsolete">Прервать</translation>
     </message>
     <message>
         <source>Recognition...</source>
-        <translation>Распознавание...</translation>
+        <translation type="obsolete">Распознавание...</translation>
     </message>
     <message>
         <source>Page recognition: &quot;%1&quot;</source>
@@ -407,11 +407,11 @@ Do you want to save it?</source>
     </message>
     <message>
         <source>Pause</source>
-        <translation>Пауза</translation>
+        <translation type="obsolete">Пауза</translation>
     </message>
     <message>
         <source>Resume</source>
-        <translation>Возобновить</translation>
+        <translation type="obsolete">Возобновить</translation>
     </message>
 </context>
 <context>

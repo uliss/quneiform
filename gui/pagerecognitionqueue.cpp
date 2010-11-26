@@ -27,37 +27,14 @@
 #include "quneiform_debug.h"
 
 PageRecognitionQueue::PageRecognitionQueue(QObject * parent) :
-    QThread(parent), abort_(false)
+    QObject(parent)
 {
     setupProgressDialog();
     setupPageRecognizer();
 }
 
-void PageRecognitionQueue::abort() {
-    pause();
-    int button = QMessageBox::question(NULL,
-                                       tr("Recognition abort"),
-                                       tr("Do you really want to abort recognition?"),
-                                       QMessageBox::Cancel,
-                                       QMessageBox::Yes);
-
-    resume();
-
-    if(QMessageBox::Yes == button) {
-        abort_ = true;
-        recognizer_->abort();
-    }
-    else
-        progress_->show();
-}
-
 void PageRecognitionQueue::add(Document * doc) {
     Q_CHECK_PTR(doc);
-
-    if(isRunning()) {
-        CF_WARNING("PageRecognitionQueue is running. Can't add document.")
-        return;
-    }
 
     for(int i = 0; i < doc->pageCount(); i++)
         add(doc->page(i));
@@ -66,50 +43,37 @@ void PageRecognitionQueue::add(Document * doc) {
 void PageRecognitionQueue::add(Page * p) {
     Q_CHECK_PTR(p);
 
-    if(isRunning()) {
-        CF_WARNING("PageRecognitionQueue is running. Can't add page.")
-        return;
-    }
-
     if(!pages_.contains(p))
         pages_.enqueue(p);
-}
-
-void PageRecognitionQueue::pause() {
-    recognizer_->pause();
 }
 
 void PageRecognitionQueue::pageFault(const QString& msg) {
     qDebug() << Q_FUNC_INFO << recognizer_->page()->imagePath() << msg;
 }
 
-void PageRecognitionQueue::pageOpened() {
-    progress_->setCurrentPage(recognizer_->page());
-}
-
-void PageRecognitionQueue::resume() {
-    recognizer_->resume();
-}
-
-void PageRecognitionQueue::run() {
-    abort_ = false;
+void PageRecognitionQueue::start() {
+    emit started();
     const int total = pages_.count();
     int done = 0;
-    while(!pages_.empty() && !abort_) {
+    progress_->reset();
+    while(!pages_.empty()) {
+        if(progress_->wasCanceled())
+            break;
+
         Page * p = pages_.dequeue();
+
+        progress_->setCurrentPage(p);
+
         recognizer_->setPage(p);
         recognizer_->start();
         recognizer_->wait();
-        emit percentsDone((++done * 100) / total);
+
+        progress_->setValue((++done * 100) / total);
     }
+    emit finished();
 }
 
 void PageRecognitionQueue::setLanguage(int lang) {
-    if(isRunning()) {
-        CF_WARNING("PageRecognitionQueue is running. Can't change language!")
-        return;
-    }
-
     recognizer_->setLanguage(lang);
 }
 
@@ -118,14 +82,11 @@ void PageRecognitionQueue::setupProgressDialog() {
     connect(this, SIGNAL(started()), progress_, SLOT(show()));
     connect(this, SIGNAL(started()), progress_, SLOT(reset()));
     connect(this, SIGNAL(finished()), progress_, SLOT(hide()));
-    connect(this, SIGNAL(percentsDone(int)), progress_, SLOT(setTotalValue(int)));
-    connect(progress_, SIGNAL(aborted()), SLOT(abort()));
-    connect(progress_, SIGNAL(paused()), SLOT(pause()));
-    connect(progress_, SIGNAL(resumed()), SLOT(resume()));
 }
 
 void PageRecognitionQueue::setupPageRecognizer() {
     recognizer_ = new PageRecognizer(NULL, this);
     connect(recognizer_, SIGNAL(failed(QString)), SLOT(pageFault(QString)));
     connect(recognizer_, SIGNAL(opened()), SLOT(pageOpened()));
+    connect(progress_, SIGNAL(canceled()), recognizer_, SLOT(abort()));
 }

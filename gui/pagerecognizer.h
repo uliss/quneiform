@@ -34,12 +34,6 @@ public:
     PageRecognizer(Page * p, QObject * parent);
 
     /**
-      * Abortes page recognition process
-      * @note abort is not immidiate - only next recognition stage aborted
-      */
-    void abort();
-
-    /**
       * Returns true if recognizer is stopped; otherwise returns false.
       */
     bool isPaused() const;
@@ -68,6 +62,12 @@ public:
       * Sets recognized page
       */
     void setPage(Page * p);
+public slots:
+    /**
+      * Abortes page recognition process
+      * @note abort is not immidiate - only next recognition stage aborted
+      */
+    void abort();
 protected:
     void run();
 signals:

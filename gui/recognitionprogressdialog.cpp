@@ -18,47 +18,29 @@
 
 #include <QDebug>
 #include <QFileInfo>
+#include <QLabel>
 
 #include "page.h"
 #include "recognitionprogressdialog.h"
-#include "ui_recognitionprogressdialog.h"
 
 RecognitionProgressDialog::RecognitionProgressDialog(QWidget * parent) :
-    QDialog(parent),
-    ui(new Ui::RecognitionProgressDialog), paused_(false)
-{
-    ui->setupUi(this);
-    connect(ui->abortButton, SIGNAL(clicked()), SLOT(close()));
-    connect(ui->abortButton, SIGNAL(clicked()), SIGNAL(aborted()));
-    connect(ui->pauseButton, SIGNAL(clicked()), SLOT(pause()));
-}
-
-RecognitionProgressDialog::~RecognitionProgressDialog()
-{
-    delete ui;
-}
-
-void RecognitionProgressDialog::pause() {
-    paused_ = !paused_;
-    ui->pauseButton->setText(paused_ ? tr("Resume") : tr("Pause"));
-    if(paused_)
-        emit paused();
-    else
-        emit resumed();
-}
-
-void RecognitionProgressDialog::reset() {
-    ui->pageLabel->setText("");
-    ui->totalProgress->reset();
+        QProgressDialog(parent) {
+    setModal(true);
+    setWindowModality(Qt::ApplicationModal);
+    setMinimumDuration(0);
+    setMinimum(0);
+    setMaximum(100);
+    setMaximumWidth(300);
+    QLabel * label = new QLabel();
+    label->setAlignment(Qt::AlignLeft);
+    label->setTextFormat(Qt::PlainText);
+    setLabel(label);
+    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 }
 
 void RecognitionProgressDialog::setCurrentPage(Page * const p) {
     Q_CHECK_PTR(p);
 
     QFileInfo fi(p->imagePath());
-    ui->pageLabel->setText(tr("Page recognition: \"%1\"").arg(fi.fileName()));
-}
-
-void RecognitionProgressDialog::setTotalValue(int value) {
-    ui->totalProgress->setValue(value);
+    setLabelText(tr("Page recognition: \"%1\"").arg(fi.fileName()));
 }

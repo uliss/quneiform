@@ -20,7 +20,7 @@
 #ifndef RECOGNITIONPROGRESSDIALOG_H
 #define RECOGNITIONPROGRESSDIALOG_H
 
-#include <QDialog>
+#include <QProgressDialog>
 
 class Page;
 
@@ -28,49 +28,16 @@ namespace Ui {
     class RecognitionProgressDialog;
 }
 
-class RecognitionProgressDialog : public QDialog
+class RecognitionProgressDialog : public QProgressDialog
 {
     Q_OBJECT
-
 public:
     explicit RecognitionProgressDialog(QWidget * parent = 0);
-    ~RecognitionProgressDialog();
-signals:
-    /**
-      * Emitted when Abort button is clicked
-      */
-    void aborted();
-
-    /**
-      * Emitted when Pause button is clicked
-      */
-    void paused();
-
-    /**
-      * Emitted when Resume button is clicked
-      */
-    void resumed();
 public slots:
-    /**
-      * Resets progress dialog
-      */
-    void reset();
-
     /**
       * Sets path of current page
       */
     void setCurrentPage(Page * const p);
-
-    /**
-      * Sets current progress in percent
-      * @param value - shoud be value in 0...100 range
-      */
-    void setTotalValue(int value);
-private slots:
-    void pause();
-private:
-    Ui::RecognitionProgressDialog * ui;
-    bool paused_;
 };
 
 #endif // RECOGNITIONPROGRESSDIALOG_H

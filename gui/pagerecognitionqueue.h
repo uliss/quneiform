@@ -20,7 +20,7 @@
 #ifndef PAGERECOGNITIONQUEUE_H
 #define PAGERECOGNITIONQUEUE_H
 
-#include <QThread>
+#include <QObject>
 #include <QQueue>
 
 class Document;
@@ -28,7 +28,7 @@ class Page;
 class RecognitionProgressDialog;
 class PageRecognizer;
 
-class PageRecognitionQueue : public QThread
+class PageRecognitionQueue : public QObject
 {
     Q_OBJECT
 public:
@@ -45,16 +45,12 @@ public:
       */
     void setLanguage(int language);
 public slots:
-    void abort();
-    void pause();
-    void resume();
-protected:
-    void run();
+    void start();
 signals:
-    void percentsDone(int perc);
+    void finished();
+    void started();
 private slots:
     void pageFault(const QString& msg);
-    void pageOpened();
 private:
     void setupProgressDialog();
     void setupPageRecognizer();
@@ -62,7 +58,6 @@ private:
     QQueue<Page*> pages_;
     RecognitionProgressDialog * progress_;
     PageRecognizer * recognizer_;
-    volatile bool abort_;
 };
 
 #endif // PAGERECOGNITIONQUEUE_H
