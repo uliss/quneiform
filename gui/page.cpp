@@ -24,6 +24,7 @@
 #include <QtGui/QGraphicsItem>
 #include <QMessageBox>
 #include <QFile>
+#include <QFileInfo>
 #include <QDataStream>
 #include <QMutexLocker>
 
@@ -80,6 +81,11 @@ bool Page::isSelected() const {
 
 QMutex * Page::mutex() const {
     return &mutex_;
+}
+
+QString Page::name() const {
+    QFileInfo inf(image_path_);
+    return inf.fileName();
 }
 
 unsigned int Page::number() const {

@@ -85,7 +85,8 @@ void ThumbnailWidget::selectPage(bool value) {
 }
 
 void ThumbnailWidget::showProperties() {
-    QMessageBox::information(NULL, tr("Properties"), pageProperties());
+    Q_CHECK_PTR(page_);
+    QMessageBox::information(NULL, tr("Properties - %1").arg(page_->name()), pageProperties());
 }
 
 void ThumbnailWidget::highlight(bool value) {

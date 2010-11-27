@@ -86,6 +86,11 @@ public:
     bool isSelected() const;
 
     /**
+      * Returns page name - filename of page path
+      */
+    QString name() const;
+
+    /**
       * Returns page number
       */
     unsigned int number() const;

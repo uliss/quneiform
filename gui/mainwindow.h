@@ -82,6 +82,7 @@ private:
     void setupLanguageMenu();
     void setupLanguageSelect();
     void setupLanguageUi();
+    void setupOpenProgress();
     void setupRecent();
     void setupRecentImages();
     void setupRecentPackets();

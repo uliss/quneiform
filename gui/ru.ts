@@ -335,6 +335,13 @@ Do you want to save it?</source>
     </message>
 </context>
 <context>
+    <name>RecognitionProgressDialog</name>
+    <message>
+        <source>Page recognition: &quot;%1&quot;</source>
+        <translation>Распознавание страницы: &quot;%1&quot;</translation>
+    </message>
+</context>
+<context>
     <name>ThumbnailList</name>
     <message>
         <source>Revert selected</source>
@@ -358,10 +365,6 @@ Do you want to save it?</source>
     <message>
         <source>Delete</source>
         <translation>Удалить</translation>
-    </message>
-    <message>
-        <source>Properties</source>
-        <translation>Свойства</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -408,6 +411,14 @@ Do you want to save it?</source>
 </source>
         <translation>Страница не сохранена
 </translation>
+    </message>
+    <message>
+        <source>Properties - %1</source>
+        <translation>Свойства - %1</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation>Свойства</translation>
     </message>
 </context>
 </TS>
