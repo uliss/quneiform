@@ -24,10 +24,6 @@
 
 class Page;
 
-namespace Ui {
-    class RecognitionProgressDialog;
-}
-
 class RecognitionProgressDialog : public QProgressDialog
 {
     Q_OBJECT

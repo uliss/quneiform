@@ -436,6 +436,7 @@ void MainWindow::setupLanguageUi() {
 
 void MainWindow::setupOpenProgress() {
     progress_ = new QProgressDialog(this);
+    progress_->setModal(true);
     progress_->setWindowTitle(tr("Quneiform OCR - opening images"));
     QLabel * label = new QLabel(progress_);
     label->setAlignment(Qt::AlignLeft);
