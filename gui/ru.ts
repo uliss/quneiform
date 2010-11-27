@@ -169,10 +169,6 @@
         <translation>Уменьшить</translation>
     </message>
     <message>
-        <source>Fit to page width</source>
-        <translation type="obsolete">По ширине страницы</translation>
-    </message>
-    <message>
         <source>Select Region</source>
         <translation>Выбрать область изображения</translation>
     </message>
@@ -211,14 +207,6 @@
     <message>
         <source>Open packet</source>
         <translation>Открыть пакет</translation>
-    </message>
-    <message>
-        <source>Zoom 1:1</source>
-        <translation type="obsolete">Масштаб 1:1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Quneiform OCR&lt;/b&gt;&lt;br/&gt;  Author:  Serj Poltavski&lt;br/&gt;  Email:   &lt;a href=&quot;mailto:%1&quot;&gt;%2&lt;/a&gt;&lt;br/&gt;  Version: %3.%4.%5%6&lt;br/&gt;  License: GPL v.3</source>
-        <translation type="obsolete">&lt;b&gt;Quneiform OCR&lt;/b&gt;&lt;br/&gt;  Автор:  Сергей Полтавский&lt;br/&gt;  Email:   &lt;a href=&quot;mailto:%1&quot;&gt;%2&lt;/a&gt;&lt;br/&gt;  Версия: %3.%4.%5%6&lt;br/&gt;  Лицензия: GPL v.3</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -275,10 +263,6 @@
     <message>
         <source>HTML documents (*.html *.htm)</source>
         <translation>HTML документы (*.html *.htm)</translation>
-    </message>
-    <message>
-        <source>Language</source>
-        <translation type="obsolete">Язык</translation>
     </message>
     <message>
         <source>Recognition packet is not saved</source>
@@ -342,12 +326,6 @@ Do you want to save it?</source>
         <translation>Quneiform OCR</translation>
     </message>
     <message>
-        <source>Error while recognizing &quot;%1&quot;:
-%2</source>
-        <translation type="obsolete">Ошибка распознавания файла %1:
-%2</translation>
-    </message>
-    <message>
         <source>File already exists. Overwrite?</source>
         <translation>Файл уже существует. Перезаписать?</translation>
     </message>
@@ -357,69 +335,7 @@ Do you want to save it?</source>
     </message>
 </context>
 <context>
-    <name>PageRecognitionQueue</name>
-    <message>
-        <source>Recognition abort</source>
-        <translation type="obsolete">Остановить распознавание</translation>
-    </message>
-    <message>
-        <source>Do you really want to abort recognition?</source>
-        <translation type="obsolete">Вы действительно хотите остановить распознавание?</translation>
-    </message>
-</context>
-<context>
-    <name>PageRecognizer</name>
-    <message>
-        <source>Quneiform OCR</source>
-        <translation type="obsolete">Quneiform OCR</translation>
-    </message>
-    <message>
-        <source>Error while recognizing &quot;%1&quot;:
-%2</source>
-        <translation type="obsolete">Ошибка распознавания файла %1:
-%2</translation>
-    </message>
-</context>
-<context>
-    <name>RecognitionProgress</name>
-    <message>
-        <source>Abort</source>
-        <translation type="obsolete">Прервать</translation>
-    </message>
-</context>
-<context>
-    <name>RecognitionProgressDialog</name>
-    <message>
-        <source>Recognition Progress</source>
-        <translation type="obsolete">Распознавание</translation>
-    </message>
-    <message>
-        <source>Abort</source>
-        <translation type="obsolete">Прервать</translation>
-    </message>
-    <message>
-        <source>Recognition...</source>
-        <translation type="obsolete">Распознавание...</translation>
-    </message>
-    <message>
-        <source>Page recognition: &quot;%1&quot;</source>
-        <translation>Распознавание страницы: &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>Pause</source>
-        <translation type="obsolete">Пауза</translation>
-    </message>
-    <message>
-        <source>Resume</source>
-        <translation type="obsolete">Возобновить</translation>
-    </message>
-</context>
-<context>
     <name>ThumbnailList</name>
-    <message>
-        <source>Select All</source>
-        <translation type="obsolete">Выбрать все</translation>
-    </message>
     <message>
         <source>Revert selected</source>
         <translation>Обратить выделение</translation>
@@ -472,22 +388,26 @@ Do you want to save it?</source>
     <message>
         <source>Page is recognized
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Страница распознана
+</translation>
     </message>
     <message>
         <source>Page is not recognized
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Страница не распознана
+</translation>
     </message>
     <message>
         <source>Page is saved
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Страница сохранена
+</translation>
     </message>
     <message>
         <source>Page is not saved
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Страница не сохранена
+</translation>
     </message>
 </context>
 </TS>
