@@ -16,57 +16,52 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QLabel>
 #include <QPixmap>
-#include <QPixmapCache>
-#include <QDebug>
+
+#include "pageindicator.h"
 #include "imagecache.h"
 
-namespace {
-    static const int PIXMAP_CACHE_SIZE_KB = 40 * 1024;
-    bool setLimit() {
-        qDebug() << "[QPixmapCache::setCacheLimit]" << PIXMAP_CACHE_SIZE_KB << "kb";
-        QPixmapCache::setCacheLimit(PIXMAP_CACHE_SIZE_KB);
-        return true;
-    }
+static const QString RECOGNIZED(":/img/oxygen/22x22/dialog_ok.png");
+static const QString SAVED(":/img/oxygen/22x22/document_save.png");
+static const int ICON_WIDTH = 16;
 
-    bool set = setLimit();
-}
-
-#if QT_VERSION <= 0x040600
-#define ARG_FIX(arg) *arg
-#else
-#define ARG_FIX(arg) arg
-#endif
-
-bool ImageCache::find(const QString &path, QPixmap * pixmap) {
-    return QPixmapCache::find(path, ARG_FIX(pixmap));
-}
-
-bool ImageCache::insert(const QString& path, const QPixmap& pixmap) {
-    return QPixmapCache::insert(path, pixmap);
-}
-
-bool ImageCache::load (const QString &path, QPixmap * pixmap)
+PageIndicator::PageIndicator(QWidget * parent) :
+    QWidget(parent), recognized_(NULL), saved_(NULL)
 {
-    if(path.isEmpty())
-        return false;
+    recognized_ = new QLabel(this);
+    recognized_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
+    saved_ = new QLabel(this);
+    saved_->move(ICON_WIDTH + 5, 0);
+    saved_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
+}
 
-    if(!pixmap) {
-        qDebug() << "[ImageCache::find] NULL pointer given";
-        return false;
+QPixmap PageIndicator::indicatorIcon(const QString& path) {
+    QPixmap pixmap;
+
+    if(!ImageCache::find(path, &pixmap)) {
+        pixmap.load(path);
+        pixmap = pixmap.scaled(ICON_WIDTH, ICON_WIDTH, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        ImageCache::insert(path, pixmap);
     }
 
-    if (!QPixmapCache::find(path, ARG_FIX(pixmap))) {
-        qDebug() << "[ImageCache::load] from file: " << path;
-        pixmap->load(path);
-        QPixmapCache::insert(path, *pixmap);
-    }
+    return pixmap;
+}
 
-    if(pixmap->isNull()) {
-        qDebug() << "[ImageCache::load] invalid pixmap: " << path;
-        return false;
-    }
-    else {
-        return true;
-    }
+void PageIndicator::setRecognized(bool value) {
+    if(value)
+        recognized_->setPixmap(indicatorIcon(RECOGNIZED));
+    else
+        recognized_->setPixmap(QPixmap());
+}
+
+void PageIndicator::setSaved(bool value) {
+    if(value)
+        saved_->setPixmap(indicatorIcon(SAVED));
+    else
+        saved_->setPixmap(QPixmap());
+}
+
+QSize PageIndicator::sizeHint() const {
+    return QSize(ICON_WIDTH * 3, ICON_WIDTH);
 }

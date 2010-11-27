@@ -149,6 +149,7 @@ void Page::save(const QString& file) {
     qDebug() << "[Page::save] saved" << file;
 
     is_saved_ = true;
+    emit saved();
 }
 
 void Page::scale(qreal factor) {
@@ -174,6 +175,7 @@ void Page::setOcrText(const QString& text) {
 
     ocr_text_ = text;
     is_recognized_ = true;
+    emit recognized();
 }
 
 void Page::setPageArea(const QRectF& area) {

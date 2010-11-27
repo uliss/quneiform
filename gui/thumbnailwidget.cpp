@@ -32,8 +32,10 @@
 #include "thumbnaillist.h"
 #include "imagecache.h"
 #include "page.h"
+#include "pageindicator.h"
 
-static const int THUMB_IMAGE_WIDTH = 90;
+static const int THUMB_IMAGE_HEIGHT = 95;
+static const int THUMB_IMAGE_WIDTH = 95;
 static const int THUMB_IMAGE_MARGIN = 5;
 static const int THUMB_WIDTH = 150;
 static const int THUMB_HEIGHT = 150;
@@ -46,14 +48,18 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
     setupPixmap();
     setupLabel();
     setupToolTip();
+    setupIndicator();
     setupCheckBox();
 
     connect(checked_, SIGNAL(toggled(bool)), SLOT(selectPage(bool)));
     connect(this, SIGNAL(contextMenuCreated(QMenu*)), parent, SLOT(setupContextMenu(QMenu*)));
     connect(this, SIGNAL(invalidImage(const QString&)), parent, SLOT(handleInvalidImage(const QString&)));
     connect(page, SIGNAL(rotated(int)), SLOT(rotate(int)));
+    connect(page, SIGNAL(recognized()), SLOT(updatePageIndicators()));
+    connect(page, SIGNAL(saved()), SLOT(updatePageIndicators()));
 
     setFocusPolicy(Qt::ClickFocus);
+    updatePageIndicators();
 }
 
 void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
@@ -118,6 +124,17 @@ QString ThumbnailWidget::pageProperties() const {
     QString res = tr("Filename: \"%1\"\n").arg(page_->imagePath());
     res += tr("Size: %1x%2\n").arg(page_->imageSize().width()).arg(page_->imageSize().height());
     res += tr("Rotation: %1\n").arg(page_->angle());
+
+    if(page_->isRecognized())
+        res += tr("Page is recognized\n");
+    else
+        res += tr("Page is not recognized\n");
+
+    if(page_->isSaved())
+        res += tr("Page is saved\n");
+    else
+        res += tr("Page is not saved\n");
+
     return res;
 }
 
@@ -164,6 +181,12 @@ void ThumbnailWidget::setupFrame() {
     //setFrameShape(QFrame::Box);
 }
 
+void ThumbnailWidget::setupIndicator() {
+    indicator_ = new PageIndicator(this);
+    indicator_->move(0, height() - indicator_->height());
+//    layout_->addWidget(indicator_, 0, Qt::AlignHCenter);
+}
+
 void ThumbnailWidget::setupLabel() {
     Q_CHECK_PTR(page_);
     Q_CHECK_PTR(layout_);
@@ -195,7 +218,13 @@ void ThumbnailWidget::setupPixmap() {
     thumb_->setMargin(THUMB_IMAGE_MARGIN);
     QTransform thumb_rotate;
     thumb_rotate.rotate(page_->angle());
-    thumb_->setPixmap(image.scaledToWidth(THUMB_IMAGE_WIDTH).transformed(thumb_rotate));
+    image = image.transformed(thumb_rotate);
+    if(image.height() > image.width())
+        image = image.scaledToHeight(THUMB_IMAGE_HEIGHT);
+    else
+        image = image.scaledToWidth(THUMB_IMAGE_WIDTH);
+
+    thumb_->setPixmap(image);
     // stretch image
     static const int STRETCH_KOEF = 4;
     layout_->addWidget(thumb_, STRETCH_KOEF, Qt::AlignHCenter);
@@ -211,4 +240,10 @@ void ThumbnailWidget::toggleSelection() {
     Q_CHECK_PTR(checked_);
 
     checked_->toggle();
+}
+
+void ThumbnailWidget::updatePageIndicators() {
+    Q_CHECK_PTR(indicator_);
+    indicator_->setRecognized(page_->isRecognized());
+    indicator_->setSaved(page_->isSaved());
 }

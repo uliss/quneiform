@@ -163,10 +163,21 @@ public:
 signals:
     void changed();
     /**
-      * Emmited then page is tranformed
+      * Emmited when page is tranformed
       */
     void transformed();
+
+    /**
+      * Emitted when page is recognized
+      */
+    void recognized();
+
     void rotated(int angle);
+
+    /**
+      * Emitted when page saved
+      */
+    void saved();
 private:
     QString image_path_;
     QSize image_size_;

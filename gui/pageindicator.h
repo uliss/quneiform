@@ -16,31 +16,28 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IMAGECACHE_H
-#define IMAGECACHE_H
 
-class QString;
-class QPixmap;
+#ifndef PAGEINDICATOR_H
+#define PAGEINDICATOR_H
 
-class ImageCache
+#include <QWidget>
+#include <QPixmap>
+
+class QLabel;
+
+class PageIndicator : public QWidget
 {
-    ImageCache();
+    Q_OBJECT
 public:
-    /**
-      * Checks is pixmap exists in cache
-      */
-    static bool find(const QString& path, QPixmap * pixmap);
-
-    /**
-      * Inserts pixmap into cache
-      */
-    static bool insert(const QString& path, const QPixmap& pixmap);
-
-    /**
-      * Loads pixmap from cache, if not found load from file
-      * otherwise returns false
-      */
-    static bool load(const QString& path, QPixmap * pixmap);
+    explicit PageIndicator(QWidget * parent = 0);
+    QSize sizeHint() const;
+    void setRecognized(bool value);
+    void setSaved(bool value);
+private:
+    QPixmap indicatorIcon(const QString& path);
+private:
+    QLabel * recognized_;
+    QLabel * saved_;
 };
 
-#endif // IMAGECACHE_H
+#endif // PAGEINDICATOR_H
