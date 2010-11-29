@@ -151,7 +151,7 @@ void ImageView::deletePageSelection() {
     page_selection_ = NULL;
 
     HAS_PAGE()
-    page_->setPageArea(QRectF());
+    page_->setPageArea(QRect());
 }
 
 void ImageView::disconnectPageSignals(Page * page) {
@@ -330,11 +330,8 @@ void ImageView::restorePageSelection() {
 
 void ImageView::savePageSelection() {
     HAS_PAGE()
-    if(page_selection_) {
-        QPointF p = page_selection_->pos() + page_selection_->rect().topLeft();
-        QRectF r(p, page_selection_->rect().size());
-        page_->setPageArea(r);
-    }
+    if(page_selection_)
+        page_->setPageArea(page_selection_->normalRect());
     else
         page_->setPageArea(QRect());
 }

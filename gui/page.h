@@ -20,12 +20,11 @@
 #define PAGE_H_
 
 #include <stdexcept>
-#include <QtCore/QString>
-#include <QtCore/QObject>
-#include <QtCore/QRect>
-#include <QtCore/QVector>
-#include <QtCore/QSize>
-#include <QtGui/QColor>
+#include <QString>
+#include <QObject>
+#include <QRect>
+#include <QSize>
+#include <QColor>
 #include <QTransform>
 #include <QMutex>
 
@@ -37,7 +36,6 @@ public:
     Page(const QString& image_path);
 
     typedef std::runtime_error Exception;
-    typedef QVector<QRect> RectList;
 
     /**
       * Returns page rotation angle (0, 90, 180 or 270 degrees)
@@ -88,7 +86,7 @@ public:
     /**
       * Returns page area on image
       */
-    const QRectF& pageArea() const;
+    const QRect& pageArea() const;
 
     /**
       * Resets page scaling, but saves rotate
@@ -131,7 +129,7 @@ public:
       * Sets page area on image
       * Emits signal changed()
       */
-    void setPageArea(const QRectF& area);
+    void setPageArea(const QRect& area);
 
     /**
       * Selects page
@@ -188,9 +186,7 @@ private:
     bool is_recognized_;
     bool is_saved_;
     bool is_selected_;
-    RectList r_page_;
-    RectList r_fragment_;
-    QRectF page_area_;
+    QRect page_area_;
     QTransform transform_;
     QPoint view_scroll_;
     bool is_null_;

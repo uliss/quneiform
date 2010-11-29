@@ -85,7 +85,7 @@ QString Page::ocrText() const {
     return ocr_text_;
 }
 
-const QRectF& Page::pageArea() const {
+const QRect& Page::pageArea() const {
     return page_area_;
 }
 
@@ -178,7 +178,7 @@ void Page::setOcrText(const QString& text) {
     emit recognized();
 }
 
-void Page::setPageArea(const QRectF& area) {
+void Page::setPageArea(const QRect& area) {
     QMutexLocker lock(&mutex_);
 
     if(page_area_ == area)
@@ -228,8 +228,6 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.is_recognized_
             << page.is_saved_
             << page.is_selected_
-            << page.r_page_
-            << page.r_fragment_
             << page.page_area_
             << page.transform_
             << page.is_null_
@@ -246,8 +244,6 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.is_recognized_
             >> page.is_saved_
             >> page.is_selected_
-            >> page.r_page_
-            >> page.r_fragment_
             >> page.page_area_
             >> page.transform_
             >> page.is_null_
