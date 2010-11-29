@@ -29,12 +29,7 @@
 #include <QTransform>
 #include <QMutex>
 
-class QGraphicsScene;
 class QDataStream;
-
-namespace cf {
-    class CRtfPage;
-}
 
 class Page: public QObject {
     Q_OBJECT
@@ -48,11 +43,6 @@ public:
       * Returns page rotation angle (0, 90, 180 or 270 degrees)
       */
     int angle() const;
-
-    /**
-      * Draws layout on given scene
-      */
-    void drawFormatLayout(QGraphicsScene * scene) const;
 
     /**
       * Returns image path
@@ -102,47 +92,56 @@ public:
 
     /**
       * Resets page scaling, but saves rotate
+      * Emits signals changed() and transformed()
       */
     void resetScale();
 
     /**
       * Rotates page
+      * Emits signals changed() and rotated()
       */
     void rotate(int angle);
 
     /**
       * Saves ocr result
       * @throw Exception if page is not recognized
+      * Emits signal saved()
       */
     void save(const QString& file);
 
     /**
       * Scales page
+      * Emits signals changed() and transformed()
       */
     void scale(qreal factor);
 
     /**
       * Sets page number
+      * Emits signal changed()
       */
     void setNumber(unsigned int number);
 
     /**
       * Sets page ocr text
+      * Emits signal changed() and recognized()
       */
     void setOcrText(const QString& text);
 
     /**
       * Sets page area on image
+      * Emits signal changed()
       */
     void setPageArea(const QRectF& area);
 
     /**
       * Selects page
+      * Emits signal changed()
       */
     void setSelected(bool value);
 
     /**
       * Sets page transform
+      * Emits signals changed() and transformed()
       */
     void setTransform(const QTransform& t);
 
@@ -163,7 +162,7 @@ public:
 signals:
     void changed();
     /**
-      * Emmited when page is tranformed
+      * Emmited when page is transformed
       */
     void transformed();
 
@@ -172,6 +171,9 @@ signals:
       */
     void recognized();
 
+    /**
+      * Emmitted when page is rotated
+      */
     void rotated(int angle);
 
     /**
@@ -193,10 +195,6 @@ private:
     QPoint view_scroll_;
     bool is_null_;
     mutable QMutex mutex_;
-private:
-    static QColor format_page_color_;
-private:
-    QMutex * mutex() const;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

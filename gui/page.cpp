@@ -16,7 +16,6 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <sstream>
 #include <QtGui/QPen>
 #include <QtGui/QPainter>
 #include <QtCore/QDebug>
@@ -76,10 +75,6 @@ bool Page::isSaved() const {
 
 bool Page::isSelected() const {
     return is_selected_;
-}
-
-QMutex * Page::mutex() const {
-    return &mutex_;
 }
 
 unsigned int Page::number() const {
@@ -175,6 +170,11 @@ void Page::setOcrText(const QString& text) {
 
     ocr_text_ = text;
     is_recognized_ = true;
+
+    if(is_saved_)
+        is_saved_ = false;
+
+    emit changed();
     emit recognized();
 }
 
