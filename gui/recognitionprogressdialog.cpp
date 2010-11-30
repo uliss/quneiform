@@ -24,8 +24,8 @@
 
 RecognitionProgressDialog::RecognitionProgressDialog(QWidget * parent) :
         QProgressDialog(parent) {
-    setModal(true);
-    setWindowModality(Qt::ApplicationModal);
+//    setModal(true);
+//    setWindowModality(Qt::ApplicationModal);
     setMinimumDuration(0);
     setMinimum(0);
     setMaximum(100);
