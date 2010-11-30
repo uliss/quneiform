@@ -20,21 +20,15 @@
 #define PAGE_H_
 
 #include <stdexcept>
-#include <QtCore/QString>
-#include <QtCore/QObject>
-#include <QtCore/QRect>
-#include <QtCore/QVector>
-#include <QtCore/QSize>
-#include <QtGui/QColor>
+#include <QString>
+#include <QObject>
+#include <QRect>
+#include <QSize>
+#include <QColor>
 #include <QTransform>
 #include <QMutex>
 
-class QGraphicsScene;
 class QDataStream;
-
-namespace cf {
-    class CRtfPage;
-}
 
 class Page: public QObject {
     Q_OBJECT
@@ -42,17 +36,11 @@ public:
     Page(const QString& image_path);
 
     typedef std::runtime_error Exception;
-    typedef QVector<QRect> RectList;
 
     /**
       * Returns page rotation angle (0, 90, 180 or 270 degrees)
       */
     int angle() const;
-
-    /**
-      * Draws layout on given scene
-      */
-    void drawFormatLayout(QGraphicsScene * scene) const;
 
     /**
       * Returns image path
@@ -103,51 +91,60 @@ public:
     /**
       * Returns page area on image
       */
-    const QRectF& pageArea() const;
+    const QRect& pageArea() const;
 
     /**
       * Resets page scaling, but saves rotate
+      * Emits signals changed() and transformed()
       */
     void resetScale();
 
     /**
       * Rotates page
+      * Emits signals changed() and rotated()
       */
     void rotate(int angle);
 
     /**
       * Saves ocr result
       * @throw Exception if page is not recognized
+      * Emits signal saved()
       */
     void save(const QString& file);
 
     /**
       * Scales page
+      * Emits signals changed() and transformed()
       */
     void scale(qreal factor);
 
     /**
       * Sets page number
+      * Emits signal changed()
       */
     void setNumber(unsigned int number);
 
     /**
       * Sets page ocr text
+      * Emits signal changed() and recognized()
       */
     void setOcrText(const QString& text);
 
     /**
       * Sets page area on image
+      * Emits signal changed()
       */
-    void setPageArea(const QRectF& area);
+    void setPageArea(const QRect& area);
 
     /**
       * Selects page
+      * Emits signal changed()
       */
     void setSelected(bool value);
 
     /**
       * Sets page transform
+      * Emits signals changed() and transformed()
       */
     void setTransform(const QTransform& t);
 
@@ -168,7 +165,7 @@ public:
 signals:
     void changed();
     /**
-      * Emmited when page is tranformed
+      * Emmited when page is transformed
       */
     void transformed();
 
@@ -177,6 +174,9 @@ signals:
       */
     void recognized();
 
+    /**
+      * Emmitted when page is rotated
+      */
     void rotated(int angle);
 
     /**
@@ -191,17 +191,11 @@ private:
     bool is_recognized_;
     bool is_saved_;
     bool is_selected_;
-    RectList r_page_;
-    RectList r_fragment_;
-    QRectF page_area_;
+    QRect page_area_;
     QTransform transform_;
     QPoint view_scroll_;
     bool is_null_;
     mutable QMutex mutex_;
-private:
-    static QColor format_page_color_;
-private:
-    QMutex * mutex() const;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

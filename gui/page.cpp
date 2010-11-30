@@ -16,7 +16,6 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <sstream>
 #include <QtGui/QPen>
 #include <QtGui/QPainter>
 #include <QtCore/QDebug>
@@ -79,10 +78,6 @@ bool Page::isSelected() const {
     return is_selected_;
 }
 
-QMutex * Page::mutex() const {
-    return &mutex_;
-}
-
 QString Page::name() const {
     QFileInfo inf(image_path_);
     return inf.fileName();
@@ -96,7 +91,7 @@ QString Page::ocrText() const {
     return ocr_text_;
 }
 
-const QRectF& Page::pageArea() const {
+const QRect& Page::pageArea() const {
     return page_area_;
 }
 
@@ -181,10 +176,15 @@ void Page::setOcrText(const QString& text) {
 
     ocr_text_ = text;
     is_recognized_ = true;
+
+    if(is_saved_)
+        is_saved_ = false;
+
+    emit changed();
     emit recognized();
 }
 
-void Page::setPageArea(const QRectF& area) {
+void Page::setPageArea(const QRect& area) {
     QMutexLocker lock(&mutex_);
 
     if(page_area_ == area)
@@ -234,8 +234,6 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.is_recognized_
             << page.is_saved_
             << page.is_selected_
-            << page.r_page_
-            << page.r_fragment_
             << page.page_area_
             << page.transform_
             << page.is_null_
@@ -252,8 +250,6 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.is_recognized_
             >> page.is_saved_
             >> page.is_selected_
-            >> page.r_page_
-            >> page.r_fragment_
             >> page.page_area_
             >> page.transform_
             >> page.is_null_

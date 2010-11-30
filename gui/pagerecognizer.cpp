@@ -18,7 +18,6 @@
 
 #include <QImage>
 #include <QDebug>
-#include <QMutexLocker>
 #include <sstream>
 
 #include "pagerecognizer.h"
@@ -27,10 +26,6 @@
 #include "rdib/qtimageloader.h"
 #include "common/lang_def.h"
 #include "quneiform_debug.h"
-
-inline QRect toRect(const QRectF& r) {
-    return QRect(r.x(), r.y(), r.width(), r.height());
-}
 
 PageRecognizer::PageRecognizer(Page * p, QObject * parent)
     : QObject(parent),
@@ -66,7 +61,7 @@ QImage PageRecognizer::loadImage() const {
 
     // select page area
     if(page_->pageArea().isValid())
-        img = img.copy(toRect(page_->pageArea()));
+        img = img.copy(page_->pageArea());
 
     // rotate
     if(page_->angle() != 0) {

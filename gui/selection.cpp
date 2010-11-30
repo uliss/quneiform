@@ -239,6 +239,14 @@ void Selection::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
 //    setSelected(false);
 }
 
+QRect Selection::normalRect() const {
+    int x = pos().x() + rect().left();
+    int y = pos().y() + rect().top();
+    int w = rect().width();
+    int h = rect().height();
+    return QRect(x, y, w, h);
+}
+
 void Selection::resizeBy(const QPointF& delta) {
     QRectF new_r = rect();
 

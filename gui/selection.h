@@ -53,8 +53,8 @@ public:
     };
 
     void moveBy(const QPointF& delta);
-
- signals:
+    QRect normalRect() const;
+signals:
     void cursorChange(int type);
     void moved(const QPointF& delta);
     void selectionDeleted();
