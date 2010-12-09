@@ -33,6 +33,7 @@
 #include "imagecache.h"
 #include "page.h"
 #include "pageindicator.h"
+#include "recognitionsettingsdialog.h"
 
 static const int THUMB_IMAGE_HEIGHT = 95;
 static const int THUMB_IMAGE_WIDTH = 95;
@@ -68,6 +69,7 @@ void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
     menu->addAction(QIcon(":/img/oxygen/22x22/document_preview.png"), tr("Recognize"), this, SLOT(recognizeThumb()));
     menu->addAction(QIcon(":/img/oxygen/22x22/list_remove.png"), tr("Delete"), this, SLOT(removePage()));
     menu->addAction(QIcon(":/img/oxygen/22x22/document_properties.png"), tr("Properties"), this, SLOT(showProperties()));
+    menu->addAction(tr("Recognition settings"), this, SLOT(showRecognizeSettings()));
     menu->addAction(QIcon(":/img/oxygen/22x22/document_save_as.png"), tr("Save as"), this, SLOT(savePage()));
 
     //    menu->setupActions();
@@ -86,6 +88,14 @@ void ThumbnailWidget::selectPage(bool value) {
 
 void ThumbnailWidget::showProperties() {
     QMessageBox::information(NULL, tr("Properties"), pageProperties());
+}
+
+void ThumbnailWidget::showRecognizeSettings() {
+    Q_CHECK_PTR(page_);
+
+    RecognitionSettingsDialog dlg(page_->recognitionSettings());
+    if(QDialog::Accepted == dlg.exec())
+        page_->setRecognizeOptions(dlg.options());
 }
 
 void ThumbnailWidget::highlight(bool value) {

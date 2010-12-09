@@ -17,61 +17,64 @@
  ***************************************************************************/
 
 #include <QDataStream>
-#include "recognizeoptions.h"
+#include "recognitionsettings.h"
 
-RecognizeOptions::RecognizeOptions(QObject *parent) :
-    QObject(parent), fax_(false), dot_matrix_(false),
-    cf_spelling_(true), onecolumn_layout_(true),
+RecognitionSettings::RecognitionSettings() :
+    fax_(false), dot_matrix_(false),
+    cf_spelling_(true), onecolumn_layout_(false),
     search_pictures_(true)
 {
 }
 
-bool RecognizeOptions::dotMatrix() const {
+bool RecognitionSettings::operator==(const RecognitionSettings& opts) {
+    return fax_ == opts.fax_
+            && dot_matrix_ == opts.dot_matrix_
+            && cf_spelling_ == opts.cf_spelling_
+            && onecolumn_layout_ == opts.onecolumn_layout_
+            && search_pictures_ == opts.search_pictures_;
+}
+
+bool RecognitionSettings::dotMatrix() const {
     return dot_matrix_;
 }
 
-bool RecognizeOptions::fax() const {
+bool RecognitionSettings::fax() const {
     return fax_;
 }
 
-bool RecognizeOptions::oneColumn() const {
+bool RecognitionSettings::oneColumn() const {
     return onecolumn_layout_;
 }
 
-bool RecognizeOptions::picturesSearch() const {
+bool RecognitionSettings::picturesSearch() const {
     return search_pictures_;
 }
 
-void RecognizeOptions::setPicturesSearch(bool value) {
+void RecognitionSettings::setPicturesSearch(bool value) {
     search_pictures_ = value;
-    emit changed();
 }
 
-void RecognizeOptions::setDotMatrix(bool value) {
+void RecognitionSettings::setDotMatrix(bool value) {
     dot_matrix_ = value;
-    emit changed();
 }
 
-void RecognizeOptions::setFax(bool value) {
+void RecognitionSettings::setFax(bool value) {
     fax_ = value;
-    emit changed();
 }
 
-void RecognizeOptions::setOneColumn(bool value) {
+void RecognitionSettings::setOneColumn(bool value) {
     onecolumn_layout_ = value;
-    emit changed();
 }
 
-bool RecognizeOptions::spelling() const {
+bool RecognitionSettings::spelling() const {
     return cf_spelling_;
 }
 
-void RecognizeOptions::useSpelling(bool value) {
+void RecognitionSettings::useSpelling(bool value) {
     cf_spelling_ = value;
-    emit changed();
 }
 
-QDataStream& operator<<(QDataStream& os, const RecognizeOptions& opts) {
+QDataStream& operator<<(QDataStream& os, const RecognitionSettings& opts) {
     os << opts.dot_matrix_
             << opts.fax_
             << opts.onecolumn_layout_
@@ -80,7 +83,7 @@ QDataStream& operator<<(QDataStream& os, const RecognizeOptions& opts) {
     return os;
 }
 
-QDataStream& operator>>(QDataStream& is, RecognizeOptions& opts) {
+QDataStream& operator>>(QDataStream& is, RecognitionSettings& opts) {
     is >> opts.dot_matrix_
             >> opts.fax_
             >> opts.onecolumn_layout_

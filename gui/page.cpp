@@ -89,6 +89,10 @@ const QRect& Page::pageArea() const {
     return page_area_;
 }
 
+const RecognitionSettings& Page::recognitionSettings() const {
+    return rec_settings_;
+}
+
 void Page::resetScale() {
     QMutexLocker lock(&mutex_);
 
@@ -188,6 +192,17 @@ void Page::setPageArea(const QRect& area) {
     emit changed();
 }
 
+void Page::setRecognizeOptions(const RecognitionSettings& opts) {
+    QMutexLocker lock(&mutex_);
+
+    if(rec_settings_ == opts)
+        return;
+
+    rec_settings_ = opts;
+    is_saved_ = false;
+    emit changed();
+}
+
 void Page::setSelected(bool value) {
     if(is_selected_ == value)
         return;
@@ -232,7 +247,7 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.transform_
             << page.is_null_
             << page.view_scroll_
-            << page.recognize_opts_;
+            << page.rec_settings_;
     return os;
 }
 
@@ -249,7 +264,7 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.transform_
             >> page.is_null_
             >> page.view_scroll_
-            >> page.recognize_opts_;
+            >> page.rec_settings_;
 
     if(page.is_selected_)
         page.setSelected(true);

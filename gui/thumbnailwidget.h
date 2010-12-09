@@ -96,6 +96,7 @@ private slots:
     void savePage();
     void selectPage(bool value);
     void showProperties();
+    void showRecognizeSettings();
     void updatePageIndicators();
 private:
     Page * page_;

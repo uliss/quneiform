@@ -5,7 +5,7 @@
     <name>ImageView</name>
     <message>
         <source>Select recognize area</source>
-        <translation>Выбрать область распознования</translation>
+        <translation>Выбрать область распознавания</translation>
     </message>
 </context>
 <context>
@@ -415,6 +415,48 @@ Do you want to save it?</source>
     </message>
 </context>
 <context>
+    <name>RecognitionSettingsDialog</name>
+    <message>
+        <source>Layout:</source>
+        <translation>Компоновка:</translation>
+    </message>
+    <message>
+        <source>Search pictures</source>
+        <translation>Поиск изображений</translation>
+    </message>
+    <message>
+        <source>One column layout</source>
+        <translation>Одна колонка</translation>
+    </message>
+    <message>
+        <source>Recognition:</source>
+        <translation>Распознавание:</translation>
+    </message>
+    <message>
+        <source>Use spelling</source>
+        <translation>Использовать проверку правописания</translation>
+    </message>
+    <message>
+        <source>Dot matrix</source>
+        <translation>Матричный принтер</translation>
+    </message>
+    <message>
+        <source>Fax</source>
+        <translation>Факс</translation>
+    </message>
+    <message>
+        <source>Recognition settings</source>
+        <translation>Настройки распознавания</translation>
+    </message>
+</context>
+<context>
+    <name>RecognizeOptionsDialog</name>
+    <message>
+        <source>Recognition:</source>
+        <translation type="obsolete">Распознование:</translation>
+    </message>
+</context>
+<context>
     <name>ThumbnailList</name>
     <message>
         <source>Select All</source>
@@ -472,22 +514,29 @@ Do you want to save it?</source>
     <message>
         <source>Page is recognized
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Страница распознана
+</translation>
     </message>
     <message>
         <source>Page is not recognized
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Страница не распознана
+</translation>
     </message>
     <message>
         <source>Page is saved
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Страница сохранена
+</translation>
     </message>
     <message>
         <source>Page is not saved
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Страница не сохранена</translation>
+    </message>
+    <message>
+        <source>Recognition settings</source>
+        <translation>Настройки распознавания</translation>
     </message>
 </context>
 </TS>

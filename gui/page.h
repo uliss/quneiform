@@ -27,7 +27,7 @@
 #include <QColor>
 #include <QTransform>
 #include <QMutex>
-#include "recognizeoptions.h"
+#include "recognitionsettings.h"
 
 class QDataStream;
 
@@ -90,6 +90,11 @@ public:
     const QRect& pageArea() const;
 
     /**
+      * Returns page recognize options
+      */
+    const RecognitionSettings& recognitionSettings() const;
+
+    /**
       * Resets page scaling, but saves rotate
       * Emits signals changed() and transformed()
       */
@@ -131,6 +136,12 @@ public:
       * Emits signal changed()
       */
     void setPageArea(const QRect& area);
+
+    /**
+      * Sets page recognize options
+      * emits signal changed()
+      */
+    void setRecognizeOptions(const RecognitionSettings& opts);
 
     /**
       * Selects page
@@ -192,7 +203,7 @@ private:
     QPoint view_scroll_;
     bool is_null_;
     mutable QMutex mutex_;
-    RecognizeOptions recognize_opts_;
+    RecognitionSettings rec_settings_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

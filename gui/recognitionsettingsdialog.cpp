@@ -17,42 +17,39 @@
  ***************************************************************************/
 
 
-#ifndef RECOGNIZEOPTIONS_H
-#define RECOGNIZEOPTIONS_H
+#include "recognitionsettingsdialog.h"
+#include "ui_recognitionsettingsdialog.h"
 
-#include <QObject>
+RecognitionSettingsDialog::RecognitionSettingsDialog(const RecognitionSettings& opts,
+                                               QWidget * parent) :
+    QDialog(parent),
+    ui_(new Ui::RecognitionSettingsDialog),
+    opts_(opts) {
+    ui_->setupUi(this);
+    setupOptions();
+    connect(this, SIGNAL(accepted()), SLOT(save()));
+}
 
-class QDataStream;
+RecognitionSettingsDialog::~RecognitionSettingsDialog() {
+    delete ui_;
+}
 
-class RecognizeOptions : public QObject
-{
-    Q_OBJECT
-public:
-    explicit RecognizeOptions(QObject * parent = 0);
-    bool dotMatrix() const;
-    bool fax() const;
-    bool oneColumn() const;
-    bool picturesSearch() const;
-    void setDotMatrix(bool value);
-    void setFax(bool value);
-    void setOneColumn(bool value);
-    void setPicturesSearch(bool value);
-    bool spelling() const;
-    void useSpelling(bool value);
-signals:
-    /**
-      * Emitted if any options changed
-      */
-    void changed();
-private:
-    bool fax_;
-    bool dot_matrix_;
-    bool cf_spelling_;
-    bool onecolumn_layout_;
-    bool search_pictures_;
-private:
-    friend QDataStream& operator<<(QDataStream& stream, const RecognizeOptions& opts);
-    friend QDataStream& operator>>(QDataStream& stream, RecognizeOptions& opts);
-};
+const RecognitionSettings& RecognitionSettingsDialog::options() const {
+    return opts_;
+}
 
-#endif // RECOGNIZEOPTIONS_H
+void RecognitionSettingsDialog::save() {
+    opts_.setDotMatrix(ui_->dotMatrix_->isChecked());
+    opts_.setFax(ui_->fax_->isChecked());
+    opts_.setOneColumn(ui_->oneColumn_->isChecked());
+    opts_.setPicturesSearch(ui_->searchPictures_->isChecked());
+    opts_.useSpelling(ui_->useSpelling_->isChecked());
+}
+
+void RecognitionSettingsDialog::setupOptions() {
+    ui_->dotMatrix_->setChecked(opts_.dotMatrix());
+    ui_->fax_->setChecked(opts_.fax());
+    ui_->useSpelling_->setChecked(opts_.spelling());
+    ui_->oneColumn_->setChecked(opts_.oneColumn());
+    ui_->searchPictures_->setChecked(opts_.picturesSearch());
+}

@@ -138,9 +138,20 @@ void PageRecognizer::setPage(Page * p) {
 }
 
 void PageRecognizer::setRecognizeOptions() {
-    cf::RecognizeOptions recognize_options;
-    recognize_options.setLanguage(static_cast<language_t>(language_));
-    cf::Puma::instance().setRecognizeOptions(recognize_options);
+    Q_CHECK_PTR(page_);
+
+    cf::RecognizeOptions recognize_opts;
+
+    RecognitionSettings settings = page_->recognitionSettings();
+    recognize_opts.setFax(settings.fax());
+    recognize_opts.setDotMatrix(settings.dotMatrix());
+    recognize_opts.setOneColumn(settings.oneColumn());
+    recognize_opts.setPictureSearch(settings.picturesSearch());
+    recognize_opts.setSpellCorrection(settings.spelling());
+
+    recognize_opts.setLanguage(static_cast<language_t>(language_));
+
+    cf::Puma::instance().setRecognizeOptions(recognize_opts);
     cf::Config::instance().setDebug(false);
 }
 
