@@ -88,6 +88,5 @@ void PageRecognitionQueue::setupProgressDialog() {
 void PageRecognitionQueue::setupPageRecognizer() {
     recognizer_ = new PageRecognizer(NULL, this);
     connect(recognizer_, SIGNAL(failed(QString)), SLOT(pageFault(QString)));
-    connect(recognizer_, SIGNAL(opened()), SLOT(pageOpened()));
     connect(progress_, SIGNAL(canceled()), recognizer_, SLOT(abort()));
 }
