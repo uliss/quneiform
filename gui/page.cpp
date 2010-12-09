@@ -231,7 +231,8 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.page_area_
             << page.transform_
             << page.is_null_
-            << page.view_scroll_;
+            << page.view_scroll_
+            << page.recognize_opts_;
     return os;
 }
 
@@ -247,7 +248,8 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.page_area_
             >> page.transform_
             >> page.is_null_
-            >> page.view_scroll_;
+            >> page.view_scroll_
+            >> page.recognize_opts_;
 
     if(page.is_selected_)
         page.setSelected(true);

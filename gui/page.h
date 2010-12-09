@@ -27,6 +27,7 @@
 #include <QColor>
 #include <QTransform>
 #include <QMutex>
+#include "recognizeoptions.h"
 
 class QDataStream;
 
@@ -191,6 +192,7 @@ private:
     QPoint view_scroll_;
     bool is_null_;
     mutable QMutex mutex_;
+    RecognizeOptions recognize_opts_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);
