@@ -44,6 +44,7 @@ PageIndicator::PageIndicator(QWidget * parent) :
     warning_ = new QLabel(this);
     warning_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
     warning_->setPixmap(indicatorIcon(WARNING));
+    warning_->setToolTip(tr("Recognition errors"));
 
     QHBoxLayout * l = new QHBoxLayout;
     l->addWidget(recognized_, 0, Qt::AlignLeft);

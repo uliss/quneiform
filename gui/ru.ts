@@ -360,11 +360,15 @@ Do you want to save it?</source>
     <name>PageIndicator</name>
     <message>
         <source>Page recognized</source>
-        <translation type="unfinished"></translation>
+        <translation>Страница распознана</translation>
     </message>
     <message>
         <source>Page saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Страница сохранена</translation>
+    </message>
+    <message>
+        <source>Recognition errors</source>
+        <translation>Ошибки распознавания</translation>
     </message>
 </context>
 <context>
