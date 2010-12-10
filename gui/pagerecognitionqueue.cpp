@@ -59,8 +59,12 @@ void PageRecognitionQueue::start() {
     progress_->show();
     progress_->setValue(0);
     while(!pages_.empty()) {
-        if(progress_->wasCanceled())
+        if(progress_->wasCanceled()) {
+            // remove all not recognized pages from queue
+            pages_.clear();
             break;
+        }
+
         QApplication::processEvents();
 
         Page * p = pages_.dequeue();
