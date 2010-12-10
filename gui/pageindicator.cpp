@@ -18,6 +18,7 @@
 
 #include <QLabel>
 #include <QPixmap>
+#include <QHBoxLayout>
 
 #include "pageindicator.h"
 #include "imagecache.h"
@@ -33,13 +34,25 @@ PageIndicator::PageIndicator(QWidget * parent) :
     recognized_ = new QLabel(this);
     recognized_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
     recognized_->setToolTip(tr("Page recognized"));
+    recognized_->setPixmap(indicatorIcon(RECOGNIZED));
+
     saved_ = new QLabel(this);
-    saved_->move(ICON_WIDTH + 5, 0);
     saved_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
     saved_->setToolTip(tr("Page saved"));
+    saved_->setPixmap(indicatorIcon(SAVED));
+
     warning_ = new QLabel(this);
-    warning_->move(ICON_WIDTH * 2 + 5, 0);
     warning_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
+    warning_->setPixmap(indicatorIcon(WARNING));
+
+    QHBoxLayout * l = new QHBoxLayout;
+    l->addWidget(recognized_, 0, Qt::AlignLeft);
+    l->addWidget(saved_, 0, Qt::AlignLeft);
+    l->addWidget(warning_, 0, Qt::AlignLeft);
+    l->addStretch(10);
+    l->setContentsMargins(0, 0, 0, 0);
+    l->setMargin(0);
+    setLayout(l);
 }
 
 QPixmap PageIndicator::indicatorIcon(const QString& path) {
@@ -56,25 +69,25 @@ QPixmap PageIndicator::indicatorIcon(const QString& path) {
 
 void PageIndicator::setRecognized(bool value) {
     if(value)
-        recognized_->setPixmap(indicatorIcon(RECOGNIZED));
+        recognized_->show();
     else
-        recognized_->setPixmap(QPixmap());
+        recognized_->hide();
 }
 
 void PageIndicator::setSaved(bool value) {
     if(value)
-        saved_->setPixmap(indicatorIcon(SAVED));
+        saved_->show();
     else
-        saved_->setPixmap(QPixmap());
+        saved_->hide();
 }
 
 void PageIndicator::setWarning(bool value) {
     if(value)
-        warning_->setPixmap(indicatorIcon(WARNING));
+        warning_->show();
     else
-        warning_->setPixmap(QPixmap());
+        warning_->hide();
 }
 
 QSize PageIndicator::sizeHint() const {
-    return QSize(ICON_WIDTH * 3, ICON_WIDTH);
+    return QSize(ICON_WIDTH * 4, ICON_WIDTH);
 }
