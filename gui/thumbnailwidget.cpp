@@ -56,8 +56,7 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
     connect(this, SIGNAL(contextMenuCreated(QMenu*)), parent, SLOT(setupContextMenu(QMenu*)));
     connect(this, SIGNAL(invalidImage(const QString&)), parent, SLOT(handleInvalidImage(const QString&)));
     connect(page, SIGNAL(rotated(int)), SLOT(rotate(int)));
-    connect(page, SIGNAL(recognized()), SLOT(updatePageIndicators()));
-    connect(page, SIGNAL(saved()), SLOT(updatePageIndicators()));
+    connect(page, SIGNAL(changed()), SLOT(updatePageIndicators()));
 
     setFocusPolicy(Qt::ClickFocus);
     updatePageIndicators();
@@ -255,5 +254,6 @@ void ThumbnailWidget::toggleSelection() {
 void ThumbnailWidget::updatePageIndicators() {
     Q_CHECK_PTR(indicator_);
     indicator_->setRecognized(page_->isRecognized());
-    indicator_->setSaved(page_->isSaved());
+    indicator_->setSaved(page_->hasFlag(Page::SAVED));
+    indicator_->setWarning(page_->hasFlag(Page::RECOGNITION_FAILED));
 }

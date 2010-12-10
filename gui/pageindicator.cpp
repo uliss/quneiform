@@ -24,16 +24,22 @@
 
 static const QString RECOGNIZED(":/img/oxygen/22x22/dialog_ok.png");
 static const QString SAVED(":/img/oxygen/22x22/document_save.png");
+static const QString WARNING(":/img/oxygen/32x32/messagebox_warning.png");
 static const int ICON_WIDTH = 16;
 
 PageIndicator::PageIndicator(QWidget * parent) :
-    QWidget(parent), recognized_(NULL), saved_(NULL)
+    QWidget(parent), recognized_(NULL), saved_(NULL), warning_(NULL)
 {
     recognized_ = new QLabel(this);
     recognized_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
+    recognized_->setToolTip(tr("Page recognized"));
     saved_ = new QLabel(this);
     saved_->move(ICON_WIDTH + 5, 0);
     saved_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
+    saved_->setToolTip(tr("Page saved"));
+    warning_ = new QLabel(this);
+    warning_->move(ICON_WIDTH * 2 + 5, 0);
+    warning_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
 }
 
 QPixmap PageIndicator::indicatorIcon(const QString& path) {
@@ -60,6 +66,13 @@ void PageIndicator::setSaved(bool value) {
         saved_->setPixmap(indicatorIcon(SAVED));
     else
         saved_->setPixmap(QPixmap());
+}
+
+void PageIndicator::setWarning(bool value) {
+    if(value)
+        warning_->setPixmap(indicatorIcon(WARNING));
+    else
+        warning_->setPixmap(QPixmap());
 }
 
 QSize PageIndicator::sizeHint() const {

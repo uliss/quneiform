@@ -33,11 +33,13 @@ public:
     QSize sizeHint() const;
     void setRecognized(bool value);
     void setSaved(bool value);
+    void setWarning(bool value);
 private:
     QPixmap indicatorIcon(const QString& path);
 private:
     QLabel * recognized_;
     QLabel * saved_;
+    QLabel * warning_;
 };
 
 #endif // PAGEINDICATOR_H

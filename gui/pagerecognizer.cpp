@@ -101,6 +101,8 @@ void PageRecognizer::start() {
 }
 
 void PageRecognizer::recognize() {
+    Q_CHECK_PTR(page_);
+
     try {       
         setRecognizeOptions();
         cf::QtImageLoader loader;
@@ -115,6 +117,7 @@ void PageRecognizer::recognize() {
         saveOcrText();
     }
     catch(std::exception& e) {
+        page_->setFlag(Page::RECOGNITION_FAILED);
         emit failed(e.what());
     }
 }

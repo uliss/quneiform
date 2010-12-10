@@ -30,7 +30,7 @@
 #include "imagecache.h"
 
 Page::Page(const QString& image_path) :
-        image_path_(image_path), number_(0), is_recognized_(false), is_saved_(false),
+        image_path_(image_path), number_(0), state_flags_(NONE),
         is_selected_(false) {
 
     QPixmap pixmap;
@@ -53,6 +53,14 @@ int Page::angle() const {
         return 0;
 }
 
+Page::PageFlags Page::flags() const {
+    return state_flags_;
+}
+
+bool Page::hasFlag(PageFlag flag) {
+    return state_flags_ & flag;
+}
+
 QString Page::imagePath() const {
     return image_path_;
 }
@@ -66,11 +74,11 @@ bool Page::isNull() const {
 }
 
 bool Page::isRecognized() const {
-    return is_recognized_;
+    return state_flags_ & RECOGNIZED;
 }
 
 bool Page::isSaved() const {
-    return is_saved_;
+    return state_flags_ & SAVED;
 }
 
 bool Page::isSelected() const {
@@ -140,6 +148,8 @@ void Page::save(const QString& file) {
         QMessageBox::critical(NULL,
                               tr("Quneiform OCR"),
                               tr("Saved failed. Can't open file \"%1\" for writing.").arg(file));
+        setFlag(SAVING_FAILED);
+        return;
     }
 
     output.write(ocr_text_.toLocal8Bit());
@@ -147,7 +157,8 @@ void Page::save(const QString& file) {
 
     qDebug() << "[Page::save] saved" << file;
 
-    is_saved_ = true;
+    setFlag(SAVED);
+    unsetFlag(SAVING_FAILED);
     emit saved();
 }
 
@@ -157,6 +168,16 @@ void Page::scale(qreal factor) {
     transform_.scale(factor, factor);
     emit changed();
     emit transformed();
+}
+
+void Page::setFlag(PageFlag flag) {
+    state_flags_ |= flag;
+    emit changed();
+}
+
+void Page::setFlags(PageFlags flags) {
+    state_flags_ = flags;
+    emit changed();
 }
 
 void Page::setNumber(unsigned int number) {
@@ -173,10 +194,9 @@ void Page::setOcrText(const QString& text) {
     QMutexLocker lock(&mutex_);
 
     ocr_text_ = text;
-    is_recognized_ = true;
 
-    if(is_saved_)
-        is_saved_ = false;
+    setFlag(RECOGNIZED);
+    unsetFlag(SAVED);
 
     emit changed();
     emit recognized();
@@ -199,7 +219,7 @@ void Page::setRecognizeOptions(const RecognitionSettings& opts) {
         return;
 
     rec_settings_ = opts;
-    is_saved_ = false;
+    unsetFlag(SAVED);
     emit changed();
 }
 
@@ -230,6 +250,10 @@ QTransform Page::transform() const {
     return  transform_;
 }
 
+void Page::unsetFlag(PageFlag flag) {
+    state_flags_ &= (~flag);
+}
+
 QPoint Page::viewScroll() const {
     return view_scroll_;
 }
@@ -240,8 +264,7 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.image_size_
             << page.ocr_text_
             << page.number_
-            << page.is_recognized_
-            << page.is_saved_
+            << page.state_flags_
             << page.is_selected_
             << page.page_area_
             << page.transform_
@@ -257,8 +280,7 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.image_size_
             >> page.ocr_text_
             >> page.number_
-            >> page.is_recognized_
-            >> page.is_saved_
+            >> page.state_flags_
             >> page.is_selected_
             >> page.page_area_
             >> page.transform_
@@ -269,5 +291,18 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
     if(page.is_selected_)
         page.setSelected(true);
 
+    return is;
+}
+
+QDataStream& operator<<(QDataStream& os, const Page::PageFlags& flags) {
+    os << int(flags);
+    return os;
+}
+
+QDataStream& operator>>(QDataStream& is, Page::PageFlags& flags) {
+    int i = 0;
+    is >> i;
+    flags &= 0;
+    flags |= static_cast<Page::PageFlag>(i);
     return is;
 }

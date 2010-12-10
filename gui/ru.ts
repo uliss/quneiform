@@ -357,6 +357,17 @@ Do you want to save it?</source>
     </message>
 </context>
 <context>
+    <name>PageIndicator</name>
+    <message>
+        <source>Page recognized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PageRecognitionQueue</name>
     <message>
         <source>Recognition abort</source>

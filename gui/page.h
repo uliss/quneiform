@@ -27,6 +27,7 @@
 #include <QColor>
 #include <QTransform>
 #include <QMutex>
+#include <QFlags>
 #include "recognitionsettings.h"
 
 class QDataStream;
@@ -36,12 +37,32 @@ class Page: public QObject {
 public:
     Page(const QString& image_path);
 
+    enum PageFlag {
+        NONE = 0,
+        RECOGNIZED = 1,
+        RECOGNITION_FAILED = (1 << 1),
+        SAVED = (1 << 2),
+        SAVING_FAILED = (1 << 3)
+    };
+
+    Q_DECLARE_FLAGS(PageFlags, PageFlag);
+
     typedef std::runtime_error Exception;
 
     /**
       * Returns page rotation angle (0, 90, 180 or 270 degrees)
       */
     int angle() const;
+
+    /**
+      * Returns page state flags
+      */
+    PageFlags flags() const;
+
+    /**
+      * Returns true if page have flag
+      */
+    bool hasFlag(PageFlag flag);
 
     /**
       * Returns image path
@@ -120,6 +141,19 @@ public:
     void scale(qreal factor);
 
     /**
+      * Sets page state flag
+      * @see setFlags(), unsetFlags()
+      */
+    void setFlag(PageFlag flag);
+
+    /**
+      * Sets page state flags
+      * All previous flags are reset
+      * @see setFlag(), unsetFlag()
+      */
+    void setFlags(PageFlags flags);
+
+    /**
       * Sets page number
       * Emits signal changed()
       */
@@ -166,6 +200,12 @@ public:
     QTransform transform() const;
 
     /**
+      * Unsets page state flag
+      * @see setFlag(), flags()
+      */
+    void unsetFlag(PageFlag flag);
+
+    /**
       * Returns page view scroll
       */
     QPoint viewScroll() const;
@@ -195,8 +235,7 @@ private:
     QSize image_size_;
     QString ocr_text_;
     unsigned int number_;
-    bool is_recognized_;
-    bool is_saved_;
+    PageFlags state_flags_;
     bool is_selected_;
     QRect page_area_;
     QTransform transform_;
@@ -212,5 +251,7 @@ public:
 
 QDataStream& operator<<(QDataStream& stream, const Page& page);
 QDataStream& operator>>(QDataStream& stream, Page& page);
+QDataStream& operator<<(QDataStream& stream, const Page::PageFlags& flags);
+QDataStream& operator>>(QDataStream& stream, Page::PageFlags& flags);
 
 #endif /* PAGE_H_ */
