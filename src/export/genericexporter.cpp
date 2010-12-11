@@ -74,8 +74,11 @@ std::string GenericExporter::createPicturesFolder() {
 }
 
 void GenericExporter::doExport(std::ostream& os) {
-    if (os.fail() || page_ == NULL)
+    if (os.fail())
         throw Exception("[GenericExporter::doExport] invalid stream given");
+
+    if (page_ == NULL)
+        throw Exception("[GenericExporter::doExport] null page pointer");
 
     setOutputStream(&os);
     page_->exportElement(*this);
