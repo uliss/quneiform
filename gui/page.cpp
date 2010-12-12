@@ -73,6 +73,9 @@ QSize Page::imageSize() const {
 
 void Page::initRects() {
     rects_.clear();
+    // pictures
+    rects_ << Rectangles();
+    // chars
     rects_ << Rectangles();
 }
 

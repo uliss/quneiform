@@ -18,6 +18,7 @@
 
 #include <iostream>
 #include "rectexporter.h"
+#include "ced/cedchar.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedpage.h"
@@ -25,8 +26,18 @@
 
 namespace cf {
 
+static const int BAD_RECT_VALUE = 65535;
+
+inline bool goodCharRect(const Rect& rc) {
+    return rc.left() != -1 && //
+            rc.left() != BAD_RECT_VALUE && //
+            rc.right() != BAD_RECT_VALUE && //
+            rc.top() != BAD_RECT_VALUE && //
+            rc.bottom() != BAD_RECT_VALUE;
+}
+
 inline QRect cf2qt(const cf::Rect& rect) {
-    return QRect(rect.left(), rect.top(), rect.width(), rect.height());
+    return QRect(rect.left() - 1, rect.top() - 1, rect.width(), rect.height());
 }
 
 RectExporter::RectExporter(CEDPage * page)
@@ -35,6 +46,28 @@ RectExporter::RectExporter(CEDPage * page)
     setSkipPictures(false);
     setSkipEmptyLines(false);
     setSkipEmptyParagraphs(false);
+}
+
+void RectExporter::addCharBBox(CEDChar& chr) {
+    Rect r = chr.boundingRect();
+
+    // spaces have invalid bounding rectangle
+    if (goodCharRect(r)) {
+        chars_.append(cf2qt(r));
+
+//        if (is_in_line_) {
+//            line_bbox_ |= r;
+//        }
+//        // begin to determine line bounds
+//        else {
+//            line_bbox_ = r;
+//            is_in_line_ = true;
+//        }
+    }
+}
+
+const RectExporter::RectList& RectExporter::chars() const {
+    return chars_;
 }
 
 void RectExporter::collect() {
@@ -53,6 +86,10 @@ const RectExporter::RectList& RectExporter::paragraphs() const {
 
 const RectExporter::RectList& RectExporter::pictures() const {
     return pictures_;
+}
+
+void RectExporter::writeCharacterEnd(CEDChar& chr) {
+    addCharBBox(chr);
 }
 
 void RectExporter::writeLineEnd(CEDLine& line) {

@@ -43,4 +43,12 @@ void PageLayout::populate(const Page& page) {
 //        rect->setBrush();
         addToGroup(rect);
     }
+
+    foreach(QRect r, page.rects(Page::CHAR)) {
+        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
+        rect->setPen(QColor(Qt::cyan));
+//        rect->setToolTip(QString("[%1 %2 %3x%4]").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));
+//        rect->setBrush();
+        addToGroup(rect);
+    }
 }

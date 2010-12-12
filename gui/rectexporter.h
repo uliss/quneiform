@@ -31,11 +31,14 @@ public:
     RectExporter(CEDPage * page);
     typedef QList<QRect> RectList;
     void collect();
+    const RectList& chars() const;
     const RectList& paragraphs() const;
     const RectList& pictures() const;
 protected:
     void doExport(std::ostream& os);
 private:
+    void addCharBBox(CEDChar& chr);
+    void writeCharacterEnd(CEDChar &chr);
     void writeLineEnd(CEDLine& line);
     void writeParagraphEnd(CEDParagraph& par);
     void writePicture(CEDPicture& pict);
@@ -43,6 +46,7 @@ private:
     RectList paragraphs_;
     RectList lines_;
     RectList pictures_;
+    RectList chars_;
 };
 
 }

@@ -56,6 +56,7 @@ void PageRecognizer::formatResult() {
 //    qDebug() << exporter.pictures();
 
     page_->setRects(exporter.pictures(), Page::PICTURE);
+    page_->setRects(exporter.chars(), Page::CHAR);
     emit formatted();
 }
 

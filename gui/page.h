@@ -52,8 +52,10 @@ public:
     typedef QList<QRect> Rectangles;
     typedef QList<Rectangles> RectList;
 
+    /* do no change values! */
     enum RectType {
-        PICTURE = 0
+        PICTURE = 0,
+        CHAR = 1
     };
 
     /**
