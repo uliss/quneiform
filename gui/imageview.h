@@ -27,6 +27,7 @@ class QPinchGesture;
 class QMenu;
 class QRubberBand;
 class Page;
+class PageLayout;
 class Selection;
 class SelectionShadow;
 
@@ -58,6 +59,7 @@ private slots:
     void movePageSelection(const QPointF& delta);
     void savePageSelection();
     void selectPageArea();
+    void updateLayout();
     void updateTransform();
 private:
     void activate(bool value);
@@ -98,6 +100,7 @@ private:
     SelectionShadow * page_shadow_;
     QPoint selection_start_;
     select_mode_t select_mode_;
+    PageLayout * layout_;
 };
 
 #endif

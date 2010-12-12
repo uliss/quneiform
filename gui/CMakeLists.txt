@@ -39,12 +39,14 @@ set (SOURCES
     main.cpp
     page.cpp
     pageindicator.cpp
+    pagelayout.cpp
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
     recentmenu.cpp
     recognitionsettings.cpp
     recognitionsettingsdialog.cpp
     recognitionprogressdialog.cpp
+    rectexporter.cpp
     selection.cpp
     selectionshadow.cpp
     thumbnaillist.cpp

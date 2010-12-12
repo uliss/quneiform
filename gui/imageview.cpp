@@ -31,6 +31,7 @@
 #include "imageview.h"
 #include "imagecache.h"
 #include "page.h"
+#include "pagelayout.h"
 #include "selection.h"
 #include "selectionshadow.h"
 
@@ -46,12 +47,17 @@ static const int ROTATE_THRESHOLD = 3;
 
 ImageView::ImageView(QWidget * parent) :
         QGraphicsView(parent), scene_(NULL), page_(NULL), context_menu_(NULL),
-        rubber_band_(NULL), page_selection_(NULL), page_shadow_(NULL), select_mode_(NORMAL) {
+        rubber_band_(NULL), page_selection_(NULL),
+        page_shadow_(NULL), select_mode_(NORMAL),
+        layout_(NULL) {
     activate(false);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setBackgroundRole(QPalette::Dark);
     setViewportUpdateMode(FullViewportUpdate);
     setupScene();
+
+    layout_ = new PageLayout;
+    scene_->addItem(layout_);
 }
 
 void ImageView::activate(bool value) {
@@ -100,6 +106,7 @@ void ImageView::connectPageSignals(Page * page) {
 
     connect(page, SIGNAL(transformed()), SLOT(updateTransform()));
     connect(page, SIGNAL(rotated(int)), SLOT(updateTransform()));
+    connect(page, SIGNAL(recognized()), SLOT(updateLayout()));
     connect(page, SIGNAL(destroyed()), SLOT(deletePage()));
 }
 
@@ -394,6 +401,7 @@ void ImageView::showPage(Page * page) {
     clearScene();
     updateTransform();
     showImage(page_->imagePath());
+    updateLayout();
     restorePageScroll();
     restorePageSelection();
     activate(true);
@@ -446,6 +454,16 @@ void ImageView::updateSelectionCursor() {
         qDebug() << Q_FUNC_INFO << "not implemented";
         break;
     }
+}
+
+void ImageView::updateLayout() {
+    Q_CHECK_PTR(layout_);
+    Q_CHECK_PTR(page_);
+    Q_CHECK_PTR(scene_);
+
+    scene_->addItem(layout_);
+    layout_->clear();
+    layout_->populate(*page_);
 }
 
 void ImageView::updateTransform() {

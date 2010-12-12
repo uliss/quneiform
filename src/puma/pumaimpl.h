@@ -64,6 +64,11 @@ class CLA_EXPO PumaImpl
         void append(const std::string& filename, format_t format) const;
 
         /**
+          * Returns pointer to CEDPage
+          */
+        CEDPage * cedPage();
+
+        /**
          * Clears recognized output formatting
          */
         void clearFormat();

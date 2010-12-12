@@ -207,6 +207,10 @@ void PumaImpl::clearAll() {
     CIMAGE_DeleteImage(PUMA_IMAGE_TURN);
 }
 
+CEDPage * PumaImpl::cedPage() {
+    return ed_page_;
+}
+
 void PumaImpl::clearFormat() {
     formatter_.reset();
 }

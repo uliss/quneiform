@@ -21,6 +21,7 @@
 
 #include <stdexcept>
 #include <QString>
+#include <QList>
 #include <QObject>
 #include <QRect>
 #include <QSize>
@@ -48,6 +49,12 @@ public:
     Q_DECLARE_FLAGS(PageFlags, PageFlag);
 
     typedef std::runtime_error Exception;
+    typedef QList<QRect> Rectangles;
+    typedef QList<Rectangles> RectList;
+
+    enum RectType {
+        PICTURE = 0
+    };
 
     /**
       * Returns page rotation angle (0, 90, 180 or 270 degrees)
@@ -109,6 +116,11 @@ public:
       * Returns page area on image
       */
     const QRect& pageArea() const;
+
+    /**
+      * Returns page rectangles of given type
+      */
+    const Rectangles& rects(RectType t) const;
 
     /**
       * Returns page recognize options
@@ -178,6 +190,12 @@ public:
     void setRecognizeOptions(const RecognitionSettings& opts);
 
     /**
+      * Sets page rectangles
+      * @see rects()
+      */
+    void setRects(const QList<QRect>& rects, RectType type);
+
+    /**
       * Selects page
       * Emits signal changed()
       */
@@ -231,6 +249,8 @@ signals:
       */
     void saved();
 private:
+    void initRects();
+private:
     QString image_path_;
     QSize image_size_;
     QString ocr_text_;
@@ -243,6 +263,7 @@ private:
     bool is_null_;
     mutable QMutex mutex_;
     RecognitionSettings rec_settings_;
+    RectList rects_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

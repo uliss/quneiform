@@ -58,7 +58,7 @@
 #define H_ccomdef_h
 
 #include "recdefs.h"
-#include "lnhead.h"
+#include "hrstr/lnhead.h"
 #include "common/interval.h"
 
 #pragma pack (push,8)

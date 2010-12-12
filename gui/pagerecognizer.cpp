@@ -26,6 +26,7 @@
 #include "rdib/qtimageloader.h"
 #include "common/lang_def.h"
 #include "quneiform_debug.h"
+#include "rectexporter.h"
 
 PageRecognizer::PageRecognizer(Page * p, QObject * parent)
     : QObject(parent),
@@ -46,7 +47,15 @@ void PageRecognizer::doRecognize() {
 }
 
 void PageRecognizer::formatResult() {
+    Q_CHECK_PTR(page_);
+
     cf::Puma::instance().formatResult();
+    cf::RectExporter exporter(cf::Puma::instance().cedPage());
+    exporter.collect();
+//    qDebug() << exporter.paragraphs();
+//    qDebug() << exporter.pictures();
+
+    page_->setRects(exporter.pictures(), Page::PICTURE);
     emit formatted();
 }
 

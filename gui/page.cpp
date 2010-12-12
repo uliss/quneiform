@@ -41,6 +41,8 @@ Page::Page(const QString& image_path) :
     else {
         is_null_ = true;
     }
+
+    initRects();
 }
 
 int Page::angle() const {
@@ -67,6 +69,11 @@ QString Page::imagePath() const {
 
 QSize Page::imageSize() const {
     return image_size_;
+}
+
+void Page::initRects() {
+    rects_.clear();
+    rects_ << Rectangles();
 }
 
 bool Page::isNull() const {
@@ -99,6 +106,12 @@ const QRect& Page::pageArea() const {
 
 const RecognitionSettings& Page::recognitionSettings() const {
     return rec_settings_;
+}
+
+const Page::Rectangles& Page::rects(RectType t) const {
+    Q_ASSERT(t < rects_.size());
+
+    return rects_.at(t);
 }
 
 void Page::resetScale() {
@@ -221,6 +234,12 @@ void Page::setRecognizeOptions(const RecognitionSettings& opts) {
     rec_settings_ = opts;
     unsetFlag(SAVED);
     emit changed();
+}
+
+void Page::setRects(const QList<QRect>& rects, RectType type) {
+    Q_ASSERT(type < rects_.size());
+
+    rects_[type] = rects;
 }
 
 void Page::setSelected(bool value) {
