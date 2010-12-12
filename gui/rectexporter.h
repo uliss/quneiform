@@ -32,6 +32,7 @@ public:
     typedef QList<QRect> RectList;
     void collect();
     const RectList& chars() const;
+    const RectList& lines() const;
     const RectList& paragraphs() const;
     const RectList& pictures() const;
 protected:
@@ -39,6 +40,7 @@ protected:
 private:
     void addCharBBox(CEDChar& chr);
     void writeCharacterEnd(CEDChar &chr);
+    void writeLineBegin(CEDLine &line);
     void writeLineEnd(CEDLine& line);
     void writeParagraphEnd(CEDParagraph& par);
     void writePicture(CEDPicture& pict);
@@ -47,6 +49,7 @@ private:
     RectList lines_;
     RectList pictures_;
     RectList chars_;
+    bool line_begin_;
 };
 
 }

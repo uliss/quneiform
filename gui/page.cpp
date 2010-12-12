@@ -78,6 +78,8 @@ void Page::initRects() {
     rects_ << Rectangles();
     // chars
     rects_ << Rectangles();
+    // lines
+    rects_ << Rectangles();
 }
 
 bool Page::isNull() const {

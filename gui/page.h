@@ -55,7 +55,8 @@ public:
     /* do no change values! */
     enum RectType {
         PICTURE = 0,
-        CHAR = 1
+        CHAR = 1,
+        LINE = 2
     };
 
     /**

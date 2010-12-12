@@ -52,11 +52,10 @@ void PageRecognizer::formatResult() {
     cf::Puma::instance().formatResult();
     cf::RectExporter exporter(cf::Puma::instance().cedPage());
     exporter.collect();
-//    qDebug() << exporter.paragraphs();
-//    qDebug() << exporter.pictures();
 
     page_->setRects(exporter.pictures(), Page::PICTURE);
     page_->setRects(exporter.chars(), Page::CHAR);
+    page_->setRects(exporter.lines(), Page::LINE);
     emit formatted();
 }
 

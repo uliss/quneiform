@@ -28,7 +28,7 @@ namespace cf {
 
 static const int BAD_RECT_VALUE = 65535;
 
-inline bool goodCharRect(const Rect& rc) {
+inline bool goodCharRect(const QRect& rc) {
     return rc.left() != -1 && //
             rc.left() != BAD_RECT_VALUE && //
             rc.right() != BAD_RECT_VALUE && //
@@ -41,7 +41,7 @@ inline QRect cf2qt(const cf::Rect& rect) {
 }
 
 RectExporter::RectExporter(CEDPage * page)
-    : GenericExporter(page, FormatOptions())
+    : GenericExporter(page, FormatOptions()), line_begin_(true)
 {
     setSkipPictures(false);
     setSkipEmptyLines(false);
@@ -49,20 +49,19 @@ RectExporter::RectExporter(CEDPage * page)
 }
 
 void RectExporter::addCharBBox(CEDChar& chr) {
-    Rect r = chr.boundingRect();
+    QRect r = cf2qt(chr.boundingRect());
 
     // spaces have invalid bounding rectangle
     if (goodCharRect(r)) {
-        chars_.append(cf2qt(r));
+        chars_.append(r);
 
-//        if (is_in_line_) {
-//            line_bbox_ |= r;
-//        }
-//        // begin to determine line bounds
-//        else {
-//            line_bbox_ = r;
-//            is_in_line_ = true;
-//        }
+        if (line_begin_) {
+            lines_.append(r);
+            line_begin_ = false;
+        }
+        else {
+            lines_.back() |= r;
+        }
     }
 }
 
@@ -80,6 +79,10 @@ void RectExporter::doExport(std::ostream&) {
     page()->exportElement(*this);
 }
 
+const RectExporter::RectList& RectExporter::lines() const {
+    return lines_;
+}
+
 const RectExporter::RectList& RectExporter::paragraphs() const {
     return paragraphs_;
 }
@@ -92,8 +95,12 @@ void RectExporter::writeCharacterEnd(CEDChar& chr) {
     addCharBBox(chr);
 }
 
+void RectExporter::writeLineBegin(CEDLine &line) {
+    line_begin_ = true;
+}
+
 void RectExporter::writeLineEnd(CEDLine& line) {
-    lines_ << cf2qt(line.boundingRect());
+
 }
 
 void RectExporter::writeParagraphEnd(CEDParagraph& par) {
