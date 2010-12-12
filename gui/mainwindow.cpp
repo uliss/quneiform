@@ -27,6 +27,7 @@
 #include <QHBoxLayout>
 #include <QDebug>
 #include <QMenuBar>
+#include <QLabel>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -57,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent) :
     readSettings();
     setupRecognitionQueue();
     setupRecent();
+    setupOpenProgress();
 }
 
 MainWindow::~MainWindow() {
@@ -222,12 +224,11 @@ void MainWindow::openImages() {
 }
 
 void MainWindow::openImages(const QStringList& files) {
-    delete progress_;
-    progress_ = new QProgressDialog(this);
-    progress_->setWindowTitle(tr("Quneiform OCR - opening images"));
+    Q_CHECK_PTR(progress_);
+
+    progress_->reset();
     progress_->setRange(0, files.count());
     progress_->show();
-
 
     for(int i = 0, total = files.count(); i < total; i++) {
         progress_->setValue(i);
@@ -239,8 +240,7 @@ void MainWindow::openImages(const QStringList& files) {
         openImage(files.at(i));
     }
 
-    delete progress_;
-    progress_ = NULL;
+    progress_->hide();
 }
 
 void MainWindow::openPacket() {
@@ -432,6 +432,16 @@ void MainWindow::setupLanguageSelect() {
 void MainWindow::setupLanguageUi() {
     setupLanguageMenu();
     setupLanguageSelect();
+}
+
+void MainWindow::setupOpenProgress() {
+    progress_ = new QProgressDialog(this);
+    progress_->setWindowTitle(tr("Quneiform OCR - opening images"));
+    QLabel * label = new QLabel(progress_);
+    label->setAlignment(Qt::AlignLeft);
+    label->setTextFormat(Qt::PlainText);
+    progress_->setLabel(label);
+    progress_->setFixedWidth(450);
 }
 
 void MainWindow::setupRecent() {

@@ -24,16 +24,11 @@
 
 class Page;
 
-namespace Ui {
-    class RecognitionProgressDialog;
-}
-
 class RecognitionProgressDialog : public QProgressDialog
 {
     Q_OBJECT
 public:
     explicit RecognitionProgressDialog(QWidget * parent = 0);
-    QSize sizeHint() const;
 public slots:
     /**
       * Sets path of current page

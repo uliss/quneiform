@@ -17,7 +17,6 @@
  ***************************************************************************/
 
 #include <QDebug>
-#include <QFileInfo>
 #include <QLabel>
 
 #include "page.h"
@@ -25,11 +24,12 @@
 
 RecognitionProgressDialog::RecognitionProgressDialog(QWidget * parent) :
         QProgressDialog(parent) {
-    setModal(true);
-    setWindowModality(Qt::ApplicationModal);
+//    setModal(true);
+//    setWindowModality(Qt::ApplicationModal);
     setMinimumDuration(0);
     setMinimum(0);
     setMaximum(100);
+    setFixedWidth(400);
     QLabel * label = new QLabel();
     label->setAlignment(Qt::AlignLeft);
     label->setTextFormat(Qt::PlainText);
@@ -40,10 +40,5 @@ RecognitionProgressDialog::RecognitionProgressDialog(QWidget * parent) :
 void RecognitionProgressDialog::setCurrentPage(Page * const p) {
     Q_CHECK_PTR(p);
 
-    QFileInfo fi(p->imagePath());
-    setLabelText(tr("Page recognition: \"%1\"").arg(fi.fileName()));
-}
-
-QSize RecognitionProgressDialog::sizeHint() const {
-    return QSize(350, QProgressDialog::sizeHint().height());
+    setLabelText(tr("Page recognition: \"%1\"").arg(p->name()));
 }

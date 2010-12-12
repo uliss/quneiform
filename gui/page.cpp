@@ -23,6 +23,7 @@
 #include <QtGui/QGraphicsItem>
 #include <QMessageBox>
 #include <QFile>
+#include <QFileInfo>
 #include <QDataStream>
 #include <QMutexLocker>
 
@@ -93,6 +94,11 @@ bool Page::isSaved() const {
 
 bool Page::isSelected() const {
     return is_selected_;
+}
+
+QString Page::name() const {
+    QFileInfo inf(image_path_);
+    return inf.fileName();
 }
 
 unsigned int Page::number() const {
