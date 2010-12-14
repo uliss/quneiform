@@ -250,7 +250,12 @@ void Page::setRecognizeOptions(const RecognitionSettings& opts) {
 void Page::setRects(const QList<QRect>& rects, RectType type) {
     Q_ASSERT(type < rects_.size());
 
-    rects_[type] = rects;
+    rects_[type].clear();
+
+    foreach(QRect r, rects) {
+        r.translate(page_area_.topLeft());
+        rects_[type].append(r);
+    }
 }
 
 void Page::setSelected(bool value) {
