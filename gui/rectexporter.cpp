@@ -28,7 +28,8 @@ namespace cf {
 
 static const int BAD_RECT_VALUE = 65535;
 
-inline bool goodCharRect(const QRect& rc) {
+// spaces have invalid bounding rectangle
+inline bool isValid(const QRect& rc) {
     return rc.left() != -1 && //
             rc.left() != BAD_RECT_VALUE && //
             rc.right() != BAD_RECT_VALUE && //
@@ -41,28 +42,13 @@ inline QRect cf2qt(const cf::Rect& rect) {
 }
 
 RectExporter::RectExporter(CEDPage * page)
-    : GenericExporter(page, FormatOptions()), line_begin_(true)
+    : GenericExporter(page, FormatOptions()),
+    line_begin_(true),
+    par_begin_(true)
 {
     setSkipPictures(false);
     setSkipEmptyLines(false);
     setSkipEmptyParagraphs(false);
-}
-
-void RectExporter::addCharBBox(CEDChar& chr) {
-    QRect r = cf2qt(chr.boundingRect());
-
-    // spaces have invalid bounding rectangle
-    if (goodCharRect(r)) {
-        chars_.append(r);
-
-        if (line_begin_) {
-            lines_.append(r);
-            line_begin_ = false;
-        }
-        else {
-            lines_.back() |= r;
-        }
-    }
 }
 
 const RectExporter::RectList& RectExporter::chars() const {
@@ -92,19 +78,44 @@ const RectExporter::RectList& RectExporter::pictures() const {
 }
 
 void RectExporter::writeCharacterEnd(CEDChar& chr) {
-    addCharBBox(chr);
+    QRect current_char = cf2qt(chr.boundingRect());
+
+    if(isValid(current_char)) {
+        chars_.append(current_char);
+    }
+    // skip spaces
+    else
+        return;
+
+    if(line_begin_) {
+        current_line_ = current_char;
+        line_begin_ = false;
+    }
+    else
+        current_line_ |= current_char;
 }
 
-void RectExporter::writeLineBegin(CEDLine &line) {
+void RectExporter::writeLineBegin(CEDLine& line) {
     line_begin_ = true;
 }
 
 void RectExporter::writeLineEnd(CEDLine& line) {
+    if(par_begin_) {
+        current_par_ = current_line_;
+        par_begin_ = false;
+    }
+    else
+        current_par_ |= current_line_;
 
+    lines_.append(current_line_);
 }
 
-void RectExporter::writeParagraphEnd(CEDParagraph& par) {
-    paragraphs_ << cf2qt(par.boundingRect());
+void RectExporter::writeParagraphBegin(CEDParagraph& par) {
+    par_begin_ = true;
+}
+
+void RectExporter::writeParagraphEnd(CEDParagraph&) {
+    paragraphs_.append(current_par_);
 }
 
 void RectExporter::writePicture(CEDPicture& pict) {

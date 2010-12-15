@@ -49,6 +49,9 @@ void PageLayout::populate(const Page& page) {
 
     if(settings.value("showLinesBBox", false).toBool())
         populateLines(page);
+
+    if(settings.value("showParagraphsBBox", false).toBool())
+        populateParagraphs(page);
 }
 
 void PageLayout::populateChars(const Page& page) {
@@ -63,6 +66,14 @@ void PageLayout::populateLines(const Page& page) {
     foreach(QRect r, page.rects(Page::LINE)) {
         QGraphicsRectItem * rect = new QGraphicsRectItem(r);
         rect->setPen(QColor(Qt::green));
+        addToGroup(rect);
+    }
+}
+
+void PageLayout::populateParagraphs(const Page& page) {
+    foreach(QRect r, page.rects(Page::PARAGRAPH)) {
+        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
+        rect->setPen(QColor(Qt::yellow));
         addToGroup(rect);
     }
 }

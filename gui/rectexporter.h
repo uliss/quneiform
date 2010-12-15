@@ -38,10 +38,10 @@ public:
 protected:
     void doExport(std::ostream& os);
 private:
-    void addCharBBox(CEDChar& chr);
     void writeCharacterEnd(CEDChar &chr);
     void writeLineBegin(CEDLine &line);
     void writeLineEnd(CEDLine& line);
+    void writeParagraphBegin(CEDParagraph& par);
     void writeParagraphEnd(CEDParagraph& par);
     void writePicture(CEDPicture& pict);
 private:
@@ -49,7 +49,10 @@ private:
     RectList lines_;
     RectList pictures_;
     RectList chars_;
+    QRect current_line_;
+    QRect current_par_;
     bool line_begin_;
+    bool par_begin_;
 };
 
 }

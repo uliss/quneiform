@@ -33,6 +33,7 @@ public:
 private:
     void populateChars(const Page& page);
     void populateLines(const Page& page);
+    void populateParagraphs(const Page& page);
     void populatePictures(const Page& page);
 };
 

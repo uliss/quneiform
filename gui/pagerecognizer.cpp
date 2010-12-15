@@ -56,6 +56,7 @@ void PageRecognizer::formatResult() {
     page_->setRects(exporter.pictures(), Page::PICTURE);
     page_->setRects(exporter.chars(), Page::CHAR);
     page_->setRects(exporter.lines(), Page::LINE);
+    page_->setRects(exporter.paragraphs(), Page::PARAGRAPH);
     emit formatted();
 }
 

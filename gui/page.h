@@ -56,7 +56,8 @@ public:
     enum RectType {
         PICTURE = 0,
         CHAR = 1,
-        LINE = 2
+        LINE = 2,
+        PARAGRAPH = 3
     };
 
     /**
