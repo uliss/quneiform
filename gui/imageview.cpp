@@ -106,7 +106,7 @@ void ImageView::connectPageSignals(Page * page) {
 
     connect(page, SIGNAL(transformed()), SLOT(updateTransform()));
     connect(page, SIGNAL(rotated(int)), SLOT(updateTransform()));
-    connect(page, SIGNAL(recognized()), SLOT(updateLayout()));
+    connect(page, SIGNAL(recognized()), SLOT(updateFormatLayout()));
     connect(page, SIGNAL(destroyed()), SLOT(deletePage()));
 }
 
@@ -239,6 +239,12 @@ bool ImageView::gestureEvent(QGestureEvent * event) {
     if (QGesture * pinch = event->gesture(Qt::PinchGesture))
         pinchTriggered(static_cast<QPinchGesture *>(pinch));
     return true;
+}
+
+void ImageView::hideFormatLayout() {
+    Q_CHECK_PTR(layout_);
+
+    layout_->hide();
 }
 
 bool ImageView::isTooBig() const {
@@ -382,6 +388,12 @@ void ImageView::showImage(const QString& path) {
     p->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
 }
 
+void ImageView::showFormatLayout() {
+    Q_CHECK_PTR(layout_);
+
+    layout_->show();
+}
+
 void ImageView::showPage(Page * page) {
     Q_CHECK_PTR(page);
 
@@ -401,7 +413,7 @@ void ImageView::showPage(Page * page) {
     clearScene();
     updateTransform();
     showImage(page_->imagePath());
-    updateLayout();
+    updateFormatLayout();
     restorePageScroll();
     restorePageSelection();
     activate(true);
@@ -456,12 +468,14 @@ void ImageView::updateSelectionCursor() {
     }
 }
 
-void ImageView::updateLayout() {
+void ImageView::updateFormatLayout() {
     Q_CHECK_PTR(layout_);
     Q_CHECK_PTR(page_);
     Q_CHECK_PTR(scene_);
 
-    scene_->addItem(layout_);
+    if(layout_->scene() != scene_)
+        scene_->addItem(layout_);
+
     layout_->clear();
     layout_->populate(*page_);
 }

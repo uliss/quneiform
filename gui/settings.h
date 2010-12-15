@@ -16,24 +16,27 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#ifndef SETTINGS_H
+#define SETTINGS_H
 
-#ifndef PAGELAYOUT_H
-#define PAGELAYOUT_H
+#include <QDialog>
 
-#include <QGraphicsItemGroup>
+namespace Ui {
+    class Settings;
+}
 
-class Page;
-
-class PageLayout : public QGraphicsItemGroup
+class Settings : public QDialog
 {
+    Q_OBJECT
+
 public:
-    PageLayout();
-    void clear();
-    void populate(const Page& page);
+    explicit Settings(QWidget * parent = 0);
+    ~Settings();
+public slots:
+    void load();
+    void save();
 private:
-    void populateChars(const Page& page);
-    void populateLines(const Page& page);
-    void populatePictures(const Page& page);
+    Ui::Settings * ui_;
 };
 
-#endif // PAGELAYOUT_H
+#endif // SETTINGS_H

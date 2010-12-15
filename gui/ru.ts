@@ -318,6 +318,10 @@ Do you want to save it?</source>
         <source>Recent packets</source>
         <translation>Недавно открытые пакеты</translation>
     </message>
+    <message>
+        <source>Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
@@ -427,6 +431,57 @@ Do you want to save it?</source>
     <message>
         <source>Recognition:</source>
         <translation type="obsolete">Распознование:</translation>
+    </message>
+</context>
+<context>
+    <name>Settings</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Debug</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Debug settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print libcuneiform debug information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show formatter bounding boxes for:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pictures</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

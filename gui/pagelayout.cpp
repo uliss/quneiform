@@ -20,6 +20,7 @@
 #include <QGraphicsScene>
 #include <QPen>
 #include <QColor>
+#include <QSettings>
 #include "pagelayout.h"
 #include "page.h"
 
@@ -36,27 +37,41 @@ void PageLayout::clear() {
 }
 
 void PageLayout::populate(const Page& page) {
+    QSettings settings;
+    settings.beginGroup("debug");
+    settings.beginGroup("format");
+
+    if(settings.value("showPicturesBBox", false).toBool())
+        populatePictures(page);
+
+    if(settings.value("showCharactersBBox", false).toBool())
+        populateChars(page);
+
+    if(settings.value("showLinesBBox", false).toBool())
+        populateLines(page);
+}
+
+void PageLayout::populateChars(const Page& page) {
+    foreach(QRect r, page.rects(Page::CHAR)) {
+        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
+        rect->setPen(QColor(Qt::cyan));
+        addToGroup(rect);
+    }
+}
+
+void PageLayout::populateLines(const Page& page) {
+    foreach(QRect r, page.rects(Page::LINE)) {
+        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
+        rect->setPen(QColor(Qt::green));
+        addToGroup(rect);
+    }
+}
+
+void PageLayout::populatePictures(const Page& page) {
     foreach(QRect r, page.rects(Page::PICTURE)) {
         QGraphicsRectItem * rect = new QGraphicsRectItem(r);
         rect->setPen(QColor(Qt::blue));
         rect->setToolTip(QString("[%1 %2 %3x%4]").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));
-//        rect->setBrush();
-        addToGroup(rect);
-    }
-
-    foreach(QRect r, page.rects(Page::CHAR)) {
-        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
-        rect->setPen(QColor(Qt::cyan));
-//        rect->setToolTip(QString("[%1 %2 %3x%4]").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));
-//        rect->setBrush();
-        addToGroup(rect);
-    }
-
-    foreach(QRect r, page.rects(Page::LINE)) {
-        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
-        rect->setPen(QColor(Qt::green));
-//        rect->setToolTip(QString("[%1 %2 %3x%4]").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));
-//        rect->setBrush();
         addToGroup(rect);
     }
 }

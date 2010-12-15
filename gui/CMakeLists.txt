@@ -22,6 +22,7 @@ set (HEADERS
     recognitionprogressdialog.h
     selection.h
     selectionshadow.h
+    settings.h
     thumbnaillist.h
     thumbnailwidget.h
     widgetbar.h
@@ -49,6 +50,7 @@ set (SOURCES
     rectexporter.cpp
     selection.cpp
     selectionshadow.cpp
+    settings.cpp
     thumbnaillist.cpp
     thumbnailwidget.cpp
     widgetbar.cpp
@@ -57,6 +59,7 @@ set (SOURCES
 set (FORMS 
     mainwindow.ui
     recognitionsettingsdialog.ui
+    settings.ui
 )
 
 include_directories(

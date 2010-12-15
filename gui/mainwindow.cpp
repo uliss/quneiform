@@ -40,6 +40,7 @@
 #include "thumbnaillist.h"
 #include "pagerecognitionqueue.h"
 #include "recentmenu.h"
+#include "settings.h"
 
 static const char * EMAIL = "serj.poltavski@gmail.com";
 static const int VERSION_MAJOR = 0;
@@ -136,6 +137,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
     connect(ui_->actionOpenPacket, SIGNAL(triggered()), SLOT(openPacket()));
     connect(ui_->actionSavePacket, SIGNAL(triggered()), SLOT(savePacket()));
+    connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showSettings()));
 }
 
 void MainWindow::connectThumbs() {
@@ -527,6 +529,14 @@ void MainWindow::showPageText(Page * page) {
     Q_CHECK_PTR(page);
     Q_CHECK_PTR(text_view_);
     text_view_->document()->setHtml(page->ocrText());
+}
+
+void MainWindow::showSettings() {
+    Settings s;
+    int state = s.exec();
+
+    if(state == QDialog::Accepted)
+        image_widget_->updateSettings();
 }
 
 void MainWindow::updateCurrentPage() {

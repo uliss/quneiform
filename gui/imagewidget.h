@@ -30,7 +30,7 @@ class ImageWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ImageWidget(QWidget *parent = 0);
+    explicit ImageWidget(QWidget * parent = 0);
     void showPage(Page * p);
     QSize sizeHint () const;
 signals:
@@ -39,6 +39,8 @@ public slots:
     void fitPage();
     void fitWidth();
     void originalSize();
+    void updateFormatLayout();
+    void updateSettings();
     void zoomIn();
     void zoomOut();
 private:

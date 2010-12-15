@@ -38,6 +38,7 @@
     <addaction name="actionOpenPacket"/>
     <addaction name="separator"/>
     <addaction name="actionSavePacket"/>
+    <addaction name="actionPreferences"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -269,6 +270,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+0</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>Preferences</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
  </widget>

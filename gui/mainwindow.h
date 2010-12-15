@@ -68,6 +68,7 @@ private slots:
     void enableViewActions();
     void openRecentImage(const QString& path);
     void selectLanguage(int lang);
+    void showSettings();
     void updateCurrentPage();
 private:
     void addRecentMenu(QMenu * menu);

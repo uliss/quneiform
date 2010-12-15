@@ -38,9 +38,13 @@ public:
     void clearScene();
     void fitPage();
     void fitWidth();
+    void hideFormatLayout();
     void originalSize();
+    void showFormatLayout();
     void showPage(Page * page);
     void zoom(qreal factor);
+public slots:
+    void updateFormatLayout();
 signals:
     void pageDeleted();
 protected:
@@ -59,7 +63,6 @@ private slots:
     void movePageSelection(const QPointF& delta);
     void savePageSelection();
     void selectPageArea();
-    void updateLayout();
     void updateTransform();
 private:
     void activate(bool value);

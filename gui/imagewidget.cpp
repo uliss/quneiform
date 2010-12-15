@@ -23,7 +23,7 @@
 #include "imagewidget.h"
 #include "imageview.h"
 
-ImageWidget::ImageWidget(QWidget *parent) :
+ImageWidget::ImageWidget(QWidget * parent) :
     QWidget(parent), layout_(NULL), view_(NULL) {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setupLayout();
@@ -74,6 +74,16 @@ void ImageWidget::showPage(Page * p) {
 
 QSize ImageWidget::sizeHint () const {
     return QSize(800, 600);
+}
+
+void ImageWidget::updateFormatLayout() {
+    Q_CHECK_PTR(view_);
+
+    view_->updateFormatLayout();
+}
+
+void ImageWidget::updateSettings() {
+    updateFormatLayout();
 }
 
 void ImageWidget::zoomIn() {
