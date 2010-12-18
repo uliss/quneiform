@@ -22,6 +22,7 @@
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedpage.h"
+#include "ced/cedcolumn.h"
 #include "ced/cedpicture.h"
 
 namespace cf {
@@ -44,7 +45,9 @@ inline QRect cf2qt(const cf::Rect& rect) {
 RectExporter::RectExporter(CEDPage * page)
     : GenericExporter(page, FormatOptions()),
     line_begin_(true),
-    par_begin_(true)
+    par_begin_(true),
+    section_begin_(true),
+    column_begin_(true)
 {
     setSkipPictures(false);
     setSkipEmptyLines(false);
@@ -57,6 +60,10 @@ const RectExporter::RectList& RectExporter::chars() const {
 
 void RectExporter::collect() {
     doExport(std::cerr);
+}
+
+const RectExporter::RectList& RectExporter::columns() const {
+    return columns_;
 }
 
 void RectExporter::doExport(std::ostream&) {
@@ -77,6 +84,10 @@ const RectExporter::RectList& RectExporter::pictures() const {
     return pictures_;
 }
 
+const RectExporter::RectList& RectExporter::sections() const {
+    return sections_;
+}
+
 void RectExporter::writeCharacterEnd(CEDChar& chr) {
     QRect current_char = cf2qt(chr.boundingRect());
 
@@ -95,11 +106,27 @@ void RectExporter::writeCharacterEnd(CEDChar& chr) {
         current_line_ |= current_char;
 }
 
-void RectExporter::writeLineBegin(CEDLine& line) {
+void RectExporter::writeColumnBegin(CEDColumn&) {
+    column_begin_ = true;
+}
+
+void RectExporter::writeColumnEnd(CEDColumn&) {
+    columns_.append(current_column_);
+
+    if(section_begin_) {
+        current_section_ = current_column_;
+        section_begin_ = false;
+    }
+    else
+        current_section_ |= current_column_;
+}
+
+void RectExporter::writeLineBegin(CEDLine&) {
     line_begin_ = true;
 }
 
-void RectExporter::writeLineEnd(CEDLine& line) {
+void RectExporter::writeLineEnd(CEDLine&) {
+    // start new paragraph
     if(par_begin_) {
         current_par_ = current_line_;
         par_begin_ = false;
@@ -110,16 +137,33 @@ void RectExporter::writeLineEnd(CEDLine& line) {
     lines_.append(current_line_);
 }
 
-void RectExporter::writeParagraphBegin(CEDParagraph& par) {
+void RectExporter::writeParagraphBegin(CEDParagraph&) {
     par_begin_ = true;
 }
 
 void RectExporter::writeParagraphEnd(CEDParagraph&) {
     paragraphs_.append(current_par_);
+
+    // start new column
+    if(column_begin_) {
+        current_column_ = current_par_;
+        column_begin_ = false;
+    }
+    else
+        current_column_ |= current_par_;
 }
 
 void RectExporter::writePicture(CEDPicture& pict) {
-    pictures_ << cf2qt(pict.boundingRect());
+    QRect r = cf2qt(pict.boundingRect());
+    pictures_.append(r);
+}
+
+void RectExporter::writeSectionBegin(CEDSection&) {
+    section_begin_ = true;
+}
+
+void RectExporter::writeSectionEnd(CEDSection&) {
+    sections_.append(current_section_);
 }
 
 }

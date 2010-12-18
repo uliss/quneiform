@@ -483,6 +483,10 @@ Do you want to save it?</source>
         <source>pictures</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>columns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ThumbnailList</name>

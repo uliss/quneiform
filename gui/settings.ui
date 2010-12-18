@@ -113,7 +113,7 @@
              <x>10</x>
              <y>10</y>
              <width>261</width>
-             <height>181</height>
+             <height>201</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -151,7 +151,7 @@
                  <x>10</x>
                  <y>30</y>
                  <width>97</width>
-                 <height>104</height>
+                 <height>125</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -159,6 +159,13 @@
                  <widget class="QCheckBox" name="showSectionsBBox">
                   <property name="text">
                    <string>sections</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="showColumnsBBox">
+                  <property name="text">
+                   <string>columns</string>
                   </property>
                  </widget>
                 </item>

@@ -32,9 +32,11 @@ public:
     void populate(const Page& page);
 private:
     void populateChars(const Page& page);
+    void populateColumns(const Page& page);
     void populateLines(const Page& page);
     void populateParagraphs(const Page& page);
     void populatePictures(const Page& page);
+    void populateSections(const Page& page);
 };
 
 #endif // PAGELAYOUT_H

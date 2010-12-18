@@ -57,7 +57,9 @@ public:
         PICTURE = 0,
         CHAR = 1,
         LINE = 2,
-        PARAGRAPH = 3
+        PARAGRAPH = 3,
+        COLUMN = 4,
+        SECTION = 5
     };
 
     /**

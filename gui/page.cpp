@@ -82,6 +82,10 @@ void Page::initRects() {
     rects_ << Rectangles();
     // paragraphs
     rects_ << Rectangles();
+    // columns
+    rects_ << Rectangles();
+    // sections
+    rects_ << Rectangles();
 }
 
 bool Page::isNull() const {

@@ -38,6 +38,7 @@ void Settings::load() {
     ui_->printCuneiformDebug->setChecked(settings.value("printCuneiformDebug", false).toBool());
     settings.beginGroup("format");
     ui_->showSectionsBBox->setChecked(settings.value("showSectionsBBox", false).toBool());
+    ui_->showColumnsBBox->setChecked(settings.value("showColumnsBBox", false).toBool());
     ui_->showParagraphsBBox->setChecked(settings.value("showParagraphsBBox", false).toBool());
     ui_->showLinesBBox->setChecked(settings.value("showLinesBBox", false).toBool());
     ui_->showCharactersBBox->setChecked(settings.value("showCharactersBBox", false).toBool());
@@ -52,6 +53,7 @@ void Settings::save() {
     settings.setValue("printCuneiformDebug", ui_->printCuneiformDebug->isChecked());
     settings.beginGroup("format");
     settings.setValue("showSectionsBBox", ui_->showSectionsBBox->isChecked());
+    settings.setValue("showColumnsBBox", ui_->showColumnsBBox->isChecked());
     settings.setValue("showParagraphsBBox", ui_->showParagraphsBBox->isChecked());
     settings.setValue("showLinesBBox", ui_->showLinesBBox->isChecked());
     settings.setValue("showCharactersBBox", ui_->showCharactersBBox->isChecked());

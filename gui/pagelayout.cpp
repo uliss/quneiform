@@ -16,6 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QDebug>
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include <QPen>
@@ -52,12 +53,26 @@ void PageLayout::populate(const Page& page) {
 
     if(settings.value("showParagraphsBBox", false).toBool())
         populateParagraphs(page);
+
+    if(settings.value("showSectionsBBox", false).toBool())
+        populateSections(page);
+
+    if(settings.value("showColumnsBBox", false).toBool())
+        populateColumns(page);
 }
 
 void PageLayout::populateChars(const Page& page) {
     foreach(QRect r, page.rects(Page::CHAR)) {
         QGraphicsRectItem * rect = new QGraphicsRectItem(r);
         rect->setPen(QColor(Qt::cyan));
+        addToGroup(rect);
+    }
+}
+
+void PageLayout::populateColumns(const Page& page) {
+    foreach(QRect r, page.rects(Page::COLUMN)) {
+        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
+        rect->setPen(QColor(Qt::red));
         addToGroup(rect);
     }
 }
@@ -83,6 +98,15 @@ void PageLayout::populatePictures(const Page& page) {
         QGraphicsRectItem * rect = new QGraphicsRectItem(r);
         rect->setPen(QColor(Qt::blue));
         rect->setToolTip(QString("[%1 %2 %3x%4]").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));
+        addToGroup(rect);
+    }
+}
+
+void PageLayout::populateSections(const Page& page) {
+    foreach(QRect r, page.rects(Page::SECTION)) {
+        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
+        rect->setPen(QColor(Qt::gray));
+//        rect->setToolTip(QString("[%1 %2 %3x%4]").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));
         addToGroup(rect);
     }
 }

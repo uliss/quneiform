@@ -32,27 +32,39 @@ public:
     typedef QList<QRect> RectList;
     void collect();
     const RectList& chars() const;
+    const RectList& columns() const;
     const RectList& lines() const;
     const RectList& paragraphs() const;
     const RectList& pictures() const;
+    const RectList& sections() const;
 protected:
     void doExport(std::ostream& os);
 private:
-    void writeCharacterEnd(CEDChar &chr);
-    void writeLineBegin(CEDLine &line);
+    void writeCharacterEnd(CEDChar& chr);
+    void writeColumnBegin(CEDColumn& col);
+    void writeColumnEnd(CEDColumn& col);
+    void writeLineBegin(CEDLine& line);
     void writeLineEnd(CEDLine& line);
     void writeParagraphBegin(CEDParagraph& par);
     void writeParagraphEnd(CEDParagraph& par);
     void writePicture(CEDPicture& pict);
+    void writeSectionBegin(CEDSection& sect);
+    void writeSectionEnd(CEDSection& sect);
 private:
+    RectList sections_;
+    RectList columns_;
     RectList paragraphs_;
     RectList lines_;
     RectList pictures_;
     RectList chars_;
+    QRect current_column_;
     QRect current_line_;
     QRect current_par_;
+    QRect current_section_;
+    bool column_begin_;
     bool line_begin_;
     bool par_begin_;
+    bool section_begin_;
 };
 
 }
