@@ -5,7 +5,6 @@ set (TRANSLATIONS_TS ru.ts)
 
 set (HEADERS 
     document.h
-    imagecache.h
     imageview.h
     imagewidget.h
     language_i18n.h
@@ -16,12 +15,10 @@ set (HEADERS
     pageindicator.h
     pagerecognizer.h
     pagerecognitionqueue.h
-    quneiform_debug.h
     recentmenu.h
     recognitionsettingsdialog.h
     recognitionprogressdialog.h
     selection.h
-    selectionshadow.h
     settings.h
     thumbnaillist.h
     thumbnailwidget.h

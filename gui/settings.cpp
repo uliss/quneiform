@@ -25,6 +25,7 @@ Settings::Settings(QWidget * parent) :
     ui_(new Ui::Settings) {
     ui_->setupUi(this);
     connect(this, SIGNAL(accepted()), SLOT(save()));
+    ui_->listWidget->setCurrentRow(0);
     load();
 }
 

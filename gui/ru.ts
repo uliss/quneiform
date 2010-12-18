@@ -320,7 +320,7 @@ Do you want to save it?</source>
     </message>
     <message>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки</translation>
     </message>
 </context>
 <context>
@@ -436,56 +436,56 @@ Do you want to save it?</source>
 <context>
     <name>Settings</name>
     <message>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Debug</source>
-        <translation type="unfinished"></translation>
+        <translation>Отладка</translation>
     </message>
     <message>
         <source>Debug settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки отладки</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Общие</translation>
     </message>
     <message>
         <source>General settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Общие настройки</translation>
     </message>
     <message>
         <source>Print libcuneiform debug information</source>
-        <translation type="unfinished"></translation>
+        <translation>Выводить отладочную информацию библиотеки libcuneiform</translation>
     </message>
     <message>
         <source>Show formatter bounding boxes for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать границы форматирования для следующих блоков:</translation>
     </message>
     <message>
         <source>sections</source>
-        <translation type="unfinished"></translation>
+        <translation>секций</translation>
     </message>
     <message>
         <source>paragraphs</source>
-        <translation type="unfinished"></translation>
+        <translation>параграфов</translation>
     </message>
     <message>
         <source>lines</source>
-        <translation type="unfinished"></translation>
+        <translation>строк</translation>
     </message>
     <message>
         <source>characters</source>
-        <translation type="unfinished"></translation>
+        <translation>символов</translation>
     </message>
     <message>
         <source>pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>изображений</translation>
     </message>
     <message>
         <source>columns</source>
-        <translation type="unfinished"></translation>
+        <translation>столбцов</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Настройки</translation>
     </message>
 </context>
 <context>

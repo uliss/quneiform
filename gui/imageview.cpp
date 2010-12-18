@@ -46,9 +46,14 @@ static const float GESTURE_SCALE_FACTOR = 1 / 30.0;
 static const int ROTATE_THRESHOLD = 3;
 
 ImageView::ImageView(QWidget * parent) :
-        QGraphicsView(parent), scene_(NULL), page_(NULL), context_menu_(NULL),
-        rubber_band_(NULL), page_selection_(NULL),
-        page_shadow_(NULL), select_mode_(NORMAL),
+        QGraphicsView(parent),
+        scene_(NULL),
+        page_(NULL),
+        context_menu_(NULL),
+        rubber_band_(NULL),
+        page_selection_(NULL),
+        page_shadow_(NULL),
+        select_mode_(NORMAL),
         layout_(NULL) {
     activate(false);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -470,8 +475,10 @@ void ImageView::updateSelectionCursor() {
 
 void ImageView::updateFormatLayout() {
     Q_CHECK_PTR(layout_);
-    Q_CHECK_PTR(page_);
     Q_CHECK_PTR(scene_);
+
+    if(!page_)
+        return;
 
     if(layout_->scene() != scene_)
         scene_->addItem(layout_);

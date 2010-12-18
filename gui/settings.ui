@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>575</width>
-    <height>380</height>
+    <width>614</width>
+    <height>385</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -18,7 +18,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Settings</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -107,102 +107,110 @@
           </widget>
          </widget>
          <widget class="QWidget" name="debugSettings">
-          <widget class="QWidget" name="layoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>10</y>
-             <width>261</width>
-             <height>201</height>
-            </rect>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="spacing">
+            <number>0</number>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_4">
-            <item>
-             <widget class="QCheckBox" name="printCuneiformDebug">
-              <property name="text">
-               <string>Print libcuneiform debug information</string>
+           <item>
+            <widget class="QCheckBox" name="printCuneiformDebug">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Print libcuneiform debug information</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>13</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="title">
+              <string>Show formatter bounding boxes for:</string>
+             </property>
+             <widget class="QWidget" name="layoutWidget">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>30</y>
+                <width>341</width>
+                <height>125</height>
+               </rect>
               </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>10</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QGroupBox" name="groupBox">
-              <property name="title">
-               <string>Show formatter bounding boxes for:</string>
-              </property>
-              <widget class="QWidget" name="layoutWidget">
-               <property name="geometry">
-                <rect>
-                 <x>10</x>
-                 <y>30</y>
-                 <width>97</width>
-                 <height>125</height>
-                </rect>
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <property name="sizeConstraint">
+                <enum>QLayout::SetDefaultConstraint</enum>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_3">
-                <item>
-                 <widget class="QCheckBox" name="showSectionsBBox">
-                  <property name="text">
-                   <string>sections</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="showColumnsBBox">
-                  <property name="text">
-                   <string>columns</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="showParagraphsBBox">
-                  <property name="text">
-                   <string>paragraphs</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="showLinesBBox">
-                  <property name="text">
-                   <string>lines</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="showCharactersBBox">
-                  <property name="text">
-                   <string>characters</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="showPicturesBBox">
-                  <property name="text">
-                   <string>pictures</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
+               <item>
+                <widget class="QCheckBox" name="showSectionsBBox">
+                 <property name="text">
+                  <string>sections</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="showColumnsBBox">
+                 <property name="text">
+                  <string>columns</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="showParagraphsBBox">
+                 <property name="text">
+                  <string>paragraphs</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="showLinesBBox">
+                 <property name="text">
+                  <string>lines</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="showCharactersBBox">
+                 <property name="text">
+                  <string>characters</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="showPicturesBBox">
+                 <property name="text">
+                  <string>pictures</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
-            </item>
-           </layout>
-          </widget>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </widget>
        </item>

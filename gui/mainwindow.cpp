@@ -50,7 +50,11 @@ static const char * VERSION_EXTRA = "-alpha";
 static const int MAX_RECENT_FILES = 5;
 
 MainWindow::MainWindow(QWidget *parent) :
-        QMainWindow(parent), ui_(new Ui::MainWindow), doc_(new Document(this)), progress_(NULL) {
+        QMainWindow(parent),
+        ui_(new Ui::MainWindow),
+        doc_(new Document(this)),
+        progress_(NULL),
+        image_widget_(NULL) {
     setupUi();
     setupDocument();
     setupShortcuts();
@@ -532,6 +536,8 @@ void MainWindow::showPageText(Page * page) {
 }
 
 void MainWindow::showSettings() {
+    Q_CHECK_PTR(image_widget_);
+
     Settings s;
     int state = s.exec();
 
