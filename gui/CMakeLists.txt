@@ -4,6 +4,7 @@ set (TRANSLATIONS_QM ru.qm)
 set (TRANSLATIONS_TS ru.ts)
 
 set (HEADERS 
+    aboutdialog.h
     document.h
     imageview.h
     imagewidget.h
@@ -26,6 +27,7 @@ set (HEADERS
 )
 
 set (SOURCES 
+    aboutdialog.cpp
     document.cpp
     imagecache.cpp
     imageview.cpp
@@ -54,6 +56,7 @@ set (SOURCES
 )
 
 set (FORMS 
+    aboutdialog.ui
     mainwindow.ui
     recognitionsettingsdialog.ui
     settings.ui

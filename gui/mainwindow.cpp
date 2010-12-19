@@ -41,6 +41,7 @@
 #include "pagerecognitionqueue.h"
 #include "recentmenu.h"
 #include "settings.h"
+#include "aboutdialog.h"
 
 static const char * EMAIL = "serj.poltavski@gmail.com";
 static const int VERSION_MAJOR = 0;
@@ -71,19 +72,8 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::about() {
-    QMessageBox::about(this,
-                       tr("About"),
-                       tr("<b>Quneiform OCR</b><br/>"
-                          "Author: Serj Poltavski<br/>"
-                          "Email: <a href=\"mailto:%1\">%2</a><br/>"
-                          "Version: %3.%4.%5%6<br/>"
-                          "License: GPL v.3")
-                       .arg(EMAIL)
-                       .arg(EMAIL)
-                       .arg(VERSION_MAJOR)
-                       .arg(VERSION_MINOR)
-                       .arg(VERSION_PATCH)
-                       .arg(VERSION_EXTRA));
+    AboutDialog about;
+    about.exec();
 }
 
 void MainWindow::addRecentMenu(QMenu * menu) {
