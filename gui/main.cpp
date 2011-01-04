@@ -20,20 +20,36 @@
 #include <QStringList>
 #include <QTranslator>
 #include <QLocale>
+#include <QLibraryInfo>
 #include "mainwindow.h"
+#include "config.h" // for INSTALL_DATADIR
 
-int main(int argc, char *argv[]) {
+int main(int argc, char * argv[]) {
 #ifdef Q_WS_X11
     QApplication::setGraphicsSystem("raster");
 #endif
-    QTranslator translator;
-    QLocale locale;
-
-    QString qm_name = locale.name();
-    translator.load(qm_name, "gui");
 
     QApplication app(argc, argv);
+
+    // load system translation
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_" + QLocale::system().name(),
+                 QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    app.installTranslator(&qtTranslator);
+
+    // load application translation
+    QTranslator translator;
+
+#ifdef Q_WS_MAC
+    // TODO fix this hard code
+    #define TR_PATH "Quneiform.app/Contents/Resources"
+#else
+    #define TR_PATH INSTALL_DATADIR
+#endif
+
+    translator.load(QLocale::system().name(), TR_PATH);
     app.installTranslator(&translator);
+
     app.setOrganizationName("openocr.org");
     app.setApplicationName("Quneiform OCR");
     app.setApplicationVersion("0.0.1");

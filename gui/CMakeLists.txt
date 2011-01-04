@@ -8,7 +8,6 @@ set (HEADERS
     document.h
     imageview.h
     imagewidget.h
-    language_i18n.h
     languagemenu.h
     languageselect.h
     mainwindow.h
@@ -81,7 +80,6 @@ qt4_wrap_cpp (MOC_SOURCES ${HEADERS})
 qt4_wrap_ui (UI_HEADERS ${FORMS})
 qt4_create_translation(${TRANSLATIONS_QM} ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS} ${TRANSLATIONS_TS})
 
-
 source_group ("Header Files" FILES ${HEADERS})
 source_group ("Source Files" FILES ${SOURCES})
 source_group ("Generated Files" FILES ${MOC_SOURCES})
@@ -108,6 +106,14 @@ if(APPLE)
     set_source_files_properties(${ICON_SRC}
         PROPERTIES
         MACOSX_PACKAGE_LOCATION "Resources")
+
+    # translations
+    foreach(tr ${TRANSLATIONS_QM})
+        set_source_files_properties(${tr}
+            PROPERTIES
+            MACOSX_PACKAGE_LOCATION "Resources"
+        )
+    endforeach()
 endif()
 
 add_executable (${PROJECT} WIN32 MACOSX_BUNDLE ${SRCS})
