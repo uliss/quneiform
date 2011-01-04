@@ -118,7 +118,13 @@ endif()
 
 add_executable (${PROJECT} WIN32 MACOSX_BUNDLE ${SRCS})
  
-target_link_libraries (${PROJECT} ${LIBRARIES} ${QT_LIBRARIES} m cuneiform)
+if(APPLE)
+    find_library(EXTRA_LIBS CoreFoundation "/")
+else()
+    set(EXTRA_LIBS "")
+endif()
+
+target_link_libraries (${PROJECT} ${LIBRARIES} ${QT_LIBRARIES} m cuneiform ${EXTRA_LIBS})
 
 if(APPLE)
     set_target_properties(${PROJECT}

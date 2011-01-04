@@ -24,6 +24,11 @@
 #include "mainwindow.h"
 #include "config.h" // for INSTALL_DATADIR
 
+#ifdef Q_WS_MAC
+#include <CoreFoundation/CFURL.h>
+#include <CoreFoundation/CFBundle.h>
+#endif
+
 int main(int argc, char * argv[]) {
 #ifdef Q_WS_X11
     QApplication::setGraphicsSystem("raster");
@@ -39,15 +44,23 @@ int main(int argc, char * argv[]) {
 
     // load application translation
     QTranslator translator;
-
+    QString tr_path;
 #ifdef Q_WS_MAC
-    // TODO fix this hard code
-    #define TR_PATH "Quneiform.app/Contents/Resources"
+    CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
+    CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef,
+                                                kCFURLPOSIXPathStyle);
+    const char * pathPtr = CFStringGetCStringPtr(macPath,
+                                                CFStringGetSystemEncoding());
+    CFRelease(appUrlRef);
+    CFRelease(macPath);
+
+    tr_path = pathPtr;
+    tr_path += "/Contents/Resources";
 #else
-    #define TR_PATH INSTALL_DATADIR
+    tr_path = INSTALL_DATADIR;
 #endif
 
-    translator.load(QLocale::system().name(), TR_PATH);
+    translator.load(QLocale::system().name(), tr_path);
     app.installTranslator(&translator);
 
     app.setOrganizationName("openocr.org");
