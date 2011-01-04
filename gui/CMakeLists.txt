@@ -81,12 +81,54 @@ qt4_wrap_cpp (MOC_SOURCES ${HEADERS})
 qt4_wrap_ui (UI_HEADERS ${FORMS})
 qt4_create_translation(${TRANSLATIONS_QM} ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS} ${TRANSLATIONS_TS})
 
- 
+
 source_group ("Header Files" FILES ${HEADERS})
 source_group ("Source Files" FILES ${SOURCES})
 source_group ("Generated Files" FILES ${MOC_SOURCES})
 source_group ("Resource Files" FILES ${QRC_SOURCES})
- 
-add_executable (${PROJECT} ${HEADERS} ${SOURCES} ${MOC_SOURCES} ${UI_HEADERS} ${QRC_SOURCES} ${TRANSLATIONS_QM})
+
+set(SRCS
+    ${HEADERS}
+    ${SOURCES}
+    ${MOC_SOURCES}
+    ${UI_HEADERS}
+    ${QRC_SOURCES}
+    ${TRANSLATIONS_QM}
+)
+
+if(APPLE)
+    set(CMAKE_BUNDLE_NAME "Quneiform")
+    set(MACOSX_BUNDLE_BUNDLE_NAME "Quneiform")
+
+    # setting bundle icon
+    set(ICON cuneiform.icns)
+    set(ICON_SRC "${CMAKE_SOURCE_DIR}/gui/resources/${ICON}")
+    set(SRCS ${SRCS} ${ICON_SRC})
+    set(MACOSX_BUNDLE_ICON_FILE ${ICON})
+    set_source_files_properties(${ICON_SRC}
+        PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Resources")
+endif()
+
+add_executable (${PROJECT} WIN32 MACOSX_BUNDLE ${SRCS})
  
 target_link_libraries (${PROJECT} ${LIBRARIES} ${QT_LIBRARIES} m cuneiform)
+
+if(APPLE)
+    set_target_properties(${PROJECT}
+        PROPERTIES
+        OUTPUT_NAME ${CMAKE_BUNDLE_NAME})
+
+    set(CMAKE_INSTALL_DESTINATION_ARGS
+        BUNDLE DESTINATION "/Applications")
+endif()
+
+install(
+    TARGETS ${PROJECT}
+    RUNTIME DESTINATION bin
+    ${CMAKE_INSTALL_DESTINATION_ARGS}
+)
+
+foreach(tr ${TRANSLATIONS_QM})
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${tr}" DESTINATION ${RELATIVE_DATADIR})
+endforeach()

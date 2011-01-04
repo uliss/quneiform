@@ -40,10 +40,11 @@ macro(library_hook name)
 endmacro()
 
 macro(install_exe name)
-  install(
-    TARGETS "${name}"
-    RUNTIME DESTINATION bin
-  )
+    install(
+        TARGETS "${name}"
+        RUNTIME DESTINATION bin
+        COMPONENT applications
+    )
 endmacro()
 
 macro(cif_visibility_hidden name)
