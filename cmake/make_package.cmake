@@ -1,5 +1,4 @@
 set(CPACK_SYSTEM_NAME i686)
-set(CPACK_PACKAGE_NAME "Quneiform")
 set(CPACK_PACKAGE_VENDOR "Serj Poltavski")
 set(CPACK_PACKAGE_CONTACT "serj.poltavski@gmail.com")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${CPACK_PACKAGE_NAME} - Optical Recognition Software")
@@ -11,6 +10,7 @@ set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING.txt")
 
 if(APPLE)
     set(CPACK_GENERATOR "PackageMaker")
+    set(CPACK_PACKAGE_NAME "Quneiform")
     set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/doc/README.mac.txt")
     set(CPACK_RESOURCE_FILE_WELCOME "${CMAKE_SOURCE_DIR}/doc/WELCOME.mac.txt")
 elseif(UNIX AND NOT APPLE)
