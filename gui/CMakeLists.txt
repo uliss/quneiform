@@ -1,6 +1,5 @@
 set(PROJECT "quneiform")
 
-set (TRANSLATIONS_QM ru.qm)
 set (TRANSLATIONS_TS ru.ts)
 
 set (HEADERS 
@@ -78,7 +77,7 @@ include (${QT_USE_FILE})
 qt4_add_resources (QRC_SOURCES ${RESOURCES})
 qt4_wrap_cpp (MOC_SOURCES ${HEADERS})
 qt4_wrap_ui (UI_HEADERS ${FORMS})
-qt4_create_translation(${TRANSLATIONS_QM} ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS} ${TRANSLATIONS_TS})
+qt4_create_translation(TRANSLATIONS_QM ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS} ${TRANSLATIONS_TS})
 
 source_group ("Header Files" FILES ${HEADERS})
 source_group ("Source Files" FILES ${SOURCES})
@@ -141,6 +140,4 @@ install(
     ${CMAKE_INSTALL_DESTINATION_ARGS}
 )
 
-foreach(tr ${TRANSLATIONS_QM})
-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${tr}" DESTINATION ${RELATIVE_DATADIR})
-endforeach()
+install(FILES ${TRANSLATIONS_QM} DESTINATION ${RELATIVE_DATADIR}/locale)
