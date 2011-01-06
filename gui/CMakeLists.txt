@@ -50,6 +50,7 @@ set (SOURCES
     settings.cpp
     thumbnaillist.cpp
     thumbnailwidget.cpp
+    translationloader.cpp
     widgetbar.cpp
 )
 
