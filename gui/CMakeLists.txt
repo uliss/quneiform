@@ -97,26 +97,31 @@ set(SRCS
 if(APPLE)
     set(CMAKE_BUNDLE_NAME "Quneiform")
     set(MACOSX_BUNDLE_BUNDLE_NAME "Quneiform")
+    set(MACOSX_BUNDLE_COPYRIGHT "(c) 2010-2011 Serge Poltavski" )
 
     # setting bundle icon
     set(ICON cuneiform.icns)
-    set(ICON_SRC "${CMAKE_SOURCE_DIR}/gui/resources/${ICON}")
+    set(ICON_SRC "${CMAKE_CURRENT_SOURCE_DIR}/resources/${ICON}")
     set(SRCS ${SRCS} ${ICON_SRC})
     set(MACOSX_BUNDLE_ICON_FILE ${ICON})
-    set_source_files_properties(${ICON_SRC}
-        PROPERTIES
-        MACOSX_PACKAGE_LOCATION "Resources")
 
-    # translations
-    foreach(tr ${TRANSLATIONS_QM})
-        set_source_files_properties(${tr}
-            PROPERTIES
-            MACOSX_PACKAGE_LOCATION "Resources"
-        )
-    endforeach()
+    # where to place resources
+    set_source_files_properties(${ICON_SRC} ${TRANSLATIONS_QM}
+        PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Resources"
+    )
+
+    # bundle l10n
+    add_custom_target(osx_l10n_dirs
+        COMMAND mkdir -p "${CMAKE_BINARY_DIR}/Quneiform.app/Contents/Resources/ru.lproj"
+        COMMAND cp "${CMAKE_CURRENT_SOURCE_DIR}/resources/ru.locversion.plist"
+                    "${CMAKE_BINARY_DIR}/Quneiform.app/Contents/Resources/ru.lproj/locversion.plist"
+    )
 endif()
 
 add_executable (${PROJECT} WIN32 MACOSX_BUNDLE ${SRCS})
+
+add_dependencies(${PROJECT} osx_l10n_dirs)
  
 if(APPLE)
     find_library(EXTRA_LIBS CoreFoundation "/")
