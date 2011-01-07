@@ -465,7 +465,9 @@ void MainWindow::setupRecognitionQueue() {
 }
 
 void MainWindow::setupShortcuts() {
+#if QT_VERSION >= 0x040600
     ui_->actionExit->setShortcut(QKeySequence::Quit);
+#endif
     ui_->actionOpen->setShortcut(QKeySequence::Open);
     ui_->actionZoom_In->setShortcut(QKeySequence::ZoomIn);
     ui_->actionZoom_Out->setShortcut(QKeySequence::ZoomOut);

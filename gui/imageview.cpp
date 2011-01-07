@@ -21,12 +21,16 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QEvent>
-#include <QGesture>
-#include <QGestureEvent>
 #include <QMenu>
 #include <QRubberBand>
 #include <QWheelEvent>
 #include <QScrollBar>
+
+// gesture support
+#if QT_VERSION >= 0x040600
+#include <QGesture>
+#include <QGestureEvent>
+#endif
 
 #include "imageview.h"
 #include "imagecache.h"
@@ -68,7 +72,9 @@ ImageView::ImageView(QWidget * parent) :
 void ImageView::activate(bool value) {
     setEnabled(value);
     setInteractive(value);
+#if QT_VERSION >= 0x040600
     value ? grabGesture(Qt::PinchGesture) : ungrabGesture(Qt::PinchGesture);
+#endif
 }
 
 void ImageView::changeSelectionCursor(int type) {
@@ -175,8 +181,10 @@ void ImageView::disconnectPageSignals(Page * page) {
 } 
 
 bool ImageView::event(QEvent * event) {
+#if QT_VERSION >= 0x040600
     if (event->type() == QEvent::Gesture)
         return gestureEvent(static_cast<QGestureEvent*>(event));
+#endif
     return QGraphicsView::event(event);
 }
 
@@ -241,9 +249,11 @@ void ImageView::fitWidth() {
 }
 
 bool ImageView::gestureEvent(QGestureEvent * event) {
+#if QT_VERSION >= 0x040600
     if (QGesture * pinch = event->gesture(Qt::PinchGesture))
         pinchTriggered(static_cast<QPinchGesture *>(pinch));
     return true;
+#endif
 }
 
 void ImageView::hideFormatLayout() {
@@ -305,8 +315,9 @@ void ImageView::originalSize() {
 }
 
 void ImageView::pinchTriggered(QPinchGesture * gesture) {
-    HAS_PAGE()
+#if QT_VERSION >= 0x040600
 
+    HAS_PAGE()
     if (gesture->state() == Qt::GestureFinished) {
         qreal rot_angle = gesture->rotationAngle();
         if(rot_angle > ROTATE_THRESHOLD)
@@ -319,6 +330,7 @@ void ImageView::pinchTriggered(QPinchGesture * gesture) {
         if(scale != 1)
             zoom(scale);
     }
+#endif
 }
 
 void ImageView::resizeSelection(const QPoint& pos) {
