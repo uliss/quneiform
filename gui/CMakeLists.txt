@@ -147,3 +147,6 @@ install(
 )
 
 install(FILES ${TRANSLATIONS_QM} DESTINATION ${RELATIVE_DATADIR}/locale)
+
+add_subdirectory(resources)
+
