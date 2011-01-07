@@ -369,7 +369,7 @@ Do you want to save it?</source>
     </message>
     <message>
         <source>Recognition error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка при распозновании</translation>
     </message>
 </context>
 <context>
