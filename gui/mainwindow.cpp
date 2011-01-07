@@ -141,6 +141,7 @@ void MainWindow::connectThumbs() {
     connect(thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
     connect(thumbs_, SIGNAL(save(Page*)), SLOT(savePage(Page*)));
     connect(thumbs_, SIGNAL(openDraggedImages(QStringList)), SLOT(openImages(QStringList)));
+    connect(thumbs_, SIGNAL(showPageFault(Page*)), SLOT(showPageFault(Page*)));
 }
 
 void MainWindow::disableViewActions() {
@@ -541,6 +542,17 @@ void MainWindow::showPageText(Page * page) {
     Q_CHECK_PTR(page);
     Q_CHECK_PTR(text_view_);
     text_view_->document()->setHtml(page->ocrText());
+}
+
+void MainWindow::showPageFault(Page * page) {
+    Q_CHECK_PTR(page);
+    Q_CHECK_PTR(recognition_queue_);
+
+    QString msg = recognition_queue_->getPageFault(page->imagePath());
+    if(msg.isEmpty())
+        return;
+
+    QMessageBox::critical(this, tr("Recognition error"), msg);
 }
 
 void MainWindow::showSettings() {

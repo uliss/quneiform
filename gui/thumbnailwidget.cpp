@@ -128,6 +128,13 @@ Page * ThumbnailWidget::page() const {
     return page_;
 }
 
+void ThumbnailWidget::pageFaultForward() {
+    Q_ASSERT(indicator_ == sender());
+
+    if(page_)
+        emit showPageFault(page_);
+}
+
 QString ThumbnailWidget::pageProperties() const {
     Q_CHECK_PTR(page_);
 
@@ -194,6 +201,7 @@ void ThumbnailWidget::setupFrame() {
 void ThumbnailWidget::setupIndicator() {
     indicator_ = new PageIndicator(this);
     indicator_->move(0, height() - indicator_->height());
+    connect(indicator_, SIGNAL(showPageFault()), this, SLOT(pageFaultForward()));
 //    layout_->addWidget(indicator_, 0, Qt::AlignHCenter);
 }
 

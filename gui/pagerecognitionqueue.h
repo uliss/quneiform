@@ -22,6 +22,7 @@
 
 #include <QObject>
 #include <QQueue>
+#include <QMap>
 
 class Document;
 class Page;
@@ -41,6 +42,11 @@ public:
     void add(Page * p);
 
     /**
+      * Returns recogition error for given page imagePath
+      */
+    QString getPageFault(const QString& imagePath) const;
+
+    /**
       * Sets recognition language
       */
     void setLanguage(int language);
@@ -52,12 +58,15 @@ signals:
 private slots:
     void pageFault(const QString& msg);
 private:
+    void clearPageFault(const QString& page);
+    void setPageFault(const QString& page, const QString& msg);
     void setupProgressDialog();
     void setupPageRecognizer();
 private:
     QQueue<Page*> pages_;
     RecognitionProgressDialog * progress_;
     PageRecognizer * recognizer_;
+    QMap<QString, QString> page_fault_log_;
 };
 
 #endif // PAGERECOGNITIONQUEUE_H

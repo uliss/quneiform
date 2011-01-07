@@ -47,8 +47,17 @@ void PageRecognitionQueue::add(Page * p) {
         pages_.enqueue(p);
 }
 
+void PageRecognitionQueue::clearPageFault(const QString& page) {
+     page_fault_log_.remove(page);
+}
+
+QString PageRecognitionQueue::getPageFault(const QString& imagePath) const {
+    return page_fault_log_.value(imagePath, "");
+}
+
 void PageRecognitionQueue::pageFault(const QString& msg) {
     qDebug() << Q_FUNC_INFO << recognizer_->page()->imagePath() << msg;
+    setPageFault(recognizer_->page()->imagePath(), msg);
 }
 
 void PageRecognitionQueue::start() {
@@ -71,6 +80,7 @@ void PageRecognitionQueue::start() {
 
         progress_->setCurrentPage(p);
 
+        clearPageFault(p->imagePath());
         recognizer_->setPage(p);
         recognizer_->start();
         progress_->setValue((++done * 100) / total);
@@ -80,6 +90,10 @@ void PageRecognitionQueue::start() {
 
 void PageRecognitionQueue::setLanguage(int lang) {
     recognizer_->setLanguage(lang);
+}
+
+void PageRecognitionQueue::setPageFault(const QString& page, const QString& msg) {
+    page_fault_log_[page] = msg;
 }
 
 void PageRecognitionQueue::setupProgressDialog() {

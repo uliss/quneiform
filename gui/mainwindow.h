@@ -69,6 +69,7 @@ private slots:
     void enableViewActions();
     void openRecentImage(const QString& path);
     void selectLanguage(int lang);
+    void showPageFault(Page * page);
     void showSettings();
     void updateCurrentPage();
 private:

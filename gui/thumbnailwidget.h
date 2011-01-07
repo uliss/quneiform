@@ -76,6 +76,7 @@ signals:
     void recognize(Page*);
     void removed(Page*);
     void save(Page*);
+    void showPageFault(Page*);
     void toggled(bool);
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
@@ -90,6 +91,7 @@ private:
     void setupPixmap();
     void setupToolTip();
 private slots:
+    void pageFaultForward();
     void recognizeThumb();
     void removePage();
     void rotate(int angle);

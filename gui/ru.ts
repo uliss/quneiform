@@ -363,6 +363,14 @@ Do you want to save it?</source>
         <source>Preferences</source>
         <translation>Настройки</translation>
     </message>
+    <message>
+        <source>Recognition errors</source>
+        <translation type="obsolete">Ошибки распознавания</translation>
+    </message>
+    <message>
+        <source>Recognition error</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Page</name>

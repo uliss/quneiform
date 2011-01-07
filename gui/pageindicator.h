@@ -34,6 +34,10 @@ public:
     void setRecognized(bool value);
     void setSaved(bool value);
     void setWarning(bool value);
+signals:
+    void showPageFault();
+protected:
+    void mousePressEvent(QMouseEvent * event);
 private:
     QPixmap indicatorIcon(const QString& path);
 private:

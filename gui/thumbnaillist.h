@@ -74,6 +74,7 @@ protected:
 signals:
     void openDraggedImages(const QStringList& lst);
     void save(Page * page);
+    void showPageFault(Page * page);
     void thumbSelected(Page * page);
     void thumbRecognize(Page * page);
     void thumbRemovalFinished(Page * page);

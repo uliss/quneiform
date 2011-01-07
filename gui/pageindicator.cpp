@@ -19,6 +19,7 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QHBoxLayout>
+#include <QMouseEvent>
 
 #include "pageindicator.h"
 #include "imagecache.h"
@@ -66,6 +67,15 @@ QPixmap PageIndicator::indicatorIcon(const QString& path) {
     }
 
     return pixmap;
+}
+
+void PageIndicator::mousePressEvent(QMouseEvent * event) {
+    if (event->button() == Qt::LeftButton) {
+        if(warning_->isVisible() && warning_->geometry().contains(event->pos())) {
+            emit showPageFault();
+            event->accept();
+        }
+    }
 }
 
 void PageIndicator::setRecognized(bool value) {
