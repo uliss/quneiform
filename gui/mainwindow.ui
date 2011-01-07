@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources/cuneiform.qrc">
-    <normaloff>:/img/cuneiform_logo_22.png</normaloff>:/img/cuneiform_logo_22.png</iconset>
+    <normaloff>:/img/cuneiform_logo_64.png</normaloff>:/img/cuneiform_logo_64.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
