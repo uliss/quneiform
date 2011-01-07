@@ -213,6 +213,20 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication) {
     return true;
 }
 
+void MainWindow::open(const QStringList& paths) {
+    if(paths.isEmpty())
+        return;
+
+    QFileInfo info;
+    foreach(QString path, paths) {
+        info.setFile(path);
+        if(info.suffix() == "qfp")
+            openPacket(path);
+        else
+            openImage(path);
+    }
+}
+
 void MainWindow::openImages() {
     QStringList files = QFileDialog::getOpenFileNames(NULL, tr("Open images"), "",
                                                       tr("Images (*.gif *.png *.xpm *.jpg *.tif *.bmp)"));
@@ -225,6 +239,7 @@ void MainWindow::openImages(const QStringList& files) {
     progress_->reset();
     progress_->setRange(0, files.count());
     progress_->show();
+    progress_->setMinimumDuration(1000);
 
     for(int i = 0, total = files.count(); i < total; i++) {
         progress_->setValue(i);
@@ -236,6 +251,7 @@ void MainWindow::openImages(const QStringList& files) {
         openImage(files.at(i));
     }
 
+    progress_->reset();
     progress_->hide();
 }
 

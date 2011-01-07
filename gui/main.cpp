@@ -44,7 +44,7 @@ int main(int argc, char * argv[]) {
         for(int i = 1; i < argc; i++)
             files << QString::fromLocal8Bit(argv[i]);
 
-        w.openImages(files);
+        w.open(files);
     }
 
     return app.exec();

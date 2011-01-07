@@ -49,6 +49,7 @@ public slots:
     void documentChange();
     void documentSave();
     void imageDuplication(const QString& path);
+    void open(const QStringList& paths);
     void openImages();
     void openImages(const QStringList& paths);
     void openPacket();
