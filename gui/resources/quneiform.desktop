@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=0.0.1
+Encoding=UTF-8
+GenericName=Optical character recognition
+GenericName[ru]=Распознавание текстов
+Name=Quneiform
+Name[ru]=Quneiform
+Comment=Optical recognition programm
+Exec=quneiform %f
+Icon=cuneiform_logo_64.png
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=Office;
+StartupNotify=true
+MimeType=application/x-quneiform;
