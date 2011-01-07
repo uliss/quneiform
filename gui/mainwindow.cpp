@@ -177,11 +177,10 @@ void MainWindow::enableViewActions() {
 }
 
 void MainWindow::imageDuplication(const QString& path) {
-    if(QMessageBox::Ok == QMessageBox::warning(this,
+    if(QMessageBox::Yes == QMessageBox::question(this,
                                                tr("Warning"),
                                                tr("Image \"%1\" already opened. Do you want to add it anyway?").arg(path),
-                                               QMessageBox::Ok,
-                                               QMessageBox::Cancel))
+                                               QMessageBox::Yes | QMessageBox::No, QMessageBox::No))
         openImage(path, true);
 }
 
