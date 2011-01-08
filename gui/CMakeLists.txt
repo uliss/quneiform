@@ -1,8 +1,10 @@
 set(PROJECT "quneiform")
 
-set (TRANSLATIONS_TS ru.ts)
+add_subdirectory(resources)
 
-set (HEADERS 
+set(TRANSLATIONS_TS ru.ts)
+
+set(HEADERS 
     aboutdialog.h
     document.h
     imageview.h
@@ -24,7 +26,7 @@ set (HEADERS
     widgetbar.h
 )
 
-set (SOURCES 
+set(SOURCES 
     aboutdialog.cpp
     document.cpp
     imagecache.cpp
@@ -54,7 +56,7 @@ set (SOURCES
     widgetbar.cpp
 )
 
-set (FORMS 
+set(FORMS 
     aboutdialog.ui
     mainwindow.ui
     recognitionsettingsdialog.ui
@@ -69,21 +71,21 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-set (RESOURCE_PATH resources)
-set (RESOURCES     ${RESOURCE_PATH}/cuneiform.qrc)
+set(RESOURCE_PATH resources)
+set(RESOURCES     ${RESOURCE_PATH}/cuneiform.qrc)
 
-find_package (Qt4 4.5 COMPONENTS QtCore QtGui QtOpenGl REQUIRED)
-include (${QT_USE_FILE})
+find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtOpenGl REQUIRED)
+include(${QT_USE_FILE})
 
-qt4_add_resources (QRC_SOURCES ${RESOURCES})
-qt4_wrap_cpp (MOC_SOURCES ${HEADERS})
-qt4_wrap_ui (UI_HEADERS ${FORMS})
+qt4_add_resources(QRC_SOURCES ${RESOURCES})
+qt4_wrap_cpp(MOC_SOURCES ${HEADERS})
+qt4_wrap_ui(UI_HEADERS ${FORMS})
 qt4_create_translation(TRANSLATIONS_QM ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FORMS} ${TRANSLATIONS_TS})
 
-source_group ("Header Files" FILES ${HEADERS})
-source_group ("Source Files" FILES ${SOURCES})
-source_group ("Generated Files" FILES ${MOC_SOURCES})
-source_group ("Resource Files" FILES ${QRC_SOURCES})
+source_group("Header Files" FILES ${HEADERS})
+source_group("Source Files" FILES ${SOURCES})
+source_group("Generated Files" FILES ${MOC_SOURCES})
+source_group("Resource Files" FILES ${QRC_SOURCES})
 
 set(SRCS
     ${HEADERS}
@@ -93,6 +95,27 @@ set(SRCS
     ${QRC_SOURCES}
     ${TRANSLATIONS_QM}
 )
+
+if(MINGW)
+	find_program(WINDRES
+		NAMES windres.exe
+		PATHS $ENV{PATH}
+		NO_DEFAULT_PATH
+	) 
+	
+	if(WINDRES) 
+		message(STATUS "windres programm found: ${WINDRES}")
+	
+		add_custom_command(
+		OUTPUT 
+			win_quneiform_rc.o
+		COMMAND 
+			windres.exe -I${CMAKE_CURRENT_SOURCE_DIR} 
+				-i${CMAKE_CURRENT_SOURCE_DIR}/resources/win_quneiform.rc 
+				-o win_quneiform_rc.o)
+		set(SRCS ${SRCS} win_quneiform_rc.o)
+	endif()
+endif()
 
 if(APPLE)
     set(CMAKE_BUNDLE_NAME "Quneiform")
@@ -147,6 +170,4 @@ install(
 )
 
 install(FILES ${TRANSLATIONS_QM} DESTINATION ${RELATIVE_DATADIR}/locale)
-
-add_subdirectory(resources)
 

@@ -16,7 +16,6 @@ if(APPLE)
 elseif(UNIX AND NOT APPLE)
     set(CPACK_GENERATOR "DEB;TBZ2;TGZ")
     set(CPACK_STRIP_FILES "bin/cuneiform")
-    set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Cuneiform optical recognition software")
     set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/readme.txt")
     # Debian
     set(CPACK_DEBIAN_PACKAGE_SECTION "graphics")
@@ -33,8 +32,25 @@ elseif(UNIX AND NOT APPLE)
     endif()
     set(CPACK_DEBIAN_PACKAGE_DEPENDS ${CF_DEB_DEPENDS})
 elseif(WIN32)
- # no yet
+	install(FILES
+		"${QT_LIBRARY_DIR}/../bin/QtCore${QT_VERSION_MAJOR}.dll"
+		"${QT_LIBRARY_DIR}/../bin/QtGui${QT_VERSION_MAJOR}.dll"
+		DESTINATION bin
+	)
+
+	set(CPACK_GENERATOR "NSIS")	
+	set(CPACK_PACKAGE_NAME "Quneiform")
+	set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY
+		"${CPACK_PACKAGE_NAME}")
+	
+	set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/gui/resources/cuneiform.ico")
+	#set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/gui/resources/uninstall.ico")
+	
+	set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\quneiform.exe")
+	set(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} ${PROJECT_NAME}")
+	set(CPACK_NSIS_CONTACT "serge.poltavski@gmail.com")
+	set(CPACK_NSIS_MODIFY_PATH ON)
 endif()
 
-
 include(CPack)
+include(InstallRequiredSystemLibraries)
