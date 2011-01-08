@@ -59,7 +59,7 @@ void TranslationLoader::loadSystemTranslation() {
 void TranslationLoader::loadApplicationTranslation() {
     QStringList paths;
 	paths << "gui";
-#ifdef Q_WS_MAC
+#if defined(Q_WS_MAC)
     CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
     CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef,
                                                 kCFURLPOSIXPathStyle);
@@ -69,7 +69,7 @@ void TranslationLoader::loadApplicationTranslation() {
     CFRelease(macPath);
 
     paths << QString(pathPtr) + QString("/Contents/Resources");  
-#elif Q_WS_X11
+#elif defined(Q_WS_X11)
     paths << INSTALL_DATADIR "/locale";
     paths << "/usr/share/cuneiform/locale";
 #endif
