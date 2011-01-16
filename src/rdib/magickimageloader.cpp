@@ -67,7 +67,7 @@ void MagickImageLoader::convertImageToDib(Magick::Image& image, Magick::Blob& bl
 }
 
 void MagickImageLoader::convertImageDpi(Magick::Image& image) {
-    if (image.magick() == "PDF" or image.magick() == "SVG" or image.magick() == "DJVU") {
+    if (image.magick() == "PDF" | image.magick() == "SVG" || image.magick() == "DJVU") {
         //change from default 72 dpi
         image.density(Magick::Geometry(MIN_DPI_FOR_VECTOR_FORMAT, MIN_DPI_FOR_VECTOR_FORMAT));
     }
