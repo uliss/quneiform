@@ -31,10 +31,11 @@ elseif(UNIX AND NOT APPLE)
         set(CF_DEB_DEPENDS "${CF_DEB_DEPENDS}, libmagick++2 (>= 7:6.5.1)")
     endif()
     set(CPACK_DEBIAN_PACKAGE_DEPENDS ${CF_DEB_DEPENDS})
-elseif(WIN32)
+elseif(WIN32)	
 	install(FILES
 		"${QT_LIBRARY_DIR}/../bin/QtCore${QT_VERSION_MAJOR}.dll"
 		"${QT_LIBRARY_DIR}/../bin/QtGui${QT_VERSION_MAJOR}.dll"
+		
 		DESTINATION bin
 	)
 
