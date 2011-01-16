@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <boost/bind.hpp>
+#include <iterator>
 
 #include "crtfhorizontalcolumn.h"
 #include "crtfverticalcolumn.h"
