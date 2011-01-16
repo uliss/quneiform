@@ -22,7 +22,7 @@
 #include "qtimageloader.h"
 #include "compat_defs.h"
 
-#ifdef __MINGW32__
+#ifdef WIN32
 #include <windows.h>
 #include <wingdi.h>
 #endif
