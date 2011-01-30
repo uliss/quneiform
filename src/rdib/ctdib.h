@@ -58,23 +58,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////
 
-#if !defined(_CTDIB_H_)
+#ifndef _CTDIB_H_
 #define _CTDIB_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "globus.h"
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifdef __RDIB__
-#define RDIB_FUNC  FUN_EXPO
-#else
-#define RDIB_FUNC  FUN_IMPO
-#endif
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 #if defined(WIN32) & defined(CTDIB_USE_WIN32_API)
 #include <wingdi.h>
 typedef BITMAPINFOHEADER CTDIBBITMAPINFOHEADER, *PCTDIBBITMAPINFOHEADER, **PPCTDIBBITMAPINFOHEADER;
@@ -180,7 +168,7 @@ typedef pvoid  (*PCTDIBMemLock)(Handle);
 typedef void   (*PCTDIBMemUnlock)(Handle);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-class CTDIB
+class CLA_EXPO CTDIB
 {
         // macros etc.
         // CTDIBBITMAPINFOHEADER alloced:
@@ -263,118 +251,115 @@ class CTDIB
 
     public:
         // empty constructor
-        RDIB_FUNC()    CTDIB();
+        CTDIB();
         // constructor by Handle
-        RDIB_FUNC()    CTDIB(Handle hDIB);
+        CTDIB(Handle hDIB);
         // destructor   virtual
-        RDIB_FUNC()    ~CTDIB();
+        ~CTDIB();
 
     public:
         // return black pixel RGBQuad index or 00-00-00
-        RDIB_FUNC(uint32_t) GetBlackPixel();
+        uint32_t GetBlackPixel();
         // return white pixel RGBQuad index or ff-ff-ff
-        RDIB_FUNC(uint32_t) GetWhitePixel();
+        uint32_t GetWhitePixel();
         // copy resolution from another DIB at once4
-        RDIB_FUNC(Bool32) CopyDPIFromDIB( CTDIB * pSrcDIB);
+        Bool32 CopyDPIFromDIB( CTDIB * pSrcDIB);
         // copy line from another DIB from X at once
-        RDIB_FUNC(Bool32) SetFuelLineFromDIB(CTDIB * pSrcDIB, uint32_t nSrcLine, uint32_t nDscLine, uint32_t wSrcX);
+        Bool32 SetFuelLineFromDIB(CTDIB * pSrcDIB, uint32_t nSrcLine, uint32_t nDscLine, uint32_t wSrcX);
         // Copy fuel pallete from another DIB
-        RDIB_FUNC(Bool32) CopyPalleteFromDIB(CTDIB *pSrcDIB);
+        Bool32 CopyPalleteFromDIB(CTDIB *pSrcDIB);
         // get DIB vrsion by enum versions
-        RDIB_FUNC(CTDIB::CTDIBVersion) GetVersion(void);
+        CTDIB::CTDIBVersion GetVersion(void);
         ////////////////////////////Creating
         // get 4 external function for class:
         // Handle (*PCTDIBMemAlloc)(uint32_t);
         // void   (*PCTDIBMemFree)(Handle);
         // pvoid  (*PCTDIBMemLock)(Handle);
         // void   (*PCTDIBMemUnlock)(Handle);
-        RDIB_FUNC(Bool32) SetExternals(PCTDIBMemAlloc pfAlloc, PCTDIBMemFree pfFree, PCTDIBMemLock pfLock, PCTDIBMemUnlock pfUnlock);
+        Bool32 SetExternals(PCTDIBMemAlloc pfAlloc, PCTDIBMemFree pfFree, PCTDIBMemLock pfLock, PCTDIBMemUnlock pfUnlock);
         // start to create new DIB
-        RDIB_FUNC(Handle) CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount, uint32_t UseColors = 0, CTDIBVersion dVersion = WindowsVersion);
+        Handle CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount, uint32_t UseColors = 0, CTDIBVersion dVersion = WindowsVersion);
         // end of creating DIB
-        RDIB_FUNC(Bool32) CreateDIBEnd(void);
+        Bool32 CreateDIBEnd(void);
         // Free memory if DIB created by this class
-        RDIB_FUNC(Bool32) DestroyDIB();
+        Bool32 DestroyDIB();
         ////////////////////////////////////////////////////////Existst DIB
         // set DIB by global handle
-        RDIB_FUNC(Bool32) SetDIBbyHandle(Handle hDIB);
+        Bool32 SetDIBbyHandle(Handle hDIB);
         // set DIB by memory ptr
-        RDIB_FUNC(Bool32) SetDIBbyPtr(pvoid pDIB);
+        Bool32 SetDIBbyPtr(pvoid pDIB);
         // remove DIB and set to ready for new once
-        RDIB_FUNC(Bool32) ResetDIB(void);
+        Bool32 ResetDIB(void);
         ///////////////////////////////////////////////////////////////////
         // return TRUE if image attached to class and FALSE otherwise
-        RDIB_FUNC(Bool32) IsDIBAvailable();
+        Bool32 IsDIBAvailable();
         ////////////////////////////////////////////////////////Header Data
         //Get DIB header memory allocation size
-        RDIB_FUNC(uint32_t) GetHeaderSize(void);
+        uint32_t GetHeaderSize(void);
         // get pointer to DIB header
-        RDIB_FUNC(pvoid) GetPtrToHeader();
+        pvoid GetPtrToHeader();
         // get version of DIB
-        RDIB_FUNC(uint32_t) GetDIBVersion();
+        uint32_t GetDIBVersion();
         // return image width in pixels
-        RDIB_FUNC(int32_t) GetImageWidth();
+        int32_t GetImageWidth();
         // return image height in pixels
-        RDIB_FUNC(int32_t) GetImageHeight();
+        int32_t GetImageHeight();
         // return image width in pixels
-        RDIB_FUNC(uint32_t) GetLineWidth();
+        uint32_t GetLineWidth();
         // return image width in bytes forsed to 4
-        RDIB_FUNC(uint32_t) GetLineWidthInBytes();
+        uint32_t GetLineWidthInBytes();
         // return image width in bytes
-        RDIB_FUNC(uint32_t) GetUsedLineWidthInBytes();
+        uint32_t GetUsedLineWidthInBytes();
         // return image height in pixels
-        RDIB_FUNC(uint32_t) GetLinesNumber();
+        uint32_t GetLinesNumber();
         // return image size in pixels
-        RDIB_FUNC(uint32_t) GetImageSize();
+        uint32_t GetImageSize();
         // return image size in bytes
-        RDIB_FUNC(uint32_t) GetImageSizeInBytes();
+        uint32_t GetImageSizeInBytes();
         // return bits per pixel
-        RDIB_FUNC(uint32_t) GetPixelSize();
+        uint32_t GetPixelSize();
         // Get number of used colors
         // if 0 - DIB is JPEG format
-        RDIB_FUNC(uint32_t) GetActualColorNumber();
+        uint32_t GetActualColorNumber();
         // get resolution of DIB: x,[y]
-        RDIB_FUNC(Bool32) GetResolutionDPM(uint32_t * pX_Dpm, uint32_t * pY_Dpm = 0x0);
+        Bool32 GetResolutionDPM(uint32_t * pX_Dpm, uint32_t * pY_Dpm = 0x0);
         // get resolution of DIB: x,[y]
-        RDIB_FUNC(Bool32) GetResolutionDPI(uint32_t * pX_Dpi, uint32_t * pY_Dpi = 0x0);
+        Bool32 GetResolutionDPI(uint32_t * pX_Dpi, uint32_t * pY_Dpi = 0x0);
         // set resolution of DIB: x,[y]. available if DIB constructed by CTDIB
-        RDIB_FUNC(Bool32) SetResolutionDPM(uint32_t X_Dpm, uint32_t Y_DPM = 0);
+        Bool32 SetResolutionDPM(uint32_t X_Dpm, uint32_t Y_DPM = 0);
         // set resolution of DIB: x,[y]. available if DIB constructed by CTDIB
-        RDIB_FUNC(Bool32) SetResolutionDPI(uint32_t X_DPI, uint32_t Y_DPI = 0);
+        Bool32 SetResolutionDPI(uint32_t X_DPI, uint32_t Y_DPI = 0);
         // Get allocated memory size for DIBHeader, RGBQuads and Image in bytes
-        RDIB_FUNC(uint32_t) GetDIBSize();
+        uint32_t GetDIBSize();
         //Get used by DIB RGB Quads memory allocation size
-        RDIB_FUNC(uint32_t) GetRGBPalleteSize(void);
+        uint32_t GetRGBPalleteSize(void);
         // get Handle to DIB
-        RDIB_FUNC(Bool32) GetDIBHandle(Handle* phDIB);
+        Bool32 GetDIBHandle(Handle* phDIB);
         // Set Handle for DIB if it not attached
-        RDIB_FUNC(Bool32) SetDIBHandle(Handle hDIB);
+        Bool32 SetDIBHandle(Handle hDIB);
         // get pointer to DIB
-        RDIB_FUNC(Bool32) GetDIBPtr(pvoid* ppDIB);
+        Bool32 GetDIBPtr(pvoid* ppDIB);
         ////////////////////////////////////////////////////////Pallette Data
         // get pointer to first RGBQuad of RGB Quads ( or Triads)
-        RDIB_FUNC(pvoid)  GetPtrToRGB();
+        pvoid  GetPtrToRGB();
         // Get RGBQuad[wQuad]
-        RDIB_FUNC(Bool32) GetRGBQuad(uint32_t wQuad, PCTDIBRGBQUAD pQuad);
+        Bool32 GetRGBQuad(uint32_t wQuad, PCTDIBRGBQUAD pQuad);
         // set RGBQuad
-        RDIB_FUNC(Bool32) SetRGBQuad(uint32_t wQuad, CTDIBRGBQUAD Quad);
+        Bool32 SetRGBQuad(uint32_t wQuad, CTDIBRGBQUAD Quad);
         ////////////////////////////////////////////////////////BitFild Data
         // Get pointer to BitFild data;
-        RDIB_FUNC(pvoid)  GetPtrToBitFild(void);
+        pvoid  GetPtrToBitFild(void);
         // get pointer to Line (from 0 to |biHeight|-1)
-        RDIB_FUNC(pvoid)  GetPtrToLine(uint32_t wLine);
+        pvoid  GetPtrToLine(uint32_t wLine);
         // get ptr to BitFild memory on pixel(x,y)
         // if PixelSize < 8 - ptr to byte where its pixel
-        RDIB_FUNC(pvoid)  GetPtrToPixel(uint32_t wPixelX, uint32_t wPixelY);
+        pvoid  GetPtrToPixel(uint32_t wPixelX, uint32_t wPixelY);
         // Get bit position in byte of image fild for pixel
-        RDIB_FUNC(uint32_t) GetPixelShiftInByte(uint32_t dwX);
+        uint32_t GetPixelShiftInByte(uint32_t dwX);
         // Check Externals Memory functions
-        RDIB_FUNC(Bool32) IsExternalsSets(void);
-///////////////////////////////////////////////////////////////////////////////
-    protected:
-
+        Bool32 IsExternalsSets(void);
 };
 
 typedef CTDIB    *PCTDIB, **PPCTDIB;
 
-#endif // !defined(_CTDIB_H_)
+#endif // _CTDIB_H_

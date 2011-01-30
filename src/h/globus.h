@@ -68,9 +68,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    FUN_IMPO( ret_type ) - function imported from DLL
    FUN_EXPO( ret_type ) - function exported from DLL
       ret_type - function return type
-   PASCAL - pascal type of arguments retrieval
-   CDECL  - C type of arguments retrieval (stack based)
-   FAR - pointer & function call modifier
 
    Usage of modifiers:
       // imported from DLL class in context of class user:
@@ -86,40 +83,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       FUN_IMPO( void  ) FAR PASCAL SomeFunc2();
 */
 
-#if  defined( _MSC_VER )        /* Microsoft C/C++ compilers ******/
-#if  _MSC_VER > 800    /* MSVC 2.0 and later */
-#ifdef DEBUG_HDRS
-#pragma message( "Globus.h: make settings for MSVC 2.0 or later")
-#endif
+#if defined( _MSC_VER )        /* Microsoft C/C++ compilers ******/
+#if _MSC_VER > 800    /* MSVC 2.0 and later */
 #define CLA_IMPO    __declspec( dllimport )
 #define CLA_EXPO    __declspec( dllexport )
 #define FUN_IMPO__  __declspec( dllimport )
 #define __FUN_IMPO
 #define FUN_EXPO__  __declspec( dllexport )
 #define __FUN_EXPO
-#ifndef PASCAL
-#define PASCAL __stdcall
-#ifdef DEBUG_HDRS
-#pragma message( "PASCAL->__stdcall")
 #endif
-#endif
-#elif _MSC_VER == 800  /* MSVC 1.5 *********************************/
-/* ??
-         #define CLA_IMPO    __declspec( dllimport )
-         #define CLA_EXPO    __declspec( dllexport )
-*/
+#elif __MINGW32__
+#define CLA_IMPO
+#define CLA_EXPO
 #define FUN_IMPO__
-#define __FUN_IMPO  __far _pascal
+#define __FUN_IMPO
 #define FUN_EXPO__
-#define __FUN_EXPO  __far _pascal __export
-#ifndef PASCAL
-#define PASCAL _pascal
-#endif
-#else    /* common definitions for all MS compilers */
-#ifndef CDECL
-#define CDECL      __cdecl
-#endif
-#endif
+#define __FUN_EXPO
 #elif __GNUC__ >= 4 /* GNU Compiler Suite ******/
 #define CLA_IMPO
 #define CLA_EXPO __attribute__ ((visibility("default")))
@@ -127,12 +106,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __FUN_IMPO
 #define FUN_EXPO__ __attribute__ ((visibility("default")))
 #define __FUN_EXPO
-#ifndef PASCAL
-#define PASCAL __attribute__ ((stdcall))
-#endif
-#ifndef CDECL
-#define CDECL __attribute__ ((cdecl))
-#endif
 #else /* unknown compiler ******************************************/
 #define CLA_IMPO
 #define CLA_EXPO
@@ -140,12 +113,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __FUN_IMPO
 #define FUN_EXPO__
 #define __FUN_EXPO
-#ifndef PASCAL
-#define PASCAL
-#endif
-#ifndef CDECL
-#define CDECL
-#endif
 #endif
 /*********************************************************/
 #define FUN_IMPO( ret_type )  FUN_IMPO__ ret_type __FUN_IMPO

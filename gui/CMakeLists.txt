@@ -152,7 +152,11 @@ else()
     set(EXTRA_LIBS "")
 endif()
 
-target_link_libraries (${PROJECT} ${LIBRARIES} ${QT_LIBRARIES} m cuneiform ${EXTRA_LIBS})
+if(NOT MSVC)
+    set(EXTRA_LIBS ${EXTRA_LIBS} m)
+endif()
+
+target_link_libraries (${PROJECT} ${LIBRARIES} ${QT_LIBRARIES} cuneiform ${EXTRA_LIBS})
 
 if(APPLE)
     set_target_properties(${PROJECT}
