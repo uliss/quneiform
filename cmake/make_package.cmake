@@ -8,6 +8,19 @@ set(CPACK_PACKAGE_VERSION_MINOR ${CF_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${CF_VERSION_PATCH})
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING.txt")
 
+if(WIN32)
+	macro(cf_install_dll DLL_NAME src_path)
+		unset(cf_file CACHE)
+		find_file(cf_file "${DLL_NAME}.dll" PATHS ${src_path})
+		if(cf_file)
+			message(STATUS "Install: ${cf_file} found.")
+			install(FILES
+				${cf_file}
+				DESTINATION bin)
+		endif()
+	endmacro()
+endif()
+
 if(APPLE)
     set(CPACK_GENERATOR "PackageMaker")
     set(CPACK_PACKAGE_NAME "Quneiform")
@@ -38,6 +51,17 @@ elseif(WIN32)
 		
 		DESTINATION bin
 	)
+	
+	if(MINGW)
+	    find_path(CF_MINGW_PATH_BIN mingw32-make.exe PATHS
+			"[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\MinGW;InstallLocation]/bin" 
+			c:/MinGW/bin /MinGW/bin)
+			
+		cf_install_dll(libstdc++-6 ${CF_MINGW_PATH_BIN})
+		cf_install_dll(libgcc_s_dw2-1 ${CF_MINGW_PATH_BIN})
+		cf_install_dll(mingwm10 ${CF_MINGW_PATH_BIN})
+		cf_install_dll(libiconv2 ${ICONV_INCLUDE_DIR}/../bin)	
+	endif()
 
 	set(CPACK_GENERATOR "NSIS")	
 	set(CPACK_PACKAGE_NAME "Quneiform")
