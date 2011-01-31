@@ -21,6 +21,7 @@
 #include <QLocale>
 #include <QLibraryInfo>
 #include <QDebug>
+#include <QApplication>
 
 #ifdef Q_WS_MAC
 #include <CoreFoundation/CFURL.h>
@@ -59,6 +60,12 @@ void TranslationLoader::loadSystemTranslation() {
 void TranslationLoader::loadApplicationTranslation() {
     QStringList paths;
 	paths << "gui";
+	// assuming that application installed like that:
+	//  /
+	//   ---/bin
+	//   ---/share
+	//   ---/lib
+	paths << QApplication::applicationDirPath() + "/../share/cuneiform/locale";
 #if defined(Q_WS_MAC)
     CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
     CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef,
