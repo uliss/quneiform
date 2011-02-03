@@ -67,9 +67,10 @@ elseif(WIN32)
 	set(CPACK_PACKAGE_NAME "Quneiform")
 	set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY
 		"${CPACK_PACKAGE_NAME}")
-	
-	set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/gui/resources/cuneiform.ico")
-	#set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/gui/resources/uninstall.ico")
+
+	set(CPACK_PACKAGE_ICON  "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform_install.bmp")
+	#set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
+	#set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
 	
 	set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\quneiform.exe")
 	set(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} ${PROJECT_NAME}")
