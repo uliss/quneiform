@@ -283,7 +283,7 @@ int32_t FONShowSnap(void)
 /*
  * Handle messages for the application window
  */
-int32_t PASCAL GluFonWindowProc(HWND win, uint msg, WPARAM wparam,
+int32_t GluFonWindowProc(HWND win, uint msg, WPARAM wparam,
                                 LPARAM lparam)
 {
     switch (msg) {
