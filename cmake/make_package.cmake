@@ -64,17 +64,21 @@ elseif(WIN32)
 	endif()
 
 	set(CPACK_GENERATOR "NSIS")	
-	set(CPACK_PACKAGE_NAME "Quneiform")
+	set(CPACK_PACKAGE_NAME "Cuneiform")
 	set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY
 		"${CPACK_PACKAGE_NAME}")
-
+	set(CPACK_PACKAGE_EXECUTABLES quneiform;Quneiform)
+ 
+    # install icon
 	set(CPACK_PACKAGE_ICON  "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform_install.bmp")
 	set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
 	set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
+	set(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_NAME} ${CF_VERSION}")
 	
 	set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\quneiform.exe")
-	set(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} ${PROJECT_NAME}")
 	set(CPACK_NSIS_CONTACT "serge.poltavski@gmail.com")
+	set(CPACK_NSIS_HELP_LINK "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
+	set(CPACK_NSIS_URL_INFO_ABOUT "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
 	set(CPACK_NSIS_MODIFY_PATH ON)
 endif()
 
