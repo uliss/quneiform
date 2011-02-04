@@ -22,13 +22,13 @@
 
 #include <QObject>
 
-class Page;
-
 class TestPage : public QObject
 {
     Q_OBJECT
 public:
     explicit TestPage(QObject *parent = 0);
+private slots:
+    void testConstruct();
 };
 
 #endif // TESTPAGE_H

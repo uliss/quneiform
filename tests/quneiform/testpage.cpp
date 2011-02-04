@@ -25,4 +25,23 @@ TestPage::TestPage(QObject *parent) :
 {
 }
 
+void TestPage::testConstruct() {
+    Page p("");
+
+    QCOMPARE(p.name(), QString(""));
+    QCOMPARE(p.angle(), 0);
+    QVERIFY(p.flags() == Page::NONE);
+    QCOMPARE(p.imagePath(), QString(""));
+    QCOMPARE(p.imageSize(), QSize());
+    QVERIFY(p.isNull());
+    QVERIFY(!p.isRecognized());
+    QVERIFY(!p.isSaved());
+    QVERIFY(!p.isSelected());
+    QVERIFY(p.number() == 0);
+    QCOMPARE(p.ocrText(), QString(""));
+    QCOMPARE(p.pageArea(), QRect());
+    QCOMPARE(p.transform(), QTransform());
+    QCOMPARE(p.viewScroll(), QPoint());
+}
+
 QTEST_MAIN(TestPage)
