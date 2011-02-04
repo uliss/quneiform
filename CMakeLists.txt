@@ -60,10 +60,14 @@ add_subdirectory(datafiles)
 add_subdirectory(src)
 add_subdirectory(cli)
 
-#if(CF_NO_GUI)
+if(CF_NO_GUI)
+    message(STATUS "No GUI will be build")
+    set(CF_GUI False)
+else()
     add_subdirectory(gui)
-    message(STATUS "QT4 gui will be build")
-#endif()
+    message(STATUS "Qt GUI will be build")
+    set(CF_GUI True)
+endif()
 
 add_subdirectory(utils)
 

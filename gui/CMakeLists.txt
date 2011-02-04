@@ -74,7 +74,8 @@ include_directories(
 set(RESOURCE_PATH resources)
 set(RESOURCES     ${RESOURCE_PATH}/cuneiform.qrc)
 
-find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtOpenGl REQUIRED)
+find_package(Qt4 4.5 COMPONENTS QtCore QtGui REQUIRED)
+set(CF_BUILD_GUI True)
 include(${QT_USE_FILE})
 
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
@@ -174,4 +175,3 @@ install(
 )
 
 install(FILES ${TRANSLATIONS_QM} DESTINATION ${RELATIVE_DATADIR}/locale)
-

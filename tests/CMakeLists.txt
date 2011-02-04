@@ -27,3 +27,7 @@ if(CF_OCRTK)
 endif()
 
 add_subdirectory(py)
+
+if(CF_GUI)
+    add_subdirectory(quneiform)
+endif()

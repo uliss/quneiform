@@ -28,6 +28,7 @@ Configuration
                                  for more information see: http://www.isri.unlv.edu/ISRI/OCRtk
    -DCF_NO_QT=Yes              - disable QtImageLoader build
    -DCF_NO_IMAGE_MAGICK=Yes    - disable MagickLoader build
+   -DCF_NO_GUI=Yes             - disable Qt GUI build
 
 Contact information
 ===================
