@@ -36,7 +36,6 @@ set(SOURCES
     languagemenu.cpp
     languageselect.cpp
     mainwindow.cpp
-    main.cpp
     page.cpp
     pageindicator.cpp
     pagelayout.cpp
@@ -75,7 +74,6 @@ set(RESOURCE_PATH resources)
 set(RESOURCES     ${RESOURCE_PATH}/cuneiform.qrc)
 
 find_package(Qt4 4.5 COMPONENTS QtCore QtGui REQUIRED)
-set(CF_BUILD_GUI True)
 include(${QT_USE_FILE})
 
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
@@ -143,7 +141,8 @@ if(APPLE)
     )
 endif()
 
-add_executable (${PROJECT} WIN32 MACOSX_BUNDLE ${SRCS})
+add_library(quneiform_lib STATIC ${SRCS})
+add_executable (${PROJECT} WIN32 MACOSX_BUNDLE main.cpp)
 
 add_dependencies(${PROJECT} osx_l10n_dirs)
  
@@ -157,7 +156,7 @@ if(NOT MSVC)
     set(EXTRA_LIBS ${EXTRA_LIBS} m)
 endif()
 
-target_link_libraries (${PROJECT} ${LIBRARIES} ${QT_LIBRARIES} cuneiform ${EXTRA_LIBS})
+target_link_libraries (${PROJECT} quneiform_lib ${LIBRARIES} ${QT_LIBRARIES} cuneiform ${EXTRA_LIBS})
 
 if(APPLE)
     set_target_properties(${PROJECT}
