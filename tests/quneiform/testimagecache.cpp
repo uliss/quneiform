@@ -39,7 +39,14 @@ void TestImageCache::testInsert() {
 }
 
 void TestImageCache::testLoad() {
-
+    QPixmap p;
+    QVERIFY(!ImageCache::find("none2", &p));
+    // empty path
+    QVERIFY(!ImageCache::load("", &p));
+    // NULL pointer
+    QVERIFY(!ImageCache::load("none", NULL));
+    // non existant
+    QVERIFY(!ImageCache::load("none2", &p));
 }
 
 QTEST_MAIN(TestImageCache)
