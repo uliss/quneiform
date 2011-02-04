@@ -21,8 +21,14 @@
 #include "document.h"
 #include "page.h"
 
+static const QString DEFAULT_NAME = "untitled.qpf";
+
 Document::Document(QObject * parent) :
-        QObject(parent), language_(-1), changed_(false) {
+        QObject(parent),
+        filename_(DEFAULT_NAME),
+        language_(-1),
+        changed_(false),
+        is_new_(true) {
 }
 
 Document::~Document() {
@@ -81,6 +87,10 @@ bool Document::isChanged() const {
     return changed_;
 }
 
+bool Document::isNew() const {
+    return is_new_;
+}
+
 int Document::language() const {
     return language_;
 }
@@ -105,6 +115,7 @@ bool Document::open(const QString& filename) {
     file.close();
     filename_ = filename;
     changed_ = false;
+    is_new_ = false;
     return true;
 }
 
@@ -162,6 +173,7 @@ bool Document::save(const QString &filename) {
     packet.close();
     filename_ = filename;
     changed_ = false;
+    is_new_ = false;
     emit saved();
     return true;
 }

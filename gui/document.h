@@ -67,6 +67,11 @@ public:
     bool isChanged() const;
 
     /**
+      * Returns true if document is new and never was saved
+      */
+    bool isNew() const;
+
+    /**
       * Returns document language
       */
     int language() const;
@@ -141,6 +146,7 @@ private:
     QString filename_;
     int language_;
     bool changed_;
+    bool is_new_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Document& doc);
     friend QDataStream& operator>>(QDataStream& stream, Document& doc);

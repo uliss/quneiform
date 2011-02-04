@@ -149,16 +149,14 @@ void MainWindow::disableViewActions() {
 }
 
 void MainWindow::documentChange() {
-    if(!windowTitle().endsWith('*'))
-        setWindowTitle(windowTitle() + "*");
+    setWindowModified(true);
 }
 
 void MainWindow::documentSave() {
-    QString title = windowTitle();
-    if(title.endsWith('*')) {
-        title.chop(1);
-        setWindowTitle(title);
-    }
+    Q_ASSERT(doc_);
+
+    setWindowModified(false);
+    setWindowFilePath(doc_->fileName());
 }
 
 void MainWindow::enableViewActions(bool value) {
@@ -362,19 +360,27 @@ void MainWindow::savePacket() {
 
     QString fname;
 
-    if(!doc_->fileName().isEmpty())
+    if(doc_->isNew() || doc_->fileName().isEmpty()) {
+        QFileInfo fi(doc_->fileName());
+        fname = QFileDialog::getSaveFileName(this,
+                                             tr("Save Quneiform packet to"),
+                                             fi.baseName(),
+                                             tr("Quneiform packets (*.qfp)"));
+    }
+    else {
         fname = doc_->fileName();
-    else
-        fname = QFileDialog::getSaveFileName(this, tr("Save Quneiform packet to"), "",
-                                                           tr("Quneiform packets (*.qfp)"));
+    }
+
     savePacket(fname);
 }
 
 void MainWindow::savePacket(const QString& path) {
     Q_CHECK_PTR(doc_);
 
-    if(path.isEmpty())
+    if(path.isEmpty()) {
+        qDebug() << Q_FUNC_INFO << "packet name is empty";
         return;
+    }
 
     if(!doc_->save(path)) {
         QMessageBox::warning(this,
@@ -419,6 +425,8 @@ void MainWindow::selectLanguage(int lang) {
 
 void MainWindow::setupDocument() {
     Q_CHECK_PTR(doc_);
+
+    setWindowFilePath(doc_->fileName());
     connect(doc_, SIGNAL(changed()), SLOT(documentChange()));
     connect(doc_, SIGNAL(saved()), SLOT(documentSave()));
     connect(doc_, SIGNAL(imageDuplicated(QString)), SLOT(imageDuplication(QString)));

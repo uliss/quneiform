@@ -13,9 +13,6 @@
   <property name="contextMenuPolicy">
    <enum>Qt::NoContextMenu</enum>
   </property>
-  <property name="windowTitle">
-   <string>Quneiform OCR</string>
-  </property>
   <property name="windowIcon">
    <iconset resource="resources/cuneiform.qrc">
     <normaloff>:/img/cuneiform_logo_64.png</normaloff>:/img/cuneiform_logo_64.png</iconset>
