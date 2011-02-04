@@ -489,9 +489,13 @@ void MainWindow::setupRecognitionQueue() {
 }
 
 void MainWindow::setupShortcuts() {
-#if QT_VERSION >= 0x040600
+    // there's no default shortcut for quit action in windows and Qt < 4.6
+#if QT_VERSION < 0x040600 || defined(Q_WS_WIN)
+    ui_->actionExit->setShortcut(QKeySequence("Ctrl+Q"));
+#else
     ui_->actionExit->setShortcut(QKeySequence::Quit);
 #endif
+
     ui_->actionOpen->setShortcut(QKeySequence::Open);
     ui_->actionZoom_In->setShortcut(QKeySequence::ZoomIn);
     ui_->actionZoom_Out->setShortcut(QKeySequence::ZoomOut);
