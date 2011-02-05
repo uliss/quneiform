@@ -12,7 +12,7 @@ set(CF_GUI_TESTS
 )
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_gui.py"
-        "${CMAKE_BINARY_DIR}/quneiform/test_gui.py")
+        "${CMAKE_CURRENT_BINARY_DIR}/test_gui.py")
 
 function(add_gui_tests)
     foreach(t ${CF_GUI_TESTS})
@@ -25,4 +25,4 @@ function(add_gui_tests)
 endfunction()
 
 add_gui_tests()
-add_custom_target(test_gui "${CMAKE_BINARY_DIR}/quneiform/test_gui.py")
+add_custom_target(test_gui "${CMAKE_CURRENT_BINARY_DIR}/test_gui.py")
