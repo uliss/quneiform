@@ -64,16 +64,19 @@ public:
 
     /**
       * Returns page rotation angle (0, 90, 180 or 270 degrees)
+      * @see rotate()
       */
     int angle() const;
 
     /**
       * Returns page state flags
+      * @see hasFlag(), setFlag(), unsetFlag(), setFlags()
       */
     PageFlags flags() const;
 
     /**
       * Returns true if page have flag
+      * @see flags(), setFlag(), unsetFlag(), setFlags()
       */
     bool hasFlag(PageFlag flag);
 
@@ -115,32 +118,38 @@ public:
 
     /**
       * Returns page number
+      * @see setNumber()
       */
     unsigned int number() const;
 
     /**
       * Returns OCR text
+      * @see setOcrText()
       */
     QString ocrText() const;
 
     /**
       * Returns page area on image
+      * @see setPageArea()
       */
     const QRect& pageArea() const;
 
     /**
       * Returns page rectangles of given type
+      * @see setRects()
       */
     const Rectangles& rects(RectType t) const;
 
     /**
       * Returns page recognize options
+      * @see setRecognitionSettings()
       */
     const RecognitionSettings& recognitionSettings() const;
 
     /**
       * Resets page scaling, but saves rotate
       * Emits signals changed() and transformed()
+      * @see scale()
       */
     void resetScale();
 
@@ -165,13 +174,15 @@ public:
 
     /**
       * Sets page state flag
-      * @see setFlags(), unsetFlags()
+      * @see setFlags(), unsetFlag()
+      * emits signal changed()
       */
     void setFlag(PageFlag flag);
 
     /**
       * Sets page state flags
       * All previous flags are reset
+      * emits signal changed()
       * @see setFlag(), unsetFlag()
       */
     void setFlags(PageFlags flags);
@@ -179,24 +190,28 @@ public:
     /**
       * Sets page number
       * Emits signal changed()
+      * @see number()
       */
     void setNumber(unsigned int number);
 
     /**
       * Sets page ocr text
       * Emits signal changed() and recognized()
+      * @see ocrText()
       */
     void setOcrText(const QString& text);
 
     /**
       * Sets page area on image
       * Emits signal changed()
+      * @see pageArea()
       */
     void setPageArea(const QRect& area);
 
     /**
       * Sets page recognize options
       * emits signal changed()
+      * @see setRecognizeOptions()
       */
     void setRecognizeOptions(const RecognitionSettings& opts);
 
@@ -239,6 +254,10 @@ public:
       */
     QPoint viewScroll() const;
 signals:
+    /**
+      * Emmitted when some page data changed, such as
+      * scale, angle, flags, selection etc.
+      */
     void changed();
     /**
       * Emmited when page is transformed
@@ -280,6 +299,8 @@ public:
     friend QDataStream& operator>>(QDataStream& stream, Page& page);
     friend class PageRecognizer;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(Page::PageFlags);
 
 QDataStream& operator<<(QDataStream& stream, const Page& page);
 QDataStream& operator>>(QDataStream& stream, Page& page);

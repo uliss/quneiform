@@ -225,7 +225,7 @@ void Page::setOcrText(const QString& text) {
 
     ocr_text_ = text;
 
-    setFlag(RECOGNIZED);
+    state_flags_ |= RECOGNIZED;
     unsetFlag(SAVED);
 
     emit changed();

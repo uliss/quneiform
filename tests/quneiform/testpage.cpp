@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <QtTest>
+#include <QSignalSpy>
 #include "testpage.h"
 #include "gui/page.h"
 
@@ -24,9 +25,33 @@
 #define CF_IMAGE_DIR ""
 #endif
 
+#define SAMPLE_IMG CF_IMAGE_DIR "/croatian.bmp"
+
 TestPage::TestPage(QObject *parent) :
     QObject(parent)
 {
+}
+
+void TestPage::testAngle() {
+    Page p(SAMPLE_IMG);
+
+    p.rotate(90);
+    QCOMPARE(p.angle(), 90);
+    p.rotate(90);
+    QCOMPARE(p.angle(), 180);
+    p.rotate(90);
+    QCOMPARE(p.angle(), 270);
+    p.rotate(90);
+    QCOMPARE(p.angle(), 0);
+
+    p.rotate(-90);
+    QCOMPARE(p.angle(), 270);
+    p.rotate(-90);
+    QCOMPARE(p.angle(), 180);
+    p.rotate(-90);
+    QCOMPARE(p.angle(), 90);
+    p.rotate(-90);
+    QCOMPARE(p.angle(), 0);
 }
 
 void TestPage::testConstruct() {
@@ -58,9 +83,9 @@ void TestPage::testConstruct() {
     QCOMPARE(p2.imagePath(), QString("none"));
     QVERIFY(p2.isNull());
 
-    Page p3(CF_IMAGE_DIR "/croatian.bmp");
+    Page p3(SAMPLE_IMG);
     QCOMPARE(p3.name(), QString("croatian.bmp"));
-    QCOMPARE(p3.imagePath(), QString(CF_IMAGE_DIR "/croatian.bmp"));
+    QCOMPARE(p3.imagePath(), QString(SAMPLE_IMG));
     QVERIFY(!p3.isNull());
     QCOMPARE(p3.imageSize(), QSize(640, 1390));
     QCOMPARE(p3.pageArea(), QRect());
@@ -107,6 +132,138 @@ void TestPage::testPageName() {
     Page p4("./name.txt");
     QCOMPARE(p4.name(), QString("name.txt"));
     QCOMPARE(p4.imagePath(), QString("./name.txt"));
+}
+
+void TestPage::testResetScale() {
+    Page p(SAMPLE_IMG);
+    p.rotate(90);
+    p.scale(2);
+
+    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy spy2(&p, SIGNAL(transformed()));
+
+    p.resetScale();
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(spy2.count(), 1);
+    QCOMPARE(p.angle(), 90);
+    QTransform t;
+    t.rotate(p.angle());
+    QCOMPARE(p.transform(), t);
+}
+
+void TestPage::testRotate() {
+    Page p(SAMPLE_IMG);
+    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy spy2(&p, SIGNAL(rotated(int)));
+
+    p.rotate(90);
+
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(spy2.count(), 1);
+    QCOMPARE(p.angle(), 90);
+
+    QList<QVariant> arguments = spy2.takeFirst();
+    QCOMPARE(arguments.at(0).toInt(), 90);
+}
+
+void TestPage::testScale() {
+    Page p(SAMPLE_IMG);
+    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy spy2(&p, SIGNAL(transformed()));
+
+    p.scale(-1);
+
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(spy2.count(), 1);
+}
+
+void TestPage::testSetFlag() {
+    Page p("");
+    QSignalSpy spy(&p, SIGNAL(changed()));
+
+    p.setFlag(Page::SAVED);
+
+    QVERIFY(p.hasFlag(Page::SAVED));
+    QCOMPARE(spy.count(), 1);
+}
+
+void TestPage::testSetFlags() {
+    Page p("");
+    QSignalSpy spy(&p, SIGNAL(changed()));
+
+    p.setFlags(Page::SAVED | Page::RECOGNIZED);
+
+    QVERIFY(p.hasFlag(Page::SAVED));
+    QVERIFY(p.hasFlag(Page::RECOGNIZED));
+    QCOMPARE(p.flags(), Page::SAVED | Page::RECOGNIZED);
+    QCOMPARE(spy.count(), 1);
+}
+
+void TestPage::testSetNumber() {
+    Page p("");
+    QSignalSpy spy(&p, SIGNAL(changed()));
+
+    p.setNumber(10);
+
+    QCOMPARE(p.number(), (unsigned int)10);
+    QCOMPARE(spy.count(), 1);
+
+    // same number - signal not emmited
+    p.setNumber(10);
+    QCOMPARE(spy.count(), 1);
+
+    p.setNumber(11);
+    QCOMPARE(spy.count(), 2);
+}
+
+void TestPage::testSetOcrText() {
+    Page p("");
+    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy spy2(&p, SIGNAL(recognized()));
+
+    p.setOcrText("sample");
+
+    QCOMPARE(p.ocrText(), QString("sample"));
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(spy2.count(), 1);
+}
+
+void TestPage::testSetPageArea() {
+    Page p("");
+    QRect r(10, 20, 400, 500);
+    QCOMPARE(p.pageArea(), QRect());
+
+    QSignalSpy spy(&p, SIGNAL(changed()));
+
+    p.setPageArea(r);
+
+    QCOMPARE(p.pageArea(), r);
+    QCOMPARE(spy.count(), 1);
+
+    p.setPageArea(r);
+    QCOMPARE(spy.count(), 1);
+
+    p.setPageArea(r.adjusted(10, 10, 10, 10));
+    QCOMPARE(spy.count(), 2);
+}
+
+void TestPage::testSetRecognizeSettings() {
+    Page p("");
+    RecognitionSettings s;
+    s.setFax(true);
+
+    QSignalSpy spy(&p, SIGNAL(changed()));
+    p.setRecognizeOptions(s);
+
+    QVERIFY(s == p.recognitionSettings());
+    QCOMPARE(spy.count(), 1);
+
+    p.setRecognizeOptions(s);
+    QCOMPARE(spy.count(), 1);
+
+    s.setOneColumn(true);
+    p.setRecognizeOptions(s);
+    QCOMPARE(spy.count(), 2);
 }
 
 QTEST_MAIN(TestPage)

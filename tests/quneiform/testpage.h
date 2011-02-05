@@ -28,9 +28,19 @@ class TestPage : public QObject
 public:
     explicit TestPage(QObject *parent = 0);
 private slots:
+    void testAngle();
     void testConstruct();
     void testPageName();
     void testFlags();
+    void testResetScale();
+    void testRotate();
+    void testScale();
+    void testSetFlag();
+    void testSetFlags();
+    void testSetNumber();
+    void testSetOcrText();
+    void testSetPageArea();
+    void testSetRecognizeSettings();
 };
 
 #endif // TESTPAGE_H
