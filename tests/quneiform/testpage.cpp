@@ -20,6 +20,10 @@
 #include "testpage.h"
 #include "gui/page.h"
 
+#ifndef CF_IMAGE_DIR
+#define CF_IMAGE_DIR ""
+#endif
+
 TestPage::TestPage(QObject *parent) :
     QObject(parent)
 {
@@ -42,6 +46,67 @@ void TestPage::testConstruct() {
     QCOMPARE(p.pageArea(), QRect());
     QCOMPARE(p.transform(), QTransform());
     QCOMPARE(p.viewScroll(), QPoint());
+    QVERIFY(p.rects(Page::CHAR).empty());
+    QVERIFY(p.rects(Page::COLUMN).empty());
+    QVERIFY(p.rects(Page::LINE).empty());
+    QVERIFY(p.rects(Page::SECTION).empty());
+    QVERIFY(p.rects(Page::PARAGRAPH).empty());
+    QVERIFY(p.rects(Page::PICTURE).empty());
+
+    Page p2("none");
+    QCOMPARE(p2.name(), QString("none"));
+    QCOMPARE(p2.imagePath(), QString("none"));
+    QVERIFY(p2.isNull());
+
+    Page p3(CF_IMAGE_DIR "/croatian.bmp");
+    QCOMPARE(p3.name(), QString("croatian.bmp"));
+    QCOMPARE(p3.imagePath(), QString(CF_IMAGE_DIR "/croatian.bmp"));
+    QVERIFY(!p3.isNull());
+    QCOMPARE(p3.imageSize(), QSize(640, 1390));
+    QCOMPARE(p3.pageArea(), QRect());
+}
+
+void TestPage::testFlags() {
+    Page p("");
+
+    QVERIFY(p.flags() == Page::NONE);
+    QVERIFY(!p.hasFlag(Page::RECOGNIZED));
+    QVERIFY(!p.hasFlag(Page::RECOGNITION_FAILED));
+    QVERIFY(!p.hasFlag(Page::SAVED));
+    QVERIFY(!p.hasFlag(Page::SAVING_FAILED));
+
+    p.setFlags(Page::SAVED);
+    QVERIFY(!p.hasFlag(Page::RECOGNIZED));
+    QVERIFY(!p.hasFlag(Page::RECOGNITION_FAILED));
+    QVERIFY(p.hasFlag(Page::SAVED));
+    QVERIFY(!p.hasFlag(Page::SAVING_FAILED));
+
+    p.setFlag(Page::RECOGNIZED);
+    QVERIFY(p.flags() == Page::RECOGNIZED | Page::SAVED);
+
+    p.unsetFlag(Page::SAVED);
+    QVERIFY(p.flags() == Page::RECOGNIZED);
+    p.unsetFlag(Page::RECOGNIZED);
+    QVERIFY(p.flags() == Page::NONE);
+}
+
+void TestPage::testPageName() {
+    Page p("");
+
+    QCOMPARE(p.name(), QString(""));
+    QCOMPARE(p.imagePath(), QString(""));
+
+    Page p2("name");
+    QCOMPARE(p2.name(), QString("name"));
+    QCOMPARE(p2.imagePath(), QString("name"));
+
+    Page p3("name.txt");
+    QCOMPARE(p3.name(), QString("name.txt"));
+    QCOMPARE(p3.imagePath(), QString("name.txt"));
+
+    Page p4("./name.txt");
+    QCOMPARE(p4.name(), QString("name.txt"));
+    QCOMPARE(p4.imagePath(), QString("./name.txt"));
 }
 
 QTEST_MAIN(TestPage)

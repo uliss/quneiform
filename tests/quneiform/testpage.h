@@ -29,6 +29,8 @@ public:
     explicit TestPage(QObject *parent = 0);
 private slots:
     void testConstruct();
+    void testPageName();
+    void testFlags();
 };
 
 #endif // TESTPAGE_H

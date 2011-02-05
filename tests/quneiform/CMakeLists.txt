@@ -1,3 +1,4 @@
+add_definitions(-DCF_IMAGE_DIR="${CMAKE_SOURCE_DIR}/images/lang.diftest")
 find_package(Qt4 4.5 REQUIRED)
 include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})
