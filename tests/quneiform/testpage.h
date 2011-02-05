@@ -40,7 +40,7 @@ private slots:
     void testSetNumber();
     void testSetOcrText();
     void testSetPageArea();
-    void testSetRecognizeSettings();
+    void testSetRecognitionSettings();
 };
 
 #endif // TESTPAGE_H

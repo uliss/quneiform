@@ -141,7 +141,7 @@ public:
     const Rectangles& rects(RectType t) const;
 
     /**
-      * Returns page recognize options
+      * Returns page recognize settings
       * @see setRecognitionSettings()
       */
     const RecognitionSettings& recognitionSettings() const;
@@ -209,11 +209,11 @@ public:
     void setPageArea(const QRect& area);
 
     /**
-      * Sets page recognize options
+      * Sets page recognize settings
       * emits signal changed()
-      * @see setRecognizeOptions()
+      * @see recognitionSettings()
       */
-    void setRecognizeOptions(const RecognitionSettings& opts);
+    void setRecognitionSettings(const RecognitionSettings& opts);
 
     /**
       * Sets page rectangles

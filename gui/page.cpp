@@ -242,7 +242,7 @@ void Page::setPageArea(const QRect& area) {
     emit changed();
 }
 
-void Page::setRecognizeOptions(const RecognitionSettings& opts) {
+void Page::setRecognitionSettings(const RecognitionSettings& opts) {
     QMutexLocker lock(&mutex_);
 
     if(rec_settings_ == opts)

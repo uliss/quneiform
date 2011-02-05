@@ -247,22 +247,22 @@ void TestPage::testSetPageArea() {
     QCOMPARE(spy.count(), 2);
 }
 
-void TestPage::testSetRecognizeSettings() {
+void TestPage::testSetRecognitionSettings() {
     Page p("");
     RecognitionSettings s;
     s.setFax(true);
 
     QSignalSpy spy(&p, SIGNAL(changed()));
-    p.setRecognizeOptions(s);
+    p.setRecognitionSettings(s);
 
     QVERIFY(s == p.recognitionSettings());
     QCOMPARE(spy.count(), 1);
 
-    p.setRecognizeOptions(s);
+    p.setRecognitionSettings(s);
     QCOMPARE(spy.count(), 1);
 
     s.setOneColumn(true);
-    p.setRecognizeOptions(s);
+    p.setRecognitionSettings(s);
     QCOMPARE(spy.count(), 2);
 }
 

@@ -95,7 +95,7 @@ void ThumbnailWidget::showRecognizeSettings() {
 
     RecognitionSettingsDialog dlg(page_->recognitionSettings());
     if(QDialog::Accepted == dlg.exec())
-        page_->setRecognizeOptions(dlg.options());
+        page_->setRecognitionSettings(dlg.options());
 }
 
 void ThumbnailWidget::highlight(bool value) {
