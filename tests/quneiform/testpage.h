@@ -42,6 +42,11 @@ private slots:
     void testSetPageArea();
     void testSetRecognitionSettings();
     void testSetRects();
+    void testSetSelected();
+    void testSetTransform();
+    void testSetViewScroll();
+    void testUnsetFlag();
+    void testReadWrite();
 };
 
 #endif // TESTPAGE_H

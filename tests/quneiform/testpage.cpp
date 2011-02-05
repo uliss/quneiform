@@ -18,6 +18,8 @@
 
 #include <QtTest>
 #include <QSignalSpy>
+#include <QFile>
+#include <QDataStream>
 #include "testpage.h"
 #include "gui/page.h"
 
@@ -218,11 +220,14 @@ void TestPage::testSetNumber() {
 
 void TestPage::testSetOcrText() {
     Page p("");
+    p.setFlag(Page::SAVED);
     QSignalSpy spy(&p, SIGNAL(changed()));
     QSignalSpy spy2(&p, SIGNAL(recognized()));
 
     p.setOcrText("sample");
 
+    QVERIFY(p.hasFlag(Page::RECOGNIZED));
+    QVERIFY(!p.hasFlag(Page::SAVED));
     QCOMPARE(p.ocrText(), QString("sample"));
     QCOMPARE(spy.count(), 1);
     QCOMPARE(spy2.count(), 1);
@@ -251,10 +256,12 @@ void TestPage::testSetRecognitionSettings() {
     Page p("");
     RecognitionSettings s;
     s.setFax(true);
+    p.setFlag(Page::SAVED);
 
     QSignalSpy spy(&p, SIGNAL(changed()));
     p.setRecognitionSettings(s);
 
+    QVERIFY(!p.hasFlag(Page::SAVED));
     QVERIFY(s == p.recognitionSettings());
     QCOMPARE(spy.count(), 1);
 
@@ -264,6 +271,8 @@ void TestPage::testSetRecognitionSettings() {
     s.setOneColumn(true);
     p.setRecognitionSettings(s);
     QCOMPARE(spy.count(), 2);
+
+
 }
 
 void TestPage::testSetRects() {
@@ -334,6 +343,133 @@ void TestPage::testSetRects() {
     QCOMPARE(p.rects(Page::PICTURE).at(0), QRect(100, 100, 100, 100));
     QCOMPARE(p.rects(Page::PICTURE).at(1), QRect(20, 20, 20, 20));
     QCOMPARE(p.rects(Page::PICTURE).at(2), QRect(30, 30, 30, 30));
+}
+
+void TestPage::testSetSelected() {
+    Page p("");
+    QVERIFY(!p.isSelected());
+
+    QSignalSpy spy(&p, SIGNAL(changed()));
+    p.setSelected(true);
+
+    QCOMPARE(spy.count(), 1);
+    QVERIFY(p.isSelected());
+
+    p.setSelected(true);
+    QCOMPARE(spy.count(), 1);
+    QVERIFY(p.isSelected());
+
+    p.setSelected(false);
+    QCOMPARE(spy.count(), 2);
+    QVERIFY(!p.isSelected());
+
+    p.setSelected(false);
+    QCOMPARE(spy.count(), 2);
+}
+
+void TestPage::testSetTransform() {
+    Page p("");
+    QCOMPARE(p.transform(), QTransform());
+
+    QTransform t;
+    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy spy2(&p, SIGNAL(transformed()));
+
+    p.setTransform(t);
+    QCOMPARE(spy.count(), 0);
+    QCOMPARE(spy2.count(), 0);
+
+    t.rotate(90);
+    p.setTransform(t);
+    QCOMPARE(p.transform(), t);
+    QCOMPARE(p.angle(), 90);
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(spy2.count(), 1);
+}
+
+void TestPage::testSetViewScroll() {
+    Page p("");
+    QCOMPARE(p.viewScroll(), QPoint());
+    QSignalSpy spy(&p, SIGNAL(changed()));
+
+    p.setViewScroll(QPoint(10, 20));
+    // no signals
+    QCOMPARE(spy.count(), 0);
+    QCOMPARE(p.viewScroll(), QPoint(10, 20));
+}
+
+void TestPage::testUnsetFlag() {
+    Page p("");
+    p.setFlags(Page::SAVED | Page::RECOGNIZED);
+
+    QSignalSpy spy(&p, SIGNAL(changed()));
+    p.unsetFlag(Page::SAVED);
+    QVERIFY(!p.hasFlag(Page::SAVED));
+    QCOMPARE(spy.count(), 1);
+    p.unsetFlag(Page::RECOGNIZED);
+    QCOMPARE(spy.count(), 2);
+    QVERIFY(!p.hasFlag(Page::RECOGNIZED));
+
+    p.unsetFlag(Page::SAVING_FAILED);
+    QCOMPARE(spy.count(), 2);
+}
+
+void TestPage::testReadWrite() {
+    Page p(SAMPLE_IMG);
+    int n = 10;
+    QPoint pt(10, 20);
+    QString t("sample text");
+    QRect r(20, 30, 40, 50);
+    QTransform tr;
+    tr.rotate(90);
+    p.setNumber(n);
+    p.setViewScroll(pt);
+    p.setOcrText(t);
+    p.setPageArea(r);
+    p.setTransform(tr);
+    p.setSelected(true);
+
+    RecognitionSettings s;
+    s.setFax(true);
+    p.setRecognitionSettings(s);
+
+    Page::Rectangles rects;
+    rects << r << r << r;
+    p.setRects(rects, Page::CHAR);
+    p.setRects(rects, Page::PICTURE);
+
+    {
+        QFile file("test_page.tmp");
+        file.open(QIODevice::WriteOnly);
+        QDataStream out(&file);
+        out << p;
+    }
+
+    {
+        Page p2("");
+        QFile file("test_page.tmp");
+        file.open(QIODevice::ReadOnly);
+        QDataStream in(&file);
+        in >> p2;
+
+        QCOMPARE(p.angle(), p2.angle());
+        QCOMPARE(p.flags(), p2.flags());
+        QCOMPARE(p.imagePath(), p2.imagePath());
+        QCOMPARE(p.imageSize(), p2.imageSize());
+        QCOMPARE(p.isNull(), p2.isNull());
+        QCOMPARE(p.isRecognized(), p2.isRecognized());
+        QCOMPARE(p.isSaved(), p2.isSaved());
+        QCOMPARE(p.isSelected(), p2.isSelected());
+        QCOMPARE(p.name(), p2.name());
+        QCOMPARE(p.number(), p2.number());
+        QCOMPARE(p.ocrText(), p2.ocrText());
+        QCOMPARE(p.pageArea(), p2.pageArea());
+        QCOMPARE(p.recognitionSettings(), p2.recognitionSettings());
+        QCOMPARE(p.transform(), p2.transform());
+        QCOMPARE(p.viewScroll(), p2.viewScroll());
+        QCOMPARE(p.rects(Page::CHAR).count(), p2.rects(Page::CHAR).count());
+        QCOMPARE(p.rects(Page::PICTURE).count(), p2.rects(Page::PICTURE).count());
+    }
 }
 
 QTEST_MAIN(TestPage)

@@ -226,7 +226,7 @@ void Page::setOcrText(const QString& text) {
     ocr_text_ = text;
 
     state_flags_ |= RECOGNIZED;
-    unsetFlag(SAVED);
+    state_flags_ &= ~SAVED;
 
     emit changed();
     emit recognized();
@@ -249,7 +249,7 @@ void Page::setRecognitionSettings(const RecognitionSettings& opts) {
         return;
 
     rec_settings_ = opts;
-    unsetFlag(SAVED);
+    state_flags_ &= (~SAVED);
     emit changed();
 }
 
@@ -294,7 +294,10 @@ QTransform Page::transform() const {
 }
 
 void Page::unsetFlag(PageFlag flag) {
-    state_flags_ &= (~flag);
+    if(state_flags_ & flag) {
+        state_flags_ &= (~flag);
+        emit changed();
+    }
 }
 
 QPoint Page::viewScroll() const {
@@ -313,7 +316,8 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.transform_
             << page.is_null_
             << page.view_scroll_
-            << page.rec_settings_;
+            << page.rec_settings_
+            << page.rects_;
     return os;
 }
 
@@ -329,7 +333,8 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.transform_
             >> page.is_null_
             >> page.view_scroll_
-            >> page.rec_settings_;
+            >> page.rec_settings_
+            >> page.rects_;
 
     if(page.is_selected_)
         page.setSelected(true);

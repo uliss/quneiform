@@ -26,7 +26,7 @@ class RecognitionSettings
 {
 public:
     RecognitionSettings();
-    bool operator==(const RecognitionSettings& opts);
+    bool operator==(const RecognitionSettings& opts) const;
     bool dotMatrix() const;
     bool fax() const;
     bool oneColumn() const;

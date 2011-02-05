@@ -26,7 +26,7 @@ RecognitionSettings::RecognitionSettings() :
 {
 }
 
-bool RecognitionSettings::operator==(const RecognitionSettings& opts) {
+bool RecognitionSettings::operator==(const RecognitionSettings& opts) const {
     return fax_ == opts.fax_
             && dot_matrix_ == opts.dot_matrix_
             && cf_spelling_ == opts.cf_spelling_

@@ -217,30 +217,34 @@ public:
 
     /**
       * Sets page rectangles for given block type
-      * @see rects()
       * emits signal changed()
+      * @see rects()
       */
     void setRects(const QList<QRect>& rects, BlockType type);
 
     /**
       * Selects page
       * Emits signal changed()
+      * @see isSelected()
       */
     void setSelected(bool value);
 
     /**
       * Sets page transform
       * Emits signals changed() and transformed()
+      * @see transform()
       */
     void setTransform(const QTransform& t);
 
     /**
       * Sets page view scroll
+      * @see viewScroll()
       */
     void setViewScroll(const QPoint& pt);
 
     /**
       * Returns page transform
+      * @see setTransform()
       */
     QTransform transform() const;
 
@@ -252,6 +256,7 @@ public:
 
     /**
       * Returns page view scroll
+      * @see setViewScroll()
       */
     QPoint viewScroll() const;
 signals:
