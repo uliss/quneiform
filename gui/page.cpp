@@ -125,7 +125,7 @@ const RecognitionSettings& Page::recognitionSettings() const {
     return rec_settings_;
 }
 
-const Page::Rectangles& Page::rects(RectType t) const {
+const Page::Rectangles& Page::rects(BlockType t) const {
     Q_ASSERT(t < rects_.size());
 
     return rects_.at(t);
@@ -253,15 +253,17 @@ void Page::setRecognitionSettings(const RecognitionSettings& opts) {
     emit changed();
 }
 
-void Page::setRects(const QList<QRect>& rects, RectType type) {
+void Page::setRects(const QList<QRect>& rects, BlockType type) {
     Q_ASSERT(type < rects_.size());
 
     rects_[type].clear();
 
     foreach(QRect r, rects) {
-        r.translate(page_area_.topLeft());
+        page_area_.topLeft();
         rects_[type].append(r);
     }
+
+    emit changed();
 }
 
 void Page::setSelected(bool value) {

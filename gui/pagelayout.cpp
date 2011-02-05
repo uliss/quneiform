@@ -63,6 +63,7 @@ void PageLayout::populate(const Page& page) {
 
 void PageLayout::populateChars(const Page& page) {
     foreach(QRect r, page.rects(Page::CHAR)) {
+        r.translate(page.pageArea().topLeft());
         QGraphicsRectItem * rect = new QGraphicsRectItem(r);
         rect->setPen(QColor(Qt::cyan));
         addToGroup(rect);
@@ -71,6 +72,7 @@ void PageLayout::populateChars(const Page& page) {
 
 void PageLayout::populateColumns(const Page& page) {
     foreach(QRect r, page.rects(Page::COLUMN)) {
+        r.translate(page.pageArea().topLeft());
         QGraphicsRectItem * rect = new QGraphicsRectItem(r);
         rect->setPen(QColor(Qt::red));
         addToGroup(rect);
@@ -79,6 +81,7 @@ void PageLayout::populateColumns(const Page& page) {
 
 void PageLayout::populateLines(const Page& page) {
     foreach(QRect r, page.rects(Page::LINE)) {
+        r.translate(page.pageArea().topLeft());
         QGraphicsRectItem * rect = new QGraphicsRectItem(r);
         rect->setPen(QColor(Qt::green));
         addToGroup(rect);
@@ -87,6 +90,7 @@ void PageLayout::populateLines(const Page& page) {
 
 void PageLayout::populateParagraphs(const Page& page) {
     foreach(QRect r, page.rects(Page::PARAGRAPH)) {
+        r.translate(page.pageArea().topLeft());
         QGraphicsRectItem * rect = new QGraphicsRectItem(r);
         rect->setPen(QColor(Qt::yellow));
         addToGroup(rect);
@@ -95,6 +99,7 @@ void PageLayout::populateParagraphs(const Page& page) {
 
 void PageLayout::populatePictures(const Page& page) {
     foreach(QRect r, page.rects(Page::PICTURE)) {
+        r.translate(page.pageArea().topLeft());
         QGraphicsRectItem * rect = new QGraphicsRectItem(r);
         rect->setPen(QColor(Qt::blue));
         rect->setToolTip(QString("[%1 %2 %3x%4]").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));
@@ -104,6 +109,7 @@ void PageLayout::populatePictures(const Page& page) {
 
 void PageLayout::populateSections(const Page& page) {
     foreach(QRect r, page.rects(Page::SECTION)) {
+        r.translate(page.pageArea().topLeft());
         QGraphicsRectItem * rect = new QGraphicsRectItem(r);
         rect->setPen(QColor(Qt::gray));
 //        rect->setToolTip(QString("[%1 %2 %3x%4]").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));

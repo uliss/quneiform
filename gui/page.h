@@ -53,7 +53,7 @@ public:
     typedef QList<Rectangles> RectList;
 
     /* do no change values! */
-    enum RectType {
+    enum BlockType {
         PICTURE = 0,
         CHAR = 1,
         LINE = 2,
@@ -138,7 +138,7 @@ public:
       * Returns page rectangles of given type
       * @see setRects()
       */
-    const Rectangles& rects(RectType t) const;
+    const Rectangles& rects(BlockType t) const;
 
     /**
       * Returns page recognize settings
@@ -216,10 +216,11 @@ public:
     void setRecognitionSettings(const RecognitionSettings& opts);
 
     /**
-      * Sets page rectangles
+      * Sets page rectangles for given block type
       * @see rects()
+      * emits signal changed()
       */
-    void setRects(const QList<QRect>& rects, RectType type);
+    void setRects(const QList<QRect>& rects, BlockType type);
 
     /**
       * Selects page

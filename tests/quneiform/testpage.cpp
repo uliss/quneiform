@@ -266,4 +266,74 @@ void TestPage::testSetRecognitionSettings() {
     QCOMPARE(spy.count(), 2);
 }
 
+void TestPage::testSetRects() {
+    Page p("");
+
+    QVERIFY(p.rects(Page::CHAR).empty());
+    QVERIFY(p.rects(Page::COLUMN).empty());
+    QVERIFY(p.rects(Page::LINE).empty());
+    QVERIFY(p.rects(Page::SECTION).empty());
+    QVERIFY(p.rects(Page::PARAGRAPH).empty());
+    QVERIFY(p.rects(Page::PICTURE).empty());
+
+    QSignalSpy spy(&p, SIGNAL(changed()));
+
+    Page::Rectangles rects;
+    rects << QRect(0, 0, 10, 20);
+    rects << QRect(1, 1, 2, 2);
+
+    p.setRects(rects, Page::CHAR);
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(p.rects(Page::CHAR).count(), 2);
+    QCOMPARE(p.rects(Page::CHAR).at(0), QRect(0, 0, 10, 20));
+    QCOMPARE(p.rects(Page::CHAR).at(1), QRect(1, 1, 2, 2));
+    QVERIFY(p.rects(Page::COLUMN).empty());
+    QVERIFY(p.rects(Page::LINE).empty());
+    QVERIFY(p.rects(Page::SECTION).empty());
+    QVERIFY(p.rects(Page::PARAGRAPH).empty());
+    QVERIFY(p.rects(Page::PICTURE).empty());
+
+    rects.removeLast();
+    p.setRects(rects, Page::COLUMN);
+    QCOMPARE(spy.count(), 2);
+    QCOMPARE(p.rects(Page::COLUMN).count(), 1);
+    QCOMPARE(p.rects(Page::COLUMN).at(0), QRect(0, 0, 10, 20));
+    QVERIFY(p.rects(Page::LINE).empty());
+    QVERIFY(p.rects(Page::SECTION).empty());
+    QVERIFY(p.rects(Page::PARAGRAPH).empty());
+    QVERIFY(p.rects(Page::PICTURE).empty());
+
+    rects.removeLast();
+    p.setRects(rects, Page::LINE);
+    QCOMPARE(spy.count(), 3);
+    QCOMPARE(p.rects(Page::LINE).count(), 0);
+    QVERIFY(p.rects(Page::SECTION).empty());
+    QVERIFY(p.rects(Page::PARAGRAPH).empty());
+    QVERIFY(p.rects(Page::PICTURE).empty());
+
+    rects << QRect(100, 100, 100, 100);
+    p.setRects(rects, Page::SECTION);
+    QCOMPARE(spy.count(), 4);
+    QCOMPARE(p.rects(Page::SECTION).count(), 1);
+    QCOMPARE(p.rects(Page::SECTION).at(0), QRect(100, 100, 100, 100));
+    QVERIFY(p.rects(Page::PARAGRAPH).empty());
+    QVERIFY(p.rects(Page::PICTURE).empty());
+
+    rects << QRect(20, 20, 20, 20);
+    p.setRects(rects, Page::PARAGRAPH);
+    QCOMPARE(spy.count(), 5);
+    QCOMPARE(p.rects(Page::PARAGRAPH).count(), 2);
+    QCOMPARE(p.rects(Page::PARAGRAPH).at(0), QRect(100, 100, 100, 100));
+    QCOMPARE(p.rects(Page::PARAGRAPH).at(1), QRect(20, 20, 20, 20));
+    QVERIFY(p.rects(Page::PICTURE).empty());
+
+    rects << QRect(30, 30, 30, 30);
+    p.setRects(rects, Page::PICTURE);
+    QCOMPARE(spy.count(), 6);
+    QCOMPARE(p.rects(Page::PICTURE).count(), 3);
+    QCOMPARE(p.rects(Page::PICTURE).at(0), QRect(100, 100, 100, 100));
+    QCOMPARE(p.rects(Page::PICTURE).at(1), QRect(20, 20, 20, 20));
+    QCOMPARE(p.rects(Page::PICTURE).at(2), QRect(30, 30, 30, 30));
+}
+
 QTEST_MAIN(TestPage)
