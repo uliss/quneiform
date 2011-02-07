@@ -91,7 +91,6 @@ set(SRCS
     ${SOURCES}
     ${MOC_SOURCES}
     ${UI_HEADERS}
-    ${QRC_SOURCES}
     ${TRANSLATIONS_QM}
 )
 
@@ -142,7 +141,7 @@ if(APPLE)
 endif()
 
 add_library(quneiform_lib STATIC ${SRCS})
-add_executable (${PROJECT} WIN32 MACOSX_BUNDLE main.cpp)
+add_executable (${PROJECT} WIN32 MACOSX_BUNDLE main.cpp ${QRC_SOURCES})
 
 add_dependencies(${PROJECT} osx_l10n_dirs)
  
