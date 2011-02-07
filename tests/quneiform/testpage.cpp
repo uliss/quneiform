@@ -20,6 +20,8 @@
 #include <QSignalSpy>
 #include <QFile>
 #include <QDataStream>
+#include <QApplication>
+#include <QMessageBox>
 #include "testpage.h"
 #include "gui/page.h"
 
@@ -29,9 +31,55 @@
 
 #define SAMPLE_IMG CF_IMAGE_DIR "/croatian.bmp"
 
+
+#define QVERIFY_THROW(expression, ExpectedExceptionType) \
+    do { \
+        bool caught_ = false; \
+        try { expression; } \
+        catch (ExpectedExceptionType const&) { caught_ = true; } \
+        catch (...) {} \
+        if (!QTest::qVerify(caught_, #expression ", " #ExpectedExceptionType, "", __FILE__, __LINE__))\
+            return; \
+    } while(0)
+
+
+void CHECK_SMALL_FILE(const QString& fname, const QString& content) {
+    Q_ASSERT(content.length() < 1024);
+
+    QFile file(fname);
+    if (file.open(QFile::ReadOnly)) {
+        char buf[1024];
+        qint64 lineLength = file.readLine(buf, sizeof(buf));
+        if (lineLength != -1)
+            QCOMPARE(content, QString(buf));
+        else
+            QFAIL("can't read from file");
+    }
+    else
+        QFAIL("can't open file");
+}
+
 TestPage::TestPage(QObject *parent) :
     QObject(parent)
 {
+}
+
+void TestPage::callTimerSlot(const char * member, int msec) {
+    QTimer::singleShot(msec, this, member);
+}
+
+void TestPage::sendDialogAccept() {
+    QWidget * dialog = QApplication::activeModalWidget();
+    QMessageBox * box = qobject_cast<QMessageBox*>(dialog);
+    if(box)
+        box->accept();
+}
+
+void TestPage::sendDialogCancel() {
+    QWidget * dialog = QApplication::activeModalWidget();
+    QMessageBox * box = qobject_cast<QMessageBox*>(dialog);
+    if(box)
+        QTest::keyClick(box, Qt::Key_Escape);
 }
 
 void TestPage::testAngle() {
@@ -141,12 +189,12 @@ void TestPage::testResetScale() {
     p.rotate(90);
     p.scale(2);
 
-    QSignalSpy spy(&p, SIGNAL(changed()));
-    QSignalSpy spy2(&p, SIGNAL(transformed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
+    QSignalSpy transformed(&p, SIGNAL(transformed()));
 
     p.resetScale();
-    QCOMPARE(spy.count(), 1);
-    QCOMPARE(spy2.count(), 1);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(transformed.count(), 1);
     QCOMPARE(p.angle(), 90);
     QTransform t;
     t.rotate(p.angle());
@@ -155,82 +203,82 @@ void TestPage::testResetScale() {
 
 void TestPage::testRotate() {
     Page p(SAMPLE_IMG);
-    QSignalSpy spy(&p, SIGNAL(changed()));
-    QSignalSpy spy2(&p, SIGNAL(rotated(int)));
+    QSignalSpy changed(&p, SIGNAL(changed()));
+    QSignalSpy rotated(&p, SIGNAL(rotated(int)));
 
     p.rotate(90);
 
-    QCOMPARE(spy.count(), 1);
-    QCOMPARE(spy2.count(), 1);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(rotated.count(), 1);
     QCOMPARE(p.angle(), 90);
 
-    QList<QVariant> arguments = spy2.takeFirst();
+    QList<QVariant> arguments = rotated.takeFirst();
     QCOMPARE(arguments.at(0).toInt(), 90);
 }
 
 void TestPage::testScale() {
     Page p(SAMPLE_IMG);
-    QSignalSpy spy(&p, SIGNAL(changed()));
-    QSignalSpy spy2(&p, SIGNAL(transformed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
+    QSignalSpy transformed(&p, SIGNAL(transformed()));
 
     p.scale(-1);
 
-    QCOMPARE(spy.count(), 1);
-    QCOMPARE(spy2.count(), 1);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(transformed.count(), 1);
 }
 
 void TestPage::testSetFlag() {
     Page p("");
-    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
 
     p.setFlag(Page::SAVED);
 
     QVERIFY(p.hasFlag(Page::SAVED));
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
 }
 
 void TestPage::testSetFlags() {
     Page p("");
-    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
 
     p.setFlags(Page::SAVED | Page::RECOGNIZED);
 
     QVERIFY(p.hasFlag(Page::SAVED));
     QVERIFY(p.hasFlag(Page::RECOGNIZED));
     QCOMPARE(p.flags(), Page::SAVED | Page::RECOGNIZED);
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
 }
 
 void TestPage::testSetNumber() {
     Page p("");
-    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
 
     p.setNumber(10);
 
     QCOMPARE(p.number(), (unsigned int)10);
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
 
     // same number - signal not emmited
     p.setNumber(10);
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
 
     p.setNumber(11);
-    QCOMPARE(spy.count(), 2);
+    QCOMPARE(changed.count(), 2);
 }
 
 void TestPage::testSetOcrText() {
     Page p("");
     p.setFlag(Page::SAVED);
-    QSignalSpy spy(&p, SIGNAL(changed()));
-    QSignalSpy spy2(&p, SIGNAL(recognized()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
+    QSignalSpy recognized(&p, SIGNAL(recognized()));
 
     p.setOcrText("sample");
 
     QVERIFY(p.hasFlag(Page::RECOGNIZED));
     QVERIFY(!p.hasFlag(Page::SAVED));
     QCOMPARE(p.ocrText(), QString("sample"));
-    QCOMPARE(spy.count(), 1);
-    QCOMPARE(spy2.count(), 1);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(recognized.count(), 1);
 }
 
 void TestPage::testSetPageArea() {
@@ -238,18 +286,18 @@ void TestPage::testSetPageArea() {
     QRect r(10, 20, 400, 500);
     QCOMPARE(p.pageArea(), QRect());
 
-    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
 
     p.setPageArea(r);
 
     QCOMPARE(p.pageArea(), r);
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
 
     p.setPageArea(r);
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
 
     p.setPageArea(r.adjusted(10, 10, 10, 10));
-    QCOMPARE(spy.count(), 2);
+    QCOMPARE(changed.count(), 2);
 }
 
 void TestPage::testSetRecognitionSettings() {
@@ -258,19 +306,19 @@ void TestPage::testSetRecognitionSettings() {
     s.setFax(true);
     p.setFlag(Page::SAVED);
 
-    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
     p.setRecognitionSettings(s);
 
     QVERIFY(!p.hasFlag(Page::SAVED));
     QVERIFY(s == p.recognitionSettings());
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
 
     p.setRecognitionSettings(s);
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
 
     s.setOneColumn(true);
     p.setRecognitionSettings(s);
-    QCOMPARE(spy.count(), 2);
+    QCOMPARE(changed.count(), 2);
 
 
 }
@@ -285,14 +333,14 @@ void TestPage::testSetRects() {
     QVERIFY(p.rects(Page::PARAGRAPH).empty());
     QVERIFY(p.rects(Page::PICTURE).empty());
 
-    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
 
     Page::Rectangles rects;
     rects << QRect(0, 0, 10, 20);
     rects << QRect(1, 1, 2, 2);
 
     p.setRects(rects, Page::CHAR);
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
     QCOMPARE(p.rects(Page::CHAR).count(), 2);
     QCOMPARE(p.rects(Page::CHAR).at(0), QRect(0, 0, 10, 20));
     QCOMPARE(p.rects(Page::CHAR).at(1), QRect(1, 1, 2, 2));
@@ -304,7 +352,7 @@ void TestPage::testSetRects() {
 
     rects.removeLast();
     p.setRects(rects, Page::COLUMN);
-    QCOMPARE(spy.count(), 2);
+    QCOMPARE(changed.count(), 2);
     QCOMPARE(p.rects(Page::COLUMN).count(), 1);
     QCOMPARE(p.rects(Page::COLUMN).at(0), QRect(0, 0, 10, 20));
     QVERIFY(p.rects(Page::LINE).empty());
@@ -314,7 +362,7 @@ void TestPage::testSetRects() {
 
     rects.removeLast();
     p.setRects(rects, Page::LINE);
-    QCOMPARE(spy.count(), 3);
+    QCOMPARE(changed.count(), 3);
     QCOMPARE(p.rects(Page::LINE).count(), 0);
     QVERIFY(p.rects(Page::SECTION).empty());
     QVERIFY(p.rects(Page::PARAGRAPH).empty());
@@ -322,7 +370,7 @@ void TestPage::testSetRects() {
 
     rects << QRect(100, 100, 100, 100);
     p.setRects(rects, Page::SECTION);
-    QCOMPARE(spy.count(), 4);
+    QCOMPARE(changed.count(), 4);
     QCOMPARE(p.rects(Page::SECTION).count(), 1);
     QCOMPARE(p.rects(Page::SECTION).at(0), QRect(100, 100, 100, 100));
     QVERIFY(p.rects(Page::PARAGRAPH).empty());
@@ -330,7 +378,7 @@ void TestPage::testSetRects() {
 
     rects << QRect(20, 20, 20, 20);
     p.setRects(rects, Page::PARAGRAPH);
-    QCOMPARE(spy.count(), 5);
+    QCOMPARE(changed.count(), 5);
     QCOMPARE(p.rects(Page::PARAGRAPH).count(), 2);
     QCOMPARE(p.rects(Page::PARAGRAPH).at(0), QRect(100, 100, 100, 100));
     QCOMPARE(p.rects(Page::PARAGRAPH).at(1), QRect(20, 20, 20, 20));
@@ -338,7 +386,7 @@ void TestPage::testSetRects() {
 
     rects << QRect(30, 30, 30, 30);
     p.setRects(rects, Page::PICTURE);
-    QCOMPARE(spy.count(), 6);
+    QCOMPARE(changed.count(), 6);
     QCOMPARE(p.rects(Page::PICTURE).count(), 3);
     QCOMPARE(p.rects(Page::PICTURE).at(0), QRect(100, 100, 100, 100));
     QCOMPARE(p.rects(Page::PICTURE).at(1), QRect(20, 20, 20, 20));
@@ -349,22 +397,22 @@ void TestPage::testSetSelected() {
     Page p("");
     QVERIFY(!p.isSelected());
 
-    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
     p.setSelected(true);
 
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
     QVERIFY(p.isSelected());
 
     p.setSelected(true);
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
     QVERIFY(p.isSelected());
 
     p.setSelected(false);
-    QCOMPARE(spy.count(), 2);
+    QCOMPARE(changed.count(), 2);
     QVERIFY(!p.isSelected());
 
     p.setSelected(false);
-    QCOMPARE(spy.count(), 2);
+    QCOMPARE(changed.count(), 2);
 }
 
 void TestPage::testSetTransform() {
@@ -372,29 +420,29 @@ void TestPage::testSetTransform() {
     QCOMPARE(p.transform(), QTransform());
 
     QTransform t;
-    QSignalSpy spy(&p, SIGNAL(changed()));
-    QSignalSpy spy2(&p, SIGNAL(transformed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
+    QSignalSpy transformed(&p, SIGNAL(transformed()));
 
     p.setTransform(t);
-    QCOMPARE(spy.count(), 0);
-    QCOMPARE(spy2.count(), 0);
+    QCOMPARE(changed.count(), 0);
+    QCOMPARE(transformed.count(), 0);
 
     t.rotate(90);
     p.setTransform(t);
     QCOMPARE(p.transform(), t);
     QCOMPARE(p.angle(), 90);
-    QCOMPARE(spy.count(), 1);
-    QCOMPARE(spy2.count(), 1);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(transformed.count(), 1);
 }
 
 void TestPage::testSetViewScroll() {
     Page p("");
     QCOMPARE(p.viewScroll(), QPoint());
-    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
 
     p.setViewScroll(QPoint(10, 20));
     // no signals
-    QCOMPARE(spy.count(), 0);
+    QCOMPARE(changed.count(), 0);
     QCOMPARE(p.viewScroll(), QPoint(10, 20));
 }
 
@@ -402,16 +450,16 @@ void TestPage::testUnsetFlag() {
     Page p("");
     p.setFlags(Page::SAVED | Page::RECOGNIZED);
 
-    QSignalSpy spy(&p, SIGNAL(changed()));
+    QSignalSpy changed(&p, SIGNAL(changed()));
     p.unsetFlag(Page::SAVED);
     QVERIFY(!p.hasFlag(Page::SAVED));
-    QCOMPARE(spy.count(), 1);
+    QCOMPARE(changed.count(), 1);
     p.unsetFlag(Page::RECOGNIZED);
-    QCOMPARE(spy.count(), 2);
+    QCOMPARE(changed.count(), 2);
     QVERIFY(!p.hasFlag(Page::RECOGNIZED));
 
     p.unsetFlag(Page::SAVING_FAILED);
-    QCOMPARE(spy.count(), 2);
+    QCOMPARE(changed.count(), 2);
 }
 
 void TestPage::testReadWrite() {
@@ -421,6 +469,7 @@ void TestPage::testReadWrite() {
     QString t("sample text");
     QRect r(20, 30, 40, 50);
     QTransform tr;
+    QString fname("page.tmp");
     tr.rotate(90);
     p.setNumber(n);
     p.setViewScroll(pt);
@@ -439,7 +488,7 @@ void TestPage::testReadWrite() {
     p.setRects(rects, Page::PICTURE);
 
     {
-        QFile file("test_page.tmp");
+        QFile file(fname);
         file.open(QIODevice::WriteOnly);
         QDataStream out(&file);
         out << p;
@@ -447,7 +496,7 @@ void TestPage::testReadWrite() {
 
     {
         Page p2("");
-        QFile file("test_page.tmp");
+        QFile file(fname);
         file.open(QIODevice::ReadOnly);
         QDataStream in(&file);
         in >> p2;
@@ -469,6 +518,52 @@ void TestPage::testReadWrite() {
         QCOMPARE(p.viewScroll(), p2.viewScroll());
         QCOMPARE(p.rects(Page::CHAR).count(), p2.rects(Page::CHAR).count());
         QCOMPARE(p.rects(Page::PICTURE).count(), p2.rects(Page::PICTURE).count());
+    }
+
+    QFile f(fname);
+    f.remove();
+}
+
+void TestPage::testSave() {
+    Page p("");
+    QSignalSpy changed(&p, SIGNAL(changed()));
+    QSignalSpy saved(&p, SIGNAL(saved()));
+    QString fname("test_page.txt");
+
+    {
+        QFile f(fname);
+        if(f.exists())
+            f.remove();
+    }
+
+    QVERIFY_THROW(p.save(fname), Page::Exception);
+    QCOMPARE(changed.count(), 0);
+    QCOMPARE(saved.count(), 0);
+    QVERIFY(!p.hasFlag(Page::SAVED));
+    QVERIFY(!p.hasFlag(Page::SAVING_FAILED));
+
+    // save 1st time
+    p.setOcrText("sample text"); // +1 changed() signal
+    p.save(fname);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(saved.count(), 1);
+    CHECK_SMALL_FILE(fname, "sample text");
+    QVERIFY(p.hasFlag(Page::SAVED));
+    QVERIFY(!p.hasFlag(Page::SAVING_FAILED));
+
+    QFile f(fname);
+    f.setPermissions(0);
+
+    QVERIFY_THROW(p.save(fname), Page::Exception);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(saved.count(), 1);
+    QVERIFY(!p.hasFlag(Page::SAVED));
+    QVERIFY(p.hasFlag(Page::SAVING_FAILED));
+
+    {
+        QFile f(fname);
+        if(f.exists())
+            f.remove();
     }
 }
 

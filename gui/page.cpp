@@ -16,16 +16,12 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtGui/QPen>
-#include <QtGui/QPainter>
-#include <QtCore/QDebug>
-#include <QtGui/QGraphicsScene>
-#include <QtGui/QGraphicsItem>
-#include <QMessageBox>
+#include <QDebug>
 #include <QFile>
 #include <QFileInfo>
 #include <QDataStream>
 #include <QMutexLocker>
+#include <QPixmap>
 
 #include "page.h"
 #include "imagecache.h"
@@ -157,29 +153,11 @@ void Page::save(const QString& file) {
 
     QFile output(file);
 
-    if(output.exists()) {
-        int ret = QMessageBox::question(NULL,
-                                        tr("Quneiform OCR"),
-                                        tr("File already exists. Overwrite?"),
-                                        QMessageBox::Yes | QMessageBox::No,
-                                        QMessageBox::Yes);
-        switch(ret) {
-        case QMessageBox::No:
-            qDebug() << "[Page::save] canceled for" << file;
-            return;
-        case QMessageBox::Yes:
-        default:
-            qDebug() << "[Page::save] overwriting" << file;
-            break;
-        }
-    }
-
     if(!output.open(QIODevice::WriteOnly)) {
-        QMessageBox::critical(NULL,
-                              tr("Quneiform OCR"),
-                              tr("Saved failed. Can't open file \"%1\" for writing.").arg(file));
-        setFlag(SAVING_FAILED);
-        return;
+        state_flags_ |= SAVING_FAILED;
+        state_flags_ &= (~SAVED);
+
+        throw Exception(tr("Saved failed. Can't open file \"%1\" for writing.").arg(file));
     }
 
     output.write(ocr_text_.toLocal8Bit());
@@ -187,8 +165,8 @@ void Page::save(const QString& file) {
 
     qDebug() << "[Page::save] saved" << file;
 
-    setFlag(SAVED);
-    unsetFlag(SAVING_FAILED);
+    state_flags_ |= SAVED;
+    state_flags_ &= (~SAVING_FAILED);
     emit saved();
 }
 

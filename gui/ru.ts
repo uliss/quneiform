@@ -376,11 +376,11 @@ Do you want to save it?</source>
     <name>Page</name>
     <message>
         <source>Quneiform OCR</source>
-        <translation>Quneiform OCR</translation>
+        <translation type="obsolete">Quneiform OCR</translation>
     </message>
     <message>
         <source>File already exists. Overwrite?</source>
-        <translation>Файл уже существует. Перезаписать?</translation>
+        <translation type="obsolete">Файл уже существует. Перезаписать?</translation>
     </message>
     <message>
         <source>Saved failed. Can&apos;t open file &quot;%1&quot; for writing.</source>

@@ -407,7 +407,14 @@ void MainWindow::savePage(Page * page) {
     if(filename.isEmpty())
         return;
 
-    page->save(filename);
+    try {
+        page->save(filename);
+    }
+    catch(Page::Exception& e) {
+        QMessageBox::warning(this,
+                             tr("Quneiform OCR"),
+                             e.message());
+    }
 }
 
 void MainWindow::selectLanguage(int lang) {

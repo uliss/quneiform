@@ -141,6 +141,7 @@ public  slots:
     void removeSelected();
 private slots:
     void pageChange();
+    void pageSave();
 private:
     PageList pages_;
     QString filename_;

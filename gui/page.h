@@ -48,7 +48,15 @@ public:
 
     Q_DECLARE_FLAGS(PageFlags, PageFlag);
 
-    typedef std::runtime_error Exception;
+    class Exception {
+        QString msg_;
+    public:
+        Exception(const QString& msg) : msg_(msg) {}
+        QString message() const {
+            return msg_;
+        }
+    };
+
     typedef QList<QRect> Rectangles;
     typedef QList<Rectangles> RectList;
 

@@ -27,6 +27,10 @@ class TestPage : public QObject
     Q_OBJECT
 public:
     explicit TestPage(QObject *parent = 0);
+public slots:
+    void callTimerSlot(const char * member, int msec = 500);
+    void sendDialogAccept();
+    void sendDialogCancel();
 private slots:
     void testAngle();
     void testConstruct();
@@ -47,6 +51,7 @@ private slots:
     void testSetViewScroll();
     void testUnsetFlag();
     void testReadWrite();
+    void testSave();
 };
 
 #endif // TESTPAGE_H

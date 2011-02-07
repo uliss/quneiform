@@ -46,6 +46,7 @@ void Document::append(Page * page, bool allowDuplication) {
     pages_.append(page);
     page->setParent(this);
     connect(page, SIGNAL(changed()), SLOT(pageChange()));
+    connect(page, SIGNAL(saved()), SLOT(pageSave()));
     changed_ = true;
     emit pageAdded(page);
     emit changed();
@@ -133,6 +134,15 @@ void Document::pageChange() {
 
 int Document::pageCount() const {
     return pages_.count();
+}
+
+void Document::pageSave() {
+    foreach(Page * page, pages_) {
+        if (!page->isSaved())
+            return;
+    }
+
+    emit saved();
 }
 
 void Document::remove(Page * page) {
