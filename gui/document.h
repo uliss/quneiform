@@ -77,23 +77,27 @@ public:
 
     /**
       * Returns document language
+      * @see setLanguage()
       */
     int language() const;
 
     /**
       * Opens document from filename
       * current document replaced by new one
+      * @return true if document opened with success
       */
     bool open(const QString& filename);
 
     /**
       * Returns page at given position
       * @return NULL if page not found
+      * @see pageCount()
       */
     Page * page(int index);
 
     /**
       * Returns number of pages in document
+      * @see page()
       */
     int pageCount() const;
 
@@ -105,6 +109,7 @@ public:
 
     /**
       * Sets document language
+      * @see language()
       */
     void setLanguage(int lang);
 signals:

@@ -29,10 +29,15 @@ public:
     explicit TestDocument(QObject *parent = 0);
 private slots:
     void testConstruct();
+    void testPageSignals();
     void testAppend();
     void testClear();
     void testCountSelected();
     void testHasPage();
+    void testLanguage();
+    void testOpen();
+    void testPage();
+    void testSave();
 };
 
 #endif // TESTDOCUMENT_H

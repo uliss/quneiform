@@ -18,6 +18,8 @@
 
 #include <QTest>
 #include <QSignalSpy>
+#include <QFile>
+#include <QFileInfo>
 #include "testdocument.h"
 #include "gui/document.h"
 #include "gui/page.h"
@@ -33,6 +35,47 @@ void TestDocument::testConstruct() {
     QCOMPARE(doc.language(), -1);
     QVERIFY(!doc.isChanged());
     QVERIFY(doc.isNew());
+}
+
+void TestDocument::testPageSignals() {
+    Document doc;
+    doc.append(new Page("page 1"));
+    doc.append(new Page("page 2"));
+
+    QSignalSpy changed(&doc, SIGNAL(changed()));
+
+    doc.page(0)->setSelected(true);
+    QCOMPARE(changed.count(), 1);
+    QVERIFY(doc.isChanged());
+    // not repeated
+    doc.page(0)->setSelected(true);
+    QCOMPARE(changed.count(), 1);
+
+    doc.page(0)->setSelected(false);
+    QCOMPARE(changed.count(), 2);
+
+    doc.page(1)->setNumber(2);
+    QCOMPARE(changed.count(), 3);
+
+    doc.page(1)->setOcrText("test");
+    QCOMPARE(changed.count(), 4);
+
+    doc.page(0)->setPageArea(QRect(10, 10, 30, 40));
+    QCOMPARE(changed.count(), 5);
+
+    // no change
+    doc.page(0)->setViewScroll(QPoint(10, 20));
+    QCOMPARE(changed.count(), 5);
+
+    Page::Rectangles r;
+    doc.page(1)->setRects(r, Page::CHAR);
+    QCOMPARE(changed.count(), 6);
+
+    RecognitionSettings s;
+    s.setDotMatrix(true);
+
+    doc.page(0)->setRecognitionSettings(s);
+    QCOMPARE(changed.count(), 7);
 }
 
 void TestDocument::testAppend() {
@@ -128,6 +171,44 @@ void TestDocument::testHasPage() {
     doc.append(new Page("foo"));
     QVERIFY(doc.hasPage(""));
     QVERIFY(doc.hasPage("foo"));
+}
+
+void TestDocument::testLanguage() {
+    Document doc;
+    QSignalSpy changed(&doc, SIGNAL(changed()));
+    QCOMPARE(doc.language(), -1);
+
+    doc.setLanguage(1);
+    QCOMPARE(doc.language(), 1);
+    QCOMPARE(changed.count(), 1);
+}
+
+void TestDocument::testOpen() {
+    Document doc;
+    QVERIFY(!doc.open("unknown file"));
+}
+
+void TestDocument::testPage() {
+    Document doc;
+    QCOMPARE(doc.page(0), (Page*)0);
+    QCOMPARE(doc.page(1), (Page*)0);
+
+    doc.append(new Page(""));
+    QVERIFY(doc.page(0) != 0);
+    QCOMPARE(doc.page(1), (Page*)0);
+}
+
+void TestDocument::testSave() {
+    Document doc;
+    QString fname("doc.test");
+    doc.save(fname);
+
+    QFileInfo fi(fname);
+    QVERIFY(fi.exists());
+    QVERIFY(fi.size() > 0);
+
+    QFile f(fname);
+    f.remove(fname);
 }
 
 QTEST_MAIN(TestDocument)

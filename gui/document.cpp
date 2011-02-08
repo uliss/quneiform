@@ -178,7 +178,7 @@ void Document::removeSelected() {
     }
 }
 
-bool Document::save(const QString &filename) {
+bool Document::save(const QString& filename) {
     qDebug() << "[Document::save]" << filename;
 
     QFile packet(filename);
@@ -206,6 +206,7 @@ bool Document::save(const QString &filename) {
 void Document::setLanguage(int lang) {
     // TODO check
     language_ = lang;
+    emit changed();
 }
 
 QDataStream& operator<<(QDataStream& os, const Document& doc) {
