@@ -55,7 +55,7 @@ public:
 
     /**
       * Returns document filename
-      * if document is not saved returns empty string
+      * if document is not saved returns default filename: "untitled.qfp"
       */
     QString fileName() const;
 

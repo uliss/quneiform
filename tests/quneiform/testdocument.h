@@ -31,6 +31,8 @@ private slots:
     void testConstruct();
     void testAppend();
     void testClear();
+    void testCountSelected();
+    void testHasPage();
 };
 
 #endif // TESTDOCUMENT_H

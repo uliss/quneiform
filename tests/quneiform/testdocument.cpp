@@ -91,4 +91,43 @@ void TestDocument::testClear() {
     QCOMPARE(page_removed.count(), 2);
 }
 
+void TestDocument::testCountSelected() {
+    Document doc;
+    QCOMPARE(doc.countSelected(), 0);
+
+    doc.append(new Page(""));
+    QCOMPARE(doc.countSelected(), 0);
+
+    doc.page(0)->setSelected(true);
+    QCOMPARE(doc.countSelected(), 1);
+
+    doc.append(new Page("path"));
+    QCOMPARE(doc.countSelected(), 1);
+    doc.page(1)->setSelected(true);
+    QCOMPARE(doc.countSelected(), 2);
+
+    doc.page(0)->setSelected(false);
+    QCOMPARE(doc.countSelected(), 1);
+
+    doc.page(1)->setSelected(false);
+    QCOMPARE(doc.countSelected(), 0);
+}
+
+void TestDocument::testHasPage() {
+    Document doc;
+    QVERIFY(!doc.hasPage(""));
+
+    doc.append(new Page(""));
+    QVERIFY(doc.hasPage(""));
+    QVERIFY(!doc.hasPage("foo"));
+
+    doc.append(new Page(""), true);
+    QVERIFY(doc.hasPage(""));
+    QVERIFY(!doc.hasPage("foo"));
+
+    doc.append(new Page("foo"));
+    QVERIFY(doc.hasPage(""));
+    QVERIFY(doc.hasPage("foo"));
+}
+
 QTEST_MAIN(TestDocument)
