@@ -35,6 +35,8 @@ public:
 
     /**
       * Appends page
+      * @param allowDuplication if true - emit imageDuplicated and do nothing
+      * emits pageAdded() and changed() signals
       */
     void append(Page * page, bool allowDuplication = false);
 
