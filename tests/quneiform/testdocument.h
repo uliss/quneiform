@@ -29,7 +29,7 @@ public:
     explicit TestDocument(QObject *parent = 0);
 private slots:
     void testConstruct();
-
+    void testAppend();
 };
 
 #endif // TESTDOCUMENT_H

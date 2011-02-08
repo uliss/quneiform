@@ -17,8 +17,10 @@
  ***************************************************************************/
 
 #include <QTest>
+#include <QSignalSpy>
 #include "testdocument.h"
 #include "gui/document.h"
+#include "gui/page.h"
 
 TestDocument::TestDocument(QObject *parent) :
     QObject(parent)
@@ -31,6 +33,15 @@ void TestDocument::testConstruct() {
     QCOMPARE(doc.language(), -1);
     QVERIFY(!doc.isChanged());
     QVERIFY(doc.isNew());
+}
+
+void TestDocument::testAppend() {
+    Document doc;
+    QSignalSpy changed(&doc, SIGNAL(changed()));
+
+    doc.append(new Page(""));
+
+    QCOMPARE(changed.count(), 1);
 }
 
 QTEST_MAIN(TestDocument)
