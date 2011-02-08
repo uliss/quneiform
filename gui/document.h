@@ -36,12 +36,14 @@ public:
     /**
       * Appends page
       * @param allowDuplication if true - emit imageDuplicated and do nothing
-      * emits pageAdded() and changed() signals
+      * emits pageAdded(Page*) and changed() signals
       */
     void append(Page * page, bool allowDuplication = false);
 
     /**
       * Clears document. Removes all pages
+      * emits pageRemoved(Page*) when each page removed
+      * and changed if at least one page was removed
       * @see remove(), removeSelected()
       */
     void clear();

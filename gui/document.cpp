@@ -36,6 +36,11 @@ Document::~Document() {
 }
 
 void Document::append(Page * page, bool allowDuplication) {
+    if(!page) {
+        qDebug() << "[Document::append] NULL page pointer given";
+        return;
+    }
+
     if(!allowDuplication) {
         if(hasPage(page->imagePath())) {
             emit imageDuplicated(page->imagePath());
@@ -54,6 +59,13 @@ void Document::append(Page * page, bool allowDuplication) {
 }
 
 void Document::clear() {
+    bool has_pages = false;
+
+    if(!pages_.isEmpty()) {
+        changed_ = true;
+        has_pages = true;
+    }
+
     for(int i = 0; i < pages_.count(); i++) {
         Page * p = pages_.at(i);
         emit pageRemoved(p);
@@ -61,6 +73,9 @@ void Document::clear() {
     }
 
     pages_.clear();
+
+    if(has_pages)
+        emit changed();
 }
 
 int Document::countSelected() const {

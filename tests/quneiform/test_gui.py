@@ -34,7 +34,7 @@ for file in "@CF_GUI_TESTS@".split(';'):
         success += 1
 
 if failed > 0:
-    print "Summary: %sFAIL%s - not all tests passed" % (bcolor.FAIL, bcolor.END)
+    print "Summary: %sFAIL%s - %i tests failed" % (bcolor.FAIL, bcolor.END, failed)
     sys.exit(1)
 else:
     print "Summary: %sOK%s - all tests passed" % (bcolor.OK, bcolor.END)

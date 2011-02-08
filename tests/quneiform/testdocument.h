@@ -30,6 +30,7 @@ public:
 private slots:
     void testConstruct();
     void testAppend();
+    void testClear();
 };
 
 #endif // TESTDOCUMENT_H

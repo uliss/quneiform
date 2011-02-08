@@ -38,10 +38,57 @@ void TestDocument::testConstruct() {
 void TestDocument::testAppend() {
     Document doc;
     QSignalSpy changed(&doc, SIGNAL(changed()));
+    QSignalSpy page_added(&doc, SIGNAL(pageAdded(Page*)));
+    QSignalSpy image_duplication(&doc, SIGNAL(imageDuplicated(QString)));
 
     doc.append(new Page(""));
 
     QCOMPARE(changed.count(), 1);
+    QCOMPARE(page_added.count(), 1);
+    QVERIFY(doc.isChanged());
+    QCOMPARE(doc.pageCount(), 1);
+    QVERIFY(doc.page(0)->parent() == &doc);
+    QCOMPARE(image_duplication.count(), 0);
+
+    doc.append(NULL);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(page_added.count(), 1);
+    QCOMPARE(doc.pageCount(), 1);
+    QCOMPARE(image_duplication.count(), 0);
+
+    // duplication
+    doc.append(new Page(""));
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(page_added.count(), 1);
+    QCOMPARE(doc.pageCount(), 1);
+    QCOMPARE(image_duplication.count(), 1);
+
+    // allow duplication
+    doc.append(new Page(""), true);
+    QCOMPARE(changed.count(), 2);
+    QCOMPARE(page_added.count(), 2);
+    QVERIFY(doc.isChanged());
+    QCOMPARE(doc.pageCount(), 2);
+    QVERIFY(doc.page(1)->parent() == &doc);
+    QCOMPARE(image_duplication.count(), 1);
+}
+
+void TestDocument::testClear() {
+    Document doc;
+    QSignalSpy changed(&doc, SIGNAL(changed()));
+    QSignalSpy page_removed(&doc, SIGNAL(pageRemoved(Page*)));
+
+    doc.clear();
+    QCOMPARE(changed.count(), 0);
+    QCOMPARE(page_removed.count(), 0);
+
+    doc.append(new Page("path 1")); // +1 changed
+    doc.append(new Page("path 2")); // +1 changed
+
+    doc.clear();
+    QCOMPARE(doc.pageCount(), 0);
+    QCOMPARE(changed.count(), 3);
+    QCOMPARE(page_removed.count(), 2);
 }
 
 QTEST_MAIN(TestDocument)
