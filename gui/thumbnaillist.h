@@ -25,7 +25,7 @@
 class QVBoxLayout;
 class QMenu;
 
-class Document;
+class Packet;
 class Page;
 class ThumbnailWidget;
 
@@ -60,7 +60,7 @@ public:
     /**
          * Sets corresponding document for thumbnail list
          */
-    void setDocument(Document * doc);
+    void setDocument(Packet * doc);
 
     /**
          * Returns thumbnail that correspondents to given page
@@ -101,7 +101,7 @@ private slots:
     void revertSelection();
     void thumbClick();
 private:
-    Document * document_;
+    Packet * document_;
     QVBoxLayout * layout_;
     ThumbList thumbs_;
     Page * current_page_;

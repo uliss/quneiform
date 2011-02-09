@@ -22,7 +22,7 @@
 #include "pagerecognitionqueue.h"
 #include "pagerecognizer.h"
 #include "page.h"
-#include "document.h"
+#include "packet.h"
 #include "recognitionprogressdialog.h"
 #include "quneiform_debug.h"
 
@@ -33,7 +33,7 @@ PageRecognitionQueue::PageRecognitionQueue(QObject * parent) :
     setupPageRecognizer();
 }
 
-void PageRecognitionQueue::add(Document * doc) {
+void PageRecognitionQueue::add(Packet * doc) {
     Q_CHECK_PTR(doc);
 
     for(int i = 0; i < doc->pageCount(); i++)

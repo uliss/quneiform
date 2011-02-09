@@ -25,7 +25,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class Document;
+class Packet;
 class LanguageMenu;
 class LanguageSelect;
 class Page;
@@ -98,7 +98,7 @@ private:
     void writeSettings();
 private:
     Ui::MainWindow * ui_;
-    Document * doc_;
+    Packet * doc_;
     LanguageSelect * lang_select_;
     LanguageMenu * lang_menu_;
     QProgressDialog * progress_;

@@ -18,12 +18,12 @@
 
 #include <QDebug>
 #include <QFile>
-#include "document.h"
+#include "packet.h"
 #include "page.h"
 
 static const QString DEFAULT_NAME = "untitled.qpf";
 
-Document::Document(QObject * parent) :
+Packet::Packet(QObject * parent) :
         QObject(parent),
         filename_(DEFAULT_NAME),
         language_(-1),
@@ -31,13 +31,13 @@ Document::Document(QObject * parent) :
         is_new_(true) {
 }
 
-Document::~Document() {
+Packet::~Packet() {
 
 }
 
-void Document::append(Page * page, bool allowDuplication) {
+void Packet::append(Page * page, bool allowDuplication) {
     if(!page) {
-        qDebug() << "[Document::append] NULL page pointer given";
+        qDebug() << "[Packet::append] NULL page pointer given";
         return;
     }
 
@@ -55,10 +55,10 @@ void Document::append(Page * page, bool allowDuplication) {
     changed_ = true;
     emit pageAdded(page);
     emit changed();
-    qDebug() << "[Document::append()]";
+    qDebug() << "[Packet::append()]";
 }
 
-void Document::clear() {
+void Packet::clear() {
     bool has_pages = false;
 
     if(!pages_.isEmpty()) {
@@ -78,7 +78,7 @@ void Document::clear() {
         emit changed();
 }
 
-int Document::countSelected() const {
+int Packet::countSelected() const {
     int res = 0;
     foreach(Page * page, pages_){
         if (page->isSelected())
@@ -87,11 +87,11 @@ int Document::countSelected() const {
     return res;
 }
 
-QString Document::fileName() const {
+QString Packet::fileName() const {
     return filename_;
 }
 
-bool Document::hasPage(const QString& path) const {
+bool Packet::hasPage(const QString& path) const {
     for (PageList::const_iterator it = pages_.begin(); it != pages_.end(); ++it) {
         if ((*it)->imagePath() == path)
             return true;
@@ -99,20 +99,20 @@ bool Document::hasPage(const QString& path) const {
     return false;
 }
 
-bool Document::isChanged() const {
+bool Packet::isChanged() const {
     return changed_;
 }
 
-bool Document::isNew() const {
+bool Packet::isNew() const {
     return is_new_;
 }
 
-int Document::language() const {
+int Packet::language() const {
     return language_;
 }
 
-bool Document::open(const QString& filename) {
-    qDebug() << "[Document::open]" << filename;
+bool Packet::open(const QString& filename) {
+    qDebug() << "[Packet::open]" << filename;
 
     QFile file(filename);
     if(file.open(QIODevice::ReadOnly)) {
@@ -121,7 +121,7 @@ bool Document::open(const QString& filename) {
         clear();
         stream >> *this;
         if(stream.status() != QDataStream::Ok) {
-            qDebug() << "[Document::open] read error" << filename;
+            qDebug() << "[Packet::open] read error" << filename;
             return false;
         }
     }
@@ -135,23 +135,23 @@ bool Document::open(const QString& filename) {
     return true;
 }
 
-Page * Document::page(int index) {
+Page * Packet::page(int index) {
     if (0 <= index && index < pages_.size())
         return pages_.at(index);
     else
         return 0;
 }
 
-void Document::pageChange() {
+void Packet::pageChange() {
     changed_ = true;
     emit changed();
 }
 
-int Document::pageCount() const {
+int Packet::pageCount() const {
     return pages_.count();
 }
 
-void Document::pageSave() {
+void Packet::pageSave() {
     foreach(Page * page, pages_) {
         if (!page->isSaved())
             return;
@@ -160,7 +160,7 @@ void Document::pageSave() {
     emit saved();
 }
 
-void Document::remove(Page * page) {
+void Packet::remove(Page * page) {
     if (pages_.indexOf(page) < 0)
         return;
 
@@ -168,18 +168,18 @@ void Document::remove(Page * page) {
     pages_.removeAll(page);
     delete page;
     pageChange();
-    qDebug() << "[Document::remove()]";
+    qDebug() << "[Packet::remove()]";
 }
 
-void Document::removeSelected() {
+void Packet::removeSelected() {
     foreach(Page * page, pages_) {
         if (page->isSelected())
             remove(page);
     }
 }
 
-bool Document::save(const QString& filename) {
-    qDebug() << "[Document::save]" << filename;
+bool Packet::save(const QString& filename) {
+    qDebug() << "[Packet::save]" << filename;
 
     QFile packet(filename);
 
@@ -188,7 +188,7 @@ bool Document::save(const QString& filename) {
         stream.setVersion(QDataStream::Qt_4_5);
         stream << *this;
         if(stream.status() != QDataStream::Ok) {
-            qDebug() << "[Document::save] write error to file:" << filename;
+            qDebug() << "[Packet::save] write error to file:" << filename;
             return false;
         }
     }
@@ -203,23 +203,23 @@ bool Document::save(const QString& filename) {
     return true;
 }
 
-void Document::setLanguage(int lang) {
+void Packet::setLanguage(int lang) {
     // TODO check
     language_ = lang;
     emit changed();
 }
 
-QDataStream& operator<<(QDataStream& os, const Document& doc) {
-    os << doc.pageCount();
-    foreach(Page * p, doc.pages_) {
+QDataStream& operator<<(QDataStream& os, const Packet& packet) {
+    os << packet.pageCount();
+    foreach(Page * p, packet.pages_) {
         os << *p;
     }
 
-    os << doc.language_;
+    os << packet.language_;
     return os;
 }
 
-QDataStream& operator>>(QDataStream& is, Document& doc) {
+QDataStream& operator>>(QDataStream& is, Packet& packet) {
     int page_count;
     is >> page_count;
 
@@ -230,10 +230,10 @@ QDataStream& operator>>(QDataStream& is, Document& doc) {
         for(int i = 0; i < page_count; i++) {
             Page * p = new Page("");
             is >> *p;
-            doc.append(p, true);
+            packet.append(p, true);
         }
 
-        is >> doc.language_;
+        is >> packet.language_;
     }
 
     return is;

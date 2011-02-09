@@ -24,7 +24,7 @@
 #include <QQueue>
 #include <QMap>
 
-class Document;
+class Packet;
 class Page;
 class RecognitionProgressDialog;
 class PageRecognizer;
@@ -34,7 +34,7 @@ class PageRecognitionQueue : public QObject
     Q_OBJECT
 public:
     explicit PageRecognitionQueue(QObject * parent = 0);
-    void add(Document * doc);
+    void add(Packet * doc);
 
     /**
       * Adds page to recognition queue

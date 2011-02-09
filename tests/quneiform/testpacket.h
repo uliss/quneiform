@@ -17,16 +17,16 @@
  ***************************************************************************/
 
 
-#ifndef TESTDOCUMENT_H
-#define TESTDOCUMENT_H
+#ifndef TESTPACKET_H
+#define TESTPACKET_H
 
 #include <QObject>
 
-class TestDocument : public QObject
+class TestPacket : public QObject
 {
     Q_OBJECT
 public:
-    explicit TestDocument(QObject *parent = 0);
+    explicit TestPacket(QObject *parent = 0);
 private slots:
     void testConstruct();
     void testPageSignals();
@@ -43,4 +43,4 @@ private slots:
     void testReadWrite();
 };
 
-#endif // TESTDOCUMENT_H
+#endif // TESTPACKET_H

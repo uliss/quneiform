@@ -25,7 +25,7 @@
 #include <QDragEnterEvent>
 #include <QUrl>
 
-#include "document.h"
+#include "packet.h"
 #include "page.h"
 #include "thumbnaillist.h"
 #include "thumbnailwidget.h"
@@ -148,7 +148,7 @@ void ThumbnailList::selectAll() {
     }
 }
 
-void ThumbnailList::setDocument(Document * doc) {
+void ThumbnailList::setDocument(Packet * doc) {
     Q_CHECK_PTR(doc);
 
     document_ = doc;

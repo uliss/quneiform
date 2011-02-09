@@ -31,7 +31,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "document.h"
+#include "packet.h"
 #include "languagemenu.h"
 #include "languageselect.h"
 #include "page.h"
@@ -53,7 +53,7 @@ static const int MAX_RECENT_FILES = 5;
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         ui_(new Ui::MainWindow),
-        doc_(new Document(this)),
+        doc_(new Packet(this)),
         progress_(NULL),
         image_widget_(NULL) {
     setupUi();

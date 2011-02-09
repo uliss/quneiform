@@ -6,12 +6,12 @@ set(TRANSLATIONS_TS ru.ts)
 
 set(HEADERS 
     aboutdialog.h
-    document.h
     imageview.h
     imagewidget.h
     languagemenu.h
     languageselect.h
     mainwindow.h
+    packet.h
     page.h
     pageindicator.h
     pagerecognizer.h
@@ -28,7 +28,6 @@ set(HEADERS
 
 set(SOURCES 
     aboutdialog.cpp
-    document.cpp
     imagecache.cpp
     imageview.cpp
     imagewidget.cpp
@@ -36,6 +35,7 @@ set(SOURCES
     languagemenu.cpp
     languageselect.cpp
     mainwindow.cpp
+    packet.cpp
     page.cpp
     pageindicator.cpp
     pagelayout.cpp

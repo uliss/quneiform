@@ -7,9 +7,9 @@ include_directories(${QT_QTTEST_INCLUDE_DIR})
 include_directories("../..")
 
 set(CF_GUI_TESTS
-    document
     imagecache
     page
+    packet
 )
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_gui.py"

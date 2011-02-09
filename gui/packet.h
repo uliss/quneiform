@@ -16,22 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef DOCUMENT_H_
-#define DOCUMENT_H_
+#ifndef PACKET_H_
+#define PACKET_H_
 
-#include <QtCore/QList>
-#include <QtCore/QObject>
-
+#include <QList>
+#include <QObject>
 
 class Page;
 typedef QList<Page*> PageList;
 
-class Document: public QObject
+class Packet: public QObject
 {
     Q_OBJECT
 public:
-    Document(QObject * parent = 0);
-    ~Document();
+    Packet(QObject * parent = 0);
+    ~Packet();
 
     /**
       * Appends page
@@ -162,12 +161,12 @@ private:
     bool changed_;
     bool is_new_;
 public:
-    friend QDataStream& operator<<(QDataStream& stream, const Document& doc);
-    friend QDataStream& operator>>(QDataStream& stream, Document& doc);
+    friend QDataStream& operator<<(QDataStream& stream, const Packet& doc);
+    friend QDataStream& operator>>(QDataStream& stream, Packet& doc);
 };
 
-QDataStream& operator<<(QDataStream& stream, const Document& doc);
-QDataStream& operator>>(QDataStream& stream, Document& doc);
+QDataStream& operator<<(QDataStream& stream, const Packet& doc);
+QDataStream& operator>>(QDataStream& stream, Packet& doc);
 
 
-#endif /* DOCUMENT_H_ */
+#endif /* PACKET_H_ */
