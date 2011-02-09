@@ -37,7 +37,7 @@ void PageRecognitionQueue::add(Packet * doc) {
     Q_CHECK_PTR(doc);
 
     for(int i = 0; i < doc->pageCount(); i++)
-        add(doc->page(i));
+        add(doc->pageAt(i));
 }
 
 void PageRecognitionQueue::add(Page * p) {

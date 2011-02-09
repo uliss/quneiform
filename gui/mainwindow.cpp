@@ -310,7 +310,7 @@ void MainWindow::recognizeAll() {
     }
 
     for(int i = 0; i < doc_->pageCount(); i++) {
-        Page * p = doc_->page(i);
+        Page * p = doc_->pageAt(i);
         if(p->isSelected())
             recognition_queue_->add(p);
     }

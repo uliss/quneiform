@@ -44,37 +44,37 @@ void TestPacket::testPageSignals() {
 
     QSignalSpy changed(&packet, SIGNAL(changed()));
 
-    packet.page(0)->setSelected(true);
+    packet.pageAt(0)->setSelected(true);
     QCOMPARE(changed.count(), 1);
     QVERIFY(packet.isChanged());
     // not repeated
-    packet.page(0)->setSelected(true);
+    packet.pageAt(0)->setSelected(true);
     QCOMPARE(changed.count(), 1);
 
-    packet.page(0)->setSelected(false);
+    packet.pageAt(0)->setSelected(false);
     QCOMPARE(changed.count(), 2);
 
-    packet.page(1)->setNumber(2);
+    packet.pageAt(1)->setNumber(2);
     QCOMPARE(changed.count(), 3);
 
-    packet.page(1)->setOcrText("test");
+    packet.pageAt(1)->setOcrText("test");
     QCOMPARE(changed.count(), 4);
 
-    packet.page(0)->setPageArea(QRect(10, 10, 30, 40));
+    packet.pageAt(0)->setPageArea(QRect(10, 10, 30, 40));
     QCOMPARE(changed.count(), 5);
 
     // no change
-    packet.page(0)->setViewScroll(QPoint(10, 20));
+    packet.pageAt(0)->setViewScroll(QPoint(10, 20));
     QCOMPARE(changed.count(), 5);
 
     Page::Rectangles r;
-    packet.page(1)->setRects(r, Page::CHAR);
+    packet.pageAt(1)->setRects(r, Page::CHAR);
     QCOMPARE(changed.count(), 6);
 
     RecognitionSettings s;
     s.setDotMatrix(true);
 
-    packet.page(0)->setRecognitionSettings(s);
+    packet.pageAt(0)->setRecognitionSettings(s);
     QCOMPARE(changed.count(), 7);
 }
 
@@ -90,7 +90,7 @@ void TestPacket::testAppend() {
     QCOMPARE(page_added.count(), 1);
     QVERIFY(packet.isChanged());
     QCOMPARE(packet.pageCount(), 1);
-    QVERIFY(packet.page(0)->parent() == &packet);
+    QVERIFY(packet.pageAt(0)->parent() == &packet);
     QCOMPARE(image_duplication.count(), 0);
 
     packet.append(NULL);
@@ -112,7 +112,7 @@ void TestPacket::testAppend() {
     QCOMPARE(page_added.count(), 2);
     QVERIFY(packet.isChanged());
     QCOMPARE(packet.pageCount(), 2);
-    QVERIFY(packet.page(1)->parent() == &packet);
+    QVERIFY(packet.pageAt(1)->parent() == &packet);
     QCOMPARE(image_duplication.count(), 1);
 }
 
@@ -141,18 +141,18 @@ void TestPacket::testCountSelected() {
     packet.append(new Page(""));
     QCOMPARE(packet.countSelected(), 0);
 
-    packet.page(0)->setSelected(true);
+    packet.pageAt(0)->setSelected(true);
     QCOMPARE(packet.countSelected(), 1);
 
     packet.append(new Page("path"));
     QCOMPARE(packet.countSelected(), 1);
-    packet.page(1)->setSelected(true);
+    packet.pageAt(1)->setSelected(true);
     QCOMPARE(packet.countSelected(), 2);
 
-    packet.page(0)->setSelected(false);
+    packet.pageAt(0)->setSelected(false);
     QCOMPARE(packet.countSelected(), 1);
 
-    packet.page(1)->setSelected(false);
+    packet.pageAt(1)->setSelected(false);
     QCOMPARE(packet.countSelected(), 0);
 }
 
@@ -199,7 +199,7 @@ void TestPacket::testOpen() {
     QVERIFY(!packet2.isNew());
     QVERIFY(!packet2.isChanged());
     QCOMPARE(packet2.pageCount(), 1);
-    QCOMPARE(packet2.page(0)->imagePath(), QString("path 1"));
+    QCOMPARE(packet2.pageAt(0)->imagePath(), QString("path 1"));
 
     QFile f(fname);
     f.remove();
@@ -207,12 +207,12 @@ void TestPacket::testOpen() {
 
 void TestPacket::testPage() {
     Packet packet;
-    QCOMPARE(packet.page(0), (Page*)0);
-    QCOMPARE(packet.page(1), (Page*)0);
+    QCOMPARE(packet.pageAt(0), (Page*)0);
+    QCOMPARE(packet.pageAt(1), (Page*)0);
 
     packet.append(new Page(""));
-    QVERIFY(packet.page(0) != 0);
-    QCOMPARE(packet.page(1), (Page*)0);
+    QVERIFY(packet.pageAt(0) != 0);
+    QCOMPARE(packet.pageAt(1), (Page*)0);
 }
 
 void TestPacket::testSave() {

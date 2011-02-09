@@ -135,7 +135,7 @@ bool Packet::open(const QString& filename) {
     return true;
 }
 
-Page * Packet::page(int index) {
+Page * Packet::pageAt(int index) {
     if (0 <= index && index < pages_.size())
         return pages_.at(index);
     else

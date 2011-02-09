@@ -93,7 +93,7 @@ public:
       * @return NULL if page not found
       * @see pageCount()
       */
-    Page * page(int index);
+    Page * pageAt(int index);
 
     /**
       * Returns number of pages in document
