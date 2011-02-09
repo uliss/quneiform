@@ -40,7 +40,7 @@ public:
     void append(Page * page, bool allowDuplication = false);
 
     /**
-      * Clears document. Removes all pages
+      * Clears packet. Removes all pages
       * emits pageRemoved(Page*) when each page removed
       * and changed if at least one page was removed
       * @see remove(), removeSelected()
@@ -53,37 +53,37 @@ public:
     int countSelected() const;
 
     /**
-      * Returns document filename
+      * Returns packet filename
       * if document is not saved returns default filename: "untitled.qfp"
       */
     QString fileName() const;
 
     /**
-      * Checks if document contains page with given image file path
+      * Checks if packet contains page with given image file path
       * @return true if such page exists
       */
     bool hasPage(const QString& path) const;
 
     /**
-      * Returns true if document changed
+      * Returns true if packet changed
       */
     bool isChanged() const;
 
     /**
-      * Returns true if document is new and never was saved
+      * Returns true if packet is new and never was saved
       */
     bool isNew() const;
 
     /**
-      * Returns document language
+      * Returns packet language
       * @see setLanguage()
       */
     int language() const;
 
     /**
-      * Opens document from filename
+      * Opens packet from filename
       * current document replaced by new one
-      * @return true if document opened with success
+      * @return true if packet opened with success
       * @see save()
       */
     bool open(const QString& filename);
@@ -102,7 +102,7 @@ public:
     int pageCount() const;
 
     /**
-      * Saves document to file
+      * Saves packet to file
       * emits signal saved()
       * @return true on success, false on saving error
       * @see open()
@@ -110,14 +110,14 @@ public:
     bool save(const QString& filename);
 
     /**
-      * Sets document language
+      * Sets packet language
       * emits signal changed()
       * @see language()
       */
     void setLanguage(int lang);
 signals:
     /**
-      * Emitted when document changed
+      * Emitted when packet changed
       */
     void changed();
 
@@ -137,7 +137,7 @@ signals:
     void pageRemoved(Page * page);
 
     /**
-      * Emitted when document saved
+      * Emitted when packet saved
       */
     void saved();
 public  slots:
