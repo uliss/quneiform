@@ -408,7 +408,7 @@ void MainWindow::savePage(Page * page) {
         return;
 
     try {
-        page->save(filename);
+        page->exportTo(filename);
     }
     catch(Page::Exception& e) {
         QMessageBox::warning(this,

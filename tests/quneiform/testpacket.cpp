@@ -326,6 +326,7 @@ void TestPacket::testReadWrite() {
         QCOMPARE(packet.fileName(), packet2.fileName());
         QCOMPARE(packet.pageCount(), packet2.pageCount());
         QCOMPARE(packet.language(), packet2.language());
+        QCOMPARE(packet2.pageAt(0)->imagePath(), QString("test"));
     }
 }
 

@@ -93,7 +93,7 @@ bool Page::isRecognized() const {
 }
 
 bool Page::isSaved() const {
-    return state_flags_ & SAVED;
+    return state_flags_ & EXPORTED;
 }
 
 bool Page::isSelected() const {
@@ -145,7 +145,7 @@ void Page::rotate(int angle) {
     emit rotated(angle);
 }
 
-void Page::save(const QString& file) {
+void Page::exportTo(const QString& file) {
     QMutexLocker lock(&mutex_);
 
     if (!isRecognized())
@@ -154,8 +154,8 @@ void Page::save(const QString& file) {
     QFile output(file);
 
     if(!output.open(QIODevice::WriteOnly)) {
-        state_flags_ |= SAVING_FAILED;
-        state_flags_ &= (~SAVED);
+        state_flags_ |= EXPORT_FAILED;
+        state_flags_ &= (~EXPORTED);
 
         throw Exception(tr("Saved failed. Can't open file \"%1\" for writing.").arg(file));
     }
@@ -165,9 +165,9 @@ void Page::save(const QString& file) {
 
     qDebug() << "[Page::save] saved" << file;
 
-    state_flags_ |= SAVED;
-    state_flags_ &= (~SAVING_FAILED);
-    emit saved();
+    state_flags_ |= EXPORTED;
+    state_flags_ &= (~EXPORT_FAILED);
+    emit exported();
 }
 
 void Page::scale(qreal factor) {
@@ -204,7 +204,7 @@ void Page::setOcrText(const QString& text) {
     ocr_text_ = text;
 
     state_flags_ |= RECOGNIZED;
-    state_flags_ &= ~SAVED;
+    state_flags_ &= ~EXPORTED;
 
     emit changed();
     emit recognized();
@@ -227,7 +227,7 @@ void Page::setRecognitionSettings(const RecognitionSettings& opts) {
         return;
 
     rec_settings_ = opts;
-    state_flags_ &= (~SAVED);
+    state_flags_ &= (~EXPORTED);
     emit changed();
 }
 

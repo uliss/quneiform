@@ -263,6 +263,6 @@ void ThumbnailWidget::toggleSelection() {
 void ThumbnailWidget::updatePageIndicators() {
     Q_CHECK_PTR(indicator_);
     indicator_->setRecognized(page_->isRecognized());
-    indicator_->setSaved(page_->hasFlag(Page::SAVED));
+    indicator_->setSaved(page_->hasFlag(Page::EXPORTED));
     indicator_->setWarning(page_->hasFlag(Page::RECOGNITION_FAILED));
 }

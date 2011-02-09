@@ -51,7 +51,6 @@ void Packet::append(Page * page, bool allowDuplication) {
     pages_.append(page);
     page->setParent(this);
     connect(page, SIGNAL(changed()), SLOT(pageChange()));
-    connect(page, SIGNAL(saved()), SLOT(pageSave()));
     changed_ = true;
     emit pageAdded(page);
     emit changed();
@@ -149,15 +148,6 @@ void Packet::pageChange() {
 
 int Packet::pageCount() const {
     return pages_.count();
-}
-
-void Packet::pageSave() {
-    foreach(Page * page, pages_) {
-        if (!page->isSaved())
-            return;
-    }
-
-    emit saved();
 }
 
 void Packet::remove(Page * page) {

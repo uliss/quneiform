@@ -42,8 +42,8 @@ public:
         NONE = 0,
         RECOGNIZED = 1,
         RECOGNITION_FAILED = (1 << 1),
-        SAVED = (1 << 2),
-        SAVING_FAILED = (1 << 3)
+        EXPORTED = (1 << 2),
+        EXPORT_FAILED = (1 << 3)
     };
 
     Q_DECLARE_FLAGS(PageFlags, PageFlag);
@@ -75,6 +75,13 @@ public:
       * @see rotate()
       */
     int angle() const;
+
+    /**
+      * Saves ocr result
+      * @throw Exception if page is not recognized
+      * Emits signal exported()
+      */
+    void exportTo(const QString& file);
 
     /**
       * Returns page state flags
@@ -166,13 +173,6 @@ public:
       * Emits signals changed() and rotated()
       */
     void rotate(int angle);
-
-    /**
-      * Saves ocr result
-      * @throw Exception if page is not recognized
-      * Emits signal saved()
-      */
-    void save(const QString& file);
 
     /**
       * Scales page
@@ -273,6 +273,13 @@ signals:
       * scale, angle, flags, selection etc.
       */
     void changed();
+
+    /**
+      * Emitted when page exported
+      * @see exportTo()
+      */
+    void exported();
+
     /**
       * Emmited when page is transformed
       */
@@ -287,11 +294,6 @@ signals:
       * Emmitted when page is rotated
       */
     void rotated(int angle);
-
-    /**
-      * Emitted when page saved
-      */
-    void saved();
 private:
     void initRects();
 private:

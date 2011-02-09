@@ -147,19 +147,19 @@ void TestPage::testFlags() {
     QVERIFY(p.flags() == Page::NONE);
     QVERIFY(!p.hasFlag(Page::RECOGNIZED));
     QVERIFY(!p.hasFlag(Page::RECOGNITION_FAILED));
-    QVERIFY(!p.hasFlag(Page::SAVED));
-    QVERIFY(!p.hasFlag(Page::SAVING_FAILED));
+    QVERIFY(!p.hasFlag(Page::EXPORTED));
+    QVERIFY(!p.hasFlag(Page::EXPORT_FAILED));
 
-    p.setFlags(Page::SAVED);
+    p.setFlags(Page::EXPORTED);
     QVERIFY(!p.hasFlag(Page::RECOGNIZED));
     QVERIFY(!p.hasFlag(Page::RECOGNITION_FAILED));
-    QVERIFY(p.hasFlag(Page::SAVED));
-    QVERIFY(!p.hasFlag(Page::SAVING_FAILED));
+    QVERIFY(p.hasFlag(Page::EXPORTED));
+    QVERIFY(!p.hasFlag(Page::EXPORT_FAILED));
 
     p.setFlag(Page::RECOGNIZED);
-    QVERIFY(p.flags() == Page::RECOGNIZED | Page::SAVED);
+    QVERIFY(p.flags() == Page::RECOGNIZED | Page::EXPORTED);
 
-    p.unsetFlag(Page::SAVED);
+    p.unsetFlag(Page::EXPORTED);
     QVERIFY(p.flags() == Page::RECOGNIZED);
     p.unsetFlag(Page::RECOGNIZED);
     QVERIFY(p.flags() == Page::NONE);
@@ -231,9 +231,9 @@ void TestPage::testSetFlag() {
     Page p("");
     QSignalSpy changed(&p, SIGNAL(changed()));
 
-    p.setFlag(Page::SAVED);
+    p.setFlag(Page::EXPORTED);
 
-    QVERIFY(p.hasFlag(Page::SAVED));
+    QVERIFY(p.hasFlag(Page::EXPORTED));
     QCOMPARE(changed.count(), 1);
 }
 
@@ -241,11 +241,11 @@ void TestPage::testSetFlags() {
     Page p("");
     QSignalSpy changed(&p, SIGNAL(changed()));
 
-    p.setFlags(Page::SAVED | Page::RECOGNIZED);
+    p.setFlags(Page::EXPORTED | Page::RECOGNIZED);
 
-    QVERIFY(p.hasFlag(Page::SAVED));
+    QVERIFY(p.hasFlag(Page::EXPORTED));
     QVERIFY(p.hasFlag(Page::RECOGNIZED));
-    QCOMPARE(p.flags(), Page::SAVED | Page::RECOGNIZED);
+    QCOMPARE(p.flags(), Page::EXPORTED | Page::RECOGNIZED);
     QCOMPARE(changed.count(), 1);
 }
 
@@ -268,14 +268,14 @@ void TestPage::testSetNumber() {
 
 void TestPage::testSetOcrText() {
     Page p("");
-    p.setFlag(Page::SAVED);
+    p.setFlag(Page::EXPORTED);
     QSignalSpy changed(&p, SIGNAL(changed()));
     QSignalSpy recognized(&p, SIGNAL(recognized()));
 
     p.setOcrText("sample");
 
     QVERIFY(p.hasFlag(Page::RECOGNIZED));
-    QVERIFY(!p.hasFlag(Page::SAVED));
+    QVERIFY(!p.hasFlag(Page::EXPORTED));
     QCOMPARE(p.ocrText(), QString("sample"));
     QCOMPARE(changed.count(), 1);
     QCOMPARE(recognized.count(), 1);
@@ -304,12 +304,12 @@ void TestPage::testSetRecognitionSettings() {
     Page p("");
     RecognitionSettings s;
     s.setFax(true);
-    p.setFlag(Page::SAVED);
+    p.setFlag(Page::EXPORTED);
 
     QSignalSpy changed(&p, SIGNAL(changed()));
     p.setRecognitionSettings(s);
 
-    QVERIFY(!p.hasFlag(Page::SAVED));
+    QVERIFY(!p.hasFlag(Page::EXPORTED));
     QVERIFY(s == p.recognitionSettings());
     QCOMPARE(changed.count(), 1);
 
@@ -448,17 +448,17 @@ void TestPage::testSetViewScroll() {
 
 void TestPage::testUnsetFlag() {
     Page p("");
-    p.setFlags(Page::SAVED | Page::RECOGNIZED);
+    p.setFlags(Page::EXPORTED | Page::RECOGNIZED);
 
     QSignalSpy changed(&p, SIGNAL(changed()));
-    p.unsetFlag(Page::SAVED);
-    QVERIFY(!p.hasFlag(Page::SAVED));
+    p.unsetFlag(Page::EXPORTED);
+    QVERIFY(!p.hasFlag(Page::EXPORTED));
     QCOMPARE(changed.count(), 1);
     p.unsetFlag(Page::RECOGNIZED);
     QCOMPARE(changed.count(), 2);
     QVERIFY(!p.hasFlag(Page::RECOGNIZED));
 
-    p.unsetFlag(Page::SAVING_FAILED);
+    p.unsetFlag(Page::EXPORT_FAILED);
     QCOMPARE(changed.count(), 2);
 }
 
@@ -527,7 +527,7 @@ void TestPage::testReadWrite() {
 void TestPage::testSave() {
     Page p("");
     QSignalSpy changed(&p, SIGNAL(changed()));
-    QSignalSpy saved(&p, SIGNAL(saved()));
+    QSignalSpy exported(&p, SIGNAL(exported()));
     QString fname("test_page.txt");
 
     {
@@ -536,29 +536,29 @@ void TestPage::testSave() {
             f.remove();
     }
 
-    QVERIFY_THROW(p.save(fname), Page::Exception);
+    QVERIFY_THROW(p.exportTo(fname), Page::Exception);
     QCOMPARE(changed.count(), 0);
-    QCOMPARE(saved.count(), 0);
-    QVERIFY(!p.hasFlag(Page::SAVED));
-    QVERIFY(!p.hasFlag(Page::SAVING_FAILED));
+    QCOMPARE(exported.count(), 0);
+    QVERIFY(!p.hasFlag(Page::EXPORTED));
+    QVERIFY(!p.hasFlag(Page::EXPORT_FAILED));
 
     // save 1st time
     p.setOcrText("sample text"); // +1 changed() signal
-    p.save(fname);
+    p.exportTo(fname);
     QCOMPARE(changed.count(), 1);
-    QCOMPARE(saved.count(), 1);
+    QCOMPARE(exported.count(), 1);
     CHECK_SMALL_FILE(fname, "sample text");
-    QVERIFY(p.hasFlag(Page::SAVED));
-    QVERIFY(!p.hasFlag(Page::SAVING_FAILED));
+    QVERIFY(p.hasFlag(Page::EXPORTED));
+    QVERIFY(!p.hasFlag(Page::EXPORT_FAILED));
 
     QFile f(fname);
     f.setPermissions(0);
 
-    QVERIFY_THROW(p.save(fname), Page::Exception);
+    QVERIFY_THROW(p.exportTo(fname), Page::Exception);
     QCOMPARE(changed.count(), 1);
-    QCOMPARE(saved.count(), 1);
-    QVERIFY(!p.hasFlag(Page::SAVED));
-    QVERIFY(p.hasFlag(Page::SAVING_FAILED));
+    QCOMPARE(exported.count(), 1);
+    QVERIFY(!p.hasFlag(Page::EXPORTED));
+    QVERIFY(p.hasFlag(Page::EXPORT_FAILED));
 
     {
         QFile f(fname);
