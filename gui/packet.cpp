@@ -210,30 +210,28 @@ void Packet::setLanguage(int lang) {
 }
 
 QDataStream& operator<<(QDataStream& os, const Packet& packet) {
+    os << packet.language_;
     os << packet.pageCount();
+
     foreach(Page * p, packet.pages_) {
         os << *p;
     }
 
-    os << packet.language_;
     return os;
 }
 
 QDataStream& operator>>(QDataStream& is, Packet& packet) {
+    is >> packet.language_;
+
     int page_count;
     is >> page_count;
 
-    if(page_count < 0) {
-
-    }
-    else {
+    if(page_count > 0) {
         for(int i = 0; i < page_count; i++) {
             Page * p = new Page("");
             is >> *p;
             packet.append(p, true);
         }
-
-        is >> packet.language_;
     }
 
     return is;
