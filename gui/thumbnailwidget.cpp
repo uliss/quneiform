@@ -95,7 +95,7 @@ void ThumbnailWidget::showRecognizeSettings() {
 
     RecognitionSettingsDialog dlg(page_->recognitionSettings());
     if(QDialog::Accepted == dlg.exec())
-        page_->setRecognitionSettings(dlg.options());
+        page_->setRecognitionSettings(dlg.settings());
 }
 
 void ThumbnailWidget::highlight(bool value) {
@@ -201,7 +201,7 @@ void ThumbnailWidget::setupFrame() {
 void ThumbnailWidget::setupIndicator() {
     indicator_ = new PageIndicator(this);
     indicator_->move(0, height() - indicator_->height());
-    connect(indicator_, SIGNAL(showPageFault()), this, SLOT(pageFaultForward()));
+    connect(indicator_, SIGNAL(showWarningDetails()), SLOT(pageFaultForward()));
 //    layout_->addWidget(indicator_, 0, Qt::AlignHCenter);
 }
 

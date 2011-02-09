@@ -25,17 +25,37 @@
 
 class QLabel;
 
+/**
+  * @class PageIndicator represents Page state.
+  * by default all indicators are shown
+  * you can turn then on/off calling appropriate functions
+  */
 class PageIndicator : public QWidget
 {
     Q_OBJECT
 public:
     explicit PageIndicator(QWidget * parent = 0);
     QSize sizeHint() const;
+
+    /**
+      * Shows or hides recognize indicator
+      */
     void setRecognized(bool value);
+
+    /**
+      * Shows or hides save indicator
+      */
     void setSaved(bool value);
+
+    /**
+     * Shows or hides warning indicator
+     */
     void setWarning(bool value);
 signals:
-    void showPageFault();
+    /**
+      * Emits on click on warning indicator
+      */
+    void showWarningDetails();
 protected:
     void mousePressEvent(QMouseEvent * event);
 private:

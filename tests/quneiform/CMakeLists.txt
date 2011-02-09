@@ -10,6 +10,8 @@ set(CF_GUI_TESTS
     imagecache
     page
     packet
+    recognitionsettingsdialog
+    pageindicator
 )
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_gui.py"

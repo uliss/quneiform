@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,30 +16,27 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RECOGNITIONSETTINGSDIALOG_H
-#define RECOGNITIONSETTINGSDIALOG_H
+#include <QTest>
+#include <QPushButton>
+#include "testrecognitionsettingsdialog.h"
 
-#include <QDialog>
-#include "recognitionsettings.h"
+#define private public
+#include "gui/recognitionsettingsdialog.h"
 
-namespace Ui {
-    class RecognitionSettingsDialog;
+TestRecognitionSettingsDialog::TestRecognitionSettingsDialog(QObject *parent) :
+    QObject(parent)
+{
 }
 
-class RecognitionSettingsDialog : public QDialog
-{
-    Q_OBJECT
-public:
-    RecognitionSettingsDialog(const RecognitionSettings& opts, QWidget * parent = 0);
-    ~RecognitionSettingsDialog();
-    const RecognitionSettings& settings() const;
-private slots:
-    void save();
-private:
-    void setup();
-private:
-    Ui::RecognitionSettingsDialog * ui_;
-    RecognitionSettings opts_;
-};
+void TestRecognitionSettingsDialog::test() {
+    RecognitionSettings s;
+    RecognitionSettingsDialog d(s);
+    QCOMPARE(s, d.settings());
 
-#endif // RECOGNITIONSETTINGSDIALOG_H
+    d.open();
+    d.accept();
+
+    QCOMPARE(s, d.settings());
+}
+
+QTEST_MAIN(TestRecognitionSettingsDialog);

@@ -26,7 +26,7 @@ RecognitionSettingsDialog::RecognitionSettingsDialog(const RecognitionSettings& 
     ui_(new Ui::RecognitionSettingsDialog),
     opts_(opts) {
     ui_->setupUi(this);
-    setupOptions();
+    setup();
     connect(this, SIGNAL(accepted()), SLOT(save()));
 }
 
@@ -34,7 +34,7 @@ RecognitionSettingsDialog::~RecognitionSettingsDialog() {
     delete ui_;
 }
 
-const RecognitionSettings& RecognitionSettingsDialog::options() const {
+const RecognitionSettings& RecognitionSettingsDialog::settings() const {
     return opts_;
 }
 
@@ -46,7 +46,7 @@ void RecognitionSettingsDialog::save() {
     opts_.useSpelling(ui_->useSpelling_->isChecked());
 }
 
-void RecognitionSettingsDialog::setupOptions() {
+void RecognitionSettingsDialog::setup() {
     ui_->dotMatrix_->setChecked(opts_.dotMatrix());
     ui_->fax_->setChecked(opts_.fax());
     ui_->useSpelling_->setChecked(opts_.spelling());

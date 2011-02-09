@@ -72,7 +72,7 @@ QPixmap PageIndicator::indicatorIcon(const QString& path) {
 void PageIndicator::mousePressEvent(QMouseEvent * event) {
     if (event->button() == Qt::LeftButton) {
         if(warning_->isVisible() && warning_->geometry().contains(event->pos())) {
-            emit showPageFault();
+            emit showWarningDetails();
             event->accept();
         }
     }

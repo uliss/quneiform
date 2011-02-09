@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,30 +16,19 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RECOGNITIONSETTINGSDIALOG_H
-#define RECOGNITIONSETTINGSDIALOG_H
 
-#include <QDialog>
-#include "recognitionsettings.h"
+#ifndef TESTRECOGNITIONSETTINGSDIALOG_H
+#define TESTRECOGNITIONSETTINGSDIALOG_H
 
-namespace Ui {
-    class RecognitionSettingsDialog;
-}
+#include <QObject>
 
-class RecognitionSettingsDialog : public QDialog
+class TestRecognitionSettingsDialog : public QObject
 {
     Q_OBJECT
 public:
-    RecognitionSettingsDialog(const RecognitionSettings& opts, QWidget * parent = 0);
-    ~RecognitionSettingsDialog();
-    const RecognitionSettings& settings() const;
+    explicit TestRecognitionSettingsDialog(QObject *parent = 0);
 private slots:
-    void save();
-private:
-    void setup();
-private:
-    Ui::RecognitionSettingsDialog * ui_;
-    RecognitionSettings opts_;
+    void test();
 };
 
-#endif // RECOGNITIONSETTINGSDIALOG_H
+#endif // TESTRECOGNITIONSETTINGSDIALOG_H
