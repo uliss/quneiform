@@ -85,6 +85,7 @@ public:
       * Opens document from filename
       * current document replaced by new one
       * @return true if document opened with success
+      * @see save()
       */
     bool open(const QString& filename);
 
@@ -103,12 +104,15 @@ public:
 
     /**
       * Saves document to file
+      * emits signal saved()
       * @return true on success, false on saving error
+      * @see open()
       */
     bool save(const QString& filename);
 
     /**
       * Sets document language
+      * emits signal changed()
       * @see language()
       */
     void setLanguage(int lang);

@@ -38,6 +38,9 @@ private slots:
     void testOpen();
     void testPage();
     void testSave();
+    void testRemove();
+    void testRemoveSelected();
+    void testReadWrite();
 };
 
 #endif // TESTDOCUMENT_H

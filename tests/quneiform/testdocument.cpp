@@ -186,6 +186,23 @@ void TestDocument::testLanguage() {
 void TestDocument::testOpen() {
     Document doc;
     QVERIFY(!doc.open("unknown file"));
+    QString fname("doc.test");
+    doc.append(new Page("path 1"));
+    doc.save(fname);
+
+    Document doc2;
+    QVERIFY(doc2.isNew());
+    QVERIFY(!doc2.isChanged());
+
+    doc2.open(fname);
+    QCOMPARE(doc2.fileName(), QString("doc.test"));
+    QVERIFY(!doc2.isNew());
+    QVERIFY(!doc2.isChanged());
+    QCOMPARE(doc2.pageCount(), 1);
+    QCOMPARE(doc2.page(0)->imagePath(), QString("path 1"));
+
+    QFile f(fname);
+    f.remove();
 }
 
 void TestDocument::testPage() {
@@ -200,15 +217,116 @@ void TestDocument::testPage() {
 
 void TestDocument::testSave() {
     Document doc;
+    QVERIFY(doc.isNew());
     QString fname("doc.test");
+
+    doc.append(new Page(""));
+    doc.setLanguage(1);
     doc.save(fname);
 
     QFileInfo fi(fname);
     QVERIFY(fi.exists());
     QVERIFY(fi.size() > 0);
+    QVERIFY(!doc.isNew());
+    QVERIFY(!doc.isChanged());
+    QCOMPARE(doc.fileName(), fname);
 
     QFile f(fname);
     f.remove(fname);
+}
+
+void TestDocument::testRemove() {
+    Document doc;
+    Page * p = new Page("");
+    QSignalSpy removed(&doc, SIGNAL(pageRemoved(Page*)));
+
+    doc.append(p);
+    QVERIFY(doc.isChanged());
+    doc.save("doc.test");
+
+    QVERIFY(!doc.isChanged());
+
+    doc.append(new Page(""), true);
+    QCOMPARE(doc.pageCount(), 2);
+
+    QSignalSpy changed(&doc, SIGNAL(changed()));
+    doc.remove(p);
+    QCOMPARE(doc.pageCount(), 1);
+    QCOMPARE(removed.count(), 1);
+    QCOMPARE(changed.count(), 1);
+
+    {
+        Page * p = new Page("");
+        doc.append(p, true);
+        doc.append(p, true);
+        doc.append(p, true);
+        // delete duplicates
+        changed.clear();
+        doc.remove(p);
+        QCOMPARE(removed.count(), 2);
+        QCOMPARE(changed.count(), 1);
+        QCOMPARE(doc.pageCount(), 1);
+    }
+
+    // do nothing
+    doc.remove(NULL);
+    QCOMPARE(removed.count(), 2);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(doc.pageCount(), 1);
+
+    QFile f("doc.test");
+    f.remove();
+}
+
+void TestDocument::testRemoveSelected() {
+    Document doc;
+    Page * p = new Page("");
+    QSignalSpy removed(&doc, SIGNAL(pageRemoved(Page*)));
+
+    doc.append(p);
+    QCOMPARE(doc.pageCount(), 1);
+
+    QSignalSpy changed(&doc, SIGNAL(changed()));
+    doc.removeSelected();
+    QCOMPARE(doc.pageCount(), 1);
+    QCOMPARE(removed.count(), 0);
+    QCOMPARE(changed.count(), 0);
+
+    p->setSelected(true);
+    changed.clear();
+    doc.removeSelected();
+
+    QCOMPARE(doc.pageCount(), 0);
+    QCOMPARE(removed.count(), 1);
+    QCOMPARE(changed.count(), 1);
+}
+
+void TestDocument::testReadWrite() {
+    QString fname("doc.test");
+    Document doc;
+
+    {
+        QFile file(fname);
+        file.open(QIODevice::WriteOnly);
+        QDataStream out(&file);
+
+        doc.setLanguage(1);
+        doc.append(new Page("test"));
+        out << doc;
+    }
+
+    {
+        Document doc2;
+        QFile file(fname);
+        file.open(QIODevice::ReadOnly);
+        QDataStream in(&file);
+
+        in >> doc2;
+
+        QCOMPARE(doc.fileName(), doc2.fileName());
+        QCOMPARE(doc.pageCount(), doc2.pageCount());
+        QCOMPARE(doc.language(), doc2.language());
+    }
 }
 
 QTEST_MAIN(TestDocument)
