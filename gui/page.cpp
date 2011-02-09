@@ -92,7 +92,7 @@ bool Page::isRecognized() const {
     return state_flags_ & RECOGNIZED;
 }
 
-bool Page::isSaved() const {
+bool Page::isExported() const {
     return state_flags_ & EXPORTED;
 }
 

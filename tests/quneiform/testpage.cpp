@@ -114,7 +114,7 @@ void TestPage::testConstruct() {
     QCOMPARE(p.imageSize(), QSize());
     QVERIFY(p.isNull());
     QVERIFY(!p.isRecognized());
-    QVERIFY(!p.isSaved());
+    QVERIFY(!p.isExported());
     QVERIFY(!p.isSelected());
     QVERIFY(p.number() == 0);
     QCOMPARE(p.ocrText(), QString(""));
@@ -507,7 +507,7 @@ void TestPage::testReadWrite() {
         QCOMPARE(p.imageSize(), p2.imageSize());
         QCOMPARE(p.isNull(), p2.isNull());
         QCOMPARE(p.isRecognized(), p2.isRecognized());
-        QCOMPARE(p.isSaved(), p2.isSaved());
+        QCOMPARE(p.isExported(), p2.isExported());
         QCOMPARE(p.isSelected(), p2.isSelected());
         QCOMPARE(p.name(), p2.name());
         QCOMPARE(p.number(), p2.number());
@@ -524,7 +524,7 @@ void TestPage::testReadWrite() {
     f.remove();
 }
 
-void TestPage::testSave() {
+void TestPage::testExportTo() {
     Page p("");
     QSignalSpy changed(&p, SIGNAL(changed()));
     QSignalSpy exported(&p, SIGNAL(exported()));

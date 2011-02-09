@@ -106,6 +106,11 @@ public:
     QSize imageSize() const;
 
     /**
+      * Returns true if page already exported
+      */
+    bool isExported() const;
+
+    /**
       * Returns true if points to valid image
       * otherwise returns false
       */
@@ -115,11 +120,6 @@ public:
       * Returns true if image recognized
       */
     bool isRecognized() const;
-
-    /**
-      * Returns true if image already saved
-      */
-    bool isSaved() const;
 
     /**
       * Returns true if page is selected

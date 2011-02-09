@@ -53,11 +53,11 @@ static const int MAX_RECENT_FILES = 5;
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         ui_(new Ui::MainWindow),
-        doc_(new Packet(this)),
+        packet_(new Packet(this)),
         progress_(NULL),
         image_widget_(NULL) {
     setupUi();
-    setupDocument();
+    setupPacket();
     setupShortcuts();
     connectActions();
     connectThumbs();
@@ -92,15 +92,15 @@ void MainWindow::addRecentMenu(QMenu * menu) {
     file_menu->insertMenu(separator, menu);
 }
 
-void MainWindow::changeDocumentLanguage(int lang) {
+void MainWindow::changePacketLanguage(int lang) {
     qDebug() << Q_FUNC_INFO << lang;
-    doc_->setLanguage(lang);
+    packet_->setLanguage(lang);
     recognition_queue_->setLanguage(lang);
 }
 
 void MainWindow::closeEvent(QCloseEvent * event) {
-    if(doc_)  {
-        if(doc_->isChanged()) {
+    if(packet_)  {
+        if(packet_->isChanged()) {
             QMessageBox ask(QMessageBox::Question,
                                   tr("Recognition packet is not saved"),
                                   tr("Recognition packet is not saved!\nDo you want to save it?"),
@@ -148,15 +148,15 @@ void MainWindow::disableViewActions() {
     enableViewActions(false);
 }
 
-void MainWindow::documentChange() {
+void MainWindow::packetChange() {
     setWindowModified(true);
 }
 
-void MainWindow::documentSave() {
-    Q_ASSERT(doc_);
+void MainWindow::packetSave() {
+    Q_ASSERT(packet_);
 
     setWindowModified(false);
-    setWindowFilePath(doc_->fileName());
+    setWindowFilePath(packet_->fileName());
 }
 
 void MainWindow::enableViewActions(bool value) {
@@ -183,7 +183,7 @@ void MainWindow::imageDuplication(const QString& path) {
 }
 
 bool MainWindow::openImage(const QString& path, bool allowDuplication) {
-    Q_CHECK_PTR(doc_);
+    Q_CHECK_PTR(packet_);
     qDebug() << Q_FUNC_INFO << path;
 
     QFileInfo info(path);
@@ -205,7 +205,7 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication) {
         return false;
     }
 
-    doc_->append(p, allowDuplication);
+    packet_->append(p, allowDuplication);
     recent_images_->add(path);
 
     return true;
@@ -260,24 +260,25 @@ void MainWindow::openPacket() {
 }
 
 void MainWindow::openPacket(const QString& path) {
-    Q_CHECK_PTR(doc_);
+    Q_CHECK_PTR(packet_);
 
     if(path.isEmpty())
         return;
 
-    if(!doc_->open(path)) {
+    if(!packet_->open(path)) {
         QMessageBox::warning(this,
                              tr("Quneiform OCR"),
                              tr("Can't read packet \"%1\"").arg(path));
     }
 
-    selectLanguage(doc_->language());
+    selectLanguage(packet_->language());
     recent_packets_->add(path);
+    setWindowModified(false);
 }
 
 void MainWindow::openRecentImage(const QString& path) {
-    Q_CHECK_PTR(doc_);
-    if(doc_->hasPage(path))
+    Q_CHECK_PTR(packet_);
+    if(packet_->hasPage(path))
         return;
 
     openImage(path, false);
@@ -292,9 +293,9 @@ void MainWindow::readSettings() {
 }
 
 void MainWindow::recognizeAll() {
-    Q_CHECK_PTR(doc_);
+    Q_CHECK_PTR(packet_);
 
-    if(!doc_->countSelected()) {
+    if(!packet_->countSelected()) {
         QMessageBox warn(QMessageBox::Warning,
                       tr("Warning"),
                       tr("No page selected"),
@@ -309,8 +310,8 @@ void MainWindow::recognizeAll() {
             thumbs_->selectAll();
     }
 
-    for(int i = 0; i < doc_->pageCount(); i++) {
-        Page * p = doc_->pageAt(i);
+    for(int i = 0; i < packet_->pageCount(); i++) {
+        Page * p = packet_->pageAt(i);
         if(p->isSelected())
             recognition_queue_->add(p);
     }
@@ -356,33 +357,33 @@ void MainWindow::rotateRight() {
 }
 
 void MainWindow::savePacket() {
-    Q_CHECK_PTR(doc_);
+    Q_CHECK_PTR(packet_);
 
     QString fname;
 
-    if(doc_->isNew() || doc_->fileName().isEmpty()) {
-        QFileInfo fi(doc_->fileName());
+    if(packet_->isNew() || packet_->fileName().isEmpty()) {
+        QFileInfo fi(packet_->fileName());
         fname = QFileDialog::getSaveFileName(this,
                                              tr("Save Quneiform packet to"),
                                              fi.baseName(),
                                              tr("Quneiform packets (*.qfp)"));
     }
     else {
-        fname = doc_->fileName();
+        fname = packet_->fileName();
     }
 
     savePacket(fname);
 }
 
 void MainWindow::savePacket(const QString& path) {
-    Q_CHECK_PTR(doc_);
+    Q_CHECK_PTR(packet_);
 
     if(path.isEmpty()) {
         qDebug() << Q_FUNC_INFO << "packet name is empty";
         return;
     }
 
-    if(!doc_->save(path)) {
+    if(!packet_->save(path)) {
         QMessageBox::warning(this,
                              tr("Quneiform OCR"),
                              tr("Can't open file \"%1\" for writing. Check file permissions!").arg(path));
@@ -427,16 +428,16 @@ void MainWindow::selectLanguage(int lang) {
     if(sender() != lang_menu_)
         lang_menu_->select(lang);
 
-    changeDocumentLanguage(lang);
+    changePacketLanguage(lang);
 }
 
-void MainWindow::setupDocument() {
-    Q_CHECK_PTR(doc_);
+void MainWindow::setupPacket() {
+    Q_CHECK_PTR(packet_);
 
-    setWindowFilePath(doc_->fileName());
-    connect(doc_, SIGNAL(changed()), SLOT(documentChange()));
-    connect(doc_, SIGNAL(saved()), SLOT(documentSave()));
-    connect(doc_, SIGNAL(imageDuplicated(QString)), SLOT(imageDuplication(QString)));
+    setWindowFilePath(packet_->fileName());
+    connect(packet_, SIGNAL(changed()), SLOT(packetChange()));
+    connect(packet_, SIGNAL(saved()), SLOT(packetSave()));
+    connect(packet_, SIGNAL(imageDuplicated(QString)), SLOT(imageDuplication(QString)));
 }
 
 void MainWindow::setupImageView() {
@@ -515,7 +516,7 @@ void MainWindow::setupTextView() {
 
 void MainWindow::setupThumbs() {
     thumbs_ = new ThumbnailList(this);
-    thumbs_->setDocument(doc_);
+    thumbs_->setDocument(packet_);
 }
 
 void MainWindow::setupUi() {

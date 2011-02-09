@@ -147,7 +147,7 @@ QString ThumbnailWidget::pageProperties() const {
     else
         res += tr("Page is not recognized\n");
 
-    if(page_->isSaved())
+    if(page_->isExported())
         res += tr("Page is saved\n");
     else
         res += tr("Page is not saved\n");

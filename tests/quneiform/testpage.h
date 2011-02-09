@@ -51,7 +51,7 @@ private slots:
     void testSetViewScroll();
     void testUnsetFlag();
     void testReadWrite();
-    void testSave();
+    void testExportTo();
 };
 
 #endif // TESTPAGE_H

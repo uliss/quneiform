@@ -46,14 +46,14 @@ public:
     void closeEvent(QCloseEvent *event);
 public slots:
     void about();
-    void documentChange();
-    void documentSave();
     void imageDuplication(const QString& path);
     void open(const QStringList& paths);
     void openImages();
     void openImages(const QStringList& paths);
     void openPacket();
     void openPacket(const QString& path);
+    void packetChange();
+    void packetSave();
     void recognizeAll();
     void recognizePage(Page * page);
     void rotate(int factor);
@@ -74,13 +74,13 @@ private slots:
     void updateCurrentPage();
 private:
     void addRecentMenu(QMenu * menu);
-    void changeDocumentLanguage(int lang);
+    void changePacketLanguage(int lang);
     void connectActions();
     void connectThumbs();
     void enableViewActions(bool value);
     bool openImage(const QString& path, bool allowDuplication = false);
     void readSettings();
-    void setupDocument();
+    void setupPacket();
     void setupImageView();
     void setupLanguageMenu();
     void setupLanguageSelect();
@@ -98,7 +98,7 @@ private:
     void writeSettings();
 private:
     Ui::MainWindow * ui_;
-    Packet * doc_;
+    Packet * packet_;
     LanguageSelect * lang_select_;
     LanguageMenu * lang_menu_;
     QProgressDialog * progress_;
