@@ -25,94 +25,136 @@
 #include "pagelayout.h"
 #include "page.h"
 
-PageLayout::PageLayout()
-{
+PageLayout::PageLayout() {
+    chars_ = new QGraphicsItemGroup();
+    addToGroup(chars_);
+
+    columns_ = new QGraphicsItemGroup();
+    addToGroup(columns_);
+
+    lines_ = new QGraphicsItemGroup();
+    addToGroup(lines_);
+
+    paragraphs_ = new QGraphicsItemGroup();
+    addToGroup(paragraphs_);
+
+    pictures_ = new QGraphicsItemGroup();
+    addToGroup(pictures_);
+
+    sections_ = new QGraphicsItemGroup();
+    addToGroup(sections_);
 }
 
-void PageLayout::clear() {
-    Q_CHECK_PTR(scene());
-
-    foreach(QGraphicsItem * item, childItems()) {
-        scene()->removeItem(item);
+QColor PageLayout::blockColor(int type) const {
+    switch(type) {
+    case Page::CHAR:
+        return QColor(Qt::cyan);
+    case Page::COLUMN:
+        return QColor(Qt::red);
+    case Page::LINE:
+        return QColor(Qt::green);
+    case Page::PARAGRAPH:
+        return QColor(Qt::yellow);
+    case Page::PICTURE:
+        return QColor(Qt::blue);
+    case Page::SECTION:
+        return QColor(Qt::gray);
+    default:
+        return QColor(Qt::black);
     }
 }
 
+void PageLayout::clear() {
+    clearGroupBlocks(&PageLayout::chars_);
+    clearGroupBlocks(&PageLayout::columns_);
+    clearGroupBlocks(&PageLayout::lines_);
+    clearGroupBlocks(&PageLayout::paragraphs_);
+    clearGroupBlocks(&PageLayout::pictures_);
+    clearGroupBlocks(&PageLayout::sections_);
+}
+
+void PageLayout::clearGroupBlocks(GroupMember ptr) {
+    if(!(this->*ptr))
+        return;
+
+    foreach(QGraphicsItem * item, (this->*ptr)->childItems()) {
+        (this->*ptr)->removeFromGroup(item);
+        if(item->scene())
+            item->scene()->removeItem(item);
+        delete item;
+    }
+}
+
+QGraphicsItemGroup * PageLayout::columnBlocks() {
+    return columns_;
+}
+
+QGraphicsRectItem * PageLayout::createBlock(const QRect& r, const QColor& c) {
+    Q_ASSERT(page_);
+    QGraphicsRectItem * block = new QGraphicsRectItem(r.translated(page_->pageArea().topLeft()));
+    QPen pen(c, 0, Qt::SolidLine);
+    block->setPen(pen);
+    return block;
+}
+
+QGraphicsItemGroup * PageLayout::charBlocks() {
+    return chars_;
+}
+
+QGraphicsItemGroup * PageLayout::lineBlocks() {
+    return lines_;
+}
+
+QGraphicsItemGroup * PageLayout::paragraphBlocks() {
+    return paragraphs_;
+}
+
+QGraphicsItemGroup * PageLayout::pictureBlocks() {
+    return pictures_;
+}
+
 void PageLayout::populate(const Page& page) {
+    clear();
+
     QSettings settings;
     settings.beginGroup("debug");
     settings.beginGroup("format");
 
-    if(settings.value("showPicturesBBox", false).toBool())
-        populatePictures(page);
+    page_ = &page;
 
     if(settings.value("showCharactersBBox", false).toBool())
-        populateChars(page);
-
-    if(settings.value("showLinesBBox", false).toBool())
-        populateLines(page);
-
-    if(settings.value("showParagraphsBBox", false).toBool())
-        populateParagraphs(page);
-
-    if(settings.value("showSectionsBBox", false).toBool())
-        populateSections(page);
+        populateGroup(chars_, Page::CHAR);
 
     if(settings.value("showColumnsBBox", false).toBool())
-        populateColumns(page);
+        populateGroup(columns_, Page::COLUMN);
+
+    if(settings.value("showLinesBBox", false).toBool())
+        populateGroup(lines_, Page::LINE);
+
+    if(settings.value("showParagraphsBBox", false).toBool())
+        populateGroup(paragraphs_, Page::PARAGRAPH);
+
+    if(settings.value("showPicturesBBox", false).toBool())
+        populateGroup(pictures_, Page::PICTURE);
+
+    if(settings.value("showSectionsBBox", false).toBool())
+        populateGroup(sections_, Page::SECTION);
 }
 
-void PageLayout::populateChars(const Page& page) {
-    foreach(QRect r, page.rects(Page::CHAR)) {
-        r.translate(page.pageArea().topLeft());
-        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
-        rect->setPen(QColor(Qt::cyan));
-        addToGroup(rect);
+void PageLayout::populateGroup(QGraphicsItemGroup * group, int group_type) {
+    Q_ASSERT(group);
+    Q_ASSERT(page_);
+
+    Page::BlockType block_t = static_cast<Page::BlockType>(group_type);
+
+    foreach(QRect r, page_->blocks(block_t)) {
+        group->addToGroup(createBlock(r, blockColor(block_t)));
     }
+
+    addToGroup(group);
 }
 
-void PageLayout::populateColumns(const Page& page) {
-    foreach(QRect r, page.rects(Page::COLUMN)) {
-        r.translate(page.pageArea().topLeft());
-        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
-        rect->setPen(QColor(Qt::red));
-        addToGroup(rect);
-    }
+QGraphicsItemGroup * PageLayout::sectionBlocks() {
+    return sections_;
 }
 
-void PageLayout::populateLines(const Page& page) {
-    foreach(QRect r, page.rects(Page::LINE)) {
-        r.translate(page.pageArea().topLeft());
-        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
-        rect->setPen(QColor(Qt::green));
-        addToGroup(rect);
-    }
-}
-
-void PageLayout::populateParagraphs(const Page& page) {
-    foreach(QRect r, page.rects(Page::PARAGRAPH)) {
-        r.translate(page.pageArea().topLeft());
-        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
-        rect->setPen(QColor(Qt::yellow));
-        addToGroup(rect);
-    }
-}
-
-void PageLayout::populatePictures(const Page& page) {
-    foreach(QRect r, page.rects(Page::PICTURE)) {
-        r.translate(page.pageArea().topLeft());
-        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
-        rect->setPen(QColor(Qt::blue));
-        rect->setToolTip(QString("[%1 %2 %3x%4]").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));
-        addToGroup(rect);
-    }
-}
-
-void PageLayout::populateSections(const Page& page) {
-    foreach(QRect r, page.rects(Page::SECTION)) {
-        r.translate(page.pageArea().topLeft());
-        QGraphicsRectItem * rect = new QGraphicsRectItem(r);
-        rect->setPen(QColor(Qt::gray));
-//        rect->setToolTip(QString("[%1 %2 %3x%4]").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));
-        addToGroup(rect);
-    }
-}

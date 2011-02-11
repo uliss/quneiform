@@ -121,12 +121,12 @@ void TestPage::testConstruct() {
     QCOMPARE(p.pageArea(), QRect());
     QCOMPARE(p.transform(), QTransform());
     QCOMPARE(p.viewScroll(), QPoint());
-    QVERIFY(p.rects(Page::CHAR).empty());
-    QVERIFY(p.rects(Page::COLUMN).empty());
-    QVERIFY(p.rects(Page::LINE).empty());
-    QVERIFY(p.rects(Page::SECTION).empty());
-    QVERIFY(p.rects(Page::PARAGRAPH).empty());
-    QVERIFY(p.rects(Page::PICTURE).empty());
+    QVERIFY(p.blocks(Page::CHAR).empty());
+    QVERIFY(p.blocks(Page::COLUMN).empty());
+    QVERIFY(p.blocks(Page::LINE).empty());
+    QVERIFY(p.blocks(Page::SECTION).empty());
+    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
+    QVERIFY(p.blocks(Page::PICTURE).empty());
 
     Page p2("none");
     QCOMPARE(p2.name(), QString("none"));
@@ -323,15 +323,15 @@ void TestPage::testSetRecognitionSettings() {
 
 }
 
-void TestPage::testSetRects() {
+void TestPage::testSetBlocks() {
     Page p("");
 
-    QVERIFY(p.rects(Page::CHAR).empty());
-    QVERIFY(p.rects(Page::COLUMN).empty());
-    QVERIFY(p.rects(Page::LINE).empty());
-    QVERIFY(p.rects(Page::SECTION).empty());
-    QVERIFY(p.rects(Page::PARAGRAPH).empty());
-    QVERIFY(p.rects(Page::PICTURE).empty());
+    QVERIFY(p.blocks(Page::CHAR).empty());
+    QVERIFY(p.blocks(Page::COLUMN).empty());
+    QVERIFY(p.blocks(Page::LINE).empty());
+    QVERIFY(p.blocks(Page::SECTION).empty());
+    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
+    QVERIFY(p.blocks(Page::PICTURE).empty());
 
     QSignalSpy changed(&p, SIGNAL(changed()));
 
@@ -339,58 +339,58 @@ void TestPage::testSetRects() {
     rects << QRect(0, 0, 10, 20);
     rects << QRect(1, 1, 2, 2);
 
-    p.setRects(rects, Page::CHAR);
+    p.setBlocks(rects, Page::CHAR);
     QCOMPARE(changed.count(), 1);
-    QCOMPARE(p.rects(Page::CHAR).count(), 2);
-    QCOMPARE(p.rects(Page::CHAR).at(0), QRect(0, 0, 10, 20));
-    QCOMPARE(p.rects(Page::CHAR).at(1), QRect(1, 1, 2, 2));
-    QVERIFY(p.rects(Page::COLUMN).empty());
-    QVERIFY(p.rects(Page::LINE).empty());
-    QVERIFY(p.rects(Page::SECTION).empty());
-    QVERIFY(p.rects(Page::PARAGRAPH).empty());
-    QVERIFY(p.rects(Page::PICTURE).empty());
+    QCOMPARE(p.blocks(Page::CHAR).count(), 2);
+    QCOMPARE(p.blocks(Page::CHAR).at(0), QRect(0, 0, 10, 20));
+    QCOMPARE(p.blocks(Page::CHAR).at(1), QRect(1, 1, 2, 2));
+    QVERIFY(p.blocks(Page::COLUMN).empty());
+    QVERIFY(p.blocks(Page::LINE).empty());
+    QVERIFY(p.blocks(Page::SECTION).empty());
+    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
+    QVERIFY(p.blocks(Page::PICTURE).empty());
 
     rects.removeLast();
-    p.setRects(rects, Page::COLUMN);
+    p.setBlocks(rects, Page::COLUMN);
     QCOMPARE(changed.count(), 2);
-    QCOMPARE(p.rects(Page::COLUMN).count(), 1);
-    QCOMPARE(p.rects(Page::COLUMN).at(0), QRect(0, 0, 10, 20));
-    QVERIFY(p.rects(Page::LINE).empty());
-    QVERIFY(p.rects(Page::SECTION).empty());
-    QVERIFY(p.rects(Page::PARAGRAPH).empty());
-    QVERIFY(p.rects(Page::PICTURE).empty());
+    QCOMPARE(p.blocks(Page::COLUMN).count(), 1);
+    QCOMPARE(p.blocks(Page::COLUMN).at(0), QRect(0, 0, 10, 20));
+    QVERIFY(p.blocks(Page::LINE).empty());
+    QVERIFY(p.blocks(Page::SECTION).empty());
+    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
+    QVERIFY(p.blocks(Page::PICTURE).empty());
 
     rects.removeLast();
-    p.setRects(rects, Page::LINE);
+    p.setBlocks(rects, Page::LINE);
     QCOMPARE(changed.count(), 3);
-    QCOMPARE(p.rects(Page::LINE).count(), 0);
-    QVERIFY(p.rects(Page::SECTION).empty());
-    QVERIFY(p.rects(Page::PARAGRAPH).empty());
-    QVERIFY(p.rects(Page::PICTURE).empty());
+    QCOMPARE(p.blocks(Page::LINE).count(), 0);
+    QVERIFY(p.blocks(Page::SECTION).empty());
+    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
+    QVERIFY(p.blocks(Page::PICTURE).empty());
 
     rects << QRect(100, 100, 100, 100);
-    p.setRects(rects, Page::SECTION);
+    p.setBlocks(rects, Page::SECTION);
     QCOMPARE(changed.count(), 4);
-    QCOMPARE(p.rects(Page::SECTION).count(), 1);
-    QCOMPARE(p.rects(Page::SECTION).at(0), QRect(100, 100, 100, 100));
-    QVERIFY(p.rects(Page::PARAGRAPH).empty());
-    QVERIFY(p.rects(Page::PICTURE).empty());
+    QCOMPARE(p.blocks(Page::SECTION).count(), 1);
+    QCOMPARE(p.blocks(Page::SECTION).at(0), QRect(100, 100, 100, 100));
+    QVERIFY(p.blocks(Page::PARAGRAPH).empty());
+    QVERIFY(p.blocks(Page::PICTURE).empty());
 
     rects << QRect(20, 20, 20, 20);
-    p.setRects(rects, Page::PARAGRAPH);
+    p.setBlocks(rects, Page::PARAGRAPH);
     QCOMPARE(changed.count(), 5);
-    QCOMPARE(p.rects(Page::PARAGRAPH).count(), 2);
-    QCOMPARE(p.rects(Page::PARAGRAPH).at(0), QRect(100, 100, 100, 100));
-    QCOMPARE(p.rects(Page::PARAGRAPH).at(1), QRect(20, 20, 20, 20));
-    QVERIFY(p.rects(Page::PICTURE).empty());
+    QCOMPARE(p.blocks(Page::PARAGRAPH).count(), 2);
+    QCOMPARE(p.blocks(Page::PARAGRAPH).at(0), QRect(100, 100, 100, 100));
+    QCOMPARE(p.blocks(Page::PARAGRAPH).at(1), QRect(20, 20, 20, 20));
+    QVERIFY(p.blocks(Page::PICTURE).empty());
 
     rects << QRect(30, 30, 30, 30);
-    p.setRects(rects, Page::PICTURE);
+    p.setBlocks(rects, Page::PICTURE);
     QCOMPARE(changed.count(), 6);
-    QCOMPARE(p.rects(Page::PICTURE).count(), 3);
-    QCOMPARE(p.rects(Page::PICTURE).at(0), QRect(100, 100, 100, 100));
-    QCOMPARE(p.rects(Page::PICTURE).at(1), QRect(20, 20, 20, 20));
-    QCOMPARE(p.rects(Page::PICTURE).at(2), QRect(30, 30, 30, 30));
+    QCOMPARE(p.blocks(Page::PICTURE).count(), 3);
+    QCOMPARE(p.blocks(Page::PICTURE).at(0), QRect(100, 100, 100, 100));
+    QCOMPARE(p.blocks(Page::PICTURE).at(1), QRect(20, 20, 20, 20));
+    QCOMPARE(p.blocks(Page::PICTURE).at(2), QRect(30, 30, 30, 30));
 }
 
 void TestPage::testSetSelected() {
@@ -484,8 +484,8 @@ void TestPage::testReadWrite() {
 
     Page::Rectangles rects;
     rects << r << r << r;
-    p.setRects(rects, Page::CHAR);
-    p.setRects(rects, Page::PICTURE);
+    p.setBlocks(rects, Page::CHAR);
+    p.setBlocks(rects, Page::PICTURE);
 
     {
         QFile file(fname);
@@ -516,8 +516,8 @@ void TestPage::testReadWrite() {
         QCOMPARE(p.recognitionSettings(), p2.recognitionSettings());
         QCOMPARE(p.transform(), p2.transform());
         QCOMPARE(p.viewScroll(), p2.viewScroll());
-        QCOMPARE(p.rects(Page::CHAR).count(), p2.rects(Page::CHAR).count());
-        QCOMPARE(p.rects(Page::PICTURE).count(), p2.rects(Page::PICTURE).count());
+        QCOMPARE(p.blocks(Page::CHAR).count(), p2.blocks(Page::CHAR).count());
+        QCOMPARE(p.blocks(Page::PICTURE).count(), p2.blocks(Page::PICTURE).count());
     }
 
     QFile f(fname);

@@ -77,6 +77,30 @@ public:
     int angle() const;
 
     /**
+      * Append block bounding rectangle
+      * @see clearBlocks(), blocks(), setBlocks()
+      */
+    void appendBlock(const QRect& rect, BlockType type);
+
+    /**
+      * Returns list of blocks rectangles
+      * @see setBlocks(), blocksCount()
+      */
+    const Rectangles& blocks(BlockType t) const;
+
+    /**
+      * Returns number of blocks by given type
+      * @see blocks(), setBlocks()
+      */
+    int blocksCount(BlockType t) const;
+
+    /**
+      * Clears block bounding rectangles
+      * @see blocks(), setBlocks(), appendBlock()
+      */
+    void clearBlocks(BlockType type);
+
+    /**
       * Saves ocr result
       * @throw Exception if page is not recognized
       * Emits signal exported()
@@ -150,12 +174,6 @@ public:
     const QRect& pageArea() const;
 
     /**
-      * Returns page rectangles of given type
-      * @see setRects()
-      */
-    const Rectangles& rects(BlockType t) const;
-
-    /**
       * Returns page recognize settings
       * @see setRecognitionSettings()
       */
@@ -224,11 +242,11 @@ public:
     void setRecognitionSettings(const RecognitionSettings& opts);
 
     /**
-      * Sets page rectangles for given block type
+      * Sets page blocks
       * emits signal changed()
-      * @see rects()
+      * @see blocks(), appendBlock()
       */
-    void setRects(const QList<QRect>& rects, BlockType type);
+    void setBlocks(const Rectangles& rects, BlockType type);
 
     /**
       * Selects page
@@ -309,7 +327,7 @@ private:
     bool is_null_;
     mutable QMutex mutex_;
     RecognitionSettings rec_settings_;
-    RectList rects_;
+    RectList blocks_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

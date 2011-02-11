@@ -52,6 +52,16 @@ int Page::angle() const {
         return 0;
 }
 
+void Page::appendBlock(const QRect& rect, BlockType type) {
+    Q_ASSERT(type < blocks_.size());
+    blocks_[type].append(rect);
+}
+
+void Page::clearBlocks(BlockType type) {
+    Q_ASSERT(type < blocks_.size());
+    blocks_[type].clear();
+}
+
 Page::PageFlags Page::flags() const {
     return state_flags_;
 }
@@ -69,19 +79,19 @@ QSize Page::imageSize() const {
 }
 
 void Page::initRects() {
-    rects_.clear();
+    blocks_.clear();
     // pictures
-    rects_ << Rectangles();
+    blocks_ << Rectangles();
     // chars
-    rects_ << Rectangles();
+    blocks_ << Rectangles();
     // lines
-    rects_ << Rectangles();
+    blocks_ << Rectangles();
     // paragraphs
-    rects_ << Rectangles();
+    blocks_ << Rectangles();
     // columns
-    rects_ << Rectangles();
+    blocks_ << Rectangles();
     // sections
-    rects_ << Rectangles();
+    blocks_ << Rectangles();
 }
 
 bool Page::isNull() const {
@@ -121,10 +131,15 @@ const RecognitionSettings& Page::recognitionSettings() const {
     return rec_settings_;
 }
 
-const Page::Rectangles& Page::rects(BlockType t) const {
-    Q_ASSERT(t < rects_.size());
+const Page::Rectangles& Page::blocks(BlockType t) const {
+    Q_ASSERT(t < blocks_.size());
 
-    return rects_.at(t);
+    return blocks_.at(t);
+}
+
+int Page::blocksCount(BlockType t) const {
+    Q_ASSERT(t < blocks_.size());
+    return blocks_.at(t).count();
 }
 
 void Page::resetScale() {
@@ -231,14 +246,14 @@ void Page::setRecognitionSettings(const RecognitionSettings& opts) {
     emit changed();
 }
 
-void Page::setRects(const QList<QRect>& rects, BlockType type) {
-    Q_ASSERT(type < rects_.size());
+void Page::setBlocks(const QList<QRect>& rects, BlockType type) {
+    Q_ASSERT(type < blocks_.size());
 
-    rects_[type].clear();
+    clearBlocks(type);
 
     foreach(QRect r, rects) {
         page_area_.topLeft();
-        rects_[type].append(r);
+        blocks_[type].append(r);
     }
 
     emit changed();
@@ -295,7 +310,7 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.is_null_
             << page.view_scroll_
             << page.rec_settings_
-            << page.rects_;
+            << page.blocks_;
     return os;
 }
 
@@ -312,7 +327,7 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.is_null_
             >> page.view_scroll_
             >> page.rec_settings_
-            >> page.rects_;
+            >> page.blocks_;
 
     if(page.is_selected_)
         page.setSelected(true);

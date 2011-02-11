@@ -68,7 +68,7 @@ void TestPacket::testPageSignals() {
     QCOMPARE(changed.count(), 5);
 
     Page::Rectangles r;
-    packet.pageAt(1)->setRects(r, Page::CHAR);
+    packet.pageAt(1)->setBlocks(r, Page::CHAR);
     QCOMPARE(changed.count(), 6);
 
     RecognitionSettings s;

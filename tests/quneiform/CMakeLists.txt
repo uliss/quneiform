@@ -12,6 +12,7 @@ set(CF_GUI_TESTS
     packet
     recognitionsettingsdialog
     pageindicator
+    pagelayout
 )
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_gui.py"

@@ -28,15 +28,28 @@ class PageLayout : public QGraphicsItemGroup
 {
 public:
     PageLayout();
+    QGraphicsItemGroup * charBlocks();
     void clear();
+    QGraphicsItemGroup * columnBlocks();
+    QGraphicsItemGroup * lineBlocks();
+    QGraphicsItemGroup * paragraphBlocks();
+    QGraphicsItemGroup * pictureBlocks();
     void populate(const Page& page);
+    QGraphicsItemGroup * sectionBlocks();
+    typedef QGraphicsItemGroup * PageLayout::*GroupMember;
 private:
-    void populateChars(const Page& page);
-    void populateColumns(const Page& page);
-    void populateLines(const Page& page);
-    void populateParagraphs(const Page& page);
-    void populatePictures(const Page& page);
-    void populateSections(const Page& page);
+    QColor blockColor(int type) const;
+    void clearGroupBlocks(GroupMember ptr);
+    QGraphicsRectItem * createBlock(const QRect& r, const QColor& color);
+    void populateGroup(QGraphicsItemGroup * group, int group_type);
+private:
+    const Page * page_;
+    QGraphicsItemGroup * chars_;
+    QGraphicsItemGroup * columns_;
+    QGraphicsItemGroup * lines_;
+    QGraphicsItemGroup * paragraphs_;
+    QGraphicsItemGroup * pictures_;
+    QGraphicsItemGroup * sections_;
 };
 
 #endif // PAGELAYOUT_H

@@ -495,7 +495,6 @@ void ImageView::updateFormatLayout() {
     if(layout_->scene() != scene_)
         scene_->addItem(layout_);
 
-    layout_->clear();
     layout_->populate(*page_);
 }
 

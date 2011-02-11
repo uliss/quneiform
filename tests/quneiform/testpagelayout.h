@@ -17,41 +17,25 @@
  ***************************************************************************/
 
 
-#ifndef TESTPAGE_H
-#define TESTPAGE_H
+#ifndef TESTPAGELAYOUT_H
+#define TESTPAGELAYOUT_H
 
 #include <QObject>
 
-class TestPage : public QObject
+class TestPageLayout : public QObject
 {
     Q_OBJECT
 public:
-    explicit TestPage(QObject *parent = 0);
-public slots:
-    void callTimerSlot(const char * member, int msec = 500);
-    void sendDialogAccept();
-    void sendDialogCancel();
+    explicit TestPageLayout(QObject *parent = 0);
 private slots:
-    void testAngle();
     void testConstruct();
-    void testPageName();
-    void testFlags();
-    void testResetScale();
-    void testRotate();
-    void testScale();
-    void testSetFlag();
-    void testSetFlags();
-    void testSetNumber();
-    void testSetOcrText();
-    void testSetPageArea();
-    void testSetRecognitionSettings();
-    void testSetBlocks();
-    void testSetSelected();
-    void testSetTransform();
-    void testSetViewScroll();
-    void testUnsetFlag();
-    void testReadWrite();
-    void testExportTo();
+    void testPopulateChars();
+    void testPopulateColumns();
+    void testPopulateLines();
+    void testPopulateParagraphs();
+    void testPopulatePictures();
+    void testPopulateSections();
+    void testClear();
 };
 
-#endif // TESTPAGE_H
+#endif // TESTPAGELAYOUT_H
