@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,37 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RECENTMENU_H
-#define RECENTMENU_H
+#ifndef TESTRECENTMENU_H
+#define TESTRECENTMENU_H
 
-#include <QMenu>
+#include <QObject>
 
-class RecentMenu : public QMenu
+class TestRecentMenu : public QObject
 {
-    Q_OBJECT
+Q_OBJECT
 public:
-    explicit RecentMenu(QWidget * parent, const QString& title, const QString& name, unsigned int maxItems = 5);
-    ~RecentMenu();
-
-    /**
-      * Adds recent path entry to menu
-      * if path already exists - removes it from list and adds to the end
-      */
-    void add(const QString& path);
-    void clear();
-signals:
-    void selected(const QString& path);
+    explicit TestRecentMenu(QObject *parent = 0);
 private slots:
-    void selectItem();
-private:
-    void addMenuAction(const QString& path);
-    void fillActions();
-    void readSettings();
-    void writeSettings();
-private:
-    QStringList items_;
-    QString name_;
-    const unsigned int max_items_;
+    void testConstruct();
+    void testAdd();
+    void testPersistant();
+    void testSelected();
 };
 
-#endif // RECENTMENU_H
+#endif // TESTRECENTMENU_H

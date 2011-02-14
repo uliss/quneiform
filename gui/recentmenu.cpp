@@ -20,7 +20,7 @@
 
 #include "recentmenu.h"
 
-RecentMenu::RecentMenu(QWidget * parent, const QString& title, const QString& name, int maxItems) :
+RecentMenu::RecentMenu(QWidget * parent, const QString& title, const QString& name, unsigned int maxItems) :
     QMenu(title, parent), name_(name), max_items_(maxItems)
 {
     readSettings();
@@ -48,8 +48,13 @@ void RecentMenu::addMenuAction(const QString& path) {
     connect(act, SIGNAL(triggered()), SLOT(selectItem()));
 }
 
+void RecentMenu::clear() {
+    QMenu::clear();
+    items_.clear();
+}
+
 void RecentMenu::fillActions() {
-    clear();
+    QMenu::clear();
 
     QStringListIterator i(items_);
     for(i.toBack(); i.hasPrevious(); i.previous())
