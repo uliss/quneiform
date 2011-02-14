@@ -13,6 +13,7 @@ set(CF_GUI_TESTS
     recognitionsettingsdialog
     pageindicator
     pagelayout
+    pagerecognitionqueue
     recentmenu
 )
 
@@ -24,7 +25,7 @@ function(add_gui_tests)
         unset(cf_test_moc)
         qt4_wrap_cpp(cf_test_moc "test${t}.h")
         add_executable("test_${t}" "test${t}.h" "test${t}.cpp" ${cf_test_moc})
-        target_link_libraries("test_${t}" quneiform_lib ${QT_LIBRARIES} ${QT_QTTEST_LIBRARIES})
+        target_link_libraries("test_${t}" cuneiform quneiform_lib ${QT_LIBRARIES} ${QT_QTTEST_LIBRARIES})
         add_test("Quneiform:test_${t}" "${EXECUTABLE_OUTPUT_PATH}/test_${t}")
     endforeach()
 endfunction()

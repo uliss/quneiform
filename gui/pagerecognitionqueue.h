@@ -34,10 +34,15 @@ class PageRecognitionQueue : public QObject
     Q_OBJECT
 public:
     explicit PageRecognitionQueue(QObject * parent = 0);
-    void add(Packet * doc);
+
+    /**
+      * Adds all packett pages to queue
+      */
+    void add(Packet * packet);
 
     /**
       * Adds page to recognition queue
+      * if page already in queue - do nothing
       */
     void add(Page * p);
 
@@ -45,6 +50,18 @@ public:
       * Returns recogition error for given page imagePath
       */
     QString getPageFault(const QString& imagePath) const;
+
+    /**
+      * Returns true is queue is empty
+      * @see pageCount()
+      */
+    bool isEmpty() const;
+
+    /**
+      * Returns page count in queue
+      * @see isEmpty()
+      */
+    int pageCount() const;
 
     /**
       * Sets recognition language

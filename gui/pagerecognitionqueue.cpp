@@ -33,11 +33,11 @@ PageRecognitionQueue::PageRecognitionQueue(QObject * parent) :
     setupPageRecognizer();
 }
 
-void PageRecognitionQueue::add(Packet * doc) {
-    Q_CHECK_PTR(doc);
+void PageRecognitionQueue::add(Packet * packet) {
+    Q_CHECK_PTR(packet);
 
-    for(int i = 0; i < doc->pageCount(); i++)
-        add(doc->pageAt(i));
+    for(int i = 0; i < packet->pageCount(); i++)
+        add(packet->pageAt(i));
 }
 
 void PageRecognitionQueue::add(Page * p) {
@@ -53,6 +53,10 @@ void PageRecognitionQueue::clearPageFault(const QString& page) {
 
 QString PageRecognitionQueue::getPageFault(const QString& imagePath) const {
     return page_fault_log_.value(imagePath, "");
+}
+
+bool PageRecognitionQueue::isEmpty() const {
+    return pages_.isEmpty();
 }
 
 void PageRecognitionQueue::pageFault(const QString& msg) {
@@ -90,6 +94,10 @@ void PageRecognitionQueue::start() {
 
 void PageRecognitionQueue::setLanguage(int lang) {
     recognizer_->setLanguage(lang);
+}
+
+int PageRecognitionQueue::pageCount() const {
+    return pages_.count();
 }
 
 void PageRecognitionQueue::setPageFault(const QString& page, const QString& msg) {
