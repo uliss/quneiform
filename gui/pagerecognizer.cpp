@@ -16,9 +16,11 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QImage>
 #include <QDebug>
+#include <QMutexLocker>
+#include <QCoreApplication>
 #include <sstream>
+#include <ctime>
 
 #include "pagerecognizer.h"
 #include "page.h"
@@ -28,26 +30,42 @@
 #include "quneiform_debug.h"
 #include "rectexporter.h"
 
-PageRecognizer::PageRecognizer(Page * p, QObject * parent)
+PageRecognizer::PageRecognizer(QObject * parent)
     : QObject(parent),
-    page_(p),
+    page_(NULL),
     language_(LANGUAGE_ENGLISH),
-    paused_(false),
-    aborted_(false) {
+    abort_(false),
+    stage_sleep_(FORMAT + 1, 0)
+{
 }
 
 void PageRecognizer::abort() {
-    aborted_ = true;
-    CF_INFO("aborted")
+    QMutexLocker l(&lock_);
+    abort_ = true;
+    emit aborted();
 }
 
 void PageRecognizer::doRecognize() {
+    if(abort_) {
+        qDebug() << Q_FUNC_INFO << "aborted";
+        return;
+    }
+
+    stageSleep(RECOGNIZE);
+
     cf::Puma::instance().recognize();
     emit recognized();
+    emit percentsDone(80);
+    QCoreApplication::processEvents();
 }
 
 void PageRecognizer::formatResult() {
+    if(abort_)
+        return;
+
     Q_CHECK_PTR(page_);
+
+    stageSleep(FORMAT);
 
     cf::Puma::instance().formatResult();
     cf::RectExporter exporter(cf::Puma::instance().cedPage());
@@ -60,14 +78,18 @@ void PageRecognizer::formatResult() {
     page_->setBlocks(exporter.columns(), Page::COLUMN);
     page_->setBlocks(exporter.sections(), Page::SECTION);
     emit formatted();
+    emit percentsDone(90);
+    QCoreApplication::processEvents();
 }
 
-bool PageRecognizer::isPaused() const {
-    return paused_;
+void PageRecognizer::open() {
+
 }
 
-QImage PageRecognizer::loadImage() const {
+QImage PageRecognizer::loadImage() {
     Q_CHECK_PTR(page_);
+
+    stageSleep(LOAD);
 
     QImage img(page_->imagePath());
 
@@ -82,64 +104,79 @@ QImage PageRecognizer::loadImage() const {
         img = img.transformed(t);
     }
 
-
+    emit loaded();
+    emit percentsDone(10);
+    QCoreApplication::processEvents();
     return img.convertToFormat(QImage::Format_RGB888);
 }
 
-Page * PageRecognizer::page() {
-    return page_;
+QString PageRecognizer::pagePath() const {
+    return page_ ? page_->imagePath() : QString();
 }
 
-void PageRecognizer::pause() {
-    if(paused_)
-        return;
+bool PageRecognizer::recognize() {
+    if(!page_) {
+        emit failed("[PageRecognizer::recognize] NULL page pointer given");
+        return false;
+    }
 
-    paused_ = true;
-    pause_.lock();
-    CF_INFO("paused")
-}
-
-void PageRecognizer::resume() {
-    if(!paused_)
-        return;
-
-    paused_ = false;
-    pause_.unlock();
-    CF_INFO("resumed")
-}
-
-void PageRecognizer::start() {
-    recognize();
-}
-
-void PageRecognizer::recognize() {
-    Q_CHECK_PTR(page_);
-
-    try {       
+    try {
         setRecognizeOptions();
-        cf::QtImageLoader loader;
         QImage img = loadImage();
+
+        stageSleep(OPEN);
+        cf::QtImageLoader loader;
         cf::ImagePtr image = loader.load(&img);
         if (!image)
-            throw Page::Exception("[PageRecognizer::openImage] can't open image");
+            throw Page::Exception("[PageRecognizer::recognize] can't load image");
+        emit percentsDone(20);
 
         cf::Puma::instance().open(image);
+        emit opened();
+        emit percentsDone(30);
+        QCoreApplication::processEvents();
+
         doRecognize();
         formatResult();
         saveOcrText();
+        cf::Puma::instance().close();
     }
     catch(std::exception& e) {
         page_->setFlag(Page::RECOGNITION_FAILED);
+        page_->unsetFlag(Page::RECOGNIZED);
         emit failed(e.what());
+        return false;
+    }
+
+    emit done();
+    emit percentsDone(100);
+    QCoreApplication::processEvents();
+
+    {
+        QMutexLocker l(&lock_);
+        if(abort_)  {
+            abort_ = false;
+            return false;
+        }
+        else
+            return true;
     }
 }
 
 void PageRecognizer::saveOcrText() {
+    if(abort_) {
+        qDebug() << Q_FUNC_INFO << "aborted";
+        return;
+    }
+
     Q_CHECK_PTR(page_);
 
     std::ostringstream buf;
     cf::Puma::instance().save(buf, cf::FORMAT_TEXT);
     page_->setOcrText(QString::fromUtf8(buf.str().c_str()));
+    page_->unsetFlag(Page::RECOGNITION_FAILED);
+    emit percentsDone(95);
+    QCoreApplication::processEvents();
 }
 
 void PageRecognizer::setLanguage(int language) {
@@ -147,8 +184,6 @@ void PageRecognizer::setLanguage(int language) {
 }
 
 void PageRecognizer::setPage(Page * p) {
-    Q_CHECK_PTR(p);
-
     page_ = p;
 }
 
@@ -168,5 +203,21 @@ void PageRecognizer::setRecognizeOptions() {
 
     cf::Puma::instance().setRecognizeOptions(recognize_opts);
     cf::Config::instance().setDebug(false);
+}
+
+void PageRecognizer::setStageSleep(StageType t, int msec) {
+    stage_sleep_[t] = msec;
+}
+
+void PageRecognizer::stageSleep(StageType t) {
+#ifndef NDEBUG
+    int mcsec = stage_sleep_[t] * 1000;
+
+    if(!mcsec)
+        return;
+
+    qDebug() << Q_FUNC_INFO << mcsec << "micro seconds";
+    ::usleep(mcsec);
+#endif
 }
 

@@ -30,6 +30,12 @@ private slots:
     void testConstruct();
     void testAddPacket();
     void testAddPage();
+    void testStart();
+    void testSetLanguage();
+    void testEmitStep();
+    void testIsFailed();
+    void testAbort();
+    void testPercentDone();
 };
 
 #endif // TESTPAGERECOGNITIONQUEUE_H

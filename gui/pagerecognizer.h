@@ -16,7 +16,6 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-
 #ifndef PAGERECOGNIZER_H
 #define PAGERECOGNIZER_H
 
@@ -24,6 +23,7 @@
 #include <QString>
 #include <QImage>
 #include <QMutex>
+#include <QMap>
 
 class Page;
 
@@ -31,27 +31,19 @@ class PageRecognizer : public QObject
 {
     Q_OBJECT
 public:
-    PageRecognizer(Page * p, QObject * parent);
+    PageRecognizer(QObject * parent = NULL);
+
+    enum StageType {
+        LOAD = 0,
+        OPEN,
+        RECOGNIZE,
+        FORMAT
+    };
 
     /**
-      * Returns true if recognizer is stopped; otherwise returns false.
+      * Returns current page path
       */
-    bool isPaused() const;
-
-    /**
-      * Returns pointer to recogized page
-      */
-    Page * page();
-
-    /**
-      * Locks recognition thread
-      */
-    void pause();
-
-    /**
-      * Unlocks recognition thread
-      */
-    void resume();
+    QString pagePath() const;
 
     /**
       * Sets recognition language
@@ -61,15 +53,34 @@ public:
     /**
       * Sets recognized page
       */
-    void setPage(Page * p);
+    void setPage(Page *p);
+
+    /**
+      * Sleep stage
+      */
+    void setStageSleep(StageType t, int msec = 1000);
 public slots:
     /**
-      * Abortes page recognition process
-      * @note abort is not immidiate - only next recognition stage aborted
+      * Tries to abort recognition process
       */
     void abort();
-    void start();
+
+    /**
+      * Starts page recognition thread
+      * @return true on success or false on abort or error
+      */
+    bool recognize();
 signals:
+    /**
+      * Emitted when recognition is aborted
+      */
+    void aborted();
+
+    /**
+      * Emitted if recognition done
+      */
+    void done();
+
     /**
       * Emitted if page recognition failed
       * @param msg - error message
@@ -77,32 +88,43 @@ signals:
     void failed(const QString& msg);
 
     /**
-      * Emitted when page formatting is done.
+      * Emitted after page formatting is done.
       */
     void formatted();
 
     /**
-      * Emmitted when page image is opened and loaded
+      * Emitted after image is loaded into memory
+      */
+    void loaded();
+
+    /**
+      * Emmitted after page image is opened and loaded
       */
     void opened();
 
     /**
-      * Emitted when page is recognized
+      * Emitted after some part of recognition process is done
+      */
+    void percentsDone(int done);
+
+    /**
+      * Emitted after page is recognized
       */
     void recognized();
 private:
     void doRecognize();
     void formatResult();
-    QImage loadImage() const;
-    void recognize();
+    QImage loadImage();
+    void open();
     void saveOcrText();
     void setRecognizeOptions();
+    void stageSleep(StageType t);
 private:
     Page * page_;
     int language_;
-    QMutex pause_;
-    volatile bool paused_;
-    volatile bool aborted_;
+    QMutex lock_;
+    volatile bool abort_;
+    QVector<int> stage_sleep_;
 };
 
 #endif // PAGERECOGNIZER_H

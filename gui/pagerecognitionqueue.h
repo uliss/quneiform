@@ -16,24 +16,23 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-
 #ifndef PAGERECOGNITIONQUEUE_H
 #define PAGERECOGNITIONQUEUE_H
 
 #include <QObject>
 #include <QQueue>
 #include <QMap>
+#include <QMutex>
 
 class Packet;
 class Page;
-class RecognitionProgressDialog;
 class PageRecognizer;
 
 class PageRecognitionQueue : public QObject
 {
     Q_OBJECT
 public:
-    explicit PageRecognitionQueue(QObject * parent = 0);
+    explicit PageRecognitionQueue(QObject * parent = NULL);
 
     /**
       * Adds all packett pages to queue
@@ -49,7 +48,7 @@ public:
     /**
       * Returns recogition error for given page imagePath
       */
-    QString getPageFault(const QString& imagePath) const;
+    QString pageError(const QString& imagePath) const;
 
     /**
       * Returns true is queue is empty
@@ -58,32 +57,94 @@ public:
     bool isEmpty() const;
 
     /**
-      * Returns page count in queue
+      * Returns true if page recognition failed
+      * @see failed()
+      */
+    bool isFailed(const QString& path) const;
+
+    /**
+      * Returns current page count in queue
       * @see isEmpty()
       */
     int pageCount() const;
+
+    /**
+      * Returns numbers of error during recognition
+      */
+    int pageErrorNum() const;
+
+    /**
+      * Returns pointer to page recognizer
+      */
+    PageRecognizer * recognizer();
 
     /**
       * Sets recognition language
       */
     void setLanguage(int language);
 public slots:
+    /**
+      * Tries to abort recognition process
+      * @see start()
+      */
+    void abort();
+
+    /**
+      * Runs recognition process
+      * @see abort(), started()
+      */
     void start();
 signals:
-    void finished();
+    /**
+      * Emmitted on page recognition error
+      * @param msg - error message
+      */
+    void failed(const QString& msg);
+
+    /**
+      * Emitted when recognition queue is finished
+      * @param number - number of processed pages
+      */
+    void finished(int number);
+
+    /**
+      * Emitted when each page recognition in queue started
+      * @param name - page name
+      */
+    void pageStarted(const QString& name);
+
+    /**
+      * Emitted when some part of job is done
+      * @param perc - percent of work (from 0 to 100)
+      */
+    void percentDone(int perc);
+
+    /**
+      * Emitted when page queue started
+      */
     void started();
 private slots:
-    void pageFault(const QString& msg);
+    void handleFail(const QString& msg);
+    void handlePagePercents(int perc);
 private:
     void clearPageFault(const QString& page);
+    void handlePageStep(int pageStep);
     void setPageFault(const QString& page, const QString& msg);
-    void setupProgressDialog();
-    void setupPageRecognizer();
 private:
+    /* queue pages */
     QQueue<Page*> pages_;
-    RecognitionProgressDialog * progress_;
+    QMap<QString, QString> page_errors_;
+    /* lock for whole queue */
+    QMutex queue_lock_;
+    /* lock for abort only */
+    QMutex abort_lock_;
     PageRecognizer * recognizer_;
-    QMap<QString, QString> page_fault_log_;
+    /* initial page count right before recognition start */
+    int page_count_;
+    /* abort flag */
+    volatile bool abort_;
+    /* number of errors during recognition */
+    int page_error_num_;
 };
 
 #endif // PAGERECOGNITIONQUEUE_H

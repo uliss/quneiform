@@ -29,7 +29,7 @@
 #define CF_IMAGE_DIR ""
 #endif
 
-#define SAMPLE_IMG CF_IMAGE_DIR "/croatian.bmp"
+#define SAMPLE_IMG CF_IMAGE_DIR "/english.png"
 
 
 #define QVERIFY_THROW(expression, ExpectedExceptionType) \
@@ -134,10 +134,10 @@ void TestPage::testConstruct() {
     QVERIFY(p2.isNull());
 
     Page p3(SAMPLE_IMG);
-    QCOMPARE(p3.name(), QString("croatian.bmp"));
+    QCOMPARE(p3.name(), QString("english.png"));
     QCOMPARE(p3.imagePath(), QString(SAMPLE_IMG));
     QVERIFY(!p3.isNull());
-    QCOMPARE(p3.imageSize(), QSize(640, 1390));
+    QCOMPARE(p3.imageSize(), QSize(281, 81));
     QCOMPARE(p3.pageArea(), QRect());
 }
 
@@ -567,4 +567,8 @@ void TestPage::testExportTo() {
     }
 }
 
-QTEST_MAIN(TestPage)
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+    TestPage tc;
+    return QTest::qExec(&tc, argc, argv);
+}

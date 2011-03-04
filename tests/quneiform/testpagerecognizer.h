@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,27 +16,25 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RECOGNITIONPROGRESSDIALOG_H
-#define RECOGNITIONPROGRESSDIALOG_H
+#ifndef TESTPAGERECOGNIZER_H
+#define TESTPAGERECOGNIZER_H
 
-#include <QProgressDialog>
+#include <QObject>
 
-class Page;
-class PageRecognitionQueue;
-
-class RecognitionProgressDialog : public QProgressDialog
+class TestPageRecognizer : public QObject
 {
     Q_OBJECT
 public:
-    explicit RecognitionProgressDialog(QWidget * parent = 0);
-    void connectToQueue(PageRecognitionQueue * queue);
-public slots:
-    /**
-      * Sets path of current page
-      */
-    void setCurrentPage(const QString& path);
-private:
-    void setupLabel();
+    explicit TestPageRecognizer(QObject * parent = 0);
+signals:
+    void test();
+private slots:
+    void testConstruct();
+    void testRecognize();
+    void testLoadImage();
+    void testAbort();
+    void testPercents();
+    void testSlotConnections();
 };
 
-#endif // RECOGNITIONPROGRESSDIALOG_H
+#endif // TESTPAGERECOGNIZER_H

@@ -21,6 +21,7 @@
 
 #include "page.h"
 #include "recognitionprogressdialog.h"
+#include "pagerecognitionqueue.h"
 
 RecognitionProgressDialog::RecognitionProgressDialog(QWidget * parent) :
         QProgressDialog(parent) {
@@ -30,15 +31,28 @@ RecognitionProgressDialog::RecognitionProgressDialog(QWidget * parent) :
     setMinimum(0);
     setMaximum(100);
     setFixedWidth(400);
+    setupLabel();
+}
+
+void RecognitionProgressDialog::connectToQueue(PageRecognitionQueue * queue) {
+    if(!queue)
+        return;
+
+    connect(queue, SIGNAL(started()), SLOT(show()));
+//    connect(queue, SIGNAL(finished(int)), SLOT(close()));
+    connect(queue, SIGNAL(percentDone(int)), SLOT(setValue(int)));
+    connect(queue, SIGNAL(pageStarted(QString)), SLOT(setCurrentPage(QString)));
+    connect(this, SIGNAL(canceled()), queue, SLOT(abort()));
+}
+
+void RecognitionProgressDialog::setCurrentPage(const QString& path) {
+    setLabelText(tr("Page recognition: \"%1\"").arg(path));
+}
+
+void RecognitionProgressDialog::setupLabel() {
     QLabel * label = new QLabel();
     label->setAlignment(Qt::AlignLeft);
     label->setTextFormat(Qt::PlainText);
     label->setScaledContents(false);
     setLabel(label);
-}
-
-void RecognitionProgressDialog::setCurrentPage(Page * const p) {
-    Q_CHECK_PTR(p);
-
-    setLabelText(tr("Page recognition: \"%1\"").arg(p->name()));
 }

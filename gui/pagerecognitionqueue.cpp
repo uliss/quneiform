@@ -17,7 +17,8 @@
  ***************************************************************************/
 
 #include <QDebug>
-#include <QApplication>
+#include <QMutexLocker>
+#include <QCoreApplication>
 
 #include "pagerecognitionqueue.h"
 #include "pagerecognizer.h"
@@ -27,10 +28,15 @@
 #include "quneiform_debug.h"
 
 PageRecognitionQueue::PageRecognitionQueue(QObject * parent) :
-    QObject(parent)
+        QObject(parent),
+        page_count_(0),
+        abort_(false),
+        page_error_num_(0)
 {
-    setupProgressDialog();
-    setupPageRecognizer();
+    recognizer_ = new PageRecognizer(this);
+
+    connect(recognizer_, SIGNAL(percentsDone(int)), SLOT(handlePagePercents(int)));
+    connect(recognizer_, SIGNAL(failed(QString)), SLOT(handleFail(QString)));
 }
 
 void PageRecognitionQueue::add(Packet * packet) {
@@ -43,56 +49,92 @@ void PageRecognitionQueue::add(Packet * packet) {
 void PageRecognitionQueue::add(Page * p) {
     Q_CHECK_PTR(p);
 
+    QMutexLocker l(&queue_lock_);
+
     if(!pages_.contains(p))
         pages_.enqueue(p);
 }
 
-void PageRecognitionQueue::clearPageFault(const QString& page) {
-     page_fault_log_.remove(page);
+void PageRecognitionQueue::abort() {
+    QMutexLocker l(&abort_lock_);
+    abort_ = true;
+    recognizer_->abort();
 }
 
-QString PageRecognitionQueue::getPageFault(const QString& imagePath) const {
-    return page_fault_log_.value(imagePath, "");
+void PageRecognitionQueue::clearPageFault(const QString& page) {
+     page_errors_.remove(page);
+}
+
+QString PageRecognitionQueue::pageError(const QString& imagePath) const {
+    return page_errors_.value(imagePath, "");
 }
 
 bool PageRecognitionQueue::isEmpty() const {
     return pages_.isEmpty();
 }
 
-void PageRecognitionQueue::pageFault(const QString& msg) {
-    qDebug() << Q_FUNC_INFO << recognizer_->page()->imagePath() << msg;
-    setPageFault(recognizer_->page()->imagePath(), msg);
+bool PageRecognitionQueue::isFailed(const QString& path) const {
+    return page_errors_.contains(path);
+}
+
+void PageRecognitionQueue::handleFail(const QString& msg) {
+    setPageFault(recognizer_->pagePath(), msg);
+    handlePagePercents(100);
+    page_error_num_++;
+    emit failed(msg);
+}
+
+void PageRecognitionQueue::handlePagePercents(int perc) {
+    qreal page_percent = 100.0 / page_count_;
+    int page_done = page_count_ - pageCount() - 1;
+    qreal percent_done = ((page_done * 100 + perc) * page_percent) / 100.0;
+    emit percentDone(percent_done);
+    QCoreApplication::processEvents();
+}
+
+PageRecognizer * PageRecognitionQueue::recognizer() {
+    return recognizer_;
 }
 
 void PageRecognitionQueue::start() {
+    QMutexLocker l(&queue_lock_);
     emit started();
-    const int total = pages_.count();
-    int done = 0;
-    progress_->reset();
-    progress_->show();
-    progress_->setValue(0);
+    page_count_ = pages_.count();
+    page_error_num_ = 0;
+    int pages_done = 0;
+
+    if(abort_)
+        abort_ = false;
+
     while(!pages_.empty()) {
-        if(progress_->wasCanceled()) {
-            // remove all not recognized pages from queue
-            pages_.clear();
-            break;
+        {
+            QMutexLocker l(&abort_lock_);
+            if(abort_) {
+                pages_.clear();
+                abort_ = false;
+                break;
+            }
         }
 
-        QApplication::processEvents();
-
         Page * p = pages_.dequeue();
-
-        progress_->setCurrentPage(p);
-
         clearPageFault(p->imagePath());
+        emit pageStarted(p->name());
         recognizer_->setPage(p);
-        recognizer_->start();
-        progress_->setValue((++done * 100) / total);
+        bool ok = recognizer_->recognize();
+
+        if(ok)
+            pages_done++;
     }
-    emit finished();
+
+    if(abort_)
+        abort_ = false;
+
+    emit finished(pages_done);
 }
 
 void PageRecognitionQueue::setLanguage(int lang) {
+    Q_CHECK_PTR(recognizer_);
+    QMutexLocker l(&queue_lock_);
     recognizer_->setLanguage(lang);
 }
 
@@ -100,19 +142,10 @@ int PageRecognitionQueue::pageCount() const {
     return pages_.count();
 }
 
+int PageRecognitionQueue::pageErrorNum() const {
+    return page_error_num_;
+}
+
 void PageRecognitionQueue::setPageFault(const QString& page, const QString& msg) {
-    page_fault_log_[page] = msg;
-}
-
-void PageRecognitionQueue::setupProgressDialog() {
-    progress_ = new RecognitionProgressDialog(NULL);
-    connect(this, SIGNAL(started()), progress_, SLOT(show()));
-    connect(this, SIGNAL(started()), progress_, SLOT(reset()));
-    connect(this, SIGNAL(finished()), progress_, SLOT(hide()));
-}
-
-void PageRecognitionQueue::setupPageRecognizer() {
-    recognizer_ = new PageRecognizer(NULL, this);
-    connect(recognizer_, SIGNAL(failed(QString)), SLOT(pageFault(QString)));
-    connect(progress_, SIGNAL(canceled()), recognizer_, SLOT(abort()));
+    page_errors_[page] = msg;
 }

@@ -39,6 +39,7 @@
 #include "thumbnailwidget.h"
 #include "thumbnaillist.h"
 #include "pagerecognitionqueue.h"
+#include "recognitionprogressdialog.h"
 #include "recentmenu.h"
 #include "settings.h"
 #include "aboutdialog.h"
@@ -491,9 +492,11 @@ void MainWindow::setupRecentPackets() {
 
 void MainWindow::setupRecognitionQueue() {
     recognition_queue_ = new PageRecognitionQueue(this);
+    RecognitionProgressDialog * r_dlg = new RecognitionProgressDialog(this);
     connect(recognition_queue_, SIGNAL(started()), SLOT(disableViewActions()));
-    connect(recognition_queue_, SIGNAL(finished()), SLOT(updateCurrentPage()));
-    connect(recognition_queue_, SIGNAL(finished()), SLOT(enableViewActions()));
+    connect(recognition_queue_, SIGNAL(finished(int)), SLOT(updateCurrentPage()));
+    connect(recognition_queue_, SIGNAL(finished(int)), SLOT(enableViewActions()));
+    r_dlg->connectToQueue(recognition_queue_);
 }
 
 void MainWindow::setupShortcuts() {
@@ -567,7 +570,7 @@ void MainWindow::showPageFault(Page * page) {
     Q_CHECK_PTR(page);
     Q_CHECK_PTR(recognition_queue_);
 
-    QString msg = recognition_queue_->getPageFault(page->imagePath());
+    QString msg = recognition_queue_->pageError(page->imagePath());
     if(msg.isEmpty())
         return;
 

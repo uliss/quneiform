@@ -1,4 +1,4 @@
-add_definitions(-DCF_IMAGE_DIR="${CMAKE_SOURCE_DIR}/images/lang.diftest")
+add_definitions(-DCF_IMAGE_DIR="${CMAKE_SOURCE_DIR}/images/quneiform")
 find_package(Qt4 4.5 REQUIRED)
 include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})
@@ -10,11 +10,13 @@ set(CF_GUI_TESTS
     imagecache
     page
     packet
-    recognitionsettingsdialog
     pageindicator
     pagelayout
     pagerecognitionqueue
+    pagerecognizer
     recentmenu
+    recognitionsettingsdialog
+    recognitionprogressdialog
 )
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_gui.py"

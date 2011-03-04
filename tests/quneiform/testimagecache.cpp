@@ -49,4 +49,8 @@ void TestImageCache::testLoad() {
     QVERIFY(!ImageCache::load("none2", &p));
 }
 
-QTEST_MAIN(TestImageCache)
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+    TestImageCache tc;
+    return QTest::qExec(&tc, argc, argv);
+}

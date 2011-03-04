@@ -330,4 +330,8 @@ void TestPacket::testReadWrite() {
     }
 }
 
-QTEST_MAIN(TestPacket)
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+    TestPacket tc;
+    return QTest::qExec(&tc, argc, argv);
+}
