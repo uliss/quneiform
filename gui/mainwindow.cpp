@@ -266,11 +266,13 @@ void MainWindow::openPacket(const QString& path) {
     if(path.isEmpty())
         return;
 
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
     if(!packet_->open(path)) {
         QMessageBox::warning(this,
                              tr("Quneiform OCR"),
                              tr("Can't read packet \"%1\"").arg(path));
     }
+    QApplication::restoreOverrideCursor();
 
     selectLanguage(packet_->language());
     recent_packets_->add(path);
