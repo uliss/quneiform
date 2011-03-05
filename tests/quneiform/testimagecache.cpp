@@ -20,6 +20,10 @@
 #include "testimagecache.h"
 #include "gui/imagecache.h"
 
+#ifndef CF_IMAGE_DIR
+#define CF_IMAGE_DIR ""
+#endif
+
 TestImageCache::TestImageCache(QObject *parent) :
     QObject(parent)
 {
@@ -47,10 +51,8 @@ void TestImageCache::testLoad() {
     QVERIFY(!ImageCache::load("none", NULL));
     // non existant
     QVERIFY(!ImageCache::load("none2", &p));
+    // exist
+    QVERIFY(ImageCache::load(CF_IMAGE_DIR "/english.png", &p));
 }
 
-int main(int argc, char *argv[]) {
-    QCoreApplication app(argc, argv);
-    TestImageCache tc;
-    return QTest::qExec(&tc, argc, argv);
-}
+QTEST_MAIN(TestImageCache);

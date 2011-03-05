@@ -253,9 +253,5 @@ void TestPageRecognitionQueue::testPercentDone() {
     QCOMPARE(percents.at(13).at(0).toInt(), 100);
 }
 
-int main(int argc, char *argv[]) {
-    QCoreApplication app(argc, argv);
-    TestPageRecognitionQueue tc;
-    return QTest::qExec(&tc, argc, argv);
-}
+QTEST_MAIN(TestPageRecognitionQueue);
 

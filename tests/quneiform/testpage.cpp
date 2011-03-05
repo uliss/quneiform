@@ -567,8 +567,4 @@ void TestPage::testExportTo() {
     }
 }
 
-int main(int argc, char *argv[]) {
-    QCoreApplication app(argc, argv);
-    TestPage tc;
-    return QTest::qExec(&tc, argc, argv);
-}
+QTEST_MAIN(TestPage)
