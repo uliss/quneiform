@@ -220,6 +220,9 @@ QDataStream& operator>>(QDataStream& is, Packet& packet) {
         for(int i = 0; i < page_count; i++) {
             Page * p = new Page("");
             is >> *p;
+            if(is.status() != QDataStream::Ok)
+                break;
+
             packet.append(p, true);
         }
     }
