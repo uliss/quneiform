@@ -30,6 +30,10 @@
 #include "quneiform_debug.h"
 #include "rectexporter.h"
 
+#ifdef Q_OS_WIN32
+#define usleep(t) Sleep((t)/1000)
+#endif
+
 PageRecognizer::PageRecognizer(QObject * parent)
     : QObject(parent),
     page_(NULL),

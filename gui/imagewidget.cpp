@@ -18,7 +18,10 @@
 
 #include <QDebug>
 #include <QVBoxLayout>
+
+#ifdef QT_OS_MAC
 #include <QtOpenGL/QGLWidget>
+#endif
 
 #include "imagewidget.h"
 #include "imageview.h"
