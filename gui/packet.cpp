@@ -31,10 +31,6 @@ Packet::Packet(QObject * parent) :
         is_new_(true) {
 }
 
-Packet::~Packet() {
-
-}
-
 void Packet::append(Page * page, bool allowDuplication) {
     if(!page) {
         qDebug() << "[Packet::append] NULL page pointer given";
@@ -54,7 +50,6 @@ void Packet::append(Page * page, bool allowDuplication) {
     changed_ = true;
     emit pageAdded(page);
     emit changed();
-    qDebug() << "[Packet::append()]";
 }
 
 void Packet::clear() {
@@ -102,6 +97,10 @@ bool Packet::isChanged() const {
     return changed_;
 }
 
+bool Packet::isEmpty() const {
+    return pages_.isEmpty();
+}
+
 bool Packet::isNew() const {
     return is_new_;
 }
@@ -121,6 +120,7 @@ bool Packet::open(const QString& filename) {
         stream >> *this;
         if(stream.status() != QDataStream::Ok) {
             qDebug() << "[Packet::open] read error" << filename;
+            clear();
             return false;
         }
     }

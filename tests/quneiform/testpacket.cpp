@@ -194,12 +194,37 @@ void TestPacket::testOpen() {
     QVERIFY(packet2.isNew());
     QVERIFY(!packet2.isChanged());
 
-    packet2.open(fname);
+    bool ok = packet2.open(fname);
+    QVERIFY(ok);
     QCOMPARE(packet2.fileName(), QString("packet.test"));
     QVERIFY(!packet2.isNew());
     QVERIFY(!packet2.isChanged());
     QCOMPARE(packet2.pageCount(), 1);
     QCOMPARE(packet2.pageAt(0)->imagePath(), QString("path 1"));
+
+    // open again
+    ok = packet2.open(fname);
+    QVERIFY(ok);
+    QCOMPARE(packet2.fileName(), QString("packet.test"));
+    QVERIFY(!packet2.isNew());
+    QVERIFY(!packet2.isChanged());
+    QCOMPARE(packet2.pageCount(), 1);
+    QCOMPARE(packet2.pageAt(0)->imagePath(), QString("path 1"));
+
+    // failure
+   {
+       QFile file(fname);
+       file.open(QIODevice::WriteOnly);
+       QDataStream out(&file);
+       out << 1 << 5000 << 111;
+   }
+
+   {
+       ok = packet2.open(fname);
+       QVERIFY(!ok);
+       QVERIFY(packet2.isEmpty());
+   }
+
 
     QFile f(fname);
     f.remove();

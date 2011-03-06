@@ -30,7 +30,6 @@ class Packet: public QObject
     Q_OBJECT
 public:
     Packet(QObject * parent = 0);
-    ~Packet();
 
     /**
       * Appends page
@@ -68,6 +67,11 @@ public:
       * Returns true if packet changed
       */
     bool isChanged() const;
+
+    /**
+      * Returns true if packet has no pages
+      */
+    bool isEmpty() const;
 
     /**
       * Returns true if packet is new and never was saved
