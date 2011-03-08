@@ -16,7 +16,6 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-
 #ifndef SELECTION_H
 #define SELECTION_H
 
@@ -52,7 +51,17 @@ public:
         DIAGONAL_RIGHT = 4
     };
 
+    /**
+      * Moves selection by given offset
+      * @note that if selection moving outside of graphics scene
+      * is not allowed
+      */
     void moveBy(const QPointF& delta);
+
+    /**
+      * Returns normalized selection rectange
+      * taking into account pos() and rect() values
+      */
     QRect normalRect() const;
 signals:
     void cursorChange(int type);
