@@ -33,6 +33,7 @@ private slots:
     void testNormalRect();
     void testCursorChange();
     void testSelectionDelete();
+    void testSelectionMove();
 private:
     QGraphicsScene scene_;
 };

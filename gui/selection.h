@@ -69,6 +69,10 @@ signals:
       */
     void cursorChange(int type);
 
+    /**
+      * Emitted when user press arrow keys to move selection
+      * @param delta move offset
+      */
     void moved(const QPointF& delta);
 
     /**
