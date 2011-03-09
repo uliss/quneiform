@@ -19,6 +19,7 @@
 #include <QDebug>
 #include <QMutexLocker>
 #include <QCoreApplication>
+#include <QSettings>
 #include <sstream>
 #include <ctime>
 
@@ -206,7 +207,10 @@ void PageRecognizer::setRecognizeOptions() {
     recognize_opts.setLanguage(static_cast<language_t>(language_));
 
     cf::Puma::instance().setRecognizeOptions(recognize_opts);
-    cf::Config::instance().setDebug(false);
+
+    QSettings global_settings;
+    cf::Config::instance().setDebug(
+            global_settings.value("debug/printCuneiformDebug", false).toBool());
 }
 
 void PageRecognizer::setStageSleep(StageType t, int msec) {
