@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 #include <QTest>
+#include <QSignalSpy>
+#include <QGraphicsView>
+#include <QCoreApplication>
 #include "testselection.h"
 #include "gui/selection.h"
 
@@ -116,6 +119,86 @@ void TestSelection::testNormalRect() {
     s->setPos(1, 2);
     s->setRect(5, 6, 10, 30);
     QCOMPARE(s->normalRect(), QRect(6, 8, 10, 30));
+
+    scene_.clear();
+}
+
+void TestSelection::testCursorChange() {
+    Selection * s = new Selection;
+    QGraphicsView view(&scene_);
+    view.resize(scene_.width(), scene_.height());
+    view.show();
+
+    scene_.addItem(s);
+    const QRect rect(10, 20, 50, 100);
+    s->setRect(rect);
+
+    QSignalSpy cursor_changed(s, SIGNAL(cursorChange(int)));
+
+    // diagonal stretch - top left
+    QTest::mouseMove(&view, rect.topLeft());
+    QVERIFY(!cursor_changed.isEmpty());
+    QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::DIAGONAL_LEFT);
+    cursor_changed.clear();
+
+    // diagonal stretch - top right
+    QTest::mouseMove(&view, rect.topRight());
+    QVERIFY(!cursor_changed.isEmpty());
+    QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::DIAGONAL_RIGHT);
+    cursor_changed.clear();
+
+    // diagonal stretch - bottom right
+    QTest::mouseMove(&view, rect.bottomRight());
+    QVERIFY(!cursor_changed.isEmpty());
+    QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::DIAGONAL_LEFT);
+    cursor_changed.clear();
+
+    // diagonal stretch - bottom left
+    QTest::mouseMove(&view, rect.bottomLeft());
+    QVERIFY(!cursor_changed.isEmpty());
+    QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::DIAGONAL_RIGHT);
+    cursor_changed.clear();
+
+    // vertical stretch center of upper side
+    QTest::mouseMove(&view, QPoint(rect.center().x(), rect.top()));
+    QVERIFY(!cursor_changed.isEmpty());
+    QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::VERTICAL);
+    cursor_changed.clear();
+
+    // vertical stretch center of lower side
+    QTest::mouseMove(&view, QPoint(rect.center().x(), rect.bottom()));
+    QVERIFY(!cursor_changed.isEmpty());
+    QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::VERTICAL);
+    cursor_changed.clear();
+
+    // horizontal stretch center of left side
+    QTest::mouseMove(&view, QPoint(rect.left(), rect.center().y()));
+    QVERIFY(!cursor_changed.isEmpty());
+    QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::HORIZONTAL);
+    cursor_changed.clear();
+
+    // horizontal stretch center of right side
+    QTest::mouseMove(&view, QPoint(rect.right(), rect.center().y()));
+    QVERIFY(!cursor_changed.isEmpty());
+    QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::HORIZONTAL);
+    cursor_changed.clear();
+
+    scene_.clear();
+}
+
+void TestSelection::testSelectionDelete() {
+    Selection * s = new Selection;
+    scene_.addItem(s);
+    QGraphicsView view(&scene_);
+    view.show();
+
+    QSignalSpy deleted(s, SIGNAL(selectionDeleted()));
+
+    s->setFocus();
+    QTest::keyClick(&view, Qt::Key_Delete);
+    QCOMPARE(deleted.count(), 1);
+    QTest::keyClick(&view, Qt::Key_Delete);
+    QCOMPARE(deleted.count(), 2);
 
     scene_.clear();
 }

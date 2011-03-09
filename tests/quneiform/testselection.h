@@ -31,6 +31,8 @@ private slots:
     void testConstruct();
     void testMoveBy();
     void testNormalRect();
+    void testCursorChange();
+    void testSelectionDelete();
 private:
     QGraphicsScene scene_;
 };

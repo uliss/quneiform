@@ -64,8 +64,16 @@ public:
       */
     QRect normalRect() const;
 signals:
+    /**
+      * Emitted if cursor is above selection borders
+      */
     void cursorChange(int type);
+
     void moved(const QPointF& delta);
+
+    /**
+      * Emitted when user press Delete key on selection
+      */
     void selectionDeleted();
     void resized();
 protected:
