@@ -24,6 +24,15 @@
 #include "testselection.h"
 #include "gui/selection.h"
 
+#ifdef Q_WS_X11
+#define WAIT_EVENTS() {\
+    QCoreApplication::processEvents();\
+    QTest::qWait(50);\
+}
+#else
+#define WAIT_EVENTS() {}
+#endif
+
 TestSelection::TestSelection() : scene_(QRectF(0, 0, 100, 200)) {
 
 }
@@ -128,6 +137,8 @@ void TestSelection::testCursorChange() {
     Selection * s = new Selection;
     QGraphicsView view(&scene_);
     view.resize(scene_.width(), scene_.height());
+    view.move(300, 300);
+    QTest::mouseMove(&view, QPoint(280, 280));
     view.show();
 
     scene_.addItem(s);
@@ -138,48 +149,56 @@ void TestSelection::testCursorChange() {
 
     // diagonal stretch - top left
     QTest::mouseMove(&view, rect.topLeft());
+    WAIT_EVENTS()
     QVERIFY(!cursor_changed.isEmpty());
     QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::DIAGONAL_LEFT);
     cursor_changed.clear();
 
     // diagonal stretch - top right
     QTest::mouseMove(&view, rect.topRight());
+    WAIT_EVENTS()
     QVERIFY(!cursor_changed.isEmpty());
     QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::DIAGONAL_RIGHT);
     cursor_changed.clear();
 
     // diagonal stretch - bottom right
     QTest::mouseMove(&view, rect.bottomRight());
+    WAIT_EVENTS()
     QVERIFY(!cursor_changed.isEmpty());
     QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::DIAGONAL_LEFT);
     cursor_changed.clear();
 
     // diagonal stretch - bottom left
     QTest::mouseMove(&view, rect.bottomLeft());
+    WAIT_EVENTS()
     QVERIFY(!cursor_changed.isEmpty());
     QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::DIAGONAL_RIGHT);
     cursor_changed.clear();
 
     // vertical stretch center of upper side
     QTest::mouseMove(&view, QPoint(rect.center().x(), rect.top()));
+    WAIT_EVENTS()
     QVERIFY(!cursor_changed.isEmpty());
     QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::VERTICAL);
     cursor_changed.clear();
 
     // vertical stretch center of lower side
     QTest::mouseMove(&view, QPoint(rect.center().x(), rect.bottom()));
+    WAIT_EVENTS()
     QVERIFY(!cursor_changed.isEmpty());
     QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::VERTICAL);
     cursor_changed.clear();
 
     // horizontal stretch center of left side
     QTest::mouseMove(&view, QPoint(rect.left(), rect.center().y()));
+    WAIT_EVENTS()
     QVERIFY(!cursor_changed.isEmpty());
     QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::HORIZONTAL);
     cursor_changed.clear();
 
     // horizontal stretch center of right side
     QTest::mouseMove(&view, QPoint(rect.right(), rect.center().y()));
+    WAIT_EVENTS()
     QVERIFY(!cursor_changed.isEmpty());
     QCOMPARE(cursor_changed.at(0).at(0).toInt(), (int)Selection::HORIZONTAL);
     cursor_changed.clear();
