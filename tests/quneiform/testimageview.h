@@ -16,43 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-
-#ifndef TESTPAGE_H
-#define TESTPAGE_H
+#ifndef TESTIMAGEVIEW_H
+#define TESTIMAGEVIEW_H
 
 #include <QObject>
 
-class TestPage : public QObject
+class TestImageView : public QObject
 {
     Q_OBJECT
 public:
-    explicit TestPage(QObject *parent = 0);
-public slots:
-    void callTimerSlot(const char * member, int msec = 500);
-    void sendDialogAccept();
-    void sendDialogCancel();
+    TestImageView(QObject *parent = 0);
 private slots:
-    void testAngle();
     void testConstruct();
-    void testPageName();
-    void testFlags();
-    void testResetScale();
-    void testResetTransform();
-    void testRotate();
-    void testScale();
-    void testSetFlag();
-    void testSetFlags();
-    void testSetNumber();
-    void testSetOcrText();
-    void testSetPageArea();
-    void testSetRecognitionSettings();
-    void testSetBlocks();
-    void testSetSelected();
-    void testSetTransform();
-    void testSetViewScroll();
-    void testUnsetFlag();
-    void testReadWrite();
-    void testExportTo();
+    void testClearScene();
+    void testFitPage();
+    void testFitWidth();
+    void testOriginalSize();
 };
 
-#endif // TESTPAGE_H
+#endif // TESTIMAGEVIEW_H

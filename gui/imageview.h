@@ -35,13 +35,56 @@ class ImageView : public QGraphicsView {
     Q_OBJECT
 public:
     ImageView(QWidget * parent = 0);
+    ~ImageView();
+
+    /**
+      * Clears view and scene
+      */
     void clearScene();
+
+    /**
+      * Fits page into viewpoint area
+      * if page is smaller than viewport size
+      * page scaled to it's original size
+      * @see fitWidth(), originalSize(), zoom()
+      */
     void fitPage();
+
+    /**
+      * Fits page into viewport area by width
+      * if page is smaller than viewport size
+      * page scaled to it's original size
+      * @see fitPage(), originalSize(), zoom()
+      */
     void fitWidth();
+
+    /**
+      * Hides format layout
+      * @see showFormatLayout()
+      */
     void hideFormatLayout();
+
+    /**
+      * Zooms page to original size
+      * @see fitPage(), fitWidth(), zoom()
+      */
     void originalSize();
+
+    /**
+      * Shows cuneiform page formatting
+      * @see hideFormatLayout()
+      */
     void showFormatLayout();
+
+    /**
+      * Shows page. Previous items are cleared
+      */
     void showPage(Page * page);
+
+    /**
+      * Zooms page
+      * @see fitPage(), fitWidth(), originalSize()
+      */
     void zoom(qreal factor);
 public slots:
     void updateFormatLayout();
@@ -74,6 +117,8 @@ private:
     void drawPageSelectionShadow();
     void finishPageSelection(const QRect& rect);
     void finishSelection(const QPoint& pos);
+    bool isSceneSizeSmaller();
+    bool isSceneWidthSmaller();
     bool isTooBig() const;
     bool isTooSmall() const;
     void resizeSelection(const QPoint& pos);

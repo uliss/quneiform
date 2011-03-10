@@ -201,6 +201,19 @@ void TestPage::testResetScale() {
     QCOMPARE(p.transform(), t);
 }
 
+void TestPage::testResetTransform() {
+    Page p(SAMPLE_IMG);
+    p.rotate(90);
+    p.scale(2);
+
+    QSignalSpy changed(&p, SIGNAL(changed()));
+    QSignalSpy transformed(&p, SIGNAL(transformed()));
+
+    p.resetTransform();
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(transformed.count(), 1);
+}
+
 void TestPage::testRotate() {
     Page p(SAMPLE_IMG);
     QSignalSpy changed(&p, SIGNAL(changed()));

@@ -64,9 +64,10 @@ ImageView::ImageView(QWidget * parent) :
     setBackgroundRole(QPalette::Dark);
     setViewportUpdateMode(FullViewportUpdate);
     setupScene();
+}
 
-    layout_ = new PageLayout;
-    scene_->addItem(layout_);
+ImageView::~ImageView() {
+    delete scene_;
 }
 
 void ImageView::activate(bool value) {
@@ -105,10 +106,9 @@ void ImageView::clearScene() {
         return;
     }
 
-    foreach(QGraphicsItem * item, scene_->items()) {
-        scene_->removeItem(item);
-    }
-
+    scene_->clear();
+    layout_ = NULL;
+    page_selection_ = NULL;
     scene_->setSceneRect(QRect());
 }
 
@@ -165,6 +165,7 @@ void ImageView::deletePage() {
 }
 
 void ImageView::deletePageSelection() {
+    scene_->removeItem(page_selection_);
     delete page_selection_;
     page_selection_ = NULL;
 
@@ -233,8 +234,7 @@ void ImageView::fitWidth() {
 
     QRectF scene_rect = sceneRect();
 
-    // if image is smaller then view area set it to 100% size
-    if (scene_rect.height() < height() && scene_rect.width() < width()) {
+    if (isSceneWidthSmaller()) {
         originalSize();
     } else {
         if (transform().isRotating())
@@ -257,9 +257,19 @@ bool ImageView::gestureEvent(QGestureEvent * event) {
 }
 
 void ImageView::hideFormatLayout() {
-    Q_CHECK_PTR(layout_);
+    if(layout_)
+        layout_->hide();
+}
 
-    layout_->hide();
+bool ImageView::isSceneSizeSmaller(){
+
+}
+
+bool ImageView::isSceneWidthSmaller() {
+    if(!transform().isRotating())
+        return sceneRect().width() < width();
+    else
+        return sceneRect().width() < height();
 }
 
 bool ImageView::isTooBig() const {
@@ -387,7 +397,7 @@ void ImageView::setPageSelection(const QRect& rect) {
 }
 
 void ImageView::setupScene() {
-    scene_ = new QGraphicsScene(this);
+    scene_ = new QGraphicsScene;
     setScene(scene_);
 }
 
@@ -406,9 +416,8 @@ void ImageView::showImage(const QString& path) {
 }
 
 void ImageView::showFormatLayout() {
-    Q_CHECK_PTR(layout_);
-
-    layout_->show();
+    if(layout_)
+        layout_->show();
 }
 
 void ImageView::showPage(Page * page) {
@@ -418,10 +427,13 @@ void ImageView::showPage(Page * page) {
     if(page_ == page)
         return;
 
-    // save old page view scroll
-    savePageViewScroll();
-    // disconnect previous
-    disconnectPageSignals(page_);
+    if(page_) {
+        // save old page view scroll
+        savePageViewScroll();
+        // disconnect previous
+        disconnectPageSignals(page_);
+    }
+
     // set current page
     page_ = page;
     // connect new
@@ -486,11 +498,15 @@ void ImageView::updateSelectionCursor() {
 }
 
 void ImageView::updateFormatLayout() {
-    Q_CHECK_PTR(layout_);
     Q_CHECK_PTR(scene_);
 
     if(!page_)
         return;
+
+    if(!layout_) {
+        layout_ = new PageLayout;
+        scene_->addItem(layout_);
+    }
 
     if(layout_->scene() != scene_)
         scene_->addItem(layout_);

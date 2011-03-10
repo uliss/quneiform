@@ -8,6 +8,7 @@ include_directories("../..")
 
 set(CF_GUI_TESTS
     imagecache
+    imageview
     page
     packet
     pageindicator

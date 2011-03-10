@@ -182,9 +182,15 @@ public:
     /**
       * Resets page scaling, but saves rotate
       * Emits signals changed() and transformed()
-      * @see scale()
+      * @see scale(), resetTransform()
       */
     void resetScale();
+
+    /**
+      * Resets page transform
+      * @see resetScale()
+      */
+    void resetTransform();
 
     /**
       * Rotates page

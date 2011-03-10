@@ -152,6 +152,13 @@ void Page::resetScale() {
     emit transformed();
 }
 
+void Page::resetTransform() {
+    QMutexLocker lock(&mutex_);
+    transform_.reset();
+    emit changed();
+    emit transformed();
+}
+
 void Page::rotate(int angle) {
     QMutexLocker lock(&mutex_);
 
