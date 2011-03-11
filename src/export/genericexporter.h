@@ -23,6 +23,7 @@
 #include "exporter.h"
 #include "common/size.h"
 #include "common/iconv_local.h"
+#include "globus.h"
 
 namespace cf
 {
@@ -35,7 +36,7 @@ class CEDChar;
 class CEDColumn;
 class CEDPicture;
 
-class GenericExporter: public Exporter
+class CLA_EXPO GenericExporter: public Exporter
 {
     public:
         GenericExporter(CEDPage * page, const FormatOptions& opts);

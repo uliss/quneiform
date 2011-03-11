@@ -142,10 +142,9 @@ endif()
 
 add_library(quneiform_lib STATIC ${SRCS})
 add_executable (${PROJECT} WIN32 MACOSX_BUNDLE main.cpp ${QRC_SOURCES})
-
-add_dependencies(${PROJECT} osx_l10n_dirs)
  
 if(APPLE)
+	add_dependencies(${PROJECT} osx_l10n_dirs)
     find_library(EXTRA_LIBS CoreFoundation "/")
 else()
     set(EXTRA_LIBS "")
@@ -153,6 +152,8 @@ endif()
 
 if(NOT MSVC)
     set(EXTRA_LIBS ${EXTRA_LIBS} m)
+else()
+    set(${QT_LIBRARIES} qtmain ${QT_LIBRARIES})
 endif()
 
 target_link_libraries (${PROJECT} quneiform_lib ${LIBRARIES} ${QT_LIBRARIES} cuneiform ${EXTRA_LIBS})

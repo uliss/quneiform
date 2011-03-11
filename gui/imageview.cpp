@@ -46,7 +46,7 @@
     }\
 }
 
-static const float GESTURE_SCALE_FACTOR = 1 / 30.0;
+static const double GESTURE_SCALE_FACTOR = 1 / 30.0;
 static const int ROTATE_THRESHOLD = 3;
 
 ImageView::ImageView(QWidget * parent) :
@@ -220,8 +220,7 @@ void ImageView::finishSelection(const QPoint& pos) {
 void ImageView::fitPage() {
     HAS_PAGE()
 
-    // if image is smaller then view area set it to 100% size
-    if (sceneRect().height() < height() && sceneRect().width() < width())
+    if (isSceneSizeSmaller())
         originalSize();
     else
         fitInView(sceneRect(), Qt::KeepAspectRatio);
@@ -262,7 +261,7 @@ void ImageView::hideFormatLayout() {
 }
 
 bool ImageView::isSceneSizeSmaller(){
-
+	return sceneRect().height() < height() && sceneRect().width() < width();
 }
 
 bool ImageView::isSceneWidthSmaller() {

@@ -24,13 +24,14 @@
 
 #include "common/exception.h"
 #include "common/image.h"
+#include "globus.h"
 
 namespace cf
 {
 
 class Image;
 
-class ImageLoader
+class CLA_EXPO ImageLoader
 {
     public:
         ImageLoader();
