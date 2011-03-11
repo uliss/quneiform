@@ -25,13 +25,15 @@ class TestImageView : public QObject
 {
     Q_OBJECT
 public:
-    TestImageView(QObject *parent = 0);
+    TestImageView(QObject * parent = 0);
 private slots:
     void testConstruct();
     void testClearScene();
     void testFitPage();
     void testFitWidth();
     void testOriginalSize();
+    void testHideFormatLayout();
+    void testShowPage();
 };
 
 #endif // TESTIMAGEVIEW_H

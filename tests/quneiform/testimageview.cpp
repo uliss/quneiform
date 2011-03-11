@@ -18,8 +18,10 @@
 
 #include <QTest>
 #include <QDebug>
+#include <QScrollBar>
 #include "testimageview.h"
 #include "gui/page.h"
+#include "gui/selection.h"
 #define private public
 #include "gui/imageview.h"
 
@@ -93,7 +95,7 @@ void TestImageView::testFitPage() {
     p.rotate(90);
 
     // w - smaller, h - smaller (scale + rotation)
-    iv.resize(200, 50);
+    iv.resize(50, 200);
     iv.fitPage();
 
     QVERIFY(iv.transform().isRotating());
@@ -101,21 +103,21 @@ void TestImageView::testFitPage() {
     QCOMPARE(p.transform(), iv.transform());
 
     // w - smaller, h - bigger (scale + rotation)
-    iv.resize(200, 100);
+    iv.resize(100, 200);
     iv.fitPage();
     QVERIFY(iv.transform().isRotating());
     QVERIFY(iv.transform() != rot90);
     QCOMPARE(p.transform(), iv.transform());
 
     // w - bigger, h - bigger (no scale + rotation)
-    iv.resize(300, 100);
+    iv.resize(100, 300);
     iv.fitPage();
     QVERIFY(iv.transform().isRotating());
     QCOMPARE(iv.transform(), rot90);
     QCOMPARE(p.transform(), iv.transform());
 
     // w - bigger, h - smaller (scale + rotation)
-    iv.resize(300, 50);
+    iv.resize(50, 300);
     iv.fitPage();
     QVERIFY(iv.transform().isRotating());
     QVERIFY(iv.transform() != rot90);
@@ -201,14 +203,14 @@ void TestImageView::testFitWidth() {
     QCOMPARE(p.transform(), iv.transform());
 
     // w - smaller, h - bigger (scale + rotation)
-    iv.resize(100, 200);
+    iv.resize(50, 200);
     iv.fitWidth();
     QVERIFY(iv.transform().isRotating());
     QVERIFY(iv.transform() != rot90);
     QCOMPARE(p.transform(), iv.transform());
 
     // w - smaller, h - smaller (scale + rotation)
-    iv.resize(70, 100);
+    iv.resize(50, 100);
     iv.fitWidth();
     QVERIFY(iv.transform().isRotating());
     QVERIFY(iv.transform() != rot90);
@@ -304,6 +306,42 @@ void TestImageView::testOriginalSize() {
     // original
     iv.originalSize();
     QCOMPARE(p.transform(), rot180);
+}
+
+void TestImageView::testHideFormatLayout() {
+    ImageView iv;
+    iv.hideFormatLayout();
+    Page p("none");
+    p.appendBlock(QRect(0, 0, 20, 30), Page::SECTION);
+    iv.showPage(&p);
+    iv.hideFormatLayout();
+}
+
+void TestImageView::testShowPage() {
+    ImageView iv;
+    iv.resize(100, 50);
+    iv.show();
+    Page p1("none");
+    p1.scale(0.5);
+    iv.showPage(&p1);
+    QCOMPARE(iv.sceneRect(), QRectF());
+    QCOMPARE(iv.transform(), QTransform(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1));
+    Page p2(CF_IMAGE_DIR "/english.png");
+    p2.setPageArea(QRect(0, 0, 20, 30));
+    iv.showPage(&p2);
+
+    iv.horizontalScrollBar()->setValue(40);
+    iv.verticalScrollBar()->setValue(50);
+    QCOMPARE(iv.sceneRect(), QRectF(QPointF(), p2.imageSize()));
+    QCOMPARE(iv.transform(), QTransform());
+    QCOMPARE(iv.page_selection_->rect(), QRectF(0, 0, 20, 30));
+    iv.showPage(&p1);
+    QCOMPARE(p2.viewScroll(), QPoint(40, 50));
+
+    QCOMPARE(iv.sceneRect(), QRectF());
+    QCOMPARE(iv.transform(), QTransform(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1));
+    QCOMPARE(iv.horizontalScrollBar()->value(), 0);
+    QCOMPARE(iv.verticalScrollBar()->value(), 0);
 }
 
 QTEST_MAIN(TestImageView);

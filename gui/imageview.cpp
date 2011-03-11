@@ -261,7 +261,10 @@ void ImageView::hideFormatLayout() {
 }
 
 bool ImageView::isSceneSizeSmaller(){
-	return sceneRect().height() < height() && sceneRect().width() < width();
+    if(!transform().isRotating())
+        return sceneRect().height() < height() && sceneRect().width() < width();
+    else
+        return sceneRect().height() < width() && sceneRect().width() < height();
 }
 
 bool ImageView::isSceneWidthSmaller() {
