@@ -112,7 +112,7 @@ QImage PageRecognizer::loadImage() {
     emit loaded();
     emit percentsDone(10);
     QCoreApplication::processEvents();
-    return img.convertToFormat(QImage::Format_RGB888);
+    return img;
 }
 
 QString PageRecognizer::pagePath() const {
@@ -131,7 +131,7 @@ bool PageRecognizer::recognize() {
 
         stageSleep(OPEN);
         cf::QtImageLoader loader;
-        cf::ImagePtr image = loader.load(&img);
+        cf::ImagePtr image = loader.load(img);
         if (!image)
             throw Page::Exception("[PageRecognizer::recognize] can't load image");
         emit percentsDone(20);

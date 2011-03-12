@@ -42,10 +42,10 @@ class CLA_EXPO QtImageLoader: public ImageLoader
         ImagePtr load(const QString& path);
 
         /**
-          * Loads image from QImage pointer
+          * Loads image from QImage
           * @note caller should free pointer
           */
-        ImagePtr load(QImage * image);
+        ImagePtr load(const QImage& image);
         ImagePtr load(std::istream& is);
 };
 

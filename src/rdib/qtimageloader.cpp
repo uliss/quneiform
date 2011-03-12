@@ -30,71 +30,97 @@
 namespace cf
 {
 
+static void set_dib_header(::BITMAPINFO * dibInfo, const QImage& raster) {
+    memset(dibInfo, 0, sizeof(*dibInfo));
+    dibInfo->bmiHeader.biSize = sizeof(::BITMAPINFOHEADER);
+    dibInfo->bmiHeader.biWidth = raster.width();
+    dibInfo->bmiHeader.biHeight = raster.height();
+    dibInfo->bmiHeader.biPlanes = 1;
+    dibInfo->bmiHeader.biBitCount = static_cast<uint16_t>(raster.depth());
+    dibInfo->bmiHeader.biCompression = 0; // BI_RGB - uncompresed
+    dibInfo->bmiHeader.biSizeImage = 0;
+    dibInfo->bmiHeader.biXPelsPerMeter = 4 * raster.dotsPerMeterX();
+    dibInfo->bmiHeader.biYPelsPerMeter = 4 * raster.dotsPerMeterY();
+    // for 32-bit images return numColors() returns 0
+    dibInfo->bmiHeader.biClrUsed = raster.numColors();
+    dibInfo->bmiHeader.biClrImportant = 0;
+}
+
+// size of dib header (without palette)
+static size_t get_dib_header_size(const ::BITMAPINFO& dib_info) {
+    return dib_info.bmiHeader.biSize;
+}
+
+// size of dib palette
+static size_t get_dib_palette_size(const ::BITMAPINFO& dib_info) {
+    // 32-bit image
+    if(dib_info.bmiHeader.biClrUsed == 0)
+        return sizeof(::RGBQUAD);
+    else
+        return dib_info.bmiHeader.biClrUsed * sizeof(::RGBQUAD); // TODO
+}
+
+// total dib info size
+static size_t get_dib_info_size(const ::BITMAPINFO& dib_info) {
+    return get_dib_header_size(dib_info) + get_dib_palette_size(dib_info);
+}
+
+static uchar * make_dib(size_t size) {
+    uchar * dib = new uchar[size];
+    memset(dib, 0x00, size);
+    return dib;
+}
+
+// copy only header
+static void copy_dib_header(uchar * dib, const ::BITMAPINFO& dib_info) {
+    memcpy(dib, &dib_info, get_dib_header_size(dib_info));
+}
+
+static void copy_dib_palette(uchar * dib, const ::BITMAPINFO& dib_info, const QImage& image) {
+    if (dib_info.bmiHeader.biClrUsed != 0) {
+        QVector<QRgb> color_table(image.colorTable());
+        uchar * palette = dib + get_dib_header_size(dib_info);
+        memcpy(palette, (const unsigned char*) color_table.data(), get_dib_palette_size(dib_info));
+    }
+    else {
+        ::RGBQUAD rgbWhite = { 255, 255, 255, 0 };
+        reinterpret_cast<BITMAPINFO*>(dib)->bmiColors[0] = rgbWhite;
+    }
+}
+
+static void copy_dib_raster(uchar * dib, const ::BITMAPINFO& dib_info, const QImage& image) {
+    uchar * pRaster = dib + get_dib_info_size(dib_info);
+    memcpy(pRaster, image.bits(), image.numBytes());
+}
+
 QtImageLoader::QtImageLoader() {
 }
 
 ImagePtr QtImageLoader::load(const QString& path) {
     QImage img(path);
-    ImagePtr res = load(&img);
+    ImagePtr res = load(img);
     return res;
 }
 
-ImagePtr QtImageLoader::load(QImage * image) {
-    assert(image);
-
-    if (image->isNull())
+ImagePtr QtImageLoader::load(const QImage& image) {
+    if (image.isNull())
         throw Exception("[QtImageLoader::load] load failed.");
 
-    /*.rgbSwapped();*/
-    const QImage& raster = image->mirrored();
-    ::BITMAPINFO dibInfo = { 0 };
-    dibInfo.bmiHeader.biSize = sizeof(::BITMAPINFOHEADER);
-    dibInfo.bmiHeader.biWidth = raster.width();
-    dibInfo.bmiHeader.biHeight = raster.height();
-    dibInfo.bmiHeader.biPlanes = 1;
-    dibInfo.bmiHeader.biBitCount = raster.depth();
-    dibInfo.bmiHeader.biCompression = 0; // BI_RGB - uncompresed
-    dibInfo.bmiHeader.biSizeImage = 0;
-    dibInfo.bmiHeader.biXPelsPerMeter = 4 * raster.dotsPerMeterX();
-    dibInfo.bmiHeader.biYPelsPerMeter = 4 * raster.dotsPerMeterY();
+    // cuneiform crashes on other formats
+    const QImage raster = image.convertToFormat(QImage::Format_RGB888).mirrored();
+    ::BITMAPINFO dibInfo;
+    set_dib_header(&dibInfo, raster);
+    const size_t rasterSize = raster.numBytes();
 
-    QVector<QRgb> colorTable(raster.colorTable());
-    /*if (32 == raster.depth())
-     {
-     nColors
-     }
-     else
-     {
-     }
-     colorCount()
-     */
-    dibInfo.bmiHeader.biClrUsed = raster.numColors();
-    dibInfo.bmiHeader.biClrImportant = 0;
-    const size_t sizeRaster = raster.numBytes();
-    unsigned int sizeInfo = dibInfo.bmiHeader.biSize;
-    unsigned int sizePalete = 0;
-    if (0 != dibInfo.bmiHeader.biClrUsed) {
-        sizePalete = dibInfo.bmiHeader.biClrUsed * sizeof(RGBQUAD); // TODO
-    } else {
-        sizePalete = sizeof(RGBQUAD);
-    }
+    const int dibSize = get_dib_info_size(dibInfo) + rasterSize;
+    uchar * pDib = make_dib(dibSize);
 
-    ::RGBQUAD rgbWhite = { 255, 255, 255, 0 };
-    dibInfo.bmiColors[0] = rgbWhite;
+    copy_dib_header(pDib, dibInfo);
+    copy_dib_palette(pDib, dibInfo, raster);
+    copy_dib_raster(pDib, dibInfo, raster);
 
-    const int dib_size = sizeInfo + sizePalete + sizeRaster;
-    uchar* pDib = new uchar[dib_size];
-    memset(pDib, 0x00, dib_size);
-    memcpy(pDib, &dibInfo, sizeInfo);
-    if (0 != sizePalete) {
-        memcpy(pDib + sizeInfo, (const unsigned char*) colorTable.data(), sizePalete);
-    }
-
-    uchar* pRaster = pDib + sizePalete + sizeInfo;
-    memcpy(pRaster, raster.bits(), sizeRaster);
-
-    Image * img = new Image(pDib, dib_size, Image::AllocatorNew);
-    img->setSize(Size(image->width(), image->height()));
+    Image * img = new Image(pDib, dibSize, Image::AllocatorNew);
+    img->setSize(Size(image.width(), image.height()));
 
     return ImagePtr(img);
 }
