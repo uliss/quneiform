@@ -31,25 +31,7 @@ namespace cf
 class CLA_EXPO QtImageLoader: public ImageLoader
 {
     public:
-        QtImageLoader(bool clearAfterLoading = true);
-        ~QtImageLoader();
-
-        /**
-         * Clears allocated data for QImage, that can be accessed via image()
-         * @see image()
-         */
-        void clearImage();
-
-        /**
-         * Returns pointer to loaded image
-         * @return NULL if image not loaded
-         */
-        QImage * image();
-
-        /**
-         * Checks if image loaded
-         */
-        bool isLoaded() const;
+        QtImageLoader();
 
         /**
          * Loads image
@@ -58,12 +40,13 @@ class CLA_EXPO QtImageLoader: public ImageLoader
          */
         ImagePtr load(const std::string& path);
         ImagePtr load(const QString& path);
+
+        /**
+          * Loads image from QImage pointer
+          * @note caller should free pointer
+          */
         ImagePtr load(QImage * image);
         ImagePtr load(std::istream& is);
-    private:
-        QImage * image_;
-        bool clear_after_loading_;
-
 };
 
 }

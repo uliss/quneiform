@@ -30,30 +30,12 @@
 namespace cf
 {
 
-QtImageLoader::QtImageLoader(bool autoClear) :
-    image_(NULL), clear_after_loading_(autoClear) {
-}
-
-QtImageLoader::~QtImageLoader() {
-}
-
-void QtImageLoader::clearImage() {
-    delete image_;
-    image_ = NULL;
-}
-
-QImage * QtImageLoader::image() {
-    return image_;
-}
-
-bool QtImageLoader::isLoaded() const {
-    return image_ != NULL;
+QtImageLoader::QtImageLoader() {
 }
 
 ImagePtr QtImageLoader::load(const QString& path) {
-    ImagePtr res = load(new QImage(path));
-    if (clear_after_loading_)
-        clearImage();
+    QImage img(path);
+    ImagePtr res = load(&img);
     return res;
 }
 
@@ -62,9 +44,6 @@ ImagePtr QtImageLoader::load(QImage * image) {
 
     if (image->isNull())
         throw Exception("[QtImageLoader::load] load failed.");
-
-    clearImage();
-    image_ = image;
 
     /*.rgbSwapped();*/
     const QImage& raster = image->mirrored();
