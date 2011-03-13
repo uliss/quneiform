@@ -17,6 +17,7 @@ add_executable(test_loaders
 
 target_link_libraries(test_loaders
     cuneiform-rdib 
+    cuneiform
     ${CPPUNIT_LIBRARIES} 
     ${CF_IMAGE_LIBRARIES}
 )

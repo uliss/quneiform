@@ -26,10 +26,12 @@ class TestQtImageLoader: public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestQtImageLoader);
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testLoad);
+    CPPUNIT_TEST(testLoadRecognize);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testLoad();
+    void testLoadRecognize();
 };
 
 #endif /* TESTQTIMAGELOADER_H_ */
