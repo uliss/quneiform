@@ -21,6 +21,10 @@
 #include <rdib/bmp.h>
 #include <common/tostring.h>
 #include <common/image.h>
+#include <common/debug.h>
+#include <cuneiform.h>
+#include "loaders_common.h"
+
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpLoader);
 using namespace cf;
 
@@ -195,5 +199,24 @@ void TestBmpLoader::testLoad() {
     // make sure that image converted to 24-bit RGB
     CPPUNIT_ASSERT(loader->imageBitCount() == 24);
     CPPUNIT_ASSERT(loader->info_header_.iCompression == BMPC_RGB);
+}
+
+void TestBmpLoader::testLoadRecognize() {
+    Config::instance().setDebug(false);
+    BmpImageLoader loader;
+    // recognition errors:
+    //    ASSERT_RECOGNIZE(loader, "english_32.bmp", "ENGLISH");
+    ASSERT_RECOGNIZE(loader, "english_24.bmp", "ENGLISH");
+    // binarize fail:
+    //ASSERT_RECOGNIZE(loader, "english_16a.bmp", "ENGLISH");
+    // recognition errors:
+    //    ASSERT_RECOGNIZE(loader, "english_16b.bmp", "ENGLISH");
+    ASSERT_RECOGNIZE(loader, "english_1.bmp", "ENGLISH");
+    ASSERT_RECOGNIZE(loader, "english_gray.bmp", "ENGLISH");
+    // RLE not supported:
+    //    ASSERT_RECOGNIZE(loader, "english_gray_rle.bmp", "ENGLISH");
+    ASSERT_RECOGNIZE(loader, "english_indexed.bmp", "ENGLISH");
+    // RLE not supported:
+    //    ASSERT_RECOGNIZE(loader, "english_indexed_rle.bmp", "ENGLISH");
 }
 

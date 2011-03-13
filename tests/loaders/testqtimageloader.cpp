@@ -23,29 +23,9 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestQtImageLoader);
 #include <memory>
 #include <sstream>
 #include <fstream>
-
-std::string trim(const std::string& str) {
-    size_t pos = str.find_last_not_of(" \n");
-    return pos == str.size() ? str : str.substr(0, pos + 1);
-}
-
-void ASSERT_BUFFER(const std::ostringstream& buf, const char * str) {
-    CPPUNIT_ASSERT_EQUAL(trim(buf.str()), std::string(str));
-}
+#include "loaders_common.h"
 
 using namespace cf;
-
-void ASSERT_RECOGNIZE(const char * filename, const char * str) {
-    QtImageLoader loader;
-    ImagePtr img;
-    std::ostringstream buf;
-    CPPUNIT_ASSERT_NO_THROW(img = loader.load(std::string(LOADER_TEST_IMAGE_DIR) + filename));
-    Puma::instance().open(img);
-    Puma::instance().recognize();
-    Puma::instance().save(buf, cf::FORMAT_DEBUG);
-    Puma::instance().close();
-    ASSERT_BUFFER(buf, str);
-}
 
 void TestQtImageLoader::testInit() {
     std::auto_ptr<QtImageLoader> loader(new QtImageLoader);
@@ -78,18 +58,17 @@ void TestQtImageLoader::testLoad() {
 }
 
 void TestQtImageLoader::testLoadRecognize() {
+    QtImageLoader loader;
     Config::instance().setDebug(false);
-    std::ostream none(NULL);
-    Debug().setOutput(none);
 
     // bmp
 //    ASSERT_RECOGNIZE("english_32.bmp", "ENGLISH");
-    ASSERT_RECOGNIZE("english_24.bmp", "ENGLISH");
-    ASSERT_RECOGNIZE("english_16a.bmp", "ENGLISH");
+    ASSERT_RECOGNIZE(loader, "english_24.bmp", "ENGLISH");
+    ASSERT_RECOGNIZE(loader, "english_16a.bmp", "ENGLISH");
 //    ASSERT_RECOGNIZE("english_16b.bmp", "ENGLISH");
-    ASSERT_RECOGNIZE("english_gray.bmp", "ENGLISH");
-    ASSERT_RECOGNIZE("english_gray_rle.bmp", "ENGLISH");
-    ASSERT_RECOGNIZE("english_indexed.bmp", "ENGLISH");
-    ASSERT_RECOGNIZE("english_indexed_rle.bmp", "ENGLISH");
-    ASSERT_RECOGNIZE("english_1.bmp", "ENGLISH");
+    ASSERT_RECOGNIZE(loader, "english_gray.bmp", "ENGLISH");
+    ASSERT_RECOGNIZE(loader, "english_gray_rle.bmp", "ENGLISH");
+    ASSERT_RECOGNIZE(loader, "english_indexed.bmp", "ENGLISH");
+    ASSERT_RECOGNIZE(loader, "english_indexed_rle.bmp", "ENGLISH");
+    ASSERT_RECOGNIZE(loader, "english_1.bmp", "ENGLISH");
 }
