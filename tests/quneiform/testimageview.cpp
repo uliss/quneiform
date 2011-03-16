@@ -18,6 +18,7 @@
 
 #include <QTest>
 #include <QDebug>
+#include <QSignalSpy>
 #include "testimageview.h"
 #include "gui/page.h"
 #define private public
@@ -304,6 +305,104 @@ void TestImageView::testOriginalSize() {
     // original
     iv.originalSize();
     QCOMPARE(p.transform(), rot180);
+}
+
+void TestImageView::testZoom() {
+    ImageView iv;
+    QSignalSpy scaleIsTooBig(&iv, SIGNAL(scaleIsTooBig()));
+    QSignalSpy scaleIsTooSmall(&iv, SIGNAL(scaleIsTooSmall()));
+    Page p(CF_IMAGE_DIR "/english.png");
+    iv.showPage(&p);
+    QCOMPARE(p.imageSize(), QSize(281, 81));
+    QCOMPARE(iv.sceneRect(), QRectF(0, 0, 281, 81));
+
+    iv.zoom(2);
+    QTransform t1;
+    t1.scale(0.5, 0.5);
+    QTransform t2;
+    t2.scale(2, 2);
+
+    QCOMPARE(p.transform(), t2);
+    QCOMPARE(iv.transform(), t2);
+    iv.zoom(2);
+    QCOMPARE(p.transform(), t2 * t2);
+    iv.zoom(2);
+    QCOMPARE(p.transform(), t2 * t2 * t2);
+    iv.zoom(2);
+    QCOMPARE(p.transform(), t2 * t2 * t2 * t2);
+    // no more scale
+    iv.zoom(2);
+    QCOMPARE(p.transform(), t2 * t2 * t2 * t2);
+    QCOMPARE(scaleIsTooBig.count(), 1);
+    QCOMPARE(scaleIsTooSmall.count(), 0);
+
+    scaleIsTooBig.clear();
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t2 * t2 * t2);
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t2 * t2);
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t2);
+    iv.zoom(0.5);
+    QVERIFY(p.transform().isIdentity());
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t1);
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t1 * t1);
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t1 * t1 * t1);
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t1 * t1 * t1 * t1);
+    iv.zoom(0.5);
+    // no more scale
+    QCOMPARE(p.transform(), t1 * t1 * t1 * t1);
+    QCOMPARE(scaleIsTooBig.count(), 0);
+    QCOMPARE(scaleIsTooSmall.count(), 1);
+    iv.zoom(2);
+    QCOMPARE(p.transform(), t1 * t1 * t1);
+    iv.originalSize();
+
+    // rotation
+    scaleIsTooBig.clear();
+    scaleIsTooSmall.clear();
+    iv.originalSize();
+    iv.rotate(90);
+    iv.zoom(2);
+    QCOMPARE(iv.transform(), t2);
+    iv.zoom(2);
+    QCOMPARE(p.transform(), t2 * t2);
+    iv.zoom(2);
+    QCOMPARE(p.transform(), t2 * t2 * t2);
+    iv.zoom(2);
+    QCOMPARE(p.transform(), t2 * t2 * t2 * t2);
+    // no more scale
+    iv.zoom(2);
+    QCOMPARE(p.transform(), t2 * t2 * t2 * t2);
+    QCOMPARE(scaleIsTooBig.count(), 1);
+    QCOMPARE(scaleIsTooSmall.count(), 0);
+
+    scaleIsTooBig.clear();
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t2 * t2 * t2);
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t2 * t2);
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t2);
+    iv.zoom(0.5);
+    QVERIFY(p.transform().isIdentity());
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t1);
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t1 * t1);
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t1 * t1 * t1);
+    iv.zoom(0.5);
+    QCOMPARE(p.transform(), t1 * t1 * t1 * t1);
+    iv.zoom(0.5);
+    // no more scale
+    QCOMPARE(p.transform(), t1 * t1 * t1 * t1);
+    QCOMPARE(scaleIsTooBig.count(), 0);
+    QCOMPARE(scaleIsTooSmall.count(), 1);
 }
 
 QTEST_MAIN(TestImageView);

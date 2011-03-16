@@ -90,6 +90,16 @@ public slots:
     void updateFormatLayout();
 signals:
     void pageDeleted();
+
+    /**
+      * Emitted after scale attempt if scale is too big
+      */
+    void scaleIsTooBig();
+
+    /**
+      * Emitted after scale attempt if scale is too small
+      */
+    void scaleIsTooSmall();
 protected:
     void contextMenuEvent(QContextMenuEvent * event);
     bool event(QEvent * event);

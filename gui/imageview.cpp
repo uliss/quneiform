@@ -536,8 +536,15 @@ void ImageView::wheelEvent(QWheelEvent * event) {
 void ImageView::zoom(qreal factor) {
     HAS_PAGE()
 
-    if(factor < 1.0 && !isTooSmall())
-        page_->scale(factor);
-    else if(factor > 1.0 && !isTooBig())
-        page_->scale(factor);
+    if(isTooSmall() && factor < 1.0) {
+        emit scaleIsTooSmall();
+        return;
+    }
+
+    if(isTooBig() && factor > 1.0) {
+        emit scaleIsTooBig();
+        return;
+    }
+
+    page_->scale(factor);
 }
