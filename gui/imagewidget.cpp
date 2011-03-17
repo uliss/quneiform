@@ -58,7 +58,12 @@ void ImageWidget::setupLayout() {
 
 void ImageWidget::setupView() {
     view_ = new ImageView(this);
+    view_->setMinScale(0.1);
+    view_->setMaxScale(10);
     connect(view_, SIGNAL(pageDeleted()), SIGNAL(pageDeleted()));
+    connect(view_, SIGNAL(scaled(qreal)), SIGNAL(scaled(qreal)));
+    connect(view_, SIGNAL(scaleIsTooBig()), SIGNAL(scaleIsTooBig()));
+    connect(view_, SIGNAL(scaleIsTooSmall()), SIGNAL(scaleIsTooSmall()));
 #ifdef QT_OS_MAC
     view_->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
 #endif
@@ -89,12 +94,16 @@ void ImageWidget::updateSettings() {
     updateFormatLayout();
 }
 
-void ImageWidget::zoomIn() {
+void ImageWidget::zoom(qreal factor) {
     Q_CHECK_PTR(view_);
-    view_->zoom(1.25);
+
+    view_->zoom(factor);
+}
+
+void ImageWidget::zoomIn() {
+    zoom(1.25);
 }
 
 void ImageWidget::zoomOut() {
-    Q_CHECK_PTR(view_);
-    view_->zoom(0.8);
+    zoom(0.8);
 }

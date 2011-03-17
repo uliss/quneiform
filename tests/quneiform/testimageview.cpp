@@ -19,8 +19,10 @@
 #include <QTest>
 #include <QDebug>
 #include <QSignalSpy>
+#include <QScrollBar>
 #include "testimageview.h"
 #include "gui/page.h"
+#include "gui/selection.h"
 #define private public
 #include "gui/imageview.h"
 
@@ -41,6 +43,8 @@ void TestImageView::testConstruct() {
     QVERIFY(iv.page_shadow_ == NULL);
     QVERIFY(iv.scene());
     QVERIFY(iv.scene()->items().isEmpty());
+    QVERIFY(!iv.isInteractive());
+    QVERIFY(!iv.isEnabled());
 }
 
 void TestImageView::testClearScene() {
@@ -309,8 +313,6 @@ void TestImageView::testOriginalSize() {
 
 void TestImageView::testZoom() {
     ImageView iv;
-    QSignalSpy scaleIsTooBig(&iv, SIGNAL(scaleIsTooBig()));
-    QSignalSpy scaleIsTooSmall(&iv, SIGNAL(scaleIsTooSmall()));
     Page p(CF_IMAGE_DIR "/english.png");
     iv.showPage(&p);
     QCOMPARE(p.imageSize(), QSize(281, 81));
@@ -326,21 +328,6 @@ void TestImageView::testZoom() {
     QCOMPARE(iv.transform(), t2);
     iv.zoom(2);
     QCOMPARE(p.transform(), t2 * t2);
-    iv.zoom(2);
-    QCOMPARE(p.transform(), t2 * t2 * t2);
-    iv.zoom(2);
-    QCOMPARE(p.transform(), t2 * t2 * t2 * t2);
-    // no more scale
-    iv.zoom(2);
-    QCOMPARE(p.transform(), t2 * t2 * t2 * t2);
-    QCOMPARE(scaleIsTooBig.count(), 1);
-    QCOMPARE(scaleIsTooSmall.count(), 0);
-
-    scaleIsTooBig.clear();
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t2 * t2 * t2);
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t2 * t2);
     iv.zoom(0.5);
     QCOMPARE(p.transform(), t2);
     iv.zoom(0.5);
@@ -349,43 +336,14 @@ void TestImageView::testZoom() {
     QCOMPARE(p.transform(), t1);
     iv.zoom(0.5);
     QCOMPARE(p.transform(), t1 * t1);
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t1 * t1 * t1);
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t1 * t1 * t1 * t1);
-    iv.zoom(0.5);
-    // no more scale
-    QCOMPARE(p.transform(), t1 * t1 * t1 * t1);
-    QCOMPARE(scaleIsTooBig.count(), 0);
-    QCOMPARE(scaleIsTooSmall.count(), 1);
-    iv.zoom(2);
-    QCOMPARE(p.transform(), t1 * t1 * t1);
     iv.originalSize();
 
     // rotation
-    scaleIsTooBig.clear();
-    scaleIsTooSmall.clear();
-    iv.originalSize();
     iv.rotate(90);
     iv.zoom(2);
     QCOMPARE(iv.transform(), t2);
     iv.zoom(2);
     QCOMPARE(p.transform(), t2 * t2);
-    iv.zoom(2);
-    QCOMPARE(p.transform(), t2 * t2 * t2);
-    iv.zoom(2);
-    QCOMPARE(p.transform(), t2 * t2 * t2 * t2);
-    // no more scale
-    iv.zoom(2);
-    QCOMPARE(p.transform(), t2 * t2 * t2 * t2);
-    QCOMPARE(scaleIsTooBig.count(), 1);
-    QCOMPARE(scaleIsTooSmall.count(), 0);
-
-    scaleIsTooBig.clear();
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t2 * t2 * t2);
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t2 * t2);
     iv.zoom(0.5);
     QCOMPARE(p.transform(), t2);
     iv.zoom(0.5);
@@ -394,15 +352,71 @@ void TestImageView::testZoom() {
     QCOMPARE(p.transform(), t1);
     iv.zoom(0.5);
     QCOMPARE(p.transform(), t1 * t1);
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t1 * t1 * t1);
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t1 * t1 * t1 * t1);
-    iv.zoom(0.5);
-    // no more scale
-    QCOMPARE(p.transform(), t1 * t1 * t1 * t1);
-    QCOMPARE(scaleIsTooBig.count(), 0);
-    QCOMPARE(scaleIsTooSmall.count(), 1);
+}
+
+void TestImageView::testShowPage() {
+    ImageView iv;
+    iv.resize(150, 50);
+    QVERIFY(iv.sceneRect().isNull());
+    iv.showPage(NULL);
+    QVERIFY(iv.sceneRect().isNull());
+
+    Page p(CF_IMAGE_DIR "/english.png");
+    p.setViewScroll(QPoint(11, 12));
+    p.setPageArea(QRect(5, 6, 10, 20));
+
+    iv.showPage(&p);
+    QVERIFY(!iv.sceneRect().isNull());
+    QVERIFY(iv.page_selection_ != NULL);
+    QCOMPARE(iv.page_selection_->normalRect(), QRect(5, 6, 10, 20));
+
+    QCOMPARE(iv.verticalScrollBar()->value(), 12);
+    QCOMPARE(iv.horizontalScrollBar()->value(), 11);
+
+    // view scope
+    {
+        ImageView iv2;
+        iv2.showPage(&p);
+    }
+
+    {
+        ImageView iv3;
+        iv3.resize(150, 50);
+        QVERIFY(!iv3.isEnabled());
+        QVERIFY(!iv3.isInteractive());
+        QSignalSpy page_deleted(&iv3, SIGNAL(pageDeleted()));
+        Page * p3 = new Page(CF_IMAGE_DIR "/english.png");
+        p3->setViewScroll(QPoint(9, 10));
+        iv3.showPage(p3);
+        QVERIFY(iv3.isEnabled());
+        QVERIFY(iv3.isInteractive());
+        iv3.horizontalScrollBar()->setValue(12);
+        iv3.verticalScrollBar()->setValue(13);
+        QVERIFY(p3->viewScroll() != QPoint(12, 13));
+        delete p3;
+        QCOMPARE(page_deleted.count(), 1);
+        QVERIFY(!iv3.isEnabled());
+        QVERIFY(!iv3.isInteractive());
+    }
+}
+
+void TestImageView::testSelection() {
+    ImageView iv;
+    iv.resize(281, 81);
+    iv.show();
+    Page p(CF_IMAGE_DIR "/english.png");
+    iv.showPage(&p);
+
+//    iv.selectPageArea();
+//    iv.setFocus();
+//    QTest::mouseMove(&iv, QPoint(10, 15));
+//    QCoreApplication::processEvents();
+//    QTest::mousePress(&iv, Qt::LeftButton, 0, QPoint(10, 15), 500);
+//    QTest::mousePress(&iv, Qt::LeftButton, 0, QPoint(10, 15), 500);
+//    QCoreApplication::processEvents();
+//    QTest::mouseMove(&iv, QPoint(60, 65));
+//    QCoreApplication::processEvents();
+//    QTest::mouseRelease(&iv, Qt::LeftButton, 0, QPoint(60, 65), 500);
 }
 
 QTEST_MAIN(TestImageView);

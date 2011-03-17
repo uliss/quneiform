@@ -33,6 +33,8 @@ private slots:
     void testFitWidth();
     void testOriginalSize();
     void testZoom();
+    void testShowPage();
+    void testSelection();
 };
 
 #endif // TESTIMAGEVIEW_H
