@@ -61,7 +61,7 @@ void ImageWidget::setupView() {
     view_->setMinScale(0.1);
     view_->setMaxScale(10);
     connect(view_, SIGNAL(pageDeleted()), SIGNAL(pageDeleted()));
-    connect(view_, SIGNAL(scaled(qreal)), SIGNAL(scaled(qreal)));
+    connect(view_, SIGNAL(scaled()), SIGNAL(scaled()));
     connect(view_, SIGNAL(scaleIsTooBig()), SIGNAL(scaleIsTooBig()));
     connect(view_, SIGNAL(scaleIsTooSmall()), SIGNAL(scaleIsTooSmall()));
 #ifdef QT_OS_MAC

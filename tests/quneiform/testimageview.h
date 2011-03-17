@@ -35,6 +35,7 @@ private slots:
     void testZoom();
     void testShowPage();
     void testSelection();
+    void testMinMaxZoom();
 };
 
 #endif // TESTIMAGEVIEW_H

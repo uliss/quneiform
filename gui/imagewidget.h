@@ -39,7 +39,7 @@ signals:
     /**
       * Emitted after success scale attemt
       */
-    void scaled(qreal factor);
+    void scaled();
 
     /**
       * Emitted after scale attempt if scale is too big

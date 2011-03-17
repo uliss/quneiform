@@ -81,25 +81,8 @@ void ImageView::activate(bool value) {
 }
 
 void ImageView::changeSelectionCursor(int type) {
-    static const Qt::CursorShape cursors[][2]  = {
-        {Qt::ArrowCursor, Qt::ArrowCursor}, // Selection::NORMAL (0)
-        {Qt::SizeHorCursor, Qt::SizeVerCursor}, // Selection::HORIZONTAL (1)
-        {Qt::SizeVerCursor, Qt::SizeHorCursor},// Selection::VERTICAL (2)
-        {Qt::SizeFDiagCursor, Qt::SizeBDiagCursor}, // Selection::DIAGONAL_LEFT (3)
-        {Qt::SizeBDiagCursor, Qt::SizeFDiagCursor}
-    };
-
-    static const int cursors_num = sizeof(cursors) / sizeof(cursors[0]);
-
-    if(type < 0 || type >= cursors_num) {
-        qDebug() << "[Error]" << Q_FUNC_INFO << "invalid cursor type" << type;
-        return;
-    }
-
-    if(transform().isRotating())
-        page_selection_->setCursor(cursors[type][1]);
-    else
-        page_selection_->setCursor(cursors[type][0]);
+    page_selection_->setCursorType(static_cast<Selection::cursor_t>(type),
+                                   transform().isRotating());
 }
 
 void ImageView::clearScene() {
@@ -229,6 +212,7 @@ void ImageView::fitPage() {
         fitInView(sceneRect(), Qt::KeepAspectRatio);
 
     savePageTransform();
+    emit scaled();
 }
 
 void ImageView::fitWidth() {
@@ -248,6 +232,7 @@ void ImageView::fitWidth() {
     }
 
     savePageTransform();
+    emit scaled();
 }
 
 bool ImageView::gestureEvent(QGestureEvent * event) {
@@ -329,6 +314,7 @@ void ImageView::movePageSelection(const QPointF& delta) {
 void ImageView::originalSize() {
     HAS_PAGE()
     page_->resetScale();
+    emit scaled();
 }
 
 void ImageView::pinchTriggered(QPinchGesture * gesture) {
@@ -566,6 +552,6 @@ void ImageView::zoom(qreal factor) {
     }
     else {
         page_->scale(factor);
-        emit scaled(factor);
+        emit scaled();
     }
 }

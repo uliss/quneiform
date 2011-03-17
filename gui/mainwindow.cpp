@@ -465,7 +465,7 @@ void MainWindow::setupImageView() {
     connect(image_widget_, SIGNAL(pageDeleted()), SLOT(disableViewActions()));
     connect(image_widget_, SIGNAL(scaleIsTooBig()), SLOT(disableZoomInAction()));
     connect(image_widget_, SIGNAL(scaleIsTooSmall()), SLOT(disableZoomOutAction()));
-    connect(image_widget_, SIGNAL(scaled(qreal)), SLOT(enableZoomActions()));
+    connect(image_widget_, SIGNAL(scaled()), SLOT(enableZoomActions()));
 }
 
 void MainWindow::setupLanguageMenu() {

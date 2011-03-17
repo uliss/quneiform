@@ -63,6 +63,13 @@ public:
       * taking into account pos() and rect() values
       */
     QRect normalRect() const;
+
+    /**
+      * Sets selection cursor when it's over selection borders
+      * @param cursor - selection cursor
+      * @param vertical - true if selection rotated for 90 or 270 degrees
+      */
+    void setCursorType(cursor_t cursor, bool vertical);
 signals:
     /**
       * Emitted if cursor is above selection borders

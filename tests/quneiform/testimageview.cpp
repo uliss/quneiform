@@ -20,6 +20,7 @@
 #include <QDebug>
 #include <QSignalSpy>
 #include <QScrollBar>
+#include <QApplication>
 #include "testimageview.h"
 #include "gui/page.h"
 #include "gui/selection.h"
@@ -28,6 +29,15 @@
 
 #ifndef CF_IMAGE_DIR
 #define CF_IMAGE_DIR ""
+#endif
+
+#ifdef Q_WS_X11
+#define WAIT_EVENTS() {\
+    QCoreApplication::processEvents();\
+    QTest::qWait(50);\
+}
+#else
+#define WAIT_EVENTS() {}
 #endif
 
 TestImageView::TestImageView(QObject *parent) :
@@ -405,18 +415,105 @@ void TestImageView::testSelection() {
     iv.resize(281, 81);
     iv.show();
     Page p(CF_IMAGE_DIR "/english.png");
+    // 281x81
+    p.setPageArea(QRect(10, 20, 50, 60));
     iv.showPage(&p);
 
-//    iv.selectPageArea();
-//    iv.setFocus();
-//    QTest::mouseMove(&iv, QPoint(10, 15));
-//    QCoreApplication::processEvents();
-//    QTest::mousePress(&iv, Qt::LeftButton, 0, QPoint(10, 15), 500);
-//    QTest::mousePress(&iv, Qt::LeftButton, 0, QPoint(10, 15), 500);
-//    QCoreApplication::processEvents();
-//    QTest::mouseMove(&iv, QPoint(60, 65));
-//    QCoreApplication::processEvents();
-//    QTest::mouseRelease(&iv, Qt::LeftButton, 0, QPoint(60, 65), 500);
+    QTest::mouseMove(&iv, QPoint(10, 20));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeFDiagCursor);
+    QTest::mouseMove(&iv, QPoint(60, 20));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeBDiagCursor);
+    QTest::mouseMove(&iv, QPoint(60, 80));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeFDiagCursor);
+    QTest::mouseMove(&iv, QPoint(10, 80));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeBDiagCursor);
+    QTest::mouseMove(&iv, QPoint(30, 20));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeVerCursor);
+    QTest::mouseMove(&iv, QPoint(60, 40));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeHorCursor);
+    QTest::mouseMove(&iv, QPoint(30, 80));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeVerCursor);
+    QTest::mouseMove(&iv, QPoint(10, 40));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeHorCursor);
+
+    p.rotate(90);
+    iv.resize(81, 281);
+    QTest::mouseMove(&iv, QPoint(60, 10));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeBDiagCursor);
+    QTest::mouseMove(&iv, QPoint(60, 60));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeFDiagCursor);
+    QTest::mouseMove(&iv, QPoint(0, 60));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeBDiagCursor);
+    QTest::mouseMove(&iv, QPoint(0, 10));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeFDiagCursor);
+
+    QTest::mouseMove(&iv, QPoint(30, 10));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeVerCursor);
+    QTest::mouseMove(&iv, QPoint(60, 30));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeHorCursor);
+    QTest::mouseMove(&iv, QPoint(0, 30));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeHorCursor);
+    QTest::mouseMove(&iv, QPoint(30, 10));
+    WAIT_EVENTS()
+    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeVerCursor);
+}
+
+void TestImageView::testMinMaxZoom() {
+    ImageView iv;
+    iv.setMinScale(0.25);
+    iv.setMaxScale(4);
+
+    Page p(CF_IMAGE_DIR "/english.png");
+    iv.showPage(&p);
+
+    QSignalSpy scaled(&iv, SIGNAL(scaled()));
+    QSignalSpy too_big(&iv, SIGNAL(scaleIsTooBig()));
+    QSignalSpy too_small(&iv, SIGNAL(scaleIsTooSmall()));
+
+    iv.zoom(2);
+    QCOMPARE(scaled.count(), 1);
+    QVERIFY(too_big.isEmpty());
+    QVERIFY(too_small.isEmpty());
+    iv.zoom(2.1);
+    QCOMPARE(scaled.count(), 2);
+    QVERIFY(too_big.isEmpty());
+    QVERIFY(too_small.isEmpty());
+    iv.zoom(1.1);
+    QCOMPARE(scaled.count(), 2);
+    QCOMPARE(too_big.count(), 1);
+    QVERIFY(too_small.isEmpty());
+
+    iv.originalSize();
+    scaled.clear();
+    too_big.clear();
+
+    iv.zoom(0.5);
+    QCOMPARE(scaled.count(), 1);
+    QVERIFY(too_big.isEmpty());
+    QVERIFY(too_small.isEmpty());
+    iv.zoom(0.4);
+    QCOMPARE(scaled.count(), 2);
+    QVERIFY(too_big.isEmpty());
+    QVERIFY(too_small.isEmpty());
+    iv.zoom(0.9);
+    QCOMPARE(scaled.count(), 2);
+    QVERIFY(too_big.isEmpty());
+    QCOMPARE(too_small.count(), 1);
 }
 
 QTEST_MAIN(TestImageView);
