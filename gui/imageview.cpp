@@ -58,7 +58,9 @@ ImageView::ImageView(QWidget * parent) :
         page_selection_(NULL),
         page_shadow_(NULL),
         select_mode_(NORMAL),
-        layout_(NULL) {
+        layout_(NULL),
+        min_scale_(0),
+        max_scale_(100) {
     activate(false);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setBackgroundRole(QPalette::Dark);
@@ -66,7 +68,7 @@ ImageView::ImageView(QWidget * parent) :
     setupScene();
 }
 
-ImageView::~ImageView() {
+ImageView::~ImageView() {    
     delete scene_;
 }
 
@@ -79,25 +81,8 @@ void ImageView::activate(bool value) {
 }
 
 void ImageView::changeSelectionCursor(int type) {
-    static const Qt::CursorShape cursors[][2]  = {
-        {Qt::ArrowCursor, Qt::ArrowCursor}, // Selection::NORMAL (0)
-        {Qt::SizeHorCursor, Qt::SizeVerCursor}, // Selection::HORIZONTAL (1)
-        {Qt::SizeVerCursor, Qt::SizeHorCursor},// Selection::VERTICAL (2)
-        {Qt::SizeFDiagCursor, Qt::SizeBDiagCursor}, // Selection::DIAGONAL_LEFT (3)
-        {Qt::SizeBDiagCursor, Qt::SizeFDiagCursor}
-    };
-
-    static const int cursors_num = sizeof(cursors) / sizeof(cursors[0]);
-
-    if(type < 0 || type >= cursors_num) {
-        qDebug() << "[Error]" << Q_FUNC_INFO << "invalid cursor type" << type;
-        return;
-    }
-
-    if(transform().isRotating())
-        page_selection_->setCursor(cursors[type][1]);
-    else
-        page_selection_->setCursor(cursors[type][0]);
+    page_selection_->setCursorType(static_cast<Selection::cursor_t>(type),
+                                   transform().isRotating());
 }
 
 void ImageView::clearScene() {
@@ -226,6 +211,7 @@ void ImageView::fitPage() {
         fitInView(sceneRect(), Qt::KeepAspectRatio);
 
     savePageTransform();
+    emit scaled();
 }
 
 void ImageView::fitWidth() {
@@ -245,6 +231,7 @@ void ImageView::fitWidth() {
     }
 
     savePageTransform();
+    emit scaled();
 }
 
 bool ImageView::gestureEvent(QGestureEvent * event) {
@@ -277,13 +264,13 @@ bool ImageView::isSceneWidthSmaller() {
 bool ImageView::isTooBig() const {
     qreal x = 0, y = 0;
     transform().map(1.0, 1.0, &x, &y);
-    return qMax(qAbs(x), qAbs(y)) > 10;
+    return qMax(qAbs(x), qAbs(y)) > max_scale_;
 }
 
 bool ImageView::isTooSmall() const {
     qreal x = 0, y = 0;
     transform().map(1.0, 1.0, &x, &y);
-    return qMax(qAbs(x), qAbs(y)) < 0.1;
+    return qMax(qAbs(x), qAbs(y)) < min_scale_;
 }
 
 void ImageView::mouseMoveEvent(QMouseEvent * event) {
@@ -305,12 +292,17 @@ void ImageView::mousePressEvent(QMouseEvent * event) {
         return;
 
     startSelection(event->pos());
+    event->accept();
 }
 
-void ImageView:: mouseReleaseEvent(QMouseEvent * event) {
+void ImageView::mouseReleaseEvent(QMouseEvent * event) {
     QGraphicsView::mouseReleaseEvent(event);
 
+    if(event->button() != Qt::LeftButton)
+        return;
+
     finishSelection(event->pos());
+    event->accept();
 }
 
 void ImageView::movePageSelection(const QPointF& delta) {
@@ -324,6 +316,7 @@ void ImageView::movePageSelection(const QPointF& delta) {
 void ImageView::originalSize() {
     HAS_PAGE()
     page_->resetScale();
+    emit scaled();
 }
 
 void ImageView::pinchTriggered(QPinchGesture * gesture) {
@@ -423,7 +416,10 @@ void ImageView::showFormatLayout() {
 }
 
 void ImageView::showPage(Page * page) {
-    Q_CHECK_PTR(page);
+    if(!page) {
+        qDebug() << Q_FUNC_INFO << "attempt to show NULL page";
+        return;
+    }
 
     // attempt to show current page
     if(page_ == page)
@@ -455,6 +451,16 @@ void ImageView::selectPageArea() {
 
     select_mode_ = SELECT_PAGE;
     updateSelectionCursor();
+}
+
+void ImageView::setMinScale(qreal factor) {
+    Q_ASSERT(factor >= 0);
+    min_scale_ = factor;
+}
+
+void ImageView::setMaxScale(qreal factor) {
+    Q_ASSERT(factor >= 0);
+    max_scale_ = factor;
 }
 
 void ImageView::startSelection(const QPoint& pos) {
@@ -538,8 +544,16 @@ void ImageView::wheelEvent(QWheelEvent * event) {
 void ImageView::zoom(qreal factor) {
     HAS_PAGE()
 
-    if(factor < 1.0 && !isTooSmall())
+    if(factor < 1.0 && isTooSmall()) {
+        emit scaleIsTooSmall();
+        return;
+    }
+    else if(factor > 1.0 && isTooBig()) {
+        emit scaleIsTooBig();
+        return;
+    }
+    else {
         page_->scale(factor);
-    else if(factor > 1.0 && !isTooBig())
-        page_->scale(factor);
+        emit scaled();
+    }
 }

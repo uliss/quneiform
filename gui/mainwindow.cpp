@@ -149,6 +149,16 @@ void MainWindow::disableViewActions() {
     enableViewActions(false);
 }
 
+void MainWindow::disableZoomInAction() {
+    ui_->actionZoom_In->setEnabled(false);
+    ui_->actionZoom_Out->setEnabled(true);
+}
+
+void MainWindow::disableZoomOutAction() {
+    ui_->actionZoom_In->setEnabled(true);
+    ui_->actionZoom_Out->setEnabled(false);
+}
+
 void MainWindow::packetChange() {
     setWindowModified(true);
 }
@@ -169,6 +179,13 @@ void MainWindow::enableViewActions(bool value) {
     ui_->actionRotateRight->setEnabled(value);
     ui_->actionOriginalSize->setEnabled(value);
     ui_->actionRecognizeAll->setEnabled(value);
+}
+
+void MainWindow::enableZoomActions() {
+    if(!ui_->actionZoom_In->isEnabled())
+        ui_->actionZoom_In->setEnabled(true);
+    if(!ui_->actionZoom_Out->isEnabled())
+        ui_->actionZoom_Out->setEnabled(true);
 }
 
 void MainWindow::enableViewActions() {
@@ -446,6 +463,9 @@ void MainWindow::setupPacket() {
 void MainWindow::setupImageView() {
     image_widget_ = new ImageWidget(this);
     connect(image_widget_, SIGNAL(pageDeleted()), SLOT(disableViewActions()));
+    connect(image_widget_, SIGNAL(scaleIsTooBig()), SLOT(disableZoomInAction()));
+    connect(image_widget_, SIGNAL(scaleIsTooSmall()), SLOT(disableZoomOutAction()));
+    connect(image_widget_, SIGNAL(scaled()), SLOT(enableZoomActions()));
 }
 
 void MainWindow::setupLanguageMenu() {

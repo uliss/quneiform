@@ -66,7 +66,10 @@ public slots:
     void showPageText(Page * page);
 private slots:
     void disableViewActions();
+    void disableZoomInAction();
+    void disableZoomOutAction();
     void enableViewActions();
+    void enableZoomActions();
     void openRecentImage(const QString& path);
     void selectLanguage(int lang);
     void showPageFault(Page * page);

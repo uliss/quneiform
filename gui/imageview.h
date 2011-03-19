@@ -82,6 +82,16 @@ public:
     void showPage(Page * page);
 
     /**
+      * Sets view minimal scale
+      */
+    void setMinScale(qreal factor);
+
+    /**
+      * Sets view maximum scale
+      */
+    void setMaxScale(qreal factor);
+
+    /**
       * Zooms page
       * @see fitPage(), fitWidth(), originalSize()
       */
@@ -90,6 +100,21 @@ public slots:
     void updateFormatLayout();
 signals:
     void pageDeleted();
+
+    /**
+      * Emitted after view scaling
+      */
+    void scaled();
+
+    /**
+      * Emitted after scale attempt if scale is too big
+      */
+    void scaleIsTooBig();
+
+    /**
+      * Emitted after scale attempt if scale is too small
+      */
+    void scaleIsTooSmall();
 protected:
     void contextMenuEvent(QContextMenuEvent * event);
     bool event(QEvent * event);
@@ -149,6 +174,8 @@ private:
     QPoint selection_start_;
     select_mode_t select_mode_;
     PageLayout * layout_;
+    qreal min_scale_;
+    qreal max_scale_;
 };
 
 #endif

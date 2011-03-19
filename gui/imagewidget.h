@@ -35,12 +35,28 @@ public:
     QSize sizeHint () const;
 signals:
     void pageDeleted();
+
+    /**
+      * Emitted after success scale attemt
+      */
+    void scaled();
+
+    /**
+      * Emitted after scale attempt if scale is too big
+      */
+    void scaleIsTooBig();
+
+    /**
+      * Emitted after scale attempt if scale is too small
+      */
+    void scaleIsTooSmall();
 public slots:
     void fitPage();
     void fitWidth();
     void originalSize();
     void updateFormatLayout();
     void updateSettings();
+    void zoom(qreal value);
     void zoomIn();
     void zoomOut();
 private:
