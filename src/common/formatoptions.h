@@ -72,7 +72,7 @@ class CLA_EXPO FormatOptions
         void useFontSize(bool val = true);
         void useItalic(bool val = true);
         void useStyles(bool val = true);
-        void useUndelined(bool val = true);
+        void useUnderlined(bool val = true);
     private:
         std::string serif_name_;
         std::string sans_serif_name_;

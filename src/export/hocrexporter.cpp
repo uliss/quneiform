@@ -60,7 +60,7 @@ HocrExporter::HocrExporter(CEDPage * page, const FormatOptions& opts) :
     formatOptions().useBold(false);
     formatOptions().useItalic(false);
     formatOptions().useFontSize(false);
-    formatOptions().useUndelined(false);
+    formatOptions().useUnderlined(false);
     formatOptions().useStyles(false);
     char_bboxes_.reserve(BOXES_TO_RESERVE);
 }

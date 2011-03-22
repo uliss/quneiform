@@ -143,7 +143,7 @@ void FormatOptions::useStyles(bool val) {
     use_styles_ = val;
 }
 
-void FormatOptions::useUndelined(bool val) {
+void FormatOptions::useUnderlined(bool val) {
     use_underlined_ = val;
 }
 

@@ -104,7 +104,7 @@ void TestQTextDocumentExporter::testWriteCharItalic() {
 
 void TestQTextDocumentExporter::testWriteCharUnderlined() {
     FormatOptions opts;
-    opts.useUndelined(false);
+    opts.useUnderlined(false);
 
     QTextDocumentExporter exp(NULL, opts);
     CEDChar ch('s');
@@ -115,7 +115,7 @@ void TestQTextDocumentExporter::testWriteCharUnderlined() {
     exp.exportChar(ch);
     QVERIFY(!exp.cursor().charFormat().fontUnderline());
 
-    exp.formatOptions().useUndelined(true);
+    exp.formatOptions().useUnderlined(true);
     ch.setFontStyle(FONT_BOLD);
     exp.exportChar(ch);
     QVERIFY(!exp.cursor().charFormat().fontUnderline());
