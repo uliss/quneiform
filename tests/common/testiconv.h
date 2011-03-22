@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,40 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <errno.h>
-#include "iconv_local.h"
-#include "iconvimpl.h"
+#ifndef TESTICONV_H
+#define TESTICONV_H
 
-namespace cf
+#include <cppunit/extensions/HelperMacros.h>
+
+class TestIconv: public CppUnit::TestFixture
 {
+    CPPUNIT_TEST_SUITE(TestIconv);
+    CPPUNIT_TEST(testConvertChar);
+    CPPUNIT_TEST(testConvertString);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testConvertChar();
+    void testConvertString();
+};
 
-Iconv::Iconv() {
-    impl_ = new IconvImpl;
-}
-
-Iconv::Iconv(const std::string &from, const std::string &to) {
-    impl_ = new IconvImpl;
-    impl_->open(from, to);
-}
-
-Iconv::~Iconv() {
-    delete impl_;
-}
-
-bool Iconv::close() {
-    return impl_->close();
-}
-
-std::string Iconv::convert(unsigned char c) {
-    return impl_->convert(c);
-}
-
-std::string Iconv::convert(const std::string& src) {
-    return impl_->convert(src);
-}
-
-bool Iconv::open(const std::string &from, const std::string &to) {
-    return impl_->open(from, to);
-}
-
-}
+#endif // TESTICONV_H

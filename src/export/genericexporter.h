@@ -341,7 +341,7 @@ class CLA_EXPO GenericExporter: public Exporter
         bool skip_empty_paragraphs_;
         bool skip_empty_lines_;
     protected:
-        Iconv converter_;
+        mutable Iconv converter_;
 };
 
 }

@@ -38,6 +38,7 @@ class IconvImpl
 
         bool close();
         std::string convert(const std::string& src);
+        std::string convert(unsigned char chr);
         bool open(const std::string &from, const std::string &to);
         size_t convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
     private:

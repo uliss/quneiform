@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,40 +16,39 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <errno.h>
-#include "iconv_local.h"
-#include "iconvimpl.h"
+#include <cstring>
+#include "testiconv.h"
+#include "common/iconv_local.h"
 
-namespace cf
+CPPUNIT_TEST_SUITE_REGISTRATION(TestIconv);
+
+void TestIconv::testConvertChar()
 {
+    cf::Iconv iconv("cp1251", "UTF8");
 
-Iconv::Iconv() {
-    impl_ = new IconvImpl;
+    for(char i = 0; i < 125; i++) {
+        CPPUNIT_ASSERT_EQUAL(std::string(1, i), iconv.convert(i));
+    }
+
+    // russian 'a'
+    CPPUNIT_ASSERT_EQUAL(std::string("а"), iconv.convert("\xE0"));
+    CPPUNIT_ASSERT_EQUAL(std::string("а"), iconv.convert('\xE0'));
 }
 
-Iconv::Iconv(const std::string &from, const std::string &to) {
-    impl_ = new IconvImpl;
-    impl_->open(from, to);
-}
+void TestIconv::testConvertString() {
+    cf::Iconv iconv("cp1251", "UTF8");
+    CPPUNIT_ASSERT_EQUAL(std::string("ааа"), iconv.convert("\xE0\xE0\xE0"));
 
-Iconv::~Iconv() {
-    delete impl_;
-}
+    // big string
+    const int SZ = 10000;
+    char BIG_STR[SZ + 1];
+    memset(BIG_STR, 0xE0, SZ); // russian 'a'
+    BIG_STR[SZ] = '\0';
 
-bool Iconv::close() {
-    return impl_->close();
-}
+    std::string str;
+    str.reserve(SZ);
+    for(int i = 0; i < SZ; i++)
+        str.append("а");
 
-std::string Iconv::convert(unsigned char c) {
-    return impl_->convert(c);
-}
-
-std::string Iconv::convert(const std::string& src) {
-    return impl_->convert(src);
-}
-
-bool Iconv::open(const std::string &from, const std::string &to) {
-    return impl_->open(from, to);
-}
-
+    CPPUNIT_ASSERT_EQUAL(str, iconv.convert(BIG_STR));
 }

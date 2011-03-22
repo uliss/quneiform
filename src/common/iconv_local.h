@@ -45,6 +45,7 @@ class FUN_EXPO__ Iconv : public boost::noncopyable
 
         bool close();
         std::string convert(const std::string& src);
+        std::string convert(unsigned char c);
         bool open(const std::string &from, const std::string &to);
     private:
         IconvImpl * impl_;

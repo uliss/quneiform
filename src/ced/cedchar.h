@@ -39,7 +39,8 @@ namespace cf
 class CLA_EXPO CEDChar: public Element
 {
     public:
-        CEDChar(Element * parent = NULL);
+        explicit CEDChar(Element * parent = NULL);
+        explicit CEDChar(unsigned char chr);
 
         /**
          * Adds alternative to char

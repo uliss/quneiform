@@ -53,6 +53,41 @@ bool IconvImpl::close() {
     return result;
 }
 
+std::string IconvImpl::convert(unsigned char chr) {
+#ifdef CF_USE_ICONV
+    if(chr < '\x7E') // ascii char
+        return std::string(1, chr);
+
+    char src[] = { chr };
+    char * src_ptr = src;
+    size_t src_len = sizeof(char);
+    char dest[8] = {0};
+    char * dest_ptr = dest;
+    size_t dest_len = sizeof(dest);
+    if(convert(&src_ptr, &src_len, &dest_ptr, &dest_len) == size_t(-1)) {
+        switch (errno) {
+        case EILSEQ:
+            throw Iconv::Exception(
+                    "[IconvImpl::convert] invalid character or multibyte sequence in the input");
+            break;
+        case EINVAL:
+            throw Iconv::Exception(
+                    "[IconvImpl::convert] incomplete multibyte sequence in the input");
+            break;
+        default:
+            throw Iconv::Exception("[IconvImpl::convert] failed");
+            break;
+        }
+    }
+
+    *dest_ptr = '\0';
+
+    return std::string(dest);
+#else
+    return std::string(1, chr);
+#endif
+}
+
 std::string IconvImpl::convert(const std::string& src) {
 #ifdef CF_USE_ICONV
     if (src.empty())
@@ -61,7 +96,7 @@ std::string IconvImpl::convert(const std::string& src) {
     std::string result;
     result.reserve(src.size());
 
-    char *source_ptr = (char*) src.c_str();
+    char * source_ptr = (char*) src.c_str();
     size_t source_len = src.length();
 
     static const int BUFSIZE = 4096;
@@ -94,8 +129,9 @@ std::string IconvImpl::convert(const std::string& src) {
     }
 
     return result;
-#endif
+#else
     return src;
+#endif
 }
 
 size_t IconvImpl::convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft) {

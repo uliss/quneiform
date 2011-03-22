@@ -26,6 +26,15 @@ CEDChar::CEDChar(Element * parent) :
     Element(parent), font_lang_(LANGUAGE_ENGLISH), font_height_(0), font_style_(0), font_number_(0) {
 }
 
+CEDChar::CEDChar(unsigned char chr) :
+    Element(NULL),
+    font_lang_(LANGUAGE_ENGLISH),
+    font_height_(0),
+    font_style_(0),
+    font_number_(0) {
+    addAlternative(chr);
+}
+
 void CEDChar::addAlternative(const Letter& letter) {
     alternatives_.push_back(letter);
 }

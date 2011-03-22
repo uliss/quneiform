@@ -23,6 +23,7 @@ set(HEADERS
     settings.h
     thumbnaillist.h
     thumbnailwidget.h
+    qtextdocumentexporter.h
     widgetbar.h
 )
 
@@ -52,6 +53,7 @@ set(SOURCES
     thumbnaillist.cpp
     thumbnailwidget.cpp
     translationloader.cpp
+    qtextdocumentexporter.cpp
     widgetbar.cpp
 )
 
