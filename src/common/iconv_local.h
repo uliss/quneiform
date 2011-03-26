@@ -37,16 +37,61 @@ class IconvImpl;
 class FUN_EXPO__ Iconv : public boost::noncopyable
 {
     public:
+        /**
+          * Created empty iconv conversion
+          * To use encoding conversion you should use open() method
+          * @see open()
+          */
         Iconv();
-        Iconv(const std::string &from, const std::string &to);
+
+        /**
+          * Creates iconv conversion
+          * @param from - source encoding, for example "cp1251"
+          * @param to - destination encoding, for example "utf-8"
+          * @throw Iconv::Exception if unknown encoding names given
+          * @see open()
+          */
+        Iconv(const std::string& from, const std::string& to);
         ~Iconv();
 
         typedef RuntimeExceptionImpl<Iconv> Exception;
 
+        /**
+          * Closes encoding conversion
+          * @return true on success, false on error
+          * @see open(), isOpened()
+          */
         bool close();
+
+        /**
+          * Converts given string
+          * @param src - source string
+          * @return converted string
+          */
         std::string convert(const std::string& src);
+
+        /**
+          * Converts given character
+          * @param c - source character
+          * @return converted character
+          */
         std::string convert(unsigned char c);
-        bool open(const std::string &from, const std::string &to);
+
+        /**
+          * Checks if conversion is opened
+          * @return true if conversion is opened
+          * @see open(), close()
+          */
+        bool isOpened() const;
+
+        /**
+          * Openes encoding conversion
+          * @param from - source encoding
+          * @param to - destination encoding
+          * @return true on success, false on error
+          * @see isOpened(), close()
+          */
+        bool open(const std::string& from, const std::string& to);
     private:
         IconvImpl * impl_;
 };

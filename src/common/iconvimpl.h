@@ -33,15 +33,16 @@ class IconvImpl
 {
     public:
         IconvImpl();
-        IconvImpl(const std::string &from, const std::string &to);
+        IconvImpl(const std::string& from, const std::string& to);
         ~IconvImpl();
 
         bool close();
         std::string convert(const std::string& src);
         std::string convert(unsigned char chr);
-        bool open(const std::string &from, const std::string &to);
-        size_t convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
+        bool isOpened() const;
+        bool open(const std::string& from, const std::string& to);
     private:
+        size_t convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
 #ifndef CF_USE_ICONV
         typedef int iconv_t;
 #endif

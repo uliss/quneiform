@@ -24,10 +24,12 @@
 class TestIconv: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestIconv);
+    CPPUNIT_TEST(testConstruct);
     CPPUNIT_TEST(testConvertChar);
     CPPUNIT_TEST(testConvertString);
     CPPUNIT_TEST_SUITE_END();
 public:
+    void testConstruct();
     void testConvertChar();
     void testConvertString();
 };

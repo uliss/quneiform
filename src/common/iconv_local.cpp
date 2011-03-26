@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <errno.h>
+#include <cassert>
 #include "iconv_local.h"
 #include "iconvimpl.h"
 
@@ -27,9 +28,8 @@ Iconv::Iconv() {
     impl_ = new IconvImpl;
 }
 
-Iconv::Iconv(const std::string &from, const std::string &to) {
-    impl_ = new IconvImpl;
-    impl_->open(from, to);
+Iconv::Iconv(const std::string& from, const std::string& to) {
+    impl_ = new IconvImpl(from, to);
 }
 
 Iconv::~Iconv() {
@@ -37,18 +37,32 @@ Iconv::~Iconv() {
 }
 
 bool Iconv::close() {
+    assert(impl_);
+
     return impl_->close();
 }
 
 std::string Iconv::convert(unsigned char c) {
+    assert(impl_);
+
     return impl_->convert(c);
 }
 
 std::string Iconv::convert(const std::string& src) {
+    assert(impl_);
+
     return impl_->convert(src);
 }
 
+bool Iconv::isOpened() const {
+    assert(impl_);
+
+    return impl_->isOpened();
+}
+
 bool Iconv::open(const std::string &from, const std::string &to) {
+    assert(impl_);
+
     return impl_->open(from, to);
 }
 

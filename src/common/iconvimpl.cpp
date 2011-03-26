@@ -17,9 +17,12 @@
  ***************************************************************************/
 
 #include <errno.h>
+#include <cassert>
 #include <iostream>
 #include "iconvimpl.h"
 #include "iconv_local.h"
+
+#define ASSERT_ICONV(i) { assert((i) != (iconv_t) -1);}
 
 namespace cf
 {
@@ -29,7 +32,8 @@ IconvImpl::IconvImpl() :
 
 }
 
-IconvImpl::IconvImpl(const std::string &from, const std::string &to) {
+IconvImpl::IconvImpl(const std::string& from, const std::string& to) :
+    iconv_((iconv_t) -1) {
     if (!open(from, to))
         throw Iconv::Exception("Can't convert from " + from + " to " + to);
 }
@@ -42,11 +46,12 @@ bool IconvImpl::close() {
     bool result = true;
 
 #ifdef CF_USE_ICONV
-    if (iconv_ != iconv_t(-1)) {
-        if (::iconv_close(iconv_) == -1)
-        result = false;
+    if (isOpened()) {
+        if (::iconv_close(iconv_) != 0) {
+            result = false;
+        }
 
-        iconv_ = iconv_t(-1);
+        iconv_ = (iconv_t) -1;
     }
 #endif
 
@@ -55,12 +60,14 @@ bool IconvImpl::close() {
 
 std::string IconvImpl::convert(unsigned char chr) {
 #ifdef CF_USE_ICONV
+    ASSERT_ICONV(iconv_)
+
     if(chr < '\x7E') // ascii char
         return std::string(1, chr);
 
     char src[] = { chr };
     char * src_ptr = src;
-    size_t src_len = sizeof(char);
+    size_t src_len = sizeof(chr);
     char dest[8] = {0};
     char * dest_ptr = dest;
     size_t dest_len = sizeof(dest);
@@ -90,6 +97,8 @@ std::string IconvImpl::convert(unsigned char chr) {
 
 std::string IconvImpl::convert(const std::string& src) {
 #ifdef CF_USE_ICONV
+    ASSERT_ICONV(iconv_)
+
     if (src.empty())
         return src;
 
@@ -136,6 +145,7 @@ std::string IconvImpl::convert(const std::string& src) {
 
 size_t IconvImpl::convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft) {
 #ifdef CF_USE_ICONV
+    ASSERT_ICONV(iconv_)
 #ifdef ICONV_SECOND_ARGUMENT_IS_CONST
     return ::iconv(iconv_, (const char**) inbuf, inbytesleft, outbuf, outbytesleft);
 #else
@@ -147,13 +157,18 @@ size_t IconvImpl::convert(char **inbuf, size_t *inbytesleft, char **outbuf, size
 #endif
 }
 
-bool IconvImpl::open(const std::string &from, const std::string &to) {
+bool IconvImpl::isOpened() const {
+    return iconv_ != (iconv_t) -1;
+}
+
+bool IconvImpl::open(const std::string& from, const std::string& to) {
 #ifdef CF_USE_ICONV
     close();
     iconv_ = ::iconv_open(to.c_str(), from.c_str());
-    return iconv_ != iconv_t(-1);
-#endif
+    return isOpened();
+#else
     return true;
+#endif
 }
 
 }

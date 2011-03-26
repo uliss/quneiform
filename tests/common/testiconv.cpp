@@ -22,9 +22,23 @@
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestIconv);
 
+void TestIconv::testConstruct() {
+    cf::Iconv i1;
+    CPPUNIT_ASSERT(!i1.isOpened());
+    CPPUNIT_ASSERT(!i1.open("non-exists", "non-exists"));
+    CPPUNIT_ASSERT(i1.open("CP1251", "UTF-8"));
+    CPPUNIT_ASSERT(i1.close());
+    CPPUNIT_ASSERT(i1.close());
+
+    cf::Iconv i2("CP1251", "UTF-8");
+    CPPUNIT_ASSERT(i2.isOpened());
+
+    CPPUNIT_ASSERT_THROW(cf::Iconv("non-exists", "non-exists"), cf::Iconv::Exception);
+}
+
 void TestIconv::testConvertChar()
 {
-    cf::Iconv iconv("cp1251", "UTF8");
+    cf::Iconv iconv("CP1251", "UTF-8");
 
     for(char i = 0; i < 125; i++) {
         CPPUNIT_ASSERT_EQUAL(std::string(1, i), iconv.convert(i));
@@ -36,7 +50,7 @@ void TestIconv::testConvertChar()
 }
 
 void TestIconv::testConvertString() {
-    cf::Iconv iconv("cp1251", "UTF8");
+    cf::Iconv iconv("CP1251", "UTF-8");
     CPPUNIT_ASSERT_EQUAL(std::string("ааа"), iconv.convert("\xE0\xE0\xE0"));
 
     // big string
