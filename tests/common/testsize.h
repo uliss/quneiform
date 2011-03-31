@@ -28,6 +28,7 @@ class TestSize: public CppUnit::TestFixture
     CPPUNIT_TEST(testSerializeXml);
     CPPUNIT_TEST_SUITE_END();
 public:
+    void testIsValid();
     void testSerialize();
     void testSerializeXml();
 };

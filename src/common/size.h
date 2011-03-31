@@ -37,7 +37,7 @@ class SizeImpl
         }
 
         bool isValid() const {
-            return width >= 0 && height_ >= 0;
+            return width_ >= 0 && height_ >= 0;
         }
 
         T height() const {

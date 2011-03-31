@@ -22,6 +22,20 @@
 using namespace cf;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestSize);
 
+void TestSize::testIsValid() {
+    Size sz;
+    CPPUNIT_ASSERT(!sz.isValid());
+
+    Size sz1(0, 1);
+    CPPUNIT_ASSERT(sz.isValid());
+
+    Size sz2(1, 0);
+    CPPUNIT_ASSERT(sz.isValid());
+
+    Size sz3(-1, -2);
+    CPPUNIT_ASSERT(!sz.isValid());
+}
+
 void TestSize::testSerialize() {
 #ifdef CF_SERIALIZE
     const Size sz(-20, -30);
