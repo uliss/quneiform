@@ -45,7 +45,7 @@ std::ostream& operator<<(std::ostream& os, const RectImpl<T>& rect) {
 
 template<class T>
 std::ostream& operator<<(std::ostream& os, const SizeImpl<T>& size) {
-    os << "Size(" << size.width() << "," << size.height();
+    os << "Size(" << size.width() << "," << size.height() << ")";
     return os;
 }
 
