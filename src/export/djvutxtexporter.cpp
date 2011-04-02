@@ -76,7 +76,7 @@ void DjvuTxtExporter::writeCharacter(CEDChar& chr) {
     if (isSpace(chr))
         return;
 
-    word_buffer_ << chr.alternativeAt(0).getChar();
+    word_buffer_ << chr.get();
 }
 
 void DjvuTxtExporter::writeCharacterBegin(CEDChar& chr) {

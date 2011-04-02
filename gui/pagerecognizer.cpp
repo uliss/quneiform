@@ -187,6 +187,7 @@ void PageRecognizer::saveOcrText() {
     page_->document()->clear();
     page_->document()->setDefaultFont(QFont("Sans", 15));
     cf::FormatOptions opts;
+    opts.setLanguage(static_cast<language_t>(language_));
     opts.useFontSize(false);
     opts.setShowAlternatives(true);
     QTextDocumentExporter exp(NULL, opts);

@@ -88,7 +88,7 @@ void DjvuXmlExporter::writeCharacter(CEDChar& chr) {
     if (isSpace(chr))
         return;
 
-    buffer() << escapeSpecialChar(chr.alternativeAt(0).getChar());
+    buffer() << escapeSpecialChar(chr.get());
 }
 
 void DjvuXmlExporter::writeCharacterBegin(CEDChar& chr) {

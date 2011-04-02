@@ -87,7 +87,7 @@ void TextExporter::writeCharacter(CEDChar& chr) {
     if (elements_left_in_line_-- == 1 && remove_last_line_hyphen_)
         return;
 
-    buffer() << chr.alternativeAt(0).getChar();
+    buffer() << chr.get();
 }
 
 void TextExporter::writeLineBreak() {
