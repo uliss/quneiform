@@ -155,7 +155,7 @@ void QTextDocumentExporter::writeCharacter(CEDChar& chr) {
         return;
     }
 
-    std::string std_str = converter_.convert(chr.alternativeAt(0).getChar());
+    std::string std_str = converter_.convert(chr.get());
     QString str = QString::fromUtf8(std_str.c_str());
     QTextCharFormat format;
 
