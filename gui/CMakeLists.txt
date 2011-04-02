@@ -21,6 +21,7 @@ set(HEADERS
     recognitionprogressdialog.h
     selection.h
     settings.h
+    texteditor.h
     thumbnaillist.h
     thumbnailwidget.h
     qtextdocumentexporter.h
@@ -50,6 +51,7 @@ set(SOURCES
     selection.cpp
     selectionshadow.cpp
     settings.cpp
+    texteditor.cpp
     thumbnaillist.cpp
     thumbnailwidget.cpp
     translationloader.cpp

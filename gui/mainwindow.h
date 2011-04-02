@@ -33,8 +33,8 @@ class PageRecognitionQueue;
 class RecentMenu;
 class ImageWidget;
 class ThumbnailList;
+class TextEditor;
 class QProgressDialog;
-class QTextEdit;
 class QHBoxLayout;
 
 class MainWindow: public QMainWindow {
@@ -106,7 +106,7 @@ private:
     LanguageMenu * lang_menu_;
     QProgressDialog * progress_;
     ImageWidget * image_widget_;
-    QTextEdit * text_view_;
+    TextEditor * text_view_;
     ThumbnailList * thumbs_;
     QHBoxLayout * main_layout_;
     PageRecognitionQueue * recognition_queue_;

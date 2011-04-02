@@ -16,33 +16,33 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTQTEXTDOCUMENTEXPORTER_H
-#define TESTQTEXTDOCUMENTEXPORTER_H
+#ifndef TEXTEDITOR_H
+#define TEXTEDITOR_H
 
-#include <QObject>
+#include <QTextEdit>
 
-class TestQTextDocumentExporter : public QObject
+class Page;
+class QTextDocument;
+
+class TextEditor : public QTextEdit
 {
     Q_OBJECT
 public:
-    explicit TestQTextDocumentExporter(QObject *parent = 0);
+    explicit TextEditor(QWidget * parent = 0);
+    ~TextEditor();
+    void showPage(Page * page);
+signals:
+    void charSelected(const QRect& bbox);
+protected:
+    void contextMenuEvent(QContextMenuEvent * event);
 private slots:
-    void testConstruct();
-    void testWriteChar();
-    void testWriteCharItalic();
-    void testWriteCharBold();
-    void testWriteCharUnderlined();
-    void testWriteCharFontSize();
-    void testWriteCharColors();
-    void testWriteCharEncoding();
-    void testWriteCharAlternatives();
-    void testWriteCharBBox();
-    void testWriteParagraph();
-    void testWriteParagraphIndent();
-    void testWriteLine();
-    void testWriteSection();
-    void testWriteColumn();
-    void testWritePicture();
+    void clearText();
+    void showCurrentChar();
+private:
+    void connectPageSignal(Page * page);
+private:
+    Page * page_;
+    QTextDocument * doc_;
 };
 
-#endif // TESTQTEXTDOCUMENTEXPORTER_H
+#endif // TEXTEDITOR_H

@@ -60,7 +60,9 @@ ImageView::ImageView(QWidget * parent) :
         select_mode_(NORMAL),
         layout_(NULL),
         min_scale_(0),
-        max_scale_(100) {
+        max_scale_(100),
+        current_char_bbox_(NULL)
+{
     activate(false);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setBackgroundRole(QPalette::Dark);
@@ -94,6 +96,7 @@ void ImageView::clearScene() {
     scene_->clear();
     layout_ = NULL;
     page_selection_ = NULL;
+    current_char_bbox_ = NULL;
     scene_->setSceneRect(QRect());
 }
 
@@ -394,6 +397,20 @@ void ImageView::setPageSelection(const QRect& rect) {
 void ImageView::setupScene() {
     scene_ = new QGraphicsScene;
     setScene(scene_);
+}
+
+void ImageView::showChar(const QRect& bbox) {
+    Q_ASSERT(scene_);
+
+    QPen p(Qt::red);
+    p.setWidth(2);
+
+    if(!current_char_bbox_)
+        current_char_bbox_ = scene_->addRect(bbox, p);
+    else
+        current_char_bbox_->setRect(bbox);
+
+    ensureVisible(current_char_bbox_);
 }
 
 void ImageView::showImage(const QString& path) {

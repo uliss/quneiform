@@ -71,6 +71,10 @@ void ImageWidget::setupView() {
     layout_->addWidget(view_);
 }
 
+void ImageWidget::showChar(const QRect& bbox) {
+    view_->showChar(bbox);
+}
+
 void ImageWidget::showPage(Page * p) {
     if(!view_) {
         qDebug() << Q_FUNC_INFO << "no view";

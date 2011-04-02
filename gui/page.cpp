@@ -22,6 +22,7 @@
 #include <QDataStream>
 #include <QMutexLocker>
 #include <QPixmap>
+#include <QTextDocument>
 
 #include "page.h"
 #include "imagecache.h"
@@ -40,6 +41,8 @@ Page::Page(const QString& image_path) :
     }
 
     initRects();
+
+    doc_ = new QTextDocument(this);
 }
 
 int Page::angle() const {
@@ -60,6 +63,10 @@ void Page::appendBlock(const QRect& rect, BlockType type) {
 void Page::clearBlocks(BlockType type) {
     Q_ASSERT(type < blocks_.size());
     blocks_[type].clear();
+}
+
+QTextDocument * Page::document() {
+    return doc_;
 }
 
 Page::PageFlags Page::flags() const {

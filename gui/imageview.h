@@ -22,6 +22,7 @@
 #include <QGraphicsView>
 
 class QGraphicsScene;
+class QGraphicsRectItem;
 class QGestureEvent;
 class QPinchGesture;
 class QMenu;
@@ -69,6 +70,11 @@ public:
       * @see fitPage(), fitWidth(), zoom()
       */
     void originalSize();
+
+    /**
+      * Show char bbox
+      */
+    void showChar(const QRect& bbox);
 
     /**
       * Shows cuneiform page formatting
@@ -176,6 +182,7 @@ private:
     PageLayout * layout_;
     qreal min_scale_;
     qreal max_scale_;
+    QGraphicsRectItem * current_char_bbox_;
 };
 
 #endif

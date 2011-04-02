@@ -369,7 +369,7 @@ Do you want to save it?</source>
     </message>
     <message>
         <source>Recognition error</source>
-        <translation>Ошибка при распозновании</translation>
+        <translation type="unfinished">Ошибка при распозновании</translation>
     </message>
 </context>
 <context>
@@ -497,6 +497,17 @@ Do you want to save it?</source>
     <message>
         <source>Settings</source>
         <translation>Настройки</translation>
+    </message>
+</context>
+<context>
+    <name>TextEditor</name>
+    <message>
+        <source>Zoom In</source>
+        <translation type="unfinished">Увеличить</translation>
+    </message>
+    <message>
+        <source>Zoom Out</source>
+        <translation type="unfinished">Уменьшить</translation>
     </message>
 </context>
 <context>

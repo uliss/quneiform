@@ -22,7 +22,6 @@
 #include <QFileDialog>
 #include <QCloseEvent>
 #include <QProgressDialog>
-#include <QTextEdit>
 #include <QSplitter>
 #include <QHBoxLayout>
 #include <QDebug>
@@ -38,6 +37,7 @@
 #include "imagewidget.h"
 #include "thumbnailwidget.h"
 #include "thumbnaillist.h"
+#include "texteditor.h"
 #include "pagerecognitionqueue.h"
 #include "recognitionprogressdialog.h"
 #include "recentmenu.h"
@@ -535,8 +535,7 @@ void MainWindow::setupShortcuts() {
 }
 
 void MainWindow::setupTextView() {
-    text_view_ = new QTextEdit(this);
-    text_view_->setReadOnly(true);
+    text_view_ = new TextEditor(this);
 }
 
 void MainWindow::setupThumbs() {
@@ -553,6 +552,8 @@ void MainWindow::setupUi() {
     setupImageView();
     setupTextView();
     setupUiLayout();
+
+    connect(text_view_, SIGNAL(charSelected(QRect)), image_widget_, SLOT(showChar(QRect)));
 }
 
 void MainWindow::setupUiLayout() {
@@ -585,7 +586,7 @@ void MainWindow::showPageImage(Page * page) {
 void MainWindow::showPageText(Page * page) {
     Q_CHECK_PTR(page);
     Q_CHECK_PTR(text_view_);
-    text_view_->document()->setHtml(page->ocrText());
+    text_view_->showPage(page);
 }
 
 void MainWindow::showPageFault(Page * page) {

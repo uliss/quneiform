@@ -21,6 +21,7 @@
 
 #include <QTextCursor>
 #include <QTextDocument>
+#include <QTextFormat>
 #include <QMap>
 #include "export/genericexporter.h"
 
@@ -28,7 +29,9 @@ namespace cf {
 class Element;
 class CEDChar;
 class CEDPage;
+class CEDLine;
 class CEDParagraph;
+class CEDPicture;
 class FormatOptions;
 }
 
@@ -36,10 +39,11 @@ class QTextDocumentExporter : public cf::GenericExporter
 {
 public:
     QTextDocumentExporter(cf::CEDPage * page, const cf::FormatOptions& opts);
+    ~QTextDocumentExporter();
 
     enum TextItemProperty {
-        BBOX = 0,
-        ALTERNATIVES
+        BBOX = QTextFormat::UserProperty + 1,
+        ALTERNATIVES = QTextFormat::UserProperty + 2
     };
 
     /**
@@ -50,16 +54,25 @@ public:
     /**
       * Returns document cursor
       */
-    QTextCursor& cursor();
+    QTextCursor * cursor();
 
     /**
-      * Returns reference to document
+      * Returns pointer to document
       */
-    QTextDocument& document();
+    QTextDocument * document();
+
+    /**
+      * Sets output document
+      */
+    void setDocument(QTextDocument * doc);
 protected:
     void writePageBegin(cf::CEDPage& page);
     void writeParagraphBegin(cf::CEDParagraph& par);
     void writeCharacter(cf::CEDChar& chr);
+    void writeColumnBegin(cf::CEDColumn& col);
+    void writeLineEnd(cf::CEDLine& line);
+    void writePicture(cf::CEDPicture& pic);
+    void writeSectionBegin(cf::CEDSection& section);
 private:
     typedef QMap<QString, QVariant> AltMap;
     AltMap charAlternatives(const cf::CEDChar& chr) const;
@@ -72,8 +85,10 @@ private:
     void exportCharUnderline(QTextCharFormat& format, const cf::CEDChar& chr) const;
     void exportCharFontSize(QTextCharFormat& format, const cf::CEDChar& chr) const;
 private:
-    QTextDocument doc_;
-    QTextCursor cursor_;
+    QTextDocument * doc_;
+    QTextCursor * cursor_;
+    int current_col_num_;
+    bool do_column_layout_;
 };
 
 #endif // QTEXTDOCUMENTEXPORTER_H

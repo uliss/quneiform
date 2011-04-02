@@ -32,6 +32,7 @@
 #include "recognitionsettings.h"
 
 class QDataStream;
+class QTextDocument;
 
 class Page: public QObject {
     Q_OBJECT
@@ -99,6 +100,11 @@ public:
       * @see blocks(), setBlocks(), appendBlock()
       */
     void clearBlocks(BlockType type);
+
+    /**
+      * Returns pointer to page document
+      */
+    QTextDocument * document();
 
     /**
       * Saves ocr result
@@ -334,6 +340,7 @@ private:
     mutable QMutex mutex_;
     RecognitionSettings rec_settings_;
     RectList blocks_;
+    QTextDocument * doc_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

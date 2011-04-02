@@ -28,8 +28,10 @@
 #include "cuneiform.h"
 #include "rdib/qtimageloader.h"
 #include "common/lang_def.h"
+#include "common/formatoptions.h"
 #include "quneiform_debug.h"
 #include "rectexporter.h"
+#include "qtextdocumentexporter.h"
 
 #ifdef Q_OS_WIN32
 #define usleep(t) Sleep((t)/1000)
@@ -180,6 +182,17 @@ void PageRecognizer::saveOcrText() {
     cf::Puma::instance().save(buf, cf::FORMAT_TEXT);
     page_->setOcrText(QString::fromUtf8(buf.str().c_str()));
     page_->unsetFlag(Page::RECOGNITION_FAILED);
+
+
+    page_->document()->clear();
+    page_->document()->setDefaultFont(QFont("Sans", 15));
+    cf::FormatOptions opts;
+    opts.useFontSize(false);
+    opts.setShowAlternatives(true);
+    QTextDocumentExporter exp(NULL, opts);
+    exp.setDocument(page_->document());
+    exp.exportPage(*cf::Puma::instance().cedPage());
+
     emit percentsDone(95);
     QCoreApplication::processEvents();
 }

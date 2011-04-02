@@ -20,11 +20,21 @@
 #include <QTextDocumentFragment>
 #include <QTextCharFormat>
 #include <QTextBlock>
+#include <QTextTable>
+#include <QTextTableFormat>
 #include <QDebug>
 #include "qtextdocumentexporter.h"
 #include "ced/cedchar.h"
+#include "ced/cedline.h"
+#include "ced/cedpage.h"
+#include "ced/cedparagraph.h"
+#include "ced/cedpicture.h"
+#include "ced/cedsection.h"
+#include "ced/cedcolumn.h"
 #include "common/tostring.h"
 #include "export/rout_own.h"
+#include "rdib/bmp.h"
+#include "compat_defs.h"
 
 using namespace cf;
 
@@ -37,8 +47,15 @@ static inline QColor toQColor(const cf::Color& c) {
 }
 
 QTextDocumentExporter::QTextDocumentExporter(CEDPage * page, const FormatOptions& opts) :
-        GenericExporter(page, opts), doc_(), cursor_(&doc_)
+        GenericExporter(page, opts),
+        doc_(NULL),
+        cursor_(NULL),
+        current_col_num_(0),
+        do_column_layout_(false)
 {
+}
+
+QTextDocumentExporter::~QTextDocumentExporter() {
 }
 
 QTextDocumentExporter::AltMap QTextDocumentExporter::charAlternatives(const cf::CEDChar& chr) const {
@@ -68,6 +85,8 @@ void QTextDocumentExporter::exportCharAlternatives(QTextCharFormat& format, cons
         }
 
         format.setToolTip(tooltip);
+        format.setUnderlineStyle(QTextCharFormat::DashUnderline);
+        format.setUnderlineColor(Qt::red);
     }
 
     format.setProperty(ALTERNATIVES, QVariant(alt_map));
@@ -108,15 +127,26 @@ void QTextDocumentExporter::exportCharFontSize(QTextCharFormat& format, const cf
 }
 
 void QTextDocumentExporter::clear() {
-    doc_.clear();
+    doc_->clear();
 }
 
-QTextCursor& QTextDocumentExporter::cursor() {
+QTextCursor * QTextDocumentExporter::cursor() {
     return cursor_;
 }
 
-QTextDocument& QTextDocumentExporter::document() {
+QTextDocument * QTextDocumentExporter::document() {
     return doc_;
+}
+
+void QTextDocumentExporter::setDocument(QTextDocument * doc) {
+    Q_ASSERT(doc);
+
+    if(doc == doc_)
+        return;
+
+    doc_ = doc;
+    delete cursor_;
+    cursor_ = new QTextCursor(doc_);
 }
 
 void QTextDocumentExporter::writeCharacter(CEDChar& chr) {
@@ -139,13 +169,146 @@ void QTextDocumentExporter::writeCharacter(CEDChar& chr) {
     exportCharUnderline(format, chr);
     exportCharFontSize(format, chr);
 
-    cursor_.insertText(str, format);
+    cursor_->insertText(str, format);
 }
 
-void QTextDocumentExporter::writePageBegin(CEDPage& page) {
-    cursor_.insertFragment(QTextDocumentFragment());
+void QTextDocumentExporter::writeColumnBegin(cf::CEDColumn& col) {
+    if(!do_column_layout_)
+        return;
+
+    if(current_col_num_++ == 0)
+        return;
+
+    QTextTable * table = cursor_->currentTable();
+    if(!table) {
+        qDebug() << Q_FUNC_INFO << "no current table";
+    } else {
+        table->appendColumns(1);
+    }
+}
+
+void QTextDocumentExporter::writeLineEnd(cf::CEDLine& line) {
+    if(!line.empty()) {
+        if(formatOptions().preserveLineBreaks())
+            cursor_->insertText("\n", cursor_->charFormat());
+        else {
+            cursor_->movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, 1);
+            if(cursor_->selectedText() == "-") {
+                cursor_->deleteChar();
+                cursor_->insertText("\xAD");
+            }
+            else {
+                cursor_->movePosition(QTextCursor::NextCharacter);
+                cursor_->insertText(" ");
+            }
+        }
+    }
+}
+
+void QTextDocumentExporter::writePageBegin(cf::CEDPage& page) {
+    QTextFrameFormat format;
+
+    if(page.imageSize().isValid()) {
+//        format.setWidth(page.imageSize().width());
+//        format.setHeight(page.imageSize().height());
+    }
+
+    format.setTopMargin(page.marginTop());
+    format.setRightMargin(page.marginRight());
+    format.setBottomMargin(page.marginBottom());
+    format.setLeftMargin(page.marginLeft());
+
+    cursor_->insertFrame(format);
 }
 
 void QTextDocumentExporter::writeParagraphBegin(CEDParagraph& par) {
-//    cursor_.insertBlock(QTextBlock());
+    QTextBlockFormat format;
+
+    switch(par.align()) {
+    case ALIGN_NONE:
+    case ALIGN_LEFT:
+        format.setAlignment(Qt::AlignLeft);
+        break;
+    case ALIGN_RIGHT:
+        format.setAlignment(Qt::AlignRight);
+        break;
+    case ALIGN_CENTER:
+        format.setAlignment(Qt::AlignHCenter);
+        break;
+    case ALIGN_JUSTIFY:
+        format.setAlignment(Qt::AlignJustify);
+        break;
+    }
+
+    if(par.indent() != 0)
+        format.setTextIndent(par.indent());
+
+    cursor_->insertBlock(format);
+    cursor_->movePosition(QTextCursor::StartOfBlock);
+}
+
+void QTextDocumentExporter::writePicture(cf::CEDPicture& pic) {
+    if(!pic.image()) {
+        qDebug() << Q_FUNC_INFO << "empty image given";
+        return;
+    }
+
+    ImagePtr im_ptr = pic.image();
+
+    BITMAPFILEHEADER bf; //  bmp fileheader
+    BITMAPINFOHEADER * bfinfo = (BITMAPINFOHEADER *) im_ptr->data();
+    bf.bfType = 0x4d42; // 'BM'
+    bf.bfSize = sizeof(BITMAPFILEHEADER) + im_ptr->dataSize();
+    // fileheader + infoheader + palette
+    bf.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + bfinfo->biClrUsed
+            * sizeof(RGBQUAD);
+
+    std::ostringstream buf;
+    buf.write((char*) &bf, sizeof(bf));
+    buf << *im_ptr;
+
+//    if(im_ptr->width() == 0 || im_ptr->height() == 0) {
+//        qDebug() << Q_FUNC_INFO << "invalid image size: (" << im_ptr->width() << im_ptr->height() << ")";
+//        return;
+//    }
+    std::string s = buf.str();
+    QImage img = QImage::fromData((uchar*)s.data(), s.size());
+
+    if(img.isNull()) {
+        qDebug() << Q_FUNC_INFO << "invalid image given";
+        return;
+    }
+
+    static int image_counter = 0;
+
+    cursor_->insertImage(img, QString("image %1").arg(++image_counter));
+    QTextFrameFormat format;
+    cursor_->currentFrame()->setFrameFormat(format);
+}
+
+void QTextDocumentExporter::writeSectionBegin(cf::CEDSection& section) {
+    current_col_num_ = 0;
+    do_column_layout_ = (section.columnCount() > 1);
+
+    if(do_column_layout_) {
+        QTextTableFormat format;
+        format.setAlignment(Qt::AlignHCenter);
+        format.setBorderStyle(QTextFrameFormat::BorderStyle_Dotted);
+        format.setBorder(1);
+        format.setCellPadding(3);
+        format.setCellSpacing(0);
+
+        QVector<QTextLength> col_wd;
+        for(size_t i = 0; i < section.columnCount(); i++) {
+            CEDColumn * col = section.columnAt(i);
+            if(col->width() > 0)
+                col_wd.append(QTextLength(QTextLength::FixedLength, col->width()));
+            else
+                col_wd.append(QTextLength(QTextLength::VariableLength, 300));
+        }
+
+        format.setColumnWidthConstraints(col_wd);
+
+        cursor_->insertTable(1, 1, format);
+    }
 }

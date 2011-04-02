@@ -54,6 +54,7 @@ public slots:
     void fitPage();
     void fitWidth();
     void originalSize();
+    void showChar(const QRect& bbox);
     void updateFormatLayout();
     void updateSettings();
     void zoom(qreal value);
