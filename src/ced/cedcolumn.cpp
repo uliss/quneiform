@@ -24,7 +24,10 @@ namespace cf
 {
 
 CEDColumn::CEDColumn(CEDSection * parent) :
-    BlockElement(parent) {
+    BlockElement(parent),
+    width_(0),
+    space_(0)
+{
 
 }
 void CEDColumn::exportElement(CEDExporter& exp) {
