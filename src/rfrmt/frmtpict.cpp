@@ -392,6 +392,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         uchar * img_data = new uchar[iDIBSize];
         memcpy(img_data, pOutDIB, iDIBSize);
         ced_pict->setImage(new Image(img_data, iDIBSize, Image::AllocatorNew));
+        ced_pict->image()->setSize(slayout.size());
 
         ced_line->addElement(ced_pict);
         ced_par->addLine(ced_line);
