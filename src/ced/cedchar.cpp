@@ -71,6 +71,10 @@ int CEDChar::fontStyle() const {
     return font_style_;
 }
 
+unsigned char CEDChar::get() const {
+    return alternativeAt(0).getChar();
+}
+
 bool CEDChar::isHyphen() const {
     if (!hasAlternatives())
         return false;
