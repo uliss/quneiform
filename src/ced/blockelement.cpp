@@ -67,7 +67,22 @@ const Element * BlockElement::lastElement() const {
     if (elements_.empty())
         throw std::out_of_range("[BlockElement::lastElement] element is empty");
     return elements_.back().get();
+}
 
+int BlockElement::marginBottom() const {
+    return margins_.bottom();
+}
+
+int BlockElement::marginLeft() const {
+    return margins_.left();
+}
+
+int BlockElement::marginRight() const {
+    return margins_.right();
+}
+
+int BlockElement::marginTop() const {
+    return margins_.top();
 }
 
 void BlockElement::setBorderBottom(ed_border_t bottom) {

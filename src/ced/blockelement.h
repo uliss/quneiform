@@ -78,6 +78,11 @@ class CLA_EXPO BlockElement: public Element
         Element * lastElement();
         const Element * lastElement() const;
 
+        int marginBottom() const;
+        int marginLeft() const;
+        int marginRight() const;
+        int marginTop() const;
+
         void setBorderBottom(ed_border_t bottom);
         void setBorderBottomWidth(unsigned short width);
         void setBorderLeft(ed_border_t left);
