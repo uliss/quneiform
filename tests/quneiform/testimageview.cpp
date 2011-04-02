@@ -428,7 +428,6 @@ void TestImageView::testSelection() {
     WAIT_EVENTS()
     QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeFDiagCursor);
     QTest::mouseMove(&iv, QPoint(60, 20));
-    QTest::qWait(3000);
     WAIT_EVENTS()
     QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeBDiagCursor);
     QTest::mouseMove(&iv, QPoint(60, 80));
