@@ -35,7 +35,7 @@ public:
     explicit PageRecognitionQueue(QObject * parent = NULL);
 
     /**
-      * Adds all packett pages to queue
+      * Adds all packet pages to queue
       */
     void add(Packet * packet);
 

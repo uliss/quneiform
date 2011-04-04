@@ -16,41 +16,33 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TEXTEDITOR_H
-#define TEXTEDITOR_H
+#ifndef FORMATSETTINGSDIALOG_H
+#define FORMATSETTINGSDIALOG_H
 
-#include <QTextEdit>
+#include <QDialog>
+#include <QPixmap>
+#include "formatsettings.h"
 
-class Page;
-class QTextDocument;
+namespace Ui {
+    class FormatSettingsDialog;
+}
 
-class TextEditor : public QTextEdit
+class FormatSettingsDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit TextEditor(QWidget * parent = 0);
-    ~TextEditor();
+    explicit FormatSettingsDialog(const FormatSettings& settings);
+    ~FormatSettingsDialog();
 
-    /**
-      * Shows page content in editor
-      */
-    void showPage(Page * page);
-signals:
-    /**
-      * Emitted on change cursor position
-      * @param bbox - bounding box of current character
-      */
-    void charSelected(const QRect& bbox);
-protected:
-    void contextMenuEvent(QContextMenuEvent * event);
+    const FormatSettings& settings() const;
 private slots:
-    void clearText();
-    void showCurrentChar();
+    void save();
+    void showAlternativeColorDialog();
+    void load();
 private:
-    void connectPageSignal(Page * page);
-private:
-    Page * page_;
-    QTextDocument * doc_;
+    Ui::FormatSettingsDialog *ui;
+    FormatSettings settings_;
+    QPixmap pixmap_;
 };
 
-#endif // TEXTEDITOR_H
+#endif // FORMATSETTINGSDIALOG_H

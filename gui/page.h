@@ -30,6 +30,7 @@
 #include <QMutex>
 #include <QFlags>
 #include "recognitionsettings.h"
+#include "formatsettings.h"
 
 class QDataStream;
 class QTextDocument;
@@ -118,6 +119,12 @@ public:
       * @see hasFlag(), setFlag(), unsetFlag(), setFlags()
       */
     PageFlags flags() const;
+
+    /**
+      * Returns page format settings
+      * @see setFormatSettings()
+      */
+    const FormatSettings& formatSettings() const;
 
     /**
       * Returns true if page have flag
@@ -224,6 +231,12 @@ public:
       * @see setFlag(), unsetFlag()
       */
     void setFlags(PageFlags flags);
+
+    /**
+      * Sets format settings
+      * @see formatSettings()
+      */
+    void setFormatSettings(const FormatSettings& settings);
 
     /**
       * Sets page number
@@ -341,6 +354,7 @@ private:
     RecognitionSettings rec_settings_;
     RectList blocks_;
     QTextDocument * doc_;
+    FormatSettings format_settings_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

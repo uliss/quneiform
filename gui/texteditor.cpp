@@ -77,5 +77,4 @@ void TextEditor::showPage(Page * page) {
     page_ = page;
     connectPageSignal(page_);
     setDocument(page_->document());
-    setReadOnly(false);
 }

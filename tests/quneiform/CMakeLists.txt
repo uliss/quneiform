@@ -7,6 +7,7 @@ include_directories(${QT_QTTEST_INCLUDE_DIR})
 include_directories("../..")
 
 set(CF_GUI_TESTS
+    formatsettings
     imagecache
     imageview
     page

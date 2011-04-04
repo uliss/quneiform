@@ -22,6 +22,7 @@
 #include <QTextBlock>
 #include <QTextTable>
 #include <QTextTableFormat>
+#include <QSettings>
 #include <QDebug>
 #include "qtextdocumentexporter.h"
 #include "ced/cedchar.h"
@@ -38,6 +39,8 @@
 
 using namespace cf;
 
+static const char * SOFT_HYPEN = "\xAD";
+
 static inline QRect toQRect(const cf::Rect& r) {
     return QRect(r.x(), r.y(), r.width(), r.height());
 }
@@ -51,6 +54,7 @@ QTextDocumentExporter::QTextDocumentExporter(CEDPage * page, const FormatOptions
         doc_(NULL),
         cursor_(NULL),
         current_col_num_(0),
+        line_num_in_par_(0),
         do_column_layout_(false)
 {
 }
@@ -74,10 +78,10 @@ void QTextDocumentExporter::exportCharAlternatives(QTextCharFormat& format, cons
     if(chr.alternativeCount() < 2)
         return;
 
-    AltMap alt_map = charAlternatives(chr);
-
     // set tooltip
     if(formatOptions().showAlternatives()) {
+        AltMap alt_map = charAlternatives(chr);
+
         QString tooltip = "Alternatives:";
 
         foreach(QString alt, alt_map.keys()) {
@@ -86,10 +90,12 @@ void QTextDocumentExporter::exportCharAlternatives(QTextCharFormat& format, cons
 
         format.setToolTip(tooltip);
         format.setUnderlineStyle(QTextCharFormat::DashUnderline);
-        format.setUnderlineColor(Qt::red);
-    }
+        QSettings settings;
+        settings.beginGroup("format");
+        format.setUnderlineColor(settings.value("alternativeColor", Qt::red).value<QColor>());
 
-    format.setProperty(ALTERNATIVES, QVariant(alt_map));
+        format.setProperty(ALTERNATIVES, QVariant(alt_map));
+    }
 }
 
 void QTextDocumentExporter::exportElementColor(QTextFormat& format, const cf::Element& el) const {
@@ -188,19 +194,27 @@ void QTextDocumentExporter::writeColumnBegin(cf::CEDColumn& col) {
 }
 
 void QTextDocumentExporter::writeLineEnd(cf::CEDLine& line) {
-    if(!line.empty()) {
-        if(formatOptions().preserveLineBreaks())
-            cursor_->insertText("\n", cursor_->charFormat());
+    if(line.empty())
+        return;
+
+    if(formatOptions().preserveLineBreaks()) {
+        if(line_num_in_par_++ != 0) {
+            QTextBlockFormat current_fmt = cursor_->blockFormat();
+            current_fmt.setTextIndent(0);
+            cursor_->setBlockFormat(current_fmt);
+        }
+
+        cursor_->insertText("\n", cursor_->charFormat());
+    }
+    else {
+        cursor_->movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, 1);
+        if(cursor_->selectedText() == "-") {
+            cursor_->deleteChar();
+            cursor_->insertText(SOFT_HYPEN);
+        }
         else {
-            cursor_->movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, 1);
-            if(cursor_->selectedText() == "-") {
-                cursor_->deleteChar();
-                cursor_->insertText("\xAD");
-            }
-            else {
-                cursor_->movePosition(QTextCursor::NextCharacter);
-                cursor_->insertText(" ");
-            }
+            cursor_->movePosition(QTextCursor::NextCharacter);
+            cursor_->insertText(" "); // space
         }
     }
 }
@@ -245,6 +259,7 @@ void QTextDocumentExporter::writeParagraphBegin(CEDParagraph& par) {
 
     cursor_->insertBlock(format);
     cursor_->movePosition(QTextCursor::StartOfBlock);
+    line_num_in_par_ = 0;
 }
 
 void QTextDocumentExporter::writePicture(cf::CEDPicture& pic) {

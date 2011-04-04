@@ -185,12 +185,14 @@ void PageRecognizer::saveOcrText() {
 
 
     page_->document()->clear();
-    page_->document()->setDefaultFont(QFont("Sans", 15));
     cf::FormatOptions opts;
     opts.setLanguage(static_cast<language_t>(language_));
     opts.useFontSize(false);
     opts.setShowAlternatives(true);
     QTextDocumentExporter exp(NULL, opts);
+    cf::FormatOptions format_opts;
+    page_->formatSettings().exportTo(format_opts);
+    exp.setFormatOptions(format_opts);
     exp.setDocument(page_->document());
     exp.exportPage(*cf::Puma::instance().cedPage());
 

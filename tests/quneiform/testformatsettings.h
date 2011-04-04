@@ -16,41 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TEXTEDITOR_H
-#define TEXTEDITOR_H
+#ifndef TESTFORMATSETTINGS_H
+#define TESTFORMATSETTINGS_H
 
-#include <QTextEdit>
+#include <QObject>
 
-class Page;
-class QTextDocument;
-
-class TextEditor : public QTextEdit
+class TestFormatSettings : public QObject
 {
     Q_OBJECT
 public:
-    explicit TextEditor(QWidget * parent = 0);
-    ~TextEditor();
-
-    /**
-      * Shows page content in editor
-      */
-    void showPage(Page * page);
-signals:
-    /**
-      * Emitted on change cursor position
-      * @param bbox - bounding box of current character
-      */
-    void charSelected(const QRect& bbox);
-protected:
-    void contextMenuEvent(QContextMenuEvent * event);
+    explicit TestFormatSettings(QObject *parent = 0);
 private slots:
-    void clearText();
-    void showCurrentChar();
-private:
-    void connectPageSignal(Page * page);
-private:
-    Page * page_;
-    QTextDocument * doc_;
+    void testConstruct();
 };
 
-#endif // TEXTEDITOR_H
+#endif // TESTFORMATSETTINGS_H

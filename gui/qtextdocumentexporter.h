@@ -88,6 +88,7 @@ private:
     QTextDocument * doc_;
     QTextCursor * cursor_;
     int current_col_num_;
+    int line_num_in_par_;
     bool do_column_layout_;
 };
 

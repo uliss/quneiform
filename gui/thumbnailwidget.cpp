@@ -34,6 +34,7 @@
 #include "page.h"
 #include "pageindicator.h"
 #include "recognitionsettingsdialog.h"
+#include "formatsettingsdialog.h"
 
 static const int THUMB_IMAGE_HEIGHT = 95;
 static const int THUMB_IMAGE_WIDTH = 95;
@@ -69,6 +70,7 @@ void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
     menu->addAction(QIcon(":/img/oxygen/22x22/list_remove.png"), tr("Delete"), this, SLOT(removePage()));
     menu->addAction(QIcon(":/img/oxygen/22x22/document_properties.png"), tr("Properties"), this, SLOT(showProperties()));
     menu->addAction(tr("Recognition settings"), this, SLOT(showRecognizeSettings()));
+    menu->addAction(tr("Format settings"), this, SLOT(showFormatSettings()));
     menu->addAction(QIcon(":/img/oxygen/22x22/document_save_as.png"), tr("Save as"), this, SLOT(savePage()));
 
     //    menu->setupActions();
@@ -83,6 +85,14 @@ void ThumbnailWidget::savePage() {
 void ThumbnailWidget::selectPage(bool value) {
     qDebug() << "[ThumbnailWidget::selectPage]" << value;
     page_->setSelected(value);
+}
+
+void ThumbnailWidget::showFormatSettings() {
+    Q_CHECK_PTR(page_);
+
+    FormatSettingsDialog dialog(page_->formatSettings());
+    if(QDialog::Accepted == dialog.exec())
+        page_->setFormatSettings(dialog.settings());
 }
 
 void ThumbnailWidget::showProperties() {

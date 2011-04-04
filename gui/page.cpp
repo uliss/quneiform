@@ -73,6 +73,10 @@ Page::PageFlags Page::flags() const {
     return state_flags_;
 }
 
+const FormatSettings& Page::formatSettings() const {
+    return format_settings_;
+}
+
 bool Page::hasFlag(PageFlag flag) {
     return state_flags_ & flag;
 }
@@ -217,6 +221,11 @@ void Page::setFlags(PageFlags flags) {
     emit changed();
 }
 
+void Page::setFormatSettings(const FormatSettings& settings) {
+    format_settings_ = settings;
+    emit changed();
+}
+
 void Page::setNumber(unsigned int number) {
     QMutexLocker lock(&mutex_);
 
@@ -324,7 +333,8 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.is_null_
             << page.view_scroll_
             << page.rec_settings_
-            << page.blocks_;
+            << page.blocks_
+            << page.format_settings_;
     return os;
 }
 
@@ -341,7 +351,8 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.is_null_
             >> page.view_scroll_
             >> page.rec_settings_
-            >> page.blocks_;
+            >> page.blocks_
+            >> page.format_settings_;
 
     if(page.is_selected_)
         page.setSelected(true);

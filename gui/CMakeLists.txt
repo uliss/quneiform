@@ -6,6 +6,7 @@ set(TRANSLATIONS_TS ru.ts)
 
 set(HEADERS 
     aboutdialog.h
+    formatsettingsdialog.h
     imageview.h
     imagewidget.h
     languagemenu.h
@@ -30,6 +31,8 @@ set(HEADERS
 
 set(SOURCES 
     aboutdialog.cpp
+    formatsettings.cpp
+    formatsettingsdialog.cpp
     imagecache.cpp
     imageview.cpp
     imagewidget.cpp
@@ -61,6 +64,7 @@ set(SOURCES
 
 set(FORMS 
     aboutdialog.ui
+    formatsettingsdialog.ui
     mainwindow.ui
     recognitionsettingsdialog.ui
     settings.ui

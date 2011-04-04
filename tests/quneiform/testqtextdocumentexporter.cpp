@@ -232,12 +232,14 @@ void TestQTextDocumentExporter::testWriteCharAlternatives() {
     exp.exportChar(ch1);
     QCOMPARE(exp.document()->toPlainText(), QString("a"));
     QVERIFY(exp.cursor()->charFormat().toolTip().isEmpty());
+    QVERIFY(!exp.cursor()->charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
 
     exp.formatOptions().setShowAlternatives(true);
     exp.clear();
     exp.exportChar(ch1);
     QCOMPARE(exp.document()->toPlainText(), QString("a"));
     QVERIFY(exp.cursor()->charFormat().toolTip().isEmpty());
+    QVERIFY(!exp.cursor()->charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
 
     ch1.addAlternative(Letter('b', 100));
     ch1.addAlternative(Letter('c', 50));
@@ -249,7 +251,7 @@ void TestQTextDocumentExporter::testWriteCharAlternatives() {
     QMap<QString, QVariant> alt_map;
     alt_map.insert("b", 100);
     alt_map.insert("c", 50);
-    QCOMPARE(exp.cursor()->charFormat().property(QTextDocumentExporter::ALTERNATIVES).toMap(), alt_map);
+    QVERIFY(!exp.cursor()->charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
 
     exp.clear();
     exp.formatOptions().setShowAlternatives(true);
@@ -259,6 +261,7 @@ void TestQTextDocumentExporter::testWriteCharAlternatives() {
              QString("Alternatives:\n        'b' (100)\n        'c' (50)"));
     QCOMPARE(exp.cursor()->charFormat().underlineColor(), QColor(Qt::red));
     QCOMPARE(exp.cursor()->charFormat().underlineStyle(), QTextCharFormat::DashUnderline);
+    QVERIFY(exp.cursor()->charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
 }
 
 void TestQTextDocumentExporter::testWriteCharBBox() {

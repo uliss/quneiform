@@ -47,6 +47,73 @@ p {margin: 0; text-indent: 0;}
     </message>
 </context>
 <context>
+    <name>FormatSettingsDialog</name>
+    <message>
+        <source>Format settings</source>
+        <translation>Настройки форматирования</translation>
+    </message>
+    <message>
+        <source>Unrecognized char:</source>
+        <translation>Нераспознанный символ:</translation>
+    </message>
+    <message>
+        <source>~</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>$</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>@</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Preserve line breaks</source>
+        <translation>Сохранять переносы строк</translation>
+    </message>
+    <message>
+        <source>Font formatting</source>
+        <translation>Форматирование шрифтов</translation>
+    </message>
+    <message>
+        <source>Use bold</source>
+        <translation>Использовать жирный шрифт</translation>
+    </message>
+    <message>
+        <source>Use italic</source>
+        <translation>Использовать курсив</translation>
+    </message>
+    <message>
+        <source>Use underlined</source>
+        <translation>Использовать подчеркивание</translation>
+    </message>
+    <message>
+        <source>Use font size</source>
+        <translation>Использовать размер шрифта</translation>
+    </message>
+    <message>
+        <source>Alternatives</source>
+        <translation>Варианты распознавания</translation>
+    </message>
+    <message>
+        <source>Show alternatives as tooltip</source>
+        <translation>Показывать варианты распознавания во всплывающей подсказке</translation>
+    </message>
+    <message>
+        <source>Underline char that have alternatives</source>
+        <translation type="obsolete">Подчеркивать символы имеющие варианты распознавания</translation>
+    </message>
+    <message>
+        <source>Alternative color:</source>
+        <translation>Цвет подчеркивания:</translation>
+    </message>
+    <message>
+        <source>Underline characters with alternatives</source>
+        <translation>Подчеркивать символы c вариантами распознавания</translation>
+    </message>
+</context>
+<context>
     <name>ImageView</name>
     <message>
         <source>Select recognize area</source>
@@ -369,7 +436,7 @@ Do you want to save it?</source>
     </message>
     <message>
         <source>Recognition error</source>
-        <translation type="unfinished">Ошибка при распозновании</translation>
+        <translation>Ошибка при распозновании</translation>
     </message>
 </context>
 <context>
@@ -503,11 +570,11 @@ Do you want to save it?</source>
     <name>TextEditor</name>
     <message>
         <source>Zoom In</source>
-        <translation type="unfinished">Увеличить</translation>
+        <translation>Увеличить</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation type="unfinished">Уменьшить</translation>
+        <translation>Уменьшить</translation>
     </message>
 </context>
 <context>
@@ -591,6 +658,10 @@ Do you want to save it?</source>
     <message>
         <source>Properties</source>
         <translation>Свойства</translation>
+    </message>
+    <message>
+        <source>Format settings</source>
+        <translation>Настройки форматирования</translation>
     </message>
 </context>
 </TS>

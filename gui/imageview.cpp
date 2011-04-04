@@ -410,7 +410,7 @@ void ImageView::showChar(const QRect& bbox) {
     else
         current_char_bbox_->setRect(bbox);
 
-    ensureVisible(current_char_bbox_);
+    centerOn(current_char_bbox_);
 }
 
 void ImageView::showImage(const QString& path) {

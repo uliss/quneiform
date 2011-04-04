@@ -98,6 +98,7 @@ private slots:
     void savePage();
     void selectPage(bool value);
     void showProperties();
+    void showFormatSettings();
     void showRecognizeSettings();
     void updatePageIndicators();
 private:
