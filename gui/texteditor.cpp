@@ -37,6 +37,49 @@ TextEditor::~TextEditor() {
     delete doc_;
 }
 
+void TextEditor::addAlignmentActions(QMenu * menu) {
+    if(document()->isEmpty())
+        return;
+
+    QMenu * align_menu = menu->addMenu(tr("Alignment"));
+
+    QAction * align_left = align_menu->addAction(QIcon(":/img/oxygen/32x32/text_left.png"), tr("Left"), this, SLOT(alignLeft()));
+    QAction * align_right = align_menu->addAction(QIcon(":/img/oxygen/32x32/text_right.png"), tr("Right"), this, SLOT(alignRight()));
+    QAction * align_center = align_menu->addAction(QIcon(":/img/oxygen/32x32/text_center.png"), tr("Center"), this, SLOT(alignCenter()));
+    QAction * align_justify = align_menu->addAction(QIcon(":/img/oxygen/32x32/text_block.png"), tr("Justify"), this, SLOT(alignJustify()));
+
+    switch(textCursor().blockFormat().alignment()) {
+    case Qt::AlignLeft:
+        align_left->setCheckable(true);
+        align_left->setChecked(true);
+        break;
+    case Qt::AlignRight:
+        align_right->setCheckable(true);
+        align_right->setChecked(true);
+        break;
+    case Qt::AlignHCenter:
+        align_center->setCheckable(true);
+        align_center->setChecked(true);
+        break;
+    case Qt::AlignJustify:
+        align_justify->setCheckable(true);
+        align_justify->setChecked(true);
+        break;
+    default:
+        break;
+    }
+}
+
+void TextEditor::addZoomActions(QMenu * menu) {
+    if(document()->isEmpty())
+        return;
+
+    QAction * zoom_in = menu->addAction(QIcon(":/img/oxygen/32x32/zoom_in.png"), tr("Zoom In"), this, SLOT(zoomIn()));
+    zoom_in->setShortcut(QKeySequence::ZoomIn);
+    QAction * zoom_out = menu->addAction(QIcon(":/img/oxygen/32x32/zoom_out.png"), tr("Zoom Out"), this, SLOT(zoomOut()));
+    zoom_out->setShortcut(QKeySequence::ZoomOut);
+}
+
 void TextEditor::alignCenter() {
     setAlignment(Qt::AlignHCenter);
 }
@@ -66,28 +109,12 @@ void TextEditor::connectPageSignal(Page * page) {
 }
 
 void TextEditor::contextMenuEvent(QContextMenuEvent * event) {
-    setFocus();
     QMenu * menu = createStandardContextMenu();
-    QAction * zoom_in = menu->addAction(QIcon(":/img/oxygen/32x32/zoom_in.png"), tr("Zoom In"), this, SLOT(zoomIn()));
-    zoom_in->setShortcut(QKeySequence::ZoomIn);
-    QAction * zoom_out = menu->addAction(QIcon(":/img/oxygen/32x32/zoom_out.png"), tr("Zoom Out"), this, SLOT(zoomOut()));
-    zoom_out->setShortcut(QKeySequence::ZoomOut);
-
+    addZoomActions(menu);
     menu->addSeparator();
-    QMenu * align_menu = menu->addMenu(tr("Alignment"));
-    align_menu->addAction(QIcon(":/img/oxygen/32x32/text_left.png"), tr("Left"), this, SLOT(alignLeft()));
-    align_menu->addAction(QIcon(":/img/oxygen/32x32/text_right.png"), tr("Right"), this, SLOT(alignRight()));
-    align_menu->addAction(QIcon(":/img/oxygen/32x32/text_center.png"), tr("Center"), this, SLOT(alignCenter()));
-    align_menu->addAction(QIcon(":/img/oxygen/32x32/text_block.png"), tr("Justify"), this, SLOT(alignJustify()));
-
-    if(document()->isEmpty()) {
-        zoom_in->setEnabled(false);
-        zoom_out->setEnabled(false);
-        align_menu->setEnabled(false);
-    }
+    addAlignmentActions(menu);
 
     menu->exec(event->globalPos());
-
     delete menu;
  }
 

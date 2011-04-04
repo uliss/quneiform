@@ -207,13 +207,11 @@ void QTextDocumentExporter::writeLineEnd(cf::CEDLine& line) {
         cursor_->insertText("\n", cursor_->charFormat());
     }
     else {
-        cursor_->movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, 1);
-        if(cursor_->selectedText() == "-") {
-            cursor_->deleteChar();
+        if(line.endsWithHyphen()) {
+            cursor_->deletePreviousChar();
             cursor_->insertText(SOFT_HYPEN);
         }
         else {
-            cursor_->movePosition(QTextCursor::NextCharacter);
             cursor_->insertText(" "); // space
         }
     }

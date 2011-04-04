@@ -51,6 +51,8 @@ private slots:
     void clearText();
     void showCurrentChar();
 private:
+    void addAlignmentActions(QMenu * menu);
+    void addZoomActions(QMenu * menu);
     void connectPageSignal(Page * page);
 private:
     Page * page_;
