@@ -22,6 +22,7 @@
 #include "common/language.h"
 #include "alphabets/alphabetfactory.h"
 
+#if 0 // to extract translation only
 namespace {
     static const char * lang_names[]  = {
         QT_TRANSLATE_NOOP("Lang", "Bulgarian"),
@@ -51,6 +52,7 @@ namespace {
         QT_TRANSLATE_NOOP("Lang", "Ukrainian")
     };
 }
+#endif
 
 LanguageMap supportedLanguages() {
     LanguageMap lmap;

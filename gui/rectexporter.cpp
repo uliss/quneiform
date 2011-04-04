@@ -44,10 +44,10 @@ inline QRect cf2qt(const cf::Rect& rect) {
 
 RectExporter::RectExporter(CEDPage * page)
     : GenericExporter(page, FormatOptions()),
+    column_begin_(true),
     line_begin_(true),
     par_begin_(true),
-    section_begin_(true),
-    column_begin_(true)
+    section_begin_(true)
 {
     setSkipPictures(false);
     setSkipEmptyLines(false);

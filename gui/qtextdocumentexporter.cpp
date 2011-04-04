@@ -178,7 +178,7 @@ void QTextDocumentExporter::writeCharacter(CEDChar& chr) {
     cursor_->insertText(str, format);
 }
 
-void QTextDocumentExporter::writeColumnBegin(cf::CEDColumn& col) {
+void QTextDocumentExporter::writeColumnBegin(cf::CEDColumn&) {
     if(!do_column_layout_)
         return;
 
