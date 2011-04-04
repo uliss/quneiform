@@ -25,7 +25,6 @@ set(HEADERS
     texteditor.h
     thumbnaillist.h
     thumbnailwidget.h
-    qtextdocumentexporter.h
     widgetbar.h
 )
 
