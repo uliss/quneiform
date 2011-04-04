@@ -18,7 +18,15 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
         SET_COMPILER_DEBUG_FLAG(-fno-inline)
         # setting linker warning flags
         set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--warn-common")
+    else(APPLE)
+        SET_COMPILER_DEBUG_FLAG(-O0)
+        SET_COMPILER_DEBUG_FLAG(-fvisibility=default)
+        SET_COMPILER_DEBUG_FLAG(-Wall)
+        SET_COMPILER_DEBUG_FLAG(-Wextra)
+        SET_COMPILER_DEBUG_FLAG(-Wconversion)
+        SET_COMPILER_DEBUG_FLAG(-fno-inline)
     endif()
+
     message(STATUS "Compiler flags are: ${CMAKE_CXX_FLAGS_DEBUG}")
 endif()
 
