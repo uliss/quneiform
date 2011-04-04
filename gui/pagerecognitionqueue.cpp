@@ -88,7 +88,7 @@ void PageRecognitionQueue::handlePagePercents(int perc) {
     qreal page_percent = 100.0 / page_count_;
     int page_done = page_count_ - pageCount() - 1;
     qreal percent_done = ((page_done * 100 + perc) * page_percent) / 100.0;
-    emit percentDone(percent_done);
+    emit percentDone(static_cast<int>(percent_done));
     QCoreApplication::processEvents();
 }
 

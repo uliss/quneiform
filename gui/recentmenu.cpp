@@ -20,9 +20,10 @@
 
 #include "recentmenu.h"
 
-RecentMenu::RecentMenu(QWidget * parent, const QString& title, const QString& name, unsigned int maxItems) :
+RecentMenu::RecentMenu(QWidget * parent, const QString& title, const QString& name, int maxItems) :
     QMenu(title, parent), name_(name), max_items_(maxItems)
 {
+    Q_ASSERT(maxItems >= 0);
     readSettings();
 }
 

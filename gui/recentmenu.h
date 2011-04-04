@@ -25,7 +25,7 @@ class RecentMenu : public QMenu
 {
     Q_OBJECT
 public:
-    explicit RecentMenu(QWidget * parent, const QString& title, const QString& name, unsigned int maxItems = 5);
+    explicit RecentMenu(QWidget * parent, const QString& title, const QString& name, int maxItems = 5);
     ~RecentMenu();
 
     /**
@@ -46,7 +46,7 @@ private:
 private:
     QStringList items_;
     QString name_;
-    const unsigned int max_items_;
+    const int max_items_;
 };
 
 #endif // RECENTMENU_H
