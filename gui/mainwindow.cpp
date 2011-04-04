@@ -44,11 +44,9 @@
 #include "settings.h"
 #include "aboutdialog.h"
 
-static const char * EMAIL = "serj.poltavski@gmail.com";
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
 static const int VERSION_PATCH = 1;
-static const char * VERSION_EXTRA = "-alpha";
 static const int MAX_RECENT_FILES = 5;
 
 MainWindow::MainWindow(QWidget *parent) :
