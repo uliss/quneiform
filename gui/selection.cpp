@@ -61,6 +61,9 @@ qreal Selection::borderDistance(const QPointF& pt, Selection::border_t border) c
         return qAbs(rect().top() - pt.y());
     case Selection::BOTTOM:
         return qAbs(rect().bottom() - pt.y());
+    default:
+        qDebug() << Q_FUNC_INFO << "wrong border given";
+        return 0;
     }
 }
 
@@ -89,6 +92,7 @@ void Selection::hoverMoveEvent(QGraphicsSceneHoverEvent * event) {
 
 void Selection::hoverLeaveEvent(QGraphicsSceneHoverEvent * event) {
    setCursor(QCursor());
+   event->accept();
 }
 
 bool Selection::isCloseToBorder(const QPointF& pt, Selection::border_t border) const {
@@ -115,8 +119,6 @@ inline bool isNear(qreal v0, qreal v1) {
 }
 
 bool Selection::isCloseToCorner(const QPointF& pt, corner_t corner) const {
-    static const qreal DELTA = 10.0;
-
     switch(corner) {
     case LEFT_TOP:
         return isNear(borderDistance(pt, Selection::LEFT), borderDistance(pt, Selection::TOP));
@@ -126,6 +128,8 @@ bool Selection::isCloseToCorner(const QPointF& pt, corner_t corner) const {
         return isNear(borderDistance(pt, Selection::RIGHT), borderDistance(pt, Selection::TOP));
     case RIGHT_BOTTOM:
         return isNear(borderDistance(pt, Selection::RIGHT), borderDistance(pt, Selection::BOTTOM));
+    default: // should never be here
+        return false;
     }
 }
 
@@ -240,10 +244,10 @@ void Selection::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
 }
 
 QRect Selection::normalRect() const {
-    int x = pos().x() + rect().left();
-    int y = pos().y() + rect().top();
-    int w = rect().width();
-    int h = rect().height();
+    int x = static_cast<int>(pos().x() + rect().left());
+    int y = static_cast<int>(pos().y() + rect().top());
+    int w = static_cast<int>(rect().width());
+    int h = static_cast<int>(rect().height());
     return QRect(x, y, w, h);
 }
 
@@ -306,7 +310,7 @@ void Selection::setCursorType(cursor_t cursor, bool vertical) {
 
     Q_ASSERT(cursor >= 0);
     Q_ASSERT(cursor <= DIAGONAL_RIGHT);
-    Q_ASSERT(cursor < (sizeof(cursors) / sizeof(cursors[0])));
+    Q_ASSERT(static_cast<size_t>(cursor) < (sizeof(cursors) / sizeof(cursors[0])));
 
     QGraphicsItem::setCursor(cursors[cursor][vertical ? 1 : 0]);
 }
