@@ -44,6 +44,10 @@ signals:
 protected:
     void contextMenuEvent(QContextMenuEvent * event);
 private slots:
+    void alignCenter();
+    void alignJustify();
+    void alignLeft();
+    void alignRight();
     void clearText();
     void showCurrentChar();
 private:

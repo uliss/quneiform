@@ -576,6 +576,26 @@ Do you want to save it?</source>
         <source>Zoom Out</source>
         <translation>Уменьшить</translation>
     </message>
+    <message>
+        <source>Alignment</source>
+        <translation>Выравнивание</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>слева</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>по центру</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>справа</translation>
+    </message>
+    <message>
+        <source>Justify</source>
+        <translation>по ширине</translation>
+    </message>
 </context>
 <context>
     <name>ThumbnailList</name>

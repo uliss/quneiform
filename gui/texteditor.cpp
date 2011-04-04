@@ -37,6 +37,22 @@ TextEditor::~TextEditor() {
     delete doc_;
 }
 
+void TextEditor::alignCenter() {
+    setAlignment(Qt::AlignHCenter);
+}
+
+void TextEditor::alignJustify() {
+    setAlignment(Qt::AlignJustify);
+}
+
+void TextEditor::alignLeft() {
+    setAlignment(Qt::AlignLeft);
+}
+
+void TextEditor::alignRight() {
+    setAlignment(Qt::AlignRight);
+}
+
 void TextEditor::clearText() {
     setDocument(doc_);
     doc_->clear();
@@ -50,18 +66,29 @@ void TextEditor::connectPageSignal(Page * page) {
 }
 
 void TextEditor::contextMenuEvent(QContextMenuEvent * event) {
-     QMenu * menu = createStandardContextMenu();
-     QAction * zoom_in = menu->addAction(QIcon(":/img/oxygen/32x32/zoom_in.png"), tr("Zoom In"), this, SLOT(zoomIn()));
-     QAction * zoom_out = menu->addAction(QIcon(":/img/oxygen/32x32/zoom_out.png"), tr("Zoom Out"), this, SLOT(zoomOut()));
+    setFocus();
+    QMenu * menu = createStandardContextMenu();
+    QAction * zoom_in = menu->addAction(QIcon(":/img/oxygen/32x32/zoom_in.png"), tr("Zoom In"), this, SLOT(zoomIn()));
+    zoom_in->setShortcut(QKeySequence::ZoomIn);
+    QAction * zoom_out = menu->addAction(QIcon(":/img/oxygen/32x32/zoom_out.png"), tr("Zoom Out"), this, SLOT(zoomOut()));
+    zoom_out->setShortcut(QKeySequence::ZoomOut);
 
-     if(document()->isEmpty()) {
-         zoom_in->setEnabled(false);
-         zoom_out->setEnabled(false);
-     }
+    menu->addSeparator();
+    QMenu * align_menu = menu->addMenu(tr("Alignment"));
+    align_menu->addAction(QIcon(":/img/oxygen/32x32/text_left.png"), tr("Left"), this, SLOT(alignLeft()));
+    align_menu->addAction(QIcon(":/img/oxygen/32x32/text_right.png"), tr("Right"), this, SLOT(alignRight()));
+    align_menu->addAction(QIcon(":/img/oxygen/32x32/text_center.png"), tr("Center"), this, SLOT(alignCenter()));
+    align_menu->addAction(QIcon(":/img/oxygen/32x32/text_block.png"), tr("Justify"), this, SLOT(alignJustify()));
 
-     menu->exec(event->globalPos());
+    if(document()->isEmpty()) {
+        zoom_in->setEnabled(false);
+        zoom_out->setEnabled(false);
+        align_menu->setEnabled(false);
+    }
 
-     delete menu;
+    menu->exec(event->globalPos());
+
+    delete menu;
  }
 
 void TextEditor::showCurrentChar() {

@@ -28,6 +28,10 @@ int main(int argc, char * argv[]) {
 
     QApplication app(argc, argv);
 
+#ifdef Q_WS_MAC
+    app.setAttribute(Qt::AA_DontShowIconsInMenus);
+#endif
+
     TranslationLoader loader;
     loader.load();
     app.installTranslator(loader.systemTranslator());
