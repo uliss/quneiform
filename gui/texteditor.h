@@ -20,6 +20,7 @@
 #define TEXTEDITOR_H
 
 #include <QTextEdit>
+#include <QSettings>
 
 class Page;
 class QTextDocument;
@@ -57,6 +58,7 @@ private:
 private:
     Page * page_;
     QTextDocument * doc_;
+    QSettings settings_;
 };
 
 #endif // TEXTEDITOR_H

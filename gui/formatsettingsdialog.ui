@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>515</width>
-    <height>353</height>
+    <width>429</width>
+    <height>356</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -76,40 +76,71 @@
      <property name="title">
       <string>Font formatting</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QCheckBox" name="useBold">
-        <property name="text">
-         <string>Use bold</string>
+       <layout class="QFormLayout" name="formatFormLayout">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="useItalic">
-        <property name="text">
-         <string>Use italic</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="useUnderlined">
-        <property name="text">
-         <string>Use underlined</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="useFontSize">
-        <property name="text">
-         <string>Use font size</string>
-        </property>
-       </widget>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="useBold">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="useBoldLabel">
+          <property name="text">
+           <string>Use &lt;b&gt;bold&lt;/b&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QCheckBox" name="useItalic">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="useItalicLabel">
+          <property name="text">
+           <string>Use &lt;i&gt;italic&lt;/i&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QCheckBox" name="useUnderlined">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="useUnderlinedLabel">
+          <property name="text">
+           <string>Use &lt;u&gt;underlined&lt;/u&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QCheckBox" name="useFontSize">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="useFontSizeLabel">
+          <property name="text">
+           <string>Use font size</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
-     <zorder>useFontSize</zorder>
-     <zorder>useBold</zorder>
-     <zorder>useItalic</zorder>
-     <zorder>useUnderlined</zorder>
     </widget>
    </item>
    <item>
@@ -120,25 +151,18 @@
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QCheckBox" name="showAlternatives">
-        <property name="autoFillBackground">
-         <bool>true</bool>
+        <property name="toolTip">
+         <string>Shows tooltip and &lt;u&gt;underlines&lt;/u&gt; character, that have recognition alternatives.</string>
         </property>
         <property name="text">
-         <string>Show alternatives as tooltip</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="alternativesUnderline">
-        <property name="text">
-         <string>Underline characters with alternatives</string>
+         <string>Show alternatives</string>
         </property>
        </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QLabel" name="label_2">
+         <widget class="QLabel" name="alternativeColorLabel">
           <property name="text">
            <string>Alternative color:</string>
           </property>
@@ -231,6 +255,38 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showAlternatives</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>alternativeColorLabel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>81</x>
+     <y>322</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showAlternatives</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>alternativeColorButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>322</y>
     </hint>
    </hints>
   </connection>

@@ -31,6 +31,7 @@ TextEditor::TextEditor(QWidget * parent) :
 {
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(showCurrentChar()));
     setReadOnly(true);
+    settings_.beginGroup("format");
 }
 
 TextEditor::~TextEditor() {
@@ -119,6 +120,9 @@ void TextEditor::contextMenuEvent(QContextMenuEvent * event) {
  }
 
 void TextEditor::showCurrentChar() {
+    if(!settings_.value("showCurrentCharacter").toBool())
+        return;
+
     QRect bbox = textCursor().charFormat().property(QTextDocumentExporter::BBOX).toRect();
     if(!bbox.isEmpty())
         emit charSelected(bbox);

@@ -35,10 +35,10 @@ public:
     FormatSettings(const cf::FormatOptions& opts);
 
     enum Option {
-        USE_BOLD = 0x1,
-        USE_ITALIC = 0x2,
-        USE_UNDERLINED = 0x4,
-        USE_FONT_SIZE = 0x8,
+        USE_BOLD = 0x01,
+        USE_ITALIC = 0x02,
+        USE_UNDERLINED = 0x04,
+        USE_FONT_SIZE = 0x08,
         PRESERVE_LINE_BREAKS = 0x10,
         SHOW_ALTERNATIVES = 0x20
     };

@@ -72,6 +72,8 @@ void Settings::loadFormat() {
             settings.value("currentCharColor", Qt::red).value<QColor>());
     ui_->alternativeColorButton->setColor(
             settings.value("alternativeColor", Qt::blue).value<QColor>());
+    ui_->showCurrentCharacterCheckBox->setChecked(
+            settings.value("showCurrentCharacter", true).toBool());
 }
 
 void Settings::save() {
@@ -104,4 +106,5 @@ void Settings::saveFormat() {
     settings.beginGroup("format");
     settings.setValue("currentCharColor", ui_->currentCharacterColorButton->color());
     settings.setValue("alternativeColor", ui_->alternativeColorButton->color());
+    settings.setValue("showCurrentCharacter", ui_->showCurrentCharacterCheckBox->isChecked());
 }

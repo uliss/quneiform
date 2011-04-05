@@ -77,18 +77,6 @@ p {margin: 0; text-indent: 0;}
         <translation>Форматирование шрифтов</translation>
     </message>
     <message>
-        <source>Use bold</source>
-        <translation>Использовать жирный шрифт</translation>
-    </message>
-    <message>
-        <source>Use italic</source>
-        <translation>Использовать курсив</translation>
-    </message>
-    <message>
-        <source>Use underlined</source>
-        <translation>Использовать подчеркивание</translation>
-    </message>
-    <message>
         <source>Use font size</source>
         <translation>Использовать размер шрифта</translation>
     </message>
@@ -97,20 +85,28 @@ p {margin: 0; text-indent: 0;}
         <translation>Варианты распознавания</translation>
     </message>
     <message>
-        <source>Show alternatives as tooltip</source>
-        <translation>Показывать варианты распознавания во всплывающей подсказке</translation>
-    </message>
-    <message>
-        <source>Underline char that have alternatives</source>
-        <translation type="obsolete">Подчеркивать символы имеющие варианты распознавания</translation>
-    </message>
-    <message>
         <source>Alternative color:</source>
         <translation>Цвет подчеркивания:</translation>
     </message>
     <message>
-        <source>Underline characters with alternatives</source>
-        <translation>Подчеркивать символы c вариантами распознавания</translation>
+        <source>Use &lt;b&gt;bold&lt;/b&gt;</source>
+        <translation>Использовать &lt;b&gt;жирный&lt;/b&gt; шрифт</translation>
+    </message>
+    <message>
+        <source>Use &lt;i&gt;italic&lt;/i&gt;</source>
+        <translation>Использовать &lt;i&gt;курсив&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <source>Use &lt;u&gt;underlined&lt;/u&gt;</source>
+        <translation>Использовать &lt;u&gt;подчеркивание&lt;/u&gt;</translation>
+    </message>
+    <message>
+        <source>Show alternatives</source>
+        <translation>Показывать варианты распознавания</translation>
+    </message>
+    <message>
+        <source>Shows tooltip and &lt;u&gt;underlines&lt;/u&gt; character, that have recognition alternatives.</source>
+        <translation>Подчеркивать и показывать во всплывающей подсказке варианты распознавания.</translation>
     </message>
 </context>
 <context>
@@ -431,24 +427,12 @@ Do you want to save it?</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <source>Recognition errors</source>
-        <translation type="obsolete">Ошибки распознавания</translation>
-    </message>
-    <message>
         <source>Recognition error</source>
         <translation>Ошибка при распозновании</translation>
     </message>
 </context>
 <context>
     <name>Page</name>
-    <message>
-        <source>Quneiform OCR</source>
-        <translation type="obsolete">Quneiform OCR</translation>
-    </message>
-    <message>
-        <source>File already exists. Overwrite?</source>
-        <translation type="obsolete">Файл уже существует. Перезаписать?</translation>
-    </message>
     <message>
         <source>Saved failed. Can&apos;t open file &quot;%1&quot; for writing.</source>
         <translation>Ошибка сохранения. Невозможно открыть файл &quot;%1&quot; для записи.</translation>
@@ -567,23 +551,19 @@ Do you want to save it?</source>
     </message>
     <message>
         <source>Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор</translation>
     </message>
     <message>
         <source>Show current character:</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать выделенный символ:</translation>
     </message>
     <message>
         <source>Current character color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show alternatives as tooltip:</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет текущего символа:</translation>
     </message>
     <message>
         <source>Alternatives color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет вариантов распознавания:</translation>
     </message>
 </context>
 <context>

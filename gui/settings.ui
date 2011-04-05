@@ -119,6 +119,9 @@
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
             <layout class="QFormLayout" name="formLayout_2">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+             </property>
              <item row="0" column="0">
               <widget class="QLabel" name="showCurrentCharacterLabel">
                <property name="text">
@@ -140,23 +143,13 @@
               <widget class="ColorButton" name="currentCharacterColorButton"/>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="showAlternativesAsTooltipLabel">
-               <property name="text">
-                <string>Show alternatives as tooltip:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QCheckBox" name="showAlternativesAsTooltipCheckBox"/>
-             </item>
-             <item row="3" column="0">
               <widget class="QLabel" name="alternativesColorLabel">
                <property name="text">
                 <string>Alternatives color:</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="1">
+             <item row="2" column="1">
               <widget class="ColorButton" name="alternativeColorButton"/>
              </item>
             </layout>

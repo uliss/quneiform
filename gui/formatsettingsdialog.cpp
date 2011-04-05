@@ -23,6 +23,8 @@
 #include "formatsettingsdialog.h"
 #include "ui_formatsettingsdialog.h"
 
+static const char * ALT_COLOR_KEY = "alternativeColor";
+
 FormatSettingsDialog::FormatSettingsDialog(const FormatSettings& settings) :
     ui(new Ui::FormatSettingsDialog),
     settings_(settings)
@@ -46,10 +48,13 @@ void FormatSettingsDialog::load() {
 void FormatSettingsDialog::loadAlternatives() {
     ui->showAlternatives->setChecked(settings_.showAlternatives());
 
+    if(!settings_.showAlternatives())
+        ui->alternativeColorButton->setDisabled(true);
+
     QSettings global_settings;
     global_settings.beginGroup("format");
     ui->alternativeColorButton->setColor(
-            global_settings.value("alternativeColor", Qt::blue).value<QColor>());
+            global_settings.value(ALT_COLOR_KEY, Qt::blue).value<QColor>());
 }
 
 void FormatSettingsDialog::loadFonts() {
@@ -82,7 +87,7 @@ void FormatSettingsDialog::saveAlternatives() {
     settings_.setShowAlternatives(ui->showAlternatives->isChecked());
     QSettings settings;
     settings.beginGroup("format");
-    settings.setValue("alternativeColor", ui->alternativeColorButton->color());
+    settings.setValue(ALT_COLOR_KEY, ui->alternativeColorButton->color());
 }
 
 void FormatSettingsDialog::saveFonts() {
