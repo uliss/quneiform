@@ -179,6 +179,8 @@ class Tester:
             
         if self._line_breaks:
             args.append('--preserve-line-breaks')
+
+        args.append('--no-bom')
             
         args.append(img)
             

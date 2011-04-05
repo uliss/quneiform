@@ -145,6 +145,8 @@ static string usage() {
                 "       --output-image-dir PATH  Sets image output directory                 \n"
                 "       --stdout                 Puts result to standard output              \n"
                 "  Output formatting options:                                                \n"
+                "       --bom                    Write BOM (byte order mark)                 \n"
+                "       --no-bom                 Do not write BOM                            \n"
                 "       --preserve-line-breaks   Preserves line-breaking                     \n"
                 "       --unrecognized CHAR      Set symbol, that shown instead of           \n"
                 "                                    unrecognized characters.                \n"
@@ -215,18 +217,30 @@ int main(int argc, char **argv) {
     std::string dictionaries;
     char unrecognized_char = 0;
 
-    int do_verbose = FALSE, do_fax = FALSE, do_dotmatrix = FALSE, do_speller =
-            FALSE, do_singlecolumn = FALSE, do_pictures = TRUE, do_tables =
-            FALSE, do_autorotate = FALSE, preserve_line_breaks = FALSE,
-            do_dump = FALSE, no_bold = FALSE, no_italic = FALSE, no_font_size =
-                    FALSE, stdout_output = FALSE, do_append = FALSE,
-            show_alternatives = FALSE;
+    int do_verbose = FALSE,
+        do_fax = FALSE,
+        do_dotmatrix = FALSE,
+        do_speller = FALSE,
+        do_singlecolumn = FALSE,
+        do_pictures = TRUE,
+        do_tables = FALSE,
+        do_autorotate = FALSE,
+        preserve_line_breaks = FALSE,
+        do_dump = FALSE,
+        no_bold = FALSE,
+        no_italic = FALSE,
+        no_font_size = FALSE,
+        stdout_output = FALSE,
+        do_append = FALSE,
+        show_alternatives = FALSE,
+        write_bom = FALSE;
 
     const char * const short_options = ":aho:vVl:f:d:u:";
     const struct option long_options[] = {
     //
             { "append", no_argument, &do_append, 'a' },//
             { "autorotate", no_argument, &do_autorotate, 1 },//
+            { "bom", no_argument, &write_bom, 1 }, //
             { "debug-dump", no_argument, &do_dump, 1 },//
             { "dictionary", required_argument, NULL, 'd' }, //
             { "dotmatrix", no_argument, &do_dotmatrix, 1 },//
@@ -235,7 +249,8 @@ int main(int argc, char **argv) {
             { "help", no_argument, NULL, 'h' },//
             { "language", required_argument, NULL, 'l' },//
             { "monospace-name", required_argument, NULL, 'x' }, //
-            { "no-bold", no_argument, &no_bold, 1 },//
+            { "no-bold", no_argument, &no_bold, 1 }, //
+            { "no-bom", no_argument, &write_bom, 0 }, //
             { "no-italic", no_argument, &no_italic, 1 },//
             { "no-font-size", no_argument, &no_font_size, 1 }, //
             { "nopictures", no_argument, &do_pictures, 0 },//
@@ -381,6 +396,7 @@ int main(int argc, char **argv) {
         opt.setLanguage(langcode);
         opt.setImageExportFormat(FORMAT_PNG);
 
+        opt.writeBom(write_bom ? true : false);
         opt.useBold(no_bold ? false : true);
         opt.useItalic(no_italic ? false : true);
         opt.useFontSize(no_font_size ? false : true);

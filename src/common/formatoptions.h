@@ -44,6 +44,7 @@ class CLA_EXPO FormatOptions
             FORMAT_ONLY_FRAME = 0x0002
         };
 
+        bool bomWritten() const;
         format_mode_t formatMode() const;
         image_format_t imageExportFormat() const;
         bool isBoldUsed() const;
@@ -73,6 +74,7 @@ class CLA_EXPO FormatOptions
         void useItalic(bool val = true);
         void useStyles(bool val = true);
         void useUnderlined(bool val = true);
+        void writeBom(bool value);
     private:
         std::string serif_name_;
         std::string sans_serif_name_;
@@ -89,6 +91,7 @@ class CLA_EXPO FormatOptions
         image_format_t image_format_;
         bool preserve_line_hyphens_;
         bool show_alternatives_;
+        bool write_bom_;
 };
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const FormatOptions& fmt);
 

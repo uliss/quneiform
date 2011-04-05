@@ -48,9 +48,9 @@ void TextExporter::appendTo(const std::string& filename) {
 }
 
 void TextExporter::doExport(std::ostream& os) {
-#ifdef __APPLE__
-    writeBOM(os);
-#endif
+    if(formatOptions().bomWritten())
+        writeBOM(os);
+
     GenericExporter::doExport(os);
 }
 
