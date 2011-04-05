@@ -16,38 +16,42 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef FORMATSETTINGSDIALOG_H
-#define FORMATSETTINGSDIALOG_H
+#include <QColorDialog>
+#include "colorbutton.h"
 
-#include <QDialog>
-#include <QPixmap>
-#include "formatsettings.h"
-
-namespace Ui {
-    class FormatSettingsDialog;
+ColorButton::ColorButton(QWidget * parent) :
+    QToolButton(parent),
+    pixmap_(32, 32)
+{
+    connectSignals();
 }
 
-class FormatSettingsDialog : public QDialog
+ColorButton::ColorButton(const QColor& color, QWidget * parent) :
+    QToolButton(parent),
+    pixmap_(32, 32)
 {
-    Q_OBJECT
-public:
-    explicit FormatSettingsDialog(const FormatSettings& settings);
-    ~FormatSettingsDialog();
+    setColor(color);
+    connectSignals();
+}
 
-    const FormatSettings& settings() const;
-private slots:
-    void save();
-    void load();
-private:
-    void loadAlternatives();
-    void loadFonts();
-    void loadFormat();
-    void saveAlternatives();
-    void saveFonts();
-    void saveFormat();
-private:
-    Ui::FormatSettingsDialog *ui;
-    FormatSettings settings_;
-};
+QColor ColorButton::color() const {
+    return color_;
+}
 
-#endif // FORMATSETTINGSDIALOG_H
+void ColorButton::connectSignals() {
+    connect(this, SIGNAL(clicked()), SLOT(showColorDialog()));
+}
+
+void ColorButton::setColor(const QColor& color) {
+    color_ = color;
+    pixmap_.fill(color);
+    setIcon(QIcon(pixmap_));
+}
+
+void ColorButton::showColorDialog() {
+    QColorDialog * dialog = new QColorDialog(color_, this);
+    if(QDialog::Accepted == dialog->exec())
+        setColor(dialog->selectedColor());
+
+    delete dialog;
+}

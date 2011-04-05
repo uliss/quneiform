@@ -565,6 +565,26 @@ Do you want to save it?</source>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
+    <message>
+        <source>Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show current character:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current character color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show alternatives as tooltip:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alternatives color:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TextEditor</name>

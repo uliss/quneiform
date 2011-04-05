@@ -35,6 +35,15 @@ public:
 public slots:
     void load();
     void save();
+private slots:
+    void saveDialogState();
+private:
+    void connectSignals();
+    void loadDebug();
+    void loadDialogState();
+    void loadFormat();
+    void saveDebug();
+    void saveFormat();
 private:
     Ui::Settings * ui_;
 };

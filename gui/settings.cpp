@@ -17,15 +17,16 @@
  ***************************************************************************/
 
 #include <QSettings>
+#include <QColorDialog>
 #include "settings.h"
 #include "ui_settings.h"
 
 Settings::Settings(QWidget * parent) :
     QDialog(parent),
-    ui_(new Ui::Settings) {
+    ui_(new Ui::Settings)
+{
     ui_->setupUi(this);
-    connect(this, SIGNAL(accepted()), SLOT(save()));
-    ui_->listWidget->setCurrentRow(0);
+    connectSignals();
     load();
 }
 
@@ -33,7 +34,18 @@ Settings::~Settings() {
     delete ui_;
 }
 
+void Settings::connectSignals() {
+    connect(this, SIGNAL(accepted()), SLOT(save()));
+    connect(this, SIGNAL(destroyed()), SLOT(saveDialogState()));
+}
+
 void Settings::load() {
+    loadDebug();
+    loadFormat();
+    loadDialogState();
+}
+
+void Settings::loadDebug() {
     QSettings settings;
     settings.beginGroup("debug");
     ui_->printCuneiformDebug->setChecked(settings.value("printCuneiformDebug", false).toBool());
@@ -44,11 +56,30 @@ void Settings::load() {
     ui_->showLinesBBox->setChecked(settings.value("showLinesBBox", false).toBool());
     ui_->showCharactersBBox->setChecked(settings.value("showCharactersBBox", false).toBool());
     ui_->showPicturesBBox->setChecked(settings.value("showPicturesBBox", false).toBool());
-    settings.endGroup();
-    settings.endGroup();
+}
+
+void Settings::loadDialogState() {
+    QSettings settings;
+    settings.beginGroup("settings");
+    settings.beginGroup("dialog");
+    ui_->listWidget->setCurrentRow(settings.value("currentRow", 0).toInt());
+}
+
+void Settings::loadFormat() {
+    QSettings settings;
+    settings.beginGroup("format");
+    ui_->currentCharacterColorButton->setColor(
+            settings.value("currentCharColor", Qt::red).value<QColor>());
+    ui_->alternativeColorButton->setColor(
+            settings.value("alternativeColor", Qt::blue).value<QColor>());
 }
 
 void Settings::save() {
+    saveDebug();
+    saveFormat();
+}
+
+void Settings::saveDebug() {
     QSettings settings;
     settings.beginGroup("debug");
     settings.setValue("printCuneiformDebug", ui_->printCuneiformDebug->isChecked());
@@ -59,6 +90,18 @@ void Settings::save() {
     settings.setValue("showLinesBBox", ui_->showLinesBBox->isChecked());
     settings.setValue("showCharactersBBox", ui_->showCharactersBBox->isChecked());
     settings.setValue("showPicturesBBox", ui_->showPicturesBBox->isChecked());
-    settings.endGroup();
-    settings.endGroup();
+}
+
+void Settings::saveDialogState() {
+    QSettings settings;
+    settings.beginGroup("settings");
+    settings.beginGroup("dialog");
+    settings.setValue("currentTab", ui_->listWidget->currentRow());
+}
+
+void Settings::saveFormat() {
+    QSettings settings;
+    settings.beginGroup("format");
+    settings.setValue("currentCharColor", ui_->currentCharacterColorButton->color());
+    settings.setValue("alternativeColor", ui_->alternativeColorButton->color());
 }

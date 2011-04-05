@@ -145,7 +145,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="alternativeColorSelect">
+         <widget class="ColorButton" name="alternativeColorButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -193,6 +193,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ColorButton</class>
+   <extends>QToolButton</extends>
+   <header>colorbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

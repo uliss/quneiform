@@ -23,7 +23,7 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QHBoxLayout" name="horizontalLayout_3">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -68,6 +68,15 @@
          </item>
          <item>
           <property name="text">
+           <string>Editor</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resources/cuneiform.qrc">
+            <normaloff>:/img/oxygen/32x32/object_edit.png</normaloff>:/img/oxygen/32x32/object_edit.png</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>Debug</string>
           </property>
           <property name="toolTip">
@@ -105,6 +114,54 @@
             <string>General settings</string>
            </property>
           </widget>
+         </widget>
+         <widget class="QWidget" name="editorSettings">
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <layout class="QFormLayout" name="formLayout_2">
+             <item row="0" column="0">
+              <widget class="QLabel" name="showCurrentCharacterLabel">
+               <property name="text">
+                <string>Show current character:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QCheckBox" name="showCurrentCharacterCheckBox"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="currentCharacterColorLabel">
+               <property name="text">
+                <string>Current character color:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="ColorButton" name="currentCharacterColorButton"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="showAlternativesAsTooltipLabel">
+               <property name="text">
+                <string>Show alternatives as tooltip:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QCheckBox" name="showAlternativesAsTooltipCheckBox"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="alternativesColorLabel">
+               <property name="text">
+                <string>Alternatives color:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="ColorButton" name="alternativeColorButton"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="debugSettings">
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -151,64 +208,64 @@
              <property name="title">
               <string>Show formatter bounding boxes for:</string>
              </property>
-             <widget class="QWidget" name="layoutWidget">
-              <property name="geometry">
-               <rect>
-                <x>10</x>
-                <y>30</y>
-                <width>341</width>
-                <height>125</height>
-               </rect>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_3">
-               <property name="sizeConstraint">
-                <enum>QLayout::SetDefaultConstraint</enum>
-               </property>
-               <item>
-                <widget class="QCheckBox" name="showSectionsBBox">
-                 <property name="text">
-                  <string>sections</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="showColumnsBBox">
-                 <property name="text">
-                  <string>columns</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="showParagraphsBBox">
-                 <property name="text">
-                  <string>paragraphs</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="showLinesBBox">
-                 <property name="text">
-                  <string>lines</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="showCharactersBBox">
-                 <property name="text">
-                  <string>characters</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="showPicturesBBox">
-                 <property name="text">
-                  <string>pictures</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <widget class="QCheckBox" name="showSectionsBBox">
+                <property name="text">
+                 <string>sections</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="showColumnsBBox">
+                <property name="text">
+                 <string>columns</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="showParagraphsBBox">
+                <property name="text">
+                 <string>paragraphs</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="showLinesBBox">
+                <property name="text">
+                 <string>lines</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="showCharactersBBox">
+                <property name="text">
+                 <string>characters</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="showPicturesBBox">
+                <property name="text">
+                 <string>pictures</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -231,6 +288,13 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="9"/>
+ <customwidgets>
+  <customwidget>
+   <class>ColorButton</class>
+   <extends>QToolButton</extends>
+   <header>colorbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resources/cuneiform.qrc"/>
  </resources>

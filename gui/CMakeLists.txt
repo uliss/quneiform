@@ -6,6 +6,7 @@ set(TRANSLATIONS_TS ru.ts)
 
 set(HEADERS 
     aboutdialog.h
+    colorbutton.h
     formatsettingsdialog.h
     imageview.h
     imagewidget.h
@@ -30,6 +31,7 @@ set(HEADERS
 
 set(SOURCES 
     aboutdialog.cpp
+    colorbutton.cpp
     formatsettings.cpp
     formatsettingsdialog.cpp
     imagecache.cpp

@@ -16,38 +16,39 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef FORMATSETTINGSDIALOG_H
-#define FORMATSETTINGSDIALOG_H
+#ifndef COLORBUTTON_H
+#define COLORBUTTON_H
 
-#include <QDialog>
+#include <QToolButton>
+#include <QColor>
 #include <QPixmap>
-#include "formatsettings.h"
 
-namespace Ui {
-    class FormatSettingsDialog;
-}
-
-class FormatSettingsDialog : public QDialog
+class ColorButton : public QToolButton
 {
     Q_OBJECT
 public:
-    explicit FormatSettingsDialog(const FormatSettings& settings);
-    ~FormatSettingsDialog();
+    explicit ColorButton(QWidget * parent = 0);
+    ColorButton(const QColor& color, QWidget * parent = 0);
 
-    const FormatSettings& settings() const;
+    /**
+      * Returns button color
+      * @see setColor()
+      */
+    QColor color() const;
+
+    /**
+      * Sets button color
+      * @param color - new color
+      * @see color()
+      */
+    void setColor(const QColor& color);
 private slots:
-    void save();
-    void load();
+    void showColorDialog();
 private:
-    void loadAlternatives();
-    void loadFonts();
-    void loadFormat();
-    void saveAlternatives();
-    void saveFonts();
-    void saveFormat();
+    void connectSignals();
 private:
-    Ui::FormatSettingsDialog *ui;
-    FormatSettings settings_;
+    QColor color_;
+    QPixmap pixmap_;
 };
 
-#endif // FORMATSETTINGSDIALOG_H
+#endif // COLORBUTTON_H
