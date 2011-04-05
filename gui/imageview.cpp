@@ -25,6 +25,7 @@
 #include <QRubberBand>
 #include <QWheelEvent>
 #include <QScrollBar>
+#include <QSettings>
 
 // gesture support
 #if QT_VERSION >= 0x040600
@@ -401,14 +402,15 @@ void ImageView::setupScene() {
 
 void ImageView::showChar(const QRect& bbox) {
     Q_ASSERT(scene_);
-
-    QPen p(Qt::red);
-    p.setWidth(2);
+    QSettings settings;
+    settings.beginGroup("format");
+    QPen p(settings.value("currentCharColor", Qt::red).value<QColor>());
+    p.setWidth(0);
 
     if(!current_char_bbox_)
-        current_char_bbox_ = scene_->addRect(bbox, p);
+        current_char_bbox_ = scene_->addRect(bbox.adjusted(-1, -1, 1, 1), p);
     else
-        current_char_bbox_->setRect(bbox);
+        current_char_bbox_->setRect(bbox.adjusted(-1, -1, 1, 1));
 
     centerOn(current_char_bbox_);
 }

@@ -55,6 +55,7 @@ private:
     void addAlignmentActions(QMenu * menu);
     void addZoomActions(QMenu * menu);
     void connectPageSignal(Page * page);
+    void disconnectPageSignal(Page * page);
 private:
     Page * page_;
     QTextDocument * doc_;

@@ -105,8 +105,12 @@ void TextEditor::clearText() {
 
 void TextEditor::connectPageSignal(Page * page) {
     Q_ASSERT(page);
-
     connect(page, SIGNAL(destroyed()), this, SLOT(clearText()));
+}
+
+void TextEditor::disconnectPageSignal(Page * page) {
+    Q_ASSERT(page);
+    disconnect(page, SIGNAL(destroyed()), this, SLOT(clearText()));
 }
 
 void TextEditor::contextMenuEvent(QContextMenuEvent * event) {
@@ -134,5 +138,7 @@ void TextEditor::showPage(Page * page) {
 
     page_ = page;
     connectPageSignal(page_);
+    blockSignals(true);
     setDocument(page_->document());
+    blockSignals(false);
 }
