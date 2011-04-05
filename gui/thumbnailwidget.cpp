@@ -66,13 +66,17 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
 void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
     QMenu * menu = new QMenu(this);
     emit contextMenuCreated(menu);
-    menu->addAction(QIcon(":/img/oxygen/22x22/document_preview.png"), tr("Recognize"), this, SLOT(recognizeThumb()));
     menu->addAction(QIcon(":/img/oxygen/22x22/list_remove.png"), tr("Delete"), this, SLOT(removePage()));
+    menu->addSeparator();
+    QAction * recognize = menu->addAction(QIcon(":/img/oxygen/22x22/document_preview.png"), tr("Recognize"), this, SLOT(recognizeThumb()));
+    recognize->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R));
     menu->addAction(QIcon(":/img/oxygen/22x22/document_properties.png"), tr("Properties"), this, SLOT(showProperties()));
+    menu->addSeparator();
     menu->addAction(tr("Recognition settings"), this, SLOT(showRecognizeSettings()));
     menu->addAction(tr("Format settings"), this, SLOT(showFormatSettings()));
-    menu->addAction(QIcon(":/img/oxygen/22x22/document_save_as.png"), tr("Save as"), this, SLOT(savePage()));
-
+    menu->addSeparator();
+    QAction * save_as = menu->addAction(QIcon(":/img/oxygen/22x22/document_save_as.png"), tr("Save as"), this, SLOT(savePage()));
+    save_as->setShortcut(QKeySequence::SaveAs);
     //    menu->setupActions();
     menu->exec(event->globalPos());
     delete menu;
