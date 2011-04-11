@@ -1,4 +1,4 @@
-set(PROJECT "quneiform")
+#set(PROJECT "quneiform")
 
 add_subdirectory(resources)
 
@@ -150,25 +150,25 @@ if(APPLE)
 endif()
 
 add_library(quneiform_lib STATIC ${SRCS})
-add_executable (${PROJECT} WIN32 MACOSX_BUNDLE main.cpp ${QRC_SOURCES})
+add_executable (quneiform MACOSX_BUNDLE main.cpp ${QRC_SOURCES})
  
 if(APPLE)
-	add_dependencies(${PROJECT} osx_l10n_dirs)
+	add_dependencies(quneiform osx_l10n_dirs)
     find_library(EXTRA_LIBS CoreFoundation "/")
 else()
     set(EXTRA_LIBS "")
 endif()
 
-if(NOT MSVC)
-    set(EXTRA_LIBS ${EXTRA_LIBS} m)
+if(MSVC)
+	set(${QT_LIBRARIES} qtmain ${QT_LIBRARIES})
 else()
-    set(${QT_LIBRARIES} qtmain ${QT_LIBRARIES})
+    set(EXTRA_LIBS ${EXTRA_LIBS} m)
 endif()
 
-target_link_libraries (${PROJECT} quneiform_lib ${LIBRARIES} ${QT_LIBRARIES} cuneiform ${EXTRA_LIBS})
+target_link_libraries (quneiform quneiform_lib ${LIBRARIES} ${QT_LIBRARIES} cuneiform ${EXTRA_LIBS})
 
 if(APPLE)
-    set_target_properties(${PROJECT}
+    set_target_properties(quneiform
         PROPERTIES
         OUTPUT_NAME ${CMAKE_BUNDLE_NAME})
 
@@ -177,7 +177,7 @@ if(APPLE)
 endif()
 
 install(
-    TARGETS ${PROJECT}
+    TARGETS quneiform
     RUNTIME DESTINATION bin
     ${CMAKE_INSTALL_DESTINATION_ARGS}
 )

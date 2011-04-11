@@ -7,9 +7,15 @@ add_executable(test_ced
     testcedpicture.cpp
 )
 
+set(EXTRA_LIB "")
+
+if(CF_SERIALIZE)
+    set(EXTRA_LIB ${Boost_SERIALIZATION_LIBRARY})
+endif()
+
 target_link_libraries(test_ced 
     cuneiform-ced
-    ${Boost_SERIALIZATION_LIBRARY} 
+    ${EXTRA_LIB} 
     ${CPPUNIT_LIBRARIES})
 
 add_test(CED ${EXECUTABLE_OUTPUT_PATH}/test_ced)

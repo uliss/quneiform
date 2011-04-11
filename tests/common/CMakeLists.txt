@@ -13,9 +13,15 @@ add_executable(test_common
     testoutputformat.cpp
 )
 
+set(EXTRA_LIB "")
+
+if(CF_SERIALIZE)
+    set(EXTRA_LIB ${Boost_SERIALIZATION_LIBRARY})
+endif()
+
 target_link_libraries(test_common 
     cuneiform-common 
     ${CPPUNIT_LIBRARIES}
-    ${Boost_SERIALIZATION_LIBRARY})
+    ${EXTRA_LIB})
 
 add_test(Common ${EXECUTABLE_OUTPUT_PATH}/test_common)

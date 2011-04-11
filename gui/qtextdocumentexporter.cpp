@@ -35,6 +35,7 @@
 #include "common/tostring.h"
 #include "export/rout_own.h"
 #include "rdib/bmp.h"
+#include "cfcompat.h"
 #include "compat_defs.h"
 
 using namespace cf;

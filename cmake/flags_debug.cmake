@@ -29,5 +29,3 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
 
     message(STATUS "Compiler flags are: ${CMAKE_CXX_FLAGS_DEBUG}")
 endif()
-
-include(msvc)

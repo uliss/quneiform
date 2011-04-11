@@ -13,10 +13,10 @@ endif()
 
 include(CheckCXXCompilerFlag)
 
+include(msvc)
 include(flags_common)
 include(flags_release)
 include(flags_debug)
-include(msvc)
 include(install_files)
 
 include(find_image_libs)

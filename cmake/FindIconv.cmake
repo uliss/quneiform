@@ -18,11 +18,22 @@ if(APPLE)
     FIND_PATH(ICONV_INCLUDE_DIR NAMES iconv.h PATHS /opt/local/include NO_DEFAULT_PATH) 
     FIND_LIBRARY(ICONV_LIBRARIES NAMES iconv libiconv libiconv-2 PATHS /opt/local/lib NO_DEFAULT_PATH)
 else()
-    FIND_PATH(ICONV_INCLUDE_DIR iconv.h
-		PATHS
-        "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\LibIconv;InstallPath]/include"
-		"[HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\GnuWin32\\LibIconv;InstallPath]/include"
-	)
+    if(MINGW)
+        FIND_PATH(ICONV_INCLUDE_DIR iconv.h
+            PATH
+            "\\MinGW\\include"
+            "C:\\MinGW\\include"
+            "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\LibIconv;InstallPath]/include"
+            "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\GnuWin32\\LibIconv;InstallPath]/include"
+		)
+	else() 
+	     FIND_PATH(ICONV_INCLUDE_DIR iconv.h
+            PATH
+            "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\LibIconv;InstallPath]/include"
+            "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\GnuWin32\\LibIconv;InstallPath]/include"
+		)
+	endif()
+	
     FIND_LIBRARY(ICONV_LIBRARIES 
 		NAMES iconv libiconv libiconv-2 c
 		PATHS
