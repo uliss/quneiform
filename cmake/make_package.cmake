@@ -62,6 +62,10 @@ elseif(WIN32)
 		cf_install_dll(mingwm10 ${CF_MINGW_PATH_BIN})
 		cf_install_dll(libiconv2 ${ICONV_INCLUDE_DIR}/../bin)	
 	endif()
+	
+    if(MSVC)
+	    cf_install_dll(libiconv2 ${ICONV_INCLUDE_DIR}/../bin)	
+    endif()
 
 	set(CPACK_GENERATOR "NSIS")	
 	set(CPACK_PACKAGE_NAME "Cuneiform")
