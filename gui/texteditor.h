@@ -51,15 +51,32 @@ private slots:
     void alignRight();
     void clearText();
     void showCurrentChar();
+    void toggleBold();
+    void toggleItalic();
+    void toggleUnderlined();
 private:
     void addAlignmentActions(QMenu * menu);
+    void addFontActions(QMenu * menu);
+    void addUndoRedoActions(QMenu * menu);
     void addZoomActions(QMenu * menu);
     void connectPageSignal(Page * page);
     void disconnectPageSignal(Page * page);
+    void setupActions();
+    void setupFontActions();
+    void setupRedoAction();
+    void setupUndoAction();
+    void setupZoomActions();
 private:
     Page * page_;
     QTextDocument * doc_;
     QSettings settings_;
+    QAction * redo_;
+    QAction * undo_;
+    QAction * bold_;
+    QAction * italic_;
+    QAction * underlined_;
+    QAction * zoom_in_;
+    QAction * zoom_out_;
 };
 
 #endif // TEXTEDITOR_H

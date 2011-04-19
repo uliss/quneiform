@@ -30,6 +30,7 @@ private slots:
     void testConstruct();
     void testDoExport();
     void testExportPage();
+    void testExportSection();
 };
 
 #endif // TESTCEDPAGEEXPORTER_H

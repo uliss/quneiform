@@ -273,9 +273,8 @@ void QTextDocumentExporter::writeLineEnd(cf::CEDLine& line) {
 
 void QTextDocumentExporter::writePageBegin(cf::CEDPage& page) {
     Q_ASSERT(doc_);
-    Q_ASSERT(cursor_);
 
-    cursor_->beginEditBlock();
+    doc_->setUndoRedoEnabled(false);
 
     QTextFrameFormat page_format;
     if(page.imageSize().isValid()) {
@@ -289,8 +288,8 @@ void QTextDocumentExporter::writePageBegin(cf::CEDPage& page) {
 }
 
 void QTextDocumentExporter::writePageEnd(cf::CEDPage&) {
-    Q_ASSERT(cursor_);
-    cursor_->endEditBlock();
+    Q_ASSERT(doc_);
+    doc_->setUndoRedoEnabled(true);
 }
 
 void QTextDocumentExporter::writeParagraphBegin(CEDParagraph& par) {

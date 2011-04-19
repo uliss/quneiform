@@ -521,4 +521,21 @@ void TestImageView::testMinMaxZoom() {
     QCOMPARE(too_small.count(), 1);
 }
 
+void TestImageView::testShowCharBBox() {
+    ImageView iv;
+    Page p(CF_IMAGE_DIR "/english.png");
+    iv.showPage(&p);
+
+    // normal
+    iv.showChar(QRect(10, 20, 200, 100));
+    QCOMPARE(iv.scene()->items().at(0)->boundingRect(), QRectF(10, 20, 200, 100));
+
+    // partial area
+    p.setPageArea(QRect(10, 20, 260, 60));
+    iv.clearScene();
+    iv.showChar(QRect(1, 2, 10, 20));
+
+    QCOMPARE(iv.scene()->items().at(0)->boundingRect(), QRectF(11, 22, 10, 20));
+}
+
 QTEST_MAIN(TestImageView);

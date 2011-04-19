@@ -20,10 +20,48 @@
 #include <QTextDocument>
 #include <QTextFrame>
 #include "testcedpageexporter.h"
-#include "gui/cedpageexporter.h"
+#include "gui/qtextdocumentexporter.h"
 #include "ced/cedpage.h"
 #include "ced/cedsection.h"
 #include "ced/cedcolumn.h"
+#include "ced/cedparagraph.h"
+#include "ced/cedline.h"
+#include "ced/cedchar.h"
+
+#define private public
+#include "gui/cedpageexporter.h"
+
+QString lineText(cf::CEDLine& line) {
+    QString res;
+
+    for(size_t i = 0; i < line.elementCount(); i++) {
+        res.append(QChar(line.charAt(i)->get()));
+    }
+
+    return res;
+}
+
+QString parText(cf::CEDParagraph& par) {
+    QString res;
+
+    for(size_t i = 0; i < par.lineCount(); i++) {
+        res += lineText(*par.lineAt(i)) + "\n";
+    }
+
+    return res;
+}
+
+QString colText(cf::CEDColumn& col) {
+    QString res;
+
+    for(size_t i = 0; i < col.elementCount(); i++) {
+        cf::CEDParagraph * p = dynamic_cast<cf::CEDParagraph*>(col.elementAt(i));
+        if(p)
+            res += parText(*p);
+    }
+
+    return res;
+}
 
 TestCEDPageExporter::TestCEDPageExporter()
 {
@@ -38,6 +76,11 @@ void TestCEDPageExporter::testConstruct() {
 void TestCEDPageExporter::testDoExport() {
     QTextDocument doc;
     cf::CEDPage page;
+
+    QTextFrameFormat format;
+    format.setProperty(QTextDocumentExporter::BlockType, QTextDocumentExporter::PAGE);
+    doc.rootFrame()->setFrameFormat(format);
+
     CEDPageExporter e;
     e.doExport(&doc, &page);
     QCOMPARE(e.document(), &doc);
@@ -62,6 +105,7 @@ void TestCEDPageExporter::testExportPage() {
     frame_format.setLeftMargin(20);
     frame_format.setBottomMargin(30);
     frame_format.setRightMargin(40);
+    frame_format.setProperty(QTextDocumentExporter::BlockType, QTextDocumentExporter::PAGE);
     cursor.currentFrame()->setFrameFormat(frame_format);
 
     e.doExport(&doc, &page);
@@ -74,11 +118,47 @@ void TestCEDPageExporter::testExportPage() {
     cursor.insertBlock();
     cursor.insertText("test");
     QTextFrameFormat fmt2;
+    fmt2.setProperty(QTextDocumentExporter::BlockType, QTextDocumentExporter::SECTION);
     cursor.insertFrame(fmt2);
     e.doExport(&doc, &page);
 
     QCOMPARE(page.sectionCount(), size_t(1));
     page.clear();
+}
+
+void TestCEDPageExporter::testExportSection() {
+    QTextDocument doc;
+    QTextCursor cursor(&doc);
+
+    QTextFrameFormat format;
+    format.setProperty(QTextDocumentExporter::BlockType, QTextDocumentExporter::SECTION);
+    cursor.insertFrame(format);
+
+    cursor = doc.rootFrame()->childFrames().at(0)->firstCursorPosition();
+    cursor.insertText("test\nparagraph");
+
+    cf::CEDPage page;
+    CEDPageExporter e;
+    e.setPage(&page);
+
+    QVERIFY(page.empty());
+    e.exportSection(doc.rootFrame()->childFrames().at(0));
+    QCOMPARE(page.sectionCount(), (size_t) 1);
+    QCOMPARE(page.sectionAt(0)->columnCount(), (size_t) 1);
+    QCOMPARE(page.sectionAt(0)->columnAt(0)->elementCount(), (size_t) 2);
+    cf::CEDParagraph * p1 = dynamic_cast<cf::CEDParagraph*>(page.sectionAt(0)->columnAt(0)->elementAt(0));
+    QVERIFY(p1);
+    QCOMPARE(p1->lineCount(), size_t(1));
+    QCOMPARE(p1->lineAt(0)->elementCount(), size_t(4));
+    QCOMPARE(p1->lineAt(0)->charAt(0)->get(), (uchar)'t');
+    QCOMPARE(p1->lineAt(0)->charAt(1)->get(), (uchar)'e');
+    QCOMPARE(p1->lineAt(0)->charAt(2)->get(), (uchar)'s');
+    QCOMPARE(p1->lineAt(0)->charAt(3)->get(), (uchar)'t');
+
+    cf::CEDParagraph * p2 = dynamic_cast<cf::CEDParagraph*>(page.sectionAt(0)->columnAt(0)->elementAt(1));
+    QVERIFY(p2);
+    QCOMPARE(p2->lineCount(), size_t(1));
+    QCOMPARE(p2->lineAt(0)->elementCount(), size_t(9));
 }
 
 QTEST_MAIN(TestCEDPageExporter)

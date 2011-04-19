@@ -19,7 +19,11 @@
 #include <QDebug>
 #include <QMenu>
 #include <QTextCursor>
+#include <QTextBlock>
+#include <QTextLayout>
 #include <QContextMenuEvent>
+#include <QTextDocumentFragment>
+#include <QPainter>
 #include "texteditor.h"
 #include "qtextdocumentexporter.h"
 #include "page.h"
@@ -27,11 +31,21 @@
 TextEditor::TextEditor(QWidget * parent) :
     QTextEdit(parent),
     page_(NULL),
-    doc_(new QTextDocument)
+    doc_(new QTextDocument),
+    redo_(NULL),
+    undo_(NULL),
+    bold_(NULL),
+    italic_(NULL),
+    underlined_(NULL),
+    zoom_in_(NULL),
+    zoom_out_(NULL)
 {
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(showCurrentChar()));
     setReadOnly(true);
+    setTextInteractionFlags(Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
     settings_.beginGroup("format");
+
+    setupActions();
 }
 
 TextEditor::~TextEditor() {
@@ -71,14 +85,42 @@ void TextEditor::addAlignmentActions(QMenu * menu) {
     }
 }
 
+void TextEditor::addFontActions(QMenu * menu) {
+    if(document()->isEmpty())
+        return;
+
+    QMenu * font_menu = menu->addMenu(tr("Font"));
+
+    if(!textCursor().hasSelection()) {
+        font_menu->setDisabled(true);
+        return;
+    }
+
+    QTextCharFormat format = textCursor().charFormat();
+
+    bold_->setChecked(format.fontWeight() == QFont::Bold);
+    italic_->setChecked(format.fontItalic());
+    underlined_->setChecked(format.fontUnderline());
+
+    font_menu->addAction(bold_);
+    font_menu->addAction(italic_);
+    font_menu->addAction(underlined_);
+}
+
+void TextEditor::addUndoRedoActions(QMenu * menu) {
+    if(document()->isEmpty())
+        return;
+
+    menu->addAction(undo_);
+    menu->addAction(redo_);
+}
+
 void TextEditor::addZoomActions(QMenu * menu) {
     if(document()->isEmpty())
         return;
 
-    QAction * zoom_in = menu->addAction(QIcon(":/img/oxygen/32x32/zoom_in.png"), tr("Zoom In"), this, SLOT(zoomIn()));
-    zoom_in->setShortcut(QKeySequence::ZoomIn);
-    QAction * zoom_out = menu->addAction(QIcon(":/img/oxygen/32x32/zoom_out.png"), tr("Zoom Out"), this, SLOT(zoomOut()));
-    zoom_out->setShortcut(QKeySequence::ZoomOut);
+    menu->addAction(zoom_in_);
+    menu->addAction(zoom_out_);
 }
 
 void TextEditor::alignCenter() {
@@ -118,18 +160,71 @@ void TextEditor::contextMenuEvent(QContextMenuEvent * event) {
     addZoomActions(menu);
     menu->addSeparator();
     addAlignmentActions(menu);
+    addFontActions(menu);
+    menu->addSeparator();
+    addUndoRedoActions(menu);
 
     menu->exec(event->globalPos());
     delete menu;
  }
 
+void TextEditor::toggleBold() {
+    if(!textCursor().hasSelection())
+        return;
+
+    QAction * act = qobject_cast<QAction*>(sender());
+
+    if(!act)
+        return;
+
+    QTextCharFormat fmt;
+    fmt.setFontWeight(act->isChecked() ? QFont::Bold : QFont::Normal);
+    textCursor().mergeCharFormat(fmt);
+}
+
+void TextEditor::toggleItalic() {
+    if(!textCursor().hasSelection())
+        return;
+
+    QAction * act = qobject_cast<QAction*>(sender());
+
+    if(!act)
+        return;
+
+    QTextCharFormat fmt;
+    fmt.setFontItalic(act->isChecked());
+    textCursor().mergeCharFormat(fmt);
+}
+
+void TextEditor::toggleUnderlined() {
+    if(!textCursor().hasSelection())
+        return;
+
+    QAction * act = qobject_cast<QAction*>(sender());
+
+    if(!act)
+        return;
+
+    QTextCharFormat fmt;
+    fmt.setFontUnderline(act->isChecked());
+    textCursor().mergeCharFormat(fmt);
+}
+
 void TextEditor::showCurrentChar() {
     if(!settings_.value("showCurrentCharacter").toBool())
         return;
 
-    QRect bbox = textCursor().charFormat().property(QTextDocumentExporter::BBOX).toRect();
+    QTextCursor cursor = textCursor();
+
+    QRect bbox = cursor.charFormat().property(QTextDocumentExporter::BBOX).toRect();
     if(!bbox.isEmpty())
         emit charSelected(bbox);
+    else {
+        cursor.movePosition(QTextCursor::NextCharacter);
+        bbox = cursor.charFormat().property(QTextDocumentExporter::BBOX).toRect();
+        if(!bbox.isEmpty())
+            emit charSelected(bbox);
+    }
 }
 
 void TextEditor::showPage(Page * page) {
@@ -141,4 +236,62 @@ void TextEditor::showPage(Page * page) {
     blockSignals(true);
     setDocument(page_->document());
     blockSignals(false);
+
+    undo_->setDisabled(true);
+    redo_->setDisabled(true);
+}
+
+void TextEditor::setupActions() {
+    setupFontActions();
+    setupRedoAction();
+    setupUndoAction();
+    setupZoomActions();
+}
+
+void TextEditor::setupFontActions() {
+    bold_ = new QAction(QIcon(":/img/oxygen/32x32/text_bold.png"), tr("bold"), this);
+    bold_->setCheckable(true);
+    bold_->setShortcut(QKeySequence::Bold);
+    connect(bold_, SIGNAL(triggered()), this, SLOT(toggleBold()));
+    addAction(bold_);
+
+    italic_ = new QAction(QIcon(":/img/oxygen/32x32/text_italic.png"), tr("italic"), this);
+    italic_->setCheckable(true);
+    italic_->setShortcut(QKeySequence::Italic);
+    connect(italic_, SIGNAL(triggered()), this, SLOT(toggleItalic()));
+    addAction(italic_);
+
+    underlined_ = new QAction(QIcon(":/img/oxygen/32x32/text_under.png"), tr("underlined"), this);
+    underlined_->setCheckable(true);
+    underlined_->setShortcut(QKeySequence::Underline);
+    connect(underlined_, SIGNAL(triggered()), this, SLOT(toggleUnderlined()));
+    addAction(underlined_);
+}
+
+void TextEditor::setupRedoAction() {
+    redo_ = new QAction(QIcon(""), tr("Redo"), this);
+    redo_->setShortcut(QKeySequence::Redo);
+    connect(redo_, SIGNAL(triggered()), this, SLOT(redo()));
+    connect(this, SIGNAL(redoAvailable(bool)), redo_, SLOT(setEnabled(bool)));
+    addAction(redo_);
+}
+
+void TextEditor::setupUndoAction() {
+    undo_ = new QAction(QIcon(":/img/oxygen/32x32/undo.png"), tr("Undo"), this);
+    undo_->setShortcut(QKeySequence::Undo);
+    connect(undo_, SIGNAL(triggered()), this, SLOT(undo()));
+    connect(this, SIGNAL(undoAvailable(bool)), undo_, SLOT(setEnabled(bool)));
+    addAction(undo_);
+}
+
+void TextEditor::setupZoomActions() {
+    zoom_in_ = new QAction(QIcon(":/img/oxygen/32x32/zoom_in.png"), tr("Zoom In"), this);
+    zoom_in_->setShortcut(QKeySequence::ZoomIn);
+    connect(zoom_in_, SIGNAL(triggered()), this, SLOT(zoomIn()));
+    addAction(zoom_in_);
+
+    zoom_out_ = new QAction(QIcon(":/img/oxygen/32x32/zoom_out.png"), tr("Zoom Out"), this);
+    zoom_out_->setShortcut(QKeySequence::ZoomOut);
+    connect(zoom_out_, SIGNAL(triggered()), this, SLOT(zoomOut()));
+    addAction(zoom_out_);
 }

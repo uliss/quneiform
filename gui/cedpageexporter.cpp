@@ -25,20 +25,32 @@
 #include "qtextdocumentexporter.h"
 #include "ced/cedpage.h"
 #include "ced/cedsection.h"
+#include "ced/cedcolumn.h"
+#include "ced/cedparagraph.h"
+#include "ced/cedline.h"
+#include "ced/cedchar.h"
 
 static cf::Rect getFormatMargins(const QTextFrameFormat& format) {
     return cf::Rect(cf::Point(format.leftMargin(), format.topMargin()),
                     cf::Point(format.rightMargin(), format.bottomMargin()));
 }
 
+static void fillPar(cf::CEDParagraph * par, const QString& str) {
+    cf::CEDLine * l = new cf::CEDLine;
+
+    for(int i = 0; i < str.size(); i++) {
+        l->insertChar(new cf::CEDChar(str[i].toAscii()));
+    }
+
+    par->addLine(l);
+}
+
 CEDPageExporter::CEDPageExporter() :
         doc_(NULL),
-        page_(NULL){
-
+        page_(NULL) {
 }
 
 CEDPageExporter::~CEDPageExporter() {
-
 }
 
 QTextCursor * CEDPageExporter::cursor() {
@@ -59,7 +71,25 @@ void CEDPageExporter::doExport(QTextDocument * doc, cf::CEDPage * page) {
 }
 
 void CEDPageExporter::exportBlock(const QTextBlock& block) {
-    qDebug() << Q_FUNC_INFO;
+//    qDebug() << Q_FUNC_INFO;
+
+//    QTextBlockFormat format = block.blockFormat();
+//    if(format.intProperty(QTextDocumentExporter::BlockType) != QTextDocumentExporter::PARAGRAPH) {
+//        qDebug() << Q_FUNC_INFO << "attempt to export non pargraph block";
+//    }
+
+//    qDebug() << block.text();
+//    cf::CEDSection * last_section = page_->sectionAt(page_->sectionCount() - 1);
+//    cf::CEDColumn * last_col = last_section->columnAt(last_section->columnCount() - 1);
+//    cf::CEDParagraph * par = new cf::CEDParagraph;
+
+//    fillPar(par, block.text());
+
+//    last_col->addElement(par);
+}
+
+void CEDPageExporter::exportColumn() {
+
 }
 
 void CEDPageExporter::exportColumnTable(QTextTable * table) {
@@ -75,6 +105,17 @@ void CEDPageExporter::exportColumnTable(QTextTable * table) {
     section->setMargins(getFormatMargins(table_format));
 
     page_->addSection(section);
+
+    QVector<QTextLength> col_wd = table_format.columnWidthConstraints();
+
+    for(int i = 0; i < table->columns(); i++) {
+        cf::CEDColumn * col = new cf::CEDColumn;
+
+        if(col_wd.at(i).type() == QTextLength::FixedLength)
+            col->setWidth(col_wd.at(i).rawValue());
+
+        section->addColumn(col);
+    }
 }
 
 void CEDPageExporter::exportPage() {
@@ -107,12 +148,24 @@ void CEDPageExporter::exportPage() {
     }
 }
 
+void CEDPageExporter::exportParagraph(const QTextBlock& block, cf::CEDColumn * col) {
+    QTextBlockFormat format = block.blockFormat();
+
+    if(format.intProperty(QTextDocumentExporter::BlockType) != QTextDocumentExporter::PARAGRAPH) {
+        qDebug() << Q_FUNC_INFO << "attempt to export non pargraph block";
+    }
+
+    cf::CEDParagraph * p = new cf::CEDParagraph;
+    fillPar(p, block.text());
+    col->addElement(p);
+}
+
 void CEDPageExporter::exportSection(QTextFrame * frame) {
     Q_ASSERT(frame);
 
     QTextFrameFormat fmt = frame->frameFormat();
 
-    if(fmt.intProperty(QTextDocumentExporter::BlockType) != QTextDocumentExporter::PAGE) {
+    if(fmt.intProperty(QTextDocumentExporter::BlockType) != QTextDocumentExporter::SECTION) {
         qDebug() << Q_FUNC_INFO << "attempt to export non section frame";
     }
 
@@ -120,9 +173,25 @@ void CEDPageExporter::exportSection(QTextFrame * frame) {
     section->setMargins(getFormatMargins(fmt));
 
     page_->addSection(section);
+    cf::CEDColumn * col = new cf::CEDColumn;
+    section->addColumn(col);
 
+    for(QTextFrame::Iterator it = frame->begin(); !it.atEnd(); ++it) {
+        QTextFrame * child_frame = it.currentFrame();
+
+        if(child_frame) {
+            qDebug() << "nested frame found";
+        }
+        else {
+            exportParagraph(it.currentBlock(), col);
+        }
+    }
 }
 
 cf::CEDPage * CEDPageExporter::page() {
     return page_;
+}
+
+void CEDPageExporter::setPage(cf::CEDPage * page) {
+    page_ = page;
 }

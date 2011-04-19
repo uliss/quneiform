@@ -23,6 +23,7 @@
 
 namespace cf {
     class CEDPage;
+    class CEDColumn;
 }
 
 class QTextDocument;
@@ -38,10 +39,13 @@ public:
     QTextDocument * document();
     void doExport(QTextDocument * doc, cf::CEDPage * page);
     cf::CEDPage * page();
+    void setPage(cf::CEDPage * page);
 private:
     void exportBlock(const QTextBlock& block);
+    void exportColumn();
     void exportColumnTable(QTextTable * table);
     void exportPage();
+    void exportParagraph(const QTextBlock& block, cf::CEDColumn * col);
     void exportSection(QTextFrame * frame);
 private:
     QTextDocument * doc_;

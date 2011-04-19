@@ -596,6 +596,30 @@ Do you want to save it?</source>
         <source>Justify</source>
         <translation>по ширине</translation>
     </message>
+    <message>
+        <source>Font</source>
+        <translation>Шрифт</translation>
+    </message>
+    <message>
+        <source>bold</source>
+        <translation>жирный</translation>
+    </message>
+    <message>
+        <source>italic</source>
+        <translation>курсив</translation>
+    </message>
+    <message>
+        <source>underlined</source>
+        <translation>подчеркнутый</translation>
+    </message>
+    <message>
+        <source>Redo</source>
+        <translation>Вернуть</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Отменить</translation>
+    </message>
 </context>
 <context>
     <name>ThumbnailList</name>

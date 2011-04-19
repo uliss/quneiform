@@ -407,10 +407,13 @@ void ImageView::showChar(const QRect& bbox) {
     QPen p(settings.value("currentCharColor", Qt::red).value<QColor>());
     p.setWidth(0);
 
+    QRect scene_bbox = bbox;
+    scene_bbox.moveTo(bbox.topLeft() + page_->pageArea().topLeft());
+
     if(!current_char_bbox_)
-        current_char_bbox_ = scene_->addRect(bbox.adjusted(-1, -1, 1, 1), p);
+        current_char_bbox_ = scene_->addRect(scene_bbox, p);
     else
-        current_char_bbox_->setRect(bbox.adjusted(-1, -1, 1, 1));
+        current_char_bbox_->setRect(scene_bbox);
 
     centerOn(current_char_bbox_);
 }

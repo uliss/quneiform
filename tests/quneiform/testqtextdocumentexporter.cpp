@@ -500,6 +500,8 @@ void TestQTextDocumentExporter::testWriteSection() {
 
     exp.exportSection(sec);
     QVERIFY(doc.toPlainText().trimmed().isEmpty());
+    QCOMPARE(doc.rootFrame()->childFrames().at(0)->format().intProperty(QTextDocumentExporter::BlockType),
+             (int) QTextDocumentExporter::SECTION);
 
     sec.addColumn(new CEDColumn());
     exp.clear();
