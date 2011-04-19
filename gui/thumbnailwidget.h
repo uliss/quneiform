@@ -83,6 +83,7 @@ protected:
     void mousePressEvent(QMouseEvent * event);
 private:
     QString pageProperties() const;
+    void setupActions();
     void setupCheckBox();
     void setupFrame();
     void setupIndicator();
@@ -107,6 +108,10 @@ private:
     QLabel * thumb_;
     QCheckBox * checked_;
     PageIndicator * indicator_;
+    QAction * act_recognize_;
+    QAction * act_save_as_;
+    QAction * act_properties_;
+    QAction * act_delete_;
 };
 
 #endif /* THUMBNAILWIDGET_H_ */

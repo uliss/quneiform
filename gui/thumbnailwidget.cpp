@@ -43,8 +43,15 @@ static const int THUMB_WIDTH = 150;
 static const int THUMB_HEIGHT = 150;
 
 ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
-        QFrame(parent), page_(page), layout_(NULL), thumb_(NULL), checked_(NULL) {
-
+        QFrame(parent),
+        page_(page),
+        layout_(NULL),
+        thumb_(NULL),
+        checked_(NULL),
+        act_recognize_(NULL),
+        act_save_as_(NULL),
+        act_delete_(NULL)
+{
     setupFrame();
     setupLayout();
     setupPixmap();
@@ -52,6 +59,7 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
     setupToolTip();
     setupIndicator();
     setupCheckBox();
+    setupActions();
 
     connect(checked_, SIGNAL(toggled(bool)), SLOT(selectPage(bool)));
     connect(this, SIGNAL(contextMenuCreated(QMenu*)), parent, SLOT(setupContextMenu(QMenu*)));
@@ -66,18 +74,15 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
 void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
     QMenu * menu = new QMenu(this);
     emit contextMenuCreated(menu);
-    menu->addAction(QIcon(":/img/oxygen/22x22/list_remove.png"), tr("Delete"), this, SLOT(removePage()));
+    menu->addAction(act_delete_);
     menu->addSeparator();
-    QAction * recognize = menu->addAction(QIcon(":/img/oxygen/22x22/document_preview.png"), tr("Recognize"), this, SLOT(recognizeThumb()));
-    recognize->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R));
-    menu->addAction(QIcon(":/img/oxygen/22x22/document_properties.png"), tr("Properties"), this, SLOT(showProperties()));
+    menu->addAction(act_recognize_);
+    menu->addAction(act_properties_);
     menu->addSeparator();
     menu->addAction(tr("Recognition settings"), this, SLOT(showRecognizeSettings()));
     menu->addAction(tr("Format settings"), this, SLOT(showFormatSettings()));
     menu->addSeparator();
-    QAction * save_as = menu->addAction(QIcon(":/img/oxygen/22x22/document_save_as.png"), tr("Save as"), this, SLOT(savePage()));
-    save_as->setShortcut(QKeySequence::SaveAs);
-    //    menu->setupActions();
+    menu->addAction(act_save_as_);
     menu->exec(event->globalPos());
     delete menu;
 }
@@ -196,6 +201,35 @@ void ThumbnailWidget::setName(const QString& name) {
     Q_CHECK_PTR(checked_);
 
     checked_->setText(name);
+}
+
+void ThumbnailWidget::setupActions() {
+    act_recognize_ = new QAction(QIcon(":/img/oxygen/22x22/document_preview.png"),
+                                 tr("Recognize"),
+                                 this);
+    connect(act_recognize_, SIGNAL(triggered()), this, SLOT(recognizeThumb()));
+    act_recognize_->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R));
+    addAction(act_recognize_);
+
+    act_save_as_ = new QAction(QIcon(":/img/oxygen/22x22/document_save_as.png"),
+                               tr("Save as"),
+                               this);
+    act_save_as_->setShortcut(QKeySequence::SaveAs);
+    connect(act_save_as_, SIGNAL(triggered()), this, SLOT(savePage()));
+    addAction(act_save_as_);
+
+    act_properties_ = new QAction(QIcon(":/img/oxygen/22x22/document_properties.png"),
+                                  tr("Properties"),
+                                  this);
+    act_properties_->setShortcutContext(Qt::WidgetShortcut);
+    connect(act_properties_, SIGNAL(triggered()), this, SLOT(showProperties()));
+    addAction(act_properties_);
+
+    act_delete_ = new QAction(QIcon(":/img/oxygen/22x22/list_remove.png"), tr("Delete"), this);
+    act_delete_->setShortcut(Qt::CTRL + Qt::Key_Backspace);
+    act_delete_->setShortcutContext(Qt::WidgetShortcut);
+    connect(act_delete_, SIGNAL(triggered()), this, SLOT(removePage()));
+    addAction(act_delete_);
 }
 
 void ThumbnailWidget::setupCheckBox() {

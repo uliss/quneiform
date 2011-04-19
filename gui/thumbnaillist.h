@@ -36,37 +36,37 @@ public:
     ThumbnailList(QWidget * parent);
 
     /**
-         * Appends thumbnail widget to the end of the list
-         * @param thumb
-         */
+      * Appends thumbnail widget to the end of the list
+      * @param thumb
+      */
     void append(ThumbnailWidget * thumb);
 
     /**
-         * Returns current selected page
-         * if no page selected returns NULL
-         */
+      * Returns current selected page
+      * if no page selected returns NULL
+      */
     Page * currentPage();
 
     /**
-         * Returns number of thumbs in list
-         */
+      * Returns number of thumbs in list
+      */
     int count() const;
 
     /**
-         * Removes thumbnail
-         */
+      * Removes thumbnail
+      */
     void thumbRemove(ThumbnailWidget * thumb);
 
     /**
-         * Sets corresponding document for thumbnail list
-         */
+      * Sets corresponding document for thumbnail list
+      */
     void setDocument(Packet * doc);
 
     /**
-         * Returns thumbnail that correspondents to given page
-         * @param page
-         * @return NULL if nothing found
-         */
+      * Returns thumbnail that correspondents to given page
+      * @param page
+      * @return NULL if nothing found
+      */
     ThumbnailWidget * thumb(Page * page);
 protected:
     void dragEnterEvent(QDragEnterEvent *event);
@@ -86,10 +86,11 @@ private:
     typedef QList<ThumbnailWidget*> ThumbList;
 
     /**
-         * Highlights given thumb and removes highlight of others
-         * @param thumb
-         */
+      * Highlights given thumb and removes highlight of others
+      * @param thumb
+      */
     void highlightThumb(ThumbnailWidget * thumb);
+    void setupActions();
     void setupLayout();
     void setScrollBars();
     /** Updates thumbnail names */
@@ -105,6 +106,7 @@ private:
     QVBoxLayout * layout_;
     ThumbList thumbs_;
     Page * current_page_;
+    QAction * select_all_;
 };
 
 #endif /* THUMBNAILLIST_H_ */

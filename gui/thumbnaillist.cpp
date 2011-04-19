@@ -34,10 +34,16 @@
 static const int LIST_WIDTH = 180;
 
 ThumbnailList::ThumbnailList(QWidget *parent) :
-    QScrollArea(parent), document_(NULL), layout_(NULL), current_page_(NULL) {
+    QScrollArea(parent),
+    document_(NULL),
+    layout_(NULL),
+    current_page_(NULL),
+    select_all_(NULL)
+{
     setAcceptDrops(true);
     setupLayout();
     setScrollBars();
+    setupActions();
 }
 
 void ThumbnailList::append(ThumbnailWidget * thumb) {
@@ -75,7 +81,7 @@ void ThumbnailList::dropEvent(QDropEvent *event) {
 void ThumbnailList::setupContextMenu(QMenu * menu) {
     Q_CHECK_PTR(menu);
 
-    menu->addAction(tr("Select all"), this, SLOT(selectAll()), QKeySequence::SelectAll);
+    menu->addAction(select_all_);
     menu->addAction(tr("Revert selected"), this, SLOT(revertSelection()));
     menu->addAction(tr("Delete selected"), this, SLOT(removeSelectedPages()));
 }
@@ -85,12 +91,12 @@ int ThumbnailList::count() const {
 }
 
 Page * ThumbnailList::currentPage() {
-	return current_page_;
+    return current_page_;
 }
 
 void ThumbnailList::handleInvalidImage(const QString& path) {
-	qDebug() << path;
-	throw 1;
+    qDebug() << path;
+    throw 1;
 }
 
 void ThumbnailList::highlightThumb(ThumbnailWidget * thumb) {
@@ -153,6 +159,13 @@ void ThumbnailList::setDocument(Packet * doc) {
     document_ = doc;
     connect(document_, SIGNAL(pageAdded(Page*)), SLOT(pageAdd(Page*)));
     connect(document_, SIGNAL(pageRemoved(Page*)), SLOT(pageRemove(Page*)));
+}
+
+void ThumbnailList::setupActions() {
+    select_all_ = new QAction(tr("Select all"), this);
+    select_all_->setShortcut(QKeySequence::SelectAll);
+    connect(select_all_, SIGNAL(triggered()), this, SLOT(selectAll()));
+    addAction(select_all_);
 }
 
 void ThumbnailList::setupLayout() {
