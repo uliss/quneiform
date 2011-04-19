@@ -16,37 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTQTEXTDOCUMENTEXPORTER_H
-#define TESTQTEXTDOCUMENTEXPORTER_H
+#ifndef TESTCEDPAGEEXPORTER_H
+#define TESTCEDPAGEEXPORTER_H
 
 #include <QObject>
 
-class TestQTextDocumentExporter : public QObject
+class TestCEDPageExporter : public QObject
 {
     Q_OBJECT
 public:
-    explicit TestQTextDocumentExporter(QObject *parent = 0);
+    TestCEDPageExporter();
 private slots:
     void testConstruct();
-    void testWriteChar();
-    void testWriteCharItalic();
-    void testWriteCharBold();
-    void testWriteCharUnderlined();
-    void testWriteCharFontSize();
-    void testWriteCharColors();
-    void testWriteCharEncoding();
-    void testWriteCharAlternatives();
-    void testWriteCharBBox();
-    void testWritePage();
-    void testWriteParagraph();
-    void testWriteParagraphAlign();
-    void testWriteParagraphIndent();
-    void testWriteLine();
-    void testWriteSection();
-    void testWriteSectionMargins();
-    void testWriteColumn();
-    void testWritePicture();
-    void testComplex();
+    void testDoExport();
+    void testExportPage();
 };
 
-#endif // TESTQTEXTDOCUMENTEXPORTER_H
+#endif // TESTCEDPAGEEXPORTER_H

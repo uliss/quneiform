@@ -31,6 +31,7 @@ set(HEADERS
 
 set(SOURCES 
     aboutdialog.cpp
+    cedpageexporter.cpp
     colorbutton.cpp
     formatsettings.cpp
     formatsettingsdialog.cpp

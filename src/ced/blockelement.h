@@ -72,16 +72,46 @@ class CLA_EXPO BlockElement: public Element
         void exportChildren(CEDExporter& exp);
 
         /**
+          * Checks is given element exists in this block
+          */
+        bool hasElement(Element * e);
+
+        /**
          * Returns pointer to last element in container
          * @throw std::out_of_range if container is empty
          */
         Element * lastElement();
         const Element * lastElement() const;
 
+        /**
+          * Returns page bottom margin
+          * @see marginTop(), marginLeft(), marginRight()
+          */
         int marginBottom() const;
+
+        /**
+          * Returns page left margin
+          * @see marginBottom(), marginRight(), marginTop()
+          */
         int marginLeft() const;
+
+        /**
+          * Returns page right margin
+          * @see marginBottom(), marginLeft(), marginTop()
+          */
         int marginRight() const;
+
+        /**
+          * Returns page top margin
+          * @see marginBottom(), marginLeft(), marginRight()
+          */
         int marginTop() const;
+
+        /**
+          * Returns page margins as a rectangle
+          * @see marginBottom(), marginLeft(), marginRight(), marginTop()
+          */
+        Rect margins() const;
 
         void setBorderBottom(ed_border_t bottom);
         void setBorderBottomWidth(unsigned short width);

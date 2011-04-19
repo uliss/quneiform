@@ -20,6 +20,7 @@
 #include <QDebug>
 #include <QTextDocument>
 #include <QTextEdit>
+#include <QTextFrame>
 #include <QTextTable>
 #include "common/formatoptions.h"
 #include "gui/qtextdocumentexporter.h"
@@ -41,6 +42,41 @@
 
 using namespace cf;
 
+CEDLine * makeLine(const std::string& str) {
+    CEDLine * line = new CEDLine;
+
+    for(size_t i = 0; i < str.size(); i++)
+        line->addElement(new CEDChar(str[i]));
+
+    return line;
+}
+
+CEDParagraph * makePar(const std::string& str) {
+    CEDParagraph * par = new CEDParagraph;
+    CEDLine * current_line = 0;
+    for(size_t i = 0; i < str.size(); i++) {
+        if(str[i] == '\n') {
+            par->addLine(current_line);
+
+            if(i == (str.size() - 1))
+                current_line = NULL;
+            else
+                current_line = new CEDLine;
+        }
+        else {
+            if(!current_line)
+                current_line = new CEDLine;
+
+            current_line->addElement(new CEDChar(str[i]));
+        }
+    }
+
+    if(current_line)
+        par->addLine(current_line);
+
+    return par;
+}
+
 TestQTextDocumentExporter::TestQTextDocumentExporter(QObject * parent) :
     QObject(parent)
 {
@@ -51,7 +87,7 @@ void TestQTextDocumentExporter::testConstruct() {
     QTextDocumentExporter exp(NULL, cf::FormatOptions());
     exp.setDocument(&doc);
     QVERIFY(exp.document());
-    QVERIFY(!exp.document()->isModified());
+    QVERIFY(!doc.isModified());
 }
 
 void TestQTextDocumentExporter::testWriteChar() {
@@ -62,13 +98,13 @@ void TestQTextDocumentExporter::testWriteChar() {
 
     CEDChar c1('t');
     exp.exportChar(c1);
-    QVERIFY(!exp.document()->isEmpty());
-    QVERIFY(exp.document()->isModified());
-    QCOMPARE(exp.document()->toPlainText(), QString("t"));
+    QVERIFY(!doc.isEmpty());
+    QVERIFY(doc.isModified());
+    QCOMPARE(doc.toPlainText(), QString("t"));
 
     CEDChar c2('e');
     exp.exportChar(c2);
-    QCOMPARE(exp.document()->toPlainText(), QString("te"));
+    QCOMPARE(doc.toPlainText(), QString("te"));
 }
 
 void TestQTextDocumentExporter::testWriteCharBold() {
@@ -204,20 +240,20 @@ void TestQTextDocumentExporter::testWriteCharEncoding() {
 
     CEDChar ch1('a');
     exp.exportChar(ch1);
-    QCOMPARE(exp.document()->toPlainText(), QString("a"));
+    QCOMPARE(doc.toPlainText(), QString("a"));
     QVERIFY(exp.cursor()->charFormat().toolTip().isEmpty());
 
     ch1.addAlternative('b');
     exp.clear();
     exp.exportChar(ch1);
-    QCOMPARE(exp.document()->toPlainText(), QString("a"));
+    QCOMPARE(doc.toPlainText(), QString("a"));
     QCOMPARE(exp.cursor()->charFormat().toolTip(), QString("Alternatives:\n        'b' (254)"));
 
     CEDChar ch2('\xD4');
     ch2.addAlternative('\xF4');
     exp.clear();
     exp.exportChar(ch2);
-    QCOMPARE(exp.document()->toPlainText(), QString::fromUtf8("Ф"));
+    QCOMPARE(doc.toPlainText(), QString::fromUtf8("Ф"));
     QCOMPARE(exp.cursor()->charFormat().toolTip(), QString::fromUtf8("Alternatives:\n        'ф' (254)"));
 }
 
@@ -230,14 +266,14 @@ void TestQTextDocumentExporter::testWriteCharAlternatives() {
 
     CEDChar ch1('a');
     exp.exportChar(ch1);
-    QCOMPARE(exp.document()->toPlainText(), QString("a"));
+    QCOMPARE(doc.toPlainText(), QString("a"));
     QVERIFY(exp.cursor()->charFormat().toolTip().isEmpty());
     QVERIFY(!exp.cursor()->charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
 
     exp.formatOptions().setShowAlternatives(true);
     exp.clear();
     exp.exportChar(ch1);
-    QCOMPARE(exp.document()->toPlainText(), QString("a"));
+    QCOMPARE(doc.toPlainText(), QString("a"));
     QVERIFY(exp.cursor()->charFormat().toolTip().isEmpty());
     QVERIFY(!exp.cursor()->charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
 
@@ -247,7 +283,7 @@ void TestQTextDocumentExporter::testWriteCharAlternatives() {
     exp.clear();
     exp.formatOptions().setShowAlternatives(false);
     exp.exportChar(ch1);
-    QCOMPARE(exp.document()->toPlainText(), QString("a"));
+    QCOMPARE(doc.toPlainText(), QString("a"));
     QMap<QString, QVariant> alt_map;
     alt_map.insert("b", 100);
     alt_map.insert("c", 50);
@@ -256,7 +292,7 @@ void TestQTextDocumentExporter::testWriteCharAlternatives() {
     exp.clear();
     exp.formatOptions().setShowAlternatives(true);
     exp.exportChar(ch1);
-    QCOMPARE(exp.document()->toPlainText(), QString("a"));
+    QCOMPARE(doc.toPlainText(), QString("a"));
     QCOMPARE(exp.cursor()->charFormat().toolTip(),
              QString("Alternatives:\n        'b' (100)\n        'c' (50)"));
     QCOMPARE(exp.cursor()->charFormat().underlineColor(), QColor(Qt::red));
@@ -279,10 +315,93 @@ void TestQTextDocumentExporter::testWriteCharBBox() {
     exp.exportChar(ch);
     exp.cursor()->movePosition(QTextCursor::PreviousCharacter);
     QCOMPARE(exp.cursor()->charFormat().toCharFormat().propertyCount(), 1);
-    QCOMPARE(exp.cursor()->charFormat().property(QTextDocumentExporter::BBOX).toRect(), QRect(1, 2, 300, 400));
+    QCOMPARE(exp.cursor()->charFormat().property(QTextDocumentExporter::BBOX).toRect(),
+             QRect(1, 2, 300, 400));
+}
+
+void TestQTextDocumentExporter::testWritePage() {
+    CEDPage page;
+    QTextDocumentExporter exp(&page, FormatOptions());
+    QTextDocument doc;
+    exp.setDocument(&doc);
+
+    // test null margins
+    exp.exportPage(page);
+    QVERIFY(doc.toPlainText().trimmed().isEmpty());
+    QTextFrameFormat page_format = doc.rootFrame()->format().toFrameFormat();
+    QCOMPARE(page_format.topMargin(), 0.0);
+    QCOMPARE(page_format.bottomMargin(), 0.0);
+    QCOMPARE(page_format.leftMargin(), 0.0);
+    QCOMPARE(page_format.rightMargin(), 0.0);
+    QCOMPARE(page_format.intProperty(QTextDocumentExporter::BlockType), int(QTextDocumentExporter::PAGE));
+
+    // test for margins
+    page.setMargins(10, 20, 30, 40);
+    exp.clear();
+    exp.exportPage(page);
+    QVERIFY(doc.toPlainText().trimmed().isEmpty());
+    page_format = doc.rootFrame()->format().toFrameFormat();
+    QCOMPARE(page_format.topMargin(), 10.0);
+    QCOMPARE(page_format.rightMargin(), 20.0);
+    QCOMPARE(page_format.bottomMargin(), 30.0);
+    QCOMPARE(page_format.leftMargin(), 40.0);
+
+    // test for several sections
+    CEDSection * s = new CEDSection;
+    page.addSection(s);
+    page.addSection(new CEDSection);
+    exp.clear();
+
+    exp.exportPage(page);
+
+    QCOMPARE(doc.rootFrame()->childFrames().count(), 2);
+    QCOMPARE(doc.rootFrame()->childFrames().at(0)->format().toFrameFormat().intProperty(QTextDocumentExporter::BlockType),
+             (int) QTextDocumentExporter::SECTION);
+    QCOMPARE(doc.rootFrame()->childFrames().at(1)->format().toFrameFormat().intProperty(QTextDocumentExporter::BlockType),
+             (int) QTextDocumentExporter::SECTION);
+
+    page.clear();
+    page.addSection(new CEDSection);
+    CEDColumn * col = new CEDColumn;
+    col->addElement(makePar("test"));
+    page.sectionAt(0)->addColumn(col);
+    exp.clear();
+    exp.exportPage(page);
+    QCOMPARE(doc.toPlainText().trimmed(), QString("test"));
 }
 
 void TestQTextDocumentExporter::testWriteParagraph() {
+    CEDParagraph par;
+    QTextDocumentExporter exp(NULL, FormatOptions());
+    QTextDocument doc;
+    exp.setDocument(&doc);
+
+    CEDParagraph * par2 = makePar("two line\nparagraph");
+    exp.clear();
+    exp.formatOptions().setPreserveLineBreaks(true);
+    exp.exportParagraph(*par2);
+    QCOMPARE(doc.toPlainText().trimmed(), QString("two line\nparagraph"));
+    exp.clear();
+    exp.formatOptions().setPreserveLineBreaks(false);
+    exp.exportParagraph(*par2);
+    QCOMPARE(doc.toPlainText(), QString("\ntwo line paragraph"));
+    QCOMPARE(doc.toPlainText().trimmed(), QString("two line paragraph"));
+    delete par2;
+
+    CEDParagraph * par3 = makePar("two line hy-\nphen");
+    exp.clear();
+    exp.formatOptions().setPreserveLineBreaks(true);
+    exp.exportParagraph(*par3);
+    QCOMPARE(doc.toPlainText().trimmed(), QString("two line hy-\nphen"));
+    exp.clear();
+    exp.formatOptions().setPreserveLineBreaks(false);
+    exp.exportParagraph(*par2);
+    // soft hyphen
+    QCOMPARE(doc.toPlainText().trimmed(), QString("two line hy\xADphen"));
+    delete par3;
+}
+
+void TestQTextDocumentExporter::testWriteParagraphAlign() {
     CEDParagraph par;
     QTextDocumentExporter exp(NULL, FormatOptions());
     QTextDocument doc;
@@ -297,7 +416,7 @@ void TestQTextDocumentExporter::testWriteParagraph() {
     par.setAlign(cf::ALIGN_RIGHT);
     exp.exportParagraph(par);
     QCOMPARE(exp.cursor()->blockFormat().alignment(), Qt::AlignRight);
-    QCOMPARE(exp.document()->toPlainText(), QString("\n"));
+    QCOMPARE(doc.toPlainText(), QString("\n"));
 
     // left
     exp.clear();
@@ -348,21 +467,27 @@ void TestQTextDocumentExporter::testWriteLine() {
 
     CEDLine line;
     exp.exportLine(line);
-    QCOMPARE(exp.document()->toPlainText(), QString(""));
+    QCOMPARE(doc.toPlainText(), QString(""));
 
     line.addElement(new CEDChar('t'));
     exp.exportLine(line);
-    QCOMPARE(exp.document()->toPlainText(), QString("t\n"));
+    QCOMPARE(doc.toPlainText(), QString("t\n"));
 
     exp.clear();
     exp.formatOptions().setPreserveLineBreaks(false);
     exp.exportLine(line);
-    QCOMPARE(exp.document()->toPlainText(), QString("t "));
+    QCOMPARE(doc.toPlainText(), QString("t "));
 
     line.addElement(new CEDChar('-'));
     exp.clear();
     exp.exportLine(line);
-    QCOMPARE(exp.document()->toPlainText(), QString("t\xAD"));
+    QCOMPARE(doc.toPlainText(), QString("t\xAD"));
+
+    CEDLine * l2 = makeLine("test line");
+    exp.clear();
+    exp.exportLine(*l2);
+    QCOMPARE(doc.toPlainText().trimmed(), QString("test line"));
+    delete l2;
 }
 
 void TestQTextDocumentExporter::testWriteSection() {
@@ -371,28 +496,54 @@ void TestQTextDocumentExporter::testWriteSection() {
     exp.setDocument(&doc);
 
     CEDSection sec;
+    sec.addColumn(new CEDColumn());
+
     exp.exportSection(sec);
-    QCOMPARE(exp.document()->toPlainText(), QString());
+    QVERIFY(doc.toPlainText().trimmed().isEmpty());
 
     sec.addColumn(new CEDColumn());
     exp.clear();
     exp.exportSection(sec);
-    QCOMPARE(exp.document()->toPlainText(), QString());
-    QVERIFY(!exp.cursor()->currentTable());
+    QCOMPARE(doc.rootFrame()->childFrames().at(0)->format().toTableFormat().columns(), 2);
+    QCOMPARE(doc.rootFrame()->childFrames().at(0)->format().intProperty(QTextDocumentExporter::BlockType),
+             (int) QTextDocumentExporter::SECTION);
 
     sec.addColumn(new CEDColumn());
     exp.clear();
     exp.exportSection(sec);
-    QVERIFY(exp.cursor()->currentTable());
-    QCOMPARE(exp.cursor()->currentTable()->columns(), 2);
-    QCOMPARE(exp.cursor()->currentTable()->rows(), 1);
+    QCOMPARE(doc.rootFrame()->childFrames().at(0)->format().toTableFormat().columns(), 3);
 
-    sec.addColumn(new CEDColumn());
+    sec.columnAt(0)->addElement(makePar("column 1"));
+    sec.columnAt(1)->addElement(makePar("column 2"));
     exp.clear();
     exp.exportSection(sec);
-    QVERIFY(exp.cursor()->currentTable());
-    QCOMPARE(exp.cursor()->currentTable()->columns(), 3);
-    QCOMPARE(exp.cursor()->currentTable()->rows(), 1);
+    QCOMPARE(doc.toPlainText().trimmed(), QString("column 1\n\ncolumn 2"));
+}
+
+void TestQTextDocumentExporter::testWriteSectionMargins() {
+    QTextDocumentExporter exp(NULL, FormatOptions());
+    QTextDocument doc;
+    exp.setDocument(&doc);
+
+    CEDSection sec;
+    exp.exportSection(sec);
+    QVERIFY(doc.toPlainText().trimmed().isEmpty());
+    QCOMPARE(doc.rootFrame()->childFrames().count(), 1);
+    QTextFrameFormat section_format = doc.rootFrame()->childFrames().at(0)->format().toFrameFormat();
+    QCOMPARE(section_format.topMargin(), 0.0);
+    QCOMPARE(section_format.bottomMargin(), 0.0);
+    QCOMPARE(section_format.leftMargin(), 0.0);
+    QCOMPARE(section_format.rightMargin(), 0.0);
+
+//    exp.clear();
+//    sec.setMargins(10, 20, 30, 40);
+//    exp.exportSection(sec);
+//    QVERIFY(doc.toPlainText().trimmed().isEmpty());
+//    section_format = doc.rootFrame()->childFrames().at(0)->format().toFrameFormat();
+//    QCOMPARE(section_format.topMargin(), 10.0);
+//    QCOMPARE(section_format.rightMargin(), 20.0);
+//    QCOMPARE(section_format.bottomMargin(), 30.0);
+//    QCOMPARE(section_format.leftMargin(), 40.0);
 }
 
 void TestQTextDocumentExporter::testWriteColumn() {
@@ -406,13 +557,20 @@ void TestQTextDocumentExporter::testWriteColumn() {
     sec.columnAt(0)->setWidth(100);
     exp.exportSection(sec);
 
-    QCOMPARE(exp.cursor()->currentTable()->columns(), 2);
-    QCOMPARE(exp.cursor()->currentTable()->format().cellPadding(), 3.0);
-    QCOMPARE(exp.cursor()->currentTable()->format().cellSpacing(), 0.0);
-    QCOMPARE(exp.cursor()->currentTable()->format().borderStyle(), QTextFrameFormat::BorderStyle_Dotted);
-    QCOMPARE(exp.cursor()->currentTable()->format().border(), 1.0);
-    QCOMPARE(exp.cursor()->currentTable()->format().columnWidthConstraints().at(0),
+    QTextTable * table = qobject_cast<QTextTable*>(doc.rootFrame()->childFrames().at(0));
+    QCOMPARE(table->columns(), 2);
+    QCOMPARE(table->format().cellPadding(), 3.0);
+    QCOMPARE(table->format().cellSpacing(), 0.0);
+    QCOMPARE(table->format().borderStyle(), QTextFrameFormat::BorderStyle_Dotted);
+    QCOMPARE(table->format().border(), 1.0);
+    QCOMPARE(table->format().columnWidthConstraints().at(0),
              QTextLength(QTextLength::FixedLength, 100));
+
+    CEDColumn col;
+    col.addElement(makePar("test columns"));
+    exp.clear();
+    exp.exportColumn(col);
+    QCOMPARE(doc.toPlainText().trimmed(), QString("test columns"));
 }
 
 void TestQTextDocumentExporter::testWritePicture() {
@@ -437,6 +595,21 @@ void TestQTextDocumentExporter::testWritePicture() {
 
     exp.exportPicture(pic);
 //    QCOMPARE(exp.cursor()->charFormat().toImageFormat().height(), 81.0);
+}
+
+void TestQTextDocumentExporter::testComplex() {
+    QTextDocumentExporter exp(NULL, FormatOptions());
+    QTextDocument doc;
+    exp.setDocument(&doc);
+
+    CEDPage page;
+    page.addSection(new CEDSection);
+    CEDColumn * col = new CEDColumn;
+    col->addElement(makePar("two\nlines"));
+    page.sectionAt(0)->addColumn(col);
+    exp.exportPage(page);
+
+    QCOMPARE(doc.toPlainText().trimmed(), QString("two lines"));
 }
 
 QTEST_MAIN(TestQTextDocumentExporter);

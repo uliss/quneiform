@@ -16,37 +16,37 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTQTEXTDOCUMENTEXPORTER_H
-#define TESTQTEXTDOCUMENTEXPORTER_H
+#ifndef CEDPAGEEXPORTER_H
+#define CEDPAGEEXPORTER_H
 
-#include <QObject>
+#include <QTextCursor>
 
-class TestQTextDocumentExporter : public QObject
+namespace cf {
+    class CEDPage;
+}
+
+class QTextDocument;
+class QTextBlock;
+class QTextFrame;
+
+class CEDPageExporter
 {
-    Q_OBJECT
 public:
-    explicit TestQTextDocumentExporter(QObject *parent = 0);
-private slots:
-    void testConstruct();
-    void testWriteChar();
-    void testWriteCharItalic();
-    void testWriteCharBold();
-    void testWriteCharUnderlined();
-    void testWriteCharFontSize();
-    void testWriteCharColors();
-    void testWriteCharEncoding();
-    void testWriteCharAlternatives();
-    void testWriteCharBBox();
-    void testWritePage();
-    void testWriteParagraph();
-    void testWriteParagraphAlign();
-    void testWriteParagraphIndent();
-    void testWriteLine();
-    void testWriteSection();
-    void testWriteSectionMargins();
-    void testWriteColumn();
-    void testWritePicture();
-    void testComplex();
+    CEDPageExporter();
+    ~CEDPageExporter();
+    QTextCursor * cursor();
+    QTextDocument * document();
+    void doExport(QTextDocument * doc, cf::CEDPage * page);
+    cf::CEDPage * page();
+private:
+    void exportBlock(const QTextBlock& block);
+    void exportColumnTable(QTextTable * table);
+    void exportPage();
+    void exportSection(QTextFrame * frame);
+private:
+    QTextDocument * doc_;
+    cf::CEDPage * page_;
+    QTextCursor cursor_;
 };
 
-#endif // TESTQTEXTDOCUMENTEXPORTER_H
+#endif // CEDPAGEEXPORTER_H

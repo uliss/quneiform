@@ -46,6 +46,15 @@ public:
         ALTERNATIVES = QTextFormat::UserProperty + 2
     };
 
+    static const int BlockType = QTextFormat::UserProperty + 3;
+
+    enum ElementType {
+        PAGE = 1,
+        SECTION,
+        COLUMN,
+        PARAGRAPH
+    };
+
     /**
       * Clears document
       */
@@ -67,12 +76,14 @@ public:
     void setDocument(QTextDocument * doc);
 protected:
     void writePageBegin(cf::CEDPage& page);
+    void writePageEnd(cf::CEDPage& page);
     void writeParagraphBegin(cf::CEDParagraph& par);
     void writeCharacter(cf::CEDChar& chr);
     void writeColumnBegin(cf::CEDColumn& col);
     void writeLineEnd(cf::CEDLine& line);
     void writePicture(cf::CEDPicture& pic);
     void writeSectionBegin(cf::CEDSection& section);
+    void writeSectionEnd(cf::CEDSection& section);
 private:
     typedef QMap<QString, QVariant> AltMap;
     AltMap charAlternatives(const cf::CEDChar& chr) const;
@@ -84,11 +95,14 @@ private:
     void exportCharItalic(QTextCharFormat& format, const cf::CEDChar& chr) const;
     void exportCharUnderline(QTextCharFormat& format, const cf::CEDChar& chr) const;
     void exportCharFontSize(QTextCharFormat& format, const cf::CEDChar& chr) const;
+    void insertSectionFrame(cf::CEDSection& section);
+    void insertSectionTable(cf::CEDSection& section);
 private:
     QTextDocument * doc_;
     QTextCursor * cursor_;
     int current_col_num_;
     int line_num_in_par_;
+    int par_line_count_;
     bool do_column_layout_;
 };
 

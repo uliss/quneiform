@@ -37,8 +37,16 @@
 #include "rdib/bmp.h"
 #include "cfcompat.h"
 #include "compat_defs.h"
+#include "common/tostring.h"
 
 using namespace cf;
+
+static void setFormatMargins(QTextFrameFormat& format, const cf::Rect& margins) {
+    format.setTopMargin(margins.top());
+    format.setRightMargin(margins.right());
+    format.setBottomMargin(margins.bottom());
+    format.setLeftMargin(margins.left());
+}
 
 static const char * SOFT_HYPEN = "\xAD";
 
@@ -56,11 +64,13 @@ QTextDocumentExporter::QTextDocumentExporter(CEDPage * page, const FormatOptions
         cursor_(NULL),
         current_col_num_(0),
         line_num_in_par_(0),
+        par_line_count_(0),
         do_column_layout_(false)
 {
 }
 
 QTextDocumentExporter::~QTextDocumentExporter() {
+    delete cursor_;
 }
 
 QTextDocumentExporter::AltMap QTextDocumentExporter::charAlternatives(const cf::CEDChar& chr) const {
@@ -145,6 +155,40 @@ QTextDocument * QTextDocumentExporter::document() {
     return doc_;
 }
 
+void QTextDocumentExporter::insertSectionFrame(cf::CEDSection& section) {
+    Q_ASSERT(cursor_);
+
+    QTextFrameFormat section_format;
+//    setFormatMargins(section_format, section.margins());
+    section_format.setProperty(BlockType, SECTION);
+    cursor_->insertFrame(section_format);
+}
+
+void QTextDocumentExporter::insertSectionTable(cf::CEDSection& section) {
+    Q_ASSERT(cursor_);
+
+    QTextTableFormat tbl_format;
+    tbl_format.setAlignment(Qt::AlignHCenter);
+    tbl_format.setBorderStyle(QTextFrameFormat::BorderStyle_Dotted);
+    tbl_format.setBorder(1);
+    tbl_format.setCellPadding(3);
+    tbl_format.setCellSpacing(0);
+    tbl_format.setProperty(BlockType, SECTION);
+
+    QVector<QTextLength> col_wd;
+    for(size_t i = 0; i < section.columnCount(); i++) {
+        CEDColumn * col = section.columnAt(i);
+        if(col->width() > 0)
+            col_wd.append(QTextLength(QTextLength::FixedLength, col->width()));
+        else
+            col_wd.append(QTextLength(QTextLength::VariableLength, 300));
+    }
+
+    tbl_format.setColumnWidthConstraints(col_wd);
+
+    cursor_->insertTable(1, 1, tbl_format);
+}
+
 void QTextDocumentExporter::setDocument(QTextDocument * doc) {
     Q_ASSERT(doc);
 
@@ -199,7 +243,7 @@ void QTextDocumentExporter::writeLineEnd(cf::CEDLine& line) {
         return;
 
     if(formatOptions().preserveLineBreaks()) {
-        if(line_num_in_par_++ != 0) {
+        if(line_num_in_par_ != 0) {
             QTextBlockFormat current_fmt = cursor_->blockFormat();
             current_fmt.setTextIndent(0);
             cursor_->setBlockFormat(current_fmt);
@@ -208,30 +252,45 @@ void QTextDocumentExporter::writeLineEnd(cf::CEDLine& line) {
         cursor_->insertText("\n", cursor_->charFormat());
     }
     else {
-        if(line.endsWithHyphen()) {
-            cursor_->deletePreviousChar();
-            cursor_->insertText(SOFT_HYPEN);
+        if(line.hardBreak()) {
+            cursor_->insertText("\n");
         }
         else {
-            cursor_->insertText(" "); // space
+            if(line.endsWithHyphen()) {
+                cursor_->deletePreviousChar();
+                cursor_->insertText(SOFT_HYPEN);
+            }
+            else {
+                // skip last line
+                if(line_num_in_par_ != par_line_count_ - 1)
+                    cursor_->insertText(" "); // space
+            }
         }
     }
+
+    line_num_in_par_++;
 }
 
 void QTextDocumentExporter::writePageBegin(cf::CEDPage& page) {
-    QTextFrameFormat format;
+    Q_ASSERT(doc_);
+    Q_ASSERT(cursor_);
 
+    cursor_->beginEditBlock();
+
+    QTextFrameFormat page_format;
     if(page.imageSize().isValid()) {
 //        format.setWidth(page.imageSize().width());
 //        format.setHeight(page.imageSize().height());
     }
 
-    format.setTopMargin(page.marginTop());
-    format.setRightMargin(page.marginRight());
-    format.setBottomMargin(page.marginBottom());
-    format.setLeftMargin(page.marginLeft());
+    setFormatMargins(page_format, page.margins());
+    page_format.setProperty(BlockType, PAGE);
+    doc_->rootFrame()->setFrameFormat(page_format);
+}
 
-    cursor_->insertFrame(format);
+void QTextDocumentExporter::writePageEnd(cf::CEDPage&) {
+    Q_ASSERT(cursor_);
+    cursor_->endEditBlock();
 }
 
 void QTextDocumentExporter::writeParagraphBegin(CEDParagraph& par) {
@@ -259,6 +318,7 @@ void QTextDocumentExporter::writeParagraphBegin(CEDParagraph& par) {
     cursor_->insertBlock(format);
     cursor_->movePosition(QTextCursor::StartOfBlock);
     line_num_in_par_ = 0;
+    par_line_count_ = par.lineCount();
 }
 
 void QTextDocumentExporter::writePicture(cf::CEDPicture& pic) {
@@ -302,27 +362,18 @@ void QTextDocumentExporter::writePicture(cf::CEDPicture& pic) {
 
 void QTextDocumentExporter::writeSectionBegin(cf::CEDSection& section) {
     current_col_num_ = 0;
+
     do_column_layout_ = (section.columnCount() > 1);
 
-    if(do_column_layout_) {
-        QTextTableFormat format;
-        format.setAlignment(Qt::AlignHCenter);
-        format.setBorderStyle(QTextFrameFormat::BorderStyle_Dotted);
-        format.setBorder(1);
-        format.setCellPadding(3);
-        format.setCellSpacing(0);
+    if(do_column_layout_)
+        insertSectionTable(section);
+    else
+        insertSectionFrame(section);
+}
 
-        QVector<QTextLength> col_wd;
-        for(size_t i = 0; i < section.columnCount(); i++) {
-            CEDColumn * col = section.columnAt(i);
-            if(col->width() > 0)
-                col_wd.append(QTextLength(QTextLength::FixedLength, col->width()));
-            else
-                col_wd.append(QTextLength(QTextLength::VariableLength, 300));
-        }
+void QTextDocumentExporter::writeSectionEnd(cf::CEDSection& /*section*/) {
+    Q_ASSERT(doc_);
+    Q_ASSERT(cursor_);
 
-        format.setColumnWidthConstraints(col_wd);
-
-        cursor_->insertTable(1, 1, format);
-    }
+    *cursor_ = doc_->rootFrame()->lastCursorPosition();
 }

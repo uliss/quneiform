@@ -57,6 +57,15 @@ void BlockElement::addElement(ElementPtr e) {
     e->setParent(this);
 }
 
+bool BlockElement::hasElement(Element * el) {
+    for (iterator it = elements_.begin(), e = elements_.end(); it != e; ++it) {
+        if(it->get() == el)
+            return true;
+    }
+
+    return false;
+}
+
 Element * BlockElement::lastElement() {
     if (elements_.empty())
         throw std::out_of_range("[BlockElement::lastElement] element is empty");
@@ -83,6 +92,10 @@ int BlockElement::marginRight() const {
 
 int BlockElement::marginTop() const {
     return margins_.top();
+}
+
+Rect BlockElement::margins() const {
+    return margins_;
 }
 
 void BlockElement::setBorderBottom(ed_border_t bottom) {
