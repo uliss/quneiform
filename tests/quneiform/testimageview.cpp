@@ -523,6 +523,10 @@ void TestImageView::testMinMaxZoom() {
 
 void TestImageView::testShowCharBBox() {
     ImageView iv;
+
+    // no page
+    iv.showChar(QRect(1, 2, 3, 4));
+
     Page p(CF_IMAGE_DIR "/english.png");
     iv.showPage(&p);
 

@@ -401,7 +401,11 @@ void ImageView::setupScene() {
 }
 
 void ImageView::showChar(const QRect& bbox) {
+    if(!page_)
+        return;
+
     Q_ASSERT(scene_);
+
     QSettings settings;
     settings.beginGroup("format");
     QPen p(settings.value("currentCharColor", Qt::red).value<QColor>());
