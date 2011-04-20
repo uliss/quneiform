@@ -23,9 +23,12 @@
 #include "languageselect.h"
 #include "language_i18n.h"
 
-LanguageSelect::LanguageSelect(QWidget * parent) : QComboBox(parent) {
+LanguageSelect::LanguageSelect(QWidget * parent)
+    : QComboBox(parent)
+{
     initLanguages();
     connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(languageChange(int)));
+    select(::LANGUAGE_ENGLISH);
 }
 
 int LanguageSelect::currentLanguage() const {
