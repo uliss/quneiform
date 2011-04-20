@@ -124,6 +124,7 @@ std::string Exporter::outputFilename() const {
 void Exporter::setEncodings() {
     switch (formatOptions().language()) {
     case LANGUAGE_CROATIAN:
+    case LANGUAGE_CZECH:
     case LANGUAGE_HUNGARIAN:
     case LANGUAGE_POLISH:
     case LANGUAGE_ROMANIAN:
