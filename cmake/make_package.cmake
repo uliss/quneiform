@@ -9,16 +9,16 @@ set(CPACK_PACKAGE_VERSION_PATCH ${CF_VERSION_PATCH})
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING.txt")
 
 if(WIN32)
-	macro(cf_install_dll DLL_NAME src_path)
-		unset(cf_file CACHE)
-		find_file(cf_file "${DLL_NAME}.dll" PATHS ${src_path})
-		if(cf_file)
-			message(STATUS "Install: ${cf_file} found.")
-			install(FILES
-				${cf_file}
-				DESTINATION bin)
-		endif()
-	endmacro()
+    macro(cf_install_dll DLL_NAME src_path)
+        unset(cf_file CACHE)
+        find_file(cf_file "${DLL_NAME}.dll" PATHS ${src_path})
+        if(cf_file)
+            message(STATUS "Install: ${cf_file} found.")
+            install(FILES
+                        ${cf_file}
+                        DESTINATION bin)
+        endif()
+    endmacro()
 endif()
 
 if(APPLE)
@@ -45,45 +45,44 @@ elseif(UNIX AND NOT APPLE)
     endif()
     set(CPACK_DEBIAN_PACKAGE_DEPENDS ${CF_DEB_DEPENDS})
 elseif(WIN32)	
-	install(FILES
-		"${QT_LIBRARY_DIR}/../bin/QtCore${QT_VERSION_MAJOR}.dll"
-		"${QT_LIBRARY_DIR}/../bin/QtGui${QT_VERSION_MAJOR}.dll"
-		
-		DESTINATION bin
-	)
-	
-	if(MINGW)
-	    find_path(CF_MINGW_PATH_BIN mingw32-make.exe PATHS
-			"[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\MinGW;InstallLocation]/bin" 
-			c:/MinGW/bin /MinGW/bin)
+    install(FILES
+        "${QT_LIBRARY_DIR}/../bin/QtCore${QT_VERSION_MAJOR}.dll"
+        "${QT_LIBRARY_DIR}/../bin/QtGui${QT_VERSION_MAJOR}.dll"
+        DESTINATION bin
+    )
+
+    if(MINGW)
+        find_path(CF_MINGW_PATH_BIN mingw32-make.exe PATHS
+            "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\MinGW;InstallLocation]/bin"
+            c:/MinGW/bin /MinGW/bin)
 			
-		cf_install_dll(libstdc++-6 ${CF_MINGW_PATH_BIN})
-		cf_install_dll(libgcc_s_dw2-1 ${CF_MINGW_PATH_BIN})
-		cf_install_dll(mingwm10 ${CF_MINGW_PATH_BIN})
-		cf_install_dll(libiconv2 ${ICONV_INCLUDE_DIR}/../bin)	
-	endif()
+        cf_install_dll(libstdc++-6 ${CF_MINGW_PATH_BIN})
+        cf_install_dll(libgcc_s_dw2-1 ${CF_MINGW_PATH_BIN})
+        cf_install_dll(mingwm10 ${CF_MINGW_PATH_BIN})
+        cf_install_dll(libiconv2 ${ICONV_INCLUDE_DIR}/../bin)
+    endif()
 	
     if(MSVC)
-	    cf_install_dll(libiconv2 ${ICONV_INCLUDE_DIR}/../bin)	
+        cf_install_dll(libiconv2 ${ICONV_INCLUDE_DIR}/../bin)
     endif()
 
-	set(CPACK_GENERATOR "NSIS")	
-	set(CPACK_PACKAGE_NAME "Cuneiform")
-	set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY
-		"${CPACK_PACKAGE_NAME}")
-	set(CPACK_PACKAGE_EXECUTABLES quneiform;Quneiform)
+    set(CPACK_GENERATOR "NSIS")
+    set(CPACK_PACKAGE_NAME "Cuneiform")
+    set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY
+        "${CPACK_PACKAGE_NAME}")
+    set(CPACK_PACKAGE_EXECUTABLES quneiform;Quneiform)
  
     # install icon
-	set(CPACK_PACKAGE_ICON  "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform_install.bmp")
-	set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
-	set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
-	set(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_NAME} ${CF_VERSION}")
+    set(CPACK_PACKAGE_ICON  "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform_install.bmp")
+    set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
+    set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
+    set(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_NAME} ${CF_VERSION}")
 	
-	set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\quneiform.exe")
-	set(CPACK_NSIS_CONTACT "serge.poltavski@gmail.com")
-	set(CPACK_NSIS_HELP_LINK "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
-	set(CPACK_NSIS_URL_INFO_ABOUT "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
-	set(CPACK_NSIS_MODIFY_PATH ON)
+    set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\quneiform.exe")
+    set(CPACK_NSIS_CONTACT "serge.poltavski@gmail.com")
+    set(CPACK_NSIS_HELP_LINK "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
+    set(CPACK_NSIS_URL_INFO_ABOUT "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
+    set(CPACK_NSIS_MODIFY_PATH ON)
 endif()
 
 include(CPack)

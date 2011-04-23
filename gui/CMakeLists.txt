@@ -1,4 +1,10 @@
-#set(PROJECT "quneiform")
+set(QUNEIFORM_VERSION 0.1)
+
+if(APPLE)
+    project(Quneiform)
+else()
+    project(quneiform)
+endif()
 
 add_subdirectory(resources)
 
@@ -101,45 +107,59 @@ set(SRCS
     ${SOURCES}
     ${MOC_SOURCES}
     ${UI_HEADERS}
-    ${TRANSLATIONS_QM}
 )
 
+set(EXTRA_RES)
+
 if(MINGW)
-	find_program(WINDRES
-		NAMES windres.exe
-		PATHS $ENV{PATH}
-		NO_DEFAULT_PATH
-	) 
+    find_program(WINDRES
+        NAMES windres.exe
+        PATHS $ENV{PATH}
+        NO_DEFAULT_PATH
+    )
 	
-	if(WINDRES) 
-		message(STATUS "windres programm found: ${WINDRES}")
+    if(WINDRES)
+        message(STATUS "windres program found: ${WINDRES}")
 	
-		add_custom_command(
-		OUTPUT 
-			win_quneiform_rc.o
-		COMMAND 
-			windres.exe -I${CMAKE_CURRENT_SOURCE_DIR} 
-				-i${CMAKE_CURRENT_SOURCE_DIR}/resources/win_quneiform.rc 
-				-o win_quneiform_rc.o)
-		set(SRCS ${SRCS} win_quneiform_rc.o)
-	endif()
+        add_custom_command(
+            OUTPUT
+            win_quneiform_rc.o
+            COMMAND
+            windres.exe -I${CMAKE_CURRENT_SOURCE_DIR}
+                -i${CMAKE_CURRENT_SOURCE_DIR}/resources/win_quneiform.rc
+                -o win_quneiform_rc.o)
+        set(SRCS ${SRCS} win_quneiform_rc.o)
+    endif()
 endif()
 
 if(APPLE)
-    set(CMAKE_BUNDLE_NAME "Quneiform")
-    set(MACOSX_BUNDLE_BUNDLE_NAME "Quneiform")
-    set(MACOSX_BUNDLE_COPYRIGHT "(c) 2010-2011 Serge Poltavski" )
+    set(CMAKE_BUNDLE_NAME ${PROJECT_NAME})
+    set(MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_NAME})
+    set(MACOSX_BUNDLE_INFO_STRING "Optical recognition software")
+    set(MACOSX_BUNDLE_COPYRIGHT "(c) 2010-2011 Serge Poltavski")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
+    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${PROJECT_NAME} ${QUNEIFORM_VERSION}")
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${QUNEIFORM_VERSION})
+    set(MACOSX_BUNDLE_BUNDLE_VERSION ${QUNEIFORM_VERSION})
 
     # setting bundle icon
     set(ICON cuneiform.icns)
     set(ICON_SRC "${CMAKE_CURRENT_SOURCE_DIR}/resources/${ICON}")
-    set(SRCS ${SRCS} ${ICON_SRC})
+    # include the icns file in the target
+    list(APPEND EXTRA_RES ${ICON_SRC})
+
     set(MACOSX_BUNDLE_ICON_FILE ${ICON})
+    set(CPACK_BUNDLE_ICON ${ICON_SRC})
+    set(CPACK_PACKAGE_ICON ${ICON_SRC})
+
+    list(APPEND EXTRA_RES ${TRANSLATIONS_QM})
 
     # where to place resources
-    set_source_files_properties(${ICON_SRC} ${TRANSLATIONS_QM}
+    set_source_files_properties(
+        ${ICON_SRC}
+        ${TRANSLATIONS_QM}
         PROPERTIES
-        MACOSX_PACKAGE_LOCATION "Resources"
+        MACOSX_PACKAGE_LOCATION Resources
     )
 
     # bundle l10n
@@ -151,34 +171,39 @@ if(APPLE)
 endif()
 
 add_library(quneiform_lib STATIC ${SRCS})
-add_executable (quneiform MACOSX_BUNDLE main.cpp ${QRC_SOURCES})
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE main.cpp ${QRC_SOURCES} ${EXTRA_RES})
  
 if(APPLE)
-	add_dependencies(quneiform osx_l10n_dirs)
+    add_dependencies(${PROJECT_NAME} osx_l10n_dirs)
     find_library(EXTRA_LIBS CoreFoundation "/")
 else()
     set(EXTRA_LIBS "")
 endif()
 
 if(MSVC)
-	set(${QT_LIBRARIES} qtmain ${QT_LIBRARIES})
+    set(${QT_LIBRARIES} qtmain ${QT_LIBRARIES})
 else()
     set(EXTRA_LIBS ${EXTRA_LIBS} m)
 endif()
 
-target_link_libraries (quneiform quneiform_lib ${LIBRARIES} ${QT_LIBRARIES} cuneiform ${EXTRA_LIBS})
+target_link_libraries (${PROJECT_NAME} quneiform_lib ${LIBRARIES} ${QT_LIBRARIES} cuneiform ${EXTRA_LIBS})
 
 if(APPLE)
-    set_target_properties(quneiform
+    set_target_properties(${PROJECT_NAME}
         PROPERTIES
         OUTPUT_NAME ${CMAKE_BUNDLE_NAME})
+
+    set_target_properties(${PROJECT_NAME}
+        PROPERTIES
+        MACOSX_BUNDLE_INFO_PLIST
+        ${CMAKE_CURRENT_SOURCE_DIR}/resources/Info.plist.in)
 
     set(CMAKE_INSTALL_DESTINATION_ARGS
         BUNDLE DESTINATION "/Applications")
 endif()
 
 install(
-    TARGETS quneiform
+    TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION bin
     ${CMAKE_INSTALL_DESTINATION_ARGS}
 )

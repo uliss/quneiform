@@ -4,12 +4,12 @@
  <plist version="1.0">
  <dict>
      <key>LprojCompatibleVersion</key>
-     <string>0</string>
+     <string>123</string>
      <key>LprojLocale</key>
-     <string>ry</string>
+     <string>ru</string>
      <key>LprojRevisionLevel</key>
      <string>1</string>
      <key>LprojVersion</key>
-     <string>0</string>
+     <string>123</string>
  </dict>
  </plist>
