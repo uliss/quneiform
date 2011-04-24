@@ -77,6 +77,7 @@ protected:
     void writePageBegin(cf::CEDPage& page);
     void writePageEnd(cf::CEDPage& page);
     void writeParagraphBegin(cf::CEDParagraph& par);
+    void writeParagraphEnd(cf::CEDParagraph& par);
     void writeCharacter(cf::CEDChar& chr);
     void writeColumnBegin(cf::CEDColumn& col);
     void writeLineEnd(cf::CEDLine& line);

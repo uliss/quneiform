@@ -304,10 +304,15 @@ void QTextDocumentExporter::writeParagraphBegin(CEDParagraph& par) {
     if(par.indent() != 0)
         format.setTextIndent(par.indent());
 
+    cursor_.beginEditBlock();
     cursor_.insertBlock(format);
     cursor_.movePosition(QTextCursor::StartOfBlock);
     line_num_in_par_ = 0;
     par_line_count_ = par.lineCount();
+}
+
+void QTextDocumentExporter::writeParagraphEnd(cf::CEDParagraph& par) {
+    cursor_.endEditBlock();
 }
 
 void QTextDocumentExporter::writePicture(cf::CEDPicture& pic) {
