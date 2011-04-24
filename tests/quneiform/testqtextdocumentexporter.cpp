@@ -602,12 +602,6 @@ void TestQTextDocumentExporter::testWriteColumn() {
     QCOMPARE(table->format().border(), 1.0);
     QCOMPARE(table->format().columnWidthConstraints().at(0),
              QTextLength(QTextLength::FixedLength, 100));
-
-    CEDColumn col;
-    col.addElement(makePar("test columns"));
-    exp.clear();
-    exp.exportColumn(col);
-    QCOMPARE(doc.toPlainText().trimmed(), QString("test columns"));
 }
 
 void TestQTextDocumentExporter::testWritePicture() {

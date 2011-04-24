@@ -35,6 +35,9 @@ class CEDPicture;
 class FormatOptions;
 }
 
+class QTextTable;
+class QTextTableFormat;
+
 class QTextDocumentExporter : public cf::GenericExporter
 {
 public:
@@ -95,11 +98,14 @@ private:
     void exportCharItalic(QTextCharFormat& format, const cf::CEDChar& chr) const;
     void exportCharUnderline(QTextCharFormat& format, const cf::CEDChar& chr) const;
     void exportCharFontSize(QTextCharFormat& format, const cf::CEDChar& chr) const;
+    void insertColumnTable(int columns, const QTextTableFormat& fmt);
     void insertSectionFrame(cf::CEDSection& section);
     void insertSectionTable(cf::CEDSection& section);
+    void moveCursorToColumn(int column);
 private:
     QTextCursor cursor_;
     QTextDocument * doc_;
+    QTextTable * column_table_;
     int column_num_;
     int line_num_in_par_;
     int par_line_count_;

@@ -61,6 +61,7 @@ static inline QColor toQColor(const cf::Color& c) {
 QTextDocumentExporter::QTextDocumentExporter(CEDPage * page, const FormatOptions& opts) :
         GenericExporter(page, opts),
         doc_(NULL),
+        column_table_(NULL),
         column_num_(0),
         line_num_in_par_(0),
         par_line_count_(0),
@@ -150,6 +151,10 @@ QTextDocument * QTextDocumentExporter::document() {
     return doc_;
 }
 
+void QTextDocumentExporter::insertColumnTable(int columns, const QTextTableFormat& fmt) {
+    column_table_ = cursor_.insertTable(1, columns, fmt);
+}
+
 void QTextDocumentExporter::insertSectionFrame(cf::CEDSection& /*section*/) {
     QTextFrameFormat section_format;
 //    setFormatMargins(section_format, section.margins());
@@ -177,7 +182,13 @@ void QTextDocumentExporter::insertSectionTable(cf::CEDSection& section) {
 
     tbl_format.setColumnWidthConstraints(col_wd);
 
-    cursor_.insertTable(1, 1, tbl_format);
+    insertColumnTable(section.columnCount(), tbl_format);
+}
+
+void QTextDocumentExporter::moveCursorToColumn(int column) {
+    Q_CHECK_PTR(column_table_);
+
+    cursor_ = column_table_->cellAt(0, column).firstCursorPosition();
 }
 
 void QTextDocumentExporter::setDocument(QTextDocument * doc) {
@@ -217,15 +228,10 @@ void QTextDocumentExporter::writeColumnBegin(cf::CEDColumn&) {
     if(skip_columns_)
         return;
 
-    if(column_num_++ == 0)
-        return;
+    Q_CHECK_PTR(column_table_);
 
-    QTextTable * table = cursor_.currentTable();
-    if(!table) {
-        qDebug() << Q_FUNC_INFO << "no current table";
-    } else {
-        table->appendColumns(1);
-    }
+    moveCursorToColumn(column_num_);
+    column_num_++;
 }
 
 void QTextDocumentExporter::writeLineEnd(cf::CEDLine& line) {
@@ -311,7 +317,7 @@ void QTextDocumentExporter::writeParagraphBegin(CEDParagraph& par) {
     par_line_count_ = par.lineCount();
 }
 
-void QTextDocumentExporter::writeParagraphEnd(cf::CEDParagraph& par) {
+void QTextDocumentExporter::writeParagraphEnd(cf::CEDParagraph&) {
     cursor_.endEditBlock();
 }
 
