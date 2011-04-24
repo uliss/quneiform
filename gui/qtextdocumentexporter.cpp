@@ -155,7 +155,7 @@ QTextDocument * QTextDocumentExporter::document() {
     return doc_;
 }
 
-void QTextDocumentExporter::insertSectionFrame(cf::CEDSection& section) {
+void QTextDocumentExporter::insertSectionFrame(cf::CEDSection& /*section*/) {
     Q_ASSERT(cursor_);
 
     QTextFrameFormat section_format;

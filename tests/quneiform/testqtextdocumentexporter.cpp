@@ -506,20 +506,44 @@ void TestQTextDocumentExporter::testWriteSection() {
     sec.addColumn(new CEDColumn());
     exp.clear();
     exp.exportSection(sec);
-    QCOMPARE(doc.rootFrame()->childFrames().at(0)->format().toTableFormat().columns(), 2);
-    QCOMPARE(doc.rootFrame()->childFrames().at(0)->format().intProperty(QTextDocumentExporter::BlockType),
+    QTextTable * table = qobject_cast<QTextTable*>(doc.rootFrame()->childFrames().at(0));
+    QVERIFY(table);
+    QCOMPARE(table->columns(), (int) sec.columnCount());
+    QCOMPARE(table->rows(), 1);
+    QCOMPARE(table->format().intProperty(QTextDocumentExporter::BlockType),
              (int) QTextDocumentExporter::SECTION);
 
     sec.addColumn(new CEDColumn());
     exp.clear();
     exp.exportSection(sec);
-    QCOMPARE(doc.rootFrame()->childFrames().at(0)->format().toTableFormat().columns(), 3);
+
+    table = qobject_cast<QTextTable*>(doc.rootFrame()->childFrames().at(0));
+    QCOMPARE(table->columns(), (int) sec.columnCount());
 
     sec.columnAt(0)->addElement(makePar("column 1"));
     sec.columnAt(1)->addElement(makePar("column 2"));
     exp.clear();
     exp.exportSection(sec);
+
+    table = qobject_cast<QTextTable*>(doc.rootFrame()->childFrames().at(0));
     QCOMPARE(doc.toPlainText().trimmed(), QString("column 1\n\ncolumn 2"));
+
+    QTextCursor cell_cursor = table->cellAt(0, 0).firstCursorPosition();
+    QVERIFY(cell_cursor.movePosition(QTextCursor::NextBlock));
+    QVERIFY(cell_cursor.atBlockStart());
+    QCOMPARE(cell_cursor.block().text(), QString("column 1"));
+
+    cell_cursor = table->cellAt(0, 1).firstCursorPosition();
+    QVERIFY(cell_cursor.movePosition(QTextCursor::NextBlock));
+    QVERIFY(cell_cursor.atBlockStart());
+    QCOMPARE(cell_cursor.block().text(), QString("column 2"));
+
+    // empty section
+    CEDSection empty_section;
+    exp.clear();
+    exp.exportSection(empty_section);
+    QCOMPARE(doc.toPlainText().trimmed(), QString(""));
+    QCOMPARE(doc.rootFrame()->childFrames().count(), 1);
 }
 
 void TestQTextDocumentExporter::testWriteSectionMargins() {
