@@ -351,13 +351,23 @@ void TestQTextDocumentExporter::testWritePage() {
     page.addSection(s);
     page.addSection(new CEDSection);
     exp.clear();
+    exp.exportPage(page);
 
+    QVERIFY(doc.rootFrame()->childFrames().isEmpty());
+    page.sectionAt(0)->addColumn(new CEDColumn);
+    page.sectionAt(1)->addColumn(new CEDColumn);
+
+    exp.clear();
     exp.exportPage(page);
 
     QCOMPARE(doc.rootFrame()->childFrames().count(), 2);
-    QCOMPARE(doc.rootFrame()->childFrames().at(0)->format().toFrameFormat().intProperty(QTextDocumentExporter::BlockType),
+    QTextFrame * section_frame = qobject_cast<QTextFrame*>(doc.rootFrame()->childFrames().at(0));
+    QVERIFY(section_frame);
+    QCOMPARE(section_frame->format().intProperty(QTextDocumentExporter::BlockType),
              (int) QTextDocumentExporter::SECTION);
-    QCOMPARE(doc.rootFrame()->childFrames().at(1)->format().toFrameFormat().intProperty(QTextDocumentExporter::BlockType),
+    section_frame = qobject_cast<QTextFrame*>(doc.rootFrame()->childFrames().at(1));
+    QVERIFY(section_frame);
+    QCOMPARE(section_frame->format().intProperty(QTextDocumentExporter::BlockType),
              (int) QTextDocumentExporter::SECTION);
 
     page.clear();
@@ -543,7 +553,7 @@ void TestQTextDocumentExporter::testWriteSection() {
     exp.clear();
     exp.exportSection(empty_section);
     QCOMPARE(doc.toPlainText().trimmed(), QString(""));
-    QCOMPARE(doc.rootFrame()->childFrames().count(), 1);
+    QVERIFY(doc.rootFrame()->childFrames().isEmpty());
 }
 
 void TestQTextDocumentExporter::testWriteSectionMargins() {
@@ -552,6 +562,7 @@ void TestQTextDocumentExporter::testWriteSectionMargins() {
     exp.setDocument(&doc);
 
     CEDSection sec;
+    sec.addColumn(new CEDColumn);
     exp.exportSection(sec);
     QVERIFY(doc.toPlainText().trimmed().isEmpty());
     QCOMPARE(doc.rootFrame()->childFrames().count(), 1);

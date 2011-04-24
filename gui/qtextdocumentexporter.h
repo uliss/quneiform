@@ -100,10 +100,10 @@ private:
 private:
     QTextDocument * doc_;
     QTextCursor * cursor_;
-    int current_col_num_;
+    int column_num_;
     int line_num_in_par_;
     int par_line_count_;
-    bool do_column_layout_;
+    bool skip_columns_;
 };
 
 #endif // QTEXTDOCUMENTEXPORTER_H

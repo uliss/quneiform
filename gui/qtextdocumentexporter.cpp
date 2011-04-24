@@ -62,10 +62,10 @@ QTextDocumentExporter::QTextDocumentExporter(CEDPage * page, const FormatOptions
         GenericExporter(page, opts),
         doc_(NULL),
         cursor_(NULL),
-        current_col_num_(0),
+        column_num_(0),
         line_num_in_par_(0),
         par_line_count_(0),
-        do_column_layout_(false)
+        skip_columns_(true)
 {
 }
 
@@ -224,10 +224,10 @@ void QTextDocumentExporter::writeCharacter(CEDChar& chr) {
 }
 
 void QTextDocumentExporter::writeColumnBegin(cf::CEDColumn&) {
-    if(!do_column_layout_)
+    if(skip_columns_)
         return;
 
-    if(current_col_num_++ == 0)
+    if(column_num_++ == 0)
         return;
 
     QTextTable * table = cursor_->currentTable();
@@ -360,14 +360,17 @@ void QTextDocumentExporter::writePicture(cf::CEDPicture& pic) {
 }
 
 void QTextDocumentExporter::writeSectionBegin(cf::CEDSection& section) {
-    current_col_num_ = 0;
+    if(section.empty())
+        return;
 
-    do_column_layout_ = (section.columnCount() > 1);
+    column_num_ = 0;
 
-    if(do_column_layout_)
-        insertSectionTable(section);
-    else
+    skip_columns_ = (section.columnCount() < 2);
+
+    if(skip_columns_)
         insertSectionFrame(section);
+    else
+        insertSectionTable(section);
 }
 
 void QTextDocumentExporter::writeSectionEnd(cf::CEDSection& /*section*/) {
