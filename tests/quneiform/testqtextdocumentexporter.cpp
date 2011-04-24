@@ -115,21 +115,21 @@ void TestQTextDocumentExporter::testWriteCharBold() {
     exp.setDocument(&doc);
     CEDChar ch('s');
     exp.exportChar(ch);
-    QVERIFY(exp.cursor()->charFormat().fontWeight() != QFont::Bold);
+    QVERIFY(exp.cursor().charFormat().fontWeight() != QFont::Bold);
 
     ch.setFontStyle(FONT_BOLD & FONT_UNDERLINE);
     exp.exportChar(ch);
-    QVERIFY(exp.cursor()->charFormat().fontWeight() != QFont::Bold);
+    QVERIFY(exp.cursor().charFormat().fontWeight() != QFont::Bold);
 
     exp.formatOptions().useBold(true);
     ch.setFontStyle(FONT_UNDERLINE);
     exp.exportChar(ch);
-    QVERIFY(exp.cursor()->charFormat().fontWeight() != QFont::Bold);
+    QVERIFY(exp.cursor().charFormat().fontWeight() != QFont::Bold);
 
     // bold
     ch.setFontStyle(FONT_BOLD);
     exp.exportChar(ch);
-    QVERIFY(exp.cursor()->charFormat().fontWeight() == QFont::Bold);
+    QVERIFY(exp.cursor().charFormat().fontWeight() == QFont::Bold);
 }
 
 void TestQTextDocumentExporter::testWriteCharItalic() {
@@ -140,21 +140,21 @@ void TestQTextDocumentExporter::testWriteCharItalic() {
     exp.setDocument(&doc);
     CEDChar ch('s');
     exp.exportChar(ch);
-    QVERIFY(!exp.cursor()->charFormat().fontItalic());
+    QVERIFY(!exp.cursor().charFormat().fontItalic());
 
     ch.setFontStyle(FONT_ITALIC & FONT_BOLD);
     exp.exportChar(ch);
-    QVERIFY(!exp.cursor()->charFormat().fontItalic());
+    QVERIFY(!exp.cursor().charFormat().fontItalic());
 
     exp.formatOptions().useItalic(true);
     ch.setFontStyle(FONT_UNDERLINE);
     exp.exportChar(ch);
-    QVERIFY(!exp.cursor()->charFormat().fontItalic());
+    QVERIFY(!exp.cursor().charFormat().fontItalic());
 
     // italic
     ch.setFontStyle(FONT_ITALIC);
     exp.exportChar(ch);
-    QVERIFY(exp.cursor()->charFormat().fontItalic());
+    QVERIFY(exp.cursor().charFormat().fontItalic());
 }
 
 void TestQTextDocumentExporter::testWriteCharUnderlined() {
@@ -166,21 +166,21 @@ void TestQTextDocumentExporter::testWriteCharUnderlined() {
     exp.setDocument(&doc);
     CEDChar ch('s');
     exp.exportChar(ch);
-    QVERIFY(!exp.cursor()->charFormat().fontUnderline());
+    QVERIFY(!exp.cursor().charFormat().fontUnderline());
 
     ch.setFontStyle(FONT_UNDERLINE & FONT_BOLD);
     exp.exportChar(ch);
-    QVERIFY(!exp.cursor()->charFormat().fontUnderline());
+    QVERIFY(!exp.cursor().charFormat().fontUnderline());
 
     exp.formatOptions().useUnderlined(true);
     ch.setFontStyle(FONT_BOLD);
     exp.exportChar(ch);
-    QVERIFY(!exp.cursor()->charFormat().fontUnderline());
+    QVERIFY(!exp.cursor().charFormat().fontUnderline());
 
     // underlined
     ch.setFontStyle(FONT_UNDERLINE);
     exp.exportChar(ch);
-    QVERIFY(exp.cursor()->charFormat().fontUnderline());
+    QVERIFY(exp.cursor().charFormat().fontUnderline());
 }
 
 void TestQTextDocumentExporter::testWriteCharFontSize() {
@@ -192,24 +192,24 @@ void TestQTextDocumentExporter::testWriteCharFontSize() {
     exp.setDocument(&doc);
     CEDChar ch('s');
     exp.exportChar(ch);
-    QVERIFY(!exp.cursor()->charFormat().fontPointSize());
+    QVERIFY(!exp.cursor().charFormat().fontPointSize());
 
     ch.setFontHeight(100);
     exp.exportChar(ch);
-    QCOMPARE(exp.cursor()->charFormat().fontPointSize(), 0.0);
+    QCOMPARE(exp.cursor().charFormat().fontPointSize(), 0.0);
 
     exp.formatOptions().useFontSize(true);
     ch.setFontHeight(0);
     exp.exportChar(ch);
-    QCOMPARE(exp.cursor()->charFormat().fontPointSize(), 0.0);
+    QCOMPARE(exp.cursor().charFormat().fontPointSize(), 0.0);
 
     ch.setFontHeight(-1);
     exp.exportChar(ch);
-    QCOMPARE(exp.cursor()->charFormat().fontPointSize(), 0.0);
+    QCOMPARE(exp.cursor().charFormat().fontPointSize(), 0.0);
 
     ch.setFontHeight(100);
     exp.exportChar(ch);
-    QCOMPARE(exp.cursor()->charFormat().fontPointSize(), 100.0);
+    QCOMPARE(exp.cursor().charFormat().fontPointSize(), 100.0);
 }
 
 void TestQTextDocumentExporter::testWriteCharColors() {
@@ -219,14 +219,14 @@ void TestQTextDocumentExporter::testWriteCharColors() {
     exp.setDocument(&doc);
     CEDChar ch('s');
     exp.exportChar(ch);
-    QCOMPARE(exp.cursor()->charFormat().foreground().color(), QColor(Qt::black));
-    QCOMPARE(exp.cursor()->charFormat().background().color(), QColor(0, 0, 0, 255));
+    QCOMPARE(exp.cursor().charFormat().foreground().color(), QColor(Qt::black));
+    QCOMPARE(exp.cursor().charFormat().background().color(), QColor(0, 0, 0, 255));
 
     ch.setColor(Color(255, 100, 10));
     ch.setBackgroundColor(Color(100, 1, 2));
     exp.exportChar(ch);
-    QCOMPARE(exp.cursor()->charFormat().foreground().color(), QColor(255, 100, 10));
-    QCOMPARE(exp.cursor()->charFormat().background().color(), QColor(100, 1, 2));
+    QCOMPARE(exp.cursor().charFormat().foreground().color(), QColor(255, 100, 10));
+    QCOMPARE(exp.cursor().charFormat().background().color(), QColor(100, 1, 2));
 }
 
 void TestQTextDocumentExporter::testWriteCharEncoding() {
@@ -241,20 +241,20 @@ void TestQTextDocumentExporter::testWriteCharEncoding() {
     CEDChar ch1('a');
     exp.exportChar(ch1);
     QCOMPARE(doc.toPlainText(), QString("a"));
-    QVERIFY(exp.cursor()->charFormat().toolTip().isEmpty());
+    QVERIFY(exp.cursor().charFormat().toolTip().isEmpty());
 
     ch1.addAlternative('b');
     exp.clear();
     exp.exportChar(ch1);
     QCOMPARE(doc.toPlainText(), QString("a"));
-    QCOMPARE(exp.cursor()->charFormat().toolTip(), QString("Alternatives:\n        'b' (254)"));
+    QCOMPARE(exp.cursor().charFormat().toolTip(), QString("Alternatives:\n        'b' (254)"));
 
     CEDChar ch2('\xD4');
     ch2.addAlternative('\xF4');
     exp.clear();
     exp.exportChar(ch2);
     QCOMPARE(doc.toPlainText(), QString::fromUtf8("Ф"));
-    QCOMPARE(exp.cursor()->charFormat().toolTip(), QString::fromUtf8("Alternatives:\n        'ф' (254)"));
+    QCOMPARE(exp.cursor().charFormat().toolTip(), QString::fromUtf8("Alternatives:\n        'ф' (254)"));
 }
 
 void TestQTextDocumentExporter::testWriteCharAlternatives() {
@@ -267,15 +267,15 @@ void TestQTextDocumentExporter::testWriteCharAlternatives() {
     CEDChar ch1('a');
     exp.exportChar(ch1);
     QCOMPARE(doc.toPlainText(), QString("a"));
-    QVERIFY(exp.cursor()->charFormat().toolTip().isEmpty());
-    QVERIFY(!exp.cursor()->charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
+    QVERIFY(exp.cursor().charFormat().toolTip().isEmpty());
+    QVERIFY(!exp.cursor().charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
 
     exp.formatOptions().setShowAlternatives(true);
     exp.clear();
     exp.exportChar(ch1);
     QCOMPARE(doc.toPlainText(), QString("a"));
-    QVERIFY(exp.cursor()->charFormat().toolTip().isEmpty());
-    QVERIFY(!exp.cursor()->charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
+    QVERIFY(exp.cursor().charFormat().toolTip().isEmpty());
+    QVERIFY(!exp.cursor().charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
 
     ch1.addAlternative(Letter('b', 100));
     ch1.addAlternative(Letter('c', 50));
@@ -287,17 +287,17 @@ void TestQTextDocumentExporter::testWriteCharAlternatives() {
     QMap<QString, QVariant> alt_map;
     alt_map.insert("b", 100);
     alt_map.insert("c", 50);
-    QVERIFY(!exp.cursor()->charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
+    QVERIFY(!exp.cursor().charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
 
     exp.clear();
     exp.formatOptions().setShowAlternatives(true);
     exp.exportChar(ch1);
     QCOMPARE(doc.toPlainText(), QString("a"));
-    QCOMPARE(exp.cursor()->charFormat().toolTip(),
+    QCOMPARE(exp.cursor().charFormat().toolTip(),
              QString("Alternatives:\n        'b' (100)\n        'c' (50)"));
-    QCOMPARE(exp.cursor()->charFormat().underlineColor(), QColor(Qt::red));
-    QCOMPARE(exp.cursor()->charFormat().underlineStyle(), QTextCharFormat::DashUnderline);
-    QVERIFY(exp.cursor()->charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
+    QCOMPARE(exp.cursor().charFormat().underlineColor(), QColor(Qt::red));
+    QCOMPARE(exp.cursor().charFormat().underlineStyle(), QTextCharFormat::DashUnderline);
+    QVERIFY(exp.cursor().charFormat().hasProperty(QTextDocumentExporter::ALTERNATIVES));
 }
 
 void TestQTextDocumentExporter::testWriteCharBBox() {
@@ -308,14 +308,14 @@ void TestQTextDocumentExporter::testWriteCharBBox() {
     CEDChar ch('t');
 
     exp.exportChar(ch);
-    QCOMPARE(exp.cursor()->charFormat().property(QTextDocumentExporter::BBOX).toRect(), QRect());
+    QCOMPARE(exp.cursor().charFormat().property(QTextDocumentExporter::BBOX).toRect(), QRect());
     exp.clear();
 
     ch.setBoundingRect(cf::Rect(cf::Point(1, 2), 300, 400));
     exp.exportChar(ch);
-    exp.cursor()->movePosition(QTextCursor::PreviousCharacter);
-    QCOMPARE(exp.cursor()->charFormat().toCharFormat().propertyCount(), 1);
-    QCOMPARE(exp.cursor()->charFormat().property(QTextDocumentExporter::BBOX).toRect(),
+    exp.cursor().movePosition(QTextCursor::PreviousCharacter);
+    QCOMPARE(exp.cursor().charFormat().toCharFormat().propertyCount(), 1);
+    QCOMPARE(exp.cursor().charFormat().property(QTextDocumentExporter::BBOX).toRect(),
              QRect(1, 2, 300, 400));
 }
 
@@ -419,32 +419,32 @@ void TestQTextDocumentExporter::testWriteParagraphAlign() {
 
     // default
     exp.exportParagraph(par);
-    QCOMPARE(exp.cursor()->blockFormat().alignment(), Qt::AlignLeft);
+    QCOMPARE(exp.cursor().blockFormat().alignment(), Qt::AlignLeft);
 
     // right
     exp.clear();
     par.setAlign(cf::ALIGN_RIGHT);
     exp.exportParagraph(par);
-    QCOMPARE(exp.cursor()->blockFormat().alignment(), Qt::AlignRight);
+    QCOMPARE(exp.cursor().blockFormat().alignment(), Qt::AlignRight);
     QCOMPARE(doc.toPlainText(), QString("\n"));
 
     // left
     exp.clear();
     par.setAlign(cf::ALIGN_LEFT);
     exp.exportParagraph(par);
-    QCOMPARE(exp.cursor()->blockFormat().alignment(), Qt::AlignLeft);
+    QCOMPARE(exp.cursor().blockFormat().alignment(), Qt::AlignLeft);
 
     // center
     exp.clear();
     par.setAlign(cf::ALIGN_CENTER);
     exp.exportParagraph(par);
-    QCOMPARE(exp.cursor()->blockFormat().alignment(), Qt::AlignHCenter);
+    QCOMPARE(exp.cursor().blockFormat().alignment(), Qt::AlignHCenter);
 
     // justify
     exp.clear();
     par.setAlign(cf::ALIGN_JUSTIFY);
     exp.exportParagraph(par);
-    QCOMPARE(exp.cursor()->blockFormat().alignment(), Qt::AlignJustify);
+    QCOMPARE(exp.cursor().blockFormat().alignment(), Qt::AlignJustify);
 }
 
 void TestQTextDocumentExporter::testWriteParagraphIndent() {
@@ -455,17 +455,17 @@ void TestQTextDocumentExporter::testWriteParagraphIndent() {
 
     par.setIndent(10);
     exp.exportParagraph(par);
-    QCOMPARE(exp.cursor()->blockFormat().textIndent(), 10.0);
+    QCOMPARE(exp.cursor().blockFormat().textIndent(), 10.0);
 
     exp.clear();
     par.setIndent(-12);
     exp.exportParagraph(par);
-    QCOMPARE(exp.cursor()->blockFormat().textIndent(), -12.0);
+    QCOMPARE(exp.cursor().blockFormat().textIndent(), -12.0);
 
     exp.clear();
     par.setIndent(0);
     exp.exportParagraph(par);
-    QCOMPARE(exp.cursor()->blockFormat().textIndent(), 0.0);
+    QCOMPARE(exp.cursor().blockFormat().textIndent(), 0.0);
 }
 
 void TestQTextDocumentExporter::testWriteLine() {
@@ -631,7 +631,7 @@ void TestQTextDocumentExporter::testWritePicture() {
     pic.setImage(img2);
 
     exp.exportPicture(pic);
-//    QCOMPARE(exp.cursor()->charFormat().toImageFormat().height(), 81.0);
+//    QCOMPARE(exp.cursor().charFormat().toImageFormat().height(), 81.0);
 }
 
 void TestQTextDocumentExporter::testComplex() {

@@ -61,16 +61,11 @@ static inline QColor toQColor(const cf::Color& c) {
 QTextDocumentExporter::QTextDocumentExporter(CEDPage * page, const FormatOptions& opts) :
         GenericExporter(page, opts),
         doc_(NULL),
-        cursor_(NULL),
         column_num_(0),
         line_num_in_par_(0),
         par_line_count_(0),
         skip_columns_(true)
 {
-}
-
-QTextDocumentExporter::~QTextDocumentExporter() {
-    delete cursor_;
 }
 
 QTextDocumentExporter::AltMap QTextDocumentExporter::charAlternatives(const cf::CEDChar& chr) const {
@@ -147,7 +142,7 @@ void QTextDocumentExporter::clear() {
     doc_->clear();
 }
 
-QTextCursor * QTextDocumentExporter::cursor() {
+QTextCursor& QTextDocumentExporter::cursor() {
     return cursor_;
 }
 
@@ -156,17 +151,13 @@ QTextDocument * QTextDocumentExporter::document() {
 }
 
 void QTextDocumentExporter::insertSectionFrame(cf::CEDSection& /*section*/) {
-    Q_ASSERT(cursor_);
-
     QTextFrameFormat section_format;
 //    setFormatMargins(section_format, section.margins());
     section_format.setProperty(BlockType, SECTION);
-    cursor_->insertFrame(section_format);
+    cursor_.insertFrame(section_format);
 }
 
 void QTextDocumentExporter::insertSectionTable(cf::CEDSection& section) {
-    Q_ASSERT(cursor_);
-
     QTextTableFormat tbl_format;
     tbl_format.setAlignment(Qt::AlignHCenter);
     tbl_format.setBorderStyle(QTextFrameFormat::BorderStyle_Dotted);
@@ -186,7 +177,7 @@ void QTextDocumentExporter::insertSectionTable(cf::CEDSection& section) {
 
     tbl_format.setColumnWidthConstraints(col_wd);
 
-    cursor_->insertTable(1, 1, tbl_format);
+    cursor_.insertTable(1, 1, tbl_format);
 }
 
 void QTextDocumentExporter::setDocument(QTextDocument * doc) {
@@ -196,8 +187,7 @@ void QTextDocumentExporter::setDocument(QTextDocument * doc) {
         return;
 
     doc_ = doc;
-    delete cursor_;
-    cursor_ = new QTextCursor(doc_);
+    cursor_ = QTextCursor(doc_);
 }
 
 void QTextDocumentExporter::writeCharacter(CEDChar& chr) {
@@ -220,7 +210,7 @@ void QTextDocumentExporter::writeCharacter(CEDChar& chr) {
     exportCharUnderline(format, chr);
     exportCharFontSize(format, chr);
 
-    cursor_->insertText(str, format);
+    cursor_.insertText(str, format);
 }
 
 void QTextDocumentExporter::writeColumnBegin(cf::CEDColumn&) {
@@ -230,7 +220,7 @@ void QTextDocumentExporter::writeColumnBegin(cf::CEDColumn&) {
     if(column_num_++ == 0)
         return;
 
-    QTextTable * table = cursor_->currentTable();
+    QTextTable * table = cursor_.currentTable();
     if(!table) {
         qDebug() << Q_FUNC_INFO << "no current table";
     } else {
@@ -244,26 +234,26 @@ void QTextDocumentExporter::writeLineEnd(cf::CEDLine& line) {
 
     if(formatOptions().preserveLineBreaks()) {
         if(line_num_in_par_ != 0) {
-            QTextBlockFormat current_fmt = cursor_->blockFormat();
+            QTextBlockFormat current_fmt = cursor_.blockFormat();
             current_fmt.setTextIndent(0);
-            cursor_->setBlockFormat(current_fmt);
+            cursor_.setBlockFormat(current_fmt);
         }
 
-        cursor_->insertText("\n", cursor_->charFormat());
+        cursor_.insertText("\n", cursor_.charFormat());
     }
     else {
         if(line.hardBreak()) {
-            cursor_->insertText("\n");
+            cursor_.insertText("\n");
         }
         else {
             if(line.endsWithHyphen()) {
-                cursor_->deletePreviousChar();
-                cursor_->insertText(SOFT_HYPEN);
+                cursor_.deletePreviousChar();
+                cursor_.insertText(SOFT_HYPEN);
             }
             else {
                 // skip last line
                 if(line_num_in_par_ != par_line_count_ - 1)
-                    cursor_->insertText(" "); // space
+                    cursor_.insertText(" "); // space
             }
         }
     }
@@ -314,8 +304,8 @@ void QTextDocumentExporter::writeParagraphBegin(CEDParagraph& par) {
     if(par.indent() != 0)
         format.setTextIndent(par.indent());
 
-    cursor_->insertBlock(format);
-    cursor_->movePosition(QTextCursor::StartOfBlock);
+    cursor_.insertBlock(format);
+    cursor_.movePosition(QTextCursor::StartOfBlock);
     line_num_in_par_ = 0;
     par_line_count_ = par.lineCount();
 }
@@ -354,9 +344,9 @@ void QTextDocumentExporter::writePicture(cf::CEDPicture& pic) {
 
     static int image_counter = 0;
 
-    cursor_->insertImage(img, QString("image %1").arg(++image_counter));
+    cursor_.insertImage(img, QString("image %1").arg(++image_counter));
     QTextFrameFormat format;
-    cursor_->currentFrame()->setFrameFormat(format);
+    cursor_.currentFrame()->setFrameFormat(format);
 }
 
 void QTextDocumentExporter::writeSectionBegin(cf::CEDSection& section) {
@@ -375,7 +365,6 @@ void QTextDocumentExporter::writeSectionBegin(cf::CEDSection& section) {
 
 void QTextDocumentExporter::writeSectionEnd(cf::CEDSection& /*section*/) {
     Q_ASSERT(doc_);
-    Q_ASSERT(cursor_);
 
-    *cursor_ = doc_->rootFrame()->lastCursorPosition();
+    cursor_ = doc_->rootFrame()->lastCursorPosition();
 }

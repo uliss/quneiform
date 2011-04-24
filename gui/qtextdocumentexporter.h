@@ -39,7 +39,6 @@ class QTextDocumentExporter : public cf::GenericExporter
 {
 public:
     QTextDocumentExporter(cf::CEDPage * page, const cf::FormatOptions& opts);
-    ~QTextDocumentExporter();
 
     enum TextItemProperty {
         BBOX = QTextFormat::UserProperty + 1,
@@ -63,7 +62,7 @@ public:
     /**
       * Returns document cursor
       */
-    QTextCursor * cursor();
+    QTextCursor& cursor();
 
     /**
       * Returns pointer to document
@@ -98,8 +97,8 @@ private:
     void insertSectionFrame(cf::CEDSection& section);
     void insertSectionTable(cf::CEDSection& section);
 private:
+    QTextCursor cursor_;
     QTextDocument * doc_;
-    QTextCursor * cursor_;
     int column_num_;
     int line_num_in_par_;
     int par_line_count_;
