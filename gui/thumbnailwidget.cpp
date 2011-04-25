@@ -209,19 +209,20 @@ void ThumbnailWidget::setupActions() {
                                  this);
     connect(act_recognize_, SIGNAL(triggered()), this, SLOT(recognizeThumb()));
     act_recognize_->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R));
+    act_recognize_->setShortcutContext(Qt::WidgetShortcut);
     addAction(act_recognize_);
 
     act_save_as_ = new QAction(QIcon(":/img/oxygen/22x22/document_save_as.png"),
                                tr("Save as"),
                                this);
     act_save_as_->setShortcut(QKeySequence::SaveAs);
+    act_save_as_->setShortcutContext(Qt::WidgetShortcut);
     connect(act_save_as_, SIGNAL(triggered()), this, SLOT(savePage()));
     addAction(act_save_as_);
 
     act_properties_ = new QAction(QIcon(":/img/oxygen/22x22/document_properties.png"),
                                   tr("Properties"),
                                   this);
-    act_properties_->setShortcutContext(Qt::WidgetShortcut);
     connect(act_properties_, SIGNAL(triggered()), this, SLOT(showProperties()));
     addAction(act_properties_);
 
