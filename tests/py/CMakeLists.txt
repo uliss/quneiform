@@ -5,6 +5,7 @@ endmacro()
 
 install_test_py(cf.py)
 
+install_test_py(columns.py)
 install_test_py(align.py)
 install_test_py(all.py)
 install_test_py(font_styles.py)

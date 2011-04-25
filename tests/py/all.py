@@ -26,6 +26,10 @@ header("Hyphens test")
 import hyphens
 hyphens.test()
 
+header("Columns test")
+import columns
+columns.test()
+
 header("Format quick test")
 import format_quick
 format_quick.test()
