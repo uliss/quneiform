@@ -44,22 +44,24 @@ elseif(UNIX AND NOT APPLE)
         set(CF_DEB_DEPENDS "${CF_DEB_DEPENDS}, libmagick++2 (>= 7:6.5.1)")
     endif()
     set(CPACK_DEBIAN_PACKAGE_DEPENDS ${CF_DEB_DEPENDS})
-elseif(WIN32)	
-    install(FILES
-        "${QT_LIBRARY_DIR}/../bin/QtCore${QT_VERSION_MAJOR}.dll"
-        "${QT_LIBRARY_DIR}/../bin/QtGui${QT_VERSION_MAJOR}.dll"
-        DESTINATION bin
-    )
-
-    if(MINGW)
-        find_path(CF_MINGW_PATH_BIN mingw32-make.exe PATHS
-            "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\MinGW;InstallLocation]/bin"
-            c:/MinGW/bin /MinGW/bin)
+elseif(WIN32)
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        cf_install_dll(QtCored4 ${QT_BINARY_DIR})
+        cf_install_dll(QtGuid4 ${QT_BINARY_DIR})
+    else()
+        cf_install_dll(QtCore4 ${QT_BINARY_DIR})
+        cf_install_dll(QtGui4 ${QT_BINARY_DIR})
+    endif()
+	
+	if(MINGW)
+	    find_path(CF_MINGW_PATH_BIN mingw32-make.exe PATHS
+			"[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\MinGW;InstallLocation]/bin" 
+			c:/MinGW/bin /MinGW/bin)
 			
         cf_install_dll(libstdc++-6 ${CF_MINGW_PATH_BIN})
         cf_install_dll(libgcc_s_dw2-1 ${CF_MINGW_PATH_BIN})
         cf_install_dll(mingwm10 ${CF_MINGW_PATH_BIN})
-        cf_install_dll(libiconv2 ${ICONV_INCLUDE_DIR}/../bin)
+        cf_install_dll(libiconv-2 ${ICONV_INCLUDE_DIR}/../bin)
     endif()
 	
     if(MSVC)

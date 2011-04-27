@@ -128,8 +128,10 @@ if(MINGW)
             windres.exe -I${CMAKE_CURRENT_SOURCE_DIR}
                 -i${CMAKE_CURRENT_SOURCE_DIR}/resources/win_quneiform.rc
                 -o win_quneiform_rc.o)
-        set(SRCS ${SRCS} win_quneiform_rc.o)
+        list(APPEND EXTRA_RES win_quneiform_rc.o)
     endif()
+elseif(MSVC)
+	list(APPEND EXTRA_RES ${CMAKE_CURRENT_SOURCE_DIR}/resources/win_quneiform.rc)
 endif()
 
 if(APPLE)
