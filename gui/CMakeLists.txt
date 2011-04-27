@@ -173,7 +173,12 @@ if(APPLE)
 endif()
 
 add_library(quneiform_lib STATIC ${SRCS})
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE main.cpp ${QRC_SOURCES} ${EXTRA_RES})
+
+if(MSVC)
+	add_executable(${PROJECT_NAME} main.cpp ${QRC_SOURCES} ${EXTRA_RES})
+else()
+	add_executable(${PROJECT_NAME} MACOSX_BUNDLE WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
+endif()
  
 if(APPLE)
     add_dependencies(${PROJECT_NAME} osx_l10n_dirs)
