@@ -105,7 +105,7 @@ void ImageView::connectPageSignals(Page * page) {
     Q_CHECK_PTR(page);
 
     connect(page, SIGNAL(viewScaled()), SLOT(updateViewScale()));
-    connect(page, SIGNAL(rotated(int)), SLOT(updateTransform()));
+    connect(page, SIGNAL(rotated(int)), SLOT(updatePageRotation()));
     connect(page, SIGNAL(recognized()), SLOT(updateFormatLayout()));
     connect(page, SIGNAL(destroyed()), SLOT(deletePage()));
 }
