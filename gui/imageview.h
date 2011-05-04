@@ -23,6 +23,7 @@
 
 class QGraphicsScene;
 class QGraphicsRectItem;
+class QGraphicsPixmapItem;
 class QGestureEvent;
 class QPinchGesture;
 class QMenu;
@@ -162,6 +163,7 @@ private:
     void showImage(const QString& path);
     void startSelection(const QPoint& pos);
     void restorePageScroll();
+    void rotatePixmap(int angle);
     void updateSelectionCursor();
 private:
     enum select_mode_t {
@@ -184,6 +186,7 @@ private:
     qreal min_scale_;
     qreal max_scale_;
     QGraphicsRectItem * current_char_bbox_;
+    QGraphicsPixmapItem * pixmap_;
 };
 
 #endif

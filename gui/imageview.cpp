@@ -62,7 +62,8 @@ ImageView::ImageView(QWidget * parent) :
         layout_(NULL),
         min_scale_(0),
         max_scale_(100),
-        current_char_bbox_(NULL)
+        current_char_bbox_(NULL),
+        pixmap_(NULL)
 {
     activate(false);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -98,6 +99,7 @@ void ImageView::clearScene() {
     layout_ = NULL;
     page_selection_ = NULL;
     current_char_bbox_ = NULL;
+    pixmap_ = NULL;
     scene_->setSceneRect(QRect());
 }
 
@@ -165,8 +167,8 @@ void ImageView::deletePageSelection() {
 void ImageView::disconnectPageSignals(Page * page) {
     HAS_PAGE()
 
-    disconnect(page, SIGNAL(transformed()), this, SLOT(updateTransform()));
-    disconnect(page, SIGNAL(rotated(int)), this, SLOT(updateTransform()));
+    disconnect(page, SIGNAL(viewScaled()), this, SLOT(updateViewScale()));
+    disconnect(page, SIGNAL(rotated(int)), this, SLOT(updatePageRotation()));
     disconnect(page, SIGNAL(destroyed()), this, SLOT(deletePage()));
 } 
 
@@ -431,10 +433,14 @@ void ImageView::showImage(const QString& path) {
         return;
     }
 
-    scene_->setSceneRect(image.rect());
-    QGraphicsPixmapItem * p = scene_->addPixmap(image);
-    p->setZValue(0);
-    p->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
+    if(pixmap_)
+        scene_->removeItem(pixmap_);
+
+    pixmap_ = scene_->addPixmap(image);
+    pixmap_->setZValue(0);
+    pixmap_->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
+
+    rotatePixmap(page_->angle());
 }
 
 void ImageView::showFormatLayout() {
@@ -514,6 +520,22 @@ void ImageView::restorePageScroll() {
     verticalScrollBar()->setValue(scroll.y());
 }
 
+void ImageView::rotatePixmap(int angle) {
+    if(!pixmap_) {
+        qDebug() << Q_FUNC_INFO << "NULL pixmap pointer given";
+        return;
+    }
+
+    int cx = pixmap_->boundingRect().center().x();
+    int cy = pixmap_->boundingRect().center().y();
+
+    pixmap_->setTransform(QTransform().translate(cx, cy).rotate(angle).translate(-cx, -cy));
+
+    Q_CHECK_PTR(scene_);
+
+    scene_->setSceneRect(pixmap_->sceneBoundingRect());
+}
+
 void ImageView::updateSelectionCursor() {
     HAS_PAGE()
 
@@ -552,7 +574,7 @@ void ImageView::updateFormatLayout() {
 void ImageView::updatePageRotation() {
     HAS_PAGE()
 
-    qDebug() << "rotation";
+    rotatePixmap(page_->angle());
 }
 
 void ImageView::updateViewScale() {
