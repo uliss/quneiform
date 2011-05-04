@@ -19,8 +19,9 @@
 #ifndef THUMBNAILWIDGET_H_
 #define THUMBNAILWIDGET _H_
 
-#include <QtCore/QString>
-#include <QtGui/QFrame>
+#include <QString>
+#include <QFrame>
+#include <QPixmap>
 
 class QLabel;
 class QMouseEvent;
@@ -79,9 +80,10 @@ signals:
     void showPageFault(Page*);
     void toggled(bool);
 protected:
-    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent * event);
     void mousePressEvent(QMouseEvent * event);
 private:
+    QPixmap makeThumb() const;
     QString pageProperties() const;
     void setupActions();
     void setupCheckBox();
@@ -95,7 +97,7 @@ private slots:
     void pageFaultForward();
     void recognizeThumb();
     void removePage();
-    void rotate(int angle);
+    void handlePageRotate();
     void savePage();
     void selectPage(bool value);
     void showProperties();
