@@ -104,7 +104,7 @@ void ImageView::clearScene() {
 void ImageView::connectPageSignals(Page * page) {
     Q_CHECK_PTR(page);
 
-    connect(page, SIGNAL(transformed()), SLOT(updateTransform()));
+    connect(page, SIGNAL(viewScaled()), SLOT(updateViewScale()));
     connect(page, SIGNAL(rotated(int)), SLOT(updateTransform()));
     connect(page, SIGNAL(recognized()), SLOT(updateFormatLayout()));
     connect(page, SIGNAL(destroyed()), SLOT(deletePage()));
@@ -214,7 +214,7 @@ void ImageView::fitPage() {
     else
         fitInView(sceneRect(), Qt::KeepAspectRatio);
 
-    savePageTransform();
+    savePageViewScale();
     emit scaled();
 }
 
@@ -234,7 +234,7 @@ void ImageView::fitWidth() {
         fitInView(scene_rect, Qt::KeepAspectRatio);
     }
 
-    savePageTransform();
+    savePageViewScale();
     emit scaled();
 }
 
@@ -319,7 +319,7 @@ void ImageView::movePageSelection(const QPointF& delta) {
 
 void ImageView::originalSize() {
     HAS_PAGE()
-    page_->resetScale();
+    page_->resetViewScale();
     emit scaled();
 }
 
@@ -375,15 +375,16 @@ void ImageView::savePageSelection() {
         page_->setPageArea(QRect());
 }
 
+void ImageView::savePageViewScale() {
+    HAS_PAGE()
+
+    page_->setViewScale(transform().m11());
+}
+
 void ImageView::savePageViewScroll() {
     HAS_PAGE()
 
     page_->setViewScroll(QPoint(horizontalScrollBar()->value(), verticalScrollBar()->value()));
-}
-
-void ImageView::savePageTransform() {
-    HAS_PAGE()
-    page_->setTransform(transform());
 }
 
 void ImageView::setPageSelection(const QRect& rect) {
@@ -464,7 +465,7 @@ void ImageView::showPage(Page * page) {
     connectPageSignals(page_);
 
     clearScene();
-    updateTransform();
+    updateViewScale();
     showImage(page_->imagePath());
     updateFormatLayout();
     restorePageScroll();
@@ -548,11 +549,19 @@ void ImageView::updateFormatLayout() {
     layout_->populate(*page_);
 }
 
-void ImageView::updateTransform() {
+void ImageView::updatePageRotation() {
     HAS_PAGE()
 
-    if(transform() != page_->transform())
-        setTransform(page_->transform());
+    qDebug() << "rotation";
+}
+
+void ImageView::updateViewScale() {
+    HAS_PAGE()
+
+    QTransform t;
+    float vs = page_->viewScale();
+    t.scale(vs, vs);
+    setTransform(t);
 }
 
 void ImageView::wheelEvent(QWheelEvent * event) {
@@ -579,7 +588,7 @@ void ImageView::zoom(qreal factor) {
         return;
     }
     else {
-        page_->scale(factor);
+        page_->scaleView(factor);
         emit scaled();
     }
 }

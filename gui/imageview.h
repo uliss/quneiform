@@ -137,7 +137,8 @@ private slots:
     void movePageSelection(const QPointF& delta);
     void savePageSelection();
     void selectPageArea();
-    void updateTransform();
+    void updatePageRotation();
+    void updateViewScale();
 private:
     void activate(bool value);
     void connectPageSignals(Page * page);
@@ -154,8 +155,8 @@ private:
     bool isTooSmall() const;
     void resizeSelection(const QPoint& pos);
     void restorePageSelection();
+    void savePageViewScale();
     void savePageViewScroll();
-    void savePageTransform();
     void setPageSelection(const QRect& rect);
     void setupScene();
     void showImage(const QString& path);

@@ -127,7 +127,7 @@ void TestPageRecognizer::testLoadImage() {
     eng->rotate(90);
     QCOMPARE(r.loadImage().size(), QSize(40, 30));
 
-    eng->scale(12);
+    eng->scaleView(12);
     QCOMPARE(r.loadImage().size(), QSize(40, 30));
 
     delete eng;

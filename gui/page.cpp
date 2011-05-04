@@ -28,9 +28,13 @@
 #include "imagecache.h"
 
 Page::Page(const QString& image_path) :
-        image_path_(image_path), number_(0), state_flags_(NONE),
-        is_selected_(false) {
-
+        image_path_(image_path),
+        number_(0),
+        state_flags_(NONE),
+        is_selected_(false),
+        angle_(0),
+        view_scale_(1.0)
+{
     QPixmap pixmap;
     if(ImageCache::load(image_path_, &pixmap)) {
         is_null_ = false;
@@ -46,13 +50,7 @@ Page::Page(const QString& image_path) :
 }
 
 int Page::angle() const {
-    QPointF pt = transform_.map(QPointF(0, 1));
-    if(pt.y() == 0)
-        return pt.x() > 0 ? 270 : 90;
-    else if(pt.x() == 0)
-        return pt.y() > 0 ? 0 : 180;
-    else
-        return 0;
+    return angle_;
 }
 
 void Page::appendBlock(const QRect& rect, BlockType type) {
@@ -153,29 +151,12 @@ int Page::blocksCount(BlockType t) const {
     return blocks_.at(t).count();
 }
 
-void Page::resetScale() {
-    QMutexLocker lock(&mutex_);
-
-    QTransform t;
-    t.rotate(angle());
-    transform_ = t;
-    emit changed();
-    emit transformed();
-}
-
-void Page::resetTransform() {
-    QMutexLocker lock(&mutex_);
-    transform_.reset();
-    emit changed();
-    emit transformed();
+void Page::resetViewScale() {
+    setViewScale(1.0);
 }
 
 void Page::rotate(int angle) {
-    QMutexLocker lock(&mutex_);
-
-    transform_.rotate(angle);
-    emit changed();
-    emit rotated(angle);
+    setAngle(angle_ + angle);
 }
 
 void Page::exportTo(const QString& file) {
@@ -203,12 +184,16 @@ void Page::exportTo(const QString& file) {
     emit exported();
 }
 
-void Page::scale(qreal factor) {
+void Page::scaleView(qreal factor) {
+    setViewScale(view_scale_ * factor);
+}
+
+void Page::setAngle(int angle) {
     QMutexLocker lock(&mutex_);
 
-    transform_.scale(factor, factor);
+    angle_ = (360 + (angle % 360)) % 360;
     emit changed();
-    emit transformed();
+    emit rotated(angle_);
 }
 
 void Page::setFlag(PageFlag flag) {
@@ -290,23 +275,13 @@ void Page::setSelected(bool value) {
     emit changed();
 }
 
-void Page::setTransform(const QTransform& t) {
-    QMutexLocker lock(&mutex_);
-
-    if(transform_ == t)
-        return;
-
-    transform_ = t;
-    emit changed();
-    emit transformed();
+void Page::setViewScale(float scale) {
+    view_scale_ = scale;
+    emit viewScaled();
 }
 
 void Page::setViewScroll(const QPoint& pt) {
     view_scroll_ = pt;
-}
-
-QTransform Page::transform() const {
-    return  transform_;
 }
 
 void Page::unsetFlag(PageFlag flag) {
@@ -314,6 +289,10 @@ void Page::unsetFlag(PageFlag flag) {
         state_flags_ &= (~flag);
         emit changed();
     }
+}
+
+float Page::viewScale() const {
+    return view_scale_;
 }
 
 QPoint Page::viewScroll() const {
@@ -329,9 +308,10 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.state_flags_
             << page.is_selected_
             << page.page_area_
-            << page.transform_
-            << page.is_null_
+            << page.angle_
+            << page.view_scale_
             << page.view_scroll_
+            << page.is_null_
             << page.rec_settings_
             << page.blocks_
             << page.format_settings_;
@@ -347,9 +327,10 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.state_flags_
             >> page.is_selected_
             >> page.page_area_
-            >> page.transform_
-            >> page.is_null_
+            >> page.angle_
+            >> page.view_scale_
             >> page.view_scroll_
+            >> page.is_null_
             >> page.rec_settings_
             >> page.blocks_
             >> page.format_settings_;
