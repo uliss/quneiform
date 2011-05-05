@@ -160,7 +160,7 @@ private:
     void savePageViewScroll();
     void setPageSelection(const QRect& rect);
     void setupScene();
-    void showImage(const QString& path);
+    void showImage();
     void startSelection(const QPoint& pos);
     void restorePageScroll();
     void rotatePixmap(int angle);
@@ -187,6 +187,7 @@ private:
     qreal max_scale_;
     QGraphicsRectItem * current_char_bbox_;
     QGraphicsPixmapItem * pixmap_;
+    QGraphicsRectItem * scene_bbox_;
 };
 
 #endif

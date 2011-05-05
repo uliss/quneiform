@@ -63,7 +63,8 @@ ImageView::ImageView(QWidget * parent) :
         min_scale_(0),
         max_scale_(100),
         current_char_bbox_(NULL),
-        pixmap_(NULL)
+        pixmap_(NULL),
+        scene_bbox_(NULL)
 {
     activate(false);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -100,6 +101,7 @@ void ImageView::clearScene() {
     page_selection_ = NULL;
     current_char_bbox_ = NULL;
     pixmap_ = NULL;
+    scene_bbox_ = NULL;
     scene_->setSceneRect(QRect());
 }
 
@@ -412,24 +414,29 @@ void ImageView::showChar(const QRect& bbox) {
     QSettings settings;
     settings.beginGroup("format");
     QPen p(settings.value("currentCharColor", Qt::red).value<QColor>());
-    p.setWidth(0);
 
-    QRect scene_bbox = bbox;
-    scene_bbox.moveTo(bbox.topLeft() + page_->pageArea().topLeft());
+    QPointF pos = page_->pageArea().topLeft();
 
-    if(!current_char_bbox_)
-        current_char_bbox_ = scene_->addRect(scene_bbox, p);
-    else
-        current_char_bbox_->setRect(scene_bbox);
+    if(!current_char_bbox_) {
+        Q_CHECK_PTR(scene_bbox_);
+        current_char_bbox_ = new QGraphicsRectItem(bbox, scene_bbox_);
+        current_char_bbox_->setPen(p);
+        current_char_bbox_->setPos(pos);
+    }
+    else {
+        current_char_bbox_->setPos(pos);
+        current_char_bbox_->setRect(bbox);
+    }
 
     centerOn(current_char_bbox_);
 }
 
-void ImageView::showImage(const QString& path) {
-    QPixmap image;
+void ImageView::showImage() {
+    Q_CHECK_PTR(page_);
 
-    if(!ImageCache::load(path, &image)) {
-        qDebug() << "[Error]" << Q_FUNC_INFO << "can't load image" << path;
+    QPixmap image;
+    if(!ImageCache::load(page_->imagePath(), &image)) {
+        qDebug() << "[Error]" << Q_FUNC_INFO << "can't load image";
         return;
     }
 
@@ -472,7 +479,7 @@ void ImageView::showPage(Page * page) {
 
     clearScene();
     updateViewScale();
-    showImage(page_->imagePath());
+    showImage();
     updateFormatLayout();
     restorePageScroll();
     restorePageSelection();
@@ -526,14 +533,15 @@ void ImageView::rotatePixmap(int angle) {
         return;
     }
 
-    int cx = pixmap_->boundingRect().center().x();
-    int cy = pixmap_->boundingRect().center().y();
-
-    pixmap_->setTransform(QTransform().translate(cx, cy).rotate(angle).translate(-cx, -cy));
-
-    Q_CHECK_PTR(scene_);
-
+    pixmap_->setRotation(angle);
+    QRectF pixmap_bbox = pixmap_->sceneBoundingRect();
+    pixmap_->translate(- pixmap_bbox.left(), - pixmap_bbox.top());
     scene_->setSceneRect(pixmap_->sceneBoundingRect());
+
+    if(!scene_bbox_)
+        scene_bbox_ = scene_->addRect(sceneRect(), QPen(Qt::white));
+    else
+        scene_bbox_->setRect(sceneRect());
 }
 
 void ImageView::updateSelectionCursor() {
@@ -557,12 +565,12 @@ void ImageView::updateSelectionCursor() {
 void ImageView::updateFormatLayout() {
     Q_CHECK_PTR(scene_);
 
-    if(!page_)
+    if(!page_ || !pixmap_)
         return;
 
     if(!layout_) {
-        layout_ = new PageLayout;
-        scene_->addItem(layout_);
+        layout_ = new PageLayout();
+        layout_->setParentItem(scene_bbox_);
     }
 
     if(layout_->scene() != scene_)
