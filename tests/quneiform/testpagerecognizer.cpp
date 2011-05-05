@@ -144,6 +144,50 @@ void TestPageRecognizer::testRecognizeRotated() {
     QCOMPARE(eng270.ocrText().trimmed(), QString("ENGLISH"));
 }
 
+void TestPageRecognizer::testRecognizeArea() {
+    PageRecognizer r;
+    QRect area(136, 5, 140, 70);
+
+    // 0
+    Page eng(CF_IMAGE_DIR "/english.png");
+    eng.setPageArea(area);
+    r.setPage(&eng);
+    r.recognize();
+
+    QVERIFY(eng.isRecognized());
+    QCOMPARE(eng.ocrText().trimmed(), QString("LISH"));
+
+    // 90
+    Page eng90(CF_IMAGE_DIR "/english_rotated_90.png");
+    eng90.rotate(-90);
+    eng90.setPageArea(area);
+    r.setPage(&eng90);
+    r.recognize();
+
+    QVERIFY(eng90.isRecognized());
+    QCOMPARE(eng90.ocrText().trimmed(), QString("LISH"));
+
+    // 180
+    Page eng180(CF_IMAGE_DIR "/english_rotated_180.png");
+    eng180.rotate(-180);
+    eng180.setPageArea(area);
+    r.setPage(&eng180);
+    r.recognize();
+
+    QVERIFY(eng180.isRecognized());
+    QCOMPARE(eng180.ocrText().trimmed(), QString("LISH"));
+
+    // 270
+    Page eng270(CF_IMAGE_DIR "/english_rotated_270.png");
+    eng270.rotate(-270);
+    eng270.setPageArea(area);
+    r.setPage(&eng270);
+    r.recognize();
+
+    QVERIFY(eng270.isRecognized());
+    QCOMPARE(eng270.ocrText().trimmed(), QString("LISH"));
+}
+
 void TestPageRecognizer::testLoadImage() {
     PageRecognizer r;
     Page * eng = new Page(CF_IMAGE_DIR "/english.png");
