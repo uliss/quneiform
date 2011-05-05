@@ -29,7 +29,7 @@ class QPinchGesture;
 class QMenu;
 class QRubberBand;
 class Page;
-class PageLayout;
+class PageArea;
 class Selection;
 class SelectionShadow;
 
@@ -104,7 +104,7 @@ public:
       */
     void zoom(qreal factor);
 public slots:
-    void updateFormatLayout();
+    void updatePageArea();
 signals:
     void pageDeleted();
 
@@ -182,12 +182,11 @@ private:
     SelectionShadow * page_shadow_;
     QPoint selection_start_;
     select_mode_t select_mode_;
-    PageLayout * layout_;
     qreal min_scale_;
     qreal max_scale_;
-    QGraphicsRectItem * current_char_bbox_;
     QGraphicsPixmapItem * pixmap_;
     QGraphicsRectItem * scene_bbox_;
+    PageArea * area_;
 };
 
 #endif

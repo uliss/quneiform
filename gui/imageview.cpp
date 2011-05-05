@@ -36,7 +36,7 @@
 #include "imageview.h"
 #include "imagecache.h"
 #include "page.h"
-#include "pagelayout.h"
+#include "pagearea.h"
 #include "selection.h"
 #include "selectionshadow.h"
 
@@ -59,12 +59,11 @@ ImageView::ImageView(QWidget * parent) :
         page_selection_(NULL),
         page_shadow_(NULL),
         select_mode_(NORMAL),
-        layout_(NULL),
         min_scale_(0),
         max_scale_(100),
-        current_char_bbox_(NULL),
         pixmap_(NULL),
-        scene_bbox_(NULL)
+        scene_bbox_(NULL),
+        area_(NULL)
 {
     activate(false);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -97,11 +96,10 @@ void ImageView::clearScene() {
     }
 
     scene_->clear();
-    layout_ = NULL;
     page_selection_ = NULL;
-    current_char_bbox_ = NULL;
     pixmap_ = NULL;
     scene_bbox_ = NULL;
+    area_ = NULL;
     scene_->setSceneRect(QRect());
 }
 
@@ -110,7 +108,7 @@ void ImageView::connectPageSignals(Page * page) {
 
     connect(page, SIGNAL(viewScaled()), SLOT(updateViewScale()));
     connect(page, SIGNAL(rotated(int)), SLOT(updatePageRotation()));
-    connect(page, SIGNAL(recognized()), SLOT(updateFormatLayout()));
+    connect(page, SIGNAL(recognized()), SLOT(updatePageArea()));
     connect(page, SIGNAL(destroyed()), SLOT(deletePage()));
 }
 
@@ -158,7 +156,6 @@ void ImageView::deletePage() {
 }
 
 void ImageView::deletePageSelection() {
-    scene_->removeItem(page_selection_);
     delete page_selection_;
     page_selection_ = NULL;
 
@@ -251,8 +248,8 @@ bool ImageView::gestureEvent(QGestureEvent * event) {
 }
 
 void ImageView::hideFormatLayout() {
-    if(layout_)
-        layout_->hide();
+    if(area_)
+        area_->hideLayout();
 }
 
 bool ImageView::isSceneSizeSmaller(){
@@ -406,29 +403,8 @@ void ImageView::setupScene() {
 }
 
 void ImageView::showChar(const QRect& bbox) {
-    if(!page_)
-        return;
-
-    Q_ASSERT(scene_);
-
-    QSettings settings;
-    settings.beginGroup("format");
-    QPen p(settings.value("currentCharColor", Qt::red).value<QColor>());
-
-    QPointF pos = page_->pageArea().topLeft();
-
-    if(!current_char_bbox_) {
-        Q_CHECK_PTR(scene_bbox_);
-        current_char_bbox_ = new QGraphicsRectItem(bbox, scene_bbox_);
-        current_char_bbox_->setPen(p);
-        current_char_bbox_->setPos(pos);
-    }
-    else {
-        current_char_bbox_->setPos(pos);
-        current_char_bbox_->setRect(bbox);
-    }
-
-    centerOn(current_char_bbox_);
+    area_->showChar(bbox);
+    centerOn(bbox.center());
 }
 
 void ImageView::showImage() {
@@ -451,8 +427,8 @@ void ImageView::showImage() {
 }
 
 void ImageView::showFormatLayout() {
-    if(layout_)
-        layout_->show();
+    if(area_)
+         area_->showLayout();
 }
 
 void ImageView::showPage(Page * page) {
@@ -480,7 +456,7 @@ void ImageView::showPage(Page * page) {
     clearScene();
     updateViewScale();
     showImage();
-    updateFormatLayout();
+    updatePageArea();
     restorePageScroll();
     restorePageSelection();
     activate(true);
@@ -533,6 +509,8 @@ void ImageView::rotatePixmap(int angle) {
         return;
     }
 
+    Q_CHECK_PTR(scene_);
+
     pixmap_->setRotation(angle);
     QRectF pixmap_bbox = pixmap_->sceneBoundingRect();
     pixmap_->translate(- pixmap_bbox.left(), - pixmap_bbox.top());
@@ -562,21 +540,18 @@ void ImageView::updateSelectionCursor() {
     }
 }
 
-void ImageView::updateFormatLayout() {
+void ImageView::updatePageArea() {
     Q_CHECK_PTR(scene_);
 
-    if(!page_ || !pixmap_)
+    if(!page_)
         return;
 
-    if(!layout_) {
-        layout_ = new PageLayout();
-        layout_->setParentItem(scene_bbox_);
-    }
+    if(!area_)
+        area_ = new PageArea();
 
-    if(layout_->scene() != scene_)
-        scene_->addItem(layout_);
-
-    layout_->populate(*page_);
+    area_->setPos(page_->pageArea().topLeft());
+    area_->setParentItem(scene_bbox_);
+    area_->show(page_);
 }
 
 void ImageView::updatePageRotation() {

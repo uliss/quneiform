@@ -100,16 +100,16 @@ QImage PageRecognizer::loadImage() {
 
     QImage img(page_->imagePath());
 
-    // select page area
-    if(page_->pageArea().isValid())
-        img = img.copy(page_->pageArea());
-
     // rotate
     if(page_->angle() != 0) {
         QTransform t;
         t.rotate(page_->angle());
         img = img.transformed(t);
     }
+
+    // select page area
+    if(page_->pageArea().isValid())
+        img = img.copy(page_->pageArea());
 
     emit loaded();
     emit percentsDone(10);

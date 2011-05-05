@@ -35,7 +35,7 @@ set(HEADERS
     widgetbar.h
 )
 
-set(SOURCES 
+set(SOURCES
     aboutdialog.cpp
     cedpageexporter.cpp
     colorbutton.cpp
@@ -50,6 +50,7 @@ set(SOURCES
     mainwindow.cpp
     packet.cpp
     page.cpp
+    pagearea.cpp
     pageindicator.cpp
     pagelayout.cpp
     pagerecognizer.cpp
