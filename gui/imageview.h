@@ -132,7 +132,6 @@ protected:
     void pinchTriggered(QPinchGesture * gesture);
     void wheelEvent(QWheelEvent * event);
 private slots:
-    void changeSelectionCursor(int type);
     void clearPageLayout();
     void deletePage();
     void deletePageSelection();

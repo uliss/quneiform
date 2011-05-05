@@ -82,11 +82,6 @@ void ImageView::activate(bool value) {
 #endif
 }
 
-void ImageView::changeSelectionCursor(int type) {
-    page_selection_->setCursorType(static_cast<Selection::cursor_t>(type),
-                                   transform().isRotating());
-}
-
 void ImageView::clearPageLayout() {
     deletePageArea();
     deletePageSelection();
@@ -141,7 +136,6 @@ void ImageView::createPageSelection(const QRect& rect) {
 
     page_selection_ = new Selection(mapToScene(rect).boundingRect());
     page_selection_->setZValue(1);
-    connect(page_selection_, SIGNAL(cursorChange(int)), SLOT(changeSelectionCursor(int)));
     connect(page_selection_, SIGNAL(selectionDeleted()), SLOT(deletePageSelection()));
     connect(page_selection_, SIGNAL(resized()), SLOT(savePageSelection()));
     connect(page_selection_, SIGNAL(moved(QPointF)), SLOT(movePageSelection(QPointF)));
