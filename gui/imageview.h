@@ -181,7 +181,6 @@ private:
     QMenu * context_menu_;
     QRubberBand * rubber_band_;
     Selection * page_selection_;
-    SelectionShadow * page_shadow_;
     QPoint selection_start_;
     select_mode_t select_mode_;
     qreal min_scale_;

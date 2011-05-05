@@ -50,7 +50,6 @@ void TestImageView::testConstruct() {
     QVERIFY(iv.area_ == NULL);
     QVERIFY(iv.page_selection_ == NULL);
     QVERIFY(iv.page_ == NULL);
-    QVERIFY(iv.page_shadow_ == NULL);
     QVERIFY(iv.scene());
     QVERIFY(iv.scene()->items().isEmpty());
     QVERIFY(!iv.isInteractive());

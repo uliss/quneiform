@@ -38,7 +38,6 @@
 #include "page.h"
 #include "pagearea.h"
 #include "selection.h"
-#include "selectionshadow.h"
 
 #define HAS_PAGE() {\
     if(!page_) {\
@@ -57,7 +56,6 @@ ImageView::ImageView(QWidget * parent) :
         context_menu_(NULL),
         rubber_band_(NULL),
         page_selection_(NULL),
-        page_shadow_(NULL),
         select_mode_(NORMAL),
         min_scale_(0),
         max_scale_(100),
@@ -147,7 +145,6 @@ void ImageView::createPageSelection(const QRect& rect) {
     connect(page_selection_, SIGNAL(selectionDeleted()), SLOT(deletePageSelection()));
     connect(page_selection_, SIGNAL(resized()), SLOT(savePageSelection()));
     connect(page_selection_, SIGNAL(moved(QPointF)), SLOT(movePageSelection(QPointF)));
-    page_shadow_ = new SelectionShadow(page_selection_);
     scene_->addItem(page_selection_);
 }
 
@@ -374,7 +371,6 @@ void ImageView::restorePageSelection() {
 
     page_selection_->setPos(QPointF());
     page_selection_->setRect(page_->pageArea());
-    page_shadow_->setParentItem(page_selection_);
 
     if(!scene_->items().contains(page_selection_))
         scene_->addItem(page_selection_);
