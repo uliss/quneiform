@@ -77,6 +77,9 @@ private slots:
     void updateCurrentPage();
 private:
     void addRecentMenu(QMenu * menu);
+    bool confirmRotation(Page * p);
+    bool confirmRotationRecognized();
+    bool confirmRotationSelected();
     void changePacketLanguage(int lang);
     void connectActions();
     void connectThumbs();
