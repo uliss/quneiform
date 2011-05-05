@@ -117,6 +117,7 @@ void TestPageRecognizer::testLoadImage() {
     PageRecognizer r;
     Page * eng = new Page(CF_IMAGE_DIR "/english.png");
     r.setPage(eng);
+    QCOMPARE(eng->imageSize(), QSize(281, 81));
 
     QImage img = r.loadImage();
     QCOMPARE(img.size(), eng->imageSize());
@@ -125,10 +126,10 @@ void TestPageRecognizer::testLoadImage() {
     QCOMPARE(r.loadImage().size(), QSize(30, 40));
 
     eng->rotate(90);
-    QCOMPARE(r.loadImage().size(), QSize(40, 30));
+    QCOMPARE(r.loadImage().size(), QSize(30, 40));
 
     eng->scaleView(12);
-    QCOMPARE(r.loadImage().size(), QSize(40, 30));
+    QCOMPARE(r.loadImage().size(), QSize(30, 40));
 
     delete eng;
 }
