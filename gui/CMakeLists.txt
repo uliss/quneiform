@@ -111,6 +111,7 @@ set(SRCS
 )
 
 set(EXTRA_RES)
+list(APPEND EXTRA_RES ${TRANSLATIONS_QM})
 
 if(MINGW)
     find_program(WINDRES
@@ -154,8 +155,6 @@ if(APPLE)
     set(MACOSX_BUNDLE_ICON_FILE ${ICON})
     set(CPACK_BUNDLE_ICON ${ICON_SRC})
     set(CPACK_PACKAGE_ICON ${ICON_SRC})
-
-    list(APPEND EXTRA_RES ${TRANSLATIONS_QM})
 
     # where to place resources
     set_source_files_properties(
