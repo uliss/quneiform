@@ -96,10 +96,20 @@ public:
     int blocksCount(BlockType t) const;
 
     /**
+      * Clears all bounding rectangles
+      */
+    void clearBlocks();
+
+    /**
       * Clears block bounding rectangles
       * @see blocks(), setBlocks(), appendBlock()
       */
     void clearBlocks(BlockType type);
+
+    /**
+      * Clears page blocks and area
+      */
+    void clearLayout();
 
     /**
       * Returns pointer to page document
@@ -322,9 +332,9 @@ signals:
     void exported();
 
     /**
-      * Emmited when page is transformed
+      * Emitted when page layout cleared
       */
-    void viewScaled();
+    void layoutCleared();
 
     /**
       * Emitted when page is recognized
@@ -335,6 +345,11 @@ signals:
       * Emmitted when page is rotated
       */
     void rotated(int angle);
+
+    /**
+      * Emmited when page is transformed
+      */
+    void viewScaled();
 private:
     void initRects();
 private:

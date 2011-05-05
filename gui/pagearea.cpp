@@ -20,20 +20,23 @@
 #include <QDebug>
 
 #include <QPen>
+#include <QGraphicsScene>
 
 #include "pagearea.h"
 #include "pagelayout.h"
 
 PageArea::PageArea() :
-        page_(NULL),
         layout_(NULL),
         current_char_bbox_(NULL)
 {
 }
 
 void PageArea::clear() {
+    clearCurrentChar();
     clearLayout();
+}
 
+void PageArea::clearCurrentChar() {
     delete current_char_bbox_;
     current_char_bbox_ = NULL;
 }
@@ -43,27 +46,13 @@ void PageArea::clearLayout() {
     layout_ = NULL;
 }
 
-void PageArea::fillLayout() {
-    if(!page_) {
-        qDebug() << "[Error]" << Q_FUNC_INFO << "null page pointer";
-        return;
-    }
-
-    if(!layout_)
-        layout_ = new PageLayout();
-
-    layout_->setParentItem(this);
-    layout_->populate(*page_);
-}
-
 void PageArea::hideLayout() {
     if(layout_)
         layout_->hide();
 }
 
 void PageArea::show(Page * page) {
-    page_ = page;
-    fillLayout();
+    updateLayout(page);
 }
 
 void PageArea::showChar(const QRect& bbox) {
@@ -83,4 +72,19 @@ void PageArea::showChar(const QRect& bbox) {
 void PageArea::showLayout() {
     if(layout_)
         layout_->show();
+}
+
+void PageArea::updateLayout(Page * page) {
+    if(!page) {
+        qDebug() << "[Error]" << Q_FUNC_INFO << "null page pointer";
+        return;
+    }
+
+    if(!layout_)
+        layout_ = new PageLayout();
+    else
+        layout_->clear();
+
+    layout_->setParentItem(this);
+    layout_->populate(*page);
 }

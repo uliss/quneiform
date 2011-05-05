@@ -89,6 +89,11 @@ void ImageView::changeSelectionCursor(int type) {
                                    transform().isRotating());
 }
 
+void ImageView::clearPageLayout() {
+    deletePageArea();
+    deletePageSelection();
+}
+
 void ImageView::clearScene() {
     if(!scene_) {
         qDebug() << Q_FUNC_INFO << "no scene";
@@ -110,6 +115,7 @@ void ImageView::connectPageSignals(Page * page) {
     connect(page, SIGNAL(rotated(int)), SLOT(updatePageRotation()));
     connect(page, SIGNAL(recognized()), SLOT(updatePageArea()));
     connect(page, SIGNAL(destroyed()), SLOT(deletePage()));
+    connect(page, SIGNAL(layoutCleared()), SLOT(clearPageLayout()));
 }
 
 void ImageView::contextMenuEvent(QContextMenuEvent * event) {
@@ -155,6 +161,11 @@ void ImageView::deletePage() {
     }
 }
 
+void ImageView::deletePageArea() {
+    delete area_;
+    area_ = NULL;
+}
+
 void ImageView::deletePageSelection() {
     delete page_selection_;
     page_selection_ = NULL;
@@ -169,6 +180,7 @@ void ImageView::disconnectPageSignals(Page * page) {
     disconnect(page, SIGNAL(viewScaled()), this, SLOT(updateViewScale()));
     disconnect(page, SIGNAL(rotated(int)), this, SLOT(updatePageRotation()));
     disconnect(page, SIGNAL(destroyed()), this, SLOT(deletePage()));
+    disconnect(page, SIGNAL(layoutCleared()), this, SLOT(clearPageLayout()));
 } 
 
 bool ImageView::event(QEvent * event) {
@@ -403,6 +415,9 @@ void ImageView::setupScene() {
 }
 
 void ImageView::showChar(const QRect& bbox) {
+    if(!area_)
+        return;
+
     area_->showChar(bbox);
     centerOn(bbox.center());
 }

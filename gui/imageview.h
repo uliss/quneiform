@@ -133,6 +133,7 @@ protected:
     void wheelEvent(QWheelEvent * event);
 private slots:
     void changeSelectionCursor(int type);
+    void clearPageLayout();
     void deletePage();
     void deletePageSelection();
     void movePageSelection(const QPointF& delta);
@@ -146,6 +147,7 @@ private:
     void createContextMenu();
     void createRubberBand();
     void createPageSelection(const QRect& rect);
+    void deletePageArea();
     void disconnectPageSignals(Page * page);
     void drawPageSelectionShadow();
     void finishPageSelection(const QRect& rect);

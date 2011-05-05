@@ -363,6 +363,21 @@ void MainWindow::rotate(int factor) {
         return;
     }
 
+    if(p->isRecognized()) {
+        if(QMessageBox::warning(this,
+                                    tr("Image rotation"),
+                                    tr("Image is already recognized. Rotation will remove page layout.\n"
+                                       "Are you shure?"),
+                                    QMessageBox::Cancel | QMessageBox::Yes,
+                                    QMessageBox::Cancel) != QMessageBox::Yes) {
+            return;
+        }
+        else {
+            p->clearLayout();
+            p->unsetFlag(Page::RECOGNIZED);
+        }
+    }
+
     p->rotate(factor);
 }
 

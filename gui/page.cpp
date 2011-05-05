@@ -58,9 +58,22 @@ void Page::appendBlock(const QRect& rect, BlockType type) {
     blocks_[type].append(rect);
 }
 
+void Page::clearBlocks() {
+    for(int i = 0; i < blocks_.count(); i++)
+        blocks_[i].clear();
+}
+
 void Page::clearBlocks(BlockType type) {
     Q_ASSERT(type < blocks_.size());
     blocks_[type].clear();
+}
+
+void Page::clearLayout() {
+    blockSignals(true);
+    clearBlocks();
+    setPageArea(QRect());
+    blockSignals(false);
+    emit layoutCleared();
 }
 
 QTextDocument * Page::document() {

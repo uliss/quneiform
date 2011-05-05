@@ -30,17 +30,15 @@ public:
     PageArea();
 
     void clear();
-
     void hideLayout();
-
     void show(Page * page);
     void showChar(const QRect& bbox);
     void showLayout();
 private:
+    void clearCurrentChar();
     void clearLayout();
-    void fillLayout();
+    void updateLayout(Page * page);
 private:
-    Page * page_;
     PageLayout * layout_;
     QGraphicsRectItem * current_char_bbox_;
 };
