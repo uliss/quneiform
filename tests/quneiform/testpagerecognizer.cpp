@@ -110,6 +110,40 @@ void TestPageRecognizer::testRecognize() {
     delete rus;
 }
 
+void TestPageRecognizer::testRecognizeRotated() {
+    PageRecognizer r;
+
+    // 90
+    Page eng90(CF_IMAGE_DIR "/english_rotated_90.png");
+    eng90.rotate(-90);
+
+    r.setPage(&eng90);
+    r.recognize();
+
+    QVERIFY(eng90.isRecognized());
+    QCOMPARE(eng90.ocrText().trimmed(), QString("ENGLISH"));
+
+    // 180
+    Page eng180(CF_IMAGE_DIR "/english_rotated_180.png");
+    eng180.rotate(-180);
+
+    r.setPage(&eng180);
+    r.recognize();
+
+    QVERIFY(eng180.isRecognized());
+    QCOMPARE(eng180.ocrText().trimmed(), QString("ENGLISH"));
+
+    // 270
+    Page eng270(CF_IMAGE_DIR "/english_rotated_270.png");
+    eng270.rotate(-270);
+
+    r.setPage(&eng270);
+    r.recognize();
+
+    QVERIFY(eng270.isRecognized());
+    QCOMPARE(eng270.ocrText().trimmed(), QString("ENGLISH"));
+}
+
 void TestPageRecognizer::testLoadImage() {
     PageRecognizer r;
     Page * eng = new Page(CF_IMAGE_DIR "/english.png");

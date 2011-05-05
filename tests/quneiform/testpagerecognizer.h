@@ -35,6 +35,7 @@ private slots:
     void testAbort();
     void testPercents();
     void testSlotConnections();
+    void testRecognizeRotated();
 };
 
 #endif // TESTPAGERECOGNIZER_H
