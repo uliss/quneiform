@@ -479,6 +479,7 @@ void TestPage::testReadWrite() {
     p.setPageArea(r);
     p.setAngle(90);
     p.setSelected(true);
+    p.setLanguage(Language(5));
 
     RecognitionSettings s;
     s.setFax(true);
@@ -520,6 +521,7 @@ void TestPage::testReadWrite() {
         QCOMPARE(p.viewScroll(), p2.viewScroll());
         QCOMPARE(p.blocks(Page::CHAR).count(), p2.blocks(Page::CHAR).count());
         QCOMPARE(p.blocks(Page::PICTURE).count(), p2.blocks(Page::PICTURE).count());
+        QCOMPARE(p.language(), p2.language());
     }
 
     QFile f(fname);

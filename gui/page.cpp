@@ -342,7 +342,8 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.is_null_
             << page.rec_settings_
             << page.blocks_
-            << page.format_settings_;
+            << page.format_settings_
+            << page.language_;
     return os;
 }
 
@@ -361,7 +362,8 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.is_null_
             >> page.rec_settings_
             >> page.blocks_
-            >> page.format_settings_;
+            >> page.format_settings_
+            >> page.language_;
 
     if(page.is_selected_)
         page.setSelected(true);
