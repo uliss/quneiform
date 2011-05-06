@@ -136,7 +136,7 @@ p {margin: 0; text-indent: 0;}
     </message>
     <message>
         <source>Digits</source>
-        <translation>Цифры</translation>
+        <translation type="obsolete">Цифры</translation>
     </message>
     <message>
         <source>Dutch</source>

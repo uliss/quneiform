@@ -23,7 +23,7 @@
 #include <QThread>
 #include "testpagerecognizer.h"
 #include "gui/page.h"
-#include "gui/language_i18n.h"
+#include "common/lang_def.h"
 
 #define private public
 #include "gui/pagerecognizer.h"
