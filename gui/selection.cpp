@@ -37,7 +37,10 @@ static const int MIN_HEIGHT = 20;
 static const int MOVE_STEP = 3;
 static const int MOVE_FAST_FACTOR = 6;
 
-Selection::Selection(const QRectF& area) : QGraphicsRectItem(area), resize_(NONE)
+Selection::Selection(const QRectF& area) :
+        QGraphicsRectItem(area),
+        shadow_(NULL),
+        resize_(NONE)
 {
     QColor c(0, 0, 0, 100);
     QPen pen(c);
@@ -49,6 +52,8 @@ Selection::Selection(const QRectF& area) : QGraphicsRectItem(area), resize_(NONE
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemIsFocusable, true);
+
+    shadow_ = new SelectionShadow(this);
 }
 
 qreal Selection::borderDistance(const QPointF& pt, Selection::border_t border) const {
@@ -297,41 +302,30 @@ QRectF Selection::sceneRect() const {
     return scene()->sceneRect();
 }
 
-void Selection::setCursorType(cursor_t cursor, bool vertical) {
-    Q_ASSERT(cursor >= 0 && cursor <= DIAGONAL_RIGHT);
-
-    static const Qt::CursorShape cursors[][2]  = {
-        {Qt::ArrowCursor, Qt::ArrowCursor}, // Selection::NORMAL (0)
-        {Qt::SizeHorCursor, Qt::SizeVerCursor}, // Selection::HORIZONTAL (1)
-        {Qt::SizeVerCursor, Qt::SizeHorCursor},// Selection::VERTICAL (2)
-        {Qt::SizeFDiagCursor, Qt::SizeBDiagCursor}, // Selection::DIAGONAL_LEFT (3)
-        {Qt::SizeBDiagCursor, Qt::SizeFDiagCursor} // Selection::DIAGONAL_RIGHT (4)
-    };
-
-    Q_ASSERT(cursor >= 0);
-    Q_ASSERT(cursor <= DIAGONAL_RIGHT);
-    Q_ASSERT(static_cast<size_t>(cursor) < (sizeof(cursors) / sizeof(cursors[0])));
-
-    QGraphicsItem::setCursor(cursors[cursor][vertical ? 1 : 0]);
-}
-
 void Selection::setResizeCursor(const QPointF& pos) {
     int mode = bordersResized(pos);
 
     if(!mode) {
-        emit cursorChange(NORMAL);
-        return;
+        return setCursor(Qt::ArrowCursor);
     }
 
     if(isVertical(mode)) {
-        if(mode & LEFT)
-            emit cursorChange(mode & TOP ? DIAGONAL_LEFT : DIAGONAL_RIGHT);
-        else if(mode & RIGHT)
-            emit cursorChange(mode & BOTTOM ? DIAGONAL_LEFT : DIAGONAL_RIGHT);
+        if(mode & LEFT) {
+            if(mode & TOP)
+                setCursor(Qt::SizeFDiagCursor);
+            else
+                setCursor(Qt::SizeBDiagCursor);
+        }
+        else if(mode & RIGHT) {
+            if(mode & BOTTOM)
+                setCursor(Qt::SizeFDiagCursor);
+            else
+                setCursor(Qt::SizeBDiagCursor);
+        }
         else
-            emit cursorChange(VERTICAL);
+            setCursor(Qt::SizeVerCursor);
     }
     else {
-        emit cursorChange(HORIZONTAL);
+        setCursor(Qt::SizeHorCursor);
     }
 }

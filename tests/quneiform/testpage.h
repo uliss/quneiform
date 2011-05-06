@@ -33,11 +33,10 @@ public slots:
     void sendDialogCancel();
 private slots:
     void testAngle();
+    void testSetAngle();
     void testConstruct();
     void testPageName();
     void testFlags();
-    void testResetScale();
-    void testResetTransform();
     void testRotate();
     void testScale();
     void testSetFlag();
@@ -48,7 +47,6 @@ private slots:
     void testSetRecognitionSettings();
     void testSetBlocks();
     void testSetSelected();
-    void testSetTransform();
     void testSetViewScroll();
     void testUnsetFlag();
     void testReadWrite();

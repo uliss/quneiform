@@ -104,6 +104,46 @@ void TestPage::testAngle() {
     QCOMPARE(p.angle(), 0);
 }
 
+void TestPage::testSetAngle() {
+    Page p("");
+    QSignalSpy changed(&p, SIGNAL(changed()));
+    QSignalSpy rotated(&p, SIGNAL(rotated(int)));
+
+    QCOMPARE(p.angle(), 0);
+    p.setAngle(100);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(rotated.count(), 1);
+    QCOMPARE(rotated.at(0).at(0).toInt(), 100);
+    QCOMPARE(p.angle(), 100);
+
+    p.setAngle(359);
+    QCOMPARE(changed.count(), 2);
+    QCOMPARE(rotated.count(), 2);
+    QCOMPARE(rotated.at(1).at(0).toInt(), 359);
+    QCOMPARE(p.angle(), 359);
+
+    p.setAngle(360);
+    QCOMPARE(changed.count(), 3);
+    QCOMPARE(rotated.count(), 3);
+    QCOMPARE(rotated.at(2).at(0).toInt(), 0);
+    QCOMPARE(p.angle(), 0);
+
+    p.setAngle(361);
+    QCOMPARE(changed.count(), 4);
+    QCOMPARE(rotated.count(), 4);
+    QCOMPARE(rotated.at(3).at(0).toInt(), 1);
+    QCOMPARE(p.angle(), 1);
+
+    p.setAngle(-90);
+    QCOMPARE(changed.count(), 5);
+    QCOMPARE(rotated.count(), 5);
+    QCOMPARE(rotated.at(4).at(0).toInt(), 270);
+    QCOMPARE(p.angle(), 270);
+
+    p.setAngle(-360);
+    QCOMPARE(p.angle(), 0);
+}
+
 void TestPage::testConstruct() {
     Page p("");
 
@@ -119,7 +159,7 @@ void TestPage::testConstruct() {
     QVERIFY(p.number() == 0);
     QCOMPARE(p.ocrText(), QString(""));
     QCOMPARE(p.pageArea(), QRect());
-    QCOMPARE(p.transform(), QTransform());
+    QCOMPARE(p.viewScale(), float(1.0));
     QCOMPARE(p.viewScroll(), QPoint());
     QVERIFY(p.blocks(Page::CHAR).empty());
     QVERIFY(p.blocks(Page::COLUMN).empty());
@@ -184,36 +224,6 @@ void TestPage::testPageName() {
     QCOMPARE(p4.imagePath(), QString("./name.txt"));
 }
 
-void TestPage::testResetScale() {
-    Page p(SAMPLE_IMG);
-    p.rotate(90);
-    p.scale(2);
-
-    QSignalSpy changed(&p, SIGNAL(changed()));
-    QSignalSpy transformed(&p, SIGNAL(transformed()));
-
-    p.resetScale();
-    QCOMPARE(changed.count(), 1);
-    QCOMPARE(transformed.count(), 1);
-    QCOMPARE(p.angle(), 90);
-    QTransform t;
-    t.rotate(p.angle());
-    QCOMPARE(p.transform(), t);
-}
-
-void TestPage::testResetTransform() {
-    Page p(SAMPLE_IMG);
-    p.rotate(90);
-    p.scale(2);
-
-    QSignalSpy changed(&p, SIGNAL(changed()));
-    QSignalSpy transformed(&p, SIGNAL(transformed()));
-
-    p.resetTransform();
-    QCOMPARE(changed.count(), 1);
-    QCOMPARE(transformed.count(), 1);
-}
-
 void TestPage::testRotate() {
     Page p(SAMPLE_IMG);
     QSignalSpy changed(&p, SIGNAL(changed()));
@@ -232,12 +242,12 @@ void TestPage::testRotate() {
 void TestPage::testScale() {
     Page p(SAMPLE_IMG);
     QSignalSpy changed(&p, SIGNAL(changed()));
-    QSignalSpy transformed(&p, SIGNAL(transformed()));
+    QSignalSpy view_scaled(&p, SIGNAL(viewScaled()));
 
-    p.scale(-1);
+    p.scaleView(-1);
 
-    QCOMPARE(changed.count(), 1);
-    QCOMPARE(transformed.count(), 1);
+    QCOMPARE(changed.count(), 0);
+    QCOMPARE(view_scaled.count(), 1);
 }
 
 void TestPage::testSetFlag() {
@@ -428,26 +438,6 @@ void TestPage::testSetSelected() {
     QCOMPARE(changed.count(), 2);
 }
 
-void TestPage::testSetTransform() {
-    Page p("");
-    QCOMPARE(p.transform(), QTransform());
-
-    QTransform t;
-    QSignalSpy changed(&p, SIGNAL(changed()));
-    QSignalSpy transformed(&p, SIGNAL(transformed()));
-
-    p.setTransform(t);
-    QCOMPARE(changed.count(), 0);
-    QCOMPARE(transformed.count(), 0);
-
-    t.rotate(90);
-    p.setTransform(t);
-    QCOMPARE(p.transform(), t);
-    QCOMPARE(p.angle(), 90);
-    QCOMPARE(changed.count(), 1);
-    QCOMPARE(transformed.count(), 1);
-}
-
 void TestPage::testSetViewScroll() {
     Page p("");
     QCOMPARE(p.viewScroll(), QPoint());
@@ -481,14 +471,12 @@ void TestPage::testReadWrite() {
     QPoint pt(10, 20);
     QString t("sample text");
     QRect r(20, 30, 40, 50);
-    QTransform tr;
     QString fname("page.tmp");
-    tr.rotate(90);
     p.setNumber(n);
     p.setViewScroll(pt);
     p.setOcrText(t);
     p.setPageArea(r);
-    p.setTransform(tr);
+    p.setAngle(90);
     p.setSelected(true);
 
     RecognitionSettings s;
@@ -527,7 +515,7 @@ void TestPage::testReadWrite() {
         QCOMPARE(p.ocrText(), p2.ocrText());
         QCOMPARE(p.pageArea(), p2.pageArea());
         QCOMPARE(p.recognitionSettings(), p2.recognitionSettings());
-        QCOMPARE(p.transform(), p2.transform());
+        QCOMPARE(p.viewScale(), p2.viewScale());
         QCOMPARE(p.viewScroll(), p2.viewScroll());
         QCOMPARE(p.blocks(Page::CHAR).count(), p2.blocks(Page::CHAR).count());
         QCOMPARE(p.blocks(Page::PICTURE).count(), p2.blocks(Page::PICTURE).count());

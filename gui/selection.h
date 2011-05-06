@@ -22,6 +22,8 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 
+class SelectionShadow;
+
 class Selection : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
@@ -63,18 +65,7 @@ public:
       * taking into account pos() and rect() values
       */
     QRect normalRect() const;
-
-    /**
-      * Sets selection cursor when it's over selection borders
-      * @param cursor - selection cursor
-      * @param vertical - true if selection rotated for 90 or 270 degrees
-      */
-    void setCursorType(cursor_t cursor, bool vertical);
 signals:
-    /**
-      * Emitted if cursor is above selection borders
-      */
-    void cursorChange(int type);
 
     /**
       * Emitted when user press arrow keys to move selection
@@ -108,6 +99,7 @@ private:
     QRectF sceneRect() const;
     void setResizeCursor(const QPointF& pos);
 private:
+    SelectionShadow * shadow_;
     char resize_;
 };
 

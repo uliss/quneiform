@@ -33,24 +33,23 @@
 
 #ifdef Q_WS_X11
 #define WAIT_EVENTS() {\
-    QCoreApplication::processEvents();\
-    QTest::qWait(50);\
-}
+QCoreApplication::processEvents();\
+        QTest::qWait(50);\
+    }
 #else
 #define WAIT_EVENTS() {}
 #endif
 
 TestImageView::TestImageView(QObject *parent) :
-    QObject(parent)
+        QObject(parent)
 {
 }
 
 void TestImageView::testConstruct() {
     ImageView iv;
-    QVERIFY(iv.layout_ == NULL);
-    QVERIFY(iv.page_selection_ == NULL);
+    QVERIFY(iv.area_ == NULL);
+    QVERIFY(iv.page_area_selection_ == NULL);
     QVERIFY(iv.page_ == NULL);
-    QVERIFY(iv.page_shadow_ == NULL);
     QVERIFY(iv.scene());
     QVERIFY(iv.scene()->items().isEmpty());
     QVERIFY(!iv.isInteractive());
@@ -66,9 +65,17 @@ void TestImageView::testClearScene() {
 
     iv.clearScene();
     QVERIFY(iv.scene()->items().isEmpty());
-    QVERIFY(iv.layout_ == NULL);
-    QVERIFY(iv.page_selection_ == NULL);
+    QVERIFY(iv.area_ == NULL);
+    QVERIFY(iv.page_area_selection_ == NULL);
 }
+
+#define NO_SCALE(page, view) \
+QVERIFY(!view.transform().isScaling());\
+        QCOMPARE(p.viewScale(), (float)1.0);
+
+#define SCALED(page, view) \
+QVERIFY(view.transform().isScaling());\
+        QCOMPARE(page.viewScale(), (float) view.transform().m11());
 
 void TestImageView::testFitPage() {
     ImageView iv;
@@ -80,91 +87,23 @@ void TestImageView::testFitPage() {
 
     iv.showPage(&p);
     iv.fitPage();
+    SCALED(p, iv)
 
-    QVERIFY(iv.transform().isScaling());
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - smaller, h - bigger (scale)
-    iv.resize(200, 100);
+            // w - smaller, h - bigger (scale)
+            iv.resize(200, 100);
     iv.fitPage();
-    QVERIFY(iv.transform().isScaling());
-    QCOMPARE(p.transform(), iv.transform());
+    SCALED(p, iv)
 
-    // w - bigger, h - bigger (no scale)
-    iv.resize(300, 100);
+            // w - bigger, h - bigger (no scale)
+            iv.resize(300, 100);
     iv.fitPage();
-    QVERIFY(!iv.transform().isScaling());
-    QCOMPARE(p.transform(), iv.transform());
+    NO_SCALE(p, iv)
 
-    // w - bigger, h - smaller (scale)
-    iv.resize(300, 50);
+            // w - bigger, h - smaller (scale)
+            iv.resize(300, 50);
     iv.fitPage();
-    QVERIFY(iv.transform().isScaling());
-    QCOMPARE(p.transform(), iv.transform());
-
-    // rotation (81x281)
-    QTransform rot90;
-    rot90.rotate(90);
-    p.rotate(90);
-
-    // w - smaller, h - smaller (scale + rotation)
-    iv.resize(50, 200);
-    iv.fitPage();
-
-    QVERIFY(iv.transform().isRotating());
-    QVERIFY(iv.transform() != rot90);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - smaller, h - bigger (scale + rotation)
-    iv.resize(100, 200);
-    iv.fitPage();
-    QVERIFY(iv.transform().isRotating());
-    QVERIFY(iv.transform() != rot90);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - bigger, h - bigger (no scale + rotation)
-    iv.resize(100, 300);
-    iv.fitPage();
-    QVERIFY(iv.transform().isRotating());
-    QCOMPARE(iv.transform(), rot90);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - bigger, h - smaller (scale + rotation)
-    iv.resize(50, 350);
-    iv.fitPage();
-    QVERIFY(iv.transform().isRotating());
-    QVERIFY(iv.transform() != rot90);
-    QCOMPARE(p.transform(), iv.transform());
-
-    p.resetTransform();
-    QTransform rot180;
-    rot180.rotate(180);
-    p.rotate(180);
-
-    // w - smaller, h - smaller (scale)
-    iv.resize(200, 50);
-    iv.fitPage();
-    QVERIFY(iv.transform() != rot180);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - smaller, h - bigger (scale)
-    iv.resize(200, 100);
-    iv.fitPage();
-    QVERIFY(iv.transform() != rot180);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - bigger, h - bigger (no scale)
-    iv.resize(300, 100);
-    iv.fitPage();
-    QCOMPARE(iv.transform(), rot180);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - bigger, h - smaller (scale)
-    iv.resize(300, 50);
-    iv.fitPage();
-    QVERIFY(iv.transform() != rot180);
-    QCOMPARE(p.transform(), iv.transform());
-}
+    SCALED(p, iv)
+        }
 
 void TestImageView::testFitWidth() {
     ImageView iv;
@@ -176,88 +115,23 @@ void TestImageView::testFitWidth() {
     iv.showPage(&p);
 
     iv.fitWidth();
-    QVERIFY(iv.transform().isScaling());
-    QCOMPARE(p.transform(), iv.transform());
+    SCALED(p, iv)
 
-    // w - bigger, h - smaller (no scale)
-    iv.resize(300, 50);
+            // w - bigger, h - smaller (no scale)
+            iv.resize(300, 50);
     iv.fitWidth();
-    QVERIFY(!iv.transform().isScaling());
-    QCOMPARE(p.transform(), iv.transform());
+    NO_SCALE(p, iv)
 
-    // w - bigger, h - bigger (no scale)
-    iv.resize(300, 100);
+            // w - bigger, h - bigger (no scale)
+            iv.resize(300, 100);
     iv.fitWidth();
-    QVERIFY(!iv.transform().isScaling());
-    QCOMPARE(p.transform(), iv.transform());
+    NO_SCALE(p, iv)
 
-    // w - smaller, h - bigger (scale!)
-    iv.resize(200, 100);
+            // w - smaller, h - bigger (scale!)
+            iv.resize(200, 100);
     iv.fitWidth();
-    QVERIFY(iv.transform().isScaling());
-    QCOMPARE(p.transform(), iv.transform());
-
-    QTransform rot90;
-    rot90.rotate(90);
-    p.rotate(90);
-
-    // w - bigger, h - smaller (no scale + rotation)
-    iv.resize(50, 300);
-    iv.fitWidth();
-    QVERIFY(iv.transform().isRotating());
-    QCOMPARE(iv.transform(), rot90);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - bigger, h - bigger (no scale + rotation)
-    iv.resize(100, 300);
-    iv.fitWidth();
-    QVERIFY(iv.transform().isRotating());
-    QCOMPARE(iv.transform(), rot90);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - smaller, h - bigger (scale + rotation)
-    iv.resize(100, 200);
-    iv.fitWidth();
-    QVERIFY(iv.transform().isRotating());
-    QVERIFY(iv.transform() != rot90);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - smaller, h - smaller (scale + rotation)
-    iv.resize(70, 100);
-    iv.fitWidth();
-    QVERIFY(iv.transform().isRotating());
-    QVERIFY(iv.transform() != rot90);
-    QCOMPARE(p.transform(), iv.transform());
-
-    p.resetTransform();
-    QTransform rot180;
-    rot180.rotate(180);
-    p.rotate(180);
-
-    // w - bigger, h - smaller (no scale)
-    iv.resize(300, 50);
-    iv.fitWidth();
-    QCOMPARE(iv.transform(), rot180);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - bigger, h - bigger (no scale)
-    iv.resize(300, 100);
-    iv.fitWidth();
-    QCOMPARE(iv.transform(), rot180);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - smaller, h - bigger (scale)
-    iv.resize(200, 100);
-    iv.fitWidth();
-    QVERIFY(iv.transform() != rot180);
-    QCOMPARE(p.transform(), iv.transform());
-
-    // w - smaller, h - smaller (scale)
-    iv.resize(100, 70);
-    iv.fitWidth();
-    QVERIFY(iv.transform() != rot180);
-    QCOMPARE(p.transform(), iv.transform());
-}
+    SCALED(p, iv)
+        }
 
 void TestImageView::testOriginalSize() {
     ImageView iv;
@@ -268,58 +142,11 @@ void TestImageView::testOriginalSize() {
     iv.showPage(&p);
 
     iv.zoom(2);
-    QVERIFY(iv.transform().isScaling());
-    QCOMPARE(p.transform(), iv.transform());
+    SCALED(p, iv)
 
-    iv.originalSize();
-    QVERIFY(!iv.transform().isScaling());
-    QCOMPARE(p.transform(), iv.transform());
-
-    QTransform rot90;
-    rot90.rotate(90);
-
-    // rotate and no scale
-    p.rotate(90);
-    QVERIFY(iv.transform().isRotating());
-    QCOMPARE(p.transform(), rot90);
-
-    // original
-    iv.originalSize();
-    QVERIFY(iv.transform().isRotating());
-    QCOMPARE(p.transform(), rot90);
-
-    // rotate and scale
-    p.scale(2);
-    QVERIFY(iv.transform().isRotating());
-    QVERIFY(iv.transform() != rot90);
-
-    // original
-    iv.originalSize();
-    QVERIFY(iv.transform().isRotating());
-    QCOMPARE(p.transform(), rot90);
-
-    QTransform rot180;
-    rot180.rotate(180);
-    QVERIFY(!rot180.isRotating());
-
-    p.resetTransform();
-
-    // rotate and no scale
-    p.rotate(180);
-    QCOMPARE(p.transform(), rot180);
-
-    // original
-    iv.originalSize();
-    QCOMPARE(p.transform(), rot180);
-
-    // rotate and scale
-    p.scale(2);
-    QVERIFY(iv.transform() != rot180);
-
-    // original
-    iv.originalSize();
-    QCOMPARE(p.transform(), rot180);
-}
+            iv.originalSize();
+    NO_SCALE(p, iv)
+        }
 
 void TestImageView::testZoom() {
     ImageView iv;
@@ -329,39 +156,13 @@ void TestImageView::testZoom() {
     QCOMPARE(iv.sceneRect(), QRectF(0, 0, 281, 81));
 
     iv.zoom(2);
-    QTransform t1;
-    t1.scale(0.5, 0.5);
-    QTransform t2;
-    t2.scale(2, 2);
+    QCOMPARE(p.viewScale(), float(2.0));
 
-    QCOMPARE(p.transform(), t2);
-    QCOMPARE(iv.transform(), t2);
     iv.zoom(2);
-    QCOMPARE(p.transform(), t2 * t2);
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t2);
-    iv.zoom(0.5);
-    QVERIFY(p.transform().isIdentity());
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t1);
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t1 * t1);
-    iv.originalSize();
+    QCOMPARE(p.viewScale(), float(4.0));
 
-    // rotation
-    iv.rotate(90);
-    iv.zoom(2);
-    QCOMPARE(iv.transform(), t2);
-    iv.zoom(2);
-    QCOMPARE(p.transform(), t2 * t2);
     iv.zoom(0.5);
-    QCOMPARE(p.transform(), t2);
-    iv.zoom(0.5);
-    QVERIFY(p.transform().isIdentity());
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t1);
-    iv.zoom(0.5);
-    QCOMPARE(p.transform(), t1 * t1);
+    QCOMPARE(p.viewScale(), float(2.0));
 }
 
 void TestImageView::testShowPage() {
@@ -377,8 +178,8 @@ void TestImageView::testShowPage() {
 
     iv.showPage(&p);
     QVERIFY(!iv.sceneRect().isNull());
-    QVERIFY(iv.page_selection_ != NULL);
-    QCOMPARE(iv.page_selection_->normalRect(), QRect(5, 6, 10, 20));
+    QVERIFY(iv.page_area_selection_ != NULL);
+    QCOMPARE(iv.page_area_selection_->normalRect(), QRect(5, 6, 10, 20));
 
     QCOMPARE(iv.verticalScrollBar()->value(), 12);
     QCOMPARE(iv.horizontalScrollBar()->value(), 11);
@@ -421,61 +222,61 @@ void TestImageView::testSelection() {
     WAIT_EVENTS()
 
 #ifdef Q_WS_X11
-    QEXPECT_FAIL("", "X11 fail why???", Abort);
+            QEXPECT_FAIL("", "X11 fail why???", Abort);
 #endif
 
     QTest::mouseMove(&iv, QPoint(12, 20));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeFDiagCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeFDiagCursor);
     QTest::mouseMove(&iv, QPoint(60, 20));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeBDiagCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeBDiagCursor);
     QTest::mouseMove(&iv, QPoint(60, 80));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeFDiagCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeFDiagCursor);
     QTest::mouseMove(&iv, QPoint(10, 80));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeBDiagCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeBDiagCursor);
     QTest::mouseMove(&iv, QPoint(30, 20));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeVerCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeVerCursor);
     QTest::mouseMove(&iv, QPoint(60, 40));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeHorCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeHorCursor);
     QTest::mouseMove(&iv, QPoint(30, 80));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeVerCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeVerCursor);
     QTest::mouseMove(&iv, QPoint(10, 40));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeHorCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeHorCursor);
 
     p.rotate(90);
     iv.resize(81, 281);
     QTest::mouseMove(&iv, QPoint(60, 10));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeBDiagCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeBDiagCursor);
     QTest::mouseMove(&iv, QPoint(60, 60));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeFDiagCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeFDiagCursor);
     QTest::mouseMove(&iv, QPoint(0, 60));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeBDiagCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeBDiagCursor);
     QTest::mouseMove(&iv, QPoint(0, 10));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeFDiagCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeFDiagCursor);
 
     QTest::mouseMove(&iv, QPoint(30, 10));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeVerCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeVerCursor);
     QTest::mouseMove(&iv, QPoint(60, 30));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeHorCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeHorCursor);
     QTest::mouseMove(&iv, QPoint(0, 30));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeHorCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeHorCursor);
     QTest::mouseMove(&iv, QPoint(30, 10));
     WAIT_EVENTS()
-    QCOMPARE(iv.page_selection_->cursor().shape(), Qt::SizeVerCursor);
+            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeVerCursor);
 }
 
 void TestImageView::testMinMaxZoom() {
@@ -519,27 +320,6 @@ void TestImageView::testMinMaxZoom() {
     QCOMPARE(scaled.count(), 2);
     QVERIFY(too_big.isEmpty());
     QCOMPARE(too_small.count(), 1);
-}
-
-void TestImageView::testShowCharBBox() {
-    ImageView iv;
-
-    // no page
-    iv.showChar(QRect(1, 2, 3, 4));
-
-    Page p(CF_IMAGE_DIR "/english.png");
-    iv.showPage(&p);
-
-    // normal
-    iv.showChar(QRect(10, 20, 200, 100));
-    QCOMPARE(iv.scene()->items().at(0)->boundingRect(), QRectF(10, 20, 200, 100));
-
-    // partial area
-    p.setPageArea(QRect(10, 20, 260, 60));
-    iv.clearScene();
-    iv.showChar(QRect(1, 2, 10, 20));
-
-    QCOMPARE(iv.scene()->items().at(0)->boundingRect(), QRectF(11, 22, 10, 20));
 }
 
 QTEST_MAIN(TestImageView);

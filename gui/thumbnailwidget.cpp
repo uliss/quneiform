@@ -64,7 +64,7 @@ ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
     connect(checked_, SIGNAL(toggled(bool)), SLOT(selectPage(bool)));
     connect(this, SIGNAL(contextMenuCreated(QMenu*)), parent, SLOT(setupContextMenu(QMenu*)));
     connect(this, SIGNAL(invalidImage(const QString&)), parent, SLOT(handleInvalidImage(const QString&)));
-    connect(page, SIGNAL(rotated(int)), SLOT(rotate(int)));
+    connect(page, SIGNAL(rotated(int)), SLOT(handlePageRotate()));
     connect(page, SIGNAL(changed()), SLOT(updatePageIndicators()));
 
     setFocusPolicy(Qt::ClickFocus);
@@ -129,6 +129,25 @@ bool ThumbnailWidget::isChecked() const {
     return checked_->isChecked();
 }
 
+QPixmap ThumbnailWidget::makeThumb() const {
+    Q_CHECK_PTR(page_);
+
+    QPixmap image;
+    if(!ImageCache::load(page_->imagePath(), &image)) {
+        qDebug() << Q_FUNC_INFO << "can't load pixmap:" << page_->imagePath();
+        return image;
+    }
+
+    image = image.transformed(QTransform().rotate(page_->angle()));
+
+    if(image.height() > image.width())
+        image = image.scaledToHeight(THUMB_IMAGE_HEIGHT);
+    else
+        image = image.scaledToWidth(THUMB_IMAGE_WIDTH);
+
+    return image;
+}
+
 void ThumbnailWidget::mousePressEvent(QMouseEvent * event) {
     Q_CHECK_PTR(event);
 
@@ -178,12 +197,9 @@ void ThumbnailWidget::recognizeThumb() {
     emit recognize(page_);
 }
 
-void ThumbnailWidget::rotate(int angle) {
-    Q_CHECK_PTR(page_);
-
-    QTransform t;
-    QPixmap new_pixmap = thumb_->pixmap()->transformed(t.rotate(angle));
-    thumb_->setPixmap(new_pixmap);
+void ThumbnailWidget::handlePageRotate() {
+    Q_CHECK_PTR(thumb_);
+    thumb_->setPixmap(makeThumb());
 }
 
 
@@ -272,26 +288,11 @@ void ThumbnailWidget::setupLayout() {
 }
 
 void ThumbnailWidget::setupPixmap() {
-    Q_CHECK_PTR(page_);
     Q_CHECK_PTR(layout_);
-
-    QPixmap image;
-    if(!ImageCache::load(page_->imagePath(), &image)) {
-        qDebug() << "[ThumbnailWidget::setupPixmap] can't load pixmap";
-        return;
-    }
 
     thumb_ = new QLabel;
     thumb_->setMargin(THUMB_IMAGE_MARGIN);
-    QTransform thumb_rotate;
-    thumb_rotate.rotate(page_->angle());
-    image = image.transformed(thumb_rotate);
-    if(image.height() > image.width())
-        image = image.scaledToHeight(THUMB_IMAGE_HEIGHT);
-    else
-        image = image.scaledToWidth(THUMB_IMAGE_WIDTH);
-
-    thumb_->setPixmap(image);
+    thumb_->setPixmap(makeThumb());
     // stretch image
     static const int STRETCH_KOEF = 4;
     layout_->addWidget(thumb_, STRETCH_KOEF, Qt::AlignHCenter);

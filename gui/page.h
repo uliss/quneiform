@@ -26,7 +26,6 @@
 #include <QRect>
 #include <QSize>
 #include <QColor>
-#include <QTransform>
 #include <QMutex>
 #include <QFlags>
 #include "recognitionsettings.h"
@@ -73,8 +72,8 @@ public:
     };
 
     /**
-      * Returns page rotation angle (0, 90, 180 or 270 degrees)
-      * @see rotate()
+      * Returns page rotation angle in degrees
+      * @see setAngle(), rotate()
       */
     int angle() const;
 
@@ -97,10 +96,20 @@ public:
     int blocksCount(BlockType t) const;
 
     /**
+      * Clears all bounding rectangles
+      */
+    void clearBlocks();
+
+    /**
       * Clears block bounding rectangles
       * @see blocks(), setBlocks(), appendBlock()
       */
     void clearBlocks(BlockType type);
+
+    /**
+      * Clears page blocks and area
+      */
+    void clearLayout();
 
     /**
       * Returns pointer to page document
@@ -193,29 +202,29 @@ public:
     const RecognitionSettings& recognitionSettings() const;
 
     /**
-      * Resets page scaling, but saves rotate
-      * Emits signals changed() and transformed()
-      * @see scale(), resetTransform()
+      * Resets page view scaling
+      * @see setScale()
       */
-    void resetScale();
+    void resetViewScale();
 
     /**
-      * Resets page transform
-      * @see resetScale()
-      */
-    void resetTransform();
-
-    /**
-      * Rotates page
+      * Rotates page by diven degrees
       * Emits signals changed() and rotated()
       */
     void rotate(int angle);
 
     /**
-      * Scales page
-      * Emits signals changed() and transformed()
+      * Scales page view
       */
-    void scale(qreal factor);
+    void scaleView(qreal factor);
+
+    /**
+      * Sets page rotation angle
+      * @param angle - rotation angle in degrees
+      * @see angle(), rotate()
+      * Emits rotated() signal
+      */
+    void setAngle(int angle);
 
     /**
       * Sets page state flag
@@ -281,11 +290,10 @@ public:
     void setSelected(bool value);
 
     /**
-      * Sets page transform
-      * Emits signals changed() and transformed()
-      * @see transform()
+      * Sets page view scale
+      * @see viewScale()
       */
-    void setTransform(const QTransform& t);
+    void setViewScale(float scale);
 
     /**
       * Sets page view scroll
@@ -294,16 +302,16 @@ public:
     void setViewScroll(const QPoint& pt);
 
     /**
-      * Returns page transform
-      * @see setTransform()
-      */
-    QTransform transform() const;
-
-    /**
       * Unsets page state flag
       * @see setFlag(), flags()
       */
     void unsetFlag(PageFlag flag);
+
+    /**
+      * Returns page view scale
+      * @see setViewScale()
+      */
+    float viewScale() const;
 
     /**
       * Returns page view scroll
@@ -324,9 +332,9 @@ signals:
     void exported();
 
     /**
-      * Emmited when page is transformed
+      * Emitted when page layout cleared
       */
-    void transformed();
+    void layoutCleared();
 
     /**
       * Emitted when page is recognized
@@ -337,6 +345,11 @@ signals:
       * Emmitted when page is rotated
       */
     void rotated(int angle);
+
+    /**
+      * Emmited when page is transformed
+      */
+    void viewScaled();
 private:
     void initRects();
 private:
@@ -347,7 +360,8 @@ private:
     PageFlags state_flags_;
     bool is_selected_;
     QRect page_area_;
-    QTransform transform_;
+    int angle_;
+    float view_scale_;
     QPoint view_scroll_;
     bool is_null_;
     mutable QMutex mutex_;

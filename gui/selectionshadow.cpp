@@ -22,9 +22,8 @@
 #include <QPainter>
 
 #include "selectionshadow.h"
-#include "selection.h"
 
-SelectionShadow::SelectionShadow(Selection * parent) :
+SelectionShadow::SelectionShadow(QGraphicsRectItem * parent) :
     QGraphicsItem(parent)
 {
     setFlags(0);
@@ -40,9 +39,15 @@ QRectF SelectionShadow::boundingRect() const {
 void SelectionShadow::paint(QPainter * painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * /*widget*/) {
     Q_CHECK_PTR(scene());
 
+    QGraphicsRectItem * parent = dynamic_cast<QGraphicsRectItem*>(parentItem());
+    if(!parent) {
+        qDebug() << Q_FUNC_INFO << "invalid parent type";
+        return;
+    }
+
     QPainterPath p;
     p.addRect(scene()->sceneRect());
-    p.addRect(static_cast<Selection*>(parentItem())->rect());
+    p.addRect(parent->rect());
 
     painter->save();
     painter->setPen(Qt::NoPen);

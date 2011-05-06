@@ -16,18 +16,17 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-
 #ifndef SELECTIONSHADOW_H
 #define SELECTIONSHADOW_H
 
 #include <QGraphicsItem>
 
-class Selection;
+class QGraphicsRect;
 
 class SelectionShadow : public QGraphicsItem
 {
 public:
-    explicit SelectionShadow(Selection * parent = 0);
+    explicit SelectionShadow(QGraphicsRectItem * parent = 0);
     QRectF boundingRect() const;
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
 };

@@ -91,6 +91,35 @@ void MainWindow::addRecentMenu(QMenu * menu) {
     file_menu->insertMenu(separator, menu);
 }
 
+bool MainWindow::confirmRotation(Page * p) {
+    Q_CHECK_PTR(p);
+
+    if(p->isRecognized())
+        return confirmRotationRecognized();
+    else if(!p->pageArea().isNull())
+        return confirmRotationSelected();
+    else
+        return true;
+}
+
+bool MainWindow::confirmRotationRecognized() {
+    return QMessageBox::warning(this,
+                                tr("Image rotation"),
+                                tr("Image is already recognized. Rotation will remove page layout.\n"
+                                   "Are you shure?"),
+                                QMessageBox::Cancel | QMessageBox::Yes,
+                                QMessageBox::Cancel) == QMessageBox::Yes;
+}
+
+bool MainWindow::confirmRotationSelected() {
+    return QMessageBox::warning(this,
+                                tr("Image rotation"),
+                                tr("Image has recognition area. Rotation will remove it.\n"
+                                   "Are you shure?"),
+                                QMessageBox::Cancel | QMessageBox::Yes,
+                                QMessageBox::Cancel) == QMessageBox::Yes;
+}
+
 void MainWindow::changePacketLanguage(int lang) {
     qDebug() << Q_FUNC_INFO << lang;
     packet_->setLanguage(lang);
@@ -363,7 +392,11 @@ void MainWindow::rotate(int factor) {
         return;
     }
 
-    p->rotate(factor);
+    if(confirmRotation(p)) {
+        p->clearLayout();
+        p->unsetFlag(Page::RECOGNIZED);
+        p->rotate(factor);
+    }
 }
 
 void MainWindow::rotateLeft() {

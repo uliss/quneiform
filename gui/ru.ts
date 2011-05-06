@@ -430,6 +430,22 @@ Do you want to save it?</source>
         <source>Recognition error</source>
         <translation>Ошибка при распозновании</translation>
     </message>
+    <message>
+        <source>Image rotation</source>
+        <translation>Поворот изображения</translation>
+    </message>
+    <message>
+        <source>Image is already recognized. Rotation will remove page layout.
+Are you shure?</source>
+        <translation>Изображение уже распознано. Вращение удалит раскладку страницы.
+Вы уверены?</translation>
+    </message>
+    <message>
+        <source>Image has recognition area. Rotation will remove it.
+Are you shure?</source>
+        <translation>Изображение содержит область распознавания. Вращение удалит ее.
+Вы уверены?</translation>
+    </message>
 </context>
 <context>
     <name>Page</name>

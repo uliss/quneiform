@@ -16,25 +16,75 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTSELECTION_H
-#define TESTSELECTION_H
+#include <QSettings>
+#include <QDebug>
 
-#include <QObject>
+#include <QPen>
 #include <QGraphicsScene>
 
-class TestSelection : public QObject
-{
-    Q_OBJECT
-public:
-    TestSelection();
-private slots:
-    void testConstruct();
-    void testMoveBy();
-    void testNormalRect();
-    void testSelectionDelete();
-    void testSelectionMove();
-private:
-    QGraphicsScene scene_;
-};
+#include "pagearea.h"
+#include "pagelayout.h"
 
-#endif // TESTSELECTION_H
+PageArea::PageArea() :
+        layout_(NULL),
+        current_char_bbox_(NULL)
+{
+}
+
+void PageArea::clear() {
+    clearCurrentChar();
+    clearLayout();
+}
+
+void PageArea::clearCurrentChar() {
+    delete current_char_bbox_;
+    current_char_bbox_ = NULL;
+}
+
+void PageArea::clearLayout() {
+    delete layout_;
+    layout_ = NULL;
+}
+
+void PageArea::hideLayout() {
+    if(layout_)
+        layout_->hide();
+}
+
+void PageArea::show(Page * page) {
+    updateLayout(page);
+}
+
+void PageArea::showChar(const QRect& bbox) {
+    QSettings settings;
+    settings.beginGroup("format");
+    QPen p(settings.value("currentCharColor", Qt::red).value<QColor>());
+
+    if(!current_char_bbox_) {
+        current_char_bbox_ = new QGraphicsRectItem(bbox, this);
+        current_char_bbox_->setPen(p);
+    }
+    else {
+        current_char_bbox_->setRect(bbox);
+    }
+}
+
+void PageArea::showLayout() {
+    if(layout_)
+        layout_->show();
+}
+
+void PageArea::updateLayout(Page * page) {
+    if(!page) {
+        qDebug() << "[Error]" << Q_FUNC_INFO << "null page pointer";
+        return;
+    }
+
+    if(!layout_)
+        layout_ = new PageLayout();
+    else
+        layout_->clear();
+
+    layout_->setParentItem(this);
+    layout_->populate(*page);
+}

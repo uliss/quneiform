@@ -16,25 +16,31 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTSELECTION_H
-#define TESTSELECTION_H
+#ifndef PAGEAREA_H
+#define PAGEAREA_H
 
-#include <QObject>
-#include <QGraphicsScene>
+#include <QGraphicsRectItem>
 
-class TestSelection : public QObject
+class Page;
+class PageLayout;
+
+class PageArea : public QGraphicsRectItem
 {
-    Q_OBJECT
 public:
-    TestSelection();
-private slots:
-    void testConstruct();
-    void testMoveBy();
-    void testNormalRect();
-    void testSelectionDelete();
-    void testSelectionMove();
+    PageArea();
+
+    void clear();
+    void hideLayout();
+    void show(Page * page);
+    void showChar(const QRect& bbox);
+    void showLayout();
 private:
-    QGraphicsScene scene_;
+    void clearCurrentChar();
+    void clearLayout();
+    void updateLayout(Page * page);
+private:
+    PageLayout * layout_;
+    QGraphicsRectItem * current_char_bbox_;
 };
 
-#endif // TESTSELECTION_H
+#endif // PAGEAREA_H
