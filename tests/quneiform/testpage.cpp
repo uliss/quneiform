@@ -147,6 +147,7 @@ void TestPage::testSetAngle() {
 void TestPage::testConstruct() {
     Page p("");
 
+    QVERIFY(!p.language().isValid());
     QCOMPARE(p.name(), QString(""));
     QCOMPARE(p.angle(), 0);
     QVERIFY(p.flags() == Page::NONE);
