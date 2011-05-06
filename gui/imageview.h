@@ -148,7 +148,6 @@ private:
     void createPageSelection(const QRect& rect);
     void deletePageArea();
     void disconnectPageSignals(Page * page);
-    void drawPageSelectionShadow();
     void finishPageSelection(const QRect& rect);
     void finishSelection(const QPoint& pos);
     bool isSceneSizeSmaller();
