@@ -55,7 +55,7 @@ ImageView::ImageView(QWidget * parent) :
         page_(NULL),
         context_menu_(NULL),
         rubber_band_(NULL),
-        page_selection_(NULL),
+        page_area_selection_(NULL),
         select_mode_(NORMAL),
         min_scale_(0),
         max_scale_(100),
@@ -84,7 +84,7 @@ void ImageView::activate(bool value) {
 
 void ImageView::clearPageLayout() {
     deletePageArea();
-    deletePageSelection();
+    deletePageAreaSelection();
 }
 
 void ImageView::clearScene() {
@@ -94,7 +94,7 @@ void ImageView::clearScene() {
     }
 
     scene_->clear();
-    page_selection_ = NULL;
+    page_area_selection_ = NULL;
     pixmap_ = NULL;
     scene_bbox_ = NULL;
     area_ = NULL;
@@ -127,19 +127,19 @@ void ImageView::createContextMenu() {
                    this, SLOT(selectPageArea()));
 }
 
-void ImageView::createRubberBand() {
-    rubber_band_ = new QRubberBand(QRubberBand::Rectangle, this);
-}
-
-void ImageView::createPageSelection(const QRect& rect) {
+void ImageView::createPageAreaSelection(const QRect& rect) {
     Q_CHECK_PTR(scene_);
 
-    page_selection_ = new Selection(mapToScene(rect).boundingRect());
-    page_selection_->setZValue(1);
-    connect(page_selection_, SIGNAL(selectionDeleted()), SLOT(deletePageSelection()));
-    connect(page_selection_, SIGNAL(resized()), SLOT(savePageSelection()));
-    connect(page_selection_, SIGNAL(moved(QPointF)), SLOT(movePageSelection(QPointF)));
-    scene_->addItem(page_selection_);
+    page_area_selection_ = new Selection(mapToScene(rect).boundingRect());
+    page_area_selection_->setZValue(1);
+    connect(page_area_selection_, SIGNAL(selectionDeleted()), SLOT(deletePageAreaSelection()));
+    connect(page_area_selection_, SIGNAL(resized()), SLOT(updatePageAreaSelection()));
+    connect(page_area_selection_, SIGNAL(moved(QPointF)), SLOT(movePageSelection(QPointF)));
+    scene_->addItem(page_area_selection_);
+}
+
+void ImageView::createRubberBand() {
+    rubber_band_ = new QRubberBand(QRubberBand::Rectangle, this);
 }
 
 void ImageView::deletePage() {
@@ -157,9 +157,9 @@ void ImageView::deletePageArea() {
     area_ = NULL;
 }
 
-void ImageView::deletePageSelection() {
-    delete page_selection_;
-    page_selection_ = NULL;
+void ImageView::deletePageAreaSelection() {
+    delete page_area_selection_;
+    page_area_selection_ = NULL;
 
     HAS_PAGE()
     page_->setPageArea(QRect());
@@ -182,15 +182,15 @@ bool ImageView::event(QEvent * event) {
     return QGraphicsView::event(event);
 }
 
-void ImageView::finishPageSelection(const QRect& rect) {
+void ImageView::finishPageAreaSelection(const QRect& rect) {
     select_mode_ = NORMAL;
 
     if(!rect.isValid())
         return;
 
-    QRect new_rect(mapFromScene(sceneRect()).boundingRect().intersect(rect));
-    setPageSelection(new_rect);
-    savePageSelection();
+    QRect area_rect(mapFromScene(sceneRect()).boundingRect().intersect(rect));
+    setPageAreaSelection(area_rect);
+    updatePageAreaSelection();
 }
 
 void ImageView::finishSelection(const QPoint& pos) {
@@ -201,8 +201,8 @@ void ImageView::finishSelection(const QPoint& pos) {
     rubber_band_->hide();
 
     switch(select_mode_) {
-    case SELECT_PAGE:
-        finishPageSelection(QRect(selection_start_, pos).normalized());
+    case SELECT_AREA:
+        finishPageAreaSelection(QRect(selection_start_, pos).normalized());
         break;
     default:
         qDebug() << Q_FUNC_INFO << "not implemented yet for " << select_mode_;
@@ -318,7 +318,7 @@ void ImageView::movePageSelection(const QPointF& delta) {
     if(t.isRotating())
         t.rotate(180);
 
-    page_selection_->moveBy(t.map(delta));
+    page_area_selection_->moveBy(t.map(delta));
 }
 
 void ImageView::originalSize() {
@@ -354,150 +354,20 @@ void ImageView::resizeSelection(const QPoint& pos) {
         rubber_band_->setGeometry(QRect(selection_start_, pos).normalized());
 }
 
-void ImageView::restorePageSelection() {
+void ImageView::restorePageAreaSelection() {
     HAS_PAGE()
 
     if(!page_->pageArea().isValid())
         return;
 
-    if(!page_selection_)
-        createPageSelection(QRect());
+    if(!page_area_selection_)
+        createPageAreaSelection(QRect());
 
-    page_selection_->setPos(QPointF());
-    page_selection_->setRect(page_->pageArea());
+    page_area_selection_->setPos(QPointF());
+    page_area_selection_->setRect(page_->pageArea());
 
-    if(!scene_->items().contains(page_selection_))
-        scene_->addItem(page_selection_);
-}
-
-void ImageView::savePageSelection() {
-    HAS_PAGE()
-    if(page_selection_)
-        page_->setPageArea(page_selection_->normalRect());
-    else
-        page_->setPageArea(QRect());
-}
-
-void ImageView::savePageViewScale() {
-    HAS_PAGE()
-
-    page_->setViewScale(transform().m11());
-}
-
-void ImageView::savePageViewScroll() {
-    HAS_PAGE()
-
-    page_->setViewScroll(QPoint(horizontalScrollBar()->value(), verticalScrollBar()->value()));
-}
-
-void ImageView::setPageSelection(const QRect& rect) {
-    HAS_PAGE()
-
-    if(!page_selection_)
-        createPageSelection(rect);
-    else
-        page_selection_->setRect(mapToScene(rect).boundingRect());
-}
-
-void ImageView::setupScene() {
-    scene_ = new QGraphicsScene;
-    setScene(scene_);
-}
-
-void ImageView::showChar(const QRect& bbox) {
-    if(!area_)
-        return;
-
-    area_->showChar(bbox);
-    centerOn(bbox.center());
-}
-
-void ImageView::showImage() {
-    Q_CHECK_PTR(page_);
-
-    QPixmap image;
-    if(!ImageCache::load(page_->imagePath(), &image)) {
-        qDebug() << "[Error]" << Q_FUNC_INFO << "can't load image";
-        return;
-    }
-
-    if(pixmap_)
-        scene_->removeItem(pixmap_);
-
-    pixmap_ = scene_->addPixmap(image);
-    pixmap_->setZValue(0);
-    pixmap_->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
-
-    rotatePixmap(page_->angle());
-}
-
-void ImageView::showFormatLayout() {
-    if(area_)
-         area_->showLayout();
-}
-
-void ImageView::showPage(Page * page) {
-    if(!page) {
-        qDebug() << Q_FUNC_INFO << "attempt to show NULL page";
-        return;
-    }
-
-    // attempt to show current page
-    if(page_ == page)
-        return;
-
-    if(page_) {
-        // save old page view scroll
-        savePageViewScroll();
-        // disconnect previous
-        disconnectPageSignals(page_);
-    }
-
-    // set current page
-    page_ = page;
-    // connect new
-    connectPageSignals(page_);
-
-    clearScene();
-    updateViewScale();
-    showImage();
-    updatePageArea();
-    restorePageScroll();
-    restorePageSelection();
-    activate(true);
-}
-
-void ImageView::selectPageArea() {
-    HAS_PAGE()
-
-    select_mode_ = SELECT_PAGE;
-    updateSelectionCursor();
-}
-
-void ImageView::setMinScale(qreal factor) {
-    Q_ASSERT(factor >= 0);
-    min_scale_ = factor;
-}
-
-void ImageView::setMaxScale(qreal factor) {
-    Q_ASSERT(factor >= 0);
-    max_scale_ = factor;
-}
-
-void ImageView::startSelection(const QPoint& pos) {
-    if(!page_ || select_mode_ == NORMAL)
-        return;
-
-    // delete previous selection
-    deletePageSelection();
-
-    selection_start_ = pos;
-
-    if (!rubber_band_)
-        createRubberBand();
-
-    rubber_band_->setGeometry(QRect(selection_start_, QSize()));
-    rubber_band_->show();
+    if(!scene_->items().contains(page_area_selection_))
+        scene_->addItem(page_area_selection_);
 }
 
 void ImageView::restorePageScroll() {
@@ -527,6 +397,128 @@ void ImageView::rotatePixmap(int angle) {
         scene_bbox_->setRect(sceneRect());
 }
 
+void ImageView::savePageViewScale() {
+    HAS_PAGE()
+
+    page_->setViewScale(transform().m11());
+}
+
+void ImageView::savePageViewScroll() {
+    HAS_PAGE()
+
+    page_->setViewScroll(QPoint(horizontalScrollBar()->value(), verticalScrollBar()->value()));
+}
+
+void ImageView::selectPageArea() {
+    HAS_PAGE()
+
+    select_mode_ = SELECT_AREA;
+    updateSelectionCursor();
+}
+
+void ImageView::setMinScale(qreal factor) {
+    Q_ASSERT(factor >= 0);
+    min_scale_ = factor;
+}
+
+void ImageView::setMaxScale(qreal factor) {
+    Q_ASSERT(factor >= 0);
+    max_scale_ = factor;
+}
+
+void ImageView::setPageAreaSelection(const QRect& rect) {
+    HAS_PAGE()
+
+    if(!page_area_selection_)
+        createPageAreaSelection(rect);
+    else
+        page_area_selection_->setRect(mapToScene(rect).boundingRect());
+}
+
+void ImageView::setupScene() {
+    scene_ = new QGraphicsScene;
+    setScene(scene_);
+}
+
+void ImageView::showChar(const QRect& bbox) {
+    if(!area_)
+        return;
+
+    area_->showChar(bbox);
+    centerOn(bbox.center());
+}
+
+void ImageView::showFormatLayout() {
+    if(area_)
+         area_->showLayout();
+}
+
+void ImageView::showImage() {
+    Q_CHECK_PTR(page_);
+
+    QPixmap image;
+    if(!ImageCache::load(page_->imagePath(), &image)) {
+        qDebug() << "[Error]" << Q_FUNC_INFO << "can't load image";
+        return;
+    }
+
+    if(pixmap_)
+        scene_->removeItem(pixmap_);
+
+    pixmap_ = scene_->addPixmap(image);
+    pixmap_->setZValue(0);
+    pixmap_->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
+
+    rotatePixmap(page_->angle());
+}
+
+void ImageView::showPage(Page * page) {
+    if(!page) {
+        qDebug() << Q_FUNC_INFO << "attempt to show NULL page";
+        return;
+    }
+
+    // attempt to show current page
+    if(page_ == page)
+        return;
+
+    if(page_) {
+        // save old page view scroll
+        savePageViewScroll();
+        // disconnect previous
+        disconnectPageSignals(page_);
+    }
+
+    // set current page
+    page_ = page;
+    // connect new
+    connectPageSignals(page_);
+
+    clearScene();
+    updateViewScale();
+    showImage();
+    updatePageArea();
+    restorePageScroll();
+    restorePageAreaSelection();
+    activate(true);
+}
+
+void ImageView::startSelection(const QPoint& pos) {
+    if(!page_ || select_mode_ == NORMAL)
+        return;
+
+    // delete previous selection
+    deletePageAreaSelection();
+
+    selection_start_ = pos;
+
+    if (!rubber_band_)
+        createRubberBand();
+
+    rubber_band_->setGeometry(QRect(selection_start_, QSize()));
+    rubber_band_->show();
+}
+
 void ImageView::updateSelectionCursor() {
     HAS_PAGE()
 
@@ -534,7 +526,7 @@ void ImageView::updateSelectionCursor() {
     case NORMAL:
         setCursor(QCursor());
         break;
-    case SELECT_PAGE:
+    case SELECT_AREA:
         setCursor(Qt::CrossCursor);
         break;
     case SELECT_IMAGE:
@@ -557,6 +549,14 @@ void ImageView::updatePageArea() {
     area_->setPos(page_->pageArea().topLeft());
     area_->setParentItem(scene_bbox_);
     area_->show(page_);
+}
+
+void ImageView::updatePageAreaSelection() {
+    HAS_PAGE()
+    if(page_area_selection_)
+        page_->setPageArea(page_area_selection_->normalRect());
+    else
+        page_->setPageArea(QRect());
 }
 
 void ImageView::updatePageRotation() {

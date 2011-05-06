@@ -134,10 +134,10 @@ protected:
 private slots:
     void clearPageLayout();
     void deletePage();
-    void deletePageSelection();
+    void deletePageAreaSelection();
     void movePageSelection(const QPointF& delta);
-    void savePageSelection();
     void selectPageArea();
+    void updatePageAreaSelection();
     void updatePageRotation();
     void updateViewScale();
 private:
@@ -145,20 +145,20 @@ private:
     void connectPageSignals(Page * page);
     void createContextMenu();
     void createRubberBand();
-    void createPageSelection(const QRect& rect);
+    void createPageAreaSelection(const QRect& rect);
     void deletePageArea();
     void disconnectPageSignals(Page * page);
-    void finishPageSelection(const QRect& rect);
+    void finishPageAreaSelection(const QRect& rect);
     void finishSelection(const QPoint& pos);
     bool isSceneSizeSmaller();
     bool isSceneWidthSmaller();
     bool isTooBig() const;
     bool isTooSmall() const;
     void resizeSelection(const QPoint& pos);
-    void restorePageSelection();
+    void restorePageAreaSelection();
     void savePageViewScale();
     void savePageViewScroll();
-    void setPageSelection(const QRect& rect);
+    void setPageAreaSelection(const QRect& rect);
     void setupScene();
     void showImage();
     void startSelection(const QPoint& pos);
@@ -168,7 +168,7 @@ private:
 private:
     enum select_mode_t {
         NORMAL = 0,
-        SELECT_PAGE,
+        SELECT_AREA,
         SELECT_TEXT,
         SELECT_IMAGE,
         SELECT_TABLE
@@ -178,7 +178,7 @@ private:
     Page * page_;
     QMenu * context_menu_;
     QRubberBand * rubber_band_;
-    Selection * page_selection_;
+    Selection * page_area_selection_;
     QPoint selection_start_;
     select_mode_t select_mode_;
     qreal min_scale_;
