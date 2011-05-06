@@ -142,7 +142,6 @@ void TextEditor::alignRight() {
 void TextEditor::clearText() {
     setDocument(doc_);
     doc_->clear();
-    setReadOnly(true);
 }
 
 void TextEditor::connectPageSignal(Page * page) {
