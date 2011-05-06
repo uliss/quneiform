@@ -101,7 +101,7 @@ void TestPageRecognizer::testRecognize() {
     QVERIFY(rus->isRecognized());
     QVERIFY(!rus->hasFlag(Page::RECOGNITION_FAILED));
 
-    r.setLanguage(::LANGUAGE_RUSSIAN);
+    r.setLanguage(Language(::LANGUAGE_RUSSIAN));
     r.recognize();
     QCOMPARE(rus->ocrText().trimmed(), QString::fromUtf8("РУССКИЙ"));
 

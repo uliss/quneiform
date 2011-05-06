@@ -120,8 +120,8 @@ bool MainWindow::confirmRotationSelected() {
                                 QMessageBox::Cancel) == QMessageBox::Yes;
 }
 
-void MainWindow::changePacketLanguage(int lang) {
-    qDebug() << Q_FUNC_INFO << lang;
+void MainWindow::changePacketLanguage(const Language& lang) {
+    qDebug() << Q_FUNC_INFO << lang.name();
     packet_->setLanguage(lang);
     recognition_queue_->setLanguage(lang);
 }
@@ -469,7 +469,7 @@ void MainWindow::savePage(Page * page) {
     }
 }
 
-void MainWindow::selectLanguage(int lang) {
+void MainWindow::selectLanguage(const Language& lang) {
     Q_CHECK_PTR(lang_select_);
     Q_CHECK_PTR(lang_menu_);
 
@@ -502,13 +502,13 @@ void MainWindow::setupImageView() {
 void MainWindow::setupLanguageMenu() {
     lang_menu_ = new LanguageMenu;
     ui_->menuRecognition->addMenu(lang_menu_);
-    connect(lang_menu_, SIGNAL(languageSelected(int)), SLOT(selectLanguage(int)));
+    connect(lang_menu_, SIGNAL(languageSelected(Language)), SLOT(selectLanguage(Language)));
 }
 
 void MainWindow::setupLanguageSelect() {
     lang_select_ = new LanguageSelect(this);
     ui_->mainToolBar->addWidget(lang_select_);
-    connect(lang_select_, SIGNAL(languageSelected(int)), SLOT(selectLanguage(int)));
+    connect(lang_select_, SIGNAL(languageSelected(Language)), SLOT(selectLanguage(Language)));
 }
 
 void MainWindow::setupLanguageUi() {

@@ -20,6 +20,7 @@
 #define LANGUAGE_SELECT_H_
 
 #include <QComboBox>
+#include "language.h"
 
 class QMenu;
 
@@ -27,10 +28,10 @@ class LanguageSelect : public QComboBox {
     Q_OBJECT
 public:
     LanguageSelect(QWidget * parent = 0);
-    int currentLanguage() const;
-    void select(int lang);
+    Language currentLanguage() const;
+    void select(const Language& lang);
 signals:
-    void languageSelected(int lang);
+    void languageSelected(const Language& lang);
 private:
     void initLanguages();
 private slots:

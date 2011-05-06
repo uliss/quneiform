@@ -218,10 +218,6 @@ p {margin: 0; text-indent: 0;}
         <source>Ukrainian</source>
         <translation>Украинский</translation>
     </message>
-    <message>
-        <source>Slovenian</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>LanguageMenu</name>

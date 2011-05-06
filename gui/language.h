@@ -21,6 +21,7 @@
 
 #include <QString>
 #include <QList>
+#include <QMetaType>
 
 class QDataStream;
 
@@ -32,7 +33,7 @@ public:
       * if code is invalid - invalid language constructed.
       * it can be checked via isValid() call.
       */
-    explicit Language(int code);
+    explicit Language(int code = -1);
 
     /**
       * Returns language code
@@ -50,6 +51,16 @@ public:
     QString name() const;
 
     /**
+      * Returns true if languages are equal
+      */
+    bool operator==(const Language& l) const;
+
+    /**
+      * Returns true if languages are non equal
+      */
+    bool operator!=(const Language& l) const;
+
+    /**
       * Returns translated to current locale language name
       */
     QString trName() const;
@@ -61,14 +72,16 @@ public:
     };
 
 public:
+    static Language english();
     static QList<Language> supportedLanguages(Sorting sort = NO_SORT);
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Language& lang);
     friend QDataStream& operator>>(QDataStream& stream, Language& lang);
 private:
-    QString name_;
     int code_;
 };
+
+Q_DECLARE_METATYPE(Language);
 
 QDataStream& operator<<(QDataStream& stream, const Language& lang);
 QDataStream& operator>>(QDataStream& stream, Language& lang);

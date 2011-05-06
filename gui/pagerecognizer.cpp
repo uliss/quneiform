@@ -27,7 +27,6 @@
 #include "page.h"
 #include "cuneiform.h"
 #include "rdib/qtimageloader.h"
-#include "common/lang_def.h"
 #include "common/formatoptions.h"
 #include "quneiform_debug.h"
 #include "rectexporter.h"
@@ -40,7 +39,7 @@
 PageRecognizer::PageRecognizer(QObject * parent)
     : QObject(parent),
     page_(NULL),
-    language_(LANGUAGE_ENGLISH),
+    language_(Language::english()),
     abort_(false),
     stage_sleep_(FORMAT + 1, 0)
 {
@@ -186,7 +185,7 @@ void PageRecognizer::saveOcrText() {
 
     page_->document()->clear();
     cf::FormatOptions opts;
-    opts.setLanguage(static_cast<language_t>(language_));
+    opts.setLanguage(static_cast<language_t>(language_.code()));
     opts.useFontSize(false);
     opts.setShowAlternatives(true);
     QTextDocumentExporter exp(NULL, opts);
@@ -200,8 +199,8 @@ void PageRecognizer::saveOcrText() {
     QCoreApplication::processEvents();
 }
 
-void PageRecognizer::setLanguage(int language) {
-    language_ = language;
+void PageRecognizer::setLanguage(const Language& lang) {
+    language_ = lang;
 }
 
 void PageRecognizer::setPage(Page * p) {
@@ -220,7 +219,7 @@ void PageRecognizer::setRecognizeOptions() {
     recognize_opts.setPictureSearch(settings.picturesSearch());
     recognize_opts.setSpellCorrection(settings.spelling());
 
-    recognize_opts.setLanguage(static_cast<language_t>(language_));
+    recognize_opts.setLanguage(static_cast<language_t>(language_.code()));
 
     cf::Puma::instance().setRecognizeOptions(recognize_opts);
 

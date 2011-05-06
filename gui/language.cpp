@@ -20,6 +20,7 @@
 #include <QMap>
 #include <QtAlgorithms>
 #include <QDataStream>
+#include <QMetaType>
 
 #include "common/lang_def.h"
 #include "alphabets/alphabetfactory.h"
@@ -31,6 +32,7 @@ bool initLanguageCodeMap();
 
 namespace {
     bool value = initLanguageCodeMap();
+    int registered = qRegisterMetaType<Language>("Language");
 }
 
 bool initLanguageCodeMap() {
@@ -56,7 +58,7 @@ bool initLanguageCodeMap() {
     lang_code_map.insert(::LANGUAGE_RUSSIAN, QT_TRANSLATE_NOOP("Lang", "Russian"));
     lang_code_map.insert(::LANGUAGE_RUS_ENG, QT_TRANSLATE_NOOP("Lang", "Russian-English"));
     lang_code_map.insert(::LANGUAGE_SERBIAN, QT_TRANSLATE_NOOP("Lang", "Serbian"));
-    lang_code_map.insert(::LANGUAGE_SLOVENIAN, QT_TRANSLATE_NOOP("Lang", "Slovenian"));
+    lang_code_map.insert(::LANGUAGE_SLOVENIAN, QT_TRANSLATE_NOOP("Lang", "Slovak"));
     lang_code_map.insert(::LANGUAGE_SPANISH, QT_TRANSLATE_NOOP("Lang", "Spanish"));
     lang_code_map.insert(::LANGUAGE_SWEDISH, QT_TRANSLATE_NOOP("Lang", "Swedish"));
     lang_code_map.insert(::LANGUAGE_TURKISH, QT_TRANSLATE_NOOP("Lang", "Turkish"));
@@ -76,17 +78,15 @@ bool compareLanguageByTrName(const Language& l1, const Language& l2) {
 Language::Language(int code)
 {
     LangCodeMap::iterator it = lang_code_map.find(code);
-    if(it != lang_code_map.end()) {
-        code_ = it.key();
-        name_ = it.value();
-    }
-    else {
-        code_ = ::LANGUAGE_UNKNOWN;
-    }
+    code_ = (it == lang_code_map.end()) ? ::LANGUAGE_UNKNOWN : it.key();
 }
 
 int Language::code() const {
     return code_;
+}
+
+Language Language::english() {
+    return Language(::LANGUAGE_ENGLISH);
 }
 
 bool Language::isValid() const {
@@ -94,7 +94,20 @@ bool Language::isValid() const {
 }
 
 QString Language::name() const {
-    return name_;
+    if(isValid()) {
+        LangCodeMap::iterator it = lang_code_map.find(code_);
+        return it == lang_code_map.end() ? QString() : it.value();
+    }
+    else
+        return QString();
+}
+
+bool Language::operator==(const Language& l) const {
+    return code_ == l.code_;
+}
+
+bool Language::operator!=(const Language& l) const {
+    return code_ != l.code_;
 }
 
 QList<Language> Language::supportedLanguages(Sorting sort) {
@@ -113,7 +126,7 @@ QList<Language> Language::supportedLanguages(Sorting sort) {
         qSort(ret.begin(), ret.end(), compareLanguageByName);
         break;
     case BY_TR_NAME:
-        qSort(ret.begin(), ret.end(), compareLanguageByName);
+        qSort(ret.begin(), ret.end(), compareLanguageByTrName);
         break;
     case NO_SORT:
     default:
@@ -124,7 +137,7 @@ QList<Language> Language::supportedLanguages(Sorting sort) {
 }
 
 QString Language::trName() const {
-    return QCoreApplication::translate("Lang", name_.toAscii().constData());
+    return QCoreApplication::translate("Lang", name().toAscii().constData());
 }
 
 QDataStream& operator<<(QDataStream& stream, const Language& l) {

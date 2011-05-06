@@ -32,7 +32,7 @@ TestPacket::TestPacket(QObject *parent) :
 void TestPacket::testConstruct() {
     Packet packet;
     QCOMPARE(packet.fileName(), QString("untitled.qpf"));
-    QCOMPARE(packet.language(), -1);
+    QVERIFY(!packet.language().isValid());
     QVERIFY(!packet.isChanged());
     QVERIFY(packet.isNew());
 }
@@ -176,10 +176,10 @@ void TestPacket::testHasPage() {
 void TestPacket::testLanguage() {
     Packet packet;
     QSignalSpy changed(&packet, SIGNAL(changed()));
-    QCOMPARE(packet.language(), -1);
+    QVERIFY(!packet.language().isValid());
 
-    packet.setLanguage(1);
-    QCOMPARE(packet.language(), 1);
+    packet.setLanguage(Language(1));
+    QCOMPARE(packet.language(), Language(1));
     QCOMPARE(changed.count(), 1);
 }
 
@@ -246,7 +246,7 @@ void TestPacket::testSave() {
     QString fname("packet.test");
 
     packet.append(new Page(""));
-    packet.setLanguage(1);
+    packet.setLanguage(Language(1));
     packet.save(fname);
 
     QFileInfo fi(fname);
@@ -335,7 +335,7 @@ void TestPacket::testReadWrite() {
         file.open(QIODevice::WriteOnly);
         QDataStream out(&file);
 
-        packet.setLanguage(1);
+        packet.setLanguage(Language(1));
         packet.append(new Page("test"));
         out << packet;
     }

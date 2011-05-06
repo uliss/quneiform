@@ -26,7 +26,6 @@ static const QString DEFAULT_NAME = "untitled.qpf";
 Packet::Packet(QObject * parent) :
         QObject(parent),
         filename_(DEFAULT_NAME),
-        language_(-1),
         changed_(false),
         is_new_(true) {
 }
@@ -105,7 +104,7 @@ bool Packet::isNew() const {
     return is_new_;
 }
 
-int Packet::language() const {
+Language Packet::language() const {
     return language_;
 }
 
@@ -193,8 +192,7 @@ bool Packet::save(const QString& filename) {
     return true;
 }
 
-void Packet::setLanguage(int lang) {
-    // TODO check
+void Packet::setLanguage(const Language& lang) {
     language_ = lang;
     emit changed();
 }

@@ -24,6 +24,7 @@
 #include <QMap>
 #include <QMutex>
 
+class Language;
 class Packet;
 class Page;
 class PageRecognizer;
@@ -81,7 +82,7 @@ public:
     /**
       * Sets recognition language
       */
-    void setLanguage(int language);
+    void setLanguage(const Language& lang);
 public slots:
     /**
       * Tries to abort recognition process

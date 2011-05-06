@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,25 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LANGUAGEMENU_H
-#define LANGUAGEMENU_H
+#ifndef TESTLANGUAGESELECT_H
+#define TESTLANGUAGESELECT_H
 
-#include <QMenu>
+#include <QObject>
 
-class Language;
-
-class LanguageMenu : public QMenu
+class TestLanguageSelect : public QObject
 {
     Q_OBJECT
 public:
-    explicit LanguageMenu(QWidget *parent = 0);
-    void select(const Language& lang);
-signals:
-    void languageSelected(const Language& lang);
-private:
-    void fillActions();
+    explicit TestLanguageSelect(QObject *parent = 0);
 private slots:
-    void selectAction();
+    void testConstruct();
+    void testEmitSelected();
+    void testSelect();
 };
 
-#endif // LANGUAGEMENU_H
+#endif // TESTLANGUAGESELECT_H

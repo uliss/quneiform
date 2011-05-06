@@ -21,6 +21,7 @@
 
 #include <QList>
 #include <QObject>
+#include "language.h"
 
 class Page;
 typedef QList<Page*> PageList;
@@ -82,7 +83,7 @@ public:
       * Returns packet language
       * @see setLanguage()
       */
-    int language() const;
+    Language language() const;
 
     /**
       * Opens packet from filename
@@ -118,7 +119,7 @@ public:
       * emits signal changed()
       * @see language()
       */
-    void setLanguage(int lang);
+    void setLanguage(const Language& lang);
 signals:
     /**
       * Emitted when packet changed
@@ -160,7 +161,7 @@ private slots:
 private:
     PageList pages_;
     QString filename_;
-    int language_;
+    Language language_;
     bool changed_;
     bool is_new_;
 public:
