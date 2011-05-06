@@ -386,6 +386,7 @@ void TestQTextDocumentExporter::testWriteParagraph() {
     QTextDocument doc;
     exp.setDocument(&doc);
 
+
     CEDParagraph * par2 = makePar("two line\nparagraph");
     exp.clear();
     exp.formatOptions().setPreserveLineBreaks(true);
@@ -404,8 +405,9 @@ void TestQTextDocumentExporter::testWriteParagraph() {
     exp.exportParagraph(*par3);
     QCOMPARE(doc.toPlainText().trimmed(), QString("two line hy-\nphen"));
     exp.clear();
+
     exp.formatOptions().setPreserveLineBreaks(false);
-    exp.exportParagraph(*par2);
+    exp.exportParagraph(*par3);
     // soft hyphen
     QCOMPARE(doc.toPlainText().trimmed(), QString("two line hy\xADphen"));
     delete par3;
