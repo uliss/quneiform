@@ -43,10 +43,10 @@ class MainWindow: public QMainWindow {
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
-    void closeEvent(QCloseEvent * event);
 public slots:
     void open(const QStringList& paths);
+protected:
+    void closeEvent(QCloseEvent * event);
 private slots:
     void about();
     void disableViewActions();

@@ -133,7 +133,7 @@ void MainWindow::changePacketLanguage(const Language& lang) {
 
 void MainWindow::closeEvent(QCloseEvent * event) {
     if(packet_)  {
-        if(packet_->isChanged()) {
+        if(!packet_->isEmpty() && packet_->isChanged()) {
             QMessageBox ask(QMessageBox::Question,
                                   tr("Recognition packet is not saved"),
                                   tr("Recognition packet is not saved!\nDo you want to save it?"),
