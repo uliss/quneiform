@@ -730,7 +730,8 @@ Are you shure?</source>
     <message>
         <source>Language: %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Язык: %1
+</translation>
     </message>
 </context>
 </TS>
