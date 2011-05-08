@@ -393,7 +393,7 @@ void MainWindow::recognizePage(Page * page) {
     recognition_queue_->start();
 }
 
-void MainWindow::rotate(int factor) {
+void MainWindow::rotate(int angle) {
     Page * p = thumbs_->currentPage();
     if (!p) {
         qDebug() << "No page selected";
@@ -403,7 +403,7 @@ void MainWindow::rotate(int factor) {
     if(confirmRotation(p)) {
         p->clearLayout();
         p->unsetFlag(Page::RECOGNIZED);
-        p->rotate(factor);
+        p->rotate(angle);
     }
 }
 
