@@ -17,6 +17,8 @@
  ***************************************************************************/
 
 #include <QSettings>
+#include <QFileInfo>
+#include <QDebug>
 
 #include "recentmenu.h"
 
@@ -44,6 +46,15 @@ void RecentMenu::add(const QString& file) {
 }
 
 void RecentMenu::addMenuAction(const QString& path) {
+    QFileInfo inf(path);
+
+    // skipping and removing non-exist files
+    if(!inf.exists()) {
+        qDebug() << QString("[Warning] file \"%1\" not exist. Removing it from recent menu list.").arg(path);
+        items_.removeAll(path);
+        return;
+    }
+
     QAction * act = addAction(path);
     act->setData(path);
     connect(act, SIGNAL(triggered()), SLOT(selectItem()));

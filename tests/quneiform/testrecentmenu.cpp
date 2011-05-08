@@ -22,6 +22,18 @@
 #include "testrecentmenu.h"
 #include "gui/recentmenu.h"
 
+#ifndef CF_IMAGE_DIR
+#define CF_IMAGE_DIR
+#endif
+
+#define PATH1 QString(CF_IMAGE_DIR "/english.png")
+#define PATH2 QString(CF_IMAGE_DIR "/english_rotated_90.png")
+#define PATH3 QString(CF_IMAGE_DIR "/english_rotated_180.png")
+#define PATH4 QString(CF_IMAGE_DIR "/english_rotated_270.png")
+#define PATH5 QString(CF_IMAGE_DIR "/russian.png")
+
+#define QF_COMPARE(menu, idx, str) QCOMPARE(menu.actions().at(idx)->text(), str);
+
 TestRecentMenu::TestRecentMenu(QObject *parent) :
     QObject(parent)
 {
@@ -45,49 +57,52 @@ void TestRecentMenu::testAdd() {
     m4.clear();
     QVERIFY(m4.isEmpty());
 
-    m4.add("path 1");
+    m4.add("non-exist");
+    QVERIFY(m4.isEmpty());
+
+    m4.add(PATH1);
     QVERIFY(!m4.isEmpty());
     QCOMPARE(m4.actions().count(), 1);
-    QCOMPARE(m4.actions().at(0)->text(), QString("path 1"));
+    QF_COMPARE(m4, 0, PATH1);
 
-    m4.add("path 2");
+    m4.add(PATH2);
     QCOMPARE(m4.actions().count(), 2);
-    QCOMPARE(m4.actions().at(0)->text(), QString("path 2"));
-    QCOMPARE(m4.actions().at(1)->text(), QString("path 1"));
+    QF_COMPARE(m4, 0, PATH2);
+    QF_COMPARE(m4, 1, PATH1);
 
-    m4.add("path 3");
+    m4.add(PATH3);
     QCOMPARE(m4.actions().count(), 3);
-    QCOMPARE(m4.actions().at(0)->text(), QString("path 3"));
-    QCOMPARE(m4.actions().at(1)->text(), QString("path 2"));
-    QCOMPARE(m4.actions().at(2)->text(), QString("path 1"));
+    QF_COMPARE(m4, 0, PATH3);
+    QF_COMPARE(m4, 1, PATH2);
+    QF_COMPARE(m4, 2, PATH1);
 
-    m4.add("path 4");
+    m4.add(PATH4);
     QCOMPARE(m4.actions().count(), 4);
-    QCOMPARE(m4.actions().at(0)->text(), QString("path 4"));
-    QCOMPARE(m4.actions().at(1)->text(), QString("path 3"));
-    QCOMPARE(m4.actions().at(2)->text(), QString("path 2"));
-    QCOMPARE(m4.actions().at(3)->text(), QString("path 1"));
+    QF_COMPARE(m4, 0, PATH4);
+    QF_COMPARE(m4, 1, PATH3);
+    QF_COMPARE(m4, 2, PATH2);
+    QF_COMPARE(m4, 3, PATH1);
 
-    m4.add("path 5");
+    m4.add(PATH5);
     QCOMPARE(m4.actions().count(), 4);
-    QCOMPARE(m4.actions().at(0)->text(), QString("path 5"));
-    QCOMPARE(m4.actions().at(1)->text(), QString("path 4"));
-    QCOMPARE(m4.actions().at(2)->text(), QString("path 3"));
-    QCOMPARE(m4.actions().at(3)->text(), QString("path 2"));
+    QF_COMPARE(m4, 0, PATH5);
+    QF_COMPARE(m4, 1, PATH4);
+    QF_COMPARE(m4, 2, PATH3);
+    QF_COMPARE(m4, 3, PATH2);
 
-    m4.add("path 2");
+    m4.add(PATH2);
     QCOMPARE(m4.actions().count(), 4);
-    QCOMPARE(m4.actions().at(0)->text(), QString("path 2"));
-    QCOMPARE(m4.actions().at(1)->text(), QString("path 5"));
-    QCOMPARE(m4.actions().at(2)->text(), QString("path 4"));
-    QCOMPARE(m4.actions().at(3)->text(), QString("path 3"));
+    QF_COMPARE(m4, 0, PATH2);
+    QF_COMPARE(m4, 1, PATH5);
+    QF_COMPARE(m4, 2,  PATH4);
+    QF_COMPARE(m4, 3, PATH3);
 
-    m4.add("path 4");
+    m4.add(PATH4);
     QCOMPARE(m4.actions().count(), 4);
-    QCOMPARE(m4.actions().at(0)->text(), QString("path 4"));
-    QCOMPARE(m4.actions().at(1)->text(), QString("path 2"));
-    QCOMPARE(m4.actions().at(2)->text(), QString("path 5"));
-    QCOMPARE(m4.actions().at(3)->text(), QString("path 3"));
+    QF_COMPARE(m4, 0, PATH4);
+    QF_COMPARE(m4, 1, PATH2);
+    QF_COMPARE(m4, 2, PATH5);
+    QF_COMPARE(m4, 3, PATH3);
 
     m4.clear();
 }
@@ -95,20 +110,20 @@ void TestRecentMenu::testAdd() {
 void TestRecentMenu::testPersistant() {
     {
         RecentMenu m1(NULL, "Title", "testConstruct1", 1);
-        m1.add("path");
+        m1.add(PATH1);
     }
 
     {
         RecentMenu m1(NULL, "Title", "testConstruct1", 1);
         QVERIFY(!m1.isEmpty());
-        QCOMPARE(m1.actions().first()->text(), QString("path"));
+        QF_COMPARE(m1, 0, PATH1);
     }
 }
 
 void TestRecentMenu::testSelected() {
     RecentMenu m2(NULL, "Title", "testSelected", 2);
-    m2.add("path 1");
-    m2.add("path 2");
+    m2.add(PATH1);
+    m2.add(PATH2);
     QCOMPARE(m2.actions().count(), 2);
 
     QSignalSpy selected(&m2, SIGNAL(selected(QString)));
@@ -117,12 +132,12 @@ void TestRecentMenu::testSelected() {
     m2.actions().at(0)->trigger();
     QCOMPARE(selected.count(), 1);
     QString path = selected.takeFirst().at(0).toString();
-    QCOMPARE(path, QString("path 2"));
+    QCOMPARE(path, PATH2);
 
     m2.actions().at(1)->trigger();
     QCOMPARE(selected.count(), 1);
     path = selected.takeFirst().at(0).toString();
-    QCOMPARE(path, QString("path 1"));
+    QCOMPARE(path, PATH1);
 }
 
 QTEST_MAIN(TestRecentMenu);
