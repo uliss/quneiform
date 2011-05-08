@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,30 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RECOGNITIONSETTINGSDIALOG_H
-#define RECOGNITIONSETTINGSDIALOG_H
+#ifndef TESTLANGUAGESELECT_H
+#define TESTLANGUAGESELECT_H
 
-#include <QDialog>
+#include <QObject>
 
-namespace Ui {
-    class RecognitionSettingsDialog;
-}
-
-class Page;
-
-class RecognitionSettingsDialog : public QDialog
+class TestLanguageSelect : public QObject
 {
     Q_OBJECT
 public:
-    RecognitionSettingsDialog(Page * page, QWidget * parent = 0);
-    ~RecognitionSettingsDialog();
+    explicit TestLanguageSelect(QObject *parent = 0);
 private slots:
-    void save();
-private:
-    void setup();
-private:
-    Ui::RecognitionSettingsDialog * ui_;
-    Page * page_;
+    void testConstruct();
+    void testEmitSelected();
+    void testSelect();
 };
 
-#endif // RECOGNITIONSETTINGSDIALOG_H
+#endif // TESTLANGUAGESELECT_H

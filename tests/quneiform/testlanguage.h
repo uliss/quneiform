@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,15 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LANGUAGE_I18N_H
-#define LANGUAGE_I18N_H
+#ifndef TESTLANGUAGE_H
+#define TESTLANGUAGE_H
 
-#include <QMap>
-#include <QString>
+#include <QObject>
 
-#include "common/lang_def.h"
+class TestLanguage : public QObject
+{
+    Q_OBJECT
+private slots:
+    void testConstruct();
+    void testSupportedLanguages();
+    void testReadWrite();
+};
 
-typedef QMap<QString, language_t> LanguageMap;
-LanguageMap supportedLanguages();
-
-#endif // LANGUAGE_I18N_H
+#endif // TESTLANGUAGE_H

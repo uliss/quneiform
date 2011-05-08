@@ -132,6 +132,10 @@ bool Page::isSelected() const {
     return is_selected_;
 }
 
+Language Page::language() const {
+    return language_;
+}
+
 QString Page::name() const {
     QFileInfo inf(image_path_);
     return inf.fileName();
@@ -221,6 +225,17 @@ void Page::setFlags(PageFlags flags) {
 
 void Page::setFormatSettings(const FormatSettings& settings) {
     format_settings_ = settings;
+    emit changed();
+}
+
+void Page::setLanguage(const Language& lang) {
+    QMutexLocker lock(&mutex_);
+
+    if(language_ == lang)
+        return;
+    else
+        language_ = lang;
+
     emit changed();
 }
 
@@ -327,7 +342,8 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.is_null_
             << page.rec_settings_
             << page.blocks_
-            << page.format_settings_;
+            << page.format_settings_
+            << page.language_;
     return os;
 }
 
@@ -346,7 +362,8 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.is_null_
             >> page.rec_settings_
             >> page.blocks_
-            >> page.format_settings_;
+            >> page.format_settings_
+            >> page.language_;
 
     if(page.is_selected_)
         page.setSelected(true);

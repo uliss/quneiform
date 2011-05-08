@@ -44,7 +44,7 @@ set(SOURCES
     imagecache.cpp
     imageview.cpp
     imagewidget.cpp
-    language_i18n.cpp
+    language.cpp
     languagemenu.cpp
     languageselect.cpp
     mainwindow.cpp

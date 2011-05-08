@@ -17,20 +17,19 @@
  ***************************************************************************/
 
 #include "languagemenu.h"
-#include "language_i18n.h"
+#include "language.h"
 
 LanguageMenu::LanguageMenu(QWidget *parent) :
     QMenu(tr("Language"), parent)
 {
     fillActions();
+    select(Language::english());
 }
 
 void LanguageMenu::fillActions() {
-    LanguageMap langs = supportedLanguages();
-    for(LanguageMap::iterator it = langs.begin(), end = langs.end();
-            it != end; ++it) {
-        QAction * lang_action = addAction(it.key());
-        lang_action->setData(it.value());
+    foreach(Language l, Language::supportedLanguages(Language::BY_TR_NAME)) {
+        QAction * lang_action = addAction(l.trName());
+        lang_action->setData(QVariant::fromValue(l));
         lang_action->setCheckable(true);
         connect(lang_action, SIGNAL(triggered()), SLOT(selectAction()));
     }
@@ -41,17 +40,15 @@ void LanguageMenu::selectAction() {
     if(!act)
         return;
 
-    int lang = act->data().toInt();
+    Language lang = act->data().value<Language>();
     select(lang);
 
     emit languageSelected(lang);
 }
 
-void LanguageMenu::select(int lang) {
+void LanguageMenu::select(const Language& lang) {
     foreach(QAction * act, actions()) {
-        if(act->data().toInt() != lang)
-            act->setChecked(false);
-        else
-            act->setChecked(true);
+        Language act_lang = act->data().value<Language>();
+        act->setChecked(act_lang == lang);
     }
 }

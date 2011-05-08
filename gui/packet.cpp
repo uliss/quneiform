@@ -26,7 +26,6 @@ static const QString DEFAULT_NAME = "untitled.qpf";
 Packet::Packet(QObject * parent) :
         QObject(parent),
         filename_(DEFAULT_NAME),
-        language_(-1),
         changed_(false),
         is_new_(true) {
 }
@@ -85,6 +84,10 @@ QString Packet::fileName() const {
     return filename_;
 }
 
+Page * Packet::firstPage() {
+    return pages_.isEmpty() ? NULL : pages_.first();
+}
+
 bool Packet::hasPage(const QString& path) const {
     for (PageList::const_iterator it = pages_.begin(); it != pages_.end(); ++it) {
         if ((*it)->imagePath() == path)
@@ -103,10 +106,6 @@ bool Packet::isEmpty() const {
 
 bool Packet::isNew() const {
     return is_new_;
-}
-
-int Packet::language() const {
-    return language_;
 }
 
 bool Packet::open(const QString& filename) {
@@ -193,14 +192,18 @@ bool Packet::save(const QString& filename) {
     return true;
 }
 
-void Packet::setLanguage(int lang) {
-    // TODO check
-    language_ = lang;
-    emit changed();
+QList<Page*> Packet::selectedPages() {
+    QList<Page*> ret;
+
+    foreach(Page * p, pages_) {
+        if(p->isSelected())
+            ret.append(p);
+    }
+
+    return ret;
 }
 
 QDataStream& operator<<(QDataStream& os, const Packet& packet) {
-    os << packet.language_;
     os << packet.pageCount();
 
     foreach(Page * p, packet.pages_) {
@@ -211,8 +214,6 @@ QDataStream& operator<<(QDataStream& os, const Packet& packet) {
 }
 
 QDataStream& operator>>(QDataStream& is, Packet& packet) {
-    is >> packet.language_;
-
     int page_count;
     is >> page_count;
 

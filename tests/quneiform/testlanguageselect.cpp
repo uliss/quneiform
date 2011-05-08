@@ -17,23 +17,48 @@
  ***************************************************************************/
 
 #include <QTest>
-#include <QPushButton>
-#include "testrecognitionsettingsdialog.h"
+#include <QSignalSpy>
 
-#define private public
-#include "gui/recognitionsettingsdialog.h"
-#include "gui/page.h"
+#include "testlanguageselect.h"
+#include "gui/languageselect.h"
+#include "common/lang_def.h"
 
-TestRecognitionSettingsDialog::TestRecognitionSettingsDialog(QObject *parent) :
+TestLanguageSelect::TestLanguageSelect(QObject *parent) :
     QObject(parent)
 {
 }
 
-void TestRecognitionSettingsDialog::test() {
-    Page page("");
-    RecognitionSettingsDialog d(&page);
-    d.open();
-    d.accept();
+void TestLanguageSelect::testConstruct() {
+    LanguageSelect s;
+
+    QVERIFY(s.currentLanguage().isValid());
+    QCOMPARE(s.currentLanguage().name(), QString("English"));
+    QCOMPARE(s.currentText(), QString("English"));
 }
 
-QTEST_MAIN(TestRecognitionSettingsDialog);
+void TestLanguageSelect::testEmitSelected() {
+    LanguageSelect s;
+
+    QSignalSpy selected(&s, SIGNAL(languageSelected(Language)));
+    QVERIFY(selected.isEmpty());
+
+    s.select(Language(::LANGUAGE_ESTONIAN));
+    QCOMPARE(selected.count(), 1);
+    QCOMPARE(selected.at(0).at(0).value<Language>(), Language(::LANGUAGE_ESTONIAN));
+}
+
+void TestLanguageSelect::testSelect() {
+    LanguageSelect s;
+    s.select(Language(::LANGUAGE_DANISH));
+    QCOMPARE(s.currentLanguage().name(), QString("Danish"));
+    QCOMPARE(s.currentText(), QString("Danish"));
+
+    s.select(Language::english());
+    QVERIFY(s.currentLanguage().isValid());
+    QCOMPARE(s.currentLanguage().name(), QString("English"));
+
+    s.select(Language());
+    QCOMPARE(s.currentLanguage().name(), QString("English"));
+}
+
+QTEST_MAIN(TestLanguageSelect)

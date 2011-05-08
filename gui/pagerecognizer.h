@@ -46,11 +46,6 @@ public:
     QString pagePath() const;
 
     /**
-      * Sets recognition language
-      */
-    void setLanguage(int language);
-
-    /**
       * Sets recognized page
       */
     void setPage(Page *p);
@@ -121,7 +116,6 @@ private:
     void stageSleep(StageType t);
 private:
     Page * page_;
-    int language_;
     QMutex lock_;
     volatile bool abort_;
     QVector<int> stage_sleep_;

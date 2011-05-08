@@ -20,6 +20,7 @@
 #include <QMutexLocker>
 #include <QCoreApplication>
 
+#include "language.h"
 #include "pagerecognitionqueue.h"
 #include "pagerecognizer.h"
 #include "page.h"
@@ -130,12 +131,6 @@ void PageRecognitionQueue::start() {
         abort_ = false;
 
     emit finished(pages_done);
-}
-
-void PageRecognitionQueue::setLanguage(int lang) {
-    Q_CHECK_PTR(recognizer_);
-    QMutexLocker l(&queue_lock_);
-    recognizer_->setLanguage(lang);
 }
 
 int PageRecognitionQueue::pageCount() const {

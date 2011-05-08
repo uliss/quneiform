@@ -21,14 +21,16 @@
 
 #include <QMenu>
 
+class Language;
+
 class LanguageMenu : public QMenu
 {
     Q_OBJECT
 public:
     explicit LanguageMenu(QWidget *parent = 0);
-    void select(int lang);
+    void select(const Language& lang);
 signals:
-    void languageSelected(int lang);
+    void languageSelected(const Language& lang);
 private:
     void fillActions();
 private slots:

@@ -19,27 +19,25 @@
 #include <QMenu>
 #include <QAction>
 #include <QDebug>
-#include "cuneiform.h"
 #include "languageselect.h"
-#include "language_i18n.h"
 
 LanguageSelect::LanguageSelect(QWidget * parent)
     : QComboBox(parent)
 {
     initLanguages();
     connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(languageChange(int)));
-    select(::LANGUAGE_ENGLISH);
+    select(Language::english());
 }
 
-int LanguageSelect::currentLanguage() const {
-    QVariant l = itemData(currentIndex());
-    return l.isValid() ? l.toInt() : LANGUAGE_ENGLISH;
+Language LanguageSelect::currentLanguage() const {
+    QVariant var = itemData(currentIndex());
+    return var.isValid() ? Language(var.toInt()) : Language();
 }
 
 void LanguageSelect::initLanguages() {
-    LanguageMap langs = supportedLanguages();
-    for(LanguageMap::iterator it = langs.begin(), end = langs.end(); it != end; ++it)
-        addItem(it.key(), it.value());
+    foreach(Language l, Language::supportedLanguages(Language::BY_TR_NAME)) {
+        addItem(l.trName(), l.code());
+    }
 }
 
 void LanguageSelect::languageChange(int item_index) {
@@ -50,13 +48,13 @@ void LanguageSelect::languageChange(int item_index) {
     if(!data.isValid())
         return;
 
-    emit languageSelected(data.toInt());
+    emit languageSelected(Language(data.toInt()));
 }
 
-void LanguageSelect::select(int lang) {
-    int item_idx = findData(QVariant(lang));
-    blockSignals(true);
+void LanguageSelect::select(const Language&  lang) {
+    int item_idx = findData(lang.code());
     if(item_idx != -1)
         setCurrentIndex(item_idx);
-    blockSignals(false);
+    else
+        qDebug() << "[Warning]" << Q_FUNC_INFO << "Language" << lang.name() << "not found";
 }

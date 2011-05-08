@@ -77,11 +77,6 @@ public:
       * Returns pointer to page recognizer
       */
     PageRecognizer * recognizer();
-
-    /**
-      * Sets recognition language
-      */
-    void setLanguage(int language);
 public slots:
     /**
       * Tries to abort recognition process

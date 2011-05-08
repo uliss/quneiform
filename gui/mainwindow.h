@@ -25,6 +25,7 @@ namespace Ui {
 class MainWindow;
 }
 
+class Language;
 class Packet;
 class LanguageMenu;
 class LanguageSelect;
@@ -71,16 +72,17 @@ private slots:
     void enableViewActions();
     void enableZoomActions();
     void openRecentImage(const QString& path);
-    void selectLanguage(int lang);
+    void selectLanguage(const Language& lang);
     void showPageFault(Page * page);
     void showSettings();
     void updateCurrentPage();
+    void updateCurrentLanguage(Page * p);
 private:
     void addRecentMenu(QMenu * menu);
     bool confirmRotation(Page * p);
     bool confirmRotationRecognized();
     bool confirmRotationSelected();
-    void changePacketLanguage(int lang);
+    void changePacketLanguage(const Language& lang);
     void connectActions();
     void connectThumbs();
     void enableViewActions(bool value);

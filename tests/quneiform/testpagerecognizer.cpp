@@ -23,7 +23,7 @@
 #include <QThread>
 #include "testpagerecognizer.h"
 #include "gui/page.h"
-#include "gui/language_i18n.h"
+#include "common/lang_def.h"
 
 #define private public
 #include "gui/pagerecognizer.h"
@@ -101,7 +101,7 @@ void TestPageRecognizer::testRecognize() {
     QVERIFY(rus->isRecognized());
     QVERIFY(!rus->hasFlag(Page::RECOGNITION_FAILED));
 
-    r.setLanguage(::LANGUAGE_RUSSIAN);
+    rus->setLanguage(Language(::LANGUAGE_RUSSIAN));
     r.recognize();
     QCOMPARE(rus->ocrText().trimmed(), QString::fromUtf8("РУССКИЙ"));
 

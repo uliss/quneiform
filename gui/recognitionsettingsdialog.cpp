@@ -16,15 +16,16 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-
+#include "language.h"
+#include "page.h"
+#include "recognitionsettings.h"
 #include "recognitionsettingsdialog.h"
 #include "ui_recognitionsettingsdialog.h"
 
-RecognitionSettingsDialog::RecognitionSettingsDialog(const RecognitionSettings& opts,
-                                               QWidget * parent) :
+RecognitionSettingsDialog::RecognitionSettingsDialog(Page * page, QWidget * parent) :
     QDialog(parent),
     ui_(new Ui::RecognitionSettingsDialog),
-    opts_(opts) {
+    page_(page) {
     ui_->setupUi(this);
     setup();
     connect(this, SIGNAL(accepted()), SLOT(save()));
@@ -34,22 +35,25 @@ RecognitionSettingsDialog::~RecognitionSettingsDialog() {
     delete ui_;
 }
 
-const RecognitionSettings& RecognitionSettingsDialog::settings() const {
-    return opts_;
-}
-
 void RecognitionSettingsDialog::save() {
-    opts_.setDotMatrix(ui_->dotMatrix_->isChecked());
-    opts_.setFax(ui_->fax_->isChecked());
-    opts_.setOneColumn(ui_->oneColumn_->isChecked());
-    opts_.setPicturesSearch(ui_->searchPictures_->isChecked());
-    opts_.useSpelling(ui_->useSpelling_->isChecked());
+    Q_CHECK_PTR(page_);
+
+    RecognitionSettings s = page_->recognitionSettings();
+    s.setDotMatrix(ui_->dotMatrix_->isChecked());
+    s.setFax(ui_->fax_->isChecked());
+    s.setOneColumn(ui_->oneColumn_->isChecked());
+    s.setPicturesSearch(ui_->searchPictures_->isChecked());
+    s.useSpelling(ui_->useSpelling_->isChecked());
+    page_->setRecognitionSettings(s);
 }
 
 void RecognitionSettingsDialog::setup() {
-    ui_->dotMatrix_->setChecked(opts_.dotMatrix());
-    ui_->fax_->setChecked(opts_.fax());
-    ui_->useSpelling_->setChecked(opts_.spelling());
-    ui_->oneColumn_->setChecked(opts_.oneColumn());
-    ui_->searchPictures_->setChecked(opts_.picturesSearch());
+    Q_CHECK_PTR(page_);
+
+    RecognitionSettings s = page_->recognitionSettings();
+    ui_->dotMatrix_->setChecked(s.dotMatrix());
+    ui_->fax_->setChecked(s.fax());
+    ui_->useSpelling_->setChecked(s.spelling());
+    ui_->oneColumn_->setChecked(s.oneColumn());
+    ui_->searchPictures_->setChecked(s.picturesSearch());
 }

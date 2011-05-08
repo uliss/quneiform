@@ -30,6 +30,7 @@
 #include <QFlags>
 #include "recognitionsettings.h"
 #include "formatsettings.h"
+#include "language.h"
 
 class QDataStream;
 class QTextDocument;
@@ -173,6 +174,12 @@ public:
     bool isSelected() const;
 
     /**
+      * Returns page language
+      * @see setLanguage()
+      */
+    Language language() const;
+
+    /**
       * Returns page name - filename of page path
       */
     QString name() const;
@@ -246,6 +253,11 @@ public:
       * @see formatSettings()
       */
     void setFormatSettings(const FormatSettings& settings);
+
+    /**
+      * Sets page language
+      */
+    void setLanguage(const Language& lang);
 
     /**
       * Sets page number
@@ -369,6 +381,7 @@ private:
     RectList blocks_;
     QTextDocument * doc_;
     FormatSettings format_settings_;
+    Language language_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

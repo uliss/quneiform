@@ -11,6 +11,8 @@ set(CF_GUI_TESTS
     formatsettings
     imagecache
     imageview
+    language
+    languageselect
     page
     packet
     pageindicator
