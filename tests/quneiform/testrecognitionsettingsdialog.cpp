@@ -22,6 +22,7 @@
 
 #define private public
 #include "gui/recognitionsettingsdialog.h"
+#include "gui/page.h"
 
 TestRecognitionSettingsDialog::TestRecognitionSettingsDialog(QObject *parent) :
     QObject(parent)
@@ -29,14 +30,10 @@ TestRecognitionSettingsDialog::TestRecognitionSettingsDialog(QObject *parent) :
 }
 
 void TestRecognitionSettingsDialog::test() {
-//    RecognitionSettings s;
-//    RecognitionSettingsDialog d(s);
-//    QCOMPARE(s, d.settings());
-
-//    d.open();
-//    d.accept();
-
-//    QCOMPARE(s, d.settings());
+    Page page("");
+    RecognitionSettingsDialog d(&page);
+    d.open();
+    d.accept();
 }
 
 QTEST_MAIN(TestRecognitionSettingsDialog);
