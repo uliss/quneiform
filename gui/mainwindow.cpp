@@ -122,8 +122,13 @@ bool MainWindow::confirmRotationSelected() {
 
 void MainWindow::changePacketLanguage(const Language& lang) {
     qDebug() << Q_FUNC_INFO << lang.name();
-    packet_->setLanguage(lang);
-    recognition_queue_->setLanguage(lang);
+
+    if(thumbs_->currentPage())
+        thumbs_->currentPage()->setLanguage(lang);
+
+    foreach(Page * p, packet_->selectedPages()) {
+        p->setLanguage(lang);
+    }
 }
 
 void MainWindow::closeEvent(QCloseEvent * event) {
@@ -166,6 +171,7 @@ void MainWindow::connectThumbs() {
     Q_CHECK_PTR(ui_);
     connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
     connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
+    connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(updateCurrentLanguage(Page*)));
     connect(thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
     connect(thumbs_, SIGNAL(save(Page*)), SLOT(savePage(Page*)));
     connect(thumbs_, SIGNAL(openDraggedImages(QStringList)), SLOT(openImages(QStringList)));
@@ -241,6 +247,7 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication) {
     }
 
     Page * p = new Page(path);
+    p->setLanguage(lang_select_->currentLanguage());
 
     if(p->isNull()) {
         QMessageBox warning(QMessageBox::Critical, tr("Quneiform OCR"),
@@ -318,7 +325,9 @@ void MainWindow::openPacket(const QString& path) {
     }
     QApplication::restoreOverrideCursor();
 
-    selectLanguage(packet_->language());
+    if(!packet_->isEmpty())
+        selectLanguage(packet_->firstPage()->language());
+
     recent_packets_->add(path);
     setWindowModified(false);
 }
@@ -363,7 +372,6 @@ void MainWindow::recognizeAll() {
             recognition_queue_->add(p);
     }
 
-    recognition_queue_->setLanguage(lang_select_->currentLanguage());
     recognition_queue_->start();
 }
 
@@ -567,6 +575,7 @@ void MainWindow::setupShortcuts() {
 
 void MainWindow::setupTextView() {
     text_view_ = new TextEditor(this);
+    connect(text_view_, SIGNAL(charSelected(QRect)), image_widget_, SLOT(showChar(QRect)));
 }
 
 void MainWindow::setupThumbs() {
@@ -583,8 +592,6 @@ void MainWindow::setupUi() {
     setupImageView();
     setupTextView();
     setupUiLayout();
-
-    connect(text_view_, SIGNAL(charSelected(QRect)), image_widget_, SLOT(showChar(QRect)));
 }
 
 void MainWindow::setupUiLayout() {
@@ -639,6 +646,25 @@ void MainWindow::showSettings() {
 
     if(state == QDialog::Accepted)
         image_widget_->updateSettings();
+}
+
+void MainWindow::updateCurrentLanguage(Page * p) {
+    Q_CHECK_PTR(p);
+    Q_CHECK_PTR(lang_select_);
+    Q_CHECK_PTR(lang_menu_);
+
+    Language lang = p->language();
+
+    // if page has a valid language
+    if(lang.isValid()) {
+        lang_select_->select(lang);
+        lang_menu_->select(lang);
+    }
+    else { // set current language to page
+        Language current_l = lang_select_->currentLanguage();
+        if(current_l.isValid())
+            p->setLanguage(current_l);
+    }
 }
 
 void MainWindow::updateCurrentPage() {

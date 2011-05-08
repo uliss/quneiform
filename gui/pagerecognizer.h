@@ -25,8 +25,6 @@
 #include <QMutex>
 #include <QMap>
 
-#include "language.h"
-
 class Page;
 
 class PageRecognizer : public QObject
@@ -46,11 +44,6 @@ public:
       * Returns current page path
       */
     QString pagePath() const;
-
-    /**
-      * Sets recognition language
-      */
-    void setLanguage(const Language& language);
 
     /**
       * Sets recognized page
@@ -123,7 +116,6 @@ private:
     void stageSleep(StageType t);
 private:
     Page * page_;
-    Language language_;
     QMutex lock_;
     volatile bool abort_;
     QVector<int> stage_sleep_;

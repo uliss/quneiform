@@ -510,6 +510,10 @@ Are you shure?</source>
         <source>Recognition settings</source>
         <translation>Настройки распознавания</translation>
     </message>
+    <message>
+        <source>Recognition</source>
+        <translation type="obsolete">Распознавание</translation>
+    </message>
 </context>
 <context>
     <name>Settings</name>
@@ -722,6 +726,11 @@ Are you shure?</source>
     <message>
         <source>Format settings</source>
         <translation>Настройки форматирования</translation>
+    </message>
+    <message>
+        <source>Language: %1
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

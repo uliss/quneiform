@@ -55,4 +55,6 @@ void LanguageSelect::select(const Language&  lang) {
     int item_idx = findData(lang.code());
     if(item_idx != -1)
         setCurrentIndex(item_idx);
+    else
+        qDebug() << "[Warning]" << Q_FUNC_INFO << "Language" << lang.name() << "not found";
 }

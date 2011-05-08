@@ -133,12 +133,6 @@ void PageRecognitionQueue::start() {
     emit finished(pages_done);
 }
 
-void PageRecognitionQueue::setLanguage(const Language& lang) {
-    Q_CHECK_PTR(recognizer_);
-    QMutexLocker l(&queue_lock_);
-    recognizer_->setLanguage(lang);
-}
-
 int PageRecognitionQueue::pageCount() const {
     return pages_.count();
 }

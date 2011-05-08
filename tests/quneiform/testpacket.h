@@ -33,7 +33,6 @@ private slots:
     void testClear();
     void testCountSelected();
     void testHasPage();
-    void testLanguage();
     void testOpen();
     void testPage();
     void testSave();

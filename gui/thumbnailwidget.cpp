@@ -112,9 +112,8 @@ void ThumbnailWidget::showProperties() {
 void ThumbnailWidget::showRecognizeSettings() {
     Q_CHECK_PTR(page_);
 
-    RecognitionSettingsDialog dlg(page_->recognitionSettings());
-    if(QDialog::Accepted == dlg.exec())
-        page_->setRecognitionSettings(dlg.settings());
+    RecognitionSettingsDialog dlg(page_);
+    dlg.exec();
 }
 
 void ThumbnailWidget::highlight(bool value) {
@@ -179,6 +178,7 @@ QString ThumbnailWidget::pageProperties() const {
     QString res = tr("Filename: \"%1\"\n").arg(page_->imagePath());
     res += tr("Size: %1x%2\n").arg(page_->imageSize().width()).arg(page_->imageSize().height());
     res += tr("Rotation: %1\n").arg(page_->angle());
+    res += tr("Language: %1\n").arg(page_->language().trName());
 
     if(page_->isRecognized())
         res += tr("Page is recognized\n");

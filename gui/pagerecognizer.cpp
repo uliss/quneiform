@@ -36,10 +36,19 @@
 #define usleep(t) Sleep((t)/1000)
 #endif
 
+language_t languageToType(const Language& lang) {
+    if(lang.isValid()) {
+        return static_cast<language_t>(lang.code());
+    }
+    else {
+        qDebug() << "[Warning] Language is not valid, using English instead";
+        return ::LANGUAGE_ENGLISH;
+    }
+}
+
 PageRecognizer::PageRecognizer(QObject * parent)
     : QObject(parent),
     page_(NULL),
-    language_(Language::english()),
     abort_(false),
     stage_sleep_(FORMAT + 1, 0)
 {
@@ -182,10 +191,9 @@ void PageRecognizer::saveOcrText() {
     page_->setOcrText(QString::fromUtf8(buf.str().c_str()));
     page_->unsetFlag(Page::RECOGNITION_FAILED);
 
-
     page_->document()->clear();
     cf::FormatOptions opts;
-    opts.setLanguage(static_cast<language_t>(language_.code()));
+    opts.setLanguage(languageToType(page_->language()));
     opts.useFontSize(false);
     opts.setShowAlternatives(true);
     QTextDocumentExporter exp(NULL, opts);
@@ -199,10 +207,6 @@ void PageRecognizer::saveOcrText() {
     QCoreApplication::processEvents();
 }
 
-void PageRecognizer::setLanguage(const Language& lang) {
-    language_ = lang;
-}
-
 void PageRecognizer::setPage(Page * p) {
     page_ = p;
 }
@@ -212,14 +216,13 @@ void PageRecognizer::setRecognizeOptions() {
 
     cf::RecognizeOptions recognize_opts;
 
-    RecognitionSettings settings = page_->recognitionSettings();
-    recognize_opts.setFax(settings.fax());
-    recognize_opts.setDotMatrix(settings.dotMatrix());
-    recognize_opts.setOneColumn(settings.oneColumn());
-    recognize_opts.setPictureSearch(settings.picturesSearch());
-    recognize_opts.setSpellCorrection(settings.spelling());
-
-    recognize_opts.setLanguage(static_cast<language_t>(language_.code()));
+    RecognitionSettings s = page_->recognitionSettings();
+    recognize_opts.setFax(s.fax());
+    recognize_opts.setDotMatrix(s.dotMatrix());
+    recognize_opts.setOneColumn(s.oneColumn());
+    recognize_opts.setPictureSearch(s.picturesSearch());
+    recognize_opts.setSpellCorrection(s.spelling());
+    recognize_opts.setLanguage(languageToType(page_->language()));
 
     cf::Puma::instance().setRecognizeOptions(recognize_opts);
 

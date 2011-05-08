@@ -20,26 +20,26 @@
 #define RECOGNITIONSETTINGSDIALOG_H
 
 #include <QDialog>
-#include "recognitionsettings.h"
 
 namespace Ui {
     class RecognitionSettingsDialog;
 }
 
+class Page;
+
 class RecognitionSettingsDialog : public QDialog
 {
     Q_OBJECT
 public:
-    RecognitionSettingsDialog(const RecognitionSettings& opts, QWidget * parent = 0);
+    RecognitionSettingsDialog(Page * page, QWidget * parent = 0);
     ~RecognitionSettingsDialog();
-    const RecognitionSettings& settings() const;
 private slots:
     void save();
 private:
     void setup();
 private:
     Ui::RecognitionSettingsDialog * ui_;
-    RecognitionSettings opts_;
+    Page * page_;
 };
 
 #endif // RECOGNITIONSETTINGSDIALOG_H

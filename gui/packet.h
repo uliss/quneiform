@@ -59,6 +59,13 @@ public:
     QString fileName() const;
 
     /**
+      * Returns pointer to first page in packet
+      * if empty returns NULL
+      * @see pageAt()
+      */
+    Page * firstPage();
+
+    /**
       * Checks if packet contains page with given image file path
       * @return true if such page exists
       */
@@ -78,12 +85,6 @@ public:
       * Returns true if packet is new and never was saved
       */
     bool isNew() const;
-
-    /**
-      * Returns packet language
-      * @see setLanguage()
-      */
-    Language language() const;
 
     /**
       * Opens packet from filename
@@ -115,11 +116,9 @@ public:
     bool save(const QString& filename);
 
     /**
-      * Sets packet language
-      * emits signal changed()
-      * @see language()
+      * Returns list of selected pages
       */
-    void setLanguage(const Language& lang);
+    QList<Page*> selectedPages();
 signals:
     /**
       * Emitted when packet changed
@@ -161,7 +160,6 @@ private slots:
 private:
     PageList pages_;
     QString filename_;
-    Language language_;
     bool changed_;
     bool is_new_;
 public:
