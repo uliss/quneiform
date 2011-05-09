@@ -530,6 +530,10 @@ Are you shure?</source>
         <source>Page recognition: &quot;%1&quot;</source>
         <translation>Распознавание страницы: &quot;%1&quot;</translation>
     </message>
+    <message>
+        <source>Recognition</source>
+        <translation>Распознавание</translation>
+    </message>
 </context>
 <context>
     <name>RecognitionSettingsDialog</name>
