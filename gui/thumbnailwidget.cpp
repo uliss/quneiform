@@ -35,6 +35,7 @@
 #include "pageindicator.h"
 #include "recognitionsettingsdialog.h"
 #include "formatsettingsdialog.h"
+#include "pagepropertiesdialog.h"
 
 static const int THUMB_IMAGE_HEIGHT = 95;
 static const int THUMB_IMAGE_WIDTH = 95;
@@ -106,7 +107,8 @@ void ThumbnailWidget::showFormatSettings() {
 
 void ThumbnailWidget::showProperties() {
     Q_CHECK_PTR(page_);
-    QMessageBox::information(NULL, tr("Properties - %1").arg(page_->name()), pageProperties());
+    PagePropertiesDialog d(page_, this);
+    d.exec();
 }
 
 void ThumbnailWidget::showRecognizeSettings() {
@@ -170,27 +172,6 @@ void ThumbnailWidget::pageFaultForward() {
 
     if(page_)
         emit showPageFault(page_);
-}
-
-QString ThumbnailWidget::pageProperties() const {
-    Q_CHECK_PTR(page_);
-
-    QString res = tr("Filename: \"%1\"\n").arg(page_->imagePath());
-    res += tr("Size: %1x%2\n").arg(page_->imageSize().width()).arg(page_->imageSize().height());
-    res += tr("Rotation: %1\n").arg(page_->angle());
-    res += tr("Language: %1\n").arg(page_->language().trName());
-
-    if(page_->isRecognized())
-        res += tr("Page is recognized\n");
-    else
-        res += tr("Page is not recognized\n");
-
-    if(page_->isExported())
-        res += tr("Page is saved\n");
-    else
-        res += tr("Page is not saved\n");
-
-    return res;
 }
 
 void ThumbnailWidget::recognizeThumb() {

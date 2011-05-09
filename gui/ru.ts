@@ -470,6 +470,61 @@ Are you shure?</source>
     </message>
 </context>
 <context>
+    <name>PagePropertiesDialog</name>
+    <message>
+        <source>Page properties</source>
+        <translation>Свойства страницы</translation>
+    </message>
+    <message>
+        <source>File:</source>
+        <translation>Файл:</translation>
+    </message>
+    <message>
+        <source>Image size:</source>
+        <translation>Размер изображения:</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation>Поворот:</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Язык:</translation>
+    </message>
+    <message>
+        <source>Recognized:</source>
+        <translation>Распознана:</translation>
+    </message>
+    <message>
+        <source>Saved:</source>
+        <translation>Сохранена:</translation>
+    </message>
+    <message>
+        <source>Sections:</source>
+        <translation>Разделы:</translation>
+    </message>
+    <message>
+        <source>Paragraphs:</source>
+        <translation>Абзацы:</translation>
+    </message>
+    <message>
+        <source>Characters:</source>
+        <translation>Символы:</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Да</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Нет</translation>
+    </message>
+    <message>
+        <source>Images:</source>
+        <translation>Изображения:</translation>
+    </message>
+</context>
+<context>
     <name>RecognitionProgressDialog</name>
     <message>
         <source>Page recognition: &quot;%1&quot;</source>
@@ -673,43 +728,43 @@ Are you shure?</source>
     <message>
         <source>Filename: &quot;%1&quot;
 </source>
-        <translation>Файл: &quot;%1&quot;
+        <translation type="obsolete">Файл: &quot;%1&quot;
 </translation>
     </message>
     <message>
         <source>Size: %1x%2
 </source>
-        <translation>Размер: %1x%2
+        <translation type="obsolete">Размер: %1x%2
 </translation>
     </message>
     <message>
         <source>Rotation: %1
 </source>
-        <translation>Поворот: %1
+        <translation type="obsolete">Поворот: %1
 </translation>
     </message>
     <message>
         <source>Page is recognized
 </source>
-        <translation>Страница распознана
+        <translation type="obsolete">Страница распознана
 </translation>
     </message>
     <message>
         <source>Page is not recognized
 </source>
-        <translation>Страница не распознана
+        <translation type="obsolete">Страница не распознана
 </translation>
     </message>
     <message>
         <source>Page is saved
 </source>
-        <translation>Страница сохранена
+        <translation type="obsolete">Страница сохранена
 </translation>
     </message>
     <message>
         <source>Page is not saved
 </source>
-        <translation>Страница не сохранена</translation>
+        <translation type="obsolete">Страница не сохранена</translation>
     </message>
     <message>
         <source>Recognition settings</source>
@@ -717,7 +772,7 @@ Are you shure?</source>
     </message>
     <message>
         <source>Properties - %1</source>
-        <translation>Свойства - %1</translation>
+        <translation type="obsolete">Свойства - %1</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -730,7 +785,7 @@ Are you shure?</source>
     <message>
         <source>Language: %1
 </source>
-        <translation>Язык: %1
+        <translation type="obsolete">Язык: %1
 </translation>
     </message>
 </context>

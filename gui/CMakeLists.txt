@@ -22,6 +22,7 @@ set(HEADERS
     packet.h
     page.h
     pageindicator.h
+    pagepropertiesdialog.h
     pagerecognizer.h
     pagerecognitionqueue.h
     recentmenu.h
@@ -53,6 +54,7 @@ set(SOURCES
     pagearea.cpp
     pageindicator.cpp
     pagelayout.cpp
+    pagepropertiesdialog.cpp
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
     recentmenu.cpp
@@ -75,6 +77,7 @@ set(FORMS
     aboutdialog.ui
     formatsettingsdialog.ui
     mainwindow.ui
+    pagepropertiesdialog.ui
     recognitionsettingsdialog.ui
     settings.ui
 )

@@ -84,7 +84,6 @@ protected:
     void mousePressEvent(QMouseEvent * event);
 private:
     QPixmap makeThumb() const;
-    QString pageProperties() const;
     void setupActions();
     void setupCheckBox();
     void setupFrame();
