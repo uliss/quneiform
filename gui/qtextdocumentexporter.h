@@ -37,6 +37,7 @@ class FormatOptions;
 
 class QTextTable;
 class QTextTableFormat;
+class Page;
 
 class QTextDocumentExporter : public cf::GenericExporter
 {
@@ -76,6 +77,11 @@ public:
       * Sets output document
       */
     void setDocument(QTextDocument * doc);
+
+    /**
+      * Sets source page
+      */
+    void setPage(Page * page);
 protected:
     void writePageBegin(cf::CEDPage& page);
     void writePageEnd(cf::CEDPage& page);
@@ -110,6 +116,7 @@ private:
     int line_num_in_par_;
     int par_line_count_;
     bool skip_columns_;
+    Page * page_;
 };
 
 #endif // QTEXTDOCUMENTEXPORTER_H

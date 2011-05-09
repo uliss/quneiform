@@ -44,7 +44,6 @@ TextEditor::TextEditor(QWidget * parent) :
     setReadOnly(true);
     setTextInteractionFlags(Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
     settings_.beginGroup("format");
-
     setupActions();
 }
 

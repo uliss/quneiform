@@ -24,7 +24,9 @@
 #include <QTextTableFormat>
 #include <QSettings>
 #include <QDebug>
+#include "page.h"
 #include "qtextdocumentexporter.h"
+#include "imagecache.h"
 #include "ced/cedchar.h"
 #include "ced/cedline.h"
 #include "ced/cedpage.h"
@@ -34,9 +36,6 @@
 #include "ced/cedcolumn.h"
 #include "common/tostring.h"
 #include "export/rout_own.h"
-#include "rdib/bmp.h"
-#include "cfcompat.h"
-#include "compat_defs.h"
 #include "common/tostring.h"
 
 using namespace cf;
@@ -65,7 +64,8 @@ QTextDocumentExporter::QTextDocumentExporter(CEDPage * page, const FormatOptions
         column_num_(0),
         line_num_in_par_(0),
         par_line_count_(0),
-        skip_columns_(true)
+        skip_columns_(true),
+        page_(NULL)
 {
 }
 
@@ -201,6 +201,10 @@ void QTextDocumentExporter::setDocument(QTextDocument * doc) {
     cursor_ = QTextCursor(doc_);
 }
 
+void QTextDocumentExporter::setPage(Page * page) {
+    page_ = page;
+}
+
 void QTextDocumentExporter::writeCharacter(CEDChar& chr) {
     if(!chr.hasAlternatives()) {
         qDebug() << Q_FUNC_INFO << "CEDChar is empty";
@@ -327,37 +331,27 @@ void QTextDocumentExporter::writePicture(cf::CEDPicture& pic) {
         return;
     }
 
-    ImagePtr im_ptr = pic.image();
-
-    BITMAPFILEHEADER bf; //  bmp fileheader
-    BITMAPINFOHEADER * bfinfo = (BITMAPINFOHEADER *) im_ptr->data();
-    bf.bfType = 0x4d42; // 'BM'
-    bf.bfSize = sizeof(BITMAPFILEHEADER) + im_ptr->dataSize();
-    // fileheader + infoheader + palette
-    bf.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + bfinfo->biClrUsed
-            * sizeof(RGBQUAD);
-
-    std::ostringstream buf;
-    buf.write((char*) &bf, sizeof(bf));
-    buf << *im_ptr;
-
-//    if(im_ptr->width() == 0 || im_ptr->height() == 0) {
-//        qDebug() << Q_FUNC_INFO << "invalid image size: (" << im_ptr->width() << im_ptr->height() << ")";
-//        return;
-//    }
-    std::string s = buf.str();
-    QImage img = QImage::fromData((uchar*)s.data(), s.size());
-
-    if(img.isNull()) {
-        qDebug() << Q_FUNC_INFO << "invalid image given";
+    if(!page_) {
+        qDebug() << Q_FUNC_INFO << "NULL page pointer";
         return;
     }
 
-    static int image_counter = 0;
+    QPixmap pixmap;
+    QTransform t = QTransform().rotate(page_->angle());
+    ImageCache::load(page_->imagePath(), &pixmap);
 
-    cursor_.insertImage(img, QString("image %1").arg(++image_counter));
-    QTextFrameFormat format;
-    cursor_.currentFrame()->setFrameFormat(format);
+    cf::Rect r = pic.boundingRect();
+    pixmap = pixmap.transformed(t);
+
+    if(page_->pageArea().isValid())
+        pixmap = pixmap.copy(page_->pageArea());
+
+    pixmap = pixmap.copy(r.x(), r.y(), r.width(), r.height());
+
+    static int image_counter = 0;
+    cursor_.insertImage(pixmap.toImage(), QString("image %1").arg(++image_counter));
+//    QTextFrameFormat format;
+//    cursor_.currentFrame()->setFrameFormat(format);
 }
 
 void QTextDocumentExporter::writeSectionBegin(cf::CEDSection& section) {

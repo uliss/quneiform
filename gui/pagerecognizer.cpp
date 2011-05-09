@@ -197,6 +197,7 @@ void PageRecognizer::saveOcrText() {
     opts.useFontSize(false);
     opts.setShowAlternatives(true);
     QTextDocumentExporter exp(NULL, opts);
+    exp.setPage(page_);
     cf::FormatOptions format_opts;
     page_->formatSettings().exportTo(format_opts);
     exp.setFormatOptions(format_opts);
