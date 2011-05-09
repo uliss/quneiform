@@ -52,9 +52,11 @@ void LanguageSelect::languageChange(int item_index) {
 }
 
 void LanguageSelect::select(const Language&  lang) {
+    blockSignals(true);
     int item_idx = findData(lang.code());
     if(item_idx != -1)
         setCurrentIndex(item_idx);
     else
         qDebug() << "[Warning]" << Q_FUNC_INFO << "Language" << lang.name() << "not found";
+    blockSignals(false);
 }

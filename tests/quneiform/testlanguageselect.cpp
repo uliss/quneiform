@@ -42,14 +42,16 @@ void TestLanguageSelect::testEmitSelected() {
     QSignalSpy selected(&s, SIGNAL(languageSelected(Language)));
     QVERIFY(selected.isEmpty());
 
-    s.select(Language(::LANGUAGE_ESTONIAN));
+    s.setCurrentIndex(1);
     QCOMPARE(selected.count(), 1);
-    QCOMPARE(selected.at(0).at(0).value<Language>(), Language(::LANGUAGE_ESTONIAN));
+    QCOMPARE(selected.at(0).at(0).value<Language>(), Language(::LANGUAGE_CROATIAN));
 }
 
 void TestLanguageSelect::testSelect() {
     LanguageSelect s;
+    QSignalSpy lang_changed(&s, SIGNAL(languageSelected(Language)));
     s.select(Language(::LANGUAGE_DANISH));
+    QVERIFY(lang_changed.isEmpty());
     QCOMPARE(s.currentLanguage().name(), QString("Danish"));
     QCOMPARE(s.currentText(), QString("Danish"));
 

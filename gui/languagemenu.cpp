@@ -47,8 +47,10 @@ void LanguageMenu::selectAction() {
 }
 
 void LanguageMenu::select(const Language& lang) {
+    blockSignals(true);
     foreach(QAction * act, actions()) {
         Language act_lang = act->data().value<Language>();
         act->setChecked(act_lang == lang);
     }
+    blockSignals(false);
 }
