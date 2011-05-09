@@ -136,6 +136,7 @@ bool PageRecognizer::recognize() {
     }
 
     try {
+        setFormatOptions();
         setRecognizeOptions();
         QImage img = loadImage();
 
@@ -192,20 +193,24 @@ void PageRecognizer::saveOcrText() {
     page_->unsetFlag(Page::RECOGNITION_FAILED);
 
     page_->document()->clear();
-    cf::FormatOptions opts;
-    opts.setLanguage(languageToType(page_->language()));
-    opts.useFontSize(false);
-    opts.setShowAlternatives(true);
-    QTextDocumentExporter exp(NULL, opts);
+
+    QTextDocumentExporter exp(NULL, cf::Puma::instance().formatOptions());
     exp.setPage(page_);
-    cf::FormatOptions format_opts;
-    page_->formatSettings().exportTo(format_opts);
-    exp.setFormatOptions(format_opts);
     exp.setDocument(page_->document());
     exp.exportPage(*cf::Puma::instance().cedPage());
 
     emit percentsDone(95);
     QCoreApplication::processEvents();
+}
+
+void PageRecognizer::setFormatOptions() {
+    Q_CHECK_PTR(page_);
+
+    cf::FormatOptions opts;
+    page_->formatSettings().exportTo(opts);
+    opts.setLanguage(languageToType(page_->language()));
+
+    cf::Puma::instance().setFormatOptions(opts);
 }
 
 void PageRecognizer::setPage(Page * p) {

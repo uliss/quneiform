@@ -54,7 +54,7 @@ void FormatSettings::exportTo(cf::FormatOptions& opts) const {
     opts.useUnderlined(isUnderlinedUsed());
     opts.useFontSize(isFontSizeUsed());
     opts.setPreserveLineBreaks(preserveLineBreaks());
-    opts.setUnrecognizedChar(unrecognized_char_.toLatin1());
+    opts.setUnrecognizedChar(unrecognized_char_.toAscii());
     opts.setShowAlternatives(showAlternatives());
 }
 
