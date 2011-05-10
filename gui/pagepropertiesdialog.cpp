@@ -20,9 +20,6 @@
 #include "pagepropertiesdialog.h"
 #include "ui_pagepropertiesdialog.h"
 
-static const char * PIXMAP_OK = ":/img/oxygen/22x22/dialog_ok.png";
-static const char * PIXMAP_NO = ":/img/oxygen/22x22/button_cancel.png";
-
 PagePropertiesDialog::PagePropertiesDialog(Page * p, QWidget * parent) :
     QDialog(parent),
     ui_(new Ui::PagePropertiesDialog)
