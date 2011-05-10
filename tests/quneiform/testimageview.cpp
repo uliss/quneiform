@@ -249,34 +249,6 @@ void TestImageView::testSelection() {
     QTest::mouseMove(&iv, QPoint(10, 40));
     WAIT_EVENTS()
             QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeHorCursor);
-
-    p.rotate(90);
-    iv.resize(81, 281);
-    QTest::mouseMove(&iv, QPoint(60, 10));
-    WAIT_EVENTS()
-            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeBDiagCursor);
-    QTest::mouseMove(&iv, QPoint(60, 60));
-    WAIT_EVENTS()
-            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeFDiagCursor);
-    QTest::mouseMove(&iv, QPoint(0, 60));
-    WAIT_EVENTS()
-            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeBDiagCursor);
-    QTest::mouseMove(&iv, QPoint(0, 10));
-    WAIT_EVENTS()
-            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeFDiagCursor);
-
-    QTest::mouseMove(&iv, QPoint(30, 10));
-    WAIT_EVENTS()
-            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeVerCursor);
-    QTest::mouseMove(&iv, QPoint(60, 30));
-    WAIT_EVENTS()
-            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeHorCursor);
-    QTest::mouseMove(&iv, QPoint(0, 30));
-    WAIT_EVENTS()
-            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeHorCursor);
-    QTest::mouseMove(&iv, QPoint(30, 10));
-    WAIT_EVENTS()
-            QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeVerCursor);
 }
 
 void TestImageView::testMinMaxZoom() {
@@ -322,4 +294,4 @@ void TestImageView::testMinMaxZoom() {
     QCOMPARE(too_small.count(), 1);
 }
 
-QTEST_MAIN(TestImageView);
+QTEST_MAIN(TestImageView)
