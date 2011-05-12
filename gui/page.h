@@ -201,12 +201,6 @@ public:
     unsigned int number() const;
 
     /**
-      * Returns OCR text
-      * @see setOcrText()
-      */
-    QString ocrText() const;
-
-    /**
       * Returns page area on image
       * @see setPageArea()
       */
@@ -281,13 +275,6 @@ public:
       * @see number()
       */
     void setNumber(unsigned int number);
-
-    /**
-      * Sets page ocr text
-      * Emits signal changed() and recognized()
-      * @see ocrText()
-      */
-    void setOcrText(const QString& text);
 
     /**
       * Sets page area on image
@@ -383,7 +370,6 @@ private:
 private:
     QString image_path_;
     QSize image_size_;
-    QString ocr_text_;
     unsigned int number_;
     PageFlags state_flags_;
     bool is_selected_;

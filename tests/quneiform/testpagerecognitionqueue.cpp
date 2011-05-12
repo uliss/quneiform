@@ -19,6 +19,7 @@
 #include <QTest>
 #include <QSignalSpy>
 #include <QTimer>
+#include <QTextDocument>
 #include "testpagerecognitionqueue.h"
 #include "gui/page.h"
 #include "gui/packet.h"
@@ -112,7 +113,7 @@ void TestPageRecognitionQueue::testStart() {
     q.start();
     QVERIFY(!p2.hasFlag(Page::RECOGNITION_FAILED));
     QVERIFY(p2.hasFlag(Page::RECOGNIZED));
-    QCOMPARE(p2.ocrText().trimmed(), QString("ENGLISH"));
+    QCOMPARE(p2.document()->toPlainText().trimmed(), QString("ENGLISH"));
     QVERIFY(!q.isFailed(CF_IMAGE_DIR "/english.png"));
     QCOMPARE(finished.at(0).at(0).toInt(), 1);
 }
@@ -126,8 +127,8 @@ void TestPageRecognitionQueue::testSetLanguage() {
     q.add(&p2);
 
     q.start();
-    QCOMPARE(p1.ocrText().trimmed(), QString("ENGLISH"));
-    QCOMPARE(p2.ocrText().trimmed(), QString("PYCCK VI Vl"));
+    QCOMPARE(p1.document()->toPlainText().trimmed(), QString("ENGLISH"));
+    QCOMPARE(p2.document()->toPlainText().trimmed(), QString("PYCCK VI Vl"));
     QCOMPARE(q.pageErrorNum(), 0);
     QCOMPARE(finished.at(0).at(0).toInt(), 2);
 }

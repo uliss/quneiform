@@ -56,25 +56,22 @@ void TestPacket::testPageSignals() {
     packet.pageAt(1)->setNumber(2);
     QCOMPARE(changed.count(), 3);
 
-    packet.pageAt(1)->setOcrText("test");
-    QCOMPARE(changed.count(), 4);
-
     packet.pageAt(0)->setPageArea(QRect(10, 10, 30, 40));
-    QCOMPARE(changed.count(), 5);
+    QCOMPARE(changed.count(), 4);
 
     // no change
     packet.pageAt(0)->setViewScroll(QPoint(10, 20));
-    QCOMPARE(changed.count(), 5);
+    QCOMPARE(changed.count(), 4);
 
     Page::Rectangles r;
     packet.pageAt(1)->setBlocks(r, Page::CHAR);
-    QCOMPARE(changed.count(), 6);
+    QCOMPARE(changed.count(), 5);
 
     RecognitionSettings s;
     s.setDotMatrix(true);
 
     packet.pageAt(0)->setRecognitionSettings(s);
-    QCOMPARE(changed.count(), 7);
+    QCOMPARE(changed.count(), 6);
 }
 
 void TestPacket::testAppend() {

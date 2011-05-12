@@ -42,7 +42,6 @@ private slots:
     void testSetFlag();
     void testSetFlags();
     void testSetNumber();
-    void testSetOcrText();
     void testSetPageArea();
     void testSetRecognitionSettings();
     void testSetBlocks();
@@ -50,7 +49,6 @@ private slots:
     void testSetViewScroll();
     void testUnsetFlag();
     void testReadWrite();
-    void testExportTo();
 };
 
 #endif // TESTPAGE_H

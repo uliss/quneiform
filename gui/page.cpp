@@ -159,10 +159,6 @@ unsigned int Page::number() const {
     return number_;
 }
 
-QString Page::ocrText() const {
-    return ocr_text_;
-}
-
 const QRect& Page::pageArea() const {
     return page_area_;
 }
@@ -193,22 +189,22 @@ void Page::rotate(int angle) {
 void Page::exportTo(const QString& file) {
     QMutexLocker lock(&mutex_);
 
-    if (!isRecognized())
-        throw Exception("[Page::save] page is not recognized");
+//    if (!isRecognized())
+//        throw Exception("[Page::save] page is not recognized");
 
-    QFile output(file);
+//    QFile output(file);
 
-    if(!output.open(QIODevice::WriteOnly)) {
-        state_flags_ |= EXPORT_FAILED;
-        state_flags_ &= (~EXPORTED);
+//    if(!output.open(QIODevice::WriteOnly)) {
+//        state_flags_ |= EXPORT_FAILED;
+//        state_flags_ &= (~EXPORTED);
 
-        throw Exception(tr("Saved failed. Can't open file \"%1\" for writing.").arg(file));
-    }
+//        throw Exception(tr("Saved failed. Can't open file \"%1\" for writing.").arg(file));
+//    }
 
-    output.write(ocr_text_.toLocal8Bit());
-    output.close();
+//    output.write(ocr_text_.toLocal8Bit());
+//    output.close();
 
-    qDebug() << "[Page::save] saved" << file;
+//    qDebug() << "[Page::save] saved" << file;
 
     state_flags_ |= EXPORTED;
     state_flags_ &= (~EXPORT_FAILED);
@@ -266,18 +262,6 @@ void Page::setNumber(unsigned int number) {
 
     number_ = number;
     emit changed();
-}
-
-void Page::setOcrText(const QString& text) {
-    QMutexLocker lock(&mutex_);
-
-    ocr_text_ = text;
-
-    state_flags_ |= RECOGNIZED;
-    state_flags_ &= ~EXPORTED;
-
-    emit changed();
-    emit recognized();
 }
 
 void Page::setPageArea(const QRect& area) {
@@ -350,7 +334,6 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
     QMutexLocker lock(&page.mutex_);
     os << page.image_path_
             << page.image_size_
-            << page.ocr_text_
             << page.number_
             << page.state_flags_
             << page.is_selected_
@@ -374,7 +357,6 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
     QMutexLocker lock(&page.mutex_);
     is >> page.image_path_
             >> page.image_size_
-            >> page.ocr_text_
             >> page.number_
             >> page.state_flags_
             >> page.is_selected_

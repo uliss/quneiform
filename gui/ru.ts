@@ -451,7 +451,7 @@ Are you shure?</source>
     <name>Page</name>
     <message>
         <source>Saved failed. Can&apos;t open file &quot;%1&quot; for writing.</source>
-        <translation>Ошибка сохранения. Невозможно открыть файл &quot;%1&quot; для записи.</translation>
+        <translation type="obsolete">Ошибка сохранения. Невозможно открыть файл &quot;%1&quot; для записи.</translation>
     </message>
 </context>
 <context>

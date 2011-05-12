@@ -21,6 +21,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QThread>
+#include <QTextDocument>
 #include "testpagerecognizer.h"
 #include "gui/page.h"
 #include "common/lang_def.h"
@@ -86,7 +87,7 @@ void TestPageRecognizer::testRecognize() {
     Page * eng = new Page(CF_IMAGE_DIR "/english.png");
     r.setPage(eng);
     r.recognize();
-    QCOMPARE(eng->ocrText().trimmed(), QString("ENGLISH"));
+    QCOMPARE(eng->document()->toPlainText().trimmed(), QString("ENGLISH"));
     QCOMPARE(failed.count(), 0);
     QCOMPARE(opened.count(), 1);
     QCOMPARE(formatted.count(), 1);
@@ -97,13 +98,13 @@ void TestPageRecognizer::testRecognize() {
     Page * rus = new Page(CF_IMAGE_DIR "/russian.png");
     r.setPage(rus);
     r.recognize();
-    QCOMPARE(rus->ocrText().trimmed(), QString("PYCCK VI Vl"));
+    QCOMPARE(rus->document()->toPlainText().trimmed(), QString("PYCCK VI Vl"));
     QVERIFY(rus->isRecognized());
     QVERIFY(!rus->hasFlag(Page::RECOGNITION_FAILED));
 
     rus->setLanguage(Language(::LANGUAGE_RUSSIAN));
     r.recognize();
-    QCOMPARE(rus->ocrText().trimmed(), QString::fromUtf8("РУССКИЙ"));
+    QCOMPARE(rus->document()->toPlainText().trimmed(), QString::fromUtf8("РУССКИЙ"));
 
     delete none;
     delete eng;
@@ -121,7 +122,7 @@ void TestPageRecognizer::testRecognizeRotated() {
     r.recognize();
 
     QVERIFY(eng90.isRecognized());
-    QCOMPARE(eng90.ocrText().trimmed(), QString("ENGLISH"));
+    QCOMPARE(eng90.document()->toPlainText().trimmed(), QString("ENGLISH"));
 
     // 180
     Page eng180(CF_IMAGE_DIR "/english_rotated_180.png");
@@ -131,7 +132,7 @@ void TestPageRecognizer::testRecognizeRotated() {
     r.recognize();
 
     QVERIFY(eng180.isRecognized());
-    QCOMPARE(eng180.ocrText().trimmed(), QString("ENGLISH"));
+    QCOMPARE(eng180.document()->toPlainText().trimmed(), QString("ENGLISH"));
 
     // 270
     Page eng270(CF_IMAGE_DIR "/english_rotated_270.png");
@@ -141,7 +142,7 @@ void TestPageRecognizer::testRecognizeRotated() {
     r.recognize();
 
     QVERIFY(eng270.isRecognized());
-    QCOMPARE(eng270.ocrText().trimmed(), QString("ENGLISH"));
+    QCOMPARE(eng270.document()->toPlainText().trimmed(), QString("ENGLISH"));
 }
 
 void TestPageRecognizer::testRecognizeArea() {
@@ -155,7 +156,7 @@ void TestPageRecognizer::testRecognizeArea() {
     r.recognize();
 
     QVERIFY(eng.isRecognized());
-    QCOMPARE(eng.ocrText().trimmed(), QString("LISH"));
+    QCOMPARE(eng.document()->toPlainText().trimmed(), QString("LISH"));
 
     // 90
     Page eng90(CF_IMAGE_DIR "/english_rotated_90.png");
@@ -165,7 +166,7 @@ void TestPageRecognizer::testRecognizeArea() {
     r.recognize();
 
     QVERIFY(eng90.isRecognized());
-    QCOMPARE(eng90.ocrText().trimmed(), QString("LISH"));
+    QCOMPARE(eng90.document()->toPlainText().trimmed(), QString("LISH"));
 
     // 180
     Page eng180(CF_IMAGE_DIR "/english_rotated_180.png");
@@ -175,7 +176,7 @@ void TestPageRecognizer::testRecognizeArea() {
     r.recognize();
 
     QVERIFY(eng180.isRecognized());
-    QCOMPARE(eng180.ocrText().trimmed(), QString("LISH"));
+    QCOMPARE(eng180.document()->toPlainText().trimmed(), QString("LISH"));
 
     // 270
     Page eng270(CF_IMAGE_DIR "/english_rotated_270.png");
@@ -185,7 +186,7 @@ void TestPageRecognizer::testRecognizeArea() {
     r.recognize();
 
     QVERIFY(eng270.isRecognized());
-    QCOMPARE(eng270.ocrText().trimmed(), QString("LISH"));
+    QCOMPARE(eng270.document()->toPlainText().trimmed(), QString("LISH"));
 }
 
 void TestPageRecognizer::testLoadImage() {

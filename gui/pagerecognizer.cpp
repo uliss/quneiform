@@ -187,10 +187,8 @@ void PageRecognizer::saveOcrText() {
 
     Q_CHECK_PTR(page_);
 
-    std::ostringstream buf;
-    cf::Puma::instance().save(buf, cf::FORMAT_TEXT);
-    page_->setOcrText(QString::fromUtf8(buf.str().c_str()));
     page_->unsetFlag(Page::RECOGNITION_FAILED);
+    page_->setFlag(Page::RECOGNIZED);
 
     page_->document()->clear();
 

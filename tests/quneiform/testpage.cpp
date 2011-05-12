@@ -159,7 +159,6 @@ void TestPage::testConstruct() {
     QVERIFY(!p.isExported());
     QVERIFY(!p.isSelected());
     QVERIFY(p.number() == 0);
-    QCOMPARE(p.ocrText(), QString(""));
     QCOMPARE(p.pageArea(), QRect());
     QCOMPARE(p.viewScale(), float(1.0));
     QCOMPARE(p.viewScroll(), QPoint());
@@ -289,21 +288,6 @@ void TestPage::testSetNumber() {
 
     p.setNumber(11);
     QCOMPARE(changed.count(), 2);
-}
-
-void TestPage::testSetOcrText() {
-    Page p("");
-    p.setFlag(Page::EXPORTED);
-    QSignalSpy changed(&p, SIGNAL(changed()));
-    QSignalSpy recognized(&p, SIGNAL(recognized()));
-
-    p.setOcrText("sample");
-
-    QVERIFY(p.hasFlag(Page::RECOGNIZED));
-    QVERIFY(!p.hasFlag(Page::EXPORTED));
-    QCOMPARE(p.ocrText(), QString("sample"));
-    QCOMPARE(changed.count(), 1);
-    QCOMPARE(recognized.count(), 1);
 }
 
 void TestPage::testSetPageArea() {
@@ -476,7 +460,6 @@ void TestPage::testReadWrite() {
     QString fname("page.tmp");
     p.setNumber(n);
     p.setViewScroll(pt);
-    p.setOcrText(t);
     p.setPageArea(r);
     p.setAngle(90);
     p.setSelected(true);
@@ -518,7 +501,6 @@ void TestPage::testReadWrite() {
         QCOMPARE(p.isSelected(), p2.isSelected());
         QCOMPARE(p.name(), p2.name());
         QCOMPARE(p.number(), p2.number());
-        QCOMPARE(p.ocrText(), p2.ocrText());
         QCOMPARE(p.pageArea(), p2.pageArea());
         QCOMPARE(p.recognitionSettings(), p2.recognitionSettings());
         QCOMPARE(p.viewScale(), p2.viewScale());
@@ -531,49 +513,6 @@ void TestPage::testReadWrite() {
 
     QFile f(fname);
     f.remove();
-}
-
-void TestPage::testExportTo() {
-    Page p("");
-    QSignalSpy changed(&p, SIGNAL(changed()));
-    QSignalSpy exported(&p, SIGNAL(exported()));
-    QString fname("test_page.txt");
-
-    {
-        QFile f(fname);
-        if(f.exists())
-            f.remove();
-    }
-
-    QVERIFY_THROW(p.exportTo(fname), Page::Exception);
-    QCOMPARE(changed.count(), 0);
-    QCOMPARE(exported.count(), 0);
-    QVERIFY(!p.hasFlag(Page::EXPORTED));
-    QVERIFY(!p.hasFlag(Page::EXPORT_FAILED));
-
-    // save 1st time
-    p.setOcrText("sample text"); // +1 changed() signal
-    p.exportTo(fname);
-    QCOMPARE(changed.count(), 1);
-    QCOMPARE(exported.count(), 1);
-    CHECK_SMALL_FILE(fname, "sample text");
-    QVERIFY(p.hasFlag(Page::EXPORTED));
-    QVERIFY(!p.hasFlag(Page::EXPORT_FAILED));
-
-    QFile f(fname);
-    f.setPermissions(0);
-
-    QVERIFY_THROW(p.exportTo(fname), Page::Exception);
-    QCOMPARE(changed.count(), 1);
-    QCOMPARE(exported.count(), 1);
-    QVERIFY(!p.hasFlag(Page::EXPORTED));
-    QVERIFY(p.hasFlag(Page::EXPORT_FAILED));
-
-    {
-        QFile f(fname);
-        if(f.exists())
-            f.remove();
-    }
 }
 
 QTEST_MAIN(TestPage)
