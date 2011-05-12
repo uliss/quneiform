@@ -24,6 +24,7 @@
 #include <QMessageBox>
 #include "testpage.h"
 #include "gui/page.h"
+#include "ced/cedpage.h"
 
 #ifndef CF_IMAGE_DIR
 #define CF_IMAGE_DIR ""
@@ -490,6 +491,9 @@ void TestPage::testReadWrite() {
     p.setBlocks(rects, Page::CHAR);
     p.setBlocks(rects, Page::PICTURE);
 
+    p.setCEDPage(new cf::CEDPage);
+    p.cedPage()->setImageName("CED Image");
+
     {
         QFile file(fname);
         file.open(QIODevice::WriteOnly);
@@ -522,6 +526,7 @@ void TestPage::testReadWrite() {
         QCOMPARE(p.blocks(Page::CHAR).count(), p2.blocks(Page::CHAR).count());
         QCOMPARE(p.blocks(Page::PICTURE).count(), p2.blocks(Page::PICTURE).count());
         QCOMPARE(p.language(), p2.language());
+        QCOMPARE(p.cedPage()->imageName(), std::string("CED Image"));
     }
 
     QFile f(fname);

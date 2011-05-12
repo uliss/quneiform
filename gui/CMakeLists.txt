@@ -39,6 +39,7 @@ set(HEADERS
 set(SOURCES
     aboutdialog.cpp
     cedpageexporter.cpp
+    cedserializer.cpp
     colorbutton.cpp
     formatsettings.cpp
     formatsettingsdialog.cpp
@@ -178,9 +179,9 @@ endif()
 add_library(quneiform_lib STATIC ${SRCS})
 
 if(MSVC)
-	add_executable(${PROJECT_NAME} main.cpp ${QRC_SOURCES} ${EXTRA_RES})
+    add_executable(${PROJECT_NAME} main.cpp ${QRC_SOURCES} ${EXTRA_RES})
 else()
-	add_executable(${PROJECT_NAME} MACOSX_BUNDLE WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
+    add_executable(${PROJECT_NAME} MACOSX_BUNDLE WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
 endif()
  
 if(APPLE)
@@ -193,7 +194,12 @@ endif()
 if(MSVC)
     set(${QT_LIBRARIES} qtmain ${QT_LIBRARIES})
 else()
-    set(EXTRA_LIBS ${EXTRA_LIBS} m)
+    list(APPEND EXTRA_LIBS m)
+endif()
+
+# adding boost serialize
+if(CF_SERIALIZE)
+    list(APPEND EXTRA_LIBS ${Boost_SERIALIZATION_LIBRARY})
 endif()
 
 target_link_libraries (${PROJECT_NAME} quneiform_lib ${LIBRARIES} ${QT_LIBRARIES} cuneiform ${EXTRA_LIBS})

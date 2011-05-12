@@ -8,6 +8,7 @@ include_directories("../..")
 
 set(CF_GUI_TESTS
     cedpageexporter
+    cedserializer
     formatsettings
     imagecache
     imageview
@@ -29,12 +30,18 @@ set(CF_GUI_TESTS
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_gui.py"
         "${CMAKE_CURRENT_BINARY_DIR}/test_gui.py")
 
+set(TEST_LIBS quneiform_lib cuneiform ${QT_LIBRARIES} ${QT_QTTEST_LIBRARIES})
+
+if(CF_SERIALIZE)
+    list(APPEND TEST_LIBS ${Boost_SERIALIZATION_LIBRARY})
+endif()
+
 function(add_gui_tests)
     foreach(t ${CF_GUI_TESTS})
         unset(cf_test_moc)
         qt4_wrap_cpp(cf_test_moc "test${t}.h")
         add_executable("test_${t}" "test${t}.h" "test${t}.cpp" ${cf_test_moc})
-        target_link_libraries("test_${t}" quneiform_lib cuneiform ${QT_LIBRARIES} ${QT_QTTEST_LIBRARIES})
+        target_link_libraries("test_${t}" ${TEST_LIBS})
         add_test("Quneiform:test_${t}" "${EXECUTABLE_OUTPUT_PATH}/test_${t}")
     endforeach()
 endfunction()

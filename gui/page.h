@@ -35,10 +35,15 @@
 class QDataStream;
 class QTextDocument;
 
+namespace cf {
+class CEDPage;
+}
+
 class Page: public QObject {
     Q_OBJECT
 public:
     Page(const QString& image_path);
+    ~Page();
 
     enum PageFlag {
         NONE = 0,
@@ -48,7 +53,7 @@ public:
         EXPORT_FAILED = (1 << 3)
     };
 
-    Q_DECLARE_FLAGS(PageFlags, PageFlag);
+    Q_DECLARE_FLAGS(PageFlags, PageFlag)
 
     class Exception {
         QString msg_;
@@ -95,6 +100,11 @@ public:
       * @see blocks(), setBlocks()
       */
     int blocksCount(BlockType t) const;
+
+   /**
+     * Returns pointer to cf::CEDPage
+     */
+    cf::CEDPage * cedPage();
 
     /**
       * Clears all bounding rectangles
@@ -232,6 +242,12 @@ public:
       * Emits rotated() signal
       */
     void setAngle(int angle);
+
+    /**
+      * Sets pointer to cf::CEDPage
+      * @note deletes previous cedpage
+      */
+    void setCEDPage(cf::CEDPage * page);
 
     /**
       * Sets page state flag
@@ -382,13 +398,14 @@ private:
     QTextDocument * doc_;
     FormatSettings format_settings_;
     Language language_;
+    cf::CEDPage * cedpage_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);
     friend class PageRecognizer;
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Page::PageFlags);
+Q_DECLARE_OPERATORS_FOR_FLAGS(Page::PageFlags)
 
 QDataStream& operator<<(QDataStream& stream, const Page& page);
 QDataStream& operator>>(QDataStream& stream, Page& page);

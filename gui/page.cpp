@@ -24,8 +24,13 @@
 #include <QPixmap>
 #include <QTextDocument>
 
+#include <string>
+#include <sstream>
+
+#include "ced/cedpage.h"
 #include "page.h"
 #include "imagecache.h"
+#include "cedserializer.h"
 
 Page::Page(const QString& image_path) :
         image_path_(image_path),
@@ -33,7 +38,8 @@ Page::Page(const QString& image_path) :
         state_flags_(NONE),
         is_selected_(false),
         angle_(0),
-        view_scale_(1.0)
+        view_scale_(1.0),
+        cedpage_(NULL)
 {
     QPixmap pixmap;
     if(ImageCache::load(image_path_, &pixmap)) {
@@ -49,6 +55,10 @@ Page::Page(const QString& image_path) :
     doc_ = new QTextDocument(this);
 }
 
+Page::~Page() {
+    delete cedpage_;
+}
+
 int Page::angle() const {
     return angle_;
 }
@@ -56,6 +66,10 @@ int Page::angle() const {
 void Page::appendBlock(const QRect& rect, BlockType type) {
     Q_ASSERT(type < blocks_.size());
     blocks_[type].append(rect);
+}
+
+cf::CEDPage * Page::cedPage() {
+    return cedpage_;
 }
 
 void Page::clearBlocks() {
@@ -213,6 +227,11 @@ void Page::setAngle(int angle) {
     emit rotated(angle_);
 }
 
+void Page::setCEDPage(cf::CEDPage * page) {
+    delete cedpage_;
+    cedpage_ = page;
+}
+
 void Page::setFlag(PageFlag flag) {
     state_flags_ |= flag;
     emit changed();
@@ -344,6 +363,10 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
             << page.blocks_
             << page.format_settings_
             << page.language_;
+
+    CEDSerializer ced(page.cedpage_);
+    os << ced;
+
     return os;
 }
 
@@ -364,6 +387,10 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
             >> page.blocks_
             >> page.format_settings_
             >> page.language_;
+
+    CEDSerializer ced;
+    is >> ced;
+    page.setCEDPage(ced.page());
 
     if(page.is_selected_)
         page.setSelected(true);
