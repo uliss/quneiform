@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,76 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "element.h"
+#ifndef TESTCEDSECTION_H
+#define TESTCEDSECTION_H
 
-namespace cf
+#include <cppunit/extensions/HelperMacros.h>
+
+class TestCEDSection : public CppUnit::TestFixture
 {
+    CPPUNIT_TEST_SUITE(TestCEDSection);
+    CPPUNIT_TEST(testSerialize);
+    CPPUNIT_TEST(testSerializeXml);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testSerialize();
+    void testSerializeXml();
+};
 
-Element::Element(Element * parent) :
-    parent_(parent), color_(Color::null()), bgcolor_(Color::null()) {
-
-}
-
-Element::~Element() {
-}
-
-const Color & Element::backgroundColor() const {
-    return bgcolor_;
-}
-
-Rect& Element::boundingRect() {
-    return brect_;
-}
-
-const Rect& Element::boundingRect() const {
-    return brect_;
-}
-
-const Color & Element::color() const {
-    return color_;
-}
-
-void Element::exportChildren(CEDExporter&) {
-}
-
-int Element::height() const {
-    return brect_.height();
-}
-
-Element * Element::parent() {
-    return parent_;
-}
-
-const Element * Element::parent() const {
-    return parent_;
-}
-
-void Element::setBackgroundColor(const Color & c) {
-    bgcolor_ = c;
-}
-
-void Element::setBoundingRect(const Rect& r) {
-    brect_ = r;
-}
-
-void Element::setColor(const Color & c) {
-    color_ = c;
-}
-
-void Element::setParent(Element * parent) {
-    parent_ = parent;
-}
-
-void Element::setSize(const Size& sz) {
-    brect_.setSize(sz);
-}
-
-void Element::updateBoundingRect() {
-
-}
-
-int Element::width() const {
-    return brect_.width();
-}
-
-}
+#endif // TESTCEDSECTION_H

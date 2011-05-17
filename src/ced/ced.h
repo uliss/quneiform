@@ -127,13 +127,17 @@ enum ed_align_t
 namespace cf
 {
 class CEDPage;
-class CEDLine;
-class CEDParagraph;
 class CEDSection;
 class CEDColumn;
-class BlockElement;
+class CEDParagraph;
 class CEDFrame;
+class CEDLine;
+class CEDChar;
+class CEDPicture;
+class BlockElement;
+class Element;
 }
+
 CED_FUNC cf::CEDSection* CED_CreateSection(cf::CEDPage* page, const cf::Rect& border,
         int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height);
 

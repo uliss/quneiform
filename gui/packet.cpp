@@ -176,18 +176,24 @@ bool Packet::save(const QString& filename) {
         QDataStream stream(&packet);
         stream.setVersion(QDataStream::Qt_4_5);
         stream << *this;
+        qDebug() << Q_FUNC_INFO << 2;
         if(stream.status() != QDataStream::Ok) {
             qDebug() << "[Packet::save] write error to file:" << filename;
             return false;
         }
+        qDebug() << Q_FUNC_INFO  << 3;
     }
-    else
+    else {
+        qDebug() << "[Error]" << Q_FUNC_INFO << "can't open file" << filename;
         return false;
+    }
 
     packet.close();
     filename_ = filename;
     changed_ = false;
     is_new_ = false;
+
+    qDebug() << Q_FUNC_INFO << 4;
     emit saved();
     return true;
 }

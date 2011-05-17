@@ -15,67 +15,51 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-#include <sstream>
 
-#include <QDebug>
+#include "testcedsection.h"
+CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDSection);
 
-#include "cedserializer.h"
-#include "ced/cedpage.h"
-#include "ced/cedsection.h"
-#include "ced/cedcolumn.h"
-#include "ced/cedparagraph.h"
-#include "ced/cedline.h"
-#include "ced/cedchar.h"
+#include "../test_common.h"
+#include "common/tostring.h"
 #include "ced/cedpicture.h"
-#include "ced/blockelement.h"
-#include "ced/element.h"
+#include "ced/cedchar.h"
+#include "ced/cedline.h"
+#include "ced/cedparagraph.h"
+#include "ced/cedcolumn.h"
+#include "ced/cedsection.h"
 #include "ced/cedarchive.h"
 
-CEDSerializer::CEDSerializer(cf::CEDPage * page) : page_(page)
-{
+using namespace cf;
+
+void TestCEDSection::testSerialize() {
+    const char * fname = "serialize_cedsection.txt";
+    CEDSection sec;
+    sec.setLineBetweenColumns(true);
+    sec.setSectionBreak(true);
+    sec.addColumn(new CEDColumn());
+
+    writeToTextArchive(fname, sec);
+
+    CEDSection new_sec;
+    readFromTextArchive(fname, new_sec);
+
+    CPPUNIT_ASSERT_EQUAL(sec.lineBetweenColumns(), new_sec.lineBetweenColumns());
+    CPPUNIT_ASSERT_EQUAL(sec.sectionBreak(), new_sec.sectionBreak());
+    CPPUNIT_ASSERT(!new_sec.empty());
+    CPPUNIT_ASSERT_EQUAL(new_sec.columnCount(), (size_t) 1);
 }
 
-QDataStream& operator<<(QDataStream& os, const CEDSerializer& ced) {
-    if(ced.page_) {
-        try {
-            std::ostringstream buf;
-            cf::CEDOutputArchive ar(buf);
-            ar << boost::serialization::make_nvp("cedpage", ced.page_);
-            std::string txt(buf.str());
-            os << true;
-            os << txt.c_str();
-        }
-        catch(std::exception& e) {
-            std::cerr << e.what() << std::endl;
-            std::cerr.flush();
-        }
-    }
-    else {
-        os << false;
-    }
+void TestCEDSection::testSerializeXml() {
+    const char * fname = "serialize_cedsection.xml";
+    CEDSection sec;
+    sec.setLineBetweenColumns(true);
+    sec.setSectionBreak(true);
 
-    return os;
-}
+    writeToXmlArchive(fname, "cedsection", sec);
 
-QDataStream& operator>>(QDataStream& is, CEDSerializer& ced) {
-    bool has_cedpage;
+    CEDSection new_sec;
+    readFromXmlArchive(fname, "cedsection", new_sec);
 
-    is >> has_cedpage;
-
-    if(has_cedpage) {
-        char * str;
-        is >> str;
-        std::istringstream buf(str);
-        cf::CEDInputArchive ar(buf);
-
-        cf::CEDPage * cedpage = new cf::CEDPage;
-        ar >> cedpage;
-
-        delete ced.page_;
-        ced.page_ = cedpage;
-
-        delete[] str;
-    }
-
-    return is;
+    CPPUNIT_ASSERT_EQUAL(sec.lineBetweenColumns(), new_sec.lineBetweenColumns());
+    CPPUNIT_ASSERT_EQUAL(sec.sectionBreak(), new_sec.sectionBreak());
 }

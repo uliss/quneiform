@@ -18,12 +18,34 @@
 #include <fstream>
 #include "testcedpage.h"
 #include "../test_common.h"
-#include <ced/cedpage.h>
-#include <ced/cedsection.h>
-#include <common/tostring.h>
+#include "ced/cedchar.h"
+#include "ced/cedpicture.h"
+#include "ced/cedframe.h"
+#include "ced/cedline.h"
+#include "ced/cedparagraph.h"
+#include "ced/cedcolumn.h"
+#include "ced/cedsection.h"
+#include "ced/cedpage.h"
+#include "common/tostring.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDPage);
 
 using namespace cf;
+
+static CEDSection * firstSection(CEDPage& p) {
+    return p.sectionAt(0);
+}
+
+static CEDColumn * firstColumn(CEDPage& p) {
+    return firstSection(p)->columnAt(0);
+}
+
+static CEDParagraph * firstPar(CEDPage& p) {
+    return dynamic_cast<CEDParagraph*>(firstColumn(p)->elementAt(0));
+}
+
+static CEDLine * firstLine(CEDPage& p) {
+    return firstPar(p)->lineAt(0);
+}
 
 #define CF_SERIALIZE
 
@@ -38,6 +60,14 @@ void TestCEDPage::testSerialize() {
     p.setLanguage(LANGUAGE_ITALIAN);
     Rect borders(Point(0, 0), 1000, 2000);
     p.setPageBorder(borders);
+    p.addSection(new CEDSection);
+    firstSection(p)->addColumn(new CEDColumn);
+    firstColumn(p)->addElement(new CEDParagraph);
+    firstPar(p)->addLine(new CEDLine);
+    firstLine(p)->addElement(new CEDChar('t'));
+    firstLine(p)->addElement(new CEDPicture);
+    firstPar(p)->addElement(new CEDPicture);
+
 
     const char * fname = "serialize_cedpage.txt";
 
@@ -65,6 +95,13 @@ void TestCEDPage::testSerializeXml() {
     p.setLanguage(LANGUAGE_ITALIAN);
     Rect borders(Point(0, 0), 1000, 2000);
     p.setPageBorder(borders);
+    p.addSection(new CEDSection);
+    firstSection(p)->addColumn(new CEDColumn);
+    firstColumn(p)->addElement(new CEDParagraph);
+    firstPar(p)->addLine(new CEDLine);
+    firstLine(p)->addElement(new CEDChar('t'));
+    firstLine(p)->addElement(new CEDPicture);
+    firstPar(p)->addElement(new CEDPicture);
 
     const char * fname = "serialize_cedpage.xml";
 

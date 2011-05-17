@@ -75,8 +75,9 @@ private slots:
     void showPageImage(Page * page);
     void showPageText(Page * page);
     void showSettings();
-    void updateCurrentPage();
     void updateCurrentLanguage(Page * p);
+    void updateCurrentPage();
+    void updatePageDocument(Page*);
 private:
     void addRecentMenu(QMenu * menu);
     bool confirmRotation(Page * p);

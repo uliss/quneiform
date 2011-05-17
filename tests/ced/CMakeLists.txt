@@ -5,6 +5,7 @@ add_executable(test_ced
     testcedline.cpp
     testcedpage.cpp
     testcedpicture.cpp
+    testcedsection.cpp
 )
 
 set(EXTRA_LIB "")

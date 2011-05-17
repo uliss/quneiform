@@ -111,7 +111,6 @@ private:
     void formatResult();
     QImage loadImage();
     void open();
-    void saveOcrText();
     void setFormatOptions();
     void setRecognizeOptions();
     void stageSleep(StageType t);

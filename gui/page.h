@@ -50,7 +50,8 @@ public:
         RECOGNIZED = 1,
         RECOGNITION_FAILED = (1 << 1),
         EXPORTED = (1 << 2),
-        EXPORT_FAILED = (1 << 3)
+        EXPORT_FAILED = (1 << 3),
+        CHANGED = (1 << 4)
     };
 
     Q_DECLARE_FLAGS(PageFlags, PageFlag)
@@ -84,12 +85,6 @@ public:
     int angle() const;
 
     /**
-      * Append block bounding rectangle
-      * @see clearBlocks(), blocks(), setBlocks()
-      */
-    void appendBlock(const QRect& rect, BlockType type);
-
-    /**
       * Returns list of blocks rectangles
       * @see setBlocks(), blocksCount()
       */
@@ -105,17 +100,6 @@ public:
      * Returns pointer to cf::CEDPage
      */
     cf::CEDPage * cedPage();
-
-    /**
-      * Clears all bounding rectangles
-      */
-    void clearBlocks();
-
-    /**
-      * Clears block bounding rectangles
-      * @see blocks(), setBlocks(), appendBlock()
-      */
-    void clearBlocks(BlockType type);
 
     /**
       * Clears page blocks and area
@@ -150,7 +134,7 @@ public:
       * Returns true if page have flag
       * @see flags(), setFlag(), unsetFlag(), setFlags()
       */
-    bool hasFlag(PageFlag flag);
+    bool hasFlag(PageFlag flag) const;
 
     /**
       * Returns image path
@@ -238,12 +222,6 @@ public:
     void setAngle(int angle);
 
     /**
-      * Sets pointer to cf::CEDPage
-      * @note deletes previous cedpage
-      */
-    void setCEDPage(cf::CEDPage * page);
-
-    /**
       * Sets page state flag
       * @see setFlags(), unsetFlag()
       * emits signal changed()
@@ -291,13 +269,6 @@ public:
     void setRecognitionSettings(const RecognitionSettings& opts);
 
     /**
-      * Sets page blocks
-      * emits signal changed()
-      * @see blocks(), appendBlock()
-      */
-    void setBlocks(const Rectangles& rects, BlockType type);
-
-    /**
       * Selects page
       * Emits signal changed()
       * @see isSelected()
@@ -321,6 +292,11 @@ public:
       * @see setFlag(), flags()
       */
     void unsetFlag(PageFlag flag);
+
+    /**
+      * Updates text document
+      */
+    void updateTextDocument();
 
     /**
       * Returns page view scale
@@ -366,7 +342,18 @@ signals:
       */
     void viewScaled();
 private:
+    void _setFlag(PageFlag flag) { state_flags_ |= flag; }
+    void _unsetFlag(PageFlag flag) { state_flags_ &= (~flag); }
+
+    void appendBlock(const QRect& rect, BlockType type);
+    void clearBlocks();
+    void clearBlocks(BlockType type);
     void initRects();
+    void setBlocks(const Rectangles& rects, BlockType type);
+    void setCEDPage(cf::CEDPage * page);
+    void setChanged();
+    void setRecognized(bool value = true);
+    void updateBlocks();
 private:
     QString image_path_;
     QSize image_size_;

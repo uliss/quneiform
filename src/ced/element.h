@@ -31,6 +31,9 @@ class CEDExporter;
 
 class CLA_EXPO Element
 {
+    private:
+        Element(const Element&);
+        const Element& operator=(const Element&);
     public:
         Element(Element * parent = NULL);
         virtual ~Element();

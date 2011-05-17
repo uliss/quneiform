@@ -100,6 +100,22 @@ class CLA_EXPO CEDSection: public BlockElement
         CEDParagraph * createParagraph(BlockElement * container, align_t align, const Rect& indent,
                 int UserNum, int FlagBorder, EDSIZE interval, const Rect& layout,
                 const Color& color, const Color& bgrnd, int spaceBetweenLines);
+
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            using boost::serialization::make_nvp;
+            ar.template register_type<CEDColumn>();
+            ar & make_nvp("block-element", boost::serialization::base_object<BlockElement>(*this));
+            ar & make_nvp("header-y", header_y_);
+            ar & make_nvp("footer-y", footer_y_);
+            ar & make_nvp("line-between-columns", line_between_columns_);
+            ar & make_nvp("section-break", section_break_);
+            ar & make_nvp("columns-width", col_wd_);
+            ar & make_nvp("columns-space", col_space_);
+        }
+#endif
     private:
         int header_y_;
         int footer_y_;

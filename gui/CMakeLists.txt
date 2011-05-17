@@ -58,6 +58,7 @@ set(SOURCES
     pagepropertiesdialog.cpp
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
+    qtextdocumentexporter.cpp
     recentmenu.cpp
     recognitionsettings.cpp
     recognitionsettingsdialog.cpp
@@ -70,7 +71,6 @@ set(SOURCES
     thumbnaillist.cpp
     thumbnailwidget.cpp
     translationloader.cpp
-    qtextdocumentexporter.cpp
     widgetbar.cpp
 )
 

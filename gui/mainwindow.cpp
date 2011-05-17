@@ -172,6 +172,7 @@ void MainWindow::connectThumbs() {
     connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
     connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
     connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(updateCurrentLanguage(Page*)));
+    connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(updatePageDocument(Page*)));
     connect(thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
     connect(thumbs_, SIGNAL(save(Page*)), SLOT(savePage(Page*)));
     connect(thumbs_, SIGNAL(openDraggedImages(QStringList)), SLOT(openImages(QStringList)));
@@ -674,6 +675,18 @@ void MainWindow::updateCurrentPage() {
         return;
 
     showPageText(current);
+}
+
+void MainWindow::updatePageDocument(Page * page) {
+    if((!page) || (!page->isRecognized()))
+        return;
+
+    if(!page->document() || (!page->document()->isEmpty()))
+        return;
+
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    page->updateTextDocument();
+    QApplication::restoreOverrideCursor();
 }
 
 void MainWindow::writeSettings() {

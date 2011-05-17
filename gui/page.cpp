@@ -27,10 +27,23 @@
 #include <string>
 #include <sstream>
 
+#include "puma/puma.h"
 #include "ced/cedpage.h"
 #include "page.h"
 #include "imagecache.h"
 #include "cedserializer.h"
+#include "qtextdocumentexporter.h"
+#include "rectexporter.h"
+
+static language_t languageToType(const Language& lang) {
+    if(lang.isValid()) {
+        return static_cast<language_t>(lang.code());
+    }
+    else {
+        qDebug() << "[Warning] Language is not valid, using English instead";
+        return ::LANGUAGE_ENGLISH;
+    }
+}
 
 Page::Page(const QString& image_path) :
         image_path_(image_path),
@@ -102,7 +115,7 @@ const FormatSettings& Page::formatSettings() const {
     return format_settings_;
 }
 
-bool Page::hasFlag(PageFlag flag) {
+bool Page::hasFlag(PageFlag flag) const {
     return state_flags_ & flag;
 }
 
@@ -135,11 +148,11 @@ bool Page::isNull() const {
 }
 
 bool Page::isRecognized() const {
-    return state_flags_ & RECOGNIZED;
+    return hasFlag(RECOGNIZED);
 }
 
 bool Page::isExported() const {
-    return state_flags_ & EXPORTED;
+    return hasFlag(EXPORTED);
 }
 
 bool Page::isSelected() const {
@@ -151,8 +164,7 @@ Language Page::language() const {
 }
 
 QString Page::name() const {
-    QFileInfo inf(image_path_);
-    return inf.fileName();
+    return QFileInfo(image_path_).fileName();
 }
 
 unsigned int Page::number() const {
@@ -224,13 +236,50 @@ void Page::setAngle(int angle) {
 }
 
 void Page::setCEDPage(cf::CEDPage * page) {
+    QMutexLocker lock(&mutex_);
+
+    if(cedpage_ == page)
+        return;
+
     delete cedpage_;
     cedpage_ = page;
+
+    updateBlocks();
+
+    _unsetFlag(RECOGNITION_FAILED);
+    emit changed();
+
+    if(cedpage_ != NULL) {
+        _setFlag(RECOGNIZED);
+        emit recognized();
+    }
+
+}
+
+void Page::setChanged() {
+    _setFlag(CHANGED);
+    _unsetFlag(EXPORTED);
+    emit changed();
+}
+
+void Page::setRecognized(bool value) {
+    if(value) {
+        _unsetFlag(RECOGNITION_FAILED);
+        _setFlag(RECOGNIZED);
+        emit recognized();
+        emit changed();
+    }
+    else {
+        _unsetFlag(RECOGNIZED);
+        _unsetFlag(RECOGNITION_FAILED);
+    }
 }
 
 void Page::setFlag(PageFlag flag) {
-    state_flags_ |= flag;
-    emit changed();
+    if(!hasFlag(flag)) {
+        _setFlag(flag);
+        emit changed();
+    }
 }
 
 void Page::setFlags(PageFlags flags) {
@@ -238,9 +287,13 @@ void Page::setFlags(PageFlags flags) {
     emit changed();
 }
 
-void Page::setFormatSettings(const FormatSettings& settings) {
-    format_settings_ = settings;
-    emit changed();
+void Page::setFormatSettings(const FormatSettings& s) {
+//    if(format_settings_ == s)
+//        return;
+
+    format_settings_ = s;
+
+    setChanged();
 }
 
 void Page::setLanguage(const Language& lang) {
@@ -251,7 +304,7 @@ void Page::setLanguage(const Language& lang) {
     else
         language_ = lang;
 
-    emit changed();
+    setChanged();
 }
 
 void Page::setNumber(unsigned int number) {
@@ -261,7 +314,8 @@ void Page::setNumber(unsigned int number) {
         return;
 
     number_ = number;
-    emit changed();
+
+    setChanged();
 }
 
 void Page::setPageArea(const QRect& area) {
@@ -271,7 +325,8 @@ void Page::setPageArea(const QRect& area) {
         return;
 
     page_area_ = area;
-    emit changed();
+
+    setChanged();
 }
 
 void Page::setRecognitionSettings(const RecognitionSettings& opts) {
@@ -281,8 +336,8 @@ void Page::setRecognitionSettings(const RecognitionSettings& opts) {
         return;
 
     rec_settings_ = opts;
-    state_flags_ &= (~EXPORTED);
-    emit changed();
+
+    setChanged();
 }
 
 void Page::setBlocks(const QList<QRect>& rects, BlockType type) {
@@ -294,8 +349,6 @@ void Page::setBlocks(const QList<QRect>& rects, BlockType type) {
         page_area_.topLeft();
         blocks_[type].append(r);
     }
-
-    emit changed();
 }
 
 void Page::setSelected(bool value) {
@@ -303,7 +356,8 @@ void Page::setSelected(bool value) {
         return;
 
     is_selected_ = value;
-    emit changed();
+
+    setChanged();
 }
 
 void Page::setViewScale(float scale) {
@@ -316,10 +370,40 @@ void Page::setViewScroll(const QPoint& pt) {
 }
 
 void Page::unsetFlag(PageFlag flag) {
-    if(state_flags_ & flag) {
-        state_flags_ &= (~flag);
+    if(hasFlag(flag)) {
+        _unsetFlag(flag);
         emit changed();
     }
+}
+
+void Page::updateBlocks() {
+    Q_CHECK_PTR(cedpage_);
+
+    cf::RectExporter exp(cedpage_);
+    exp.collect();
+
+    blockSignals(true);
+    clearBlocks();
+    setBlocks(exp.pictures(), PICTURE);
+    setBlocks(exp.chars(), CHAR);
+    setBlocks(exp.lines(), LINE);
+    setBlocks(exp.paragraphs(), PARAGRAPH);
+    setBlocks(exp.columns(), COLUMN);
+    setBlocks(exp.sections(), SECTION);
+    blockSignals(false);
+}
+
+void Page::updateTextDocument() {
+    doc_->clear();
+    cf::FormatOptions opts;
+    formatSettings().exportTo(opts);
+    opts.setLanguage(languageToType(language()));
+//    cf::Puma::instance().setFormatOptions(opts);
+
+    QTextDocumentExporter exp(this->cedpage_, opts);
+    exp.setPage(this);
+    exp.setDocument(doc_);
+    exp.exportPage(*cedpage_);
 }
 
 float Page::viewScale() const {
@@ -372,7 +456,8 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
 
     CEDSerializer ced;
     is >> ced;
-    page.setCEDPage(ced.page());
+    delete page.cedpage_;
+    page.cedpage_ = ced.page();
 
     if(page.is_selected_)
         page.setSelected(true);

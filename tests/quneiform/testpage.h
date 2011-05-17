@@ -39,6 +39,7 @@ private slots:
     void testFlags();
     void testRotate();
     void testScale();
+    void testSetCEDPage();
     void testSetFlag();
     void testSetFlags();
     void testSetNumber();

@@ -31,12 +31,13 @@
 #include "quneiform_debug.h"
 #include "rectexporter.h"
 #include "qtextdocumentexporter.h"
+#include "rfrmt/formatter.h"
 
 #ifdef Q_OS_WIN32
 #define usleep(t) Sleep((t)/1000)
 #endif
 
-language_t languageToType(const Language& lang) {
+static language_t languageToType(const Language& lang) {
     if(lang.isValid()) {
         return static_cast<language_t>(lang.code());
     }
@@ -82,19 +83,20 @@ void PageRecognizer::formatResult() {
 
     stageSleep(FORMAT);
 
-    cf::Puma::instance().formatResult();
-    cf::RectExporter exporter(cf::Puma::instance().cedPage());
-    exporter.collect();
+    cf::Formatter formatter(cf::Puma::instance().formatOptions());
 
-    page_->setBlocks(exporter.pictures(), Page::PICTURE);
-    page_->setBlocks(exporter.chars(), Page::CHAR);
-    page_->setBlocks(exporter.lines(), Page::LINE);
-    page_->setBlocks(exporter.paragraphs(), Page::PARAGRAPH);
-    page_->setBlocks(exporter.columns(), Page::COLUMN);
-    page_->setBlocks(exporter.sections(), Page::SECTION);
+    cf::CEDPage * p = formatter.format(page_->imagePath().toStdString());
+    page_->setCEDPage(p);
+
     emit formatted();
     emit percentsDone(90);
     QCoreApplication::processEvents();
+
+    page_->updateTextDocument();
+    emit percentsDone(95);
+    QCoreApplication::processEvents();
+
+    page_->setRecognized();
 }
 
 void PageRecognizer::open() {
@@ -154,7 +156,6 @@ bool PageRecognizer::recognize() {
 
         doRecognize();
         formatResult();
-        saveOcrText();
         cf::Puma::instance().close();
     }
     catch(std::exception& e) {
@@ -177,28 +178,6 @@ bool PageRecognizer::recognize() {
         else
             return true;
     }
-}
-
-void PageRecognizer::saveOcrText() {
-    if(abort_) {
-        qDebug() << Q_FUNC_INFO << "aborted";
-        return;
-    }
-
-    Q_CHECK_PTR(page_);
-
-    page_->unsetFlag(Page::RECOGNITION_FAILED);
-    page_->setFlag(Page::RECOGNIZED);
-
-    page_->document()->clear();
-
-    QTextDocumentExporter exp(NULL, cf::Puma::instance().formatOptions());
-    exp.setPage(page_);
-    exp.setDocument(page_->document());
-    exp.exportPage(*cf::Puma::instance().cedPage());
-
-    emit percentsDone(95);
-    QCoreApplication::processEvents();
 }
 
 void PageRecognizer::setFormatOptions() {

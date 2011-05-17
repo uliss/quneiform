@@ -40,9 +40,11 @@ class CLA_EXPO CEDColumn: public BlockElement
         friend class boost::serialization::access;
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /*version*/) {
-            ar & boost::serialization::base_object<Element>(*this);
-            ar & width_;
-            ar & space_;
+            using boost::serialization::make_nvp;
+            ar.template register_type<CEDParagraph>();
+            ar & make_nvp("block-element", boost::serialization::base_object<BlockElement>(*this));
+            ar & make_nvp("width", width_);
+            ar & make_nvp("space", space_);
         }
 #endif
     private:

@@ -23,8 +23,9 @@
 #include <QApplication>
 #include <QMessageBox>
 #include "testpage.h"
-#include "gui/page.h"
 #include "ced/cedpage.h"
+#define private public
+#include "gui/page.h"
 
 #ifndef CF_IMAGE_DIR
 #define CF_IMAGE_DIR ""
@@ -198,7 +199,7 @@ void TestPage::testFlags() {
     QVERIFY(!p.hasFlag(Page::EXPORT_FAILED));
 
     p.setFlag(Page::RECOGNIZED);
-    QVERIFY(p.flags() == Page::RECOGNIZED | Page::EXPORTED);
+    QVERIFY(p.flags() == (Page::RECOGNIZED | Page::EXPORTED));
 
     p.unsetFlag(Page::EXPORTED);
     QVERIFY(p.flags() == Page::RECOGNIZED);
@@ -249,6 +250,22 @@ void TestPage::testScale() {
 
     QCOMPARE(changed.count(), 0);
     QCOMPARE(view_scaled.count(), 1);
+}
+
+void TestPage::testSetCEDPage() {
+    cf::CEDPage * cedp = new cf::CEDPage;
+    Page p("");
+    QSignalSpy changed(&p, SIGNAL(changed()));
+    QSignalSpy recognized(&p, SIGNAL(recognized()));
+
+    QVERIFY(p.cedPage() == NULL);
+
+    p.setCEDPage(cedp);
+
+    QCOMPARE(p.cedPage(), cedp);
+    QCOMPARE(changed.count(), 1);
+    QCOMPARE(recognized.count(), 1);
+    QVERIFY(p.isRecognized());
 }
 
 void TestPage::testSetFlag() {
@@ -342,14 +359,11 @@ void TestPage::testSetBlocks() {
     QVERIFY(p.blocks(Page::PARAGRAPH).empty());
     QVERIFY(p.blocks(Page::PICTURE).empty());
 
-    QSignalSpy changed(&p, SIGNAL(changed()));
-
     Page::Rectangles rects;
     rects << QRect(0, 0, 10, 20);
     rects << QRect(1, 1, 2, 2);
 
     p.setBlocks(rects, Page::CHAR);
-    QCOMPARE(changed.count(), 1);
     QCOMPARE(p.blocks(Page::CHAR).count(), 2);
     QCOMPARE(p.blocks(Page::CHAR).at(0), QRect(0, 0, 10, 20));
     QCOMPARE(p.blocks(Page::CHAR).at(1), QRect(1, 1, 2, 2));
@@ -361,7 +375,6 @@ void TestPage::testSetBlocks() {
 
     rects.removeLast();
     p.setBlocks(rects, Page::COLUMN);
-    QCOMPARE(changed.count(), 2);
     QCOMPARE(p.blocks(Page::COLUMN).count(), 1);
     QCOMPARE(p.blocks(Page::COLUMN).at(0), QRect(0, 0, 10, 20));
     QVERIFY(p.blocks(Page::LINE).empty());
@@ -371,7 +384,6 @@ void TestPage::testSetBlocks() {
 
     rects.removeLast();
     p.setBlocks(rects, Page::LINE);
-    QCOMPARE(changed.count(), 3);
     QCOMPARE(p.blocks(Page::LINE).count(), 0);
     QVERIFY(p.blocks(Page::SECTION).empty());
     QVERIFY(p.blocks(Page::PARAGRAPH).empty());
@@ -379,7 +391,6 @@ void TestPage::testSetBlocks() {
 
     rects << QRect(100, 100, 100, 100);
     p.setBlocks(rects, Page::SECTION);
-    QCOMPARE(changed.count(), 4);
     QCOMPARE(p.blocks(Page::SECTION).count(), 1);
     QCOMPARE(p.blocks(Page::SECTION).at(0), QRect(100, 100, 100, 100));
     QVERIFY(p.blocks(Page::PARAGRAPH).empty());
@@ -387,7 +398,6 @@ void TestPage::testSetBlocks() {
 
     rects << QRect(20, 20, 20, 20);
     p.setBlocks(rects, Page::PARAGRAPH);
-    QCOMPARE(changed.count(), 5);
     QCOMPARE(p.blocks(Page::PARAGRAPH).count(), 2);
     QCOMPARE(p.blocks(Page::PARAGRAPH).at(0), QRect(100, 100, 100, 100));
     QCOMPARE(p.blocks(Page::PARAGRAPH).at(1), QRect(20, 20, 20, 20));
@@ -395,7 +405,6 @@ void TestPage::testSetBlocks() {
 
     rects << QRect(30, 30, 30, 30);
     p.setBlocks(rects, Page::PICTURE);
-    QCOMPARE(changed.count(), 6);
     QCOMPARE(p.blocks(Page::PICTURE).count(), 3);
     QCOMPARE(p.blocks(Page::PICTURE).at(0), QRect(100, 100, 100, 100));
     QCOMPARE(p.blocks(Page::PICTURE).at(1), QRect(20, 20, 20, 20));

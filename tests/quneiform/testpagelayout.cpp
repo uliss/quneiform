@@ -22,6 +22,8 @@
 #include <QGraphicsRectItem>
 #include "testpagelayout.h"
 #include "gui/pagelayout.h"
+
+#define private public
 #include "gui/page.h"
 
 void setShowBBoxes(const QString& name, bool value) {
