@@ -50,39 +50,39 @@ p {margin: 0; text-indent: 0;}
     <name>ExportDialog</name>
     <message>
         <source>Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Формат:</translation>
     </message>
     <message>
         <source>Plain text</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст</translation>
     </message>
     <message>
         <source>HTML</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML</translation>
     </message>
     <message>
         <source>ODF</source>
-        <translation type="unfinished"></translation>
+        <translation>ODF</translation>
     </message>
     <message>
         <source>Export to</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспорт в</translation>
     </message>
     <message>
         <source>HOCR</source>
-        <translation type="unfinished"></translation>
+        <translation>HOCR</translation>
     </message>
     <message>
         <source>DJVU text</source>
-        <translation type="unfinished"></translation>
+        <translation>DJVU текстовый</translation>
     </message>
     <message>
         <source>DJVU xml</source>
-        <translation type="unfinished"></translation>
+        <translation>DJVU xml</translation>
     </message>
     <message>
         <source>Format selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбор формата</translation>
     </message>
 </context>
 <context>
