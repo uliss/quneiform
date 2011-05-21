@@ -47,6 +47,45 @@ p {margin: 0; text-indent: 0;}
     </message>
 </context>
 <context>
+    <name>ExportDialog</name>
+    <message>
+        <source>Format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plain text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ODF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HOCR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DJVU text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DJVU xml</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FormatSettingsDialog</name>
     <message>
         <source>Format settings</source>
@@ -370,7 +409,7 @@ p {margin: 0; text-indent: 0;}
     </message>
     <message>
         <source>HTML documents (*.html *.htm)</source>
-        <translation>HTML документы (*.html *.htm)</translation>
+        <translation type="obsolete">HTML документы (*.html *.htm)</translation>
     </message>
     <message>
         <source>Recognition packet is not saved</source>
@@ -396,7 +435,7 @@ Do you want to save it?</source>
     </message>
     <message>
         <source>Saving page</source>
-        <translation>Сохранение страницы</translation>
+        <translation type="obsolete">Сохранение страницы</translation>
     </message>
     <message>
         <source>Ctrl+0</source>

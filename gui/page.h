@@ -34,6 +34,7 @@
 
 class QDataStream;
 class QTextDocument;
+class ExportSettings;
 
 namespace cf {
 class CEDPage;
@@ -116,7 +117,7 @@ public:
       * @throw Exception if page is not recognized
       * Emits signal exported()
       */
-    void exportTo(const QString& file);
+    void exportTo(const QString& file, const ExportSettings& settings);
 
     /**
       * Returns page state flags

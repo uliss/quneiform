@@ -9,6 +9,7 @@ include_directories("../..")
 set(CF_GUI_TESTS
     cedpageexporter
     cedserializer
+    exportsettings
     formatsettings
     imagecache
     imageview

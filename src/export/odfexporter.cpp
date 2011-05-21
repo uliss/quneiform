@@ -57,8 +57,12 @@ std::string datetime(const std::string& format = "%Y-%m-%dT%H:%M:%S") {
 }
 
 OdfExporter::OdfExporter(CEDPage * page, const FormatOptions& opts) :
-    XmlExporter(page, opts), zip_(NULL), style_exporter_(new OdfStyleExporter(page, opts)),
-            prev_char_style_hash_(0), style_span_opened_(false) {
+    XmlExporter(page, opts),
+    zip_(NULL),
+    style_exporter_(new OdfStyleExporter(page, opts)),
+    prev_char_style_hash_(0),
+    style_span_opened_(false)
+{
     ImageExporterPtr exp = ImageExporterFactory::instance().make();
     setImageExporter(exp);
     setSkipPictures(false);

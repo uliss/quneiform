@@ -32,8 +32,10 @@
 #include "page.h"
 #include "imagecache.h"
 #include "cedserializer.h"
+#include "exportsettings.h"
 #include "qtextdocumentexporter.h"
 #include "rectexporter.h"
+#include "exporterfactory.h"
 
 static language_t languageToType(const Language& lang) {
     if(lang.isValid()) {
@@ -105,6 +107,26 @@ void Page::clearLayout() {
 
 QTextDocument * Page::document() {
     return doc_;
+}
+
+void Page::exportTo(const QString& file, const ExportSettings& s) {
+    QMutexLocker lock(&mutex_);
+
+    if (!isRecognized())
+        throw Exception("[Page::exportTo] page is not recognized");
+
+    try {
+        ExporterPtr exp = ExporterFactory::instance().make(s);
+        exp->exportTo(this, file);
+    }
+    catch(ExporterException& e) {
+        std::cerr << e.what() << std::endl;
+        throw Exception(e.what());
+    }
+
+    state_flags_ |= EXPORTED;
+    state_flags_ &= (~EXPORT_FAILED);
+    emit exported();
 }
 
 Page::PageFlags Page::flags() const {
@@ -196,31 +218,6 @@ void Page::resetViewScale() {
 
 void Page::rotate(int angle) {
     setAngle(angle_ + angle);
-}
-
-void Page::exportTo(const QString& file) {
-    QMutexLocker lock(&mutex_);
-
-//    if (!isRecognized())
-//        throw Exception("[Page::save] page is not recognized");
-
-//    QFile output(file);
-
-//    if(!output.open(QIODevice::WriteOnly)) {
-//        state_flags_ |= EXPORT_FAILED;
-//        state_flags_ &= (~EXPORTED);
-
-//        throw Exception(tr("Saved failed. Can't open file \"%1\" for writing.").arg(file));
-//    }
-
-//    output.write(ocr_text_.toLocal8Bit());
-//    output.close();
-
-//    qDebug() << "[Page::save] saved" << file;
-
-    state_flags_ |= EXPORTED;
-    state_flags_ &= (~EXPORT_FAILED);
-    emit exported();
 }
 
 void Page::scaleView(qreal factor) {

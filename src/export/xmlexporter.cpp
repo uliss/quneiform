@@ -25,6 +25,7 @@ namespace cf
 
 XmlExporter::XmlExporter(CEDPage * page, const FormatOptions& opts) :
     TextExporter(page, opts) {
+    formatOptions().writeBom(false);
 }
 
 void XmlExporter::appendTo(const std::string& filename) {

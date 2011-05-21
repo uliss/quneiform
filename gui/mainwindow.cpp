@@ -43,6 +43,8 @@
 #include "recentmenu.h"
 #include "settings.h"
 #include "aboutdialog.h"
+#include "exportsettings.h"
+#include "exportdialog.h"
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -460,16 +462,22 @@ void MainWindow::savePage(Page * page) {
         return;
     }
 
-    QFileInfo info(page->imagePath());
-    QString filename_suggest = info.baseName() + ".html";
-    QString filename = QFileDialog::getSaveFileName(this, tr("Saving page"),
-                                filename_suggest,
-                                tr("HTML documents (*.html *.htm)"));
+    QString filename;
+    ExportDialog dialog(page->imagePath(), this);
+    if(dialog.exec()) {
+        filename = dialog.fileName();
+    }
+
+//    QFileInfo info(page->imagePath());
+//    QString filename_suggest = info.baseName() + ".html";
+//    QString filename = QFileDialog::getSaveFileName(this, tr("Saving page"),
+//                                filename_suggest,
+//                                tr("HTML documents (*.html *.htm)"));
     if(filename.isEmpty())
         return;
 
     try {
-        page->exportTo(filename);
+        page->exportTo(filename, dialog.settings());
     }
     catch(Page::Exception& e) {
         QMessageBox::warning(this,

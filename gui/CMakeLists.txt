@@ -13,6 +13,7 @@ set(TRANSLATIONS_TS ru.ts)
 set(HEADERS 
     aboutdialog.h
     colorbutton.h
+    exportdialog.h
     formatsettingsdialog.h
     imageview.h
     imagewidget.h
@@ -40,7 +41,11 @@ set(SOURCES
     aboutdialog.cpp
     cedpageexporter.cpp
     cedserializer.cpp
+    cfexporter.cpp
     colorbutton.cpp
+    exportdialog.cpp
+    exporterfactory.cpp
+    exportsettings.cpp
     formatsettings.cpp
     formatsettingsdialog.cpp
     imagecache.cpp
@@ -50,6 +55,7 @@ set(SOURCES
     languagemenu.cpp
     languageselect.cpp
     mainwindow.cpp
+    nativeexporter.cpp
     packet.cpp
     page.cpp
     pagearea.cpp
@@ -76,6 +82,7 @@ set(SOURCES
 
 set(FORMS 
     aboutdialog.ui
+    exportdialog.ui
     formatsettingsdialog.ui
     mainwindow.ui
     pagepropertiesdialog.ui
