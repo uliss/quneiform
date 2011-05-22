@@ -33,7 +33,7 @@
 
 static const int LIST_WIDTH = 180;
 
-ThumbnailList::ThumbnailList(QWidget *parent) :
+ThumbnailList::ThumbnailList(QWidget * parent) :
     QScrollArea(parent),
     document_(NULL),
     layout_(NULL),
@@ -179,6 +179,7 @@ void ThumbnailList::setupLayout() {
     layout_->setSpacing(0);
     layout_->setMargin(0);
     layout_->setContentsMargins(0, 0, 0, 0);
+    layout_->setSizeConstraint(QLayout::SetFixedSize);
 
 //    layout_->setMenuBar(new WidgetBar);
 }

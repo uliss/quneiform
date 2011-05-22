@@ -66,6 +66,8 @@ public:
       */
     void setName(const QString& name);
 
+    QSize sizeHint() const;
+
     /**
       * Toggles thumb selection
       */

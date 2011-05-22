@@ -264,6 +264,7 @@ void ThumbnailWidget::setupLayout() {
     layout_ = new QVBoxLayout(this);
     layout_->setSpacing(0);
     layout_->setMargin(0);
+//    layout_->setSizeConstraint(QLayout::SizeConstraint);
     setFixedWidth(THUMB_WIDTH);
     setFixedHeight(THUMB_HEIGHT);
 }
@@ -296,4 +297,9 @@ void ThumbnailWidget::updatePageIndicators() {
     indicator_->setRecognized(page_->isRecognized());
     indicator_->setSaved(page_->hasFlag(Page::EXPORTED));
     indicator_->setWarning(page_->hasFlag(Page::RECOGNITION_FAILED));
+}
+
+QSize ThumbnailWidget::sizeHint() const
+{
+    return QSize(THUMB_WIDTH, THUMB_HEIGHT);
 }
