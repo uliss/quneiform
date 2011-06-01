@@ -255,7 +255,7 @@ int main(int argc, char **argv) {
             { "no-bold", no_argument, &no_bold, 1 }, //
             { "no-bom", no_argument, &write_bom, 0 }, //
             { "no-italic", no_argument, &no_italic, 1 },//
-            { "no-meta-generator", no_argument, &write_bom, 0},//
+            { "no-meta-generator", no_argument, &write_meta_generator, 0},//
             { "no-font-size", no_argument, &no_font_size, 1 }, //
             { "nopictures", no_argument, &do_pictures, 0 },//
             { "output", required_argument, NULL, 'o' },//
