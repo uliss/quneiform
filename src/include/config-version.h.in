@@ -1,0 +1,6 @@
+#ifndef CONFIG_VERSION_H
+#define CONFIG_VERSION_H
+
+#define CF_VERSION "@CF_VERSION@"
+
+#endif
