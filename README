@@ -2,6 +2,7 @@ Introduction
 ============
 
 This is experimental branch of Cuneiform that actively refactored.
+Also it has simple GUI for testing and development purposes written on Qt4.
 
 Building
 ========
@@ -9,8 +10,8 @@ Building
 Extract the source and go to the root folder (the one this file is in).
 Then type the following commands:
 
-	mkdir builddir
-	cd builddir	
+	mkdir ../builddir
+	cd ../builddir	
 	cmake ..
 	make
 	make install 
@@ -33,11 +34,7 @@ Configuration
 Contact information
 ===================
 
-Project home page: 
-	https://launchpad.net/cuneiform-linux
-Mailing list: 
-	https://launchpad.net/~cuneiform
-This branch on Launchpad: 
-	https://code.launchpad.net/~serge-uliss/cuneiform-linux/refactoring
+This branch on GitHub:
+       https://github.com/uliss/quneiform
 	
-For suggestions write to <serj.poltavski@gmail.com>
+For suggestions write to <serge.poltavski@gmail.com>
