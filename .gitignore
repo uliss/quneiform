@@ -1,0 +1,2 @@
+# ignore qtcreator cmake files
+CMakeLists.txt.user
