@@ -181,6 +181,7 @@ class Tester:
             args.append('--preserve-line-breaks')
 
         args.append('--no-bom')
+        args.append('--no-meta-generator')
             
         args.append(img)
             
