@@ -232,10 +232,12 @@ void HtmlExporter::writeLineBreak() {
 }
 
 void HtmlExporter::writeMeta() {
-    Attributes meta_generator;
-    meta_generator["name"] = "Generator";
-    meta_generator["content"] = "cuneiform-linux-" CF_VERSION;
-    writeSingleTag("meta", meta_generator, "\n");
+    if(formatOptions().writeMetaGenerator()) {
+        Attributes meta_generator;
+        meta_generator["name"] = "Generator";
+        meta_generator["content"] = "cuneiform-linux-" CF_VERSION;
+        writeSingleTag("meta", meta_generator, "\n");
+    }
 
     if (isCharsetConversion()) {
         Attributes meta_charset;

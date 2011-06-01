@@ -40,10 +40,11 @@ FormatOptions::FormatOptions() :
     preserve_line_hyphens_(false),
     show_alternatives_(false),
 #ifdef __APPLE__
-    write_bom_(true)
+    write_bom_(true),
 #else
-    write_bom_(false)
+    write_bom_(false),
 #endif
+    write_meta_generator_(true)
 {
 }
 
@@ -143,6 +144,14 @@ void FormatOptions::writeBom(bool value) {
     write_bom_ = value;
 }
 
+bool FormatOptions::writeMetaGenerator() const {
+    return write_meta_generator_;
+}
+
+void FormatOptions::writeMetaGenerator(bool value) {
+    write_meta_generator_ = value;
+}
+
 bool FormatOptions::showAlternatives() const {
     return show_alternatives_;
 }
@@ -185,6 +194,8 @@ std::ostream & operator <<(std::ostream & os, const FormatOptions & fmt) {
     os << setw(25) << "   Line breaks: " << fmt.preserveLineBreaks() << "\n";
     os << setw(25) << "   Language: " << Language::isoName(fmt.language()) << "\n";
     os << setw(25) << "   Image export format: " << fmt.imageExportFormat() << "\n";
+    os << setw(25) << "   Write byte order mark (BOM): " << fmt.bomWritten() << "\n";
+    os << setw(25) << "   Write meta generator: " << fmt.writeMetaGenerator() << "\n";
     return os;
 }
 

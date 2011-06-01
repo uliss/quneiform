@@ -75,6 +75,8 @@ class CLA_EXPO FormatOptions
         void useStyles(bool val = true);
         void useUnderlined(bool val = true);
         void writeBom(bool value);
+        bool writeMetaGenerator() const;
+        void writeMetaGenerator(bool value);
     private:
         std::string serif_name_;
         std::string sans_serif_name_;
@@ -92,6 +94,7 @@ class CLA_EXPO FormatOptions
         bool preserve_line_hyphens_;
         bool show_alternatives_;
         bool write_bom_;
+        bool write_meta_generator_;
 };
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const FormatOptions& fmt);
 

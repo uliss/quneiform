@@ -147,6 +147,8 @@ static string usage() {
                 "  Output formatting options:                                                \n"
                 "       --bom                    Write BOM (byte order mark)                 \n"
                 "       --no-bom                 Do not write BOM                            \n"
+                "       --no-meta-generator      Do not write meta generator info            \n"
+                "                                    (now for HTML only)                     \n"
                 "       --preserve-line-breaks   Preserves line-breaking                     \n"
                 "       --unrecognized CHAR      Set symbol, that shown instead of           \n"
                 "                                    unrecognized characters.                \n"
@@ -233,7 +235,8 @@ int main(int argc, char **argv) {
         stdout_output = FALSE,
         do_append = FALSE,
         show_alternatives = FALSE,
-        write_bom = FALSE;
+        write_bom = FALSE,
+        write_meta_generator = TRUE;
 
     const char * const short_options = ":aho:vVl:f:d:u:";
     const struct option long_options[] = {
@@ -252,6 +255,7 @@ int main(int argc, char **argv) {
             { "no-bold", no_argument, &no_bold, 1 }, //
             { "no-bom", no_argument, &write_bom, 0 }, //
             { "no-italic", no_argument, &no_italic, 1 },//
+            { "no-meta-generator", no_argument, &write_bom, 0},//
             { "no-font-size", no_argument, &no_font_size, 1 }, //
             { "nopictures", no_argument, &do_pictures, 0 },//
             { "output", required_argument, NULL, 'o' },//
@@ -397,6 +401,7 @@ int main(int argc, char **argv) {
         opt.setImageExportFormat(FORMAT_PNG);
 
         opt.writeBom(write_bom ? true : false);
+        opt.writeMetaGenerator(write_meta_generator ? true : false);
         opt.useBold(no_bold ? false : true);
         opt.useItalic(no_italic ? false : true);
         opt.useFontSize(no_font_size ? false : true);
