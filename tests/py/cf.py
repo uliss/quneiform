@@ -193,7 +193,7 @@ class Tester:
         return os.path.join(IMAGEDIR, self._imagedir, image)
     
     def makeOutput(self, image):
-        return '%s.%d.%s' % (os.path.splitext(os.path.basename(image))[0], self.version(), self._format)
+        return '%s.%s.%s' % (os.path.splitext(os.path.basename(image))[0], self.version(), self._format)
     
     def makeSampleName(self, img):
         path = os.path.split(img)
@@ -248,7 +248,7 @@ class Tester:
     ''' returns cuneiform version ''' 
     def version(self):
         if self._version is None:
-            self._version = int(Popen([CUNEIFORM, '-V'], stdout=PIPE).communicate()[0].split()[-1])
+            self._version = Popen([CUNEIFORM, '-V'], stdout=PIPE).communicate()[0].split()[-1]
         
         return self._version
 
