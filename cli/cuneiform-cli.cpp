@@ -80,8 +80,8 @@
 #include "getopt.h"
 #include <fstream>
 
-#include "config.h" // for CF_VERSION
 #include "build_number.h" // for CF_BUILD_NUMBER
+#include "config-version.h" // for CF_VERSION
 #include "cuneiform.h"
 
 using namespace std;

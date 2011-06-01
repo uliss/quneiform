@@ -34,10 +34,7 @@
 #include "common/helper.h"
 #include "common/debug.h"
 #include "compat/filefunc.h"
-#include "config.h" // for CF_VERSION
-#ifndef CF_VERSION
-#define CF_VERSION ""
-#endif
+#include "config-version.h" // for CF_VERSION
 
 namespace cf
 {

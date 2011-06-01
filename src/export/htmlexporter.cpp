@@ -30,10 +30,7 @@
 #include "ced/cedchar.h"
 #include "ced/cedpicture.h"
 #include "ced/cedparagraph.h"
-#include "config.h" // for CF_VERSION
-#ifndef CF_VERSION
-#define CF_VERSION "unknown"
-#endif
+#include "config-version.h" // for CF_VERSION
 
 namespace cf
 {

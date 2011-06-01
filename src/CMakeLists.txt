@@ -5,17 +5,15 @@ endif()
 set(NEWLIBTYPE STATIC)
 
 include_directories(
-${CMAKE_CURRENT_SOURCE_DIR}
-include
-h
-hh
-hhh
-hdebug
-hrstr
-usage
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    include
+    h
+    hh
+    hhh
+    hdebug
+    hrstr
+    usage
 )
-
-include (update_build)
 
 if(LIBTYPE STREQUAL SHARED)
     set(SNP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/hdebug/__snp.cpp)

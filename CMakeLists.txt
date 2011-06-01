@@ -3,8 +3,9 @@ cmake_minimum_required(VERSION 2.6.0)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
  
-include(version)
 include(outtree)
+include(build_number)
+include(version)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 if(WIN32)

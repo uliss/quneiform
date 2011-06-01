@@ -16,18 +16,36 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
+#include "config-version.h" // for CF_VERSION
+#include "build_number.h" // for CF_BUILD_NUMBER
 
 AboutDialog::AboutDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AboutDialog)
+    ui_(new Ui::AboutDialog)
 {
-    ui->setupUi(this);
+    ui_->setupUi(this);
+    setText();
 }
 
 AboutDialog::~AboutDialog()
 {
-    delete ui;
+    delete ui_;
+}
+
+void AboutDialog::setText() {
+    ui_->about_label_->setText(tr("Quneiform OCR<br/>"
+    "Author: Serge Poltavski<br/>"
+    "Email: <a href=\"mailto:serge.poltavski@gmail.com\">serge.poltavski@gmail.com</a><br/>"
+    "Translator: Serge Poltavski<br/>"
+    "License: <a href=\"http://www.gnu.org/licenses/gpl.html\">GPL v.3</a><br/>"
+    "Version: %1<br/>"
+    "Build number: %2<br/><br/>"
+    "This program uses refactoring version of libcuneiform from "
+        "<a href=\"https://github.com/uliss/quneiform\">GitHub</a> "
+        "released under GPL v.3 license.<br/>"
+    "Cuneiform was originally released by Congitive Technologies under BSD license.<br/><br/>"
+    "Uses icons from <a href=\"http://www.oxygen-icons.org/\">Oxygen</a> theme.")
+                               .arg(CF_VERSION).arg(CF_BUILD_NUMBER));
 }

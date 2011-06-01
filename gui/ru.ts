@@ -23,7 +23,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Oxygen&lt;/span&gt;&lt;/a&gt; theme. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;
 &lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
 &lt;style type=&quot;text/css&quot;&gt;
@@ -44,6 +44,10 @@ p {margin: 0; text-indent: 0;}
 &lt;p&gt;Использованы иконки из темы &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt;.&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Quneiform OCR&lt;br/&gt;Author: Serge Poltavski&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Translator: Serge Poltavski&lt;br/&gt;License: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Version: %1&lt;br/&gt;Build number: %2&lt;br/&gt;&lt;br/&gt;This program uses refactoring version of libcuneiform from &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt; released under GPL v.3 license.&lt;br/&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;br/&gt;&lt;br/&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt; theme.</source>
+        <translation>Quneiform OCR&lt;br/&gt;Автор: Сергей Полтавский&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Перевод: Сергей Полтавский&lt;br/&gt;Лицензия: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Версия: %1&lt;br/&gt;Номер сборки: %2&lt;br/&gt;&lt;br/&gt;Программа использует рефакторинг-версию библиотеки cuneiform, распространяемой по GPL лицензии, исходный код которой доступен на сервисе&lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt;.&lt;br/&gt;Cuneiform была иначально разработана и открыта под BSD лицензией компанией Congitive Technologies.&lt;br/&gt;&lt;br/&gt;Использованы иконки из темы &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>

@@ -28,7 +28,7 @@ endif()
 
 macro(library_hook name)
   if(NOT WIN32)
-    set_target_properties(${name} PROPERTIES VERSION "${CF_VERSION_MAJOR}.${CF_VERSION_MINOR}")
+    set_target_properties(${name} PROPERTIES VERSION ${CF_VERSION})
   endif()
   
   install(

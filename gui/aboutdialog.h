@@ -16,7 +16,6 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-
 #ifndef ABOUTDIALOG_H
 #define ABOUTDIALOG_H
 
@@ -31,11 +30,12 @@ class AboutDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit AboutDialog(QWidget *parent = 0);
+    explicit AboutDialog(QWidget * parent = 0);
     ~AboutDialog();
-
 private:
-    Ui::AboutDialog *ui;
+    void setText();
+private:
+    Ui::AboutDialog * ui_;
 };
 
 #endif // ABOUTDIALOG_H
