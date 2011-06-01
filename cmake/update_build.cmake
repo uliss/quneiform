@@ -8,5 +8,3 @@ execute_process(
 )
 
 message(STATUS "Build number is: ${CF_BUILD_NUMBER}")
-
-configure_file(${CMAKE_SOURCE_DIR}/src/include/build_number.h.in ${CMAKE_BINARY_DIR}/src/include/build_number.h)

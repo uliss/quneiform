@@ -1,0 +1,27 @@
+if(EXISTS "@CMAKE_SOURCE_DIR@/.git")
+    execute_process(COMMAND git describe --abbrev=4 HEAD
+                WORKING_DIRECTORY @CMAKE_SOURCE_DIR@
+                OUTPUT_VARIABLE CF_BUILD_NUMBER
+                OUTPUT_STRIP_TRAILING_WHITESPACE)
+    string(REGEX REPLACE "-" "." CF_BUILD_NUMBER ${CF_BUILD_NUMBER})
+    # remove leading "v"
+    string(REGEX REPLACE "^v(.*)" "\\1" CF_BUILD_NUMBER ${CF_BUILD_NUMBER})
+    file(WRITE "@CMAKE_SOURCE_DIR@/version" "${CF_BUILD_NUMBER}")
+elseif(EXISTS "@CMAKE_SOURCE_DIR@/.bzr")
+    message(STATUS "Bazaar build number is not implemented yet.")
+    set(CF_BUILD_NUMBER ${CF_VERSION})
+    file(WRITE "@CMAKE_SOURCE_DIR@/version" "${CF_BUILD_NUMBER}")
+else()
+    if(EXISTS "@CMAKE_SOURCE_DIR@/version")
+        file(READ "@CMAKE_SOURCE_DIR@/version" CF_BUILD_NUMBER)
+    else()
+        message(STATUS "Can't find build number, using build version")
+        set(CF_BUILD_NUMBER ${CF_VERSION})
+        file(WRITE "@CMAKE_SOURCE_DIR@/version" "${CF_BUILD_NUMBER}")
+    endif()
+endif()
+
+message(STATUS "Build number is: ${CF_BUILD_NUMBER}")
+
+configure_file(@CMAKE_SOURCE_DIR@/src/include/build_number.h.in
+    @CMAKE_BINARY_DIR@/src/include/build_number.h)
