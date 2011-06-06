@@ -38,11 +38,7 @@ set(HEADERS
 )
 
 set(SOURCES
-    cedpageexporter.cpp
-    cedserializer.cpp
-    cfexporter.cpp
     colorbutton.cpp
-    exporterfactory.cpp
     exportsettings.cpp
     formatsettings.cpp
     imagecache.cpp
@@ -52,7 +48,6 @@ set(SOURCES
     languagemenu.cpp
     languageselect.cpp
     mainwindow.cpp
-    nativeexporter.cpp
     packet.cpp
     page.cpp
     pagearea.cpp
@@ -60,11 +55,9 @@ set(SOURCES
     pagelayout.cpp
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
-    qtextdocumentexporter.cpp
     range.cpp
     recentmenu.cpp
     recognitionsettings.cpp
-    rectexporter.cpp
     selection.cpp
     selectionshadow.cpp
     texteditor.cpp
@@ -79,6 +72,13 @@ set(SOURCES
     dialogs/recognitionsettingsdialog.cpp
     dialogs/recognitionprogressdialog.cpp
     dialogs/settings.cpp
+    export/cedpageexporter.cpp
+    export/cedserializer.cpp
+    export/cfexporter.cpp
+    export/exporterfactory.cpp
+    export/nativeexporter.cpp
+    export/qtextdocumentexporter.cpp
+    export/rectexporter.cpp
 )
 
 set(FORMS 
@@ -120,6 +120,8 @@ set(SRCS
     ${SOURCES}
     ${MOC_SOURCES}
     ${UI_HEADERS}
+    export/iqfexporter.h
+    quneiform_debug.h
 )
 
 set(EXTRA_RES)

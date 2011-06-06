@@ -29,8 +29,8 @@
 #include "rdib/qtimageloader.h"
 #include "common/formatoptions.h"
 #include "quneiform_debug.h"
-#include "rectexporter.h"
-#include "qtextdocumentexporter.h"
+#include "export/rectexporter.h"
+#include "export/qtextdocumentexporter.h"
 #include "rfrmt/formatter.h"
 
 #ifdef Q_OS_WIN32

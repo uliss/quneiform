@@ -31,11 +31,11 @@
 #include "ced/cedpage.h"
 #include "page.h"
 #include "imagecache.h"
-#include "cedserializer.h"
 #include "exportsettings.h"
-#include "qtextdocumentexporter.h"
-#include "rectexporter.h"
-#include "exporterfactory.h"
+#include "export/cedserializer.h"
+#include "export/qtextdocumentexporter.h"
+#include "export/rectexporter.h"
+#include "export/exporterfactory.h"
 
 static language_t languageToType(const Language& lang) {
     if(lang.isValid()) {

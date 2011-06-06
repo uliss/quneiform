@@ -24,10 +24,11 @@
 #include <QContextMenuEvent>
 #include <QTextDocumentFragment>
 #include <QPainter>
+
 #include "texteditor.h"
-#include "qtextdocumentexporter.h"
 #include "page.h"
 #include "spell/spellcheckhighlighter.h"
+#include "export/qtextdocumentexporter.h"
 
 TextEditor::TextEditor(QWidget * parent) :
     QTextEdit(parent),

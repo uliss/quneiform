@@ -20,7 +20,7 @@
 #include <QTextDocument>
 #include <QTextFrame>
 #include "testcedpageexporter.h"
-#include "gui/qtextdocumentexporter.h"
+#include "gui/export/qtextdocumentexporter.h"
 #include "ced/cedpage.h"
 #include "ced/cedsection.h"
 #include "ced/cedcolumn.h"
@@ -29,7 +29,7 @@
 #include "ced/cedchar.h"
 
 #define private public
-#include "gui/cedpageexporter.h"
+#include "gui/export/cedpageexporter.h"
 
 QString lineText(cf::CEDLine& line) {
     QString res;

@@ -21,7 +21,7 @@
 #include <QDataStream>
 
 #include "testcedserializer.h"
-#include "gui/cedserializer.h"
+#include "gui/export/cedserializer.h"
 #include "ced/cedpage.h"
 
 #define REMOVE(name) { QFile f(name); f.remove(); }

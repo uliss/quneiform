@@ -23,7 +23,7 @@
 #include <QTextFrame>
 #include <QTextTable>
 #include "common/formatoptions.h"
-#include "gui/qtextdocumentexporter.h"
+#include "gui/export/qtextdocumentexporter.h"
 #include "ced/cedchar.h"
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
