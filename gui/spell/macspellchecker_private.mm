@@ -21,8 +21,8 @@
 #include <QDebug>
 
 #include "macspellchecker_private.h"
-#include "macpool.h"
-#include "macstring.h"
+#include "macosx/macpool.h"
+#include "macosx/macstring.h"
 #include "language.h"
 
 ISpellChecker::SpellList checkSpelling(const QString& str, int64_t docTag) {

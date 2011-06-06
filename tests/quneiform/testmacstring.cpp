@@ -20,7 +20,7 @@
 #include <CoreFoundation/CFString.h>
 
 #include "testmacstring.h"
-#include "gui/macstring.h"
+#include "gui/macosx/macstring.h"
 
 #define COMPARE_QSTR(s) \
     QCOMPARE(MacString::toQString(CFStringCreateWithCString(NULL, s, kCFStringEncodingUTF8)), QString::fromUtf8(s));

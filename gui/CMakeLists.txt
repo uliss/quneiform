@@ -81,11 +81,6 @@ set(SOURCES
     dialogs/settings.cpp
 )
 
-if(APPLE)
-    list(APPEND SOURCES macstring.cpp)
-    list(APPEND SOURCES macpool.mm)
-endif()
-
 set(FORMS 
     mainwindow.ui
     dialogs/aboutdialog.ui
@@ -190,27 +185,20 @@ if(APPLE)
 endif()
 
 add_subdirectory(spell)
+
+if(APPLE)
+    add_subdirectory(macosx)
+endif()
+
 add_library(quneiform_lib STATIC ${SRCS})
+
+set(EXTRA_LIBS)
 
 if(MSVC)
     add_executable(${PROJECT_NAME} main.cpp ${QRC_SOURCES} ${EXTRA_RES})
+    list(APPEND QT_LIBRARIES qtmain)
 else()
     add_executable(${PROJECT_NAME} MACOSX_BUNDLE WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
-endif()
- 
-if(APPLE)
-    add_dependencies(${PROJECT_NAME} osx_l10n_dirs)
-    find_library(APPLE_CORE_FOUNDATION CoreFoundation "/")
-    list(APPEND EXTRA_LIBS ${APPLE_CORE_FOUNDATION})
-    find_library(APPLE_APP_KIT AppKit "/")
-    list(APPEND EXTRA_LIBS ${APPLE_APP_KIT})
-else()
-    set(EXTRA_LIBS "")
-endif()
-
-if(MSVC)
-    set(${QT_LIBRARIES} qtmain ${QT_LIBRARIES})
-else()
     list(APPEND EXTRA_LIBS m)
 endif()
 
@@ -228,6 +216,8 @@ target_link_libraries (${PROJECT_NAME}
     ${EXTRA_LIBS})
 
 if(APPLE)
+    add_dependencies(${PROJECT_NAME} osx_l10n_dirs)
+
     set_target_properties(${PROJECT_NAME}
         PROPERTIES
         OUTPUT_NAME ${CMAKE_BUNDLE_NAME})
