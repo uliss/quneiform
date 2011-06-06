@@ -54,68 +54,21 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-//#pragma message(__FILE__"(1)  :")
 #ifndef __ERR16_H
 #define __ERR16_H
 
 typedef signed short int       Err16 ;
-#ifdef _SETTYPES
-_SETTYPES( Err16  )
-#endif
 
 // common use error codes
 #define ER_NONE                0   // all right
 #define ER_INTERNAL            -1  // internal error
-#define ER_UNDOCUMENTED        -2  // undocumented error (no message for unknown error code)
 #define ER_NOMEMORY            -3  // lack of memory
-#define ER_NOSUCHFILE          -4  // no such file
-#define ER_DLLFAILED           -5  // cannot load dll
 #define ER_CANTOPEN            -6  // cannot open file
 #define ER_CANTREAD            -7  // cannot read file
-#define ER_CANTWRITE           -8  // cannor write file
-#define ER_DISKFULL            -9  // disk full
-#define ER_UNSUPPORTEDFORMAT   -10 // unsupported format
-#define ER_UNSUPPORTEDVERSION  -11 // unsupported version (modification)
-#define ER_UNSUPPORTEDDEVICE   -12 // unsupperted device
-#define ER_UNSUPPORTEDPLATFORM -13 // unsupported platform
 #define ER_CORRUPTED           -14 // data corrupted (file, internal structure)
-#define ER_EMPTYFEEDER         -15 // scanner feeder is empty
-#define ER_IMPROPERIMAGETYPE   -16 // improper image
-#define ER_NOTIMPLEMENTED      -17 // not implemented routine
 #define ER_CURRENTLYDISABLED   -18 // attempt to do currently disabled action
-#define ER_TOOMANYITEMS        -19 // too many items
-#define ER_BADUSAGE            -20 // wrong arguments, etc...
-#define ER_SKEWTOOBIG          -21 // too big image skew...
-#define ER_CANTCONVERT         -22 // cannot convert from source to dest.
-#define ER_CANTLOCK            -23 // some resource cannot be locked
-#define ER_CANTCREATE          -24 // cannot create some object...
-#define ER_CANTDELETE          -25 // cannot delete some object...
-#define ER_IMPROPERVALUE       -26 // some another value expected!
-#define ER_EMPTY               -27 // some value or object assumed to be not empty
-#define ER_TOOLONG             -28 // some file or string too long
-#define ER_NOFITNESS           -29 // some object does not correspond another
-#define ER_TIMEOUT             -30 // timeout !!!
-#define ER_OVERTURN            -31 // something is overturned - image, bytes,...
-#define ER_PAGETOOBLACK        -32 // f.e. bad binarization result
 #define ER_NOTREADY            -33 // abstract device still not ready
-#define ER_OVERFLOW            -34 // something overflowed
-#define ER_ACCESSDENIED        -35 // something overflowed
-#define ER_BADIMAGE            -36 //
-#define ER_BADIMAGEGEOMETRY    -37 //
-#define ER_BADIMAGEWIDTH       -38 //
-#define ER_BADIMAGEHEIGHT      -39 //
-#define ER_BADIMAGEINTENSITY   -40 //
-#define ER_CANTFIND            -41 // cannot find something
-#define ER_BUSY                -42 // object busy
-#define ER_CANTCLOSE           -43 // cant close file, stream,...
-#define ER_USERBREAK           -44 // user breaks the process...
 #define ER_FORGOTTEN           -45 // error details are forgotten - end of error queue
-
-
-// DLL specific
-#define ER_NDX_FIRST           -1024
-//
-//#define ER_USERFIRST           -1024
 
 #define ER_USERFIRST           -1024
 // user's error coding convention:
