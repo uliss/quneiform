@@ -21,8 +21,9 @@
 #include <QtAlgorithms>
 #include <QDataStream>
 #include <QMetaType>
+#include <QDebug>
 
-#include "common/lang_def.h"
+#include "common/language.h"
 #include "alphabets/alphabetfactory.h"
 #include "language.h"
 
@@ -89,6 +90,18 @@ Language Language::english() {
     return Language(::LANGUAGE_ENGLISH);
 }
 
+Language Language::fromIsoCode2(const QString& code) {
+    cf::Language lang = cf::Language::byCode2(code.left(2).toLower().toStdString());
+    return lang.isValid() ? Language(lang.get()) : Language();
+}
+
+QString Language::isoCode2() const {
+    if(!isValid())
+        return QString();
+
+    return QString::fromStdString(cf::Language::isoCode2(static_cast<language_t>(code_)));
+}
+
 bool Language::isValid() const {
     return code_ >= 0;
 }
@@ -150,4 +163,9 @@ QDataStream& operator>>(QDataStream& stream, Language& l) {
     stream >> code;
     l = Language(code);
     return stream;
+}
+
+QDebug& operator<<(QDebug& d, const Language& lang) {
+    d << lang.name();
+    return d;
 }

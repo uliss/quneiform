@@ -742,6 +742,10 @@ Are you shure?</source>
         <source>Undo</source>
         <translation>Отменить</translation>
     </message>
+    <message>
+        <source>Spell</source>
+        <translation>Проверить орфографию</translation>
+    </message>
 </context>
 <context>
     <name>ThumbnailList</name>

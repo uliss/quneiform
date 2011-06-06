@@ -16,20 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#ifndef MAC_SPELL_PRIVATE_H
+#define MAC_SPELL_PRIVATE_H
 
-#include <QObject>
-
-class TestLanguage : public QObject
-{
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
-};
-
-#endif // TESTLANGUAGE_H
+#endif // MAC_SPELL_PRIVATE_H

@@ -16,20 +16,16 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#ifndef TESTMACSTRING_H
+#define TESTMACSTRING_H
 
 #include <QObject>
 
-class TestLanguage : public QObject
+class TestMacString : public QObject
 {
     Q_OBJECT
 private slots:
     void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
 };
 
-#endif // TESTLANGUAGE_H
+#endif // TESTMACSTRING_H

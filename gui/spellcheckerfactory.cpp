@@ -16,20 +16,30 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#include "spellcheckerfactory.h"
 
-#include <QObject>
+#ifdef Q_OS_MAC
+#include "macspellchecker.h"
+#else
+#include "aspellchecker.h"
+#endif
 
-class TestLanguage : public QObject
+SpellCheckerFactoryImpl::SpellCheckerFactoryImpl()
 {
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
-};
+}
 
-#endif // TESTLANGUAGE_H
+SpellCheckerPtr SpellCheckerFactoryImpl::make(QTextDocument * doc) {
+    SpellCheckerMap::iterator it = spell_checkers_.find(doc);
+
+    if(it != spell_checkers_.end())
+        return it.value();
+
+#ifdef Q_OS_MAC
+    SpellCheckerPtr ptr(new MacSpellChecker(doc));
+#else
+    SpellCheckerPtr ptr(new ASpellChecker(doc));
+#endif
+
+    spell_checkers_.insert(doc, ptr);
+    return ptr;
+}

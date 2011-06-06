@@ -16,20 +16,25 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#ifndef SPELLCHECKERFACTORY_H
+#define SPELLCHECKERFACTORY_H
 
-#include <QObject>
+#include <QHash>
+#include "common/singleton.h"
+#include "ispellchecker.h"
 
-class TestLanguage : public QObject
+class QTextDocument;
+
+class SpellCheckerFactoryImpl
 {
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
+public:
+    SpellCheckerFactoryImpl();
+    SpellCheckerPtr make(QTextDocument * doc);
+private:
+    typedef QHash<QTextDocument*, SpellCheckerPtr> SpellCheckerMap;
+    SpellCheckerMap spell_checkers_;
 };
 
-#endif // TESTLANGUAGE_H
+typedef cf::Singleton<SpellCheckerFactoryImpl> SpellCheckerFactory;
+
+#endif // SPELLCHECKERFACTORY_H

@@ -16,20 +16,17 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#include "macpool.h"
+#import <AppKit/AppKit.h>
 
-#include <QObject>
-
-class TestLanguage : public QObject
+MacPool::MacPool()
 {
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
-};
+    NSApplicationLoad();
+    pool_ = (void*) [[NSAutoreleasePool alloc] init];
+}
 
-#endif // TESTLANGUAGE_H
+MacPool::~MacPool()
+{
+    [(NSAutoreleasePool*) pool_ release];
+}
+

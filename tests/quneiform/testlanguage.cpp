@@ -24,6 +24,9 @@
 #include "gui/language.h"
 #include "common/lang_def.h"
 
+#define CHECK_FROM_ISO2(iso, lang_code)  QCOMPARE(Language::fromIsoCode2(iso).code(), (int) lang_code);
+#define CHECK_ISO2(code, iso) QCOMPARE(Language(code).isoCode2(), QString(iso));
+
 void TestLanguage::testConstruct() {
     Language l(1000);
     QVERIFY(!l.isValid());
@@ -33,6 +36,19 @@ void TestLanguage::testConstruct() {
     Language l2(::LANGUAGE_ENGLISH);
     QVERIFY(l2.isValid());
     QCOMPARE(l2.name(), QString("English"));
+}
+
+void TestLanguage::testFromIsoCode2() {
+    CHECK_FROM_ISO2("", LANGUAGE_UNKNOWN);
+    CHECK_FROM_ISO2("ru", LANGUAGE_RUSSIAN);
+    CHECK_FROM_ISO2("en", LANGUAGE_ENGLISH);
+    CHECK_FROM_ISO2("en_US", LANGUAGE_ENGLISH);
+}
+
+void TestLanguage::testIsoCode2() {
+    CHECK_ISO2(LANGUAGE_UNKNOWN, "");
+    CHECK_ISO2(LANGUAGE_BULGARIAN, "bg");
+    CHECK_ISO2(LANGUAGE_RUSSIAN, "ru");
 }
 
 void TestLanguage::testSupportedLanguages() {

@@ -16,20 +16,26 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#ifndef SPELLCHECKHIGHLIGHTER_H
+#define SPELLCHECKHIGHLIGHTER_H
 
-#include <QObject>
+#include <QSyntaxHighlighter>
+#include "ispellchecker.h"
 
-class TestLanguage : public QObject
+class SpellCheckHighlighter : public QSyntaxHighlighter
 {
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
+public:
+    SpellCheckHighlighter(QTextDocument * textDocument);
+    SpellCheckHighlighter(QTextEdit * textEdit);
+    void highlightBlock(const QString& text);
+    bool isEnabled() const;
+    Language language() const;
+    void setEnabled(bool value = true);
+    bool setLanguage(const Language& lang);
+    SpellCheckerPtr spellChecker();
+private:
+    SpellCheckerPtr spell_checker_;
+    bool enabled_;
 };
 
-#endif // TESTLANGUAGE_H
+#endif // SPELLCHECKHIGHLIGHTER_H

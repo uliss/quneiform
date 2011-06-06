@@ -16,20 +16,23 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#include "ispellchecker.h"
 
-#include <QObject>
+ISpellChecker::ISpellChecker(QTextDocument * doc) : doc_(doc) {}
 
-class TestLanguage : public QObject
-{
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
-};
+QTextDocument * ISpellChecker::document() {
+    return doc_;
+}
 
-#endif // TESTLANGUAGE_H
+const QTextDocument * ISpellChecker::document() const {
+    return doc_;
+}
+
+Language ISpellChecker::language() const {
+    return lang_;
+}
+
+bool ISpellChecker::setLanguage(const Language& lang) {
+    lang_ = lang;
+    return true;
+}

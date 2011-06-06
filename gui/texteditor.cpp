@@ -27,6 +27,7 @@
 #include "texteditor.h"
 #include "qtextdocumentexporter.h"
 #include "page.h"
+#include "spellcheckhighlighter.h"
 
 TextEditor::TextEditor(QWidget * parent) :
     QTextEdit(parent),
@@ -38,13 +39,17 @@ TextEditor::TextEditor(QWidget * parent) :
     italic_(NULL),
     underlined_(NULL),
     zoom_in_(NULL),
-    zoom_out_(NULL)
+    zoom_out_(NULL),
+    spell_check_(NULL),
+    highlighter_(NULL)
 {
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(showCurrentChar()));
     setReadOnly(true);
     setTextInteractionFlags(Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
     settings_.beginGroup("format");
     setupActions();
+
+    highlighter_ = new SpellCheckHighlighter(this);
 }
 
 TextEditor::~TextEditor() {
@@ -106,6 +111,44 @@ void TextEditor::addFontActions(QMenu * menu) {
     font_menu->addAction(underlined_);
 }
 
+void TextEditor::addSpellCheckActions(QMenu * menu) {
+    if(document()->isEmpty())
+        return;
+
+    menu->addAction(spell_check_);
+}
+
+void TextEditor::addSpellSuggestMenu(QMenu * menu, const QPoint& pos) {
+    if(document()->isEmpty())
+        return;
+
+    if(!highlighter_->isEnabled())
+        return;
+
+    QTextCursor cursor = cursorForPosition(pos);
+    cursor.movePosition(QTextCursor::StartOfWord, QTextCursor::MoveAnchor);
+    cursor.movePosition(QTextCursor::EndOfWord, QTextCursor::KeepAnchor);
+
+    QString word = cursor.selectedText();
+
+    if(word.isEmpty())
+        return;
+
+    if(!highlighter_->spellChecker()->hasErrors(word))
+        return;
+
+    QStringList suggestions = highlighter_->spellChecker()->suggest(word);
+
+    if(suggestions.isEmpty()) {
+        qDebug() << "no suggestions for" << word;
+    }
+    else {
+        foreach(const QString& variant, suggestions) {
+            menu->addAction(variant);
+        }
+    }
+}
+
 void TextEditor::addUndoRedoActions(QMenu * menu) {
     if(document()->isEmpty())
         return;
@@ -138,19 +181,33 @@ void TextEditor::alignRight() {
     setAlignment(Qt::AlignRight);
 }
 
+void TextEditor::checkSpelling() {
+    Q_CHECK_PTR(page_);
+
+    if(!highlighter_->setLanguage(page_->language()))
+        return;
+
+    highlighter_->setDocument(document());
+    highlighter_->rehighlight();
+}
+
 void TextEditor::clearText() {
     setDocument(doc_);
     doc_->clear();
 }
 
-void TextEditor::connectPageSignal(Page * page) {
-    Q_ASSERT(page);
-    connect(page, SIGNAL(destroyed()), this, SLOT(clearText()));
+void TextEditor::connectPage() {
+    if(!page_)
+        return;
+
+    connect(page_, SIGNAL(destroyed()), this, SLOT(clearText()));
 }
 
-void TextEditor::disconnectPageSignal(Page * page) {
-    Q_ASSERT(page);
-    disconnect(page, SIGNAL(destroyed()), this, SLOT(clearText()));
+void TextEditor::disconnectPage() {
+    if(!page_)
+        return;
+
+    disconnect(page_, SIGNAL(destroyed()), this, SLOT(clearText()));
 }
 
 void TextEditor::contextMenuEvent(QContextMenuEvent * event) {
@@ -161,6 +218,11 @@ void TextEditor::contextMenuEvent(QContextMenuEvent * event) {
     addFontActions(menu);
     menu->addSeparator();
     addUndoRedoActions(menu);
+    menu->addSeparator();
+    addSpellCheckActions(menu);
+
+//    menu->addSeparator();
+//    addSpellSuggestMenu(menu, event->pos());
 
     menu->exec(event->globalPos());
     delete menu;
@@ -229,8 +291,9 @@ void TextEditor::showPage(Page * page) {
     if(page == NULL || page == page_)
         return;
 
+    disconnectPage();
     page_ = page;
-    connectPageSignal(page_);
+    connectPage();
     blockSignals(true);
     setDocument(page_->document());
     blockSignals(false);
@@ -244,6 +307,7 @@ void TextEditor::setupActions() {
     setupRedoAction();
     setupUndoAction();
     setupZoomActions();
+    setupSpellActions();
 }
 
 void TextEditor::setupFontActions() {
@@ -272,6 +336,12 @@ void TextEditor::setupRedoAction() {
     connect(redo_, SIGNAL(triggered()), this, SLOT(redo()));
     connect(this, SIGNAL(redoAvailable(bool)), redo_, SLOT(setEnabled(bool)));
     addAction(redo_);
+}
+
+void TextEditor::setupSpellActions() {
+    spell_check_ = new QAction(QIcon(":/img/oxygen/32x32/spellcheck.png"), tr("Spell"), this);
+    connect(spell_check_, SIGNAL(triggered()), this, SLOT(checkSpelling()));
+    addAction(spell_check_);
 }
 
 void TextEditor::setupUndoAction() {

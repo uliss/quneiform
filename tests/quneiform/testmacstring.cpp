@@ -16,20 +16,41 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#include <QTest>
+#include <CoreFoundation/CFString.h>
 
-#include <QObject>
+#include "testmacstring.h"
+#include "gui/macstring.h"
 
-class TestLanguage : public QObject
+#define COMPARE_QSTR(s) \
+    QCOMPARE(MacString::toQString(CFStringCreateWithCString(NULL, s, kCFStringEncodingUTF8)), QString::fromUtf8(s));
+
+#define COMPARE_CF(s1, s2) \
+    QCOMPARE( \
+        (int) CFStringCompare( \
+            CFStringCreateWithCString(NULL, s1, kCFStringEncodingUTF8), \
+            MacString::toCFStringRef(s2), \
+            0), \
+        (int) kCFCompareEqualTo);
+
+#define COMPARE_CF_STD(s) COMPARE_CF(s, std::string(s));
+#define COMPARE_CF_QSTR(s) COMPARE_CF(s, QString::fromUtf8(s));
+#define COMPARE_CF_CHR(s) COMPARE_CF(s, s);
+
+void TestMacString::testConstruct()
 {
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
-};
+    COMPARE_QSTR("ascii string");
+    COMPARE_QSTR("utf-8 строка");
 
-#endif // TESTLANGUAGE_H
+    COMPARE_CF_STD("ascii string");
+    COMPARE_CF_STD("utf-8 строка");
+
+    COMPARE_CF_QSTR("ascii string");
+    COMPARE_CF_QSTR("utf-8 строка");
+
+    COMPARE_CF_CHR("ascii string");
+    COMPARE_CF_CHR("utf-8 строка");
+}
+
+QTEST_APPLESS_MAIN(TestMacString)
+

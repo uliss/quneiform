@@ -16,20 +16,30 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#ifndef MACSTRING_H
+#define MACSTRING_H
 
-#include <QObject>
+#include <QString>
+#include <string>
+#include "maccftype.h"
 
-class TestLanguage : public QObject
+class MacString : public MacCFType<CFStringRef>
 {
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
+public:
+    MacString(const char * str);
+    MacString(const QString& str);
+    MacString(const std::string& str);
+    MacString(const CFStringRef str = 0);
+    MacString(const MacCFType<CFStringRef>& str);
+
+    operator QString() const;
+    operator CFStringRef() const;
+    static QString toQString(CFStringRef cfstr);
+    static CFStringRef toCFStringRef(const QString& str);
+    static CFStringRef toCFStringRef(const std::string& str);
+    static CFStringRef toCFStringRef(const char * str);
+private:
+    QString str_;
 };
 
-#endif // TESTLANGUAGE_H
+#endif // MACSTRING_H

@@ -16,20 +16,36 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#ifndef ISPELLCHECKER_H
+#define ISPELLCHECKER_H
 
-#include <QObject>
+#include <QList>
+#include <QString>
+#include <QStringList>
+#include <QSharedPointer>
+#include "range.h"
+#include "language.h"
 
-class TestLanguage : public QObject
-{
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
+class QTextDocument;
+
+class ISpellChecker {
+public:
+    ISpellChecker(QTextDocument * doc);
+    typedef QList<Range> SpellList;
+
+    QTextDocument * document();
+    const QTextDocument * document() const;
+    virtual bool hasErrors(const QString& text) = 0;
+    Language language() const;
+    virtual bool setLanguage(const Language& lang);
+    virtual SpellList spellErrors(const QString& text) = 0;
+    virtual QStringList suggest(const QString& word) = 0;
+    virtual QList<Language> supportedLanguages() const = 0;
+private:
+    QTextDocument * doc_;
+    Language lang_;
 };
 
-#endif // TESTLANGUAGE_H
+typedef QSharedPointer<ISpellChecker> SpellCheckerPtr;
+
+#endif // ISPELLCHECKER_H

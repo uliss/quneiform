@@ -24,6 +24,7 @@
 
 class Page;
 class QTextDocument;
+class SpellCheckHighlighter;
 
 class TextEditor : public QTextEdit
 {
@@ -36,6 +37,8 @@ public:
       * Shows page content in editor
       */
     void showPage(Page * page);
+public slots:
+    void checkSpelling();
 signals:
     /**
       * Emitted on change cursor position
@@ -57,13 +60,16 @@ private slots:
 private:
     void addAlignmentActions(QMenu * menu);
     void addFontActions(QMenu * menu);
+    void addSpellCheckActions(QMenu * menu);
+    void addSpellSuggestMenu(QMenu * menu, const QPoint& pos);
     void addUndoRedoActions(QMenu * menu);
     void addZoomActions(QMenu * menu);
-    void connectPageSignal(Page * page);
-    void disconnectPageSignal(Page * page);
+    void connectPage();
+    void disconnectPage();
     void setupActions();
     void setupFontActions();
     void setupRedoAction();
+    void setupSpellActions();
     void setupUndoAction();
     void setupZoomActions();
 private:
@@ -77,6 +83,8 @@ private:
     QAction * underlined_;
     QAction * zoom_in_;
     QAction * zoom_out_;
+    QAction * spell_check_;
+    SpellCheckHighlighter * highlighter_;
 };
 
 #endif // TEXTEDITOR_H

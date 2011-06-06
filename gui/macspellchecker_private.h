@@ -16,20 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#ifndef MACSPELLCHECKER_PRIVATE_H
+#define MACSPELLCHECKER_PRIVATE_H
 
-#include <QObject>
+#include "ispellchecker.h"
 
-class TestLanguage : public QObject
-{
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
-};
+class QString;
+class Language;
 
-#endif // TESTLANGUAGE_H
+ISpellChecker::SpellList checkSpelling(const QString& str, int64_t docTag);
+bool setSpellLanguage(const Language& l);
+void spellInit();
+QStringList suggest(const QString& word, int64_t docTag);
+QList<Language> supportedLanguages();
+
+#endif // MACSPELLCHECKER_PRIVATE_H

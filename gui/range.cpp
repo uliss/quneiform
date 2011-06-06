@@ -16,20 +16,12 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#include "range.h"
 
-#include <QObject>
+Range::Range(long int location, long int length) : loc_(location), len_(length) {
+}
 
-class TestLanguage : public QObject
+bool Range::operator==(const Range& range) const
 {
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
-};
-
-#endif // TESTLANGUAGE_H
+    return range.loc_ == loc_ && range.len_ == range.len_;
+}

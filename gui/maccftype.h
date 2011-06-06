@@ -16,20 +16,58 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#ifndef MACCFTYPE_H
+#define MACCFTYPE_H
 
-#include <QObject>
+#include <CoreFoundation/CFBase.h>
 
-class TestLanguage : public QObject
+template <typename T>
+class MacCFType
 {
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
+public:
+    MacCFType(const T& t = 0) : t_(t) {
+    }
+
+    MacCFType(const MacCFType &helper)
+        : t_(helper.t_)
+    {
+        if (t_)
+            CFRetain(t_);
+    }
+
+    ~MacCFType()
+    {
+        if(t_)
+            CFRelease(t_);
+    }
+
+    operator T()
+    {
+        return t_;
+    }
+
+    MacCFType operator=(const MacCFType& other)
+    {
+        if (other.t_)
+            CFRetain(other.t_);
+        CFTypeRef type2 = t_;
+        t_ = other.t_;
+        if (type2)
+            CFRelease(type2);
+        return *this;
+    }
+
+    T * operator&() {
+        return &t_;
+    }
+
+    static MacCFType constructFromGet(const T& t)
+    {
+        CFRetain(t);
+        return MacCFType<T>(t);
+    }
+protected:
+    T t_;
 };
 
-#endif // TESTLANGUAGE_H
+#endif // MACCFTYPE_H

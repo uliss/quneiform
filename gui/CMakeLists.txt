@@ -51,6 +51,7 @@ set(SOURCES
     imagecache.cpp
     imageview.cpp
     imagewidget.cpp
+    ispellchecker.cpp
     language.cpp
     languagemenu.cpp
     languageselect.cpp
@@ -65,6 +66,7 @@ set(SOURCES
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
     qtextdocumentexporter.cpp
+    range.cpp
     recentmenu.cpp
     recognitionsettings.cpp
     recognitionsettingsdialog.cpp
@@ -73,12 +75,23 @@ set(SOURCES
     selection.cpp
     selectionshadow.cpp
     settings.cpp
+    spellcheckhighlighter.cpp
+    spellcheckerfactory.cpp
     texteditor.cpp
     thumbnaillist.cpp
     thumbnailwidget.cpp
     translationloader.cpp
     widgetbar.cpp
 )
+
+if(APPLE)
+    list(APPEND SOURCES macspellchecker.cpp)
+    list(APPEND SOURCES macstring.cpp)
+    list(APPEND SOURCES macpool.mm)
+    list(APPEND SOURCES macspellchecker_private.mm)
+else()
+    list(APPEND SOURCES aspellchecker.cpp)
+endif()
 
 set(FORMS 
     aboutdialog.ui
@@ -193,7 +206,10 @@ endif()
  
 if(APPLE)
     add_dependencies(${PROJECT_NAME} osx_l10n_dirs)
-    find_library(EXTRA_LIBS CoreFoundation "/")
+    find_library(APPLE_CORE_FOUNDATION CoreFoundation "/")
+    list(APPEND EXTRA_LIBS ${APPLE_CORE_FOUNDATION})
+    find_library(APPLE_APP_KIT AppKit "/")
+    list(APPEND EXTRA_LIBS ${APPLE_APP_KIT})
 else()
     set(EXTRA_LIBS "")
 endif()

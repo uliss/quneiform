@@ -28,10 +28,22 @@ set(CF_GUI_TESTS
     qtextdocumentexporter
 )
 
+if(APPLE)
+    list(APPEND CF_GUI_TESTS macstring)
+    list(APPEND CF_GUI_TESTS macspellchecker)
+endif()
+
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_gui.py"
         "${CMAKE_CURRENT_BINARY_DIR}/test_gui.py")
 
 set(TEST_LIBS quneiform_lib cuneiform ${QT_LIBRARIES} ${QT_QTTEST_LIBRARIES})
+
+if(APPLE)
+    find_library(APPLE_CORE_FOUNDATION CoreFoundation "/")
+    list(APPEND TEST_LIBS ${APPLE_CORE_FOUNDATION})
+    find_library(APPLE_APPKIT AppKit "/")
+    list(APPEND TEST_LIBS ${APPLE_APPKIT})
+endif()
 
 if(CF_SERIALIZE)
     list(APPEND TEST_LIBS ${Boost_SERIALIZATION_LIBRARY})

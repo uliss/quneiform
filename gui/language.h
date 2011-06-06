@@ -24,6 +24,7 @@
 #include <QMetaType>
 
 class QDataStream;
+class QDebug;
 
 class Language
 {
@@ -39,6 +40,12 @@ public:
       * Returns language code
       */
     int code() const;
+
+    /**
+      * Returns 2-letter language ISO code
+      * @return empty string if language is not valid
+      */
+    QString isoCode2() const;
 
     /**
       * Returns true is language is valid
@@ -73,6 +80,13 @@ public:
 
 public:
     static Language english();
+
+    /**
+      * Returns language from given 2 letter ISO code.
+      * For example: "ru", "en"
+      * @return invalid language if code not recognized
+      */
+    static Language fromIsoCode2(const QString& code);
     static QList<Language> supportedLanguages(Sorting sort = NO_SORT);
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Language& lang);
@@ -85,5 +99,6 @@ Q_DECLARE_METATYPE(Language);
 
 QDataStream& operator<<(QDataStream& stream, const Language& lang);
 QDataStream& operator>>(QDataStream& stream, Language& lang);
+QDebug& operator<<(QDebug& d, const Language& lang);
 
 #endif // LANGUAGE_H

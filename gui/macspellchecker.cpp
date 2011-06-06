@@ -16,20 +16,48 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#include <QDebug>
 
-#include <QObject>
+#include "macspellchecker.h"
+#include "macspellchecker_private.h"
+#include "common/language.h"
 
-class TestLanguage : public QObject
+MacSpellChecker::MacSpellChecker(QTextDocument * doc)
+    : ISpellChecker(doc)
 {
-    Q_OBJECT
-private slots:
-    void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
-};
+    spellInit();
+}
 
-#endif // TESTLANGUAGE_H
+int64_t MacSpellChecker::documentTag() const{
+    return reinterpret_cast<int64_t>(document());
+}
+
+bool MacSpellChecker::hasErrors(const QString& text) {
+    return !spellErrors(text).isEmpty();
+}
+
+bool MacSpellChecker::setLanguage(const Language& lang) {
+    if(language() == lang)
+        return true;
+
+    if(!supportedLanguages().contains(lang)) {
+        qDebug() << Q_FUNC_INFO << QString("language '%1' is not supporterd").arg(lang.name());
+        return false;
+    }
+
+    bool result = ::setSpellLanguage(lang);
+    ISpellChecker::setLanguage(lang);
+    return result;
+}
+
+ISpellChecker::SpellList MacSpellChecker::spellErrors(const QString& text) {
+    return ::checkSpelling(text, documentTag());
+}
+
+QStringList MacSpellChecker::suggest(const QString& word) {
+    return ::suggest(word, documentTag());
+}
+
+QList<Language> MacSpellChecker::supportedLanguages() const {
+    return ::supportedLanguages();
+}

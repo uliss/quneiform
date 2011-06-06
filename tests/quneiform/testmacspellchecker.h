@@ -16,20 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLANGUAGE_H
-#define TESTLANGUAGE_H
+#ifndef TESTMACSPELLCHECKER_H
+#define TESTMACSPELLCHECKER_H
 
 #include <QObject>
 
-class TestLanguage : public QObject
+class TestMacSpellChecker : public QObject
 {
     Q_OBJECT
 private slots:
     void testConstruct();
-    void testFromIsoCode2();
-    void testIsoCode2();
-    void testReadWrite();
-    void testSupportedLanguages();
+    void testHasErrors();
+    void testSetLanguage();
+    void testSpellErrors();
+    void testSuggest();
 };
 
-#endif // TESTLANGUAGE_H
+#endif // TESTMACSPELLCHECKER_H
