@@ -33,9 +33,9 @@
 #include "imagecache.h"
 #include "page.h"
 #include "pageindicator.h"
-#include "recognitionsettingsdialog.h"
-#include "formatsettingsdialog.h"
-#include "pagepropertiesdialog.h"
+#include "dialogs/recognitionsettingsdialog.h"
+#include "dialogs/formatsettingsdialog.h"
+#include "dialogs/pagepropertiesdialog.h"
 
 static const int THUMB_IMAGE_HEIGHT = 95;
 static const int THUMB_IMAGE_WIDTH = 95;

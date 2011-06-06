@@ -39,12 +39,12 @@
 #include "thumbnaillist.h"
 #include "texteditor.h"
 #include "pagerecognitionqueue.h"
-#include "recognitionprogressdialog.h"
+#include "dialogs/aboutdialog.h"
+#include "dialogs/exportdialog.h"
+#include "dialogs/recognitionprogressdialog.h"
+#include "dialogs/settings.h"
 #include "recentmenu.h"
-#include "settings.h"
-#include "aboutdialog.h"
 #include "exportsettings.h"
-#include "exportdialog.h"
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;

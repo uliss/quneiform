@@ -21,7 +21,7 @@
 #include "testrecognitionsettingsdialog.h"
 
 #define private public
-#include "gui/recognitionsettingsdialog.h"
+#include "gui/dialogs/recognitionsettingsdialog.h"
 #include "gui/page.h"
 
 TestRecognitionSettingsDialog::TestRecognitionSettingsDialog(QObject *parent) :

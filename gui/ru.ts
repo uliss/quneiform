@@ -100,18 +100,6 @@ p {margin: 0; text-indent: 0;}
         <translation>Нераспознанный символ:</translation>
     </message>
     <message>
-        <source>~</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>$</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>@</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Preserve line breaks</source>
         <translation>Сохранять переносы строк</translation>
     </message>
@@ -150,6 +138,18 @@ p {margin: 0; text-indent: 0;}
     <message>
         <source>Shows tooltip and &lt;u&gt;underlines&lt;/u&gt; character, that have recognition alternatives.</source>
         <translation>Подчеркивать и показывать во всплывающей подсказке варианты распознавания.</translation>
+    </message>
+    <message>
+        <source>~</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>$</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>@</source>
+        <translation></translation>
     </message>
 </context>
 <context>

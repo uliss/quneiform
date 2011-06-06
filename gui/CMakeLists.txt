@@ -11,10 +11,7 @@ add_subdirectory(resources)
 set(TRANSLATIONS_TS ru.ts)
 
 set(HEADERS 
-    aboutdialog.h
     colorbutton.h
-    exportdialog.h
-    formatsettingsdialog.h
     imageview.h
     imagewidget.h
     languagemenu.h
@@ -23,31 +20,31 @@ set(HEADERS
     packet.h
     page.h
     pageindicator.h
-    pagepropertiesdialog.h
     pagerecognizer.h
     pagerecognitionqueue.h
     recentmenu.h
-    recognitionsettingsdialog.h
-    recognitionprogressdialog.h
     selection.h
-    settings.h
     texteditor.h
     thumbnaillist.h
     thumbnailwidget.h
     widgetbar.h
+    dialogs/aboutdialog.h
+    dialogs/exportdialog.h
+    dialogs/formatsettingsdialog.h
+    dialogs/pagepropertiesdialog.h
+    dialogs/recognitionsettingsdialog.h
+    dialogs/recognitionprogressdialog.h
+    dialogs/settings.h
 )
 
 set(SOURCES
-    aboutdialog.cpp
     cedpageexporter.cpp
     cedserializer.cpp
     cfexporter.cpp
     colorbutton.cpp
-    exportdialog.cpp
     exporterfactory.cpp
     exportsettings.cpp
     formatsettings.cpp
-    formatsettingsdialog.cpp
     imagecache.cpp
     imageview.cpp
     imagewidget.cpp
@@ -61,24 +58,27 @@ set(SOURCES
     pagearea.cpp
     pageindicator.cpp
     pagelayout.cpp
-    pagepropertiesdialog.cpp
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
     qtextdocumentexporter.cpp
     range.cpp
     recentmenu.cpp
     recognitionsettings.cpp
-    recognitionsettingsdialog.cpp
-    recognitionprogressdialog.cpp
     rectexporter.cpp
     selection.cpp
     selectionshadow.cpp
-    settings.cpp
     texteditor.cpp
     thumbnaillist.cpp
     thumbnailwidget.cpp
     translationloader.cpp
     widgetbar.cpp
+    dialogs/aboutdialog.cpp
+    dialogs/exportdialog.cpp
+    dialogs/formatsettingsdialog.cpp
+    dialogs/pagepropertiesdialog.cpp
+    dialogs/recognitionsettingsdialog.cpp
+    dialogs/recognitionprogressdialog.cpp
+    dialogs/settings.cpp
 )
 
 if(APPLE)
@@ -87,13 +87,13 @@ if(APPLE)
 endif()
 
 set(FORMS 
-    aboutdialog.ui
-    exportdialog.ui
-    formatsettingsdialog.ui
     mainwindow.ui
-    pagepropertiesdialog.ui
-    recognitionsettingsdialog.ui
-    settings.ui
+    dialogs/aboutdialog.ui
+    dialogs/exportdialog.ui
+    dialogs/formatsettingsdialog.ui
+    dialogs/pagepropertiesdialog.ui
+    dialogs/recognitionsettingsdialog.ui
+    dialogs/settings.ui
 )
 
 include_directories(

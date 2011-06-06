@@ -20,7 +20,7 @@
 #include <QTimer>
 #include <QSignalSpy>
 #include "testrecognitionprogressdialog.h"
-#include "gui/recognitionprogressdialog.h"
+#include "gui/dialogs/recognitionprogressdialog.h"
 #include "gui/pagerecognitionqueue.h"
 #include "gui/page.h"
 #include "gui/pagerecognizer.h"

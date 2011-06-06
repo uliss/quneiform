@@ -25,7 +25,6 @@
 #include "pagerecognizer.h"
 #include "page.h"
 #include "packet.h"
-#include "recognitionprogressdialog.h"
 #include "quneiform_debug.h"
 
 PageRecognitionQueue::PageRecognitionQueue(QObject * parent) :
