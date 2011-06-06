@@ -51,7 +51,6 @@ set(SOURCES
     imagecache.cpp
     imageview.cpp
     imagewidget.cpp
-    ispellchecker.cpp
     language.cpp
     languagemenu.cpp
     languageselect.cpp
@@ -75,8 +74,6 @@ set(SOURCES
     selection.cpp
     selectionshadow.cpp
     settings.cpp
-    spellcheckhighlighter.cpp
-    spellcheckerfactory.cpp
     texteditor.cpp
     thumbnaillist.cpp
     thumbnailwidget.cpp
@@ -85,12 +82,8 @@ set(SOURCES
 )
 
 if(APPLE)
-    list(APPEND SOURCES macspellchecker.cpp)
     list(APPEND SOURCES macstring.cpp)
     list(APPEND SOURCES macpool.mm)
-    list(APPEND SOURCES macspellchecker_private.mm)
-else()
-    list(APPEND SOURCES aspellchecker.cpp)
 endif()
 
 set(FORMS 
@@ -196,6 +189,7 @@ if(APPLE)
     )
 endif()
 
+add_subdirectory(spell)
 add_library(quneiform_lib STATIC ${SRCS})
 
 if(MSVC)
@@ -225,7 +219,13 @@ if(CF_SERIALIZE)
     list(APPEND EXTRA_LIBS ${Boost_SERIALIZATION_LIBRARY})
 endif()
 
-target_link_libraries (${PROJECT_NAME} quneiform_lib ${LIBRARIES} ${QT_LIBRARIES} cuneiform ${EXTRA_LIBS})
+target_link_libraries (${PROJECT_NAME}
+    quneiform_lib
+    quneiform_spell
+    ${LIBRARIES}
+    ${QT_LIBRARIES}
+    cuneiform
+    ${EXTRA_LIBS})
 
 if(APPLE)
     set_target_properties(${PROJECT_NAME}

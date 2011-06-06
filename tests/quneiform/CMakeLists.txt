@@ -5,6 +5,7 @@ add_definitions(${QT_DEFINITIONS})
 include_directories(${QT_INCLUDE_DIR})
 include_directories(${QT_QTTEST_INCLUDE_DIR})
 include_directories("../..")
+include_directories("../../gui")
 
 set(CF_GUI_TESTS
     cedpageexporter
@@ -36,7 +37,7 @@ endif()
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_gui.py"
         "${CMAKE_CURRENT_BINARY_DIR}/test_gui.py")
 
-set(TEST_LIBS quneiform_lib cuneiform ${QT_LIBRARIES} ${QT_QTTEST_LIBRARIES})
+set(TEST_LIBS quneiform_lib quneiform_spell cuneiform ${QT_LIBRARIES} ${QT_QTTEST_LIBRARIES})
 
 if(APPLE)
     find_library(APPLE_CORE_FOUNDATION CoreFoundation "/")

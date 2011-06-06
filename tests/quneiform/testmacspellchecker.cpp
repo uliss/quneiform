@@ -20,7 +20,7 @@
 #include <QDebug>
 
 #include "testmacspellchecker.h"
-#include "gui/macspellchecker.h"
+#include "gui/spell/macspellchecker.h"
 #include "common/lang_def.h"
 
 void TestMacSpellChecker::testConstruct() {

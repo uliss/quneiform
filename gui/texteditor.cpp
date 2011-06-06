@@ -27,7 +27,7 @@
 #include "texteditor.h"
 #include "qtextdocumentexporter.h"
 #include "page.h"
-#include "spellcheckhighlighter.h"
+#include "spell/spellcheckhighlighter.h"
 
 TextEditor::TextEditor(QWidget * parent) :
     QTextEdit(parent),
