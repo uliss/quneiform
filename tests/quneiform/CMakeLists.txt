@@ -46,6 +46,13 @@ if(APPLE)
     list(APPEND TEST_LIBS ${APPLE_APPKIT})
 endif()
 
+if(APPLE)
+    find_library(APPLE_CORE_FOUNDATION CoreFoundation "/")
+    list(APPEND TEST_LIBS ${APPLE_CORE_FOUNDATION})
+    find_library(APPLE_APPKIT AppKit "/")
+    list(APPEND TEST_LIBS ${APPLE_APPKIT})
+endif()
+
 if(CF_SERIALIZE)
     list(APPEND TEST_LIBS ${Boost_SERIALIZATION_LIBRARY})
 endif()
