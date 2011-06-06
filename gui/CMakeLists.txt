@@ -8,7 +8,7 @@ endif()
 
 add_subdirectory(resources)
 
-set(TRANSLATIONS_TS ru.ts)
+set(TRANSLATIONS_TS translations/ru.ts)
 
 set(HEADERS 
     colorbutton.h
@@ -118,7 +118,7 @@ qt4_create_translation(TRANSLATIONS_QM ${HEADERS} ${SOURCES} ${UI_HEADERS} ${FOR
 source_group("Header Files" FILES ${HEADERS})
 source_group("Source Files" FILES ${SOURCES})
 source_group("Generated Files" FILES ${MOC_SOURCES})
-source_group("Resource Files" FILES ${QRC_SOURCES})
+source_group("Resource Files" FILES ${QRC_SOURCES} ${TRANSLATIONS_TS})
 
 set(SRCS
     ${HEADERS}
