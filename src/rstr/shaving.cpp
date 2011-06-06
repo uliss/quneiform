@@ -77,25 +77,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MIN(x,y)  ((x < y)? (x) : (y))
 
 /*			Byte size data					*/
-
 typedef signed char		char;
-typedef	unsigned char		uchar;
 typedef signed char near *	pchar;
-typedef unsigned char near *	puchar;
 
 /*			Word size data					*/
-
 typedef signed short int		int16_t;
-typedef unsigned short int		uint16_t;
-typedef signed short int near *		pint16_t;
-typedef unsigned short int near *	PWORD;
-
-/*			Double word size data				*/
-
-typedef signed long int			int32_t;
-typedef unsigned long int		DWORD;
-typedef signed long int near *		PLONG;
-typedef unsigned long int near *	PDWORD;
 
 # define LEFT    0x4b
 # define RIGHT   0x4d

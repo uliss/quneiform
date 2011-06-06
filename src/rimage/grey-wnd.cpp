@@ -69,7 +69,7 @@ All rights reserved.
 #include <cstdlib>
 
 #include "gdata.h"
-//AK ярь Є№ ўхЁхч RIMAGE
+//AK ярь Є№ ўхЁхч RIMAGE
 #include "crimemory.h"
 #include "cfcompat.h"
 
@@ -2410,7 +2410,7 @@ void Korob_Files_Write()   // 06.10.1992
     buf_H[3] = Korob_nj;
     buf_H[4] = Korob_Factor + (Korob_porog << 8);
     buf_H[5] = Porog_08 + (Porog_88 << 8);
-    *(LPLONG)(buf_H + 6) = Korob_Files_Address;
+    *(int32_t*)(buf_H + 6) = Korob_Files_Address;
     Korob_Files_Address += (int32_t) ni * Korob_nj;
     n = fwrite(buf_H, 2, 8, mkFile_KOROBS_HEADS);
 

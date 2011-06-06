@@ -1142,8 +1142,6 @@ int CheckRaster(puchar r, uint16_t fullBytes, uint16_t w, uint16_t h, int let,
  welet * wl;
  uint16_t nvers=0,nrec;
  uchar index[16],*ndx;
- PWORD lp;
-
 
  memset(answ,0,sizeof(Version)*(MAXVERS+1));
  // {Valdemar classic version

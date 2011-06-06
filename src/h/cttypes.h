@@ -107,7 +107,6 @@ typedef unsigned long ulong;
 typedef unsigned int uint;
 typedef unsigned char uchar;
 
-typedef Bool * pBool;
 typedef char * pchar;
 typedef unsigned char * puchar;
 typedef void * pvoid;
@@ -130,56 +129,13 @@ typedef struct tagRect32 {
     int32_t left, top, right, bottom;
 } Rect32;
 _SETTYPES( Rect32 )
-//////////////////////////////
-// some of generic callbacks:
-typedef void (* FTVoid)(void);
-typedef void* (* FTPVoid)(void);
-typedef Bool (* FTBool)(void);
-typedef Bool16 (* FTBool16)(void);
-typedef Bool32 (* FTBool32)(void);
-
-typedef void (* FTVoid_PVoid)(void*);
-typedef void* (* FTPVoid_PVoid)(void*);
-typedef Bool (* FTBool_PVoid)(void*);
-typedef Bool16 (* FTBool16_PVoid)(void*);
-typedef Bool32 (* FTBool32_PVoid)(void*);
-
-typedef void (* FTVoid_Word32)(uint32_t);
-typedef void* (* FTPVoid_Word32)(uint32_t);
-typedef Bool (* FTBool_Word32)(uint32_t);
-typedef Bool16 (* FTBool16_Word32)(uint32_t);
-typedef Bool32 (* FTBool32_Word32)(uint32_t);
-
-typedef void (* CFTVoid)(void);
-typedef void* (* CFTPVoid)(void);
-typedef Bool (* CFTBool)(void);
-typedef Bool16 (* CFTBool16)(void);
-typedef Bool32 (* CFTBool32)(void);
-
-typedef void (* CFTVoid_PVoid)(void*);
-typedef void* (* CFTPVoid_PVoid)(void*);
-typedef Bool (* CFTBool_PVoid)(void*);
-typedef Bool16 (* CFTBool16_PVoid)(void*);
-typedef Bool32 (* CFTBool32_PVoid)(void*);
-
-typedef void (* CFTVoid_Word32)(uint32_t);
-typedef void* (* CFTPVoid_Word32)(uint32_t);
-typedef Bool (* CFTBool_Word32)(uint32_t);
-typedef Bool16 (* CFTBool16_Word32)(uint32_t);
-typedef Bool32 (* CFTBool32_Word32)(uint32_t);
 
 /*
  * These definitions were originally scattered about the code tree.
  * Consolidating them all here.
  */
 #ifndef WIN32
-typedef int32_t * PLONG;
-typedef uint32_t * PDWORD;
-typedef uint16_t * PWORD;
-
-typedef uchar* LPBYTE;
-typedef uint32_t * LPDWORD;
-typedef int32_t* LPLONG;
+typedef uchar * LPBYTE;
 #endif
 
 #endif   // __CTTYPES_H
