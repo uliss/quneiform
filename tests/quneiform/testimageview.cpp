@@ -25,7 +25,7 @@
 #include "gui/page.h"
 #include "gui/selection.h"
 #define private public
-#include "gui/imageview.h"
+#include "gui/widgets/imageview.h"
 
 #ifndef CF_IMAGE_DIR
 #define CF_IMAGE_DIR ""

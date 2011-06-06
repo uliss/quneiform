@@ -22,7 +22,7 @@
 #include "testpageindicator.h"
 
 #define private public
-#include "gui/pageindicator.h"
+#include "gui/widgets/pageindicator.h"
 
 TestPageIndicator::TestPageIndicator(QObject *parent) :
     QObject(parent)

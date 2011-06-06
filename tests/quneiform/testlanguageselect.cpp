@@ -20,7 +20,7 @@
 #include <QSignalSpy>
 
 #include "testlanguageselect.h"
-#include "gui/languageselect.h"
+#include "gui/widgets/languageselect.h"
 #include "common/lang_def.h"
 
 TestLanguageSelect::TestLanguageSelect(QObject *parent) :

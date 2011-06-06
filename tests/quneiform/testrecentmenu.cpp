@@ -20,7 +20,7 @@
 #include <QDebug>
 #include <QSignalSpy>
 #include "testrecentmenu.h"
-#include "gui/recentmenu.h"
+#include "gui/widgets/recentmenu.h"
 
 #ifndef CF_IMAGE_DIR
 #define CF_IMAGE_DIR

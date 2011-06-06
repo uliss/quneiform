@@ -11,23 +11,11 @@ add_subdirectory(resources)
 set(TRANSLATIONS_TS translations/ru.ts)
 
 set(HEADERS 
-    colorbutton.h
-    imageview.h
-    imagewidget.h
-    languagemenu.h
-    languageselect.h
-    mainwindow.h
     packet.h
     page.h
-    pageindicator.h
     pagerecognizer.h
     pagerecognitionqueue.h
-    recentmenu.h
     selection.h
-    texteditor.h
-    thumbnaillist.h
-    thumbnailwidget.h
-    widgetbar.h
     dialogs/aboutdialog.h
     dialogs/exportdialog.h
     dialogs/formatsettingsdialog.h
@@ -35,36 +23,36 @@ set(HEADERS
     dialogs/recognitionsettingsdialog.h
     dialogs/recognitionprogressdialog.h
     dialogs/settings.h
+    widgets/colorbutton.h
+    widgets/imageview.h
+    widgets/imagewidget.h
+    widgets/languagemenu.h
+    widgets/languageselect.h
+    widgets/mainwindow.h
+    widgets/pageindicator.h
+    widgets/recentmenu.h
+    widgets/texteditor.h
+    widgets/thumbnaillist.h
+    widgets/thumbnailwidget.h
+    widgets/widgetbar.h
 )
 
 set(SOURCES
-    colorbutton.cpp
     exportsettings.cpp
     formatsettings.cpp
     imagecache.cpp
-    imageview.cpp
-    imagewidget.cpp
     language.cpp
-    languagemenu.cpp
-    languageselect.cpp
-    mainwindow.cpp
     packet.cpp
     page.cpp
     pagearea.cpp
-    pageindicator.cpp
     pagelayout.cpp
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
     range.cpp
-    recentmenu.cpp
     recognitionsettings.cpp
     selection.cpp
     selectionshadow.cpp
-    texteditor.cpp
-    thumbnaillist.cpp
-    thumbnailwidget.cpp
     translationloader.cpp
-    widgetbar.cpp
     dialogs/aboutdialog.cpp
     dialogs/exportdialog.cpp
     dialogs/formatsettingsdialog.cpp
@@ -79,19 +67,32 @@ set(SOURCES
     export/nativeexporter.cpp
     export/qtextdocumentexporter.cpp
     export/rectexporter.cpp
+    widgets/colorbutton.cpp
+    widgets/imageview.cpp
+    widgets/imagewidget.cpp
+    widgets/languagemenu.cpp
+    widgets/languageselect.cpp
+    widgets/mainwindow.cpp
+    widgets/pageindicator.cpp
+    widgets/recentmenu.cpp
+    widgets/texteditor.cpp
+    widgets/thumbnaillist.cpp
+    widgets/thumbnailwidget.cpp
+    widgets/widgetbar.cpp
 )
 
 set(FORMS 
-    mainwindow.ui
     dialogs/aboutdialog.ui
     dialogs/exportdialog.ui
     dialogs/formatsettingsdialog.ui
     dialogs/pagepropertiesdialog.ui
     dialogs/recognitionsettingsdialog.ui
     dialogs/settings.ui
+    widgets/mainwindow.ui
 )
 
 include_directories(
+    ./widgets
     ../src
     ../src/include
     ../src/h
