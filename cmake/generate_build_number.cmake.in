@@ -1,5 +1,7 @@
-if(EXISTS "@CMAKE_SOURCE_DIR@/.git")
-    execute_process(COMMAND git describe --abbrev=4 HEAD
+find_package(Git)
+
+if(GIT_EXECUTABLE AND EXISTS "@CMAKE_SOURCE_DIR@/.git")
+    execute_process(COMMAND ${GIT_EXECUTABLE} describe --abbrev=4 HEAD
                 WORKING_DIRECTORY @CMAKE_SOURCE_DIR@
                 OUTPUT_VARIABLE CF_BUILD_NUMBER
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
