@@ -30,7 +30,7 @@ MacSpellChecker::MacSpellChecker(const Language& lang)
 }
 
 int64_t MacSpellChecker::documentTag() const{
-    return reinterpret_cast<int64_t>(language().code());
+    return language().code();
 }
 
 bool MacSpellChecker::hasErrors(const QString& text) {
