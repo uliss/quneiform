@@ -145,6 +145,8 @@ QStringList ASpellChecker::suggest(const QString& word) {
 
     while((suggest = aspell_string_enumeration_next(entries)) != 0) {
         res.append(QString::fromUtf8(suggest));
+        if(res.count() > suggestLimit())
+            break;
     }
 
     delete_aspell_string_enumeration(entries);

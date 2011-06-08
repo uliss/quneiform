@@ -36,11 +36,14 @@ public:
     virtual bool isSupported(const Language& lang);
     Language language() const;
     virtual bool setLanguage(const Language& lang);
+    void setSuggestLimit(uint limit);
     virtual SpellList spellErrors(const QString& text) = 0;
     virtual QStringList suggest(const QString& word) = 0;
+    uint suggestLimit() const;
     virtual QList<Language> supportedLanguages() const = 0;
 private:
     Language lang_;
+    uint suggest_limit_;
 };
 
 typedef QSharedPointer<ISpellChecker> SpellCheckerPtr;

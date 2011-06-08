@@ -18,7 +18,10 @@
 
 #include "ispellchecker.h"
 
-ISpellChecker::ISpellChecker(const Language& lang) : lang_(lang) {}
+ISpellChecker::ISpellChecker(const Language& lang)
+    : lang_(lang),
+    suggest_limit_(5)
+{}
 
 bool ISpellChecker::isSupported(const Language& lang) {
     return supportedLanguages().contains(lang);
@@ -31,4 +34,12 @@ Language ISpellChecker::language() const {
 bool ISpellChecker::setLanguage(const Language& lang) {
     lang_ = lang;
     return true;
+}
+
+void ISpellChecker::setSuggestLimit(uint limit) {
+    suggest_limit_ = limit;
+}
+
+uint ISpellChecker::suggestLimit() const {
+    return suggest_limit_;
 }
