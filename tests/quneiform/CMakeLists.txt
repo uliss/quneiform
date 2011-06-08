@@ -26,6 +26,7 @@ set(CF_GUI_TESTS
     recognitionsettingsdialog
     recognitionprogressdialog
     selection
+    spellcheckerfactory
     qtextdocumentexporter
 )
 
@@ -36,6 +37,7 @@ endif()
 
 find_package(ASPELL)
 if(ASPELL_FOUND)
+    add_definitions(-DHAVE_ASPELL)
     list(APPEND CF_GUI_TESTS aspellchecker)
 endif()
 
