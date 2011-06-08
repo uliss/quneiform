@@ -14,7 +14,7 @@
    <enum>Qt::NoContextMenu</enum>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources/cuneiform.qrc">
+   <iconset resource="../resources/cuneiform.qrc">
     <normaloff>:/img/cuneiform_logo_64.png</normaloff>:/img/cuneiform_logo_64.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget"/>
@@ -24,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -121,7 +121,7 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="resources/cuneiform.qrc">
+    <iconset resource="../resources/cuneiform.qrc">
      <normaloff>:/img/oxygen/32x32/fileopen.png</normaloff>:/img/oxygen/32x32/fileopen.png</iconset>
    </property>
    <property name="text">
@@ -141,7 +141,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources/cuneiform.qrc">
+    <iconset resource="../resources/cuneiform.qrc">
      <normaloff>:/img/oxygen/32x32/zoom_in.png</normaloff>:/img/oxygen/32x32/zoom_in.png</iconset>
    </property>
    <property name="text">
@@ -153,7 +153,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources/cuneiform.qrc">
+    <iconset resource="../resources/cuneiform.qrc">
      <normaloff>:/img/oxygen/32x32/zoom_out.png</normaloff>:/img/oxygen/32x32/zoom_out.png</iconset>
    </property>
    <property name="text">
@@ -173,7 +173,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources/cuneiform.qrc">
+    <iconset resource="../resources/cuneiform.qrc">
      <normaloff>:/img/oxygen/32x32/select_rectangular.png</normaloff>:/img/oxygen/32x32/select_rectangular.png</iconset>
    </property>
    <property name="text">
@@ -188,7 +188,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources/cuneiform.qrc">
+    <iconset resource="../resources/cuneiform.qrc">
      <normaloff>:/img/oxygen/32x32/zoom_fit_best.png</normaloff>:/img/oxygen/32x32/zoom_fit_best.png</iconset>
    </property>
    <property name="text">
@@ -203,7 +203,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources/cuneiform.qrc">
+    <iconset resource="../resources/cuneiform.qrc">
      <normaloff>:/img/oxygen/32x32/document_preview.png</normaloff>:/img/oxygen/32x32/document_preview.png</iconset>
    </property>
    <property name="text">
@@ -218,7 +218,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources/cuneiform.qrc">
+    <iconset resource="../resources/cuneiform.qrc">
      <normaloff>:/img/oxygen/32x32/object_rotate_right.png</normaloff>:/img/oxygen/32x32/object_rotate_right.png</iconset>
    </property>
    <property name="text">
@@ -233,7 +233,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources/cuneiform.qrc">
+    <iconset resource="../resources/cuneiform.qrc">
      <normaloff>:/img/oxygen/32x32/object_rotate_left.png</normaloff>:/img/oxygen/32x32/object_rotate_left.png</iconset>
    </property>
    <property name="text">
@@ -242,7 +242,7 @@
   </action>
   <action name="actionSavePacket">
    <property name="icon">
-    <iconset resource="resources/cuneiform.qrc">
+    <iconset resource="../resources/cuneiform.qrc">
      <normaloff>:/img/oxygen/32x32/filesave.png</normaloff>:/img/oxygen/32x32/filesave.png</iconset>
    </property>
    <property name="text">
@@ -259,7 +259,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources/cuneiform.qrc">
+    <iconset resource="../resources/cuneiform.qrc">
      <normaloff>:/img/oxygen/32x32/zoom_original.png</normaloff>:/img/oxygen/32x32/zoom_original.png</iconset>
    </property>
    <property name="text">
@@ -280,7 +280,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="resources/cuneiform.qrc"/>
+  <include location="../resources/cuneiform.qrc"/>
  </resources>
  <connections>
   <connection>
