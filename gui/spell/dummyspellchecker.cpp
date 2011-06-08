@@ -16,10 +16,12 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QDebug>
 #include "dummyspellchecker.h"
 
 DummySpellChecker::DummySpellChecker(const Language& lang) : ISpellChecker(lang)
 {
+    qDebug() << Q_FUNC_INFO << "Using dummy spellchecker for language:" << lang.name();
 }
 
 bool DummySpellChecker::hasErrors(const QString&) {
