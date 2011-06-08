@@ -328,8 +328,11 @@ void MainWindow::openPacket(const QString& path) {
     }
     QApplication::restoreOverrideCursor();
 
-    if(!packet_->isEmpty())
-        selectLanguage(packet_->firstPage()->language());
+    if(!packet_->isEmpty()) {
+        Language lang = packet_->firstPage()->language();
+        lang_select_->select(lang);
+        lang_menu_->select(lang);
+    }
 
     recent_packets_->add(path);
     setWindowModified(false);
