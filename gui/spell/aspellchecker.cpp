@@ -85,7 +85,7 @@ QString ASpellChecker::prepareWord(const QString& word) {
         return QString();
 
     QChar last_chr = res.at(res.length() - 1);
-    if(!last_chr.isLetter() || last_chr == '-')
+    if(!last_chr.isLetter() || last_chr != '-')
         res.chop(1);
 
     return res;
