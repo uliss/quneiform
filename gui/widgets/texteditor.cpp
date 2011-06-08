@@ -200,6 +200,7 @@ void TextEditor::connectPage() {
         return;
 
     connect(page_, SIGNAL(destroyed()), this, SLOT(clearText()));
+    connect(page_, SIGNAL(destroyed()), this, SLOT(handlePageDestroy()));
 }
 
 void TextEditor::disconnectPage() {
@@ -207,6 +208,7 @@ void TextEditor::disconnectPage() {
         return;
 
     disconnect(page_, SIGNAL(destroyed()), this, SLOT(clearText()));
+    disconnect(page_, SIGNAL(destroyed()), this, SLOT(handlePageDestroy()));
 }
 
 void TextEditor::contextMenuEvent(QContextMenuEvent * event) {
@@ -226,6 +228,11 @@ void TextEditor::contextMenuEvent(QContextMenuEvent * event) {
     menu->exec(event->globalPos());
     delete menu;
  }
+
+void TextEditor::handlePageDestroy() {
+    Q_CHECK_PTR(page_);
+    page_ = NULL;
+}
 
 void TextEditor::toggleBold() {
     if(!textCursor().hasSelection())

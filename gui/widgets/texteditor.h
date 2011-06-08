@@ -53,6 +53,7 @@ private slots:
     void alignLeft();
     void alignRight();
     void clearText();
+    void handlePageDestroy();
     void showCurrentChar();
     void toggleBold();
     void toggleItalic();
