@@ -35,6 +35,7 @@ public:
     SpellCheckerPtr spellChecker();
 private:
     SpellCheckerPtr spell_checker_;
+    Language lang_;
     bool enabled_;
 };
 

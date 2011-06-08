@@ -8,6 +8,7 @@ include_directories("../..")
 include_directories("../../gui")
 
 set(CF_GUI_TESTS
+    aspellchecker
     cedpageexporter
     cedserializer
     exportsettings
@@ -37,14 +38,7 @@ endif()
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_gui.py"
         "${CMAKE_CURRENT_BINARY_DIR}/test_gui.py")
 
-set(TEST_LIBS quneiform_lib quneiform_spell cuneiform ${QT_LIBRARIES} ${QT_QTTEST_LIBRARIES})
-
-if(APPLE)
-    find_library(APPLE_CORE_FOUNDATION CoreFoundation "/")
-    list(APPEND TEST_LIBS ${APPLE_CORE_FOUNDATION})
-    find_library(APPLE_APPKIT AppKit "/")
-    list(APPEND TEST_LIBS ${APPLE_APPKIT})
-endif()
+set(TEST_LIBS quneiform_spell quneiform_lib cuneiform ${QT_LIBRARIES} ${QT_QTTEST_LIBRARIES})
 
 if(APPLE)
     find_library(APPLE_CORE_FOUNDATION CoreFoundation "/")

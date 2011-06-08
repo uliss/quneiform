@@ -185,9 +185,7 @@ void TextEditor::alignRight() {
 void TextEditor::checkSpelling() {
     Q_CHECK_PTR(page_);
 
-    if(!highlighter_->setLanguage(page_->language()))
-        return;
-
+    highlighter_->setLanguage(page_->language());
     highlighter_->setDocument(document());
     highlighter_->rehighlight();
 }
@@ -222,8 +220,8 @@ void TextEditor::contextMenuEvent(QContextMenuEvent * event) {
     menu->addSeparator();
     addSpellCheckActions(menu);
 
-//    menu->addSeparator();
-//    addSpellSuggestMenu(menu, event->pos());
+    menu->addSeparator();
+    addSpellSuggestMenu(menu, event->pos());
 
     menu->exec(event->globalPos());
     delete menu;

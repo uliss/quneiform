@@ -22,14 +22,15 @@
 #include "macspellchecker_private.h"
 #include "common/language.h"
 
-MacSpellChecker::MacSpellChecker(QTextDocument * doc)
-    : ISpellChecker(doc)
+MacSpellChecker::MacSpellChecker(const Language& lang)
+    : ISpellChecker(lang)
 {
     spellInit();
+    MacSpellChecker::setLanguage(lang);
 }
 
 int64_t MacSpellChecker::documentTag() const{
-    return reinterpret_cast<int64_t>(document());
+    return reinterpret_cast<int64_t>(language().code());
 }
 
 bool MacSpellChecker::hasErrors(const QString& text) {
@@ -37,9 +38,6 @@ bool MacSpellChecker::hasErrors(const QString& text) {
 }
 
 bool MacSpellChecker::setLanguage(const Language& lang) {
-    if(language() == lang)
-        return true;
-
     if(!supportedLanguages().contains(lang)) {
         qDebug() << Q_FUNC_INFO << QString("language '%1' is not supporterd").arg(lang.name());
         return false;

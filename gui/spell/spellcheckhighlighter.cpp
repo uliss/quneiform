@@ -43,7 +43,8 @@ void SpellCheckHighlighter::highlightBlock(const QString& text)
     error_format.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
     error_format.setUnderlineColor(QColor(Qt::red));
 
-    spell_checker_ = SpellCheckerFactory::instance().make(document());
+    if(spell_checker_.isNull())
+        spell_checker_ = SpellCheckerFactory::instance().make(language());
 
     foreach(Range range, spell_checker_->spellErrors(text)) {
         setFormat(range.location(), range.length(), error_format);
@@ -55,7 +56,7 @@ bool SpellCheckHighlighter::isEnabled() const {
 }
 
 Language SpellCheckHighlighter::language() const {
-    return spell_checker_.isNull() ? Language::english() : spell_checker_->language();
+    return lang_;
 }
 
 void SpellCheckHighlighter::setEnabled(bool value) {
@@ -63,17 +64,12 @@ void SpellCheckHighlighter::setEnabled(bool value) {
 }
 
 bool SpellCheckHighlighter::setLanguage(const Language& lang) {
-    if(spell_checker_.isNull()) {
-        qDebug() << Q_FUNC_INFO << "invalid spellchecker";
-        return false;
-    }
+    if(lang_ == lang)
+        return true;
 
-    if(!spell_checker_->supportedLanguages().contains(lang)) {
-        qDebug() << Q_FUNC_INFO << QString("no spell check support for \"%1\" language").arg(lang.name());
-        return false;
-    }
+    lang_ = lang;
 
-    spell_checker_->setLanguage(lang);
+    spell_checker_ = SpellCheckerFactory::instance().make(lang_);
 
     qDebug() << Q_FUNC_INFO << QString("Spell check language: \"%1\"").arg(lang.name());
 

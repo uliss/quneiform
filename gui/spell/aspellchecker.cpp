@@ -16,25 +16,158 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QDebug>
+#include <aspell.h>
+
 #include "aspellchecker.h"
 
-ASpellChecker::ASpellChecker(QTextDocument * doc)
-    : ISpellChecker(doc)
+ASpellChecker::ASpellChecker(const Language& lang)
+    : ISpellChecker(lang),
+    config_(NULL),
+    speller_(NULL)
 {
+    configInit();
+    ASpellChecker::setLanguage(lang);
+}
+
+ASpellChecker::~ASpellChecker() {
+    delete_aspell_speller(speller_);
+    delete_aspell_config(config_);
+}
+
+bool ASpellChecker::checkWord(const QString& word) {
+    Q_CHECK_PTR(config_);
+    Q_CHECK_PTR(speller_);
+
+    static const QRegExp non_digits("\\D");
+    if(!word.contains(non_digits))
+        return true;
+
+    QString w = word;
+    w.remove(QString::fromUtf8("«"));
+    w.remove(QString::fromUtf8("»"));
+
+    QByteArray str = w.toUtf8();
+
+    switch(aspell_speller_check(speller_, str.data(), str.size())) {
+    case 0:
+        return false;
+    case 1:
+        return true;
+    default:
+        qDebug() << Q_FUNC_INFO << "aspell error for" << w;
+        return false;
+    }
+}
+
+void ASpellChecker::configInit() {
+    config_ = new_aspell_config();
+    aspell_config_replace(config_, "encoding", "utf-8");
 }
 
 bool ASpellChecker::hasErrors(const QString& text) {
+    return !spellErrors(text).isEmpty();
+}
+
+bool ASpellChecker::setLanguage(const Language& lang) {
+    Q_CHECK_PTR(config_);
+
+    ISpellChecker::setLanguage(lang);
+
+    if(!aspell_config_replace(config_, "lang", lang.isoCode2().toAscii())) {
+        qDebug() << Q_FUNC_INFO << "aspell_config_replace error for language:" << lang.name();
+        qDebug() << aspell_config_error_message(config_);
+        return false;
+    }
+
+    AspellCanHaveError * possible_err = new_aspell_speller(config_);
+    if (aspell_error_number(possible_err) == 0) {
+        if(speller_)
+            delete_aspell_speller(speller_);
+
+        speller_ = to_aspell_speller(possible_err);
+    }
+    else {
+        qDebug() << Q_FUNC_INFO << aspell_error_message(possible_err);
+        delete_aspell_can_have_error(possible_err);
+        return false;
+    }
+
     return true;
 }
 
 ISpellChecker::SpellList ASpellChecker::spellErrors(const QString& text) {
-    return SpellList();
+    SpellList res;
+
+    int word_start = 0;
+    int word_end = 0;
+    for(int i = 0; i < text.length(); i++) {
+        if(!text.at(i).isSpace()) {
+            if(word_start == -1)
+                word_start = i;
+
+            word_end = i;
+
+            if(word_end == text.length() - 1) {
+                QString word = text.mid(word_start, word_end - word_start + 1);
+                if(!checkWord(word)) {
+                    res.append(Range(word_start, word.length()));
+                }
+            }
+        }
+        else {
+            if(word_start == -1)
+                continue;
+
+            QString word = text.mid(word_start, word_end - word_start + 1);
+
+            if(!checkWord(word)) {
+                qDebug() << Q_FUNC_INFO << "spell error:" << word;
+                res.append(Range(word_start, word.length()));
+            }
+
+            word_start = -1;
+        }
+    }
+    return res;
 }
 
 QStringList ASpellChecker::suggest(const QString& word) {
-    return QStringList();
+    QStringList res;
+
+    QByteArray b = word.toUtf8();
+    const AspellWordList * words = aspell_speller_suggest(speller_, b.data(), b.size());
+    if(!words)
+        return res;
+
+    AspellStringEnumeration * entries = aspell_word_list_elements(words);
+    const char * suggest = NULL;
+
+    while((suggest = aspell_string_enumeration_next(entries)) != 0) {
+        res.append(QString::fromUtf8(suggest));
+    }
+
+    delete_aspell_string_enumeration(entries);
+
+    return res;
 }
 
 QList<Language> ASpellChecker::supportedLanguages() const {
-    return QList<Language>();
+    QList<Language> res;
+
+    AspellConfig * config = new_aspell_config();
+    AspellDictInfoList * dictionary_list = get_aspell_dict_info_list(config);
+    delete_aspell_config(config);
+    AspellDictInfoEnumeration * entries = aspell_dict_info_list_elements(dictionary_list);
+
+    const AspellDictInfo * entry;
+    while ((entry = aspell_dict_info_enumeration_next(entries)) != 0) {
+        Language l(Language::fromIsoCode2(entry->code));
+        if(!res.contains(l))
+            res.append(l);
+    }
+
+    delete_aspell_dict_info_enumeration(entries);
+
+    return res;
 }

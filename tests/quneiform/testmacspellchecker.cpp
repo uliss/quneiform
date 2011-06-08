@@ -24,11 +24,7 @@
 #include "common/lang_def.h"
 
 void TestMacSpellChecker::testConstruct() {
-    MacSpellChecker spell(NULL);
-    QVERIFY(spell.document() == NULL);
-    QCOMPARE(spell.language(), Language());
-
-    spell.setLanguage(Language(LANGUAGE_ENGLISH));
+    MacSpellChecker spell(Language::english());
     QCOMPARE(spell.language(), Language(LANGUAGE_ENGLISH));
 
     qDebug() << spell.supportedLanguages();
@@ -36,22 +32,20 @@ void TestMacSpellChecker::testConstruct() {
 }
 
 void TestMacSpellChecker::testHasErrors() {
-    MacSpellChecker spell(NULL);
-    QVERIFY(spell.setLanguage(Language(LANGUAGE_ENGLISH)));
+    MacSpellChecker spell(Language::english());
 
     QVERIFY(spell.hasErrors("errour"));
     QVERIFY(!spell.hasErrors("no errors"));
 }
 
 void TestMacSpellChecker::testSetLanguage() {
-    MacSpellChecker spell(NULL);
+    MacSpellChecker spell(Language::english());
     QVERIFY(spell.setLanguage(Language(LANGUAGE_ENGLISH)));
     QVERIFY(!spell.setLanguage(Language(LANGUAGE_UNKNOWN)));
 }
 
 void TestMacSpellChecker::testSpellErrors() {
-    MacSpellChecker spell(NULL);
-    spell.setLanguage(Language(LANGUAGE_ENGLISH));
+    MacSpellChecker spell(Language::english());
     QVERIFY(spell.spellErrors("test").isEmpty());
 
     MacSpellChecker::SpellList error_list = spell.spellErrors("errar string");
@@ -64,8 +58,7 @@ void TestMacSpellChecker::testSpellErrors() {
 }
 
 void TestMacSpellChecker::testSuggest() {
-    MacSpellChecker spell(NULL);
-    spell.setLanguage(Language(LANGUAGE_ENGLISH));
+    MacSpellChecker spell(Language::english());
 
     QStringList words = spell.suggest("errour");
     qDebug() << words;

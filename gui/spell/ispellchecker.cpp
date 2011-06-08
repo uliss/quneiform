@@ -18,14 +18,10 @@
 
 #include "ispellchecker.h"
 
-ISpellChecker::ISpellChecker(QTextDocument * doc) : doc_(doc) {}
+ISpellChecker::ISpellChecker(const Language& lang) : lang_(lang) {}
 
-QTextDocument * ISpellChecker::document() {
-    return doc_;
-}
-
-const QTextDocument * ISpellChecker::document() const {
-    return doc_;
+bool ISpellChecker::isSupported(const Language& lang) {
+    return supportedLanguages().contains(lang);
 }
 
 Language ISpellChecker::language() const {

@@ -24,7 +24,7 @@
 class MacSpellChecker : public ISpellChecker
 {
 public:
-    MacSpellChecker(QTextDocument * doc);
+    MacSpellChecker(const Language& lang);
     bool hasErrors(const QString& text);
     bool setLanguage(const Language& lang);
     SpellList spellErrors(const QString& text);

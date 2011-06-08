@@ -17,10 +17,13 @@
  ***************************************************************************/
 
 #include "spellcheckerfactory.h"
+#include "dummyspellchecker.h"
 
 #ifdef Q_OS_MAC
 #include "macspellchecker.h"
-#else
+#endif
+
+#ifdef HAVE_ASPELL
 #include "aspellchecker.h"
 #endif
 
@@ -28,18 +31,29 @@ SpellCheckerFactoryImpl::SpellCheckerFactoryImpl()
 {
 }
 
-SpellCheckerPtr SpellCheckerFactoryImpl::make(QTextDocument * doc) {
-    SpellCheckerMap::iterator it = spell_checkers_.find(doc);
+SpellCheckerPtr SpellCheckerFactoryImpl::make(const Language& lang) {
+    SpellCheckerMap::iterator it = spell_checkers_.find(lang);
 
     if(it != spell_checkers_.end())
         return it.value();
 
 #ifdef Q_OS_MAC
-    SpellCheckerPtr ptr(new MacSpellChecker(doc));
-#else
-    SpellCheckerPtr ptr(new ASpellChecker(doc));
+    SpellCheckerPtr mac(new MacSpellChecker(lang));
+    if(mac->isSupported(lang)) {
+        spell_checkers_.insert(lang, mac);
+        return mac;
+    }
 #endif
 
-    spell_checkers_.insert(doc, ptr);
-    return ptr;
+#ifdef HAVE_ASPELL
+    SpellCheckerPtr aspell(new ASpellChecker(lang));
+    if(aspell->isSupported(lang)) {
+        spell_checkers_.insert(lang, aspell);
+        return aspell;
+    }
+#endif
+
+    SpellCheckerPtr dummy(new DummySpellChecker(lang));
+    spell_checkers_.insert(lang, dummy);
+    return dummy;
 }

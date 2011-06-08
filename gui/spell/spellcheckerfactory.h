@@ -22,19 +22,24 @@
 #include <QHash>
 #include "common/singleton.h"
 #include "ispellchecker.h"
+#include "language.h"
 
-class QTextDocument;
+uint qHash(const Language& lang);
 
 class SpellCheckerFactoryImpl
 {
 public:
     SpellCheckerFactoryImpl();
-    SpellCheckerPtr make(QTextDocument * doc);
+    SpellCheckerPtr make(const Language& lang);
 private:
-    typedef QHash<QTextDocument*, SpellCheckerPtr> SpellCheckerMap;
+    typedef QHash<Language, SpellCheckerPtr> SpellCheckerMap;
     SpellCheckerMap spell_checkers_;
 };
 
 typedef cf::Singleton<SpellCheckerFactoryImpl> SpellCheckerFactory;
+
+inline uint qHash(const Language& lang) {
+    return lang.code();
+}
 
 #endif // SPELLCHECKERFACTORY_H

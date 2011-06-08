@@ -48,7 +48,6 @@ set(SOURCES
     pagelayout.cpp
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
-    range.cpp
     recognitionsettings.cpp
     selection.cpp
     selectionshadow.cpp

@@ -16,31 +16,24 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef ASPELLCHECKER_H
-#define ASPELLCHECKER_H
+#include "dummyspellchecker.h"
 
-#include "ispellchecker.h"
-
-typedef struct AspellConfig AspellConfig;
-typedef struct AspellSpeller AspellSpeller;
-typedef struct AspellDocumentChecker AspellDocumentChecker;
-
-class ASpellChecker : public ISpellChecker
+DummySpellChecker::DummySpellChecker(const Language& lang) : ISpellChecker(lang)
 {
-public:
-    ASpellChecker(const Language& lang);
-    ~ASpellChecker();
-    bool checkWord(const QString& word);
-    bool hasErrors(const QString& text);
-    bool setLanguage(const Language& lang);
-    SpellList spellErrors(const QString& text);
-    QStringList suggest(const QString& word);
-    QList<Language> supportedLanguages() const;
-private:
-    void configInit();
-private:
-    AspellConfig * config_;
-    AspellSpeller * speller_;
-};
+}
 
-#endif // ASPELLCHECKER_H
+bool DummySpellChecker::hasErrors(const QString&) {
+    return false;
+}
+
+ISpellChecker::SpellList DummySpellChecker::spellErrors(const QString&) {
+    return ISpellChecker::SpellList();
+}
+
+QStringList DummySpellChecker::suggest(const QString&) {
+    return QStringList();
+}
+
+QList<Language> DummySpellChecker::supportedLanguages() const {
+    return QList<Language>();
+}
