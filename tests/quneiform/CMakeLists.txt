@@ -8,7 +8,6 @@ include_directories("../..")
 include_directories("../../gui")
 
 set(CF_GUI_TESTS
-    aspellchecker
     cedpageexporter
     cedserializer
     exportsettings
@@ -33,6 +32,11 @@ set(CF_GUI_TESTS
 if(APPLE)
     list(APPEND CF_GUI_TESTS macstring)
     list(APPEND CF_GUI_TESTS macspellchecker)
+endif()
+
+find_package(ASPELL)
+if(ASPELL_FOUND)
+    list(APPEND CF_GUI_TESTS aspellchecker)
 endif()
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_gui.py"
