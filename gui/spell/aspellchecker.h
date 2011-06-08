@@ -38,6 +38,7 @@ public:
     QList<Language> supportedLanguages() const;
 private:
     void configInit();
+    QString prepareWord(const QString& str);
 private:
     AspellConfig * config_;
     AspellSpeller * speller_;

@@ -39,15 +39,11 @@ bool ASpellChecker::checkWord(const QString& word) {
     Q_CHECK_PTR(config_);
     Q_CHECK_PTR(speller_);
 
-    static const QRegExp non_digits("\\D");
-    if(!word.contains(non_digits))
+    QString prepared = prepareWord(word);
+    if(prepared.isEmpty())
         return true;
 
-    QString w = word;
-    w.remove(QString::fromUtf8("«"));
-    w.remove(QString::fromUtf8("»"));
-
-    QByteArray str = w.toUtf8();
+    QByteArray str = prepared.toUtf8();
 
     switch(aspell_speller_check(speller_, str.data(), str.size())) {
     case 0:
@@ -55,7 +51,7 @@ bool ASpellChecker::checkWord(const QString& word) {
     case 1:
         return true;
     default:
-        qDebug() << Q_FUNC_INFO << "aspell error for" << w;
+        qDebug() << Q_FUNC_INFO << "aspell error for" << prepared;
         return false;
     }
 }
@@ -67,6 +63,32 @@ void ASpellChecker::configInit() {
 
 bool ASpellChecker::hasErrors(const QString& text) {
     return !spellErrors(text).isEmpty();
+}
+
+QString ASpellChecker::prepareWord(const QString& word) {
+    if(word.isEmpty())
+        return QString();
+
+    static const QRegExp non_digits("\\D");
+    if(!word.contains(non_digits))
+        return QString();
+
+    if(word.isEmpty())
+        return QString();
+
+    QString res(word);
+    QChar first_chr = res.at(0);
+    if(!first_chr.isLetter())
+        res.remove(0, 1);
+
+    if(word.isEmpty())
+        return QString();
+
+    QChar last_chr = res.at(res.length() - 1);
+    if(!last_chr.isLetter() || last_chr == '-')
+        res.chop(1);
+
+    return res;
 }
 
 bool ASpellChecker::setLanguage(const Language& lang) {
