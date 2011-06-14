@@ -386,7 +386,12 @@ void ImageView::rotatePixmap(int angle) {
 
     Q_CHECK_PTR(scene_);
 
+#if QT_VERSION >= 460000
     pixmap_->setRotation(angle);
+#else
+    pixmap_->setTransform(QTransform().rotate(angle), true);
+#endif
+
     QRectF pixmap_bbox = pixmap_->sceneBoundingRect();
     pixmap_->translate(- pixmap_bbox.left(), - pixmap_bbox.top());
     scene_->setSceneRect(pixmap_->sceneBoundingRect());
