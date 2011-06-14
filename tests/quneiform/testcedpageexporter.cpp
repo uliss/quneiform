@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <QTest>
+#include <QDebug>
 #include <QTextDocument>
 #include <QTextFrame>
 #include "testcedpageexporter.h"
@@ -30,6 +31,39 @@
 
 #define private public
 #include "gui/export/cedpageexporter.h"
+
+#define CFVERIFY(statement) \
+do {\
+    if (!QTest::qVerify((statement), #statement, "", __FILE__, __LINE__))\
+        return NULL;\
+} while (0)
+
+#define COMPARE_CHAR(c1, c2) QCOMPARE(c1->get(), (uchar)c2);
+
+cf::CEDParagraph * toPar(cf::CEDPage * p, uint section = 0, uint column = 0, uint par = 0) {
+    CFVERIFY(section < p->sectionCount());
+    cf::CEDSection * s = p->sectionAt(section);
+    CFVERIFY(column < s->columnCount());
+    cf::CEDColumn * col = s->columnAt(column);
+    CFVERIFY(par < col->elementCount());
+    return dynamic_cast<cf::CEDParagraph*>(col->elementAt(par));
+}
+
+inline void compare(cf::CEDLine * l, const char * str) {
+    QCOMPARE(l->elementCount(), (size_t) strlen(str));
+    for(uint i = 0; i < l->elementCount(); i++) {
+        COMPARE_CHAR(l->charAt(i), str[i]);
+    }
+}
+
+inline void compare(cf::CEDParagraph * p, const char * str) {
+    QStringList str_lst = QString::fromUtf8(str).split('\n');
+    QCOMPARE(p->lineCount(), (size_t) str_lst.size());
+    for(uint i = 0; i < p->lineCount(); i++) {
+        QByteArray data = str_lst.at(i).toAscii();
+        compare(p->lineAt(i), data.constData());
+    }
+}
 
 QString lineText(cf::CEDLine& line) {
     QString res;
@@ -146,19 +180,13 @@ void TestCEDPageExporter::testExportSection() {
     QCOMPARE(page.sectionCount(), (size_t) 1);
     QCOMPARE(page.sectionAt(0)->columnCount(), (size_t) 1);
     QCOMPARE(page.sectionAt(0)->columnAt(0)->elementCount(), (size_t) 2);
-    cf::CEDParagraph * p1 = dynamic_cast<cf::CEDParagraph*>(page.sectionAt(0)->columnAt(0)->elementAt(0));
+    cf::CEDParagraph * p1 = toPar(&page, 0, 0, 0);
     QVERIFY(p1);
-    QCOMPARE(p1->lineCount(), size_t(1));
-    QCOMPARE(p1->lineAt(0)->elementCount(), size_t(4));
-    QCOMPARE(p1->lineAt(0)->charAt(0)->get(), (uchar)'t');
-    QCOMPARE(p1->lineAt(0)->charAt(1)->get(), (uchar)'e');
-    QCOMPARE(p1->lineAt(0)->charAt(2)->get(), (uchar)'s');
-    QCOMPARE(p1->lineAt(0)->charAt(3)->get(), (uchar)'t');
+    compare(p1, "test");
 
-    cf::CEDParagraph * p2 = dynamic_cast<cf::CEDParagraph*>(page.sectionAt(0)->columnAt(0)->elementAt(1));
+    cf::CEDParagraph * p2 = toPar(&page, 0, 0, 1);
     QVERIFY(p2);
-    QCOMPARE(p2->lineCount(), size_t(1));
-    QCOMPARE(p2->lineAt(0)->elementCount(), size_t(9));
+    compare(p2, "paragraph");
 }
 
 QTEST_MAIN(TestCEDPageExporter)
