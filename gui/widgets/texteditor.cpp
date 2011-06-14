@@ -145,7 +145,8 @@ void TextEditor::addSpellSuggestMenu(QMenu * menu, const QPoint& pos) {
     }
     else {
         foreach(const QString& variant, suggestions) {
-            menu->addAction(variant);
+            QAction * act = menu->addAction(variant, this, SLOT(handleSuggestion()));
+            act->setData(pos);
         }
     }
 }
@@ -232,6 +233,26 @@ void TextEditor::contextMenuEvent(QContextMenuEvent * event) {
 void TextEditor::handlePageDestroy() {
     Q_CHECK_PTR(page_);
     page_ = NULL;
+}
+
+void TextEditor::handleSuggestion() {
+    QAction * action = qobject_cast<QAction*>(sender());
+    if(!action)
+        return;
+
+    QPoint pos = action->data().toPoint();
+    qDebug() << Q_FUNC_INFO << action->text() << pos;
+
+    QTextCursor cursor = cursorForPosition(pos);
+    cursor.movePosition(QTextCursor::StartOfWord, QTextCursor::MoveAnchor);
+    cursor.movePosition(QTextCursor::EndOfWord, QTextCursor::KeepAnchor);
+
+    QString word = cursor.selectedText();
+
+    if(word.isEmpty())
+        return;
+
+    cursor.insertText(action->text());
 }
 
 void TextEditor::toggleBold() {

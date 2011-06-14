@@ -54,6 +54,7 @@ private slots:
     void alignRight();
     void clearText();
     void handlePageDestroy();
+    void handleSuggestion();
     void showCurrentChar();
     void toggleBold();
     void toggleItalic();
