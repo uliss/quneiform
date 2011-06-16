@@ -19,6 +19,7 @@
 #include <QTest>
 #include <QDebug>
 #include <QTextDocument>
+#include <QTextTable>
 #include <QTextFrame>
 #include "testcedpageexporter.h"
 #include "gui/export/qtextdocumentexporter.h"
@@ -39,6 +40,57 @@ do {\
 } while (0)
 
 #define COMPARE_CHAR(c1, c2) QCOMPARE(c1->get(), (uchar)c2);
+
+QString toString(cf::CEDLine * line) {
+    QString res;
+    for(size_t i = 0; i < line->elementCount(); i++) {
+        res += QChar::fromLatin1(line->charAt(i)->get());
+    }
+    return res;
+}
+
+QString toString(cf::CEDParagraph * par) {
+    QString res;
+
+    for(size_t i = 0; i < par->lineCount(); i++)
+        res += toString(par->lineAt(i));
+
+    return res;
+}
+
+QString toString(cf::CEDColumn * col) {
+    CFVERIFY(col);
+
+    QString res;
+    if(col->empty())
+        return res;
+
+    for(size_t i = 0; i < col->elementCount(); i++) {
+        cf::CEDParagraph * p = dynamic_cast<cf::CEDParagraph*>(col->elementAt(i));
+        if(!p)
+            continue;
+        res += toString(p);
+    }
+    return res;
+}
+
+void page_init(QTextFrame * page) {
+    QTextFrameFormat format;
+    format.setProperty(QTextDocumentExporter::BlockType, QTextDocumentExporter::PAGE);
+    page->setFrameFormat(format);
+}
+
+void section_init(QTextFrame * section) {
+    QTextFrameFormat format;
+    format.setProperty(QTextDocumentExporter::BlockType, QTextDocumentExporter::SECTION);
+    section->setFrameFormat(format);
+}
+
+void section_table_init(QTextTable * tbl) {
+    QTextTableFormat fmt;
+    fmt.setProperty(QTextDocumentExporter::BlockType, QTextDocumentExporter::SECTION);
+    tbl->setFormat(fmt);
+}
 
 cf::CEDParagraph * toPar(cf::CEDPage * p, uint section = 0, uint column = 0, uint par = 0) {
     CFVERIFY(section < p->sectionCount());
@@ -127,10 +179,10 @@ void TestCEDPageExporter::testExportPage() {
     CEDPageExporter e;
     e.doExport(&doc, &page);
 
-    QCOMPARE(page.marginBottom(), 4);
-    QCOMPARE(page.marginLeft(), 4);
-    QCOMPARE(page.marginRight(), 4);
-    QCOMPARE(page.marginTop(), 4);
+    QCOMPARE(page.marginBottom(), 0);
+    QCOMPARE(page.marginLeft(), 0);
+    QCOMPARE(page.marginRight(), 0);
+    QCOMPARE(page.marginTop(), 0);
     page.clear();
 
     QTextCursor cursor(&doc);
@@ -187,6 +239,91 @@ void TestCEDPageExporter::testExportSection() {
     cf::CEDParagraph * p2 = toPar(&page, 0, 0, 1);
     QVERIFY(p2);
     compare(p2, "paragraph");
+}
+
+void TestCEDPageExporter::testExportColumn() {
+    QTextDocument doc;
+    QTextCursor cursor(&doc);
+    QTextTable * tbl = cursor.insertTable(1, 2);
+
+    cf::CEDPage page;
+    CEDPageExporter e;
+    e.setPage(&page);
+
+    QVERIFY(page.empty());
+
+    e.exportColumnTable(tbl);
+}
+
+void TestCEDPageExporter::testIsPage() {
+    QVERIFY(!CEDPageExporter::isPage(NULL));
+    QTextDocument doc;
+    QVERIFY(!CEDPageExporter::isPage(doc.rootFrame()));
+
+    page_init(doc.rootFrame());
+    QVERIFY(CEDPageExporter::isPage(doc.rootFrame()));
+}
+
+void TestCEDPageExporter::testIsParagraph() {
+    QTextDocument doc;
+    QTextCursor cursor(&doc);
+
+    cursor.insertBlock();
+    QTextFrame::Iterator it = doc.rootFrame()->begin();
+    QVERIFY(!it.currentFrame());
+    QVERIFY(!CEDPageExporter::isParagraph(it.currentBlock()));
+
+    QTextBlockFormat fmt;
+    fmt.setProperty(QTextDocumentExporter::BlockType, QTextDocumentExporter::PARAGRAPH);
+    cursor.insertBlock(fmt);
+    QVERIFY(CEDPageExporter::isParagraph(cursor.block()));
+}
+
+void TestCEDPageExporter::testIsSection() {
+    QVERIFY(!CEDPageExporter::isSection(NULL));
+    QTextDocument doc;
+    QTextCursor cursor(&doc);
+
+    QTextFrame * section = cursor.insertFrame(QTextFrameFormat());
+    QVERIFY(!CEDPageExporter::isSection(section));
+    section_init(section);
+    QVERIFY(CEDPageExporter::isSection(section));
+}
+
+void TestCEDPageExporter::testIsSectionTable() {
+    // test NULL
+    QVERIFY(!CEDPageExporter::isSectionTable(NULL));
+
+    QTextDocument doc;
+    QTextCursor cursor(&doc);
+    QTextTable * tbl = cursor.insertTable(2, 2);
+    QVERIFY(!CEDPageExporter::isSectionTable(tbl));
+    doc.clear();
+
+    tbl = cursor.insertTable(1, 0);
+    QVERIFY(!CEDPageExporter::isSectionTable(tbl));
+    doc.clear();
+
+    tbl =  cursor.insertTable(1, 1);
+    QVERIFY(!CEDPageExporter::isSectionTable(tbl));
+
+    section_table_init(tbl);
+    QVERIFY(CEDPageExporter::isSectionTable(tbl));
+}
+
+void TestCEDPageExporter::testExportParagraph() {
+    QTextDocument doc;
+    QTextCursor cursor(&doc);
+
+    cursor.insertBlock();
+    cursor.insertText("test");
+
+    cf::CEDColumn col;
+    CEDPageExporter e;
+    e.exportParagraph(cursor.block(), &col);
+
+    QCOMPARE(col.elementCount(), (size_t) 1);
+    QCOMPARE(toString(&col), QString("test"));
 }
 
 QTEST_MAIN(TestCEDPageExporter)

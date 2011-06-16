@@ -31,6 +31,12 @@ private slots:
     void testDoExport();
     void testExportPage();
     void testExportSection();
+    void testExportColumn();
+    void testIsPage();
+    void testIsParagraph();
+    void testIsSection();
+    void testIsSectionTable();
+    void testExportParagraph();
 };
 
 #endif // TESTCEDPAGEEXPORTER_H

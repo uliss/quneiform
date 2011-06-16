@@ -22,6 +22,7 @@
 #include <QTextTable>
 #include <QTextDocument>
 #include "cedpageexporter.h"
+#include "quneiform_debug.h"
 #include "qtextdocumentexporter.h"
 #include "ced/cedpage.h"
 #include "ced/cedsection.h"
@@ -93,13 +94,12 @@ void CEDPageExporter::exportColumn() {
 }
 
 void CEDPageExporter::exportColumnTable(QTextTable * table) {
-    Q_ASSERT(table);
-
-    QTextTableFormat table_format = table->format();
-    if(table_format.intProperty(QTextDocumentExporter::BlockType) != QTextDocumentExporter::SECTION) {
+    if(!isSectionTable(table)) {
         qDebug() << Q_FUNC_INFO << "attept to export non section table";
         return;
     }
+
+    QTextTableFormat table_format = table->format();
 
     cf::CEDSection * section = new cf::CEDSection;
     section->setMargins(getFormatMargins(table_format));
@@ -118,74 +118,125 @@ void CEDPageExporter::exportColumnTable(QTextTable * table) {
     }
 }
 
+void CEDPageExporter::exportMargins(cf::BlockElement * block, const QTextFrame * frame) {
+    Q_CHECK_PTR(block);
+    Q_CHECK_PTR(frame);
+    block->setMargins(getFormatMargins(frame->frameFormat()));
+}
+
 void CEDPageExporter::exportPage() {
     // to document start
     cursor_.movePosition(QTextCursor::Start);
     QTextFrame * root = doc_->rootFrame();
-    QTextFrameFormat format = root->frameFormat();
 
-    if(format.intProperty(QTextDocumentExporter::BlockType) != QTextDocumentExporter::PAGE) {
-        qDebug() << Q_FUNC_INFO << "trying to export non page frame as a page";
+    if(!isPage(root)) {
+        CF_WARNING("attempt to export non page frame");
+        return;
     }
 
-    page_->setMargins(getFormatMargins(format));
+    exportMargins(page_, root);
+    exportPageChildren(root);
+}
 
-    for(QTextFrame::Iterator it = root->begin(); !it.atEnd(); ++it) {
-        QTextFrame * child_frame = it.currentFrame();
+bool CEDPageExporter::exportPageChild(QTextFrame * child) {
+    if(!child)
+        return false;
 
-        if(child_frame == 0) {
-            qDebug() << Q_FUNC_INFO << "non section text block found";
-            exportBlock(it.currentBlock());
-        }
-        else {
-            QTextTable * child_table = qobject_cast<QTextTable*>(child_frame);
+    QTextTable * table = qobject_cast<QTextTable*>(child);
 
-            if (child_table)
-                exportColumnTable(child_table);
-            else
-                exportSection(child_frame);
-        }
+    if (table)
+        exportColumnTable(table);
+    else
+        exportSection(child);
+
+    return true;
+}
+
+void CEDPageExporter::exportPageChildren(QTextFrame * page) {
+    for(QTextFrame::Iterator it = page->begin(); !it.atEnd(); ++it) {
+        QTextFrame * page_child = it.currentFrame();
+
+        if(!exportPageChild(page_child))
+            CF_WARNING("ivalid block found");
     }
 }
 
 void CEDPageExporter::exportParagraph(const QTextBlock& block, cf::CEDColumn * col) {
-    QTextBlockFormat format = block.blockFormat();
-
-    if(format.intProperty(QTextDocumentExporter::BlockType) != QTextDocumentExporter::PARAGRAPH) {
-        qDebug() << Q_FUNC_INFO << "attempt to export non pargraph block";
-    }
+    if(!isParagraph(block))
+        CF_WARNING("attempt to export non paragraph block");
 
     cf::CEDParagraph * p = new cf::CEDParagraph;
     fillPar(p, block.text());
     col->addElement(p);
 }
 
-void CEDPageExporter::exportSection(QTextFrame * frame) {
-    Q_ASSERT(frame);
-
-    QTextFrameFormat fmt = frame->frameFormat();
-
-    if(fmt.intProperty(QTextDocumentExporter::BlockType) != QTextDocumentExporter::SECTION) {
-        qDebug() << Q_FUNC_INFO << "attempt to export non section frame";
+void CEDPageExporter::exportSection(QTextFrame * section) {
+    if(!isSection(section)) {
+        CF_WARNING("attempt to export non section frame");
+        return;
     }
 
-    cf::CEDSection * section = new cf::CEDSection;
-    section->setMargins(getFormatMargins(fmt));
+    cf::CEDSection * cf_section = makeSingleColumnSectionLayout(section);
+    page_->addSection(cf_section);
+    exportSectionChildren(section, cf_section->columnAt(0));
+}
 
-    page_->addSection(section);
-    cf::CEDColumn * col = new cf::CEDColumn;
-    section->addColumn(col);
-
-    for(QTextFrame::Iterator it = frame->begin(); !it.atEnd(); ++it) {
+void CEDPageExporter::exportSectionChildren(QTextFrame * section, cf::CEDColumn * col) {
+    for(QTextFrame::Iterator it = section->begin(); !it.atEnd(); ++it) {
         QTextFrame * child_frame = it.currentFrame();
 
-        if(child_frame) {
-            qDebug() << "nested frame found";
-        }
-        else {
+        if(child_frame == NULL)
             exportParagraph(it.currentBlock(), col);
-        }
+        else
+            CF_WARNING("nested frame found");
     }
+}
+
+bool CEDPageExporter::isPage(QTextFrame * page) {
+    if(!page)
+        return false;
+
+    return page->frameFormat().intProperty(QTextDocumentExporter::BlockType) ==
+            QTextDocumentExporter::PAGE;
+}
+
+bool CEDPageExporter::isParagraph(const QTextBlock& par) {
+    return par.blockFormat().intProperty(QTextDocumentExporter::BlockType) ==
+            QTextDocumentExporter::PARAGRAPH;
+}
+
+bool CEDPageExporter::isSection(QTextFrame * section) {
+    if(!section)
+        return false;
+
+    return section->format().intProperty(QTextDocumentExporter::BlockType) ==
+            QTextDocumentExporter::SECTION;
+}
+
+bool CEDPageExporter::isSectionTable(QTextTable * table) {
+    if(!table)
+        return false;
+
+    if(table->rows() != 1) {
+        CF_WARNING("section table should have _one_ row");
+        return false;
+    }
+
+    if(table->columns() < 1) {
+        CF_WARNING("section table should have at least one column");
+        return false;
+    }
+
+    return (table->format().intProperty(QTextDocumentExporter::BlockType) ==
+            QTextDocumentExporter::SECTION);
+}
+
+cf::CEDSection * CEDPageExporter::makeSingleColumnSectionLayout(QTextFrame * frame) {
+    cf::CEDSection * section = new cf::CEDSection;
+    cf::CEDColumn * col = new cf::CEDColumn;
+    section->addColumn(col);
+    exportMargins(section, frame);
+    return section;
 }
 
 cf::CEDPage * CEDPageExporter::page() {

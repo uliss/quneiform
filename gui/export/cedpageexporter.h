@@ -22,8 +22,10 @@
 #include <QTextCursor>
 
 namespace cf {
+    class BlockElement;
     class CEDPage;
     class CEDColumn;
+    class CEDSection;
 }
 
 class QTextDocument;
@@ -45,8 +47,18 @@ private:
     void exportColumn();
     void exportColumnTable(QTextTable * table);
     void exportPage();
+    bool exportPageChild(QTextFrame * child);
+    void exportPageChildren(QTextFrame * page);
     void exportParagraph(const QTextBlock& block, cf::CEDColumn * col);
     void exportSection(QTextFrame * frame);
+    void exportSectionChildren(QTextFrame * frame, cf::CEDColumn * col);
+private:
+    static void exportMargins(cf::BlockElement * block, const QTextFrame * frame);
+    static bool isPage(QTextFrame * page);
+    static bool isParagraph(const QTextBlock& par);
+    static bool isSection(QTextFrame * section);
+    static bool isSectionTable(QTextTable * table);
+    static cf::CEDSection * makeSingleColumnSectionLayout(QTextFrame * frame);
 private:
     QTextDocument * doc_;
     cf::CEDPage * page_;
