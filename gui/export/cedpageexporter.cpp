@@ -33,6 +33,10 @@
 #include "ced/cedchar.h"
 #include "export/rout_own.h"
 
+static inline cf::Rect toCfRect(const QRect& r) {
+    return cf::Rect(cf::Point(r.x(), r.y()), r.width(), r.height());
+}
+
 static cf::Rect getFormatMargins(const QTextFrameFormat& format) {
     return cf::Rect(cf::Point((int) format.leftMargin(), (int) format.topMargin()),
                     cf::Point((int) format.rightMargin(), (int) format.bottomMargin()));
@@ -40,6 +44,13 @@ static cf::Rect getFormatMargins(const QTextFrameFormat& format) {
 
 static cf::Language toCfLanguage(const ::Language& language) {
     return cf::Language(static_cast<language_t>(language.code()));
+}
+
+CEDPageExporter::CEDPageExporter() :
+    doc_(NULL),
+    page_(NULL),
+    iconv_(new cf::Iconv) {
+    setLanguage(Language::english());
 }
 
 CEDPageExporter::CEDPageExporter(const Language& lang) :
@@ -87,6 +98,16 @@ void CEDPageExporter::doExport(QTextDocument * doc, cf::CEDPage * page) {
     exportPage();
 }
 
+void CEDPageExporter::exportBBox(cf::Element * el, const QTextFormat& fmt) {
+    Q_CHECK_PTR(el);
+
+    if(!fmt.hasProperty(QTextDocumentExporter::BBOX))
+        return;
+
+    QRect bbox = fmt.property(QTextDocumentExporter::BBOX).toRect();
+    el->setBoundingRect(toCfRect(bbox));
+}
+
 void CEDPageExporter::exportBlock(const QTextBlock& block) {
 //    qDebug() << Q_FUNC_INFO;
 
@@ -106,8 +127,17 @@ void CEDPageExporter::exportBlock(const QTextBlock& block) {
 }
 
 void CEDPageExporter::exportChar(const QTextFragment& fragment, cf::CEDLine * line) {
+    if(fragment.length() > 1)
+        CF_WARNING("invalid fragment given");
+
     if(fragment.charFormat().hasProperty(QTextDocumentExporter::BBOX)) {
-        line->addElement(new cf::CEDChar);
+        std::string cf_converted = convert(fragment.text());
+        if(cf_converted.empty()) {
+            CF_ERROR("can't convert char from utf-8");
+            return;
+        }
+
+        line->addElement(makeChar(cf_converted[0], fragment.charFormat()));
     }
     else {
         exportString(fragment, line);
@@ -119,14 +149,14 @@ void CEDPageExporter::exportCharAlternatives(cf::CEDChar * c, const QTextCharFor
     if(!fmt.hasProperty(QTextDocumentExporter::ALTERNATIVES))
         return;
 
-    typedef QTextDocumentExporter::AltMap AltMap;
-    AltMap alt = fmt.property(QTextDocumentExporter::ALTERNATIVES).toMap();
-    for(AltMap::iterator it = alt.begin(), end = alt.end(); it != end; ++it) {
-        std::string alt_str = convert(it.key());
+    CharAlternatives alternatives = fmt.property(QTextDocumentExporter::ALTERNATIVES);
+
+    foreach(CharAlternative alt, alternatives) {
+        std::string alt_str = convert(alt.code);
         if(alt_str.empty())
             continue;
 
-        c->addAlternative(cf::Letter(alt_str[0], it.value().toInt()));
+        c->addAlternative(cf::Letter(alt_str[0], alt.probability));
     }
 }
 
@@ -153,7 +183,7 @@ void CEDPageExporter::exportColumnTable(QTextTable * table) {
         cf::CEDColumn * col = new cf::CEDColumn;
 
         if(col_wd.at(i).type() == QTextLength::FixedLength)
-            col->setWidth(col_wd.at(i).rawValue());
+            col->setWidth((int) col_wd.at(i).rawValue());
 
         section->addColumn(col);
     }
@@ -322,8 +352,12 @@ cf::CEDSection * CEDPageExporter::makeSingleColumnSectionLayout(QTextFrame * fra
     return section;
 }
 
-cf::CEDChar * CEDPageExporter::makeChar(unsigned char ch, const QTextCharFormat& fmt) {
-    cf::CEDChar * c = new cf::CEDChar(ch);
+cf::CEDChar * CEDPageExporter::makeChar(wchar_t ch, const QTextCharFormat& fmt) {
+    if(ch > UCHAR_MAX)
+        CF_WARNING("wide character given");
+
+    cf::CEDChar * c = new cf::CEDChar(static_cast<uchar>(ch));
+    exportBBox(c, fmt);
     exportFontStyle(c, fmt);
     exportCharAlternatives(c, fmt);
     return c;

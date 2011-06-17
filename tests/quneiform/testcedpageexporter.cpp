@@ -161,7 +161,7 @@ TestCEDPageExporter::TestCEDPageExporter()
 }
 
 void TestCEDPageExporter::testConstruct() {
-    CEDPageExporter e(Language::english());
+    CEDPageExporter e;
     QVERIFY(e.document() == 0);
     QVERIFY(e.page() == 0);
 }
@@ -174,7 +174,7 @@ void TestCEDPageExporter::testDoExport() {
     format.setProperty(QTextDocumentExporter::BlockType, QTextDocumentExporter::PAGE);
     doc.rootFrame()->setFrameFormat(format);
 
-    CEDPageExporter e(Language::english());
+    CEDPageExporter e;
     e.doExport(&doc, &page);
     QCOMPARE(e.document(), &doc);
     QCOMPARE(e.page(), &page);
@@ -183,7 +183,7 @@ void TestCEDPageExporter::testDoExport() {
 void TestCEDPageExporter::testExportPage() {
     QTextDocument doc;
     cf::CEDPage page;
-    CEDPageExporter e(Language::english());
+    CEDPageExporter e;
     e.doExport(&doc, &page);
 
     QCOMPARE(page.marginBottom(), 0);
@@ -231,7 +231,7 @@ void TestCEDPageExporter::testExportSection() {
     cursor.insertText("test\nparagraph");
 
     cf::CEDPage page;
-    CEDPageExporter e(Language::english());
+    CEDPageExporter e;
     e.setPage(&page);
 
     QVERIFY(page.empty());
@@ -248,13 +248,35 @@ void TestCEDPageExporter::testExportSection() {
     compare(p2, "paragraph");
 }
 
+void TestCEDPageExporter::testExportString() {
+    CEDPageExporter e;
+    QTextDocument doc;
+    QTextCursor cursor(&doc);
+    QTextCharFormat fmt;
+    fmt.setFontWeight(QFont::Bold);
+    fmt.setFontUnderline(true);
+    std::string str("test_string");
+    cursor.insertText(str.c_str(), fmt);
+
+    QTextFragment fragment = cursor.block().begin().fragment();
+
+    cf::CEDLine l;
+    e.exportString(fragment, &l);
+    QCOMPARE(l.elementCount(), str.size());
+    compare(&l, str.c_str());
+
+    for(size_t i = 0; i < str.size(); i++) {
+        QCOMPARE((int) l.charAt(i)->fontStyle(), FONT_BOLD | FONT_UNDERLINE);
+    }
+}
+
 void TestCEDPageExporter::testExportColumn() {
     QTextDocument doc;
     QTextCursor cursor(&doc);
     QTextTable * tbl = cursor.insertTable(1, 2);
 
     cf::CEDPage page;
-    CEDPageExporter e(Language::english());
+    CEDPageExporter e;
     e.setPage(&page);
 
     QVERIFY(page.empty());
@@ -326,7 +348,7 @@ void TestCEDPageExporter::testExportParagraph() {
     cursor.insertText("test");
 
     cf::CEDColumn col;
-    CEDPageExporter e(Language::english());
+    CEDPageExporter e;
     e.exportParagraph(cursor.block(), &col);
 
     QCOMPARE(col.elementCount(), (size_t) 1);
@@ -363,8 +385,19 @@ void TestCEDPageExporter::testUtf8() {
     delete c;\
 }
 
+static QRect toQRect(const cf::Rect& r) {
+    return QRect(r.x(), r.y(), r.width(), r.height());
+}
+
+#define CHECK_BBOX(e, fmt, rect) {\
+    fmt.setProperty(QTextDocumentExporter::BBOX, rect);\
+    cf::CEDChar * c = e.makeChar('a', fmt);\
+    QCOMPARE(toQRect(c->boundingRect()), rect);\
+    delete c;\
+}
+
 void TestCEDPageExporter::testMakeChar() {
-    CEDPageExporter e(Language::english());
+    CEDPageExporter e;
     QTextCharFormat fmt;
 
     cf::CEDChar * c = e.makeChar('a', fmt);
@@ -375,16 +408,18 @@ void TestCEDPageExporter::testMakeChar() {
     fmt.setFontUnderline(true);
     CHECK_FONT_STYLE(e, fmt, FONT_UNDERLINE);
 
-    typedef QTextDocumentExporter::AltMap AltMap;
-    AltMap alt;
-    alt["t"] = 251;
-    fmt.setProperty(QTextDocumentExporter::ALTERNATIVES, alt);
+    CharAlternatives alt;
+    alt.add('t', 251);
+    fmt.setProperty(QTextDocumentExporter::ALTERNATIVES, alt.toVariant());
     c = e.makeChar('a', fmt);
     QVERIFY(c->hasAlternatives());
     QCOMPARE(c->alternativeCount(), (size_t) 2);
     QCOMPARE(c->alternativeAt(1).getChar(), (uchar)'t');
     QCOMPARE(c->alternativeAt(1).probability(), (uchar) 251);
     delete c;
+
+    QRect bbox(1, 2, 100, 200);
+    CHECK_BBOX(e, fmt, bbox);
 }
 
 void TestCEDPageExporter::testExportFontStyle() {
@@ -409,24 +444,55 @@ void TestCEDPageExporter::testExportFontStyle() {
     CHECK_FONT_STYLE(e, fmt, FONT_STRIKE);
 }
 
+void TestCEDPageExporter::testExportChar() {
+    CEDPageExporter e;
+    QTextDocument doc;
+    QTextCursor cursor(&doc);
+    QTextCharFormat fmt;
+    fmt.setFontWeight(QFont::Bold);
+    fmt.setFontUnderline(true);
+    cursor.insertText("t", fmt);
+
+    QTextFragment fragment = cursor.block().begin().fragment();
+
+    cf::CEDLine l;
+    e.exportChar(fragment, &l);
+    QVERIFY(!l.empty());
+    QCOMPARE(l.charAt(0)->get(), (uchar)'t');
+    QCOMPARE((int) l.charAt(0)->fontStyle(), FONT_BOLD | FONT_UNDERLINE);
+}
+
 void TestCEDPageExporter::testExportCharAlternatives() {
     CEDPageExporter e;
     e.setLanguage(Language(LANGUAGE_RUSSIAN));
     QTextCharFormat fmt;
 
-    typedef QTextDocumentExporter::AltMap AltMap;
-    AltMap alt;
-    alt["t"] = 251;
-    alt["e"] = 100;
-    fmt.setProperty(QTextDocumentExporter::ALTERNATIVES, alt);
+    CharAlternatives alt;
+    alt.add('t', 251);
+    alt.add('e', 100);
+    fmt.setProperty(QTextDocumentExporter::ALTERNATIVES, alt.toVariant());
     cf::CEDChar c('a');
     e.exportCharAlternatives(&c, fmt);
     QVERIFY(c.hasAlternatives());
     QCOMPARE(c.alternativeCount(), (size_t) 3);
-    QCOMPARE(c.alternativeAt(1).getChar(), (uchar)'e');
-    QCOMPARE(c.alternativeAt(1).probability(), (uchar) 100);
-    QCOMPARE(c.alternativeAt(2).getChar(), (uchar)'t');
-    QCOMPARE(c.alternativeAt(2).probability(), (uchar) 251);
+    QCOMPARE(c.alternativeAt(1).getChar(), (uchar)'t');
+    QCOMPARE(c.alternativeAt(1).probability(), (uchar) 251);
+    QCOMPARE(c.alternativeAt(2).getChar(), (uchar)'e');
+    QCOMPARE(c.alternativeAt(2).probability(), (uchar) 100);
+}
+
+void TestCEDPageExporter::testExportBBox() {
+    CEDPageExporter e;
+    QTextCharFormat fmt;
+    cf::CEDChar c;
+    QRect bbox(1, 2, 100, 200);
+    fmt.setProperty(QTextDocumentExporter::BBOX, bbox);
+    e.exportBBox(&c, fmt);
+
+    QCOMPARE(c.boundingRect().width(), 100);
+    QCOMPARE(c.boundingRect().height(), 200);
+    QCOMPARE(c.boundingRect().x(), 1);
+    QCOMPARE(c.boundingRect().y(), 2);
 }
 
 QTEST_MAIN(TestCEDPageExporter)

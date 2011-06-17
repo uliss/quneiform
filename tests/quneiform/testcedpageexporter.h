@@ -29,18 +29,21 @@ public:
 private slots:
     void testConstruct();
     void testDoExport();
-    void testExportPage();
-    void testExportSection();
+    void testExportBBox();
+    void testExportChar();
+    void testExportCharAlternatives();
     void testExportColumn();
+    void testExportFontStyle();
+    void testExportPage();
+    void testExportParagraph();
+    void testExportSection();
+    void testExportString();
+    void testMakeChar();
     void testIsPage();
     void testIsParagraph();
     void testIsSection();
     void testIsSectionTable();
-    void testExportParagraph();
     void testUtf8();
-    void testMakeChar();
-    void testExportFontStyle();
-    void testExportCharAlternatives();
 };
 
 #endif // TESTCEDPAGEEXPORTER_H

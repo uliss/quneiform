@@ -37,6 +37,7 @@
 #include "common/tostring.h"
 #include "export/rout_own.h"
 #include "common/tostring.h"
+#include "quneiform_debug.h"
 
 using namespace cf;
 
@@ -69,16 +70,24 @@ QTextDocumentExporter::QTextDocumentExporter(CEDPage * page, const FormatOptions
 {
 }
 
-QTextDocumentExporter::AltMap QTextDocumentExporter::charAlternatives(const cf::CEDChar& chr) const {
-    AltMap alts;
+CharAlternatives QTextDocumentExporter::charAlternatives(const cf::CEDChar& chr) const {
+    CharAlternatives res;
 
     for(size_t i = 1; i < chr.alternativeCount(); i++) {
-        int probability = chr.alternativeAt(i).probability();
-        QString str = QString::fromUtf8(converter_.convert(chr.alternativeAt(i).getChar()).c_str());
-        alts.insert(str, QVariant(probability));
+        CharAlternative alt;
+        alt.code = convert(chr.alternativeAt(i).getChar());
+        alt.probability = chr.alternativeAt(i).probability();
+        res.append(alt);
     }
 
-    return alts;
+    return res;
+}
+
+QChar QTextDocumentExporter::convert(uchar ch) const {
+    QString str = QString::fromUtf8(converter_.convert(ch).c_str());
+    if(str.isEmpty())
+        return QChar();
+    return str.at(0);
 }
 
 void QTextDocumentExporter::exportCharAlternatives(QTextCharFormat& format, const cf::CEDChar& chr) const {
@@ -87,12 +96,14 @@ void QTextDocumentExporter::exportCharAlternatives(QTextCharFormat& format, cons
 
     // set tooltip
     if(formatOptions().showAlternatives()) {
-        AltMap alt_map = charAlternatives(chr);
-
+        CharAlternatives alternatives = charAlternatives(chr);
         QString tooltip = "Alternatives:";
 
-        foreach(QString alt, alt_map.keys()) {
-            tooltip.append(QString("\n        '%1' (%2)").arg(alt).arg(alt_map.value(alt).toInt()));
+        static const char * TOOLTIP_FORMAT = "\n        '%1' (%2)";
+
+        for(int i = 0, total = alternatives.length(); i < total; i++) {
+            const CharAlternative& a = alternatives.at(i);
+            tooltip.append(QString(TOOLTIP_FORMAT).arg(a.code).arg(a.probability));
         }
 
         format.setToolTip(tooltip);
@@ -100,8 +111,7 @@ void QTextDocumentExporter::exportCharAlternatives(QTextCharFormat& format, cons
         QSettings settings;
         settings.beginGroup("format");
         format.setUnderlineColor(settings.value("alternativeColor", Qt::red).value<QColor>());
-
-        format.setProperty(ALTERNATIVES, QVariant(alt_map));
+        format.setProperty(ALTERNATIVES, alternatives.toVariant());
     }
 }
 
@@ -372,4 +382,17 @@ void QTextDocumentExporter::writeSectionEnd(cf::CEDSection& /*section*/) {
     Q_ASSERT(doc_);
 
     cursor_ = doc_->rootFrame()->lastCursorPosition();
+}
+
+CharAlternatives::CharAlternatives(const QVariant& var) {
+    *this = var;
+}
+
+void CharAlternatives::operator=(const QVariant& var) {
+    if(!var.canConvert<CharAlternatives>()) {
+        CF_WARNING("invalid alternative variant given");
+        return;
+    }
+
+    *this = var.value<CharAlternatives>();
 }

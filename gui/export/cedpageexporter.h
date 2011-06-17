@@ -23,6 +23,7 @@
 #include "language.h"
 
 namespace cf {
+    class Element;
     class BlockElement;
     class CEDPage;
     class CEDColumn;
@@ -37,11 +38,14 @@ class QTextDocument;
 class QTextBlock;
 class QTextFrame;
 class QTextFragment;
+class QTextCharFormat;
+class QTextFormat;
 
 class CEDPageExporter
 {
 public:
-    explicit CEDPageExporter(const Language& lang = Language());
+    CEDPageExporter();
+    explicit CEDPageExporter(const Language& lang);
     ~CEDPageExporter();
     QTextCursor * cursor();
     QTextDocument * document();
@@ -52,6 +56,7 @@ public:
     void setPage(cf::CEDPage * page);
 private:
     std::string convert(const QString& str);
+    void exportBBox(cf::Element * el, const QTextFormat& fmt);
     void exportBlock(const QTextBlock& block);
     void exportChar(const QTextFragment& fragment, cf::CEDLine * line);
     void exportCharAlternatives(cf::CEDChar * c, const QTextCharFormat& fmt);
@@ -65,7 +70,7 @@ private:
     void exportSection(QTextFrame * frame);
     void exportSectionChildren(QTextFrame * frame, cf::CEDColumn * col);
     void exportString(const QTextFragment& fragment, cf::CEDLine * line);
-    cf::CEDChar * makeChar(unsigned char ch, const QTextCharFormat& fmt);
+    cf::CEDChar * makeChar(wchar_t ch, const QTextCharFormat& fmt);
 private:
     static void exportMargins(cf::BlockElement * block, const QTextFrame * frame);
     static bool isPage(QTextFrame * page);

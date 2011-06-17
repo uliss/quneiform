@@ -39,6 +39,31 @@ class QTextTable;
 class QTextTableFormat;
 class Page;
 
+struct CharAlternative {
+    QChar code;
+    uchar probability;
+    CharAlternative() : probability(0) {}
+    CharAlternative(QChar c, uchar prob) : code(c), probability(prob) {}
+};
+
+class CharAlternatives : public QList<CharAlternative> {
+public:
+    CharAlternatives() {}
+    CharAlternatives(const QVariant& var);
+    void operator=(const QVariant& var);
+
+    void add(QChar ch, uchar prob) {
+        append(CharAlternative(ch, prob));
+    }
+
+    QVariant toVariant() const {
+        return QVariant::fromValue<CharAlternatives>(*this);
+    }
+};
+
+Q_DECLARE_METATYPE(CharAlternative)
+Q_DECLARE_METATYPE(CharAlternatives)
+
 class QTextDocumentExporter : public cf::GenericExporter
 {
 public:
@@ -46,7 +71,7 @@ public:
 
     enum TextItemProperty {
         BBOX = QTextFormat::UserProperty + 1,
-        ALTERNATIVES = QTextFormat::UserProperty + 2
+        ALTERNATIVES = BBOX + 1
     };
 
     static const int BlockType = QTextFormat::UserProperty + 3;
@@ -82,8 +107,6 @@ public:
       * Sets source page
       */
     void setPage(Page * page);
-
-    typedef QMap<QString, QVariant> AltMap;
 protected:
     void writePageBegin(cf::CEDPage& page);
     void writePageEnd(cf::CEDPage& page);
@@ -96,7 +119,8 @@ protected:
     void writeSectionBegin(cf::CEDSection& section);
     void writeSectionEnd(cf::CEDSection& section);
 private:
-    AltMap charAlternatives(const cf::CEDChar& chr) const;
+    CharAlternatives charAlternatives(const cf::CEDChar& chr) const;
+    QChar convert(uchar ch) const;
     void exportElementColor(QTextFormat& format, const cf::Element& el) const;
     void exportElementBgColor(QTextFormat& format, const cf::Element& el) const;
     void exportElementBBox(QTextFormat& format, const cf::Element& el) const;
