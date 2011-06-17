@@ -15,6 +15,8 @@ FORMATS = (
      'html',
      'text',
      'smarttext',
+     'native',
+     'native-xml',
      'odf'
 )
 

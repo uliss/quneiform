@@ -30,8 +30,8 @@
 
 namespace cf {
 
-CuneiformExporter::CuneiformExporter(CEDPage * p) :
-    Exporter(FormatOptions()),
+CuneiformExporter::CuneiformExporter(CEDPage * p, const FormatOptions& opts) :
+    Exporter(opts),
     page_(p)
 {
 }
@@ -42,6 +42,10 @@ void CuneiformExporter::doExport(std::ostream& os) {
         std::cerr.flush();
         return;
     }
+
+    // uliss: hack for testing
+    if(!formatOptions().writeMetaGenerator())
+        page_->setImageName("");
 
     try {
         cf::CEDOutputArchive ar(os);

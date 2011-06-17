@@ -8,6 +8,7 @@ FORMATS = (
      'html',
      'text',
      'smarttext',
+     'native',
      'odf'
 )
 

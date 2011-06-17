@@ -84,10 +84,10 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
         exp.reset(new DjvuXmlExporter(page_, format_options_));
         break;
     case FORMAT_NATIVE_TXT:
-        exp.reset(new CuneiformExporter(page_));
+        exp.reset(new CuneiformExporter(page_, format_options_));
         break;
     case FORMAT_NATIVE_XML:
-        exp.reset(new CuneiformXmlExporter(page_));
+        exp.reset(new CuneiformXmlExporter(page_, format_options_));
         break;
     default:
         throw Exception("[ExporterFactoryImpl::make] Unsupported export format: "
