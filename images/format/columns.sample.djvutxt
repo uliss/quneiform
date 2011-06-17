@@ -1,0 +1,138 @@
+(page 0 0 1000 400
+   (para 23 375 494 17
+      (line 42 375 493 347
+         (word 42 374 129 353 "Lorem")
+         (word 155 375 237 347 "ipsum")
+         (word 262 375 334 353 "dolor")
+         (word 357 375 389 353 "sit")
+         (word 413 373 493 350 "amet\054")
+      )
+      (line 25 342 492 314
+         (word 25 340 196 320 "consectetur")
+         (word 248 342 389 314 "adipiscing")
+         (word 442 342 492 320 "elit\056")
+      )
+      (line 23 309 492 281
+         (word 23 309 144 287 "Vivamus")
+         (word 161 309 262 281 "feugiat")
+         (word 279 309 319 287 "dui")
+         (word 338 309 385 287 "sed")
+         (word 404 303 492 287 "massa")
+      )
+      (line 24 276 494 248
+         (word 24 274 131 248 "tempus")
+         (word 159 274 268 248 "tempor\056")
+         (word 299 276 366 254 "Nulla")
+         (word 398 276 494 254 "blandit")
+      )
+      (line 26 243 493 221
+         (word 26 243 109 221 "luctus")
+         (word 149 243 285 221 "interdum\056")
+         (word 326 243 385 221 "Duis")
+         (word 423 243 493 221 "vitae")
+      )
+      (line 26 210 492 182
+         (word 26 204 91 188 "nunc")
+         (word 131 210 178 188 "sed")
+         (word 217 210 299 182 "turpis")
+         (word 339 210 492 188 "malesuada")
+      )
+      (line 26 177 493 149
+         (word 26 177 216 149 "pellentesque\056")
+         (word 256 176 343 155 "Donec")
+         (word 380 177 493 155 "eleifend")
+      )
+      (line 26 144 492 116
+         (word 26 144 208 116 "pellentesque")
+         (word 235 138 294 122 "arcu")
+         (word 322 142 349 122 "et")
+         (word 375 144 492 116 "dapibus\056")
+      )
+      (line 25 111 492 83
+         (word 25 111 75 89 "Sed")
+         (word 107 105 214 83 "semper")
+         (word 247 105 359 83 "posuere")
+         (word 391 105 492 89 "ornare\056")
+      )
+      (line 26 78 493 50
+         (word 26 77 113 56 "Donec")
+         (word 152 72 214 56 "urna")
+         (word 253 78 352 50 "sapien\054")
+         (word 391 72 493 50 "congue")
+      )
+      (line 25 45 494 17
+         (word 25 43 88 17 "eget")
+         (word 109 45 260 23 "sollicitudin")
+         (word 281 39 319 20 "ac\054")
+         (word 340 43 447 17 "tempus")
+         (word 467 43 494 23 "ut")
+      )
+   )
+   (para 560 373 978 21
+      (line 577 373 978 345
+         (word 577 373 712 351 "Curabitur")
+         (word 733 371 796 345 "eget")
+         (word 817 371 901 351 "tortor")
+         (word 922 373 978 345 "quis")
+      )
+      (line 562 340 978 312
+         (word 562 334 640 312 "purus")
+         (word 662 340 767 318 "facilisis")
+         (word 790 340 922 312 "dignissim")
+         (word 946 340 978 318 "sit")
+      )
+      (line 561 307 977 285
+         (word 561 305 634 285 "amet")
+         (word 675 307 722 285 "sed")
+         (word 764 307 822 285 "orci\056")
+         (word 866 306 887 285 "In")
+         (word 930 301 977 285 "nec")
+      )
+      (line 561 274 978 246
+         (word 561 272 709 246 "consequat")
+         (word 751 268 822 252 "urna\056")
+         (word 864 274 978 252 "Vestibu\055")
+      )
+      (line 562 241 977 213
+         (word 562 241 611 219 "lum")
+         (word 639 239 701 219 "ante")
+         (word 731 241 813 213 "ipsum")
+         (word 842 241 928 213 "primis")
+         (word 956 241 977 219 "in")
+      )
+      (line 560 208 978 186
+         (word 560 208 680 186 "faucibus")
+         (word 725 208 775 186 "orci")
+         (word 823 208 906 186 "luctus")
+         (word 951 206 978 186 "et")
+      )
+      (line 561 175 976 147
+         (word 561 175 666 153 "ultrices")
+         (word 721 169 833 147 "posuere")
+         (word 887 175 976 153 "cubilia")
+      )
+      (line 561 142 977 117
+         (word 561 141 652 117 "Curae;")
+         (word 708 141 795 120 "Donec")
+         (word 849 142 977 120 "interdum")
+      )
+      (line 560 109 977 81
+         (word 560 109 666 81 "fringilla")
+         (word 687 109 799 87 "facilisis\056")
+         (word 819 109 977 87 "Vestibulum")
+      )
+      (line 561 76 977 48
+         (word 561 74 623 54 "ante")
+         (word 678 76 760 48 "ipsum")
+         (word 816 76 902 48 "primis")
+         (word 956 76 977 54 "in")
+      )
+      (line 560 43 978 21
+         (word 560 43 680 21 "faucibus")
+         (word 725 43 775 21 "orci")
+         (word 823 43 906 21 "luctus")
+         (word 951 41 978 21 "et")
+      )
+   )
+
+)

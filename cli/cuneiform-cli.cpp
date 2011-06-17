@@ -236,7 +236,8 @@ int main(int argc, char **argv) {
         do_append = FALSE,
         show_alternatives = FALSE,
         write_bom = FALSE,
-        write_meta_generator = TRUE;
+        write_meta_generator = TRUE,
+        test_output = FALSE;
 
     const char * const short_options = ":aho:vVl:f:d:u:";
     const struct option long_options[] = {
@@ -269,6 +270,7 @@ int main(int argc, char **argv) {
             { "onecolumn", no_argument, &do_singlecolumn, 1 },//
             { "spell", no_argument, &do_speller, 1 },//
             { "tables", required_argument, &do_tables, 1 },//
+            { "test-output", no_argument, &test_output, 1},//
             { "unrecognized", required_argument, NULL, 'u' },//
             { "verbose", no_argument, &do_verbose, 1 },//
             { "version", no_argument, NULL, 'V' },//
@@ -406,6 +408,7 @@ int main(int argc, char **argv) {
         opt.useItalic(no_italic ? false : true);
         opt.useFontSize(no_font_size ? false : true);
         opt.setShowAlternatives(show_alternatives ? true : false);
+        opt.setTestOutput(test_output ? true : false);
         //  opt.setFormatMode(puma_format_mode_t t);
 
         Puma::instance().setFormatOptions(opt);

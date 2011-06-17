@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DjVuXML>
+<HEAD></HEAD>
+<BODY>
+<OBJECT height="259" type="image/x.djvu" width="460">
+  <HIDDENTEXT>
+    <REGION>
+      <PARAGRAPH>
+        <LINE>
+          <WORD coords="17,14,141,57">ifalic</WORD>
+        </LINE>
+      </PARAGRAPH>
+      <PARAGRAPH>
+        <LINE>
+          <WORD coords="14,96,138,139">ifalic</WORD>
+          <WORD coords="156,96,432,139">underlined</WORD>
+        </LINE>
+      </PARAGRAPH>
+      <PARAGRAPH>
+        <LINE>
+          <WORD coords="16,186,197,229">italic</WORD>
+          <WORD coords="223,185,390,229">bold</WORD>
+        </LINE>
+      </PARAGRAPH>
+    </REGION>
+  </HIDDENTEXT>
+</OBJECT>
+</BODY>
+</DjVuXML>

@@ -15,6 +15,10 @@ FORMATS = (
      'html',
      'text',
      'smarttext',
+     'native',
+     'native-xml',
+     'djvutxt',
+     'djvuxml',
      'odf'
 )
 

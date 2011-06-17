@@ -1,0 +1,27 @@
+(page 0 0 775 316
+   (para 23 288 152 245
+      (line 23 288 152 245
+         (word 23 288 152 245 "bold")
+      )
+   )
+   (para 20 222 336 179
+      (line 20 222 336 179
+         (word 20 222 157 179 "bold")
+         (word 165 222 336 179 "italic")
+      )
+   )
+   (para 25 154 515 111
+      (line 25 154 515 111
+         (word 25 154 154 111 "bold")
+         (word 181 154 515 111 "underlined")
+      )
+   )
+   (para 23 72 707 29
+      (line 23 72 707 29
+         (word 23 72 162 29 "bold")
+         (word 171 72 341 29 "italic")
+         (word 364 72 707 29 "underlined")
+      )
+   )
+
+)

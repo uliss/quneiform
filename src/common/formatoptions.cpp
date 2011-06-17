@@ -44,7 +44,8 @@ FormatOptions::FormatOptions() :
 #else
     write_bom_(false),
 #endif
-    write_meta_generator_(true)
+    write_meta_generator_(true),
+    test_output_(false)
 {
 }
 
@@ -74,6 +75,10 @@ bool FormatOptions::isItalicUsed() const {
 
 bool FormatOptions::isStylesUsed() const {
     return use_styles_;
+}
+
+bool FormatOptions::isTestOutput() const {
+    return test_output_;
 }
 
 bool FormatOptions::isUnderlinedUsed() const {
@@ -130,6 +135,10 @@ void FormatOptions::setSerifName(const std::string & name) {
 
 void FormatOptions::setShowAlternatives(bool value) {
     show_alternatives_ = value;
+}
+
+void FormatOptions::setTestOutput(bool value) {
+    test_output_ = value;
 }
 
 void FormatOptions::setUnrecognizedChar(wchar_t ch) {

@@ -30,8 +30,8 @@
 
 namespace cf {
 
-CuneiformXmlExporter::CuneiformXmlExporter(CEDPage * p) :
-    Exporter(FormatOptions()),
+CuneiformXmlExporter::CuneiformXmlExporter(CEDPage * p, const FormatOptions& opts) :
+    Exporter(opts),
     page_(p)
 {
 }
@@ -42,6 +42,9 @@ void CuneiformXmlExporter::doExport(std::ostream& os) {
         std::cerr.flush();
         return;
     }
+
+    if(formatOptions().isTestOutput())
+        page_->setImageName("");
 
     try {
         cf::CEDXmlOutputArchive ar(os);

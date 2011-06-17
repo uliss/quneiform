@@ -159,7 +159,10 @@ void DjvuXmlExporter::writePageBegin(CEDPage& page) {
     writeStartTag("BODY", "\n");
 
     Attributes obj_attrs;
-    obj_attrs["data"] = escapeHtmlSpecialChars(page.imageName());
+
+    if(!formatOptions().isTestOutput())
+        obj_attrs["data"] = escapeHtmlSpecialChars(page.imageName());
+
     obj_attrs["height"] = toString(page.imageSize().height());
     obj_attrs["width"] = toString(page.imageSize().width());
     obj_attrs["type"] = "image/x.djvu";

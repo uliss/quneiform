@@ -51,6 +51,7 @@ class CLA_EXPO FormatOptions
         bool isFontSizeUsed() const;
         bool isItalicUsed() const;
         bool isStylesUsed() const;
+        bool isTestOutput() const;
         bool isUnderlinedUsed() const;
         language_t language() const;
         std::string monospaceName() const;
@@ -65,6 +66,7 @@ class CLA_EXPO FormatOptions
         void setSansSerifName(const std::string& name);
         void setSerifName(const std::string& name);
         void setShowAlternatives(bool value);
+        void setTestOutput(bool value);
         void setUnrecognizedChar(wchar_t ch);
         void setUnrecognizedChar(char ch);
         bool showAlternatives() const;
@@ -95,6 +97,7 @@ class CLA_EXPO FormatOptions
         bool show_alternatives_;
         bool write_bom_;
         bool write_meta_generator_;
+        bool test_output_;
 };
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const FormatOptions& fmt);
 

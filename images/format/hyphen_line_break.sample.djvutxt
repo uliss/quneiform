@@ -1,0 +1,59 @@
+(page 0 0 630 367
+   (para 9 349 613 21
+      (line 11 349 610 315
+         (word 11 348 116 322 "Lorem")
+         (word 159 349 262 315 "ipsum")
+         (word 304 349 394 322 "dolor")
+         (word 432 349 473 322 "sit")
+         (word 511 348 610 317 "amet\054")
+      )
+      (line 10 306 610 272
+         (word 10 305 222 279 "consectetur")
+         (word 295 306 473 272 "adipiscing")
+         (word 548 306 610 279 "elit\056")
+      )
+      (line 11 263 613 229
+         (word 11 262 121 236 "Donec")
+         (word 153 263 298 229 "placerat")
+         (word 326 263 447 236 "viverra")
+         (word 479 262 550 236 "erat")
+         (word 579 262 613 236 "at")
+      )
+      (line 9 220 611 186
+         (word 9 220 176 193 "tincidunt\056")
+         (word 203 220 425 186 "Suspendisse")
+         (word 450 220 509 193 "sed")
+         (word 537 220 611 186 "ligu\055")
+      )
+      (line 11 177 611 143
+         (word 11 177 37 150 "la")
+         (word 82 177 178 150 "diam\056")
+         (word 222 177 366 143 "Quisque")
+         (word 410 177 611 143 "scelerisque")
+      )
+      (line 11 134 611 100
+         (word 11 134 186 107 "bibendum")
+         (word 254 134 403 100 "dapibus\056")
+         (word 469 133 611 100 "Suspen\055")
+      )
+      (line 10 91 610 64
+         (word 10 91 99 64 "disse")
+         (word 137 84 198 64 "non")
+         (word 237 90 308 64 "erat")
+         (word 344 91 371 64 "id")
+         (word 409 91 463 64 "elit")
+         (word 499 91 610 64 "lacinia")
+      )
+      (line 11 48 611 21
+         (word 11 48 120 21 "iaculis")
+         (word 143 48 184 21 "sit")
+         (word 204 47 295 21 "amet")
+         (word 317 48 344 21 "id")
+         (word 369 48 419 21 "mi\056")
+         (word 444 47 471 21 "In")
+         (word 495 47 529 21 "at")
+         (word 551 48 611 21 "lec\055")
+      )
+   )
+
+)
