@@ -20,38 +20,52 @@
 #define CEDPAGEEXPORTER_H
 
 #include <QTextCursor>
+#include "language.h"
 
 namespace cf {
     class BlockElement;
     class CEDPage;
     class CEDColumn;
     class CEDSection;
+    class CEDParagraph;
+    class CEDLine;
+    class CEDChar;
+    class Iconv;
 }
 
 class QTextDocument;
 class QTextBlock;
 class QTextFrame;
+class QTextFragment;
 
 class CEDPageExporter
 {
 public:
-    CEDPageExporter();
+    explicit CEDPageExporter(const Language& lang = Language());
     ~CEDPageExporter();
     QTextCursor * cursor();
     QTextDocument * document();
     void doExport(QTextDocument * doc, cf::CEDPage * page);
+    Language language() const;
     cf::CEDPage * page();
+    void setLanguage(const Language& lang);
     void setPage(cf::CEDPage * page);
 private:
+    std::string convert(const QString& str);
     void exportBlock(const QTextBlock& block);
+    void exportChar(const QTextFragment& fragment, cf::CEDLine * line);
+    void exportCharAlternatives(cf::CEDChar * c, const QTextCharFormat& fmt);
     void exportColumn();
     void exportColumnTable(QTextTable * table);
+    void exportFontStyle(cf::CEDChar * c, const QTextCharFormat& fmt);
     void exportPage();
     bool exportPageChild(QTextFrame * child);
     void exportPageChildren(QTextFrame * page);
     void exportParagraph(const QTextBlock& block, cf::CEDColumn * col);
     void exportSection(QTextFrame * frame);
     void exportSectionChildren(QTextFrame * frame, cf::CEDColumn * col);
+    void exportString(const QTextFragment& fragment, cf::CEDLine * line);
+    cf::CEDChar * makeChar(unsigned char ch, const QTextCharFormat& fmt);
 private:
     static void exportMargins(cf::BlockElement * block, const QTextFrame * frame);
     static bool isPage(QTextFrame * page);
@@ -63,6 +77,8 @@ private:
     QTextDocument * doc_;
     cf::CEDPage * page_;
     QTextCursor cursor_;
+    Language language_;
+    cf::Iconv * iconv_;
 };
 
 #endif // CEDPAGEEXPORTER_H

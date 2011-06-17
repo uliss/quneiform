@@ -87,6 +87,50 @@ Language::Language(language_t language) :
     language_(language) {
 }
 
+std::string Language::encoding() const {
+    return encoding(*this);
+}
+
+std::string Language::encoding(const Language& l) {
+    switch (l.language_) {
+    case LANGUAGE_CROATIAN:
+    case LANGUAGE_CZECH:
+    case LANGUAGE_HUNGARIAN:
+    case LANGUAGE_POLISH:
+    case LANGUAGE_ROMANIAN:
+    case LANGUAGE_SLOVENIAN:
+        return "cp1250";
+        // for serbian cyrillic
+    case LANGUAGE_SERBIAN:
+    case LANGUAGE_BULGARIAN:
+    case LANGUAGE_KAZAKH:
+    case LANGUAGE_KAZ_ENG:
+    case LANGUAGE_RUSSIAN:
+    case LANGUAGE_RUS_ENG:
+    case LANGUAGE_UKRAINIAN:
+    case LANGUAGE_UZBEK:
+        return "cp1251";
+    case LANGUAGE_DANISH:
+    case LANGUAGE_DUTCH:
+    case LANGUAGE_ENGLISH:
+    case LANGUAGE_FRENCH:
+    case LANGUAGE_GERMAN:
+    case LANGUAGE_ITALIAN:
+    case LANGUAGE_PORTUGUESE:
+    case LANGUAGE_SPANISH:
+    case LANGUAGE_SWEDISH:
+        return "cp1252";
+    case LANGUAGE_TURKISH:
+        return "cp1254";
+    case LANGUAGE_ESTONIAN:
+    case LANGUAGE_LATVIAN:
+    case LANGUAGE_LITHUANIAN:
+        return "cp1257";
+    default:
+        return "latin1";
+    }
+}
+
 std::string Language::isoCode2() const {
     return isoCode2(language_);
 }

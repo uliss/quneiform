@@ -20,6 +20,7 @@
 #include <cassert>
 #include "iconv_local.h"
 #include "iconvimpl.h"
+#include "language.h"
 
 namespace cf
 {
@@ -60,10 +61,20 @@ bool Iconv::isOpened() const {
     return impl_->isOpened();
 }
 
-bool Iconv::open(const std::string &from, const std::string &to) {
+bool Iconv::open(const std::string& from, const std::string& to) {
     assert(impl_);
 
     return impl_->open(from, to);
+}
+
+bool Iconv::openToUtf8(language_t lang) {
+    assert(impl_);
+
+    return impl_->open(Language(lang).encoding(), "utf-8");
+}
+
+bool Iconv::openToUtf8(const Language& lang) {
+    return openToUtf8(lang.get());
 }
 
 }

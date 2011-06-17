@@ -21,6 +21,10 @@
 
 #include <QDebug>
 
+#define CF_ERROR(msg) { \
+    qDebug() << "[Error]" << Q_FUNC_INFO << "=>" << msg;\
+}
+
 #define CF_WARNING(msg) { \
     qDebug() << "[Warning]" << Q_FUNC_INFO << "=>" << msg;\
 }

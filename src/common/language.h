@@ -32,10 +32,15 @@ namespace cf
 
 typedef std::list<language_t> LanguageList;
 
-class FUN_EXPO__ Language
+class CLA_EXPO Language
 {
     public:
         Language(language_t language);
+
+        /**
+          * Returns encoding used for language in cuneiform
+          */
+        std::string encoding() const;
 
         /**
          * Returns language type
@@ -94,6 +99,11 @@ class FUN_EXPO__ Language
          * @return Language(LANGUAGE_UNKNOWN) if unknown code given
          */
         static Language byName(const std::string& name);
+
+        /**
+          * Returns encoding for language used in cuneiform
+          */
+        static std::string encoding(const Language& Language);
 
         /**
          * Returns ISO 639-1 language code (2-character)

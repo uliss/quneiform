@@ -23,18 +23,19 @@
 #undef __BSD_VISIBLE
 #endif
 
-
 #include <string>
 #include <boost/noncopyable.hpp>
 #include "globus.h"
+#include "lang_def.h"
 #include "common/exception.h"
 
 namespace cf
 {
 
 class IconvImpl;
+class Language;
 
-class FUN_EXPO__ Iconv : public boost::noncopyable
+class CLA_EXPO Iconv : public boost::noncopyable
 {
     public:
         /**
@@ -85,13 +86,21 @@ class FUN_EXPO__ Iconv : public boost::noncopyable
         bool isOpened() const;
 
         /**
-          * Openes encoding conversion
+          * Opens encoding conversion
           * @param from - source encoding
           * @param to - destination encoding
           * @return true on success, false on error
           * @see isOpened(), close()
           */
         bool open(const std::string& from, const std::string& to);
+
+        /**
+          * Opens encoding for given language to utf-8
+          * @param from - source language
+          * @see isOpened(), close()
+          */
+        bool openToUtf8(language_t lang);
+        bool openToUtf8(const Language& lang);
     private:
         IconvImpl * impl_;
 };

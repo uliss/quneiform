@@ -29,6 +29,7 @@
 #include "ced/cedparagraph.h"
 #include "ced/cedline.h"
 #include "ced/cedchar.h"
+#include "export/rout_own.h"
 
 #define private public
 #include "gui/export/cedpageexporter.h"
@@ -41,10 +42,16 @@ do {\
 
 #define COMPARE_CHAR(c1, c2) QCOMPARE(c1->get(), (uchar)c2);
 
+QString toString(cf::CEDChar * chr, cf::Iconv& conv) {
+    return QString::fromUtf8(conv.convert(chr->get()).c_str());
+}
+
 QString toString(cf::CEDLine * line) {
     QString res;
+    cf::Iconv conv;
+    conv.openToUtf8(LANGUAGE_RUSSIAN);
     for(size_t i = 0; i < line->elementCount(); i++) {
-        res += QChar::fromLatin1(line->charAt(i)->get());
+        res += toString(line->charAt(i), conv);
     }
     return res;
 }
@@ -154,7 +161,7 @@ TestCEDPageExporter::TestCEDPageExporter()
 }
 
 void TestCEDPageExporter::testConstruct() {
-    CEDPageExporter e;
+    CEDPageExporter e(Language::english());
     QVERIFY(e.document() == 0);
     QVERIFY(e.page() == 0);
 }
@@ -167,7 +174,7 @@ void TestCEDPageExporter::testDoExport() {
     format.setProperty(QTextDocumentExporter::BlockType, QTextDocumentExporter::PAGE);
     doc.rootFrame()->setFrameFormat(format);
 
-    CEDPageExporter e;
+    CEDPageExporter e(Language::english());
     e.doExport(&doc, &page);
     QCOMPARE(e.document(), &doc);
     QCOMPARE(e.page(), &page);
@@ -176,7 +183,7 @@ void TestCEDPageExporter::testDoExport() {
 void TestCEDPageExporter::testExportPage() {
     QTextDocument doc;
     cf::CEDPage page;
-    CEDPageExporter e;
+    CEDPageExporter e(Language::english());
     e.doExport(&doc, &page);
 
     QCOMPARE(page.marginBottom(), 0);
@@ -224,7 +231,7 @@ void TestCEDPageExporter::testExportSection() {
     cursor.insertText("test\nparagraph");
 
     cf::CEDPage page;
-    CEDPageExporter e;
+    CEDPageExporter e(Language::english());
     e.setPage(&page);
 
     QVERIFY(page.empty());
@@ -247,7 +254,7 @@ void TestCEDPageExporter::testExportColumn() {
     QTextTable * tbl = cursor.insertTable(1, 2);
 
     cf::CEDPage page;
-    CEDPageExporter e;
+    CEDPageExporter e(Language::english());
     e.setPage(&page);
 
     QVERIFY(page.empty());
@@ -319,11 +326,107 @@ void TestCEDPageExporter::testExportParagraph() {
     cursor.insertText("test");
 
     cf::CEDColumn col;
-    CEDPageExporter e;
+    CEDPageExporter e(Language::english());
     e.exportParagraph(cursor.block(), &col);
 
     QCOMPARE(col.elementCount(), (size_t) 1);
     QCOMPARE(toString(&col), QString("test"));
+}
+
+void TestCEDPageExporter::testUtf8() {
+    QTextDocument doc;
+    QTextCursor cursor(&doc);
+    QString str = QString::fromUtf8("utf-8 строка");
+    cursor.insertText(str);
+
+    try {
+        cf::CEDColumn col;
+        CEDPageExporter exp;
+        exp.setLanguage(::Language(LANGUAGE_RUSSIAN));
+        exp.exportParagraph(cursor.block(), &col);
+
+        QCOMPARE(col.elementCount(), (size_t) 1);
+        QCOMPARE(toString(&col), str);
+        cf::CEDParagraph * p = dynamic_cast<cf::CEDParagraph*>(col.elementAt(0));
+        QVERIFY(p);
+        QCOMPARE(p->lineCount(), (size_t) 1);
+        QCOMPARE(p->lineAt(0)->elementCount(), (size_t) str.length());
+    }
+    catch(std::exception& e) {
+        qDebug() << e.what();
+    }
+}
+
+#define CHECK_FONT_STYLE(e, fmt, style) {\
+    cf::CEDChar * c = e.makeChar('a', fmt);\
+    QCOMPARE(c->fontStyle(), (int) style);\
+    delete c;\
+}
+
+void TestCEDPageExporter::testMakeChar() {
+    CEDPageExporter e(Language::english());
+    QTextCharFormat fmt;
+
+    cf::CEDChar * c = e.makeChar('a', fmt);
+    QVERIFY(c);
+    QCOMPARE(c->get(), (uchar) 'a');
+    delete c;
+
+    fmt.setFontUnderline(true);
+    CHECK_FONT_STYLE(e, fmt, FONT_UNDERLINE);
+
+    typedef QTextDocumentExporter::AltMap AltMap;
+    AltMap alt;
+    alt["t"] = 251;
+    fmt.setProperty(QTextDocumentExporter::ALTERNATIVES, alt);
+    c = e.makeChar('a', fmt);
+    QVERIFY(c->hasAlternatives());
+    QCOMPARE(c->alternativeCount(), (size_t) 2);
+    QCOMPARE(c->alternativeAt(1).getChar(), (uchar)'t');
+    QCOMPARE(c->alternativeAt(1).probability(), (uchar) 251);
+    delete c;
+}
+
+void TestCEDPageExporter::testExportFontStyle() {
+    CEDPageExporter e;
+    QTextCharFormat fmt;
+    fmt.setFontUnderline(true);
+    CHECK_FONT_STYLE(e, fmt, FONT_UNDERLINE);
+    fmt.setFontItalic(true);
+    CHECK_FONT_STYLE(e, fmt, FONT_UNDERLINE | FONT_ITALIC);
+    fmt.setFontWeight(QFont::DemiBold);
+    CHECK_FONT_STYLE(e, fmt, FONT_UNDERLINE | FONT_ITALIC | FONT_BOLD);
+    fmt.setFontWeight(QFont::Bold);
+    CHECK_FONT_STYLE(e, fmt, FONT_UNDERLINE | FONT_ITALIC | FONT_BOLD);
+    fmt.setFontWeight(QFont::Black);
+    CHECK_FONT_STYLE(e, fmt, FONT_UNDERLINE | FONT_ITALIC | FONT_BOLD);
+    fmt.setFontWeight(QFont::Normal);
+    CHECK_FONT_STYLE(e, fmt, FONT_UNDERLINE | FONT_ITALIC);
+
+    fmt.setFontItalic(false);
+    fmt.setFontUnderline(false);
+    fmt.setFontStrikeOut(true);
+    CHECK_FONT_STYLE(e, fmt, FONT_STRIKE);
+}
+
+void TestCEDPageExporter::testExportCharAlternatives() {
+    CEDPageExporter e;
+    e.setLanguage(Language(LANGUAGE_RUSSIAN));
+    QTextCharFormat fmt;
+
+    typedef QTextDocumentExporter::AltMap AltMap;
+    AltMap alt;
+    alt["t"] = 251;
+    alt["e"] = 100;
+    fmt.setProperty(QTextDocumentExporter::ALTERNATIVES, alt);
+    cf::CEDChar c('a');
+    e.exportCharAlternatives(&c, fmt);
+    QVERIFY(c.hasAlternatives());
+    QCOMPARE(c.alternativeCount(), (size_t) 3);
+    QCOMPARE(c.alternativeAt(1).getChar(), (uchar)'e');
+    QCOMPARE(c.alternativeAt(1).probability(), (uchar) 100);
+    QCOMPARE(c.alternativeAt(2).getChar(), (uchar)'t');
+    QCOMPARE(c.alternativeAt(2).probability(), (uchar) 251);
 }
 
 QTEST_MAIN(TestCEDPageExporter)

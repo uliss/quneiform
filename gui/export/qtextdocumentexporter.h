@@ -82,6 +82,8 @@ public:
       * Sets source page
       */
     void setPage(Page * page);
+
+    typedef QMap<QString, QVariant> AltMap;
 protected:
     void writePageBegin(cf::CEDPage& page);
     void writePageEnd(cf::CEDPage& page);
@@ -94,7 +96,6 @@ protected:
     void writeSectionBegin(cf::CEDSection& section);
     void writeSectionEnd(cf::CEDSection& section);
 private:
-    typedef QMap<QString, QVariant> AltMap;
     AltMap charAlternatives(const cf::CEDChar& chr) const;
     void exportElementColor(QTextFormat& format, const cf::Element& el) const;
     void exportElementBgColor(QTextFormat& format, const cf::Element& el) const;

@@ -37,6 +37,10 @@ private slots:
     void testIsSection();
     void testIsSectionTable();
     void testExportParagraph();
+    void testUtf8();
+    void testMakeChar();
+    void testExportFontStyle();
+    void testExportCharAlternatives();
 };
 
 #endif // TESTCEDPAGEEXPORTER_H

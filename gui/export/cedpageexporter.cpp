@@ -24,34 +24,48 @@
 #include "cedpageexporter.h"
 #include "quneiform_debug.h"
 #include "qtextdocumentexporter.h"
+#include "common/language.h"
 #include "ced/cedpage.h"
 #include "ced/cedsection.h"
 #include "ced/cedcolumn.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedline.h"
 #include "ced/cedchar.h"
+#include "export/rout_own.h"
 
 static cf::Rect getFormatMargins(const QTextFrameFormat& format) {
-    return cf::Rect(cf::Point(format.leftMargin(), format.topMargin()),
-                    cf::Point(format.rightMargin(), format.bottomMargin()));
+    return cf::Rect(cf::Point((int) format.leftMargin(), (int) format.topMargin()),
+                    cf::Point((int) format.rightMargin(), (int) format.bottomMargin()));
 }
 
-static void fillPar(cf::CEDParagraph * par, const QString& str) {
-    cf::CEDLine * l = new cf::CEDLine;
-
-    for(int i = 0; i < str.size(); i++) {
-        l->insertChar(new cf::CEDChar(str[i].toAscii()));
-    }
-
-    par->addLine(l);
+static cf::Language toCfLanguage(const ::Language& language) {
+    return cf::Language(static_cast<language_t>(language.code()));
 }
 
-CEDPageExporter::CEDPageExporter() :
-        doc_(NULL),
-        page_(NULL) {
+CEDPageExporter::CEDPageExporter(const Language& lang) :
+    doc_(NULL),
+    page_(NULL),
+    iconv_(new cf::Iconv) {
+    setLanguage(lang);
 }
 
 CEDPageExporter::~CEDPageExporter() {
+    delete iconv_;
+}
+
+std::string CEDPageExporter::convert(const QString& str) {
+    Q_CHECK_PTR(iconv_);
+
+    std::string res;
+    try {
+        res = iconv_->convert(str.toUtf8().data());
+    }
+    catch(std::exception& e) {
+        qDebug() << Q_FUNC_INFO << e.what();
+        return std::string();
+    }
+
+    return res;
 }
 
 QTextCursor * CEDPageExporter::cursor() {
@@ -65,9 +79,11 @@ QTextDocument * CEDPageExporter::document() {
 void CEDPageExporter::doExport(QTextDocument * doc, cf::CEDPage * page) {
     Q_CHECK_PTR(doc);
     Q_CHECK_PTR(page);
+    Q_CHECK_PTR(iconv_);
     doc_ = doc;
     page_ = page;
     cursor_ = QTextCursor(doc);
+    iconv_->open("utf-8", toCfLanguage(language()).encoding());
     exportPage();
 }
 
@@ -87,6 +103,31 @@ void CEDPageExporter::exportBlock(const QTextBlock& block) {
 //    fillPar(par, block.text());
 
 //    last_col->addElement(par);
+}
+
+void CEDPageExporter::exportChar(const QTextFragment& fragment, cf::CEDLine * line) {
+    if(fragment.charFormat().hasProperty(QTextDocumentExporter::BBOX)) {
+        line->addElement(new cf::CEDChar);
+    }
+    else {
+        exportString(fragment, line);
+    }
+}
+
+void CEDPageExporter::exportCharAlternatives(cf::CEDChar * c, const QTextCharFormat& fmt) {
+    Q_CHECK_PTR(c);
+    if(!fmt.hasProperty(QTextDocumentExporter::ALTERNATIVES))
+        return;
+
+    typedef QTextDocumentExporter::AltMap AltMap;
+    AltMap alt = fmt.property(QTextDocumentExporter::ALTERNATIVES).toMap();
+    for(AltMap::iterator it = alt.begin(), end = alt.end(); it != end; ++it) {
+        std::string alt_str = convert(it.key());
+        if(alt_str.empty())
+            continue;
+
+        c->addAlternative(cf::Letter(alt_str[0], it.value().toInt()));
+    }
 }
 
 void CEDPageExporter::exportColumn() {
@@ -116,6 +157,26 @@ void CEDPageExporter::exportColumnTable(QTextTable * table) {
 
         section->addColumn(col);
     }
+}
+
+void CEDPageExporter::exportFontStyle(cf::CEDChar * c, const QTextCharFormat& fmt) {
+    Q_CHECK_PTR(c);
+
+    int style = 0;
+
+    if(fmt.fontUnderline())
+        style |= FONT_UNDERLINE;
+
+    if(fmt.fontItalic())
+        style |= FONT_ITALIC;
+
+    if(fmt.fontWeight() >= QFont::DemiBold)
+        style |= FONT_BOLD;
+
+    if(fmt.fontStrikeOut())
+        style |= FONT_STRIKE;
+
+    c->setFontStyle(style);
 }
 
 void CEDPageExporter::exportMargins(cf::BlockElement * block, const QTextFrame * frame) {
@@ -166,7 +227,15 @@ void CEDPageExporter::exportParagraph(const QTextBlock& block, cf::CEDColumn * c
         CF_WARNING("attempt to export non paragraph block");
 
     cf::CEDParagraph * p = new cf::CEDParagraph;
-    fillPar(p, block.text());
+    cf::CEDLine * l = new cf::CEDLine;
+    p->addLine(l);
+    for(QTextBlock::iterator it = block.begin(), end = block.end(); it != end; it++) {
+        QTextFragment fragment = it.fragment();
+        if(fragment.length() == 1)
+            exportChar(fragment, l);
+        else
+            exportString(fragment, l);
+    }
     col->addElement(p);
 }
 
@@ -190,6 +259,16 @@ void CEDPageExporter::exportSectionChildren(QTextFrame * section, cf::CEDColumn 
         else
             CF_WARNING("nested frame found");
     }
+}
+
+void CEDPageExporter::exportString(const QTextFragment& fragment, cf::CEDLine * line) {
+    Q_CHECK_PTR(line);
+
+    QTextCharFormat fmt = fragment.charFormat();
+    std::string cf_converted = convert(fragment.text());
+
+    for(int i = 0, total = cf_converted.length(); i < total; i++)
+        line->addElement(makeChar(cf_converted[i], fmt));
 }
 
 bool CEDPageExporter::isPage(QTextFrame * page) {
@@ -231,6 +310,10 @@ bool CEDPageExporter::isSectionTable(QTextTable * table) {
             QTextDocumentExporter::SECTION);
 }
 
+Language CEDPageExporter::language() const {
+    return language_;
+}
+
 cf::CEDSection * CEDPageExporter::makeSingleColumnSectionLayout(QTextFrame * frame) {
     cf::CEDSection * section = new cf::CEDSection;
     cf::CEDColumn * col = new cf::CEDColumn;
@@ -239,8 +322,33 @@ cf::CEDSection * CEDPageExporter::makeSingleColumnSectionLayout(QTextFrame * fra
     return section;
 }
 
+cf::CEDChar * CEDPageExporter::makeChar(unsigned char ch, const QTextCharFormat& fmt) {
+    cf::CEDChar * c = new cf::CEDChar(ch);
+    exportFontStyle(c, fmt);
+    exportCharAlternatives(c, fmt);
+    return c;
+}
+
 cf::CEDPage * CEDPageExporter::page() {
     return page_;
+}
+
+void CEDPageExporter::setLanguage(const Language& lang) {
+    language_ = lang;
+
+    if(!lang.isValid()) {
+        CF_WARNING("invalid language");
+        return;
+    }
+
+    cf::Language cf_lang = toCfLanguage(lang);
+
+    if(cf_lang.encoding().empty()) {
+        CF_ERROR("invalid encoding");
+        return;
+    }
+
+    iconv_->open("utf-8", cf_lang.encoding());
 }
 
 void CEDPageExporter::setPage(cf::CEDPage * page) {
