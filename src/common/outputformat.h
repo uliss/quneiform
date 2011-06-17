@@ -42,7 +42,9 @@ enum format_t
     FORMAT_ODF,
     FORMAT_SUMMARY,
     FORMAT_DJVUXML,
-    FORMAT_DJVUTXT
+    FORMAT_DJVUTXT,
+    FORMAT_NATIVE_TXT,
+    FORMAT_NATIVE_XML
 };
 
 typedef std::list<format_t> OutputFormatList;

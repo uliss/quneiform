@@ -23,12 +23,14 @@
 #include "djvuxmlexporter.h"
 #include "textexporter.h"
 #include "hocrexporter.h"
+#include "cuneiformexporter.h"
 #include "smarttextexporter.h"
 #include "summaryexporter.h"
 #include "puma/pumadef.h"
 #include "ced/cedpage.h"
 #include "common/outputformat.h"
 #include "config-user.h" // for CF_USE_ODF
+
 #ifdef CF_USE_ODF
 #include "odfexporter.h"
 #endif
@@ -79,6 +81,9 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
         break;
     case FORMAT_DJVUXML:
         exp.reset(new DjvuXmlExporter(page_, format_options_));
+        break;
+    case FORMAT_NATIVE_TXT:
+        exp.reset(new CuneiformExporter(page_));
         break;
     default:
         throw Exception("[ExporterFactoryImpl::make] Unsupported export format: "

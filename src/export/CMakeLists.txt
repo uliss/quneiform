@@ -21,16 +21,23 @@ set(exporters
 
 if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK) 
     include_directories(${CF_IMAGE_INCLUDE})
-    set(image_exporters ${image_exporters} magickimageexporter.cpp)
-    message(STATUS "ImageMagick exporter will be build")
+    list(APPEND image_exporters magickimageexporter.cpp)
+    message(STATUS "Exporters: ImageMagick exporter will be build")
 endif()
+
+set(exporters_libs)
 
 if(CF_USE_ZIP)
     include_directories(${ZIP_INCLUDE_DIR})
-    set(exporters ${exporters} odfexporter.cpp)
-    set(exporters ${exporters} odfstyleexporter.cpp)
-    set(exporters_libs ${ZIP_LIBRARY})
-    message(STATUS "OpenDocument Format exporter will be build")
+    list(APPEND exporters odfexporter.cpp odfstyleexporter.cpp)
+    list(APPEND exporters_libs ${ZIP_LIBRARY})
+    message(STATUS "Exporters: OpenDocument Format exporter will be build")
+endif()
+
+if(Boost_SERIALIZATION_FOUND)
+    list(APPEND exporters cuneiformexporter.cpp)
+    list(APPEND exporters_libs ${Boost_SERIALIZATION_LIBRARY})
+    message(STATUS "Exporters: Cuneiform Format exporter will be build")
 endif()
 
 if(CF_USE_ICONV)
