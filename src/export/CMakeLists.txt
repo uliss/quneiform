@@ -35,7 +35,7 @@ if(CF_USE_ZIP)
 endif()
 
 if(Boost_SERIALIZATION_FOUND)
-    list(APPEND exporters cuneiformexporter.cpp)
+    list(APPEND exporters cuneiformexporter.cpp cuneiformxmlexporter.cpp)
     list(APPEND exporters_libs ${Boost_SERIALIZATION_LIBRARY})
     message(STATUS "Exporters: Cuneiform Format exporter will be build")
 endif()

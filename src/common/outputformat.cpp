@@ -67,7 +67,7 @@ bool initOutputFormatData()
     addFormat(FORMAT_SUMMARY, "summary", "prints recognition summary", "txt");
     addFormat(FORMAT_DEBUG, "textdebug", "for debugging purposes", "txt");
     addFormat(FORMAT_NATIVE_TXT, "native", "native cuneiform text format", "ced");
-    addFormat(FORMAT_NATIVE_XML, "native_xml", "native cuneiform xml format", "xml");
+    addFormat(FORMAT_NATIVE_XML, "native-xml", "native cuneiform xml format", "xml");
 
 #ifdef CF_USE_ODF
     addFormat(FORMAT_ODF, "odf", "OpenDocument Format", "odt");

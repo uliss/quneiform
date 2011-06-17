@@ -24,6 +24,7 @@
 #include "textexporter.h"
 #include "hocrexporter.h"
 #include "cuneiformexporter.h"
+#include "cuneiformxmlexporter.h"
 #include "smarttextexporter.h"
 #include "summaryexporter.h"
 #include "puma/pumadef.h"
@@ -84,6 +85,9 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
         break;
     case FORMAT_NATIVE_TXT:
         exp.reset(new CuneiformExporter(page_));
+        break;
+    case FORMAT_NATIVE_XML:
+        exp.reset(new CuneiformXmlExporter(page_));
         break;
     default:
         throw Exception("[ExporterFactoryImpl::make] Unsupported export format: "
