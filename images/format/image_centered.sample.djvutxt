@@ -1,0 +1,46 @@
+(page 0 0 640 400
+   (para 25 372 618 194
+      (line 28 372 615 342
+         (word 28 371 119 348 "Lorem")
+         (word 173 372 263 342 "ipsum")
+         (word 316 372 394 348 "dolor")
+         (word 444 372 479 348 "sit")
+         (word 530 370 615 345 "amet\054")
+      )
+      (line 27 335 618 305
+         (word 27 333 209 311 "consectetur")
+         (word 225 335 379 305 "adipiscing")
+         (word 399 335 453 311 "elit\056")
+         (word 472 335 618 311 "Curabitur")
+      )
+      (line 27 298 615 274
+         (word 27 298 178 274 "commodo")
+         (word 198 298 250 274 "orci")
+         (word 273 291 324 274 "nec")
+         (word 345 298 378 274 "mi")
+         (word 401 298 495 274 "mattis")
+         (word 514 298 615 274 "varius\056")
+      )
+      (line 25 261 615 231
+         (word 25 261 151 231 "Aliquam")
+         (word 181 261 275 237 "mattis")
+         (word 302 259 420 231 "egestas")
+         (word 449 261 562 237 "laoreet\056")
+         (word 592 260 615 237 "In")
+      )
+      (line 27 224 617 194
+         (word 27 222 94 200 "ante")
+         (word 120 217 224 197 "massa\054")
+         (word 251 224 401 200 "venenatis")
+         (word 427 217 480 200 "non")
+         (word 507 224 617 194 "sagittis")
+      )
+   )
+
+   (para 183 191 463 5
+      (line 183 191 463 5
+[picture: 280x186]
+      )
+   )
+
+)

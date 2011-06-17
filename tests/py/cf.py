@@ -182,6 +182,7 @@ class Tester:
 
         args.append('--no-bom')
         args.append('--no-meta-generator')
+        args.append('--test-output')
             
         args.append(img)
             

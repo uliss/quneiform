@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DjVuXML>
+<HEAD></HEAD>
+<BODY>
+<OBJECT height="316" type="image/x.djvu" width="775">
+  <HIDDENTEXT>
+    <REGION>
+      <PARAGRAPH>
+        <LINE>
+          <WORD coords="23,28,152,71">bold</WORD>
+        </LINE>
+      </PARAGRAPH>
+      <PARAGRAPH>
+        <LINE>
+          <WORD coords="20,94,157,137">bold</WORD>
+          <WORD coords="165,94,336,137">italic</WORD>
+        </LINE>
+      </PARAGRAPH>
+      <PARAGRAPH>
+        <LINE>
+          <WORD coords="25,162,154,205">bold</WORD>
+          <WORD coords="181,162,515,205">underlined</WORD>
+        </LINE>
+      </PARAGRAPH>
+      <PARAGRAPH>
+        <LINE>
+          <WORD coords="23,244,162,287">bold</WORD>
+          <WORD coords="171,244,341,287">italic</WORD>
+          <WORD coords="364,244,707,287">underlined</WORD>
+        </LINE>
+      </PARAGRAPH>
+    </REGION>
+  </HIDDENTEXT>
+</OBJECT>
+</BODY>
+</DjVuXML>

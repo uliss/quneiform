@@ -1,0 +1,20 @@
+(page 0 0 552 282
+   (para 23 265 292 222
+      (line 23 265 292 222
+         (word 23 265 292 222 "underlined")
+      )
+   )
+   (para 21 173 512 130
+      (line 21 173 512 130
+         (word 21 173 355 130 "underlined")
+         (word 383 173 512 130 "bold")
+      )
+   )
+   (para 21 74 430 31
+      (line 21 74 430 31
+         (word 21 74 297 31 "underlined")
+         (word 306 74 430 31 "italic")
+      )
+   )
+
+)

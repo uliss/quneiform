@@ -43,8 +43,7 @@ void CuneiformExporter::doExport(std::ostream& os) {
         return;
     }
 
-    // uliss: hack for testing
-    if(!formatOptions().writeMetaGenerator())
+    if(formatOptions().isTestOutput())
         page_->setImageName("");
 
     try {

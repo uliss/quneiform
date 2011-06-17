@@ -43,7 +43,7 @@ void CuneiformXmlExporter::doExport(std::ostream& os) {
         return;
     }
 
-    if(!formatOptions().writeMetaGenerator())
+    if(formatOptions().isTestOutput())
         page_->setImageName("");
 
     try {

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DjVuXML>
+<HEAD></HEAD>
+<BODY>
+<OBJECT height="400" type="image/x.djvu" width="640">
+  <HIDDENTEXT>
+    <REGION>
+      <PARAGRAPH>
+        <LINE>
+          <WORD coords="28,29,119,52">Lorem</WORD>
+          <WORD coords="173,28,263,58">ipsum</WORD>
+          <WORD coords="316,28,394,52">dolor</WORD>
+          <WORD coords="444,28,479,52">sit</WORD>
+          <WORD coords="530,30,615,55">amet,</WORD>
+        </LINE>
+        <LINE>
+          <WORD coords="27,67,209,89">consectetur</WORD>
+          <WORD coords="225,65,379,95">adipiscing</WORD>
+          <WORD coords="399,65,453,89">elit.</WORD>
+          <WORD coords="472,65,618,89">Curabitur</WORD>
+        </LINE>
+        <LINE>
+          <WORD coords="27,102,178,126">commodo</WORD>
+          <WORD coords="198,102,250,126">orci</WORD>
+          <WORD coords="273,109,324,126">nec</WORD>
+          <WORD coords="345,102,378,126">mi</WORD>
+          <WORD coords="401,102,495,126">mattis</WORD>
+          <WORD coords="514,102,615,126">varius.</WORD>
+        </LINE>
+        <LINE>
+          <WORD coords="25,139,151,169">Aliquam</WORD>
+          <WORD coords="181,139,275,163">mattis</WORD>
+          <WORD coords="302,141,420,169">egestas</WORD>
+          <WORD coords="449,139,562,163">laoreet.</WORD>
+          <WORD coords="592,140,615,163">In</WORD>
+        </LINE>
+        <LINE>
+          <WORD coords="27,178,94,200">ante</WORD>
+          <WORD coords="120,183,224,203">massa,</WORD>
+          <WORD coords="251,176,401,200">venenatis</WORD>
+          <WORD coords="427,183,480,200">non</WORD>
+          <WORD coords="507,176,617,206">sagittis</WORD>
+        </LINE>
+      </PARAGRAPH>
+    </REGION>
+    <REGION>
+      <PARAGRAPH>
+        <LINE>
+[picture: 280x186]
+        </LINE>
+      </PARAGRAPH>
+    </REGION>
+  </HIDDENTEXT>
+</OBJECT>
+</BODY>
+</DjVuXML>

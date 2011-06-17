@@ -10,6 +10,8 @@ FORMATS = (
      'smarttext',
      'native',
      'native-xml',
+     'djvutxt',
+     'djvuxml',
      'odf'
 )
 
