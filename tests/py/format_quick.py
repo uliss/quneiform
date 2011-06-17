@@ -11,6 +11,9 @@ FORMATS = ('text',
     'hocr',
     'odf',
     'summary',
+    'native',
+    'native-xml',
+    'djvutxt',
     'djvuxml')
 
 def test():
