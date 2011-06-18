@@ -44,6 +44,12 @@ class MagickImageLoader: public ImageLoader
          */
         ImagePtr load(const std::string& filename);
 
+        /**
+         * Loads image from stream
+         * @return pointer to loaded image
+         * @note caller have to delete return pointer
+         * @throw ImageLoader::Exception on errors
+         */
         ImagePtr load(std::istream& stream);
     private:
         void convertColorSpace(Magick::Image& image);
@@ -51,8 +57,6 @@ class MagickImageLoader: public ImageLoader
         void convertImageDpi(Magick::Image& image);
         ImagePtr load(Magick::Image& image);
         ImagePtr makeImage(Magick::Blob& blob);
-    private:
-        int dpi_;
 };
 
 }

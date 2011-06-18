@@ -20,7 +20,7 @@
 #include "config-user.h"
 #include "bmpimageexporter.h"
 
-#ifdef CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK
+#if defined(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK) || defined(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
 #include "magickimageexporter.h"
 #endif
 
@@ -28,7 +28,7 @@ namespace cf
 {
 
 ImageExporterPtr ImageExporterFactoryImpl::make() {
-#ifdef CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK
+#if defined(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK) || defined(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
     return ImageExporterPtr(new MagickImageExporter);
 #else
     return ImageExporterPtr(new BmpImageExporter);
