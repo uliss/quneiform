@@ -319,8 +319,8 @@ uchar   bEdCode[4] = {//  ASCII, WIN, MAC, FRN
 #define r_e_2dot   0xC0    // russian e ..  = 192
 
 #ifdef WIN_FRENCH
-// ЇҐаҐЄалў ойЁҐбп бЁ¬ў®«л ­ ЎЁа Ґ¬лҐ ­  Є« ўЁ вгаҐ
-// ў аҐ¦Ё¬Ґ а бЇ®§­ ў ­Ёп да ­жг§бЄ®Ј® п§лЄ 
+// ЇҐаҐЄалў ойЁҐбп бЁ¬ў®«л ­ ЎЁа Ґ¬лҐ ­  Є« ўЁ вгаҐ
+// ў аҐ¦Ё¬Ґ а бЇ®§­ ў ­Ёп да ­жг§бЄ®Ј® п§лЄ 
 #define KEY_D5   0x91
 #define KEY_D7   0x92
 #define KEY_D8   0x93
@@ -339,6 +339,10 @@ uchar   bEdCode[4] = {//  ASCII, WIN, MAC, FRN
 #define  UKR_e   0xC9
 #define  UKR_G   0xC7
 #define  UKR_g   0xD6
+
+/**** belarusian u_breve ***/
+#define U_bel 0xCE
+#define u_bel 0xCD
 
 //       LIGATURA ASCII      ALT ANSI
 /***** serbian symbols ! intersect foreign languages symbols **************/

@@ -228,6 +228,9 @@ static void pass3_empty(CSTR_line lin, CSTR_line lino) {
         attrlin.language = LANGUAGE_SERBIAN;
     if (language == LANGUAGE_RUSSIAN && langBul)
         attrlin.language = LANGUAGE_BULGARIAN;
+    if (language == LANGUAGE_RUSSIAN && langBy)
+        attrlin.language = LANGUAGE_BELARUSIAN;
+
     strcpy((char*) attrlin.VersionName, "EmptyLine");
     //attrlin.Flags|=CSTR_STR_EMPTY;
     CSTR_SetLineAttr(lino, &attrlin);
@@ -675,7 +678,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
 
         // распознать '\xc9' /* Й */. Русская буква с шапкой распознаётся уникальным алгоритмом,
         //		а не через accent(), как русская буква '\xa8' /* Ё */
-        if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer) //&& !langBul) Almi&Oleg
+        if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBy) //&& !langBul) Almi&Oleg
             proc_ii();//paste '\xa9' /* й */
 
 
@@ -830,7 +833,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             // распознавание Ы. Это, действительно уникальная буква, состоящая из двух компонент, стоящих рядом.
             //			Аналога в латинице нет.
             // распознавание особых украинских букв, а также сербских, болгарских и других, производимых из алфавита кириллицы
-            if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBul)
+            if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBul && !langBy)
                 proc_bI(0); //paste cutted '|'
             if (language == LANGUAGE_RUSSIAN && langUkr)
                 proc_Ukr(); //UKRAINIAN "iI & .."
@@ -1340,6 +1343,8 @@ void set_cells_language(uchar lang) { // Oleg : 06-08-95 09:48pm : set 2 languag
             lang = LANGUAGE_UKRAINIAN;
         if (langBul)
             lang = LANGUAGE_BULGARIAN;
+        if (langBy)
+            lang = LANGUAGE_BELARUSIAN;
     }
     for (c = cell_f()->next; c != cell_l(); c = c->next)
         c->language = lang;
@@ -2454,6 +2459,8 @@ void Cells2CSTR(CSTR_line lin, CSTR_line lino, cell *cur, Bool32 enable_scaled) 
         attrlin.language = LANGUAGE_SERBIAN;
     if (language == LANGUAGE_RUSSIAN && langBul)
         attrlin.language = LANGUAGE_BULGARIAN;
+    if (language == LANGUAGE_RUSSIAN && langBy)
+        attrlin.language = LANGUAGE_BELARUSIAN;
     strcpy((char*) attrlin.VersionName, "RecogVersions");
     CSTR_SetLineAttr(lino, &attrlin);
     if (lin)

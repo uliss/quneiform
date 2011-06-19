@@ -105,7 +105,7 @@ static int16_t hist[256], num_extr, max_incline, line_incline;
 static uchar extr[4];
 
 extern uchar db_status; // snap presence byte
-extern uchar langSer, langUkr;
+extern uchar langSer, langUkr, langBy;
 extern uchar db_trace_flag; // snap-detail presence byte
 extern uchar db_pass; // snap-pass indicator
 extern int nIncline; // global page incline
@@ -1663,7 +1663,7 @@ Bool erect_solid_stick(cell *c) {
 }
 
 int16_t erection_cond_language(uchar language) {
-	return !(language == LANGUAGE_RUSSIAN && !langSer && !langUkr);
+    return !(language == LANGUAGE_RUSSIAN && !langSer && !langUkr && !langBy);
 }
 
 int16_t erection_language(uchar language) {

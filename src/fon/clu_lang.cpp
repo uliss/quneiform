@@ -72,9 +72,13 @@ static Bool32 CyrilLanguage(void)
     if (langCyrilRoman == 2)
         return FALSE;
 
-    if (language == LANGUAGE_RUSSIAN || language == LANGUAGE_ENGLISH || language
-            == LANGUAGE_UKRAINIAN || language == LANGUAGE_SERBIAN || language
-            == LANGUAGE_BULGARIAN || language == LANGUAGE_RUS_ENG) {
+    if (language == LANGUAGE_RUSSIAN ||
+            language == LANGUAGE_ENGLISH ||
+            language == LANGUAGE_UKRAINIAN ||
+            language == LANGUAGE_SERBIAN ||
+            language == LANGUAGE_BULGARIAN ||
+            language == LANGUAGE_RUS_ENG ||
+            language == LANGUAGE_BELARUSIAN) {
         langCyrilRoman = 1;
         return TRUE;
     }

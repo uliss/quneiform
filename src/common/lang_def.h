@@ -87,7 +87,8 @@ enum language_t {
     LANGUAGE_LITHUANIAN = 25,
     LANGUAGE_ESTONIAN   = 26,
     LANGUAGE_TURKISH    = 27,
-    LANG_TOTAL      = 28,
+    LANGUAGE_BELARUSIAN = 28,
+    LANG_TOTAL      = 29,
     LG_LAT          =  1,
     LG_CYR          =  2
 };

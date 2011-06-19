@@ -1,36 +1,37 @@
 add_library(cuneiform-alphabets ${LIBTYPE}
-alphabetfactory.cpp
-alphabet.cpp
-baltic.cpp
-bulgar.cpp
-croatian.cpp
-czech.cpp
-danish.cpp
-digits.cpp
-dutch.cpp
-easteurope.cpp
-english.cpp
-estonian.cpp
-french.cpp
-german.cpp
-hungar.cpp
-italian.cpp
-kazakh.cpp
-kazakhenglish.cpp
-latvian.cpp
-lithuanian.cpp
-polish.cpp
-portuguese.cpp
-roman.cpp
-russian.cpp
-russianenglish.cpp
-serbian.cpp
-slovenian.cpp
-spanish.cpp
-swedish.cpp
-turkish.cpp
-ukrainian.cpp
-uzbek.cpp
+    alphabetfactory.cpp
+    alphabet.cpp
+    baltic.cpp
+    belarusian.cpp
+    bulgar.cpp
+    croatian.cpp
+    czech.cpp
+    danish.cpp
+    digits.cpp
+    dutch.cpp
+    easteurope.cpp
+    english.cpp
+    estonian.cpp
+    french.cpp
+    german.cpp
+    hungar.cpp
+    italian.cpp
+    kazakh.cpp
+    kazakhenglish.cpp
+    latvian.cpp
+    lithuanian.cpp
+    polish.cpp
+    portuguese.cpp
+    roman.cpp
+    russian.cpp
+    russianenglish.cpp
+    serbian.cpp
+    slovenian.cpp
+    spanish.cpp
+    swedish.cpp
+    turkish.cpp
+    ukrainian.cpp
+    uzbek.cpp
 )
 
 library_hook(cuneiform-alphabets)

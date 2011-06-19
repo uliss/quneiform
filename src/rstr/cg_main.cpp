@@ -76,7 +76,7 @@
 #include "compat_defs.h"
 #include "minmax.h"
 
-extern uchar langUkr, langSer;
+extern uchar langUkr, langSer, langBy;
 
 #define  MAX_GATE  RASTER_WIDTH  //макс. просвет внутри символа
 #define  MAX_WIDTH RASTER_WIDTH  //макс. ширина символа

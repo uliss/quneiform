@@ -1635,7 +1635,8 @@ uchar CodePages[LANG_TOTAL] = { CHARSET_ANSI, // LANGUAGE_ENGLISH
                                 CHARSET_BALTIC, // LANGUAGE_LATVIAN   24
                                 CHARSET_BALTIC, // LANGUAGE_LITHUANIAN 25
                                 CHARSET_BALTIC, // LANGUAGE_ESTONIAN      26
-                                CHARSET_TURKISH // LANGUAGE_TURKISH   27
+                                CHARSET_TURKISH, // LANGUAGE_TURKISH   27
+                                CHARSET_RUSSIAN  // LANGUAGE_BELARUSIAN    28
                               };
 
 }

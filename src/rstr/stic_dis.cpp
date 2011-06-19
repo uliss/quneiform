@@ -257,7 +257,7 @@ switch( let )
   default  : dis = 0;     break;
 	}
 
-  if( language == LANGUAGE_RUSSIAN && langUkr )
+  if (language == LANGUAGE_RUSSIAN && (langUkr|| langBy))
     if( let == 'i' ){
        if( dis > 0 )
          dis = MIN(dis,dis_i(l,r,s,2));

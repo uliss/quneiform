@@ -226,7 +226,7 @@ void make_all_glues() {
 		results_left_to_bad[15][0] = '\xae' /* о */;
 	}
 
-	if (langUkr) {
+        if (langUkr || langBy) {
 		sticks_left_to_bad[10] = UKR_I;
 		sticks_left_to_bad[11] = UKR_II;
 		*((uchar*) &results_left_to_bad[0][7]) = (uchar) '\x8a' /* К */;

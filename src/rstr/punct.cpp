@@ -581,7 +581,7 @@ static cell *let_gl(cell *c1, cell *c2, cell *c3, cell *c4, B_LINES *bl) {
 	c->keg = (uchar) bl->ps;
 	c->nvers = 0;
 	// AL-JOE decicion-making was here; all c1-c4 were deleted
-	if ((r & MBI) && !(language == LANGUAGE_RUSSIAN && !langUkr && !langSer)) {
+        if ((r & MBI) && !(language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBy)) {
 		c->vers[c->nvers].let = 'i';
 		c->vers[c->nvers].prob = 128;
 		(c->nvers)++;

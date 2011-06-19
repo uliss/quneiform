@@ -165,7 +165,8 @@ static char *lang_suff[] = { "", "grm", "frn", "rus", "swe", "spa", "ita",
                              "cze", "rom", "hun", "bul", // 04.09.2000 E.P. LANGUAGE_CZECH и т.д.
                              "slo", // LANGUAGE_SLOVENIAN 25.05.2001 E.P.
                              "lat", "lit", "est", // LANGUAGE_LATVIAN и т.д.
-                             "tur" // 03.06.2002 E.P.
+                             "tur", // 03.06.2002 E.P.
+                             "bel"
                            };
 /////////////////////////////////////////////////////////////////////////////////////
 //  exit generation functions

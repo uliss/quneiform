@@ -995,6 +995,7 @@ int32_t p2_GetP2Globals(P2GLOBALS *p2globals) {
 	p2globals->multy_language = multy_language;
 	p2globals->langUkr = langUkr;
 	p2globals->langSer = langSer;
+       p2globals->langBy = langBy;
 
 	p2globals->line_number = line_number;
 	p2globals->line_alphabet = line_alphabet;
@@ -1014,7 +1015,8 @@ int32_t p2_SetP2Globals(P2GLOBALS *p2globals) {
 	language = p2globals->language;
 	multy_language = p2globals->multy_language;
 	langUkr = p2globals->langUkr;
-	langSer = p2globals->langSer;
+        langSer = p2globals->langSer;
+        langBy = p2globals->langBy;
 
 	line_number = p2globals->line_number;
 	line_alphabet = p2globals->line_alphabet;
@@ -1168,7 +1170,7 @@ void p2_init(void) {
 }
 
 // проверить сомнительные большие-маленькие на втором проходе
-static const uchar non_twin[] = " ЂЎЃҐ…";
+static const uchar non_twin[] = " ЂЎЃҐ…";
 static const uchar lat_twins[] = "cCoOpPsSvVwWxXzZ";
 
 static Bool32 p2_twin(uchar ch) {

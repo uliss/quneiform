@@ -996,33 +996,34 @@ int32_t size_short_language_aux(uchar language) {
 }
 
 static uchar CodePages[LANG_TOTAL] = { CHARSET_ANSI, // LANGUAGE_ENGLISH		0
-		CHARSET_ANSI, // LANGUAGE_GERMAN		1
-		CHARSET_ANSI, // LANGUAGE_FRENCH		2
-		CHARSET_RUSSIAN, // LANGUAGE_RUSSIAN		3
-		CHARSET_ANSI, // LANGUAGE_SWEDISH		4
-		CHARSET_ANSI, // LANGUAGE_SPANISH		5
-		CHARSET_ANSI, // LANGUAGE_ITALIAN		6
-		CHARSET_RUSSIAN, // LANGUAGE_RUS_ENG		7
-		CHARSET_RUSSIAN, // LANGUAGE_UKRAINIAN	8
-		CHARSET_RUSSIAN, // LANGUAGE_SERBIAN		9
-		CHARSET_EASTEUROPE, // LANGUAGE_CROATIAN		10
-		CHARSET_EASTEUROPE, // LANGUAGE_POLISH		11
-		CHARSET_ANSI, // LANGUAGE_DANISH		12
-		CHARSET_ANSI, // LANGUAGE_PORTUGUESE	13
-		CHARSET_ANSI, // LANGUAGE_DUTCH		14
-		CHARSET_ANSI, // LANGUAGE_DIGITS			15
-		CHARSET_RUSSIAN, // LANGUAGE_UZBEK		16
-		CHARSET_RUSSIAN, // LANGUAGE_KAZAKH			17
-		CHARSET_RUSSIAN, // LANGUAGE_KAZ_ENG		18
-		CHARSET_EASTEUROPE, // LANGUAGE_CZECH		19
-		CHARSET_EASTEUROPE, // LANGUAGE_ROMANIAN		20
-		CHARSET_EASTEUROPE, // LANGUAGE_HUNGARIAN		21
-		CHARSET_RUSSIAN, // LANGUAGE_BULGARIAN		22
-		CHARSET_EASTEUROPE, // LANGUAGE_SLOVENIAN    23
-		CHARSET_BALTIC, // LANGUAGE_LATVIAN	    24
-		CHARSET_BALTIC, // LANGUAGE_LITHUANIAN   25
-		CHARSET_BALTIC, // LANGUAGE_ESTONIAN	    26
-		CHARSET_TURKISH // LANGUAGE_TURKISH		27
+                                       CHARSET_ANSI, // LANGUAGE_GERMAN		1
+                                       CHARSET_ANSI, // LANGUAGE_FRENCH		2
+                                       CHARSET_RUSSIAN, // LANGUAGE_RUSSIAN		3
+                                       CHARSET_ANSI, // LANGUAGE_SWEDISH		4
+                                       CHARSET_ANSI, // LANGUAGE_SPANISH		5
+                                       CHARSET_ANSI, // LANGUAGE_ITALIAN		6
+                                       CHARSET_RUSSIAN, // LANGUAGE_RUS_ENG		7
+                                       CHARSET_RUSSIAN, // LANGUAGE_UKRAINIAN	8
+                                       CHARSET_RUSSIAN, // LANGUAGE_SERBIAN		9
+                                       CHARSET_EASTEUROPE, // LANGUAGE_CROATIAN		10
+                                       CHARSET_EASTEUROPE, // LANGUAGE_POLISH		11
+                                       CHARSET_ANSI, // LANGUAGE_DANISH		12
+                                       CHARSET_ANSI, // LANGUAGE_PORTUGUESE	13
+                                       CHARSET_ANSI, // LANGUAGE_DUTCH		14
+                                       CHARSET_ANSI, // LANGUAGE_DIGITS			15
+                                       CHARSET_RUSSIAN, // LANGUAGE_UZBEK		16
+                                       CHARSET_RUSSIAN, // LANGUAGE_KAZAKH			17
+                                       CHARSET_RUSSIAN, // LANGUAGE_KAZ_ENG		18
+                                       CHARSET_EASTEUROPE, // LANGUAGE_CZECH		19
+                                       CHARSET_EASTEUROPE, // LANGUAGE_ROMANIAN		20
+                                       CHARSET_EASTEUROPE, // LANGUAGE_HUNGARIAN		21
+                                       CHARSET_RUSSIAN, // LANGUAGE_BULGARIAN		22
+                                       CHARSET_EASTEUROPE, // LANGUAGE_SLOVENIAN    23
+                                       CHARSET_BALTIC, // LANGUAGE_LATVIAN	    24
+                                       CHARSET_BALTIC, // LANGUAGE_LITHUANIAN   25
+                                       CHARSET_BALTIC, // LANGUAGE_ESTONIAN	    26
+                                       CHARSET_TURKISH, // LANGUAGE_TURKISH		27
+                                       CHARSET_RUSSIAN  // LANG_BELARUSIAN   28
 		};
 
 static int Lang_Console(char *text, uchar lang) {
