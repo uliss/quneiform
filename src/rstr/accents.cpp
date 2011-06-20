@@ -1134,7 +1134,7 @@ int16_t accent(cell *c) {
 
                                 break;
 
-                        case '\0x93':
+                        case '\x93':
                                switch (acc_type) {
                                case ACC_SEMICIRCLE:
                                    if(language == LANGUAGE_RUSSIAN && langBy) {
@@ -1153,7 +1153,7 @@ int16_t accent(cell *c) {
 					break;
                                case ACC_SEMICIRCLE:
                                     if(language == LANGUAGE_RUSSIAN && langBy) {
-                                        v2->let=u_bel;
+                                        v2->let = u_bel;
                                     }
                                     break;
                                default:
@@ -1162,11 +1162,11 @@ int16_t accent(cell *c) {
 
                                 break;
 
-                        case '\0xE3':
+                        case '\xE3':
                                switch (acc_type) {
                                case ACC_SEMICIRCLE:
                                    if(language == LANGUAGE_RUSSIAN && langBy) {
-                                       v2->let=u_bel;
+                                       v2->let = u_bel;
                                    }
                                    break;
 				default:
