@@ -60,13 +60,9 @@
 //                                                                  //
 //////////////////////////////////////////////////////////////////////
 #include <stdlib.h>
-#include <stdio.h>
 #include <sys/stat.h>
-
-#include <stdlib.h>
 #include <setjmp.h>
 #include <assert.h>
-#include <stdio.h>
 #include <fcntl.h>
 #include <string.h>
 
@@ -835,15 +831,11 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             //			Аналога в латинице нет.
             // распознавание особых украинских букв, а также сербских, болгарских и других, производимых из алфавита кириллицы
 
-            fprintf(stderr,"language=%d langUkr=%d langBy=%d before lang specific calls",language,langUkr,langBy);
-
             if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBul)
                 proc_bI(0); //paste cutted '|'
 
-            if (language == LANGUAGE_RUSSIAN && langUkr) {
-                fprintf(stderr,"language=%d langUkr=%d langBy=%d calling proc_Ukr\n", language, langUkr, langBy);
+            if (language == LANGUAGE_RUSSIAN && langUkr)
                 proc_Ukr(); //UKRAINIAN "iI & .."
-            }
 
             if (language == LANGUAGE_RUSSIAN && !langSer) //&& !langBul)Almi&Oleg
                 proc_ii(); //paste '\xa9' /* й */
@@ -856,7 +848,6 @@ void pass3(CSTR_line ln, CSTR_line lout) {
         }
 
         if (language == LANGUAGE_RUSSIAN && langBy) {
-            fprintf(stderr,"language=%d langUkr=%d langBy=%d calling proc_Ukr\n", language, langUkr, langBy);
             proc_shortu();
             proc_Ukr();                        //UKRAINIAN "iI & .."
         }

@@ -52,16 +52,17 @@ void TestLanguage::testIsoCode2() {
 }
 
 void TestLanguage::testSupportedLanguages() {
+    const int TOTAL = 25;
     QList<Language> langs = Language::supportedLanguages();
-    QCOMPARE(langs.count(), 24);
+    QCOMPARE(langs.count(), TOTAL);
     QCOMPARE(langs.first().code(), 0);
     QCOMPARE(langs.first().name(), QString("English"));
 
     langs = Language::supportedLanguages(Language::BY_NAME);
-    QCOMPARE(langs.count(), 24);
-    QCOMPARE(langs.first().code(), (int) ::LANGUAGE_BULGARIAN);
-    QCOMPARE(langs.first().name(), QString("Bulgarian"));
-    QCOMPARE(langs.at(1).code(), (int) ::LANGUAGE_CROATIAN);
+    QCOMPARE(langs.count(), TOTAL);
+    QCOMPARE(langs.first().code(), (int) ::LANGUAGE_BELARUSIAN);
+    QCOMPARE(langs.first().name(), QString("Belarusian"));
+    QCOMPARE(langs.at(1).code(), (int) ::LANGUAGE_BULGARIAN);
 }
 
 void TestLanguage::testReadWrite() {

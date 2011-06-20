@@ -44,7 +44,7 @@ void TestLanguageSelect::testEmitSelected() {
 
     s.setCurrentIndex(1);
     QCOMPARE(selected.count(), 1);
-    QCOMPARE(selected.at(0).at(0).value<Language>(), Language(::LANGUAGE_CROATIAN));
+    QCOMPARE(selected.at(0).at(0).value<Language>(), Language(::LANGUAGE_BULGARIAN));
 }
 
 void TestLanguageSelect::testSelect() {
