@@ -358,6 +358,12 @@ int16_t accent(cell *c) {
 				== ACC_2DOT)
 			goto _ok;
 
+                if (language == LANGUAGE_RUSSIAN &&
+                        langBy &&
+                        memchr("\0x93\0xE3", v1->let,2) &&
+                        acc_type == ACC_SEMICIRCLE)
+                       goto _ok;
+
 		if (language == LANGUAGE_PORTUGUESE && (memchr("AEOUIaeoui", v1->let, 10)
 				&& acc_type == ACC_RIGHT || memchr("AEOaeo", v1->let, 6)
 				&& acc_type == ACC_LEFT || memchr("AEOaeo", v1->let, 6)
@@ -1117,6 +1123,24 @@ int16_t accent(cell *c) {
 				case ACC_RIGHT:
 					v2->let = YY_right_accent;
 					break;
+                              case ACC_SEMICIRCLE:
+                                    if(language == LANGUAGE_RUSSIAN && langBy) {
+                                        v2->let=U_bel;
+                                    }
+                                    break;
+                              default:
+                                    continue;
+                              }
+
+                                break;
+
+                        case '\0x93':
+                               switch (acc_type) {
+                               case ACC_SEMICIRCLE:
+                                   if(language == LANGUAGE_RUSSIAN && langBy) {
+                                       v2->let=U_bel;
+                                   }
+                                   break;
 				default:
 					continue;
 				}
@@ -1127,11 +1151,28 @@ int16_t accent(cell *c) {
 				case ACC_RIGHT:
 					v2->let = y_right_accent;
 					break;
+                               case ACC_SEMICIRCLE:
+                                    if(language == LANGUAGE_RUSSIAN && langBy) {
+                                        v2->let=u_bel;
+                                    }
+                                    break;
+                               default:
+                                    continue;
+                               }
+
+                                break;
+
+                        case '\0xE3':
+                               switch (acc_type) {
+                               case ACC_SEMICIRCLE:
+                                   if(language == LANGUAGE_RUSSIAN && langBy) {
+                                       v2->let=u_bel;
+                                   }
+                                   break;
 				default:
 					continue;
 				}
 				break;
-
 			}
 
 			if (v2->let) // 16.08.2001 E.P.
@@ -1375,6 +1416,16 @@ int16_t type_acc(cell *c, Bool enable_mark_satellit) {
 							mirror(raster, cc->h, (int16_t) ((cc->w + 7) / 8));
 						}
 					}
+
+                                      if (language == LANGUAGE_RUSSIAN && langBy) {
+                                          mirror(raster, cc->h,(int16_t) ((cc->w + 7) / 8) );
+                                          if(memchr("\0x93\0xE3Yy", let, 4) &&
+                                                  acc_semicircle(cc,raster)) {
+                                              ret = ACC_SEMICIRCLE;
+                                              goto non_zero_ret;
+                                          }
+                                          mirror(raster, cc->h, (int16_t) ((cc->w + 7) / 8) );
+                                      }
 
 					if (language == LANGUAGE_TURKISH) {
 						// ACC_ROOF

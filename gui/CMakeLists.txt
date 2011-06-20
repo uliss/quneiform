@@ -1,4 +1,4 @@
-set(QUNEIFORM_VERSION 0.1)
+set(QUNEIFORM_VERSION ${CF_VERSION})
 
 if(APPLE)
     project(Quneiform)
@@ -155,8 +155,8 @@ if(APPLE)
     set(MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_NAME})
     set(MACOSX_BUNDLE_INFO_STRING "Optical recognition software")
     set(MACOSX_BUNDLE_COPYRIGHT "(c) 2010-2011 Serge Poltavski")
-    set(MACOSX_BUNDLE_GUI_IDENTIFIER "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
-    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${PROJECT_NAME} ${QUNEIFORM_VERSION}")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "https://github.com/uliss/quneiform")
+    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${PROJECT_NAME} ${CF_BUILD_NUMBER}")
     set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${QUNEIFORM_VERSION})
     set(MACOSX_BUNDLE_BUNDLE_VERSION ${QUNEIFORM_VERSION})
 

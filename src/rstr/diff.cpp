@@ -252,7 +252,7 @@ void criteria(cell *c)
             vers--;
             continue;
         }
-        if (language != LANGUAGE_RUSSIAN) // refuse with  ,Ў
+        if (language != LANGUAGE_RUSSIAN) // refuse with  ,Ў
             if ((let = vers->let) == invers_exm || let == invers_qm) {
                 if (inv_dot(c) > 0)
                     break;
@@ -579,7 +579,7 @@ int16_t ij_dot(cell *c)
      return 0;
      */
 
-    if (language == LANGUAGE_RUSSIAN && langUkr)
+    if (language == LANGUAGE_RUSSIAN && (langUkr || langBy))
         if (c->w >= c->h - 2)
             goto ret0;
 
@@ -770,7 +770,7 @@ cell *dot_ij(cell *c)
     int16_t e, d, H;
     uchar let = 0;
 
-    if (language == LANGUAGE_RUSSIAN && langUkr)
+    if (language == LANGUAGE_RUSSIAN && (langUkr || langBy))
         return dot_iUkr(c);
 
     csv = NULL;

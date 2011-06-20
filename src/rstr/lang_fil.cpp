@@ -74,6 +74,7 @@ extern uchar language;
 extern uchar langUkr;
 extern uchar langBul;
 extern uchar langSer;
+extern uchar langBy;
 extern c_comp wcomp;
 extern uchar multy_language ;
 extern char alphabet[];

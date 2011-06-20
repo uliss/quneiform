@@ -210,7 +210,7 @@ void il1() {
 		NHcell(C);
 		TYcell(C);
 		GCcell(C);
-		if (language == LANGUAGE_RUSSIAN && langUkr) {
+                if (language == LANGUAGE_RUSSIAN && (langUkr|| langBy)) {
 			int16_t i;
 			for (i = 0; i < C->nvers; i++)
 				if (C->vers[i].let == liga_i)

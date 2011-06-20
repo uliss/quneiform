@@ -50,6 +50,7 @@ namespace
 // sets language data according to ISO 639-1 and 639-2
 bool languageNamesInit() {
     addCodeName(LANGUAGE_BULGARIAN, "bg", "bul", "Bulgarian");
+    addCodeName(LANGUAGE_BELARUSIAN, "by", "bel", "Belarusian");
     addCodeName(LANGUAGE_CROATIAN, "hr", "hrv", "Croatian");
     addCodeName(LANGUAGE_CZECH, "cs", "cze", "Czech");
     addCodeName(LANGUAGE_DANISH, "da", "dan", "Danish");
@@ -109,6 +110,7 @@ std::string Language::encoding(const Language& l) {
     case LANGUAGE_RUS_ENG:
     case LANGUAGE_UKRAINIAN:
     case LANGUAGE_UZBEK:
+    case LANGUAGE_BELARUSIAN:
         return "cp1251";
     case LANGUAGE_DANISH:
     case LANGUAGE_DUTCH:

@@ -2,3 +2,4 @@
 CMakeLists.txt.user
 # ignore build version
 /version
+.DS_Store

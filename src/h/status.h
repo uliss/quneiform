@@ -207,6 +207,7 @@ Edef unsigned char cut_page_right VAL(0);
 Edef unsigned char language VAL(3);
 Edef unsigned char langSer VAL(0);
 Edef unsigned char langUkr VAL(0);
+Edef unsigned char langBy  VAL(0);
 Edef unsigned char langBul VAL(0);
 // BULGAR 31.08.2000 E.P.
 Edef unsigned char multi_page_mode VAL(0);

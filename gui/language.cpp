@@ -37,6 +37,7 @@ namespace {
 }
 
 bool initLanguageCodeMap() {
+    lang_code_map.insert(::LANGUAGE_BELARUSIAN, QT_TRANSLATE_NOOP("Lang", "Belarusian"));
     lang_code_map.insert(::LANGUAGE_BULGARIAN, QT_TRANSLATE_NOOP("Lang", "Bulgarian"));
     lang_code_map.insert(::LANGUAGE_CROATIAN, QT_TRANSLATE_NOOP("Lang", "Croatian"));
     lang_code_map.insert(::LANGUAGE_CZECH, QT_TRANSLATE_NOOP("Lang", "Czech"));

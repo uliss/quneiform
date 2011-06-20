@@ -903,7 +903,7 @@ static uchar let_lindef3_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		5, 53, 37, 5, 5, 37, 33, 37, 37, 33, 37, 37, 37, 37, 37, 33,
 		// Р С  Т  У  Ф  Х  Ц  Ч  Ш  Щ   Ъ  Ы  Ь  Э  Ю  Я
 		22, 5, 38, 38, 50, 6, 38, 38, 38, 100, 38, 38, 38, 38, 52, 38,
-		//    ¡  ¢  £  ¤  ¥  ¦  §  ¨  ©   ª  «  ¬  ­  ®  ¯
+		//    ¡  ¢  £  ¤  ¥  ¦  §  ¨  ©   ª  «  ¬  ­  ®  ¯
 		0x00, 0x01, 0x01, 0x01, 0x01, 0x44, 0x06, 0x01, 0x01, 0x01, 0x44, 0x48,
 		40, 40, 00, 00,
 		// b0   b1   b2   b3   b4   b5   b6   b7   b8   b9   ba   ba   bc bd be bf
@@ -997,7 +997,7 @@ static uchar let_lincomp_rus[256] = { 9, 3, 9, 10, 9, 2, 9, 12, 9, 1, 0, 10, 0,
 		2, 2, 2, 2, 2, 2, 14, 2, 2, 14, 2, 2, 2, 2, 2, 10,
 		//   Р С Т У Ф Х Ц  Ч Ш Щ  Ъ Ы Ь Э Ю Я
 		1, 2, 1, 1, 13, 1, 1, 1, 1, 10, 1, 1, 1, 1, 1, 1,
-		//     ¡ ¢ £ ¤  ¥ ¦ § ¨ ©  ª « ¬ ­ ® ¯
+		//     ¡ ¢ £ ¤  ¥ ¦ § ¨ ©  ª « ¬ ­ ® ¯
 		0x00, 2, 2, 2, 2, 11, 11, 3, 3, 2, 2, 15, 15, 15, 00, 00,
 		//   b0   b1   b2   b3   b4   b5   b6   b7   b8   b9   ba   ba   bc bd be bf
 		//        fi   fl   ff  ffi   rt   ri    %    %   ffl  i.   j.   !. ?.
@@ -1082,7 +1082,7 @@ static uchar let_linshape_rus[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		// Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я
 		8, 8, 8, 10, 8, 8, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8,
-		//   ¡ ¢ £  ¤ ¥ ¦ § ¨ © ª « ¬ ­ ® ¯
+		//   ¡ ¢ £  ¤ ¥ ¦ § ¨ © ª « ¬ ­ ® ¯
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
 		//     fi  fl  ff  ffi rt  ri  %   %   ffl i.  j.  !.  ?.
 		1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 6, 6, 6, 6,
@@ -1260,7 +1260,8 @@ uchar *alphabet_language[LANG_TOTAL] = { // 31.08.2000 E.P.
 				alph_english, // LANGUAGE_LATVIAN	 24
 				alph_english, // LANGUAGE_LITHUANIAN 25
 				alph_english, // LANGUAGE_ESTONIAN	 26
-				alph_english // LANGUAGE_TURKISH	 27
+                               alph_english, // LANGUAGE_TURKISH	 27
+                               alph_russian, // LANGUAGE_BELARUSIAN    28
 		};
 static void list_latin_letters(); // 01.09.2000 E.P.
 static void list_baltic_letters(); // 09.07.2001 E.P.
@@ -1350,6 +1351,78 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 			let_lindef3[r_EE_2dot] = 0;
 			let_lindef3[r_e_2dot] = 0;
 		}
+
+                if(langBy) {
+                       alphabet[UKR_I ]=1;
+                       alphabet[UKR_i ]=1;
+                       alphabet[liga_i]=1;
+
+                       alphabet['I' ]=1;
+                       alphabet['i' ]=1;
+                       alphabet[u_bel] = 1;
+                       alphabet[U_bel] = 1;
+                       alphabet[UKR_II]=0;
+                       alphabet[UKR_ii]=0;
+                       alphabet[UKR_E ]=0;
+                       alphabet[UKR_e ]=0;
+                       alphabet[UKR_G ]=0;
+                       alphabet[UKR_g ]=0;
+
+
+                       alphabet[SERB_hh]=0;
+                       alphabet[SERB_h ]=0;
+                       alphabet['J']=0;
+                       alphabet['j' ]=0;
+
+                      strcpy((char*) decode_ASCII_to_[UKR_I], "\xB2");
+                      strcpy((char*) decode_ASCII_to_[UKR_i], "\xB3");
+                      strcpy((char*) decode_ASCII_to_[U_bel], "\xA1");
+                      strcpy((char*) decode_ASCII_to_[u_bel], "\xA2");
+
+
+                      let_linpos[UKR_I] = 0x11;   // base lines for diskrim
+                      let_linpos[UKR_i] = 0x11;
+                     //let_linpos['I'] = 0x11;
+                     //let_linpos['i'] = 0x11;
+                     let_linpos[u_bel] = 0xa2;
+                     let_linpos[U_bel] = 0x11;
+
+                     let_lindef[UKR_I] = 0;   // base lines for its determination
+                     let_lindef[UKR_i] = 0;
+                     let_lindef['I'] = 0;
+                     let_lindef['i'] = 0;
+                     let_lindef[u_bel]=0x0a;
+                     let_lindef[U_bel]=0x05;
+
+                     let_lincomp[UKR_I] = 0;  // detems klasres for 3x5
+                     let_lincomp[UKR_i] = 0;
+                     let_lincomp['I'] = 0;
+                     let_lincomp['i'] = 0;
+                     let_lincomp[u_bel]=0x04;
+                     let_lincomp[U_bel]=0x0a;
+
+                     let_linshape[UKR_I] = 0;  // shape of letter
+                     let_linshape[UKR_i] = 0;
+                     let_linshape['I'] = 0;
+                     let_linshape['i'] = 0;
+                     let_linshape[u_bel] = 0x08;
+                     let_linshape[U_bel]= 0;
+
+
+                     let_sans_acc[UKR_I] = UKR_I; // for accent is used in abris
+                     let_sans_acc[UKR_i] = UKR_i;
+                     let_sans_acc['I'] = 'I';
+                     let_sans_acc['i'] = 'i';
+                     let_sans_acc[u_bel]='\x95';
+                     let_sans_acc[U_bel]='\xA5';
+
+                     let_lindef3[UKR_I] = 0;  // ???
+                     let_lindef3[UKR_i] = 0;
+                     let_lindef3['I'] = 0;  // ???
+                     let_lindef3['i'] = 0;
+                     let_lindef3[u_bel] = 0x0a;
+                     let_lindef3[U_bel] = 0x05;
+                }
 
 		if (langUkr) {
 			alphabet[UKR_I] = 1;
@@ -3654,8 +3727,12 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
 }
 
 Bool is_russian_language(uchar lang) {
-	return (lang == LANGUAGE_RUSSIAN || lang == LANGUAGE_UKRAINIAN || lang
-			== LANGUAGE_SERBIAN || lang == LANGUAGE_UZBEK || lang == LANGUAGE_BULGARIAN // 01.09.2000 E.P.
+        return (lang == LANGUAGE_RUSSIAN ||
+                lang == LANGUAGE_UKRAINIAN ||
+                lang == LANGUAGE_SERBIAN ||
+                lang == LANGUAGE_UZBEK ||
+                lang == LANGUAGE_BULGARIAN ||
+                lang == LANGUAGE_BELARUSIAN // 01.09.2000 E.P.
 	);
 }
 //************************************************************

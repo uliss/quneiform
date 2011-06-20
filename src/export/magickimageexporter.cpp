@@ -25,6 +25,7 @@ namespace cf
 
 MagickImageExporter::MagickImageExporter(image_format_t format) {
     setFormat(format);
+    Magick::InitializeMagick("");
 }
 
 std::string MagickImageExporter::mime() const {

@@ -293,7 +293,8 @@ uchar CodePages[LANG_TOTAL] = { // 29.08.2000 E.P.
 				CHARSET_BALTIC, // LANGUAGE_LATVIAN	  24
 				CHARSET_BALTIC, // LANGUAGE_LITHUANIAN 25
 				CHARSET_BALTIC, // LANGUAGE_ESTONIAN	  26
-				CHARSET_TURKISH // LANGUAGE_TURKISH	  27
+                                 CHARSET_TURKISH, // LANGUAGE_TURKISH	  27
+                                 CHARSET_RUSSIAN // LANGUAGE_BELARUSIAN      28
 		};
 
 static const char *tab3x5[] = { "rec3.dat", // LANGUAGE_ENGLISH   0
@@ -323,7 +324,8 @@ static const char *tab3x5[] = { "rec3.dat", // LANGUAGE_ENGLISH   0
 		"rec3blt.dat", // LANGUAGE_LATVIAN	    24
 		"rec3blt.dat", // LANGUAGE_LITHUANIAN  25
 		"rec3blt.dat", // LANGUAGE_ESTONIAN	26
-		"rec3tur.dat" // LANGUAGE_TURKISH		27
+                "rec3tur.dat", // LANGUAGE_TURKISH		27
+                 "rec3rus.dat" // LANGUAGE_BELARUSIAN            28
 		};
 
 static const char *tabevn1[] = { "rec1.dat", // LANGUAGE_ENGLISH   0
@@ -353,7 +355,8 @@ static const char *tabevn1[] = { "rec1.dat", // LANGUAGE_ENGLISH   0
 		"rec1blt.dat", // LANGUAGE_LATVIAN	    24
 		"rec1blt.dat", // LANGUAGE_LITHUANIAN  25
 		"rec1blt.dat", // LANGUAGE_ESTONIAN	26
-		"rec1tur.dat" // LANGUAGE_TURKISH		27
+                "rec1tur.dat", // LANGUAGE_TURKISH		27
+                "rec1rus.dat" // LANGUAGE_BELARUSIAN            28
 		};
 static const char *tabevn2[] = { "rec2.dat", // LANGUAGE_ENGLISH   0
 		"rec2.dat", // LANGUAGE_GERMAN    1
@@ -382,7 +385,8 @@ static const char *tabevn2[] = { "rec2.dat", // LANGUAGE_ENGLISH   0
 		"rec2blt.dat", // LANGUAGE_LATVIAN	    24
 		"rec2blt.dat", // LANGUAGE_LITHUANIAN  25
 		"rec2blt.dat", // LANGUAGE_ESTONIAN	26
-		"rec2tur.dat" // LANGUAGE_TURKISH		27
+                "rec2tur.dat", // LANGUAGE_TURKISH		27
+                 "rec2rus.dat" // LANGUAGE_BELARUSIAN            28
 		};
 
 uchar * CellsPage_rstr, *CellsPageEnd_rstr;
@@ -767,6 +771,8 @@ Bool32 RSTR_EndPage(Handle myPage) {
 		lang = LANGUAGE_UKRAINIAN;
 	if (language == LANGUAGE_RUSSIAN && langBul) // 01.09.2000 E.P.
 		lang = LANGUAGE_BULGARIAN;
+        if (language == LANGUAGE_RUSSIAN && langBy)
+               lang = LANGUAGE_BELARUSIAN;
 
 	if (p2_active == 0) {
 #ifdef _USE_FON_
@@ -1908,7 +1914,7 @@ Bool32 RSTR_SetOptions(RSTR_Options *opt) {
 	line_rerecog = FALSE;
 	line_readyBL = FALSE;
 	line_tabcell = 0;
-	langSer = langUkr = langBul = 0; // langBul 01.09.2000 E.P.
+        langBy = langSer = langUkr = langBul = 0; // langBul 01.09.2000 E.P.
 
 	if (mmx)
 		set_MMX_addr();
@@ -1935,6 +1941,12 @@ Bool32 RSTR_SetOptions(RSTR_Options *opt) {
 		language = LANGUAGE_RUSSIAN;
 		langBul = TRUE;
 	}
+
+        if (language == LANGUAGE_BELARUSIAN)
+        {
+                language = LANGUAGE_RUSSIAN;
+                langBy = TRUE;
+        }
 
 	if (old_language != opt->language) {
 		if (!trees_load()) {
@@ -2242,14 +2254,22 @@ Bool32 RSTR_SetImportData(uint32_t dwType, const void * pData) {
 			language = LANGUAGE_RUSSIAN;
 			multy_language = TRUE;
 		}
+
 		if (language == LANGUAGE_SERBIAN) {
 			language = LANGUAGE_RUSSIAN;
 			langSer = TRUE;
 		}
+
 		if (language == LANGUAGE_UKRAINIAN) {
 			language = LANGUAGE_RUSSIAN;
 			langUkr = TRUE;
 		}
+
+                if (language == LANGUAGE_BELARUSIAN) {
+                    language = LANGUAGE_RUSSIAN;
+                    langBy = TRUE;
+                }
+
 		if (language == LANGUAGE_BULGARIAN) // 01.09.2000 E.P.
 		{
 			language = LANGUAGE_RUSSIAN;

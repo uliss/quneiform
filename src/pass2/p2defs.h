@@ -65,6 +65,7 @@ typedef struct tagP2GLOBALS {
     int multy_language;
     int langUkr;
     int langSer;
+    int langBy;
 
     int line_number;
     int line_alphabet;
@@ -75,6 +76,13 @@ typedef struct tagP2GLOBALS {
     int cuts_point_methode;
     int enable_smart_cut;
     int langBul; // 13.09.2000
+public:
+    bool isLeoRussianStandart() const {
+        return (!langBul) &&
+                (!langSer) &&
+                (!langUkr) &&
+                (!langBy);
+    }
 } P2GLOBALS;
 
 #endif

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,23 +16,30 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "imageexporterfactory.h"
-#include "config-user.h"
-#include "bmpimageexporter.h"
+#ifndef UTF8_H
+#define UTF8_H
 
-#if defined(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK) || defined(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
-#include "magickimageexporter.h"
-#endif
+namespace cf {
 
-namespace cf
-{
+enum unicode_t {
+    CYRILLIC_CAPITAL_LETTER_I = 0x0418	,
+    CYRILLIC_CAPITAL_LETTER_SHCHA = 0x0429,
+    CYRILLIC_SMALL_LETTER_I = 0x0438,
+    CYRILLIC_SMALL_LETTER_SHCHA = 0x0449
+};
 
-ImageExporterPtr ImageExporterFactoryImpl::make() {
-#if defined(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK) || defined(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
-    return ImageExporterPtr(new MagickImageExporter);
-#else
-    return ImageExporterPtr(new BmpImageExporter);
-#endif
+template<unicode_t> struct Utf8 {};
+
+#define MAKE_UTF8_CP1251(utf8, cp1251) \
+    template<> struct Utf8<utf8> {\
+        const static unsigned char CP1251 = cp1251;\
+};
+
+MAKE_UTF8_CP1251(CYRILLIC_CAPITAL_LETTER_I, 0xC8)
+MAKE_UTF8_CP1251(CYRILLIC_SMALL_LETTER_I, 0xE8)
+MAKE_UTF8_CP1251(CYRILLIC_SMALL_LETTER_SHCHA, 0xF9)
+MAKE_UTF8_CP1251(CYRILLIC_CAPITAL_LETTER_SHCHA, 0xD9)
+
 }
 
-}
+#endif // UTF8_H

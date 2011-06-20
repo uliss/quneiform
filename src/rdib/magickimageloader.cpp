@@ -47,8 +47,8 @@ namespace cf
 
 const int MIN_DPI_FOR_VECTOR_FORMAT = 300;
 
-MagickImageLoader::MagickImageLoader() :
-    dpi_(0) {
+MagickImageLoader::MagickImageLoader() {
+    Magick::InitializeMagick("");
 }
 
 void MagickImageLoader::convertColorSpace(Magick::Image& image) {

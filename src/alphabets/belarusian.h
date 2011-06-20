@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,23 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "imageexporterfactory.h"
-#include "config-user.h"
-#include "bmpimageexporter.h"
+#ifndef ALPHABETBELARUSIAN_H_
+#define ALPHABETBELARUSIAN_H_
 
-#if defined(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK) || defined(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
-#include "magickimageexporter.h"
-#endif
+#include "russian.h"
 
 namespace cf
 {
 
-ImageExporterPtr ImageExporterFactoryImpl::make() {
-#if defined(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK) || defined(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
-    return ImageExporterPtr(new MagickImageExporter);
-#else
-    return ImageExporterPtr(new BmpImageExporter);
-#endif
-}
+class BelarusianAlphabet: public RussianAlphabet
+{
+    public:
+        BelarusianAlphabet();
+        language_t language() const;
+};
 
 }
+
+#endif /* ALPHABETBELARUSIAN_H_ */

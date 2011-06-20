@@ -4,7 +4,8 @@
 import sys
 import cf
 
-LANGS = {'bul' : 'Bulgarian',
+LANGS = {'bel': 'Belarusian',
+        'bul' : 'Bulgarian',
         'hrv' : 'Croatian',
         'cze' : 'Czech',
         'dan' : 'Danish',
@@ -37,7 +38,11 @@ def test():
     
     for key, lang in sorted(LANGS.iteritems()):
         fmtTest.setLanguage(key)
-        img = fmtTest.makeFullImageName('%s.bmp' % lang.lower())
+        extension = 'bmp'
+        if key == 'bel':
+            extension = 'png'
+
+        img = fmtTest.makeFullImageName('%s.%s' % (lang.lower(), extension))
         if not fmtTest.diffTest(img):
             fmtTest.accuracy(img)
             
