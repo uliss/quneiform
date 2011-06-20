@@ -861,9 +861,9 @@ int32_t p2_RecogCutGlu(CSTR_rast first, CSTR_rast last, CSTR_line lineFon,
 
 		if (language == LANGUAGE_RUSSIAN) {
 			if (!langUkr)
-				proc_bI(0);//paste cutted '|'
-			else if (langUkr)
-				proc_Ukr();//UKRAINIAN "iI & .."
+                            proc_bI(0);//paste cutted '|'
+                        else if (langUkr || langBy)
+                            proc_Ukr();//UKRAINIAN "iI & .."
 
 			proc_ii();//paste '©'
 			proc_bI(1);//glue all 'л'

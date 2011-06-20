@@ -60,6 +60,7 @@
 //                                                                  //
 //////////////////////////////////////////////////////////////////////
 #include <stdlib.h>
+#include <stdio.h>
 #include <sys/stat.h>
 
 #include <stdlib.h>
@@ -264,8 +265,8 @@ void proc_ii(void);
 void save_rest_bases(int16_t mode, int16_t line_crit);
 void save_rest_incline(int16_t mode);
 
-void proc_Ukr(void); // see module UKR.C
-
+void proc_Ukr(void); // see module ukr.cpp
+void proc_shortu(void); //belarus.cpp
 void cuts_glues(void);
 
 void cstr2txt(char *buf, CSTR_line ln, CSTR_line lout) {
@@ -833,10 +834,17 @@ void pass3(CSTR_line ln, CSTR_line lout) {
             // распознавание Ы. Это, действительно уникальная буква, состоящая из двух компонент, стоящих рядом.
             //			Аналога в латинице нет.
             // распознавание особых украинских букв, а также сербских, болгарских и других, производимых из алфавита кириллицы
-            if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBul && !langBy)
+
+            fprintf(stderr,"language=%d langUkr=%d langBy=%d before lang specific calls",language,langUkr,langBy);
+
+            if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBul)
                 proc_bI(0); //paste cutted '|'
-            if (language == LANGUAGE_RUSSIAN && langUkr)
+
+            if (language == LANGUAGE_RUSSIAN && langUkr) {
+                fprintf(stderr,"language=%d langUkr=%d langBy=%d calling proc_Ukr\n", language, langUkr, langBy);
                 proc_Ukr(); //UKRAINIAN "iI & .."
+            }
+
             if (language == LANGUAGE_RUSSIAN && !langSer) //&& !langBul)Almi&Oleg
                 proc_ii(); //paste '\xa9' /* й */
 
@@ -845,6 +853,12 @@ void pass3(CSTR_line ln, CSTR_line lout) {
 
             if (language == LANGUAGE_RUSSIAN && !langUkr && !langSer && !langBul)
                 proc_bI(1); //glue all '\xeb' /* ы */
+        }
+
+        if (language == LANGUAGE_RUSSIAN && langBy) {
+            fprintf(stderr,"language=%d langUkr=%d langBy=%d calling proc_Ukr\n", language, langUkr, langBy);
+            proc_shortu();
+            proc_Ukr();                        //UKRAINIAN "iI & .."
         }
 
         // распознавание особых символов TM

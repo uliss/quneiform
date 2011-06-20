@@ -22,6 +22,7 @@
 #include "exporter.h"
 #include "nullimageexporter.h"
 #include "common/helper.h" // for removeFileExt
+#include "common/language.h"
 
 using namespace std;
 
@@ -122,54 +123,8 @@ std::string Exporter::outputFilename() const {
 }
 
 void Exporter::setEncodings() {
-    switch (formatOptions().language()) {
-    case LANGUAGE_CROATIAN:
-    case LANGUAGE_CZECH:
-    case LANGUAGE_HUNGARIAN:
-    case LANGUAGE_POLISH:
-    case LANGUAGE_ROMANIAN:
-    case LANGUAGE_SLOVENIAN:
-        setInputEncoding("cp1250");
-        setOutputEncoding("utf-8");
-        break;
-        // for serbian cyrillic
-    case LANGUAGE_SERBIAN:
-    case LANGUAGE_BULGARIAN:
-    case LANGUAGE_KAZAKH:
-    case LANGUAGE_KAZ_ENG:
-    case LANGUAGE_RUSSIAN:
-    case LANGUAGE_RUS_ENG:
-    case LANGUAGE_UKRAINIAN:
-    case LANGUAGE_UZBEK:
-        setInputEncoding("cp1251");
-        setOutputEncoding("utf-8");
-        break;
-    case LANGUAGE_DANISH:
-    case LANGUAGE_DUTCH:
-    case LANGUAGE_ENGLISH:
-    case LANGUAGE_FRENCH:
-    case LANGUAGE_GERMAN:
-    case LANGUAGE_ITALIAN:
-    case LANGUAGE_PORTUGUESE:
-    case LANGUAGE_SPANISH:
-    case LANGUAGE_SWEDISH:
-        setInputEncoding("cp1252");
-        setOutputEncoding("utf-8");
-        break;
-    case LANGUAGE_TURKISH:
-        setInputEncoding("cp1254");
-        setOutputEncoding("utf-8");
-        break;
-    case LANGUAGE_ESTONIAN:
-    case LANGUAGE_LATVIAN:
-    case LANGUAGE_LITHUANIAN:
-        setInputEncoding("cp1257");
-        setOutputEncoding("utf-8");
-        break;
-    default:
-        setInputEncoding("");
-        setOutputEncoding("");
-    }
+    setInputEncoding(Language(formatOptions().language()).encoding());
+    setOutputEncoding("utf-8");
 }
 
 void Exporter::setFormatOptions(const FormatOptions& opts) {

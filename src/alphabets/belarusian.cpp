@@ -19,6 +19,7 @@
 #include "belarusian.h"
 #include "alphabetfactory.h"
 #include "ligas.h"
+#include "utf8.h"
 
 namespace
 {
@@ -47,14 +48,20 @@ BelarusianAlphabet::BelarusianAlphabet()
     addSymbol(r_cu_a);
     addSymbol('I');
     addSymbol('i');
-    addSymbol(UKR_I);
-    addSymbol(UKR_i);
-    addSymbol(UKR_II);
-    addSymbol(UKR_ii);
-    addSymbol(UKR_E);
-    addSymbol(UKR_e);
-    addSymbol(UKR_G);
-    addSymbol(UKR_g);
+
+    removeSymbol(Utf8<CYRILLIC_SMALL_LETTER_SHCHA>::CP1251);
+    removeSymbol(Utf8<CYRILLIC_CAPITAL_LETTER_SHCHA>::CP1251);
+    removeSymbol(Utf8<CYRILLIC_SMALL_LETTER_I>::CP1251);
+    removeSymbol(Utf8<CYRILLIC_CAPITAL_LETTER_I>::CP1251);
+    removeSymbol(UKR_I);
+    removeSymbol(UKR_i);
+    removeSymbol(UKR_II);
+    removeSymbol(UKR_ii);
+    removeSymbol(UKR_E);
+    removeSymbol(UKR_e);
+    removeSymbol(UKR_G);
+    removeSymbol(UKR_g);
+
     addSymbol(u_bel);
     addSymbol(U_bel);
     addSymbol(liga_i);

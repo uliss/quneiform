@@ -12,6 +12,7 @@ alcutfun.cpp
 alphabet.cpp
 atlant.cpp
 baton.cpp
+belarus.cpp
 bold.cpp
 celldump.cpp
 cg_hcut.cpp

@@ -1374,10 +1374,10 @@ void correct_let_tables(void) // used in EMBBOX.C: load_BOX()
                        alphabet['J']=0;
                        alphabet['j' ]=0;
 
-                      strcpy((char*) decode_ASCII_to_[UKR_I ] , "\xB2");
-                      strcpy((char*) decode_ASCII_to_[UKR_i ] , "\xB3");
-                      strcpy((char*) decode_ASCII_to_[u_bel],"\xA2");
-                      strcpy((char*) decode_ASCII_to_[u_bel],"\xA3");
+                      strcpy((char*) decode_ASCII_to_[UKR_I], "\xB2");
+                      strcpy((char*) decode_ASCII_to_[UKR_i], "\xB3");
+                      strcpy((char*) decode_ASCII_to_[U_bel], "\xA1");
+                      strcpy((char*) decode_ASCII_to_[u_bel], "\xA2");
 
 
                       let_linpos[UKR_I] = 0x11;   // base lines for diskrim
