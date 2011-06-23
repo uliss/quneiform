@@ -395,39 +395,39 @@ void take_kit_addr(puchar a) {
 
 #include <assert.h>
 cell * new_cell() {
-	cell * c;
-	if ((c = free_cell_chain) != NULL)
-		free_cell_chain = c->next;
-	else
-		c = empty_cell++;
-	//assert(c < cell_boundary); // Valdemar
-	if (c >= cell_boundary)
-		ErrorExit(RSTR_ERR_NOPLACE);
-	c->difflg = 0;
-	c->bas1 = c->bas2 = c->bas3 = c->bas4 = c->basflg = 0;
-	c->recsource = 0;
-	c->history = 0;
-	c->flg = 0;
-	c->flg_new = 0;
-	c->font = 0;
-	c->n_baton = NO_BATONS;
-	c->pos_inc = erect_no;
-	c->accent_leader = 0;
-	c->bottom_accent = 0;
-	c->language = language;
-	err_pnlet(c);
-	err_pncell(c);
-	c->clink = -1;
-	c->clu_attr = 0;
-	c->nClust = 0;
-	c->dup = dup_default;
-	c->dupstart = 0;
-	c->dupend = 0;
-	c->dlang_dup = 0; // Nick 17.02.2001 - was error!
-	c->cg_flag_fine = 0;
-	c->pr_vers.let = bad_char;
-	c->pr_vers.prob = 0;
-	return c;
+    cell * c;
+    if ((c = free_cell_chain) != NULL)
+        free_cell_chain = c->next;
+    else
+        c = empty_cell++;
+    //assert(c < cell_boundary); // Valdemar
+    if (c >= cell_boundary)
+        ErrorExit(RSTR_ERR_NOPLACE);
+    c->difflg = 0;
+    c->bas1 = c->bas2 = c->bas3 = c->bas4 = c->basflg = 0;
+    c->recsource = 0;
+    c->history = 0;
+    c->flg = 0;
+    c->flg_new = 0;
+    c->font = 0;
+    c->n_baton = NO_BATONS;
+    c->pos_inc = erect_no;
+    c->accent_leader = 0;
+    c->bottom_accent = 0;
+    c->language = language;
+    err_pnlet(c);
+    err_pncell(c);
+    c->clink = -1;
+    c->clu_attr = 0;
+    c->nClust = 0;
+    c->dup = dup_default;
+    c->dupstart = 0;
+    c->dupend = 0;
+    c->dlang_dup = 0; // Nick 17.02.2001 - was error!
+    c->cg_flag_fine = 0;
+    c->pr_vers.let = bad_char;
+    c->pr_vers.prob = 0;
+    return c;
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 

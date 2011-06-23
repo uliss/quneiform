@@ -24,10 +24,26 @@
 #include "stick.h"
 #include "version.h"
 
+enum cell_flag_t {
+    c_f_let       = 1,  // letter component
+    c_f_bad       = 2,   // badly recognized
+    c_f_dust      = 4,   // dust
+    c_f_punct     = 8,   // punctuation
+    c_f_space     = 16,  // space
+    c_f_solid     = 32,  // spelled letter
+    c_f_confirmed = 64,  // confirmed letter
+    c_f_fict      = 128, // fictive element
+    c_f_detouch   = 256  // fictive element
+};
+
 struct cell
 {
 public:
         cell();
+        int height() const { return h; }
+        int width() const { return w; }
+        cell * nextLetter() { return nextl; }
+        cell * previousLetter() { return prevl; }
 public:
         int16_t row; // ideal row of cell
         int16_t col; // ideal column of cell
@@ -82,16 +98,7 @@ public:
         int16_t r_col; // real collumn of cell
         int16_t nvers; // number of versions
         cf::version vers[VERS_IN_CELL];
-        uint16_t flg; // flag of cell
-#define c_f_let         1       // letter component
-#define c_f_bad     2   // badly recognized
-#define c_f_dust        4       // dust
-#define c_f_punct       8       // punctuation
-#define c_f_space       16      // space
-#define c_f_solid       32      // spelled letter
-#define c_f_confirmed   64      // confirmed letter
-#define c_f_fict        128     // fictive element
-#define c_f_detouch     256     // fictive element
+        uint16_t flg; // flag of cell - see cell_flag_t
         uchar cpos; // position of component
 #define ce_p_small      1
 #define ce_p_large      2
