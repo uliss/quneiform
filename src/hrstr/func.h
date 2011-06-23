@@ -491,9 +491,6 @@ void save_ed(void);
 // module edprproc.c
 void preprocess();
 
-// module writepro.c
-void write_prot(cell *);
-
 // module tools.c
 Bool comp_versions(cf::version *v, cf::version *w, int16_t n, int16_t snvers);
 void set_bad_cell(cell *);
@@ -627,9 +624,6 @@ void print_fragments();
 // module ascisave.c
 void smart_ascii_save(puchar pool, int32_t lth);
 void ascii_save(puchar pool, int32_t lth);
-
-// module writepro
-void write_prot(cell *);
 
 // module scanjet
 int16_t give_scan_handle(void);
