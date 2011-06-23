@@ -295,21 +295,6 @@ void set_bad_cell(cell *c) {
 		c->flg = c_f_bad;
 }
 
-void sort_v_vect(int16_t n, cf::version *v0) {
-	cf::version *v, *vs, *vm;
-	uchar l;
-
-	for (vs = v0 + 1, vm = v0 + n; vs < vm; vs++)
-		for (v = vs; v > v0 && (v - 1)->prob < v->prob; v--) {
-			l = (v - 1)->prob;
-			(v - 1)->prob = v->prob;
-			v->prob = l;
-			l = (v - 1)->let;
-			(v - 1)->let = v->let;
-			v->let = l;
-		}
-}
-
 void sort_vers(cell *c) {
 	cf::version *v, *vs, *vm;
 	uchar l;

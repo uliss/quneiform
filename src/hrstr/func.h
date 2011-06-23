@@ -498,7 +498,6 @@ void write_prot(cell *);
 Bool comp_versions(cf::version *v, cf::version *w, int16_t n, int16_t snvers);
 void set_bad_cell(cell *);
 void sort_vers(cell *);
-void sort_v_vect(int16_t, cf::version *);
 void setup_string();
 void kit_init();
 puchar il1_pool_ptr();
