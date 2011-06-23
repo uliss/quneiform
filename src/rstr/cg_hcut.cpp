@@ -523,7 +523,7 @@ static int16_t create_cells(cell *whither, raster *r, cell *celist[], int16_t st
   {
     cell *c=create_my_cell(mn,whither,0,0);
     inter_diff(c);
-    set_erection(c, st_inc);
+    c->set_erection(st_inc);
     celist[i]=c;
   }
   return i;

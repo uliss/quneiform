@@ -49,6 +49,18 @@ enum cell_cg_t { // cut glue
     c_cg_cutoff  = 128 // ignore "cutted" flags at glue attempt
 };
 
+enum cell_erect_t {
+    erect_no   = 0,   // really envelop
+    erect_rot  = 1,   // rotate image
+    erect_rest = 2,   // restore after rotating
+    erect_old  = 4,   // rotate prototype images
+    erect_zero = 8   // disable rotate and cursive study
+};
+
+#ifndef NO_INCLINE
+#define NO_INCLINE 10000 // not init incline
+#endif
+
 struct cell
 {
 public:
@@ -58,20 +70,22 @@ public:
         cell * nextLetter() { return nextl; }
         cell * previousLetter() { return prevl; }
 
-        bool tenv() const {
+        bool hasEnv() const {
              return (env && !(cg_flag & c_cg_noenv));
         }
 
         bool tsimple() const {
-            return (tenv() && !(cg_flag & c_cg_comp));
+            return (hasEnv() && !(cg_flag & c_cg_comp));
         }
+
+        void set_erection(int inc);
 public:
         int16_t row; // ideal row of cell
         int16_t col; // ideal column of cell
         int16_t h; // height of cell
         int16_t w; // width of cell
         // 8
-        c_comp *env; // envelope and line representation ptr
+        c_comp * env; // envelope and line representation ptr
         cell *next; // next in all string
         cell *prev; // prev in all string
         cell *nextl; // next letter ( only for letters )
@@ -143,7 +157,6 @@ public:
 #define c_rs_NCU    32  //  neural network
 #define c_rs_LEO    64  //  LEO
         int16_t stick_inc; // inc of stick
-#define NO_INCLINE 10000 // not init incline
         c_comp *complist; // if no envelope - list of envelopes
         // 88
         int16_t left; // left  of main part (without accent)
@@ -169,14 +182,7 @@ public:
         uchar broken_II; // II configuration
         // 96
         uchar language;
-        uchar pos_inc;
-#define erect_no       0   // really envelop
-#define erect_rot      1   // rotate image
-#define erect_rest     2   // restore after rotating
-#define erect_old      4   // rotate prototype images
-#define erect_zero     8   // disable rotate and cursive study
-#define set_erection( c, inc ) if( (inc)!=NO_INCLINE&&(c->tenv()) ) \
-             { (c)->stick_inc=inc; (c)->pos_inc=inc?erect_rot:erect_zero; }
+        uchar pos_inc; // see cell_erect_t
         uchar cg_flag_fine; // type of cutting position
 #define c_cg_cut_tl     0x01    // left top    cutten
 #define c_cg_cut_ml     0x02    // left middle cutten

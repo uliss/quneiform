@@ -275,7 +275,7 @@ void criteria(cell *c)
         if (vers->let == 'n' || vers->let == 'o')
             flon = 1;
     }
-    if (flon && c->tenv() && upper_right_line(c)) {
+    if (flon && c->hasEnv() && upper_right_line(c)) {
         promote(0, c, 'n', -48);
         promote(0, c, 'o', -16);
     }
@@ -299,7 +299,7 @@ static void test_rq(cell *c)
 static void test_c(cell *c)
 {
 
-    if (c->tenv() && !long_line_c(c)) {
+    if (c->hasEnv() && !long_line_c(c)) {
         set_bad_cell(c);
         if (db_status)
             snap_newcell(c);
@@ -332,7 +332,7 @@ static void crit_oa(cell *c)
 {
     int16_t r;
 
-    if (c->tenv() && (r = short_lines(c)) > 0) {
+    if (c->hasEnv() && (r = short_lines(c)) > 0) {
         if (r == 3) {
             if (c->vers[0].let == 'o') {
                 c->vers[0].let = 'a';
@@ -1006,7 +1006,7 @@ static int16_t not_rt(cell *c)
 {
     cf::version *v1, *v2;
 
-    if (c->tenv() && long_lines_rt(c)) {
+    if (c->hasEnv() && long_lines_rt(c)) {
         for (c->nvers = 0, v1 = v2 = c->vers; v1->let; v1++)
             if (v1->let != liga_rt) {
                 v2->let = v1->let;
@@ -1061,7 +1061,7 @@ static int16_t not_ff(cell *c)
 {
     cf::version *v1, *v2;
 
-    if (c->tenv() && long_lines_ff(c)) {
+    if (c->hasEnv() && long_lines_ff(c)) {
         for (c->nvers = 0, v1 = v2 = c->vers; v1->let; v1++)
             //if (v1->let!=liga_ff)
             if (!is_liga_ff(v1->let)) {

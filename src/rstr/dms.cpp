@@ -207,7 +207,7 @@ int16_t signif_line_count(cell *a) {
 
 int16_t cell_is_BOX_solid(cell *B1) {
     SVERS svers;
-    if (!B1->tenv())
+    if (!B1->hasEnv())
         return 0;
 
     SBOX.best_BOX[0].ltr = 0;

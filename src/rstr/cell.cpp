@@ -79,3 +79,10 @@ cell::cell() :
     pr_vers.prob = 0;
 }
 
+void cell::set_erection(int inc) {
+    if(inc != NO_INCLINE && hasEnv()) {
+        stick_inc = inc;
+        pos_inc = inc ? erect_rot : erect_zero;
+    }
+}
+

@@ -259,8 +259,6 @@ public:
 #define CSTR_erect_rest     2   // restore after rotating
 #define CSTR_erect_old      4   // rotate prototype images
 #define CSTR_erect_zero     8   // disable rotate and cursive study
-#define CSTR_set_erection( c, inc ) if( (inc)!=NO_INCLINE&&tenv(c) ) \
-             { (c)->stick_inc=inc; (c)->pos_inc=inc?CSTR_erect_rot:CSTR_erect_zero; }
     uchar cg_flag_fine; // type of cutting position
 #define CSTR_cg_cut_tl     0x01    // left top    cutten
 #define CSTR_cg_cut_ml     0x02    // left middle cutten

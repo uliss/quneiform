@@ -1133,7 +1133,7 @@ static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
 					goto ret;
 				B->cg_flag = cg_flag;
 				inter_diff(B);
-				set_erection(B, inc);
+                                B->set_erection(inc);
 				if (full_recog(B, NULL, tol, tol)) { //принимаем результат
 					B->cg_flag &= ~c_cg_cut;
 					for (i = 0; i < n; i++)
@@ -1157,7 +1157,7 @@ static int16_t one_glue(int16_t n, cell **S, int16_t tol) {
 	if (!dust(B) && crecell(B, &GL, 3) >= 0) //совокупный растр - в BOX'е,
 	{ //B не изменился
 		B->broken_II = nstick == 2;
-		set_erection(B, inc);
+                B->set_erection(inc);
 		dmBOX(B, &GL);
 		if (B->nvers)
 			if (B->vers[0].prob > tol) { //принимаем результат
@@ -2681,7 +2681,7 @@ int16_t recogij(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 		B0->cg_flag_fine = cut_fine;
 		B0->cg_flag |= cut_fl;
 		inter_diff(B0);
-		set_erection(B0, inc);
+                B0->set_erection(inc);
 		ro = recog_one(B0, NULL, trs2, vers);
 		*width = B0->w;
 		goto ret;
@@ -2940,7 +2940,7 @@ static int16_t recog_set(cell *C, cell **org_cells, int16_t N, uchar cut_fl,
 	B0->cg_flag_fine = cut_fine;
 	B0->cg_flag |= cut_fl;
 	B0->broken_II = broken_II;
-	set_erection(B0, inc);
+        B0->set_erection(inc);
 	ro = recog_one(B0, &GL, tolbox, vers);
 	if (B0 != GL.celist[0])
 		del_cell(B0);
@@ -3615,7 +3615,7 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 	for (i = 0; i < MAX_SECT && mn1; i++) {
 		B = create_my_cell(mn1, LC, 0, 0);
 		inter_diff(B);
-		set_erection(B, cut_list->rv.v2);
+                B->set_erection(cut_list->rv.v2);
 		i0 = locate(B, cut_list, N, r->left);
 		seci0 = cut_list + i0;
 		seci = cut_list + seci0->px;
@@ -3662,7 +3662,7 @@ static cell *recover_path(void *kita, raster *r, struct cut_elm *cut_list,
 				seci0->gvarm &= glued;
 				B = unite(LC, dcell, Nd, &GL, (uchar*) &seci0->gvarm);
 				if (B) {
-					set_erection(B, cut_list->rv.v2);
+                                        B->set_erection(cut_list->rv.v2);
 					if (GL.ncell > 1) //если ncell==1, тогда celist[0]=B
 						for (i = 0; i < GL.ncell; i++)
 							del_cell(GL.celist[i]);
@@ -3898,7 +3898,7 @@ static void paste() {
 				BC = EC;
 				continue;
 			}
-			set_erection(B, inc);
+                        B->set_erection(inc);
 			compose_cg_flags(B, BC, EC);
 			dmBOX(B, &GL);
 
