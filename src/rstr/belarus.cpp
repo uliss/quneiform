@@ -206,15 +206,16 @@ delcap:
 // Go by string and recog 'ч'
 void cf::proc_shortu()
 {
-    cell * c,*cap;
+    cell * c, * cap;
     uchar let;
-    int16_t ndust;
+    int ndust;
     c = cell_f();
     while((c = c->nextl) != NULL ){
         if(!(c->flg & (c_f_let + c_f_bad)))
             continue;
 
-        let = c->vers[0].let; ndust = 0;
+        let = c->vers[0].let;
+        ndust = 0;
         if(!memchr("\xE3\x93", let, 2))
             continue;
 
