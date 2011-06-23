@@ -1107,24 +1107,7 @@ Bool comp_versions(cf::version *v, cf::version *w, int16_t n, int16_t snvers) {
 }
 
 void del_version(cell *c, uchar let) {
-	int16_t i, nvers;
-	cf::version * v;
-
-	if (c->nvers < 1)
-		return;
-
-	v = c->vers;
-	nvers = c->nvers;
-
-	for (i = 0; i < nvers; i++)
-		if (v[i].let == let) {
-			for (i++; i < nvers; i++)
-				v[i - 1] = v[i];
-			v[i].let = v[i].prob = 0;
-			c->nvers--;
-			return;
-		}
-	return;
+    c->removeVersion(let);
 }
 
 #define s_ans(a) { rec_ptr->let = a; rec_ptr->prob = 254; rec_ptr++; }

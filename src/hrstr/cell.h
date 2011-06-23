@@ -82,6 +82,8 @@ public:
             return (hasEnv() && !(cg_flag & c_cg_comp));
         }
 
+        void removeVersion(int letter);
+
         void set_erection(int inc);
 public:
         int16_t row; // ideal row of cell

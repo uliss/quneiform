@@ -79,6 +79,22 @@ cell::cell() :
     pr_vers.prob = 0;
 }
 
+void cell::removeVersion(int letter) {
+    if (nvers < 1)
+        return;
+
+    for(int i = 0; i < nvers; i++) {
+        if (vers[i].let == letter) {
+            for (i++; i < nvers; i++)
+                vers[i - 1] = vers[i];
+
+            vers[i].let = vers[i].prob = 0;
+            nvers--;
+            return;
+        }
+    }
+}
+
 void cell::set_erection(int inc) {
     if(inc != NO_INCLINE && hasEnv()) {
         stick_inc = inc;
