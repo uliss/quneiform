@@ -90,7 +90,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "minmax.h"
 #include "belarus.h"
 
-extern uchar p2_active;
 // Discrim © by base lines
 
 static int rec_shortu(cell* c,cell * cap)
