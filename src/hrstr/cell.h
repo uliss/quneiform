@@ -67,6 +67,7 @@ public:
         cell();
 
         bool hasCellFlag(int flag) const { return flg & flag; }
+        bool isDust() const { return hasCellFlag(c_f_dust); }
 
         int height() const { return h; }
         int width() const { return w; }
