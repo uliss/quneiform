@@ -469,25 +469,14 @@ void read_rec_file(int16_t seqn, puchar pool, puchar * end);
 ///////////////////int16_t cond_open(int16_t seqn, pchar name, uint16_t b1, uint16_t b2);
 puchar seq_nam(int16_t seqn);
 
-// module msgerr
-void error_exit(int16_t group, int16_t element);
-void error_exit_asm(int16_t element);
-void clear_error_status(void);
-
 // module testsnap
-void snap_events(cell *);
-void write_events(cell *);
-void * snap_ev_res();
-void snap_ev_reset();
 void snap_keep(uchar user, puchar addr, uint16_t lth);
-void snap_sticks(cell *);
 
 // module v0compmn.asm
 void extrcomp(void);
 
 // module v0comprq.asm
 int16_t recog_letter();
-void recog_save_maden();
 
 // module proport.c
 void v2_pidx_crit(cell *);
@@ -509,12 +498,6 @@ int16_t read_dust_comp(dust_comp *, puchar);
 // module picture.c
 int16_t scaled(int16_t value, uchar scale);
 
-// module large.asm
-puchar compress_component(c_comp *c, uchar scale);
-puchar compress_large_component(c_comp *c, uchar scale);
-puchar compress_dust_component(c_comp *c, uchar scale);
-int16_t filling_MN(MN *mn, uint16_t h, uint16_t w);
-
 //  module tg_spell
 int16_t spelling(puchar memory, int32_t size);
 
@@ -525,23 +508,6 @@ void user_voc_init(void);
 
 // module corners.c
 void discrim_un(cell *, s_glue *, int16_t);
-
-// module rtf.c
-void rtf_main(puchar memory, int32_t memory_lth);
-
-// module rtfdebug.c
-void print_fragments();
-
-// module ascisave.c
-void smart_ascii_save(puchar pool, int32_t lth);
-void ascii_save(puchar pool, int32_t lth);
-
-// module scanjet
-int16_t give_scan_handle(void);
-uint16_t scan_close(void);
-
-// module dllentry or run
-void write_text(uchar);
 
 // module celldump.c
 void setup_dump(void);
@@ -577,12 +543,7 @@ void shevron(cell*);
 /*-------------------------- Extern -------------------*/
 
 Bool check_cancel(uint16_t perc);
-
-MN *cell_cut(cell *);
-
 void set_page_name(puchar);
-
-void setdrmode(int16_t);
 
 void c_rastror(puchar, puchar, uint16_t, uint16_t);
 
