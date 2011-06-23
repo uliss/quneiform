@@ -210,7 +210,7 @@ void cf::proc_shortu()
     uchar let;
     int ndust;
     c = cell_f();
-    while((c = c->nextl) != NULL) {
+    while((c = c->nextLetter()) != NULL) {
         if(!(c->flg & (c_f_let + c_f_bad)))
             continue;
 
@@ -220,7 +220,7 @@ void cf::proc_shortu()
             continue;
 
         cap = c;
-        while((cap=cap->next) != NULL && cap != c->nextl) {
+        while((cap=cap->next) != NULL && cap != c->nextLetter()) {
             if(cap->flg & c_f_dust) {
                 ndust++;
                 switch(rec_shortu(c,cap)){
@@ -236,7 +236,7 @@ void cf::proc_shortu()
 
         cap = c;
 
-        while((cap = cap->prev) != NULL && cap != c->prevl) {
+        while((cap = cap->prev) != NULL && cap != c->previousLetter()) {
             if(cap->flg & c_f_dust) {
                 ndust++;
                 //if(rec_shortu(c,cap))goto next_let;
