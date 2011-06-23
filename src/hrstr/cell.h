@@ -65,6 +65,9 @@ struct cell
 {
 public:
         cell();
+
+        bool hasCellFlag(int flag) const { return flg & flag; }
+
         int height() const { return h; }
         int width() const { return w; }
         cell * nextLetter() { return nextl; }

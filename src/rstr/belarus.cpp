@@ -132,12 +132,12 @@ static int rec_shortu_halo(cell * c)
     i = 0;
     cap = c;
     while((cap=cap->next) != NULL && cap != c->nextl && i < n_pieces - 1)
-        if( cap->flg & c_f_dust) caplist[i++] = cap;
+        if(cap->hasCellFlag(c_f_dust)) caplist[i++] = cap;
 
     cap = c;
 
     while((cap = cap->prev) != NULL && cap != c->prevl && i < n_pieces - 1)
-        if(cap->flg & c_f_dust) caplist[i++] = cap;
+        if(cap->hasCellFlag(c_f_dust)) caplist[i++] = cap;
 
     caplist[i] = NULL;
     ncaps = i;
@@ -211,7 +211,7 @@ void cf::proc_shortu()
     int ndust;
     c = cell_f();
     while((c = c->nextLetter()) != NULL) {
-        if(!(c->flg & (c_f_let + c_f_bad)))
+        if(! c->hasCellFlag(c_f_let + c_f_bad))
             continue;
 
         let = c->vers[0].let;
@@ -220,8 +220,8 @@ void cf::proc_shortu()
             continue;
 
         cap = c;
-        while((cap=cap->next) != NULL && cap != c->nextLetter()) {
-            if(cap->flg & c_f_dust) {
+        while((cap = cap->next) != NULL && cap != c->nextLetter()) {
+            if(cap->hasCellFlag(c_f_dust)) {
                 ndust++;
                 switch(rec_shortu(c,cap)){
                 case 1:
@@ -237,7 +237,7 @@ void cf::proc_shortu()
         cap = c;
 
         while((cap = cap->prev) != NULL && cap != c->previousLetter()) {
-            if(cap->flg & c_f_dust) {
+            if(cap->hasCellFlag(c_f_dust)) {
                 ndust++;
                 //if(rec_shortu(c,cap))goto next_let;
                 switch(rec_shortu(c,cap)) {

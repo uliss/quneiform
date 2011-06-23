@@ -122,7 +122,8 @@ uchar let;
 int16_t ndust;
   c = cell_f();
  while((c=c->nextl) != NULL ){
- if( !(c->flg & (c_f_let+c_f_bad)) ) continue;
+ if( !c->hasCellFlag(c_f_let + c_f_bad))
+     continue;
  let = c->vers[0].let; ndust=0;
   //if( !memchr("иИнНпыў",let,7) ||
   if( !memchr("\xA8\x88\xAD\x8D\xAF\xEB\xF7",let,7) ||
@@ -131,10 +132,8 @@ int16_t ndust;
 	  continue;
 
       cap = c;
-      while((cap=cap->next)!=NULL && cap != c->nextl  )
-          {
-          if( cap->flg & c_f_dust)
-            {
+      while((cap=cap->next)!=NULL && cap != c->nextl) {
+          if(cap->hasCellFlag(c_f_dust)) {
             ndust++;
             switch( rec_ii(c,cap))
                 {
@@ -148,10 +147,8 @@ int16_t ndust;
             }
           }
       cap = c;
-      while((cap=cap->prev)!=NULL && cap != c->prevl  )
-          {
-          if( cap->flg & c_f_dust)
-            {
+      while((cap=cap->prev)!=NULL && cap != c->prevl) {
+          if(cap->hasCellFlag(c_f_dust)) {
             ndust++;
             //if(rec_ii(c,cap))goto next_let;
             switch( rec_ii(c,cap))
@@ -219,10 +216,14 @@ int16_t i,cap_row,cap_col,cap_h,cap_w,cap_rt,cap_bt,ncaps;
       i=0;
       cap = c;
       while((cap=cap->next)!=NULL && cap != c->nextl && i < n_pieces-1)
-      if( cap->flg & c_f_dust) caplist[i++] = cap;
+      if(cap->hasCellFlag(c_f_dust))
+          caplist[i++] = cap;
+
       cap = c;
       while((cap=cap->prev)!=NULL && cap != c->prevl && i < n_pieces-1)
-      if( cap->flg & c_f_dust) caplist[i++] = cap;
+      if(cap->hasCellFlag(c_f_dust))
+          caplist[i++] = cap;
+
       caplist[i]=NULL; ncaps=i; i=0;
 
       while(cap=caplist[i]){ //  validate halo
