@@ -87,6 +87,7 @@
 #include "dpuma.h"
 #include "match_wd.h"
 #include "specprj.h"
+#include "belarus.h"
 
 #include "compat_defs.h"
 #include "minmax.h"
@@ -262,7 +263,6 @@ void save_rest_bases(int16_t mode, int16_t line_crit);
 void save_rest_incline(int16_t mode);
 
 void proc_Ukr(void); // see module ukr.cpp
-void proc_shortu(void); //belarus.cpp
 void cuts_glues(void);
 
 void cstr2txt(char *buf, CSTR_line ln, CSTR_line lout) {
@@ -848,7 +848,7 @@ void pass3(CSTR_line ln, CSTR_line lout) {
         }
 
         if (language == LANGUAGE_RUSSIAN && langBy) {
-            proc_shortu();
+            cf::proc_shortu();
             proc_Ukr();                        //UKRAINIAN "iI & .."
         }
 

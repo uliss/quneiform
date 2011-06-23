@@ -88,6 +88,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ligas.h"
 #include "func.h"
 #include "minmax.h"
+#include "belarus.h"
 
 extern uchar p2_active;
 // Discrim © by base lines                              *
@@ -134,7 +135,7 @@ int16_t cut_by_pos_shortu(s_glue * const gl, uchar let) {
 }
 
 // Go by string and recog 'ч'
-void proc_shortu(void)
+void cf::proc_shortu()
 {
     cell * c,*cap;
     uchar let;
