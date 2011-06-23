@@ -91,103 +91,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "belarus.h"
 
 extern uchar p2_active;
-// Discrim © by base lines                              *
-static int16_t rec_shortu(cell*c,cell*cap);
-static int16_t rec_shortu_halo(cell * c);
+// Discrim © by base lines
 
-static uchar iot_pen_lc[]={ 120,60,10,0,0 };
-static uchar iot_pen_uc[]={ 140,10,0 ,0,0 };
-
-int16_t cut_by_pos_shortu(s_glue * const gl, uchar let) {
-    B_LINES bl;
-    int16_t pen = 0, upper = 32000, dis;
-
-
-    get_b_lines(gl->celist[0],&bl);
-    for(int16_t i = 0; i < gl->ncell; i++)
-        upper = MIN(upper, gl->celist[i]->row);
-
-    if(let == u_bel) {
-        if((dis = upper-bl.b2) <= 0) { // letter upper than bbs2
-            dis = abs(dis);
-            if(dis < 5) pen = iot_pen_lc[dis];
-        }
-        else
-            pen = 160; // letter lower than bbs2
-
-        if(gl->ncell == 1 && (gl->celist[0]->recsource == c_rs_ev ||
-                              gl->celist[0]->recsource == (c_rs_ev | c_rs_deskr) ))// events brought vers
-            if((Ns1 + Ns2) > 0 && bl.b2 - bl.b1 > 6){
-                dis = upper - bl.b1;
-                pen +=  dis < 3 ? 60 : 0;
-            }
-    }
-
-    if(let == (uchar)U_bel){ // Capital
-        if((dis = upper - bl.b1) <= 0 ){ // letter upper than bbs1
-            dis = abs(dis);
-            if(dis < 5) pen = iot_pen_uc[dis];
-        }
-        else
-            pen = 160; // letter lower than bbs1
-    }
-    return pen;
-}
-
-// Go by string and recog 'ч'
-void cf::proc_shortu()
-{
-    cell * c,*cap;
-    uchar let;
-    int16_t ndust;
-    c = cell_f();
-    while((c = c->nextl) != NULL ){
-        if(!(c->flg & (c_f_let + c_f_bad)))
-            continue;
-
-        let = c->vers[0].let; ndust = 0;
-        if(!memchr("\xE3\x93", let, 2))
-            continue;
-
-        cap = c;
-        while((cap=cap->next) != NULL && cap != c->nextl) {
-            if(cap->flg & c_f_dust) {
-                ndust++;
-                switch(rec_shortu(c,cap)){
-                case 1:
-                    goto next_let;
-                case -1:
-                    return;
-                case 0:
-                    break;
-                }
-            }
-        }
-
-        cap = c;
-
-        while((cap = cap->prev) != NULL && cap != c->prevl) {
-            if(cap->flg & c_f_dust) {
-                ndust++;
-                //if(rec_shortu(c,cap))goto next_let;
-                switch(rec_shortu(c,cap)) {
-                case 1:
-                    goto next_let;
-                case -1:
-                    return;
-                case 0:
-                    break;
-                }
-            }
-        }
-
-        if(ndust > 1)
-            rec_shortu_halo(c); // many dusts, try all together
-        next_let: ;
-    } // while by letters
-}
-
-int16_t rec_shortu(cell* c,cell * cap)
+static int rec_shortu(cell* c,cell * cap)
 {
     cell *clist[8];
     uchar let;
@@ -218,7 +124,7 @@ int16_t rec_shortu(cell* c,cell * cap)
     return 1;
 }
 
-int16_t rec_shortu_halo(cell * c)
+static int rec_shortu_halo(cell * c)
 {
 #define n_pieces        48
     cell *cap, *caplist[n_pieces];
@@ -296,8 +202,57 @@ delcap:
     c->nvers=1;
     c->vers[1].let = c->vers[1].prob = 0;
     return 1;
-
 }
 
+// Go by string and recog 'ч'
+void cf::proc_shortu()
+{
+    cell * c,*cap;
+    uchar let;
+    int16_t ndust;
+    c = cell_f();
+    while((c = c->nextl) != NULL ){
+        if(!(c->flg & (c_f_let + c_f_bad)))
+            continue;
 
+        let = c->vers[0].let; ndust = 0;
+        if(!memchr("\xE3\x93", let, 2))
+            continue;
 
+        cap = c;
+        while((cap=cap->next) != NULL && cap != c->nextl) {
+            if(cap->flg & c_f_dust) {
+                ndust++;
+                switch(rec_shortu(c,cap)){
+                case 1:
+                    goto next_let;
+                case -1:
+                    return;
+                case 0:
+                    break;
+                }
+            }
+        }
+
+        cap = c;
+
+        while((cap = cap->prev) != NULL && cap != c->prevl) {
+            if(cap->flg & c_f_dust) {
+                ndust++;
+                //if(rec_shortu(c,cap))goto next_let;
+                switch(rec_shortu(c,cap)) {
+                case 1:
+                    goto next_let;
+                case -1:
+                    return;
+                case 0:
+                    break;
+                }
+            }
+        }
+
+        if(ndust > 1)
+            rec_shortu_halo(c); // many dusts, try all together
+        next_let: ;
+    } // while by letters
+}
