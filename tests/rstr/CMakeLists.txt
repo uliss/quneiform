@@ -1,6 +1,7 @@
 add_executable(test_rstr
     test_rstr.cpp
     testbelarusian.cpp
+    testcell.cpp
 )
 
 set(TEST_RSTR_LIBS

@@ -22,9 +22,13 @@
 #include "cttypes.h"
 #include "comp.h"
 #include "stick.h"
+#include "version.h"
 
 struct cell
 {
+public:
+        cell();
+public:
         int16_t row; // ideal row of cell
         int16_t col; // ideal column of cell
         int16_t h; // height of cell

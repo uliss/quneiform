@@ -13,6 +13,7 @@ set(RSTR_SOURCES
     baton.cpp
     belarus.cpp
     bold.cpp
+    cell.cpp
     celldump.cpp
     cg_hcut.cpp
     cg_main.cpp
