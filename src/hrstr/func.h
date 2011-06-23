@@ -436,34 +436,12 @@ void avdens();
 int16_t letincl(cell *);
 
 // module lineout.c
-void lineout();
-void lineout_fragment();
-void lines_out_init();
-void rules_to_ed();
 void ed_load();
 void ed_flip();
-void ed_out_finish();
-void set_initial_edout(puchar pool, uint32_t lth);
 void ed_save(void);
-void init_sheet_tag(void);
-
-// module lout_bcr.c
-void lout_bcr();
-void loutf_bcr();
-void louti_bcr();
-
-// module edscan.c
-int16_t ed_scan(Bool(*)(puchar, int16_t), Bool(*)(puchar, int16_t), puchar, puchar);
-Bool scan_skip(puchar p, int16_t lth);
-
-// module edp.c
-void edp_main(puchar memory, int32_t lth);
 
 // module edpsave.c
 void save_ed(void);
-
-// module edprproc.c
-void preprocess();
 
 // module tools.c
 Bool comp_versions(cf::version *v, cf::version *w, int16_t n, int16_t snvers);
@@ -517,24 +495,9 @@ void set_tab_incl();
 
 // module filesys.c
 void file_string(STRING *); // accept string into file
-str *first_string();
-str *next_string();
-int16_t read_string();
-void setup_memory();
-void convert_rtf();
-void maden_comp(puchar, int16_t, int16_t, int16_t, int16_t);
-c_comp *get_comp(PROOT);
-void Pass2(void);
 Bool32 read_rec_file(int16_t seqn, puchar pool, puchar * end);
 ///////////////////int16_t cond_open(int16_t seqn, pchar name, uint16_t b1, uint16_t b2);
 puchar seq_nam(int16_t seqn);
-int16_t to_voc(void);
-void to_edp(void);
-void make_rtf(void);
-void make_ASCII(void);
-void make_smart_ASCII(void);
-void LayoutSetup(void);
-void load_vocs(void);
 
 // module msgerr
 void clear_error_status(void);

@@ -317,9 +317,6 @@ typedef struct {
 } dL;
 //*****************************************************************************
 
-int16_t ed_scan(Bool(*func_spec)(puchar p, int16_t lth), Bool(*func_char)(puchar p,
-                                                                          int16_t lth), puchar start, puchar end);
-
 #if RTF_DEBUG!=0
 #define PGM " "
 #define MSG(s)               if(L.debug)fprintf(L.prt,"\n" PGM s)
