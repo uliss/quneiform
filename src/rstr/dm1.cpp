@@ -1384,7 +1384,7 @@ void croat_reverse(cell *B1, uchar c)
     }
     i2 = p - model;
     if (i1 == i2) {
-        del_version(B1, rever[i1]);
+        B1->removeVersion(rever[i1]);
         B1->vers[0].let = rever[i2];
     }
 }
@@ -1488,7 +1488,7 @@ void baltic_turkish_reverse(cell *B1, uchar c)
         snap_monitor();
     }
 
-    del_version(B1, c3);
+    B1->removeVersion(c3);
     B1->vers[0].let = c4;
 
     return;

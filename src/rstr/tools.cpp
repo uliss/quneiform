@@ -1106,10 +1106,6 @@ Bool comp_versions(cf::version *v, cf::version *w, int16_t n, int16_t snvers) {
 	return FALSE;
 }
 
-void del_version(cell *c, uchar let) {
-    c->removeVersion(let);
-}
-
 #define s_ans(a) { rec_ptr->let = a; rec_ptr->prob = 254; rec_ptr++; }
 int16_t stick_w_4() {
 	int16_t answ;

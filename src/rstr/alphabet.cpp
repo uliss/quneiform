@@ -876,7 +876,7 @@ void serbian_J2j(void) {
 
 			}
 			if (c->nvers && c->vers[0].let == 'j' && check_let(c, '/'))
-				del_version(c, '/');
+                                c->removeVersion('/');
 		}
 	}
 }
