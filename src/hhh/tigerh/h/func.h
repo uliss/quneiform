@@ -76,23 +76,14 @@ extern uchar *let_linpos, *let_lindef, *let_lincomp, *let_linshape,
 // module diffrv.c
 void r_criteria(cell *c, const s_glue * gl);
 
-// module prscan.c
-int16_t brigt(int16_t, int16_t, int16_t, int16_t);
-
 // module names.c
 pchar full_name(pchar w, pchar n);
 
-// module kernel.c
-void correct_dir_path(puchar p);
-
 // module proimage.c
-void image_file_close();
 Bool image_file_open();
 int16_t source_read(puchar start, puchar ptr, puchar end);
 
 // module progress.c
-void set_percentage(void);
-void progress_next_step(void);
 uint32_t progress_set_step(uint32_t volume);
 uint32_t progress_set_percent(uint32_t volume);
 void progress_finish(void);
@@ -103,28 +94,13 @@ void matrix_close();
 int16_t matrix_read(puchar buff, uint16_t lth);
 
 // module rules.c
-void rules_open();
 int16_t rules(MN *);
 int16_t frame(MN *);
-void rules_closed();
-void short_undln();
-void del_root(int16_t, int16_t, int16_t, int16_t);
-
-// module rulsh.c
-int32_t rules_shaving(MN *, int16_t);
-int16_t shaving_let();
-
-// module rulbr.c
-void cutoffs();
 
 // module sweeper.c
-void sweeper_ini();
 uint16_t sweeper(int16_t);
-void sweeper_end();
 void read_comp(uint32_t, pchar, int32_t);
-void comp_file_close();
 int16_t delgarb();
-void del_shav();
 
 // module skew.c
 void skew_corr(str *, int16_t);
@@ -134,7 +110,6 @@ void ideal_rc(cell *);
 // module pass3.c
 void pass3(int16_t nCall);
 void accept_cell(cell *, c_comp *);
-int16_t revision();
 // module alphabet.c
 Bool is_digital_string(void);
 void serbian_J2j(void);
@@ -188,7 +163,6 @@ int16_t obtain_diff(int16_t);
 int16_t def_locbas(cell *);
 void inter_diff(cell *);
 int16_t if_dust(cell *);
-int16_t if_dust_size(cell *);
 void linpos(str *);
 void cell_by_base();
 void cell_position(cell *);
