@@ -3858,9 +3858,9 @@ static void paste() {
 			break; // BC = dummy cell at end
 		if (!EC->next)
 			break; // EC = dummy cell at end
-		if (!tsimple(BC) || !may_glue(BC))
+                if (!BC->tsimple() || !may_glue(BC))
 			continue; //"glued" earlier or never
-		if (!tsimple(EC) || !may_glue(EC))
+                if (!EC->tsimple() || !may_glue(EC))
 			continue; //"glued" earlier or never
 		if (BC->nvers && EC->nvers) // recovering after stick cut
 		{

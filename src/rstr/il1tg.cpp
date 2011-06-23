@@ -238,7 +238,7 @@ static void oacell(cell *C) {
 	oa_accent_existing_flag = ACCENT_NOT_FOUND;
 	if (language != LANGUAGE_ENGLISH)
 		oa_accent_existing_flag = oa_accent_removing(C);
-	if (check_two_case(C, "oa") && tsimple(C)) {
+        if (check_two_case(C, "oa") && C->tsimple()) {
 		snap_newcell(C);
 		if (snap_activity('c')) {
 			snap_show_text("Before");
@@ -351,7 +351,7 @@ static int16_t oa_accent_removing(cell *srC) {
 }
 
 static void eccell(cell *C) {
-	if (check_two_case(C, "ec") && tsimple(C)) {
+        if (check_two_case(C, "ec") && C->tsimple()) {
 		snap_newcell(C);
 		if (snap_activity('c')) {
 			snap_show_text("Before:");
@@ -388,7 +388,7 @@ static void NHcell(cell *C) {
 	uchar sv[sizeof(C-> nvers) + sizeof(C -> vers)];
 	cell c, *p, *pl, *n, *nl;
 
-	if (check_two_case(C, "NH") && tsimple(C)) {
+        if (check_two_case(C, "NH") && C->tsimple()) {
 		snap_newcell(C);
 		if (snap_activity('c')) {
 			snap_show_text("Before");
@@ -497,7 +497,7 @@ static void GCcell(cell * C) {
 
 	pnl = 0;
 	op = 0;
-	if (check_two_case(C, "GC") && tsimple(C)) {
+        if (check_two_case(C, "GC") && C->tsimple()) {
 		snap_newcell(C);
 		if (snap_activity('c')) {
 			snap_show_text("Before");
@@ -564,7 +564,7 @@ static void GCcell(cell * C) {
 static void TYcell(cell *C) {
 	int16_t mon_T = 0;
 	int16_t mon_Y = 0;
-	if (check_two_case(C, "TY") && tsimple(C)) {
+        if (check_two_case(C, "TY") && C->tsimple()) {
 		snap_newcell(C);
 		if (snap_activity('c')) {
 			snap_show_text("Before");

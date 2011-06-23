@@ -36,6 +36,19 @@ enum cell_flag_t {
     c_f_detouch   = 256  // fictive element
 };
 
+enum cell_cg_t { // cut glue
+    c_cg_noglue  = 1,  // don't glue to ... ( just cut )
+    c_cg_noenv   = 2,      // envelope address obsolete
+    c_cg_comp    = 4,   // composed cell
+    c_cg_cutdone = 8,  // verarbeitet by cut
+    c_cg_cutr    = 16,  // cut at right side
+    c_cg_cutl    = 32, // cut at left side
+    c_cg_cut     = 16+32,  // cut somewhere
+    c_cg_cutacc  = 8+16+32, // cutted accent
+    c_cg_just    = 64,  // just created
+    c_cg_cutoff  = 128 // ignore "cutted" flags at glue attempt
+};
+
 struct cell
 {
 public:
@@ -44,6 +57,14 @@ public:
         int width() const { return w; }
         cell * nextLetter() { return nextl; }
         cell * previousLetter() { return prevl; }
+
+        bool tenv() const {
+             return (env && !(cg_flag & c_cg_noenv));
+        }
+
+        bool tsimple() const {
+            return (tenv() && !(cg_flag & c_cg_comp));
+        }
 public:
         int16_t row; // ideal row of cell
         int16_t col; // ideal column of cell
@@ -81,19 +102,7 @@ public:
         char bas2;
         char bas3;
         char bas4;
-        uchar cg_flag; // cut-to-glue message
-#define c_cg_noglue     1   // don't glue to ... ( just cut )
-#define c_cg_noenv      2       // envelope address obsolete
-#define tenv(c)         ((c)->env && !((c)->cg_flag&c_cg_noenv))
-#define c_cg_comp       4   // composed cell
-#define tsimple(c)      (tenv(c) && !((c)->cg_flag&c_cg_comp))
-#define c_cg_cutdone    8   // verarbeitet by cut
-#define c_cg_cutr       16  // cut at right side
-#define c_cg_cutl       32  // cut at left side
-#define c_cg_cut        16+32  // cut somewhere
-#define c_cg_cutacc     8+16+32 // cutted accent
-#define c_cg_just       64  // just created
-#define c_cg_cutoff    128  // ignore "cutted" flags at glue attempt
+        uchar cg_flag; // cut-to-glue message - see cell_cg_t
         int16_t r_row; // real row of cell
         int16_t r_col; // real collumn of cell
         int16_t nvers; // number of versions
@@ -166,7 +175,7 @@ public:
 #define erect_rest     2   // restore after rotating
 #define erect_old      4   // rotate prototype images
 #define erect_zero     8   // disable rotate and cursive study
-#define set_erection( c, inc ) if( (inc)!=NO_INCLINE&&tenv(c) ) \
+#define set_erection( c, inc ) if( (inc)!=NO_INCLINE&&(c->tenv()) ) \
              { (c)->stick_inc=inc; (c)->pos_inc=inc?erect_rot:erect_zero; }
         uchar cg_flag_fine; // type of cutting position
 #define c_cg_cut_tl     0x01    // left top    cutten

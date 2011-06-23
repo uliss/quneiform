@@ -953,7 +953,7 @@ void full_snap(cell *c,
                     /**	if (c->env==NULL)				// 18.02.1994
                      pbuf+= sprintf(pbuf, "  ENV==NULL;");
                      else if (c->cg_flag&c_cg_noenv)  **/
-                    if (!tenv(c))
+                    if (!c->tenv())
                         pbuf += sprintf(pbuf, "  noenv;");
                     else {
                         env = c->env;

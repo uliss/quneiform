@@ -549,7 +549,7 @@ static int16_t one_line_in_comp(cell *c)
     interval *inter;
     int16_t ind, i, ll, h, max_h = c->h, num_int;
 
-    if (!tsimple(c))
+    if (!c->tsimple())
         return 0;
     if (c->env->nl == 1)
         return (1);

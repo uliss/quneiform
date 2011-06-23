@@ -454,7 +454,7 @@ static Bool compadd(cell *c)
  for (i=0,cc=c->prevl->next;
 	 !(cc->flg&(c_f_let|c_f_bad|c_f_fict)) || cc->col<c->col+c->w;
 							    cc=cc->next)
-  if (tenv(cc))
+  if (cc->tenv())
    {
    if (cc->col+cc->w<c->col)
     continue;

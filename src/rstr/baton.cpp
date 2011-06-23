@@ -158,7 +158,7 @@ int16_t sticks_in_letter(cell *c, int16_t mode, STICK **res)
 
     if (!bs_got)
         return -1;
-    if (c->flg & c_f_space || !tenv(c))
+    if (c->flg & c_f_space || !c->tenv())
         return -2;
     if (c->n_baton > 0 && c->n_baton < 4) {
         *res = c->save_baton;

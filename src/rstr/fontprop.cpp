@@ -160,7 +160,7 @@ void font_let() {
 	cell *c;
 
 	for (c = (cell_f())->next; c->next != NULL; c = c->next)
-		if (c->flg & c_f_let && tsimple(c)) {
+                if (c->flg & c_f_let && c->tsimple()) {
 			italic(c);
 			serif(c);
 		}

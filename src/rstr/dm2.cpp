@@ -358,7 +358,7 @@ static void glue_let_dust() {
 			continue; // too extended to be glued
 		if (BC->accent_leader)
 			continue; // Oleg : 06/10/97 17:51 : can't glued fictive images
-		if (!tsimple(BC))
+                if (!BC->tsimple())
 			continue; // not simple ( "glued" earlier)
 		c1l = c1 = BC->vers[0].let;
 		p1l = p1 = BC->vers[0].prob;
@@ -588,9 +588,9 @@ static void glue_let_bad() {
 		fgd = 0; // no dust inside
 		rus_iee = 0; // flag to promote '\xeb' /* ы */
 		broken_ii = 0; // two sticks flag
-		if (!tsimple(BC))
+                if (!BC->tsimple())
 			continue; // not simple ( "glued" earlier)
-		if (!tsimple(EC))
+                if (!EC->tsimple())
 			continue; // not simple ( "glued" earlier)
 		if (BC->cg_flag & c_cg_noglue || EC->cg_flag & c_cg_noglue)
 			continue; // Valdemar 12-09-95 06:47pm

@@ -1596,7 +1596,7 @@ void make_all_cuts()
     I1 = B1->prevl;
     I3 = B1->nextl; // where to insert
     svcg = B1->cg_flag;
-    if (!tsimple(B1))
+    if (!B1->tsimple())
         goto forwb;
     get_b_lines(B1, &my_bases);
     snap_newcell(B1);
@@ -2766,7 +2766,7 @@ static void corr_cut()
             b2->vers[0].let = bad_char;
             b2->vers[0].prob = 0;
         }
-        if (b2->nvers != 0 && b2->cg_flag & c_cg_cut && tsimple(b2)) { // was cutted, has envelope (can be glued)
+        if (b2->nvers != 0 && b2->cg_flag & c_cg_cut && b2->tsimple()) { // was cutted, has envelope (can be glued)
             b1 = b2->prevl;
             b3 = b2->nextl;
             c2 = b2->vers[0].let;

@@ -185,9 +185,7 @@ public:
     uchar cg_flag; // cut-to-glue message
 #define CSTR_cg_noglue     1   // don't glue to ... ( just cut )
 #define CSTR_cg_noenv      2    // envelope address obsolete
-#define tenv(c)         ((c)->env && !((c)->cg_flag&c_cg_noenv))
 #define CSTR_cg_comp       4   // composed cell
-#define tsimple(c)      (tenv(c) && !((c)->cg_flag&c_cg_comp))
     //#define c_cg_rqdot      4   // dot test needed (iIl1 in versions)
     // 93.08.19  the flag uprazdnen
 #define CSTR_cg_cutdone     8   // verarbeitet by cut

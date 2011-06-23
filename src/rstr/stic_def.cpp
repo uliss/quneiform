@@ -673,7 +673,7 @@ static int16_t study_typ_of_center_line(cell *c, int16_t typ_snap, int16_t typ, 
             N_lines = 0; // 08.07.1993 for 'r': (!!!)
             /***		    if ((env=c->env) &&
              (!(c->cg_flag&c_cg_noenv)))  N_lines = env->nl; **/
-            if (tenv(c))
+            if (c->tenv())
                 N_lines = c->env->nl; // 18.02.1994
                 //////		    if (N_lines<2)  		// 08.07.1993
             if (N_lines <= 2) { // 09.03.1993

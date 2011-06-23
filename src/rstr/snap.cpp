@@ -350,7 +350,7 @@ static void snap_recogEVN(CSTR_rast r, cell * cl) {
     RecVersions rv;
     if (!(cl->flg & (c_f_bad | c_f_let)))
         return;
-    if (tenv(cl)) {
+    if (cl->tenv()) {
         CSTR_GetImage(r, (uchar*) (&rRaster), CSTR_TYPE_IMAGE_RS);
 
         if (EVNGetRepresent(&rRaster, (uchar*) evn, (uchar*) evnr, 1) == -1)
