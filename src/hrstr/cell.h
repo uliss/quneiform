@@ -84,7 +84,7 @@ public:
 
         void removeVersion(int letter);
 
-        void set_erection(int inc);
+        void setErection(int inc);
 public:
         int16_t row; // ideal row of cell
         int16_t col; // ideal column of cell

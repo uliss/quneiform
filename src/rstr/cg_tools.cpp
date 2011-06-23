@@ -161,7 +161,7 @@ cell *col_to_one(cell **clist, int16_t n) {
 	c->env = compose_comp(i, elist);
 	if (n > 1)
 		c->cg_flag |= c_cg_comp;
-        c->set_erection(erection_compose_inc(n, clist));
+        c->setErection(erection_compose_inc(n, clist));
 	inter_diff(c);
 	return c;
 }

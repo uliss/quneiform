@@ -95,7 +95,7 @@ void cell::removeVersion(int letter) {
     }
 }
 
-void cell::set_erection(int inc) {
+void cell::setErection(int inc) {
     if(inc != NO_INCLINE && hasEnv()) {
         stick_inc = inc;
         pos_inc = inc ? erect_rot : erect_zero;

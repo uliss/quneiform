@@ -465,7 +465,7 @@ static void glue_let_dust() {
 			not_contains: glsnap('b', WS, txg2);
 			goto delrest;
 		}
-                WC->set_erection(inc);
+                WC->setErection(inc);
 		GL.arg = GAtigr + GAallest;
 		GL.flarg = GFcut;
 		cposd.flag = 8;
@@ -892,7 +892,7 @@ static void glue_let_bad() {
 				goto restc;
 				// NOT to recog dust
 			}
-                        BC->set_erection(inc);
+                        BC->setErection(inc);
 			GL.arg = GAtigr + GAown;
 			//GL.flarg = GFfinal + GFcut;
 			GL.flarg = GFcut;
@@ -1103,7 +1103,7 @@ static void glue_dust_dust() {
 				glsnap('b', WS, "NOT a letter cell");
 				goto restc;
 			}
-                        BC->set_erection(inc);
+                        BC->setErection(inc);
 			GL.arg = GAtigr + GAown;
 			// GL.flarg = GFfinal + GFcut;
 			GL.flarg = GFcut;
@@ -1421,7 +1421,7 @@ void glue_III() {
 				insert_cell(C, BC);
 				set_bad_cell(C);
 				inc = erection_compose_inc(GLG.ncell, GLG.celist);
-                                C->set_erection(inc);
+                                C->setErection(inc);
 				compose_cell_save(2, GLG.celist, C);
 				dmBOX(C, &GLG);
 				if (C->vers[0].prob > TRSG2 - 20 && memchr(res, C->vers[0].let,
