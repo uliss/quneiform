@@ -210,7 +210,7 @@ void cf::proc_shortu()
     uchar let;
     int ndust;
     c = cell_f();
-    while((c = c->nextl) != NULL ){
+    while((c = c->nextl) != NULL) {
         if(!(c->flg & (c_f_let + c_f_bad)))
             continue;
 
