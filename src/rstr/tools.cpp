@@ -1094,24 +1094,6 @@ puchar save_raster_align8(cell *c) {
 	return make_raster();
 }
 
-void add_vers(cell *bc, cf::version *wv) {
-	int16_t nv;
-	nv = bc->nvers;
-	if (nv == VERS_IN_CELL - 1) {
-		nv--;
-		if (bc->vers[nv].prob >= wv->prob)
-			return;
-		bc->vers[nv].let = wv->let;
-		bc->vers[nv].prob = wv->prob;
-		sort_vers(bc);
-	} else {
-		bc->vers[bc->nvers].let = wv->let;
-		bc->vers[bc->nvers].prob = wv->prob;
-		bc->nvers++;
-		sort_vers(bc);
-	}
-}
-
 Bool comp_versions(cf::version *v, cf::version *w, int16_t n, int16_t snvers) {
 	int16_t i;
 

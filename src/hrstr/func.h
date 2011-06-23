@@ -535,7 +535,6 @@ int16_t reco2_cell(cell *);
 puchar save_raster(cell *);
 puchar give_kit_addr();
 void take_kit_addr(puchar a);
-void add_vers(cell *, cf::version *);
 void del_version(cell *c, uchar let);
 void online_comp(c_comp *);
 Bool save_MN(MN *);
