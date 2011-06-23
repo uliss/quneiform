@@ -726,8 +726,8 @@ struct _BackupCopy {
     long         lPictures; // size of pictures buffer Pit 09-29-94 03:05pm
     puchar        pPictures; //         pictures buffer
 
-    int          nSheets;   // зЁб«® в Ў«Ёж
-    SHT          *sht;      // Ёе ®ЇЁб вҐ«Ё
+    int          nSheets;   // зЁб«® в Ў«Ёж
+    SHT          *sht;      // Ёе ®ЇЁб вҐ«Ё
 };
 
 extern BACKUP_COPY *pBC_First;
@@ -788,8 +788,6 @@ extern Bool bOptionBlocksRemovingByDustDistribution;
 extern Bool bOptionSpecialHorizontalCutting;
 extern Bool bOptionWhiteStripsBreaking;
 
-
-//Bool AddRoot(CCOM_comp * comp);// Piter
 Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime);// Roman
 
 # endif

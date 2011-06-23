@@ -773,5 +773,8 @@ extern Bool bOptionBlocksRemovingByPageMatrix;
 extern Bool bOptionBlocksRemovingByDustDistribution;
 extern Bool bOptionSpecialHorizontalCutting;
 extern Bool bOptionWhiteStripsBreaking;
+
+Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime);// Roman
+
 # endif
 
