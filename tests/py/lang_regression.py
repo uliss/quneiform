@@ -30,22 +30,37 @@ LANGS = {'bel': 'Belarusian',
         'ukr' : 'Ukrainian'                 
          }
 
-def test():
+FORMATS = {
+    'textdebug' : 'txt',
+    'html' : 'html'
+    }
+
+def test_format(format, ext):
     fmtTest = cf.Tester('lang.diftest')
-    fmtTest.setFormat('textdebug')
-    fmtTest.setSampleExt('txt')
+    fmtTest.setFormat(format)
+    fmtTest.setSampleExt(ext)
     fmtTest.setLineBreaks(True)
-    
+    fmtTest.addArg('--show-alternatives')
+
     for key, lang in sorted(LANGS.iteritems()):
         fmtTest.setLanguage(key)
         extension = 'bmp'
         if key == 'bel':
             extension = 'png'
 
+        arg1 = '--output-image-dir'
+        arg2 = '%s.sample_files' % (lang.lower())
+        fmtTest.addArg(arg1)
+        fmtTest.addArg(arg2)
+
         img = fmtTest.makeFullImageName('%s.%s' % (lang.lower(), extension))
-        if not fmtTest.diffTest(img):
+
+        if not fmtTest.diffTest(img) and format == 'textdebug':
             fmtTest.accuracy(img)
-            
+
+        fmtTest.removeArg(arg1)
+        fmtTest.removeArg(arg2)
+
     if fmtTest.passed():
         return True
     else:
@@ -53,6 +68,10 @@ def test():
             sys.exit(1)
         else:
             return False
+
+def test():
+    for format, extension in FORMATS.iteritems():
+        test_format(format, extension)
 
 if __name__ == '__main__':
     test()

@@ -43,6 +43,7 @@ class Tester:
     _format = None
     _line_breaks = False
     _sample_ext = None
+    _args = []
     
     def __init__(self, imagedir=''):
         self._imagedir = os.path.join(IMAGEDIR, imagedir)
@@ -61,7 +62,10 @@ class Tester:
         if len(lines) > 4:
             print lines[3]  
             print lines[4]
-    
+
+    def addArg(self, arg):
+        self._args.append(arg)
+
     def addImage(self, img):
         self._images.append(img)
         
@@ -168,6 +172,8 @@ class Tester:
             
     def makeArgs(self, img):
         args = []
+        args.extend(self._args)
+
         if self._language is not None:
             args += ['--language', self._language]
         if self._output is not None:
@@ -222,6 +228,9 @@ class Tester:
     def printTestStat(self):
         print "Tests total: %d, passed: %d, failed: %d" % (self.total(), self._tests_passed, self._tests_failed)
             
+    def removeArg(self, arg):
+        self._args.remove(arg)
+
     def runDiffTest(self):
         for img in self._images:
             self.diffTest(img)
