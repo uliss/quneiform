@@ -5,6 +5,7 @@ import os, sys
 import zipfile
 from subprocess import *
 from xml.dom import minidom
+import re
 
 os.environ['CF_DATADIR'] = "@CMAKE_SOURCE_DIR@/datafiles"
 
@@ -116,6 +117,10 @@ class Tester:
         cmd = ['diff', DIFFOPTS, first, second]
         #print cmd
         return call(cmd, **kwargs)
+
+    def diffNative(self, first, second, **kwargs):
+        self.fileReplace(second, r'serialization::archive \d+', 'serialization::archive 9')
+        return self.diff(first, second, **kwargs)
     
     def diffOdf(self, first, second, **kwargs):        
         first_odf = zipfile.ZipFile(first)
@@ -176,6 +181,8 @@ class Tester:
         
         if self._format == 'odf':
             retcode = self.diffOdf(sample_name, self._output, stdout=diff_output)
+        elif self._format == 'native':
+            retcode = self.diffNative(sample_name, self._output, stdout=diff_output)
         elif self._format == 'native-xml':
             retcode = self.diffXml(sample_name, self._output, stdout=diff_output)
         else:  
@@ -190,6 +197,14 @@ class Tester:
             os.unlink(self._output)
             os.unlink(diff_name)
             return True
+
+    def fileReplace(self, filename, pattern, to):
+        f = open(filename, 'r')
+        new_f = re.sub(pattern, to, f.read())
+        f.close()
+        f = open(filename, 'w')
+        f.write(new_f)
+        f.close()
 
     def isEqualXML(a, b):
         da, db = minidom.parseString(a), minidom.parseString(b)
