@@ -4,6 +4,7 @@
 import os, sys
 import zipfile
 from subprocess import *
+from xml.dom import minidom
 
 os.environ['CF_DATADIR'] = "@CMAKE_SOURCE_DIR@/datafiles"
 
@@ -136,6 +137,24 @@ class Tester:
             f.write(second_content)
             f.close()        
             return self.diff(first_xml, second_xml, **kwargs)
+
+    def diffXml(self, xml1, xml2, **kwargs):
+        first_xml = open(xml1, 'r')
+        second_xml = open(xml2, 'r')
+        dom1 = minidom.parseString(first_xml.read())
+        dom2 = minidom.parseString(second_xml.read())
+
+        self.unsetBoostVersion(dom1)
+        self.unsetBoostVersion(dom2)
+
+        first_xml.close()
+        second_xml.close()
+
+        res = self.isEqualElement(dom1.documentElement, dom2.documentElement)
+        if res == True:
+            return 0
+        else:
+            return 1;
     
     def diffTest(self, img):
         if not self.cuneiformTest(img):
@@ -157,6 +176,8 @@ class Tester:
         
         if self._format == 'odf':
             retcode = self.diffOdf(sample_name, self._output, stdout=diff_output)
+        elif self._format == 'native-xml':
+            retcode = self.diffXml(sample_name, self._output, stdout=diff_output)
         else:  
             retcode = self.diff(sample_name, self._output, stdout=diff_output)
             
@@ -169,6 +190,26 @@ class Tester:
             os.unlink(self._output)
             os.unlink(diff_name)
             return True
+
+    def isEqualXML(a, b):
+        da, db = minidom.parseString(a), minidom.parseString(b)
+        return isEqualElement(da.documentElement, db.documentElement)
+
+    def isEqualElement(self, a, b):
+        if a.tagName != b.tagName:
+            return False
+        if sorted(a.attributes.items()) != sorted(b.attributes.items()):
+            return False
+        if len(a.childNodes) != len(b.childNodes):
+            return False
+        for ac, bc in zip(a.childNodes, b.childNodes):
+            if ac.nodeType != bc.nodeType:
+                return False
+            if ac.nodeType == ac.TEXT_NODE and ac.data != bc.data:
+                return False
+            if ac.nodeType == ac.ELEMENT_NODE and not self.isEqualElement(ac, bc):
+                return False
+        return True
             
     def makeArgs(self, img):
         args = []
@@ -255,6 +296,10 @@ class Tester:
         
     def total(self):
         return self._tests_failed + self._tests_passed
+
+    def unsetBoostVersion(self, dom):
+        tag = dom.getElementsByTagName('boost_serialization')[0]
+        tag.removeAttribute('version')
                 
     ''' returns cuneiform version ''' 
     def version(self):

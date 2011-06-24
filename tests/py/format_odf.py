@@ -3,7 +3,6 @@
 
 import os, sys
 import zipfile
-import xml.dom.minidom
 from subprocess import *
 
 SCRIPT_DIR = "@CMAKE_SOURCE_DIR@/tests/py"
