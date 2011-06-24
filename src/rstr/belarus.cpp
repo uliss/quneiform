@@ -92,22 +92,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Discrim © by base lines
 
-static int rec_shortu(cell* c,cell * cap)
+static int rec_shortu(cell* c, cell * cap)
 {
-    cell *clist[8];
-    uchar let;
-    let = c->vers[0].let;
+    cell * clist[8];
+    uchar let = c->vers[0].let;
     if(cap->row > c->row)        return 0; // not a cap
-    if(cap->w * 3 < c->w)          return 0; // not so wide as need
-    if(cap->w < 4 || cap->h < 3) return 0; // just dot
-    if(cap->col < c->col-2)      return 0; // left dust
-    if(c->row > cap->row + cap->h &&
-            (c->row - (cap->row + cap->h)) > c->h / 2 ) return 0; // dust lay so high
+    if(cap->width() * 3 < c->width())          return 0; // not so wide as need
+    if(cap->width() < 4 || cap->height() < 3) return 0; // just dot
+    if(cap->col < c->col - 2)      return 0; // left dust
+    if(c->row > cap->row + cap->height() &&
+            (c->row - (cap->row + cap->height())) > c->height() / 2 ) return 0; // dust lay so high
 
     if((let == (uchar)'\xE3') && (c->pos_inc & erect_rot))
         // 'u' with cap
-        if(c->col + c->w/2 < cap->col ||
-                c->col + c->w / 2 > cap->col + cap->w) return 0;  // not centered dust
+        if(c->col + c->width() / 2 < cap->col ||
+                c->col + c->width() / 2 > cap->col + cap->width()) return 0;  // not centered dust
 
     clist[0] = c;
     clist[1] = cap;
