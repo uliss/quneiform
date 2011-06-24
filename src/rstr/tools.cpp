@@ -295,27 +295,9 @@ void set_bad_cell(cell *c) {
 		c->flg = c_f_bad;
 }
 
-void sort_vers(cell *c) {
-	cf::version *v, *vs, *vm;
-	uchar l;
-
-	if (c->nvers <= 0) {
-		set_bad_cell(c);
-		return;
-	}
-	for (vs = c->vers + 1, vm = c->vers + c->nvers; vs < vm; vs++)
-		for (v = vs; v > c->vers && (v - 1)->prob < v->prob; v--) {
-			l = (v - 1)->prob;
-			(v - 1)->prob = v->prob;
-			v->prob = l;
-			l = (v - 1)->let;
-			(v - 1)->let = v->let;
-			v->let = l;
-		}
-	for (v = vm - 1; v >= c->vers && !v->prob; v--, (c->nvers)--)
-		;
-	if (!c->nvers)
-		set_bad_cell(c);
+void sort_vers(cell * c) {
+    assert(c);
+    c->sortVersions();
 }
 
 #define MAX_PROB 254

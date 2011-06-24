@@ -25,9 +25,11 @@ class TestCell : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestCell);
     CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testSortVersions);
     CPPUNIT_TEST_SUITE_END();
     public:
         void testInit();
+        void testSortVersions();
 };
 
 #endif // TESTCELL_H

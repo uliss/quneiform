@@ -85,6 +85,7 @@ public:
         void removeVersion(int letter);
 
         void setErection(int inc);
+        void sortVersions();
 public:
         int16_t row; // ideal row of cell
         int16_t col; // ideal column of cell

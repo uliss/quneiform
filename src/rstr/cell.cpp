@@ -17,8 +17,11 @@
  ***************************************************************************/
 
 #include <cstddef>
+#include <cassert>
+#include <algorithm>
 #include "cell.h"
 #include "ligas.h" // for bad_char
+#include "func.h"
 
 cell::cell() :
         row(0),
@@ -100,5 +103,28 @@ void cell::setErection(int inc) {
         stick_inc = inc;
         pos_inc = inc ? erect_rot : erect_zero;
     }
+}
+
+static bool versionCompare(cf::version v1, cf::version v2) {
+    return v1.prob > v2.prob;
+}
+
+static bool isValidVersion(cf::version v) {
+    return v.prob > 0;
+}
+
+void cell::sortVersions() {
+    assert(nvers <= VERS_IN_CELL);
+
+    if(nvers <= 0) {
+        set_bad_cell(this);
+        return;
+    }
+
+    std::sort(vers, vers + nvers, versionCompare);
+    nvers = std::count_if(vers, vers + nvers, isValidVersion);
+
+    if(!nvers)
+        set_bad_cell(this);
 }
 
