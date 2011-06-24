@@ -79,10 +79,10 @@
 #include "my_mem.h"
 #include "compat_defs.h"
 
-# ifdef LT_STAND_ALONE
+#ifdef LT_STAND_ALONE
 ROOT *pRoots = NULL;
-uint32_t nRoots = 0;
-# endif
+int nRoots = 0;
+#endif
 
 ROOT *pAfterRoots;
 

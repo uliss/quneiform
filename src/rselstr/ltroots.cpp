@@ -80,7 +80,7 @@
 
 # ifdef LT_STAND_ALONE
 ROOT *pRoots = NULL;
-uint32_t nRoots = 0;
+int nRoots = 0;
 # endif
 
 ROOT *pAfterRoots;

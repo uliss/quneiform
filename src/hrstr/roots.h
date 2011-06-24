@@ -117,7 +117,7 @@ struct _Root {
     int16_t nWidth;
     uchar bType;
     uchar bReached;
-    int16_t nBlock;
+    int16_t nBlock;  // тип блока: "дустовый" али какой
     int16_t nUserNum;
     CCOM_comp * pComp;
 };
@@ -143,7 +143,7 @@ typedef struct {
 #endif
 
 extern ROOT *pRoots;
-extern int16_t nRoots;
+extern int nRoots;
 extern int16_t nOriginalRoots;
 extern ROOT *pAfterRoots;
 extern ROOT *pAfterOriginalRoots;
