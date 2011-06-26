@@ -32,7 +32,8 @@ LANGS = {'bel': 'Belarusian',
 
 FORMATS = {
     'textdebug' : 'txt',
-    'html' : 'html'
+    'html' : 'html',
+    'hocr' : 'hocr'
     }
 
 def test_format(format, ext):
@@ -70,8 +71,18 @@ def test_format(format, ext):
             return False
 
 def test():
-    for format, extension in FORMATS.iteritems():
-        test_format(format, extension)
+    args = sys.argv[1:]
+
+    if len(args) == 0:
+        for format, extension in FORMATS.iteritems():
+            test_format(format, extension)
+    else:
+        for format in args:
+            if not FORMATS.has_key(format):
+                print "unknown output format: %s" %(format)
+                break
+
+            test_format(format, FORMATS[format])
 
 if __name__ == '__main__':
     test()
