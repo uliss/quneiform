@@ -28,18 +28,18 @@ namespace cf
 static const int BOXES_TO_RESERVE = 200;
 static const int BAD_RECT_VALUE = 65535;
 
-inline bool goodCharRect(const Rect& rc) {
+static inline bool goodCharRect(const Rect& rc) {
     return rc.left() != -1 && rc.left() != BAD_RECT_VALUE && rc.right() != BAD_RECT_VALUE
             && rc.top() != BAD_RECT_VALUE && rc.bottom() != BAD_RECT_VALUE;
 }
 
-inline std::string rectBBox(const Rect& rc) {
+static inline std::string rectBBox(const Rect& rc) {
     std::ostringstream buf;
     buf << "bbox " << rc.left() << " " << rc.top() << " " << rc.right() << " " << rc.bottom();
     return buf.str();
 }
 
-inline std::string rectBBoxes(const HocrExporter::RectList& lst) {
+static inline std::string rectBBoxes(const HocrExporter::RectList& lst) {
     std::ostringstream buf;
     buf << "x_bboxes";
     for (HocrExporter::RectList::const_iterator it = lst.begin(), end = lst.end(); it != end; ++it)
@@ -47,9 +47,14 @@ inline std::string rectBBoxes(const HocrExporter::RectList& lst) {
     return buf.str();
 }
 
-inline std::string pageBBox(CEDPage& p) {
+static inline std::string pageBBox(CEDPage& p, bool basename = false) {
     std::ostringstream buf;
-    buf << "image '" << escapeHtmlSpecialChars(p.imageName()) << "'; bbox 0 0 "
+    std::string path = p.imageName();
+
+    if(basename)
+        path = cf::baseName(path);
+
+    buf << "image '" << escapeHtmlSpecialChars(path) << "'; bbox 0 0 "
             << p.imageSize().width() << " " << p.imageSize().height();
     return buf.str();
 }
@@ -104,18 +109,7 @@ void HocrExporter::writeCharBBoxesInfo() {
     writeSingleTag("span", attrs, "\n");
 }
 
-void HocrExporter::writeLineBegin(CEDLine& line) {
-    HtmlExporter::writeLineBegin(line);
-    flushBuffer();
-    line_buffer_.str("");
-    old_stream_ = outputStream();
-    setOutputStream(&line_buffer_);
-}
-
 void HocrExporter::writeLineEnd(CEDLine& line) {
-    flushBuffer();
-    setOutputStream(old_stream_);
-
     Attributes attrs;
     attrs["class"] = "ocr_line";
     attrs["id"] = "line_" + toString(numLines());
@@ -123,9 +117,6 @@ void HocrExporter::writeLineEnd(CEDLine& line) {
     writeStartTag("span", attrs);
 
     writeCharBBoxesInfo();
-
-    buffer() << line_buffer_.str();
-
     HtmlExporter::writeLineEnd(line);
 
     writeCloseTag("span", "\n");
@@ -150,7 +141,7 @@ void HocrExporter::writePageBegin(CEDPage& page) {
     Attributes attrs;
     attrs["class"] = "ocr_page";
     attrs["id"] = "page_" + toString(num_pages);
-    attrs["title"] = pageBBox(page);
+    attrs["title"] = pageBBox(page, formatOptions().isTestOutput());
 
     writeStartTag("div", attrs, "\n");
 
