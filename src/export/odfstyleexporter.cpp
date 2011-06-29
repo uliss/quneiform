@@ -20,6 +20,7 @@
 #include "odfstyleexporter.h"
 #include "xmlexporter.h"
 #include "rout_own.h"
+#include "cfcompat.h"
 // ced
 #include "ced/cedchar.h"
 #include "ced/cedpage.h"
