@@ -70,5 +70,7 @@ if(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK AND NOT CF_USE_IMAGE_LIBRARY_IMAGE_MAGIC
             message(STATUS "Image library: GraphicsMagick++ not found.")
             set(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK False)
         endif()
-    endif()
+    else()
+		set(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK False)
+	endif()
 endif()
