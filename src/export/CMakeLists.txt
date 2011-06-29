@@ -2,6 +2,9 @@ set(image_exporters
     imageexporter.cpp
     nullimageexporter.cpp
     bmpimageexporter.cpp)
+
+set(headers
+    zipimpl.h)
     
 set(exporters
     cssexporter.cpp
@@ -17,7 +20,17 @@ set(exporters
     styleexporter.cpp
     summaryexporter.cpp
     xmlexporter.cpp
+    zipcpp.cpp
 )
+
+set(exporters_libs)
+
+if(CF_USE_MINIZIP)
+    include_directories("../../contrib")
+    include_directories(${ZLIB_INCLUDE_DIRS})
+    list(APPEND exporters minizipimpl.cpp)
+    list(APPEND exporters_libs minizip)
+endif()
 
 if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK) 
     include_directories(${CF_IMAGE_INCLUDE})
@@ -28,8 +41,6 @@ elseif(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
     list(APPEND image_exporters magickimageexporter.cpp)
     message(STATUS "Exporters: GraphicsMagick exporter will be build")
 endif()
-
-set(exporters_libs)
 
 if(CF_USE_ZIP)
     include_directories(${ZIP_INCLUDE_DIR})
@@ -51,6 +62,7 @@ endif()
 add_library(cuneiform-export ${LIBTYPE}
     exporterfactory.cpp
     imageexporterfactory.cpp
+    ${headers}
     ${exporters}
     ${image_exporters}
 )

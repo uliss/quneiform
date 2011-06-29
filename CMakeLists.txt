@@ -59,6 +59,7 @@ include(make_config)
 include(make_package)
 
 add_subdirectory(datafiles)
+add_subdirectory(contrib)
 add_subdirectory(src)
 add_subdirectory(cli)
 
