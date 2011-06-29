@@ -29,7 +29,7 @@ set(exporters_libs)
 
 if(CF_USE_MINIZIP)
     include_directories("../../contrib")
-    include_directories(${ZLIB_INCLUDE_DIRS})
+    include_directories(${ZLIB_INCLUDE_DIR})
     list(APPEND exporters minizipimpl.cpp)
     list(APPEND exporters_libs minizip)
 endif()
