@@ -15,6 +15,8 @@ set(exporters
     genericexporter.cpp
     hocrexporter.cpp
     htmlexporter.cpp
+    odfexporter.cpp
+    odfstyleexporter.cpp
     textexporter.cpp
     smarttextexporter.cpp
     styleexporter.cpp
@@ -42,22 +44,13 @@ elseif(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
     message(STATUS "Exporters: GraphicsMagick exporter will be build")
 endif()
 
-if(CF_USE_ZIP)
-    include_directories(${ZIP_INCLUDE_DIR})
-    list(APPEND exporters odfexporter.cpp odfstyleexporter.cpp)
-    list(APPEND exporters_libs ${ZIP_LIBRARY})
-    message(STATUS "Exporters: OpenDocument Format exporter will be build")
-endif()
-
 if(Boost_SERIALIZATION_FOUND)
     list(APPEND exporters cuneiformexporter.cpp cuneiformxmlexporter.cpp)
     list(APPEND exporters_libs ${Boost_SERIALIZATION_LIBRARY})
     message(STATUS "Exporters: Cuneiform Format exporter will be build")
 endif()
 
-if(CF_USE_ICONV)
-    include_directories(${ICONV_INCLUDE_DIR})
-endif()
+include_directories(${ICONV_INCLUDE_DIR})
 
 add_library(cuneiform-export ${LIBTYPE}
     exporterfactory.cpp

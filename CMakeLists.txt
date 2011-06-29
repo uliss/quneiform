@@ -22,19 +22,10 @@ include(flags_debug)
 include(install_files)
 
 include(find_image_libs)
-
-# Libzip
-find_package(ZIP)
-if(ZIP_FOUND)
-    set(CF_USE_ZIP TRUE)
-    set(CF_USE_ODF TRUE)
-endif()
     
 # Iconv
 find_package(Iconv)
-if(ICONV_FOUND)
-    set(CF_USE_ICONV TRUE)
-else()
+if(NOT ICONV_FOUND)
     message(FATAL_ERROR "Iconv library required")
 endif()
 

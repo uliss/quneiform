@@ -20,11 +20,7 @@
 #define ICONVIMPL_H_
 
 #include <string>
-#include "config-user.h"
-
-#ifdef CF_USE_ICONV
 #include <iconv.h>
-#endif
 
 namespace cf
 {
@@ -43,9 +39,6 @@ class IconvImpl
         bool open(const std::string& from, const std::string& to);
     private:
         size_t convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
-#ifndef CF_USE_ICONV
-        typedef int iconv_t;
-#endif
         iconv_t iconv_;
 };
 

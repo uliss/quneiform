@@ -45,7 +45,6 @@ IconvImpl::~IconvImpl() {
 bool IconvImpl::close() {
     bool result = true;
 
-#ifdef CF_USE_ICONV
     if (isOpened()) {
         if (::iconv_close(iconv_) != 0) {
             result = false;
@@ -53,13 +52,11 @@ bool IconvImpl::close() {
 
         iconv_ = (iconv_t) -1;
     }
-#endif
 
     return result;
 }
 
 std::string IconvImpl::convert(unsigned char chr) {
-#ifdef CF_USE_ICONV
     ASSERT_ICONV(iconv_)
 
     if(chr < '\x7E') // ascii char
@@ -90,13 +87,9 @@ std::string IconvImpl::convert(unsigned char chr) {
     *dest_ptr = '\0';
 
     return std::string(dest);
-#else
-    return std::string(1, chr);
-#endif
 }
 
 std::string IconvImpl::convert(const std::string& src) {
-#ifdef CF_USE_ICONV
     ASSERT_ICONV(iconv_)
 
     if (src.empty())
@@ -138,22 +131,14 @@ std::string IconvImpl::convert(const std::string& src) {
     }
 
     return result;
-#else
-    return src;
-#endif
 }
 
 size_t IconvImpl::convert(char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft) {
-#ifdef CF_USE_ICONV
     ASSERT_ICONV(iconv_)
 #ifdef ICONV_SECOND_ARGUMENT_IS_CONST
     return ::iconv(iconv_, (const char**) inbuf, inbytesleft, outbuf, outbytesleft);
 #else
     return ::iconv(iconv_, inbuf, inbytesleft, outbuf, outbytesleft);
-#endif
-#else
-    // see man 3 iconv regarding return value
-    return static_cast<size_t> (-1);
 #endif
 }
 
@@ -162,13 +147,9 @@ bool IconvImpl::isOpened() const {
 }
 
 bool IconvImpl::open(const std::string& from, const std::string& to) {
-#ifdef CF_USE_ICONV
     close();
     iconv_ = ::iconv_open(to.c_str(), from.c_str());
     return isOpened();
-#else
-    return true;
-#endif
 }
 
 }

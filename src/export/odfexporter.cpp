@@ -55,7 +55,6 @@ std::string datetime(const std::string& format = "%Y-%m-%dT%H:%M:%S") {
 
 OdfExporter::OdfExporter(CEDPage * page, const FormatOptions& opts) :
     XmlExporter(page, opts),
-    zip_(NULL),
     style_exporter_(new OdfStyleExporter(page, opts)),
     prev_char_style_hash_(0),
     style_span_opened_(false)
@@ -113,8 +112,6 @@ void OdfExporter::addOdfContent() {
 }
 
 void OdfExporter::addOdfManifest() {
-    zip_add_dir(zip_, "META-INF");
-
     std::ostringstream buf;
     writeXmlDeclaration(buf);
 
@@ -152,6 +149,7 @@ void OdfExporter::addOdfMeta() {
 
 void OdfExporter::addOdfMime() {
     odfWrite("mimetype", "application/vnd.oasis.opendocument.text");
+    zip_.setCompression("mimetype", ZipCpp::NONE);
 }
 
 void OdfExporter::addOdfSettings() {
@@ -202,42 +200,21 @@ void OdfExporter::exportTo(std::ostream& os) {
 }
 
 void OdfExporter::makePicturesDir() {
-    zip_add_dir(zip_, ODF_PICT_DIR.c_str());
     addOdfManifestFile(ODF_PICT_DIR, "");
 }
 
 void OdfExporter::odfClose() {
-    zip_close(zip_);
-    zip_ = NULL;
+    zip_.save(fname_);
     zip_buffers_.clear();
 }
 
 void OdfExporter::odfOpen(const std::string& fname) {
-    int zip_error = 0;
-    zip_ = zip_open(fname.c_str(), ZIP_CREATE, &zip_error);
-    if (!zip_) {
-        switch (zip_error) {
-        case ZIP_ER_EXISTS:
-            throw Exception("[OdfExporter::odfOpen] file already exists: " + fname);
-        default:
-            throw Exception("[OdfExporter::odfOpen] can't open file: " + fname);
-        }
-    }
+    fname_ = fname;
 }
 
 void OdfExporter::odfWrite(const std::string& fname, const std::string& data) {
-    assert(zip_);
-
-    BufList::iterator it = zip_buffers_.insert(zip_buffers_.end(), data);
-    zip_source * src = zip_source_buffer(zip_, it->c_str(), it->size(), 0);
-
-    if (!src)
-        throw Exception("[OdfExporter::odfWrite] error: " + std::string(zip_strerror(zip_)));
-
-    if (zip_add(zip_, fname.data(), src) < 0) {
-        zip_source_free(src);
-        throw Exception("[OdfExporter::addOdfMime] error: " + std::string(zip_strerror(zip_)));
-    }
+    zip_.addFile(fname);
+    zip_.setContent(fname, data);
 }
 
 void OdfExporter::setCommonOdfNamespaces(Attributes& attrs) const {

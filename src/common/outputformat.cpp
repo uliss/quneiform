@@ -18,7 +18,6 @@
 
 #include <map>
 #include "outputformat.h"
-#include "config-user.h" // for CF_USE_ODF
 
 namespace cf
 {
@@ -68,10 +67,7 @@ bool initOutputFormatData()
     addFormat(FORMAT_DEBUG, "textdebug", "for debugging purposes", "txt");
     addFormat(FORMAT_NATIVE_TXT, "native", "native cuneiform text format", "ced");
     addFormat(FORMAT_NATIVE_XML, "native-xml", "native cuneiform xml format", "xml");
-
-#ifdef CF_USE_ODF
     addFormat(FORMAT_ODF, "odf", "OpenDocument Format", "odt");
-#endif
 
     return true;
 }

@@ -19,12 +19,12 @@
 #ifndef ODTEXPORTER_H_
 #define ODTEXPORTER_H_
 
-#include <zip.h>
 #include <vector>
 #include <string>
 #include <map>
 
 #include "xmlexporter.h"
+#include "zipcpp.h"
 
 namespace cf
 {
@@ -70,9 +70,11 @@ class OdfExporter: public XmlExporter
         void setCommonOdfNamespaces(Attributes& attrs) const;
         void writeOdfAutomaticStyles();
     private:
-        zip * zip_;
         typedef std::vector<std::string> BufList;
         typedef std::map<std::string, std::string> ManifestList;
+    private:
+        ZipCpp zip_;
+        std::string fname_;
         BufList zip_buffers_;
         ManifestList files_;
         OdfStyleExporter * style_exporter_;
