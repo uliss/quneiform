@@ -198,7 +198,7 @@ set(EXTRA_LIBS)
 
 if(MSVC)
     add_executable(${PROJECT_NAME} main.cpp ${QRC_SOURCES} ${EXTRA_RES})
-    list(APPEND QT_LIBRARIES qtmain)
+    #list(APPEND QT_LIBRARIES qtmain)
 else()
     add_executable(${PROJECT_NAME} MACOSX_BUNDLE WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
     list(APPEND EXTRA_LIBS m)
