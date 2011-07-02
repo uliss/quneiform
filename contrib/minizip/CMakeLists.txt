@@ -11,3 +11,4 @@ set(SOURCES
 include_directories(${ZLIB_INCLUDE_DIRS})
 add_definitions(-DNOCRYPT)
 add_library(minizip STATIC ${SOURCES})
+target_link_libraries(minizip ${ZLIB_LIBRARIES})
