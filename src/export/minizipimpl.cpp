@@ -19,6 +19,7 @@
 #include <cassert>
 #include <cstdio>
 #include <stdexcept>
+#include <iostream>
 #include <sstream>
 #include <fstream>
 #include <algorithm>

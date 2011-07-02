@@ -62,9 +62,9 @@ add_library(cuneiform-export ${LIBTYPE}
 
 set_property(TARGET cuneiform-export PROPERTY COMPILE_DEFINITIONS __ROUT__)
 
-target_link_libraries(cuneiform-export 
-    cuneiform-ced 
+target_link_libraries(cuneiform-export
     cuneiform-common
+    cuneiform-ced 
     cuneiform-rfrmt
     ${CF_IMAGE_LIBRARIES}
     ${exporters_libs})

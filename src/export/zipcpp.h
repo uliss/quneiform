@@ -20,7 +20,7 @@
 #define ZIPCPP_H
 
 #include <string>
-#include <memory>
+#include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace cf {
@@ -48,7 +48,7 @@ public:
     void setContent(const std::string& zipName, const std::string& content);
     void setSource(const std::string& zipName, const std::string& sourceFile);
 private:
-    std::auto_ptr<ZipImpl> impl_;
+    boost::shared_ptr<ZipImpl> impl_;
 };
 
 }
