@@ -9,6 +9,6 @@ set(SOURCES
     zip.c)
 
 include_directories(${ZLIB_INCLUDE_DIRS})
-add_definitions(-DNOCRYPT)
+add_definitions(-DNOCRYPT -DUSE_FILE32API)
 add_library(minizip STATIC ${SOURCES})
 target_link_libraries(minizip ${ZLIB_LIBRARIES})
