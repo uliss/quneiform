@@ -64,11 +64,6 @@ OdfExporter::OdfExporter(CEDPage * page, const FormatOptions& opts) :
     setSkipPictures(false);
 }
 
-OdfExporter::~OdfExporter() {
-    odfClose();
-    delete style_exporter_;
-}
-
 void OdfExporter::writeOdfAutomaticStyles() {
     writeStartTag("office:automatic-styles");
     style_exporter_->exportTo(buffer());
@@ -188,7 +183,7 @@ void OdfExporter::exportTo(const std::string& fname) {
     addOdfContent();
     addOdfMeta();
     addOdfManifest();
-    odfClose();
+    odfSave();
 }
 
 void OdfExporter::exportTo(std::ostream& os) {
@@ -203,9 +198,8 @@ void OdfExporter::makePicturesDir() {
     addOdfManifestFile(ODF_PICT_DIR, "");
 }
 
-void OdfExporter::odfClose() {
+void OdfExporter::odfSave() {
     zip_.save(fname_);
-    zip_buffers_.clear();
 }
 
 void OdfExporter::odfOpen(const std::string& fname) {
