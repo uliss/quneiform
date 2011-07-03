@@ -172,7 +172,7 @@ void OdfExporter::addOdfStyles() {
 
     Attributes attrs;
     setCommonOdfNamespaces(attrs);
-    writeSingleTag(buf, "office:document-style", attrs);
+    writeSingleTag(buf, "office:document-styles", attrs);
 
     odfWrite("styles.xml", buf.str());
     addOdfManifestFile("styles.xml", "text/xml");
@@ -296,11 +296,9 @@ void OdfExporter::writeMetaStatistics(std::ostream& os) {
 
 void OdfExporter::writePageBegin(CEDPage&) {
     writeStartTag("office:text", "\n");
-    writeStartTag("text:page", "\n");
 }
 
 void OdfExporter::writePageEnd(CEDPage&) {
-    writeCloseTag("text:page", "\n");
     writeCloseTag("office:text", "\n");
 }
 
