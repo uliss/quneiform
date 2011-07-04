@@ -36,9 +36,9 @@ class OdfStyleExporter: public StyleExporter
         void writePageEnd(CEDPage& page);
     private:
         int fontSize2odf(int value) const;
-        std::string makeOdfStyle(const CEDParagraph& par, const std::string& name);
-        std::string makeOdfStyle(const CEDChar& chr, const std::string& name);
-        std::string makeOdfStyle(const CEDSection& s, const std::string& name);
+        std::string makeStyleContent(const CEDParagraph& par, const std::string& name);
+        std::string makeStyleContent(const CEDChar& chr, const std::string& name);
+        std::string makeStyleContent(const CEDSection& s, const std::string& name);
         void writeTextProperties(std::ostream& os, const CEDChar& c);
     private:
         typedef std::map<std::string, std::string> StyleMap;

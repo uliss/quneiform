@@ -133,7 +133,7 @@ int OdfStyleExporter::fontSize2odf(int value) const {
     return static_cast<int> (value * font_koef_);
 }
 
-std::string OdfStyleExporter::makeOdfStyle(const CEDChar& chr, const std::string& name) {
+std::string OdfStyleExporter::makeStyleContent(const CEDChar& chr, const std::string& name) {
     std::ostringstream buf;
 
     writeStyleStart(buf, name, "text");
@@ -144,7 +144,7 @@ std::string OdfStyleExporter::makeOdfStyle(const CEDChar& chr, const std::string
     return buf.str();
 }
 
-std::string OdfStyleExporter::makeOdfStyle(const CEDParagraph& par, const std::string& name) {
+std::string OdfStyleExporter::makeStyleContent(const CEDParagraph& par, const std::string& name) {
     std::ostringstream buf;
 
     writeStyleStart(buf, name, "paragraph");
@@ -156,7 +156,7 @@ std::string OdfStyleExporter::makeOdfStyle(const CEDParagraph& par, const std::s
     return buf.str();
 }
 
-std::string OdfStyleExporter::makeOdfStyle(const CEDSection& s, const std::string& name) {
+std::string OdfStyleExporter::makeStyleContent(const CEDSection& s, const std::string& name) {
     std::ostringstream buf;
 
     writeStyleStart(buf, name, "section");
@@ -169,19 +169,19 @@ std::string OdfStyleExporter::makeOdfStyle(const CEDSection& s, const std::strin
 
 std::string OdfStyleExporter::makeStyle(const CEDChar& chr) {
     std::string chr_style = StyleExporter::makeStyle(chr);
-    styles_[chr_style] = makeOdfStyle(chr, chr_style);
+    styles_[chr_style] = makeStyleContent(chr, chr_style);
     return chr_style;
 }
 
 std::string OdfStyleExporter::makeStyle(const CEDParagraph& par) {
     std::string par_style = StyleExporter::makeStyle(par);
-    styles_[par_style] = makeOdfStyle(par, par_style);
+    styles_[par_style] = makeStyleContent(par, par_style);
     return par_style;
 }
 
 std::string OdfStyleExporter::makeStyle(const CEDSection& s) {
     std::string sec_style = StyleExporter::makeStyle(s);
-    styles_[sec_style] = makeOdfStyle(s, sec_style);
+    styles_[sec_style] = makeStyleContent(s, sec_style);
     return sec_style;
 }
 
