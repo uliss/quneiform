@@ -45,23 +45,17 @@ void StyleExporter::addStyle(const std::string& styleName, size_t hash) {
 }
 
 void StyleExporter::exportChar(CEDChar& chr) {
-    size_t chr_hash = hash(chr);
-    if (hashes_.find(chr_hash) == hashes_.end())
-        addStyle(makeStyle(chr), chr_hash);
+    exportElement(chr);
 }
 
 void StyleExporter::exportParagraph(CEDParagraph& par) {
     GenericExporter::exportParagraph(par);
-    size_t par_hash = hash(par);
-    if (hashes_.find(par_hash) == hashes_.end())
-        addStyle(makeStyle(par), par_hash);
+    exportElement(par);
 }
 
 void StyleExporter::exportSection(CEDSection& s) {
     GenericExporter::exportSection(s);
-    size_t sect_hash = hash(s);
-    if (hashes_.find(sect_hash) == hashes_.end())
-        addStyle(makeStyle(s), sect_hash);
+    exportElement(s);
 }
 
 size_t StyleExporter::hash(const CEDChar& chr) const {

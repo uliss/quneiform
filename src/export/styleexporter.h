@@ -38,6 +38,13 @@ class StyleExporter: public GenericExporter
          */
         virtual void addStyle(const std::string& styleName, size_t hash);
 
+        template<class T>
+        void exportElement(const T& element) {
+            size_t element_hash = hash(element);
+            if (!hasHash(element_hash))
+                addStyle(makeStyle(element), element_hash);
+        }
+
         /**
          * Adds unique styles for characters
          */
