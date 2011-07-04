@@ -30,6 +30,10 @@ if(NOT ICONV_FOUND)
 endif()
 
 # Boost
+if(MSVC)
+    set(Boost_USE_STATIC_LIBS On)
+endif()
+
 find_package(Boost 1.33)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
