@@ -23,7 +23,7 @@ to CMake.
 Configuration
 =============
    -DCMAKE_BUILD_TYPE=Debug    - build debug version of Cuneiform
-   -DCF_TEST=Yes               - build tests
+   -TESTS=Yes               - build tests
    -DCF_OCRTK=Yes              - build OCRtk, toolkit for controlling OCR results
                                  (The ISRI OCR Performance Toolkit)
                                  for more information see: http://www.isri.unlv.edu/ISRI/OCRtk

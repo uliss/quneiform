@@ -8,6 +8,7 @@ include(build_number)
 include(version)
 include(uninstall)
 include(update_samples)
+include(options)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 if(WIN32)
@@ -66,7 +67,7 @@ endif()
 
 add_subdirectory(utils)
 
-if(CF_TEST)
+if(TESTS)
    ENABLE_TESTING()
    add_subdirectory(tests)
 endif()

@@ -119,7 +119,7 @@ target_link_libraries(cuneiform-rstr
 
 library_hook(cuneiform-rstr)
 
-if(CF_TEST)
+if(TESTS)
     add_library(cuneiform-rstr-static STATIC
         ${RSTR_SOURCES}
     )
