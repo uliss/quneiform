@@ -21,6 +21,7 @@
 #include "rout_own.h"
 #include "ced/cedchar.h"
 #include "ced/cedparagraph.h"
+#include "ced/cedsection.h"
 #include "common/helper.h"
 #include "common/tostring.h"
 
@@ -28,7 +29,11 @@ namespace cf
 {
 
 StyleExporter::StyleExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts), style_num_char_(0), style_num_paragraph_(0) {
+    GenericExporter(page, opts),
+    style_num_char_(0),
+    style_num_paragraph_(0),
+    style_num_section_(0)
+{
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
     setSkipPictures(true);
@@ -40,16 +45,17 @@ void StyleExporter::addStyle(const std::string& styleName, size_t hash) {
 }
 
 void StyleExporter::exportChar(CEDChar& chr) {
-    size_t chr_hash = hash(chr);
-    if (hashes_.find(chr_hash) == hashes_.end())
-        addStyle(makeStyle(chr), chr_hash);
+    exportElement(chr);
 }
 
 void StyleExporter::exportParagraph(CEDParagraph& par) {
     GenericExporter::exportParagraph(par);
-    size_t par_hash = hash(par);
-    if (hashes_.find(par_hash) == hashes_.end())
-        addStyle(makeStyle(par), par_hash);
+    exportElement(par);
+}
+
+void StyleExporter::exportSection(CEDSection& s) {
+    GenericExporter::exportSection(s);
+    exportElement(s);
 }
 
 size_t StyleExporter::hash(const CEDChar& chr) const {
@@ -106,11 +112,23 @@ size_t StyleExporter::hash(const CEDParagraph& par) const {
     return seed;
 }
 
+size_t StyleExporter::hash(const CEDSection& sec) const {
+    size_t seed = 2;
+    boost::hash_combine(seed, sec.color().toT<int> ());
+    boost::hash_combine(seed, sec.backgroundColor().toT<int> ());
+    boost::hash_combine(seed, sec.columnCount());
+    return seed;
+}
+
 std::string StyleExporter::makeStyle(const CEDChar&) {
     return "char_" + toString(++style_num_char_);
 }
 
 std::string StyleExporter::makeStyle(const CEDParagraph&) {
     return "par_" + toString(++style_num_paragraph_);
+}
+
+std::string StyleExporter::makeStyle(const CEDSection&) {
+    return "sec_" + toString(++style_num_section_);
 }
 }

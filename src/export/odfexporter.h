@@ -22,6 +22,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <boost/shared_ptr.hpp>
 
 #include "xmlexporter.h"
 #include "zipcpp.h"
@@ -35,7 +36,6 @@ class OdfExporter: public XmlExporter
 {
     public:
         OdfExporter(CEDPage * page, const FormatOptions& opts);
-        ~OdfExporter();
 
         void exportTo(const std::string& fname);
         void exportTo(std::ostream& os);
@@ -64,21 +64,21 @@ class OdfExporter: public XmlExporter
         void addOdfSettings();
         void addOdfStyles();
         void makePicturesDir();
-        void odfClose();
+        std::string makeSectionName() const;
         void odfOpen(const std::string& fname);
+        void odfSave();
         void odfWrite(const std::string& fname, const std::string& data);
         void setCommonOdfNamespaces(Attributes& attrs) const;
         void writeOdfAutomaticStyles();
     private:
-        typedef std::vector<std::string> BufList;
         typedef std::map<std::string, std::string> ManifestList;
     private:
         ZipCpp zip_;
         std::string fname_;
-        BufList zip_buffers_;
         ManifestList files_;
-        OdfStyleExporter * style_exporter_;
+        boost::shared_ptr<OdfStyleExporter> style_exporter_;
         size_t prev_char_style_hash_;
+        uint section_counter_;
         bool style_span_opened_;
 };
 

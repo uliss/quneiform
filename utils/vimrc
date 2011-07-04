@@ -9,4 +9,5 @@ imap <F6>      <C-O><F6>
 " Convert current line to percent-encoded hex for non ascii
 vmap <F10>      :s@\%V\([^a-zA-Z0-9 -"\\;]\)@\=printf('\\x%02X',char2nr(submatch(1)))@g<CR>
 
+au BufReadCmd *.odt,*.ott,*.ods,*.ots,*.odp,*.otp,*.odg,*.otg call zip#Browse(expand("<amatch>"))
 

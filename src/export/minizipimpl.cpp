@@ -84,7 +84,12 @@ size_t MiniZipImpl::fileCount() const {
     return files_.size();
 }
 
-static bool hasZipName(FilePtr f, const std::string& name) {
+#if __GNUC__ == 4 && __GNUC_MINOR__ < 3
+static bool hasZipName(FilePtr f, std::string name)
+#else
+static bool hasZipName(FilePtr f, const std::string& name)
+#endif
+{
     return f->zipName() == name;
 }
 

@@ -13,6 +13,7 @@ def test():
     fmtTest = cf.Tester('format')
     fmtTest.setFormat('html')
     fmtTest.setImageOutputDir('image_centered_files')
+    fmtTest.addArg('--show-alternatives')
     
     for img in INPUT_FILES:
         fmtTest.diffTest(fmtTest.makeFullImageName(img))
