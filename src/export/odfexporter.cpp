@@ -198,6 +198,10 @@ void OdfExporter::makePicturesDir() {
     addOdfManifestFile(ODF_PICT_DIR, "");
 }
 
+std::string OdfExporter::makeSectionName() const {
+    return std::string("Section ") + toString(section_counter_);
+}
+
 void OdfExporter::odfSave() {
     zip_.save(fname_);
 }
@@ -289,6 +293,7 @@ void OdfExporter::writeMetaStatistics(std::ostream& os) {
 }
 
 void OdfExporter::writePageBegin(CEDPage&) {
+    section_counter_ = 0;
     writeStartTag("office:text", "\n");
 }
 
@@ -355,12 +360,21 @@ void OdfExporter::writePicture(CEDPicture& picture) {
     }
 }
 
-void OdfExporter::writeSectionBegin(CEDSection&) {
-    //    writeStartTag(os, "text:section", "\n");
+void OdfExporter::writeSectionBegin(CEDSection& section) {
+    section_counter_++;
+
+    Attributes attrs;
+    attrs["text:name"] = makeSectionName();
+
+    std::string style_name = style_exporter_->styleByElement(section);
+    if (!style_name.empty())
+        attrs["text:style-name"] = style_name;
+
+    writeStartTag("text:section", attrs, "\n");
 }
 
 void OdfExporter::writeSectionEnd(CEDSection&) {
-    //    writeCloseTag(os, "text:section", "\n");
+    writeCloseTag("text:section", "\n");
 }
 
 void OdfExporter::writeTableBegin(CEDTable&) {

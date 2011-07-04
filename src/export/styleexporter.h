@@ -49,19 +49,26 @@ class StyleExporter: public GenericExporter
         virtual void exportParagraph(CEDParagraph& par);
 
         /**
+          * Adds unique styles for sections
+          */
+        virtual void exportSection(CEDSection& sect);
+
+        /**
          * Calculates hash of given char
          * You can overload this function to take in account other
-         * char properties
+         * element properties
          */
         virtual size_t hash(const CEDChar& chr) const;
         virtual size_t hash(const CEDParagraph& par) const;
+        virtual size_t hash(const CEDSection& s) const;
 
         /**
-         * Makes style for given element
+         * Makes style name for given element
          * @return style name
          */
         virtual std::string makeStyle(const CEDChar& chr);
         virtual std::string makeStyle(const CEDParagraph& par);
+        virtual std::string makeStyle(const CEDSection& s);
     public:
         bool hasHash(size_t hash) const {
             return hashes_.find(hash) != hashes_.end();
@@ -89,6 +96,7 @@ class StyleExporter: public GenericExporter
         HashMap hashes_;
         int style_num_char_;
         int style_num_paragraph_;
+        int style_num_section_;
 };
 
 }

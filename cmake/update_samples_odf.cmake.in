@@ -1,0 +1,32 @@
+set(CF_SAMPLES
+    align_center
+    align_justify
+    align_left
+    align_right
+    indent
+    columns
+    hyphen
+    bold
+    italic
+    underlined
+)
+
+set(ODF_EXT "sample.odt")
+set(ODF_DIR "@CMAKE_SOURCE_DIR@/images/format")
+set(CUNEIFORM_EXE "@CMAKE_BINARY_DIR@/cuneiform")
+
+foreach (sample ${CF_SAMPLES})
+    message(STATUS "Updating \"${sample}.${ODF_EXT}\"")
+    if (EXISTS "${ODF_DIR}/${sample}.${ODF_EXT}")
+        execute_process(
+            COMMAND ${CUNEIFORM_EXE} --test-output "${ODF_DIR}/${sample}.png" -f odf -o "${ODF_DIR}/${sample}.${ODF_EXT}"
+            RESULT_VARIABLE rm_retval
+        )
+
+        if(NOT ${rm_retval} EQUAL 0)
+            message(FATAL_ERROR "Problem when updating \"${sample}.${ODF_EXT}\"")
+        endif()
+    else()
+        message(STATUS "File \"${sample}.${ODF_EXT}\" does not exist.")
+    endif()
+endforeach()

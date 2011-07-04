@@ -64,6 +64,7 @@ class OdfExporter: public XmlExporter
         void addOdfSettings();
         void addOdfStyles();
         void makePicturesDir();
+        std::string makeSectionName() const;
         void odfOpen(const std::string& fname);
         void odfSave();
         void odfWrite(const std::string& fname, const std::string& data);
@@ -77,6 +78,7 @@ class OdfExporter: public XmlExporter
         ManifestList files_;
         boost::shared_ptr<OdfStyleExporter> style_exporter_;
         size_t prev_char_style_hash_;
+        uint section_counter_;
         bool style_span_opened_;
 };
 

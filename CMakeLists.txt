@@ -7,6 +7,7 @@ include(outtree)
 include(build_number)
 include(version)
 include(uninstall)
+include(update_samples)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 if(WIN32)
