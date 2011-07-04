@@ -102,6 +102,7 @@ include_directories(
 set(RESOURCE_PATH resources)
 set(RESOURCES     ${RESOURCE_PATH}/cuneiform.qrc)
 
+set(QT_USE_QTMAIN TRUE)
 find_package(Qt4 4.5 COMPONENTS QtCore QtGui REQUIRED)
 include(${QT_USE_FILE})
 
@@ -194,13 +195,10 @@ endif()
 
 add_library(quneiform_lib STATIC ${SRCS})
 
-set(EXTRA_LIBS)
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
 
-if(MSVC)
-    add_executable(${PROJECT_NAME} main.cpp ${QRC_SOURCES} ${EXTRA_RES})
-    #list(APPEND QT_LIBRARIES qtmain)
-else()
-    add_executable(${PROJECT_NAME} MACOSX_BUNDLE WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
+set(EXTRA_LIBS)
+if(NOT MSVC)
     list(APPEND EXTRA_LIBS m)
 endif()
 
