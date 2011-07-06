@@ -19,7 +19,7 @@
 #ifndef SERIALIZE_H_
 #define SERIALIZE_H_
 
-#include "config-user.h"
+#include "config-serialize.h"
 #ifdef CF_SERIALIZE
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/base_object.hpp>

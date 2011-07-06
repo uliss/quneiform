@@ -76,20 +76,15 @@
 #include <errno.h>
 #include <time.h>
 
-typedef int (* _CRT_ALLOC_HOOK)(int, void *, size_t, int, long, const unsigned char *, int);
-
 #ifndef WIN32
 
 typedef void* HINSTANCE;
 typedef void* HMODULE;
-typedef void* HICON;
 typedef void* HWND;
 typedef void* HGLOBAL;
-typedef void* HMETAFILE;
 typedef void* WNDPROC;
 
 typedef int HDC;
-typedef int HGDIOBJ;
 typedef int HFILE;
 
 extern int HFILE_ERROR;
@@ -107,7 +102,6 @@ typedef struct tagRECT
 
 typedef RECT* LPRECT;
 typedef uint32_t COLORREF;
-typedef uint32_t *LPCOLORREF;
 
 typedef struct
 {
@@ -186,46 +180,6 @@ typedef BITMAPCOREHEADER* LPBITMAPCOREHEADER;
 typedef BITMAPINFOHEADER* LPBITMAPINFOHEADER;
 typedef BITMAPINFO* LPBITMAPINFO;
 
-typedef struct tagMETAHEADER
-{
-        uint16_t mtType;
-        uint16_t mtHeaderSize;
-        uint16_t mtVersion;
-        uint32_t mtSize;
-        uint16_t mtNoObjects;
-        uint32_t mtMaxRecord;
-        uint16_t mtNoParameters;
-} METAHEADER, *PMETAHEADER;
-
-typedef struct tagPALETTEENTRY
-{
-        uchar peRed;
-        uchar peGreen;
-        uchar peBlue;
-        uchar peFlags;
-} PALETTEENTRY;
-
-typedef struct tagLOGPALETTE
-{
-        uint16_t palVersion;
-        uint16_t palNumEntries;
-        PALETTEENTRY palPalEntry[1];
-} LOGPALETTE;
-
-typedef Bool(*WNDENUMPROC)(HWND, int);
-
-typedef int HPALETTE;
-
-typedef struct tagPAINTSTRUCT
-{
-        HDC hdc;
-        Bool fErase;
-        RECT rcPaint;
-        Bool fRestore;
-        Bool fIncUpdate;
-        unsigned char rgbReserved[32];
-} PAINTSTRUCT, *PPAINTSTRUCT;
-
 #pragma pack(push, 2)
 typedef struct tagBITMAPFILEHEADER
 {
@@ -238,19 +192,7 @@ typedef struct tagBITMAPFILEHEADER
 
 #pragma pack(pop)
 
-typedef struct tagCOPYDATASTRUCT
-{
-        ulong dwData;
-        uint32_t cbData;
-        pvoid lpData;
-} COPYDATASTRUCT, *PCOPYDATASTRUCT;
-
 typedef int HKEY;
-
-typedef int HFONT;
-
-typedef int * PHKEY;
-typedef int REGSAM;
 
 #ifndef _O_BINARY
 #define _O_BINARY O_BINARY
@@ -258,10 +200,6 @@ typedef int REGSAM;
 
 #ifndef _O_CREAT
 #define _O_CREAT O_CREAT
-#endif
-
-#ifndef _O_EXCL
-#define _O_EXCL O_EXCL
 #endif
 
 #ifndef _O_RDONLY
@@ -282,18 +220,6 @@ typedef int REGSAM;
 
 #ifndef WPARAM
 #define WPARAM int
-#endif
-
-#ifndef COLORONCOLOR
-#define COLORONCOLOR 31
-#endif
-
-#ifndef DIB_RGB_COLORS
-#define DIB_RGB_COLORS 85
-#endif
-
-#ifndef SRCCOPY
-#define SRCCOPY 482
 #endif
 
 #ifndef LPARAM
@@ -328,12 +254,6 @@ typedef int REGSAM;
 #define INVALID_HANDLE_VALUE NULL
 #endif
 
-#ifndef LRESULT
-#define LRESULT int
-#endif
-
-#define HMENU int
-
 /*
  * A bunch of windows DLL initialisation values. I don't know the
  * real values of these, so I just put in random values. They are not
@@ -356,22 +276,6 @@ typedef int REGSAM;
 #define DLL_THREAD_DETACH 4
 #endif
 
-#ifndef GWL_HINSTANCE
-#define GWL_HINSTANCE 42
-#endif
-
-#ifndef WS_OVERLAPPEDWINDOW
-#define WS_OVERLAPPEDWINDOW 6
-#endif
-
-#ifndef GRAY_BRUSH
-#define GRAY_BRUSH 1
-#endif
-
-#ifndef NULL_BRUSH
-#define NULL_BRUSH 0
-#endif
-
 #ifndef WM_DESTROY
 #define WM_DESTROY 96
 #endif
@@ -382,18 +286,6 @@ typedef int REGSAM;
 
 #ifndef WM_PAINT
 #define WM_PAINT 73
-#endif
-
-#ifndef WHITE_BRUSH
-#define WHITE_BRUSH 939
-#endif
-
-#ifndef IDC_ARROW
-#define IDC_ARROW 38
-#endif
-
-#ifndef IDI_ASTERISK
-#define IDI_ASTERISK 939
 #endif
 
 #ifndef GHND
