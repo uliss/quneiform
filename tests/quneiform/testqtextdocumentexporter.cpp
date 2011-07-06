@@ -31,7 +31,7 @@
 #include "ced/cedpicture.h"
 #include "ced/cedsection.h"
 #include "ced/cedcolumn.h"
-#include "export/rout_own.h"
+#include "common/fontstyle.h"
 #include "rdib/qtimageloader.h"
 
 #include "testqtextdocumentexporter.h"

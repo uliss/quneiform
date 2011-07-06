@@ -36,7 +36,7 @@
 #include "cfcompat.h"
 #include "common/helper.h"
 #include "common/iconv_local.h"
-#include "rout_own.h" // for font_style_t
+#include "common/fontstyle.h" // for font_style_t
 namespace cf
 {
 

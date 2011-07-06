@@ -29,7 +29,7 @@
 #include "ced/cedparagraph.h"
 #include "ced/cedline.h"
 #include "ced/cedchar.h"
-#include "export/rout_own.h"
+#include "common/fontstyle.h"
 
 #define private public
 #include "gui/export/cedpageexporter.h"

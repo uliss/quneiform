@@ -19,7 +19,6 @@
 #include <cstdio>
 #include "odfstyleexporter.h"
 #include "xmlexporter.h"
-#include "rout_own.h"
 #include "cfcompat.h"
 // ced
 #include "ced/cedchar.h"
@@ -29,6 +28,7 @@
 // common
 #include "common/helper.h"
 #include "common/tostring.h"
+#include "common/fontstyle.h"
 
 namespace cf
 {
