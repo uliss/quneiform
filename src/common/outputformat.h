@@ -44,7 +44,8 @@ enum format_t
     FORMAT_DJVUXML,
     FORMAT_DJVUTXT,
     FORMAT_NATIVE_TXT,
-    FORMAT_NATIVE_XML
+    FORMAT_NATIVE_XML,
+    FORMAT_FB2
 };
 
 typedef std::list<format_t> OutputFormatList;
