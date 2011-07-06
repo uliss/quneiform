@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+<description>
+<title-info>
+</title-info>
+<document-info>
+<program-used>cuneiform</program-used></document-info>
+</description>
+<body>
+<section>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat dui sed massa tempus tempor. Nulla blandit luctus interdum. Duis vitae nunc sed turpis malesuada pellentesque. Donec eleifend pellentesque arcu et dapibus. Sed semper posuere ornare. Donec urna sapien, congue eget sollicitudin ac, tempus ut</p>
+<p>Curabitur eget tortor quis purus facilisis dignissim sit amet sed orci. In nec consequat urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec interdum fringilla facilisis. Vestibulum ante ipsum primis in faucibus orci luctus et</p>
+</section>
+</body>
+</FictionBook>

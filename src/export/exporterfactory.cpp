@@ -31,6 +31,7 @@
 #include "ced/cedpage.h"
 #include "common/outputformat.h"
 #include "odfexporter.h"
+#include "fb2exporter.h"
 
 namespace cf
 {
@@ -82,6 +83,9 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
         break;
     case FORMAT_NATIVE_XML:
         exp.reset(new CuneiformXmlExporter(page_, format_options_));
+        break;
+    case FORMAT_FB2:
+        exp.reset(new FB2Exporter(page_, format_options_));
         break;
     default:
         throw Exception("[ExporterFactoryImpl::make] Unsupported export format: "

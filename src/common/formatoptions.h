@@ -33,6 +33,7 @@ class CLA_EXPO FormatOptions
 {
     public:
         FormatOptions();
+        virtual ~FormatOptions();
 
         enum format_mode_t
         {

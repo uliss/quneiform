@@ -9,6 +9,7 @@ set(headers
 set(exporters
     cssexporter.cpp
     exporter.cpp
+    fb2exporter.cpp
     debugexporter.cpp
     djvutxtexporter.cpp
     djvuxmlexporter.cpp

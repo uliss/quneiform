@@ -49,6 +49,8 @@ FormatOptions::FormatOptions() :
 {
 }
 
+FormatOptions::~FormatOptions() {}
+
 bool FormatOptions::bomWritten() const {
     return write_bom_;
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+<description>
+<title-info>
+</title-info>
+<document-info>
+<program-used>cuneiform</program-used></document-info>
+</description>
+<body>
+<section>
+<p><emphasis>ifalic</emphasis></p>
+<p><emphasis>ifalic underlined</emphasis></p>
+<p><strong><emphasis>italic bold</emphasis></strong></p>
+</section>
+</body>
+</FictionBook>

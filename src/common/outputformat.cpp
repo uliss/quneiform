@@ -68,6 +68,7 @@ bool initOutputFormatData()
     addFormat(FORMAT_NATIVE_TXT, "native", "native cuneiform text format", "ced");
     addFormat(FORMAT_NATIVE_XML, "native-xml", "native cuneiform xml format", "xml");
     addFormat(FORMAT_ODF, "odf", "OpenDocument Format", "odt");
+    addFormat(FORMAT_FB2, "fb2", "Fiction Book 2 format", "fb2");
 
     return true;
 }
