@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+<description>
+<title-info>
+</title-info>
+<document-info>
+<program-used>cuneiform</program-used></document-info>
+</description>
+<body>
+<section>
+<p>Lorem ipsum dolor sit amet, consectetur</p>
+<p>adipiscing elit. Vestibulum ac quam elit. Nam
+purus nunc, suscipit id posuere mollis, interdum</p>
+<p>vel ipsum. Sed suscipit orci non sem tempor in
+tincidunt nisl sagittis. Aliquam quis leo felis, ac
+tempus velit. Duis in placerat nibh. Pellentesque</p>
+<p>sed diam mi. Quisque eget velit enim, eget
+sollicitudin velit. Suspendisse eget tortor at sem</p>
+<p>elementum ornare vitae vitae odio. Sed</p>
+<p>venenatis felis quis enim tincidunt at placerat</p>
+<p>massa bibendum. Sed ut lorem massa. Proin a</p>
+<p>nibh nulla. Praesent vel posuere purus. Donec</p>
+<p>tincidunt, leo id aliquam consectetur, quam
+velit feugiat tortor, quis cursus augue lorem eu</p>
+<p>eros. Nulla sit amet quam at odio dictum</p>
+</section>
+</body>
+</FictionBook>
