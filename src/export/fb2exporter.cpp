@@ -26,9 +26,9 @@
 #include "fb2exporter.h"
 #include "common/debug.h"
 #include "common/helper.h"
+#include "common/fontstyle.h"
 #include "ced/cedpage.h"
 #include "ced/cedchar.h"
-#include "export/rout_own.h"
 #include "export/imageexporterfactory.h"
 
 namespace cf {

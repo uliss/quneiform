@@ -18,12 +18,12 @@
 
 #include <boost/functional/hash.hpp>
 #include "styleexporter.h"
-#include "rout_own.h"
 #include "ced/cedchar.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedsection.h"
 #include "common/helper.h"
 #include "common/tostring.h"
+#include "common/fontstyle.h"
 
 namespace cf
 {

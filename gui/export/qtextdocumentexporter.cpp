@@ -35,7 +35,7 @@
 #include "ced/cedsection.h"
 #include "ced/cedcolumn.h"
 #include "common/tostring.h"
-#include "export/rout_own.h"
+#include "common/fontstyle.h"
 #include "common/tostring.h"
 #include "quneiform_debug.h"
 

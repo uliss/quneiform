@@ -25,13 +25,13 @@
 #include "quneiform_debug.h"
 #include "qtextdocumentexporter.h"
 #include "common/language.h"
+#include "common/fontstyle.h"
 #include "ced/cedpage.h"
 #include "ced/cedsection.h"
 #include "ced/cedcolumn.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedline.h"
 #include "ced/cedchar.h"
-#include "export/rout_own.h"
 
 static inline cf::Rect toCfRect(const QRect& r) {
     return cf::Rect(cf::Point(r.x(), r.y()), r.width(), r.height());

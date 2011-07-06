@@ -22,11 +22,11 @@
 #include "cssexporter.h"
 #include "htmlexporter.h"
 #include "imageexporterfactory.h"
-#include "rout_own.h"
 
 #include "common/helper.h"
 #include "common/debug.h"
 #include "common/font.h"
+#include "common/fontstyle.h"
 #include "ced/cedchar.h"
 #include "ced/cedpicture.h"
 #include "ced/cedparagraph.h"

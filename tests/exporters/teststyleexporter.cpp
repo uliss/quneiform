@@ -17,7 +17,7 @@
  ***************************************************************************/
 #include "teststyleexporter.h"
 #include "export/styleexporter.cpp"
-#include "export/rout_own.h"
+#include "common/fontstyle.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestStyleExporter);
 
 using namespace cf;

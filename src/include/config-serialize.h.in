@@ -1,0 +1,6 @@
+#ifndef USER_CONFIG_SERIALIZE_H_CF
+#define USER_CONFIG_SERIALIZE_H_CF
+
+#cmakedefine CF_SERIALIZE
+
+#endif

@@ -17,6 +17,9 @@ set(EXTRA_LIB "")
 
 if(CF_SERIALIZE)
     set(EXTRA_LIB ${Boost_SERIALIZATION_LIBRARY})
+    if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
+        list(APPEND EXTRA_LIB pthread)
+    endif()
 endif()
 
 target_link_libraries(test_common 

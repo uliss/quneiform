@@ -23,7 +23,6 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #define protected public
 
 #include <export/htmlexporter.h>
-#include <export/rout_own.h>
 #include <ced/ced.h>
 #include <ced/cedcolumn.h>
 #include <ced/cedline.h>
@@ -32,6 +31,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #include <ced/cedpicture.h>
 #include <ced/cedparagraph.h>
 #include <rdib/imageloaderfactory.h>
+#include "common/fontstyle.h"
 using namespace cf;
 using namespace std;
 

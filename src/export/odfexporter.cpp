@@ -25,7 +25,6 @@
 #include "odfexporter.h"
 #include "odfstyleexporter.h"
 #include "imageexporterfactory.h"
-#include "rout_own.h"
 #include "ced/cedpage.h"
 #include "ced/cedchar.h"
 #include "ced/cedpicture.h"
@@ -33,6 +32,7 @@
 #include "common/tostring.h"
 #include "common/helper.h"
 #include "common/debug.h"
+#include "common/fontstyle.h"
 #include "compat/filefunc.h"
 #include "config-version.h" // for CF_VERSION
 
