@@ -60,7 +60,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "internal.h"
 #include "std.h"
 #include "xpath.h"
-#include "xfindfil.h"
 #ifdef WIN32
    #include "win_mini.h"
 #endif
