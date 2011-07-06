@@ -48,6 +48,7 @@ class FB2Exporter : public XmlExporter
 public:
     FB2Exporter(cf::CEDPage * page, const cf::FormatOptions& opt);
 protected:
+    void writeCharacterBegin(CEDChar& c);
     void writePageBegin(CEDPage& page);
     void writePageEnd(CEDPage &page);
     void writeParagraphBegin(CEDParagraph& par);
@@ -55,10 +56,15 @@ protected:
     void writeSectionBegin(CEDSection& sect);
     void writeSectionEnd(CEDSection& sect);
 private:
+    void changeCharacterFontStyle(int new_style);
     void writeBinary();
     void writeDescription();
     void writeDocumentInfo();
     void writeDocumentTitle();
+    void writeFontStyleBegin(int style);
+    void writeFontStyleEnd(int style);
+private:
+    int prev_char_style_;
 };
 
 }

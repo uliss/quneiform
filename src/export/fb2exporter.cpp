@@ -21,12 +21,21 @@
 
 #include "fb2exporter.h"
 #include "ced/cedpage.h"
+#include "ced/cedchar.h"
+#include "export/rout_own.h"
 
 namespace cf {
 
 FB2Exporter::FB2Exporter(cf::CEDPage * page, const cf::FormatOptions& opts)
-    : XmlExporter(page, opts)
+    : XmlExporter(page, opts),
+    prev_char_style_(0)
 {
+}
+
+void FB2Exporter::changeCharacterFontStyle(int new_style) {
+    writeFontStyleEnd(prev_char_style_);
+    writeFontStyleBegin(new_style);
+    prev_char_style_ = new_style;
 }
 
 void FB2Exporter::writeBinary() {
@@ -43,12 +52,50 @@ void FB2Exporter::writeDescription() {
 
 void FB2Exporter::writeDocumentInfo() {
     writeStartTag("document-info", "\n");
+    writeTag("program-used", "cuneiform");
     writeCloseTag("document-info", "\n");
 }
 
 void FB2Exporter::writeDocumentTitle() {
     writeStartTag("title-info", "\n");
     writeCloseTag("title-info", "\n");
+}
+
+void FB2Exporter::writeCharacterBegin(CEDChar& c) {
+    // font style changed
+    if (prev_char_style_ != c.fontStyle())
+        changeCharacterFontStyle(c.fontStyle());
+}
+
+void FB2Exporter::writeFontStyleBegin(int style) {
+    if (formatOptions().isBoldUsed() && (style & FONT_BOLD))
+        writeStartTag("strong");
+
+    if (formatOptions().isItalicUsed() && (style & FONT_ITALIC))
+        writeStartTag("emphasis");
+
+    if (formatOptions().isUnderlinedUsed() && style & FONT_UNDERLINE)
+        std::cerr << "[Warning] FB2 format has no underlined text support" << std::endl;
+
+    if (style & FONT_SUB)
+        writeStartTag("sub");
+
+    if (style & FONT_SUPER)
+        writeStartTag("sup");
+}
+
+void FB2Exporter::writeFontStyleEnd(int style) {
+    if (style & FONT_SUPER)
+        writeCloseTag("sup");
+
+    if (style & FONT_SUB)
+        writeCloseTag("sub");
+
+    if (formatOptions().isItalicUsed() && (style & FONT_ITALIC))
+        writeCloseTag("emphasis");
+
+    if (formatOptions().isBoldUsed() && (style & FONT_BOLD))
+        writeCloseTag("strong");
 }
 
 void FB2Exporter::writePageBegin(CEDPage& page) {
@@ -73,9 +120,11 @@ void FB2Exporter::writePageEnd(CEDPage &page) {
 
 void FB2Exporter::writeParagraphBegin(CEDParagraph&) {
     writeStartTag("p");
+    prev_char_style_ = 0;
 }
 
 void FB2Exporter::writeParagraphEnd(CEDParagraph&) {
+    writeFontStyleEnd(prev_char_style_);
     writeCloseTag("p", "\n");
 }
 
