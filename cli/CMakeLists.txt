@@ -16,5 +16,5 @@ if(NOT MSVC)
     set_target_properties(cuneiform-cli PROPERTIES OUTPUT_NAME cuneiform)
 endif()
 
-target_link_libraries(cuneiform-cli cuneiform ${cli_ext_libs} ${DL_LIB})
+target_link_libraries(cuneiform-cli cuneiform)
 install_exe(cuneiform-cli)
