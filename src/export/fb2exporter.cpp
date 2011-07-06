@@ -18,11 +18,18 @@
 
 #include <fstream>
 #include <sstream>
+#include <algorithm>
+#include <boost/archive/iterators/base64_from_binary.hpp>
+#include <boost/archive/iterators/insert_linebreaks.hpp>
+#include <boost/archive/iterators/transform_width.hpp>
 
 #include "fb2exporter.h"
+#include "common/debug.h"
+#include "common/helper.h"
 #include "ced/cedpage.h"
 #include "ced/cedchar.h"
 #include "export/rout_own.h"
+#include "export/imageexporterfactory.h"
 
 namespace cf {
 
@@ -30,6 +37,8 @@ FB2Exporter::FB2Exporter(cf::CEDPage * page, const cf::FormatOptions& opts)
     : XmlExporter(page, opts),
     prev_char_style_(0)
 {
+    ImageExporterPtr exp = ImageExporterFactory::instance().make();
+    setImageExporter(exp);
 }
 
 void FB2Exporter::changeCharacterFontStyle(int new_style) {
@@ -39,8 +48,7 @@ void FB2Exporter::changeCharacterFontStyle(int new_style) {
 }
 
 void FB2Exporter::writeBinary() {
-    writeStartTag("binary", "\n");
-    writeCloseTag("binary", "\n");
+    writePictures();
 }
 
 void FB2Exporter::writeDescription() {
@@ -75,7 +83,7 @@ void FB2Exporter::writeFontStyleBegin(int style) {
         writeStartTag("emphasis");
 
     if (formatOptions().isUnderlinedUsed() && style & FONT_UNDERLINE)
-        std::cerr << "[Warning] FB2 format has no underlined text support" << std::endl;
+        Debug() << "[Warning] FB2 format has no underlined text support" << std::endl;
 
     if (style & FONT_SUB)
         writeStartTag("sub");
@@ -126,6 +134,56 @@ void FB2Exporter::writeParagraphBegin(CEDParagraph&) {
 void FB2Exporter::writeParagraphEnd(CEDParagraph&) {
     writeFontStyleEnd(prev_char_style_);
     writeCloseTag("p", "\n");
+}
+
+void FB2Exporter::writePicture(CEDPicture& picture) {
+    Attributes attrs;
+    attrs["l:href"] = "#" + escapeHtmlSpecialChars(makePictureName(picture));
+    writeSingleTag("image", attrs);
+
+    pictures_.push_back(&picture);
+}
+
+void FB2Exporter::writePictureBase64(const CEDPicture& p) {
+    std::stringstream buf;
+    savePictureData(p, buf);
+
+    typedef std::istreambuf_iterator<char> istream_iterator;
+    typedef std::ostreambuf_iterator<char> ostream_iterator;
+
+    using namespace boost::archive::iterators;
+    typedef insert_linebreaks<
+                base64_from_binary<
+                    transform_width<
+                        istream_iterator, 6, 8
+                    >
+                >,
+                72>
+    base64_text;
+
+    std::copy(
+            base64_text(istream_iterator(buf)),
+            base64_text(istream_iterator()),
+            ostream_iterator(buffer())
+    );
+}
+
+void FB2Exporter::writePictures() {
+    try {
+        for(PictList::iterator it = pictures_.begin(); it != pictures_.end(); ++it) {
+            if(*it == NULL)
+                continue;
+
+            CEDPicture& p = *(*it);
+            Attributes attrs;
+            attrs["id"] = makePictureName(p);
+            writeStartTag("binary", attrs);
+            writePictureBase64(p);
+            writeCloseTag("binary", "\n");
+        }
+    } catch (Exception& e) {
+        Debug() << "[FB2Exporter::writePicture] failed: " << e.what() << std::endl;
+    }
 }
 
 void FB2Exporter::writeSectionBegin(CEDSection& sect) {

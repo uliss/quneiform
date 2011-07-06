@@ -19,6 +19,7 @@
 #ifndef FB2EXPORTER_H
 #define FB2EXPORTER_H
 
+#include <vector>
 #include "xmlexporter.h"
 
 namespace cf {
@@ -43,6 +44,8 @@ private:
     language_t src_lang_;
 };
 
+class CEDPicture;
+
 class FB2Exporter : public XmlExporter
 {
 public:
@@ -53,6 +56,7 @@ protected:
     void writePageEnd(CEDPage &page);
     void writeParagraphBegin(CEDParagraph& par);
     void writeParagraphEnd(CEDParagraph& par);
+    void writePicture(CEDPicture& picture);
     void writeSectionBegin(CEDSection& sect);
     void writeSectionEnd(CEDSection& sect);
 private:
@@ -63,8 +67,13 @@ private:
     void writeDocumentTitle();
     void writeFontStyleBegin(int style);
     void writeFontStyleEnd(int style);
+    void writePictures();
+    void writePictureBase64(const CEDPicture& p);
+private:
+    typedef std::vector<CEDPicture*> PictList;
 private:
     int prev_char_style_;
+    PictList pictures_;
 };
 
 }
