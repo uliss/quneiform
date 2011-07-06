@@ -1,0 +1,32 @@
+set(CF_SAMPLES
+    align_center
+    align_justify
+    align_left
+    align_right
+    indent
+    columns
+    hyphen
+    bold
+    italic
+    underlined
+)
+
+set(FB2_EXT "sample.fb2")
+set(FB2_DIR "@CMAKE_SOURCE_DIR@/images/format")
+set(CUNEIFORM_EXE "@CMAKE_BINARY_DIR@/cuneiform")
+
+foreach (sample ${CF_SAMPLES})
+    message(STATUS "Updating \"${sample}.${FB2_EXT}\"")
+    if (EXISTS "${FB2_DIR}/${sample}.${FB2_EXT}")
+        execute_process(
+            COMMAND ${CUNEIFORM_EXE} --test-output "${FB2_DIR}/${sample}.png" -f fb2 -o "${FB2_DIR}/${sample}.${FB2_EXT}"
+            RESULT_VARIABLE rm_retval
+        )
+
+        if(NOT ${rm_retval} EQUAL 0)
+            message(FATAL_ERROR "Problem when updating \"${sample}.${FB2_EXT}\"")
+        endif()
+    else()
+        message(STATUS "File \"${sample}.${FB2_EXT}\" does not exist.")
+    endif()
+endforeach()

@@ -18,7 +18,8 @@ FORMATS = (
      'native-xml',
      'djvutxt',
      'djvuxml',
-     'odf'
+     'odf',
+     'fb2'
 )
 
 def test():
