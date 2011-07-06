@@ -39,6 +39,10 @@ FB2Exporter::FB2Exporter(cf::CEDPage * page, const cf::FormatOptions& opts)
 {
     ImageExporterPtr exp = ImageExporterFactory::instance().make();
     setImageExporter(exp);
+
+    setSkipEmptyLines(true);
+    setSkipEmptyParagraphs(true);
+    setSkipPictures(false);
 }
 
 void FB2Exporter::changeCharacterFontStyle(int new_style) {
@@ -126,7 +130,8 @@ void FB2Exporter::writePageEnd(CEDPage &page) {
     flushBuffer();
 }
 
-void FB2Exporter::writeParagraphBegin(CEDParagraph&) {
+void FB2Exporter::writeParagraphBegin(CEDParagraph& p) {
+    XmlExporter::writeParagraphBegin(p);
     writeStartTag("p");
     prev_char_style_ = 0;
 }
