@@ -16,7 +16,8 @@ if(WIN32)
             install(FILES
                         ${cf_file}
                         DESTINATION bin)
-            execute_process(COMMAND ${CMAKE_COMMAND} -E copy "${cf_file}" "${CMAKE_BINARY_DIR}")
+            
+            execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different ${cf_file} ${CMAKE_BINARY_DIR})
         endif()
     endmacro()
 endif()
