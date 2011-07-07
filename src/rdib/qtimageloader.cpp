@@ -21,11 +21,24 @@
 
 #include "qtimageloader.h"
 #include "compat_defs.h"
+#include "imageloaderfactory.h"
 
 #ifdef WIN32
 #include <windows.h>
 #include <wingdi.h>
 #endif
+
+namespace
+{
+
+cf::ImageLoader * create() {
+    return new cf::QtImageLoader;
+}
+
+bool png = cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_PNG, 50, create);
+bool jpeg = cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_JPEG, 50, create);
+
+}
 
 namespace cf
 {
