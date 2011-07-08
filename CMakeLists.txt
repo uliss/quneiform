@@ -22,7 +22,7 @@ include(flags_common)
 include(flags_release)
 include(flags_debug)
 include(install_files)
-
+include(library_link)
 include(find_image_libs)
     
 # Iconv
@@ -32,7 +32,7 @@ if(NOT ICONV_FOUND)
 endif()
 
 # Boost
-if(MSVC)
+if(WIN32)
     set(Boost_USE_STATIC_LIBS On)
 endif()
 

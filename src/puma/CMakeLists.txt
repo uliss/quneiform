@@ -1,4 +1,4 @@
-add_library(cuneiform ${LIBTYPE}
+add_library(cuneiform ${CF_CUNEIFORM_LIBTYPE}
     pumaimpl.cpp
     ${SNP_SRC}
 )

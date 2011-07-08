@@ -53,7 +53,7 @@ endif()
 
 include_directories(${ICONV_INCLUDE_DIR})
 
-add_library(cuneiform-export ${LIBTYPE}
+add_library(cuneiform-export ${CF_EXPORT_LIBTYPE}
     exporterfactory.cpp
     imageexporterfactory.cpp
     ${headers}
