@@ -19,7 +19,6 @@
 #include <cassert>
 #include <cstddef>
 
-#include "globus.h"
 #include "imageformats.h"
 
 static const char * image_formats[] = {
@@ -35,7 +34,7 @@ static const char * image_formats[] = {
 
 namespace cf {
 
-FUN_EXPO__ const char *  imageFormatToString(image_format_t f) {
+const char *  imageFormatToString(image_format_t f) {
     int idx = f - 1;
     assert(idx >= 0);
     assert(idx < FORMAT_XPM);

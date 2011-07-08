@@ -94,7 +94,7 @@ bool ImageLoaderFactory::registerCreator(image_format_t format, int gravity, loa
     return true;
 }
 
-ImageLoaderFactory::FormatList ImageLoaderFactory::ImageLoaderFactory::supportedFormats() const {
+ImageLoaderFactory::FormatList ImageLoaderFactory::supportedFormats() const {
     FormatList res;
 
     for(LoaderMap::const_iterator it = loader_map_.begin(), end = loader_map_.end(); it != end; ++it) {

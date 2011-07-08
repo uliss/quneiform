@@ -19,6 +19,8 @@
 #ifndef IMAGEFORMATS_H_
 #define IMAGEFORMATS_H_
 
+#include "globus.h"
+
 namespace cf
 {
 
@@ -34,7 +36,7 @@ enum image_format_t
     FORMAT_XPM
 };
 
-const char * imageFormatToString(image_format_t f);
+FUN_EXPO__ const char * imageFormatToString(image_format_t f);
 
 }
 
