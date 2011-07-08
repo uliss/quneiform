@@ -115,52 +115,64 @@ static string supported_formats() {
     return os.str();
 }
 
+static string supported_image_formats() {
+    ostringstream os;
+    os << "Supported image formats:\n";
+    ImageLoaderFactory::FormatList formats = ImageLoaderFactory::instance().supportedFormats();
+    for(size_t i = 0; i < formats.size(); i++)
+        os << "    " << imageFormatToString(formats[i]) << "\n";
+
+    return os.str();
+}
+
 static string usage() {
     ostringstream os;
     os << "Usage: " << program_name << " [options] imagefile\n";
     os
             << ""
-                "  -h   --help                   Print this help message                     \n"
-                "  -v   --verbose                Print verbose debugging messages            \n"
-                "  -V   --version                Print program version and exit              \n"
-                "       --debug-dump             Dumps various temporary recognition data    \n"
-                "                                   to current directory                     \n"
-                "       --autorotate             Automatically rotate input image            \n"
-                "  -f   --format   FORMAT        Sets output format                          \n"
-                "                                   type --format help to get full list      \n"
-                "  -l   --language LANGUAGE      Sets recognition language                   \n"
-                "                                   (iso code or language name)              \n"
-                "                                   type --language help to gel full list    \n"
-                "       --spell                  Use spell correction                        \n"
-                "       --onecolumn              Use one column layout                       \n"
-                "       --dotmatrix                                                          \n"
-                "       --fax                                                                \n"
-                "       --tables   MODE                                                      \n"
-                "       --pictures               Search pictures (default)                   \n"
-                "       --nopictures             Do not search pictures                      \n"
-                "  Output options:                                                           \n"
-                "  -a   --append                 Appends output to existing document         \n"
-                "                                   (supported not for all formats)          \n"
-                "  -o   --output   FILENAME      Sets output filename                        \n"
-                "       --output-image-dir PATH  Sets image output directory                 \n"
-                "       --stdout                 Puts result to standard output              \n"
-                "  Output formatting options:                                                \n"
-                "       --bom                    Write BOM (byte order mark)                 \n"
-                "       --no-bom                 Do not write BOM                            \n"
-                "       --no-meta-generator      Do not write meta generator info            \n"
-                "                                    (now for HTML only)                     \n"
-                "       --preserve-line-breaks   Preserves line-breaking                     \n"
-                "       --unrecognized CHAR      Set symbol, that shown instead of           \n"
-                "                                    unrecognized characters.                \n"
-                "                                    Default is '~'.                         \n"
-                "       --no-font-size           Do not use font size                        \n"
-                "       --no-bold                Use normal font for bold text               \n"
-                "       --no-italic              Use normal font for italic text             \n"
-                "       --show-alternatives      Show alternatives of recognition            \n"
-                "                                    (now HTML only)                         \n"
-                "       --monospace-name         Use specified monospace font in RTF output  \n"
-                "       --serif-name             Use specified serif font in RTF output      \n"
-                "       --sansserif-name         Use specified sans-serif font in RTF output \n";
+                "  -h   --help                      Print this help message                     \n"
+                "  -v   --verbose                   Print verbose debugging messages            \n"
+                "  -V   --version                   Print program version and exit              \n"
+                "       --debug-dump                Dumps various temporary recognition data    \n"
+                "                                      to current directory                     \n"
+                "       --autorotate                Automatically rotate input image            \n"
+                "  -f   --format   FORMAT           Sets output format                          \n"
+                "                                      type --format help to get full list      \n"
+                "  -l   --language LANGUAGE         Sets recognition language                   \n"
+                "                                      (iso code or language name)              \n"
+                "                                      type --language help to gel full list    \n"
+                "       --spell                     Use spell correction                        \n"
+                "       --onecolumn                 Use one column layout                       \n"
+                "       --dotmatrix                                                             \n"
+                "       --fax                                                                   \n"
+                "       --tables   MODE                                                         \n"
+                "       --pictures                  Search pictures (default)                   \n"
+                "       --nopictures                Do not search pictures                      \n"
+                "  Output options:                                                              \n"
+                "  -a   --append                    Appends output to existing document         \n"
+                "                                      (supported not for all formats)          \n"
+                "  -o   --output   FILENAME         Sets output filename                        \n"
+                "       --output-image-dir PATH     Sets image output directory                 \n"
+                "       --stdout                    Puts result to standard output              \n"
+                "  Output formatting options:                                                   \n"
+                "       --bom                       Write BOM (byte order mark)                 \n"
+                "       --no-bom                    Do not write BOM                            \n"
+                "       --no-meta-generator         Do not write meta generator info            \n"
+                "                                       (now for HTML only)                     \n"
+                "       --preserve-line-breaks      Preserves line-breaking                     \n"
+                "       --unrecognized CHAR         Set symbol, that shown instead of           \n"
+                "                                       unrecognized characters.                \n"
+                "                                       Default is '~'.                         \n"
+                "       --no-font-size              Do not use font size                        \n"
+                "       --no-bold                   Use normal font for bold text               \n"
+                "       --no-italic                 Use normal font for italic text             \n"
+                "       --show-alternatives         Show alternatives of recognition            \n"
+                "                                       (now HTML only)                         \n"
+                "       --monospace-name            Use specified monospace font in RTF output  \n"
+                "       --serif-name                Use specified serif font in RTF output      \n"
+                "       --sansserif-name            Use specified sans-serif font in RTF output \n"
+                "  Info options:                                                                \n"
+                "       --supported-image-formats   Prints supported image formats              \n";
     return os.str();
 }
 
@@ -237,7 +249,8 @@ int main(int argc, char **argv) {
         show_alternatives = FALSE,
         write_bom = FALSE,
         write_meta_generator = TRUE,
-        test_output = FALSE;
+        test_output = FALSE,
+        print_image_formats = FALSE;
 
     const char * const short_options = ":aho:vVl:f:d:u:";
     const struct option long_options[] = {
@@ -267,6 +280,7 @@ int main(int argc, char **argv) {
             { "serif-name", required_argument, NULL, 'z' },//
             { "show-alternatives", no_argument, &show_alternatives, 1 }, //
             { "stdout", no_argument, &stdout_output, 1 }, //
+            { "supported-image-formats", no_argument, &print_image_formats, 1 }, //
             { "onecolumn", no_argument, &do_singlecolumn, 1 },//
             { "spell", no_argument, &do_speller, 1 },//
             { "tables", required_argument, &do_tables, 1 },//
@@ -346,6 +360,11 @@ int main(int argc, char **argv) {
             return EXIT_FAILURE;
             break;
         }
+    }
+
+    if(print_image_formats) {
+        std::cout << supported_image_formats();
+        return EXIT_SUCCESS;
     }
 
     if (optind == argc) {

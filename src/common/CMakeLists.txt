@@ -11,6 +11,7 @@ set(COMMON_SOURCES
     iconv_local.cpp
     iconvimpl.cpp
     image.cpp
+    imageformats.cpp
     imagerawdata.cpp
     language.cpp
     outputformat.cpp

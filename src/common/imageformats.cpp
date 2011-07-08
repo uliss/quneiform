@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,26 +16,31 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IMAGEFORMATS_H_
-#define IMAGEFORMATS_H_
+#include <cassert>
+#include <cstddef>
 
-namespace cf
-{
+#include "globus.h"
+#include "imageformats.h"
 
-enum image_format_t
-{
-    FORMAT_BMP = 1,
-    FORMAT_GIF,
-    FORMAT_JPEG,
-    FORMAT_PNG,
-    FORMAT_PNM,
-    FORMAT_TIFF,
-    FORMAT_UNKNOWN,
-    FORMAT_XPM
+static const char * image_formats[] = {
+    "bmp", //
+    "gif",
+    "jpg",
+    "png",
+    "pnm",
+    "tiff",
+    "unknown",
+    "xpm"
 };
 
-const char * imageFormatToString(image_format_t f);
+namespace cf {
+
+FUN_EXPO__ const char *  imageFormatToString(image_format_t f) {
+    int idx = f - 1;
+    assert(idx >= 0);
+    assert(idx < FORMAT_XPM);
+    return image_formats[idx];
+}
 
 }
 
-#endif /* IMAGEFORMATS_H_ */

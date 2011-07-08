@@ -39,21 +39,24 @@ class CLA_EXPO ImageLoaderFactory : boost::noncopyable
         static ImageLoaderFactory& instance();
     public:
         typedef ImageLoader * (*loaderCreate)();
+        typedef std::vector<image_format_t> FormatList;
         ImagePtr load(const std::string& filename);
         ImagePtr load(std::istream& stream);
         ImageLoader& loader(image_format_t format);
         bool registerCreator(image_format_t format, int gravity, loaderCreate creator);
+        FormatList supportedFormats() const;
     private:
         typedef std::pair<int, loaderCreate> LoaderEntry;
         typedef std::multimap<image_format_t, LoaderEntry> LoaderMap;
-        ImageLoader& unknownLoader();
-        LoaderMap loader_map_;
         typedef boost::shared_ptr<ImageLoader> ImageLoaderPtr;
         typedef std::vector<ImageLoaderPtr> ImageLoadersList;
-        ImageLoadersList loaders_list_;
     private:
+        ImageLoader& unknownLoader();
         ImageLoaderFactory();
         void checkImageExists(const std::string& filename);
+    private:
+        LoaderMap loader_map_;
+        ImageLoadersList loaders_list_;
 };
 
 }

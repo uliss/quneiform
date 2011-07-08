@@ -18,6 +18,7 @@
 
 #include <fstream>
 #include <limits>
+#include <algorithm>
 #include <cassert>
 
 #include "imageloaderfactory.h"
@@ -91,6 +92,25 @@ bool ImageLoaderFactory::registerCreator(image_format_t format, int gravity, loa
 {
     loader_map_.insert(LoaderMap::value_type(format, std::make_pair(gravity, creator)));
     return true;
+}
+
+ImageLoaderFactory::FormatList ImageLoaderFactory::ImageLoaderFactory::supportedFormats() const {
+    FormatList res;
+
+    for(LoaderMap::const_iterator it = loader_map_.begin(), end = loader_map_.end(); it != end; ++it) {
+        // skip unknown
+        if(it->first == FORMAT_UNKNOWN)
+            continue;
+
+        res.push_back(it->first);
+    }
+
+    std::sort(res.begin(), res.end());
+
+    FormatList::iterator last = std::unique(res.begin(), res.end());
+    res.erase(last, res.end());
+
+    return res;
 }
 
 ImageLoader& ImageLoaderFactory::unknownLoader()
