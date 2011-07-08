@@ -19,6 +19,7 @@
 #include <QtCore/QString>
 #include <QtGui/QImage>
 #include <QtGui/QImageReader>
+#include <QDebug>
 
 #include "qtimageloader.h"
 #include "compat_defs.h"
@@ -36,17 +37,17 @@ cf::ImageLoader * create() {
     return new cf::QtImageLoader;
 }
 
-typedef std::map<const char *, cf::image_format_t> FormatMap;
+typedef std::map<std::string, cf::image_format_t> FormatMap;
 
 void initFormatMap(FormatMap& m) {
-    m["BMP"] = cf::FORMAT_BMP;
-    m["GIF"] = cf::FORMAT_GIF;
-    m["JPG"] = cf::FORMAT_JPEG;
-    m["JPEG"] = cf::FORMAT_JPEG;
-    m["PNG"] = cf::FORMAT_PNG;
-    m["PNM"] = cf::FORMAT_PNM;
-    m["TIFF"] = cf::FORMAT_TIFF;
-    m["XPM"] = cf::FORMAT_XPM;
+    m["bmp"] = cf::FORMAT_BMP;
+    m["gif"] = cf::FORMAT_GIF;
+    m["jpg"] = cf::FORMAT_JPEG;
+    m["jpeg"] = cf::FORMAT_JPEG;
+    m["png"] = cf::FORMAT_PNG;
+    m["pnm"] = cf::FORMAT_PNM;
+    m["tiff"] = cf::FORMAT_TIFF;
+    m["xpm"] = cf::FORMAT_XPM;
 }
 
 void registerFormat(cf::image_format_t f) {
@@ -60,7 +61,7 @@ bool registerImageFormats() {
     QList<QByteArray> formats = QImageReader::supportedImageFormats();
 
     for(QList<QByteArray>::iterator it = formats.begin(); it != formats.end(); ++it) {
-        FormatMap::iterator map_it = format_map.find(it->constData());
+        FormatMap::iterator map_it = format_map.find(it->toLower().constData());
         if(map_it == format_map.end())
             continue;
 
