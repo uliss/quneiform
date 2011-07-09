@@ -158,6 +158,14 @@ p {margin: 0; text-indent: 0;}
         <source>Select recognize area</source>
         <translation>Выбрать область распознавания</translation>
     </message>
+    <message>
+        <source>Fit to width</source>
+        <translation>Уместить по ширине</translation>
+    </message>
+    <message>
+        <source>Fit to page</source>
+        <translation>Уместить изображение</translation>
+    </message>
 </context>
 <context>
     <name>Lang</name>

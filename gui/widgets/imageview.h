@@ -45,22 +45,6 @@ public:
     void clearScene();
 
     /**
-      * Fits page into viewpoint area
-      * if page is smaller than viewport size
-      * page scaled to it's original size
-      * @see fitWidth(), originalSize(), zoom()
-      */
-    void fitPage();
-
-    /**
-      * Fits page into viewport area by width
-      * if page is smaller than viewport size
-      * page scaled to it's original size
-      * @see fitPage(), originalSize(), zoom()
-      */
-    void fitWidth();
-
-    /**
       * Hides format layout
       * @see showFormatLayout()
       */
@@ -104,6 +88,22 @@ public:
       */
     void zoom(qreal factor);
 public slots:
+    /**
+      * Fits page into viewpoint area
+      * if page is smaller than viewport size
+      * page scaled to it's original size
+      * @see fitWidth(), originalSize(), zoom()
+      */
+    void fitPage();
+
+    /**
+      * Fits page into viewport area by width
+      * if page is smaller than viewport size
+      * page scaled to it's original size
+      * @see fitPage(), originalSize(), zoom()
+      */
+    void fitWidth();
+
     void updatePageArea();
 signals:
     void pageDeleted();

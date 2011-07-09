@@ -125,6 +125,9 @@ void ImageView::createContextMenu() {
     context_menu_->addAction(QIcon(":/img/oxygen/32x32/select_rectangular.png"),
                    tr("Select recognize area"),
                    this, SLOT(selectPageArea()));
+    context_menu_->addSeparator();
+    context_menu_->addAction(tr("Fit to width"), this, SLOT(fitWidth()));
+    context_menu_->addAction(tr("Fit to page"), this, SLOT(fitPage()));
 }
 
 void ImageView::createPageAreaSelection(const QRect& rect) {
