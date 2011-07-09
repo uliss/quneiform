@@ -703,7 +703,18 @@ void MainWindow::updatePageDocument(Page * page) {
 void MainWindow::writeSettings() {
     QSettings settings;
     settings.beginGroup("MainWindow");
+
+#ifdef Q_WS_MAC
+    // qt incorretly calculates window height
+    // with tool bar
+    static const int MAC_MAGICK_HEIGHT_FIX = 76;
+    QSize window_sz = size();
+    window_sz.rheight() += MAC_MAGICK_HEIGHT_FIX;
+    settings.setValue("size", window_sz);
+#else
     settings.setValue("size", size());
+#endif
+
     settings.setValue("pos", pos());
     settings.endGroup();
 }
