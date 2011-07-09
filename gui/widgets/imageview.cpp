@@ -389,7 +389,7 @@ void ImageView::rotatePixmap(int angle) {
 
     Q_CHECK_PTR(scene_);
 
-#if QT_VERSION >= 460000
+#if QT_VERSION >= 0x040600
     pixmap_->setRotation(angle);
 #else
     pixmap_->setTransform(QTransform().rotate(angle), true);
