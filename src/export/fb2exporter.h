@@ -64,6 +64,7 @@ private:
     void writeBinary();
     void writeDescription();
     void writeDocumentInfo();
+    void writeDocumentLanguage();
     void writeDocumentTitle();
     void writeFontStyleBegin(int style);
     void writeFontStyleEnd(int style);

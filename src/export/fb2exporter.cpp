@@ -27,6 +27,7 @@
 #include "common/debug.h"
 #include "common/helper.h"
 #include "common/fontstyle.h"
+#include "common/language.h"
 #include "ced/cedpage.h"
 #include "ced/cedchar.h"
 #include "export/imageexporterfactory.h"
@@ -68,8 +69,13 @@ void FB2Exporter::writeDocumentInfo() {
     writeCloseTag("document-info", "\n");
 }
 
+void FB2Exporter::writeDocumentLanguage() {
+    writeTag("lang", Language::isoCode2(formatOptions().language()), Attributes(), "\n");
+}
+
 void FB2Exporter::writeDocumentTitle() {
     writeStartTag("title-info", "\n");
+    writeDocumentLanguage();
     writeCloseTag("title-info", "\n");
 }
 
