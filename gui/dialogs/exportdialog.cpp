@@ -59,6 +59,9 @@ void ExportDialog::setupFormatList() {
     ui->formatComboBox->addItem(tr("HOCR"), ExportSettings::HOCR);
     ui->formatComboBox->addItem(tr("DJVU text"), ExportSettings::DJVUTXT);
     ui->formatComboBox->addItem(tr("DJVU xml"), ExportSettings::DJVUXML);
+    ui->formatComboBox->addItem(tr("Native"), ExportSettings::NATIVE);
+    ui->formatComboBox->addItem(tr("Native XML"), ExportSettings::NATIVEXML);
+    ui->formatComboBox->addItem(tr("FB2"), ExportSettings::FB2);
 }
 
 void ExportDialog::showOpenFileDialog() {

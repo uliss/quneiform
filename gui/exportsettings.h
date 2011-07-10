@@ -32,7 +32,10 @@ public:
         ODF = 3,
         DJVUTXT = 4,
         DJVUXML = 5,
-        HOCR = 6
+        HOCR = 6,
+        NATIVE = 7,
+        NATIVEXML = 8,
+        FB2 = 9
     };
 
     ExportSettings(FormatType format = PLAINTEXT);

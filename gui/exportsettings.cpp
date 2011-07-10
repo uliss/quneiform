@@ -48,6 +48,9 @@ void ExportSettings::initFormatMap() {
     format_map_.insert(ODF, cf::FORMAT_ODF);
     format_map_.insert(DJVUTXT, cf::FORMAT_DJVUTXT);
     format_map_.insert(DJVUXML, cf::FORMAT_DJVUXML);
+    format_map_.insert(NATIVE, cf::FORMAT_NATIVE_TXT);
+    format_map_.insert(NATIVEXML, cf::FORMAT_NATIVE_XML);
+    format_map_.insert(FB2, cf::FORMAT_FB2);
 }
 
 void ExportSettings::setFormat(FormatType format) {

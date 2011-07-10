@@ -88,6 +88,18 @@ p {margin: 0; text-indent: 0;}
         <source>Format selection</source>
         <translation>Выбор формата</translation>
     </message>
+    <message>
+        <source>Native</source>
+        <translation>Native</translation>
+    </message>
+    <message>
+        <source>Native XML</source>
+        <translation>Native XML</translation>
+    </message>
+    <message>
+        <source>FB2</source>
+        <translation>FB2</translation>
+    </message>
 </context>
 <context>
     <name>FormatSettingsDialog</name>
