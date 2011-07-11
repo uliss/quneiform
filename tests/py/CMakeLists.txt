@@ -13,6 +13,12 @@ if(PYTHONINTERP_FOUND)
         set(CF_DIFFOPTS "-bB")
     endif()
 
+    if(MSVC)
+        set(CUNEIFORM_EXE ${CMAKE_BINARY_DIR}/cuneiform-cli.exe)
+    else()
+        set(CUNEIFORM_EXE ${CMAKE_BINARY_DIR}/cuneiform)
+    endif()
+
     install_test_py(cf.py)
     install_test_py(columns.py)
     install_test_py(align.py)

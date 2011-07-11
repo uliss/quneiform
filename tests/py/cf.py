@@ -10,7 +10,7 @@ import re
 os.environ['CF_DATADIR'] = "@CMAKE_SOURCE_DIR@/datafiles"
 
 # globals exe's and paths
-CUNEIFORM = "@CMAKE_BINARY_DIR@/cuneiform"
+CUNEIFORM = "@CUNEIFORM_EXE@"
 ACCSUM = "@CMAKE_BINARY_DIR@/cf_accsum"
 ACCURACY = "@CMAKE_BINARY_DIR@/cf_accuracy"
 IMAGEDIR = "@CMAKE_SOURCE_DIR@/images"
