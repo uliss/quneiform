@@ -14,7 +14,7 @@ CUNEIFORM = "@CMAKE_BINARY_DIR@/cuneiform"
 ACCSUM = "@CMAKE_BINARY_DIR@/cf_accsum"
 ACCURACY = "@CMAKE_BINARY_DIR@/cf_accuracy"
 IMAGEDIR = "@CMAKE_SOURCE_DIR@/images"
-DIFFOPTS = '-bB'
+DIFFOPTS = '@CF_DIFFOPTS@'
 
 class bcolor:
     HEADER = '\033[95m'

@@ -7,6 +7,12 @@ macro(install_test_py file)
 endmacro()
 
 if(PYTHONINTERP_FOUND)
+    if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
+        set(CF_DIFFOPTS "-b")
+    else()
+        set(CF_DIFFOPTS "-bB")
+    endif()
+
     install_test_py(cf.py)
     install_test_py(columns.py)
     install_test_py(align.py)
