@@ -68,8 +68,6 @@ endif()
 
 add_subdirectory(utils)
 
-if(TESTS)
-   ENABLE_TESTING()
-   add_subdirectory(tests)
-endif()
+ENABLE_TESTING()
+add_subdirectory(tests)
 
