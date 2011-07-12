@@ -1,6 +1,5 @@
 find_package(PythonInterp)
 
-
 macro(install_test_py file)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${file}
         ${CMAKE_BINARY_DIR}/py/${file})
