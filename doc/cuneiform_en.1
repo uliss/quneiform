@@ -1,0 +1,403 @@
+.TH CUNEIFORM 1 "@CF_DATE@" "@CF_VERSION@" "multi\-language OCR system"
+
+.SH NAME
+cuneiform \- multi\-language OCR system
+
+.SH SYNOPSIS
+\fBcuneiform\fR [\fIOPTION\fR]... [\fIFILE\fR]
+
+.SH DESCRIPTION
+Cuneiform is an OCR system. In addition to text recognition it also 
+does layout analysis and text format recognition. 
+Cuneiform supports several languages.
+
+.SH OPTIONS
+.B 
+.IP  "\-a, \-\-append" 4
+Appends output to existing document. Note: not all format supported.
+
+.B
+.IP "\-\-bom" 4
+Writes BOM (byte order mark) in the beginning of document.
+
+.B
+.IP "\-\-debug\-dump" 4
+Dumps various temporary recognition data files to current directory.
+
+.B
+.IP "\-\-dotmatrix" 4
+Use recognition mode optimized for text printed with a dot matrix printer.
+
+.B
+.IP "\-\-fax" 4
+Use recognition mode optimized for text that has been faxed.
+
+.IP "\fB\-f, \-\-format\fR=\fIFORMAT\fR" 4
+Select output format. The following formats are available:
+
+.TS
+ll.
+T{
+.B djvutxt
+T}	T{
+(DJVU text format)
+T}
+T{
+.B djvuxml
+T}	T{
+(DJVU XML format)
+T}
+T{
+.B fb2
+T}	T{
+(FB2 format)
+T}
+T{
+.B html
+T}	T{
+(HTML format)
+T}
+T{
+.B hocr
+T}	T{
+(hOCR HTML format)
+T}
+T{
+.B native
+T}	T{
+(native cuneiform text format)
+T}
+T{
+.B native\-xml
+T}	T{
+(native cuneiform XML format)
+T}
+T{
+.B odf
+T}	T{
+(OpenDocument format)
+T}
+T{
+.B smarttext
+T}	T{
+(plain text with TeX paragraphs)
+T}
+T{
+.B summary
+T}	T{
+(prints recognition summary)
+T}
+T{
+.B text
+T}	T{
+(plain text)
+T}
+T{
+.B textdebug
+T}	T{
+(row recognition output without formatting, for debugging purposes)
+T}
+.TE
+  
+The default is plain text.
+
+.B
+.IP "\-\-help" 4
+Prints help message.
+
+.IP "\fB\-l, \-\-language\fR=\fILANGUAGE\fR" 4
+By default Cuneiform recognizes English text. 
+To change the language use the command line switch \fB\-l\fR followed by a language 
+code (ISO 639-2 two or three-letter code). The following languages are supported:
+
+
+.TS
+lll.
+T{
+.B bel
+T}	T{
+.B by
+T}	T{
+Belarusian
+T}
+T{
+.B bul
+T}	T{
+.B bg
+T}	T{
+Bulgarian
+T}
+T{
+.B cze
+T}	T{
+.B cz
+T}	T{
+Czech
+T}
+T{
+.B dan
+T}	T{
+.B da
+T}	T{
+Danish
+T}
+T{
+.B dut
+T}	T{
+.B nl
+T}	T{
+Dutch
+T}
+T{
+.B eng
+T}	T{
+.B en
+T}	T{
+English
+T}
+T{
+.B est
+T}	T{
+.B et
+T}	T{
+Estonian
+T}
+T{
+.B fra
+T}	T{
+.B fr
+T}	T{
+French
+T}
+T{
+.B ger
+T}	T{
+.B de
+T}	T{
+German
+T}
+T{
+.B hrv
+T}	T{
+.B hr
+T}	T{
+Croatian
+T}
+T{
+.B hun
+T}	T{
+.B hu
+T}	T{
+Hungarian
+T}
+T{
+.B ita
+T}	T{
+.B it
+T}	T{
+Italian
+T}
+T{
+.B lav
+T}	T{
+.B lv
+T}	T{
+Latvian
+T}
+T{
+.B lit
+T}	T{
+.B lt
+T}	T{
+Lithuanian
+T}
+T{
+.B pol
+T}	T{
+.B pl
+T}	T{
+Polish
+T}
+T{
+.B por
+T}	T{
+.B pt
+T}	T{
+Portuguese
+T}
+T{
+.B rum
+T}	T{
+.B ro
+T}	T{
+Romanian
+T}
+T{
+.B rus
+T}	T{
+.B ru
+T}	T{
+Russian
+T}
+T{
+.B ruseng
+T}	T{
+.B ruen
+T}	T{
+mixed Russian/English
+T}
+T{
+.B slo
+T}	T{
+.B sk
+T}	T{
+Slovak
+T}
+T{
+.B spa
+T}	T{
+.B es
+T}	T{
+Spanish
+T}
+T{
+.B srp
+T}	T{
+.B sr
+T}	T{
+Serbian (cyrillic)
+T}
+T{
+.B swe
+T}	T{
+.B sw
+T}	T{
+Swedish
+T}
+T{
+.B tur
+T}	T{
+.B tr
+T}	T{
+Turkish
+T}
+T{
+.B ukr
+T}	T{
+.B uk
+T}	T{
+Ukrainian
+T}
+.TE
+.
+
+.IP "\fB\-\-monospace\-name\fR=\fIFONT_NAME\fR" 4
+Use specified font for monospace in output. Note: not all output formats supported.
+
+.B
+.IP \-\-no\-bold 4
+Use normal font for bold text in output document.
+
+.B
+.IP \-\-no\-bom 4
+Do not write BOM (byte order mark). 
+
+.B
+.IP \-\-no\-font\-size 4 
+Do not use font size in output document.
+             
+.B
+.IP \-\-no\-italic 4
+Use normal font for italic text in output document.
+
+.B
+.IP \-\-no\-meta\-generator 4
+Do not write meta generator info in output document.
+
+.B
+.IP \-\-nopictures 4
+Do not search pictures on input image.
+
+.B
+.IP \-\-onecolumn 4
+Disable page layout analysis and assumes that 
+the image consists of only one column of text.
+
+.IP "\fB\-o\fR, \fB\-\-output\fR=\fIFILE\fR" 4
+If you do not define an output file with the \fB\-o\fR switch, 
+Cuneiform writes the result to a file \[oq]cuneiform\-out.\fIformat\fR\[cq]. 
+The file extension depends on your output format. See \fB\-\-stdout\fR option
+to print recognition result to standard output.
+
+.IP "\fB\-\-output\-image\-dir\fR=\fIPATH\fR" 4
+Sets image output directory name. 
+If document contains pictures for some formats
+like HTML, image directory created. 
+Default image directory name is \[oq]\fIINPUT_FILE_WITHOUT_EXTENSION\fR_files\[cq].
+
+.B
+.IP \-\-pictures 4
+Search pictures on input image (default). 
+
+.B
+.IP \-\-preserve\-line\-breaks 4
+Preserves original line\-breaking in output document.
+
+.IP "\fB\-\-sansserif\-name\fR=\fIFONT_NAME\fR" 4            
+Use specified font for sans\-serif fonts in output document.
+
+.IP "\fB\-\-serif\-name\fR=\fIFONT_NAME\fR" 4
+Use specified font for serif fonts in output document.      
+ 
+.B
+.IP \-\-show\-alternatives
+Show alternatives of recognition (now HTML only).
+
+.B
+.IP "\-\-spell" 4
+Use spell correction. 
+
+.B
+.IP \-\-stdout 4
+Puts recognition result to standard output.
+
+.B
+.IP \-\-supported\-image\-formats
+Prints supported image formats and exit.
+
+.IP "\fB\-\-unrecognized\fR=\fICHAR\fR"
+Set symbol, that shown instead of unrecognized characters.                
+Default is \[oq]~\[cq].
+
+.B
+.IP "\-v, \-\-verbose" 4
+Print verbose debugging messages.
+            
+.B
+.IP "\-V, \-\-version" 4
+Print program version and exit. 
+
+.SH INPUT FORMAT
+Supported image formats depend from which library used for image loading.
+If none library was used \- it can process only uncompressed BMP images.
+If \fBImageMagick\fR, \fBGraphicsMagick\fR or \fBQt4\fR was used \- cuneiform can process any 
+single\-page image that this libraries knows how to open.
+Please consult the \fBImageMagick\fR(1), \fBgm\fR(1) manual page 
+for the comprehensive list of supported image formats.
+
+.SH ENVIRONMENT
+.I
+.IP CF_DATADIR 4
+environment can be set to point for cuneiform data files directory. 
+By default cuneiform search it in \fI@INSTALL_DATADIR@/datafiles\fR.
+
+.SH HOMEPAGE
+More information about cuneiform can be found at <\fIhttp://github.com/uliss/quneiform/\fR>.
+
+.SH AUTHOR
+cuneiform was written by \fBCognitive Technologies\fR and \fBJussi Pakkanen\fR <\fIjpakkane@gmail.com\fR>.
+Some modifications was made by \fBSerge Poltavski\fR <\fIserge.poltavski@gmail.com\fR>.
+
+.PP
+This manual page was written by \fBDaniel Baumann\fR <\fIdaniel@debian.org\fR> 
+and \fBSerge Poltavski\fR <\fIserge.poltavski@gmail.com\fR>.

@@ -24,6 +24,7 @@ include(flags_debug)
 include(install_files)
 include(library_link)
 include(find_image_libs)
+include(man_pages)
     
 # Iconv
 find_package(Iconv)
