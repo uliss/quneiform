@@ -133,7 +133,7 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 		delete newdib;
 		return TRUE;
 	}
-	lpDIB = newdib->CreateDIBBegin(newwide, num_str, info.BitPerPixel);
+        lpDIB = newdib->CreateDIBBegin(newwide, num_str, olddib->GetPixelSize());
 	if (!lpDIB) {
 		olddib->ResetDIB();
 		delete olddib;
@@ -166,7 +166,6 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 	if (CIMAGE_WriteDIB(ImageName, lpDIB, 0)) {
 		BITMAPINFOHEADER * lp = NULL;
 		if (CIMAGE_ReadDIB(ImageName, (Handle*) &lp, TRUE)) {
-			Handle hwnd = LDPUMA_CreateWindow(NAME_IMAGE_ORTOMOVE, lp);
 			info.Images |= IMAGE_ORTOMOVE;
 			strcpy((char*) info.szImageName, PUMA_IMAGE_ORTOMOVE);
 			SetPageInfo(hCPage, info);
