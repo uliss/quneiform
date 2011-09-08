@@ -20,24 +20,18 @@
 #define CEDEXPORTER_H_
 
 #include "globus.h"
+#include "cedfwd.h"
+#include "cedpageptr.h"
 #include <boost/noncopyable.hpp>
 
 namespace cf
 {
 
-class CEDChar;
-class CEDColumn;
-class CEDFrame;
-class CEDLine;
-class CEDPage;
-class CEDParagraph;
-class CEDPicture;
-class CEDSection;
-class CEDTable;
-
 class CLA_EXPO CEDExporter: public boost::noncopyable
 {
     public:
+        CEDExporter(CEDPagePtr p) : page_(p) {}
+        virtual ~CEDExporter() {}
         virtual void exportChar(CEDChar& chr) = 0;
         virtual void exportColumn(CEDColumn& col) = 0;
         virtual void exportFrame(CEDFrame& frame) = 0;
@@ -47,6 +41,10 @@ class CLA_EXPO CEDExporter: public boost::noncopyable
         virtual void exportPicture(CEDPicture& pict) = 0;
         virtual void exportSection(CEDSection& sect) = 0;
         virtual void exportTable(CEDTable& table) = 0;
+        CEDPagePtr page() { return page_; }
+        void setPage(CEDPagePtr p) { page_ = p; }
+    private:
+        CEDPagePtr page_;
 };
 
 }

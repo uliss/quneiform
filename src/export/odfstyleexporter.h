@@ -29,7 +29,7 @@ namespace cf
 class OdfStyleExporter: public StyleExporter
 {
     public:
-        OdfStyleExporter(CEDPage * page, const FormatOptions& opts);
+        OdfStyleExporter(CEDPagePtr page, const FormatOptions& opts);
         std::string makeStyle(const CEDChar& chr);
         std::string makeStyle(const CEDParagraph& par);
         std::string makeStyle(const CEDSection& s);

@@ -27,9 +27,7 @@ namespace cf {
 class CLA_EXPO CuneiformExporter : public Exporter
 {
 public:
-    CuneiformExporter(CEDPage * page, const FormatOptions& opts);
-    CEDPage * page();
-    void setPage(CEDPage * page);
+    CuneiformExporter(CEDPagePtr page, const FormatOptions& opts);
 private:
     void doExport(std::ostream& os);
     void exportChar(CEDChar&) {}
@@ -41,8 +39,6 @@ private:
     void exportPicture(CEDPicture&) {}
     void exportSection(CEDSection&) {}
     void exportTable(CEDTable&) {}
-private:
-    CEDPage * page_;
 };
 
 }

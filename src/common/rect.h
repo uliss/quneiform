@@ -427,4 +427,7 @@ typedef RectImpl<short, RectCheckNone> Rect16;
 
 }
 
+BOOST_IS_BITWISE_SERIALIZABLE(cf::Rect)
+BOOST_IS_BITWISE_SERIALIZABLE(cf::Rect16)
+
 #endif /* RECT_H_ */

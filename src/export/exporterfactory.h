@@ -50,11 +50,11 @@ class CLA_EXPO ExporterFactoryImpl
         /**
          * Sets pointer to document
          */
-        void setPage(CEDPage * page);
+        void setPage(CEDPagePtr page);
 
         typedef RuntimeExceptionImpl<ExporterFactoryImpl> Exception;
     private:
-        CEDPage * page_;
+        CEDPagePtr page_;
         FormatOptions format_options_;
 };
 

@@ -83,6 +83,23 @@ elseif(WIN32)
     set(CPACK_NSIS_HELP_LINK "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
     set(CPACK_NSIS_URL_INFO_ABOUT "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
     set(CPACK_NSIS_MODIFY_PATH ON)
+
+    # File types association:
+    set(CPACK_NSIS_DEFINES "!include ${CMAKE_SOURCE_DIR}/cmake\\\\FileAssociation.nsh")
+
+    set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
+          Push \\\"ATENDATA\\\"
+          Push \\\"$INSTDIR\\\\share\\\\aten\\\"
+          Call WriteEnvStr
+    ")
+
+    set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
+          \\\${registerExtension} \\\"Quneiform Packet\\\" \\\".qfp\\\" \\\"\\\$INSTDIR\\\\bin\\\\quneiform.exe\\\"
+    ")
+
+    set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
+          \\\${unregisterExtension} \\\".qfp\\\" \\\"Quneiform Packet\\\"
+    ")
 endif()
 
 include(CPack)

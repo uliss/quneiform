@@ -132,11 +132,20 @@ void SetUpdate(uint32_t flgAdd, uint32_t flgRemove) {
 
 PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)),
-            layout_filename_("layout.bin"), input_dib_(NULL), recog_dib_(NULL),
-            tables_num_(0), ccom_(NULL), cpage_(NULL), lines_ccom_(NULL),
-            cline_(NULL), ed_page_(NULL), rc_line_(TRUE), kill_vsl_components_(
-                    TRUE), need_clean_line_(FALSE), recog_name_(NULL),
-            special_project_(SPEC_PRJ_NO) {
+    layout_filename_("layout.bin"),
+    input_dib_(NULL),
+    recog_dib_(NULL),
+    tables_num_(0),
+    ccom_(NULL),
+    cpage_(NULL),
+    lines_ccom_(NULL),
+    cline_(NULL),
+    rc_line_(TRUE),
+    kill_vsl_components_(TRUE),
+    need_clean_line_(FALSE),
+    recog_name_(NULL),
+    special_project_(SPEC_PRJ_NO)
+{
     modulesInit();
 }
 
@@ -176,10 +185,7 @@ void PumaImpl::binarizeImage() {
 
 void PumaImpl::clearAll() {
     // Сохраним последенне состояние и очистим контейнер
-    if (ed_page_) {
-        delete ed_page_;
-        ed_page_ = NULL;
-    }
+    ed_page_.reset();
 
     PAGEINFO PInfo;
     memset(&PInfo, 0, sizeof(PInfo));
@@ -197,6 +203,7 @@ void PumaImpl::clearAll() {
     SetPageInfo(cpage_, PInfo);
     CCOM_DeleteAll();
     ccom_ = NULL;
+    input_filename_.clear();
 
     //  Повернутое изображение ( PUMA_IMAGE_ROTATE) удалять нельзя, как и исходное,
     //  поскольку оно отображается в интерфейсе. Его нужно удалять
@@ -207,7 +214,7 @@ void PumaImpl::clearAll() {
     CIMAGE_DeleteImage(PUMA_IMAGE_TURN);
 }
 
-CEDPage * PumaImpl::cedPage() {
+CEDPagePtr PumaImpl::cedPage() {
     return ed_page_;
 }
 
@@ -288,12 +295,6 @@ FormatOptions PumaImpl::formatOptions() const {
 
 void PumaImpl::formatResult() {
     formatter_.reset(new Formatter(format_options_));
-
-    if (ed_page_) {
-        delete ed_page_;
-        ed_page_ = NULL;
-    }
-
     ed_page_ = formatter_->format(input_filename_);
 }
 
@@ -532,8 +533,10 @@ void PumaImpl::open(ImagePtr img) {
 
     if (Config::instance().debug())
         Debug() << "Puma open\n";
-    input_filename_ = img->fileName();
+
     preOpenInitialize();
+
+    input_filename_ = img->fileName();
     input_dib_ = img->data();
 
     // write image

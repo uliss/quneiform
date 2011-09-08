@@ -58,7 +58,7 @@ static inline QColor toQColor(const cf::Color& c) {
     return QColor(c.red(), c.green(), c.blue());
 }
 
-QTextDocumentExporter::QTextDocumentExporter(CEDPage * page, const FormatOptions& opts) :
+QTextDocumentExporter::QTextDocumentExporter(CEDPagePtr page, const FormatOptions& opts) :
         GenericExporter(page, opts),
         doc_(NULL),
         column_table_(NULL),

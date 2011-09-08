@@ -19,12 +19,13 @@
 #ifndef CUNEIFORM_H_
 #define CUNEIFORM_H_
 
-#include "alphabets/alphabetfactory.h"
-#include "common/cifconfig.h"
 #include "common/language.h"
 #include "common/outputformat.h"
 #include "common/recognizeoptions.h"
-#include "puma/puma.h"
+#include "common/formatoptions.h"
+#include "ced/cedpageptr.h"
+#include "export/exporterfactory.h"
+#include "puma/localrecognitionserver.h"
 #include "rdib/imageloaderfactory.h"
 
 #endif /* CUNEIFORM_H_ */

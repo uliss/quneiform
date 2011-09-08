@@ -28,7 +28,7 @@
 namespace cf
 {
 
-StyleExporter::StyleExporter(CEDPage * page, const FormatOptions& opts) :
+StyleExporter::StyleExporter(CEDPagePtr page, const FormatOptions& opts) :
     GenericExporter(page, opts),
     style_num_char_(0),
     style_num_paragraph_(0),

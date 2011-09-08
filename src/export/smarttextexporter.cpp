@@ -24,7 +24,7 @@ namespace cf
 
 static const std::string PAR_INDENT = "  ";
 
-SmartTextExporter::SmartTextExporter(CEDPage * page, const FormatOptions& opts) :
+SmartTextExporter::SmartTextExporter(CEDPagePtr page, const FormatOptions& opts) :
     TextExporter(page, opts) {
 
 }

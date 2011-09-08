@@ -21,10 +21,9 @@
 
 #include <sstream>
 #include <cppunit/extensions/HelperMacros.h>
+#include "ced/cedpageptr.h"
 
 namespace cf {
-class CEDPage;
-class CEDChar;
 class HtmlExporter;
 }
 
@@ -69,7 +68,7 @@ class TestHtmlExporter: public CppUnit::TestFixture
         void testUnderlined();
         void testWriteAlternatives();
     private:
-        cf::CEDPage * page_;
+        cf::CEDPagePtr page_;
         cf::HtmlExporter * exp_;
         cf::CEDChar * c_;
         std::ostringstream buffer_;

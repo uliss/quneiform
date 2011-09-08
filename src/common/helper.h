@@ -42,13 +42,33 @@ inline std::string replaceFileExt(const std::string& filename, const std::string
 inline std::string removeFileExt(const std::string& filename) {
     return filename.substr(0, filename.rfind('.'));
 }
-FUN_EXPO__ std::string baseName(const std::string& path);
 
 template<class T>
 std::string toString(const T& t) {
     std::ostringstream os;
     os << t;
     return os.str();
+}
+
+template<class T1, class T2>
+std::string toString(const T1& t1, const T2& t2) {
+    std::ostringstream buf;
+    buf << t1 << ' ' << t2 << std::endl;
+    return buf.str();
+}
+
+template<class T1, class T2, class T3>
+std::string toString(const T1& t1, const T2& t2, const T3& t3) {
+    std::ostringstream buf;
+    buf << t1 << ' ' << t2 << ' ' << t3 << std::endl;
+    return buf.str();
+}
+
+template<class T1, class T2, class T3, class T4>
+std::string toString(const T1& t1, const T2& t2, const T3& t3, const T4& t4) {
+    std::ostringstream buf;
+    buf << t1 << ' ' << t2 << ' ' << t3 << ' ' << t4 << std::endl;
+    return buf.str();
 }
 
 inline void toUpper(std::string& str) {
@@ -67,8 +87,9 @@ inline void replaceAll(std::string& str, const std::string& what, const std::str
     }
 }
 
-FUN_EXPO__ std::streampos streamSize(std::istream& is);
-FUN_EXPO__ std::streampos streamSize(std::ostream& is);
+FUN_EXPO__ size_t streamSize(std::istream& is);
+FUN_EXPO__ size_t streamSize(std::ostream& is);
+FUN_EXPO__ size_t streamSize(std::stringstream& s);
 }
 
 #endif /* HELPER_H_ */

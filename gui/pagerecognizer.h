@@ -23,22 +23,20 @@
 #include <QString>
 #include <QImage>
 #include <QMutex>
-#include <QMap>
 
 class Page;
+
+namespace cf {
+class PercentCounter;
+class RecognitionState;
+}
 
 class PageRecognizer : public QObject
 {
     Q_OBJECT
 public:
     PageRecognizer(QObject * parent = NULL);
-
-    enum StageType {
-        LOAD = 0,
-        OPEN,
-        RECOGNIZE,
-        FORMAT
-    };
+    ~PageRecognizer();
 
     /**
       * Returns current page path
@@ -49,11 +47,6 @@ public:
       * Sets recognized page
       */
     void setPage(Page *p);
-
-    /**
-      * Sleep stage
-      */
-    void setStageSleep(StageType t, int msec = 1000);
 public slots:
     /**
       * Tries to abort recognition process
@@ -107,18 +100,17 @@ signals:
       */
     void recognized();
 private:
-    void doRecognize();
-    void formatResult();
+    void exportPageText();
+    void handleRecognitionProgress(unsigned char percentsDone);
+    void handleRecognitionState(int);
     QImage loadImage();
-    void open();
-    void setFormatOptions();
-    void setRecognizeOptions();
-    void stageSleep(StageType t);
+    void setConfigOptions();
 private:
     Page * page_;
+    cf::PercentCounter * counter_;
+    cf::RecognitionState * recog_state_;
     QMutex lock_;
     volatile bool abort_;
-    QVector<int> stage_sleep_;
 };
 
 #endif // PAGERECOGNIZER_H

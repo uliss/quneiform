@@ -42,7 +42,7 @@ const std::string HTML_DOCTYPE("<!DOCTYPE html PUBLIC "
     "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
     "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n");
 
-HtmlExporter::HtmlExporter(CEDPage * page, const FormatOptions& opts) :
+HtmlExporter::HtmlExporter(CEDPagePtr page, const FormatOptions& opts) :
     XmlExporter(page, opts), prev_char_style_hash_(0), prev_char_font_style_(0), char_span_opened_(
             false), style_exporter_(new CssExporter(page, opts)) {
 

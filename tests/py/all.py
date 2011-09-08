@@ -9,6 +9,14 @@ def header(msg):
     print 
     print msg
     print "============================="
+
+header("Quick process test")
+import quick_process
+quick_process.test()
+
+header("Append test")
+import append
+append.test()
     
 header("Align test")
 import align

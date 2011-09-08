@@ -27,7 +27,7 @@ namespace cf
 class SmartTextExporter: public TextExporter
 {
     public:
-        SmartTextExporter(CEDPage * page, const FormatOptions& opts);
+        SmartTextExporter(CEDPagePtr page, const FormatOptions& opts);
         void writeParagraphBegin(CEDParagraph& par);
         void writeParagraphEnd(CEDParagraph& par);
 };

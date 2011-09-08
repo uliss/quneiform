@@ -17,12 +17,11 @@
  ***************************************************************************/
 #include "testbmp.h"
 #define private public
-#include <rdib/bmpimageloader.h>
-#include <rdib/bmp.h>
-#include <common/tostring.h>
-#include <common/image.h>
-#include <common/debug.h>
-#include <cuneiform.h>
+#include "rdib/bmpimageloader.h"
+#include "rdib/bmp.h"
+#include "common/tostring.h"
+#include "common/debug.h"
+#include "common/cifconfig.h"
 #include "loaders_common.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpLoader);

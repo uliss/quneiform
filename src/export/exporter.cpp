@@ -31,14 +31,12 @@ namespace cf
 
 const char * DEFAULT_PICTURE_DIR = "cuneiform-out_files";
 
-Exporter::Exporter(const FormatOptions& opts) :
+Exporter::Exporter(CEDPagePtr page, const FormatOptions& opts) :
+    CEDExporter(page),
     format_options_(opts) {
     //autoDetectOutputEncoding();
     image_exporter_.reset(new NullImageExporter);
     setEncodings();
-}
-
-Exporter::~Exporter() {
 }
 
 void Exporter::autoDetectOutputEncoding() {

@@ -27,7 +27,7 @@ namespace cf
 class SummaryExporter: public GenericExporter
 {
     public:
-        SummaryExporter(CEDPage * page, const FormatOptions& opts);
+        SummaryExporter(CEDPagePtr page, const FormatOptions& opts);
     private:
         void writePageEnd(CEDPage& page);
 };

@@ -4,8 +4,16 @@ if(ICONV_SECOND_ARGUMENT_IS_CONST)
     add_definitions(-DICONV_SECOND_ARGUMENT_IS_CONST)
 endif()
 
+if(Boost_VERSION GREATER 104400)
+    add_definitions(-DBOOST_FILESYSTEM_VERSION=3)
+endif()
+
 set(COMMON_SOURCES
     cifconfig.cpp
+    console_messages.cpp
+    consoleprogresscounter.cpp
+    envpaths.cpp
+    filesystem.cpp
     formatoptions.cpp
     helper.cpp
     iconv_local.cpp
@@ -15,11 +23,15 @@ set(COMMON_SOURCES
     imagerawdata.cpp
     language.cpp
     outputformat.cpp
+    percentcounter.cpp
     recognizeoptions.cpp
+    recognitionstate.cpp
 )
 
 set(COMMON_HEADERS
     align.h
+    consoleprogresscounter.h
+    endianess.h
     language.h
     lang_def.h
     exception.h
@@ -30,6 +42,7 @@ set(COMMON_HEADERS
     imageformats.h
     letter.h
     rect.h
+    percentcounter.h
     point.h
     serialize.h
     size.h
@@ -49,7 +62,11 @@ add_library(cuneiform-common ${LIBTYPE}
 
 cif_visibility_hidden(cuneiform-common)
 
-target_link_libraries(cuneiform-common ${ICONV_LIBRARIES})
+target_link_libraries(cuneiform-common
+    ${ICONV_LIBRARIES}
+    ${Boost_FILESYSTEM_LIBRARY}
+    ${Boost_SYSTEM_LIBRARY}
+)
 
 install(FILES
     ${COMMON_HEADERS}

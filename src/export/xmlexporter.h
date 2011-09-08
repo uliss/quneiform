@@ -29,7 +29,7 @@ namespace cf
 class XmlExporter: public TextExporter
 {
     public:
-        XmlExporter(CEDPage * page, const FormatOptions& opts);
+        XmlExporter(CEDPagePtr page, const FormatOptions& opts);
 
         /**
          * Append to the end of existing XML document

@@ -53,8 +53,7 @@ Page::Page(const QString& image_path) :
         state_flags_(NONE),
         is_selected_(false),
         angle_(0),
-        view_scale_(1.0),
-        cedpage_(NULL)
+        view_scale_(1.0)
 {
     QPixmap pixmap;
     if(ImageCache::load(image_path_, &pixmap)) {
@@ -70,10 +69,6 @@ Page::Page(const QString& image_path) :
     doc_ = new QTextDocument(this);
 }
 
-Page::~Page() {
-    delete cedpage_;
-}
-
 int Page::angle() const {
     return angle_;
 }
@@ -83,7 +78,7 @@ void Page::appendBlock(const QRect& rect, BlockType type) {
     blocks_[type].append(rect);
 }
 
-cf::CEDPage * Page::cedPage() {
+cf::CEDPagePtr Page::cedPage() {
     return cedpage_;
 }
 
@@ -232,13 +227,12 @@ void Page::setAngle(int angle) {
     emit rotated(angle_);
 }
 
-void Page::setCEDPage(cf::CEDPage * page) {
+void Page::setCEDPage(cf::CEDPagePtr page) {
     QMutexLocker lock(&mutex_);
 
-    if(cedpage_ == page)
+    if(cedpage_.get() == page.get())
         return;
 
-    delete cedpage_;
     cedpage_ = page;
 
     updateBlocks();
@@ -246,7 +240,7 @@ void Page::setCEDPage(cf::CEDPage * page) {
     _unsetFlag(RECOGNITION_FAILED);
     emit changed();
 
-    if(cedpage_ != NULL) {
+    if(cedpage_) {
         _setFlag(RECOGNIZED);
         emit recognized();
     }
@@ -395,7 +389,6 @@ void Page::updateTextDocument() {
     cf::FormatOptions opts;
     formatSettings().exportTo(opts);
     opts.setLanguage(languageToType(language()));
-//    cf::Puma::instance().setFormatOptions(opts);
 
     QTextDocumentExporter exp(this->cedpage_, opts);
     exp.setPage(this);
@@ -453,7 +446,6 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
 
     CEDSerializer ced;
     is >> ced;
-    delete page.cedpage_;
     page.cedpage_ = ced.page();
 
     if(page.is_selected_)

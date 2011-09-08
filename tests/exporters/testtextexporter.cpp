@@ -75,7 +75,7 @@ inline CEDChar * parAddChar(CEDParagraph& p, char letter, int style = 0) {
 
 void TestTextExporter::setUp() {
     FormatOptions opts;
-    exp_ = new TextExporter(NULL, opts);
+    exp_ = new TextExporter(CEDPagePtr(), opts);
     exp_->setOutputStream(&buffer_);
     buffer_.str("");
 }

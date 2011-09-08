@@ -66,7 +66,7 @@ inline void writeCssEntryPx(std::ostream& os, const std::string& key, int value)
     os << "    " << key << ": " << value << "px;\n";
 }
 
-CssExporter::CssExporter(CEDPage * page, const FormatOptions& opts) :
+CssExporter::CssExporter(CEDPagePtr page, const FormatOptions& opts) :
     StyleExporter(page, opts) {
 }
 

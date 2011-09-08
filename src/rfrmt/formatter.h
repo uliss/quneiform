@@ -24,11 +24,11 @@
 
 #include "globus.h"
 #include "common/formatoptions.h"
+#include "ced/cedpageptr.h"
 
 namespace cf
 {
 
-class CEDPage;
 class CRtfPage;
 
 class CLA_EXPO Formatter
@@ -41,7 +41,7 @@ class CLA_EXPO Formatter
          * @return pointer to created CEDPage document
          * @note caller should free return value
          */
-        CEDPage * format(const std::string& fileName);
+        CEDPagePtr format(const std::string& fileName);
 
         /**
          * Returns format options

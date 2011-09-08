@@ -25,16 +25,6 @@
 #include <QMap>
 #include "export/genericexporter.h"
 
-namespace cf {
-class Element;
-class CEDChar;
-class CEDPage;
-class CEDLine;
-class CEDParagraph;
-class CEDPicture;
-class FormatOptions;
-}
-
 class QTextTable;
 class QTextTableFormat;
 class Page;
@@ -67,7 +57,7 @@ Q_DECLARE_METATYPE(CharAlternatives)
 class QTextDocumentExporter : public cf::GenericExporter
 {
 public:
-    QTextDocumentExporter(cf::CEDPage * page, const cf::FormatOptions& opts);
+    QTextDocumentExporter(cf::CEDPagePtr page, const cf::FormatOptions& opts);
 
     enum TextItemProperty {
         BBOX = QTextFormat::UserProperty + 1,

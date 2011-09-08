@@ -28,7 +28,7 @@ using namespace cf;
 
 void TestGenericExporter::testInit() {
     FormatOptions opt;
-    GenericExporter * p = new GenericExporter(NULL, opt);
+    GenericExporter * p = new GenericExporter(CEDPagePtr(), opt);
 
     CPPUNIT_ASSERT(p->page_ == NULL);
     CPPUNIT_ASSERT(p->os_ == NULL);
@@ -37,7 +37,7 @@ void TestGenericExporter::testInit() {
 
 void TestGenericExporter::testDoExport() {
     FormatOptions opt;
-    CEDPage * page = new CEDPage;
+    CEDPagePtr page(new CEDPage);
     GenericExporter * p = new GenericExporter(page, opt);
     p->skip_pictures_ = false;
 
@@ -51,23 +51,22 @@ void TestGenericExporter::testDoExport() {
     CPPUNIT_ASSERT_EQUAL(p->skip_pictures_, false);
     CPPUNIT_ASSERT(p->os_ == &std::cout);
     delete p;
-    delete page;
 }
 
 void TestGenericExporter::testExportPage() {
     FormatOptions opt;
-    CEDPage page;
-    GenericExporter * p = new GenericExporter(&page, opt);
+    CEDPagePtr page(new CEDPage);
+    GenericExporter * p = new GenericExporter(page, opt);
 
     p->os_ = &std::cout;
-    p->exportPage(page);
+    p->exportPage(*page);
 
     delete p;
 }
 
 void TestGenericExporter::testCreatePicturesFolder() {
     FormatOptions opt;
-    GenericExporter * p = new GenericExporter(NULL, opt);
+    GenericExporter * p = new GenericExporter(CEDPagePtr(), opt);
 
     p->setOutputFilename("test_page_1.html");
     p->createPicturesFolder();
@@ -88,7 +87,7 @@ void TestGenericExporter::testCreatePicturesFolder() {
 
 void TestGenericExporter::testMakePictureName() {
     FormatOptions opt;
-    GenericExporter * p = new GenericExporter(NULL, opt);
+    GenericExporter * p = new GenericExporter(CEDPagePtr(), opt);
     CEDPicture pict;
     pict.setPictureNumber(1);
     CPPUNIT_ASSERT_EQUAL(std::string("image_1."), p->makePictureName(pict));
@@ -97,7 +96,7 @@ void TestGenericExporter::testMakePictureName() {
 
 void TestGenericExporter::testMakeOutputPictureDir() {
     FormatOptions opt;
-    GenericExporter * p = new GenericExporter(NULL, opt);
+    GenericExporter * p = new GenericExporter(CEDPagePtr(), opt);
 
     // default dir
     CPPUNIT_ASSERT_EQUAL(std::string("cuneiform-out_files"), p->makeOutputPictureDir());
@@ -112,7 +111,7 @@ void TestGenericExporter::testMakeOutputPictureDir() {
 
 void TestGenericExporter::testMakePicturePath() {
     FormatOptions opt;
-    GenericExporter * p = new GenericExporter(NULL, opt);
+    GenericExporter * p = new GenericExporter(CEDPagePtr(), opt);
     CEDPicture pict;
     pict.setPictureNumber(1);
 
@@ -133,7 +132,7 @@ void TestGenericExporter::testMakePicturePath() {
 
 void TestGenericExporter::testMakePicturePathRelative() {
     FormatOptions opt;
-    GenericExporter * p = new GenericExporter(NULL, opt);
+    GenericExporter * p = new GenericExporter(CEDPagePtr(), opt);
     CEDPicture pict;
     pict.setPictureNumber(1);
 

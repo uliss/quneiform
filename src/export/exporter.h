@@ -35,8 +35,7 @@ namespace cf
 class CLA_EXPO Exporter: public CEDExporter
 {
     public:
-        Exporter(const FormatOptions& opts);
-        virtual ~Exporter();
+        Exporter(CEDPagePtr page, const FormatOptions& opts);
 
         typedef RuntimeExceptionImpl<Exporter> Exception;
 

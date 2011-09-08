@@ -59,29 +59,11 @@ inline bool IS_SLASH(char ch) {
 }
 #endif
 
-std::string baseName(const std::string& path) {
-    bool last_slash = false;
-    size_t slash_pos = std::string::npos;
-    const size_t sz = path.size();
-    for (size_t i = sz; i != 0; i--) {
-        if (IS_SLASH(path[i - 1])) {
-            if (i == sz) {
-                last_slash = true;
-            } else {
-                slash_pos = i;
-                break;
-            }
-        }
-    }
-
-    if (slash_pos == std::string::npos) {
-        return (last_slash && sz > 1) ? path.substr(0, sz - 1) : path;
-    }
-
-    return last_slash ? path.substr(slash_pos, (sz - slash_pos) - 1) : path.substr(slash_pos);
+size_t streamSize(std::stringstream& s) {
+    return streamSize(static_cast<std::istream&>(s));
 }
 
-std::streampos streamSize(std::istream& is) {
+size_t streamSize(std::istream& is) {
     std::streampos prev_pos = is.tellg();
     // -1 returned in case of error
     if (prev_pos < 0)
@@ -99,7 +81,7 @@ std::streampos streamSize(std::istream& is) {
     return ret;
 }
 
-std::streampos streamSize(std::ostream& os) {
+size_t streamSize(std::ostream& os) {
     std::streampos prev_pos = os.tellp();
     // -1 returned in case of error
     if (prev_pos < 0)

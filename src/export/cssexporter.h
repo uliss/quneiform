@@ -30,7 +30,7 @@ namespace cf
 class CssExporter: public StyleExporter
 {
     public:
-        CssExporter(CEDPage * page, const FormatOptions& opts);
+        CssExporter(CEDPagePtr page, const FormatOptions& opts);
         void addCssStyle(const std::string& name, const std::string& content);
 
         virtual size_t hash(const CEDChar& chr) const;

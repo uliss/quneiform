@@ -263,4 +263,7 @@ typedef PointImpl<short> Point16;
 
 }
 
+BOOST_IS_BITWISE_SERIALIZABLE(cf::Point)
+BOOST_IS_BITWISE_SERIALIZABLE(cf::Point16)
+
 #endif

@@ -109,7 +109,7 @@ inline CEDChar * parAddChar(CEDParagraph& p, char letter, int style = 0) {
 }
 
 void TestHtmlExporter::setUp() {
-    page_ = new CEDPage;
+    page_.reset(new CEDPage);
     exp_ = new HtmlExporter(page_);
     exp_->os_ = &buffer_;
     c_ = new CEDChar;
@@ -118,7 +118,6 @@ void TestHtmlExporter::setUp() {
 
 void TestHtmlExporter::tearDown() {
     delete exp_;
-    delete page_;
     delete c_;
     buffer_.str("");
 }

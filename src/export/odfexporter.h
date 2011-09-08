@@ -35,7 +35,7 @@ class OdfStyleExporter;
 class OdfExporter: public XmlExporter
 {
     public:
-        OdfExporter(CEDPage * page, const FormatOptions& opts);
+        OdfExporter(CEDPagePtr page, const FormatOptions& opts);
 
         void exportTo(const std::string& fname);
         void exportTo(std::ostream& os);

@@ -26,6 +26,7 @@
 #include "lang_def.h"
 #include "globus.h"
 #include "imageformats.h"
+#include "serialize.h"
 
 namespace cf {
 
@@ -45,7 +46,6 @@ class CLA_EXPO FormatOptions
             FORMAT_ONLY_FRAME = 0x0002
         };
 
-        bool bomWritten() const;
         format_mode_t formatMode() const;
         image_format_t imageExportFormat() const;
         bool isBoldUsed() const;
@@ -77,29 +77,42 @@ class CLA_EXPO FormatOptions
         void useItalic(bool val = true);
         void useStyles(bool val = true);
         void useUnderlined(bool val = true);
+        bool writeBom() const;
         void writeBom(bool value);
         bool writeMetaGenerator() const;
         void writeMetaGenerator(bool value);
     private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            using boost::serialization::make_nvp;
+            ar & make_nvp("serif", serif_name_);
+            ar & make_nvp("sans-serif", sans_serif_name_);
+            ar & make_nvp("monospace", monospace_name_);
+            ar & make_nvp("format-mode", format_mode_);
+            ar & make_nvp("unrecognized-char", unrecognized_char_);
+            ar & make_nvp("language", language_);
+            ar & make_nvp("image-format", image_format_);
+            ar & make_nvp("flags", flags_);
+        }
+#endif
+    private:
+        bool hasFlag(int flag) const  { return flags_ & flag; }
+        void setFlag(int flag)        { flags_ |= flag; }
+        void setFlag(int flag, bool value) { value ? setFlag(flag) : unsetFlag(flag); }
+        void unsetFlag(int flag) { flags_ &= (~flag); }
+    private:
         std::string serif_name_;
         std::string sans_serif_name_;
         std::string monospace_name_;
-        bool use_bold_;
-        bool use_italic_;
-        bool use_styles_;
-        bool use_underlined_;
-        bool use_font_size_;
-        bool preserve_line_breaks_;
         format_mode_t format_mode_;
         wchar_t unrecognized_char_;
         language_t language_;
         image_format_t image_format_;
-        bool preserve_line_hyphens_;
-        bool show_alternatives_;
-        bool write_bom_;
-        bool write_meta_generator_;
-        bool test_output_;
+        size_t flags_;
 };
+
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const FormatOptions& fmt);
 
 }

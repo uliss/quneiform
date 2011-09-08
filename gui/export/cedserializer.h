@@ -19,24 +19,20 @@
 #ifndef CEDSERIALIZER_H
 #define CEDSERIALIZER_H
 
-class QDataStream;
+#include "ced/cedpageptr.h"
 
-namespace cf {
-class CEDPage;
-}
+class QDataStream;
 
 class CEDSerializer
 {
 public:
-    CEDSerializer(cf::CEDPage * page = 0);
-    cf::CEDPage * page() {
-        return page_;
-    }
+    CEDSerializer(cf::CEDPagePtr page = cf::CEDPagePtr());
+    cf::CEDPagePtr page();
 public:
     friend QDataStream& operator<<(QDataStream& stream, const CEDSerializer& ced);
     friend QDataStream& operator>>(QDataStream& stream, CEDSerializer& ced);
 private:
-    cf::CEDPage * page_;
+    cf::CEDPagePtr page_;
 };
 
 QDataStream& operator<<(QDataStream& stream, const CEDSerializer& ced);

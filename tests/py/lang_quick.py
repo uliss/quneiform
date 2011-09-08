@@ -30,6 +30,11 @@ LANGS = {'bel' : 'Belarusian',
         'ukr' : 'Ukrainian'                 
          }
 
+def removeOutput():
+    fmtTest = cf.Tester('lang.diftest')
+    languages = map(lambda x: x.lower(), LANGS.values())
+    fmtTest.removeOutput(languages, ['text'])
+
 def test():
     fmtTest = cf.Tester('lang.diftest')
     fmtTest.setFormat('text')

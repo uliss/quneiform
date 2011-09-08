@@ -41,9 +41,9 @@ void TestRecognitionProgressDialog::testConstruct() {
 void TestRecognitionProgressDialog::testDialog() {
     RecognitionProgressDialog d;
     PageRecognitionQueue q;
-    q.recognizer()->setStageSleep(PageRecognizer::OPEN, 80);
-    q.recognizer()->setStageSleep(PageRecognizer::RECOGNIZE, 80);
-    q.recognizer()->setStageSleep(PageRecognizer::FORMAT, 80);
+//    q.recognizer()->setStageSleep(PageRecognizer::OPEN, 80);
+//    q.recognizer()->setStageSleep(PageRecognizer::RECOGNIZE, 80);
+//    q.recognizer()->setStageSleep(PageRecognizer::FORMAT, 80);
 
     d.connectToQueue(&q);
 
@@ -61,9 +61,9 @@ void TestRecognitionProgressDialog::testCancel() {
     PageRecognitionQueue q;
     d.connectToQueue(&q);
 
-    q.recognizer()->setStageSleep(PageRecognizer::OPEN, 10);
-    q.recognizer()->setStageSleep(PageRecognizer::RECOGNIZE, 10);
-    q.recognizer()->setStageSleep(PageRecognizer::FORMAT, 10);
+//    q.recognizer()->setStageSleep(PageRecognizer::OPEN, 10);
+//    q.recognizer()->setStageSleep(PageRecognizer::RECOGNIZE, 10);
+//    q.recognizer()->setStageSleep(PageRecognizer::FORMAT, 10);
 
     Page p1(CF_IMAGE_DIR "/english.png");
     Page p2(CF_IMAGE_DIR "/russian.png");

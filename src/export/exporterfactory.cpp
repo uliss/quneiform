@@ -36,15 +36,14 @@
 namespace cf
 {
 
-ExporterFactoryImpl::ExporterFactoryImpl() :
-    page_(NULL) {
+ExporterFactoryImpl::ExporterFactoryImpl() {
 }
 
 void ExporterFactoryImpl::setFormatOptions(const FormatOptions& opts) {
     format_options_ = opts;
 }
 
-void ExporterFactoryImpl::setPage(CEDPage * page) {
+void ExporterFactoryImpl::setPage(CEDPagePtr page) {
     page_ = page;
 }
 

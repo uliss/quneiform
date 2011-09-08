@@ -28,7 +28,7 @@ namespace cf {
 class RectExporter: public GenericExporter
 {
 public:
-    RectExporter(CEDPage * page);
+    RectExporter(CEDPagePtr page);
     typedef QList<QRect> RectList;
     void collect();
     const RectList& chars() const;

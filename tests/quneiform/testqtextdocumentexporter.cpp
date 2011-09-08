@@ -84,7 +84,8 @@ TestQTextDocumentExporter::TestQTextDocumentExporter(QObject * parent) :
 
 void TestQTextDocumentExporter::testConstruct() {
     QTextDocument doc;
-    QTextDocumentExporter exp(NULL, cf::FormatOptions());
+    cf::CEDPagePtr p;
+    QTextDocumentExporter exp(p, cf::FormatOptions());
     exp.setDocument(&doc);
     QVERIFY(exp.document());
     QVERIFY(!doc.isModified());
@@ -92,7 +93,7 @@ void TestQTextDocumentExporter::testConstruct() {
 
 void TestQTextDocumentExporter::testWriteChar() {
     FormatOptions opts;
-    QTextDocumentExporter exp(NULL, opts);
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -110,7 +111,7 @@ void TestQTextDocumentExporter::testWriteChar() {
 void TestQTextDocumentExporter::testWriteCharBold() {
     FormatOptions opts;
     opts.useBold(false);
-    QTextDocumentExporter exp(NULL, opts);
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
     CEDChar ch('s');
@@ -135,7 +136,7 @@ void TestQTextDocumentExporter::testWriteCharBold() {
 void TestQTextDocumentExporter::testWriteCharItalic() {
     FormatOptions opts;
     opts.useItalic(false);
-    QTextDocumentExporter exp(NULL, opts);
+    QTextDocumentExporter exp(cf::CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
     CEDChar ch('s');
@@ -161,7 +162,7 @@ void TestQTextDocumentExporter::testWriteCharUnderlined() {
     FormatOptions opts;
     opts.useUnderlined(false);
 
-    QTextDocumentExporter exp(NULL, opts);
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
     CEDChar ch('s');
@@ -187,7 +188,7 @@ void TestQTextDocumentExporter::testWriteCharFontSize() {
     FormatOptions opts;
     opts.useFontSize(false);
 
-    QTextDocumentExporter exp(NULL, opts);
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
     CEDChar ch('s');
@@ -214,7 +215,7 @@ void TestQTextDocumentExporter::testWriteCharFontSize() {
 
 void TestQTextDocumentExporter::testWriteCharColors() {
     FormatOptions opts;
-    QTextDocumentExporter exp(NULL, opts);
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
     CEDChar ch('s');
@@ -233,7 +234,7 @@ void TestQTextDocumentExporter::testWriteCharEncoding() {
     FormatOptions opts;
     opts.setShowAlternatives(true);
     opts.setLanguage(LANGUAGE_RUSSIAN);
-    QTextDocumentExporter exp(NULL, opts);
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -260,7 +261,7 @@ void TestQTextDocumentExporter::testWriteCharEncoding() {
 void TestQTextDocumentExporter::testWriteCharAlternatives() {
     FormatOptions opts;
     opts.setShowAlternatives(false);
-    QTextDocumentExporter exp(NULL, opts);
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -301,7 +302,8 @@ void TestQTextDocumentExporter::testWriteCharAlternatives() {
 }
 
 void TestQTextDocumentExporter::testWriteCharBBox() {
-    QTextDocumentExporter exp(NULL, FormatOptions());
+    FormatOptions opts;
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -321,7 +323,8 @@ void TestQTextDocumentExporter::testWriteCharBBox() {
 
 void TestQTextDocumentExporter::testWritePage() {
     CEDPage page;
-    QTextDocumentExporter exp(&page, FormatOptions());
+    FormatOptions opts;
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -382,7 +385,8 @@ void TestQTextDocumentExporter::testWritePage() {
 
 void TestQTextDocumentExporter::testWriteParagraph() {
     CEDParagraph par;
-    QTextDocumentExporter exp(NULL, FormatOptions());
+    FormatOptions opts;
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -414,8 +418,9 @@ void TestQTextDocumentExporter::testWriteParagraph() {
 }
 
 void TestQTextDocumentExporter::testWriteParagraphAlign() {
+    FormatOptions opts;
     CEDParagraph par;
-    QTextDocumentExporter exp(NULL, FormatOptions());
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -450,8 +455,9 @@ void TestQTextDocumentExporter::testWriteParagraphAlign() {
 }
 
 void TestQTextDocumentExporter::testWriteParagraphIndent() {
+    FormatOptions opts;
     CEDParagraph par;
-    QTextDocumentExporter exp(NULL, FormatOptions());
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -473,7 +479,7 @@ void TestQTextDocumentExporter::testWriteParagraphIndent() {
 void TestQTextDocumentExporter::testWriteLine() {
     FormatOptions opts;
     opts.setPreserveLineBreaks(true);
-    QTextDocumentExporter exp(NULL, opts);
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -503,7 +509,8 @@ void TestQTextDocumentExporter::testWriteLine() {
 }
 
 void TestQTextDocumentExporter::testWriteSection() {
-    QTextDocumentExporter exp(NULL, FormatOptions());
+    FormatOptions opts;
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -559,7 +566,8 @@ void TestQTextDocumentExporter::testWriteSection() {
 }
 
 void TestQTextDocumentExporter::testWriteSectionMargins() {
-    QTextDocumentExporter exp(NULL, FormatOptions());
+    FormatOptions opts;
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -586,7 +594,8 @@ void TestQTextDocumentExporter::testWriteSectionMargins() {
 }
 
 void TestQTextDocumentExporter::testWriteColumn() {
-    QTextDocumentExporter exp(NULL, FormatOptions());
+    FormatOptions opts;
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -607,7 +616,7 @@ void TestQTextDocumentExporter::testWriteColumn() {
 }
 
 void TestQTextDocumentExporter::testWritePicture() {
-//    QTextDocumentExporter exp(NULL, FormatOptions());
+//    QTextDocumentExporter exp(CEDPagePtr(), FormatOptions());
 //    QTextDocument doc;
 //    exp.setDocument(&doc);
 
@@ -631,7 +640,8 @@ void TestQTextDocumentExporter::testWritePicture() {
 }
 
 void TestQTextDocumentExporter::testComplex() {
-    QTextDocumentExporter exp(NULL, FormatOptions());
+    FormatOptions opts;
+    QTextDocumentExporter exp(CEDPagePtr(), opts);
     QTextDocument doc;
     exp.setDocument(&doc);
 
@@ -645,4 +655,4 @@ void TestQTextDocumentExporter::testComplex() {
     QCOMPARE(doc.toPlainText().trimmed(), QString("two lines"));
 }
 
-QTEST_MAIN(TestQTextDocumentExporter);
+QTEST_MAIN(TestQTextDocumentExporter)

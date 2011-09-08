@@ -253,7 +253,7 @@ void TestPage::testScale() {
 }
 
 void TestPage::testSetCEDPage() {
-    cf::CEDPage * cedp = new cf::CEDPage;
+    cf::CEDPagePtr cedp(new cf::CEDPage);
     Page p("");
     QSignalSpy changed(&p, SIGNAL(changed()));
     QSignalSpy recognized(&p, SIGNAL(recognized()));
@@ -483,7 +483,7 @@ void TestPage::testReadWrite() {
     p.setBlocks(rects, Page::CHAR);
     p.setBlocks(rects, Page::PICTURE);
 
-    p.setCEDPage(new cf::CEDPage);
+    p.setCEDPage(cf::CEDPagePtr(new cf::CEDPage));
     p.cedPage()->setImageName("CED Image");
 
     {
