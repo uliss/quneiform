@@ -31,7 +31,7 @@ class CssExporter;
 class HtmlExporter: public XmlExporter
 {
     public:
-        HtmlExporter(CEDPage * page, const FormatOptions& opts = FormatOptions());
+        HtmlExporter(CEDPagePtr page, const FormatOptions& opts = FormatOptions());
         ~HtmlExporter();
     protected:
         virtual void writeAlternativesBegin(const CEDChar& chr);

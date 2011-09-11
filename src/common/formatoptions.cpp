@@ -23,37 +23,48 @@
 namespace cf
 {
 
+enum {
+    USE_BOLD             = 0x0001,
+    USE_ITALIC           = 0x0002,
+    USE_STYLES           = 0x0004,
+    USE_UNDERLINED       = 0x0008,
+    USE_FONTSIZE         = 0x0010,
+    PRESERVE_LINEBREAKS  = 0x0020,
+    SHOW_ALTERNATIVES    = 0x0040,
+    WRITE_BOM            = 0x0080,
+    WRITE_META_GENERATOR = 0x0100,
+    TEST_OUTPUT          = 0x0200
+};
+
 FormatOptions::FormatOptions() :
     serif_name_("Times New Roman"),
     sans_serif_name_("Arial"),
     monospace_name_("Courier New"),
-    use_bold_(true),
-    use_italic_(true),
-    use_styles_(true),
-    use_underlined_(true),
-    use_font_size_(true),
-    preserve_line_breaks_(false),
     format_mode_(FormatOptions::FORMAT_ALL),
     unrecognized_char_('~'),
     language_(LANGUAGE_RUS_ENG),
     image_format_(FORMAT_UNKNOWN),
-    preserve_line_hyphens_(false),
-    show_alternatives_(false),
-#ifdef __APPLE__
-    write_bom_(true),
-#else
-    write_bom_(false),
-#endif
-    write_meta_generator_(true),
-    test_output_(false)
+    flags_(0)
 {
+    useBold(true);
+    useItalic(true);
+    useStyles(true);
+    useUnderlined(true);
+    useFontSize(true);
+    setPreserveLineBreaks(false);
+    setShowAlternatives(false);
+    writeMetaGenerator(true);
+
+#ifdef __APPLE__
+    writeBom(true);
+#else
+    writeBom(false);
+#endif
+
+    setTestOutput(false);
 }
 
 FormatOptions::~FormatOptions() {}
-
-bool FormatOptions::bomWritten() const {
-    return write_bom_;
-}
 
 FormatOptions::format_mode_t FormatOptions::formatMode() const {
     return format_mode_;
@@ -64,27 +75,27 @@ image_format_t FormatOptions::imageExportFormat() const {
 }
 
 bool FormatOptions::isBoldUsed() const {
-    return use_bold_;
+    return hasFlag(USE_BOLD);
 }
 
 bool FormatOptions::isFontSizeUsed() const {
-    return use_font_size_;
+    return hasFlag(USE_FONTSIZE);
 }
 
 bool FormatOptions::isItalicUsed() const {
-    return use_italic_;
+    return hasFlag(USE_ITALIC);
 }
 
 bool FormatOptions::isStylesUsed() const {
-    return use_styles_;
+    return hasFlag(USE_STYLES);
 }
 
 bool FormatOptions::isTestOutput() const {
-    return test_output_;
+    return hasFlag(TEST_OUTPUT);
 }
 
 bool FormatOptions::isUnderlinedUsed() const {
-    return use_underlined_;
+    return hasFlag(USE_UNDERLINED);
 }
 
 language_t FormatOptions::language() const {
@@ -96,7 +107,7 @@ std::string FormatOptions::monospaceName() const {
 }
 
 bool FormatOptions::preserveLineBreaks() const {
-    return preserve_line_breaks_;
+    return hasFlag(PRESERVE_LINEBREAKS);
 }
 
 std::string FormatOptions::sansSerifName() const {
@@ -124,7 +135,7 @@ void FormatOptions::setMonospaceName(const std::string & name) {
 }
 
 void FormatOptions::setPreserveLineBreaks(bool val) {
-    preserve_line_breaks_ = val;
+    setFlag(PRESERVE_LINEBREAKS, val);
 }
 
 void FormatOptions::setSansSerifName(const std::string & name) {
@@ -136,11 +147,11 @@ void FormatOptions::setSerifName(const std::string & name) {
 }
 
 void FormatOptions::setShowAlternatives(bool value) {
-    show_alternatives_ = value;
+    setFlag(SHOW_ALTERNATIVES, value);
 }
 
 void FormatOptions::setTestOutput(bool value) {
-    test_output_ = value;
+    setFlag(TEST_OUTPUT, value);
 }
 
 void FormatOptions::setUnrecognizedChar(wchar_t ch) {
@@ -151,20 +162,24 @@ void FormatOptions::setUnrecognizedChar(char ch) {
     unrecognized_char_ = ch;
 }
 
+bool FormatOptions::writeBom() const {
+    return hasFlag(WRITE_BOM);
+}
+
 void FormatOptions::writeBom(bool value) {
-    write_bom_ = value;
+    setFlag(WRITE_BOM, value);
 }
 
 bool FormatOptions::writeMetaGenerator() const {
-    return write_meta_generator_;
+    return hasFlag(WRITE_META_GENERATOR);
 }
 
 void FormatOptions::writeMetaGenerator(bool value) {
-    write_meta_generator_ = value;
+    setFlag(WRITE_META_GENERATOR, value);
 }
 
 bool FormatOptions::showAlternatives() const {
-    return show_alternatives_;
+    return hasFlag(SHOW_ALTERNATIVES);
 }
 
 wchar_t FormatOptions::unrecognizedChar() const {
@@ -172,41 +187,55 @@ wchar_t FormatOptions::unrecognizedChar() const {
 }
 
 void FormatOptions::useBold(bool val) {
-    use_bold_ = val;
+    setFlag(USE_BOLD, val);
 }
 
 void FormatOptions::useFontSize(bool val) {
-    use_font_size_ = val;
+    setFlag(USE_FONTSIZE, val);
 }
 
 void FormatOptions::useItalic(bool val) {
-    use_italic_ = val;
+    setFlag(USE_ITALIC, val);
 }
 
 void FormatOptions::useStyles(bool val) {
-    use_styles_ = val;
+    setFlag(USE_STYLES, val);
 }
 
 void FormatOptions::useUnderlined(bool val) {
-    use_underlined_ = val;
+    setFlag(USE_UNDERLINED, val);
 }
 
-std::ostream & operator <<(std::ostream & os, const FormatOptions & fmt) {
+template<class T>
+static void OPT(std::ostream& os, const std::string& name, const T& value) {
+    static const int FIELD_WIDTH = 25;
+    static const std::string INDENT(4, ' ');
+    os << INDENT << std::left << std::setw(FIELD_WIDTH) << name + ": " << value << "\n";
+ }
+
+std::ostream& operator <<(std::ostream& os, const FormatOptions& fmt) {
     using namespace std;
+
     os << "FormatOptions:\n";
-    os << setw(25) << "   SerifName:" << fmt.serifName() << "\n";
-    os << setw(25) << "   SansSerifName:" << fmt.sansSerifName() << "\n";
-    os << setw(25) << "   Monospace Name:" << fmt.monospaceName() << "\n";
-    os << setw(25) << "   Use bold:" << fmt.isBoldUsed() << "\n";
-    os << setw(25) << "   Use Italic: " << fmt.isItalicUsed() << "\n";
-    os << setw(25) << "   Use Underlined: " << fmt.isUnderlinedUsed() << "\n";
-    os << setw(25) << "   Use font size: " << fmt.isFontSizeUsed() << "\n";
-    os << setw(25) << "   Unrecognized char: " << (char) (fmt.unrecognizedChar()) << "\n";
-    os << setw(25) << "   Line breaks: " << fmt.preserveLineBreaks() << "\n";
-    os << setw(25) << "   Language: " << Language::isoName(fmt.language()) << "\n";
-    os << setw(25) << "   Image export format: " << fmt.imageExportFormat() << "\n";
-    os << setw(25) << "   Write byte order mark (BOM): " << fmt.bomWritten() << "\n";
-    os << setw(25) << "   Write meta generator: " << fmt.writeMetaGenerator() << "\n";
+    os << boolalpha;
+
+    OPT(os, "Serif",          fmt.serifName());
+    OPT(os, "Sans-Serif",     fmt.sansSerifName());
+    OPT(os, "Monospace",      fmt.monospaceName());
+    OPT(os, "Use bold",       fmt.isBoldUsed());
+    OPT(os, "Use italic",     fmt.isItalicUsed());
+    OPT(os, "Use underlined", fmt.isUnderlinedUsed());
+    OPT(os, "Use font size",  fmt.isFontSizeUsed());
+    OPT(os, "Unrecognized char", (char)fmt.unrecognizedChar());
+    OPT(os, "Line breaks",    fmt.preserveLineBreaks());
+    OPT(os, "Show alternatives", fmt.showAlternatives());
+    OPT(os, "Language",       Language::isoName(fmt.language()));
+    OPT(os, "Image export format", fmt.imageExportFormat());
+    OPT(os, "Write BOM",      fmt.writeBom());
+    OPT(os, "Write meta generator", fmt.writeMetaGenerator());
+    OPT(os, "Test output",    fmt.isTestOutput());
+
+    os << noboolalpha;
     return os;
 }
 

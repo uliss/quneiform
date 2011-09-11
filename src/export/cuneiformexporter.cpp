@@ -30,38 +30,30 @@
 
 namespace cf {
 
-CuneiformExporter::CuneiformExporter(CEDPage * p, const FormatOptions& opts) :
-    Exporter(opts),
-    page_(p)
+CuneiformExporter::CuneiformExporter(CEDPagePtr p, const FormatOptions& opts) :
+    Exporter(p, opts)
 {
 }
 
 void CuneiformExporter::doExport(std::ostream& os) {
-    if(!page_) {
+    if(!page()) {
         std::cerr << "empty page given";
         std::cerr.flush();
         return;
     }
 
     if(formatOptions().isTestOutput())
-        page_->setImageName("");
+        page()->setImageName("");
 
     try {
         cf::CEDOutputArchive ar(os);
-        ar << boost::serialization::make_nvp("cedpage", page_);
+        CEDPage * p = page().get();
+        ar << boost::serialization::make_nvp("cedpage", p);
     }
     catch(std::exception& e) {
         std::cerr << e.what() << std::endl;
         std::cerr.flush();
     }
-}
-
-CEDPage * CuneiformExporter::page() {
-    return page_;
-}
-
-void CuneiformExporter::setPage(CEDPage * p) {
-    page_ = p;
 }
 
 }

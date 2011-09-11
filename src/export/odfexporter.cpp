@@ -53,7 +53,7 @@ std::string datetime(const std::string& format = "%Y-%m-%dT%H:%M:%S") {
     return buffer;
 }
 
-OdfExporter::OdfExporter(CEDPage * page, const FormatOptions& opts) :
+OdfExporter::OdfExporter(CEDPagePtr page, const FormatOptions& opts) :
     XmlExporter(page, opts),
     style_exporter_(new OdfStyleExporter(page, opts)),
     prev_char_style_hash_(0),

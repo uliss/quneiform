@@ -25,7 +25,7 @@ namespace cf
 {
 
 DebugExporter::DebugExporter(const FormatOptions& opts) :
-    Exporter(opts) {
+    Exporter(CEDPagePtr(), opts) {
     formatOptions().setPreserveLineBreaks(true);
 }
 

@@ -21,6 +21,7 @@
 #include "export/exporterfactory.h"
 #include "cfexporter.h"
 #include "page.h"
+#include "ced/cedpage.h"
 
 CfExporter::CfExporter(const ExportSettings& s)
     : IQfExporter(s) {
@@ -34,7 +35,7 @@ void CfExporter::exportTo(Page * p, const QString& fname) {
     cf::FormatOptions opts;
     p->formatSettings().exportTo(opts);
 
-    cf::ExporterFactory::instance().setPage(p->cedPage());
+    cf::ExporterFactory::instance().setPage(cf::CEDPagePtr(p->cedPage()));
     cf::ExporterFactory::instance().setFormatOptions(opts);
     cf::ExporterPtr e = cf::ExporterFactory::instance().make(
                 static_cast<cf::format_t>(settings().cfFormatType()));

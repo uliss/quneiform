@@ -24,7 +24,7 @@ using namespace cf;
 
 void TestStyleExporter::testExportChar() {
     FormatOptions opts;
-    StyleExporter e(NULL, opts);
+    StyleExporter e(CEDPagePtr(), opts);
     CEDChar chr1;
     CPPUNIT_ASSERT(e.styleByElement(chr1).empty());
 
@@ -44,7 +44,7 @@ void TestStyleExporter::testExportChar() {
 
 void TestStyleExporter::testExportParagraph() {
     FormatOptions opts;
-    StyleExporter e(NULL, opts);
+    StyleExporter e(CEDPagePtr(), opts);
 
     CEDParagraph par1;
 
@@ -63,7 +63,7 @@ void TestStyleExporter::testExportParagraph() {
 void TestStyleExporter::testHashChar() {
     FormatOptions opts;
     opts.useFontSize(false);
-    StyleExporter e(NULL, opts);
+    StyleExporter e(CEDPagePtr(), opts);
     CEDChar c1, c2;
 
     CPPUNIT_ASSERT_EQUAL(e.hash(c1), e.hash(c2));
@@ -122,7 +122,7 @@ void TestStyleExporter::testHashChar() {
 
 void TestStyleExporter::testHashParagraph() {
     FormatOptions opts;
-    StyleExporter e(NULL, opts);
+    StyleExporter e(CEDPagePtr(), opts);
     CEDParagraph par1, par2;
 
     CPPUNIT_ASSERT_EQUAL(e.hash(par1), e.hash(par2));
@@ -148,7 +148,7 @@ void TestStyleExporter::testHashParagraph() {
 
 void TestStyleExporter::testMakeStyle() {
     FormatOptions opts;
-    StyleExporter e(NULL, opts);
+    StyleExporter e(CEDPagePtr(), opts);
 
     CEDChar chr;
     CPPUNIT_ASSERT_EQUAL(std::string("char_1"), e.makeStyle(chr));

@@ -15,15 +15,18 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-#include "testqtimageloader.h"
-CPPUNIT_TEST_SUITE_REGISTRATION(TestQtImageLoader);
-#include <rdib/qtimageloader.h>
-#include <cuneiform.h>
-#include <common/debug.h>
+
 #include <memory>
 #include <sstream>
 #include <fstream>
+
+#include "testqtimageloader.h"
+CPPUNIT_TEST_SUITE_REGISTRATION(TestQtImageLoader);
+
 #include "loaders_common.h"
+#include "common/debug.h"
+#include "common/cifconfig.h"
+#include "rdib/qtimageloader.h"
 
 using namespace cf;
 

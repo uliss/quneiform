@@ -28,24 +28,19 @@ namespace cf
 
 enum format_t
 {
-    FORMAT_NONE = -1,
-    FORMAT_TEXT = 0,
-    FORMAT_SMARTTEXT,
-    FORMAT_RTF,
-    FORMAT_TABLETXT, // Table text
-    FORMAT_TABLECSV, // Table CSV (comma separated)
-    FORMAT_TABLEDBF, // Table DBF
-    FORMAT_TABLEWKS, // Table WKS (Lotus)
-    FORMAT_HTML,
-    FORMAT_HOCR,
-    FORMAT_DEBUG,
-    FORMAT_ODF,
-    FORMAT_SUMMARY,
-    FORMAT_DJVUXML,
-    FORMAT_DJVUTXT,
-    FORMAT_NATIVE_TXT,
-    FORMAT_NATIVE_XML,
-    FORMAT_FB2
+    FORMAT_NONE       = -1,
+    FORMAT_TEXT       = 0,
+    FORMAT_SMARTTEXT  = 1,
+    FORMAT_HTML       = 2,
+    FORMAT_HOCR       = 3,
+    FORMAT_DEBUG      = 4,
+    FORMAT_ODF        = 5,
+    FORMAT_SUMMARY    = 6,
+    FORMAT_DJVUXML    = 7,
+    FORMAT_DJVUTXT    = 8,
+    FORMAT_NATIVE_TXT = 9,
+    FORMAT_NATIVE_XML = 10,
+    FORMAT_FB2        = 11
 };
 
 typedef std::list<format_t> OutputFormatList;

@@ -30,7 +30,7 @@ namespace cf
 class StyleExporter: public GenericExporter
 {
     public:
-        StyleExporter(CEDPage * page, const FormatOptions& opts);
+        StyleExporter(CEDPagePtr page, const FormatOptions& opts);
 
         /**
          * Adds style to style map

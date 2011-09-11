@@ -29,7 +29,7 @@ namespace cf
 class HocrExporter: public HtmlExporter
 {
     public:
-        HocrExporter(CEDPage * page, const FormatOptions& opts);
+        HocrExporter(CEDPagePtr page, const FormatOptions& opts);
         typedef std::vector<Rect> RectList;
     protected:
         void writeCharacter(CEDChar& chr);

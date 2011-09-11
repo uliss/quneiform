@@ -42,7 +42,7 @@ inline QRect cf2qt(const cf::Rect& rect) {
     return QRect(rect.left() - 1, rect.top() - 1, rect.width(), rect.height());
 }
 
-RectExporter::RectExporter(CEDPage * page)
+RectExporter::RectExporter(CEDPagePtr page)
     : GenericExporter(page, FormatOptions()),
     column_begin_(true),
     line_begin_(true),

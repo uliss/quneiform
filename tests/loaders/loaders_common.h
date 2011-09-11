@@ -22,9 +22,7 @@
 #include <string>
 #include <sstream>
 #include <cppunit/extensions/HelperMacros.h>
-#include <common/image.h>
-#include <rdib/imageloader.h>
-#include <cuneiform.h>
+#include "cuneiform.h"
 
 static std::string trim(const std::string& str) {
     size_t pos = str.find_last_not_of(" \n");
@@ -37,10 +35,10 @@ static std::string trim(const std::string& str) {
     ImagePtr img;\
     std::ostringstream buf;\
     CPPUNIT_ASSERT_NO_THROW(img = loader.load(std::string(LOADER_TEST_IMAGE_DIR) + filename));\
-    Puma::instance().open(img);\
-    Puma::instance().recognize();\
-    Puma::instance().save(buf, cf::FORMAT_DEBUG);\
-    Puma::instance().close();\
+    LocalRecognitionServer server;\
+    server.setTextDebug(true);\
+    CEDPagePtr page = server.recognize(img, RecognizeOptions(), FormatOptions());\
+    ExporterFactory::instance().make(cf::FORMAT_DEBUG)->exportTo(buf);\
     ASSERT_BUFFER(buf, str);\
 }
 

@@ -1,7 +1,7 @@
 include(FindZLIB)
 
 if(NOT ZLIB_FOUND)
-    message(ERROR "ZLib not found.")
+    message(FATAL_ERROR "ZLib not found.")
 endif()
 
 set(SOURCES

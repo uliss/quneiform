@@ -21,21 +21,20 @@
 #include <QCoreApplication>
 #include <QSettings>
 #include <sstream>
-#include <ctime>
+#include <boost/bind.hpp>
 
 #include "pagerecognizer.h"
 #include "page.h"
-#include "cuneiform.h"
-#include "rdib/qtimageloader.h"
-#include "common/formatoptions.h"
 #include "quneiform_debug.h"
+#include "rdib/qtimageloader.h"
+#include "puma/recognitionfactory.h"
+#include "common/formatoptions.h"
+#include "common/recognizeoptions.h"
+#include "common/cifconfig.h"
+#include "common/percentcounter.h"
+#include "common/recognitionstate.h"
 #include "export/rectexporter.h"
 #include "export/qtextdocumentexporter.h"
-#include "rfrmt/formatter.h"
-
-#ifdef Q_OS_WIN32
-#define usleep(t) Sleep((t)/1000)
-#endif
 
 static language_t languageToType(const Language& lang) {
     if(lang.isValid()) {
@@ -47,12 +46,49 @@ static language_t languageToType(const Language& lang) {
     }
 }
 
+static cf::FormatOptions getFormatOptions(Page * page) {
+    Q_CHECK_PTR(page);
+
+    cf::FormatOptions res;
+    page->formatSettings().exportTo(res);
+    res.setLanguage(languageToType(page->language()));
+
+    return res;
+}
+
+static cf::RecognizeOptions getRecogOptions(Page * page) {
+    Q_CHECK_PTR(page);
+
+    cf::RecognizeOptions res;
+    RecognitionSettings s = page->recognitionSettings();
+    res.setFax(s.fax());
+    res.setDotMatrix(s.dotMatrix());
+    res.setOneColumn(s.oneColumn());
+    res.setPictureSearch(s.picturesSearch());
+    res.setSpellCorrection(s.spelling());
+    res.setLanguage(languageToType(page->language()));
+
+    return res;
+}
+
 PageRecognizer::PageRecognizer(QObject * parent)
     : QObject(parent),
     page_(NULL),
-    abort_(false),
-    stage_sleep_(FORMAT + 1, 0)
+    counter_(NULL),
+    recog_state_(NULL),
+    abort_(false)
 {
+    counter_ = new cf::PercentCounter;
+    counter_->setCallback(this, &PageRecognizer::handleRecognitionProgress);
+
+    recog_state_ = new cf::RecognitionState;
+    recog_state_->setCallback(this, &PageRecognizer::handleRecognitionState);
+}
+
+PageRecognizer::~PageRecognizer()
+{
+    delete counter_;
+    delete recog_state_;
 }
 
 void PageRecognizer::abort() {
@@ -61,52 +97,54 @@ void PageRecognizer::abort() {
     emit aborted();
 }
 
-void PageRecognizer::doRecognize() {
-    if(abort_) {
-        qDebug() << Q_FUNC_INFO << "aborted";
-        return;
-    }
-
-    stageSleep(RECOGNIZE);
-
-    cf::Puma::instance().recognize();
-    emit recognized();
-    emit percentsDone(80);
-    QCoreApplication::processEvents();
-}
-
-void PageRecognizer::formatResult() {
-    if(abort_)
-        return;
-
+void PageRecognizer::exportPageText() {
     Q_CHECK_PTR(page_);
-
-    stageSleep(FORMAT);
-
-    cf::Formatter formatter(cf::Puma::instance().formatOptions());
-
-    cf::CEDPage * p = formatter.format(page_->imagePath().toStdString());
-    page_->setCEDPage(p);
-
-    emit formatted();
-    emit percentsDone(90);
-    QCoreApplication::processEvents();
+    Q_CHECK_PTR(counter_);
 
     page_->updateTextDocument();
-    emit percentsDone(95);
-    QCoreApplication::processEvents();
-
     page_->setRecognized();
+
+    counter_->add(10);
 }
 
-void PageRecognizer::open() {
+void PageRecognizer::handleRecognitionProgress(unsigned char perc) {
+    emit percentsDone(perc);
+    QCoreApplication::processEvents();
+}
 
+void PageRecognizer::handleRecognitionState(int state) {
+    using namespace cf;
+
+    switch(state) {
+    case RecognitionState::LOADED:
+        emit loaded();
+        break;
+    case RecognitionState::OPENED:
+        emit opened();
+        break;
+    case RecognitionState::RECOGNIZED:
+        emit recognized();
+        break;
+    case RecognitionState::FORMATTED:
+        emit formatted();
+        break;
+    case RecognitionState::ANALYZED:
+        qDebug() << "[Info] analyzed";
+        break;
+    case RecognitionState::FAILED:
+        emit failed("Unknown error");
+        break;
+    default:
+        qDebug() << "[Error] Unknown recognition state: " << state;
+    }
+
+    QCoreApplication::processEvents();
 }
 
 QImage PageRecognizer::loadImage() {
     Q_CHECK_PTR(page_);
-
-    stageSleep(LOAD);
+    Q_CHECK_PTR(counter_);
+    Q_CHECK_PTR(recog_state_);
 
     QImage img(page_->imagePath());
 
@@ -121,9 +159,10 @@ QImage PageRecognizer::loadImage() {
     if(page_->pageArea().isValid())
         img = img.copy(page_->pageArea());
 
-    emit loaded();
-    emit percentsDone(10);
-    QCoreApplication::processEvents();
+    // update counter and state
+    counter_->add(9);
+    recog_state_->set(cf::RecognitionState::LOADED);
+
     return img;
 }
 
@@ -132,31 +171,43 @@ QString PageRecognizer::pagePath() const {
 }
 
 bool PageRecognizer::recognize() {
+    using namespace cf;
+
     if(!page_) {
         emit failed("[PageRecognizer::recognize] NULL page pointer given");
         return false;
     }
 
     try {
-        setFormatOptions();
-        setRecognizeOptions();
-        QImage img = loadImage();
+        counter_->reset();
+        recog_state_->reset();
 
-        stageSleep(OPEN);
-        cf::QtImageLoader loader;
-        cf::ImagePtr image = loader.load(img);
-        if (!image)
-            throw Page::Exception("[PageRecognizer::recognize] can't load image");
-        emit percentsDone(20);
+        setConfigOptions();
 
-        cf::Puma::instance().open(image);
-        emit opened();
-        emit percentsDone(30);
-        QCoreApplication::processEvents();
+        QtImageLoader loader;
+        ImagePtr image = loader.load(loadImage());
 
-        doRecognize();
-        formatResult();
-        cf::Puma::instance().close();
+        FormatOptions fopts = getFormatOptions(page_);
+        RecognizeOptions ropts = getRecogOptions(page_);
+
+        PercentCounter recog_counter(counter_);
+        recog_counter.setContribution(80);
+
+        RecognitionPtr server = RecognitionFactory::instance().make(SERVER_PROCESS);
+        if(!server)
+            throw std::runtime_error("[PageRecognizer::recognize] recognition server creation failed");
+
+        server->setCounter(&recog_counter);
+        server->setStateTracker(recog_state_);
+
+        CEDPagePtr cedptr = server->recognize(image, ropts, fopts);
+
+        if(!cedptr)
+            return false;
+
+        page_->setCEDPage(cedptr);
+
+        exportPageText();
     }
     catch(std::exception& e) {
         page_->setFlag(Page::RECOGNITION_FAILED);
@@ -166,7 +217,6 @@ bool PageRecognizer::recognize() {
     }
 
     emit done();
-    emit percentsDone(100);
     QCoreApplication::processEvents();
 
     {
@@ -180,53 +230,16 @@ bool PageRecognizer::recognize() {
     }
 }
 
-void PageRecognizer::setFormatOptions() {
-    Q_CHECK_PTR(page_);
+void PageRecognizer::setConfigOptions() {
+    Q_CHECK_PTR(counter_);
 
-    cf::FormatOptions opts;
-    page_->formatSettings().exportTo(opts);
-    opts.setLanguage(languageToType(page_->language()));
+    QSettings global_settings;
+    cf::Config::instance().setDebug(
+            global_settings.value("debug/printCuneiformDebug", false).toBool());
 
-    cf::Puma::instance().setFormatOptions(opts);
+    counter_->add(1);
 }
 
 void PageRecognizer::setPage(Page * p) {
     page_ = p;
 }
-
-void PageRecognizer::setRecognizeOptions() {
-    Q_CHECK_PTR(page_);
-
-    cf::RecognizeOptions recognize_opts;
-
-    RecognitionSettings s = page_->recognitionSettings();
-    recognize_opts.setFax(s.fax());
-    recognize_opts.setDotMatrix(s.dotMatrix());
-    recognize_opts.setOneColumn(s.oneColumn());
-    recognize_opts.setPictureSearch(s.picturesSearch());
-    recognize_opts.setSpellCorrection(s.spelling());
-    recognize_opts.setLanguage(languageToType(page_->language()));
-
-    cf::Puma::instance().setRecognizeOptions(recognize_opts);
-
-    QSettings global_settings;
-    cf::Config::instance().setDebug(
-            global_settings.value("debug/printCuneiformDebug", false).toBool());
-}
-
-void PageRecognizer::setStageSleep(StageType t, int msec) {
-    stage_sleep_[t] = msec;
-}
-
-void PageRecognizer::stageSleep(StageType t) {
-#ifndef NDEBUG
-    int mcsec = stage_sleep_[t] * 1000;
-
-    if(!mcsec)
-        return;
-
-    qDebug() << Q_FUNC_INFO << mcsec << "micro seconds";
-    ::usleep(mcsec);
-#endif
-}
-

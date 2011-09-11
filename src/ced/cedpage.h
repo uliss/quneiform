@@ -21,19 +21,14 @@
 
 #include <string>
 #include <vector>
-#include <boost/shared_ptr.hpp>
 
 #include "blockelement.h"
+#include "cedpageptr.h"
 #include "common/size.h"
 #include "common/font.h"
 
 namespace cf
 {
-
-class CEDSection;
-class CEDPage;
-
-typedef boost::shared_ptr<CEDPage> CEDPagePtr;
 
 class CLA_EXPO CEDPage: public BlockElement
 {

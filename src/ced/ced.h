@@ -138,7 +138,4 @@ class BlockElement;
 class Element;
 }
 
-CED_FUNC cf::CEDSection* CED_CreateSection(cf::CEDPage* page, const cf::Rect& border,
-        int numOfCols, EDCOL* colInfo, char sectionBreak, int width, int height);
-
 #endif

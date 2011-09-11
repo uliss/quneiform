@@ -25,6 +25,7 @@
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/split_member.hpp>
 #include <boost/serialization/nvp.hpp>
+#include <boost/serialization/is_bitwise_serializable.hpp>
 #endif
 
 

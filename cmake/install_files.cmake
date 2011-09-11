@@ -6,6 +6,9 @@ include(CheckTypeSize)
 check_type_size("void*" PTRSIZE)
 if(PTRSIZE EQUAL 8 AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(LIBDIR "lib64")
+    if(UNIX AND NOT WIN32)
+        add_definitions(-fPIC)
+    endif()
 else()
     set(LIBDIR "lib")
 endif()
@@ -27,16 +30,16 @@ if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
 endif()
 
 macro(library_hook name)
-  if(NOT WIN32)
-    set_target_properties(${name} PROPERTIES VERSION ${CF_VERSION})
-  endif()
+    if(NOT WIN32)
+        set_target_properties(${name} PROPERTIES VERSION ${CF_VERSION})
+    endif()
   
-  install(
-    TARGETS "${name}"
-    ARCHIVE DESTINATION ${LIBDIR}
-    RUNTIME DESTINATION bin
-    LIBRARY DESTINATION ${LIBDIR}
-  )
+    install(
+        TARGETS "${name}"
+        ARCHIVE DESTINATION ${LIBDIR}
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION ${LIBDIR}
+    )
 endmacro()
 
 macro(install_exe name)
@@ -48,10 +51,10 @@ macro(install_exe name)
 endmacro()
 
 macro(cif_visibility_hidden name)
-	if(NOT MSVC) 
-		CHECK_CXX_COMPILER_FLAG(-fvisibility=hidden HAVE_GCC_VISIBILITY)
-		if(HAVE_GCC_VISIBILITY)
-			set_property(TARGET ${name} PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
-		endif() 
-	endif()
+    if(NOT MSVC)
+        CHECK_CXX_COMPILER_FLAG(-fvisibility=hidden HAVE_GCC_VISIBILITY)
+        if(HAVE_GCC_VISIBILITY)
+            set_property(TARGET ${name} PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
+        endif()
+    endif()
 endmacro()

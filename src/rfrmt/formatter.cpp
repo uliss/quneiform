@@ -25,6 +25,7 @@
 #include "formatter.h"
 #include "rfrmtoptions.h"
 #include "crtfpage.h"
+#include "ced/cedpage.h"
 
 #include "cfcompat.h"
 
@@ -43,7 +44,7 @@ Formatter::~Formatter() {
     delete page_;
 }
 
-CEDPage * Formatter::format(const std::string& fileName) {
+CEDPagePtr Formatter::format(const std::string& fileName) {
     FILE * fp = create_temp_file();
 
     if (fp == NULL)
@@ -57,11 +58,12 @@ CEDPage * Formatter::format(const std::string& fileName) {
     }
 
     CEDPage * page = readFormatFile(fileName, fp);
+    CEDPagePtr res(page);
 
     if (fclose(fp) != 0)
         throw std::runtime_error("[Formatter::format] cannot close format file");
 
-    return page;
+    return res;
 }
 
 FormatOptions Formatter::options() const {

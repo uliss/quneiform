@@ -32,7 +32,7 @@ inline bool isSpace(const CEDChar& chr) {
     return chr.boundingRect() == Rect(Point(-1, -1), Point(-1, -1));
 }
 
-DjvuTxtExporter::DjvuTxtExporter(CEDPage * page, const FormatOptions& opts) :
+DjvuTxtExporter::DjvuTxtExporter(CEDPagePtr page, const FormatOptions& opts) :
     TextExporter(page, opts), indent_level_(0), word_flag_(false) {
     formatOptions().setPreserveLineBreaks(true);
 }

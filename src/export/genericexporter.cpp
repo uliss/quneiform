@@ -31,6 +31,7 @@
 #include "ced/cedpage.h"
 #include "ced/cedtable.h"
 #include "common/debug.h"
+#include "common/filesystem.h" // for baseName
 #include "common/cifconfig.h"
 #include "common/imagerawdata.h"
 #include "cfcompat.h"
@@ -40,10 +41,20 @@
 namespace cf
 {
 
-GenericExporter::GenericExporter(CEDPage * page, const FormatOptions& opts) :
-    Exporter(opts), page_(page), os_(NULL), num_chars_(0), num_columns_(0), num_frames_(0),
-            num_lines_(0), num_paragraphs_(0), num_pictures_(0), num_sections_(0), num_tables_(0),
-            skip_pictures_(false), skip_empty_paragraphs_(false), skip_empty_lines_(false) {
+GenericExporter::GenericExporter(CEDPagePtr page, const FormatOptions& opts) :
+    Exporter(page, opts),
+    os_(NULL),
+    num_chars_(0),
+    num_columns_(0),
+    num_frames_(0),
+    num_lines_(0),
+    num_paragraphs_(0),
+    num_pictures_(0),
+    num_sections_(0),
+    num_tables_(0),
+    skip_pictures_(false),
+    skip_empty_paragraphs_(false),
+    skip_empty_lines_(false) {
 
     if (isCharsetConversion())
         converter_.open(inputEncoding(), outputEncoding());
@@ -77,11 +88,11 @@ void GenericExporter::doExport(std::ostream& os) {
     if (os.fail())
         throw Exception("[GenericExporter::doExport] invalid stream given");
 
-    if (page_ == NULL)
+    if (!page())
         throw Exception("[GenericExporter::doExport] null page pointer");
 
     setOutputStream(&os);
-    page_->exportElement(*this);
+    page()->exportElement(*this);
 }
 
 void GenericExporter::exportChar(CEDChar& chr) {
@@ -204,14 +215,6 @@ std::ostream * GenericExporter::outputStream() {
     return os_;
 }
 
-CEDPage * GenericExporter::page() {
-    return page_;
-}
-
-const CEDPage * GenericExporter::page() const {
-    return page_;
-}
-
 std::string GenericExporter::makePictureName(const CEDPicture& picture) {
     std::ostringstream buf;
     buf << "image_" << picture.pictureNumber() << "." << imageExporter()->extension();
@@ -219,7 +222,7 @@ std::string GenericExporter::makePictureName(const CEDPicture& picture) {
 }
 
 std::string GenericExporter::makePicturePathRelative(const CEDPicture& picture) {
-    return baseName(makeOutputPictureDir()) + "/" + makePictureName(picture);
+    return fs::baseName(makeOutputPictureDir()) + "/" + makePictureName(picture);
 }
 
 std::string GenericExporter::makePicturePath(const CEDPicture& picture) {

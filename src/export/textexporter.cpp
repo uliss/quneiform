@@ -32,8 +32,11 @@
 namespace cf
 {
 
-TextExporter::TextExporter(CEDPage * page, const FormatOptions& opts) :
-    GenericExporter(page, opts), lines_left_in_paragraph_(0), elements_left_in_line_(0) {
+TextExporter::TextExporter(CEDPagePtr page, const FormatOptions& opts) :
+    GenericExporter(page, opts),
+    lines_left_in_paragraph_(0),
+    elements_left_in_line_(0) {
+
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
     setSkipPictures(false);
@@ -48,7 +51,7 @@ void TextExporter::appendTo(const std::string& filename) {
 }
 
 void TextExporter::doExport(std::ostream& os) {
-    if(formatOptions().bomWritten())
+    if(formatOptions().writeBom())
         writeBOM(os);
 
     GenericExporter::doExport(os);

@@ -28,7 +28,7 @@ namespace cf
 class TextExporter: public GenericExporter
 {
     public:
-        TextExporter(CEDPage * page, const FormatOptions& opts);
+        TextExporter(CEDPagePtr page, const FormatOptions& opts);
 
         /**
          * Appends to the end of existing file

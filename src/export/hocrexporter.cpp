@@ -21,6 +21,7 @@
 #include "ced/cedchar.h"
 #include "ced/cedpage.h"
 #include "common/helper.h"
+#include "common/filesystem.h"
 
 namespace cf
 {
@@ -52,15 +53,17 @@ static inline std::string pageBBox(CEDPage& p, bool basename = false) {
     std::string path = p.imageName();
 
     if(basename)
-        path = cf::baseName(path);
+        path = fs::baseName(path);
 
     buf << "image '" << escapeHtmlSpecialChars(path) << "'; bbox 0 0 "
             << p.imageSize().width() << " " << p.imageSize().height();
     return buf.str();
 }
 
-HocrExporter::HocrExporter(CEDPage * page, const FormatOptions& opts) :
-    HtmlExporter(page, opts), is_in_line_(false) {
+HocrExporter::HocrExporter(CEDPagePtr page, const FormatOptions& opts) :
+    HtmlExporter(page, opts),
+    is_in_line_(false)
+{
     formatOptions().setShowAlternatives(false);
     formatOptions().useBold(false);
     formatOptions().useItalic(false);

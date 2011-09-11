@@ -22,23 +22,38 @@
 
 namespace cf {
 
-RecognizeOptions::RecognizeOptions() :
-    language_(LANGUAGE_ENGLISH), auto_rotate_(false), dot_matrix_(false),
-            do_spell_correction_(true), fax100_(false), one_column_(false),
-            find_pictures_(true), table_mode_(TABLE_DEFAULT) {
+enum {
+    AUTOROTATE       = 0x001,
+    DOT_MATRIX       = 0x002,
+    SPELL_CORRECTION = 0x004,
+    FAX              = 0x008,
+    ONE_COLUMN       = 0x010,
+    FIND_PICTURES    = 0x020
+};
 
+RecognizeOptions::RecognizeOptions() :
+    language_(LANGUAGE_ENGLISH),
+    table_mode_(TABLE_DEFAULT),
+    flags_(0)
+{
+    setAutoRotate(false);
+    setDotMatrix(false);
+    setSpellCorrection(true);
+    setFax(false);
+    setOneColumn(false);
+    setPictureSearch(true);
 }
 
 bool RecognizeOptions::autoRotate() const {
-    return auto_rotate_;
+    return hasFlag(AUTOROTATE);
 }
 
 bool RecognizeOptions::dotMatrix() const {
-    return dot_matrix_;
+    return hasFlag(DOT_MATRIX);
 }
 
 bool RecognizeOptions::fax() const {
-    return fax100_;
+    return hasFlag(FAX);
 }
 
 language_t RecognizeOptions::language() const {
@@ -46,23 +61,23 @@ language_t RecognizeOptions::language() const {
 }
 
 bool RecognizeOptions::oneColumn() const {
-    return one_column_;
+    return hasFlag(ONE_COLUMN);
 }
 
 bool RecognizeOptions::pictureSearch() const {
-    return find_pictures_;
+    return hasFlag(FIND_PICTURES);
 }
 
 void RecognizeOptions::setAutoRotate(bool value) {
-    auto_rotate_ = value;
+    setFlag(AUTOROTATE, value);
 }
 
 void RecognizeOptions::setFax(bool value) {
-    fax100_ = value;
+    setFlag(FAX, value);
 }
 
 void RecognizeOptions::setDotMatrix(bool value) {
-    dot_matrix_ = value;
+    setFlag(DOT_MATRIX, value);
 }
 
 void RecognizeOptions::setLanguage(language_t language) {
@@ -70,15 +85,15 @@ void RecognizeOptions::setLanguage(language_t language) {
 }
 
 void RecognizeOptions::setOneColumn(bool value) {
-    one_column_ = value;
+    setFlag(ONE_COLUMN, value);
 }
 
 void RecognizeOptions::setPictureSearch(bool value) {
-    find_pictures_ = value;
+    setFlag(FIND_PICTURES, value);
 }
 
 void RecognizeOptions::setSpellCorrection(bool value) {
-    do_spell_correction_ = value;
+    setFlag(SPELL_CORRECTION, value);
 }
 
 void RecognizeOptions::setTableMode(table_mode_t mode) {
@@ -90,7 +105,7 @@ void RecognizeOptions::setUserDict(const std::string& user_dict) {
 }
 
 bool RecognizeOptions::spellCorection() const {
-    return do_spell_correction_;
+    return hasFlag(SPELL_CORRECTION);
 }
 
 RecognizeOptions::table_mode_t RecognizeOptions::tableMode() const {
@@ -101,22 +116,27 @@ const std::string& RecognizeOptions::userDict() const {
     return user_dict_name_;
 }
 
+template<class T>
+static void OPT(std::ostream& os, const std::string& name, const T& value) {
+    static const std::string INDENT(4, ' ');
+    static const int FIELD_WIDTH = 25;
+    os << INDENT << std::left << std::setw(FIELD_WIDTH);
+    os << name + ":" << value << "\n";
+}
+
 std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
-    using namespace std;
-    const int FLD_WD = 25;
-    os
-            << "##################################################################\n"
-            << " Recognize options:\n" << boolalpha << std::left
-            << setw(FLD_WD) << "  Spell: " << opts.spellCorection() << "\n"
-            << setw(FLD_WD) << "  Fax:   " << opts.fax() << "\n"
-            << setw(FLD_WD) << "  Single column layout: " << opts.oneColumn() << "\n"
-            << setw(FLD_WD) << "  Dot matix: " << opts.dotMatrix() << "\n"
-            << setw(FLD_WD) << "  Pictures search: " << opts.pictureSearch() << "\n"
-            << setw(FLD_WD) << "  Table mode: " << opts.tableMode() << "\n"
-            << setw(FLD_WD) << "  Autorotate: " << opts.autoRotate() << "\n"
-            << setw(FLD_WD) << "  Language: " << Language(opts.language()) << "\n"
-            << setw(FLD_WD) << "  User dictionary: " << opts.userDict() << "\n"
-            << "##################################################################\n";
+    os << "Recognize options:\n";
+    os << std::boolalpha;
+    OPT(os, "Spell", opts.spellCorection());
+    OPT(os, "Fax", opts.fax());
+    OPT(os, "Single column layout", opts.oneColumn());
+    OPT(os, "Dot matix", opts.dotMatrix());
+    OPT(os, "Pictures search", opts.pictureSearch());
+    OPT(os, "Table mode", opts.tableMode());
+    OPT(os, "Autorotate" , opts.autoRotate());
+    OPT(os, "Language", Language(opts.language()));
+    OPT(os, "User dictionary", opts.userDict());
+    os << std::noboolalpha;
     return os;
 }
 

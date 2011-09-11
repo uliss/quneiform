@@ -30,7 +30,7 @@ namespace cf
 class DjvuTxtExporter: public TextExporter
 {
     public:
-        DjvuTxtExporter(CEDPage * page, const FormatOptions& opts);
+        DjvuTxtExporter(CEDPagePtr page, const FormatOptions& opts);
         void writeCharacter(CEDChar& chr);
         void writeCharacterBegin(CEDChar& chr);
         void writeLineBegin(CEDLine& line);

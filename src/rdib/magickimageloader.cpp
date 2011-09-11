@@ -117,7 +117,7 @@ ImagePtr MagickImageLoader::load(const std::string& fname) {
         return load(image);
     } catch (Magick::Exception &e) {
         std::cerr << e.what() << "\n";
-        throw Exception("[MagickImageLoader::load] faild");
+        throw Exception("[MagickImageLoader::load] failed");
     }
 }
 

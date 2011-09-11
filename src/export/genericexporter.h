@@ -24,22 +24,15 @@
 #include "common/size.h"
 #include "common/iconv_local.h"
 #include "globus.h"
+#include "ced/cedfwd.h"
 
 namespace cf
 {
 
-class CEDPage;
-class CEDSection;
-class CEDParagraph;
-class CEDLine;
-class CEDChar;
-class CEDColumn;
-class CEDPicture;
-
 class CLA_EXPO GenericExporter: public Exporter
 {
     public:
-        GenericExporter(CEDPage * page, const FormatOptions& opts);
+        GenericExporter(CEDPagePtr page, const FormatOptions& opts);
 
         /**
          * Returns number of exported characters
@@ -236,12 +229,6 @@ class CLA_EXPO GenericExporter: public Exporter
         void doExport(std::ostream& os);
 
         /**
-         * Returns pointer to exported page
-         */
-        CEDPage * page();
-        const CEDPage * page() const;
-
-        /**
          * Makes picture filename
          */
         std::string makePictureName(const CEDPicture& picture);
@@ -327,7 +314,6 @@ class CLA_EXPO GenericExporter: public Exporter
          */
         virtual void writeSectionEnd(CEDSection& sect);
     private:
-        CEDPage * page_;
         std::ostream * os_;
         int num_chars_;
         int num_columns_;

@@ -49,7 +49,7 @@ class CEDPicture;
 class FB2Exporter : public XmlExporter
 {
 public:
-    FB2Exporter(cf::CEDPage * page, const cf::FormatOptions& opt);
+    FB2Exporter(CEDPagePtr page, const cf::FormatOptions& opt);
 protected:
     void writeCharacterBegin(CEDChar& c);
     void writePageBegin(CEDPage& page);

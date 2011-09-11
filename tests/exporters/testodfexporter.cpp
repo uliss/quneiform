@@ -23,7 +23,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestOdfExporter);
 using namespace cf;
 
 void TestOdfExporter::testInit() {
-    Exporter * e = new OdfExporter(NULL, FormatOptions());
+    Exporter * e = new OdfExporter(CEDPagePtr(), FormatOptions());
     unlink("tmp.odt");
     //    CPPUNIT_ASSERT_THROW(e->exportTo("tmp.odt"));
     //    CPPUNIT_ASSERT_NO_THROW(e->exportTo(std::cerr));

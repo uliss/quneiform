@@ -29,7 +29,7 @@ namespace cf
 class DjvuXmlExporter: public XmlExporter
 {
     public:
-        DjvuXmlExporter(CEDPage * page, const FormatOptions& opts);
+        DjvuXmlExporter(CEDPagePtr page, const FormatOptions& opts);
         void writeCharacter(CEDChar& chr);
         void writeCharacterBegin(CEDChar& chr);
         void writeColumnBegin(CEDChar& col);

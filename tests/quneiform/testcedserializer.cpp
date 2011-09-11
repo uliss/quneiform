@@ -41,18 +41,18 @@ TestCEDSerializer::TestCEDSerializer(QObject * parent) :
 
 void TestCEDSerializer::testConstruct() {
     CEDSerializer ced1;
-    QCOMPARE(ced1.page(), (cf::CEDPage*)0);
+    QCOMPARE(ced1.page(), cf::CEDPagePtr());
 
-    cf::CEDPage p;
-    CEDSerializer ced2(&p);
-    QCOMPARE(ced2.page(), &p);
+    cf::CEDPagePtr p(new cf::CEDPage);
+    CEDSerializer ced2(p);
+    QCOMPARE(ced2.page(), p);
 }
 
 void TestCEDSerializer::testReadWrite() {
     QString fname("cedserializer.tmp");
-    cf::CEDPage p;
-    p.setImageName("CED Image");
-    CEDSerializer ced1(&p);
+    cf::CEDPagePtr p(new cf::CEDPage);
+    p->setImageName("CED Image");
+    CEDSerializer ced1(p);
 
     {
         OPEN_OUT(fname);
@@ -64,7 +64,7 @@ void TestCEDSerializer::testReadWrite() {
         OPEN_IN(fname);
         in >> ced2;
 
-        QVERIFY(ced2.page() != NULL);
+        QVERIFY(ced2.page());
         QCOMPARE(ced1.page()->imageName(), ced2.page()->imageName());
     }
 

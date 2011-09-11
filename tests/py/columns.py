@@ -20,6 +20,10 @@ FORMATS = (
      'fb2'
 )
 
+def removeOutput():
+    fmtTest = cf.Tester('format')
+    fmtTest.removeOutput(INPUT_FILES, FORMATS)
+
 def test():
     fmtTest = cf.Tester('format')
 

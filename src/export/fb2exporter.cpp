@@ -34,7 +34,7 @@
 
 namespace cf {
 
-FB2Exporter::FB2Exporter(cf::CEDPage * page, const cf::FormatOptions& opts)
+FB2Exporter::FB2Exporter(CEDPagePtr page, const cf::FormatOptions& opts)
     : XmlExporter(page, opts),
     prev_char_style_(0)
 {

@@ -15,37 +15,34 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-#include <sstream>
 
+#include <sstream>
 #include <QDebug>
 
 #include "cedserializer.h"
-#include "ced/cedpage.h"
-#include "ced/cedsection.h"
-#include "ced/cedcolumn.h"
-#include "ced/cedparagraph.h"
-#include "ced/cedline.h"
-#include "ced/cedchar.h"
-#include "ced/cedpicture.h"
-#include "ced/blockelement.h"
-#include "ced/element.h"
-#include "ced/cedarchive.h"
+#include "export/cuneiformexporter.h"
+#include "load/cuneiformtextloader.h"
 
-CEDSerializer::CEDSerializer(cf::CEDPage * page) : page_(page)
+CEDSerializer::CEDSerializer(cf::CEDPagePtr page) : page_(page)
 {
+}
+
+cf::CEDPagePtr CEDSerializer::page() {
+    return page_;
 }
 
 QDataStream& operator<<(QDataStream& os, const CEDSerializer& ced) {
     if(ced.page_) {
         try {
             std::ostringstream buf;
-            cf::CEDOutputArchive ar(buf);
-            ar << boost::serialization::make_nvp("cedpage", ced.page_);
-            std::string txt(buf.str());
+            cf::CuneiformExporter exp(ced.page_, cf::FormatOptions());
+            exp.exportTo(buf);
+
             os << true;
-            os << txt.c_str();
+            os << buf.str().c_str();
         }
         catch(std::exception& e) {
+            os << false;
             std::cerr << e.what() << std::endl;
             std::cerr.flush();
         }
@@ -66,13 +63,9 @@ QDataStream& operator>>(QDataStream& is, CEDSerializer& ced) {
         char * str;
         is >> str;
         std::istringstream buf(str);
-        cf::CEDInputArchive ar(buf);
 
-        cf::CEDPage * cedpage = new cf::CEDPage;
-        ar >> cedpage;
-
-        delete ced.page_;
-        ced.page_ = cedpage;
+        cf::CuneiformTextLoader ld;
+        ced.page_ = ld.load(buf);
 
         delete[] str;
     }

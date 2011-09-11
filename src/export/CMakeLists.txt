@@ -46,7 +46,9 @@ elseif(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
 endif()
 
 if(Boost_SERIALIZATION_FOUND)
-    list(APPEND exporters cuneiformexporter.cpp cuneiformxmlexporter.cpp)
+    list(APPEND exporters cuneiformexporter.cpp
+        cuneiformbinexporter.cpp
+        cuneiformxmlexporter.cpp)
     list(APPEND exporters_libs ${Boost_SERIALIZATION_LIBRARY})
     message(STATUS "Exporters: Cuneiform Format exporter will be build")
 endif()
@@ -73,4 +75,8 @@ target_link_libraries(cuneiform-export
 library_hook(cuneiform-export)
 
 set(EXPORT_HEADER_INSTALL "export")
-install(FILES exporter.h imageexporter.h DESTINATION include/${CF_HEADER_INSTALL}/${EXPORT_HEADER_INSTALL})
+install(
+    FILES
+        exporter.h imageexporter.h exporterfactory.h
+    DESTINATION
+        include/${CF_HEADER_INSTALL}/${EXPORT_HEADER_INSTALL})

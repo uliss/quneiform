@@ -913,8 +913,13 @@ void CRtfPage::writeSectorsHeader(int i) {
         pEDColumn++;
     }
 
-    sector->m_hEDSector = CED_CreateSection(ced_page_, border, EDCountHTerminalColumns,
-            pEDColumnFirst, 0, page_size_.width(), page_size_.height());
+    sector->m_hEDSector = new CEDSection;
+    ced_page_->addSection(sector->m_hEDSector);
+
+    for (int i = 0; i < EDCountHTerminalColumns; i++) {
+        sector->m_hEDSector->addColInfo(pEDColumnFirst[i].width, pEDColumnFirst[i].space);
+    }
+
     sector->m_hEDSector->setSize(page_size_);
     sector->m_hEDSector->setMargins(border);
     sector->m_hEDSector->setSectionBreak(false);

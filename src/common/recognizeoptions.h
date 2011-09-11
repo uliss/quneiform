@@ -21,8 +21,10 @@
 
 #include <iostream>
 #include <string>
+
 #include "lang_def.h"
 #include "globus.h"
+#include "serialize.h"
 
 namespace cf {
 
@@ -68,15 +70,27 @@ class CLA_EXPO RecognizeOptions
         void setTableMode(table_mode_t mode);
         void setUserDict(const std::string& user_dict);
     private:
+        bool hasFlag(int flag) const { return flags_ & flag; }
+        void setFlag(int flag, bool value) { value ? setFlag(flag) : unsetFlag(flag); }
+        void setFlag(int flag) { flags_ |= flag; }
+        void unsetFlag(int flag) { flags_ &= (~flag); }
+    private:
+#ifdef CF_SERIALIZE
+        friend class boost::serialization::access;
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int /*version*/) {
+            using boost::serialization::make_nvp;
+            ar & make_nvp("language", language_);
+            ar & make_nvp("table-mode", table_mode_);
+            ar & make_nvp("user-dict", user_dict_name_);
+            ar & make_nvp("flags", flags_);
+        }
+#endif
+    private:
         language_t language_;
-        bool auto_rotate_;
-        bool dot_matrix_;
-        bool do_spell_correction_;
-        bool fax100_;
-        bool one_column_;
-        bool find_pictures_;
         table_mode_t table_mode_;
         std::string user_dict_name_;
+        size_t flags_;
 };
 
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts);

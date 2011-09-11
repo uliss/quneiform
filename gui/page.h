@@ -31,20 +31,16 @@
 #include "recognitionsettings.h"
 #include "formatsettings.h"
 #include "language.h"
+#include "ced/cedpageptr.h"
 
 class QDataStream;
 class QTextDocument;
 class ExportSettings;
 
-namespace cf {
-class CEDPage;
-}
-
 class Page: public QObject {
     Q_OBJECT
 public:
     Page(const QString& image_path);
-    ~Page();
 
     enum PageFlag {
         NONE = 0,
@@ -100,7 +96,7 @@ public:
    /**
      * Returns pointer to cf::CEDPage
      */
-    cf::CEDPage * cedPage();
+    cf::CEDPagePtr cedPage();
 
     /**
       * Clears page blocks and area
@@ -351,7 +347,7 @@ private:
     void clearBlocks(BlockType type);
     void initRects();
     void setBlocks(const Rectangles& rects, BlockType type);
-    void setCEDPage(cf::CEDPage * page);
+    void setCEDPage(cf::CEDPagePtr page);
     void setChanged();
     void setRecognized(bool value = true);
     void updateBlocks();
@@ -372,7 +368,7 @@ private:
     QTextDocument * doc_;
     FormatSettings format_settings_;
     Language language_;
-    cf::CEDPage * cedpage_;
+    cf::CEDPagePtr cedpage_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

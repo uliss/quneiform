@@ -123,4 +123,14 @@ if(TESTS)
     add_library(cuneiform-rstr-static STATIC
         ${RSTR_SOURCES}
     )
+
+    target_link_libraries(cuneiform-rstr-static 
+        cuneiform-rling
+        cuneiform-cline
+        cuneiform-leo
+        cuneiform-rcutp
+        cuneiform-pass2
+        cuneiform-rsadd
+        cuneiform-rbal
+    )
 endif()

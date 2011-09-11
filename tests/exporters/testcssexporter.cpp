@@ -35,7 +35,7 @@ using namespace cf;
 
 void TestCssExporter::testMakeCssStyleChar() {
     FormatOptions opts;
-    CssExporter e(NULL, opts);
+    CssExporter e(CEDPagePtr(), opts);
 
     CEDChar chr;
     ASSERT_EMPTY(e, chr);
@@ -56,7 +56,7 @@ void TestCssExporter::testMakeCssStyleChar() {
 
 void TestCssExporter::testMakeCssStyleParagraph() {
     FormatOptions opts;
-    CssExporter e(NULL, opts);
+    CssExporter e(CEDPagePtr(), opts);
 
     CEDParagraph par;
     ASSERT_EMPTY(e, par);

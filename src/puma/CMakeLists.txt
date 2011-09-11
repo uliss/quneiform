@@ -1,9 +1,32 @@
-add_library(cuneiform ${CF_CUNEIFORM_LIBTYPE}
+add_definitions(-DBOOST_DATE_TIME_NO_LIB)
+
+set(CUNEIFORM_SOURCES
+    localrecognitionserver.cpp
+    processrecognitionserver.cpp
     pumaimpl.cpp
-    ${SNP_SRC}
+    recognitionfactory.cpp
+    sharedimage.cpp
+    sharedimageholder.cpp
+    sharedmemoryremover.cpp
+    sharedoptions.cpp
+    sharedoptionsholder.cpp
+    sharedresult.cpp
+    sharedresultholder.cpp
+    startprocess.cpp
 )
 
-target_link_libraries(cuneiform
+if(UNIX)
+    list(APPEND CUNEIFORM_SOURCES processtimeoutkiller.cpp)
+endif()
+
+set(CUNEIFORM_HEADERS
+    abstractrecognitionserver.h
+    puma.h
+    shmem_data.h
+)
+
+set(CUNEIFORM_LIBS
+    cuneiform-load
     cuneiform-common
     cuneiform-ced
     cuneiform-cimage
@@ -25,11 +48,26 @@ target_link_libraries(cuneiform
     cuneiform-rpstr
 )
 
-if(LIBTYPE STREQUAL STATIC)
-    target_link_libraries(cuneiform cuneiform-dbg)
-endif()
+add_library(cuneiform ${CF_CUNEIFORM_LIBTYPE}
+    ${CUNEIFORM_SOURCES}
+    ${CUNEIFORM_HEADERS}
+    ${SNP_SRC}
+)
 
+target_link_libraries(cuneiform ${CUNEIFORM_LIBS})
 library_hook(cuneiform)
 
-set(PUMA_HEADER_INSTALL "puma")
-install(FILES puma.h pumaimpl.h DESTINATION include/${CF_HEADER_INSTALL}/${PUMA_HEADER_INSTALL})
+# Process worker
+add_executable(cuneiform-worker worker.cpp)
+target_link_libraries(cuneiform-worker cuneiform)
+
+install(TARGETS cuneiform-worker
+    RUNTIME DESTINATION lib/cuneiform
+    COMPONENT applications
+)
+
+install(
+    FILES
+        abstractrecognitionserver.h localrecognitionserver.h
+    DESTINATION
+        include/${CF_HEADER_INSTALL}/puma)

@@ -36,6 +36,11 @@ FORMATS = {
     'hocr' : 'hocr'
     }
 
+def removeOutput():
+    fmtTest = cf.Tester('lang.diftest')
+    languages = map(lambda x: x.lower(), LANGS.values())
+    fmtTest.removeOutput(languages, FORMATS.keys())
+
 def test_format(format, ext):
     fmtTest = cf.Tester('lang.diftest')
     fmtTest.setFormat(format)

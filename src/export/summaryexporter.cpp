@@ -28,7 +28,7 @@
 namespace cf
 {
 
-SummaryExporter::SummaryExporter(CEDPage * page, const FormatOptions& opts) :
+SummaryExporter::SummaryExporter(CEDPagePtr page, const FormatOptions& opts) :
     GenericExporter(page, opts) {
     setSkipPictures(false);
     setSkipEmptyLines(false);

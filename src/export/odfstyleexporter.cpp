@@ -122,7 +122,7 @@ static void writeTextProperties(std::ostream& os, const XmlExporter::Attributes&
     XmlExporter::writeSingleTag(os, "style:text-properties", attrs);
 }
 
-OdfStyleExporter::OdfStyleExporter(CEDPage * page, const FormatOptions& opts) :
+OdfStyleExporter::OdfStyleExporter(CEDPagePtr page, const FormatOptions& opts) :
     StyleExporter(page, opts), font_koef_(1.0) {
     setSkipEmptyParagraphs(true);
     if (page)

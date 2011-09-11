@@ -1,12 +1,14 @@
 add_executable(test_common
     test_common.cpp
     testcolor.cpp
+    testenvpaths.cpp
     testhelper.cpp
     testhistogram.cpp
     testiconv.cpp
     testlanguage.cpp
     testimage.cpp
     testimagerawdata.cpp
+    testpercentcounter.cpp
     testpoint.cpp
     testrect.cpp
     testsize.cpp

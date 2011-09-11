@@ -3,14 +3,18 @@
 
 import os, sys
 import zipfile
+import platform
 from subprocess import *
 from xml.dom import minidom
 import re
+import glob
 
 os.environ['CF_DATADIR'] = "@CMAKE_SOURCE_DIR@/datafiles"
+os.environ['PATH'] = os.environ['PATH'] + ":@CMAKE_BINARY_DIR@"
 
 # globals exe's and paths
 CUNEIFORM = "@CUNEIFORM_EXE@"
+CUNEIFORM_PROCESS = "@CUNEIFORM_PROCESS@"
 ACCSUM = "@CMAKE_BINARY_DIR@/cf_accsum"
 ACCURACY = "@CMAKE_BINARY_DIR@/cf_accuracy"
 IMAGEDIR = "@CMAKE_SOURCE_DIR@/images"
@@ -31,6 +35,18 @@ class bcolor:
         self.WARNING = ''
         self.FAIL = ''
         self.END = ''
+
+    @staticmethod
+    def clear():
+        bcolor.HEADER = ''
+        bcolor.OKBLUE = ''
+        bcolor.OK = ''
+        bcolor.WARNING = ''
+        bcolor.FAIL = ''
+        bcolor.END = ''
+
+if platform.system() == 'Windows':
+    bcolor.clear()
 
 
 class Tester:
@@ -68,6 +84,9 @@ class Tester:
     def addArg(self, arg):
         self._args.append(arg)
 
+    def addFail(self):
+        self._tests_failed += 1
+
     def addImage(self, img):
         self._images.append(img)
         
@@ -85,8 +104,15 @@ class Tester:
         if retcode != 0:
             print ' '.join(cmd)
         return retcode
+
+    def cuneiformProcess(self, args, **kwargs):
+        cmd = [CUNEIFORM_PROCESS] + args
+        retcode = call(cmd, **kwargs)
+        if retcode != 0:
+            print ' '.join(cmd)
+        return retcode
     
-    def cuneiformTest(self, img):
+    def cuneiformTest(self, img, process=False):
         if not os.path.exists(img):
             self.printError("image file not exists: %s\n" % img)
             return False
@@ -97,7 +123,11 @@ class Tester:
             
         self._output = self.makeOutput(img)
         
-        retcode = self.cuneiform(self.makeArgs(img), stdout=PIPE, stderr=PIPE)
+        if process:
+            retcode = self.cuneiformProcess(self.makeArgs(img), stdout=PIPE, stderr=PIPE)
+        else:
+            retcode = self.cuneiform(self.makeArgs(img), stdout=PIPE, stderr=PIPE)
+
         if retcode != 0:
             self.printFail(img, "")
             self._tests_failed += 1
@@ -189,11 +219,13 @@ class Tester:
             retcode = self.diff(sample_name, self._output, stdout=diff_output)
             
         if retcode != 0:
+            diff_output.close()
             self.printFail(img, '(difference found)')
             self._tests_failed += 1
             return False
         else:
             self._tests_passed += 1
+            diff_output.close()
             os.unlink(self._output)
             os.unlink(diff_name)
             return True
@@ -268,6 +300,9 @@ class Tester:
             name += self._format
         
         return name
+
+    def output(self):
+        return self._output
     
     def passed(self):
         return self._tests_failed == 0
@@ -322,4 +357,18 @@ class Tester:
             self._version = Popen([CUNEIFORM, '-V'], stdout=PIPE).communicate()[0].split()[-1]
         
         return self._version
+
+    def removeOutput(self, images, formats):
+        for img in images:
+            for format in formats:
+                fname = "%s.*.%s" % (os.path.splitext(os.path.basename(self.makeFullImageName(img)))[0], format)
+
+                for f in glob.glob(fname):
+                    os.unlink(f)
+                    print "File '%s' removed" % (f)
+
+                fname += ".diff"
+                for f in glob.glob(fname):
+                    os.unlink(f)
+                    print "File '%s' removed" % (f)
 

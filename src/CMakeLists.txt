@@ -44,6 +44,7 @@ add_subdirectory(rstr)
 add_subdirectory(rpstr)
 add_subdirectory(leo)
 add_subdirectory(lns)
+add_subdirectory(load)
 add_subdirectory(loc)
 add_subdirectory(mmx)
 add_subdirectory(msk)
@@ -83,6 +84,7 @@ install(FILES
     include/filestuff.h
     ${CMAKE_BINARY_DIR}/src/include/config.h
     ${CMAKE_BINARY_DIR}/src/include/config-user.h
+    ${CMAKE_BINARY_DIR}/src/include/config-serialize.h
     DESTINATION include/${CF_HEADER_INSTALL})
 
 

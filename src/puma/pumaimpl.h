@@ -66,7 +66,7 @@ class CLA_EXPO PumaImpl
         /**
           * Returns pointer to CEDPage
           */
-        CEDPage * cedPage();
+        CEDPagePtr cedPage();
 
         /**
          * Clears recognized output formatting
@@ -136,7 +136,7 @@ class CLA_EXPO PumaImpl
          */
         void setPageTemplate(const Rect& r);
         void setSpecialProject(special_project_t SpecialProject);
-    public:
+    private:
         static unsigned char * mainBuffer();
         static unsigned char * workBuffer();
         static const size_t MainBufferSize = 500000;
@@ -196,7 +196,7 @@ class CLA_EXPO PumaImpl
         Handle cpage_;
         Handle lines_ccom_;
         Handle cline_;
-        CEDPage * ed_page_;
+        CEDPagePtr ed_page_;
         Bool32 rc_line_;
         Bool32 kill_vsl_components_;
         Bool32 need_clean_line_;

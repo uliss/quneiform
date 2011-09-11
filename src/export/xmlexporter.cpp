@@ -23,7 +23,7 @@
 namespace cf
 {
 
-XmlExporter::XmlExporter(CEDPage * page, const FormatOptions& opts) :
+XmlExporter::XmlExporter(CEDPagePtr page, const FormatOptions& opts) :
     TextExporter(page, opts) {
     formatOptions().writeBom(false);
 }
