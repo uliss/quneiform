@@ -26,6 +26,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDSection);
 #include "ced/cedline.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedcolumn.h"
+#include "ced/cedframe.h"
 #include "ced/cedsection.h"
 #include "ced/cedarchive.h"
 

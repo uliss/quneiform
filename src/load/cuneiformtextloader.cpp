@@ -24,6 +24,7 @@
 #include "common/serialize.h"
 #include "ced/cedpage.h"
 #include "ced/cedsection.h"
+#include "ced/cedframe.h"
 #include "ced/cedcolumn.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedline.h"

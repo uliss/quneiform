@@ -22,6 +22,7 @@
 
 #include "cuneiformbinloader.h"
 #include "ced/cedpage.h"
+#include "ced/cedframe.h"
 #include "ced/cedsection.h"
 #include "ced/cedcolumn.h"
 #include "ced/cedparagraph.h"

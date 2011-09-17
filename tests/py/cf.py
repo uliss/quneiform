@@ -221,6 +221,7 @@ class Tester:
         if retcode != 0:
             diff_output.close()
             self.printFail(img, '(difference found)')
+            print ' '.join([CUNEIFORM] + self.makeArgs(img))
             self._tests_failed += 1
             return False
         else:

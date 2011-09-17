@@ -20,6 +20,7 @@
 #include "ced/cedpage.h"
 #include "ced/cedsection.h"
 #include "ced/cedcolumn.h"
+#include "ced/cedframe.h"
 #include "ced/cedparagraph.h"
 #include "ced/cedline.h"
 #include "ced/cedchar.h"

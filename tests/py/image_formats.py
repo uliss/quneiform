@@ -55,6 +55,8 @@ def test():
     for img in INPUT_FILES:
         fmtTest.cuneiformTest(fmtTest.makeFullImageName(img))
         
+    fmtTest.removeOutput(INPUT_FILES, ['textdebug'])
+
     if fmtTest.passed():
         return True
     else:

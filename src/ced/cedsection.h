@@ -107,6 +107,8 @@ class CLA_EXPO CEDSection: public BlockElement
         void serialize(Archive & ar, const unsigned int /*version*/) {
             using boost::serialization::make_nvp;
             ar.template register_type<CEDColumn>();
+            ar.template register_type<CEDFrame>();
+
             ar & make_nvp("block-element", boost::serialization::base_object<BlockElement>(*this));
             ar & make_nvp("header-y", header_y_);
             ar & make_nvp("footer-y", footer_y_);
