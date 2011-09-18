@@ -71,3 +71,8 @@ install(
         abstractrecognitionserver.h localrecognitionserver.h
     DESTINATION
         include/${CF_HEADER_INSTALL}/puma)
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
+endif()
