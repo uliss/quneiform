@@ -57,6 +57,7 @@ OdfExporter::OdfExporter(CEDPagePtr page, const FormatOptions& opts) :
     XmlExporter(page, opts),
     style_exporter_(new OdfStyleExporter(page, opts)),
     prev_char_style_hash_(0),
+    section_counter_(0),
     style_span_opened_(false)
 {
     ImageExporterPtr exp = ImageExporterFactory::instance().make();

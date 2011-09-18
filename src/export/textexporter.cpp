@@ -35,7 +35,9 @@ namespace cf
 TextExporter::TextExporter(CEDPagePtr page, const FormatOptions& opts) :
     GenericExporter(page, opts),
     lines_left_in_paragraph_(0),
-    elements_left_in_line_(0) {
+    elements_left_in_line_(0),
+    remove_last_line_hyphen_(false)
+{
 
     setSkipEmptyLines(true);
     setSkipEmptyParagraphs(true);
