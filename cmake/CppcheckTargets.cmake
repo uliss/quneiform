@@ -53,6 +53,8 @@ function(add_cppcheck _name)
         list(APPEND _cppcheck_args ${CPPCHECK_INCLUDEPATH_ARG} ${CMAKE_SOURCE_DIR}/src/hdebug)
         list(APPEND _cppcheck_args ${CPPCHECK_INCLUDEPATH_ARG} ${CMAKE_SOURCE_DIR}/src/hhh)
         list(APPEND _cppcheck_args ${CPPCHECK_INCLUDEPATH_ARG} ${CMAKE_SOURCE_DIR}/src/hh)
+        list(APPEND _cppcheck_args ${CPPCHECK_INCLUDEPATH_ARG} ${CMAKE_SOURCE_DIR}/gui)
+        list(APPEND _cppcheck_args ${CPPCHECK_INCLUDEPATH_ARG} ${CMAKE_SOURCE_DIR}/gui/widgets)
 
         list(FIND ARGN UNUSED_FUNCTIONS _unused_func)
         if("${_unused_func}" GREATER "-1")
