@@ -240,7 +240,6 @@ install(
 if(TESTS)
     include(CppcheckTargets)
     add_cppcheck(quneiform_lib UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
-    add_cppcheck(${PROJECT_NAME} UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
 endif()
 
 install(FILES ${TRANSLATIONS_QM} DESTINATION ${RELATIVE_DATADIR}/locale)
