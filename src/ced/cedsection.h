@@ -99,7 +99,7 @@ class CLA_EXPO CEDSection: public BlockElement
 
         CEDParagraph * createParagraph(BlockElement * container, align_t align, const Rect& indent,
                 int UserNum, int FlagBorder, const Rect& layout,
-                const Color& color, const Color& bgrnd, int spaceBetweenLines);
+                const Color& color, const Color& bgrnd);
 
 #ifdef CF_SERIALIZE
         friend class boost::serialization::access;

@@ -241,7 +241,7 @@ CEDParagraph * CRtfChar::insertCedDropCap(SectorInfo * sector, int font_name, in
     Color shading = negative ? Color(0, 0, 0) : Color::null();
 
     CEDParagraph * drop_cap_par = sector->hEDSector->createParagraph(frame, ALIGN_RIGHT, slayout,
-            0, -1, playout, Color::null(), shading, -1);
+            0, -1, playout, Color::null(), shading);
     CEDLine * ced_line = new CEDLine(NULL, false, 6);
     drop_cap_par->addLine(ced_line);
     CEDChar * ced_char = toCedChar(font_name, font_size, font_style);
