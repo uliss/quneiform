@@ -388,11 +388,12 @@ CharAlternatives::CharAlternatives(const QVariant& var) {
     *this = var;
 }
 
-void CharAlternatives::operator=(const QVariant& var) {
+CharAlternatives& CharAlternatives::operator=(const QVariant& var) {
     if(!var.canConvert<CharAlternatives>()) {
         CF_WARNING("invalid alternative variant given");
-        return;
+        return *this;
     }
 
     *this = var.value<CharAlternatives>();
+    return *this;
 }

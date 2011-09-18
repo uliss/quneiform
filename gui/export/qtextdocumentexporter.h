@@ -40,7 +40,7 @@ class CharAlternatives : public QList<CharAlternative> {
 public:
     CharAlternatives() {}
     CharAlternatives(const QVariant& var);
-    void operator=(const QVariant& var);
+    CharAlternatives& operator=(const QVariant& var);
 
     void add(QChar ch, uchar prob) {
         append(CharAlternative(ch, prob));

@@ -259,7 +259,7 @@ void CEDPageExporter::exportParagraph(const QTextBlock& block, cf::CEDColumn * c
     cf::CEDParagraph * p = new cf::CEDParagraph;
     cf::CEDLine * l = new cf::CEDLine;
     p->addLine(l);
-    for(QTextBlock::iterator it = block.begin(), end = block.end(); it != end; it++) {
+    for(QTextBlock::iterator it = block.begin(), end = block.end(); it != end; ++it) {
         QTextFragment fragment = it.fragment();
         if(fragment.length() == 1)
             exportChar(fragment, l);

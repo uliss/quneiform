@@ -25,7 +25,9 @@
 #include "pagelayout.h"
 #include "page.h"
 
-PageLayout::PageLayout() {
+PageLayout::PageLayout()
+    : page_(NULL)
+{
     chars_ = new QGraphicsItemGroup();
     addToGroup(chars_);
 
