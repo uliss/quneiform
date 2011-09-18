@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 2.6.0)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
  
+enable_testing()
+
 include(outtree)
 include(build_number)
 include(version)
@@ -77,7 +79,5 @@ else()
 endif()
 
 add_subdirectory(utils)
-
-ENABLE_TESTING()
 add_subdirectory(tests)
 

@@ -43,3 +43,8 @@ target_link_libraries(cuneiform-alphabets
     cuneiform-compat 
     cuneiform-common
 )
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-alphabets UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
+endif()

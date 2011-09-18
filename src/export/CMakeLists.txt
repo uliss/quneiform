@@ -80,3 +80,8 @@ install(
         exporter.h imageexporter.h exporterfactory.h
     DESTINATION
         include/${CF_HEADER_INSTALL}/${EXPORT_HEADER_INSTALL})
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-export UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
+endif()
