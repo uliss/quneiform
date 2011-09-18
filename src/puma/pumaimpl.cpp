@@ -520,10 +520,9 @@ void PumaImpl::modulesInit() {
         if (!RCORRKEGL_Init(PUMA_MODULE_RCORRKEGL, NULL))
             throw PumaException("CORRKEGL_Init failed.");
     }
-
     catch (PumaException& e) {
         modulesDone();
-        throw e;
+        throw;
     }
 }
 
