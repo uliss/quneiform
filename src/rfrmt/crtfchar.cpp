@@ -238,10 +238,11 @@ CEDParagraph * CRtfChar::insertCedDropCap(SectorInfo * sector, int font_name, in
     CEDFrame * frame = new CEDFrame(NULL, CEDFrame::HPOS_COLUMN, CEDFrame::VPOS_PAGE);
     sector->hColumn->addElement(frame);
 
-    Color shading = negative ? Color(0, 0, 0) : Color::null();
-
     CEDParagraph * drop_cap_par = sector->hEDSector->createParagraph(frame, ALIGN_RIGHT, slayout,
-            0, -1, playout, Color::null(), shading);
+            0, -1, playout);
+
+    Color shading = negative ? Color(0, 0, 0) : Color::null();
+    drop_cap_par->setBackgroundColor(shading);
     CEDLine * ced_line = new CEDLine(NULL, false, 6);
     drop_cap_par->addLine(ced_line);
     CEDChar * ced_char = toCedChar(font_name, font_size, font_style);

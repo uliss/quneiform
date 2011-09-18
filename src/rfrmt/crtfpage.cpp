@@ -664,8 +664,7 @@ void CRtfPage::writeUsingFrames() {
         Rect indent;
 
         CEDParagraph * ced_par = SectorInfo->hEDSector->createParagraph(SectorInfo->hObject,
-                ALIGN_LEFT, indent, SectorInfo->userNum, -1, playout, Color::null(),
-                Color::null());
+                ALIGN_LEFT, indent, SectorInfo->userNum, -1, playout);
         CEDLine * ced_str = new CEDLine(NULL, false, 6);
         ced_par->addLine(ced_str);
     }

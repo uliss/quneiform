@@ -85,16 +85,13 @@ void CEDSection::setSectionBreak(bool value) {
 }
 
 CEDParagraph * CEDSection::createParagraph(BlockElement * cont, align_t align, const Rect& indent,
-        int UserNum, int FlagBorder, const Rect& layout, const Color& color,
-        const Color& shading) {
+        int UserNum, int FlagBorder, const Rect& layout) {
     CEDParagraph * para = new CEDParagraph;
     cont->addElement(para);
     para->setAlign(align);
     para->setPaddingLeft(indent.x());
     para->setPaddingRight(indent.pt1().x());
     para->setIndent(indent.y());
-    para->setColor(color);
-    para->setBackgroundColor(shading);
     para->setBoundingRect(layout);
     para->setUserNumber(UserNum);
     return para;
