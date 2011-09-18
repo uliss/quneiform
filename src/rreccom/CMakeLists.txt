@@ -14,3 +14,8 @@ target_link_libraries(cuneiform-rreccom
     cuneiform-compat)
 
 library_hook(cuneiform-rreccom)
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-rreccom UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
+endif()
