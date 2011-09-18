@@ -100,7 +100,6 @@ CEDParagraph * CEDSection::createParagraph(BlockElement * cont, align_t align, c
     para->setUserNumber(UserNum);
     para->setMarginBottom(interval.cy);
     para->setMarginTop(interval.cx);
-    para->border = FlagBorder;
     return para;
 }
 

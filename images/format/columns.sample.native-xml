@@ -13184,7 +13184,6 @@
 													<padding-left>0</padding-left>
 													<padding-right>0</padding-right>
 													<user-number>-1</user-number>
-													<border>-1</border>
 												</px>
 											</item>
 										</children>
@@ -24811,7 +24810,6 @@
 													<padding-left>0</padding-left>
 													<padding-right>0</padding-right>
 													<user-number>-1</user-number>
-													<border>-1</border>
 												</px>
 											</item>
 											<item>
@@ -24924,7 +24922,6 @@
 													<padding-left>0</padding-left>
 													<padding-right>0</padding-right>
 													<user-number>-1</user-number>
-													<border>-1</border>
 												</px>
 											</item>
 										</children>

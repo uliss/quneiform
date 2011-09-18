@@ -19,9 +19,6 @@
 #ifndef CEDPARAGRAPH_H_
 #define CEDPARAGRAPH_H_
 
-#include <vector>
-#include <boost/shared_ptr.hpp>
-
 #include "globus.h"
 #include "blockelement.h"
 #include "common/color.h"
@@ -37,8 +34,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
 {
     public:
         CEDParagraph();
-
-        int border; //  frame around abzattsa
 
         /**
          * Adds line to the end of paragraph
@@ -128,7 +123,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
             ar & make_nvp("padding-left", padding_left_);
             ar & make_nvp("padding-right", padding_right_);
             ar & make_nvp("user-number", user_number_);
-            ar & make_nvp("border", border);
         }
 #endif
     private:
