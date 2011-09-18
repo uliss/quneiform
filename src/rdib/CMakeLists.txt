@@ -43,3 +43,8 @@ install(FILES
     imageloader.h
     qtimageloader.h
     DESTINATION include/${CF_HEADER_INSTALL}/rdib)
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-rdib UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
+endif()
