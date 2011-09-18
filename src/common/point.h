@@ -116,21 +116,15 @@ class PointImpl
         }
 
         PointImpl operator+(const PointImpl& pt) const {
-            //OverflowChecker::template check<T>(x_ + pt.x_);
-            //OverflowChecker::template check<T>(y_ + pt.y_);
             return PointImpl(x_ + pt.x_, y_ + pt.y_);
         }
 
         PointImpl operator-(const PointImpl& pt) const {
-            //UnderflowChecker::template check<T>(x_ - pt.x_);
-            //UnderflowChecker::template check<T>(y_ - pt.y_);
             return PointImpl(x_ - pt.x_, y_ - pt.y_);
         }
 
         template<class U>
         PointImpl& operator+=(const PointImpl<U>& pt) {
-            //OverflowChecker::template check<T>(x_ + pt.x());
-            //OverflowChecker::template check<T>(y_ + pt.y());
             x_ += pt.x();
             y_ += pt.y();
             return *this;
@@ -138,38 +132,31 @@ class PointImpl
 
         template<class U>
         PointImpl& operator-=(const PointImpl<U>& pt) {
-            //UnderflowChecker::template check<T>(x_ - pt.x());
-            //UnderflowChecker::template check<T>(y_ - pt.y());
             x_ -= pt.x();
             y_ -= pt.y();
             return *this;
         }
 
         PointImpl& operator+=(T offset) {
-            //OverflowChecker::template check<T>(x_ + offset);
-            //OverflowChecker::template check<T>(y_ + offset);
             x_ += offset;
             y_ += offset;
             return *this;
         }
 
         PointImpl& operator-=(T offset) {
-            //UnderflowChecker::template check<T>(x_ - offset);
-            //UnderflowChecker::template check<T>(y_ - offset);
             x_ -= offset;
             y_ -= offset;
             return *this;
         }
 
-        void operator=(const PointImpl<T>& pt) {
+        PointImpl& operator=(const PointImpl<T>& pt) {
             x_ = pt.x_;
             y_ = pt.y_;
+            return *this;
         }
 
         template<class U>
         void operator=(const PointImpl<U>& pt) {
-            //OverflowChecker::template check<T>(pt.x());
-            //OverflowChecker::template check<T>(pt.y());
             x_ = pt.x();
             y_ = pt.y();
         }
