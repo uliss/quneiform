@@ -52,5 +52,5 @@ install(
 
 if(TESTS)
     include(CppcheckTargets)
-    add_cppcheck(cuneiform-ced UNUSED_FUNCTIONS STYLE FAIL_ON_WARNINGS)
+    add_cppcheck(cuneiform-ced UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FAIL_ON_WARNINGS)
 endif()

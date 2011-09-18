@@ -138,6 +138,11 @@ function(add_cppcheck _name)
 	if(CPPCHECK_FOUND)
 		set(_cppcheck_args)
 
+               list(APPEND _cppcheck_args ${CPPCHECK_INCLUDEPATH_ARG} ${CMAKE_SOURCE_DIR}/src/include)
+               list(APPEND _cppcheck_args ${CPPCHECK_INCLUDEPATH_ARG} ${CMAKE_SOURCE_DIR}/src/h)
+               list(APPEND _cppcheck_args ${CPPCHECK_INCLUDEPATH_ARG} ${CMAKE_SOURCE_DIR}/src)
+               list(APPEND _cppcheck_args ${CPPCHECK_INCLUDEPATH_ARG} ${CMAKE_BINARY_DIR}/src/include)
+
 		list(FIND ARGN UNUSED_FUNCTIONS _unused_func)
 		if("${_unused_func}" GREATER "-1")
 			list(APPEND _cppcheck_args ${CPPCHECK_UNUSEDFUNC_ARG})
