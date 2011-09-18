@@ -39,7 +39,6 @@ class CLA_EXPO CEDParagraph: public BlockElement
         CEDParagraph();
 
         int border; //  frame around abzattsa
-        char spcBtwLnsMult;
 
         /**
          * Adds line to the end of paragraph
