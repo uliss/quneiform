@@ -1,22 +1,22 @@
 add_library(cuneiform-rfrmt ${LIBTYPE}
-crtfchar.cpp
-crtffragment.cpp
-crtffunc.cpp
-crtfpage.cpp
-crtfsector.cpp
-crtfstring.cpp
-crtfhorizontalcolumn.cpp
-crtfverticalcolumn.cpp
-crtfword.cpp
-formatdebug.cpp
-formatter.cpp
-frmtfile.cpp
-frmtpict.cpp
-pagetree.cpp
-rfrmtoptions.cpp
-sort_int.cpp
-util_lst.cpp
-util_spl.cpp
+    crtfchar.cpp
+    crtffragment.cpp
+    crtffunc.cpp
+    crtfpage.cpp
+    crtfsector.cpp
+    crtfstring.cpp
+    crtfhorizontalcolumn.cpp
+    crtfverticalcolumn.cpp
+    crtfword.cpp
+    formatdebug.cpp
+    formatter.cpp
+    frmtfile.cpp
+    frmtpict.cpp
+    pagetree.cpp
+    rfrmtoptions.cpp
+    sort_int.cpp
+    util_lst.cpp
+    util_spl.cpp
 )
 
 cif_visibility_hidden(cuneiform-rfrmt)
@@ -51,3 +51,8 @@ target_link_libraries(cuneiform-rfrmt
 )
 
 library_hook(cuneiform-rfrmt)
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-rfrmt UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
+endif()
