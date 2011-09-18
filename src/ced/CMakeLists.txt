@@ -49,3 +49,8 @@ install(
     DESTINATION
         include/${CF_HEADER_INSTALL}/${CED_HEADER_INSTALL}
 )
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-ced UNUSED_FUNCTIONS STYLE FAIL_ON_WARNINGS)
+endif()
