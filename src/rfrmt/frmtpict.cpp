@@ -319,16 +319,13 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
 
         PCTDIB pTmpDIB = new CTDIB;
         pTmpDIB->SetDIBbyPtr(pOutDIB);
-        EDSIZE pictGoal;
-        pictGoal.cx = pTmpDIB->GetLineWidth();
-        pictGoal.cy = pTmpDIB->GetLinesNumber();
+        cf::Size pictGoal;
+        pictGoal.rwidth() = pTmpDIB->GetLineWidth();
+        pictGoal.rheight() = pTmpDIB->GetLinesNumber();
         int32_t iDIBSize = pTmpDIB->GetDIBSize();
         delete pTmpDIB;
         Rect indent;
         Rect playout;
-        EDSIZE interval;
-        interval.cx = 0;
-        interval.cy = 0;
         Lr.rx() = MAX(0, Lr.x());
         Lr.ry() = MAX(0, Lr.y());
 
@@ -341,7 +338,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
 
         if (SectorInfo->FlagInColumn || (OutPutTypeFrame && SectorInfo->FlagFictiveParagraph)) {
             CEDParagraph * par = SectorInfo->hEDSector->createParagraph(SectorInfo->hColumn,
-                    ALIGN_NONE, indent, SectorInfo->userNum, -1, interval, playout, Color::null(),
+                    ALIGN_NONE, indent, SectorInfo->userNum, -1, playout, Color::null(),
                     Color::null(), -1);
             par->addLine(new CEDLine(NULL, false, 6));
             SectorInfo->FlagFictiveParagraph = FALSE;
@@ -379,7 +376,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         }
 
         CEDParagraph * ced_par = SectorInfo->hEDSector->createParagraph(SectorInfo->hObject,
-                ALIGN_NONE, indent, SectorInfo->userNum, -1, interval, playout, Color::null(),
+                ALIGN_NONE, indent, SectorInfo->userNum, -1, playout, Color::null(),
                 Color::null(), -1);
         CEDLine * ced_line = new CEDLine;
         // TODO hard coded font value

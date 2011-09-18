@@ -71,11 +71,6 @@
 #define CED_FUNC  FUN_IMPO__
 #endif
 
-typedef struct edSize
-{
-        int32_t cx, cy;
-} EDSIZE;
-
 typedef struct edCol
 {
         int32_t width, space;

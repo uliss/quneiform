@@ -40,6 +40,7 @@ set(COMMON_HEADERS
     image.h
     imagerawdata.h
     imageformats.h
+    interval.h
     letter.h
     rect.h
     percentcounter.h

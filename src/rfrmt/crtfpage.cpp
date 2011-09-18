@@ -660,14 +660,11 @@ void CRtfPage::writeUsingFrames() {
     SectorInfo->Offset.set(0, 0);
 
     if (CountFragments) {
-        EDSIZE interval;
-        interval.cx = 0;
-        interval.cy = 0;
         Rect playout;
         Rect indent;
 
         CEDParagraph * ced_par = SectorInfo->hEDSector->createParagraph(SectorInfo->hObject,
-                ALIGN_LEFT, indent, SectorInfo->userNum, -1, interval, playout, Color::null(),
+                ALIGN_LEFT, indent, SectorInfo->userNum, -1, playout, Color::null(),
                 Color::null(), -1);
         CEDLine * ced_str = new CEDLine(NULL, false, 6);
         ced_par->addLine(ced_str);

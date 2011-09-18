@@ -94,11 +94,9 @@ Bool CRtfSector::Write() {
 
     Rect indent;
     Rect playout;
-    EDSIZE interval;
-    interval.cx = 0;
-    interval.cy = SectorInfo.InterSectorDist;
     CEDParagraph * par = SectorInfo.hEDSector->createParagraph(SectorInfo.hColumn, ALIGN_LEFT,
-            indent, SectorInfo.userNum, -1, interval, playout, Color::null(), Color::null(), -1);
+            indent, SectorInfo.userNum, -1, playout, Color::null(), Color::null(), -1);
+    par->setMarginBottom(SectorInfo.InterSectorDist);
 
     if (m_bFlagLine == TRUE) {
         par->setBorderTop(ED_BRDR_SINGLE);
