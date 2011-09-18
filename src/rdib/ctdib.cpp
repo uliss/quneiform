@@ -397,7 +397,6 @@ uint32_t CTDIB::UsedColors(uint32_t wBitCount, uint32_t wClrUsed) {
         case 0:
             RGBCount = 0;
             break;
-            RGBCount = 0;
         case 1:
             RGBCount = 2;
             break;
@@ -667,8 +666,8 @@ Bool32 CTDIB::SetFuelLineFromDIB(CTDIB * pSrcDIB, uint32_t nSrcLine, uint32_t nD
     if (pSrcDIB->GetPixelSize() != this->GetPixelSize())
         return FALSE;
 
-    uint32_t t = pSrcDIB->GetUsedLineWidthInBytes() > this->GetUsedLineWidthInBytes() + ((wSrcX
-            * GetPixelSize()) / 8) ? 1 : 0;
+    uint32_t t = (pSrcDIB->GetUsedLineWidthInBytes() > this->GetUsedLineWidthInBytes() + ((wSrcX
+            * GetPixelSize()) / 8)) ? 1 : 0;
 
     switch (this->GetPixelSize()) {
     case 1:
