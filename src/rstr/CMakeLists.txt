@@ -134,3 +134,8 @@ if(TESTS)
         cuneiform-rbal
     )
 endif()
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-rstr UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
+endif()
