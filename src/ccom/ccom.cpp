@@ -1195,7 +1195,7 @@ CCOM_handle CCOM_Restore(void)
 
             ub = static_cast<CCOM_USER_BLOCK*> (calloc(1, sizeof(CCOM_USER_BLOCK)));
 
-            if (ub) {
+            if (ub == NULL) {
                 wLowRC = CCOM_ERR_NOMEMORY;
                 return (CCOM_handle) NULL;
             }
