@@ -74,3 +74,8 @@ install(FILES
     DESTINATION include/${CF_HEADER_INSTALL}/common)
 
 library_hook(cuneiform-common) 
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-common UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
+endif()
