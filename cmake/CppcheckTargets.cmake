@@ -1,7 +1,12 @@
 # - Run cppcheck on c++ source files as a custom target and a test
 #
 #  include(CppcheckTargets)
-#  add_cppcheck(<target-name> [UNUSED_FUNCTIONS] [STYLE] [POSSIBLE_ERROR] [FAIL_ON_WARNINGS]) -
+#  add_cppcheck(<target-name> [UNUSED_FUNCTIONS]
+#                             [STYLE]
+#                             [POSSIBLE_ERROR]
+#                             [FAIL_ON_WARNINGS]
+#                             [FORCE]
+#                             [QUIET]) -
 #    Create a target to check a target's sources with cppcheck and the indicated options
 #
 # Requires these CMake modules:
@@ -71,6 +76,16 @@ function(add_cppcheck _name)
             list(APPEND _cppcheck_args ${CPPCHECK_POSSIBLEERROR_ARG})
         endif()
 
+        list(FIND ARGN QUIET _quit)
+        if("${_quit}" GREATER "-1")
+            list(APPEND _cppcheck_args ${CPPCHECK_QUIET_ARG})
+        endif()
+
+        list(FIND ARGN FORCE _force)
+        if("${_force}" GREATER "-1")
+            list(APPEND _cppcheck_args "--force")
+        endif()
+
         list(FIND _input FAIL_ON_WARNINGS _fail_on_warn)
         if("${_fail_on_warn}" GREATER "-1")
             list(APPEND
@@ -95,8 +110,6 @@ function(add_cppcheck _name)
             COMMAND
             "${CPPCHECK_EXECUTABLE}"
             ${CPPCHECK_TEMPLATE_ARG}
-            ${CPPCHECK_QUIET_ARG}
-            "--force"
             ${_cppcheck_args}
             ${_files})
 

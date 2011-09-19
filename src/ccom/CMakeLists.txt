@@ -5,3 +5,8 @@ ccom.cpp
 ccom_loc.cpp)
 
 library_hook(cuneiform-ccom)
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-ccom UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
+endif()
