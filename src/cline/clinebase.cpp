@@ -54,12 +54,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
+#include <ctime>
 
 # include "dpuma.h"
 # include "lcline.h"
-# include "time.h"
 
 #include "compat_defs.h"
 
