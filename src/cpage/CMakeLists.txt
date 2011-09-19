@@ -22,3 +22,8 @@ target_link_libraries(cuneiform-cpage
 )
 
 library_hook(cuneiform-cpage)
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-cpage UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
+endif()
