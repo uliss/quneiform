@@ -1147,21 +1147,21 @@ Bool32 CCOM_Backup(CCOM_handle hcont)
 
 CCOM_handle CCOM_Restore(void)
 {
-    FILE *fp;
+
     CCOM_comp cur, *real_comp;
-    CCOM_handle hnd;
     CCOM_USER_BLOCK *ub;
     int32_t zub;
-    hnd = CCOM_CreateContainer();
+    CCOM_handle hnd = CCOM_CreateContainer();
 
-    if (hnd == (CCOM_handle) NULL)
-        return (CCOM_handle) NULL;
+    if (hnd == NULL)
+        return NULL;
 
-    fp = fopen(CCOM_DAT, "rb");
+    FILE * fp = fopen(CCOM_DAT, "rb");
 
     if (!fp) {
         wLowRC = CCOM_ERR_FILEACCESS;
-        return (CCOM_handle) NULL;
+        CCOM_DeleteContainer(hnd);
+        return NULL;
     }
 
     while (1) {
@@ -1187,7 +1187,7 @@ CCOM_handle CCOM_Restore(void)
         while (1) {
             if (fread(&zub, 4, 1, fp) != 1) {
                 wLowRC = CCOM_ERR_FILEACCESS;
-                return (CCOM_handle) NULL;
+                return NULL;
             }
 
             if (zub == 0)
@@ -1197,26 +1197,30 @@ CCOM_handle CCOM_Restore(void)
 
             if (ub == NULL) {
                 wLowRC = CCOM_ERR_NOMEMORY;
-                return (CCOM_handle) NULL;
+                return NULL;
             }
 
             ub->code = zub;
 
             if (fread(&ub->size, 4, 1, fp) != 1) {
                 wLowRC = CCOM_ERR_FILEACCESS;
-                return (CCOM_handle) NULL;
+                free(ub);
+                return NULL;
             }
 
             ub->data = static_cast<uchar*> (calloc(1, ub->size));
 
-            if (ub->data) {
+            if (ub->data == NULL) {
                 wLowRC = CCOM_ERR_NOMEMORY;
-                return (CCOM_handle) NULL;
+                free(ub);
+                return NULL;
             }
 
             if (fread(ub->data, ub->size, 1, fp) != 1) {
                 wLowRC = CCOM_ERR_FILEACCESS;
-                return (CCOM_handle) NULL;
+                free(ub->data);
+                free(ub);
+                return NULL;
             }
 
             CCOM_SetUserBlock(real_comp, ub);
