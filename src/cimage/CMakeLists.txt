@@ -21,3 +21,8 @@ target_link_libraries(cuneiform-cimage
 library_hook(cuneiform-cimage)
 
 install(FILES imageinfo.h DESTINATION include/${CF_HEADER_INSTALL}/cimage)
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-cimage UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
+endif()
