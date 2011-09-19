@@ -6,3 +6,8 @@ set_property(TARGET cuneiform-cstr PROPERTY COMPILE_DEFINITIONS __CSTR__)
 target_link_libraries(cuneiform-cstr cuneiform-ccom)
 
 library_hook(cuneiform-cstr)
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-cstr UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
+endif()
