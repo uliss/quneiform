@@ -151,42 +151,6 @@ elseif(MSVC)
 	list(APPEND EXTRA_RES ${CMAKE_CURRENT_SOURCE_DIR}/resources/win_quneiform.rc)
 endif()
 
-if(APPLE)
-    set(CMAKE_BUNDLE_NAME ${PROJECT_NAME})
-    set(MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_NAME})
-    set(MACOSX_BUNDLE_INFO_STRING "Optical recognition software")
-    set(MACOSX_BUNDLE_COPYRIGHT "(c) 2010-2011 Serge Poltavski")
-    set(MACOSX_BUNDLE_GUI_IDENTIFIER "https://github.com/uliss/quneiform")
-    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${PROJECT_NAME} ${CF_BUILD_NUMBER}")
-    set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${QUNEIFORM_VERSION})
-    set(MACOSX_BUNDLE_BUNDLE_VERSION ${QUNEIFORM_VERSION})
-
-    # setting bundle icon
-    set(ICON cuneiform.icns)
-    set(ICON_SRC "${CMAKE_CURRENT_SOURCE_DIR}/resources/${ICON}")
-    # include the icns file in the target
-    list(APPEND EXTRA_RES ${ICON_SRC})
-
-    set(MACOSX_BUNDLE_ICON_FILE ${ICON})
-    set(CPACK_BUNDLE_ICON ${ICON_SRC})
-    set(CPACK_PACKAGE_ICON ${ICON_SRC})
-
-    # where to place resources
-    set_source_files_properties(
-        ${ICON_SRC}
-        ${TRANSLATIONS_QM}
-        PROPERTIES
-        MACOSX_PACKAGE_LOCATION Resources
-    )
-
-    # bundle l10n
-    add_custom_target(osx_l10n_dirs
-        COMMAND mkdir -p "${CMAKE_BINARY_DIR}/Quneiform.app/Contents/Resources/ru.lproj"
-        COMMAND cp "${CMAKE_CURRENT_SOURCE_DIR}/resources/ru.locversion.plist"
-                    "${CMAKE_BINARY_DIR}/Quneiform.app/Contents/Resources/ru.lproj/locversion.plist"
-    )
-endif()
-
 add_subdirectory(spell)
 
 if(APPLE)
@@ -195,7 +159,7 @@ endif()
 
 add_library(quneiform_lib STATIC ${SRCS})
 
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
+add_executable(${PROJECT_NAME} WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
 
 set(EXTRA_LIBS)
 if(NOT MSVC)
@@ -214,22 +178,6 @@ target_link_libraries (${PROJECT_NAME}
     ${QT_LIBRARIES}
     cuneiform
     ${EXTRA_LIBS})
-
-if(APPLE)
-    add_dependencies(${PROJECT_NAME} osx_l10n_dirs)
-
-    set_target_properties(${PROJECT_NAME}
-        PROPERTIES
-        OUTPUT_NAME ${CMAKE_BUNDLE_NAME})
-
-    set_target_properties(${PROJECT_NAME}
-        PROPERTIES
-        MACOSX_BUNDLE_INFO_PLIST
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/Info.plist.in)
-
-    set(CMAKE_INSTALL_DESTINATION_ARGS
-        BUNDLE DESTINATION "/Applications")
-endif()
 
 install(
     TARGETS ${PROJECT_NAME}

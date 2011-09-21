@@ -23,11 +23,33 @@ if(WIN32)
 endif()
 
 if(APPLE)
-    set(CPACK_GENERATOR "PackageMaker")
-    set(CPACK_PACKAGE_NAME "Quneiform")
+    set(CPACK_GENERATOR "Bundle")
+    set(CPACK_BUNDLE_NAME "Quneiform")
+
+    set(MACOSX_BUNDLE_BUNDLE_NAME ${CPACK_BUNDLE_NAME})
+    set(MACOSX_BUNDLE_BUNDLE_VERSION ${CF_VERSION})
+    set(MACOSX_BUNDLE_COPYRIGHT "(c) 2010-2011 Serge Poltavski")
+    set(MACOSX_BUNDLE_EXECUTABLE_NAME "Quneiform")
+    set(MACOSX_BUNDLE_ICON_FILE "Quneiform.icns")
+    set(MACOSX_BUNDLE_INFO_STRING "Optical recognition software")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "https://github.com/uliss/quneiform")
+    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${CPACK_BUNDLE_NAME} ${CF_BUILD_NUMBER}")
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${CF_VERSION})
+
+    configure_file(${CMAKE_SOURCE_DIR}/cmake/Info.plist.in ${CMAKE_BINARY_DIR}/Info.plist)
+
+    set(CPACK_PACKAGE_NAME ${CPACK_BUNDLE_NAME})
+    set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/gui/resources/cuneiform.icns")
+
+    set(CPACK_BUNDLE_ICON "${CMAKE_SOURCE_DIR}/gui/resources/cuneiform.icns")
+    set(CPACK_BUNDLE_PLIST ${CMAKE_BINARY_DIR}/Info.plist)
+    set(CPACK_BUNDLE_STARTUP_COMMAND ${CMAKE_SOURCE_DIR}/cmake/MacOSX.sh)
+
     set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/doc/README.mac.txt")
     set(CPACK_RESOURCE_FILE_WELCOME "${CMAKE_SOURCE_DIR}/doc/WELCOME.mac.txt")
+
     set(CPACK_SET_DESTDIR OFF)
+
 elseif(UNIX AND NOT APPLE)
     set(CPACK_GENERATOR "DEB;TBZ2;TGZ")
     set(CPACK_STRIP_FILES "bin/cuneiform")

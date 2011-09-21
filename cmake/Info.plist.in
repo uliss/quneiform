@@ -32,10 +32,5 @@
     <false/>
     <key>NSHumanReadableCopyright</key>
     <string>${MACOSX_BUNDLE_COPYRIGHT}</string>
-    <key>LSEnvironment</key>
-    <dict>
-        <key>CF_DATADIR</key>
-        <string>/usr/share/cuneiform</string>
-    </dict>
 </dict>
 </plist>
