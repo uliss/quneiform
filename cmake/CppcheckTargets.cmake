@@ -31,7 +31,7 @@ endif()
 set(__add_cppcheck YES)
 
 if(NOT CPPCHECK_FOUND)
-    find_package(cppcheck)
+    find_package(cppcheck QUIET)
 endif()
 
 if(CPPCHECK_FOUND)
