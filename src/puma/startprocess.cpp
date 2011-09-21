@@ -44,7 +44,7 @@
 namespace cf {
 
 #ifdef _WIN32
-int startProcess(const std::string& program, const StringList& params) {
+int startProcess(const std::string& program, const StringList& params, int timeout) {
     std::string cmd = program;
     for(size_t i = 0; i < params.size(); i++)
         cmd += " " + params[i];
@@ -85,9 +85,12 @@ int startProcess(const std::string& program, const StringList& params) {
         // Close handles to the child process and its primary thread.
         // Some applications might keep these handles to monitor the status
         // of the child process, for example.
-        static const int TIMEOUT = 10 * 1000;
+        const int TIMEOUT = timeout * 1000;
 
-        DWORD status = WaitForSingleObject(piProcInfo.hProcess, TIMEOUT);
+        DWORD status = 0;
+
+        if(TIMEOUT > 0)
+            status = WaitForSingleObject(piProcInfo.hProcess, TIMEOUT);
 
 //        CloseHandle(piProcInfo.hProcess);
 //        CloseHandle(piProcInfo.hThread);
@@ -96,7 +99,7 @@ int startProcess(const std::string& program, const StringList& params) {
     return 0;
 }
 #else
-int startProcess(const std::string& program, const StringList& params)
+int startProcess(const std::string& program, const StringList& params, int timeout)
 {
     if(!fs::fileExists(program)) {
         CF_ERROR << " program not exists: " << program << "\n";
@@ -120,9 +123,9 @@ int startProcess(const std::string& program, const StringList& params)
         Debug() << "\n";
 
         // parent
-        static const int TIMEOUT = 10; //seconds
-        ProcessTimeoutKiller watchdog(child_pid, TIMEOUT);
-        watchdog.start();
+        ProcessTimeoutKiller watchdog(child_pid, timeout);
+        if(timeout > 0)
+            watchdog.start();
 
         int status;
         int res = waitpid(child_pid, &status, 0);

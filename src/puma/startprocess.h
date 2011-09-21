@@ -26,7 +26,15 @@ namespace cf {
 
 typedef std::vector<std::string> StringList;
 
-int startProcess(const std::string& program, const StringList& params);
+/**
+  * Starts program in different process
+  * @param program - program path
+  * @param params - list of arguments
+  * @param timeout - after what time (in seconds) started programm will be killed, if hangs
+  *                  pass 0 to wait forever
+  * @return exit code - @see WorkerExitValues
+  */
+int startProcess(const std::string& program, const StringList& params, int timeout = 20);
 
 }
 
