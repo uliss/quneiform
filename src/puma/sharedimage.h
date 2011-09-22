@@ -75,7 +75,7 @@ private:
     void copyData(ImagePtr img);
     void copyInfo(ImagePtr img);
 private:
-    static const size_t MAX_SIZE = 1024 * 1024 * 25;
+    static const size_t MAX_SIZE = 1024 * 1024 * 50;
     static const size_t MAX_NAME = 1024;
 private:
     unsigned char data_[MAX_SIZE];
