@@ -39,10 +39,24 @@ public:
     CEDPagePtr recognize(ImagePtr image,
                          const RecognizeOptions& ropts,
                          const FormatOptions& fopts);
+
+    /**
+      * Sets worker timeout in seconds. After timeout expire, worker
+      * process will be killed
+      * @param sec <= 0 means no timeout
+      */
+    void setWorkerTimeout(int sec);
+
+    /**
+      * Returns worker process timeout
+      */
+    int workerTimeout() const;
 private:
     bool processWorkerReturnCode(int code);
     bool startWorker(ImagePtr image, const std::string& key);
     std::string workerPath() const;
+private:
+    int worker_timeout_;
 };
 
 }

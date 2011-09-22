@@ -74,6 +74,7 @@ static const std::string makeKey() {
 namespace cf {
 
 ProcessRecognitionServer::ProcessRecognitionServer()
+    : worker_timeout_(20)
 {
     CF_INFO("constructed");
 }
@@ -176,6 +177,11 @@ bool ProcessRecognitionServer::processWorkerReturnCode(int code)
     return true;
 }
 
+void ProcessRecognitionServer::setWorkerTimeout(int sec)
+{
+    worker_timeout_ = sec;
+}
+
 bool ProcessRecognitionServer::startWorker(ImagePtr image, const std::string& key) {
     if(counter_)
         counter_->reset();
@@ -192,7 +198,7 @@ bool ProcessRecognitionServer::startWorker(ImagePtr image, const std::string& ke
         return false;
     }
 
-    int code = startProcess(exe_path, params);
+    int code = startProcess(exe_path, params, worker_timeout_);
 
     if(counter_) {
         counter_->add(20);
@@ -246,6 +252,10 @@ std::string ProcessRecognitionServer::workerPath() const {
     else {
         return result_path;
     }
+}
+
+int ProcessRecognitionServer::workerTimeout() const {
+    return worker_timeout_;
 }
 
 }
