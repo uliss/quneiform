@@ -27,8 +27,27 @@ class ProcessTimeoutKiller
 {
 public:
     ProcessTimeoutKiller(pid_t pid, int seconds);
-    void setSignal(int s) { signal_ = s; }
-    int signal() const { return signal_; }
+
+    /**
+      * Cancels timer
+      * @see start()
+      */
+    void cancel();
+
+    /**
+      * Sets sended signal
+      */
+    void setSignal(int s);
+
+    /**
+      * Returns signal sent to process
+      */
+    int signal() const;
+
+    /**
+      * Starts timer
+      * @see cancel()
+      */
     void start();
 public:
     void signalHandler(int signum);

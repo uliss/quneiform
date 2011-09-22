@@ -49,9 +49,18 @@ ProcessTimeoutKiller::ProcessTimeoutKiller(pid_t pid, int sec) :
     pid_(pid), signal_(SIGTERM), timeout_(sec)
 {}
 
+void ProcessTimeoutKiller::cancel() {
+    pid_ = -1;
+    Static::instance().pid_ = -1;
+}
+
 void ProcessTimeoutKiller::registerTimer() {
     Static::instance() = *this;
     ::signal(SIGALRM, &signal_handler);
+}
+
+void ProcessTimeoutKiller::setSignal(int s) {
+    signal_ = s;
 }
 
 void ProcessTimeoutKiller::setupTimer() {
@@ -65,11 +74,18 @@ void ProcessTimeoutKiller::setupTimer() {
 }
 
 void ProcessTimeoutKiller::signalHandler(int signum) {
+    if(pid_ <= 0)
+        return;
+
     CF_INFO << " signal received: " << signum << "\n";
     Debug() << "    Killing pid: " << pid_ << "\n";
     int status = kill(pid_, signal_);
     if(status != 0)
         perror(BOOST_CURRENT_FUNCTION);
+}
+
+int ProcessTimeoutKiller::signal() const {
+    return signal_;
 }
 
 void ProcessTimeoutKiller::start() {

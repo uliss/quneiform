@@ -22,6 +22,7 @@
 #include <algorithm>
 #include <cstdio>
 #include <cstring>
+#include <errno.h>
 
 #include "common/console_messages.h"
 #include "common/debug.h"
@@ -127,10 +128,18 @@ int startProcess(const std::string& program, const StringList& params, int timeo
         if(timeout > 0)
             watchdog.start();
 
-        int status;
-        int res = waitpid(child_pid, &status, 0);
-        if(res == -1)
-            perror(BOOST_CURRENT_FUNCTION);
+        int status;        
+        while(waitpid(child_pid, &status, 0) == -1) {
+            switch(errno) {
+            case EINTR:
+                continue;
+            default:
+                perror(BOOST_CURRENT_FUNCTION);
+                break;
+            }
+        }
+
+        watchdog.cancel();
 
         return WEXITSTATUS(status);
     }
