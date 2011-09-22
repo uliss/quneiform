@@ -454,6 +454,8 @@ void MainWindow::savePacket(const QString& path) {
                              tr("Quneiform OCR"),
                              tr("Can't open file \"%1\" for writing. Check file permissions!").arg(path));
     }
+
+    recent_packets_->add(path);
 }
 
 void MainWindow::savePage(Page * page) {
