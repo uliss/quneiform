@@ -131,6 +131,12 @@ signals:
     void imageDuplicated(const QString& imagePath);
 
     /**
+      * Emitted while loading packet
+      * @param percent - percent done
+      */
+    void loaded(int percent);
+
+    /**
       * Emitted when new page added
       */
     void pageAdded(Page * page);

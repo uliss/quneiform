@@ -20,6 +20,7 @@ set(HEADERS
     dialogs/exportdialog.h
     dialogs/formatsettingsdialog.h
     dialogs/pagepropertiesdialog.h
+    dialogs/packetopenprogressdialog.h
     dialogs/recognitionsettingsdialog.h
     dialogs/recognitionprogressdialog.h
     dialogs/settings.h
@@ -56,6 +57,7 @@ set(SOURCES
     dialogs/exportdialog.cpp
     dialogs/formatsettingsdialog.cpp
     dialogs/pagepropertiesdialog.cpp
+    dialogs/packetopenprogressdialog.cpp
     dialogs/recognitionsettingsdialog.cpp
     dialogs/recognitionprogressdialog.cpp
     dialogs/settings.cpp

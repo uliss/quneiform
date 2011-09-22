@@ -515,6 +515,13 @@ Are you shure?</source>
     </message>
 </context>
 <context>
+    <name>PacketOpenProgressDialog</name>
+    <message>
+        <source>Loading packet...</source>
+        <translation>Открытие пакета...</translation>
+    </message>
+</context>
+<context>
     <name>Page</name>
     <message>
         <source>Saved failed. Can&apos;t open file &quot;%1&quot; for writing.</source>

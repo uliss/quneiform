@@ -18,6 +18,8 @@
 
 #include <QDebug>
 #include <QFile>
+#include <QCoreApplication>
+
 #include "packet.h"
 #include "page.h"
 
@@ -233,6 +235,9 @@ QDataStream& operator>>(QDataStream& is, Packet& packet) {
         }
 
         packet.append(p, true);
+        packet.loaded((i * 100) / page_count);
+
+        QCoreApplication::processEvents();
     }
 
     return is;

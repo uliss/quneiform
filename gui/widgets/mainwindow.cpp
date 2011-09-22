@@ -41,6 +41,7 @@
 #include "pagerecognitionqueue.h"
 #include "dialogs/aboutdialog.h"
 #include "dialogs/exportdialog.h"
+#include "dialogs/packetopenprogressdialog.h"
 #include "dialogs/recognitionprogressdialog.h"
 #include "dialogs/settings.h"
 #include "recentmenu.h"
@@ -320,13 +321,13 @@ void MainWindow::openPacket(const QString& path) {
     if(path.isEmpty())
         return;
 
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    PacketOpenProgressDialog progress(packet_, this);
+
     if(!packet_->open(path)) {
         QMessageBox::warning(this,
                              tr("Quneiform OCR"),
                              tr("Can't read packet \"%1\"").arg(path));
     }
-    QApplication::restoreOverrideCursor();
 
     if(!packet_->isEmpty()) {
         Language lang = packet_->firstPage()->language();
