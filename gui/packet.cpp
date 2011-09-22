@@ -114,19 +114,27 @@ bool Packet::open(const QString& filename) {
     qDebug() << "[Packet::open]" << filename;
 
     QFile file(filename);
-    if(file.open(QIODevice::ReadOnly)) {
-        QDataStream stream(&file);
-        stream.setVersion(QDataStream::Qt_4_5);
-        clear();
-        stream >> *this;
-        if(stream.status() != QDataStream::Ok) {
-            qDebug() << "[Packet::open] read error" << filename;
+
+    try {
+        if(file.open(QIODevice::ReadOnly)) {
+            QDataStream stream(&file);
+            stream.setVersion(QDataStream::Qt_4_5);
             clear();
-            return false;
+            stream >> *this;
+            if(stream.status() != QDataStream::Ok) {
+                qDebug() << "[Packet::open] read error" << filename;
+                clear();
+                return false;
+            }
         }
+        else
+            return false;
+
     }
-    else
+    catch(std::exception& e) {
+        qDebug() << Q_FUNC_INFO << " exception: " << e.what();
         return false;
+    }
 
     file.close();
     filename_ = filename;
@@ -219,7 +227,10 @@ QDataStream& operator<<(QDataStream& os, const Packet& packet) {
 }
 
 QDataStream& operator>>(QDataStream& is, Packet& packet) {
-    int page_count;
+    if(is.status() != QDataStream::Ok)
+        return is;
+
+    int page_count = 0;
     is >> page_count;
 
     if(page_count <= 0)

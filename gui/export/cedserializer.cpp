@@ -17,7 +17,9 @@
  ***************************************************************************/
 
 #include <sstream>
+
 #include <QDebug>
+#include <QByteArray>
 
 #include "cedserializer.h"
 #include "export/cuneiformexporter.h"
@@ -39,7 +41,8 @@ QDataStream& operator<<(QDataStream& os, const CEDSerializer& ced) {
             exp.exportTo(buf);
 
             os << true;
-            os << buf.str().c_str();
+            QByteArray array(buf.str().c_str());
+            os << array;
         }
         catch(std::exception& e) {
             os << false;
@@ -60,14 +63,13 @@ QDataStream& operator>>(QDataStream& is, CEDSerializer& ced) {
     is >> has_cedpage;
 
     if(has_cedpage) {
-        char * str;
-        is >> str;
-        std::istringstream buf(str);
+        QByteArray array;
+        is >> array;
+        std::istringstream buf(array.constData());
 
         cf::CuneiformTextLoader ld;
-        ced.page_ = ld.load(buf);
-
-        delete[] str;
+        cf::CEDPagePtr page = ld.load(buf);
+        ced.page_ = page;
     }
 
     return is;
