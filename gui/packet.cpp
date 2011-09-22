@@ -230,6 +230,7 @@ QDataStream& operator>>(QDataStream& is, Packet& packet) {
         is >> *p;
 
         if(is.status() != QDataStream::Ok) {
+            packet.loaded(100);
             delete p;
             break;
         }
