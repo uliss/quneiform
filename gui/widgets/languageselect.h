@@ -35,7 +35,7 @@ signals:
 private:
     void initLanguages();
 private slots:
-    void languageChange(int index);
+    void selectLanguage(int index);
 };
 
 
