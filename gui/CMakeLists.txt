@@ -34,6 +34,7 @@ set(HEADERS
     widgets/recentmenu.h
     widgets/texteditor.h
     widgets/thumbnaillist.h
+    widgets/thumblayout.h
     widgets/thumbscene.h
     widgets/thumbnailwidget.h
     widgets/widgetbar.h
