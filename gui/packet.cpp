@@ -48,9 +48,8 @@ void Packet::append(Page * page, bool allowDuplication) {
     pages_.append(page);
     page->setParent(this);
     connect(page, SIGNAL(changed()), SLOT(pageChange()));
-    changed_ = true;
     emit pageAdded(page);
-    emit changed();
+    pageChange();
 }
 
 void Packet::clear() {
@@ -71,15 +70,6 @@ void Packet::clear() {
 
     if(has_pages)
         emit changed();
-}
-
-int Packet::countSelected() const {
-    int res = 0;
-    foreach(Page * page, pages_){
-        if (page->isSelected())
-            res++;
-    }
-    return res;
 }
 
 QString Packet::fileName() const {
@@ -170,13 +160,6 @@ void Packet::remove(Page * page) {
     qDebug() << "[Packet::remove()]";
 }
 
-void Packet::removeSelected() {
-    foreach(Page * page, pages_) {
-        if (page->isSelected())
-            remove(page);
-    }
-}
-
 bool Packet::save(const QString& filename) {
     qDebug() << "[Packet::save]" << filename;
 
@@ -203,17 +186,6 @@ bool Packet::save(const QString& filename) {
 
     emit saved();
     return true;
-}
-
-QList<Page*> Packet::selectedPages() {
-    QList<Page*> ret;
-
-    foreach(Page * p, pages_) {
-        if(p->isSelected())
-            ret.append(p);
-    }
-
-    return ret;
 }
 
 QDataStream& operator<<(QDataStream& os, const Packet& packet) {
@@ -253,5 +225,33 @@ QDataStream& operator>>(QDataStream& is, Packet& packet) {
     }
 
     return is;
+}
+
+void Packet::move(int pos, Page * src)
+{
+    if(pos > pages_.size())
+        return;
+
+    if(!pages_.contains(src))
+        return;
+
+    pages_.removeAll(src);
+    pages_.insert(pos, src);
+
+    pageChange();
+    emit reorder();
+}
+
+void Packet::moveBefore(Page * page, Page * target) {
+    if(page == NULL || target == NULL)
+        return;
+
+    if(page == target)
+        return;
+
+    if(!pages_.contains(target))
+        return;
+
+    move(pages_.indexOf(target), page);
 }
 

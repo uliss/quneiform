@@ -31,13 +31,11 @@ private slots:
     void testPageSignals();
     void testAppend();
     void testClear();
-    void testCountSelected();
     void testHasPage();
     void testOpen();
     void testPage();
     void testSave();
     void testRemove();
-    void testRemoveSelected();
     void testReadWrite();
 };
 

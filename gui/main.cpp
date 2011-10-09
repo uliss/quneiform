@@ -18,8 +18,10 @@
 
 #include <QStringList>
 #include <QApplication>
+
 #include "mainwindow.h"
 #include "translationloader.h"
+#include "metatyperegistrator.h"
 
 int main(int argc, char * argv[]) {
 #ifdef Q_WS_X11
@@ -31,6 +33,8 @@ int main(int argc, char * argv[]) {
 #ifdef Q_WS_MAC
     app.setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
+
+    MetaTypeRegistrator registrator;
 
     TranslationLoader loader;
     loader.load();

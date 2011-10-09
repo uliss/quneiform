@@ -16,17 +16,16 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtCore/QFileInfo>
-#include <QtCore/QDebug>
-#include <QtGui/QLabel>
-#include <QtGui/QCheckBox>
-#include <QtGui/QPixmap>
-#include <QtGui/QLayout>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QMessageBox>
-#include <QtGui/QIcon>
-#include <QtGui/QMenu>
+#include <QDebug>
+#include <QMenu>
+#include <QGraphicsRectItem>
+#include <QGraphicsSimpleTextItem>
+#include <QGraphicsSceneContextMenuEvent>
+#include <QGraphicsSceneMouseEvent>
+#include <QStyleOptionGraphicsItem>
+#include <QStyle>
+#include <QApplication>
+#include <QDrag>
 
 #include "thumbnailwidget.h"
 #include "thumbnaillist.h"
@@ -37,43 +36,110 @@
 #include "dialogs/formatsettingsdialog.h"
 #include "dialogs/pagepropertiesdialog.h"
 
-static const int THUMB_IMAGE_HEIGHT = 95;
-static const int THUMB_IMAGE_WIDTH = 95;
-static const int THUMB_IMAGE_MARGIN = 5;
+static const int THUMB_IMAGE_HEIGHT = 100;
+static const int THUMB_IMAGE_WIDTH = 100;
+static const int THUMB_IMAGE_MARGIN = 4;
 static const int THUMB_WIDTH = 150;
 static const int THUMB_HEIGHT = 150;
+static const int SELECT_FRAME_WIDTH = 2;
 
-ThumbnailWidget::ThumbnailWidget(Page * page, ThumbnailList * parent) :
-        QFrame(parent),
-        page_(page),
-        layout_(NULL),
-        thumb_(NULL),
-        checked_(NULL),
-        act_recognize_(NULL),
-        act_save_as_(NULL),
-        act_delete_(NULL)
+class ThumbnailWidget::Pixmap : public QGraphicsPixmapItem {
+public:
+    Pixmap(const QPixmap& p, QGraphicsItem * parent) :
+        QGraphicsPixmapItem(p, parent),
+        frame_(NULL)
+    {
+        setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
+        frame_ = new QGraphicsRectItem(this);
+        highlight(false);
+        updateFrame();
+    }
+
+    void highlight(bool value) {
+        if (value) {
+            QPalette palette;
+            QPen p(palette.highlight(), SELECT_FRAME_WIDTH);
+            frame_->setPen(p);
+        }
+        else {
+            frame_->setPen(QPen(QBrush(), 0));
+        }
+    }
+
+    void setPixmap(const QPixmap& pixmap)  {
+        QGraphicsPixmapItem::setPixmap(pixmap);
+        updateFrame();
+    }
+private:
+    void updateFrame() {
+        frame_->setRect(boundingRect().adjusted(-1,-1,1,1));
+    }
+private:
+    QGraphicsRectItem * frame_;
+};
+
+class ThumbnailWidget::Label : public QGraphicsSimpleTextItem {
+public:
+    Label(QGraphicsItem * parent) : QGraphicsSimpleTextItem(parent), highlighted_(false) {}
+
+    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
+    {
+        if(highlighted_) {
+            QBrush brush(QPalette().highlight());
+            painter->setBrush(brush);
+            QPen old_pen = painter->pen();
+            QPen p(QBrush(), 0);
+            painter->setPen(p);
+            painter->drawRect(boundingRect().adjusted(-1, -1, 1, 1));
+            painter->setPen(old_pen);
+        }
+
+        QGraphicsSimpleTextItem::paint(painter, option, widget);
+    }
+
+    bool isHighlighted() const {
+        return highlighted_;
+    }
+
+    void highlight(bool value) {
+        if(highlighted_ == value)
+            return;
+
+        highlighted_ = value;
+        update();
+    }
+
+private:
+    bool highlighted_;
+};
+
+ThumbnailWidget::ThumbnailWidget(Page * page) :
+    page_(page),
+    pixmap_(NULL),
+    label_(NULL),
+    indicator_(NULL),
+    drag_progress_(false),
+    hightlighted_(false)
 {
-    setupFrame();
-    setupLayout();
+//    setFlags(QGraphicsItem::ItemIsMovable);
+    setFlag(QGraphicsItem::ItemClipsToShape);
+    setFlag(QGraphicsItem::ItemClipsChildrenToShape);
+    setAcceptDrops(true);
+
     setupPixmap();
     setupLabel();
     setupToolTip();
     setupIndicator();
-    setupCheckBox();
     setupActions();
 
-    connect(checked_, SIGNAL(toggled(bool)), SLOT(selectPage(bool)));
-    connect(this, SIGNAL(contextMenuCreated(QMenu*)), parent, SLOT(setupContextMenu(QMenu*)));
-    connect(this, SIGNAL(invalidImage(const QString&)), parent, SLOT(handleInvalidImage(const QString&)));
     connect(page, SIGNAL(rotated(int)), SLOT(handlePageRotate()));
     connect(page, SIGNAL(changed()), SLOT(updatePageIndicators()));
 
-    setFocusPolicy(Qt::ClickFocus);
     updatePageIndicators();
 }
 
-void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
-    QMenu * menu = new QMenu(this);
+void ThumbnailWidget::contextMenuEvent(QGraphicsSceneContextMenuEvent * event) {
+    QMenu * menu = new QMenu(NULL);
     emit contextMenuCreated(menu);
     menu->addAction(act_delete_);
     menu->addSeparator();
@@ -84,17 +150,13 @@ void ThumbnailWidget::contextMenuEvent(QContextMenuEvent * event) {
     menu->addAction(tr("Format settings"), this, SLOT(showFormatSettings()));
     menu->addSeparator();
     menu->addAction(act_save_as_);
-    menu->exec(event->globalPos());
+    menu->exec(event->screenPos());
     delete menu;
+    event->accept();
 }
 
 void ThumbnailWidget::savePage() {
     emit save(page_);
-}
-
-void ThumbnailWidget::selectPage(bool value) {
-    qDebug() << "[ThumbnailWidget::selectPage]" << value;
-    page_->setSelected(value);
 }
 
 void ThumbnailWidget::showFormatSettings() {
@@ -107,7 +169,7 @@ void ThumbnailWidget::showFormatSettings() {
 
 void ThumbnailWidget::showProperties() {
     Q_CHECK_PTR(page_);
-    PagePropertiesDialog d(page_, this);
+    PagePropertiesDialog d(page_);
     d.exec();
 }
 
@@ -118,48 +180,37 @@ void ThumbnailWidget::showRecognizeSettings() {
     dlg.exec();
 }
 
-void ThumbnailWidget::highlight(bool value) {
-    if (value)
-        setBackgroundRole(QPalette::Highlight);
-    else
-        setBackgroundRole(QPalette::Background);
+void ThumbnailWidget::selectThumb(bool value) {
+    Q_CHECK_PTR(pixmap_);
+    pixmap_->highlight(value);
+    label_->highlight(value);
 }
 
-bool ThumbnailWidget::isChecked() const {
-    Q_CHECK_PTR(checked_);
-    return checked_->isChecked();
-}
-
-QPixmap ThumbnailWidget::makeThumb() const {
-    Q_CHECK_PTR(page_);
-
-    QPixmap image;
-    if(!ImageCache::load(page_->imagePath(), &image)) {
-        qDebug() << Q_FUNC_INFO << "can't load pixmap:" << page_->imagePath();
-        return image;
-    }
-
-    image = image.transformed(QTransform().rotate(page_->angle()));
-
-    if(image.height() > image.width())
-        image = image.scaledToHeight(THUMB_IMAGE_HEIGHT);
-    else
-        image = image.scaledToWidth(THUMB_IMAGE_WIDTH);
-
-    return image;
-}
-
-void ThumbnailWidget::mousePressEvent(QMouseEvent * event) {
+void ThumbnailWidget::mousePressEvent(QGraphicsSceneMouseEvent * event) {
     Q_CHECK_PTR(event);
 
     switch (event->button()) {
     case Qt::LeftButton:
-        emit clicked();
+        drag_start_pos_ = event->pos();
+        emit clicked(event->modifiers());
+        event->accept();
         break;
     case Qt::RightButton:
         break;
     default:
-        qDebug("Unhandled mouse event");
+        qDebug() << Q_FUNC_INFO << "Unhandled mouse event";
+    }
+}
+
+void ThumbnailWidget::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *) {
+    if(hightlighted_) {
+        QBrush brush(QPalette().highlight());
+        painter->setBrush(brush);
+        QPen old_pen = painter->pen();
+        QPen p(QBrush(), 0);
+        painter->setPen(p);
+        painter->drawRect(boundingRect());
+        painter->setPen(old_pen);
     }
 }
 
@@ -179,25 +230,26 @@ void ThumbnailWidget::recognizeThumb() {
 }
 
 void ThumbnailWidget::handlePageRotate() {
-    Q_CHECK_PTR(thumb_);
-    thumb_->setPixmap(makeThumb());
-}
+    Q_CHECK_PTR(pixmap_);
+    Q_CHECK_PTR(page_);
 
+    if(!page_->thumb())
+        return;
+
+    pixmap_->setPixmap(*page_->thumb());
+    updatePixmapPos();
+}
 
 void ThumbnailWidget::removePage() {
     emit removed(page_);
 }
 
-void ThumbnailWidget::setChecked(bool value) {
-    Q_CHECK_PTR(checked_);
-
-    checked_->setChecked(value);
-}
-
 void ThumbnailWidget::setName(const QString& name) {
-    Q_CHECK_PTR(checked_);
-
-    checked_->setText(name);
+    Q_CHECK_PTR(label_);
+    label_->setText(name);
+    qreal x = (THUMB_WIDTH - label_->boundingRect().width()) / 2;
+    qreal y = label_->pos().y();
+    label_->setPos(x, y);
 }
 
 void ThumbnailWidget::setupActions() {
@@ -207,7 +259,7 @@ void ThumbnailWidget::setupActions() {
     connect(act_recognize_, SIGNAL(triggered()), this, SLOT(recognizeThumb()));
     act_recognize_->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R));
     act_recognize_->setShortcutContext(Qt::WidgetShortcut);
-    addAction(act_recognize_);
+//    addAction(act_recognize_);
 
     act_save_as_ = new QAction(QIcon(":/img/oxygen/22x22/document_save_as.png"),
                                tr("Save as"),
@@ -215,69 +267,47 @@ void ThumbnailWidget::setupActions() {
     act_save_as_->setShortcut(QKeySequence::SaveAs);
     act_save_as_->setShortcutContext(Qt::WidgetShortcut);
     connect(act_save_as_, SIGNAL(triggered()), this, SLOT(savePage()));
-    addAction(act_save_as_);
+//    addAction(act_save_as_);
 
     act_properties_ = new QAction(QIcon(":/img/oxygen/22x22/document_properties.png"),
                                   tr("Properties"),
                                   this);
     connect(act_properties_, SIGNAL(triggered()), this, SLOT(showProperties()));
-    addAction(act_properties_);
+//    addAction(act_properties_);
 
     act_delete_ = new QAction(QIcon(":/img/oxygen/22x22/list_remove.png"), tr("Delete"), this);
     act_delete_->setShortcut(Qt::CTRL + Qt::Key_Backspace);
     act_delete_->setShortcutContext(Qt::WidgetShortcut);
     connect(act_delete_, SIGNAL(triggered()), this, SLOT(removePage()));
-    addAction(act_delete_);
-}
-
-void ThumbnailWidget::setupCheckBox() {
-    Q_CHECK_PTR(layout_);
-    Q_CHECK_PTR(page_);
-
-    checked_ = new QCheckBox;
-    checked_->setChecked(page_->isSelected());
-    layout_->addWidget(checked_, 0, Qt::AlignHCenter);
-}
-
-void ThumbnailWidget::setupFrame() {
-    setAutoFillBackground(true);
-    //setFrameShape(QFrame::Box);
+//    addAction(act_delete_);
 }
 
 void ThumbnailWidget::setupIndicator() {
+    static const int INDICATOR_MARGIN = 5;
     indicator_ = new PageIndicator(this);
-    indicator_->move(0, height() - indicator_->height());
+    indicator_->setZValue(20);
+    indicator_->setPos(INDICATOR_MARGIN,
+                       boundingRect().height() - indicator_->boundingRect().height() - INDICATOR_MARGIN);
     connect(indicator_, SIGNAL(showWarningDetails()), SLOT(pageFaultForward()));
-//    layout_->addWidget(indicator_, 0, Qt::AlignHCenter);
 }
 
 void ThumbnailWidget::setupLabel() {
-    Q_CHECK_PTR(page_);
-    Q_CHECK_PTR(layout_);
-
-    //page_name_ = new QLabel;
-    //page_name_->setTextFormat(Qt::PlainText);
-    //layout_->addWidget(page_name_, 0, Qt::AlignHCenter);
-}
-
-void ThumbnailWidget::setupLayout() {
-    layout_ = new QVBoxLayout(this);
-    layout_->setSpacing(0);
-    layout_->setMargin(0);
-//    layout_->setSizeConstraint(QLayout::SizeConstraint);
-    setFixedWidth(THUMB_WIDTH);
-    setFixedHeight(THUMB_HEIGHT);
+    label_ = new Label(this);
+    label_->setPos(THUMB_WIDTH / 2, THUMB_HEIGHT - 30);
 }
 
 void ThumbnailWidget::setupPixmap() {
-    Q_CHECK_PTR(layout_);
+    QPixmap thumb(THUMB_IMAGE_HEIGHT, THUMB_IMAGE_WIDTH);
 
-    thumb_ = new QLabel;
-    thumb_->setMargin(THUMB_IMAGE_MARGIN);
-    thumb_->setPixmap(makeThumb());
-    // stretch image
-    static const int STRETCH_KOEF = 4;
-    layout_->addWidget(thumb_, STRETCH_KOEF, Qt::AlignHCenter);
+    if(!page_ || !page_->thumb()) {
+        thumb.fill();
+    }
+    else {
+        thumb = *page_->thumb();
+    }
+
+    pixmap_ = new Pixmap(thumb, this);
+    updatePixmapPos();
 }
 
 void ThumbnailWidget::setupToolTip() {
@@ -286,10 +316,9 @@ void ThumbnailWidget::setupToolTip() {
     setToolTip(page_->imagePath());
 }
 
-void ThumbnailWidget::toggleSelection() {
-    Q_CHECK_PTR(checked_);
-
-    checked_->toggle();
+void ThumbnailWidget::toggleSelection() { 
+    selectThumb(!isThumbSelected());
+    update();
 }
 
 void ThumbnailWidget::updatePageIndicators() {
@@ -299,7 +328,54 @@ void ThumbnailWidget::updatePageIndicators() {
     indicator_->setWarning(page_->hasFlag(Page::RECOGNITION_FAILED));
 }
 
-QSize ThumbnailWidget::sizeHint() const
+QRectF ThumbnailWidget::boundingRect() const
 {
-    return QSize(THUMB_WIDTH, THUMB_HEIGHT);
+    return QRectF(0, 0, THUMB_WIDTH, THUMB_HEIGHT);
+}
+
+bool ThumbnailWidget::isThumbSelected() const
+{
+    Q_CHECK_PTR(label_);
+    return label_->isHighlighted();
+}
+
+QString ThumbnailWidget::name() const
+{
+    Q_CHECK_PTR(label_);
+    return label_->text();
+}
+
+void ThumbnailWidget::updatePixmapPos()
+{
+    Q_CHECK_PTR(pixmap_);
+    pixmap_->setPos((THUMB_WIDTH - pixmap_->boundingRect().width())/2, THUMB_IMAGE_MARGIN);
+}
+
+void ThumbnailWidget::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
+{
+    if(!(event->buttons() & Qt::LeftButton))
+        return;
+
+    if((event->scenePos() - drag_start_pos_).manhattanLength() < QApplication::startDragDistance())
+        return;
+
+    drag_progress_ = true;
+    emit dragged(this, event->scenePos());
+}
+
+void ThumbnailWidget::mouseReleaseEvent(QGraphicsSceneMouseEvent * event)
+{
+    if(!drag_progress_) {
+        QGraphicsObject::mouseReleaseEvent(event);
+        return;
+    }
+
+    drag_progress_ = false;
+    emit dropped(this, event->scenePos());
+}
+
+void ThumbnailWidget::highlight(bool value)
+{
+    hightlighted_ = value;
+    update();
 }

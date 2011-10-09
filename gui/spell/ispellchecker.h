@@ -31,6 +31,7 @@ class QTextDocument;
 class ISpellChecker {
 public:
     ISpellChecker(const Language& lang);
+    virtual ~ISpellChecker() {}
     typedef QList<Range> SpellList;
     virtual bool hasErrors(const QString& text) = 0;
     virtual bool isSupported(const Language& lang);

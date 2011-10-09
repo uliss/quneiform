@@ -34,6 +34,7 @@ set(HEADERS
     widgets/recentmenu.h
     widgets/texteditor.h
     widgets/thumbnaillist.h
+    widgets/thumbscene.h
     widgets/thumbnailwidget.h
     widgets/widgetbar.h
 )
@@ -43,6 +44,7 @@ set(SOURCES
     formatsettings.cpp
     imagecache.cpp
     language.cpp
+    metatyperegistrator.cpp
     packet.cpp
     page.cpp
     pagearea.cpp
@@ -77,6 +79,8 @@ set(SOURCES
     widgets/pageindicator.cpp
     widgets/recentmenu.cpp
     widgets/texteditor.cpp
+    widgets/thumblayout.cpp
+    widgets/thumbscene.cpp
     widgets/thumbnaillist.cpp
     widgets/thumbnailwidget.cpp
     widgets/widgetbar.cpp

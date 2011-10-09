@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,38 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#ifndef THUMBSCENE_H
+#define THUMBSCENE_H
 
-#ifndef TESTPAGE_H
-#define TESTPAGE_H
+#include <QGraphicsScene>
 
-#include <QObject>
-
-class TestPage : public QObject
-{
+class ThumbScene : public QGraphicsScene {
     Q_OBJECT
 public:
-    explicit TestPage(QObject *parent = 0);
-public slots:
-    void callTimerSlot(const char * member, int msec = 500);
-    void sendDialogAccept();
-    void sendDialogCancel();
-private slots:
-    void testAngle();
-    void testSetAngle();
-    void testConstruct();
-    void testPageName();
-    void testFlags();
-    void testRotate();
-    void testScale();
-    void testSetCEDPage();
-    void testSetFlag();
-    void testSetFlags();
-    void testSetPageArea();
-    void testSetRecognitionSettings();
-    void testSetBlocks();
-    void testSetViewScroll();
-    void testUnsetFlag();
-    void testReadWrite();
+    ThumbScene(QObject * parent) : QGraphicsScene(parent) {
+    }
+signals:
+    void dropImages(const QStringList& paths);
+protected:
+    void dragEnterEvent(QGraphicsSceneDragDropEvent * event);
+    void dragMoveEvent(QGraphicsSceneDragDropEvent * event);
+    void dropEvent(QGraphicsSceneDragDropEvent * event);
 };
 
-#endif // TESTPAGE_H
+#endif // THUMBSCENE_H

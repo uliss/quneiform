@@ -43,7 +43,7 @@ void TestPageIndicator::testSave() {
     QVERIFY(pi.saved_->isVisible());
 
     pi.setSaved(false);
-    QVERIFY(pi.saved_->isHidden());
+    QVERIFY(!pi.saved_->isVisible());
 
     pi.setSaved(true);
     QVERIFY(pi.saved_->isVisible());
@@ -55,7 +55,7 @@ void TestPageIndicator::testRecognized() {
     QVERIFY(pi.recognized_->isVisible());
 
     pi.setRecognized(false);
-    QVERIFY(pi.recognized_->isHidden());
+    QVERIFY(!pi.recognized_->isVisible());
 
     pi.setRecognized(true);
     QVERIFY(pi.recognized_->isVisible());
@@ -67,24 +67,10 @@ void TestPageIndicator::testWarning() {
     QVERIFY(pi.warning_->isVisible());
 
     pi.setWarning(false);
-    QVERIFY(pi.warning_->isHidden());
+    QVERIFY(!pi.warning_->isVisible());
 
     pi.setWarning(true);
     QVERIFY(pi.warning_->isVisible());
-}
-
-void TestPageIndicator::testWarningDetails() {
-    PageIndicator pi;
-    pi.show();
-
-    QSignalSpy spy(&pi, SIGNAL(showWarningDetails()));
-
-    QTest::mouseClick(pi.warning_, Qt::LeftButton);
-    QCOMPARE(spy.count(), 1);
-
-    pi.setWarning(false);
-    QTest::mouseClick(pi.warning_, Qt::LeftButton);
-    QCOMPARE(spy.count(), 1);
 }
 
 QTEST_MAIN(TestPageIndicator);

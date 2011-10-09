@@ -37,6 +37,9 @@
 #include "export/rectexporter.h"
 #include "export/exporterfactory.h"
 
+static const int THUMB_IMAGE_HEIGHT = 100;
+static const int THUMB_IMAGE_WIDTH = 100;
+
 static language_t languageToType(const Language& lang) {
     if(lang.isValid()) {
         return static_cast<language_t>(lang.code());
@@ -48,25 +51,20 @@ static language_t languageToType(const Language& lang) {
 }
 
 Page::Page(const QString& image_path) :
-        image_path_(image_path),
-        number_(0),
-        state_flags_(NONE),
-        is_selected_(false),
-        angle_(0),
-        view_scale_(1.0)
+    image_path_(image_path),
+    state_flags_(NONE),
+    angle_(0),
+    view_scale_(1.0),
+    doc_(NULL),
+    thumb_(NULL)
 {
-    QPixmap pixmap;
-    if(ImageCache::load(image_path_, &pixmap)) {
-        is_null_ = false;
-        image_size_ = pixmap.size();
-    }
-    else {
-        is_null_ = true;
-    }
-
+    initThumb();
     initRects();
+    initDocument();
+}
 
-    doc_ = new QTextDocument(this);
+Page::~Page() {
+    delete thumb_;
 }
 
 int Page::angle() const {
@@ -172,20 +170,12 @@ bool Page::isExported() const {
     return hasFlag(EXPORTED);
 }
 
-bool Page::isSelected() const {
-    return is_selected_;
-}
-
 Language Page::language() const {
     return language_;
 }
 
 QString Page::name() const {
     return QFileInfo(image_path_).fileName();
-}
-
-unsigned int Page::number() const {
-    return number_;
 }
 
 const QRect& Page::pageArea() const {
@@ -222,7 +212,12 @@ void Page::scaleView(qreal factor) {
 void Page::setAngle(int angle) {
     QMutexLocker lock(&mutex_);
 
-    angle_ = (360 + (angle % 360)) % 360;
+    const int new_angle = (360 + (angle % 360)) % 360;
+
+    if(thumb_)
+        setThumb(thumb_->transformed(QTransform().rotate(new_angle - angle_)));
+
+    angle_ = new_angle;
     emit changed();
     emit rotated(angle_);
 }
@@ -298,17 +293,6 @@ void Page::setLanguage(const Language& lang) {
     setChanged();
 }
 
-void Page::setNumber(unsigned int number) {
-    QMutexLocker lock(&mutex_);
-
-    if(number_ == number)
-        return;
-
-    number_ = number;
-
-    setChanged();
-}
-
 void Page::setPageArea(const QRect& area) {
     QMutexLocker lock(&mutex_);
 
@@ -340,15 +324,6 @@ void Page::setBlocks(const QList<QRect>& rects, BlockType type) {
         page_area_.topLeft();
         blocks_[type].append(r);
     }
-}
-
-void Page::setSelected(bool value) {
-    if(is_selected_ == value)
-        return;
-
-    is_selected_ = value;
-
-    setChanged();
 }
 
 void Page::setViewScale(float scale) {
@@ -408,9 +383,7 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
     QMutexLocker lock(&page.mutex_);
     os << page.image_path_
             << page.image_size_
-            << page.number_
             << page.state_flags_
-            << page.is_selected_
             << page.page_area_
             << page.angle_
             << page.view_scale_
@@ -424,6 +397,14 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
     CEDSerializer ced(page.cedpage_);
     os << ced;
 
+    if(page.thumb_) {
+        os << true;
+        os << *(page.thumb_);
+    }
+    else {
+        os << false;
+    }
+
     return os;
 }
 
@@ -431,9 +412,7 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
     QMutexLocker lock(&page.mutex_);
     is >> page.image_path_
             >> page.image_size_
-            >> page.number_
             >> page.state_flags_
-            >> page.is_selected_
             >> page.page_area_
             >> page.angle_
             >> page.view_scale_
@@ -448,8 +427,14 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
     is >> ced;
     page.cedpage_ = ced.page();
 
-    if(page.is_selected_)
-        page.setSelected(true);
+    bool has_pixmap = false;
+    is >> has_pixmap;
+
+    if(has_pixmap) {
+        QPixmap thumb;
+        is >> thumb;
+        page.setThumb(thumb);
+    }
 
     return is;
 }
@@ -465,4 +450,42 @@ QDataStream& operator>>(QDataStream& is, Page::PageFlags& flags) {
     flags &= 0;
     flags |= static_cast<Page::PageFlag>(i);
     return is;
+}
+
+const QPixmap * Page::thumb() const
+{
+    return thumb_;
+}
+
+void Page::setThumb(const QPixmap& thumb)
+{
+    if(thumb_)
+        *thumb_ = thumb;
+    else
+        thumb_ = new QPixmap(thumb);
+}
+
+void Page::initThumb()
+{
+    QPixmap pixmap;
+    if(ImageCache::load(image_path_, &pixmap)) {
+        is_null_ = false;
+        image_size_ = pixmap.size();
+
+        if(pixmap.height() > pixmap.width())
+            setThumb(pixmap.scaledToHeight(THUMB_IMAGE_HEIGHT));
+        else
+            setThumb(pixmap.scaledToWidth(THUMB_IMAGE_WIDTH));
+    }
+    else {
+        is_null_ = true;
+    }
+}
+
+void Page::initDocument()
+{
+    if(doc_)
+        delete doc_;
+
+    doc_ = new QTextDocument(this);
 }

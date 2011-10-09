@@ -124,14 +124,8 @@ bool MainWindow::confirmRotationSelected() {
 }
 
 void MainWindow::changePacketLanguage(const Language& lang) {
-    qDebug() << Q_FUNC_INFO << lang.name();
-
-    if(thumbs_->currentPage())
-        thumbs_->currentPage()->setLanguage(lang);
-
-    foreach(Page * p, packet_->selectedPages()) {
-        p->setLanguage(lang);
-    }
+    Q_CHECK_PTR(thumbs_);
+    thumbs_->setLanguage(lang);
 }
 
 void MainWindow::closeEvent(QCloseEvent * event) {
@@ -177,6 +171,7 @@ void MainWindow::connectThumbs() {
     connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(updateCurrentLanguage(Page*)));
     connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(updatePageDocument(Page*)));
     connect(thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
+    connect(thumbs_, SIGNAL(thumbRecognizeList(QList<Page*>)), SLOT(recognizePageList(QList<Page*>)));
     connect(thumbs_, SIGNAL(save(Page*)), SLOT(savePage(Page*)));
     connect(thumbs_, SIGNAL(openDraggedImages(QStringList)), SLOT(openImages(QStringList)));
     connect(thumbs_, SIGNAL(showPageFault(Page*)), SLOT(showPageFault(Page*)));
@@ -239,7 +234,6 @@ void MainWindow::imageDuplication(const QString& path) {
 
 bool MainWindow::openImage(const QString& path, bool allowDuplication) {
     Q_CHECK_PTR(packet_);
-    qDebug() << Q_FUNC_INFO << path;
 
     QFileInfo info(path);
     if(!info.exists()) {
@@ -271,13 +265,27 @@ void MainWindow::open(const QStringList& paths) {
     if(paths.isEmpty())
         return;
 
+    QProgressDialog progress;
+    progress.setLabelText(tr("Opening files"));
+    progress.setMinimum(0);
+    progress.setMaximum(paths.count());
+
     QFileInfo info;
+    int i = 0;
     foreach(QString path, paths) {
+        i++;
+
+        if(progress.wasCanceled())
+            break;
+
         info.setFile(path);
         if(info.suffix() == "qfp")
             openPacket(path);
         else
             openImage(path);
+
+        progress.setValue(i);
+        QCoreApplication::processEvents();
     }
 }
 
@@ -335,6 +343,7 @@ void MainWindow::openPacket(const QString& path) {
         lang_menu_->select(lang);
     }
 
+    thumbs_->updateLayout();
     recent_packets_->add(path);
     setWindowModified(false);
 }
@@ -357,26 +366,11 @@ void MainWindow::readSettings() {
 
 void MainWindow::recognizeAll() {
     Q_CHECK_PTR(packet_);
-
-    if(!packet_->countSelected()) {
-        QMessageBox warn(QMessageBox::Warning,
-                      tr("Warning"),
-                      tr("No page selected"),
-                      QMessageBox::Cancel | QMessageBox::Ok,
-                      this);
-        warn.setInformativeText(tr("Do you want to recognize all?"));
-
-        int button = warn.exec();
-        if(button == QMessageBox::Cancel)
-            return;
-        else if(button == QMessageBox::Ok)
-            thumbs_->selectAll();
-    }
+    Q_CHECK_PTR(recognition_queue_);
 
     for(int i = 0; i < packet_->pageCount(); i++) {
         Page * p = packet_->pageAt(i);
-        if(p->isSelected())
-            recognition_queue_->add(p);
+        recognition_queue_->add(p);
     }
 
     recognition_queue_->start();
@@ -397,6 +391,16 @@ void MainWindow::recognizePage(Page * page) {
     }
 
     recognition_queue_->add(page);
+    recognition_queue_->start();
+}
+
+void MainWindow::recognizePageList(const QList<Page*>& pages) {
+    Q_CHECK_PTR(recognition_queue_);
+
+    foreach(Page * p, pages) {
+        recognition_queue_->add(p);
+    }
+
     recognition_queue_->start();
 }
 

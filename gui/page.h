@@ -36,11 +36,13 @@
 class QDataStream;
 class QTextDocument;
 class ExportSettings;
+class QPixmap;
 
 class Page: public QObject {
     Q_OBJECT
 public:
-    Page(const QString& image_path);
+    Page(const QString& image_path = "");
+    ~Page();
 
     enum PageFlag {
         NONE = 0,
@@ -160,11 +162,6 @@ public:
     bool isRecognized() const;
 
     /**
-      * Returns true if page is selected
-      */
-    bool isSelected() const;
-
-    /**
       * Returns page language
       * @see setLanguage()
       */
@@ -174,12 +171,6 @@ public:
       * Returns page name - filename of page path
       */
     QString name() const;
-
-    /**
-      * Returns page number
-      * @see setNumber()
-      */
-    unsigned int number() const;
 
     /**
       * Returns page area on image
@@ -245,13 +236,6 @@ public:
     void setLanguage(const Language& lang);
 
     /**
-      * Sets page number
-      * Emits signal changed()
-      * @see number()
-      */
-    void setNumber(unsigned int number);
-
-    /**
       * Sets page area on image
       * Emits signal changed()
       * @see pageArea()
@@ -266,11 +250,9 @@ public:
     void setRecognitionSettings(const RecognitionSettings& opts);
 
     /**
-      * Selects page
-      * Emits signal changed()
-      * @see isSelected()
+      * Sets thumb pixmap
       */
-    void setSelected(bool value);
+    void setThumb(const QPixmap& thumb);
 
     /**
       * Sets page view scale
@@ -283,6 +265,12 @@ public:
       * @see viewScroll()
       */
     void setViewScroll(const QPoint& pt);
+
+    /**
+      * Returns pointer to thumb pixmap
+      * or NULL if no pixmap yet
+      */
+    const QPixmap * thumb() const;
 
     /**
       * Unsets page state flag
@@ -345,7 +333,9 @@ private:
     void appendBlock(const QRect& rect, BlockType type);
     void clearBlocks();
     void clearBlocks(BlockType type);
+    void initDocument();
     void initRects();
+    void initThumb();
     void setBlocks(const Rectangles& rects, BlockType type);
     void setCEDPage(cf::CEDPagePtr page);
     void setChanged();
@@ -354,9 +344,7 @@ private:
 private:
     QString image_path_;
     QSize image_size_;
-    unsigned int number_;
     PageFlags state_flags_;
-    bool is_selected_;
     QRect page_area_;
     int angle_;
     float view_scale_;
@@ -369,6 +357,7 @@ private:
     FormatSettings format_settings_;
     Language language_;
     cf::CEDPagePtr cedpage_;
+    QPixmap * thumb_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

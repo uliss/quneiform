@@ -20,22 +20,24 @@
 #ifndef PAGEINDICATOR_H
 #define PAGEINDICATOR_H
 
-#include <QWidget>
+#include <QGraphicsObject>
 #include <QPixmap>
 
-class QLabel;
+class QGraphicsPixmapItem;
 
 /**
   * @class PageIndicator represents Page state.
   * by default all indicators are shown
   * you can turn then on/off calling appropriate functions
   */
-class PageIndicator : public QWidget
+class PageIndicator : public QGraphicsObject
 {
     Q_OBJECT
 public:
-    explicit PageIndicator(QWidget * parent = 0);
-    QSize sizeHint() const;
+    explicit PageIndicator(QGraphicsItem * parent = 0);
+    QRectF boundingRect() const;
+
+    void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
 
     /**
       * Shows or hides recognize indicator
@@ -57,13 +59,13 @@ signals:
       */
     void showWarningDetails();
 protected:
-    void mousePressEvent(QMouseEvent * event);
+    //void mousePressEvent(QMouseEvent * event);
 private:
     QPixmap indicatorIcon(const QString& path);
 private:
-    QLabel * recognized_;
-    QLabel * saved_;
-    QLabel * warning_;
+    QGraphicsPixmapItem * recognized_;
+    QGraphicsPixmapItem * saved_;
+    QGraphicsPixmapItem * warning_;
 };
 
 #endif // PAGEINDICATOR_H

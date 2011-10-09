@@ -8,44 +8,6 @@
         <translation>О программе Quneiform</translation>
     </message>
     <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Lucida Grande&apos;; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Quneiform OCR &lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Author: Serge Poltavski&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;serge.poltavski@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Translator: Serge Poltavski&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;License: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GPL v.3&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Version: 0.0.1-alpha&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This program uses refactoring version of libcuneiform from &lt;a href=&quot;https://code.launchpad.net/~serge-uliss/cuneiform-linux/refactoring&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Launchpad&lt;/span&gt;&lt;/a&gt; released under GPL v.3 license.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Oxygen&lt;/span&gt;&lt;/a&gt; theme. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;
-&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-&lt;style type=&quot;text/css&quot;&gt;
-p {margin: 0; text-indent: 0;}
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;p&gt;Quneiform OCR &lt;/p&gt;
-&lt;p&gt;Автор: Сергей Полтавский&lt;/p&gt;
-&lt;p&gt;Перевод: Сергей Полтавский&lt;/p&gt;
-&lt;p&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Лицензия: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Версия: 0.0.1-alpha&lt;/p&gt;
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;Программа использует рефакторинг-версию библиотеки cuneiform, распространяемой по GPL лицензии, исходный код которой доступен на сервисе &lt;a href=&quot;https://code.launchpad.net/~serge-uliss/cuneiform-linux/refactoring&quot;&gt;Launchpad&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Cuneiform была иначально разработана и открыта под BSD лицензией компанией Congitive Technologies.&lt;/p&gt;
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-&lt;p&gt;Использованы иконки из темы &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt;.&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Quneiform OCR&lt;br/&gt;Author: Serge Poltavski&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Translator: Serge Poltavski&lt;br/&gt;License: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Version: %1&lt;br/&gt;Build number: %2&lt;br/&gt;&lt;br/&gt;This program uses refactoring version of libcuneiform from &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt; released under GPL v.3 license.&lt;br/&gt;Cuneiform was originally released by Congitive Technologies under BSD license.&lt;br/&gt;&lt;br/&gt;Uses icons from &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt; theme.</source>
         <translation>Quneiform OCR&lt;br/&gt;Автор: Сергей Полтавский&lt;br/&gt;Email: &lt;a href=&quot;mailto:serge.poltavski@gmail.com&quot;&gt;serge.poltavski@gmail.com&lt;/a&gt;&lt;br/&gt;Перевод: Сергей Полтавский&lt;br/&gt;Лицензия: &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GPL v.3&lt;/a&gt;&lt;br/&gt;Версия: %1&lt;br/&gt;Номер сборки: %2&lt;br/&gt;&lt;br/&gt;Программа использует рефакторинг-версию библиотеки cuneiform, распространяемой по GPL лицензии, исходный код которой доступен на сервисе &lt;a href=&quot;https://github.com/uliss/quneiform&quot;&gt;GitHub&lt;/a&gt;.&lt;br/&gt;Cuneiform была иначально разработана и открыта под BSD лицензией компанией Congitive Technologies.&lt;br/&gt;&lt;br/&gt;Использованы иконки из темы &lt;a href=&quot;http://www.oxygen-icons.org/&quot;&gt;Oxygen&lt;/a&gt;.</translation>
     </message>
@@ -196,10 +158,6 @@ p {margin: 0; text-indent: 0;}
     <message>
         <source>Danish</source>
         <translation>Датский</translation>
-    </message>
-    <message>
-        <source>Digits</source>
-        <translation type="obsolete">Цифры</translation>
     </message>
     <message>
         <source>Dutch</source>
@@ -420,10 +378,6 @@ p {margin: 0; text-indent: 0;}
         <translation>Пакеты Quneiform (*.qfp)</translation>
     </message>
     <message>
-        <source>No page selected</source>
-        <translation>Страницы не выбраны</translation>
-    </message>
-    <message>
         <source>Save Quneiform packet to</source>
         <translation>Сохранить пакет Quneiform</translation>
     </message>
@@ -434,10 +388,6 @@ p {margin: 0; text-indent: 0;}
     <message>
         <source>Page is not recognized yet</source>
         <translation>Страница еще не распознана</translation>
-    </message>
-    <message>
-        <source>HTML documents (*.html *.htm)</source>
-        <translation type="obsolete">HTML документы (*.html *.htm)</translation>
     </message>
     <message>
         <source>Recognition packet is not saved</source>
@@ -462,10 +412,6 @@ Do you want to save it?</source>
         <translation>Страница уже распознана. Вы хотите перераспознать её?</translation>
     </message>
     <message>
-        <source>Saving page</source>
-        <translation type="obsolete">Сохранение страницы</translation>
-    </message>
-    <message>
         <source>Ctrl+0</source>
         <translation></translation>
     </message>
@@ -480,10 +426,6 @@ Do you want to save it?</source>
     <message>
         <source>Recent files</source>
         <translation>Недавно открытые файлы</translation>
-    </message>
-    <message>
-        <source>Do you want to recognize all?</source>
-        <translation>Распознать все?</translation>
     </message>
     <message>
         <source>Recent packets</source>
@@ -513,19 +455,16 @@ Are you shure?</source>
         <translation>Изображение содержит область распознавания. Вращение удалит ее.
 Вы уверены?</translation>
     </message>
+    <message>
+        <source>Opening files</source>
+        <translation>Открытие файлов</translation>
+    </message>
 </context>
 <context>
     <name>PacketOpenProgressDialog</name>
     <message>
         <source>Loading packet...</source>
         <translation>Открытие пакета...</translation>
-    </message>
-</context>
-<context>
-    <name>Page</name>
-    <message>
-        <source>Saved failed. Can&apos;t open file &quot;%1&quot; for writing.</source>
-        <translation type="obsolete">Ошибка сохранения. Невозможно открыть файл &quot;%1&quot; для записи.</translation>
     </message>
 </context>
 <context>
@@ -642,10 +581,6 @@ Are you shure?</source>
     <message>
         <source>Recognition settings</source>
         <translation>Настройки распознавания</translation>
-    </message>
-    <message>
-        <source>Recognition</source>
-        <translation type="obsolete">Распознавание</translation>
     </message>
 </context>
 <context>
@@ -781,14 +716,6 @@ Are you shure?</source>
 <context>
     <name>ThumbnailList</name>
     <message>
-        <source>Revert selected</source>
-        <translation>Обратить выделение</translation>
-    </message>
-    <message>
-        <source>Delete selected</source>
-        <translation>Удалить выбранные</translation>
-    </message>
-    <message>
         <source>Select all</source>
         <translation>Выбрать все</translation>
     </message>
@@ -808,53 +735,8 @@ Are you shure?</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <source>Filename: &quot;%1&quot;
-</source>
-        <translation type="obsolete">Файл: &quot;%1&quot;
-</translation>
-    </message>
-    <message>
-        <source>Size: %1x%2
-</source>
-        <translation type="obsolete">Размер: %1x%2
-</translation>
-    </message>
-    <message>
-        <source>Rotation: %1
-</source>
-        <translation type="obsolete">Поворот: %1
-</translation>
-    </message>
-    <message>
-        <source>Page is recognized
-</source>
-        <translation type="obsolete">Страница распознана
-</translation>
-    </message>
-    <message>
-        <source>Page is not recognized
-</source>
-        <translation type="obsolete">Страница не распознана
-</translation>
-    </message>
-    <message>
-        <source>Page is saved
-</source>
-        <translation type="obsolete">Страница сохранена
-</translation>
-    </message>
-    <message>
-        <source>Page is not saved
-</source>
-        <translation type="obsolete">Страница не сохранена</translation>
-    </message>
-    <message>
         <source>Recognition settings</source>
         <translation>Настройки распознавания</translation>
-    </message>
-    <message>
-        <source>Properties - %1</source>
-        <translation type="obsolete">Свойства - %1</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -863,12 +745,6 @@ Are you shure?</source>
     <message>
         <source>Format settings</source>
         <translation>Настройки форматирования</translation>
-    </message>
-    <message>
-        <source>Language: %1
-</source>
-        <translation type="obsolete">Язык: %1
-</translation>
     </message>
 </context>
 </TS>

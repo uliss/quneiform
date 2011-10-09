@@ -24,7 +24,7 @@
 #include "language.h"
 
 class Page;
-typedef QList<Page*> PageList;
+typedef QList<Page*>    PageList;
 
 class Packet: public QObject
 {
@@ -46,11 +46,6 @@ public:
       * @see remove(), removeSelected()
       */
     void clear();
-
-    /**
-      * Returns numbers of selected pages
-      */
-    int countSelected() const;
 
     /**
       * Returns packet filename
@@ -86,6 +81,9 @@ public:
       */
     bool isNew() const;
 
+    void move(int pos, Page * page);
+    void moveBefore(Page * page, Page * target);
+
     /**
       * Opens packet from filename
       * current document replaced by new one
@@ -115,10 +113,7 @@ public:
       */
     bool save(const QString& filename);
 
-    /**
-      * Returns list of selected pages
-      */
-    QList<Page*> selectedPages();
+    PageList pages() const { return pages_;  }
 signals:
     /**
       * Emitted when packet changed
@@ -147,6 +142,11 @@ signals:
     void pageRemoved(Page * page);
 
     /**
+      * Emitted on page reorder
+      */
+    void reorder();
+
+    /**
       * Emitted when packet saved
       */
     void saved();
@@ -156,11 +156,6 @@ public  slots:
       * If page not found do nothing
       */
     void remove(Page * page);
-
-    /**
-      * Removes selected pages
-      */
-    void removeSelected();
 private slots:
     void pageChange();
 private:

@@ -16,14 +16,64 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "packet.h"
-#include "packetopenprogressdialog.h"
+#ifndef THUMBLAYOUT_H
+#define THUMBLAYOUT_H
 
-PacketOpenProgressDialog::PacketOpenProgressDialog(Packet * packet, QWidget * parent) :
-    QProgressDialog(tr("Loading packet..."), "", 0, 100, parent, Qt::FramelessWindowHint)
+#include <QList>
+#include <QSizeF>
+
+class ThumbnailWidget;
+class Page;
+
+class ThumbLayout
 {
-    setCancelButton(NULL);
-    setMinimumDuration(1000);
-    setWindowModality(Qt::ApplicationModal);
-    connect(packet, SIGNAL(loaded(int)), this, SLOT(setValue(int)));
-}
+public:
+    ThumbLayout();
+
+    /**
+      * Adds thumb at the layout end
+      */
+    void append(ThumbnailWidget * thumb);
+
+    /**
+      * Returns pointer to thumb at given position
+      */
+    ThumbnailWidget * at(int i);
+
+    /**
+      * Removes all thumbs from layout
+      */
+    void clear();
+
+    /**
+      * Returns thumbs count in layout
+      */
+    int count() const;
+
+    ThumbnailWidget * findByPage(Page * p);
+    void highlightAll(bool value);
+    void insert(ThumbnailWidget * thumb, int pos);
+
+    /**
+      * Returns true if layout is empty
+      */
+    bool isEmpty() const;
+
+    void multiSelect(ThumbnailWidget * thumbs);
+    void remove(ThumbnailWidget * thumb);
+    void sortByPages(const QList<Page*>& pages);
+    void select(ThumbnailWidget * thumb, bool value);
+    QList<ThumbnailWidget*> selected();
+    void selectAll();
+    void selectRange(ThumbnailWidget * thumb);
+    void set(const QList<ThumbnailWidget*>& thumbs);
+    QSizeF size() const;
+    void update();
+private:
+    void clearSelection();
+    void selectRange(int begin, int end);
+private:
+    QList<ThumbnailWidget*> thumbs_;
+};
+
+#endif // THUMBLAYOUT_H

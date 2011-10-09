@@ -43,31 +43,18 @@ void TestPacket::testPageSignals() {
 
     QSignalSpy changed(&packet, SIGNAL(changed()));
 
-    packet.pageAt(0)->setSelected(true);
-    QCOMPARE(changed.count(), 1);
-    QVERIFY(packet.isChanged());
-    // not repeated
-    packet.pageAt(0)->setSelected(true);
-    QCOMPARE(changed.count(), 1);
-
-    packet.pageAt(0)->setSelected(false);
-    QCOMPARE(changed.count(), 2);
-
-    packet.pageAt(1)->setNumber(2);
-    QCOMPARE(changed.count(), 3);
-
     packet.pageAt(0)->setPageArea(QRect(10, 10, 30, 40));
-    QCOMPARE(changed.count(), 4);
+    QCOMPARE(changed.count(), 1);
 
     // no change
     packet.pageAt(0)->setViewScroll(QPoint(10, 20));
-    QCOMPARE(changed.count(), 4);
+    QCOMPARE(changed.count(), 1);
 
     RecognitionSettings s;
     s.setDotMatrix(true);
 
     packet.pageAt(0)->setRecognitionSettings(s);
-    QCOMPARE(changed.count(), 5);
+    QCOMPARE(changed.count(), 2);
 }
 
 void TestPacket::testAppend() {
@@ -124,28 +111,6 @@ void TestPacket::testClear() {
     QCOMPARE(packet.pageCount(), 0);
     QCOMPARE(changed.count(), 3);
     QCOMPARE(page_removed.count(), 2);
-}
-
-void TestPacket::testCountSelected() {
-    Packet packet;
-    QCOMPARE(packet.countSelected(), 0);
-
-    packet.append(new Page(""));
-    QCOMPARE(packet.countSelected(), 0);
-
-    packet.pageAt(0)->setSelected(true);
-    QCOMPARE(packet.countSelected(), 1);
-
-    packet.append(new Page("path"));
-    QCOMPARE(packet.countSelected(), 1);
-    packet.pageAt(1)->setSelected(true);
-    QCOMPARE(packet.countSelected(), 2);
-
-    packet.pageAt(0)->setSelected(false);
-    QCOMPARE(packet.countSelected(), 1);
-
-    packet.pageAt(1)->setSelected(false);
-    QCOMPARE(packet.countSelected(), 0);
 }
 
 void TestPacket::testHasPage() {
@@ -282,29 +247,6 @@ void TestPacket::testRemove() {
 
     QFile f("packet.test");
     f.remove();
-}
-
-void TestPacket::testRemoveSelected() {
-    Packet packet;
-    Page * p = new Page("");
-    QSignalSpy removed(&packet, SIGNAL(pageRemoved(Page*)));
-
-    packet.append(p);
-    QCOMPARE(packet.pageCount(), 1);
-
-    QSignalSpy changed(&packet, SIGNAL(changed()));
-    packet.removeSelected();
-    QCOMPARE(packet.pageCount(), 1);
-    QCOMPARE(removed.count(), 0);
-    QCOMPARE(changed.count(), 0);
-
-    p->setSelected(true);
-    changed.clear();
-    packet.removeSelected();
-
-    QCOMPARE(packet.pageCount(), 0);
-    QCOMPARE(removed.count(), 1);
-    QCOMPARE(changed.count(), 1);
 }
 
 void TestPacket::testReadWrite() {

@@ -16,10 +16,10 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QLabel>
-#include <QPixmap>
-#include <QHBoxLayout>
+#include <QGraphicsPixmapItem>
 #include <QMouseEvent>
+#include <QGraphicsLinearLayout>
+#include <QGraphicsLayout>
 
 #include "pageindicator.h"
 #include "imagecache.h"
@@ -29,32 +29,25 @@ static const QString SAVED(":/img/oxygen/22x22/document_save.png");
 static const QString WARNING(":/img/oxygen/32x32/messagebox_warning.png");
 static const int ICON_WIDTH = 16;
 
-PageIndicator::PageIndicator(QWidget * parent) :
-    QWidget(parent), recognized_(NULL), saved_(NULL), warning_(NULL)
+PageIndicator::PageIndicator(QGraphicsItem * parent) :
+    QGraphicsObject(parent),
+    recognized_(NULL),
+    saved_(NULL),
+    warning_(NULL)
 {
-    recognized_ = new QLabel(this);
-    recognized_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
+    recognized_ = new QGraphicsPixmapItem(this);
     recognized_->setToolTip(tr("Page recognized"));
     recognized_->setPixmap(indicatorIcon(RECOGNIZED));
 
-    saved_ = new QLabel(this);
-    saved_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
+    saved_ = new QGraphicsPixmapItem(this);
     saved_->setToolTip(tr("Page saved"));
     saved_->setPixmap(indicatorIcon(SAVED));
+    saved_->moveBy(recognized_->pos().x() + recognized_->boundingRect().width(), 0);
 
-    warning_ = new QLabel(this);
-    warning_->setFixedSize(ICON_WIDTH, ICON_WIDTH);
+    warning_ = new QGraphicsPixmapItem(this);
     warning_->setPixmap(indicatorIcon(WARNING));
     warning_->setToolTip(tr("Recognition errors"));
-
-    QHBoxLayout * l = new QHBoxLayout;
-    l->addWidget(recognized_, 0, Qt::AlignLeft);
-    l->addWidget(saved_, 0, Qt::AlignLeft);
-    l->addWidget(warning_, 0, Qt::AlignLeft);
-    l->addStretch(10);
-    l->setContentsMargins(0, 0, 0, 0);
-    l->setMargin(0);
-    setLayout(l);
+    warning_->moveBy(saved_->pos().x() + saved_->boundingRect().width(), 0);
 }
 
 QPixmap PageIndicator::indicatorIcon(const QString& path) {
@@ -69,14 +62,14 @@ QPixmap PageIndicator::indicatorIcon(const QString& path) {
     return pixmap;
 }
 
-void PageIndicator::mousePressEvent(QMouseEvent * event) {
-    if (event->button() == Qt::LeftButton) {
-        if(warning_->isVisible() && warning_->geometry().contains(event->pos())) {
-            emit showWarningDetails();
-            event->accept();
-        }
-    }
-}
+//void PageIndicator::mousePressEvent(QMouseEvent * event) {
+//    if (event->button() == Qt::LeftButton) {
+//        if(warning_->isVisible() && warning_->geometry().contains(event->pos())) {
+//            emit showWarningDetails();
+//            event->accept();
+//        }
+//    }
+//}
 
 void PageIndicator::setRecognized(bool value) {
     if(value)
@@ -99,6 +92,10 @@ void PageIndicator::setWarning(bool value) {
         warning_->hide();
 }
 
-QSize PageIndicator::sizeHint() const {
-    return QSize(ICON_WIDTH * 4, ICON_WIDTH);
+QRectF PageIndicator::boundingRect() const {
+    return QRectF(0, 0, ICON_WIDTH * 4, ICON_WIDTH);
+}
+
+void PageIndicator::paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *)
+{
 }

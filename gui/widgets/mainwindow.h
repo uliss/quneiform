@@ -64,6 +64,7 @@ private slots:
     void packetSave();
     void recognizeAll();
     void recognizePage(Page * page);
+    void recognizePageList(const QList<Page*>& pages);
     void rotate(int angle);
     void rotateLeft();
     void rotateRight();

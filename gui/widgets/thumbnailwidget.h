@@ -20,36 +20,44 @@
 #define THUMBNAILWIDGET _H_
 
 #include <QString>
-#include <QFrame>
-#include <QPixmap>
+#include <QGraphicsObject>
 
-class QLabel;
-class QMouseEvent;
-class QCheckBox;
-class QVBoxLayout;
 class QMenu;
+class QAction;
 
 class Page;
 class PageIndicator;
-class ThumbnailList;
 
 // ThumbnailWidget represents a single thumbnail in the ThumbnailList
-class ThumbnailWidget: public QFrame
+class ThumbnailWidget: public QGraphicsObject
 {
     Q_OBJECT
 public:
-    ThumbnailWidget(Page * page, ThumbnailList * parent);
+    class Pixmap;
+    class Label;
+public:
+    ThumbnailWidget(Page * page);
 
     /**
-      * Highlights thumbnail
-      * @see setChecked()
+      * Returns thumb bounding rect
+      */
+    QRectF boundingRect() const;
+
+    /**
+      * Highlights wthumbnail background
       */
     void highlight(bool value);
 
     /**
-      * Checks if thumb is checked
+      * Checks if thumb is selected
       */
-    bool isChecked() const;
+    bool isThumbSelected() const;
+
+    /**
+      * Returns thumb name
+      * @see setName()
+      */
+    QString name() const;
 
     /**
       * Returns pointer to thumb page
@@ -57,64 +65,64 @@ public:
     Page * page() const;
 
     /**
-      * Checks thumbnail checkbox
+      * Selected thumbnail
       */
-    void setChecked(bool value);
+    void selectThumb(bool value);
 
     /**
       * Sets thumbnail name
+      * @see name()
       */
     void setName(const QString& name);
-
-    QSize sizeHint() const;
 
     /**
       * Toggles thumb selection
       */
     void toggleSelection();
 signals:
-    void clicked();
+    void clicked(int modifier);
     void contextMenuCreated(QMenu*);
-    void invalidImage(const QString& path);
+    void dragged(ThumbnailWidget * sender, QPointF);
+    void dropped(ThumbnailWidget * sender, QPointF);
     void recognize(Page*);
     void removed(Page*);
     void save(Page*);
     void showPageFault(Page*);
-    void toggled(bool);
 protected:
-    void contextMenuEvent(QContextMenuEvent * event);
-    void mousePressEvent(QMouseEvent * event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent * event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
+    void mousePressEvent(QGraphicsSceneMouseEvent * event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
+    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
 private:
-    QPixmap makeThumb() const;
     void setupActions();
-    void setupCheckBox();
-    void setupFrame();
     void setupIndicator();
     void setupLabel();
-    void setupLayout();
     void setupPixmap();
     void setupToolTip();
+    void updatePixmapPos();
 private slots:
     void pageFaultForward();
     void recognizeThumb();
     void removePage();
     void handlePageRotate();
     void savePage();
-    void selectPage(bool value);
     void showProperties();
     void showFormatSettings();
     void showRecognizeSettings();
     void updatePageIndicators();
 private:
     Page * page_;
-    QVBoxLayout * layout_;
-    QLabel * thumb_;
-    QCheckBox * checked_;
-    PageIndicator * indicator_;
+    Pixmap * pixmap_;
+    Label * label_;
     QAction * act_recognize_;
     QAction * act_save_as_;
     QAction * act_properties_;
     QAction * act_delete_;
+    PageIndicator * indicator_;
+    QPointF drag_start_pos_;
+    bool drag_progress_;
+    bool hightlighted_;
 };
 
 #endif /* THUMBNAILWIDGET_H_ */

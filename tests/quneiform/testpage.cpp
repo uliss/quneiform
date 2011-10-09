@@ -158,8 +158,6 @@ void TestPage::testConstruct() {
     QVERIFY(p.isNull());
     QVERIFY(!p.isRecognized());
     QVERIFY(!p.isExported());
-    QVERIFY(!p.isSelected());
-    QVERIFY(p.number() == 0);
     QCOMPARE(p.pageArea(), QRect());
     QCOMPARE(p.viewScale(), float(1.0));
     QCOMPARE(p.viewScroll(), QPoint());
@@ -290,23 +288,6 @@ void TestPage::testSetFlags() {
     QCOMPARE(changed.count(), 1);
 }
 
-void TestPage::testSetNumber() {
-    Page p("");
-    QSignalSpy changed(&p, SIGNAL(changed()));
-
-    p.setNumber(10);
-
-    QCOMPARE(p.number(), (unsigned int)10);
-    QCOMPARE(changed.count(), 1);
-
-    // same number - signal not emmited
-    p.setNumber(10);
-    QCOMPARE(changed.count(), 1);
-
-    p.setNumber(11);
-    QCOMPARE(changed.count(), 2);
-}
-
 void TestPage::testSetPageArea() {
     Page p("");
     QRect r(10, 20, 400, 500);
@@ -411,28 +392,6 @@ void TestPage::testSetBlocks() {
     QCOMPARE(p.blocks(Page::PICTURE).at(2), QRect(30, 30, 30, 30));
 }
 
-void TestPage::testSetSelected() {
-    Page p("");
-    QVERIFY(!p.isSelected());
-
-    QSignalSpy changed(&p, SIGNAL(changed()));
-    p.setSelected(true);
-
-    QCOMPARE(changed.count(), 1);
-    QVERIFY(p.isSelected());
-
-    p.setSelected(true);
-    QCOMPARE(changed.count(), 1);
-    QVERIFY(p.isSelected());
-
-    p.setSelected(false);
-    QCOMPARE(changed.count(), 2);
-    QVERIFY(!p.isSelected());
-
-    p.setSelected(false);
-    QCOMPARE(changed.count(), 2);
-}
-
 void TestPage::testSetViewScroll() {
     Page p("");
     QCOMPARE(p.viewScroll(), QPoint());
@@ -462,16 +421,12 @@ void TestPage::testUnsetFlag() {
 
 void TestPage::testReadWrite() {
     Page p(SAMPLE_IMG);
-    int n = 10;
     QPoint pt(10, 20);
-    QString t("sample text");
     QRect r(20, 30, 40, 50);
     QString fname("page.tmp");
-    p.setNumber(n);
     p.setViewScroll(pt);
     p.setPageArea(r);
     p.setAngle(90);
-    p.setSelected(true);
     p.setLanguage(Language(5));
 
     RecognitionSettings s;
@@ -507,9 +462,7 @@ void TestPage::testReadWrite() {
         QCOMPARE(p.isNull(), p2.isNull());
         QCOMPARE(p.isRecognized(), p2.isRecognized());
         QCOMPARE(p.isExported(), p2.isExported());
-        QCOMPARE(p.isSelected(), p2.isSelected());
         QCOMPARE(p.name(), p2.name());
-        QCOMPARE(p.number(), p2.number());
         QCOMPARE(p.pageArea(), p2.pageArea());
         QCOMPARE(p.recognitionSettings(), p2.recognitionSettings());
         QCOMPARE(p.viewScale(), p2.viewScale());

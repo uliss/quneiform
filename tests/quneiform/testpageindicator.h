@@ -32,7 +32,6 @@ private slots:
     void testSave();
     void testRecognized();
     void testWarning();
-    void testWarningDetails();
 };
 
 #endif // TESTPAGEINDICATOR_H
