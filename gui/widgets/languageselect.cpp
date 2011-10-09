@@ -25,7 +25,7 @@ LanguageSelect::LanguageSelect(QWidget * parent)
     : QComboBox(parent)
 {
     initLanguages();
-    connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(selectLanguage(int)));
+    connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(changeLanguage(int)));
     select(Language::english());
 }
 
@@ -40,7 +40,7 @@ void LanguageSelect::initLanguages() {
     }
 }
 
-void LanguageSelect::selectLanguage(int item_index) {
+void LanguageSelect::changeLanguage(int item_index) {
     if(item_index < 0)
         return;
 
