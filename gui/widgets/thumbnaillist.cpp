@@ -113,7 +113,7 @@ void ThumbnailList::setPacket(Packet * packet) {
     packet_ = packet;
     connect(packet_, SIGNAL(pageAdded(Page*)), SLOT(pageAdd(Page*)));
     connect(packet_, SIGNAL(pageRemoved(Page*)), SLOT(pageRemove(Page*)));
-    connect(packet_, SIGNAL(reorderThumbs()), SLOT(reorderThumbs()));
+    connect(packet_, SIGNAL(reorder()), SLOT(handleThumbReorder()));
     connect(packet_, SIGNAL(opened()), SLOT(updateLayout()));
 }
 
@@ -217,7 +217,7 @@ void ThumbnailList::updateLayout()
     scene_->setSceneRect(QRectF(QPointF(), layout_->size()));
 }
 
-void ThumbnailList::reorderThumbs()
+void ThumbnailList::handleThumbReorder()
 {
     Q_CHECK_PTR(layout_);
 

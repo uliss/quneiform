@@ -112,9 +112,9 @@ private slots:
     void handleThumbClick(ThumbnailWidget * sender, int modifiers);
     void handleThumbDrag(ThumbnailWidget * sender, const QPointF& scenePos);
     void handleThumbDrop(ThumbnailWidget * sender, const QPointF& scenePos);
+    void handleThumbReorder();
     void pageAdd(Page * page);
     void pageRemove(Page * page);
-    void reorderThumbs();
     void selectAll();
     void showThumbContextMenu(ThumbnailWidget * sender, const QPoint& pos);
     void updateLayout();
