@@ -170,7 +170,7 @@ void ThumbnailList::thumbClick(int modifiers) {
     else {
         layout_->select(th, true);
         current_page_ = th->page();
-        emit thumbSelected(current_page_);
+        emit showPage(current_page_);
     }
 }
 

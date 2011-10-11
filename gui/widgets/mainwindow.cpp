@@ -166,10 +166,10 @@ void MainWindow::connectActions() {
 
 void MainWindow::connectThumbs() {
     Q_CHECK_PTR(ui_);
-    connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageImage(Page*)));
-    connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(showPageText(Page*)));
-    connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(updateCurrentLanguage(Page*)));
-    connect(thumbs_, SIGNAL(thumbSelected(Page*)), SLOT(updatePageDocument(Page*)));
+    connect(thumbs_, SIGNAL(showPage(Page*)), SLOT(showPageImage(Page*)));
+    connect(thumbs_, SIGNAL(showPage(Page*)), SLOT(showPageText(Page*)));
+    connect(thumbs_, SIGNAL(showPage(Page*)), SLOT(updateCurrentLanguage(Page*)));
+    connect(thumbs_, SIGNAL(showPage(Page*)), SLOT(updatePageDocument(Page*)));
     connect(thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
     connect(thumbs_, SIGNAL(thumbRecognizeList(QList<Page*>)), SLOT(recognizePageList(QList<Page*>)));
     connect(thumbs_, SIGNAL(save(Page*)), SLOT(savePage(Page*)));

@@ -54,12 +54,34 @@ public:
       */
     void setLanguage(const Language& lang);
 signals:
+    /**
+      * Emitted on drag and drop attempt into thumbnail list
+      * @param list file paths
+      */
     void openDraggedImages(const QStringList& lst);
     void save(Page * page);
+
+    /**
+      * Emitted on show page request
+      */
+    void showPage(Page * page);
+
+    /**
+      * Emitted on page recognition error request
+      */
     void showPageFault(Page * page);
-    void thumbSelected(Page * page);
+
+    /**
+      * Emitted on page recognize request
+      * @param page - page to recognize
+      */
     void thumbRecognize(Page * page);
-    void thumbRecognizeList(const QList<Page*>& page);
+
+    /**
+      * Emitted on several page recognize request
+      * @param pages - pages to recognize
+      */
+    void thumbRecognizeList(const QList<Page*>& pages);
 private:
     typedef QList<ThumbnailWidget*> ThumbList;
 private:
