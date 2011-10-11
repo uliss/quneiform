@@ -67,8 +67,6 @@ signals:
     void thumbRecognize(Page * page);
     void thumbRecognizeList(const QList<Page*>& page);
     void thumbRemovalFinished(Page * page);
-public slots:
-    void selectAll();
 private:
     typedef QList<ThumbnailWidget*> ThumbList;
     void highlightAll(bool value);
@@ -101,6 +99,7 @@ private slots:
     void pageRemove(Page * page);
     void reorder();
     void removeSelectedPages(Page * page);
+    void selectAll();
     void showThumbContextMenu(ThumbnailWidget * sender, const QPoint& pos);
     void thumbClick(int modifiers);
     void updateLayout();
