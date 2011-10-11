@@ -721,54 +721,27 @@ Are you shure?</source>
     </message>
     <message>
         <source>Recognize</source>
-        <translation type="unfinished">Распознать</translation>
+        <translation>Распознать</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Сохранить как</translation>
+        <translation>Сохранить как</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Свойства</translation>
+        <translation>Свойства</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <source>Recognition settings</source>
-        <translation type="unfinished">Настройки распознавания</translation>
+        <translation>Настройки распознавания</translation>
     </message>
     <message>
         <source>Format settings</source>
-        <translation type="unfinished">Настройки форматирования</translation>
-    </message>
-</context>
-<context>
-    <name>ThumbnailWidget</name>
-    <message>
-        <source>Recognize</source>
-        <translation type="obsolete">Распознать</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation type="obsolete">Сохранить как</translation>
-    </message>
-    <message>
-        <source>Recognition settings</source>
-        <translation type="obsolete">Настройки распознавания</translation>
-    </message>
-    <message>
-        <source>Properties</source>
-        <translation type="obsolete">Свойства</translation>
-    </message>
-    <message>
-        <source>Format settings</source>
-        <translation type="obsolete">Настройки форматирования</translation>
+        <translation>Настройки форматирования</translation>
     </message>
 </context>
 </TS>
