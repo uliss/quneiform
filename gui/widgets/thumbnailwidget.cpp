@@ -200,8 +200,6 @@ Page * ThumbnailWidget::page() const {
 }
 
 void ThumbnailWidget::pageFaultForward() {
-    Q_ASSERT(indicator_ == sender());
-
     if(page_)
         emit showPageFault(page_);
 }
@@ -226,12 +224,14 @@ void ThumbnailWidget::setName(const QString& name) {
 }
 
 void ThumbnailWidget::setupIndicator() {
-    static const int INDICATOR_MARGIN = 5;
+    static const int MARGIN = 17;
     indicator_ = new PageIndicator(this);
     indicator_->setZValue(20);
-    indicator_->setPos(INDICATOR_MARGIN,
-                       boundingRect().height() - indicator_->boundingRect().height() - INDICATOR_MARGIN);
     connect(indicator_, SIGNAL(showWarningDetails()), SLOT(pageFaultForward()));
+
+    const qreal x_off = 2;
+    const qreal y_off = boundingRect().height() - (indicator_->boundingRect().height() + MARGIN);
+    indicator_->setPos(x_off, y_off);
 }
 
 void ThumbnailWidget::setupLabel() {

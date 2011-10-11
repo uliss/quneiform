@@ -653,9 +653,6 @@ void MainWindow::showPageFault(Page * page) {
     Q_CHECK_PTR(recognition_queue_);
 
     QString msg = recognition_queue_->pageError(page->imagePath());
-    if(msg.isEmpty())
-        return;
-
     QMessageBox::critical(this, tr("Recognition error"), msg);
 }
 
