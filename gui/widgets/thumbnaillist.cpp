@@ -45,8 +45,7 @@ ThumbnailList::ThumbnailList(QWidget * parent) :
     act_properties_(NULL),
     act_delete_(NULL),
     scene_(NULL),
-    context_thumb_(NULL),
-    drag_in_progress_(false)
+    context_thumb_(NULL)
 {
     setAcceptDrops(true);
     setupLayout();
@@ -204,8 +203,6 @@ void ThumbnailList::handleThumbDrag(ThumbnailWidget * sender, const QPointF& sce
     if(target_thumb == sender)
         return;
 
-    drag_in_progress_ = true;
-
     layout_->highlightAll(false);
     target_thumb->highlight(true);
 }
@@ -216,8 +213,6 @@ void ThumbnailList::handleThumbDrop(ThumbnailWidget * sender, const QPointF& sce
 
     setCursor(Qt::ArrowCursor);
     layout_->highlightAll(false);
-
-    drag_in_progress_ = false;
 
     ThumbnailWidget * target_thumb = findThumbByPos(scenePos);
 

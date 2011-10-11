@@ -131,7 +131,6 @@ private:
     QAction * act_delete_;
     ThumbScene * scene_;
     ThumbnailWidget * context_thumb_;
-    bool drag_in_progress_;
 };
 
 #endif /* THUMBNAILLIST_H_ */
