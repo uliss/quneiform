@@ -60,11 +60,6 @@ public:
     void thumbRemove(ThumbnailWidget * thumb);
 
     /**
-      * Returns selected thumbs
-      */
-    QList<ThumbnailWidget*> selected();
-
-    /**
       * Sets corresponding document for thumbnail list
       */
     void setDocument(Packet * doc);
@@ -98,6 +93,7 @@ private:
     void highlightAll(bool value);
     bool isValidThumbDropPosition(const QPointF& scenePos);
     ThumbnailWidget * targetDropThumb(const QPointF& pos);
+    QList<ThumbnailWidget*> selected();
     void setupActions();
     void setupActionDelete();
     void setupActionProperties();
