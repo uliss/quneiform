@@ -70,12 +70,6 @@ void ThumbnailList::append(ThumbnailWidget * thumb) {
     updateThumbNames();
 }
 
-int ThumbnailList::count() const {
-    Q_CHECK_PTR(layout_);
-
-    return layout_->count();
-}
-
 Page * ThumbnailList::currentPage() {
     return current_page_;
 }

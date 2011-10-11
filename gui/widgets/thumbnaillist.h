@@ -50,11 +50,6 @@ public:
     Page * currentPage();
 
     /**
-      * Returns number of thumbs in list
-      */
-    int count() const;
-
-    /**
       * Removes thumbnail
       */
     void thumbRemove(ThumbnailWidget * thumb);
