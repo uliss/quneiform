@@ -65,7 +65,7 @@ void ThumbnailList::thumbAppend(ThumbnailWidget * thumb) {
     connect(thumb, SIGNAL(dragged(ThumbnailWidget*, QPointF)), SLOT(handleThumbDrag(ThumbnailWidget*, QPointF)));
     connect(thumb, SIGNAL(dropped(ThumbnailWidget*, QPointF)), SLOT(handleThumbDrop(ThumbnailWidget*, QPointF)));
     connect(thumb, SIGNAL(showPageFault(Page*)), SIGNAL(showPageFault(Page*)));
-    connect(thumb, SIGNAL(createContextMenu(ThumbnailWidget*,QPoint)), SLOT(showThumbContextMenu(ThumbnailWidget*,QPoint)));
+    connect(thumb, SIGNAL(createContextMenu(ThumbnailWidget*,QPoint)), SLOT(handleThumbContextMenu(ThumbnailWidget*,QPoint)));
 
     updateThumbNames();
 }
@@ -262,7 +262,7 @@ ThumbnailWidget * ThumbnailList::findThumbByPos(const QPointF& scenePos)
     return target_thumb;
 }
 
-void ThumbnailList::showThumbContextMenu(ThumbnailWidget * sender, const QPoint& pos)
+void ThumbnailList::handleThumbContextMenu(ThumbnailWidget * sender, const QPoint& pos)
 {
     context_thumb_ = sender;
 
