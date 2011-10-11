@@ -22,11 +22,12 @@
 #include <QString>
 #include <QGraphicsObject>
 
-class QMenu;
 class Page;
 class PageIndicator;
 
-// ThumbnailWidget represents a single thumbnail in the ThumbnailList
+/**
+  * @brief ThumbnailWidget represents a single thumbnail in the ThumbnailList
+  */
 class ThumbnailWidget: public QGraphicsObject
 {
     Q_OBJECT
@@ -42,7 +43,7 @@ public:
     QRectF boundingRect() const;
 
     /**
-      * Highlights wthumbnail background
+      * Highlights thumbnail background
       */
     void highlight(bool value);
 
@@ -50,12 +51,6 @@ public:
       * Checks if thumb is selected
       */
     bool isThumbSelected() const;
-
-    /**
-      * Returns thumb name
-      * @see setName()
-      */
-    QString name() const;
 
     /**
       * Returns pointer to thumb page
@@ -69,7 +64,6 @@ public:
 
     /**
       * Sets thumbnail name
-      * @see name()
       */
     void setName(const QString& name);
 

@@ -17,15 +17,12 @@
  ***************************************************************************/
 
 #include <QDebug>
-#include <QMenu>
 #include <QGraphicsRectItem>
 #include <QGraphicsSimpleTextItem>
 #include <QGraphicsSceneContextMenuEvent>
 #include <QGraphicsSceneMouseEvent>
 #include <QStyleOptionGraphicsItem>
-#include <QStyle>
 #include <QApplication>
-#include <QDrag>
 
 #include "thumbnailwidget.h"
 #include "thumbnaillist.h"
@@ -283,12 +280,6 @@ bool ThumbnailWidget::isThumbSelected() const
 {
     Q_CHECK_PTR(label_);
     return label_->isHighlighted();
-}
-
-QString ThumbnailWidget::name() const
-{
-    Q_CHECK_PTR(label_);
-    return label_->text();
 }
 
 void ThumbnailWidget::updatePixmapPos()
