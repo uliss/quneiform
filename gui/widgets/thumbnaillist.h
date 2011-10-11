@@ -59,10 +59,18 @@ signals:
       * @param list file paths
       */
     void openDraggedImages(const QStringList& lst);
+
+    /**
+      * Emitted on page recognize request
+      * @param page - target page
+      */
+    void recognizePage(Page * page);
+
     void save(Page * page);
 
     /**
       * Emitted on show page request
+      * @param page - target page
       */
     void showPage(Page * page);
 
@@ -70,12 +78,6 @@ signals:
       * Emitted on page recognition error request
       */
     void showPageFault(Page * page);
-
-    /**
-      * Emitted on page recognize request
-      * @param page - page to recognize
-      */
-    void thumbRecognize(Page * page);
 
     /**
       * Emitted on several page recognize request

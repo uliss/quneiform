@@ -170,7 +170,7 @@ void MainWindow::connectThumbs() {
     connect(thumbs_, SIGNAL(showPage(Page*)), SLOT(showPageText(Page*)));
     connect(thumbs_, SIGNAL(showPage(Page*)), SLOT(updateCurrentLanguage(Page*)));
     connect(thumbs_, SIGNAL(showPage(Page*)), SLOT(updatePageDocument(Page*)));
-    connect(thumbs_, SIGNAL(thumbRecognize(Page*)), SLOT(recognizePage(Page*)));
+    connect(thumbs_, SIGNAL(recognizePage(Page*)), SLOT(recognizePage(Page*)));
     connect(thumbs_, SIGNAL(thumbRecognizeList(QList<Page*>)), SLOT(recognizePageList(QList<Page*>)));
     connect(thumbs_, SIGNAL(save(Page*)), SLOT(savePage(Page*)));
     connect(thumbs_, SIGNAL(openDraggedImages(QStringList)), SLOT(openImages(QStringList)));

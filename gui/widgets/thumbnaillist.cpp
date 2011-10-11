@@ -420,7 +420,7 @@ void ThumbnailList::contextThumbRecognize()
     // recognize context thumb page only
     if(selected.isEmpty()) {
         if(context_thumb_)
-            emit thumbRecognize(context_thumb_->page());
+            emit recognizePage(context_thumb_->page());
 
         return;
     }
