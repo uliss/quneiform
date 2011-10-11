@@ -60,13 +60,6 @@ public:
       */
     void setLanguage(const Language& lang);
 
-    /**
-      * Returns thumbnail that correspondents to given page
-      * @param page
-      * @return NULL if nothing found
-      */
-    ThumbnailWidget * thumb(Page * page);
-
     void updateLayout();
 signals:
     void openDraggedImages(const QStringList& lst);
@@ -93,6 +86,7 @@ private:
     void setupLayout();
     void setupScene();
     void setScrollBars();
+    ThumbnailWidget * thumbByPage(Page * page);
     void thumbRemove(ThumbnailWidget * thumb);
     /** Updates thumbnail names */
     void updateThumbNames();

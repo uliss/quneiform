@@ -82,7 +82,7 @@ void ThumbnailList::pageAdd(Page * page) {
 }
 
 void ThumbnailList::pageRemove(Page * page) {
-    ThumbnailWidget * th = thumb(page);
+    ThumbnailWidget * th = thumbByPage(page);
     if(th)
         thumbRemove(th);
 }
@@ -151,7 +151,7 @@ void ThumbnailList::setScrollBars() {
     setAttribute(Qt::WA_StaticContents);
 }
 
-ThumbnailWidget * ThumbnailList::thumb(Page * page) {
+ThumbnailWidget * ThumbnailList::thumbByPage(Page * page) {
     Q_CHECK_PTR(layout_);
 
     return layout_->findByPage(page);
