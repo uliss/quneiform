@@ -176,7 +176,7 @@ void ThumbnailWidget::mousePressEvent(QGraphicsSceneMouseEvent * event) {
     switch (event->button()) {
     case Qt::LeftButton:
         drag_start_pos_ = event->pos();
-        emit clicked(event->modifiers());
+        emit clicked(this, event->modifiers());
         event->accept();
         break;
     case Qt::RightButton:

@@ -93,7 +93,7 @@ public:
       */
     void toggleSelection();
 signals:
-    void clicked(int modifier);
+    void clicked(ThumbnailWidget * sender, int modifier);
     void createContextMenu(ThumbnailWidget * sender, const QPoint& pos);
     void dragged(ThumbnailWidget * sender, QPointF);
     void dropped(ThumbnailWidget * sender, QPointF);

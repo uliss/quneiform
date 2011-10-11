@@ -61,7 +61,7 @@ void ThumbnailList::thumbAppend(ThumbnailWidget * thumb) {
     layout_->append(thumb);
     scene_->addItem(thumb);
 
-    connect(thumb, SIGNAL(clicked(int)), SLOT(thumbClick(int)));
+    connect(thumb, SIGNAL(clicked(int)), SLOT(handleThumbClick(int)));
     connect(thumb, SIGNAL(dragged(ThumbnailWidget*, QPointF)), SLOT(handleThumbDrag(ThumbnailWidget*, QPointF)));
     connect(thumb, SIGNAL(dropped(ThumbnailWidget*, QPointF)), SLOT(handleThumbDrop(ThumbnailWidget*, QPointF)));
     connect(thumb, SIGNAL(showPageFault(Page*)), SIGNAL(showPageFault(Page*)));
@@ -137,20 +137,21 @@ void ThumbnailList::setupScrollBars() {
     setAttribute(Qt::WA_StaticContents);
 }
 
-void ThumbnailList::thumbClick(int modifiers) {
-    ThumbnailWidget * th = qobject_cast<ThumbnailWidget*> (QObject::sender());
-    if (!th)
+void ThumbnailList::handleThumbClick(ThumbnailWidget * thumb, int modifiers) {
+    Q_CHECK_PTR(layout_);
+
+    if (!thumb)
         return;
 
     if(modifiers == Qt::ControlModifier) {
-        layout_->multiSelect(th);
+        layout_->multiSelect(thumb);
     }
     else if(modifiers == Qt::ShiftModifier) {
-        layout_->selectRange(th);
+        layout_->selectRange(thumb);
     }
     else {
-        layout_->select(th, true);
-        current_page_ = th->page();
+        layout_->select(thumb, true);
+        current_page_ = thumb->page();
         emit showPage(current_page_);
     }
 }

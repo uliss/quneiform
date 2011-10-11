@@ -109,6 +109,7 @@ private slots:
     void contextThumbRecognizeSettings();
     void contextThumbRemove();
     void contextThumbSave();
+    void handleThumbClick(ThumbnailWidget * sender, int modifiers);
     void handleThumbDrag(ThumbnailWidget * sender, const QPointF& scenePos);
     void handleThumbDrop(ThumbnailWidget * sender, const QPointF& scenePos);
     void pageAdd(Page * page);
@@ -116,7 +117,6 @@ private slots:
     void reorderThumbs();
     void selectAll();
     void showThumbContextMenu(ThumbnailWidget * sender, const QPoint& pos);
-    void thumbClick(int modifiers);
     void updateLayout();
 private:
     Packet * packet_;
