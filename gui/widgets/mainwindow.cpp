@@ -601,7 +601,7 @@ void MainWindow::setupTextView() {
 
 void MainWindow::setupThumbs() {
     thumbs_ = new ThumbnailList(this);
-    thumbs_->setDocument(packet_);
+    thumbs_->setPacket(packet_);
 }
 
 void MainWindow::setupUi() {

@@ -121,10 +121,10 @@ void ThumbnailList::selectAll() {
     layout_->selectAll();
 }
 
-void ThumbnailList::setDocument(Packet * doc) {
-    Q_CHECK_PTR(doc);
+void ThumbnailList::setPacket(Packet * packet) {
+    Q_CHECK_PTR(packet);
 
-    packet_ = doc;
+    packet_ = packet;
     connect(packet_, SIGNAL(pageAdded(Page*)), SLOT(pageAdd(Page*)));
     connect(packet_, SIGNAL(pageRemoved(Page*)), SLOT(pageRemove(Page*)));
     connect(packet_, SIGNAL(reorder()), SLOT(reorder()));

@@ -50,9 +50,9 @@ public:
     Page * currentPage();
 
     /**
-      * Sets corresponding document for thumbnail list
+      * Sets corresponding packet for thumbnail list
       */
-    void setDocument(Packet * doc);
+    void setPacket(Packet * packet);
 
     /**
       * Sets language for selected thumbs
