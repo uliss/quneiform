@@ -106,6 +106,11 @@ public slots:
 
     void updatePageArea();
 signals:
+    /**
+      * Emmitted after gesture rotate attempt
+      */
+    void gestureRotateAttempt(int angle);
+
     void pageDeleted();
 
     /**

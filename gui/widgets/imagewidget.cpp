@@ -64,6 +64,8 @@ void ImageWidget::setupView() {
     connect(view_, SIGNAL(scaled()), SIGNAL(scaled()));
     connect(view_, SIGNAL(scaleIsTooBig()), SIGNAL(scaleIsTooBig()));
     connect(view_, SIGNAL(scaleIsTooSmall()), SIGNAL(scaleIsTooSmall()));
+    connect(view_, SIGNAL(gestureRotateAttempt(int)), SIGNAL(gestureRotateAttempt(int)));
+
 #ifdef QT_OS_MAC
     view_->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
 #endif

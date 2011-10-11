@@ -524,6 +524,7 @@ void MainWindow::setupImageView() {
     connect(image_widget_, SIGNAL(scaleIsTooBig()), SLOT(disableZoomInAction()));
     connect(image_widget_, SIGNAL(scaleIsTooSmall()), SLOT(disableZoomOutAction()));
     connect(image_widget_, SIGNAL(scaled()), SLOT(enableZoomActions()));
+    connect(image_widget_, SIGNAL(gestureRotateAttempt(int)), SLOT(rotate(int)));
 }
 
 void MainWindow::setupLanguageMenu() {

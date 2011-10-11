@@ -35,6 +35,11 @@ public:
     void showPage(Page * p);
     QSize sizeHint () const;
 signals:
+    /**
+      * Emitted after gesture rotate attempt
+      */
+    void gestureRotateAttempt(int angle);
+
     void pageDeleted();
 
     /**

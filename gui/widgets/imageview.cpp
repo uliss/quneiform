@@ -337,9 +337,9 @@ void ImageView::pinchTriggered(QPinchGesture * gesture) {
     if (gesture->state() == Qt::GestureFinished) {
         qreal rot_angle = gesture->rotationAngle();
         if(rot_angle > ROTATE_THRESHOLD)
-            page_->rotate(90);
+            emit gestureRotateAttempt(90);
         else if (rot_angle < - ROTATE_THRESHOLD)
-            page_->rotate(-90);
+            emit gestureRotateAttempt(-90);
     }
     else if(gesture->state() == Qt::GestureUpdated) {
         qreal scale = ((gesture->lastScaleFactor() - 1) * GESTURE_SCALE_FACTOR) + 1;
