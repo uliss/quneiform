@@ -40,7 +40,12 @@ ThumbnailList::ThumbnailList(QWidget * parent) :
     layout_(NULL),
     current_page_(NULL),
     select_all_(NULL),
+    act_recognize_(NULL),
+    act_save_as_(NULL),
+    act_properties_(NULL),
+    act_delete_(NULL),
     scene_(NULL),
+    context_thumb_(NULL),
     drag_in_progress_(false)
 {
     setAcceptDrops(true);
@@ -59,19 +64,10 @@ void ThumbnailList::append(ThumbnailWidget * thumb) {
     connect(thumb, SIGNAL(clicked(int)), SLOT(thumbClick(int)));
     connect(thumb, SIGNAL(dragged(ThumbnailWidget*, QPointF)), SLOT(handleThumbDrag(ThumbnailWidget*, QPointF)));
     connect(thumb, SIGNAL(dropped(ThumbnailWidget*, QPointF)), SLOT(handleThumbDrop(ThumbnailWidget*, QPointF)));
-    connect(thumb, SIGNAL(recognize(Page*)), SLOT(recognizeSelectedPages(Page*)));
-    connect(thumb, SIGNAL(removed(Page*)), SLOT(removeSelectedPages(Page*)));
-    connect(thumb, SIGNAL(save(Page*)), SIGNAL(save(Page*)));
     connect(thumb, SIGNAL(showPageFault(Page*)), SIGNAL(showPageFault(Page*)));
-    connect(thumb, SIGNAL(contextMenuCreated(QMenu*)), SLOT(setupContextMenu(QMenu*)));
+    connect(thumb, SIGNAL(createContextMenu(ThumbnailWidget*,QPoint)), SLOT(showThumbContextMenu(ThumbnailWidget*,QPoint)));
 
     updateThumbNames();
-}
-
-void ThumbnailList::setupContextMenu(QMenu * menu) {
-    Q_CHECK_PTR(menu);
-
-    menu->addAction(select_all_);
 }
 
 int ThumbnailList::count() const {
@@ -93,9 +89,10 @@ void ThumbnailList::pageAdd(Page * page) {
 
 void ThumbnailList::pageRemove(Page * page) {
     ThumbnailWidget * th = thumb(page);
-    if (th)
+    if(th)
         thumbRemove(th);
 }
+
 
 void ThumbnailList::removeSelectedPages(Page * page) {
     QList<ThumbnailWidget*> selected = layout_->selected();
@@ -140,10 +137,11 @@ void ThumbnailList::setDocument(Packet * doc) {
 }
 
 void ThumbnailList::setupActions() {
-    select_all_ = new QAction(tr("Select all"), this);
-    select_all_->setShortcut(QKeySequence::SelectAll);
-    connect(select_all_, SIGNAL(triggered()), this, SLOT(selectAll()));
-    addAction(select_all_);
+    setupActionSelectAll();
+    setupActionRecognize();
+    setupActionSaveAs();
+    setupActionProperties();
+    setupActionDelete();
 }
 
 void ThumbnailList::setupLayout() {
@@ -210,22 +208,6 @@ QList<ThumbnailWidget*> ThumbnailList::selected()
 {
     Q_CHECK_PTR(layout_);
     return layout_->selected();
-}
-
-void ThumbnailList::recognizeSelectedPages(Page * page)
-{
-    QList<ThumbnailWidget*> selected = layout_->selected();
-
-    if(selected.isEmpty()) {
-        emit thumbRecognize(page);
-        return;
-    }
-
-    QList<Page*> pages;
-    foreach(ThumbnailWidget * t, selected) {
-        pages.append(t->page());
-    }
-    emit thumbRecognizeList(pages);
 }
 
 void ThumbnailList::handleThumbDrag(ThumbnailWidget * sender, const QPointF& scenePos)
@@ -325,4 +307,142 @@ void ThumbnailList::highlightAll(bool value)
 {
     Q_CHECK_PTR(layout_);
     layout_->highlightAll(value);
+}
+
+void ThumbnailList::showThumbContextMenu(ThumbnailWidget * sender, const QPoint& pos)
+{
+    context_thumb_ = sender;
+
+    QMenu * menu = new QMenu(NULL);
+    menu->addAction(select_all_);
+    menu->addAction(act_delete_);
+    menu->addSeparator();
+    menu->addAction(act_recognize_);
+    menu->addAction(act_properties_);
+    menu->addSeparator();
+    menu->addAction(tr("Recognition settings"), this, SLOT(contextThumbRecognizeSettings()));
+    menu->addAction(tr("Format settings"), this, SLOT(contextThumbFormatSettings()));
+    menu->addSeparator();
+    menu->addAction(act_save_as_);
+    menu->exec(pos);
+    delete menu;
+
+    context_thumb_ = NULL;
+}
+
+void ThumbnailList::contextThumbRemove()
+{
+    Q_CHECK_PTR(layout_);
+
+    QList<ThumbnailWidget*> selected = layout_->selected();
+
+    // if no thumbs selected and have context thumb
+    // remove this one only
+    if(selected.isEmpty()) {
+        if(context_thumb_)
+            packet_->remove(context_thumb_->page());
+
+        return;
+    }
+
+    // remove all selected thumbs
+    foreach(ThumbnailWidget * t, selected) {
+        packet_->remove(t->page());
+    }
+}
+
+void ThumbnailList::setupActionDelete()
+{
+    act_delete_ = new QAction(QIcon(":/img/oxygen/22x22/list_remove.png"), tr("Delete"), this);
+    act_delete_->setShortcut(Qt::CTRL + Qt::Key_Backspace);
+    act_delete_->setShortcutContext(Qt::WidgetShortcut);
+    connect(act_delete_, SIGNAL(triggered()), SLOT(contextThumbRemove()));
+
+    addAction(act_delete_);
+}
+
+void ThumbnailList::setupActionProperties()
+{
+    act_properties_ = new QAction(QIcon(":/img/oxygen/22x22/document_properties.png"),
+                                  tr("Properties"),
+                                  this);
+    connect(act_properties_, SIGNAL(triggered()), SLOT(contextThumbProperties()));
+    addAction(act_properties_);
+}
+
+void ThumbnailList::contextThumbProperties()
+{
+    if(context_thumb_)
+        context_thumb_->showProperties();
+}
+
+void ThumbnailList::setupActionSelectAll()
+{
+    select_all_ = new QAction(tr("Select all"), this);
+    select_all_->setShortcut(QKeySequence::SelectAll);
+    connect(select_all_, SIGNAL(triggered()), SLOT(selectAll()));
+    addAction(select_all_);
+}
+
+void ThumbnailList::setupActionSaveAs()
+{
+    act_save_as_ = new QAction(QIcon(":/img/oxygen/22x22/document_save_as.png"),
+                               tr("Save as"),
+                               this);
+    act_save_as_->setShortcut(QKeySequence::SaveAs);
+    act_save_as_->setShortcutContext(Qt::WidgetShortcut);
+    connect(act_save_as_, SIGNAL(triggered()), SLOT(contextThumbSave()));
+    addAction(act_save_as_);
+}
+
+void ThumbnailList::setupActionRecognize()
+{
+    act_recognize_ = new QAction(QIcon(":/img/oxygen/22x22/document_preview.png"),
+                                 tr("Recognize"),
+                                 this);
+    connect(act_recognize_, SIGNAL(triggered()), SLOT(contextThumbRecognize()));
+    act_recognize_->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R));
+    addAction(act_recognize_);
+}
+
+void ThumbnailList::contextThumbFormatSettings()
+{
+    if(context_thumb_)
+        context_thumb_->showFormatSettings();
+}
+
+void ThumbnailList::contextThumbRecognizeSettings()
+{
+    if(context_thumb_)
+        context_thumb_->showRecognizeSettings();
+}
+
+void ThumbnailList::contextThumbRecognize()
+{
+    Q_CHECK_PTR(layout_);
+
+    QList<ThumbnailWidget*> selected = layout_->selected();
+
+    // if no selection and have context thumb
+    // recognize context thumb page only
+    if(selected.isEmpty()) {
+        if(context_thumb_)
+            emit thumbRecognize(context_thumb_->page());
+
+        return;
+    }
+
+    // if have selected thumbs - recognize all
+    QList<Page*> pages;
+    foreach(ThumbnailWidget * t, selected) {
+        pages.append(t->page());
+    }
+
+    emit thumbRecognizeList(pages);
+}
+
+void ThumbnailList::contextThumbSave()
+{
+    if(context_thumb_)
+        emit save(context_thumb_->page());
 }

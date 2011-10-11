@@ -719,32 +719,56 @@ Are you shure?</source>
         <source>Select all</source>
         <translation>Выбрать все</translation>
     </message>
+    <message>
+        <source>Recognize</source>
+        <translation type="unfinished">Распознать</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Сохранить как</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Свойства</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Удалить</translation>
+    </message>
+    <message>
+        <source>Recognition settings</source>
+        <translation type="unfinished">Настройки распознавания</translation>
+    </message>
+    <message>
+        <source>Format settings</source>
+        <translation type="unfinished">Настройки форматирования</translation>
+    </message>
 </context>
 <context>
     <name>ThumbnailWidget</name>
     <message>
         <source>Recognize</source>
-        <translation>Распознать</translation>
+        <translation type="obsolete">Распознать</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Удалить</translation>
+        <translation type="obsolete">Удалить</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Сохранить как</translation>
+        <translation type="obsolete">Сохранить как</translation>
     </message>
     <message>
         <source>Recognition settings</source>
-        <translation>Настройки распознавания</translation>
+        <translation type="obsolete">Настройки распознавания</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation>Свойства</translation>
+        <translation type="obsolete">Свойства</translation>
     </message>
     <message>
         <source>Format settings</source>
-        <translation>Настройки форматирования</translation>
+        <translation type="obsolete">Настройки форматирования</translation>
     </message>
 </context>
 </TS>

@@ -377,8 +377,10 @@ void MainWindow::recognizeAll() {
 }
 
 void MainWindow::recognizePage(Page * page) {
-    Q_CHECK_PTR(page);
-    Q_CHECK_PTR(lang_select_);
+    Q_CHECK_PTR(recognition_queue_);
+
+    if(!page)
+        return;
 
     if(page->isRecognized()) {
         if(QMessageBox::Ok != QMessageBox::question(this,

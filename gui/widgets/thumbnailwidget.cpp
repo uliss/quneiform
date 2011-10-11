@@ -130,7 +130,6 @@ ThumbnailWidget::ThumbnailWidget(Page * page) :
     setupLabel();
     setupToolTip();
     setupIndicator();
-    setupActions();
 
     connect(page, SIGNAL(rotated(int)), SLOT(handlePageRotate()));
     connect(page, SIGNAL(changed()), SLOT(updatePageIndicators()));
@@ -139,24 +138,8 @@ ThumbnailWidget::ThumbnailWidget(Page * page) :
 }
 
 void ThumbnailWidget::contextMenuEvent(QGraphicsSceneContextMenuEvent * event) {
-    QMenu * menu = new QMenu(NULL);
-    emit contextMenuCreated(menu);
-    menu->addAction(act_delete_);
-    menu->addSeparator();
-    menu->addAction(act_recognize_);
-    menu->addAction(act_properties_);
-    menu->addSeparator();
-    menu->addAction(tr("Recognition settings"), this, SLOT(showRecognizeSettings()));
-    menu->addAction(tr("Format settings"), this, SLOT(showFormatSettings()));
-    menu->addSeparator();
-    menu->addAction(act_save_as_);
-    menu->exec(event->screenPos());
-    delete menu;
+    emit createContextMenu(this, event->screenPos());
     event->accept();
-}
-
-void ThumbnailWidget::savePage() {
-    emit save(page_);
 }
 
 void ThumbnailWidget::showFormatSettings() {
@@ -225,10 +208,6 @@ void ThumbnailWidget::pageFaultForward() {
         emit showPageFault(page_);
 }
 
-void ThumbnailWidget::recognizeThumb() {
-    emit recognize(page_);
-}
-
 void ThumbnailWidget::handlePageRotate() {
     Q_CHECK_PTR(pixmap_);
     Q_CHECK_PTR(page_);
@@ -240,46 +219,12 @@ void ThumbnailWidget::handlePageRotate() {
     updatePixmapPos();
 }
 
-void ThumbnailWidget::removePage() {
-    emit removed(page_);
-}
-
 void ThumbnailWidget::setName(const QString& name) {
     Q_CHECK_PTR(label_);
     label_->setText(name);
     qreal x = (THUMB_WIDTH - label_->boundingRect().width()) / 2;
     qreal y = label_->pos().y();
     label_->setPos(x, y);
-}
-
-void ThumbnailWidget::setupActions() {
-    act_recognize_ = new QAction(QIcon(":/img/oxygen/22x22/document_preview.png"),
-                                 tr("Recognize"),
-                                 this);
-    connect(act_recognize_, SIGNAL(triggered()), this, SLOT(recognizeThumb()));
-    act_recognize_->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R));
-    act_recognize_->setShortcutContext(Qt::WidgetShortcut);
-//    addAction(act_recognize_);
-
-    act_save_as_ = new QAction(QIcon(":/img/oxygen/22x22/document_save_as.png"),
-                               tr("Save as"),
-                               this);
-    act_save_as_->setShortcut(QKeySequence::SaveAs);
-    act_save_as_->setShortcutContext(Qt::WidgetShortcut);
-    connect(act_save_as_, SIGNAL(triggered()), this, SLOT(savePage()));
-//    addAction(act_save_as_);
-
-    act_properties_ = new QAction(QIcon(":/img/oxygen/22x22/document_properties.png"),
-                                  tr("Properties"),
-                                  this);
-    connect(act_properties_, SIGNAL(triggered()), this, SLOT(showProperties()));
-//    addAction(act_properties_);
-
-    act_delete_ = new QAction(QIcon(":/img/oxygen/22x22/list_remove.png"), tr("Delete"), this);
-    act_delete_->setShortcut(Qt::CTRL + Qt::Key_Backspace);
-    act_delete_->setShortcutContext(Qt::WidgetShortcut);
-    connect(act_delete_, SIGNAL(triggered()), this, SLOT(removePage()));
-//    addAction(act_delete_);
 }
 
 void ThumbnailWidget::setupIndicator() {

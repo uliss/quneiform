@@ -23,8 +23,6 @@
 #include <QGraphicsObject>
 
 class QMenu;
-class QAction;
-
 class Page;
 class PageIndicator;
 
@@ -76,17 +74,30 @@ public:
     void setName(const QString& name);
 
     /**
+      * Shows format settings dialog
+      */
+    void showFormatSettings();
+
+    /**
+      * Shows recognize settings dialog
+      */
+    void showRecognizeSettings();
+
+    /**
+      * Shows thumb page properties dialog
+      */
+    void showProperties();
+
+    /**
       * Toggles thumb selection
       */
     void toggleSelection();
 signals:
     void clicked(int modifier);
-    void contextMenuCreated(QMenu*);
+    void createContextMenu(ThumbnailWidget * sender, const QPoint& pos);
     void dragged(ThumbnailWidget * sender, QPointF);
     void dropped(ThumbnailWidget * sender, QPointF);
-    void recognize(Page*);
     void removed(Page*);
-    void save(Page*);
     void showPageFault(Page*);
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent * event);
@@ -95,7 +106,6 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
 private:
-    void setupActions();
     void setupIndicator();
     void setupLabel();
     void setupPixmap();
@@ -103,22 +113,12 @@ private:
     void updatePixmapPos();
 private slots:
     void pageFaultForward();
-    void recognizeThumb();
-    void removePage();
     void handlePageRotate();
-    void savePage();
-    void showProperties();
-    void showFormatSettings();
-    void showRecognizeSettings();
     void updatePageIndicators();
 private:
     Page * page_;
     Pixmap * pixmap_;
     Label * label_;
-    QAction * act_recognize_;
-    QAction * act_save_as_;
-    QAction * act_properties_;
-    QAction * act_delete_;
     PageIndicator * indicator_;
     QPointF drag_start_pos_;
     bool drag_progress_;

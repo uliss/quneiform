@@ -92,7 +92,6 @@ signals:
     void thumbRecognizeList(const QList<Page*>& page);
     void thumbRemovalFinished(Page * page);
 public slots:
-    void setupContextMenu(QMenu*);
     void selectAll();
 private:
     typedef QList<ThumbnailWidget*> ThumbList;
@@ -100,26 +99,42 @@ private:
     bool isValidThumbDropPosition(const QPointF& scenePos);
     ThumbnailWidget * targetDropThumb(const QPointF& pos);
     void setupActions();
+    void setupActionDelete();
+    void setupActionProperties();
+    void setupActionRecognize();
+    void setupActionSaveAs();
+    void setupActionSelectAll();
     void setupLayout();
     void setupScene();
     void setScrollBars();
     /** Updates thumbnail names */
     void updateThumbNames();
 private slots:
+    void contextThumbFormatSettings();
+    void contextThumbProperties();
+    void contextThumbRecognize();
+    void contextThumbRecognizeSettings();
+    void contextThumbRemove();
+    void contextThumbSave();
     void handleThumbDrag(ThumbnailWidget * sender, const QPointF& scenePos);
     void handleThumbDrop(ThumbnailWidget * sender, const QPointF& scenePos);
     void pageAdd(Page * page);
     void pageRemove(Page * page);
     void reorder();
-    void recognizeSelectedPages(Page * page);
     void removeSelectedPages(Page * page);
+    void showThumbContextMenu(ThumbnailWidget * sender, const QPoint& pos);
     void thumbClick(int modifiers);
 private:
     Packet * packet_;
     ThumbLayout * layout_;
     Page * current_page_;
     QAction * select_all_;
+    QAction * act_recognize_;
+    QAction * act_save_as_;
+    QAction * act_properties_;
+    QAction * act_delete_;
     ThumbScene * scene_;
+    ThumbnailWidget * context_thumb_;
     bool drag_in_progress_;
 };
 
