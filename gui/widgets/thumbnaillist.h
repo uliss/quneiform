@@ -92,7 +92,6 @@ private:
     typedef QList<ThumbnailWidget*> ThumbList;
 private:
     void append(ThumbnailWidget * thumb);
-    void highlightAll(bool value);
     bool isValidThumbDropPosition(const QPointF& scenePos);
     ThumbnailWidget * targetDropThumb(const QPointF& pos);
     QList<ThumbnailWidget*> selected();
@@ -107,7 +106,6 @@ private:
     void setScrollBars();
     ThumbnailWidget * thumbByPage(Page * page);
     void thumbRemove(ThumbnailWidget * thumb);
-    /** Updates thumbnail names */
     void updateThumbNames();
 private slots:
     void contextThumbFormatSettings();

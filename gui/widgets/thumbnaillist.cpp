@@ -218,7 +218,7 @@ void ThumbnailList::handleThumbDrag(ThumbnailWidget * sender, const QPointF& sce
 
     drag_in_progress_ = true;
 
-    highlightAll(false);
+    layout_->highlightAll(false);
     target_thumb->highlight(true);
 }
 
@@ -227,7 +227,7 @@ void ThumbnailList::handleThumbDrop(ThumbnailWidget * sender, const QPointF& sce
     Q_CHECK_PTR(sender);
 
     setCursor(Qt::ArrowCursor);
-    highlightAll(false);
+    layout_->highlightAll(false);
 
     drag_in_progress_ = false;
 
@@ -294,12 +294,6 @@ ThumbnailWidget * ThumbnailList::targetDropThumb(const QPointF& scenePos)
     }
 
     return target_thumb;
-}
-
-void ThumbnailList::highlightAll(bool value)
-{
-    Q_CHECK_PTR(layout_);
-    layout_->highlightAll(value);
 }
 
 void ThumbnailList::showThumbContextMenu(ThumbnailWidget * sender, const QPoint& pos)
