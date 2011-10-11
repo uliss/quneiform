@@ -66,6 +66,8 @@ void ThumbLayout::append(ThumbnailWidget * thumb)
 
     if(y_pos)
         thumb->setPos(0, y_pos);
+
+    updateThumbNames();
 }
 
 void ThumbLayout::clearSelection() {
@@ -113,6 +115,8 @@ void ThumbLayout::remove(ThumbnailWidget * thumb)
     for(int i = idx; i < thumbs_.count(); i++) {
         thumbs_[i]->moveBy(0, - y_offset);
     }
+
+    updateThumbNames();
 }
 
 void ThumbLayout::select(ThumbnailWidget * thumb)
@@ -207,6 +211,7 @@ void ThumbLayout::sortByPages(const QList<Page*>& pages)
 
     thumbs_ = thumbs;
     update();
+    updateThumbNames();
 }
 
 void ThumbLayout::highlightAll(bool value)

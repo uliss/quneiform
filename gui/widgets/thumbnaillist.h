@@ -101,7 +101,6 @@ private:
     void setupScrollBars();
     void thumbAppend(ThumbnailWidget * thumb);
     void thumbRemove(ThumbnailWidget * thumb);
-    void updateThumbNames();
 private slots:
     void contextThumbFormatSettings();
     void contextThumbProperties();

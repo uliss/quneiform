@@ -65,8 +65,6 @@ void ThumbnailList::thumbAppend(ThumbnailWidget * thumb) {
     connect(thumb, SIGNAL(dropped(ThumbnailWidget*, QPointF)), SLOT(handleThumbDrop(ThumbnailWidget*, QPointF)));
     connect(thumb, SIGNAL(showPageFault(Page*)), SIGNAL(showPageFault(Page*)));
     connect(thumb, SIGNAL(createContextMenu(ThumbnailWidget*,QPoint)), SLOT(handleThumbContextMenu(ThumbnailWidget*,QPoint)));
-
-    updateThumbNames();
 }
 
 Page * ThumbnailList::currentPage() {
@@ -98,7 +96,6 @@ void ThumbnailList::thumbRemove(ThumbnailWidget * thumb) {
     layout_->remove(thumb);
     scene_->removeItem(thumb);
 
-    updateThumbNames();
     updateLayout();
 }
 
@@ -153,10 +150,6 @@ void ThumbnailList::handleThumbClick(ThumbnailWidget * thumb, int modifiers) {
         current_page_ = thumb->page();
         emit showPage(current_page_);
     }
-}
-
-void ThumbnailList::updateThumbNames() {
-    layout_->updateThumbNames();
 }
 
 void ThumbnailList::setupScene()
@@ -218,9 +211,9 @@ void ThumbnailList::updateLayout()
 void ThumbnailList::handleThumbReorder()
 {
     Q_CHECK_PTR(layout_);
+    Q_CHECK_PTR(packet_);
 
     layout_->sortByPages(packet_->pages());
-    updateThumbNames();
 }
 
 bool ThumbnailList::isValidDropPos(const QPointF& scenePos)
