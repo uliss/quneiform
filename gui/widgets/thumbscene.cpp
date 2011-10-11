@@ -23,30 +23,30 @@
 
 #include "thumbscene.h"
 
+ThumbScene::ThumbScene(QObject * parent) : QGraphicsScene(parent)
+{
+}
+
 void ThumbScene::dragEnterEvent(QGraphicsSceneDragDropEvent * event) {
     if (event->mimeData()->hasUrls())
         event->acceptProposedAction();
-
-    qDebug() << Q_FUNC_INFO;
 }
 
 void ThumbScene::dragMoveEvent(QGraphicsSceneDragDropEvent * event) {
-    if (event->mimeData()->hasUrls()) {
+    if (event->mimeData()->hasUrls())
         event->acceptProposedAction();
-    }
-
-    qDebug() << Q_FUNC_INFO;
 }
 
 void ThumbScene::dropEvent(QGraphicsSceneDragDropEvent * event) {
-    if(event->mimeData()->hasUrls()) {
-        event->acceptProposedAction();
+    if(!event->mimeData()->hasUrls())
+        return;
 
-        QStringList paths;
-        foreach(QUrl url, event->mimeData()->urls()) {
-            paths << url.toLocalFile();
-        }
+    event->acceptProposedAction();
 
-        emit dropImages(paths);
+    QStringList paths;
+    foreach(QUrl url, event->mimeData()->urls()) {
+        paths << url.toLocalFile();
     }
+
+    emit dropImages(paths);
 }

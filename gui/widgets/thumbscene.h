@@ -24,9 +24,11 @@
 class ThumbScene : public QGraphicsScene {
     Q_OBJECT
 public:
-    ThumbScene(QObject * parent) : QGraphicsScene(parent) {
-    }
+    ThumbScene(QObject * parent);
 signals:
+    /**
+      * Emitted when dragged images dropped on scene
+      */
     void dropImages(const QStringList& paths);
 protected:
     void dragEnterEvent(QGraphicsSceneDragDropEvent * event);
