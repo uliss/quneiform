@@ -55,3 +55,14 @@ void GraphicsItemLayout::update()
         pos.rx() += item->boundingRect().width();
     }
 }
+
+int GraphicsItemLayout::countVisible() const
+{
+    int res = 0;
+    foreach(QGraphicsItem * item, items_) {
+        if(item->isVisible())
+            res++;
+    }
+
+    return res;
+}

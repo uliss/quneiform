@@ -362,11 +362,11 @@ void ThumbnailList::thumbAppend(ThumbnailWidget * thumb) {
     layout_->append(thumb);
     scene_->addItem(thumb);
 
-    connect(thumb, SIGNAL(clicked(int)), SLOT(handleThumbClick(int)));
+    connect(thumb, SIGNAL(clicked(ThumbnailWidget*, int)), SLOT(handleThumbClick(ThumbnailWidget*, int)));
     connect(thumb, SIGNAL(dragged(ThumbnailWidget*, QPointF)), SLOT(handleThumbDrag(ThumbnailWidget*, QPointF)));
     connect(thumb, SIGNAL(dropped(ThumbnailWidget*, QPointF)), SLOT(handleThumbDrop(ThumbnailWidget*, QPointF)));
-    connect(thumb, SIGNAL(showPageFault(Page*)), SIGNAL(showPageFault(Page*)));
     connect(thumb, SIGNAL(createContextMenu(ThumbnailWidget*,QPoint)), SLOT(handleThumbContextMenu(ThumbnailWidget*,QPoint)));
+    connect(thumb, SIGNAL(showPageFault(Page*)), SIGNAL(showPageFault(Page*)));
 }
 
 void ThumbnailList::thumbRemove(ThumbnailWidget * thumb) {

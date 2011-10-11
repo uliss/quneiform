@@ -29,6 +29,7 @@ public:
     GraphicsItemLayout();
     void addItem(QGraphicsItem * item);
     void clear();
+    int countVisible() const;
     void removeItem(QGraphicsItem * item);
     void update();
 private:

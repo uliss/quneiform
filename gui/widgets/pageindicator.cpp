@@ -28,7 +28,8 @@
 static const QString RECOGNIZED(":/img/oxygen/22x22/dialog_ok.png");
 static const QString SAVED(":/img/oxygen/22x22/document_save.png");
 static const QString WARNING(":/img/oxygen/32x32/messagebox_warning.png");
-static const int ICON_WIDTH = 16;
+static const int ICON_WIDTH = 12;
+static const int ICON_HEIGHT = 12;
 
 PageIndicator::PageIndicator(QGraphicsItem * parent) :
     QGraphicsObject(parent),
@@ -94,7 +95,9 @@ void PageIndicator::setWarning(bool value) {
 }
 
 QRectF PageIndicator::boundingRect() const {
-    return QRectF(0, 0, ICON_WIDTH * 4, ICON_WIDTH);
+    Q_CHECK_PTR(layout_);
+
+    return QRectF(0, 0, ICON_WIDTH * layout_->countVisible(), ICON_HEIGHT);
 }
 
 void PageIndicator::paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *)

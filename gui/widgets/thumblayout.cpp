@@ -125,7 +125,7 @@ void ThumbLayout::select(ThumbnailWidget * thumb)
         if(t == thumb)
             t->selectThumb(true);
         else
-            t->selectThumb(!false);
+            t->selectThumb(false);
     }
 }
 
