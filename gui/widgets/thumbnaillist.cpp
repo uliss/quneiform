@@ -17,12 +17,8 @@
  ***************************************************************************/
 
 #include <QScrollBar>
-#include <QVBoxLayout>
-#include <QLabel>
 #include <QMenu>
-#include <QToolButton>
 #include <QDebug>
-#include <QUrl>
 
 #include "packet.h"
 #include "page.h"
@@ -30,10 +26,13 @@
 #include "thumblayout.h"
 #include "thumbscene.h"
 #include "thumbnailwidget.h"
-#include "widgetbar.h"
 #include "quneiform_debug.h"
 
 static const int LIST_WIDTH = 170;
+static const QString ICON_THUMB_DELETE(":/img/oxygen/22x22/list_remove.png");
+static const QString ICON_THUMB_SAVE_AS(":/img/oxygen/22x22/document_save_as.png");
+static const QString ICON_THUMB_RECOGNIZE(":/img/oxygen/22x22/document_preview.png");
+static const QString ICON_THUMB_PROPERTIES(":/img/oxygen/22x22/document_properties.png");
 
 ThumbnailList::ThumbnailList(QWidget * parent) :
     QGraphicsView(parent),
@@ -306,7 +305,7 @@ void ThumbnailList::contextThumbRemove()
 
 void ThumbnailList::setupActionDelete()
 {
-    act_delete_ = new QAction(QIcon(":/img/oxygen/22x22/list_remove.png"), tr("Delete"), this);
+    act_delete_ = new QAction(QIcon(ICON_THUMB_DELETE), tr("Delete"), this);
     act_delete_->setShortcut(Qt::CTRL + Qt::Key_Backspace);
     act_delete_->setShortcutContext(Qt::WidgetShortcut);
     connect(act_delete_, SIGNAL(triggered()), SLOT(contextThumbRemove()));
@@ -316,9 +315,7 @@ void ThumbnailList::setupActionDelete()
 
 void ThumbnailList::setupActionProperties()
 {
-    act_properties_ = new QAction(QIcon(":/img/oxygen/22x22/document_properties.png"),
-                                  tr("Properties"),
-                                  this);
+    act_properties_ = new QAction(QIcon(ICON_THUMB_PROPERTIES), tr("Properties"), this);
     connect(act_properties_, SIGNAL(triggered()), SLOT(contextThumbProperties()));
     addAction(act_properties_);
 }
@@ -339,9 +336,7 @@ void ThumbnailList::setupActionSelectAll()
 
 void ThumbnailList::setupActionSaveAs()
 {
-    act_save_as_ = new QAction(QIcon(":/img/oxygen/22x22/document_save_as.png"),
-                               tr("Save as"),
-                               this);
+    act_save_as_ = new QAction(QIcon(ICON_THUMB_SAVE_AS), tr("Save as"), this);
     act_save_as_->setShortcut(QKeySequence::SaveAs);
     act_save_as_->setShortcutContext(Qt::WidgetShortcut);
     connect(act_save_as_, SIGNAL(triggered()), SLOT(contextThumbSave()));
@@ -350,9 +345,7 @@ void ThumbnailList::setupActionSaveAs()
 
 void ThumbnailList::setupActionRecognize()
 {
-    act_recognize_ = new QAction(QIcon(":/img/oxygen/22x22/document_preview.png"),
-                                 tr("Recognize"),
-                                 this);
+    act_recognize_ = new QAction(QIcon(ICON_THUMB_RECOGNIZE), tr("Recognize"), this);
     connect(act_recognize_, SIGNAL(triggered()), SLOT(contextThumbRecognize()));
     act_recognize_->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R));
     addAction(act_recognize_);
