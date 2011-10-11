@@ -38,12 +38,6 @@ public:
     ThumbnailList(QWidget * parent);
 
     /**
-      * Appends thumbnail widget to the end of the list
-      * @param thumb
-      */
-    void append(ThumbnailWidget * thumb);
-
-    /**
       * Returns current selected page
       * if no page selected returns NULL
       */
@@ -68,6 +62,8 @@ signals:
     void thumbRecognizeList(const QList<Page*>& page);
 private:
     typedef QList<ThumbnailWidget*> ThumbList;
+private:
+    void append(ThumbnailWidget * thumb);
     void highlightAll(bool value);
     bool isValidThumbDropPosition(const QPointF& scenePos);
     ThumbnailWidget * targetDropThumb(const QPointF& pos);
