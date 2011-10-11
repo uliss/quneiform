@@ -31,6 +31,7 @@
 #include "thumbscene.h"
 #include "thumbnailwidget.h"
 #include "widgetbar.h"
+#include "quneiform_debug.h"
 
 static const int LIST_WIDTH = 170;
 
@@ -74,30 +75,18 @@ Page * ThumbnailList::currentPage() {
 }
 
 void ThumbnailList::pageAdd(Page * page) {
-    Q_CHECK_PTR(page);
+    if(!page) {
+        CF_ERROR("NULL page pointer given");
+        return;
+    }
 
-    ThumbnailWidget * thumb = new ThumbnailWidget(page);
-    thumbAppend(thumb);
+    thumbAppend(new ThumbnailWidget(page));
 }
 
 void ThumbnailList::pageRemove(Page * page) {
     ThumbnailWidget * th = layout_->findByPage(page);
     if(th)
         thumbRemove(th);
-}
-
-
-void ThumbnailList::removeSelectedPages(Page * page) {
-    QList<ThumbnailWidget*> selected = layout_->selected();
-
-    if(selected.isEmpty()) {
-        packet_->remove(page);
-        return;
-    }
-
-    foreach(ThumbnailWidget * t, selected) {
-        packet_->remove(t->page());
-    }
 }
 
 void ThumbnailList::thumbRemove(ThumbnailWidget * thumb) {
@@ -124,7 +113,7 @@ void ThumbnailList::setPacket(Packet * packet) {
     packet_ = packet;
     connect(packet_, SIGNAL(pageAdded(Page*)), SLOT(pageAdd(Page*)));
     connect(packet_, SIGNAL(pageRemoved(Page*)), SLOT(pageRemove(Page*)));
-    connect(packet_, SIGNAL(reorder()), SLOT(reorder()));
+    connect(packet_, SIGNAL(reorderThumbs()), SLOT(reorderThumbs()));
     connect(packet_, SIGNAL(opened()), SLOT(updateLayout()));
 }
 
@@ -145,7 +134,6 @@ void ThumbnailList::setupLayout() {
 void ThumbnailList::setupScrollBars() {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    //verticalScrollBar()->setEnabled(false);
     setAttribute(Qt::WA_StaticContents);
 }
 
@@ -192,38 +180,32 @@ void ThumbnailList::setLanguage(const Language &lang)
 
 void ThumbnailList::handleThumbDrag(ThumbnailWidget * sender, const QPointF& scenePos)
 {
-    setCursor(Qt::OpenHandCursor);
+    setDragCursor(true);
 
-    ThumbnailWidget * target_thumb = findThumbByPos(scenePos);
+    ThumbnailWidget * thumb = findThumbByPos(scenePos);
 
-    if(!target_thumb)
+    if(!thumb || (thumb == sender)) {
+        setDragCursor(false);
         return;
-
-    // self drop
-    if(target_thumb == sender)
-        return;
+    }
 
     layout_->highlightAll(false);
-    target_thumb->highlight(true);
+    thumb->highlight(true);
 }
 
 void ThumbnailList::handleThumbDrop(ThumbnailWidget * sender, const QPointF& scenePos)
 {
     Q_CHECK_PTR(sender);
 
-    setCursor(Qt::ArrowCursor);
+    setDragCursor(false);
     layout_->highlightAll(false);
 
-    ThumbnailWidget * target_thumb = findThumbByPos(scenePos);
+    ThumbnailWidget * thumb = findThumbByPos(scenePos);
 
-    if(!target_thumb)
+    if(!thumb || (thumb == sender))
         return;
 
-    // self drop
-    if(target_thumb == sender)
-        return;
-
-    packet_->moveBefore(sender->page(), target_thumb->page());
+    packet_->moveBefore(sender->page(), thumb->page());
 }
 
 void ThumbnailList::updateLayout()
@@ -234,7 +216,7 @@ void ThumbnailList::updateLayout()
     scene_->setSceneRect(QRectF(QPointF(), layout_->size()));
 }
 
-void ThumbnailList::reorder()
+void ThumbnailList::reorderThumbs()
 {
     Q_CHECK_PTR(layout_);
 
@@ -415,4 +397,9 @@ void ThumbnailList::contextThumbSave()
 {
     if(context_thumb_)
         emit savePage(context_thumb_->page());
+}
+
+void ThumbnailList::setDragCursor(bool value)
+{
+    setCursor(value ? Qt::OpenHandCursor : Qt::ArrowCursor);
 }

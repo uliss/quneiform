@@ -22,8 +22,6 @@
 #include <QGraphicsView>
 #include <QList>
 
-class QMenu;
-
 class Packet;
 class Page;
 class Language;
@@ -91,6 +89,7 @@ signals:
 private:
     bool isValidDropPos(const QPointF& scenePos);
     ThumbnailWidget * findThumbByPos(const QPointF& scenePos);
+    void setDragCursor(bool value);
     void setupActions();
     void setupActionDelete();
     void setupActionProperties();
@@ -114,8 +113,7 @@ private slots:
     void handleThumbDrop(ThumbnailWidget * sender, const QPointF& scenePos);
     void pageAdd(Page * page);
     void pageRemove(Page * page);
-    void reorder();
-    void removeSelectedPages(Page * page);
+    void reorderThumbs();
     void selectAll();
     void showThumbContextMenu(ThumbnailWidget * sender, const QPoint& pos);
     void thumbClick(int modifiers);
