@@ -120,15 +120,15 @@ private slots:
     void updateLayout();
 private:
     Packet * packet_;
-    ThumbLayout * layout_;
     Page * current_page_;
-    QAction * select_all_;
+    ThumbScene * scene_;
+    ThumbLayout * layout_;
+    ThumbnailWidget * context_thumb_;
+    QAction * act_select_all_;
     QAction * act_recognize_;
     QAction * act_save_as_;
     QAction * act_properties_;
-    QAction * act_delete_;
-    ThumbScene * scene_;
-    ThumbnailWidget * context_thumb_;
+    QAction * act_delete_;    
 };
 
 #endif /* THUMBNAILLIST_H_ */

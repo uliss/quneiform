@@ -38,15 +38,15 @@ static const int LIST_WIDTH = 170;
 ThumbnailList::ThumbnailList(QWidget * parent) :
     QGraphicsView(parent),
     packet_(NULL),
-    layout_(NULL),
     current_page_(NULL),
-    select_all_(NULL),
+    scene_(NULL),
+    layout_(NULL),
+    context_thumb_(NULL),
+    act_select_all_(NULL),
     act_recognize_(NULL),
     act_save_as_(NULL),
     act_properties_(NULL),
-    act_delete_(NULL),
-    scene_(NULL),
-    context_thumb_(NULL)
+    act_delete_(NULL)
 {
     setAcceptDrops(true);
     setupLayout();
@@ -267,7 +267,7 @@ void ThumbnailList::handleThumbContextMenu(ThumbnailWidget * sender, const QPoin
     context_thumb_ = sender;
 
     QMenu * menu = new QMenu(NULL);
-    menu->addAction(select_all_);
+    menu->addAction(act_select_all_);
     menu->addAction(act_delete_);
     menu->addSeparator();
     menu->addAction(act_recognize_);
@@ -331,10 +331,10 @@ void ThumbnailList::contextThumbProperties()
 
 void ThumbnailList::setupActionSelectAll()
 {
-    select_all_ = new QAction(tr("Select all"), this);
-    select_all_->setShortcut(QKeySequence::SelectAll);
-    connect(select_all_, SIGNAL(triggered()), SLOT(selectAll()));
-    addAction(select_all_);
+    act_select_all_ = new QAction(tr("Select all"), this);
+    act_select_all_->setShortcut(QKeySequence::SelectAll);
+    connect(act_select_all_, SIGNAL(triggered()), SLOT(selectAll()));
+    addAction(act_select_all_);
 }
 
 void ThumbnailList::setupActionSaveAs()
