@@ -132,6 +132,11 @@ signals:
     void loaded(int percent);
 
     /**
+      * Emitted when packet was opened
+      */
+    void opened();
+
+    /**
       * Emitted when new page added
       */
     void pageAdded(Page * page);

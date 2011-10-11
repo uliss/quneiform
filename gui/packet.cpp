@@ -130,6 +130,9 @@ bool Packet::open(const QString& filename) {
     filename_ = filename;
     changed_ = false;
     is_new_ = false;
+
+    emit opened();
+
     return true;
 }
 

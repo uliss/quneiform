@@ -128,6 +128,7 @@ void ThumbnailList::setDocument(Packet * doc) {
     connect(packet_, SIGNAL(pageAdded(Page*)), SLOT(pageAdd(Page*)));
     connect(packet_, SIGNAL(pageRemoved(Page*)), SLOT(pageRemove(Page*)));
     connect(packet_, SIGNAL(reorder()), SLOT(reorder()));
+    connect(packet_, SIGNAL(opened()), SLOT(updateLayout()));
 }
 
 void ThumbnailList::setupActions() {

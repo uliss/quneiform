@@ -343,7 +343,6 @@ void MainWindow::openPacket(const QString& path) {
         lang_menu_->select(lang);
     }
 
-    thumbs_->updateLayout();
     recent_packets_->add(path);
     setWindowModified(false);
 }

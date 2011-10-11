@@ -59,8 +59,6 @@ public:
       * if none selected - changes language for all thumbs
       */
     void setLanguage(const Language& lang);
-
-    void updateLayout();
 signals:
     void openDraggedImages(const QStringList& lst);
     void save(Page * page);
@@ -105,6 +103,7 @@ private slots:
     void removeSelectedPages(Page * page);
     void showThumbContextMenu(ThumbnailWidget * sender, const QPoint& pos);
     void thumbClick(int modifiers);
+    void updateLayout();
 private:
     Packet * packet_;
     ThumbLayout * layout_;
