@@ -36,42 +36,72 @@ public:
     void append(ThumbnailWidget * thumb);
 
     /**
-      * Returns pointer to thumb at given position
-      */
-    ThumbnailWidget * at(int i);
-
-    /**
-      * Removes all thumbs from layout
-      */
-    void clear();
-
-    /**
       * Returns thumbs count in layout
       */
     int count() const;
 
+    /**
+      * Returns thumb by given page
+      */
     ThumbnailWidget * findByPage(Page * p);
-    void highlightAll(bool value);
-    void insert(ThumbnailWidget * thumb, int pos);
 
     /**
-      * Returns true if layout is empty
+      * Sets highlight for all thumbs
       */
-    bool isEmpty() const;
+    void highlightAll(bool value);
 
-    void multiSelect(ThumbnailWidget * thumbs);
+    /**
+      * Selects thumb, other selected thumbs remains unchanged
+      * @see select(), selectRange()
+      */
+    void multiSelect(ThumbnailWidget * thumb);
+
+    /**
+      * Removes thumb from layout
+      */
     void remove(ThumbnailWidget * thumb);
+
+    /**
+      * Sorts layout thumb by given pages order
+      */
     void sortByPages(const QList<Page*>& pages);
-    void select(ThumbnailWidget * thumb, bool value);
+
+    /**
+      * Selectes given thumb
+      * @see multiSelect(), selectRange(), selected()
+      */
+    void select(ThumbnailWidget * thumb);
+
+    /**
+      * Returns list of selected thumbs
+      * @see select(), multiSelect(), selectAll()
+      */
     QList<ThumbnailWidget*> selected();
+
+    /**
+      * Selects all thumbs
+      * @see selected(), select(), multiSelect(), selectRange()
+      */
     void selectAll();
+
+    /**
+      * Selects range between already selected thumbs and given one
+      */
     void selectRange(ThumbnailWidget * thumb);
-    void set(const QList<ThumbnailWidget*>& thumbs);
+
+    /**
+      * Returns layout size
+      */
     QSizeF size() const;
-    void update();
+
+    /**
+      * Updates thumb names
+      */
+    void updateThumbNames();
 private:
     void clearSelection();
     void selectRange(int begin, int end);
+    void update();
 private:
     QList<ThumbnailWidget*> thumbs_;
 };

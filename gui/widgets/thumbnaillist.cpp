@@ -149,15 +149,14 @@ void ThumbnailList::handleThumbClick(ThumbnailWidget * thumb, int modifiers) {
         layout_->selectRange(thumb);
     }
     else {
-        layout_->select(thumb, true);
+        layout_->select(thumb);
         current_page_ = thumb->page();
         emit showPage(current_page_);
     }
 }
 
 void ThumbnailList::updateThumbNames() {
-    for (int i = 0; i < layout_->count(); i++)
-        layout_->at(i)->setName(QString("%1").arg(i + 1));
+    layout_->updateThumbNames();
 }
 
 void ThumbnailList::setupScene()

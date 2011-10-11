@@ -68,16 +68,6 @@ void ThumbLayout::append(ThumbnailWidget * thumb)
         thumb->setPos(0, y_pos);
 }
 
-ThumbnailWidget * ThumbLayout::at(int i)
-{
-    return thumbs_.at(i);
-}
-
-void ThumbLayout::clear()
-{
-    thumbs_.clear();
-}
-
 void ThumbLayout::clearSelection() {
     foreach(ThumbnailWidget * t, thumbs_) {
         t->selectThumb(false);
@@ -97,11 +87,6 @@ ThumbnailWidget * ThumbLayout::findByPage(Page *p)
     }
 
     return NULL;
-}
-
-void ThumbLayout::insert(ThumbnailWidget * thumb, int pos)
-{
-    thumbs_.insert(pos, thumb);
 }
 
 void ThumbLayout::multiSelect(ThumbnailWidget * thumb)
@@ -130,13 +115,13 @@ void ThumbLayout::remove(ThumbnailWidget * thumb)
     }
 }
 
-void ThumbLayout::select(ThumbnailWidget * thumb, bool value)
+void ThumbLayout::select(ThumbnailWidget * thumb)
 {
     foreach(ThumbnailWidget * t, thumbs_) {
         if(t == thumb)
-            t->selectThumb(value);
+            t->selectThumb(true);
         else
-            t->selectThumb(!value);
+            t->selectThumb(!false);
     }
 }
 
@@ -199,11 +184,6 @@ QSizeF ThumbLayout::size() const
                   thumbs_.last()->pos().y() + thumbs_.last()->boundingRect().height());
 }
 
-bool ThumbLayout::isEmpty() const
-{
-    return thumbs_.isEmpty();
-}
-
 void ThumbLayout::update()
 {
     qreal y_pos = 0;
@@ -211,12 +191,6 @@ void ThumbLayout::update()
         t->setPos(0, y_pos);
         y_pos += t->boundingRect().height();
     }
-}
-
-void ThumbLayout::set(const QList<ThumbnailWidget*>& thumbs)
-{
-    thumbs_ = thumbs;
-    update();
 }
 
 void ThumbLayout::sortByPages(const QList<Page*>& pages)
@@ -231,7 +205,8 @@ void ThumbLayout::sortByPages(const QList<Page*>& pages)
         thumbs.append(th);
     }
 
-    set(thumbs);
+    thumbs_ = thumbs;
+    update();
 }
 
 void ThumbLayout::highlightAll(bool value)
@@ -239,5 +214,11 @@ void ThumbLayout::highlightAll(bool value)
     foreach(ThumbnailWidget * t, thumbs_) {
         t->highlight(value);
     }
+}
+
+void ThumbLayout::updateThumbNames()
+{
+    for (int i = 0; i < thumbs_.count(); i++)
+        thumbs_[i]->setName(QString("%1").arg(i + 1));
 }
 
