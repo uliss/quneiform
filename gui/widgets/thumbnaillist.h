@@ -67,6 +67,12 @@ signals:
     void recognizePage(Page * page);
 
     /**
+      * Emitted on several page recognize request
+      * @param pages - target pages
+      */
+    void recognizePages(const QList<Page*>& pages);
+
+    /**
       * Emitted on save page request
       * @param page - target page
       */
@@ -82,12 +88,6 @@ signals:
       * Emitted on page recognition error request
       */
     void showPageFault(Page * page);
-
-    /**
-      * Emitted on several page recognize request
-      * @param pages - pages to recognize
-      */
-    void thumbRecognizeList(const QList<Page*>& pages);
 private:
     typedef QList<ThumbnailWidget*> ThumbList;
 private:

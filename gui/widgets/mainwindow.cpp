@@ -171,7 +171,7 @@ void MainWindow::connectThumbs() {
     connect(thumbs_, SIGNAL(showPage(Page*)), SLOT(updateCurrentLanguage(Page*)));
     connect(thumbs_, SIGNAL(showPage(Page*)), SLOT(updatePageDocument(Page*)));
     connect(thumbs_, SIGNAL(recognizePage(Page*)), SLOT(recognizePage(Page*)));
-    connect(thumbs_, SIGNAL(thumbRecognizeList(QList<Page*>)), SLOT(recognizePageList(QList<Page*>)));
+    connect(thumbs_, SIGNAL(recognizePages(QList<Page*>)), SLOT(recognizePages(QList<Page*>)));
     connect(thumbs_, SIGNAL(savePage(Page*)), SLOT(savePage(Page*)));
     connect(thumbs_, SIGNAL(openDraggedImages(QStringList)), SLOT(openImages(QStringList)));
     connect(thumbs_, SIGNAL(showPageFault(Page*)), SLOT(showPageFault(Page*)));
@@ -395,7 +395,7 @@ void MainWindow::recognizePage(Page * page) {
     recognition_queue_->start();
 }
 
-void MainWindow::recognizePageList(const QList<Page*>& pages) {
+void MainWindow::recognizePages(const QList<Page*>& pages) {
     Q_CHECK_PTR(recognition_queue_);
 
     foreach(Page * p, pages) {

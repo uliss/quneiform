@@ -431,7 +431,7 @@ void ThumbnailList::contextThumbRecognize()
         pages.append(t->page());
     }
 
-    emit thumbRecognizeList(pages);
+    emit recognizePages(pages);
 }
 
 void ThumbnailList::contextThumbSave()
