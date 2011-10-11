@@ -50,11 +50,6 @@ public:
     Page * currentPage();
 
     /**
-      * Removes thumbnail
-      */
-    void thumbRemove(ThumbnailWidget * thumb);
-
-    /**
       * Sets corresponding document for thumbnail list
       */
     void setDocument(Packet * doc);
@@ -98,6 +93,7 @@ private:
     void setupLayout();
     void setupScene();
     void setScrollBars();
+    void thumbRemove(ThumbnailWidget * thumb);
     /** Updates thumbnail names */
     void updateThumbNames();
 private slots:
