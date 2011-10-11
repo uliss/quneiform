@@ -437,5 +437,5 @@ void ThumbnailList::contextThumbRecognize()
 void ThumbnailList::contextThumbSave()
 {
     if(context_thumb_)
-        emit save(context_thumb_->page());
+        emit savePage(context_thumb_->page());
 }

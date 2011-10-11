@@ -66,7 +66,11 @@ signals:
       */
     void recognizePage(Page * page);
 
-    void save(Page * page);
+    /**
+      * Emitted on save page request
+      * @param page - target page
+      */
+    void savePage(Page * page);
 
     /**
       * Emitted on show page request
