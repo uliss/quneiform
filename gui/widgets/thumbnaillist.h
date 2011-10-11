@@ -89,12 +89,8 @@ signals:
       */
     void showPageFault(Page * page);
 private:
-    typedef QList<ThumbnailWidget*> ThumbList;
-private:
-    void append(ThumbnailWidget * thumb);
-    bool isValidThumbDropPosition(const QPointF& scenePos);
-    ThumbnailWidget * targetDropThumb(const QPointF& pos);
-    QList<ThumbnailWidget*> selected();
+    bool isValidDropPos(const QPointF& scenePos);
+    ThumbnailWidget * findThumbByPos(const QPointF& scenePos);
     void setupActions();
     void setupActionDelete();
     void setupActionProperties();
@@ -103,8 +99,8 @@ private:
     void setupActionSelectAll();
     void setupLayout();
     void setupScene();
-    void setScrollBars();
-    ThumbnailWidget * thumbByPage(Page * page);
+    void setupScrollBars();
+    void thumbAppend(ThumbnailWidget * thumb);
     void thumbRemove(ThumbnailWidget * thumb);
     void updateThumbNames();
 private slots:

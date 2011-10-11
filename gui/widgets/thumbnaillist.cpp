@@ -50,12 +50,12 @@ ThumbnailList::ThumbnailList(QWidget * parent) :
 {
     setAcceptDrops(true);
     setupLayout();
-    setScrollBars();
+    setupScrollBars();
     setupActions();
     setupScene();
 }
 
-void ThumbnailList::append(ThumbnailWidget * thumb) {
+void ThumbnailList::thumbAppend(ThumbnailWidget * thumb) {
     Q_CHECK_PTR(thumb);
 
     layout_->append(thumb);
@@ -78,11 +78,11 @@ void ThumbnailList::pageAdd(Page * page) {
     Q_CHECK_PTR(page);
 
     ThumbnailWidget * thumb = new ThumbnailWidget(page);
-    append(thumb);
+    thumbAppend(thumb);
 }
 
 void ThumbnailList::pageRemove(Page * page) {
-    ThumbnailWidget * th = thumbByPage(page);
+    ThumbnailWidget * th = layout_->findByPage(page);
     if(th)
         thumbRemove(th);
 }
@@ -143,17 +143,11 @@ void ThumbnailList::setupLayout() {
     layout_ = new ThumbLayout;
 }
 
-void ThumbnailList::setScrollBars() {
+void ThumbnailList::setupScrollBars() {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     //verticalScrollBar()->setEnabled(false);
     setAttribute(Qt::WA_StaticContents);
-}
-
-ThumbnailWidget * ThumbnailList::thumbByPage(Page * page) {
-    Q_CHECK_PTR(layout_);
-
-    return layout_->findByPage(page);
 }
 
 void ThumbnailList::thumbClick(int modifiers) {
@@ -197,17 +191,11 @@ void ThumbnailList::setLanguage(const Language &lang)
     }
 }
 
-QList<ThumbnailWidget*> ThumbnailList::selected()
-{
-    Q_CHECK_PTR(layout_);
-    return layout_->selected();
-}
-
 void ThumbnailList::handleThumbDrag(ThumbnailWidget * sender, const QPointF& scenePos)
 {
     setCursor(Qt::OpenHandCursor);
 
-    ThumbnailWidget * target_thumb = targetDropThumb(scenePos);
+    ThumbnailWidget * target_thumb = findThumbByPos(scenePos);
 
     if(!target_thumb)
         return;
@@ -231,7 +219,7 @@ void ThumbnailList::handleThumbDrop(ThumbnailWidget * sender, const QPointF& sce
 
     drag_in_progress_ = false;
 
-    ThumbnailWidget * target_thumb = targetDropThumb(scenePos);
+    ThumbnailWidget * target_thumb = findThumbByPos(scenePos);
 
     if(!target_thumb)
         return;
@@ -259,7 +247,7 @@ void ThumbnailList::reorder()
     updateThumbNames();
 }
 
-bool ThumbnailList::isValidThumbDropPosition(const QPointF& scenePos)
+bool ThumbnailList::isValidDropPos(const QPointF& scenePos)
 {
     Q_CHECK_PTR(layout_);
     Q_CHECK_PTR(scene_);
@@ -273,11 +261,11 @@ bool ThumbnailList::isValidThumbDropPosition(const QPointF& scenePos)
     return true;
 }
 
-ThumbnailWidget * ThumbnailList::targetDropThumb(const QPointF& scenePos)
+ThumbnailWidget * ThumbnailList::findThumbByPos(const QPointF& scenePos)
 {
     Q_CHECK_PTR(scene_);
 
-    if(!isValidThumbDropPosition(scenePos))
+    if(!isValidDropPos(scenePos))
         return NULL;
 
     QGraphicsItem * target = scene_->itemAt(scenePos);
