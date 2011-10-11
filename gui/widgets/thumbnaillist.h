@@ -66,7 +66,6 @@ signals:
     void thumbSelected(Page * page);
     void thumbRecognize(Page * page);
     void thumbRecognizeList(const QList<Page*>& page);
-    void thumbRemovalFinished(Page * page);
 private:
     typedef QList<ThumbnailWidget*> ThumbList;
     void highlightAll(bool value);

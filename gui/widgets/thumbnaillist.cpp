@@ -113,8 +113,6 @@ void ThumbnailList::thumbRemove(ThumbnailWidget * thumb) {
 
     updateThumbNames();
     updateLayout();
-
-    emit thumbRemovalFinished(page);
 }
 
 void ThumbnailList::selectAll() {
