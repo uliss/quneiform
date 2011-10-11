@@ -24,6 +24,7 @@
 #include <QPixmap>
 
 class QGraphicsPixmapItem;
+class GraphicsItemLayout;
 
 /**
   * @class PageIndicator represents Page state.
@@ -35,6 +36,8 @@ class PageIndicator : public QGraphicsObject
     Q_OBJECT
 public:
     explicit PageIndicator(QGraphicsItem * parent = 0);
+    ~PageIndicator();
+
     QRectF boundingRect() const;
 
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
@@ -59,13 +62,16 @@ signals:
       */
     void showWarningDetails();
 protected:
-    //void mousePressEvent(QMouseEvent * event);
+    void mousePressEvent(QGraphicsSceneMouseEvent * event);
 private:
     QPixmap indicatorIcon(const QString& path);
+    void initIcons();
+    void initLayout();
 private:
     QGraphicsPixmapItem * recognized_;
     QGraphicsPixmapItem * saved_;
     QGraphicsPixmapItem * warning_;
+    GraphicsItemLayout * layout_;
 };
 
 #endif // PAGEINDICATOR_H

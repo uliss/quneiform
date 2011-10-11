@@ -133,6 +133,7 @@ ThumbnailWidget::ThumbnailWidget(Page * page) :
 
     connect(page, SIGNAL(rotated(int)), SLOT(handlePageRotate()));
     connect(page, SIGNAL(changed()), SLOT(updatePageIndicators()));
+    connect(page, SIGNAL(exported()), SLOT(updatePageIndicators()));
 
     updatePageIndicators();
 }
@@ -269,7 +270,7 @@ void ThumbnailWidget::toggleSelection() {
 void ThumbnailWidget::updatePageIndicators() {
     Q_CHECK_PTR(indicator_);
     indicator_->setRecognized(page_->isRecognized());
-    indicator_->setSaved(page_->hasFlag(Page::EXPORTED));
+    indicator_->setSaved(page_->isExported());
     indicator_->setWarning(page_->hasFlag(Page::RECOGNITION_FAILED));
 }
 

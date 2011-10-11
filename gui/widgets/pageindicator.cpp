@@ -17,12 +17,13 @@
  ***************************************************************************/
 
 #include <QGraphicsPixmapItem>
-#include <QMouseEvent>
+#include <QGraphicsSceneEvent>
 #include <QGraphicsLinearLayout>
 #include <QGraphicsLayout>
 
 #include "pageindicator.h"
 #include "imagecache.h"
+#include "graphicsitemlayout.h"
 
 static const QString RECOGNIZED(":/img/oxygen/22x22/dialog_ok.png");
 static const QString SAVED(":/img/oxygen/22x22/document_save.png");
@@ -33,21 +34,15 @@ PageIndicator::PageIndicator(QGraphicsItem * parent) :
     QGraphicsObject(parent),
     recognized_(NULL),
     saved_(NULL),
-    warning_(NULL)
+    warning_(NULL),
+    layout_(NULL)
 {
-    recognized_ = new QGraphicsPixmapItem(this);
-    recognized_->setToolTip(tr("Page recognized"));
-    recognized_->setPixmap(indicatorIcon(RECOGNIZED));
+    initIcons();
+    initLayout();
+}
 
-    saved_ = new QGraphicsPixmapItem(this);
-    saved_->setToolTip(tr("Page saved"));
-    saved_->setPixmap(indicatorIcon(SAVED));
-    saved_->moveBy(recognized_->pos().x() + recognized_->boundingRect().width(), 0);
-
-    warning_ = new QGraphicsPixmapItem(this);
-    warning_->setPixmap(indicatorIcon(WARNING));
-    warning_->setToolTip(tr("Recognition errors"));
-    warning_->moveBy(saved_->pos().x() + saved_->boundingRect().width(), 0);
+PageIndicator::~PageIndicator() {
+    delete layout_;
 }
 
 QPixmap PageIndicator::indicatorIcon(const QString& path) {
@@ -62,20 +57,22 @@ QPixmap PageIndicator::indicatorIcon(const QString& path) {
     return pixmap;
 }
 
-//void PageIndicator::mousePressEvent(QMouseEvent * event) {
-//    if (event->button() == Qt::LeftButton) {
-//        if(warning_->isVisible() && warning_->geometry().contains(event->pos())) {
-//            emit showWarningDetails();
-//            event->accept();
-//        }
-//    }
-//}
+void PageIndicator::mousePressEvent(QGraphicsSceneMouseEvent * event) {
+    if (event->button() == Qt::LeftButton) {
+        if(warning_->isVisible() && warning_->sceneBoundingRect().contains(event->scenePos())) {
+            emit showWarningDetails();
+            event->accept();
+        }
+    }
+}
 
 void PageIndicator::setRecognized(bool value) {
     if(value)
         recognized_->show();
     else
         recognized_->hide();
+
+    layout_->update();
 }
 
 void PageIndicator::setSaved(bool value) {
@@ -83,6 +80,8 @@ void PageIndicator::setSaved(bool value) {
         saved_->show();
     else
         saved_->hide();
+
+    layout_->update();
 }
 
 void PageIndicator::setWarning(bool value) {
@@ -90,6 +89,8 @@ void PageIndicator::setWarning(bool value) {
         warning_->show();
     else
         warning_->hide();
+
+    layout_->update();
 }
 
 QRectF PageIndicator::boundingRect() const {
@@ -98,4 +99,27 @@ QRectF PageIndicator::boundingRect() const {
 
 void PageIndicator::paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *)
 {
+}
+
+void PageIndicator::initLayout()
+{
+    layout_ = new GraphicsItemLayout;
+    layout_->addItem(recognized_);
+    layout_->addItem(saved_);
+    layout_->addItem(warning_);
+}
+
+void PageIndicator::initIcons()
+{
+    recognized_ = new QGraphicsPixmapItem(this);
+    recognized_->setToolTip(tr("Page recognized"));
+    recognized_->setPixmap(indicatorIcon(RECOGNIZED));
+
+    saved_ = new QGraphicsPixmapItem(this);
+    saved_->setToolTip(tr("Page saved"));
+    saved_->setPixmap(indicatorIcon(SAVED));
+
+    warning_ = new QGraphicsPixmapItem(this);
+    warning_->setPixmap(indicatorIcon(WARNING));
+    warning_->setToolTip(tr("Recognition errors"));
 }

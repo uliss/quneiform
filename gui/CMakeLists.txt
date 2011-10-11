@@ -43,6 +43,7 @@ set(HEADERS
 set(SOURCES
     exportsettings.cpp
     formatsettings.cpp
+    graphicsitemlayout.cpp
     imagecache.cpp
     language.cpp
     metatyperegistrator.cpp
