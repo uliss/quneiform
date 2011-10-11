@@ -37,7 +37,6 @@ set(HEADERS
     widgets/thumblayout.h
     widgets/thumbscene.h
     widgets/thumbnailwidget.h
-    widgets/widgetbar.h
 )
 
 set(SOURCES
@@ -85,7 +84,6 @@ set(SOURCES
     widgets/thumbscene.cpp
     widgets/thumbnaillist.cpp
     widgets/thumbnailwidget.cpp
-    widgets/widgetbar.cpp
 )
 
 set(FORMS 
