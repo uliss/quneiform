@@ -242,7 +242,7 @@ void Packet::move(int pos, Page * src)
     pages_.insert(pos, src);
 
     pageChange();
-    emit reorder();
+    emit reordered();
 }
 
 void Packet::moveBefore(Page * page, Page * target) {

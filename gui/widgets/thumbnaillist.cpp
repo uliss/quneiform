@@ -304,7 +304,7 @@ void ThumbnailList::setPacket(Packet * packet) {
     packet_ = packet;
     connect(packet_, SIGNAL(pageAdded(Page*)), SLOT(pageAdd(Page*)));
     connect(packet_, SIGNAL(pageRemoved(Page*)), SLOT(pageRemove(Page*)));
-    connect(packet_, SIGNAL(reorder()), SLOT(handleThumbReorder()));
+    connect(packet_, SIGNAL(reordered()), SLOT(handleThumbReorder()));
     connect(packet_, SIGNAL(opened()), SLOT(updateLayout()));
 }
 

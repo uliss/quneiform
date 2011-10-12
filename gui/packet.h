@@ -149,7 +149,7 @@ signals:
     /**
       * Emitted on page reorder
       */
-    void reorder();
+    void reordered();
 
     /**
       * Emitted when packet saved
