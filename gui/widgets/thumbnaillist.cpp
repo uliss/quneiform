@@ -26,6 +26,7 @@
 #include "thumblayout.h"
 #include "thumbscene.h"
 #include "thumbnailwidget.h"
+#include "dialogs/recognitionsettingsdialog.h"
 #include "quneiform_debug.h"
 
 static const int LIST_WIDTH = 170;
@@ -68,8 +69,29 @@ void ThumbnailList::contextThumbProperties()
 
 void ThumbnailList::contextThumbRecognizeSettings()
 {
-    if(context_thumb_)
-        context_thumb_->showRecognizeSettings();
+    QList<ThumbnailWidget*> selected = layout_->selected();
+
+    RecognitionSettingsDialog dialog;
+
+    // if no selection and have context thumb
+    // settings for context thumb only
+    if(selected.isEmpty()) {
+        if(context_thumb_) {
+            dialog.setup(context_thumb_->page());
+            dialog.exec();
+        }
+
+        return;
+    }
+
+    // if have selected thumbs - recognize all
+    QList<Page*> pages;
+    foreach(ThumbnailWidget * t, selected) {
+        pages.append(t->page());
+    }
+
+    dialog.setup(pages);
+    dialog.exec();
 }
 
 void ThumbnailList::contextThumbRecognize()
@@ -173,7 +195,7 @@ void ThumbnailList::handleThumbContextMenu(ThumbnailWidget * sender, const QPoin
 {
     context_thumb_ = sender;
 
-    QMenu * menu = new QMenu(NULL);
+    QMenu * menu = new QMenu(this);
     menu->addAction(act_select_all_);
     menu->addAction(act_delete_);
     menu->addSeparator();

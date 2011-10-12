@@ -31,7 +31,8 @@ TestRecognitionSettingsDialog::TestRecognitionSettingsDialog(QObject *parent) :
 
 void TestRecognitionSettingsDialog::test() {
     Page page("");
-    RecognitionSettingsDialog d(&page);
+    RecognitionSettingsDialog d;
+    d.setup(&page);
     d.open();
     d.accept();
 }

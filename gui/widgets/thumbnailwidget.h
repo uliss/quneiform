@@ -73,11 +73,6 @@ public:
     void showFormatSettings();
 
     /**
-      * Shows recognize settings dialog
-      */
-    void showRecognizeSettings();
-
-    /**
       * Shows thumb page properties dialog
       */
     void showProperties();

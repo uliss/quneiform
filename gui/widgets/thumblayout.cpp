@@ -20,7 +20,6 @@
 
 #include "thumblayout.h"
 #include "thumbnailwidget.h"
-#include "page.h"
 
 typedef QPair<ThumbnailWidget*,ThumbnailWidget*> SelectRange;
 
@@ -122,10 +121,7 @@ void ThumbLayout::remove(ThumbnailWidget * thumb)
 void ThumbLayout::select(ThumbnailWidget * thumb)
 {
     foreach(ThumbnailWidget * t, thumbs_) {
-        if(t == thumb)
-            t->selectThumb(true);
-        else
-            t->selectThumb(false);
+        t->selectThumb(thumb == t);
     }
 }
 
@@ -190,9 +186,11 @@ QSizeF ThumbLayout::size() const
 
 void ThumbLayout::update()
 {
+    static const int SPACING = 1;
     qreal y_pos = 0;
     foreach(ThumbnailWidget * t, thumbs_) {
         t->setPos(0, y_pos);
+        y_pos += SPACING;
         y_pos += t->boundingRect().height();
     }
 }

@@ -19,6 +19,7 @@
 #ifndef RECOGNITIONSETTINGSDIALOG_H
 #define RECOGNITIONSETTINGSDIALOG_H
 
+#include <QList>
 #include <QDialog>
 
 namespace Ui {
@@ -26,20 +27,28 @@ namespace Ui {
 }
 
 class Page;
+class RecognitionSettings;
+class QCheckBox;
 
 class RecognitionSettingsDialog : public QDialog
 {
     Q_OBJECT
 public:
-    RecognitionSettingsDialog(Page * page, QWidget * parent = 0);
+    RecognitionSettingsDialog(QWidget * parent = 0);
     ~RecognitionSettingsDialog();
+    void setup(Page * p);
+    void setup(const QList<Page*>& pages);
 private slots:
     void save();
 private:
+    typedef bool (RecognitionSettings::*getFuncPtr)() const;
+    typedef void (RecognitionSettings::*setFuncPtr)(bool);
+    void saveCheckboxState(QCheckBox * checkbox, setFuncPtr);
+    void setCheckboxState(QCheckBox * checkbox, getFuncPtr);
     void setup();
 private:
     Ui::RecognitionSettingsDialog * ui_;
-    Page * page_;
+    QList<Page*> pages_;
 };
 
 #endif // RECOGNITIONSETTINGSDIALOG_H

@@ -119,8 +119,9 @@ ThumbnailWidget::ThumbnailWidget(Page * page) :
     hightlighted_(false)
 {
 //    setFlags(QGraphicsItem::ItemIsMovable);
+    setFlag(QGraphicsItem::ItemIsSelectable, false);
     setFlag(QGraphicsItem::ItemClipsToShape);
-    setFlag(QGraphicsItem::ItemClipsChildrenToShape);
+//    setFlag(QGraphicsItem::ItemClipsChildrenToShape);
     setAcceptDrops(true);
 
     setupPixmap();
@@ -154,13 +155,6 @@ void ThumbnailWidget::showProperties() {
     d.exec();
 }
 
-void ThumbnailWidget::showRecognizeSettings() {
-    Q_CHECK_PTR(page_);
-
-    RecognitionSettingsDialog dlg(page_);
-    dlg.exec();
-}
-
 void ThumbnailWidget::selectThumb(bool value) {
     Q_CHECK_PTR(pixmap_);
     pixmap_->highlight(value);
@@ -168,18 +162,14 @@ void ThumbnailWidget::selectThumb(bool value) {
 }
 
 void ThumbnailWidget::mousePressEvent(QGraphicsSceneMouseEvent * event) {
-    Q_CHECK_PTR(event);
-
     switch (event->button()) {
     case Qt::LeftButton:
         drag_start_pos_ = event->pos();
-        emit clicked(this, event->modifiers());
         event->accept();
-        break;
-    case Qt::RightButton:
+        emit clicked(this, event->modifiers());
         break;
     default:
-        qDebug() << Q_FUNC_INFO << "Unhandled mouse event";
+        event->ignore();
     }
 }
 
