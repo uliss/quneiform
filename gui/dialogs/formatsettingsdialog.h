@@ -20,34 +20,50 @@
 #define FORMATSETTINGSDIALOG_H
 
 #include <QDialog>
-#include <QPixmap>
-#include "formatsettings.h"
+#include <QList>
 
 namespace Ui {
     class FormatSettingsDialog;
 }
 
+class Page;
+class FormatSettings;
+class QCheckBox;
+
 class FormatSettingsDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit FormatSettingsDialog(const FormatSettings& settings);
+    explicit FormatSettingsDialog();
     ~FormatSettingsDialog();
 
-    const FormatSettings& settings() const;
+    /**
+      * Setup dialog for single page
+      */
+    void setup(Page * page);
+
+    /**
+      * Setup dialog for pages
+      */
+    void setup(const QList<Page*> pages);
 private slots:
     void save();
     void load();
 private:
+    typedef bool (FormatSettings::*getFuncPtr)() const;
+    typedef void (FormatSettings::*setFuncPtr)(bool);
     void loadAlternatives();
     void loadFonts();
     void loadFormat();
     void saveAlternatives();
     void saveFonts();
     void saveFormat();
+    void saveCheckboxState(QCheckBox * checkbox, setFuncPtr);
+    void setCheckboxState(QCheckBox * checkbox, getFuncPtr);
+    void setUnrecognzedChar(const QChar& c);
 private:
-    Ui::FormatSettingsDialog *ui;
-    FormatSettings settings_;
+    Ui::FormatSettingsDialog * ui_;
+    QList<Page*> pages_;
 };
 
 #endif // FORMATSETTINGSDIALOG_H

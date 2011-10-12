@@ -20,23 +20,24 @@
 #include <QDebug>
 #include <QSettings>
 #include <QColor>
+#include <QSet>
+
 #include "formatsettingsdialog.h"
 #include "ui_formatsettingsdialog.h"
+#include "page.h"
 
 static const char * ALT_COLOR_KEY = "alternativeColor";
 
-FormatSettingsDialog::FormatSettingsDialog(const FormatSettings& settings) :
-    ui(new Ui::FormatSettingsDialog),
-    settings_(settings)
+FormatSettingsDialog::FormatSettingsDialog() :
+    ui_(new Ui::FormatSettingsDialog)
 {
-    ui->setupUi(this);
-    load();
+    ui_->setupUi(this);
     connect(this, SIGNAL(accepted()), SLOT(save()));
 }
 
 FormatSettingsDialog::~FormatSettingsDialog()
 {
-    delete ui;
+    delete ui_;
 }
 
 void FormatSettingsDialog::load() {
@@ -46,33 +47,44 @@ void FormatSettingsDialog::load() {
 }
 
 void FormatSettingsDialog::loadAlternatives() {
-    ui->showAlternatives->setChecked(settings_.showAlternatives());
-
-    if(!settings_.showAlternatives())
-        ui->alternativeColorButton->setDisabled(true);
+    setCheckboxState(ui_->showAlternatives, &FormatSettings::showAlternatives);
+    ui_->alternativeColorButton->setEnabled(ui_->showAlternatives->checkState() == Qt::Checked);
 
     QSettings global_settings;
     global_settings.beginGroup("format");
-    ui->alternativeColorButton->setColor(
+    ui_->alternativeColorButton->setColor(
             global_settings.value(ALT_COLOR_KEY, Qt::blue).value<QColor>());
 }
 
 void FormatSettingsDialog::loadFonts() {
-    ui->useBold->setChecked(settings_.isBoldUsed());
-    ui->useItalic->setChecked(settings_.isItalicUsed());
-    ui->useUnderlined->setChecked(settings_.isUnderlinedUsed());
-    ui->useFontSize->setChecked(settings_.isFontSizeUsed());
+    setCheckboxState(ui_->useBold, &FormatSettings::isBoldUsed);
+    setCheckboxState(ui_->useItalic, &FormatSettings::isItalicUsed);
+    setCheckboxState(ui_->useUnderlined, &FormatSettings::isUnderlinedUsed);
+    setCheckboxState(ui_->useFontSize, &FormatSettings::isFontSizeUsed);
 }
 
 void FormatSettingsDialog::loadFormat() {
-    // line breaks
-    ui->preserveLineBreaks->setChecked(settings_.preserveLineBreaks());
+    setCheckboxState(ui_->preserveLineBreaks, &FormatSettings::preserveLineBreaks);
 
-    // unrecognized char
-    for(int i = 0; i < ui->unrecognizedChar->count(); i++) {
-        if(ui->unrecognizedChar->itemText(i) == settings_.unrecognizedChar()) {
-            ui->unrecognizedChar->setCurrentIndex(i);
-            break;
+    if(pages_.empty()) {
+        return;
+    }
+    else if(pages_.count() == 1) {
+        QChar uc = pages_.first()->formatSettings().unrecognizedChar();
+        setUnrecognzedChar(uc);
+    }
+    else {
+        QSet<QChar> chars;
+        foreach(Page * page, pages_) {
+            chars.insert(page->formatSettings().unrecognizedChar());
+        }
+
+        if(chars.count() == 1) {
+            setUnrecognzedChar(*chars.begin());
+        }
+        else {
+            ui_->unrecognizedChar->insertItem(0, " ");
+            ui_->unrecognizedChar->setCurrentIndex(0);
         }
     }
 }
@@ -84,24 +96,98 @@ void FormatSettingsDialog::save() {
 }
 
 void FormatSettingsDialog::saveAlternatives() {
-    settings_.setShowAlternatives(ui->showAlternatives->isChecked());
+    saveCheckboxState(ui_->showAlternatives, &FormatSettings::setShowAlternatives);
+
     QSettings settings;
     settings.beginGroup("format");
-    settings.setValue(ALT_COLOR_KEY, ui->alternativeColorButton->color());
+    settings.setValue(ALT_COLOR_KEY, ui_->alternativeColorButton->color());
 }
 
 void FormatSettingsDialog::saveFonts() {
-    settings_.setBoldUsed(ui->useBold->isChecked());
-    settings_.setItalicUsed(ui->useItalic->isChecked());
-    settings_.setUnderlinedUsed(ui->useUnderlined->isChecked());
-    settings_.setFontSizeUsed(ui->useFontSize->isChecked());
+    saveCheckboxState(ui_->useBold, &FormatSettings::setBoldUsed);
+    saveCheckboxState(ui_->useItalic, &FormatSettings::setItalicUsed);
+    saveCheckboxState(ui_->useUnderlined, &FormatSettings::setUnderlinedUsed);
+    saveCheckboxState(ui_->useFontSize, &FormatSettings::setFontSizeUsed);
 }
 
 void FormatSettingsDialog::saveFormat() {
-    settings_.setPreserveLineBreaks(ui->preserveLineBreaks->isChecked());
-    settings_.setUnrecognizedChar(ui->unrecognizedChar->currentText().at(0));
+    saveCheckboxState(ui_->preserveLineBreaks, &FormatSettings::setPreserveLineBreaks);
+
+    QChar uc = ui_->unrecognizedChar->currentText().at(0);
+    if(uc.isSpace())
+        return;
+
+    foreach(Page * page, pages_) {
+        FormatSettings fs = page->formatSettings();
+        fs.setUnrecognizedChar(uc);
+        page->setFormatSettings(fs);
+    }
 }
 
-const FormatSettings& FormatSettingsDialog::settings() const {
-    return settings_;
+void FormatSettingsDialog::setup(Page * page)
+{
+    pages_.clear();
+    pages_.append(page);
+    load();
+}
+
+void FormatSettingsDialog::setup(const QList<Page*> pages)
+{
+    pages_ = pages;
+    load();
+}
+
+void FormatSettingsDialog::setCheckboxState(QCheckBox * checkbox, FormatSettingsDialog::getFuncPtr fptr)
+{
+    if(pages_.isEmpty()) {
+        return;
+    }
+    else if(pages_.count() == 1) {
+        checkbox->setChecked((pages_.first()->formatSettings().*fptr)());
+    }
+    else {
+        int count_on = 0;
+        foreach(Page * page, pages_) {
+            if((page->formatSettings().*fptr)())
+                count_on++;
+        }
+
+        if(count_on == 0) {
+            checkbox->setChecked(false);
+        }
+        else if(pages_.count() == count_on) {
+            checkbox->setChecked(true);
+        }
+        else {
+            checkbox->setTristate(true);
+            checkbox->setCheckState(Qt::PartiallyChecked);
+        }
+    }
+}
+
+void FormatSettingsDialog::saveCheckboxState(QCheckBox * checkbox, FormatSettingsDialog::setFuncPtr fptr)
+{
+    if(checkbox->checkState() == Qt::PartiallyChecked)
+        return;
+
+    bool value = (checkbox->checkState() == Qt::Checked);
+
+    foreach(Page * page, pages_) {
+        FormatSettings settings = page->formatSettings();
+        (settings.*fptr)(value);
+        page->setFormatSettings(settings);
+    }
+}
+
+void FormatSettingsDialog::setUnrecognzedChar(const QChar& c)
+{
+    if(c.isNull() || c.isSpace())
+        return;
+
+    for(int i = 0; i < ui_->unrecognizedChar->count(); i++) {
+        if(ui_->unrecognizedChar->itemText(i) == c) {
+            ui_->unrecognizedChar->setCurrentIndex(i);
+            break;
+        }
+    }
 }

@@ -68,11 +68,6 @@ public:
     void setName(const QString& name);
 
     /**
-      * Shows format settings dialog
-      */
-    void showFormatSettings();
-
-    /**
       * Shows thumb page properties dialog
       */
     void showProperties();

@@ -29,8 +29,6 @@
 #include "imagecache.h"
 #include "page.h"
 #include "pageindicator.h"
-#include "dialogs/recognitionsettingsdialog.h"
-#include "dialogs/formatsettingsdialog.h"
 #include "dialogs/pagepropertiesdialog.h"
 
 static const int THUMB_IMAGE_HEIGHT = 100;
@@ -118,10 +116,8 @@ ThumbnailWidget::ThumbnailWidget(Page * page) :
     drag_progress_(false),
     hightlighted_(false)
 {
-//    setFlags(QGraphicsItem::ItemIsMovable);
-    setFlag(QGraphicsItem::ItemIsSelectable, false);
     setFlag(QGraphicsItem::ItemClipsToShape);
-//    setFlag(QGraphicsItem::ItemClipsChildrenToShape);
+    setFlag(QGraphicsItem::ItemClipsChildrenToShape);
     setAcceptDrops(true);
 
     setupPixmap();
@@ -139,14 +135,6 @@ ThumbnailWidget::ThumbnailWidget(Page * page) :
 void ThumbnailWidget::contextMenuEvent(QGraphicsSceneContextMenuEvent * event) {
     emit createContextMenu(this, event->screenPos());
     event->accept();
-}
-
-void ThumbnailWidget::showFormatSettings() {
-    Q_CHECK_PTR(page_);
-
-    FormatSettingsDialog dialog(page_->formatSettings());
-    if(QDialog::Accepted == dialog.exec())
-        page_->setFormatSettings(dialog.settings());
 }
 
 void ThumbnailWidget::showProperties() {

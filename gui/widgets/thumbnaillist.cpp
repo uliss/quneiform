@@ -27,6 +27,7 @@
 #include "thumbscene.h"
 #include "thumbnailwidget.h"
 #include "dialogs/recognitionsettingsdialog.h"
+#include "dialogs/formatsettingsdialog.h"
 #include "quneiform_debug.h"
 
 static const int LIST_WIDTH = 170;
@@ -57,8 +58,29 @@ ThumbnailList::ThumbnailList(QWidget * parent) :
 
 void ThumbnailList::contextThumbFormatSettings()
 {
-    if(context_thumb_)
-        context_thumb_->showFormatSettings();
+    QList<ThumbnailWidget*> selected = layout_->selected();
+
+    FormatSettingsDialog dialog;
+
+    // if no selection and have context thumb
+    // settings for context thumb only
+    if(selected.isEmpty()) {
+        if(context_thumb_) {
+            dialog.setup(context_thumb_->page());
+            dialog.exec();
+        }
+
+        return;
+    }
+
+    // if have selected thumbs - settings for all of them
+    QList<Page*> pages;
+    foreach(ThumbnailWidget * t, selected) {
+        pages.append(t->page());
+    }
+
+    dialog.setup(pages);
+    dialog.exec();
 }
 
 void ThumbnailList::contextThumbProperties()
@@ -84,7 +106,7 @@ void ThumbnailList::contextThumbRecognizeSettings()
         return;
     }
 
-    // if have selected thumbs - recognize all
+    // if have selected thumbs - settings for all of them
     QList<Page*> pages;
     foreach(ThumbnailWidget * t, selected) {
         pages.append(t->page());
