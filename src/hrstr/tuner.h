@@ -63,6 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _TUNER_H_
 #define _TUNER_H_
 
+#define      HUGE_IMAGE          // Allow recognition huge images A4 x 800 dpi
 #define     _DISABLE_SPACE   1   // no space in lines
 #define     _SPEC_PROJECT1       // only <
 #define     _USE_SPELLING_ 1     // without spelling corrector
