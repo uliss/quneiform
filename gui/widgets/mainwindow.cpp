@@ -43,6 +43,7 @@
 #include "dialogs/exportdialog.h"
 #include "dialogs/packetopenprogressdialog.h"
 #include "dialogs/recognitionprogressdialog.h"
+#include "dialogs/recognitionsettingsdialog.h"
 #include "dialogs/settings.h"
 #include "recentmenu.h"
 #include "exportsettings.h"
@@ -162,6 +163,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionOpenPacket, SIGNAL(triggered()), SLOT(openPacket()));
     connect(ui_->actionSavePacket, SIGNAL(triggered()), SLOT(savePacket()));
     connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showSettings()));
+    connect(ui_->actionRecognitionSettings, SIGNAL(triggered()), SLOT(recognitionSettings()));
 }
 
 void MainWindow::connectThumbs() {
@@ -723,4 +725,11 @@ void MainWindow::writeSettings() {
 
     settings.setValue("pos", pos());
     settings.endGroup();
+}
+
+void MainWindow::recognitionSettings()
+{
+    RecognitionSettingsDialog dialog;
+    dialog.setup(packet_->pages());
+    dialog.exec();
 }

@@ -310,7 +310,7 @@ void ThumbnailList::setDragCursor(bool value)
     setCursor(value ? Qt::OpenHandCursor : Qt::ArrowCursor);
 }
 
-void ThumbnailList::setLanguage(const Language &lang)
+void ThumbnailList::setLanguage(const Language& lang)
 {
     if(current_page_)
         current_page_->setLanguage(lang);

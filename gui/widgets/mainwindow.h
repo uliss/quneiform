@@ -62,6 +62,7 @@ private slots:
     void openRecentImage(const QString& path);
     void packetChange();
     void packetSave();
+    void recognitionSettings();
     void recognizeAll();
     void recognizePage(Page * page);
     void recognizePages(const QList<Page*>& pages);

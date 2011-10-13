@@ -459,6 +459,10 @@ Are you shure?</source>
         <source>Opening files</source>
         <translation>Открытие файлов</translation>
     </message>
+    <message>
+        <source>Recognition settings</source>
+        <translation>Настройки распознавания</translation>
+    </message>
 </context>
 <context>
     <name>PacketOpenProgressDialog</name>
