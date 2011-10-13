@@ -62,7 +62,7 @@
            <string>General</string>
           </property>
           <property name="icon">
-           <iconset resource="resources/cuneiform.qrc">
+           <iconset resource="../resources/cuneiform.qrc">
             <normaloff>:/img/oxygen/32x32/select_rectangular.png</normaloff>:/img/oxygen/32x32/select_rectangular.png</iconset>
           </property>
          </item>
@@ -71,7 +71,7 @@
            <string>Editor</string>
           </property>
           <property name="icon">
-           <iconset resource="resources/cuneiform.qrc">
+           <iconset resource="../resources/cuneiform.qrc">
             <normaloff>:/img/oxygen/32x32/object_edit.png</normaloff>:/img/oxygen/32x32/object_edit.png</iconset>
           </property>
          </item>
@@ -83,7 +83,7 @@
            <string>Debug settings</string>
           </property>
           <property name="icon">
-           <iconset resource="resources/cuneiform.qrc">
+           <iconset resource="../resources/cuneiform.qrc">
             <normaloff>:/img/oxygen/32x32/configure.png</normaloff>:/img/oxygen/32x32/configure.png</iconset>
           </property>
          </item>
@@ -151,6 +151,35 @@
              </item>
              <item row="2" column="1">
               <widget class="ColorButton" name="alternativeColorButton"/>
+             </item>
+             <item row="3" column="1">
+              <widget class="QPushButton" name="fontChoose">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="fontChooseLabel">
+               <property name="text">
+                <string>Default font:</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -289,7 +318,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="resources/cuneiform.qrc"/>
+  <include location="../resources/cuneiform.qrc"/>
  </resources>
  <connections>
   <connection>

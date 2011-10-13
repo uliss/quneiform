@@ -665,6 +665,10 @@ Are you shure?</source>
         <source>Alternatives color:</source>
         <translation>Цвет вариантов распознавания:</translation>
     </message>
+    <message>
+        <source>Default font:</source>
+        <translation>Шрифт:</translation>
+    </message>
 </context>
 <context>
     <name>TextEditor</name>

@@ -18,8 +18,16 @@
 
 #include <QSettings>
 #include <QColorDialog>
+#include <QFontDialog>
+
 #include "settings.h"
 #include "ui_settings.h"
+
+QString fontName(const QFont& f) {
+    QString res = f.family();
+    res += QString(", %1pt").arg(f.pointSize());
+    return res;
+}
 
 Settings::Settings(QWidget * parent) :
     QDialog(parent),
@@ -37,6 +45,7 @@ Settings::~Settings() {
 void Settings::connectSignals() {
     connect(this, SIGNAL(accepted()), SLOT(save()));
     connect(this, SIGNAL(destroyed()), SLOT(saveDialogState()));
+    connect(this->ui_->fontChoose, SIGNAL(clicked()), SLOT(showFontDialog()));
 }
 
 void Settings::load() {
@@ -74,6 +83,9 @@ void Settings::loadFormat() {
             settings.value("alternativeColor", Qt::blue).value<QColor>());
     ui_->showCurrentCharacterCheckBox->setChecked(
             settings.value("showCurrentCharacter", true).toBool());
+
+    QFont editorFont = settings.value("editorFont", QFont()).value<QFont>();
+    ui_->fontChoose->setText(fontName(editorFont));
 }
 
 void Settings::save() {
@@ -107,4 +119,18 @@ void Settings::saveFormat() {
     settings.setValue("currentCharColor", ui_->currentCharacterColorButton->color());
     settings.setValue("alternativeColor", ui_->alternativeColorButton->color());
     settings.setValue("showCurrentCharacter", ui_->showCurrentCharacterCheckBox->isChecked());
+}
+
+void Settings::showFontDialog()
+{
+    QSettings settings;
+    settings.beginGroup("format");
+    QFont initial = settings.value("editorFont", QFont()).value<QFont>();
+
+    bool ok;
+    QFont font = QFontDialog::getFont(&ok, initial, this);
+    if (ok) {
+        ui_->fontChoose->setText(fontName(font));
+        settings.setValue("editorFont", font);
+    }
 }
