@@ -142,7 +142,7 @@
     </message>
     <message>
         <source>Original size</source>
-        <translation type="unfinished">Исходный размер</translation>
+        <translation>Исходный размер</translation>
     </message>
 </context>
 <context>
