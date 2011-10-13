@@ -140,6 +140,10 @@
         <source>Fit to page</source>
         <translation>Уместить изображение</translation>
     </message>
+    <message>
+        <source>Original size</source>
+        <translation type="unfinished">Исходный размер</translation>
+    </message>
 </context>
 <context>
     <name>Lang</name>

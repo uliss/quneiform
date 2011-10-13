@@ -128,6 +128,7 @@ void ImageView::createContextMenu() {
     context_menu_->addSeparator();
     context_menu_->addAction(tr("Fit to width"), this, SLOT(fitWidth()));
     context_menu_->addAction(tr("Fit to page"), this, SLOT(fitPage()));
+    context_menu_->addAction(tr("Original size"), this, SLOT(originalSize()));
 }
 
 void ImageView::createPageAreaSelection(const QRect& rect) {

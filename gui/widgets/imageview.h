@@ -51,12 +51,6 @@ public:
     void hideFormatLayout();
 
     /**
-      * Zooms page to original size
-      * @see fitPage(), fitWidth(), zoom()
-      */
-    void originalSize();
-
-    /**
       * Show char bbox
       */
     void showChar(const QRect& bbox);
@@ -103,6 +97,12 @@ public slots:
       * @see fitPage(), originalSize(), zoom()
       */
     void fitWidth();
+
+    /**
+      * Zooms page to original size
+      * @see fitPage(), fitWidth(), zoom()
+      */
+    void originalSize();
 
     void updatePageArea();
 signals:
