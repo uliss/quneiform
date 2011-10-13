@@ -111,7 +111,15 @@ signals:
       */
     void gestureRotateAttempt(int angle);
 
+    /**
+      * Emitted after connected page deletion
+      */
     void pageDeleted();
+
+    /**
+      * Emitted on recognize request
+      */
+    void recognize(Page*);
 
     /**
       * Emitted after view scaling
@@ -141,6 +149,7 @@ private slots:
     void deletePage();
     void deletePageAreaSelection();
     void movePageSelection(const QPointF& delta);
+    void handleRecognizeRequest();
     void selectPageArea();
     void updatePageAreaSelection();
     void updatePageRotation();

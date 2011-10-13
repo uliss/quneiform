@@ -528,6 +528,7 @@ void MainWindow::setupImageView() {
     connect(image_widget_, SIGNAL(scaleIsTooSmall()), SLOT(disableZoomOutAction()));
     connect(image_widget_, SIGNAL(scaled()), SLOT(enableZoomActions()));
     connect(image_widget_, SIGNAL(gestureRotateAttempt(int)), SLOT(rotate(int)));
+    connect(image_widget_, SIGNAL(recognize(Page*)), SLOT(recognizePage(Page*)));
 }
 
 void MainWindow::setupLanguageMenu() {

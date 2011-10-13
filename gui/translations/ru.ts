@@ -144,6 +144,10 @@
         <source>Original size</source>
         <translation>Исходный размер</translation>
     </message>
+    <message>
+        <source>Recognize</source>
+        <translation>Распознать</translation>
+    </message>
 </context>
 <context>
     <name>Lang</name>

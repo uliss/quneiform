@@ -40,7 +40,15 @@ signals:
       */
     void gestureRotateAttempt(int angle);
 
+    /**
+      * Emitted after connected page deletion
+      */
     void pageDeleted();
+
+    /**
+      * Emitted on recognize request
+      */
+    void recognize(Page*);
 
     /**
       * Emitted after success scale attemt

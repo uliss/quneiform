@@ -65,6 +65,7 @@ void ImageWidget::setupView() {
     connect(view_, SIGNAL(scaleIsTooBig()), SIGNAL(scaleIsTooBig()));
     connect(view_, SIGNAL(scaleIsTooSmall()), SIGNAL(scaleIsTooSmall()));
     connect(view_, SIGNAL(gestureRotateAttempt(int)), SIGNAL(gestureRotateAttempt(int)));
+    connect(view_, SIGNAL(recognize(Page*)), SIGNAL(recognize(Page*)));
 
 #ifdef QT_OS_MAC
     view_->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
