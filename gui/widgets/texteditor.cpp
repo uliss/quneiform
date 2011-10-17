@@ -31,6 +31,18 @@
 #include "export/qtextdocumentexporter.h"
 
 static const int TEXTEDITOR_MARGIN = 10;
+static const QString ALIGN_LEFT(":/img/oxygen/32x32/text_left.png");
+static const QString ALIGN_RIGHT(":/img/oxygen/32x32/text_right.png");
+static const QString ALIGN_CENTER(":/img/oxygen/32x32/text_center.png");
+static const QString ALIGN_JUSTIFY(":/img/oxygen/32x32/text_block.png");
+static const QString TEXT_BOLD(":/img/oxygen/32x32/text_bold.png");
+static const QString TEXT_ITALIC(":/img/oxygen/32x32/text_italic.png");
+static const QString TEXT_UNDERLINE(":/img/oxygen/32x32/text_under.png");
+static const QString ACTION_REDO("");
+static const QString ACTION_SPELL(":/img/oxygen/32x32/spellcheck.png");
+static const QString ACTION_UNDO(":/img/oxygen/32x32/undo.png");
+static const QString ZOOM_IN(":/img/oxygen/32x32/zoom_in.png");
+static const QString ZOOM_OUT(":/img/oxygen/32x32/zoom_out.png");
 
 TextEditor::TextEditor(QWidget * parent) :
     QTextEdit(parent),
@@ -67,10 +79,10 @@ void TextEditor::addAlignmentActions(QMenu * menu) {
 
     QMenu * align_menu = menu->addMenu(tr("Alignment"));
 
-    QAction * align_left = align_menu->addAction(QIcon(":/img/oxygen/32x32/text_left.png"), tr("Left"), this, SLOT(alignLeft()));
-    QAction * align_right = align_menu->addAction(QIcon(":/img/oxygen/32x32/text_right.png"), tr("Right"), this, SLOT(alignRight()));
-    QAction * align_center = align_menu->addAction(QIcon(":/img/oxygen/32x32/text_center.png"), tr("Center"), this, SLOT(alignCenter()));
-    QAction * align_justify = align_menu->addAction(QIcon(":/img/oxygen/32x32/text_block.png"), tr("Justify"), this, SLOT(alignJustify()));
+    QAction * align_left = align_menu->addAction(QIcon(ALIGN_LEFT), tr("Left"), this, SLOT(alignLeft()));
+    QAction * align_right = align_menu->addAction(QIcon(ALIGN_RIGHT), tr("Right"), this, SLOT(alignRight()));
+    QAction * align_center = align_menu->addAction(QIcon(ALIGN_CENTER), tr("Center"), this, SLOT(alignCenter()));
+    QAction * align_justify = align_menu->addAction(QIcon(ALIGN_JUSTIFY), tr("Justify"), this, SLOT(alignJustify()));
 
     switch(textCursor().blockFormat().alignment()) {
     case Qt::AlignLeft:
@@ -342,19 +354,19 @@ void TextEditor::setupActions() {
 }
 
 void TextEditor::setupFontActions() {
-    bold_ = new QAction(QIcon(":/img/oxygen/32x32/text_bold.png"), tr("bold"), this);
+    bold_ = new QAction(QIcon(TEXT_BOLD), tr("bold"), this);
     bold_->setCheckable(true);
     bold_->setShortcut(QKeySequence::Bold);
     connect(bold_, SIGNAL(triggered()), this, SLOT(toggleBold()));
     addAction(bold_);
 
-    italic_ = new QAction(QIcon(":/img/oxygen/32x32/text_italic.png"), tr("italic"), this);
+    italic_ = new QAction(QIcon(TEXT_ITALIC), tr("italic"), this);
     italic_->setCheckable(true);
     italic_->setShortcut(QKeySequence::Italic);
     connect(italic_, SIGNAL(triggered()), this, SLOT(toggleItalic()));
     addAction(italic_);
 
-    underlined_ = new QAction(QIcon(":/img/oxygen/32x32/text_under.png"), tr("underlined"), this);
+    underlined_ = new QAction(QIcon(TEXT_UNDERLINE), tr("underlined"), this);
     underlined_->setCheckable(true);
     underlined_->setShortcut(QKeySequence::Underline);
     connect(underlined_, SIGNAL(triggered()), this, SLOT(toggleUnderlined()));
@@ -362,7 +374,7 @@ void TextEditor::setupFontActions() {
 }
 
 void TextEditor::setupRedoAction() {
-    redo_ = new QAction(QIcon(""), tr("Redo"), this);
+    redo_ = new QAction(QIcon(ACTION_REDO), tr("Redo"), this);
     redo_->setShortcut(QKeySequence::Redo);
     connect(redo_, SIGNAL(triggered()), this, SLOT(redo()));
     connect(this, SIGNAL(redoAvailable(bool)), redo_, SLOT(setEnabled(bool)));
@@ -370,13 +382,13 @@ void TextEditor::setupRedoAction() {
 }
 
 void TextEditor::setupSpellActions() {
-    spell_check_ = new QAction(QIcon(":/img/oxygen/32x32/spellcheck.png"), tr("Spell"), this);
+    spell_check_ = new QAction(QIcon(ACTION_SPELL), tr("Spell"), this);
     connect(spell_check_, SIGNAL(triggered()), this, SLOT(checkSpelling()));
     addAction(spell_check_);
 }
 
 void TextEditor::setupUndoAction() {
-    undo_ = new QAction(QIcon(":/img/oxygen/32x32/undo.png"), tr("Undo"), this);
+    undo_ = new QAction(QIcon(ACTION_UNDO), tr("Undo"), this);
     undo_->setShortcut(QKeySequence::Undo);
     connect(undo_, SIGNAL(triggered()), this, SLOT(undo()));
     connect(this, SIGNAL(undoAvailable(bool)), undo_, SLOT(setEnabled(bool)));
@@ -384,12 +396,12 @@ void TextEditor::setupUndoAction() {
 }
 
 void TextEditor::setupZoomActions() {
-    zoom_in_ = new QAction(QIcon(":/img/oxygen/32x32/zoom_in.png"), tr("Zoom In"), this);
+    zoom_in_ = new QAction(QIcon(ZOOM_IN), tr("Zoom In"), this);
     zoom_in_->setShortcut(QKeySequence::ZoomIn);
     connect(zoom_in_, SIGNAL(triggered()), this, SLOT(zoomIn()));
     addAction(zoom_in_);
 
-    zoom_out_ = new QAction(QIcon(":/img/oxygen/32x32/zoom_out.png"), tr("Zoom Out"), this);
+    zoom_out_ = new QAction(QIcon(ZOOM_OUT), tr("Zoom Out"), this);
     zoom_out_->setShortcut(QKeySequence::ZoomOut);
     connect(zoom_out_, SIGNAL(triggered()), this, SLOT(zoomOut()));
     addAction(zoom_out_);
