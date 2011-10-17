@@ -287,6 +287,7 @@ void QTextDocumentExporter::writePageBegin(cf::CEDPage& page) {
     doc_->setUndoRedoEnabled(false);
 
     QTextFrameFormat page_format;
+
     if(page.imageSize().isValid()) {
 //        format.setWidth(page.imageSize().width());
 //        format.setHeight(page.imageSize().height());

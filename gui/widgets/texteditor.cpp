@@ -30,6 +30,8 @@
 #include "spell/spellcheckhighlighter.h"
 #include "export/qtextdocumentexporter.h"
 
+static const int TEXTEDITOR_MARGIN = 10;
+
 TextEditor::TextEditor(QWidget * parent) :
     QTextEdit(parent),
     page_(NULL),
@@ -45,6 +47,8 @@ TextEditor::TextEditor(QWidget * parent) :
     highlighter_(NULL)
 {
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(showCurrentChar()));
+    setViewportMargins(TEXTEDITOR_MARGIN, 0, TEXTEDITOR_MARGIN, 0);
+    setStyleSheet("QFrame { background-color: #FFFFFF;}");
     setReadOnly(true);
     setTextInteractionFlags(Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
     settings_.beginGroup("format");
