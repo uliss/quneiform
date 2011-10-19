@@ -91,6 +91,7 @@ private:
     void enableViewActions(bool value);
     bool openImage(const QString& path, bool allowDuplication = false);
     void readSettings();
+    void setupDefaultLanguage();
     void setupPacket();
     void setupImageView();
     void setupLanguageMenu();

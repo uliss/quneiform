@@ -125,7 +125,9 @@ bool MainWindow::confirmRotationSelected() {
 }
 
 void MainWindow::changePacketLanguage(const Language& lang) {
-    Q_CHECK_PTR(thumbs_);
+    if(thumbs_)
+        return;
+
     thumbs_->setLanguage(lang);
 }
 
@@ -546,6 +548,7 @@ void MainWindow::setupLanguageSelect() {
 void MainWindow::setupLanguageUi() {
     setupLanguageMenu();
     setupLanguageSelect();
+    setupDefaultLanguage();
 }
 
 void MainWindow::setupOpenProgress() {
@@ -726,6 +729,9 @@ void MainWindow::writeSettings() {
 
     settings.setValue("pos", pos());
     settings.endGroup();
+
+    settings.beginGroup("language");
+    settings.setValue("lastLanguage", lang_select_->currentLanguage().code());
 }
 
 void MainWindow::recognitionSettings()
@@ -733,4 +739,24 @@ void MainWindow::recognitionSettings()
     RecognitionSettingsDialog dialog;
     dialog.setup(packet_->pages());
     dialog.exec();
+}
+
+void MainWindow::setupDefaultLanguage()
+{
+    QSettings settings;
+    settings.beginGroup("language");
+    int lcode = settings.value("lastLanguage", -1).toInt();
+
+    Language default_lang;
+
+    if(lcode == -1)
+        default_lang = Language::fromIsoCode2(QLocale::languageToString(QLocale().language()));
+    else
+        default_lang = Language(lcode);
+
+    if(!default_lang.isValid())
+        default_lang = Language::english();
+
+    lang_select_->select(default_lang);
+    lang_menu_->select(default_lang);
 }
