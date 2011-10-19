@@ -43,6 +43,7 @@ static const QString ACTION_SPELL(":/img/oxygen/32x32/spellcheck.png");
 static const QString ACTION_UNDO(":/img/oxygen/32x32/undo.png");
 static const QString ZOOM_IN(":/img/oxygen/32x32/zoom_in.png");
 static const QString ZOOM_OUT(":/img/oxygen/32x32/zoom_out.png");
+static const QString TEXTEDIT_CSS("QFrame { background-color: palette(base);}");
 
 TextEditor::TextEditor(QWidget * parent) :
     QTextEdit(parent),
@@ -60,7 +61,7 @@ TextEditor::TextEditor(QWidget * parent) :
 {
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(showCurrentChar()));
     setViewportMargins(TEXTEDITOR_MARGIN, 0, TEXTEDITOR_MARGIN, 0);
-    setStyleSheet("QFrame { background-color: #FFFFFF;}");
+    setStyleSheet(TEXTEDIT_CSS);
     setReadOnly(true);
     setTextInteractionFlags(Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
     settings_.beginGroup("format");
