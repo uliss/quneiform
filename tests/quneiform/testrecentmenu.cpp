@@ -111,11 +111,12 @@ void TestRecentMenu::testPersistant() {
     {
         RecentMenu m1(NULL, "Title", "testConstruct1", 1);
         m1.add(PATH1);
+
     }
 
     {
         RecentMenu m1(NULL, "Title", "testConstruct1", 1);
-        QVERIFY(!m1.isEmpty());
+        QVERIFY(m1.actions().first());
         QF_COMPARE(m1, 0, PATH1);
     }
 }
