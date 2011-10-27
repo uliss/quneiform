@@ -44,7 +44,15 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 public slots:
+    /**
+      * Opens given files
+      */
     void open(const QStringList& paths);
+
+    /**
+      * Recognizes all opened images
+      */
+    void recognizeAll();
 protected:
     void closeEvent(QCloseEvent * event);
 private slots:
@@ -63,7 +71,6 @@ private slots:
     void packetChange();
     void packetSave();
     void recognitionSettings();
-    void recognizeAll();
     void recognizePage(Page * page);
     void recognizePages(const QList<Page*>& pages);
     void rotate(int angle);

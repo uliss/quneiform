@@ -48,11 +48,22 @@ int main(int argc, char * argv[]) {
     w.show();
 
     if(argc > 1) {
+        bool do_recognize = false;
         QStringList files;
-        for(int i = 1; i < argc; i++)
-            files << QString::fromLocal8Bit(argv[i]);
+        QStringList params = QCoreApplication::arguments();
+        params.removeFirst();
+        foreach(QString p, params) {
+            if(p == "-r" || p == "--recognize")
+                do_recognize = true;
+            else
+                files.append(p);
+        }
 
-        w.open(files);
+        if(!files.isEmpty())
+            w.open(files);
+
+        if(do_recognize)
+            w.recognizeAll();
     }
 
     return app.exec();
