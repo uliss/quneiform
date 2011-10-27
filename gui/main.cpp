@@ -59,11 +59,12 @@ int main(int argc, char * argv[]) {
                 files.append(p);
         }
 
-        if(!files.isEmpty())
+        if(!files.isEmpty()) {
             w.open(files);
 
-        if(do_recognize)
-            w.recognizeAll();
+            if(do_recognize)
+                w.recognizeAll();
+        }
     }
 
     return app.exec();
