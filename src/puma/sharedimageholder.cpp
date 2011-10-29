@@ -30,7 +30,7 @@ namespace cf {
 
 static const char * SHARED_IMAGE_KEY = "image";
 
-SharedImageHolder::SharedImageHolder(bi::managed_shared_memory * segment) :
+SharedImageHolder::SharedImageHolder(SharedMemory * segment) :
     segment_(segment),
     image_(NULL)
 {
@@ -51,7 +51,7 @@ SharedImageHolder::~SharedImageHolder() {
         segment_->destroy<SharedImage>(SHARED_IMAGE_KEY);
 }
 
-SharedImage * SharedImageHolder::find(bi::managed_shared_memory * segment) {
+SharedImage * SharedImageHolder::find(SharedMemory * segment) {
     if(!segment)
         return NULL;
 

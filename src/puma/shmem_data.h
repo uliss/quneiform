@@ -19,10 +19,6 @@
 #ifndef SHMEM_DATA_H
 #define SHMEM_DATA_H
 
-#include <algorithm>
-
-#include "ced/cedpage.h"
-
 namespace cf {
 
 enum WorkerExitValues {

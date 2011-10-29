@@ -27,7 +27,7 @@ namespace cf
 
 static const char * SHARED_OPTIONS_KEY = "options";
 
-SharedOptionsHolder::SharedOptionsHolder(bi::managed_shared_memory * segment) :
+SharedOptionsHolder::SharedOptionsHolder(SharedMemory * segment) :
     segment_(segment)
 {
     assert(segment);
@@ -47,7 +47,7 @@ SharedOptionsHolder::~SharedOptionsHolder() {
         segment_->destroy<SharedOptions>(SHARED_OPTIONS_KEY);
 }
 
-SharedOptions * SharedOptionsHolder::find(bi::managed_shared_memory * segment) {
+SharedOptions * SharedOptionsHolder::find(SharedMemory * segment) {
     if(!segment)
         return NULL;
 

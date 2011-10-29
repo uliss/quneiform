@@ -16,11 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifdef __OpenBSD__
-#include <sys/param.h> // for MAXLOGNAME
-#endif
 
-#include <boost/interprocess/managed_shared_memory.hpp>
 #include <cstring>
 #include <cstdlib>
 #include <cassert>
@@ -28,9 +24,10 @@
 #include <algorithm>
 
 #ifdef _WIN32
-#include <Windows.h>
+#include <Windows.h> // for GetCurrentProcessId()
 #endif
 
+#include "shared_memory_type.h"
 #include "processrecognitionserver.h"
 #include "startprocess.h"
 #include "shmem_data.h"
@@ -98,7 +95,7 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
         static const size_t SHMEM_SIZE = sizeof(SharedResult) * 2 + sizeof(SharedImage) + sizeof(SharedOptions);
 
         //Construct managed shared memory
-        managed_shared_memory segment(create_only, SHMEM_KEY.c_str(), SHMEM_SIZE);
+        SharedMemory segment(create_only, SHMEM_KEY.c_str(), SHMEM_SIZE);
         CF_INFO("Shared segment '"<< SHMEM_KEY << "' created with size: " << SHMEM_SIZE << " bytes.");
 
         // create shared image

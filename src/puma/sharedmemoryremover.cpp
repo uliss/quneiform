@@ -16,13 +16,9 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifdef __OpenBSD__
-#include <sys/param.h> // for MAXLOGNAME
-#endif
-
 #include <boost/current_function.hpp>
-#include <boost/interprocess/managed_shared_memory.hpp>
 
+#include "shared_memory_type.h"
 #include "sharedmemoryremover.h"
 #include "common/console_messages.h"
 

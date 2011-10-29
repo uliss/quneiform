@@ -19,14 +19,8 @@
 #ifndef SHAREDIMAGEHOLDER_H
 #define SHAREDIMAGEHOLDER_H
 
-#ifdef __OpenBSD__
-#include <sys/param.h> // for MAXLOGNAME
-#endif
-#include <boost/interprocess/managed_shared_memory.hpp>
-
+#include "shared_memory_type.h"
 #include "globus.h"
-
-namespace bi = boost::interprocess;
 
 namespace cf {
 
@@ -35,13 +29,13 @@ class SharedImage;
 class CLA_EXPO SharedImageHolder
 {
 public:
-    SharedImageHolder(bi::managed_shared_memory * segment);
+    SharedImageHolder(SharedMemory * segment);
     ~SharedImageHolder();
     SharedImage * image();
 public:
-    static SharedImage * find(bi::managed_shared_memory * segment);
+    static SharedImage * find(SharedMemory * segment);
 private:
-    bi::managed_shared_memory * segment_;
+    SharedMemory * segment_;
     SharedImage * image_;
 };
 

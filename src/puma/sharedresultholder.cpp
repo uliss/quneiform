@@ -31,7 +31,7 @@ namespace cf
 
 static const char * SHARED_RESULT_KEY = "result";
 
-SharedResultHolder::SharedResultHolder(bi::managed_shared_memory * segment) :
+SharedResultHolder::SharedResultHolder(SharedMemory * segment) :
     segment_(segment) {
     assert(segment);
     shm_result_ = segment_->construct<SharedResult>(SHARED_RESULT_KEY)();
@@ -49,7 +49,7 @@ SharedResultHolder::~SharedResultHolder() {
         segment_->destroy<SharedResult>(SHARED_RESULT_KEY);
 }
 
-SharedResult * SharedResultHolder::find(bi::managed_shared_memory * segment) {
+SharedResult * SharedResultHolder::find(SharedMemory * segment) {
     if(!segment)
         return NULL;
     return segment->find<SharedResult>(SHARED_RESULT_KEY).first;

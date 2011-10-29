@@ -16,11 +16,6 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifdef __OpenBSD__
-#include <sys/param.h>
-#endif
-
-#include <boost/interprocess/managed_shared_memory.hpp>
 #include <cstring>
 #include <cstdlib>
 #include <string>
@@ -28,6 +23,7 @@
 #include <iostream>
 #include <csignal>
 
+#include "shared_memory_type.h"
 #include "localrecognitionserver.h"
 #include "export/exporterfactory.h"
 #include "rdib/imageloaderfactory.h"
@@ -129,7 +125,7 @@ int main(int argc, char ** argv) {
 
     try {
         //Open managed shared memory
-        managed_shared_memory segment(open_only, SHARED_MEMORY_KEY);
+        SharedMemory segment(open_only, SHARED_MEMORY_KEY);
 
         // find shared result
         SharedResult * sh_result = SharedResultHolder::find(&segment);

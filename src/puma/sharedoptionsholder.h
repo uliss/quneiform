@@ -19,14 +19,8 @@
 #ifndef SHAREDOPTIONSHOLDER_H
 #define SHAREDOPTIONSHOLDER_H
 
-#ifdef __OpenBSD__
-#include <sys/param.h> // for MAXLOGNAME
-#endif
-#include <boost/interprocess/managed_shared_memory.hpp>
-
+#include "shared_memory_type.h"
 #include "globus.h"
-
-namespace bi = boost::interprocess;
 
 namespace cf
 {
@@ -39,7 +33,7 @@ public:
     /**
       * Constructs SharedOptions in shared memory
       */
-    SharedOptionsHolder(bi::managed_shared_memory * segment);
+    SharedOptionsHolder(SharedMemory * segment);
 
     /**
       * Removes SharedOptions from shared memory
@@ -55,9 +49,9 @@ public:
       * Finds shared options in given memory segment
       * @return pointer to shred result or NULL if not found
       */
-    static SharedOptions * find(bi::managed_shared_memory * segment);
+    static SharedOptions * find(SharedMemory * segment);
 private:
-    bi::managed_shared_memory * segment_;
+    SharedMemory * segment_;
     SharedOptions * options_;
 };
 }

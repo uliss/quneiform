@@ -65,15 +65,15 @@ int startProcess(const std::string& program, const StringList& params, int timeo
 
     // Create the child process.
     BOOL bSuccess = CreateProcess(NULL,
-                                  str,           // command line
-                                  NULL,          // process security attributes
-                                  NULL,          // primary thread security attributes
-                                  TRUE,          // handles are inherited
-                                  0,             // creation flags
-                                  NULL,          // use parent's environment
-                                  NULL,          // use parent's current directory
-                                  &siStartInfo,  // STARTUPINFO pointer
-                                  &piProcInfo);  // receives PROCESS_INFORMATION
+                                  str,               // command line
+                                  NULL,              // process security attributes
+                                  NULL,              // primary thread security attributes
+                                  FALSE,             // handles are inherited
+                                  DETACHED_PROCESS,  // creation flags
+                                  NULL,              // use parent's environment
+                                  NULL,              // use parent's current directory
+                                  &siStartInfo,      // STARTUPINFO pointer
+                                  &piProcInfo);      // receives PROCESS_INFORMATION
 
     free(str);
 

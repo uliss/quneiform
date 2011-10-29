@@ -19,15 +19,9 @@
 #ifndef SHAREDRESULTHOLDER_H
 #define SHAREDRESULTHOLDER_H
 
-#ifdef __OpenBSD__
-#include <sys/param.h> // for MAXLOGNAME
-#endif
-#include <boost/interprocess/managed_shared_memory.hpp>
-
+#include "shared_memory_type.h"
 #include "globus.h"
 #include "ced/cedpageptr.h"
-
-namespace bi = boost::interprocess;
 
 namespace cf
 {
@@ -40,7 +34,7 @@ public:
     /**
       * Constructs SharedResult in shared memory
       */
-    SharedResultHolder(bi::managed_shared_memory * segment);
+    SharedResultHolder(SharedMemory * segment);
 
     /**
       * Removes SharedResult from shared memory
@@ -62,9 +56,9 @@ public:
       * Finds shared result in given memory segment
       * @return pointer to shred result or NULL if not found
       */
-    static SharedResult * find(bi::managed_shared_memory * segment);
+    static SharedResult * find(SharedMemory * segment);
 private:
-    bi::managed_shared_memory * segment_;
+    SharedMemory * segment_;
     SharedResult * shm_result_;
 };
 }
