@@ -117,10 +117,7 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
         sh_opt_holder.options()->store(ropts);
         sh_opt_holder.options()->store(fopts);
 
-        bool ok = startWorker(image, SHMEM_KEY);
-
-        if(!ok && state_)
-            state_->set(RecognitionState::FAILED);
+        startWorker(image, SHMEM_KEY);
 
         CEDPagePtr res = result_holder.page();
 
@@ -145,41 +142,12 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
     }
 }
 
-bool ProcessRecognitionServer::processWorkerReturnCode(int code)
-{
-#define ERROR(msg) CF_ERROR(msg); return false;
-    switch(code) {
-    case EXIT_SUCCESS:
-        return true;
-    case WORKER_UNKNOWN_ERROR:
-        ERROR("unknown error");
-    case WORKER_SEGMENT_NOT_FOUND:
-        ERROR("shared memory segment not found");
-    case WORKER_SAVE_ERROR:
-        ERROR("error while saving into shared memory segment");
-    case WORKER_RECOGNITION_ERROR:
-        ERROR("recognition error");
-    case WORKER_SHMEM_ERROR:
-        ERROR("shared memory error");
-    case WORKER_TERMINATE_ERROR:
-        ERROR("recognition process terminated");
-    case WORKER_ABORT_ERROR:
-        ERROR("recognition process aborted");
-    case WORKER_SEGFAULT_ERROR:
-        ERROR("recognition process segmentation fault");
-    case WORKER_TIMEOUT_ERROR:
-        ERROR("recognition process killed by timeout");
-    }
-
-    return true;
-}
-
 void ProcessRecognitionServer::setWorkerTimeout(int sec)
 {
     worker_timeout_ = sec;
 }
 
-bool ProcessRecognitionServer::startWorker(ImagePtr image, const std::string& key) {
+void ProcessRecognitionServer::startWorker(ImagePtr image, const std::string& key) {
     if(counter_)
         counter_->reset();
 
@@ -190,10 +158,9 @@ bool ProcessRecognitionServer::startWorker(ImagePtr image, const std::string& ke
         params.push_back(image->fileName());
 
     std::string exe_path = workerPath();
-    if(exe_path.empty()) {
-        CF_ERROR("can't find process worker");
-        return false;
-    }
+
+    if(exe_path.empty())
+        throw RecognitionException("can't find process worker");
 
     int code = startProcess(exe_path, params, worker_timeout_);
 
@@ -211,21 +178,56 @@ bool ProcessRecognitionServer::startWorker(ImagePtr image, const std::string& ke
         state_->set(RecognitionState::FORMATTED);
     }
 
-    return processWorkerReturnCode(code);
+    switch(code) {
+    case EXIT_SUCCESS:
+        return;
+    case WORKER_UNKNOWN_ERROR:
+        throw RecognitionException("unknown error");
+    case WORKER_SEGMENT_NOT_FOUND:
+        throw RecognitionException("shared memory segment not found");
+    case WORKER_SAVE_ERROR:
+        throw RecognitionException("error while saving into shared memory segment");
+    case WORKER_RECOGNITION_ERROR:
+        throw RecognitionException("recognition error");
+    case WORKER_SHMEM_ERROR:
+        throw RecognitionException("shared memory error");
+    case WORKER_TERMINATE_ERROR:
+        throw RecognitionException("recognition process terminated");
+    case WORKER_ABORT_ERROR:
+        throw RecognitionException("recognition process aborted");
+    case WORKER_SEGFAULT_ERROR:
+        throw RecognitionException("recognition process segmentation fault");
+    case WORKER_TIMEOUT_ERROR:
+        throw RecognitionException("recognition process killed by timeout");
+    default:
+        return;
+    }
 }
 
 std::string ProcessRecognitionServer::workerPath() const {
     PathList search_paths;
     search_paths.push_back(".");
+
+#ifdef _WIN32
+    char szAppPath[MAX_PATH]      = "";
+    char szAppDirectory[MAX_PATH] = "";
+
+    ::GetModuleFileName(0, szAppPath, sizeof(szAppPath) - 1);
+    strncpy(szAppDirectory, szAppPath, strrchr(szAppPath, '\\') - szAppPath);
+    szAppDirectory[strlen(szAppDirectory)] = '\0';
+
+    search_paths.push_back(szAppDirectory);
+#else
     search_paths.push_back(INSTALL_PREFIX "/lib/cuneiform");
     search_paths.push_back(INSTALL_PREFIX "/lib64/cuneiform");
+#endif
+
     PathList env_paths = envPaths();
     std::copy(env_paths.begin(), env_paths.end(), std::back_inserter(search_paths));
     StringList file_names;
 
 #ifdef _WIN32
     file_names.push_back("cuneiform-worker.exe");
-    file_names.push_back("../lib/cuneiform/cuneiform-worker.exe");
     // for testing purposes
     file_names.push_back("../../cuneiform-worker.exe");
 #else

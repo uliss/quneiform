@@ -52,8 +52,7 @@ public:
       */
     int workerTimeout() const;
 private:
-    bool processWorkerReturnCode(int code);
-    bool startWorker(ImagePtr image, const std::string& key);
+    void startWorker(ImagePtr image, const std::string& key);
     std::string workerPath() const;
 private:
     int worker_timeout_;
