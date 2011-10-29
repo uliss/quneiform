@@ -16,13 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifdef __OpenBSD__
-#include <sys/param.h> // for MAXLOGNAME
-#endif
-
-#include <boost/interprocess/managed_shared_memory.hpp>
-
 #include "testsharedresultholder.h"
+#include "puma/shared_memory_type.h"
 #include "puma/sharedresultholder.h"
 #include "puma/sharedresult.h"
 #include "puma/sharedmemoryremover.h"
@@ -44,7 +39,7 @@ void TestSharedResultHolder::testConstruct()
     SharedMemoryRemover remover(SHARED_MEMORY_KEY);
 
     using namespace boost::interprocess;
-    managed_shared_memory segment(create_only, SHARED_MEMORY_KEY, sizeof(SharedResult) * 2);
+    SharedMemory segment(create_only, SHARED_MEMORY_KEY, sizeof(SharedResult) * 2);
 
     SharedResultHolder sholder(&segment);
     CEDPagePtr p(new CEDPage);

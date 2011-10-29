@@ -16,13 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifdef __OpenBSD__
-#include <sys/param.h> // for MAXLOGNAME
-#endif
-
-#include <boost/interprocess/managed_shared_memory.hpp>
-
 #include "testsharedimageholder.h"
+#include "puma/shared_memory_type.h"
 #include "puma/sharedimageholder.h"
 #include "puma/sharedimage.h"
 #include "puma/startprocess.h"
@@ -44,7 +39,7 @@ void TestSharedImageHolder::testConstruct()
 
     using namespace boost::interprocess;
     //Construct managed shared memory
-    managed_shared_memory segment(create_only, SHARED_MEMORY_KEY, sizeof(SharedImage) * 2);
+    SharedMemory segment(create_only, SHARED_MEMORY_KEY, sizeof(SharedImage) * 2);
 
     SharedImageHolder holder(&segment);
     CPPUNIT_ASSERT(holder.image() != NULL);

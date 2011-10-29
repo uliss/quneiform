@@ -16,13 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifdef __OpenBSD__
-#include <sys/param.h> // for MAXLOGNAME
-#endif
-
-#include <iostream>
-#include <boost/interprocess/managed_shared_memory.hpp>
-
+#include "puma/shared_memory_type.h"
 #include "puma/sharedresultholder.h"
 #include "puma/sharedresult.h"
 
@@ -31,7 +25,7 @@ using namespace cf;
 
 int main() {
     try {
-        managed_shared_memory segment(open_only, "test_puma");
+        SharedMemory segment(open_only, "test_puma");
 
         SharedResult * sh_res = SharedResultHolder::find(&segment);
         if(!sh_res)
