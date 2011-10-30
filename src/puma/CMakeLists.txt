@@ -48,6 +48,12 @@ set(CUNEIFORM_LIBS
     cuneiform-rpstr
 )
 
+find_package(Threads)
+
+if(CMAKE_USE_PTHREADS_INIT)
+    list(APPEND CUNEIFORM_LIBS pthread rt)
+endif()
+
 add_library(cuneiform ${CF_CUNEIFORM_LIBTYPE}
     ${CUNEIFORM_SOURCES}
     ${CUNEIFORM_HEADERS}
