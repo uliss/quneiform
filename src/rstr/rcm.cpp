@@ -87,6 +87,7 @@
 
 #include "cfcompat.h"
 #include "common/debug.h"
+#include "rbal/bal.h"
 
 #define LOCAL_GREY_CTB "page6666"
 #define LOCAL_CTB_NAME "ct666666"
@@ -142,8 +143,6 @@ Bool32 p2_msk_init();
 void p2_msk_done(void);
 // p2_bold
 void p2_BoldInit(int);
-// linutil.c
-void BaseLineStatisticInit(void);
 // MMX_ADDR.C
 void set_MMX_addr(void);
 void set_all_addr(void);
@@ -745,7 +744,7 @@ Bool32 RSTRNewPage(int32_t resolutiony, Handle myPage) {
 #endif
 	p2_BoldInit(0);
 
-	BaseLineStatisticInit(); // Nick 26.01.2001
+        BAL_StatInit(); // Nick 26.01.2001
 
 	return TRUE;
 }

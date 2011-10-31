@@ -1145,11 +1145,5 @@ void linpos(CSTR_line ln) {
 
 	CSTR_DeleteLine(line_bal);
 }
-////////////////
-//////////////////
-void BaseLineStatisticInit(void) {
-	BAL_StatInit();
-}
-/////////////////
 
 #endif
