@@ -1,3 +1,21 @@
+macro(SET_COMPILER_FLAG_DEBUG flag)
+    CHECK_CXX_COMPILER_FLAG(${flag} "HAVE_CXX_COMPILER_FLAG${flag}")
+    if("HAVE_CXX_COMPILER_FLAG${flag}")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${flag}")
+    else()
+        message(STATUS "Compiler flag ${flag} is not supported")
+    endif()
+endmacro()
+
+macro(SET_COMPILER_FLAG_RELEASE flag)
+    CHECK_CXX_COMPILER_FLAG(${flag} "HAVE_CXX_COMPILER_FLAG${flag}")
+    if("HAVE_CXX_COMPILER_FLAG${flag}")
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${flag}")
+    else()
+        message(STATUS "Compiler flag ${flag} is not supported")
+    endif()
+endmacro()
+
 add_definitions("-D_USE_RVERLINE_")
 
 if(MINGW)

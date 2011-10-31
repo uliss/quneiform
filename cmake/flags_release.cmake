@@ -1,8 +1,6 @@
 if(CMAKE_BUILD_TYPE STREQUAL Release)
-    add_definitions(-DNDEBUG)
-    if(CMAKE_SYSTEM_NAME STREQUAL Linux)
+    unset(CMAKE_CXX_FLAGS_RELEASE CACHE)
+    SET_COMPILER_FLAG_RELEASE(-O2)
 
-    endif()
-
-    message(STATUS "Compiler flags are: ${CMAKE_CXX_FLAGS_RELEASE}")
+    message(STATUS "Release compiler flags are: ${CMAKE_CXX_FLAGS_RELEASE}")
 endif()
