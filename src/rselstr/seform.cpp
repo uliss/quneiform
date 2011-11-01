@@ -318,7 +318,7 @@ void StringsFill (void)
             if (pRoot -> bType & ROOT_USED)
                 continue;
 
- 			if (IS_LAYOUT_DUST (*pRoot))
+            if(pRoot->isLayoutDust())
                 continue;
 
             if (pRoot -> yRow <= y &&

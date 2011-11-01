@@ -105,8 +105,8 @@ void BlocksHystogramsBuild(void) {
 		if (pRoot -> nBlock > nBlocks)
 		ErrorInternal ((char *)"Bad number of blocks");
 # endif
-		if (IS_LAYOUT_DUST(*pRoot))
-			continue;
+                if (pRoot->isLayoutDust())
+                    continue;
 
 		pBlock = pBlockPointer[pRoot -> nBlock];
 

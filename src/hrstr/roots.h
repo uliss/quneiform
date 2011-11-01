@@ -100,6 +100,11 @@ struct CCOM_comp;
 typedef struct _Root ROOT;
 typedef struct _Root *PROOT;
 
+enum {
+    MAX_DUST_WIDTH  = 8,
+    MAX_DUST_HEIGHT = 8
+};
+
 struct _Root {
     int16_t yRow;
     int16_t xColumn;
@@ -120,6 +125,10 @@ struct _Root {
     int16_t nBlock;  // тип блока: "дустовый" али какой
     int16_t nUserNum;
     CCOM_comp * pComp;
+public:
+    bool isLayoutDust() const {
+        return nWidth <= MAX_DUST_WIDTH && nHeight <= MAX_DUST_HEIGHT;
+    }
 };
 
 struct _RootExt;
@@ -155,9 +164,4 @@ extern int nPageHeight;
 extern int nSuitablePageHeight;
 extern int nPageOffset;
 
-#define MAX_DUST_WIDTH   8
-#define MAX_DUST_HEIGHT  8
-
-#define IS_LAYOUT_DUST(a) \
-             ((a).nWidth <= MAX_DUST_WIDTH && (a).nHeight <= MAX_DUST_HEIGHT)
 #endif

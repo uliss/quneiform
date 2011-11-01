@@ -399,7 +399,7 @@ static void RootsUpdate (int xLeft, int yTop, int nScaling)
 
         if (pRoot -> bType & ROOT_RECOGNIZED) nColor |= 2; //=>GREEN
 
-        if (IS_LAYOUT_DUST (*pRoot)) nColor |= 4; //=>RED
+        if (pRoot->isLayoutDust()) nColor |= 4; //=>RED
 
         if (pRoot -> bType & ROOT_DEBUG) nColor = _COLOR_YELLOW;
 
@@ -579,7 +579,7 @@ static void HystogramUpdate (int xLeft, int yTop, int nScaling)
 
             if (pRoot -> bType & ROOT_RECOGNIZED) nColor |= 2;
 
-            if (IS_LAYOUT_DUST (*pRoot)) nColor |= 4;
+            if (pRoot->isLayoutDust()) nColor |= 4;
 
             if (pRoot -> bType & ROOT_DEBUG) nColor = 14;
 
@@ -1223,7 +1223,7 @@ static void DD_RemovingConditionsUpdate (int xLeft, int yTop, int nScaling)
         r.yTop = pRoot -> yRow;
         r.xRight = r.xLeft + pRoot -> nWidth - 1;
         r.yBottom = r.yTop + pRoot -> nHeight - 1;
-        _setcolor (IS_LAYOUT_DUST (*pRoot) ? _COLOR_GREEN : _COLOR_DGREEN);
+        _setcolor (pRoot->isLayoutDust() ? _COLOR_GREEN : _COLOR_DGREEN);
         _rectangle (_GFILLINTERIOR,
                     B2SX (r.xLeft - pDebugBlock -> Rect.xLeft),
                     B2SY (r.yTop - pDebugBlock -> Rect.yTop),
@@ -1315,7 +1315,7 @@ static void ShowBlock (int xLeft, int yTop, int nScaling)
         r.yTop = pRoot -> yRow;
         r.xRight = r.xLeft + pRoot -> nWidth - 1;
         r.yBottom = r.yTop + pRoot -> nHeight - 1;
-        _setcolor (IS_LAYOUT_DUST (*pRoot) ? _COLOR_GREEN : _COLOR_DGREEN);
+        _setcolor (pRoot->isLayoutDust() ? _COLOR_GREEN : _COLOR_DGREEN);
         _rectangle (_GFILLINTERIOR,
                     B2SX (r.xLeft - pDebugBlock -> Rect.xLeft),
                     B2SY (r.yTop - pDebugBlock -> Rect.yTop),

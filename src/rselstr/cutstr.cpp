@@ -357,7 +357,7 @@ int GetMediumHeight(ROOT* pRoots) {
 	int count = 0;
 
 	for (pRoot = pRoots; pRoot; pRoot = pRoot->u1.pNext) {
-		if (IS_LAYOUT_DUST(*pRoot))
+                if (pRoot->isLayoutDust())
 			continue;
 
 		if ((pRoot->bType & ROOT_LETTER) && pRoot->nHeight > inf_let_h) {

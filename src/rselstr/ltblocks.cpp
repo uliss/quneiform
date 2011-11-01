@@ -165,7 +165,7 @@ void BlocksRemoveDescriptor(BLOCK *p) {
 
 void BlockAccountRoot(BLOCK *p, ROOT *pRoot) {
 	// Piter
-	if (IS_LAYOUT_DUST(*pRoot)) {
+        if (pRoot->isLayoutDust()) {
 		p -> nDust++;
 	}
 	// end Piter

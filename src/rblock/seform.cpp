@@ -278,7 +278,7 @@ void StringsFill(void)
 
             //if (IS_LAYOUT_DUST (*pRoot) || pRoot -> nHeight <= 4)
             //if (IS_LAYOUT_DUST (*pRoot) && pRoot->nUserNum!=IS_IN_TABLE)
-            if (IS_LAYOUT_DUST(*pRoot))
+            if (pRoot->isLayoutDust())
                 continue;
 
             if (pRoot -> yRow <= y && pRoot -> yRow + pRoot -> nHeight >= y) {

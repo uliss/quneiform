@@ -113,7 +113,7 @@ void BlocksHystogramsBuild(void)
 
         //if (IS_LAYOUT_DUST (*pRoot) || pRoot -> nHeight <= 4)
         //if (IS_LAYOUT_DUST (*pRoot)&& pRoot->nUserNum!=IS_IN_TABLE)
-        if (IS_LAYOUT_DUST(*pRoot))
+        if (pRoot->isLayoutDust())
             continue;
 
         pBlock = pBlockPointer[pRoot -> nBlock];

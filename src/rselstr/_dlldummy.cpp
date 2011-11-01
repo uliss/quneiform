@@ -267,7 +267,7 @@ static void RootsUpdate (int xLeft, int yTop, int nScaling)
 
         if (pRoot -> bType & ROOT_LETTER)       nColor |= 1;
         if (pRoot -> bType & ROOT_RECOGNIZED)   nColor |= 2;
-        if (IS_LAYOUT_DUST (*pRoot))            nColor |= 4;
+        if (pRoot->isLayoutDust())              nColor |= 4;
 
         if (pRoot -> bType & ROOT_DEBUG)        nColor = 14;
 
@@ -353,7 +353,7 @@ static void HystogramUpdate (int xLeft, int yTop, int nScaling)
 
 			if (pRoot -> bType & ROOT_LETTER)       nColor |= 1;
 			if (pRoot -> bType & ROOT_RECOGNIZED)   nColor |= 2;
-			if (IS_LAYOUT_DUST (*pRoot))            nColor |= 4;
+                        if (pRoot->isLayoutDust())              nColor |= 4;
 
 			if (pRoot -> bType & ROOT_DEBUG)        nColor = 14;
 

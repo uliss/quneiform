@@ -105,7 +105,7 @@ void BlockHorzHystogramBuild(BLOCK *p)
 
     for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pRoot -> u1.pNext) {
         // пыль не учитываем
-        if (IS_LAYOUT_DUST(*pRoot))
+        if (pRoot->isLayoutDust())
             continue;
 
         // относительное начало текущего рута (по у)
@@ -158,7 +158,7 @@ void BlockBuild_HystHorzHeightesSum(BLOCK *p)
     memset(pHystHorzHeightesSum, 0, (nHystColumns + 1) * sizeof(int));
 
     for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pRoot -> u1.pNext) {
-        if (IS_LAYOUT_DUST(*pRoot))
+        if (pRoot->isLayoutDust())
             continue;
 
         iTopColumn = (pRoot -> yRow - p -> Rect.yTop);
@@ -186,7 +186,7 @@ void BlockBuild_HystVertHeightesSum(BLOCK *p)
     memset(pHystVertHeightesSum, 0, (nHystColumns + 1) * sizeof(int));
 
     for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pRoot -> u1.pNext) {
-        if (IS_LAYOUT_DUST(*pRoot))
+        if (pRoot->isLayoutDust())
             continue;
 
         iLeftColumn = (pRoot -> xColumn - p -> Rect.xLeft);

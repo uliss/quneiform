@@ -100,7 +100,7 @@ void WSB_BuildHystograms(void)
     xMax = pRoots[0].xColumn + pRoots[0].nWidth - 1;
 
     for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-        if (IS_LAYOUT_DUST(*pRoot))
+        if (pRoot->isLayoutDust())
             continue;
 
         if (xMin > pRoot -> xColumn)
@@ -128,7 +128,7 @@ void WSB_BuildHystograms(void)
     memset(pWSB_Hyst2, 0, (nWSB_HystColumns + 1) * sizeof(int));
 
     for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-        if (IS_LAYOUT_DUST(*pRoot))
+        if (pRoot->isLayoutDust())
             continue;
 
         iBegin = pRoot -> xColumn - xWSB_HystOffset;
@@ -519,7 +519,7 @@ Bool WSB_CutUpperLine(BLOCK * p, WSB_POINT Point)
             continue;
         }
 
-        if (IS_LAYOUT_DUST(*pRoot))
+        if (pRoot->isLayoutDust())
             continue;
 
         if (pRoot -> nHeight < p -> nAverageHeight / 2)

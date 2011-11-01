@@ -278,7 +278,7 @@ void TryingAddBorderDust(BLOCK *p, ROOT *pRoot, int32_t *yTop,
 void BlockAccountRoot(BLOCK *p, ROOT *pRoot)
 {
     // Piter
-    if (IS_LAYOUT_DUST(*pRoot)) {
+    if (pRoot->isLayoutDust()) {
         p -> nDust++;
         //return; //rom
     }
@@ -703,7 +703,7 @@ void BlocksAbsorbDust(void)
              continue;
              }
              */
-            if (IS_LAYOUT_DUST(*pRoot)) {
+            if (pRoot->isLayoutDust()) {
                 TryingAddBorderDust(p, pRoot, &yTop, &yBottom, &xLeft, &xRight);
             }
         }
@@ -752,7 +752,7 @@ void BlocksDisAbsorbBoundaryDust(void) /* STDG4, STDG19 */
 
         for (pRoot = pRootsBegin; pRoot < pRootsAfter; pRoot++) {
             if (pRoot -> nBlock != p -> nNumber && pRoot -> nBlock
-                    != DUST_BLOCK_NUMBER && IS_LAYOUT_DUST(*pRoot)
+                    != DUST_BLOCK_NUMBER && pRoot->isLayoutDust()
                     && pRoot -> yRow >= rExt.yTop && pRoot -> xColumn
                     >= rExt.xLeft && pRoot -> yRow + pRoot->nHeight - 1
                     <= rExt.yBottom && pRoot -> xColumn + pRoot->nWidth - 1

@@ -105,7 +105,7 @@ void BlockHorzHystogramBuild (BLOCK *p)
 
     for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pRoot -> u1.pNext)
     {
-        if (IS_LAYOUT_DUST (* pRoot))
+        if (pRoot->isLayoutDust())
             continue;
 
         iTopColumn    = (pRoot -> yRow - p -> Rect.yTop);

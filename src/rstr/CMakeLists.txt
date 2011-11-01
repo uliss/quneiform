@@ -90,9 +90,12 @@ set(RSTR_SOURCES
     ukr.cpp
 )
 
+set(RSTR_HEADERS)
+
 add_library(cuneiform-rstr ${LIBTYPE}
     ${SNP_SRC}
     ${RSTR_SOURCES}
+    ${RSTR_HEADERS}
 )
 
 cif_visibility_hidden(cuneiform-rstr)

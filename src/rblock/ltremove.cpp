@@ -323,7 +323,7 @@ int CalculateSquareOfLetters(BLOCK *p)
     int nSquare = 0;
 
     for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pRoot -> u1.pNext) {
-        if (!IS_LAYOUT_DUST(*pRoot) && (pRoot -> bType & ROOT_LETTER) != 0) {
+        if (!pRoot->isLayoutDust() && (pRoot -> bType & ROOT_LETTER) != 0) {
             nSquare += pRoot -> nWidth * pRoot -> nHeight;
         }
     }
@@ -344,7 +344,7 @@ void CalculateDustDistribution(BLOCK *p)
     memset(DSD_Matrix, 0, DD_MATRIX_SIZE * sizeof(int));
 
     for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pRoot -> u1.pNext) {
-        if (!IS_LAYOUT_DUST(*pRoot)) {
+        if (!pRoot->isLayoutDust()) {
             continue;
         }
 
@@ -405,7 +405,7 @@ void BlockRemove(BLOCK *p)
     //DDD }
     // for any
     for (pRoot = p -> pRoots; pRoot != NULL; pRoot = pRoot -> u1.pNext) {
-        pRoot -> nBlock = IS_LAYOUT_DUST(*pRoot) ? DUST_BLOCK_NUMBER
+        pRoot -> nBlock = pRoot->isLayoutDust() ? DUST_BLOCK_NUMBER
                           : REMOVED_BLOCK_NUMBER;
     }
 

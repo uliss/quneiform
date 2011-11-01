@@ -152,7 +152,7 @@ void InitialBreakingProceed (void)
     // (например -- к "дустовому")
     for (i = 0; i < nRoots; i++) {
         pRoots [i].nBlock =
-            IS_LAYOUT_DUST (pRoots [i]) ?
+            pRoots[i].isLayoutDust() ?
             DUST_BLOCK_NUMBER :
             REMAINDER_BLOCK_NUMBER; // единственное место в коде, где ставится этот флаг
     }

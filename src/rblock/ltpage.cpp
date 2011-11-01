@@ -166,7 +166,7 @@ void PageMatrixPutRoots(void)
     int o;
 
     for (p = pRoots; p < pAfterRoots; p++) {
-        if (IS_LAYOUT_DUST(*p))
+        if (p->isLayoutDust())
             continue;
 
         // компресс -- это деление на 2^N, N==4(==PAGE_COMP_SHIFT)
