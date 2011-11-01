@@ -296,9 +296,6 @@ void atlant(cell *, s_glue *, int16_t, int16_t);
 void LayoutPart1(void);
 void LayoutPart2(void);
 
-// module ltpage.c
-void SpecCompPut(MN *mn);
-
 // module spec_sym.c
 void star();
 void bullet();

@@ -79,11 +79,11 @@
 #include "minmax.h"
 #include "compat_defs.h"
 
-uchar * PageMatrix; ////  [PAGE_MATRIX_SIZE];
+uchar * PageMatrix = NULL; ////  [PAGE_MATRIX_SIZE];
 extern uchar *CellsPage;
 extern Handle hPageMatrix;
 
-Bool bPageMatrixInitialized = FALSE;
+static bool bPageMatrixInitialized = false;
 
 void PageMatrixInit(int nWidth, int nHeight)
 {
@@ -102,7 +102,7 @@ void PageMatrixInit(int nWidth, int nHeight)
         return;
     }
 
-    bPageMatrixInitialized = TRUE;
+    bPageMatrixInitialized = true;
 }
 
 static void PutInterval(int y, int x, int l)
@@ -296,6 +296,8 @@ void PageMatrixExcludeIntersections(void)
         }
     }
 }
+
+static void PageMatrixPutSeparators(Bool bConvertToRealCoords);
 
 void PageMatrixBuild(void)
 {
@@ -662,7 +664,7 @@ uchar PageMatrixFlagsByIdealXY(int xIdeal, int yIdeal)
 
 void PageMatrixFreeData(void)
 {
-    bPageMatrixInitialized = FALSE;
+    bPageMatrixInitialized = false;
 #ifdef  HUGE_IMAGE
     free(PageMatrix);
     PageMatrix = NULL;

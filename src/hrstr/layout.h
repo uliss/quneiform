@@ -356,15 +356,9 @@ void CompsFreeData (void);
 # define PAGE_MATRIX_REAL_HEIGHT (PAGE_MATRIX_HEIGHT << PAGE_COMP_SHIFT)
 
 extern uchar *PageMatrix;   /* [PAGE_MATRIX_SIZE] */
-extern Bool bPageMatrixInitialized;
 
 void SpecCompPut (MN *mn);
-void PageMatrixPutRoots (void);
-void PageMatrixHorzGlue (void);
-void PageMatrixVertGlue (void);
-void PageMatrixExcludeIntersections (void);
 void PageMatrixBuild (void);
-void PageMatrixPutSeparators (Bool bConvertToRealCoords);
 void PageMatrixExcludeSeparators (Bool bConvertToRealCoords);
 uchar PageMatrixFlagsByIdealXY (int xIdeal, int yIdeal);
 void PageMatrixFreeData (void);
