@@ -372,7 +372,6 @@ void CompsFreeData (void);
 extern uchar *PageMatrix;   /* [PAGE_MATRIX_SIZE] */
 extern Bool bPageMatrixInitialized;
 
-void PageMatrixInit (int nWidth, int nHeight);
 void SpecCompPut (MN *mn);
 void PageMatrixPutRoots (void);
 void PageMatrixHorzGlue (void);

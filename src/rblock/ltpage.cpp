@@ -88,14 +88,11 @@ Bool bPageMatrixInitialized = FALSE;
 void PageMatrixInit(int nWidth, int nHeight)
 {
 #ifdef  HUGE_IMAGE
-
-    if ( PageMatrix == NULL )
-        PageMatrix = static_cast<uchar*> (malloc(PAGE_MATRIX_SIZE));
+    if (PageMatrix == NULL)
+        PageMatrix = static_cast<uchar*> (calloc(1, PAGE_MATRIX_SIZE));
 
     if (PageMatrix == NULL)
         error_exit(ERR_comp, 13);
-
-    memset (PageMatrix, PMC_NULL, PAGE_MATRIX_SIZE); //********* Rom 08-02-99
 #else
     PageMatrix = CellsPage;
 #endif
@@ -105,7 +102,6 @@ void PageMatrixInit(int nWidth, int nHeight)
         return;
     }
 
-    //    memset (PageMatrix, PMC_NULL, PAGE_MATRIX_SIZE); //********* Rom 08-02-99
     bPageMatrixInitialized = TRUE;
 }
 
