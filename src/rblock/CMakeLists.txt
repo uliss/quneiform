@@ -3,7 +3,6 @@ include_directories(BEFORE ../hhh/tigerh
 
 set(RBLOCK_HEADERS
     rblock.h
-    mymem.h
     new_c.h
     newfunc.h
     pic_n_table.h
@@ -16,7 +15,6 @@ set(RBLOCK_SOURCES
     _dlldummy.cpp
     _graphics.cpp
     _loadroots.cpp
-    _mymem.cpp
     _partlayout.cpp
     _partstring.cpp
     _pic_n_table.cpp

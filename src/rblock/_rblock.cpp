@@ -59,7 +59,6 @@
 
 #include "resource.h"
 #include "rblock.h"
-#include "mymem.h"
 #include "newfunc.h"
 #include "dpuma.h"
 #include "ccom/ccom.h"
