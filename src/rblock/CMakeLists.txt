@@ -1,48 +1,61 @@
 include_directories(BEFORE ../hhh/tigerh
 ../hhh/tigerh/h)
 
+set(RBLOCK_HEADERS
+    rblock.h
+    mymem.h
+    new_c.h
+    newfunc.h
+    pic_n_table.h
+)
+
+set(RBLOCK_SOURCES
+    _adaptive.cpp
+    _debug.cpp
+    _dll.cpp
+    _dlldummy.cpp
+    _graphics.cpp
+    _loadroots.cpp
+    _mymem.cpp
+    _partlayout.cpp
+    _partstring.cpp
+    _pic_n_table.cpp
+    _rblock.cpp
+    compdata.cpp
+    ltblglue.cpp
+    ltblocks.cpp
+    ltbreak.cpp
+    lterrors.cpp
+    ltexcomp.cpp
+    lthand.cpp
+    lthlundo.cpp
+    lthyst.cpp
+    ltibreak.cpp
+    ltinclin.cpp
+    ltmain.cpp
+    ltpage.cpp
+    ltremove.cpp
+    ltroots.cpp
+    ltseps.cpp
+    ltsmart.cpp
+    lttrees.cpp
+    ltwstrip.cpp
+    msgerr.cpp
+    qsort.cpp
+    scalar.cpp
+    seblocks.cpp
+    seform.cpp
+    sehbreak.cpp
+    sehyst.cpp
+    semain.cpp
+    sestring.cpp
+    sevbreak.cpp
+)
+
 add_library(cuneiform-rblock ${LIBTYPE}
-${SNP_SRC}
-_adaptive.cpp
-_debug.cpp
-_dll.cpp
-_dlldummy.cpp
-_graphics.cpp
-_loadroots.cpp
-_mymem.cpp
-_partlayout.cpp
-_partstring.cpp
-_pic_n_table.cpp
-_rblock.cpp
-compdata.cpp
-ltblglue.cpp
-ltblocks.cpp
-ltbreak.cpp
-lterrors.cpp
-ltexcomp.cpp
-lthand.cpp
-lthlundo.cpp
-lthyst.cpp
-ltibreak.cpp
-ltinclin.cpp
-ltmain.cpp
-ltpage.cpp
-ltremove.cpp
-ltroots.cpp
-ltseps.cpp
-ltsmart.cpp
-lttrees.cpp
-ltwstrip.cpp
-msgerr.cpp
-qsort.cpp
-scalar.cpp
-seblocks.cpp
-seform.cpp
-sehbreak.cpp
-sehyst.cpp
-semain.cpp
-sestring.cpp
-sevbreak.cpp
+    ${SNP_SRC}
+    ${RBLOCK_HEADERS}
+    ${RBLOCK_SOURCES}
 )
 
 cif_visibility_hidden(cuneiform-rblock)
