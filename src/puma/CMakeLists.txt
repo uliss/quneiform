@@ -52,7 +52,7 @@ find_package(Threads)
 
 if(CMAKE_USE_PTHREADS_INIT)
     if(NOT WIN32)
-        list(APPEND CUNEIFORM_LIBS pthread rt)
+        list(APPEND CUNEIFORM_LIBS pthread)
     endif()
 endif()
 
