@@ -63,7 +63,10 @@
 // Флаги обновления контейнеров
 enum puma_update_flag_t
 {
-    FLG_UPDATE_NO = 0, FLG_UPDATE = UINT_MAX, FLG_UPDATE_CCOM = 0x1, FLG_UPDATE_CPAGE = 0x2,
+    FLG_UPDATE_NO = 0,
+    FLG_UPDATE = UINT_MAX,
+    FLG_UPDATE_CCOM = 0x1,
+    FLG_UPDATE_CPAGE = 0x2
 };
 
 // constants
