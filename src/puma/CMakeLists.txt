@@ -51,7 +51,9 @@ set(CUNEIFORM_LIBS
 find_package(Threads)
 
 if(CMAKE_USE_PTHREADS_INIT)
-    list(APPEND CUNEIFORM_LIBS pthread rt)
+    if(NOT WIN32)
+        list(APPEND CUNEIFORM_LIBS pthread rt)
+    endif()
 endif()
 
 add_library(cuneiform ${CF_CUNEIFORM_LIBTYPE}
