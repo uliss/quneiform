@@ -289,7 +289,7 @@ static void CalculateDirectionsValues(BLOCK *pBlock)
                                                         + nDistance, rMatrix.xLeft, rMatrix.xRight);
     }
 
-    q_sort((char *) Dirs, N_DIRECTIONS, sizeof(DIRECTION), (int(*)(const void*,
+    qsort((char *) Dirs, N_DIRECTIONS, sizeof(DIRECTION), (int(*)(const void*,
                                                                    const void*)) CompDirsPictureDensity); //AK 04.03.97
 }
 // new page
@@ -372,9 +372,9 @@ void CalculateDustDistribution(BLOCK *p)
         DSD_Matrix[i] = DSD_Matrix[i] * 100 / nDSD_Sum;
     }
 
-    q_sort((char*) DQD_Matrix, DD_MATRIX_SIZE, sizeof(int), (int(*)(
+    qsort((char*) DQD_Matrix, DD_MATRIX_SIZE, sizeof(int), (int(*)(
                                                                  const void*, const void*)) DD_CompProc); //AK 04.03.97
-    q_sort((char*) DSD_Matrix, DD_MATRIX_SIZE, sizeof(int), (int(*)(
+    qsort((char*) DSD_Matrix, DD_MATRIX_SIZE, sizeof(int), (int(*)(
                                                                  const void*, const void*)) DD_CompProc); //AK 04.03.97
 }
 // new page

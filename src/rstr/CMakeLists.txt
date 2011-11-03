@@ -61,7 +61,6 @@ set(RSTR_SOURCES
     proport.cpp
     proptab.cpp
     punct.cpp
-    qsort.cpp
     rastror.cpp
     rcm.cpp
     rcontext.cpp

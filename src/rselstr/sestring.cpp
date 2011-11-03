@@ -380,12 +380,12 @@ static int StringListCompProc(const void *p1, const void *p2) {
 }
 
 void StringSortLetters(STRING *pString) {
-	q_sort((char *) pString -> pLettersList, pString -> nLetters, sizeof(int),
+        qsort((char *) pString -> pLettersList, pString -> nLetters, sizeof(int),
 			StringListCompProc);
 }
 
 void StringSortDust(STRING *pString) {
-	q_sort((char *) pString -> pDustList, pString -> nDust, sizeof(int),
+        qsort((char *) pString -> pDustList, pString -> nDust, sizeof(int),
 			StringListCompProc);
 }
 

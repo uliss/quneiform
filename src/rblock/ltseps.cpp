@@ -320,7 +320,7 @@ void SeparatorsGet(void)
         pSeps[j].nWidth = lines[i].width;
     }
 
-    q_sort((char *) pSeps, nSeps, sizeof(SEPARATOR), (int(*)(const void*, const void*)) SepComp); //AK 04.03.97
+    qsort((char *) pSeps, nSeps, sizeof(SEPARATOR), (int(*)(const void*, const void*)) SepComp); //AK 04.03.97
 }
 # endif
 

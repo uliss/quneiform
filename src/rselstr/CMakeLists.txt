@@ -23,7 +23,6 @@ ltmain.cpp
 ltroots.cpp
 puttocont.cpp
 puttocstr.cpp
-qsort.cpp
 rotate.cpp
 rselstrbase.cpp
 rselstrmain.cpp

@@ -39,7 +39,6 @@ set(RBLOCK_SOURCES
     lttrees.cpp
     ltwstrip.cpp
     msgerr.cpp
-    qsort.cpp
     scalar.cpp
     seblocks.cpp
     seform.cpp

@@ -504,13 +504,13 @@ static int StringListCompProc(const int *p1, const int *p2)
 
 void StringSortLetters(STRING *pString)
 {
-    q_sort((char *) pString -> pLettersList, pString -> nLetters, sizeof(int),
+    qsort((char *) pString -> pLettersList, pString -> nLetters, sizeof(int),
            (int(*)(const void*, const void*)) StringListCompProc);
 }
 
 void StringSortDust(STRING *pString)
 {
-    q_sort((char *) pString -> pDustList, pString -> nDust, sizeof(int),
+    qsort((char *) pString -> pDustList, pString -> nDust, sizeof(int),
            (int(*)(const void*, const void*)) StringListCompProc);
 }
 

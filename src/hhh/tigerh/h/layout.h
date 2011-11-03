@@ -89,9 +89,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include  "ctp.h"
 #include  "ccom/ccom.h"
 
-void  q_sort( char *, size_t, size_t,
-              int (*)( const void *, const void * ) );
-
 # ifdef LT_STAND_ALONE
 # define DEFAULT_ROOTS_FILENAME  "a.rts"
 # endif
