@@ -1,4 +1,4 @@
-set(CF_VERSION "0.0")
+set(CF_VERSION "0.2")
 
 if(EXISTS "@CMAKE_SOURCE_DIR@/version")
     file(READ "@CMAKE_SOURCE_DIR@/version" CF_BUILD_NUMBER)
