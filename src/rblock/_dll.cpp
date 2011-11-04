@@ -96,32 +96,6 @@ uint32_t RBLOCK_GetReturnCode()
     return gwRC;
 }
 
-char * RBLOCK_GetReturnString(uint32_t dwError)
-{
-    return NULL;
-}
-
-Bool32 RBLOCK_GetExportData(uint32_t dwType, void * pData)
-{
-    Bool32 rc = TRUE;
-#define CASE_FUNCTION(a)    case RBLOCK_FN##a:  *(FN##a *)pData = a; break;
-
-    switch (dwType) {
-            CASE_FUNCTION(RBLOCK_ExtractTextBlocks)
-            CASE_FUNCTION(RBLOCK_ExtractTextStrings)
-            CASE_FUNCTION(RBLOCK_GetAnglePage)
-        case RBLOCK_Bool32_OneColumn:
-            *(Bool32*) pData = run_options & FORCE_ONE_COLUMN ? TRUE : FALSE;
-            break;
-        default:
-            *(Handle *) pData = NULL;
-            SetReturnCode_rblock(IDS_ERR_NOTIMPLEMENT);
-            rc = FALSE;
-    }
-
-    return rc;
-}
-
 Bool32 RBLOCK_SetImportData(uint32_t dwType, void * pData)
 {
     Bool32 rc = TRUE;
