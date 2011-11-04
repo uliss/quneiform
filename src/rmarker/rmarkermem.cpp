@@ -54,7 +54,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "rmarkermem.h"
 #include "rmarker.h"
 #include "rmfunc.h"
 
@@ -94,14 +93,4 @@ void ReSetMem()
     BufferSize = 0;
     WorkMem = NULL;
     WorkMemSize = 0;
-}
-
-void *  RMARKERAlloc(int stAllocateBlock)
-{
-    return malloc(stAllocateBlock);
-}
-
-void    RMARKERFree(void * mem)
-{
-    free(mem);
 }
