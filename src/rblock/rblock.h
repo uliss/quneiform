@@ -61,24 +61,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ccom/ccom.h"
 
 #ifdef __RBLOCK__
-#define RBLOCK_FUNC  FUN_EXPO
+#define RBLOCK_FUNC  FUN_EXPO__
 #else
-#define RBLOCK_FUNC  FUN_IMPO
+#define RBLOCK_FUNC  FUN_IMPO__
 #endif
 
 #pragma pack (push,8)
 
 #define RBLOCK_MAXNAME 260
 
-
-RBLOCK_FUNC(Bool32) RBLOCK_Init(uint16_t wHeightCode, Handle hStorage);
-RBLOCK_FUNC(Bool32) RBLOCK_Done();
-RBLOCK_FUNC(uint32_t) RBLOCK_GetReturnCode();
-RBLOCK_FUNC(char *) RBLOCK_GetReturnString(uint32_t dwError);
-RBLOCK_FUNC(Bool32) RBLOCK_GetExportData(uint32_t dwType, void * pData);
-RBLOCK_FUNC(Bool32) RBLOCK_SetImportData(uint32_t dwType, void * pData);
+RBLOCK_FUNC Bool32 RBLOCK_Init(uint16_t wHeightCode, Handle hStorage);
+RBLOCK_FUNC Bool32 RBLOCK_Done();
+RBLOCK_FUNC uint32_t RBLOCK_GetReturnCode();
+RBLOCK_FUNC char * RBLOCK_GetReturnString(uint32_t dwError);
+RBLOCK_FUNC Bool32 RBLOCK_GetExportData(uint32_t dwType, void * pData);
+RBLOCK_FUNC Bool32 RBLOCK_SetImportData(uint32_t dwType, void * pData);
 /////////////////////////////////////////////////////////////
-
 
 typedef enum {
     RBLOCK_FNRBLOCK_ExtractTextBlocks = 1,
@@ -93,8 +91,7 @@ typedef enum {
 } RBLOCK_EXPORT_ENTRIES;
 
 
-#define DEC_FUN(a,b,c) typedef a (*FN##b)c; RBLOCK_FUNC(a) b c
-
+#define DEC_FUN(a,b,c) typedef a (*FN##b)c; RBLOCK_FUNC a b c
 DEC_FUN(Bool32, RBLOCK_ExtractTextBlocks, (CCOM_handle hCCOM, Handle hCPAGE, Handle hCLINE));
 DEC_FUN(Bool32, RBLOCK_ExtractTextStrings, (CCOM_handle hCCOM, Handle hCPAGE));
 DEC_FUN(Bool32, RBLOCK_GetAnglePage, (Handle hCCOM, int32_t * lpNominator, int32_t * lpDenominator));

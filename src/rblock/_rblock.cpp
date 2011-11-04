@@ -112,7 +112,7 @@ Bool32 RBLOCK_ExtractTextBlocks(CCOM_handle hCCOM, Handle hCPAGE,
 }
 
 ////////////////////////////////////////////////
-RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextStrings(CCOM_handle hCCOM, Handle hCPAGE)
+Bool32 RBLOCK_ExtractTextStrings(CCOM_handle hCCOM, Handle hCPAGE)
 {
     SetReturnCode_rblock(IDS_ERR_NO);
     Open_Res_Log();
@@ -129,7 +129,7 @@ RBLOCK_FUNC(Bool32) RBLOCK_ExtractTextStrings(CCOM_handle hCCOM, Handle hCPAGE)
     return TRUE;
 }
 ////////////////////////////////////////////////
-RBLOCK_FUNC(Bool32) RBLOCK_GetAnglePage(Handle hCCOM, int32_t * lpNominator, int32_t * lpDenominator)
+Bool32 RBLOCK_GetAnglePage(Handle hCCOM, int32_t * lpNominator, int32_t * lpDenominator)
 {
     Bool32 rc = TRUE;
     SetReturnCode_rblock(IDS_ERR_NO);
