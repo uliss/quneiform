@@ -72,9 +72,9 @@
 #include "common/rect.h"
 
 #ifdef __RSTUFF__
-#define RSTUFF_FUNC  FUN_EXPO
+#define RSTUFF_FUNC  FUN_EXPO__
 #else
-#define RSTUFF_FUNC  FUN_IMPO
+#define RSTUFF_FUNC  FUN_IMPO__
 #endif
 
 struct CCOM_cont;
@@ -117,12 +117,12 @@ typedef struct tagRSCBProgressPoints {
     void * pGetModulePath;
 } RSCBProgressPoints, *PRSCBProgressPoints;
 
-RSTUFF_FUNC(Bool32) RSTUFF_Init(uint16_t wHeightCode, Handle hStorage);
-RSTUFF_FUNC(Bool32) RSTUFF_Done();
-RSTUFF_FUNC(uint32_t) RSTUFF_GetReturnCode();
-RSTUFF_FUNC(char *) RSTUFF_GetReturnString(uint32_t dwError);
-RSTUFF_FUNC(Bool32) RSTUFF_GetExportData(uint32_t dwType, void * pData);
-RSTUFF_FUNC(Bool32) RSTUFF_SetImportData(uint32_t dwType, void * pData);
+RSTUFF_FUNC Bool32 RSTUFF_Init(uint16_t wHeightCode, Handle hStorage);
+RSTUFF_FUNC Bool32 RSTUFF_Done();
+RSTUFF_FUNC uint32_t RSTUFF_GetReturnCode();
+RSTUFF_FUNC char * RSTUFF_GetReturnString(uint32_t dwError);
+RSTUFF_FUNC Bool32 RSTUFF_GetExportData(uint32_t dwType, void * pData);
+RSTUFF_FUNC Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData);
 
 typedef enum {
     RSTUFF_FN_RSBinarise = 1,
@@ -140,7 +140,7 @@ typedef enum {
     RSTUFF_FN_SetDPumaSkipComponent
 } RSTUFF_IMPORT_ENTRIES;
 /*  Описание функций  */
-#define DEC_FUN(a,b,c) typedef a (*FNRSTUFF##b)c; RSTUFF_FUNC(a) RSTUFF_##b c;
+#define DEC_FUN(a,b,c) typedef a (*FNRSTUFF##b)c; RSTUFF_FUNC a RSTUFF_##b c;
 DEC_FUN(Bool32, RSBinarise, (void))
 DEC_FUN(Bool32, RSNormalise, (PRSPreProcessImage, void* vBuff, int Size, void* vWork, int SizeWork))
 DEC_FUN(Bool32, RSNormVerify, (PRSPreProcessImage))
