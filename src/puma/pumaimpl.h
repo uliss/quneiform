@@ -57,13 +57,6 @@ class CLA_EXPO PumaImpl
         ~PumaImpl();
 
         /**
-         * Append recognition results to specified file
-         * @note not all formats support this type of saving
-         * @throw PumaException on error
-         */
-        void append(const std::string& filename, format_t format) const;
-
-        /**
           * Returns pointer to CEDPage
           */
         CEDPagePtr cedPage();

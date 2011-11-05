@@ -153,10 +153,6 @@ PumaImpl::~PumaImpl() {
     modulesDone();
 }
 
-void PumaImpl::append(const std::string& filename, format_t format) const {
-    makeExporter(format)->appendTo(filename);
-}
-
 void PumaImpl::binarizeImage() {
     recog_dib_ = input_dib_;
     recog_name_ = PUMA_IMAGE_USER;
