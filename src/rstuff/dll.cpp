@@ -227,19 +227,6 @@ Bool32 RSTUFF_Reset()
 	SetReturnCode_rstuff((uint16_t)0);
 	return TRUE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-uint32_t RSTUFF_GetReturnCode()
-{
-	return RC.gwRC;
-}
-
-char * RSTUFF_GetReturnString(uint32_t dwError) {
-	if (dwError >> 16 != RC.RC16.gwHeightRC)
-		RC.RC16.gwLowRC = IDS_RSTUFF_ERR_NOTIMPLEMENT;
-
-	return NULL;
-}
 
 Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData)
 {
