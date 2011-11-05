@@ -149,7 +149,6 @@ class CLA_EXPO PumaImpl
         static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
         static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
     private:
-        std::auto_ptr<CTIControl> cimage_;
         std::auto_ptr<RMarker> rmarker_;
         std::auto_ptr<ComponentExtractor> comp_extractor_;
         std::auto_ptr<Formatter> formatter_;
