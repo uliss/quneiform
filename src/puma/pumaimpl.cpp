@@ -214,10 +214,6 @@ CEDPagePtr PumaImpl::cedPage() {
     return ed_page_;
 }
 
-void PumaImpl::clearFormat() {
-    formatter_.reset();
-}
-
 void PumaImpl::close() {
     if (Config::instance().debug())
         Debug() << "Puma::close\n";
@@ -408,14 +404,6 @@ void PumaImpl::loadLayoutFromFile(const std::string& fname) {
     }
 
     CPAGE_SetCurrentPage(CPAGE_GetNumberPage(cpage_));
-}
-
-ExporterPtr PumaImpl::makeExporter(format_t format) const {
-    ExporterFactory::instance().setPage(ed_page_);
-    ExporterFactory::instance().setFormatOptions(format_options_);
-    ExporterPtr e = ExporterFactory::instance().make(format);
-    e->setOutputPictureDir(output_image_dir_);
-    return e;
 }
 
 void PumaImpl::modulesDone() {
@@ -995,14 +983,6 @@ void PumaImpl::rotate(void * dib, Point * p) {
     SetPageInfo(cpage_, PInfo);
 }
 
-void PumaImpl::save(const std::string& filename, format_t format) const {
-    makeExporter(format)->exportTo(filename);
-}
-
-void PumaImpl::save(std::ostream& os, format_t format) const {
-    makeExporter(format)->exportTo(os);
-}
-
 void PumaImpl::saveCSTR(int pass) {
     ostringstream os;
     os << "cuneiform_pass_" << pass << ".cst";
@@ -1048,10 +1028,6 @@ void PumaImpl::setRecognizeOptions(const RecognizeOptions& opt) {
     SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
     SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
     SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
-}
-
-void PumaImpl::setImageOutputDir(const std::string& path) {
-    output_image_dir_ = path;
 }
 
 void PumaImpl::setPageTemplate(const Rect& r) {

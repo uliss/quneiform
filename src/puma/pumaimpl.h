@@ -62,11 +62,6 @@ class CLA_EXPO PumaImpl
         CEDPagePtr cedPage();
 
         /**
-         * Clears recognized output formatting
-         */
-        void clearFormat();
-
-        /**
          * Make some cleanup after recognition
          */
         void close();
@@ -97,20 +92,6 @@ class CLA_EXPO PumaImpl
         void recognize();
 
         /**
-         * Saves to file recognition result in specified format
-         * @param filename - file to save
-         * @param format - document format
-         */
-        void save(const std::string& filename, format_t format) const;
-
-        /**
-         * Saves to stream recognition result in specified format
-         * @note not all export abilities are available in this mode
-         * (such as saving pictures) it depends from format
-         */
-        void save(std::ostream& os, format_t format) const;
-
-        /**
          * Sets format options
          * @see setRecognizeOptions()
          */
@@ -121,8 +102,6 @@ class CLA_EXPO PumaImpl
          * @see setFormatOptions()
          */
         void setRecognizeOptions(const RecognizeOptions& opt);
-
-        void setImageOutputDir(const std::string& path);
 
         /**
          * Sets working region on input image
@@ -142,7 +121,6 @@ class CLA_EXPO PumaImpl
         void getImageInfo(const std::string& image_name);
         void layout();
         void loadLayoutFromFile(const std::string& fname);
-        ExporterPtr makeExporter(format_t format) const;
         void modulesDone();
         void modulesInit();
         const char * modulePath() const;
@@ -179,7 +157,6 @@ class CLA_EXPO PumaImpl
         Rect rect_template_;
         std::string input_filename_;
         std::string layout_filename_;
-        std::string output_image_dir_;
         FormatOptions format_options_;
         RecognizeOptions recognize_options_;
         void * input_dib_;
