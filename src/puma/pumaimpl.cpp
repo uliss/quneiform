@@ -117,17 +117,27 @@ namespace cf {
 
 static char global_buf[64000]; // OLEG fot Consistent
 static int32_t global_buf_len = 0; // OLEG fot Consistent
-static uint32_t g_flgUpdate = 0;
+
+uint32_t PumaImpl::update_flags_ = 0;
 
 FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
 FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
-bool IsUpdate(uint32_t flg) {
-    return (g_flgUpdate & flg) > 0;
+bool PumaImpl::hasUpdateFlag(uint32_t flg) {
+    return (update_flags_ & flg) > 0;
 }
 
-void SetUpdate(uint32_t flgAdd, uint32_t flgRemove) {
-    g_flgUpdate = (g_flgUpdate | flgAdd) & ~flgRemove;
+void PumaImpl::SetUpdate(uint32_t flgAdd, uint32_t flgRemove) {
+    setUpdateFlag(flgAdd);
+    unsetUpdateFlag(flgRemove);
+}
+
+bool PumaImpl::setUpdateFlag(uint32_t flg) {
+    update_flags_ |= flg;
+}
+
+bool PumaImpl::unsetUpdateFlag(uint32_t flg) {
+    update_flags_ &= (~flg);
 }
 
 PumaImpl::PumaImpl() :
@@ -266,7 +276,7 @@ void PumaImpl::extractComponents() {
     if (!ccom_)
         throw PumaException("REXCGetContainer failed");
 
-    SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CCOM);
+    unsetUpdateFlag(FLG_UPDATE_CCOM);
 }
 
 void PumaImpl::extractStrings() {
@@ -391,7 +401,7 @@ void PumaImpl::layout() {
         }
     }
 
-    SetUpdate(FLG_UPDATE_NO, FLG_UPDATE_CPAGE);
+    unsetUpdateFlag(FLG_UPDATE_CPAGE);
 }
 
 void PumaImpl::loadLayoutFromFile(const std::string& fname) {
@@ -612,7 +622,7 @@ void PumaImpl::spellCorrection() {
 
 void PumaImpl::preOpenInitialize() {
     PumaImpl::close();
-    SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
+    setUpdateFlag(FLG_UPDATE);
 }
 
 void PumaImpl::preprocessImage() {
@@ -704,7 +714,7 @@ void PumaImpl::postOpenInitialize() {
 void PumaImpl::recognize() {
     assert(cpage_);
     // Проверим: выделены ли фрагменты.
-    if (!CPAGE_GetCountBlock(cpage_) || IsUpdate(FLG_UPDATE_CPAGE))
+    if (!CPAGE_GetCountBlock(cpage_) || hasUpdateFlag(FLG_UPDATE_CPAGE))
         layout();
 
     if (Config::instance().debug()) {
@@ -722,7 +732,7 @@ void PumaImpl::recognize() {
     if (Config::instance().debugDump())
         loadLayoutFromFile(layout_filename_);
 
-    if (IsUpdate(FLG_UPDATE_CCOM))
+    if (hasUpdateFlag(FLG_UPDATE_CCOM))
         extractComponents();
 
     // Получим описатель страницы
@@ -1025,9 +1035,9 @@ void PumaImpl::setFormatOptions(const FormatOptions& opt) {
 
 void PumaImpl::setRecognizeOptions(const RecognizeOptions& opt) {
     recognize_options_ = opt;
-    SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
-    SetUpdate(FLG_UPDATE_CCOM, FLG_UPDATE_NO);
-    SetUpdate(FLG_UPDATE_CPAGE, FLG_UPDATE_NO);
+    setUpdateFlag(FLG_UPDATE);
+    setUpdateFlag(FLG_UPDATE_CCOM);
+    setUpdateFlag(FLG_UPDATE_CPAGE);
 }
 
 void PumaImpl::setPageTemplate(const Rect& r) {
@@ -1073,7 +1083,7 @@ void PumaImpl::setPageTemplate(const Rect& r) {
             }
 
             SetPageInfo(cpage_, PInfo);
-            SetUpdate(FLG_UPDATE, FLG_UPDATE_NO);
+            setUpdateFlag(FLG_UPDATE);
             rect_template_ = rect;
         }
     }
