@@ -146,8 +146,8 @@ class CLA_EXPO PumaImpl
         void spellCorrection();
     private:
         static bool hasUpdateFlag(uint32_t flg);
-        static bool setUpdateFlag(uint32_t flg);
-        static bool unsetUpdateFlag(uint32_t flg);
+        static void setUpdateFlag(uint32_t flg);
+        static void unsetUpdateFlag(uint32_t flg);
         static void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
     private:
         static uint32_t update_flags_;

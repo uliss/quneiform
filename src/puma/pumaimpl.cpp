@@ -133,11 +133,11 @@ void PumaImpl::SetUpdate(uint32_t flgAdd, uint32_t flgRemove) {
     unsetUpdateFlag(flgRemove);
 }
 
-bool PumaImpl::setUpdateFlag(uint32_t flg) {
+void PumaImpl::setUpdateFlag(uint32_t flg) {
     update_flags_ |= flg;
 }
 
-bool PumaImpl::unsetUpdateFlag(uint32_t flg) {
+void PumaImpl::unsetUpdateFlag(uint32_t flg) {
     update_flags_ &= (~flg);
 }
 
