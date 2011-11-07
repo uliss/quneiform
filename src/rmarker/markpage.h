@@ -94,7 +94,6 @@
 #endif
 
 EXTERN PUMALinesBuffer gSVLBuffer VALM(0);
-EXTERN LinesTotalInfo *gLTInfo VAL(NULL);
 
 void SetReturnCode_rmarker(uint32_t rc);
 

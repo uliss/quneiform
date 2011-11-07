@@ -100,45 +100,45 @@ Bool32 InitCFIOInterface(Bool32 Status) {
 char cCommentBuffer[CFIO_MAX_COMMENT];
 
 void RSTUFFComment(const char *Comment) {
-	uint32_t Len = strlen(Comment);
-	strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len
-			: CFIO_MAX_COMMENT - 1));
+        uint32_t Len = strlen(Comment);
+        strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len
+                        : CFIO_MAX_COMMENT - 1));
 }
 
 void * RSTUFFDAlloc(uint32_t stAllocateBlock, const char *Comment) {
-	RSTUFFComment(Comment);
-	return RSTUFFAlloc(stAllocateBlock);
+        RSTUFFComment(Comment);
+        return RSTUFFAlloc(stAllocateBlock);
 }
 
 void * RSTUFFAlloc(uint32_t stAllocateBlock) {
-	char * mem = NULL;
+        char * mem = NULL;
 
 #ifdef _NO_CFIO
 
 #ifdef  RSTUFF_USE_GLOBAL_MEM
 
-	mem = (char *)GlobalAlloc(GPTR, stAllocateBlock);
+        mem = (char *)GlobalAlloc(GPTR, stAllocateBlock);
 
 #else
 
-	mem = ::new char[stAllocateBlock];
-	memset(mem, 0, stAllocateBlock );
+        mem = ::new char[stAllocateBlock];
+        memset(mem, 0, stAllocateBlock );
 
 #endif
 
-	if(!mem)
-	SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NO_MEMORY);
+        if(!mem)
+        SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NO_MEMORY);
 #else
 
-	mem = (char *) CFIO_DAllocMemory(stAllocateBlock, MAF_GALL_GPTR,
-			(char*) "RSTUFF", (char*) cCommentBuffer);
+        mem = (char *) CFIO_DAllocMemory(stAllocateBlock, MAF_GALL_GPTR,
+                        (char*) "RSTUFF", (char*) cCommentBuffer);
 
-	if (!mem)
-		SetReturnCode_rstuff((uint16_t) IDS_RSTUFF_ERR_NO_MEMORY);
+        if (!mem)
+                SetReturnCode_rstuff((uint16_t) IDS_RSTUFF_ERR_NO_MEMORY);
 
 #endif
 
-	return mem;
+        return mem;
 }
 
 void RSTUFFFree(void * mem) {
@@ -146,16 +146,16 @@ void RSTUFFFree(void * mem) {
 
 #ifdef  RSTUFF_USE_GLOBAL_MEM
 
-	GlobalFree(mem);
+        GlobalFree(mem);
 
 #else
 
-	::delete [] mem;
+        ::delete [] mem;
 
 #endif
 #else
 
-	CFIO_FreeMemory(mem);
+        CFIO_FreeMemory(mem);
 
 #endif
 }

@@ -147,17 +147,13 @@ Bool32 RSTUFF_Init(uint16_t wHeightCode,Handle hStorage)
 
     LDPUMA_Init(0, NULL);
 
-    gLTInfo = (LinesTotalInfo*)RSTUFFAlloc(sizeof(LinesTotalInfo));
-
-    if(!SMetric_Init (wHeightCode, hStorage)) {
+    if(!SMetric_Init (wHeightCode, hStorage))
         return FALSE;
-    }
 
     rc = RLINE_Init(PUMA_MODULE_RLINE, hStorage);
 
-    if(!rc) {
+    if(!rc)
         return FALSE;
-    }
 
     if (rc == RESULT)
 	gbRSLT = TRUE;
@@ -169,16 +165,11 @@ Bool32 RSTUFF_Init(uint16_t wHeightCode,Handle hStorage)
 
 Bool32 RSTUFF_Done()
 {
-    if (gLTInfo)
-        RSTUFFFree(gLTInfo);
-
-    if (!SMetric_Done()) {
+    if (!SMetric_Done())
         return FALSE;
-    }
 
-    if (!RLINE_Done()) {
+    if (!RLINE_Done())
         return FALSE;
-    }
 
     LDPUMA_Done();
 
