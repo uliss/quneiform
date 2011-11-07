@@ -104,7 +104,6 @@ Handle Zone;
 Handle OrtMove;
 Handle hNewLine;
 Handle hDotLine;
-//Handle hUseCLine;
 Handle hAngles;
 Handle hCalcMuchSkew;
 Handle hTalkMuchSkew;
@@ -140,285 +139,225 @@ int move;
 #undef APIENRTY
 #define APIENTRY
 
-extern uchar* Buffer;
-extern uchar* WorkMem;
-
 Bool32 RSTUFF_Init(uint16_t wHeightCode,Handle hStorage)
 {
+    Bool32 rc = TRUE;
 
-	Bool32 rc = TRUE;
+    wHighErrCode = wHeightCode;
 
-	wHighErrCode = wHeightCode;
+    LDPUMA_Init(0, NULL);
 
-	LDPUMA_Init(0, NULL);
-	//	Buffer=NULL;
-	//	Buffer=(uchar*)RSTUFFAlloc(BufferSize*sizeof(uchar));
-	//	if(!Buffer)
-	//		return FALSE;
-	//	WorkMem=(uchar*)RSTUFFAlloc(WorkMemSize*sizeof(uchar));
-	//	if(!WorkMem)
-	//		return FALSE;
+    gLTInfo = (LinesTotalInfo*)RSTUFFAlloc(sizeof(LinesTotalInfo));
 
-	gLTInfo = (LinesTotalInfo*)RSTUFFAlloc(sizeof(LinesTotalInfo));
+    if(!SMetric_Init (wHeightCode, hStorage)) {
+        return FALSE;
+    }
 
-	if(!SMetric_Init (wHeightCode, hStorage))
-	{
-		return FALSE;
-	}
+    rc = RLINE_Init(PUMA_MODULE_RLINE, hStorage);
 
-	/*    if (!SLINEDOT_Init(PUMA_MODULE_SLINEDOT, hStorage))
-	 {
-	 //        SetReturnCode_rstuff(SLINEDOT_GetReturnCode());
-	 return FALSE;
-	 }*/
+    if(!rc) {
+        return FALSE;
+    }
 
-	rc = RLINE_Init(PUMA_MODULE_RLINE, hStorage);
-
-	if(!rc)
-	{
-		//        SetReturnCode_rstuff(RLINE_GetReturnCode());
-		return FALSE;
-	}
-
-	if (rc == RESULT)
+    if (rc == RESULT)
 	gbRSLT = TRUE;
 
-	DebugInit();
+    DebugInit();
 
-	return rc;
+    return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 RSTUFF_Done()
 {
-	if ( gLTInfo )
-	RSTUFFFree(gLTInfo);
-	//	if ( Buffer )
-	//		RSTUFFFree(Buffer);
-	//	if ( WorkMem )
-	//		RSTUFFFree(WorkMem);
+    if (gLTInfo)
+        RSTUFFFree(gLTInfo);
 
-	if (!SMetric_Done())
-	{
-		return FALSE;
-	}
+    if (!SMetric_Done()) {
+        return FALSE;
+    }
 
-	/*    if (!SLINEDOT_Done())
-	 {
-	 return FALSE;
-	 }*/
+    if (!RLINE_Done()) {
+        return FALSE;
+    }
 
-	if (!RLINE_Done())
-	{
-		return FALSE;
-	}
+    LDPUMA_Done();
 
-	LDPUMA_Done();
-
-	return TRUE;
+    return TRUE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 RSTUFF_Reset()
 {
-	SetReturnCode_rstuff((uint16_t)0);
-	return TRUE;
+    SetReturnCode_rstuff(0);
+    return TRUE;
 }
 
 Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData)
 {
-	Bool rc = FALSE;
-	RC.gwRC = 0;
+    Bool rc = FALSE;
+    RC.gwRC = 0;
 
-	switch(dwType)
-	{
-		case RSTUFF_FN_SetProgresspoints:
-		rc = SetCBProgressPoints( pData );
-		break;
-		//	case RSTUFF_FN_SetProgressStart:
-		//		pProgressStart = pData;
-		//		rc = TRUE;
-		//		break;
-		//	case RSTUFF_FN_SetProgressStep:
-		//		pProgressStep = pData;
-		//		rc = TRUE;
-		//		break;
-		//	case RSTUFF_FN_SetProgressFinish:
-		//		pProgressFinish = pData;
-		//		rc = TRUE;
-		//		break;
-		//	case RSTUFF_FN_SetInitPRGTIME:
-		//		pInitPRGTIME = pData;
-		//		rc = TRUE;
-		//		break;
-		default:
-		SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NOTIMPLEMENT);
-		rc = FALSE;
-	}
+    switch(dwType) {
+    case RSTUFF_FN_SetProgresspoints:
+        rc = SetCBProgressPoints(pData);
+        break;
+    default:
+        SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NOTIMPLEMENT);
+        rc = FALSE;
+    }
 
-	return rc;
+    return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 RSTUFF_RSBinarise( void )
+
+Bool32 RSTUFF_RSBinarise()
 {
-	SetReturnCode_rstuff((uint16_t)0);
-
-	return Binarise();
+    SetReturnCode_rstuff(0);
+    return Binarise();
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 RSTUFF_RSNormalise( PRSPreProcessImage Image,void* vBuff,int Size,void* vWork,int SizeWork )
+
+Bool32 RSTUFF_RSNormalise(PRSPreProcessImage Image,void* vBuff,int Size,void* vWork,int SizeWork)
 {
-	SetReturnCode_rstuff((uint16_t)0);
-	SetMainBuff(vBuff,Size);
-	SetWorkBuff(vWork,SizeWork);
-	Bool32 rc=Normalise( Image );
-	ReSetMem();
-	return rc;
-
+    SetReturnCode_rstuff(0);
+    SetMainBuff(vBuff,Size);
+    SetWorkBuff(vWork,SizeWork);
+    Bool32 rc = Normalise(Image);
+    ReSetMem();
+    return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 RSTUFF_RSNormVerify( PRSPreProcessImage Image )
+
+Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage Image)
 {
-	SetReturnCode_rstuff((uint16_t)0);
-
-	return VerifyN( Image );
+    SetReturnCode_rstuff(0);
+    return VerifyN(Image);
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 RSTUFF_RSNormRemoveLines( PRSPreProcessImage Image )
+
+Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage Image)
 {
-	SetReturnCode_rstuff((uint16_t)0);
-
-	return KillLinesN( Image );
+    SetReturnCode_rstuff(0);
+    return KillLinesN( Image );
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 RSTUFF_RSLayout( PRSPreProcessImage Image )
 {
-	SetReturnCode_rstuff((uint16_t)0);
-
-	return Layout(Image);
+    SetReturnCode_rstuff((uint16_t)0);
+    return Layout(Image);
 }
 
 void SetReturnCode_rstuff(int rc) {
-	RC.gwRC = rc;
+    RC.gwRC = rc;
 }
 
 void DebugInit(void) {
-	hWndTurn = NULL;
-	LDPUMA_Registry(&hMainTime, SNAP_ROOT_MAIN_TIME_CONTROL, NULL);
+    hWndTurn = NULL;
+    LDPUMA_Registry(&hMainTime, SNAP_ROOT_MAIN_TIME_CONTROL, NULL);
 
-	LDPUMA_Registry(&hPrep, "Подготовка.", hMainTime);
-	LDPUMA_RegistryHelp(hPrep,
+    LDPUMA_Registry(&hPrep, "Подготовка.", hMainTime);
+    LDPUMA_RegistryHelp(hPrep,
 			"Автоповорот.Выделение компонент.Формирование изображения.", FALSE);
-	LDPUMA_Registry(&hSearchLine, "LNS.Поиск линий.", hMainTime);
-	LDPUMA_Registry(&hCalcIncline, "Вычисление углов наклона..", hMainTime);
-	LDPUMA_Registry(&hOrto, "Ортосдвиг страницы.", hMainTime);
-	LDPUMA_Registry(&hContBigComp, "Заполнение контейнера BigComp", hMainTime);
-	LDPUMA_Registry(&hVerOrNewLine, "Верификация или второй проход.", hMainTime);
-	LDPUMA_Registry(&hKillLine, "Снятие линий.", hMainTime);
-	LDPUMA_Registry(&hPrep2, "После снятия.", hMainTime);
-	LDPUMA_RegistryHelp(hPrep2,
+    LDPUMA_Registry(&hSearchLine, "LNS.Поиск линий.", hMainTime);
+    LDPUMA_Registry(&hCalcIncline, "Вычисление углов наклона..", hMainTime);
+    LDPUMA_Registry(&hOrto, "Ортосдвиг страницы.", hMainTime);
+    LDPUMA_Registry(&hContBigComp, "Заполнение контейнера BigComp", hMainTime);
+    LDPUMA_Registry(&hVerOrNewLine, "Верификация или второй проход.", hMainTime);
+    LDPUMA_Registry(&hKillLine, "Снятие линий.", hMainTime);
+    LDPUMA_Registry(&hPrep2, "После снятия.", hMainTime);
+    LDPUMA_RegistryHelp(hPrep2,
 			"Выделение компонент.Формирование изображения.", FALSE);
-	LDPUMA_Registry(&hKillLineAfter, "Доубитие линий.", hMainTime);
-	LDPUMA_Registry(&hEnd, "От RSTUFF до RMARKER", hMainTime);
+    LDPUMA_Registry(&hKillLineAfter, "Доубитие линий.", hMainTime);
+    LDPUMA_Registry(&hEnd, "От RSTUFF до RMARKER", hMainTime);
 
-	LDPUMA_Registry(&MainDebug, SNAP_ROOT_MAIN_DEBUG, NULL);
+    LDPUMA_Registry(&MainDebug, SNAP_ROOT_MAIN_DEBUG, NULL);
 
-	LDPUMA_Registry(&hDebugRoot, SNAP_ROOT_STUFF, NULL);
+    LDPUMA_Registry(&hDebugRoot, SNAP_ROOT_STUFF, NULL);
 
-	LDPUMA_Registry(&hDebugPreprocess, SNAP_STUFF_BINARIZE, hDebugRoot);
-	LDPUMA_Registry(&hDebugPrintResolution, "Печать нового разрешения",
-			hDebugPreprocess);
-	LDPUMA_RegistryHelp(
-			hDebugPrintResolution,
-			"Вывести на консоль разрешение, установленноге по компонентам, в случае его отличия от исходного",
+    LDPUMA_Registry(&hDebugPreprocess, SNAP_STUFF_BINARIZE, hDebugRoot);
+    LDPUMA_Registry(&hDebugPrintResolution, "Печать нового разрешения",
+                    hDebugPreprocess);
+    LDPUMA_RegistryHelp(
+                hDebugPrintResolution,
+                "Вывести на консоль разрешение, установленноге по компонентам, в случае его отличия от исходного",
+                FALSE);
+
+    LDPUMA_Registry(&hDebugKillLines, SNAP_STUFF_KILL_LINES, hDebugRoot);
+    LDPUMA_RegistryHelp(
+                hDebugKillLines,
+                "<Ответственный: A.Коноплев> Поиск и удаление линий и прилежащих к ним компонент.",
+                FALSE);
+    LDPUMA_RegVariable(hDebugKillLines, "Убить найденышей", &gKillComponents,
+                       "unsigned");
+    LDPUMA_RegVariable(hDebugKillLines, "Зона поражения (в пикселах)",
+                       &gKillZone, "unsigned");
+    LDPUMA_RegVariable(hDebugKillLines, "Покрытие (0 - 255)", &gKillRate,
+                       "unsigned");
+
+    LDPUMA_Registry(&hDebugKillLinesStep, SNAP_KILL_LINES_STEP, hDebugKillLines);
+    LDPUMA_RegistryHelp(hDebugKillLinesStep, "Пошаговый проход.", FALSE);
+
+    LDPUMA_Registry(&hDebugKillLinesData, SNAP_KILL_LINES_DATA, hDebugKillLines);
+    LDPUMA_RegistryHelp(hDebugKillLinesData, "Сама по себе не функционирует",
 			FALSE);
 
-	LDPUMA_Registry(&hDebugKillLines, SNAP_STUFF_KILL_LINES, hDebugRoot);
-	LDPUMA_RegistryHelp(
-			hDebugKillLines,
-			"<Ответственный: A.Коноплев> Поиск и удаление линий и прилежащих к ним компонент.",
-			FALSE);
-	LDPUMA_RegVariable(hDebugKillLines, "Убить найденышей", &gKillComponents,
-			"unsigned");
-	LDPUMA_RegVariable(hDebugKillLines, "Зона поражения (в пикселах)",
-			&gKillZone, "unsigned");
-	LDPUMA_RegVariable(hDebugKillLines, "Покрытие (0 - 255)", &gKillRate,
-			"unsigned");
-
-	LDPUMA_Registry(&hDebugKillLinesStep, SNAP_KILL_LINES_STEP, hDebugKillLines);
-	LDPUMA_RegistryHelp(hDebugKillLinesStep, "Пошаговый проход.", FALSE);
-
-	LDPUMA_Registry(&hDebugKillLinesData, SNAP_KILL_LINES_DATA, hDebugKillLines);
-	LDPUMA_RegistryHelp(hDebugKillLinesData, "Сама по себе не функционирует",
-			FALSE);
-
-	LDPUMA_Registry(&hDebugKillLinesShowComponentsBefore,
-			SNAP_KILL_LINES_SHOW_BEFORE, hDebugKillLines);
-	LDPUMA_RegistryHelp(hDebugKillLinesData,
+    LDPUMA_Registry(&hDebugKillLinesShowComponentsBefore,
+                    SNAP_KILL_LINES_SHOW_BEFORE, hDebugKillLines);
+    LDPUMA_RegistryHelp(hDebugKillLinesData,
 			"Показывает компоненты до удаления всех линий", FALSE);
-	LDPUMA_Registry(&hDebugKillLinesShowComponentsAfter,
-			SNAP_KILL_LINES_SHOW_AFTER, hDebugKillLines);
-	LDPUMA_RegistryHelp(hDebugKillLinesData,
+    LDPUMA_Registry(&hDebugKillLinesShowComponentsAfter,
+                    SNAP_KILL_LINES_SHOW_AFTER, hDebugKillLines);
+    LDPUMA_RegistryHelp(hDebugKillLinesData,
 			"Показывает компоненты после удаления всех линий", FALSE);
 
-	LDPUMA_Registry(&OKL, "Тривиальное удаление линий", hDebugRoot);
-	LDPUMA_RegistryHelp(
-			OKL,
-			"<Ответственный тов. Степаненков> \
-              \n Корневая вершина отладки тривиального удаления линий\
-			  Активизация вершины приведёт именно к этому способу их удаления.",
+    LDPUMA_Registry(&OKL, "Тривиальное удаление линий", hDebugRoot);
+    LDPUMA_RegistryHelp(
+                OKL,
+                "<Ответственный тов. Степаненков> \
+                \n Корневая вершина отладки тривиального удаления линий\
+                                                                          Активизация вершины приведёт именно к этому способу их удаления.",
+                                                                                                                                         FALSE);
+
+    LDPUMA_Registry(&Zone, "Расширить КВО", OKL);
+    LDPUMA_RegistryHelp(Zone, "Увеличить ширину линии на 2*...", FALSE);
+    LDPUMA_RegVariable(Zone, "Height+", &KVO, "int");
+    LDPUMA_Registry(&hNotTestAlik, "Не проверять Алика", OKL);
+    LDPUMA_RegistryHelp(hNotTestAlik, "Не проверять Алика", FALSE);
+
+    //	LDPUMA_Registry(&InsideKill,"Удаление линий Алика" ,MainDebug);
+    //	LDPUMA_RegistryHelp(InsideKill,"Разрешить удаление линий Алика",FALSE);
+    LDPUMA_Registry(&NotKillPointed, "Не удалять точечные линии", MainDebug);
+    LDPUMA_RegistryHelp(NotKillPointed, "Не удалять точечные линии", FALSE);
+    LDPUMA_Registry(&OrtMove, "Этап ортогонализующего сдвига.", NULL);
+    LDPUMA_Registry(&ObvKillLines, "Тривиальное удаление линий.", MainDebug);
+    LDPUMA_RegistryHelp(ObvKillLines, "Разрешить тривиальное удаление линий.",
 			FALSE);
 
-	LDPUMA_Registry(&Zone, "Расширить КВО", OKL);
-	LDPUMA_RegistryHelp(Zone, "Увеличить ширину линии на 2*...", FALSE);
-	LDPUMA_RegVariable(Zone, "Height+", &KVO, "int");
-	LDPUMA_Registry(&hNotTestAlik, "Не проверять Алика", OKL);
-	LDPUMA_RegistryHelp(hNotTestAlik, "Не проверять Алика", FALSE);
-
-	//	LDPUMA_Registry(&InsideKill,"Удаление линий Алика" ,MainDebug);
-	//	LDPUMA_RegistryHelp(InsideKill,"Разрешить удаление линий Алика",FALSE);
-	LDPUMA_Registry(&NotKillPointed, "Не удалять точечные линии", MainDebug);
-	LDPUMA_RegistryHelp(NotKillPointed, "Не удалять точечные линии", FALSE);
-	LDPUMA_Registry(&OrtMove, "Этап ортогонализующего сдвига.", NULL);
-	LDPUMA_Registry(&ObvKillLines, "Тривиальное удаление линий.", MainDebug);
-	LDPUMA_RegistryHelp(ObvKillLines, "Разрешить тривиальное удаление линий.",
-			FALSE);
-
-	LDPUMA_Registry(&hDotLine, "Поиск точечных линий.", MainDebug);
-	LDPUMA_RegistryHelp(hDotLine,
+    LDPUMA_Registry(&hDotLine, "Поиск точечных линий.", MainDebug);
+    LDPUMA_RegistryHelp(hDotLine,
 			"Включить поиск точечных линий библиотекой RShellLines", FALSE);
 
-	//    LDPUMA_RegVariable(OrtMove,"Сдвиг",&move,"int");
+    //    LDPUMA_RegVariable(OrtMove,"Сдвиг",&move,"int");
 
-	LDPUMA_Registry(&hNewLine, "Верификация линий.", MainDebug);
-	LDPUMA_RegistryHelp(hNewLine,
+    LDPUMA_Registry(&hNewLine, "Верификация линий.", MainDebug);
+    LDPUMA_RegistryHelp(hNewLine,
 			"Веривикация линий вместо второго прохода Алика", FALSE);
-	//	LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий",NULL);
+    //	LDPUMA_Registry (&hUseCLine,"Работа с контейнером линий",NULL);
 
-	LDPUMA_Registry(&hAngles, "Вычисление углов.", hDebugRoot);
-	LDPUMA_RegistryHelp(hAngles, "Вычисление углов.", FALSE);
-	LDPUMA_Registry(&hCalcMuchSkew, "Вычислить разные углы.", hAngles);
-	LDPUMA_RegistryHelp(hCalcMuchSkew, "Вычислить разные углы.", FALSE);
-	LDPUMA_Registry(&hTalkMuchSkew, "Рассказать о разных углах.", hAngles);
-	LDPUMA_RegistryHelp(hTalkMuchSkew, "Рассказать о разных углах.", FALSE);
-	/*-Andrey: moved to RNORM
-	 //-----------------------
-	 LDPUMA_Registry(&hDebugAutoTemplate,"Автоматическое ограничение области распознавания.",hMainTime);
-	 LDPUMA_RegistryHelp(hDebugAutoTemplate,"Автоматическое ограничение области распознавания.",FALSE);
-	 LDPUMA_Registry(&hAutoTemplate1,"Подробнее.",hDebugAutoTemplate);
-	 LDPUMA_Registry(&hAutoTemplateWrite,"Отписать в файл.",hDebugAutoTemplate);
-	 LDPUMA_RegistryHelp(hAutoTemplateWrite,"Отписать в файл.",FALSE);
-	 LDPUMA_Registry(&hAutoTemplateBC,"Большие компоненты.",hDebugAutoTemplate);
-	 LDPUMA_RegistryHelp(hAutoTemplateBC,"Большие компоненты.",FALSE);
-	 LDPUMA_Registry(&hAutoTemplateBCShow,"Прорисовка больших компонент.",hDebugAutoTemplate);
-	 LDPUMA_RegistryHelp(hAutoTemplateBCShow,"Прорисовка больших компонент.",FALSE);
-	 LDPUMA_Registry(&hAutoTemplateMar,"Поля.",hDebugAutoTemplate);
-	 LDPUMA_RegistryHelp(hAutoTemplateMar,"Поля.",FALSE);
-	 -*/
+    LDPUMA_Registry(&hAngles, "Вычисление углов.", hDebugRoot);
+    LDPUMA_RegistryHelp(hAngles, "Вычисление углов.", FALSE);
+    LDPUMA_Registry(&hCalcMuchSkew, "Вычислить разные углы.", hAngles);
+    LDPUMA_RegistryHelp(hCalcMuchSkew, "Вычислить разные углы.", FALSE);
+    LDPUMA_Registry(&hTalkMuchSkew, "Рассказать о разных углах.", hAngles);
+    LDPUMA_RegistryHelp(hTalkMuchSkew, "Рассказать о разных углах.", FALSE);
+    /*-Andrey: moved to RNORM
+  //-----------------------
+  LDPUMA_Registry(&hDebugAutoTemplate,"Автоматическое ограничение области распознавания.",hMainTime);
+  LDPUMA_RegistryHelp(hDebugAutoTemplate,"Автоматическое ограничение области распознавания.",FALSE);
+  LDPUMA_Registry(&hAutoTemplate1,"Подробнее.",hDebugAutoTemplate);
+  LDPUMA_Registry(&hAutoTemplateWrite,"Отписать в файл.",hDebugAutoTemplate);
+  LDPUMA_RegistryHelp(hAutoTemplateWrite,"Отписать в файл.",FALSE);
+  LDPUMA_Registry(&hAutoTemplateBC,"Большие компоненты.",hDebugAutoTemplate);
+  LDPUMA_RegistryHelp(hAutoTemplateBC,"Большие компоненты.",FALSE);
+  LDPUMA_Registry(&hAutoTemplateBCShow,"Прорисовка больших компонент.",hDebugAutoTemplate);
+  LDPUMA_RegistryHelp(hAutoTemplateBCShow,"Прорисовка больших компонент.",FALSE);
+  LDPUMA_Registry(&hAutoTemplateMar,"Поля.",hDebugAutoTemplate);
+  LDPUMA_RegistryHelp(hAutoTemplateMar,"Поля.",FALSE);
+  -*/
 
 }
