@@ -21,6 +21,7 @@
 
 #include "rstuff.h"
 #include "rstuff_local.h"
+#include "rsfunc.h"
 #include "common/recognizeoptions.h"
 #include "puma/pumadef.h"
 
@@ -60,7 +61,7 @@ void RStuff::normalize()
 
 void RStuff::setCallbacks(RSCBProgressPoints * cb)
 {
-    if(!RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, cb))
+    if(!SetCBProgressPoints(cb))
         std::cerr << BOOST_CURRENT_FUNCTION << " failed." << std::endl;
 }
 

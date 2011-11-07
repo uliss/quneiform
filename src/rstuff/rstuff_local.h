@@ -30,7 +30,6 @@
 
 Bool32 RSTUFF_Init(uint16_t wHeightCode, Handle hStorage);
 Bool32 RSTUFF_Done();
-Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData);
 
 typedef enum {
     RSTUFF_FN_RSBinarise = 1,

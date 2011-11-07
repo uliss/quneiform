@@ -67,15 +67,12 @@
 #include "rsglobaldata.h"
 #include "rsdefines.h"
 #include "rsfunc.h"
+#include "rstuff_struct.h"
 
-Bool32 SetCBProgressPoints(void * pData) {
-	PRSCBProgressPoints pPoints = (PRSCBProgressPoints) pData;
-
-#define SET_CB_POINTS(a,b)  ProgressPoints.p##b = a->p##b
-	SET_CB_POINTS(pPoints, SetUpdate);
-	SET_CB_POINTS(pPoints, DPumaSkipComponent);
-	SET_CB_POINTS(pPoints, DPumaSkipTurn);
-#undef SET_CB_POINTS
+Bool32 SetCBProgressPoints(PRSCBProgressPoints pData) {
+        ProgressPoints.pSetUpdate = pData->pSetUpdate;
+        ProgressPoints.pDPumaSkipComponent = pData->pDPumaSkipComponent;
+        ProgressPoints.pDPumaSkipTurn = pData->pDPumaSkipTurn;
 	return true;
 }
 #define DEF_CB_FUNC(a,b,c,d,e)       a b c \
