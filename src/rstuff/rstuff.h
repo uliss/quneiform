@@ -117,9 +117,34 @@ typedef struct tagRSCBProgressPoints {
     void * pGetModulePath;
 } RSCBProgressPoints, *PRSCBProgressPoints;
 
-RSTUFF_FUNC Bool32 RSTUFF_Init(uint16_t wHeightCode, Handle hStorage);
-RSTUFF_FUNC Bool32 RSTUFF_Done();
-RSTUFF_FUNC Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData);
+namespace cf {
+
+class CLA_EXPO RStuff {
+public:
+    struct Exception : public std::runtime_error {
+        Exception(const std::string& msg) : std::runtime_error(msg) {}
+    };
+public:
+    RStuff();
+    ~RStuff();
+    void binarise();
+    void normalize();
+    void setCallbacks(RSCBProgressPoints * cb);
+    void setImageData(PRSPreProcessImage imageData);
+private:
+    static void * mainBuffer();
+    static void * workBuffer();
+private:
+    PRSPreProcessImage image_data_;
+    uchar * buffer_main_;
+    uchar * buffer_work_;
+};
+
+}
+
+Bool32 RSTUFF_Init(uint16_t wHeightCode, Handle hStorage);
+Bool32 RSTUFF_Done();
+Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData);
 
 typedef enum {
     RSTUFF_FN_RSBinarise = 1,
@@ -136,14 +161,14 @@ typedef enum {
     RSTUFF_FN_SetInitPRGTIME,
     RSTUFF_FN_SetDPumaSkipComponent
 } RSTUFF_IMPORT_ENTRIES;
+
 /*  Описание функций  */
-#define DEC_FUN(a,b,c) typedef a (*FNRSTUFF##b)c; RSTUFF_FUNC a RSTUFF_##b c;
-RSTUFF_FUNC Bool32 RSTUFF_RSBinarise(void);
-RSTUFF_FUNC Bool32 RSTUFF_RSNormalise(PRSPreProcessImage, void* vBuff, int Size, void* vWork, int SizeWork);
-RSTUFF_FUNC Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage);
-RSTUFF_FUNC Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage);
-RSTUFF_FUNC Bool32 RSTUFF_RSLayout(PRSPreProcessImage);
+Bool32 RSTUFF_RSBinarise(void);
+Bool32 RSTUFF_RSNormalise(PRSPreProcessImage, void* vBuff, int Size, void* vWork, int SizeWork);
+Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage);
+Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage);
+Bool32 RSTUFF_RSLayout(PRSPreProcessImage);
+
 RSTUFF_FUNC Bool32 RSTUFF_RSSetSpecPrj(uchar NoSpecPrj);
-#undef DEC_FUN
 
 #endif

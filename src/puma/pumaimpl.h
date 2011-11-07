@@ -22,6 +22,7 @@
 #include <string>
 #include <iosfwd>
 #include <memory>
+#include <boost/shared_ptr.hpp>
 
 #include "cfcompat.h"
 #include "specprj.h"
@@ -46,6 +47,7 @@ class ComponentExtractor;
 class CEDPage;
 class Formatter;
 class CRtfPage;
+class RStuff;
 
 class CLA_EXPO PumaImpl
 {
@@ -155,6 +157,7 @@ class CLA_EXPO PumaImpl
         std::auto_ptr<RMarker> rmarker_;
         std::auto_ptr<ComponentExtractor> comp_extractor_;
         std::auto_ptr<Formatter> formatter_;
+        boost::shared_ptr<RStuff> rstuff_;
         BitmapInfoHeader info_;
         Rect rect_template_;
         std::string input_filename_;

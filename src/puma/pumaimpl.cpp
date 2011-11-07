@@ -317,13 +317,9 @@ Bool32 DPumaSkipTurn(void) {
 void PumaImpl::layout() {
     clearAll();
     binarizeImage();
-    RSCBProgressPoints CBforRS;
+
     RSPreProcessImage DataforRS;
     RMPreProcessImage DataforRM;
-
-    CBforRS.pDPumaSkipComponent = (void*) DPumaSkipComponent;
-    CBforRS.pDPumaSkipTurn = (void*) DPumaSkipTurn;
-    CBforRS.pSetUpdate = (void*) SetUpdate;
 
     DataforRS.gbAutoRotate = recognize_options_.autoRotate();
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
@@ -354,18 +350,14 @@ void PumaImpl::layout() {
     DataforRS.szLayoutFileName = (char*) layout_filename_.c_str();
     DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
-    void* MemBuf = cf::PumaImpl::mainBuffer();
-    size_t size_buf = cf::PumaImpl::MainBufferSize;
-    void* MemWork = cf::PumaImpl::workBuffer();
-    int size_work = cf::PumaImpl::WorkBufferSize;
+    RSCBProgressPoints CBforRS;
+    CBforRS.pDPumaSkipComponent = (void*) DPumaSkipComponent;
+    CBforRS.pDPumaSkipTurn = (void*) DPumaSkipTurn;
+    CBforRS.pSetUpdate = (void*) SetUpdate;
 
-    // калбэки
-    if (RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, &CBforRS)) {
-        ///нормализуем - обработка, поиск картинок, поиск линий
-        if (!RSTUFF_RSNormalise(&DataforRS, MemBuf, size_buf, MemWork,
-                size_work))
-            throw PumaException("RSTUFF_RSNormalise failed");
-    }
+    rstuff_->setCallbacks(&CBforRS);
+    rstuff_->setImageData(&DataforRS);
+    rstuff_->normalize();
 
     // Gleb 02.11.2000
     // Далее - разметка. Вынесена в RMARKER.DLL
@@ -383,6 +375,11 @@ void PumaImpl::layout() {
     DataforRM.hDebugSVLinesStep = hDebugSVLinesStep;
     DataforRM.hDebugSVLinesData = hDebugSVLinesData;
     DataforRM.szLayoutFileName = layout_filename_.c_str();
+
+    void* MemBuf = cf::PumaImpl::mainBuffer();
+    size_t size_buf = cf::PumaImpl::MainBufferSize;
+    void* MemWork = cf::PumaImpl::workBuffer();
+    int size_work = cf::PumaImpl::WorkBufferSize;
 
     if (!RMARKER_PageMarkup(&DataforRM, MemBuf, size_buf, MemWork, size_work))
         throw PumaException("RMARKER_PageMarkup failed");
@@ -430,7 +427,6 @@ void PumaImpl::modulesDone() {
     CPAGE_Done();
     CLINE_Done();
     RPSTR_Done();
-    RSTUFF_Done();
 #ifdef _USE_RVERLINE_
     RVERLINE_Done();
 #endif //_USE_RVERLINE_
@@ -471,9 +467,7 @@ void PumaImpl::modulesInit() {
         if (!RSL_Init(PUMA_MODULE_RSL, NULL))
             throw PumaException("RSL_Init failed.");
 
-        if (!RSTUFF_Init(PUMA_MODULE_RSTUFF, NULL))
-            throw PumaException("RSTUFF_Init failed.");
-
+        rstuff_.reset(new RStuff);
         rmarker_.reset(new RMarker);
 
         if (!RBLOCK_Init(PUMA_MODULE_RBLOCK, NULL))
