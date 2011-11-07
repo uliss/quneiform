@@ -342,7 +342,7 @@ void PumaImpl::layout() {
     DataforRS.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
     DataforRS.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
     DataforRS.hDebugCancelSearchTables = hDebugCancelSearchTables;
-    DataforRS.szLayoutFileName = (char*) layout_filename_.c_str();
+    DataforRS.szLayoutFileName = layout_filename_.c_str();
     DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
     RSCBProgressPoints CBforRS;

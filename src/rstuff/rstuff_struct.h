@@ -52,7 +52,7 @@ struct RSPreProcessImage {
     uint32_t gnPictures;
     Bool32* pgrc_line;
     cf::Rect gRectTemplate;
-    char *szLayoutFileName;
+    const char * szLayoutFileName;
 };
 
 typedef RSPreProcessImage * PRSPreProcessImage;
