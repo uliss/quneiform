@@ -68,7 +68,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "rstuff.h"
+
 #include "rsfunc.h"
 #include "rsglobaldata.h"
 #include "dpuma.h"

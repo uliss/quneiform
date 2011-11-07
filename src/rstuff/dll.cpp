@@ -66,7 +66,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "resource.h"
-#include "rstuff.h"
+#include "rstuff_local.h"
 #include "rsfunc.h"
 #include "rsmemory.h"
 #include "dpuma.h"
@@ -425,14 +425,3 @@ void DebugInit(void) {
 	 -*/
 
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 RSTUFF_RSSetSpecPrj( uchar NoSpecPrj)
-{
-	db_spec_prj = NoSpecPrj;
-
-	return TRUE;
-}
-//////////////////////////////////////////////////////////////////////////////////
-
-//end of file

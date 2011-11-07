@@ -2,6 +2,8 @@ set(RSTUFF_HEADERS
     rsdefines.h
     rsfunc.h
     rsglobaldata.h
+    rstuff_local.h
+    rstuff_struct.h
 )
 
 set(RSTUFF_SOURCES

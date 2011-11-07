@@ -79,7 +79,7 @@
 #include "rshelllines.h"
 #include "rsl.h"
 #include "rverline/rverline.h"
-#include "rstuff/rstuff.h"
+#include "rstuff/rstuff_struct.h"
 #include "un_buff.h"
 #include "cfcompat.h"
 

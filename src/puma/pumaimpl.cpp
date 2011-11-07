@@ -55,6 +55,7 @@
 #include "rshelllines/rsl.h"
 #include "rstr/rstr.h"
 #include "rstuff/rstuff.h"
+#include "rstuff/rstuff_struct.h"
 #include "rverline/rverline.h"
 
 // 1. Отладочная информаци
@@ -1085,7 +1086,6 @@ void PumaImpl::setPageTemplate(const Rect& r) {
 
 void PumaImpl::setSpecialProject(special_project_t SpecialProject) {
     special_project_ = SpecialProject;
-    RSTUFF_RSSetSpecPrj(SpecialProject);
     RSTR_SetSpecPrj(SpecialProject);
 }
 

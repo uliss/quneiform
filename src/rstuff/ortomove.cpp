@@ -65,7 +65,6 @@
 #include "rline/rline.h"
 #include "dpuma.h"
 #include "rdib/ctdib.h"
-#include "rstuff.h"
 #include "rsfunc.h"
 #include "cfio/cfio.h"
 #include "puma/pumadef.h"

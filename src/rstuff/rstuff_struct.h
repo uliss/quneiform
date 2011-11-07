@@ -16,56 +16,54 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <iostream>
-#include <boost/current_function.hpp>
+#ifndef RSTUFF_STRUCT_H
+#define RSTUFF_STRUCT_H
 
-#include "rstuff.h"
-#include "rstuff_local.h"
-#include "puma/pumadef.h"
+#include "cttypes.h"
+#include "common/rect.h"
 
-namespace cf {
+struct CCOM_cont;
 
-static const int MAIN_BUF_SIZE = 500000;
-static const int WORK_BUF_SIZE = 180000;
+struct RSPreProcessImage {
+    puchar *pgpRecogDIB;
+    Bool32 gbAutoRotate;
+    Bool32 gbDotMatrix;
+    Bool32 gbFax100;
+    uint32_t gnLanguage;
+    uint32_t gnTables;
+    Handle hCPAGE;
+    Handle hDebugCancelSearchPictures;
+    Handle hDebugCancelComponent;
+    Handle hDebugCancelTurn;
+    Handle hDebugCancelSearchLines;
+    Handle hDebugCancelVerifyLines;
+    Handle hDebugCancelSearchDotLines;
+    Handle hDebugCancelRemoveLines;
+    Handle hDebugCancelSearchTables;
+    Handle hDebugCancelAutoTemplate;
+    Handle hDebugEnableSearchSegment;
+    const char ** pglpRecogName;
+    CCOM_cont ** phCCOM;
+    void * pinfo;
+    Handle* phLinesCCOM;
+    void * phCLINE;
+    PBool32 pgneed_clean_line;
+    int * pgnNumberTables;
+    uint32_t gnPictures;
+    Bool32* pgrc_line;
+    cf::Rect gRectTemplate;
+    char *szLayoutFileName;
+};
 
-RStuff::RStuff() :
-    image_data_(NULL),
-    buffer_main_(NULL),
-    buffer_work_(NULL)
-{
-    if(!RSTUFF_Init(PUMA_MODULE_RSTUFF, NULL))
-        std::cerr << BOOST_CURRENT_FUNCTION << " failed." << std::endl;
+typedef RSPreProcessImage * PRSPreProcessImage;
 
-    buffer_main_ = new uchar[MAIN_BUF_SIZE];
-    buffer_work_ = new uchar[WORK_BUF_SIZE];
-}
+struct RSCBProgressPoints {
+    void * pDPumaSkipComponent;
+    void * pDPumaSkipTurn;
+    void * pSetUpdate;
+    void * pGetModulePath;
+};
 
-RStuff::~RStuff() {
-    RSTUFF_Done();
-    delete []buffer_main_;
-    delete []buffer_work_;
-}
+typedef RSCBProgressPoints * PRSCBProgressPoints;
 
-void RStuff::binarise()
-{
-    RSTUFF_RSBinarise();
-}
-
-void RStuff::normalize()
-{
-    if (!RSTUFF_RSNormalise(image_data_, buffer_main_, MAIN_BUF_SIZE, buffer_work_, WORK_BUF_SIZE))
-        throw Exception("RSTUFF_RSNormalise failed");
-}
-
-void RStuff::setCallbacks(RSCBProgressPoints * cb)
-{
-    if(!RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, cb))
-        std::cerr << BOOST_CURRENT_FUNCTION << " failed." << std::endl;
-}
-
-void RStuff::setImageData(RSPreProcessImage * imageData)
-{
-    image_data_ = imageData;
-}
-
-}
+#endif // RSTUFF_STRUCT_H

@@ -16,56 +16,43 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <iostream>
-#include <boost/current_function.hpp>
+#ifndef RSTUFF_LOCAL_H
+#define RSTUFF_LOCAL_H
 
-#include "rstuff.h"
-#include "rstuff_local.h"
-#include "puma/pumadef.h"
+#include "globus.h"
+#include "rstuff_struct.h"
 
-namespace cf {
+#ifdef __RSTUFF__
+#define RSTUFF_FUNC  FUN_EXPO__
+#else
+#define RSTUFF_FUNC  FUN_IMPO__
+#endif
 
-static const int MAIN_BUF_SIZE = 500000;
-static const int WORK_BUF_SIZE = 180000;
+Bool32 RSTUFF_Init(uint16_t wHeightCode, Handle hStorage);
+Bool32 RSTUFF_Done();
+Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData);
 
-RStuff::RStuff() :
-    image_data_(NULL),
-    buffer_main_(NULL),
-    buffer_work_(NULL)
-{
-    if(!RSTUFF_Init(PUMA_MODULE_RSTUFF, NULL))
-        std::cerr << BOOST_CURRENT_FUNCTION << " failed." << std::endl;
+typedef enum {
+    RSTUFF_FN_RSBinarise = 1,
+    RSTUFF_FN_RSNormalise,
+    RSTUFF_FN_RSLayout,
+    RSTUFF_FN_RSSetSpecPrj
+} RSTUFF_EXPORT_ENTRIES;
 
-    buffer_main_ = new uchar[MAIN_BUF_SIZE];
-    buffer_work_ = new uchar[WORK_BUF_SIZE];
-}
+typedef enum {
+    RSTUFF_FN_SetProgresspoints = 128,
+    RSTUFF_FN_SetProgressStart,
+    RSTUFF_FN_SetProgressStep,
+    RSTUFF_FN_SetProgressFinish,
+    RSTUFF_FN_SetInitPRGTIME,
+    RSTUFF_FN_SetDPumaSkipComponent
+} RSTUFF_IMPORT_ENTRIES;
 
-RStuff::~RStuff() {
-    RSTUFF_Done();
-    delete []buffer_main_;
-    delete []buffer_work_;
-}
+/*  Описание функций  */
+Bool32 RSTUFF_RSBinarise(void);
+Bool32 RSTUFF_RSNormalise(PRSPreProcessImage, void* vBuff, int Size, void* vWork, int SizeWork);
+Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage);
+Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage);
+Bool32 RSTUFF_RSLayout(PRSPreProcessImage);
 
-void RStuff::binarise()
-{
-    RSTUFF_RSBinarise();
-}
-
-void RStuff::normalize()
-{
-    if (!RSTUFF_RSNormalise(image_data_, buffer_main_, MAIN_BUF_SIZE, buffer_work_, WORK_BUF_SIZE))
-        throw Exception("RSTUFF_RSNormalise failed");
-}
-
-void RStuff::setCallbacks(RSCBProgressPoints * cb)
-{
-    if(!RSTUFF_SetImportData(RSTUFF_FN_SetProgresspoints, cb))
-        std::cerr << BOOST_CURRENT_FUNCTION << " failed." << std::endl;
-}
-
-void RStuff::setImageData(RSPreProcessImage * imageData)
-{
-    image_data_ = imageData;
-}
-
-}
+#endif // RSTUFF_LOCAL_H

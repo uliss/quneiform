@@ -70,6 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ////////////////////////////////////////////////////////////////////////////////
 #include "globus.h"
 #include "rsdefines.h"
+#include "rstuff_struct.h"
 #include "lns/lnsdefs.h"
 
 // predefined
@@ -109,7 +110,6 @@ EXTERN Handle               hDebugKillLinesStep                 VAL(NULL);
 EXTERN Handle               hDebugKillLinesData                 VAL(NULL);
 EXTERN Handle               hDebugKillLinesShowComponentsBefore VAL(NULL);
 EXTERN Handle               hDebugKillLinesShowComponentsAfter  VAL(NULL);
-EXTERN  uchar               db_spec_prj         VAL(0);
 #endif //_RSGLOBALDATA_H_
 ////////////////////////////////////////////////////////////////////////////////////
 //end of file

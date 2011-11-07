@@ -54,68 +54,15 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**********  Заголовок  *******************************************************/
-/*  Автор      :  Александр Михайлов                                          */
-/*  комментарии                                                               */
-/*  и далнейшая                                                               */
-/*  правка     :  Алексей Коноплев                                            */
-/*  Редакция   :  08.06.00                                                    */
-/*  Файл       :  'RSTUFF.H'                                                */
-/*  Содержание :  Интерфейс библиотеки                                        */
-/*  Назначение :                                                              */
-/*----------------------------------------------------------------------------*/
-//Almi 16.06.00 //Last edit ........
 #ifndef __RSTUFF_H
 #define __RSTUFF_H
 
+#include <stdexcept>
+
 #include "globus.h"
-#include "common/rect.h"
 
-#ifdef __RSTUFF__
-#define RSTUFF_FUNC  FUN_EXPO__
-#else
-#define RSTUFF_FUNC  FUN_IMPO__
-#endif
-
-struct CCOM_cont;
-
-typedef struct tagRSPreProcessImage {
-    puchar *pgpRecogDIB;
-    Bool32 gbAutoRotate;
-    Bool32 gbDotMatrix;
-    Bool32 gbFax100;
-    uint32_t gnLanguage;
-    uint32_t gnTables;
-    Handle hCPAGE;
-    Handle hDebugCancelSearchPictures;
-    Handle hDebugCancelComponent;
-    Handle hDebugCancelTurn;
-    Handle hDebugCancelSearchLines;
-    Handle hDebugCancelVerifyLines;
-    Handle hDebugCancelSearchDotLines;
-    Handle hDebugCancelRemoveLines;
-    Handle hDebugCancelSearchTables;
-    Handle hDebugCancelAutoTemplate;
-    Handle hDebugEnableSearchSegment;
-    const char ** pglpRecogName;
-    CCOM_cont ** phCCOM;
-    void * pinfo;
-    Handle* phLinesCCOM;
-    void * phCLINE;
-    PBool32 pgneed_clean_line;
-    int * pgnNumberTables;
-    uint32_t gnPictures;
-    Bool32* pgrc_line;
-    cf::Rect gRectTemplate;
-    char *szLayoutFileName;
-} RSPreProcessImage, *PRSPreProcessImage;
-
-typedef struct tagRSCBProgressPoints {
-    void * pDPumaSkipComponent;
-    void * pDPumaSkipTurn;
-    void * pSetUpdate;
-    void * pGetModulePath;
-} RSCBProgressPoints, *PRSCBProgressPoints;
+struct RSPreProcessImage;
+struct RSCBProgressPoints;
 
 namespace cf {
 
@@ -130,45 +77,16 @@ public:
     void binarise();
     void normalize();
     void setCallbacks(RSCBProgressPoints * cb);
-    void setImageData(PRSPreProcessImage imageData);
+    void setImageData(RSPreProcessImage * imageData);
 private:
     static void * mainBuffer();
     static void * workBuffer();
 private:
-    PRSPreProcessImage image_data_;
+    RSPreProcessImage * image_data_;
     uchar * buffer_main_;
     uchar * buffer_work_;
 };
 
 }
-
-Bool32 RSTUFF_Init(uint16_t wHeightCode, Handle hStorage);
-Bool32 RSTUFF_Done();
-Bool32 RSTUFF_SetImportData(uint32_t dwType, void * pData);
-
-typedef enum {
-    RSTUFF_FN_RSBinarise = 1,
-    RSTUFF_FN_RSNormalise,
-    RSTUFF_FN_RSLayout,
-    RSTUFF_FN_RSSetSpecPrj
-} RSTUFF_EXPORT_ENTRIES;
-
-typedef enum {
-    RSTUFF_FN_SetProgresspoints = 128,
-    RSTUFF_FN_SetProgressStart,
-    RSTUFF_FN_SetProgressStep,
-    RSTUFF_FN_SetProgressFinish,
-    RSTUFF_FN_SetInitPRGTIME,
-    RSTUFF_FN_SetDPumaSkipComponent
-} RSTUFF_IMPORT_ENTRIES;
-
-/*  Описание функций  */
-Bool32 RSTUFF_RSBinarise(void);
-Bool32 RSTUFF_RSNormalise(PRSPreProcessImage, void* vBuff, int Size, void* vWork, int SizeWork);
-Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage);
-Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage);
-Bool32 RSTUFF_RSLayout(PRSPreProcessImage);
-
-RSTUFF_FUNC Bool32 RSTUFF_RSSetSpecPrj(uchar NoSpecPrj);
 
 #endif

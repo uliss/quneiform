@@ -67,7 +67,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdio.h>
 #include <string.h>
-#include "rstuff.h"
 #include "rsdefines.h"
 #include "rsfunc.h"
 #include "rsglobaldata.h"

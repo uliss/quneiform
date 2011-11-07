@@ -74,6 +74,7 @@
 #include "ccom/ccomdefs.h"
 #include "lns/lnsdefs.h"
 #include "linedefs.h"
+#include "rstuff_struct.h"
 
 //////////////////////////
 //общего назначения
