@@ -96,7 +96,6 @@ Bool32 LineKiller(PRSPreProcessImage Image) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 Bool32 SearchAndKill(PRSPreProcessImage Image, LinesTotalInfo *LTInfo) {
-    Bool32 bRet = TRUE;
     uint32_t nTagSize;
     int32_t j;
     char str[255];
@@ -109,8 +108,6 @@ Bool32 SearchAndKill(PRSPreProcessImage Image, LinesTotalInfo *LTInfo) {
 
     nTagSize = sizeof(LinesTotalInfo);
 
-    uint32_t size_line_com = sizeof(LINE_COM);
-    Handle hCPage = Image->hCPAGE;
     LineInfo linfo;
     CLINE_handle* pCLINE = (CLINE_handle*) (Image->phCLINE);
 
@@ -325,7 +322,6 @@ Bool32 ComponentFilter(PRSPreProcessImage Image, LineInfo *Line) {
     Rect16 Rc;
     Rect16 Rl;
     int32_t nRc = 0;
-    int32_t Filter = 0;
     int32_t j = 0;
     char str[255];
     int16_t Thick = (Line->Thickness / 2) + (int16_t) gKillZone;
@@ -525,7 +521,6 @@ Bool32 CheckSquare(LineInfo *Line, Rect16 *Rect, uint32_t KillZone, uint32_t Rat
     Bool32 bRet = FALSE;
 
     float temp;
-    float Halfs = 1.0;
     int32_t LineType;
     Rect32 S;
     uint32_t SRect;

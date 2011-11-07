@@ -97,9 +97,6 @@ static uint16_t wHighErrCode = 0;
 
 Bool32 gbRSLT = FALSE;
 
-/////////////////////////////////////////////////////////////////////////////////////////
-static Handle ghStorage = NULL;
-static Handle ghInst = NULL;
 int32_t InitCount = 0;
 Handle ObvKillLines;
 Handle OKL;
