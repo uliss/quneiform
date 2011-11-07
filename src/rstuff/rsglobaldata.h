@@ -67,39 +67,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _RSGLOBALDATA_H_
 #define _RSGLOBALDATA_H_
 
-////////////////////////////////////////////////////////////////////////////////
 #include "globus.h"
-#include "rsdefines.h"
 #include "rstuff_struct.h"
-#include "lns/lnsdefs.h"
 
 // predefined
 #ifdef __RSTUFF_CPP__
 #define EXTERN
 #define VAL(a)          = a
 #define VALM(a)         = {a}
-#define VAL2(a,b)       = { a,b }
-#define VAL4(a,b,c,d)   = { a,b,c,d }
 #else
 #define EXTERN      extern
 #define VAL(a)
 #define VALM(a)
-#define VAL2(a,b)
-#define VAL4(a,b,c,d)
 #endif
 
-////////////////////////////////////////////////
-
 EXTERN RSCBProgressPoints   ProgressPoints      VALM(NULL);
-EXTERN RSLinesBuffer        gLinesData          VALM(NULL);
 
-EXTERN uint32_t               gKillComponents     VAL(1);
-EXTERN uint32_t               gKillZone           VAL(1);
-EXTERN uint32_t               gKillRate           VAL(127);
-EXTERN int32_t                gComponentRange     VAL(0);
-EXTERN int32_t                bShowLineDebug      VAL(FALSE);
-EXTERN int32_t                bShowStepLineDebug  VAL(FALSE);
-EXTERN int32_t                bShowLineDebugData  VAL(FALSE);
+EXTERN uint32_t             gKillComponents     VAL(1);
+EXTERN uint32_t             gKillZone           VAL(1);
+EXTERN uint32_t             gKillRate           VAL(127);
+EXTERN int32_t              bShowLineDebug      VAL(FALSE);
+EXTERN int32_t              bShowStepLineDebug  VAL(FALSE);
+EXTERN int32_t              bShowLineDebugData  VAL(FALSE);
 
 EXTERN Handle               hLineKillerWindow                   VAL(NULL);
 EXTERN Handle               hDebugRoot                          VAL(NULL);
@@ -109,5 +98,3 @@ EXTERN Handle               hDebugKillLinesData                 VAL(NULL);
 EXTERN Handle               hDebugKillLinesShowComponentsBefore VAL(NULL);
 EXTERN Handle               hDebugKillLinesShowComponentsAfter  VAL(NULL);
 #endif //_RSGLOBALDATA_H_
-////////////////////////////////////////////////////////////////////////////////////
-//end of file
