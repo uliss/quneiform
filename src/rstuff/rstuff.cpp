@@ -21,6 +21,7 @@
 
 #include "rstuff.h"
 #include "rstuff_local.h"
+#include "common/recognizeoptions.h"
 #include "puma/pumadef.h"
 
 namespace cf {
@@ -66,6 +67,19 @@ void RStuff::setCallbacks(RSCBProgressPoints * cb)
 void RStuff::setImageData(RSPreProcessImage * imageData)
 {
     image_data_ = imageData;
+}
+
+void RStuff::setRecognizeOptions(const cf::RecognizeOptions& ropts)
+{
+    if(!image_data_)
+        return;
+
+    image_data_->gbAutoRotate = ropts.autoRotate();
+    image_data_->gnPictures = ropts.pictureSearch();
+    image_data_->gnLanguage = ropts.language();
+    image_data_->gbDotMatrix = ropts.dotMatrix();
+    image_data_->gbFax100 = ropts.fax();
+    image_data_->gnTables = ropts.tableMode();
 }
 
 }

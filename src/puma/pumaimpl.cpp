@@ -322,20 +322,14 @@ void PumaImpl::layout() {
     RSPreProcessImage DataforRS;
     RMPreProcessImage DataforRM;
 
-    DataforRS.gbAutoRotate = recognize_options_.autoRotate();
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
     DataforRS.pinfo = &info_;
     DataforRS.hCPAGE = cpage_;
     DataforRS.phCCOM = &ccom_;
     DataforRS.phCLINE = &cline_;
     DataforRS.phLinesCCOM = &lines_ccom_;
-    DataforRS.gnPictures = recognize_options_.pictureSearch();
-    DataforRS.gnLanguage = recognize_options_.language();
-    DataforRS.gbDotMatrix = recognize_options_.dotMatrix();
-    DataforRS.gbFax100 = recognize_options_.fax();
     DataforRS.pglpRecogName = &recog_name_;
     DataforRS.pgrc_line = &rc_line_;
-    DataforRS.gnTables = recognize_options_.tableMode();
     DataforRS.pgnNumberTables = &tables_num_;
     DataforRS.pgneed_clean_line = &need_clean_line_;
     DataforRS.gRectTemplate = rect_template_;
@@ -358,6 +352,7 @@ void PumaImpl::layout() {
 
     rstuff_->setCallbacks(&CBforRS);
     rstuff_->setImageData(&DataforRS);
+    rstuff_->setRecognizeOptions(recognize_options_);
     rstuff_->normalize();
 
     // Gleb 02.11.2000

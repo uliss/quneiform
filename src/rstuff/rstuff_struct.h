@@ -25,7 +25,7 @@
 struct CCOM_cont;
 
 struct RSPreProcessImage {
-    puchar *pgpRecogDIB;
+    puchar * pgpRecogDIB;
     Bool32 gbAutoRotate;
     Bool32 gbDotMatrix;
     Bool32 gbFax100;

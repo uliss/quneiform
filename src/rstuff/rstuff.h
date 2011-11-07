@@ -66,6 +66,8 @@ struct RSCBProgressPoints;
 
 namespace cf {
 
+class RecognizeOptions;
+
 class CLA_EXPO RStuff {
 public:
     struct Exception : public std::runtime_error {
@@ -78,6 +80,7 @@ public:
     void normalize();
     void setCallbacks(RSCBProgressPoints * cb);
     void setImageData(RSPreProcessImage * imageData);
+    void setRecognizeOptions(const RecognizeOptions& ropts);
 private:
     static void * mainBuffer();
     static void * workBuffer();
