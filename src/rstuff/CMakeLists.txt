@@ -7,7 +7,7 @@ set(RSTUFF_HEADERS
 )
 
 set(RSTUFF_SOURCES
-        aboutlines.aboutlin.cpp
+    aboutlines.aboutlin.cpp
     aboutlines.buffer.cpp
     binarise.cpp
     deletelines.cpp
@@ -15,7 +15,6 @@ set(RSTUFF_SOURCES
     layout.cpp
     linekiller.cpp
     normalise.cpp
-    ocomp.cpp
     ortomove.cpp
     rsmemory.cpp
     rstimer.cpp
