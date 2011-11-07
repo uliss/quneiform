@@ -97,7 +97,6 @@ static uint16_t wHighErrCode = 0;
 
 Bool32 gbRSLT = FALSE;
 
-int32_t InitCount = 0;
 Handle ObvKillLines;
 Handle OKL;
 Handle Zone;
@@ -135,9 +134,6 @@ Handle hDebugPrintResolution;
 
 int KVO = 1;
 int move;
-
-#undef APIENRTY
-#define APIENTRY
 
 Bool32 RSTUFF_Init(uint16_t wHeightCode,Handle hStorage)
 {
