@@ -172,12 +172,6 @@ Bool32 RSTUFF_Done()
     return TRUE;
 }
 
-Bool32 RSTUFF_Reset()
-{
-    SetReturnCode_rstuff(0);
-    return TRUE;
-}
-
 Bool32 RSTUFF_RSBinarise()
 {
     SetReturnCode_rstuff(0);
