@@ -77,29 +77,26 @@ Bool32 SetCBProgressPoints(PRSCBProgressPoints pData) {
 }
 #define DEF_CB_FUNC(a,b,c,d,e)       a b c \
 {\
-	DEC_CB_TYPE(b) pfFunc; \
-	a ret = e ; \
-	if ( ProgressPoints.p##b ) \
-	{ \
-		pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
-		return pfFunc d ; \
-	} \
-	return ret; \
+        DEC_CB_TYPE(b) pfFunc; \
+        a ret = e ; \
+        if ( ProgressPoints.p##b ) \
+        { \
+                pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
+                return pfFunc d ; \
+        } \
+        return ret; \
 }
 #define DEF_CB_VOID_FUNC(b,c,d)       void b c \
 { \
-	DEC_CB_TYPE(b) pfFunc; \
-	if ( ProgressPoints.p##b ) \
-	{ \
-		pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
-		pfFunc d; \
-	}\
+        DEC_CB_TYPE(b) pfFunc; \
+        if ( ProgressPoints.p##b ) \
+        { \
+                pfFunc = ( DEC_CB_TYPE(b) )ProgressPoints.p##b; \
+                pfFunc d; \
+        }\
 }
 
 DEF_CB_VOID_FUNC(SetUpdate, (uint32_t flgAdd,uint32_t flgRemove),(flgAdd, flgRemove) )
-DEF_CB_FUNC(Bool32, DPumaSkipComponent, (void), (), FALSE )
-DEF_CB_FUNC(Bool32, DPumaSkipTurn, (void), (), FALSE )
-DEF_CB_FUNC(char *, GetModulePath, (void), (), NULL )
 
 #undef DEF_CB_FUNC
 #undef DEF_CB_VOID_FUNC
