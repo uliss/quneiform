@@ -66,42 +66,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #ifndef _RSDEFINES_H_
 #define _RSDEFINES_H_
-//////////////////////////////////////////////////////////////////////////////////
-//#define _NO_CFIO
-////////////////////////////////////////////////////////////////////////////////
-#include <stdio.h>
-#include "globus.h"
-/////////////////////////////////////////////////////////////////////////////////////////////
-//
-typedef void    (*RSPROGRESSSTART)       (void);
-typedef Bool32  (*RSPROGRESSSTEP)        (uint32_t, uint32_t);
-typedef void    (*RSPROGRESSFINISH)      (void);
-typedef Bool32  (*RSINITPRGTIME)         (void);
-typedef Bool32  (*RSDONEPRGTIME)         (void);
-typedef Bool32  (*RSDPUMASKIPCOMPONENT)  (void);
-typedef Bool32  (*RSDPUMASKIPTURN)       (void);
-typedef void    (*RSSETRETURNCODE32)     (uint32_t);
-typedef char *  (*RSGETMODULEPATH)       (void);
-typedef void    (*RSSETUPDATE)           (uint32_t, uint32_t);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-#define   RStuffMaxNumLines             2000
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-#define   RS_SVL_FIRST_STEP              0x1
-#define   RS_SVL_SECOND_STEP             0x2
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#define _NO_CFIO
+#define RStuffMaxNumLines             2000
+#define RS_SVL_FIRST_STEP              0x1
+#define RS_SVL_SECOND_STEP             0x2
 // для модулей Михайлова
 #define     RSTUFF_AboutLines_SizeMyBuff    492000
 #define     RSTUFF_AboutLines_SizeWorkMem   180000//165000
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 typedef struct tagRSLinesBuffer {
     void * HLinesBufferA;
     void * VLinefBufferA;
     void * HLinesBufferB;
     void * VLinefBufferB;
 } RSLinesBuffer, *PRSLinesBuffer;
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 #endif //_RSDEFINES_H_
