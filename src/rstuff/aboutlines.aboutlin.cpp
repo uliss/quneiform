@@ -78,163 +78,151 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "aboutlines.buffer.h"
 /*  interface my-my      */
 #include "un_buff.h"
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-static char *Buffer = NULL;/*[SizeMyBuff];*/
-static char *WorkMem = NULL;/*[SizeWorkMem];*/
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
+static char * Buffer = NULL;
+static char * WorkMem = NULL;
+
+enum {
+    RSTUFF_AboutLines_SizeMyBuff = 492000,
+    RSTUFF_AboutLines_SizeWorkMem = 180000
+};
+
 Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 {
-	int SizeMain, SizeWork;
-//	char Str[256];
-//	Bool ret;
-//	LineInfo *pLns;
-//	LinesTotalInfo *pLti;
-	UN_BUFF MainBuff = {0};
-//	void *vLti;
-	void *vMain;
-	char *cWork;
-	Bool32 bRc = TRUE;
+    int SizeMain, SizeWork;
+    UN_BUFF MainBuff = {0};
+    void * vMain;
+    char * cWork;
+    Bool32 bRc = TRUE;
 
-	//////////////////////////////////////////////////////////////////////////////////
-        Buffer  = (char *)RSTUFFAlloc(RSTUFF_AboutLines_SizeMyBuff);
-        WorkMem = (char *)RSTUFFAlloc(RSTUFF_AboutLines_SizeWorkMem);
+    Buffer  = (char*) calloc(1, RSTUFF_AboutLines_SizeMyBuff);
+    WorkMem = (char*) calloc(1, RSTUFF_AboutLines_SizeWorkMem);
 
-	if (Buffer == NULL || WorkMem == NULL )
-	{
-		SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NO_MEMORY);
-		bRc =  FALSE;
-	}
+    if(Buffer == NULL || WorkMem == NULL) {
+        SetReturnCode_rstuff(IDS_RSTUFF_ERR_NO_MEMORY);
+        bRc =  FALSE;
+    }
 
-	if ( bRc )
-		do
-		{
-			//////////////////////////////////////////////////////////////////////////////////////
-			/*  1. Контроль.  */
-			if ((Image->pgneed_clean_line==NULL)&&(BadScan!=NULL))
-				break;
-				//return TRUE;
+    if (bRc) {
+        do {
+            /*  1. Контроль.  */
+            if ((Image->pgneed_clean_line==NULL)&&(BadScan!=NULL))
+                break;
 
-			/*  2. Инициализация.  */
-			vMain = Buffer;
-			SizeMain = RSTUFF_AboutLines_SizeMyBuff;
-			MainBuff.vBuff    = vMain;
-			MainBuff.SizeBuff = SizeMain;
-			MainBuff.vCurr    = MainBuff.vBuff;
-			MainBuff.SizeCurr = MainBuff.SizeBuff;
-			cWork = WorkMem;
-			SizeWork = RSTUFF_AboutLines_SizeWorkMem;
+            /*  2. Инициализация.  */
+            vMain = Buffer;
+            SizeMain = RSTUFF_AboutLines_SizeMyBuff;
+            MainBuff.vBuff    = vMain;
+            MainBuff.SizeBuff = SizeMain;
+            MainBuff.vCurr    = MainBuff.vBuff;
+            MainBuff.SizeCurr = MainBuff.SizeBuff;
+            cWork = WorkMem;
+            SizeWork = RSTUFF_AboutLines_SizeWorkMem;
 
-//		   extern Handle hUseCLine;
-/*		   if(LDPUMA_Skip(hUseCLine))
-		   {
-			//  3. Загружаем первичные данные - линии.
-			ret = LoadData_rv (Image->hCPAGE, UN_LD_LinesVP, (void *)(&MainBuff), Str, 0);
-			if ((ret!=RV_TRUE)&&(ret!=RV_EMPTY))
-			{
-				if (1)
-					LDPUMA_ConsoleN (Str);
+            /*		   if(LDPUMA_Skip(hUseCLine))
+     {
+   //  3. Загружаем первичные данные - линии.
+   ret = LoadData_rv (Image->hCPAGE, UN_LD_LinesVP, (void *)(&MainBuff), Str, 0);
+   if ((ret!=RV_TRUE)&&(ret!=RV_EMPTY))
+   {
+    if (1)
+     LDPUMA_ConsoleN (Str);
 
-				bRc = FALSE;
-				break;
-				//return FALSE;
-			}
-			if (ret==RV_EMPTY)
-			{
-				if (Image->pgneed_clean_line != NULL)
-				{
-					*Image->pgneed_clean_line = FALSE;
-					if (1)
-						LDPUMA_ConsoleN ("RSource: Не надо снимать линии!");
-				}
-				if (BadScan!=NULL)
-				{
-					if (1)
-						LDPUMA_ConsoleN ("RSource: Качество сканирования : не знаю, какое.");
-					*BadScan = TRUE;
-					*ScanQual = 100;
-				}
-				break;
-				//return TRUE;
-			}
-			if (Image->pgneed_clean_line!=NULL)
-			{
-				*Image->pgneed_clean_line = FALSE;
-				ret = GetComplexData_rv (UN_LD_LinesVP, UN_DA_Unknown
-					, (void *)(&MainBuff), &vLti);
-				if ((ret!=RV_TRUE)&&(ret!=RV_EMPTY))
-				{
-					bRc = FALSE;
-					break;
-					//return FALSE;
-				}
-				pLti = (LinesTotalInfo *)vLti;
-				n = pLti->Hor.Cnt;
-				pLns = pLti->Hor.Lns;
-				for (i=0; i<n; i++)
-				{
-					if (pLns[i].Flags & LI_IsTrue)
-						*Image->pgneed_clean_line = TRUE;
-				}
-				n = pLti->Ver.Cnt;
-				pLns = pLti->Ver.Lns;
-				for (i=0; i<n; i++)
-				{
-					if (pLns[i].Flags & LI_IsTrue)
-						*Image->pgneed_clean_line = TRUE;
-				}
-				if (1)
-				{
-					if (*Image->pgneed_clean_line)
-						LDPUMA_ConsoleN ("RSource: Нужно снять линии.");
-					else
-						LDPUMA_ConsoleN ("RSource: Не надо снимать линии!");
-				}
-			}
-		   }
-		   else
-		   {*/
-			if (Image->pgneed_clean_line!=NULL)
-			{
-				*Image->pgneed_clean_line = FALSE;
-				CLINE_handle hCLINE=*((CLINE_handle*)(Image->phCLINE));
-				Bool fl_break=FALSE;
-				for(CLINE_handle hline=CLINE_GetFirstLine(hCLINE);hline;hline=CLINE_GetNextLine(hline))
-				{
-					CPDLine cpdata=CLINE_GetLineData(hline);
-					if(!cpdata)
-						continue;
-					if(cpdata->Flags&LI_IsTrue)
-					{
-						*Image->pgneed_clean_line=TRUE;
-						fl_break=TRUE;
-					}
-					if(fl_break)
-						break;
-				}
-				if (1)
-				{
-					if (*Image->pgneed_clean_line)
-						LDPUMA_ConsoleN ("RSource: Нужно снять линии.");
-					else
-						LDPUMA_ConsoleN ("RSource: Не надо снимать линии!");
-				}
-			}
-//		   }
+    bRc = FALSE;
+    break;
+    //return FALSE;
+   }
+   if (ret==RV_EMPTY)
+   {
+    if (Image->pgneed_clean_line != NULL)
+    {
+     *Image->pgneed_clean_line = FALSE;
+     if (1)
+      LDPUMA_ConsoleN ("RSource: Не надо снимать линии!");
+    }
+    if (BadScan!=NULL)
+    {
+     if (1)
+      LDPUMA_ConsoleN ("RSource: Качество сканирования : не знаю, какое.");
+     *BadScan = TRUE;
+     *ScanQual = 100;
+    }
+    break;
+    //return TRUE;
+   }
+   if (Image->pgneed_clean_line!=NULL)
+   {
+    *Image->pgneed_clean_line = FALSE;
+    ret = GetComplexData_rv (UN_LD_LinesVP, UN_DA_Unknown
+     , (void *)(&MainBuff), &vLti);
+    if ((ret!=RV_TRUE)&&(ret!=RV_EMPTY))
+    {
+     bRc = FALSE;
+     break;
+     //return FALSE;
+    }
+    pLti = (LinesTotalInfo *)vLti;
+    n = pLti->Hor.Cnt;
+    pLns = pLti->Hor.Lns;
+    for (i=0; i<n; i++)
+    {
+     if (pLns[i].Flags & LI_IsTrue)
+      *Image->pgneed_clean_line = TRUE;
+    }
+    n = pLti->Ver.Cnt;
+    pLns = pLti->Ver.Lns;
+    for (i=0; i<n; i++)
+    {
+     if (pLns[i].Flags & LI_IsTrue)
+      *Image->pgneed_clean_line = TRUE;
+    }
+    if (1)
+    {
+     if (*Image->pgneed_clean_line)
+      LDPUMA_ConsoleN ("RSource: Нужно снять линии.");
+     else
+      LDPUMA_ConsoleN ("RSource: Не надо снимать линии!");
+    }
+   }
+     }
+     else
+     {*/
+            if (Image->pgneed_clean_line != NULL) {
+                *Image->pgneed_clean_line = FALSE;
+                CLINE_handle hCLINE = *((CLINE_handle*)(Image->phCLINE));
+                Bool fl_break = FALSE;
+                for(CLINE_handle hline = CLINE_GetFirstLine(hCLINE); hline; hline = CLINE_GetNextLine(hline))
+                {
+                    CPDLine cpdata = CLINE_GetLineData(hline);
+                    if(!cpdata)
+                        continue;
 
-			if (BadScan!=NULL)
-			{
-				if (1)
-					LDPUMA_ConsoleN ("RSource: Качество сканирования : не умею пока определять.");
-				*BadScan = TRUE;
-				*ScanQual = 100;
-			}
-		} while ( false );
+                    if(cpdata->Flags & LI_IsTrue) {
+                        *Image->pgneed_clean_line = TRUE;
+                        fl_break = TRUE;
+                    }
 
-	RSTUFFFree(Buffer);
-	RSTUFFFree(WorkMem);
+                    if(fl_break)
+                        break;
+                }
 
-	return bRc;
+                if (*Image->pgneed_clean_line)
+                    LDPUMA_ConsoleN("RSource: Нужно снять линии.");
+                else
+                    LDPUMA_ConsoleN("RSource: Не надо снимать линии!");
+            }
+            //		   }
+
+            if (BadScan != NULL) {
+                LDPUMA_ConsoleN ("RSource: Качество сканирования : не умею пока определять.");
+                *BadScan = TRUE;
+                *ScanQual = 100;
+            }
+        } while (false);
+    }
+
+    free(Buffer);
+    free(WorkMem);
+
+    return bRc;
 }
-/*----------------------------------------------------------------------------*/

@@ -58,7 +58,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _RSDEFINES_H_
 
 // для модулей Михайлова
-#define     RSTUFF_AboutLines_SizeMyBuff    492000
-#define     RSTUFF_AboutLines_SizeWorkMem   180000//165000
 
 #endif //_RSDEFINES_H_
