@@ -615,31 +615,6 @@ void PumaImpl::preOpenInitialize() {
     setUpdateFlag(FLG_UPDATE);
 }
 
-void PumaImpl::preprocessImage() {
-    uint32_t Angle = 0;
-
-    // Выделим компоненты
-    extractComponents();
-
-    // Проинициализируем контейнер CPAGE
-    PAGEINFO PInfo;
-    GetPageInfo(cpage_, &PInfo);
-    strcpy(PInfo.szImageName, recog_name_);
-    PInfo.BitPerPixel = info_.biBitCount;
-    PInfo.DPIX = info_.biXPelsPerMeter * 254L / 10000;
-    PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;
-    PInfo.DPIY = info_.biYPelsPerMeter * 254L / 10000;
-    PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
-    PInfo.Height = info_.biHeight;
-    PInfo.Width = info_.biWidth;
-    //      PInfo.X = 0; Уже установлено
-    //      PInfo.Y = 0;
-    PInfo.Incline2048 = 0;
-    PInfo.Page = 1;
-    PInfo.Angle = Angle;
-    SetPageInfo(cpage_, PInfo);
-}
-
 void PumaImpl::printResult(std::ostream& os) {
     for (int i = 1, count = CSTR_GetMaxNumber(); i <= count; i++)
         printResultLine(os, i);

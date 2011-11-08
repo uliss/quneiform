@@ -129,7 +129,6 @@ class CLA_EXPO PumaImpl
         void pass2();
         void pass2special();
         void preOpenInitialize();
-        void preprocessImage();
         void printResult(std::ostream& os);
         void printResultLine(std::ostream& os, size_t lineNumber);
         void postOpenInitialize();
