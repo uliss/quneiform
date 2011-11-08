@@ -54,31 +54,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/**********  Заголовок  *******************************************************/
-/*  Автор,                                                                    */
-/*  комментарии                                                               */
-/*  и далнейшая                                                               */
-/*  правка     :  Алексей Коноплев                                            */
-/*  Редакция   :  08.06.00                                                    */
-/*  Файл       :  'RSTimer.cpp'                                               */
-/*  Содержание :  Интерфейс библиотеки                                        */
-/*  Назначение :                                                              */
-/*----------------------------------------------------------------------------*/
 #ifndef _RSDEFINES_H_
 #define _RSDEFINES_H_
 
-#define RStuffMaxNumLines             2000
-#define RS_SVL_FIRST_STEP              0x1
-#define RS_SVL_SECOND_STEP             0x2
 // для модулей Михайлова
 #define     RSTUFF_AboutLines_SizeMyBuff    492000
 #define     RSTUFF_AboutLines_SizeWorkMem   180000//165000
-
-typedef struct tagRSLinesBuffer {
-    void * HLinesBufferA;
-    void * VLinefBufferA;
-    void * HLinesBufferB;
-    void * VLinefBufferB;
-} RSLinesBuffer, *PRSLinesBuffer;
 
 #endif //_RSDEFINES_H_
