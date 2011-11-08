@@ -56,10 +56,8 @@
 
 #ifndef __CTI_MEMORY_H__
 #define __CTI_MEMORY_H__
-#undef _NO_CFIO
 
-#include <string.h>
-
+#include "cttypes.h"
 #include "rsdefines.h"
 
 void RSTUFFComment(const char * Comment);

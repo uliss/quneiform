@@ -65,14 +65,11 @@
 /*  Комментарий:                                                                                   */
 /*                                                                                                 */
 /*-------------------------------------------------------------------------------------------------*/
-// Для использования без CFIO.DLL
-// см файл RSDefines.h
 
 #include "resource.h"
 #include "rsdefines.h"
 #include "rsmemory.h"
 #include "rsfunc.h"
-
 #include "cfio/cfio.h"
 
 uchar* Buffer = NULL;
@@ -80,29 +77,13 @@ uchar* WorkMem = NULL;
 int BufferSize = 0;
 int WorkMemSize = 0;
 
-Bool32 InitCFIOInterface(Bool32 Status) {
-	Bool32 bRet = TRUE;
-
-#ifndef _NO_CFIO
-
-	if (Status == TRUE) {
-		CFIO_Init(NULL, NULL);
-
-	} else {
-		bRet = CFIO_Done();
-	}
-
-#endif //_NO_CFIO
-	return bRet;
-}
-
 #define RSTUFF
-char cCommentBuffer[CFIO_MAX_COMMENT];
+static char cCommentBuffer[CFIO_MAX_COMMENT];
 
 void RSTUFFComment(const char *Comment) {
-        uint32_t Len = strlen(Comment);
-        strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len
-                        : CFIO_MAX_COMMENT - 1));
+    size_t Len = strlen(Comment);
+    strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len
+                                                             : CFIO_MAX_COMMENT - 1));
 }
 
 void * RSTUFFDAlloc(uint32_t stAllocateBlock, const char *Comment) {
@@ -111,53 +92,11 @@ void * RSTUFFDAlloc(uint32_t stAllocateBlock, const char *Comment) {
 }
 
 void * RSTUFFAlloc(uint32_t stAllocateBlock) {
-        char * mem = NULL;
-
-#ifdef _NO_CFIO
-
-#ifdef  RSTUFF_USE_GLOBAL_MEM
-
-        mem = (char *)GlobalAlloc(GPTR, stAllocateBlock);
-
-#else
-
-        mem = ::new char[stAllocateBlock];
-        memset(mem, 0, stAllocateBlock );
-
-#endif
-
-        if(!mem)
-        SetReturnCode_rstuff((uint16_t)IDS_RSTUFF_ERR_NO_MEMORY);
-#else
-
-        mem = (char *) CFIO_DAllocMemory(stAllocateBlock, MAF_GALL_GPTR,
-                        (char*) "RSTUFF", (char*) cCommentBuffer);
-
-        if (!mem)
-                SetReturnCode_rstuff((uint16_t) IDS_RSTUFF_ERR_NO_MEMORY);
-
-#endif
-
-        return mem;
+    return calloc(1, stAllocateBlock);
 }
 
 void RSTUFFFree(void * mem) {
-#ifdef _NO_CFIO
-
-#ifdef  RSTUFF_USE_GLOBAL_MEM
-
-        GlobalFree(mem);
-
-#else
-
-        ::delete [] mem;
-
-#endif
-#else
-
-        CFIO_FreeMemory(mem);
-
-#endif
+    free(mem);
 }
 
 void GiveMainBuff(void **vvBuff, int *Size) {
