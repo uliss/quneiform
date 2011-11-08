@@ -306,15 +306,6 @@ void PumaImpl::getImageInfo(const std::string& image_name) {
         throw PumaException("CIMAGE_GetImageInfo failed");
 }
 
-// Allex
-// добавлены для обратной связи из RStuff
-Bool32 DPumaSkipComponent(void) {
-    return LDPUMA_Skip(hDebugCancelComponent);
-}
-Bool32 DPumaSkipTurn(void) {
-    return LDPUMA_Skip(hDebugCancelTurn);
-}
-
 void PumaImpl::layout() {
     clearAll();
     binarizeImage();
@@ -346,8 +337,6 @@ void PumaImpl::layout() {
     DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
     RSCBProgressPoints CBforRS;
-    CBforRS.pDPumaSkipComponent = (void*) DPumaSkipComponent;
-    CBforRS.pDPumaSkipTurn = (void*) DPumaSkipTurn;
     CBforRS.pSetUpdate = (void*) SetUpdate;
 
     rstuff_->setCallbacks(&CBforRS);

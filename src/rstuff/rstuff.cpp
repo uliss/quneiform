@@ -35,7 +35,7 @@ RStuff::RStuff() :
     buffer_main_(NULL),
     buffer_work_(NULL)
 {
-    if(!RSTUFF_Init(PUMA_MODULE_RSTUFF, NULL))
+    if(!RSTUFF_Init(PUMA_MODULE_RSTUFF))
         std::cerr << BOOST_CURRENT_FUNCTION << " failed." << std::endl;
 
     buffer_main_ = new uchar[MAIN_BUF_SIZE];
@@ -61,8 +61,7 @@ void RStuff::normalize()
 
 void RStuff::setCallbacks(RSCBProgressPoints * cb)
 {
-    if(!SetCBProgressPoints(cb))
-        std::cerr << BOOST_CURRENT_FUNCTION << " failed." << std::endl;
+    SetCBProgressPoints(cb);
 }
 
 void RStuff::setImageData(RSPreProcessImage * imageData)

@@ -135,7 +135,7 @@ Handle hDebugPrintResolution;
 int KVO = 1;
 int move;
 
-Bool32 RSTUFF_Init(uint16_t wHeightCode,Handle hStorage)
+Bool32 RSTUFF_Init(uint16_t wHeightCode)
 {
     Bool32 rc = TRUE;
 
@@ -143,10 +143,10 @@ Bool32 RSTUFF_Init(uint16_t wHeightCode,Handle hStorage)
 
     LDPUMA_Init(0, NULL);
 
-    if(!SMetric_Init (wHeightCode, hStorage))
+    if(!SMetric_Init (wHeightCode, NULL))
         return FALSE;
 
-    rc = RLINE_Init(PUMA_MODULE_RLINE, hStorage);
+    rc = RLINE_Init(PUMA_MODULE_RLINE, NULL);
 
     if(!rc)
         return FALSE;

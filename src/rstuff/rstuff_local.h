@@ -22,7 +22,7 @@
 #include "cttypes.h"
 #include "rstuff_struct.h"
 
-Bool32 RSTUFF_Init(uint16_t wHeightCode, Handle hStorage);
+Bool32 RSTUFF_Init(uint16_t wHeightCode);
 Bool32 RSTUFF_Done();
 
 /*  Описание функций  */

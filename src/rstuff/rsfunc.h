@@ -132,7 +132,7 @@ void ReSetMem(void);
 //Bool32    ReadSVLFromPageContainer     ( PRSPreProcessImage, void * );
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // калбэки
-Bool32 SetCBProgressPoints(PRSCBProgressPoints);
+void SetCBProgressPoints(PRSCBProgressPoints);
 //
 #define DEC_CB_TYPE(a)  PF##a
 #define DEC_CB_FUN(a,b,c) typedef a (*DEC_CB_TYPE(b))c; a b c;

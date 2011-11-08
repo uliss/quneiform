@@ -59,10 +59,7 @@ struct RSPreProcessImage {
 typedef RSPreProcessImage * PRSPreProcessImage;
 
 struct RSCBProgressPoints {
-    void * pDPumaSkipComponent;
-    void * pDPumaSkipTurn;
     void * pSetUpdate;
-    void * pGetModulePath;
 };
 
 typedef RSCBProgressPoints * PRSCBProgressPoints;

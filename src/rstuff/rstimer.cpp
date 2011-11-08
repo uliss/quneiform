@@ -69,11 +69,8 @@
 #include "rsfunc.h"
 #include "rstuff_struct.h"
 
-Bool32 SetCBProgressPoints(PRSCBProgressPoints pData) {
+void SetCBProgressPoints(PRSCBProgressPoints pData) {
         ProgressPoints.pSetUpdate = pData->pSetUpdate;
-        ProgressPoints.pDPumaSkipComponent = pData->pDPumaSkipComponent;
-        ProgressPoints.pDPumaSkipTurn = pData->pDPumaSkipTurn;
-	return true;
 }
 #define DEF_CB_FUNC(a,b,c,d,e)       a b c \
 {\
