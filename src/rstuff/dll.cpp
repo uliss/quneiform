@@ -172,12 +172,6 @@ Bool32 RSTUFF_Done()
     return TRUE;
 }
 
-Bool32 RSTUFF_RSBinarise()
-{
-    SetReturnCode_rstuff(0);
-    return Binarise();
-}
-
 Bool32 RSTUFF_RSNormalise(PRSPreProcessImage Image,void* vBuff,int Size,void* vWork,int SizeWork)
 {
     SetReturnCode_rstuff(0);

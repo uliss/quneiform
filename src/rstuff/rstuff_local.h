@@ -19,36 +19,13 @@
 #ifndef RSTUFF_LOCAL_H
 #define RSTUFF_LOCAL_H
 
-#include "globus.h"
+#include "cttypes.h"
 #include "rstuff_struct.h"
-
-#ifdef __RSTUFF__
-#define RSTUFF_FUNC  FUN_EXPO__
-#else
-#define RSTUFF_FUNC  FUN_IMPO__
-#endif
 
 Bool32 RSTUFF_Init(uint16_t wHeightCode, Handle hStorage);
 Bool32 RSTUFF_Done();
 
-typedef enum {
-    RSTUFF_FN_RSBinarise = 1,
-    RSTUFF_FN_RSNormalise,
-    RSTUFF_FN_RSLayout,
-    RSTUFF_FN_RSSetSpecPrj
-} RSTUFF_EXPORT_ENTRIES;
-
-typedef enum {
-    RSTUFF_FN_SetProgresspoints = 128,
-    RSTUFF_FN_SetProgressStart,
-    RSTUFF_FN_SetProgressStep,
-    RSTUFF_FN_SetProgressFinish,
-    RSTUFF_FN_SetInitPRGTIME,
-    RSTUFF_FN_SetDPumaSkipComponent
-} RSTUFF_IMPORT_ENTRIES;
-
 /*  Описание функций  */
-Bool32 RSTUFF_RSBinarise(void);
 Bool32 RSTUFF_RSNormalise(PRSPreProcessImage, void* vBuff, int Size, void* vWork, int SizeWork);
 Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage);
 Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage);

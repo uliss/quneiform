@@ -50,7 +50,7 @@ RStuff::~RStuff() {
 
 void RStuff::binarise()
 {
-    RSTUFF_RSBinarise();
+    Binarise();
 }
 
 void RStuff::normalize()
