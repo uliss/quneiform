@@ -36,8 +36,6 @@ add_library(cuneiform-rstuff ${LIBTYPE}
 
 cif_visibility_hidden(cuneiform-rstuff)
 
-set_property(TARGET cuneiform-rstuff PROPERTY COMPILE_DEFINITIONS __RSTUFF__)
-
 target_link_libraries(cuneiform-rstuff
     cuneiform-cimage
     cuneiform-cpage

@@ -133,7 +133,6 @@ Handle hDebugPreprocess;
 Handle hDebugPrintResolution;
 
 int KVO = 1;
-int move;
 
 Bool32 RSTUFF_Init(uint16_t wHeightCode)
 {

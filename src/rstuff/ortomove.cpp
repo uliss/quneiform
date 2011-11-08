@@ -66,13 +66,12 @@
 #include "dpuma.h"
 #include "rdib/ctdib.h"
 #include "rsfunc.h"
-#include "cfio/cfio.h"
 #include "puma/pumadef.h"
 #include "cline/cline.h"
 
 #include "cfcompat.h"
 
-extern int move;
+static int move;
 extern Handle OrtMove;
 void CopyMove(uchar* newpmasp, uchar* oldpmasp, int newbytewide,
 		int oldbytewide, int num_str, int move);
