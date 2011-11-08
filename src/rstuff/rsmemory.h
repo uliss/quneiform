@@ -57,9 +57,10 @@
 #ifndef __CTI_MEMORY_H__
 #define __CTI_MEMORY_H__
 
-#include <cstddef>
-
-void * RSTUFFAlloc(size_t stAllocateBlock);
-void RSTUFFFree(void * mem);
+void GiveMainBuff(void **vvBuff, int *Size);
+void GiveWorkBuff(char **ccBuff, int *Size);
+void SetMainBuff(void *vBuff, int Size);
+void SetWorkBuff(void *vBuff, int Size);
+void ReSetMem(void);
 
 #endif

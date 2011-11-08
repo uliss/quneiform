@@ -54,21 +54,14 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <cstddef>
+
 #include "rsmemory.h"
-#include "rsfunc.h"
 
-uchar* Buffer = NULL;
-uchar* WorkMem = NULL;
-int BufferSize = 0;
-int WorkMemSize = 0;
-
-void * RSTUFFAlloc(size_t stAllocateBlock) {
-    return calloc(1, stAllocateBlock);
-}
-
-void RSTUFFFree(void * mem) {
-    free(mem);
-}
+static void * Buffer = NULL;
+static void * WorkMem = NULL;
+static int BufferSize = 0;
+static int WorkMemSize = 0;
 
 void GiveMainBuff(void **vvBuff, int *Size) {
     *vvBuff = Buffer;
@@ -81,12 +74,12 @@ void GiveWorkBuff(char **ccBuff, int *Size) {
 }
 
 void SetMainBuff(void *vBuff, int Size) {
-    Buffer = (uchar*) vBuff;
+    Buffer = vBuff;
     BufferSize = Size;
 }
 
 void SetWorkBuff(void *vBuff, int Size) {
-    WorkMem = (uchar*) vBuff;
+    WorkMem = vBuff;
     WorkMemSize = Size;
 }
 
