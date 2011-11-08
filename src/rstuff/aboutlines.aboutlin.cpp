@@ -98,8 +98,8 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 	Bool32 bRc = TRUE;
 
 	//////////////////////////////////////////////////////////////////////////////////
-	Buffer  = (char *)RSTUFFDAlloc(RSTUFF_AboutLines_SizeMyBuff,"Буфер в AboutLines");
-	WorkMem = (char *)RSTUFFDAlloc(RSTUFF_AboutLines_SizeWorkMem,"Рабочий буфер в AboutLines");
+        Buffer  = (char *)RSTUFFAlloc(RSTUFF_AboutLines_SizeMyBuff);
+        WorkMem = (char *)RSTUFFAlloc(RSTUFF_AboutLines_SizeWorkMem);
 
 	if (Buffer == NULL || WorkMem == NULL )
 	{

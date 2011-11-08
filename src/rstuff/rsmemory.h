@@ -57,12 +57,11 @@
 #ifndef __CTI_MEMORY_H__
 #define __CTI_MEMORY_H__
 
-#include "cttypes.h"
+#include <cstddef>
+
 #include "rsdefines.h"
 
-void RSTUFFComment(const char * Comment);
-void * RSTUFFAlloc(uint32_t stAllocateBlock);
-void * RSTUFFDAlloc(uint32_t stAllocateBlock, const char * Comment);
+void * RSTUFFAlloc(size_t stAllocateBlock);
 void RSTUFFFree(void * mem);
 
 #endif

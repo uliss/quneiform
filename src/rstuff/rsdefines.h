@@ -67,7 +67,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _RSDEFINES_H_
 #define _RSDEFINES_H_
 
-#define _NO_CFIO
 #define RStuffMaxNumLines             2000
 #define RS_SVL_FIRST_STEP              0x1
 #define RS_SVL_SECOND_STEP             0x2

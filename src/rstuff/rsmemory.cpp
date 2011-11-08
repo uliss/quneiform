@@ -54,44 +54,15 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**********  Заголовок  ****************************************************************************/
-/*  Автор,                                                                                         */
-/*  комментарии                                                                                    */
-/*  правка     : Алексей Коноплёв                                                                  */
-/*  Редакция   :  20.10.00                                                                         */
-/*  Файл       :  'RSMemory.cpp'                                                                   */
-/*  Содержание :                                                                                   */
-/*  Назначение :                                                                                   */
-/*  Комментарий:                                                                                   */
-/*                                                                                                 */
-/*-------------------------------------------------------------------------------------------------*/
-
-#include "resource.h"
-#include "rsdefines.h"
 #include "rsmemory.h"
 #include "rsfunc.h"
-#include "cfio/cfio.h"
 
 uchar* Buffer = NULL;
 uchar* WorkMem = NULL;
 int BufferSize = 0;
 int WorkMemSize = 0;
 
-#define RSTUFF
-static char cCommentBuffer[CFIO_MAX_COMMENT];
-
-void RSTUFFComment(const char *Comment) {
-    size_t Len = strlen(Comment);
-    strncpy(cCommentBuffer, Comment, (Len < CFIO_MAX_COMMENT ? Len
-                                                             : CFIO_MAX_COMMENT - 1));
-}
-
-void * RSTUFFDAlloc(uint32_t stAllocateBlock, const char *Comment) {
-        RSTUFFComment(Comment);
-        return RSTUFFAlloc(stAllocateBlock);
-}
-
-void * RSTUFFAlloc(uint32_t stAllocateBlock) {
+void * RSTUFFAlloc(size_t stAllocateBlock) {
     return calloc(1, stAllocateBlock);
 }
 
@@ -100,27 +71,28 @@ void RSTUFFFree(void * mem) {
 }
 
 void GiveMainBuff(void **vvBuff, int *Size) {
-	*vvBuff = Buffer;
-	*Size = BufferSize;
+    *vvBuff = Buffer;
+    *Size = BufferSize;
 }
+
 void GiveWorkBuff(char **ccBuff, int *Size) {
-	*ccBuff = (char*) WorkMem;
-	*Size = WorkMemSize;
+    *ccBuff = (char*) WorkMem;
+    *Size = WorkMemSize;
 }
 
 void SetMainBuff(void *vBuff, int Size) {
-	Buffer = (uchar*) vBuff;
-	BufferSize = Size;
+    Buffer = (uchar*) vBuff;
+    BufferSize = Size;
 }
 
 void SetWorkBuff(void *vBuff, int Size) {
-	WorkMem = (uchar*) vBuff;
-	WorkMemSize = Size;
+    WorkMem = (uchar*) vBuff;
+    WorkMemSize = Size;
 }
 
 void ReSetMem() {
-	Buffer = NULL;
-	BufferSize = 0;
-	WorkMem = NULL;
-	WorkMemSize = 0;
+    Buffer = NULL;
+    BufferSize = 0;
+    WorkMem = NULL;
+    WorkMemSize = 0;
 }
