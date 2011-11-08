@@ -54,27 +54,10 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/**********  Заголовок  *******************************************************/
-/*  Автор,                                                                    */
-/*  комментарии                                                               */
-/*  и далнейшая                                                               */
-/*  правка     :  Алексей Коноплев                                            */
-/*  Редакция   :  08.06.00                                                    */
-/*  Файл       :  'Normalise.cpp'                                             */
-/*  Содержание :  Нормализация сырья                                          */
-/*  Назначение :                                                              */
-/*----------------------------------------------------------------------------*/
+#include "cttypes.h"
 
-#include <stdio.h>
-#include <string.h>
-#include "rsdefines.h"
-#include "rsfunc.h"
-#include "rsglobaldata.h"
-#include "puma/pumadef.h"
-////////////////////////////////////////////////////////////////////////////////
-// Нормализация сырья
-// (07.07.2000) Изначально взято из puma.dll без изменений
-Bool32 Binarise( void )
+// TODO - dummy function call
+Bool32 Binarise(void)
 {
-	return false;
+    return false;
 }

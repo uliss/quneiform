@@ -1,5 +1,4 @@
 set(RSTUFF_HEADERS
-    rsdefines.h
     rsfunc.h
     rsglobaldata.h
     rstuff_local.h

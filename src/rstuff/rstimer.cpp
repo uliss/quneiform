@@ -65,7 +65,6 @@
 /*  Назначение :                                                              */
 /*----------------------------------------------------------------------------*/
 #include "rsglobaldata.h"
-#include "rsdefines.h"
 #include "rsfunc.h"
 #include "rstuff_struct.h"
 

@@ -69,7 +69,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 #include "cttypes.h"
-#include "rsdefines.h"
 #include "cimage/ctiimage.h"
 #include "ccom/ccomdefs.h"
 #include "lns/lnsdefs.h"

@@ -59,8 +59,6 @@
 
 #include <cstddef>
 
-#include "rsdefines.h"
-
 void * RSTUFFAlloc(size_t stAllocateBlock);
 void RSTUFFFree(void * mem);
 
