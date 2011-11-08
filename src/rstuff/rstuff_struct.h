@@ -23,6 +23,7 @@
 #include "common/rect.h"
 
 struct CCOM_cont;
+struct BitmapInfoHeader;
 
 struct RSPreProcessImage {
     puchar * pgpRecogDIB;
@@ -44,7 +45,7 @@ struct RSPreProcessImage {
     Handle hDebugEnableSearchSegment;
     const char ** pglpRecogName;
     CCOM_cont ** phCCOM;
-    void * pinfo;
+    BitmapInfoHeader * pinfo;
     Handle* phLinesCCOM;
     void * phCLINE;
     PBool32 pgneed_clean_line;
