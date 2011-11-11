@@ -66,7 +66,6 @@
 #include "crimemory.h"
 #include "cricontrol.h"
 #include "criimage.h"
-//#include "dpuma.h"
 #include "compat_defs.h"
 
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
@@ -77,18 +76,11 @@ static Handle ghInst = NULL;
 CRIControl * Control_cri = NULL;
 static int32_t InitCount = 0;
 
-Bool32 InitCFIOInterface(Bool32 Status);
-
 RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode, Handle hStorage)
 {
-    if ( !Control_cri ) {
-        if ( InitCFIOInterface(TRUE) ) {
-            Control_cri = new CRIControl;
-            gwHeightRC = wHeightCode;
-        }
-
-        else
-            return FALSE;
+    if (!Control_cri ) {
+        Control_cri = new CRIControl;
+        gwHeightRC = wHeightCode;
     }
 
     if ( Control_cri ) {
@@ -103,11 +95,10 @@ RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode, Handle hStorage)
 //
 RIMAGE_FUNC(Bool32)RIMAGE_Done()
 {
-    if ( Control_cri ) {
+    if (Control_cri) {
         if (--InitCount == 0) {
             delete Control_cri;
             Control_cri = NULL;
-            InitCFIOInterface(FALSE);
         }
 
         return TRUE;

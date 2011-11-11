@@ -55,36 +55,18 @@
  */
 
 #include <cstdlib>
+#include <string>
 
 #include "resource.h"
 #include "cridefines.h"
 #include "criimage.h"
 #include "crimemory.h"
-#include "cfio/cfio.h"
 
-Bool32 InitCFIOInterface(Bool32 Status)
-{
-    Bool32 bRet = TRUE;
-
-    if (Status == TRUE) {
-        CFIO_Init(NULL, NULL);
-    }
-
-    else {
-        bRet = CFIO_Done();
-    }
-
-    return bRet;
-}
-
-char cCommentBuffer[CFIO_MAX_COMMENT];
+static std::string cCommentBuffer;
 
 void RIMAGEComment(const char *Comment)
 {
-    uint32_t Len = strlen(Comment);
-    Len = Len < CFIO_MAX_COMMENT ? Len : CFIO_MAX_COMMENT - 1;
-    strncpy(cCommentBuffer, Comment, Len);
-    cCommentBuffer[Len] = 0x0;
+     cCommentBuffer = Comment;
 }
 
 void * RIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment)
