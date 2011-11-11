@@ -46,4 +46,9 @@ target_link_libraries(cuneiform-rstuff
     cuneiform-exc
 )
 
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-rstuff UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
+endif()
+
 library_hook(cuneiform-rstuff)

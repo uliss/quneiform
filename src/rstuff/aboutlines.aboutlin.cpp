@@ -88,10 +88,8 @@ enum {
 
 Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 {
-    int SizeMain, SizeWork;
     UN_BUFF MainBuff = {0};
     void * vMain;
-    char * cWork;
     Bool32 bRc = TRUE;
 
     Buffer  = (char*) calloc(1, RSTUFF_AboutLines_SizeMyBuff);
@@ -110,13 +108,11 @@ Bool32 AboutLines (PRSPreProcessImage Image, Bool32 *BadScan, int32_t *ScanQual)
 
             /*  2. Инициализация.  */
             vMain = Buffer;
-            SizeMain = RSTUFF_AboutLines_SizeMyBuff;
+            int SizeMain = RSTUFF_AboutLines_SizeMyBuff;
             MainBuff.vBuff    = vMain;
             MainBuff.SizeBuff = SizeMain;
             MainBuff.vCurr    = MainBuff.vBuff;
             MainBuff.SizeCurr = MainBuff.SizeBuff;
-            cWork = WorkMem;
-            SizeWork = RSTUFF_AboutLines_SizeWorkMem;
 
             /*		   if(LDPUMA_Skip(hUseCLine))
      {

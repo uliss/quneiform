@@ -430,7 +430,6 @@ Bool32 KillLines(PRSPreProcessImage Image) {
 }
 
 Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
-	Handle hccom = *Image->phCCOM;
 	Handle hcpage = Image->hCPAGE;
 	Handle *hLinesCCOM = Image->phLinesCCOM;
 
@@ -439,7 +438,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 	*hLinesCCOM = NULL;
 	CCOM_comp *victim[100];
 	int32_t nvict, i;
-	Bool32 yes_victim = FALSE;
+        Bool32 yes_victim = FALSE;
 	//
 	// Удалим линии
 	//
@@ -498,7 +497,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 					SetReturnCode_rstuff(REXC_GetReturnCode());
 					rc = FALSE;
 				}
-				hccom = *Image->phCCOM;
+
 				if (*hLinesCCOM) {
 					//
 					// Refersh CCOM
@@ -709,8 +708,8 @@ Bool32 comp_over(CCOM_comp *sour, CCOM_comp *cur) {
 //
 Bool32 CalcIncline(PRSPreProcessImage Image) {
 	int SizeWork, SizeMain;
-	char Str[256];
-	Bool ret, WasLine, ManyComp;
+        char Str[256] = {0};
+        Bool ret, ManyComp;
 	Bool CalcMuchSkew, TalkMuchSkew;
 	uint16_t Code;
 	int32_t SkewReg, Skew, SkewLocVerLin;
@@ -725,8 +724,6 @@ Bool32 CalcIncline(PRSPreProcessImage Image) {
 	GetPageInfo(hCPage, &info);
 
 	/*  2. Инициализация.  */
-	/***  переменные  ***/
-	WasLine = 0;
 	/***  организация памяти  ***/
 	GiveMainBuff(&vMain, &SizeMain);
 	MainBuff.vBuff = vMain;
@@ -743,7 +740,7 @@ Bool32 CalcIncline(PRSPreProcessImage Image) {
 		SetReturnCode_rstuff(Code);
 		return ret;
 	}
-	WasLine = (ret == RV_TRUE);
+
 	/***  компоненты  ***/
 	ret = LoadComps_rv(*(Image->phCCOM), (void *) (&MainBuff), Str, 0); //t-e-d
 	if (ret == RV_DOUBT) {

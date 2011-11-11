@@ -106,11 +106,7 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 	CLINE_handle* pCLINE = (CLINE_handle*) phCLINE;
 	MyLine* pHorLines = NULL;
 	MyLine* pVerLines = NULL;
-	int nHorLines = 0;
-	int nVerLines = 0;
-	int len_hor_mas = 0;
-	int len_ver_mas = 0;
-	int add_len_mas = 50;
+
 	if (!LDPUMA_Skip(NotKillPointed))
 		fl_not_kill_pointed = TRUE;
 	else
@@ -121,7 +117,6 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 	CIMAGEIMAGECALLBACK cbk1;
 	PAGEINFO info; // Описание страницы
 	int i;
-	Bool fl_cont;
 	char ImageName[CPAGE_MAXNAME];
 	// Получаем PAGEINFO текущей страницы
 	GetPageInfo(hCPage, &info);
@@ -168,6 +163,12 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 		}
 	} else//тривиальное снятие линий
 	{
+            int nHorLines = 0;
+            int nVerLines = 0;
+            int len_hor_mas = 0;
+            int len_ver_mas = 0;
+            int add_len_mas = 50;
+
 		hline = CLINE_GetFirstLine(*pCLINE);
 		nHorLines = 0;
 		len_hor_mas = 50;
@@ -190,7 +191,7 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 
 		while (hline) {
 			CPDLine cpdata;
-			fl_cont = FALSE;
+                        Bool fl_cont = FALSE;
 			cpdata = CLINE_GetLineData(hline);
 			if (!cpdata)
 				hline = CLINE_GetNextLine(hline);
@@ -850,8 +851,8 @@ Bool DelLineFromInside(uchar* pmasp, const int bytewide, int num_str,
 	int end_str = num_str - 1;
 	int endw = (bytewide << 3) - 1;
 	int byte_count = end_str * bytewide;
-	int size_t;
-	// int j;
+        int size_type;
+
 	uchar* pmaspend = pmasp + bytewide * num_str;
 
 	data_line = CLINE_GetLineData(hline);
@@ -914,7 +915,7 @@ Bool DelLineFromInside(uchar* pmasp, const int bytewide, int num_str,
 					 */
 					p0 = pmasp + (Level + (Beg >> 3));
 					p = pmasp + (Level + (End >> 3));
-					size_t = p - p0 - 1;
+                                        size_type = p - p0 - 1;
 					pUp = p - bytewide;
 					pDown = p + bytewide;
 					if (pUp < pmasp)
@@ -999,13 +1000,13 @@ Bool DelLineFromInside(uchar* pmasp, const int bytewide, int num_str,
 						 (*pDown)=255;
 						 }
 						 */
-						if (size_t > 0) {
-							p -= size_t;
-							pUp -= size_t;
-							pDown -= size_t;
-							memset(p, 255, size_t);
-							memset(pUp, 255, size_t);
-							memset(pDown, 255, size_t);
+                                                if (size_type > 0) {
+                                                        p -= size_type;
+                                                        pUp -= size_type;
+                                                        pDown -= size_type;
+                                                        memset(p, 255, size_type);
+                                                        memset(pUp, 255, size_type);
+                                                        memset(pDown, 255, size_type);
 						}
 
 						if (p > p0) {
@@ -1087,7 +1088,7 @@ Bool DelLineFromInside(uchar* pmasp, const int bytewide, int num_str,
 					 */
 					p0 = pmasp + (Level + (Beg >> 3));
 					p = pmasp + (Level + (End >> 3));
-					size_t = p - p0 - 1;
+                                        size_type = p - p0 - 1;
 					pUp = p - bytewide;
 					pDown = p + bytewide;
 					// Beg Almi 12-08-2003
@@ -1169,13 +1170,13 @@ Bool DelLineFromInside(uchar* pmasp, const int bytewide, int num_str,
 						 (*pDown)=255;
 						 }
 						 */
-						if (size_t > 0) {
-							p -= size_t;
-							pUp -= size_t;
-							pDown -= size_t;
-							memset(p, 255, size_t);
-							memset(pUp, 255, size_t);
-							memset(pDown, 255, size_t);
+                                                if (size_type > 0) {
+                                                        p -= size_type;
+                                                        pUp -= size_type;
+                                                        pDown -= size_type;
+                                                        memset(p, 255, size_type);
+                                                        memset(pUp, 255, size_type);
+                                                        memset(pDown, 255, size_type);
 						}
 
 						if (p > p0) {
