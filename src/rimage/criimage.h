@@ -60,9 +60,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "globus.h"
 
 #ifdef __RIMAGE__
-#define RIMAGE_FUNC(a)  FUN_EXPO(a)
+#define RIMAGE_FUNC  FUN_EXPO__
 #else
-#define RIMAGE_FUNC(a)  FUN_IMPO(a)
+#define RIMAGE_FUNC  FUN_IMPO__
 #endif
 
 enum {
@@ -78,13 +78,13 @@ typedef struct tag_RIMAGE_MARGINS {
     uint32_t    rmBottomMarg;
 }   RIMAGEMARGINS, *PRIMAGEMARGINS, **PPRIMAGEMARGINS;
 
-RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode, Handle hStorage);
-RIMAGE_FUNC(Bool32) RIMAGE_Done();
-RIMAGE_FUNC(Bool32) RIMAGE_Reset();
-RIMAGE_FUNC(uint32_t) RIMAGE_GetReturnCode();
-RIMAGE_FUNC(char *) RIMAGE_GetReturnString(uint32_t dwError);
-RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(uint32_t dwType, void * pData);
-RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(uint32_t dwType, void * pData);
+RIMAGE_FUNC Bool32 RIMAGE_Init(uint16_t wHeightCode, Handle hStorage);
+RIMAGE_FUNC Bool32 RIMAGE_Done();
+RIMAGE_FUNC Bool32 RIMAGE_Reset();
+RIMAGE_FUNC uint32_t RIMAGE_GetReturnCode();
+RIMAGE_FUNC char * RIMAGE_GetReturnString(uint32_t dwError);
+RIMAGE_FUNC Bool32 RIMAGE_GetExportData(uint32_t dwType, void * pData);
+RIMAGE_FUNC Bool32 RIMAGE_SetImportData(uint32_t dwType, void * pData);
 
 typedef enum {
     RIMAGE_FN_SetMargins = 1,
@@ -108,7 +108,7 @@ typedef enum {
     RIMAGE_FN_SetProgressFinish
 } RIMAGE_IMPORT_ENTRIES;
 
-#define DEC_FUN(a,b,c) typedef a (*FNRIMAGE##b)c; RIMAGE_FUNC(a) RIMAGE_##b c
+#define DEC_FUN(a,b,c) typedef a (*FNRIMAGE##b)c; RIMAGE_FUNC a RIMAGE_##b c
 DEC_FUN(Bool32,  SetMargins,           (PRIMAGEMARGINS));
 DEC_FUN(Bool32,  Binarise,             (const char * , const char * , uint32_t, uint32_t));
 DEC_FUN(Bool32,  Rotate,               (puchar , puchar , int32_t, int32_t, uint32_t));

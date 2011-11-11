@@ -62,6 +62,7 @@
 // ============================================================================
 
 #include "resource.h"
+
 #include "crimemory.h"
 #include "cricontrol.h"
 #include "criimage.h"
@@ -75,7 +76,7 @@ static Handle ghInst = NULL;
 CRIControl * Control_cri = NULL;
 static int32_t InitCount = 0;
 
-RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode, Handle hStorage)
+Bool32 RIMAGE_Init(uint16_t wHeightCode, Handle hStorage)
 {
     if (!Control_cri ) {
         Control_cri = new CRIControl;
@@ -90,9 +91,8 @@ RIMAGE_FUNC(Bool32) RIMAGE_Init(uint16_t wHeightCode, Handle hStorage)
     SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
     return FALSE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RIMAGE_FUNC(Bool32)RIMAGE_Done()
+
+Bool32 RIMAGE_Done()
 {
     if (Control_cri) {
         if (--InitCount == 0) {
@@ -105,9 +105,8 @@ RIMAGE_FUNC(Bool32)RIMAGE_Done()
 
     return FALSE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RIMAGE_FUNC(Bool32)RIMAGE_Reset()
+
+Bool32 RIMAGE_Reset()
 {
     if ( Control_cri ) {
         if (InitCount == 1) {
@@ -119,9 +118,8 @@ RIMAGE_FUNC(Bool32)RIMAGE_Reset()
 
     return FALSE;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RIMAGE_FUNC(uint32_t) RIMAGE_GetReturnCode()
+
+uint32_t RIMAGE_GetReturnCode()
 {
     if ( !gwLowRC )
         return 0;
@@ -138,9 +136,8 @@ char * RIMAGE_GetReturnString(uint32_t dwError)
 }
 
 #define CASE_FUNCTION(a)    case RIMAGE_FN_##a: *(FNRIMAGE##a *)pData = RIMAGE_##a; break
-//////////////////////////////////////////////////////////////////////////////////
-//
-RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(uint32_t dwType, void * pData)
+
+Bool32 RIMAGE_GetExportData(uint32_t dwType, void * pData)
 {
     Bool32 rc = TRUE;
     gwLowRC = 0;
@@ -159,9 +156,8 @@ RIMAGE_FUNC(Bool32) RIMAGE_GetExportData(uint32_t dwType, void * pData)
 
     return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
-RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(uint32_t dwType, void * pData)
+
+Bool32 RIMAGE_SetImportData(uint32_t dwType, void * pData)
 {
     Bool rc = FALSE;
     gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
@@ -186,18 +182,14 @@ RIMAGE_FUNC(Bool32) RIMAGE_SetImportData(uint32_t dwType, void * pData)
 
     return rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 void SetReturnCode_rimage(uint16_t rc)
 {
     if (rc == IDS_RIMAGE_ERR_NO || gwLowRC == IDS_RIMAGE_ERR_NO)
         gwLowRC = rc;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//
+
 uint16_t GetReturnCode_rimage()
 {
     return gwLowRC;
 }
-//////////////////////////////////////////////////////////////////////////////////
-//end of file
