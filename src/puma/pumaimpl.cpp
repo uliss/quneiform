@@ -467,7 +467,7 @@ void PumaImpl::modulesInit() {
         if (!RSTR_Init(PUMA_MODULE_RSTR, NULL))
             throw PumaException("RSTR_Init failed.");
 
-        if (!RIMAGE_Init(PUMA_MODULE_RIMAGE, NULL))
+        if (!RIMAGE_Init(PUMA_MODULE_RIMAGE))
             throw PumaException("RIMAGE_Init failed.");
 
         // Инициализируем виртуальные функции

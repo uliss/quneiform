@@ -71,19 +71,18 @@ enum {
     RIMAGE_TURN_180 = 3
 };
 
-typedef struct tag_RIMAGE_MARGINS {
+struct RIMAGEMARGINS {
     uint32_t    rmLeftMarg;
     uint32_t    rmTopMarg;
     uint32_t    rmRightMarg;
     uint32_t    rmBottomMarg;
-}   RIMAGEMARGINS, *PRIMAGEMARGINS, **PPRIMAGEMARGINS;
+};
 
-RIMAGE_FUNC Bool32 RIMAGE_Init(uint16_t wHeightCode, Handle hStorage);
+typedef RIMAGEMARGINS * PRIMAGEMARGINS;
+
+RIMAGE_FUNC Bool32 RIMAGE_Init(uint16_t wHeightCode);
 RIMAGE_FUNC Bool32 RIMAGE_Done();
 RIMAGE_FUNC Bool32 RIMAGE_Reset();
-RIMAGE_FUNC uint32_t RIMAGE_GetReturnCode();
-RIMAGE_FUNC char * RIMAGE_GetReturnString(uint32_t dwError);
-RIMAGE_FUNC Bool32 RIMAGE_GetExportData(uint32_t dwType, void * pData);
 RIMAGE_FUNC Bool32 RIMAGE_SetImportData(uint32_t dwType, void * pData);
 
 typedef enum {
@@ -106,17 +105,15 @@ typedef enum {
     RIMAGE_FN_SetProgressStart = 32,
     RIMAGE_FN_SetProgressStep,
     RIMAGE_FN_SetProgressFinish
-} RIMAGE_IMPORT_ENTRIES;
+} RIMAGE_IMPOR_ENTRIES;
 
-#define DEC_FUN(a,b,c) typedef a (*FNRIMAGE##b)c; RIMAGE_FUNC a RIMAGE_##b c
-DEC_FUN(Bool32,  SetMargins,           (PRIMAGEMARGINS));
-DEC_FUN(Bool32,  Binarise,             (const char * , const char * , uint32_t, uint32_t));
-DEC_FUN(Bool32,  Rotate,               (puchar , puchar , int32_t, int32_t, uint32_t));
-DEC_FUN(Bool32,  Roll,                 (puchar , puchar , int32_t, int32_t, uint32_t));
-DEC_FUN(Bool32,  Turn,                 (const char * , const char *, uint32_t, uint32_t));
-DEC_FUN(Bool32,  Inverse,              (puchar , puchar , uint32_t));
-DEC_FUN(Bool32,  SetProgressCB,        (PRIMAGECBPRogressStart, PRIMAGECBPRogressStep , PRIMAGECBPRogressFinish));
-DEC_FUN(Bool32,  RotatePoint,          (puchar , int32_t, int32_t, int32_t *, int32_t *));
-#undef DEC_FUN
+RIMAGE_FUNC Bool32 RIMAGE_SetMargins(PRIMAGEMARGINS);
+RIMAGE_FUNC Bool32 RIMAGE_Binarise(const char * , const char * , uint32_t, uint32_t);
+RIMAGE_FUNC Bool32 RIMAGE_Rotate(puchar , puchar , int32_t, int32_t, uint32_t);
+RIMAGE_FUNC Bool32 RIMAGE_Roll(puchar , puchar , int32_t, int32_t, uint32_t);
+RIMAGE_FUNC Bool32 RIMAGE_Turn(const char * , const char *, uint32_t, uint32_t);
+RIMAGE_FUNC Bool32 RIMAGE_Inverse(puchar , puchar , uint32_t);
+RIMAGE_FUNC Bool32 RIMAGE_SetProgressCB(PRIMAGECBPRogressStart, PRIMAGECBPRogressStep , PRIMAGECBPRogressFinish);
+RIMAGE_FUNC Bool32 RIMAGE_RotatePoint(puchar , int32_t, int32_t, int32_t *, int32_t *);
 
 #endif //__CRIMAGE_HEADER_

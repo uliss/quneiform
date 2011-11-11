@@ -71,12 +71,10 @@
 //////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
-static Handle ghStorage = NULL;
-static Handle ghInst = NULL;
 CRIControl * Control_cri = NULL;
 static int32_t InitCount = 0;
 
-Bool32 RIMAGE_Init(uint16_t wHeightCode, Handle hStorage)
+Bool32 RIMAGE_Init(uint16_t wHeightCode)
 {
     if (!Control_cri ) {
         Control_cri = new CRIControl;
@@ -117,44 +115,6 @@ Bool32 RIMAGE_Reset()
     }
 
     return FALSE;
-}
-
-uint32_t RIMAGE_GetReturnCode()
-{
-    if ( !gwLowRC )
-        return 0;
-
-    return (uint32_t)(gwHeightRC << 16) | (gwLowRC - IDS_RIMAGE_ERR_NO);
-}
-
-char * RIMAGE_GetReturnString(uint32_t dwError)
-{
-    if (dwError >> 16 != gwHeightRC)
-        gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
-
-    return NULL;
-}
-
-#define CASE_FUNCTION(a)    case RIMAGE_FN_##a: *(FNRIMAGE##a *)pData = RIMAGE_##a; break
-
-Bool32 RIMAGE_GetExportData(uint32_t dwType, void * pData)
-{
-    Bool32 rc = TRUE;
-    gwLowRC = 0;
-
-    switch (dwType) {
-            CASE_FUNCTION(SetMargins);
-            CASE_FUNCTION(Binarise);
-            CASE_FUNCTION(Rotate);
-            CASE_FUNCTION(Turn);
-            CASE_FUNCTION(Inverse);
-        default:
-            *(Handle *)pData = NULL;
-            gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
-            rc = FALSE;
-    }
-
-    return rc;
 }
 
 Bool32 RIMAGE_SetImportData(uint32_t dwType, void * pData)
