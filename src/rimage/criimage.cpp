@@ -57,7 +57,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 #include "criimage.h"
 #include "crimemory.h"
-#include "cridefines.h"
 
 #include "cricontrol.h"
 

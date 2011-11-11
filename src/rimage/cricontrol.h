@@ -64,7 +64,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "resource.h"
-#include "cridefines.h"
 #include "cttypes.h"
 #include "criimage.h"
 #include "cimage/ctiimage.h"

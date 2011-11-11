@@ -57,9 +57,6 @@
 #include <cstdlib>
 #include <string>
 
-#include "resource.h"
-#include "cridefines.h"
-#include "criimage.h"
 #include "crimemory.h"
 
 static std::string cCommentBuffer;
@@ -90,31 +87,6 @@ void * RIMAGELock(void * mem)
     return mem;
 }
 
-void RIMAGEUnlock(void * /*mem*/)
+void RIMAGEUnlock(void *)
 {
-}
-
-Handle RIMAGEOpenSave(char * lpName)
-{
-    return static_cast<Handle> (fopen(lpName, "wb"));
-}
-
-Handle RIMAGEOpenRestore(char * lpName)
-{
-    return static_cast<Handle> (fopen(lpName, "rb"));
-}
-
-unsigned int RIMAGEWrite(Handle h, void * lpdata, unsigned int size)
-{
-    return fwrite(lpdata, 1, size, (FILE*) h);
-}
-
-unsigned int RIMAGERead(Handle h, void * lpdata, unsigned int size)
-{
-    return fread(lpdata, 1, size, (FILE *) h);
-}
-
-void RIMAGEClose(Handle h)
-{
-    fclose((FILE*) h);
 }

@@ -62,7 +62,6 @@
 // ============================================================================
 
 #include "resource.h"
-#include "cridefines.h"
 #include "crimemory.h"
 #include "cricontrol.h"
 #include "criimage.h"
