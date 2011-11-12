@@ -27,6 +27,11 @@
 #include "systemvsharedmemory.h"
 #endif
 
+#ifdef USE_WIN32_SHMEM
+#include "win32sharedmemory.h"
+#endif
+
+
 namespace cf {
 
 SharedMemoryHolder::SharedMemoryHolder()
@@ -36,6 +41,10 @@ SharedMemoryHolder::SharedMemoryHolder()
 {
 #ifdef USE_SYSTEMV_SHMEM
     impl_ = new SystemVSharedMemory;
+#endif
+
+#ifdef USE_WIN32_SHMEM
+    impl_ = new Win32SharedMemory;
 #endif
 }
 

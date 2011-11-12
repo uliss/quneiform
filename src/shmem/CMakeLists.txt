@@ -1,7 +1,6 @@
 set(SHMEM_SOURCES
     memorydata.cpp
     sharedmemoryholder.cpp
-    systemvsharedmemory.cpp
 )
 
 set(SHMEM_HEADERS
@@ -17,10 +16,15 @@ set(CF_SHMEM_LOAD_LIBS
 
 if(UNIX)
     add_definitions(-DUSE_SYSTEMV_SHMEM)
-    list(APPEND SHMEM_RESOURCES systemvsharedmemory.cpp)
+    list(APPEND SHMEM_SOURCES systemvsharedmemory.cpp)
 endif()
 
-add_library(cuneiform-shmem ${LIBTYPE}
+if(WIN32)
+    add_definitions(-DUSE_WIN32_SHMEM)
+    list(APPEND SHMEM_SOURCES win32sharedmemory.cpp)
+endif()
+
+add_library(cuneiform-shmem STATIC 
     ${SHMEM_SOURCES}
     ${SHMEM_HEADERS}
 )

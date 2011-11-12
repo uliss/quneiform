@@ -31,7 +31,7 @@ namespace cf {
 
 struct MemoryDataPrivate;
 
-class MemoryData
+class CLA_EXPO MemoryData
 {
 public:
     struct Exception : std::runtime_error {
