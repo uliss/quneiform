@@ -22,6 +22,7 @@ if(TESTS)
         add_subdirectory(rreccom)
         add_subdirectory(rstr)
         add_subdirectory(exporters)
+        add_subdirectory(shmem)
 
         if(CF_API)
             add_subdirectory(api)

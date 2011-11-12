@@ -71,6 +71,7 @@ add_subdirectory(rmarker)
 add_subdirectory(rcorrkegl)
 add_subdirectory(smetric)
 add_subdirectory(std)
+add_subdirectory(shmem)
 
 install(FILES 
     h/globus.h

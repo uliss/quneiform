@@ -98,10 +98,10 @@ class CLA_EXPO FormatOptions
         }
 #endif
     private:
-        bool hasFlag(int flag) const  { return flags_ & flag; }
-        void setFlag(int flag)        { flags_ |= flag; }
-        void setFlag(int flag, bool value) { value ? setFlag(flag) : unsetFlag(flag); }
-        void unsetFlag(int flag) { flags_ &= (~flag); }
+        bool hasFlag(uint flag) const  { return flags_ & flag; }
+        void setFlag(uint flag)        { flags_ |= flag; }
+        void setFlag(uint flag, bool value) { value ? setFlag(flag) : unsetFlag(flag); }
+        void unsetFlag(uint flag) { flags_ &= (~flag); }
     private:
         std::string serif_name_;
         std::string sans_serif_name_;
