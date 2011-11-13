@@ -5,13 +5,6 @@ set(CUNEIFORM_SOURCES
     processrecognitionserver.cpp
     pumaimpl.cpp
     recognitionfactory.cpp
-    sharedimage.cpp
-    sharedimageholder.cpp
-    sharedmemoryremover.cpp
-    sharedoptions.cpp
-    sharedoptionsholder.cpp
-    sharedresult.cpp
-    sharedresultholder.cpp
     startprocess.cpp
 )
 
@@ -70,10 +63,6 @@ add_library(cuneiform ${CF_CUNEIFORM_LIBTYPE}
 target_link_libraries(cuneiform ${CUNEIFORM_LIBS})
 library_hook(cuneiform)
 
-# Process worker
-add_executable(cuneiform-worker worker.cpp)
-target_link_libraries(cuneiform-worker cuneiform)
-
 # New process worker
 add_executable(new-cuneiform-worker new_worker.cpp)
 target_link_libraries(new-cuneiform-worker cuneiform)
@@ -84,7 +73,7 @@ else()
     set(WORKER_INSTALL_DIR lib/cuneiform)
 endif()
 
-install(TARGETS cuneiform-worker
+install(TARGETS new-cuneiform-worker
     RUNTIME DESTINATION ${WORKER_INSTALL_DIR}
     COMPONENT applications
 )

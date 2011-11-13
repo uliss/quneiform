@@ -5,22 +5,8 @@ add_executable(test_puma
     test_puma.cpp
     testlocalrecognitionserver.cpp
     testpuma.cpp
-    testsharedimage.cpp
-    testsharedimageholder.cpp
-    testsharedresult.cpp
-    testsharedresultholder.cpp
     teststartprocess.cpp
     testprocessrecognitionserver.cpp
-)
-
-add_executable(service_sharedimageholder servicesharedimageholder.cpp)
-target_link_libraries(service_sharedimageholder cuneiform)
-add_executable(service_sharedresultholder servicesharedresultholder.cpp)
-target_link_libraries(service_sharedresultholder cuneiform)
-
-add_dependencies(test_puma
-    service_sharedimageholder
-    service_sharedresultholder
 )
 
 target_link_libraries(test_puma cuneiform ${CPPUNIT_LIBRARIES})
