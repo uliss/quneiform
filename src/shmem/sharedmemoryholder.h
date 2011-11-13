@@ -36,7 +36,7 @@ public:
         Exception(const std::string& msg) : std::runtime_error(msg) {}
     };
 public:
-    SharedMemoryHolder();
+    SharedMemoryHolder(bool owner = false);
     ~SharedMemoryHolder();
 
     /**
@@ -95,6 +95,7 @@ private:
     size_t size_;
     std::string key_;
     SharedMemoryHolderPrivate * impl_;
+    bool owner_;
 };
 
 }

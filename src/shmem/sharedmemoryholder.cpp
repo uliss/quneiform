@@ -34,10 +34,11 @@
 
 namespace cf {
 
-SharedMemoryHolder::SharedMemoryHolder()
+SharedMemoryHolder::SharedMemoryHolder(bool owner)
     : memory_(NULL),
       size_(0),
-      impl_(NULL)
+      impl_(NULL),
+      owner_(owner)
 {
 #ifdef USE_SYSTEMV_SHMEM
     impl_ = new SystemVSharedMemory;
@@ -49,7 +50,14 @@ SharedMemoryHolder::SharedMemoryHolder()
 }
 
 SharedMemoryHolder::~SharedMemoryHolder() {
-    detach();
+    try {
+        detach();
+
+        if(owner_)
+            remove();
+    }
+    catch(...) {}
+
     delete impl_;
 }
 

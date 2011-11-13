@@ -74,13 +74,13 @@ CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
                                                const FormatOptions& fopts)
 {
     const std::string SHMEM_KEY = makeKey();
-    SharedMemoryHolder memory;
 
     try {
         if(imagePath.empty())
             throw RecognitionException("empty image path given");
 
         const size_t SHMEM_SIZE = MemoryData::minBufferSize();
+        SharedMemoryHolder memory(true);
         memory.create(SHMEM_KEY, SHMEM_SIZE);
         MemoryData data(memory.get(), SHMEM_SIZE);
         data.setFormatOptions(fopts);
@@ -94,19 +94,11 @@ CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
         if(!res.get())
             throw RecognitionException("Recognition error");
 
-        memory.detach();
-        memory.remove();
-
         return res;
     }
     catch(std::exception& e) {
         if(state_)
             state_->set(RecognitionState::FAILED);
-
-        if(memory.isAttached()) {
-            memory.detach();
-            memory.remove();
-        }
 
         CF_ERROR(e.what());
         throw RecognitionException(e.what());
@@ -118,7 +110,6 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
                                                const FormatOptions& fopts)
 {
     const std::string SHMEM_KEY = makeKey();
-    SharedMemoryHolder memory;
 
     try {
         if(!image.get())
@@ -128,7 +119,7 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
             throw RecognitionException("empty image given");
 
         const size_t SHMEM_SIZE = MemoryData::minBufferSize();
-
+        SharedMemoryHolder memory(true);
         memory.create(SHMEM_KEY, SHMEM_SIZE);
         MemoryData data(memory.get(), SHMEM_SIZE);
         data.setFormatOptions(fopts);
@@ -141,19 +132,11 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
         if(!res.get())
             throw RecognitionException("Recognition error");
 
-        memory.detach();
-        memory.remove();
-
         return res;
     }
     catch(std::exception& e) {
         if(state_)
             state_->set(RecognitionState::FAILED);
-
-        if(memory.isAttached()) {
-            memory.detach();
-            memory.remove();
-        }
 
         CF_ERROR(e.what());
         throw RecognitionException(e.what());
