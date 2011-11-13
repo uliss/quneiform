@@ -29,8 +29,8 @@ class Win32SharedMemory : public SharedMemoryHolderPrivate
 public:
     Win32SharedMemory();
     void close(void * mem);
-    void * create(int key, size_t size);
-    void * open(int key, size_t size);
+    void * create(size_t key, size_t size);
+    void * open(size_t key, size_t size);
     bool remove();
 private:
     Handle handle_;

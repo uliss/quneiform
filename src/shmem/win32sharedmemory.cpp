@@ -24,7 +24,7 @@
 
 namespace cf {
 
-std::string makeKey(int id)
+std::string makeKey(size_t id)
 {
     std::ostringstream os;
     os << "key" << id;
@@ -42,7 +42,7 @@ void Win32SharedMemory::close(void * mem)
         fprintf(stderr, TEXT("Could not unmap memory (%d).\n"), GetLastError());
 }
 
-void * Win32SharedMemory::create(int key, size_t size)
+void * Win32SharedMemory::create(size_t key, size_t size)
 {
     handle_ = CreateFileMapping(INVALID_HANDLE_VALUE,    // use paging file
                                 NULL,                    // default security
@@ -71,7 +71,7 @@ void * Win32SharedMemory::create(int key, size_t size)
     return mem;
 }
 
-void * Win32SharedMemory::open(int key, size_t size)
+void * Win32SharedMemory::open(size_t key, size_t size)
 {
     handle_ = OpenFileMapping(FILE_MAP_ALL_ACCESS,   // read/write access
                               FALSE,                 // do not inherit the name
