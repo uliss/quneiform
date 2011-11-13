@@ -48,6 +48,10 @@ set(CUNEIFORM_LIBS
     cuneiform-rpstr
 )
 
+if(CF_LIB_RT_HAS_SHMOPEN)
+    list(APPEND CUNEIFORM_LIBS rt)
+endif()
+
 find_package(Threads)
 
 if(CMAKE_USE_PTHREADS_INIT)
