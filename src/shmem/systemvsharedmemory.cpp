@@ -63,7 +63,7 @@ void * SystemVSharedMemory::open(size_t key, size_t)
 
 bool SystemVSharedMemory::remove()
 {
-    return shmctl(id_, IPC_RMID, NULL) != -1;
+    return shmctl(id_, IPC_RMID, NULL) == 0;
 }
 
 }
