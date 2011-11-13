@@ -47,7 +47,7 @@ void * SystemVSharedMemory::create(int k, size_t size)
     return memory;
 }
 
-void * SystemVSharedMemory::open(int k)
+void * SystemVSharedMemory::open(int k, size_t)
 {
     key_t key = k;
     id_ = shmget(key, 0, 0666);

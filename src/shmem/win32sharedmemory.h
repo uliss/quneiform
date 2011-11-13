@@ -19,6 +19,7 @@
 #ifndef WIN32SHAREDMEMORY_H
 #define WIN32SHAREDMEMORY_H
 
+#include "cttypes.h"
 #include "sharedmemoryholderprivate.h"
 
 namespace cf {
@@ -26,10 +27,13 @@ namespace cf {
 class Win32SharedMemory : public SharedMemoryHolderPrivate
 {
 public:
+    Win32SharedMemory();
     void close(void * mem);
     void * create(int key, size_t size);
-    void * open(int key);
+    void * open(int key, size_t size);
     bool remove();
+private:
+    Handle handle_;
 };
 
 }

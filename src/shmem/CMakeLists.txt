@@ -1,3 +1,5 @@
+add_definitions(-DBOOST_DATE_TIME_NO_LIB)
+
 set(SHMEM_SOURCES
     memorydata.cpp
     sharedmemoryholder.cpp

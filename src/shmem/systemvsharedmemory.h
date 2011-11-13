@@ -29,7 +29,7 @@ public:
     SystemVSharedMemory();
     void close(void * mem);
     void * create(int key, size_t size);
-    void * open(int key);
+    void * open(int key, size_t size);
     bool remove();
 private:
     int id_;

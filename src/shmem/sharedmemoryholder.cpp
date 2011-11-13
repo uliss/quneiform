@@ -98,8 +98,8 @@ void SharedMemoryHolder::attach(const std::string& key, size_t size)
     assert(impl_);
 
     key_ = key;
-    memory_ = impl_->open(makeKey());
     size_ = size;
+    memory_ = impl_->open(makeKey(), size_);
 }
 
 void SharedMemoryHolder::remove()
