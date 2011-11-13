@@ -46,6 +46,7 @@ set(CUNEIFORM_LIBS
     cuneiform-exc
     cuneiform-rreccom
     cuneiform-rpstr
+    cuneiform-shmem
 )
 
 if(CF_LIB_RT_HAS_SHMOPEN)
@@ -75,7 +76,7 @@ target_link_libraries(cuneiform-worker cuneiform)
 
 # New process worker
 add_executable(new-cuneiform-worker new_worker.cpp)
-target_link_libraries(new-cuneiform-worker cuneiform cuneiform-shmem)
+target_link_libraries(new-cuneiform-worker cuneiform)
 
 if(WIN32)
     set(WORKER_INSTALL_DIR bin)

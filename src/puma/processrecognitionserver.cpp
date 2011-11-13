@@ -21,31 +21,24 @@
 #include <cstdlib>
 #include <cassert>
 #include <iostream>
+#include <sstream>
 #include <algorithm>
 
 #ifdef _WIN32
 #include <Windows.h> // for GetCurrentProcessId()
 #endif
 
-#include "shared_memory_type.h"
 #include "processrecognitionserver.h"
 #include "startprocess.h"
 #include "shmem_data.h"
-#include "sharedimage.h"
-#include "sharedimageholder.h"
-#include "sharedresult.h"
-#include "sharedresultholder.h"
-#include "sharedoptions.h"
-#include "sharedoptionsholder.h"
+#include "shmem/sharedmemoryholder.h"
+#include "shmem/memorydata.h"
 #include "common/debug.h"
 #include "common/envpaths.h"
 #include "common/percentcounter.h"
 #include "common/recognitionstate.h"
 #include "common/console_messages.h"
-#include "sharedmemoryremover.h"
 #include "config.h"
-
-namespace bi = boost::interprocess;
 
 static const std::string makeKey() {
     std::ostringstream buf;
@@ -80,10 +73,7 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
                                                const RecognizeOptions& ropts,
                                                const FormatOptions& fopts)
 {
-    using namespace boost::interprocess;
-
     const std::string SHMEM_KEY = makeKey();
-    SharedMemoryRemover remover(SHMEM_KEY);
 
     try {
         if(!image.get())
@@ -92,46 +82,22 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
         if(image->dataSize() == 0 && image->fileName().empty())
             throw RecognitionException("empty image given");
 
-        static const size_t SHMEM_SIZE = sizeof(SharedResult) * 2 + sizeof(SharedImage) + sizeof(SharedOptions);
-
-        //Construct managed shared memory
-        SharedMemory segment(create_only, SHMEM_KEY.c_str(), SHMEM_SIZE);
-        CF_INFO("Shared segment '"<< SHMEM_KEY << "' created with size: " << SHMEM_SIZE << " bytes.");
-
-        // create shared image
-        SharedImageHolder sh_image_holder(&segment);
-        SharedImage * sh_image = sh_image_holder.find(&segment);
-
-        if(!sh_image)
-            throw RecognitionException("Can't open shared image");
-
-        if(image->dataSize() != 0) {
-            sh_image->set(image);
-        }
-
-        // create shared result
-        SharedResultHolder result_holder(&segment);
-
-        // create shared options
-        SharedOptionsHolder sh_opt_holder(&segment);
-        sh_opt_holder.options()->store(ropts);
-        sh_opt_holder.options()->store(fopts);
+        const size_t SHMEM_SIZE = MemoryData::minBufferSize();
+        SharedMemoryHolder memory;
+        memory.create(SHMEM_KEY, SHMEM_SIZE);
+        MemoryData data(memory.get(), SHMEM_SIZE);
+        data.setFormatOptions(fopts);
+        data.setRecognizeOptions(ropts);
+        data.setImagePath(image->fileName());
 
         startWorker(image, SHMEM_KEY);
 
-        CEDPagePtr res = result_holder.page();
+        CEDPagePtr res = data.page();
 
         if(!res.get())
             throw RecognitionException("Recognition error");
 
         return res;
-    }
-    catch(interprocess_exception& e) {
-        if(state_)
-            state_->set(RecognitionState::FAILED);
-
-        CF_ERROR(e.what());
-        throw RecognitionException(e.what());
     }
     catch(std::exception& e) {
         if(state_)
@@ -153,9 +119,6 @@ void ProcessRecognitionServer::startWorker(ImagePtr image, const std::string& ke
 
     StringList params;
     params.push_back(key);
-
-    if(!image->fileName().empty())
-        params.push_back(image->fileName());
 
     std::string exe_path = workerPath();
 
@@ -227,15 +190,15 @@ std::string ProcessRecognitionServer::workerPath() const {
     StringList file_names;
 
 #ifdef _WIN32
-    file_names.push_back("cuneiform-worker.exe");
+    file_names.push_back("new-cuneiform-worker.exe");
     // for testing purposes
-    file_names.push_back("../../cuneiform-worker.exe");
+    file_names.push_back("../../new-cuneiform-worker.exe");
 #else
-    file_names.push_back("cuneiform-worker");
-    file_names.push_back("../lib/cuneiform/cuneiform-worker");
-    file_names.push_back("../lib64/cuneiform/cuneiform-worker");
+    file_names.push_back("new-cuneiform-worker");
+    file_names.push_back("../lib/cuneiform/new-cuneiform-worker");
+    file_names.push_back("../lib64/cuneiform/new-cuneiform-worker");
     // for testing purposes
-    file_names.push_back("../../cuneiform-worker");
+    file_names.push_back("../../new-cuneiform-worker");
 #endif
 
     std::string result_path;
