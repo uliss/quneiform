@@ -73,6 +73,10 @@ library_hook(cuneiform)
 add_executable(cuneiform-worker worker.cpp)
 target_link_libraries(cuneiform-worker cuneiform)
 
+# New process worker
+add_executable(new-cuneiform-worker new_worker.cpp)
+target_link_libraries(new-cuneiform-worker cuneiform cuneiform-shmem)
+
 if(WIN32)
     set(WORKER_INSTALL_DIR bin)
 else()
