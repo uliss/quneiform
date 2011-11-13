@@ -42,8 +42,6 @@
 #include <csignal>
 
 #include "localrecognitionserver.h"
-#include "export/exporterfactory.h"
-#include "rdib/imageloaderfactory.h"
 #include "shmem/memorydata.h"
 #include "shmem/sharedmemoryholder.h"
 #include "shmem_data.h"
@@ -65,8 +63,8 @@ static cf::CEDPagePtr recognize(const std::string& path,
                          const cf::RecognizeOptions& ropts,
                          const cf::FormatOptions& fopts)
 {
-    cf::ImagePtr img = cf::ImageLoaderFactory::instance().load(path);
-    return recognize(img, ropts, fopts);
+    cf::LocalRecognitionServer r;
+    return r.recognize(path, ropts, fopts);
 }
 
 static void worker_terminate() {

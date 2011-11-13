@@ -69,6 +69,42 @@ ProcessRecognitionServer::ProcessRecognitionServer()
     CF_INFO("constructed");
 }
 
+CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
+                                               const RecognizeOptions& ropts,
+                                               const FormatOptions& fopts)
+{
+    const std::string SHMEM_KEY = makeKey();
+
+    try {
+        if(imagePath.empty())
+            throw RecognitionException("empty image path given");
+
+        const size_t SHMEM_SIZE = MemoryData::minBufferSize();
+        SharedMemoryHolder memory;
+        memory.create(SHMEM_KEY, SHMEM_SIZE);
+        MemoryData data(memory.get(), SHMEM_SIZE);
+        data.setFormatOptions(fopts);
+        data.setRecognizeOptions(ropts);
+        data.setImagePath(imagePath);
+
+        startWorker(SHMEM_KEY);
+
+        CEDPagePtr res = data.page();
+
+        if(!res.get())
+            throw RecognitionException("Recognition error");
+
+        return res;
+    }
+    catch(std::exception& e) {
+        if(state_)
+            state_->set(RecognitionState::FAILED);
+
+        CF_ERROR(e.what());
+        throw RecognitionException(e.what());
+    }
+}
+
 CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
                                                const RecognizeOptions& ropts,
                                                const FormatOptions& fopts)
@@ -89,8 +125,7 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
         data.setFormatOptions(fopts);
         data.setRecognizeOptions(ropts);
         data.setImagePath(image->fileName());
-
-        startWorker(image, SHMEM_KEY);
+        startWorker(SHMEM_KEY);
 
         CEDPagePtr res = data.page();
 
@@ -113,7 +148,7 @@ void ProcessRecognitionServer::setWorkerTimeout(int sec)
     worker_timeout_ = sec;
 }
 
-void ProcessRecognitionServer::startWorker(ImagePtr image, const std::string& key) {
+void ProcessRecognitionServer::startWorker(const std::string& key) {
     if(counter_)
         counter_->reset();
 

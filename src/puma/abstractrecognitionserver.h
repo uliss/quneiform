@@ -20,6 +20,7 @@
 #define ABSTRACTRECOGNITIONSERVER_H
 
 #include <stdexcept>
+#include <string>
 #include <boost/noncopyable.hpp>
 
 #include "globus.h"
@@ -41,7 +42,29 @@ public:
     virtual ~AbstractRecognitionServer() {}
     PercentCounter * counter() { return counter_; }
     bool isTextDebug() const { return text_debug_; }
-    virtual CEDPagePtr recognize(ImagePtr image, const RecognizeOptions& ropts, const FormatOptions& fopts) = 0;
+
+    /**
+      * Recognizes image by path
+      * @param imagePath - path to image file
+      * @param ropts - recognition options
+      * @param fopts - format options
+      * @return pointer to CEDPage
+      */
+    virtual CEDPagePtr recognize(const std::string& imagePath,
+                                 const RecognizeOptions& ropts,
+                                 const FormatOptions& fopts) = 0;
+
+    /**
+      * Recognizes given image
+      * @param image - source image
+      * @param ropts - recognition options
+      * @param fopts - format options
+      * @return pointer to CEDPage
+      */
+    virtual CEDPagePtr recognize(ImagePtr image,
+                                 const RecognizeOptions& ropts,
+                                 const FormatOptions& fopts) = 0;
+
     void setCounter(PercentCounter * counter) { counter_ = counter; }
     void setStateTracker(RecognitionState * state) { state_ = state; }
     void setTextDebug(bool value) { text_debug_ = value; }

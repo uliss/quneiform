@@ -28,14 +28,19 @@ class CLA_EXPO LocalRecognitionServer : public AbstractRecognitionServer
 {
 public:
     ~LocalRecognitionServer();
+
+    CEDPagePtr recognize(const std::string& imagePath,
+                         const RecognizeOptions& ropts,
+                         const FormatOptions& fopts);
+
     CEDPagePtr recognize(ImagePtr image,
                          const RecognizeOptions& ropts,
                          const FormatOptions& fopts);
 private:
     void close();
+    void doRecognize();
     CEDPagePtr format();
     void open(ImagePtr image);
-    void recognize();
     void setOptions(const RecognizeOptions& ropts, const FormatOptions& fopts);
 };
 

@@ -30,6 +30,17 @@ public:
     ProcessRecognitionServer();
 
     /**
+      * Recognizes image
+      * @param image - image path
+      * @param ropts - recognition options
+      * @param fopts - format options
+      * @throw RecognitionException on error
+      */
+    CEDPagePtr recognize(const std::string& imagePath,
+                         const RecognizeOptions& ropts,
+                         const FormatOptions& fopts);
+
+    /**
       * Recognizes given image
       * @param image - image pointer
       * @param ropts - recognition options
@@ -52,7 +63,7 @@ public:
       */
     int workerTimeout() const;
 private:
-    void startWorker(ImagePtr image, const std::string& key);
+    void startWorker(const std::string& key);
     std::string workerPath() const;
 private:
     int worker_timeout_;
