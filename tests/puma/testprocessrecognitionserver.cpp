@@ -58,9 +58,7 @@ void TestProcessRecognitionServer::testRecognize()
                          AbstractRecognitionServer::RecognitionException);
 
     // normal image via filename
-    img->setFileName(TEST_IMG_PATH "/english.png");
-
-    CEDPagePtr page = server.recognize(img, ropts, fopts);
+    CEDPagePtr page = server.recognize(TEST_IMG_PATH "/english.png", ropts, fopts);
     CPPUNIT_ASSERT(page.get());
     CPPUNIT_ASSERT(!page->empty());
 
@@ -72,7 +70,6 @@ void TestProcessRecognitionServer::testRecognize()
 
     // normal image via shared memory
     img = ImageLoaderFactory::instance().load(TEST_IMG_PATH "/english.png");
-    img->setFileName("");
 
     page = server.recognize(img, ropts, fopts);
     CPPUNIT_ASSERT(page.get());

@@ -115,7 +115,7 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
         if(!image.get())
             throw RecognitionException("NULL image given");
 
-        if(image->dataSize() == 0 && image->fileName().empty())
+        if(image->dataSize() == 0)
             throw RecognitionException("empty image given");
 
         const size_t SHMEM_SIZE = MemoryData::minBufferSize();
@@ -124,7 +124,7 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
         MemoryData data(memory.get(), SHMEM_SIZE);
         data.setFormatOptions(fopts);
         data.setRecognizeOptions(ropts);
-        data.setImagePath(image->fileName());
+        data.setImage(image);
         startWorker(SHMEM_KEY);
 
         CEDPagePtr res = data.page();
