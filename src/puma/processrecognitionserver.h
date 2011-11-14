@@ -63,7 +63,7 @@ public:
       */
     int workerTimeout() const;
 private:
-    void startWorker(const std::string& key);
+    void startWorker(const std::string& key, size_t size);
     std::string workerPath() const;
 private:
     int worker_timeout_;

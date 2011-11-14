@@ -16,6 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <cassert>
 #include <cstring>
 #include <cstdlib>
 #include <string>
@@ -32,6 +33,9 @@
 
 #define WORKER_PREFIX cf::console::message("[Process worker] ", cf::console::YELLOW)
 #define CF_ERROR(msg) std::cerr << WORKER_PREFIX << msg << std::endl;
+#define CF_INFO(msg) std::cerr << WORKER_PREFIX << msg << std::endl;
+
+static const int SHMEM_SIZE_MAX = 100 * 1024 * 1024;
 
 static cf::CEDPagePtr recognize(cf::ImagePtr img,
                          const cf::RecognizeOptions& ropts,
@@ -74,12 +78,36 @@ static void signal_callback_handler(int signum) {
 }
 
 int main(int argc, char ** argv) {
-    if(argc != 2) {
-        CF_ERROR("Usage: worker KEY");
+    if(argc != 2 && argc != 3) {
+        CF_ERROR("Usage: " << argv[0] << " KEY [SIZE]");
         return cf::WORKER_WRONG_ARGUMENT;
     }
 
+    const bool use_shared_image = (argc == 3);
     const std::string shmem_key = argv[1];
+
+    int arg_sz = 0;
+
+    // if have size argument
+    if(use_shared_image) {
+        CF_INFO("using shared image");
+
+        arg_sz = atoi(argv[2]);
+        // case negative or too big
+        if(arg_sz <= 0) {
+            CF_ERROR("invalid memory size argument: " << arg_sz);
+            arg_sz = 0;
+        }
+
+        if(arg_sz > SHMEM_SIZE_MAX) {
+            CF_ERROR("memory size is too big: " << arg_sz);
+            arg_sz = 0;
+        }
+    }
+
+    const size_t shmem_size = (arg_sz == 0) ? cf::MemoryData::minBufferSize() : (size_t) arg_sz;
+
+    CF_INFO("using memory size: " << shmem_size);
 
     std::set_terminate(worker_terminate);
     signal(SIGABRT, signal_callback_handler);
@@ -89,16 +117,19 @@ int main(int argc, char ** argv) {
     using namespace cf;
 
     try {
-        const size_t shm_size = MemoryData::minBufferSize();
         SharedMemoryHolder memory;
-        memory.attach(shmem_key, shm_size);
-        MemoryData data(memory.get(), shm_size);
+        memory.attach(shmem_key, shmem_size);
+        MemoryData data(memory.get(), shmem_size);
 
         FormatOptions fopts = data.formatOptions();
         RecognizeOptions ropts = data.recognizeOptions();
-        std::string image_path = data.imagePath();
 
-        CEDPagePtr page = recognize(image_path, ropts, fopts);
+        CEDPagePtr page;
+
+        if(use_shared_image)
+            page = recognize(data.image(), ropts, fopts);
+        else
+            page = recognize(data.imagePath(), ropts, fopts);
 
         if(!page)
             return WORKER_RECOGNITION_ERROR;

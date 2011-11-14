@@ -35,6 +35,7 @@
 #include "shmem/memorydata.h"
 #include "common/debug.h"
 #include "common/envpaths.h"
+#include "common/helper.h"
 #include "common/percentcounter.h"
 #include "common/recognitionstate.h"
 #include "common/console_messages.h"
@@ -87,7 +88,7 @@ CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
         data.setRecognizeOptions(ropts);
         data.setImagePath(imagePath);
 
-        startWorker(SHMEM_KEY);
+        startWorker(SHMEM_KEY, 0);
 
         CEDPagePtr res = data.page();
 
@@ -118,14 +119,14 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
         if(image->dataSize() == 0)
             throw RecognitionException("empty image given");
 
-        const size_t SHMEM_SIZE = MemoryData::minBufferSize();
+        const size_t SHMEM_SIZE = MemoryData::minBufferSize() + image->dataSize();
         SharedMemoryHolder memory(true);
         memory.create(SHMEM_KEY, SHMEM_SIZE);
         MemoryData data(memory.get(), SHMEM_SIZE);
         data.setFormatOptions(fopts);
         data.setRecognizeOptions(ropts);
         data.setImage(image);
-        startWorker(SHMEM_KEY);
+        startWorker(SHMEM_KEY, memory.size());
 
         CEDPagePtr res = data.page();
 
@@ -148,12 +149,15 @@ void ProcessRecognitionServer::setWorkerTimeout(int sec)
     worker_timeout_ = sec;
 }
 
-void ProcessRecognitionServer::startWorker(const std::string& key) {
+void ProcessRecognitionServer::startWorker(const std::string& key, size_t size) {
     if(counter_)
         counter_->reset();
 
     StringList params;
     params.push_back(key);
+
+    if(size)
+        params.push_back(toString(size));
 
     std::string exe_path = workerPath();
 
