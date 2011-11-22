@@ -95,6 +95,10 @@ size_t CssExporter::hash(const CEDParagraph& par) const {
     return seed;
 }
 
+size_t CssExporter::hash(const CEDSection& s) const {
+    return StyleExporter::hash(s);
+}
+
 std::string CssExporter::makeCssStyle(const CEDChar& chr) const {
     std::ostringstream buf;
 
@@ -141,6 +145,10 @@ std::string CssExporter::makeStyle(const CEDParagraph& par) {
 
     styles_[par_style] = content;
     return par_style;
+}
+
+std::string CssExporter::makeStyle(const CEDSection& s) {
+    return StyleExporter::makeStyle(s);
 }
 
 void CssExporter::writePageEnd(CEDPage&) {

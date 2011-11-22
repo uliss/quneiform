@@ -35,10 +35,12 @@ class CssExporter: public StyleExporter
 
         virtual size_t hash(const CEDChar& chr) const;
         virtual size_t hash(const CEDParagraph& par) const;
+        virtual size_t hash(const CEDSection& s) const;
         virtual std::string makeCssStyle(const CEDChar& chr) const;
         virtual std::string makeCssStyle(const CEDParagraph& par) const;
         virtual std::string makeStyle(const CEDChar& chr);
         virtual std::string makeStyle(const CEDParagraph& par);
+        virtual std::string makeStyle(const CEDSection& s);
         virtual void writePageEnd(CEDPage& page);
     private:
         typedef std::map<std::string, std::string> StyleMap;
