@@ -28,8 +28,8 @@ class SharedMemoryHolderPrivate
 public:
     virtual ~SharedMemoryHolderPrivate() {};
     virtual void close(void * mem) = 0;
-    virtual void * create(int key, size_t size) = 0;
-    virtual void * open(int key, size_t size) = 0;
+    virtual void * create(size_t key, size_t size) = 0;
+    virtual void * open(size_t key, size_t size) = 0;
     virtual bool remove() = 0;
 };
 

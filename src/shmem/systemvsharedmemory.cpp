@@ -31,10 +31,9 @@ void SystemVSharedMemory::close(void * mem)
     shmdt(mem);
 }
 
-void * SystemVSharedMemory::create(int k, size_t size)
+void * SystemVSharedMemory::create(size_t key, size_t size)
 {
-    key_t key = k;
-    id_ = shmget(key, size, IPC_CREAT | 0666);
+    id_ = shmget((key_t) key, size, IPC_CREAT | 0666);
 
     if (id_ < 0)
         return NULL;
@@ -47,10 +46,9 @@ void * SystemVSharedMemory::create(int k, size_t size)
     return memory;
 }
 
-void * SystemVSharedMemory::open(int k, size_t)
+void * SystemVSharedMemory::open(size_t key, size_t)
 {
-    key_t key = k;
-    id_ = shmget(key, 0, 0666);
+    id_ = shmget((key_t) key, 0, 0666);
 
     if(id_ < 0)
         return NULL;

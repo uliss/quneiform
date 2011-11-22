@@ -87,7 +87,7 @@ void * SharedMemoryHolder::get()
     return memory_;
 }
 
-int SharedMemoryHolder::makeKey() const
+size_t SharedMemoryHolder::makeKey() const
 {
     boost::hash<std::string> string_hash;
     return string_hash(key_);

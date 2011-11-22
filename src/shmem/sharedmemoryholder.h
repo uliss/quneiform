@@ -88,7 +88,7 @@ public:
         return static_cast<T*>(static_cast<void*>(static_cast<char*>(memory_) + off));
     }
 private:
-    int makeKey() const;
+    size_t makeKey() const;
 private:
     void * memory_;
     size_t size_;
