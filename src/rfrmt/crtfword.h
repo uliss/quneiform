@@ -21,11 +21,11 @@
 
 #include <vector>
 #include <string>
+#include <stdexcept>
 #include <boost/function.hpp>
 
 #include "globus.h"
 #include "cfcompat.h"
-#include "common/exception.h"
 #include "common/font.h"
 #include "common/rect.h"
 
@@ -44,7 +44,10 @@ class CLA_EXPO CRtfWord
         CRtfWord();
         ~CRtfWord();
 
-        typedef cf::RuntimeExceptionImpl<CRtfWord> Exception;
+        class Exception : public std::runtime_error {
+        public:
+            Exception(const std::string& msg) : std::runtime_error(msg) {}
+        };
 
         /**
          * Adds char to the end of the word
