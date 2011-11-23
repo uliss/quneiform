@@ -63,9 +63,8 @@ add_library(cuneiform ${CF_CUNEIFORM_LIBTYPE}
 target_link_libraries(cuneiform ${CUNEIFORM_LIBS})
 library_hook(cuneiform)
 
-# New process worker
-add_executable(new-cuneiform-worker new_worker.cpp)
-target_link_libraries(new-cuneiform-worker cuneiform)
+add_executable(cuneiform-worker worker.cpp)
+target_link_libraries(cuneiform-worker cuneiform)
 
 if(WIN32)
     set(WORKER_INSTALL_DIR bin)
@@ -73,7 +72,7 @@ else()
     set(WORKER_INSTALL_DIR lib/cuneiform)
 endif()
 
-install(TARGETS new-cuneiform-worker
+install(TARGETS cuneiform-worker
     RUNTIME DESTINATION ${WORKER_INSTALL_DIR}
     COMPONENT applications
 )

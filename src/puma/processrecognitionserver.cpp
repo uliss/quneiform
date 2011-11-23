@@ -229,15 +229,15 @@ std::string ProcessRecognitionServer::workerPath() const {
     StringList file_names;
 
 #ifdef _WIN32
-    file_names.push_back("new-cuneiform-worker.exe");
+    file_names.push_back("cuneiform-worker.exe");
     // for testing purposes
-    file_names.push_back("../../new-cuneiform-worker.exe");
+    file_names.push_back("../../cuneiform-worker.exe");
 #else
-    file_names.push_back("new-cuneiform-worker");
-    file_names.push_back("../lib/cuneiform/new-cuneiform-worker");
-    file_names.push_back("../lib64/cuneiform/new-cuneiform-worker");
+    file_names.push_back("cuneiform-worker");
+    file_names.push_back("../lib/cuneiform/cuneiform-worker");
+    file_names.push_back("../lib64/cuneiform/cuneiform-worker");
     // for testing purposes
-    file_names.push_back("../../new-cuneiform-worker");
+    file_names.push_back("../../cuneiform-worker");
 #endif
 
     std::string result_path;

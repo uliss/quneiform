@@ -49,7 +49,7 @@ class Formatter;
 class CRtfPage;
 class RStuff;
 
-class CLA_EXPO PumaImpl
+class PumaImpl
 {
     public:
         PumaImpl();
