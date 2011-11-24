@@ -54,20 +54,14 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "rmarker.h"
 #include "rmfunc.h"
-#include "rneg/rneg.h"
-#include "puma/pumadef.h"
 #include "dpuma.h"
-#include "dsnap.h"
 
-Handle hLayout;
 Handle MainDebug;
 Handle DebugFill;
 Handle hVertCells;
 Handle hNegaCells;
 Handle hDebugUpDown;
-Handle hDebugSpell;
 Handle hDebugPictures;
 Handle hPrintFileVertCells;
 Handle hVertCellsAuto;

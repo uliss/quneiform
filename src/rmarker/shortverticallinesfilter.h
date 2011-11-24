@@ -64,6 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :                                                                                   */
 /*-------------------------------------------------------------------------------------------------*/
 
+#include "rmfunc.h"
 #include "lns/lnsdefs.h"
 
 typedef struct tagPUMALinesBuffer {
@@ -80,5 +81,3 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
 Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image);
 Bool32 CompIsGood (CCOM_comp * pcomp, int32_t Filter);
 Bool32 IsRectIntersect(Rect16 *A, Rect16 *B);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//

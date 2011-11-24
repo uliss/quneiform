@@ -84,17 +84,20 @@ static Handle hDebugSVLinesData = NULL;
 static Handle hDebugLayoutFromFile = NULL;
 
 RMarker::RMarker() :
+    image_data_(NULL),
     cpage_(NULL),
     comp_cont_(NULL),
     cline_(NULL),
     kill_vsl_components_(true)
 {
     RNEG_Init(0, NULL);
+    image_data_ = new RMPreProcessImage;
 }
 
 RMarker::~RMarker()
 {
     RNEG_Done();
+    delete image_data_;
 }
 
 Handle RMarker::cpage() {
@@ -108,13 +111,13 @@ void RMarker::markupPage()
     char * mem_buf = new char[MEM_SIZE];
     char * main_buf = new char[MAIN_SIZE];
 
-    if(!RMARKER_PageMarkup(&image_data_, mem_buf, MEM_SIZE, main_buf, MAIN_SIZE))
+    if(!RMARKER_PageMarkup(image_data_, mem_buf, MEM_SIZE, main_buf, MAIN_SIZE))
         throw Exception("markupPage failed");
 
     delete[] mem_buf;
     delete[] main_buf;
 
-    cpage_ = image_data_.hCPAGE;
+    cpage_ = image_data_->hCPAGE;
 }
 
 void RMarker::setComponentContainer(CCOM_cont * cont) {
@@ -138,20 +141,20 @@ void RMarker::setLayoutFilename(const std::string& fname) {
 }
 
 void RMarker::setOptions(const RecognizeOptions& opts) {
-    image_data_.gbOneColumn = opts.oneColumn();
-    image_data_.gKillVSLComponents = kill_vsl_components_;
-    image_data_.hCPAGE = cpage_;
-    image_data_.hCCOM = comp_cont_;
-    image_data_.hCLINE = cline_;
-    image_data_.gnPictures = opts.pictureSearch();
-    image_data_.gnLanguage = opts.language();
-    image_data_.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
-    image_data_.hDebugLayoutFromFile = hDebugLayoutFromFile;
-    image_data_.hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
-    image_data_.hDebugSVLines = hDebugSVLines;
-    image_data_.hDebugSVLinesStep = hDebugSVLinesStep;
-    image_data_.hDebugSVLinesData = hDebugSVLinesData;
-    image_data_.szLayoutFileName = layout_filename_.c_str();
+    image_data_->gbOneColumn = opts.oneColumn();
+    image_data_->gKillVSLComponents = kill_vsl_components_;
+    image_data_->hCPAGE = cpage_;
+    image_data_->hCCOM = comp_cont_;
+    image_data_->hCLINE = cline_;
+    image_data_->gnPictures = opts.pictureSearch();
+    image_data_->gnLanguage = opts.language();
+    image_data_->hDebugCancelSearchPictures = hDebugCancelSearchPictures;
+    image_data_->hDebugLayoutFromFile = hDebugLayoutFromFile;
+    image_data_->hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
+    image_data_->hDebugSVLines = hDebugSVLines;
+    image_data_->hDebugSVLinesStep = hDebugSVLinesStep;
+    image_data_->hDebugSVLinesData = hDebugSVLinesData;
+    image_data_->szLayoutFileName = layout_filename_.c_str();
 }
 
 }

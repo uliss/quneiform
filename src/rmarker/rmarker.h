@@ -69,33 +69,10 @@
 #include <string>
 #include <stdexcept>
 
-#include "common/lang_def.h"
-#include "cttypes.h"
 #include "globus.h"
 
-
 struct CCOM_cont;
-
-struct RMPreProcessImage
-{
-    Bool32 gbFax100;
-    Bool32 gbOneColumn;
-    Bool32 gKillVSLComponents;
-    language_t gnLanguage;
-    Handle hCPAGE;
-    CCOM_cont * hCCOM;
-    Handle hCLINE;
-    Handle hDebugCancelSearchPictures;
-    Handle hDebugLayoutFromFile;
-    Handle hDebugCancelExtractBlocks;
-    Handle hDebugSVLines;
-    Handle hDebugSVLinesStep;
-    Handle hDebugSVLinesData;
-    const char *szLayoutFileName;
-    uint32_t gnPictures;
-};
-
-typedef RMPreProcessImage * PRMPreProcessImage;
+struct RMPreProcessImage;
 
 namespace cf
 {
@@ -125,7 +102,7 @@ public:
     void setLayoutFilename(const std::string& fname);
     void setOptions(const RecognizeOptions& opts);
 private:
-    RMPreProcessImage image_data_;
+    RMPreProcessImage * image_data_;
     Handle cpage_;
     CCOM_cont * comp_cont_;
     Handle cline_;
@@ -143,7 +120,5 @@ enum
 };
 
 const int PUMAMaxNumLines = 2000;
-
-Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
 
 #endif

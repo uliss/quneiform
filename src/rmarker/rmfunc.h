@@ -57,20 +57,44 @@
 #ifndef _RMFUNC_H_
 #define _RMFUNC_H_
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
+
 #include "cimage/ctiimage.h"
 #include "ccom/ccomdefs.h"
 #include "cpage/cpage.h"
+#include "common/lang_def.h"
 
 #define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
 
 struct BIG_IMAGE
 {
-        CCOM_handle hCCOM;
-        uchar ImageName[CPAGE_MAXNAME];
+    CCOM_handle hCCOM;
+    uchar ImageName[CPAGE_MAXNAME];
 };
 
+struct RMPreProcessImage
+{
+    Bool32 gbFax100;
+    Bool32 gbOneColumn;
+    Bool32 gKillVSLComponents;
+    language_t gnLanguage;
+    Handle hCPAGE;
+    CCOM_cont * hCCOM;
+    Handle hCLINE;
+    Handle hDebugCancelSearchPictures;
+    Handle hDebugLayoutFromFile;
+    Handle hDebugCancelExtractBlocks;
+    Handle hDebugSVLines;
+    Handle hDebugSVLinesStep;
+    Handle hDebugSVLinesData;
+    const char *szLayoutFileName;
+    uint32_t gnPictures;
+};
+
+typedef RMPreProcessImage * PRMPreProcessImage;
+
+Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
 Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image);
 Bool32 PageMarkup(PRMPreProcessImage Image);
 uint32_t GetReturnCode_rmarker(void);
