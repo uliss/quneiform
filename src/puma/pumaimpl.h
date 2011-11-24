@@ -149,7 +149,7 @@ class PumaImpl
     private:
         std::auto_ptr<ComponentExtractor> comp_extractor_;
         std::auto_ptr<Formatter> formatter_;
-        boost::shared_ptr<PageMarker> rmarker_;
+        boost::shared_ptr<PageMarker> marker_;
         boost::shared_ptr<RStuff> rstuff_;
         BitmapInfoHeader info_;
         Rect rect_template_;

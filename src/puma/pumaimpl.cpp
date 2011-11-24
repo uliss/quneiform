@@ -364,13 +364,13 @@ void PumaImpl::loadLayoutFromFile(const std::string& fname) {
 }
 
 void PumaImpl::markup() {
-    rmarker_->setComponentContainer(ccom_);
-    rmarker_->setCLine(cline_);
-    rmarker_->setCPage(cpage_);
-    rmarker_->setLayoutFilename(layout_filename_);
-    rmarker_->setOptions(recognize_options_);
-    rmarker_->markupPage();
-    cpage_ = rmarker_->cpage();
+    marker_->setComponentContainer(ccom_);
+    marker_->setCLine(cline_);
+    marker_->setCPage(cpage_);
+    marker_->setLayoutFilename(layout_filename_);
+    marker_->setOptions(recognize_options_);
+    marker_->markupPage();
+    cpage_ = marker_->cpage();
 
     if (Config::instance().debug())
         debugPrintCpage();
@@ -433,7 +433,7 @@ void PumaImpl::modulesInit() {
             throw PumaException("RSL_Init failed.");
 
         rstuff_.reset(new RStuff);
-        rmarker_.reset(new PageMarker);
+        marker_.reset(new PageMarker);
 
         if (!RBLOCK_Init(PUMA_MODULE_RBLOCK, NULL))
             throw PumaException("RBLOCK_Init failed.");
