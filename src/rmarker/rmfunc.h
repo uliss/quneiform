@@ -63,8 +63,6 @@
 #include "ccom/ccomdefs.h"
 #include "cpage/cpage.h"
 
-typedef int Bool;
-
 #define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
 
 struct BIG_IMAGE
