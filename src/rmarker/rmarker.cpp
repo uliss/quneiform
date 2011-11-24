@@ -87,7 +87,7 @@ RMarker::RMarker() :
     cpage_(NULL),
     comp_cont_(NULL),
     cline_(NULL),
-    kill_vsl_components_(false)
+    kill_vsl_components_(true)
 {
     RNEG_Init(0, NULL);
 }

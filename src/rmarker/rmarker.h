@@ -78,21 +78,21 @@ struct CCOM_cont;
 
 struct RMPreProcessImage
 {
-        Bool32 gbFax100;
-        Bool32 gbOneColumn;
-        Bool32 gKillVSLComponents;
-        uint32_t gnLanguage;
-        Handle hCPAGE;
-        CCOM_cont * hCCOM;
-        Handle hCLINE;
-        Handle hDebugCancelSearchPictures;
-        Handle hDebugLayoutFromFile;
-        Handle hDebugCancelExtractBlocks;
-        Handle hDebugSVLines;
-        Handle hDebugSVLinesStep;
-        Handle hDebugSVLinesData;
-        const char *szLayoutFileName;
-        uint32_t gnPictures;
+    Bool32 gbFax100;
+    Bool32 gbOneColumn;
+    Bool32 gKillVSLComponents;
+    language_t gnLanguage;
+    Handle hCPAGE;
+    CCOM_cont * hCCOM;
+    Handle hCLINE;
+    Handle hDebugCancelSearchPictures;
+    Handle hDebugLayoutFromFile;
+    Handle hDebugCancelExtractBlocks;
+    Handle hDebugSVLines;
+    Handle hDebugSVLinesStep;
+    Handle hDebugSVLinesData;
+    const char *szLayoutFileName;
+    uint32_t gnPictures;
 };
 
 typedef RMPreProcessImage * PRMPreProcessImage;

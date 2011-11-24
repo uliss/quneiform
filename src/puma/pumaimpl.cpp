@@ -145,7 +145,6 @@ PumaImpl::PumaImpl() :
     lines_ccom_(NULL),
     cline_(NULL),
     rc_line_(TRUE),
-    kill_vsl_components_(TRUE),
     need_clean_line_(FALSE),
     recog_name_(NULL),
     special_project_(SPEC_PRJ_NO)
@@ -336,7 +335,6 @@ void PumaImpl::layout() {
     rstuff_->setRecognizeOptions(recognize_options_);
     rstuff_->normalize();
 
-    rmarker_->setKillVSLComponents(kill_vsl_components_);
     rmarker_->setComponentContainer(ccom_);
     rmarker_->setCLine(cline_);
     rmarker_->setCPage(cpage_);

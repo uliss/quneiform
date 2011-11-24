@@ -164,7 +164,6 @@ class PumaImpl
         Handle cline_;
         CEDPagePtr ed_page_;
         Bool32 rc_line_;
-        Bool32 kill_vsl_components_;
         Bool32 need_clean_line_;
         const char * recog_name_;
         special_project_t special_project_;
