@@ -56,7 +56,7 @@
 #ifndef __MARK_PAGE_H__
 #define __MARK_PAGE_H__
 
-#include "rmarker/rmarker.h"
+#include "rmarker.h"
 #include "dpuma.h"
 #include "puma/pumadef.h"
 #include "ccom/ccom.h"

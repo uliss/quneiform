@@ -26,12 +26,12 @@ set(CUNEIFORM_LIBS
     cuneiform-cline
     cuneiform-cpage
     cuneiform-export
+    cuneiform-markup
     cuneiform-rblock
     cuneiform-rcorrkegl
     cuneiform-rfrmt
     cuneiform-rimage
     cuneiform-rline
-    cuneiform-rmarker
     cuneiform-rpic
     cuneiform-rselstr
     cuneiform-rsl

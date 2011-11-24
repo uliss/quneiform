@@ -1,4 +1,4 @@
-set(RMARKER_SOURCES
+set(MARKUP_SOURCES
     ${SNP_SRC}
     dll.cpp
     rmarker.cpp
@@ -13,22 +13,22 @@ set(RMARKER_SOURCES
     ../usage/un_buff.cpp
 )
 
-set(RMARKER_HEADERS
+set(MARKUP_HEADERS
     rmarker.h
     rmfunc.h
     markpage.h
 )
 
-add_library(cuneiform-rmarker ${LIBTYPE}
-    ${RMARKER_SOURCES}
-    ${RMARKER_HEADERS}
+add_library(cuneiform-markup ${LIBTYPE}
+    ${MARKUP_SOURCES}
+    ${MARKUP_HEADERS}
 )
 
-cif_visibility_hidden(cuneiform-rmarker)
+cif_visibility_hidden(cuneiform-markup)
 
-set_property(TARGET cuneiform-rmarker PROPERTY COMPILE_DEFINITIONS __RMARKER__)
+set_property(TARGET cuneiform-markup PROPERTY COMPILE_DEFINITIONS __RMARKER__)
 
-target_link_libraries(cuneiform-rmarker
+target_link_libraries(cuneiform-markup
     cuneiform-cfio
     cuneiform-cimage
     cuneiform-cpage
@@ -39,4 +39,4 @@ target_link_libraries(cuneiform-rmarker
     cuneiform-rselstr
 )
 
-library_hook(cuneiform-rmarker)
+library_hook(cuneiform-markup)
