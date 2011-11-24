@@ -30,7 +30,7 @@
 
 #include "processrecognitionserver.h"
 #include "startprocess.h"
-#include "shmem_data.h"
+#include "process_exit_codes.h"
 #include "shmem/sharedmemoryholder.h"
 #include "shmem/memorydata.h"
 #include "common/debug.h"

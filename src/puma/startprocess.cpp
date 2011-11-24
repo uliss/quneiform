@@ -27,7 +27,7 @@
 #include "common/console_messages.h"
 #include "common/debug.h"
 #include "common/filesystem.h"
-#include "shmem_data.h"
+#include "process_exit_codes.h"
 
 #ifdef _WIN32
 #include <windows.h>

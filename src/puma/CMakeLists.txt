@@ -15,7 +15,7 @@ endif()
 set(CUNEIFORM_HEADERS
     abstractrecognitionserver.h
     puma.h
-    shmem_data.h
+    process_exit_codes.h
 )
 
 set(CUNEIFORM_LIBS

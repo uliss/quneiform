@@ -18,7 +18,7 @@
 
 #include "teststartprocess.h"
 #include "puma/startprocess.h"
-#include "puma/shmem_data.h"
+#include "puma/process_exit_codes.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestStartProcess);
 

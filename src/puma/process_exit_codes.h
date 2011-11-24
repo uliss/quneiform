@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SHMEM_DATA_H
-#define SHMEM_DATA_H
+#ifndef PROCESS_EXIT_CODES_H
+#define PROCESS_EXIT_CODES_H
 
 namespace cf {
 
@@ -36,4 +36,4 @@ enum WorkerExitValues {
 
 }
 
-#endif // SHMEM_DATA_H
+#endif // PROCESS_EXIT_CODES_H

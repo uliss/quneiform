@@ -25,11 +25,11 @@
 #include <csignal>
 
 #include "localrecognitionserver.h"
-#include "shmem/memorydata.h"
-#include "shmem/sharedmemoryholder.h"
-#include "shmem_data.h"
+#include "process_exit_codes.h"
 #include "common/console_messages.h"
 #include "common/debug.h"
+#include "shmem/memorydata.h"
+#include "shmem/sharedmemoryholder.h"
 
 #define WORKER_PREFIX cf::console::message("[Process worker] ", cf::console::YELLOW)
 #define CF_ERROR(msg) std::cerr << WORKER_PREFIX << msg << std::endl;
