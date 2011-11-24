@@ -103,10 +103,11 @@ typedef RMPreProcessImage * PRMPreProcessImage;
 Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
 Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image);
 Bool32 PageMarkup(PRMPreProcessImage Image);
-uint32_t GetReturnCode_rmarker(void);
 Bool32 SearchPictures(PRMPreProcessImage, BigImage);
 Bool32 SearchNeg(PRMPreProcessImage, BigImage, int);
 Bool32 SearchFon(PRMPreProcessImage, BigImage, int);
+void SetReturnCode_rmarker(uint32_t rc);
+
 void GiveMainBuff(void **vvBuff, int *Size);
 void GiveWorkBuff(char **ccBuff, int *Size);
 void SetMainBuff(void *vBuff, int Size);

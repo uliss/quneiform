@@ -54,14 +54,12 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "rmarker.h"
 #include "rmfunc.h"
 
-uchar* Buffer = NULL;
-uchar* WorkMem = NULL;
-int BufferSize = 0;
-int WorkMemSize = 0;
-
+static uchar * Buffer = NULL;
+static uchar * WorkMem = NULL;
+static int BufferSize = 0;
+static int WorkMemSize = 0;
 
 void GiveMainBuff (void **vvBuff, int *Size)
 {

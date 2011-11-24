@@ -58,13 +58,17 @@
 
 #include <fstream>
 
-#include "common/recognizeoptions.h"
-#include "markpage.h"
-#include "rneg/rneg.h"
+#include "rmarker.h"
 #include "rmfunc.h"
-#include "rneg/rneg.h"
-#include "rselstr/rselstr.h"
+#include "markpage.h"
+#include "dpuma.h"
+#include "common/recognizeoptions.h"
+#include "lns/lnsdefs.h"
+#include "rblock/rblock.h"
 #include "rline/rline.h"
+#include "rneg/rneg.h"
+#include "rpic/rpic.h"
+#include "rselstr/rselstr.h"
 
 namespace cf
 {
@@ -250,11 +254,6 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 void SetReturnCode_rmarker(uint32_t rc)
 {
     gwRC = rc;
-}
-
-uint32_t GetReturnCode_rmarker(void)
-{
-    return gwRC;
 }
 
 Bool32 SearchNeg(PRMPreProcessImage Image, BigImage big_Image, int skew)

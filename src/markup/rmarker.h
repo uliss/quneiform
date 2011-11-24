@@ -53,16 +53,7 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**********  Заголовок  *******************************************************/
-/*  Автор      : Глеб Корольков                                                             */
-/*  комментарии                                                               */
-/*  и далнейшая                                                               */
-/*  правка     :                                                            */
-/*  Редакция   :  16.10.2000                                                  */
-/*  Файл       :  'RMARKER.H'                                                 */
-/*  Содержание :  Интерфейс библиотеки                                        */
-/*  Назначение :                                                              */
-/*----------------------------------------------------------------------------*/
+
 #ifndef __RMARKER_H
 #define __RMARKER_H
 

@@ -68,9 +68,11 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "dpuma.h"
 #include "markpage.h"
 #include "linedefs.h"
 #include "cline/cline.h"
+#include "ccom/ccom.h"
 
 static const int PUMAMaxNumLines = 2000;
 

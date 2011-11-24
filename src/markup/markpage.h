@@ -56,43 +56,17 @@
 #ifndef __MARK_PAGE_H__
 #define __MARK_PAGE_H__
 
-#include "rmarker.h"
-#include "dpuma.h"
-#include "puma/pumadef.h"
-#include "ccom/ccom.h"
-#include "ced/ced.h"
-#include "cpage/cpage.h"
-#include "rimage/criimage.h"
-#include "cstr/cstr.h"
-#include "cimage/ctiimage.h"
-#include "exc/exc.h"
-#include "rblock/rblock.h"
-#include "rline/rline.h"
-#include "rpic/rpic.h"
-#include "rstr/rstr.h"
-#include "rstuff/rstuff.h"
-#include "rverline/rverline.h"
-#include "lns/lnsdefs.h"
 #include "shortverticallinesfilter.h"
-#include "resource.h"
 
 #define IDS_ERR_INITIATED_BY_ALLEX      2029
 #ifdef _RMARKER_CPP
 #define EXTERN
-#define VAL(a)      = a
 #define VALM(a)     = {a}
-#define VAL2(a,b)   = { a,b }
-#define VAL4(a,b,c,d)   = { a,b,c,d }
 #else
 #define EXTERN      extern
-#define VAL(a)
 #define VALM(a)
-#define VAL2(a,b)
-#define VAL4(a,b,c,d)
 #endif
 
 EXTERN PUMALinesBuffer gSVLBuffer VALM(0);
-
-void SetReturnCode_rmarker(uint32_t rc);
 
 #endif
