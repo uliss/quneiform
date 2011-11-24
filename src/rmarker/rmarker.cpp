@@ -73,9 +73,7 @@
 
 namespace cf
 {
-RMarker::RMarker() :
-    cpage_(NULL), ccom_(NULL), cline_(NULL), language_(LANGUAGE_RUS_ENG), pictures_(0), fax_(false),
-            one_column_(false), kill_vsl_components_(false)
+RMarker::RMarker()
 {
     RNEG_Init(0, NULL);
 }
@@ -85,10 +83,20 @@ RMarker::~RMarker()
     RNEG_Done();
 }
 
-void RMarker::markupPage()
+void RMarker::markupPage(PRMPreProcessImage img)
 {
+    static const size_t MEM_SIZE = 180000;
+    static const size_t MAIN_SIZE = 500000;
+    char * mem_buf = new char[MEM_SIZE];
+    char * main_buf = new char[MAIN_SIZE];
 
+    if(!RMARKER_PageMarkup(img, mem_buf, MEM_SIZE, main_buf, MAIN_SIZE))
+        throw Exception("markupPage failed");
+
+    delete[] mem_buf;
+    delete[] main_buf;
 }
+
 }
 
 #define INCLINE_FACTOR  2048

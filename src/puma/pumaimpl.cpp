@@ -366,8 +366,7 @@ void PumaImpl::layout() {
     void* MemWork = cf::PumaImpl::workBuffer();
     int size_work = cf::PumaImpl::WorkBufferSize;
 
-    if (!RMARKER_PageMarkup(&DataforRM, MemBuf, size_buf, MemWork, size_work))
-        throw PumaException("RMARKER_PageMarkup failed");
+    rmarker_->markupPage(&DataforRM);
 
     cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
 

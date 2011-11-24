@@ -67,41 +67,12 @@
 #define __RMARKER_H
 
 #include <string>
+#include <stdexcept>
+
 #include "common/lang_def.h"
 #include "cttypes.h"
 #include "globus.h"
 
-namespace cf
-{
-class CLA_EXPO RMarker
-{
-    public:
-        RMarker();
-        ~RMarker();
-
-        void markupPage();
-        void setCCom(Handle ccom);
-        void setCLine(Handle cline);
-        void setCPage(Handle cpage);
-        void setLanguage(language_t language);
-        void setPicturesNum(uint num);
-        void setFax(bool value);
-        void setOneColumnLayout(bool value);
-        void setKillVslComponents(bool value);
-        void setLayoutFilename(const std::string& fname);
-    private:
-        Handle cpage_;
-        Handle ccom_;
-        Handle cline_;
-        language_t language_;
-        uint pictures_;
-        bool fax_;
-        bool one_column_;
-        bool kill_vsl_components_;
-        std::string layout_file_name_;
-};
-
-}
 
 struct CCOM_cont;
 
@@ -125,6 +96,25 @@ struct RMPreProcessImage
 };
 
 typedef RMPreProcessImage * PRMPreProcessImage;
+
+namespace cf
+{
+class CLA_EXPO RMarker
+{
+public:
+    class Exception : public std::runtime_error {
+    public:
+        Exception(const std::string& msg) : std::runtime_error(msg) {}
+    };
+
+public:
+    RMarker();
+    ~RMarker();
+
+    void markupPage(PRMPreProcessImage Image);
+};
+
+}
 
 enum
 {
