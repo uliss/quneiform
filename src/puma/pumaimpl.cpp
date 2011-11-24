@@ -44,7 +44,7 @@
 #include "dpuma.h"
 #include "exc/exc.h"
 #include "export/exporterfactory.h"
-#include "markup/rmarker.h"
+#include "markup/pagemarker.h"
 #include "rblock/rblock.h"
 #include "rcorrkegl/rcorrkegl.h"
 #include "rfrmt/formatter.h"
@@ -433,7 +433,7 @@ void PumaImpl::modulesInit() {
             throw PumaException("RSL_Init failed.");
 
         rstuff_.reset(new RStuff);
-        rmarker_.reset(new RMarker);
+        rmarker_.reset(new PageMarker);
 
         if (!RBLOCK_Init(PUMA_MODULE_RBLOCK, NULL))
             throw PumaException("RBLOCK_Init failed.");

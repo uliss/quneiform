@@ -41,7 +41,7 @@ struct CCOM_cont;
 
 namespace cf {
 
-class RMarker;
+class PageMarker;
 class ComponentExtractor;
 class CEDPage;
 class Formatter;
@@ -149,7 +149,7 @@ class PumaImpl
     private:
         std::auto_ptr<ComponentExtractor> comp_extractor_;
         std::auto_ptr<Formatter> formatter_;
-        boost::shared_ptr<RMarker> rmarker_;
+        boost::shared_ptr<PageMarker> rmarker_;
         boost::shared_ptr<RStuff> rstuff_;
         BitmapInfoHeader info_;
         Rect rect_template_;

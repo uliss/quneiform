@@ -1,7 +1,7 @@
 set(MARKUP_SOURCES
     ${SNP_SRC}
     dll.cpp
-    rmarker.cpp
+    pagemarker.cpp
     rmarkermem.cpp
     shortverticallinesfilter.cpp
     ../usage/amu_geom.cpp
@@ -14,7 +14,7 @@ set(MARKUP_SOURCES
 )
 
 set(MARKUP_HEADERS
-    rmarker.h
+    pagemarker.h
     rmfunc.h
     markpage.h
 )
