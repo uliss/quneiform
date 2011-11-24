@@ -99,6 +99,9 @@ typedef RMPreProcessImage * PRMPreProcessImage;
 
 namespace cf
 {
+
+class RecognizeOptions;
+
 class CLA_EXPO RMarker
 {
 public:
@@ -111,7 +114,23 @@ public:
     RMarker();
     ~RMarker();
 
-    void markupPage(PRMPreProcessImage Image);
+    Handle cpage();
+
+    void markupPage();
+
+    void setComponentContainer(CCOM_cont * cont);
+    void setCLine(Handle cline);
+    void setCPage(Handle cpage);
+    void setKillVSLComponents(bool value);
+    void setLayoutFilename(const std::string& fname);
+    void setOptions(const RecognizeOptions& opts);
+private:
+    RMPreProcessImage image_data_;
+    Handle cpage_;
+    CCOM_cont * comp_cont_;
+    Handle cline_;
+    bool kill_vsl_components_;
+    std::string layout_filename_;
 };
 
 }
@@ -124,6 +143,7 @@ enum
 };
 
 const int PUMAMaxNumLines = 2000;
-FUN_EXPO__ Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
+
+Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
 
 #endif

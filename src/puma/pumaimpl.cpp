@@ -67,15 +67,10 @@ static Handle hDebugCancelSearchTables = NULL;
 static Handle hDebugCancelVerifyLines = NULL;
 static Handle hDebugCancelSearchDotLines = NULL;
 static Handle hDebugCancelComponent = NULL;
-static Handle hDebugCancelExtractBlocks = NULL;
 static Handle hDebugCancelStringsPass2 = NULL;
 static Handle hDebugCancelSearchPictures = NULL;
 static Handle hDebugEnableSearchSegment = NULL;
 static Handle hDebugStrings = NULL;
-static Handle hDebugSVLines = NULL;
-static Handle hDebugSVLinesStep = NULL;
-static Handle hDebugSVLinesData = NULL;
-static Handle hDebugLayoutFromFile = NULL;
 static Handle hDebugCancelTurn = NULL;
 
 static double portion_of_rus_letters(CSTR_line lin_ruseng) {
@@ -309,7 +304,6 @@ void PumaImpl::layout() {
     binarizeImage();
 
     RSPreProcessImage DataforRS;
-    RMPreProcessImage DataforRM;
 
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
     DataforRS.pinfo = &info_;
@@ -342,26 +336,14 @@ void PumaImpl::layout() {
     rstuff_->setRecognizeOptions(recognize_options_);
     rstuff_->normalize();
 
-    // Gleb 02.11.2000
-    // Далее - разметка. Вынесена в RMARKER.DLL
-    DataforRM.gbOneColumn = recognize_options_.oneColumn();
-    DataforRM.gKillVSLComponents = kill_vsl_components_;
-    DataforRM.hCPAGE = cpage_;
-    DataforRM.hCCOM = ccom_;
-    DataforRM.hCLINE = cline_;
-    DataforRM.gnPictures = recognize_options_.pictureSearch();
-    DataforRM.gnLanguage = recognize_options_.language();
-    DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
-    DataforRM.hDebugLayoutFromFile = hDebugLayoutFromFile;
-    DataforRM.hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
-    DataforRM.hDebugSVLines = hDebugSVLines;
-    DataforRM.hDebugSVLinesStep = hDebugSVLinesStep;
-    DataforRM.hDebugSVLinesData = hDebugSVLinesData;
-    DataforRM.szLayoutFileName = layout_filename_.c_str();
-
-    rmarker_->markupPage(&DataforRM);
-
-    cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
+    rmarker_->setKillVSLComponents(kill_vsl_components_);
+    rmarker_->setComponentContainer(ccom_);
+    rmarker_->setCLine(cline_);
+    rmarker_->setCPage(cpage_);
+    rmarker_->setLayoutFilename(layout_filename_);
+    rmarker_->setOptions(recognize_options_);
+    rmarker_->markupPage();
+    cpage_ = rmarker_->cpage();
 
     if (Config::instance().debug()) {
         Debug() << "Container CPAGE has: \n name : size\n";
