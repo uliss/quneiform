@@ -17,7 +17,6 @@ set(RMARKER_HEADERS
     rmarker.h
     rmfunc.h
     markpage.h
-    mymem.h
 )
 
 add_library(cuneiform-rmarker ${LIBTYPE}

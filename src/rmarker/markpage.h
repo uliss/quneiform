@@ -59,7 +59,6 @@
 #include "rmarker/rmarker.h"
 #include "dpuma.h"
 #include "puma/pumadef.h"
-#include "mymem.h"
 #include "ccom/ccom.h"
 #include "ced/ced.h"
 #include "cpage/cpage.h"
@@ -76,7 +75,6 @@
 #include "lns/lnsdefs.h"
 #include "shortverticallinesfilter.h"
 #include "resource.h"
-#include "mymem.h"
 
 #define IDS_ERR_INITIATED_BY_ALLEX      2029
 #ifdef _RMARKER_CPP
