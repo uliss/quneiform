@@ -65,6 +65,13 @@
 #include "cpage/cpage.h"
 #include "common/lang_def.h"
 
+enum
+{
+    PUMA_SVL_FIRST_STEP = 0x1,
+    PUMA_SVL_SECOND_STEP = 0x2,
+    PUMA_SVL_THRID_STEP = 0x3
+};
+
 #define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
 
 struct BigImage
@@ -75,9 +82,8 @@ struct BigImage
 
 struct RMPreProcessImage
 {
-    Bool32 gbFax100;
     Bool32 gbOneColumn;
-    Bool32 gKillVSLComponents;
+    bool gKillVSLComponents;
     language_t gnLanguage;
     Handle hCPAGE;
     CCOM_cont * hCCOM;
@@ -89,7 +95,7 @@ struct RMPreProcessImage
     Handle hDebugSVLinesStep;
     Handle hDebugSVLinesData;
     const char *szLayoutFileName;
-    uint32_t gnPictures;
+    bool gnPictures;
 };
 
 typedef RMPreProcessImage * PRMPreProcessImage;

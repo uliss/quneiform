@@ -72,6 +72,8 @@
 #include "linedefs.h"
 #include "cline/cline.h"
 
+static const int PUMAMaxNumLines = 2000;
+
 static Bool32 bShowDebug = FALSE;
 static Bool32 bShowStepDebug = FALSE;
 static Bool32 bShowDebugData = FALSE;

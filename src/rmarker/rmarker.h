@@ -112,13 +112,4 @@ private:
 
 }
 
-enum
-{
-    PUMA_SVL_FIRST_STEP = 0x1,
-    PUMA_SVL_SECOND_STEP = 0x2,
-    PUMA_SVL_THRID_STEP = 0x3
-};
-
-const int PUMAMaxNumLines = 2000;
-
 #endif
