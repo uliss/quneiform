@@ -172,7 +172,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
 
     rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, Image);
 
-    BIG_IMAGE big_Image;
+    BigImage big_Image;
     //default Image:
     PAGEINFO info;
     GetPageInfo(Image->hCPAGE, &info);
@@ -184,7 +184,7 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
     Handle h = CPAGE_GetBlockFirst(Image->hCPAGE, TYPE_BIG_COMP);
 
     if (h) {
-        CPAGE_GetBlockData(Image->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BIG_IMAGE));
+        CPAGE_GetBlockData(Image->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BigImage));
         CPAGE_DeleteBlock(Image->hCPAGE, h);
     }
 
@@ -257,7 +257,7 @@ uint32_t GetReturnCode_rmarker(void)
     return gwRC;
 }
 
-Bool32 SearchNeg(PRMPreProcessImage Image, BIG_IMAGE big_Image, int skew)
+Bool32 SearchNeg(PRMPreProcessImage Image, BigImage big_Image, int skew)
 {
     if (!LDPUMA_Skip(hDebugNeg))
         return TRUE;
@@ -266,7 +266,7 @@ Bool32 SearchNeg(PRMPreProcessImage Image, BIG_IMAGE big_Image, int skew)
     return TRUE;
 }
 
-Bool32 SearchPictures(PRMPreProcessImage Image, BIG_IMAGE big_Image)
+Bool32 SearchPictures(PRMPreProcessImage Image, BigImage big_Image)
 {
     Bool32 rc = TRUE;
 

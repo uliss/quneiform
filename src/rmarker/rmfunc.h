@@ -67,7 +67,7 @@
 
 #define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
 
-struct BIG_IMAGE
+struct BigImage
 {
     CCOM_handle hCCOM;
     uchar ImageName[CPAGE_MAXNAME];
@@ -98,9 +98,9 @@ Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
 Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image);
 Bool32 PageMarkup(PRMPreProcessImage Image);
 uint32_t GetReturnCode_rmarker(void);
-Bool32 SearchPictures(PRMPreProcessImage, BIG_IMAGE);
-Bool32 SearchNeg(PRMPreProcessImage, BIG_IMAGE, int);
-Bool32 SearchFon(PRMPreProcessImage, BIG_IMAGE, int);
+Bool32 SearchPictures(PRMPreProcessImage, BigImage);
+Bool32 SearchNeg(PRMPreProcessImage, BigImage, int);
+Bool32 SearchFon(PRMPreProcessImage, BigImage, int);
 void GiveMainBuff(void **vvBuff, int *Size);
 void GiveWorkBuff(char **ccBuff, int *Size);
 void SetMainBuff(void *vBuff, int Size);
