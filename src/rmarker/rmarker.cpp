@@ -152,32 +152,12 @@ void RMarker::setOptions(const RecognizeOptions& opts) {
 
 }
 
-extern Handle DebugFill;
-extern Handle hVertCells;
-extern Handle hNegaCells;
-extern Handle hVertCellsAuto;
-extern Handle hNegaCellsAuto;
-extern Handle hDebugUpDown;
 extern Handle hDebugPictures;
-extern Handle hPrintFileVertCells;
 extern Handle hDebugNeg;
 extern Handle hDebugLinePass3;
 extern Handle hDebugLinePass2;
 extern Handle hDebugVerifLine;
-extern Handle hNoGiveNeg;
-extern Handle hNoSeePict;
-
 extern Handle hPrep;
-extern Handle hPicture;
-extern Handle hNegative;
-extern Handle hPrintCrossedPics;
-extern Handle hVCutInZones;
-extern Handle hSVLP;
-extern Handle hBlocks;
-extern Handle hLines3;
-extern Handle hNegaTestCells;
-extern Handle hVertTestCells;
-extern Handle hFon;
 extern Handle hEnd;
 
 static uint32_t gwRC = 0;

@@ -58,38 +58,19 @@
 #include "dpuma.h"
 
 Handle MainDebug;
-Handle DebugFill;
-Handle hVertCells;
-Handle hNegaCells;
-Handle hDebugUpDown;
 Handle hDebugPictures;
-Handle hPrintFileVertCells;
-Handle hVertCellsAuto;
-Handle hNegaCellsAuto;
 Handle hDebugNeg;
 Handle hDebugLinePass3;
 Handle hDebugLinePass2;
 Handle hDebugVerifLine;
 Handle hZone;
 Handle hNoRazrTabl;
-Handle hNoGiveNeg;
-Handle hNoSeePict;
 
 Handle hMainTime;
 Handle hPrep;
-Handle hPicture;
-Handle hNegative;
 Handle hTableZones;
-Handle hPrintCrossedPics;
-Handle hVCutInZones;
 Handle hSearchTables;
 Handle hAnalTables;
-Handle hSVLP;
-Handle hBlocks;
-Handle hLines3;
-Handle hNegaTestCells;
-Handle hVertTestCells;
-Handle hFon;
 Handle hEnd;
 Handle hSegment;
 
