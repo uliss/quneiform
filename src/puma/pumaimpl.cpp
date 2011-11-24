@@ -30,6 +30,7 @@
 #include "common/debug.h"
 #include "common/helper.h"
 #include "common/tostring.h"
+#include "common/memorybuffer.h"
 #include "common/language.h"
 #include "ligas.h"      // 12.06.2002 E.P.
 #include "ccom/ccom.h"
@@ -120,9 +121,6 @@ static char global_buf[64000]; // OLEG fot Consistent
 static int32_t global_buf_len = 0; // OLEG fot Consistent
 
 uint32_t PumaImpl::update_flags_ = 0;
-
-FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
-FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
 
 bool PumaImpl::hasUpdateFlag(uint32_t flg) {
     return (update_flags_ & flg) > 0;
@@ -360,11 +358,6 @@ void PumaImpl::layout() {
     DataforRM.hDebugSVLinesStep = hDebugSVLinesStep;
     DataforRM.hDebugSVLinesData = hDebugSVLinesData;
     DataforRM.szLayoutFileName = layout_filename_.c_str();
-
-    void* MemBuf = cf::PumaImpl::mainBuffer();
-    size_t size_buf = cf::PumaImpl::MainBufferSize;
-    void* MemWork = cf::PumaImpl::workBuffer();
-    int size_work = cf::PumaImpl::WorkBufferSize;
 
     rmarker_->markupPage(&DataforRM);
 
@@ -1045,14 +1038,6 @@ void PumaImpl::setPageTemplate(const Rect& r) {
 void PumaImpl::setSpecialProject(special_project_t SpecialProject) {
     special_project_ = SpecialProject;
     RSTR_SetSpecPrj(SpecialProject);
-}
-
-unsigned char * PumaImpl::mainBuffer() {
-    return main_buffer_.begin();
-}
-
-unsigned char * PumaImpl::workBuffer() {
-    return work_buffer_.begin();
 }
 
 }

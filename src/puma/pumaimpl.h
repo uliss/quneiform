@@ -29,7 +29,6 @@
 #include "common/formatoptions.h"
 #include "common/rect.h"
 #include "common/exception.h"
-#include "common/memorybuffer.h"
 #include "common/outputformat.h"
 #include "common/image.h"
 #include "common/recognizeoptions.h"
@@ -108,11 +107,6 @@ class PumaImpl
         void setPageTemplate(const Rect& r);
         void setSpecialProject(special_project_t SpecialProject);
     private:
-        static unsigned char * mainBuffer();
-        static unsigned char * workBuffer();
-        static const size_t MainBufferSize = 500000;
-        static const size_t WorkBufferSize = 180000;
-    private:
         void binarizeImage();
         void clearAll();
         void extractComponents();
@@ -150,8 +144,6 @@ class PumaImpl
         static void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
     private:
         static uint32_t update_flags_;
-        static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
-        static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
     private:
         std::auto_ptr<ComponentExtractor> comp_extractor_;
         std::auto_ptr<Formatter> formatter_;
