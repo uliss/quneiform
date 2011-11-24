@@ -231,6 +231,19 @@ void PumaImpl::close() {
     recog_dib_ = input_dib_ = NULL;
 }
 
+void PumaImpl::debugPrintCpage() {
+    Debug() << "Container CPAGE has: \n name : size\n";
+    Handle block = CPAGE_GetBlockFirst(cpage_, 0);
+
+    while (block) {
+        Debug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block))
+                << " : "
+                << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0)
+                << "\n";
+        block = CPAGE_GetBlockNext(cpage_, block, 0);
+    }
+}
+
 void PumaImpl::extractComponents() {
     PAGEINFO info;
 
@@ -343,17 +356,8 @@ void PumaImpl::layout() {
     rmarker_->markupPage();
     cpage_ = rmarker_->cpage();
 
-    if (Config::instance().debug()) {
-        Debug() << "Container CPAGE has: \n name : size\n";
-        Handle block = CPAGE_GetBlockFirst(cpage_, 0);
-
-        while (block) {
-            Debug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_,
-                    block)) << " : " << CPAGE_GetBlockData(cpage_, block,
-                    CPAGE_GetBlockType(cpage_, block), NULL, 0) << "\n";
-            block = CPAGE_GetBlockNext(cpage_, block, 0);
-        }
-    }
+    if (Config::instance().debug())
+        debugPrintCpage();
 
     unsetUpdateFlag(FLG_UPDATE_CPAGE);
 }

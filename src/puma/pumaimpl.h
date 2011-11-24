@@ -109,6 +109,7 @@ class PumaImpl
     private:
         void binarizeImage();
         void clearAll();
+        void debugPrintCpage();
         void extractComponents();
         void extractStrings();
         void getImageInfo(const std::string& image_name);
