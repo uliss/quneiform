@@ -348,18 +348,7 @@ void PumaImpl::layout() {
     rstuff_->setRecognizeOptions(recognize_options_);
     rstuff_->normalize();
 
-    rmarker_->setComponentContainer(ccom_);
-    rmarker_->setCLine(cline_);
-    rmarker_->setCPage(cpage_);
-    rmarker_->setLayoutFilename(layout_filename_);
-    rmarker_->setOptions(recognize_options_);
-    rmarker_->markupPage();
-    cpage_ = rmarker_->cpage();
-
-    if (Config::instance().debug())
-        debugPrintCpage();
-
-    unsetUpdateFlag(FLG_UPDATE_CPAGE);
+    markup();
 }
 
 void PumaImpl::loadLayoutFromFile(const std::string& fname) {
@@ -372,6 +361,21 @@ void PumaImpl::loadLayoutFromFile(const std::string& fname) {
     }
 
     CPAGE_SetCurrentPage(CPAGE_GetNumberPage(cpage_));
+}
+
+void PumaImpl::markup() {
+    rmarker_->setComponentContainer(ccom_);
+    rmarker_->setCLine(cline_);
+    rmarker_->setCPage(cpage_);
+    rmarker_->setLayoutFilename(layout_filename_);
+    rmarker_->setOptions(recognize_options_);
+    rmarker_->markupPage();
+    cpage_ = rmarker_->cpage();
+
+    if (Config::instance().debug())
+        debugPrintCpage();
+
+    unsetUpdateFlag(FLG_UPDATE_CPAGE);
 }
 
 void PumaImpl::modulesDone() {

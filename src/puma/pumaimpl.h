@@ -115,6 +115,7 @@ class PumaImpl
         void getImageInfo(const std::string& image_name);
         void layout();
         void loadLayoutFromFile(const std::string& fname);
+        void markup();
         void modulesDone();
         void modulesInit();
         const char * modulePath() const;
