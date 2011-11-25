@@ -25,6 +25,7 @@ add_library(cuneiform-usage ${LIBTYPE}
 target_link_libraries(cuneiform-usage
     cuneiform-ccom
     cuneiform-cpage
+    cuneiform-cline
 )
 
 library_hook(cuneiform-usage)
