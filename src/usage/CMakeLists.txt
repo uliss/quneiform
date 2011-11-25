@@ -6,6 +6,9 @@ set(USAGE_SOURCES
     markdataoper.cpp
     amu_geom.cpp
     gystogra.cpp
+    line_am_util.cpp
+    line_vp_2_am.cpp
+    line_vp_util.cpp
 )
 
 set(USAGE_HEADERS
