@@ -125,7 +125,7 @@ bool MainWindow::confirmRotationSelected() {
 }
 
 void MainWindow::changePacketLanguage(const Language& lang) {
-    if(thumbs_)
+    if(!thumbs_)
         return;
 
     thumbs_->setLanguage(lang);
