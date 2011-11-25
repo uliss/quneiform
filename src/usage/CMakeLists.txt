@@ -26,3 +26,5 @@ target_link_libraries(cuneiform-usage
     cuneiform-ccom
     cuneiform-cpage
 )
+
+library_hook(cuneiform-usage)
