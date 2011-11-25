@@ -64,18 +64,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :                                                                                   */
 /*-------------------------------------------------------------------------------------------------*/
 #include <stdio.h>
-/*  interface our-other  */
+
 #include "lns/lnsdefs.h"
 #include "dpuma.h"
 #include "rsmemory.h"
 #include "rsfunc.h"
 #include "resource.h"
 #include "cline/cline.h"
-/*  interface our-my     */
-/*  interface my        */
-#include "un_err.h"
 #include "aboutlines.buffer.h"
-/*  interface my-my      */
+#include "usage/un_err.h"
 #include "usage/un_buff.h"
 
 static char * Buffer = NULL;

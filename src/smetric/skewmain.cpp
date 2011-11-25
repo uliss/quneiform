@@ -67,21 +67,16 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-/*#include <windows.h>*/
-/*  interface our-other  */
-/*  interface our  */
+
 #include "smetric.h"
-/*  interface my        */
-#include "un_err.h"
 #include "am_comm.h"
 #include "gystogra.h"
 #include "skewtrip.h"
 #include "markdatadefs.h"
 #include "linedesc.h"
-/*  interface my-my      */
 #include "usage/un_buff.h"
+#include "usage/un_err.h"
 #include "amt_geom.h"
-/*  interface our util  */
 #include "skew1024.h"
 
 const int SMETRIC_MIN_LINE_LNG = 60; //линии с длиной < SMETRIC_MIN_LINE_LNG не учитываются при вычислении угла наклона

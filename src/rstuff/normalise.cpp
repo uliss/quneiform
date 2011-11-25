@@ -75,10 +75,10 @@
 #include "puma/pumadef.h"
 #include "lns/lnsdefs.h"
 #include "usage/un_buff.h"
+#include "usage/un_err.h"
 #include "line_vp_util.h"
 #include "line_vp_2_am.h"
 #include "markdataoper.h"
-#include "un_err.h"
 #include "specprj.h"
 #include "rreccom/componentrecognizer.h"
 

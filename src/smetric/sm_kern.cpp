@@ -65,11 +65,8 @@
 
 #include <stdio.h>
 #include <string.h>
-/*#include <windows.h>*/
-/*  interface our  */
 #include "smetric.h"
-/*  interface my   */
-#include "un_err.h"
+#include "usage/un_err.h"
 #include "skewtrip.h"
 #include "compat_defs.h"
 /*------------own objects----------------------------------------------------*/
