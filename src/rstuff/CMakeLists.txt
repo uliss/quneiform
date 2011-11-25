@@ -23,7 +23,6 @@ set(RSTUFF_SOURCES
     ../usage/line_vp_2_am.cpp
     ../usage/line_vp_util.cpp
     ../usage/markdataoper.cpp
-    ../usage/puma_err.cpp
     ../usage/un_buff.cpp
 )
 
@@ -44,6 +43,7 @@ target_link_libraries(cuneiform-rstuff
     cuneiform-smetric
     cuneiform-rreccom
     cuneiform-exc
+    cuneiform-usage
 )
 
 if(TESTS)

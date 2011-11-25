@@ -72,6 +72,7 @@ add_subdirectory(rcorrkegl)
 add_subdirectory(smetric)
 add_subdirectory(std)
 add_subdirectory(shmem)
+add_subdirectory(usage)
 
 install(FILES 
     h/globus.h

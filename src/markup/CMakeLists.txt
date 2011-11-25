@@ -9,7 +9,6 @@ set(MARKUP_SOURCES
     ../usage/line_vp_2_am.cpp
     ../usage/line_vp_util.cpp
     ../usage/markdataoper.cpp
-    ../usage/puma_err.cpp
     ../usage/un_buff.cpp
 )
 
@@ -37,6 +36,7 @@ target_link_libraries(cuneiform-markup
     cuneiform-rneg
     cuneiform-rpic
     cuneiform-rselstr
+    cuneiform-usage
 )
 
 library_hook(cuneiform-markup)
