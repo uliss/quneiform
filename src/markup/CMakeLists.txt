@@ -9,7 +9,6 @@ set(MARKUP_SOURCES
     ../usage/line_vp_2_am.cpp
     ../usage/line_vp_util.cpp
     ../usage/markdataoper.cpp
-    ../usage/un_buff.cpp
 )
 
 set(MARKUP_HEADERS

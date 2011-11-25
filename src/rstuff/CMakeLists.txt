@@ -23,7 +23,6 @@ set(RSTUFF_SOURCES
     ../usage/line_vp_2_am.cpp
     ../usage/line_vp_util.cpp
     ../usage/markdataoper.cpp
-    ../usage/un_buff.cpp
 )
 
 add_library(cuneiform-rstuff ${LIBTYPE}
