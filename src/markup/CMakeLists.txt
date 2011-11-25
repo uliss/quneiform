@@ -4,11 +4,9 @@ set(MARKUP_SOURCES
     pagemarker.cpp
     rmarkermem.cpp
     shortverticallinesfilter.cpp
-    ../usage/amu_geom.cpp
     ../usage/line_am_util.cpp
     ../usage/line_vp_2_am.cpp
     ../usage/line_vp_util.cpp
-    ../usage/markdataoper.cpp
 )
 
 set(MARKUP_HEADERS

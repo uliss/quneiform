@@ -18,11 +18,9 @@ set(RSTUFF_SOURCES
     rsmemory.cpp
     rstimer.cpp
     rstuff.cpp
-    ../usage/amu_geom.cpp
     ../usage/line_am_util.cpp
     ../usage/line_vp_2_am.cpp
     ../usage/line_vp_util.cpp
-    ../usage/markdataoper.cpp
 )
 
 add_library(cuneiform-rstuff ${LIBTYPE}

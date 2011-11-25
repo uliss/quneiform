@@ -72,10 +72,10 @@
 #include "am_comm.h"
 #include "gystogra.h"
 #include "skewtrip.h"
-#include "markdatadefs.h"
 #include "linedesc.h"
 #include "usage/un_buff.h"
 #include "usage/un_err.h"
+#include "usage/markdatadefs.h"
 #include "amt_geom.h"
 #include "skew1024.h"
 

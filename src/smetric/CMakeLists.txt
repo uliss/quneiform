@@ -3,7 +3,6 @@ add_library(cuneiform-smetric ${LIBTYPE}
     skewmain.cpp
     sm_kern.cpp
     ugol.cpp
-    ../usage/amu_geom.cpp
     ../usage/gystogra.cpp
 )
 
