@@ -5,6 +5,7 @@ set(USAGE_SOURCES
     puma_comm.cpp
     markdataoper.cpp
     amu_geom.cpp
+    gystogra.cpp
 )
 
 set(USAGE_HEADERS
