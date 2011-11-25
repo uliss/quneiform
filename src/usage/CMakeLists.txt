@@ -1,6 +1,8 @@
 set(USAGE_SOURCES
+    ${SNP_SRC}
     puma_err.cpp
     un_buff.cpp
+    puma_comm.cpp
 )
 
 set(USAGE_HEADERS

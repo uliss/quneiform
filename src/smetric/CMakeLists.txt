@@ -5,7 +5,6 @@ add_library(cuneiform-smetric ${LIBTYPE}
     ugol.cpp
     ../usage/amu_geom.cpp
     ../usage/gystogra.cpp
-    ../usage/puma_comm.cpp
 )
 
 cif_visibility_hidden(cuneiform-smetric)
