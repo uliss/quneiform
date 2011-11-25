@@ -79,7 +79,7 @@
 #include "markdatadefs.h"
 #include "linedesc.h"
 /*  interface my-my      */
-#include "un_buff.h"
+#include "usage/un_buff.h"
 #include "amt_geom.h"
 /*  interface our util  */
 #include "skew1024.h"

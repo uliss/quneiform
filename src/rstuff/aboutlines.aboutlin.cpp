@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "un_err.h"
 #include "aboutlines.buffer.h"
 /*  interface my-my      */
-#include "un_buff.h"
+#include "usage/un_buff.h"
 
 static char * Buffer = NULL;
 static char * WorkMem = NULL;
