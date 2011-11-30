@@ -58,11 +58,6 @@
 #include "dpuma.h"
 
 Handle MainDebug;
-Handle hDebugPictures;
-Handle hDebugNeg;
-Handle hDebugLinePass3;
-Handle hDebugLinePass2;
-Handle hDebugVerifLine;
 Handle hZone;
 Handle hNoRazrTabl;
 

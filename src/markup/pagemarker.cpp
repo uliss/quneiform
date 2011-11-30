@@ -70,15 +70,21 @@
 #include "rpic/rpic.h"
 #include "rselstr/rselstr.h"
 
-namespace cf
-{
 
+static Handle hDebugPictures = NULL;
+static Handle hDebugNeg = NULL;
+static Handle hDebugLinePass3 = NULL;
+static Handle hDebugLinePass2 = NULL;
+static Handle hDebugVerifLine = NULL;
 static Handle hDebugCancelExtractBlocks = NULL;
 static Handle hDebugCancelSearchPictures = NULL;
 static Handle hDebugSVLines = NULL;
 static Handle hDebugSVLinesStep = NULL;
 static Handle hDebugSVLinesData = NULL;
 static Handle hDebugLayoutFromFile = NULL;
+
+namespace cf
+{
 
 PageMarker::PageMarker() :
     image_data_(NULL),
@@ -101,9 +107,97 @@ Handle PageMarker::cpage() {
     return cpage_;
 }
 
+void freeSVLBuffer() {
+    free(gSVLBuffer.LineInfoA);
+    free(gSVLBuffer.LineInfoB);
+}
+
+void initSVLBuffer() {
+    gSVLBuffer.VLinefBufferA = NULL;
+    gSVLBuffer.VLinefBufferB = NULL;
+    gSVLBuffer.LineInfoA = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
+    gSVLBuffer.LineInfoB = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
+}
+
 void PageMarker::markupPage()
 {
-    if(!PageMarkup(image_data_))
+    initSVLBuffer();
+
+    Bool32 rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, image_data_);
+
+    BigImage big_Image;
+    //default Image:
+    PAGEINFO info;
+    GetPageInfo(image_data_->hCPAGE, &info);
+
+    for (int i = 0; i < CPAGE_MAXNAME; i++)
+        big_Image.ImageName[i] = info.szImageName[i];
+
+    big_Image.hCCOM = NULL;
+    Handle h = CPAGE_GetBlockFirst(image_data_->hCPAGE, TYPE_BIG_COMP);
+
+    if (h) {
+        CPAGE_GetBlockData(image_data_->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BigImage));
+        CPAGE_DeleteBlock(image_data_->hCPAGE, h);
+    }
+
+    //Поиск очевидных картинок
+    if (rc)
+        rc = SearchPictures(image_data_, big_Image);
+
+    //Поиск негативов
+    if (rc)
+        rc = SearchNeg(image_data_, big_Image, info.Incline2048);
+
+    //Третий проход по линиям
+    if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
+            && LDPUMA_Skip(hDebugLinePass2)) {
+        if (rc)
+            RLINE_LinesPass3(image_data_->hCPAGE, image_data_->hCLINE, image_data_->hCCOM, (uchar) image_data_->gnLanguage);
+    }
+
+    ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
+    if (rc) {
+        rc = ShortVerticalLinesProcess(PUMA_SVL_SECOND_STEP, image_data_);
+    }
+
+    ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, image_data_);
+
+    freeSVLBuffer();
+
+    // blocks
+    if (!LDPUMA_Skip(image_data_->hDebugLayoutFromFile)) {
+        image_data_->hCPAGE = CPAGE_RestorePage(TRUE, (pchar) (image_data_->szLayoutFileName));
+
+        if (image_data_->hCPAGE == NULL) {
+            SetReturnCode_rmarker(CPAGE_GetReturnCode());
+            rc = FALSE;
+        }
+
+        else {
+            CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_data_->hCPAGE));
+            LDPUMA_Console("Layout восстановлен из файла '%s'\n", image_data_->szLayoutFileName);
+        }
+    }
+    else if (rc) {
+        if (LDPUMA_Skip(image_data_->hDebugCancelExtractBlocks)) {
+            Bool32 bEnableSearchPicture = image_data_->gnPictures;
+            RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
+            RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_data_->gbOneColumn));
+
+            if (!RBLOCK_ExtractTextBlocks(image_data_->hCCOM, image_data_->hCPAGE, image_data_->hCLINE)) {
+                SetReturnCode_rmarker(RBLOCK_GetReturnCode());
+                rc = FALSE;
+            }
+        }
+
+        else
+            LDPUMA_Console("Пропущен этап автоматического Layout.\n");
+    }
+
+    CCOM_DeleteContainer(big_Image.hCCOM);
+
+    if(!rc)
         throw Exception("markupPage failed");
 
     cpage_ = image_data_->hCPAGE;
@@ -148,100 +242,10 @@ void PageMarker::setOptions(const RecognizeOptions& opts) {
 
 }
 
-extern Handle hDebugPictures;
-extern Handle hDebugNeg;
-extern Handle hDebugLinePass3;
-extern Handle hDebugLinePass2;
-extern Handle hDebugVerifLine;
 extern Handle hPrep;
 extern Handle hEnd;
 
 static uint32_t gwRC = 0;
-
-Bool32 PageMarkup(PRMPreProcessImage Image)
-{
-    Bool32 rc = TRUE;
-    gSVLBuffer.VLinefBufferA = NULL;
-    gSVLBuffer.VLinefBufferB = NULL;
-    gSVLBuffer.LineInfoA = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
-    gSVLBuffer.LineInfoB = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
-
-    rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, Image);
-
-    BigImage big_Image;
-    //default Image:
-    PAGEINFO info;
-    GetPageInfo(Image->hCPAGE, &info);
-
-    for (int i = 0; i < CPAGE_MAXNAME; i++)
-        big_Image.ImageName[i] = info.szImageName[i];
-
-    big_Image.hCCOM = NULL;
-    Handle h = CPAGE_GetBlockFirst(Image->hCPAGE, TYPE_BIG_COMP);
-
-    if (h) {
-        CPAGE_GetBlockData(Image->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BigImage));
-        CPAGE_DeleteBlock(Image->hCPAGE, h);
-    }
-
-    //Поиск очевидных картинок
-    if (rc)
-        rc = SearchPictures(Image, big_Image);
-
-    //Поиск негативов
-    if (rc)
-        rc = SearchNeg(Image, big_Image, info.Incline2048);
-
-    //Третий проход по линиям
-    if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
-            && LDPUMA_Skip(hDebugLinePass2)) {
-        if (rc)
-            RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM, (uchar) Image->gnLanguage);
-    }
-
-    ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
-    if (rc) {
-        rc = ShortVerticalLinesProcess(PUMA_SVL_SECOND_STEP, Image);
-    }
-
-    ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, Image);
-    free(gSVLBuffer.LineInfoA);
-    free(gSVLBuffer.LineInfoB);
-
-    // blocks
-    if (!LDPUMA_Skip(Image->hDebugLayoutFromFile)) {
-        Image->hCPAGE = CPAGE_RestorePage(TRUE, (pchar) (Image->szLayoutFileName));
-
-        if (Image->hCPAGE == NULL) {
-            SetReturnCode_rmarker(CPAGE_GetReturnCode());
-            rc = FALSE;
-        }
-
-        else {
-            CPAGE_SetCurrentPage(CPAGE_GetNumberPage(Image->hCPAGE));
-            LDPUMA_Console("Layout восстановлен из файла '%s'\n", Image->szLayoutFileName);
-        }
-    }
-    else if (rc) {
-        if (LDPUMA_Skip(Image->hDebugCancelExtractBlocks)) {
-            Bool32 bEnableSearchPicture;
-            bEnableSearchPicture = Image->gnPictures;
-            RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
-            RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(Image->gbOneColumn));
-
-            if (!RBLOCK_ExtractTextBlocks(Image->hCCOM, Image->hCPAGE, Image->hCLINE)) {
-                SetReturnCode_rmarker(RBLOCK_GetReturnCode());
-                rc = FALSE;
-            }
-        }
-
-        else
-            LDPUMA_Console("Пропущен этап автоматического Layout.\n");
-    }
-
-    CCOM_DeleteContainer(big_Image.hCCOM);
-    return rc;
-}
 
 void SetReturnCode_rmarker(uint32_t rc)
 {
