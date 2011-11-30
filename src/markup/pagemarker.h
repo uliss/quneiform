@@ -93,8 +93,6 @@ public:
     void setLayoutFilename(const std::string& fname);
     void setOptions(const RecognizeOptions& opts);
 private:
-    bool markupPage(RMPreProcessImage * image);
-private:
     RMPreProcessImage * image_data_;
     Handle cpage_;
     CCOM_cont * comp_cont_;

@@ -63,8 +63,7 @@
 /*  Содержание :                                                                                   */
 /*  Назначение :                                                                                   */
 /*-------------------------------------------------------------------------------------------------*/
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 #include <stdio.h>
 #include <string.h>
 
@@ -74,34 +73,30 @@
 #include "cline/cline.h"
 #include "ccom/ccom.h"
 
-static const int PUMAMaxNumLines = 2000;
+static const int PUMA_MAX_NUM_LINES = 2000;
 
 static Bool32 bShowDebug = FALSE;
 static Bool32 bShowStepDebug = FALSE;
 static Bool32 bShowDebugData = FALSE;
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image)
+Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage Image)
 {
     Bool32 bRet = FALSE;
-    Bool32 bClear = FALSE;
 
     if (Step == PUMA_SVL_FIRST_STEP && gSVLBuffer.LineInfoA) {
         gSVLBuffer.HLinesBufferA = gSVLBuffer.LineInfoA->Hor.Lns = NULL;
         if (gSVLBuffer.VLinefBufferA == NULL)
             gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *) calloc(
-                    sizeof(LineInfo), PUMAMaxNumLines);
+                    sizeof(LineInfo), PUMA_MAX_NUM_LINES);
 
         bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoA, Image);
-        bClear = bRet == FALSE;
     }
 
     if (Step == PUMA_SVL_SECOND_STEP && gSVLBuffer.LineInfoB) {
         gSVLBuffer.HLinesBufferB = gSVLBuffer.LineInfoB->Hor.Lns = NULL;
         if (gSVLBuffer.VLinefBufferB == NULL)
             gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *) calloc(
-                    sizeof(LineInfo), PUMAMaxNumLines);
+                    sizeof(LineInfo), PUMA_MAX_NUM_LINES);
 
         bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoB, Image);
 
@@ -110,8 +105,6 @@ Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image)
         if (bRet) {
             bRet = SVLFilter(gSVLBuffer.LineInfoA, gSVLBuffer.LineInfoB, Image);
         }
-
-        bClear = TRUE;
     }
 
     if (Step == PUMA_SVL_THRID_STEP) {
@@ -134,8 +127,7 @@ Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image)
 
     return bRet;
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, PRMPreProcessImage Image)
 {
     Bool32 bRet = TRUE;
@@ -159,7 +151,7 @@ Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, PRMPreProcessImage Image
             hline = CLINE_GetNextLine(hline);
 
         else {
-            if (count >= PUMAMaxNumLines)
+            if (count >= PUMA_MAX_NUM_LINES)
                 fl_break = TRUE;
 
             else {
@@ -308,8 +300,7 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
 
     return rc;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
 {
     CCOM_comp * pcomp;
@@ -386,8 +377,7 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
 
     return TRUE;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
 {
     Bool32 rc = FALSE;

@@ -65,7 +65,7 @@
 #include "cpage/cpage.h"
 #include "common/lang_def.h"
 
-enum
+enum svl_step_t
 {
     PUMA_SVL_FIRST_STEP = 0x1,
     PUMA_SVL_SECOND_STEP = 0x2,
@@ -100,7 +100,7 @@ struct RMPreProcessImage
 
 typedef RMPreProcessImage * PRMPreProcessImage;
 
-Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image);
+Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage Image);
 Bool32 SearchPictures(PRMPreProcessImage, BigImage);
 Bool32 SearchNeg(PRMPreProcessImage, BigImage, int);
 Bool32 SearchFon(PRMPreProcessImage, BigImage, int);
