@@ -58,7 +58,7 @@
 
 #include "pagemarker.h"
 #include "rmfunc.h"
-#include "markpage.h"
+#include "shortverticallinesfilter.h"
 #include "dpuma.h"
 #include "common/recognizeoptions.h"
 #include "lns/lnsdefs.h"

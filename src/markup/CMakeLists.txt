@@ -8,7 +8,6 @@ set(MARKUP_SOURCES
 set(MARKUP_HEADERS
     pagemarker.h
     rmfunc.h
-    markpage.h
 )
 
 add_library(cuneiform-markup ${LIBTYPE}

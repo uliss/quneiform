@@ -68,12 +68,13 @@
 #include <string.h>
 
 #include "dpuma.h"
-#include "markpage.h"
+#include "shortverticallinesfilter.h"
 #include "linedefs.h"
 #include "cline/cline.h"
 #include "ccom/ccom.h"
 
 static const int PUMA_MAX_NUM_LINES = 2000;
+static const int IDS_ERR_INITIATED_BY_ALLEX = 2029;
 
 static Bool32 bShowDebug = FALSE;
 static Bool32 bShowStepDebug = FALSE;
