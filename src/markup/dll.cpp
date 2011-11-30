@@ -73,13 +73,3 @@ Handle hSearchTables;
 Handle hAnalTables;
 Handle hEnd;
 Handle hSegment;
-
-Bool32 RMARKER_PageMarkup(PRMPreProcessImage Image, void* vBuff, int Size, void* vWork,
-        int SizeWork)
-{
-    SetMainBuff(vBuff, Size);
-    SetWorkBuff(vWork, SizeWork);
-    Bool32 rc = PageMarkup(Image);
-    ReSetMem();
-    return rc;
-}

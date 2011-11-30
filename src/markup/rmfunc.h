@@ -100,7 +100,6 @@ struct RMPreProcessImage
 
 typedef RMPreProcessImage * PRMPreProcessImage;
 
-Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
 Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image);
 Bool32 PageMarkup(PRMPreProcessImage Image);
 Bool32 SearchPictures(PRMPreProcessImage, BigImage);

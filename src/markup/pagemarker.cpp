@@ -103,16 +103,21 @@ Handle PageMarker::cpage() {
 
 void PageMarker::markupPage()
 {
-    static const size_t MEM_SIZE = 180000;
-    static const size_t MAIN_SIZE = 500000;
-    char * mem_buf = new char[MEM_SIZE];
+    static const size_t MAIN_SIZE = 180000;
+    static const size_t WORK_SIZE = 500000;
     char * main_buf = new char[MAIN_SIZE];
+    char * work_buf = new char[WORK_SIZE];
 
-    if(!RMARKER_PageMarkup(image_data_, mem_buf, MEM_SIZE, main_buf, MAIN_SIZE))
+    SetMainBuff(main_buf, MAIN_SIZE);
+    SetWorkBuff(work_buf, WORK_SIZE);
+    Bool32 rc = PageMarkup(image_data_);
+    ReSetMem();
+
+    if(!rc)
         throw Exception("markupPage failed");
 
-    delete[] mem_buf;
     delete[] main_buf;
+    delete[] work_buf;
 
     cpage_ = image_data_->hCPAGE;
 }
