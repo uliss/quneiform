@@ -1,6 +1,5 @@
 set(MARKUP_SOURCES
     ${SNP_SRC}
-    dll.cpp
     pagemarker.cpp
     shortverticallinesfilter.cpp
 )
