@@ -63,13 +63,15 @@ static void * WorkMem = NULL;
 static int BufferSize = 0;
 static int WorkMemSize = 0;
 
-void GiveMainBuff(void **vvBuff, int *Size) {
+void GiveMainBuff (void **vvBuff, int *Size)
+{
     *vvBuff = Buffer;
     *Size = BufferSize;
 }
 
-void GiveWorkBuff(char **ccBuff, int *Size) {
-    *ccBuff = (char*) WorkMem;
+void GiveWorkBuff (char **ccBuff, int *Size)
+{
+    *ccBuff = (char*)WorkMem;
     *Size = WorkMemSize;
 }
 

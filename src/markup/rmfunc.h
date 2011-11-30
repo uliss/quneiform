@@ -107,10 +107,4 @@ Bool32 SearchNeg(PRMPreProcessImage, BigImage, int);
 Bool32 SearchFon(PRMPreProcessImage, BigImage, int);
 void SetReturnCode_rmarker(uint32_t rc);
 
-void GiveMainBuff(void **vvBuff, int *Size);
-void GiveWorkBuff(char **ccBuff, int *Size);
-void SetMainBuff(void *vBuff, int Size);
-void SetWorkBuff(void *vBuff, int Size);
-void ReSetMem(void);
-
 #endif
