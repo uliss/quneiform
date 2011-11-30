@@ -79,6 +79,29 @@ static Bool32 bShowDebug = FALSE;
 static Bool32 bShowStepDebug = FALSE;
 static Bool32 bShowDebugData = FALSE;
 
+struct PUMALinesBuffer {
+    LinesTotalInfo * LineInfoA;
+    LinesTotalInfo * LineInfoB;
+    void * HLinesBufferA;
+    void * VLinefBufferA;
+    void * HLinesBufferB;
+    void * VLinefBufferB;
+};
+
+static PUMALinesBuffer gSVLBuffer;
+
+void freeSVLBuffer() {
+    free(gSVLBuffer.LineInfoA);
+    free(gSVLBuffer.LineInfoB);
+}
+
+void initSVLBuffer() {
+    gSVLBuffer.VLinefBufferA = NULL;
+    gSVLBuffer.VLinefBufferB = NULL;
+    gSVLBuffer.LineInfoA = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
+    gSVLBuffer.LineInfoB = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
+}
+
 Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage Image)
 {
     Bool32 bRet = FALSE;
@@ -332,7 +355,7 @@ Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image)
     pcomp = CCOM_GetFirst(Image->hCCOM, NULL);
 
     do {
-        GoodComp = CompIsGood(pcomp, Filter);
+        GoodComp = CompIsGood(Filter);
 
         if (GoodComp) {
             Rc.left = pcomp->left;
@@ -404,7 +427,7 @@ Bool32 IsRectIntersect(Rect16 *A, Rect16 *B)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // взято у Михайлова. лишнее выкинуто, остальное изменено
-Bool32 CompIsGood(CCOM_comp * pcomp, int32_t Filter)
+Bool32 CompIsGood(int32_t Filter)
 {
     switch (Filter) {
     case 0:

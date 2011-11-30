@@ -54,8 +54,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define _RMARKER_CPP
-
 #include <fstream>
 
 #include "pagemarker.h"
@@ -69,7 +67,6 @@
 #include "rneg/rneg.h"
 #include "rpic/rpic.h"
 #include "rselstr/rselstr.h"
-
 
 static Handle hDebugPictures = NULL;
 static Handle hDebugNeg = NULL;
@@ -107,18 +104,6 @@ Handle PageMarker::cpage() {
     return cpage_;
 }
 
-void freeSVLBuffer() {
-    free(gSVLBuffer.LineInfoA);
-    free(gSVLBuffer.LineInfoB);
-}
-
-void initSVLBuffer() {
-    gSVLBuffer.VLinefBufferA = NULL;
-    gSVLBuffer.VLinefBufferB = NULL;
-    gSVLBuffer.LineInfoA = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
-    gSVLBuffer.LineInfoB = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
-}
-
 void PageMarker::markupPage()
 {
     initSVLBuffer();
@@ -133,7 +118,6 @@ void PageMarker::markupPage()
     for (int i = 0; i < CPAGE_MAXNAME; i++)
         big_Image.ImageName[i] = info.szImageName[i];
 
-    big_Image.hCCOM = NULL;
     Handle h = CPAGE_GetBlockFirst(image_data_->hCPAGE, TYPE_BIG_COMP);
 
     if (h) {
@@ -167,7 +151,7 @@ void PageMarker::markupPage()
 
     // blocks
     if (!LDPUMA_Skip(image_data_->hDebugLayoutFromFile)) {
-        image_data_->hCPAGE = CPAGE_RestorePage(TRUE, (pchar) (image_data_->szLayoutFileName));
+        image_data_->hCPAGE = CPAGE_RestorePage(TRUE, image_data_->szLayoutFileName);
 
         if (image_data_->hCPAGE == NULL) {
             SetReturnCode_rmarker(CPAGE_GetReturnCode());

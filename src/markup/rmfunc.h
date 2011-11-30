@@ -76,6 +76,7 @@ enum svl_step_t
 
 struct BigImage
 {
+    BigImage() : hCCOM(NULL) {}
     CCOM_handle hCCOM;
     uchar ImageName[CPAGE_MAXNAME];
 };

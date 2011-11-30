@@ -64,20 +64,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :                                                                                   */
 /*-------------------------------------------------------------------------------------------------*/
 
-#include "rmfunc.h"
 #include "lns/lnsdefs.h"
-
-typedef struct tagPUMALinesBuffer {
-    LinesTotalInfo * LineInfoA;
-    LinesTotalInfo * LineInfoB;
-    void * HLinesBufferA;
-    void * VLinefBufferA;
-    void * HLinesBufferB;
-    void * VLinefBufferB;
-} PUMALinesBuffer, *PPUMALinesBuffer;
+#include "rmfunc.h"
 
 Bool32 ReadSVLFromPageContainer ( LinesTotalInfo *LTInfo, PRMPreProcessImage Image );
 Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage Image);
 Bool32 SVLComponentFilter(LineInfo *Line, PRMPreProcessImage Image);
-Bool32 CompIsGood (CCOM_comp * pcomp, int32_t Filter);
+Bool32 CompIsGood (int32_t Filter);
 Bool32 IsRectIntersect(Rect16 *A, Rect16 *B);
+void freeSVLBuffer();
+void initSVLBuffer();

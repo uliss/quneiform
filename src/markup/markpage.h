@@ -59,14 +59,5 @@
 #include "shortverticallinesfilter.h"
 
 #define IDS_ERR_INITIATED_BY_ALLEX      2029
-#ifdef _RMARKER_CPP
-#define EXTERN
-#define VALM(a)     = {a}
-#else
-#define EXTERN      extern
-#define VALM(a)
-#endif
-
-EXTERN PUMALinesBuffer gSVLBuffer VALM(0);
 
 #endif
