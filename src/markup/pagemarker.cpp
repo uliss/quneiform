@@ -103,9 +103,7 @@ Handle PageMarker::cpage() {
 
 void PageMarker::markupPage()
 {
-    Bool32 rc = PageMarkup(image_data_);
-
-    if(!rc)
+    if(!PageMarkup(image_data_))
         throw Exception("markupPage failed");
 
     cpage_ = image_data_->hCPAGE;
