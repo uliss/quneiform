@@ -26,7 +26,6 @@
 #include "common/consoleprogresscounter.h"
 #include "ced/cedpage.h"
 #include "export/exporterfactory.h"
-#include "rdib/imageloaderfactory.h"
 #include "optionsparser.h"
 
 using namespace cf;
@@ -43,17 +42,13 @@ int main(int argc, char ** argv) {
 
         CliOptions copts = parser.cliOptions();
 
-        ImagePtr img;
-        img.reset(new Image);
-        img->setFileName(copts.inputFilename());
-
         ProcessRecognitionServer s;
 
         if(copts.showProgress())
             s.setCounter(makeCounter());
 
         FormatOptions fopts = parser.formatOptions();
-        CEDPagePtr page = s.recognize(img, parser.recognizeOptions(), fopts);
+        CEDPagePtr page = s.recognize(copts.inputFilename(), parser.recognizeOptions(), fopts);
 
         ExporterFactory::instance().setPage(page);
         ExporterFactory::instance().setFormatOptions(fopts);

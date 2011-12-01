@@ -36,12 +36,13 @@ public:
         Exception(const std::string& msg) : std::runtime_error(msg) {}
     };
 public:
-    SharedMemoryHolder();
+    SharedMemoryHolder(bool owner = false);
     ~SharedMemoryHolder();
 
     /**
       * Attaches to shared memory with given key
       * @param key - shared memory key
+      * @throw Exception on error
       * @see detach()
       */
     void attach(const std::string& key, size_t size);
@@ -88,12 +89,13 @@ public:
         return static_cast<T*>(static_cast<void*>(static_cast<char*>(memory_) + off));
     }
 private:
-    size_t makeKey() const;
+    static size_t makeKey(const std::string& key);
 private:
     void * memory_;
     size_t size_;
     std::string key_;
     SharedMemoryHolderPrivate * impl_;
+    bool owner_;
 };
 
 }

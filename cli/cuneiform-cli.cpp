@@ -23,7 +23,6 @@
 #include "puma/localrecognitionserver.h"
 #include "common/percentcounter.h"
 #include "common/consoleprogresscounter.h"
-#include "rdib/imageloaderfactory.h"
 #include "export/exporterfactory.h"
 
 using namespace cf;
@@ -43,17 +42,13 @@ int main(int argc, char **argv)
         FormatOptions fopts = parser.formatOptions();
         fopts.setImageExportFormat(FORMAT_PNG);
 
-        ImagePtr img = ImageLoaderFactory::instance().load(cli_opts.inputFilename());
-        if (!img.get())
-            return EXIT_FAILURE;
-
         LocalRecognitionServer server;
 
         if(cli_opts.showProgress())
             server.setCounter(makeCounter());
 
         server.setTextDebug(cli_opts.outputFormat() == FORMAT_DEBUG);
-        CEDPagePtr page = server.recognize(img, parser.recognizeOptions(), fopts);
+        CEDPagePtr page = server.recognize(cli_opts.inputFilename(), parser.recognizeOptions(), fopts);
 
         ExporterFactory::instance().setPage(page);
         ExporterFactory::instance().setFormatOptions(fopts);

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavski                                 *
+ *   Copyright (C) 2011 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,43 +16,24 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <iostream>
+#ifndef PROCESS_EXIT_CODES_H
+#define PROCESS_EXIT_CODES_H
 
-#include "puma/shared_memory_type.h"
-#include "puma/sharedimage.h"
-#include "puma/sharedimageholder.h"
+namespace cf {
 
-using namespace boost::interprocess;
-using namespace cf;
+enum WorkerExitValues {
+    WORKER_UNKNOWN_ERROR = 1,
+    WORKER_SEGMENT_NOT_FOUND = 2,
+    WORKER_SAVE_ERROR = 3,
+    WORKER_RECOGNITION_ERROR = 4,
+    WORKER_SHMEM_ERROR = 5,
+    WORKER_TERMINATE_ERROR = 6,
+    WORKER_ABORT_ERROR = 7,
+    WORKER_SEGFAULT_ERROR = 8,
+    WORKER_TIMEOUT_ERROR = 9,
+    WORKER_WRONG_ARGUMENT = 10
+};
 
-int main() {
-    try {
-        SharedMemory segment(open_only, "test_puma");
-
-        SharedImage * sh_image = SharedImageHolder::find(&segment);
-        if(!sh_image)
-            return 3;
-
-        if(sh_image->name() != "sample.jpg")
-            return 4;
-
-        if(sh_image->dimensions() != Size(100, 200))
-            return 5;
-
-        if(sh_image->dataSize() != 100)
-            return 6;
-
-        if(static_cast<char*>(sh_image->data())[2] != 2)
-            return 7;
-    }
-    catch(interprocess_exception& e){
-        std::cerr << "can't open shared memory 'test_puma'. " << e.what() << std::endl;
-        return 2;
-    }
-    catch(std::exception& e) {
-        std::cerr << e.what() << std::endl;
-        return 1;
-    }
-
-    return 0;
 }
+
+#endif // PROCESS_EXIT_CODES_H

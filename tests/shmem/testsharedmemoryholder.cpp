@@ -38,12 +38,19 @@ void TestSharedMemoryHolder::testCreate()
     CPPUNIT_ASSERT(sh.isAttached());
     CPPUNIT_ASSERT(sh.size() == 1024);
     CPPUNIT_ASSERT(sh.get() != NULL);
+    CPPUNIT_ASSERT_NO_THROW(sh.remove());
 }
 
 void TestSharedMemoryHolder::testRemove()
 {
     cf::SharedMemoryHolder sh;
-    sh.attach("test", 1024);
+
+    CPPUNIT_ASSERT_NO_THROW(sh.create("test", 1024));
+
+    CPPUNIT_ASSERT(sh.isAttached());
+    CPPUNIT_ASSERT(sh.size() == 1024);
+    CPPUNIT_ASSERT(sh.get() != NULL);
+
     CPPUNIT_ASSERT_NO_THROW(sh.remove());
 
     CPPUNIT_ASSERT(!sh.isAttached());
@@ -72,9 +79,10 @@ void TestSharedMemoryHolder::testAttach()
 {
     {
         cf::SharedMemoryHolder sh;
-        sh.create("test", 1024);
+        CPPUNIT_ASSERT_NO_THROW(sh.create("test", 1024));
         Message * msg = sh.toObject<Message>(0);
         msg->set("Test message");
+        CPPUNIT_ASSERT_NO_THROW(sh.detach());
     }
 
     {
@@ -88,6 +96,7 @@ void TestSharedMemoryHolder::testAttach()
 
         CPPUNIT_ASSERT_EQUAL(std::string("Test message"), msg->get());
 
-        sh.remove();
+        CPPUNIT_ASSERT_NO_THROW(sh.detach());
+        CPPUNIT_ASSERT_NO_THROW(sh.remove());
     }
 }

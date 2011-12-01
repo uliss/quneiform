@@ -5,13 +5,6 @@ set(CUNEIFORM_SOURCES
     processrecognitionserver.cpp
     pumaimpl.cpp
     recognitionfactory.cpp
-    sharedimage.cpp
-    sharedimageholder.cpp
-    sharedmemoryremover.cpp
-    sharedoptions.cpp
-    sharedoptionsholder.cpp
-    sharedresult.cpp
-    sharedresultholder.cpp
     startprocess.cpp
 )
 
@@ -22,7 +15,7 @@ endif()
 set(CUNEIFORM_HEADERS
     abstractrecognitionserver.h
     puma.h
-    shmem_data.h
+    process_exit_codes.h
 )
 
 set(CUNEIFORM_LIBS
@@ -33,12 +26,12 @@ set(CUNEIFORM_LIBS
     cuneiform-cline
     cuneiform-cpage
     cuneiform-export
+    cuneiform-markup
     cuneiform-rblock
     cuneiform-rcorrkegl
     cuneiform-rfrmt
     cuneiform-rimage
     cuneiform-rline
-    cuneiform-rmarker
     cuneiform-rpic
     cuneiform-rselstr
     cuneiform-rsl
@@ -46,6 +39,7 @@ set(CUNEIFORM_LIBS
     cuneiform-exc
     cuneiform-rreccom
     cuneiform-rpstr
+    cuneiform-shmem
 )
 
 if(CF_LIB_RT_HAS_SHMOPEN)
@@ -69,7 +63,6 @@ add_library(cuneiform ${CF_CUNEIFORM_LIBTYPE}
 target_link_libraries(cuneiform ${CUNEIFORM_LIBS})
 library_hook(cuneiform)
 
-# Process worker
 add_executable(cuneiform-worker worker.cpp)
 target_link_libraries(cuneiform-worker cuneiform)
 

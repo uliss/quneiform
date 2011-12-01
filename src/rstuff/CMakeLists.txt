@@ -18,13 +18,6 @@ set(RSTUFF_SOURCES
     rsmemory.cpp
     rstimer.cpp
     rstuff.cpp
-    ../usage/amu_geom.cpp
-    ../usage/line_am_util.cpp
-    ../usage/line_vp_2_am.cpp
-    ../usage/line_vp_util.cpp
-    ../usage/markdataoper.cpp
-    ../usage/puma_err.cpp
-    ../usage/un_buff.cpp
 )
 
 add_library(cuneiform-rstuff ${LIBTYPE}
@@ -44,6 +37,7 @@ target_link_libraries(cuneiform-rstuff
     cuneiform-smetric
     cuneiform-rreccom
     cuneiform-exc
+    cuneiform-usage
 )
 
 if(TESTS)

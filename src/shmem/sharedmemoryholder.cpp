@@ -34,10 +34,11 @@
 
 namespace cf {
 
-SharedMemoryHolder::SharedMemoryHolder()
+SharedMemoryHolder::SharedMemoryHolder(bool owner)
     : memory_(NULL),
       size_(0),
-      impl_(NULL)
+      impl_(NULL),
+      owner_(owner)
 {
 #ifdef USE_SYSTEMV_SHMEM
     impl_ = new SystemVSharedMemory;
@@ -49,7 +50,14 @@ SharedMemoryHolder::SharedMemoryHolder()
 }
 
 SharedMemoryHolder::~SharedMemoryHolder() {
-    detach();
+    try {
+        detach();
+
+        if(owner_)
+            remove();
+    }
+    catch(...) {}
+
     delete impl_;
 }
 
@@ -69,16 +77,19 @@ void SharedMemoryHolder::create(const std::string& key, size_t size)
 {
     assert(impl_);
 
-    key_ = key;
-    memory_ = impl_->create(makeKey(), size);
+    if(isAttached())
+        detach();
+
+    memory_ = impl_->create(makeKey(key), size);
 
     if(!memory_) {
         size_ = 0;
         std::ostringstream buf;
-        buf << "Can't create shared memory with key: \"" << key << "\" and size: " << size << std::endl;
+        buf << "could not create shared memory with key: \"" << key << "\" and size: " << size;
         throw Exception(buf.str());
     }
 
+    key_ = key;
     size_ = size;
 }
 
@@ -87,19 +98,29 @@ void * SharedMemoryHolder::get()
     return memory_;
 }
 
-size_t SharedMemoryHolder::makeKey() const
+size_t SharedMemoryHolder::makeKey(const std::string& key)
 {
     boost::hash<std::string> string_hash;
-    return string_hash(key_);
+    return string_hash(key);
 }
 
 void SharedMemoryHolder::attach(const std::string& key, size_t size)
 {
     assert(impl_);
 
+    if(isAttached())
+        detach();
+
+    memory_ = impl_->open(makeKey(key), size);
+
+    if(!memory_) {
+        std::ostringstream buf;
+        buf << "could not attach to memory with key: \"" << key << "\" and size: " << size;
+        throw Exception(buf.str());
+    }
+
     key_ = key;
     size_ = size;
-    memory_ = impl_->open(makeKey(), size_);
 }
 
 void SharedMemoryHolder::remove()
@@ -111,7 +132,7 @@ void SharedMemoryHolder::remove()
 
     if(!impl_->remove()) {
         std::ostringstream buf;
-        buf << "Can't remove shared memory with key: \"" << key_ << "\" and size: " << size_ << std::endl;
+        buf << "could not remove shared memory with key: \"" << key_ << "\" and size: " << size_;
         throw Exception(buf.str());
     }
 }

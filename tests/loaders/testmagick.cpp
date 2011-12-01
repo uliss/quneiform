@@ -37,9 +37,11 @@ void TestMagickLoader::testLoad() {
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.tif"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.jpg"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.png"));
+#if !defined(__OpenBSD__)
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.pbm"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.pgm"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.ppm"));
+#endif
     // throw
     CPPUNIT_ASSERT_THROW(loader->load("not-exists"), ImageLoader::Exception);
     std::ifstream is_empty;

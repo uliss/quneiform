@@ -74,8 +74,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "puma_err.h"
 #include "aboutlines.buffer.h"
 /*  interface my-my      */
-#include "un_buff.h"
-#include "un_err.h"
+#include "usage/un_buff.h"
+#include "usage/un_err.h"
 /*------------extern functions------------------------------------------------*/
 Bool GetSomeKeys_rv (void *vB, Handle *pKeyHor, Handle *pKeyVer
 					 , int *pCntHor, int *pCntVer, char *pStr);

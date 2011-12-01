@@ -19,6 +19,7 @@
 #include <iostream>
 
 #include "ced/cedpage.h"
+#include "rdib/imageloaderfactory.h"
 #include "localrecognitionserver.h"
 #include "puma.h"
 #include "common/cifconfig.h"
@@ -66,7 +67,7 @@ void LocalRecognitionServer::open(ImagePtr image) {
         state_->set(RecognitionState::OPENED);
 }
 
-void LocalRecognitionServer::recognize() {
+void LocalRecognitionServer::doRecognize() {
     Puma::instance().recognize();
 
     if(counter_)
@@ -74,6 +75,27 @@ void LocalRecognitionServer::recognize() {
 
     if(state_)
         state_->set(RecognitionState::RECOGNIZED);
+}
+
+CEDPagePtr LocalRecognitionServer::recognize(const std::string& imagePath,
+                                             const RecognizeOptions& ropts,
+                                             const FormatOptions& fopts)
+{
+    if(imagePath.empty())
+        throw RecognitionException("LocalRecognitionServer::recognize() : empty image path");
+
+    try {
+        ImagePtr img = ImageLoaderFactory::instance().load(imagePath);
+        return recognize(img, ropts, fopts);
+    }
+    catch(std::exception& e) {
+        CF_ERROR << e.what() << std::endl;
+
+        if(state_)
+            state_->set(RecognitionState::FAILED);
+
+        throw RecognitionException(e.what());
+    }
 }
 
 CEDPagePtr LocalRecognitionServer::recognize(ImagePtr image,
@@ -91,7 +113,7 @@ CEDPagePtr LocalRecognitionServer::recognize(ImagePtr image,
 
         setOptions(ropts, fopts);
         open(image);
-        recognize();
+        doRecognize();
         CEDPagePtr page = format();
         close();
 

@@ -16,6 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <cassert>
 #include <cstring>
 #include <cstdlib>
 #include <string>
@@ -23,24 +24,18 @@
 #include <iostream>
 #include <csignal>
 
-#include "shared_memory_type.h"
 #include "localrecognitionserver.h"
-#include "export/exporterfactory.h"
-#include "rdib/imageloaderfactory.h"
-#include "common/formatoptions.h"
-#include "common/recognizeoptions.h"
+#include "process_exit_codes.h"
 #include "common/console_messages.h"
 #include "common/debug.h"
-#include "shmem_data.h"
-#include "sharedimage.h"
-#include "sharedimageholder.h"
-#include "sharedresult.h"
-#include "sharedresultholder.h"
-#include "sharedoptions.h"
-#include "sharedoptionsholder.h"
+#include "shmem/memorydata.h"
+#include "shmem/sharedmemoryholder.h"
 
 #define WORKER_PREFIX cf::console::message("[Process worker] ", cf::console::YELLOW)
 #define CF_ERROR(msg) std::cerr << WORKER_PREFIX << msg << std::endl;
+#define CF_INFO(msg) std::cerr << WORKER_PREFIX << msg << std::endl;
+
+static const int SHMEM_SIZE_MAX = 100 * 1024 * 1024;
 
 static cf::CEDPagePtr recognize(cf::ImagePtr img,
                          const cf::RecognizeOptions& ropts,
@@ -50,29 +45,12 @@ static cf::CEDPagePtr recognize(cf::ImagePtr img,
     return r.recognize(img, ropts, fopts);
 }
 
-static cf::CEDPagePtr recognize(cf::SharedImage * sh_image,
-                         const cf::RecognizeOptions& ropts,
-                         const cf::FormatOptions& fopts)
-{
-    if(!sh_image)
-        return cf::CEDPagePtr();
-
-    return recognize(sh_image->get(), ropts, fopts);
-}
-
 static cf::CEDPagePtr recognize(const std::string& path,
                          const cf::RecognizeOptions& ropts,
                          const cf::FormatOptions& fopts)
 {
-    cf::ImagePtr img = cf::ImageLoaderFactory::instance().load(path);
-    return recognize(img, ropts, fopts);
-}
-
-static bool savePage(cf::CEDPagePtr p, cf::SharedResult * output) {
-    bool ok = output->store(p);
-    if(!ok)
-        CF_ERROR("error while store in shared memory");
-    return ok;
+    cf::LocalRecognitionServer r;
+    return r.recognize(path, ropts, fopts);
 }
 
 static void worker_terminate() {
@@ -100,80 +78,66 @@ static void signal_callback_handler(int signum) {
 }
 
 int main(int argc, char ** argv) {
-    bool use_shared_image = false;
-    std::string file_name;
-
-    if(argc < 2) {
-        CF_ERROR("Usage: worker KEY [filepath]");
-        return cf::WORKER_UNKNOWN_ERROR;
+    if(argc != 2 && argc != 3) {
+        CF_ERROR("Usage: " << argv[0] << " KEY [SIZE]");
+        return cf::WORKER_WRONG_ARGUMENT;
     }
 
-    const char * SHARED_MEMORY_KEY = argv[1];
+    const bool use_shared_image = (argc == 3);
+    const std::string shmem_key = argv[1];
 
-    if(argc == 2)
-        use_shared_image = true;
-    else
-        file_name = argv[2];
+    int arg_sz = 0;
+
+    // if have size argument
+    if(use_shared_image) {
+        CF_INFO("using shared image");
+
+        arg_sz = atoi(argv[2]);
+        // case negative or too big
+        if(arg_sz <= 0) {
+            CF_ERROR("invalid memory size argument: " << arg_sz);
+            arg_sz = 0;
+        }
+
+        if(arg_sz > SHMEM_SIZE_MAX) {
+            CF_ERROR("memory size is too big: " << arg_sz);
+            arg_sz = 0;
+        }
+    }
+
+    const size_t shmem_size = (arg_sz == 0) ? cf::MemoryData::minBufferSize() : (size_t) arg_sz;
+
+    CF_INFO("using memory size: " << shmem_size);
 
     std::set_terminate(worker_terminate);
     signal(SIGABRT, signal_callback_handler);
     signal(SIGSEGV, signal_callback_handler);
     signal(SIGTERM, signal_callback_handler);
 
-    using namespace boost::interprocess;
     using namespace cf;
 
     try {
-        //Open managed shared memory
-        SharedMemory segment(open_only, SHARED_MEMORY_KEY);
+        SharedMemoryHolder memory;
+        memory.attach(shmem_key, shmem_size);
+        MemoryData data(memory.get(), shmem_size);
 
-        // find shared result
-        SharedResult * sh_result = SharedResultHolder::find(&segment);
-        if(!sh_result) {
-            CF_ERROR("Can't open shared result");
-            return WORKER_SEGMENT_NOT_FOUND;
-        }
-
-        // find shared image
-        SharedImage * sh_image = NULL;
-
-        if(use_shared_image) {
-            sh_image = SharedImageHolder::find(&segment);
-            if(!sh_image) {
-                CF_ERROR("Can't open shared image");
-                return WORKER_SEGMENT_NOT_FOUND;
-            }
-        }
-
-        // find shared options
-        FormatOptions fopts;
-        RecognizeOptions ropts;
-        SharedOptions * sh_options = SharedOptionsHolder::find(&segment);
-
-        if(!sh_options) {
-            CF_ERROR("can't find shared options. Using default.");
-        }
-        else {
-            fopts = sh_options->formatOptions();
-            ropts = sh_options->recognizeOptions();
-        }
+        FormatOptions fopts = data.formatOptions();
+        RecognizeOptions ropts = data.recognizeOptions();
 
         CEDPagePtr page;
 
         if(use_shared_image)
-            page = recognize(sh_image, ropts, fopts);
+            page = recognize(data.image(), ropts, fopts);
         else
-            page = recognize(file_name, ropts, fopts);
+            page = recognize(data.imagePath(), ropts, fopts);
 
         if(!page)
             return WORKER_RECOGNITION_ERROR;
 
-        if(!savePage(page, sh_result))
-            return WORKER_SAVE_ERROR;
+        data.setPage(page);
     }
-    catch(interprocess_exception& e){
-        std::cerr << WORKER_PREFIX << "can't open shared memory: '"
-                  << SHARED_MEMORY_KEY << "'. " << e.what() << std::endl;
+    catch(SharedMemoryHolder::Exception& e) {
+        std::cerr << WORKER_PREFIX << e.what() << std::endl;
         return WORKER_SHMEM_ERROR;
     }
     catch(std::exception& e) {
@@ -183,4 +147,3 @@ int main(int argc, char ** argv) {
 
     return EXIT_SUCCESS;
 }
-

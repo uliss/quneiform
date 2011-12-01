@@ -54,162 +54,122 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define _RMARKER_CPP
-
 #include <fstream>
-#include "markpage.h"
-#include "rneg/rneg.h"
+
+#include "pagemarker.h"
 #include "rmfunc.h"
-#include "un_buff.h"
-#include "line_vp_util.h"
-#include "line_vp_2_am.h"
-#include "markdataoper.h"
-#include "amt_geom.h"
-#include "un_err.h"
-#include "puma_err.h"
-#include "rneg/rneg.h"
-#include "rselstr/rselstr.h"
+#include "shortverticallinesfilter.h"
+#include "dpuma.h"
+#include "common/recognizeoptions.h"
+#include "lns/lnsdefs.h"
+#include "rblock/rblock.h"
 #include "rline/rline.h"
+#include "rneg/rneg.h"
+#include "rpic/rpic.h"
+#include "rselstr/rselstr.h"
+
+static Handle hDebugPictures = NULL;
+static Handle hDebugNeg = NULL;
+static Handle hDebugLinePass3 = NULL;
+static Handle hDebugLinePass2 = NULL;
+static Handle hDebugVerifLine = NULL;
+static Handle hDebugCancelExtractBlocks = NULL;
+static Handle hDebugCancelSearchPictures = NULL;
+static Handle hDebugSVLines = NULL;
+static Handle hDebugSVLinesStep = NULL;
+static Handle hDebugSVLinesData = NULL;
+static Handle hDebugLayoutFromFile = NULL;
 
 namespace cf
 {
-RMarker::RMarker() :
-    cpage_(NULL), ccom_(NULL), cline_(NULL), language_(LANGUAGE_RUS_ENG), pictures_(0), fax_(false),
-            one_column_(false), kill_vsl_components_(false)
+
+PageMarker::PageMarker() :
+    image_data_(NULL),
+    cpage_(NULL),
+    comp_cont_(NULL),
+    cline_(NULL),
+    kill_vsl_components_(true)
 {
     RNEG_Init(0, NULL);
+    image_data_ = new RMPreProcessImage;
 }
 
-RMarker::~RMarker()
+PageMarker::~PageMarker()
 {
     RNEG_Done();
+    delete image_data_;
 }
 
-void RMarker::markupPage()
+Handle PageMarker::cpage() {
+    return cpage_;
+}
+
+void PageMarker::markupPage()
 {
+    initSVLBuffer();
 
-}
-}
+    Bool32 rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, image_data_);
 
-#define INCLINE_FACTOR  2048
-
-#define IDEAL_XY(x, y)   \
-         {\
-             y = (int16_t) (y - (int32_t) x * nIncline / INCLINE_FACTOR);\
-             x = (int16_t) (x + (int32_t) y * nIncline / INCLINE_FACTOR);\
-         }
-
-#define REAL_XY(x, y)   \
-         {\
-             x = (int16_t) (x - (int32_t) y * nIncline / INCLINE_FACTOR);\
-             y = (int16_t) (y + (int32_t) x * nIncline / INCLINE_FACTOR);\
-        }
-
-#define TYPE_FON      CPAGE_GetInternalType("TYPE_FON")
-
-extern Handle DebugFill;
-extern Handle hVertCells;
-extern Handle hNegaCells;
-extern Handle hVertCellsAuto;
-extern Handle hNegaCellsAuto;
-extern Handle hDebugUpDown;
-extern Handle hDebugPictures;
-extern Handle hPrintFileVertCells;
-extern Handle hDebugNeg;
-extern Handle hDebugLinePass3;
-extern Handle hDebugLinePass2;
-extern Handle hDebugVerifLine;
-extern Handle hNoGiveNeg;
-extern Handle hNoSeePict;
-
-extern Handle hPrep;
-extern Handle hPicture;
-extern Handle hNegative;
-extern Handle hPrintCrossedPics;
-extern Handle hVCutInZones;
-extern Handle hSVLP;
-extern Handle hBlocks;
-extern Handle hLines3;
-extern Handle hNegaTestCells;
-extern Handle hVertTestCells;
-extern Handle hFon;
-extern Handle hEnd;
-
-static uint32_t gwRC = 0;
-Bool dpDebugUpDown;
-
-Bool32 PageMarkup(PRMPreProcessImage Image)
-{
-    Bool32 rc = TRUE;
-    gSVLBuffer.VLinefBufferA = NULL;
-    gSVLBuffer.VLinefBufferB = NULL;
-    gSVLBuffer.LineInfoA = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
-    gSVLBuffer.LineInfoB = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
-
-    rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, Image);
-
-    BIG_IMAGE big_Image;
+    BigImage big_Image;
     //default Image:
     PAGEINFO info;
-    GetPageInfo(Image->hCPAGE, &info);
+    GetPageInfo(image_data_->hCPAGE, &info);
 
     for (int i = 0; i < CPAGE_MAXNAME; i++)
         big_Image.ImageName[i] = info.szImageName[i];
 
-    big_Image.hCCOM = NULL;
-    Handle h = CPAGE_GetBlockFirst(Image->hCPAGE, TYPE_BIG_COMP);
+    Handle h = CPAGE_GetBlockFirst(image_data_->hCPAGE, TYPE_BIG_COMP);
 
     if (h) {
-        CPAGE_GetBlockData(Image->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BIG_IMAGE));
-        CPAGE_DeleteBlock(Image->hCPAGE, h);
+        CPAGE_GetBlockData(image_data_->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BigImage));
+        CPAGE_DeleteBlock(image_data_->hCPAGE, h);
     }
 
     //Поиск очевидных картинок
     if (rc)
-        rc = SearchPictures(Image, big_Image);
+        rc = SearchPictures(image_data_, big_Image);
 
     //Поиск негативов
     if (rc)
-        rc = SearchNeg(Image, big_Image, info.Incline2048);
+        rc = SearchNeg(image_data_, big_Image, info.Incline2048);
 
     //Третий проход по линиям
     if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
             && LDPUMA_Skip(hDebugLinePass2)) {
         if (rc)
-            RLINE_LinesPass3(Image->hCPAGE, Image->hCLINE, Image->hCCOM, (uchar) Image->gnLanguage);
+            RLINE_LinesPass3(image_data_->hCPAGE, image_data_->hCLINE, image_data_->hCCOM, (uchar) image_data_->gnLanguage);
     }
 
     ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
     if (rc) {
-        rc = ShortVerticalLinesProcess(PUMA_SVL_SECOND_STEP, Image);
+        rc = ShortVerticalLinesProcess(PUMA_SVL_SECOND_STEP, image_data_);
     }
 
-    ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, Image);
-    free(gSVLBuffer.LineInfoA);
-    free(gSVLBuffer.LineInfoB);
+    ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, image_data_);
+
+    freeSVLBuffer();
 
     // blocks
-    if (!LDPUMA_Skip(Image->hDebugLayoutFromFile)) {
-        Image->hCPAGE = CPAGE_RestorePage(TRUE, (pchar) (Image->szLayoutFileName));
+    if (!LDPUMA_Skip(image_data_->hDebugLayoutFromFile)) {
+        image_data_->hCPAGE = CPAGE_RestorePage(TRUE, image_data_->szLayoutFileName);
 
-        if (Image->hCPAGE == NULL) {
+        if (image_data_->hCPAGE == NULL) {
             SetReturnCode_rmarker(CPAGE_GetReturnCode());
             rc = FALSE;
         }
 
         else {
-            CPAGE_SetCurrentPage(CPAGE_GetNumberPage(Image->hCPAGE));
-            LDPUMA_Console("Layout восстановлен из файла '%s'\n", Image->szLayoutFileName);
+            CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_data_->hCPAGE));
+            LDPUMA_Console("Layout восстановлен из файла '%s'\n", image_data_->szLayoutFileName);
         }
     }
     else if (rc) {
-        if (LDPUMA_Skip(Image->hDebugCancelExtractBlocks)) {
-            Bool32 bEnableSearchPicture;
-            bEnableSearchPicture = Image->gnPictures;
+        if (LDPUMA_Skip(image_data_->hDebugCancelExtractBlocks)) {
+            Bool32 bEnableSearchPicture = image_data_->gnPictures;
             RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
-            RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(Image->gbOneColumn));
+            RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_data_->gbOneColumn));
 
-            if (!RBLOCK_ExtractTextBlocks(Image->hCCOM, Image->hCPAGE, Image->hCLINE)) {
+            if (!RBLOCK_ExtractTextBlocks(image_data_->hCCOM, image_data_->hCPAGE, image_data_->hCLINE)) {
                 SetReturnCode_rmarker(RBLOCK_GetReturnCode());
                 rc = FALSE;
             }
@@ -220,20 +180,63 @@ Bool32 PageMarkup(PRMPreProcessImage Image)
     }
 
     CCOM_DeleteContainer(big_Image.hCCOM);
-    return rc;
+
+    if(!rc)
+        throw Exception("markupPage failed");
+
+    cpage_ = image_data_->hCPAGE;
 }
+
+void PageMarker::setComponentContainer(CCOM_cont * cont) {
+    comp_cont_ = cont;
+}
+
+void PageMarker::setCLine(Handle cline) {
+    cline_ = cline;
+}
+
+void PageMarker::setCPage(Handle cpage) {
+    cpage_ = cpage;
+}
+
+void PageMarker::setKillVSLComponents(bool value) {
+    kill_vsl_components_ = value;
+}
+
+void PageMarker::setLayoutFilename(const std::string& fname) {
+    layout_filename_ = fname;
+}
+
+void PageMarker::setOptions(const RecognizeOptions& opts) {
+    image_data_->gbOneColumn = opts.oneColumn();
+    image_data_->gKillVSLComponents = kill_vsl_components_;
+    image_data_->hCPAGE = cpage_;
+    image_data_->hCCOM = comp_cont_;
+    image_data_->hCLINE = cline_;
+    image_data_->gnPictures = opts.pictureSearch();
+    image_data_->gnLanguage = opts.language();
+    image_data_->hDebugCancelSearchPictures = hDebugCancelSearchPictures;
+    image_data_->hDebugLayoutFromFile = hDebugLayoutFromFile;
+    image_data_->hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
+    image_data_->hDebugSVLines = hDebugSVLines;
+    image_data_->hDebugSVLinesStep = hDebugSVLinesStep;
+    image_data_->hDebugSVLinesData = hDebugSVLinesData;
+    image_data_->szLayoutFileName = layout_filename_.c_str();
+}
+
+}
+
+extern Handle hPrep;
+extern Handle hEnd;
+
+static uint32_t gwRC = 0;
 
 void SetReturnCode_rmarker(uint32_t rc)
 {
     gwRC = rc;
 }
 
-uint32_t GetReturnCode_rmarker(void)
-{
-    return gwRC;
-}
-
-Bool32 SearchNeg(PRMPreProcessImage Image, BIG_IMAGE big_Image, int skew)
+Bool32 SearchNeg(PRMPreProcessImage Image, BigImage big_Image, int skew)
 {
     if (!LDPUMA_Skip(hDebugNeg))
         return TRUE;
@@ -242,7 +245,7 @@ Bool32 SearchNeg(PRMPreProcessImage Image, BIG_IMAGE big_Image, int skew)
     return TRUE;
 }
 
-Bool32 SearchPictures(PRMPreProcessImage Image, BIG_IMAGE big_Image)
+Bool32 SearchPictures(PRMPreProcessImage Image, BigImage big_Image)
 {
     Bool32 rc = TRUE;
 

@@ -29,7 +29,6 @@
 #include "common/formatoptions.h"
 #include "common/rect.h"
 #include "common/exception.h"
-#include "common/memorybuffer.h"
 #include "common/outputformat.h"
 #include "common/image.h"
 #include "common/recognizeoptions.h"
@@ -42,14 +41,14 @@ struct CCOM_cont;
 
 namespace cf {
 
-class RMarker;
+class PageMarker;
 class ComponentExtractor;
 class CEDPage;
 class Formatter;
 class CRtfPage;
 class RStuff;
 
-class CLA_EXPO PumaImpl
+class PumaImpl
 {
     public:
         PumaImpl();
@@ -108,18 +107,15 @@ class CLA_EXPO PumaImpl
         void setPageTemplate(const Rect& r);
         void setSpecialProject(special_project_t SpecialProject);
     private:
-        static unsigned char * mainBuffer();
-        static unsigned char * workBuffer();
-        static const size_t MainBufferSize = 500000;
-        static const size_t WorkBufferSize = 180000;
-    private:
         void binarizeImage();
         void clearAll();
+        void debugPrintCpage();
         void extractComponents();
         void extractStrings();
         void getImageInfo(const std::string& image_name);
         void layout();
         void loadLayoutFromFile(const std::string& fname);
+        void markup();
         void modulesDone();
         void modulesInit();
         const char * modulePath() const;
@@ -150,12 +146,10 @@ class CLA_EXPO PumaImpl
         static void SetUpdate(uint32_t flgAdd, uint32_t flgRemove);
     private:
         static uint32_t update_flags_;
-        static FixedBuffer<unsigned char, MainBufferSize> main_buffer_;
-        static FixedBuffer<unsigned char, WorkBufferSize> work_buffer_;
     private:
-        std::auto_ptr<RMarker> rmarker_;
         std::auto_ptr<ComponentExtractor> comp_extractor_;
         std::auto_ptr<Formatter> formatter_;
+        boost::shared_ptr<PageMarker> marker_;
         boost::shared_ptr<RStuff> rstuff_;
         BitmapInfoHeader info_;
         Rect rect_template_;
@@ -172,7 +166,6 @@ class CLA_EXPO PumaImpl
         Handle cline_;
         CEDPagePtr ed_page_;
         Bool32 rc_line_;
-        Bool32 kill_vsl_components_;
         Bool32 need_clean_line_;
         const char * recog_name_;
         special_project_t special_project_;

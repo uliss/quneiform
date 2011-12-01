@@ -53,48 +53,58 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __MARK_PAGE_H__
-#define __MARK_PAGE_H__
 
-#include "rmarker/rmarker.h"
-#include "dpuma.h"
-#include "puma/pumadef.h"
-#include "mymem.h"
-#include "ccom/ccom.h"
-#include "ced/ced.h"
-#include "cpage/cpage.h"
-#include "rimage/criimage.h"
-#include "cstr/cstr.h"
+#ifndef _RMFUNC_H_
+#define _RMFUNC_H_
+
+#include <cstdlib>
+#include <cstdio>
+
 #include "cimage/ctiimage.h"
-#include "exc/exc.h"
-#include "rblock/rblock.h"
-#include "rline/rline.h"
-#include "rpic/rpic.h"
-#include "rstr/rstr.h"
-#include "rstuff/rstuff.h"
-#include "rverline/rverline.h"
-#include "lns/lnsdefs.h"
-#include "shortverticallinesfilter.h"
-#include "resource.h"
-#include "mymem.h"
+#include "ccom/ccomdefs.h"
+#include "cpage/cpage.h"
+#include "common/lang_def.h"
 
-#define IDS_ERR_INITIATED_BY_ALLEX      2029
-#ifdef _RMARKER_CPP
-#define EXTERN
-#define VAL(a)      = a
-#define VALM(a)     = {a}
-#define VAL2(a,b)   = { a,b }
-#define VAL4(a,b,c,d)   = { a,b,c,d }
-#else
-#define EXTERN      extern
-#define VAL(a)
-#define VALM(a)
-#define VAL2(a,b)
-#define VAL4(a,b,c,d)
-#endif
+enum svl_step_t
+{
+    PUMA_SVL_FIRST_STEP = 0x1,
+    PUMA_SVL_SECOND_STEP = 0x2,
+    PUMA_SVL_THRID_STEP = 0x3
+};
 
-EXTERN PUMALinesBuffer gSVLBuffer VALM(0);
+#define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
 
+struct BigImage
+{
+    BigImage() : hCCOM(NULL) {}
+    CCOM_handle hCCOM;
+    uchar ImageName[CPAGE_MAXNAME];
+};
+
+struct RMPreProcessImage
+{
+    Bool32 gbOneColumn;
+    bool gKillVSLComponents;
+    language_t gnLanguage;
+    Handle hCPAGE;
+    CCOM_cont * hCCOM;
+    Handle hCLINE;
+    Handle hDebugCancelSearchPictures;
+    Handle hDebugLayoutFromFile;
+    Handle hDebugCancelExtractBlocks;
+    Handle hDebugSVLines;
+    Handle hDebugSVLinesStep;
+    Handle hDebugSVLinesData;
+    const char *szLayoutFileName;
+    bool gnPictures;
+};
+
+typedef RMPreProcessImage * PRMPreProcessImage;
+
+Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage Image);
+Bool32 SearchPictures(PRMPreProcessImage, BigImage);
+Bool32 SearchNeg(PRMPreProcessImage, BigImage, int);
+Bool32 SearchFon(PRMPreProcessImage, BigImage, int);
 void SetReturnCode_rmarker(uint32_t rc);
 
 #endif

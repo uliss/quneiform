@@ -54,35 +54,53 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _RMFUNC_H_
-#define _RMFUNC_H_
+#ifndef __PAGE_MARKER_H
+#define __PAGE_MARKER_H
 
-#include <stdlib.h>
-#include <stdio.h>
-#include "cimage/ctiimage.h"
-#include "ccom/ccomdefs.h"
-#include "cpage/cpage.h"
+#include <string>
+#include <stdexcept>
 
-typedef int Bool;
+#include "globus.h"
 
-#define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
+struct CCOM_cont;
+struct RMPreProcessImage;
 
-struct BIG_IMAGE
+namespace cf
 {
-        CCOM_handle hCCOM;
-        uchar ImageName[CPAGE_MAXNAME];
+
+class RecognizeOptions;
+
+class CLA_EXPO PageMarker
+{
+public:
+    class Exception : public std::runtime_error {
+    public:
+        Exception(const std::string& msg) : std::runtime_error(msg) {}
+    };
+
+public:
+    PageMarker();
+    ~PageMarker();
+
+    Handle cpage();
+
+    void markupPage();
+
+    void setComponentContainer(CCOM_cont * cont);
+    void setCLine(Handle cline);
+    void setCPage(Handle cpage);
+    void setKillVSLComponents(bool value);
+    void setLayoutFilename(const std::string& fname);
+    void setOptions(const RecognizeOptions& opts);
+private:
+    RMPreProcessImage * image_data_;
+    Handle cpage_;
+    CCOM_cont * comp_cont_;
+    Handle cline_;
+    bool kill_vsl_components_;
+    std::string layout_filename_;
 };
 
-Bool32 ShortVerticalLinesProcess(uint32_t Step, PRMPreProcessImage Image);
-Bool32 PageMarkup(PRMPreProcessImage Image);
-uint32_t GetReturnCode_rmarker(void);
-Bool32 SearchPictures(PRMPreProcessImage, BIG_IMAGE);
-Bool32 SearchNeg(PRMPreProcessImage, BIG_IMAGE, int);
-Bool32 SearchFon(PRMPreProcessImage, BIG_IMAGE, int);
-void GiveMainBuff(void **vvBuff, int *Size);
-void GiveWorkBuff(char **ccBuff, int *Size);
-void SetMainBuff(void *vBuff, int Size);
-void SetWorkBuff(void *vBuff, int Size);
-void ReSetMem(void);
+}
 
 #endif

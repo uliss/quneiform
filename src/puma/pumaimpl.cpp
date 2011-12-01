@@ -30,6 +30,7 @@
 #include "common/debug.h"
 #include "common/helper.h"
 #include "common/tostring.h"
+#include "common/memorybuffer.h"
 #include "common/language.h"
 #include "ligas.h"      // 12.06.2002 E.P.
 #include "ccom/ccom.h"
@@ -43,12 +44,12 @@
 #include "dpuma.h"
 #include "exc/exc.h"
 #include "export/exporterfactory.h"
+#include "markup/pagemarker.h"
 #include "rblock/rblock.h"
 #include "rcorrkegl/rcorrkegl.h"
 #include "rfrmt/formatter.h"
 #include "rimage/criimage.h"
 #include "rline/rline.h"
-#include "rmarker/rmarker.h"
 #include "rpic/rpic.h"
 #include "rpstr/rpstr.h"
 #include "rselstr/rselstr.h"
@@ -66,15 +67,10 @@ static Handle hDebugCancelSearchTables = NULL;
 static Handle hDebugCancelVerifyLines = NULL;
 static Handle hDebugCancelSearchDotLines = NULL;
 static Handle hDebugCancelComponent = NULL;
-static Handle hDebugCancelExtractBlocks = NULL;
 static Handle hDebugCancelStringsPass2 = NULL;
 static Handle hDebugCancelSearchPictures = NULL;
 static Handle hDebugEnableSearchSegment = NULL;
 static Handle hDebugStrings = NULL;
-static Handle hDebugSVLines = NULL;
-static Handle hDebugSVLinesStep = NULL;
-static Handle hDebugSVLinesData = NULL;
-static Handle hDebugLayoutFromFile = NULL;
 static Handle hDebugCancelTurn = NULL;
 
 static double portion_of_rus_letters(CSTR_line lin_ruseng) {
@@ -121,9 +117,6 @@ static int32_t global_buf_len = 0; // OLEG fot Consistent
 
 uint32_t PumaImpl::update_flags_ = 0;
 
-FixedBuffer<unsigned char, PumaImpl::MainBufferSize> PumaImpl::main_buffer_;
-FixedBuffer<unsigned char, PumaImpl::WorkBufferSize> PumaImpl::work_buffer_;
-
 bool PumaImpl::hasUpdateFlag(uint32_t flg) {
     return (update_flags_ & flg) > 0;
 }
@@ -152,7 +145,6 @@ PumaImpl::PumaImpl() :
     lines_ccom_(NULL),
     cline_(NULL),
     rc_line_(TRUE),
-    kill_vsl_components_(TRUE),
     need_clean_line_(FALSE),
     recog_name_(NULL),
     special_project_(SPEC_PRJ_NO)
@@ -239,6 +231,19 @@ void PumaImpl::close() {
     recog_dib_ = input_dib_ = NULL;
 }
 
+void PumaImpl::debugPrintCpage() {
+    Debug() << "Container CPAGE has: \n name : size\n";
+    Handle block = CPAGE_GetBlockFirst(cpage_, 0);
+
+    while (block) {
+        Debug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_, block))
+                << " : "
+                << CPAGE_GetBlockData(cpage_, block, CPAGE_GetBlockType(cpage_, block), NULL, 0)
+                << "\n";
+        block = CPAGE_GetBlockNext(cpage_, block, 0);
+    }
+}
+
 void PumaImpl::extractComponents() {
     PAGEINFO info;
 
@@ -311,7 +316,6 @@ void PumaImpl::layout() {
     binarizeImage();
 
     RSPreProcessImage DataforRS;
-    RMPreProcessImage DataforRM;
 
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
     DataforRS.pinfo = &info_;
@@ -344,46 +348,7 @@ void PumaImpl::layout() {
     rstuff_->setRecognizeOptions(recognize_options_);
     rstuff_->normalize();
 
-    // Gleb 02.11.2000
-    // Далее - разметка. Вынесена в RMARKER.DLL
-    DataforRM.gbOneColumn = recognize_options_.oneColumn();
-    DataforRM.gKillVSLComponents = kill_vsl_components_;
-    DataforRM.hCPAGE = cpage_;
-    DataforRM.hCCOM = ccom_;
-    DataforRM.hCLINE = cline_;
-    DataforRM.gnPictures = recognize_options_.pictureSearch();
-    DataforRM.gnLanguage = recognize_options_.language();
-    DataforRM.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
-    DataforRM.hDebugLayoutFromFile = hDebugLayoutFromFile;
-    DataforRM.hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
-    DataforRM.hDebugSVLines = hDebugSVLines;
-    DataforRM.hDebugSVLinesStep = hDebugSVLinesStep;
-    DataforRM.hDebugSVLinesData = hDebugSVLinesData;
-    DataforRM.szLayoutFileName = layout_filename_.c_str();
-
-    void* MemBuf = cf::PumaImpl::mainBuffer();
-    size_t size_buf = cf::PumaImpl::MainBufferSize;
-    void* MemWork = cf::PumaImpl::workBuffer();
-    int size_work = cf::PumaImpl::WorkBufferSize;
-
-    if (!RMARKER_PageMarkup(&DataforRM, MemBuf, size_buf, MemWork, size_work))
-        throw PumaException("RMARKER_PageMarkup failed");
-
-    cpage_ = DataforRM.hCPAGE; //Paul 25-01-2001
-
-    if (Config::instance().debug()) {
-        Debug() << "Container CPAGE has: \n name : size\n";
-        Handle block = CPAGE_GetBlockFirst(cpage_, 0);
-
-        while (block) {
-            Debug() << CPAGE_GetNameInternalType(CPAGE_GetBlockType(cpage_,
-                    block)) << " : " << CPAGE_GetBlockData(cpage_, block,
-                    CPAGE_GetBlockType(cpage_, block), NULL, 0) << "\n";
-            block = CPAGE_GetBlockNext(cpage_, block, 0);
-        }
-    }
-
-    unsetUpdateFlag(FLG_UPDATE_CPAGE);
+    markup();
 }
 
 void PumaImpl::loadLayoutFromFile(const std::string& fname) {
@@ -396,6 +361,21 @@ void PumaImpl::loadLayoutFromFile(const std::string& fname) {
     }
 
     CPAGE_SetCurrentPage(CPAGE_GetNumberPage(cpage_));
+}
+
+void PumaImpl::markup() {
+    marker_->setComponentContainer(ccom_);
+    marker_->setCLine(cline_);
+    marker_->setCPage(cpage_);
+    marker_->setLayoutFilename(layout_filename_);
+    marker_->setOptions(recognize_options_);
+    marker_->markupPage();
+    cpage_ = marker_->cpage();
+
+    if (Config::instance().debug())
+        debugPrintCpage();
+
+    unsetUpdateFlag(FLG_UPDATE_CPAGE);
 }
 
 void PumaImpl::modulesDone() {
@@ -453,7 +433,7 @@ void PumaImpl::modulesInit() {
             throw PumaException("RSL_Init failed.");
 
         rstuff_.reset(new RStuff);
-        rmarker_.reset(new RMarker);
+        marker_.reset(new PageMarker);
 
         if (!RBLOCK_Init(PUMA_MODULE_RBLOCK, NULL))
             throw PumaException("RBLOCK_Init failed.");
@@ -1046,14 +1026,6 @@ void PumaImpl::setPageTemplate(const Rect& r) {
 void PumaImpl::setSpecialProject(special_project_t SpecialProject) {
     special_project_ = SpecialProject;
     RSTR_SetSpecPrj(SpecialProject);
-}
-
-unsigned char * PumaImpl::mainBuffer() {
-    return main_buffer_.begin();
-}
-
-unsigned char * PumaImpl::workBuffer() {
-    return work_buffer_.begin();
 }
 
 }

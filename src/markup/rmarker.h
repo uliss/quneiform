@@ -53,87 +53,54 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**********  Заголовок  *******************************************************/
-/*  Автор      : Глеб Корольков                                                             */
-/*  комментарии                                                               */
-/*  и далнейшая                                                               */
-/*  правка     :                                                            */
-/*  Редакция   :  16.10.2000                                                  */
-/*  Файл       :  'RMARKER.H'                                                 */
-/*  Содержание :  Интерфейс библиотеки                                        */
-/*  Назначение :                                                              */
-/*----------------------------------------------------------------------------*/
+
 #ifndef __RMARKER_H
 #define __RMARKER_H
 
 #include <string>
-#include "common/lang_def.h"
-#include "cttypes.h"
+#include <stdexcept>
+
 #include "globus.h"
+
+struct CCOM_cont;
+struct RMPreProcessImage;
 
 namespace cf
 {
+
+class RecognizeOptions;
+
 class CLA_EXPO RMarker
 {
+public:
+    class Exception : public std::runtime_error {
     public:
-        RMarker();
-        ~RMarker();
+        Exception(const std::string& msg) : std::runtime_error(msg) {}
+    };
 
-        void markupPage();
-        void setCCom(Handle ccom);
-        void setCLine(Handle cline);
-        void setCPage(Handle cpage);
-        void setLanguage(language_t language);
-        void setPicturesNum(uint num);
-        void setFax(bool value);
-        void setOneColumnLayout(bool value);
-        void setKillVslComponents(bool value);
-        void setLayoutFilename(const std::string& fname);
-    private:
-        Handle cpage_;
-        Handle ccom_;
-        Handle cline_;
-        language_t language_;
-        uint pictures_;
-        bool fax_;
-        bool one_column_;
-        bool kill_vsl_components_;
-        std::string layout_file_name_;
+public:
+    RMarker();
+    ~RMarker();
+
+    Handle cpage();
+
+    void markupPage();
+
+    void setComponentContainer(CCOM_cont * cont);
+    void setCLine(Handle cline);
+    void setCPage(Handle cpage);
+    void setKillVSLComponents(bool value);
+    void setLayoutFilename(const std::string& fname);
+    void setOptions(const RecognizeOptions& opts);
+private:
+    RMPreProcessImage * image_data_;
+    Handle cpage_;
+    CCOM_cont * comp_cont_;
+    Handle cline_;
+    bool kill_vsl_components_;
+    std::string layout_filename_;
 };
 
 }
-
-struct CCOM_cont;
-
-struct RMPreProcessImage
-{
-        Bool32 gbFax100;
-        Bool32 gbOneColumn;
-        Bool32 gKillVSLComponents;
-        uint32_t gnLanguage;
-        Handle hCPAGE;
-        CCOM_cont * hCCOM;
-        Handle hCLINE;
-        Handle hDebugCancelSearchPictures;
-        Handle hDebugLayoutFromFile;
-        Handle hDebugCancelExtractBlocks;
-        Handle hDebugSVLines;
-        Handle hDebugSVLinesStep;
-        Handle hDebugSVLinesData;
-        const char *szLayoutFileName;
-        uint32_t gnPictures;
-};
-
-typedef RMPreProcessImage * PRMPreProcessImage;
-
-enum
-{
-    PUMA_SVL_FIRST_STEP = 0x1,
-    PUMA_SVL_SECOND_STEP = 0x2,
-    PUMA_SVL_THRID_STEP = 0x3
-};
-
-const int PUMAMaxNumLines = 2000;
-FUN_EXPO__ Bool32 RMARKER_PageMarkup(PRMPreProcessImage, void*, int, void*, int);
 
 #endif
