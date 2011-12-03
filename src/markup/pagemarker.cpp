@@ -61,6 +61,7 @@
 #include "shortverticallinesfilter.h"
 #include "dpuma.h"
 #include "common/recognizeoptions.h"
+#include "common/debug.h"
 #include "lns/lnsdefs.h"
 #include "rblock/rblock.h"
 #include "rline/rline.h"
@@ -68,13 +69,11 @@
 #include "rpic/rpic.h"
 #include "rselstr/rselstr.h"
 
-static Handle hDebugPictures = NULL;
 static Handle hDebugNeg = NULL;
 static Handle hDebugLinePass3 = NULL;
 static Handle hDebugLinePass2 = NULL;
 static Handle hDebugVerifLine = NULL;
 static Handle hDebugCancelExtractBlocks = NULL;
-static Handle hDebugCancelSearchPictures = NULL;
 static Handle hDebugSVLines = NULL;
 static Handle hDebugSVLinesStep = NULL;
 static Handle hDebugSVLinesData = NULL;
@@ -82,6 +81,8 @@ static Handle hDebugLayoutFromFile = NULL;
 
 namespace cf
 {
+
+int PageMarker::flags_ = 0;
 
 PageMarker::PageMarker() :
     image_data_(NULL),
@@ -110,28 +111,18 @@ void PageMarker::markupPage()
 
     Bool32 rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, image_data_);
 
-    BigImage big_Image;
+    BigImage big_image(image_data_->hCPAGE);
     //default Image:
     PAGEINFO info;
     GetPageInfo(image_data_->hCPAGE, &info);
 
-    for (int i = 0; i < CPAGE_MAXNAME; i++)
-        big_Image.ImageName[i] = info.szImageName[i];
-
-    Handle h = CPAGE_GetBlockFirst(image_data_->hCPAGE, TYPE_BIG_COMP);
-
-    if (h) {
-        CPAGE_GetBlockData(image_data_->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BigImage));
-        CPAGE_DeleteBlock(image_data_->hCPAGE, h);
-    }
-
     //Поиск очевидных картинок
     if (rc)
-        rc = SearchPictures(image_data_, big_Image);
+        rc = searchPictures(big_image.hCCOM);
 
     //Поиск негативов
     if (rc)
-        rc = SearchNeg(image_data_, big_Image, info.Incline2048);
+        rc = SearchNeg(image_data_, big_image, info.Incline2048);
 
     //Третий проход по линиям
     if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
@@ -165,7 +156,7 @@ void PageMarker::markupPage()
     }
     else if (rc) {
         if (LDPUMA_Skip(image_data_->hDebugCancelExtractBlocks)) {
-            Bool32 bEnableSearchPicture = image_data_->gnPictures;
+            Bool32 bEnableSearchPicture = image_data_->searchPictures;
             RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
             RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_data_->gbOneColumn));
 
@@ -179,12 +170,27 @@ void PageMarker::markupPage()
             LDPUMA_Console("Пропущен этап автоматического Layout.\n");
     }
 
-    CCOM_DeleteContainer(big_Image.hCCOM);
-
     if(!rc)
         throw Exception("markupPage failed");
 
     cpage_ = image_data_->hCPAGE;
+}
+
+
+
+bool PageMarker::searchPictures(CCOM_cont * contBig) {
+    if(hasFlag(SKIP_SEARCH_PICTURES))
+        return true;
+
+    if(!image_data_->searchPictures)
+        return true;
+
+    if(!RPIC_SearchPictures(image_data_->hCCOM, contBig, image_data_->hCPAGE)) {
+        Debug() << "RPIC error code: " << RPIC_GetReturnCode() << "\n";
+        return false;
+    }
+
+    return true;
 }
 
 void PageMarker::setComponentContainer(CCOM_cont * cont) {
@@ -213,9 +219,8 @@ void PageMarker::setOptions(const RecognizeOptions& opts) {
     image_data_->hCPAGE = cpage_;
     image_data_->hCCOM = comp_cont_;
     image_data_->hCLINE = cline_;
-    image_data_->gnPictures = opts.pictureSearch();
+    image_data_->searchPictures = opts.pictureSearch();
     image_data_->gnLanguage = opts.language();
-    image_data_->hDebugCancelSearchPictures = hDebugCancelSearchPictures;
     image_data_->hDebugLayoutFromFile = hDebugLayoutFromFile;
     image_data_->hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
     image_data_->hDebugSVLines = hDebugSVLines;
@@ -241,27 +246,7 @@ Bool32 SearchNeg(PRMPreProcessImage Image, BigImage big_Image, int skew)
     if (!LDPUMA_Skip(hDebugNeg))
         return TRUE;
 
-    RNEG_RecogNeg(big_Image.hCCOM, Image->hCPAGE, big_Image.ImageName, skew);
+    RNEG_RecogNeg(big_Image.hCCOM, Image->hCPAGE, (uchar*) big_Image.ImageName, skew);
     return TRUE;
-}
-
-Bool32 SearchPictures(PRMPreProcessImage Image, BigImage big_Image)
-{
-    Bool32 rc = TRUE;
-
-    if (!LDPUMA_Skip(hDebugPictures))
-        return TRUE;
-
-    if (rc && LDPUMA_Skip(Image->hDebugCancelSearchPictures)) {
-        if (Image->gnPictures) {
-            if (!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM, Image->hCPAGE)) {
-                uint32_t RPicRetCode = RPIC_GetReturnCode();
-                SetReturnCode_rmarker(RPicRetCode);
-                rc = FALSE;
-            }
-        }
-    }
-
-    return rc;
 }
 

@@ -78,6 +78,11 @@ public:
         Exception(const std::string& msg) : std::runtime_error(msg) {}
     };
 
+    enum flag_t {
+        SKIP_SEARCH_PICTURES = 1,
+        SKIP_SEARCH_NEGATIVES = 2
+    };
+
 public:
     PageMarker();
     ~PageMarker();
@@ -92,6 +97,15 @@ public:
     void setKillVSLComponents(bool value);
     void setLayoutFilename(const std::string& fname);
     void setOptions(const RecognizeOptions& opts);
+public:
+    bool hasFlag(flag_t f) { return flags_ & f; }
+    void setFlag(flag_t f) { flags_ |= f; }
+    void setFlag(flag_t f, bool value) { value ? setFlag(f) : unsetFlag(f); }
+    void unsetFlag(flag_t f) { flags_ &= (~f); }
+private:
+    bool searchPictures(CCOM_cont * cont);
+private:
+    static int flags_;
 private:
     RMPreProcessImage * image_data_;
     Handle cpage_;

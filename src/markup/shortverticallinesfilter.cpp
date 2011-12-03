@@ -103,32 +103,49 @@ void initSVLBuffer() {
     gSVLBuffer.LineInfoB = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
 }
 
-Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage Image)
+bool SVLProcessStep1(PRMPreProcessImage image) {
+    if(!gSVLBuffer.LineInfoA)
+        return false;
+
+    gSVLBuffer.HLinesBufferA = NULL;
+    gSVLBuffer.LineInfoA->Hor.Lns = NULL;
+    if (gSVLBuffer.VLinefBufferA == NULL) {
+        gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *) calloc(
+                sizeof(LineInfo), PUMA_MAX_NUM_LINES);
+    }
+
+    Bool32 bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoA, image);
+    return (bRet == TRUE);
+}
+
+bool SVLProcessStep2(PRMPreProcessImage image) {
+    gSVLBuffer.HLinesBufferB = gSVLBuffer.LineInfoB->Hor.Lns = NULL;
+    if (gSVLBuffer.VLinefBufferB == NULL) {
+        gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *) calloc(
+                sizeof(LineInfo), PUMA_MAX_NUM_LINES);
+    }
+
+    Bool32 bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoB, image);
+
+    ////////////////
+    // обработка и удаление тут
+    if (bRet) {
+        bRet = SVLFilter(gSVLBuffer.LineInfoA, gSVLBuffer.LineInfoB, image);
+    }
+
+    return bRet == TRUE;
+}
+
+Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage image)
 {
     Bool32 bRet = FALSE;
 
     if (Step == PUMA_SVL_FIRST_STEP && gSVLBuffer.LineInfoA) {
-        gSVLBuffer.HLinesBufferA = gSVLBuffer.LineInfoA->Hor.Lns = NULL;
-        if (gSVLBuffer.VLinefBufferA == NULL)
-            gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *) calloc(
-                    sizeof(LineInfo), PUMA_MAX_NUM_LINES);
-
-        bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoA, Image);
+        bRet = SVLProcessStep1(image) ? TRUE : FALSE;
     }
 
     if (Step == PUMA_SVL_SECOND_STEP && gSVLBuffer.LineInfoB) {
-        gSVLBuffer.HLinesBufferB = gSVLBuffer.LineInfoB->Hor.Lns = NULL;
-        if (gSVLBuffer.VLinefBufferB == NULL)
-            gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *) calloc(
-                    sizeof(LineInfo), PUMA_MAX_NUM_LINES);
-
-        bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoB, Image);
-
-        ////////////////
-        // обработка и удаление тут
-        if (bRet) {
-            bRet = SVLFilter(gSVLBuffer.LineInfoA, gSVLBuffer.LineInfoB, Image);
-        }
+        bRet = SVLProcessStep2(image) ? TRUE : FALSE;
     }
 
     if (Step == PUMA_SVL_THRID_STEP) {
@@ -155,21 +172,17 @@ Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage Image)
 Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, PRMPreProcessImage Image)
 {
     Bool32 bRet = TRUE;
-    uint32_t nTagSize;
-    nTagSize = sizeof(LinesTotalInfo);
     Bool32 fl_break;
     int num = 0;
     int count = 0;
     CLINE_handle hCLINE = Image->hCLINE;
-    CLINE_handle hline;
-    CPDLine cpdata;
-    hline = CLINE_GetFirstLine(hCLINE);
+    CLINE_handle hline = CLINE_GetFirstLine(hCLINE);
     LTInfo->Hor.Cnt = 0;
     LTInfo->Ver.Cnt = 0;
 
     while (hline) {
         fl_break = FALSE;
-        cpdata = CLINE_GetLineData(hline);
+        CPDLine cpdata = CLINE_GetLineData(hline);
 
         if (!cpdata)
             hline = CLINE_GetNextLine(hline);
