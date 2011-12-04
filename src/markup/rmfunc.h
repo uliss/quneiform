@@ -108,7 +108,6 @@ struct RMPreProcessImage
     Handle hCPAGE;
     CCOM_cont * hCCOM;
     Handle hCLINE;
-    Handle hDebugLayoutFromFile;
     Handle hDebugCancelExtractBlocks;
     bool hDebugSVLines;
     bool hDebugSVLinesStep;

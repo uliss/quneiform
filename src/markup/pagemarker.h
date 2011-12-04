@@ -83,7 +83,8 @@ public:
         SKIP_SEARCH_NEGATIVES = 2,
         DEBUG_SVL = 4,
         DEBUG_SVL_STEP = 8,
-        DEBUG_SVL_DATA = 16
+        DEBUG_SVL_DATA = 16,
+        DEBUG_LAYOUT_FROM_FILE = 32
     };
 
 public:
@@ -106,7 +107,9 @@ public:
     void setFlag(flag_t f, bool value) { value ? setFlag(f) : unsetFlag(f); }
     void unsetFlag(flag_t f) { flags_ &= (~f); }
 private:
+    void linePass3();
     void processShortVerticalLines();
+    void restoreLayout();
     void searchNegatives(CCOM_cont * cont);
     bool searchPictures(CCOM_cont * cont);
 private:

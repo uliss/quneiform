@@ -55,6 +55,7 @@
  */
 
 #include <fstream>
+#include <boost/current_function.hpp>
 
 #include "pagemarker.h"
 #include "rmfunc.h"
@@ -70,12 +71,10 @@
 #include "rpic/rpic.h"
 #include "rselstr/rselstr.h"
 
-static Handle hDebugNeg = NULL;
 static Handle hDebugLinePass3 = NULL;
 static Handle hDebugLinePass2 = NULL;
 static Handle hDebugVerifLine = NULL;
 static Handle hDebugCancelExtractBlocks = NULL;
-static Handle hDebugLayoutFromFile = NULL;
 
 namespace cf
 {
@@ -108,6 +107,13 @@ Handle PageMarker::cpage() {
     return cpage_;
 }
 
+void PageMarker::linePass3() {
+    if (LDPUMA_Skip(hDebugLinePass3)
+            && LDPUMA_Skip(hDebugVerifLine)
+            && LDPUMA_Skip(hDebugLinePass2))
+        RLINE_LinesPass3(image_data_->hCPAGE, image_data_->hCLINE, image_data_->hCCOM, (uchar) image_data_->gnLanguage);
+}
+
 void PageMarker::processShortVerticalLines() {
     SVLProcessor processor(image_data_);
 
@@ -125,15 +131,27 @@ void PageMarker::processShortVerticalLines() {
 
     searchNegatives(big_image.hCCOM);
 
-    //Третий проход по линиям
-    if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine) && LDPUMA_Skip(hDebugLinePass2)) {
-        RLINE_LinesPass3(image_data_->hCPAGE, image_data_->hCLINE, image_data_->hCCOM, (uchar) image_data_->gnLanguage);
-    }
+    linePass3();
 
     // снова подсчитываем короткие вертикальные линии
     processor.countSVLStep2();
     // и сравниваем с предыдущим результатом
     processor.filter();
+}
+
+void PageMarker::restoreLayout() {
+    image_data_->hCPAGE = CPAGE_RestorePage(TRUE, layout_filename_.c_str());
+
+    if (image_data_->hCPAGE == NULL) {
+        Debug() << BOOST_CURRENT_FUNCTION
+                << " CPAGE_RestorePage failed with code: "
+                << CPAGE_GetReturnCode() << std::endl;
+
+        throw Exception("CPAGE_RestorePage failed");
+    }
+
+    CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_data_->hCPAGE));
+    Debug() << "Layout restored from file: \"" << layout_filename_ << "\"\n";
 }
 
 void PageMarker::markupPage()
@@ -143,18 +161,8 @@ void PageMarker::markupPage()
     processShortVerticalLines();
 
     // blocks
-    if (!LDPUMA_Skip(image_data_->hDebugLayoutFromFile)) {
-        image_data_->hCPAGE = CPAGE_RestorePage(TRUE, layout_filename_.c_str());
-
-        if (image_data_->hCPAGE == NULL) {
-            SetReturnCode_rmarker(CPAGE_GetReturnCode());
-            rc = FALSE;
-        }
-
-        else {
-            CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_data_->hCPAGE));
-            LDPUMA_Console("Layout восстановлен из файла '%s'\n", layout_filename_.c_str());
-        }
+    if (hasFlag(DEBUG_LAYOUT_FROM_FILE)) {
+        restoreLayout();
     }
     else if (rc) {
         if (LDPUMA_Skip(image_data_->hDebugCancelExtractBlocks)) {
@@ -233,7 +241,6 @@ void PageMarker::setOptions(const RecognizeOptions& opts) {
     image_data_->hCLINE = cline_;
     image_data_->searchPictures = opts.pictureSearch();
     image_data_->gnLanguage = opts.language();
-    image_data_->hDebugLayoutFromFile = hDebugLayoutFromFile;
     image_data_->hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
     image_data_->hDebugSVLines = hasFlag(DEBUG_SVL);
     image_data_->hDebugSVLinesStep = hasFlag(DEBUG_SVL_STEP);
@@ -241,9 +248,6 @@ void PageMarker::setOptions(const RecognizeOptions& opts) {
 }
 
 }
-
-extern Handle hPrep;
-extern Handle hEnd;
 
 static uint32_t gwRC = 0;
 
