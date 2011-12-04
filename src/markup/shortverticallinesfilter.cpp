@@ -81,6 +81,9 @@ static Bool32 bShowStepDebug = FALSE;
 static Bool32 bShowDebugData = FALSE;
 
 struct PUMALinesBuffer {
+public:
+
+public:
     LinesTotalInfo * LineInfoA;
     LinesTotalInfo * LineInfoB;
     void * HLinesBufferA;

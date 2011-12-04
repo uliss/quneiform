@@ -103,6 +103,7 @@ public:
     void setFlag(flag_t f, bool value) { value ? setFlag(f) : unsetFlag(f); }
     void unsetFlag(flag_t f) { flags_ &= (~f); }
 private:
+    void processShortVerticalLines();
     bool searchPictures(CCOM_cont * cont);
 private:
     static int flags_;

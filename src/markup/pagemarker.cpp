@@ -105,8 +105,7 @@ Handle PageMarker::cpage() {
     return cpage_;
 }
 
-void PageMarker::markupPage()
-{
+void PageMarker::processShortVerticalLines() {
     initSVLBuffer();
 
     Bool32 rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, image_data_);
@@ -139,6 +138,13 @@ void PageMarker::markupPage()
     ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, image_data_);
 
     freeSVLBuffer();
+}
+
+void PageMarker::markupPage()
+{
+    Bool32 rc = TRUE;
+
+    processShortVerticalLines();
 
     // blocks
     if (!LDPUMA_Skip(image_data_->hDebugLayoutFromFile)) {
