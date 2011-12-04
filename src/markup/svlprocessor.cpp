@@ -18,6 +18,7 @@
 
 #include <cstdlib>
 #include <cassert>
+#include <boost/current_function.hpp>
 
 #include "svlprocessor.h"
 #include "shortverticallinesfilter.h"
@@ -74,19 +75,38 @@ void SVLProcessor::countSVLStep2()
     readSVL(LineInfoB);
 }
 
-void readLineData(CPDLine data, LineInfo& info) {
-    info.A.rx() = data->Line.Beg_X;
-    info.A.ry() = data->Line.Beg_Y;
-    info.B.rx() = data->Line.End_X;
-    info.B.ry() = data->Line.End_Y;
-    info.Thickness = data->Line.Wid10 / 10;
+static void readLineData(CPDLine data, LineInfo& info) {
+    info.A.rx() = static_cast<short>(data->Line.Beg_X);
+    info.A.ry() = static_cast<short>(data->Line.Beg_Y);
+    info.B.rx() = static_cast<short>(data->Line.End_X);
+    info.B.ry() = static_cast<short>(data->Line.End_Y);
+    info.Thickness = static_cast<uchar>(data->Line.Wid10 / 10);
     info.Flags = data->Flags;
+}
+
+static void readLineData(CPDLine data, LinesTotalInfo * info) {
+    // serj: why other direction handled as vertical?
+    if(data->Dir == LD_Horiz) {
+        if(!info->Hor.Lns)
+            return;
+
+        int num = info->Hor.Cnt;
+        readLineData(data, info->Hor.Lns[num]);
+        (info->Hor.Cnt)++;
+    }
+    else {
+        if(!info->Ver.Lns)
+            return;
+
+        int num = info->Ver.Cnt;
+        readLineData(data, info->Ver.Lns[num]);
+        (info->Ver.Cnt)++;
+    }
 }
 
 void SVLProcessor::readSVL(LinesTotalInfo * info)
 {
     bool fl_break = false;
-    int num = 0;
     int count = 0;
     CLINE_handle hline = CLINE_GetFirstLine(image_->hCLINE);
     info->Hor.Cnt = 0;
@@ -102,30 +122,17 @@ void SVLProcessor::readSVL(LinesTotalInfo * info)
         else {
             if(count >= MAX_LINES) {
                 fl_break = true;
+                Debug() << BOOST_CURRENT_FUNCTION << " Warning: too many SVL lines!\n";
             }
             else {
                 count++;
-
-                if (cpdata->Dir == LD_Horiz) {
-                    if (info->Hor.Lns) {
-                        num = info->Hor.Cnt;
-                        readLineData(cpdata, info->Hor.Lns[num]);
-                        (info->Hor.Cnt)++;
-                    }
-                }
-                else {
-                    if (info->Ver.Lns) {
-                        num = info->Ver.Cnt;
-                        readLineData(cpdata, info->Ver.Lns[num]);
-                        (info->Ver.Cnt)++;
-                    }
-                }
+                readLineData(cpdata, info);
             }
 
             hline = CLINE_GetNextLine(hline);
         }
 
-        if (fl_break)
+        if(fl_break)
             break;
     }
 }
