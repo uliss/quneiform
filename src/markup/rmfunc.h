@@ -64,14 +64,8 @@
 #include "ccom/ccomdefs.h"
 #include "ccom/ccom.h"
 #include "cpage/cpage.h"
+#include "linedefs.h"
 #include "common/lang_def.h"
-
-enum svl_step_t
-{
-    PUMA_SVL_FIRST_STEP = 0x1,
-    PUMA_SVL_SECOND_STEP = 0x2,
-    PUMA_SVL_THRID_STEP = 0x3
-};
 
 #define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
 
@@ -125,7 +119,6 @@ struct RMPreProcessImage
 
 typedef RMPreProcessImage * PRMPreProcessImage;
 
-Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage Image);
 Bool32 SearchNeg(PRMPreProcessImage, BigImage, int);
 Bool32 SearchFon(PRMPreProcessImage, BigImage, int);
 void SetReturnCode_rmarker(uint32_t rc);

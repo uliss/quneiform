@@ -58,10 +58,11 @@
 
 #include "pagemarker.h"
 #include "rmfunc.h"
-#include "shortverticallinesfilter.h"
+#include "svlprocessor.h"
 #include "dpuma.h"
 #include "common/recognizeoptions.h"
 #include "common/debug.h"
+#include "common/cifconfig.h"
 #include "lns/lnsdefs.h"
 #include "rblock/rblock.h"
 #include "rline/rline.h"
@@ -106,9 +107,10 @@ Handle PageMarker::cpage() {
 }
 
 void PageMarker::processShortVerticalLines() {
-    initSVLBuffer();
+    SVLProcessor processor(image_data_);
 
-    Bool32 rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, image_data_);
+    // count short lines
+    processor.countSVLStep1();
 
     BigImage big_image(image_data_->hCPAGE);
     //default Image:
@@ -116,28 +118,22 @@ void PageMarker::processShortVerticalLines() {
     GetPageInfo(image_data_->hCPAGE, &info);
 
     //Поиск очевидных картинок
-    if (rc)
-        rc = searchPictures(big_image.hCCOM);
+    if(!searchPictures(big_image.hCCOM))
+        throw Exception("searchPictures failed");
 
     //Поиск негативов
-    if (rc)
-        rc = SearchNeg(image_data_, big_image, info.Incline2048);
+    if (!SearchNeg(image_data_, big_image, info.Incline2048))
+        throw Exception("serchNegatives failed");
 
     //Третий проход по линиям
-    if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
-            && LDPUMA_Skip(hDebugLinePass2)) {
-        if (rc)
-            RLINE_LinesPass3(image_data_->hCPAGE, image_data_->hCLINE, image_data_->hCCOM, (uchar) image_data_->gnLanguage);
+    if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine) && LDPUMA_Skip(hDebugLinePass2)) {
+        RLINE_LinesPass3(image_data_->hCPAGE, image_data_->hCLINE, image_data_->hCCOM, (uchar) image_data_->gnLanguage);
     }
 
-    ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
-    if (rc) {
-        rc = ShortVerticalLinesProcess(PUMA_SVL_SECOND_STEP, image_data_);
-    }
-
-    ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, image_data_);
-
-    freeSVLBuffer();
+    // снова подсчитываем короткие вертикальные линии
+    processor.countSVLStep2();
+    // и сравниваем с предыдущим результатом
+    processor.filter();
 }
 
 void PageMarker::markupPage()

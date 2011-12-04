@@ -2,6 +2,7 @@ set(MARKUP_SOURCES
     ${SNP_SRC}
     pagemarker.cpp
     shortverticallinesfilter.cpp
+    svlprocessor.cpp
 )
 
 set(MARKUP_HEADERS

@@ -69,111 +69,16 @@
 
 #include "dpuma.h"
 #include "shortverticallinesfilter.h"
+#include "svlprocessor.h"
 #include "linedefs.h"
 #include "cline/cline.h"
 #include "ccom/ccom.h"
 
-static const int PUMA_MAX_NUM_LINES = 2000;
 static const int IDS_ERR_INITIATED_BY_ALLEX = 2029;
 
 static Bool32 bShowDebug = FALSE;
 static Bool32 bShowStepDebug = FALSE;
 static Bool32 bShowDebugData = FALSE;
-
-struct PUMALinesBuffer {
-public:
-
-public:
-    LinesTotalInfo * LineInfoA;
-    LinesTotalInfo * LineInfoB;
-    void * HLinesBufferA;
-    void * VLinefBufferA;
-    void * HLinesBufferB;
-    void * VLinefBufferB;
-};
-
-static PUMALinesBuffer gSVLBuffer;
-
-void freeSVLBuffer() {
-    free(gSVLBuffer.LineInfoA);
-    free(gSVLBuffer.LineInfoB);
-}
-
-void initSVLBuffer() {
-    gSVLBuffer.VLinefBufferA = NULL;
-    gSVLBuffer.VLinefBufferB = NULL;
-    gSVLBuffer.LineInfoA = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
-    gSVLBuffer.LineInfoB = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
-}
-
-bool SVLProcessStep1(PRMPreProcessImage image) {
-    if(!gSVLBuffer.LineInfoA)
-        return false;
-
-    gSVLBuffer.HLinesBufferA = NULL;
-    gSVLBuffer.LineInfoA->Hor.Lns = NULL;
-    if (gSVLBuffer.VLinefBufferA == NULL) {
-        gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *) calloc(
-                sizeof(LineInfo), PUMA_MAX_NUM_LINES);
-    }
-
-    Bool32 bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoA, image);
-    return (bRet == TRUE);
-}
-
-bool SVLProcessStep2(PRMPreProcessImage image) {
-    gSVLBuffer.HLinesBufferB = gSVLBuffer.LineInfoB->Hor.Lns = NULL;
-    if (gSVLBuffer.VLinefBufferB == NULL) {
-        gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *) calloc(
-                sizeof(LineInfo), PUMA_MAX_NUM_LINES);
-    }
-
-    Bool32 bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoB, image);
-
-    ////////////////
-    // обработка и удаление тут
-    if (bRet) {
-        bRet = SVLFilter(gSVLBuffer.LineInfoA, gSVLBuffer.LineInfoB, image);
-    }
-
-    return bRet == TRUE;
-}
-
-void SVLProcessStep3()
-{
-    if(gSVLBuffer.VLinefBufferA != NULL)
-        free(gSVLBuffer.VLinefBufferA);
-
-    if(gSVLBuffer.VLinefBufferB != NULL)
-        free(gSVLBuffer.VLinefBufferB);
-
-    gSVLBuffer.VLinefBufferA = NULL;
-    gSVLBuffer.VLinefBufferB = NULL;
-}
-
-Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage image)
-{
-    Bool32 bRet = FALSE;
-
-    if(Step == PUMA_SVL_FIRST_STEP && gSVLBuffer.LineInfoA) {
-        bRet = SVLProcessStep1(image) ? TRUE : FALSE;
-    }
-
-    if(Step == PUMA_SVL_SECOND_STEP && gSVLBuffer.LineInfoB) {
-        bRet = SVLProcessStep2(image) ? TRUE : FALSE;
-    }
-
-    if(Step == PUMA_SVL_THRID_STEP) {
-        SVLProcessStep3();
-        return TRUE;
-    }
-
-    if(bRet == FALSE) {
-        SetReturnCode_rmarker(IDS_ERR_INITIATED_BY_ALLEX);
-    }
-
-    return bRet;
-}
 
 Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, PRMPreProcessImage Image)
 {
@@ -194,7 +99,7 @@ Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, PRMPreProcessImage Image
             hline = CLINE_GetNextLine(hline);
 
         else {
-            if (count >= PUMA_MAX_NUM_LINES)
+            if (count >= cf::SVLProcessor::MAX_LINES)
                 fl_break = TRUE;
 
             else {
