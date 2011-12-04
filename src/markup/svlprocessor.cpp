@@ -118,19 +118,19 @@ void SVLProcessor::readSVL(LinesTotalInfo * info)
 
         if(!cpdata) {
             hline = CLINE_GetNextLine(hline);
+            continue;
+        }
+
+        if(count >= MAX_LINES) {
+            fl_break = true;
+            Debug() << BOOST_CURRENT_FUNCTION << " Warning: too many SVL lines!\n";
         }
         else {
-            if(count >= MAX_LINES) {
-                fl_break = true;
-                Debug() << BOOST_CURRENT_FUNCTION << " Warning: too many SVL lines!\n";
-            }
-            else {
-                count++;
-                readLineData(cpdata, info);
-            }
-
-            hline = CLINE_GetNextLine(hline);
+            count++;
+            readLineData(cpdata, info);
         }
+
+        hline = CLINE_GetNextLine(hline);
 
         if(fl_break)
             break;
