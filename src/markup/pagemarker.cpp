@@ -74,7 +74,6 @@
 static Handle hDebugLinePass3 = NULL;
 static Handle hDebugLinePass2 = NULL;
 static Handle hDebugVerifLine = NULL;
-static Handle hDebugCancelExtractBlocks = NULL;
 
 namespace cf
 {
@@ -107,30 +106,46 @@ Handle PageMarker::cpage() {
     return cpage_;
 }
 
-void PageMarker::linePass3() {
+void PageMarker::extractBlocks()
+{
+    if(hasFlag(SKIP_EXTRACT_BLOCKS)) {
+        Debug() << "Markup: automatic layout skipped.\n";
+        return;
+    }
+
+    Bool32 search_picture = image_data_->searchPictures ? TRUE : FALSE;
+    RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &search_picture);
+    RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_data_->gbOneColumn));
+
+    if (!RBLOCK_ExtractTextBlocks(image_data_->hCCOM, image_data_->hCPAGE, image_data_->hCLINE)) {
+        Debug() << BOOST_CURRENT_FUNCTION
+                << " RBLOCK_ExtractTextBlocks failed with code: "
+                << RBLOCK_GetReturnCode() << std::endl;
+
+        throw Exception("extractBlocks failed.");
+    }
+}
+
+void PageMarker::linePass3()
+{
     if (LDPUMA_Skip(hDebugLinePass3)
             && LDPUMA_Skip(hDebugVerifLine)
             && LDPUMA_Skip(hDebugLinePass2))
         RLINE_LinesPass3(image_data_->hCPAGE, image_data_->hCLINE, image_data_->hCCOM, (uchar) image_data_->gnLanguage);
 }
 
-void PageMarker::processShortVerticalLines() {
+void PageMarker::processShortVerticalLines()
+{
     SVLProcessor processor(image_data_);
 
     // count short lines
     processor.countSVLStep1();
 
     BigImage big_image(image_data_->hCPAGE);
-    //default Image:
-    PAGEINFO info;
-    GetPageInfo(image_data_->hCPAGE, &info);
 
     // obvious pictures search
-    if(!searchPictures(big_image.hCCOM))
-        throw Exception("searchPictures failed");
-
+    searchPictures(big_image.hCCOM);
     searchNegatives(big_image.hCCOM);
-
     linePass3();
 
     // снова подсчитываем короткие вертикальные линии
@@ -139,7 +154,8 @@ void PageMarker::processShortVerticalLines() {
     processor.filter();
 }
 
-void PageMarker::restoreLayout() {
+void PageMarker::restoreLayout()
+{
     image_data_->hCPAGE = CPAGE_RestorePage(TRUE, layout_filename_.c_str());
 
     if (image_data_->hCPAGE == NULL) {
@@ -156,32 +172,12 @@ void PageMarker::restoreLayout() {
 
 void PageMarker::markupPage()
 {
-    Bool32 rc = TRUE;
-
     processShortVerticalLines();
 
-    // blocks
-    if (hasFlag(DEBUG_LAYOUT_FROM_FILE)) {
+    if (hasFlag(DEBUG_LAYOUT_FROM_FILE))
         restoreLayout();
-    }
-    else if (rc) {
-        if (LDPUMA_Skip(image_data_->hDebugCancelExtractBlocks)) {
-            Bool32 bEnableSearchPicture = image_data_->searchPictures;
-            RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
-            RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_data_->gbOneColumn));
-
-            if (!RBLOCK_ExtractTextBlocks(image_data_->hCCOM, image_data_->hCPAGE, image_data_->hCLINE)) {
-                SetReturnCode_rmarker(RBLOCK_GetReturnCode());
-                rc = FALSE;
-            }
-        }
-
-        else
-            LDPUMA_Console("Пропущен этап автоматического Layout.\n");
-    }
-
-    if(!rc)
-        throw Exception("markupPage failed");
+    else
+        extractBlocks();
 
     cpage_ = image_data_->hCPAGE;
 }
@@ -199,19 +195,20 @@ void PageMarker::searchNegatives(CCOM_cont * cont)
     RNEG_RecogNeg(cont, image_data_->hCPAGE, (uchar*) info.szImageName, info.Incline2048);
 }
 
-bool PageMarker::searchPictures(CCOM_cont * contBig) {
+void PageMarker::searchPictures(CCOM_cont * contBig) {
     if(hasFlag(SKIP_SEARCH_PICTURES))
-        return true;
+        return;
 
     if(!image_data_->searchPictures)
-        return true;
+        return;
 
     if(!RPIC_SearchPictures(image_data_->hCCOM, contBig, image_data_->hCPAGE)) {
-        Debug() << "RPIC error code: " << RPIC_GetReturnCode() << "\n";
-        return false;
-    }
+        Debug() << BOOST_CURRENT_FUNCTION
+                << "RPIC_SearchPictures failed with code: "
+                << RPIC_GetReturnCode() << "\n";
 
-    return true;
+        throw Exception("Picture search failed.");
+    }
 }
 
 void PageMarker::setComponentContainer(CCOM_cont * cont) {
@@ -241,19 +238,9 @@ void PageMarker::setOptions(const RecognizeOptions& opts) {
     image_data_->hCLINE = cline_;
     image_data_->searchPictures = opts.pictureSearch();
     image_data_->gnLanguage = opts.language();
-    image_data_->hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
     image_data_->hDebugSVLines = hasFlag(DEBUG_SVL);
     image_data_->hDebugSVLinesStep = hasFlag(DEBUG_SVL_STEP);
     image_data_->hDebugSVLinesData = hasFlag(DEBUG_SVL_DATA);
 }
 
 }
-
-static uint32_t gwRC = 0;
-
-void SetReturnCode_rmarker(uint32_t rc)
-{
-    gwRC = rc;
-}
-
-

@@ -79,12 +79,13 @@ public:
     };
 
     enum flag_t {
-        SKIP_SEARCH_PICTURES = 1,
-        SKIP_SEARCH_NEGATIVES = 2,
-        DEBUG_SVL = 4,
-        DEBUG_SVL_STEP = 8,
-        DEBUG_SVL_DATA = 16,
-        DEBUG_LAYOUT_FROM_FILE = 32
+        SKIP_SEARCH_PICTURES    = 1,
+        SKIP_SEARCH_NEGATIVES   = (1 << 1),
+        SKIP_EXTRACT_BLOCKS     = (1 << 2),
+        DEBUG_SVL               = (1 << 3),
+        DEBUG_SVL_STEP          = (1 << 4),
+        DEBUG_SVL_DATA          = (1 << 5),
+        DEBUG_LAYOUT_FROM_FILE  = (1 << 6)
     };
 
 public:
@@ -107,11 +108,12 @@ public:
     void setFlag(flag_t f, bool value) { value ? setFlag(f) : unsetFlag(f); }
     void unsetFlag(flag_t f) { flags_ &= (~f); }
 private:
+    void extractBlocks();
     void linePass3();
     void processShortVerticalLines();
     void restoreLayout();
     void searchNegatives(CCOM_cont * cont);
-    bool searchPictures(CCOM_cont * cont);
+    void searchPictures(CCOM_cont * cont);
 private:
     static int flags_;
 private:

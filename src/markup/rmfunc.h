@@ -108,7 +108,6 @@ struct RMPreProcessImage
     Handle hCPAGE;
     CCOM_cont * hCCOM;
     Handle hCLINE;
-    Handle hDebugCancelExtractBlocks;
     bool hDebugSVLines;
     bool hDebugSVLinesStep;
     bool hDebugSVLinesData;
@@ -116,7 +115,5 @@ struct RMPreProcessImage
 };
 
 typedef RMPreProcessImage * PRMPreProcessImage;
-
-void SetReturnCode_rmarker(uint32_t rc);
 
 #endif

@@ -74,8 +74,6 @@
 #include "cline/cline.h"
 #include "ccom/ccom.h"
 
-static const int IDS_ERR_INITIATED_BY_ALLEX = 2029;
-
 static bool bShowDebug = false;
 static bool bShowStepDebug = false;
 static bool bShowDebugData = false;
