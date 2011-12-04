@@ -24,6 +24,7 @@
 
 #include "common/debug.h"
 #include "lns/lnsdefs.h"
+#include "cline/cline.h"
 
 namespace cf {
 
@@ -58,8 +59,7 @@ void SVLProcessor::countSVLStep1()
     if (VLinefBufferA == NULL)
         VLinefBufferA = LineInfoA->Ver.Lns = (LineInfo *) calloc(sizeof(LineInfo), MAX_LINES);
 
-    if(!ReadSVLFromPageContainer(LineInfoA, image_))
-        Debug() << "ReadSVLFromPageContainer failed.\n";
+    readSVL(LineInfoA);
 }
 
 void SVLProcessor::countSVLStep2()
@@ -71,10 +71,67 @@ void SVLProcessor::countSVLStep2()
     if (VLinefBufferB == NULL)
         VLinefBufferB = LineInfoB->Ver.Lns = (LineInfo *) calloc(sizeof(LineInfo), MAX_LINES);
 
-    if(!ReadSVLFromPageContainer(LineInfoB, image_))
-        Debug() << "ReadSVLFromPageContainer failed.\n";
+    readSVL(LineInfoB);
+}
+
+void SVLProcessor::readSVL(LinesTotalInfo * info)
+{
+    bool fl_break = false;
+    int num = 0;
+    int count = 0;
+    CLINE_handle hline = CLINE_GetFirstLine(image_->hCLINE);
+    info->Hor.Cnt = 0;
+    info->Ver.Cnt = 0;
+
+    while (hline) {
+        fl_break = false;
+        CPDLine cpdata = CLINE_GetLineData(hline);
+
+        if(!cpdata) {
+            hline = CLINE_GetNextLine(hline);
+        }
+        else {
+            if(count >= MAX_LINES) {
+                fl_break = true;
+            }
+            else {
+                count++;
+
+                if (cpdata->Dir == LD_Horiz) {
+                    if (info->Hor.Lns) {
+                        num = info->Hor.Cnt;
+                        info->Hor.Lns[num].A.rx() = cpdata->Line.Beg_X;
+                        info->Hor.Lns[num].A.ry() = cpdata->Line.Beg_Y;
+                        info->Hor.Lns[num].B.rx() = cpdata->Line.End_X;
+                        info->Hor.Lns[num].B.ry() = cpdata->Line.End_Y;
+                        info->Hor.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
+                        info->Hor.Lns[num].Flags = cpdata->Flags;
+                        (info->Hor.Cnt)++;
+                    }
+                }
+                else {
+                    if (info->Ver.Lns) {
+                        num = info->Ver.Cnt;
+                        info->Ver.Lns[num].A.rx() = cpdata->Line.Beg_X;
+                        info->Ver.Lns[num].A.ry() = cpdata->Line.Beg_Y;
+                        info->Ver.Lns[num].B.rx() = cpdata->Line.End_X;
+                        info->Ver.Lns[num].B.ry() = cpdata->Line.End_Y;
+                        info->Ver.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
+                        info->Ver.Lns[num].Flags = cpdata->Flags;
+                        (info->Ver.Cnt)++;
+                    }
+                }
+            }
+
+            hline = CLINE_GetNextLine(hline);
+        }
+
+        if (fl_break)
+            break;
+    }
 }
 
 }
+
 
 

@@ -36,6 +36,8 @@ public:
 public:
     static const int MAX_LINES = 2000;
 private:
+    void readSVL(LinesTotalInfo * info);
+private:
     RMPreProcessImage * image_;
     LinesTotalInfo * LineInfoA;
     LinesTotalInfo * LineInfoB;
