@@ -80,69 +80,6 @@ static Bool32 bShowDebug = FALSE;
 static Bool32 bShowStepDebug = FALSE;
 static Bool32 bShowDebugData = FALSE;
 
-Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, PRMPreProcessImage Image)
-{
-    Bool32 bRet = TRUE;
-    Bool32 fl_break;
-    int num = 0;
-    int count = 0;
-    CLINE_handle hCLINE = Image->hCLINE;
-    CLINE_handle hline = CLINE_GetFirstLine(hCLINE);
-    LTInfo->Hor.Cnt = 0;
-    LTInfo->Ver.Cnt = 0;
-
-    while (hline) {
-        fl_break = FALSE;
-        CPDLine cpdata = CLINE_GetLineData(hline);
-
-        if (!cpdata)
-            hline = CLINE_GetNextLine(hline);
-
-        else {
-            if (count >= cf::SVLProcessor::MAX_LINES)
-                fl_break = TRUE;
-
-            else {
-                count++;
-
-                if (cpdata->Dir == LD_Horiz) {
-                    if (LTInfo->Hor.Lns) {
-                        num = LTInfo->Hor.Cnt;
-                        LTInfo->Hor.Lns[num].A.rx() = cpdata->Line.Beg_X;
-                        LTInfo->Hor.Lns[num].A.ry() = cpdata->Line.Beg_Y;
-                        LTInfo->Hor.Lns[num].B.rx() = cpdata->Line.End_X;
-                        LTInfo->Hor.Lns[num].B.ry() = cpdata->Line.End_Y;
-                        LTInfo->Hor.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
-                        LTInfo->Hor.Lns[num].Flags = cpdata->Flags;
-                        (LTInfo->Hor.Cnt)++;
-                    }
-                }
-
-                else {
-                    if (LTInfo->Ver.Lns) {
-                        num = LTInfo->Ver.Cnt;
-                        LTInfo->Ver.Lns[num].A.rx() = cpdata->Line.Beg_X;
-                        LTInfo->Ver.Lns[num].A.ry() = cpdata->Line.Beg_Y;
-                        LTInfo->Ver.Lns[num].B.rx() = cpdata->Line.End_X;
-                        LTInfo->Ver.Lns[num].B.ry() = cpdata->Line.End_Y;
-                        LTInfo->Ver.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
-                        LTInfo->Ver.Lns[num].Flags = cpdata->Flags;
-                        (LTInfo->Ver.Cnt)++;
-                    }
-                }
-            }
-
-            hline = CLINE_GetNextLine(hline);
-        }
-
-        if (fl_break)
-            break;
-    }
-
-    return TRUE;
-    return bRet;
-}
-
 Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage Image)
 {
     Bool32 rc = TRUE;
