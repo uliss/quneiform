@@ -90,6 +90,12 @@ PageMarker::PageMarker() :
 {
     RNEG_Init(0, NULL);
     image_data_ = new RMPreProcessImage;
+
+#ifndef _NDEBUG
+    setFlag(DEBUG_SVL);
+    setFlag(DEBUG_SVL_STEP);
+    setFlag(DEBUG_SVL_DATA);
+#endif
 }
 
 PageMarker::~PageMarker()
@@ -140,7 +146,7 @@ void PageMarker::markupPage()
 
     // blocks
     if (!LDPUMA_Skip(image_data_->hDebugLayoutFromFile)) {
-        image_data_->hCPAGE = CPAGE_RestorePage(TRUE, image_data_->szLayoutFileName);
+        image_data_->hCPAGE = CPAGE_RestorePage(TRUE, layout_filename_.c_str());
 
         if (image_data_->hCPAGE == NULL) {
             SetReturnCode_rmarker(CPAGE_GetReturnCode());
@@ -149,7 +155,7 @@ void PageMarker::markupPage()
 
         else {
             CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_data_->hCPAGE));
-            LDPUMA_Console("Layout восстановлен из файла '%s'\n", image_data_->szLayoutFileName);
+            LDPUMA_Console("Layout восстановлен из файла '%s'\n", layout_filename_.c_str());
         }
     }
     else if (rc) {
@@ -223,7 +229,6 @@ void PageMarker::setOptions(const RecognizeOptions& opts) {
     image_data_->hDebugSVLines = hasFlag(DEBUG_SVL);
     image_data_->hDebugSVLinesStep = hasFlag(DEBUG_SVL_STEP);
     image_data_->hDebugSVLinesData = hasFlag(DEBUG_SVL_DATA);
-    image_data_->szLayoutFileName = layout_filename_.c_str();
 }
 
 }

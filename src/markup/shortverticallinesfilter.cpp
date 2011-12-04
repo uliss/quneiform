@@ -87,13 +87,9 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
     int32_t j = 0;
     uint32_t SVLCount = 0;
     Rect16 ZoomRect;
-//    bShowDebug = !LDPUMA_Skip(Image->hDebugSVLines);
-//    bShowStepDebug = !LDPUMA_Skip(Image->hDebugSVLinesStep);
-//    bShowDebugData = !LDPUMA_Skip(Image->hDebugSVLinesData);
-
-    bShowDebug = true;
-//    bShowDebugData = true;
-    bShowStepDebug = true;
+    bShowDebug = Image->hDebugSVLines;
+    bShowStepDebug = Image->hDebugSVLinesStep;
+    bShowDebugData = Image->hDebugSVLinesData;
 
     if (LtiA == NULL || LtiB == NULL) {
         rc = FALSE;
@@ -123,7 +119,7 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
                                     LtiB->Ver.Lns[i].B.x(), LtiB->Ver.Lns[i].B.y(),
                                     LtiB->Ver.Lns[i].Thickness, LtiA->Ver.Lns[i].Flags,
                                     LtiB->Ver.Lns[i].Flags);
-                    j += sprintf(str + j, " - удалить");
+                    j += sprintf(str + j, " - delete");
                     j += sprintf(str + j, "\n");
 
                     if (bShowDebugData)
@@ -167,10 +163,10 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
     }
 
     if (bShowDebug || bShowStepDebug) {
-        if (j == 0 && bShowDebugData) {
-            LDPUMA_Console("VSL: Нужных изменений не найдено\n");
+        if (j == 0) {
+            if(bShowDebugData)
+                LDPUMA_Console("VSL: Нужных изменений не найдено\n");
         }
-
         else {
             LDPUMA_Console("VSL: Найдено %i линий. Нажми на что нибудь и пойдем дальше...\n",
                     SVLCount);

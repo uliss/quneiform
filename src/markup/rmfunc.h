@@ -113,7 +113,6 @@ struct RMPreProcessImage
     bool hDebugSVLines;
     bool hDebugSVLinesStep;
     bool hDebugSVLinesData;
-    const char * szLayoutFileName;
     bool searchPictures;
 };
 
