@@ -74,6 +74,15 @@ void SVLProcessor::countSVLStep2()
     readSVL(LineInfoB);
 }
 
+void readLineData(CPDLine data, LineInfo& info) {
+    info.A.rx() = data->Line.Beg_X;
+    info.A.ry() = data->Line.Beg_Y;
+    info.B.rx() = data->Line.End_X;
+    info.B.ry() = data->Line.End_Y;
+    info.Thickness = data->Line.Wid10 / 10;
+    info.Flags = data->Flags;
+}
+
 void SVLProcessor::readSVL(LinesTotalInfo * info)
 {
     bool fl_break = false;
@@ -100,24 +109,14 @@ void SVLProcessor::readSVL(LinesTotalInfo * info)
                 if (cpdata->Dir == LD_Horiz) {
                     if (info->Hor.Lns) {
                         num = info->Hor.Cnt;
-                        info->Hor.Lns[num].A.rx() = cpdata->Line.Beg_X;
-                        info->Hor.Lns[num].A.ry() = cpdata->Line.Beg_Y;
-                        info->Hor.Lns[num].B.rx() = cpdata->Line.End_X;
-                        info->Hor.Lns[num].B.ry() = cpdata->Line.End_Y;
-                        info->Hor.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
-                        info->Hor.Lns[num].Flags = cpdata->Flags;
+                        readLineData(cpdata, info->Hor.Lns[num]);
                         (info->Hor.Cnt)++;
                     }
                 }
                 else {
                     if (info->Ver.Lns) {
                         num = info->Ver.Cnt;
-                        info->Ver.Lns[num].A.rx() = cpdata->Line.Beg_X;
-                        info->Ver.Lns[num].A.ry() = cpdata->Line.Beg_Y;
-                        info->Ver.Lns[num].B.rx() = cpdata->Line.End_X;
-                        info->Ver.Lns[num].B.ry() = cpdata->Line.End_Y;
-                        info->Ver.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
-                        info->Ver.Lns[num].Flags = cpdata->Flags;
+                        readLineData(cpdata, info->Ver.Lns[num]);
                         (info->Ver.Cnt)++;
                     }
                 }
