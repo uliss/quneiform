@@ -106,14 +106,12 @@ static void readLineData(CPDLine data, LinesTotalInfo * info) {
 
 void SVLProcessor::readSVL(LinesTotalInfo * info)
 {
-    bool fl_break = false;
     int count = 0;
     CLINE_handle hline = CLINE_GetFirstLine(image_->hCLINE);
     info->Hor.Cnt = 0;
     info->Ver.Cnt = 0;
 
     while (hline) {
-        fl_break = false;
         CPDLine cpdata = CLINE_GetLineData(hline);
 
         if(!cpdata) {
@@ -122,18 +120,14 @@ void SVLProcessor::readSVL(LinesTotalInfo * info)
         }
 
         if(count >= MAX_LINES) {
-            fl_break = true;
             Debug() << BOOST_CURRENT_FUNCTION << " Warning: too many SVL lines!\n";
+            break;
         }
-        else {
-            count++;
-            readLineData(cpdata, info);
-        }
+
+        count++;
+        readLineData(cpdata, info);
 
         hline = CLINE_GetNextLine(hline);
-
-        if(fl_break)
-            break;
     }
 }
 
