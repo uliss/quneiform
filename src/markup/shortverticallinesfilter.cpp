@@ -136,33 +136,36 @@ bool SVLProcessStep2(PRMPreProcessImage image) {
     return bRet == TRUE;
 }
 
+void SVLProcessStep3()
+{
+    if(gSVLBuffer.VLinefBufferA != NULL)
+        free(gSVLBuffer.VLinefBufferA);
+
+    if(gSVLBuffer.VLinefBufferB != NULL)
+        free(gSVLBuffer.VLinefBufferB);
+
+    gSVLBuffer.VLinefBufferA = NULL;
+    gSVLBuffer.VLinefBufferB = NULL;
+}
+
 Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage image)
 {
     Bool32 bRet = FALSE;
 
-    if (Step == PUMA_SVL_FIRST_STEP && gSVLBuffer.LineInfoA) {
+    if(Step == PUMA_SVL_FIRST_STEP && gSVLBuffer.LineInfoA) {
         bRet = SVLProcessStep1(image) ? TRUE : FALSE;
     }
 
-    if (Step == PUMA_SVL_SECOND_STEP && gSVLBuffer.LineInfoB) {
+    if(Step == PUMA_SVL_SECOND_STEP && gSVLBuffer.LineInfoB) {
         bRet = SVLProcessStep2(image) ? TRUE : FALSE;
     }
 
-    if (Step == PUMA_SVL_THRID_STEP) {
-        if (gSVLBuffer.VLinefBufferA != NULL) {
-            free(gSVLBuffer.VLinefBufferA);
-        }
-
-        if (gSVLBuffer.VLinefBufferB != NULL) {
-            free(gSVLBuffer.VLinefBufferB);
-        }
-
-        gSVLBuffer.VLinefBufferA = NULL;
-        gSVLBuffer.VLinefBufferB = NULL;
-        bRet = TRUE;
+    if(Step == PUMA_SVL_THRID_STEP) {
+        SVLProcessStep3();
+        return TRUE;
     }
 
-    if (bRet == FALSE) {
+    if(bRet == FALSE) {
         SetReturnCode_rmarker(IDS_ERR_INITIATED_BY_ALLEX);
     }
 
