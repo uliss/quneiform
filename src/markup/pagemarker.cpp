@@ -119,13 +119,11 @@ void PageMarker::processShortVerticalLines() {
     PAGEINFO info;
     GetPageInfo(image_data_->hCPAGE, &info);
 
-    //Поиск очевидных картинок
+    // obvious pictures search
     if(!searchPictures(big_image.hCCOM))
         throw Exception("searchPictures failed");
 
-    //Поиск негативов
-    if (!SearchNeg(image_data_, big_image, info.Incline2048))
-        throw Exception("serchNegatives failed");
+    searchNegatives(big_image.hCCOM);
 
     //Третий проход по линиям
     if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine) && LDPUMA_Skip(hDebugLinePass2)) {
@@ -180,7 +178,18 @@ void PageMarker::markupPage()
     cpage_ = image_data_->hCPAGE;
 }
 
+void PageMarker::searchNegatives(CCOM_cont * cont)
+{
+    if(hasFlag(SKIP_SEARCH_PICTURES))
+        return;
 
+    assert(image_data_);
+
+    PAGEINFO info;
+    GetPageInfo(image_data_->hCPAGE, &info);
+
+    RNEG_RecogNeg(cont, image_data_->hCPAGE, (uchar*) info.szImageName, info.Incline2048);
+}
 
 bool PageMarker::searchPictures(CCOM_cont * contBig) {
     if(hasFlag(SKIP_SEARCH_PICTURES))
@@ -243,12 +252,4 @@ void SetReturnCode_rmarker(uint32_t rc)
     gwRC = rc;
 }
 
-Bool32 SearchNeg(PRMPreProcessImage Image, BigImage big_Image, int skew)
-{
-    if (!LDPUMA_Skip(hDebugNeg))
-        return TRUE;
-
-    RNEG_RecogNeg(big_Image.hCCOM, Image->hCPAGE, (uchar*) big_Image.ImageName, skew);
-    return TRUE;
-}
 

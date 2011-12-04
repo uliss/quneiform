@@ -107,6 +107,7 @@ public:
     void unsetFlag(flag_t f) { flags_ &= (~f); }
 private:
     void processShortVerticalLines();
+    void searchNegatives(CCOM_cont * cont);
     bool searchPictures(CCOM_cont * cont);
 private:
     static int flags_;

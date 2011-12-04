@@ -118,8 +118,6 @@ struct RMPreProcessImage
 
 typedef RMPreProcessImage * PRMPreProcessImage;
 
-Bool32 SearchNeg(PRMPreProcessImage, BigImage, int);
-Bool32 SearchFon(PRMPreProcessImage, BigImage, int);
 void SetReturnCode_rmarker(uint32_t rc);
 
 #endif
