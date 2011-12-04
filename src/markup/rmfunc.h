@@ -110,9 +110,9 @@ struct RMPreProcessImage
     Handle hCLINE;
     Handle hDebugLayoutFromFile;
     Handle hDebugCancelExtractBlocks;
-    Handle hDebugSVLines;
-    Handle hDebugSVLinesStep;
-    Handle hDebugSVLinesData;
+    bool hDebugSVLines;
+    bool hDebugSVLinesStep;
+    bool hDebugSVLinesData;
     const char * szLayoutFileName;
     bool searchPictures;
 };

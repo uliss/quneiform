@@ -75,9 +75,6 @@ static Handle hDebugLinePass3 = NULL;
 static Handle hDebugLinePass2 = NULL;
 static Handle hDebugVerifLine = NULL;
 static Handle hDebugCancelExtractBlocks = NULL;
-static Handle hDebugSVLines = NULL;
-static Handle hDebugSVLinesStep = NULL;
-static Handle hDebugSVLinesData = NULL;
 static Handle hDebugLayoutFromFile = NULL;
 
 namespace cf
@@ -89,8 +86,7 @@ PageMarker::PageMarker() :
     image_data_(NULL),
     cpage_(NULL),
     comp_cont_(NULL),
-    cline_(NULL),
-    kill_vsl_components_(true)
+    cline_(NULL)
 {
     RNEG_Init(0, NULL);
     image_data_ = new RMPreProcessImage;
@@ -208,7 +204,7 @@ void PageMarker::setCPage(Handle cpage) {
 }
 
 void PageMarker::setKillVSLComponents(bool value) {
-    kill_vsl_components_ = value;
+    image_data_->gKillVSLComponents = value;
 }
 
 void PageMarker::setLayoutFilename(const std::string& fname) {
@@ -217,7 +213,6 @@ void PageMarker::setLayoutFilename(const std::string& fname) {
 
 void PageMarker::setOptions(const RecognizeOptions& opts) {
     image_data_->gbOneColumn = opts.oneColumn();
-    image_data_->gKillVSLComponents = kill_vsl_components_;
     image_data_->hCPAGE = cpage_;
     image_data_->hCCOM = comp_cont_;
     image_data_->hCLINE = cline_;
@@ -225,9 +220,9 @@ void PageMarker::setOptions(const RecognizeOptions& opts) {
     image_data_->gnLanguage = opts.language();
     image_data_->hDebugLayoutFromFile = hDebugLayoutFromFile;
     image_data_->hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
-    image_data_->hDebugSVLines = hDebugSVLines;
-    image_data_->hDebugSVLinesStep = hDebugSVLinesStep;
-    image_data_->hDebugSVLinesData = hDebugSVLinesData;
+    image_data_->hDebugSVLines = hasFlag(DEBUG_SVL);
+    image_data_->hDebugSVLinesStep = hasFlag(DEBUG_SVL_STEP);
+    image_data_->hDebugSVLinesData = hasFlag(DEBUG_SVL_DATA);
     image_data_->szLayoutFileName = layout_filename_.c_str();
 }
 

@@ -76,41 +76,43 @@
 
 static const int IDS_ERR_INITIATED_BY_ALLEX = 2029;
 
-static Bool32 bShowDebug = FALSE;
-static Bool32 bShowStepDebug = FALSE;
-static Bool32 bShowDebugData = FALSE;
+static bool bShowDebug = false;
+static bool bShowStepDebug = false;
+static bool bShowDebugData = false;
 
 Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage Image)
 {
     Bool32 rc = TRUE;
-    uint32_t LinesTotalA;
-    uint32_t LinesTotalB;
     char str[255];
     int32_t j = 0;
     uint32_t SVLCount = 0;
     Rect16 ZoomRect;
-    bShowDebug = !LDPUMA_Skip(Image->hDebugSVLines);
-    bShowStepDebug = !LDPUMA_Skip(Image->hDebugSVLinesStep);
-    bShowDebugData = !LDPUMA_Skip(Image->hDebugSVLinesData);
+//    bShowDebug = !LDPUMA_Skip(Image->hDebugSVLines);
+//    bShowStepDebug = !LDPUMA_Skip(Image->hDebugSVLinesStep);
+//    bShowDebugData = !LDPUMA_Skip(Image->hDebugSVLinesData);
+
+    bShowDebug = true;
+//    bShowDebugData = true;
+    bShowStepDebug = true;
 
     if (LtiA == NULL || LtiB == NULL) {
         rc = FALSE;
         return rc;
     }
 
-    LinesTotalA = LtiA->Ver.Cnt;
-    LinesTotalB = LtiB->Ver.Cnt;
+    size_t LinesTotalA = LtiA->Ver.Cnt;
+    size_t LinesTotalB = LtiB->Ver.Cnt;
 
     if ((bShowDebug || bShowStepDebug) && bShowDebugData) {
-        sprintf(str, "VSL: до поиска таблиц - %i, после - %i\n", LinesTotalA, LinesTotalB);
+        sprintf(str, "VSL: before table search - %i, after - %i\n", LinesTotalA, LinesTotalB);
         LDPUMA_Console(str);
     }
 
-    for (uint32_t i = 0; i < LinesTotalB; i++) {
+    for (size_t i = 0; i < LinesTotalB; i++) {
         if (LtiB->Ver.Lns[i].Flags != LtiA->Ver.Lns[i].Flags) {
             if (!(LtiA->Ver.Lns[i].Flags & LI_IsTrue) && (LtiB->Ver.Lns[i].Flags & LI_IsTrue)) {
                 if (SVLCount != 0 && bShowStepDebug)
-                    LDPUMA_WaitUserInput(Image->hDebugSVLinesStep, NULL);
+                    LDPUMA_WaitUserInput(NULL, NULL);
 
                 if (bShowDebug || bShowStepDebug) {
                     j
@@ -172,7 +174,7 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
         else {
             LDPUMA_Console("VSL: Найдено %i линий. Нажми на что нибудь и пойдем дальше...\n",
                     SVLCount);
-            LDPUMA_WaitUserInput(Image->hDebugSVLines, NULL);
+            LDPUMA_WaitUserInput(NULL, NULL);
             LDPUMA_DeleteLines(NULL, 315);
             LDPUMA_DeleteRects(NULL, 316);
             ZoomRect.top = 0;

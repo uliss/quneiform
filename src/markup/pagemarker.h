@@ -80,7 +80,10 @@ public:
 
     enum flag_t {
         SKIP_SEARCH_PICTURES = 1,
-        SKIP_SEARCH_NEGATIVES = 2
+        SKIP_SEARCH_NEGATIVES = 2,
+        DEBUG_SVL = 4,
+        DEBUG_SVL_STEP = 8,
+        DEBUG_SVL_DATA = 16
     };
 
 public:
@@ -112,7 +115,6 @@ private:
     Handle cpage_;
     CCOM_cont * comp_cont_;
     Handle cline_;
-    bool kill_vsl_components_;
     std::string layout_filename_;
 };
 
