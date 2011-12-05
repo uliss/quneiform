@@ -35,7 +35,7 @@ int cf_format_set_language(cf_format_options opts, int value);
 
 %rename (format_write_bom) cf_format_write_bom;
 int cf_format_write_bom(cf_format_options opts);
-%rename (foramt_set_write_bom) cf_format_set_write_bom;
+%rename (format_set_write_bom) cf_format_set_write_bom;
 int cf_format_set_write_bom(cf_format_options opts, int value);
 
 %inline %{
