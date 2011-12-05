@@ -8,6 +8,11 @@ typedef unsigned int size_t;
 
 %include "c_api_def.h"
 
+%rename (VERSION) CF_VERSION;
+%rename (BUILD_NUMBER) CF_BUILD_NUMBER;
+%include "config-version.h"
+%include "build_number.h"
+
 /* Data types */
 typedef unsigned int size_t;
 struct cf_format_options_;
