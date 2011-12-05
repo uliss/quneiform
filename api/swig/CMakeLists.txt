@@ -1,0 +1,12 @@
+find_package(SWIG REQUIRED)
+include(${SWIG_USE_FILE})
+find_package(PythonLibs)
+include_directories(${PYTHON_INCLUDE_PATH})
+include_directories(/usr/lib/gcc/i686-linux-gnu/4.6.1/include/)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../c)
+set(CMAKE_SWIG_FLAGS "")
+
+SET_SOURCE_FILES_PROPERTIES(cuneiform.i PROPERTIES CPLUSPLUS ON)
+SET_SOURCE_FILES_PROPERTIES(cuneiform.i PROPERTIES SWIG_FLAGS "-includeall")
+SWIG_ADD_MODULE(cuneiform python cuneiform.i)
+SWIG_LINK_LIBRARIES(cuneiform ${PYTHON_LIBRARIES} cuneiform-c cuneiform)
