@@ -14,4 +14,5 @@
 %rename (recognize) cf_recognize;
 %rename (set_language) cf_recognition_set_language;
 %include "c_api.h"
+%include "c_api_def.h"
 
