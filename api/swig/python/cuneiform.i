@@ -1,5 +1,5 @@
 /* File : cuneiform.i */
-%module cuneiform
+%module pyneiform
 %{
 /* Put headers and other declarations here */
 #include "c_api.h"
