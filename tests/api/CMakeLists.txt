@@ -12,12 +12,17 @@ add_test(CApi ${EXECUTABLE_OUTPUT_PATH}/test_c_api)
 
 find_package(PythonInterp)
 
-macro(install_test_py file)
+macro(install_test_script file)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${file}
         ${EXECUTABLE_OUTPUT_PATH}/${file})
 endmacro()
 
-if(PYTHONINTERP_FOUND)
-    install_test_py(test_python_api.py)
+if(WITH_PYTHON)
+    install_test_script(test_python_api.py)
     add_test(PythonAPI ${EXECUTABLE_OUTPUT_PATH}/test_python_api.py)
+endif()
+
+if(WITH_PERL)
+    install_test_script(test_perl_api.pl)
+    add_test(PerlAPI ${EXECUTABLE_OUTPUT_PATH}/test_perl_api.pl)
 endif()

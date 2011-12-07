@@ -6,3 +6,7 @@ set(CMAKE_SWIG_FLAGS "-ignoremissing" "-Wall" "-includeall")
 if(WITH_PYTHON)
     add_subdirectory(python)
 endif()
+
+if(WITH_PERL)
+    add_subdirectory(perl)
+endif()
