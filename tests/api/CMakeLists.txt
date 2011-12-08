@@ -47,3 +47,12 @@ if(WITH_JAVA)
             "-classpath" "${CMAKE_CURRENT_BINARY_DIR}:${CMAKE_BINARY_DIR}/api/swig/java"
             "TestJavaApi")
 endif()
+
+if(WITH_PHP)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/test_php_api.php
+        ${CMAKE_CURRENT_BINARY_DIR}/test_php_api.php)
+    add_test(PhpAPI ${PHP5_EXECUTABLE}
+                -d enable_dl=On
+                -d extension=${CMAKE_BINARY_DIR}/api/swig/php/libphp-cuneiform.so
+                ${CMAKE_CURRENT_BINARY_DIR}/test_php_api.php)
+endif()
