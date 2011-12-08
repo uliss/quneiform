@@ -14,3 +14,7 @@ endif()
 if(WITH_JAVA)
     add_subdirectory(java)
 endif()
+
+if(WITH_PHP)
+    add_subdirectory(php)
+endif()
