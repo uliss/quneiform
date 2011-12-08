@@ -10,3 +10,7 @@ endif()
 if(WITH_PERL)
     add_subdirectory(perl)
 endif()
+
+if(WITH_JAVA)
+    add_subdirectory(java)
+endif()
