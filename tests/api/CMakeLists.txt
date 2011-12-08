@@ -26,3 +26,24 @@ if(WITH_PERL)
     install_test_script(test_perl_api.pl)
     add_test(PerlAPI ${EXECUTABLE_OUTPUT_PATH}/test_perl_api.pl)
 endif()
+
+if(WITH_JAVA)
+    add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/TestJavaApi.class
+        COMMAND ${Java_JAVAC_EXECUTABLE}
+        ARGS "-classpath" "${CMAKE_BINARY_DIR}/api/swig/java"
+        ${CMAKE_CURRENT_BINARY_DIR}/TestJavaApi.java
+    )
+
+    add_custom_target(TestJavaApi
+        ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/TestJavaApi.class)
+
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/TestJavaApi.java
+        ${CMAKE_CURRENT_BINARY_DIR}/TestJavaApi.java)
+
+    add_test(JavaAPI
+        java
+            "-Djava.library.path=${CMAKE_BINARY_DIR}/api/swig/java"
+            "-classpath" "${CMAKE_CURRENT_BINARY_DIR}:${CMAKE_BINARY_DIR}/api/swig/java"
+            "TestJavaApi")
+endif()
