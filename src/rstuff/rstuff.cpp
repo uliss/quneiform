@@ -25,6 +25,11 @@
 #include "rsfunc.h"
 #include "common/recognizeoptions.h"
 #include "puma/pumadef.h"
+#include "smetric/smetric.h"
+#include "rline/rline.h"
+#include "dpuma.h"
+
+Bool32 gbRSLT = FALSE;
 
 namespace cf {
 
@@ -36,15 +41,33 @@ RStuff::RStuff() :
     buffer_main_(NULL),
     buffer_work_(NULL)
 {
-    if(!RSTUFF_Init(PUMA_MODULE_RSTUFF))
+    LDPUMA_Init(0, NULL);
+
+    bool rc = true;
+
+    if(!SMetric_Init (PUMA_MODULE_RSTUFF, NULL))
+        rc = false;
+
+    rc = RLINE_Init(PUMA_MODULE_RLINE, NULL);
+
+    static const int RESULT = 2;
+    if (rc == RESULT) {
+        gbRSLT = TRUE;
+        DebugInit();
+    }
+    else if (!rc) {
         std::cerr << BOOST_CURRENT_FUNCTION << " failed." << std::endl;
+    }
 
     buffer_main_ = new uchar[MAIN_BUF_SIZE];
     buffer_work_ = new uchar[WORK_BUF_SIZE];
 }
 
 RStuff::~RStuff() {
-    RSTUFF_Done();
+    SMetric_Done();
+    RLINE_Done();
+    LDPUMA_Done();
+
     delete []buffer_main_;
     delete []buffer_work_;
 }
