@@ -21,6 +21,7 @@
 
 #include "rstuff.h"
 #include "rstuff_local.h"
+#include "rsmemory.h"
 #include "rsfunc.h"
 #include "common/recognizeoptions.h"
 #include "puma/pumadef.h"
@@ -55,7 +56,12 @@ void RStuff::binarise()
 
 void RStuff::normalize()
 {
-    if (!RSTUFF_RSNormalise(image_data_, buffer_main_, MAIN_BUF_SIZE, buffer_work_, WORK_BUF_SIZE))
+    SetReturnCode_rstuff(0);
+    SetMainBuff(buffer_main_, MAIN_BUF_SIZE);
+    SetWorkBuff(buffer_work_, WORK_BUF_SIZE);
+    Bool32 rc = Normalise(image_data_);
+    ReSetMem();
+    if(!rc)
         throw Exception("RSTUFF_RSNormalise failed");
 }
 

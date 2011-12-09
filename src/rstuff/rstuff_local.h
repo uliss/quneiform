@@ -26,7 +26,6 @@ Bool32 RSTUFF_Init(uint16_t wHeightCode);
 Bool32 RSTUFF_Done();
 
 /*  Описание функций  */
-Bool32 RSTUFF_RSNormalise(PRSPreProcessImage, void* vBuff, int Size, void* vWork, int SizeWork);
 Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage);
 Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage);
 Bool32 RSTUFF_RSLayout(PRSPreProcessImage);

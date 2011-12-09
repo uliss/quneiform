@@ -171,16 +171,6 @@ Bool32 RSTUFF_Done()
     return TRUE;
 }
 
-Bool32 RSTUFF_RSNormalise(PRSPreProcessImage Image,void* vBuff,int Size,void* vWork,int SizeWork)
-{
-    SetReturnCode_rstuff(0);
-    SetMainBuff(vBuff,Size);
-    SetWorkBuff(vWork,SizeWork);
-    Bool32 rc = Normalise(Image);
-    ReSetMem();
-    return rc;
-}
-
 Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage Image)
 {
     SetReturnCode_rstuff(0);
