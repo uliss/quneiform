@@ -15,7 +15,7 @@ public class TestJavaApi {
         ropts.setLanguage(Juneiform.LANGUAGE_RUSSIAN);
 
         Page p = Juneiform.recognize("@CMAKE_SOURCE_DIR@/images/test.bmp", ropts, fopts);
-        String text = p.toString(Juneiform.FORMAT_TEXT);
+        String text = p.str(Juneiform.FORMAT_TEXT);
         System.out.println(text);
     }
 };
