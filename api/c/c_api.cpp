@@ -340,6 +340,40 @@ int cf_export_save_to_memory(cf_page page, void * dest, size_t * dest_size, int 
     return 0;
 }
 
+const char * cf_export_save_to_str(cf_page page, int format, cf_format_options fopts) {
+    static std::string result;
+    result.clear();
+
+    if(!page) {
+        std::cerr << "[Error] null page pointer given\n";
+        return NULL;
+    }
+
+    format_t f = toFormatType(format);
+    if(f == FORMAT_NONE) {
+        std::cerr << "[Error] invalid output format\n";
+        return NULL;
+    }
+
+    try {
+        ExporterPtr exporter = ExporterFactory::instance().make(f);
+        exporter->setPage(page->ptr);
+
+        if(fopts)
+            exporter->setFormatOptions(*fopts);
+
+        std::stringstream buf;
+        exporter->exportTo(buf);
+        result = buf.str();
+    }
+    catch(std::exception& e) {
+        std::cerr << "[Error] " << e.what() << std::endl;
+        return NULL;
+    }
+
+    return result.c_str();
+}
+
 #ifdef __cplusplus
 }
 #endif

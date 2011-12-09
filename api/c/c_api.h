@@ -73,7 +73,7 @@ cf_page cf_recognize(const char * fname, cf_recognition_options ropts, cf_format
 int cf_export_append(cf_page page, const char * fname, int format, cf_format_options fopts);
 int cf_export_save(cf_page page, const char * fname, int format, cf_format_options fopts);
 int cf_export_save_to_memory(cf_page page, void * dest, size_t * dest_size, int format, cf_format_options fopts);
-
+const char * cf_export_save_to_str(cf_page, int format, cf_format_options fopts);
 #ifdef __cplusplus
 }
 #endif
