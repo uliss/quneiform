@@ -26,6 +26,7 @@
 #include "common/helper.h"
 #include "ced/cedpage.h"
 #include "puma/localrecognitionserver.h"
+#include "puma/processrecognitionserver.h"
 #include "export/exporterfactory.h"
 #include "rdib/imageloaderfactory.h"
 
@@ -217,6 +218,36 @@ cf_page cf_recognize(const char * fname, cf_recognition_options ropts, cf_format
             return NULL;
 
         LocalRecognitionServer server;
+
+        cf_page page = new cf_page_;
+        page->ptr = server.recognize(img, recognition_opts, format_opts);
+        return page;
+    }
+    catch(std::exception& e) {
+        std::cerr << "[Error] " << e.what() << "\n";
+        return NULL;
+    }
+}
+
+cf_page cf_recognize_process(const char * fname, cf_recognition_options ropts, cf_format_options fopts) {
+    if(!fname)
+        return NULL;
+
+    RecognizeOptions recognition_opts;
+    FormatOptions format_opts;
+
+    if(ropts)
+        recognition_opts = *ropts;
+
+    if(fopts)
+        format_opts = *fopts;
+
+    try {
+        ImagePtr img = ImageLoaderFactory::instance().load(fname);
+        if (!img.get())
+            return NULL;
+
+        ProcessRecognitionServer server;
 
         cf_page page = new cf_page_;
         page->ptr = server.recognize(img, recognition_opts, format_opts);

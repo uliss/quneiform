@@ -68,6 +68,7 @@ int cf_format_set_write_bom(cf_format_options opts, int value);
 
 // recognize
 cf_page cf_recognize(const char * fname, cf_recognition_options ropts, cf_format_options fopts);
+cf_page cf_recognize_process(const char * fname, cf_recognition_options ropts, cf_format_options fopts);
 
 // export
 int cf_export_append(cf_page page, const char * fname, int format, cf_format_options fopts);

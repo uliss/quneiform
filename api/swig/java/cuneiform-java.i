@@ -95,13 +95,18 @@ public:
     {
         return cf_export_save(p_, fileName, format, fopts.handle());
     }
+
+    const char * str(int format, const FormatOptions& fopts = FormatOptions())
+    {
+        return cf_export_save_to_str(p_, format, fopts.handle());
+    }
 };
 %}
 
 /* recognition */
 %inline %{
 Page recognize(const char * fname, const RecognitionOptions& ropts, const FormatOptions& fopts) {
-    cf_page p = cf_recognize(fname, ropts.handle(), fopts.handle());
+    cf_page p = cf_recognize_process(fname, ropts.handle(), fopts.handle());
     return Page(p);
 } 
 %}
