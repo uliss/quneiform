@@ -6,10 +6,45 @@
 typedef unsigned int size_t;
 %}
 
-%include "c_api_def.h"
+#define CF_LANGUAGE_ENGLISH     0
+#define CF_LANGUAGE_GERMAN      1
+#define CF_LANGUAGE_FRENCH      2
+#define CF_LANGUAGE_RUSSIAN     3
+#define CF_LANGUAGE_SWEDISH     4
+#define CF_LANGUAGE_SPANISH     5
+#define CF_LANGUAGE_ITALIAN     6
+#define CF_LANGUAGE_RUS_ENG     7
+#define CF_LANGUAGE_UKRAINIAN   8
+#define CF_LANGUAGE_SERBIAN     9
+#define CF_LANGUAGE_CROATIAN    10
+#define CF_LANGUAGE_POLISH      11
+#define CF_LANGUAGE_DANISH      12
+#define CF_LANGUAGE_PORTUGUESE  13
+#define CF_LANGUAGE_DUTCH       14
+#define CF_LANGUAGE_CZECH       19
+#define CF_LANGUAGE_ROMANIAN    20
+#define CF_LANGUAGE_HUNGARIAN   21
+#define CF_LANGUAGE_BULGARIAN   22
+#define CF_LANGUAGE_SLOVENIAN   23
+#define CF_LANGUAGE_LATVIAN     24
+#define CF_LANGUAGE_LITHUANIAN  25
+#define CF_LANGUAGE_ESTONIAN    26
+#define CF_LANGUAGE_TURKISH     27
+#define CF_LANGUAGE_BELARUSIAN  28
 
-%rename (VERSION) CF_VERSION;
-%rename (BUILD_NUMBER) CF_BUILD_NUMBER;
+#define CF_FORMAT_TEXT       0
+#define CF_FORMAT_SMARTTEXT  1
+#define CF_FORMAT_HTML       2
+#define CF_FORMAT_HOCR       3
+#define CF_FORMAT_DEBUG      4
+#define CF_FORMAT_ODF        5
+#define CF_FORMAT_SUMMARY    6
+#define CF_FORMAT_DJVUXML    7
+#define CF_FORMAT_DJVUTXT    8
+#define CF_FORMAT_NATIVE_TXT 9
+#define CF_FORMAT_NATIVE_XML 10
+#define CF_FORMAT_FB2        11
+
 %include "config-version.h"
 %include "build_number.h"
 
