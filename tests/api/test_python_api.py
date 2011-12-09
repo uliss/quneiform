@@ -39,4 +39,7 @@ ropts.setSpellCorrection(1)
 assert ropts.spellCorrection() == 1
 
 page = cf.recognize("@CMAKE_SOURCE_DIR@/images/quneiform/english.png", ropts, fopts)
-page.save("/dev/stdout", cf.FORMAT_TEXT, fopts)
+
+text = page.toString(cf.FORMAT_TEXT, fopts).strip();
+print text
+assert text == "ENGLISH"

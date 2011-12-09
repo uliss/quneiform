@@ -18,5 +18,6 @@ $ropt->setLanguage($Cuneiform::LANGUAGE_ENGLISH);
 
 $page = Cuneiform::recognize("@CMAKE_SOURCE_DIR@/images/quneiform/english.png", $ropt, $fopt);
 
-$page->save("/dev/stdout", $Cuneiform::FORMAT_TEXT, $fopt);
+$text = $page->str($Cuneiform::FORMAT_TEXT, $fopt);
+print $text;
 

@@ -95,6 +95,11 @@ public:
     {
         return cf_export_save(p_, fileName, format, fopts.handle());
     }
+
+    const char * toString(int format, const FormatOptions& fopts = FormatOptions())
+    {
+        return cf_export_save_to_str(p_, format, fopts.handle());
+    }
 };
 %}
 

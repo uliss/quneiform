@@ -98,7 +98,8 @@ public:
         return cf_export_save(p_, fileName, format, fopts.handle());
     }
 
-    const char * str(int format, const cuneiform_format_options& fopts = cuneiform_format_options()) {
+    const char * str(int format, const cuneiform_format_options& fopts = cuneiform_format_options())
+    {
         return cf_export_save_to_str(p_, format, fopts.handle());
     }
 };
