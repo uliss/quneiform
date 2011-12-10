@@ -82,6 +82,20 @@ void RStuff::calculateIncline()
     CalcIncline(image_data_);
 }
 
+void RStuff::createContainerBigComp()
+{
+    CreateContainerBigComp(image_data_);
+}
+
+void RStuff::killLines()
+{
+    KillLinesN(image_data_);
+
+    // убиваем остатки линии после сняти
+    if (LDPUMA_Skip(image_data_->hDebugCancelRemoveLines))
+        LineKiller(image_data_);
+}
+
 void RStuff::normalize()
 {
     SetReturnCode_rstuff(0);
@@ -91,21 +105,27 @@ void RStuff::normalize()
     preProcessImage();
     searchLines();
     calculateIncline();
-    OrtoMove(image_data_);
-    CreateContainerBigComp(image_data_);
-    SearchNewLines(image_data_);
-    KillLinesN(image_data_);
-
-    // убиваем остатки линии после сняти
-    if (LDPUMA_Skip(image_data_->hDebugCancelRemoveLines))
-        LineKiller(image_data_);
+    ortoMove();
+    createContainerBigComp();
+    searchNewLines();
+    killLines();
 
     ReSetMem();
+}
+
+void RStuff::ortoMove()
+{
+    OrtoMove(image_data_);
 }
 
 void RStuff::preProcessImage()
 {
     PreProcessImage(image_data_);
+}
+
+void RStuff::searchNewLines()
+{
+    SearchNewLines(image_data_);
 }
 
 void RStuff::searchLines()
