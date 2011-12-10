@@ -131,24 +131,6 @@ extern Handle hDebugPrintResolution;
 Bool32 AutoTemplate(PRSPreProcessImage);
 void checkResolution(CCOM_handle hCCOM, Handle hCPAGE);
 
-// Нормализация сырь
-// (07.07.2000) Изначально взято из puma.dll без изменений
-Bool32 Normalise(PRSPreProcessImage Image) {
-	PreProcessImage(Image);
-	SearchLines(Image);
-	CalcIncline(Image);
-	OrtoMove(Image);
-	CreateContainerBigComp(Image);
-	SearchNewLines(Image);
-	KillLinesN(Image);
-
-	// убиваем остатки линии после сняти
-	if (LDPUMA_Skip(Image->hDebugCancelRemoveLines))
-		//		rc = //almi 28.11.00
-		LineKiller(Image);
-	return TRUE;
-}
-
 Bool32 VerifyN(PRSPreProcessImage Image) {
 	return VerifyLines(Image);
 }

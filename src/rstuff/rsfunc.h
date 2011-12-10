@@ -84,7 +84,6 @@ void DebugDPumaShowComponents(PRSPreProcessImage, Handle, uint32_t, int32_t,
                               uint32_t);
 
 Bool32 Binarise(void);
-Bool32 Normalise(PRSPreProcessImage);
 Bool32 VerifyN(PRSPreProcessImage);
 Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines);
 Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines);

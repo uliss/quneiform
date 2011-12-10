@@ -82,10 +82,20 @@ void RStuff::normalize()
     SetReturnCode_rstuff(0);
     SetMainBuff(buffer_main_, MAIN_BUF_SIZE);
     SetWorkBuff(buffer_work_, WORK_BUF_SIZE);
-    Bool32 rc = Normalise(image_data_);
+
+    PreProcessImage(image_data_);
+    SearchLines(image_data_);
+    CalcIncline(image_data_);
+    OrtoMove(image_data_);
+    CreateContainerBigComp(image_data_);
+    SearchNewLines(image_data_);
+    KillLinesN(image_data_);
+
+    // убиваем остатки линии после сняти
+    if (LDPUMA_Skip(image_data_->hDebugCancelRemoveLines))
+        LineKiller(image_data_);
+
     ReSetMem();
-    if(!rc)
-        throw Exception("RSTUFF_RSNormalise failed");
 }
 
 void RStuff::setCallbacks(RSCBProgressPoints * cb)
