@@ -77,15 +77,20 @@ void RStuff::binarise()
     Binarise();
 }
 
+void RStuff::calculateIncline()
+{
+    CalcIncline(image_data_);
+}
+
 void RStuff::normalize()
 {
     SetReturnCode_rstuff(0);
     SetMainBuff(buffer_main_, MAIN_BUF_SIZE);
     SetWorkBuff(buffer_work_, WORK_BUF_SIZE);
 
-    PreProcessImage(image_data_);
-    SearchLines(image_data_);
-    CalcIncline(image_data_);
+    preProcessImage();
+    searchLines();
+    calculateIncline();
     OrtoMove(image_data_);
     CreateContainerBigComp(image_data_);
     SearchNewLines(image_data_);
@@ -96,6 +101,16 @@ void RStuff::normalize()
         LineKiller(image_data_);
 
     ReSetMem();
+}
+
+void RStuff::preProcessImage()
+{
+    PreProcessImage(image_data_);
+}
+
+void RStuff::searchLines()
+{
+    SearchLines(image_data_);
 }
 
 void RStuff::setCallbacks(RSCBProgressPoints * cb)

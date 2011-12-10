@@ -85,6 +85,10 @@ private:
     static void * mainBuffer();
     static void * workBuffer();
 private:
+    void calculateIncline();
+    void preProcessImage();
+    void searchLines();
+private:
     RSPreProcessImage * image_data_;
     uchar * buffer_main_;
     uchar * buffer_work_;
