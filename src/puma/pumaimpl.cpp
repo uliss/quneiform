@@ -327,7 +327,6 @@ void PumaImpl::layout() {
     DataforRS.pgrc_line = &rc_line_;
     DataforRS.pgnNumberTables = &tables_num_;
     DataforRS.pgneed_clean_line = &need_clean_line_;
-    DataforRS.gRectTemplate = rect_template_;
     DataforRS.hDebugCancelSearchPictures = hDebugCancelSearchPictures;
     DataforRS.hDebugCancelComponent = hDebugCancelComponent;
     DataforRS.hDebugCancelTurn = hDebugCancelTurn;
@@ -337,7 +336,6 @@ void PumaImpl::layout() {
     DataforRS.hDebugCancelSearchDotLines = hDebugCancelSearchDotLines;
     DataforRS.hDebugCancelRemoveLines = hDebugCancelRemoveLines;
     DataforRS.hDebugCancelSearchTables = hDebugCancelSearchTables;
-    DataforRS.szLayoutFileName = layout_filename_.c_str();
     DataforRS.hDebugEnableSearchSegment = hDebugEnableSearchSegment;
 
     RSCBProgressPoints CBforRS;

@@ -27,6 +27,7 @@
 #include "puma/pumadef.h"
 #include "smetric/smetric.h"
 #include "rline/rline.h"
+#include "cpage/cpage.h"
 #include "dpuma.h"
 
 Bool32 gbRSLT = FALSE;
