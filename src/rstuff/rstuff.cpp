@@ -24,6 +24,7 @@
 #include "rsmemory.h"
 #include "rsfunc.h"
 #include "common/recognizeoptions.h"
+#include "common/debug.h"
 #include "puma/pumadef.h"
 #include "smetric/smetric.h"
 #include "rline/rline.h"
@@ -132,7 +133,25 @@ void RStuff::searchNewLines()
 
 void RStuff::searchLines()
 {
-    SearchLines(image_data_);
+    if(hasFlag(SKIP_LINE_SEARCH)) {
+        Debug() << "[RStuff] line seach skipped\n";
+        return;
+    }
+
+    // отключение размазывания на 3 пикселя (дотматрикс)
+    Bool32 b32 = !image_data_->gbDotMatrix;
+    RLINE_SetImportData(RLINE_Bool32_NOFILLGAP3, &b32);
+    Bool32 no_border = TRUE;
+    // отключение чистки на левой-правой границе
+    RLINE_SetImportData(RLINE_Bool32_NOHBORDER, &no_border);
+    // отключение чистки на верхней-нижней границе
+    RLINE_SetImportData(RLINE_Bool32_NOVBORDER, &no_border);
+
+    if (!RLINE_SearchLines(image_data_->hCPAGE, image_data_->phCLINE)) {
+        *(image_data_->pgrc_line) = FALSE;
+        Debug() << "[RStuff] Warning: RLINE_SearchLines code " << RLINE_GetReturnCode()
+                << "; \"" << RLINE_GetReturnString(RLINE_GetReturnCode()) << "\"\n";
+    }
 }
 
 void RStuff::setCallbacks(RSCBProgressPoints * cb)

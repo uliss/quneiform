@@ -94,8 +94,8 @@ Bool32 Layout(PRSPreProcessImage);
 // обработка сырья
 Bool32 PreProcessImage(PRSPreProcessImage);
 Bool32 CreateContainerBigComp(PRSPreProcessImage);
+Bool32 SearchLines(PRSPreProcessImage Image);
 Bool32 SearchNewLines(PRSPreProcessImage Image);
-Bool32 SearchLines(PRSPreProcessImage);
 Bool32 CalcIncline(PRSPreProcessImage);
 Bool32 VerifyLines(PRSPreProcessImage);
 Bool32 OrtoMove(PRSPreProcessImage);
