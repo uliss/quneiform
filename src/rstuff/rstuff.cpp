@@ -40,7 +40,8 @@ static const int WORK_BUF_SIZE = 180000;
 RStuff::RStuff() :
     image_data_(NULL),
     buffer_main_(NULL),
-    buffer_work_(NULL)
+    buffer_work_(NULL),
+    flags_(0)
 {
     LDPUMA_Init(0, NULL);
 
