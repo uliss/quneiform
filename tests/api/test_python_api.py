@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import imp
+import sys
+
+sys.path.append('@EXECUTABLE_OUTPUT_PATH@/api/swig/python')
 
 cf = imp.load_source('pyneiform', '@EXECUTABLE_OUTPUT_PATH@/api/swig/python/pyneiform.py')
 
