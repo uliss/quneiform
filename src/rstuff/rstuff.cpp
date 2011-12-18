@@ -21,9 +21,17 @@
 
 #include "rstuff.h"
 #include "rstuff_local.h"
+#include "rsmemory.h"
 #include "rsfunc.h"
 #include "common/recognizeoptions.h"
+#include "common/debug.h"
 #include "puma/pumadef.h"
+#include "smetric/smetric.h"
+#include "rline/rline.h"
+#include "cpage/cpage.h"
+#include "dpuma.h"
+
+Bool32 gbRSLT = FALSE;
 
 namespace cf {
 
@@ -33,17 +41,36 @@ static const int WORK_BUF_SIZE = 180000;
 RStuff::RStuff() :
     image_data_(NULL),
     buffer_main_(NULL),
-    buffer_work_(NULL)
+    buffer_work_(NULL),
+    flags_(0)
 {
-    if(!RSTUFF_Init(PUMA_MODULE_RSTUFF))
+    LDPUMA_Init(0, NULL);
+
+    bool rc = true;
+
+    if(!SMetric_Init (PUMA_MODULE_RSTUFF, NULL))
+        rc = false;
+
+    rc = RLINE_Init(PUMA_MODULE_RLINE, NULL);
+
+    static const int RESULT = 2;
+    if (rc == RESULT) {
+        gbRSLT = TRUE;
+        DebugInit();
+    }
+    else if (!rc) {
         std::cerr << BOOST_CURRENT_FUNCTION << " failed." << std::endl;
+    }
 
     buffer_main_ = new uchar[MAIN_BUF_SIZE];
     buffer_work_ = new uchar[WORK_BUF_SIZE];
 }
 
 RStuff::~RStuff() {
-    RSTUFF_Done();
+    SMetric_Done();
+    RLINE_Done();
+    LDPUMA_Done();
+
     delete []buffer_main_;
     delete []buffer_work_;
 }
@@ -53,10 +80,78 @@ void RStuff::binarise()
     Binarise();
 }
 
+void RStuff::calculateIncline()
+{
+    CalcIncline(image_data_);
+}
+
+void RStuff::createContainerBigComp()
+{
+    CreateContainerBigComp(image_data_);
+}
+
+void RStuff::killLines()
+{
+    KillLinesN(image_data_);
+
+    // убиваем остатки линии после сняти
+    if (LDPUMA_Skip(image_data_->hDebugCancelRemoveLines))
+        LineKiller(image_data_);
+}
+
 void RStuff::normalize()
 {
-    if (!RSTUFF_RSNormalise(image_data_, buffer_main_, MAIN_BUF_SIZE, buffer_work_, WORK_BUF_SIZE))
-        throw Exception("RSTUFF_RSNormalise failed");
+    SetReturnCode_rstuff(0);
+    SetMainBuff(buffer_main_, MAIN_BUF_SIZE);
+    SetWorkBuff(buffer_work_, WORK_BUF_SIZE);
+
+    preProcessImage();
+    searchLines();
+    calculateIncline();
+    ortoMove();
+    createContainerBigComp();
+    searchNewLines();
+    killLines();
+
+    ReSetMem();
+}
+
+void RStuff::ortoMove()
+{
+    OrtoMove(image_data_);
+}
+
+void RStuff::preProcessImage()
+{
+    PreProcessImage(image_data_);
+}
+
+void RStuff::searchNewLines()
+{
+    SearchNewLines(image_data_);
+}
+
+void RStuff::searchLines()
+{
+    if(hasFlag(SKIP_LINE_SEARCH)) {
+        Debug() << "[RStuff] line seach skipped\n";
+        return;
+    }
+
+    // отключение размазывания на 3 пикселя (дотматрикс)
+    Bool32 b32 = !image_data_->gbDotMatrix;
+    RLINE_SetImportData(RLINE_Bool32_NOFILLGAP3, &b32);
+    Bool32 no_border = TRUE;
+    // отключение чистки на левой-правой границе
+    RLINE_SetImportData(RLINE_Bool32_NOHBORDER, &no_border);
+    // отключение чистки на верхней-нижней границе
+    RLINE_SetImportData(RLINE_Bool32_NOVBORDER, &no_border);
+
+    if (!RLINE_SearchLines(image_data_->hCPAGE, image_data_->phCLINE)) {
+        *(image_data_->pgrc_line) = FALSE;
+        Debug() << "[RStuff] Warning: RLINE_SearchLines code " << RLINE_GetReturnCode()
+                << "; \"" << RLINE_GetReturnString(RLINE_GetReturnCode()) << "\"\n";
+    }
 }
 
 void RStuff::setCallbacks(RSCBProgressPoints * cb)

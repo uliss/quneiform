@@ -26,6 +26,7 @@
 #include "common/helper.h"
 #include "ced/cedpage.h"
 #include "puma/localrecognitionserver.h"
+#include "puma/processrecognitionserver.h"
 #include "export/exporterfactory.h"
 #include "rdib/imageloaderfactory.h"
 
@@ -228,6 +229,36 @@ cf_page cf_recognize(const char * fname, cf_recognition_options ropts, cf_format
     }
 }
 
+cf_page cf_recognize_process(const char * fname, cf_recognition_options ropts, cf_format_options fopts) {
+    if(!fname)
+        return NULL;
+
+    RecognizeOptions recognition_opts;
+    FormatOptions format_opts;
+
+    if(ropts)
+        recognition_opts = *ropts;
+
+    if(fopts)
+        format_opts = *fopts;
+
+    try {
+        ImagePtr img = ImageLoaderFactory::instance().load(fname);
+        if (!img.get())
+            return NULL;
+
+        ProcessRecognitionServer server;
+
+        cf_page page = new cf_page_;
+        page->ptr = server.recognize(img, recognition_opts, format_opts);
+        return page;
+    }
+    catch(std::exception& e) {
+        std::cerr << "[Error] " << e.what() << "\n";
+        return NULL;
+    }
+}
+
 static format_t toFormatType(int format) {
     OutputFormat f(static_cast<format_t>(format));
     return f.isValid() ? f.get() : FORMAT_NONE;
@@ -338,6 +369,40 @@ int cf_export_save_to_memory(cf_page page, void * dest, size_t * dest_size, int 
     }
 
     return 0;
+}
+
+const char * cf_export_save_to_str(cf_page page, int format, cf_format_options fopts) {
+    static std::string result;
+    result.clear();
+
+    if(!page) {
+        std::cerr << "[Error] null page pointer given\n";
+        return NULL;
+    }
+
+    format_t f = toFormatType(format);
+    if(f == FORMAT_NONE) {
+        std::cerr << "[Error] invalid output format\n";
+        return NULL;
+    }
+
+    try {
+        ExporterPtr exporter = ExporterFactory::instance().make(f);
+        exporter->setPage(page->ptr);
+
+        if(fopts)
+            exporter->setFormatOptions(*fopts);
+
+        std::stringstream buf;
+        exporter->exportTo(buf);
+        result = buf.str();
+    }
+    catch(std::exception& e) {
+        std::cerr << "[Error] " << e.what() << std::endl;
+        return NULL;
+    }
+
+    return result.c_str();
 }
 
 #ifdef __cplusplus

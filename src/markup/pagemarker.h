@@ -78,6 +78,16 @@ public:
         Exception(const std::string& msg) : std::runtime_error(msg) {}
     };
 
+    enum flag_t {
+        SKIP_SEARCH_PICTURES    = 1,
+        SKIP_SEARCH_NEGATIVES   = (1 << 1),
+        SKIP_EXTRACT_BLOCKS     = (1 << 2),
+        DEBUG_SVL               = (1 << 3),
+        DEBUG_SVL_STEP          = (1 << 4),
+        DEBUG_SVL_DATA          = (1 << 5),
+        DEBUG_LAYOUT_FROM_FILE  = (1 << 6)
+    };
+
 public:
     PageMarker();
     ~PageMarker();
@@ -92,12 +102,25 @@ public:
     void setKillVSLComponents(bool value);
     void setLayoutFilename(const std::string& fname);
     void setOptions(const RecognizeOptions& opts);
+public:
+    bool hasFlag(flag_t f) { return flags_ & f; }
+    void setFlag(flag_t f) { flags_ |= f; }
+    void setFlag(flag_t f, bool value) { value ? setFlag(f) : unsetFlag(f); }
+    void unsetFlag(flag_t f) { flags_ &= (~f); }
+private:
+    void extractBlocks();
+    void linePass3();
+    void processShortVerticalLines();
+    void restoreLayout();
+    void searchNegatives(CCOM_cont * cont);
+    void searchPictures(CCOM_cont * cont);
+private:
+    static int flags_;
 private:
     RMPreProcessImage * image_data_;
     Handle cpage_;
     CCOM_cont * comp_cont_;
     Handle cline_;
-    bool kill_vsl_components_;
     std::string layout_filename_;
 };
 

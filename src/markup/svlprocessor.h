@@ -16,15 +16,35 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RSTUFF_LOCAL_H
-#define RSTUFF_LOCAL_H
+#ifndef SVLPROCESSOR_H
+#define SVLPROCESSOR_H
 
-#include "cttypes.h"
-#include "rstuff_struct.h"
+typedef struct tagLinesTotalInfo LinesTotalInfo;
+struct RMPreProcessImage;
 
-/*  Описание функций  */
-Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage);
-Bool32 RSTUFF_RSNormRemoveLines(PRSPreProcessImage);
-Bool32 RSTUFF_RSLayout(PRSPreProcessImage);
+namespace cf {
 
-#endif // RSTUFF_LOCAL_H
+class SVLProcessor
+{
+public:
+    SVLProcessor(RMPreProcessImage * image);
+    ~SVLProcessor();
+
+    void filter();
+    void countSVLStep1();
+    void countSVLStep2();
+public:
+    static const int MAX_LINES = 2000;
+private:
+    void readSVL(LinesTotalInfo * info);
+private:
+    RMPreProcessImage * image_;
+    LinesTotalInfo * LineInfoA;
+    LinesTotalInfo * LineInfoB;
+    void * VLinefBufferA;
+    void * VLinefBufferB;
+};
+
+}
+
+#endif // SVLPROCESSOR_H

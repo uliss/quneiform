@@ -62,23 +62,42 @@
 
 #include "cimage/ctiimage.h"
 #include "ccom/ccomdefs.h"
+#include "ccom/ccom.h"
 #include "cpage/cpage.h"
+#include "linedefs.h"
 #include "common/lang_def.h"
-
-enum svl_step_t
-{
-    PUMA_SVL_FIRST_STEP = 0x1,
-    PUMA_SVL_SECOND_STEP = 0x2,
-    PUMA_SVL_THRID_STEP = 0x3
-};
 
 #define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
 
 struct BigImage
 {
-    BigImage() : hCCOM(NULL) {}
+public:
+    BigImage(Handle page) : hCCOM(NULL)
+    {
+        PAGEINFO info;
+        GetPageInfo(page, &info);
+        setImageName(info.szImageName);
+
+        Handle h = CPAGE_GetBlockFirst(page, TYPE_BIG_COMP);
+
+        if (h) {
+            CPAGE_GetBlockData(page, h, TYPE_BIG_COMP, this, sizeof(BigImage));
+            CPAGE_DeleteBlock(page, h);
+        }
+    }
+
+    ~BigImage() {
+        CCOM_DeleteContainer(hCCOM);
+    }
+
+    void setImageName(const char * name)
+    {
+        for(size_t i = 0; i < CPAGE_MAXNAME; i++)
+            ImageName[i] = name[i];
+    }
+public:
     CCOM_handle hCCOM;
-    uchar ImageName[CPAGE_MAXNAME];
+    char ImageName[CPAGE_MAXNAME];
 };
 
 struct RMPreProcessImage
@@ -89,22 +108,12 @@ struct RMPreProcessImage
     Handle hCPAGE;
     CCOM_cont * hCCOM;
     Handle hCLINE;
-    Handle hDebugCancelSearchPictures;
-    Handle hDebugLayoutFromFile;
-    Handle hDebugCancelExtractBlocks;
-    Handle hDebugSVLines;
-    Handle hDebugSVLinesStep;
-    Handle hDebugSVLinesData;
-    const char *szLayoutFileName;
-    bool gnPictures;
+    bool hDebugSVLines;
+    bool hDebugSVLinesStep;
+    bool hDebugSVLinesData;
+    bool searchPictures;
 };
 
 typedef RMPreProcessImage * PRMPreProcessImage;
-
-Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage Image);
-Bool32 SearchPictures(PRMPreProcessImage, BigImage);
-Bool32 SearchNeg(PRMPreProcessImage, BigImage, int);
-Bool32 SearchFon(PRMPreProcessImage, BigImage, int);
-void SetReturnCode_rmarker(uint32_t rc);
 
 #endif

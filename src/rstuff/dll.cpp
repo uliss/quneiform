@@ -93,10 +93,6 @@ union RCode {
 static RCode RC = { 0 };
 static uint16_t wHighErrCode = 0;
 
-#define RESULT 2
-
-Bool32 gbRSLT = FALSE;
-
 Handle ObvKillLines;
 Handle OKL;
 Handle Zone;
@@ -133,53 +129,6 @@ Handle hDebugPreprocess;
 Handle hDebugPrintResolution;
 
 int KVO = 1;
-
-Bool32 RSTUFF_Init(uint16_t wHeightCode)
-{
-    Bool32 rc = TRUE;
-
-    wHighErrCode = wHeightCode;
-
-    LDPUMA_Init(0, NULL);
-
-    if(!SMetric_Init (wHeightCode, NULL))
-        return FALSE;
-
-    rc = RLINE_Init(PUMA_MODULE_RLINE, NULL);
-
-    if(!rc)
-        return FALSE;
-
-    if (rc == RESULT)
-	gbRSLT = TRUE;
-
-    DebugInit();
-
-    return rc;
-}
-
-Bool32 RSTUFF_Done()
-{
-    if (!SMetric_Done())
-        return FALSE;
-
-    if (!RLINE_Done())
-        return FALSE;
-
-    LDPUMA_Done();
-
-    return TRUE;
-}
-
-Bool32 RSTUFF_RSNormalise(PRSPreProcessImage Image,void* vBuff,int Size,void* vWork,int SizeWork)
-{
-    SetReturnCode_rstuff(0);
-    SetMainBuff(vBuff,Size);
-    SetWorkBuff(vWork,SizeWork);
-    Bool32 rc = Normalise(Image);
-    ReSetMem();
-    return rc;
-}
 
 Bool32 RSTUFF_RSNormVerify(PRSPreProcessImage Image)
 {

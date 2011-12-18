@@ -69,187 +69,44 @@
 
 #include "dpuma.h"
 #include "shortverticallinesfilter.h"
+#include "svlprocessor.h"
 #include "linedefs.h"
 #include "cline/cline.h"
 #include "ccom/ccom.h"
 
-static const int PUMA_MAX_NUM_LINES = 2000;
-static const int IDS_ERR_INITIATED_BY_ALLEX = 2029;
-
-static Bool32 bShowDebug = FALSE;
-static Bool32 bShowStepDebug = FALSE;
-static Bool32 bShowDebugData = FALSE;
-
-struct PUMALinesBuffer {
-    LinesTotalInfo * LineInfoA;
-    LinesTotalInfo * LineInfoB;
-    void * HLinesBufferA;
-    void * VLinefBufferA;
-    void * HLinesBufferB;
-    void * VLinefBufferB;
-};
-
-static PUMALinesBuffer gSVLBuffer;
-
-void freeSVLBuffer() {
-    free(gSVLBuffer.LineInfoA);
-    free(gSVLBuffer.LineInfoB);
-}
-
-void initSVLBuffer() {
-    gSVLBuffer.VLinefBufferA = NULL;
-    gSVLBuffer.VLinefBufferB = NULL;
-    gSVLBuffer.LineInfoA = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
-    gSVLBuffer.LineInfoB = (LinesTotalInfo*) calloc(1, sizeof(LinesTotalInfo));
-}
-
-Bool32 ShortVerticalLinesProcess(svl_step_t Step, PRMPreProcessImage Image)
-{
-    Bool32 bRet = FALSE;
-
-    if (Step == PUMA_SVL_FIRST_STEP && gSVLBuffer.LineInfoA) {
-        gSVLBuffer.HLinesBufferA = gSVLBuffer.LineInfoA->Hor.Lns = NULL;
-        if (gSVLBuffer.VLinefBufferA == NULL)
-            gSVLBuffer.VLinefBufferA = gSVLBuffer.LineInfoA->Ver.Lns = (LineInfo *) calloc(
-                    sizeof(LineInfo), PUMA_MAX_NUM_LINES);
-
-        bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoA, Image);
-    }
-
-    if (Step == PUMA_SVL_SECOND_STEP && gSVLBuffer.LineInfoB) {
-        gSVLBuffer.HLinesBufferB = gSVLBuffer.LineInfoB->Hor.Lns = NULL;
-        if (gSVLBuffer.VLinefBufferB == NULL)
-            gSVLBuffer.VLinefBufferB = gSVLBuffer.LineInfoB->Ver.Lns = (LineInfo *) calloc(
-                    sizeof(LineInfo), PUMA_MAX_NUM_LINES);
-
-        bRet = ReadSVLFromPageContainer(gSVLBuffer.LineInfoB, Image);
-
-        ////////////////
-        // обработка и удаление тут
-        if (bRet) {
-            bRet = SVLFilter(gSVLBuffer.LineInfoA, gSVLBuffer.LineInfoB, Image);
-        }
-    }
-
-    if (Step == PUMA_SVL_THRID_STEP) {
-        if (gSVLBuffer.VLinefBufferA != NULL) {
-            free(gSVLBuffer.VLinefBufferA);
-        }
-
-        if (gSVLBuffer.VLinefBufferB != NULL) {
-            free(gSVLBuffer.VLinefBufferB);
-        }
-
-        gSVLBuffer.VLinefBufferA = NULL;
-        gSVLBuffer.VLinefBufferB = NULL;
-        bRet = TRUE;
-    }
-
-    if (bRet == FALSE) {
-        SetReturnCode_rmarker(IDS_ERR_INITIATED_BY_ALLEX);
-    }
-
-    return bRet;
-}
-
-Bool32 ReadSVLFromPageContainer(LinesTotalInfo *LTInfo, PRMPreProcessImage Image)
-{
-    Bool32 bRet = TRUE;
-    uint32_t nTagSize;
-    nTagSize = sizeof(LinesTotalInfo);
-    Bool32 fl_break;
-    int num = 0;
-    int count = 0;
-    CLINE_handle hCLINE = Image->hCLINE;
-    CLINE_handle hline;
-    CPDLine cpdata;
-    hline = CLINE_GetFirstLine(hCLINE);
-    LTInfo->Hor.Cnt = 0;
-    LTInfo->Ver.Cnt = 0;
-
-    while (hline) {
-        fl_break = FALSE;
-        cpdata = CLINE_GetLineData(hline);
-
-        if (!cpdata)
-            hline = CLINE_GetNextLine(hline);
-
-        else {
-            if (count >= PUMA_MAX_NUM_LINES)
-                fl_break = TRUE;
-
-            else {
-                count++;
-
-                if (cpdata->Dir == LD_Horiz) {
-                    if (LTInfo->Hor.Lns) {
-                        num = LTInfo->Hor.Cnt;
-                        LTInfo->Hor.Lns[num].A.rx() = cpdata->Line.Beg_X;
-                        LTInfo->Hor.Lns[num].A.ry() = cpdata->Line.Beg_Y;
-                        LTInfo->Hor.Lns[num].B.rx() = cpdata->Line.End_X;
-                        LTInfo->Hor.Lns[num].B.ry() = cpdata->Line.End_Y;
-                        LTInfo->Hor.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
-                        LTInfo->Hor.Lns[num].Flags = cpdata->Flags;
-                        (LTInfo->Hor.Cnt)++;
-                    }
-                }
-
-                else {
-                    if (LTInfo->Ver.Lns) {
-                        num = LTInfo->Ver.Cnt;
-                        LTInfo->Ver.Lns[num].A.rx() = cpdata->Line.Beg_X;
-                        LTInfo->Ver.Lns[num].A.ry() = cpdata->Line.Beg_Y;
-                        LTInfo->Ver.Lns[num].B.rx() = cpdata->Line.End_X;
-                        LTInfo->Ver.Lns[num].B.ry() = cpdata->Line.End_Y;
-                        LTInfo->Ver.Lns[num].Thickness = cpdata->Line.Wid10 / 10;
-                        LTInfo->Ver.Lns[num].Flags = cpdata->Flags;
-                        (LTInfo->Ver.Cnt)++;
-                    }
-                }
-            }
-
-            hline = CLINE_GetNextLine(hline);
-        }
-
-        if (fl_break)
-            break;
-    }
-
-    return TRUE;
-    return bRet;
-}
+static bool bShowDebug = false;
+static bool bShowStepDebug = false;
+static bool bShowDebugData = false;
 
 Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage Image)
 {
     Bool32 rc = TRUE;
-    uint32_t LinesTotalA;
-    uint32_t LinesTotalB;
     char str[255];
     int32_t j = 0;
     uint32_t SVLCount = 0;
     Rect16 ZoomRect;
-    bShowDebug = !LDPUMA_Skip(Image->hDebugSVLines);
-    bShowStepDebug = !LDPUMA_Skip(Image->hDebugSVLinesStep);
-    bShowDebugData = !LDPUMA_Skip(Image->hDebugSVLinesData);
+    bShowDebug = Image->hDebugSVLines;
+    bShowStepDebug = Image->hDebugSVLinesStep;
+    bShowDebugData = Image->hDebugSVLinesData;
 
     if (LtiA == NULL || LtiB == NULL) {
         rc = FALSE;
         return rc;
     }
 
-    LinesTotalA = LtiA->Ver.Cnt;
-    LinesTotalB = LtiB->Ver.Cnt;
+    size_t LinesTotalA = LtiA->Ver.Cnt;
+    size_t LinesTotalB = LtiB->Ver.Cnt;
 
     if ((bShowDebug || bShowStepDebug) && bShowDebugData) {
-        sprintf(str, "VSL: до поиска таблиц - %i, после - %i\n", LinesTotalA, LinesTotalB);
+        sprintf(str, "VSL: before table search - %i, after - %i\n", LinesTotalA, LinesTotalB);
         LDPUMA_Console(str);
     }
 
-    for (uint32_t i = 0; i < LinesTotalB; i++) {
+    for (size_t i = 0; i < LinesTotalB; i++) {
         if (LtiB->Ver.Lns[i].Flags != LtiA->Ver.Lns[i].Flags) {
             if (!(LtiA->Ver.Lns[i].Flags & LI_IsTrue) && (LtiB->Ver.Lns[i].Flags & LI_IsTrue)) {
                 if (SVLCount != 0 && bShowStepDebug)
-                    LDPUMA_WaitUserInput(Image->hDebugSVLinesStep, NULL);
+                    LDPUMA_WaitUserInput(NULL, NULL);
 
                 if (bShowDebug || bShowStepDebug) {
                     j
@@ -260,7 +117,7 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
                                     LtiB->Ver.Lns[i].B.x(), LtiB->Ver.Lns[i].B.y(),
                                     LtiB->Ver.Lns[i].Thickness, LtiA->Ver.Lns[i].Flags,
                                     LtiB->Ver.Lns[i].Flags);
-                    j += sprintf(str + j, " - удалить");
+                    j += sprintf(str + j, " - delete");
                     j += sprintf(str + j, "\n");
 
                     if (bShowDebugData)
@@ -304,14 +161,14 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
     }
 
     if (bShowDebug || bShowStepDebug) {
-        if (j == 0 && bShowDebugData) {
-            LDPUMA_Console("VSL: Нужных изменений не найдено\n");
+        if (j == 0) {
+            if(bShowDebugData)
+                LDPUMA_Console("VSL: Нужных изменений не найдено\n");
         }
-
         else {
             LDPUMA_Console("VSL: Найдено %i линий. Нажми на что нибудь и пойдем дальше...\n",
                     SVLCount);
-            LDPUMA_WaitUserInput(Image->hDebugSVLines, NULL);
+            LDPUMA_WaitUserInput(NULL, NULL);
             LDPUMA_DeleteLines(NULL, 315);
             LDPUMA_DeleteRects(NULL, 316);
             ZoomRect.top = 0;

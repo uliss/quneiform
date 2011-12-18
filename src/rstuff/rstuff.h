@@ -73,6 +73,10 @@ public:
     struct Exception : public std::runtime_error {
         Exception(const std::string& msg) : std::runtime_error(msg) {}
     };
+
+    enum flag_t {
+        SKIP_LINE_SEARCH = 1
+    };
 public:
     RStuff();
     ~RStuff();
@@ -81,13 +85,27 @@ public:
     void setCallbacks(RSCBProgressPoints * cb);
     void setImageData(RSPreProcessImage * imageData);
     void setRecognizeOptions(const RecognizeOptions& ropts);
+
+    bool hasFlag(flag_t f) { return flags_ & f; }
+    void setFlag(flag_t f, bool value) { value ? setFlag(f) : unsetFlag(f); }
+    void setFlag(flag_t f) { flags_ |= f; }
+    void unsetFlag(flag_t f) { flags_ &= (~f); }
 private:
     static void * mainBuffer();
     static void * workBuffer();
 private:
+    void calculateIncline();
+    void createContainerBigComp();
+    void killLines();
+    void ortoMove();
+    void preProcessImage();
+    void searchLines();
+    void searchNewLines();
+private:
     RSPreProcessImage * image_data_;
     uchar * buffer_main_;
     uchar * buffer_work_;
+    int flags_;
 };
 
 }

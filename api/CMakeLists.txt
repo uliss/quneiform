@@ -1,3 +1,6 @@
 if(CF_API)
     add_subdirectory(c)
+    if(WITH_SWIG)
+        add_subdirectory(swig)
+    endif()
 endif()

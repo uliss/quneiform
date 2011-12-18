@@ -55,12 +55,15 @@
  */
 
 #include <fstream>
+#include <boost/current_function.hpp>
 
 #include "pagemarker.h"
 #include "rmfunc.h"
-#include "shortverticallinesfilter.h"
+#include "svlprocessor.h"
 #include "dpuma.h"
 #include "common/recognizeoptions.h"
+#include "common/debug.h"
+#include "common/cifconfig.h"
 #include "lns/lnsdefs.h"
 #include "rblock/rblock.h"
 #include "rline/rline.h"
@@ -68,30 +71,29 @@
 #include "rpic/rpic.h"
 #include "rselstr/rselstr.h"
 
-static Handle hDebugPictures = NULL;
-static Handle hDebugNeg = NULL;
 static Handle hDebugLinePass3 = NULL;
 static Handle hDebugLinePass2 = NULL;
 static Handle hDebugVerifLine = NULL;
-static Handle hDebugCancelExtractBlocks = NULL;
-static Handle hDebugCancelSearchPictures = NULL;
-static Handle hDebugSVLines = NULL;
-static Handle hDebugSVLinesStep = NULL;
-static Handle hDebugSVLinesData = NULL;
-static Handle hDebugLayoutFromFile = NULL;
 
 namespace cf
 {
+
+int PageMarker::flags_ = 0;
 
 PageMarker::PageMarker() :
     image_data_(NULL),
     cpage_(NULL),
     comp_cont_(NULL),
-    cline_(NULL),
-    kill_vsl_components_(true)
+    cline_(NULL)
 {
     RNEG_Init(0, NULL);
     image_data_ = new RMPreProcessImage;
+
+#ifndef _NDEBUG
+    setFlag(DEBUG_SVL);
+    setFlag(DEBUG_SVL_STEP);
+    setFlag(DEBUG_SVL_DATA);
+#endif
 }
 
 PageMarker::~PageMarker()
@@ -104,87 +106,109 @@ Handle PageMarker::cpage() {
     return cpage_;
 }
 
+void PageMarker::extractBlocks()
+{
+    if(hasFlag(SKIP_EXTRACT_BLOCKS)) {
+        Debug() << "Markup: automatic layout skipped.\n";
+        return;
+    }
+
+    Bool32 search_picture = image_data_->searchPictures ? TRUE : FALSE;
+    RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &search_picture);
+    RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_data_->gbOneColumn));
+
+    if (!RBLOCK_ExtractTextBlocks(image_data_->hCCOM, image_data_->hCPAGE, image_data_->hCLINE)) {
+        Debug() << BOOST_CURRENT_FUNCTION
+                << " RBLOCK_ExtractTextBlocks failed with code: "
+                << RBLOCK_GetReturnCode() << std::endl;
+
+        throw Exception("extractBlocks failed.");
+    }
+}
+
+void PageMarker::linePass3()
+{
+    if (LDPUMA_Skip(hDebugLinePass3)
+            && LDPUMA_Skip(hDebugVerifLine)
+            && LDPUMA_Skip(hDebugLinePass2))
+        RLINE_LinesPass3(image_data_->hCPAGE, image_data_->hCLINE, image_data_->hCCOM, (uchar) image_data_->gnLanguage);
+}
+
+void PageMarker::processShortVerticalLines()
+{
+    SVLProcessor processor(image_data_);
+
+    // count short lines
+    processor.countSVLStep1();
+
+    BigImage big_image(image_data_->hCPAGE);
+
+    // obvious pictures search
+    searchPictures(big_image.hCCOM);
+    searchNegatives(big_image.hCCOM);
+    linePass3();
+
+    // снова подсчитываем короткие вертикальные линии
+    processor.countSVLStep2();
+    // и сравниваем с предыдущим результатом
+    processor.filter();
+}
+
+void PageMarker::restoreLayout()
+{
+    image_data_->hCPAGE = CPAGE_RestorePage(TRUE, layout_filename_.c_str());
+
+    if (image_data_->hCPAGE == NULL) {
+        Debug() << BOOST_CURRENT_FUNCTION
+                << " CPAGE_RestorePage failed with code: "
+                << CPAGE_GetReturnCode() << std::endl;
+
+        throw Exception("CPAGE_RestorePage failed");
+    }
+
+    CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_data_->hCPAGE));
+    Debug() << "Layout restored from file: \"" << layout_filename_ << "\"\n";
+}
+
 void PageMarker::markupPage()
 {
-    initSVLBuffer();
+    processShortVerticalLines();
 
-    Bool32 rc = ShortVerticalLinesProcess(PUMA_SVL_FIRST_STEP, image_data_);
+    if (hasFlag(DEBUG_LAYOUT_FROM_FILE))
+        restoreLayout();
+    else
+        extractBlocks();
 
-    BigImage big_Image;
-    //default Image:
+    cpage_ = image_data_->hCPAGE;
+}
+
+void PageMarker::searchNegatives(CCOM_cont * cont)
+{
+    if(hasFlag(SKIP_SEARCH_PICTURES))
+        return;
+
+    assert(image_data_);
+
     PAGEINFO info;
     GetPageInfo(image_data_->hCPAGE, &info);
 
-    for (int i = 0; i < CPAGE_MAXNAME; i++)
-        big_Image.ImageName[i] = info.szImageName[i];
+    RNEG_RecogNeg(cont, image_data_->hCPAGE, (uchar*) info.szImageName, info.Incline2048);
+}
 
-    Handle h = CPAGE_GetBlockFirst(image_data_->hCPAGE, TYPE_BIG_COMP);
+void PageMarker::searchPictures(CCOM_cont * contBig) {
+    if(hasFlag(SKIP_SEARCH_PICTURES))
+        return;
 
-    if (h) {
-        CPAGE_GetBlockData(image_data_->hCPAGE, h, TYPE_BIG_COMP, &big_Image, sizeof(BigImage));
-        CPAGE_DeleteBlock(image_data_->hCPAGE, h);
+    if(!image_data_->searchPictures)
+        return;
+
+    if(!RPIC_SearchPictures(image_data_->hCCOM, contBig, image_data_->hCPAGE)) {
+        Debug() << BOOST_CURRENT_FUNCTION
+                << "RPIC_SearchPictures failed with code: "
+                << RPIC_GetReturnCode() << "\n";
+
+        throw Exception("Picture search failed.");
     }
-
-    //Поиск очевидных картинок
-    if (rc)
-        rc = SearchPictures(image_data_, big_Image);
-
-    //Поиск негативов
-    if (rc)
-        rc = SearchNeg(image_data_, big_Image, info.Incline2048);
-
-    //Третий проход по линиям
-    if (LDPUMA_Skip(hDebugLinePass3) && LDPUMA_Skip(hDebugVerifLine)
-            && LDPUMA_Skip(hDebugLinePass2)) {
-        if (rc)
-            RLINE_LinesPass3(image_data_->hCPAGE, image_data_->hCLINE, image_data_->hCCOM, (uchar) image_data_->gnLanguage);
-    }
-
-    ////снова подсчитываем короткие вертикальные линии и сравниваем с предыдущим результатом
-    if (rc) {
-        rc = ShortVerticalLinesProcess(PUMA_SVL_SECOND_STEP, image_data_);
-    }
-
-    ShortVerticalLinesProcess(PUMA_SVL_THRID_STEP, image_data_);
-
-    freeSVLBuffer();
-
-    // blocks
-    if (!LDPUMA_Skip(image_data_->hDebugLayoutFromFile)) {
-        image_data_->hCPAGE = CPAGE_RestorePage(TRUE, image_data_->szLayoutFileName);
-
-        if (image_data_->hCPAGE == NULL) {
-            SetReturnCode_rmarker(CPAGE_GetReturnCode());
-            rc = FALSE;
-        }
-
-        else {
-            CPAGE_SetCurrentPage(CPAGE_GetNumberPage(image_data_->hCPAGE));
-            LDPUMA_Console("Layout восстановлен из файла '%s'\n", image_data_->szLayoutFileName);
-        }
-    }
-    else if (rc) {
-        if (LDPUMA_Skip(image_data_->hDebugCancelExtractBlocks)) {
-            Bool32 bEnableSearchPicture = image_data_->gnPictures;
-            RBLOCK_SetImportData(RBLOCK_Bool32_SearchPicture, &bEnableSearchPicture);
-            RBLOCK_SetImportData(RBLOCK_Bool32_OneColumn, &(image_data_->gbOneColumn));
-
-            if (!RBLOCK_ExtractTextBlocks(image_data_->hCCOM, image_data_->hCPAGE, image_data_->hCLINE)) {
-                SetReturnCode_rmarker(RBLOCK_GetReturnCode());
-                rc = FALSE;
-            }
-        }
-
-        else
-            LDPUMA_Console("Пропущен этап автоматического Layout.\n");
-    }
-
-    CCOM_DeleteContainer(big_Image.hCCOM);
-
-    if(!rc)
-        throw Exception("markupPage failed");
-
-    cpage_ = image_data_->hCPAGE;
 }
 
 void PageMarker::setComponentContainer(CCOM_cont * cont) {
@@ -200,7 +224,7 @@ void PageMarker::setCPage(Handle cpage) {
 }
 
 void PageMarker::setKillVSLComponents(bool value) {
-    kill_vsl_components_ = value;
+    image_data_->gKillVSLComponents = value;
 }
 
 void PageMarker::setLayoutFilename(const std::string& fname) {
@@ -209,59 +233,14 @@ void PageMarker::setLayoutFilename(const std::string& fname) {
 
 void PageMarker::setOptions(const RecognizeOptions& opts) {
     image_data_->gbOneColumn = opts.oneColumn();
-    image_data_->gKillVSLComponents = kill_vsl_components_;
     image_data_->hCPAGE = cpage_;
     image_data_->hCCOM = comp_cont_;
     image_data_->hCLINE = cline_;
-    image_data_->gnPictures = opts.pictureSearch();
+    image_data_->searchPictures = opts.pictureSearch();
     image_data_->gnLanguage = opts.language();
-    image_data_->hDebugCancelSearchPictures = hDebugCancelSearchPictures;
-    image_data_->hDebugLayoutFromFile = hDebugLayoutFromFile;
-    image_data_->hDebugCancelExtractBlocks = hDebugCancelExtractBlocks;
-    image_data_->hDebugSVLines = hDebugSVLines;
-    image_data_->hDebugSVLinesStep = hDebugSVLinesStep;
-    image_data_->hDebugSVLinesData = hDebugSVLinesData;
-    image_data_->szLayoutFileName = layout_filename_.c_str();
+    image_data_->hDebugSVLines = hasFlag(DEBUG_SVL);
+    image_data_->hDebugSVLinesStep = hasFlag(DEBUG_SVL_STEP);
+    image_data_->hDebugSVLinesData = hasFlag(DEBUG_SVL_DATA);
 }
 
 }
-
-extern Handle hPrep;
-extern Handle hEnd;
-
-static uint32_t gwRC = 0;
-
-void SetReturnCode_rmarker(uint32_t rc)
-{
-    gwRC = rc;
-}
-
-Bool32 SearchNeg(PRMPreProcessImage Image, BigImage big_Image, int skew)
-{
-    if (!LDPUMA_Skip(hDebugNeg))
-        return TRUE;
-
-    RNEG_RecogNeg(big_Image.hCCOM, Image->hCPAGE, big_Image.ImageName, skew);
-    return TRUE;
-}
-
-Bool32 SearchPictures(PRMPreProcessImage Image, BigImage big_Image)
-{
-    Bool32 rc = TRUE;
-
-    if (!LDPUMA_Skip(hDebugPictures))
-        return TRUE;
-
-    if (rc && LDPUMA_Skip(Image->hDebugCancelSearchPictures)) {
-        if (Image->gnPictures) {
-            if (!RPIC_SearchPictures(Image->hCCOM, big_Image.hCCOM, Image->hCPAGE)) {
-                uint32_t RPicRetCode = RPIC_GetReturnCode();
-                SetReturnCode_rmarker(RPicRetCode);
-                rc = FALSE;
-            }
-        }
-    }
-
-    return rc;
-}
-
