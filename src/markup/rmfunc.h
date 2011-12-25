@@ -67,8 +67,6 @@
 #include "linedefs.h"
 #include "common/lang_def.h"
 
-#define  TYPE_BIG_COMP     CPAGE_GetInternalType("TYPE_BIG_COMP")
-
 struct BigImage
 {
 public:
@@ -78,10 +76,10 @@ public:
         GetPageInfo(page, &info);
         setImageName(info.szImageName);
 
-        Handle h = CPAGE_GetBlockFirst(page, TYPE_BIG_COMP);
+        Handle h = CPAGE_GetBlockFirst(page, CPAGE_GetInternalType("TYPE_BIG_COMP"));
 
         if (h) {
-            CPAGE_GetBlockData(page, h, TYPE_BIG_COMP, this, sizeof(BigImage));
+            CPAGE_GetBlockData(page, h, CPAGE_GetInternalType("TYPE_BIG_COMP"), this, sizeof(BigImage));
             CPAGE_DeleteBlock(page, h);
         }
     }
