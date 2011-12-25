@@ -71,10 +71,6 @@
 #include "rpic/rpic.h"
 #include "rselstr/rselstr.h"
 
-static Handle hDebugLinePass3 = NULL;
-static Handle hDebugLinePass2 = NULL;
-static Handle hDebugVerifLine = NULL;
-
 namespace cf
 {
 
@@ -128,10 +124,10 @@ void PageMarker::extractBlocks()
 
 void PageMarker::linePass3()
 {
-    if (LDPUMA_Skip(hDebugLinePass3)
-            && LDPUMA_Skip(hDebugVerifLine)
-            && LDPUMA_Skip(hDebugLinePass2))
-        RLINE_LinesPass3(image_data_->hCPAGE, image_data_->hCLINE, image_data_->hCCOM, (uchar) image_data_->gnLanguage);
+    RLINE_LinesPass3(image_data_->hCPAGE,
+                     image_data_->hCLINE,
+                     image_data_->hCCOM,
+                     (uchar) image_data_->gnLanguage);
 }
 
 void PageMarker::processShortVerticalLines()
