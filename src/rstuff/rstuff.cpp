@@ -16,6 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <string.h>
 #include <iostream>
 #include <boost/current_function.hpp>
 
@@ -85,6 +86,11 @@ void RStuff::calculateIncline()
     CalcIncline(image_data_);
 }
 
+void RStuff::checkImageResolution()
+{
+    checkResolution(*(image_data_->phCCOM), image_data_->hCPAGE);
+}
+
 void RStuff::createContainerBigComp()
 {
     CreateContainerBigComp(image_data_);
@@ -123,7 +129,49 @@ void RStuff::ortoMove()
 
 void RStuff::preProcessImage()
 {
-    PreProcessImage(image_data_);
+    Handle cpage = image_data_->hCPAGE;
+    const char * glpRecogName = *image_data_->pglpRecogName;
+    BitmapInfoHeader * info = image_data_->pinfo;
+    uint32_t Angle = 0;
+
+    // init CPAGE container
+    PAGEINFO page_info;
+    GetPageInfo(cpage, &page_info);
+    strcpy(page_info.szImageName, glpRecogName);
+    page_info.BitPerPixel = info->biBitCount;
+    page_info.DPIX = info->biXPelsPerMeter * 254L / 10000;
+    page_info.DPIY = info->biYPelsPerMeter * 254L / 10000;
+    page_info.Height = info->biHeight;
+    page_info.Width = info->biWidth;
+    page_info.Incline2048 = 0;
+    page_info.Page = 1;
+    page_info.Angle = Angle;
+    SetPageInfo(cpage, page_info);
+
+    // extract components
+    if (SKIP_COMPONENT_EXTRACT) {
+        ExtractComponents(image_data_->gbAutoRotate, NULL, glpRecogName, image_data_);
+        //проверим наличие разрешения и попытаемся определить по компонентам, если его нет
+        checkImageResolution();
+    } else
+        Debug() << "Component extraction skipped\n";
+
+    // reinit CPAGE container
+    {
+        PAGEINFO page_info;
+        GetPageInfo(cpage, &page_info);
+        strcpy(page_info.szImageName, glpRecogName);
+        page_info.BitPerPixel = info->biBitCount;
+        page_info.DPIX = page_info.DPIX < 200 ? 200 : page_info.DPIX;
+        page_info.DPIY = page_info.DPIY < 200 ? 200 : page_info.DPIY;
+        page_info.Height = info->biHeight;
+        page_info.Width = info->biWidth;
+        page_info.Incline2048 = 0;
+        page_info.Page = 1;
+        page_info.Angle = Angle;
+
+        SetPageInfo(cpage, page_info);
+    }
 }
 
 void RStuff::searchNewLines()

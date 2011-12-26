@@ -75,7 +75,8 @@ public:
     };
 
     enum flag_t {
-        SKIP_LINE_SEARCH = 1
+        SKIP_LINE_SEARCH = 1,
+        SKIP_COMPONENT_EXTRACT = 2
     };
 public:
     RStuff();
@@ -95,6 +96,7 @@ private:
     static void * workBuffer();
 private:
     void calculateIncline();
+    void checkImageResolution();
     void createContainerBigComp();
     void killLines();
     void ortoMove();

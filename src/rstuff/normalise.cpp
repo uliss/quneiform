@@ -69,6 +69,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "common/debug.h"
 #include "rsfunc.h"
 #include "rsglobaldata.h"
 #include "rsmemory.h"
@@ -216,11 +217,11 @@ Bool32 KillLinesN(PRSPreProcessImage Image) {
 // (07.07.2000) Изначально взято из puma.dll без изменений
 // сильно привязана к пуме
 // в начале окучиваем выделение компонент
-Bool32 PreProcessImage(PRSPreProcessImage Image) {
-	Bool32 gbAutoRotate = Image->gbAutoRotate;
-	Handle hCPAGE = Image->hCPAGE;
-	const char * glpRecogName = *Image->pglpRecogName;
-        BitmapInfoHeader * info = Image->pinfo;
+Bool32 PreProcessImage(PRSPreProcessImage image) {
+    Bool32 gbAutoRotate = image->gbAutoRotate;
+    Handle hCPAGE = image->hCPAGE;
+    const char * glpRecogName = *image->pglpRecogName;
+    BitmapInfoHeader * info = image->pinfo;
 	uint32_t Angle = 0;
 
 	hWndTurn = 0;
@@ -245,10 +246,10 @@ Bool32 PreProcessImage(PRSPreProcessImage Image) {
 	SetPageInfo(hCPAGE, PInfo);
 
 	// Выделим компоненты
-	if (LDPUMA_Skip(Image->hDebugCancelComponent)) {
-		ExtractComponents(gbAutoRotate, NULL, glpRecogName, Image);
+    if (LDPUMA_Skip(image->hDebugCancelComponent)) {
+        ExtractComponents(gbAutoRotate, NULL, glpRecogName, image);
 		//проверим наличие разрешения и попытаемся определить по компонентам, если его нет
-		checkResolution(*(Image->phCCOM), hCPAGE);
+        checkResolution(*(image->phCCOM), hCPAGE);
 	} else
 		LDPUMA_Console("Пропущен этап выделения компонент.\n");
 
@@ -784,72 +785,140 @@ Bool32 CalcIncline(PRSPreProcessImage Image) {
 
 	return TRUE;
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////
+
+struct ComponentHystogram
+{
+    ComponentHystogram() :
+        x_peak(0),
+        y_peak(0),
+        x_peak_idx(0),
+        y_peak_idx(0)
+    {
+        memset(x, 0, sizeof(x[0]) * SIZE);
+        memset(y, 0, sizeof(y[0]) * SIZE);
+    }
+
+    void fill(CCOM_handle hCCOM)
+    {
+        CCOM_comp * pcomp = CCOM_GetFirst(hCCOM, NULL);
+
+        while(pcomp) {
+            if(pcomp->h >= (int) MIN_COMPONENT && pcomp->h < (int) MAX_COMPONENT)
+                y[pcomp->h]++;
+
+            if(pcomp->w >= (int) MIN_COMPONENT && pcomp->w < (int) MAX_COMPONENT)
+                x[pcomp->w]++;
+
+            pcomp = CCOM_GetNext(pcomp, NULL);
+        }
+    }
+
+    void calculatePeak()
+    {
+        for(size_t i = (MIN_COMPONENT + 1); i < (SIZE - 1); i++) {
+            const unsigned int sum_y = y[i - 1] + y[i] + y[i + 1];
+
+            if(sum_y > y_peak) {
+                y_peak_idx = i;
+                y_peak = sum_y;
+            }
+
+            const unsigned int sum_x = x[i - 1] + x[i] + x[i + 1];
+
+            if(sum_x > x_peak) {
+                x_peak_idx = i;
+                x_peak = sum_x;
+            }
+        }
+
+        cf::Debug() << "[RStuff] x_peak=" << x_peak << "; y_peak=" << y_peak << "\n";
+    }
+
+    bool hasXPeak() const
+    {
+        return (y_peak_idx > MIN_COMPONENT) && (y_peak > MAX_COMPONENT);
+    }
+
+    bool isXCorrectionNeeded(const PAGEINFO& page_info) const
+    {
+        return (x_peak_idx > MIN_COMPONENT) && (x_peak > MAX_COMPONENT)
+                && !( (page_info.DPIX * 22) < (2 * 300 * x_peak_idx)
+                      && (2 * page_info.DPIX * 22) > (300 * x_peak_idx));
+    }
+
+    bool isYCorrectionNeeded(const PAGEINFO& page_info) const
+    {
+        if (hasXPeak() && !( (page_info.DPIY * 22) < (2 * 300 * y_peak_idx)
+                      && (2 * page_info.DPIY * 22) > (300 * y_peak_idx)))
+            return true;
+        else
+            return false;
+    }
+
+    unsigned int xCorrection() const
+    {
+        return (300 * x_peak_idx + 11) / 22;
+    }
+
+    unsigned int yCorrection() const
+    {
+        return (300 * y_peak_idx + 11) / 22;
+    }
+
+    static const int DOTS_PER_INCH = 22;
+    static const size_t SIZE = 100;
+    static const size_t MIN_COMPONENT = 10;
+    static const size_t MAX_COMPONENT = SIZE;
+    unsigned int x[SIZE];
+    unsigned int y[SIZE];
+    unsigned int x_peak;
+    unsigned int y_peak;
+    size_t x_peak_idx;
+    size_t y_peak_idx;
+};
+
+static inline bool isValidResolution(const PAGEINFO& info)
+{
+    static const size_t MINIMAL_RESOLUTION = 99;
+
+    if (info.DPIX > MINIMAL_RESOLUTION && info.DPIY > MINIMAL_RESOLUTION) {
+        cf::Debug() << "[RStuff] no resolution correction: " << info.DPIX << "x" << info.DPIY << "\n";
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 void checkResolution(CCOM_handle hCCOM, Handle hCPAGE) {
-	PAGEINFO page_info;
-	const int min_res = 99;
-	CCOM_comp* pcomp = NULL;
-	unsigned int Masy[100], Masx[100], i, Jy_m = 0, My_m = 0, Jx_m = 0, Mx_m =
-			0, M_t;
-	bool flag_set = false;
+    PAGEINFO page_info;
+    if (!GetPageInfo(hCPAGE, &page_info))
+        return;
 
-	if (!GetPageInfo(hCPAGE, &page_info))
-		return;
+    bool changed = false;
 
-	if (page_info.DPIX > min_res && page_info.DPIY > min_res)
-		return;
+    if (isValidResolution(page_info))
+        return;
 
-	for (i = 0; i < 100; i++)
-		Masx[i] = Masy[i] = 0;
+    cf::Debug() << "[RStuff] resolution checking...\n";
 
-	pcomp = CCOM_GetFirst(hCCOM, NULL);
+    ComponentHystogram hyst;
+    hyst.fill(hCCOM);
+    hyst.calculatePeak();
 
-	while (pcomp) {
-		if (pcomp->h > 9 && pcomp->h < 100)
-			Masy[pcomp->h]++;
+    if(hyst.isYCorrectionNeeded(page_info)) {
+        page_info.DPIY = hyst.yCorrection();
+        changed = true;
+    }
 
-		if (pcomp->w > 9 && pcomp->w < 100)
-			Masx[pcomp->w]++;
-
-		pcomp = CCOM_GetNext(pcomp, NULL);
+    if(hyst.isXCorrectionNeeded(page_info)){
+        page_info.DPIX = hyst.xCorrection();
+        changed = true;
 	}
 
-	for (i = 11; i < 99; i++) {
-		M_t = Masy[i - 1] + Masy[i] + Masy[i + 1];
-
-		if (M_t > My_m) {
-			Jy_m = i;
-			My_m = M_t;
-		}
-
-		M_t = Masx[i - 1] + Masx[i] + Masx[i + 1];
-
-		if (M_t > Mx_m) {
-			Jx_m = i;
-			Mx_m = M_t;
-		}
-	}
-
-	if (Jy_m > 10 && My_m > 100 && !(page_info.DPIY * 22 < 2* 300* Jy_m &&
-			2* page_info .DPIY *22 > 300*Jy_m))
-			{
-				page_info.DPIY = (300*Jy_m+11)/22;
-				flag_set = true;
-			}
-
-			if (Jx_m > 10 && Mx_m > 100 && !(page_info.DPIX*22 < 2*300*Jx_m&& 2*page_info.DPIX*22 > 300*Jx_m))
-	{
-		page_info.DPIX = (300*Jx_m+11)/22;
-		flag_set = true;
-	}
-
-	if (flag_set)
-	{
+    if(changed) {
 		SetPageInfo(hCPAGE, page_info);
-
-		if (!LDPUMA_Skip(hDebugPrintResolution))
-			LDPUMA_ConsoleN("новое разрешение: DPIX=%d, DPIY=%d", page_info.DPIX, page_info.DPIY);
+        cf::Debug() << "[RStuff] new resolution: DPIX=" << page_info.DPIX
+                    << ", DPIY=" << page_info.DPIY << "\n";
 	}
 }
-							////////////////////////////////////////////////////////////////////////////////////////////////////
-							// end of file

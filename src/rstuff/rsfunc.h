@@ -92,6 +92,7 @@ Bool32 KillLinesN(PRSPreProcessImage);
 Bool32 Layout(PRSPreProcessImage);
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // обработка сырья
+void checkResolution(CCOM_handle hCCOM, Handle hCPAGE);
 Bool32 PreProcessImage(PRSPreProcessImage);
 Bool32 CreateContainerBigComp(PRSPreProcessImage);
 Bool32 SearchLines(PRSPreProcessImage Image);
@@ -117,10 +118,6 @@ Bool32 MyGetZher(void **, int32_t *, int32_t, Handle);
 Bool32 remove_overlayed(CCOM_comp *, CCOM_handle);
 Bool32 comp_over(CCOM_comp *, CCOM_comp *);
 Bool32 AboutLines(PRSPreProcessImage, Bool32 *, int32_t *);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-// обработка коротких вертикальных линий
-//Bool32    ShortVerticalLinesProcess    ( PRSPreProcessImage, uint32_t );
-//Bool32    ReadSVLFromPageContainer     ( PRSPreProcessImage, void * );
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // калбэки
 void SetCBProgressPoints(PRSCBProgressPoints);
