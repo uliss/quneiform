@@ -91,7 +91,6 @@ void RStuff::checkImageResolution()
 {
     ResolutionChecker checker(*(image_data_->phCCOM), image_data_->hCPAGE);
     checker.check();
-//    checkResolution(*(image_data_->phCCOM), image_data_->hCPAGE);
 }
 
 void RStuff::createContainerBigComp()

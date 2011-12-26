@@ -92,7 +92,6 @@ Bool32 KillLinesN(PRSPreProcessImage);
 Bool32 Layout(PRSPreProcessImage);
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // обработка сырья
-void checkResolution(CCOM_handle hCCOM, Handle hCPAGE);
 Bool32 PreProcessImage(PRSPreProcessImage);
 Bool32 CreateContainerBigComp(PRSPreProcessImage);
 Bool32 SearchLines(PRSPreProcessImage Image);
