@@ -9,12 +9,14 @@ set(RSTUFF_SOURCES
     aboutlines.aboutlin.cpp
     aboutlines.buffer.cpp
     binarise.cpp
+    componenthistogram.cpp
     deletelines.cpp
     dll.cpp
     layout.cpp
     linekiller.cpp
     normalise.cpp
     ortomove.cpp
+    resolutionchecker.cpp
     rsmemory.cpp
     rstimer.cpp
     rstuff.cpp

@@ -24,6 +24,7 @@
 #include "rstuff_local.h"
 #include "rsmemory.h"
 #include "rsfunc.h"
+#include "resolutionchecker.h"
 #include "common/recognizeoptions.h"
 #include "common/debug.h"
 #include "puma/pumadef.h"
@@ -88,7 +89,9 @@ void RStuff::calculateIncline()
 
 void RStuff::checkImageResolution()
 {
-    checkResolution(*(image_data_->phCCOM), image_data_->hCPAGE);
+    ResolutionChecker checker(*(image_data_->phCCOM), image_data_->hCPAGE);
+    checker.check();
+//    checkResolution(*(image_data_->phCCOM), image_data_->hCPAGE);
 }
 
 void RStuff::createContainerBigComp()
