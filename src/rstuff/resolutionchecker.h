@@ -19,9 +19,14 @@
 #ifndef RESOLUTIONCHECKER_H
 #define RESOLUTIONCHECKER_H
 
+#include <vector>
+#include <boost/function.hpp>
+
 #include "ccom/ccom.h"
 
 namespace cf {
+
+typedef boost::function<void (const std::vector<int>&)> HistogramCallback;
 
 class ResolutionChecker
 {
@@ -32,9 +37,13 @@ public:
       * Checks and fixes page resolution
       */
     void check();
+public:
+    static void setHistogramCallback(const HistogramCallback& clb);
 private:
     CCOM_handle ccom_;
     Handle cpage_;
+private:
+    static HistogramCallback hist_callback_;
 };
 
 }

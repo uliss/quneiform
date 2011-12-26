@@ -185,6 +185,16 @@ void ComponentHistogram::printHistogram(std::ostream& os, const unsigned int * h
     }
 }
 
+std::vector<int> ComponentHistogram::heightHistogram() const
+{
+    return std::vector<int>(h_hist_, h_hist_ + MAX_COMP_SIZE);
+}
+
+std::vector<int> ComponentHistogram::widthHistogram() const
+{
+    return std::vector<int>(w_hist_, w_hist_ + MAX_COMP_SIZE);
+}
+
 }
 
 std::ostream& operator<<(std::ostream& os, const cf::ComponentHistogram& hist)

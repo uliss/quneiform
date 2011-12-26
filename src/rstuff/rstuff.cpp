@@ -39,12 +39,12 @@ namespace cf {
 
 static const int MAIN_BUF_SIZE = 500000;
 static const int WORK_BUF_SIZE = 180000;
+int RStuff::flags_ = 0;
 
 RStuff::RStuff() :
     image_data_(NULL),
     buffer_main_(NULL),
-    buffer_work_(NULL),
-    flags_(0)
+    buffer_work_(NULL)
 {
     LDPUMA_Init(0, NULL);
 
@@ -89,6 +89,9 @@ void RStuff::calculateIncline()
 
 void RStuff::checkImageResolution()
 {
+    if(hasFlag(SKIP_RESOLUTION_CHECK))
+        return;
+
     ResolutionChecker checker(*(image_data_->phCCOM), image_data_->hCPAGE);
     checker.check();
 }

@@ -20,6 +20,7 @@
 #define COMPONENTHISTOGRAM_H
 
 #include <iostream>
+#include <vector>
 
 #include "ccom/ccomdefs.h"
 
@@ -40,6 +41,8 @@ public:
     unsigned int xDpi() const;
     unsigned int yDpi() const;
     void print(std::ostream& os) const;
+    std::vector<int> heightHistogram() const;
+    std::vector<int> widthHistogram() const;
 public:
     static const size_t MIN_COMP_SIZE = 10;
     static const size_t MAX_COMP_SIZE = 100;
