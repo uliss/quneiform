@@ -26,6 +26,8 @@
 
 namespace cf {
 
+#define MSG_PREFIX "[RStuff::ResolutionChecker] "
+
 static inline bool isValidResolution(const PAGEINFO& info)
 {
     static const size_t MINIMAL_RESOLUTION = 99;
@@ -44,7 +46,7 @@ void ResolutionChecker::check()
         return;
 
     if(isValidResolution(page_info)) {
-        cf::Debug() << "[RStuff] no resolution correction needed: "
+        cf::Debug() << MSG_PREFIX << "no resolution correction needed: "
                     << page_info.DPIX << "x" << page_info.DPIY << "\n";
         return;
     }
@@ -56,19 +58,19 @@ void ResolutionChecker::check()
     bool changed = false;
 
     if(hyst.isYCorrectionNeeded(page_info)) {
-        page_info.DPIY = hyst.yCorrection();
+        page_info.DPIY = hyst.yDpi();
         changed = true;
     }
 
     if(hyst.isXCorrectionNeeded(page_info)){
-        page_info.DPIX = hyst.xCorrection();
+        page_info.DPIX = hyst.xDpi();
         changed = true;
     }
 
     if(changed) {
         SetPageInfo(cpage_, page_info);
-        cf::Debug() << "[RStuff] new resolution: DPIX=" << page_info.DPIX
-                    << ", DPIY=" << page_info.DPIY << "\n";
+        cf::Debug() << MSG_PREFIX << "new resolution: " << page_info.DPIX
+                    << "x" << page_info.DPIY << "\n";
     }
 
     cf::Debug() << hyst;

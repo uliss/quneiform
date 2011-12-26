@@ -23,7 +23,7 @@
 
 #include "ccom/ccomdefs.h"
 
-struct PAGEINFO;
+class PAGEINFO;
 
 namespace cf {
 
@@ -37,23 +37,22 @@ public:
 
     bool isXCorrectionNeeded(const PAGEINFO& page_info) const;
     bool isYCorrectionNeeded(const PAGEINFO& page_info) const;
-    unsigned int xCorrection() const;
-    unsigned int yCorrection() const;
+    unsigned int xDpi() const;
+    unsigned int yDpi() const;
     void print(std::ostream& os) const;
 public:
-    static const int DOTS_PER_INCH = 22;
-    static const size_t MIN_COMPONENT = 10;
-    static const size_t MAX_COMPONENT = 100;
+    static const size_t MIN_COMP_SIZE = 10;
+    static const size_t MAX_COMP_SIZE = 100;
+    static const size_t MIN_COMMON_COMP_COUNT = 100;
 private:
-    bool hasHeightPeak() const;
     static void printHistogram(std::ostream& os, const unsigned int * h);
 private:
-    unsigned int h_hist_[MAX_COMPONENT]; // height histogram
-    unsigned int w_hist_[MAX_COMPONENT]; // width histogram
-    unsigned int max_height_peak_;
-    unsigned int max_width_peak_;
-    unsigned int common_comp_height_;
-    unsigned int common_comp_width_;
+    unsigned int h_hist_[MAX_COMP_SIZE]; // height histogram
+    unsigned int w_hist_[MAX_COMP_SIZE]; // width histogram
+    unsigned int common_height_count_;
+    unsigned int common_width_count_;
+    unsigned int common_height_;
+    unsigned int common_width_;
 };
 
 }

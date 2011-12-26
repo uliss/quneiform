@@ -30,14 +30,16 @@ namespace cf
 
 #define MSG_PREFIX "[RStuff::ComponentHistogram] "
 
+static const int DEFAULT_DPI = 300;
+
 ComponentHistogram::ComponentHistogram() :
-    max_height_peak_(0),
-    max_width_peak_(0),
-    common_comp_height_(0),
-    common_comp_width_(0)
+    common_height_count_(0),
+    common_width_count_(0),
+    common_height_(0),
+    common_width_(0)
 {
-    memset(w_hist_, 0, sizeof(w_hist_[0]) * MAX_COMPONENT);
-    memset(h_hist_, 0, sizeof(h_hist_[0]) * MAX_COMPONENT);
+    memset(w_hist_, 0, sizeof(w_hist_[0]) * MAX_COMP_SIZE);
+    memset(h_hist_, 0, sizeof(h_hist_[0]) * MAX_COMP_SIZE);
 }
 
 void ComponentHistogram::fill(CCOM_handle hCCOM)
@@ -45,10 +47,10 @@ void ComponentHistogram::fill(CCOM_handle hCCOM)
     CCOM_comp * comp = CCOM_GetFirst(hCCOM, NULL);
 
     while(comp) {
-        if(comp->h >= (int) MIN_COMPONENT && comp->h < (int) MAX_COMPONENT)
+        if(comp->h >= (int) MIN_COMP_SIZE && comp->h < (int) MAX_COMP_SIZE)
             h_hist_[comp->h]++;
 
-        if(comp->w >= (int) MIN_COMPONENT && comp->w < (int) MAX_COMPONENT)
+        if(comp->w >= (int) MIN_COMP_SIZE && comp->w < (int) MAX_COMP_SIZE)
             w_hist_[comp->w]++;
 
         comp = CCOM_GetNext(comp, NULL);
@@ -57,68 +59,86 @@ void ComponentHistogram::fill(CCOM_handle hCCOM)
 
 void ComponentHistogram::calculate()
 {
-    for(size_t i = (MIN_COMPONENT + 1); i < (MAX_COMPONENT - 1); i++) {
+    for(size_t i = (MIN_COMP_SIZE + 1); i < (MAX_COMP_SIZE - 1); i++) {
         const unsigned int height_sum = h_hist_[i - 1] + h_hist_[i] + h_hist_[i + 1];
 
-        if(height_sum > max_height_peak_) {
-            common_comp_height_ = i;
-            max_height_peak_ = height_sum;
+        if(height_sum > common_height_count_) {
+            common_height_ = i;
+            common_height_count_ = height_sum;
         }
 
         const unsigned int width_sum = w_hist_[i - 1] + w_hist_[i] + w_hist_[i + 1];
 
-        if(width_sum > max_width_peak_) {
-            common_comp_width_ = i;
-            max_width_peak_ = width_sum;
+        if(width_sum > common_width_count_) {
+            common_width_ = i;
+            common_width_count_ = width_sum;
         }
     }
 
-    Debug() << MSG_PREFIX << "common component height: " << common_comp_height_ << "\n";
-    Debug() << MSG_PREFIX << "common component width: " << common_comp_width_ << "\n";
-    Debug() << MSG_PREFIX << "most frequent height count: " << max_height_peak_ << "\n";
-    Debug() << MSG_PREFIX << "most frequent width count: " << max_width_peak_ << "\n";
-}
-
-bool ComponentHistogram::hasHeightPeak() const
-{
-    return (common_comp_height_ > MIN_COMPONENT) && (max_height_peak_ > MAX_COMPONENT);
+    Debug() << MSG_PREFIX << "common component height: " << common_height_ << "\n";
+    Debug() << MSG_PREFIX << "common component width: " << common_width_ << "\n";
+    Debug() << MSG_PREFIX << "common height count: " << common_height_count_ << "\n";
+    Debug() << MSG_PREFIX << "common width count: " << common_width_count_ << "\n";
 }
 
 bool ComponentHistogram::isXCorrectionNeeded(const PAGEINFO& page_info) const
 {
-    return (common_comp_width_ > MIN_COMPONENT) && (max_width_peak_ > MAX_COMPONENT)
-            && !( (page_info.DPIX * 22) < (2 * 300 * common_comp_width_)
-                  && (2 * page_info.DPIX * 22) > (300 * common_comp_width_));
+    if(common_width_ < MIN_COMP_SIZE) {
+        Debug() << MSG_PREFIX << "component width is too small\n";
+        return false;
+    }
+
+    if(common_width_count_  < MIN_COMMON_COMP_COUNT) {
+        Debug() << MSG_PREFIX << "not enough common width count: "
+                << common_width_count_ << "\n";
+
+        return false;
+    }
+
+    return !((page_info.DPIX * 22) < (2 * DEFAULT_DPI * common_width_)
+                  && (2 * page_info.DPIX * 22) > (DEFAULT_DPI * common_width_));
 }
 
 bool ComponentHistogram::isYCorrectionNeeded(const PAGEINFO& page_info) const
 {
-    if (hasHeightPeak() && !( (page_info.DPIY * 22) < (2 * 300 * common_comp_height_)
-                         && (2 * page_info.DPIY * 22) > (300 * common_comp_height_)))
-        return true;
-    else
+    if(common_height_ < MIN_COMP_SIZE) {
+        Debug() << MSG_PREFIX << "component height is too small\n";
         return false;
+    }
+
+    if(common_height_count_ < MIN_COMMON_COMP_COUNT) {
+        Debug() << MSG_PREFIX << "not enough common height count: "
+                << common_height_count_ << "\n";
+
+        return false;
+    }
+
+    if((page_info.DPIY * 22) < (2 * DEFAULT_DPI * common_height_)
+            && (2 * page_info.DPIY * 22) > (DEFAULT_DPI * common_height_))
+        return false;
+    else
+        return true;
 }
 
-unsigned int ComponentHistogram::xCorrection() const
+unsigned int ComponentHistogram::xDpi() const
 {
-    return (300 * common_comp_width_ + 11) / 22;
+    return (DEFAULT_DPI * common_width_ + 11) / 22;
 }
 
-unsigned int ComponentHistogram::yCorrection() const
+unsigned int ComponentHistogram::yDpi() const
 {
-    return (300 * common_comp_height_ + 11) / 22;
+    return (DEFAULT_DPI * common_height_ + 11) / 22;
 }
 
 static void printHeader(std::ostream& os, const std::string& msg)
 {
-    os << '\n' << msg << '\n' << std::string(ComponentHistogram::MAX_COMPONENT, '=') << '\n';
+    os << '\n' << msg << '\n' << std::string(ComponentHistogram::MAX_COMP_SIZE, '=') << '\n';
 }
 
 static void printFooter(std::ostream& os)
 {
-    os << std::string(ComponentHistogram::MAX_COMPONENT, '=') << '\n';
-    for(size_t i = 0; i < ComponentHistogram::MAX_COMPONENT; i += 10) {
+    os << std::string(ComponentHistogram::MAX_COMP_SIZE, '=') << '\n';
+    for(size_t i = 0; i < ComponentHistogram::MAX_COMP_SIZE; i += 10) {
         os << i << std::string(8, ' ');
     }
     os << '\n';
@@ -137,20 +157,20 @@ void ComponentHistogram::print(std::ostream& os) const
 
 void ComponentHistogram::printHistogram(std::ostream& os, const unsigned int * hist)
 {
-    static const int ROWS = 10;
+    static const size_t ROWS = 10;
     static const char SPACE = ' ';
     static const char DOT = '*';
-    const unsigned int max_row = (*std::max_element(hist, hist + MAX_COMPONENT));
-    char graph[MAX_COMPONENT][ROWS];
+    const unsigned int max_row = (*std::max_element(hist, hist + MAX_COMP_SIZE));
+    char graph[MAX_COMP_SIZE][ROWS];
 
     // fill with spaces
-    for(size_t c = 0; c < MAX_COMPONENT; c++) {
+    for(size_t c = 0; c < MAX_COMP_SIZE; c++) {
         for(size_t r = 0; r < ROWS; r++)
             graph[c][r] = SPACE;
     }
 
     // add dots
-    for(size_t c = MIN_COMPONENT; c < MAX_COMPONENT; c++) {
+    for(size_t c = MIN_COMP_SIZE; c < MAX_COMP_SIZE; c++) {
         uint row_height = (hist[c] * ROWS) / max_row;
         for(size_t r = 0; r < row_height; r++)
             graph[c][r] = DOT;
@@ -158,7 +178,7 @@ void ComponentHistogram::printHistogram(std::ostream& os, const unsigned int * h
 
     // print hist
     for(size_t r = ROWS; r > 0; r--) {
-        for(size_t c = 0; c < MAX_COMPONENT; c++)
+        for(size_t c = 0; c < MAX_COMP_SIZE; c++)
             os << graph[c][r - 1];
 
         os << '\n';
