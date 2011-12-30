@@ -16,38 +16,59 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RESOLUTIONCHECKER_H
-#define RESOLUTIONCHECKER_H
+#include "histogramwidget.h"
 
-#include <vector>
-#include <boost/function.hpp>
+#include <algorithm>
+#include <QDebug>
+#include <QPainter>
+#include <QPixmap>
 
-#include "ccom/ccom.h"
-
-namespace cf {
-
-class CLA_EXPO ResolutionChecker
+HistogramWidget::HistogramWidget(QWidget *parent) :
+    QLabel(parent),
+    color_(Qt::blue)
 {
-public:
-    ResolutionChecker(CCOM_handle ccom, Handle cpage);
-
-    typedef boost::function<void (const std::vector<int>&)> HistogramCallback;
-
-    /**
-      * Checks and fixes page resolution
-      */
-    void check();
-public:
-    static void setHistogramHeightCallback(const HistogramCallback& clb);
-    static void setHistogramWidthCallback(const HistogramCallback& clb);
-private:
-    CCOM_handle ccom_;
-    Handle cpage_;
-private:
-    static HistogramCallback hist_height_callback_;
-    static HistogramCallback hist_width_callback_;
-};
-
 }
 
-#endif // RESOLUTIONCHECKER_H
+void HistogramWidget::clear()
+{
+}
+
+void HistogramWidget::show(const std::vector<int>& hist)
+{
+    if(hist.empty()) {
+        qDebug() << Q_FUNC_INFO << "histogram is empty";
+        return;
+    }
+
+    const int HEIGHT = 100;
+    const int WIDTH = hist.size();
+    int hist_height = *std::max_element(hist.begin(), hist.end());
+    qreal fraction = qreal(HEIGHT) / hist_height;
+
+    QPixmap * pixmap = new QPixmap(WIDTH, HEIGHT);
+    pixmap->fill();
+    QPainter p(pixmap);
+    p.setPen(QPen(color_, 1));
+
+    for(size_t i = 0; i < hist.size(); i++) {
+        const int h = HEIGHT - (hist[i] * fraction);
+        if(h == HEIGHT)
+            continue;
+
+        p.drawLine(i, HEIGHT, i, h);
+    }
+
+    p.end();
+    setPixmap(*pixmap);
+    delete pixmap;
+}
+
+QColor HistogramWidget::color() const
+{
+    return color_;
+}
+
+void HistogramWidget::setColor(const QColor& color)
+{
+    color_ = color;
+}

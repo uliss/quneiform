@@ -16,38 +16,33 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RESOLUTIONCHECKER_H
-#define RESOLUTIONCHECKER_H
+#ifndef HISTOGRAMWIDGET_H
+#define HISTOGRAMWIDGET_H
 
 #include <vector>
-#include <boost/function.hpp>
+#include <QLabel>
 
-#include "ccom/ccom.h"
-
-namespace cf {
-
-class CLA_EXPO ResolutionChecker
+class HistogramWidget : public QLabel
 {
+    Q_OBJECT
 public:
-    ResolutionChecker(CCOM_handle ccom, Handle cpage);
-
-    typedef boost::function<void (const std::vector<int>&)> HistogramCallback;
+    explicit HistogramWidget(QWidget * parent = 0);
 
     /**
-      * Checks and fixes page resolution
+      * Returns chart color
       */
-    void check();
-public:
-    static void setHistogramHeightCallback(const HistogramCallback& clb);
-    static void setHistogramWidthCallback(const HistogramCallback& clb);
+    QColor color() const;
+
+    /**
+      * Sets chart color
+      */
+    void setColor(const QColor& color);
+
+    void show(const std::vector<int>& hist);
+public slots:
+    void clear();
 private:
-    CCOM_handle ccom_;
-    Handle cpage_;
-private:
-    static HistogramCallback hist_height_callback_;
-    static HistogramCallback hist_width_callback_;
+    QColor color_;
 };
 
-}
-
-#endif // RESOLUTIONCHECKER_H
+#endif // HISTOGRAMWIDGET_H

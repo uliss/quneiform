@@ -16,38 +16,36 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RESOLUTIONCHECKER_H
-#define RESOLUTIONCHECKER_H
+#include "recognitioninternaldata.h"
 
-#include <vector>
-#include <boost/function.hpp>
+#include <QDebug>
 
-#include "ccom/ccom.h"
-
-namespace cf {
-
-class CLA_EXPO ResolutionChecker
+RecognitionInternalData::RecognitionInternalData()
 {
-public:
-    ResolutionChecker(CCOM_handle ccom, Handle cpage);
-
-    typedef boost::function<void (const std::vector<int>&)> HistogramCallback;
-
-    /**
-      * Checks and fixes page resolution
-      */
-    void check();
-public:
-    static void setHistogramHeightCallback(const HistogramCallback& clb);
-    static void setHistogramWidthCallback(const HistogramCallback& clb);
-private:
-    CCOM_handle ccom_;
-    Handle cpage_;
-private:
-    static HistogramCallback hist_height_callback_;
-    static HistogramCallback hist_width_callback_;
-};
-
 }
 
-#endif // RESOLUTIONCHECKER_H
+void RecognitionInternalData::clear()
+{
+    component_height_histogram_.clear();
+    component_width_histogram_.clear();
+}
+
+RecognitionInternalData::Histogram RecognitionInternalData::componetHeightHistogram(const QString& key) const
+{
+    return component_height_histogram_.find(key).value();
+}
+
+RecognitionInternalData::Histogram RecognitionInternalData::componetWidthHistogram(const QString& key) const
+{
+    return component_width_histogram_.find(key).value();
+}
+
+void RecognitionInternalData::setComponentHeightHistogram(const QString& key, const Histogram& hist)
+{
+    component_height_histogram_[key] = hist;
+}
+
+void RecognitionInternalData::setComponentWidthHistogram(const QString& key, const Histogram& hist)
+{
+    component_width_histogram_[key] = hist;
+}

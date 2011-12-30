@@ -34,7 +34,8 @@ static inline bool isValidResolution(const PAGEINFO& info)
     return info.DPIX > MINIMAL_RESOLUTION && info.DPIY > MINIMAL_RESOLUTION;
 }
 
-HistogramCallback ResolutionChecker::hist_callback_;
+ResolutionChecker::HistogramCallback ResolutionChecker::hist_height_callback_;
+ResolutionChecker::HistogramCallback ResolutionChecker::hist_width_callback_;
 
 ResolutionChecker::ResolutionChecker(CCOM_handle ccom, Handle cpage) :
     ccom_(ccom), cpage_(cpage)
@@ -75,15 +76,21 @@ void ResolutionChecker::check()
                     << "x" << page_info.DPIY << "\n";
     }
 
-    if(hist_callback_) {
-        hist_callback_(hist.heightHistogram());
-        hist_callback_(hist.widthHistogram());
-    }
+    if(hist_height_callback_)
+        hist_height_callback_(hist.heightHistogram());
+
+    if(hist_width_callback_)
+        hist_width_callback_(hist.widthHistogram());
 }
 
-void ResolutionChecker::setHistogramCallback(const HistogramCallback& clb)
+void ResolutionChecker::setHistogramHeightCallback(const HistogramCallback& clb)
 {
-    hist_callback_ = clb;
+    hist_height_callback_ = clb;
+}
+
+void ResolutionChecker::setHistogramWidthCallback(const HistogramCallback& clb)
+{
+    hist_width_callback_ = clb;
 }
 
 }

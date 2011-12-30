@@ -26,7 +26,9 @@
 #include "pagerecognizer.h"
 #include "page.h"
 #include "quneiform_debug.h"
+#include "recognitioninternaldata.h"
 #include "rdib/qtimageloader.h"
+#include "resolutionhistogramcallbacksetter.h"
 #include "puma/recognitionfactory.h"
 #include "common/formatoptions.h"
 #include "common/recognizeoptions.h"
@@ -193,7 +195,10 @@ bool PageRecognizer::recognize() {
         PercentCounter recog_counter(counter_);
         recog_counter.setContribution(80);
 
-        RecognitionPtr server = RecognitionFactory::instance().make(SERVER_PROCESS);
+        ResolutionHistogramCallbackSetter hist_clbk(boost::bind(&PageRecognizer::saveResolutionHeightHistogram, this, _1),
+                                                    boost::bind(&PageRecognizer::saveResolutionWidthHistogram, this, _1));
+
+        RecognitionPtr server = RecognitionFactory::instance().make(SERVER_LOCAL);
         if(!server)
             throw std::runtime_error("[PageRecognizer::recognize] recognition server creation failed");
 
@@ -242,4 +247,18 @@ void PageRecognizer::setConfigOptions() {
 
 void PageRecognizer::setPage(Page * p) {
     page_ = p;
+}
+
+void PageRecognizer::saveResolutionHeightHistogram(const std::vector<int>& hist)
+{
+    assert(page_);
+
+    RecognitionInternal::instance().setComponentHeightHistogram(page_->imagePath(), hist);
+}
+
+void PageRecognizer::saveResolutionWidthHistogram(const std::vector<int>& hist)
+{
+    assert(page_);
+
+    RecognitionInternal::instance().setComponentWidthHistogram(page_->imagePath(), hist);
 }

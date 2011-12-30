@@ -16,38 +16,34 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RESOLUTIONCHECKER_H
-#define RESOLUTIONCHECKER_H
+#ifndef RECOGNITIONINTERNALDATA_H
+#define RECOGNITIONINTERNALDATA_H
 
 #include <vector>
-#include <boost/function.hpp>
+#include <QMap>
+#include <QString>
 
-#include "ccom/ccom.h"
+#include "common/singleton.h"
 
-namespace cf {
-
-class CLA_EXPO ResolutionChecker
+class RecognitionInternalData
 {
 public:
-    ResolutionChecker(CCOM_handle ccom, Handle cpage);
+    typedef std::vector<int> Histogram;
 
-    typedef boost::function<void (const std::vector<int>&)> HistogramCallback;
+    RecognitionInternalData();
+    void clear();
 
-    /**
-      * Checks and fixes page resolution
-      */
-    void check();
-public:
-    static void setHistogramHeightCallback(const HistogramCallback& clb);
-    static void setHistogramWidthCallback(const HistogramCallback& clb);
+    Histogram componetHeightHistogram(const QString& key) const;
+    Histogram componetWidthHistogram(const QString& key) const;
+
+    void setComponentHeightHistogram(const QString& key, const Histogram& hist);
+    void setComponentWidthHistogram(const QString& key, const Histogram& hist);
 private:
-    CCOM_handle ccom_;
-    Handle cpage_;
-private:
-    static HistogramCallback hist_height_callback_;
-    static HistogramCallback hist_width_callback_;
+    typedef QMap<QString, Histogram> HistogramMap;
+    HistogramMap component_height_histogram_;
+    HistogramMap component_width_histogram_;
 };
 
-}
+typedef cf::Singleton<RecognitionInternalData> RecognitionInternal;
 
-#endif // RESOLUTIONCHECKER_H
+#endif // RECOGNITIONINTERNALDATA_H

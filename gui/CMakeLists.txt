@@ -25,6 +25,7 @@ set(HEADERS
     dialogs/recognitionprogressdialog.h
     dialogs/settings.h
     widgets/colorbutton.h
+    widgets/histogramwidget.h
     widgets/imageview.h
     widgets/imagewidget.h
     widgets/languagemenu.h
@@ -53,6 +54,8 @@ set(SOURCES
     pagerecognizer.cpp
     pagerecognitionqueue.cpp
     recognitionsettings.cpp
+    resolutionhistogramcallbacksetter.cpp
+    recognitioninternaldata.cpp
     selection.cpp
     selectionshadow.cpp
     translationloader.cpp
@@ -72,6 +75,7 @@ set(SOURCES
     export/qtextdocumentexporter.cpp
     export/rectexporter.cpp
     widgets/colorbutton.cpp
+    widgets/histogramwidget.cpp
     widgets/imageview.cpp
     widgets/imagewidget.cpp
     widgets/languagemenu.cpp
@@ -183,6 +187,7 @@ target_link_libraries (${PROJECT_NAME}
     ${LIBRARIES}
     ${QT_LIBRARIES}
     cuneiform
+    cuneiform-rstuff
     ${EXTRA_LIBS})
 
 install(

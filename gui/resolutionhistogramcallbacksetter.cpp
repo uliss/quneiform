@@ -16,38 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RESOLUTIONCHECKER_H
-#define RESOLUTIONCHECKER_H
+#include "resolutionhistogramcallbacksetter.h"
 
-#include <vector>
-#include <boost/function.hpp>
+#include "rstuff/resolutionchecker.h"
 
-#include "ccom/ccom.h"
-
-namespace cf {
-
-class CLA_EXPO ResolutionChecker
+ResolutionHistogramCallbackSetter::ResolutionHistogramCallbackSetter(const Callback& height, const Callback& width)
 {
-public:
-    ResolutionChecker(CCOM_handle ccom, Handle cpage);
-
-    typedef boost::function<void (const std::vector<int>&)> HistogramCallback;
-
-    /**
-      * Checks and fixes page resolution
-      */
-    void check();
-public:
-    static void setHistogramHeightCallback(const HistogramCallback& clb);
-    static void setHistogramWidthCallback(const HistogramCallback& clb);
-private:
-    CCOM_handle ccom_;
-    Handle cpage_;
-private:
-    static HistogramCallback hist_height_callback_;
-    static HistogramCallback hist_width_callback_;
-};
-
+    cf::ResolutionChecker::setHistogramHeightCallback(height);
+    cf::ResolutionChecker::setHistogramWidthCallback(width);
 }
 
-#endif // RESOLUTIONCHECKER_H
+ResolutionHistogramCallbackSetter::~ResolutionHistogramCallbackSetter()
+{
+    cf::ResolutionChecker::setHistogramHeightCallback(cf::ResolutionChecker::HistogramCallback());
+    cf::ResolutionChecker::setHistogramWidthCallback(cf::ResolutionChecker::HistogramCallback());
+}
