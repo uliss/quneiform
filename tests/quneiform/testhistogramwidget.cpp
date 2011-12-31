@@ -16,41 +16,40 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef HISTOGRAMWIDGET_H
-#define HISTOGRAMWIDGET_H
+#include "testhistogramwidget.h"
 
-#include <vector>
-#include <QLabel>
+#include <QTest>
 
-class HistogramWidget : public QLabel
+#include "widgets/histogramwidget.h"
+
+void TestHistogramWidget::testInit()
 {
-    Q_OBJECT
-public:
-    typedef std::vector<int> Histogram;
+    std::vector<int> data;
+    std::fill_n(std::back_inserter(data), 20, 20);
+    data.push_back(1);
+    data.push_back(2);
+    data.push_back(2);
+    data.push_back(45);
+    data.push_back(32);
+    data.push_back(1);
+    data.push_back(2);
+    data.push_back(1);
+    data.push_back(1);
+    data.push_back(1);
+    data.push_back(0);
+    data.push_back(0);
+    data.push_back(1);
 
-    HistogramWidget(QWidget * parent = 0, const Histogram& h = Histogram());
+    HistogramWidget w;
+    w.setFixedHeight(200);
+    w.setFixedWidth(70);
+    w.setData(data);
+    w.setWindowModality(Qt::WindowModal);
+    w.show();
 
-    /**
-      * Returns chart color
-      */
-    QColor color() const;
+    QTest::qWaitForWindowShown(&w);
 
-    /**
-      * Sets chart color
-      */
-    void setColor(const QColor& color);
+    sleep(100);
+}
 
-    /**
-      * Sets histogram data
-      */
-    void setData(const Histogram& hist);
-public slots:
-    void clear();
-protected:
-    void paintEvent(QPaintEvent * event);
-private:
-    QColor color_;
-    std::vector<int> data_;
-};
-
-#endif // HISTOGRAMWIDGET_H
+QTEST_MAIN(TestHistogramWidget)

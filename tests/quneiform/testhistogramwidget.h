@@ -16,41 +16,16 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef HISTOGRAMWIDGET_H
-#define HISTOGRAMWIDGET_H
+#ifndef TESTHISTOGRAMWIDGET_H
+#define TESTHISTOGRAMWIDGET_H
 
-#include <vector>
-#include <QLabel>
+#include <QObject>
 
-class HistogramWidget : public QLabel
+class TestHistogramWidget : public QObject
 {
     Q_OBJECT
-public:
-    typedef std::vector<int> Histogram;
-
-    HistogramWidget(QWidget * parent = 0, const Histogram& h = Histogram());
-
-    /**
-      * Returns chart color
-      */
-    QColor color() const;
-
-    /**
-      * Sets chart color
-      */
-    void setColor(const QColor& color);
-
-    /**
-      * Sets histogram data
-      */
-    void setData(const Histogram& hist);
-public slots:
-    void clear();
-protected:
-    void paintEvent(QPaintEvent * event);
-private:
-    QColor color_;
-    std::vector<int> data_;
+private slots:
+    void testInit();
 };
 
-#endif // HISTOGRAMWIDGET_H
+#endif // TESTHISTOGRAMWIDGET_H

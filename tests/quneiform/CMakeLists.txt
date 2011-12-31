@@ -12,6 +12,7 @@ set(CF_GUI_TESTS
     cedserializer
     exportsettings
     formatsettings
+    histogramwidget
     imagecache
     imageview
     language

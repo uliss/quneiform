@@ -39,7 +39,7 @@ PagePropertiesDialog::PagePropertiesDialog(Page * p, QWidget * parent) :
     ui_->paragraphs->setNum(p->blocksCount(Page::PARAGRAPH));
     ui_->characters->setNum(p->blocksCount(Page::CHAR));
     ui_->images->setNum(p->blocksCount(Page::PICTURE));
-    ui_->histogram->show(RecognitionInternal::instance().componetHeightHistogram(p->imagePath()));
+    ui_->histogram->setData(RecognitionInternal::instance().componetHeightHistogram(p->imagePath()));
 }
 
 PagePropertiesDialog::~PagePropertiesDialog()
