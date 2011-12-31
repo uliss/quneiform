@@ -42,7 +42,7 @@ void TestHistogramWidget::testInit()
 
     HistogramWidget w;
     w.setFixedHeight(200);
-    w.setFixedWidth(70);
+    w.setFixedWidth(370);
     w.setData(data);
     w.setWindowModality(Qt::WindowModal);
     w.show();

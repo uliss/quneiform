@@ -39,7 +39,11 @@ PagePropertiesDialog::PagePropertiesDialog(Page * p, QWidget * parent) :
     ui_->paragraphs->setNum(p->blocksCount(Page::PARAGRAPH));
     ui_->characters->setNum(p->blocksCount(Page::CHAR));
     ui_->images->setNum(p->blocksCount(Page::PICTURE));
-    ui_->histogram->setData(RecognitionInternal::instance().componetHeightHistogram(p->imagePath()));
+#ifndef NDEBUG
+    ui_->heightHistogram->setData(RecognitionInternal::instance().componetHeightHistogram(p->imagePath()));
+    ui_->widthHistogram->setData(RecognitionInternal::instance().componetWidthHistogram(p->imagePath()));
+#endif
+
 }
 
 PagePropertiesDialog::~PagePropertiesDialog()

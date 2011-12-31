@@ -29,43 +29,13 @@ HistogramWidget::HistogramWidget(QWidget *parent, const Histogram& h) :
     data_(h)
 {
     setMinimumWidth(100);
-    setMinimumHeight(40);
+    setMinimumHeight(100);
 }
 
 void HistogramWidget::clear()
 {
     data_.clear();
 }
-
-//void HistogramWidget::show(const std::vector<int>& hist)
-//{
-//    if(hist.empty()) {
-//        qDebug() << Q_FUNC_INFO << "histogram is empty";
-//        return;
-//    }
-
-//    const int HEIGHT = 100;
-//    const int WIDTH = hist.size();
-//    int hist_height = *std::max_element(hist.begin(), hist.end());
-//    qreal fraction = qreal(HEIGHT) / hist_height;
-
-//    QPixmap * pixmap = new QPixmap(WIDTH, HEIGHT);
-//    pixmap->fill();
-//    QPainter p(pixmap);
-//    p.setPen(QPen(color_, 1));
-
-//    for(size_t i = 0; i < hist.size(); i++) {
-//        const int h = HEIGHT - (hist[i] * fraction);
-//        if(h == HEIGHT)
-//            continue;
-
-//        p.drawLine(i, HEIGHT, i, h);
-//    }
-
-//    p.end();
-//    setPixmap(*pixmap);
-//    delete pixmap;
-//}
 
 QColor HistogramWidget::color() const
 {
@@ -79,10 +49,16 @@ void HistogramWidget::setColor(const QColor& color)
 
 static void drawChart(QPainter& p, const QRect& rect, const HistogramWidget::Histogram& data)
 {
+    if(data.empty())
+        return;
+
     qreal x_stretch = rect.width() / (qreal) data.size();
-    qDebug() << "x stretch:" << x_stretch;
-    qreal y_stretch = rect.height() / (qreal) (*std::max_element(data.begin(), data.end()));
-    qDebug() << "y stretch:" << y_stretch;
+
+    int max_element = *std::max_element(data.begin(), data.end());
+    if(max_element == 0)
+        return;
+
+    qreal y_stretch = rect.height() / (qreal) max_element;
 
     for(size_t i = 0; i < data.size(); i++) {
         int item_height = data[i] * y_stretch;
@@ -95,6 +71,9 @@ static void drawChart(QPainter& p, const QRect& rect, const HistogramWidget::His
 
 static void drawHoriontalScale(QPainter& p, const QRect& bbox, int size)
 {
+    if(size == 0)
+        return;
+
     static const int RULER_FONT_SIZE = 9;
     static const int STEP_WIDTH = 24;
     QFont ruler_font;
@@ -104,10 +83,42 @@ static void drawHoriontalScale(QPainter& p, const QRect& bbox, int size)
     const int text_y_pos = bbox.bottom() - RULER_FONT_SIZE;
 
     qreal x_stretch = bbox.width() / (qreal) size;
+    if(qRound(x_stretch) == 0)
+        return;
 
-    for(int i = 0; i < size; i += (STEP_WIDTH / qRound(x_stretch))) {
+    int indent_step = qRound(STEP_WIDTH / x_stretch);
+
+    for(int i = 0; i < size; i += indent_step) {
+        // skip 0
+        if(i == 0)
+            continue;
+
         int x_pos = bbox.left() + qRound(i * x_stretch);
         p.drawText(QRect(x_pos - STEP_WIDTH / 2, text_y_pos, STEP_WIDTH, RULER_FONT_SIZE),
+                   Qt::AlignCenter,
+                   QString("%1").arg(i));
+    }
+}
+
+static void drawVerticalScale(QPainter& p, const QRect& bbox, int size)
+{
+    if(size == 0)
+        return;
+
+    static const int RULER_FONT_SIZE = 9;
+    static const int STEP_WIDTH = 24;
+    QFont ruler_font;
+    ruler_font.setPixelSize(RULER_FONT_SIZE);
+    p.setFont(ruler_font);
+
+    qreal y_stretch = bbox.height() / (qreal) size;
+
+    if(y_stretch == 0)
+        return;
+
+    for(int i = 0; i < size; i += qRound(STEP_WIDTH / y_stretch)) {
+        int y_pos = bbox.bottom() - qRound(i * y_stretch);
+        p.drawText(QRect(bbox.left(), y_pos, STEP_WIDTH, RULER_FONT_SIZE),
                    Qt::AlignCenter,
                    QString("%1").arg(i));
     }
@@ -131,6 +142,15 @@ static QRect horizontalScaleRect(const QRect& r)
                  QPoint(r.right(), r.bottom()));
 }
 
+static QRect verticalScaleRect(const QRect& r)
+{
+    static const int LEFT_MARGIN = 20;
+    static const int BOTTOM_MARGIN = 20;
+    static const int TOP_MARGIN = 3;
+    return QRect(QPoint(r.left(), r.top() + TOP_MARGIN),
+                 QPoint(r.left() + LEFT_MARGIN, r.bottom() - BOTTOM_MARGIN));
+}
+
 void HistogramWidget::paintEvent(QPaintEvent * event)
 {
     if(data_.empty()) {
@@ -150,7 +170,7 @@ void HistogramWidget::paintEvent(QPaintEvent * event)
     drawHoriontalScale(p, horizontalScaleRect(rect()), data_.size());
 
     // draw vertical scale
-//    drawVertivcalScale(p, rect().bottomLeft(), rect().height(), 2);
+    drawVerticalScale(p, verticalScaleRect(rect()), *std::max_element(data_.begin(), data_.end()));
     p.end();
 }
 
