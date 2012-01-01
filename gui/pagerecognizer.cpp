@@ -198,7 +198,12 @@ bool PageRecognizer::recognize() {
         ResolutionHistogramCallbackSetter hist_clbk(boost::bind(&PageRecognizer::saveResolutionHeightHistogram, this, _1),
                                                     boost::bind(&PageRecognizer::saveResolutionWidthHistogram, this, _1));
 
+#ifndef NDEBUG
         RecognitionPtr server = RecognitionFactory::instance().make(SERVER_LOCAL);
+#else
+        RecognitionPtr server = RecognitionFactory::instance().make(SERVER_PROCESS);
+#endif
+
         if(!server)
             throw std::runtime_error("[PageRecognizer::recognize] recognition server creation failed");
 

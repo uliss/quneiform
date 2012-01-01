@@ -49,7 +49,7 @@ CEDPagePtr LocalRecognitionServer::format() {
         Puma::instance().formatResult();
 
     if(counter_)
-        counter_->add(20);
+        counter_->add(10);
 
     if(state_)
         state_->set(RecognitionState::FORMATTED);
@@ -61,7 +61,7 @@ void LocalRecognitionServer::open(ImagePtr image) {
     Puma::instance().open(image);
 
     if(counter_)
-        counter_->add(10);
+        counter_->add(20);
 
     if(state_)
         state_->set(RecognitionState::OPENED);

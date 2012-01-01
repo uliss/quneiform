@@ -48,8 +48,6 @@ void TestHistogramWidget::testInit()
     w.show();
 
     QTest::qWaitForWindowShown(&w);
-
-    sleep(100);
 }
 
 QTEST_MAIN(TestHistogramWidget)

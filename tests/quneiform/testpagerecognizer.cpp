@@ -101,7 +101,7 @@ void TestPageRecognizer::testRecognize() {
 #if defined(__OpenBSD__)
     QEXPECT_FAIL("", "Cyrrillic support failure", Abort);
 #endif
-    QCOMPARE(rus->document()->toPlainText().trimmed(), QString("PYCCK VI Vl"));
+    QCOMPARE(rus->document()->toPlainText().trimmed(), QString("PYCCKVI Vl"));
     QVERIFY(rus->isRecognized());
     QVERIFY(!rus->hasFlag(Page::RECOGNITION_FAILED));
 
@@ -256,7 +256,7 @@ void TestPageRecognizer::testPercents() {
     QCOMPARE(percents.at(0).at(0).toInt(), 1);
     QCOMPARE(percents.at(1).at(0).toInt(), 10);
     QCOMPARE(percents.at(2).at(0).toInt(), 26);
-    QCOMPARE(percents.at(3).at(0).toInt(), 34);
+    QCOMPARE(percents.at(3).at(0).toInt(), 82);
     QCOMPARE(percents.at(4).at(0).toInt(), 90);
     QCOMPARE(percents.at(5).at(0).toInt(), 100);
 }

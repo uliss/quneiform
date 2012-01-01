@@ -23,6 +23,7 @@
 #include "magickimageloader.h"
 #include "imageloaderfactory.h"
 #include "common/cifconfig.h"
+#include "common/debug.h"
 
 namespace
 {
@@ -63,12 +64,19 @@ void MagickImageLoader::convertColorSpace(Magick::Image& image) {
 
 void MagickImageLoader::convertImageToDib(Magick::Image& image, Magick::Blob& blob) {
     image.magick("DIB");
+
+    if(image.xResolution() == 0 || image.yResolution() == 0) {
+        image.resolutionUnits(MagickCore::PixelsPerInchResolution);
+        image.density(Magick::Geometry(75, 75));
+    }
+
     image.write(&blob);
 }
 
 void MagickImageLoader::convertImageDpi(Magick::Image& image) {
     if (image.magick() == "PDF" | image.magick() == "SVG" || image.magick() == "DJVU") {
         //change from default 72 dpi
+        image.resolutionUnits(MagickCore::PixelsPerInchResolution);
         image.density(Magick::Geometry(MIN_DPI_FOR_VECTOR_FORMAT, MIN_DPI_FOR_VECTOR_FORMAT));
     }
 }
@@ -110,7 +118,7 @@ ImagePtr MagickImageLoader::load(std::istream& stream) {
 ImagePtr MagickImageLoader::load(const std::string& fname) {
     try {
         Magick::Image image;
-        image.density("10");
+        image.density(Magick::Geometry(10, 10));
         image.ping(fname);
         convertImageDpi(image);
         image.read(fname);

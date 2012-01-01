@@ -1,11 +1,13 @@
 add_definitions(-DLOADER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/")
 
+set(testloaders)
+
 if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK)
-    set(testloaders "testmagick.cpp")
+    list(APPEND testloaders testmagick.cpp)
 endif()
 
 if(CF_USE_IMAGE_LIBRARY_QT)
-    set(testloaders ${testloaders} "testqtimageloader.cpp")
+    list(APPEND testloaders testqtimageloader.cpp)
 endif()
 
 add_executable(test_loaders
