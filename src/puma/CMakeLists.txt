@@ -26,7 +26,6 @@ set(CUNEIFORM_HEADERS
 )
 
 set(CUNEIFORM_LIBS
-    cuneiform-load
     cuneiform-common
     cuneiform-ced
     cuneiform-cimage
@@ -49,7 +48,7 @@ set(CUNEIFORM_LIBS
 )
 
 if(CF_USE_SHMEM)
-    list(APPEND CUNEIFORM_LIBS cuneiform-shmem)
+    list(APPEND CUNEIFORM_LIBS cuneiform-shmem cuneiform-load)
 endif()
 
 if(CF_LIB_RT_HAS_SHMOPEN)

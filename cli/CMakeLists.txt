@@ -30,8 +30,10 @@ endif()
 target_link_libraries(cuneiform-cli ${CLI_LIBS})
 install_exe(cuneiform-cli)
 
-add_executable(cuneiform-process cuneiform_process_cli.cpp)
-target_link_libraries(cuneiform-process ${CLI_LIBS})
+if(CF_USE_SHMEM)
+    add_executable(cuneiform-process cuneiform_process_cli.cpp)
+    target_link_libraries(cuneiform-process ${CLI_LIBS})
+endif()
 
 if(TESTS)
     include(CppcheckTargets)
