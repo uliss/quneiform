@@ -33,7 +33,7 @@ ImageExporter::FormatList NullImageExporter::supportedFormats() const {
     return FormatList();
 }
 
-void NullImageExporter::save(const ImageRawData&, std::ostream&) {
+void NullImageExporter::saveToStream(const ImageRawData&, std::ostream&) {
 
 }
 

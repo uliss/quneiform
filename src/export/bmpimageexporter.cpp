@@ -31,7 +31,7 @@ std::string BmpImageExporter::mime() const {
     return "image/x-ms-bmp";
 }
 
-void BmpImageExporter::save(const ImageRawData& image, std::ostream& os) {
+void BmpImageExporter::saveToStream(const ImageRawData& image, std::ostream& os) {
     if (image.isNull())
         throw Exception("[BmpImageExporter::save] null image given");
 

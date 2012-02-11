@@ -36,17 +36,12 @@ class MagickImageExporter: public ImageExporter
         std::string mime() const;
 
         /**
-         * Saves image to output stream
-         * @param image - image data
-         * @param os - output stream
-         */
-        void save(const ImageRawData& image, std::ostream& os);
-
-        /**
          * Returns list of supported formats
          * @return
          */
         FormatList supportedFormats() const;
+    protected:
+        void saveToStream(const ImageRawData& image, std::ostream& os);
 };
 
 }

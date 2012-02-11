@@ -94,7 +94,12 @@ void ImageExporter::save(const ImageRawData& image, const string& path) {
     if (!file)
         throw Exception("[ImageExporter::save] failed to: " + path);
 
-    save(image, file);
+    saveToStream(image, file);
+}
+
+void ImageExporter::save(const ImageRawData& image, ostream& os)
+{
+    saveToStream(image, os);
 }
 
 }

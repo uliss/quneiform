@@ -66,12 +66,12 @@ class ImageExporter
          * Saves image from memory to filename
          * @param output filename
          */
-        virtual void save(const ImageRawData& image, const std::string& path);
+        void save(const ImageRawData& image, const std::string& path);
 
         /**
          * Saves image from memory to stream
          */
-        virtual void save(const ImageRawData& image, std::ostream& os) = 0;
+        void save(const ImageRawData& image, std::ostream& os);
 
         /**
          * Sets export format
@@ -84,6 +84,8 @@ class ImageExporter
          * Returns list of supported formats
          */
         virtual FormatList supportedFormats() const = 0;
+    protected:
+        virtual void saveToStream(const ImageRawData& image, std::ostream& os) = 0;
     public:
         /**
          * Returns string representation of given format

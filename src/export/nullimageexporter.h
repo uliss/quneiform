@@ -34,13 +34,14 @@ class NullImageExporter: public ImageExporter
          */
         std::string mime() const;
 
-        void save(const ImageRawData& image, std::ostream&);
-
         /**
          * Returns empty list
          * @return
          */
         FormatList supportedFormats() const;
+
+    protected:
+        void saveToStream(const ImageRawData& image, std::ostream&);
 };
 
 }

@@ -28,9 +28,15 @@ class BmpImageExporter : public ImageExporter
 {
     public:
         BmpImageExporter();
+
+        /**
+          * Returns  "image/x-ms-bmp"
+          */
         std::string mime() const;
-        void save(const ImageRawData& image, std::ostream& os);
+
         FormatList supportedFormats() const;
+    protected:
+        void saveToStream(const ImageRawData& image, std::ostream& os);
 };
 
 }

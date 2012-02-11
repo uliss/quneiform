@@ -41,7 +41,7 @@ std::string MagickImageExporter::mime() const {
     }
 }
 
-void MagickImageExporter::save(const ImageRawData& image, std::ostream& os) {
+void MagickImageExporter::saveToStream(const ImageRawData& image, std::ostream& os) {
     if (image.isNull())
         throw Exception("[MagickImageExporter::save] null image given");
 
