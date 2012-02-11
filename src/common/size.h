@@ -111,6 +111,8 @@ typedef SizeImpl<int> Size;
 
 }
 
+#ifdef CF_SERIALIZE
 BOOST_IS_BITWISE_SERIALIZABLE(cf::Size)
+#endif
 
 #endif /* SIZE_H_ */

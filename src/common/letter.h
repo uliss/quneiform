@@ -79,6 +79,8 @@ class Letter
 
 }
 
+#ifdef CF_SERIALIZE
 BOOST_IS_BITWISE_SERIALIZABLE(cf::Letter)
+#endif
 
 #endif /* LETTER_H_ */
