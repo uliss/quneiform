@@ -9,7 +9,6 @@ include_directories("../../gui")
 
 set(CF_GUI_TESTS
     cedpageexporter
-    cedserializer
     exportsettings
     formatsettings
     imagecache
@@ -30,6 +29,10 @@ set(CF_GUI_TESTS
     texteditor
     qtextdocumentexporter
 )
+
+if(CF_SERIALIZE)
+    list(APPEND CF_GUI_TESTS cedserializer)
+endif()
 
 if(APPLE)
     list(APPEND CF_GUI_TESTS macstring)
@@ -64,7 +67,7 @@ function(add_gui_tests)
         qt4_wrap_cpp(cf_test_moc "test${t}.h")
         add_executable("test_${t}" "test${t}.h" "test${t}.cpp" ${cf_test_moc})
         target_link_libraries("test_${t}" ${TEST_LIBS})
-        add_test("Quneiform:test_${t}" "${EXECUTABLE_OUTPUT_PATH}/test_${t}")
+        add_test("GUI:test_${t}" "${EXECUTABLE_OUTPUT_PATH}/test_${t}")
     endforeach()
 endfunction()
 
