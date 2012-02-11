@@ -71,7 +71,11 @@ add_subdirectory(rstuff)
 add_subdirectory(rcorrkegl)
 add_subdirectory(smetric)
 add_subdirectory(std)
-add_subdirectory(shmem)
+
+if(USE_SHMEM)
+    add_subdirectory(shmem)
+endif()
+
 add_subdirectory(usage)
 
 install(FILES 

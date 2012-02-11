@@ -18,7 +18,12 @@
 
 #include "recognitionfactory.h"
 #include "localrecognitionserver.h"
+
+#ifdef BUILD_PROCESS_RECOGNITION_SERVER
 #include "processrecognitionserver.h"
+#endif
+
+#include "common/debug.h"
 
 namespace cf {
 
@@ -33,12 +38,18 @@ RecognitionPtr RecognitionFactoryImpl::make(RecognitionServerType type)
     case SERVER_LOCAL:
         ptr_.reset(new LocalRecognitionServer);
         break;
+#ifdef BUILD_PROCESS_RECOGNITION_SERVER
     case SERVER_PROCESS:
         // reuse
         if(ptr_ && dynamic_cast<ProcessRecognitionServer*>(ptr_.get()))
             break;
 
         ptr_.reset(new ProcessRecognitionServer);
+        break;
+#endif
+    default:
+        Debug() << BOOST_CURRENT_FUNCTION << "default recognition server used.\n";
+        ptr_.reset(new LocalRecognitionServer);
         break;
     }
 

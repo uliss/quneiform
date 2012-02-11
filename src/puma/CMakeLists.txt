@@ -2,11 +2,18 @@ add_definitions(-DBOOST_DATE_TIME_NO_LIB)
 
 set(CUNEIFORM_SOURCES
     localrecognitionserver.cpp
-    processrecognitionserver.cpp
     pumaimpl.cpp
     recognitionfactory.cpp
     startprocess.cpp
 )
+
+if(USE_SHMEM)
+    list(APPEND CUNEIFORM_SOURCES processrecognitionserver.cpp)
+    set(BUILD_SHMEM_WORKER True)
+    add_definitions(-DBUILD_PROCESS_RECOGNITION_SERVER)
+else()
+    set(BUILD_SHMEM_WORKER False)
+endif()
 
 if(UNIX)
     list(APPEND CUNEIFORM_SOURCES processtimeoutkiller.cpp)
@@ -39,8 +46,11 @@ set(CUNEIFORM_LIBS
     cuneiform-exc
     cuneiform-rreccom
     cuneiform-rpstr
-    cuneiform-shmem
 )
+
+if(USE_SHMEM)
+    list(APPEND CUNEIFORM_LIBS cuneiform-shmem)
+endif()
 
 if(CF_LIB_RT_HAS_SHMOPEN)
     list(APPEND CUNEIFORM_LIBS rt)
@@ -66,16 +76,18 @@ library_hook(cuneiform)
 add_executable(cuneiform-worker worker.cpp)
 target_link_libraries(cuneiform-worker cuneiform)
 
-if(WIN32)
-    set(WORKER_INSTALL_DIR bin)
-else()
-    set(WORKER_INSTALL_DIR lib/cuneiform)
-endif()
+if(BUILD_SHMEM_WORKER)
+    if(WIN32)
+        set(WORKER_INSTALL_DIR bin)
+    else()
+        set(WORKER_INSTALL_DIR lib/cuneiform)
+    endif()
 
-install(TARGETS cuneiform-worker
-    RUNTIME DESTINATION ${WORKER_INSTALL_DIR}
-    COMPONENT applications
-)
+    install(TARGETS cuneiform-worker
+        RUNTIME DESTINATION ${WORKER_INSTALL_DIR}
+        COMPONENT applications
+    )
+endif()
 
 install(
     FILES
