@@ -4,10 +4,6 @@ if(ICONV_SECOND_ARGUMENT_IS_CONST)
     add_definitions(-DICONV_SECOND_ARGUMENT_IS_CONST)
 endif()
 
-if(Boost_VERSION GREATER 104400 OR Boost_VERSION EQUAL 104400)
-    add_definitions(-DBOOST_FILESYSTEM_VERSION=3)
-endif()
-
 set(COMMON_SOURCES
     cifconfig.cpp
     console_messages.cpp
@@ -64,9 +60,8 @@ add_library(cuneiform-common ${LIBTYPE}
 cif_visibility_hidden(cuneiform-common)
 
 target_link_libraries(cuneiform-common
+    cuneiform-compat
     ${ICONV_LIBRARIES}
-    ${Boost_FILESYSTEM_LIBRARY}
-    ${Boost_SYSTEM_LIBRARY}
 )
 
 install(FILES

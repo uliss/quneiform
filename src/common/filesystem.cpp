@@ -16,22 +16,42 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <boost/filesystem.hpp>
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
+#include <vector>
+#include <string>
 
+#include "cfcompat.h"
 #include "filesystem.h"
 
 namespace cf {
     namespace fs  {
-        bool fileExists(const std::string& fname) {
-            return boost::filesystem::exists(fname);
+        bool fileExists(const std::string& fname)
+        {
+            return (_access(fname.c_str(), 0) == 0);
         }
 
-        std::string baseName(const std::string& path) {
-#ifdef BOOST_FILESYSTEM_VERSION
-            return boost::filesystem::path(path).filename().generic_string();
+        std::string baseName(const std::string& path)
+        {
+
+#ifdef _WIN32
+#define DIRSEP "/\\"
 #else
-            return boost::filesystem::path(path).filename();
+#define DIRSEP "/"
 #endif
+
+#ifndef _WIN32
+            if(path == "/")
+                return "/";
+#endif
+
+            std::vector<std::string> res;
+            boost::algorithm::split(res, path, boost::algorithm::is_any_of(DIRSEP));
+
+            if(res.empty())
+                return "";
+
+            return res.back();
         }
     }
 }

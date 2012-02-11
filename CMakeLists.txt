@@ -43,15 +43,7 @@ endif()
 find_package(Boost 1.33)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
-    find_package(Boost 1.33 COMPONENTS filesystem serialization system)
-
-    if(NOT Boost_FILESYSTEM_FOUND)
-        message(FATAL_ERROR "Boost filesystem required")
-    endif()
-
-    if(NOT Boost_SYSTEM_FOUND)
-        message(FATAL_ERROR "Boost system required")
-    endif()
+    find_package(Boost 1.33 COMPONENTS serialization)
 
     if(Boost_SERIALIZATION_FOUND)
         set(CF_SERIALIZE True)

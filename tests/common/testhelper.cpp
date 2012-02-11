@@ -62,3 +62,12 @@ void TestHelper::testStreamSize() {
     s << "stream";
     CPPUNIT_ASSERT_EQUAL(streamSize(s), (size_t) 6);
 }
+
+void TestHelper::testFileExists() {
+#ifdef _WIN32
+//CPPUNIT_ASSERT(fs::fileExists("C:/Windows/System32/Drivers/hosts"));
+#else
+    CPPUNIT_ASSERT(fs::fileExists("/bin/sh"));
+    CPPUNIT_ASSERT(!fs::fileExists("/not-exists"));
+#endif
+}

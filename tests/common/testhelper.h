@@ -27,9 +27,11 @@ class TestHelper: public CppUnit::TestFixture
     CPPUNIT_TEST(testBaseName);
     CPPUNIT_TEST(testEscapeHtmlSpecialChars);
     CPPUNIT_TEST(testStreamSize);
+    CPPUNIT_TEST(testFileExists);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testBaseName();
+    void testFileExists();
     void testEscapeHtmlSpecialChars();
     void testStreamSize();
 };

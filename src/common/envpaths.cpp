@@ -19,16 +19,17 @@
 #include <cstdlib>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/version.hpp>
 #include <boost/current_function.hpp>
 
+#ifndef _WIN32
+#include <sys/stat.h>
+#endif
+
 #include "envpaths.h"
+#include "filesystem.h"
 #include "common/debug.h"
 
 namespace cf {
-
-namespace fs = boost::filesystem;
 
 PathList envPaths()
 {
@@ -46,23 +47,35 @@ PathList envPaths()
     return res;
 }
 
+static std::string pathConcat(const std::string& path1, const std::string& path2)
+{
+    if(path1.empty())
+        return path2;
+
+    if(path1.at(path1.size() - 1) == '/')
+        return path1 + path2;
+    else
+        return path1 + std::string(1, '/') + path2;
+}
+
 static bool findExeInPath(const std::string& file, const std::string& path)
 {
-    fs::path p(path);
-    p /= file;
+    std::string p = pathConcat(path, file);
 
-    try {
-        if(!fs::exists(p))
-            return false;
+    if(!fs::fileExists(p))
+        return false;
 
-        if(!fs::is_regular_file(p) && !fs::is_symlink(p))
-            return false;
-    }
-    catch(fs::filesystem_error& e) {
-        Debug() << BOOST_CURRENT_FUNCTION << ": " << e.what() << std::endl;
+#ifndef _WIN32
+    struct stat st;
+    if (lstat(p.c_str(), &st)) {
+        Debug() << BOOST_CURRENT_FUNCTION << ": can't get stat info for " << p << "\n";
         return false;
     }
 
+    if((st.st_mode & S_IFMT) != S_IFREG)
+        return false;
+
+#endif
     return true;
 }
 
@@ -74,15 +87,8 @@ static bool findFilesInPath(const PathList& files,
         if(!findExeInPath(files[i], path))
             continue;
 
-        if(foundPath) {
-            fs::path p(path);
-            p /= files[i];
-#if BOOST_VERSION < 104600
-            *foundPath = p.string();
-#else
-            *foundPath = p.generic_string();
-#endif
-        }
+        if(foundPath)
+            *foundPath = pathConcat(path, files[i]);
 
         return true;
     }
@@ -103,20 +109,13 @@ bool findInPaths(const std::string& file, const PathList& paths, std::string * f
 {
     for(size_t i = 0; i < paths.size(); i++) {
         if(findExeInPath(file, paths[i])) {
-            if(foundPath) {
-                fs::path p(paths[i]);
-                p /= file;
-                *foundPath = p.string();
-#if BOOST_VERSION < 104600
-                *foundPath = p.string();
-#else
-                *foundPath = p.generic_string();
-#endif
-            }
+            if(foundPath)
+                *foundPath = pathConcat(paths[i], file);
 
             return true;
         }
     }
+
     return false;
 }
 
