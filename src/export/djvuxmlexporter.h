@@ -32,8 +32,8 @@ class DjvuXmlExporter: public XmlExporter
         DjvuXmlExporter(CEDPagePtr page, const FormatOptions& opts);
         void writeCharacter(CEDChar& chr);
         void writeCharacterBegin(CEDChar& chr);
-        void writeColumnBegin(CEDChar& col);
-        void writeColumnEnd(CEDChar& col);
+        void writeColumnBegin(CEDColumn& col);
+        void writeColumnEnd(CEDColumn& col);
         void writeLineBegin(CEDLine& line);
         void writeLineBreak();
         void writeLineEnd(CEDLine& line);

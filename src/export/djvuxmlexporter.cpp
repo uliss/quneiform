@@ -103,13 +103,13 @@ void DjvuXmlExporter::writeCharacterBegin(CEDChar& chr) {
     }
 }
 
-void DjvuXmlExporter::writeColumnBegin(CEDChar&) {
+void DjvuXmlExporter::writeColumnBegin(CEDColumn&) {
     indent_level_++;
     writeIndent();
     writeStartTag("PAGECOLUMN", "\n");
 }
 
-void DjvuXmlExporter::writeColumnEnd(CEDChar&) {
+void DjvuXmlExporter::writeColumnEnd(CEDColumn&) {
     writeIndent();
     writeCloseTag("PAGECOLUMN", "\n");
     indent_level_--;
