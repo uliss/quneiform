@@ -7,7 +7,7 @@ set(CUNEIFORM_SOURCES
     startprocess.cpp
 )
 
-if(USE_SHMEM)
+if(CF_USE_SHMEM)
     list(APPEND CUNEIFORM_SOURCES processrecognitionserver.cpp)
     set(BUILD_SHMEM_WORKER True)
     add_definitions(-DBUILD_PROCESS_RECOGNITION_SERVER)
@@ -48,7 +48,7 @@ set(CUNEIFORM_LIBS
     cuneiform-rpstr
 )
 
-if(USE_SHMEM)
+if(CF_USE_SHMEM)
     list(APPEND CUNEIFORM_LIBS cuneiform-shmem)
 endif()
 
@@ -73,10 +73,10 @@ add_library(cuneiform ${CF_CUNEIFORM_LIBTYPE}
 target_link_libraries(cuneiform ${CUNEIFORM_LIBS})
 library_hook(cuneiform)
 
-add_executable(cuneiform-worker worker.cpp)
-target_link_libraries(cuneiform-worker cuneiform)
-
 if(BUILD_SHMEM_WORKER)
+    add_executable(cuneiform-worker worker.cpp)
+    target_link_libraries(cuneiform-worker cuneiform)
+
     if(WIN32)
         set(WORKER_INSTALL_DIR bin)
     else()

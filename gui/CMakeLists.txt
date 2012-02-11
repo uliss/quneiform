@@ -86,6 +86,10 @@ set(SOURCES
     widgets/thumbnailwidget.cpp
 )
 
+if(CF_SERIALIZE)
+    set_property(SOURCE export/cedserializer.cpp PROPERTY COMPILE_DEFINITIONS USE_SERIALIZE)
+endif()
+
 set(FORMS 
     dialogs/aboutdialog.ui
     dialogs/exportdialog.ui

@@ -45,7 +45,7 @@ elseif(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
     message(STATUS "Exporters: GraphicsMagick exporter will be build")
 endif()
 
-if(Boost_SERIALIZATION_FOUND)
+if(CF_SERIALIZE)
     list(APPEND exporters cuneiformexporter.cpp
         cuneiformbinexporter.cpp
         cuneiformxmlexporter.cpp)

@@ -72,7 +72,7 @@ add_subdirectory(rcorrkegl)
 add_subdirectory(smetric)
 add_subdirectory(std)
 
-if(USE_SHMEM)
+if(CF_USE_SHMEM)
     add_subdirectory(shmem)
 endif()
 

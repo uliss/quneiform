@@ -23,7 +23,7 @@ if(TESTS)
         add_subdirectory(rstr)
         add_subdirectory(exporters)
         
-        if(USE_SHMEM)
+        if(CF_USE_SHMEM)
             add_subdirectory(shmem)
         endif()
 

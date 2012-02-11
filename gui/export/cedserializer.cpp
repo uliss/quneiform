@@ -22,8 +22,11 @@
 #include <QByteArray>
 
 #include "cedserializer.h"
+
+#ifdef USE_SERIALIZE
 #include "export/cuneiformexporter.h"
 #include "load/cuneiformtextloader.h"
+#endif
 
 CEDSerializer::CEDSerializer(cf::CEDPagePtr page) : page_(page)
 {
@@ -34,6 +37,7 @@ cf::CEDPagePtr CEDSerializer::page() {
 }
 
 QDataStream& operator<<(QDataStream& os, const CEDSerializer& ced) {
+#ifdef USE_SERIALIZE
     if(ced.page_) {
         try {
             std::ostringstream buf;
@@ -53,11 +57,13 @@ QDataStream& operator<<(QDataStream& os, const CEDSerializer& ced) {
     else {
         os << false;
     }
+#endif
 
     return os;
 }
 
 QDataStream& operator>>(QDataStream& is, CEDSerializer& ced) {
+#ifdef USE_SERIALIZE
     bool has_cedpage;
 
     is >> has_cedpage;
@@ -71,6 +77,7 @@ QDataStream& operator>>(QDataStream& is, CEDSerializer& ced) {
         cf::CEDPagePtr page = ld.load(buf);
         ced.page_ = page;
     }
+#endif
 
     return is;
 }

@@ -8,7 +8,7 @@ set(TEST_PUMA_SRC
     teststartprocess.cpp
 )
 
-if(USE_SHMEM)
+if(CF_USE_SHMEM)
     list(APPEND TEST_PUMA_SRC testprocessrecognitionserver.cpp)
 endif()
 
