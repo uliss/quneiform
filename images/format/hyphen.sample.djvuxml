@@ -5,62 +5,64 @@
 <OBJECT height="367" type="image/x.djvu" width="630">
   <HIDDENTEXT>
     <REGION>
-      <PARAGRAPH>
-        <LINE>
-          <WORD coords="11,19,116,45">Lorem</WORD>
-          <WORD coords="159,18,262,52">ipsum</WORD>
-          <WORD coords="304,18,394,45">dolor</WORD>
-          <WORD coords="432,18,473,45">sit</WORD>
-          <WORD coords="511,19,610,50">amet,</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="10,62,222,88">consectetur</WORD>
-          <WORD coords="295,61,473,95">adipiscing</WORD>
-          <WORD coords="548,61,610,88">elit.</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="11,105,121,131">Donec</WORD>
-          <WORD coords="153,104,298,138">placerat</WORD>
-          <WORD coords="326,104,447,131">viverra</WORD>
-          <WORD coords="479,105,550,131">erat</WORD>
-          <WORD coords="579,105,613,131">at</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="9,147,176,174">tincidunt.</WORD>
-          <WORD coords="203,147,425,181">Suspendisse</WORD>
-          <WORD coords="450,147,509,174">sed</WORD>
-          <WORD coords="537,147,611,181">ligu-</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="11,190,37,217">la</WORD>
-          <WORD coords="82,190,178,217">diam.</WORD>
-          <WORD coords="222,190,366,224">Quisque</WORD>
-          <WORD coords="410,190,611,224">scelerisque</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="11,233,186,260">bibendum</WORD>
-          <WORD coords="254,233,403,267">dapibus.</WORD>
-          <WORD coords="469,234,611,267">Suspen-</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="10,276,99,303">disse</WORD>
-          <WORD coords="137,283,198,303">non</WORD>
-          <WORD coords="237,277,308,303">erat</WORD>
-          <WORD coords="344,276,371,303">id</WORD>
-          <WORD coords="409,276,463,303">elit</WORD>
-          <WORD coords="499,276,610,303">lacinia</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="11,319,120,346">iaculis</WORD>
-          <WORD coords="143,319,184,346">sit</WORD>
-          <WORD coords="204,320,295,346">amet</WORD>
-          <WORD coords="317,319,344,346">id</WORD>
-          <WORD coords="369,319,419,346">mi.</WORD>
-          <WORD coords="444,320,471,346">In</WORD>
-          <WORD coords="495,320,529,346">at</WORD>
-          <WORD coords="551,319,611,346">lec-</WORD>
-        </LINE>
-      </PARAGRAPH>
+      <PAGECOLUMN>
+        <PARAGRAPH>
+          <LINE>
+            <WORD coords="11,19,116,45">Lorem</WORD>
+            <WORD coords="159,18,262,52">ipsum</WORD>
+            <WORD coords="304,18,394,45">dolor</WORD>
+            <WORD coords="432,18,473,45">sit</WORD>
+            <WORD coords="511,19,610,50">amet,</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="10,62,222,88">consectetur</WORD>
+            <WORD coords="295,61,473,95">adipiscing</WORD>
+            <WORD coords="548,61,610,88">elit.</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="11,105,121,131">Donec</WORD>
+            <WORD coords="153,104,298,138">placerat</WORD>
+            <WORD coords="326,104,447,131">viverra</WORD>
+            <WORD coords="479,105,550,131">erat</WORD>
+            <WORD coords="579,105,613,131">at</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="9,147,176,174">tincidunt.</WORD>
+            <WORD coords="203,147,425,181">Suspendisse</WORD>
+            <WORD coords="450,147,509,174">sed</WORD>
+            <WORD coords="537,147,611,181">ligu-</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="11,190,37,217">la</WORD>
+            <WORD coords="82,190,178,217">diam.</WORD>
+            <WORD coords="222,190,366,224">Quisque</WORD>
+            <WORD coords="410,190,611,224">scelerisque</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="11,233,186,260">bibendum</WORD>
+            <WORD coords="254,233,403,267">dapibus.</WORD>
+            <WORD coords="469,234,611,267">Suspen-</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="10,276,99,303">disse</WORD>
+            <WORD coords="137,283,198,303">non</WORD>
+            <WORD coords="237,277,308,303">erat</WORD>
+            <WORD coords="344,276,371,303">id</WORD>
+            <WORD coords="409,276,463,303">elit</WORD>
+            <WORD coords="499,276,610,303">lacinia</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="11,319,120,346">iaculis</WORD>
+            <WORD coords="143,319,184,346">sit</WORD>
+            <WORD coords="204,320,295,346">amet</WORD>
+            <WORD coords="317,319,344,346">id</WORD>
+            <WORD coords="369,319,419,346">mi.</WORD>
+            <WORD coords="444,320,471,346">In</WORD>
+            <WORD coords="495,320,529,346">at</WORD>
+            <WORD coords="551,319,611,346">lec-</WORD>
+          </LINE>
+        </PARAGRAPH>
+      </PAGECOLUMN>
     </REGION>
   </HIDDENTEXT>
 </OBJECT>

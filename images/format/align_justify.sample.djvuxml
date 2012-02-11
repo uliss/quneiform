@@ -5,147 +5,149 @@
 <OBJECT height="600" type="image/x.djvu" width="800">
   <HIDDENTEXT>
     <REGION>
-      <PARAGRAPH>
-        <LINE>
-          <WORD coords="22,17,113,40">Lorem</WORD>
-          <WORD coords="156,16,246,46">ipsum</WORD>
-          <WORD coords="287,16,365,40">dolor</WORD>
-          <WORD coords="405,16,440,40">sit</WORD>
-          <WORD coords="479,18,564,43">amet,</WORD>
-          <WORD coords="607,18,789,40">consectetur</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="21,53,175,83">adipiscing</WORD>
-          <WORD coords="200,53,254,77">elit.</WORD>
-          <WORD coords="278,53,450,77">Vestibulum</WORD>
-          <WORD coords="474,60,506,77">ac</WORD>
-          <WORD coords="530,60,615,83">quam</WORD>
-          <WORD coords="640,53,694,77">elit.</WORD>
-          <WORD coords="720,54,787,77">Nam</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="22,97,107,120">purus</WORD>
-          <WORD coords="124,97,205,117">nunc,</WORD>
-          <WORD coords="223,90,340,120">suscipit</WORD>
-          <WORD coords="356,90,379,114">id</WORD>
-          <WORD coords="397,97,518,120">posuere</WORD>
-          <WORD coords="535,90,631,117">mollis,</WORD>
-          <WORD coords="650,90,787,114">interdum</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="20,127,62,151">vel</WORD>
-          <WORD coords="83,127,182,157">ipsum.</WORD>
-          <WORD coords="202,127,256,151">Sed</WORD>
-          <WORD coords="275,127,392,157">suscipit</WORD>
-          <WORD coords="409,127,461,151">orci</WORD>
-          <WORD coords="482,134,535,151">non</WORD>
-          <WORD coords="555,134,616,151">sem</WORD>
-          <WORD coords="633,129,745,157">tempor</WORD>
-          <WORD coords="763,127,786,151">in</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="20,164,158,188">tincidunt</WORD>
-          <WORD coords="176,164,224,188">nisl</WORD>
-          <WORD coords="244,164,362,194">sagittis.</WORD>
-          <WORD coords="380,164,506,194">Aliquam</WORD>
-          <WORD coords="524,164,586,194">quis</WORD>
-          <WORD coords="605,164,648,188">leo</WORD>
-          <WORD coords="664,164,735,191">felis,</WORD>
-          <WORD coords="755,171,787,188">ac</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="20,203,135,231">tempus</WORD>
-          <WORD coords="149,201,222,225">velit.</WORD>
-          <WORD coords="240,201,305,225">Duis</WORD>
-          <WORD coords="321,201,344,225">in</WORD>
-          <WORD coords="361,201,486,231">placerat</WORD>
-          <WORD coords="501,201,574,225">nibh.</WORD>
-          <WORD coords="592,201,788,231">Pellentesque</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="21,238,71,262">sed</WORD>
-          <WORD coords="100,238,174,262">diam</WORD>
-          <WORD coords="202,238,245,262">mi.</WORD>
-          <WORD coords="274,238,399,268">Quisque</WORD>
-          <WORD coords="425,240,493,268">eget</WORD>
-          <WORD coords="518,238,584,262">velit</WORD>
-          <WORD coords="609,238,692,265">enim,</WORD>
-          <WORD coords="721,240,789,268">eget</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="21,275,185,299">sollicitudin</WORD>
-          <WORD coords="202,275,275,299">velit.</WORD>
-          <WORD coords="292,275,484,305">Suspendisse</WORD>
-          <WORD coords="500,277,568,305">eget</WORD>
-          <WORD coords="581,277,668,299">tortor</WORD>
-          <WORD coords="683,277,712,299">at</WORD>
-          <WORD coords="726,282,787,299">sem</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="21,312,195,336">elementum</WORD>
-          <WORD coords="239,319,337,336">ornare</WORD>
-          <WORD coords="380,312,455,336">vitae</WORD>
-          <WORD coords="497,312,572,336">vitae</WORD>
-          <WORD coords="616,312,687,336">odio.</WORD>
-          <WORD coords="732,312,786,336">Sed</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="20,349,170,373">venenatis</WORD>
-          <WORD coords="190,349,253,373">felis</WORD>
-          <WORD coords="275,349,337,379">quis</WORD>
-          <WORD coords="359,349,433,373">enim</WORD>
-          <WORD coords="454,349,592,373">tincidunt</WORD>
-          <WORD coords="613,351,642,373">at</WORD>
-          <WORD coords="664,349,789,379">placerat</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="22,393,116,410">massa</WORD>
-          <WORD coords="138,386,300,410">bibendum.</WORD>
-          <WORD coords="322,386,376,410">Sed</WORD>
-          <WORD coords="398,388,427,410">ut</WORD>
-          <WORD coords="447,386,531,410">lorem</WORD>
-          <WORD coords="552,393,656,410">massa.</WORD>
-          <WORD coords="679,386,751,410">Proin</WORD>
-          <WORD coords="772,393,786,410">a</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="22,423,85,447">nibh</WORD>
-          <WORD coords="109,423,190,447">nulla.</WORD>
-          <WORD coords="214,424,347,447">Praesent</WORD>
-          <WORD coords="367,423,409,447">vel</WORD>
-          <WORD coords="433,430,554,453">posuere</WORD>
-          <WORD coords="576,430,669,453">purus.</WORD>
-          <WORD coords="693,424,787,447">Donec</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="20,460,165,487">tincidunt,</WORD>
-          <WORD coords="198,460,241,484">leo</WORD>
-          <WORD coords="272,460,295,484">id</WORD>
-          <WORD coords="328,460,450,490">aliquam</WORD>
-          <WORD coords="481,462,670,487">consectetur,</WORD>
-          <WORD coords="702,467,787,490">quam</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="20,497,86,521">velit</WORD>
-          <WORD coords="101,497,211,527">feugiat</WORD>
-          <WORD coords="226,499,320,524">tortor,</WORD>
-          <WORD coords="340,497,402,527">quis</WORD>
-          <WORD coords="419,504,518,521">cursus</WORD>
-          <WORD coords="536,504,631,527">augue</WORD>
-          <WORD coords="649,497,733,521">lorem</WORD>
-          <WORD coords="752,504,786,521">eu</WORD>
-        </LINE>
-        <LINE>
-          <WORD coords="21,541,92,558">eros.</WORD>
-          <WORD coords="127,534,201,558">Nulla</WORD>
-          <WORD coords="235,534,270,558">sit</WORD>
-          <WORD coords="301,536,379,558">amet</WORD>
-          <WORD coords="409,541,494,564">quam</WORD>
-          <WORD coords="527,536,556,558">at</WORD>
-          <WORD coords="587,534,651,558">odio</WORD>
-          <WORD coords="683,534,787,558">dictum</WORD>
-        </LINE>
-      </PARAGRAPH>
+      <PAGECOLUMN>
+        <PARAGRAPH>
+          <LINE>
+            <WORD coords="22,17,113,40">Lorem</WORD>
+            <WORD coords="156,16,246,46">ipsum</WORD>
+            <WORD coords="287,16,365,40">dolor</WORD>
+            <WORD coords="405,16,440,40">sit</WORD>
+            <WORD coords="479,18,564,43">amet,</WORD>
+            <WORD coords="607,18,789,40">consectetur</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="21,53,175,83">adipiscing</WORD>
+            <WORD coords="200,53,254,77">elit.</WORD>
+            <WORD coords="278,53,450,77">Vestibulum</WORD>
+            <WORD coords="474,60,506,77">ac</WORD>
+            <WORD coords="530,60,615,83">quam</WORD>
+            <WORD coords="640,53,694,77">elit.</WORD>
+            <WORD coords="720,54,787,77">Nam</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="22,97,107,120">purus</WORD>
+            <WORD coords="124,97,205,117">nunc,</WORD>
+            <WORD coords="223,90,340,120">suscipit</WORD>
+            <WORD coords="356,90,379,114">id</WORD>
+            <WORD coords="397,97,518,120">posuere</WORD>
+            <WORD coords="535,90,631,117">mollis,</WORD>
+            <WORD coords="650,90,787,114">interdum</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="20,127,62,151">vel</WORD>
+            <WORD coords="83,127,182,157">ipsum.</WORD>
+            <WORD coords="202,127,256,151">Sed</WORD>
+            <WORD coords="275,127,392,157">suscipit</WORD>
+            <WORD coords="409,127,461,151">orci</WORD>
+            <WORD coords="482,134,535,151">non</WORD>
+            <WORD coords="555,134,616,151">sem</WORD>
+            <WORD coords="633,129,745,157">tempor</WORD>
+            <WORD coords="763,127,786,151">in</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="20,164,158,188">tincidunt</WORD>
+            <WORD coords="176,164,224,188">nisl</WORD>
+            <WORD coords="244,164,362,194">sagittis.</WORD>
+            <WORD coords="380,164,506,194">Aliquam</WORD>
+            <WORD coords="524,164,586,194">quis</WORD>
+            <WORD coords="605,164,648,188">leo</WORD>
+            <WORD coords="664,164,735,191">felis,</WORD>
+            <WORD coords="755,171,787,188">ac</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="20,203,135,231">tempus</WORD>
+            <WORD coords="149,201,222,225">velit.</WORD>
+            <WORD coords="240,201,305,225">Duis</WORD>
+            <WORD coords="321,201,344,225">in</WORD>
+            <WORD coords="361,201,486,231">placerat</WORD>
+            <WORD coords="501,201,574,225">nibh.</WORD>
+            <WORD coords="592,201,788,231">Pellentesque</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="21,238,71,262">sed</WORD>
+            <WORD coords="100,238,174,262">diam</WORD>
+            <WORD coords="202,238,245,262">mi.</WORD>
+            <WORD coords="274,238,399,268">Quisque</WORD>
+            <WORD coords="425,240,493,268">eget</WORD>
+            <WORD coords="518,238,584,262">velit</WORD>
+            <WORD coords="609,238,692,265">enim,</WORD>
+            <WORD coords="721,240,789,268">eget</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="21,275,185,299">sollicitudin</WORD>
+            <WORD coords="202,275,275,299">velit.</WORD>
+            <WORD coords="292,275,484,305">Suspendisse</WORD>
+            <WORD coords="500,277,568,305">eget</WORD>
+            <WORD coords="581,277,668,299">tortor</WORD>
+            <WORD coords="683,277,712,299">at</WORD>
+            <WORD coords="726,282,787,299">sem</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="21,312,195,336">elementum</WORD>
+            <WORD coords="239,319,337,336">ornare</WORD>
+            <WORD coords="380,312,455,336">vitae</WORD>
+            <WORD coords="497,312,572,336">vitae</WORD>
+            <WORD coords="616,312,687,336">odio.</WORD>
+            <WORD coords="732,312,786,336">Sed</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="20,349,170,373">venenatis</WORD>
+            <WORD coords="190,349,253,373">felis</WORD>
+            <WORD coords="275,349,337,379">quis</WORD>
+            <WORD coords="359,349,433,373">enim</WORD>
+            <WORD coords="454,349,592,373">tincidunt</WORD>
+            <WORD coords="613,351,642,373">at</WORD>
+            <WORD coords="664,349,789,379">placerat</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="22,393,116,410">massa</WORD>
+            <WORD coords="138,386,300,410">bibendum.</WORD>
+            <WORD coords="322,386,376,410">Sed</WORD>
+            <WORD coords="398,388,427,410">ut</WORD>
+            <WORD coords="447,386,531,410">lorem</WORD>
+            <WORD coords="552,393,656,410">massa.</WORD>
+            <WORD coords="679,386,751,410">Proin</WORD>
+            <WORD coords="772,393,786,410">a</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="22,423,85,447">nibh</WORD>
+            <WORD coords="109,423,190,447">nulla.</WORD>
+            <WORD coords="214,424,347,447">Praesent</WORD>
+            <WORD coords="367,423,409,447">vel</WORD>
+            <WORD coords="433,430,554,453">posuere</WORD>
+            <WORD coords="576,430,669,453">purus.</WORD>
+            <WORD coords="693,424,787,447">Donec</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="20,460,165,487">tincidunt,</WORD>
+            <WORD coords="198,460,241,484">leo</WORD>
+            <WORD coords="272,460,295,484">id</WORD>
+            <WORD coords="328,460,450,490">aliquam</WORD>
+            <WORD coords="481,462,670,487">consectetur,</WORD>
+            <WORD coords="702,467,787,490">quam</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="20,497,86,521">velit</WORD>
+            <WORD coords="101,497,211,527">feugiat</WORD>
+            <WORD coords="226,499,320,524">tortor,</WORD>
+            <WORD coords="340,497,402,527">quis</WORD>
+            <WORD coords="419,504,518,521">cursus</WORD>
+            <WORD coords="536,504,631,527">augue</WORD>
+            <WORD coords="649,497,733,521">lorem</WORD>
+            <WORD coords="752,504,786,521">eu</WORD>
+          </LINE>
+          <LINE>
+            <WORD coords="21,541,92,558">eros.</WORD>
+            <WORD coords="127,534,201,558">Nulla</WORD>
+            <WORD coords="235,534,270,558">sit</WORD>
+            <WORD coords="301,536,379,558">amet</WORD>
+            <WORD coords="409,541,494,564">quam</WORD>
+            <WORD coords="527,536,556,558">at</WORD>
+            <WORD coords="587,534,651,558">odio</WORD>
+            <WORD coords="683,534,787,558">dictum</WORD>
+          </LINE>
+        </PARAGRAPH>
+      </PAGECOLUMN>
     </REGION>
   </HIDDENTEXT>
 </OBJECT>

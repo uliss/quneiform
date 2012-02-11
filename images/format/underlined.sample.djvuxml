@@ -5,23 +5,25 @@
 <OBJECT height="282" type="image/x.djvu" width="552">
   <HIDDENTEXT>
     <REGION>
-      <PARAGRAPH>
-        <LINE>
-          <WORD coords="23,17,292,60">underlined</WORD>
-        </LINE>
-      </PARAGRAPH>
-      <PARAGRAPH>
-        <LINE>
-          <WORD coords="21,109,355,152">underlined</WORD>
-          <WORD coords="383,109,512,152">bold</WORD>
-        </LINE>
-      </PARAGRAPH>
-      <PARAGRAPH>
-        <LINE>
-          <WORD coords="21,208,297,251">underlined</WORD>
-          <WORD coords="306,208,430,251">italic</WORD>
-        </LINE>
-      </PARAGRAPH>
+      <PAGECOLUMN>
+        <PARAGRAPH>
+          <LINE>
+            <WORD coords="23,17,292,60">underlined</WORD>
+          </LINE>
+        </PARAGRAPH>
+        <PARAGRAPH>
+          <LINE>
+            <WORD coords="21,109,355,152">underlined</WORD>
+            <WORD coords="383,109,512,152">bold</WORD>
+          </LINE>
+        </PARAGRAPH>
+        <PARAGRAPH>
+          <LINE>
+            <WORD coords="21,208,297,251">underlined</WORD>
+            <WORD coords="306,208,430,251">italic</WORD>
+          </LINE>
+        </PARAGRAPH>
+      </PAGECOLUMN>
     </REGION>
   </HIDDENTEXT>
 </OBJECT>
