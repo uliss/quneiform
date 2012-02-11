@@ -46,6 +46,7 @@ elseif(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
 endif()
 
 if(CF_SERIALIZE)
+    set_property(SOURCE exporterfactory.cpp PROPERTY COMPILE_DEFINITIONS CF_SERIALIZE)
     list(APPEND exporters cuneiformexporter.cpp
         cuneiformbinexporter.cpp
         cuneiformxmlexporter.cpp)

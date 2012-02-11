@@ -23,8 +23,12 @@
 #include "djvuxmlexporter.h"
 #include "textexporter.h"
 #include "hocrexporter.h"
+
+#ifdef CF_SERIALIZE
 #include "cuneiformexporter.h"
 #include "cuneiformxmlexporter.h"
+#endif
+
 #include "smarttextexporter.h"
 #include "summaryexporter.h"
 #include "puma/pumadef.h"
@@ -77,12 +81,14 @@ ExporterPtr ExporterFactoryImpl::make(format_t format) {
     case FORMAT_DJVUXML:
         exp.reset(new DjvuXmlExporter(page_, format_options_));
         break;
+#ifdef CF_SERIALIZE
     case FORMAT_NATIVE_TXT:
         exp.reset(new CuneiformExporter(page_, format_options_));
         break;
     case FORMAT_NATIVE_XML:
         exp.reset(new CuneiformXmlExporter(page_, format_options_));
         break;
+#endif
     case FORMAT_FB2:
         exp.reset(new FB2Exporter(page_, format_options_));
         break;
