@@ -167,11 +167,13 @@ void PumaImpl::binarizeImage() {
                 << " at this point.\n";
 
     if (info_.biBitCount > 1) {
-        //RIMAGE_BINARISE_KRONROD
-        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, 4, 0))
+        const int BIN_TYPE = 4; //RIMAGE_BINARISE_KRONROD
+        const int USE_MARGINS = 0;
+        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, BIN_TYPE, USE_MARGINS))
             throw PumaException("RIMAGE_Binarise failed");
 
-        if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) input_dib_, TRUE))
+        const int NO_COPY = TRUE;
+        if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) input_dib_, NO_COPY))
             throw PumaException("CIMAGE_ReadDIB failed");
 
         PAGEINFO info;
