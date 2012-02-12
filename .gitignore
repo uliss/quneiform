@@ -3,3 +3,7 @@ CMakeLists.txt.user
 # ignore build version
 /version
 .DS_Store
+# temp small fix for Qt Creator 2.4.1 - no files shown in source tree
+# copy CMakeLists.txt as pro.cmake and open it in "Open project"
+pro.cmake
+pro.cmake.user
