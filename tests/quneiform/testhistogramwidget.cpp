@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,24 +16,38 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTQTIMAGELOADER_H_
-#define TESTQTIMAGELOADER_H_
+#include "testhistogramwidget.h"
 
-#include <cppunit/extensions/HelperMacros.h>
+#include <QTest>
 
-class TestQtImageLoader: public CppUnit::TestFixture
+#include "widgets/histogramwidget.h"
+
+void TestHistogramWidget::testInit()
 {
-    CPPUNIT_TEST_SUITE(TestQtImageLoader);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testLoad);
-    CPPUNIT_TEST(testLoadRecognize);
-    CPPUNIT_TEST(testLoadParams);
-    CPPUNIT_TEST_SUITE_END();
-public:
-    void testInit();
-    void testLoad();
-    void testLoadRecognize();
-    void testLoadParams();
-};
+    std::vector<int> data;
+    std::fill_n(std::back_inserter(data), 20, 20);
+    data.push_back(1);
+    data.push_back(2);
+    data.push_back(2);
+    data.push_back(45);
+    data.push_back(32);
+    data.push_back(1);
+    data.push_back(2);
+    data.push_back(1);
+    data.push_back(1);
+    data.push_back(1);
+    data.push_back(0);
+    data.push_back(0);
+    data.push_back(1);
 
-#endif /* TESTQTIMAGELOADER_H_ */
+    HistogramWidget w;
+    w.setFixedHeight(200);
+    w.setFixedWidth(370);
+    w.setData(data);
+    w.setWindowModality(Qt::WindowModal);
+    w.show();
+
+    QTest::qWaitForWindowShown(&w);
+}
+
+QTEST_MAIN(TestHistogramWidget)

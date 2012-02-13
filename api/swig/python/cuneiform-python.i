@@ -3,7 +3,10 @@
 %{
 /* Put headers and other declarations here */
 #include "c_api.h"
+
+#ifndef __APPLE__
 typedef unsigned int size_t;
+#endif
 %}
 
 %include "c_api_def.h"

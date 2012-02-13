@@ -16,9 +16,11 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "page.h"
 #include "pagepropertiesdialog.h"
 #include "ui_pagepropertiesdialog.h"
+
+#include "page.h"
+#include "recognitioninternaldata.h"
 
 PagePropertiesDialog::PagePropertiesDialog(Page * p, QWidget * parent) :
     QDialog(parent),
@@ -37,6 +39,11 @@ PagePropertiesDialog::PagePropertiesDialog(Page * p, QWidget * parent) :
     ui_->paragraphs->setNum(p->blocksCount(Page::PARAGRAPH));
     ui_->characters->setNum(p->blocksCount(Page::CHAR));
     ui_->images->setNum(p->blocksCount(Page::PICTURE));
+#ifndef NDEBUG
+    ui_->heightHistogram->setData(RecognitionInternal::instance().componetHeightHistogram(p->imagePath()));
+    ui_->widthHistogram->setData(RecognitionInternal::instance().componetWidthHistogram(p->imagePath()));
+#endif
+
 }
 
 PagePropertiesDialog::~PagePropertiesDialog()

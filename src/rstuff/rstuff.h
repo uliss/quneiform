@@ -75,7 +75,9 @@ public:
     };
 
     enum flag_t {
-        SKIP_LINE_SEARCH = 1
+        SKIP_LINE_SEARCH = 1,
+        SKIP_COMPONENT_EXTRACT = 2,
+        SKIP_RESOLUTION_CHECK = 4
     };
 public:
     RStuff();
@@ -85,16 +87,17 @@ public:
     void setCallbacks(RSCBProgressPoints * cb);
     void setImageData(RSPreProcessImage * imageData);
     void setRecognizeOptions(const RecognizeOptions& ropts);
-
-    bool hasFlag(flag_t f) { return flags_ & f; }
-    void setFlag(flag_t f, bool value) { value ? setFlag(f) : unsetFlag(f); }
-    void setFlag(flag_t f) { flags_ |= f; }
-    void unsetFlag(flag_t f) { flags_ &= (~f); }
 private:
+    static bool hasFlag(flag_t f) { return flags_ & f; }
+    static void setFlag(flag_t f, bool value) { value ? setFlag(f) : unsetFlag(f); }
+    static void setFlag(flag_t f) { flags_ |= f; }
+    static void unsetFlag(flag_t f) { flags_ &= (~f); }
     static void * mainBuffer();
     static void * workBuffer();
+    static void showHistogram();
 private:
     void calculateIncline();
+    void checkImageResolution();
     void createContainerBigComp();
     void killLines();
     void ortoMove();
@@ -105,7 +108,8 @@ private:
     RSPreProcessImage * image_data_;
     uchar * buffer_main_;
     uchar * buffer_work_;
-    int flags_;
+private:
+    static int flags_;
 };
 
 }

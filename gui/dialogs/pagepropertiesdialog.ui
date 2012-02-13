@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>279</height>
+    <height>304</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -78,17 +78,17 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="QLabel" name="recognized">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
      <item row="4" column="0">
       <widget class="QLabel" name="recognizedLabel">
        <property name="text">
         <string>Recognized:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLabel" name="recognized">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
@@ -162,6 +162,24 @@
        </property>
       </widget>
      </item>
+     <item row="10" column="1">
+      <layout class="QHBoxLayout" name="histogramLayout">
+       <item>
+        <widget class="HistogramWidget" name="heightHistogram">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="HistogramWidget" name="widthHistogram">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </item>
    <item>
@@ -176,6 +194,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>HistogramWidget</class>
+   <extends>QLabel</extends>
+   <header>histogramwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,24 +16,16 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTQTIMAGELOADER_H_
-#define TESTQTIMAGELOADER_H_
+#ifndef TESTHISTOGRAMWIDGET_H
+#define TESTHISTOGRAMWIDGET_H
 
-#include <cppunit/extensions/HelperMacros.h>
+#include <QObject>
 
-class TestQtImageLoader: public CppUnit::TestFixture
+class TestHistogramWidget : public QObject
 {
-    CPPUNIT_TEST_SUITE(TestQtImageLoader);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testLoad);
-    CPPUNIT_TEST(testLoadRecognize);
-    CPPUNIT_TEST(testLoadParams);
-    CPPUNIT_TEST_SUITE_END();
-public:
+    Q_OBJECT
+private slots:
     void testInit();
-    void testLoad();
-    void testLoadRecognize();
-    void testLoadParams();
 };
 
-#endif /* TESTQTIMAGELOADER_H_ */
+#endif // TESTHISTOGRAMWIDGET_H

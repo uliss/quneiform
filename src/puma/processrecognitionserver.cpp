@@ -167,9 +167,9 @@ void ProcessRecognitionServer::startWorker(const std::string& key, size_t size) 
     int code = startProcess(exe_path, params, worker_timeout_);
 
     if(counter_) {
-        counter_->add(20);
-        counter_->add(10);
-        counter_->add(70);
+        counter_->add(20); // open
+        counter_->add(70); // recognize
+        counter_->add(10); // format
     }
 
     if(state_) {

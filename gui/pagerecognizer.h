@@ -105,6 +105,8 @@ private:
     void handleRecognitionState(int);
     QImage loadImage();
     void setConfigOptions();
+    void saveResolutionHeightHistogram(const std::vector<int>& hist);
+    void saveResolutionWidthHistogram(const std::vector<int>& hist);
 private:
     Page * page_;
     cf::PercentCounter * counter_;

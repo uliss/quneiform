@@ -32,3 +32,8 @@ target_link_libraries(cuneiform-markup
 )
 
 library_hook(cuneiform-markup)
+
+if(TESTS)
+    include(CppcheckTargets)
+    add_cppcheck(cuneiform-markup UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
+endif()

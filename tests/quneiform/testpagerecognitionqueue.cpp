@@ -128,7 +128,7 @@ void TestPageRecognitionQueue::testSetLanguage() {
 
     q.start();
     QCOMPARE(p1.document()->toPlainText().trimmed(), QString("ENGLISH"));
-    QCOMPARE(p2.document()->toPlainText().trimmed(), QString("PYCCK VI Vl"));
+    QCOMPARE(p2.document()->toPlainText().trimmed(), QString("PYCCKVI Vl"));
     QCOMPARE(q.pageErrorNum(), 0);
     QCOMPARE(finished.at(0).at(0).toInt(), 2);
 }
@@ -148,7 +148,7 @@ void TestPageRecognitionQueue::testEmitStep() {
     QCOMPARE(percents.at(0).at(0).toInt(), 1);
     QCOMPARE(percents.at(1).at(0).toInt(), 10);
     QCOMPARE(percents.at(2).at(0).toInt(), 26);
-    QCOMPARE(percents.at(3).at(0).toInt(), 34);
+    QCOMPARE(percents.at(3).at(0).toInt(), 82);
     QCOMPARE(percents.at(4).at(0).toInt(), 90);
     QCOMPARE(percents.at(5).at(0).toInt(), 100);
 
@@ -224,7 +224,7 @@ void TestPageRecognitionQueue::testPercentDone() {
     QCOMPARE(percents.at(0).at(0).toInt(), 1);
     QCOMPARE(percents.at(1).at(0).toInt(), 10);
     QCOMPARE(percents.at(2).at(0).toInt(), 26);
-    QCOMPARE(percents.at(3).at(0).toInt(), 34);
+    QCOMPARE(percents.at(3).at(0).toInt(), 82);
     QCOMPARE(percents.at(4).at(0).toInt(), 90);
     QCOMPARE(percents.at(5).at(0).toInt(), 100);
 
@@ -239,13 +239,13 @@ void TestPageRecognitionQueue::testPercentDone() {
     QCOMPARE(percents.at(0).at(0).toInt(), 0);
     QCOMPARE(percents.at(1).at(0).toInt(), 5);
     QCOMPARE(percents.at(2).at(0).toInt(), 13);
-    QCOMPARE(percents.at(3).at(0).toInt(), 17);
+    QCOMPARE(percents.at(3).at(0).toInt(), 41);
     QCOMPARE(percents.at(4).at(0).toInt(), 45);
     QCOMPARE(percents.at(5).at(0).toInt(), 50);
     QCOMPARE(percents.at(6).at(0).toInt(), 50);
     QCOMPARE(percents.at(7).at(0).toInt(), 55);
     QCOMPARE(percents.at(8).at(0).toInt(), 63);
-    QCOMPARE(percents.at(9).at(0).toInt(), 67);
+    QCOMPARE(percents.at(9).at(0).toInt(), 91);
     QCOMPARE(percents.at(10).at(0).toInt(), 95);
     QCOMPARE(percents.at(11).at(0).toInt(), 100);
 }

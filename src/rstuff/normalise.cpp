@@ -69,6 +69,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "common/debug.h"
 #include "rsfunc.h"
 #include "rsglobaldata.h"
 #include "rsmemory.h"
@@ -129,7 +130,6 @@ extern Handle hWndTurn;
 extern Handle hDebugPrintResolution;
 
 Bool32 AutoTemplate(PRSPreProcessImage);
-void checkResolution(CCOM_handle hCCOM, Handle hCPAGE);
 
 Bool32 VerifyN(PRSPreProcessImage Image) {
 	return VerifyLines(Image);
@@ -202,78 +202,8 @@ Bool32 CreateContainerBigComp(PRSPreProcessImage Image) {
 	return TRUE;
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 Bool32 KillLinesN(PRSPreProcessImage Image) {
-	Bool32 rc;
-
-	rc = KillLines(Image);
-
-	return rc;
-}
-
-// Предварительная обработка
-// (07.07.2000) Изначально взято из puma.dll без изменений
-// сильно привязана к пуме
-// в начале окучиваем выделение компонент
-Bool32 PreProcessImage(PRSPreProcessImage Image) {
-	Bool32 gbAutoRotate = Image->gbAutoRotate;
-	Handle hCPAGE = Image->hCPAGE;
-	const char * glpRecogName = *Image->pglpRecogName;
-        BitmapInfoHeader * info = Image->pinfo;
-	uint32_t Angle = 0;
-
-	hWndTurn = 0;
-
-	// Andrey 12.11.01
-	// Проинициализируем контейнер CPAGE
-	PAGEINFO PInfo;
-	GetPageInfo(hCPAGE, &PInfo);
-	strcpy((char*) PInfo.szImageName, glpRecogName);
-	PInfo.BitPerPixel = info->biBitCount;
-	PInfo.DPIX = info->biXPelsPerMeter * 254L / 10000;
-	//		PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;
-	PInfo.DPIY = info->biYPelsPerMeter * 254L / 10000;
-	//		PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
-	PInfo.Height = info->biHeight;
-	PInfo.Width = info->biWidth;
-	//		PInfo.X = 0; Уже установлено
-	//		PInfo.Y = 0;
-	PInfo.Incline2048 = 0;
-	PInfo.Page = 1;
-	PInfo.Angle = Angle;
-	SetPageInfo(hCPAGE, PInfo);
-
-	// Выделим компоненты
-	if (LDPUMA_Skip(Image->hDebugCancelComponent)) {
-		ExtractComponents(gbAutoRotate, NULL, glpRecogName, Image);
-		//проверим наличие разрешения и попытаемся определить по компонентам, если его нет
-		checkResolution(*(Image->phCCOM), hCPAGE);
-	} else
-		LDPUMA_Console("Пропущен этап выделения компонент.\n");
-
-	// Переинициализируем контейнер CPAGE
-	{
-		PAGEINFO PInfo;
-		GetPageInfo(hCPAGE, &PInfo);
-		strcpy((char*) PInfo.szImageName, glpRecogName);
-		PInfo.BitPerPixel = info->biBitCount;
-		//		PInfo.DPIX = info->biXPelsPerMeter*254L/10000;
-		PInfo.DPIX = PInfo.DPIX < 200 ? 200 : PInfo.DPIX;
-		//		PInfo.DPIY = info->biYPelsPerMeter*254L/10000;
-		PInfo.DPIY = PInfo.DPIY < 200 ? 200 : PInfo.DPIY;
-		PInfo.Height = info->biHeight;
-		PInfo.Width = info->biWidth;
-		//		PInfo.X = 0; Уже установлено
-		//		PInfo.Y = 0;
-		PInfo.Incline2048 = 0;
-		PInfo.Page = 1;
-		PInfo.Angle = Angle;
-
-		SetPageInfo(hCPAGE, PInfo);
-	}
-
-	return TRUE;
+    return KillLines(Image);
 }
 
 // Выделение компонент
@@ -784,72 +714,3 @@ Bool32 CalcIncline(PRSPreProcessImage Image) {
 
 	return TRUE;
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void checkResolution(CCOM_handle hCCOM, Handle hCPAGE) {
-	PAGEINFO page_info;
-	const int min_res = 99;
-	CCOM_comp* pcomp = NULL;
-	unsigned int Masy[100], Masx[100], i, Jy_m = 0, My_m = 0, Jx_m = 0, Mx_m =
-			0, M_t;
-	bool flag_set = false;
-
-	if (!GetPageInfo(hCPAGE, &page_info))
-		return;
-
-	if (page_info.DPIX > min_res && page_info.DPIY > min_res)
-		return;
-
-	for (i = 0; i < 100; i++)
-		Masx[i] = Masy[i] = 0;
-
-	pcomp = CCOM_GetFirst(hCCOM, NULL);
-
-	while (pcomp) {
-		if (pcomp->h > 9 && pcomp->h < 100)
-			Masy[pcomp->h]++;
-
-		if (pcomp->w > 9 && pcomp->w < 100)
-			Masx[pcomp->w]++;
-
-		pcomp = CCOM_GetNext(pcomp, NULL);
-	}
-
-	for (i = 11; i < 99; i++) {
-		M_t = Masy[i - 1] + Masy[i] + Masy[i + 1];
-
-		if (M_t > My_m) {
-			Jy_m = i;
-			My_m = M_t;
-		}
-
-		M_t = Masx[i - 1] + Masx[i] + Masx[i + 1];
-
-		if (M_t > Mx_m) {
-			Jx_m = i;
-			Mx_m = M_t;
-		}
-	}
-
-	if (Jy_m > 10 && My_m > 100 && !(page_info.DPIY * 22 < 2* 300* Jy_m &&
-			2* page_info .DPIY *22 > 300*Jy_m))
-			{
-				page_info.DPIY = (300*Jy_m+11)/22;
-				flag_set = true;
-			}
-
-			if (Jx_m > 10 && Mx_m > 100 && !(page_info.DPIX*22 < 2*300*Jx_m&& 2*page_info.DPIX*22 > 300*Jx_m))
-	{
-		page_info.DPIX = (300*Jx_m+11)/22;
-		flag_set = true;
-	}
-
-	if (flag_set)
-	{
-		SetPageInfo(hCPAGE, page_info);
-
-		if (!LDPUMA_Skip(hDebugPrintResolution))
-			LDPUMA_ConsoleN("новое разрешение: DPIX=%d, DPIY=%d", page_info.DPIX, page_info.DPIY);
-	}
-}
-							////////////////////////////////////////////////////////////////////////////////////////////////////
-							// end of file

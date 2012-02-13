@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,24 +16,41 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTQTIMAGELOADER_H_
-#define TESTQTIMAGELOADER_H_
+#ifndef HISTOGRAMWIDGET_H
+#define HISTOGRAMWIDGET_H
 
-#include <cppunit/extensions/HelperMacros.h>
+#include <vector>
+#include <QLabel>
 
-class TestQtImageLoader: public CppUnit::TestFixture
+class HistogramWidget : public QLabel
 {
-    CPPUNIT_TEST_SUITE(TestQtImageLoader);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testLoad);
-    CPPUNIT_TEST(testLoadRecognize);
-    CPPUNIT_TEST(testLoadParams);
-    CPPUNIT_TEST_SUITE_END();
+    Q_OBJECT
 public:
-    void testInit();
-    void testLoad();
-    void testLoadRecognize();
-    void testLoadParams();
+    typedef std::vector<int> Histogram;
+
+    HistogramWidget(QWidget * parent = 0, const Histogram& h = Histogram());
+
+    /**
+      * Returns chart color
+      */
+    QColor color() const;
+
+    /**
+      * Sets chart color
+      */
+    void setColor(const QColor& color);
+
+    /**
+      * Sets histogram data
+      */
+    void setData(const Histogram& hist);
+public slots:
+    void clear();
+protected:
+    void paintEvent(QPaintEvent * event);
+private:
+    QColor color_;
+    std::vector<int> data_;
 };
 
-#endif /* TESTQTIMAGELOADER_H_ */
+#endif // HISTOGRAMWIDGET_H

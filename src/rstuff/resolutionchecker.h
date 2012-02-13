@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,24 +16,38 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTQTIMAGELOADER_H_
-#define TESTQTIMAGELOADER_H_
+#ifndef RESOLUTIONCHECKER_H
+#define RESOLUTIONCHECKER_H
 
-#include <cppunit/extensions/HelperMacros.h>
+#include <vector>
+#include <boost/function.hpp>
 
-class TestQtImageLoader: public CppUnit::TestFixture
+#include "ccom/ccom.h"
+
+namespace cf {
+
+class CLA_EXPO ResolutionChecker
 {
-    CPPUNIT_TEST_SUITE(TestQtImageLoader);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testLoad);
-    CPPUNIT_TEST(testLoadRecognize);
-    CPPUNIT_TEST(testLoadParams);
-    CPPUNIT_TEST_SUITE_END();
 public:
-    void testInit();
-    void testLoad();
-    void testLoadRecognize();
-    void testLoadParams();
+    ResolutionChecker(CCOM_handle ccom, Handle cpage);
+
+    typedef boost::function<void (const std::vector<int>&)> HistogramCallback;
+
+    /**
+      * Checks and fixes page resolution
+      */
+    void check();
+public:
+    static void setHistogramHeightCallback(const HistogramCallback& clb);
+    static void setHistogramWidthCallback(const HistogramCallback& clb);
+private:
+    CCOM_handle ccom_;
+    Handle cpage_;
+private:
+    static HistogramCallback hist_height_callback_;
+    static HistogramCallback hist_width_callback_;
 };
 
-#endif /* TESTQTIMAGELOADER_H_ */
+}
+
+#endif // RESOLUTIONCHECKER_H

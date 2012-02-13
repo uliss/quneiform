@@ -87,8 +87,8 @@ static void set_dib_header(::BITMAPINFO * dibInfo, const QImage& raster) {
     dibInfo->bmiHeader.biBitCount = static_cast<uint16_t>(raster.depth());
     dibInfo->bmiHeader.biCompression = 0; // BI_RGB - uncompresed
     dibInfo->bmiHeader.biSizeImage = 0;
-    dibInfo->bmiHeader.biXPelsPerMeter = 4 * raster.dotsPerMeterX();
-    dibInfo->bmiHeader.biYPelsPerMeter = 4 * raster.dotsPerMeterY();
+    dibInfo->bmiHeader.biXPelsPerMeter = raster.dotsPerMeterX();
+    dibInfo->bmiHeader.biYPelsPerMeter = raster.dotsPerMeterY();
     // for 32-bit images return numColors() returns 0
     dibInfo->bmiHeader.biClrUsed = raster.numColors();
     dibInfo->bmiHeader.biClrImportant = 0;
@@ -150,12 +150,26 @@ ImagePtr QtImageLoader::load(const QString& path) {
     return res;
 }
 
+static QImage convertColorFormat(const QImage& image)
+{
+    QImage res;
+    // cuneiform crashes on other formats
+    if(image.depth() == 1 && image.format() == QImage::Format_Mono)
+        res = image.mirrored();
+    else
+        res = image.convertToFormat(QImage::Format_RGB888).mirrored();
+
+    res.setDotsPerMeterX(image.dotsPerMeterX());
+    res.setDotsPerMeterY(image.dotsPerMeterY());
+
+    return res;
+}
+
 ImagePtr QtImageLoader::load(const QImage& image) {
     if (image.isNull())
         throw Exception("[QtImageLoader::load] load failed.");
 
-    // cuneiform crashes on other formats
-    const QImage raster = image.convertToFormat(QImage::Format_RGB888).mirrored();
+    const QImage raster = convertColorFormat(image);
     ::BITMAPINFO dibInfo;
     set_dib_header(&dibInfo, raster);
     const size_t rasterSize = raster.numBytes();

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,24 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTQTIMAGELOADER_H_
-#define TESTQTIMAGELOADER_H_
+#include "resolutionhistogramcallbacksetter.h"
 
-#include <cppunit/extensions/HelperMacros.h>
+#include "rstuff/resolutionchecker.h"
 
-class TestQtImageLoader: public CppUnit::TestFixture
+ResolutionHistogramCallbackSetter::ResolutionHistogramCallbackSetter(const Callback& height, const Callback& width)
 {
-    CPPUNIT_TEST_SUITE(TestQtImageLoader);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testLoad);
-    CPPUNIT_TEST(testLoadRecognize);
-    CPPUNIT_TEST(testLoadParams);
-    CPPUNIT_TEST_SUITE_END();
-public:
-    void testInit();
-    void testLoad();
-    void testLoadRecognize();
-    void testLoadParams();
-};
+    cf::ResolutionChecker::setHistogramHeightCallback(height);
+    cf::ResolutionChecker::setHistogramWidthCallback(width);
+}
 
-#endif /* TESTQTIMAGELOADER_H_ */
+ResolutionHistogramCallbackSetter::~ResolutionHistogramCallbackSetter()
+{
+    cf::ResolutionChecker::setHistogramHeightCallback(cf::ResolutionChecker::HistogramCallback());
+    cf::ResolutionChecker::setHistogramWidthCallback(cf::ResolutionChecker::HistogramCallback());
+}

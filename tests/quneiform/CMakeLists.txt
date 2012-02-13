@@ -11,6 +11,7 @@ set(CF_GUI_TESTS
     cedpageexporter
     exportsettings
     formatsettings
+    histogramwidget
     imagecache
     imageview
     language

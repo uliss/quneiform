@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2011 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,24 +16,34 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTQTIMAGELOADER_H_
-#define TESTQTIMAGELOADER_H_
+#ifndef RECOGNITIONINTERNALDATA_H
+#define RECOGNITIONINTERNALDATA_H
 
-#include <cppunit/extensions/HelperMacros.h>
+#include <vector>
+#include <QMap>
+#include <QString>
 
-class TestQtImageLoader: public CppUnit::TestFixture
+#include "common/singleton.h"
+
+class RecognitionInternalData
 {
-    CPPUNIT_TEST_SUITE(TestQtImageLoader);
-    CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testLoad);
-    CPPUNIT_TEST(testLoadRecognize);
-    CPPUNIT_TEST(testLoadParams);
-    CPPUNIT_TEST_SUITE_END();
 public:
-    void testInit();
-    void testLoad();
-    void testLoadRecognize();
-    void testLoadParams();
+    typedef std::vector<int> Histogram;
+
+    RecognitionInternalData();
+    void clear();
+
+    Histogram componetHeightHistogram(const QString& key) const;
+    Histogram componetWidthHistogram(const QString& key) const;
+
+    void setComponentHeightHistogram(const QString& key, const Histogram& hist);
+    void setComponentWidthHistogram(const QString& key, const Histogram& hist);
+private:
+    typedef QMap<QString, Histogram> HistogramMap;
+    HistogramMap component_height_histogram_;
+    HistogramMap component_width_histogram_;
 };
 
-#endif /* TESTQTIMAGELOADER_H_ */
+typedef cf::Singleton<RecognitionInternalData> RecognitionInternal;
+
+#endif // RECOGNITIONINTERNALDATA_H
