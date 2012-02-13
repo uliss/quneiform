@@ -23,6 +23,7 @@ to CMake.
 Configuration
 =============
    -DCMAKE_BUILD_TYPE=Debug    - build debug version of Cuneiform
+   -DCMAKE_BUILD_TYPE=Release  - build release version of Cuneiform
    -DTESTS=Yes                 - build tests
    -DCF_NO_QT=Yes              - disable QtImageLoader build
    -DCF_NO_IMAGE_MAGICK=Yes    - disable MagickLoader build
