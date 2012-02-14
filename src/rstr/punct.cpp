@@ -2301,15 +2301,15 @@ static int16_t contain(cell *new_, cell *old)
 cell *hide(cell *C) {
 	cell *B = C;
 
-	if (language == LANGUAGE_RUSSIAN) {
-		C = C->prev;
+    if (language == LANGUAGE_RUSSIAN) {
+        C = C->prev;
 
-		if (B->flg & c_f_punct)
-			B->flg ^= c_f_dust | c_f_punct;
+        if (B->flg & c_f_punct)
+            B->flg ^= c_f_dust | c_f_punct;
 
-		B->complist = (c_comp *) sv_fantom;
-		sv_fantom = del_save_cell(B);
-	} else
+        B->complist = (c_comp *) sv_fantom;
+        sv_fantom = del_save_cell(B);
+    } else
 		C = del_cell(C);
 
 	return C;

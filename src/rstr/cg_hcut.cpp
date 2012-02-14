@@ -91,7 +91,6 @@ static Bool clip_cell(int16_t j, cell *c, int16_t b1, int16_t b2, int16_t b3, in
 static void save_frag(cell *B, cell *E, RecogStat *rs, cell **sv_frag, int16_t *st_inc);
 static void replace_frag(cell *B, cell *E, RecogStat *rs, cell *sv_frag);
 static  int16_t create_cells(cell *whither, raster *r, cell *celist[], int16_t st_inc);
-static cell *hide(cell *c, cell **clink);
 static void restore(cell *clink, cell *wherever);
 static void del_hided(cell *clink);
 static Bool capital(uchar let);
@@ -580,15 +579,6 @@ static void replace_frag(cell *B, cell *E, RecogStat *rs, cell *sv_frag)
   }
   else
     del_hided(sv_frag);
-}
-
-static cell *hide(cell *c, cell **clink)
-{
-    cell *cp=c->prev;
-    c->complist=(c_comp *)(*clink);
-    del_retain_cell(c);
-    *clink=c;
-    return cp;
 }
 
 static void restore(cell *clink, cell *wherever)

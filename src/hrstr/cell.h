@@ -66,17 +66,49 @@ struct cell
 public:
         cell();
 
-        bool hasCellFlag(int flag) const { return flg & flag; }
-        bool isDust() const { return hasCellFlag(c_f_dust); }
+        void deleteFromLettersChain() {
+            if(hasNextLetter() && hasPrevLetter()) {
+                (prevl)->nextl = nextl;
+                (nextl)->prevl = prevl;
+            }
+        }
+
+        bool hasCellFlag(int flag) const {
+            return flg & flag;
+        }
+
+        bool hasEnv() const {
+             return (env && !(cg_flag & c_cg_noenv));
+        }
+
+        bool hasNextLetter() const {
+            return nextl != NULL && nextl != (cell*) 0xffff0000;
+        }
+
+        bool hasPrevLetter() const {
+            return prevl != NULL && prevl != (cell*) 0xffff0000;
+        }
+
+        bool isBadLetter() const {
+            return hasCellFlag(c_f_let | c_f_bad);
+        }
+
+        bool isDust() const {
+            return hasCellFlag(c_f_dust);
+        }
+
+        bool isDustOrPunct() const {
+            return isDust() || isPunct();
+        }
+
+        bool isPunct() const {
+            return hasCellFlag(c_f_punct);
+        }
 
         int height() const { return h; }
         int width() const { return w; }
         cell * nextLetter() { return nextl; }
         cell * previousLetter() { return prevl; }
-
-        bool hasEnv() const {
-             return (env && !(cg_flag & c_cg_noenv));
-        }
 
         bool tsimple() const {
             return (hasEnv() && !(cg_flag & c_cg_comp));

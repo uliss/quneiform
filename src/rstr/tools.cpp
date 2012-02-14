@@ -714,12 +714,8 @@ void del_retain_cell(cell *c) {
 		(c->prev)->next = c->next;
 		(c->next)->prev = c->prev;
 
-		if ((c->flg & (c_f_let | c_f_bad) && !(c->flg & (c_f_dust | c_f_punct)))
-				|| c->nextl && c->nextl != NoNextPrev && c->prevl && c->prevl
-						!= NoNextPrev) {
-			(c->prevl)->nextl = c->nextl;
-			(c->nextl)->prevl = c->prevl;
-		}
+        if (c->isBadLetter() && !c->isDustOrPunct())
+            c->deleteFromLettersChain();
 	}
 
 	err_pnlet(c); // AL 940319
