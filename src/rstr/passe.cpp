@@ -293,7 +293,7 @@ void set_spell_solid(void) {
 
 				}
 				if (language == LANGUAGE_RUSSIAN && u > 2 && d == 1 && cd) {
-					//if (!strchr(" ¡¥\xf0\xf1\xf5\xf7\xf8\xfd", cd->vers[0].let)) {
+					//if (!strchr(" ¡¥\xf0\xf1\xf5\xf7\xf8\xfd", cd->vers[0].let)) {
 					if (!strchr("\xA0\xA1\xA5\xf0\xf1\xf5\xf7\xf8\xfd", cd->vers[0].let)) {
 						cd->vers[0].let = to_upper(cd->vers[0].let);
 					}
@@ -373,7 +373,7 @@ cell *get_nonlet_cell(cell *c) {
 	if (c == cell_f())
 		return c;
 	p = c->prev;
-	if ((c->flg & (c_f_let | c_f_bad)) && (p->flg != c_f_fict) && p->nvers
+    if (c->isBadLetter() && (p->flg != c_f_fict) && p->nvers
 			&& strchr("-.,", p->vers[0].let)) {
 		c = p;
 	}
@@ -612,7 +612,7 @@ Bool russian_dictionary_word(cell * first, cell * last, puchar BadWord) {
 				else
 					*BadWord = 0;
 
-				//if (cl == 2 && !memcmp(word, " §", 2))
+				//if (cl == 2 && !memcmp(word, " §", 2))
 				if (cl == 2 && !memcmp(word, "\xA0\xA7", 2))
 					return FALSE;
 
@@ -928,11 +928,10 @@ uchar small_english_str(void) {
 /* благоприятное месторасположение для пары II */
 Bool II_place(cell *c) {
 	if (c->prev && (c->prev->flg & c_f_space) && c->next && (c->next->flg
-			& c_f_space) && c->prevl && (c->prevl->flg & (c_f_let | c_f_bad))
-			&& c->nextl && (c->nextl->flg & (c_f_let | c_f_bad))
-			&& (c->nextl->next && (c->nextl->next->flg & (c_f_let | c_f_bad))
-					|| c->prevl->prev && (c->prevl->prev->flg & (c_f_let
-							| c_f_bad))))
+            & c_f_space) && c->prevl && (c->prevl->isBadLetter())
+            && c->nextl && (c->nextl->isBadLetter())
+            && (c->nextl->next && (c->nextl->next->isBadLetter())
+                    || c->prevl->prev && (c->prevl->prev->isBadLetter())))
 		return TRUE;
 
 	return FALSE;

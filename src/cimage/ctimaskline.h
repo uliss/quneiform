@@ -54,72 +54,67 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// CTIMaskLine.h: interface for the CTIMaskLine class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(_CTIMASKLINE_H_)
+#ifndef _CTIMASKLINE_H_
 #define _CTIMASKLINE_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
-///////////////////////////////////////////////////////////////////////////
-//
-#include "resource.h"
-#include "ctidefines.h"
-#include "ctiimage.h"
-
 #include "ctimasklinesegment.h"
-///////////////////////////////////////////////////////////////////////////
+
+namespace cf {
+
 class CTIMaskLine;
 typedef CTIMaskLine *PCTIMaskLine, **PPCTIMaskLine;
-///////////////////////////////////////////////////////////////////////////
+
 class CTIMaskLine
 {
     public:
-        Bool32        IsSegmentOnLine(PCTIMaskLineSegment pSegm) {
-            return (pSegm->GetStart() >= 0 && pSegm->GetStart() <= (int32_t)mwLenght && pSegm->GetEnd() <= (int32_t)mwLenght);
-        };
-        Bool32        RemoveSegment(PCTIMaskLineSegment pSegm);
-        Bool32        AddSegment(PCTIMaskLineSegment pSegm);
-        PCTIMaskLine  GetNext() {
-            return mpNext;
-        };
-        void          SetNext(PCTIMaskLine pLine) {
-            mpNext = pLine;
-        };
-        uint32_t        SetLineNumber( uint32_t nLine ) {
-            return mwLine = nLine;
-        };
-        uint32_t        GetLineNumber( void ) {
-            return mwLine;
-        };
-        uint32_t        GetSegmentsNumber( void ) {
-            return mwSegments;
-        };
-        Bool32        IsLine(uint32_t nLine) {
-            return ((int32_t)nLine == mwLine);
-        };
-        Bool32        GetLeftIntersection(PCTIMaskLineSegment pcSegm);
-
-    public:
-        CTIMaskLine(uint32_t Lenght, uint32_t nLine, PCTIMaskLineSegment pSegm, PCTIMaskLine pcNextLine);
-        CTIMaskLine(uint32_t Lenght, uint32_t nLine, PCTIMaskLineSegment pSegm);
-        CTIMaskLine(uint32_t Lenght, PCTIMaskLineSegment pSegm);
-        CTIMaskLine(uint32_t Lenght);
+        CTIMaskLine(uint Lenght, uint nLine, CTIMaskLineSegment * pSegm, CTIMaskLine * pcNextLine);
+        CTIMaskLine(uint Lenght, uint nLine, CTIMaskLineSegment * pSegm);
+        CTIMaskLine(uint Lenght, CTIMaskLineSegment * pSegm);
+        CTIMaskLine(uint Lenght);
         CTIMaskLine();
-        virtual ~CTIMaskLine();
+        ~CTIMaskLine();
 
+        bool isSegmentOnLine(CTIMaskLineSegment * segm) const
+        {
+            return (segm->start() >= 0
+                    && segm->start() <= (int) length_
+                    && segm->end() <= (int)length_);
+        }
+
+        Bool32 addSegment(CTIMaskLineSegment * pSegm);
+        Bool32 removeSegment(CTIMaskLineSegment * pSegm);
+
+        PCTIMaskLine GetNext() {
+            return next_;
+        }
+
+        void SetNext(PCTIMaskLine pLine) {
+            next_ = pLine;
+        }
+
+        void setLineNumber(uint nLine) {
+            line_ = nLine;
+        }
+
+        uint lineNumber() const {
+            return line_;
+        }
+
+        uint segmentsNumber() const {
+            return segments_;
+        }
+
+        bool getLeftIntersection(CTIMaskLineSegment * segm);
     protected:
-        uint32_t mwLenght;
-        uint32_t mwSegments;
-        PCTIMaskLine mpNext;
-        int32_t mwLine;
-        CTIMaskLineSegment mcFirst;
+        uint length_;
+        uint segments_;
+        uint line_;
+        CTIMaskLine * next_;
+        CTIMaskLineSegment first_;
     private:
         Bool32 CheckSegments(void);
 };
+
+}
 
 #endif // !defined(_CTIMASKLINE_H_)

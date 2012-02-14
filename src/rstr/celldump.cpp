@@ -92,8 +92,7 @@ void cell_to_dump (cell *c)
     c -> prev -> next = c -> next;
     c -> next -> prev = c -> prev;
 
-    if (c -> flg & (c_f_let | c_f_bad))
-    {
+    if (c->isBadLetter()) {
         c -> prevl -> nextl = c -> nextl;
         c -> nextl -> prevl = c -> prevl;
         err_pnlet (c);  // AL 940319

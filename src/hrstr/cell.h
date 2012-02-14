@@ -64,13 +64,19 @@ enum cell_erect_t {
 struct cell
 {
 public:
+    // returns 'no letter' pointer
+    static cell * noLetter() { return (cell*) 0xffff0000; }
+public:
         cell();
 
         void deleteFromLettersChain() {
-            if(hasNextLetter() && hasPrevLetter()) {
-                (prevl)->nextl = nextl;
+            if(hasNextLetter())
                 (nextl)->prevl = prevl;
-            }
+
+            if(hasPrevLetter())
+                (prevl)->nextl = nextl;
+
+            nextl = prevl = noLetter();
         }
 
         bool hasCellFlag(int flag) const {
@@ -82,11 +88,11 @@ public:
         }
 
         bool hasNextLetter() const {
-            return nextl != NULL && nextl != (cell*) 0xffff0000;
+            return nextl != 0 && nextl != noLetter();
         }
 
         bool hasPrevLetter() const {
-            return prevl != NULL && prevl != (cell*) 0xffff0000;
+            return prevl != 0 && prevl != noLetter();
         }
 
         bool isBadLetter() const {

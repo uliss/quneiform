@@ -218,7 +218,7 @@ static uint16_t tabserif[256] = { 0, 0, 0, 0,
 		0,
 		0x2133,
 		0, //151-176
-		//           —      �      ™      љ      ›      њ ќ      ћ      џ   Ў      ў      Ј      ¤ Ґ      ¦ §      Ё      ©      Є      «      ¬      ­ ®      Ї °
+		//           —      �      ™      љ      ›      њ ќ      ћ      џ   Ў      ў      Ј      ¤ Ґ      ¦ §      Ё      ©      Є      «      ¬      ­ ®      Ї °
 		0x0033, 0x0033, 0x0033, 0x003F, 0x0030, 0x0033, 0,
 		0,
 		0x003F,
@@ -303,7 +303,7 @@ static uint16_t tabvserif[256] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x0002, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0,
 		0, //151-176
-		//      — � ™ љ › њ ќ ћ џ   Ў ў      Ј ¤ Ґ ¦ § Ё © Є « ¬ ­ ® Ї °
+		//      — � ™ љ › њ ќ ћ џ   Ў ў      Ј ¤ Ґ ¦ § Ё © Є « ¬ ­ ® Ї °
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0,
 		0, // 177-189
@@ -342,7 +342,7 @@ static cell *serif_word(cell *c) {
 	Bool reliable;
 	//  int32_t tol;
 	cell *beg = c, *end;
-	B_LINES my_bases; //Ў §®ўлҐ «Ё­ЁЁ
+    B_LINES my_bases; // базовые линии
 
 	if (!c->next)
 		return NULL;
@@ -355,12 +355,13 @@ static cell *serif_word(cell *c) {
 			snap_monitor();
 		}
 
-		if (c->flg & (c_f_let | c_f_bad)) {
+        if (c->isBadLetter()) {
 			uchar let;
 			c->font &= ~(c_fp_gelv | c_fp_ser);
 			if (!(c->font & c_fp_it) || is_upper(let = c->vers[0].let)
-					|| strchr("Јав", let) && !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
-							!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
+                    || strchr("\xA3\xE0\xE2", /* грт */  let) &&
+                    !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
+                    !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 			) {
 				int32_t m = new_serif(c);
 				if (m > 0)
@@ -398,12 +399,12 @@ static cell *serif_word(cell *c) {
 				snap_monitor();
 			}
 
-			if (c->flg & (c_f_let | c_f_bad)) {
+            if (c->isBadLetter()) {
 				uchar let;
 				if (!(c->font & c_fp_it) || is_upper(let = c->vers[0].let)
-						|| strchr("Јав", let) && !is_russian_baltic_conflict(
-								let) && // 17.07.2001 E.P.
-								!is_russian_turkish_conflict(let) // 21.05.2002 E.P.
+                        || strchr("\xA3\xE0\xE2", /* грт */  let) &&
+                        !is_russian_baltic_conflict(let) && // 17.07.2001 E.P.
+                        !is_russian_turkish_conflict(let) // 21.05.2002 E.P.
 				) {
 					int32_t m = fon_test(c);
 					if (m == 0) //no match found, use old flags
@@ -443,7 +444,7 @@ static cell *serif_word(cell *c) {
 
 		for (c = beg; c != end; c = c->next)
 			//      if (c->flg & (c_f_let | c_f_bad) && !(c->font & c_fp_it))
-			if (c->flg & (c_f_let | c_f_bad)) {
+            if (c->isBadLetter()) {
 				c->font &= ~(c_fp_gelv | c_fp_ser);
 				c->font |= font;
 			}

@@ -247,7 +247,7 @@ void p2_insert_cell(cell *c, cell *prev) {
 	next->prev = c;
 	c->next = next;
 	c->prev = prev;
-	if (c->flg & (c_f_let | c_f_bad)) {
+    if (c->isBadLetter()) {
 		prev = next->prevl;
 		prev->nextl = c;
 		next->prevl = c;

@@ -335,7 +335,7 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 		cell * cp;
 		int16_t h;
 		for (i = 0, h = 0; i < gl->ncell; i++)
-			if (gl->celist[i]->flg & (c_f_let | c_f_bad) && gl->celist[i]->env
+            if (gl->celist[i]->isBadLetter() && gl->celist[i]->env
 					!= NULL && !(gl->celist[i]->cg_flag & c_cg_noenv))
 				if (h < gl->celist[i]->h) {
 					h = gl->celist[i]->h;
@@ -377,7 +377,7 @@ void r_criteria(cell *c, const s_glue * gl) //10.02.97
 		{
 			int16_t num;
 			for (num = 0, i = 0; i < gl->ncell; i++)
-				if (gl->celist[i]->flg & (c_f_let | c_f_bad)
+                if (gl->celist[i]->isBadLetter()
 						&& gl->celist[i]->env != NULL
 						&& !(gl->celist[i]->cg_flag & c_cg_noenv))
 					if (_rst.h - 2 <= gl->celist[i]->h

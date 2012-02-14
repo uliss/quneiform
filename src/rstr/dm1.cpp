@@ -485,7 +485,7 @@ static cell * try_glue(s_glue *GL, cell *BC)
     dflag = BC->difflg & 0xf0;
     LC = BC->prev;
     save_vers(BC, &svs);
-    if (BC->flg & (c_f_let | c_f_bad))
+    if (BC->isBadLetter())
         LC = BC->prevl;
     for (i = 0; i < GL->ncell; i++)
         GL->complist[i] = GL->celist[i]->env;
@@ -515,13 +515,13 @@ static cell * try_glue(s_glue *GL, cell *BC)
     }
     CC = create_cell(mn, LC, (char) diff, dflag);
     inter_diff(CC);
-    if (CC->flg & (c_f_let | c_f_bad) && (if_dust(CC) & 7)) {
+    if (CC->isBadLetter() && (if_dust(CC) & 7)) {
         CC->flg = c_f_dust;
         CC->prevl->nextl = CC->nextl;
         CC->nextl->prevl = CC->prevl;
         err_pnlet(CC); // AL 940319
     }
-    if (CC->flg & (c_f_let | c_f_bad)) {
+    if (CC->isBadLetter()) {
         GLM.flarg = GFcut; // artifact
         GLM.arg = GAtigr;
         estcomp('a', CC, &sv0, TRS2, 0, 0, &GLM, &cposd, &cposd, 0, 0, 0);
@@ -585,7 +585,7 @@ cell * finpat(cell *BC, s_glue *GL, int16_t var, uchar flag, uchar pen)
     }
     crecell(BC, GL, 6); // calculate final box, don't restore row, col, w, h
     GC = try_glue(GL, BC);
-    if (GC && (GC->flg & (c_f_let | c_f_bad))) {
+    if (GC && GC->isBadLetter()) {
         /*********** restore very bad recog  ****/
         if (GC->vers[0].prob <= p1) // idiotic attempt
         {
