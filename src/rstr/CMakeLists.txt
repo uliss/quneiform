@@ -72,7 +72,6 @@ set(RSTR_SOURCES
     shevron.cpp
     skew.cpp
     snap.cpp
-    snap_fon.cpp
     space.cpp
     spec_sym.cpp
     st_tools.cpp
