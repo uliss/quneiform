@@ -5,7 +5,6 @@ set(RSTR_SOURCES
     abrtools.cpp
     acc_tabs.cpp
     accents.cpp
-    add1_std.cpp
     alcutfun.cpp
     alphabet.cpp
     atlant.cpp
