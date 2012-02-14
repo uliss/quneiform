@@ -409,7 +409,7 @@ static void glue_let_dust() {
 			} // NOT to recog garbage
 			if (if_dust(CC) & 7) //  posed OR sized as dust
 			{
-				if (CC->flg & (c_f_let | c_f_bad)) // brought as letter - redo list
+                if (CC->isBadLetter()) // brought as letter - redo list
 				{
 					CC->flg = c_f_dust;
 					CC->prevl->nextl = CC->nextl;
@@ -1063,7 +1063,7 @@ static void glue_dust_dust() {
 		WS = BC;
 		while (1) {
 			WS = WS->prev;
-			if (WS->flg & (c_f_let | c_f_bad))
+            if (WS->isBadLetter())
 				break;
 			if (WS->flg & c_f_fict)
 				break;

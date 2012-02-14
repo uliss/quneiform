@@ -304,7 +304,7 @@ int16_t stick_center_study(cell *c, s_glue *GLU, int16_t typ_snap)
     Bool corr = (c->nvers == 1 && c->vers[0].let == 'r');
 
     left_letter_EEM = ' '; // 17.01.1994  for dis_i (similar 'h');
-    if (c != NULL && (c->flg & (c_f_let | c_f_bad))) { // see also ST_TOOLS;
+    if (c != NULL && c->isBadLetter()) { // see also ST_TOOLS;
         cell *cell_LEFT = c->prevl;
         if (cell_LEFT != NULL && cell_LEFT->nvers != 0)
             left_letter_EEM = cell_LEFT->vers[0].let;

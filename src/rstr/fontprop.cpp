@@ -583,7 +583,7 @@ static int16_t pitch() {
 	uint16_t center[LSTRMAX], left[LSTRMAX], right[LSTRMAX];
 
 	for (nl = nc = ng = 0, c = (cell_f())->next; c->next != NULL; c = c->next)
-		if (c->flg & (c_f_let | c_f_bad)) {
+        if (c->isBadLetter()) {
 			nl++;
 			if (!(c->cg_flag & (c_cg_cutr | c_cg_cutl)))
 				nc++;
@@ -609,7 +609,7 @@ static int16_t pitch() {
 						let == liga_i || language == LANGUAGE_TURKISH && // 30.05.2002 E.P.
 						(let == i_sans_accent || let == II_dot_accent) || let
 						== liga_j || let == liga_exm || let == liga_qm) && (nl
-				< NLETOK && c->flg & c_f_punct || c->flg & (c_f_let | c_f_bad))
+                < NLETOK && c->flg & c_f_punct || c->isBadLetter())
 				&& (nc < NCUTMAX || !(c->cg_flag & (c_cg_cutr | c_cg_cutl)))) {
 			left[n] = c->col;
 			right[n] = c->col + c->w;

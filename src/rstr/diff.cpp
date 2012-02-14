@@ -229,7 +229,7 @@ void criteria(cell *c)
                 vers->prob = 2;
         }
 
-        if (c->flg & (c_f_let | c_f_bad)) // Oleg : 02-28-96 04:55pm : letter only
+        if (c->isBadLetter()) // Oleg : 02-28-96 04:55pm : letter only
             if (((let = vers->let) == 'i' || let == 'j' || (language == LANGUAGE_TURKISH && let
                     == II_dot_accent) // 17.06.2002 E.P.
             ) && (r = ij_dot(c)) != 0) {
