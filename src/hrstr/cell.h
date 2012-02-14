@@ -88,11 +88,11 @@ public:
         }
 
         bool hasNextLetter() const {
-            return nextl != NULL && nextl != noLetter();
+            return nextl != 0 && nextl != noLetter();
         }
 
         bool hasPrevLetter() const {
-            return prevl != NULL && prevl != noLetter();
+            return prevl != 0 && prevl != noLetter();
         }
 
         bool isBadLetter() const {
