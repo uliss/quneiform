@@ -455,10 +455,10 @@ static void store_spell(cell *c) {
     int num_ln = 0;
     cell *b, *e;
 
-    for (; c->flg & (c_f_let | c_f_bad); c = c->prev)
+    for (; c->isBadLetter(); c = c->prev)
         ;
     b = c->next;
-    for (c = c->next; c->flg & (c_f_let | c_f_bad); c = c->next)
+    for (c = c->next; c->isBadLetter(); c = c->next)
         ;
     e = c;
     for (c = b; c != e; c = c->next) {
@@ -497,10 +497,10 @@ static void show_spell(cell *c) {
     uchar *w = wrd, lang;
     Bool32 nonrec = FALSE;
 
-    for (; c->flg & (c_f_let | c_f_bad); c = c->prev)
+    for (; c->isBadLetter(); c = c->prev)
         ;
 
-    for (c = c->next, lang = c->language; c->flg & (c_f_let | c_f_bad); c = c->next) {
+    for (c = c->next, lang = c->language; c->isBadLetter(); c = c->next) {
         if (c->flg & c_f_bad)
             nonrec = TRUE;
         *w++ = c->vers[0].let;

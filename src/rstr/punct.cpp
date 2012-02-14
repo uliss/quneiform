@@ -308,7 +308,7 @@ void punct() {
 		}//end of while (c2!=c1)
 	}//end of while ((c2=c1->next)!=NULL)
 	for (c1 = cell_f(), c2 = c1->nextl, c = c1->next; c->next; c = c->next)
-		if (c->flg & (c_f_let | c_f_bad) && !(c->flg & (c_f_dust | c_f_punct))) {
+        if (c->isBadLetter() && !(c->flg & (c_f_dust | c_f_punct))) {
 			c1 = c;
 			c2 = c->nextl;
 		} else if ((!(c1->flg & c_f_fict) && (c1->flg & c_f_bad
@@ -766,9 +766,9 @@ static void quockets() {
 	for (c = (cell_f())->nextl; c->next != NULL; c = c->nextl) {
 		get_b_lines(c, &bl);
 		h = bl.ps;
-		if (((let = c->vers[0].let) == '<' || let == '>') && c->next->flg
-				& (c_f_let | c_f_bad) && c->next->vers[0].let == let && abs(
-				c->h - c->next->h) <= (c->h + c->next->h) / 4 && MIN(c->h,
+        if (((let = c->vers[0].let) == '<' || let == '>') && c->next->isBadLetter()
+                && c->next->vers[0].let == let &&
+                abs(c->h - c->next->h) <= (c->h + c->next->h) / 4 && MIN(c->h,
 				c->next->h) <= h && c->col + c->w - c->next->col <= (c->w
 				+ c->next->w) / 3 && abs(c->row + c->h / 2 - (c->next->row
 				+ c->next->h / 2)) <= (c->h + c->next->h) / 6) {
@@ -2274,7 +2274,7 @@ void clean_line() {
 			B = C;
 			while (B->next && !(B->flg & (c_f_let | c_f_bad)))
 				B = B->next;
-			if (B->flg & (c_f_let | c_f_bad) && contain(B, C))
+            if (B->isBadLetter() && contain(B, C))
 				C = del_cell(C);
 		}
 		C = C->next;

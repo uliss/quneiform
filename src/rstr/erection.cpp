@@ -999,7 +999,7 @@ int16_t get_incline_of_word(cell *b, cell *e) {
 	memset(inc_list, 0, sizeof(inc_list));
 	for (n1 = inc1 = inc = 0, zerall = zero = zeromn = all = mn = i = n = 0, c
 			= b; c != e; c = c->next) {
-		if ((c->flg & (c_f_let | c_f_bad)) && c->stick_inc != NO_INCLINE
+        if ((c->isBadLetter()) && c->stick_inc != NO_INCLINE
 				&& c->stick_inc > 1 && (memchr(incline_main, c->vers[0].let,
 				sizeof(incline_main)) && !is_russian_baltic_conflict(
 				c->vers[0].let) && // 17.07.2001 E.P.
@@ -1178,7 +1178,7 @@ Bool test_incline_of_word(cell *b, cell *e, int32_t inc) {
 	cell * c;
 	int16_t i, wn, up, let;
 	for (up = let = i = 0, c = b; c != e; c = c->next, i++) {
-		if (c->flg & (c_f_let | c_f_bad)) {
+        if (c->isBadLetter()) {
 			let++;
 			if (c->stick_inc != NO_INCLINE && (((long) c->stick_inc * c->h)
 					/ 204l) > 16 && ((c->flg == c_f_bad) && c->stick_inc

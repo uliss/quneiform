@@ -5,8 +5,6 @@ set(RSTR_SOURCES
     abrtools.cpp
     acc_tabs.cpp
     accents.cpp
-    add1_std.cpp
-    add2_std.cpp
     alcutfun.cpp
     alphabet.cpp
     atlant.cpp
@@ -73,7 +71,6 @@ set(RSTR_SOURCES
     shevron.cpp
     skew.cpp
     snap.cpp
-    snap_fon.cpp
     space.cpp
     spec_sym.cpp
     st_tools.cpp
