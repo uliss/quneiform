@@ -1,5 +1,5 @@
 #!/bin/sh
-# Author: Serj Poltavski 
+# Author: Serge Poltavski 
 
 QF_BUNDLE="`echo "$0" | sed -e 's/\/Contents\/MacOS\/Quneiform//'`"
 QF_RESOURCES="$QF_BUNDLE/Contents/Resources"

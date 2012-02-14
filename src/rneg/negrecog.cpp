@@ -1232,8 +1232,8 @@ CCOM_handle GetNegCCOM(Handle hCPage, Rect16* pRc, int i) {
 	char Name[CPAGE_MAXNAME];
 	for (j = 0; j < CPAGE_MAXNAME; j++)
 		Name[j] = ImageName[j];
-	Handle lpDIB;
-	if (!CIMAGE_ReadDIB(Name, &lpDIB, 1))
+    BitmapHandle lpDIB;
+    if (!CIMAGE_ReadDIB(Name, &lpDIB))
 		return 0;
 	if (pRc[i].bottom - pRc[i].top > pRc[i].right - pRc[i].left) {
 		min_h = min_let_w;

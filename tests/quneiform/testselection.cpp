@@ -17,11 +17,12 @@
  ***************************************************************************/
 
 #include <QTest>
-#include <QSignalSpy>
 #include <QGraphicsView>
 #include <QCoreApplication>
 #include <QGraphicsSceneMouseEvent>
 #include "testselection.h"
+
+#define private public
 #include "gui/selection.h"
 
 #ifdef Q_WS_X11
@@ -38,8 +39,8 @@ TestSelection::TestSelection() : scene_(QRectF(0, 0, 100, 200)) {
 }
 
 void TestSelection::testConstruct() {
-    Selection s1;
-    Selection s2(QRectF(0, 1, 20, 30));
+    Selection s1(NULL);
+    Selection s2(NULL, QRectF(0, 1, 20, 30));
 
     QVERIFY(s1.rect().isNull());
     QCOMPARE(s2.rect(), QRectF(0, 1, 20, 30));
@@ -52,7 +53,7 @@ void TestSelection::testConstruct() {
 }
 
 void TestSelection::testMoveBy() {
-    Selection * s = new Selection;
+    Selection * s = new Selection(NULL);
     scene_.addItem(s);
     QVERIFY(s->pos().isNull());
     QCOMPARE(s->rect().topLeft(), QPointF());
@@ -122,66 +123,13 @@ void TestSelection::testMoveBy() {
 }
 
 void TestSelection::testNormalRect() {
-    Selection * s = new Selection;
+    Selection * s = new Selection(NULL);
     scene_.addItem(s);
 
     QCOMPARE(s->rect(), QRectF(s->normalRect()));
     s->setPos(1, 2);
     s->setRect(5, 6, 10, 30);
     QCOMPARE(s->normalRect(), QRect(6, 8, 10, 30));
-
-    scene_.clear();
-}
-
-void TestSelection::testSelectionDelete() {
-    Selection * s = new Selection;
-    scene_.addItem(s);
-    QGraphicsView view(&scene_);
-    view.show();
-
-    QSignalSpy deleted(s, SIGNAL(selectionDeleted()));
-
-    s->setFocus();
-    QTest::keyClick(&view, Qt::Key_Delete);
-    QCOMPARE(deleted.count(), 1);
-    QTest::keyClick(&view, Qt::Key_Delete);
-    QCOMPARE(deleted.count(), 2);
-
-    scene_.clear();
-}
-
-void TestSelection::testSelectionMove() {
-    Selection * s = new Selection;
-    scene_.addItem(s);
-    QGraphicsView view(&scene_);
-    view.show();
-    const int STEP = 3;
-
-    QSignalSpy moved(s, SIGNAL(moved(QPointF)));
-
-    s->setFocus();
-    QTest::keyClick(&view, Qt::Key_Up);
-    QCOMPARE(moved.count(), 1);
-    QCOMPARE(moved.at(0).at(0).toPointF(), QPointF(0, - STEP));
-    QCOMPARE(s->normalRect(), QRect());
-
-    moved.clear();
-    QTest::keyClick(&view, Qt::Key_Down);
-    QCOMPARE(moved.count(), 1);
-    QCOMPARE(moved.at(0).at(0).toPointF(), QPointF(0, STEP));
-    QCOMPARE(s->normalRect(), QRect());
-
-    moved.clear();
-    QTest::keyClick(&view, Qt::Key_Left);
-    QCOMPARE(moved.count(), 1);
-    QCOMPARE(moved.at(0).at(0).toPointF(), QPointF(- STEP, 0));
-    QCOMPARE(s->normalRect(), QRect());
-
-    moved.clear();
-    QTest::keyClick(&view, Qt::Key_Right);
-    QCOMPARE(moved.count(), 1);
-    QCOMPARE(moved.at(0).at(0).toPointF(), QPointF(STEP, 0));
-    QCOMPARE(s->normalRect(), QRect());
 
     scene_.clear();
 }

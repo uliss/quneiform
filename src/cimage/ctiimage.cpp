@@ -54,98 +54,117 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <iostream>
+#include <boost/current_function.hpp>
+
 #include "resource.h"
-#include "ctidefines.h"
 #include "ctiimage.h"
 #include "cticontrol.h"
 
 using namespace cf;
 
-Bool32 CIMAGE_WriteCallbackImage(const char * Name, CIMAGEIMAGECALLBACK Cbk)
+#define CIMAGE_DEBUG() std::cerr << BOOST_CURRENT_FUNCTION << "\n"
+
+bool CIMAGE_WriteCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK Cbk)
 {
-    return CImage::instance().WriteCBImage(Name, Cbk);
+    return CImage::instance().writeImageCallbacks(name, Cbk);
 }
 
-Bool32 CIMAGE_GetCallbackImage(const char * Name, CIMAGEIMAGECALLBACK * pCbk)
+bool CIMAGE_GetCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK * pCbk)
 {
-    return CImage::instance().GetCBImage(Name, pCbk);
+    return CImage::instance().getImageCallbacks(name, pCbk);
 }
 
-Bool32 CIMAGE_WriteDIB(const char * Name, Handle lpDIB, uint32_t wFlag)
+bool CIMAGE_AddImage(const std::string& name, BitmapHandle handle)
 {
-    return CImage::instance().SetDIB(Name, (BitmapHandle) lpDIB, wFlag);
+    return CImage::instance().addImage(name, handle);
 }
 
-Bool32 CIMAGE_ReadDIB(const char * Name, Handle* lplpDIB, uint32_t wFlag)
+bool CIMAGE_AddImageCopy(const std::string& name, BitmapHandle handle)
 {
-    return CImage::instance().GetDIB(Name, (BitmapHandle*) lplpDIB, wFlag);
+    return CImage::instance().addImageCopy(name, handle);
 }
 
-Bool32 CIMAGE_GetData(const char *Name, CIMAGE_InfoDataInGet * lpIn,
-                      CIMAGE_InfoDataOutGet * lpOut)
+bool CIMAGE_ReadDIB(const std::string& name, BitmapHandle * dest)
 {
-    return CImage::instance().GetImage(Name, lpIn, lpOut);
+    BitmapHandle img = CImage::instance().image(name);
+    if(!img)
+        return false;
+
+    assert(dest);
+    *dest = img;
+    return true;
 }
 
-Bool32 CIMAGE_GetDIBData(const char * Name, CIMAGE_InfoDataInGet * lpIn,
-                         void ** lpDIB)
+bool CIMAGE_ReadDIBCopy(const std::string& name, BitmapHandle * dest)
 {
-    return CImage::instance().GetDIBFromImage(Name, lpIn, lpDIB);
+    BitmapHandle copy = CImage::instance().imageCopy(name);
+
+    if(!copy)
+        return false;
+
+    assert(dest);
+    *dest = copy;
+    return true;
 }
 
-Bool32 CIMAGE_ReplaceData(const char * Name, CIMAGE_InfoDataInReplace * lpIn)
+bool CIMAGE_GetRawData(const std::string& name, CIMAGE_InfoDataInGet * in,
+                      CIMAGE_InfoDataOutGet * out)
 {
-    return CImage::instance().ReplaceImage(Name, lpIn);
+    return CImage::instance().getImageRawData(name, in, out);
 }
 
-Bool32 CIMAGE_GetImageInfo(const char * Name, BitmapInfoHeader * lpBIH)
+bool CIMAGE_GetDIBData(const std::string& name, const Rect& r, cf::BitMask * bitMask, BitmapHandle * dest)
 {
-    return CImage::instance().GetImageInfo(Name, lpBIH);
+    return CImage::instance().getDIBFromImage(name, r, bitMask, dest);
 }
 
-Bool32 CIMAGE_DeleteImage(const char * Name)
+bool CIMAGE_GetImageInfo(const std::string &name, BitmapInfoHeader * dest)
 {
-    return CImage::instance().RemoveImage(Name);
+    assert(dest);
+
+    BitmapHandle handle = CImage::instance().image(name);
+
+    if(!handle)
+        return false;
+
+    *dest = (*handle);
+    return true;
 }
 
-Bool32 CIMAGE_FreeCopedDIB(Handle hDIB)
+bool CIMAGE_RemoveImage(const std::string& name)
 {
-    return CImage::instance().FreeAlloced((BitmapHandle) hDIB);
+    return CImage::instance().removeImage(name);
 }
 
-Bool32 CIMAGE_FreeBuffers()
+bool CIMAGE_FreeCopiedDIB(BitmapHandle dib)
 {
-    CImage::instance().FreeBuffers();
-    return TRUE;
+    return CImage::instance().free(dib);
 }
 
-void CIMAGE_Reset(void)
+void CIMAGE_Reset()
 {
-    CImage::instance().Reset();
+    CImage::instance().reset();
 }
 
-Bool32 CIMAGE_AddReadCloseRects(const char * Name, uint32_t wCount,
-                                CIMAGE_Rect * pFirst)
+bool CIMAGE_AddReadCloseRect(const std::string& name, const cf::Rect& r)
 {
-    return CImage::instance().AddReadRectangles(Name, wCount, pFirst);
+    return CImage::instance().addRectToReadMask(name, r);
 }
 
-Bool32 CIMAGE_RemoveReadCloseRects(const char * Name, uint32_t wCount,
-                                   CIMAGE_Rect * pFirst)
+bool CIMAGE_RemoveReadCloseRect(const std::string& name, const Rect& r)
 {
-    return CImage::instance().RemoveReadRectangles(Name, wCount, pFirst);
+    return CImage::instance().removeRectFromReadMask(name, r);
 }
 
-Bool32 CIMAGE_AddWriteCloseRects(const char *Name, uint32_t wCount,
-                                 CIMAGE_Rect * pFirst)
+bool CIMAGE_AddWriteCloseRect(const std::string& name, const cf::Rect& r)
 {
-    return CImage::instance().AddWriteRectangles(Name, wCount, pFirst);
+    return CImage::instance().addRectToWriteMask(name, r);
 }
 
-Bool32 CIMAGE_RemoveWriteCloseRects(const char * Name, uint32_t wCount,
-                                    CIMAGE_Rect * pFirst)
+bool CIMAGE_RemoveWriteCloseRect(const std::string& name, const cf::Rect& r)
 {
-    return CImage::instance().RemoveWriteRectangles(Name, wCount, pFirst);
+    return CImage::instance().removeRectFromWriteMask(name, r);
 }
 
 // For GetCBImage
@@ -159,7 +178,7 @@ uint16_t CIMAGE_Callback_ImageRead(char * lpImage, uint16_t wMaxSize)
     return CImage::instance().CBImageRead(lpImage, wMaxSize);
 }
 
-Bool16 CIMAGE_Callback_ImageClose(void)
+Bool16 CIMAGE_Callback_ImageClose()
 {
     return CImage::instance().CBImageClose();
 }

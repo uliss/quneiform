@@ -87,6 +87,10 @@ public:
         return next_;
     }
 
+    int length() const {
+        return end_ - start_;
+    }
+
     void setNext(CTIMaskLineSegment * pNext) {
         next_ = pNext;
     }

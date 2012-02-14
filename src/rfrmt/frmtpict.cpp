@@ -72,6 +72,7 @@
 #include "cpage/cpage.h"
 #include "rdib/ctdib.h"
 #include "cimage/ctiimage.h"
+#include "cimage/bitmask.h"
 #include "rimage/criimage.h"
 #include "ced/ced.h"
 #include "ced/cedchar.h"
@@ -209,10 +210,9 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     }
 
     // end piter
-    in.MaskFlag = FALSE;
-    void * pOutDIB = NULL;
+    BitmapHandle pOutDIB = NULL;
 
-    if (!CIMAGE_GetDIBData(PUMA_IMAGE_USER, &in, &pOutDIB)) {
+    if (!CIMAGE_GetDIBData(PUMA_IMAGE_USER, Rect(in.dwX, in.dwY, in.dwWidth, in.dwHeight), NULL, &pOutDIB)) {
         Debug() << "[WritePict] CIMAGE_GetDIBData failed: " << PUMA_IMAGE_USER << "\n";
         return false;
 
@@ -224,21 +224,21 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     const char * szRotateName = "RFRMT:RotatePicture";
     const char * lpName = szPictName;
 
-    if (CIMAGE_WriteDIB(szPictName, pOutDIB, TRUE)) {
+    if (CIMAGE_AddImage(szPictName, (BitmapHandle) pOutDIB)) {
         switch (pinfo.Angle) {
         case 90:
-            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_90, FALSE);
-            CIMAGE_DeleteImage(lpName);
+            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_90);
+            CIMAGE_RemoveImage(lpName);
             lpName = szTurnName;
             break;
         case 180:
-            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_180, FALSE);
-            CIMAGE_DeleteImage(lpName);
+            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_180);
+            CIMAGE_RemoveImage(lpName);
             lpName = szTurnName;
             break;
         case 270:
-            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_270, FALSE);
-            CIMAGE_DeleteImage(lpName);
+            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_270);
+            CIMAGE_RemoveImage(lpName);
             lpName = szTurnName;
             break;
         }
@@ -256,7 +256,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         Debug() << "[WritePict] RIMAGE_Rotate failed\n";
         rc = FALSE;
     } else {
-        CIMAGE_DeleteImage(lpName);
+        CIMAGE_RemoveImage(lpName);
         lpName = szRotateName;
     }
 
@@ -284,7 +284,6 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         in.dwWidth = ptWh.x();
         in.dwHeight = ptWh.y();
         in.wByteWidth = (unsigned short) ((in.dwWidth + 7) / 8); //?
-        in.MaskFlag = TRUE;
         // Получим размер маски
         uint32_t nSize = 0;
 
@@ -295,7 +294,9 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
                 *(CIMAGE_InfoDataInGet*) lpMask = in;
 
                 if (CPAGE_PictureGetMask(h_Page, h_Pict, 0, lpMask + sizeof(in), &nSize)) {
-                    if (!CIMAGE_GetDIBData(lpName, (CIMAGE_InfoDataInGet*) lpMask, &pOutDIB)) {
+                     cf::BitMask bit_mask(0, 0, (uchar*) lpMask + sizeof(in));
+
+                    if (!CIMAGE_GetDIBData(lpName, Rect(in.dwX, in.dwY, in.dwWidth, in.dwHeight), &bit_mask, &pOutDIB)) {
                         Debug() << "CIMAGE_GetDIBData failed\n";
                         rc = FALSE;
                     }
@@ -395,8 +396,8 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
 
     // piter
     // освобождает память переданную по pOutDIB
-    CIMAGE_DeleteImage(lpName);
-    CIMAGE_FreeCopedDIB(pOutDIB);
+    CIMAGE_RemoveImage(lpName);
+    CIMAGE_FreeCopiedDIB(pOutDIB);
     // end piter
     SectorInfo->hObject = hPrevObject;
     return TRUE;

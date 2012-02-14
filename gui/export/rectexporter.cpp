@@ -39,7 +39,7 @@ inline bool isValid(const QRect& rc) {
 }
 
 inline QRect cf2qt(const cf::Rect& rect) {
-    return QRect(rect.left() - 1, rect.top() - 1, rect.width(), rect.height());
+    return QRect(rect.left(), rect.top() - 1, rect.width(), rect.height());
 }
 
 RectExporter::RectExporter(CEDPagePtr page)

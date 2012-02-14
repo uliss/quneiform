@@ -87,7 +87,13 @@ private slots:
     void updateCurrentLanguage(Page * p);
     void updateCurrentPage();
     void updatePageDocument(Page*);
+
+    void debugShowCImage();
 private:
+#ifndef NDEBUG
+    void addDebugMenu();
+#endif
+
     void addRecentMenu(QMenu * menu);
     bool confirmRotation(Page * p);
     bool confirmRotationRecognized();

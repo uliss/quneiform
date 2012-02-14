@@ -59,45 +59,98 @@
 
 #include <string>
 #include <map>
+#include <list>
 
-#include "resource.h"
-#include "ctidefines.h"
-#include "ctiimage.h"
-#include "ctiimageheader.h"
+#include "imageinfo.h"
 
 namespace cf
 {
 
+class CTIImageHeader;
+class CTIMask;
+
 class CTIImageList
 {
-    private:
-        typedef std::map<std::string, CTIImageHeader*> HeaderMap;
-        HeaderMap headers_;
     public:
+        /**
+          * Constructs empty container
+          */
         CTIImageList();
+
+        /**
+          * Removes all images from container
+          */
         ~CTIImageList();
     public:
+        /**
+          * Adds image to container, previous image with given name will be deleted.
+          * @param name - image name in container
+          * @param handle - DIB handle
+          * @param externalImage - if @b true container takes no ownership on image
+          * @return true on success
+          */
         bool addImage(const std::string& name, BitmapHandle handle, bool externalImage);
-        bool deleteImage(const std::string& name);
-        bool findHandle(BitmapHandle handle);
-        bool getImage(const std::string& name, BitmapHandle * phDIB);
+
+        /**
+          * Clears image list
+          */
+        void clear();
+
+        /**
+          * Removes image from container
+          * @param name - image name
+          * @return true on success
+          */
+        bool removeImage(const std::string& name);
+
+        /**
+          * Checks if given handle exists in containter
+          * @return true if exists
+          */
+        bool hasHandle(BitmapHandle handle);
+
+        /**
+          * Checks if image with given name exists in container
+          * @param name - image name
+          * @return true if exists
+          */
+        bool hasImage(const std::string& name) const;
+
+        /**
+          * Returns pointer to image with given name
+          * @param name - image name
+          * @return NULL if image not found
+          */
+        CTIImageHeader * image(const std::string& name);
+
+        /**
+          * Returns list of image names in list
+          */
+        std::list<std::string> imageNames() const;
+
+        /**
+          * Returns image handle by given image name
+          * @param name - image name
+          * @param handle - destination handle to write
+          * @return true on success
+          */
+        bool imageHandle(const std::string& name, BitmapHandle * handle);
 
         bool disableReadMask(const std::string& imageName);
         bool disableWriteMask(const std::string& imageName);
         bool enableReadMask(const std::string& imageName);
         bool enableWriteMask(const std::string& imageName);
 
-        Bool32 GetImageReadMask(const char *lpName, PPCTIMask ppMask,
-                                PBool32 pEnMask);
-        Bool32 GetImageWriteMask(const char *lpNmae, PPCTIMask ppWMask,
-                                 PBool32 pEnMask);
-        Bool32 SetImageReadMask(const char *lpName, PCTIMask pAMask);
-        Bool32 SetImageWriteMask(const char *lpName, PCTIMask pWMask);
+        bool imageReadMask(const std::string& name, CTIMask ** ppMask, bool * is_enabled);
+        bool imageWriteMask(const std::string& name, CTIMask ** ppWMask, bool * is_enabled);
+        bool setImageReadMask(const std::string& name, CTIMask * mask);
+        bool setImageWriteMask(const std::string& name, CTIMask * mask);
     private:
         typedef void (CTIImageHeader::*MemberPtr)();
         bool maskAction(const std::string& imageName, MemberPtr ptr);
     private:
-        CTIImageHeader * findImage(const std::string& name);
+        typedef std::map<std::string, CTIImageHeader*> HeaderMap;
+        HeaderMap headers_;
 };
 
 }

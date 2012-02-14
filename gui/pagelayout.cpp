@@ -93,7 +93,7 @@ QGraphicsItemGroup * PageLayout::columnBlocks() {
 
 QGraphicsRectItem * PageLayout::createBlock(const QRect& r, const QColor& c) {
     Q_ASSERT(page_);
-    QGraphicsRectItem * block = new QGraphicsRectItem(r.translated(page_->pageArea().topLeft()));
+    QGraphicsRectItem * block = new QGraphicsRectItem(r);
     QPen pen(c, 0, Qt::SolidLine);
     block->setPen(pen);
     return block;
@@ -143,6 +143,28 @@ void PageLayout::populate(const Page& page) {
         populateGroup(sections_, Page::SECTION);
 }
 
+static QRect turnRect(const QRect& r, int angle, int width, int height) {
+    switch(angle) {
+    case 0:
+        return r;
+    case 90:
+        height--;
+        return QRect(QPoint(r.top(), height - r.right()),
+                     QPoint(r.bottom(), height - r.left()));
+    case 180:
+        height--;
+        width--;
+        return QRect(QPoint(width - r.right(), height - r.bottom()),
+                     QPoint(width - r.left(), height - r.top()));
+    case 270:
+        width--;
+        return QRect(QPoint(width - r.bottom(), r.left()),
+                     QPoint(width - r.top(), r.right()));
+    default:
+        return r;
+    }
+}
+
 void PageLayout::populateGroup(QGraphicsItemGroup * group, int group_type) {
     Q_ASSERT(group);
     Q_ASSERT(page_);
@@ -150,7 +172,7 @@ void PageLayout::populateGroup(QGraphicsItemGroup * group, int group_type) {
     Page::BlockType block_t = static_cast<Page::BlockType>(group_type);
 
     foreach(QRect r, page_->blocks(block_t)) {
-        group->addToGroup(createBlock(r, blockColor(block_t)));
+        group->addToGroup(createBlock(mapFromPage(r), blockColor(block_t)));
     }
 
     addToGroup(group);
@@ -158,5 +180,13 @@ void PageLayout::populateGroup(QGraphicsItemGroup * group, int group_type) {
 
 QGraphicsItemGroup * PageLayout::sectionBlocks() {
     return sections_;
+}
+
+QRect PageLayout::mapFromPage(const QRect& r) const
+{
+    if(!page_ || page_->angle() == 0)
+        return r;
+
+    return turnRect(r, page_->angle(), page_->imageSize().width(), page_->imageSize().height());
 }
 

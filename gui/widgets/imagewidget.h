@@ -69,7 +69,6 @@ public slots:
     void fitWidth();
     void originalSize();
     void showChar(const QRect& bbox);
-    void updateFormatLayout();
     void updateSettings();
     void zoom(qreal value);
     void zoomIn();
@@ -77,6 +76,7 @@ public slots:
 private:
     void setupLayout();
     void setupView();
+    void updateFormatLayout();
 private:
     QVBoxLayout * layout_;
     ImageView * view_;

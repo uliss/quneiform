@@ -26,6 +26,7 @@
 #include "gui/selection.h"
 #define private public
 #include "gui/widgets/imageview.h"
+#include "gui/selectionlist.h"
 
 #ifndef CF_IMAGE_DIR
 #define CF_IMAGE_DIR ""
@@ -49,7 +50,7 @@ TestImageView::TestImageView(QObject *parent) :
 void TestImageView::testConstruct() {
     ImageView iv;
     QVERIFY(iv.area_ == NULL);
-    QVERIFY(iv.page_area_selection_ == NULL);
+    QVERIFY(iv.selections_ == NULL);
     QVERIFY(iv.page_ == NULL);
     QVERIFY(iv.scene());
     QVERIFY(iv.scene()->items().isEmpty());
@@ -67,16 +68,16 @@ void TestImageView::testClearScene() {
     iv.clearScene();
     QVERIFY(iv.scene()->items().isEmpty());
     QVERIFY(iv.area_ == NULL);
-    QVERIFY(iv.page_area_selection_ == NULL);
+    QVERIFY(iv.selections_ == NULL);
 }
 
 #define NO_SCALE(page, view) \
 QVERIFY(!view.transform().isScaling());\
-        QCOMPARE(p.viewScale(), (float)1.0);
+QCOMPARE(p.viewScale(), (float)1.0)
 
 #define SCALED(page, view) \
 QVERIFY(view.transform().isScaling());\
-        QCOMPARE(page.viewScale(), (float) view.transform().m11());
+QCOMPARE(page.viewScale(), (float) view.transform().m11())
 
 void TestImageView::testFitPage() {
     ImageView iv;
@@ -88,23 +89,23 @@ void TestImageView::testFitPage() {
 
     iv.showPage(&p);
     iv.fitPage();
-    SCALED(p, iv)
+    SCALED(p, iv);
 
-            // w - smaller, h - bigger (scale)
-            iv.resize(200, 100);
+    // w - smaller, h - bigger (scale)
+    iv.resize(200, 100);
     iv.fitPage();
-    SCALED(p, iv)
+    SCALED(p, iv);
 
-            // w - bigger, h - bigger (no scale)
-            iv.resize(300, 100);
+    // w - bigger, h - bigger (no scale)
+    iv.resize(300, 100);
     iv.fitPage();
-    NO_SCALE(p, iv)
+    NO_SCALE(p, iv);
 
-            // w - bigger, h - smaller (scale)
-            iv.resize(300, 50);
+    // w - bigger, h - smaller (scale)
+    iv.resize(300, 50);
     iv.fitPage();
-    SCALED(p, iv)
-        }
+    SCALED(p, iv);
+}
 
 void TestImageView::testFitWidth() {
     ImageView iv;
@@ -116,23 +117,23 @@ void TestImageView::testFitWidth() {
     iv.showPage(&p);
 
     iv.fitWidth();
-    SCALED(p, iv)
+    SCALED(p, iv);
 
-            // w - bigger, h - smaller (no scale)
-            iv.resize(300, 50);
+    // w - bigger, h - smaller (no scale)
+    iv.resize(300, 50);
     iv.fitWidth();
-    NO_SCALE(p, iv)
+    NO_SCALE(p, iv);
 
-            // w - bigger, h - bigger (no scale)
-            iv.resize(300, 100);
+    // w - bigger, h - bigger (no scale)
+    iv.resize(300, 100);
     iv.fitWidth();
-    NO_SCALE(p, iv)
+    NO_SCALE(p, iv);
 
-            // w - smaller, h - bigger (scale!)
-            iv.resize(200, 100);
+    // w - smaller, h - bigger (scale!)
+    iv.resize(200, 100);
     iv.fitWidth();
-    SCALED(p, iv)
-        }
+    SCALED(p, iv);
+}
 
 void TestImageView::testOriginalSize() {
     ImageView iv;
@@ -143,11 +144,11 @@ void TestImageView::testOriginalSize() {
     iv.showPage(&p);
 
     iv.zoom(2);
-    SCALED(p, iv)
+    SCALED(p, iv);
 
-            iv.originalSize();
-    NO_SCALE(p, iv)
-        }
+    iv.originalSize();
+    NO_SCALE(p, iv);
+}
 
 void TestImageView::testZoom() {
     ImageView iv;
@@ -175,12 +176,12 @@ void TestImageView::testShowPage() {
 
     Page p(CF_IMAGE_DIR "/english.png");
     p.setViewScroll(QPoint(11, 12));
-    p.setPageArea(QRect(5, 6, 10, 20));
+    p.addReadArea(QRect(5, 6, 10, 20));
 
     iv.showPage(&p);
     QVERIFY(!iv.sceneRect().isNull());
-    QVERIFY(iv.page_area_selection_ != NULL);
-    QCOMPARE(iv.page_area_selection_->normalRect(), QRect(5, 6, 10, 20));
+    QVERIFY(iv.selections_ != NULL);
+    QCOMPARE(iv.selections_->selectionBoundingRect(), QRect(5, 6, 10, 20));
 
     QCOMPARE(iv.verticalScrollBar()->value(), 12);
     QCOMPARE(iv.horizontalScrollBar()->value(), 11);
@@ -218,7 +219,7 @@ void TestImageView::testSelection() {
     iv.show();
     Page p(CF_IMAGE_DIR "/english.png");
     // 281x81
-    p.setPageArea(QRect(10, 20, 50, 60));
+    p.addReadArea(QRect(10, 20, 50, 60));
     iv.showPage(&p);
     wait_events();
 
@@ -230,22 +231,24 @@ void TestImageView::testSelection() {
     QEXPECT_FAIL("", "Win32 fail why???", Abort);
 #endif
 
+#define CHECK_CURSOR(c) QCOMPARE(iv.selections_->selectionAt(0)->cursor().shape(), c);
+
     mouseMove(&iv, QPoint(12, 20));
-    QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeFDiagCursor);
+    CHECK_CURSOR(Qt::SizeFDiagCursor);
     mouseMove(&iv, QPoint(60, 20));
-    QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeBDiagCursor);
+    CHECK_CURSOR(Qt::SizeBDiagCursor);
     mouseMove(&iv, QPoint(60, 80));
-    QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeFDiagCursor);
+    CHECK_CURSOR(Qt::SizeFDiagCursor);
     mouseMove(&iv, QPoint(10, 80));
-    QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeBDiagCursor);
+    CHECK_CURSOR(Qt::SizeBDiagCursor);
     mouseMove(&iv, QPoint(30, 20));
-    QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeVerCursor);
+    CHECK_CURSOR(Qt::SizeVerCursor);
     mouseMove(&iv, QPoint(60, 40));
-    QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeHorCursor);
+    CHECK_CURSOR(Qt::SizeHorCursor);
     mouseMove(&iv, QPoint(30, 80));
-    QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeVerCursor);
+    CHECK_CURSOR(Qt::SizeVerCursor);
     mouseMove(&iv, QPoint(10, 40));
-    QCOMPARE(iv.page_area_selection_->cursor().shape(), Qt::SizeHorCursor);
+    CHECK_CURSOR(Qt::SizeHorCursor);
 }
 
 void TestImageView::testMinMaxZoom() {
@@ -291,4 +294,4 @@ void TestImageView::testMinMaxZoom() {
     QCOMPARE(too_small.count(), 1);
 }
 
-QTEST_MAIN(TestImageView)
+QTEST_MAIN(TestImageView);

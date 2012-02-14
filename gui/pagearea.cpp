@@ -28,8 +28,7 @@
 PageArea::PageArea() :
         layout_(NULL),
         current_char_bbox_(NULL)
-{
-}
+{}
 
 void PageArea::clear() {
     clearCurrentChar();
@@ -55,18 +54,30 @@ void PageArea::show(Page * page) {
     updateLayout(page);
 }
 
-void PageArea::showChar(const QRect& bbox) {
+QRect PageArea::showChar(const QRect& bbox) {
     QSettings settings;
     settings.beginGroup("format");
     QPen p(settings.value("currentCharColor", Qt::red).value<QColor>());
 
+    QRect r;
+
+    if(layout_)
+        r = layout_->mapFromPage(bbox);
+    else
+        r = bbox;
+
     if(!current_char_bbox_) {
-        current_char_bbox_ = new QGraphicsRectItem(bbox, this);
+        current_char_bbox_ = new QGraphicsRectItem(r, this);
         current_char_bbox_->setPen(p);
+        QColor background = p.color();
+        background.setAlpha(20);
+        current_char_bbox_->setBrush(background);
     }
     else {
-        current_char_bbox_->setRect(bbox);
+        current_char_bbox_->setRect(r);
     }
+
+    return r;
 }
 
 void PageArea::showLayout() {

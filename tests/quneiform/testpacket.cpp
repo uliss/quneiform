@@ -43,7 +43,7 @@ void TestPacket::testPageSignals() {
 
     QSignalSpy changed(&packet, SIGNAL(changed()));
 
-    packet.pageAt(0)->setPageArea(QRect(10, 10, 30, 40));
+    packet.pageAt(0)->addReadArea(QRect(10, 10, 30, 40));
     QCOMPARE(changed.count(), 1);
 
     // no change

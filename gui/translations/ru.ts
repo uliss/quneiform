@@ -669,6 +669,10 @@ Are you shure?</source>
         <source>Default font:</source>
         <translation>Шрифт:</translation>
     </message>
+    <message>
+        <source>CImage module debugging</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TextEditor</name>

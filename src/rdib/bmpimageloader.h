@@ -34,7 +34,10 @@ class BmpImageLoader: public ImageLoader
         ~BmpImageLoader();
         ImagePtr load(const std::string& fname);
         ImagePtr load(std::istream& stream);
+        Handle loadHandle(const std::string& fname);
+        Handle loadHandle(std::istream& stream);
     private:
+        ImagePtr load_(std::istream& stream, ImageRawData::allocator_t allocator);
         void allocateColorTable();
         void convertColorSpace();
         uint imageBitCount() const;

@@ -23,7 +23,6 @@ using namespace cf;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestPuma);
 
 void TestPuma::testInit() {
-    Puma::instance().pageTemplate();
     Rect rect;
     //    CPPUNIT_ASSERT_EQUAL(rect, Puma::instance().pageTemplate());
     CPPUNIT_ASSERT(Puma::instance().input_dib_ == NULL);
@@ -41,7 +40,7 @@ void TestPuma::testOpen() {
     ptr->setFileName("test");
 
     Puma::instance().open(ptr);
-    CPPUNIT_ASSERT(Puma::instance().input_dib_ == ptr->data());
+    CPPUNIT_ASSERT(Puma::instance().input_dib_ == (BitmapHandle) ptr->data());
     CPPUNIT_ASSERT(Puma::instance().input_filename_ == "test");
     CPPUNIT_ASSERT(Puma::instance().cpage_ != NULL);
 }

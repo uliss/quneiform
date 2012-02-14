@@ -137,15 +137,15 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 		return FALSE;
 	}
 
-	Handle lpDIB;
-	if (!CIMAGE_ReadDIB(ImageDelLines, &lpDIB, 1)) {
-		CIMAGE_DeleteImage(ImageDelLines);
+    BitmapHandle lpDIB;
+    if (!CIMAGE_ReadDIB(ImageDelLines, &lpDIB)) {
+		CIMAGE_RemoveImage(ImageDelLines);
 		return FALSE;
 	}
 
 	CTDIB* ctdib = new CTDIB;
 	if (!ctdib) {
-		CIMAGE_DeleteImage(ImageDelLines);
+		CIMAGE_RemoveImage(ImageDelLines);
 		return FALSE;
 	}
 
@@ -178,14 +178,14 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 		if (!InitLineMas(&pHorLines, len_hor_mas)) {
 			ctdib->ResetDIB();
 			delete ctdib;
-			CIMAGE_DeleteImage(ImageDelLines);
+			CIMAGE_RemoveImage(ImageDelLines);
 			return FALSE;
 		}
 		if (!InitLineMas(&pVerLines, len_ver_mas)) {
 			DelLineMas(pHorLines);
 			ctdib->ResetDIB();
 			delete ctdib;
-			CIMAGE_DeleteImage(ImageDelLines);
+			CIMAGE_RemoveImage(ImageDelLines);
 			return FALSE;
 		}
 
@@ -1441,15 +1441,15 @@ Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines) {
 		return FALSE;
 	}
 
-	Handle lpDIB;
-	if (!CIMAGE_ReadDIB(ImageDelLines, &lpDIB, 1)) {
-		CIMAGE_DeleteImage(ImageDelLines);
+    BitmapHandle lpDIB;
+    if (!CIMAGE_ReadDIB(ImageDelLines, &lpDIB)) {
+		CIMAGE_RemoveImage(ImageDelLines);
 		return FALSE;
 	}
 
 	CTDIB* ctdib = new CTDIB;
 	if (!ctdib) {
-		CIMAGE_DeleteImage(ImageDelLines);
+		CIMAGE_RemoveImage(ImageDelLines);
 		return FALSE;
 	}
 

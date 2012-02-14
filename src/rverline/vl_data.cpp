@@ -78,7 +78,6 @@
 /*  interface my-my      */
 #include "am_buff.h"
 
-using namespace cf;
 /*------------own objects-----------------------------------------------------*/
 FNCPAGE_GetBlockFirst GetBlockFirst;
 FNCPAGE_GetBlockNext GetBlockNext;
@@ -610,8 +609,7 @@ Bool MyGetRaster(Handle hCPage, VL_I_TASK *pTask, uchar **ppData) {
 	DataInto.dwWidth = pTask->MyExtrWidth;
 	DataInto.wByteWidth = (int16_t) ((pTask->MyExtrWidth + 7) / 8);//06.09.00
 	DataInto.dwX = pTask->MyLeft;
-	DataInto.dwY = pTask->MyTop;
-	DataInto.MaskFlag = 0x00;
+    DataInto.dwY = pTask->MyTop;
 	GetPageInfo(hCPage, &info);
 	for (i = 0; i < 256; i++)
 		Name[i] = info.szImageName[i];
@@ -621,7 +619,7 @@ Bool MyGetRaster(Handle hCPage, VL_I_TASK *pTask, uchar **ppData) {
 	DataOut.byBit = (uint16_t) info.BitPerPixel;
 	DataOut.lpData = *ppData;
 	/*  5. Чтение части изображения.  */
-	ret = CIMAGE_GetData(Name, &DataInto, &DataOut);
+	ret = CIMAGE_GetRawData(Name, &DataInto, &DataOut);
 	if (!ret)
 		return FALSE;
 	if (DataOut.lpData == NULL)

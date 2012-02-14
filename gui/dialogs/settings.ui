@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author>Serj Poltavski</author>
+ <author>Serge Poltavski</author>
  <class>Settings</class>
  <widget class="QDialog" name="Settings">
   <property name="geometry">
@@ -98,7 +98,7 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="generalSettings">
           <widget class="QLabel" name="label">
@@ -218,6 +218,13 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cimage_debug_">
+             <property name="text">
+              <string>CImage module debugging</string>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QGroupBox" name="groupBox">

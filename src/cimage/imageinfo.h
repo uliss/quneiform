@@ -50,8 +50,6 @@ struct CIMAGE_InfoDataInGet {
     uint32_t dwWidth;
     uint32_t dwHeight;
     uint16_t wByteWidth;
-    uchar Reserved;
-    uchar MaskFlag;
 };
 
 struct CIMAGE_InfoDataOutGet {
@@ -76,13 +74,6 @@ struct CIMAGE_InfoDataInReplace {
     uchar MaskFlag;
 };
 
-struct CIMAGE_Rect {
-    int32_t dwX;
-    int32_t dwY;
-    uint32_t dwWidth;
-    uint32_t dwHeight;
-};
-
 struct BitmapInfoHeader {
 public:
     BitmapInfoHeader() :
@@ -105,12 +96,5 @@ public:
 };
 
 typedef BitmapInfoHeader * BitmapHandle;
-
-struct CIMAGERGBQUAD {
-    uchar rgbBlue;
-    uchar rgbGreen;
-    uchar rgbRed;
-    uchar rgbReserved;
-};
 
 #endif

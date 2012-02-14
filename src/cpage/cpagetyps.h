@@ -78,6 +78,24 @@ class PAGEINFO
             szImageName[0] = 0;
         }
 
+        /**
+          * Sets page turn angle
+          * @note allowed values: 0, 90, 180, 270
+          * @see turnAngle()
+          */
+        void setTurnAngle(int angle)
+        {
+            Angle = angle % 360;
+        }
+
+        /**
+          * Returns page turn angle
+          * @see setTurnAngle()
+          */
+        int turnAngle() const {
+            return Angle;
+        }
+
         char szImageName[CPAGE_MAXNAME];// имя блока распознаваемого изображения в контейнере RIMAGE
         uint32_t Page; // номер страницы
         uint32_t DPIX;
@@ -98,8 +116,8 @@ class PAGEINFO
 #define IMAGE_TURN      32
         uint16_t Images;//существующие изображения
         uint32_t status;
-#define PINFO_USERTEMPLATE  1;  // темплейт установлен пользователем
-#define PINFO_AUTOTEMPLATE  2;  // темплейт установлен автоматически
+#define PINFO_USERTEMPLATE  1  // темплейт установлен пользователем
+#define PINFO_AUTOTEMPLATE  2  // темплейт установлен автоматически
 };
 typedef PAGEINFO * LPPAGEINFO;
 

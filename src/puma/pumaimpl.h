@@ -80,11 +80,6 @@ class PumaImpl
         void open(ImagePtr img);
 
         /**
-         * Returns image working area
-         */
-        Rect pageTemplate() const;
-
-        /**
          * Recognizes image
          */
         void recognize();
@@ -101,10 +96,6 @@ class PumaImpl
          */
         void setRecognizeOptions(const RecognizeOptions& opt);
 
-        /**
-         * Sets working region on input image
-         */
-        void setPageTemplate(const Rect& r);
         void setSpecialProject(special_project_t SpecialProject);
     private:
         void binarizeImage();
@@ -133,12 +124,14 @@ class PumaImpl
         void recognizePass2();
         void recognizeSetup();
         void recognizeSpecial();
-        void rotate(void * dib, Point * p);
+        void rotate(BitmapHandle * dib, Point * p);
         void saveCSTR(int pass);
         void saveLayoutToFile(const std::string& fname);
         void saveToText(std::ostream& os) const;
         void saveToText(const std::string& filename) const;
+        void setupMasks();
         void spellCorrection();
+        void turn(int angle);
     private:
         static bool hasUpdateFlag(uint32_t flg);
         static void setUpdateFlag(uint32_t flg);
@@ -152,12 +145,11 @@ class PumaImpl
         boost::shared_ptr<PageMarker> marker_;
         boost::shared_ptr<RStuff> rstuff_;
         BitmapInfoHeader info_;
-        Rect rect_template_;
         std::string input_filename_;
         std::string layout_filename_;
         FormatOptions format_options_;
         RecognizeOptions recognize_options_;
-        void * input_dib_;
+        BitmapHandle input_dib_;
         void * recog_dib_;
         int tables_num_;
         CCOM_cont * ccom_;

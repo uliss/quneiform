@@ -23,6 +23,7 @@ if(WITH_PYTHON)
 endif()
 
 if(WITH_PERL)
+    find_package(Perl)
     install_test_script(test_perl_api.pl)
     add_test(PerlAPI ${EXECUTABLE_OUTPUT_PATH}/test_perl_api.pl)
 endif()

@@ -51,7 +51,8 @@ static void setFormatMargins(QTextFrameFormat& format, const cf::Rect& margins) 
 static const char * SOFT_HYPEN = "\xAD";
 
 static inline QRect toQRect(const cf::Rect& r) {
-    return QRect(r.x(), r.y(), r.width(), r.height());
+    QRect res(r.x(), r.y(), r.width(), r.height());
+    return res.isValid() ? res.translated(0, -1) : res;
 }
 
 static inline QColor toQColor(const cf::Color& c) {
@@ -353,9 +354,6 @@ void QTextDocumentExporter::writePicture(cf::CEDPicture& pic) {
 
     cf::Rect r = pic.boundingRect();
     pixmap = pixmap.transformed(t);
-
-    if(page_->pageArea().isValid())
-        pixmap = pixmap.copy(page_->pageArea());
 
     pixmap = pixmap.copy(r.x(), r.y(), r.width(), r.height());
 

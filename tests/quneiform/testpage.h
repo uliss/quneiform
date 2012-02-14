@@ -42,7 +42,6 @@ private slots:
     void testSetCEDPage();
     void testSetFlag();
     void testSetFlags();
-    void testSetPageArea();
     void testSetRecognitionSettings();
     void testSetBlocks();
     void testSetViewScroll();

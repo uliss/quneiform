@@ -38,6 +38,7 @@
 #include "ced/cedpage.h"
 #include "cfio/cfio.h"
 #include "cimage/cticontrol.h"
+#include "cimage/ctiimage.h"
 #include "cline/cline.h"
 #include "cstr/cstr.h"
 #include "cpage/cpage.h"
@@ -135,7 +136,6 @@ void PumaImpl::unsetUpdateFlag(uint32_t flg) {
 }
 
 PumaImpl::PumaImpl() :
-    rect_template_(Point(-1, -1), Point(-1, -1)),
     layout_filename_("layout.bin"),
     input_dib_(NULL),
     tables_num_(0),
@@ -165,14 +165,23 @@ void PumaImpl::binarizeImage() {
                 << " at this point.\n";
 
     if (info_.biBitCount > 1) {
-        const int BIN_TYPE = 4; //RIMAGE_BINARISE_KRONROD
-        const int USE_MARGINS = 0;
-        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, BIN_TYPE, USE_MARGINS))
+        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, BINARIZATOR_KRONROD))
             throw PumaException("RIMAGE_Binarise failed");
 
-        const int NO_COPY = TRUE;
-        if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) &input_dib_, NO_COPY))
+        if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, &input_dib_))
             throw PumaException("CIMAGE_ReadDIB failed");
+
+        PAGEINFO info;
+        GetPageInfo(cpage_, &info);
+        info.Images |= IMAGE_BINARIZE;
+        SetPageInfo(cpage_, info);
+        recog_name_ = PUMA_IMAGE_BINARIZE;
+    }
+    else if(recognize_options_.hasReadRects()) {
+        if (!CIMAGE_ReadDIBCopy(PUMA_IMAGE_USER, &input_dib_))
+            throw PumaException("CIMAGE_ReadDIB failed");
+
+        CIMAGE_AddImage(PUMA_IMAGE_BINARIZE, input_dib_);
 
         PAGEINFO info;
         GetPageInfo(cpage_, &info);
@@ -208,9 +217,9 @@ void PumaImpl::clearAll() {
     //  поскольку оно отображается в интерфейсе. Его нужно удалять
     //  либо при получении нового довернутого изображения, либо при
     //  закрытии файла
-    CIMAGE_DeleteImage(PUMA_IMAGE_BINARIZE);
-    CIMAGE_DeleteImage(PUMA_IMAGE_DELLINE);
-    CIMAGE_DeleteImage(PUMA_IMAGE_TURN);
+    CIMAGE_RemoveImage(PUMA_IMAGE_BINARIZE);
+    CIMAGE_RemoveImage(PUMA_IMAGE_DELLINE);
+    CIMAGE_RemoveImage(PUMA_IMAGE_TURN);
 }
 
 CEDPagePtr PumaImpl::cedPage() {
@@ -290,7 +299,6 @@ void PumaImpl::extractStrings() {
         if (!RSELSTR_ExtractTextStrings(ccom_, cpage_))
             throw PumaException("RSELSTR_ExtractTextStrings failed");
     }
-
     else {
         if (!RBLOCK_ExtractTextStrings(ccom_, cpage_))
             throw PumaException("RBLOCK_ExtractTextStrings failed");
@@ -314,6 +322,9 @@ void PumaImpl::getImageInfo(const std::string& image_name) {
 void PumaImpl::layout() {
     clearAll();
     binarizeImage();
+
+    if(recognize_options_.hasTurn())
+        turn(recognize_options_.turnAngle());
 
     RSPreProcessImage DataforRS;
 
@@ -487,14 +498,14 @@ void PumaImpl::open(ImagePtr img) {
     preOpenInitialize();
 
     input_filename_ = img->fileName();
-    input_dib_ = img->data();
+    input_dib_ = (BitmapHandle) img->data();
 
     // write image
-    if (!CIMAGE_WriteDIB(PUMA_IMAGE_USER, input_dib_, 1))
+    if (!CIMAGE_AddImage(PUMA_IMAGE_USER, input_dib_))
         throw PumaException("[PumaImpl::open] can't write DIB");
 
-    postOpenInitialize();
     cpage_ = CreateEmptyPage();
+    postOpenInitialize();
 }
 
 const char * PumaImpl::modulePath() const {
@@ -508,10 +519,6 @@ const char * PumaImpl::moduleTmpPath() const {
 void PumaImpl::normalize() {
     //Нормализуем вертикальные строки
     RPSTR_NormalizeVertStr();
-}
-
-Rect PumaImpl::pageTemplate() const {
-    return rect_template_;
 }
 
 void PumaImpl::pass1() {
@@ -577,6 +584,39 @@ void PumaImpl::spellCorrection() {
         throw PumaException("RPSTR_CorrectSpell failed");
 }
 
+void PumaImpl::turn(int angle)
+{
+    CImage::instance().disableReadMask(PUMA_IMAGE_USER);
+
+    rimage_turn_angle_t a = (rimage_turn_angle_t) 0;
+    switch(angle) {
+    case 90:
+        a = RIMAGE_TURN_270;
+        break;
+    case 180:
+        a = RIMAGE_TURN_180;
+        break;
+    case 270:
+        a = RIMAGE_TURN_90;
+        break;
+    }
+
+    if (!RIMAGE_Turn(PUMA_IMAGE_USER, PUMA_IMAGE_TURN, a))
+        throw PumaException("RIMAGE_Turn failed", angle);
+
+    CImage::instance().enableReadMask(PUMA_IMAGE_USER);
+    if (!CIMAGE_ReadDIB(PUMA_IMAGE_TURN, &input_dib_))
+        throw PumaException("CIMAGE_ReadDIB failed");
+
+    PAGEINFO page_info;
+    if (!CPAGE_GetPageData(cpage_, PT_PAGEINFO, &page_info, sizeof(page_info)))
+        throw PumaException("CPAGE_GetPageData failed");
+    page_info.Images |= IMAGE_TURN;
+    page_info.setTurnAngle(angle);
+    CPAGE_SetPageData(cpage_, PT_PAGEINFO, &page_info, sizeof(page_info));
+    recog_name_ = PUMA_IMAGE_TURN;
+}
+
 void PumaImpl::preOpenInitialize() {
     PumaImpl::close();
     setUpdateFlag(FLG_UPDATE);
@@ -640,7 +680,7 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
 
 void PumaImpl::postOpenInitialize() {
     getImageInfo(PUMA_IMAGE_USER);
-    rect_template_.set(Point(), info_.biWidth, info_.biHeight);
+    setupMasks();
 }
 
 void PumaImpl::recognize() {
@@ -879,51 +919,49 @@ void PumaImpl::recognizeSpecial() {
     global_buf_len++;
 }
 
-void PumaImpl::rotate(void * dib, Point * p) {
+void PumaImpl::rotate(BitmapHandle * dib, Point * p) {
     // Определим угол поворота страницы
-    PAGEINFO PInfo;
+    PAGEINFO page_info;
     assert(p);
     assert(dib);
 
-    if (!CPAGE_GetPageData(cpage_, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo)))
+    if (!CPAGE_GetPageData(cpage_, PT_PAGEINFO, (void*) &page_info, sizeof(page_info)))
         throw PumaException("CPAGE_GetPageData failed");
 
-    BitmapInfoHeader info;
-
-    if (PInfo.BitPerPixel > 1) {
+    if (page_info.BitPerPixel > 1) {
+        BitmapInfoHeader info;
         if (!CIMAGE_GetImageInfo(PUMA_IMAGE_BINARIZE, &info))
             throw PumaException("CIMAGE_GetImageInfo failed");
 
-        if (PInfo.Incline2048 > 0) {
-            p->rx() = info.biWidth * PInfo.Incline2048 / 2048
-                    * PInfo.Incline2048 / 2048;
-            p->ry() = info.biWidth * PInfo.Incline2048 / 2048;
+        if (page_info.Incline2048 > 0) {
+            p->rx() = info.biWidth * page_info.Incline2048 / 2048
+                    * page_info.Incline2048 / 2048;
+            p->ry() = info.biWidth * page_info.Incline2048 / 2048;
         }
-
         else {
-            p->rx() = -(int32_t) info.biHeight * PInfo.Incline2048 / 2048
-                    + (int32_t) info.biWidth * PInfo.Incline2048 / 2048
-                            * PInfo.Incline2048 / 2048;
+            p->rx() = -info.biHeight * page_info.Incline2048 / 2048
+                    + info.biWidth * page_info.Incline2048 / 2048
+                            * page_info.Incline2048 / 2048;
             p->ry() = 0;
         }
     }
 
     // Создадим довернутое изображение
-    GetPageInfo(cpage_, &PInfo);
-    CIMAGE_DeleteImage(PUMA_IMAGE_ROTATE);
+    GetPageInfo(cpage_, &page_info);
+    CIMAGE_RemoveImage(PUMA_IMAGE_ROTATE);
 
     CImage::instance().disableReadMask(PUMA_IMAGE_USER);
 
     if (!RIMAGE_Rotate((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_ROTATE,
-            PInfo.Incline2048, 2048, 0))
+            page_info.Incline2048, 2048, 0))
         throw PumaException("RIMAGE_Rotate failed");
 
-    if (!CIMAGE_ReadDIB(PUMA_IMAGE_ROTATE, (void**) dib, true))
+    if (!CIMAGE_ReadDIB(PUMA_IMAGE_ROTATE, dib))
         throw PumaException("CIMAGE_ReadDIB failed");
 
     CImage::instance().enableReadMask(PUMA_IMAGE_USER);
-    PInfo.Images |= IMAGE_ROTATE;
-    SetPageInfo(cpage_, PInfo);
+    page_info.Images |= IMAGE_ROTATE;
+    SetPageInfo(cpage_, page_info);
 }
 
 void PumaImpl::saveCSTR(int pass) {
@@ -962,6 +1000,33 @@ void PumaImpl::saveToText(const std::string& filename) const {
     saveToText(of);
 }
 
+void PumaImpl::setupMasks()
+{
+    if(!recognize_options_.hasReadRects())
+        return;
+
+    BitmapHandle image = CImage::instance().image(PUMA_IMAGE_USER);
+    if(!image)
+        return;
+
+    Rect full_page(0, 0, image->biWidth, image->biHeight);
+
+    PAGEINFO page_info;
+    GetPageInfo(cpage_, &page_info);
+    page_info.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
+
+    CImage::instance().addRectToReadMask(PUMA_IMAGE_USER, full_page);
+
+    std::vector<Rect> read_masks = recognize_options_.readRects();
+    for(size_t i = 0; i < read_masks.size(); i++)
+        CImage::instance().removeRectFromReadMask(PUMA_IMAGE_USER, read_masks.at(i));
+
+    CImage::instance().enableReadMask(PUMA_IMAGE_USER);
+
+    SetPageInfo(cpage_, page_info);
+    setUpdateFlag(FLG_UPDATE);
+}
+
 void PumaImpl::setFormatOptions(const FormatOptions& opt) {
     format_options_ = opt;
 }
@@ -973,53 +1038,12 @@ void PumaImpl::setRecognizeOptions(const RecognizeOptions& opt) {
     setUpdateFlag(FLG_UPDATE_CPAGE);
 }
 
-void PumaImpl::setPageTemplate(const Rect& r) {
-    Rect old_rect = rect_template_;
-    Rect rect = r;
-    BitmapInfoHeader info;
-
-    if (CIMAGE_GetImageInfo(PUMA_IMAGE_USER, &info)) {
-        CIMAGE_Rect full = { 0, 0, info.biWidth, info.biHeight };
-        PAGEINFO PInfo;
-        GetPageInfo(cpage_, &PInfo);
-        //      PInfo.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
-        PInfo.status &= ~3;
-
-        if (rect.left() < 0 && rect.right() < 0 && rect.bottom() < 0
-                && rect.top() < 0) {
-            rect.set(Point(full.dwX, full.dwY), full.dwWidth, full.dwHeight);
-        }
-
-        if (old_rect == rect) {
-            PInfo.X = rect.left();
-            PInfo.Y = rect.top();
-            SetPageInfo(cpage_, PInfo);
-            return;
-        }
-
-        if (CIMAGE_AddReadCloseRects(PUMA_IMAGE_USER, 1, &full)) {
-            if (rect.left() >= 0 && rect.top() >= 0 && rect.width()
-                    <= info.biWidth && rect.height() <= info.biHeight) {
-                CIMAGE_Rect rtmp = { rect.left(), rect.top(), rect.width(),
-                        rect.height() };
-                CIMAGE_RemoveReadCloseRects(PUMA_IMAGE_USER, 1, &rtmp);
-                PInfo.X = rect.left();
-                PInfo.Y = rect.top();
-            }
-
-            else {
-                CIMAGE_Rect rtmp =
-                        { 0, 0, info.biWidth - 1, info.biHeight - 1 };
-                CIMAGE_RemoveReadCloseRects(PUMA_IMAGE_USER, 1, &rtmp);
-                PInfo.X = 0;
-                PInfo.Y = 0;
-            }
-
-            SetPageInfo(cpage_, PInfo);
-            setUpdateFlag(FLG_UPDATE);
-            rect_template_ = rect;
-        }
-    }
+static inline bool isValidPageTemplate(const Rect& r)
+{
+    return r.left() >= 0 ||
+            r.right() >= 0 ||
+            r.bottom() >= 0 ||
+            r.top() >= 0;
 }
 
 void PumaImpl::setSpecialProject(special_project_t SpecialProject) {

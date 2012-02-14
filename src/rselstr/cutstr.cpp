@@ -73,8 +73,6 @@
 #include "minmax.h"
 #include "cfcompat.h"
 
-using namespace cf;
-
 #define TYPE_NormalZone		CPAGE_GetInternalType("TYPE_NormalZone")
 #define TYPE_NormalRazrezZone		CPAGE_GetInternalType("TYPE_NormalRazrezZone")
 
@@ -227,10 +225,10 @@ int CutStrings(POLY_* pBlock) {
 	GetPageInfo(HCPAGE, &info);
 	int nIncline = info.Incline2048;
 
-	Point16 pLeftTop;
-	Point16 pRightTop;
-	Point16 pLeftBottom;
-	Point16 pRightBottom;
+    cf::Point16 pLeftTop;
+    cf::Point16 pRightTop;
+    cf::Point16 pLeftBottom;
+    cf::Point16 pRightBottom;
 
 	Bool fl_cont = FALSE;
 
@@ -309,10 +307,10 @@ int GetMediumHeight(POLY_* pBlock) {
 	CCOM_comp * comp;
 	int sum_height = 0;
 	int count = 0;
-	Point16 pLeftTop;
-	Point16 pRightTop;
-	Point16 pLeftBottom;
-	Point16 pRightBottom;
+    cf::Point16 pLeftTop;
+    cf::Point16 pRightTop;
+    cf::Point16 pLeftBottom;
+    cf::Point16 pRightBottom;
 
 	PAGEINFO info;
 	GetPageInfo(HCPAGE, &info);
@@ -419,7 +417,6 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp) {
 	DataInto.wByteWidth = (uint16_t)(prewide / 8);
 	DataInto.dwX = left;
 	DataInto.dwY = upper;
-	DataInto.MaskFlag = 0x00;
 	GetPageInfo(hCPage, &info);
 	for (i = 0; i < CPAGE_MAXNAME; i++)
 		Name[i] = info.szImageName[i];
@@ -430,7 +427,7 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp) {
 	DataOut.lpData = *ppmasp;
 
 	//	  5. Чтение части изображения.
-	ret = CIMAGE_GetData(Name, &DataInto, &DataOut);
+	ret = CIMAGE_GetRawData(Name, &DataInto, &DataOut);
 	if (!ret)
 		return FALSE;
 	if (DataOut.lpData == NULL)

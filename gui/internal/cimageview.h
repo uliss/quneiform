@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,19 +16,30 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SELECTIONSHADOW_H
-#define SELECTIONSHADOW_H
+#ifndef CIMAGEVIEW_H
+#define CIMAGEVIEW_H
 
-#include <QGraphicsItem>
+#include <QDialog>
 
-class QGraphicsRect;
+class QListWidget;
+class QLabel;
+class QListWidgetItem;
+class CImageStorage;
 
-class SelectionShadow : public QGraphicsItem
+class CImageView : public QDialog
 {
+    Q_OBJECT
 public:
-    explicit SelectionShadow(QGraphicsRectItem * parent = 0);
-    QRectF boundingRect() const;
-    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
+    explicit CImageView(QWidget * parent = 0);
+    ~CImageView();
+private:
+    void init();
+private slots:
+    void showImage(QListWidgetItem* item);
+private:
+    QListWidget * image_list_;
+    QLabel * image_;
+    CImageStorage * storage_;
 };
 
-#endif // SELECTIONSHADOW_H
+#endif // CIMAGEVIEW_H

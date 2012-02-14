@@ -24,6 +24,7 @@
 #include "textexporter.h"
 #include "hocrexporter.h"
 
+#include "common/serialize.h"
 #ifdef CF_SERIALIZE
 #include "cuneiformexporter.h"
 #include "cuneiformxmlexporter.h"

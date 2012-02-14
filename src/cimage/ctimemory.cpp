@@ -55,7 +55,6 @@
  */
 #include <string>
 
-#include "ctidefines.h"
 #include "ctiimage.h"
 #include "ctimemory.h"
 #include "cfio/cfio.h"
@@ -116,37 +115,3 @@ void CIMAGEUnlock(void * mem)
     CFIO_UnlockMemory(mem);
 #endif
 }
-
-//#include "resource.h"
-//#include "ctidefines.h"
-//#include "ctiimage.h"
-//#include "ctimemory.h"
-//
-//#include <string>
-//
-//static std::string CommentBuffer;
-//
-//void CIMAGEComment(const char * Comment) {
-//    CommentBuffer = Comment;
-//}
-//
-//void * CIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment) {
-//    CIMAGEComment(Comment);
-//    return CIMAGEAlloc(stAllocateBlock);
-//}
-//
-//void * CIMAGEAlloc(uint32_t stAllocateBlock) {
-//    return malloc(stAllocateBlock);
-//}
-//
-//void CIMAGEFree(void * mem) {
-//    free(mem);
-//}
-//
-//void * CIMAGELock(void * mem) {
-//    return mem;
-//}
-//
-//void CIMAGEUnlock(void*) {
-//}
-

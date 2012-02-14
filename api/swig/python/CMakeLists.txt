@@ -12,6 +12,7 @@ message(STATUS "Python install directory: ${PYTHON_INSTDIR}")
 set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS} "-c++")
 
 SET_SOURCE_FILES_PROPERTIES(cuneiform-python.i PROPERTIES CPLUSPLUS ON)
+SET_SOURCE_FILES_PROPERTIES(cuneiform-python.i PROPERTIES SWIG_FLAGS "-classic")
 SWIG_ADD_MODULE(pyneiform python cuneiform-python.i)
 SWIG_LINK_LIBRARIES(pyneiform ${PYTHON_LIBRARIES} cuneiform-c cuneiform)
 

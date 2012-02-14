@@ -1022,7 +1022,6 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp)
     DataInto.wByteWidth = (uint16_t) (prewide / 8);
     DataInto.dwX = left;
     DataInto.dwY = upper;
-    DataInto.MaskFlag = 0x00;
     GetPageInfo(hCPage, &info);
     for (int i = 0; i < CPAGE_MAXNAME; i++)
         Name[i] = ImageName[i];
@@ -1033,7 +1032,7 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp)
     DataOut.lpData = *ppmasp;
 
     /*  5. Чтение части изображения.  */
-    Bool ret = CIMAGE_GetData(Name, &DataInto, &DataOut);
+    Bool ret = CIMAGE_GetRawData(Name, &DataInto, &DataOut);
     if (!ret)
         return FALSE;
     if (DataOut.lpData == NULL)

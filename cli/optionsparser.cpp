@@ -20,6 +20,7 @@
 #include <stdexcept>
 #include <cstring>
 #include <cstdlib>
+#include <cstdio>
 #include <getopt.h>
 
 #include "optionsparser.h"
@@ -39,6 +40,9 @@ static int do_singlecolumn = FALSE;
 static int do_speller = FALSE;
 static int do_tables = TRUE;
 static language_t langcode = LANGUAGE_ENGLISH;
+static std::string page_template;
+static Rect page_template_r;
+static int turn_angle = 0;
 
 // format options
 static std::string monospace;
@@ -73,6 +77,8 @@ const static int MONOSPACE_FLAG = 1024;
 const static int SERIF_FLAG = 1025;
 const static int SANS_SERIF_FLAG = 1026;
 const static int IMAGE_OUTPUT_DIR_FLAG = 1027;
+const static int PAGE_TEMPLATE_FLAG = 1028;
+const static int PAGE_TURN_FLAG = 1029;
 
 static const char * const short_options = ":abho:pvVl:f:u:";
 static const struct option long_options[] = {
@@ -94,6 +100,7 @@ static const struct option long_options[] = {
     { "nopictures", no_argument, &do_pictures, 0 },//
     { "output", required_argument, NULL, 'o' },//
     { "output-image-dir", required_argument, NULL, IMAGE_OUTPUT_DIR_FLAG },//
+    { "page-template", required_argument, NULL, PAGE_TEMPLATE_FLAG }, //
     { "pictures", no_argument, &do_pictures, 1 },//
     { "preserve-line-breaks", no_argument, &preserve_line_breaks, 1 },//
     { "progress", no_argument, &do_progress, 'p' }, //
@@ -106,6 +113,7 @@ static const struct option long_options[] = {
     { "spell", no_argument, &do_speller, 1 },//
     { "tables", required_argument, &do_tables, 1 },//
     { "test-output", no_argument, &test_output, 1},//
+    { "turn", required_argument, NULL, PAGE_TURN_FLAG }, //
     { "unrecognized", required_argument, NULL, 'u' },//
     { "verbose", no_argument, &do_verbose, 1 },//
     { "version", no_argument, NULL, 'V' },//
@@ -170,6 +178,22 @@ static bool isFormatOption(const char * opt) {
     return (strcmp(opt, "-f") == 0) || (strcmp(opt, "--format") == 0);
 }
 
+static Rect parsePageTemplate(const std::string& str)
+{
+    int x = 0;
+    int y = 0;
+    int w = 0;
+    int h = 0;
+    int n = sscanf(str.c_str(), "%d,%d,%d,%d", &x, &y, &w, &h);
+
+    if(n == 4)
+        return Rect(Point(x, y), w, h);
+    else if(n == 2)
+        return Rect(Point(), x, y);
+    else
+        return Rect();
+}
+
 OptionsParser::OptionsParser() {}
 
 void OptionsParser::getoptParse(int argc, char **argv)
@@ -197,6 +221,14 @@ void OptionsParser::getoptParse(int argc, char **argv)
             break;
         case IMAGE_OUTPUT_DIR_FLAG:
             output_image_dir = optarg;
+            break;
+        case PAGE_TEMPLATE_FLAG:
+            page_template = optarg;
+            break;
+        case PAGE_TURN_FLAG:
+            turn_angle = strtol(optarg, NULL, 10) % 360;
+            if(turn_angle < 0)
+                turn_angle = 360 + turn_angle;
             break;
         case 'l':
             langcode = processLangOptions(optarg);
@@ -266,6 +298,12 @@ void OptionsParser::getoptParse(int argc, char **argv)
 
     if (outfilename.empty())
         outfilename = defaultOutputName(outputformat);
+
+    if(!page_template.empty()) {
+        Rect r = parsePageTemplate(page_template);
+        if(r.perimeter() > 0)
+            page_template_r = r;
+    }
 }
 
 void OptionsParser::parse(int argc, char **argv) {
@@ -320,7 +358,10 @@ void OptionsParser::printRecognizeOptions(std::ostream& os) {
                 "Use recognition mode optimized for text printed with a dot matrix printer.");
     printOption(os, "--fax", "",
                 "Use recognition mode optimized for text that has been faxed.");
+    printOption(os, "--page-template RECT", "", "Sets recognition area [X,Y,WIDTH,HEIGHT].");
     printOption(os, "--pictures", "", "Search pictures (default).");
+    printOption(os, "--turn ANGLE", "", "Sets page clock-wise turning angle. Note, allowed values are: \n"
+                "    0, 90, 180, 270 and their negatives.");
     printOption(os, "--nopictures", "", "Do not search pictures.");
 
     printOption(os, "--language LANGUAGE", "-l",
@@ -402,11 +443,29 @@ void OptionsParser::updateFormatOptions() {
 void OptionsParser::updateRecognizeOptions() {
     if(langcode != LANGUAGE_UNKNOWN)
         recognize_opts_.setLanguage(langcode);
+
     recognize_opts_.setFax(do_fax);
     recognize_opts_.setDotMatrix(do_dotmatrix);
     recognize_opts_.setSpellCorrection(do_speller);
     recognize_opts_.setOneColumn(do_singlecolumn);
     recognize_opts_.setPictureSearch(do_pictures);
+
+    if(page_template_r.perimeter() > 0)
+        recognize_opts_.addReadRect(page_template_r);
+
+    switch(turn_angle) {
+    case 90:
+        recognize_opts_.setTurnAngle(RecognizeOptions::ANGLE_90);
+        break;
+    case 180:
+        recognize_opts_.setTurnAngle(RecognizeOptions::ANGLE_180);
+        break;
+    case 270:
+        recognize_opts_.setTurnAngle(RecognizeOptions::ANGLE_270);
+        break;
+    default:
+        break;
+    }
 }
 
 }

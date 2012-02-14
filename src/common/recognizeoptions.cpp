@@ -17,8 +17,10 @@
  ***************************************************************************/
 
 #include <iomanip>
+
 #include "recognizeoptions.h"
 #include "language.h"
+#include "tostring.h"
 
 namespace cf {
 
@@ -28,13 +30,15 @@ enum {
     SPELL_CORRECTION = 0x004,
     FAX              = 0x008,
     ONE_COLUMN       = 0x010,
-    FIND_PICTURES    = 0x020
+    FIND_PICTURES    = 0x020,
+    CLEANUP_DELAYED  = 0x040
 };
 
 RecognizeOptions::RecognizeOptions() :
     language_(LANGUAGE_ENGLISH),
     table_mode_(TABLE_DEFAULT),
-    flags_(0)
+    flags_(0),
+    turn_angle_(ANGLE_0)
 {
     setAutoRotate(false);
     setDotMatrix(false);
@@ -42,6 +46,26 @@ RecognizeOptions::RecognizeOptions() :
     setFax(false);
     setOneColumn(false);
     setPictureSearch(true);
+}
+
+void RecognizeOptions::addReadRect(const Rect &r)
+{
+    read_rects_.push_back(r);
+}
+
+std::vector<Rect> RecognizeOptions::readRects() const
+{
+    return read_rects_;
+}
+
+void RecognizeOptions::clearReadRects()
+{
+    read_rects_.clear();
+}
+
+bool RecognizeOptions::hasReadRects() const
+{
+    return !read_rects_.empty();
 }
 
 bool RecognizeOptions::autoRotate() const {
@@ -84,6 +108,31 @@ void RecognizeOptions::setLanguage(language_t language) {
     language_ = language;
 }
 
+bool RecognizeOptions::debugCleanupDelayed() const
+{
+    return hasFlag(CLEANUP_DELAYED);
+}
+
+void RecognizeOptions::setDebugCleanupDelayed(bool value)
+{
+    setFlag(CLEANUP_DELAYED, value);
+}
+
+bool RecognizeOptions::hasTurn() const
+{
+    return turn_angle_ != ANGLE_0;
+}
+
+void RecognizeOptions::setTurnAngle(turn_angle_t angle)
+{
+    turn_angle_ = angle;
+}
+
+RecognizeOptions::turn_angle_t RecognizeOptions::turnAngle() const
+{
+    return turn_angle_;
+}
+
 void RecognizeOptions::setOneColumn(bool value) {
     setFlag(ONE_COLUMN, value);
 }
@@ -124,6 +173,16 @@ static void OPT(std::ostream& os, const std::string& name, const T& value) {
     os << name + ":" << value << "\n";
 }
 
+static void printRects(std::ostream& os, const std::vector<Rect>& rects) {
+    os << "    " << "Read areas: ";
+
+    for(size_t i = 0; i < rects.size(); i++) {
+        os << "        " << rects[i] << ",\n";
+    }
+
+    os << "\n";
+}
+
 std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
     os << "Recognize options:\n";
     os << std::boolalpha;
@@ -136,6 +195,8 @@ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
     OPT(os, "Autorotate" , opts.autoRotate());
     OPT(os, "Language", Language(opts.language()));
     OPT(os, "User dictionary", opts.userDict());
+    OPT(os, "Turn angle", opts.turnAngle());
+    printRects(os, opts.readRects());
     os << std::noboolalpha;
     return os;
 }

@@ -56,135 +56,113 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <iostream>
+#include <boost/current_function.hpp>
 
+#include "resource.h"
 #include "cricontrol.h"
 #include "crimemory.h"
+#include "cimage/cticontrol.h"
+#include "rimage_debug.h"
+
+namespace cf {
+
+namespace cf {
 
 CRIControl::CRIControl()
 {
-    mpSourceDIB = NULL;
-    mpDestinationDIB = NULL;
-    mpBinarizator = NULL;
-    mpTurner = NULL;
-    mpInvertor = NULL;
-    mpRotator = NULL;
-    mp_TurnedDIB = NULL;
-    mbMarginsFlag = FALSE;
-    DIBOpeningType = FALSE;
-    mcLastDIBName[0] = 0x0;
-    /*
-     #define DecFunction(a) FNCIMAGE##a a; if(!CIMAGE_GetExportData(CIMAGE_FN_##a, &a)) \
-                printf("CIMAGE_GetExportData == FALSE : %-3i,%s \n",a,CIMAGE_GetReturnString(CIMAGE_GetReturnCode()));
-     // \
-    DecFunction(GetData);
-     DecFunction(ReplaceData);
-     DecFunction(GetCallbackImage);
-     DecFunction(WriteCallbackImage);
-     DecFunction(WriteDIB);
-     DecFunction(ReadDIB);
-     DecFunction(GetImageInfo);
-     DecFunction(DeleteImage);
-     DecFunction(FreeCopedDIB);
-
-     #undef  DecFunction
-     */
+    init();
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 CRIControl::~CRIControl()
 {
-    if (mpBinarizator)
-        delete mpBinarizator;
-
-    if (mpTurner)
-        delete mpTurner;
-
-    if (mpInvertor)
-        delete mpInvertor;
-
-    if (mpRotator)
-        delete mpRotator;
-
-    if (mpDestinationDIB)
-        delete mpDestinationDIB;
+    clear();
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 CRIControl::SetMargins(PRIMAGEMARGINS pMargins)
+
+void CRIControl::clear()
 {
-    SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
-    return FALSE;
+    if (binarizator_)
+        delete binarizator_;
+
+    if (turner_)
+        delete turner_;
+
+    if (invertor_)
+        delete invertor_;
+
+    if (rotator_)
+        delete rotator_;
+
+    if (dest_dib_)
+        delete dest_dib_;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 CRIControl::Binarise(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
-                            uint32_t UseMargins)
+
+void CRIControl::reset()
 {
-    Bool32 Ret = TRUE;
-    CTBinarize bType = CTBIN_UNKNOWN;
+    clear();
+    init();
+}
+
+bool CRIControl::binarise(const std::string& src, const std::string& dest, binarizator_t binType)
+{
+    bool Ret = true;
 
     // открываем исходный
-    if (!OpenSourceDIB(cDIBIn)) {
-        return FALSE;
-    }
-
-    /*
-     if ( !SupportedIndexColorImage(mpSourceDIB) )
-     {
-     CloseSourceDIB();
-     SetReturnCode_rimage(IDS_RIMAGE_NOTSUPPORTED_INDEX_COLOR);
-     return FALSE;
-     }
-     */
+    if (!openSourceDIB(src))
+        return false;
 
     // создаем новый
-    if (!CreateDestinatonDIB(1)) { // create DIB 1 bit per pixel
-        CloseSourceDIB();
-        SetReturnCode_rimage(IDS_RIMAGE_CANNOT_CREATE_NEW_DIB);
-        return FALSE;
+    if (!createDestinatonDIB()) {
+        closeSourceDIB();
+        RIMAGE_ERROR << " can't create new image\n";
+        return false;
     }
 
     //открываем бинаризатор
-    if (!mpBinarizator) {
-        mpBinarizator = new CRIBinarizator(&mcProgress);
-    }
+    if (!binarizator_)
+        binarizator_ = new CRIBinarizator(&mcProgress);
 
     // закидываем туда картинки
-    if (!mpBinarizator->SetRasters(mpSourceDIB, mpDestinationDIB)) {
-        SetReturnCode_rimage(IDS_RIMAGE_CANNOT_SET_DIB);
-        Ret = FALSE;
+    if (!binarizator_->setRasters(src_dib_, dest_dib_)) {
+        closeSourceDIB();
+        closeDestinationDIB(dest);
+        RIMAGE_ERROR << " can't set dib rasters\n";
+        return false;
     }
 
-    if (wFlag < 4) {
+    CTBinarize bType = CTBIN_UNKNOWN;
+    switch(binType) {
+    case BINARIZATOR_DEZA:
         bType = CTBIN_DEZA;
-    }
-
-    else {
+        break;
+    case BINARIZATOR_KRONROD:
         bType = CTBIN_KRONROD;
+        break;
+    default:
+        break;
     }
 
     // бинаризуем
-    if (!mpBinarizator->Binarize(bType, wFlag)) {
-        SetReturnCode_rimage(IDS_RIMAGE_CANT_BINARYZE);
-        Ret = FALSE;
+    if (!binarizator_->Binarize(bType, binType)) {
+        RIMAGE_ERROR << " binarization error\n";
+        Ret = false;
     }
 
     //отписваем новый в контейнер и освобождаем
-    if (!CloseDestinationDIB(cDIBOut)) {
+    if (!closeDestinationDIB(dest)) {
         SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
-        Ret = FALSE;
+        Ret = false;
     }
 
     //закрываем исходный
-    if (!CloseSourceDIB()) {
+    if (!closeSourceDIB()) {
         SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
-        Ret = FALSE;
+        Ret = false;
     }
 
     return Ret;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
                           int32_t Low, uint32_t UseMargins)
 {
@@ -192,56 +170,53 @@ Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
     Bool32 NoDest = FALSE;
 
     // открываем исходный
-    if (!OpenSourceDIB(cDIBIn)) {
+    if (!openSourceDIB(cDIBIn)) {
         fprintf(stderr, "OpenSourceDIB failed\n");
         return FALSE;
     }
 
-    if (mpDestinationDIB) {
+    if (dest_dib_) {
         SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
         return FALSE;
     }
 
-    mpDestinationDIB = new CTDIB;
+    dest_dib_ = new CTDIB;
 
     //открываем вертелку
-    if (!mpRotator) {
-        mpRotator = new CRRotator(&mcProgress);
+    if (!rotator_) {
+        rotator_ = new CRRotator(&mcProgress);
     }
 
     // забываем старое имя
     mcLastDIBName[0] = 0x0;
 
-    if (!mpRotator->Rotate(mpSourceDIB, mpDestinationDIB, High, Low)) {
+    if (!rotator_->Rotate(src_dib_, dest_dib_, High, Low)) {
         uint16_t wRet = GetReturnCode_rimage();
         // !!! Art Изменил - теперь она заносит не хендлы, а указатели, а то память утекала
         //почему-то...
         //      Handle hDIBtoSet;
-        pvoid pDIBtoSet;
+        BitmapHandle handle;
 
-        if ((wRet == IDS_RIMAGE_ZERO_NUMERATOR_OR_DENUMERATOR || wRet
-                == IDS_RIMAGE_ANGLE_LEAST_MINIMUM) && mpSourceDIB->GetDIBPtr(
-                    &pDIBtoSet)
-                /*mpSourceDIB->GetDIBHandle(&hDIBtoSet)*/) {
-            //          SetDIB(cDIBOut, hDIBtoSet);
-            WriteDIB(cDIBOut, pDIBtoSet);
+        if ((wRet == IDS_RIMAGE_ZERO_NUMERATOR_OR_DENUMERATOR ||
+             wRet == IDS_RIMAGE_ANGLE_LEAST_MINIMUM) &&
+                src_dib_->GetDIBPtr((void**) &handle))
+        {
+            saveCopy(cDIBOut, handle);
             SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
             NoDest = Ret = TRUE;
         }
-
         else {
             SetReturnCode_rimage(IDS_RIMAGE_CANNOT_ROTATE_IMAGE);
             Ret = FALSE;
         }
     }
-
     else {
-        WriteDIBtoBMP("Allex.DIBBeforeDeskew.bmp", mpSourceDIB);
-        WriteDIBtoBMP("Allex.DIBAfterDeskew.bmp", mpDestinationDIB);
+        WriteDIBtoBMP("Allex.DIBBeforeDeskew.bmp", src_dib_);
+        WriteDIBtoBMP("Allex.DIBAfterDeskew.bmp", dest_dib_);
     }
 
     //отписваем новый в контейнер и освобождаем
-    if (!CloseDestinationDIB(cDIBOut)) {
+    if (!closeDestinationDIB(cDIBOut)) {
         if (NoDest == FALSE) {
             SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
             Ret = FALSE;
@@ -251,7 +226,7 @@ Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
     strcpy(mcLastDIBName, cDIBOut);
 
     //закрываем исходный
-    if (!CloseSourceDIB()) {
+    if (!closeSourceDIB()) {
         SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
         Ret = FALSE;
     }
@@ -270,7 +245,7 @@ Bool32 CRIControl::Turn(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
 
     if (wFlag != RIMAGE_TURN_90 && wFlag != RIMAGE_TURN_270 && wFlag
             != RIMAGE_TURN_180) {
-        SetReturnCode_rimage(IDS_RIMAGE_INVALID_FUNCTION_PARAMETR);
+        RIMAGE_ERROR << " invalid angle: " << wFlag << "\n";
         return FALSE;
     }
 
@@ -280,14 +255,14 @@ Bool32 CRIControl::Turn(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
     }
 
     // открываем исходный
-    if (!OpenSourceDIB(cDIBIn)) {
+    if (!openSourceDIB(cDIBIn)) {
         return FALSE;
     }
 
-    NewWidth = (wFlag == RIMAGE_TURN_180 ? mpSourceDIB->GetImageWidth()
-                : mpSourceDIB->GetImageHeight());
-    NewHeight = (wFlag == RIMAGE_TURN_180 ? mpSourceDIB->GetImageHeight()
-                 : mpSourceDIB->GetImageWidth());
+    NewWidth = (wFlag == RIMAGE_TURN_180 ? src_dib_->GetImageWidth()
+                : src_dib_->GetImageHeight());
+    NewHeight = (wFlag == RIMAGE_TURN_180 ? src_dib_->GetImageHeight()
+                 : src_dib_->GetImageWidth());
 
     /*
      if ( !mpSourceDIB->GetDIBPtr( &pSDIB ) )
@@ -298,27 +273,27 @@ Bool32 CRIControl::Turn(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
      */
 
     //открываем вертелку
-    if (!mpTurner) {
-        mpTurner = new CRTurner;
+    if (!turner_) {
+        turner_ = new CRTurner;
     }
 
     // генерим новенький
-    if (mpDestinationDIB) {
+    if (dest_dib_) {
         SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
         return FALSE;
     }
 
-    mpDestinationDIB = new CTDIB;
+    dest_dib_ = new CTDIB;
     RIMAGEComment("Turn - temporary destination DIB");
-    mpDestinationDIB->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock,
+    dest_dib_->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock,
                                    RIMAGEUnlock);
 
-    if (mpDestinationDIB->CreateDIBBegin(NewWidth, NewHeight,
-                                         mpSourceDIB->GetPixelSize())
-            && mpDestinationDIB->CopyPalleteFromDIB(mpSourceDIB)
-            && mpDestinationDIB->CopyDPIFromDIB(mpSourceDIB)
-            && mpDestinationDIB->CreateDIBEnd()) {
-        bRet = mpTurner->TurnDIB(mpSourceDIB, mpDestinationDIB, wFlag);
+    if (dest_dib_->CreateDIBBegin(NewWidth, NewHeight,
+                                         src_dib_->GetPixelSize())
+            && dest_dib_->CopyPalleteFromDIB(src_dib_)
+            && dest_dib_->CopyDPIFromDIB(src_dib_)
+            && dest_dib_->CreateDIBEnd()) {
+        bRet = turner_->TurnDIB(src_dib_, dest_dib_, wFlag);
     }
 
     // вертим
@@ -347,13 +322,13 @@ Bool32 CRIControl::Turn(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
      mp_TurnedDIB = NULL;
      */
     //отписваем новый в контейнер и освобождаем
-    if (!CloseDestinationDIB(cDIBOut)) {
+    if (!closeDestinationDIB(cDIBOut)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
         bRet = FALSE;
     }
 
     //закрываем исходный
-    if (!CloseSourceDIB()) {
+    if (!closeSourceDIB()) {
         SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
         bRet = FALSE;
     }
@@ -373,12 +348,12 @@ Bool32 CRIControl::Inverse(char* cDIBIn, char* cDIBOut, uint32_t UseMargins)
     }
 
     //открываем инвертор
-    if (!mpInvertor) {
-        mpInvertor = new CRInvertor;
+    if (!invertor_) {
+        invertor_ = new CRInvertor;
     }
 
     // Инвертируем
-    if (!mpInvertor->Inverse(mpDestinationDIB)) {
+    if (!invertor_->Inverse(dest_dib_)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNOT_INVERT_IMAGE);
         bErrors = FALSE;
     }
@@ -393,189 +368,161 @@ Bool32 CRIControl::Inverse(char* cDIBIn, char* cDIBOut, uint32_t UseMargins)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // взять без копировыания
-Bool32 CRIControl::GetDIB(char* cDIB, Handle* phDIB)
+Bool32 CRIControl::GetDIB(const char* cDIB, BitmapHandle *phDIB)
 {
     // берем с копированием, что б маска была!
-    if (CIMAGE_ReadDIB(cDIB, phDIB, TRUE))
+    if (CIMAGE_ReadDIB(cDIB, phDIB))
         return TRUE;
 
     SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
     return FALSE;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// положить без копировыания
-Bool32 CRIControl::SetDIB(const char* cDIB, Handle hDIB)
+
+// положить без копирования
+Bool32 CRIControl::SetDIB(const std::string& name, Handle hDIB)
 {
-    if (CIMAGE_WriteDIB(cDIB, hDIB, TRUE))
+    if (CIMAGE_AddImage(name, (BitmapHandle) hDIB))
         return TRUE;
 
     SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
     return FALSE;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// положитьь c копировыанием
-Bool32 CRIControl::WriteDIB(const char* cDIB, Handle hDIB)
+
+bool CRIControl::saveCopy(const std::string& name, BitmapHandle handle)
 {
-    if (CIMAGE_WriteDIB(cDIB, hDIB, FALSE))
-        return TRUE;
-
-    SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
-    return FALSE;
+    return CImage::instance().addImageCopy(name, handle);
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// взять с копировыанием
-Bool32 CRIControl::ReadDIB(const char* cDIB, Handle* phDIB)
+
+bool CRIControl::readDIBCopy(const std::string& name, BitmapHandle * dest)
 {
-    if (CIMAGE_ReadDIB(cDIB, phDIB, FALSE))
-        return TRUE;
+    if (CIMAGE_ReadDIBCopy(name,  dest))
+        return true;
 
-    SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
-    return FALSE;
+    RIMAGE_ERROR << " copy error: " << name << "\n";
+    return false;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Close Source DIB
-Bool32 CRIControl::CloseSourceDIB()
+
+bool CRIControl::closeSourceDIB()
 {
-    Handle hDIB;
-
-    if (mpSourceDIB == NULL) {
-        SetReturnCode_rimage(IDS_RIMAGE_NOT_OPENED);
-        return FALSE;
+    if (src_dib_ == NULL) {
+        RIMAGE_ERROR << " source not opened\n";
+        return false;
     }
 
-    if (mpSourceDIB->GetDIBHandle(&hDIB)) {
-        RIMAGEUnlock(hDIB);
-    }
+    BitmapHandle dib = NULL;
+    if (src_dib_->GetDIBPtr((Handle*) &dib))
+        CImage::instance().free(dib);
 
-    delete mpSourceDIB;
-    CIMAGE_FreeCopedDIB(hDIB);
-    return TRUE;
+    delete src_dib_;
+    return true;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 CRIControl::OpenSourceDIB(const char* cDIBName)
+
+bool CRIControl::openSourceDIB(const std::string& name)
 {
-    Handle hDIBIn;
-    pvoid pDIB;
+    BitmapHandle handle = CImage::instance().imageCopy(name);
 
-    if (!ReadDIB(cDIBName, &hDIBIn)) {
-        fprintf(stderr, "CRIControl::OpenSourceDIB no image found\n");
-        SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
-        return FALSE;
+    if (!handle) {
+        RIMAGE_ERROR << " image not found: " << name << "\n";
+        return false;
     }
 
-    if (!(pDIB = RIMAGELock(hDIBIn))) {
-        SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
-        return FALSE;
+    src_dib_ = new CTDIB;
+
+    if (!src_dib_->SetDIBbyPtr(handle)) {
+        delete src_dib_;
+        src_dib_ = NULL;
+        RIMAGE_ERROR << " invalid image: " << name << "\n";
+        return false;
     }
 
-    mpSourceDIB = new CTDIB(hDIBIn);
-
-    if (!mpSourceDIB->SetDIBbyPtr(pDIB)) {
-        delete mpSourceDIB;
-        mpSourceDIB = NULL;
-        SetReturnCode_rimage(IDS_RIMAGE_DIB_NOT_ATTACHED);
-        return FALSE;
-    }
-
-    return TRUE;
+    return true;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //Создаем временный DIB куда отпишем, что получили
-Bool32 CRIControl::CloseDestinationDIB(const char* cDIBName)
+bool CRIControl::closeDestinationDIB(const std::string& name)
 {
-    Handle hDIB = NULL;
-    pvoid pDIB = NULL;
+    if (DIBOpeningType == TRUE)
+        return SetDestinationDIBtoStorage(name);
 
-    if (DIBOpeningType == TRUE) {
-        return SetDestinationDIBtoStorage(cDIBName);
+    if (!dest_dib_)
+        return false;
+
+    BitmapHandle dib = NULL;
+    if (!dest_dib_->GetDIBPtr((void**) &dib)) {
+        delete dest_dib_;
+        dest_dib_ = NULL;
+        return false;
     }
 
-    if (!mpDestinationDIB)
-        return FALSE;
-
-    if (!mpDestinationDIB->GetDIBHandle(&hDIB) || !mpDestinationDIB->GetDIBPtr(
-                &pDIB)) {
-        delete mpDestinationDIB;
-        mpDestinationDIB = NULL;
-        return FALSE;
+    if (!saveCopy(name, dib)) {
+        RIMAGE_ERROR << " image saving failed: " << name << "\n";
+        return false;
     }
 
-    if (!WriteDIB(cDIBName, pDIB)) {
-        SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
-        return FALSE;
-    }
-
-    delete mpDestinationDIB;
-    mpDestinationDIB = NULL;
-    return TRUE;
+    delete dest_dib_;
+    dest_dib_ = NULL;
+    return true;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Creating new DIB by CTDIB class and 4 RIMAGE functions
-Bool32 CRIControl::CreateDestinatonDIB(uint32_t BitCount)
+
+bool CRIControl::createDestinatonDIB()
 {
+    if (src_dib_ == NULL) {
+        RIMAGE_ERROR << " source image is not opened\n";
+        return false;
+    }
+
+    dest_dib_ = new CTDIB;
+
+    if (!dest_dib_->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock, RIMAGEUnlock)) {
+        RIMAGE_ERROR << " set external error\n";
+        delete dest_dib_;
+        dest_dib_ = NULL;
+        return false;
+    }
+
     uint32_t wNewHeight;
     uint32_t wNewWidth;
     uint32_t wXResolution;
     uint32_t wYResolution;
-    CTDIBRGBQUAD BWQuads[2] = { { 0x00, 0x00, 0x00, 0x00 }, { 0xff, 0xff, 0xff,
-                                                                  0x00 }
-    };
 
-    if (mpSourceDIB == NULL) {
-        SetReturnCode_rimage(IDS_RIMAGE_NOT_OPENED);
-        return FALSE;
-    }
+    wNewHeight = src_dib_->GetLinesNumber();
+    wNewWidth = src_dib_->GetLineWidth();
+    src_dib_->GetResolutionDPM(&wXResolution, &wYResolution);
 
-    mpDestinationDIB = new CTDIB;
-    RIMAGEComment("CreateDestinationDIB - temporary DIB");
+    uint32_t BitCount = 1;
+    if (!dest_dib_->CreateDIBBegin(wNewWidth, wNewHeight, BitCount))
+        return false;
 
-    if (!mpDestinationDIB->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock,
-                                        RIMAGEUnlock)) {
-        SetReturnCode_rimage(IDS_RIMAGE_PREPARE_TO_CREATE);
-        delete mpDestinationDIB;
-        mpDestinationDIB = NULL;
-        return FALSE;
-    }
-
-    wNewHeight = (mbMarginsFlag ? abs((int) (mrMargins.rmBottomMarg
-                                      - mrMargins.rmTopMarg)) : mpSourceDIB->GetLinesNumber());
-    wNewWidth = (mbMarginsFlag ? abs( (int) (mrMargins.rmLeftMarg
-                                     - mrMargins.rmRightMarg)) : mpSourceDIB->GetLineWidth());
-    mpSourceDIB->GetResolutionDPM(&wXResolution, &wYResolution);
-
-    if (!mpDestinationDIB->CreateDIBBegin(wNewWidth, wNewHeight, BitCount)) {
-        return FALSE;
-    }
-
-    if (!mpDestinationDIB->SetResolutionDPM(wXResolution, wYResolution)) {
+    if (!dest_dib_->SetResolutionDPM(wXResolution, wYResolution)) {
         //return FALSE;
     }
 
-    if (!mpDestinationDIB->SetRGBQuad(0, BWQuads[0])) {
-        return FALSE;
-    }
+    CTDIBRGBQUAD BWQuads[2] = {
+        { 0x00, 0x00, 0x00, 0x00 },
+        { 0xff, 0xff, 0xff, 0x00 }
+    };
 
-    if (!mpDestinationDIB->SetRGBQuad(1, BWQuads[1])) {
-        return FALSE;
-    }
+    if (!dest_dib_->SetRGBQuad(0, BWQuads[0]))
+        return false;
 
-    if (!mpDestinationDIB->CreateDIBEnd()) {
-        return FALSE;
-    }
+    if (!dest_dib_->SetRGBQuad(1, BWQuads[1]))
+        return false;
 
-    return TRUE;
+    if (!dest_dib_->CreateDIBEnd())
+        return false;
+
+    return true;
 }
 
-Bool32 CRIControl::OpenDestinationDIBfromSource(char* cDIBName)
+Bool32 CRIControl::OpenDestinationDIBfromSource(const char* cDIBName)
 {
-    Handle hDIBIn;
+    BitmapHandle hDIBIn;
     pvoid pDIB;
 
-    if (mpSourceDIB != NULL)
+    if (src_dib_ != NULL)
         return FALSE;
 
-    if (!ReadDIB(cDIBName, &hDIBIn)) {
+    if (!readDIBCopy(cDIBName, &hDIBIn)) {
         SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
         return FALSE;
     }
@@ -585,11 +532,11 @@ Bool32 CRIControl::OpenDestinationDIBfromSource(char* cDIBName)
         return FALSE;
     }
 
-    mpDestinationDIB = new CTDIB(hDIBIn);
+    dest_dib_ = new CTDIB(hDIBIn);
 
-    if (!mpDestinationDIB->SetDIBbyPtr(pDIB)) {
-        delete mpSourceDIB;
-        mpDestinationDIB = NULL;
+    if (!dest_dib_->SetDIBbyPtr(pDIB)) {
+        delete src_dib_;
+        dest_dib_ = NULL;
         SetReturnCode_rimage(IDS_RIMAGE_DIB_NOT_ATTACHED);
         return FALSE;
     }
@@ -598,34 +545,34 @@ Bool32 CRIControl::OpenDestinationDIBfromSource(char* cDIBName)
     return TRUE;
 }
 
-Bool32 CRIControl::SetDestinationDIBtoStorage(const char* cDIBName)
+Bool32 CRIControl::SetDestinationDIBtoStorage(const std::string& name)
 {
-    Handle hSDIB;
+    BitmapHandle hSDIB;
     Bool32 bErrors = TRUE;
 
     if (DIBOpeningType == FALSE) {
-        return CloseDestinationDIB(cDIBName);
+        return closeDestinationDIB(name);
     }
 
     // записывваем в блок выделеный в CIMAGE при открытии
-    if (mpDestinationDIB == NULL)
+    if (dest_dib_ == NULL)
         return FALSE;
 
-    if (!mpDestinationDIB->GetDIBHandle(&hSDIB))
+    if (!dest_dib_->GetDIBHandle((void**) &hSDIB))
         return FALSE;
 
-    if (!SetDIB(cDIBName, hSDIB)) {
+    if (!SetDIB(name, hSDIB)) {
         SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
         return FALSE;
     }
 
-    if (!CIMAGE_FreeCopedDIB(hSDIB)) {
+    if (!CIMAGE_FreeCopiedDIB(hSDIB)) {
         SetReturnCode_rimage(IDS_RIMAGE_CIMAGE_MEMORY_ERROR);
         bErrors = FALSE;
     }
 
-    delete mpDestinationDIB;
-    mpDestinationDIB = NULL;
+    delete dest_dib_;
+    dest_dib_ = NULL;
     DIBOpeningType = FALSE;
     return bErrors;
 }
@@ -636,35 +583,35 @@ Bool32 CRIControl::Roll(char* cDIBIn, char* cDIBOut, int32_t Num,
     Bool32 Ret = TRUE;
 
     // открываем исходный
-    if (!OpenSourceDIB(cDIBIn)) {
+    if (!openSourceDIB(cDIBIn)) {
         return FALSE;
     }
 
-    if (mpDestinationDIB) {
+    if (dest_dib_) {
         SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
         return FALSE;
     }
 
-    mpDestinationDIB = new CTDIB;
+    dest_dib_ = new CTDIB;
 
     //открываем вертелку
-    if (!mpRotator) {
-        mpRotator = new CRRotator;
+    if (!rotator_) {
+        rotator_ = new CRRotator;
     }
 
-    if (!mpRotator->Roll(mpSourceDIB, mpDestinationDIB, Num, Denum)) {
+    if (!rotator_->Roll(src_dib_, dest_dib_, Num, Denum)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNOT_ROTATE_IMAGE);
         Ret = FALSE;
     }
 
     //отписваем новый в контейнер и освобождаем
-    if (!CloseDestinationDIB(cDIBOut)) {
+    if (!closeDestinationDIB(cDIBOut)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
         Ret = FALSE;
     }
 
     //закрываем исходный
-    if (!CloseSourceDIB()) {
+    if (!closeSourceDIB()) {
         SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
         Ret = FALSE;
     }
@@ -689,8 +636,8 @@ Bool32 CRIControl::RotatePoint(char* cDIB, int32_t iX, int32_t iY,
 {
     Bool32 bRet = FALSE;
 
-    if (mpRotator && strcmp(cDIB, mcLastDIBName) == 0) {
-        bRet = mpRotator->RotatePoint(iX, iY, prX, prY);
+    if (rotator_ && strcmp(cDIB, mcLastDIBName) == 0) {
+        bRet = rotator_->RotatePoint(iX, iY, prX, prY);
     }
 
     return bRet;
@@ -713,5 +660,17 @@ Bool32 CRIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
     return TRUE;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// end of file
+void CRIControl::init()
+{
+    src_dib_ = NULL;
+    dest_dib_ = NULL;
+    binarizator_ = NULL;
+    turner_ = NULL;
+    invertor_ = NULL;
+    rotator_ = NULL;
+    mp_TurnedDIB = NULL;
+    DIBOpeningType = FALSE;
+    mcLastDIBName[0] = 0x0;
+}
+
+}

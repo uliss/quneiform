@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,42 +16,24 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QDebug>
-#include <QGraphicsScene>
-#include <QPainterPath>
-#include <QPainter>
+#ifndef TESTCIMAGELIST_H
+#define TESTCIMAGELIST_H
 
-#include "selectionshadow.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-SelectionShadow::SelectionShadow(QGraphicsRectItem * parent) :
-    QGraphicsItem(parent)
+class TestCImageList : public CppUnit::TestFixture
 {
-    setFlags(0);
-}
+    CPPUNIT_TEST_SUITE(TestCImageList);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testAddImage);
+    CPPUNIT_TEST(testRemoveImage);
+    CPPUNIT_TEST(testImage);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testInit();
+    void testAddImage();
+    void testRemoveImage();
+    void testImage();
+};
 
-QRectF SelectionShadow::boundingRect() const {
-    if(scene())
-        return scene()->sceneRect();
-    else
-        return QRectF();
-}
-
-void SelectionShadow::paint(QPainter * painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * /*widget*/) {
-    Q_CHECK_PTR(scene());
-
-    QGraphicsRectItem * parent = dynamic_cast<QGraphicsRectItem*>(parentItem());
-    if(!parent) {
-        qDebug() << Q_FUNC_INFO << "invalid parent type";
-        return;
-    }
-
-    QPainterPath p;
-    p.addRect(scene()->sceneRect());
-    p.addRect(parent->rect());
-
-    painter->save();
-    painter->setPen(Qt::NoPen);
-    painter->setBrush(QColor(0, 0, 0, 30));
-    painter->drawPath(p);
-    painter->restore();
-}
+#endif // TESTCIMAGELIST_H

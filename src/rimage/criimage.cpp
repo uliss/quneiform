@@ -57,99 +57,45 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "resource.h"
 #include "criimage.h"
 #include "crimemory.h"
-
 #include "cricontrol.h"
 
-// exteren globals
-extern CRIControl * Control_cri;
-// extern functions
 void SetReturnCode_rimage(uint16_t rc);
-uint16_t GetReturnCode_rimage();
-
-Bool32 RIMAGE_SetMargins(PRIMAGEMARGINS pMargins)
-{
-    SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
-
-    if ( Control_cri )
-        return Control_cri->SetMargins( pMargins );
-
-    SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
-    return FALSE;
-}
 
 Bool32 RIMAGE_SetProgressCB(PRIMAGECBPRogressStart pStart, PRIMAGECBPRogressStep pStep, PRIMAGECBPRogressFinish pFinish)
 {
-    SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
-
-    if ( Control_cri )
-        return Control_cri->SetProgressCallBacks( pStart, pStep, pFinish );
-
-    SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
-    return FALSE;
+    return cf::RImage::instance().SetProgressCallBacks( pStart, pStep, pFinish );
 }
 
-Bool32 RIMAGE_Binarise(const char * cDIBIn, const char * cDIBOut, uint32_t wFlag, uint32_t UseMargins)
+bool RIMAGE_Binarise(const std::string& srcImageName,
+                     const std::string& destImageName,
+                     cf::binarizator_t binType)
 {
-    SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
-
-    if ( Control_cri )
-        return Control_cri->Binarise(cDIBIn, cDIBOut, wFlag, UseMargins);
-
-    SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
-    return FALSE;
+    return cf::RImage::instance().binarise(srcImageName, destImageName, binType);
 }
 
 Bool32 RIMAGE_Rotate(puchar cDIBIn, puchar cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins)
 {
     SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
-    if ( Control_cri )
-        return Control_cri->Rotate( (char*)cDIBIn, (char*)cDIBOut, High, Low, UseMargins);
-
-    SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
-    return FALSE;
+    return cf::RImage::instance().Rotate( (char*)cDIBIn, (char*)cDIBOut, High, Low, UseMargins);
 }
 
 Bool32 RIMAGE_RotatePoint(puchar cDIBIn, int32_t wX, int32_t wY, int32_t * prX, int32_t * prY)
 {
-    SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
-
-    if ( Control_cri )
-        return Control_cri->RotatePoint( (char*)cDIBIn, wX, wY, prX, prY );
-
-    SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
-    return FALSE;
+    return cf::RImage::instance().RotatePoint( (char*)cDIBIn, wX, wY, prX, prY );
 }
 
 Bool32 RIMAGE_Roll(puchar cDIBIn, puchar cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins)
 {
-    SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
-
-    if ( Control_cri )
-        return Control_cri->Roll( (char*)cDIBIn, (char*)cDIBOut, High, Low, UseMargins);
-
-    SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
-    return FALSE;
+    return cf::RImage::instance().Roll( (char*)cDIBIn, (char*)cDIBOut, High, Low, UseMargins);
 }
 
-Bool32 RIMAGE_Turn(const char * cDIBIn, const char * cDIBOut, uint32_t wFlag, uint32_t UseMargins)
+Bool32 RIMAGE_Turn(const char * cDIBIn, const char * cDIBOut, rimage_turn_angle_t angle)
 {
-    SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
-
-    if ( Control_cri )
-        return Control_cri->Turn(cDIBIn, cDIBOut, wFlag, UseMargins);
-
-    SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
-    return FALSE;
+    return cf::RImage::instance().Turn(cDIBIn, cDIBOut, angle, FALSE);
 }
 
 Bool32 RIMAGE_Inverse(puchar cDIBIn, puchar cDIBOut, uint32_t UseMargins)
 {
-    SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
-
-    if ( Control_cri )
-        return Control_cri->Inverse( (char*)cDIBIn, (char*)cDIBOut, UseMargins);
-
-    SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
-    return FALSE;
+    return cf::RImage::instance().Inverse( (char*)cDIBIn, (char*)cDIBOut, UseMargins);
 }

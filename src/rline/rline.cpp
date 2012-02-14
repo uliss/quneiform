@@ -856,8 +856,8 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB) {
 	LnsPageFinish();
 
 	if (!LDPUMA_Skip(RLINE_ShowWithoutLines)) {
-		BITMAPINFOHEADER * lp = NULL;
-		CIMAGE_ReadDIB(PUMA_IMAGE_DELLINE, (Handle*) &lp, TRUE);
+        BitmapHandle lp = NULL;
+        CIMAGE_ReadDIB(PUMA_IMAGE_DELLINE, &lp);
 		Handle hwnd = LDPUMA_CreateWindow("После снятия линий", lp);
 		LDPUMA_Console("Нажмите любую клавишу...");
 		LDPUMA_WaitUserInput(RLINE_ShowWithoutLines, hwnd);

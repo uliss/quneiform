@@ -36,6 +36,7 @@ if(PYTHONINTERP_FOUND)
     install_test_py(lang_quick.py)
     install_test_py(quick_process.py)
     install_test_py(remove_test_output.py)
+    install_test_py(turn.py)
     
     add_custom_target(test_all ${CMAKE_BINARY_DIR}/py/all.py)
     add_custom_target(test_clear ${CMAKE_BINARY_DIR}/py/remove_test_output.py)

@@ -15,7 +15,7 @@ set(HEADERS
     page.h
     pagerecognizer.h
     pagerecognitionqueue.h
-    selection.h
+    selectionlist.h
     dialogs/aboutdialog.h
     dialogs/exportdialog.h
     dialogs/formatsettingsdialog.h
@@ -35,9 +35,9 @@ set(HEADERS
     widgets/recentmenu.h
     widgets/texteditor.h
     widgets/thumbnaillist.h
-    widgets/thumblayout.h
     widgets/thumbscene.h
     widgets/thumbnailwidget.h
+    internal/cimageview.h
 )
 
 set(SOURCES
@@ -57,7 +57,7 @@ set(SOURCES
     resolutionhistogramcallbacksetter.cpp
     recognitioninternaldata.cpp
     selection.cpp
-    selectionshadow.cpp
+    selectionlist.cpp
     translationloader.cpp
     dialogs/aboutdialog.cpp
     dialogs/exportdialog.cpp
@@ -88,6 +88,8 @@ set(SOURCES
     widgets/thumbscene.cpp
     widgets/thumbnaillist.cpp
     widgets/thumbnailwidget.cpp
+    internal/cimagestorage.cpp
+    internal/cimageview.cpp
 )
 
 if(CF_SERIALIZE)
@@ -129,6 +131,10 @@ source_group("Header Files" FILES ${HEADERS})
 source_group("Source Files" FILES ${SOURCES})
 source_group("Generated Files" FILES ${MOC_SOURCES})
 source_group("Resource Files" FILES ${QRC_SOURCES} ${TRANSLATIONS_TS})
+
+if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_definitions(-DNDEBUG)
+endif()
 
 set(SRCS
     ${HEADERS}

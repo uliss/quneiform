@@ -21,10 +21,16 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "lang_def.h"
 #include "globus.h"
+#include "common/rect.h"
 #include "serialize.h"
+
+#ifdef CF_SERIALIZE
+#include <boost/serialization/vector.hpp>
+#endif
 
 namespace cf {
 
@@ -41,6 +47,18 @@ class CLA_EXPO RecognizeOptions
             TABLE_ONLY_TEXT,
             TABLE_LINE_TEXT
         };
+
+        enum turn_angle_t {
+            ANGLE_0 = 0,
+            ANGLE_90 = 90,
+            ANGLE_180 = 180,
+            ANGLE_270 = 270
+        };
+
+        void addReadRect(const Rect& r);
+        std::vector<Rect> readRects() const;
+        void clearReadRects();
+        bool hasReadRects() const;
 
         bool autoRotate() const;
         bool dotMatrix() const;
@@ -60,6 +78,63 @@ class CLA_EXPO RecognizeOptions
         void setFax(bool value);
         void setDotMatrix(bool value);
         void setLanguage(language_t language);
+
+        bool debugCleanupDelayed() const;
+        void setDebugCleanupDelayed(bool value);
+
+        /**
+          * Returns true if has page turn
+          */
+        bool hasTurn() const;
+
+        /**
+          * Sets page turn angle
+          * @note values: 0, 90, 180, 270
+          * @see turnAngle(), hasTurn()
+          */
+        void setTurnAngle(turn_angle_t angle);
+
+        /**
+          * Returns page turn angle
+          * @see setTurnAngle(), hasTurn()
+          */
+        turn_angle_t turnAngle() const;
+
+        /**
+          * Returns true if has page turn
+          */
+        bool hasTurn() const;
+
+        /**
+          * Sets page turn angle
+          * @note values: 0, 90, 180, 270
+          * @see turnAngle(), hasTurn()
+          */
+        void setTurnAngle(turn_angle_t angle);
+
+        /**
+          * Returns page turn angle
+          * @see setTurnAngle(), hasTurn()
+          */
+        turn_angle_t turnAngle() const;
+
+        /**
+          * Returns true if has page turn
+          */
+        bool hasTurn() const;
+
+        /**
+          * Sets page turn angle
+          * @note values: 0, 90, 180, 270
+          * @see turnAngle(), hasTurn()
+          */
+        void setTurnAngle(turn_angle_t angle);
+
+        /**
+          * Returns page turn angle
+          * @see setTurnAngle(), hasTurn()
+          */
+        turn_angle_t turnAngle() const;
 
         /**
          * Sets one column layout
@@ -84,6 +159,8 @@ class CLA_EXPO RecognizeOptions
             ar & make_nvp("table-mode", table_mode_);
             ar & make_nvp("user-dict", user_dict_name_);
             ar & make_nvp("flags", flags_);
+            ar & make_nvp("turn-angle", turn_angle_);
+            ar & make_nvp("read-rects", read_rects_);
         }
 #endif
     private:
@@ -91,6 +168,8 @@ class CLA_EXPO RecognizeOptions
         table_mode_t table_mode_;
         std::string user_dict_name_;
         size_t flags_;
+        turn_angle_t turn_angle_;
+        std::vector<Rect> read_rects_;
 };
 
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts);

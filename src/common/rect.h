@@ -49,6 +49,11 @@ template<class T, class NormalizeChecker = RectCheckNone>
 class RectImpl
 {
     public:
+        RectImpl(T left, T top, T width, T height) :
+            pt0_(left, top), pt1_(left + width, top + height) {
+            NormalizeChecker::check(*this);
+        }
+
         RectImpl(const PointImpl<T>& pt, T width, T height) :
             pt0_(pt), pt1_(pt + PointImpl<T> (width, height)) {
             NormalizeChecker::check(*this);
@@ -152,12 +157,23 @@ class RectImpl
         }
 
         RectImpl intersected(const RectImpl& r) {
-            return RectImpl(PointImpl<T> (std::max(top(), r.top()), std::max(left(), r.left())),
-                    PointImpl<T> (std::min(bottom(), r.bottom()), std::min(right(), r.right())));
+            return RectImpl(
+                        PointImpl<T>(std::max(left(), r.left()),
+                                     std::max(top(), r.top())),
+                        PointImpl<T> (std::min(right(), r.right()),
+                                      std::min(bottom(), r.bottom()))
+                        );
         }
 
         bool isPositive() const {
             return pt0_.isPositive() && pt1_.isPositive();
+        }
+
+        bool isNull() const {
+            return left() == std::numeric_limits<T>::max() &&
+                    top() == std::numeric_limits<T>::max() &&
+                    right() == std::numeric_limits<T>::min() &&
+                    bottom() == std::numeric_limits<T>::min();
         }
 
         bool isValid() const {
@@ -198,6 +214,29 @@ class RectImpl
         void moveBy(const PointImpl<U>& pt) {
             pt0_ += pt;
             pt1_ += pt;
+        }
+
+        void moveXTo(T x) {
+            T w = width();
+            pt0_.setX(x);
+            setWidth(w);
+        }
+
+        void moveYTo(T y) {
+            T h = height();
+            pt0_.setY(y);
+            setHeight(h);
+        }
+
+        void moveTo(T x, T y) {
+            moveXTo(x);
+            moveYTo(y);
+        }
+
+        template<class U>
+        void moveTo(const PointImpl<U>& pt) {
+            moveXTo(pt.x());
+            moveYTo(pt.y());
         }
 
         template<class U>
@@ -408,6 +447,15 @@ class RectImpl
 
         T y() const {
             return pt0_.y();
+        }
+    public:
+        static RectImpl<T> null() {
+            RectImpl n;
+            n.pt0_.rx() = std::numeric_limits<T>::max();
+            n.pt0_.ry() = std::numeric_limits<T>::max();
+            n.pt1_.rx() = std::numeric_limits<T>::min();
+            n.pt1_.ry() = std::numeric_limits<T>::min();
+            return n;
         }
     private:
 #ifdef CF_SERIALIZE
