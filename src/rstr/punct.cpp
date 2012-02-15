@@ -223,14 +223,14 @@ void punct() {
 					is_turkish_palka(l))
 				x -= (c1->w) / 4;
 		} else {
-			//    if (memchr("Ј’ђ",(l=c1->vers[0].let),5))  Paul  10-14-96
-			if (memchr("ѓЈ’ђ", (l = c1->vers[0].let), 4))
+            //    if (memchr("гТР",(l=c1->vers[0].let),5))  Paul  10-14-96
+            if (memchr("\x83\xA3\x92\x90", /* ГгТР */(l = c1->vers[0].let), 4))
 				x -= (c1->w) / 2;
-			if (memchr("г“7", l, 7))
+            if (memchr("\xE3\x93" "7", /* уУ7 */ l, 7))
 				x -= (c1->w) / 4;
-			//    if ((c1->font&c_fp_it || italic) && memchr("€ЌЏ16Ў",l,14))Paul  10-14-96
+            //    if ((c1->font&c_fp_it || italic) && memchr("ИНП16б",l,14))Paul  10-14-96
 			if (((c1->font | c1->font_new) & c_fp_it || italic) && !(memchr(
-					"Ђ„†Љ•–™љ›њ", l, 10) && !is_russian_turkish_conflict(l) // 21.05.2002 E.P.
+                    "\x80\x84\x86\x8A\x95\x96\x99\x9A\x9B\x9C", /* АДЖКХЦЩЪЫЬ */ l, 10) && !is_russian_turkish_conflict(l) // 21.05.2002 E.P.
 					))
 				x -= (c1->w) / 4;
 			// Interference i_left_accent ~ м
@@ -388,10 +388,10 @@ static void bad_to_dust() {
 		if ((c->flg & c_f_bad || c->vers[0].prob < PROBOK || // Oleg
 				memchr("ceo<>", c->vers[0].let, 4) && c->vers[0].prob
 						< PROBOK_ceo || language == LANGUAGE_RUSSIAN && memchr(
-				"Єўбэкн", c->vers[0].let, 6) && c->vers[0].prob < PROBOK_ceo
-				|| language == LANGUAGE_RUSSIAN && memchr("ўн", c->vers[0].let, 2)
+                "\xAA\xA2\xE1\xFD\xEA\xED" /* квс¤ъэ */, c->vers[0].let, 6) && c->vers[0].prob < PROBOK_ceo
+                || language == LANGUAGE_RUSSIAN && memchr("\xA2\xED", /* вэ */ c->vers[0].let, 2)
 						&& c->stick_inc > 300 && c->vers[0].prob < PROBOK_ceo
-						+ 10 || language == LANGUAGE_RUSSIAN && memchr("ЁҐ®",
+                        + 10 || language == LANGUAGE_RUSSIAN && memchr("\xA8\xA5\xAE", /* иео */
 				c->vers[0].let, 3) && c->vers[0].prob < PROBOK_ceo - 20)
 				&& c->h <= bl.ps && c->row + 2 >= bl.b2 && c->row + c->h - 2
 				<= bl.b3 && (r = chkquocks(bl.ps, 2, c)) != 0 && check_shevron(
