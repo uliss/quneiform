@@ -246,7 +246,7 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
                 mCBWDestianationDIB->GetDIBHandle(&hNewDIB);
                 // Пишем картинку, и не каких масок!!!
                 mbWriteFlag = TRUE;
-                Ret = SetDIB(lpName, hNewDIB, 0);
+                Ret = SetDIB(lpName, (BITMAPINFOHEADER*) hNewDIB, 0);
                 mbWriteFlag = FALSE;
 
                 if (Ret == FALSE) {
@@ -314,7 +314,7 @@ Bool32 CTIControl::GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk) {
     return TRUE;
 }
 
-Bool32 CTIControl::SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag) {
+Bool32 CTIControl::SetDIB(const char* lpName, BITMAPINFOHEADER * hDIB, uint32_t wFlag) {
     Handle hImage = NULL;
 
     if (wFlag == FALSE) { // создаем новую копию
@@ -329,7 +329,7 @@ Bool32 CTIControl::SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag) {
         hImage = hDIB;
     }
 
-    return mlImages.AddImage(lpName, hImage, wFlag);
+    return mlImages.addImage(lpName, (BITMAPINFOHEADER*) hImage, wFlag);
 }
 
 Bool32 CTIControl::GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag) {
@@ -510,7 +510,7 @@ Bool32 CTIControl::GetImageInfo(const char* lpName, BitmapInfoHeader * lpBIH) {
 }
 
 Bool32 CTIControl::RemoveImage(const char* lpName) {
-    return mlImages.DeleteImage(lpName);
+    return mlImages.deleteImage(lpName);
 }
 
 Bool32 CTIControl::CopyDIB(Handle hSrc, Handle* phCopyedDib) {
@@ -1014,7 +1014,7 @@ Bool32 CTIControl::FreeAlloced(Handle hDIB) {
         return FALSE;
     }
 
-    if (mlImages.FindHandle(hDIB)) {
+    if (mlImages.findHandle(hDIB)) {
         SetReturnCode_cimage(IDS_CIMAGE_INVALID_PARAMETR);
         return FALSE;
     }
@@ -1250,7 +1250,7 @@ Bool32 CTIControl::RemoveReadRectangles(const char* lpName, uint32_t wNumber, CI
 }
 
 Bool32 CTIControl::OpenDIBFromList(const char* lpName, Handle* phImage) {
-    mlImages.GetImage(lpName, phImage);
+    mlImages.getImage(lpName, phImage);
     //ALLEX Mask
     // ошибка не тут
     OpenMaskFromList(lpName, &(mpcSrcDIBReadMask = NULL), &mbEnableDIBReadMask, "r");
@@ -1297,7 +1297,7 @@ Bool32 CTIControl::SetMaskToList(const char* pName, PCTIMask pMask, const char* 
 
 Bool32 CTIControl::OpenDIBFromList(const char *lpName, PCTDIB pcDIB) {
     Handle hDIB;
-    mlImages.GetImage(lpName, &hDIB);
+    mlImages.getImage(lpName, &hDIB);
     //ALLEX Mask
     // ошибка не тут
     OpenMaskFromList(lpName, &(mpcSrcDIBReadMask = NULL), &mbEnableDIBReadMask, "r");

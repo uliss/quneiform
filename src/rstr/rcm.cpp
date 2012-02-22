@@ -106,16 +106,8 @@ typedef uchar *(*fun_error)(uint32_t);
 static uchar lnOcrPath[256], lnOcrLingPath[256];
 static void store_colors(CSTR_line lino);
 
-static void * rstr_realloc(uchar*buf, uint32_t len) {
-	return realloc(buf, len);
-}
-
 static void * rstr_alloc(uint32_t len) {
 	return calloc(len, 1);
-}
-
-static void rstr_free(void *ptr, uint32_t len) {
-	free(ptr);
 }
 
 static void rstr_get_colors(int16_t row, int16_t col, int16_t w, int16_t h,
@@ -124,9 +116,6 @@ static void rstr_get_colors(int16_t row, int16_t col, int16_t w, int16_t h,
 	*ColorLtr = 0;
 }
 
-static void * (*my_realloc)(uchar*buf, uint32_t len) = rstr_realloc;
-static void * (*my_alloc)(uint32_t len) = rstr_alloc;
-static void (*my_free)(void *, uint32_t len) = rstr_free;
 static void (*my_get_colors)(int16_t row, int16_t col, int16_t w, int16_t h,
 		int32_t *ColorLrt, int32_t *ColorBack) = rstr_get_colors;
 static int32_t RemoveDustIfPointLine(CSTR_line lin);
@@ -538,32 +527,10 @@ Bool32 RSTR_IsLanguage(uchar language) {
 	return TRUE;
 }
 
-static void SetAlphabet(char char_tbl_put_to[] // char string
-) // Set alphabet for recognition
-
-{
-	Bool digital = TRUE, Punct = FALSE;
-	char *c;
-
-	memset(&FieldInfo.AlphaTable, 0, sizeof(ALPHA_TABLE));
-
-	for (c = (char *) char_tbl_put_to; *c != 0; c++) {
-		digital &= ((*c) & 0xE0) == 0x20 || (*c) == '\\' || (*c) == '_' || (*c)
-				== ' ';
-		Punct |= strchr("\"*+-.,:;=<>„«»", *c) != NULL;
-		FieldInfo.AlphaTable[(uchar)(*c)] = 1;
-	}
-	if (digital)
-		FieldInfo.Style |= FIS_DIGIT;
-	if (Punct)
-		FieldInfo.Style |= FIS_PUNCT;
-
-}
-
 Bool32 rstr_kit_realloc(void) {
 	kit_max_size = TRUE;
 	kit_size *= 2;
-	kit_start = static_cast<uchar*> (my_realloc(kit_start, kit_size));
+    kit_start = static_cast<uchar*> (realloc(kit_start, kit_size));
 	if (kit_start == NULL) {
 		wLowRC = RSTR_ERR_NOMEMORY;
 		return FALSE;
@@ -584,7 +551,7 @@ Bool32 RSTRInit(MemFunc* mem) {
 	local_ret_error_code = 0;
 	wLowRC = RSTR_ERR_NO;
 	line_number = 0;
-	CellsPage_rstr = static_cast<uchar*> (my_alloc(10 * 65536 + 3 * R_S));
+    CellsPage_rstr = static_cast<uchar*> (rstr_alloc(10 * 65536 + 3 * R_S));
 	if (CellsPage_rstr == NULL) {
 		wLowRC = RSTR_ERR_NOMEMORY;
 		fprintf(stderr, "RSTR_ERR_NOMEMORY");
@@ -598,7 +565,7 @@ Bool32 RSTRInit(MemFunc* mem) {
 	ForRaster3 = ForRaster2 + R_S;
 	ED_file_bound = ForRaster3 + R_S;
 	ED_file_end = ED_file_bound + 65536 * 4;
-	kit_start = static_cast<uchar*> (my_alloc(kit_size));
+    kit_start = static_cast<uchar*> (rstr_alloc(kit_size));
 	if (kit_start == NULL) {
 		wLowRC = RSTR_ERR_NOMEMORY;
 		fprintf(stderr, "RSTR_ERR_NOMEMORY");
@@ -610,7 +577,7 @@ Bool32 RSTRInit(MemFunc* mem) {
 	Flag_Courier = FALSE;
 	snap_page_disable = FALSE;
 	memory_length = MEMORY;
-	memory_pool = static_cast<uchar*> (my_alloc(memory_length));
+    memory_pool = static_cast<uchar*> (rstr_alloc(memory_length));
 	if (memory_pool == NULL) {
 		wLowRC = RSTR_ERR_NOMEMORY;
 		fprintf(stderr, "RSTR_ERR_NOMEMORY");
@@ -825,7 +792,6 @@ Bool32 RSTR_EndPage(Handle myPage) {
 #ifdef _USE_CPAGE_
 		if( myPage )
 		{
-			uint32_t size_line_com=sizeof(LINE_COM);
 			int size_line_data=sizeof(DLine);
 			CLINE_handle hCLINE=CLINE_GetMainContainer();
 
@@ -1763,9 +1729,9 @@ void RSTRDone(void) {
 	FONEndSnap();
 #endif
 	LDPUMA_Done();
-	my_free(CellsPage_rstr, 0);
-	my_free(kit_start, 0);
-	my_free(memory_pool, 0);
+    free(CellsPage_rstr);
+    free(kit_start);
+    free(memory_pool);
 	if (!p2_disable) {
 #ifdef _USE_FON_
 #ifndef _FON_CLU_MEMORY_
@@ -2343,12 +2309,6 @@ Bool32 RSTR_SetImportData(uint32_t dwType, const void * pData) {
 		break;
 
 	}
-	case RSTR_FNIMP_FREE:
-		my_free = (void(*)(void*, uint32_t)) pData;
-		break;
-	case RSTR_FNIMP_ALLOC:
-		my_alloc = (void*(*)(uint32_t)) pData;
-		break;
 	case RSTR_FNIMP_GETCOLORS:
 		my_get_colors = (void(*)(int16_t, int16_t, int16_t, int16_t, int32_t*,
 				int32_t*)) pData;

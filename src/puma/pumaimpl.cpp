@@ -173,7 +173,7 @@ void PumaImpl::binarizeImage() {
             throw PumaException("RIMAGE_Binarise failed");
 
         const int NO_COPY = TRUE;
-        if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) input_dib_, NO_COPY))
+        if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) &input_dib_, NO_COPY))
             throw PumaException("CIMAGE_ReadDIB failed");
 
         PAGEINFO info;

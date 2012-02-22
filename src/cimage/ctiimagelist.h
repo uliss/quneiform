@@ -57,41 +57,28 @@
 #ifndef __CTI_LIST_H_
 #define __CTI_LIST_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+#include <string>
+#include <map>
+
 #include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
-
-
 #include "ctiimageheader.h"
 
 class CTIImageList
 {
     private:
-        CTIImageHeader mhFirst;
-        CTIImageHeader mhLast;
+        typedef std::map<std::string, CTIImageHeader*> HeaderMap;
+        HeaderMap headers_;
     public:
-        Bool32 DeleteImage(const char * lpName);
-        Bool32 GetImage(const char *lpName, Handle* phDIB);
-        Bool32 AddImage(const char *lpName, Handle hDIB, uint32_t wFlag);
-        Bool32 FindHandle(Handle hImage);
         CTIImageList();
         ~CTIImageList();
-
-    private:
-        CTIImageHeader * Begin(void) {
-            return &mhFirst;
-        }
-
-        CTIImageHeader * End(void) {
-            return &mhLast;
-        }
-
-        CTIImageHeader * FindImage(const char *lpName, CTIImageHeader ** Prev =
-                                       NULL);
     public:
+        bool deleteImage(const std::string& name);
+        bool getImage(const std::string& lpName, Handle* phDIB);
+        bool addImage(const std::string& name, BITMAPINFOHEADER * hDIB, uint32_t wFlag);
+        bool findHandle(Handle hImage);
+
         Bool32 EnableMask(const char *pName, const char* pType, Bool32 Type);
         Bool32 GetImageReadMask(const char *lpName, PPCTIMask ppMask,
                                 PBool32 pEnMask);
@@ -99,6 +86,8 @@ class CTIImageList
                                  PBool32 pEnMask);
         Bool32 SetImageReadMask(const char *lpName, PCTIMask pAMask);
         Bool32 SetImageWriteMask(const char *lpName, PCTIMask pWMask);
+    private:
+        CTIImageHeader * findImage(const std::string& name);
 };
 
 #endif

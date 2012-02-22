@@ -146,7 +146,7 @@ class CLA_EXPO CTIControl
         Bool32 GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
                         CIMAGE_InfoDataOutGet * lplpOut);
         Bool32 GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag = 0);
-        Bool32 SetDIB(const char* lpName, Handle hDIB, uint32_t wFlag = 0);
+        Bool32 SetDIB(const char* lpName, BITMAPINFOHEADER * hDIB, uint32_t wFlag = 0);
         Bool32 GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk);
         Bool32 WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk);
         Bool32 CBImageOpen(CIMAGE_ImageInfo * lpImageInfo);

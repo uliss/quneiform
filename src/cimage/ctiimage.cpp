@@ -73,7 +73,7 @@ Bool32 CIMAGE_GetCallbackImage(const char * Name, CIMAGEIMAGECALLBACK * pCbk)
 
 Bool32 CIMAGE_WriteDIB(const char * Name, Handle lpDIB, uint32_t wFlag)
 {
-    return CImage::instance().SetDIB(Name, lpDIB, wFlag);
+    return CImage::instance().SetDIB(Name, (BITMAPINFOHEADER*) lpDIB, wFlag);
 }
 
 Bool32 CIMAGE_ReadDIB(const char * Name, Handle* lplpDIB, uint32_t wFlag)

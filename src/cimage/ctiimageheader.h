@@ -57,54 +57,30 @@
 #ifndef __CTI_HEADER_H_
 #define __CTI_HEADER_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-#include "resource.h"
+#include <string>
+
+#include "compat_defs.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
-
 #include "ctimask.h"
 
 class CTIImageHeader
 {
     private:
-        CTIImageHeader * pNext;
-        char ImageName[CIMAGE_MAX_IMAGE_NAME];
-        BitmapInfoHeader * ImageInfo;
-        void * Image;
         PCTIMask WriteMask;
         PCTIMask ReadMask;
         Bool32 ImageExternal;
         Bool32 mbEnableReadMask;
         Bool32 mbEnableWriteMask;
-        Handle hImage;
-
+        BITMAPINFOHEADER * hImage;
     public:
         CTIImageHeader();
-        CTIImageHeader(const char *lpName, Handle hImagehandle, uint32_t Flag);
-        CTIImageHeader(const char *lpName, BitmapInfoHeader* lpInfo,
-                       void * lpImage, uint32_t wFlag);
+        CTIImageHeader(BITMAPINFOHEADER * hImageHandle, uint32_t wFlag);
         ~CTIImageHeader();
     public:
         Bool32 IsMaskEnabled(const char *MaskType);
+
         Bool32 EnableMask(const char *cMaskType, Bool32 mEnabled);
-        Bool32 CheckName(const char *Name);
-        CTIImageHeader * GetNext(void) {
-            return pNext;
-        }
-
-        CTIImageHeader * SetNext(CTIImageHeader * pSet) {
-            return (pNext = pSet);
-        }
-
-        void * GetImage(void) {
-            return Image;
-        }
-
-        BitmapInfoHeader* GetImageInfo(void) {
-            return ImageInfo;
-        }
 
         Bool32 IsExtImage(void) {
             return !IsIntImage();
@@ -114,11 +90,11 @@ class CTIImageHeader
             return (ImageExternal == 0);
         }
 
-        Handle GetImageHandle(void) {
+        BITMAPINFOHEADER * GetImageHandle(void) {
             return hImage;
         }
 
-        Handle SetImageHandle(Handle NewHandle) {
+        BITMAPINFOHEADER * SetImageHandle(BITMAPINFOHEADER * NewHandle) {
             return (hImage = NewHandle);
         }
 
