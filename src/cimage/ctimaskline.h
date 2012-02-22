@@ -74,7 +74,7 @@ class CTIMaskLine
 {
     public:
         Bool32        IsSegmentOnLine(PCTIMaskLineSegment pSegm) {
-            return (pSegm->GetStart() >= 0 && pSegm->GetStart() <= (int32_t)mwLenght && pSegm->GetEnd() <= (int32_t)mwLenght);
+            return (pSegm->start() >= 0 && pSegm->start() <= (int32_t)mwLenght && pSegm->end() <= (int32_t)mwLenght);
         };
         Bool32        RemoveSegment(PCTIMaskLineSegment pSegm);
         Bool32        AddSegment(PCTIMaskLineSegment pSegm);
