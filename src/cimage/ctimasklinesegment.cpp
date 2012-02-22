@@ -83,29 +83,29 @@ CTIMaskLineSegment::CTIMaskLineSegment(int32_t Start, int32_t End)
     }
 }
 
-CTIMaskLineSegment::CTIMaskLineSegment(PCTIMaskLineSegment pSegm)
+CTIMaskLineSegment::CTIMaskLineSegment(CTIMaskLineSegment *pSegm)
         : next_(pSegm->next()),
         start_(pSegm->start()),
         end_(pSegm->end())
 {
 }
 
-uint32_t CTIMaskLineSegment::IsIntersectWith(PCTIMaskLineSegment pSegm)
+uint32_t CTIMaskLineSegment::IsIntersectWith(CTIMaskLineSegment * pSegm)
 {
     uint32_t Intrsct = 0;
 
     if ( pSegm ) {
         uint32_t S = pSegm->start();
         uint32_t E = pSegm->end();
-        int32_t iDS = GetPointDirect(S);
-        int32_t iDE = GetPointDirect(E);
+        point_dir_t iDS = pointDirection(S);
+        point_dir_t iDE = pointDirection(E);
 
         if ( isEqual(pSegm) )
             Intrsct = CTIMLSEGMINTERSECTEQUAL;
 
         else {
-            if ( iDS == CTIMLSEGMPOINTLEF &&
-                    iDE == CTIMLSEGMPOINTRIGHT )
+            if ( iDS == POINT_LEFT &&
+                    iDE == POINT_RIGHT )
                 Intrsct = CTIMLSEGMINTERSECTOVER;
 
             else {
@@ -121,8 +121,8 @@ uint32_t CTIMaskLineSegment::IsIntersectWith(PCTIMaskLineSegment pSegm)
                     if ( IsPointInSegment(E) )
                         Intrsct = CTIMLSEGMINTERSECTLEFT;
 
-                    else if ( iDS == CTIMLSEGMPOINTLEF &&
-                              iDE == CTIMLSEGMPOINTLEF    )
+                    else if ( iDS == POINT_LEFT &&
+                              iDE == POINT_LEFT    )
                         Intrsct = CTIMLSEGMINTERSECTFULLLEFT;
 
                     else
@@ -135,7 +135,7 @@ uint32_t CTIMaskLineSegment::IsIntersectWith(PCTIMaskLineSegment pSegm)
     return Intrsct;
 }
 
-Bool32 CTIMaskLineSegment::IntersectWith(PCTIMaskLineSegment pSegm)
+Bool32 CTIMaskLineSegment::IntersectWith(CTIMaskLineSegment * pSegm)
 {
     Bool32 bRet = FALSE;
 
@@ -160,7 +160,7 @@ Bool32 CTIMaskLineSegment::IntersectWith(PCTIMaskLineSegment pSegm)
     return bRet;
 }
 
-Bool32 CTIMaskLineSegment::AddWith(PCTIMaskLineSegment pSegm)
+Bool32 CTIMaskLineSegment::AddWith(CTIMaskLineSegment * pSegm)
 {
     Bool32 bRet = FALSE;
 
@@ -188,7 +188,7 @@ Bool32 CTIMaskLineSegment::AddWith(PCTIMaskLineSegment pSegm)
     return bRet;
 }
 
-Bool32 CTIMaskLineSegment::CutLeftTo(PCTIMaskLineSegment pSegm)
+Bool32 CTIMaskLineSegment::CutLeftTo(CTIMaskLineSegment * pSegm)
 {
     Bool32 bRet = FALSE;
 
@@ -205,7 +205,7 @@ Bool32 CTIMaskLineSegment::CutLeftTo(PCTIMaskLineSegment pSegm)
     return bRet;
 }
 
-Bool32 CTIMaskLineSegment::CutRightTo(PCTIMaskLineSegment pSegm)
+Bool32 CTIMaskLineSegment::CutRightTo(CTIMaskLineSegment *pSegm)
 {
     Bool32 bRet = FALSE;
 
@@ -222,19 +222,16 @@ Bool32 CTIMaskLineSegment::CutRightTo(PCTIMaskLineSegment pSegm)
     return bRet;
 }
 
-int32_t CTIMaskLineSegment::GetPointDirect(uint32_t X)
+CTIMaskLineSegment::point_dir_t CTIMaskLineSegment::pointDirection(uint32_t X)
 {
-    int32_t iRet = CTIMLSEGMPOINTIN;
-
-    if ( !IsPointInSegment(X) ) {
-        if ( (int32_t)X < start() )
-            iRet = CTIMLSEGMPOINTLEF;
-
+    if(!IsPointInSegment(X)) {
+        if(X < start())
+            return POINT_LEFT;
         else
-            iRet = CTIMLSEGMPOINTRIGHT;
+            return POINT_RIGHT;
     }
 
-    return iRet;
+    return POINT_IN;
 }
 
 }
