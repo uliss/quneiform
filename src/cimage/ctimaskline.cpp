@@ -123,23 +123,23 @@ Bool32 CTIMaskLine::AddSegment(PCTIMaskLineSegment pSegm)
         pL = pS;
 
         while (pS && !Added) {
-            switch (pS->IsIntersectWith(pSegm)) {
-                case CTIMaskLineSegment::CTIMLSEGMINTERSECTFULLLEFT:
+            switch (pS->isIntersectWith(pSegm)) {
+                case CTIMaskLineSegment::INTERSECTION_FULL_LEFT:
                     pS = NULL;
                     break;
-                case CTIMaskLineSegment::CTIMLSEGMINTERSECTFULLRIGHT:
+                case CTIMaskLineSegment::INTERSECTION_FULL_RIGHT:
                     pL = pS;
                     pS = pS->next();
                     break;
-                case CTIMaskLineSegment::CTIMLSEGMINTERSECTIN:
-                case CTIMaskLineSegment::CTIMLSEGMINTERSECTEQUAL:
+                case CTIMaskLineSegment::INTERSECTION_IN:
+                case CTIMaskLineSegment::INTERSECTION_EQUAL:
                     bRet = Added = TRUE;
                     break;
-                case CTIMaskLineSegment::CTIMLSEGMINTERSECTOVER:
+                case CTIMaskLineSegment::INTERSECTION_OVER:
                     Check = TRUE;
-                case CTIMaskLineSegment::CTIMLSEGMINTERSECTLEFT:
-                case CTIMaskLineSegment::CTIMLSEGMINTERSECTRIGHT:
-                    bRet = pS->AddWith(pSegm);
+                case CTIMaskLineSegment::INTERSECTION_LEFT:
+                case CTIMaskLineSegment::INTERSECTION_RIGHT:
+                    bRet = pS->addWith(pSegm);
                     Added = TRUE;
                     break;
                 default:
@@ -175,9 +175,9 @@ Bool32 CTIMaskLine::RemoveSegment(PCTIMaskLineSegment pSegm)
     if (mwSegments) {
         if (IsSegmentOnLine(pSegm)) {
             while (pS && !Remed) {
-                switch (pS->IsIntersectWith(pSegm)) {
+                switch (pS->isIntersectWith(pSegm)) {
                         // pSegm равен pS
-                    case CTIMaskLineSegment::CTIMLSEGMINTERSECTEQUAL:
+                    case CTIMaskLineSegment::INTERSECTION_EQUAL:
                         pPS->setNext(pS->next());
                         delete pS;
                         Remed = TRUE;
@@ -185,38 +185,38 @@ Bool32 CTIMaskLine::RemoveSegment(PCTIMaskLineSegment pSegm)
                         pS = pPS->next();
                         break;
                         // pSegm перекывает pS
-                    case CTIMaskLineSegment::CTIMLSEGMINTERSECTOVER:
+                    case CTIMaskLineSegment::INTERSECTION_OVER:
                         pPS->setNext(pS->next());
                         delete pS;
                         mwSegments--;
                         pS = pPS->next();
                         break;
                         // pSegm перекывает правую часть pS
-                    case CTIMaskLineSegment::CTIMLSEGMINTERSECTRIGHT:
-                        pS->CutLeftTo(pSegm);
+                    case CTIMaskLineSegment::INTERSECTION_RIGHT:
+                        pS->cutLeftTo(pSegm);
                         pPS = pPS->next();
                         pS = pPS->next();
                         break;
                         // pSegm перекывает левую часть pS
-                    case CTIMaskLineSegment::CTIMLSEGMINTERSECTLEFT:
-                        pS->CutRightTo(pSegm);
+                    case CTIMaskLineSegment::INTERSECTION_LEFT:
+                        pS->cutRightTo(pSegm);
                         pPS = pPS->next();
                         pS = pPS->next();
                         break;
                         // pSegm лежит внутри pS
-                    case CTIMaskLineSegment::CTIMLSEGMINTERSECTIN:
+                    case CTIMaskLineSegment::INTERSECTION_IN:
                         pS->setNext(new CTIMaskLineSegment(pS));
-                        pS->CutLeftTo(pSegm);
+                        pS->cutLeftTo(pSegm);
                         pS = (pPS = pS)->next();
-                        pS->CutRightTo(pSegm);
+                        pS->cutRightTo(pSegm);
                         mwSegments++;
                         pPS = pPS->next();
                         pS = pPS->next();
                         break;
-                    case CTIMaskLineSegment::CTIMLSEGMINTERSECTFULLLEFT:
+                    case CTIMaskLineSegment::INTERSECTION_FULL_LEFT:
                         pS = NULL;
                         break;
-                    case CTIMaskLineSegment::CTIMLSEGMINTERSECTFULLRIGHT:
+                    case CTIMaskLineSegment::INTERSECTION_FULL_RIGHT:
                         pPS = pS;
                         pS = pS->next();
                         break;
@@ -242,11 +242,11 @@ Bool32 CTIMaskLine::GetLeftIntersection(PCTIMaskLineSegment pcSegm)
 
     while (pL) {
         //wItype = pL->IsIntersectWith( pcSegm );
-        wItype = pcSegm->IsIntersectWith(pL);
+        wItype = pcSegm->isIntersectWith(pL);
 
-        if (!(wItype == CTIMaskLineSegment::CTIMLSEGMINTERSECTFULLRIGHT || wItype
-                == CTIMaskLineSegment::CTIMLSEGMINTERSECTFULLLEFT)) {
-            pcSegm->IntersectWith(pL);
+        if (!(wItype == CTIMaskLineSegment::INTERSECTION_FULL_RIGHT || wItype
+                == CTIMaskLineSegment::INTERSECTION_FULL_LEFT)) {
+            pcSegm->intersectWith(pL);
             bInt = TRUE;
             break;
         }

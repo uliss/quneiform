@@ -65,14 +65,15 @@ namespace cf
 class CTIMaskLineSegment
 {
 public:
-    enum {
-        CTIMLSEGMINTERSECTIN                = 1,
-        CTIMLSEGMINTERSECTLEFT              = 2,
-        CTIMLSEGMINTERSECTRIGHT             = 3,
-        CTIMLSEGMINTERSECTOVER              = 4,
-        CTIMLSEGMINTERSECTEQUAL             = 5,
-        CTIMLSEGMINTERSECTFULLLEFT          = 6,
-        CTIMLSEGMINTERSECTFULLRIGHT         = 7
+    enum intersection_t {
+        NO_INTERSECTION                = 0,
+        INTERSECTION_IN                = 1,
+        INTERSECTION_LEFT              = 2,
+        INTERSECTION_RIGHT             = 3,
+        INTERSECTION_OVER              = 4,
+        INTERSECTION_EQUAL             = 5,
+        INTERSECTION_FULL_LEFT         = 6,
+        INTERSECTION_FULL_RIGHT        = 7
     };
 
     enum point_dir_t {
@@ -90,42 +91,42 @@ public:
         next_ = pNext;
     }
 
-    int32_t start() const {
+    int start() const {
         return start_;
     }
 
-    int32_t end() const {
+    int end() const {
         return end_;
     }
 
-    bool IsPointInSegment(int32_t X) const {
+    bool isPointInSegment(int X) const {
         return (X >= start_ && X <= end_);
     }
 
-    Bool32 CutRightTo(CTIMaskLineSegment * pSegm);
+    bool cutRightTo(CTIMaskLineSegment * pSegm);
     // обрезать с конца
-    Bool32 CutLeftTo(CTIMaskLineSegment * pSegm);
+    bool cutLeftTo(CTIMaskLineSegment * pSegm);
     // обрезать с начала
-    Bool32 AddWith(CTIMaskLineSegment * pSegm);
+    bool addWith(CTIMaskLineSegment * pSegm);
     // пересечение данного сегмента с аргументом
-    Bool32 IntersectWith(CTIMaskLineSegment * pSegm);
+    bool intersectWith(const CTIMaskLineSegment& segm);
     // положение данного сегмента относительно аргумента
-    uint32_t IsIntersectWith(CTIMaskLineSegment * pSegm);
+    intersection_t isIntersectWith(const CTIMaskLineSegment& segm) const;
     // равенство сегментов
-    bool isEqual(CTIMaskLineSegment * pSegm) const {
-        return (end_ == pSegm->end() && start_ == pSegm->start());
+    bool isEqual(const CTIMaskLineSegment& segm) const {
+        return (end_ == segm.end() && start_ == segm.start());
     }
 public:
     CTIMaskLineSegment();
-    CTIMaskLineSegment(int32_t Start, int32_t End);
+    CTIMaskLineSegment(int Start, int End);
     CTIMaskLineSegment(CTIMaskLineSegment * pSegm);
     ~CTIMaskLineSegment();
 private:
-    point_dir_t pointDirection(uint32_t X);
+    point_dir_t pointDirection(int X) const;
 private:
     CTIMaskLineSegment * next_;
-    int32_t start_;
-    int32_t end_;
+    int start_;
+    int end_;
 };
 
 typedef CTIMaskLineSegment * PCTIMaskLineSegment;
