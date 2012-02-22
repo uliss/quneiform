@@ -54,9 +54,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// CTIMaskLine.cpp: implementation of the CTIMaskLine class.
-//
-
+#include "resource.h"
 #include "ctimaskline.h"
 #include "ctimemory.h"
 
@@ -64,44 +62,44 @@ namespace cf
 {
 
 CTIMaskLine::CTIMaskLine() :
-        mwLenght(0), mwSegments(0), mpNext(NULL), mwLine(-1)
+        length_(0), segments_(0), next_(NULL), line_(-1)
 {
 }
 
 CTIMaskLine::CTIMaskLine(uint32_t Lenght) :
-        mwLenght(Lenght), mwSegments(0), mpNext(NULL), mwLine(-1)
+        length_(Lenght), segments_(0), next_(NULL), line_(-1)
 {
 }
 
 CTIMaskLine::CTIMaskLine(uint32_t Lenght, PCTIMaskLineSegment pSegm) :
-        mwLenght(Lenght),
+        length_(Lenght),
         //mcFirst(pSegm),
-        mwSegments(0), mpNext(NULL), mwLine(-1)
+        segments_(0), next_(NULL), line_(-1)
 {
     AddSegment(pSegm);
 }
 
 CTIMaskLine::CTIMaskLine(uint32_t Lenght, uint32_t nLine,
                          PCTIMaskLineSegment pSegm) :
-        mwLenght(Lenght),
+        length_(Lenght),
         //mcFirst(pSegm),
-        mwSegments(0), mpNext(NULL), mwLine(nLine)
+        segments_(0), next_(NULL), line_(nLine)
 {
     AddSegment(pSegm);
 }
 
 CTIMaskLine::CTIMaskLine(uint32_t Lenght, uint32_t nLine,
                          PCTIMaskLineSegment pSegm, PCTIMaskLine pcNextLine) :
-        mwLenght(Lenght),
+        length_(Lenght),
         //mcFirst(pSegm),
-        mwSegments(0), mpNext(pcNextLine), mwLine(nLine)
+        segments_(0), next_(pcNextLine), line_(nLine)
 {
     AddSegment(pSegm);
 }
 
 CTIMaskLine::~CTIMaskLine()
 {
-    PCTIMaskLineSegment pS = mcFirst.next();
+    PCTIMaskLineSegment pS = first_.next();
     PCTIMaskLineSegment pD;
 
     while (pS) {
@@ -110,10 +108,10 @@ CTIMaskLine::~CTIMaskLine()
         delete pD;
     }
 }
-/////////////////////////////////////////////////////////////////////////////////////////////
+
 Bool32 CTIMaskLine::AddSegment(PCTIMaskLineSegment pSegm)
 {
-    PCTIMaskLineSegment pS = &mcFirst;
+    PCTIMaskLineSegment pS = &first_;
     PCTIMaskLineSegment pL;
     Bool32 bRet = FALSE;
     Bool32 Added = FALSE;
@@ -152,7 +150,7 @@ Bool32 CTIMaskLine::AddSegment(PCTIMaskLineSegment pSegm)
             pL->setNext(new CTIMaskLineSegment(pSegm->start(),
                                                pSegm->end()));
             (pL->next())->setNext(pS);
-            mwSegments++;
+            segments_++;
             bRet = TRUE;
         }
 
@@ -168,11 +166,11 @@ Bool32 CTIMaskLine::AddSegment(PCTIMaskLineSegment pSegm)
 
 Bool32 CTIMaskLine::RemoveSegment(PCTIMaskLineSegment pSegm)
 {
-    PCTIMaskLineSegment pPS = &mcFirst;
+    PCTIMaskLineSegment pPS = &first_;
     PCTIMaskLineSegment pS = pPS->next();
     Bool32 Remed = FALSE;
 
-    if (mwSegments) {
+    if (segments_) {
         if (IsSegmentOnLine(pSegm)) {
             while (pS && !Remed) {
                 switch (pS->isIntersectWith(pSegm)) {
@@ -181,14 +179,14 @@ Bool32 CTIMaskLine::RemoveSegment(PCTIMaskLineSegment pSegm)
                         pPS->setNext(pS->next());
                         delete pS;
                         Remed = TRUE;
-                        mwSegments--;
+                        segments_--;
                         pS = pPS->next();
                         break;
                         // pSegm перекывает pS
                     case CTIMaskLineSegment::INTERSECTION_OVER:
                         pPS->setNext(pS->next());
                         delete pS;
-                        mwSegments--;
+                        segments_--;
                         pS = pPS->next();
                         break;
                         // pSegm перекывает правую часть pS
@@ -209,7 +207,7 @@ Bool32 CTIMaskLine::RemoveSegment(PCTIMaskLineSegment pSegm)
                         pS->cutLeftTo(pSegm);
                         pS = (pPS = pS)->next();
                         pS->cutRightTo(pSegm);
-                        mwSegments++;
+                        segments_++;
                         pPS = pPS->next();
                         pS = pPS->next();
                         break;
@@ -236,7 +234,7 @@ Bool32 CTIMaskLine::RemoveSegment(PCTIMaskLineSegment pSegm)
 
 Bool32 CTIMaskLine::GetLeftIntersection(PCTIMaskLineSegment pcSegm)
 {
-    PCTIMaskLineSegment pL = mcFirst.next();
+    PCTIMaskLineSegment pL = first_.next();
     uint32_t wItype;
     Bool32 bInt = FALSE;
 
