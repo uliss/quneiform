@@ -54,11 +54,13 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <cstdio>
+#include <cassert>
+#include <cstring>
+
 #include "cticontrol.h"
 #include "ctimemory.h"
 #include "dpuma.h"
-
-#include <cassert>
 
 namespace cf
 {
