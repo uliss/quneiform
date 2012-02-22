@@ -138,7 +138,6 @@ PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)),
     layout_filename_("layout.bin"),
     input_dib_(NULL),
-    recog_dib_(NULL),
     tables_num_(0),
     ccom_(NULL),
     cpage_(NULL),
@@ -157,7 +156,6 @@ PumaImpl::~PumaImpl() {
 }
 
 void PumaImpl::binarizeImage() {
-    recog_dib_ = input_dib_;
     recog_name_ = PUMA_IMAGE_USER;
 
     getImageInfo(PUMA_IMAGE_USER);
@@ -230,7 +228,7 @@ void PumaImpl::close() {
     CPAGE_DeleteAll();
     RIMAGE_Reset();
     cpage_ = NULL;
-    recog_dib_ = input_dib_ = NULL;
+    input_dib_ = NULL;
 }
 
 void PumaImpl::debugPrintCpage() {
