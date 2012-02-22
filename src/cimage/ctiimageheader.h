@@ -64,6 +64,9 @@
 #include "ctiimage.h"
 #include "ctimask.h"
 
+namespace cf
+{
+
 class CTIImageHeader
 {
     private:
@@ -114,4 +117,7 @@ class CTIImageHeader
             return ReadMask;
         }
 };
+
+}
+
 #endif

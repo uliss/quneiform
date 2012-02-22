@@ -60,6 +60,9 @@
 
 #include <cassert>
 
+namespace cf
+{
+
 CTIControl::CTIControl() {
     init();
 }
@@ -1520,4 +1523,6 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
 
 Bool32 CTIControl::EnableMask(const char* pcName, const char* pcType, Bool32 bEnable) {
     return mlImages.EnableMask(pcName, pcType, bEnable);
+}
+
 }

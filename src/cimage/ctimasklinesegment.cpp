@@ -55,14 +55,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 // CTIMaskLineSegment.cpp: implementation of the CTIMaskLineSegment class.
-//
-//////////////////////////////////////////////////////////////////////
 
 #include "ctimasklinesegment.h"
 
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+namespace cf
+{
 
 CTIMaskLineSegment::CTIMaskLineSegment()
         : mpNext(NULL),
@@ -239,5 +236,5 @@ int32_t CTIMaskLineSegment::GetPointDirect(uint32_t X)
 
     return iRet;
 }
-/////////////////////////////////////////////////////////////////////////
-// end of file
+
+}

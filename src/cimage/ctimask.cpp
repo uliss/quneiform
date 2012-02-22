@@ -59,6 +59,9 @@
 #include "ctimask.h"
 #include "ctimemory.h"
 
+namespace cf
+{
+
 CTIMask::CTIMask() :
         mwMaskWidth(0), mwMaskHeight(0), mwSegments(0), mcLine(0), mwLines(0)
 {
@@ -240,4 +243,6 @@ Bool32 CTIMask::GetLine(uint32_t wLine, PPCTIMaskLine ppcLine)
     }
 
     return bLinePresent;
+}
+
 }

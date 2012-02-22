@@ -71,6 +71,9 @@
 
 //#define CIMAGE_CBR_ONE_LINE
 
+namespace cf
+{
+
 class CLA_EXPO CTIControl
 {
     protected:
@@ -173,8 +176,9 @@ class CLA_EXPO CTIControl
         PCTDIB mCBWDestianationDIB;
         PCTDIB mCBWSourceDIB;
         Bool32 mCBWInProcess;
-
 };
+
+}
 
 #endif
 

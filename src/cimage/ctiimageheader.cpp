@@ -57,6 +57,9 @@
 #include "ctimemory.h"
 #include "ctiimageheader.h"
 
+namespace cf
+{
+
 CTIImageHeader::CTIImageHeader()
 {
     ImageExternal = 1;
@@ -110,4 +113,6 @@ Bool32 CTIImageHeader::IsMaskEnabled(const char *cMaskType)
         return mbEnableReadMask;
 
     return FALSE;
+}
+
 }

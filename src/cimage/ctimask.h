@@ -65,6 +65,9 @@
 
 #include "ctimaskline.h"
 
+namespace cf
+{
+
 class CTIMask;
 typedef CTIMask *PCTIMask, **PPCTIMask;
 
@@ -88,5 +91,7 @@ class CTIMask
     private:
         Bool32 SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine);
 };
+
+}
 
 #endif

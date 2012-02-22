@@ -55,25 +55,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 // CTIMaskLineSegment.h: interface for the CTIMaskLineSegment class.
-//
-//////////////////////////////////////////////////////////////////////
 
-#if !defined(_CTIMASKLINESEGMENT_H_)
+#ifndef _CTIMASKLINESEGMENT_H_
 #define _CTIMASKLINESEGMENT_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
-////////////////////////////////////////////////////////////////////////////////////
 #include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
 
-////////////////////////////////////////////////////////////////////////////////////
+namespace cf
+{
+
 class CTIMaskLineSegment;
 typedef   CTIMaskLineSegment         *PCTIMaskLineSegment,   **PPCTIMaskLineSegment;
-/////////////////////////////////////////////////////////////////////////////////////
+
 class CTIMaskLineSegment
 {
 //#define                   CTIMLSEGMINTERSECTNO                  0
@@ -130,5 +125,7 @@ class CTIMaskLineSegment
         int32_t mwStart;
         int32_t mwEnd;
 };
+
+}
 
 #endif // !defined(_CTIMASKLINESEGMENT_H_)

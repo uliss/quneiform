@@ -65,6 +65,9 @@
 #include "ctiimage.h"
 #include "ctiimageheader.h"
 
+namespace cf
+{
+
 class CTIImageList
 {
     private:
@@ -89,5 +92,7 @@ class CTIImageList
     private:
         CTIImageHeader * findImage(const std::string& name);
 };
+
+}
 
 #endif

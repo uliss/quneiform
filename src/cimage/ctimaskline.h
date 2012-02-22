@@ -55,27 +55,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 // CTIMaskLine.h: interface for the CTIMaskLine class.
-//
-//////////////////////////////////////////////////////////////////////
 
-#if !defined(_CTIMASKLINE_H_)
+#ifndef _CTIMASKLINE_H_
 #define _CTIMASKLINE_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
-///////////////////////////////////////////////////////////////////////////
-//
 #include "resource.h"
 #include "ctidefines.h"
 #include "ctiimage.h"
 
 #include "ctimasklinesegment.h"
-///////////////////////////////////////////////////////////////////////////
+
+namespace cf {
+
 class CTIMaskLine;
 typedef CTIMaskLine *PCTIMaskLine, **PPCTIMaskLine;
-///////////////////////////////////////////////////////////////////////////
+
 class CTIMaskLine
 {
     public:
@@ -121,5 +115,7 @@ class CTIMaskLine
     private:
         Bool32 CheckSegments(void);
 };
+
+}
 
 #endif // !defined(_CTIMASKLINE_H_)

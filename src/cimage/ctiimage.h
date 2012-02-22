@@ -67,9 +67,9 @@
 #define CIMAGE_FUNC  FUN_IMPO__
 #endif
 
-class CTIControl;
 namespace cf
 {
+class CTIControl;
 typedef Singleton<CTIControl, CreateUsingStatic> CImage;
 }
 

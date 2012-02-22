@@ -59,7 +59,8 @@
 #include "common/cifconfig.h"
 #include "common/debug.h"
 
-using namespace cf;
+namespace cf
+{
 
 CTIImageList::CTIImageList()
 {}
@@ -214,4 +215,6 @@ bool CTIImageList::findHandle(Handle hImage)
     }
 
     return false;
+}
+
 }

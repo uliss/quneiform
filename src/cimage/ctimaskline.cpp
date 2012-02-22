@@ -60,6 +60,9 @@
 #include "ctimaskline.h"
 #include "ctimemory.h"
 
+namespace cf
+{
+
 CTIMaskLine::CTIMaskLine() :
         mwLenght(0), mwSegments(0), mpNext(NULL), mwLine(-1)
 {
@@ -257,5 +260,7 @@ Bool32 CTIMaskLine::GetLeftIntersection(PCTIMaskLineSegment pcSegm)
 Bool32 CTIMaskLine::CheckSegments()
 {
     return TRUE;
+}
+
 }
 
