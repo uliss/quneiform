@@ -60,8 +60,6 @@
 #include <string>
 
 #include "compat_defs.h"
-#include "ctidefines.h"
-#include "ctiimage.h"
 #include "ctimask.h"
 
 namespace cf
@@ -70,51 +68,47 @@ namespace cf
 class CTIImageHeader
 {
     private:
-        PCTIMask WriteMask;
-        PCTIMask ReadMask;
-        Bool32 ImageExternal;
-        Bool32 mbEnableReadMask;
-        Bool32 mbEnableWriteMask;
-        BITMAPINFOHEADER * hImage;
+        CTIMask * write_mask_;
+        CTIMask * read_mask_;
+        bool is_external_image_;
+        bool enable_read_mask_;
+        bool enable_write_mask_;
+        BITMAPINFOHEADER * image_;
     public:
         CTIImageHeader();
         CTIImageHeader(BITMAPINFOHEADER * hImageHandle, uint32_t wFlag);
         ~CTIImageHeader();
     public:
-        Bool32 IsMaskEnabled(const char *MaskType);
+        bool isMaskEnabled(const char * MaskType);
 
-        Bool32 EnableMask(const char *cMaskType, Bool32 mEnabled);
+        bool enableMask(const char *cMaskType, bool mEnabled);
 
-        Bool32 IsExtImage(void) {
-            return !IsIntImage();
+        bool isInternalImage(void) {
+            return !is_external_image_;
         }
 
-        Bool32 IsIntImage(void) {
-            return (ImageExternal == 0);
+        BITMAPINFOHEADER * getImageHandle() {
+            return image_;
         }
 
-        BITMAPINFOHEADER * GetImageHandle(void) {
-            return hImage;
+        BITMAPINFOHEADER * setImageHandle(BITMAPINFOHEADER * NewHandle) {
+            return (image_ = NewHandle);
         }
 
-        BITMAPINFOHEADER * SetImageHandle(BITMAPINFOHEADER * NewHandle) {
-            return (hImage = NewHandle);
+        bool setWriteMask(CTIMask * WMask) {
+            return ((write_mask_ = WMask) != NULL);
         }
 
-        Bool32 SetWriteMask(PCTIMask WMask) {
-            return ((WriteMask = WMask) != NULL);
+        CTIMask * writeMask() {
+            return write_mask_;
         }
 
-        PCTIMask GetWriteMask(void) {
-            return WriteMask;
+        bool setReadMask(CTIMask * RMask) {
+            return ((read_mask_ = RMask) != NULL);
         }
 
-        Bool32 SetReadMask(PCTIMask RMask) {
-            return ((ReadMask = RMask) != NULL);
-        }
-
-        PCTIMask GetReadMask(void) {
-            return ReadMask;
+        CTIMask * readMask() {
+            return read_mask_;
         }
 };
 

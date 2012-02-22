@@ -62,57 +62,57 @@ namespace cf
 
 CTIImageHeader::CTIImageHeader()
 {
-    ImageExternal = 1;
-    ReadMask = NULL;
-    WriteMask = NULL;
-    mbEnableReadMask = TRUE;
-    mbEnableWriteMask = TRUE;
+    is_external_image_ = 1;
+    read_mask_ = NULL;
+    write_mask_ = NULL;
+    enable_read_mask_ = TRUE;
+    enable_write_mask_ = TRUE;
 }
 
 CTIImageHeader::CTIImageHeader(BITMAPINFOHEADER * hImageHandle, uint32_t wFlag)
 {
-    hImage = hImageHandle;
-    ImageExternal = wFlag;
-    ReadMask = NULL;
-    WriteMask = NULL;
-    mbEnableReadMask = TRUE;
-    mbEnableWriteMask = TRUE;
+    image_ = hImageHandle;
+    is_external_image_ = wFlag;
+    read_mask_ = NULL;
+    write_mask_ = NULL;
+    enable_read_mask_ = TRUE;
+    enable_write_mask_ = TRUE;
 }
 
 CTIImageHeader::~CTIImageHeader()
 {
-    if (IsIntImage()) {
-        CIMAGEFree(GetImageHandle());
+    if (isInternalImage()) {
+        CIMAGEFree(getImageHandle());
     }
 
-    delete ReadMask;
-    delete WriteMask;
+    delete read_mask_;
+    delete write_mask_;
 }
 
-Bool32 CTIImageHeader::EnableMask(const char *cMaskType, Bool32 mEnabled)
+bool CTIImageHeader::enableMask(const char *cMaskType, bool mEnabled)
 {
     if (cMaskType[0] == 'w') {
-        mbEnableWriteMask = mEnabled;
-        return TRUE;
+        enable_write_mask_ = mEnabled;
+        return true;
     }
 
     if (cMaskType[0] == 'r') {
-        mbEnableReadMask = mEnabled;
-        return TRUE;
+        enable_read_mask_ = mEnabled;
+        return true;
     }
 
-    return FALSE;
+    return false;
 }
 
-Bool32 CTIImageHeader::IsMaskEnabled(const char *cMaskType)
+bool CTIImageHeader::isMaskEnabled(const char *cMaskType)
 {
     if (cMaskType[0] == 'w')
-        return mbEnableWriteMask;
+        return enable_write_mask_;
 
     if (cMaskType[0] == 'r')
-        return mbEnableReadMask;
+        return enable_read_mask_;
 
-    return FALSE;
+    return false;
 }
 
 }

@@ -106,7 +106,7 @@ bool CTIImageList::getImage(const std::string &lpName, Handle* phDIB)
         return false;
     }
 
-    *phDIB = Image->GetImageHandle();
+    *phDIB = Image->getImageHandle();
     return true;
 }
 
@@ -146,7 +146,7 @@ Bool32 CTIImageList::SetImageWriteMask(const char *lpName, PCTIMask pWMask)
         return FALSE;
     }
 
-    bRet = Image->SetWriteMask(pWMask);
+    bRet = Image->setWriteMask(pWMask);
     return TRUE;
 }
 
@@ -160,7 +160,7 @@ Bool32 CTIImageList::SetImageReadMask(const char *lpName, PCTIMask pAMask)
         return FALSE;
     }
 
-    bRet = Image->SetReadMask(pAMask);
+    bRet = Image->setReadMask(pAMask);
     return TRUE;
 }
 
@@ -173,8 +173,8 @@ Bool32 CTIImageList::GetImageWriteMask(const char *lpName, PPCTIMask ppWMask, PB
         return FALSE;
     }
 
-    *ppWMask = Image->GetWriteMask();
-    *pEnMask = Image->IsMaskEnabled("w");
+    *ppWMask = Image->writeMask();
+    *pEnMask = Image->isMaskEnabled("w");
     return TRUE;
 }
 
@@ -187,8 +187,8 @@ Bool32 CTIImageList::GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBoo
         return FALSE;
     }
 
-    *ppMask = Image->GetReadMask();
-    *pEnMask = Image->IsMaskEnabled("r");
+    *ppMask = Image->readMask();
+    *pEnMask = Image->isMaskEnabled("r");
     return TRUE;
 }
 
@@ -201,7 +201,7 @@ Bool32 CTIImageList::EnableMask(const char *pName, const char* pType, Bool32 mEn
         return FALSE;
     }
 
-    return Image->EnableMask(pType, mEnabled);
+    return Image->enableMask(pType, mEnabled);
 }
 
 bool CTIImageList::findHandle(Handle hImage)
@@ -210,7 +210,7 @@ bool CTIImageList::findHandle(Handle hImage)
         return false;
 
     for(HeaderMap::iterator it = headers_.begin(); it != headers_.end(); ++it) {
-        if(it->second->GetImageHandle() == hImage)
+        if(it->second->getImageHandle() == hImage)
             return true;
     }
 
