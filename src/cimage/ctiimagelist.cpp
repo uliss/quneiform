@@ -73,7 +73,7 @@ CTIImageList::~CTIImageList()
     headers_.clear();
 }
 
-bool CTIImageList::addImage(const std::string& name, BITMAPINFOHEADER * hDIB, uint32_t wFlag)
+bool CTIImageList::addImage(const std::string& name, BitmapHandle hDIB, uint32_t wFlag)
 {
     if(findImage(name))
         deleteImage(name);
@@ -97,7 +97,7 @@ bool CTIImageList::addImage(const std::string& name, BITMAPINFOHEADER * hDIB, ui
     return true;
 }
 
-bool CTIImageList::getImage(const std::string &lpName, Handle* phDIB)
+bool CTIImageList::getImage(const std::string &lpName, BitmapHandle * phDIB)
 {
     CTIImageHeader * Image = findImage(lpName);
 

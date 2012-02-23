@@ -78,8 +78,8 @@ class CTIImageList
         ~CTIImageList();
     public:
         bool deleteImage(const std::string& name);
-        bool getImage(const std::string& lpName, Handle* phDIB);
-        bool addImage(const std::string& name, BITMAPINFOHEADER * hDIB, uint32_t wFlag);
+        bool getImage(const std::string& lpName, BitmapHandle * phDIB);
+        bool addImage(const std::string& name, BitmapHandle hDIB, uint32_t wFlag);
         bool findHandle(Handle hImage);
 
         Bool32 EnableMask(const char *pName, const char* pType, Bool32 Type);

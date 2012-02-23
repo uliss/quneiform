@@ -59,7 +59,7 @@
 
 #include <string>
 
-#include "compat_defs.h"
+#include "imageinfo.h"
 #include "ctimask.h"
 
 namespace cf
@@ -73,10 +73,10 @@ class CTIImageHeader
         bool is_external_image_;
         bool enable_read_mask_;
         bool enable_write_mask_;
-        BITMAPINFOHEADER * image_;
+        BitmapHandle image_;
     public:
         CTIImageHeader();
-        CTIImageHeader(BITMAPINFOHEADER * hImageHandle, uint32_t wFlag);
+        CTIImageHeader(BitmapHandle hImageHandle, uint32_t wFlag);
         ~CTIImageHeader();
     public:
         bool isMaskEnabled(const char * MaskType);
@@ -87,11 +87,11 @@ class CTIImageHeader
             return !is_external_image_;
         }
 
-        BITMAPINFOHEADER * getImageHandle() {
+        BitmapHandle getImageHandle() {
             return image_;
         }
 
-        BITMAPINFOHEADER * setImageHandle(BITMAPINFOHEADER * NewHandle) {
+        BitmapHandle setImageHandle(BitmapHandle NewHandle) {
             return (image_ = NewHandle);
         }
 

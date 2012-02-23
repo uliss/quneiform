@@ -251,7 +251,7 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
                 mCBWDestianationDIB->GetDIBHandle(&hNewDIB);
                 // Пишем картинку, и не каких масок!!!
                 mbWriteFlag = TRUE;
-                Ret = SetDIB(lpName, (BITMAPINFOHEADER*) hNewDIB, 0);
+                Ret = SetDIB(lpName, (BitmapHandle) hNewDIB, 0);
                 mbWriteFlag = FALSE;
 
                 if (Ret == FALSE) {
@@ -283,7 +283,7 @@ Bool32 CTIControl::WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk) {
 }
 
 Bool32 CTIControl::GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk) {
-    Handle hImage = NULL;
+    BitmapHandle hImage = NULL;
 
     if (!pCbk) {
         SetReturnCode_cimage(IDS_CIMAGE_INVALID_PARAMETR);
@@ -319,8 +319,8 @@ Bool32 CTIControl::GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk) {
     return TRUE;
 }
 
-Bool32 CTIControl::SetDIB(const char* lpName, BITMAPINFOHEADER * hDIB, uint32_t wFlag) {
-    Handle hImage = NULL;
+Bool32 CTIControl::SetDIB(const char* lpName, BitmapHandle hDIB, uint32_t wFlag) {
+    BitmapHandle hImage = NULL;
 
     if (wFlag == FALSE) { // создаем новую копию
         if (!CopyDIB(hDIB, &hImage)) {
@@ -334,11 +334,11 @@ Bool32 CTIControl::SetDIB(const char* lpName, BITMAPINFOHEADER * hDIB, uint32_t 
         hImage = hDIB;
     }
 
-    return mlImages.addImage(lpName, (BITMAPINFOHEADER*) hImage, wFlag);
+    return mlImages.addImage(lpName, hImage, wFlag);
 }
 
-Bool32 CTIControl::GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag) {
-    Handle hImage = NULL; // Handle
+Bool32 CTIControl::GetDIB(const char* lpName, BitmapHandle *phDIB, uint32_t wFlag) {
+    BitmapHandle hImage = NULL; // Handle
     // открываем картинку
     if (!OpenDIBFromList(lpName, &hImage)) {
         fprintf(stderr, "CTIControl::GetDIB failed: %s\n", lpName);
@@ -445,7 +445,7 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
 }
 
 Bool32 CTIControl::ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace *lpIn) {
-    Handle hImage = NULL;
+    BitmapHandle hImage = NULL;
     void * pImage;
     PCTDIB pSrcDIB = NULL;
     PCTDIB pDscDIB = NULL;
@@ -496,7 +496,7 @@ Bool32 CTIControl::ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace *lp
 }
 
 Bool32 CTIControl::GetImageInfo(const char* lpName, BitmapInfoHeader * lpBIH) {
-    Handle hImage = NULL;
+    BitmapHandle hImage = NULL;
     void * pDIB;
 
     if (!lpBIH) {
@@ -518,7 +518,7 @@ Bool32 CTIControl::RemoveImage(const char* lpName) {
     return mlImages.deleteImage(lpName);
 }
 
-Bool32 CTIControl::CopyDIB(Handle hSrc, Handle* phCopyedDib) {
+Bool32 CTIControl::CopyDIB(BitmapHandle hSrc, BitmapHandle *phCopyedDib) {
     void * pSrc = NULL;
     void * pDsc = NULL;
     Handle hDsc = NULL;
@@ -570,7 +570,7 @@ Bool32 CTIControl::CopyDIB(Handle hSrc, Handle* phCopyedDib) {
     //////////////////////////////////////////////////
     CIMAGEUnlock(hDsc);
     CIMAGEUnlock(hSrc);
-    *phCopyedDib = mhCopyedDIB = hDsc;
+    *phCopyedDib = mhCopyedDIB = (BitmapHandle) hDsc;
     return TRUE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1045,7 +1045,7 @@ Bool32 CTIControl::DumpToFile(const char* FileName, puchar pData, uint32_t Size)
 }
 
 Bool32 CTIControl::GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn, void **pDIB) {
-    Handle hImage = NULL;
+    BitmapHandle hImage = NULL;
     void * pImage = NULL;
     Bool32 bRet = FALSE;
     uint32_t wResolutionX;
@@ -1254,7 +1254,7 @@ Bool32 CTIControl::RemoveReadRectangles(const char* lpName, uint32_t wNumber, CI
     return RemoveRectsFromMask(lpName, wNumber, pFirst, "r");
 }
 
-Bool32 CTIControl::OpenDIBFromList(const char* lpName, Handle* phImage) {
+Bool32 CTIControl::OpenDIBFromList(const char* lpName, BitmapHandle *phImage) {
     mlImages.getImage(lpName, phImage);
     //ALLEX Mask
     // ошибка не тут
@@ -1301,7 +1301,7 @@ Bool32 CTIControl::SetMaskToList(const char* pName, PCTIMask pMask, const char* 
 }
 
 Bool32 CTIControl::OpenDIBFromList(const char *lpName, PCTDIB pcDIB) {
-    Handle hDIB;
+    BitmapHandle hDIB;
     mlImages.getImage(lpName, &hDIB);
     //ALLEX Mask
     // ошибка не тут

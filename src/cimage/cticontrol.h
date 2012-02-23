@@ -109,7 +109,7 @@ class CLA_EXPO CTIControl
         Bool32 SetMaskToList(const char* pName, PCTIMask pMask, const char* pcType);
         Bool32 OpenMaskFromList(const char *lpName, PPCTIMask ppMask,
                                 PBool32 pEnMask, const char *pcType);
-        Bool32 OpenDIBFromList(const char* lpName, Handle* phImage);
+        Bool32 OpenDIBFromList(const char* lpName, BitmapHandle * phImage);
         Bool32 WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
         Bool32 SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
                         CIMAGE_InfoDataInReplace * pIn);
@@ -122,7 +122,7 @@ class CLA_EXPO CTIControl
                            CIMAGE_InfoDataInGet* pFrameInfo, puchar pMask);
         Bool32 GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, CIMAGE_InfoDataInGet* pIn,
                         puchar pMask);
-        Bool32 CopyDIB(Handle hDIB, Handle* hCopyedDib);
+        Bool32 CopyDIB(BitmapHandle hDIB, BitmapHandle * hCopyedDib);
         Bool32 DumpToFile(const char* FileName, puchar pData, uint32_t Size);
         Bool32 CheckInData(PCTDIB pDIB, CIMAGE_InfoDataInGet* lpIn,
                            CIMAGE_InfoDataInGet* lpNewIn = NULL);
@@ -148,8 +148,8 @@ class CLA_EXPO CTIControl
         Bool32 ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace * lpIn);
         Bool32 GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
                         CIMAGE_InfoDataOutGet * lplpOut);
-        Bool32 GetDIB(const char* lpName, Handle* phDIB, uint32_t wFlag = 0);
-        Bool32 SetDIB(const char* lpName, BITMAPINFOHEADER * hDIB, uint32_t wFlag = 0);
+        Bool32 GetDIB(const char* lpName, BitmapHandle * phDIB, uint32_t wFlag = 0);
+        Bool32 SetDIB(const char* lpName, BitmapHandle hDIB, uint32_t wFlag = 0);
         Bool32 GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk);
         Bool32 WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk);
         Bool32 CBImageOpen(CIMAGE_ImageInfo * lpImageInfo);
@@ -158,7 +158,7 @@ class CLA_EXPO CTIControl
         Bool32 CloseDIBFromList(PCTDIB pDIB);
         void Reset();
     protected:
-        Handle mhCopyedDIB;
+        BitmapHandle mhCopyedDIB;
         Bool32 mbWriteFlag;
         uint32_t mwMemoryErrors;
         uchar mwLAWhiteRightMask[8];
