@@ -79,7 +79,7 @@ class CTIImageList
     public:
         bool addImage(const std::string& name, BitmapHandle handle, bool externalImage);
         bool deleteImage(const std::string& name);
-        bool findHandle(Handle hImage);
+        bool findHandle(BitmapHandle handle);
         bool getImage(const std::string& name, BitmapHandle * phDIB);
 
         bool disableReadMask(const std::string& imageName);

@@ -110,7 +110,7 @@ Bool32 CIMAGE_DeleteImage(const char * Name)
 
 Bool32 CIMAGE_FreeCopedDIB(Handle hDIB)
 {
-    return CImage::instance().FreeAlloced(hDIB);
+    return CImage::instance().FreeAlloced((BitmapHandle) hDIB);
 }
 
 Bool32 CIMAGE_FreeBuffers()

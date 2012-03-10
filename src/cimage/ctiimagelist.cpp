@@ -194,13 +194,13 @@ Bool32 CTIImageList::GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBoo
     return TRUE;
 }
 
-bool CTIImageList::findHandle(Handle hImage)
+bool CTIImageList::findHandle(BitmapHandle handle)
 {
-    if(!hImage)
+    if(!handle)
         return false;
 
     for(HeaderMap::iterator it = headers_.begin(); it != headers_.end(); ++it) {
-        if(it->second->imageHandle() == hImage)
+        if(it->second->imageHandle() == handle)
             return true;
     }
 

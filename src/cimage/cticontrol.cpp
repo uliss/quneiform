@@ -1033,7 +1033,7 @@ Bool32 CTIControl::CBImageClose(void) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-Bool32 CTIControl::FreeAlloced(Handle hDIB) {
+Bool32 CTIControl::FreeAlloced(BitmapHandle hDIB) {
     if (hDIB == NULL) {
         SetReturnCode_cimage(IDS_CIMAGE_INVALID_PARAMETR);
         return FALSE;

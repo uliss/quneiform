@@ -76,22 +76,6 @@ namespace cf
 
 class CLA_EXPO CTIControl
 {
-    protected:
-        CTIImageList mlImages;
-        Handle hCBImage;
-        void * pCBImage;
-        char * pCBBuffer;
-        uint32_t wCBBufferSize;
-        uint32_t wCBLine;
-        uint32_t wCBWidth;
-        uint32_t wCBLines;
-        uint32_t wCBStep;
-        char mCBName[CIMAGE_MAX_IMAGE_NAME];
-        char mCBWName[CIMAGE_MAX_IMAGE_NAME];
-        Handle mhBitFildFromImage;
-        puchar mpBitFildFromImage;
-        PCTDIB mpDIBFromImage;
-
     public:
         CTIControl();
         ~CTIControl();
@@ -143,7 +127,7 @@ class CLA_EXPO CTIControl
         Bool32 AddWriteRectangles(const char* lpName, uint32_t wNumber,
                                   CIMAGE_Rect * pFirst);
         Bool32 FreeBuffers(void);
-        Bool32 FreeAlloced(Handle hDIB);
+        Bool32 FreeAlloced(BitmapHandle hDIB);
         Bool32 GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet* lpIn,
                                void **pDIB);
         Bool32 RemoveImage(const char* lpName);
@@ -161,6 +145,20 @@ class CLA_EXPO CTIControl
         Bool32 CloseDIBFromList(PCTDIB pDIB);
         void Reset();
     protected:
+        CTIImageList mlImages;
+        Handle hCBImage;
+        void * pCBImage;
+        char * pCBBuffer;
+        uint32_t wCBBufferSize;
+        uint32_t wCBLine;
+        uint32_t wCBWidth;
+        uint32_t wCBLines;
+        uint32_t wCBStep;
+        char mCBName[CIMAGE_MAX_IMAGE_NAME];
+        char mCBWName[CIMAGE_MAX_IMAGE_NAME];
+        Handle mhBitFildFromImage;
+        puchar mpBitFildFromImage;
+        PCTDIB mpDIBFromImage;
         BitmapHandle mhCopyedDIB;
         Bool32 mbWriteFlag;
         uint32_t mwMemoryErrors;
