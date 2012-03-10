@@ -145,7 +145,7 @@ class CLA_EXPO CTIControl
         Bool32 CloseDIBFromList(PCTDIB pDIB);
         void Reset();
     protected:
-        CTIImageList mlImages;
+        CTIImageList images_;
         Handle hCBImage;
         void * pCBImage;
         char * pCBBuffer;
