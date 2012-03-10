@@ -88,7 +88,7 @@ class CTIImageHeader
 
         bool enableMask(const char *cMaskType, bool mEnabled);
 
-        bool isInternalImage(void) {
+        bool isInternalImage() const {
             return !is_external_image_;
         }
 
