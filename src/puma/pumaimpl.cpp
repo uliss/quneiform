@@ -911,7 +911,8 @@ void PumaImpl::rotate(void * dib, Point * p) {
     // Создадим довернутое изображение
     GetPageInfo(cpage_, &PInfo);
     CIMAGE_DeleteImage(PUMA_IMAGE_ROTATE);
-    CIMAGE_EnableMask(PUMA_IMAGE_USER, "r", false);
+
+    CImage::instance().disableReadMask(PUMA_IMAGE_USER);
 
     if (!RIMAGE_Rotate((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_ROTATE,
             PInfo.Incline2048, 2048, 0))
@@ -920,7 +921,7 @@ void PumaImpl::rotate(void * dib, Point * p) {
     if (!CIMAGE_ReadDIB(PUMA_IMAGE_ROTATE, (void**) dib, true))
         throw PumaException("CIMAGE_ReadDIB failed");
 
-    CIMAGE_EnableMask(PUMA_IMAGE_USER, "r", true);
+    CImage::instance().enableReadMask(PUMA_IMAGE_USER);
     PInfo.Images |= IMAGE_ROTATE;
     SetPageInfo(cpage_, PInfo);
 }

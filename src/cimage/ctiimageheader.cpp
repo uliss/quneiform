@@ -89,31 +89,4 @@ CTIImageHeader::~CTIImageHeader()
     delete write_mask_;
 }
 
-bool CTIImageHeader::enableMask(const char *cMaskType, bool mEnabled)
-{
-    if (cMaskType[0] == 'w') {
-        enable_write_mask_ = mEnabled;
-        return true;
-    }
-
-    if (cMaskType[0] == 'r') {
-        enable_read_mask_ = mEnabled;
-        return true;
-    }
-
-    return false;
-}
-
-bool CTIImageHeader::isMaskEnabled(mask_t mask) const
-{
-    switch(mask) {
-    case READ_MASK:
-        return enable_read_mask_;
-    case WRITE_MASK:
-        return enable_write_mask_;
-    default:
-        return false;
-    }
-}
-
 }

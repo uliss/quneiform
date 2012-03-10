@@ -67,26 +67,34 @@ namespace cf
 
 class CTIImageHeader
 {
-    private:
-        CTIMask * write_mask_;
-        CTIMask * read_mask_;
-        bool is_external_image_;
-        bool enable_read_mask_;
-        bool enable_write_mask_;
-        BitmapHandle image_;
-    public:
-        enum mask_t {
-            READ_MASK,
-            WRITE_MASK
-        };
     public:
         CTIImageHeader();
         CTIImageHeader(BitmapHandle hImageHandle, uint32_t wFlag);
         ~CTIImageHeader();
     public:
-        bool isMaskEnabled(mask_t mask) const;
+        void disableReadMask() {
+            enable_read_mask_ = false;
+        }
 
-        bool enableMask(const char *cMaskType, bool mEnabled);
+        void disableWriteMask() {
+            enable_write_mask_ = false;
+        }
+
+        void enableReadMask() {
+            enable_read_mask_ = true;
+        }
+
+        void enableWriteMask() {
+            enable_write_mask_ = true;
+        }
+
+        bool isReadMaskEnabled() const {
+            return enable_read_mask_;
+        }
+
+        bool isWriteMaskEnabled() const {
+            return enable_write_mask_;
+        }
 
         bool isInternalImage() const {
             return !is_external_image_;
@@ -115,6 +123,13 @@ class CTIImageHeader
         CTIMask * readMask() {
             return read_mask_;
         }
+    private:
+        CTIMask * write_mask_;
+        CTIMask * read_mask_;
+        bool is_external_image_;
+        bool enable_read_mask_;
+        bool enable_write_mask_;
+        BitmapHandle image_;
 };
 
 }

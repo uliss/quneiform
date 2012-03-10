@@ -115,6 +115,26 @@ CTIControl::~CTIControl() {
     clear();
 }
 
+bool CTIControl::disableReadMask(const std::string& imageName)
+{
+    return mlImages.disableReadMask(imageName);
+}
+
+bool CTIControl::disableWriteMask(const std::string& imageName)
+{
+    return mlImages.disableWriteMask(imageName);
+}
+
+bool CTIControl::enableReadMask(const std::string& imageName)
+{
+    return mlImages.enableReadMask(imageName);
+}
+
+bool CTIControl::enableWriteMask(const std::string& imageName)
+{
+    return mlImages.enableWriteMask(imageName);
+}
+
 void CTIControl::clear() {
     FreeBuffers();
     delete mCBSourceDIB;
@@ -1521,10 +1541,6 @@ Bool32 CTIControl::ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm, 
     }
 
     return bRet;
-}
-
-Bool32 CTIControl::EnableMask(const char* pcName, const char* pcType, Bool32 bEnable) {
-    return mlImages.EnableMask(pcName, pcType, bEnable);
 }
 
 }

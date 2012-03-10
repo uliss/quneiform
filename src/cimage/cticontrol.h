@@ -96,6 +96,10 @@ class CLA_EXPO CTIControl
         CTIControl();
         ~CTIControl();
 
+        bool disableReadMask(const std::string& imageName);
+        bool disableWriteMask(const std::string& imageName);
+        bool enableReadMask(const std::string& imageName);
+        bool enableWriteMask(const std::string& imageName);
     private:
         Bool32 ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm,
                                    uint32_t wLine, uint32_t wAtX, uint32_t wAtY);
@@ -130,7 +134,6 @@ class CLA_EXPO CTIControl
         void clear();
 
     public:
-        Bool32 EnableMask(const char* pcName, const char* pcType, Bool32 bEnable);
         Bool32 RemoveReadRectangles(const char* lpName, uint32_t wNumber,
                                     CIMAGE_Rect * pFirst);
         Bool32 AddReadRectangles(const char* lpName, uint32_t wNumber,

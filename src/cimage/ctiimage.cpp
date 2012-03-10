@@ -148,12 +148,6 @@ Bool32 CIMAGE_RemoveWriteCloseRects(const char * Name, uint32_t wCount,
     return CImage::instance().RemoveWriteRectangles(Name, wCount, pFirst);
 }
 
-Bool32 CIMAGE_EnableMask(const char * Name, const char * lpType,
-                         Bool32 bEnabler)
-{
-    return CImage::instance().EnableMask(Name, lpType, bEnabler);
-}
-
 // For GetCBImage
 Bool16 CIMAGE_Callback_ImageOpen(CIMAGE_ImageInfo * lpImageInfo)
 {

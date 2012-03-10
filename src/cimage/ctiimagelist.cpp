@@ -59,6 +59,8 @@
 #include "common/cifconfig.h"
 #include "common/debug.h"
 
+#include <boost/current_function.hpp>
+
 namespace cf
 {
 
@@ -174,7 +176,7 @@ Bool32 CTIImageList::GetImageWriteMask(const char *lpName, PPCTIMask ppWMask, PB
     }
 
     *ppWMask = Image->writeMask();
-    *pEnMask = Image->isMaskEnabled(CTIImageHeader::WRITE_MASK);
+    *pEnMask = Image->isWriteMaskEnabled();
     return TRUE;
 }
 
@@ -188,20 +190,8 @@ Bool32 CTIImageList::GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBoo
     }
 
     *ppMask = Image->readMask();
-    *pEnMask = Image->isMaskEnabled(CTIImageHeader::READ_MASK);
+    *pEnMask = Image->isReadMaskEnabled();
     return TRUE;
-}
-
-Bool32 CTIImageList::EnableMask(const char *pName, const char* pType, Bool32 mEnabled)
-{
-    CTIImageHeader * Image = findImage(pName);
-
-    if (Image == NULL) {
-        SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
-        return FALSE;
-    }
-
-    return Image->enableMask(pType, mEnabled);
 }
 
 bool CTIImageList::findHandle(Handle hImage)
@@ -215,6 +205,40 @@ bool CTIImageList::findHandle(Handle hImage)
     }
 
     return false;
+}
+
+bool CTIImageList::disableReadMask(const std::string& imageName)
+{
+    return maskAction(imageName, &CTIImageHeader::disableReadMask);
+}
+
+bool CTIImageList::disableWriteMask(const std::string &imageName)
+{
+    return maskAction(imageName, &CTIImageHeader::disableWriteMask);
+}
+
+bool CTIImageList::enableReadMask(const std::string& imageName)
+{
+    return maskAction(imageName, &CTIImageHeader::enableReadMask);
+}
+
+bool CTIImageList::enableWriteMask(const std::string& imageName)
+{
+    return maskAction(imageName, &CTIImageHeader::enableWriteMask);
+}
+
+bool CTIImageList::maskAction(const std::string& imageName, CTIImageList::MemberPtr ptr)
+{
+    CTIImageHeader * image = findImage(imageName);
+
+    if (!image) {
+        cf::Debug() << BOOST_CURRENT_FUNCTION << " image not found: " << imageName << "\n";
+        return false;
+    }
+
+    (image->*ptr)();
+
+    return true;
 }
 
 }

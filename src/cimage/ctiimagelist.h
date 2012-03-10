@@ -82,13 +82,20 @@ class CTIImageList
         bool addImage(const std::string& name, BitmapHandle hDIB, uint32_t wFlag);
         bool findHandle(Handle hImage);
 
-        Bool32 EnableMask(const char *pName, const char* pType, Bool32 Type);
+        bool disableReadMask(const std::string& imageName);
+        bool disableWriteMask(const std::string& imageName);
+        bool enableReadMask(const std::string& imageName);
+        bool enableWriteMask(const std::string& imageName);
+
         Bool32 GetImageReadMask(const char *lpName, PPCTIMask ppMask,
                                 PBool32 pEnMask);
         Bool32 GetImageWriteMask(const char *lpNmae, PPCTIMask ppWMask,
                                  PBool32 pEnMask);
         Bool32 SetImageReadMask(const char *lpName, PCTIMask pAMask);
         Bool32 SetImageWriteMask(const char *lpName, PCTIMask pWMask);
+    private:
+        typedef void (CTIImageHeader::*MemberPtr)();
+        bool maskAction(const std::string& imageName, MemberPtr ptr);
     private:
         CTIImageHeader * findImage(const std::string& name);
 };
