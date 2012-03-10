@@ -69,7 +69,7 @@ class CTIImageHeader
 {
     public:
         CTIImageHeader();
-        CTIImageHeader(BitmapHandle hImageHandle, uint32_t wFlag);
+        CTIImageHeader(BitmapHandle handle, bool externalImage);
         ~CTIImageHeader();
     public:
         void disableReadMask() {

@@ -69,10 +69,10 @@ CTIImageHeader::CTIImageHeader()
     enable_write_mask_ = TRUE;
 }
 
-CTIImageHeader::CTIImageHeader(BitmapHandle hImageHandle, uint32_t wFlag)
+CTIImageHeader::CTIImageHeader(BitmapHandle handle, bool externalImage)
 {
-    image_ = hImageHandle;
-    is_external_image_ = wFlag;
+    image_ = handle;
+    is_external_image_ = externalImage;
     read_mask_ = NULL;
     write_mask_ = NULL;
     enable_read_mask_ = TRUE;
