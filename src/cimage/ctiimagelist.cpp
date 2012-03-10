@@ -108,7 +108,7 @@ bool CTIImageList::getImage(const std::string &lpName, BitmapHandle * phDIB)
         return false;
     }
 
-    *phDIB = Image->getImageHandle();
+    *phDIB = Image->imageHandle();
     return true;
 }
 
@@ -200,7 +200,7 @@ bool CTIImageList::findHandle(Handle hImage)
         return false;
 
     for(HeaderMap::iterator it = headers_.begin(); it != headers_.end(); ++it) {
-        if(it->second->getImageHandle() == hImage)
+        if(it->second->imageHandle() == hImage)
             return true;
     }
 

@@ -100,7 +100,7 @@ class CTIImageHeader
             return !is_external_image_;
         }
 
-        BitmapHandle getImageHandle() {
+        BitmapHandle imageHandle() {
             return image_;
         }
 

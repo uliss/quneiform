@@ -82,7 +82,7 @@ CTIImageHeader::CTIImageHeader(BitmapHandle hImageHandle, uint32_t wFlag)
 CTIImageHeader::~CTIImageHeader()
 {
     if (isInternalImage()) {
-        CIMAGEFree(getImageHandle());
+        CIMAGEFree(imageHandle());
     }
 
     delete read_mask_;
