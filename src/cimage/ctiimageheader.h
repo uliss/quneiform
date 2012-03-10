@@ -75,11 +75,16 @@ class CTIImageHeader
         bool enable_write_mask_;
         BitmapHandle image_;
     public:
+        enum mask_t {
+            READ_MASK,
+            WRITE_MASK
+        };
+    public:
         CTIImageHeader();
         CTIImageHeader(BitmapHandle hImageHandle, uint32_t wFlag);
         ~CTIImageHeader();
     public:
-        bool isMaskEnabled(const char * MaskType);
+        bool isMaskEnabled(mask_t mask) const;
 
         bool enableMask(const char *cMaskType, bool mEnabled);
 

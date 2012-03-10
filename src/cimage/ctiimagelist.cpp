@@ -174,7 +174,7 @@ Bool32 CTIImageList::GetImageWriteMask(const char *lpName, PPCTIMask ppWMask, PB
     }
 
     *ppWMask = Image->writeMask();
-    *pEnMask = Image->isMaskEnabled("w");
+    *pEnMask = Image->isMaskEnabled(CTIImageHeader::WRITE_MASK);
     return TRUE;
 }
 
@@ -188,7 +188,7 @@ Bool32 CTIImageList::GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBoo
     }
 
     *ppMask = Image->readMask();
-    *pEnMask = Image->isMaskEnabled("r");
+    *pEnMask = Image->isMaskEnabled(CTIImageHeader::READ_MASK);
     return TRUE;
 }
 
