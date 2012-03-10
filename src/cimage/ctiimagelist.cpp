@@ -75,36 +75,36 @@ CTIImageList::~CTIImageList()
     headers_.clear();
 }
 
-bool CTIImageList::addImage(const std::string& name, BitmapHandle hDIB, uint32_t wFlag)
+bool CTIImageList::addImage(const std::string& name, BitmapHandle handle, bool externalImage)
 {
     if(findImage(name))
         deleteImage(name);
 
     if (name.empty()) {
-        Debug() << "CTIImageList::AddImage: invalid image name: " << name << "\n";
+        Debug() << BOOST_CURRENT_FUNCTION << " invalid image name: " << name << "\n";
         return false;
     }
 
-    if (hDIB == NULL) {
-        Debug() << "CTIImageList::AddImage: invalid image handle: " << name << "\n";
+    if (handle == NULL) {
+        Debug() << BOOST_CURRENT_FUNCTION << " invalid image handle: " << name << "\n";
         return false;
     }
 
-    CTIImageHeader * NewImage = new CTIImageHeader(hDIB, wFlag);
-    headers_[name] = NewImage;
+    CTIImageHeader * new_image = new CTIImageHeader(handle, externalImage);
+    headers_[name] = new_image;
 
     if (Config::instance().debug())
-        Debug() << "CTIImageList::AddImage: image added: " << name << "\n";
+        Debug() << BOOST_CURRENT_FUNCTION << " image added: " << name << "\n";
 
     return true;
 }
 
-bool CTIImageList::getImage(const std::string &lpName, BitmapHandle * phDIB)
+bool CTIImageList::getImage(const std::string& name, BitmapHandle * phDIB)
 {
-    CTIImageHeader * Image = findImage(lpName);
+    CTIImageHeader * Image = findImage(name);
 
     if (Image == NULL) {
-        Debug() << "CTIImageList::GetImage: image not found: " << lpName << "\n";
+        Debug() << "CTIImageList::GetImage: image not found: " << name << "\n";
         return false;
     }
 
