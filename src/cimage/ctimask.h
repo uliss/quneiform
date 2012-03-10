@@ -59,10 +59,7 @@
 #ifndef _CTIMASK_H_
 #define _CTIMASK_H_
 
-#include "resource.h"
-#include "ctidefines.h"
 #include "ctiimage.h"
-
 #include "ctimaskline.h"
 
 namespace cf
@@ -74,20 +71,19 @@ typedef CTIMask *PCTIMask, **PPCTIMask;
 class CTIMask
 {
     public:
+        CTIMask(uint32_t width, uint32_t Height);
+        CTIMask();
+        ~CTIMask();
+
         Bool32 GetLine(uint32_t wLine, PPCTIMaskLine ppcLine);
         Bool32 IsRectOnMask(CIMAGE_Rect * pRect);
         Bool32 RemoveRectangle(CIMAGE_Rect * pRect);
         Bool32 AddRectangle(CIMAGE_Rect * pRect);
-        CTIMask(uint32_t Width, uint32_t Height);
-        CTIMask();
-        virtual ~CTIMask();
-
-    protected:
-        uint32_t mwMaskWidth;
-        uint32_t mwMaskHeight;
+    private:
+        CTIMaskLine line_;
+        uint32_t width_;
+        uint32_t height_;
         uint32_t mwSegments;
-        CTIMaskLine mcLine;
-        uint32_t mwLines;
     private:
         Bool32 SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine);
 };
