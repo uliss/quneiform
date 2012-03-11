@@ -62,39 +62,36 @@ namespace cf
 {
 
 CTIMaskLine::CTIMaskLine() :
-        length_(0), segments_(0), next_(NULL), line_(-1)
+        length_(0), segments_(0), line_(-1), next_(NULL)
 {
 }
 
-CTIMaskLine::CTIMaskLine(uint32_t Lenght) :
-        length_(Lenght), segments_(0), next_(NULL), line_(-1)
+CTIMaskLine::CTIMaskLine(uint Lenght) :
+        length_(Lenght), segments_(0), line_(-1), next_(NULL)
 {
 }
 
-CTIMaskLine::CTIMaskLine(uint32_t Lenght, PCTIMaskLineSegment pSegm) :
+CTIMaskLine::CTIMaskLine(uint Lenght, CTIMaskLineSegment *pSegm) :
         length_(Lenght),
-        //mcFirst(pSegm),
-        segments_(0), next_(NULL), line_(-1)
+        segments_(0), line_(-1), next_(NULL)
 {
-    AddSegment(pSegm);
+    addSegment(pSegm);
 }
 
-CTIMaskLine::CTIMaskLine(uint32_t Lenght, uint32_t nLine,
-                         PCTIMaskLineSegment pSegm) :
+CTIMaskLine::CTIMaskLine(uint Lenght, uint nLine,
+                         CTIMaskLineSegment * pSegm) :
         length_(Lenght),
-        //mcFirst(pSegm),
-        segments_(0), next_(NULL), line_(nLine)
+        segments_(0), line_(nLine), next_(NULL)
 {
-    AddSegment(pSegm);
+    addSegment(pSegm);
 }
 
-CTIMaskLine::CTIMaskLine(uint32_t Lenght, uint32_t nLine,
-                         PCTIMaskLineSegment pSegm, PCTIMaskLine pcNextLine) :
+CTIMaskLine::CTIMaskLine(uint Lenght, uint nLine,
+                         CTIMaskLineSegment * pSegm, CTIMaskLine * pcNextLine) :
         length_(Lenght),
-        //mcFirst(pSegm),
-        segments_(0), next_(pcNextLine), line_(nLine)
+        segments_(0), line_(nLine), next_(pcNextLine)
 {
-    AddSegment(pSegm);
+    addSegment(pSegm);
 }
 
 CTIMaskLine::~CTIMaskLine()
@@ -109,7 +106,7 @@ CTIMaskLine::~CTIMaskLine()
     }
 }
 
-Bool32 CTIMaskLine::AddSegment(PCTIMaskLineSegment pSegm)
+Bool32 CTIMaskLine::addSegment(CTIMaskLineSegment *pSegm)
 {
     PCTIMaskLineSegment pS = &first_;
     PCTIMaskLineSegment pL;
@@ -117,7 +114,7 @@ Bool32 CTIMaskLine::AddSegment(PCTIMaskLineSegment pSegm)
     Bool32 Added = FALSE;
     Bool32 Check = FALSE;
 
-    if (IsSegmentOnLine(pSegm)) {
+    if (isSegmentOnLine(pSegm)) {
         pL = pS;
 
         while (pS && !Added) {
@@ -164,14 +161,14 @@ Bool32 CTIMaskLine::AddSegment(PCTIMaskLineSegment pSegm)
     return bRet;
 }
 
-Bool32 CTIMaskLine::RemoveSegment(PCTIMaskLineSegment pSegm)
+Bool32 CTIMaskLine::removeSegment(CTIMaskLineSegment *pSegm)
 {
     PCTIMaskLineSegment pPS = &first_;
     PCTIMaskLineSegment pS = pPS->next();
     Bool32 Remed = FALSE;
 
     if (segments_) {
-        if (IsSegmentOnLine(pSegm)) {
+        if (isSegmentOnLine(pSegm)) {
             while (pS && !Remed) {
                 switch (pS->isIntersectWith(pSegm)) {
                         // pSegm равен pS

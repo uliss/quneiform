@@ -67,14 +67,22 @@ typedef CTIMaskLine *PCTIMaskLine, **PPCTIMaskLine;
 class CTIMaskLine
 {
     public:
-        bool IsSegmentOnLine(PCTIMaskLineSegment pSegm) const
+        CTIMaskLine(uint Lenght, uint nLine, CTIMaskLineSegment * pSegm, CTIMaskLine * pcNextLine);
+        CTIMaskLine(uint Lenght, uint nLine, CTIMaskLineSegment * pSegm);
+        CTIMaskLine(uint Lenght, CTIMaskLineSegment * pSegm);
+        CTIMaskLine(uint Lenght);
+        CTIMaskLine();
+        ~CTIMaskLine();
+
+        bool isSegmentOnLine(CTIMaskLineSegment * segm) const
         {
-            return (pSegm->start() >= 0 && pSegm->start() <= (int32_t) length_
-                    && pSegm->end() <= (int32_t)length_);
+            return (segm->start() >= 0
+                    && segm->start() <= (int) length_
+                    && segm->end() <= (int)length_);
         }
 
-        Bool32        RemoveSegment(PCTIMaskLineSegment pSegm);
-        Bool32        AddSegment(PCTIMaskLineSegment pSegm);
+        Bool32 addSegment(CTIMaskLineSegment * pSegm);
+        Bool32 removeSegment(CTIMaskLineSegment * pSegm);
 
         PCTIMaskLine GetNext() {
             return next_;
@@ -84,31 +92,24 @@ class CTIMaskLine
             next_ = pLine;
         }
 
-        void setLineNumber(uint32_t nLine) {
+        void setLineNumber(uint nLine) {
             line_ = nLine;
         }
 
-        uint32_t lineNumber() const {
+        uint lineNumber() const {
             return line_;
         }
 
-        uint32_t GetSegmentsNumber( void ) {
+        uint segmentsNumber() const {
             return segments_;
         }
 
         Bool32 GetLeftIntersection(PCTIMaskLineSegment pcSegm);
-    public:
-        CTIMaskLine(uint32_t Lenght, uint32_t nLine, PCTIMaskLineSegment pSegm, PCTIMaskLine pcNextLine);
-        CTIMaskLine(uint32_t Lenght, uint32_t nLine, PCTIMaskLineSegment pSegm);
-        CTIMaskLine(uint32_t Lenght, PCTIMaskLineSegment pSegm);
-        CTIMaskLine(uint32_t Lenght);
-        CTIMaskLine();
-        ~CTIMaskLine();
     protected:
-        uint32_t length_;
-        uint32_t segments_;
+        uint length_;
+        uint segments_;
+        uint line_;
         CTIMaskLine * next_;
-        int32_t line_;
         CTIMaskLineSegment first_;
     private:
         Bool32 CheckSegments(void);

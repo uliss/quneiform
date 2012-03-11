@@ -122,7 +122,7 @@ Bool32 CTIMask::AddRectangle(CIMAGE_Rect * pRect)
         else {
             if (pL->lineNumber() == wLine) {
                 // кладем новый сегмент в линию
-                if (!pL->AddSegment(&Segm)) {
+                if (!pL->addSegment(&Segm)) {
                     SetReturnCode_cimage(IDS_CIMAGE_UNABLE_ADD_MASK);
                     return FALSE;
                 }
@@ -175,12 +175,12 @@ Bool32 CTIMask::RemoveRectangle(CIMAGE_Rect * pRect)
             return FALSE;
         }
 
-        else if (!pL->RemoveSegment(&Segm)) {
+        else if (!pL->removeSegment(&Segm)) {
             SetReturnCode_cimage(IDS_CIMAGE_UNABLE_REMOVE_MASK);
             return FALSE;
         }
 
-        if (pL->GetSegmentsNumber() == 0) {
+        if (pL->segmentsNumber() == 0) {
             pPL->SetNext(pL->GetNext());
             delete pL;
             pL = pPL->GetNext();

@@ -1435,7 +1435,7 @@ Bool32 CTIControl::ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX, u
         if (pMask->GetLine(wY, &pcMaskLine)) {
             // если есть линия
             if (pcMaskLine) {
-                wSegmentsOnLine = pcMaskLine->GetSegmentsNumber();
+                wSegmentsOnLine = pcMaskLine->segmentsNumber();
                 wX = wXb;
 
                 // если есть сегменты на этой линии
