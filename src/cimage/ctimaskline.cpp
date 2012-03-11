@@ -161,10 +161,10 @@ Bool32 CTIMaskLine::addSegment(CTIMaskLineSegment *pSegm)
     return bRet;
 }
 
-Bool32 CTIMaskLine::removeSegment(CTIMaskLineSegment *pSegm)
+Bool32 CTIMaskLine::removeSegment(CTIMaskLineSegment * pSegm)
 {
-    PCTIMaskLineSegment pPS = &first_;
-    PCTIMaskLineSegment pS = pPS->next();
+    CTIMaskLineSegment * pPS = &first_;
+    CTIMaskLineSegment * pS = pPS->next();
     Bool32 Remed = FALSE;
 
     if (segments_) {
@@ -229,20 +229,18 @@ Bool32 CTIMaskLine::removeSegment(CTIMaskLineSegment *pSegm)
     return TRUE;
 }
 
-Bool32 CTIMaskLine::GetLeftIntersection(PCTIMaskLineSegment pcSegm)
+bool CTIMaskLine::getLeftIntersection(CTIMaskLineSegment *pcSegm)
 {
-    PCTIMaskLineSegment pL = first_.next();
-    uint32_t wItype;
-    Bool32 bInt = FALSE;
+    CTIMaskLineSegment * pL = first_.next();
+    bool bInt = false;
 
     while (pL) {
-        //wItype = pL->IsIntersectWith( pcSegm );
-        wItype = pcSegm->isIntersectWith(pL);
+        CTIMaskLineSegment::intersection_t wItype = pcSegm->isIntersectWith(pL);
 
         if (!(wItype == CTIMaskLineSegment::INTERSECTION_FULL_RIGHT || wItype
                 == CTIMaskLineSegment::INTERSECTION_FULL_LEFT)) {
             pcSegm->intersectWith(pL);
-            bInt = TRUE;
+            bInt = true;
             break;
         }
 
