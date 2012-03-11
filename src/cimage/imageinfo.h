@@ -104,6 +104,8 @@ public:
     uint32_t biClrImportant;
 };
 
+typedef BitmapInfoHeader * BitmapHandle;
+
 struct CIMAGERGBQUAD {
     uchar rgbBlue;
     uchar rgbGreen;

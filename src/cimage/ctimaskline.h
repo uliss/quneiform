@@ -104,7 +104,7 @@ class CTIMaskLine
             return segments_;
         }
 
-        bool getLeftIntersection(CTIMaskLineSegment * segm);
+        bool getLeftIntersection(CTIMaskLineSegment * pcSegm);
     protected:
         uint length_;
         uint segments_;

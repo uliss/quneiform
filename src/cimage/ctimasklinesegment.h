@@ -54,81 +54,83 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// CTIMaskLineSegment.h: interface for the CTIMaskLineSegment class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(_CTIMASKLINESEGMENT_H_)
+#ifndef _CTIMASKLINESEGMENT_H_
 #define _CTIMASKLINESEGMENT_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+#include "cttypes.h"
 
-////////////////////////////////////////////////////////////////////////////////////
-#include "resource.h"
-#include "ctidefines.h"
-#include "ctiimage.h"
+namespace cf
+{
 
-////////////////////////////////////////////////////////////////////////////////////
-class CTIMaskLineSegment;
-typedef   CTIMaskLineSegment         *PCTIMaskLineSegment,   **PPCTIMaskLineSegment;
-/////////////////////////////////////////////////////////////////////////////////////
 class CTIMaskLineSegment
 {
-//#define                   CTIMLSEGMINTERSECTNO                  0
-#define                   CTIMLSEGMINTERSECTIN                  1
-#define                   CTIMLSEGMINTERSECTLEFT                2
-#define                   CTIMLSEGMINTERSECTRIGHT               3
-#define                   CTIMLSEGMINTERSECTOVER                4
-#define                   CTIMLSEGMINTERSECTEQUAL               5
-#define                   CTIMLSEGMINTERSECTFULLLEFT            6
-#define                   CTIMLSEGMINTERSECTFULLRIGHT           7
-#define                   CTIMLSEGMPOINTRIGHT                   1
-#define                   CTIMLSEGMPOINTLEF                    -1
-#define                   CTIMLSEGMPOINTIN                      0
+public:
+    enum intersection_t {
+        NO_INTERSECTION                = 0,
+        INTERSECTION_IN                = 1,
+        INTERSECTION_LEFT              = 2,
+        INTERSECTION_RIGHT             = 3,
+        INTERSECTION_OVER              = 4,
+        INTERSECTION_EQUAL             = 5,
+        INTERSECTION_FULL_LEFT         = 6,
+        INTERSECTION_FULL_RIGHT        = 7
+    };
 
-    public:
-        void                  SetNext(PCTIMaskLineSegment pNext) {
-            mpNext = pNext;
-        };
-        PCTIMaskLineSegment   GetNext(void) {
-            return mpNext;
-        };
-        int32_t                 GetStart(void) {
-            return mwStart;
-        };
-        int32_t                 GetEnd(void) {
-            return mwEnd;
-        };
-        Bool32                IsPointInSegment(int32_t X) {
-            return (X >= mwStart && X <= mwEnd);
-        };
-        Bool32                CutRightTo(PCTIMaskLineSegment pSegm);
-        // обрезать с конца
-        Bool32                CutLeftTo(PCTIMaskLineSegment pSegm);
-        // обрезать с начала
-        Bool32                AddWith(PCTIMaskLineSegment pSegm);
-        // пересечение данного сегмента с аргументом
-        Bool32                IntersectWith(PCTIMaskLineSegment pSegm);
-        // положение данного сегмента относительно аргумента
-        uint32_t                IsIntersectWith(PCTIMaskLineSegment pSegm);
-        // равенство сегментов
-        Bool32                IsEqual(PCTIMaskLineSegment pSegm) {
-            return (mwEnd == pSegm->GetEnd() && mwStart == pSegm->GetStart());
-        };
+    enum point_dir_t {
+        POINT_RIGHT                 = 1,
+        POINT_LEFT                  = -1,
+        POINT_IN                    =  0
+    };
 
-    public:
-        int32_t GetPointDirect(uint32_t X);
-        CTIMaskLineSegment();
-        CTIMaskLineSegment(int32_t Start, int32_t End);
-        CTIMaskLineSegment(PCTIMaskLineSegment pSegm);
-        virtual ~CTIMaskLineSegment();
+public:
+    CTIMaskLineSegment * next() {
+        return next_;
+    }
 
-    protected:
-        PCTIMaskLineSegment mpNext;
-        int32_t mwStart;
-        int32_t mwEnd;
+    void setNext(CTIMaskLineSegment * pNext) {
+        next_ = pNext;
+    }
+
+    int start() const {
+        return start_;
+    }
+
+    int end() const {
+        return end_;
+    }
+
+    bool isPointInSegment(int X) const {
+        return (X >= start_ && X <= end_);
+    }
+
+    bool cutRightTo(CTIMaskLineSegment * pSegm);
+    // обрезать с конца
+    bool cutLeftTo(CTIMaskLineSegment * pSegm);
+    // обрезать с начала
+    bool addWith(CTIMaskLineSegment * pSegm);
+    // пересечение данного сегмента с аргументом
+    bool intersectWith(const CTIMaskLineSegment& segm);
+    // положение данного сегмента относительно аргумента
+    intersection_t isIntersectWith(const CTIMaskLineSegment& segm) const;
+    // равенство сегментов
+    bool isEqual(const CTIMaskLineSegment& segm) const {
+        return (end_ == segm.end() && start_ == segm.start());
+    }
+public:
+    CTIMaskLineSegment();
+    CTIMaskLineSegment(int Start, int End);
+    CTIMaskLineSegment(CTIMaskLineSegment * pSegm);
+    ~CTIMaskLineSegment();
+private:
+    point_dir_t pointDirection(int X) const;
+private:
+    CTIMaskLineSegment * next_;
+    int start_;
+    int end_;
 };
+
+typedef CTIMaskLineSegment * PCTIMaskLineSegment;
+
+}
 
 #endif // !defined(_CTIMASKLINESEGMENT_H_)

@@ -67,9 +67,9 @@
 #define CIMAGE_FUNC  FUN_IMPO__
 #endif
 
-class CTIControl;
 namespace cf
 {
+class CTIControl;
 typedef Singleton<CTIControl, CreateUsingStatic> CImage;
 }
 
@@ -115,7 +115,6 @@ DEC_FUN(Bool32, AddReadCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
 DEC_FUN(Bool32, RemoveReadCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
 DEC_FUN(Bool32, AddWriteCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
 DEC_FUN(Bool32, RemoveWriteCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
-DEC_FUN(Bool32, EnableMask, (const char*, const char*, Bool32))
 #undef DEC_FUN
 #define DEC_CB_FUN(a,b,c) typedef a (*FNCIMAGE##b)c; a CIMAGE_##b c;
 DEC_CB_FUN(Bool16, Callback_ImageOpen, (CIMAGE_ImageInfo* lpImageInfo))

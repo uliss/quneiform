@@ -73,12 +73,12 @@ Bool32 CIMAGE_GetCallbackImage(const char * Name, CIMAGEIMAGECALLBACK * pCbk)
 
 Bool32 CIMAGE_WriteDIB(const char * Name, Handle lpDIB, uint32_t wFlag)
 {
-    return CImage::instance().SetDIB(Name, lpDIB, wFlag);
+    return CImage::instance().SetDIB(Name, (BitmapHandle) lpDIB, wFlag);
 }
 
 Bool32 CIMAGE_ReadDIB(const char * Name, Handle* lplpDIB, uint32_t wFlag)
 {
-    return CImage::instance().GetDIB(Name, lplpDIB, wFlag);
+    return CImage::instance().GetDIB(Name, (BitmapHandle*) lplpDIB, wFlag);
 }
 
 Bool32 CIMAGE_GetData(const char *Name, CIMAGE_InfoDataInGet * lpIn,
@@ -110,7 +110,7 @@ Bool32 CIMAGE_DeleteImage(const char * Name)
 
 Bool32 CIMAGE_FreeCopedDIB(Handle hDIB)
 {
-    return CImage::instance().FreeAlloced(hDIB);
+    return CImage::instance().FreeAlloced((BitmapHandle) hDIB);
 }
 
 Bool32 CIMAGE_FreeBuffers()
@@ -146,12 +146,6 @@ Bool32 CIMAGE_RemoveWriteCloseRects(const char * Name, uint32_t wCount,
                                     CIMAGE_Rect * pFirst)
 {
     return CImage::instance().RemoveWriteRectangles(Name, wCount, pFirst);
-}
-
-Bool32 CIMAGE_EnableMask(const char * Name, const char * lpType,
-                         Bool32 bEnabler)
-{
-    return CImage::instance().EnableMask(Name, lpType, bEnabler);
 }
 
 // For GetCBImage

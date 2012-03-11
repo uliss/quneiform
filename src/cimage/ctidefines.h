@@ -57,10 +57,6 @@
 # ifndef __CTIMAGE_DEFINES_H_
 # define __CTIMAGE_DEFINES_H_
 
-#include <cstring>
-#include <cstdlib>
-#include <cstdio>
-
 #include "cttypes.h"
 #include "imageinfo.h"
 
@@ -68,29 +64,5 @@ enum {
     CIMAGE_MAX_IMAGE_NAME = 256
 };
 
-template<class A, class B>
-void CIMAGE_RGBQUDSSIZE(A a, B b)
-{
-    a += ((0x0001 << b) * sizeof(CIMAGERGBQUAD));
-}
-
-# define    CIMAGE_EXTENDBYTES(a,b)         (((a) + (b) - 1)/(b))*(b)
-# define    CIMAGE_EXTENDBITS(a,b)          (((a) + ((b)*8) - 1)/((b)*8))*(b)
-
-enum {
-    CIMAGE_DIB_EXT = 4
-};
-
-template<class T>
-inline float CIMAGE_INCH_TO_METER(T a)
-{
-    return (a / 2.54) * 100;
-}
-
-template<class T>
-inline float CIMAGE_METER_TO_INCH(T a)
-{
-    return (a / 100) * 2.54 + 1;
-}
 
 #endif

@@ -138,7 +138,6 @@ PumaImpl::PumaImpl() :
     rect_template_(Point(-1, -1), Point(-1, -1)),
     layout_filename_("layout.bin"),
     input_dib_(NULL),
-    recog_dib_(NULL),
     tables_num_(0),
     ccom_(NULL),
     cpage_(NULL),
@@ -157,7 +156,6 @@ PumaImpl::~PumaImpl() {
 }
 
 void PumaImpl::binarizeImage() {
-    recog_dib_ = input_dib_;
     recog_name_ = PUMA_IMAGE_USER;
 
     getImageInfo(PUMA_IMAGE_USER);
@@ -173,7 +171,7 @@ void PumaImpl::binarizeImage() {
             throw PumaException("RIMAGE_Binarise failed");
 
         const int NO_COPY = TRUE;
-        if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) input_dib_, NO_COPY))
+        if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, (Handle*) &input_dib_, NO_COPY))
             throw PumaException("CIMAGE_ReadDIB failed");
 
         PAGEINFO info;
@@ -230,7 +228,7 @@ void PumaImpl::close() {
     CPAGE_DeleteAll();
     RIMAGE_Reset();
     cpage_ = NULL;
-    recog_dib_ = input_dib_ = NULL;
+    input_dib_ = NULL;
 }
 
 void PumaImpl::debugPrintCpage() {
@@ -913,7 +911,8 @@ void PumaImpl::rotate(void * dib, Point * p) {
     // Создадим довернутое изображение
     GetPageInfo(cpage_, &PInfo);
     CIMAGE_DeleteImage(PUMA_IMAGE_ROTATE);
-    CIMAGE_EnableMask(PUMA_IMAGE_USER, "r", false);
+
+    CImage::instance().disableReadMask(PUMA_IMAGE_USER);
 
     if (!RIMAGE_Rotate((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_ROTATE,
             PInfo.Incline2048, 2048, 0))
@@ -922,7 +921,7 @@ void PumaImpl::rotate(void * dib, Point * p) {
     if (!CIMAGE_ReadDIB(PUMA_IMAGE_ROTATE, (void**) dib, true))
         throw PumaException("CIMAGE_ReadDIB failed");
 
-    CIMAGE_EnableMask(PUMA_IMAGE_USER, "r", true);
+    CImage::instance().enableReadMask(PUMA_IMAGE_USER);
     PInfo.Images |= IMAGE_ROTATE;
     SetPageInfo(cpage_, PInfo);
 }

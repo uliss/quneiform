@@ -54,20 +54,17 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// CTIMaskLineSegment.cpp: implementation of the CTIMaskLineSegment class.
-//
-//////////////////////////////////////////////////////////////////////
+#include <cstddef>
 
 #include "ctimasklinesegment.h"
 
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+namespace cf
+{
 
 CTIMaskLineSegment::CTIMaskLineSegment()
-        : mpNext(NULL),
-        mwStart(-1),
-        mwEnd(-1)
+    : next_(NULL),
+      start_(-1),
+      end_(-1)
 {
 }
 
@@ -75,169 +72,136 @@ CTIMaskLineSegment::~CTIMaskLineSegment()
 {
 }
 
-CTIMaskLineSegment::CTIMaskLineSegment(int32_t Start, int32_t End)
-        : mpNext(NULL),
-        mwStart(-1),
-        mwEnd(-1)
+CTIMaskLineSegment::CTIMaskLineSegment(int Start, int End)
+    : next_(NULL),
+      start_(-1),
+      end_(-1)
 {
     if ( Start >= 0 && End >= 0 && Start <= End) {
-        mwStart = Start;
-        mwEnd   = End;
+        start_ = Start;
+        end_   = End;
     }
 }
 
-CTIMaskLineSegment::CTIMaskLineSegment(PCTIMaskLineSegment pSegm)
-        : mpNext(pSegm->GetNext()),
-        mwStart(pSegm->GetStart()),
-        mwEnd(pSegm->GetEnd())
+CTIMaskLineSegment::CTIMaskLineSegment(CTIMaskLineSegment *pSegm)
+    : next_(pSegm->next()),
+      start_(pSegm->start()),
+      end_(pSegm->end())
 {
 }
 
-uint32_t CTIMaskLineSegment::IsIntersectWith(PCTIMaskLineSegment pSegm)
+CTIMaskLineSegment::intersection_t CTIMaskLineSegment::isIntersectWith(const CTIMaskLineSegment& segm) const
 {
-    uint32_t Intrsct = 0;
+    int S = segm.start();
+    int E = segm.end();
+    point_dir_t iDS = pointDirection(S);
+    point_dir_t iDE = pointDirection(E);
 
-    if ( pSegm ) {
-        uint32_t S = pSegm->GetStart();
-        uint32_t E = pSegm->GetEnd();
-        int32_t iDS = GetPointDirect(S);
-        int32_t iDE = GetPointDirect(E);
-
-        if ( IsEqual(pSegm) )
-            Intrsct = CTIMLSEGMINTERSECTEQUAL;
-
+    if (isEqual(segm))
+        return INTERSECTION_EQUAL;
+    else {
+        if (iDS == POINT_LEFT && iDE == POINT_RIGHT)
+            return INTERSECTION_OVER;
         else {
-            if ( iDS == CTIMLSEGMPOINTLEF &&
-                    iDE == CTIMLSEGMPOINTRIGHT )
-                Intrsct = CTIMLSEGMINTERSECTOVER;
-
+            if (isPointInSegment(S)) {
+                if (isPointInSegment(E))
+                    return INTERSECTION_IN;
+                else
+                   return INTERSECTION_RIGHT;
+            }
             else {
-                if ( IsPointInSegment(S) ) {
-                    if ( IsPointInSegment(E) )
-                        Intrsct = CTIMLSEGMINTERSECTIN;
-
-                    else
-                        Intrsct = CTIMLSEGMINTERSECTRIGHT;
-                }
-
-                else {
-                    if ( IsPointInSegment(E) )
-                        Intrsct = CTIMLSEGMINTERSECTLEFT;
-
-                    else if ( iDS == CTIMLSEGMPOINTLEF &&
-                              iDE == CTIMLSEGMPOINTLEF    )
-                        Intrsct = CTIMLSEGMINTERSECTFULLLEFT;
-
-                    else
-                        Intrsct = CTIMLSEGMINTERSECTFULLRIGHT;
-                }
+                if (isPointInSegment(E))
+                    return INTERSECTION_LEFT;
+                else if (iDS == POINT_LEFT && iDE == POINT_LEFT)
+                    return INTERSECTION_FULL_LEFT;
+                else
+                    return INTERSECTION_FULL_RIGHT;
             }
         }
     }
-
-    return Intrsct;
 }
 
-Bool32 CTIMaskLineSegment::IntersectWith(PCTIMaskLineSegment pSegm)
+bool CTIMaskLineSegment::intersectWith(const CTIMaskLineSegment& segm)
 {
-    Bool32 bRet = FALSE;
-
-    if (pSegm) {
-        switch ( IsIntersectWith(pSegm) ) {
-            case CTIMLSEGMINTERSECTLEFT :
-                mwEnd  = pSegm->GetEnd();
-                bRet =  TRUE;
-                break;
-            case CTIMLSEGMINTERSECTRIGHT :
-                mwStart = pSegm->GetStart();
-                bRet =  TRUE;
-                break;
-            case CTIMLSEGMINTERSECTIN :
-                mwEnd   = pSegm->GetEnd();
-                mwStart = pSegm->GetStart();
-                bRet = TRUE;
-                break;
-        }
+    switch (isIntersectWith(segm)) {
+    case INTERSECTION_LEFT :
+        end_  = segm.end();
+        return true;
+    case INTERSECTION_RIGHT :
+        start_ = segm.start();
+        return true;
+    case INTERSECTION_IN :
+        end_   = segm.end();
+        start_ = segm.start();
+        return true;
+    default:
+        return false;
     }
-
-    return bRet;
 }
 
-Bool32 CTIMaskLineSegment::AddWith(PCTIMaskLineSegment pSegm)
+bool CTIMaskLineSegment::addWith(CTIMaskLineSegment * pSegm)
 {
-    Bool32 bRet = FALSE;
+    if (!pSegm)
+        return false;
 
-    if (pSegm) {
-        switch ( IsIntersectWith(pSegm) ) {
-            case CTIMLSEGMINTERSECTLEFT :
-                mwStart = pSegm->GetStart();
-                bRet = TRUE;
-                break;
-            case CTIMLSEGMINTERSECTRIGHT :
-                mwEnd  = pSegm->GetEnd();
-                bRet = TRUE;
-                break;
-            case CTIMLSEGMINTERSECTIN :
-                bRet = TRUE;
-                break;
-            case CTIMLSEGMINTERSECTOVER:
-                mwStart = pSegm->GetStart();
-                mwEnd  = pSegm->GetEnd();
-                bRet = TRUE;
-                break;
-        }
+    switch (isIntersectWith(*pSegm)) {
+    case INTERSECTION_LEFT :
+        start_ = pSegm->start();
+        return true;
+    case INTERSECTION_RIGHT :
+        end_  = pSegm->end();
+        return true;
+    case INTERSECTION_IN :
+        return true;
+    case INTERSECTION_OVER:
+        start_ = pSegm->start();
+        end_  = pSegm->end();
+        return true;
+    default:
+        return false;
     }
-
-    return bRet;
 }
 
-Bool32 CTIMaskLineSegment::CutLeftTo(PCTIMaskLineSegment pSegm)
+bool CTIMaskLineSegment::cutLeftTo(CTIMaskLineSegment * pSegm)
 {
-    Bool32 bRet = FALSE;
+    if (!pSegm)
+        return false;
 
-    if (pSegm) {
-        switch ( IsIntersectWith(pSegm) ) {
-            case CTIMLSEGMINTERSECTRIGHT :
-            case CTIMLSEGMINTERSECTIN :
-                mwEnd  = pSegm->GetStart();
-                bRet = TRUE;
-                break;
-        }
+    switch (isIntersectWith(*pSegm)) {
+    case INTERSECTION_RIGHT :
+    case INTERSECTION_IN :
+        end_  = pSegm->start();
+        return true;
+    default:
+        return false;
     }
-
-    return bRet;
 }
 
-Bool32 CTIMaskLineSegment::CutRightTo(PCTIMaskLineSegment pSegm)
+bool CTIMaskLineSegment::cutRightTo(CTIMaskLineSegment *pSegm)
 {
-    Bool32 bRet = FALSE;
+    if (!pSegm)
+        return false;
 
-    if (pSegm) {
-        switch ( IsIntersectWith(pSegm) ) {
-            case CTIMLSEGMINTERSECTLEFT :
-            case CTIMLSEGMINTERSECTIN :
-                mwStart = pSegm->GetEnd();
-                bRet = TRUE;
-                break;
-        }
+    switch ( isIntersectWith(*pSegm) ) {
+    case INTERSECTION_LEFT :
+    case INTERSECTION_IN :
+        start_ = pSegm->end();
+        return true;
+    default:
+        return false;
     }
-
-    return bRet;
 }
 
-int32_t CTIMaskLineSegment::GetPointDirect(uint32_t X)
+CTIMaskLineSegment::point_dir_t CTIMaskLineSegment::pointDirection(int X) const
 {
-    int32_t iRet = CTIMLSEGMPOINTIN;
-
-    if ( !IsPointInSegment(X) ) {
-        if ( (int32_t)X < GetStart() )
-            iRet = CTIMLSEGMPOINTLEF;
-
+    if(!isPointInSegment(X)) {
+        if(X < start())
+            return POINT_LEFT;
         else
-            iRet = CTIMLSEGMPOINTRIGHT;
+            return POINT_RIGHT;
     }
 
-    return iRet;
+    return POINT_IN;
 }
-/////////////////////////////////////////////////////////////////////////
-// end of file
+
+}

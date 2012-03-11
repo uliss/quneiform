@@ -54,26 +54,35 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// CTIMask.cpp: implementation of the CTIMask class.
+#include <cstddef>
 
+#include "resource.h"
 #include "ctimask.h"
 #include "ctimemory.h"
 
+namespace cf
+{
+
 CTIMask::CTIMask() :
-        mwMaskWidth(0), mwMaskHeight(0), mwSegments(0), mcLine(0), mwLines(0)
+    line_(0),
+    width_(0),
+    height_(0),
+    mwSegments(0)
 {
 }
 
-CTIMask::CTIMask(uint32_t Width, uint32_t Height) :
-        mwMaskWidth(Width), mwMaskHeight(Height), mwSegments(0), mcLine(0),
-        mwLines(0)
+CTIMask::CTIMask(uint32_t width, uint32_t Height) :
+    line_(0),
+    width_(width),
+    height_(Height),
+    mwSegments(0)
 {
 }
 
 CTIMask::~CTIMask()
 {
-    PCTIMaskLine pPL = mcLine.GetNext();
-    PCTIMaskLine pL = mcLine.GetNext();
+    PCTIMaskLine pPL = line_.GetNext();
+    PCTIMaskLine pL = line_.GetNext();
 
     while (pL) {
         pL = pL->GetNext();
@@ -88,7 +97,7 @@ Bool32 CTIMask::AddRectangle(CIMAGE_Rect * pRect)
     uint32_t wXe;
     uint32_t wYb;
     uint32_t wYe;
-    PCTIMaskLine pPL = &mcLine;
+    PCTIMaskLine pPL = &line_;
     PCTIMaskLine pL;
     uint32_t wLine;
 
@@ -110,12 +119,12 @@ Bool32 CTIMask::AddRectangle(CIMAGE_Rect * pRect)
 
     for (wLine = wYb; wLine < wYe; wLine++) {
         if (!pL)
-            pPL->SetNext(pL = new CTIMaskLine(mwMaskWidth, wLine, &Segm));
+            pPL->SetNext(pL = new CTIMaskLine(width_, wLine, &Segm));
 
         else {
-            if (pL->GetLineNumber() == wLine) {
+            if (pL->lineNumber() == wLine) {
                 // кладем новый сегмент в линию
-                if (!pL->AddSegment(&Segm)) {
+                if (!pL->addSegment(&Segm)) {
                     SetReturnCode_cimage(IDS_CIMAGE_UNABLE_ADD_MASK);
                     return FALSE;
                 }
@@ -124,7 +133,7 @@ Bool32 CTIMask::AddRectangle(CIMAGE_Rect * pRect)
             else {
                 // двставляем новую линию
                 pPL->SetNext(pL
-                             = new CTIMaskLine(mwMaskWidth, wLine, &Segm, pL));
+                             = new CTIMaskLine(width_, wLine, &Segm, pL));
             }
         }
 
@@ -142,7 +151,7 @@ Bool32 CTIMask::RemoveRectangle(CIMAGE_Rect * pRect)
     uint32_t wXe;
     uint32_t wYb;
     uint32_t wYe;
-    PCTIMaskLine pPL = &mcLine;
+    PCTIMaskLine pPL = &line_;
     PCTIMaskLine pL;
     uint32_t wLine;
 
@@ -168,12 +177,12 @@ Bool32 CTIMask::RemoveRectangle(CIMAGE_Rect * pRect)
             return FALSE;
         }
 
-        else if (!pL->RemoveSegment(&Segm)) {
+        else if (!pL->removeSegment(&Segm)) {
             SetReturnCode_cimage(IDS_CIMAGE_UNABLE_REMOVE_MASK);
             return FALSE;
         }
 
-        if (pL->GetSegmentsNumber() == 0) {
+        if (pL->segmentsNumber() == 0) {
             pPL->SetNext(pL->GetNext());
             delete pL;
             pL = pPL->GetNext();
@@ -189,10 +198,10 @@ Bool32 CTIMask::RemoveRectangle(CIMAGE_Rect * pRect)
 
 Bool32 CTIMask::IsRectOnMask(CIMAGE_Rect * pRect)
 {
-    return (pRect && (pRect->dwX < (int32_t) mwMaskWidth || (pRect->dwX
-                                                             + pRect->dwWidth) < mwMaskWidth || pRect->dwY
-                      < (int32_t) mwMaskHeight || (pRect->dwY + pRect->dwHeight)
-                      < mwMaskHeight));
+    return (pRect && (pRect->dwX < (int32_t) width_ || (pRect->dwX
+                                                             + pRect->dwWidth) < width_ || pRect->dwY
+                      < (int32_t) height_ || (pRect->dwY + pRect->dwHeight)
+                      < height_));
 }
 
 Bool32 CTIMask::SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine)
@@ -201,7 +210,7 @@ Bool32 CTIMask::SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine)
         return FALSE;
 
     while ((*ppLine)->GetNext()) {
-        if (((*ppLine)->GetNext())->GetLineNumber() >= wLine)
+        if (((*ppLine)->GetNext())->lineNumber() >= wLine)
             break;
 
         (*ppLine) = ((*ppLine)->GetNext());
@@ -212,17 +221,17 @@ Bool32 CTIMask::SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine)
 
 Bool32 CTIMask::GetLine(uint32_t wLine, PPCTIMaskLine ppcLine)
 {
-    PCTIMaskLine pL = mcLine.GetNext();
+    PCTIMaskLine pL = line_.GetNext();
     Bool32 bLinePresent = FALSE;
     int32_t iLine;
     *ppcLine = NULL;
 
-    if (wLine > mwMaskHeight) {
+    if (wLine > height_) {
         return FALSE;
     }
 
     while (pL) {
-        iLine = pL->GetLineNumber();
+        iLine = pL->lineNumber();
 
         if (iLine < (int32_t) wLine) {
             pL = pL->GetNext();
@@ -240,4 +249,6 @@ Bool32 CTIMask::GetLine(uint32_t wLine, PPCTIMaskLine ppcLine)
     }
 
     return bLinePresent;
+}
+
 }
