@@ -84,20 +84,16 @@ class CTIMaskLine
             next_ = pLine;
         }
 
-        uint32_t SetLineNumber( uint32_t nLine ) {
-            return line_ = nLine;
+        void setLineNumber(uint32_t nLine) {
+            line_ = nLine;
         }
 
-        uint32_t GetLineNumber( void ) {
+        uint32_t lineNumber() const {
             return line_;
         }
 
         uint32_t GetSegmentsNumber( void ) {
             return segments_;
-        }
-
-        bool IsLine(uint32_t nLine) const {
-            return ((int32_t)nLine == line_);
         }
 
         Bool32 GetLeftIntersection(PCTIMaskLineSegment pcSegm);

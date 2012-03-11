@@ -120,7 +120,7 @@ Bool32 CTIMask::AddRectangle(CIMAGE_Rect * pRect)
             pPL->SetNext(pL = new CTIMaskLine(width_, wLine, &Segm));
 
         else {
-            if (pL->GetLineNumber() == wLine) {
+            if (pL->lineNumber() == wLine) {
                 // кладем новый сегмент в линию
                 if (!pL->AddSegment(&Segm)) {
                     SetReturnCode_cimage(IDS_CIMAGE_UNABLE_ADD_MASK);
@@ -208,7 +208,7 @@ Bool32 CTIMask::SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine)
         return FALSE;
 
     while ((*ppLine)->GetNext()) {
-        if (((*ppLine)->GetNext())->GetLineNumber() >= wLine)
+        if (((*ppLine)->GetNext())->lineNumber() >= wLine)
             break;
 
         (*ppLine) = ((*ppLine)->GetNext());
@@ -229,7 +229,7 @@ Bool32 CTIMask::GetLine(uint32_t wLine, PPCTIMaskLine ppcLine)
     }
 
     while (pL) {
-        iLine = pL->GetLineNumber();
+        iLine = pL->lineNumber();
 
         if (iLine < (int32_t) wLine) {
             pL = pL->GetNext();
