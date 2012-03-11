@@ -57,85 +57,81 @@
 #ifndef __CTI_HEADER_H_
 #define __CTI_HEADER_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-#include "resource.h"
-#include "ctidefines.h"
-#include "ctiimage.h"
+#include <string>
 
+#include "imageinfo.h"
 #include "ctimask.h"
+
+namespace cf
+{
 
 class CTIImageHeader
 {
-    private:
-        CTIImageHeader * pNext;
-        char ImageName[CIMAGE_MAX_IMAGE_NAME];
-        BitmapInfoHeader * ImageInfo;
-        void * Image;
-        PCTIMask WriteMask;
-        PCTIMask ReadMask;
-        Bool32 ImageExternal;
-        Bool32 mbEnableReadMask;
-        Bool32 mbEnableWriteMask;
-        Handle hImage;
-
     public:
         CTIImageHeader();
-        CTIImageHeader(const char *lpName, Handle hImagehandle, uint32_t Flag);
-        CTIImageHeader(const char *lpName, BitmapInfoHeader* lpInfo,
-                       void * lpImage, uint32_t wFlag);
+        CTIImageHeader(BitmapHandle handle, bool externalImage);
         ~CTIImageHeader();
     public:
-        Bool32 IsMaskEnabled(const char *MaskType);
-        Bool32 EnableMask(const char *cMaskType, Bool32 mEnabled);
-        Bool32 CheckName(const char *Name);
-        CTIImageHeader * GetNext(void) {
-            return pNext;
+        void disableReadMask() {
+            enable_read_mask_ = false;
         }
 
-        CTIImageHeader * SetNext(CTIImageHeader * pSet) {
-            return (pNext = pSet);
+        void disableWriteMask() {
+            enable_write_mask_ = false;
         }
 
-        void * GetImage(void) {
-            return Image;
+        void enableReadMask() {
+            enable_read_mask_ = true;
         }
 
-        BitmapInfoHeader* GetImageInfo(void) {
-            return ImageInfo;
+        void enableWriteMask() {
+            enable_write_mask_ = true;
         }
 
-        Bool32 IsExtImage(void) {
-            return !IsIntImage();
+        bool isReadMaskEnabled() const {
+            return enable_read_mask_;
         }
 
-        Bool32 IsIntImage(void) {
-            return (ImageExternal == 0);
+        bool isWriteMaskEnabled() const {
+            return enable_write_mask_;
         }
 
-        Handle GetImageHandle(void) {
-            return hImage;
+        bool isInternalImage() const {
+            return !is_external_image_;
         }
 
-        Handle SetImageHandle(Handle NewHandle) {
-            return (hImage = NewHandle);
+        BitmapHandle imageHandle() {
+            return image_;
         }
 
-        Bool32 SetWriteMask(PCTIMask WMask) {
-            return ((WriteMask = WMask) != NULL);
+        BitmapHandle setImageHandle(BitmapHandle NewHandle) {
+            return (image_ = NewHandle);
         }
 
-        PCTIMask GetWriteMask(void) {
-            return WriteMask;
+        bool setWriteMask(CTIMask * WMask) {
+            return ((write_mask_ = WMask) != NULL);
         }
 
-        Bool32 SetReadMask(PCTIMask RMask) {
-            return ((ReadMask = RMask) != NULL);
+        CTIMask * writeMask() {
+            return write_mask_;
         }
 
-        PCTIMask GetReadMask(void) {
-            return ReadMask;
+        bool setReadMask(CTIMask * RMask) {
+            return ((read_mask_ = RMask) != NULL);
         }
+
+        CTIMask * readMask() {
+            return read_mask_;
+        }
+    private:
+        CTIMask * write_mask_;
+        CTIMask * read_mask_;
+        bool is_external_image_;
+        bool enable_read_mask_;
+        bool enable_write_mask_;
+        BitmapHandle image_;
 };
+
+}
+
 #endif

@@ -132,6 +132,16 @@ static void czech_dt_glue_apostroph(); // 07.09.2000 E.P.
 
 int16_t check_shevron(cell *c, int16_t flag_qual); //Alik
 
+enum dust_pos_t {
+    DUST_POS_UPPER = 0,
+    DUST_POS_SMALL = 1,
+    DUST_POS_MIDDLE = 2,
+    DUST_POS_MAIN = 3,
+    DUST_POS_LOWER = 4,
+    DUST_POS_OUT_OF_LINE = 5,
+    DUST_POS_FOUND = 6
+};
+
 //
 // kill temporary twin flags BAD+DUST for pass4
 //
@@ -223,14 +233,14 @@ void punct() {
 					is_turkish_palka(l))
 				x -= (c1->w) / 4;
 		} else {
-			//    if (memchr("Ј’ђ",(l=c1->vers[0].let),5))  Paul  10-14-96
-			if (memchr("ѓЈ’ђ", (l = c1->vers[0].let), 4))
+            //    if (memchr("гТР",(l=c1->vers[0].let),5))  Paul  10-14-96
+            if (memchr("\x83\xA3\x92\x90", /* ГгТР */(l = c1->vers[0].let), 4))
 				x -= (c1->w) / 2;
-			if (memchr("г“7", l, 7))
+            if (memchr("\xE3\x93" "7", /* уУ7 */ l, 7))
 				x -= (c1->w) / 4;
-			//    if ((c1->font&c_fp_it || italic) && memchr("€ЌЏ16Ў",l,14))Paul  10-14-96
+            //    if ((c1->font&c_fp_it || italic) && memchr("ИНП16б",l,14))Paul  10-14-96
 			if (((c1->font | c1->font_new) & c_fp_it || italic) && !(memchr(
-					"Ђ„†Љ•–™љ›њ", l, 10) && !is_russian_turkish_conflict(l) // 21.05.2002 E.P.
+                    "\x80\x84\x86\x8A\x95\x96\x99\x9A\x9B\x9C", /* АДЖКХЦЩЪЫЬ */ l, 10) && !is_russian_turkish_conflict(l) // 21.05.2002 E.P.
 					))
 				x -= (c1->w) / 4;
 			// Interference i_left_accent ~ м
@@ -388,10 +398,10 @@ static void bad_to_dust() {
 		if ((c->flg & c_f_bad || c->vers[0].prob < PROBOK || // Oleg
 				memchr("ceo<>", c->vers[0].let, 4) && c->vers[0].prob
 						< PROBOK_ceo || language == LANGUAGE_RUSSIAN && memchr(
-				"Єўбэкн", c->vers[0].let, 6) && c->vers[0].prob < PROBOK_ceo
-				|| language == LANGUAGE_RUSSIAN && memchr("ўн", c->vers[0].let, 2)
+                "\xAA\xA2\xE1\xFD\xEA\xED" /* квс¤ъэ */, c->vers[0].let, 6) && c->vers[0].prob < PROBOK_ceo
+                || language == LANGUAGE_RUSSIAN && memchr("\xA2\xED", /* вэ */ c->vers[0].let, 2)
 						&& c->stick_inc > 300 && c->vers[0].prob < PROBOK_ceo
-						+ 10 || language == LANGUAGE_RUSSIAN && memchr("ЁҐ®",
+                        + 10 || language == LANGUAGE_RUSSIAN && memchr("\xA8\xA5\xAE", /* иео */
 				c->vers[0].let, 3) && c->vers[0].prob < PROBOK_ceo - 20)
 				&& c->h <= bl.ps && c->row + 2 >= bl.b2 && c->row + c->h - 2
 				<= bl.b3 && (r = chkquocks(bl.ps, 2, c)) != 0 && check_shevron(
@@ -501,7 +511,7 @@ static int16_t exclam(cell *c1, cell *c2, B_LINES *bl) {
 
 	c = (c1->row < c2->row) ? c1 : c2;
 	if (c->row + c->h <= bl->bm && 5* c ->h > 3* bl ->ps && 2* c ->w <= c->h
-			&& dustpos(bl->ps, c) <= 3) {
+            && dustpos(bl->ps, c) <= DUST_POS_MAIN) {
 		for (cc = c; cc->flg & c_f_dust || !(cc->flg & (c_f_let | c_f_bad
 				| c_f_fict)); cc = cc->prev)
 			;
@@ -841,10 +851,10 @@ static void punctsign(cell **ac1, cell **ac2) {
 				snap_show_text((char*) str);
 				snap_monitor();
 			}
-			if (dp == 5 && c2->row > bl.b3 && c2->row - bl.b3 <= 2 || (5*
+            if (dp == DUST_POS_OUT_OF_LINE && c2->row > bl.b3 && c2->row - bl.b3 <= 2 || (5*
 					c2 ->w >= c2->h || c2->w <= 2 && !(c1->font & c_fp_ser))
 					&& ((p = c2->h + c2->w) >= HPERMIN && 5* p >= h - 1 || h
-							<= KEGM) && (!dp || dp < 5 && c2->col + (c2->w) / 2
+                            <= KEGM) && (!dp || dp < DUST_POS_OUT_OF_LINE && c2->col + (c2->w) / 2
 					< c1->col + d)) {
 				fl = 1;
 				dc = 0;
@@ -853,7 +863,7 @@ static void punctsign(cell **ac1, cell **ac2) {
 					c2->vers[0].let = '*';
 				else {
 					if (chkquot(h, dp, c2))
-						c2->vers[0].let = (dp <= 1) ? '"' : low_quotes; // Макрос 31.05.2001 E.P.
+                        c2->vers[0].let = (dp <= DUST_POS_SMALL) ? '"' : low_quotes; // Макрос 31.05.2001 E.P.
 					else {
 						if ((lr = chkquock(h, dp, c2)) != 0)
 							c2->vers[0].let = (lr < 0) ? '<' : '>';
@@ -865,14 +875,14 @@ static void punctsign(cell **ac1, cell **ac2) {
 							else {
 								if ((dc = chkdotcom(h, dp, c2)) > 0) {
 									c2->vers[0].let
-											= (dc & 1) ? ((dp > 2) ? '.' : ':')
-													: ((dp > 2) ? ',' : 0x27);
+                                            = (dc & 1) ? ((dp > DUST_POS_MIDDLE) ? '.' : ':')
+                                                    : ((dp > DUST_POS_MIDDLE) ? ',' : 0x27);
 									if (line_tabcell && c2->vers[0].let == ','
 											&& 4* c2 ->h <= 5* c2 ->w)
 										c2->vers[0].let = '.';
 								} else {
 									if (chkdash(h, dp, c2)) {
-										if (dp == 1 || dp == 2) {
+                                        if (dp == DUST_POS_SMALL || dp == DUST_POS_MIDDLE) {
 											if (5* c2 ->w < 4* h || 3* c2 ->h
 													> c2->w || 15* c2 ->h > 4*
 													c2 ->w && !pitchsize) {
@@ -982,12 +992,12 @@ static void punctsign(cell **ac1, cell **ac2) {
 						c2->nextl = n;
 					}
 				}
-			if (dc < 3 && (!dc || dp <= 2 || (c = c2->prev)->flg == c_f_fict
+            if (dc < 3 && (!dc || dp <= DUST_POS_MIDDLE || (c = c2->prev)->flg == c_f_fict
 					|| !(c->font & c_fp_undrln))) {
 				c2->vers[1].let = 0;
 				c2->nvers = 1;
 			} else {
-				if (dp && dp != 4)
+                if (dp && dp != DUST_POS_LOWER)
 					c2->vers[1].let = ',';
 				else {
 					c2->vers[0].let = ',';
@@ -1050,8 +1060,7 @@ static void punctsign(cell **ac1, cell **ac2) {
 }
 
 #define BASEOK 15
-/////////////////
-/////////////////
+
 static int16_t dustpos(int16_t h, cell *c)
 
 /***********************************************************
@@ -1073,30 +1082,30 @@ static int16_t dustpos(int16_t h, cell *c)
 	get_b_lines(c, &bl);
 	mid = c->row + c->h / 2;
 	if (mid == bl.bm)
-		return 2;
+        return DUST_POS_MIDDLE;
 	if (mid < bl.bm) {
 		//  if (bl.n1>0 && mid+h/7<bl.b1 || c->row+c->h<=bl.b1)
 		if (mid < bl.b1) //Paul  04-10-96
-			return 5;
+            return DUST_POS_OUT_OF_LINE;
 		if (mid < bl.b2 || !fax1x2 && mid == bl.b2)
-			return 0;
+            return DUST_POS_UPPER;
 		if (c->row - (h + 6) / 12 - fax1x2 <= bl.b2 && c->row + c->h - 1
 				<= bl.bm)
-			return 1;
-		return 2;
+            return DUST_POS_SMALL;
+        return DUST_POS_MIDDLE;
 	} else {
 		if (c->row - h / 8 >= bl.b3 || bl.n3 >= BASEOK && c->row > bl.b3)
-			return 5;
+            return DUST_POS_OUT_OF_LINE;
 		if (c->row < bl.b3) {
 			if ((a = c->row - bl.bm) < 0 && c->row + c->h <= bl.b3 || a < (d
 					= bl.b3 - (c->row + c->h)) - 1 && d > 2)
-				return 2;
+                return DUST_POS_MIDDLE;
 			if ((c->h <= 3 || mid < bl.b3) && (c->row + c->h - bl.b3 <= 1
 					|| c->row + c->h - bl.b3 <= MAX(7* c ->h / 24, 2) && c->row
 							+ c->h - bl.b3 <= bl.b3 - c->row - 2))
-				return 3;
+                return DUST_POS_MAIN;
 		}
-		return 4;
+        return DUST_POS_LOWER;
 	}
 }
 ///////////////////
@@ -1274,8 +1283,8 @@ static int16_t chkdash(int16_t h, int16_t dp, cell *c) {
 	int16_t r;
 	uchar str[80];
 
-	r = (dp <= 3 && /*9*(c->h)<=4*h*/27* c ->h <= 13* h && c->w
-			>= MIN(4, h / 3) && (5* (c ->w)>=2*h || dp==2 && c->w>c->h))?1:0;
+    r = (dp <= DUST_POS_MAIN && /*9*(c->h)<=4*h*/27* c ->h <= 13* h && c->w
+            >= MIN(4, h / 3) && (5* (c ->w)>=2*h || dp == DUST_POS_MIDDLE && c->w>c->h))?1:0;
 
 	if (snap_activity('e'))
 	{
@@ -1470,7 +1479,7 @@ static int16_t chkplus(int16_t h, int16_t dp, cell *c) {
 	r = 0;
 	x = c->h - c->w;
 	y = c->h + c->w;
-	if (dp <= 2 && x <= h / 8 && x >= -h / 8 && y >= h) {
+    if (dp <= DUST_POS_MIDDLE && x <= h / 8 && x >= -h / 8 && y >= h) {
 		if (rstr == NULL)
 			rstr = save_raster(c);
 		ls = (c->w + 7) >> 3;
@@ -1525,7 +1534,7 @@ static int16_t chkslash(int16_t h, int16_t dp, cell *c) {
 	char str[80];
 
 	r = 0;
-	if ((dp == 1 || dp == 2) && c->h >= 4 && c->h >= h / 2 - 2 && c->w >= h - 2) {
+    if ((dp == DUST_POS_SMALL || dp == DUST_POS_MIDDLE) && c->h >= 4 && c->h >= h / 2 - 2 && c->w >= h - 2) {
 		if (rstr == NULL)
 			rstr = save_raster(c);
 		ls = (c->w + 7) >> 3;
@@ -1552,7 +1561,7 @@ static int16_t chkcircle(int16_t h, int16_t dp, cell *c) {
 	char str[80];
 
 	r = 0;
-	if (dp < 4 && c->h >= h / 2 - 1) {
+    if (dp < DUST_POS_LOWER && c->h >= h / 2 - 1) {
 		flgsv = (uchar) c->flg;
 		short_recog_cell(c);
 		c->flg = flgsv;
@@ -1575,7 +1584,7 @@ static int16_t chkquock(int16_t h, int16_t dp, cell *c) {
 	char str[80];
 
 	r = 0;
-	if (dp == 2 && 11* c ->h >= 4* h && c->h >= c->w) {
+    if (dp == DUST_POS_MIDDLE && 11* c ->h >= 4* h && c->h >= c->w) {
 		if (rstr == NULL)
 			rstr = save_raster(c);
 		l = (c->w + 7) >> 3;

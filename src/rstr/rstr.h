@@ -133,8 +133,6 @@ enum RSTRFunctions {
     RSTR_FNLINE,
     RSTR_FNVERSION,
     REXC_FNRSTR_ISLANGUAGE,
-    RSTR_FNIMP_FREE,
-    RSTR_FNIMP_ALLOC,
     RSTR_Word8_Language,
     RSTR_Word16_Resolution,
     RSTR_Word8_Fax1x2,

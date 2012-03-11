@@ -103,7 +103,6 @@ void final_descriminate(cell *b, cell *e);
 // RCM.C
 extern STRLN page_lines[];
 extern int32_t num_of_lines;
-extern Bool32 rstr_kit_realloc(void);
 extern Bool32 trees_load(void);
 extern void ErrorExit(int Code);
 extern Bool32 trees_load_fict(void);

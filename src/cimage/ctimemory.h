@@ -59,16 +59,6 @@
 
 #include "ctiimage.h"
 
-#ifdef _DEBUG
-#ifndef IS_VALID
-#define IS_VALID(a) assert(_CrtIsValidPointer(a, 1, TRUE ))
-#endif
-#else
-#ifndef IS_VALID
-#define IS_VALID(a)
-#endif
-#endif
-
 void SetReturnCode_cimage(uint16_t rc);
 uint16_t GetReturnCode_cimage();
 
