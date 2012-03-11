@@ -26,7 +26,7 @@ zanin
 Alexander Schlegel
 Alex Samorukov
 yaleks
-Serj Poltavskiy
+Serge Poltavski
 René Rebe
 Aleks Kuzemko
 Tonal
