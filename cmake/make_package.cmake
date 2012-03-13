@@ -53,7 +53,7 @@ if(APPLE)
 elseif(UNIX AND NOT APPLE)
     set(CPACK_GENERATOR "DEB;TBZ2;TGZ")
     set(CPACK_STRIP_FILES "bin/cuneiform")
-    set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/readme.txt")
+    set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/README")
     # Debian
     set(CPACK_DEBIAN_PACKAGE_SECTION "graphics")
     set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Serj Poltavski <serj.poltavski@gmail.com>")
