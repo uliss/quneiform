@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author>Serj Poltavski</author>
+ <author>Serge Poltavski</author>
  <class>Settings</class>
  <widget class="QDialog" name="Settings">
   <property name="geometry">
