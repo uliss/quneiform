@@ -60,10 +60,11 @@
 #include <string>
 
 #include "imageinfo.h"
-#include "ctimask.h"
 
 namespace cf
 {
+
+class CTIMask;
 
 class CTIImageHeader
 {
@@ -108,28 +109,28 @@ class CTIImageHeader
             return (image_ = NewHandle);
         }
 
-        bool setWriteMask(CTIMask * WMask) {
-            return ((write_mask_ = WMask) != NULL);
+        void setWriteMask(CTIMask * WMask) {
+            write_mask_ = WMask;
         }
 
         CTIMask * writeMask() {
             return write_mask_;
         }
 
-        bool setReadMask(CTIMask * RMask) {
-            return ((read_mask_ = RMask) != NULL);
+        void setReadMask(CTIMask * RMask) {
+            read_mask_ = RMask;
         }
 
         CTIMask * readMask() {
             return read_mask_;
         }
     private:
+        BitmapHandle image_;
         CTIMask * write_mask_;
         CTIMask * read_mask_;
         bool is_external_image_;
         bool enable_read_mask_;
         bool enable_write_mask_;
-        BitmapHandle image_;
 };
 
 }

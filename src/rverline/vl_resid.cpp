@@ -64,14 +64,13 @@
 
 #include <stdio.h>
 #include <string.h>
-/*#include <windows.h>*/
 /*  interface our  */
 #include "rverline.h"
 /*  interface my   */
 #include "am_err.h"
 #include "am_comm.h"
 #include "vl_rule.h"
-#include "compat_defs.h"
+
 /*------------own objects-----------------------------------------------------*/
 /* These two would be static, but they are accessed in vl_kern.cpp. */
 uint16_t gwHeightRC_rver = 0; // Уникальный номер библиотеки в одном сеансе

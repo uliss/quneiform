@@ -1,6 +1,11 @@
+2012-03-23
+--page-template cli option added. Now it's possible to recognize part of image
+
+
 2011-07-06
 Export to FB2 (fiction book) output format added.
-For detaled information see http://www.fictionbook.org
+For detailed information see http://www.fictionbook.org
+
 
 2010-07-28
 Export to DjVuXML output format added. 

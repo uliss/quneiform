@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!@PERL_EXECUTABLE@
 
 BEGIN {
     push @INC, "@CMAKE_BINARY_DIR@/api/swig/perl";

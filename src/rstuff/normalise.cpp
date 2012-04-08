@@ -345,7 +345,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 	Handle hcpage = Image->hCPAGE;
 	Handle *hLinesCCOM = Image->phLinesCCOM;
 
-	puchar hDIB = NULL;
+    BitmapHandle hDIB = NULL;
 	Bool32 rc = TRUE;
 	*hLinesCCOM = NULL;
 	CCOM_comp *victim[100];
@@ -371,7 +371,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 	//
 	// Получим изображение с удаленными линиями
 	//
-	if (rc && !CIMAGE_ReadDIB(PUMA_IMAGE_DELLINE, (Handle*) &hDIB, TRUE)) {
+    if (rc && !CIMAGE_ReadDIB(PUMA_IMAGE_DELLINE, &hDIB)) {
 		SetReturnCode_rstuff(-1);
 		rc = FALSE;
 	}

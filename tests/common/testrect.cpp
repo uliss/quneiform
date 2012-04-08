@@ -26,6 +26,7 @@ using namespace cf;
 
 void TestRect::testInit() {
     Rect r;
+    CPPUNIT_ASSERT(!r.isNull());
     CPPUNIT_ASSERT_EQUAL(r.x(), 0);
     CPPUNIT_ASSERT_EQUAL(r.y(), 0);
     CPPUNIT_ASSERT_EQUAL(r.width(), 0);
@@ -167,4 +168,51 @@ void TestRect::testWidth() {
     CPPUNIT_ASSERT(r.isValid());
     r.setWidth(-100);
     CPPUNIT_ASSERT(!r.isValid());
+}
+
+void TestRect::testNull()
+{
+    CPPUNIT_ASSERT(Rect::null().isNull());
+    CPPUNIT_ASSERT(!Rect::null().isValid());
+}
+
+void TestRect::testMoveXTo()
+{
+    Rect r(0, 0, 20, 30);
+    r.moveXTo(10);
+    CPPUNIT_ASSERT_EQUAL(Rect(10, 0, 20, 30), r);
+    r.moveXTo(-10);
+    CPPUNIT_ASSERT_EQUAL(Rect(-10, 0, 20, 30), r);
+}
+
+void TestRect::testMoveYTo()
+{
+    Rect r(0, 0, 20, 30);
+    r.moveYTo(10);
+    CPPUNIT_ASSERT_EQUAL(Rect(0, 10, 20, 30), r);
+    r.moveYTo(-10);
+    CPPUNIT_ASSERT_EQUAL(Rect(0, -10, 20, 30), r);
+}
+
+void TestRect::testMoveTo()
+{
+    Rect r(0, 0, 20, 30);
+    r.moveTo(1, 2);
+    CPPUNIT_ASSERT_EQUAL(Rect(1, 2, 20, 30), r);
+    r.moveTo(-1, -2);
+    CPPUNIT_ASSERT_EQUAL(Rect(-1, -2, 20, 30), r);
+
+}
+
+void TestRect::testIntersects()
+{
+    Rect r0(0, 0, 20, 30);
+    Rect r1(50, 50, 20, 30);
+    CPPUNIT_ASSERT(!r0.intersects(r1));
+}
+
+void TestRect::testIntersected()
+{
+    Rect r0(0, 0, 100, 200);
+    CPPUNIT_ASSERT_EQUAL(Rect(1, 2, 30, 40), r0.intersected(Rect(1, 2, 30, 40)));
 }

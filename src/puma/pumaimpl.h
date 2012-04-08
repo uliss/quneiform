@@ -133,7 +133,7 @@ class PumaImpl
         void recognizePass2();
         void recognizeSetup();
         void recognizeSpecial();
-        void rotate(void * dib, Point * p);
+        void rotate(BitmapHandle * dib, Point * p);
         void saveCSTR(int pass);
         void saveLayoutToFile(const std::string& fname);
         void saveToText(std::ostream& os) const;
@@ -157,7 +157,7 @@ class PumaImpl
         std::string layout_filename_;
         FormatOptions format_options_;
         RecognizeOptions recognize_options_;
-        void * input_dib_;
+        BitmapHandle input_dib_;
         void * recog_dib_;
         int tables_num_;
         CCOM_cont * ccom_;

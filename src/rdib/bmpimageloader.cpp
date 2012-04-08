@@ -82,7 +82,21 @@ ImagePtr BmpImageLoader::load(const std::string& fname) {
     return load(stream);
 }
 
-ImagePtr BmpImageLoader::load(std::istream& stream) {
+ImagePtr BmpImageLoader::load(std::istream& stream)
+{
+    return load_(stream, ImageRawData::AllocatorNew);
+}
+
+Handle BmpImageLoader::loadHandle(const std::string& fname)
+{
+    std::ifstream stream(fname.c_str(), std::ios::binary | std::ios::in);
+    if (!stream)
+        throw Exception("Can't open file: " + fname);
+    return loadHandle(stream);
+}
+
+ImagePtr BmpImageLoader::load_(std::istream& stream, ImageRawData::allocator_t allocator)
+{
     checkStream(stream);
     readBmpMagick(stream);
     readBmpFileHeader(stream);
@@ -104,7 +118,7 @@ ImagePtr BmpImageLoader::load(std::istream& stream) {
     readData(stream);
 
     assert(data_size_);
-    Image * img = new Image(data_, data_size_, Image::AllocatorNew);
+    Image * img = new Image(data_, data_size_, allocator);
     img->setSize(Size(imageWidth(), imageHeight()));
     return ImagePtr(img);
 }
@@ -498,6 +512,11 @@ bool BmpImageLoader::read(std::istream& stream) {
         convertColorSpace();
 
     return true;
+}
+
+Handle BmpImageLoader::loadHandle(std::istream& stream)
+{
+    return load_(stream, ImageRawData::AllocatorNone)->data();
 }
 
 }

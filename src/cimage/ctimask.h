@@ -54,36 +54,32 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// CTIMask.h: interface for the CTIMask class.
-//
 #ifndef _CTIMASK_H_
 #define _CTIMASK_H_
 
-#include "ctiimage.h"
+#include "common/rect.h"
 #include "ctimaskline.h"
 
 namespace cf
 {
 
-class CTIMask;
-typedef CTIMask *PCTIMask, **PPCTIMask;
-
 class CTIMask
 {
     public:
-        CTIMask(uint32_t width, uint32_t Height);
+        CTIMask(int width, int Height);
         CTIMask();
         ~CTIMask();
 
-        Bool32 GetLine(uint32_t wLine, PPCTIMaskLine ppcLine);
-        Bool32 IsRectOnMask(CIMAGE_Rect * pRect);
-        Bool32 RemoveRectangle(CIMAGE_Rect * pRect);
-        Bool32 AddRectangle(CIMAGE_Rect * pRect);
+        bool addRectangle(const Rect& r);
+        bool isRectOnMask(const Rect& r) const;
+        bool removeRectangle(const Rect& r);
+
+        Bool32 GetLine(int wLine, PPCTIMaskLine ppcLine);
     private:
         CTIMaskLine line_;
-        uint32_t width_;
-        uint32_t height_;
-        uint32_t mwSegments;
+        int width_;
+        int height_;
+        int mwSegments;
     private:
         Bool32 SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine);
 };

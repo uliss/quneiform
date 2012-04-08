@@ -63,7 +63,6 @@
 // ============================================================================
 
 #include "resource.h"
-#include "ctidefines.h"
 #include "ctiimage.h"
 #include "cticontrol.h"
 #include "compat_defs.h"
@@ -84,9 +83,4 @@ void SetReturnCode_cimage(uint16_t rc)
 {
     if (rc == IDS_CIMAGE_ERR_NO || gwLowRC == IDS_CIMAGE_ERR_NO)
         gwLowRC = rc;
-}
-
-uint16_t GetReturnCode_cimage()
-{
-    return gwLowRC;
 }

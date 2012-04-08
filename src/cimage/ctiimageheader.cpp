@@ -56,34 +56,33 @@
 
 #include "ctimemory.h"
 #include "ctiimageheader.h"
+#include "ctimask.h"
 
 namespace cf
 {
 
-CTIImageHeader::CTIImageHeader()
-{
-    is_external_image_ = 1;
-    read_mask_ = NULL;
-    write_mask_ = NULL;
-    enable_read_mask_ = TRUE;
-    enable_write_mask_ = TRUE;
-}
+CTIImageHeader::CTIImageHeader() :
+    image_(NULL),
+    write_mask_(NULL),
+    read_mask_(NULL),
+    is_external_image_(true),
+    enable_read_mask_(true),
+    enable_write_mask_(true)
+{}
 
-CTIImageHeader::CTIImageHeader(BitmapHandle handle, bool externalImage)
-{
-    image_ = handle;
-    is_external_image_ = externalImage;
-    read_mask_ = NULL;
-    write_mask_ = NULL;
-    enable_read_mask_ = TRUE;
-    enable_write_mask_ = TRUE;
-}
+CTIImageHeader::CTIImageHeader(BitmapHandle handle, bool externalImage) :
+    image_(handle),
+    write_mask_(NULL),
+    read_mask_(NULL),
+    is_external_image_(externalImage),
+    enable_read_mask_(true),
+    enable_write_mask_(true)
+{}
 
 CTIImageHeader::~CTIImageHeader()
 {
-    if (isInternalImage()) {
+    if (isInternalImage())
         CIMAGEFree(imageHandle());
-    }
 
     delete read_mask_;
     delete write_mask_;

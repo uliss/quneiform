@@ -98,8 +98,8 @@ class PAGEINFO
 #define IMAGE_TURN      32
         uint16_t Images;//существующие изображения
         uint32_t status;
-#define PINFO_USERTEMPLATE  1;  // темплейт установлен пользователем
-#define PINFO_AUTOTEMPLATE  2;  // темплейт установлен автоматически
+#define PINFO_USERTEMPLATE  1  // темплейт установлен пользователем
+#define PINFO_AUTOTEMPLATE  2  // темплейт установлен автоматически
 };
 typedef PAGEINFO * LPPAGEINFO;
 

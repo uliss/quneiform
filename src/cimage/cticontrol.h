@@ -57,22 +57,17 @@
 #ifndef __CTI_CONTROL_H_
 #define __CTI_CONTROL_H_
 
-#include "resource.h"
-#include "ctidefines.h"
-#include "ctiimage.h"
-#include "ctimemory.h"
-#include "rdib/ctdib.h"
-#include "ctimask.h"
 #include "ctiimagelist.h"
-#include "ctiimageheader.h"
+#include "common/rect.h"
 #include "globus.h"
 
-#include "minmax.h"
-
-//#define CIMAGE_CBR_ONE_LINE
+class CTDIB;
 
 namespace cf
 {
+
+class CTIMaskLineSegment;
+class BitMask;
 
 class CLA_EXPO CTIControl
 {
@@ -80,70 +75,168 @@ class CLA_EXPO CTIControl
         CTIControl();
         ~CTIControl();
 
+        /**
+          * Adds rectangle to image read mask
+          * @param name - image name
+          * @param r - rectangle
+          * @see addRectToWriteMask(), removeRectFromReadMask()
+          */
+        bool addRectToReadMask(const std::string& name, const Rect& r);
+
+        /**
+          * Adds rectangle to image write mask
+          * @param name - image name
+          * @param r - rectangle
+          * @see addRectToReadMask(), removeRectFromReadMask()
+          */
+        bool addRectToWriteMask(const std::string& name, const Rect& r);
+
+        /**
+          * Substructs rectangle from image read mask
+          * @param name - image name
+          * @param r - rectangle
+          * @see addRectToReadMask()
+          */
+        bool removeRectFromReadMask(const std::string& name, const Rect& r);
+
+        /**
+          * Substructs rectangle from image write mask
+          * @param name - image name
+          * @param r - rectangle
+          * @see addRectToWriteMask()
+          */
+        bool removeRectFromWriteMask(const std::string& name, const Rect& r);
+
         bool disableReadMask(const std::string& imageName);
         bool disableWriteMask(const std::string& imageName);
         bool enableReadMask(const std::string& imageName);
         bool enableWriteMask(const std::string& imageName);
-    private:
-        Bool32 ApplayMaskToDIBLine(PCTDIB pcDIB, PCTIMaskLineSegment pSegm,
-                                   uint32_t wLine, uint32_t wAtX, uint32_t wAtY);
-        Bool32 ApplayMaskToDIB(PCTDIB pDIB, PCTIMask pMask, uint32_t wAtX = 0,
-                               uint32_t wAtY = 0);
-        Bool32 RemoveRectsFromMask(const char *lpName, uint32_t wNumber,
-                                   CIMAGE_Rect * pFirstRect, const char*pcType);
-        Bool32 AddRectsToMask(const char *lpName, uint32_t wNumber,
-                              CIMAGE_Rect * pFirstRect, const char *pcType);
-        Bool32 OpenDIBFromList(const char *lpName, PCTDIB pDIB);
-        Bool32 SetMaskToList(const char* pName, PCTIMask pMask, const char* pcType);
-        Bool32 OpenMaskFromList(const char *lpName, PPCTIMask ppMask,
-                                PBool32 pEnMask, const char *pcType);
-        Bool32 OpenDIBFromList(const char* lpName, BitmapHandle * phImage);
-        Bool32 WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
-        Bool32 SetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
-                        CIMAGE_InfoDataInReplace * pIn);
-        Bool32 ApplayBitMaskToFrame(CIMAGE_InfoDataInGet* pIn,
-                                    CIMAGE_InfoDataOutGet * pOut);
-        Bool32 ApplayBitMaskToDIB(puchar pMask, PCTDIB pDIB);
-        Bool32 CopyFromFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
-                             CIMAGE_InfoDataInReplace * pFrameIn);
-        Bool32 CopyToFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB,
-                           CIMAGE_InfoDataInGet* pFrameInfo, puchar pMask);
-        Bool32 GetFrame(PCTDIB pSrcDIB, PCTDIB pDscDIB, CIMAGE_InfoDataInGet* pIn,
-                        puchar pMask);
-        Bool32 CopyDIB(BitmapHandle hDIB, BitmapHandle * hCopyedDib);
-        Bool32 DumpToFile(const char* FileName, puchar pData, uint32_t Size);
-        Bool32 CheckInData(PCTDIB pDIB, CIMAGE_InfoDataInGet* lpIn,
-                           CIMAGE_InfoDataInGet* lpNewIn = NULL);
-        void init();
-        void clear();
 
-    public:
-        Bool32 RemoveReadRectangles(const char* lpName, uint32_t wNumber,
-                                    CIMAGE_Rect * pFirst);
-        Bool32 AddReadRectangles(const char* lpName, uint32_t wNumber,
-                                 CIMAGE_Rect * pFirst);
-        Bool32 RemoveWriteRectangles(const char* lpName, uint32_t wNumber,
-                                     CIMAGE_Rect * pFirst);
-        Bool32 AddWriteRectangles(const char* lpName, uint32_t wNumber,
-                                  CIMAGE_Rect * pFirst);
-        Bool32 FreeBuffers(void);
-        Bool32 FreeAlloced(BitmapHandle hDIB);
-        Bool32 GetDIBFromImage(const char* lpName, CIMAGE_InfoDataInGet* lpIn,
-                               void **pDIB);
-        Bool32 RemoveImage(const char* lpName);
-        Bool32 GetImageInfo(const char* lpImage, BitmapInfoHeader * lpBIH);
-        Bool32 ReplaceImage(const char* lpName, CIMAGE_InfoDataInReplace * lpIn);
-        Bool32 GetImage(const char* lpName, CIMAGE_InfoDataInGet * lpIn,
+        /**
+          * Adds image handle into container
+          * @param name - image name
+          * @param handle - image handle
+          * @return true on success
+          * @see addImageCopy()
+          */
+        bool addImage(const std::string& name, BitmapHandle handle);
+
+        /**
+          * Adds image copy into container
+          * @param name - image name
+          * @param handle - image handle
+          * @return true on success
+          * @see addImage()
+          */
+        bool addImageCopy(const std::string& name, BitmapHandle handle);
+
+        /**
+          * Dumps image to file
+          * @param name - image name
+          * @param fileName - destination file name
+          * @return true on success
+          */
+        bool dumpImage(const std::string& name, const std::string& fileName);
+
+        /**
+          * Returns image callbacks
+          * @param name - image name
+          * @param cbk - pointer to callbacks
+          * @return true on success
+          */
+        bool getImageCallbacks(const std::string& name, CIMAGEIMAGECALLBACK * cbk);
+
+        /**
+          * Returns image handle
+          * @param name - image name
+          * @return image handle on success or NULL on error
+          * @see imageCopy()
+          */
+        BitmapHandle image(const std::string& name);
+
+        /**
+          * Returns image copy. Caller should free result with free()
+          * if mask exists and enabled for image - it appleid to result image.
+          * @param name - image name
+          * @return image handle on success or NULL on error
+          * @see image()
+          */
+        BitmapHandle imageCopy(const std::string& name);
+
+        /**
+          * Frees image memory return by imageCopy()
+          * @param handle - bitmap handle to free
+          * @return true on success
+          * @see image(), imageCopy()
+          */
+        bool free(BitmapHandle handle);
+
+        /**
+          * Removes image from container
+          * @param name - image name
+          * @return true on success
+          */
+        bool removeImage(const std::string& name);
+
+        /**
+          * Resets image container and frees memory
+          */
+        void reset();
+
+        bool writeImageCallbacks(const std::string& name, CIMAGEIMAGECALLBACK cbk);
+
+        bool getDIBFromImage(const std::string& name, const Rect &r, BitMask * bitMask, BitmapHandle * dest);
+        Bool32 GetImage(const char* lpName, CIMAGE_InfoDataInGet * in,
                         CIMAGE_InfoDataOutGet * lplpOut);
-        Bool32 GetDIB(const char* lpName, BitmapHandle * phDIB, uint32_t wFlag = 0);
-        Bool32 SetDIB(const char* lpName, BitmapHandle hDIB, uint32_t wFlag = 0);
-        Bool32 GetCBImage(const char* lpName, CIMAGEIMAGECALLBACK * pCbk);
-        Bool32 WriteCBImage(const char* lpName, CIMAGEIMAGECALLBACK Cbk);
+
         Bool32 CBImageOpen(CIMAGE_ImageInfo * lpImageInfo);
         Bool32 CBImageClose(void);
         uint32_t CBImageRead(char * buffer, uint32_t wMaxSize);
-        Bool32 CloseDIBFromList(PCTDIB pDIB);
-        void Reset();
+    public:
+        static bool applyMaskToDIBLine(CTDIB * dib, CTIMaskLineSegment * segm, int line, int at_x, int at_y);
+        static bool applyMaskToDIB(CTDIB * dib, CTIMask * mask, int at_x = 0, int at_y = 0);
+        static bool applyMaskToHandle(BitmapHandle handle, CTIMask * mask, int at_x, int at_y);
+
+        /**
+          * Copies line from source to destination image
+          * Image widths should be equal.
+          * @param src - source image
+          * @param dest - destination image
+          * @param destYOffset - destination line offset
+          * @param lineCount - number of lines to copy
+          * @return true on success
+          */
+        static bool copyFromSourceFrame(const CTDIB * src, CTDIB * dest, uint destYOffset, uint lineCount);
+
+        /**
+          * Copies lines from equal or bigger source image to equal or smaller destination image.
+          * @param src - source image
+          * @param dest - destination image
+          * @param xOffset - source line x offset.
+          * @param yOffset - start source line
+          * @param lineCount - line count to copy
+          * @note (source line width - x offset) should be greater or equal to destination width
+          * @return true on success
+          */
+        static bool copyToDestinationFrame(const CTDIB * src, CTDIB * dest, uint xOffset, uint yOffset, uint lineCount);
+
+        /**
+          * Writes given image fo BMP file
+          * @param name - file name
+          * @param pDib - given image
+          */
+        static bool writeDIBtoBMP(const std::string& name, CTDIB * pDIB);
+    private:
+        static bool copyDIB(const BitmapHandle src, BitmapHandle * dest);
+    private:
+        bool applyMask(const std::string& name, int x, int y);
+        void clear();
+        void freeBuffers();
+        void init();
+
+        bool getFrame(const CTDIB * src, CTDIB * dest, const Rect& frame);
+        bool setFrame(const CTDIB * src, CTDIB * dest, CIMAGE_InfoDataInReplace * pIn);
+        Rect checkRect(const CTDIB& dib, const Rect &r);
     protected:
         CTIImageList images_;
         Handle hCBImage;
@@ -154,28 +247,14 @@ class CLA_EXPO CTIControl
         uint32_t wCBWidth;
         uint32_t wCBLines;
         uint32_t wCBStep;
-        char mCBName[CIMAGE_MAX_IMAGE_NAME];
-        char mCBWName[CIMAGE_MAX_IMAGE_NAME];
         Handle mhBitFildFromImage;
         puchar mpBitFildFromImage;
-        PCTDIB mpDIBFromImage;
-        BitmapHandle mhCopyedDIB;
-        Bool32 mbWriteFlag;
+        CTDIB * mpDIBFromImage;
         uint32_t mwMemoryErrors;
-        uchar mwLAWhiteRightMask[8];
-        uchar mwLAWhiteLeftMask[8];
-        uchar mwLABlackRightMask[8];
-        uchar mwLABlackLeftMask[8];
-        uchar mwIndexMask[8];
-        Bool32 mbSourceDIBCopy;
-        PCTIMask mpcSrcDIBReadMask;
-        PCTIMask mpcSrcDIBWriteMask;
-        Bool32 mbEnableDIBReadMask;
-        Bool32 mbEnableDIBWriteMask;
-        PCTDIB mCBDestianationDIB;
-        PCTDIB mCBSourceDIB;
-        PCTDIB mCBWDestianationDIB;
-        PCTDIB mCBWSourceDIB;
+        CTDIB * mCBDestianationDIB;
+        CTDIB * mCBSourceDIB;
+        CTDIB * mCBWDestianationDIB;
+        CTDIB * mCBWSourceDIB;
         Bool32 mCBWInProcess;
 };
 

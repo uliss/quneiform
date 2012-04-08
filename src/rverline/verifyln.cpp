@@ -74,31 +74,28 @@
 #include "vl_rule.h"
 /*  interface our util  */
 #include "skew1024.h"
-
-using namespace cf;
+#include "amt_geom.h"
 
 #define       MaxZherOnLine         50
 typedef struct tagAM_ZHERTVY {
 	int nZher;
 	int iZher[MaxZherOnLine];
-	Point16 LinBeg[MaxZherOnLine];
-	Point16 LinEnd[MaxZherOnLine];
+    cf::Point16 LinBeg[MaxZherOnLine];
+    cf::Point16 LinEnd[MaxZherOnLine];
 } AM_ZHERTVY;
-/*------------extern functions------------------------------------------------*/
-Bool HaveLinePartAtReg(Point16 *pA, Point16 *pB, Rect16 *pRc, int32_t Skew,
-		int NearHor, int NearVer);
+
 int InvestShortLineWithRastr_rv_pne(Handle hCPage, LineInfo *pLns);
 /*------------own functions---------------------------------------------------*/
 void ChoiseQuasiLetters(Rect16 *pRc, int *pWhatDo, int nComp);
 void OldFormalVerification(LineInfo *pLns, int Lent);
 void FormalVerification(LineInfo *pLns, int Lent);
 void PutNewFlagOfLine(LineInfo *pLns, uint32_t Flag);
-void GetAllZhertvy(LineInfo *pLns, AM_ZHERTVY *pZher, Rect16 *pRc,
+void GetAllZhertvy(LineInfo *pLns, AM_ZHERTVY *pZher, cf::Rect16 *pRc,
 		int *pWhatDo, int nComp, int Near, Bool Hori);
 void MakeNormOrderForZher(LineInfo *pLns, AM_ZHERTVY *pZher);
-int FindNormParts(LineInfo *pLns, AM_ZHERTVY *pZher, Point16 *pBeg,
-		Point16 *pEnd, int MinLent);
-void InvestLongLineWithBoxes(LineInfo *pLns, Rect16 *pRc, int *pWhatDo,
+int FindNormParts(LineInfo *pLns, AM_ZHERTVY *pZher, cf::Point16 *pBeg,
+        cf::Point16 *pEnd, int MinLent);
+void InvestLongLineWithBoxes(LineInfo *pLns, cf::Rect16 *pRc, int *pWhatDo,
 		int nComp, int *nZher, int *iZher, AM_ZHERTVY *pZher, int MaxZher,
 		Bool Hori, int Lent);
 void WriteResForLines(void *vLti);
@@ -239,7 +236,7 @@ void GetAllZhertvy(LineInfo *pLns, AM_ZHERTVY *pZher, Rect16 *pRc,
 
 void MakeNormOrderForZher(LineInfo *pLns, AM_ZHERTVY *pZher) {
 	int i, k, Dist, best_i, best_dist, a;
-	Point16 CurBeg, CurEnd;
+    cf::Point16 CurBeg, CurEnd;
 	for (k = 0; k < pZher->nZher; k++) {
 		if (k == 0) {
 			CurBeg = pLns->A;
@@ -276,10 +273,10 @@ void MakeNormOrderForZher(LineInfo *pLns, AM_ZHERTVY *pZher) {
 	}
 }
 
-int FindNormParts(LineInfo *pLns, AM_ZHERTVY *pZher, Point16 *pBeg,
-		Point16 *pEnd, int MinLent) {
+int FindNormParts(LineInfo *pLns, AM_ZHERTVY *pZher, cf::Point16 *pBeg,
+        cf::Point16 *pEnd, int MinLent) {
 	int nNorm, i, Lent;
-	Point16 CurBeg, CurEnd;
+    cf::Point16 CurBeg, CurEnd;
 	nNorm = 0;
 	for (i = 0; i <= pZher->nZher; i++) {
 		if (i == 0) {
@@ -306,8 +303,8 @@ int FindNormParts(LineInfo *pLns, AM_ZHERTVY *pZher, Point16 *pBeg,
 void InvestLongLineWithBoxes(LineInfo *pLns, Rect16 *pRc, int *pWhatDo,
 		int nComp, int *nZher, int *iZher, AM_ZHERTVY *pZher, int MaxZher,
 		Bool Hori, int Lent) {
-	Point16 LinBeg[MaxZherOnLine + 1];
-	Point16 LinEnd[MaxZherOnLine + 1];
+    cf::Point16 LinBeg[MaxZherOnLine + 1];
+    cf::Point16 LinEnd[MaxZherOnLine + 1];
 	int j, Near, nSimpParts;
 	uint32_t Flag;
 	Near = 0;

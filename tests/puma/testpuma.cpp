@@ -41,7 +41,7 @@ void TestPuma::testOpen() {
     ptr->setFileName("test");
 
     Puma::instance().open(ptr);
-    CPPUNIT_ASSERT(Puma::instance().input_dib_ == ptr->data());
+    CPPUNIT_ASSERT(Puma::instance().input_dib_ == (BitmapHandle) ptr->data());
     CPPUNIT_ASSERT(Puma::instance().input_filename_ == "test");
     CPPUNIT_ASSERT(Puma::instance().cpage_ != NULL);
 }

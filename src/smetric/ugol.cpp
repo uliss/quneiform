@@ -113,6 +113,10 @@ double M_Estimate (Un_GYST *pGt)
 	Estim = 0.;
 	a=0; b=0; c=0;
 	End = pGt->End;
+
+        if(End == 0)
+            return 0.0;
+
 	Sig = pGt->Signal;
 	for (i=1; i<=End-2; i++)
 	{

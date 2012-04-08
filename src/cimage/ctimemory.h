@@ -57,10 +57,9 @@
 #ifndef __CTI_MEMORY_H__
 #define __CTI_MEMORY_H__
 
-#include "ctiimage.h"
+#include "cttypes.h"
 
 void SetReturnCode_cimage(uint16_t rc);
-uint16_t GetReturnCode_cimage();
 
 void CIMAGEComment(const char *Comment);
 void * CIMAGEAlloc(uint32_t stAllocateBlock);

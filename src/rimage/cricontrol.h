@@ -113,16 +113,16 @@ class CRIControl
 
     private:
         Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
-        Bool32          GetDIB(char*   cDIB, Handle* phDIB);
+        Bool32          GetDIB(const char *cDIB, BitmapHandle* phDIB);
         Bool32          CloseSourceDIB();
         Bool32          CreateDestinatonDIB(uint32_t BitCount);
         Bool32          SetDestinationDIBtoStorage(const char*  cDIBName);
-        Bool32          OpenDestinationDIBfromSource(char*  cSDIB);
+        Bool32          OpenDestinationDIBfromSource(const char *cSDIB);
         Bool32          CloseDestinationDIB(const char*   cDIBName);
         Bool32          OpenSourceDIB(const char*   cDIBName);
         Bool32          SetDIB(const char*   cDIB, Handle hDIB);
         Bool32          WriteDIB(const char*   cDIB, Handle hDIB);
-        Bool32          ReadDIB(const char*   cDIB, Handle* phDIB);
+        Bool32          ReadDIB(const char*   cDIB, BitmapHandle* phDIB);
 
     public:
         Bool32                    RotatePoint(char* cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);

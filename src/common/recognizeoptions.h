@@ -24,6 +24,7 @@
 
 #include "lang_def.h"
 #include "globus.h"
+#include "common/rect.h"
 #include "serialize.h"
 
 namespace cf {
@@ -45,6 +46,7 @@ class CLA_EXPO RecognizeOptions
         bool autoRotate() const;
         bool dotMatrix() const;
         bool fax() const;
+        Rect pageTemplate() const;
         bool pictureSearch() const;
         table_mode_t tableMode() const;
         const std::string& userDict() const;
@@ -65,6 +67,7 @@ class CLA_EXPO RecognizeOptions
          * Sets one column layout
          */
         void setOneColumn(bool value);
+        void setPageTemplate(const Rect& r);
         void setPictureSearch(bool value);
         void setSpellCorrection(bool value);
         void setTableMode(table_mode_t mode);
@@ -91,6 +94,7 @@ class CLA_EXPO RecognizeOptions
         table_mode_t table_mode_;
         std::string user_dict_name_;
         size_t flags_;
+        Rect page_template_;
 };
 
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts);

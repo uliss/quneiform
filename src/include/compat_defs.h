@@ -70,6 +70,8 @@
 #ifndef WIN32
 #include "minmax.h"
 #include "filestuff.h"
+#else
+#include "windows.h"
 #endif
 
 #include "cttypes.h" /* Most type definitions are here. */
@@ -145,16 +147,6 @@ typedef struct tagBITMAPCOREHEADER
 
 #pragma pack(pop)
 
-struct _finddata_t
-{
-        unsigned attrib;
-        time_t time_create; /*-1forFATfilesystems*/
-        time_t time_access; /*-1forFATfilesystems */
-        time_t time_write;
-        unsigned int size;
-        char name[260];
-};
-
 typedef struct tagRGBQUAD
 {
         uchar rgbBlue;
@@ -169,16 +161,7 @@ typedef struct tagBITMAPINFO
         RGBQUAD bmiColors[1];
 } BITMAPINFO, *PBITMAPINFO;
 
-typedef struct tagRGBTRIPLE
-{
-        uchar rgbtBlue;
-        uchar rgbtGreen;
-        uchar rgbtRed;
-} RGBTRIPLE;
-
-typedef BITMAPCOREHEADER* LPBITMAPCOREHEADER;
 typedef BITMAPINFOHEADER* LPBITMAPINFOHEADER;
-typedef BITMAPINFO* LPBITMAPINFO;
 
 #pragma pack(push, 2)
 typedef struct tagBITMAPFILEHEADER
@@ -193,30 +176,6 @@ typedef struct tagBITMAPFILEHEADER
 #pragma pack(pop)
 
 typedef int HKEY;
-
-#ifndef _O_BINARY
-#define _O_BINARY O_BINARY
-#endif
-
-#ifndef _O_CREAT
-#define _O_CREAT O_CREAT
-#endif
-
-#ifndef _O_RDONLY
-#define _O_RDONLY O_RDONLY
-#endif
-
-#ifndef _O_RDWR
-#define _O_RDWR O_RDWR
-#endif
-
-#ifndef _S_IREAD
-#define _S_IREAD S_IREAD
-#endif
-
-#ifndef _S_IWRITE
-#define _S_IWRITE S_IWRITE
-#endif
 
 #ifndef WPARAM
 #define WPARAM int
@@ -259,22 +218,6 @@ typedef int HKEY;
  * real values of these, so I just put in random values. They are not
  * used anyway, so no harm.
  */
-
-#ifndef DLL_PROCESS_ATTACH
-#define DLL_PROCESS_ATTACH 1
-#endif
-
-#ifndef DLL_PROCESS_DETACH
-#define DLL_PROCESS_DETACH 2
-#endif
-
-#ifndef DLL_THREAD_ATTACH
-#define DLL_THREAD_ATTACH 3
-#endif
-
-#ifndef DLL_THREAD_DETACH
-#define DLL_THREAD_DETACH 4
-#endif
 
 #ifndef WM_DESTROY
 #define WM_DESTROY 96
@@ -356,10 +299,6 @@ typedef int HKEY;
 #define KEY_ALL_ACCESS 100
 #endif
 
-#ifndef CP_ACP
-#define CP_ACP 593
-#endif
-
 #ifndef MAX_COMPUTERNAME_LENGTH
 #define MAX_COMPUTERNAME_LENGTH 100
 #endif
@@ -370,26 +309,6 @@ typedef int HKEY;
 
 #ifndef ERROR_ALREADY_EXISTS
 #define ERROR_ALREADY_EXISTS EEXIST
-#endif
-
-#ifndef OUT_DEFAULT_PRECIS
-#define OUT_DEFAULT_PRECIS 253
-#endif
-
-#ifndef DEFAULT_QUALITY
-#define DEFAULT_QUALITY 49
-#endif
-
-#ifndef CLIP_DEFAULT_PRECIS
-#define CLIP_DEFAULT_PRECIS 7
-#endif
-
-#ifndef WM_COPYDATA
-#define WM_COPYDATA 30
-#endif
-
-#ifndef MB_ICONSTOP
-#define MB_ICONSTOP 888
 #endif
 
 #endif

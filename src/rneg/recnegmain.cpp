@@ -976,8 +976,8 @@ void CheckNega(NegList* root) {
 }
 
 Bool InitMyImage() {
-	Handle lpDIB;
-	if (!CIMAGE_ReadDIB((char*) ImageName, &lpDIB, 1))
+    BitmapHandle lpDIB;
+    if (!CIMAGE_ReadDIB((char*) ImageName, &lpDIB))
 		return FALSE;
 
 	CTDIB* ctdib = new CTDIB;

@@ -17,8 +17,10 @@
  ***************************************************************************/
 
 #include <iomanip>
+
 #include "recognizeoptions.h"
 #include "language.h"
+#include "tostring.h"
 
 namespace cf {
 
@@ -56,6 +58,11 @@ bool RecognizeOptions::fax() const {
     return hasFlag(FAX);
 }
 
+Rect RecognizeOptions::pageTemplate() const
+{
+    return page_template_;
+}
+
 language_t RecognizeOptions::language() const {
     return language_;
 }
@@ -86,6 +93,11 @@ void RecognizeOptions::setLanguage(language_t language) {
 
 void RecognizeOptions::setOneColumn(bool value) {
     setFlag(ONE_COLUMN, value);
+}
+
+void RecognizeOptions::setPageTemplate(const Rect &r)
+{
+    page_template_ = r;
 }
 
 void RecognizeOptions::setPictureSearch(bool value) {
@@ -136,6 +148,7 @@ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
     OPT(os, "Autorotate" , opts.autoRotate());
     OPT(os, "Language", Language(opts.language()));
     OPT(os, "User dictionary", opts.userDict());
+    OPT(os, "Page template", opts.pageTemplate());
     os << std::noboolalpha;
     return os;
 }

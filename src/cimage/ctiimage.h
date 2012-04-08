@@ -57,9 +57,12 @@
 #ifndef __CIMAGE_H
 #define __CIMAGE_H
 
+#include <string>
+
 #include "globus.h"
 #include "imageinfo.h"
 #include "common/singleton.h"
+#include "common/rect.h"
 
 #ifdef __CIMAGE__
 #define CIMAGE_FUNC  FUN_EXPO__
@@ -69,58 +72,31 @@
 
 namespace cf
 {
+class BitMask;
 class CTIControl;
 typedef Singleton<CTIControl, CreateUsingStatic> CImage;
 }
 
-enum {
-    CIMAGE_MAXNAME = 260
-};
-
 CIMAGE_FUNC void CIMAGE_Init();
+CIMAGE_FUNC Bool32 CIMAGE_WriteCallbackImage(const char *, CIMAGEIMAGECALLBACK);
+CIMAGE_FUNC Bool32 CIMAGE_GetCallbackImage(const char *, CIMAGEIMAGECALLBACK*);
+CIMAGE_FUNC bool CIMAGE_AddImage(const std::string& name, BitmapHandle handle);
+CIMAGE_FUNC bool CIMAGE_AddImageCopy(const std::string& name, BitmapHandle handle);
+CIMAGE_FUNC bool CIMAGE_RemoveImage(const std::string& name);
+CIMAGE_FUNC bool CIMAGE_ReadDIB(const std::string& name, BitmapHandle * dest);
+CIMAGE_FUNC bool CIMAGE_ReadDIBCopy(const std::string& name, BitmapHandle * dest);
+CIMAGE_FUNC Bool32 CIMAGE_GetData(const char * , CIMAGE_InfoDataInGet*, CIMAGE_InfoDataOutGet*);
+CIMAGE_FUNC bool CIMAGE_GetDIBData(const std::string& name, const cf::Rect& r, cf::BitMask * bitMask, BitmapHandle * dest);
+CIMAGE_FUNC bool CIMAGE_GetImageInfo(const std::string& name, BitmapInfoHeader * dest);
+CIMAGE_FUNC bool CIMAGE_FreeCopiedDIB(BitmapHandle dib);
+CIMAGE_FUNC void CIMAGE_Reset();
+CIMAGE_FUNC bool CIMAGE_AddReadCloseRect(const std::string& name, const cf::Rect& r);
+CIMAGE_FUNC bool CIMAGE_RemoveReadCloseRect(const std::string& name, const cf::Rect& r);
+CIMAGE_FUNC bool CIMAGE_AddWriteCloseRect(const std::string& name, const cf::Rect& r);
+CIMAGE_FUNC bool CIMAGE_RemoveWriteCloseRect(const std::string& name, const cf::Rect& r);
 
-typedef enum {
-    CIMAGE_FN_WriteCallbackImage = 1,
-    CIMAGE_FN_GetCallbackImage,
-    CIMAGE_FN_WriteDIB,
-    CIMAGE_FN_ReadDIB,
-    CIMAGE_FN_GetData,
-    CIMAGE_FN_GetDIBData,
-    CIMAGE_FN_ReplaceData,
-    CIMAGE_FN_GetImageInfo,
-    CIMAGE_FN_DeleteImage,
-    CIMAGE_FN_FreeCopedDIB,
-    CIMAGE_FN_FreeBuffers,
-    CIMAGE_FN_Reset,
-    CIMAGE_FN_AddReadCloseRects,
-    CIMAGE_FN_RemoveReadCloseRects,
-    CIMAGE_FN_AddWriteCloseRects,
-    CIMAGE_FN_RemoveWriteCloseRects,
-    CIMAGE_FN_EnableMask
-} CIMAGE_EXPORT_ENTRIES;
-#define DEC_FUN(a,b,c) CIMAGE_FUNC a CIMAGE_##b c;
-DEC_FUN(Bool32, WriteCallbackImage, (const char *, CIMAGEIMAGECALLBACK))
-DEC_FUN(Bool32, GetCallbackImage, (const char * , CIMAGEIMAGECALLBACK*))
-DEC_FUN(Bool32, WriteDIB, (const char * , Handle, uint32_t))
-DEC_FUN(Bool32, ReadDIB, (const char * , Handle*, uint32_t))
-DEC_FUN(Bool32, GetData, (const char * , CIMAGE_InfoDataInGet*, CIMAGE_InfoDataOutGet*))
-DEC_FUN(Bool32, GetDIBData, (const char * , CIMAGE_InfoDataInGet*, void**))
-DEC_FUN(Bool32, ReplaceData, (const char * , CIMAGE_InfoDataInReplace*))
-DEC_FUN(Bool32, GetImageInfo, (const char * , BitmapInfoHeader*))
-DEC_FUN(Bool32, DeleteImage, (const char * ))
-DEC_FUN(Bool32, FreeCopedDIB, (Handle))
-DEC_FUN(Bool32, FreeBuffers, (void))
-DEC_FUN(void, Reset, (void))
-DEC_FUN(Bool32, AddReadCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
-DEC_FUN(Bool32, RemoveReadCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
-DEC_FUN(Bool32, AddWriteCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
-DEC_FUN(Bool32, RemoveWriteCloseRects, (const char *, uint32_t, CIMAGE_Rect*))
-#undef DEC_FUN
-#define DEC_CB_FUN(a,b,c) typedef a (*FNCIMAGE##b)c; a CIMAGE_##b c;
-DEC_CB_FUN(Bool16, Callback_ImageOpen, (CIMAGE_ImageInfo* lpImageInfo))
-DEC_CB_FUN(uint16_t, Callback_ImageRead, (pchar lpImage, uint16_t wMaxSize))
-DEC_CB_FUN(Bool16, Callback_ImageClose, (void))
-
-#undef DEC_CB_FUN
+Bool16 CIMAGE_Callback_ImageOpen(CIMAGE_ImageInfo* lpImageInfo);
+uint16_t CIMAGE_Callback_ImageRead(pchar lpImage, uint16_t wMaxSize);
+Bool16 CIMAGE_Callback_ImageClose();
 
 #endif

@@ -46,7 +46,6 @@ elseif(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
 endif()
 
 if(CF_SERIALIZE)
-    set_property(SOURCE exporterfactory.cpp PROPERTY COMPILE_DEFINITIONS CF_SERIALIZE)
     list(APPEND exporters cuneiformexporter.cpp
         cuneiformbinexporter.cpp
         cuneiformxmlexporter.cpp)
@@ -63,8 +62,6 @@ add_library(cuneiform-export ${CF_EXPORT_LIBTYPE}
     ${exporters}
     ${image_exporters}
 )
-
-set_property(TARGET cuneiform-export PROPERTY COMPILE_DEFINITIONS __ROUT__)
 
 target_link_libraries(cuneiform-export
     cuneiform-common

@@ -128,8 +128,8 @@ CCOM_handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
 		for (j = 0; j < CPAGE_MAXNAME; j++)
 			Name[j] = info.szImageName[j];
 	}
-	Handle lpDIB;
-	if (!CIMAGE_ReadDIB(Name, &lpDIB, 1))
+    BitmapHandle lpDIB;
+    if (!CIMAGE_ReadDIB(Name, &lpDIB))
 		return 0;
 	ExcControl Control;
 	if (vertical) {
@@ -661,7 +661,6 @@ Bool GetMasP(Handle hCPage, uchar* ImageName, Rect16 Rc, uchar** ppmasp) {
 	DataInto.wByteWidth = (uint16_t) (prewide / 8);
 	DataInto.dwX = left;
 	DataInto.dwY = upper;
-	DataInto.MaskFlag = 0x00;
 
 	DataOut.dwWidth = DataInto.dwWidth;
 	DataOut.dwHeight = DataInto.dwHeight;

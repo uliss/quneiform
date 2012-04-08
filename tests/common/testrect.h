@@ -31,6 +31,12 @@ class TestRect: public CppUnit::TestFixture
     CPPUNIT_TEST(testNormalize);
     CPPUNIT_TEST(testWidth);
     CPPUNIT_TEST(testHeight);
+    CPPUNIT_TEST(testNull);
+    CPPUNIT_TEST(testMoveXTo);
+    CPPUNIT_TEST(testMoveYTo);
+    CPPUNIT_TEST(testMoveTo);
+    CPPUNIT_TEST(testIntersects);
+    CPPUNIT_TEST(testIntersected);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -40,6 +46,12 @@ public:
     void testNormalize();
     void testHeight();
     void testWidth();
+    void testNull();
+    void testMoveXTo();
+    void testMoveYTo();
+    void testMoveTo();
+    void testIntersects();
+    void testIntersected();
 };
 
 #endif /* TESTPOINT_H_ */

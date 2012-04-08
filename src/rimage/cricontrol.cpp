@@ -393,40 +393,40 @@ Bool32 CRIControl::Inverse(char* cDIBIn, char* cDIBOut, uint32_t UseMargins)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // взять без копировыания
-Bool32 CRIControl::GetDIB(char* cDIB, Handle* phDIB)
+Bool32 CRIControl::GetDIB(const char* cDIB, BitmapHandle *phDIB)
 {
     // берем с копированием, что б маска была!
-    if (CIMAGE_ReadDIB(cDIB, phDIB, TRUE))
+    if (CIMAGE_ReadDIB(cDIB, phDIB))
         return TRUE;
 
     SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
     return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// положить без копировыания
+// положить без копирования
 Bool32 CRIControl::SetDIB(const char* cDIB, Handle hDIB)
 {
-    if (CIMAGE_WriteDIB(cDIB, hDIB, TRUE))
+    if (CIMAGE_AddImage(cDIB, (BitmapHandle) hDIB))
         return TRUE;
 
     SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
     return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// положитьь c копировыанием
+// положить c копированием
 Bool32 CRIControl::WriteDIB(const char* cDIB, Handle hDIB)
 {
-    if (CIMAGE_WriteDIB(cDIB, hDIB, FALSE))
+    if (CIMAGE_AddImageCopy(cDIB, (BitmapHandle) hDIB))
         return TRUE;
 
     SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
     return FALSE;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// взять с копировыанием
-Bool32 CRIControl::ReadDIB(const char* cDIB, Handle* phDIB)
+// взять с копированием
+Bool32 CRIControl::ReadDIB(const char* cDIB, BitmapHandle *phDIB)
 {
-    if (CIMAGE_ReadDIB(cDIB, phDIB, FALSE))
+    if (CIMAGE_ReadDIBCopy(cDIB, phDIB))
         return TRUE;
 
     SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
@@ -436,26 +436,27 @@ Bool32 CRIControl::ReadDIB(const char* cDIB, Handle* phDIB)
 // Close Source DIB
 Bool32 CRIControl::CloseSourceDIB()
 {
-    Handle hDIB;
+    BitmapHandle hDIB;
 
     if (mpSourceDIB == NULL) {
         SetReturnCode_rimage(IDS_RIMAGE_NOT_OPENED);
         return FALSE;
     }
 
-    if (mpSourceDIB->GetDIBHandle(&hDIB)) {
+    if (mpSourceDIB->GetDIBHandle((void**) &hDIB)) {
         RIMAGEUnlock(hDIB);
     }
 
     delete mpSourceDIB;
-    CIMAGE_FreeCopedDIB(hDIB);
+    CIMAGE_FreeCopiedDIB(hDIB);
     return TRUE;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
+#include <iostream>
+
 Bool32 CRIControl::OpenSourceDIB(const char* cDIBName)
 {
-    Handle hDIBIn;
+    BitmapHandle hDIBIn;
     pvoid pDIB;
 
     if (!ReadDIB(cDIBName, &hDIBIn)) {
@@ -567,9 +568,9 @@ Bool32 CRIControl::CreateDestinatonDIB(uint32_t BitCount)
     return TRUE;
 }
 
-Bool32 CRIControl::OpenDestinationDIBfromSource(char* cDIBName)
+Bool32 CRIControl::OpenDestinationDIBfromSource(const char* cDIBName)
 {
-    Handle hDIBIn;
+    BitmapHandle hDIBIn;
     pvoid pDIB;
 
     if (mpSourceDIB != NULL)
@@ -600,7 +601,7 @@ Bool32 CRIControl::OpenDestinationDIBfromSource(char* cDIBName)
 
 Bool32 CRIControl::SetDestinationDIBtoStorage(const char* cDIBName)
 {
-    Handle hSDIB;
+    BitmapHandle hSDIB;
     Bool32 bErrors = TRUE;
 
     if (DIBOpeningType == FALSE) {
@@ -611,7 +612,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(const char* cDIBName)
     if (mpDestinationDIB == NULL)
         return FALSE;
 
-    if (!mpDestinationDIB->GetDIBHandle(&hSDIB))
+    if (!mpDestinationDIB->GetDIBHandle((void**) &hSDIB))
         return FALSE;
 
     if (!SetDIB(cDIBName, hSDIB)) {
@@ -619,7 +620,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(const char* cDIBName)
         return FALSE;
     }
 
-    if (!CIMAGE_FreeCopedDIB(hSDIB)) {
+    if (!CIMAGE_FreeCopiedDIB(hSDIB)) {
         SetReturnCode_rimage(IDS_RIMAGE_CIMAGE_MEMORY_ERROR);
         bErrors = FALSE;
     }

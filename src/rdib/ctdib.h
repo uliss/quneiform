@@ -225,7 +225,7 @@ class CLA_EXPO CTDIB
         // pointer to DIB (CRC memory)
         pvoid               pDIB;
         // pointer to DIB header
-        pvoid               pDIBHeader;
+        PCTDIBBITMAPINFOHEADER pDIBHeader;
         // pointer to first RGBQUAD 32 bit fild
         PCTDIBRGBQUAD       pRGBQuads;
         // pointer to BitFild
@@ -265,7 +265,7 @@ class CLA_EXPO CTDIB
         // copy resolution from another DIB at once4
         Bool32 CopyDPIFromDIB( CTDIB * pSrcDIB);
         // copy line from another DIB from X at once
-        Bool32 SetFuelLineFromDIB(CTDIB * pSrcDIB, uint32_t nSrcLine, uint32_t nDscLine, uint32_t wSrcX);
+        Bool32 SetFuelLineFromDIB(const CTDIB * pSrcDIB, uint32_t nSrcLine, uint32_t nDscLine, uint32_t wSrcX);
         // Copy fuel pallete from another DIB
         Bool32 CopyPalleteFromDIB(CTDIB *pSrcDIB);
         // get DIB vrsion by enum versions
@@ -292,7 +292,7 @@ class CLA_EXPO CTDIB
         Bool32 ResetDIB(void);
         ///////////////////////////////////////////////////////////////////
         // return TRUE if image attached to class and FALSE otherwise
-        Bool32 IsDIBAvailable();
+        Bool32 IsDIBAvailable() const;
         ////////////////////////////////////////////////////////Header Data
         //Get DIB header memory allocation size
         uint32_t GetHeaderSize(void);
@@ -301,23 +301,23 @@ class CLA_EXPO CTDIB
         // get version of DIB
         uint32_t GetDIBVersion();
         // return image width in pixels
-        int32_t GetImageWidth();
+        int32_t GetImageWidth() const;
         // return image height in pixels
-        int32_t GetImageHeight();
+        int32_t GetImageHeight() const;
         // return image width in pixels
-        uint32_t GetLineWidth();
+        uint32_t GetLineWidth() const;
         // return image width in bytes forsed to 4
-        uint32_t GetLineWidthInBytes();
+        uint32_t GetLineWidthInBytes() const;
         // return image width in bytes
-        uint32_t GetUsedLineWidthInBytes();
+        uint32_t GetUsedLineWidthInBytes() const;
         // return image height in pixels
-        uint32_t GetLinesNumber();
+        uint32_t GetLinesNumber() const;
         // return image size in pixels
         uint32_t GetImageSize();
         // return image size in bytes
         uint32_t GetImageSizeInBytes();
         // return bits per pixel
-        uint32_t GetPixelSize();
+        uint32_t GetPixelSize() const;
         // Get number of used colors
         // if 0 - DIB is JPEG format
         uint32_t GetActualColorNumber();
@@ -350,12 +350,12 @@ class CLA_EXPO CTDIB
         // Get pointer to BitFild data;
         pvoid  GetPtrToBitFild(void);
         // get pointer to Line (from 0 to |biHeight|-1)
-        pvoid  GetPtrToLine(uint32_t wLine);
+        pvoid  GetPtrToLine(uint32_t wLine) const;
         // get ptr to BitFild memory on pixel(x,y)
         // if PixelSize < 8 - ptr to byte where its pixel
-        pvoid  GetPtrToPixel(uint32_t wPixelX, uint32_t wPixelY);
+        pvoid  GetPtrToPixel(uint32_t wPixelX, uint32_t wPixelY) const;
         // Get bit position in byte of image fild for pixel
-        uint32_t GetPixelShiftInByte(uint32_t dwX);
+        uint32_t GetPixelShiftInByte(uint32_t dwX) const;
         // Check Externals Memory functions
         Bool32 IsExternalsSets(void);
 };

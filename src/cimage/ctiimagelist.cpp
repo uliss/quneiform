@@ -55,11 +55,16 @@
  */
 
 #include "ctimemory.h"
+#include "ctiimageheader.h"
+#include "ctimask.h"
 #include "ctiimagelist.h"
 #include "common/cifconfig.h"
 #include "common/debug.h"
 
 #include <boost/current_function.hpp>
+
+#define IMAGE_MSG(msg, name) \
+    Debug() << BOOST_CURRENT_FUNCTION << ' ' << msg << '"' << name << "\"\n";
 
 namespace cf
 {
@@ -77,44 +82,51 @@ CTIImageList::~CTIImageList()
 
 bool CTIImageList::addImage(const std::string& name, BitmapHandle handle, bool externalImage)
 {
-    if(findImage(name))
-        deleteImage(name);
-
     if (name.empty()) {
-        Debug() << BOOST_CURRENT_FUNCTION << " invalid image name: " << name << "\n";
+        IMAGE_MSG("invalid image name: ", name);
         return false;
     }
 
     if (handle == NULL) {
-        Debug() << BOOST_CURRENT_FUNCTION << " invalid image handle: " << name << "\n";
+        IMAGE_MSG("invalid image handle: ", name);
         return false;
     }
+
+    if(image(name))
+        removeImage(name);
 
     CTIImageHeader * new_image = new CTIImageHeader(handle, externalImage);
     headers_[name] = new_image;
 
     if (Config::instance().debug())
-        Debug() << BOOST_CURRENT_FUNCTION << " image added: " << name << "\n";
+        IMAGE_MSG("image added: ", name);
 
     return true;
 }
 
-bool CTIImageList::getImage(const std::string& name, BitmapHandle * phDIB)
+bool CTIImageList::imageHandle(const std::string& name, BitmapHandle * handle)
 {
-    CTIImageHeader * Image = findImage(name);
+    CTIImageHeader * im = image(name);
 
-    if (Image == NULL) {
-        Debug() << "CTIImageList::GetImage: image not found: " << name << "\n";
+    if (!im) {
+        IMAGE_MSG("image not found: ", name);
         return false;
     }
 
-    *phDIB = Image->imageHandle();
+    if(handle)
+        *handle = im->imageHandle();
+
     return true;
 }
 
-bool CTIImageList::deleteImage(const std::string &name)
+bool CTIImageList::hasImage(const std::string& name) const
 {
-    CTIImageHeader * header = findImage(name);
+    return headers_.find(name) != headers_.end();
+}
+
+bool CTIImageList::removeImage(const std::string &name)
+{
+    CTIImageHeader * header = image(name);
 
     if(!header)
         return false;
@@ -123,12 +135,12 @@ bool CTIImageList::deleteImage(const std::string &name)
     headers_.erase(name);
 
     if (Config::instance().debug())
-        Debug() << "CTIImageList::DeleteImage: image deleted: " << name << "\n";
+        IMAGE_MSG("image deleted: ", name);
 
     return true;
 }
 
-CTIImageHeader * CTIImageList::findImage(const std::string& name)
+CTIImageHeader * CTIImageList::image(const std::string& name)
 {
     HeaderMap::iterator it = headers_.find(name);
 
@@ -138,63 +150,69 @@ CTIImageHeader * CTIImageList::findImage(const std::string& name)
         return it->second;
 }
 
-Bool32 CTIImageList::SetImageWriteMask(const char *lpName, PCTIMask pWMask)
+bool CTIImageList::setImageWriteMask(const std::string& name, CTIMask * mask)
 {
-    Bool32 bRet;
-    CTIImageHeader * Image = findImage(lpName);
+    CTIImageHeader * im = image(name);
 
-    if (Image == NULL) {
-        SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
-        return FALSE;
+    if (!im) {
+        IMAGE_MSG("image not found: ", name);
+        return false;
     }
 
-    bRet = Image->setWriteMask(pWMask);
-    return TRUE;
+    im->setWriteMask(mask);
+
+    return true;
 }
 
-Bool32 CTIImageList::SetImageReadMask(const char *lpName, PCTIMask pAMask)
+bool CTIImageList::setImageReadMask(const std::string& name, CTIMask * mask)
 {
-    Bool32 bRet;
-    CTIImageHeader * Image = findImage(lpName);
+    CTIImageHeader * im = image(name);
 
-    if (Image == NULL) {
-        SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
-        return FALSE;
+    if (im == NULL) {
+        IMAGE_MSG("image not found: ", name);
+        return false;
     }
 
-    bRet = Image->setReadMask(pAMask);
-    return TRUE;
+    im->setReadMask(mask);
+
+    return true;
 }
 
-Bool32 CTIImageList::GetImageWriteMask(const char *lpName, PPCTIMask ppWMask, PBool32 pEnMask)
+bool CTIImageList::imageWriteMask(const std::string& name, CTIMask **ppWMask, bool * is_enabled)
 {
-    CTIImageHeader * Image = findImage(lpName);
+    CTIImageHeader * im = image(name);
 
-    if (Image == NULL) {
-        SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
-        return FALSE;
+    if (im == NULL) {
+        IMAGE_MSG("image not found: ", name);
+        return false;
     }
 
-    *ppWMask = Image->writeMask();
-    *pEnMask = Image->isWriteMaskEnabled();
-    return TRUE;
+    *ppWMask = im->writeMask();
+
+    if(is_enabled)
+        *is_enabled = im->isWriteMaskEnabled();
+
+    return true;
 }
 
-Bool32 CTIImageList::GetImageReadMask(const char *lpName, PPCTIMask ppMask, PBool32 pEnMask)
+bool CTIImageList::imageReadMask(const std::string& name, CTIMask ** ppMask, bool * is_enabled)
 {
-    CTIImageHeader * Image = findImage(lpName);
+    CTIImageHeader * im = image(name);
 
-    if (Image == NULL) {
-        SetReturnCode_cimage(IDS_CIMAGE_NO_IMAGE_FOUND);
-        return FALSE;
+    if (im == NULL) {
+        IMAGE_MSG("image not found: ", name);
+        return false;
     }
 
-    *ppMask = Image->readMask();
-    *pEnMask = Image->isReadMaskEnabled();
-    return TRUE;
+    *ppMask = im->readMask();
+
+    if(is_enabled)
+        *is_enabled = im->isReadMaskEnabled();
+
+    return true;
 }
 
-bool CTIImageList::findHandle(BitmapHandle handle)
+bool CTIImageList::hasHandle(BitmapHandle handle)
 {
     if(!handle)
         return false;
@@ -229,14 +247,15 @@ bool CTIImageList::enableWriteMask(const std::string& imageName)
 
 bool CTIImageList::maskAction(const std::string& imageName, CTIImageList::MemberPtr ptr)
 {
-    CTIImageHeader * image = findImage(imageName);
+    CTIImageHeader * im = image(imageName);
 
-    if (!image) {
-        cf::Debug() << BOOST_CURRENT_FUNCTION << " image not found: " << imageName << "\n";
+    if (!im) {
+        IMAGE_MSG("image not found: ", imageName);
         return false;
     }
 
-    (image->*ptr)();
+    if(ptr)
+        (im->*ptr)();
 
     return true;
 }

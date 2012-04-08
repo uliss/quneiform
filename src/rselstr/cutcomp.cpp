@@ -68,8 +68,6 @@
 #include "polyblock.h"
 #include "cfcompat.h"
 
-using namespace cf;
-
 int inf_cut_h = 15;
 int sup_cut_h;
 int inf_let_h_cut_comp = 10;
@@ -100,8 +98,8 @@ extern int inf_dust_h;
 extern uint32_t Code_UB_Kill;
 extern uint32_t Code_UB_Create;
 
-Bool IfNeedCutComp(CCOM_comp* comp, Point beg, Point end, int& yCut);
-int GetLineY(Point beg, Point end, int x);
+Bool IfNeedCutComp(CCOM_comp* comp, cf::Point beg, cf::Point end, int& yCut);
+int GetLineY(cf::Point beg, cf::Point end, int x);
 Bool CutComp(Handle hCPAGE, CCOM_handle hCCOM, CCOM_comp* comp, int bound, Bool fl_cut);
 void CleanRaster(RecRaster* rast, Rect16* rect, int scale);
 Bool Increase2(RecRaster* rast, CCOM_comp* comp);
@@ -118,7 +116,7 @@ CCOM_handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg, Boo
 void MyKillComp(CCOM_comp* comp);
 void MyCreateComp(CCOM_comp* comp);
 
-Bool IfNeedCutComp(CCOM_comp* comp, Point beg, Point end, int& yCut) {
+Bool IfNeedCutComp(CCOM_comp* comp, cf::Point beg, cf::Point end, int& yCut) {
     int top = comp->upper;
     int left = comp->left;
     int right = left + comp->w - 1;
@@ -169,7 +167,7 @@ Bool IfNeedCutComp(CCOM_comp* comp, Point beg, Point end, int& yCut) {
 
 }
 
-int GetLineY(Point beg, Point end, int x) {
+int GetLineY(cf::Point beg, cf::Point end, int x) {
     int lenght = end.x() - beg.x() + 1;
     int spusk = beg.y() - end.y();
 

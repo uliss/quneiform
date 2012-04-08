@@ -100,8 +100,8 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 
 	const char* ImageName = PUMA_IMAGE_ORTOMOVE;
 
-	Handle lpDIB;
-	if (!CIMAGE_ReadDIB(OldImage, &lpDIB, 1))
+    BitmapHandle lpDIB;
+    if (!CIMAGE_ReadDIB(OldImage, &lpDIB))
 		return FALSE;
 
 	CTDIB* olddib = new CTDIB;
@@ -131,8 +131,10 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 		delete newdib;
 		return TRUE;
 	}
-        lpDIB = newdib->CreateDIBBegin(newwide, num_str, olddib->GetPixelSize());
-	if (!lpDIB) {
+
+    lpDIB = (BitmapHandle) newdib->CreateDIBBegin(newwide, num_str, olddib->GetPixelSize());
+
+    if (!lpDIB) {
 		olddib->ResetDIB();
 		delete olddib;
 		delete newdib;
@@ -161,9 +163,9 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 	CleanImage(pmasp, oldbytewide, num_str, (int) (olddib->GetLineWidth()));
 	CopyMove(newpmasp, pmasp, newbytewide, oldbytewide, num_str, move);
 
-	if (CIMAGE_WriteDIB(ImageName, lpDIB, 0)) {
-		BITMAPINFOHEADER * lp = NULL;
-		if (CIMAGE_ReadDIB(ImageName, (Handle*) &lp, TRUE)) {
+    if (CIMAGE_AddImageCopy(ImageName, (BitmapHandle) lpDIB)) {
+        BitmapHandle lp = NULL;
+        if (CIMAGE_ReadDIB(ImageName, &lp)) {
 			info.Images |= IMAGE_ORTOMOVE;
 			strcpy((char*) info.szImageName, PUMA_IMAGE_ORTOMOVE);
 			SetPageInfo(hCPage, info);

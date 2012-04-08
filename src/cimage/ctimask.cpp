@@ -71,7 +71,7 @@ CTIMask::CTIMask() :
 {
 }
 
-CTIMask::CTIMask(uint32_t width, uint32_t Height) :
+CTIMask::CTIMask(int width, int Height) :
     line_(0),
     width_(width),
     height_(Height),
@@ -91,7 +91,7 @@ CTIMask::~CTIMask()
     }
 }
 
-Bool32 CTIMask::AddRectangle(CIMAGE_Rect * pRect)
+bool CTIMask::addRectangle(const Rect& r)
 {
     uint32_t wXb;
     uint32_t wXe;
@@ -101,13 +101,13 @@ Bool32 CTIMask::AddRectangle(CIMAGE_Rect * pRect)
     PCTIMaskLine pL;
     uint32_t wLine;
 
-    if (!IsRectOnMask(pRect))
-        return FALSE;
+    if (!isRectOnMask(r))
+        return false;
 
-    wXb = pRect->dwX;
-    wYb = pRect->dwY;
-    wXe = wXb + pRect->dwWidth;
-    wYe = wYb + pRect->dwHeight;
+    wXb = r.x();
+    wYb = r.y();
+    wXe = wXb + r.width();
+    wYe = wYb + r.height();
     CTIMaskLineSegment Segm(wXb, wXe);
 
     if (!SetPtrToPrevLine(wYb, &pPL)) {
@@ -126,7 +126,7 @@ Bool32 CTIMask::AddRectangle(CIMAGE_Rect * pRect)
                 // кладем новый сегмент в линию
                 if (!pL->addSegment(&Segm)) {
                     SetReturnCode_cimage(IDS_CIMAGE_UNABLE_ADD_MASK);
-                    return FALSE;
+                    return false;
                 }
             }
 
@@ -142,10 +142,10 @@ Bool32 CTIMask::AddRectangle(CIMAGE_Rect * pRect)
     }
 
     mwSegments++;
-    return TRUE;
+    return true;
 }
 
-Bool32 CTIMask::RemoveRectangle(CIMAGE_Rect * pRect)
+bool CTIMask::removeRectangle(const Rect& r)
 {
     uint32_t wXb;
     uint32_t wXe;
@@ -155,18 +155,18 @@ Bool32 CTIMask::RemoveRectangle(CIMAGE_Rect * pRect)
     PCTIMaskLine pL;
     uint32_t wLine;
 
-    if (!IsRectOnMask(pRect))
+    if (!isRectOnMask(r))
         return FALSE;
 
-    wXb = pRect->dwX;
-    wYb = pRect->dwY;
-    wXe = wXb + pRect->dwWidth;
-    wYe = wYb + pRect->dwHeight;
+    wXb = r.x();
+    wYb = r.y();
+    wXe = wXb + r.width();
+    wYe = wYb + r.height();
     CTIMaskLineSegment Segm(wXb, wXe);
 
     if (!SetPtrToPrevLine(wYb, &pPL)) {
         SetReturnCode_cimage(IDS_CIMAGE_UNABLE_REMOVE_MASK);
-        return FALSE;
+        return false;
     }
 
     pL = pPL->GetNext();
@@ -174,12 +174,12 @@ Bool32 CTIMask::RemoveRectangle(CIMAGE_Rect * pRect)
     for (wLine = wYb; wLine < wYe; wLine++) {
         if (!pL) {
             SetReturnCode_cimage(IDS_CIMAGE_UNABLE_REMOVE_MASK);
-            return FALSE;
+            return false;
         }
 
         else if (!pL->removeSegment(&Segm)) {
             SetReturnCode_cimage(IDS_CIMAGE_UNABLE_REMOVE_MASK);
-            return FALSE;
+            return false;
         }
 
         if (pL->segmentsNumber() == 0) {
@@ -193,15 +193,15 @@ Bool32 CTIMask::RemoveRectangle(CIMAGE_Rect * pRect)
     }
 
     mwSegments--;
-    return TRUE;
+    return true;
 }
 
-Bool32 CTIMask::IsRectOnMask(CIMAGE_Rect * pRect)
+bool CTIMask::isRectOnMask(const Rect& r) const
 {
-    return (pRect && (pRect->dwX < (int32_t) width_ || (pRect->dwX
-                                                             + pRect->dwWidth) < width_ || pRect->dwY
-                      < (int32_t) height_ || (pRect->dwY + pRect->dwHeight)
-                      < height_));
+    return r.left() < width_ ||
+            r.right() < width_ ||
+            r.top() < height_ ||
+            r.bottom() < height_;
 }
 
 Bool32 CTIMask::SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine)
@@ -219,7 +219,7 @@ Bool32 CTIMask::SetPtrToPrevLine(uint32_t wLine, PPCTIMaskLine ppLine)
     return TRUE;
 }
 
-Bool32 CTIMask::GetLine(uint32_t wLine, PPCTIMaskLine ppcLine)
+Bool32 CTIMask::GetLine(int wLine, PPCTIMaskLine ppcLine)
 {
     PCTIMaskLine pL = line_.GetNext();
     Bool32 bLinePresent = FALSE;
