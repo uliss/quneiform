@@ -51,6 +51,10 @@ void TestQtImageLoader::testLoad() {
     ImageFormatList formats = loader->supportedFormats();
 
     for(size_t i = 0; i < formats.size(); i++) {
+	if(formats[i] == cf::FORMAT_BMP)
+		continue;
+
+
         std::string image_name = path + "test.";
         image_name += imageFormatToString(formats[i]);
 
