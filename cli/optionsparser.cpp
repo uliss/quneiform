@@ -360,6 +360,8 @@ void OptionsParser::printRecognizeOptions(std::ostream& os) {
                 "Use recognition mode optimized for text that has been faxed.");
     printOption(os, "--page-template RECT", "", "Sets recognition area [X,Y,WIDTH,HEIGHT].");
     printOption(os, "--pictures", "", "Search pictures (default).");
+    printOption(os, "--turn ANGLE", "", "Sets page clock-wise turning angle. Note, allowed values are: \n"
+                "    0, 90, 180, 270 and their negatives.");
     printOption(os, "--nopictures", "", "Do not search pictures.");
 
     printOption(os, "--language LANGUAGE", "-l",

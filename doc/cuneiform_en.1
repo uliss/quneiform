@@ -336,6 +336,10 @@ like HTML, image directory created.
 Default image directory name is \[oq]\fIINPUT_FILE_WITHOUT_EXTENSION\fR_files\[cq].
 
 .B
+.IP "\fB\-\-page\-template\fR=LEFT,TOP,WIDTH,HEIGHT" 4
+Set page recognition area.
+
+.B
 .IP \-\-pictures 4
 Search pictures on input image (default). 
 
@@ -366,8 +370,12 @@ Use spell correction.
 Put recognition result to standard output.
 
 .B
-.IP \-\-supported\-image\-formats
+.IP \-\-supported\-image\-formats 4
 Print supported image formats and exit.
+
+.B
+.IP "\fB\-\-turn\fR=\fIANGLE\fR" 4
+Set page turning angle. Valid values area: -270, -180, -90, 0, 90, 180, 270.
 
 .IP "\fB\-u, \-\-unrecognized\fR=\fICHAR\fR"
 Set symbol, that shown instead of unrecognized characters.                
