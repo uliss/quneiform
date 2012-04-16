@@ -56,6 +56,10 @@ int cf_recognition_set_search_pictures(cf_recognition_options opts, int value);
 int cf_recognition_set_single_column(cf_recognition_options opts, int value);
 int cf_recognition_set_spell_correction(cf_recognition_options opts, int value);
 
+int cf_recognition_add_read_rect(cf_recognition_options opts, int left, int top, int width, int height);
+int cf_recognition_has_read_rects(cf_recognition_options opts);
+int cf_recognition_clear_read_rects(cf_recognition_options opts);
+
 // format options
 cf_format_options cf_format_options_create();
 void cf_format_options_destroy(cf_format_options opts);

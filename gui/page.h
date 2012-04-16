@@ -78,6 +78,33 @@ public:
     };
 
     /**
+      * Adds read area to page
+      * @see clearReadAreas()
+      */
+    void addReadArea(const QRect& r);
+
+    /**
+      * Removes all read areas
+      * @see addReadRect()
+      */
+    void clearReadAreas();
+
+    /**
+      * Returns true if page has read areas
+      */
+    bool hasReadAreas() const;
+
+    /**
+      * Returns read areas
+      */
+    QList<QRect> readAreas() const;
+
+    /**
+      * Sets read areas
+      */
+    void setReadAreas(const QList<QRect>& rects);
+
+    /**
       * Returns page rotation angle in degrees
       * @see setAngle(), rotate()
       */
@@ -176,7 +203,7 @@ public:
       * Returns page area on image
       * @see setPageArea()
       */
-    const QRect& pageArea() const;
+    QRect pageArea() const;
 
     /**
       * Returns page recognize settings
@@ -234,13 +261,6 @@ public:
       * Sets page language
       */
     void setLanguage(const Language& lang);
-
-    /**
-      * Sets page area on image
-      * Emits signal changed()
-      * @see pageArea()
-      */
-    void setPageArea(const QRect& area);
 
     /**
       * Sets page recognize settings
@@ -345,7 +365,6 @@ private:
     QString image_path_;
     QSize image_size_;
     PageFlags state_flags_;
-    QRect page_area_;
     int angle_;
     float view_scale_;
     QPoint view_scroll_;
@@ -358,6 +377,7 @@ private:
     Language language_;
     cf::CEDPagePtr cedpage_;
     QPixmap * thumb_;
+    QList<QRect> read_areas_;
 public:
     friend QDataStream& operator<<(QDataStream& stream, const Page& page);
     friend QDataStream& operator>>(QDataStream& stream, Page& page);

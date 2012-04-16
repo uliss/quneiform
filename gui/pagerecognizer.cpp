@@ -70,6 +70,12 @@ static cf::RecognizeOptions getRecogOptions(Page * page) {
     res.setSpellCorrection(s.spelling());
     res.setLanguage(languageToType(page->language()));
 
+    if(page->hasReadAreas()) {
+        foreach(QRect r, page->readAreas()) {
+            res.addReadRect(cf::Rect(r.left(), r.top(), r.width(), r.height()));
+        }
+    }
+
     return res;
 }
 
@@ -156,10 +162,6 @@ QImage PageRecognizer::loadImage() {
         t.rotate(page_->angle());
         img = img.transformed(t);
     }
-
-    // select page area
-    if(page_->pageArea().isValid())
-        img = img.copy(page_->pageArea());
 
     // update counter and state
     counter_->add(9);

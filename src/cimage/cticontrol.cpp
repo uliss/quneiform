@@ -133,6 +133,13 @@ bool CTIControl::writeDIBtoBMP(const std::string& name, CTDIB * pDIB)
     return !of.fail();
 }
 
+bool CTIControl::writeDIBtoBMP(const std::string& name, BitmapHandle h)
+{
+    CTDIB dib;
+    dib.SetDIBbyPtr(h);
+    return writeDIBtoBMP(name, &dib);
+}
+
 CTIControl::CTIControl() {
     init();
 }

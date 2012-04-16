@@ -291,3 +291,57 @@ void TestCTIControl::testCopyFromFrame()
     }
 }
 
+void TestCTIControl::testGetDIBFromImage()
+{
+    CTIControl ctrl;
+    BitmapHandle dest = NULL;
+    CPPUNIT_ASSERT(!ctrl.getDIBFromImage("not-found", Rect(0, 0, 50, 50), NULL, &dest));
+
+    BitmapHandle handle = loadDibFromBmp("black_1.bmp");
+    CPPUNIT_ASSERT(handle);
+    ctrl.addImage("black_1bit", handle);
+
+
+    CPPUNIT_ASSERT(ctrl.getDIBFromImage("black_1bit", Rect(0, 0, 50, 50), NULL, &dest));
+    CPPUNIT_ASSERT(dest);
+    CPPUNIT_ASSERT(dest->biWidth == 50 && dest->biHeight == 50);
+    CPPUNIT_ASSERT(ctrl.free(dest));
+    dest = NULL;
+
+    // not intersects
+    CPPUNIT_ASSERT(ctrl.getDIBFromImage("black_1bit", Rect(-50, -50, 10, 10), NULL, &dest));
+    CPPUNIT_ASSERT(dest);
+    CPPUNIT_ASSERT(dest->biWidth == 100 && dest->biHeight == 100);
+    CPPUNIT_ASSERT(ctrl.free(dest));
+    dest = NULL;
+
+    // intersects
+    CPPUNIT_ASSERT(ctrl.getDIBFromImage("black_1bit", Rect(-10, -10, 50, 50), NULL, &dest));
+    CPPUNIT_ASSERT(dest);
+    CPPUNIT_ASSERT(dest->biWidth == 40 && dest->biHeight == 40);
+    CPPUNIT_ASSERT(ctrl.free(dest));
+    dest = NULL;
+
+    // bit mask
+    BitMask mask(50, 50);
+    mask.fillRect(Rect(10, 10, 30, 30), true);
+    CPPUNIT_ASSERT(ctrl.getDIBFromImage("black_1bit", Rect(0, 0, 50, 50), &mask, &dest));
+    CPPUNIT_ASSERT(dest);
+    CPPUNIT_ASSERT(dest->biWidth == 50 && dest->biHeight == 50);
+    CTIControl::writeDIBtoBMP("cimage_get_image_from_dib_1.bmp", dest);
+    CPPUNIT_ASSERT(ctrl.free(dest));
+    dest = NULL;
+
+    // read mask
+    ctrl.enableReadMask("black_1bit");
+    ctrl.addRectToReadMask("black_1bit", Rect(10, 0, 30, 50));
+    CPPUNIT_ASSERT(ctrl.getDIBFromImage("black_1bit", Rect(0, 0, 50, 50), NULL, &dest));
+    CPPUNIT_ASSERT(dest);
+    CPPUNIT_ASSERT(dest->biWidth == 50 && dest->biHeight == 50);
+    CTIControl::writeDIBtoBMP("cimage_get_image_from_dib_2.bmp", dest);
+    CPPUNIT_ASSERT(ctrl.free(dest));
+    dest = NULL;
+
+    delete[] handle;
+}
+

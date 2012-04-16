@@ -67,6 +67,43 @@ Page::~Page() {
     delete thumb_;
 }
 
+void Page::addReadArea(const QRect& r)
+{
+    QMutexLocker lock(&mutex_);
+
+    read_areas_.append(r);
+
+    setChanged();
+}
+
+void Page::clearReadAreas()
+{
+    QMutexLocker lock(&mutex_);
+
+    read_areas_.clear();
+
+    setChanged();
+}
+
+bool Page::hasReadAreas() const
+{
+    return !read_areas_.isEmpty();
+}
+
+QList<QRect> Page::readAreas() const
+{
+    return read_areas_;
+}
+
+void Page::setReadAreas(const QList<QRect>& rects)
+{
+    QMutexLocker lock(&mutex_);
+
+    read_areas_ = rects;
+
+    setChanged();
+}
+
 int Page::angle() const {
     return angle_;
 }
@@ -93,7 +130,7 @@ void Page::clearBlocks(BlockType type) {
 void Page::clearLayout() {
     blockSignals(true);
     clearBlocks();
-    setPageArea(QRect());
+    clearReadAreas();
     blockSignals(false);
     emit layoutCleared();
 }
@@ -178,8 +215,8 @@ QString Page::name() const {
     return QFileInfo(image_path_).fileName();
 }
 
-const QRect& Page::pageArea() const {
-    return page_area_;
+QRect Page::pageArea() const {
+    return QRect();
 }
 
 const RecognitionSettings& Page::recognitionSettings() const {
@@ -293,17 +330,6 @@ void Page::setLanguage(const Language& lang) {
     setChanged();
 }
 
-void Page::setPageArea(const QRect& area) {
-    QMutexLocker lock(&mutex_);
-
-    if(page_area_ == area)
-        return;
-
-    page_area_ = area;
-
-    setChanged();
-}
-
 void Page::setRecognitionSettings(const RecognitionSettings& opts) {
     QMutexLocker lock(&mutex_);
 
@@ -321,7 +347,6 @@ void Page::setBlocks(const QList<QRect>& rects, BlockType type) {
     clearBlocks(type);
 
     foreach(QRect r, rects) {
-        page_area_.topLeft();
         blocks_[type].append(r);
     }
 }
@@ -384,7 +409,6 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
     os << page.image_path_
             << page.image_size_
             << page.state_flags_
-            << page.page_area_
             << page.angle_
             << page.view_scale_
             << page.view_scroll_
@@ -405,6 +429,8 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
         os << false;
     }
 
+    os << page.read_areas_;
+
     return os;
 }
 
@@ -413,7 +439,6 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
     is >> page.image_path_
             >> page.image_size_
             >> page.state_flags_
-            >> page.page_area_
             >> page.angle_
             >> page.view_scale_
             >> page.view_scroll_
@@ -435,6 +460,8 @@ QDataStream& operator>>(QDataStream& is, Page& page) {
         is >> thumb;
         page.setThumb(thumb);
     }
+
+    is >> page.read_areas_;
 
     return is;
 }

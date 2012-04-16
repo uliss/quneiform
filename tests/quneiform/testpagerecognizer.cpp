@@ -154,7 +154,7 @@ void TestPageRecognizer::testRecognizeArea() {
 
     // 0
     Page eng(CF_IMAGE_DIR "/english.png");
-    eng.setPageArea(area);
+    eng.addReadArea(area);
     r.setPage(&eng);
     r.recognize();
 
@@ -164,7 +164,7 @@ void TestPageRecognizer::testRecognizeArea() {
     // 90
     Page eng90(CF_IMAGE_DIR "/english_rotated_90.png");
     eng90.rotate(-90);
-    eng90.setPageArea(area);
+    eng90.addReadArea(area);
     r.setPage(&eng90);
     r.recognize();
 
@@ -174,7 +174,7 @@ void TestPageRecognizer::testRecognizeArea() {
     // 180
     Page eng180(CF_IMAGE_DIR "/english_rotated_180.png");
     eng180.rotate(-180);
-    eng180.setPageArea(area);
+    eng180.addReadArea(area);
     r.setPage(&eng180);
     r.recognize();
 
@@ -184,7 +184,7 @@ void TestPageRecognizer::testRecognizeArea() {
     // 270
     Page eng270(CF_IMAGE_DIR "/english_rotated_270.png");
     eng270.rotate(-270);
-    eng270.setPageArea(area);
+    eng270.addReadArea(area);
     r.setPage(&eng270);
     r.recognize();
 
@@ -201,14 +201,11 @@ void TestPageRecognizer::testLoadImage() {
     QImage img = r.loadImage();
     QCOMPARE(img.size(), eng->imageSize());
 
-    eng->setPageArea(QRect(1, 2, 30, 40));
-    QCOMPARE(r.loadImage().size(), QSize(30, 40));
-
     eng->rotate(90);
-    QCOMPARE(r.loadImage().size(), QSize(30, 40));
+    QCOMPARE(r.loadImage().size(), QSize(81, 281));
 
     eng->scaleView(12);
-    QCOMPARE(r.loadImage().size(), QSize(30, 40));
+    QCOMPARE(r.loadImage().size(), QSize(81, 281));
 
     delete eng;
 }

@@ -178,7 +178,7 @@ void TestPage::testConstruct() {
     QCOMPARE(p3.imagePath(), QString(SAMPLE_IMG));
     QVERIFY(!p3.isNull());
     QCOMPARE(p3.imageSize(), QSize(281, 81));
-    QCOMPARE(p3.pageArea(), QRect());
+    QVERIFY(!p3.hasReadAreas());
 }
 
 void TestPage::testFlags() {
@@ -286,25 +286,6 @@ void TestPage::testSetFlags() {
     QVERIFY(p.hasFlag(Page::RECOGNIZED));
     QCOMPARE(p.flags(), Page::EXPORTED | Page::RECOGNIZED);
     QCOMPARE(changed.count(), 1);
-}
-
-void TestPage::testSetPageArea() {
-    Page p("");
-    QRect r(10, 20, 400, 500);
-    QCOMPARE(p.pageArea(), QRect());
-
-    QSignalSpy changed(&p, SIGNAL(changed()));
-
-    p.setPageArea(r);
-
-    QCOMPARE(p.pageArea(), r);
-    QCOMPARE(changed.count(), 1);
-
-    p.setPageArea(r);
-    QCOMPARE(changed.count(), 1);
-
-    p.setPageArea(r.adjusted(10, 10, 10, 10));
-    QCOMPARE(changed.count(), 2);
 }
 
 void TestPage::testSetRecognitionSettings() {
@@ -425,7 +406,7 @@ void TestPage::testReadWrite() {
     QRect r(20, 30, 40, 50);
     QString fname("page.tmp");
     p.setViewScroll(pt);
-    p.setPageArea(r);
+    p.addReadArea(r);
     p.setAngle(90);
     p.setLanguage(Language(5));
 
@@ -463,7 +444,7 @@ void TestPage::testReadWrite() {
         QCOMPARE(p.isRecognized(), p2.isRecognized());
         QCOMPARE(p.isExported(), p2.isExported());
         QCOMPARE(p.name(), p2.name());
-        QCOMPARE(p.pageArea(), p2.pageArea());
+        QCOMPARE(p.readAreas(), p2.readAreas());
         QCOMPARE(p.recognitionSettings(), p2.recognitionSettings());
         QCOMPARE(p.viewScale(), p2.viewScale());
         QCOMPARE(p.viewScroll(), p2.viewScroll());

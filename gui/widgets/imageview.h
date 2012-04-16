@@ -27,11 +27,10 @@ class QGraphicsPixmapItem;
 class QGestureEvent;
 class QPinchGesture;
 class QMenu;
-class QRubberBand;
 class Page;
 class PageArea;
 class Selection;
-class SelectionShadow;
+class SelectionList;
 
 class ImageView : public QGraphicsView {
     Q_OBJECT
@@ -139,67 +138,44 @@ protected:
     void contextMenuEvent(QContextMenuEvent * event);
     bool event(QEvent * event);
     bool gestureEvent(QGestureEvent * event);
-    void mouseMoveEvent(QMouseEvent * event);
-    void mousePressEvent(QMouseEvent * event);
-    void mouseReleaseEvent(QMouseEvent * event);
     void pinchTriggered(QPinchGesture * gesture);
     void wheelEvent(QWheelEvent * event);
 private slots:
     void clearPageLayout();
     void deletePage();
-    void deletePageAreaSelection();
-    void movePageSelection(const QPointF& delta);
     void handleRecognizeRequest();
-    void selectPageArea();
-    void updatePageAreaSelection();
-    void updatePageRotation();
+    void savePageSelections();
+    void startPageSelection();
     void updateViewScale();
+    void updatePageRotation();
 private:
     void activate(bool value);
     void connectPageSignals(Page * page);
     void createContextMenu();
-    void createRubberBand();
-    void createPageAreaSelection(const QRect& rect);
     void deletePageArea();
     void disconnectPageSignals(Page * page);
-    void finishPageAreaSelection(const QRect& rect);
-    void finishSelection(const QPoint& pos);
     bool isSceneSizeSmaller();
     bool isSceneWidthSmaller();
     bool isTooBig() const;
     bool isTooSmall() const;
-    void resizeSelection(const QPoint& pos);
-    void restorePageAreaSelection();
+    void rotatePixmap(int angle);
     void savePageViewScale();
     void savePageViewScroll();
-    void setPageAreaSelection(const QRect& rect);
     void setupScene();
+    void setupView();
     void showImage();
-    void startSelection(const QPoint& pos);
-    void restorePageScroll();
-    void rotatePixmap(int angle);
-    void updateSelectionCursor();
+    void updatePageScroll();
+    void updatePageSelection();
 private:
-    enum select_mode_t {
-        NORMAL = 0,
-        SELECT_AREA,
-        SELECT_TEXT,
-        SELECT_IMAGE,
-        SELECT_TABLE
-    };
-
     QGraphicsScene * scene_;
     Page * page_;
     QMenu * context_menu_;
-    QRubberBand * rubber_band_;
-    Selection * page_area_selection_;
-    QPoint selection_start_;
-    select_mode_t select_mode_;
     qreal min_scale_;
     qreal max_scale_;
     QGraphicsPixmapItem * pixmap_;
     QGraphicsRectItem * scene_bbox_;
     PageArea * area_;
+    SelectionList * selections_;
 };
 
 #endif

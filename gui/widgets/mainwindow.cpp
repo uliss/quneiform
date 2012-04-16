@@ -100,7 +100,7 @@ bool MainWindow::confirmRotation(Page * p) {
 
     if(p->isRecognized())
         return confirmRotationRecognized();
-    else if(!p->pageArea().isNull())
+    else if(p->hasReadAreas())
         return confirmRotationSelected();
     else
         return true;
@@ -598,6 +598,7 @@ void MainWindow::setupShortcuts() {
     ui_->actionOpen->setShortcut(QKeySequence::Open);
     ui_->actionZoom_In->setShortcut(QKeySequence::ZoomIn);
     ui_->actionZoom_Out->setShortcut(QKeySequence::ZoomOut);
+    ui_->actionSavePacket->setShortcut(QKeySequence::Save);
 }
 
 void MainWindow::setupTextView() {
@@ -640,7 +641,6 @@ void MainWindow::setupUiLayout() {
 }
 
 void MainWindow::showPageImage(Page * page) {
-    qDebug() << Q_FUNC_INFO << page;
     Q_CHECK_PTR(page);
 
     enableViewActions(true);

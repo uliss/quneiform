@@ -29,7 +29,7 @@
 #include <algorithm>
 
 #include "selection.h"
-#include "selectionshadow.h"
+#include "selectionlist.h"
 
 static const int THRESHOLD = 5;
 static const int MIN_WIDTH = 20;
@@ -37,23 +37,28 @@ static const int MIN_HEIGHT = 20;
 static const int MOVE_STEP = 3;
 static const int MOVE_FAST_FACTOR = 6;
 
-Selection::Selection(const QRectF& area) :
-        QGraphicsRectItem(area),
-        shadow_(NULL),
-        resize_(NONE)
+static const QColor TYPE_MAP_COLOR[] = {
+    QColor(0, 0, 0, 150), // AREA
+    QColor(100, 255, 100, 150), // TEXT
+    QColor(255, 0, 0, 150), // IMAGE
+    QColor(0, 0, 255, 150) // TABLE
+};
+
+static const int PEN_WIDTH = 2;
+
+Selection::Selection(SelectionList * parent, const QRectF& area) :
+    QGraphicsRectItem(area, parent),
+    parent_(parent),
+    type_(AREA),
+    resize_(NONE)
 {
-    QColor c(0, 0, 0, 100);
-    QPen pen(c);
-    pen.setWidth(2);
-    setPen(pen);
+    setSelectionType(AREA);
     setRect(area);
 
     setAcceptHoverEvents(true);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemIsFocusable, true);
-
-    shadow_ = new SelectionShadow(this);
 }
 
 qreal Selection::borderDistance(const QPointF& pt, Selection::border_t border) const {
@@ -90,13 +95,13 @@ void Selection::hoverEnterEvent(QGraphicsSceneHoverEvent * event) {
 
 void Selection::hoverMoveEvent(QGraphicsSceneHoverEvent * event) {
     if(rect().adjusted(THRESHOLD, THRESHOLD, -THRESHOLD, -THRESHOLD).contains(event->pos()))
-        setCursor(QCursor());
+        unsetCursor();
     else
         setResizeCursor(event->pos());
 }
 
 void Selection::hoverLeaveEvent(QGraphicsSceneHoverEvent * event) {
-   setCursor(QCursor());
+   unsetCursor();
    event->accept();
 }
 
@@ -178,6 +183,8 @@ Selection::corner_t Selection::nearestCorner(const QPointF& pt) const {
 }
 
 void Selection::keyPressEvent(QKeyEvent * event) {
+    QGraphicsRectItem::keyPressEvent(event);
+
     qreal step = MOVE_STEP;
 
     if(event->modifiers() & Qt::ControlModifier)
@@ -185,41 +192,54 @@ void Selection::keyPressEvent(QKeyEvent * event) {
 
     switch(event->key()) {
     case Qt::Key_Up:
-        emit moved(QPointF(0, -step));
+        moveBy(0, -step);
+        event->accept();
         break;
     case Qt::Key_Down:
-        emit moved(QPointF(0, step));
+        moveBy(0, step);
+        event->accept();
         break;
     case Qt::Key_Left:
-        emit moved(QPointF(-step, 0));
+        moveBy(-step, 0);
+        event->accept();
         break;
     case Qt::Key_Right:
-        emit moved(QPointF(step, 0));
+        moveBy(step, 0);
+        event->accept();
         break;
     case Qt::Key_Delete:
-        emit selectionDeleted();
+        event->accept();
+        parent_->handleSelectionDelete(this);
     default:
         break;
     }
 }
 
-void Selection::moveBy(const QPointF& delta) {
+void Selection::moveBy(qreal dX, qreal dY) {
     QRectF new_r = rect();
-    new_r.moveTo(rect().topLeft() + delta);
+    new_r.moveTo(rect().topLeft() + QPointF(dX, dY));
 
-    if(delta.x() < 0 && new_r.left() < 0)
+    if(dX < 0 && new_r.left() < 0)
         new_r.moveTo(0, new_r.top());
 
-    if(delta.x() > 0 && new_r.right() > sceneRect().right())
+    if(dX > 0 && new_r.right() > sceneRect().right())
         new_r.moveTo(sceneRect().right() - new_r.width(), new_r.top());
 
-    if(delta.y() < 0 && new_r.top() < 0)
+    if(dY < 0 && new_r.top() < 0)
         new_r.moveTo(new_r.left(), 0);
 
-    if(delta.y() > 0 && new_r.bottom() > sceneRect().bottom())
+    if(dY > 0 && new_r.bottom() > sceneRect().bottom())
         new_r.moveTo(new_r.left(), sceneRect().bottom() - new_r.height());
 
     setRect(new_r);
+
+    if(parent_)
+        parent_->updateSelections();
+}
+
+void Selection::moveBy(const QPointF& p)
+{
+    moveBy(p.x(), p.y());
 }
 
 void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
@@ -229,6 +249,8 @@ void Selection::mouseMoveEvent(QGraphicsSceneMouseEvent * event) {
         resizeBy(move_delta);
     else
         moveBy(move_delta);
+
+    event->accept();
 }
 
 void Selection::mousePressEvent(QGraphicsSceneMouseEvent * event) {
@@ -240,12 +262,14 @@ void Selection::mousePressEvent(QGraphicsSceneMouseEvent * event) {
 
     if(!resize_)
         setCursor(Qt::SizeAllCursor);
+
+    event->accept();
 }
 
 void Selection::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
     QGraphicsRectItem::mouseReleaseEvent(event);
-    emit resized();
-//    setSelected(false);
+
+    parent_->updateSelections();
 }
 
 QRect Selection::normalRect() const {
@@ -254,6 +278,22 @@ QRect Selection::normalRect() const {
     int w = static_cast<int>(rect().width());
     int h = static_cast<int>(rect().height());
     return QRect(x, y, w, h);
+}
+
+void Selection::setSelectionType(Selection::selection_t t)
+{
+    type_ = t;
+
+    QPen p(TYPE_MAP_COLOR[t]);
+    p.setWidth(PEN_WIDTH);
+    setPen(p);
+
+    update();
+}
+
+Selection::selection_t Selection::selectionType() const
+{
+    return type_;
 }
 
 void Selection::resizeBy(const QPointF& delta) {
@@ -292,6 +332,9 @@ void Selection::resizeBy(const QPointF& delta) {
     }
 
     setRect(new_r.normalized());
+
+    if(parent_)
+        parent_->updateSelections();
 }
 
 inline bool isVertical(int mode) {

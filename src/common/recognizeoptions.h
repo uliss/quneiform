@@ -21,11 +21,16 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "lang_def.h"
 #include "globus.h"
 #include "common/rect.h"
 #include "serialize.h"
+
+#ifdef CF_SERIALIZE
+#include <boost/serialization/vector.hpp>
+#endif
 
 namespace cf {
 
@@ -43,10 +48,14 @@ class CLA_EXPO RecognizeOptions
             TABLE_LINE_TEXT
         };
 
+        void addReadRect(const Rect& r);
+        std::vector<Rect> readRects() const;
+        void clearReadRects();
+        bool hasReadRects() const;
+
         bool autoRotate() const;
         bool dotMatrix() const;
         bool fax() const;
-        Rect pageTemplate() const;
         bool pictureSearch() const;
         table_mode_t tableMode() const;
         const std::string& userDict() const;
@@ -67,7 +76,6 @@ class CLA_EXPO RecognizeOptions
          * Sets one column layout
          */
         void setOneColumn(bool value);
-        void setPageTemplate(const Rect& r);
         void setPictureSearch(bool value);
         void setSpellCorrection(bool value);
         void setTableMode(table_mode_t mode);
@@ -87,6 +95,7 @@ class CLA_EXPO RecognizeOptions
             ar & make_nvp("table-mode", table_mode_);
             ar & make_nvp("user-dict", user_dict_name_);
             ar & make_nvp("flags", flags_);
+            ar & make_nvp("read-rects", read_rects_);
         }
 #endif
     private:
@@ -94,7 +103,7 @@ class CLA_EXPO RecognizeOptions
         table_mode_t table_mode_;
         std::string user_dict_name_;
         size_t flags_;
-        Rect page_template_;
+        std::vector<Rect> read_rects_;
 };
 
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts);

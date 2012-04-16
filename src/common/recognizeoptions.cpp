@@ -46,6 +46,26 @@ RecognizeOptions::RecognizeOptions() :
     setPictureSearch(true);
 }
 
+void RecognizeOptions::addReadRect(const Rect &r)
+{
+    read_rects_.push_back(r);
+}
+
+std::vector<Rect> RecognizeOptions::readRects() const
+{
+    return read_rects_;
+}
+
+void RecognizeOptions::clearReadRects()
+{
+    read_rects_.clear();
+}
+
+bool RecognizeOptions::hasReadRects() const
+{
+    return !read_rects_.empty();
+}
+
 bool RecognizeOptions::autoRotate() const {
     return hasFlag(AUTOROTATE);
 }
@@ -56,11 +76,6 @@ bool RecognizeOptions::dotMatrix() const {
 
 bool RecognizeOptions::fax() const {
     return hasFlag(FAX);
-}
-
-Rect RecognizeOptions::pageTemplate() const
-{
-    return page_template_;
 }
 
 language_t RecognizeOptions::language() const {
@@ -93,11 +108,6 @@ void RecognizeOptions::setLanguage(language_t language) {
 
 void RecognizeOptions::setOneColumn(bool value) {
     setFlag(ONE_COLUMN, value);
-}
-
-void RecognizeOptions::setPageTemplate(const Rect &r)
-{
-    page_template_ = r;
 }
 
 void RecognizeOptions::setPictureSearch(bool value) {
@@ -136,6 +146,16 @@ static void OPT(std::ostream& os, const std::string& name, const T& value) {
     os << name + ":" << value << "\n";
 }
 
+static void printRects(std::ostream& os, const std::vector<Rect>& rects) {
+    os << "    " << "Read areas: ";
+
+    for(size_t i = 0; i < rects.size(); i++) {
+        os << "        " << rects[i] << ",\n";
+    }
+
+    os << "\n";
+}
+
 std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
     os << "Recognize options:\n";
     os << std::boolalpha;
@@ -148,7 +168,7 @@ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
     OPT(os, "Autorotate" , opts.autoRotate());
     OPT(os, "Language", Language(opts.language()));
     OPT(os, "User dictionary", opts.userDict());
-    OPT(os, "Page template", opts.pageTemplate());
+    printRects(os, opts.readRects());
     os << std::noboolalpha;
     return os;
 }

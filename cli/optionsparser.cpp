@@ -433,6 +433,7 @@ void OptionsParser::updateFormatOptions() {
 void OptionsParser::updateRecognizeOptions() {
     if(langcode != LANGUAGE_UNKNOWN)
         recognize_opts_.setLanguage(langcode);
+
     recognize_opts_.setFax(do_fax);
     recognize_opts_.setDotMatrix(do_dotmatrix);
     recognize_opts_.setSpellCorrection(do_speller);
@@ -440,7 +441,7 @@ void OptionsParser::updateRecognizeOptions() {
     recognize_opts_.setPictureSearch(do_pictures);
 
     if(page_template_r.perimeter() > 0)
-        recognize_opts_.setPageTemplate(page_template_r);
+        recognize_opts_.addReadRect(page_template_r);
 }
 
 }

@@ -354,9 +354,6 @@ void QTextDocumentExporter::writePicture(cf::CEDPicture& pic) {
     cf::Rect r = pic.boundingRect();
     pixmap = pixmap.transformed(t);
 
-    if(page_->pageArea().isValid())
-        pixmap = pixmap.copy(page_->pageArea());
-
     pixmap = pixmap.copy(r.x(), r.y(), r.width(), r.height());
 
     static int image_counter = 0;

@@ -22,13 +22,12 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 
-class SelectionShadow;
+class SelectionList;
 
-class Selection : public QObject, public QGraphicsRectItem
+class Selection : public QGraphicsRectItem
 {
-    Q_OBJECT
 public:
-    Selection(const QRectF& = QRectF());
+    Selection(SelectionList * parent, const QRectF& area = QRectF());
 
     enum border_t {
         NONE = 0,
@@ -53,31 +52,30 @@ public:
         DIAGONAL_RIGHT = 4
     };
 
-    /**
-      * Moves selection by given offset
-      * @note that if selection moving outside of graphics scene
-      * is not allowed
-      */
-    void moveBy(const QPointF& delta);
+    enum selection_t {
+        AREA = 0,
+        TEXT = 1,
+        IMAGE = 2,
+        TABLE = 3
+    };
 
     /**
       * Returns normalized selection rectange
       * taking into account pos() and rect() values
       */
     QRect normalRect() const;
-signals:
 
     /**
-      * Emitted when user press arrow keys to move selection
-      * @param delta move offset
+      * Sets selection type
+      * @see selectionType()
       */
-    void moved(const QPointF& delta);
+    void setSelectionType(selection_t t);
 
     /**
-      * Emitted when user press Delete key on selection
+      * Returns selection type
+      * @see setSelectionType()
       */
-    void selectionDeleted();
-    void resized();
+    selection_t selectionType() const;
 protected:
     void hoverEnterEvent (QGraphicsSceneHoverEvent * event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent * event);
@@ -92,6 +90,8 @@ private:
     bool isCloseToBorder(const QPointF& pt, Selection::border_t border) const;
     bool isCloseToCorner(const QPointF& pt, corner_t corner) const;
     bool isResizing() const;
+    void moveBy(qreal dX, qreal dY);
+    void moveBy(const QPointF& p);
     border_t nearestBorder(const QPointF& pt) const;
     qreal nearestBorderDistance(const QPointF& pt) const;
     corner_t nearestCorner(const QPointF& pt) const;
@@ -99,7 +99,8 @@ private:
     QRectF sceneRect() const;
     void setResizeCursor(const QPointF& pos);
 private:
-    SelectionShadow * shadow_;
+    SelectionList * parent_;
+    selection_t type_;
     char resize_;
 };
 

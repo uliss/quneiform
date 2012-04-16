@@ -15,7 +15,7 @@ set(HEADERS
     page.h
     pagerecognizer.h
     pagerecognitionqueue.h
-    selection.h
+    selectionlist.h
     dialogs/aboutdialog.h
     dialogs/exportdialog.h
     dialogs/formatsettingsdialog.h
@@ -35,7 +35,6 @@ set(HEADERS
     widgets/recentmenu.h
     widgets/texteditor.h
     widgets/thumbnaillist.h
-    widgets/thumblayout.h
     widgets/thumbscene.h
     widgets/thumbnailwidget.h
 )
@@ -57,7 +56,7 @@ set(SOURCES
     resolutionhistogramcallbacksetter.cpp
     recognitioninternaldata.cpp
     selection.cpp
-    selectionshadow.cpp
+    selectionlist.cpp
     translationloader.cpp
     dialogs/aboutdialog.cpp
     dialogs/exportdialog.cpp

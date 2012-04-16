@@ -23,7 +23,6 @@ using namespace cf;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestPuma);
 
 void TestPuma::testInit() {
-    Puma::instance().pageTemplate();
     Rect rect;
     //    CPPUNIT_ASSERT_EQUAL(rect, Puma::instance().pageTemplate());
     CPPUNIT_ASSERT(Puma::instance().input_dib_ == NULL);

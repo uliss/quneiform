@@ -405,6 +405,32 @@ const char * cf_export_save_to_str(cf_page page, int format, cf_format_options f
     return result.c_str();
 }
 
+int cf_recognition_add_read_rect(cf_recognition_options opts, int left, int top, int width, int height)
+{
+    if(!opts)
+        return -1;
+
+    opts->addReadRect(Rect(left, top, width, height));
+    return 0;
+}
+
+int cf_recognition_has_read_rects(cf_recognition_options opts)
+{
+    if(!opts)
+        return -1;
+
+    return opts->hasReadRects() ? 1 : 0;
+}
+
+int cf_recognition_clear_read_rects(cf_recognition_options opts)
+{
+    if(opts)
+        return -1;
+
+    opts->clearReadRects();
+    return 0;
+}
+
 #ifdef __cplusplus
 }
 #endif

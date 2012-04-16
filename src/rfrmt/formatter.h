@@ -39,7 +39,6 @@ class CLA_EXPO Formatter
         /**
          * Formats file
          * @return pointer to created CEDPage document
-         * @note caller should free return value
          */
         CEDPagePtr format(const std::string& fileName);
 

@@ -28,8 +28,7 @@
 PageArea::PageArea() :
         layout_(NULL),
         current_char_bbox_(NULL)
-{
-}
+{}
 
 void PageArea::clear() {
     clearCurrentChar();

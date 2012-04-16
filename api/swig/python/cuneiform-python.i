@@ -3,6 +3,7 @@
 %{
 /* Put headers and other declarations here */
 #include "c_api.h"
+#include "Python.h"
 
 #ifndef __APPLE__
 typedef unsigned int size_t;
@@ -42,6 +43,13 @@ public:
     RecognitionOptions() { opts = cf_recognition_options_create();}
     ~RecognitionOptions() { cf_recognition_options_destroy(opts);}
     cf_recognition_options handle() const { return opts;}
+
+    void addReadRect(int left, int top, int width, int height) {
+        cf_recognition_add_read_rect(opts, left, top, width, height);
+    }
+
+    void clearReadRects() { cf_recognition_clear_read_rects(opts); }
+    int hadReadRects() { return cf_recognition_has_read_rects(opts); }
     int dotMatrix() const { return cf_recognition_dotmatrix(opts);}
     void setDotMatrix(int value) { cf_recognition_set_dotmatrix(opts, value);}
     int fax() const { return cf_recognition_fax(opts);}

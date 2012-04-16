@@ -93,7 +93,7 @@ QGraphicsItemGroup * PageLayout::columnBlocks() {
 
 QGraphicsRectItem * PageLayout::createBlock(const QRect& r, const QColor& c) {
     Q_ASSERT(page_);
-    QGraphicsRectItem * block = new QGraphicsRectItem(r.translated(page_->pageArea().topLeft()));
+    QGraphicsRectItem * block = new QGraphicsRectItem(r);
     QPen pen(c, 0, Qt::SolidLine);
     block->setPen(pen);
     return block;

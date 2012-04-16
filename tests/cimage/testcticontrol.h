@@ -32,6 +32,7 @@ class TestCTIControl : public CppUnit::TestFixture
     CPPUNIT_TEST(testImageCopy);
     CPPUNIT_TEST(testCopyToFrame);
     CPPUNIT_TEST(testCopyFromFrame);
+    CPPUNIT_TEST(testGetDIBFromImage);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -42,6 +43,7 @@ public:
     void testImageCopy();
     void testCopyToFrame();
     void testCopyFromFrame();
+    void testGetDIBFromImage();
 };
 
 #endif // TESTCTICONTROL_H

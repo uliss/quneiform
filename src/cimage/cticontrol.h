@@ -226,6 +226,7 @@ class CLA_EXPO CTIControl
           * @param pDib - given image
           */
         static bool writeDIBtoBMP(const std::string& name, CTDIB * pDIB);
+        static bool writeDIBtoBMP(const std::string& name, BitmapHandle h);
     private:
         static bool copyDIB(const BitmapHandle src, BitmapHandle * dest);
     private:
