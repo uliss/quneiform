@@ -36,7 +36,8 @@ enum {
 RecognizeOptions::RecognizeOptions() :
     language_(LANGUAGE_ENGLISH),
     table_mode_(TABLE_DEFAULT),
-    flags_(0)
+    flags_(0),
+    turn_angle_(ANGLE_0)
 {
     setAutoRotate(false);
     setDotMatrix(false);
@@ -104,6 +105,21 @@ void RecognizeOptions::setDotMatrix(bool value) {
 
 void RecognizeOptions::setLanguage(language_t language) {
     language_ = language;
+}
+
+bool RecognizeOptions::hasTurn() const
+{
+    return turn_angle_ != ANGLE_0;
+}
+
+void RecognizeOptions::setTurnAngle(turn_angle_t angle)
+{
+    turn_angle_ = angle;
+}
+
+RecognizeOptions::turn_angle_t RecognizeOptions::turnAngle() const
+{
+    return turn_angle_;
 }
 
 void RecognizeOptions::setOneColumn(bool value) {

@@ -42,6 +42,7 @@ static int do_tables = TRUE;
 static language_t langcode = LANGUAGE_ENGLISH;
 static std::string page_template;
 static Rect page_template_r;
+static int turn_angle = 0;
 
 // format options
 static std::string monospace;
@@ -77,6 +78,7 @@ const static int SERIF_FLAG = 1025;
 const static int SANS_SERIF_FLAG = 1026;
 const static int IMAGE_OUTPUT_DIR_FLAG = 1027;
 const static int PAGE_TEMPLATE_FLAG = 1028;
+const static int PAGE_TURN_FLAG = 1029;
 
 static const char * const short_options = ":abho:pvVl:f:u:";
 static const struct option long_options[] = {
@@ -111,6 +113,7 @@ static const struct option long_options[] = {
     { "spell", no_argument, &do_speller, 1 },//
     { "tables", required_argument, &do_tables, 1 },//
     { "test-output", no_argument, &test_output, 1},//
+    { "turn", required_argument, NULL, PAGE_TURN_FLAG }, //
     { "unrecognized", required_argument, NULL, 'u' },//
     { "verbose", no_argument, &do_verbose, 1 },//
     { "version", no_argument, NULL, 'V' },//
@@ -221,6 +224,11 @@ void OptionsParser::getoptParse(int argc, char **argv)
             break;
         case PAGE_TEMPLATE_FLAG:
             page_template = optarg;
+            break;
+        case PAGE_TURN_FLAG:
+            turn_angle = strtol(optarg, NULL, 10) % 360;
+            if(turn_angle < 0)
+                turn_angle = 360 + turn_angle;
             break;
         case 'l':
             langcode = processLangOptions(optarg);
@@ -442,6 +450,20 @@ void OptionsParser::updateRecognizeOptions() {
 
     if(page_template_r.perimeter() > 0)
         recognize_opts_.addReadRect(page_template_r);
+
+    switch(turn_angle) {
+    case 90:
+        recognize_opts_.setTurnAngle(RecognizeOptions::ANGLE_90);
+        break;
+    case 180:
+        recognize_opts_.setTurnAngle(RecognizeOptions::ANGLE_180);
+        break;
+    case 270:
+        recognize_opts_.setTurnAngle(RecognizeOptions::ANGLE_270);
+        break;
+    default:
+        break;
+    }
 }
 
 }

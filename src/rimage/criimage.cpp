@@ -132,12 +132,12 @@ Bool32 RIMAGE_Roll(puchar cDIBIn, puchar cDIBOut, int32_t High, int32_t Low, uin
     return FALSE;
 }
 
-Bool32 RIMAGE_Turn(const char * cDIBIn, const char * cDIBOut, uint32_t wFlag, uint32_t UseMargins)
+Bool32 RIMAGE_Turn(const char * cDIBIn, const char * cDIBOut, rimage_turn_angle_t angle)
 {
     SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
     if ( Control_cri )
-        return Control_cri->Turn(cDIBIn, cDIBOut, wFlag, UseMargins);
+        return Control_cri->Turn(cDIBIn, cDIBOut, angle, FALSE);
 
     SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
     return FALSE;
