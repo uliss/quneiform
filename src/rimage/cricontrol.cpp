@@ -67,6 +67,8 @@
 
 namespace cf {
 
+namespace cf {
+
 CRIControl::CRIControl()
 {
     init();
