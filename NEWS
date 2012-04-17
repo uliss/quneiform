@@ -1,4 +1,9 @@
 2012-04-17
+--turn cli option added. Now it's possible to turn images before recognition
+to 90, 180 or 270 degrees
+
+
+2012-04-17
 recognize areas added to GUI
 
 
