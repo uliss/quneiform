@@ -65,7 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RIMAGE_FUNC  FUN_IMPO__
 #endif
 
-enum {
+enum rimage_turn_angle_t {
     RIMAGE_TURN_90  = 1,
     RIMAGE_TURN_270 = 2,
     RIMAGE_TURN_180 = 3
@@ -111,7 +111,7 @@ RIMAGE_FUNC Bool32 RIMAGE_SetMargins(PRIMAGEMARGINS);
 RIMAGE_FUNC Bool32 RIMAGE_Binarise(const char * , const char * , uint32_t, uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Rotate(puchar , puchar , int32_t, int32_t, uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Roll(puchar , puchar , int32_t, int32_t, uint32_t);
-RIMAGE_FUNC Bool32 RIMAGE_Turn(const char * , const char *, uint32_t, uint32_t);
+RIMAGE_FUNC Bool32 RIMAGE_Turn(const char * , const char *, rimage_turn_angle_t angle);
 RIMAGE_FUNC Bool32 RIMAGE_Inverse(puchar , puchar , uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_SetProgressCB(PRIMAGECBPRogressStart, PRIMAGECBPRogressStep , PRIMAGECBPRogressFinish);
 RIMAGE_FUNC Bool32 RIMAGE_RotatePoint(puchar , int32_t, int32_t, int32_t *, int32_t *);

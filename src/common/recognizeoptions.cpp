@@ -36,7 +36,8 @@ enum {
 RecognizeOptions::RecognizeOptions() :
     language_(LANGUAGE_ENGLISH),
     table_mode_(TABLE_DEFAULT),
-    flags_(0)
+    flags_(0),
+    turn_angle_(ANGLE_0)
 {
     setAutoRotate(false);
     setDotMatrix(false);
@@ -106,6 +107,21 @@ void RecognizeOptions::setLanguage(language_t language) {
     language_ = language;
 }
 
+bool RecognizeOptions::hasTurn() const
+{
+    return turn_angle_ != ANGLE_0;
+}
+
+void RecognizeOptions::setTurnAngle(turn_angle_t angle)
+{
+    turn_angle_ = angle;
+}
+
+RecognizeOptions::turn_angle_t RecognizeOptions::turnAngle() const
+{
+    return turn_angle_;
+}
+
 void RecognizeOptions::setOneColumn(bool value) {
     setFlag(ONE_COLUMN, value);
 }
@@ -168,6 +184,7 @@ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
     OPT(os, "Autorotate" , opts.autoRotate());
     OPT(os, "Language", Language(opts.language()));
     OPT(os, "User dictionary", opts.userDict());
+    OPT(os, "Turn angle", opts.turnAngle());
     printRects(os, opts.readRects());
     os << std::noboolalpha;
     return os;

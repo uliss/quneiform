@@ -56,9 +56,13 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <boost/current_function.hpp>
 
 #include "cricontrol.h"
 #include "crimemory.h"
+#include "common/debug.h"
+
+#define RIMAGE_ERROR cf::Debug() << "[Error] " << BOOST_CURRENT_FUNCTION
 
 CRIControl::CRIControl()
 {
@@ -270,7 +274,7 @@ Bool32 CRIControl::Turn(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
 
     if (wFlag != RIMAGE_TURN_90 && wFlag != RIMAGE_TURN_270 && wFlag
             != RIMAGE_TURN_180) {
-        SetReturnCode_rimage(IDS_RIMAGE_INVALID_FUNCTION_PARAMETR);
+        RIMAGE_ERROR << " invalid angle: " << wFlag << "\n";
         return FALSE;
     }
 

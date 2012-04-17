@@ -131,6 +131,7 @@ class PumaImpl
         void saveToText(const std::string& filename) const;
         void setupMasks();
         void spellCorrection();
+        void turn(int angle);
     private:
         static bool hasUpdateFlag(uint32_t flg);
         static void setUpdateFlag(uint32_t flg);

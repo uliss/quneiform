@@ -227,17 +227,17 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     if (CIMAGE_AddImage(szPictName, (BitmapHandle) pOutDIB)) {
         switch (pinfo.Angle) {
         case 90:
-            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_90, FALSE);
+            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_90);
             CIMAGE_RemoveImage(lpName);
             lpName = szTurnName;
             break;
         case 180:
-            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_180, FALSE);
+            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_180);
             CIMAGE_RemoveImage(lpName);
             lpName = szTurnName;
             break;
         case 270:
-            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_270, FALSE);
+            rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_270);
             CIMAGE_RemoveImage(lpName);
             lpName = szTurnName;
             break;

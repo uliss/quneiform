@@ -78,6 +78,24 @@ class PAGEINFO
             szImageName[0] = 0;
         }
 
+        /**
+          * Sets page turn angle
+          * @note allowed values: 0, 90, 180, 270
+          * @see turnAngle()
+          */
+        void setTurnAngle(int angle)
+        {
+            Angle = angle % 360;
+        }
+
+        /**
+          * Returns page turn angle
+          * @see setTurnAngle()
+          */
+        int turnAngle() const {
+            return Angle;
+        }
+
         char szImageName[CPAGE_MAXNAME];// имя блока распознаваемого изображения в контейнере RIMAGE
         uint32_t Page; // номер страницы
         uint32_t DPIX;

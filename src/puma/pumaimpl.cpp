@@ -325,6 +325,9 @@ void PumaImpl::layout() {
     clearAll();
     binarizeImage();
 
+    if(recognize_options_.hasTurn())
+        turn(recognize_options_.turnAngle());
+
     RSPreProcessImage DataforRS;
 
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;
@@ -581,6 +584,39 @@ void PumaImpl::spellCorrection() {
 
     if (!RPSTR_CorrectSpell(1))
         throw PumaException("RPSTR_CorrectSpell failed");
+}
+
+void PumaImpl::turn(int angle)
+{
+    CImage::instance().disableReadMask(PUMA_IMAGE_USER);
+
+    rimage_turn_angle_t a = (rimage_turn_angle_t) 0;
+    switch(angle) {
+    case 90:
+        a = RIMAGE_TURN_270;
+        break;
+    case 180:
+        a = RIMAGE_TURN_180;
+        break;
+    case 270:
+        a = RIMAGE_TURN_90;
+        break;
+    }
+
+    if (!RIMAGE_Turn(PUMA_IMAGE_USER, PUMA_IMAGE_TURN, a))
+        throw PumaException("RIMAGE_Turn failed", angle);
+
+    CImage::instance().enableReadMask(PUMA_IMAGE_USER);
+    if (!CIMAGE_ReadDIB(PUMA_IMAGE_TURN, &input_dib_))
+        throw PumaException("CIMAGE_ReadDIB failed");
+
+    PAGEINFO page_info;
+    if (!CPAGE_GetPageData(cpage_, PT_PAGEINFO, &page_info, sizeof(page_info)))
+        throw PumaException("CPAGE_GetPageData failed");
+    page_info.Images |= IMAGE_TURN;
+    page_info.setTurnAngle(angle);
+    CPAGE_SetPageData(cpage_, PT_PAGEINFO, &page_info, sizeof(page_info));
+    recog_name_ = PUMA_IMAGE_TURN;
 }
 
 void PumaImpl::preOpenInitialize() {
@@ -887,49 +923,47 @@ void PumaImpl::recognizeSpecial() {
 
 void PumaImpl::rotate(BitmapHandle * dib, Point * p) {
     // Определим угол поворота страницы
-    PAGEINFO PInfo;
+    PAGEINFO page_info;
     assert(p);
     assert(dib);
 
-    if (!CPAGE_GetPageData(cpage_, PT_PAGEINFO, (void*) &PInfo, sizeof(PInfo)))
+    if (!CPAGE_GetPageData(cpage_, PT_PAGEINFO, (void*) &page_info, sizeof(page_info)))
         throw PumaException("CPAGE_GetPageData failed");
 
-    BitmapInfoHeader info;
-
-    if (PInfo.BitPerPixel > 1) {
+    if (page_info.BitPerPixel > 1) {
+        BitmapInfoHeader info;
         if (!CIMAGE_GetImageInfo(PUMA_IMAGE_BINARIZE, &info))
             throw PumaException("CIMAGE_GetImageInfo failed");
 
-        if (PInfo.Incline2048 > 0) {
-            p->rx() = info.biWidth * PInfo.Incline2048 / 2048
-                    * PInfo.Incline2048 / 2048;
-            p->ry() = info.biWidth * PInfo.Incline2048 / 2048;
+        if (page_info.Incline2048 > 0) {
+            p->rx() = info.biWidth * page_info.Incline2048 / 2048
+                    * page_info.Incline2048 / 2048;
+            p->ry() = info.biWidth * page_info.Incline2048 / 2048;
         }
-
         else {
-            p->rx() = -(int32_t) info.biHeight * PInfo.Incline2048 / 2048
-                    + (int32_t) info.biWidth * PInfo.Incline2048 / 2048
-                            * PInfo.Incline2048 / 2048;
+            p->rx() = -info.biHeight * page_info.Incline2048 / 2048
+                    + info.biWidth * page_info.Incline2048 / 2048
+                            * page_info.Incline2048 / 2048;
             p->ry() = 0;
         }
     }
 
     // Создадим довернутое изображение
-    GetPageInfo(cpage_, &PInfo);
+    GetPageInfo(cpage_, &page_info);
     CIMAGE_RemoveImage(PUMA_IMAGE_ROTATE);
 
     CImage::instance().disableReadMask(PUMA_IMAGE_USER);
 
     if (!RIMAGE_Rotate((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_ROTATE,
-            PInfo.Incline2048, 2048, 0))
+            page_info.Incline2048, 2048, 0))
         throw PumaException("RIMAGE_Rotate failed");
 
     if (!CIMAGE_ReadDIB(PUMA_IMAGE_ROTATE, dib))
         throw PumaException("CIMAGE_ReadDIB failed");
 
     CImage::instance().enableReadMask(PUMA_IMAGE_USER);
-    PInfo.Images |= IMAGE_ROTATE;
-    SetPageInfo(cpage_, PInfo);
+    page_info.Images |= IMAGE_ROTATE;
+    SetPageInfo(cpage_, page_info);
 }
 
 void PumaImpl::saveCSTR(int pass) {

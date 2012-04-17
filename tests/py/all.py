@@ -17,6 +17,10 @@ quick_process.test()
 header("Append test")
 import append
 append.test()
+
+header("Turn test")
+import turn
+turn.test()
     
 header("Align test")
 import align
