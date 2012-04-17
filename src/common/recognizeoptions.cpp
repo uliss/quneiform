@@ -184,6 +184,7 @@ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
     OPT(os, "Autorotate" , opts.autoRotate());
     OPT(os, "Language", Language(opts.language()));
     OPT(os, "User dictionary", opts.userDict());
+    OPT(os, "Turn angle", opts.turnAngle());
     printRects(os, opts.readRects());
     os << std::noboolalpha;
     return os;
