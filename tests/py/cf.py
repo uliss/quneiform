@@ -62,6 +62,7 @@ class Tester:
     _line_breaks = False
     _sample_ext = None
     _args = []
+    _turn = 0
     
     def __init__(self, imagedir=''):
         self._imagedir = os.path.join(IMAGEDIR, imagedir)
@@ -275,6 +276,9 @@ class Tester:
         if self._line_breaks:
             args.append('--preserve-line-breaks')
 
+        if self._turn:
+            args += ['--turn', str(self._turn)]
+
         args.append('--no-bom')
         args.append('--no-meta-generator')
         args.append('--test-output')
@@ -344,6 +348,9 @@ class Tester:
             
     def setSampleExt(self, ext):
         self._sample_ext = ext
+
+    def setTurn(self, angle):
+        self._turn = angle
         
     def total(self):
         return self._tests_failed + self._tests_passed
