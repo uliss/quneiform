@@ -158,8 +158,7 @@ void CTIControl::init() {
     mCBWSourceDIB = NULL;
     mCBWDestianationDIB = NULL;
     mpDIBFromImage = NULL;
-    mpBitFildFromImage = NULL;
-    mhBitFildFromImage = NULL;
+    raw_image_data_ = NULL;
     mwMemoryErrors = 0;
 }
 
@@ -539,28 +538,26 @@ bool CTIControl::getImageRawData(const std::string& name,
         out->dwWidth = dest.GetLineWidth();
         out->wByteWidth = (uint16_t) dest.GetUsedLineWidthInBytes();
         out->wBlackBit = dest.GetBlackPixel();
-        mhBitFildFromImage = CIMAGEDAlloc(in->wByteWidth * in->dwHeight, name.c_str());
-        mpBitFildFromImage = (puchar) CIMAGELock(mhBitFildFromImage);
+        raw_image_data_ = CIMAGEDAlloc(in->wByteWidth * in->dwHeight, name.c_str());
 
-        if (!mhBitFildFromImage || !mpBitFildFromImage) {
-            if (mhBitFildFromImage)
-                CIMAGEFree(mhBitFildFromImage);
-
+        if (!raw_image_data_) {
             CIMAGE_ERROR << " allocation error\n";
             return false;
         }
 
-        puchar pOutLine = mpBitFildFromImage;
-        out->lpData = mpBitFildFromImage;
+        puchar out_line = (puchar) raw_image_data_;
+        out->lpData = (puchar) raw_image_data_;
 
-        for (size_t nOutLine = 0; nOutLine < out->dwHeight; nOutLine++) {
-            memcpy(pOutLine, dest.GetPtrToLine(nOutLine), out->wByteWidth);
-            pOutLine += out->wByteWidth;
+        for (size_t i = 0; i < out->dwHeight; i++) {
+            memcpy(out_line, dest.GetPtrToLine(i), out->wByteWidth);
+            out_line += out->wByteWidth;
         }
 
         return true;
     }
 
+    CIMAGE_ERROR << " invalid input params\n";
+    out->lpData = NULL;
     return false;
 }
 
@@ -924,9 +921,9 @@ void CTIControl::freeBuffers()
 {
     Bool32 bCrashedDIB = FALSE;
 
-    if (mpBitFildFromImage != NULL) {
-        CIMAGEFree(mpBitFildFromImage);
-        mpBitFildFromImage = NULL;
+    if (raw_image_data_) {
+        CIMAGEFree(raw_image_data_);
+        raw_image_data_ = NULL;
     }
 
     if (mpDIBFromImage != NULL) {
