@@ -167,7 +167,7 @@ class CLA_EXPO CTIControl
           * Frees image memory return by imageCopy()
           * @param handle - bitmap handle to free
           * @return true on success
-          * @see image(), imageCopy()
+          * @see image(), imageCopy(), getDIBFromImage()
           */
         bool free(BitmapHandle handle);
 
@@ -185,7 +185,24 @@ class CLA_EXPO CTIControl
 
         bool writeImageCallbacks(const std::string& name, CIMAGEIMAGECALLBACK cbk);
 
+        /**
+          * Returns copy of image area by given name
+          * @param name - image name
+          * @param r - copy area
+          * @param bitMask - if not NUL, bit mask applied
+          * @param dest - result dib
+          * @note you should free return dib pointer by free(BitmapHandle handle)
+          * if image have active masks - they applied
+          * @see free(), imageCopy()
+          */
         bool getDIBFromImage(const std::string& name, const Rect &r, BitMask * bitMask, BitmapHandle * dest);
+
+        /**
+          * Returns copy of raw image data
+          * @param name - image name
+          * @param in - input param
+          * @param out - output
+          */
         bool getImageRawData(const std::string &name, CIMAGE_InfoDataInGet * in, CIMAGE_InfoDataOutGet * out);
 
         Bool32 CBImageOpen(CIMAGE_ImageInfo * lpImageInfo);
