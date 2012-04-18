@@ -318,7 +318,7 @@ void TestQTextDocumentExporter::testWriteCharBBox() {
     exp.cursor().movePosition(QTextCursor::PreviousCharacter);
     QCOMPARE(exp.cursor().charFormat().toCharFormat().propertyCount(), 1);
     QCOMPARE(exp.cursor().charFormat().property(QTextDocumentExporter::BBOX).toRect(),
-             QRect(1, 2, 300, 400));
+             QRect(1, 2 - 1, 300, 400));
 }
 
 void TestQTextDocumentExporter::testWritePage() {

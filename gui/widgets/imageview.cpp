@@ -58,7 +58,6 @@ ImageView::ImageView(QWidget * parent) :
         min_scale_(0),
         max_scale_(100),
         pixmap_(NULL),
-        scene_bbox_(NULL),
         area_(NULL),
         selections_(NULL)
 {
@@ -92,7 +91,6 @@ void ImageView::clearScene() {
     scene()->clear();
     selections_ = NULL;
     pixmap_ = NULL;
-    scene_bbox_ = NULL;
     area_ = NULL;
     scene()->setSceneRect(QRect());
 }
@@ -100,8 +98,8 @@ void ImageView::clearScene() {
 void ImageView::connectPageSignals(Page * page) {
     Q_CHECK_PTR(page);
 
-    connect(page, SIGNAL(viewScaled()), SLOT(updateViewScale()));
-    connect(page, SIGNAL(rotated(int)), SLOT(updatePageRotation()));
+    connect(page, SIGNAL(viewScaled()), SLOT(updatePageView()));
+    connect(page, SIGNAL(rotated(int)), SLOT(updatePageView()));
     connect(page, SIGNAL(recognized()), SLOT(updatePageArea()));
     connect(page, SIGNAL(destroyed()), SLOT(deletePage()));
     connect(page, SIGNAL(layoutCleared()), SLOT(clearPageLayout()));
@@ -147,8 +145,8 @@ void ImageView::deletePageArea() {
 void ImageView::disconnectPageSignals(Page * page) {
     HAS_PAGE()
 
-    disconnect(page, SIGNAL(viewScaled()), this, SLOT(updateViewScale()));
-    disconnect(page, SIGNAL(rotated(int)), this, SLOT(updatePageRotation()));
+    disconnect(page, SIGNAL(viewScaled()), this, SLOT(updatePageView()));
+    disconnect(page, SIGNAL(rotated(int)), this, SLOT(updatePageView()));
     disconnect(page, SIGNAL(destroyed()), this, SLOT(deletePage()));
     disconnect(page, SIGNAL(layoutCleared()), this, SLOT(clearPageLayout()));
 } 
@@ -166,8 +164,13 @@ void ImageView::fitPage() {
 
     if (isSceneSizeSmaller())
         originalSize();
-    else
+    else {
+        setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         fitInView(sceneRect(), Qt::KeepAspectRatio);
+        setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    }
 
     savePageViewScale();
     emit scaled();
@@ -233,7 +236,8 @@ bool ImageView::isTooSmall() const {
 }
 
 void ImageView::originalSize() {
-    HAS_PAGE()
+    HAS_PAGE();
+
     page_->resetViewScale();
     emit scaled();
 }
@@ -261,7 +265,7 @@ void ImageView::updatePageSelection() {
     HAS_PAGE()
 
     if(!selections_) {
-        selections_ = new SelectionList(sceneRect());
+        selections_ = new SelectionList(scene()->sceneRect());
         connect(selections_, SIGNAL(changed()), SLOT(savePageSelections()));
         scene()->addItem(selections_);
     }
@@ -269,6 +273,7 @@ void ImageView::updatePageSelection() {
     selections_->blockSignals(true);
 
     selections_->clearSelections();
+    selections_->setRect(scene()->sceneRect());
     selections_->setZValue(10);
 
     foreach(QRect r, page_->readAreas()) {
@@ -286,50 +291,33 @@ void ImageView::updatePageScroll() {
     verticalScrollBar()->setValue(scroll.y());
 }
 
-void ImageView::rotatePixmap(int angle) {
-    if(!pixmap_) {
-        qDebug() << Q_FUNC_INFO << "NULL pixmap pointer given";
-        return;
-    }
-
-    Q_CHECK_PTR(scene());
-
-#if QT_VERSION >= 0x040600
-    pixmap_->setRotation(angle);
-
-    if(selections_)
-        selections_->setRotation(angle);
-#else
-    pixmap_->setTransform(QTransform().rotate(angle), true);
-    selections_->setTransform(QTransform().rotate(angle), true);
-#endif
-
-    QRectF pixmap_bbox = pixmap_->sceneBoundingRect();
-    QTransform matrix;
-    matrix.translate(- pixmap_bbox.left(), - pixmap_bbox.top());
-    pixmap_->setTransform(matrix);
-
-    if(selections_)
-        selections_->setTransform(matrix);
-    scene()->setSceneRect(pixmap_->sceneBoundingRect());
-
-    if(!scene_bbox_) {
-        scene_bbox_ = scene()->addRect(sceneRect(), QPen(Qt::white));
-    }
-    else
-        scene_bbox_->setRect(sceneRect());
-}
-
 void ImageView::savePageViewScale() {
-    HAS_PAGE()
+    HAS_PAGE();
 
-    page_->setViewScale(transform().m11());
+    page_->setViewScale((float) transform().map(QLineF(0, 0, 1, 0)).length());
 }
 
 void ImageView::savePageViewScroll() {
-    HAS_PAGE()
+    HAS_PAGE();
 
     page_->setViewScroll(QPoint(horizontalScrollBar()->value(), verticalScrollBar()->value()));
+}
+
+void ImageView::setCurrentPage(Page * p)
+{
+    Q_CHECK_PTR(p);
+    page_ = p;
+    connectPageSignals(page_);
+}
+
+void ImageView::unsetPreviousPage()
+{
+    if(page_) {
+        // save old page view scroll
+        savePageViewScroll();
+        // disconnect previous
+        disconnectPageSignals(page_);
+    }
 }
 
 void ImageView::startPageSelection()
@@ -338,6 +326,14 @@ void ImageView::startPageSelection()
         selections_->setSelectionType(SelectionList::SELECT_AREA);
         selections_->setSelectionMode(SelectionList::MODE_REPLACE);
     }
+}
+
+void ImageView::updatePageView()
+{
+    QTransform t;
+    t.rotate(page_->angle());
+    t.scale(page_->viewScale(), page_->viewScale());
+    setTransform(t);
 }
 
 void ImageView::setMinScale(qreal factor) {
@@ -367,8 +363,8 @@ void ImageView::showChar(const QRect& bbox) {
     if(!area_)
         return;
 
-    area_->showChar(bbox);
-    centerOn(bbox.center());
+    QRect view_bbox = area_->showChar(bbox.adjusted(-2,-2,2,2));
+    centerOn(view_bbox.center());
 }
 
 void ImageView::showFormatLayout() {
@@ -385,14 +381,17 @@ void ImageView::showImage() {
         return;
     }
 
-    if(pixmap_)
-        scene()->removeItem(pixmap_);
+    if(pixmap_) {
+        if(pixmap_->scene())
+            scene()->removeItem(pixmap_);
 
+        delete pixmap_;
+    }
+
+    scene()->setSceneRect(image.rect());
     pixmap_ = scene()->addPixmap(image);
     pixmap_->setZValue(0);
     pixmap_->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
-
-    rotatePixmap(page_->angle());
 }
 
 void ImageView::showPage(Page * page) {
@@ -405,24 +404,15 @@ void ImageView::showPage(Page * page) {
     if(page_ == page)
         return;
 
-    if(page_) {
-        // save old page view scroll
-        savePageViewScroll();
-        // disconnect previous
-        disconnectPageSignals(page_);
-    }
-
-    // set current page
-    page_ = page;
-    // connect new
-    connectPageSignals(page_);
+    unsetPreviousPage();
+    setCurrentPage(page);
 
     clearScene();
-    updateViewScale();
     showImage();
+    updatePageView();
     updatePageArea();
-    updatePageScroll();
     updatePageSelection();
+    updatePageScroll();
     activate(true);
 }
 
@@ -435,23 +425,11 @@ void ImageView::updatePageArea() {
     if(!area_)
         area_ = new PageArea();
 
-    area_->setParentItem(scene_bbox_);
+    // no scene
+    if(!area_->scene())
+        scene()->addItem(area_);
+
     area_->show(page_);
-}
-
-void ImageView::updatePageRotation() {
-    HAS_PAGE()
-
-    rotatePixmap(page_->angle());
-}
-
-void ImageView::updateViewScale() {
-    HAS_PAGE()
-
-    QTransform t;
-    float vs = page_->viewScale();
-    t.scale(vs, vs);
-    setTransform(t);
 }
 
 void ImageView::savePageSelections()

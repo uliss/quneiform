@@ -146,8 +146,7 @@ private slots:
     void handleRecognizeRequest();
     void savePageSelections();
     void startPageSelection();
-    void updateViewScale();
-    void updatePageRotation();
+    void updatePageView();
 private:
     void activate(bool value);
     void connectPageSignals(Page * page);
@@ -158,9 +157,10 @@ private:
     bool isSceneWidthSmaller();
     bool isTooBig() const;
     bool isTooSmall() const;
-    void rotatePixmap(int angle);
     void savePageViewScale();
     void savePageViewScroll();
+    void setCurrentPage(Page * p);
+    void unsetPreviousPage();
     void setupScene();
     void setupView();
     void showImage();
@@ -173,7 +173,6 @@ private:
     qreal min_scale_;
     qreal max_scale_;
     QGraphicsPixmapItem * pixmap_;
-    QGraphicsRectItem * scene_bbox_;
     PageArea * area_;
     SelectionList * selections_;
 };
