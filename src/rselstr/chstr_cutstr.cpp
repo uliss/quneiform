@@ -668,7 +668,7 @@ Bool GetMasP(Handle hCPage, uchar* ImageName, Rect16 Rc, uchar** ppmasp) {
 	DataOut.byBit = (uint16_t) info.BitPerPixel;
 	DataOut.lpData = *ppmasp;
 	/*  5. Чтение части изображения.  */
-	ret = CIMAGE_GetData(Name, &DataInto, &DataOut);
+	ret = CIMAGE_GetRawData(Name, &DataInto, &DataOut);
 	if (!ret)
 		return FALSE;
 	if (DataOut.lpData == NULL)

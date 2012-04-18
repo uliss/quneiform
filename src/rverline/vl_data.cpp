@@ -619,7 +619,7 @@ Bool MyGetRaster(Handle hCPage, VL_I_TASK *pTask, uchar **ppData) {
 	DataOut.byBit = (uint16_t) info.BitPerPixel;
 	DataOut.lpData = *ppData;
 	/*  5. Чтение части изображения.  */
-	ret = CIMAGE_GetData(Name, &DataInto, &DataOut);
+	ret = CIMAGE_GetRawData(Name, &DataInto, &DataOut);
 	if (!ret)
 		return FALSE;
 	if (DataOut.lpData == NULL)

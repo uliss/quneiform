@@ -186,8 +186,7 @@ class CLA_EXPO CTIControl
         bool writeImageCallbacks(const std::string& name, CIMAGEIMAGECALLBACK cbk);
 
         bool getDIBFromImage(const std::string& name, const Rect &r, BitMask * bitMask, BitmapHandle * dest);
-        Bool32 GetImage(const char* lpName, CIMAGE_InfoDataInGet * in,
-                        CIMAGE_InfoDataOutGet * lplpOut);
+        Bool32 getImageRawData(const std::string &name, CIMAGE_InfoDataInGet * in, CIMAGE_InfoDataOutGet * out);
 
         Bool32 CBImageOpen(CIMAGE_ImageInfo * lpImageInfo);
         Bool32 CBImageClose(void);

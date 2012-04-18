@@ -508,36 +508,32 @@ BitmapHandle CTIControl::imageCopy(const std::string& name)
     return dest_handle;
 }
 
-Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * in,
-        CIMAGE_InfoDataOutGet * lplpOut)
+Bool32 CTIControl::getImageRawData(const std::string& name,
+                            CIMAGE_InfoDataInGet * in,
+                            CIMAGE_InfoDataOutGet * out)
 {
     Bool32 bRet = FALSE;
     BitmapHandle pDIBMemory;
     freeBuffers();
 
     // берем кусок диба оттедова
-    if (getDIBFromImage(lpName, Rect(in->dwX, in->dwY, in->dwWidth, in->dwHeight), NULL, &pDIBMemory)) {
+    if (getDIBFromImage(name, Rect(in->dwX, in->dwY, in->dwWidth, in->dwHeight), NULL, &pDIBMemory)) {
         CTDIB * dest = new CTDIB;
 
         if (dest->SetDIBbyPtr(pDIBMemory)) {
-#ifdef CIMAGE_DUMP_ENABLE
-            //WriteDIBtoBMP("Allex.AlmiData.bmp",pDscDIB);
-#endif
-
-            //////////////////////////////////////
             // смотрим, что там на выход;
             if (in->wByteWidth >= dest->GetUsedLineWidthInBytes() && in->dwWidth
                     == dest->GetLineWidth() && in->dwHeight == dest->GetLinesNumber()) {
                 uint32_t nOutLine;
                 puchar pOutLine;
                 uchar WhiteBit;
-                lplpOut->byBit = (uint16_t) dest->GetPixelSize();
-                lplpOut->dwHeight = dest->GetLinesNumber();
-                lplpOut->dwWidth = dest->GetLineWidth();
-                lplpOut->wByteWidth = (uint16_t) dest->GetUsedLineWidthInBytes();
-                lplpOut->wBlackBit = dest->GetBlackPixel();
+                out->byBit = (uint16_t) dest->GetPixelSize();
+                out->dwHeight = dest->GetLinesNumber();
+                out->dwWidth = dest->GetLineWidth();
+                out->wByteWidth = (uint16_t) dest->GetUsedLineWidthInBytes();
+                out->wBlackBit = dest->GetBlackPixel();
                 WhiteBit = (uchar) dest->GetWhitePixel();
-                mhBitFildFromImage = CIMAGEDAlloc(in->wByteWidth * in->dwHeight, lpName);
+                mhBitFildFromImage = CIMAGEDAlloc(in->wByteWidth * in->dwHeight, name.c_str());
                 mpBitFildFromImage = (puchar) CIMAGELock(mhBitFildFromImage);
 
                 if (!mhBitFildFromImage || !mpBitFildFromImage) {
@@ -549,7 +545,7 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * in,
                     return FALSE;
                 }
 
-                lplpOut->lpData = pOutLine = mpBitFildFromImage;
+                out->lpData = pOutLine = mpBitFildFromImage;
 
                 // для Almi - заполняем белым пикселом
                 /*
@@ -562,10 +558,10 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * in,
                  */
                 //end для Almi
 
-                for (nOutLine = 0; nOutLine < lplpOut->dwHeight; nOutLine++) {
+                for (nOutLine = 0; nOutLine < out->dwHeight; nOutLine++) {
                     // копируем полученное в lplpOut.lpData
-                    memcpy(pOutLine, dest->GetPtrToLine(nOutLine), lplpOut->wByteWidth);
-                    pOutLine += lplpOut->wByteWidth;
+                    memcpy(pOutLine, dest->GetPtrToLine(nOutLine), out->wByteWidth);
+                    pOutLine += out->wByteWidth;
                 }
 
                 bRet = TRUE;
@@ -577,7 +573,7 @@ Bool32 CTIControl::GetImage(const char* lpName, CIMAGE_InfoDataInGet * in,
 
     else {
         bRet = FALSE;
-        lplpOut->lpData = NULL;
+        out->lpData = NULL;
     }
 
     return bRet;
