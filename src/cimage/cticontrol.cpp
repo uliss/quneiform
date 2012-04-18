@@ -528,7 +528,6 @@ bool CTIControl::getImageRawData(const std::string& name,
         return false;
     }
 
-    // смотрим, что там на выход;
     if (in->wByteWidth >= dest.GetUsedLineWidthInBytes() &&
             in->dwWidth == dest.GetLineWidth() &&
             in->dwHeight == dest.GetLinesNumber()) {
@@ -538,15 +537,10 @@ bool CTIControl::getImageRawData(const std::string& name,
         out->dwWidth = dest.GetLineWidth();
         out->wByteWidth = (uint16_t) dest.GetUsedLineWidthInBytes();
         out->wBlackBit = dest.GetBlackPixel();
-        raw_image_data_ = CIMAGEDAlloc(in->wByteWidth * in->dwHeight, name.c_str());
 
-        if (!raw_image_data_) {
-            CIMAGE_ERROR << " allocation error\n";
-            return false;
-        }
-
-        puchar out_line = (puchar) raw_image_data_;
-        out->lpData = (puchar) raw_image_data_;
+        raw_image_data_ = new uchar[in->wByteWidth * in->dwHeight];
+        out->lpData = raw_image_data_;
+        puchar out_line = raw_image_data_;
 
         for (size_t i = 0; i < out->dwHeight; i++) {
             memcpy(out_line, dest.GetPtrToLine(i), out->wByteWidth);
@@ -922,7 +916,7 @@ void CTIControl::freeBuffers()
     Bool32 bCrashedDIB = FALSE;
 
     if (raw_image_data_) {
-        CIMAGEFree(raw_image_data_);
+        delete[] raw_image_data_;
         raw_image_data_ = NULL;
     }
 

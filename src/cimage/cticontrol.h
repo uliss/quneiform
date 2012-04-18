@@ -247,7 +247,7 @@ class CLA_EXPO CTIControl
         uint32_t wCBWidth;
         uint32_t wCBLines;
         uint32_t wCBStep;
-        Handle raw_image_data_;
+        puchar raw_image_data_;
         CTDIB * mpDIBFromImage;
         uint32_t mwMemoryErrors;
         CTDIB * mCBDestianationDIB;
