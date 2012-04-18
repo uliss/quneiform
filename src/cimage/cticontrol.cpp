@@ -157,8 +157,8 @@ void CTIControl::init() {
     mCBDestianationDIB = NULL;
     mCBWSourceDIB = NULL;
     mCBWDestianationDIB = NULL;
-    mpDIBFromImage = NULL;
-    raw_image_data_ = NULL;
+    image_dib_ = NULL;
+    image_raw_data_ = NULL;
     mwMemoryErrors = 0;
 }
 
@@ -512,7 +512,6 @@ bool CTIControl::getImageRawData(const std::string& name,
                             CIMAGE_InfoDataOutGet * out)
 {
     BitmapHandle dib;
-    freeBuffers();
 
     if (!getDIBFromImage(name, Rect(in->dwX, in->dwY, in->dwWidth, in->dwHeight), NULL, &dib)) {
         CIMAGE_ERROR << " can't get image\n";
@@ -538,9 +537,9 @@ bool CTIControl::getImageRawData(const std::string& name,
         out->wByteWidth = (uint16_t) dest.GetUsedLineWidthInBytes();
         out->wBlackBit = dest.GetBlackPixel();
 
-        raw_image_data_ = new uchar[in->wByteWidth * in->dwHeight];
-        out->lpData = raw_image_data_;
-        puchar out_line = raw_image_data_;
+        image_raw_data_ = new uchar[in->wByteWidth * in->dwHeight];
+        out->lpData = image_raw_data_;
+        puchar out_line = image_raw_data_;
 
         for (size_t i = 0; i < out->dwHeight; i++) {
             memcpy(out_line, dest.GetPtrToLine(i), out->wByteWidth);
@@ -587,10 +586,9 @@ bool CTIControl::applyMask(const std::string &name, int x, int y)
     }
 
     if(img->isReadMaskEnabled() && img->readMask()) {
-        if(!applyMaskToDIB(mpDIBFromImage, img->readMask(), x, y))
+        if(!applyMaskToDIB(image_dib_, img->readMask(), x, y))
             return false;
     }
-
 
     return true;
 }
@@ -844,23 +842,21 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
     // в случае повторного вызова предыдущий диб стирается
     freeBuffers();
 
-    // при первом вызове
-    //берем указатель на картинку
-    BitmapHandle hImage = image(name);
+    BitmapHandle dib = image(name);
 
-    if (!hImage) {
+    if (!dib) {
         CIMAGE_ERROR << " image not found: \"" << name << "\"\n";
         return false;
     }
 
     //инициализируем ctdib-чики
     CTDIB src;
-    mpDIBFromImage = new CTDIB;
+    image_dib_ = new CTDIB;
 
     uint32_t res_x = 0;
     uint32_t res_y = 0;
 
-    if (!src.SetDIBbyPtr(hImage) && src.GetResolutionDPM(&res_x, &res_y)) {
+    if (!src.SetDIBbyPtr(dib) && src.GetResolutionDPM(&res_x, &res_y)) {
         CIMAGE_ERROR << ": invalid image\n";
         return false;
     }
@@ -868,26 +864,24 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
     // проверяем размеры картинки
     Rect frame = checkRect(src, r);
 
-    if (!mpDIBFromImage->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)) {
+    if (!image_dib_->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)) {
         CIMAGE_ERROR << ": SetExternals failed\n";
         return false;
     }
 
-    CIMAGEComment("Temporary DIB - GetDIBFromImage");
-
-    if (mpDIBFromImage->CreateDIBBegin(frame.width(), frame.height(),
+    if (image_dib_->CreateDIBBegin(frame.width(), frame.height(),
                                        src.GetPixelSize(), src.GetActualColorNumber())
-            && mpDIBFromImage->CopyPalleteFromDIB(&src)
-            && mpDIBFromImage->SetResolutionDPM(res_x, res_y)
-            && mpDIBFromImage->CreateDIBEnd())
+            && image_dib_->CopyPalleteFromDIB(&src)
+            && image_dib_->SetResolutionDPM(res_x, res_y)
+            && image_dib_->CreateDIBEnd())
     {
-        if(!getFrame(&src, mpDIBFromImage, frame)) {
+        if(!getFrame(&src, image_dib_, frame)) {
             CIMAGE_ERROR << ": getFrame failed\n";
             return false;
         }
 
         if(bitMask) {
-            if(!bitMask->apply(mpDIBFromImage)) {
+            if(!bitMask->apply(image_dib_)) {
                 CIMAGE_ERROR << " bit mask apply failed\n";
 //                return false;
             }
@@ -903,7 +897,7 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
         return false;
     }
 
-    if (mpDIBFromImage->GetDIBPtr((void**) dest))
+    if (image_dib_->GetDIBPtr((void**) dest))
         return true;
     else {
         *dest = NULL;
@@ -913,27 +907,18 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
 
 void CTIControl::freeBuffers()
 {
-    Bool32 bCrashedDIB = FALSE;
-
-    if (raw_image_data_) {
-        delete[] raw_image_data_;
-        raw_image_data_ = NULL;
+    if (image_raw_data_) {
+        delete[] image_raw_data_;
+        image_raw_data_ = NULL;
     }
 
-    if (mpDIBFromImage != NULL) {
-        if (mpDIBFromImage->DestroyDIB())
-            delete mpDIBFromImage;
-
-        else {
-            bCrashedDIB = TRUE;
+    if (image_dib_) {
+        if (image_dib_->DestroyDIB())
+            delete image_dib_;
+        else
             mwMemoryErrors++;
-        }
 
-        mpDIBFromImage = NULL;
-        // даем знать, что мы его стерли
-        //if ( pDIB != NULL )
-        //  *pDIB = NULL;
-        //return TRUE;
+        image_dib_ = NULL;
     }
 }
 
