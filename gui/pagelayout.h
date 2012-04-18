@@ -36,6 +36,8 @@ public:
     QGraphicsItemGroup * pictureBlocks();
     void populate(const Page& page);
     QGraphicsItemGroup * sectionBlocks();
+    QRect mapFromPage(const QRect& r) const;
+public:
     typedef QGraphicsItemGroup * PageLayout::*GroupMember;
 private:
     QColor blockColor(int type) const;

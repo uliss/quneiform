@@ -32,7 +32,7 @@ public:
     void clear();
     void hideLayout();
     void show(Page * page);
-    void showChar(const QRect& bbox);
+    QRect showChar(const QRect& bbox);
     void showLayout();
 private:
     void clearCurrentChar();
