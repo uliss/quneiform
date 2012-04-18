@@ -508,75 +508,60 @@ BitmapHandle CTIControl::imageCopy(const std::string& name)
     return dest_handle;
 }
 
-Bool32 CTIControl::getImageRawData(const std::string& name,
+bool CTIControl::getImageRawData(const std::string& name,
                             CIMAGE_InfoDataInGet * in,
                             CIMAGE_InfoDataOutGet * out)
 {
-    Bool32 bRet = FALSE;
-    BitmapHandle pDIBMemory;
+    BitmapHandle dib;
     freeBuffers();
 
-    // берем кусок диба оттедова
-    if (getDIBFromImage(name, Rect(in->dwX, in->dwY, in->dwWidth, in->dwHeight), NULL, &pDIBMemory)) {
-        CTDIB * dest = new CTDIB;
+    if (!getDIBFromImage(name, Rect(in->dwX, in->dwY, in->dwWidth, in->dwHeight), NULL, &dib)) {
+        CIMAGE_ERROR << " can't get image\n";
+        out->lpData = NULL;
+        return false;
+    }
 
-        if (dest->SetDIBbyPtr(pDIBMemory)) {
-            // смотрим, что там на выход;
-            if (in->wByteWidth >= dest->GetUsedLineWidthInBytes() && in->dwWidth
-                    == dest->GetLineWidth() && in->dwHeight == dest->GetLinesNumber()) {
-                uint32_t nOutLine;
-                puchar pOutLine;
-                uchar WhiteBit;
-                out->byBit = (uint16_t) dest->GetPixelSize();
-                out->dwHeight = dest->GetLinesNumber();
-                out->dwWidth = dest->GetLineWidth();
-                out->wByteWidth = (uint16_t) dest->GetUsedLineWidthInBytes();
-                out->wBlackBit = dest->GetBlackPixel();
-                WhiteBit = (uchar) dest->GetWhitePixel();
-                mhBitFildFromImage = CIMAGEDAlloc(in->wByteWidth * in->dwHeight, name.c_str());
-                mpBitFildFromImage = (puchar) CIMAGELock(mhBitFildFromImage);
+    CTDIB dest;
 
-                if (!mhBitFildFromImage || !mpBitFildFromImage) {
-                    if (mhBitFildFromImage)
-                        CIMAGEFree(mhBitFildFromImage);
+    if (!dest.SetDIBbyPtr(dib)) {
+        CIMAGE_ERROR << " invalid image data\n";
+        out->lpData = NULL;
+        return false;
+    }
 
-                    delete dest;
-                    SetReturnCode_cimage(IDS_CIMAGE_ERR_NO_MEMORY);
-                    return FALSE;
-                }
+    // смотрим, что там на выход;
+    if (in->wByteWidth >= dest.GetUsedLineWidthInBytes() &&
+            in->dwWidth == dest.GetLineWidth() &&
+            in->dwHeight == dest.GetLinesNumber()) {
 
-                out->lpData = pOutLine = mpBitFildFromImage;
+        out->byBit = (uint16_t) dest.GetPixelSize();
+        out->dwHeight = dest.GetLinesNumber();
+        out->dwWidth = dest.GetLineWidth();
+        out->wByteWidth = (uint16_t) dest.GetUsedLineWidthInBytes();
+        out->wBlackBit = dest.GetBlackPixel();
+        mhBitFildFromImage = CIMAGEDAlloc(in->wByteWidth * in->dwHeight, name.c_str());
+        mpBitFildFromImage = (puchar) CIMAGELock(mhBitFildFromImage);
 
-                // для Almi - заполняем белым пикселом
-                /*
-                 for ( ;iY < 0; iY++, lplpOut->dwHeight++ )
-                 {
-                 // копируем полученное в lplpOut.lpData
-                 memset(pOutLine, WhiteBit, lplpOut->wByteWidth);
-                 pOutLine += lplpOut->wByteWidth;
-                 }
-                 */
-                //end для Almi
+        if (!mhBitFildFromImage || !mpBitFildFromImage) {
+            if (mhBitFildFromImage)
+                CIMAGEFree(mhBitFildFromImage);
 
-                for (nOutLine = 0; nOutLine < out->dwHeight; nOutLine++) {
-                    // копируем полученное в lplpOut.lpData
-                    memcpy(pOutLine, dest->GetPtrToLine(nOutLine), out->wByteWidth);
-                    pOutLine += out->wByteWidth;
-                }
-
-                bRet = TRUE;
-            }
+            CIMAGE_ERROR << " allocation error\n";
+            return false;
         }
 
-        delete dest;
+        puchar pOutLine = mpBitFildFromImage;
+        out->lpData = mpBitFildFromImage;
+
+        for (size_t nOutLine = 0; nOutLine < out->dwHeight; nOutLine++) {
+            memcpy(pOutLine, dest.GetPtrToLine(nOutLine), out->wByteWidth);
+            pOutLine += out->wByteWidth;
+        }
+
+        return true;
     }
 
-    else {
-        bRet = FALSE;
-        out->lpData = NULL;
-    }
-
-    return bRet;
+    return false;
 }
 
 bool CTIControl::removeImage(const std::string& name)
