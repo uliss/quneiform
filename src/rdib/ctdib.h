@@ -163,6 +163,7 @@ typedef void   (*PCTDIBMemUnlock)(Handle);
 
 class CLA_EXPO CTDIB
 {
+    public:
         // macros etc.
         // CTDIBBITMAPINFOHEADER alloced:
         enum CTDIBALLOC {
@@ -182,55 +183,6 @@ class CLA_EXPO CTDIB
             UnknownDirection = 0,
             BottomUp
         };
-
-        static const int CTDIB_VERSION_3_HEADER_SIZE = sizeof(CTDIBBITMAPINFOHEADER); //40
-        static const int CTDIB_VERSION_4_HEADER_SIZE = sizeof(CTDIBBITMAPV4HEADER);   //108
-        static const int CTDIB_VERSION_5_HEADER_SIZE = sizeof(CTDIBBITMAPV5HEADER);   //124
-        static const int CTDIB_DEFAULT_PLANES = 1;
-        static const int CTDIB_DEFAULT_COMPRESSION = 0;
-        static const int CTDIB_DEFAULT_COLORSUSED = 0;
-        static const int CTDIB_DEFAULT_COLORSIMPORTANT = 0;
-        static const int CTDIB_DEFAULT_RESOLUTION = 0;
-        // members and fuinctions
-    private:
-        // close DIB properties
-        Bool32 DetachDIB();
-        // open DIB properties
-        Bool32 AttachDIB();
-        // return number of used RGBQUAD structures
-        uint32_t UsedColors(uint32_t wBitCount, uint32_t wClrUsed);
-    private:
-        Bool32 IsFirstQUADEqualSecond(PCTDIBRGBQUAD fQuad, PCTDIBRGBQUAD sQuad);
-        Bool32 FirstQUADLighterThenSecond(PCTDIBRGBQUAD fQuad, PCTDIBRGBQUAD sQuad);
-        // Hangle of DIB (Global memory)
-        Handle              hDIB;
-        // pointer to DIB (CRC memory)
-        pvoid               pDIB;
-        // pointer to DIB header
-        CTDIBBITMAPINFOHEADER * pDIBHeader;
-        // pointer to first RGBQUAD 32 bit fild
-        PCTDIBRGBQUAD       pRGBQuads;
-        // pointer to BitFild
-        puchar              pBitFild;
-        // version of DIB - 3,4 or 5
-        CTDIBVersion        wVersion;
-        // DIB Direction
-        CTDIBDirection      wDirect;
-        // TRUE if DIB attached
-        Bool32              IsAvailable;
-        // pointer to external memory alloc function - need to be set for creating DIB by this class
-        PCTDIBMemAlloc      pExternalAlloc;
-        // pointer to external memory free function - need to be set for creating DIB by this class
-        PCTDIBMemFree       pExternalFree;
-        // pointer to external memory lock function - need to be set for creating DIB by this class
-        PCTDIBMemLock       pExternalLock;
-        // pointer to external memory unlock function - need to be set for creating DIB by this class
-        PCTDIBMemUnlock     pExternalUnlock;
-        // TRUE if DIB created by this class
-        Bool32              UnderConstruction;
-        // flag for DIB created by this module
-        Bool32              CreatedByMe;
-
     public:
         // empty constructor
         CTDIB();
@@ -238,7 +190,6 @@ class CLA_EXPO CTDIB
         CTDIB(Handle hDIB);
         // destructor   virtual
         ~CTDIB();
-
     public:
         // return black pixel RGBQuad index or 00-00-00
         uint32_t GetBlackPixel();
@@ -271,7 +222,7 @@ class CLA_EXPO CTDIB
         // set DIB by memory ptr
         Bool32 SetDIBbyPtr(pvoid pDIB);
         // remove DIB and set to ready for new once
-        Bool32 ResetDIB(void);
+        Bool32 ResetDIB();
         ///////////////////////////////////////////////////////////////////
         // return TRUE if image attached to class and FALSE otherwise
         Bool32 IsDIBAvailable() const;
@@ -338,10 +289,46 @@ class CLA_EXPO CTDIB
         pvoid  GetPtrToPixel(uint32_t wPixelX, uint32_t wPixelY) const;
         // Get bit position in byte of image fild for pixel
         uint32_t GetPixelShiftInByte(uint32_t dwX) const;
+    private:
+        // open DIB properties
+        Bool32 AttachDIB();
+        // close DIB properties
+        void DetachDIB();
         // Check Externals Memory functions
-        Bool32 IsExternalsSets(void);
+        bool isExternalsSets() const;
+        // return number of used RGBQUAD structures
+        static uint UsedColors(uint bitCount, uint colorUsed);
+    private:
+        // Hangle of DIB (Global memory)
+        Handle              hDIB;
+        // pointer to DIB (CRC memory)
+        pvoid               pDIB;
+        // pointer to DIB header
+        CTDIBBITMAPINFOHEADER * pDIBHeader;
+        // pointer to first RGBQUAD 32 bit fild
+        PCTDIBRGBQUAD       pRGBQuads;
+        // pointer to BitFild
+        puchar              pBitFild;
+        // version of DIB - 3,4 or 5
+        CTDIBVersion        wVersion;
+        // DIB Direction
+        CTDIBDirection      wDirect;
+        // TRUE if DIB attached
+        Bool32              IsAvailable;
+        // pointer to external memory alloc function - need to be set for creating DIB by this class
+        PCTDIBMemAlloc      pExternalAlloc;
+        // pointer to external memory free function - need to be set for creating DIB by this class
+        PCTDIBMemFree       pExternalFree;
+        // pointer to external memory lock function - need to be set for creating DIB by this class
+        PCTDIBMemLock       pExternalLock;
+        // pointer to external memory unlock function - need to be set for creating DIB by this class
+        PCTDIBMemUnlock     pExternalUnlock;
+        // TRUE if DIB created by this class
+        Bool32              UnderConstruction;
+        // flag for DIB created by this module
+        Bool32              CreatedByMe;
 };
 
-typedef CTDIB    *PCTDIB, **PPCTDIB;
+typedef CTDIB * PCTDIB;
 
 #endif // _CTDIB_H_
