@@ -54,15 +54,10 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// CTDIB.h: interface for the CTDIB class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #ifndef _CTDIB_H_
 #define _CTDIB_H_
 
 #include "globus.h"
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #if defined(WIN32) & defined(CTDIB_USE_WIN32_API)
 #include <wingdi.h>
 typedef BITMAPINFOHEADER CTDIBBITMAPINFOHEADER, *PCTDIBBITMAPINFOHEADER, **PPCTDIBBITMAPINFOHEADER;
@@ -70,7 +65,6 @@ typedef BITMAPV4HEADER CTDIBBITMAPV4HEADER, *PCTDIBBITMAPV4HEADER, **PPCTDIBBITM
 typedef BITMAPV5HEADER CTDIBBITMAPV5HEADER, *PCTDIBBITMAPV5HEADER, **PPCTDIBBITMAPV5HEADER;
 #define CTDIB_BI_JPEG    BI_JPEG
 #else
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // DIB version 3 header (lenght - 40 bytes)
 typedef struct tagCTDIBBITMAPINFOHEADER { // bmih
     uint32_t        biSize;
@@ -84,21 +78,22 @@ typedef struct tagCTDIBBITMAPINFOHEADER { // bmih
     int32_t         biYPelsPerMeter;
     uint32_t        biClrUsed;
     uint32_t        biClrImportant;
-} CTDIBBITMAPINFOHEADER, *PCTDIBBITMAPINFOHEADER, **PPCTDIBBITMAPINFOHEADER;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-typedef int32_t     CTDIBPOINTCOORDINATE, *PCTDIBPOINTCOORDINATE;
-typedef struct tagCTDIBCIEXYZ {
+} CTDIBBITMAPINFOHEADER;
+
+typedef int32_t     CTDIBPOINTCOORDINATE;
+
+struct CTDIBCIEXYZ {
     CTDIBPOINTCOORDINATE ciexyzX;
     CTDIBPOINTCOORDINATE ciexyzY;
     CTDIBPOINTCOORDINATE ciexyzZ;
-} CTDIBCIEXYZ, *PCTDIBCIEXYZ;
-typedef struct tagCTDIBICEXYZTRIPLE {
+};
+
+struct CTDIBICEXYZTRIPLE {
     CTDIBCIEXYZ  ciexyzRed;
     CTDIBCIEXYZ  ciexyzGreen;
     CTDIBCIEXYZ  ciexyzBlue;
-} CTDIBICEXYZTRIPLE, *PCTDIBICEXYZTRIPLE;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+};
+
 // DIB version 4 header (lenght - 108 bytes)
 typedef struct tagCTDIBBITMAPV4HEADER {
     uint32_t             bV4Size;
@@ -121,8 +116,8 @@ typedef struct tagCTDIBBITMAPV4HEADER {
     uint32_t             bV4GammaRed;
     uint32_t             bV4GammaGreen;
     uint32_t             bV4GammaBlue;
-} CTDIBBITMAPV4HEADER, *PCTDIBBITMAPV4HEADER, **PPCTDIBBITMAPV4HEADER;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+} CTDIBBITMAPV4HEADER;
+
 // DIB version 5 header (lenght - 124 bytes)
 typedef struct tagCTDIBBITMAPV5HEADER {
     uint32_t             bV5Size;
@@ -149,25 +144,23 @@ typedef struct tagCTDIBBITMAPV5HEADER {
     uint32_t             bV5ProfileData;
     uint32_t             bV5ProfileSize;
     uint32_t             bV5Reserved;
-} CTDIBBITMAPV5HEADER, *PCTDIBBITMAPV5HEADER, **PPCTDIBBITMAPV5HEADER;
+} CTDIBBITMAPV5HEADER;
+
 #define CTDIB_BI_JPEG  4L
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 typedef struct tagCTDIBRGBQUAD { // rgbq
     uchar    rgbBlue;
     uchar    rgbGreen;
     uchar    rgbRed;
     uchar    rgbReserved;
-} CTDIBRGBQUAD, *PCTDIBRGBQUAD, **PPCTDIBRGBQUAD;
+} CTDIBRGBQUAD, *PCTDIBRGBQUAD;
 #endif //   !defined(WIN32) | !defined(CTDIB_USE_WIN32_API)
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 typedef Handle (*PCTDIBMemAlloc)(uint32_t);
 typedef void   (*PCTDIBMemFree)(Handle);
 typedef pvoid  (*PCTDIBMemLock)(Handle);
 typedef void   (*PCTDIBMemUnlock)(Handle);
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 class CLA_EXPO CTDIB
 {
         // macros etc.
@@ -189,25 +182,15 @@ class CLA_EXPO CTDIB
             UnknownDirection = 0,
             BottomUp
         };
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //
-#define CTDIB_VERSION_3_HEADER_SIZE         sizeof(CTDIBBITMAPINFOHEADER) //40
-#define CTDIB_VERSION_4_HEADER_SIZE         sizeof(CTDIBBITMAPV4HEADER)   //108
-#define CTDIB_VERSION_5_HEADER_SIZE         sizeof(CTDIBBITMAPV5HEADER)   //124
-#define DIB_BITS_TO_BYTES(a)                ((((((a) + 7) / 8) + 3) / 4) * 4)
-#define BITS_TO_BYTES(a)                    (((a) + 7) / 8)
-#define CTDIB_IFNODIB(a)                    if ( !IsDIBAvailable() ) return a;
-#define CTDIB_UNDECONST(a)                  if ( !UnderConstruction ) return a;
-#define CTDIB_READYTOCREAT                  ( pExternalAlloc && pExternalFree && pExternalLock && pExternalUnlock )
-#define CTDIB_DPI_TO_DPM(a)                 (((a) / 2.54) * 100)
-#define CTDIB_DPM_TO_DPI(a)                 ((((a) / 100 ) * 2.54) + 1)
-#define CTDIB_DEFAULT_PLANES                1
-#define CTDIB_DEFAULT_COMPRESSION           0
-#define CTDIB_DEFAULT_COLORSUSED            0
-#define CTDIB_DEFAULT_COLORSIMPORTANT       0
-#define CTDIB_DEFAULT_RESOLUTION            0
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //
+
+        static const int CTDIB_VERSION_3_HEADER_SIZE = sizeof(CTDIBBITMAPINFOHEADER); //40
+        static const int CTDIB_VERSION_4_HEADER_SIZE = sizeof(CTDIBBITMAPV4HEADER);   //108
+        static const int CTDIB_VERSION_5_HEADER_SIZE = sizeof(CTDIBBITMAPV5HEADER);   //124
+        static const int CTDIB_DEFAULT_PLANES = 1;
+        static const int CTDIB_DEFAULT_COMPRESSION = 0;
+        static const int CTDIB_DEFAULT_COLORSUSED = 0;
+        static const int CTDIB_DEFAULT_COLORSIMPORTANT = 0;
+        static const int CTDIB_DEFAULT_RESOLUTION = 0;
         // members and fuinctions
     private:
         // close DIB properties
@@ -216,7 +199,6 @@ class CLA_EXPO CTDIB
         Bool32 AttachDIB();
         // return number of used RGBQUAD structures
         uint32_t UsedColors(uint32_t wBitCount, uint32_t wClrUsed);
-
     private:
         Bool32 IsFirstQUADEqualSecond(PCTDIBRGBQUAD fQuad, PCTDIBRGBQUAD sQuad);
         Bool32 FirstQUADLighterThenSecond(PCTDIBRGBQUAD fQuad, PCTDIBRGBQUAD sQuad);
@@ -225,7 +207,7 @@ class CLA_EXPO CTDIB
         // pointer to DIB (CRC memory)
         pvoid               pDIB;
         // pointer to DIB header
-        PCTDIBBITMAPINFOHEADER pDIBHeader;
+        CTDIBBITMAPINFOHEADER * pDIBHeader;
         // pointer to first RGBQUAD 32 bit fild
         PCTDIBRGBQUAD       pRGBQuads;
         // pointer to BitFild

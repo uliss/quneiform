@@ -54,22 +54,29 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// CTDIB.cpp: implementation of the CTDIB class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include <cassert>
 #include <cstdio>
 #include <memory.h>
 #include <stdlib.h>
+
 #include "ctdib.h"
 #include "common/debug.h"
 
 using namespace cf;
 
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+static inline size_t DIB_BITS_TO_BYTES(size_t b) {
+    return ((((((b) + 7) / 8) + 3) / 4) * 4);
+}
+
+static inline size_t BITS_TO_BYTES(size_t a) {
+    return (((a) + 7) / 8);
+}
+
+#define CTDIB_IFNODIB(a)                    if ( !IsDIBAvailable() ) return a;
+#define CTDIB_UNDECONST(a)                  if ( !UnderConstruction ) return a;
+#define CTDIB_READYTOCREAT                  ( pExternalAlloc && pExternalFree && pExternalLock && pExternalUnlock )
+#define CTDIB_DPI_TO_DPM(a)                 (((a) / 2.54) * 100)
+#define CTDIB_DPM_TO_DPI(a)                 ((((a) / 100 ) * 2.54) + 1)
 
 CTDIB::CTDIB() {
     hDIB = NULL;
@@ -110,7 +117,7 @@ uint32_t CTDIB::GetActualColorNumber() {
 }
 
 Bool32 CTDIB::AttachDIB() {
-    PCTDIBBITMAPINFOHEADER pSimpleHead;
+    CTDIBBITMAPINFOHEADER * pSimpleHead;
 
     if (hDIB == NULL && pDIB == NULL) {
         return !DetachDIB();
@@ -121,7 +128,7 @@ Bool32 CTDIB::AttachDIB() {
 
     if (pDIB) { // bitmapinfoheader
         IsAvailable = TRUE;
-        pSimpleHead = (PCTDIBBITMAPINFOHEADER) pDIB;
+        pSimpleHead = (CTDIBBITMAPINFOHEADER*) pDIB;
         wDirect = (pSimpleHead->biHeight > 0 ? BottomUp : TopDown);
 
         //#define CERR(var) std::cerr << #var << " = " << (var) << "\n";
@@ -154,7 +161,7 @@ Bool32 CTDIB::AttachDIB() {
         }
         }
 
-        pDIBHeader = (PCTDIBBITMAPINFOHEADER) pDIB;
+        pDIBHeader = (CTDIBBITMAPINFOHEADER*) pDIB;
         pRGBQuads = (PCTDIBRGBQUAD) ((puchar) pDIB + pSimpleHead->biSize);
         pBitFild = (puchar) (pRGBQuads + GetActualColorNumber());
         IsAvailable = TRUE;
@@ -265,9 +272,9 @@ uint32_t CTDIB::GetPixelSize() const {
 Handle CTDIB::CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount, uint32_t UseColors,
         CTDIBVersion dVersion) {
 #define DELETE_PHEADER(a)  delete a;
-    PCTDIBBITMAPINFOHEADER pV3Header = NULL;
-    PCTDIBBITMAPV4HEADER pV4Header = NULL;
-    PCTDIBBITMAPV5HEADER pV5Header = NULL;
+    CTDIBBITMAPINFOHEADER * pV3Header = NULL;
+    CTDIBBITMAPV4HEADER * pV4Header = NULL;
+    CTDIBBITMAPV5HEADER * pV5Header = NULL;
     pvoid pHeader = NULL;
     uint32_t HeaderSize;
     uint32_t FuelSize = 0;
@@ -345,7 +352,7 @@ Handle CTDIB::CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount, u
     CreatedByMe = TRUE;
     memset(pDIB, 0x00, FuelSize);
     memcpy(pDIB, pHeader, HeaderSize);
-    pDIBHeader = (PCTDIBBITMAPINFOHEADER) pDIB;
+    pDIBHeader = (CTDIBBITMAPINFOHEADER*) pDIB;
     DELETE_PHEADER( pV3Header );
     DELETE_PHEADER( pV4Header );
     DELETE_PHEADER( pV5Header );
@@ -418,7 +425,7 @@ Bool32 CTDIB::SetResolutionDPI(uint32_t X_Dpi, uint32_t Y_Dpi) {
 }
 
 Bool32 CTDIB::SetResolutionDPM(uint32_t X_Dpm, uint32_t Y_Dpm) {
-    PCTDIBBITMAPINFOHEADER pH;
+    CTDIBBITMAPINFOHEADER * pH;
     CTDIB_UNDECONST(FALSE);
     pH = pDIBHeader;
     pH->biXPelsPerMeter = X_Dpm;
@@ -449,7 +456,7 @@ Bool32 CTDIB::GetResolutionDPI(uint32_t * pX_Dpi, uint32_t * pY_Dpi) {
 }
 
 Bool32 CTDIB::GetResolutionDPM(uint32_t * pX_Dpm, uint32_t * pY_Dpm) {
-    PCTDIBBITMAPINFOHEADER pH;
+    CTDIBBITMAPINFOHEADER * pH;
     CTDIB_IFNODIB(FALSE);
 
     if (pX_Dpm == NULL)
