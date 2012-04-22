@@ -61,6 +61,8 @@
 #include "common/rect.h"
 #include "globus.h"
 
+#include <list>
+
 class CTDIB;
 
 namespace cf
@@ -162,6 +164,11 @@ class CLA_EXPO CTIControl
           * @see image()
           */
         BitmapHandle imageCopy(const std::string& name);
+
+        /**
+          * Returns image names in container
+          */
+        std::list<std::string> images() const;
 
         /**
           * Frees image memory return by imageCopy()

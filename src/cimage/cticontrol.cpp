@@ -271,6 +271,8 @@ bool CTIControl::enableWriteMask(const std::string& imageName)
 }
 
 void CTIControl::clear() {
+    images_.clear();
+
     freeBuffers();
     delete mCBSourceDIB;
     delete mCBWSourceDIB;
@@ -505,6 +507,11 @@ BitmapHandle CTIControl::imageCopy(const std::string& name)
     }
 
     return dest_handle;
+}
+
+std::list<std::string> CTIControl::images() const
+{
+    return images_.imageNames();
 }
 
 bool CTIControl::getImageRawData(const std::string& name,

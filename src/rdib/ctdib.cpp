@@ -139,7 +139,7 @@ CTDIB::CTDIB(Handle hAtDIB) {
     hDIB = hAtDIB;
 }
 
-uint32_t CTDIB::GetActualColorNumber() {
+uint32_t CTDIB::GetActualColorNumber() const {
     CTDIB_IFNODIB(0);
     return UsedColors(pDIBHeader->biBitCount, pDIBHeader->biClrUsed);
 }
@@ -218,7 +218,7 @@ void CTDIB::DetachDIB() {
     wDirect = UnknownDirection;
 }
 
-pvoid CTDIB::GetPtrToHeader() {
+pvoid CTDIB::GetPtrToHeader() const {
     CTDIB_IFNODIB(NULL);
     return pDIBHeader;
 }
@@ -228,7 +228,7 @@ pvoid CTDIB::GetPtrToRGB() {
     return (pvoid) pRGBQuads;
 }
 
-uint32_t CTDIB::GetDIBVersion() {
+uint32_t CTDIB::GetDIBVersion() const {
     CTDIB_IFNODIB(0);
     return wVersion;
 }
@@ -283,12 +283,12 @@ uint32_t CTDIB::GetUsedLineWidthInBytes() const {
     return BITS_TO_BYTES(GetLineWidth() * GetPixelSize());
 }
 
-uint32_t CTDIB::GetImageSize() {
+uint32_t CTDIB::GetImageSize() const {
     CTDIB_IFNODIB(0);
     return GetLinesNumber() * GetLineWidth();
 }
 
-uint32_t CTDIB::GetImageSizeInBytes() {
+uint32_t CTDIB::GetImageSizeInBytes() const {
     CTDIB_IFNODIB(0);
     return GetLineWidthInBytes() * GetLinesNumber();
 }
@@ -597,7 +597,7 @@ Bool32 CTDIB::SetDIBHandle(Handle hSetDIB) {
     return FALSE;
 }
 
-uint32_t CTDIB::GetDIBSize() {
+uint32_t CTDIB::GetDIBSize() const {
     uint32_t FuelSize = 0;
     CTDIB_IFNODIB(0);
     FuelSize += GetHeaderSize();
@@ -606,12 +606,12 @@ uint32_t CTDIB::GetDIBSize() {
     return FuelSize;
 }
 
-uint32_t CTDIB::GetHeaderSize() {
+uint32_t CTDIB::GetHeaderSize() const {
     CTDIB_IFNODIB(0);
     return *((uint32_t *) (GetPtrToHeader()));
 }
 
-uint32_t CTDIB::GetRGBPalleteSize() {
+uint32_t CTDIB::GetRGBPalleteSize() const {
     CTDIB_IFNODIB(0);
     return (GetActualColorNumber() * sizeof(CTDIBRGBQUAD));
 }

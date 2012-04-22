@@ -93,6 +93,12 @@ if(CF_SERIALIZE)
     set_property(SOURCE export/cedserializer.cpp PROPERTY COMPILE_DEFINITIONS USE_SERIALIZE)
 endif()
 
+if(TESTS)
+    list(APPEND SOURCES internal/cimagestorage.cpp)
+    list(APPEND SOURCES internal/cimageview.cpp)
+    list(APPEND HEADERS internal/cimageview.h)
+endif()
+
 set(FORMS 
     dialogs/aboutdialog.ui
     dialogs/exportdialog.ui

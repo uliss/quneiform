@@ -228,11 +228,11 @@ class CLA_EXPO CTDIB
         Bool32 IsDIBAvailable() const;
         ////////////////////////////////////////////////////////Header Data
         //Get DIB header memory allocation size
-        uint32_t GetHeaderSize(void);
+        uint32_t GetHeaderSize() const;
         // get pointer to DIB header
-        pvoid GetPtrToHeader();
+        pvoid GetPtrToHeader() const;
         // get version of DIB
-        uint32_t GetDIBVersion();
+        uint32_t GetDIBVersion() const;
         // return image width in pixels
         int32_t GetImageWidth() const;
         // return image height in pixels
@@ -246,14 +246,14 @@ class CLA_EXPO CTDIB
         // return image height in pixels
         uint32_t GetLinesNumber() const;
         // return image size in pixels
-        uint32_t GetImageSize();
+        uint32_t GetImageSize() const;
         // return image size in bytes
-        uint32_t GetImageSizeInBytes();
+        uint32_t GetImageSizeInBytes() const;
         // return bits per pixel
         uint32_t GetPixelSize() const;
         // Get number of used colors
         // if 0 - DIB is JPEG format
-        uint32_t GetActualColorNumber();
+        uint32_t GetActualColorNumber() const;
         // get resolution of DIB: x,[y]
         Bool32 GetResolutionDPM(uint32_t * pX_Dpm, uint32_t * pY_Dpm = 0x0);
         // get resolution of DIB: x,[y]
@@ -263,9 +263,9 @@ class CLA_EXPO CTDIB
         // set resolution of DIB: x,[y]. available if DIB constructed by CTDIB
         Bool32 SetResolutionDPI(uint32_t X_DPI, uint32_t Y_DPI = 0);
         // Get allocated memory size for DIBHeader, RGBQuads and Image in bytes
-        uint32_t GetDIBSize();
+        uint32_t GetDIBSize() const;
         //Get used by DIB RGB Quads memory allocation size
-        uint32_t GetRGBPalleteSize(void);
+        uint32_t GetRGBPalleteSize() const;
         // get Handle to DIB
         Bool32 GetDIBHandle(Handle* phDIB);
         // Set Handle for DIB if it not attached

@@ -45,6 +45,7 @@
 #include "dialogs/recognitionprogressdialog.h"
 #include "dialogs/recognitionsettingsdialog.h"
 #include "dialogs/settings.h"
+#include "internal/cimageview.h"
 #include "recentmenu.h"
 #include "exportsettings.h"
 
@@ -620,6 +621,10 @@ void MainWindow::setupUi() {
     setupImageView();
     setupTextView();
     setupUiLayout();
+
+#ifndef NDEBUG
+    addDebugMenu();
+#endif
 }
 
 void MainWindow::setupUiLayout() {
@@ -711,6 +716,22 @@ void MainWindow::updatePageDocument(Page * page) {
     page->updateTextDocument();
     QApplication::restoreOverrideCursor();
 }
+
+#ifndef NDEBUG
+void MainWindow::debugShowCImage()
+{
+    CImageView v;
+    v.exec();
+}
+#endif
+
+#ifndef NDEBUG
+void MainWindow::addDebugMenu()
+{
+    QMenu * debug_menu = menuBar()->addMenu("Debug");
+    debug_menu->addAction("Show CImage", this, SLOT(debugShowCImage()));
+}
+#endif
 
 void MainWindow::writeSettings() {
     QSettings settings;
