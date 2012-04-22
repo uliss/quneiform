@@ -66,17 +66,6 @@ extern CRIControl * Control_cri;
 void SetReturnCode_rimage(uint16_t rc);
 uint16_t GetReturnCode_rimage();
 
-Bool32 RIMAGE_SetMargins(PRIMAGEMARGINS pMargins)
-{
-    SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
-
-    if ( Control_cri )
-        return Control_cri->SetMargins( pMargins );
-
-    SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
-    return FALSE;
-}
-
 Bool32 RIMAGE_SetProgressCB(PRIMAGECBPRogressStart pStart, PRIMAGECBPRogressStep pStep, PRIMAGECBPRogressFinish pFinish)
 {
     SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);

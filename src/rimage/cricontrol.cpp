@@ -112,15 +112,7 @@ CRIControl::~CRIControl()
     if (mpDestinationDIB)
         delete mpDestinationDIB;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 CRIControl::SetMargins(PRIMAGEMARGINS pMargins)
-{
-    SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
-    return FALSE;
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 CRIControl::Binarise(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
                             uint32_t UseMargins)
 {

@@ -107,7 +107,6 @@ typedef enum {
     RIMAGE_FN_SetProgressFinish
 } RIMAGE_IMPOR_ENTRIES;
 
-RIMAGE_FUNC Bool32 RIMAGE_SetMargins(PRIMAGEMARGINS);
 RIMAGE_FUNC Bool32 RIMAGE_Binarise(const char * , const char * , uint32_t, uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Rotate(puchar , puchar , int32_t, int32_t, uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Roll(puchar , puchar , int32_t, int32_t, uint32_t);
