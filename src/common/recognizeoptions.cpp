@@ -30,7 +30,8 @@ enum {
     SPELL_CORRECTION = 0x004,
     FAX              = 0x008,
     ONE_COLUMN       = 0x010,
-    FIND_PICTURES    = 0x020
+    FIND_PICTURES    = 0x020,
+    CLEANUP_DELAYED  = 0x040
 };
 
 RecognizeOptions::RecognizeOptions() :
@@ -105,6 +106,16 @@ void RecognizeOptions::setDotMatrix(bool value) {
 
 void RecognizeOptions::setLanguage(language_t language) {
     language_ = language;
+}
+
+bool RecognizeOptions::debugCleanupDelayed() const
+{
+    return hasFlag(CLEANUP_DELAYED);
+}
+
+void RecognizeOptions::setDebugCleanupDelayed(bool value)
+{
+    setFlag(CLEANUP_DELAYED, value);
 }
 
 bool RecognizeOptions::hasTurn() const

@@ -37,7 +37,7 @@ public:
                          const RecognizeOptions& ropts,
                          const FormatOptions& fopts);
 private:
-    void close();
+    void close(const RecognizeOptions& ropts);
     void doRecognize();
     CEDPagePtr format();
     void open(ImagePtr image);

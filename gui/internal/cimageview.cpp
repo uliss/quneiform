@@ -28,7 +28,8 @@
 #include "cimagestorage.h"
 
 CImageView::CImageView(QWidget *parent) :
-    QDialog(parent)
+    QDialog(parent),
+    storage_(new CImageStorage)
 {
     setWindowTitle("CImage view");
     init();
@@ -46,19 +47,21 @@ CImageView::CImageView(QWidget *parent) :
     setLayout(lv);
 }
 
+CImageView::~CImageView()
+{
+    delete storage_;
+}
+
 void CImageView::init()
 {
-    CImageStorage storage;
-
     image_list_ = new QListWidget;
-    foreach(QString s, storage.images()) {
+    foreach(QString s, storage_->images()) {
         image_list_->addItem(s);
     }
 
     connect(image_list_, SIGNAL(itemClicked(QListWidgetItem*)), SLOT(showImage(QListWidgetItem*)));
 
     image_ = new QLabel;
-    image_->setText("image");
 }
 
 void CImageView::showImage(QListWidgetItem * item)
@@ -68,7 +71,5 @@ void CImageView::showImage(QListWidgetItem * item)
     if(item->text().isEmpty())
         return;
 
-    CImageStorage storage;
-    QPixmap p(storage.pixmap(item->text()));
-    image_->setPixmap(p);
+    image_->setPixmap(storage_->pixmap(item->text()));
 }

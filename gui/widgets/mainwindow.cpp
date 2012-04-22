@@ -717,13 +717,11 @@ void MainWindow::updatePageDocument(Page * page) {
     QApplication::restoreOverrideCursor();
 }
 
-#ifndef NDEBUG
 void MainWindow::debugShowCImage()
 {
     CImageView v;
     v.exec();
 }
-#endif
 
 #ifndef NDEBUG
 void MainWindow::addDebugMenu()

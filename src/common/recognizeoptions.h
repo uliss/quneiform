@@ -79,6 +79,9 @@ class CLA_EXPO RecognizeOptions
         void setDotMatrix(bool value);
         void setLanguage(language_t language);
 
+        bool debugCleanupDelayed() const;
+        void setDebugCleanupDelayed(bool value);
+
         /**
           * Returns true if has page turn
           */

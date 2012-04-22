@@ -135,6 +135,10 @@ source_group("Source Files" FILES ${SOURCES})
 source_group("Generated Files" FILES ${MOC_SOURCES})
 source_group("Resource Files" FILES ${QRC_SOURCES} ${TRANSLATIONS_TS})
 
+if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_definitions(-DNDEBUG)
+endif()
+
 set(SRCS
     ${HEADERS}
     ${SOURCES}

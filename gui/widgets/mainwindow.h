@@ -88,9 +88,7 @@ private slots:
     void updateCurrentPage();
     void updatePageDocument(Page*);
 
-#ifndef NDEBUG
     void debugShowCImage();
-#endif
 private:
 #ifndef NDEBUG
     void addDebugMenu();

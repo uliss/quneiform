@@ -24,12 +24,14 @@
 class QListWidget;
 class QLabel;
 class QListWidgetItem;
+class CImageStorage;
 
 class CImageView : public QDialog
 {
     Q_OBJECT
 public:
     explicit CImageView(QWidget * parent = 0);
+    ~CImageView();
 private:
     void init();
 private slots:
@@ -37,6 +39,7 @@ private slots:
 private:
     QListWidget * image_list_;
     QLabel * image_;
+    CImageStorage * storage_;
 };
 
 #endif // CIMAGEVIEW_H

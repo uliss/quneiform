@@ -76,6 +76,13 @@ static cf::RecognizeOptions getRecogOptions(Page * page) {
         }
     }
 
+    QSettings settings;
+    settings.beginGroup("debug");
+    cf::Config::instance().setDebug(settings.value("printCuneiformDebug", false).toBool());
+    cf::Config::instance().setDebugLevel(100);
+    settings.beginGroup("modules");
+    res.setDebugCleanupDelayed(settings.value("cimage", false).toBool());
+
     return res;
 }
 

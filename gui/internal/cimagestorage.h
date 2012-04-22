@@ -21,6 +21,7 @@
 
 #include <QPixmap>
 #include <QStringList>
+#include <QMutex>
 
 class CImageStorage
 {
@@ -41,6 +42,8 @@ public:
       * Returns image names in storage
       */
     QStringList images() const;
+private:
+    mutable QMutex lock_;
 };
 
 #endif // CIMAGESTORAGE_H

@@ -17,6 +17,8 @@
  ***************************************************************************/
 
 #include <QDebug>
+#include <QMutexLocker>
+#include <sstream>
 
 #include "cimagestorage.h"
 #include "cimage/ctiimage.h"
@@ -35,8 +37,9 @@ bool CImageStorage::hasImage(const QString& name) const
 
 QPixmap CImageStorage::pixmap(const QString& name) const
 {
+    QMutexLocker locker(&lock_);
+
     std::string n = name.toStdString();
-    qDebug() << Q_FUNC_INFO << n.c_str();
     BitmapHandle h = cf::CImage::instance().image(n);
 
     if(!h) {
@@ -54,14 +57,14 @@ QPixmap CImageStorage::pixmap(const QString& name) const
     // fileheader + infoheader + palette
     bf.bfOffBits = sizeof(BITMAPFILEHEADER) + dib.GetHeaderSize() + dib.GetRGBPalleteSize();
 
-    uchar * buffer = (uchar*) malloc(bf.bfSize);
-    memcpy(buffer, &bf, sizeof(bf));
-    memcpy(buffer + sizeof(bf), h, dib.GetDIBSize());
+    uchar * buf = new uchar[bf.bfSize];
+    memcpy(buf, &bf, sizeof(BITMAPFILEHEADER));
+    memcpy(buf + sizeof(BITMAPFILEHEADER), h, dib.GetDIBSize());
 
     QPixmap res;
-    res.loadFromData(buffer, sizeof(buffer), "BMP");
+    res.loadFromData(buf, bf.bfSize, "BMP");
 
-    free(buffer);
+    delete[] buf;
     return res;
 }
 
@@ -73,7 +76,8 @@ QStringList CImageStorage::images() const
     typedef StringList::iterator iterator;
     StringList names = cf::CImage::instance().images();
     for(iterator it = names.begin(); it != names.end(); ++it) {
-        res.append(QString::fromStdString(*it));
+        if((*it) != "ImageFromUser")
+            res.append(QString::fromStdString(*it));
     }
 
     return res;
