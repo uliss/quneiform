@@ -54,78 +54,79 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// CRIBinarizator.cpp: implementation of the CRIBinarizator class.
-//
+#include <cstdlib>
+#include <cmath>
 
 #include "resource.h"
-#include <stdlib.h>
-#include <math.h>
 #include "cribinarizator.h"
 #include "crimemory.h"
+#include "rprogressor.h"
 #include "gdata.h"
+#include "rimage_debug.h"
+#include "rdib/ctdib.h"
 
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+namespace cf {
 
 CRIBinarizator::CRIBinarizator()
 {
-    meBinType = CTBIN_UNKNOWN;
-    mpIncomeDIB = NULL;
-    mpOutcomeDIB = NULL;
-    mpszGreyBuffer = NULL;
-    mpDezaBinarizator = NULL;
-    //mpKronrodBinarizator = NULL;
-    mhszGreyBuffer = NULL;
-    mpszGreyBuffer = NULL;
-    mpProgressor = NULL;
-    //mhszGreyBuffer
-    mbIndexColor = FALSE;
-    mfBlueK = ((float) (mwBlueK = 70)) / 255;
-    mfGreenK = ((float) (mwGreenK = 130)) / 255;
-    mfRedK = ((float) (mwRedK = 220)) / 255;
+    init();
 }
 
-CRIBinarizator::CRIBinarizator(PCRProgressor pProgressIndicator)
+CRIBinarizator::CRIBinarizator(CRProgressor * pProgressIndicator)
 {
-    CRIBinarizator();
+    init();
     mpProgressor = pProgressIndicator;
 }
 
 CRIBinarizator::~CRIBinarizator()
 {
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Загрузка растра - wFlag
-Bool32 CRIBinarizator::SetRasters(PCTDIB pSrcDIB, PCTDIB pDescDIB)
+
+bool CRIBinarizator::setRasters(CTDIB * src, CTDIB * dest)
 {
-    if (pSrcDIB && pDescDIB) {
-        mpIncomeDIB = pSrcDIB;
-        mpOutcomeDIB = pDescDIB;
+    if (src && dest) {
+        mpIncomeDIB = src;
+        mpOutcomeDIB = dest;
 
         if ((mwSrcBitCount = mpIncomeDIB->GetPixelSize()) < 4) {
-            SetReturnCode_rimage(IDS_RIMAGE_DIB_CANT_TO_BE_BINARISED);
-            return FALSE;
+            RIMAGE_ERROR << " source image can not be binarized\n";
+            return false;
         }
 
         if (mpOutcomeDIB->GetPixelSize() != 1) {
-            SetReturnCode_rimage(IDS_RIMAGE_DIB_OUT_FORMAT_NOT_BINARISED);
-            return FALSE;
+            RIMAGE_ERROR << " destination image should be 1-bit depth\n";
+            return false;
         }
 
         if ((mwLineLenght = mpIncomeDIB->GetLineWidth())
                 != mpOutcomeDIB->GetLineWidth()) {
             SetReturnCode_rimage(IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME);
-            return FALSE;
+            return false;
         }
 
-        if (!SupportedIndexColorImage(mpIncomeDIB)) {
-        }
+        if (!supportedIndexColorImage(mpIncomeDIB))
+            RIMAGE_ERROR << " unsupported indexed format in source image\n";
 
-        return TRUE;
+        return true;
     }
 
-    return FALSE;
+    return false;
+}
+
+void CRIBinarizator::init()
+{
+    meBinType = CTBIN_UNKNOWN;
+    mpIncomeDIB = NULL;
+    mpOutcomeDIB = NULL;
+    mpszGreyBuffer = NULL;
+    mpDezaBinarizator = NULL;
+    mhszGreyBuffer = NULL;
+    mpszGreyBuffer = NULL;
+    mpProgressor = NULL;
+    mbIndexColor = false;
+    mfBlueK = ((float) (mwBlueK = 70)) / 255;
+    mfGreenK = ((float) (mwGreenK = 130)) / 255;
+    mfRedK = ((float) (mwRedK = 220)) / 255;
 }
 
 Bool32 CRIBinarizator::Binarize(CTBinarize eBinType, uint32_t wFlag)
@@ -151,10 +152,9 @@ Bool32 CRIBinarizator::Binarize(CTBinarize eBinType, uint32_t wFlag)
     }
 
     catch (uint32_t wExit) {
-        if (wExit = IDS_RIMAGE_EXIT_BY_USER) {
+        if (wExit == IDS_RIMAGE_EXIT_BY_USER) {
             SetReturnCode_rimage(IDS_RIMAGE_EXIT_BY_USER);
         }
-
         else {
             SetReturnCode_rimage(IDS_RIMAGE_UNKNOWN_ERROR);
         }
@@ -504,41 +504,41 @@ Bool32 CRIBinarizator::DezaCloseBin()
     mpDezaBinarizator->CloseTrackBin();
     return TRUE;
 }
-Bool32 CRIBinarizator::SupportedIndexColorImage(PCTDIB pImage)
+
+bool CRIBinarizator::supportedIndexColorImage(CTDIB * dib)
 {
-    uint32_t Colors = pImage->GetActualColorNumber();
-    uint32_t PalletteSize = pImage->GetRGBPalleteSize();
+    uint colors = dib->GetActualColorNumber();
+    uint pallette_size = dib->GetRGBPalleteSize();
+
+    if (pallette_size == 0 || colors == 2 || colors > 256)
+        return true;
+
     CTDIBRGBQUAD Q, prQ;
-    uint32_t i;
+    uint i;
     mbIndexColor = false;
 
-    if (PalletteSize == 0 || Colors == 2 || Colors > 256)
-        return TRUE;
+    for (i = 1; i < colors; i++) {
+        if (!dib->GetRGBQuad(i, &Q) || !dib->GetRGBQuad(i - 1, &prQ))
+            return false;
 
-    for (i = 1; i < Colors; i++) {
-        if (!pImage->GetRGBQuad(i, &Q) || !pImage->GetRGBQuad(i - 1, &prQ))
-            return FALSE;
-
-        if ((Q.rgbBlue < prQ.rgbBlue) || (Q.rgbGreen < prQ.rgbGreen)
+        if ((Q.rgbBlue < prQ.rgbBlue) ||
+                (Q.rgbGreen < prQ.rgbGreen)
                 || (Q.rgbRed < prQ.rgbRed))
             break;
     }
 
-    if (i == Colors)
+    if (i == colors)
         return true;
 
-    PrepareIndexTable(pImage);
+    PrepareIndexTable(dib);
     return true;
 }
 
-Bool32 CRIBinarizator::PrepareIndexTable(PCTDIB pDIB)
+Bool32 CRIBinarizator::PrepareIndexTable(CTDIB * dib)
 {
-    uint32_t i;
-    CTDIBRGBQUAD Quad;
     puchar pTable = NULL;
-    uint32_t Colors = (pDIB->GetRGBPalleteSize()) / 4;
 
-    switch (pDIB->GetPixelSize()) {
+    switch (dib->GetPixelSize()) {
         case 4:
             pTable = wIndex4ToGray;
             break;
@@ -549,20 +549,26 @@ Bool32 CRIBinarizator::PrepareIndexTable(PCTDIB pDIB)
             return false;
     }
 
-    for (i = 0; i < Colors; i++) {
-        if (!pDIB->GetRGBQuad(i, &Quad))
+    uint Colors = (dib->GetRGBPalleteSize()) / 4;
+    CTDIBRGBQUAD Quad;
+
+    for (uint i = 0; i < Colors; i++) {
+        if (!dib->GetRGBQuad(i, &Quad))
             return false;
 
         pTable[i] = IndexPalleteToGray(&Quad);
     }
 
-    return (mbIndexColor = true);
+    mbIndexColor = true;
+    return true;
 }
 
-uchar CRIBinarizator::IndexPalleteToGray(PCTDIBRGBQUAD pQuad)
+uchar CRIBinarizator::IndexPalleteToGray(CTDIBRGBQUAD * pQuad)
 {
     float b = ((float) (pQuad->rgbBlue) * 70) / 255;
     float g = ((float) (pQuad->rgbGreen) * 220) / 255;
     float r = ((float) (pQuad->rgbRed) * 130) / 255;
     return (uchar) sqrt((((b * b) + (g * g) + (r * r)) / 70200) * 65025);
+}
+
 }

@@ -121,7 +121,7 @@ bool CRIControl::binarise(const std::string& src, const std::string& dest, binar
         binarizator_ = new CRIBinarizator(&mcProgress);
 
     // закидываем туда картинки
-    if (!binarizator_->SetRasters(src_dib_, dest_dib_)) {
+    if (!binarizator_->setRasters(src_dib_, dest_dib_)) {
         closeSourceDIB();
         closeDestinationDIB(dest);
         RIMAGE_ERROR << " can't set dib rasters\n";

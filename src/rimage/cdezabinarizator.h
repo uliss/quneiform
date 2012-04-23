@@ -54,23 +54,17 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// CDezaBinarizator.h: interface for the CDezaBinarizator class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(_CDEZA_BINARIZATOR_H_)
+#ifndef _CDEZA_BINARIZATOR_H_
 #define _CDEZA_BINARIZATOR_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
-#include "stdlib.h"
-#include "globus.h"
+#include <cstdlib>
+#include "cttypes.h"
 #include "crimemory.h"
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
+namespace cf {
+class CRIBinarizator;
+}
+
 typedef struct tagTigerImageInfo {
     unsigned short int wImageHeight;       /* Height of the image in lines */
     unsigned short int wImageWidth;        /* Width of the image in pixels */
@@ -84,19 +78,10 @@ typedef struct tagTigerImageInfo {
     unsigned short int wAddX;
     unsigned short int wAddY;
 } CTBINTigerImageInfo, *PCTBINTigerImageInfo;
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 #define   DB_MALLOC(a)        RIMAGEAlloc(a)
 #define   DB_FREE(a)          RIMAGEFree(a)
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
-class CRIBinarizator;
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 class CDezaBinarizator
 {
 #define BUFS 3*1000
@@ -106,7 +91,7 @@ class CDezaBinarizator
     public:
         int32_t CloseTrackBin(void);
         int32_t GetBinarized(puchar ptbl, uint32_t lenbl);
-        uint32_t OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator * pCaller, uint32_t wdezaFlag);
+        uint32_t OpenTrackBin(PCTBINTigerImageInfo Info, cf::CRIBinarizator * pCaller, uint32_t wdezaFlag);
         CDezaBinarizator();
         virtual ~CDezaBinarizator();
 
@@ -157,13 +142,9 @@ class CDezaBinarizator
         int32_t y;
         int32_t x;
         int32_t urov[2];
-        CRIBinarizator * mpBinarizatorControl;
+        cf::CRIBinarizator * mpBinarizatorControl;
         //////////////////////////////////////////////////////////////////////
 #define  DB_GREYREAD(a,b,c)    mpBinarizatorControl->KronrodImageRead(a,b,c)
 };
-/////////////////////////////////////////////////////
-//
-typedef CDezaBinarizator *PCDezaBinarizator;
-///////////////////////////////////////////////////
-//
-#endif // !defined(_CDEZA_BINARIZATOR_H_)
+
+#endif

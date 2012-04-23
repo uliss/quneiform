@@ -148,12 +148,14 @@ typedef struct tagCTDIBBITMAPV5HEADER {
 
 #define CTDIB_BI_JPEG  4L
 
-typedef struct tagCTDIBRGBQUAD { // rgbq
+struct CTDIBRGBQUAD { // rgbq
     uchar    rgbBlue;
     uchar    rgbGreen;
     uchar    rgbRed;
     uchar    rgbReserved;
-} CTDIBRGBQUAD, *PCTDIBRGBQUAD;
+};
+
+typedef CTDIBRGBQUAD * PCTDIBRGBQUAD;
 #endif //   !defined(WIN32) | !defined(CTDIB_USE_WIN32_API)
 
 typedef Handle (*PCTDIBMemAlloc)(uint32_t);
