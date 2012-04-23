@@ -81,17 +81,17 @@ CRIControl::~CRIControl()
 
 void CRIControl::clear()
 {
-    if (mpBinarizator)
-        delete mpBinarizator;
+    if (binarizator_)
+        delete binarizator_;
 
-    if (mpTurner)
-        delete mpTurner;
+    if (turner_)
+        delete turner_;
 
-    if (mpInvertor)
-        delete mpInvertor;
+    if (invertor_)
+        delete invertor_;
 
-    if (mpRotator)
-        delete mpRotator;
+    if (rotator_)
+        delete rotator_;
 
     if (dest_dib_)
         delete dest_dib_;
@@ -106,30 +106,29 @@ void CRIControl::reset()
 bool CRIControl::binarise(const std::string& src, const std::string& dest, binarizator_t binType)
 {
     bool Ret = true;
-    CTBinarize bType = CTBIN_UNKNOWN;
 
     // открываем исходный
     if (!openSourceDIB(src))
         return false;
 
     // создаем новый
-    if (!CreateDestinatonDIB(1)) { // create DIB 1 bit per pixel
+    if (!createDestinatonDIB()) {
         closeSourceDIB();
-        SetReturnCode_rimage(IDS_RIMAGE_CANNOT_CREATE_NEW_DIB);
+        RIMAGE_ERROR << " can't create new image\n";
         return false;
     }
 
     //открываем бинаризатор
-    if (!mpBinarizator) {
-        mpBinarizator = new CRIBinarizator(&mcProgress);
-    }
+    if (!binarizator_)
+        binarizator_ = new CRIBinarizator(&mcProgress);
 
     // закидываем туда картинки
-    if (!mpBinarizator->SetRasters(src_dib_, dest_dib_)) {
+    if (!binarizator_->SetRasters(src_dib_, dest_dib_)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNOT_SET_DIB);
         Ret = false;
     }
 
+    CTBinarize bType = CTBIN_UNKNOWN;
     switch(binType) {
     case BINARIZATOR_DEZA:
         bType = CTBIN_DEZA;
@@ -142,8 +141,8 @@ bool CRIControl::binarise(const std::string& src, const std::string& dest, binar
     }
 
     // бинаризуем
-    if (!mpBinarizator->Binarize(bType, binType)) {
-        SetReturnCode_rimage(IDS_RIMAGE_CANT_BINARYZE);
+    if (!binarizator_->Binarize(bType, binType)) {
+        RIMAGE_ERROR << " binarization error\n";
         Ret = false;
     }
 
@@ -182,14 +181,14 @@ Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
     dest_dib_ = new CTDIB;
 
     //открываем вертелку
-    if (!mpRotator) {
-        mpRotator = new CRRotator(&mcProgress);
+    if (!rotator_) {
+        rotator_ = new CRRotator(&mcProgress);
     }
 
     // забываем старое имя
     mcLastDIBName[0] = 0x0;
 
-    if (!mpRotator->Rotate(src_dib_, dest_dib_, High, Low)) {
+    if (!rotator_->Rotate(src_dib_, dest_dib_, High, Low)) {
         uint16_t wRet = GetReturnCode_rimage();
         // !!! Art Изменил - теперь она заносит не хендлы, а указатели, а то память утекала
         //почему-то...
@@ -275,8 +274,8 @@ Bool32 CRIControl::Turn(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
      */
 
     //открываем вертелку
-    if (!mpTurner) {
-        mpTurner = new CRTurner;
+    if (!turner_) {
+        turner_ = new CRTurner;
     }
 
     // генерим новенький
@@ -295,7 +294,7 @@ Bool32 CRIControl::Turn(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
             && dest_dib_->CopyPalleteFromDIB(src_dib_)
             && dest_dib_->CopyDPIFromDIB(src_dib_)
             && dest_dib_->CreateDIBEnd()) {
-        bRet = mpTurner->TurnDIB(src_dib_, dest_dib_, wFlag);
+        bRet = turner_->TurnDIB(src_dib_, dest_dib_, wFlag);
     }
 
     // вертим
@@ -350,12 +349,12 @@ Bool32 CRIControl::Inverse(char* cDIBIn, char* cDIBOut, uint32_t UseMargins)
     }
 
     //открываем инвертор
-    if (!mpInvertor) {
-        mpInvertor = new CRInvertor;
+    if (!invertor_) {
+        invertor_ = new CRInvertor;
     }
 
     // Инвертируем
-    if (!mpInvertor->Inverse(dest_dib_)) {
+    if (!invertor_->Inverse(dest_dib_)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNOT_INVERT_IMAGE);
         bErrors = FALSE;
     }
@@ -477,58 +476,54 @@ Bool32 CRIControl::CloseDestinationDIB(const std::string& name)
     return TRUE;
 }
 
-// Creating new DIB by CTDIB class and 4 RIMAGE functions
-Bool32 CRIControl::CreateDestinatonDIB(uint32_t BitCount)
+bool CRIControl::createDestinatonDIB()
 {
+    if (src_dib_ == NULL) {
+        RIMAGE_ERROR << " source image is not opened\n";
+        return false;
+    }
+
+    dest_dib_ = new CTDIB;
+
+    if (!dest_dib_->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock, RIMAGEUnlock)) {
+        RIMAGE_ERROR << " set external error\n";
+        delete dest_dib_;
+        dest_dib_ = NULL;
+        return false;
+    }
+
     uint32_t wNewHeight;
     uint32_t wNewWidth;
     uint32_t wXResolution;
     uint32_t wYResolution;
-    CTDIBRGBQUAD BWQuads[2] = { { 0x00, 0x00, 0x00, 0x00 }, { 0xff, 0xff, 0xff,
-                                                                  0x00 }
-    };
-
-    if (src_dib_ == NULL) {
-        SetReturnCode_rimage(IDS_RIMAGE_NOT_OPENED);
-        return FALSE;
-    }
-
-    dest_dib_ = new CTDIB;
-    RIMAGEComment("CreateDestinationDIB - temporary DIB");
-
-    if (!dest_dib_->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock,
-                                        RIMAGEUnlock)) {
-        SetReturnCode_rimage(IDS_RIMAGE_PREPARE_TO_CREATE);
-        delete dest_dib_;
-        dest_dib_ = NULL;
-        return FALSE;
-    }
 
     wNewHeight = src_dib_->GetLinesNumber();
     wNewWidth = src_dib_->GetLineWidth();
     src_dib_->GetResolutionDPM(&wXResolution, &wYResolution);
 
-    if (!dest_dib_->CreateDIBBegin(wNewWidth, wNewHeight, BitCount)) {
-        return FALSE;
-    }
+    uint32_t BitCount = 1;
+    if (!dest_dib_->CreateDIBBegin(wNewWidth, wNewHeight, BitCount))
+        return false;
 
     if (!dest_dib_->SetResolutionDPM(wXResolution, wYResolution)) {
         //return FALSE;
     }
 
-    if (!dest_dib_->SetRGBQuad(0, BWQuads[0])) {
-        return FALSE;
-    }
+    CTDIBRGBQUAD BWQuads[2] = {
+        { 0x00, 0x00, 0x00, 0x00 },
+        { 0xff, 0xff, 0xff, 0x00 }
+    };
 
-    if (!dest_dib_->SetRGBQuad(1, BWQuads[1])) {
-        return FALSE;
-    }
+    if (!dest_dib_->SetRGBQuad(0, BWQuads[0]))
+        return false;
 
-    if (!dest_dib_->CreateDIBEnd()) {
-        return FALSE;
-    }
+    if (!dest_dib_->SetRGBQuad(1, BWQuads[1]))
+        return false;
 
-    return TRUE;
+    if (!dest_dib_->CreateDIBEnd())
+        return false;
+
+    return true;
 }
 
 Bool32 CRIControl::OpenDestinationDIBfromSource(const char* cDIBName)
@@ -612,11 +607,11 @@ Bool32 CRIControl::Roll(char* cDIBIn, char* cDIBOut, int32_t Num,
     dest_dib_ = new CTDIB;
 
     //открываем вертелку
-    if (!mpRotator) {
-        mpRotator = new CRRotator;
+    if (!rotator_) {
+        rotator_ = new CRRotator;
     }
 
-    if (!mpRotator->Roll(src_dib_, dest_dib_, Num, Denum)) {
+    if (!rotator_->Roll(src_dib_, dest_dib_, Num, Denum)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNOT_ROTATE_IMAGE);
         Ret = FALSE;
     }
@@ -653,8 +648,8 @@ Bool32 CRIControl::RotatePoint(char* cDIB, int32_t iX, int32_t iY,
 {
     Bool32 bRet = FALSE;
 
-    if (mpRotator && strcmp(cDIB, mcLastDIBName) == 0) {
-        bRet = mpRotator->RotatePoint(iX, iY, prX, prY);
+    if (rotator_ && strcmp(cDIB, mcLastDIBName) == 0) {
+        bRet = rotator_->RotatePoint(iX, iY, prX, prY);
     }
 
     return bRet;
@@ -681,10 +676,10 @@ void CRIControl::init()
 {
     src_dib_ = NULL;
     dest_dib_ = NULL;
-    mpBinarizator = NULL;
-    mpTurner = NULL;
-    mpInvertor = NULL;
-    mpRotator = NULL;
+    binarizator_ = NULL;
+    turner_ = NULL;
+    invertor_ = NULL;
+    rotator_ = NULL;
     mp_TurnedDIB = NULL;
     DIBOpeningType = FALSE;
     mcLastDIBName[0] = 0x0;

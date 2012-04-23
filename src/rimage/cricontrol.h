@@ -101,38 +101,35 @@ private:
     Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
     Bool32          GetDIB(const char *cDIB, BitmapHandle* phDIB);
     bool closeSourceDIB();
-    Bool32          CreateDestinatonDIB(uint32_t BitCount);
+    // Creating new DIB by CTDIB class and 4 RIMAGE functions
+    bool createDestinatonDIB();
     Bool32          SetDestinationDIBtoStorage(const std::string&  name);
     Bool32          OpenDestinationDIBfromSource(const char *cSDIB);
     Bool32          CloseDestinationDIB(const std::string&  name);
     bool openSourceDIB(const std::string&   name);
     Bool32          SetDIB(const std::string& name, Handle hDIB);
     Bool32          WriteDIB(const std::string& name, Handle hDIB);
-    // reads with copy
     bool readDIBCopy(const std::string& name, BitmapHandle * dest);
 private:
     Bool32          DIBOpeningType;
     RIMAGEMARGINS   mrMargins;
     Handle           mhOpenedDIB;
     Handle           mhCreatedDIB;
-    // pointer to class CTDIB
     CTDIB * src_dib_;
     CTDIB * dest_dib_;
     // Name of last processed image
-    char                     mcLastDIBName[256];
-    //
-    void *                    mp_TurnedDIB;
+    char mcLastDIBName[256];
+    void * mp_TurnedDIB;
     // pointer to class ProgressShow
-    CRProgressor              mcProgress;
+    CRProgressor mcProgress;
     // pointer to class Binarizator
-    PCRIBinarizator           mpBinarizator;
+    CRIBinarizator * binarizator_;
     // pointer to clas  Invertor
-    PCRInvertor               mpInvertor;
+    CRInvertor * invertor_;
     // pointer to class Turn
-    PCRTurner                 mpTurner;
+    CRTurner * turner_;
     // pointer to class Rotate
-    PCRRotator                mpRotator;
-
+    CRRotator * rotator_;
 };
 
 }
