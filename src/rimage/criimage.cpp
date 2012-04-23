@@ -95,7 +95,7 @@ bool RIMAGE_Turn(const std::string& src, const std::string& dest, cf::rimage_tur
     return cf::RImage::instance().turn(src, dest, angle);
 }
 
-Bool32 RIMAGE_Inverse(puchar cDIBIn, puchar cDIBOut, uint32_t UseMargins)
+bool RIMAGE_Inverse(const std::string& src, const std::string& dest)
 {
-    return cf::RImage::instance().Inverse( (char*)cDIBIn, (char*)cDIBOut, UseMargins);
+    return cf::RImage::instance().inverse(src, dest);
 }

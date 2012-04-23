@@ -287,31 +287,29 @@ bool CRIControl::turn(const std::string &src, const std::string& dest, rimage_tu
     return bRet;
 }
 
-Bool32 CRIControl::Inverse(char* cDIBIn, char* cDIBOut, uint32_t UseMargins)
+bool CRIControl::inverse(const std::string& src, const std::string& dest)
 {
-    Bool32 bErrors = TRUE;
+    bool bErrors = true;
 
     // копируем из исходного DIB в обрабатываемый
     // получаем заполненный mpDescinationDIB и пустой mpSourceDIB
-    if (!OpenDestinationDIBfromSource(cDIBIn)) {
-        return FALSE;
-    }
+    if (!openDestinationDIBfromSource(src))
+        return false;
 
     //открываем инвертор
-    if (!invertor_) {
+    if (!invertor_)
         invertor_ = new CRInvertor;
-    }
 
     // Инвертируем
     if (!invertor_->Inverse(dest_dib_)) {
-        SetReturnCode_rimage(IDS_RIMAGE_CANNOT_INVERT_IMAGE);
-        bErrors = FALSE;
+        RIMAGE_ERROR << " image inverse error: " << src << "\n";
+        bErrors = false;
     }
 
     //отписваем новый в контейнер и освобождаем
-    if (!SetDestinationDIBtoStorage(cDIBOut)) {
+    if (!SetDestinationDIBtoStorage(dest)) {
         SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
-        bErrors = FALSE;
+        bErrors = false;
     }
 
     return bErrors;
@@ -464,22 +462,22 @@ bool CRIControl::createDestinatonDIB()
     return true;
 }
 
-Bool32 CRIControl::OpenDestinationDIBfromSource(const char* cDIBName)
+bool CRIControl::openDestinationDIBfromSource(const std::string& name)
 {
     BitmapHandle hDIBIn;
     pvoid pDIB;
 
     if (src_dib_ != NULL)
-        return FALSE;
+        return false;
 
-    if (!readDIBCopy(cDIBName, &hDIBIn)) {
+    if (!readDIBCopy(name, &hDIBIn)) {
         SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
-        return FALSE;
+        return false;
     }
 
     if (!(pDIB = RIMAGELock(hDIBIn))) {
         SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
-        return FALSE;
+        return false;
     }
 
     dest_dib_ = new CTDIB(hDIBIn);
@@ -488,11 +486,11 @@ Bool32 CRIControl::OpenDestinationDIBfromSource(const char* cDIBName)
         delete src_dib_;
         dest_dib_ = NULL;
         SetReturnCode_rimage(IDS_RIMAGE_DIB_NOT_ATTACHED);
-        return FALSE;
+        return false;
     }
 
     DIBOpeningType = TRUE;
-    return TRUE;
+    return true;
 }
 
 Bool32 CRIControl::SetDestinationDIBtoStorage(const std::string& name)

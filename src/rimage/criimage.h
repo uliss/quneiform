@@ -68,15 +68,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RIMAGE_FUNC  FUN_IMPO__
 #endif
 
-struct RIMAGEMARGINS {
-    uint32_t    rmLeftMarg;
-    uint32_t    rmTopMarg;
-    uint32_t    rmRightMarg;
-    uint32_t    rmBottomMarg;
-};
-
-typedef RIMAGEMARGINS * PRIMAGEMARGINS;
-
 namespace cf {
 
 enum rimage_turn_angle_t {
@@ -98,18 +89,6 @@ RIMAGE_FUNC Bool32 RIMAGE_Init(uint16_t wHeightCode);
 RIMAGE_FUNC Bool32 RIMAGE_Done();
 RIMAGE_FUNC Bool32 RIMAGE_Reset();
 
-typedef enum {
-    RIMAGE_FN_SetMargins = 1,
-    RIMAGE_FN_Binarise,
-    RIMAGE_FN_Rotate,
-    RIMAGE_FN_Roll,
-    RIMAGE_FN_Turn,
-    RIMAGE_FN_Inverse,
-    RIMAGE_FN_Flip,
-    RIMAGE_FN_SetProgressCB,
-    RIMAGE_FN_RotatePoint
-} RIMAGE_EXPORT_ENTRIES;
-
 typedef void   (*PRIMAGECBPRogressStart)(void);
 typedef Bool32 (*PRIMAGECBPRogressStep)(uint32_t);
 typedef void   (*PRIMAGECBPRogressFinish)(void);
@@ -122,7 +101,7 @@ RIMAGE_FUNC Bool32 RIMAGE_Roll(puchar , puchar , int32_t, int32_t, uint32_t);
 RIMAGE_FUNC bool RIMAGE_Turn(const std::string &src,
                              const std::string &dest,
                              cf::rimage_turn_angle_t angle);
-RIMAGE_FUNC Bool32 RIMAGE_Inverse(puchar , puchar , uint32_t);
+RIMAGE_FUNC bool RIMAGE_Inverse(const std::string& src, const std::string& dest);
 RIMAGE_FUNC Bool32 RIMAGE_SetProgressCB(PRIMAGECBPRogressStart, PRIMAGECBPRogressStep , PRIMAGECBPRogressFinish);
 RIMAGE_FUNC Bool32 RIMAGE_RotatePoint(puchar , int32_t, int32_t, int32_t *, int32_t *);
 
