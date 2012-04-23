@@ -62,13 +62,10 @@
 // ============================================================================
 
 #include "resource.h"
-
 #include "crimemory.h"
 #include "cricontrol.h"
 #include "criimage.h"
-#include "compat_defs.h"
 
-static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
 
 Bool32 RIMAGE_Init(uint16_t wHeightCode)

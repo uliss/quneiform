@@ -100,24 +100,24 @@ public:
 private:
     Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
     Bool32          GetDIB(const char *cDIB, BitmapHandle* phDIB);
-    Bool32          CloseSourceDIB();
+    bool closeSourceDIB();
     Bool32          CreateDestinatonDIB(uint32_t BitCount);
     Bool32          SetDestinationDIBtoStorage(const std::string&  name);
     Bool32          OpenDestinationDIBfromSource(const char *cSDIB);
     Bool32          CloseDestinationDIB(const std::string&  name);
-    Bool32          OpenSourceDIB(const std::string&   name);
+    bool openSourceDIB(const std::string&   name);
     Bool32          SetDIB(const std::string& name, Handle hDIB);
     Bool32          WriteDIB(const std::string& name, Handle hDIB);
-    Bool32          ReadDIB(const std::string& cDIB, BitmapHandle* phDIB);
+    // reads with copy
+    bool readDIBCopy(const std::string& name, BitmapHandle * dest);
 private:
     Bool32          DIBOpeningType;
     RIMAGEMARGINS   mrMargins;
-    Bool32          mbMarginsFlag;
     Handle           mhOpenedDIB;
     Handle           mhCreatedDIB;
     // pointer to class CTDIB
-    PCTDIB           mpSourceDIB;
-    PCTDIB           mpDestinationDIB;
+    CTDIB * src_dib_;
+    CTDIB * dest_dib_;
     // Name of last processed image
     char                     mcLastDIBName[256];
     //
