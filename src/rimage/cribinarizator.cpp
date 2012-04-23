@@ -63,7 +63,6 @@
 #include "cribinarizator.h"
 #include "crimemory.h"
 #include "gdata.h"
-#include "rimage_debug.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -96,40 +95,37 @@ CRIBinarizator::CRIBinarizator(PCRProgressor pProgressIndicator)
 CRIBinarizator::~CRIBinarizator()
 {
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Загрузка растра - wFlag
-bool CRIBinarizator::SetRasters(CTDIB * src, CTDIB * dest)
+Bool32 CRIBinarizator::SetRasters(PCTDIB pSrcDIB, PCTDIB pDescDIB)
 {
-    if(!src) {
-        RIMAGE_ERROR << " invalid source dib\n";
-        return false;
+    if (pSrcDIB && pDescDIB) {
+        mpIncomeDIB = pSrcDIB;
+        mpOutcomeDIB = pDescDIB;
+
+        if ((mwSrcBitCount = mpIncomeDIB->GetPixelSize()) < 4) {
+            SetReturnCode_rimage(IDS_RIMAGE_DIB_CANT_TO_BE_BINARISED);
+            return FALSE;
+        }
+
+        if (mpOutcomeDIB->GetPixelSize() != 1) {
+            SetReturnCode_rimage(IDS_RIMAGE_DIB_OUT_FORMAT_NOT_BINARISED);
+            return FALSE;
+        }
+
+        if ((mwLineLenght = mpIncomeDIB->GetLineWidth())
+                != mpOutcomeDIB->GetLineWidth()) {
+            SetReturnCode_rimage(IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME);
+            return FALSE;
+        }
+
+        if (!SupportedIndexColorImage(mpIncomeDIB)) {
+        }
+
+        return TRUE;
     }
 
-    if(!dest) {
-        RIMAGE_ERROR << " invalid destinaiotn dib\n";
-        return false;
-    }
-
-    mpIncomeDIB = src;
-    mpOutcomeDIB = dest;
-
-    if ((mwSrcBitCount = mpIncomeDIB->GetPixelSize()) < 4) {
-        RIMAGE_ERROR << " source image format can't be binarized\n";
-        return false;
-    }
-
-    if (mpOutcomeDIB->GetPixelSize() != 1) {
-        RIMAGE_ERROR << " destination image depth should be equal to 1\n";
-        return false;
-    }
-
-    if ((mwLineLenght = mpIncomeDIB->GetLineWidth())
-            != mpOutcomeDIB->GetLineWidth()) {
-        SetReturnCode_rimage(IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME);
-        return false;
-    }
-
-    return true;
+    return FALSE;
 }
 
 Bool32 CRIBinarizator::Binarize(CTBinarize eBinType, uint32_t wFlag)
