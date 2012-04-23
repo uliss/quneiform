@@ -114,7 +114,6 @@ public:
     Bool32          Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
 private:
     Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
-    Bool32          GetDIB(const char *cDIB, BitmapHandle* phDIB);
     bool closeSourceDIB();
     // Creating new DIB by CTDIB class and 4 RIMAGE functions
     bool createDestinatonDIB();
@@ -122,7 +121,6 @@ private:
     bool openDestinationDIBfromSource(const std::string& name);
     bool closeDestinationDIB(const std::string& name);
     bool openSourceDIB(const std::string&   name);
-    Bool32          SetDIB(const std::string& name, Handle hDIB);
     bool saveCopy(const std::string& name, BitmapHandle handle);
     bool readDIBCopy(const std::string& name, BitmapHandle * dest);
 private:

@@ -314,27 +314,6 @@ bool CRIControl::inverse(const std::string& src, const std::string& dest)
 
     return bErrors;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// взять без копировыания
-Bool32 CRIControl::GetDIB(const char* cDIB, BitmapHandle *phDIB)
-{
-    // берем с копированием, что б маска была!
-    if (CIMAGE_ReadDIB(cDIB, phDIB))
-        return TRUE;
-
-    SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
-    return FALSE;
-}
-
-// положить без копирования
-Bool32 CRIControl::SetDIB(const std::string& name, Handle hDIB)
-{
-    if (CIMAGE_AddImage(name, (BitmapHandle) hDIB))
-        return TRUE;
-
-    SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
-    return FALSE;
-}
 
 bool CRIControl::saveCopy(const std::string& name, BitmapHandle handle)
 {
@@ -509,7 +488,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(const std::string& name)
     if (!dest_dib_->GetDIBHandle((void**) &hSDIB))
         return FALSE;
 
-    if (!SetDIB(name, hSDIB)) {
+    if (!CIMAGE_AddImage(name, hSDIB)) {
         SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
         return FALSE;
     }
