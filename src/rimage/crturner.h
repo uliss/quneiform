@@ -58,41 +58,41 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define CRTURNER_H__
 
 #include "globus.h"
-#include "rdib/ctdib.h"
+
+class CTDIB;
 
 namespace cf {
 
 class CRTurner
 {
-    public:
-        Bool32    TurnDIB(PCTDIB pInDIB, PCTDIB pOutDIB, uint32_t wAngle);
-        Bool32    FreeDIB(void * pDIB);
-        void *    TurnDIB( void * pDIB, uint32_t wAngle);
-        CRTurner();
-        virtual   ~CRTurner();
-    private:
-        Bool32    WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
-        Bool32    Turn270GC(PCTDIB pIn, PCTDIB pOut);
-        Bool32    Turn180GC(PCTDIB pIn, PCTDIB pOut);
-        Bool32    Turn90GC(PCTDIB pIn, PCTDIB pOut);
-        Bool32    Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB);
-        Bool32    Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB);
-        Bool32    CheckInAndOut180(PCTDIB pIn, PCTDIB pOut);
-        Bool32    CheckInAndOut90(PCTDIB pIn, PCTDIB pOut);
-        void      FreeBuffers(void);
-        Bool32    Turn270(PCTDIB pInDIB, PCTDIB pOutDIB);
-        Bool32    Turn180(PCTDIB pInDIB, PCTDIB pOutDIB);
-        Bool32    Turn90(PCTDIB pInDIB, PCTDIB pOutDIB);
-        Bool32    Turn180LA(PCTDIB pInDIB, PCTDIB pOutDIB);
-    protected:
-        uint32_t    wRightShift[8];// { 7, 6, 5, 4, 3, 2, 1, 0};
-        uchar     wRightMask[8]; // { 11111110b, 11111100b, 11111000b, 11110000b, 11100000b, 11000000b, 10000000b, 00000000b };
-        uchar     wLeftMask[8];  // { 11111110b, 11111100b, 11111000b, 11110000b, 11100000b, 11000000b, 10000000b, 00000000b };
-        uchar     wBitMask[8];  //  { 10000000b, 01000000b, 00100000b, 00010000b, 00001000b, 00000100b, 00000010b, 00000001b };
-        Handle    hLineBuffer;
-        puchar    LineBuffer;
-        uchar     Turn1at180[256];
-        uchar     Turn1at90[132][8];
+public:
+    CRTurner();
+    virtual   ~CRTurner();
+
+    Bool32    TurnDIB(CTDIB * pInDIB, CTDIB * pOutDIB, uint32_t wAngle);
+private:
+    Bool32    WriteDIBtoBMP(const char *cName, CTDIB * pDIB);
+    Bool32    Turn270GC(CTDIB * pIn, CTDIB * pOut);
+    Bool32    Turn180GC(CTDIB * pIn, CTDIB * pOut);
+    Bool32    Turn90GC(CTDIB * pIn, CTDIB * pOut);
+    Bool32    Turn270LA(CTDIB * pInDIB, CTDIB * pOutDIB);
+    Bool32    Turn90LA(CTDIB * pInDIB, CTDIB * pOutDIB);
+    Bool32    CheckInAndOut180(CTDIB * pIn, CTDIB * pOut);
+    Bool32    CheckInAndOut90(CTDIB * pIn, CTDIB * pOut);
+    void      FreeBuffers(void);
+    Bool32    Turn270(CTDIB * pInDIB, CTDIB * pOutDIB);
+    Bool32    Turn180(CTDIB * pInDIB, CTDIB * pOutDIB);
+    Bool32    Turn90(CTDIB * pInDIB, CTDIB * pOutDIB);
+    Bool32    Turn180LA(CTDIB * pInDIB, CTDIB * pOutDIB);
+protected:
+    uint32_t    wRightShift[8];// { 7, 6, 5, 4, 3, 2, 1, 0};
+    uchar     wRightMask[8]; // { 11111110b, 11111100b, 11111000b, 11110000b, 11100000b, 11000000b, 10000000b, 00000000b };
+    uchar     wLeftMask[8];  // { 11111110b, 11111100b, 11111000b, 11110000b, 11100000b, 11000000b, 10000000b, 00000000b };
+    uchar     wBitMask[8];  //  { 10000000b, 01000000b, 00100000b, 00010000b, 00001000b, 00000100b, 00000010b, 00000001b };
+    Handle    hLineBuffer;
+    puchar    LineBuffer;
+    uchar     Turn1at180[256];
+    uchar     Turn1at90[132][8];
 };
 
 }
