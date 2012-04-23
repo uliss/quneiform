@@ -719,8 +719,10 @@ void MainWindow::updatePageDocument(Page * page) {
 
 void MainWindow::debugShowCImage()
 {
+#ifndef NDEBUG
     CImageView v;
     v.exec();
+#endif
 }
 
 #ifndef NDEBUG
