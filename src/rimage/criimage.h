@@ -84,6 +84,12 @@ struct RIMAGEMARGINS {
 typedef RIMAGEMARGINS * PRIMAGEMARGINS;
 
 namespace cf {
+
+enum binarizator_t {
+    BINARIZATOR_DEZA = 0,
+    BINARIZATOR_KRONROD
+};
+
 class CRIControl;
 typedef Singleton<CRIControl, CreateUsingStatic> RImage;
 }
@@ -108,7 +114,9 @@ typedef void   (*PRIMAGECBPRogressStart)(void);
 typedef Bool32 (*PRIMAGECBPRogressStep)(uint32_t);
 typedef void   (*PRIMAGECBPRogressFinish)(void);
 
-RIMAGE_FUNC bool RIMAGE_Binarise(const std::string& srcImageName, const std::string& destImageName, uint32_t);
+RIMAGE_FUNC bool RIMAGE_Binarise(const std::string& srcImageName,
+                                 const std::string& destImageName,
+                                 cf::binarizator_t binType);
 RIMAGE_FUNC Bool32 RIMAGE_Rotate(puchar , puchar , int32_t, int32_t, uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Roll(puchar , puchar , int32_t, int32_t, uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Turn(const char * , const char *, rimage_turn_angle_t angle);

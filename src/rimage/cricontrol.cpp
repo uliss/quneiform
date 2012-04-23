@@ -102,7 +102,7 @@ void CRIControl::reset()
     init();
 }
 
-bool CRIControl::Binarise(const std::string& src, const std::string& dest, uint32_t wFlag)
+bool CRIControl::binarise(const std::string& src, const std::string& dest, binarizator_t binType)
 {
     bool Ret = true;
     CTBinarize bType = CTBIN_UNKNOWN;
@@ -130,16 +130,19 @@ bool CRIControl::Binarise(const std::string& src, const std::string& dest, uint3
         Ret = false;
     }
 
-    if (wFlag < 4) {
+    switch(binType) {
+    case BINARIZATOR_DEZA:
         bType = CTBIN_DEZA;
-    }
-
-    else {
+        break;
+    case BINARIZATOR_KRONROD:
         bType = CTBIN_KRONROD;
+        break;
+    default:
+        break;
     }
 
     // бинаризуем
-    if (!mpBinarizator->Binarize(bType, wFlag)) {
+    if (!mpBinarizator->Binarize(bType, binType)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANT_BINARYZE);
         Ret = false;
     }
