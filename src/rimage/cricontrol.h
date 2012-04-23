@@ -93,9 +93,17 @@ public:
       */
     bool binarise(const std::string& src, const std::string& dest, binarizator_t binType);
 
+    /**
+      * Turns image angle degrees clockwise and stores result in CImage container.
+      * @param src - source image name in CImage container.
+      * @param dest - destination image name in CImage container.
+      * @param angle - turn angle
+      * @return true on success
+      */
+    bool turn(const std::string& src, const std::string& dest, rimage_turn_angle_t angle);
+
     Bool32          Rotate(char*   cDIBIn, char*   cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins);
     Bool32          Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
-    Bool32          Turn(const char*   cDIBIn, const char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
     Bool32          Inverse(char*   cDIBIn, char*   cDIBOut, uint32_t UseMargins);
 private:
     Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);

@@ -54,25 +54,14 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// СRTurner.h: interface for the CRTurner class.
-//
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
-#if !defined(CRTURNER_H__)
+#ifndef CRTURNER_H__
 #define CRTURNER_H__
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 #include "globus.h"
 #include "rdib/ctdib.h"
 
-#define CONTINUEPIXEL(a)         if ( !(a) ) continue;
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
+namespace cf {
+
 class CRTurner
 {
     public:
@@ -81,7 +70,6 @@ class CRTurner
         void *    TurnDIB( void * pDIB, uint32_t wAngle);
         CRTurner();
         virtual   ~CRTurner();
-
     private:
         Bool32    WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
         Bool32    Turn270GC(PCTDIB pIn, PCTDIB pOut);
@@ -96,7 +84,6 @@ class CRTurner
         Bool32    Turn180(PCTDIB pInDIB, PCTDIB pOutDIB);
         Bool32    Turn90(PCTDIB pInDIB, PCTDIB pOutDIB);
         Bool32    Turn180LA(PCTDIB pInDIB, PCTDIB pOutDIB);
-
     protected:
         uint32_t    wRightShift[8];// { 7, 6, 5, 4, 3, 2, 1, 0};
         uchar     wRightMask[8]; // { 11111110b, 11111100b, 11111000b, 11110000b, 11100000b, 11000000b, 10000000b, 00000000b };
@@ -108,5 +95,6 @@ class CRTurner
         uchar     Turn1at90[132][8];
 };
 
-typedef  CRTurner   *PCRTurner,  **PPCRTurner;
+}
+
 #endif // !defined(CRTURNER_H__)

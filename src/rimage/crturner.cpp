@@ -54,26 +54,17 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// СRTurner.cpp: implementation of the CRTurner class.
-//
-//////////////////////////////////////////////////////////////////////
-//#define RIMAGE_DUMP_TO_FILE
-//////////////////////////////////////////////////////////////////////
 #include <cstddef>
 #include "globus.h"
 #include "crturner.h"
-//#include "turn.h"
 #include "criimage.h"
 #include "crimemory.h"
 #include "resource.h"
 #include "memory.h"
-//#include "dpuma.h"
-#ifdef RIMAGE_DUMP_TO_FILE
-#include "PumaMemoryToFileDumper.h"
-#endif
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+
+#define CONTINUEPIXEL(a)         if ( !(a) ) continue;
+
+namespace cf {
 
 CRTurner::CRTurner()
 {
@@ -709,4 +700,6 @@ Bool32 CRTurner::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
     BMPDump.EndDump();
 #endif
     return TRUE;
+}
+
 }

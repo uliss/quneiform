@@ -231,110 +231,67 @@ Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
 
     return Ret;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 CRIControl::Turn(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
-                        uint32_t UseMargins)
+
+bool CRIControl::turn(const std::string &src, const std::string& dest, rimage_turn_angle_t angle)
 {
-    int32_t NewWidth;
-    int32_t NewHeight;
-    Bool32 bRet = FALSE;
-    //void *   pSDIB;
-
-    if (wFlag != RIMAGE_TURN_90 && wFlag != RIMAGE_TURN_270 && wFlag
-            != RIMAGE_TURN_180) {
-        RIMAGE_ERROR << " invalid angle: " << wFlag << "\n";
-        return FALSE;
-    }
-
     if (mp_TurnedDIB != NULL) {
-        SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
-        return FALSE;
+        RIMAGE_ERROR << " previous turned image not deleted\n";
+        return false;
     }
 
-    // открываем исходный
-    if (!openSourceDIB(cDIBIn)) {
-        return FALSE;
-    }
+    if (!openSourceDIB(src))
+        return false;
 
-    NewWidth = (wFlag == RIMAGE_TURN_180 ? src_dib_->GetImageWidth()
-                : src_dib_->GetImageHeight());
-    NewHeight = (wFlag == RIMAGE_TURN_180 ? src_dib_->GetImageHeight()
-                 : src_dib_->GetImageWidth());
-
-    /*
-     if ( !mpSourceDIB->GetDIBPtr( &pSDIB ) )
-     {
-     SetReturnCode_rimage(IDS_RIMAGE_INVALID_EXTERNAL_DIB);
-     return FALSE;
-     }
-     */
+    int new_width = (angle == RIMAGE_TURN_180) ? src_dib_->GetImageWidth()
+                                               : src_dib_->GetImageHeight();
+    int new_height = (angle == RIMAGE_TURN_180) ? src_dib_->GetImageHeight()
+                                                : src_dib_->GetImageWidth();
 
     //открываем вертелку
-    if (!turner_) {
+    if (!turner_)
         turner_ = new CRTurner;
-    }
 
     // генерим новенький
     if (dest_dib_) {
-        SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
-        return FALSE;
+        closeSourceDIB();
+        RIMAGE_ERROR << " previous dest dib not removed\n";
+        return false;
     }
 
     dest_dib_ = new CTDIB;
-    RIMAGEComment("Turn - temporary destination DIB");
-    dest_dib_->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock,
-                                   RIMAGEUnlock);
+    dest_dib_->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock, RIMAGEUnlock);
 
-    if (dest_dib_->CreateDIBBegin(NewWidth, NewHeight,
-                                         src_dib_->GetPixelSize())
-            && dest_dib_->CopyPalleteFromDIB(src_dib_)
-            && dest_dib_->CopyDPIFromDIB(src_dib_)
-            && dest_dib_->CreateDIBEnd()) {
-        bRet = turner_->TurnDIB(src_dib_, dest_dib_, wFlag);
+    bool bRet = false;
+
+    if (dest_dib_->CreateDIBBegin(new_width, new_height, src_dib_->GetPixelSize()) &&
+            dest_dib_->CopyPalleteFromDIB(src_dib_) &&
+            dest_dib_->CopyDPIFromDIB(src_dib_) &&
+            dest_dib_->CreateDIBEnd())
+    {
+        bRet = turner_->TurnDIB(src_dib_, dest_dib_, angle);
+    }
+    else {
+        RIMAGE_ERROR << " can't create destination dib\n";
+        closeSourceDIB();
+        delete dest_dib_;
+        return false;
     }
 
-    // вертим
-    /*
-     if ( !(mp_TurnedDIB = mpTurner->TurnDIB(pSDIB, wFlag)) )
-     {
-     SetReturnCode_rimage(IDS_RIMAGE_CANT_TURN_DIB);
-     return FALSE;
-     }
-     */
-
-    /*
-     //отписваем новый в контейнер и освобождаем
-     if ( !WriteDIB(cDIBOutt, mp_TurnedDIB) )
-     {
-     SetReturnCode_rimage(IDS_RIMAGE_UNABLE_WRITE_DIB);
-     return FALSE;
-     }
-
-     if ( !mpTurner->FreeDIB(mp_TurnedDIB) )
-     {
-     SetReturnCode_rimage(IDS_RIMAGE_INVALID_EXTERNAL_DIB);
-     return FALSE;
-     }
-
-     mp_TurnedDIB = NULL;
-     */
     //отписваем новый в контейнер и освобождаем
-    if (!closeDestinationDIB(cDIBOut)) {
+    if (!closeDestinationDIB(dest)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
-        bRet = FALSE;
+        bRet = false;
     }
 
     //закрываем исходный
     if (!closeSourceDIB()) {
         SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
-        bRet = FALSE;
+        bRet = false;
     }
 
     return bRet;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 CRIControl::Inverse(char* cDIBIn, char* cDIBOut, uint32_t UseMargins)
 {
     Bool32 bErrors = TRUE;
