@@ -68,18 +68,11 @@
 #include "criimage.h"
 #include "compat_defs.h"
 
-//////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
-CRIControl * Control_cri = NULL;
 
 Bool32 RIMAGE_Init(uint16_t wHeightCode)
 {
-    if (!Control_cri ) {
-        Control_cri = &cf::RImage::instance();
-        gwHeightRC = wHeightCode;
-    }
-
     return TRUE;
 }
 
