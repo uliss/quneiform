@@ -147,7 +147,7 @@ bool CRIControl::binarise(const std::string& src, const std::string& dest, binar
     }
 
     //отписваем новый в контейнер и освобождаем
-    if (!CloseDestinationDIB(dest)) {
+    if (!closeDestinationDIB(dest)) {
         SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
         Ret = false;
     }
@@ -193,31 +193,28 @@ Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
         // !!! Art Изменил - теперь она заносит не хендлы, а указатели, а то память утекала
         //почему-то...
         //      Handle hDIBtoSet;
-        pvoid pDIBtoSet;
+        BitmapHandle handle;
 
-        if ((wRet == IDS_RIMAGE_ZERO_NUMERATOR_OR_DENUMERATOR || wRet
-                == IDS_RIMAGE_ANGLE_LEAST_MINIMUM) && src_dib_->GetDIBPtr(
-                    &pDIBtoSet)
-                /*mpSourceDIB->GetDIBHandle(&hDIBtoSet)*/) {
-            //          SetDIB(cDIBOut, hDIBtoSet);
-            WriteDIB(cDIBOut, pDIBtoSet);
+        if ((wRet == IDS_RIMAGE_ZERO_NUMERATOR_OR_DENUMERATOR ||
+             wRet == IDS_RIMAGE_ANGLE_LEAST_MINIMUM) &&
+                src_dib_->GetDIBPtr((void**) &handle))
+        {
+            saveCopy(cDIBOut, handle);
             SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
             NoDest = Ret = TRUE;
         }
-
         else {
             SetReturnCode_rimage(IDS_RIMAGE_CANNOT_ROTATE_IMAGE);
             Ret = FALSE;
         }
     }
-
     else {
         WriteDIBtoBMP("Allex.DIBBeforeDeskew.bmp", src_dib_);
         WriteDIBtoBMP("Allex.DIBAfterDeskew.bmp", dest_dib_);
     }
 
     //отписваем новый в контейнер и освобождаем
-    if (!CloseDestinationDIB(cDIBOut)) {
+    if (!closeDestinationDIB(cDIBOut)) {
         if (NoDest == FALSE) {
             SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
             Ret = FALSE;
@@ -323,7 +320,7 @@ Bool32 CRIControl::Turn(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
      mp_TurnedDIB = NULL;
      */
     //отписваем новый в контейнер и освобождаем
-    if (!CloseDestinationDIB(cDIBOut)) {
+    if (!closeDestinationDIB(cDIBOut)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
         bRet = FALSE;
     }
@@ -389,14 +386,9 @@ Bool32 CRIControl::SetDIB(const std::string& name, Handle hDIB)
     return FALSE;
 }
 
-// положить c копированием
-Bool32 CRIControl::WriteDIB(const std::string& name, Handle hDIB)
+bool CRIControl::saveCopy(const std::string& name, BitmapHandle handle)
 {
-    if (CIMAGE_AddImageCopy(name, (BitmapHandle) hDIB))
-        return TRUE;
-
-    SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
-    return FALSE;
+    return CImage::instance().addImageCopy(name, handle);
 }
 
 bool CRIControl::readDIBCopy(const std::string& name, BitmapHandle * dest)
@@ -447,33 +439,29 @@ bool CRIControl::openSourceDIB(const std::string& name)
 }
 
 //Создаем временный DIB куда отпишем, что получили
-Bool32 CRIControl::CloseDestinationDIB(const std::string& name)
+bool CRIControl::closeDestinationDIB(const std::string& name)
 {
-    Handle hDIB = NULL;
-    pvoid pDIB = NULL;
-
-    if (DIBOpeningType == TRUE) {
+    if (DIBOpeningType == TRUE)
         return SetDestinationDIBtoStorage(name);
-    }
 
     if (!dest_dib_)
-        return FALSE;
+        return false;
 
-    if (!dest_dib_->GetDIBHandle(&hDIB) || !dest_dib_->GetDIBPtr(
-                &pDIB)) {
+    BitmapHandle dib = NULL;
+    if (!dest_dib_->GetDIBPtr((void**) &dib)) {
         delete dest_dib_;
         dest_dib_ = NULL;
-        return FALSE;
+        return false;
     }
 
-    if (!WriteDIB(name, pDIB)) {
-        SetReturnCode_rimage(IDS_RIMAGE_NO_IMAGE_FOUND);
-        return FALSE;
+    if (!saveCopy(name, dib)) {
+        RIMAGE_ERROR << " image saving failed: " << name << "\n";
+        return false;
     }
 
     delete dest_dib_;
     dest_dib_ = NULL;
-    return TRUE;
+    return true;
 }
 
 bool CRIControl::createDestinatonDIB()
@@ -563,7 +551,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(const std::string& name)
     Bool32 bErrors = TRUE;
 
     if (DIBOpeningType == FALSE) {
-        return CloseDestinationDIB(name);
+        return closeDestinationDIB(name);
     }
 
     // записывваем в блок выделеный в CIMAGE при открытии
@@ -617,7 +605,7 @@ Bool32 CRIControl::Roll(char* cDIBIn, char* cDIBOut, int32_t Num,
     }
 
     //отписваем новый в контейнер и освобождаем
-    if (!CloseDestinationDIB(cDIBOut)) {
+    if (!closeDestinationDIB(cDIBOut)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
         Ret = FALSE;
     }

@@ -105,10 +105,10 @@ private:
     bool createDestinatonDIB();
     Bool32          SetDestinationDIBtoStorage(const std::string&  name);
     Bool32          OpenDestinationDIBfromSource(const char *cSDIB);
-    Bool32          CloseDestinationDIB(const std::string&  name);
+    bool closeDestinationDIB(const std::string& name);
     bool openSourceDIB(const std::string&   name);
     Bool32          SetDIB(const std::string& name, Handle hDIB);
-    Bool32          WriteDIB(const std::string& name, Handle hDIB);
+    bool saveCopy(const std::string& name, BitmapHandle handle);
     bool readDIBCopy(const std::string& name, BitmapHandle * dest);
 private:
     Bool32          DIBOpeningType;
