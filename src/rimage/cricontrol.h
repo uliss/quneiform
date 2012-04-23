@@ -120,14 +120,10 @@ private:
     bool readDIBCopy(const std::string& name, BitmapHandle * dest);
 private:
     Bool32          DIBOpeningType;
-    RIMAGEMARGINS   mrMargins;
-    Handle           mhOpenedDIB;
-    Handle           mhCreatedDIB;
     CTDIB * src_dib_;
     CTDIB * dest_dib_;
     // Name of last processed image
     char mcLastDIBName[256];
-    void * mp_TurnedDIB;
     // pointer to class ProgressShow
     CRProgressor mcProgress;
     // pointer to class Binarizator

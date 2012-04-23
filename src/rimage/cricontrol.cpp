@@ -234,11 +234,6 @@ Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
 
 bool CRIControl::turn(const std::string &src, const std::string& dest, rimage_turn_angle_t angle)
 {
-    if (mp_TurnedDIB != NULL) {
-        RIMAGE_ERROR << " previous turned image not deleted\n";
-        return false;
-    }
-
     if (!openSourceDIB(src))
         return false;
 
@@ -623,7 +618,6 @@ void CRIControl::init()
     turner_ = NULL;
     invertor_ = NULL;
     rotator_ = NULL;
-    mp_TurnedDIB = NULL;
     DIBOpeningType = FALSE;
     mcLastDIBName[0] = 0x0;
 }
