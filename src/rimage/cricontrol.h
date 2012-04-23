@@ -84,7 +84,7 @@ public:
     Bool32          StartProgress(void);
     Bool32          SetProgressCallBacks(PRIMAGECBPRogressStart pcbStart, PRIMAGECBPRogressStep pcbStep, PRIMAGECBPRogressFinish pcbFinish);
 
-    bool Binarise(const char*   cDIBIn, const char*   cDIBOut, uint32_t wFlag);
+    bool Binarise(const std::string& src, const std::string& dest, uint32_t wFlag);
     Bool32          Rotate(char*   cDIBIn, char*   cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins);
     Bool32          Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
     Bool32          Turn(const char*   cDIBIn, const char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
@@ -94,13 +94,13 @@ private:
     Bool32          GetDIB(const char *cDIB, BitmapHandle* phDIB);
     Bool32          CloseSourceDIB();
     Bool32          CreateDestinatonDIB(uint32_t BitCount);
-    Bool32          SetDestinationDIBtoStorage(const char*  cDIBName);
+    Bool32          SetDestinationDIBtoStorage(const std::string&  name);
     Bool32          OpenDestinationDIBfromSource(const char *cSDIB);
-    Bool32          CloseDestinationDIB(const char*   cDIBName);
-    Bool32          OpenSourceDIB(const char*   cDIBName);
-    Bool32          SetDIB(const char*   cDIB, Handle hDIB);
-    Bool32          WriteDIB(const char*   cDIB, Handle hDIB);
-    Bool32          ReadDIB(const char*   cDIB, BitmapHandle* phDIB);
+    Bool32          CloseDestinationDIB(const std::string&  name);
+    Bool32          OpenSourceDIB(const std::string&   name);
+    Bool32          SetDIB(const std::string& name, Handle hDIB);
+    Bool32          WriteDIB(const std::string& name, Handle hDIB);
+    Bool32          ReadDIB(const std::string& cDIB, BitmapHandle* phDIB);
 private:
     Bool32          DIBOpeningType;
     RIMAGEMARGINS   mrMargins;
