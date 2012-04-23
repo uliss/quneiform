@@ -99,7 +99,7 @@ class CRIBinarizator
 
     public:
         Bool32 Binarize(CTBinarize eBinType, uint32_t wFlag);
-        Bool32 SetRasters(PCTDIB pSrcDIB, PCTDIB pDescDIB );
+        bool SetRasters(CTDIB * src, CTDIB * dest);
         CRIBinarizator();
         CRIBinarizator( PCRProgressor pProgressIndicator);
         virtual ~CRIBinarizator();

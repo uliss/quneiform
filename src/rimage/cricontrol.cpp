@@ -62,10 +62,8 @@
 #include "resource.h"
 #include "cricontrol.h"
 #include "crimemory.h"
-#include "common/debug.h"
 #include "cimage/cticontrol.h"
-
-#define RIMAGE_ERROR cf::Debug() << "[RIMAGE] ERROR " << BOOST_CURRENT_FUNCTION
+#include "rimage_debug.h"
 
 namespace cf {
 
@@ -124,8 +122,10 @@ bool CRIControl::binarise(const std::string& src, const std::string& dest, binar
 
     // закидываем туда картинки
     if (!binarizator_->SetRasters(src_dib_, dest_dib_)) {
-        SetReturnCode_rimage(IDS_RIMAGE_CANNOT_SET_DIB);
-        Ret = false;
+        closeSourceDIB();
+        closeDestinationDIB(dest);
+        RIMAGE_ERROR << " can't set dib rasters\n";
+        return false;
     }
 
     CTBinarize bType = CTBIN_UNKNOWN;
@@ -408,12 +408,10 @@ bool CRIControl::closeSourceDIB()
     }
 
     BitmapHandle dib = NULL;
-    if (src_dib_->GetDIBHandle((Handle*) &dib)) {
-        RIMAGEUnlock(dib);
-    }
+    if (src_dib_->GetDIBPtr((Handle*) &dib))
+        CImage::instance().free(dib);
 
     delete src_dib_;
-    CImage::instance().free(dib);
     return true;
 }
 
