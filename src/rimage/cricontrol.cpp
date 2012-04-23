@@ -58,11 +58,14 @@
 #include <string.h>
 #include <boost/current_function.hpp>
 
+#include "resource.h"
 #include "cricontrol.h"
 #include "crimemory.h"
 #include "common/debug.h"
 
 #define RIMAGE_ERROR cf::Debug() << "[Error] " << BOOST_CURRENT_FUNCTION
+
+namespace cf {
 
 CRIControl::CRIControl()
 {
@@ -707,4 +710,6 @@ void CRIControl::init()
     mbMarginsFlag = FALSE;
     DIBOpeningType = FALSE;
     mcLastDIBName[0] = 0x0;
+}
+
 }

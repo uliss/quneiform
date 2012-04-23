@@ -81,9 +81,9 @@ struct RIMAGEMARGINS {
 
 typedef RIMAGEMARGINS * PRIMAGEMARGINS;
 
-class CRIControl;
 namespace cf {
-typedef Singleton<CRIControl, CreateUsingNewSmartPtr> RImage;
+class CRIControl;
+typedef Singleton<CRIControl, CreateUsingStatic> RImage;
 }
 
 RIMAGE_FUNC Bool32 RIMAGE_Init(uint16_t wHeightCode);

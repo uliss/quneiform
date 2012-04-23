@@ -54,16 +54,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
 # ifndef __CRI_CONTROL_H_
 # define __CRI_CONTROL_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
-
-#include "resource.h"
 #include "cttypes.h"
 #include "criimage.h"
 #include "cimage/ctiimage.h"
@@ -74,7 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "crturner.h"
 #include "crinvertor.h"
 #include "crrotator.h"
-#include "cttypes.h"    // Added by ClassView
+
+namespace cf {
 
 class CRIControl
 {
@@ -137,6 +131,7 @@ class CRIControl
         Bool32                    Turn(const char*   cDIBIn, const char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
         Bool32                    Inverse(char*   cDIBIn, char*   cDIBOut, uint32_t UseMargins);
 };
-# endif    //__CRI_CONTROL_H_
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// end of file
+
+}
+
+# endif
