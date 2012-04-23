@@ -54,16 +54,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
 # ifndef __CRI_CONTROL_H_
 # define __CRI_CONTROL_H_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
-
-#include "resource.h"
 #include "cttypes.h"
 #include "criimage.h"
 #include "cimage/ctiimage.h"
@@ -74,67 +67,71 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "crturner.h"
 #include "crinvertor.h"
 #include "crrotator.h"
-#include "cttypes.h"    // Added by ClassView
+
+namespace cf {
 
 class CRIControl
 {
-    private:
-        Handle           mhOpenedDIB;
-        Handle           mhCreatedDIB;
-        // pointer to class CTDIB
-        PCTDIB           mpSourceDIB;
-        PCTDIB           mpDestinationDIB;
+public:
+    CRIControl();
+    ~CRIControl();
 
+    void clear();
+    void init();
+    void reset();
+public:
+    Bool32          RotatePoint(char* cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);
+    Bool32          StartProgress(void);
+    Bool32          SetProgressCallBacks(PRIMAGECBPRogressStart pcbStart, PRIMAGECBPRogressStep pcbStep, PRIMAGECBPRogressFinish pcbFinish);
 
-    protected:
-        // Name of last processed image
-        char                     mcLastDIBName[256];
-        //
-        void *                    mp_TurnedDIB;
-        // pointer to class ProgressShow
-        CRProgressor              mcProgress;
-        // pointer to class Binarizator
-        PCRIBinarizator           mpBinarizator;
-        // pointer to clas  Invertor
-        PCRInvertor               mpInvertor;
-        // pointer to class Turn
-        PCRTurner                 mpTurner;
-        // pointer to class Rotate
-        PCRRotator                mpRotator;
+    /**
+      * Binarises source imgage and stores result into CImage container
+      * @param src - source image name in CImage storage
+      * @param dest - destination image name in CImage container
+      * @param binType - type of binarizator
+      * @return true on success
+      */
+    bool binarise(const std::string& src, const std::string& dest, binarizator_t binType);
 
-    public:
-        CRIControl();
-        ~CRIControl();
-
-    private:
-        Bool32          DIBOpeningType;
-        RIMAGEMARGINS   mrMargins;
-        Bool32          mbMarginsFlag;
-
-    private:
-        Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
-        Bool32          GetDIB(const char *cDIB, BitmapHandle* phDIB);
-        Bool32          CloseSourceDIB();
-        Bool32          CreateDestinatonDIB(uint32_t BitCount);
-        Bool32          SetDestinationDIBtoStorage(const char*  cDIBName);
-        Bool32          OpenDestinationDIBfromSource(const char *cSDIB);
-        Bool32          CloseDestinationDIB(const char*   cDIBName);
-        Bool32          OpenSourceDIB(const char*   cDIBName);
-        Bool32          SetDIB(const char*   cDIB, Handle hDIB);
-        Bool32          WriteDIB(const char*   cDIB, Handle hDIB);
-        Bool32          ReadDIB(const char*   cDIB, BitmapHandle* phDIB);
-
-    public:
-        Bool32                    RotatePoint(char* cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);
-        Bool32                    StartProgress(void);
-        Bool32                    SetProgressCallBacks(PRIMAGECBPRogressStart pcbStart, PRIMAGECBPRogressStep pcbStep, PRIMAGECBPRogressFinish pcbFinish);
-        Bool32                    SetMargins(PRIMAGEMARGINS pMargins);
-        Bool32                    Binarise(const char*   cDIBIn, const char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
-        Bool32                    Rotate(char*   cDIBIn, char*   cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins);
-        Bool32                    Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
-        Bool32                    Turn(const char*   cDIBIn, const char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
-        Bool32                    Inverse(char*   cDIBIn, char*   cDIBOut, uint32_t UseMargins);
+    Bool32          Rotate(char*   cDIBIn, char*   cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins);
+    Bool32          Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
+    Bool32          Turn(const char*   cDIBIn, const char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
+    Bool32          Inverse(char*   cDIBIn, char*   cDIBOut, uint32_t UseMargins);
+private:
+    Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
+    Bool32          GetDIB(const char *cDIB, BitmapHandle* phDIB);
+    bool closeSourceDIB();
+    // Creating new DIB by CTDIB class and 4 RIMAGE functions
+    bool createDestinatonDIB();
+    Bool32          SetDestinationDIBtoStorage(const std::string&  name);
+    Bool32          OpenDestinationDIBfromSource(const char *cSDIB);
+    bool closeDestinationDIB(const std::string& name);
+    bool openSourceDIB(const std::string&   name);
+    Bool32          SetDIB(const std::string& name, Handle hDIB);
+    bool saveCopy(const std::string& name, BitmapHandle handle);
+    bool readDIBCopy(const std::string& name, BitmapHandle * dest);
+private:
+    Bool32          DIBOpeningType;
+    RIMAGEMARGINS   mrMargins;
+    Handle           mhOpenedDIB;
+    Handle           mhCreatedDIB;
+    CTDIB * src_dib_;
+    CTDIB * dest_dib_;
+    // Name of last processed image
+    char mcLastDIBName[256];
+    void * mp_TurnedDIB;
+    // pointer to class ProgressShow
+    CRProgressor mcProgress;
+    // pointer to class Binarizator
+    CRIBinarizator * binarizator_;
+    // pointer to clas  Invertor
+    CRInvertor * invertor_;
+    // pointer to class Turn
+    CRTurner * turner_;
+    // pointer to class Rotate
+    CRRotator * rotator_;
 };
-# endif    //__CRI_CONTROL_H_
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// end of file
+
+}
+
+# endif

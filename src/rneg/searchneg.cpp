@@ -1032,7 +1032,7 @@ Bool GetMasP(Handle hCPage, Rect16 Rc, uchar** ppmasp)
     DataOut.lpData = *ppmasp;
 
     /*  5. Чтение части изображения.  */
-    Bool ret = CIMAGE_GetData(Name, &DataInto, &DataOut);
+    Bool ret = CIMAGE_GetRawData(Name, &DataInto, &DataOut);
     if (!ret)
         return FALSE;
     if (DataOut.lpData == NULL)

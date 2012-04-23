@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,34 +16,13 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LOCALRECOGNITIONSERVER_H
-#define LOCALRECOGNITIONSERVER_H
+#include <cppunit/extensions/TestFactoryRegistry.h>
+#include <cppunit/ui/text/TestRunner.h>
 
-#include "abstractrecognitionserver.h"
-#include "globus.h"
-
-namespace cf {
-
-class CLA_EXPO LocalRecognitionServer : public AbstractRecognitionServer
-{
-public:
-    ~LocalRecognitionServer();
-
-    CEDPagePtr recognize(const std::string& imagePath,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
-
-    CEDPagePtr recognize(ImagePtr image,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
-private:
-    void close(const RecognizeOptions& ropts);
-    void doRecognize();
-    CEDPagePtr format();
-    void open(ImagePtr image);
-    void setOptions(const RecognizeOptions& ropts, const FormatOptions& fopts);
-};
-
+int main() {
+    CppUnit::TextUi::TestRunner runner;
+    CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
+    runner.addTest(registry.makeTest());
+    bool wasSuccessful = runner.run("", false);
+    return wasSuccessful ? 0 : -1;
 }
-
-#endif // LOCALRECOGNITIONSERVER_H

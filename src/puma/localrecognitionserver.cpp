@@ -36,11 +36,11 @@ LocalRecognitionServer::~LocalRecognitionServer() {
         Puma::instance().close();
 }
 
-void LocalRecognitionServer::close()
+void LocalRecognitionServer::close(const RecognizeOptions& ropts)
 {
     // for normal formatting - we have to close puma library,
     // except textdebug
-    if(!isTextDebug())
+    if(!isTextDebug() && !ropts.debugCleanupDelayed())
         Puma::instance().close();
 }
 
@@ -115,7 +115,7 @@ CEDPagePtr LocalRecognitionServer::recognize(ImagePtr image,
         open(image);
         doRecognize();
         CEDPagePtr page = format();
-        close();
+        close(ropts);
 
         // set filename
         if(page)
@@ -125,7 +125,8 @@ CEDPagePtr LocalRecognitionServer::recognize(ImagePtr image,
     } catch (std::runtime_error& e) {
         CF_ERROR << e.what() << std::endl;
 
-        Puma::instance().close();
+        if(!ropts.debugCleanupDelayed())
+            Puma::instance().close();
 
         if(state_)
             state_->set(RecognitionState::FAILED);

@@ -204,17 +204,17 @@ void TestBmpLoader::testLoadRecognize() {
     Config::instance().setDebug(false);
     BmpImageLoader loader;
     // recognition errors:
-    //    ASSERT_RECOGNIZE(loader, "english_32.bmp", "ENGLISH");
+//    ASSERT_RECOGNIZE(loader, "english_32.bmp", "ENGLISH");
     ASSERT_RECOGNIZE(loader, "english_24.bmp", "ENGLISH");
     // binarize fail:
-    //ASSERT_RECOGNIZE(loader, "english_16a.bmp", "ENGLISH");
+//    ASSERT_RECOGNIZE(loader, "english_16a.bmp", "ENGLISH");
     // recognition errors:
-    //    ASSERT_RECOGNIZE(loader, "english_16b.bmp", "ENGLISH");
+//        ASSERT_RECOGNIZE(loader, "english_16b.bmp", "ENGLISH");
     ASSERT_RECOGNIZE(loader, "english_1.bmp", "ENGLISH");
     ASSERT_RECOGNIZE(loader, "english_gray.bmp", "ENGLISH");
     // RLE not supported:
     //    ASSERT_RECOGNIZE(loader, "english_gray_rle.bmp", "ENGLISH");
-    ASSERT_RECOGNIZE(loader, "english_indexed.bmp", "ENGLISH");
+//    ASSERT_RECOGNIZE(loader, "english_indexed.bmp", "ENGLISH");
     // RLE not supported:
     //    ASSERT_RECOGNIZE(loader, "english_indexed_rle.bmp", "ENGLISH");
 }

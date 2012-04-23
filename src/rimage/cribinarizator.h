@@ -54,95 +54,77 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// CRIBinarizator.h: interface for the CRIBinarizator class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined( _RIIMAGE_BINARIZATOR_HEADER_)
+#ifndef _RIIMAGE_BINARIZATOR_HEADER_
 #define _RIIMAGE_BINARIZATOR_HEADER_
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
-/////////////////////////
-#include "globus.h"
-#include "rdib/ctdib.h"  // Added by ClassView
-#include "rprogressor.h"    // Added by ClassView
+#include "cttypes.h"
 #include "cdezabinarizator.h"
-//#include "CKronrodBinarizator.h"
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
-typedef short int (* CRDezaImageRead)(unsigned char *, short, short);
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 enum CTBinarize {
     CTBIN_UNKNOWN,
     CTBIN_DEZA,
     CTBIN_KRONROD
 };
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
+class CTDIB;
+struct CTDIBRGBQUAD;
+class CRProgressor;
+
+namespace cf {
+
 class CRIBinarizator
 {
-    private:
+public:
+    CRIBinarizator();
+    CRIBinarizator(CRProgressor * pProgressIndicator);
+    virtual ~CRIBinarizator();
 
-        uchar          wIndex4ToGray[16];
-        uchar          wIndex8ToGray[256];
-        Bool32          mbIndexColor;
-        uint32_t     mwGreenK;
-        uint32_t     mwRedK;
-        uint32_t     mwBlueK;
-        float    mfGreenK;
-        float    mfRedK;
-        float    mfBlueK;
-
-    public:
-        Bool32 Binarize(CTBinarize eBinType, uint32_t wFlag);
-        Bool32 SetRasters(PCTDIB pSrcDIB, PCTDIB pDescDIB );
-        CRIBinarizator();
-        CRIBinarizator( PCRProgressor pProgressIndicator);
-        virtual ~CRIBinarizator();
-
-    private:
-        Bool32 DezaCloseBin(void);
-        Bool32 DezaOpenBin(uint32_t wDezaFlag);
-        Bool32 KronrodCloseGray(void);
-        Bool32 KronrodGreyFrom(puchar pGFrom);
-        Bool32 KronrodGreyTo(puchar pGTo);
-
-    public:
-        int16_t  KronrodImageRead(puchar, int16_t fstLine, int16_t nLines);
-        int32_t  KronrodImageRead(puchar, int32_t fstLine, int32_t nLines);
-
-    private:
-        Bool32 OnBinarizeLoop();
-        Bool32 KronrodOpenBin(uint32_t wHeight, uint32_t wWeidth);
-        Bool32 OnBinarizator( );
-        Bool32 CloseBinarizator();
-        Bool32 OpenBinarizator(uint32_t wFlag);
-        uchar           IndexPalleteToGray(PCTDIBRGBQUAD pQuad);
-        Bool32          PrepareIndexTable(PCTDIB pDIB);
-        Bool32          SupportedIndexColorImage(PCTDIB pImage);
-
-    private:
-        uint32_t                 mwGreyBufferSize;
-        PCTDIB                 mpOutcomeDIB;
-        PCTDIB                 mpIncomeDIB;
-        CTBinarize             meBinType;
-        uint32_t                 mwSrcBitCount;
-        puchar                 mpSrcBuffer;
-        uint32_t                 mwLineLenght;
-        Handle                 mhszGreyBuffer;
-        puchar                 mpszGreyBuffer;
-        Bool32                 mbKronrodInvert;
-        CTBINTigerImageInfo    mDezaImageInfo;
-        PCDezaBinarizator      mpDezaBinarizator;
-        //PCKronrodBinarizator   mpKronrodBinarizator;
-    protected:
-        PCRProgressor mpProgressor;
+    Bool32 Binarize(CTBinarize eBinType, uint32_t wFlag);
+    bool setRasters(CTDIB * src, CTDIB * dest);
+public:
+    void init();
+    int16_t  KronrodImageRead(puchar, int16_t fstLine, int16_t nLines);
+    int32_t  KronrodImageRead(puchar, int32_t fstLine, int32_t nLines);
+private:
+    Bool32 DezaCloseBin(void);
+    Bool32 DezaOpenBin(uint32_t wDezaFlag);
+    Bool32 KronrodCloseGray(void);
+    Bool32 KronrodGreyFrom(puchar pGFrom);
+    Bool32 KronrodGreyTo(puchar pGTo);
+    Bool32 OnBinarizeLoop();
+    Bool32 KronrodOpenBin(uint32_t wHeight, uint32_t wWeidth);
+    Bool32 OnBinarizator( );
+    Bool32 CloseBinarizator();
+    Bool32 OpenBinarizator(uint32_t wFlag);
+    uchar IndexPalleteToGray(CTDIBRGBQUAD * pQuad);
+    Bool32 PrepareIndexTable(CTDIB * dib);
+    bool supportedIndexColorImage(CTDIB * dib);
+private:
+    uchar wIndex4ToGray[16];
+    uchar wIndex8ToGray[256];
+    bool mbIndexColor;
+    uint32_t mwGreenK;
+    uint32_t mwRedK;
+    uint32_t mwBlueK;
+    float mfGreenK;
+    float mfRedK;
+    float mfBlueK;
+    uint32_t  mwGreyBufferSize;
+    CTDIB * mpOutcomeDIB;
+    CTDIB * mpIncomeDIB;
+    CTBinarize meBinType;
+    uint32_t mwSrcBitCount;
+    puchar   mpSrcBuffer;
+    uint32_t mwLineLenght;
+    Handle   mhszGreyBuffer;
+    puchar   mpszGreyBuffer;
+    Bool32   mbKronrodInvert;
+    CTBINTigerImageInfo    mDezaImageInfo;
+    CDezaBinarizator  *    mpDezaBinarizator;
+protected:
+    CRProgressor * mpProgressor;
 };
 
-typedef CRIBinarizator  *PCRIBinarizator, **PPCRIBinarizator;
+}
 
-#endif // !defined(_RIIMAGE_BINARIZATOR_HEADER_)
+#endif

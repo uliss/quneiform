@@ -58,6 +58,11 @@ void Settings::loadDebug() {
     QSettings settings;
     settings.beginGroup("debug");
     ui_->printCuneiformDebug->setChecked(settings.value("printCuneiformDebug", false).toBool());
+
+    settings.beginGroup("modules");
+    ui_->cimage_debug_->setChecked(settings.value("cimage", false).toBool());
+    settings.endGroup();
+
     settings.beginGroup("format");
     ui_->showSectionsBBox->setChecked(settings.value("showSectionsBBox", false).toBool());
     ui_->showColumnsBBox->setChecked(settings.value("showColumnsBBox", false).toBool());
@@ -97,6 +102,11 @@ void Settings::saveDebug() {
     QSettings settings;
     settings.beginGroup("debug");
     settings.setValue("printCuneiformDebug", ui_->printCuneiformDebug->isChecked());
+
+    settings.beginGroup("modules");
+    settings.setValue("cimage", ui_->cimage_debug_->isChecked());
+    settings.endGroup();
+
     settings.beginGroup("format");
     settings.setValue("showSectionsBBox", ui_->showSectionsBBox->isChecked());
     settings.setValue("showColumnsBBox", ui_->showColumnsBBox->isChecked());

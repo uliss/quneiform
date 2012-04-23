@@ -79,6 +79,27 @@ class CLA_EXPO RecognizeOptions
         void setDotMatrix(bool value);
         void setLanguage(language_t language);
 
+        bool debugCleanupDelayed() const;
+        void setDebugCleanupDelayed(bool value);
+
+        /**
+          * Returns true if has page turn
+          */
+        bool hasTurn() const;
+
+        /**
+          * Sets page turn angle
+          * @note values: 0, 90, 180, 270
+          * @see turnAngle(), hasTurn()
+          */
+        void setTurnAngle(turn_angle_t angle);
+
+        /**
+          * Returns page turn angle
+          * @see setTurnAngle(), hasTurn()
+          */
+        turn_angle_t turnAngle() const;
+
         /**
           * Returns true if has page turn
           */

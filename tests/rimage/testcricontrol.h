@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,34 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LOCALRECOGNITIONSERVER_H
-#define LOCALRECOGNITIONSERVER_H
+#ifndef TESTCRICONTROL_H
+#define TESTCRICONTROL_H
 
-#include "abstractrecognitionserver.h"
-#include "globus.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-namespace cf {
-
-class CLA_EXPO LocalRecognitionServer : public AbstractRecognitionServer
+class TestCRIControl : public CppUnit::TestFixture
 {
+    CPPUNIT_TEST_SUITE(TestCRIControl);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testBinarize);
+    CPPUNIT_TEST_SUITE_END();
 public:
-    ~LocalRecognitionServer();
-
-    CEDPagePtr recognize(const std::string& imagePath,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
-
-    CEDPagePtr recognize(ImagePtr image,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
-private:
-    void close(const RecognizeOptions& ropts);
-    void doRecognize();
-    CEDPagePtr format();
-    void open(ImagePtr image);
-    void setOptions(const RecognizeOptions& ropts, const FormatOptions& fopts);
+    void testInit();
+    void testBinarize();
 };
 
-}
-
-#endif // LOCALRECOGNITIONSERVER_H
+#endif // TESTCRICONTROL_H

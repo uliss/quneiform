@@ -72,6 +72,9 @@ private:
     void finishSelection(QGraphicsSceneMouseEvent * event);
     void resizeSelection(QGraphicsSceneMouseEvent * event);
     void startSelection(QGraphicsSceneMouseEvent * event);
+
+    void addRubberBand();
+    void removeRubberBand();
 private:
     QPointF selection_start_;
     QList<Selection*> selections_;

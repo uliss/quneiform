@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,34 +16,13 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LOCALRECOGNITIONSERVER_H
-#define LOCALRECOGNITIONSERVER_H
+#ifndef RIMAGE_DEBUG_H
+#define RIMAGE_DEBUG_H
 
-#include "abstractrecognitionserver.h"
-#include "globus.h"
+#include <boost/current_function.hpp>
 
-namespace cf {
+#include "common/debug.h"
 
-class CLA_EXPO LocalRecognitionServer : public AbstractRecognitionServer
-{
-public:
-    ~LocalRecognitionServer();
+#define RIMAGE_ERROR cf::Debug() << "[RIMAGE] ERROR " << BOOST_CURRENT_FUNCTION
 
-    CEDPagePtr recognize(const std::string& imagePath,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
-
-    CEDPagePtr recognize(ImagePtr image,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
-private:
-    void close(const RecognizeOptions& ropts);
-    void doRecognize();
-    CEDPagePtr format();
-    void open(ImagePtr image);
-    void setOptions(const RecognizeOptions& ropts, const FormatOptions& fopts);
-};
-
-}
-
-#endif // LOCALRECOGNITIONSERVER_H
+#endif // RIMAGE_DEBUG_H

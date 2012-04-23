@@ -97,6 +97,15 @@ public:
         delete dib_;
     }
 
+    BitmapHandle handle() {
+        if(!dib_)
+            return NULL;
+
+        BitmapHandle h = NULL;
+        dib_->GetDIBPtr((void**)&h);
+        return h;
+    }
+
     operator CTDIB* () { return dib_; }
     CTDIB * operator->() { return dib_; }
     operator bool () const { return dib_ != NULL; }

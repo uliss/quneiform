@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,34 +16,30 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LOCALRECOGNITIONSERVER_H
-#define LOCALRECOGNITIONSERVER_H
+#ifndef CIMAGEVIEW_H
+#define CIMAGEVIEW_H
 
-#include "abstractrecognitionserver.h"
-#include "globus.h"
+#include <QDialog>
 
-namespace cf {
+class QListWidget;
+class QLabel;
+class QListWidgetItem;
+class CImageStorage;
 
-class CLA_EXPO LocalRecognitionServer : public AbstractRecognitionServer
+class CImageView : public QDialog
 {
+    Q_OBJECT
 public:
-    ~LocalRecognitionServer();
-
-    CEDPagePtr recognize(const std::string& imagePath,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
-
-    CEDPagePtr recognize(ImagePtr image,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
+    explicit CImageView(QWidget * parent = 0);
+    ~CImageView();
 private:
-    void close(const RecognizeOptions& ropts);
-    void doRecognize();
-    CEDPagePtr format();
-    void open(ImagePtr image);
-    void setOptions(const RecognizeOptions& ropts, const FormatOptions& fopts);
+    void init();
+private slots:
+    void showImage(QListWidgetItem* item);
+private:
+    QListWidget * image_list_;
+    QLabel * image_;
+    CImageStorage * storage_;
 };
 
-}
-
-#endif // LOCALRECOGNITIONSERVER_H
+#endif // CIMAGEVIEW_H

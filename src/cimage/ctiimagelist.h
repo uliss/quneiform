@@ -59,6 +59,7 @@
 
 #include <string>
 #include <map>
+#include <list>
 
 #include "imageinfo.h"
 
@@ -91,6 +92,11 @@ class CTIImageList
         bool addImage(const std::string& name, BitmapHandle handle, bool externalImage);
 
         /**
+          * Clears image list
+          */
+        void clear();
+
+        /**
           * Removes image from container
           * @param name - image name
           * @return true on success
@@ -116,6 +122,11 @@ class CTIImageList
           * @return NULL if image not found
           */
         CTIImageHeader * image(const std::string& name);
+
+        /**
+          * Returns list of image names in list
+          */
+        std::list<std::string> imageNames() const;
 
         /**
           * Returns image handle by given image name

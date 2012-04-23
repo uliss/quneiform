@@ -80,7 +80,7 @@ CDezaBinarizator::~CDezaBinarizator()
 {
 }
 
-uint32_t CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizator *pCaller, uint32_t tip1)
+uint32_t CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, cf::CRIBinarizator *pCaller, uint32_t tip1)
 {
     int32_t lenpor;
     int32_t i;
@@ -101,7 +101,7 @@ uint32_t CDezaBinarizator::OpenTrackBin(PCTBINTigerImageInfo Info, CRIBinarizato
         chet_color[i] = 0L;
 
     colall      = 0L;
-    tip         = tip1;     /* вЁЇ бЄ ­Ёа®ў ­Ёп 0-б« Ў®, 1-баҐ¤­Ґ, 2-¦Ёа­® */
+    tip         = tip1;     /* вЁЇ бЄ ­Ёа®ў ­Ёп 0-б« Ў®, 1-баҐ¤­Ґ, 2-¦Ёа­® */
     bWhitePixel = Info->bFotoMetrics;
     spx         = Info->wImageWidth;
     spy         = Info->wImageHeight;
@@ -396,7 +396,7 @@ int32_t CDezaBinarizator::Get1()
     if (pgn == imax)
         pgn++;
 
-    if ((pgn - lgn) < 128) { /* § «ҐЇ  ¤«п б« Ўле вҐЄбв®ў */
+    if ((pgn - lgn) < 128) { /* § «ҐЇ  ¤«п б« Ўле вҐЄбв®ў */
         srz1 = chet[lg0i] * 100L / colall;
 
         if (srz1 < 500L) {

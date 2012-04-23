@@ -116,11 +116,11 @@ void ImageView::contextMenuEvent(QContextMenuEvent * event) {
 
 void ImageView::createContextMenu() {
     context_menu_ = new QMenu(this);
-    context_menu_->addAction(tr("Recognize"), this, SLOT(handleRecognizeRequest()));
+    context_menu_->addAction(tr("Recognize"), this, SLOT(handleRecognizeRequest()),
+                             QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R));
     context_menu_->addSeparator();
     context_menu_->addAction(QIcon(":/img/oxygen/32x32/select_rectangular.png"),
-                   tr("Select recognize area"),
-                   this, SLOT(startPageSelection()));
+                             tr("Select recognize area"), this, SLOT(startPageSelection()));
     context_menu_->addSeparator();
     context_menu_->addAction(tr("Fit to width"), this, SLOT(fitWidth()));
     context_menu_->addAction(tr("Fit to page"), this, SLOT(fitPage()));

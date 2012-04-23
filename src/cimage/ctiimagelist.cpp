@@ -74,10 +74,7 @@ CTIImageList::CTIImageList()
 
 CTIImageList::~CTIImageList()
 {
-    for(HeaderMap::iterator it = headers_.begin(); it != headers_.end(); ++it)
-        delete it->second;
-
-    headers_.clear();
+    clear();
 }
 
 bool CTIImageList::addImage(const std::string& name, BitmapHandle handle, bool externalImage)
@@ -102,6 +99,14 @@ bool CTIImageList::addImage(const std::string& name, BitmapHandle handle, bool e
         IMAGE_MSG("image added: ", name);
 
     return true;
+}
+
+void CTIImageList::clear()
+{
+    for(HeaderMap::iterator it = headers_.begin(); it != headers_.end(); ++it)
+        delete it->second;
+
+    headers_.clear();
 }
 
 bool CTIImageList::imageHandle(const std::string& name, BitmapHandle * handle)
@@ -148,6 +153,16 @@ CTIImageHeader * CTIImageList::image(const std::string& name)
         return NULL;
     else
         return it->second;
+}
+
+std::list<std::string> CTIImageList::imageNames() const
+{
+    std::list<std::string> r;
+
+    for(HeaderMap::const_iterator it = headers_.begin(); it != headers_.end(); ++it)
+        r.push_back((*it).first);
+
+    return r;
 }
 
 bool CTIImageList::setImageWriteMask(const std::string& name, CTIMask * mask)

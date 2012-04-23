@@ -54,20 +54,25 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <iostream>
+#include <boost/current_function.hpp>
+
 #include "resource.h"
 #include "ctiimage.h"
 #include "cticontrol.h"
 
 using namespace cf;
 
-Bool32 CIMAGE_WriteCallbackImage(const char * Name, CIMAGEIMAGECALLBACK Cbk)
+#define CIMAGE_DEBUG() std::cerr << BOOST_CURRENT_FUNCTION << "\n"
+
+bool CIMAGE_WriteCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK Cbk)
 {
-    return CImage::instance().writeImageCallbacks(Name, Cbk);
+    return CImage::instance().writeImageCallbacks(name, Cbk);
 }
 
-Bool32 CIMAGE_GetCallbackImage(const char * Name, CIMAGEIMAGECALLBACK * pCbk)
+bool CIMAGE_GetCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK * pCbk)
 {
-    return CImage::instance().getImageCallbacks(Name, pCbk);
+    return CImage::instance().getImageCallbacks(name, pCbk);
 }
 
 bool CIMAGE_AddImage(const std::string& name, BitmapHandle handle)
@@ -103,10 +108,10 @@ bool CIMAGE_ReadDIBCopy(const std::string& name, BitmapHandle * dest)
     return true;
 }
 
-Bool32 CIMAGE_GetData(const char *Name, CIMAGE_InfoDataInGet * lpIn,
-                      CIMAGE_InfoDataOutGet * lpOut)
+bool CIMAGE_GetRawData(const std::string& name, CIMAGE_InfoDataInGet * in,
+                      CIMAGE_InfoDataOutGet * out)
 {
-    return CImage::instance().GetImage(Name, lpIn, lpOut);
+    return CImage::instance().getImageRawData(name, in, out);
 }
 
 bool CIMAGE_GetDIBData(const std::string& name, const Rect& r, cf::BitMask * bitMask, BitmapHandle * dest)

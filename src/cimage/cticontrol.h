@@ -61,6 +61,8 @@
 #include "common/rect.h"
 #include "globus.h"
 
+#include <list>
+
 class CTDIB;
 
 namespace cf
@@ -164,10 +166,15 @@ class CLA_EXPO CTIControl
         BitmapHandle imageCopy(const std::string& name);
 
         /**
+          * Returns image names in container
+          */
+        std::list<std::string> images() const;
+
+        /**
           * Frees image memory return by imageCopy()
           * @param handle - bitmap handle to free
           * @return true on success
-          * @see image(), imageCopy()
+          * @see image(), imageCopy(), getDIBFromImage()
           */
         bool free(BitmapHandle handle);
 
@@ -185,9 +192,25 @@ class CLA_EXPO CTIControl
 
         bool writeImageCallbacks(const std::string& name, CIMAGEIMAGECALLBACK cbk);
 
+        /**
+          * Returns copy of image area by given name
+          * @param name - image name
+          * @param r - copy area
+          * @param bitMask - if not NUL, bit mask applied
+          * @param dest - result dib
+          * @note you should free return dib pointer by free(BitmapHandle handle)
+          * if image have active masks - they applied
+          * @see free(), imageCopy()
+          */
         bool getDIBFromImage(const std::string& name, const Rect &r, BitMask * bitMask, BitmapHandle * dest);
-        Bool32 GetImage(const char* lpName, CIMAGE_InfoDataInGet * in,
-                        CIMAGE_InfoDataOutGet * lplpOut);
+
+        /**
+          * Returns copy of raw image data
+          * @param name - image name
+          * @param in - input param
+          * @param out - output
+          */
+        bool getImageRawData(const std::string &name, CIMAGE_InfoDataInGet * in, CIMAGE_InfoDataOutGet * out);
 
         Bool32 CBImageOpen(CIMAGE_ImageInfo * lpImageInfo);
         Bool32 CBImageClose(void);
@@ -248,9 +271,8 @@ class CLA_EXPO CTIControl
         uint32_t wCBWidth;
         uint32_t wCBLines;
         uint32_t wCBStep;
-        Handle mhBitFildFromImage;
-        puchar mpBitFildFromImage;
-        CTDIB * mpDIBFromImage;
+        puchar image_raw_data_;
+        CTDIB * image_dib_;
         uint32_t mwMemoryErrors;
         CTDIB * mCBDestianationDIB;
         CTDIB * mCBSourceDIB;

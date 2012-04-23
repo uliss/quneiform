@@ -57,7 +57,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __CRIMAGE_HEADER_
 #define __CRIMAGE_HEADER_
 
+#include <string>
+
 #include "globus.h"
+#include "common/singleton.h"
 
 #ifdef __RIMAGE__
 #define RIMAGE_FUNC  FUN_EXPO__
@@ -80,10 +83,20 @@ struct RIMAGEMARGINS {
 
 typedef RIMAGEMARGINS * PRIMAGEMARGINS;
 
+namespace cf {
+
+enum binarizator_t {
+    BINARIZATOR_DEZA = 0,
+    BINARIZATOR_KRONROD
+};
+
+class CRIControl;
+typedef Singleton<CRIControl, CreateUsingStatic> RImage;
+}
+
 RIMAGE_FUNC Bool32 RIMAGE_Init(uint16_t wHeightCode);
 RIMAGE_FUNC Bool32 RIMAGE_Done();
 RIMAGE_FUNC Bool32 RIMAGE_Reset();
-RIMAGE_FUNC Bool32 RIMAGE_SetImportData(uint32_t dwType, void * pData);
 
 typedef enum {
     RIMAGE_FN_SetMargins = 1,
@@ -101,14 +114,9 @@ typedef void   (*PRIMAGECBPRogressStart)(void);
 typedef Bool32 (*PRIMAGECBPRogressStep)(uint32_t);
 typedef void   (*PRIMAGECBPRogressFinish)(void);
 
-typedef enum {
-    RIMAGE_FN_SetProgressStart = 32,
-    RIMAGE_FN_SetProgressStep,
-    RIMAGE_FN_SetProgressFinish
-} RIMAGE_IMPOR_ENTRIES;
-
-RIMAGE_FUNC Bool32 RIMAGE_SetMargins(PRIMAGEMARGINS);
-RIMAGE_FUNC Bool32 RIMAGE_Binarise(const char * , const char * , uint32_t, uint32_t);
+RIMAGE_FUNC bool RIMAGE_Binarise(const std::string& srcImageName,
+                                 const std::string& destImageName,
+                                 cf::binarizator_t binType);
 RIMAGE_FUNC Bool32 RIMAGE_Rotate(puchar , puchar , int32_t, int32_t, uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Roll(puchar , puchar , int32_t, int32_t, uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Turn(const char * , const char *, rimage_turn_angle_t angle);

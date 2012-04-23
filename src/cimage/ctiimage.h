@@ -78,14 +78,14 @@ typedef Singleton<CTIControl, CreateUsingStatic> CImage;
 }
 
 CIMAGE_FUNC void CIMAGE_Init();
-CIMAGE_FUNC Bool32 CIMAGE_WriteCallbackImage(const char *, CIMAGEIMAGECALLBACK);
-CIMAGE_FUNC Bool32 CIMAGE_GetCallbackImage(const char *, CIMAGEIMAGECALLBACK*);
+CIMAGE_FUNC bool CIMAGE_WriteCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK);
+CIMAGE_FUNC bool CIMAGE_GetCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK*);
 CIMAGE_FUNC bool CIMAGE_AddImage(const std::string& name, BitmapHandle handle);
 CIMAGE_FUNC bool CIMAGE_AddImageCopy(const std::string& name, BitmapHandle handle);
 CIMAGE_FUNC bool CIMAGE_RemoveImage(const std::string& name);
 CIMAGE_FUNC bool CIMAGE_ReadDIB(const std::string& name, BitmapHandle * dest);
 CIMAGE_FUNC bool CIMAGE_ReadDIBCopy(const std::string& name, BitmapHandle * dest);
-CIMAGE_FUNC Bool32 CIMAGE_GetData(const char * , CIMAGE_InfoDataInGet*, CIMAGE_InfoDataOutGet*);
+CIMAGE_FUNC bool CIMAGE_GetRawData(const std::string& name, CIMAGE_InfoDataInGet * in, CIMAGE_InfoDataOutGet * out);
 CIMAGE_FUNC bool CIMAGE_GetDIBData(const std::string& name, const cf::Rect& r, cf::BitMask * bitMask, BitmapHandle * dest);
 CIMAGE_FUNC bool CIMAGE_GetImageInfo(const std::string& name, BitmapInfoHeader * dest);
 CIMAGE_FUNC bool CIMAGE_FreeCopiedDIB(BitmapHandle dib);

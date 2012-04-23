@@ -240,7 +240,7 @@ void SelectionList::updateSelections()
 
 void SelectionList::finishSelection(QGraphicsSceneMouseEvent * event)
 {
-    scene()->removeItem(rubber_band_);
+    removeRubberBand();
 
     QRectF rect(selection_start_, event->pos());
     rect = rect.normalized();
@@ -272,12 +272,24 @@ void SelectionList::startSelection(QGraphicsSceneMouseEvent * event)
 {
     selection_start_ = event->pos();
 
-    if(rubber_band_)
-        scene()->removeItem(rubber_band_);
+    // remove previous
+    removeRubberBand();
+    addRubberBand();
+}
 
+void SelectionList::addRubberBand()
+{
     rubber_band_ = new QGraphicsRectItem(QRectF(), this);
     rubber_band_->setPen(QPen(Qt::DotLine));
-    scene()->addItem(rubber_band_);
+}
+
+void SelectionList::removeRubberBand()
+{
+    if(rubber_band_) {
+        scene()->removeItem(rubber_band_);
+        delete rubber_band_;
+        rubber_band_ = NULL;
+    }
 }
 
 void SelectionList::resizeSelection(QGraphicsSceneMouseEvent * event)
