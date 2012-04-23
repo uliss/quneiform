@@ -106,6 +106,9 @@ class CRIControl
         CRIControl();
         ~CRIControl();
 
+        void clear();
+        void init();
+        void reset();
     private:
         Bool32          DIBOpeningType;
         RIMAGEMARGINS   mrMargins;

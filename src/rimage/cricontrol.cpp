@@ -66,36 +66,15 @@
 
 CRIControl::CRIControl()
 {
-    mpSourceDIB = NULL;
-    mpDestinationDIB = NULL;
-    mpBinarizator = NULL;
-    mpTurner = NULL;
-    mpInvertor = NULL;
-    mpRotator = NULL;
-    mp_TurnedDIB = NULL;
-    mbMarginsFlag = FALSE;
-    DIBOpeningType = FALSE;
-    mcLastDIBName[0] = 0x0;
-    /*
-     #define DecFunction(a) FNCIMAGE##a a; if(!CIMAGE_GetExportData(CIMAGE_FN_##a, &a)) \
-                printf("CIMAGE_GetExportData == FALSE : %-3i,%s \n",a,CIMAGE_GetReturnString(CIMAGE_GetReturnCode()));
-     // \
-    DecFunction(GetData);
-     DecFunction(ReplaceData);
-     DecFunction(GetCallbackImage);
-     DecFunction(WriteCallbackImage);
-     DecFunction(WriteDIB);
-     DecFunction(ReadDIB);
-     DecFunction(GetImageInfo);
-     DecFunction(DeleteImage);
-     DecFunction(FreeCopedDIB);
-
-     #undef  DecFunction
-     */
+    init();
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 CRIControl::~CRIControl()
+{
+    clear();
+}
+
+void CRIControl::clear()
 {
     if (mpBinarizator)
         delete mpBinarizator;
@@ -111,6 +90,12 @@ CRIControl::~CRIControl()
 
     if (mpDestinationDIB)
         delete mpDestinationDIB;
+}
+
+void CRIControl::reset()
+{
+    clear();
+    init();
 }
 
 Bool32 CRIControl::Binarise(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
@@ -710,5 +695,16 @@ Bool32 CRIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
     return TRUE;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// end of file
+void CRIControl::init()
+{
+    mpSourceDIB = NULL;
+    mpDestinationDIB = NULL;
+    mpBinarizator = NULL;
+    mpTurner = NULL;
+    mpInvertor = NULL;
+    mpRotator = NULL;
+    mp_TurnedDIB = NULL;
+    mbMarginsFlag = FALSE;
+    DIBOpeningType = FALSE;
+    mcLastDIBName[0] = 0x0;
+}

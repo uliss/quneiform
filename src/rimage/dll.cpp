@@ -72,75 +72,27 @@
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
 CRIControl * Control_cri = NULL;
-static int32_t InitCount = 0;
 
 Bool32 RIMAGE_Init(uint16_t wHeightCode)
 {
     if (!Control_cri ) {
-        Control_cri = new CRIControl;
+        Control_cri = &cf::RImage::instance();
         gwHeightRC = wHeightCode;
     }
 
-    if ( Control_cri ) {
-        InitCount++;
-        return TRUE;
-    }
-
-    SetReturnCode_rimage(IDS_RIMAGE_DLL_NOT_INITIALISING);
-    return FALSE;
+    return TRUE;
 }
 
 Bool32 RIMAGE_Done()
 {
-    if (Control_cri) {
-        if (--InitCount == 0) {
-            delete Control_cri;
-            Control_cri = NULL;
-        }
-
-        return TRUE;
-    }
-
-    return FALSE;
+    cf::RImage::instance().clear();
+    return TRUE;
 }
 
 Bool32 RIMAGE_Reset()
 {
-    if ( Control_cri ) {
-        if (InitCount == 1) {
-            delete Control_cri;
-            Control_cri = new CRIControl;
-            return TRUE;
-        }
-    }
-
-    return FALSE;
-}
-
-Bool32 RIMAGE_SetImportData(uint32_t dwType, void * pData)
-{
-    Bool rc = FALSE;
-    gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
-
-    switch (dwType) {
-        case RIMAGE_FN_SetProgressStart:
-            Control_cri->SetProgressCallBacks((PRIMAGECBPRogressStart)pData, NULL, NULL);
-            rc = TRUE;
-            break;
-        case RIMAGE_FN_SetProgressStep:
-            Control_cri->SetProgressCallBacks(NULL, (PRIMAGECBPRogressStep)pData, NULL);
-            rc = TRUE;
-            break;
-        case RIMAGE_FN_SetProgressFinish:
-            Control_cri->SetProgressCallBacks(NULL, NULL, (PRIMAGECBPRogressFinish)pData);
-            rc = TRUE;
-            break;
-        default:
-            gwLowRC = IDS_RIMAGE_ERR_NOTIMPLEMENT;
-            rc = FALSE;
-    }
-
-    return rc;
+    cf::RImage::instance().reset();
+    return TRUE;
 }
 
 void SetReturnCode_rimage(uint16_t rc)

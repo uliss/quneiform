@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define __CRIMAGE_HEADER_
 
 #include "globus.h"
+#include "common/singleton.h"
 
 #ifdef __RIMAGE__
 #define RIMAGE_FUNC  FUN_EXPO__
@@ -80,10 +81,14 @@ struct RIMAGEMARGINS {
 
 typedef RIMAGEMARGINS * PRIMAGEMARGINS;
 
+class CRIControl;
+namespace cf {
+typedef Singleton<CRIControl, CreateUsingNewSmartPtr> RImage;
+}
+
 RIMAGE_FUNC Bool32 RIMAGE_Init(uint16_t wHeightCode);
 RIMAGE_FUNC Bool32 RIMAGE_Done();
 RIMAGE_FUNC Bool32 RIMAGE_Reset();
-RIMAGE_FUNC Bool32 RIMAGE_SetImportData(uint32_t dwType, void * pData);
 
 typedef enum {
     RIMAGE_FN_SetMargins = 1,
@@ -100,12 +105,6 @@ typedef enum {
 typedef void   (*PRIMAGECBPRogressStart)(void);
 typedef Bool32 (*PRIMAGECBPRogressStep)(uint32_t);
 typedef void   (*PRIMAGECBPRogressFinish)(void);
-
-typedef enum {
-    RIMAGE_FN_SetProgressStart = 32,
-    RIMAGE_FN_SetProgressStep,
-    RIMAGE_FN_SetProgressFinish
-} RIMAGE_IMPOR_ENTRIES;
 
 RIMAGE_FUNC Bool32 RIMAGE_Binarise(const char * , const char * , uint32_t, uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Rotate(puchar , puchar , int32_t, int32_t, uint32_t);
