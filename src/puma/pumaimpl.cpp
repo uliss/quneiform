@@ -166,8 +166,7 @@ void PumaImpl::binarizeImage() {
 
     if (info_.biBitCount > 1) {
         const int BIN_TYPE = 4; //RIMAGE_BINARISE_KRONROD
-        const int USE_MARGINS = 0;
-        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, BIN_TYPE, USE_MARGINS))
+        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, BIN_TYPE))
             throw PumaException("RIMAGE_Binarise failed");
 
         if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, &input_dib_))

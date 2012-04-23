@@ -101,15 +101,14 @@ void CRIControl::reset()
     init();
 }
 
-Bool32 CRIControl::Binarise(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag,
-                            uint32_t UseMargins)
+bool CRIControl::Binarise(const char* cDIBIn, const char* cDIBOut, uint32_t wFlag)
 {
-    Bool32 Ret = TRUE;
+    bool Ret = true;
     CTBinarize bType = CTBIN_UNKNOWN;
 
     // открываем исходный
     if (!OpenSourceDIB(cDIBIn)) {
-        return FALSE;
+        return false;
     }
 
     /*
@@ -125,7 +124,7 @@ Bool32 CRIControl::Binarise(const char* cDIBIn, const char* cDIBOut, uint32_t wF
     if (!CreateDestinatonDIB(1)) { // create DIB 1 bit per pixel
         CloseSourceDIB();
         SetReturnCode_rimage(IDS_RIMAGE_CANNOT_CREATE_NEW_DIB);
-        return FALSE;
+        return false;
     }
 
     //открываем бинаризатор
@@ -136,7 +135,7 @@ Bool32 CRIControl::Binarise(const char* cDIBIn, const char* cDIBOut, uint32_t wF
     // закидываем туда картинки
     if (!mpBinarizator->SetRasters(mpSourceDIB, mpDestinationDIB)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNOT_SET_DIB);
-        Ret = FALSE;
+        Ret = false;
     }
 
     if (wFlag < 4) {
@@ -150,25 +149,24 @@ Bool32 CRIControl::Binarise(const char* cDIBIn, const char* cDIBOut, uint32_t wF
     // бинаризуем
     if (!mpBinarizator->Binarize(bType, wFlag)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANT_BINARYZE);
-        Ret = FALSE;
+        Ret = false;
     }
 
     //отписваем новый в контейнер и освобождаем
     if (!CloseDestinationDIB(cDIBOut)) {
         SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
-        Ret = FALSE;
+        Ret = false;
     }
 
     //закрываем исходный
     if (!CloseSourceDIB()) {
         SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
-        Ret = FALSE;
+        Ret = false;
     }
 
     return Ret;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
+
 Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
                           int32_t Low, uint32_t UseMargins)
 {

@@ -106,7 +106,7 @@ typedef void   (*PRIMAGECBPRogressStart)(void);
 typedef Bool32 (*PRIMAGECBPRogressStep)(uint32_t);
 typedef void   (*PRIMAGECBPRogressFinish)(void);
 
-RIMAGE_FUNC Bool32 RIMAGE_Binarise(const char * , const char * , uint32_t, uint32_t);
+RIMAGE_FUNC Bool32 RIMAGE_Binarise(const char * , const char * , uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Rotate(puchar , puchar , int32_t, int32_t, uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Roll(puchar , puchar , int32_t, int32_t, uint32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Turn(const char * , const char *, rimage_turn_angle_t angle);
