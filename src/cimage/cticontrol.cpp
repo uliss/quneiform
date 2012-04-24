@@ -58,23 +58,16 @@
 #include <cassert>
 #include <cstring>
 #include <fstream>
-#include <boost/current_function.hpp>
 
-#include "resource.h"
 #include "bitmask.h"
 #include "ctiimage.h"
 #include "cticontrol.h"
 #include "ctimemory.h"
 #include "ctiimageheader.h"
 #include "ctimask.h"
-#include "dpuma.h"
-#include "common/debug.h"
-#include "common/tostring.h"
 #include "rdib/ctdib.h"
 #include "compat_defs.h"
-
-#define CIMAGE_ERROR Debug() << "[CIMAGE] ERROR " << BOOST_CURRENT_FUNCTION
-#define CIMAGE_DEBUG Debug() << "[CIMAGE] " << BOOST_CURRENT_FUNCTION
+#include "cimage_debug.h"
 
 namespace cf
 {
@@ -666,12 +659,12 @@ bool CTIControl::setFrame(const CTDIB * src, CTDIB * dest, CIMAGE_InfoDataInRepl
     // Проверяем на соответствие размеров
     if ((dest->GetLineWidth() < src->GetLineWidth() + pIn->dwX)
             || (dest->GetLinesNumber() < src->GetLinesNumber() + pIn->dwY)) {
-        SetReturnCode_cimage(IDS_CIMAGE_INVALID_FRAME_SIZE);
+        CIMAGE_ERROR << " invalid frame size\n";
         return false;
     }
 
     if (!copyFromSourceFrame(src, dest, pIn->dwY, pIn->dwHeight)) {
-        SetReturnCode_cimage(IDS_CIMAGE_INVALID_IMAGES_CONTAINER);
+        CIMAGE_ERROR << " invalid images container\n";
         return false;
     }
 

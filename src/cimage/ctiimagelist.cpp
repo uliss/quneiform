@@ -59,9 +59,7 @@
 #include "ctimask.h"
 #include "ctiimagelist.h"
 #include "common/cifconfig.h"
-#include "common/debug.h"
-
-#include <boost/current_function.hpp>
+#include "cimage_debug.h"
 
 #define IMAGE_MSG(msg, name) \
     Debug() << BOOST_CURRENT_FUNCTION << ' ' << msg << '"' << name << "\"\n";

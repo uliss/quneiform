@@ -54,16 +54,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <iostream>
-#include <boost/current_function.hpp>
-
-#include "resource.h"
 #include "ctiimage.h"
 #include "cticontrol.h"
 
 using namespace cf;
-
-#define CIMAGE_DEBUG() std::cerr << BOOST_CURRENT_FUNCTION << "\n"
 
 bool CIMAGE_WriteCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK Cbk)
 {
