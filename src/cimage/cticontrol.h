@@ -278,7 +278,6 @@ class CLA_EXPO CTIControl
         CTDIB * mCBSourceDIB;
         CTDIB * mCBWDestianationDIB;
         CTDIB * mCBWSourceDIB;
-        Bool32 mCBWInProcess;
 };
 
 }

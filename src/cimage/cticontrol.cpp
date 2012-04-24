@@ -287,60 +287,49 @@ void CTIControl::reset() {
 
 bool CTIControl::writeImageCallbacks(const std::string& name, CIMAGEIMAGECALLBACK cbk)
 {
-    Handle hNewDIB;
-    Bool32 Ret;
-    Bool32 bInvert = false;
-    CIMAGE_InfoDataInReplace FrameToReplace;
-    CIMAGE_ImageInfo ImageInfo;
-
-    ImageInfo.wImageWidth = 0;
-    ImageInfo.wImageByteWidth = 0;
-    ImageInfo.wImageHeight = 0;
-
-    //////////////////////////////////////////////////////////////////////////////////
     // Создаем новый DIB
-    if (mCBWDestianationDIB != NULL || mCBWSourceDIB != NULL) {
-        return FALSE;
-    }
+    if (mCBWDestianationDIB != NULL || mCBWSourceDIB != NULL)
+        return false;
 
     // этот в качестве буфера для закидывания по одной строке
     mCBWSourceDIB = new CTDIB;
     // а этот будет основным
     mCBWDestianationDIB = new CTDIB;
-    ///////////////////////////////////////////////////////////////////////////////////
+
+    CIMAGE_ImageInfo image_info;
     // закачиваем информацию о создаваемом
-    Ret = cbk.CIMAGE_ImageOpen(&ImageInfo);
+    bool ret = cbk.CIMAGE_ImageOpen(&image_info);
 
-    if (Ret == FALSE) {
-        SetReturnCode_cimage(IDS_CIMAGE_UNABLE_USE_IMPORT_CALLBACK);
-        return FALSE;
+    if (!ret) {
+        CIMAGE_ERROR << " unable to use import callback\n";
+        return false;
     }
 
-    if (ImageInfo.wImageByteWidth == 0 || ImageInfo.wImageHeight == 0) {
-        SetReturnCode_cimage(IDS_CIMAGE_UNABLE_USE_IMPORT_CALLBACK);
-        return FALSE;
+    if (image_info.wImageByteWidth == 0 || image_info.wImageHeight == 0) {
+        CIMAGE_ERROR << " unable to use import callback\n";
+        return false;
     }
+
+    bool bInvert = false;
+    CIMAGE_InfoDataInReplace FrameToReplace;
 
     // выделение памяти под новый DIB и под буферный
     if (mCBWDestianationDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)
-            && mCBWSourceDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)) {
-        CIMAGEComment(name.c_str());
-
-        if (mCBWDestianationDIB->CreateDIBBegin(ImageInfo.wImageWidth, ImageInfo.wImageHeight, 1)
-                && mCBWDestianationDIB->SetResolutionDPI(ImageInfo.wResolutionX,
-                        ImageInfo.wResolutionY) && mCBWDestianationDIB->CreateDIBEnd()) {
-            CIMAGEComment("Temporary DIB - WriteCBImage");
-
-            if (mCBWSourceDIB->CreateDIBBegin(ImageInfo.wImageWidth, 1, 1)
+            && mCBWSourceDIB->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock))
+    {
+        if (mCBWDestianationDIB->CreateDIBBegin(image_info.wImageWidth, image_info.wImageHeight, 1)
+                && mCBWDestianationDIB->SetResolutionDPI(image_info.wResolutionX, image_info.wResolutionY)
+                && mCBWDestianationDIB->CreateDIBEnd())
+        {
+            if (mCBWSourceDIB->CreateDIBBegin(image_info.wImageWidth, 1, 1)
                     && mCBWSourceDIB->CreateDIBEnd()) {
                 CTDIBRGBQUAD cdFQuad;
                 CTDIBRGBQUAD cdSQuad;
                 cdFQuad.rgbBlue = cdFQuad.rgbGreen = cdFQuad.rgbRed = 0x00;
                 cdSQuad.rgbBlue = cdSQuad.rgbGreen = cdSQuad.rgbRed = 0xff;
 
-                if (ImageInfo.bFotoMetrics == 0) {
+                if (image_info.bFotoMetrics == 0)
                     bInvert = true;
-                }
 
                 mCBWDestianationDIB->SetRGBQuad(0, cdFQuad);
                 mCBWSourceDIB->SetRGBQuad(0, cdFQuad);
@@ -357,18 +346,18 @@ bool CTIControl::writeImageCallbacks(const std::string& name, CIMAGEIMAGECALLBAC
                 FrameToReplace.MaskFlag = 0;
 
                 // Заполняем его
-                for (uint i = 0; i < ImageInfo.wImageHeight; i++) {
+                for (uint i = 0; i < image_info.wImageHeight; i++) {
                     // вызываем второй калбэк
                     uint Readed = cbk.CIMAGE_ImageRead((pchar) mCBWSourceDIB->GetPtrToLine(0),
                             (uint16_t) mCBWSourceDIB->GetLineWidthInBytes());
 
                     //инвертируем битовое поле, ежели надо
                     if (bInvert) {
-                        pchar pBits = (pchar) mCBWSourceDIB->GetPtrToLine(0);
-                        int32_t Ii;
+                        pchar bits = (pchar) mCBWSourceDIB->GetPtrToLine(0);
 
-                        for (Ii = 0; Ii < (uint16_t) mCBWSourceDIB->GetLineWidthInBytes(); Ii++) {
-                            *pBits++ = ~(*pBits);
+                        for (uint j = 0; j < mCBWSourceDIB->GetLineWidthInBytes(); j++) {
+                            *bits = ~(*bits);
+                            bits++;
                         }
                     }
 
@@ -382,19 +371,18 @@ bool CTIControl::writeImageCallbacks(const std::string& name, CIMAGEIMAGECALLBAC
                 }
 
                 // Закрываем
-                // вывзываем третий калбэк
-                Ret = cbk.CIMAGE_ImageClose();
+                // вызываем третий калбэк
+                ret = cbk.CIMAGE_ImageClose();
                 // отписываем в контейнер
-                mCBWDestianationDIB->GetDIBHandle(&hNewDIB);
+                BitmapHandle new_dib;
+                mCBWDestianationDIB->GetDIBHandle((Handle*) &new_dib);
                 // Пишем картинку, и не каких масок!!!
                 disableReadMask(name);
-                Ret = addImageCopy(name, (BitmapHandle) hNewDIB);
+                ret = addImageCopy(name, new_dib);
                 enableReadMask(name);
 
-                if (Ret == FALSE) {
-                    mCBWInProcess = FALSE;
-                    return FALSE;
-                }
+                if (!ret)
+                    return false;
             }
         }
     }
@@ -405,17 +393,13 @@ bool CTIControl::writeImageCallbacks(const std::string& name, CIMAGEIMAGECALLBAC
         mCBWSourceDIB = NULL;
     }
 
-#ifdef CIMAGE_DUMP_ENABLE
-    //WriteDIBtoBMP("Allex.CBWrited.bmp", mCBWDestianationDIB);
-#endif
-
     if (mCBWDestianationDIB) {
         mCBWDestianationDIB->DestroyDIB();
         delete mCBWDestianationDIB;
         mCBWDestianationDIB = NULL;
     }
 
-    return Ret;
+    return ret;
 }
 
 bool CTIControl::getImageCallbacks(const std::string& name, CIMAGEIMAGECALLBACK * cbk)

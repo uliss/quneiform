@@ -22,6 +22,10 @@
 #include "cttypes.h"
 
 struct CIMAGE_ImageInfo {
+    CIMAGE_ImageInfo() : wImageHeight(0), wImageWidth(0), wImageByteWidth(0),
+        wImageDisplacement(0), wResolutionX(0), wResolutionY(0), bFotoMetrics(0),
+        bUnused(0), wAddX(0), wAddY(0) {}
+public:
     uint16_t wImageHeight;
     uint16_t wImageWidth;
     uint16_t wImageByteWidth;

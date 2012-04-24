@@ -75,10 +75,6 @@ void CIMAGE_Init()
     cf::CImage::instance();
 }
 
-void CIMAGE_Done()
-{
-}
-
 void SetReturnCode_cimage(uint16_t rc)
 {
     if (rc == IDS_CIMAGE_ERR_NO || gwLowRC == IDS_CIMAGE_ERR_NO)
