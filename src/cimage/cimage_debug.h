@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,57 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef DEBUG_H_
-#define DEBUG_H_
+#ifndef CIMAGE_DEBUG_H
+#define CIMAGE_DEBUG_H
 
-#include <iostream>
+#include <boost/current_function.hpp>
 
-#include "globus.h"
-#include "singleton.h"
+#include "common/tostring.h"
+#include "common/debug.h"
 
-namespace cf
-{
+#define CIMAGE_ERROR Debug() << "[CIMAGE] ERROR " << BOOST_CURRENT_FUNCTION
+#define CIMAGE_DEBUG Debug() << "[CIMAGE] " << BOOST_CURRENT_FUNCTION
 
-class CLA_EXPO DebugImpl
-{
-    public:
-        DebugImpl() :
-                null_(0) {
-#ifndef NDEBUG
-            os_ = &std::cerr;
-#else
-            os_ = &null_;
-#endif
-        }
-
-        ~DebugImpl() {
-            os_->flush();
-        }
-
-        std::ostream& null() {
-            return null_;
-        }
-
-        template<class T>
-        std::ostream& operator<<(const T& val) {
-            (*os_) << val;
-            return *os_;
-        }
-
-        void setOutput(std::ostream& os) {
-            os_->flush();
-            os_ = &os;
-        }
-    private:
-        std::ostream * os_;
-        std::ostream null_;
-};
-
-inline DebugImpl& Debug()
-{
-    return Singleton<DebugImpl>::instance();
-}
-
-}
-
-#endif /* DEBUG_H_ */
+#endif // CIMAGE_DEBUG_H

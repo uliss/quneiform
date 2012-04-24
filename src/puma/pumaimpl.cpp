@@ -36,7 +36,6 @@
 #include "ccom/ccom.h"
 #include "ced/ced.h"
 #include "ced/cedpage.h"
-#include "cfio/cfio.h"
 #include "cimage/cticontrol.h"
 #include "cimage/ctiimage.h"
 #include "cline/cline.h"
@@ -233,7 +232,6 @@ void PumaImpl::close() {
     CLINE_Reset();
     clearAll();
     // clean
-    CIMAGE_Reset();
     CPAGE_DeleteAll();
     RIMAGE_Reset();
     cpage_ = NULL;
@@ -407,7 +405,6 @@ void PumaImpl::modulesDone() {
 #ifdef _USE_RMSEGMENT_
     RMSEGMENT_Done();
 #endif //_USE_RMSEGMENT_
-    CFIO_Done();
 }
 
 void PumaImpl::modulesInit() {
@@ -415,11 +412,6 @@ void PumaImpl::modulesInit() {
         // CONTEINERS
         if (!CLINE_Init(PUMA_MODULE_CLINE, NULL))
             throw PumaException("CLINE_Init failed.");
-
-        if (!CFIO_Init(PUMA_MODULE_CFIO, NULL))
-            throw PumaException("CFIO_Init failed.");
-
-        CIMAGE_Init();
 
         //  нужна инициализация контейнера CCOM перед
         //  вызовом поиска компонент

@@ -599,8 +599,8 @@ Bool MyGetZher(void **vvZher, int *nZher, int MaxZher, Handle hCPage) {
 /*----------------------------------------------------------------------------*/
 Bool MyGetRaster(Handle hCPage, VL_I_TASK *pTask, uchar **ppData) {
 	PAGEINFO info;
-	CIMAGE_InfoDataInGet DataInto = { 0 };
-	CIMAGE_InfoDataOutGet DataOut = { 0 };
+    CIMAGE_InfoDataInGet DataInto;
+    CIMAGE_InfoDataOutGet DataOut;
 	char Name[256];
 	Bool ret;
 	int i;

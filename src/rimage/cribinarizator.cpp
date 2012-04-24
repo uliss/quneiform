@@ -89,7 +89,7 @@ bool CRIBinarizator::setRasters(CTDIB * src, CTDIB * dest)
         mpOutcomeDIB = dest;
 
         if ((mwSrcBitCount = mpIncomeDIB->GetPixelSize()) < 4) {
-            RIMAGE_ERROR << " source image can not be binarized\n";
+            RIMAGE_ERROR << " source image already binarized\n";
             return false;
         }
 

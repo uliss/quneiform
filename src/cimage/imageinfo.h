@@ -22,6 +22,10 @@
 #include "cttypes.h"
 
 struct CIMAGE_ImageInfo {
+    CIMAGE_ImageInfo() : wImageHeight(0), wImageWidth(0), wImageByteWidth(0),
+        wImageDisplacement(0), wResolutionX(0), wResolutionY(0), bFotoMetrics(0),
+        bUnused(0), wAddX(0), wAddY(0) {}
+public:
     uint16_t wImageHeight;
     uint16_t wImageWidth;
     uint16_t wImageByteWidth;
@@ -45,6 +49,9 @@ struct CIMAGEIMAGECALLBACK {
 };
 
 struct CIMAGE_InfoDataInGet {
+    CIMAGE_InfoDataInGet() :
+        dwX(0), dwY(0), dwWidth(0), dwHeight(0), wByteWidth(0) {}
+public:
     uint32_t dwX;
     uint32_t dwY;
     uint32_t dwWidth;
@@ -53,6 +60,9 @@ struct CIMAGE_InfoDataInGet {
 };
 
 struct CIMAGE_InfoDataOutGet {
+    CIMAGE_InfoDataOutGet() :
+        dwWidth(0), dwHeight(0), wByteWidth(0), byBit(0), wBlackBit(0), lpData(0) {}
+public:
     uint32_t dwWidth;
     uint32_t dwHeight;
     uint16_t wByteWidth;
@@ -62,6 +72,9 @@ struct CIMAGE_InfoDataOutGet {
 };
 
 struct CIMAGE_InfoDataInReplace {
+    CIMAGE_InfoDataInReplace() :
+        byBit(0), dwX(0), dwY(0), dwWidth(0), dwHeight(0), wByteWidth(0), lpData(0),
+        Reserved(0), wReserved(0) {}
     uint16_t byBit;
     uint32_t dwX;
     uint32_t dwY;
@@ -71,7 +84,6 @@ struct CIMAGE_InfoDataInReplace {
     puchar lpData;
     uchar Reserved;
     uint16_t wReserved;
-    uchar MaskFlag;
 };
 
 struct BitmapInfoHeader {

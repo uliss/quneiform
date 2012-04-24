@@ -93,33 +93,42 @@ public:
       */
     bool binarise(const std::string& src, const std::string& dest, binarizator_t binType);
 
+    /**
+      * Inverts image colors and stores result in CImage container
+      * @param src - source image name in CImage storage
+      * @param dest - destination image name in CImage storage
+      * @return true on success
+      */
+    bool inverse(const std::string& src, const std::string& dest);
+
+    /**
+      * Turns image angle degrees clockwise and stores result in CImage container.
+      * @param src - source image name in CImage container.
+      * @param dest - destination image name in CImage container.
+      * @param angle - turn angle
+      * @return true on success
+      */
+    bool turn(const std::string& src, const std::string& dest, rimage_turn_angle_t angle);
+
     Bool32          Rotate(char*   cDIBIn, char*   cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins);
     Bool32          Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
-    Bool32          Turn(const char*   cDIBIn, const char*   cDIBOut, uint32_t wFlag, uint32_t UseMargins);
-    Bool32          Inverse(char*   cDIBIn, char*   cDIBOut, uint32_t UseMargins);
 private:
     Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
-    Bool32          GetDIB(const char *cDIB, BitmapHandle* phDIB);
     bool closeSourceDIB();
     // Creating new DIB by CTDIB class and 4 RIMAGE functions
     bool createDestinatonDIB();
     Bool32          SetDestinationDIBtoStorage(const std::string&  name);
-    Bool32          OpenDestinationDIBfromSource(const char *cSDIB);
+    bool openDestinationDIBfromSource(const std::string& name);
     bool closeDestinationDIB(const std::string& name);
     bool openSourceDIB(const std::string&   name);
-    Bool32          SetDIB(const std::string& name, Handle hDIB);
     bool saveCopy(const std::string& name, BitmapHandle handle);
     bool readDIBCopy(const std::string& name, BitmapHandle * dest);
 private:
     Bool32          DIBOpeningType;
-    RIMAGEMARGINS   mrMargins;
-    Handle           mhOpenedDIB;
-    Handle           mhCreatedDIB;
     CTDIB * src_dib_;
     CTDIB * dest_dib_;
     // Name of last processed image
     char mcLastDIBName[256];
-    void * mp_TurnedDIB;
     // pointer to class ProgressShow
     CRProgressor mcProgress;
     // pointer to class Binarizator

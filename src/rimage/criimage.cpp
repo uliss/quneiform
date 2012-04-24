@@ -90,12 +90,12 @@ Bool32 RIMAGE_Roll(puchar cDIBIn, puchar cDIBOut, int32_t High, int32_t Low, uin
     return cf::RImage::instance().Roll( (char*)cDIBIn, (char*)cDIBOut, High, Low, UseMargins);
 }
 
-Bool32 RIMAGE_Turn(const char * cDIBIn, const char * cDIBOut, rimage_turn_angle_t angle)
+bool RIMAGE_Turn(const std::string& src, const std::string& dest, cf::rimage_turn_angle_t angle)
 {
-    return cf::RImage::instance().Turn(cDIBIn, cDIBOut, angle, FALSE);
+    return cf::RImage::instance().turn(src, dest, angle);
 }
 
-Bool32 RIMAGE_Inverse(puchar cDIBIn, puchar cDIBOut, uint32_t UseMargins)
+bool RIMAGE_Inverse(const std::string& src, const std::string& dest)
 {
-    return cf::RImage::instance().Inverse( (char*)cDIBIn, (char*)cDIBOut, UseMargins);
+    return cf::RImage::instance().inverse(src, dest);
 }
