@@ -74,7 +74,7 @@ public:
 struct CIMAGE_InfoDataInReplace {
     CIMAGE_InfoDataInReplace() :
         byBit(0), dwX(0), dwY(0), dwWidth(0), dwHeight(0), wByteWidth(0), lpData(0),
-        Reserved(0), wReserved(0), MaskFlag(0) {}
+        Reserved(0), wReserved(0) {}
     uint16_t byBit;
     uint32_t dwX;
     uint32_t dwY;
@@ -84,7 +84,6 @@ struct CIMAGE_InfoDataInReplace {
     puchar lpData;
     uchar Reserved;
     uint16_t wReserved;
-    uchar MaskFlag;
 };
 
 struct BitmapInfoHeader {
