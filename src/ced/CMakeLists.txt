@@ -29,7 +29,6 @@ add_library(cuneiform-ced ${CF_CED_LIBTYPE}
 
 set(CED_LIBS
     cuneiform-common
-    cuneiform-cfio
     cuneiform-compat
 )
 

@@ -26,7 +26,6 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCRIControl);
 
 #include "rimage/cricontrol.h"
 #include "rdib/ctdib.h"
-#include "cfio/cfio.h"
 #include "cimage/cticontrol.h"
 #include "../cimage/test_cimage_common.h"
 
@@ -46,8 +45,6 @@ void TestCRIControl::testInit()
 
 void TestCRIControl::testBinarize()
 {
-    CFIO_Init(0, 0);
-
     DibPtr img_1bit("1bit.bmp");
     CImage::instance().addImage("1bit", img_1bit.handle());
 
@@ -64,10 +61,10 @@ void TestCRIControl::testBinarize()
     CPPUNIT_ASSERT(rimage.binarise("color_24", "bin", BINARIZATOR_KRONROD));
     CImage::instance().dumpImage("bin", "rimage_binarize_color_24.bmp");
 
-    DibPtr color_32("color_32.bmp");
-    CImage::instance().addImage("color_32", color_32.handle());
-    CPPUNIT_ASSERT(rimage.binarise("color_32", "bin", BINARIZATOR_KRONROD));
-    CImage::instance().dumpImage("bin", "rimage_binarize_color_32.bmp");
+//    DibPtr color_32("color_32.bmp");
+//    CImage::instance().addImage("color_32", color_32.handle());
+//    CPPUNIT_ASSERT(rimage.binarise("color_32", "bin", BINARIZATOR_KRONROD));
+//    CImage::instance().dumpImage("bin", "rimage_binarize_color_32.bmp");
 
     DibPtr color_16("color_16.bmp");
     CImage::instance().addImage("color_16", color_16.handle());

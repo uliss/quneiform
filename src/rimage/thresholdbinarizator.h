@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,44 +16,51 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "ctcmemoryheader.h"
-#include "ctcclasses.h"
+#ifndef THRESHOLDBINARIZATOR_H
+#define THRESHOLDBINARIZATOR_H
 
-namespace cf
-{
-namespace CTC
-{
+#include "ibinarizator.h"
+#include "compat_defs.h"
 
-MemoryHeader::MemoryHeader() :
-        GlobalHeader()
+namespace cf {
+
+class CLA_EXPO ThresholdBinarizator : public IBinarizator
 {
+public:
+    enum grayscale_method_t {
+        AVERAGE = 0,
+        LUMINANCE,
+        LUMA,
+        DESATURAION,
+        DECOMPOSITION_MAX,
+        DECOMPOSITION_MIN,
+        CHANNEL_RED,
+        CHANNEL_GREEN,
+        CHANNEL_BLUE
+    };
+
+public:
+    ThresholdBinarizator(int threshold = 0);
+
+    CTDIB * binarize(int flags);
+
+    grayscale_method_t grayscaleMethod() const;
+    void setGrayscaleMethod(grayscale_method_t m);
+
+    /**
+      * Sets binarization threshold
+      */
+    void setThreshold(int value);
+
+    /**
+      * Returns binarization threshold
+      */
+    int threshold() const;
+private:
+    int threshold_;
+    grayscale_method_t grayscale_method_;
+};
+
 }
 
-MemoryHeader::MemoryHeader(Handle hMemory, uint32_t wBlockSize) :
-        GlobalHeader(hMemory, NULL, wBlockSize)
-{
-    SetHeaderSize(sizeof(class MemoryHeader));
-}
-
-MemoryHeader::MemoryHeader(Handle hMemory, uint32_t wBlockSize,
-                           const std::string& OwnerName, const std::string& Commentary) :
-        GlobalHeader(hMemory, NULL, wBlockSize), comment_(Commentary), owner_(
-            OwnerName)
-{
-    SetHeaderSize(sizeof(class MemoryHeader));
-}
-
-MemoryHeader::~MemoryHeader()
-{
-    Handle hToDelete = GetHandle();
-
-    if (hToDelete != NULL && hToDelete != FICTIV_Handle) {
-#ifdef CFIO_USE_GLOBAL_MEMORY
-        CFIO_FREE(GetHandle());
-#else
-        delete[] static_cast<char*> (hToDelete);
-#endif //CFIO_USE_GLOBAL_MEMORY
-    }
-}
-}
-}
+#endif // THRESHOLDBINARIZATOR_H

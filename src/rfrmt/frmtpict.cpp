@@ -153,11 +153,10 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     if (!GetPageInfo(h_Page, &pinfo))
         return false;
 
-    CIMAGE_InfoDataInGet in = { 0 };
+    CIMAGE_InfoDataInGet in;
     BitmapInfoHeader image_info;
     Point Lr;
     Point Wh;
-    Point PLr;
     Point LrN;
     Point WhN;
 
@@ -215,7 +214,6 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     if (!CIMAGE_GetDIBData(PUMA_IMAGE_USER, Rect(in.dwX, in.dwY, in.dwWidth, in.dwHeight), NULL, &pOutDIB)) {
         Debug() << "[WritePict] CIMAGE_GetDIBData failed: " << PUMA_IMAGE_USER << "\n";
         return false;
-
     }
 
     // Соберем изображение
@@ -252,7 +250,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     }
 
     // Довернем изображение на малый угол.
-    if (!RIMAGE_Rotate((puchar) lpName, (puchar) szRotateName, pinfo.Incline2048, 2048, 0)) {
+    if (!RIMAGE_Rotate(lpName, szRotateName, pinfo.Incline2048, 2048)) {
         Debug() << "[WritePict] RIMAGE_Rotate failed\n";
         rc = FALSE;
     } else {
@@ -275,7 +273,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
             //  End of Almi Corr
         }
 
-        if (!RIMAGE_RotatePoint((puchar) lpName, in.dwX, in.dwY, (int32_t *) &in.dwX,
+        if (!RIMAGE_RotatePoint(lpName, in.dwX, in.dwY, (int32_t *) &in.dwX,
                 (int32_t *) &in.dwY)) {
             in.dwX = 0;
             in.dwY = 0;

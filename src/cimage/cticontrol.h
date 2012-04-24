@@ -131,6 +131,7 @@ class CLA_EXPO CTIControl
           * @see addImage()
           */
         bool addImageCopy(const std::string& name, BitmapHandle handle);
+        bool addImageCopy(const std::string &name, const CTDIB * dib);
 
         /**
           * Dumps image to file
@@ -155,6 +156,12 @@ class CLA_EXPO CTIControl
           * @see imageCopy()
           */
         BitmapHandle image(const std::string& name);
+
+        /**
+          * Returns CTDIB class
+          * @return NULL if not found
+          */
+        CTDIB * imageDib(const std::string& name);
 
         /**
           * Returns image copy. Caller should free result with free()
@@ -212,9 +219,9 @@ class CLA_EXPO CTIControl
           */
         bool getImageRawData(const std::string &name, CIMAGE_InfoDataInGet * in, CIMAGE_InfoDataOutGet * out);
 
-        Bool32 CBImageOpen(CIMAGE_ImageInfo * lpImageInfo);
-        Bool32 CBImageClose(void);
-        uint32_t CBImageRead(char * buffer, uint32_t wMaxSize);
+        Bool32 CBImageOpen(CIMAGE_ImageInfo * info);
+        Bool32 CBImageClose();
+        uint32_t CBImageRead(char * buff, uint32_t maxSize);
     public:
         static bool applyMaskToDIBLine(CTDIB * dib, CTIMaskLineSegment * segm, int line, int at_x, int at_y);
         static bool applyMaskToDIB(CTDIB * dib, CTIMask * mask, int at_x = 0, int at_y = 0);
@@ -268,17 +275,16 @@ class CLA_EXPO CTIControl
         char * pCBBuffer;
         uint32_t wCBBufferSize;
         uint32_t wCBLine;
-        uint32_t wCBWidth;
-        uint32_t wCBLines;
         uint32_t wCBStep;
-        puchar image_raw_data_;
-        CTDIB * image_dib_;
-        uint32_t mwMemoryErrors;
-        CTDIB * mCBDestianationDIB;
-        CTDIB * mCBSourceDIB;
-        CTDIB * mCBWDestianationDIB;
-        CTDIB * mCBWSourceDIB;
-        Bool32 mCBWInProcess;
+        // stores last image raw data get with getImageRawData() function
+        puchar last_raw_data_;
+        // stores last dib get with get with getDIBFromImage() fucntion
+        CTDIB * last_dib_;
+        uint memory_errors_;
+        CTDIB * cb_dest_dib_;
+        CTDIB * cb_src_dib_;
+        CTDIB * cb_write_dest_dib_;
+        CTDIB * cb_write_src_dib_;
 };
 
 }

@@ -28,7 +28,6 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCTIControl);
 #include "cimage/ctimask.h"
 #include "cimage/bitmask.h"
 #include "rdib/ctdib.h"
-#include "cfio/cfio.h"
 #include "test_cimage_common.h"
 
 #ifndef LOADER_TEST_IMAGE_DIR
@@ -53,14 +52,8 @@ void TestCTIControl::testAddImage()
     CPPUNIT_ASSERT(ctrl.addImage("first", handle));
     CPPUNIT_ASSERT(ctrl.removeImage("first"));
 
-    // NO CFIO
-    CPPUNIT_ASSERT(!ctrl.addImageCopy("second", handle));
-
-    // WITH CFIO
-    CFIO_Init(0, 0);
     CPPUNIT_ASSERT(ctrl.addImageCopy("second", handle));
     CPPUNIT_ASSERT(ctrl.removeImage("second"));
-    CFIO_Done();
 
     delete[] handle;
 }
@@ -89,7 +82,6 @@ void TestCTIControl::testAddRectToReadMask()
     CPPUNIT_ASSERT(ctrl.enableReadMask("test"));
     CPPUNIT_ASSERT(ctrl.addRectToReadMask("test", Rect(Point(0, 0), Point(50, 50))));
 
-    CFIO_Init(0, 0);
     BitmapHandle h = ctrl.imageCopy("test");
     CPPUNIT_ASSERT(h);
     CPPUNIT_ASSERT(ctrl.addImage("test_mask", h));
@@ -99,7 +91,6 @@ void TestCTIControl::testAddRectToReadMask()
 
     CPPUNIT_ASSERT(ctrl.removeImage("test"));
     ctrl.free(h);
-    CFIO_Done();
 
     delete[] handle;
 }
@@ -201,15 +192,7 @@ void TestCTIControl::testImageCopy()
     CPPUNIT_ASSERT(ctrl.addImage("test", handle));
 
     BitmapHandle copy = ctrl.imageCopy("test");
-
-    // no CFIO
-    CPPUNIT_ASSERT(!copy);
-
-    // with cfio
-    CFIO_Init(0, 0);
-
     // default mask
-    copy = ctrl.imageCopy("test");
     CPPUNIT_ASSERT(copy);
     CPPUNIT_ASSERT(copy != handle);
     CPPUNIT_ASSERT(ctrl.free(copy));
@@ -234,7 +217,6 @@ void TestCTIControl::testImageCopy()
     IS_BLACK_HANDLE_1(copy, 50, 50);
     CPPUNIT_ASSERT(ctrl.free(copy));
 
-    CFIO_Done();
     delete[] handle;
 }
 

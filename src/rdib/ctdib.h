@@ -149,6 +149,18 @@ typedef struct tagCTDIBBITMAPV5HEADER {
 #define CTDIB_BI_JPEG  4L
 
 struct CTDIBRGBQUAD { // rgbq
+    CTDIBRGBQUAD() :
+        rgbBlue(0),
+        rgbGreen(0),
+        rgbRed(0),
+        rgbReserved(0) {}
+
+    CTDIBRGBQUAD(uchar r, uchar g, uchar b, uchar a) :
+        rgbBlue(r),
+        rgbGreen(g),
+        rgbRed(b),
+        rgbReserved(a) {}
+public:
     uchar    rgbBlue;
     uchar    rgbGreen;
     uchar    rgbRed;
@@ -192,6 +204,8 @@ class CLA_EXPO CTDIB
         CTDIB(Handle hDIB);
         // destructor   virtual
         ~CTDIB();
+
+        bool pixelColor(uint x, uint y, CTDIBRGBQUAD * dest) const;
     public:
         // return black pixel RGBQuad index or 00-00-00
         uint32_t GetBlackPixel();
@@ -232,9 +246,9 @@ class CLA_EXPO CTDIB
         //Get DIB header memory allocation size
         uint32_t GetHeaderSize() const;
         // get pointer to DIB header
-        pvoid GetPtrToHeader() const;
+        CTDIBBITMAPINFOHEADER * GetPtrToHeader() const;
         // get version of DIB
-        uint32_t GetDIBVersion() const;
+        CTDIBVersion GetDIBVersion() const;
         // return image width in pixels
         int32_t GetImageWidth() const;
         // return image height in pixels
@@ -273,12 +287,12 @@ class CLA_EXPO CTDIB
         // Set Handle for DIB if it not attached
         Bool32 SetDIBHandle(Handle hDIB);
         // get pointer to DIB
-        Bool32 GetDIBPtr(pvoid* ppDIB);
+        bool GetDIBPtr(pvoid* ppDIB) const;
         ////////////////////////////////////////////////////////Pallette Data
         // get pointer to first RGBQuad of RGB Quads ( or Triads)
-        pvoid  GetPtrToRGB();
+        pvoid  GetPtrToRGB() const;
         // Get RGBQuad[wQuad]
-        Bool32 GetRGBQuad(uint32_t wQuad, PCTDIBRGBQUAD pQuad);
+        bool GetRGBQuad(uint32_t idx, CTDIBRGBQUAD *dest) const;
         // set RGBQuad
         Bool32 SetRGBQuad(uint32_t wQuad, CTDIBRGBQUAD Quad);
         ////////////////////////////////////////////////////////BitFild Data

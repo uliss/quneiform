@@ -36,7 +36,6 @@
 #include "ccom/ccom.h"
 #include "ced/ced.h"
 #include "ced/cedpage.h"
-#include "cfio/cfio.h"
 #include "cimage/cticontrol.h"
 #include "cimage/ctiimage.h"
 #include "cline/cline.h"
@@ -160,12 +159,8 @@ void PumaImpl::binarizeImage() {
 
     getImageInfo(PUMA_IMAGE_USER);
 
-    if (Config::instance().debug())
-        Debug() << "The image depth is " << info_.biBitCount
-                << " at this point.\n";
-
     if (info_.biBitCount > 1) {
-        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, BINARIZATOR_KRONROD))
+        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, BINARIZATOR_KRONROD, 0))
             throw PumaException("RIMAGE_Binarise failed");
 
         if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, &input_dib_))
@@ -233,7 +228,6 @@ void PumaImpl::close() {
     CLINE_Reset();
     clearAll();
     // clean
-    CIMAGE_Reset();
     CPAGE_DeleteAll();
     RIMAGE_Reset();
     cpage_ = NULL;
@@ -407,7 +401,6 @@ void PumaImpl::modulesDone() {
 #ifdef _USE_RMSEGMENT_
     RMSEGMENT_Done();
 #endif //_USE_RMSEGMENT_
-    CFIO_Done();
 }
 
 void PumaImpl::modulesInit() {
@@ -415,11 +408,6 @@ void PumaImpl::modulesInit() {
         // CONTEINERS
         if (!CLINE_Init(PUMA_MODULE_CLINE, NULL))
             throw PumaException("CLINE_Init failed.");
-
-        if (!CFIO_Init(PUMA_MODULE_CFIO, NULL))
-            throw PumaException("CFIO_Init failed.");
-
-        CIMAGE_Init();
 
         //  нужна инициализация контейнера CCOM перед
         //  вызовом поиска компонент
@@ -952,8 +940,7 @@ void PumaImpl::rotate(BitmapHandle * dib, Point * p) {
 
     CImage::instance().disableReadMask(PUMA_IMAGE_USER);
 
-    if (!RIMAGE_Rotate((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_ROTATE,
-            page_info.Incline2048, 2048, 0))
+    if (!RIMAGE_Rotate(PUMA_IMAGE_USER, PUMA_IMAGE_ROTATE, page_info.Incline2048, 2048))
         throw PumaException("RIMAGE_Rotate failed");
 
     if (!CIMAGE_ReadDIB(PUMA_IMAGE_ROTATE, dib))

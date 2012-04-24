@@ -63,21 +63,10 @@
 // ============================================================================
 
 #include "resource.h"
-#include "ctiimage.h"
-#include "cticontrol.h"
 #include "compat_defs.h"
 
 //GLOBAL VARIABLES
 static uint16_t gwLowRC = 0;
-
-void CIMAGE_Init()
-{
-    cf::CImage::instance();
-}
-
-void CIMAGE_Done()
-{
-}
 
 void SetReturnCode_cimage(uint16_t rc)
 {

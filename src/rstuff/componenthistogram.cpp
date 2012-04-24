@@ -22,6 +22,7 @@
 
 #include "componenthistogram.h"
 #include "common/debug.h"
+#include "common/cifconfig.h"
 #include "ccom/ccom.h"
 #include "cpage/cpage.h"
 
@@ -29,6 +30,8 @@ namespace cf
 {
 
 #define MSG_PREFIX "[RStuff::ComponentHistogram] "
+#define RSTUFF_DEBUG(msg, value) if(Config::instance().debug()) {\
+    Debug() << MSG_PREFIX << " " << msg << ": " << value << "\n";}
 
 static const int DEFAULT_DPI = 300;
 
@@ -75,23 +78,21 @@ void ComponentHistogram::calculate()
         }
     }
 
-    Debug() << MSG_PREFIX << "common component height: " << common_height_ << "\n";
-    Debug() << MSG_PREFIX << "common component width: " << common_width_ << "\n";
-    Debug() << MSG_PREFIX << "common height count: " << common_height_count_ << "\n";
-    Debug() << MSG_PREFIX << "common width count: " << common_width_count_ << "\n";
+    RSTUFF_DEBUG("common component height", common_height_);
+    RSTUFF_DEBUG("common component width", common_width_);
+    RSTUFF_DEBUG("common height count", common_height_count_);
+    RSTUFF_DEBUG("common width count", common_width_count_);
 }
 
 bool ComponentHistogram::isXCorrectionNeeded(const PAGEINFO& page_info) const
 {
     if(common_width_ < MIN_COMP_SIZE) {
-        Debug() << MSG_PREFIX << "component width is too small\n";
+        RSTUFF_DEBUG("component width is too small", "");
         return false;
     }
 
     if(common_width_count_  < MIN_COMMON_COMP_COUNT) {
-        Debug() << MSG_PREFIX << "not enough common width count: "
-                << common_width_count_ << "\n";
-
+        RSTUFF_DEBUG("not enough common width count", common_width_count_);
         return false;
     }
 
@@ -102,14 +103,12 @@ bool ComponentHistogram::isXCorrectionNeeded(const PAGEINFO& page_info) const
 bool ComponentHistogram::isYCorrectionNeeded(const PAGEINFO& page_info) const
 {
     if(common_height_ < MIN_COMP_SIZE) {
-        Debug() << MSG_PREFIX << "component height is too small\n";
+        RSTUFF_DEBUG("component height is too small", "");
         return false;
     }
 
     if(common_height_count_ < MIN_COMMON_COMP_COUNT) {
-        Debug() << MSG_PREFIX << "not enough common height count: "
-                << common_height_count_ << "\n";
-
+        RSTUFF_DEBUG("not enough common height count", common_height_count_);
         return false;
     }
 

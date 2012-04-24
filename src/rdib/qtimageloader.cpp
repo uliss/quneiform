@@ -19,6 +19,7 @@
 #include <QtCore/QString>
 #include <QtGui/QImage>
 #include <QtGui/QImageReader>
+#include <QMap>
 #include <QDebug>
 
 #include "qtimageloader.h"
@@ -37,7 +38,7 @@ cf::ImageLoader * create() {
     return new cf::QtImageLoader;
 }
 
-typedef std::map<std::string, cf::image_format_t> FormatMap;
+typedef QMap<QByteArray, cf::image_format_t> FormatMap;
 
 void initFormatMap(FormatMap& m) {
     m["bmp"] = cf::FORMAT_BMP;
@@ -55,18 +56,9 @@ void registerFormat(cf::image_format_t f) {
 }
 
 bool registerImageFormats() {
-    FormatMap format_map;
-    initFormatMap(format_map);
-
-    QList<QByteArray> formats = QImageReader::supportedImageFormats();
-
-    for(QList<QByteArray>::iterator it = formats.begin(); it != formats.end(); ++it) {
-        FormatMap::iterator map_it = format_map.find(it->toLower().constData());
-        if(map_it == format_map.end())
-            continue;
-
-        registerFormat(map_it->second);
-    }
+    cf::ImageFormatList formats = cf::QtImageLoader().supportedFormats();
+    for(size_t i = 0; i < formats.size(); i++)
+        registerFormat(formats[i]);
 
     return true;
 }
@@ -90,7 +82,7 @@ static void set_dib_header(::BITMAPINFO * dibInfo, const QImage& raster) {
     dibInfo->bmiHeader.biXPelsPerMeter = raster.dotsPerMeterX();
     dibInfo->bmiHeader.biYPelsPerMeter = raster.dotsPerMeterY();
     // for 32-bit images return numColors() returns 0
-    dibInfo->bmiHeader.biClrUsed = raster.numColors();
+    dibInfo->bmiHeader.biClrUsed = (uint32_t) raster.numColors();
     dibInfo->bmiHeader.biClrImportant = 0;
 }
 
@@ -138,7 +130,7 @@ static void copy_dib_palette(uchar * dib, const ::BITMAPINFO& dib_info, const QI
 
 static void copy_dib_raster(uchar * dib, const ::BITMAPINFO& dib_info, const QImage& image) {
     uchar * pRaster = dib + get_dib_info_size(dib_info);
-    memcpy(pRaster, image.bits(), image.numBytes());
+    memcpy(pRaster, image.bits(), (size_t) image.numBytes());
 }
 
 QtImageLoader::QtImageLoader() {
@@ -172,9 +164,9 @@ ImagePtr QtImageLoader::load(const QImage& image) {
     const QImage raster = convertColorFormat(image);
     ::BITMAPINFO dibInfo;
     set_dib_header(&dibInfo, raster);
-    const size_t rasterSize = raster.numBytes();
+    const size_t rasterSize = (size_t) raster.numBytes();
 
-    const int dibSize = get_dib_info_size(dibInfo) + rasterSize;
+    const size_t dibSize = get_dib_info_size(dibInfo) + rasterSize;
     uchar * pDib = make_dib(dibSize);
 
     copy_dib_header(pDib, dibInfo);
@@ -193,6 +185,24 @@ ImagePtr QtImageLoader::load(const std::string& path) {
 
 ImagePtr QtImageLoader::load(std::istream& /*is*/) {
     throw Exception("[QtImageLoader::load] loading from stream is not supported yet");
+}
+
+ImageFormatList QtImageLoader::supportedFormats() const
+{
+    ImageFormatList res;
+    FormatMap format_map;
+    initFormatMap(format_map);
+
+    QList<QByteArray> formats = QImageReader::supportedImageFormats();
+
+    for(QList<QByteArray>::iterator it = formats.begin(); it != formats.end(); ++it) {
+        QByteArray key = it->toLower();
+
+        if(format_map.contains(key))
+            res.push_back(format_map.value(key));
+    }
+
+    return res;
 }
 
 }
