@@ -71,9 +71,7 @@
 CPAGE_FUNC Bool32 CPAGE_Init(uint16_t wHeightCode, Handle hStorage);
 CPAGE_FUNC Bool32 CPAGE_Done();
 CPAGE_FUNC uint32_t CPAGE_GetReturnCode();
-CPAGE_FUNC char * CPAGE_GetReturnString(uint32_t dwError);
 CPAGE_FUNC Bool32 CPAGE_GetExportData(uint32_t dwType, void * pData);
-CPAGE_FUNC Bool32 CPAGE_SetImportData(uint32_t dwType, void * pData);
 
 typedef uint32_t (*CPAGE_ExtConvert)(uint32_t dwContext, Handle TypeIn,
                                      void * lpDataIn, uint32_t SizeIn, Handle TypeOut, void * LpDataOut,
@@ -179,7 +177,8 @@ enum CPAGE_EXPORT_ENTRIES {
     CPAGE_FNCPAGE_PhTableGetBoundType
 };
 #define DEC_FUN(a,b,c) typedef a (*FN##b)c; CPAGE_FUNC a b c;
-DEC_FUN(Handle, CPAGE_CreatePage, (Handle Type, void * lpData, uint32_t Size))
+
+CPAGE_FUNC Handle CPAGE_CreatePage(Handle Type, void * lpData, uint32_t Size);
 DEC_FUN(void, CPAGE_DeletePage, (Handle hPage))
 DEC_FUN(uint32_t, CPAGE_GetCountPage, ())
 DEC_FUN(Handle, CPAGE_GetHandlePage, (uint32_t number))
@@ -231,8 +230,8 @@ DEC_FUN(Bool32, CPAGE_PictureGetMask, (Handle hPage, Handle hPicture, int32_t Sk
 DEC_FUN(uint32_t, CPAGE_GetBlockInterNum, (Handle page, Handle block))
 DEC_FUN(void, CPAGE_SetBlockInterNum, (Handle page, Handle block, uint32_t inter))
 DEC_FUN(Bool32, CPAGE_GetBlockDataPtr, (Handle page, Handle block, Handle Type, void ** lpData))
-DEC_FUN(Handle, CPAGE_GetInternalType, (const char * name))
-DEC_FUN(char *, CPAGE_GetNameInternalType, (Handle type))
+CPAGE_FUNC Handle CPAGE_GetInternalType(const char * name);
+CPAGE_FUNC char * CPAGE_GetNameInternalType(Handle type);
 
 // Виртуальные функции:
 // Они доступны только через непосредственный вызов функций

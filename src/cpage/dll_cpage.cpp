@@ -73,11 +73,8 @@
 //
 FNCPAGE_HL_TableExtract CPAGE_HL_TableExtract = NULL;
 
-//////////////////////////////////////////////////////////////////GLOBAL VARIABLES
 static uint16_t gwHeightRC = 0;
 static uint16_t gwLowRC = 0;
-static Handle ghStorage = NULL;
-static HINSTANCE ghInst = NULL;
 
 #ifdef DPUMA_ON
 Handle hSnapTimerBeg = NULL;
@@ -121,16 +118,6 @@ uint32_t CPAGE_GetReturnCode()
     return rc;
 }
 
-char * CPAGE_GetReturnString(uint32_t dwError)
-{
-    uint16_t rc = (uint16_t) (dwError & 0xFFFF) + IDS_ERR_NO;
-
-    if (dwError >> 16 != gwHeightRC)
-        gwLowRC = IDS_ERR_NOTIMPLEMENT;
-
-    return NULL;
-}
-
 Bool32 CPAGE_GetExportData(uint32_t dwType, void * pData)
 {
     Bool32 rc = TRUE;
@@ -138,7 +125,6 @@ Bool32 CPAGE_GetExportData(uint32_t dwType, void * pData)
 #define CASE_FUNCTION(a)    case CPAGE_FN##a:   *(FN##a *)pData = a; break;
 
     switch (dwType) {
-            CASE_FUNCTION(CPAGE_CreatePage)
             CASE_FUNCTION(CPAGE_DeletePage)
             CASE_FUNCTION(CPAGE_SavePage)
             CASE_FUNCTION(CPAGE_RestorePage)
@@ -185,26 +171,6 @@ Bool32 CPAGE_GetExportData(uint32_t dwType, void * pData)
             CASE_FUNCTION(CPAGE_GetBlockInterNum)
             CASE_FUNCTION(CPAGE_SetBlockInterNum)
             CASE_FUNCTION(CPAGE_GetBlockDataPtr)
-            CASE_FUNCTION(CPAGE_GetInternalType)
-            CASE_FUNCTION(CPAGE_GetNameInternalType)
-        default:
-            *(Handle *) pData = NULL;
-            gwLowRC = IDS_ERR_NOTIMPLEMENT;
-            rc = FALSE;
-    }
-
-#undef CASE_FUNCTION
-    return rc;
-}
-
-Bool32 CPAGE_SetImportData(uint32_t dwType, void * pData)
-{
-    Bool rc = FALSE;
-    gwLowRC = IDS_ERR_NOTIMPLEMENT;
-#define CASE_FUNCTION(a)    case CPAGE_FN##a:   a = (FN##a)pData; break;
-
-    switch (dwType) {
-            CASE_FUNCTION(CPAGE_HL_TableExtract)
         default:
             *(Handle *) pData = NULL;
             gwLowRC = IDS_ERR_NOTIMPLEMENT;
