@@ -16,8 +16,18 @@ if(CF_USE_IMAGE_LIBRARY_QT)
     include_directories(${CF_IMAGE_INCLUDE})  
     include(${QT_USE_FILE})
     list(APPEND CF_IMAGE_LIBRARIES ${QT_LIBRARIES})
-    list(APPEND loaders qtimageloader.cpp)
+    list(APPEND loaders qtimageloader.cpp) 
     message(STATUS "Loaders: Qt loader will be build")
+endif()
+
+if(CF_USE_IMAGE_LIBRARY_FREEIMAGE)
+    if(MINGW)
+        link_directories(${CMAKE_BINARY_DIR})
+    endif()
+
+    include_directories(${CF_IMAGE_INCLUDE})
+    list(APPEND loaders freeimageloader.cpp)
+    message(STATUS "Loaders: FreeImage loader will be build")
 endif()
 
 add_library(cuneiform-rdib ${LIBTYPE} 

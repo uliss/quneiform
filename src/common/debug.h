@@ -21,12 +21,13 @@
 
 #include <iostream>
 
+#include "globus.h"
 #include "singleton.h"
 
 namespace cf
 {
 
-class DebugImpl
+class CLA_EXPO DebugImpl
 {
     public:
         DebugImpl() :

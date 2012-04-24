@@ -232,7 +232,8 @@ cf_page cf_recognize(const char * fname, cf_recognition_options ropts, cf_format
 cf_page cf_recognize_process(const char * fname, cf_recognition_options ropts, cf_format_options fopts) {
     if(!fname)
         return NULL;
-
+		
+#ifdef USE_SHMEM
     RecognizeOptions recognition_opts;
     FormatOptions format_opts;
 
@@ -257,6 +258,9 @@ cf_page cf_recognize_process(const char * fname, cf_recognition_options ropts, c
         std::cerr << "[Error] " << e.what() << "\n";
         return NULL;
     }
+#else
+	return NULL;
+#endif
 }
 
 static format_t toFormatType(int format) {

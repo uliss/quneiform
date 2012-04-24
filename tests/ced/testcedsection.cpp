@@ -33,6 +33,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCEDSection);
 using namespace cf;
 
 void TestCEDSection::testSerialize() {
+#ifdef CF_SERIALIZE
     const char * fname = "serialize_cedsection.txt";
     CEDSection sec;
     sec.setLineBetweenColumns(true);
@@ -48,9 +49,11 @@ void TestCEDSection::testSerialize() {
     CPPUNIT_ASSERT_EQUAL(sec.sectionBreak(), new_sec.sectionBreak());
     CPPUNIT_ASSERT(!new_sec.empty());
     CPPUNIT_ASSERT_EQUAL(new_sec.columnCount(), (size_t) 1);
+#endif
 }
 
 void TestCEDSection::testSerializeXml() {
+#ifdef CF_SERIALIZE
     const char * fname = "serialize_cedsection.xml";
     CEDSection sec;
     sec.setLineBetweenColumns(true);
@@ -63,4 +66,5 @@ void TestCEDSection::testSerializeXml() {
 
     CPPUNIT_ASSERT_EQUAL(sec.lineBetweenColumns(), new_sec.lineBetweenColumns());
     CPPUNIT_ASSERT_EQUAL(sec.sectionBreak(), new_sec.sectionBreak());
+#endif
 }

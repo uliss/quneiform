@@ -74,10 +74,14 @@ namespace cf
 {
 class BitMask;
 class CTIControl;
-typedef Singleton<CTIControl, CreateUsingStatic> CImage;
+
+class CLA_EXPO CImage {
+    CImage();
+public:
+	static CTIControl& instance();
+};
 }
 
-CIMAGE_FUNC void CIMAGE_Init();
 CIMAGE_FUNC bool CIMAGE_WriteCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK);
 CIMAGE_FUNC bool CIMAGE_GetCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK*);
 CIMAGE_FUNC bool CIMAGE_AddImage(const std::string& name, BitmapHandle handle);

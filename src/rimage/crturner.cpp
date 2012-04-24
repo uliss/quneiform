@@ -54,26 +54,18 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// СRTurner.cpp: implementation of the CRTurner class.
-//
-//////////////////////////////////////////////////////////////////////
-//#define RIMAGE_DUMP_TO_FILE
-//////////////////////////////////////////////////////////////////////
 #include <cstddef>
 #include "globus.h"
 #include "crturner.h"
-//#include "turn.h"
 #include "criimage.h"
 #include "crimemory.h"
 #include "resource.h"
 #include "memory.h"
-//#include "dpuma.h"
-#ifdef RIMAGE_DUMP_TO_FILE
-#include "PumaMemoryToFileDumper.h"
-#endif
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+#include "rdib/ctdib.h"
+
+#define CONTINUEPIXEL(a)         if ( !(a) ) continue;
+
+namespace cf {
 
 CRTurner::CRTurner()
 {
@@ -117,17 +109,7 @@ CRTurner::~CRTurner()
 {
 }
 
-void * CRTurner::TurnDIB(void *pDIB, uint32_t wAngle)
-{
-    return NULL;
-}
-
-Bool32 CRTurner::FreeDIB(void *pDIB)
-{
-    return TRUE;
-}
-
-Bool32 CRTurner::TurnDIB(PCTDIB pInDIB, PCTDIB pOutDIB, uint32_t wAngle)
+Bool32 CRTurner::TurnDIB(CTDIB * pInDIB, CTDIB * pOutDIB, uint32_t wAngle)
 {
     Bool32 bRet;
 
@@ -158,7 +140,7 @@ Bool32 CRTurner::TurnDIB(PCTDIB pInDIB, PCTDIB pOutDIB, uint32_t wAngle)
     return bRet;
 }
 
-Bool32 CRTurner::Turn90(PCTDIB pInDIB, PCTDIB pOutDIB)
+Bool32 CRTurner::Turn90(CTDIB *pInDIB, CTDIB *pOutDIB)
 {
     Bool32 bRet = FALSE;
 
@@ -181,7 +163,7 @@ Bool32 CRTurner::Turn90(PCTDIB pInDIB, PCTDIB pOutDIB)
     return bRet;
 }
 
-Bool32 CRTurner::Turn180(PCTDIB pInDIB, PCTDIB pOutDIB)
+Bool32 CRTurner::Turn180(CTDIB * pInDIB, CTDIB * pOutDIB)
 {
     Bool32 bRet = FALSE;
 
@@ -204,7 +186,7 @@ Bool32 CRTurner::Turn180(PCTDIB pInDIB, PCTDIB pOutDIB)
     return bRet;
 }
 
-Bool32 CRTurner::Turn270(PCTDIB pInDIB, PCTDIB pOutDIB)
+Bool32 CRTurner::Turn270(CTDIB *pInDIB, CTDIB *pOutDIB)
 {
     Bool32 bRet = FALSE;
 
@@ -227,7 +209,7 @@ Bool32 CRTurner::Turn270(PCTDIB pInDIB, PCTDIB pOutDIB)
     return bRet;
 }
 
-Bool32 CRTurner::Turn180LA(PCTDIB pInDIB, PCTDIB pOutDIB)
+Bool32 CRTurner::Turn180LA(CTDIB *pInDIB, CTDIB *pOutDIB)
 {
     Bool32 bRet = FALSE;
     uint32_t nLine;
@@ -299,7 +281,7 @@ void CRTurner::FreeBuffers()
     }
 }
 
-Bool32 CRTurner::CheckInAndOut180(PCTDIB pIn, PCTDIB pOut)
+Bool32 CRTurner::CheckInAndOut180(CTDIB *pIn, CTDIB *pOut)
 {
     if (pIn->GetImageHeight() != pOut->GetImageHeight() || pIn->GetImageWidth()
             != pOut->GetImageWidth() || pIn->GetPixelSize()
@@ -311,7 +293,7 @@ Bool32 CRTurner::CheckInAndOut180(PCTDIB pIn, PCTDIB pOut)
     return TRUE;
 }
 
-Bool32 CRTurner::CheckInAndOut90(PCTDIB pIn, PCTDIB pOut)
+Bool32 CRTurner::CheckInAndOut90(CTDIB *pIn, CTDIB *pOut)
 {
     if (pIn->GetImageHeight() != pOut->GetImageWidth() || pIn->GetImageWidth()
             != pOut->GetImageHeight() || pIn->GetPixelSize()
@@ -323,7 +305,7 @@ Bool32 CRTurner::CheckInAndOut90(PCTDIB pIn, PCTDIB pOut)
     return TRUE;
 }
 
-Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
+Bool32 CRTurner::Turn90LA(CTDIB * pInDIB, CTDIB * pOutDIB)
 {
     uint32_t dLines = pOutDIB->GetLinesNumber();
     uint32_t sLines = pInDIB->GetLinesNumber(); //
@@ -390,7 +372,7 @@ Bool32 CRTurner::Turn90LA(PCTDIB pInDIB, PCTDIB pOutDIB)
     return TRUE;
 }
 
-Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
+Bool32 CRTurner::Turn270LA(CTDIB *pInDIB, CTDIB *pOutDIB)
 {
     uint32_t dLines = pOutDIB->GetLinesNumber();
     uint32_t sLines = pInDIB->GetLinesNumber(); //
@@ -458,7 +440,7 @@ Bool32 CRTurner::Turn270LA(PCTDIB pInDIB, PCTDIB pOutDIB)
     return TRUE;
 }
 
-Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
+Bool32 CRTurner::Turn90GC(CTDIB *pIn, CTDIB *pOut)
 {
     Bool32 bRet = FALSE;
     int32_t sX;
@@ -537,7 +519,7 @@ Bool32 CRTurner::Turn90GC(PCTDIB pIn, PCTDIB pOut)
     return bRet;
 }
 
-Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
+Bool32 CRTurner::Turn180GC(CTDIB *pIn, CTDIB *pOut)
 {
     Bool32 bRet = FALSE;
     uint32_t dLine;
@@ -615,7 +597,7 @@ Bool32 CRTurner::Turn180GC(PCTDIB pIn, PCTDIB pOut)
     return bRet;
 }
 
-Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
+Bool32 CRTurner::Turn270GC(CTDIB *pIn, CTDIB *pOut)
 {
     Bool32 bRet = FALSE;
     int32_t sX;
@@ -694,7 +676,7 @@ Bool32 CRTurner::Turn270GC(PCTDIB pIn, PCTDIB pOut)
     return bRet;
 }
 
-Bool32 CRTurner::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
+Bool32 CRTurner::WriteDIBtoBMP(const char *cName, CTDIB *pDIB)
 {
 #ifdef RIMAGE_DUMP_TO_FILE
     uint32_t wBMPSize = pDIB->GetDIBSize() + 14;
@@ -709,4 +691,6 @@ Bool32 CRTurner::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
     BMPDump.EndDump();
 #endif
     return TRUE;
+}
+
 }

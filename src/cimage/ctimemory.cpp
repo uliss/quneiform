@@ -53,65 +53,24 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include <string>
 
-#include "ctiimage.h"
+#include <cstdlib>
+
 #include "ctimemory.h"
-#include "cfio/cfio.h"
 
-// Для использования без CFIO.DLL
-#ifdef _NO_CFIO
-#undef _NO_CFIO
-//#define _NO_CFIO
-#endif
-
-static std::string CommentBuffer;
-
-void CIMAGEComment(const char * Comment)
+void * CIMAGEAlloc(uint32_t size)
 {
-    CommentBuffer = Comment;
-}
-
-void * CIMAGEDAlloc(uint32_t stAllocateBlock, const char *Comment)
-{
-    CIMAGEComment(Comment);
-    return CIMAGEAlloc(stAllocateBlock);
-}
-
-void * CIMAGEAlloc(uint32_t stAllocateBlock)
-{
-#ifdef _NO_CFIO
-    return ::new char[stAllocateBlock];
-#else
-    return CFIO_DAllocMemory(stAllocateBlock, MAF_GALL_GPTR, "CImage", CommentBuffer.c_str());
-#endif
+    return calloc(size, 1);
 }
 
 void CIMAGEFree(void * mem)
 {
-#ifdef _NO_CFIO
-    ::delete[] mem;
-#else
-    CFIO_FreeMemory(mem);
-#endif
+    free(mem);
 }
 
 void * CIMAGELock(void * mem)
 {
-#ifdef _NO_CFIO
     return mem;
-#else
-    void * pMem = CFIO_LockMemory(mem);
-
-    if (pMem == NULL && mem != NULL)
-        return mem;
-	return mem;
-#endif
 }
 
-void CIMAGEUnlock(void * mem)
-{
-#ifndef _NO_CFIO
-    CFIO_UnlockMemory(mem);
-#endif
-}
+void CIMAGEUnlock(void *) {}

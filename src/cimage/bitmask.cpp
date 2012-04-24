@@ -17,13 +17,10 @@
  ***************************************************************************/
 
 #include <string.h> // for memset
-#include <boost/current_function.hpp>
 
 #include "bitmask.h"
 #include "rdib/ctdib.h"
-#include "common/debug.h"
-
-#define CIMAGE_ERROR Debug() << "[CIMAGE] ERROR " << BOOST_CURRENT_FUNCTION
+#include "cimage_debug.h"
 
 namespace cf
 {

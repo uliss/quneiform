@@ -94,8 +94,8 @@ bool ImageLoaderFactory::registerCreator(image_format_t format, int gravity, loa
     return true;
 }
 
-ImageLoaderFactory::FormatList ImageLoaderFactory::supportedFormats() const {
-    FormatList res;
+ImageFormatList ImageLoaderFactory::supportedFormats() const {
+    ImageFormatList res;
 
     for(LoaderMap::const_iterator it = loader_map_.begin(), end = loader_map_.end(); it != end; ++it) {
         // skip unknown
@@ -107,7 +107,7 @@ ImageLoaderFactory::FormatList ImageLoaderFactory::supportedFormats() const {
 
     std::sort(res.begin(), res.end());
 
-    FormatList::iterator last = std::unique(res.begin(), res.end());
+    ImageFormatList::iterator last = std::unique(res.begin(), res.end());
     res.erase(last, res.end());
 
     return res;

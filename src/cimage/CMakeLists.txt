@@ -26,7 +26,6 @@ set_property(TARGET cuneiform-cimage PROPERTY COMPILE_DEFINITIONS __CIMAGE__)
 target_link_libraries(cuneiform-cimage 
     cuneiform-rdib 
     cuneiform-common 
-    cuneiform-cfio
 )
 
 library_hook(cuneiform-cimage)

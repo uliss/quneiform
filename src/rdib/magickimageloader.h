@@ -31,7 +31,7 @@ class Blob;
 namespace cf
 {
 
-class MagickImageLoader: public ImageLoader
+class CLA_EXPO MagickImageLoader: public ImageLoader
 {
     public:
         MagickImageLoader();

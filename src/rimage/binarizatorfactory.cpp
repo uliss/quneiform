@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,49 +16,27 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CTCMEMORYHEADER_H_
-#define CTCMEMORYHEADER_H_
+#include "binarizatorfactory.h"
+#include "oldbinarizator.h"
+#include "thresholdbinarizator.h"
+#include "rimage_debug.h"
 
-#include <string>
-#include "ctcglobalheader.h"
+namespace cf {
 
-namespace cf
+BinarizatorPtr BinarizatorFactoryImpl::make(binarizator_t t, int param)
 {
-namespace CTC
-{
-
-#define                 CFIO_MEMORY_GLOBAL           0x0001
-#define                 CFIO_MEMORY_LOCK             0x0002
-#define                 CFIO_MEMORY_UNUSED           0x0004
-#define                 CFIO_MEMORY_FREE             0x0008
-
-class MemoryHeader: public GlobalHeader
-{
-    public:
-        MemoryHeader();
-        MemoryHeader(Handle hMemory, uint32_t wBlockSize);
-        MemoryHeader(Handle hMemory, uint32_t wBlockSize, const std::string& OwnerName, const std::string& Comment);
-        ~MemoryHeader();
-
-        std::string GetOwner() const {
-            return owner_;
-        }
-
-        std::string GetComment() const {
-            return comment_;
-        }
-
-        MemoryHeader * GetNext() {
-            return static_cast<MemoryHeader*>(GlobalHeader::GetNext());
-        }
-    private:
-        std::string comment_, owner_;
-};
-
-typedef MemoryHeader *  MemoryHeaderPtr;
-typedef MemoryHeader ** PPMemoryHeader;
-
-}
+    BinarizatorPtr p;
+    switch(t) {
+    case BINARIZATOR_KRONROD:
+        p.reset(new OldBinarizator);
+        return p;
+    case BINARIZATOR_THRESHOLD:
+        p.reset(new ThresholdBinarizator(param));
+        return p;
+    default:
+        RIMAGE_ERROR << " unknown binarizator type: " << t << "\n";
+        return p;
+    }
 }
 
-#endif /* CTCMEMORYHEADER_H_ */
+}
