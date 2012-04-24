@@ -3,7 +3,6 @@ set(LOAD_HEADERS)
 set(LOAD_LIBS
     cuneiform-common
     cuneiform-compat
-    cuneiform-cfio
     cuneiform-ced
 )
 

@@ -26,7 +26,6 @@ add_subdirectory(common)
 add_subdirectory(alphabets)
 add_subdirectory(ccom)
 add_subdirectory(ced)
-add_subdirectory(cfio)
 add_subdirectory(cimage)
 add_subdirectory(cline)
 

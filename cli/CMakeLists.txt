@@ -31,7 +31,7 @@ target_link_libraries(cuneiform-cli ${CLI_LIBS})
 install_exe(cuneiform-cli)
 
 add_executable(cf-binarize cf-binarize.cpp)
-target_link_libraries(cf-binarize cuneiform-rimage cuneiform-cimage cuneiform-rdib cuneiform-cfio)
+target_link_libraries(cf-binarize cuneiform-rimage cuneiform-cimage cuneiform-rdib)
 
 if(CF_USE_SHMEM)
     add_executable(cuneiform-process cuneiform_process_cli.cpp)

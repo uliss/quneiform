@@ -26,7 +26,6 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCRIControl);
 
 #include "rimage/cricontrol.h"
 #include "rdib/ctdib.h"
-#include "cfio/cfio.h"
 #include "cimage/cticontrol.h"
 #include "../cimage/test_cimage_common.h"
 
@@ -46,8 +45,6 @@ void TestCRIControl::testInit()
 
 void TestCRIControl::testBinarize()
 {
-    CFIO_Init(0, 0);
-
     DibPtr img_1bit("1bit.bmp");
     CImage::instance().addImage("1bit", img_1bit.handle());
 

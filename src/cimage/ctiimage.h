@@ -77,7 +77,6 @@ class CTIControl;
 typedef Singleton<CTIControl, CreateUsingStatic> CImage;
 }
 
-CIMAGE_FUNC void CIMAGE_Init();
 CIMAGE_FUNC bool CIMAGE_WriteCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK);
 CIMAGE_FUNC bool CIMAGE_GetCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK*);
 CIMAGE_FUNC bool CIMAGE_AddImage(const std::string& name, BitmapHandle handle);

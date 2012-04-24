@@ -20,7 +20,6 @@ cif_visibility_hidden(cuneiform-markup)
 set_property(TARGET cuneiform-markup PROPERTY COMPILE_DEFINITIONS __RMARKER__)
 
 target_link_libraries(cuneiform-markup
-    cuneiform-cfio
     cuneiform-cimage
     cuneiform-cpage
     cuneiform-rblock
