@@ -269,8 +269,10 @@ class CLA_EXPO CTIControl
         uint32_t wCBBufferSize;
         uint32_t wCBLine;
         uint32_t wCBStep;
-        puchar image_raw_data_;
-        CTDIB * image_dib_;
+        // stores last image raw data get with getImageRawData() function
+        puchar last_raw_data_;
+        // stores last dib get with get with getDIBFromImage() fucntion
+        CTDIB * last_dib_;
         uint memory_errors_;
         CTDIB * cb_dest_dib_;
         CTDIB * cb_src_dib_;

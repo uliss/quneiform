@@ -214,7 +214,6 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     if (!CIMAGE_GetDIBData(PUMA_IMAGE_USER, Rect(in.dwX, in.dwY, in.dwWidth, in.dwHeight), NULL, &pOutDIB)) {
         Debug() << "[WritePict] CIMAGE_GetDIBData failed: " << PUMA_IMAGE_USER << "\n";
         return false;
-
     }
 
     // Соберем изображение

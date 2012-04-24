@@ -233,7 +233,6 @@ void PumaImpl::close() {
     CLINE_Reset();
     clearAll();
     // clean
-    CIMAGE_Reset();
     CPAGE_DeleteAll();
     RIMAGE_Reset();
     cpage_ = NULL;

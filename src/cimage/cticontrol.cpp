@@ -148,8 +148,8 @@ void CTIControl::init() {
     cb_dest_dib_ = NULL;
     cb_write_src_dib_ = NULL;
     cb_write_dest_dib_ = NULL;
-    image_dib_ = NULL;
-    image_raw_data_ = NULL;
+    last_dib_ = NULL;
+    last_raw_data_ = NULL;
     memory_errors_ = 0;
 }
 
@@ -263,7 +263,6 @@ bool CTIControl::enableWriteMask(const std::string& imageName)
 
 void CTIControl::clear() {
     images_.clear();
-
     freeBuffers();
     delete cb_src_dib_;
     delete cb_write_src_dib_;
@@ -519,9 +518,9 @@ bool CTIControl::getImageRawData(const std::string& name,
         out->wByteWidth = (uint16_t) dest.GetUsedLineWidthInBytes();
         out->wBlackBit = dest.GetBlackPixel();
 
-        image_raw_data_ = new uchar[in->wByteWidth * in->dwHeight];
-        out->lpData = image_raw_data_;
-        puchar out_line = image_raw_data_;
+        last_raw_data_ = new uchar[in->wByteWidth * in->dwHeight];
+        out->lpData = last_raw_data_;
+        puchar out_line = last_raw_data_;
 
         for (size_t i = 0; i < out->dwHeight; i++) {
             memcpy(out_line, dest.GetPtrToLine(i), out->wByteWidth);
@@ -545,7 +544,7 @@ bool CTIControl::copyDIB(const BitmapHandle src, BitmapHandle * dest)
 {
     const size_t dib_size = dibSize(src);
 
-    BitmapHandle new_image = (BitmapHandle) CIMAGEDAlloc(dib_size, "Copyed DIB - CopyDIB");
+    BitmapHandle new_image = (BitmapHandle) CIMAGEAlloc(dib_size);
 
     if (!new_image) {
         CIMAGE_ERROR << " CIMAGEDAlloc failed.\n";
@@ -568,7 +567,7 @@ bool CTIControl::applyMask(const std::string &name, int x, int y)
     }
 
     if(img->isReadMaskEnabled() && img->readMask()) {
-        if(!applyMaskToDIB(image_dib_, img->readMask(), x, y))
+        if(!applyMaskToDIB(last_dib_, img->readMask(), x, y))
             return false;
     }
 
@@ -811,6 +810,13 @@ bool CTIControl::free(BitmapHandle handle)
         return false;
     }
 
+    // if image was stored in last_dib_
+    BitmapHandle saved_handle = NULL;
+    if(last_dib_ && last_dib_->GetDIBPtr((void**)&saved_handle)) {
+        if(saved_handle == handle)
+            last_dib_->ResetDIB();
+    }
+
     CIMAGEFree(handle);
 
     return true;
@@ -831,54 +837,64 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
 
     //инициализируем ctdib-чики
     CTDIB src;
-    image_dib_ = new CTDIB;
+    last_dib_ = new CTDIB;
 
     uint32_t res_x = 0;
     uint32_t res_y = 0;
 
     if (!src.SetDIBbyPtr(dib) && src.GetResolutionDPM(&res_x, &res_y)) {
         CIMAGE_ERROR << ": invalid image\n";
+        delete last_dib_;
+        last_dib_ = NULL;
         return false;
     }
 
     // проверяем размеры картинки
     Rect frame = checkRect(src, r);
 
-    if (!image_dib_->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)) {
+    if (!last_dib_->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)) {
         CIMAGE_ERROR << ": SetExternals failed\n";
+        delete last_dib_;
+        last_dib_ = NULL;
         return false;
     }
 
-    if (image_dib_->CreateDIBBegin(frame.width(), frame.height(),
+    if (last_dib_->CreateDIBBegin(frame.width(), frame.height(),
                                        src.GetPixelSize(), src.GetActualColorNumber())
-            && image_dib_->CopyPalleteFromDIB(&src)
-            && image_dib_->SetResolutionDPM(res_x, res_y)
-            && image_dib_->CreateDIBEnd())
+            && last_dib_->CopyPalleteFromDIB(&src)
+            && last_dib_->SetResolutionDPM(res_x, res_y)
+            && last_dib_->CreateDIBEnd())
     {
-        if(!getFrame(&src, image_dib_, frame)) {
+        if(!getFrame(&src, last_dib_, frame)) {
+            delete last_dib_;
+            last_dib_ = NULL;
             CIMAGE_ERROR << ": getFrame failed\n";
             return false;
         }
 
         if(bitMask) {
-            if(!bitMask->apply(image_dib_)) {
+            if(!bitMask->apply(last_dib_)) {
                 CIMAGE_ERROR << " bit mask apply failed\n";
 //                return false;
             }
         }
 
         if(!applyMask(name, frame.left(), frame.top())) {
+            delete last_dib_;
+            last_dib_ = NULL;
             CIMAGE_ERROR << ": read mask apply failed\n";
             return false;
         }
-
     } else {
         CIMAGE_ERROR << " unable create image\n";
+        delete last_dib_;
+        last_dib_ = NULL;
         return false;
     }
 
-    if (image_dib_->GetDIBPtr((void**) dest))
+    if (last_dib_->GetDIBPtr((void**) dest)) {
         return true;
+    }
     else {
         *dest = NULL;
         return false;
@@ -887,18 +903,14 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
 
 void CTIControl::freeBuffers()
 {
-    if (image_raw_data_) {
-        delete[] image_raw_data_;
-        image_raw_data_ = NULL;
+    if (last_raw_data_) {
+        delete[] last_raw_data_;
+        last_raw_data_ = NULL;
     }
 
-    if (image_dib_) {
-        if (image_dib_->DestroyDIB())
-            delete image_dib_;
-        else
-            memory_errors_++;
-
-        image_dib_ = NULL;
+    if (last_dib_) {
+        delete last_dib_;
+        last_dib_ = NULL;
     }
 }
 
