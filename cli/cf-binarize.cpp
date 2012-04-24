@@ -23,7 +23,6 @@
 #include "rdib/imageloaderfactory.h"
 #include "cimage/cticontrol.h"
 #include "rimage/cricontrol.h"
-#include "cfio/cfio.h"
 
 int main(int argc, char ** argv)
 {
@@ -31,8 +30,6 @@ int main(int argc, char ** argv)
         std::cerr << "Usage: " << argv[0] << " INPUT_IMAGE OUTPUT_IMAGE\n";
         return EXIT_FAILURE;
     }
-
-    CFIO_Init(0, 0);
 
     try {
         cf::ImagePtr input_img = cf::ImageLoaderFactory::instance().load(argv[1]);
@@ -61,8 +58,6 @@ int main(int argc, char ** argv)
         std::cerr << e.what() << "\n";
         return EXIT_FAILURE;
     }
-
-    CFIO_Done();
 
     return EXIT_SUCCESS;
 }
