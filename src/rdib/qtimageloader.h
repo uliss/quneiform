@@ -47,6 +47,11 @@ class CLA_EXPO QtImageLoader: public ImageLoader
           */
         ImagePtr load(const QImage& image);
         ImagePtr load(std::istream& is);
+
+        /**
+          * Returns list of supported formats
+          */
+        ImageFormatList supportedFormats() const;
 };
 
 }

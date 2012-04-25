@@ -46,15 +46,21 @@ void TestQtImageLoader::testLoad() {
     ImagePtr img;
     CPPUNIT_ASSERT_NO_THROW(img = loader->load(path + "test.xpm"));
     CPPUNIT_ASSERT(Size(1, 1) == img->size());
-    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.gif"));
-    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.tif"));
-    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.jpg"));
-    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.png"));
+
+
+    ImageFormatList formats = loader->supportedFormats();
+
+    for(size_t i = 0; i < formats.size(); i++) {
+        std::string image_name = path + "test.";
+        image_name += imageFormatToString(formats[i]);
+
+        std::cerr << "CHECKING " << image_name << "\n";
+        CPPUNIT_ASSERT_NO_THROW(loader->load(image_name));
+    }
+
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.pbm"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.pgm"));
     CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.ppm"));
-    //CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.bmp"));
-
 
     // throw
     CPPUNIT_ASSERT_THROW(loader->load("not-exists"), ImageLoader::Exception);
