@@ -27,6 +27,7 @@ Configuration
    -DTESTS=Yes                 - build tests
    -DCF_NO_QT=Yes              - disable QtImageLoader build
    -DCF_NO_IMAGE_MAGICK=Yes    - disable MagickLoader build
+   -DCF_NO_FREE_IMAGE=Yes      - disable FreeImageLoader build
    -DCF_NO_GUI=Yes             - disable Qt GUI build
    -DWITH_SWIG=Yes             - enable language bindings
    -DWITH_PYTHON=Yes           - enable Python binding
