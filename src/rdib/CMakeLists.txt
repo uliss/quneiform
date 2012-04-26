@@ -20,6 +20,12 @@ if(CF_USE_IMAGE_LIBRARY_QT)
     message(STATUS "Loaders: Qt loader will be build")
 endif()
 
+if(CF_USE_IMAGE_LIBRARY_FREE_IMAGE)
+    include_directories(${CF_IMAGE_INCLUDE})
+    list(APPEND loaders freeimageloader.cpp)
+    message(STATUS "Loaders: FreeImage loader will be build")
+endif()
+
 add_library(cuneiform-rdib ${LIBTYPE} 
     ctdib.cpp
     imageformatdetector.cpp

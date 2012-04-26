@@ -10,6 +10,10 @@ if(CF_USE_IMAGE_LIBRARY_QT)
     list(APPEND testloaders testqtimageloader.cpp)
 endif()
 
+if(CF_USE_IMAGE_LIBRARY_FREE_IMAGE)
+    list(APPEND testloaders testfreeimageloader.cpp)
+endif()
+
 add_executable(test_loaders
     test_loaders.cpp
     testformatdetector.cpp
