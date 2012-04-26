@@ -250,7 +250,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     }
 
     // Довернем изображение на малый угол.
-    if (!RIMAGE_Rotate((puchar) lpName, (puchar) szRotateName, pinfo.Incline2048, 2048, 0)) {
+    if (!RIMAGE_Rotate(lpName, szRotateName, pinfo.Incline2048, 2048)) {
         Debug() << "[WritePict] RIMAGE_Rotate failed\n";
         rc = FALSE;
     } else {
@@ -273,7 +273,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
             //  End of Almi Corr
         }
 
-        if (!RIMAGE_RotatePoint((puchar) lpName, in.dwX, in.dwY, (int32_t *) &in.dwX,
+        if (!RIMAGE_RotatePoint(lpName, in.dwX, in.dwY, (int32_t *) &in.dwX,
                 (int32_t *) &in.dwY)) {
             in.dwX = 0;
             in.dwY = 0;

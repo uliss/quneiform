@@ -80,7 +80,7 @@ public:
     void init();
     void reset();
 public:
-    Bool32          RotatePoint(char* cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);
+    bool rotatePoint(const std::string& name, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);
     Bool32          StartProgress(void);
     Bool32          SetProgressCallBacks(PRIMAGECBPRogressStart pcbStart, PRIMAGECBPRogressStep pcbStep, PRIMAGECBPRogressFinish pcbFinish);
 
@@ -110,7 +110,7 @@ public:
       */
     bool turn(const std::string& src, const std::string& dest, rimage_turn_angle_t angle);
 
-    Bool32          Rotate(char*   cDIBIn, char*   cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins);
+    bool rotate(const std::string& src, const std::string& dest, int high, int low);
     Bool32          Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
 private:
     Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);

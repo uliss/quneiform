@@ -944,8 +944,7 @@ void PumaImpl::rotate(BitmapHandle * dib, Point * p) {
 
     CImage::instance().disableReadMask(PUMA_IMAGE_USER);
 
-    if (!RIMAGE_Rotate((puchar) PUMA_IMAGE_USER, (puchar) PUMA_IMAGE_ROTATE,
-            page_info.Incline2048, 2048, 0))
+    if (!RIMAGE_Rotate(PUMA_IMAGE_USER, PUMA_IMAGE_ROTATE, page_info.Incline2048, 2048))
         throw PumaException("RIMAGE_Rotate failed");
 
     if (!CIMAGE_ReadDIB(PUMA_IMAGE_ROTATE, dib))

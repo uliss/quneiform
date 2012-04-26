@@ -54,8 +54,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 #include <iostream>
 #include <boost/current_function.hpp>
 
@@ -161,34 +161,32 @@ bool CRIControl::binarise(const std::string& src, const std::string& dest, binar
     return Ret;
 }
 
-Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
-                          int32_t Low, uint32_t UseMargins)
+bool CRIControl::rotate(const std::string& src, const std::string& dest, int high, int low)
 {
     Bool32 Ret = TRUE;
     Bool32 NoDest = FALSE;
 
     // открываем исходный
-    if (!openSourceDIB(cDIBIn)) {
-        fprintf(stderr, "OpenSourceDIB failed\n");
-        return FALSE;
+    if (!openSourceDIB(src)) {
+        RIMAGE_ERROR << "OpenSourceDIB failed\n";
+        return false;
     }
 
     if (dest_dib_) {
         SetReturnCode_rimage(IDS_RIMAGE_INTERNAL_MODULE_ERROR);
-        return FALSE;
+        return false;
     }
 
     dest_dib_ = new CTDIB;
 
     //открываем вертелку
-    if (!rotator_) {
+    if (!rotator_)
         rotator_ = new CRRotator(&mcProgress);
-    }
 
     // забываем старое имя
     mcLastDIBName[0] = 0x0;
 
-    if (!rotator_->Rotate(src_dib_, dest_dib_, High, Low)) {
+    if (!rotator_->Rotate(src_dib_, dest_dib_, high, low)) {
         uint16_t wRet = GetReturnCode_rimage();
         // !!! Art Изменил - теперь она заносит не хендлы, а указатели, а то память утекала
         //почему-то...
@@ -199,7 +197,7 @@ Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
              wRet == IDS_RIMAGE_ANGLE_LEAST_MINIMUM) &&
                 src_dib_->GetDIBPtr((void**) &handle))
         {
-            saveCopy(cDIBOut, handle);
+            saveCopy(dest, handle);
             SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
             NoDest = Ret = TRUE;
         }
@@ -214,14 +212,14 @@ Bool32 CRIControl::Rotate(char* cDIBIn, char* cDIBOut, int32_t High,
     }
 
     //отписваем новый в контейнер и освобождаем
-    if (!closeDestinationDIB(cDIBOut)) {
+    if (!closeDestinationDIB(dest)) {
         if (NoDest == FALSE) {
             SetReturnCode_rimage(IDS_RIMAGE_CANNT_SAVE_OUTCOMING_DIB);
             Ret = FALSE;
         }
     }
 
-    strcpy(mcLastDIBName, cDIBOut);
+    strcpy(mcLastDIBName, dest.c_str());
 
     //закрываем исходный
     if (!closeSourceDIB()) {
@@ -558,12 +556,12 @@ Bool32 CRIControl::StartProgress()
     return mcProgress.Start();
 }
 
-Bool32 CRIControl::RotatePoint(char* cDIB, int32_t iX, int32_t iY,
+bool CRIControl::rotatePoint(const std::string& name, int32_t iX, int32_t iY,
                                int32_t * prX, int32_t * prY)
 {
-    Bool32 bRet = FALSE;
+    bool bRet = false;
 
-    if (rotator_ && strcmp(cDIB, mcLastDIBName) == 0) {
+    if (rotator_ && name == mcLastDIBName) {
         bRet = rotator_->RotatePoint(iX, iY, prX, prY);
     }
 

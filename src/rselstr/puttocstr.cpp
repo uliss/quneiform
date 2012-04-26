@@ -539,7 +539,7 @@ Bool32 GetObjects(CCOM_handle hCCOM, Handle hCPage)
                 if (!ret)
                     continue;
 
-                GetRasterRect(ImageName, pN[j], &RastRec, &attr, 0);
+                GetRasterRect((char*) ImageName, pN[j], &RastRec, &attr, 0);
 
                 rast = CSTR_NewRaster(string, RastRec.left, RastRec.top, RastRec.right
                         - RastRec.left + 1);
@@ -867,13 +867,12 @@ void Invert(RecRaster* rec)
     }
 }
 
-Bool MyRotateImage(uchar* ImageName, uchar* RotateImageName, int skew, Rect16* Rc, Bool vertical,
+Bool MyRotateImage(const char *ImageName, char* RotateImageName, int skew, Rect16* Rc, Bool vertical,
         int code, MATRIX* rot, MATRIX* unrot)
 {
     int w;
     int own_skew = skew;
     int time;
-    uint32_t use_marg;
     if (vertical)
         w = Rc->bottom - Rc->top + 1;
     else
@@ -886,13 +885,11 @@ Bool MyRotateImage(uchar* ImageName, uchar* RotateImageName, int skew, Rect16* R
         return FALSE;
     }
 
-    use_marg = 0;
-
     InitRotateImageName(RotateImageName, code);
 
     time = clock();
 
-    if (!RIMAGE_Rotate(ImageName, RotateImageName, own_skew, 2048, use_marg)) {
+    if (!RIMAGE_Rotate(ImageName, RotateImageName, own_skew, 2048)) {
         InitRotateImageName(RotateImageName, ImageName);
         return FALSE;
     }
@@ -909,13 +906,13 @@ Bool MyRotateImage(uchar* ImageName, uchar* RotateImageName, int skew, Rect16* R
     return TRUE;
 }
 
-void InitRotateImageName(uchar* RotateImageName, uchar* ImageName)
+void InitRotateImageName(char* RotateImageName, const char* ImageName)
 {
     for (int i = 0; i < CPAGE_MAXNAME; i++)
         RotateImageName[i] = ImageName[i];
 }
 
-void InitRotateImageName(uchar* RotateImageName, int code)
+void InitRotateImageName(char* RotateImageName, int code)
 {
     RotateImageName[0] = 'C';
     RotateImageName[1] = 'H';
@@ -950,7 +947,7 @@ void InitRotateImageName(uchar* RotateImageName, int code)
     RotateImageName[num] = '\0';
 }
 
-void GetRasterRect(uchar* UnRotateImageName, Rect16 N, Rect16* Rc, CSTR_attr* attr, Bool fl_rotate)
+void GetRasterRect(const char* UnRotateImageName, Rect16 N, Rect16* Rc, CSTR_attr* attr, Bool fl_rotate)
 {
     int top;
     int bottom;

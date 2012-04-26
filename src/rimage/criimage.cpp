@@ -73,16 +73,19 @@ bool RIMAGE_Binarise(const std::string& srcImageName,
     return cf::RImage::instance().binarise(srcImageName, destImageName, binType);
 }
 
-Bool32 RIMAGE_Rotate(puchar cDIBIn, puchar cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins)
+bool RIMAGE_Rotate(const std::string& src,
+                     const std::string& dest,
+                     int32_t High,
+                     int32_t Low)
 {
     SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
 
-    return cf::RImage::instance().Rotate( (char*)cDIBIn, (char*)cDIBOut, High, Low, UseMargins);
+    return cf::RImage::instance().rotate(src, dest, High, Low);
 }
 
-Bool32 RIMAGE_RotatePoint(puchar cDIBIn, int32_t wX, int32_t wY, int32_t * prX, int32_t * prY)
+Bool32 RIMAGE_RotatePoint(const std::string& image, int32_t wX, int32_t wY, int32_t * prX, int32_t * prY)
 {
-    return cf::RImage::instance().RotatePoint( (char*)cDIBIn, wX, wY, prX, prY );
+    return cf::RImage::instance().rotatePoint(image, wX, wY, prX, prY );
 }
 
 Bool32 RIMAGE_Roll(puchar cDIBIn, puchar cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins)
