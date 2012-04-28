@@ -12,6 +12,7 @@ set(RIMAGE_SOURCES
     crturner.cpp
     dll.cpp
     ibinarizator.cpp
+    oldbinarizator.cpp
     rprogressor.cpp
     thresholdbinarizator.cpp
 )

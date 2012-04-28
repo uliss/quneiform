@@ -77,17 +77,17 @@ inline static int grayDesaturation(const CTDIBRGBQUAD * q)
     return (grayDecompositionMax(q) + grayDecompositionMin(q)) / 2;
 }
 
-inline static void setBlack(uchar * pixel, int shift)
+inline static void setBlack(uchar * pixel, uint shift)
 {
      (*pixel) &= ~(0x80 >> shift);
 }
 
-inline static void setWhite(uchar * pixel, int shift)
+inline static void setWhite(uchar * pixel, uint shift)
 {
     (*pixel) |= (0x80 >> shift);
 }
 
-inline static void binarizeRGBPixel(const CTDIBRGBQUAD * q, uchar * pixel, int pixelShift,
+inline static void binarizeRGBPixel(const CTDIBRGBQUAD * q, uchar * pixel, uint pixelShift,
                                     int threshold,
                                     ThresholdBinarizator::grayscale_method_t m)
 {
@@ -150,7 +150,7 @@ CTDIB * ThresholdBinarizator::binarize(int)
     }
 
     const uint height = source()->GetLinesNumber();
-    const uint width = source()->GetImageWidth();
+    const uint width = (uint) source()->GetImageWidth();
 
     for(uint y = 0; y < height; y++) {
         for(uint x = 0; x < width; x++) {

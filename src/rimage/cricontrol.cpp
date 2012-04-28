@@ -62,6 +62,7 @@
 #include "resource.h"
 #include "cricontrol.h"
 #include "crimemory.h"
+#include "oldbinarizator.h"
 #include "cimage/cticontrol.h"
 #include "rimage_debug.h"
 
@@ -109,41 +110,16 @@ bool CRIControl::binarise(const std::string& src, const std::string& dest, binar
     if (!openSourceDIB(src))
         return false;
 
-    // создаем новый
-    if (!createDestinatonDIB()) {
-        closeSourceDIB();
-        RIMAGE_ERROR << " can't create new image\n";
-        return false;
-    }
+    OldBinarizator bin;
+    bin.setSource(src_dib_);
 
-    //открываем бинаризатор
-    if (!binarizator_)
-        binarizator_ = new CRIBinarizator(&mcProgress);
-
-    // закидываем туда картинки
-    if (!binarizator_->setRasters(src_dib_, dest_dib_)) {
-        closeSourceDIB();
-        closeDestinationDIB(dest);
-        RIMAGE_ERROR << " can't set dib rasters\n";
-        return false;
-    }
-
-    CTBinarize bType = CTBIN_UNKNOWN;
-    switch(binType) {
-    case BINARIZATOR_DEZA:
-        bType = CTBIN_DEZA;
-        break;
-    case BINARIZATOR_KRONROD:
-        bType = CTBIN_KRONROD;
-        break;
-    default:
-        break;
-    }
+    dest_dib_ = bin.binarize(binType);
 
     // бинаризуем
-    if (!binarizator_->Binarize(bType, binType)) {
-        RIMAGE_ERROR << " binarization error\n";
-        Ret = false;
+    if (!dest_dib_) {
+        RIMAGE_ERROR << " binarization error: " << src << "\n";
+        closeSourceDIB();
+        return false;
     }
 
     //отписваем новый в контейнер и освобождаем
