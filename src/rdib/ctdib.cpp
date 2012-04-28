@@ -124,6 +124,90 @@ CTDIB::~CTDIB() {
     DestroyDIB();
 }
 
+bool CTDIB::pixelColor(uint x, uint y, CTDIBRGBQUAD * dest) const
+{
+    if(!IsDIBAvailable())
+        return false;
+
+    void * pixel_data = GetPtrToPixel(x, y);
+
+    switch(GetPixelSize()) {
+    case 1: {
+        uchar pixel_byte = *((uchar*) pixel_data);
+        uint pixel_shift = x % 8;
+        if(pixel_byte & (0x80 >> pixel_shift))
+            GetRGBQuad(1, dest);
+        else
+            GetRGBQuad(0, dest);
+
+        return true;
+    }
+    case 4: {
+        uchar color_pair = *((uchar*) pixel_data);
+        uchar color_idx = (x % 2)
+                ? (color_pair & 0xf)
+                : (color_pair >> 4);
+
+        if(!GetRGBQuad(color_idx, dest))
+            return false;
+
+        return true;
+    }
+    case 8: {
+        uchar color_idx = *((uchar*) pixel_data);
+        if(!GetRGBQuad(color_idx, dest))
+            return false;
+
+        return true;
+    }
+    case 16: {
+        enum {
+            BI_RGB = 0,
+            BI_BITFIELDS = 3
+        };
+
+        switch(pDIBHeader->biCompression) {
+        case BI_RGB: {
+            // no compression
+            // 0RRRRRGGGGGBBBBB - value
+            uint32_t pixel = *(uint32_t*) pixel_data;
+            dest->rgbRed = (pixel & 0x7C00) >> 5;
+            dest->rgbGreen = (pixel & 0x3E0) >> 2;
+            dest->rgbBlue = (pixel & 0x1f) << 3;
+            dest->rgbReserved = 0;
+            return true;
+        }
+        case BI_BITFIELDS: {
+            uint32_t pixel = *(uint32_t*) pixel_data;
+
+            switch(wVersion) {
+            case CTDIB::FourthVersion:
+            case CTDIB::FifhtVersion: {
+                CTDIBBITMAPV4HEADER * v4header = (CTDIBBITMAPV4HEADER*) pDIBHeader;
+                dest->rgbRed = (pixel & v4header->bV4RedMask) >> 5;
+                dest->rgbGreen = (pixel & v4header->bV4GreenMask) >> 2;
+                dest->rgbBlue = (pixel & v4header->bV4BlueMask) << 3;
+                return false;
+            }
+            case CTDIB::WindowsVersion:
+                return false;
+            default:
+               return false;
+            }
+        }
+        default:
+            return false;
+        }
+    }
+    case 24:
+    case 32:
+        *dest = *((CTDIBRGBQUAD*) pixel_data);
+        return true;
+    default:
+        return false;
+    }
+}
+
 CTDIB::CTDIB(Handle hAtDIB) {
     hDIB = NULL;
     pDIB = NULL;
@@ -218,18 +302,18 @@ void CTDIB::DetachDIB() {
     wDirect = UnknownDirection;
 }
 
-pvoid CTDIB::GetPtrToHeader() const {
+CTDIBBITMAPINFOHEADER * CTDIB::GetPtrToHeader() const {
     CTDIB_IFNODIB(NULL);
     return pDIBHeader;
 }
 
-pvoid CTDIB::GetPtrToRGB() {
+pvoid CTDIB::GetPtrToRGB() const {
     CTDIB_IFNODIB(NULL);
     return (pvoid) pRGBQuads;
 }
 
-uint32_t CTDIB::GetDIBVersion() const {
-    CTDIB_IFNODIB(0);
+CTDIB::CTDIBVersion CTDIB::GetDIBVersion() const {
+    CTDIB_IFNODIB(UnknownVersion);
     return wVersion;
 }
 
@@ -645,20 +729,18 @@ bool CTDIB::isExternalsSets() const
             pExternalUnlock != NULL;
 }
 
-Bool32 CTDIB::GetRGBQuad(uint32_t wQuad, PCTDIBRGBQUAD pQuad) {
-    PCTDIBRGBQUAD pCurrentQuad;
-
+bool CTDIB::GetRGBQuad(uint32_t idx, CTDIBRGBQUAD * dest) const
+{
     if (pRGBQuads == NULL)
-        return FALSE;
+        return false;
 
-    if (wQuad > GetActualColorNumber()) {
-        return FALSE;
-    }
+    if (idx > GetActualColorNumber())
+        return false;
 
-    pCurrentQuad = (PCTDIBRGBQUAD) GetPtrToRGB();
-    pCurrentQuad += wQuad;
-    *pQuad = *pCurrentQuad;
-    return TRUE;
+    CTDIBRGBQUAD * current = (CTDIBRGBQUAD*) GetPtrToRGB();
+    current += idx;
+    *dest = *current;
+    return true;
 }
 
 void * CTDIB::GetPtrToBitFild() {

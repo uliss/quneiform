@@ -25,12 +25,16 @@ class TestThresholdBinarizator : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestThresholdBinarizator);
     CPPUNIT_TEST(testInit);
-    CPPUNIT_TEST(testBinarizeGray);
+    CPPUNIT_TEST(testBinarize4);
+    CPPUNIT_TEST(testBinarize8);
+    CPPUNIT_TEST(testBinarize16);
     CPPUNIT_TEST(testBinarize24);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
-    void testBinarizeGray();
+    void testBinarize4();
+    void testBinarize8();
+    void testBinarize16();
     void testBinarize24();
 };
 

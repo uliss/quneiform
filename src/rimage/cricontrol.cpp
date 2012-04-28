@@ -423,8 +423,8 @@ bool CRIControl::createDestinatonDIB()
     }
 
     CTDIBRGBQUAD BWQuads[2] = {
-        { 0x00, 0x00, 0x00, 0x00 },
-        { 0xff, 0xff, 0xff, 0x00 }
+        CTDIBRGBQUAD(0, 0, 0, 0),
+        CTDIBRGBQUAD(0xff, 0xff, 0xff, 0)
     };
 
     if (!dest_dib_->SetRGBQuad(0, BWQuads[0]))

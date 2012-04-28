@@ -36,10 +36,30 @@ void TestThresholdBinarizator::testInit()
     CPPUNIT_ASSERT_EQUAL(127, b.threshold());
 }
 
-void TestThresholdBinarizator::testBinarizeGray()
+
+void TestThresholdBinarizator::testBinarize4()
 {
-    cf::ThresholdBinarizator b;
-    b.setThreshold(200);
+    cf::ThresholdBinarizator b(200);
+    DibPtr img("color_index.bmp");
+    b.setSource(img);
+
+    CTDIB * result = b.binarize(0);
+    CPPUNIT_ASSERT(result);
+
+    cf::CTIControl::writeDIBtoBMP("rimage_threshold_binarize_indexed.bmp", result);
+
+    IS_BLACK_DIB1(result, 0, 0);
+    IS_BLACK_DIB1(result, 99, 0);
+    IS_BLACK_DIB1(result, 0, 99);
+    IS_WHITE_DIB1(result, 50, 0);
+    IS_WHITE_DIB1(result, 99, 50);
+
+    delete result;
+}
+
+void TestThresholdBinarizator::testBinarize8()
+{
+    cf::ThresholdBinarizator b(200);
     DibPtr img("gray.bmp");
     b.setSource(img);
 
@@ -57,10 +77,29 @@ void TestThresholdBinarizator::testBinarizeGray()
     delete result;
 }
 
+void TestThresholdBinarizator::testBinarize16()
+{
+    cf::ThresholdBinarizator b(200);
+    DibPtr img("color_16.bmp");
+    b.setSource(img);
+
+    CTDIB * result = b.binarize(0);
+    CPPUNIT_ASSERT(result);
+
+    cf::CTIControl::writeDIBtoBMP("rimage_threshold_binarize_color_16.bmp", result);
+
+    IS_BLACK_DIB1(result, 0, 0);
+    IS_BLACK_DIB1(result, 99, 0);
+    IS_BLACK_DIB1(result, 0, 99);
+    IS_WHITE_DIB1(result, 50, 0);
+    IS_WHITE_DIB1(result, 99, 50);
+
+    delete result;
+}
+
 void TestThresholdBinarizator::testBinarize24()
 {
-    cf::ThresholdBinarizator b;
-    b.setThreshold(200);
+    cf::ThresholdBinarizator b(200);
     DibPtr img("color_24.bmp");
     b.setSource(img);
 

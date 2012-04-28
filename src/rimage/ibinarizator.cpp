@@ -71,8 +71,8 @@ CTDIB * IBinarizator::createDestination()
     dest->SetResolutionDPM(res_x, res_y);
 
     CTDIBRGBQUAD BWQuads[2] = {
-        { 0x00, 0x00, 0x00, 0x00 },
-        { 0xff, 0xff, 0xff, 0x00 }
+        CTDIBRGBQUAD(0, 0, 0, 0),
+        CTDIBRGBQUAD(0xff, 0xff, 0xff, 0)
     };
 
     if (!dest->SetRGBQuad(0, BWQuads[0])) {

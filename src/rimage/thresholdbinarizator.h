@@ -57,6 +57,11 @@ public:
       */
     int threshold() const;
 private:
+    CTDIB * binarize4(CTDIB * dib);
+    CTDIB * binarize8(CTDIB * dib);
+    CTDIB * binarize16(CTDIB * dib);
+    CTDIB * binarize24(CTDIB * dib);
+private:
     int threshold_;
     grayscale_method_t grayscale_method_;
 };
