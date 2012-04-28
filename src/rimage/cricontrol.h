@@ -89,9 +89,10 @@ public:
       * @param src - source image name in CImage storage
       * @param dest - destination image name in CImage container
       * @param binType - type of binarizator
+      * @param param - extra binarizator params
       * @return true on success
       */
-    bool binarise(const std::string& src, const std::string& dest, binarizator_t binType);
+    bool binarise(const std::string& src, const std::string& dest, binarizator_t binType, int param = 0);
 
     /**
       * Inverts image colors and stores result in CImage container

@@ -159,12 +159,8 @@ void PumaImpl::binarizeImage() {
 
     getImageInfo(PUMA_IMAGE_USER);
 
-    if (Config::instance().debug())
-        Debug() << "The image depth is " << info_.biBitCount
-                << " at this point.\n";
-
     if (info_.biBitCount > 1) {
-        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, BINARIZATOR_KRONROD))
+        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, BINARIZATOR_KRONROD, 0))
             throw PumaException("RIMAGE_Binarise failed");
 
         if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, &input_dib_))

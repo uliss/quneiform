@@ -68,9 +68,10 @@ Bool32 RIMAGE_SetProgressCB(PRIMAGECBPRogressStart pStart, PRIMAGECBPRogressStep
 
 bool RIMAGE_Binarise(const std::string& srcImageName,
                      const std::string& destImageName,
-                     cf::binarizator_t binType)
+                     cf::binarizator_t binType,
+                     int param)
 {
-    return cf::RImage::instance().binarise(srcImageName, destImageName, binType);
+    return cf::RImage::instance().binarise(srcImageName, destImageName, binType, param);
 }
 
 bool RIMAGE_Rotate(const std::string& src,

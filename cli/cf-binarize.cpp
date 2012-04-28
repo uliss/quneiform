@@ -26,10 +26,18 @@
 
 int main(int argc, char ** argv)
 {
-    if(argc != 3) {
-        std::cerr << "Usage: " << argv[0] << " INPUT_IMAGE OUTPUT_IMAGE\n";
+    if(argc < 3) {
+        std::cerr << "Usage: " << argv[0] << " INPUT_IMAGE OUTPUT_IMAGE [-b BINARIZATOR]\n";
         return EXIT_FAILURE;
     }
+
+    std::string binarizator("kronrod");
+    if(argc == 5 && strcmp(argv[3], "-b") == 0)
+        binarizator = argv[4];
+
+    cf::binarizator_t binType = cf::BINARIZATOR_KRONROD;
+    if(binarizator == "threshold")
+        binType = cf::BINARIZATOR_THRESHOLD;
 
     try {
         cf::ImagePtr input_img = cf::ImageLoaderFactory::instance().load(argv[1]);
@@ -44,7 +52,7 @@ int main(int argc, char ** argv)
             return EXIT_FAILURE;
         }
 
-        if(!cf::RImage::instance().binarise("input", "bin", cf::BINARIZATOR_KRONROD)) {
+        if(!cf::RImage::instance().binarise("input", "bin", binType, 127)) {
             std::cerr << "Can't binarize image\n";
             return EXIT_FAILURE;
         }

@@ -65,6 +65,7 @@
 #include "oldbinarizator.h"
 #include "cimage/cticontrol.h"
 #include "rimage_debug.h"
+#include "binarizatorfactory.h"
 
 namespace cf {
 
@@ -102,7 +103,9 @@ void CRIControl::reset()
     init();
 }
 
-bool CRIControl::binarise(const std::string& src, const std::string& dest, binarizator_t binType)
+bool CRIControl::binarise(const std::string& src, const std::string& dest,
+                          binarizator_t binType,
+                          int param)
 {
     CTDIB * src_dib = CImage::instance().imageDib(src);
 
@@ -111,10 +114,10 @@ bool CRIControl::binarise(const std::string& src, const std::string& dest, binar
         return false;
     }
 
-    OldBinarizator bin;
-    bin.setSource(src_dib);
+    BinarizatorPtr bin = BinarizatorFactory::instance().make(binType, param);
+    bin->setSource(src_dib);
 
-    CTDIB * dest_dib = bin.binarize(binType);
+    CTDIB * dest_dib = bin->binarize(binType);
 
     // бинаризуем
     if (!dest_dib) {

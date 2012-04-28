@@ -16,42 +16,27 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IBINARIZATOR_H
-#define IBINARIZATOR_H
-
-#include <boost/shared_ptr.hpp>
-
-#include "globus.h"
-
-class CTDIB;
+#include "binarizatorfactory.h"
+#include "oldbinarizator.h"
+#include "thresholdbinarizator.h"
+#include "rimage_debug.h"
 
 namespace cf {
 
-class CLA_EXPO IBinarizator
+BinarizatorPtr BinarizatorFactoryImpl::make(binarizator_t t, int param)
 {
-public:
-    IBinarizator();
-    virtual ~IBinarizator();
-
-    virtual CTDIB * binarize(int flags) = 0;
-
-    /**
-      * Sets source image for binarization
-      */
-    void setSource(CTDIB * dib);
-
-    /**
-      * Returns pointer to source image
-      */
-    CTDIB * source();
-protected:
-    CTDIB * createDestination();
-private:
-    CTDIB * src_;
-};
-
-typedef boost::shared_ptr<IBinarizator> BinarizatorPtr;
-
+    BinarizatorPtr p;
+    switch(t) {
+    case BINARIZATOR_KRONROD:
+        p.reset(new OldBinarizator);
+        return p;
+    case BINARIZATOR_THRESHOLD:
+        p.reset(new ThresholdBinarizator(param));
+        return p;
+    default:
+        RIMAGE_ERROR << " unknown binarizator type: " << t << "\n";
+        return p;
+    }
 }
 
-#endif // IBINARIZATOR_H
+}

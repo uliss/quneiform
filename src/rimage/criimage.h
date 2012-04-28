@@ -78,7 +78,8 @@ enum rimage_turn_angle_t {
 
 enum binarizator_t {
     BINARIZATOR_DEZA = 0,
-    BINARIZATOR_KRONROD
+    BINARIZATOR_KRONROD,
+    BINARIZATOR_THRESHOLD
 };
 
 class CRIControl;
@@ -95,7 +96,8 @@ typedef void   (*PRIMAGECBPRogressFinish)(void);
 
 RIMAGE_FUNC bool RIMAGE_Binarise(const std::string& srcImageName,
                                  const std::string& destImageName,
-                                 cf::binarizator_t binType);
+                                 cf::binarizator_t binType,
+                                 int param = 0);
 RIMAGE_FUNC bool RIMAGE_Rotate(const std::string& src, const std::string& dest, int32_t, int32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Roll(puchar , puchar , int32_t, int32_t, uint32_t);
 RIMAGE_FUNC bool RIMAGE_Turn(const std::string &src,

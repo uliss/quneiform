@@ -1,4 +1,5 @@
 set(RIMAGE_SOURCES
+    binarizatorfactory.cpp
     cdezabinarizator.cpp
     ckronrodbinarizator.cpp
     gdata.cpp

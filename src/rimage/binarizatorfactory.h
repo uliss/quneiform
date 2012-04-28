@@ -16,42 +16,23 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IBINARIZATOR_H
-#define IBINARIZATOR_H
+#ifndef BINARIZATORFACTORY_H
+#define BINARIZATORFACTORY_H
 
-#include <boost/shared_ptr.hpp>
-
-#include "globus.h"
-
-class CTDIB;
+#include "common/singleton.h"
+#include "ibinarizator.h"
+#include "criimage.h"
 
 namespace cf {
 
-class CLA_EXPO IBinarizator
+class BinarizatorFactoryImpl
 {
 public:
-    IBinarizator();
-    virtual ~IBinarizator();
-
-    virtual CTDIB * binarize(int flags) = 0;
-
-    /**
-      * Sets source image for binarization
-      */
-    void setSource(CTDIB * dib);
-
-    /**
-      * Returns pointer to source image
-      */
-    CTDIB * source();
-protected:
-    CTDIB * createDestination();
-private:
-    CTDIB * src_;
+    BinarizatorPtr make(binarizator_t t, int param);
 };
 
-typedef boost::shared_ptr<IBinarizator> BinarizatorPtr;
+typedef Singleton<BinarizatorFactoryImpl, CreateUsingStatic> BinarizatorFactory;
 
 }
 
-#endif // IBINARIZATOR_H
+#endif // BINARIZATORFACTORY_H
