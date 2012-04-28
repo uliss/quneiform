@@ -63,7 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "crinvertor.h" // Added by ClassView
 #include "rdib/ctdib.h"  // Added by ClassView
 #include "rprogressor.h"    // Added by ClassView
-#include "cribinarizator.h"
 #include "crturner.h"
 #include "crinvertor.h"
 #include "crrotator.h"
@@ -132,8 +131,6 @@ private:
     char mcLastDIBName[256];
     // pointer to class ProgressShow
     CRProgressor mcProgress;
-    // pointer to class Binarizator
-    CRIBinarizator * binarizator_;
     // pointer to clas  Invertor
     CRInvertor * invertor_;
     // pointer to class Turn

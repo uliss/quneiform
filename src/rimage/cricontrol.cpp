@@ -57,12 +57,10 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
-#include <boost/current_function.hpp>
 
 #include "resource.h"
 #include "cricontrol.h"
 #include "crimemory.h"
-#include "oldbinarizator.h"
 #include "cimage/cticontrol.h"
 #include "rimage_debug.h"
 #include "binarizatorfactory.h"
@@ -81,9 +79,6 @@ CRIControl::~CRIControl()
 
 void CRIControl::clear()
 {
-    if (binarizator_)
-        delete binarizator_;
-
     if (turner_)
         delete turner_;
 
@@ -561,7 +556,6 @@ void CRIControl::init()
 {
     src_dib_ = NULL;
     dest_dib_ = NULL;
-    binarizator_ = NULL;
     turner_ = NULL;
     invertor_ = NULL;
     rotator_ = NULL;
