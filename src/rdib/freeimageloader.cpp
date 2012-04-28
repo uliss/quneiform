@@ -19,6 +19,7 @@
 #include <FreeImage.h>
 #include <algorithm>
 #include <cmath>
+#include <cstring>
 
 #include "freeimageloader.h"
 #include "imageloaderfactory.h"

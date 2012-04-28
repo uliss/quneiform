@@ -9,12 +9,13 @@
 
 if(WIN32)
     find_path(FREEIMAGE_INCLUDE_PATH FreeImage.h
-                ${PROJECT_SOURCE_DIR}/extern/FreeImage
+                ${CMAKE_BINARY_DIR}/extern
                 DOC "The directory where FreeImage.h resides")
+	
     find_library(FREEIMAGE_LIBRARY
                 NAMES FreeImage freeimage
                 PATHS
-                ${PROJECT_SOURCE_DIR}/FreeImage
+                ${CMAKE_BINARY_DIR}/extern
                 DOC "The FreeImage library")
 else()
     find_path(FREEIMAGE_INCLUDE_PATH FreeImage.h
