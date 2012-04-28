@@ -47,8 +47,6 @@ static CEDLine * firstLine(CEDPage& p) {
     return firstPar(p)->lineAt(0);
 }
 
-#define CF_SERIALIZE
-
 void TestCEDPage::testSerialize() {
 #ifdef CF_SERIALIZE
     CEDPage p;
