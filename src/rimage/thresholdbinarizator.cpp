@@ -1,0 +1,202 @@
+/***************************************************************************
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   serge.poltavski@gmail.com                                             *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 3 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
+ ***************************************************************************/
+
+#include <cassert>
+#include <algorithm>
+
+#include "thresholdbinarizator.h"
+#include "rimage_debug.h"
+#include "rdib/ctdib.h"
+
+namespace cf {
+
+inline static int grayAverage(const RGBQUAD * q)
+{
+    return (q->rgbRed + q->rgbGreen + q->rgbBlue) / 3;
+}
+
+inline static int grayLuminance(const RGBQUAD * q)
+{
+    return (q->rgbRed * 30 + q->rgbGreen * 59 + q->rgbBlue * 11) / 100;
+}
+
+inline static int grayLuma(const RGBQUAD * q)
+{
+    return (q->rgbRed * 21 + q->rgbGreen * 72 + q->rgbBlue * 7) / 100;
+}
+
+inline static int grayRed(const RGBQUAD * q)
+{
+    return q->rgbRed;
+}
+
+inline static int grayGreen(const RGBQUAD * q)
+{
+    return q->rgbGreen;
+}
+
+inline static int grayBlue(const RGBQUAD * q)
+{
+    return q->rgbBlue;
+}
+
+inline static int grayDecompositionMax(const RGBQUAD * q)
+{
+    return std::max(q->rgbRed, std::max(q->rgbGreen, q->rgbBlue));
+}
+
+inline static int grayDecompositionMin(const RGBQUAD * q)
+{
+    return std::min(q->rgbRed, std::min(q->rgbGreen, q->rgbBlue));
+}
+
+inline static int grayDesaturation(const RGBQUAD * q)
+{
+    return (grayDecompositionMax(q) + grayDecompositionMin(q)) / 2;
+}
+
+inline static void setBlack(uchar * pixel, int shift)
+{
+     (*pixel) &= ~(0x80 >> shift);
+}
+
+inline static void setWhite(uchar * pixel, int shift)
+{
+    (*pixel) |= (0x80 >> shift);
+}
+
+inline static void binarize8bitPixel(uchar * src_pixel, uchar * dest_pixel, int pixelShift, int threshold)
+{
+    if(*src_pixel < threshold)
+        setBlack(dest_pixel, pixelShift);
+    else
+        setWhite(dest_pixel, pixelShift);
+}
+
+inline static void binarizeRGBPixel(RGBQUAD * q, uchar * pixel, int pixelShift,
+                                    int threshold,
+                                    ThresholdBinarizator::grayscale_method_t m)
+{
+    int gray = 0;
+
+    switch(m) {
+    case ThresholdBinarizator::AVERAGE:
+        gray = grayAverage(q);
+        break;
+    case ThresholdBinarizator::LUMINANCE:
+        gray = grayLuminance(q);
+        break;
+    case ThresholdBinarizator::LUMA:
+        gray = grayLuma(q);
+        break;
+    case ThresholdBinarizator::DESATURAION:
+        gray = grayDesaturation(q);
+        break;
+    case ThresholdBinarizator::DECOMPOSITION_MAX:
+        gray = grayDecompositionMax(q);
+        break;
+    case ThresholdBinarizator::DECOMPOSITION_MIN:
+        gray = grayDecompositionMin(q);
+        break;
+    case ThresholdBinarizator::CHANNEL_RED:
+        gray = grayRed(q);
+        break;
+    case ThresholdBinarizator::CHANNEL_GREEN:
+        gray = grayGreen(q);
+        break;
+    case ThresholdBinarizator::CHANNEL_BLUE:
+        gray = grayBlue(q);
+        break;
+    }
+
+    if(gray < threshold)
+        setBlack(pixel, pixelShift);
+    else
+        setWhite(pixel, pixelShift);
+}
+
+ThresholdBinarizator::ThresholdBinarizator(int threshold) :
+    threshold_(threshold),
+    grayscale_method_(LUMINANCE)
+{
+}
+
+CTDIB * ThresholdBinarizator::binarize(int)
+{
+    if(!source()) {
+        RIMAGE_ERROR << "source image not set\n";
+        return NULL;
+    }
+
+    CTDIB * dest = createDestination();
+
+    if(!dest) {
+        RIMAGE_ERROR << " can't create destination dib\n";
+        return NULL;
+    }
+
+    const uint height = source()->GetLinesNumber();
+    const uint width = source()->GetImageWidth();
+    const uint bpp = source()->GetPixelSize();
+
+    for(uint y = 0; y < height; y++) {
+        for(uint x = 0; x < width; x++) {
+            void * src_pixel = source()->GetPtrToPixel(x, y);
+            uchar * dest_pixel = (uchar*) dest->GetPtrToPixel(x, y);
+            uint pixel_shift = x % 8;
+
+            switch(bpp) {
+            case 8:
+                binarize8bitPixel((uchar*) src_pixel, dest_pixel, pixel_shift, threshold_);
+                break;
+            case 24:
+            case 32:
+                binarizeRGBPixel((RGBQUAD*) src_pixel, dest_pixel, pixel_shift, threshold_, grayscale_method_);
+                break;
+            default:
+                RIMAGE_ERROR << " unsupported image depth: " << bpp << "\n";
+                delete dest;
+                return NULL;
+            }
+        }
+    }
+
+    return dest;
+}
+
+ThresholdBinarizator::grayscale_method_t ThresholdBinarizator::grayscaleMethod() const
+{
+    return grayscale_method_;
+}
+
+void ThresholdBinarizator::setGrayscaleMethod(ThresholdBinarizator::grayscale_method_t m)
+{
+    grayscale_method_ = m;
+}
+
+void ThresholdBinarizator::setThreshold(int value)
+{
+    threshold_ = value;
+}
+
+int ThresholdBinarizator::threshold() const
+{
+    return threshold_;
+}
+
+}
