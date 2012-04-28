@@ -79,17 +79,17 @@ CRIControl::~CRIControl()
 
 void CRIControl::clear()
 {
-    if (turner_)
-        delete turner_;
+    delete turner_;
+	turner_ = NULL;
 
-    if (invertor_)
-        delete invertor_;
+    delete invertor_;
+	invertor_ = NULL;
 
-    if (rotator_)
-        delete rotator_;
+    delete rotator_;
+	rotator_ = NULL;
 
-    if (dest_dib_)
-        delete dest_dib_;
+    delete dest_dib_;
+	dest_dib_ = NULL;
 }
 
 void CRIControl::reset()
@@ -487,9 +487,8 @@ Bool32 CRIControl::Roll(char* cDIBIn, char* cDIBOut, int32_t Num,
     dest_dib_ = new CTDIB;
 
     //открываем вертелку
-    if (!rotator_) {
+    if (!rotator_)
         rotator_ = new CRRotator;
-    }
 
     if (!rotator_->Roll(src_dib_, dest_dib_, Num, Denum)) {
         SetReturnCode_rimage(IDS_RIMAGE_CANNOT_ROTATE_IMAGE);
