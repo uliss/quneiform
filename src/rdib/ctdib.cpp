@@ -630,10 +630,10 @@ Bool32 CTDIB::GetDIBHandle(Handle* phDIB) {
     return TRUE;
 }
 
-Bool32 CTDIB::GetDIBPtr(pvoid* ppDIB) {
-    CTDIB_IFNODIB(NULL);
+bool CTDIB::GetDIBPtr(pvoid* ppDIB) const {
+    CTDIB_IFNODIB(false);
     *ppDIB = pDIB;
-    return TRUE;
+    return true;
 }
 
 Bool32 CTDIB::SetRGBQuad(uint32_t wQuad, CTDIBRGBQUAD Quad) {

@@ -429,6 +429,19 @@ bool CTIControl::addImageCopy(const std::string& name, BitmapHandle handle) {
     return images_.addImage(name, image, false);
 }
 
+bool CTIControl::addImageCopy(const std::string& name, const CTDIB * dib)
+{
+    if(!dib)
+        return false;
+
+    BitmapHandle handle = NULL;
+
+    if(!dib->GetDIBPtr((void**) &handle))
+        return false;
+
+    return addImageCopy(name, handle);
+}
+
 bool CTIControl::dumpImage(const std::string& name, const std::string& fileName)
 {
     CTIImageHeader * img = images_.image(name);
@@ -452,6 +465,27 @@ BitmapHandle CTIControl::image(const std::string& name)
     }
 
     return img->imageHandle();
+}
+
+CTDIB * CTIControl::imageDib(const std::string& name)
+{
+    BitmapHandle handle = image(name);
+
+    if(!handle) {
+        CIMAGE_ERROR << " image not found: \"" << name << "\"\n";
+        return NULL;
+    }
+
+    CTDIB * res = new CTDIB;
+
+    if (!res->SetDIBbyPtr(handle)) {
+        CIMAGE_ERROR << " invalid image: \"" << name << "\"\n";
+        delete res;
+        return NULL;
+    }
+
+    return res;
+
 }
 
 BitmapHandle CTIControl::imageCopy(const std::string& name)

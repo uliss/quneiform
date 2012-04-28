@@ -131,6 +131,7 @@ class CLA_EXPO CTIControl
           * @see addImage()
           */
         bool addImageCopy(const std::string& name, BitmapHandle handle);
+        bool addImageCopy(const std::string &name, const CTDIB * dib);
 
         /**
           * Dumps image to file
@@ -155,6 +156,12 @@ class CLA_EXPO CTIControl
           * @see imageCopy()
           */
         BitmapHandle image(const std::string& name);
+
+        /**
+          * Returns CTDIB class
+          * @return NULL if not found
+          */
+        CTDIB * imageDib(const std::string& name);
 
         /**
           * Returns image copy. Caller should free result with free()

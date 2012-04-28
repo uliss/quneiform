@@ -104,37 +104,30 @@ void CRIControl::reset()
 
 bool CRIControl::binarise(const std::string& src, const std::string& dest, binarizator_t binType)
 {
-    bool Ret = true;
+    CTDIB * src_dib = CImage::instance().imageDib(src);
 
-    // открываем исходный
-    if (!openSourceDIB(src))
+    if(!src_dib) {
+        RIMAGE_ERROR << " can\'t get source image: \"" << src << "\"\n";
         return false;
+    }
 
     OldBinarizator bin;
-    bin.setSource(src_dib_);
+    bin.setSource(src_dib);
 
-    dest_dib_ = bin.binarize(binType);
+    CTDIB * dest_dib = bin.binarize(binType);
 
     // бинаризуем
-    if (!dest_dib_) {
+    if (!dest_dib) {
         RIMAGE_ERROR << " binarization error: " << src << "\n";
-        closeSourceDIB();
+        delete src_dib;
         return false;
     }
 
-    //отписваем новый в контейнер и освобождаем
-    if (!closeDestinationDIB(dest)) {
-        SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
-        Ret = false;
-    }
+    CImage::instance().addImageCopy(dest, dest_dib);
+    delete dest_dib;
+    delete src_dib;
 
-    //закрываем исходный
-    if (!closeSourceDIB()) {
-        SetReturnCode_rimage(IDS_RIMAGE_UNDER_CONSTRUCTION);
-        Ret = false;
-    }
-
-    return Ret;
+    return true;
 }
 
 bool CRIControl::rotate(const std::string& src, const std::string& dest, int high, int low)

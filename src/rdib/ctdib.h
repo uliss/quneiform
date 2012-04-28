@@ -287,7 +287,7 @@ class CLA_EXPO CTDIB
         // Set Handle for DIB if it not attached
         Bool32 SetDIBHandle(Handle hDIB);
         // get pointer to DIB
-        Bool32 GetDIBPtr(pvoid* ppDIB);
+        bool GetDIBPtr(pvoid* ppDIB) const;
         ////////////////////////////////////////////////////////Pallette Data
         // get pointer to first RGBQuad of RGB Quads ( or Triads)
         pvoid  GetPtrToRGB() const;
