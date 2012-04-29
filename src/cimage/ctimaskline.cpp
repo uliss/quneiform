@@ -98,8 +98,8 @@ CTIMaskLine::CTIMaskLine(uint Lenght, uint nLine,
 
 CTIMaskLine::~CTIMaskLine()
 {
-    PCTIMaskLineSegment pS = first_.next();
-    PCTIMaskLineSegment pD;
+    CTIMaskLineSegment * pS = first_.next();
+    CTIMaskLineSegment * pD;
 
     while (pS) {
         pD = pS;
@@ -110,8 +110,8 @@ CTIMaskLine::~CTIMaskLine()
 
 Bool32 CTIMaskLine::addSegment(CTIMaskLineSegment *pSegm)
 {
-    PCTIMaskLineSegment pS = &first_;
-    PCTIMaskLineSegment pL;
+    CTIMaskLineSegment * pS = &first_;
+    CTIMaskLineSegment * pL;
     Bool32 bRet = FALSE;
     Bool32 Added = FALSE;
     Bool32 Check = FALSE;
@@ -188,13 +188,13 @@ Bool32 CTIMaskLine::removeSegment(CTIMaskLineSegment * pSegm)
                         segments_--;
                         pS = pPS->next();
                         break;
-                        // pSegm перекывает правую часть pS
+                        // pSegm перекрывает правую часть pS
                     case CTIMaskLineSegment::INTERSECTION_RIGHT:
                         pS->cutLeftTo(pSegm);
                         pPS = pPS->next();
                         pS = pPS->next();
                         break;
-                        // pSegm перекывает левую часть pS
+                        // pSegm перекрывает левую часть pS
                     case CTIMaskLineSegment::INTERSECTION_LEFT:
                         pS->cutRightTo(pSegm);
                         pPS = pPS->next();
@@ -231,25 +231,23 @@ Bool32 CTIMaskLine::removeSegment(CTIMaskLineSegment * pSegm)
     return TRUE;
 }
 
-bool CTIMaskLine::getLeftIntersection(CTIMaskLineSegment *pcSegm)
+bool CTIMaskLine::getLeftIntersection(CTIMaskLineSegment * segm)
 {
-    CTIMaskLineSegment * pL = first_.next();
-    bool bInt = false;
+    CTIMaskLineSegment * s = first_.next();
 
-    while (pL) {
-        CTIMaskLineSegment::intersection_t wItype = pcSegm->isIntersectWith(pL);
+    while (s) {
+        CTIMaskLineSegment::intersection_t type = segm->isIntersectWith(s);
 
-        if (!(wItype == CTIMaskLineSegment::INTERSECTION_FULL_RIGHT || wItype
-                == CTIMaskLineSegment::INTERSECTION_FULL_LEFT)) {
-            pcSegm->intersectWith(pL);
-            bInt = true;
-            break;
+        if (!(type == CTIMaskLineSegment::INTERSECTION_FULL_RIGHT ||
+              type == CTIMaskLineSegment::INTERSECTION_FULL_LEFT)) {
+            segm->intersectWith(s);
+            return true;
         }
 
-        pL = pL->next();
+        s = s->next();
     }
 
-    return bInt;
+    return false;
 }
 
 Bool32 CTIMaskLine::CheckSegments()
