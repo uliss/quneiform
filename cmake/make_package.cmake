@@ -23,6 +23,15 @@ if(WIN32)
 endif()
 
 if(APPLE)
+    add_custom_target(dmg COMMAND "${CMAKE_SOURCE_DIR}/cmake/makeapp.sh"
+                                  "${CMAKE_BINARY_DIR}" # dest dir
+                                  "${CMAKE_SOURCE_DIR}" # source dir
+                                  "${CMAKE_BINARY_DIR}" # build dir
+                          DEPENDS  Quneiform
+)
+endif()
+
+if(APPLE)
     set(CPACK_GENERATOR "Bundle")
     set(CPACK_BUNDLE_NAME "Quneiform")
 

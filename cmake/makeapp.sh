@@ -23,7 +23,7 @@ export APPF=$APPC/Frameworks
 export APP_EXE="${APPM}/Quneiform"
 export APP_WORKER="${APPM}/cuneiform-worker"
 
-rm -rf "$APP"
+rm -rf "${APP}"
 mkdir -p "${APP}/Contents/MacOS"
 mkdir -p "${APPR}"
 mkdir -p "${APPF}"
@@ -85,6 +85,6 @@ rm -rf Quneiform.dmg "${DESTDIR}/Quneiform-${VERSION}.dmg"
 cd $DESTDIR
 
 echo "Creating DMG..."
-macdeployqt Quneiform.app -dmg -no-plugins -verbose=2
+macdeployqt Quneiform.app -dmg -no-plugins -verbose=0
 mv Quneiform.dmg Quneiform-$VERSION.dmg
 
