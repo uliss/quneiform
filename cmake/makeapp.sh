@@ -48,7 +48,7 @@ cp "${BUILDDIR}/Quneiform" "${APPM}/Quneiform"
 cp "${BUILDDIR}/cuneiform-worker" "${APPM}/cuneiform-worker"
 
 echo "Copying translations..."
-cp ${BUILDDIR}/gui/*.qm "${APPR}/share/cuneiform/locale"
+cp ${BUILDDIR}/gui/*.qm "${APPR}"
 echo "Copying Info.plist..."
 cp "${BUILDDIR}/Info.plist" "${APPC}"
 
