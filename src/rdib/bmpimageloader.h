@@ -27,7 +27,7 @@
 namespace cf
 {
 
-class BmpImageLoader: public ImageLoader
+class CLA_EXPO BmpImageLoader: public ImageLoader
 {
     public:
         BmpImageLoader();

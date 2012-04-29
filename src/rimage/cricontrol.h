@@ -63,7 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "crinvertor.h" // Added by ClassView
 #include "rdib/ctdib.h"  // Added by ClassView
 #include "rprogressor.h"    // Added by ClassView
-#include "cribinarizator.h"
 #include "crturner.h"
 #include "crinvertor.h"
 #include "crrotator.h"
@@ -80,7 +79,7 @@ public:
     void init();
     void reset();
 public:
-    Bool32          RotatePoint(char* cDIB, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);
+    bool rotatePoint(const std::string& name, int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);
     Bool32          StartProgress(void);
     Bool32          SetProgressCallBacks(PRIMAGECBPRogressStart pcbStart, PRIMAGECBPRogressStep pcbStep, PRIMAGECBPRogressFinish pcbFinish);
 
@@ -89,9 +88,10 @@ public:
       * @param src - source image name in CImage storage
       * @param dest - destination image name in CImage container
       * @param binType - type of binarizator
+      * @param param - extra binarizator params
       * @return true on success
       */
-    bool binarise(const std::string& src, const std::string& dest, binarizator_t binType);
+    bool binarise(const std::string& src, const std::string& dest, binarizator_t binType, int param = 0);
 
     /**
       * Inverts image colors and stores result in CImage container
@@ -110,7 +110,7 @@ public:
       */
     bool turn(const std::string& src, const std::string& dest, rimage_turn_angle_t angle);
 
-    Bool32          Rotate(char*   cDIBIn, char*   cDIBOut, int32_t High, int32_t Low, uint32_t UseMargins);
+    bool rotate(const std::string& src, const std::string& dest, int high, int low);
     Bool32          Roll(char* cDIBIn, char* cDIBOut, int32_t Num, int32_t Denum, uint32_t bUseMargins);
 private:
     Bool32          WriteDIBtoBMP(const char *cName, PCTDIB pDIB);
@@ -131,8 +131,6 @@ private:
     char mcLastDIBName[256];
     // pointer to class ProgressShow
     CRProgressor mcProgress;
-    // pointer to class Binarizator
-    CRIBinarizator * binarizator_;
     // pointer to clas  Invertor
     CRInvertor * invertor_;
     // pointer to class Turn

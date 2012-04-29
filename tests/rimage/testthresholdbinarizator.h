@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,44 +16,26 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef QTIMAGELOADER_H_
-#define QTIMAGELOADER_H_
+#ifndef TESTTHRESHOLDBINARIZATOR_H
+#define TESTTHRESHOLDBINARIZATOR_H
 
-#include "imageloader.h"
-#include "globus.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-class QImage;
-class QString;
-
-namespace cf
+class TestThresholdBinarizator : public CppUnit::TestFixture
 {
-
-class CLA_EXPO QtImageLoader: public ImageLoader
-{
-    public:
-        QtImageLoader();
-
-        /**
-         * Loads image
-         * @param path - image path
-         * @return image pointer
-         */
-        ImagePtr load(const std::string& path);
-        ImagePtr load(const QString& path);
-
-        /**
-          * Loads image from QImage
-          * @note caller should free pointer
-          */
-        ImagePtr load(const QImage& image);
-        ImagePtr load(std::istream& is);
-
-        /**
-          * Returns list of supported formats
-          */
-        ImageFormatList supportedFormats() const;
+    CPPUNIT_TEST_SUITE(TestThresholdBinarizator);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testBinarize4);
+    CPPUNIT_TEST(testBinarize8);
+    CPPUNIT_TEST(testBinarize16);
+    CPPUNIT_TEST(testBinarize24);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testInit();
+    void testBinarize4();
+    void testBinarize8();
+    void testBinarize16();
+    void testBinarize24();
 };
 
-}
-
-#endif /* QTIMAGELOADER_H_ */
+#endif // TESTTHRESHOLDBINARIZATOR_H

@@ -19,17 +19,20 @@
 #ifndef IMAGELOADER_H_
 #define IMAGELOADER_H_
 
+#include <vector>
 #include <string>
 #include <iostream>
 
 #include "common/exception.h"
 #include "common/image.h"
+#include "common/imageformats.h"
 #include "globus.h"
 
 namespace cf
 {
 
 class Image;
+typedef std::vector<image_format_t> ImageFormatList;
 
 class CLA_EXPO ImageLoader
 {
@@ -46,6 +49,11 @@ class CLA_EXPO ImageLoader
          * Returns size of stream or 0 if stream error occurs
          */
         static std::streampos streamSize(std::istream& stream);
+
+        /**
+          * Returns list of supported formats
+          */
+        virtual ImageFormatList supportedFormats() const;
 
         typedef RuntimeExceptionImpl<ImageLoader> Exception;
     private:

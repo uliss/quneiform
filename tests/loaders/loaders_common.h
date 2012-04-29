@@ -29,11 +29,12 @@ static std::string trim(const std::string& str) {
     return pos == str.size() ? str : str.substr(0, pos + 1);
 }
 
-#define ASSERT_BUFFER(buf, s) CPPUNIT_ASSERT_EQUAL(trim(buf.str()), std::string(s));
+#define ASSERT_BUFFER(buf, s) CPPUNIT_ASSERT_EQUAL(std::string(s), trim(buf.str()));
 
 #define ASSERT_RECOGNIZE(loader, filename, str) {\
     ImagePtr img;\
     std::ostringstream buf;\
+    std::cerr << "recognizing: " << filename << std::endl;\
     CPPUNIT_ASSERT_NO_THROW(img = loader.load(std::string(LOADER_TEST_IMAGE_DIR) + filename));\
     LocalRecognitionServer server;\
     server.setTextDebug(true);\

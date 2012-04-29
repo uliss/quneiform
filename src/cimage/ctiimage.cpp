@@ -59,6 +59,12 @@
 
 using namespace cf;
 
+CTIControl& CImage::instance()
+{
+	static CTIControl instance;
+	return instance;
+}
+
 bool CIMAGE_WriteCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK Cbk)
 {
     return CImage::instance().writeImageCallbacks(name, Cbk);

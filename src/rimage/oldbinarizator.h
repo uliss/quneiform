@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,23 +16,25 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "ctcglobalheader.h"
+#ifndef OLDBINARIZATOR_H
+#define OLDBINARIZATOR_H
 
-namespace cf
+#include "ibinarizator.h"
+
+namespace cf {
+
+class CRIBinarizator;
+
+class OldBinarizator : public IBinarizator
 {
-
-namespace CTC
-{
-
-GlobalHeader::GlobalHeader(Handle NewHandle, void * NewData, uint NewSize,
-                           uint NewFlag, GlobalHeader * NewNext)
-{
-    SetHandle(NewHandle);
-    SetData(NewData);
-    SetNext(NewNext);
-    SetSize(NewSize);
-    SetFlag(NewFlag);
-}
-}
+public:
+    OldBinarizator();
+    ~OldBinarizator();
+    CTDIB * binarize(int flags);
+private:
+    CRIBinarizator * bin_;
+};
 
 }
+
+#endif // OLDBINARIZATOR_H

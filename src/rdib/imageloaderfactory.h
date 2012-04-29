@@ -39,12 +39,11 @@ class CLA_EXPO ImageLoaderFactory : boost::noncopyable
         static ImageLoaderFactory& instance();
     public:
         typedef ImageLoader * (*loaderCreate)();
-        typedef std::vector<image_format_t> FormatList;
         ImagePtr load(const std::string& filename);
         ImagePtr load(std::istream& stream);
         ImageLoader& loader(image_format_t format);
         bool registerCreator(image_format_t format, int gravity, loaderCreate creator);
-        FormatList supportedFormats() const;
+        ImageFormatList supportedFormats() const;
     private:
         typedef std::pair<int, loaderCreate> LoaderEntry;
         typedef std::multimap<image_format_t, LoaderEntry> LoaderMap;
