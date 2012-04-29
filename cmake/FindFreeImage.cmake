@@ -44,8 +44,3 @@ else()
     set(FREEIMAGE_FOUND FALSE CACHE BOOL "Set to TRUE if FreeImage is found, FALSE otherwise")
 endif()
 
-mark_as_advanced(
-    FREEIMAGE_FOUND
-    FREEIMAGE_LIBRARY
-    FREEIMAGE_LIBRARIES
-    FREEIMAGE_INCLUDE_PATH)

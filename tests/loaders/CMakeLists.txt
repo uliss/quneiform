@@ -10,7 +10,7 @@ if(CF_USE_IMAGE_LIBRARY_QT)
     list(APPEND testloaders testqtimageloader.cpp)
 endif()
 
-if(CF_USE_IMAGE_LIBRARY_FREE_IMAGE)
+if(CF_USE_IMAGE_LIBRARY_FREEIMAGE)
     list(APPEND testloaders testfreeimageloader.cpp)
 endif()
 
@@ -25,7 +25,6 @@ target_link_libraries(test_loaders
     cuneiform-rdib 
     cuneiform
     ${CPPUNIT_LIBRARIES} 
-    ${CF_IMAGE_LIBRARIES}
 )
 
 add_test(Loaders ${EXECUTABLE_OUTPUT_PATH}/test_loaders)

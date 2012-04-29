@@ -20,12 +20,13 @@ if(CF_USE_IMAGE_LIBRARY_QT)
     message(STATUS "Loaders: Qt loader will be build")
 endif()
 
-if(CF_USE_IMAGE_LIBRARY_FREE_IMAGE)
+if(CF_USE_IMAGE_LIBRARY_FREEIMAGE)
+    if(MINGW)
+        link_directories(${CMAKE_BINARY_DIR})
+    endif()
+
     include_directories(${CF_IMAGE_INCLUDE})
-	if(MINGW)
-		link_directories(${CMAKE_BINARY_DIR})
-		list(APPEND loaders freeimageloader.cpp)
-	endif()
+    list(APPEND loaders freeimageloader.cpp)
     message(STATUS "Loaders: FreeImage loader will be build")
 endif()
 

@@ -64,10 +64,6 @@ bool registered = registerImageFormats();
 
 }
 
-FreeImageLoader::FreeImageLoader()
-{
-}
-
 FIBITMAP * convertTo24bpp(FIBITMAP * dib)
 {
     FIBITMAP * new_dib = FreeImage_ConvertTo24Bits(dib);
@@ -76,6 +72,14 @@ FIBITMAP * convertTo24bpp(FIBITMAP * dib)
 
     FreeImage_Unload(dib);
     return new_dib;
+}
+
+FreeImageLoader::FreeImageLoader()
+{
+}
+
+FreeImageLoader::~FreeImageLoader()
+{
 }
 
 ImagePtr FreeImageLoader::load(const std::string& filename)

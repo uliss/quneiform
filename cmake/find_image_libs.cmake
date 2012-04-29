@@ -10,7 +10,7 @@ set(CF_USE_IMAGE_LIBRARY_QT True)
 set(CF_USE_IMAGE_LIBRARY_GD True)
 set(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK True)
 set(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK True)
-set(CF_USE_IMAGE_LIBRARY_FREE_IMAGE True)
+set(CF_USE_IMAGE_LIBRARY_FREEIMAGE True)
 
 # user can define variable CF_NO_QT to prevent using qt image library 
 if(CF_NO_QT) 
@@ -32,9 +32,9 @@ if(CF_NO_IMAGE_MAGICK)
     set(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK False)
 endif()
 
-# user can define variable CF_NO_FREE_IMAGE to prevent using FreeImage library
-if(CF_NO_FREE_IMAGE)
-    set(CF_USE_IMAGE_LIBRARY_FREE_IMAGE False)
+# user can define variable CF_NO_FREEIMAGE to prevent using FreeImage library
+if(CF_NO_FREEIMAGE)
+    set(CF_USE_IMAGE_LIBRARY_FREEIMAGE False)
 endif()
 
 if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK)
@@ -81,7 +81,7 @@ if(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK AND NOT CF_USE_IMAGE_LIBRARY_IMAGE_MAGIC
     endif()
 endif()
 
-if(CF_USE_IMAGE_LIBRARY_FREE_IMAGE)
+if(CF_USE_IMAGE_LIBRARY_FREEIMAGE)
     include(FindFreeImage)
     if(FREEIMAGE_FOUND)
         message(STATUS "Image library: FreeImage found at ${FREEIMAGE_INCLUDE_PATH}")
@@ -89,6 +89,6 @@ if(CF_USE_IMAGE_LIBRARY_FREE_IMAGE)
         list(APPEND CF_IMAGE_LIBRARIES ${FREEIMAGE_LIBRARY})
     else()
         message(STATUS "Image library: FreeImage not found.")
-        set(CF_USE_IMAGE_LIBRARY_FREE_IMAGE False)
+        set(CF_USE_IMAGE_LIBRARY_FREEIMAGE False)
     endif()
 endif()
