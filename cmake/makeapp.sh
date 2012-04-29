@@ -13,14 +13,15 @@ fi
 
 DESTDIR=$1
 SRCDIR=$2
-BUILDDIR=$3
+BUILDDIR=`echo "$3" | sed -e "s/\/*$//" `
 
 export APP=$DESTDIR/Quneiform.app
 export APPC=$APP/Contents
 export APPM=$APPC/MacOS
 export APPR=$APPC/Resources
 export APPF=$APPC/Frameworks
-export APP_EXE="${APPR}/bin/Quneiform"
+export APP_EXE="${APPM}/Quneiform"
+export APP_WORKER="${APPM}/cuneiform-worker"
 
 rm -rf "$APP"
 mkdir -p "${APP}/Contents/MacOS"
@@ -38,39 +39,52 @@ cp "${SRCDIR}/gui/resources/cuneiform.icns" "${APPR}/Quneiform.icns"
 echo "Copying datafiles..."
 cp ${SRCDIR}/datafiles/*.dat "${APPR}/share/cuneiform"
 echo "Copying executables..."
-cp "${SRCDIR}/cmake/MacOSX.sh" "${APPM}/Quneiform"
-chmod +x "${APPM}/Quneiform"
-cp "${BUILDDIR}/Quneiform" "${APP_EXE}"
-cp "${BUILDDIR}/cuneiform-worker" "${APPR}/bin/cuneiform-worker"
+
+# copy executables
+cp "${SRCDIR}/cmake/MacOSX.sh" "${APPM}/Quneiform.sh"
+chmod +x "${APPM}/Quneiform.sh"
+
+cp "${BUILDDIR}/Quneiform" "${APPM}/Quneiform"
+cp "${BUILDDIR}/cuneiform-worker" "${APPM}/cuneiform-worker"
+
 echo "Copying translations..."
 cp ${BUILDDIR}/gui/*.qm "${APPR}/share/cuneiform/locale"
 echo "Copying Info.plist..."
 cp "${BUILDDIR}/Info.plist" "${APPC}"
 
+function install_our {
+    lib_path=$1
+    lib=`basename $lib_path`
+    dest_lib_dir="${APPR}/lib"
+    dest_lib_path="$dest_lib_dir/$lib"
+    dest_lib_load_path="@loader_path/../Resources/lib/$lib"
+
+    echo "Copying $lib into $dest_lib_dir"
+    cp $lib_path "$dest_lib_dir" >/dev/null 2>&1
+
+    # update executable binary
+    install_name_tool -change $lib_path $dest_lib_load_path "$APP_EXE"
+    #install_name_tool -change $lib_path $dest_lib_load_path "$APP_WORKER"
+    install_name_tool -id $dest_lib_load_path "$dest_lib_path"
+}
+
 otool -L "${APP_EXE}" | tail -n +2 | tr -d '\t' | cut -f 1 -d ' ' | while read line; do
   case $line in
     ${BUILDDIR}/*)
-      ourlib=`basename $line`
-      echo "Copying $ourlib..."
-      cp $line "${APPR}/lib" >/dev/null 2>&1
-      install_name_tool -change $line @executable_path/../lib/$ourlib "$APP_EXE"
-      install_name_tool -id @executable_path/../lib/$ourlib "${APPR}/lib/$ourlib"
-      ;;
-    /opt/local/lib/*)
-      optlib=`basename $line`
-      echo "Copying external $optlib..."
-      cp $line "$APPF" >/dev/null 2>&1
-      install_name_tool -change $line @executable_path/../../Frameworks/$optlib "$APP_EXE"
-      install_name_tool -id @executable_path/../../Frameworks/$optlib "$APPF/$optlib"
+      install_our $line
       ;;
     *)
-        echo $line
+        #echo "INFO: skipping $line"
       ;;
     esac
 done
 
 rm -rf Quneiform.dmg "${DESTDIR}/Quneiform-${VERSION}.dmg"
+
+# DMG creation
 cd $DESTDIR
-macdeployqt Quneiform.app -dmg -no-plugins -verbose=0
+
+echo "Creating DMG..."
+macdeployqt Quneiform.app -dmg -no-plugins -verbose=2
 mv Quneiform.dmg Quneiform-$VERSION.dmg
 
