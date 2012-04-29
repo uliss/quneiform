@@ -106,11 +106,16 @@ title=$(basename $mountdir)
 
 sleep 2
 
+echo "Adding logo and background..."
 cp "$SRCDIR/gui/resources/dmg_background.png" "$mountdir/logo.png"
 cp "$SRCDIR/gui/resources/disk_logo.icns" "$mountdir/.VolumeIcon.icns"
 SetFile -c icnC "$mountdir/.VolumeIcon.icns"
 SetFile -a C "$mountdir"
 
+echo "Adding license..."
+cp "$SRCDIR/COPYING.txt" "$mountdir/License.txt"
+
+echo "Making nice look..."
 echo '
 on run argv
    tell application "Finder"
@@ -124,8 +129,9 @@ on run argv
            set arrangement of theViewOptions to not arranged
            set icon size of theViewOptions to 72
            make new alias file at container window to POSIX file "/Applications" with properties {name:"Applications"}
-           set position of item "'Quneiform'" of container window to {100, 100}
+           set position of item "Quneiform" of container window to {100, 100}
            set position of item "Applications" of container window to {400, 100}
+           set position of item "License.txt" of container window to {100, 250}
            set background picture of theViewOptions to file "logo.png"
            close
            delay 1
