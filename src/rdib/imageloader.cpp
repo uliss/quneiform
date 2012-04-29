@@ -59,4 +59,9 @@ std::streampos ImageLoader::streamSize(std::istream& is)
     return ret;
 }
 
+ImageFormatList ImageLoader::supportedFormats() const
+{
+    return ImageFormatList();
+}
+
 }

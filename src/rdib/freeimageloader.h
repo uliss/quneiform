@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,44 +16,27 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef QTIMAGELOADER_H_
-#define QTIMAGELOADER_H_
+#ifndef FREEIMAGELOADER_H
+#define FREEIMAGELOADER_H
 
 #include "imageloader.h"
-#include "globus.h"
 
-class QImage;
-class QString;
+namespace cf {
 
-namespace cf
+class CLA_EXPO FreeImageLoader : public ImageLoader
 {
+public:
+    FreeImageLoader();
+    ~FreeImageLoader();
+    ImagePtr load(const std::string& filename);
+    ImagePtr load(std::istream& stream);
 
-class CLA_EXPO QtImageLoader: public ImageLoader
-{
-    public:
-        QtImageLoader();
-
-        /**
-         * Loads image
-         * @param path - image path
-         * @return image pointer
-         */
-        ImagePtr load(const std::string& path);
-        ImagePtr load(const QString& path);
-
-        /**
-          * Loads image from QImage
-          * @note caller should free pointer
-          */
-        ImagePtr load(const QImage& image);
-        ImagePtr load(std::istream& is);
-
-        /**
-          * Returns list of supported formats
-          */
-        ImageFormatList supportedFormats() const;
+    /**
+      * Returns list of supported formats
+      */
+    ImageFormatList supportedFormats() const;
 };
 
 }
 
-#endif /* QTIMAGELOADER_H_ */
+#endif // FREEIMAGELOADER_H

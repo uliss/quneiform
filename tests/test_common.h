@@ -21,7 +21,9 @@
 
 #include <string>
 #include <fstream>
-#include <ced/cedarchive.h>
+#include "ced/cedarchive.h"
+
+#ifdef CF_SERIALIZE
 
 template<class T>
 void writeToXml(cf::CEDXmlOutputArchive& ar, const std::string& obj_name, const T& object) {
@@ -62,5 +64,7 @@ void readFromTextArchive(const std::string& filename, T& object) {
     cf::CEDInputArchive ar(xml);
     ar >> object;
 }
+
+#endif
 
 #endif /* TEST_COMMON_H_ */

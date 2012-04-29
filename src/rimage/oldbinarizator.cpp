@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,44 +16,59 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef QTIMAGELOADER_H_
-#define QTIMAGELOADER_H_
+#include "oldbinarizator.h"
+#include "cribinarizator.h"
+#include "rimage_debug.h"
+#include "rdib/ctdib.h"
 
-#include "imageloader.h"
-#include "globus.h"
+namespace cf {
 
-class QImage;
-class QString;
-
-namespace cf
+OldBinarizator::OldBinarizator() : bin_(NULL)
 {
-
-class CLA_EXPO QtImageLoader: public ImageLoader
-{
-    public:
-        QtImageLoader();
-
-        /**
-         * Loads image
-         * @param path - image path
-         * @return image pointer
-         */
-        ImagePtr load(const std::string& path);
-        ImagePtr load(const QString& path);
-
-        /**
-          * Loads image from QImage
-          * @note caller should free pointer
-          */
-        ImagePtr load(const QImage& image);
-        ImagePtr load(std::istream& is);
-
-        /**
-          * Returns list of supported formats
-          */
-        ImageFormatList supportedFormats() const;
-};
-
+    bin_ = new CRIBinarizator;
 }
 
-#endif /* QTIMAGELOADER_H_ */
+OldBinarizator::~OldBinarizator()
+{
+    delete bin_;
+}
+
+CTDIB * OldBinarizator::binarize(int flags)
+{
+    if(!source()) {
+        RIMAGE_ERROR << " source image not set\n";
+        return NULL;
+    }
+
+    CTDIB * dest = createDestination();
+
+    // закидываем туда картинки
+    if (!bin_->setRasters(source(), dest)) {
+        RIMAGE_ERROR << " can't set dib rasters\n";
+        delete dest;
+        return NULL;
+    }
+
+    CTBinarize bType = CTBIN_UNKNOWN;
+    switch(flags) {
+    case BINARIZATOR_DEZA:
+        bType = CTBIN_DEZA;
+        break;
+    case BINARIZATOR_KRONROD:
+        bType = CTBIN_KRONROD;
+        break;
+    default:
+        break;
+    }
+
+    // бинаризуем
+    if (!bin_->Binarize(bType, flags)) {
+        RIMAGE_ERROR << " binarization error\n";
+        delete dest;
+        return NULL;
+    }
+
+    return dest;
+}
+
+}

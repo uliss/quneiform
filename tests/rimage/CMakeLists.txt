@@ -3,6 +3,7 @@ add_definitions(-DLOADER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/")
 add_executable(test_rimage
     test_rimage.cpp
     testcricontrol.cpp
+    testthresholdbinarizator.cpp
 )
 
 set(EXTRA_LIB "")

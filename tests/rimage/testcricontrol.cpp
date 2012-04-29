@@ -61,10 +61,10 @@ void TestCRIControl::testBinarize()
     CPPUNIT_ASSERT(rimage.binarise("color_24", "bin", BINARIZATOR_KRONROD));
     CImage::instance().dumpImage("bin", "rimage_binarize_color_24.bmp");
 
-    DibPtr color_32("color_32.bmp");
-    CImage::instance().addImage("color_32", color_32.handle());
-    CPPUNIT_ASSERT(rimage.binarise("color_32", "bin", BINARIZATOR_KRONROD));
-    CImage::instance().dumpImage("bin", "rimage_binarize_color_32.bmp");
+//    DibPtr color_32("color_32.bmp");
+//    CImage::instance().addImage("color_32", color_32.handle());
+//    CPPUNIT_ASSERT(rimage.binarise("color_32", "bin", BINARIZATOR_KRONROD));
+//    CImage::instance().dumpImage("bin", "rimage_binarize_color_32.bmp");
 
     DibPtr color_16("color_16.bmp");
     CImage::instance().addImage("color_16", color_16.handle());

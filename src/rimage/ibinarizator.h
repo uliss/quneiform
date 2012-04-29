@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,44 +16,42 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef QTIMAGELOADER_H_
-#define QTIMAGELOADER_H_
+#ifndef IBINARIZATOR_H
+#define IBINARIZATOR_H
 
-#include "imageloader.h"
+#include <boost/shared_ptr.hpp>
+
 #include "globus.h"
 
-class QImage;
-class QString;
+class CTDIB;
 
-namespace cf
+namespace cf {
+
+class CLA_EXPO IBinarizator
 {
+public:
+    IBinarizator();
+    virtual ~IBinarizator();
 
-class CLA_EXPO QtImageLoader: public ImageLoader
-{
-    public:
-        QtImageLoader();
+    virtual CTDIB * binarize(int flags) = 0;
 
-        /**
-         * Loads image
-         * @param path - image path
-         * @return image pointer
-         */
-        ImagePtr load(const std::string& path);
-        ImagePtr load(const QString& path);
+    /**
+      * Sets source image for binarization
+      */
+    void setSource(CTDIB * dib);
 
-        /**
-          * Loads image from QImage
-          * @note caller should free pointer
-          */
-        ImagePtr load(const QImage& image);
-        ImagePtr load(std::istream& is);
-
-        /**
-          * Returns list of supported formats
-          */
-        ImageFormatList supportedFormats() const;
+    /**
+      * Returns pointer to source image
+      */
+    CTDIB * source();
+protected:
+    CTDIB * createDestination();
+private:
+    CTDIB * src_;
 };
+
+typedef boost::shared_ptr<IBinarizator> BinarizatorPtr;
 
 }
 
-#endif /* QTIMAGELOADER_H_ */
+#endif // IBINARIZATOR_H

@@ -294,7 +294,9 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
         case CTBIN_KRONROD:
             i = 0;
             CurGreyLine = 0;
-            mpProgressor->Start();
+
+            if(mpProgressor)
+                mpProgressor->Start();
 
             while (i < (int32_t) nLines) {
                 pLALine = (puchar) mpOutcomeDIB->GetPtrToLine(i++);
@@ -305,7 +307,7 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
                                               (int16_t) CurGreyLine++, (int16_t) 1))
                             return 0;
 
-                        if (mpProgressor->SetStep(((CurGreyLine / nLines) * 50))) {
+                        if (mpProgressor && mpProgressor->SetStep(((CurGreyLine / nLines) * 50))) {
                             mpProgressor->Finish();
                             throw IDS_RIMAGE_EXIT_BY_USER;
                         }
@@ -316,12 +318,13 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
                 KronrodGreyFrom(pLALine);
                 NumberBWLines--;
 
-                if (mpProgressor->SetStep(((i / nLines) * 50) + 50)) {
+                if (mpProgressor && mpProgressor->SetStep(((i / nLines) * 50) + 50)) {
                     throw IDS_RIMAGE_EXIT_BY_USER;
                 }
             }
 
-            mpProgressor->Finish();
+            if(mpProgressor)
+                mpProgressor->Finish();
             bRet = TRUE;
             break;
         default:

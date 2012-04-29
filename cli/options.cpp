@@ -80,7 +80,7 @@ void printSupportedInputImageFormats(std::ostream& os) {
     static const std::string INDENT(4, ' ');
 
     os << "Supported image input formats:\n";
-    ImageLoaderFactory::FormatList formats = ImageLoaderFactory::instance().supportedFormats();
+    ImageFormatList formats = ImageLoaderFactory::instance().supportedFormats();
     for(size_t i = 0; i < formats.size(); i++)
         os << INDENT << imageFormatToString(formats[i]) << "\n";
 }
