@@ -38,6 +38,7 @@ set(HEADERS
     widgets/thumbscene.h
     widgets/thumbnailwidget.h
     internal/cimageview.h
+    quneiformapplication.h
 )
 
 set(SOURCES
@@ -90,6 +91,7 @@ set(SOURCES
     widgets/thumbnailwidget.cpp
     internal/cimagestorage.cpp
     internal/cimageview.cpp
+    quneiformapplication.cpp
 )
 
 if(CF_SERIALIZE)

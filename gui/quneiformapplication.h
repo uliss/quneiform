@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,41 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "quneiformapplication.h"
-#include "mainwindow.h"
+#ifndef QUNEIFORMAPPLICATION_H
+#define QUNEIFORMAPPLICATION_H
 
-int main(int argc, char *argv[])
+#include <QApplication>
+#include <QStringList>
+
+class QuneiformApplication : public QApplication
 {
-#ifdef Q_WS_X11
-    QApplication::setGraphicsSystem("raster");
-#endif
+    Q_OBJECT
+public:
+    QuneiformApplication(int& argc, char** argv);
+signals:
+    void openFiles(QStringList);
+protected:
+    bool event(QEvent * e);
+};
 
-    QuneiformApplication app(argc, argv);
-    app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
-
-    MainWindow w;
-    app.connect(&app, SIGNAL(openFiles(QStringList)), &w, SLOT(open(QStringList)));
-    w.show();
-
-    if(argc > 1) {
-        bool do_recognize = false;
-        QStringList files;
-        QStringList params = QCoreApplication::arguments();
-        params.removeFirst();
-        foreach(QString p, params) {
-            if(p == "-r" || p == "--recognize")
-                do_recognize = true;
-            else
-                files.append(p);
-        }
-
-        if(!files.isEmpty()) {
-            w.open(files);
-
-            if(do_recognize)
-                w.recognizeAll();
-        }
-    }
-
-    return app.exec();
-}
+#endif // QUNEIFORMAPPLICATION_H

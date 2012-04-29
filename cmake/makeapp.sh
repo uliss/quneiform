@@ -36,6 +36,7 @@ echo "Build version: $VERSION"
 
 echo "Copying bundle icon..."
 cp "${SRCDIR}/gui/resources/cuneiform.icns" "${APPR}/Quneiform.icns"
+cp "${SRCDIR}/gui/resources/packet.icns" "${APPR}/packet.icns"
 echo "Copying datafiles..."
 cp ${SRCDIR}/datafiles/*.dat "${APPR}/share/cuneiform"
 echo "Copying executables..."

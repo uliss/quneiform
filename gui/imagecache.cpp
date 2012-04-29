@@ -63,6 +63,10 @@ bool ImageCache::load (const QString& path, QPixmap * pixmap)
     }
 
     if(pixmap->isNull()) {
+        pixmap->load(path);
+        if(!pixmap->isNull())
+            return true;
+
         qDebug() << "[ImageCache::load] invalid pixmap: " << path;
         return false;
     }

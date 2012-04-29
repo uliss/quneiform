@@ -14,5 +14,5 @@ export "CF_DATADIR=$QF_RESOURCES/share/cuneiform"
 
 echo "PATH: $PATH"
 
-exec "${QF_BUNDLE}/Contents/MacOS/Quneiform"
+exec "${QF_BUNDLE}/Contents/MacOS/Quneiform" "$@"
 

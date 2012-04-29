@@ -20,6 +20,56 @@
     <string>${MACOSX_BUNDLE_BUNDLE_NAME}</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>CFBundleDocumentTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>qfp</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>packet.icns</string>
+            <key>CFBundleTypeName</key>
+            <string>Quneiform packet</string>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>QFPC</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+        <dict>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>jpeg</string>
+                <string>jpg</string>
+                <string>png</string>
+                <string>gif</string>
+                <string>tif</string>
+                <string>tiff</string>
+                <string>bmp</string>
+                <string>pbm</string>
+                <string>pgm</string>
+                <string>ppm</string>
+                <string>xpm</string>
+            </array>
+            <key>CFBundleTypeName</key>
+            <string>Images</string>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>GIFf</string>
+                <string>JPEG</string>
+                <string>PNGf</string>
+                <string>TIFF</string>
+                <string>GIFf</string>
+                <string>BMP </string>
+                <string>PPGM</string>
+                <string>XPM </string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
+         </dict>
+    </array>
     <key>CFBundleShortVersionString</key>
     <string>${MACOSX_BUNDLE_SHORT_VERSION_STRING}</string>
     <key>CFBundleSignature</key>
