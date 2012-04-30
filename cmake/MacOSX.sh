@@ -9,6 +9,7 @@ echo "running $0"
 echo "QF_BUNDLE: $QF_BUNDLE"
 
 #export "DYLD_LIBRARY_PATH=$QF_RESOURCES/lib"
+export "DYLD_FRAMEWORK_PATH=$QF_BUNDLE/Contents/Frameworks"
 export "PATH=${QF_BUNDLE}/Contents/MacOS:${QF_BUNDLE}/Contents/Resources/bin:$PATH"
 export "CF_DATADIR=$QF_RESOURCES/share/cuneiform"
 
