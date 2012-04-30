@@ -296,7 +296,7 @@ void MainWindow::open(const QStringList& paths) {
 
 void MainWindow::openImages() {
     QStringList files = QFileDialog::getOpenFileNames(NULL, tr("Open images"), "",
-                                                      tr("Images (*.gif *.png *.xpm *.jpg *.tif *.bmp)"));
+                                                      tr("Images (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)"));
     openImages(files);
 }
 

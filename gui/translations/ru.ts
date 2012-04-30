@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Images (*.gif *.png *.xpm *.jpg *.tif *.bmp)</source>
-        <translation>Изображения (*.gif *.png *.xpm *.jpg *.tif *.bmp)</translation>
+        <translation type="obsolete">Изображения (*.gif *.png *.xpm *.jpg *.tif *.bmp)</translation>
     </message>
     <message>
         <source>Quneiform OCR - opening images</source>
@@ -470,6 +470,10 @@ Are you shure?</source>
     <message>
         <source>Recognition settings</source>
         <translation>Настройки распознавания</translation>
+    </message>
+    <message>
+        <source>Images (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)</source>
+        <translation>Изображения (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)</translation>
     </message>
 </context>
 <context>
@@ -671,7 +675,7 @@ Are you shure?</source>
     </message>
     <message>
         <source>CImage module debugging</source>
-        <translation type="unfinished"></translation>
+        <translation>Отладка модуля CImage</translation>
     </message>
 </context>
 <context>
