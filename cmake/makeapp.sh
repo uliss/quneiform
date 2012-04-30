@@ -54,29 +54,48 @@ echo "Copying Info.plist..."
 cp "${BUILDDIR}/Info.plist" "${APPC}"
 
 function install_our {
+    # source library path
     lib_path=$1
+    # library name
     lib=`basename $lib_path`
+    # bundle lib directory
     dest_lib_dir="${APPR}/lib"
+    # bundle library path
     dest_lib_path="$dest_lib_dir/$lib"
-    dest_lib_load_path="@loader_path/../Resources/lib/$lib"
+    # load path reference in *.dylib
+    dest_lib_load_path="@executable_path/../Resources/lib/${lib}"
 
-    echo "Copying $lib into $dest_lib_dir"
-    cp $lib_path "$dest_lib_dir" >/dev/null 2>&1
+    if [[ ! -f "$dest_lib_path" ]];
+    then
+        echo "Copying $lib..."
+        cp $lib_path "$dest_lib_path" >/dev/null 2>&1
 
-    # update executable binary
-    install_name_tool -change $lib_path $dest_lib_load_path "$APP_EXE"
-    #install_name_tool -change $lib_path $dest_lib_load_path "$APP_WORKER"
-    install_name_tool -id $dest_lib_load_path "$dest_lib_path"
+        # update executable binary reference
+        install_name_tool -change $lib_path $dest_lib_load_path "$APP_EXE"
+        install_name_tool -id $dest_lib_load_path "$dest_lib_path"
+
+        # update other references in given library
+        otool -L $dest_lib_path | tail -n +2 | tr -d '\t' | cut -f1 -d ' ' | while read line
+        do
+            case $line in
+                $BUILDDIR/*)
+                # dependency name
+                ref=$(basename $line)
+                install_name_tool -change $line "@executable_path/../Resources/lib/${ref}" $dest_lib_path
+                ;;
+            esac
+        done
+    fi
 }
 
 otool -L "${APP_EXE}" | tail -n +2 | tr -d '\t' | cut -f 1 -d ' ' | while read line; do
-  case $line in
-    ${BUILDDIR}/*)
-      install_our $line
-      ;;
-    *)
-        #echo "INFO: skipping $line"
-      ;;
+    case $line in
+        ${BUILDDIR}/*)
+            install_our $line
+        ;;
+        *)
+            #echo "INFO: skipping $line"
+        ;;
     esac
 done
 
@@ -86,18 +105,12 @@ rm -rf Quneiform.dmg "${DESTDIR}/Quneiform-${VERSION}.dmg"
 cd $DESTDIR
 rm -rf tmp.dmg
 
+echo "Creating Quneiform.app bundle..."
+macdeployqt Quneiform.app -no-plugins -verbose=1
+
 echo "Creating DMG..."
-macdeployqt Quneiform.app -dmg -no-plugins -verbose=0
-#mv Quneiform.dmg Quneiform-$VERSION.dmg
-
-echo "Converting to RW format"
-hdiutil convert Quneiform.dmg -format UDRW -o tmp.dmg
-rm Quneiform.dmg
-
-DMGSIZE=$(hdiutil resize -limits tmp.dmg  | tail -1 | cut -f 1)
-let DMGSIZE+=10000
-echo "Resize DMG-image to $DMGSIZE"
-hdiutil resize -sectors $DMGSIZE tmp.dmg
+VOLNAME="Quneiform OCR"
+hdiutil create -srcfolder Quneiform.app -format UDRW -volname "$VOLNAME" -o tmp.dmg -scrub
 
 echo "Mount DMG..."
 device=$(hdiutil attach -readwrite -noverify -noautoopen tmp.dmg | egrep '^/dev/' | sed 1q | awk '{print $1}')
@@ -105,12 +118,14 @@ mountdir=$(hdiutil info | grep $device | grep Volumes | cut -f 3)
 echo "Mount $device at $mountdir"
 title=$(basename $mountdir)
 
-sleep 2
+sleep 1
 
 echo "Adding logo and background..."
-cp "$SRCDIR/gui/resources/dmg_background.png" "$mountdir/logo.png"
-cp "$SRCDIR/gui/resources/disk_logo.icns" "$mountdir/.VolumeIcon.icns"
-SetFile -c icnC "$mountdir/.VolumeIcon.icns"
+DMG_BACKGROUND="$mountdir/logo.png"
+DMG_ICON="$mountdir/.VolumeIcon.icns"
+cp "$SRCDIR/gui/resources/dmg_background.png" "$DMG_BACKGROUND"
+cp "$SRCDIR/gui/resources/disk_logo.icns" "$DMG_ICON"
+SetFile -c icnC "$DMG_ICON"
 SetFile -a C "$mountdir"
 
 echo "Adding license..."
@@ -120,7 +135,7 @@ echo "Making nice look..."
 echo '
 on run argv
    tell application "Finder"
-     tell disk "'${title}'"
+     tell disk "'$VOLNAME'"
            open
            set current view of container window to icon view
            set toolbar visible of container window to false
@@ -139,17 +154,18 @@ on run argv
            open
            delay 1
            close
-           do shell script "SetFile -a V \"'$mountdir'/logo.png\""
-           eject "'${title}'"
      end tell
    end tell
 end run
 ' | osascript
 
+# hide background file
+SetFile -a V "$DMG_BACKGROUND"
+
 sync
 sync
 
-chmod -Rf go-w /Volumes/"${title}"
+chmod -Rf go-w "/Volumes/$VOLNAME"
 hdiutil detach ${device}
 
 sleep 1
@@ -158,5 +174,3 @@ echo "Compressing DMG..."
 
 hdiutil convert tmp.dmg -format UDZO -imagekey zlib-level=9 -o "Quneiform-${VERSION}.dmg"
 rm -rf tmp.dmg
-
-
