@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <QFileOpenEvent>
+#include <QFile>
 
 #include "metatyperegistrator.h"
 #include "translationloader.h"

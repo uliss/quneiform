@@ -103,6 +103,9 @@ ImagePtr FreeImageLoader::load(const std::string& filename)
     if(!dib)
         throw Exception("Can't load image");
 
+    uint res_x = FreeImage_GetDotsPerMeterX(dib);
+    uint res_y = FreeImage_GetDotsPerMeterY(dib);
+
     switch(FreeImage_GetBPP(dib)) {
     default:
         dib = convertTo24bpp(dib);
@@ -112,15 +115,15 @@ ImagePtr FreeImageLoader::load(const std::string& filename)
     size_t dib_size = FreeImage_GetDIBSize(dib);
     int dib_width = (int) FreeImage_GetWidth(dib);
     int dib_height = (int) FreeImage_GetHeight(dib);
-    int res_x = (int) FreeImage_GetDotsPerMeterX(dib);
-    int res_y = (int) FreeImage_GetDotsPerMeterY(dib);
     static const double INCH = 0.0254;
 
     if(!res_x)
-        FreeImage_SetDotsPerMeterX(dib, (uint) round(75 / INCH));
-
+        res_x = (uint) round(75 / INCH);
     if(!res_y)
-        FreeImage_SetDotsPerMeterY(dib, (uint) round(75 / INCH));
+        res_y = (uint) (75 / INCH);
+
+    FreeImage_SetDotsPerMeterX(dib, res_x);
+    FreeImage_SetDotsPerMeterY(dib, res_y);
 
     uchar * data = new uchar[dib_size];
     memcpy(data, FreeImage_GetInfo(dib), dib_size);
