@@ -187,6 +187,10 @@ QList<Language> ASpellChecker::supportedLanguages() const {
     const AspellDictInfo * entry;
     while ((entry = aspell_dict_info_enumeration_next(entries)) != 0) {
         Language l(Language::fromIsoCode2(entry->code));
+
+        if(!l.isValid())
+            continue;
+
         if(!res.contains(l))
             res.append(l);
     }
