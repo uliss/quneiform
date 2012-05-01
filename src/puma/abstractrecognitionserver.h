@@ -69,7 +69,7 @@ public:
     void setStateTracker(RecognitionState * state) { state_ = state; }
     void setTextDebug(bool value) { text_debug_ = value; }
 public:
-    struct RecognitionException : std::runtime_error {
+    struct RecognitionException : public std::runtime_error {
         RecognitionException(const std::string& msg) : std::runtime_error(msg) {}
     };
 protected:

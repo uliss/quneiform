@@ -56,8 +56,8 @@ static const std::string makeKey() {
     return buf.str();
 }
 
-#define CF_ERROR(msg) std::cerr << cf::console::error << \
-    BOOST_CURRENT_FUNCTION << ": " << msg << std::endl;
+#define PROCESS_ERROR std::cerr << cf::console::error << BOOST_CURRENT_FUNCTION << ": "
+#define CF_ERROR(msg) PROCESS_ERROR << msg << std::endl;
 
 #define CF_INFO(msg) std::cerr << cf::console::info << \
     BOOST_CURRENT_FUNCTION << ": " << msg << std::endl;
@@ -97,12 +97,11 @@ CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
 
         return res;
     }
+    catch(SharedMemoryHolder::LowSharedMemoryException& e) {
+        handleMemoryLimits(e);
+    }
     catch(std::exception& e) {
-        if(state_)
-            state_->set(RecognitionState::FAILED);
-
-        CF_ERROR(e.what());
-        throw RecognitionException(e.what());
+        handleOtherErrors(e);
     }
 }
 
@@ -135,12 +134,11 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
 
         return res;
     }
+    catch(SharedMemoryHolder::LowSharedMemoryException& e) {
+        handleMemoryLimits(e);
+    }
     catch(std::exception& e) {
-        if(state_)
-            state_->set(RecognitionState::FAILED);
-
-        CF_ERROR(e.what());
-        throw RecognitionException(e.what());
+        handleOtherErrors(e);
     }
 }
 
@@ -257,6 +255,34 @@ std::string ProcessRecognitionServer::workerPath() const {
 
 int ProcessRecognitionServer::workerTimeout() const {
     return worker_timeout_;
+}
+
+void ProcessRecognitionServer::handleMemoryLimits(std::exception& e)
+{
+    if(state_)
+        state_->set(RecognitionState::FAILED);
+
+    typedef SharedMemoryHolder::LowSharedMemoryException Exception;
+    Exception& excpt = dynamic_cast<Exception&>(e);
+
+    std::ostringstream buf;
+    buf << excpt.what() << ".\n\n";
+    buf << "Change your system shared memory limits.\n";
+    buf << "Current system shared limit is: " << excpt.current() / 1024 << " kbytes.\n";
+    buf << "But requested memory size was: " << excpt.required() / 1024 << " kbytes.\n";
+
+    PROCESS_ERROR << buf.str();
+
+    throw RecognitionException(buf.str());
+}
+
+void ProcessRecognitionServer::handleOtherErrors(std::exception &e)
+{
+    if(state_)
+        state_->set(RecognitionState::FAILED);
+
+    CF_ERROR(e.what());
+    throw RecognitionException(e.what());
 }
 
 }

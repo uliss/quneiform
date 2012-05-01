@@ -26,11 +26,30 @@ namespace cf {
 class SharedMemoryHolderPrivate
 {
 public:
-    virtual ~SharedMemoryHolderPrivate() {};
+    enum error_t {
+        NO_ERROR = 0,
+        UNKNOWN,
+        /* A shared memory segment is already associated with key
+            and the caller has no permission to access it */
+        NO_ACCESS,
+        /* no shared memory segment associated with key was found. */
+        NOT_FOUND,
+        /* There is not enough memory left to created a shared memory segment of the requested size. */
+        NO_MEMORY,
+        /* A new shared memory identifier could not be created
+            because the system limit for the number of shared memory identifiers has been reached. */
+        LIMITS,
+        /* given address is not the start address of a mapped shared memory segment */
+        BAD_ADDRESS
+    };
+public:
+    virtual ~SharedMemoryHolderPrivate() {}
     virtual void close(void * mem) = 0;
     virtual void * create(size_t key, size_t size) = 0;
     virtual void * open(size_t key, size_t size) = 0;
     virtual bool remove() = 0;
+    virtual error_t error() const { return NO_ERROR; }
+    virtual size_t limit() const = 0;
 };
 
 }

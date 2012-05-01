@@ -19,6 +19,8 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <errno.h>
+#include <sys/sysctl.h>
 
 #include "systemvsharedmemory.h"
 
@@ -35,13 +37,29 @@ void * SystemVSharedMemory::create(size_t key, size_t size)
 {
     id_ = shmget((key_t) key, size, IPC_CREAT | 0666);
 
-    if (id_ < 0)
+    if (id_ < 0) {
+        switch(errno) {
+        case EINVAL:
+            error_ = LIMITS;
+            break;
+        case EACCES:
+            error_ = NO_ACCESS;
+            break;
+        case ENOMEM:
+            error_ = NO_MEMORY;
+            break;
+        default:
+            error_ = LIMITS;
+        }
+
         return NULL;
+    }
 
     void * memory = shmat(id_, NULL, 0);
 
-    if (memory == (char *) -1)
+    if (memory == (char *) -1) {
         return NULL;
+    }
 
     return memory;
 }
@@ -64,6 +82,20 @@ void * SystemVSharedMemory::open(size_t key, size_t)
 bool SystemVSharedMemory::remove()
 {
     return shmctl(id_, IPC_RMID, NULL) == 0;
+}
+
+size_t SystemVSharedMemory::limit() const
+{
+    size_t shmmax = 0;
+    size_t len = sizeof(shmmax);
+    int result = sysctlbyname("kern.sysv.shmmax", &shmmax, &len, NULL, 0);
+
+    return result == -1 ? 0 : shmmax;
+}
+
+SharedMemoryHolderPrivate::error_t SystemVSharedMemory::error() const
+{
+    return error_;
 }
 
 }
