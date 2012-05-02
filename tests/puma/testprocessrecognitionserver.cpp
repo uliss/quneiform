@@ -25,6 +25,7 @@
 #include "common/formatoptions.h"
 #include "rdib/imageloaderfactory.h"
 #include "export/textexporter.h"
+#include "../assert_recognize.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestProcessRecognitionServer);
 
@@ -77,4 +78,19 @@ void TestProcessRecognitionServer::testRecognize()
     exp.exportTo(buf);
     CPPUNIT_ASSERT_EQUAL(boost::algorithm::trim_copy(buf.str()), std::string("ENGLISH"));
     buf.str("");
+}
+
+void TestProcessRecognitionServer::testRecognizeRotated()
+{
+    RecognizeOptions ropts;
+    FormatOptions fopts;
+
+    ropts.setTurnAngle(RecognizeOptions::ANGLE_270);
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_90.png", ropts, fopts, "ENGLISH");
+
+    ropts.setTurnAngle(RecognizeOptions::ANGLE_180);
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_180.png", ropts, fopts, "ENGLISH");
+
+    ropts.setTurnAngle(RecognizeOptions::ANGLE_90);
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_270.png", ropts, fopts, "ENGLISH");
 }

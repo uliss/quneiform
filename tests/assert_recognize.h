@@ -37,4 +37,17 @@
     CPPUNIT_ASSERT_EQUAL(boost::algorithm::trim_copy(buf.str()), std::string(result));\
     }
 
+#define ASSERT_PROCESS_RECOGNIZE_RESULT(filename, ropts, fopts, result) {\
+    cf::ProcessRecognitionServer server;\
+    fopts.writeBom(false);\
+    cf::ImagePtr img = cf::ImageLoaderFactory::instance().load(filename);\
+    cf::CEDPagePtr p = server.recognize(img, ropts, fopts);\
+    CPPUNIT_ASSERT(p.get());\
+    CPPUNIT_ASSERT(!p->empty());\
+    cf::TextExporter exp(p, fopts);\
+    std::ostringstream buf;\
+    exp.exportTo(buf);\
+    CPPUNIT_ASSERT_EQUAL(boost::algorithm::trim_copy(buf.str()), std::string(result));\
+    }
+
 #endif // ASSERT_RECOGNIZE_H
