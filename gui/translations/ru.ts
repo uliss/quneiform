@@ -366,10 +366,6 @@
         <translation>Файл не существует</translation>
     </message>
     <message>
-        <source>Images (*.gif *.png *.xpm *.jpg *.tif *.bmp)</source>
-        <translation type="obsolete">Изображения (*.gif *.png *.xpm *.jpg *.tif *.bmp)</translation>
-    </message>
-    <message>
         <source>Quneiform OCR - opening images</source>
         <translation>Quneiform OCR - открытие изображений</translation>
     </message>
