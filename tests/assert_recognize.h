@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavski                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,20 +16,25 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTLOCALRECOGNITIONSERVER_H
-#define TESTLOCALRECOGNITIONSERVER_H
+#ifndef ASSERT_RECOGNIZE_H
+#define ASSERT_RECOGNIZE_H
 
-#include <cppunit/extensions/HelperMacros.h>
+#include <boost/algorithm/string/trim.hpp>
 
-class TestLocalRecognitionServer : public CppUnit::TestFixture
-{
-    CPPUNIT_TEST_SUITE(TestLocalRecognitionServer);
-    CPPUNIT_TEST(testRecognize);
-    CPPUNIT_TEST(testRecognizeRotated);
-    CPPUNIT_TEST_SUITE_END();
-public:
-    void testRecognize();
-    void testRecognizeRotated();
-};
+#include "common/image.h"
+#include "ced/cedpageptr.h"
+#include "export/debugexporter.h"
 
-#endif // TESTLOCALRECOGNITIONSERVER_H
+#define ASSERT_LOCAL_RECOGNIZE_RESULT(filename, ropts, fopts, result) {\
+    cf::LocalRecognitionServer server;\
+    server.setTextDebug(true);\
+    fopts.writeBom(false);\
+    cf::ImagePtr img = cf::ImageLoaderFactory::instance().load(filename);\
+    server.recognize(img, ropts, fopts);\
+    cf::DebugExporter exp(fopts);\
+    std::ostringstream buf;\
+    exp.exportTo(buf);\
+    CPPUNIT_ASSERT_EQUAL(boost::algorithm::trim_copy(buf.str()), std::string(result));\
+    }
+
+#endif // ASSERT_RECOGNIZE_H

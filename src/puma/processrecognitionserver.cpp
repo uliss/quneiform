@@ -99,9 +99,11 @@ CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
     }
     catch(SharedMemoryHolder::LowSharedMemoryException& e) {
         handleMemoryLimits(e);
+        throw e;
     }
     catch(std::exception& e) {
         handleOtherErrors(e);
+        throw e;
     }
 }
 
@@ -136,9 +138,11 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
     }
     catch(SharedMemoryHolder::LowSharedMemoryException& e) {
         handleMemoryLimits(e);
+        throw e;
     }
     catch(std::exception& e) {
         handleOtherErrors(e);
+        throw e;
     }
 }
 

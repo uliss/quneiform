@@ -579,13 +579,15 @@ void PumaImpl::turn(int angle)
     rimage_turn_angle_t a = (rimage_turn_angle_t) 0;
     switch(angle) {
     case 90:
-        a = RIMAGE_TURN_270;
+        a = RIMAGE_TURN_90;
         break;
     case 180:
         a = RIMAGE_TURN_180;
         break;
     case 270:
-        a = RIMAGE_TURN_90;
+        a = RIMAGE_TURN_270;
+        break;
+    default:
         break;
     }
 
