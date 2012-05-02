@@ -104,4 +104,8 @@ void TestProcessRecognitionServer::testRecognizeArea()
 
     ropts.addReadRect(Rect(0, 0, 90, 80));
     ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", ropts, fopts, "EN");
+
+    ropts.clearReadRects();
+    ropts.addReadRect(Rect(190, -5, 100, 100));
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", ropts, fopts, "SH");
 }
