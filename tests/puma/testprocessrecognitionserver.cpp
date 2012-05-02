@@ -94,3 +94,14 @@ void TestProcessRecognitionServer::testRecognizeRotated()
     ropts.setTurnAngle(RecognizeOptions::ANGLE_90);
     ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_270.png", ropts, fopts, "ENGLISH");
 }
+
+void TestProcessRecognitionServer::testRecognizeArea()
+{
+    RecognizeOptions ropts;
+    FormatOptions fopts;
+
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", ropts, fopts, "ENGLISH");
+
+    ropts.addReadRect(Rect(0, 0, 90, 80));
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", ropts, fopts, "EN");
+}

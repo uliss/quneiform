@@ -26,10 +26,12 @@ class TestProcessRecognitionServer : public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestProcessRecognitionServer);
     CPPUNIT_TEST(testRecognize);
     CPPUNIT_TEST(testRecognizeRotated);
+    CPPUNIT_TEST(testRecognizeArea);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testRecognize();
     void testRecognizeRotated();
+    void testRecognizeArea();
 };
 
 #endif // TESTPROCESSRECOGNITIONSERVER_H

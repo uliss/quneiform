@@ -27,14 +27,15 @@
 
 #define ASSERT_LOCAL_RECOGNIZE_RESULT(filename, ropts, fopts, result) {\
     cf::LocalRecognitionServer server;\
-    server.setTextDebug(true);\
     fopts.writeBom(false);\
     cf::ImagePtr img = cf::ImageLoaderFactory::instance().load(filename);\
-    server.recognize(img, ropts, fopts);\
-    cf::DebugExporter exp(fopts);\
+    cf::CEDPagePtr p = server.recognize(img, ropts, fopts);\
+    CPPUNIT_ASSERT(p.get());\
+    CPPUNIT_ASSERT(!p->empty());\
+    cf::TextExporter exp(p, fopts);\
     std::ostringstream buf;\
     exp.exportTo(buf);\
-    CPPUNIT_ASSERT_EQUAL(boost::algorithm::trim_copy(buf.str()), std::string(result));\
+    CPPUNIT_ASSERT_EQUAL(std::string(result), boost::algorithm::trim_copy(buf.str()));\
     }
 
 #define ASSERT_PROCESS_RECOGNIZE_RESULT(filename, ropts, fopts, result) {\
@@ -47,7 +48,7 @@
     cf::TextExporter exp(p, fopts);\
     std::ostringstream buf;\
     exp.exportTo(buf);\
-    CPPUNIT_ASSERT_EQUAL(boost::algorithm::trim_copy(buf.str()), std::string(result));\
+    CPPUNIT_ASSERT_EQUAL(std::string(result), boost::algorithm::trim_copy(buf.str()));\
     }
 
 #endif // ASSERT_RECOGNIZE_H

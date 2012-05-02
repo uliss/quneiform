@@ -1007,8 +1007,10 @@ void PumaImpl::setupMasks()
     CImage::instance().addRectToReadMask(PUMA_IMAGE_USER, full_page);
 
     std::vector<Rect> read_masks = recognize_options_.readRects();
-    for(size_t i = 0; i < read_masks.size(); i++)
-        CImage::instance().removeRectFromReadMask(PUMA_IMAGE_USER, read_masks.at(i));
+    for(size_t i = 0; i < read_masks.size(); i++) {
+        Rect rmask = read_masks.at(i).intersected(full_page);
+        CImage::instance().removeRectFromReadMask(PUMA_IMAGE_USER, rmask);
+    }
 
     CImage::instance().enableReadMask(PUMA_IMAGE_USER);
 
