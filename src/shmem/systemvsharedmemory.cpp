@@ -88,7 +88,16 @@ size_t SystemVSharedMemory::limit() const
 {
     size_t shmmax = 0;
     size_t len = sizeof(shmmax);
-    int result = sysctlbyname("kern.sysv.shmmax", &shmmax, &len, NULL, 0);
+
+#ifdef __APPLE__
+    const char * KEY = "kern.sysv.shmmax";
+#elif __linux__
+    const char * KEY = "kernel.shmmax";
+#else
+    const char * KEY = "unknown";
+#endif
+
+    int result = sysctlbyname(KEY, &shmmax, &len, NULL, 0);
 
     return result == -1 ? 0 : shmmax;
 }
