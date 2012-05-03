@@ -69,6 +69,7 @@ private:
 private:
     void getoptParse(int argc, char **argv);
     void print(std::ostream& os);
+    void printConfig(std::ostream& os);
     void printUsage(const char * program);
     void updateFormatOptions();
     void updateRecognizeOptions();

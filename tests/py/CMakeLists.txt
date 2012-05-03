@@ -21,6 +21,7 @@ if(PYTHONINTERP_FOUND)
     set(CUNEIFORM_PROCESS ${CMAKE_BINARY_DIR}/cuneiform-process)
 
     install_test_py(append.py)
+    install_test_py(area.py)
     install_test_py(cf.py)
     install_test_py(columns.py)
     install_test_py(align.py)

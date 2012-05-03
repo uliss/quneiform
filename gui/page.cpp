@@ -215,6 +215,58 @@ QString Page::name() const {
     return QFileInfo(image_path_).fileName();
 }
 
+QRect Page::mapFromPage(const QRect &r) const
+{
+    int width = image_size_.width();
+    int height = image_size_.height();
+
+    switch(angle_) {
+    case 0:
+        return r;
+    case 90:
+        height--;
+        return QRect(QPoint(r.top(), height - r.right()),
+                     QPoint(r.bottom(), height - r.left()));
+    case 180:
+        height--;
+        width--;
+        return QRect(QPoint(width - r.right(), height - r.bottom()),
+                     QPoint(width - r.left(), height - r.top()));
+    case 270:
+        width--;
+        return QRect(QPoint(width - r.bottom(), r.left()),
+                     QPoint(width - r.top(), r.right()));
+    default:
+        return r;
+    }
+}
+
+QRect Page::mapToPage(const QRect& r) const
+{
+    int width = image_size_.width();
+    int height = image_size_.height();
+
+    switch(angle_) {
+    case 0:
+        return r;
+    case 270:
+        height--;
+        return QRect(QPoint(r.top(), width - r.right()),
+                     QPoint(r.bottom(), width - r.left()));
+    case 180:
+        height--;
+        width--;
+        return QRect(QPoint(width - r.right(), height - r.bottom()),
+                     QPoint(width - r.left(), height - r.top()));
+    case 90:
+        height--;
+        return QRect(QPoint(height - r.bottom(), r.left()),
+                     QPoint(height - r.top(), r.right()));
+    default:
+        return r;
+    }
+}
+
 QRect Page::pageArea() const {
     return QRect();
 }

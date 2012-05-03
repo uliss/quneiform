@@ -182,3 +182,8 @@ Bool16 CIMAGE_Callback_ImageClose()
 {
     return CImage::instance().CBImageClose();
 }
+
+bool CIMAGE_Dump(const std::string& imageName, const std::string& fileName)
+{
+    return CImage::instance().dumpImage(imageName, fileName);
+}

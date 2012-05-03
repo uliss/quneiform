@@ -199,6 +199,9 @@ public:
       */
     QString name() const;
 
+    QRect mapFromPage(const QRect& r) const;
+    QRect mapToPage(const QRect &r) const;
+
     /**
       * Returns page area on image
       * @see setPageArea()

@@ -434,7 +434,7 @@ void ImageView::updatePageArea() {
 
 void ImageView::savePageSelections()
 {
-    HAS_PAGE()
+    HAS_PAGE();
 
     if(!selections_) {
         page_->clearReadAreas();

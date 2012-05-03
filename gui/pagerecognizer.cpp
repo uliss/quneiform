@@ -72,8 +72,26 @@ static cf::RecognizeOptions getRecogOptions(Page * page) {
 
     if(page->hasReadAreas()) {
         foreach(QRect r, page->readAreas()) {
-            res.addReadRect(cf::Rect(r.left(), r.top(), r.width(), r.height()));
+            QRect rr = page->mapToPage(r);
+            res.addReadRect(cf::Rect(rr.left(), rr.top(), rr.width(), rr.height()));
         }
+    }
+
+    switch(page->angle()) {
+    case 0:
+        break;
+    case 90:
+        res.setTurnAngle(cf::RecognizeOptions::ANGLE_90);
+        break;
+    case 180:
+        res.setTurnAngle(cf::RecognizeOptions::ANGLE_180);
+        break;
+    case 270:
+        res.setTurnAngle(cf::RecognizeOptions::ANGLE_270);
+        break;
+    default:
+        qWarning() << Q_FUNC_INFO << "unsupported angle: " << page->angle();
+        break;
     }
 
     QSettings settings;
@@ -156,25 +174,13 @@ void PageRecognizer::handleRecognitionState(int state) {
     QCoreApplication::processEvents();
 }
 
-QImage PageRecognizer::loadImage() {
-    Q_CHECK_PTR(page_);
+void PageRecognizer::loadImage()
+{
     Q_CHECK_PTR(counter_);
     Q_CHECK_PTR(recog_state_);
-
-    QImage img(page_->imagePath());
-
-    // rotate
-    if(page_->angle() != 0) {
-        QTransform t;
-        t.rotate(page_->angle());
-        img = img.transformed(t);
-    }
-
     // update counter and state
     counter_->add(9);
     recog_state_->set(cf::RecognitionState::LOADED);
-
-    return img;
 }
 
 QString PageRecognizer::pagePath() const {
@@ -194,9 +200,7 @@ bool PageRecognizer::recognize() {
         recog_state_->reset();
 
         setConfigOptions();
-
-        QtImageLoader loader;
-        ImagePtr image = loader.load(loadImage());
+        loadImage();
 
         FormatOptions fopts = getFormatOptions(page_);
         RecognizeOptions ropts = getRecogOptions(page_);
@@ -219,7 +223,8 @@ bool PageRecognizer::recognize() {
         server->setCounter(&recog_counter);
         server->setStateTracker(recog_state_);
 
-        CEDPagePtr cedptr = server->recognize(image, ropts, fopts);
+        std::string page_path(page_->imagePath().toUtf8().constData());
+        CEDPagePtr cedptr = server->recognize(page_path, ropts, fopts);
 
         if(!cedptr)
             return false;

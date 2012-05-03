@@ -315,11 +315,22 @@ void OptionsParser::parse(int argc, char **argv) {
 }
 
 void OptionsParser::print(std::ostream& os) {
-    os << std::string(60, '#') << "\n";
+#define PRINT_DELIM() os << std::string(60, '#') << std::endl;
+
+    PRINT_DELIM();
+    printConfig(os);
     os << format_opts_;
     os << recognize_opts_;
-    os << std::string(60, '#');
-    os << std::endl;
+    PRINT_DELIM();
+}
+
+void OptionsParser::printConfig(std::ostream& os)
+{
+    os << std::boolalpha;
+    os << "Config options: \n";
+    os << "    Debug: " << Config::instance().debug() << "\n";
+    os << "    Level: " << Config::instance().debugLevel() << "\n";
+    os << "    Dump:  " << Config::instance().debugDump() << "\n";
 }
 
 void OptionsParser::printUsage(const char * program) {
@@ -400,18 +411,20 @@ void OptionsParser::updateCliOptions() {
 }
 
 void OptionsParser::updateDebugOptions() {
-    if (do_verbose == 1) {
-        print(std::cerr);
+    if(do_verbose == 1) {
         Config::instance().setDebug(true);
         Config::instance().setDebugLevel(100);
-    } else {
-        Config::instance().setDebug(false);
     }
+    else
+        Config::instance().setDebug(false);
 
     if(do_dump) {
         Config::instance().setDebug(true);
         Config::instance().setDebugDump(true);
     }
+
+    if(do_verbose)
+        print(std::cerr);
 }
 
 void OptionsParser::updateFormatOptions() {

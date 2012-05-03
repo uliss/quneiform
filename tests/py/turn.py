@@ -30,9 +30,9 @@ def test():
     fmtTest.setTurn(360)
     fmtTest.diffTest(fmtTest.makeFullImageName('english.png'))
 
-    fmtTest.setTurn(90)
+    fmtTest.setTurn(-90)
     fmtTest.diffTest(fmtTest.makeFullImageName('english_rotated_90.png'))
-    fmtTest.setTurn(-270)
+    fmtTest.setTurn(270)
     fmtTest.diffTest(fmtTest.makeFullImageName('english_rotated_90.png'))
 
     fmtTest.setTurn(180)
@@ -40,9 +40,9 @@ def test():
     fmtTest.setTurn(-180)
     fmtTest.diffTest(fmtTest.makeFullImageName('english_rotated_180.png'))
 
-    fmtTest.setTurn(270)
+    fmtTest.setTurn(-270)
     fmtTest.diffTest(fmtTest.makeFullImageName('english_rotated_270.png'))
-    fmtTest.setTurn(-90)
+    fmtTest.setTurn(90)
     fmtTest.diffTest(fmtTest.makeFullImageName('english_rotated_270.png'))
 
     if fmtTest.passed():

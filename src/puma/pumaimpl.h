@@ -98,6 +98,7 @@ class PumaImpl
 
         void setSpecialProject(special_project_t SpecialProject);
     private:
+        void applyReadMask();
         void binarizeImage();
         void clearAll();
         void debugPrintCpage();
@@ -129,7 +130,6 @@ class PumaImpl
         void saveLayoutToFile(const std::string& fname);
         void saveToText(std::ostream& os) const;
         void saveToText(const std::string& filename) const;
-        void setupMasks();
         void spellCorrection();
         void turn(int angle);
     private:

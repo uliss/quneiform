@@ -135,8 +135,8 @@ CEDPagePtr LocalRecognitionServer::recognize(ImagePtr image,
     }
 }
 
-void LocalRecognitionServer::setOptions(const RecognizeOptions& ropts, const FormatOptions& fopts) {
-    Config::instance().setDebug(false);
+void LocalRecognitionServer::setOptions(const RecognizeOptions& ropts, const FormatOptions& fopts)
+{
     Puma::instance().setRecognizeOptions(ropts);
     Puma::instance().setFormatOptions(fopts);
 }

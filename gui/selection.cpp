@@ -277,7 +277,7 @@ QRect Selection::normalRect() const {
     int y = static_cast<int>(pos().y() + rect().top());
     int w = static_cast<int>(rect().width());
     int h = static_cast<int>(rect().height());
-    return QRect(x, y, w, h);
+    return QRect(x, y, w, h).normalized();
 }
 
 void Selection::setSelectionType(Selection::selection_t t)

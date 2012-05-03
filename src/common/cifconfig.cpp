@@ -22,7 +22,9 @@ namespace cf
 {
 
 Config::Config() :
-        debug_(true), dump_(false), debug_level_(DEBUG_HIGH)
+    debug_(false),
+    dump_(false),
+    debug_level_(DEBUG_HIGH)
 {
 }
 
@@ -33,7 +35,7 @@ bool Config::debug() const
 
 bool Config::debugDump() const
 {
-    return debug() && dump_;
+    return debug_ && dump_;
 }
 
 int Config::debugLevel() const
@@ -66,6 +68,9 @@ void Config::setDebug(bool value)
 
 void Config::setDebugDump(bool value)
 {
+    if(value)
+        debug_ = value;
+
     dump_ = value;
 }
 
@@ -79,4 +84,15 @@ Config& Config::instance()
     static Config config;
     return config;
 }
+
+bool Config::doDebug()
+{
+    return Config::instance().debug();
+}
+
+bool Config::doDump()
+{
+    return Config::instance().debugDump();
+}
+
 }

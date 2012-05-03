@@ -61,8 +61,9 @@
 #include "common/cifconfig.h"
 #include "cimage_debug.h"
 
-#define IMAGE_MSG(msg, name) \
-    Debug() << BOOST_CURRENT_FUNCTION << ' ' << msg << '"' << name << "\"\n";
+#define IMAGE_NOT_FOUND(imageName) if(Config::doDebug()) {\
+    CIMAGE_ERROR_FUNC << "image not found: \"" << imageName << "\"\n";\
+    }
 
 namespace cf
 {
@@ -78,12 +79,12 @@ CTIImageList::~CTIImageList()
 bool CTIImageList::addImage(const std::string& name, BitmapHandle handle, bool externalImage)
 {
     if (name.empty()) {
-        IMAGE_MSG("invalid image name: ", name);
+        CIMAGE_ERROR_FUNC << "invalid image name: " << name << "\n";
         return false;
     }
 
     if (handle == NULL) {
-        IMAGE_MSG("invalid image handle: ", name);
+        CIMAGE_ERROR_FUNC << "invalid image handle: " << name << "\n";
         return false;
     }
 
@@ -93,8 +94,8 @@ bool CTIImageList::addImage(const std::string& name, BitmapHandle handle, bool e
     CTIImageHeader * new_image = new CTIImageHeader(handle, externalImage);
     headers_[name] = new_image;
 
-    if (Config::instance().debug())
-        IMAGE_MSG("image added: ", name);
+    if (Config::doDebug())
+        CIMAGE_DEBUG_FUNC << "image added: " << name << "\n";
 
     return true;
 }
@@ -112,7 +113,7 @@ bool CTIImageList::imageHandle(const std::string& name, BitmapHandle * handle)
     CTIImageHeader * im = image(name);
 
     if (!im) {
-        IMAGE_MSG("image not found: ", name);
+        IMAGE_NOT_FOUND(name);
         return false;
     }
 
@@ -137,8 +138,8 @@ bool CTIImageList::removeImage(const std::string &name)
     delete header;
     headers_.erase(name);
 
-    if (Config::instance().debug())
-        IMAGE_MSG("image deleted: ", name);
+    if (Config::doDebug())
+        CIMAGE_DEBUG_FUNC << "image deleted: " << name << "\n";
 
     return true;
 }
@@ -168,7 +169,7 @@ bool CTIImageList::setImageWriteMask(const std::string& name, CTIMask * mask)
     CTIImageHeader * im = image(name);
 
     if (!im) {
-        IMAGE_MSG("image not found: ", name);
+        IMAGE_NOT_FOUND(name);
         return false;
     }
 
@@ -182,7 +183,7 @@ bool CTIImageList::setImageReadMask(const std::string& name, CTIMask * mask)
     CTIImageHeader * im = image(name);
 
     if (im == NULL) {
-        IMAGE_MSG("image not found: ", name);
+        IMAGE_NOT_FOUND(name);
         return false;
     }
 
@@ -196,7 +197,7 @@ bool CTIImageList::imageWriteMask(const std::string& name, CTIMask **ppWMask, bo
     CTIImageHeader * im = image(name);
 
     if (im == NULL) {
-        IMAGE_MSG("image not found: ", name);
+        IMAGE_NOT_FOUND(name);
         return false;
     }
 
@@ -213,7 +214,7 @@ bool CTIImageList::imageReadMask(const std::string& name, CTIMask ** ppMask, boo
     CTIImageHeader * im = image(name);
 
     if (im == NULL) {
-        IMAGE_MSG("image not found: ", name);
+        IMAGE_NOT_FOUND(name);
         return false;
     }
 
@@ -263,7 +264,7 @@ bool CTIImageList::maskAction(const std::string& imageName, CTIImageList::Member
     CTIImageHeader * im = image(imageName);
 
     if (!im) {
-        IMAGE_MSG("image not found: ", imageName);
+        IMAGE_NOT_FOUND(imageName);
         return false;
     }
 

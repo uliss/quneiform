@@ -89,8 +89,8 @@ QList<QRect> SelectionList::selectionRects() const
     QList<QRect> res;
 
     foreach(Selection * s, selections_) {
-        QRectF r = s->rect();
-        res.append(QRect((int) r.left(), (int) r.top(), (int) r.width(), (int) r.height()));
+        QRectF rf = s->normalRect();
+        res.append(QRect((int) rf.left(), (int) rf.top(), (int) rf.width(), (int) rf.height()));
     }
 
     return res;
@@ -245,6 +245,8 @@ void SelectionList::finishSelection(QGraphicsSceneMouseEvent * event)
     QRectF rect(selection_start_, event->pos());
     rect = rect.normalized();
     rect = scene()->sceneRect().intersected(rect);
+
+    qDebug() << Q_FUNC_INFO << "selection created: " << rect;
 
     if(rect.width() < MIN_SELECTION_WIDTH)
         rect.adjust(-MIN_SELECTION_WIDTH, 0, MIN_SELECTION_WIDTH, 0);

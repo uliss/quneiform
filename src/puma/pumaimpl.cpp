@@ -59,6 +59,11 @@
 #include "rstuff/rstuff_struct.h"
 #include "rverline/rverline.h"
 
+#define PUMA_ERROR Debug() << "[PUMA] ERROR "
+#define PUMA_ERROR_FUNC PUMA_ERROR << BOOST_CURRENT_FUNCTION << ' '
+#define PUMA_DEBUG Debug() << "[PUMA] "
+#define PUMA_DEBUG_FUNC PUMA_DEBUG << BOOST_CURRENT_FUNCTION << ' '
+
 // 1. Отладочная информаци
 static Handle hDebugCancelRemoveLines = NULL;
 static Handle hDebugCancelSearchLines = NULL;
@@ -171,18 +176,12 @@ void PumaImpl::binarizeImage() {
         info.Images |= IMAGE_BINARIZE;
         SetPageInfo(cpage_, info);
         recog_name_ = PUMA_IMAGE_BINARIZE;
-    }
-    else if(recognize_options_.hasReadRects()) {
-        if (!CIMAGE_ReadDIBCopy(PUMA_IMAGE_USER, &input_dib_))
-            throw PumaException("CIMAGE_ReadDIB failed");
 
-        CIMAGE_AddImage(PUMA_IMAGE_BINARIZE, input_dib_);
+        CImage::instance().enableReadMask(PUMA_IMAGE_BINARIZE);
+        CImage::instance().applyReadMask(PUMA_IMAGE_BINARIZE);
 
-        PAGEINFO info;
-        GetPageInfo(cpage_, &info);
-        info.Images |= IMAGE_BINARIZE;
-        SetPageInfo(cpage_, info);
-        recog_name_ = PUMA_IMAGE_BINARIZE;
+        if(Config::doDump())
+            CIMAGE_Dump(PUMA_IMAGE_BINARIZE, PUMA_IMAGE_BINARIZE ".bmp");
     }
 }
 
@@ -222,8 +221,8 @@ CEDPagePtr PumaImpl::cedPage() {
 }
 
 void PumaImpl::close() {
-    if (Config::instance().debug())
-        Debug() << "Puma::close\n";
+    if (Config::doDebug())
+        PUMA_DEBUG_FUNC << "\n";
 
     CLINE_Reset();
     clearAll();
@@ -319,6 +318,8 @@ void PumaImpl::layout() {
 
     if(recognize_options_.hasTurn())
         turn(recognize_options_.turnAngle());
+
+    applyReadMask();
 
     RSPreProcessImage DataforRS;
 
@@ -480,8 +481,8 @@ void PumaImpl::open(ImagePtr img) {
     if (!img || !img->data())
         throw PumaException("[PumaImpl::open] invalid image given");
 
-    if (Config::instance().debug())
-        Debug() << "Puma open\n";
+    if (Config::doDebug())
+        PUMA_DEBUG_FUNC << "\n";
 
     preOpenInitialize();
 
@@ -595,6 +596,7 @@ void PumaImpl::turn(int angle)
         throw PumaException("RIMAGE_Turn failed", angle);
 
     CImage::instance().enableReadMask(PUMA_IMAGE_USER);
+
     if (!CIMAGE_ReadDIB(PUMA_IMAGE_TURN, &input_dib_))
         throw PumaException("CIMAGE_ReadDIB failed");
 
@@ -670,7 +672,6 @@ void PumaImpl::printResultLine(std::ostream& os, size_t lineNumber) {
 
 void PumaImpl::postOpenInitialize() {
     getImageInfo(PUMA_IMAGE_USER);
-    setupMasks();
 }
 
 void PumaImpl::recognize() {
@@ -680,7 +681,7 @@ void PumaImpl::recognize() {
         layout();
 
     if (Config::instance().debug()) {
-        Debug() << "Puma recognize\n" << recognize_options_;
+        PUMA_DEBUG_FUNC << '\n' << recognize_options_;
     }
 
     CSTR_DeleteAll();
@@ -989,35 +990,6 @@ void PumaImpl::saveToText(const std::string& filename) const {
     saveToText(of);
 }
 
-void PumaImpl::setupMasks()
-{
-    if(!recognize_options_.hasReadRects())
-        return;
-
-    BitmapHandle image = CImage::instance().image(PUMA_IMAGE_USER);
-    if(!image)
-        return;
-
-    Rect full_page(0, 0, image->biWidth, image->biHeight);
-
-    PAGEINFO page_info;
-    GetPageInfo(cpage_, &page_info);
-    page_info.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
-
-    CImage::instance().addRectToReadMask(PUMA_IMAGE_USER, full_page);
-
-    std::vector<Rect> read_masks = recognize_options_.readRects();
-    for(size_t i = 0; i < read_masks.size(); i++) {
-        Rect rmask = read_masks.at(i).intersected(full_page);
-        CImage::instance().removeRectFromReadMask(PUMA_IMAGE_USER, rmask);
-    }
-
-    CImage::instance().enableReadMask(PUMA_IMAGE_USER);
-
-    SetPageInfo(cpage_, page_info);
-    setUpdateFlag(FLG_UPDATE);
-}
-
 void PumaImpl::setFormatOptions(const FormatOptions& opt) {
     format_options_ = opt;
 }
@@ -1040,6 +1012,46 @@ static inline bool isValidPageTemplate(const Rect& r)
 void PumaImpl::setSpecialProject(special_project_t SpecialProject) {
     special_project_ = SpecialProject;
     RSTR_SetSpecPrj(SpecialProject);
+}
+
+void PumaImpl::applyReadMask()
+{
+    if(!recognize_options_.hasReadRects())
+        return;
+
+    BitmapHandle image = CImage::instance().image(recog_name_);
+    if(!image) {
+        PUMA_ERROR_FUNC << "image not found: " << recog_name_ << "\n";
+        return;
+    }
+
+    Rect full_page(0, 0, image->biWidth, image->biHeight);
+
+    PAGEINFO page_info;
+    GetPageInfo(cpage_, &page_info);
+    page_info.status &= ~(PINFO_USERTEMPLATE | PINFO_AUTOTEMPLATE);
+
+    CImage::instance().addRectToReadMask(recog_name_, full_page);
+
+    std::vector<Rect> read_masks = recognize_options_.readRects();
+    for(size_t i = 0; i < read_masks.size(); i++) {
+        Rect r = read_masks.at(i).intersected(full_page).normalized();
+        CImage::instance().removeRectFromReadMask(recog_name_, r);
+
+        if(Config::instance().debugHigh())
+            PUMA_DEBUG << "mask rect added: " << r << "\n";
+    }
+
+    CImage::instance().enableReadMask(recog_name_);
+    CImage::instance().applyReadMask(recog_name_);
+
+    PUMA_DEBUG_FUNC << "masks applied to: " << recog_name_ << "\n";
+
+    if(Config::doDump())
+        CIMAGE_Dump(recog_name_, "ImageAfterMasks.bmp");
+
+    SetPageInfo(cpage_, page_info);
+    setUpdateFlag(FLG_UPDATE);
 }
 
 }

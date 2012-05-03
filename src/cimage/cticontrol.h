@@ -109,6 +109,7 @@ class CLA_EXPO CTIControl
           */
         bool removeRectFromWriteMask(const std::string& name, const Rect& r);
 
+        bool applyReadMask(const std::string& name);
         bool disableReadMask(const std::string& imageName);
         bool disableWriteMask(const std::string& imageName);
         bool enableReadMask(const std::string& imageName);
