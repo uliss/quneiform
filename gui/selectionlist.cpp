@@ -37,7 +37,8 @@ SelectionList::SelectionList(const QRectF& rect, QGraphicsItem * parent) :
     QGraphicsRectItem(rect, parent),
     rubber_band_(NULL),
     selection_type_(SELECT_NONE),
-    mode_(MODE_NONE)
+    mode_(MODE_NONE),
+    turned_(false)
 {
     setActive(true);
     setPen(QPen(Qt::NoPen));
@@ -162,6 +163,16 @@ void SelectionList::clearSelections()
     selections_.clear();
 
     emit changed();
+}
+
+bool SelectionList::isTurned() const
+{
+    return turned_;
+}
+
+void SelectionList::setTurned(bool value)
+{
+    turned_ = value;
 }
 
 void SelectionList::setSelectionMode(SelectionList::selection_mode_t mode)

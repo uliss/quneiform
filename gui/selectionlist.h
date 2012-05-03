@@ -46,6 +46,8 @@ public:
     SelectionList(const QRectF& rect, QGraphicsItem * parent = NULL);
     void addSelection(const QRectF &r);
     void clearSelections();
+    bool isTurned() const;
+    void setTurned(bool value);
     void setSelectionMode(selection_mode_t mode);
     void setSelectionType(selection_t type);
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0);
@@ -81,6 +83,7 @@ private:
     QGraphicsRectItem * rubber_band_;
     selection_t selection_type_;
     selection_mode_t mode_;
+    bool turned_;
 };
 
 #endif // SELECTIONLIST_H
