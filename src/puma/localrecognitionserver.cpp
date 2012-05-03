@@ -31,6 +31,9 @@
 
 namespace cf {
 
+LocalRecognitionServer::LocalRecognitionServer() {
+}
+
 LocalRecognitionServer::~LocalRecognitionServer() {
     if(isTextDebug())
         Puma::instance().close();
@@ -57,6 +60,18 @@ CEDPagePtr LocalRecognitionServer::format() {
     return Puma::instance().cedPage();
 }
 
+void LocalRecognitionServer::handleExceptionCommon(std::exception& e,
+                                                   const RecognizeOptions& ropts)
+{
+    CF_ERROR << e.what() << std::endl;
+
+    if(!ropts.debugCleanupDelayed())
+        Puma::instance().close();
+
+    if(state_)
+        state_->set(RecognitionState::FAILED);
+}
+
 void LocalRecognitionServer::open(ImagePtr image) {
     Puma::instance().open(image);
 
@@ -81,19 +96,25 @@ CEDPagePtr LocalRecognitionServer::recognize(const std::string& imagePath,
                                              const RecognizeOptions& ropts,
                                              const FormatOptions& fopts)
 {
-    if(imagePath.empty())
-        throw RecognitionException("LocalRecognitionServer::recognize() : empty image path");
-
     try {
+        if(imagePath.empty()) {
+            throw RecognitionException("LocalRecognitionServer::recognize() : empty image path",
+                                       FILE_NOT_FOUND);
+        }
+
         ImagePtr img = ImageLoaderFactory::instance().load(imagePath);
         return recognize(img, ropts, fopts);
     }
+    catch(RecognitionException& e) {
+        handleExceptionCommon(e, ropts);
+        throw e;
+    }
+    catch(ImageLoader::Exception& e) {
+        handleExceptionCommon(e, ropts);
+        throw RecognitionException(e.what(), IMAGE_LOAD_ERROR);
+    }
     catch(std::exception& e) {
-        CF_ERROR << e.what() << std::endl;
-
-        if(state_)
-            state_->set(RecognitionState::FAILED);
-
+        handleExceptionCommon(e, ropts);
         throw RecognitionException(e.what());
     }
 }
@@ -103,8 +124,10 @@ CEDPagePtr LocalRecognitionServer::recognize(ImagePtr image,
                                              const FormatOptions& fopts)
 {
     try {
-        if (!image.get())
-            throw RecognitionException("LocalRecognitionServer::recognize() : NULL image given");
+        if (!image.get()) {
+            throw RecognitionException("LocalRecognitionServer::recognize() : NULL image given",
+                                       IMAGE_LOAD_ERROR);
+        }
 
         if(counter_)
             counter_->reset();
@@ -122,16 +145,18 @@ CEDPagePtr LocalRecognitionServer::recognize(ImagePtr image,
             page->setImageName(image->fileName());
 
         return page;
-    } catch (std::runtime_error& e) {
-        CF_ERROR << e.what() << std::endl;
-
-        if(!ropts.debugCleanupDelayed())
-            Puma::instance().close();
-
-        if(state_)
-            state_->set(RecognitionState::FAILED);
-
-        throw RecognitionException(e.what());
+    }
+    catch(RecognitionException& e) {
+        handleExceptionCommon(e, ropts);
+        throw e;
+    }
+    catch(PumaException& e) {
+        handleExceptionCommon(e, ropts);
+        throw RecognitionException(e.what(), RECOGNITION_ERROR);
+    }
+    catch (std::exception& e) {
+        handleExceptionCommon(e, ropts);
+        throw RecognitionException(e.what(), UNKNOWN);
     }
 }
 

@@ -63,7 +63,7 @@ void TestPageRecognizer::testRecognize() {
     Page * none = new Page("none");
     r.setPage(none);
     r.recognize();
-    QCOMPARE(failed.count(), 1);
+    QVERIFY(failed.count() > 0);
     QCOMPARE(opened.count(), 0);
     QCOMPARE(formatted.count(), 0);
     QCOMPARE(recognized.count(), 0);
@@ -75,7 +75,7 @@ void TestPageRecognizer::testRecognize() {
     Page * invalid = new Page(CF_IMAGE_DIR "/invalid.png");
     r.setPage(invalid);
     r.recognize();
-    QCOMPARE(failed.count(), 1);
+    QVERIFY(failed.count() > 0);
     QCOMPARE(opened.count(), 0);
     QCOMPARE(formatted.count(), 0);
     QCOMPARE(recognized.count(), 0);

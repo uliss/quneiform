@@ -27,12 +27,21 @@ namespace cf {
 class CLA_EXPO LocalRecognitionServer : public AbstractRecognitionServer
 {
 public:
+    LocalRecognitionServer();
     ~LocalRecognitionServer();
 
+    /**
+      * @param imagePath - path to image
+      * @throw RecognitionException on error
+      */
     CEDPagePtr recognize(const std::string& imagePath,
                          const RecognizeOptions& ropts,
                          const FormatOptions& fopts);
 
+    /**
+      * @param image - pointer to image data
+      * @throw RecognitionException on error
+      */
     CEDPagePtr recognize(ImagePtr image,
                          const RecognizeOptions& ropts,
                          const FormatOptions& fopts);
@@ -40,6 +49,7 @@ private:
     void close(const RecognizeOptions& ropts);
     void doRecognize();
     CEDPagePtr format();
+    void handleExceptionCommon(std::exception& e, const RecognizeOptions& ropts);
     void open(ImagePtr image);
     void setOptions(const RecognizeOptions& ropts, const FormatOptions& fopts);
 };

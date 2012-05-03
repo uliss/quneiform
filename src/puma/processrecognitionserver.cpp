@@ -78,11 +78,13 @@ CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
 
     try {
         if(imagePath.empty())
-            throw RecognitionException("empty image path given");
+            throw RecognitionException("empty image path given", FILE_NOT_FOUND);
 
         const size_t SHMEM_SIZE = MemoryData::minBufferSize();
+
         SharedMemoryHolder memory(true);
         memory.create(SHMEM_KEY, SHMEM_SIZE);
+
         MemoryData data(memory.get(), SHMEM_SIZE);
         data.setFormatOptions(fopts);
         data.setRecognizeOptions(ropts);
@@ -96,6 +98,10 @@ CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
             throw RecognitionException("Recognition error");
 
         return res;
+    }
+    catch(RecognitionException& e) {
+        handleOtherErrors(e);
+        throw e;
     }
     catch(SharedMemoryHolder::LowSharedMemoryException& e) {
         handleMemoryLimits(e);
@@ -136,6 +142,10 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
 
         return res;
     }
+    catch(RecognitionException& e) {
+        handleOtherErrors(e);
+        throw e;
+    }
     catch(SharedMemoryHolder::LowSharedMemoryException& e) {
         handleMemoryLimits(e);
         throw e;
@@ -164,9 +174,11 @@ void ProcessRecognitionServer::startWorker(const std::string& key, size_t size) 
     std::string exe_path = workerPath();
 
     if(exe_path.empty())
-        throw RecognitionException("can't find process worker");
+        throw RecognitionException("can't find process worker", WORKER_NOT_FOUND);
 
     int code = startProcess(exe_path, params, worker_timeout_);
+
+    handleWorkerExitCode(code);
 
     if(counter_) {
         counter_->add(20); // open
@@ -180,31 +192,6 @@ void ProcessRecognitionServer::startWorker(const std::string& key, size_t size) 
         state_->set(RecognitionState::ANALYZED);
         state_->set(RecognitionState::RECOGNIZED);
         state_->set(RecognitionState::FORMATTED);
-    }
-
-    switch(code) {
-    case EXIT_SUCCESS:
-        return;
-    case WORKER_UNKNOWN_ERROR:
-        throw RecognitionException("unknown error");
-    case WORKER_SEGMENT_NOT_FOUND:
-        throw RecognitionException("shared memory segment not found");
-    case WORKER_SAVE_ERROR:
-        throw RecognitionException("error while saving into shared memory segment");
-    case WORKER_RECOGNITION_ERROR:
-        throw RecognitionException("recognition error");
-    case WORKER_SHMEM_ERROR:
-        throw RecognitionException("shared memory error");
-    case WORKER_TERMINATE_ERROR:
-        throw RecognitionException("recognition process terminated");
-    case WORKER_ABORT_ERROR:
-        throw RecognitionException("recognition process aborted");
-    case WORKER_SEGFAULT_ERROR:
-        throw RecognitionException("recognition process segmentation fault");
-    case WORKER_TIMEOUT_ERROR:
-        throw RecognitionException("recognition process killed by timeout");
-    default:
-        return;
     }
 }
 
@@ -287,6 +274,34 @@ void ProcessRecognitionServer::handleOtherErrors(std::exception &e)
 
     CF_ERROR(e.what());
     throw RecognitionException(e.what());
+}
+
+void ProcessRecognitionServer::handleWorkerExitCode(int code)
+{
+    switch(code) {
+    case EXIT_SUCCESS:
+        return;
+    case WORKER_UNKNOWN_ERROR:
+        throw RecognitionException("unknown error");
+    case WORKER_SEGMENT_NOT_FOUND:
+        throw RecognitionException("shared memory segment not found", SHMEM_ERROR);
+    case WORKER_SAVE_ERROR:
+        throw RecognitionException("error while saving into shared memory segment", SHMEM_ERROR);
+    case WORKER_RECOGNITION_ERROR:
+        throw RecognitionException("recognition error", RECOGNITION_ERROR);
+    case WORKER_SHMEM_ERROR:
+        throw RecognitionException("shared memory error", SHMEM_ERROR);
+    case WORKER_TERMINATE_ERROR:
+        throw RecognitionException("recognition process terminated", WORKER_CRASH);
+    case WORKER_ABORT_ERROR:
+        throw RecognitionException("recognition process aborted", WORKER_CRASH);
+    case WORKER_SEGFAULT_ERROR:
+        throw RecognitionException("recognition process segmentation fault", WORKER_CRASH);
+    case WORKER_TIMEOUT_ERROR:
+        throw RecognitionException("recognition process killed by timeout", WORKER_TIMEOUT);
+    default:
+        throw RecognitionException("unknown worker return code");
+    }
 }
 
 }

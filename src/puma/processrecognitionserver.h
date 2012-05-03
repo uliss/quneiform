@@ -65,6 +65,7 @@ public:
 private:
     void handleMemoryLimits(std::exception& e);
     void handleOtherErrors(std::exception& e);
+    void handleWorkerExitCode(int code);
     void startWorker(const std::string& key, size_t size);
     std::string workerPath() const;
 private:
