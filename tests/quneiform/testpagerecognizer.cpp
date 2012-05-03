@@ -164,7 +164,7 @@ void TestPageRecognizer::testRecognizeArea() {
     // 90
     Page eng90(CF_IMAGE_DIR "/english_rotated_90.png");
     eng90.rotate(-90);
-    eng90.addReadArea(area);
+    eng90.addReadArea(QRect(0, 140, 70, 170));
     r.setPage(&eng90);
     r.recognize();
 
@@ -174,7 +174,7 @@ void TestPageRecognizer::testRecognizeArea() {
     // 180
     Page eng180(CF_IMAGE_DIR "/english_rotated_180.png");
     eng180.rotate(-180);
-    eng180.addReadArea(area);
+    eng180.addReadArea(QRect(0, 0, 140, 70));
     r.setPage(&eng180);
     r.recognize();
 
@@ -184,7 +184,7 @@ void TestPageRecognizer::testRecognizeArea() {
     // 270
     Page eng270(CF_IMAGE_DIR "/english_rotated_270.png");
     eng270.rotate(-270);
-    eng270.addReadArea(area);
+    eng270.addReadArea(QRect(0, 0, 70, 140));
     r.setPage(&eng270);
     r.recognize();
 
