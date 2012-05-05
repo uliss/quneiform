@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,38 +16,24 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "testmagickimageexporter.h"
-#include <fstream>
-#include <export/magickimageexporter.h>
-#include <rdib/bmpimageloader.h>
-#include <rdib/magickimageloader.h>
+#ifndef QTIMAGEEXPORTER_H
+#define QTIMAGEEXPORTER_H
 
-using namespace cf;
-CPPUNIT_TEST_SUITE_REGISTRATION(TestMagickImageExporter);
+#include "globus.h"
+#include "imageexporter.h"
 
-void TestMagickImageExporter::testSave() {
-    std::fstream os;
+namespace cf {
 
-    ImageExporterPtr exp(new MagickImageExporter);
+class CLA_EXPO QtImageExporter : public ImageExporter
+{
+public:
+    QtImageExporter(image_format_t format = FORMAT_PNG);
+    std::string mime() const;
+    FormatList supportedFormats() const;
+protected:
+    void saveToStream(const ImageRawData& image, std::ostream& os);
+};
 
-    ImageRawData img;
-    // bad image data
-    CPPUNIT_ASSERT_THROW(exp->save(img, os), ImageExporter::Exception);
-
-    // bad stream
-    os << 1;
-    uchar data[1000];
-    img.set(data, 1000, ImageRawData::AllocatorNone);
-    CPPUNIT_ASSERT_THROW(exp->save(img, os), ImageExporter::Exception);
-
-    os.clear();
-    data[0] = 'B';
-    data[1] = 'M';
-    CPPUNIT_ASSERT_THROW(exp->save(img, os), ImageExporter::Exception);
-
-    MagickImageLoader loader;
-    ImagePtr image = loader.load(EXPORTER_TEST_IMAGE_DIR + std::string("test_in.bmp"));
-
-    exp->save(*image, "test_qt_export_out.png");
 }
 
+#endif // QTIMAGEEXPORTER_H

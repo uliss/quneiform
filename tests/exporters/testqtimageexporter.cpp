@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,38 +16,32 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "testmagickimageexporter.h"
 #include <fstream>
-#include <export/magickimageexporter.h>
-#include <rdib/bmpimageloader.h>
-#include <rdib/magickimageloader.h>
+
+#include "testqtimageexporter.h"
+#include "export/imageexporter.h"
+#include "export/qtimageexporter.h"
+#include "rdib/qtimageloader.h"
+#include "common/imagerawdata.h"
+
+CPPUNIT_TEST_SUITE_REGISTRATION(TestQtImageExporter);
 
 using namespace cf;
-CPPUNIT_TEST_SUITE_REGISTRATION(TestMagickImageExporter);
 
-void TestMagickImageExporter::testSave() {
+void TestQtImageExporter::testSave()
+{
     std::fstream os;
 
-    ImageExporterPtr exp(new MagickImageExporter);
+    ImageExporterPtr exp(new QtImageExporter(FORMAT_PNG));
+    CPPUNIT_ASSERT_EQUAL(exp->format(), FORMAT_PNG);
 
     ImageRawData img;
     // bad image data
     CPPUNIT_ASSERT_THROW(exp->save(img, os), ImageExporter::Exception);
 
-    // bad stream
-    os << 1;
-    uchar data[1000];
-    img.set(data, 1000, ImageRawData::AllocatorNone);
-    CPPUNIT_ASSERT_THROW(exp->save(img, os), ImageExporter::Exception);
-
-    os.clear();
-    data[0] = 'B';
-    data[1] = 'M';
-    CPPUNIT_ASSERT_THROW(exp->save(img, os), ImageExporter::Exception);
-
-    MagickImageLoader loader;
+    QtImageLoader loader;
     ImagePtr image = loader.load(EXPORTER_TEST_IMAGE_DIR + std::string("test_in.bmp"));
 
-    exp->save(*image, "test_qt_export_out.png");
+    exp->setFormat(FORMAT_PNG);
+    exp->save(*image, "test_out.png");
 }
-

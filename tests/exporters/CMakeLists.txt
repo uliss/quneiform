@@ -1,10 +1,6 @@
 add_definitions(-DEXPORTER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/")
 
-if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK)
-    set(magick_test testmagickimageexporter.cpp)
-endif()
-
-add_executable(test_exporters
+set(TEST_EXPORTER_SRC
     test_exporters.cpp
     testbmpimageexporter.cpp
     testcssexporter.cpp
@@ -14,7 +10,18 @@ add_executable(test_exporters
     teststyleexporter.cpp
     testtextexporter.cpp
     testzipcpp.cpp
-    ${magick_test}
+)
+
+if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK)
+    list(APPEND TEST_EXPORTER_SRC testmagickimageexporter.cpp)
+endif()
+
+if(CF_USE_IMAGE_LIBRARY_QT)
+    list(APPEND TEST_EXPORTER_SRC testqtimageexporter.cpp)
+endif()
+
+add_executable(test_exporters
+    ${TEST_EXPORTER_SRC}
 )
 
 target_link_libraries(test_exporters 

@@ -45,6 +45,14 @@ elseif(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
     message(STATUS "Exporters: GraphicsMagick exporter will be build")
 endif()
 
+if(CF_USE_IMAGE_LIBRARY_QT)
+    include_directories(${CF_IMAGE_INCLUDE})
+    include(${QT_USE_FILE})
+    list(APPEND exporters qtimageexporter.cpp)
+    list(APPEND exporter_lims ${QT_LIBRARIES})
+    message(STATUS "Exporters: Qt image exporter will be build")
+endif()
+
 if(CF_SERIALIZE)
     list(APPEND exporters cuneiformexporter.cpp
         cuneiformbinexporter.cpp
