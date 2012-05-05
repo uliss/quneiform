@@ -43,5 +43,8 @@ void TestQtImageExporter::testSave()
     ImagePtr image = loader.load(EXPORTER_TEST_IMAGE_DIR + std::string("test_in.bmp"));
 
     exp->setFormat(FORMAT_PNG);
-    exp->save(*image, "test_out.png");
+    exp->save(*image, "export_qt.png");
+
+    exp->setFormat(FORMAT_JPEG);
+    exp->save(*image, "export_qt.jpg");
 }
