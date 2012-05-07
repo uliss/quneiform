@@ -20,6 +20,7 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <errno.h>
+#include <sys/param.h>
 #include <sys/sysctl.h>
 
 #include "systemvsharedmemory.h"
@@ -92,6 +93,15 @@ size_t SystemVSharedMemory::limit() const
 #ifdef __APPLE__
     const char * KEY = "kern.sysv.shmmax";
     int result = sysctlbyname(KEY, &shmmax, &len, NULL, 0);
+    return result == -1 ? 0 : shmmax;
+#elif __OpenBSD__
+    int names[3];
+    int names_sz = sizeof(names);
+    names[0] = CTL_KERN;
+    names[1] = KERN_SHMINFO;
+    names[2] = KERN_SHMINFO_SHMMAX;    
+
+    int result = sysctl(names, names_sz, &shmmax, &len, NULL, 0);
     return result == -1 ? 0 : shmmax;
 #elif __linux__
     int names[2];
