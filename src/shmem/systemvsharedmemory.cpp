@@ -20,6 +20,8 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <sys/param.h>
 #include <sys/sysctl.h>
 
@@ -94,9 +96,29 @@ size_t SystemVSharedMemory::limit() const
     const char * KEY = "kern.sysv.shmmax";
     int result = sysctlbyname(KEY, &shmmax, &len, NULL, 0);
     return result == -1 ? 0 : shmmax;
+#elif __NetBSD__
+    int names[4];
+    names[0] = CTL_KERN;
+    names[1] = KERN_SYSVIPC;
+    names[2] = KERN_SYSVIPC_INFO;    
+    names[3] = KERN_SYSVIPC_SHM_INFO;
+   
+    len = sizeof(shminfo);
+
+    void * buf = calloc(len, 1);
+
+    shm_sysctl_info * shmsi = (shm_sysctl_info*) buf;
+    int result = sysctl(names, 4, shmsi, &len, NULL, 0);
+    if(result == -1)
+        perror("sysctl error: ");
+
+    shmmax = shmsi->shminfo.shmmax;
+    free(buf);
+
+    return result == -1 ? 0 : shmmax;
 #elif __OpenBSD__
     int names[3];
-    int names_sz = sizeof(names);
+    int names_sz = 3;
     names[0] = CTL_KERN;
     names[1] = KERN_SHMINFO;
     names[2] = KERN_SHMINFO_SHMMAX;    
