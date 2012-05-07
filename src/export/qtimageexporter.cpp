@@ -23,9 +23,26 @@
 
 #include "qtimageexporter.h"
 #include "bmpimageexporter.h"
+#include "imageexporterfactory.h"
 #include "common/debug.h"
 #include "common/imagerawdata.h"
 #include "common/helper.h"
+
+namespace {
+
+cf::ImageExporterPtr create() {
+    return cf::ImageExporterPtr(new cf::QtImageExporter());
+}
+
+bool registerCreator() {
+    cf::ImageExporterFactory::instance().registerCreator(cf::FORMAT_PNG, &create, 50);
+    cf::ImageExporterFactory::instance().registerCreator(cf::FORMAT_JPEG, &create, 50);
+    return true;
+}
+
+bool registered = registerCreator();
+
+}
 
 namespace cf {
 
