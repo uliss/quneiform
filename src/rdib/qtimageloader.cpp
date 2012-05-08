@@ -96,9 +96,9 @@ static bool is_pdf_url(const ImageURL& url)
     return url.extension() == "pdf";
 }
 
-static bool is_multi_tiff_url(const ImageURL& url)
+static bool is_tiff_url(const ImageURL& url)
 {
-    return url.imageNumber() > 0 && (url.extension() == "tif" || url.extension() == "tiff");
+    return url.extension() == "tif" || url.extension() == "tiff";
 }
 
 static inline QString urlToQt(const ImageURL& url)
@@ -216,7 +216,7 @@ ImagePtr QtImageLoader::load(const ImageURL& url)
 
     if(is_pdf_url(url))
         return loadPdf(url);
-    else if(is_multi_tiff_url(url))
+    else if(is_tiff_url(url))
         return loadTiff(url);
     else
         img.load(QString::fromUtf8(url.path().c_str()));

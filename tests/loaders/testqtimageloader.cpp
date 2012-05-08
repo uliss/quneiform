@@ -66,7 +66,6 @@ void TestQtImageLoader::testLoad()
 
     ASSERT_LOAD(loader, "test.bmp");
     ASSERT_LOAD(loader, "test.jpg");
-    ASSERT_LOAD(loader, "test.tif");
     ASSERT_LOAD(loader, "test.png");
     ASSERT_LOAD(loader, "test.pnm");
     ASSERT_LOAD(loader, "test.xpm");
@@ -74,13 +73,19 @@ void TestQtImageLoader::testLoad()
     ASSERT_LOAD(loader, "test.pgm");
     ASSERT_LOAD(loader, "test.ppm");
 
-    // multi page tiff load
-    ASSERT_LOAD_PAGE(loader, "multipage.tif", 0);
-    ASSERT_LOAD_PAGE(loader, "multipage.tif", 1);
+ 
+    if(loader.supportsFormat(FORMAT_TIFF)){
+        ASSERT_LOAD(loader, "test.tif");
+        // multi page tiff load
+        ASSERT_LOAD_PAGE(loader, "multipage.tif", 0);
+        ASSERT_LOAD_PAGE(loader, "multipage.tif", 1);
+    }
 
-    // multi page pdf load
-    ASSERT_LOAD_PAGE(loader, "test.pdf", 0);
-    ASSERT_LOAD_PAGE(loader, "test.pdf", 1);
+    if(loader.supportsFormat(FORMAT_PDF)) {
+        // multi page pdf load
+        ASSERT_LOAD_PAGE(loader, "test.pdf", 0);
+        ASSERT_LOAD_PAGE(loader, "test.pdf", 1);
+    }
 
     // throw
     CPPUNIT_ASSERT_THROW(loader.load(ImageURL("not-exists")), ImageLoader::Exception);
