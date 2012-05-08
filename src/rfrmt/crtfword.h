@@ -44,7 +44,7 @@ class CLA_EXPO CRtfWord
         CRtfWord();
         ~CRtfWord();
 
-        class Exception : public std::runtime_error {
+        class CLA_EXPO Exception : public std::runtime_error {
         public:
             Exception(const std::string& msg) : std::runtime_error(msg) {}
         };
