@@ -26,6 +26,7 @@ if(CF_PDF_SUPPORT)
 endif()
 
 if(CF_TIFF_SUPPORT)
+    include(${QT_USE_FILE})
     include_directories(${TIFF_INCLUDE_DIR})
 
     set(CF_MTIFF_PLUGIN_SOURCES
