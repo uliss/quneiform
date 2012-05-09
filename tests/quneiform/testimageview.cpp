@@ -34,7 +34,7 @@
 
 static void wait_events() {
     QCoreApplication::processEvents();
-    QTest::qWait(50);
+    QCoreApplication::flush();
 }
 
 static void mouseMove(QWidget * w, const QPoint& pos) {
@@ -222,10 +222,6 @@ void TestImageView::testSelection() {
     p.addReadArea(QRect(10, 20, 50, 60));
     iv.showPage(&p);
     wait_events();
-
-#ifdef Q_WS_X11
-    QEXPECT_FAIL("", "X11 fail why???", Abort);
-#endif
 
 #ifdef Q_OS_WIN32
     QEXPECT_FAIL("", "Win32 fail why???", Abort);
