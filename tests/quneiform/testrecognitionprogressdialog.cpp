@@ -41,17 +41,16 @@ void TestRecognitionProgressDialog::testConstruct() {
 void TestRecognitionProgressDialog::testDialog() {
     RecognitionProgressDialog d;
     PageRecognitionQueue q;
-//    q.recognizer()->setStageSleep(PageRecognizer::OPEN, 80);
-//    q.recognizer()->setStageSleep(PageRecognizer::RECOGNIZE, 80);
-//    q.recognizer()->setStageSleep(PageRecognizer::FORMAT, 80);
-
     d.connectToQueue(&q);
 
     Page p1(CF_IMAGE_DIR "/english.png");
     Page p2(CF_IMAGE_DIR "/russian.png");
 
     q.add(&p1);
+
+#if !defined(__NetBSD__) && !defined(__OpenBSD__)
     q.add(&p2);
+#endif
 
     q.start();
 }
