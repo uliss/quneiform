@@ -44,6 +44,7 @@ void TestPageRecognizer::testConstruct() {
 
 void TestPageRecognizer::testRecognize() {
     PageRecognizer r;
+    r.setWorkerType(PageRecognizer::PROCESS);
     QSignalSpy failed(&r, SIGNAL(failed(QString)));
     QSignalSpy opened(&r, SIGNAL(opened()));
     QSignalSpy formatted(&r, SIGNAL(formatted()));
@@ -101,24 +102,8 @@ void TestPageRecognizer::testRecognize() {
     QCOMPARE(recognized.count(), 1);
     QVERIFY(!eng->hasFlag(Page::RECOGNITION_FAILED));
 
-    // valid russian
-    Page * rus = new Page(CF_IMAGE_DIR "/russian.png");
-    r.setPage(rus);
-    r.recognize();
-#if defined(__OpenBSD__)
-    QEXPECT_FAIL("", "Cyrrillic support failure", Abort);
-#endif
-    QCOMPARE(rus->document()->toPlainText().trimmed(), QString("PYCCKVI Vl"));
-    QVERIFY(rus->isRecognized());
-    QVERIFY(!rus->hasFlag(Page::RECOGNITION_FAILED));
-
-    rus->setLanguage(Language(::LANGUAGE_RUSSIAN));
-    r.recognize();
-    QCOMPARE(rus->document()->toPlainText().trimmed(), QString::fromUtf8("РУССКИЙ"));
-
     delete none;
     delete eng;
-    delete rus;
 }
 
 void TestPageRecognizer::testRecognizeRotated() {
