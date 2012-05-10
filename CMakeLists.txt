@@ -37,7 +37,11 @@ endif()
 
 # Boost
 if(WIN32)
-    set(Boost_USE_STATIC_LIBS On)
+    set(Boost_USE_STATIC_LIBS ON)
+	
+	if(MSVC)
+        add_definitions(-DBOOST_ALL_NO_LIB)
+	endif()
 endif()
 
 find_package(Boost 1.33)

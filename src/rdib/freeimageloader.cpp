@@ -118,7 +118,7 @@ ImagePtr FreeImageLoader::load(const std::string& filename)
     static const double INCH = 0.0254;
 
     if(!res_x)
-        res_x = (uint) round(75 / INCH);
+        res_x = (uint) ceil(75 / INCH + 0.5);
     if(!res_y)
         res_y = (uint) (75 / INCH);
 
