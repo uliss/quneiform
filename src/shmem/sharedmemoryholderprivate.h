@@ -27,11 +27,11 @@ class SharedMemoryHolderPrivate
 {
 public:
     enum error_t {
-        NO_ERROR = 0,
+        OK = 0,
         UNKNOWN,
         /* A shared memory segment is already associated with key
             and the caller has no permission to access it */
-        NO_ACCESS,
+		NO_ACCESS,
         /* no shared memory segment associated with key was found. */
         NOT_FOUND,
         /* There is not enough memory left to created a shared memory segment of the requested size. */
@@ -48,7 +48,7 @@ public:
     virtual void * create(size_t key, size_t size) = 0;
     virtual void * open(size_t key, size_t size) = 0;
     virtual bool remove() = 0;
-    virtual error_t error() const { return NO_ERROR; }
+    virtual error_t error() const { return OK; }
     virtual size_t limit() const = 0;
 };
 

@@ -1,0 +1,1 @@
+ REM http://downloads.sourceforge.net/project/gnuwin32/libiconv/1.9.2-1/libiconv-1.9.2-1.exe?r=http%3A%2F%2Fgnuwin32.sourceforge.net%2Fpackages.html&ts=1336683964&use_mirror=citylan

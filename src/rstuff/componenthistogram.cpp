@@ -129,16 +129,16 @@ unsigned int ComponentHistogram::yDpi() const
     return (DEFAULT_DPI * common_height_ + 11) / 22;
 }
 
-static void printHeader(std::ostream& os, const std::string& msg)
+static void printHeader(std::ostream& os, const std::string& message)
 {
-    os << '\n' << msg << '\n' << std::string(ComponentHistogram::MAX_COMP_SIZE, '=') << '\n';
+	os << '\n' << message.c_str() << '\n' << std::string(ComponentHistogram::MAX_COMP_SIZE, '=').c_str() << '\n';
 }
 
 static void printFooter(std::ostream& os)
 {
-    os << std::string(ComponentHistogram::MAX_COMP_SIZE, '=') << '\n';
+	os << std::string(ComponentHistogram::MAX_COMP_SIZE, '=').c_str() << '\n';
     for(size_t i = 0; i < ComponentHistogram::MAX_COMP_SIZE; i += 10) {
-        os << i << std::string(8, ' ');
+		os << i << std::string(8, (char) ' ').c_str();
     }
     os << '\n';
 }
