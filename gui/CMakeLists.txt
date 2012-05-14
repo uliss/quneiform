@@ -166,7 +166,9 @@ if(MINGW)
             COMMAND
             windres.exe -I${CMAKE_CURRENT_SOURCE_DIR}
                 -i${CMAKE_CURRENT_SOURCE_DIR}/resources/win_quneiform.rc
-                -o win_quneiform_rc.o)
+                -o win_quneiform_rc.o
+            DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/resources/win_quneiform.rc
+            )
         list(APPEND EXTRA_RES win_quneiform_rc.o)
     endif()
 elseif(MSVC)

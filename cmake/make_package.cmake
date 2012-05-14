@@ -92,6 +92,7 @@ elseif(WIN32)
         cf_install_dll(libgcc_s_dw2-1 ${CF_MINGW_PATH_BIN})
         cf_install_dll(mingwm10 ${CF_MINGW_PATH_BIN})
         cf_install_dll(libiconv-2 ${ICONV_INCLUDE_DIR}/../bin)
+        cf_install_dll(libiconv2 ${ICONV_INCLUDE_DIR}/../bin)
     endif()
 	
     if(MSVC)
@@ -107,7 +108,7 @@ elseif(WIN32)
     # install icon
     set(CPACK_PACKAGE_ICON  "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform_install.bmp")
     set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
-    set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
+    #set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
     set(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_NAME} ${CF_VERSION}")
 	
     set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\quneiform.exe")
@@ -128,7 +129,7 @@ elseif(WIN32)
     set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
           \\\${registerExtension} \\\"Quneiform Packet\\\" \\\".qfp\\\" \\\"\\\$INSTDIR\\\\bin\\\\quneiform.exe\\\"
     ")
-
+   
     set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
           \\\${unregisterExtension} \\\".qfp\\\" \\\"Quneiform Packet\\\"
     ")
