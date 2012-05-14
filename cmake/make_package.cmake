@@ -81,6 +81,7 @@ elseif(WIN32)
     else()
         cf_install_dll(QtCore4 ${QT_BINARY_DIR})
         cf_install_dll(QtGui4 ${QT_BINARY_DIR})
+        cf_install_dll(zlib1 ${ZLIB_INCLUDE_DIRS}/../bin)
     endif()
 	
 	if(MINGW)
@@ -100,7 +101,7 @@ elseif(WIN32)
     endif()
 
     set(CPACK_GENERATOR "NSIS")
-    set(CPACK_PACKAGE_NAME "Cuneiform")
+    set(CPACK_PACKAGE_NAME "Quneiform")
     set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY
         "${CPACK_PACKAGE_NAME}")
     set(CPACK_PACKAGE_EXECUTABLES quneiform;Quneiform)
