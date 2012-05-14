@@ -54,6 +54,10 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "globus.h"
+
+#define USAGE_FUNC FUN_EXPO__
+
 /*------------------------------------------------------------------------------------------------*/
 /**
     \file   UN_Buff.CPP
@@ -94,7 +98,7 @@ typedef struct tagUN_BUFF {
     \brief Функция удаления последней записанной части на складе
     \param p_vB [in/out] - указатель на склад информации (и свободную память)
 */
-void CleanLastDataPart (void *p_vB);
+USAGE_FUNC void CleanLastDataPart (void *p_vB);
 /**
     \brief Функция удаления последней записанной части на складе
     \param p_vB [in/out] - указатель на склад информации (и свободную память)
@@ -108,14 +112,14 @@ void EndLastDataPart (void *p_vB, const char Aim, const char Type, const int Siz
     \param SizeU [in] - размеров атомов в последних записанных данных
     \param nU [in]    - размеров атомов в последних записанных данных
 */
-int  FindSuchData (const void *p_vB, const int WhatData);
+USAGE_FUNC int  FindSuchData (const void *p_vB, const int WhatData);
 /**
     \brief Функция нахождения на складе данных указанного типа и указанного целевого назначения
     \param p_vB [in]     - указатель на склад информации (и свободную память)
     \param WhatData [in] - тип данных, которые надо найти на складе
     \param WhatAim [in]  - предназначение данных, которые надо найти на складе
 */
-int  FindSuchAimedData (const void *p_vB, const int WhatData, const int WhatAim);
+USAGE_FUNC int  FindSuchAimedData (const void *p_vB, const int WhatData, const int WhatAim);
 /**
     \brief Функция нахождения на складе следующей порции данных указанного типа
     \param p_vB [in]     - указатель на склад информации (и свободную память)

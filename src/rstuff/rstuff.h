@@ -88,10 +88,10 @@ public:
     void setImageData(RSPreProcessImage * imageData);
     void setRecognizeOptions(const RecognizeOptions& ropts);
 private:
-    static bool hasFlag(flag_t f) { return flags_ & f; }
-    static void setFlag(flag_t f, bool value) { value ? setFlag(f) : unsetFlag(f); }
-    static void setFlag(flag_t f) { flags_ |= f; }
-    static void unsetFlag(flag_t f) { flags_ &= (~f); }
+    static bool hasFlag(flag_t f);
+    static void setFlag(flag_t f, bool value);
+    static void setFlag(flag_t f);
+    static void unsetFlag(flag_t f);
     static void * mainBuffer();
     static void * workBuffer();
     static void showHistogram();

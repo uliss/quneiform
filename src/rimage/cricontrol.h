@@ -66,10 +66,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "crturner.h"
 #include "crinvertor.h"
 #include "crrotator.h"
+#include "globus.h"
 
 namespace cf {
 
-class CRIControl
+class CLA_EXPO CRIControl
 {
 public:
     CRIControl();

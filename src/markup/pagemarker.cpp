@@ -243,4 +243,24 @@ void PageMarker::setOptions(const RecognizeOptions& opts) {
     image_data_->hDebugSVLinesData = hasFlag(DEBUG_SVL_DATA);
 }
 
+bool PageMarker::hasFlag(flag_t f) 
+{ 
+	return flags_ & f; 
+}
+
+void PageMarker::setFlag(flag_t f) 
+{ 
+	flags_ |= f; 
+}
+    
+void PageMarker::setFlag(flag_t f, bool value) 
+{ 
+	value ? setFlag(f) : unsetFlag(f); 
+}
+    
+void PageMarker::unsetFlag(flag_t f) 
+{ 
+	flags_ &= (~f); 
+}
+
 }

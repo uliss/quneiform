@@ -54,6 +54,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "globus.h"
+
 /**********  Заголовок  **********/
 /*  Автор      :  Александр Михайлов                                          */
 /*  Редакция   :  06.03.01                                                    */
@@ -62,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Формальности для работы с унифицированным буфером.          */
 /*----------------------------------------------------------------------------*/
 void LastForLinesAM (void *vB);
-Bool ReferForLinesAM (void *vLinePool, void *vB, int Aim);
+FUN_EXPO__ Bool ReferForLinesAM (void *vLinePool, void *vB, int Aim);
 Bool TakeFixedPlace_rv (void *vB, int Type, int Aim, char *pStr);
 Bool PrepareLinesAM_rv (int Aim, void *vB, void **vvData);
 void MarkLineType (void *vLine, Bool Hori, Bool ContWarn);
