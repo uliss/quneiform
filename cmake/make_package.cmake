@@ -83,6 +83,10 @@ elseif(WIN32)
         cf_install_dll(QtGui4 ${QT_BINARY_DIR})
         cf_install_dll(zlib1 ${ZLIB_INCLUDE_DIRS}/../bin)
     endif()
+    
+    if(CF_USE_IMAGE_LIBRARY_FREEIMAGE)
+        cf_install_dll(FreeImage ${FREEIMAGE_INCLUDE_PATH})
+    endif()
 	
 	if(MINGW)
 	    find_path(CF_MINGW_PATH_BIN mingw32-make.exe PATHS
@@ -114,8 +118,8 @@ elseif(WIN32)
 	
     set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\quneiform.exe")
     set(CPACK_NSIS_CONTACT "serge.poltavski@gmail.com")
-    set(CPACK_NSIS_HELP_LINK "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
-    set(CPACK_NSIS_URL_INFO_ABOUT "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
+    set(CPACK_NSIS_HELP_LINK "https://github.com/uliss/quneiform")
+    set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/uliss/quneiform")
     set(CPACK_NSIS_MODIFY_PATH ON)
 
     # File types association:
