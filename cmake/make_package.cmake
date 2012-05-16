@@ -158,17 +158,7 @@ elseif(WIN32)
     set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/uliss/quneiform")
     set(CPACK_NSIS_MODIFY_PATH ON)
 
-
-    # File types association:
-    set(CPACK_NSIS_DEFINES "!include ${CMAKE_SOURCE_DIR}/cmake\\\\FileAssociation.nsh")
-
-    set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-        ; \\\${registerExtension} \\\"Quneiform Packet\\\" \\\".qfp\\\" \\\"\\\$INSTDIR\\\\bin\\\\quneiform.exe\\\"
-    ")
-   
-    set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-        ; \\\${unregisterExtension} \\\".qfp\\\" \\\"Quneiform Packet\\\"
-    ")
+    set(CPACK_NSIS_INCLUDE "!include ${CMAKE_SOURCE_DIR}/cmake\\\\FileAssociation.nsh")
 endif()
 
 include(CPack)

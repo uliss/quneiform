@@ -37,8 +37,7 @@
   ;Set compression
   SetCompressor @CPACK_NSIS_COMPRESSOR@
 
-@CPACK_NSIS_DEFINES@   
-
+  @CPACK_NSIS_INCLUDE@ 
   !include Sections.nsh
 
 ;--- Component support macros: ---
@@ -716,7 +715,8 @@ Section "-Core installation"
 
   !insertmacro MUI_STARTMENU_WRITE_END
 
-@CPACK_NSIS_EXTRA_INSTALL_COMMANDS@
+  ${RegisterExtension} "Quneiform Packet" ".qfp" "$INSTDIR\bin\quneiform.exe"
+  @CPACK_NSIS_EXTRA_INSTALL_COMMANDS@
 
   ; set CF_DATADIR variable
   WriteRegExpandStr ${NT_current_env} CF_DATADIR "$INSTDIR\share\cuneiform"  
@@ -827,8 +827,7 @@ Section "Uninstall"
   ; make sure windows knows about the change
   SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
 
-
-@CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS@
+  ${UnregisterExtension} ".qfp" "Quneiform Packet"
 
   ;Remove files we installed.
   ;Keep the list of directories here in sync with the File commands above.
