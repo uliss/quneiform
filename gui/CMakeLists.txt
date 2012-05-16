@@ -208,6 +208,7 @@ install(
     TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION bin
     ${CMAKE_INSTALL_DESTINATION_ARGS}
+    COMPONENT Applications
 )
 
 if(TESTS)
@@ -215,4 +216,7 @@ if(TESTS)
     add_cppcheck(quneiform_lib UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
 endif()
 
-install(FILES ${TRANSLATIONS_QM} DESTINATION ${RELATIVE_DATADIR}/locale)
+install(FILES ${TRANSLATIONS_QM} 
+    DESTINATION ${RELATIVE_DATADIR}/locale
+    COMPONENT Applications
+)

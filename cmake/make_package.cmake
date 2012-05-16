@@ -15,7 +15,9 @@ if(WIN32)
             message(STATUS "Install: ${cf_file} found.")
             install(FILES
                         ${cf_file}
-                        DESTINATION bin)
+                        DESTINATION bin
+                        COMPONENT Applications
+                    )
             
             execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different ${cf_file} ${CMAKE_BINARY_DIR})
         endif()
@@ -74,7 +76,7 @@ elseif(UNIX AND NOT APPLE)
         set(CF_DEB_DEPENDS "${CF_DEB_DEPENDS}, libmagick++2 (>= 7:6.5.1) | libmagick++3 (>= 8:6.6.0.4)")
     endif()
     set(CPACK_DEBIAN_PACKAGE_DEPENDS ${CF_DEB_DEPENDS})
-elseif(WIN32)
+elseif(WIN32)    
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         cf_install_dll(QtCored4 ${QT_BINARY_DIR})
         cf_install_dll(QtGuid4 ${QT_BINARY_DIR})
@@ -125,11 +127,29 @@ elseif(WIN32)
     set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY
         "${CPACK_PACKAGE_NAME}")
     set(CPACK_PACKAGE_EXECUTABLES quneiform;Quneiform)
+    
+    # components setup
+    set(CPACK_NSIS_COMPONENT_INSTALL ON)
+    #set(CPACK_COMPONENTS_ALL_IN_ONE_PACKAGE 1)
+    set(CPACK_COMPONENTS_ALL Applications Libraries Headers)
+    
+    # app
+    set(CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "Quneiform OCR application")
+    set(CPACK_COMPONENT_APPLICATIONS_DEPENDS Libraries)
+    set(CPACK_COMPONENT_APPLICATIONS_REQUIRED ON)
+    # libs
+    set(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
+    set(CPACK_COMPONENT_LIBRARIES_DESCRIPTION "Libraries used to build programs with cuneiform")
+    set(CPACK_COMPONENT_LIBRARIES_REQUIRED ON)
+    # headers
+    set(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "C++ Headers")
+    set(CPACK_COMPONENT_HEADERS_DESCRIPTION "C++ header files for use with cuneiform")
+    set(CPACK_COMPONENT_HEADERS_DEPENDS Libraries)
+    set(CPACK_COMPONENT_HEADERS_DISABLED ON) 
  
     # install icon
     set(CPACK_PACKAGE_ICON  "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform_install.bmp")
     set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
-    #set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
     set(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_NAME} ${CF_VERSION}")
 	
     set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\quneiform.exe")
@@ -138,21 +158,16 @@ elseif(WIN32)
     set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/uliss/quneiform")
     set(CPACK_NSIS_MODIFY_PATH ON)
 
+
     # File types association:
     set(CPACK_NSIS_DEFINES "!include ${CMAKE_SOURCE_DIR}/cmake\\\\FileAssociation.nsh")
 
     set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-          Push \\\"ATENDATA\\\"
-          Push \\\"$INSTDIR\\\\share\\\\aten\\\"
-          Call WriteEnvStr
-    ")
-
-    set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-          \\\${registerExtension} \\\"Quneiform Packet\\\" \\\".qfp\\\" \\\"\\\$INSTDIR\\\\bin\\\\quneiform.exe\\\"
+        ; \\\${registerExtension} \\\"Quneiform Packet\\\" \\\".qfp\\\" \\\"\\\$INSTDIR\\\\bin\\\\quneiform.exe\\\"
     ")
    
     set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-          \\\${unregisterExtension} \\\".qfp\\\" \\\"Quneiform Packet\\\"
+        ; \\\${unregisterExtension} \\\".qfp\\\" \\\"Quneiform Packet\\\"
     ")
 endif()
 

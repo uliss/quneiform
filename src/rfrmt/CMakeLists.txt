@@ -1,3 +1,16 @@
+set(CF_RFRMT_HEADERS_INSTALL
+    crtfchar.h
+    crtfword.h
+    crtfstring.h
+    crtfverticalcolumn.h
+    crtfhorizontalcolumn.h
+    crtfsector.h
+    crtfpage.h
+    crtffragment.h
+    crtfstruct.h
+    rfrmtoptions.h
+)
+
 add_library(cuneiform-rfrmt ${LIBTYPE}
     crtfchar.cpp
     crtffragment.cpp
@@ -23,21 +36,6 @@ cif_visibility_hidden(cuneiform-rfrmt)
   
 set_property(TARGET cuneiform-rfrmt PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
-set(RFRMT_HEADER_INSTALL "rfrmt")
-install(FILES 
-    crtfchar.h
-    crtfword.h
-    crtfstring.h
-    crtfverticalcolumn.h
-    crtfhorizontalcolumn.h
-    crtfsector.h
-    crtfpage.h
-    crtffragment.h
-    crtfstruct.h
-    rfrmtoptions.h
-    DESTINATION 
-    include/${CF_HEADER_INSTALL}/${RFRMT_HEADER_INSTALL})
-
 target_link_libraries(cuneiform-rfrmt
     cuneiform-compat
     cuneiform-common
@@ -51,6 +49,7 @@ target_link_libraries(cuneiform-rfrmt
 )
 
 library_hook(cuneiform-rfrmt)
+install_headers(rfrmt ${CF_RFRMT_HEADERS_INSTALL})
 
 if(TESTS)
     include(CppcheckTargets)

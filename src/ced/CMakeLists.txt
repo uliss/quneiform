@@ -39,15 +39,10 @@ endif()
 target_link_libraries(cuneiform-ced ${CED_LIBS})
 
 library_hook(cuneiform-ced)
-
-set(CED_HEADER_INSTALL "ced")
-
-install(
-    FILES
-        cedexporter.h cedfwd.h cedpageptr.h
-    DESTINATION
-        include/${CF_HEADER_INSTALL}/${CED_HEADER_INSTALL}
-)
+install_headers(ced 
+    cedexporter.h 
+    cedfwd.h 
+    cedpageptr.h)
 
 if(TESTS)
     include(CppcheckTargets)

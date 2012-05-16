@@ -80,12 +80,10 @@ target_link_libraries(cuneiform-export
 
 library_hook(cuneiform-export)
 
-set(EXPORT_HEADER_INSTALL "export")
-install(
-    FILES
-        exporter.h imageexporter.h exporterfactory.h
-    DESTINATION
-        include/${CF_HEADER_INSTALL}/${EXPORT_HEADER_INSTALL})
+install_headers(export  
+    exporter.h 
+    imageexporter.h 
+    exporterfactory.h)
 
 if(TESTS)
     include(CppcheckTargets)

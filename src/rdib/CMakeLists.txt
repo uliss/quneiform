@@ -48,11 +48,11 @@ target_link_libraries(cuneiform-rdib
 
 library_hook(cuneiform-rdib)
 
-install(FILES 
+install_headers(rdib 
     imageloaderfactory.h
     imageloader.h
     qtimageloader.h
-    DESTINATION include/${CF_HEADER_INSTALL}/rdib)
+)
 
 if(TESTS)
     include(CppcheckTargets)

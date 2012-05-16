@@ -63,12 +63,9 @@ target_link_libraries(cuneiform-common
     cuneiform-compat
     ${ICONV_LIBRARIES}
 )
-
-install(FILES
-    ${COMMON_HEADERS}
-    DESTINATION include/${CF_HEADER_INSTALL}/common)
-
-library_hook(cuneiform-common) 
+  
+library_hook(cuneiform-common)
+install_headers(common ${COMMON_HEADERS}) 
 
 if(TESTS)
     include(CppcheckTargets)

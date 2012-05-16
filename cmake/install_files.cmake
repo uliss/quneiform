@@ -3,6 +3,7 @@ set(RELATIVE_DATADIR "share/cuneiform")
 set(INSTALL_DATADIR "${CMAKE_INSTALL_PREFIX}/${RELATIVE_DATADIR}")
 
 include(CheckTypeSize)
+
 check_type_size("void*" PTRSIZE)
 if(PTRSIZE EQUAL 8 AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(LIBDIR "lib64")
@@ -29,32 +30,45 @@ if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
      endif()
 endif()
 
-macro(library_hook name)
+function(library_hook name)
     if(NOT WIN32)
         set_target_properties(${name} PROPERTIES VERSION ${CF_VERSION})
     endif()
   
     install(
         TARGETS "${name}"
+        COMPONENT Libraries
         ARCHIVE DESTINATION ${LIBDIR}
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION ${LIBDIR}
     )
-endmacro()
+endfunction()
 
-macro(install_exe name)
+function(install_exe name)
     install(
         TARGETS "${name}"
         RUNTIME DESTINATION bin
-        COMPONENT applications
+        COMPONENT Applications
     )
-endmacro()
+endfunction()
 
-macro(cif_visibility_hidden name)
+# usage: install_headers(DestinationDir Files)
+function(install_headers)
+    set(dir "include/${CF_HEADER_INSTALL}/${ARGV0}")
+    set(files ${ARGN})
+    list(REMOVE_AT files 0)
+    foreach(f ${files})
+        install(FILES ${f} 
+            DESTINATION "${dir}"
+            COMPONENT Headers) 
+    endforeach()
+endfunction()
+
+function(cif_visibility_hidden name)
     if(NOT MSVC)
         CHECK_CXX_COMPILER_FLAG(-fvisibility=hidden HAVE_GCC_VISIBILITY)
         if(HAVE_GCC_VISIBILITY)
             set_property(TARGET ${name} PROPERTY COMPILE_FLAGS "-fvisibility=hidden")
         endif()
     endif()
-endmacro()
+endfunction()

@@ -77,7 +77,7 @@ endif()
 
 add_subdirectory(usage)
 
-install(FILES 
+set(CF_GLOBAL_HEADERS
     h/globus.h
     h/specprj.h
     h/cttypes.h
@@ -90,6 +90,8 @@ install(FILES
     ${CMAKE_BINARY_DIR}/src/include/config.h
     ${CMAKE_BINARY_DIR}/src/include/config-user.h
     ${CMAKE_BINARY_DIR}/src/include/config-serialize.h
-    DESTINATION include/${CF_HEADER_INSTALL})
+)
+    
+install_headers("" ${CF_GLOBAL_HEADERS})
 
 

@@ -84,15 +84,14 @@ if(BUILD_SHMEM_WORKER)
 
     install(TARGETS cuneiform-worker
         RUNTIME DESTINATION ${WORKER_INSTALL_DIR}
-        COMPONENT applications
+        COMPONENT Applications
     )
 endif()
 
-install(
-    FILES
-        abstractrecognitionserver.h localrecognitionserver.h
-    DESTINATION
-        include/${CF_HEADER_INSTALL}/puma)
+install_headers(puma 
+    abstractrecognitionserver.h
+    localrecognitionserver.h
+)
 
 if(TESTS)
     include(CppcheckTargets)
