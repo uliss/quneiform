@@ -5,4 +5,4 @@ target_link_libraries(cuneiform-msk
     cuneiform-mmx 
     cuneiform-compat)
 
-library_hook(cuneiform-msk)
+cf_install_library(cuneiform-msk)

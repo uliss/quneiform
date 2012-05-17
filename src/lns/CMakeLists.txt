@@ -29,4 +29,4 @@ target_link_libraries(cuneiform-lns
     cuneiform-std 
     cuneiform-compat)
 
-library_hook(cuneiform-lns)
+cf_install_library(cuneiform-lns)

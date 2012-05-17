@@ -20,4 +20,4 @@ target_link_libraries(cuneiform-rpic
     cuneiform-ccom 
     cuneiform-rstr)
 
-library_hook(cuneiform-rpic)
+cf_install_library(cuneiform-rpic)

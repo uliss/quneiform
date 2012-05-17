@@ -34,10 +34,8 @@ add_library(cuneiform-alphabets ${LIBTYPE}
     uzbek.cpp
 )
 
-library_hook(cuneiform-alphabets)
-
-set(ALPHABET_HEADER_INSTALL "alphabets")
-install(FILES alphabetfactory.h alphabet.h DESTINATION include/${CF_HEADER_INSTALL}/${ALPHABET_HEADER_INSTALL})
+cf_install_library(cuneiform-alphabets)
+install_headers(alphabets alphabetfactory.h alphabet.h)
 
 target_link_libraries(cuneiform-alphabets 
     cuneiform-compat 

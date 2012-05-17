@@ -30,7 +30,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
      endif()
 endif()
 
-function(library_hook name)
+function(cf_install_library name)
     if(NOT WIN32)
         set_target_properties(${name} PROPERTIES VERSION ${CF_VERSION})
     endif()

@@ -17,4 +17,4 @@ target_link_libraries(cuneiform-rline
     cuneiform-rsl
 )
 
-library_hook(cuneiform-rline)
+cf_install_library(cuneiform-rline)

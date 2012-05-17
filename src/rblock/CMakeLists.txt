@@ -69,4 +69,4 @@ target_link_libraries(cuneiform-rblock
     cuneiform-evn
 )
 
-library_hook(cuneiform-rblock)
+cf_install_library(cuneiform-rblock)

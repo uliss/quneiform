@@ -22,4 +22,4 @@ target_link_libraries(cuneiform-rbal
     cuneiform-cstr 
     cuneiform-evn)
 
-library_hook(cuneiform-rbal)
+cf_install_library(cuneiform-rbal)

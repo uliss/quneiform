@@ -6,4 +6,4 @@ cpu.cpp
 
 set_property(TARGET cuneiform-cpu PROPERTY COMPILE_DEFINITIONS __CPU__)
 
-library_hook(cuneiform-cpu)
+cf_install_library(cuneiform-cpu)

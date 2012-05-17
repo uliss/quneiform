@@ -39,4 +39,4 @@ target_link_libraries(cuneiform-rlings
     cuneiform-cstr 
     cuneiform-compat)
 
-library_hook(cuneiform-rlings)
+cf_install_library(cuneiform-rlings)

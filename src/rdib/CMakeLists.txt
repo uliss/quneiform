@@ -46,7 +46,7 @@ target_link_libraries(cuneiform-rdib
     ${CF_IMAGE_LIBRARIES}
 )
 
-library_hook(cuneiform-rdib)
+cf_install_library(cuneiform-rdib)
 
 install_headers(rdib 
     imageloaderfactory.h

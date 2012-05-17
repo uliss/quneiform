@@ -11,7 +11,7 @@ set_property(TARGET cuneiform-ctb PROPERTY COMPILE_DEFINITIONS __CTB__)
 
 target_link_libraries(cuneiform-ctb cuneiform-compat)
 
-library_hook(cuneiform-ctb)
+cf_install_library(cuneiform-ctb)
 
 if(TESTS)
     include(CppcheckTargets)

@@ -29,4 +29,4 @@ target_link_libraries(cuneiform-rimage
     cuneiform-rdib
 )
 
-library_hook(cuneiform-rimage)
+cf_install_library(cuneiform-rimage)

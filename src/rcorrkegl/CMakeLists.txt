@@ -9,4 +9,4 @@ target_link_libraries(cuneiform-rcorrkegl
     cuneiform-cstr 
     cuneiform-cpage)
 
-library_hook(cuneiform-rcorrkegl)
+cf_install_library(cuneiform-rcorrkegl)

@@ -64,7 +64,7 @@ target_link_libraries(cuneiform-common
     ${ICONV_LIBRARIES}
 )
   
-library_hook(cuneiform-common)
+cf_install_library(cuneiform-common)
 install_headers(common ${COMMON_HEADERS}) 
 
 if(TESTS)

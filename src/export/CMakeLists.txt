@@ -78,7 +78,7 @@ target_link_libraries(cuneiform-export
     ${CF_IMAGE_LIBRARIES}
     ${exporters_libs})
 
-library_hook(cuneiform-export)
+cf_install_library(cuneiform-export)
 
 install_headers(export  
     exporter.h 

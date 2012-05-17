@@ -4,7 +4,7 @@ add_library(cuneiform-compat ${LIBTYPE}
 
 set_property(TARGET cuneiform-compat PROPERTY COMPILE_DEFINITIONS __CFCOMPAT__)
 
-library_hook(cuneiform-compat)
+cf_install_library(cuneiform-compat)
 
 if(TESTS)
     include(CppcheckTargets)

@@ -12,4 +12,4 @@ set_property(TARGET cuneiform-loc PROPERTY COMPILE_DEFINITIONS __LOC__)
 
 target_link_libraries(cuneiform-loc cuneiform-compat)
 
-library_hook(cuneiform-loc)
+cf_install_library(cuneiform-loc)

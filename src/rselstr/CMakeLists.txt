@@ -52,4 +52,4 @@ target_link_libraries(cuneiform-rselstr
     cuneiform-rcutp
 )
 
-library_hook(cuneiform-rselstr)
+cf_install_library(cuneiform-rselstr)

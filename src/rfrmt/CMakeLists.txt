@@ -48,7 +48,7 @@ target_link_libraries(cuneiform-rfrmt
     cuneiform-cstr
 )
 
-library_hook(cuneiform-rfrmt)
+cf_install_library(cuneiform-rfrmt)
 install_headers(rfrmt ${CF_RFRMT_HEADERS_INSTALL})
 
 if(TESTS)

@@ -28,4 +28,4 @@ target_link_libraries(cuneiform-usage
     cuneiform-cline
 )
 
-library_hook(cuneiform-usage)
+cf_install_library(cuneiform-usage)

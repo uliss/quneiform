@@ -13,7 +13,7 @@ target_link_libraries(cuneiform-rreccom
     cuneiform-alphabets
     cuneiform-compat)
 
-library_hook(cuneiform-rreccom)
+cf_install_library(cuneiform-rreccom)
 
 if(TESTS)
     include(CppcheckTargets)

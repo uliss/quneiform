@@ -12,4 +12,4 @@ target_link_libraries(cuneiform-pass2
     cuneiform-fon 
     cuneiform-std)
 
-library_hook(cuneiform-pass2)
+cf_install_library(cuneiform-pass2)

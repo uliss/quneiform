@@ -30,7 +30,7 @@ target_link_libraries(cuneiform-markup
     cuneiform-usage
 )
 
-library_hook(cuneiform-markup)
+cf_install_library(cuneiform-markup)
 
 if(TESTS)
     include(CppcheckTargets)

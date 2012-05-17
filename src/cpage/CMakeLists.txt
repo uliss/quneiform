@@ -21,7 +21,7 @@ target_link_libraries(cuneiform-cpage
     cuneiform-compat
 )
 
-library_hook(cuneiform-cpage)
+cf_install_library(cuneiform-cpage)
 
 if(TESTS)
     include(CppcheckTargets)

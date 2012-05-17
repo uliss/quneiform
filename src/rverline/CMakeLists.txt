@@ -22,4 +22,4 @@ target_link_libraries(cuneiform-rverline
     cuneiform-ccom
 )
 
-library_hook(cuneiform-rverline)
+cf_install_library(cuneiform-rverline)

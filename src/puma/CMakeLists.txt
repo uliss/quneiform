@@ -70,7 +70,7 @@ add_library(cuneiform ${CF_CUNEIFORM_LIBTYPE}
 )
 
 target_link_libraries(cuneiform ${CUNEIFORM_LIBS})
-library_hook(cuneiform)
+cf_install_library(cuneiform)
 
 if(BUILD_SHMEM_WORKER)
     add_executable(cuneiform-worker worker.cpp)

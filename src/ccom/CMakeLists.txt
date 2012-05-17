@@ -4,7 +4,7 @@ add_library(cuneiform-ccom ${LIBTYPE}
 ccom.cpp
 ccom_loc.cpp)
 
-library_hook(cuneiform-ccom)
+cf_install_library(cuneiform-ccom)
 
 if(TESTS)
     include(CppcheckTargets)

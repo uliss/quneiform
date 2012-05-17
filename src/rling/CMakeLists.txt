@@ -43,4 +43,4 @@ set_property(TARGET cuneiform-rling PROPERTY COMPILE_DEFINITIONS __RLING__)
 
 target_link_libraries(cuneiform-rling cuneiform-cstr cuneiform-rlings)
 
-library_hook(cuneiform-rling)
+cf_install_library(cuneiform-rling)

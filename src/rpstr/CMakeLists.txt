@@ -15,4 +15,4 @@ target_link_libraries(cuneiform-rpstr
     cuneiform-std
 )
 
-library_hook(cuneiform-rpstr)
+cf_install_library(cuneiform-rpstr)

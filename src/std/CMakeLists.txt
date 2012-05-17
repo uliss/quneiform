@@ -17,4 +17,4 @@ set_property(TARGET cuneiform-std PROPERTY COMPILE_DEFINITIONS __STD__)
 
 target_link_libraries(cuneiform-std cuneiform-compat)
 
-library_hook(cuneiform-std)
+cf_install_library(cuneiform-std)

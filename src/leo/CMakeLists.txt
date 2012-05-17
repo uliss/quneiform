@@ -23,4 +23,4 @@ target_link_libraries(cuneiform-leo
     cuneiform-std
 )
 
-library_hook(cuneiform-leo)
+cf_install_library(cuneiform-leo)

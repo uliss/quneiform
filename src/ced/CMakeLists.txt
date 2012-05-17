@@ -22,6 +22,12 @@ set(CED_HEADERS
     cedpageptr.h
 )
 
+set(CED_INSTALLED_HEADERS
+    cedexporter.h
+    cedfwd.h
+    cedpageptr.h
+)
+
 add_library(cuneiform-ced ${CF_CED_LIBTYPE}
     ${CED_SOURCES}
     ${CED_HEADERS}
@@ -38,11 +44,8 @@ endif()
 
 target_link_libraries(cuneiform-ced ${CED_LIBS})
 
-library_hook(cuneiform-ced)
-install_headers(ced 
-    cedexporter.h 
-    cedfwd.h 
-    cedpageptr.h)
+cf_install_library(cuneiform-ced)
+install_headers(ced ${CED_INSTALLED_HEADERS})
 
 if(TESTS)
     include(CppcheckTargets)

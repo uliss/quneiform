@@ -20,4 +20,4 @@ target_link_libraries(cuneiform-evn
     cuneiform-dif 
     cuneiform-compat) 
 
-library_hook(cuneiform-evn)
+cf_install_library(cuneiform-evn)

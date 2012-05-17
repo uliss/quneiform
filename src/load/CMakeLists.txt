@@ -20,6 +20,6 @@ if(CF_SERIALIZE)
     )
     
     target_link_libraries(cuneiform-load ${LOAD_LIBS})
-    library_hook(cuneiform-load)
+    cf_install_library(cuneiform-load)
 endif()
 

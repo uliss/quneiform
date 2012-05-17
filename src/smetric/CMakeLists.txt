@@ -14,4 +14,4 @@ target_link_libraries(cuneiform-smetric
     cuneiform-usage
 )
 
-library_hook(cuneiform-smetric)
+cf_install_library(cuneiform-smetric)

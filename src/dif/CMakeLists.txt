@@ -8,4 +8,4 @@ stictool.cpp
 )
 set_property(TARGET cuneiform-dif PROPERTY COMPILE_DEFINITIONS __DIF__)
 
-library_hook(cuneiform-dif)
+cf_install_library(cuneiform-dif)

@@ -8,4 +8,4 @@ mmxmain.cpp
 
 set_property(TARGET cuneiform-mmx PROPERTY COMPILE_DEFINITIONS __MMX__)
 
-library_hook(cuneiform-mmx)
+cf_install_library(cuneiform-mmx)

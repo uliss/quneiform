@@ -19,4 +19,4 @@ target_link_libraries(cuneiform-exc
     cuneiform-ccom 
     cuneiform-evn)
 
-library_hook(cuneiform-exc)
+cf_install_library(cuneiform-exc)

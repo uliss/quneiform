@@ -12,4 +12,4 @@ target_link_libraries(cuneiform-rcutp
     cuneiform-ccom 
     cuneiform-compat)
 
-library_hook(cuneiform-rcutp)
+cf_install_library(cuneiform-rcutp)

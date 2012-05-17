@@ -19,4 +19,4 @@ target_link_libraries(cuneiform-rneg
     cuneiform-rstr
 )
 
-library_hook(cuneiform-rneg)
+cf_install_library(cuneiform-rneg)

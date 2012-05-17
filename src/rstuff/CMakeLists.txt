@@ -47,4 +47,4 @@ if(TESTS)
     add_cppcheck(cuneiform-rstuff UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
 endif()
 
-library_hook(cuneiform-rstuff)
+cf_install_library(cuneiform-rstuff)

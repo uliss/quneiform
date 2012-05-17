@@ -8,4 +8,4 @@ target_link_libraries(cuneiform-r35
     cuneiform-std 
     cuneiform-compat)
 
-library_hook(cuneiform-r35)
+cf_install_library(cuneiform-r35)

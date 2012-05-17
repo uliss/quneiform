@@ -116,7 +116,7 @@ target_link_libraries(cuneiform-rstr
     cuneiform-leo
 )
 
-library_hook(cuneiform-rstr)
+cf_install_library(cuneiform-rstr)
 
 if(TESTS)
     add_library(cuneiform-rstr-static STATIC

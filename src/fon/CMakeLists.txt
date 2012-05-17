@@ -21,4 +21,4 @@ target_link_libraries(cuneiform-fon
     cuneiform-cstr 
     cuneiform-ctb)
 
-library_hook(cuneiform-fon)
+cf_install_library(cuneiform-fon)

@@ -28,7 +28,7 @@ target_link_libraries(cuneiform-cimage
     cuneiform-common 
 )
 
-library_hook(cuneiform-cimage)
+cf_install_library(cuneiform-cimage)
 install_headers(cimage imageinfo.h)
 
 if(TESTS)
