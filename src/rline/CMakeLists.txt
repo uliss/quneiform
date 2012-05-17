@@ -6,7 +6,7 @@ newline.cpp
 rline.cpp
 )
 
-cif_visibility_hidden(cuneiform-rline)
+cf_hide_visibility(cuneiform-rline)
 
 set_property(TARGET cuneiform-rline PROPERTY COMPILE_DEFINITIONS __RLINE__)
 

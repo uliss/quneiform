@@ -5,7 +5,7 @@ add_library(cuneiform-smetric ${LIBTYPE}
     ugol.cpp
 )
 
-cif_visibility_hidden(cuneiform-smetric)
+cf_hide_visibility(cuneiform-smetric)
 
 set_property(TARGET cuneiform-smetric PROPERTY COMPILE_DEFINITIONS __SMETRIC__)
 

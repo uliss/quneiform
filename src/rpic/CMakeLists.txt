@@ -11,7 +11,7 @@ rectpic.cpp
 rpic.cpp
 )
 
-cif_visibility_hidden(cuneiform-rpic)
+cf_hide_visibility(cuneiform-rpic)
 
 set_property(TARGET cuneiform-rpic PROPERTY COMPILE_DEFINITIONS __RPIC__)
 

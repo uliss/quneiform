@@ -37,7 +37,7 @@ sevbreak.cpp
 testforvertical.cpp
 )
 
-cif_visibility_hidden(cuneiform-rselstr)
+cf_hide_visibility(cuneiform-rselstr)
 
 set_property(TARGET cuneiform-rselstr PROPERTY COMPILE_DEFINITIONS __RSELSTR__)
 

@@ -15,7 +15,7 @@ add_library(cuneiform-markup ${LIBTYPE}
     ${MARKUP_HEADERS}
 )
 
-cif_visibility_hidden(cuneiform-markup)
+cf_hide_visibility(cuneiform-markup)
 
 set_property(TARGET cuneiform-markup PROPERTY COMPILE_DEFINITIONS __RMARKER__)
 

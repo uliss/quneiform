@@ -12,4 +12,4 @@ add_library(cuneiform-c STATIC
 
 target_link_libraries(cuneiform-c cuneiform)
 
-cif_visibility_hidden(cuneiform-c)
+cf_hide_visibility(cuneiform-c)

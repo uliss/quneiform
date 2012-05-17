@@ -12,7 +12,7 @@ v0compgl.cpp
 v0comprq.cpp
 )
 
-cif_visibility_hidden(cuneiform-evn)
+cf_hide_visibility(cuneiform-evn)
 
 set_property(TARGET cuneiform-evn PROPERTY COMPILE_DEFINITIONS __EVN__)
 

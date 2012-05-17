@@ -94,7 +94,7 @@ add_library(cuneiform-rstr ${LIBTYPE}
     ${RSTR_HEADERS}
 )
 
-cif_visibility_hidden(cuneiform-rstr)
+cf_hide_visibility(cuneiform-rstr)
 
 set_property(TARGET cuneiform-rstr PROPERTY COMPILE_DEFINITIONS __RSTR__)
 

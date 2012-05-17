@@ -28,7 +28,7 @@ add_library(cuneiform-rstuff ${LIBTYPE}
     ${RSTUFF_HEADERS}
 )
 
-cif_visibility_hidden(cuneiform-rstuff)
+cf_hide_visibility(cuneiform-rstuff)
 
 target_link_libraries(cuneiform-rstuff
     cuneiform-cimage

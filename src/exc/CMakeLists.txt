@@ -10,7 +10,7 @@ v0compgl.cpp
 v0compmn.cpp
 )
 
-cif_visibility_hidden(cuneiform-exc)
+cf_hide_visibility(cuneiform-exc)
 
 set_property(TARGET cuneiform-exc PROPERTY COMPILE_DEFINITIONS __EXC__)
 

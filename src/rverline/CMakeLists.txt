@@ -11,7 +11,7 @@ vl_rule.cpp
 vl_snap.cpp
 )
 
-cif_visibility_hidden(cuneiform-rverline)
+cf_hide_visibility(cuneiform-rverline)
 
 set_property(TARGET cuneiform-rverline PROPERTY COMPILE_DEFINITIONS __RVERLINE__)
 

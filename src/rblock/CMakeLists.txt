@@ -55,7 +55,7 @@ add_library(cuneiform-rblock ${LIBTYPE}
     ${RBLOCK_SOURCES}
 )
 
-cif_visibility_hidden(cuneiform-rblock)
+cf_hide_visibility(cuneiform-rblock)
 
 set_property(TARGET cuneiform-rblock PROPERTY COMPILE_DEFINITIONS __RBLOCK__)
 

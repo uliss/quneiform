@@ -6,7 +6,7 @@ locompmn.cpp
 v0compgl.cpp
 )        
 
-cif_visibility_hidden(cuneiform-loc)
+cf_hide_visibility(cuneiform-loc)
   
 set_property(TARGET cuneiform-loc PROPERTY COMPILE_DEFINITIONS __LOC__)
 

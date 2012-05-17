@@ -92,6 +92,6 @@ set(CF_GLOBAL_HEADERS
     ${CMAKE_BINARY_DIR}/src/include/config-serialize.h
 )
     
-install_headers("" ${CF_GLOBAL_HEADERS})
+cf_install_headers("" ${CF_GLOBAL_HEADERS})
 
 

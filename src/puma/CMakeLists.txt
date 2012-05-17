@@ -88,7 +88,7 @@ if(BUILD_SHMEM_WORKER)
     )
 endif()
 
-install_headers(puma 
+cf_install_headers(puma
     abstractrecognitionserver.h
     localrecognitionserver.h
 )

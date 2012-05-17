@@ -11,7 +11,7 @@ stdprt.cpp
 stdsort.cpp
 )
 
-cif_visibility_hidden(cuneiform-std)
+cf_hide_visibility(cuneiform-std)
 
 set_property(TARGET cuneiform-std PROPERTY COMPILE_DEFINITIONS __STD__)
 

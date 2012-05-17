@@ -45,7 +45,7 @@ endif()
 target_link_libraries(cuneiform-ced ${CED_LIBS})
 
 cf_install_library(cuneiform-ced)
-install_headers(ced ${CED_INSTALLED_HEADERS})
+cf_install_headers(ced ${CED_INSTALLED_HEADERS})
 
 if(TESTS)
     include(CppcheckTargets)

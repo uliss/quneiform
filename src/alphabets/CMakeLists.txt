@@ -35,7 +35,7 @@ add_library(cuneiform-alphabets ${LIBTYPE}
 )
 
 cf_install_library(cuneiform-alphabets)
-install_headers(alphabets alphabetfactory.h alphabet.h)
+cf_install_headers(alphabets alphabetfactory.h alphabet.h)
 
 target_link_libraries(cuneiform-alphabets 
     cuneiform-compat 

@@ -2,7 +2,7 @@ add_library(cuneiform-rreccom ${LIBTYPE}
 componentrecognizer.cpp
 )
 
-#cif_visibility_hidden(cuneiform-rreccom)
+#cf_hide_visibility(cuneiform-rreccom)
 
 set_property(TARGET cuneiform-rreccom PROPERTY COMPILE_DEFINITIONS __RRECCOM__)
 

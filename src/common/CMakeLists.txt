@@ -57,15 +57,14 @@ add_library(cuneiform-common ${LIBTYPE}
     ${COMMON_HEADERS}
 )
 
-cif_visibility_hidden(cuneiform-common)
-
 target_link_libraries(cuneiform-common
     cuneiform-compat
     ${ICONV_LIBRARIES}
 )
   
 cf_install_library(cuneiform-common)
-install_headers(common ${COMMON_HEADERS}) 
+cf_install_headers(common ${COMMON_HEADERS})
+cf_hide_visibility(cuneiform-common)
 
 if(TESTS)
     include(CppcheckTargets)

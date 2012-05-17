@@ -32,7 +32,7 @@ add_library(cuneiform-rfrmt ${LIBTYPE}
     util_spl.cpp
 )
 
-cif_visibility_hidden(cuneiform-rfrmt)
+cf_hide_visibility(cuneiform-rfrmt)
   
 set_property(TARGET cuneiform-rfrmt PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
@@ -49,7 +49,7 @@ target_link_libraries(cuneiform-rfrmt
 )
 
 cf_install_library(cuneiform-rfrmt)
-install_headers(rfrmt ${CF_RFRMT_HEADERS_INSTALL})
+cf_install_headers(rfrmt ${CF_RFRMT_HEADERS_INSTALL})
 
 if(TESTS)
     include(CppcheckTargets)

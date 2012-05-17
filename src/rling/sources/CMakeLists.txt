@@ -31,7 +31,7 @@ udictini.cpp
 udictuti.cpp
 )
 
-cif_visibility_hidden(cuneiform-rlings)
+cf_hide_visibility(cuneiform-rlings)
 
 set_property(TARGET cuneiform-rlings PROPERTY COMPILE_DEFINITIONS RLING_SECONDARY)
 
