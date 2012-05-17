@@ -44,8 +44,4 @@ target_link_libraries(${CF_ALPHABETS} ${CF_ALPHABETS_LINK})
 
 cf_install_library(${CF_ALPHABETS})
 cf_install_headers(alphabets alphabetfactory.h alphabet.h)
-
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-alphabets UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
-endif()
+cf_cppcheck(${CF_ALPHABETS})

@@ -12,6 +12,7 @@ include(uninstall)
 include(update_samples)
 include(options)
 include(find_shared_memory)
+include(code_check)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 if(WIN32)
