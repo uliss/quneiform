@@ -1,4 +1,8 @@
 set(CF_ALPHABETS cuneiform-alphabets)
+set(CF_ALPHABETS_LINK
+    cuneiform-compat
+    cuneiform-common
+)
 set(CF_ALPHABETS_SOURCE
     alphabetfactory.cpp
     alphabet.cpp
@@ -35,15 +39,11 @@ set(CF_ALPHABETS_SOURCE
     uzbek.cpp
 )
 
-add_library(cuneiform-alphabets ${LIBTYPE} ${CF_ALPHABETS_SOURCE})
+add_library(${CF_ALPHABETS} ${LIBTYPE} ${CF_ALPHABETS_SOURCE})
+target_link_libraries(${CF_ALPHABETS} ${CF_ALPHABETS_LINK})
 
-cf_install_library(cuneiform-alphabets)
+cf_install_library(${CF_ALPHABETS})
 cf_install_headers(alphabets alphabetfactory.h alphabet.h)
-
-target_link_libraries(cuneiform-alphabets 
-    cuneiform-compat 
-    cuneiform-common
-)
 
 if(TESTS)
     include(CppcheckTargets)
