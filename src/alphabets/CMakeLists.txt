@@ -1,4 +1,5 @@
-add_library(cuneiform-alphabets ${LIBTYPE}
+set(CF_ALPHABETS cuneiform-alphabets)
+set(CF_ALPHABETS_SOURCE
     alphabetfactory.cpp
     alphabet.cpp
     baltic.cpp
@@ -33,6 +34,8 @@ add_library(cuneiform-alphabets ${LIBTYPE}
     ukrainian.cpp
     uzbek.cpp
 )
+
+add_library(cuneiform-alphabets ${LIBTYPE} ${CF_ALPHABETS_SOURCE})
 
 cf_install_library(cuneiform-alphabets)
 cf_install_headers(alphabets alphabetfactory.h alphabet.h)
