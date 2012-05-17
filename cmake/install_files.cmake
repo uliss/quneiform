@@ -44,7 +44,7 @@ function(cf_install_library name)
     )
 endfunction()
 
-function(install_exe name)
+function(cf_install_exe name)
     install(
         TARGETS "${name}"
         RUNTIME DESTINATION bin

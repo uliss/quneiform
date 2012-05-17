@@ -28,7 +28,7 @@ if(NOT MSVC)
 endif()
 
 target_link_libraries(cuneiform-cli ${CLI_LIBS})
-install_exe(cuneiform-cli)
+cf_install_exe(cuneiform-cli)
 
 add_executable(cf-binarize cf-binarize.cpp)
 target_link_libraries(cf-binarize cuneiform-rimage cuneiform-cimage cuneiform-rdib)
