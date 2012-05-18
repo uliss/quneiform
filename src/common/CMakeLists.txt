@@ -4,7 +4,7 @@ if(ICONV_SECOND_ARGUMENT_IS_CONST)
     add_definitions(-DICONV_SECOND_ARGUMENT_IS_CONST)
 endif()
 
-set(COMMON_SOURCES
+set(CF_COMMON_SOURCES
     cifconfig.cpp
     console_messages.cpp
     consoleprogresscounter.cpp
@@ -24,7 +24,7 @@ set(COMMON_SOURCES
     recognitionstate.cpp
 )
 
-set(COMMON_HEADERS
+set(CF_COMMON_HEADERS
     align.h
     consoleprogresscounter.h
     endianess.h
@@ -50,23 +50,19 @@ set(COMMON_HEADERS
     memorybuffer.h
 )
 
-source_group("Header Files" FILES ${COMMON_HEADERS})
+source_group("Header Files" FILES ${CF_COMMON_HEADERS})
 
-add_library(cuneiform-common ${LIBTYPE}
-    ${COMMON_SOURCES}
-    ${COMMON_HEADERS}
+add_library(${CF_COMMON} ${LIBTYPE}
+    ${CF_COMMON_SOURCES}
+    ${CF_COMMON_HEADERS}
 )
 
-target_link_libraries(cuneiform-common
+target_link_libraries(${CF_COMMON}
     cuneiform-compat
     ${ICONV_LIBRARIES}
 )
   
-cf_install_library(cuneiform-common)
-cf_install_headers(common ${COMMON_HEADERS})
-cf_hide_visibility(cuneiform-common)
-
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-common UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
-endif()
+cf_install_library(${CF_COMMON})
+cf_install_headers(common ${CF_COMMON_HEADERS})
+cf_hide_visibility(${CF_COMMON})
+cf_cppcheck(${CF_COMMON})
