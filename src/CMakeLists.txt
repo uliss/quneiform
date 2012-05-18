@@ -33,6 +33,8 @@ set(CF_CPAGE cuneiform-cpage)
 set(CF_CSTR cuneiform-cstr)
 set(CF_CTB cuneiform-ctb)
 set(CF_DIF cuneiform-dif)
+set(CF_EVN cuneiform-evn)
+set(CF_EXC cuneiform-exc)
 
 add_subdirectory(common)
 add_subdirectory(alphabets)
