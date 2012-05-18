@@ -22,8 +22,10 @@ else()
     add_subdirectory(hdebug)
 endif()
 
+set(CF_ALPHABETS cuneiform-alphabets)
 set(CF_CIMAGE cuneiform-cimage)
 set(CF_COMMON cuneiform-common)
+set(CF_COMPAT cuneiform-compat)
 
 add_subdirectory(common)
 add_subdirectory(alphabets)

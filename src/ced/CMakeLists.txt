@@ -24,7 +24,7 @@ set(CF_CED_HEADERS
     cedpageptr.h
 )
 
-set(CF_CED_INSTALLED_HEADERS
+set(CF_CED_API
     cedexporter.h
     cedfwd.h
     cedpageptr.h
@@ -35,17 +35,17 @@ add_library(cuneiform-ced ${CF_CED_LIBTYPE}
     ${CF_CED_HEADERS}
 )
 
-set(CF_CED_LIBS
-    cuneiform-common
-    cuneiform-compat
+set(CF_CED_LINK
+    ${CF_COMMON}
+    ${CF_COMPAT}
 )
 
 if(CF_SERIALIZE)
-    list(APPEND CF_CED_LIBS ${Boost_SERIALIZATION_LIBRARY})
+    list(APPEND CF_CED_LINK ${Boost_SERIALIZATION_LIBRARY})
 endif()
 
-target_link_libraries(${CF_CED} ${CF_CED_LIBS})
+target_link_libraries(${CF_CED} ${CF_CED_LINK})
 
 cf_install_library(${CF_CED})
-cf_install_headers(ced ${CF_CED_INSTALLED_HEADERS})
+cf_install_headers(ced ${CF_CED_API})
 cf_cppcheck(${CF_CED})

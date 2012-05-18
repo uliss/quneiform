@@ -58,7 +58,7 @@ add_library(${CF_COMMON} ${LIBTYPE}
 )
 
 target_link_libraries(${CF_COMMON}
-    cuneiform-compat
+    ${CF_COMPAT}
     ${ICONV_LIBRARIES}
 )
   
