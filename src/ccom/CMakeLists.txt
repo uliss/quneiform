@@ -1,4 +1,3 @@
-set(CF_CCOM cuneiform-ccom)
 set(CF_CCOM_SOURCE ccom.cpp ccom_loc.cpp)
 
 add_definitions(-D__CCOM__) # Sets FUN_IMPO and FUN_EXPO properly.

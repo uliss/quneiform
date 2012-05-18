@@ -1,13 +1,10 @@
-add_library(cuneiform-cstr ${LIBTYPE}
-cgraph.cpp
-cstr.cpp)
-set_property(TARGET cuneiform-cstr PROPERTY COMPILE_DEFINITIONS __CSTR__)
+add_library(${CF_CSTR} ${LIBTYPE}
+    cgraph.cpp
+    cstr.cpp
+)
 
-target_link_libraries(cuneiform-cstr cuneiform-ccom)
+set_property(TARGET ${CF_CSTR} PROPERTY COMPILE_DEFINITIONS __CSTR__)
 
-cf_install_library(cuneiform-cstr)
-
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-cstr UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
-endif()
+target_link_libraries(${CF_CSTR} ${CF_CCOM})
+cf_install_library(${CF_CSTR})
+cf_cppcheck(${CF_CSTR})

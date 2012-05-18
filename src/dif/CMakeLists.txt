@@ -1,11 +1,14 @@
-add_library(cuneiform-dif ${LIBTYPE}
-dif.cpp
-diffr.cpp
-diffrb.cpp
-sticchar.cpp
-sticdif.cpp
-stictool.cpp
+set(CF_DIF_SOURCE
+    dif.cpp
+    diffr.cpp
+    diffrb.cpp
+    sticchar.cpp
+    sticdif.cpp
+    stictool.cpp
 )
-set_property(TARGET cuneiform-dif PROPERTY COMPILE_DEFINITIONS __DIF__)
 
-cf_install_library(cuneiform-dif)
+add_library(${CF_DIF} ${LIBTYPE} ${CF_DIF_SOURCE})
+set_property(TARGET ${CF_DIF} PROPERTY COMPILE_DEFINITIONS __DIF__)
+
+cf_install_library(${CF_DIF})
+cf_cppcheck(${CF_DIF})

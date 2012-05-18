@@ -1,7 +1,5 @@
 add_definitions(-D__CED__)
 
-set(CF_CED cuneiform-ced)
-
 set(CF_CED_SOURCES
     blockelement.cpp
     cedchar.cpp
