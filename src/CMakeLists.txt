@@ -39,6 +39,8 @@ set(CF_FON cuneiform-fon)
 set(CF_LEO cuneiform-leo)
 set(CF_LNS cuneiform-lns)
 set(CF_LOAD cuneiform-load)
+set(CF_LOC cuneiform-loc)
+set(CF_MARKUP cuneiform-markup)
 
 add_subdirectory(common)
 add_subdirectory(alphabets)
