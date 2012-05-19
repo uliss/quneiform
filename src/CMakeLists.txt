@@ -36,6 +36,8 @@ set(CF_DIF cuneiform-dif)
 set(CF_EVN cuneiform-evn)
 set(CF_EXC cuneiform-exc)
 set(CF_FON cuneiform-fon)
+set(CF_LEO cuneiform-leo)
+set(CF_LNS cuneiform-lns)
 
 add_subdirectory(common)
 add_subdirectory(alphabets)
