@@ -1,25 +1,26 @@
-set(LOAD_SOURCES)
-set(LOAD_HEADERS)
-set(LOAD_LIBS
-    cuneiform-common
-    cuneiform-compat
-    cuneiform-ced
+set(CF_LOAD_SOURCES)
+set(CF_LOAD_HEADERS)
+set(CF_LOAD_LIBS
+    ${CF_COMON}
+    ${CF_COMPAT}
+    ${CF_CED}
 )
 
 if(CF_SERIALIZE)
-    list(APPEND LOAD_SOURCES
+    list(APPEND CF_LOAD_SOURCES
         cuneiformbinloader.cpp
         cuneiformtextloader.cpp
     )
-    list(APPEND LOAD_LIBS ${Boost_SERIALIZATION_LIBRARY})
+    list(APPEND CF_LOAD_LIBS ${Boost_SERIALIZATION_LIBRARY})
     message(STATUS "Loaders: Cuneiform Format loaders will be build")
 
-    add_library(cuneiform-load ${CF_LOAD_LIBTYPE}
-        ${LOAD_SOURCES}
-        ${LOAD_HEADERS}
+    add_library(${CF_LOAD} ${CF_LOAD_LIBTYPE}
+        ${CF_LOAD_SOURCES}
+        ${CF_LOAD_HEADERS}
     )
     
-    target_link_libraries(cuneiform-load ${LOAD_LIBS})
-    cf_install_library(cuneiform-load)
+    target_link_libraries(${CF_LOAD} ${CF_LOAD_LIBS})
+    cf_install_library(${CF_LOAD})
+    cf_cppcheck(${CF_LOAD})
 endif()
 
