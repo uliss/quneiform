@@ -48,6 +48,8 @@ set(CF_PUMA cuneiform)
 set(CF_R35 cuneiform-r35)
 set(CF_RBAL cuneiform-rbal)
 set(CF_RBLOCK cuneiform-rblock)
+set(CF_RCORRKEGL cuneiform-rcorrkegl)
+set(CF_RCUTP cuneiform-rcutp)
 
 add_subdirectory(common)
 add_subdirectory(alphabets)
