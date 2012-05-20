@@ -445,7 +445,7 @@ Handle CTDIB::CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount, u
         pV5Header->bV5YPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
         pV5Header->bV5ClrUsed = (uint16_t) UseColors;
         pV5Header->bV5ClrImportant = CTDIB_DEFAULT_COLORSIMPORTANT;
-        pHeader = (pvoid) pV4Header;
+        pHeader = (pvoid) pV5Header;
         break;
     default:
         return NULL;
