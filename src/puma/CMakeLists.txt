@@ -1,6 +1,8 @@
 add_definitions(-DBOOST_DATE_TIME_NO_LIB)
 
-set(CUNEIFORM_SOURCES
+set(CF_WORKER cuneiform-worker)
+
+set(CF_PUMA_SOURCE
     localrecognitionserver.cpp
     pumaimpl.cpp
     recognitionfactory.cpp
@@ -8,7 +10,7 @@ set(CUNEIFORM_SOURCES
 )
 
 if(CF_USE_SHMEM)
-    list(APPEND CUNEIFORM_SOURCES processrecognitionserver.cpp)
+    list(APPEND CF_PUMA_SOURCE processrecognitionserver.cpp)
     set(BUILD_SHMEM_WORKER True)
     add_definitions(-DBUILD_PROCESS_RECOGNITION_SERVER)
 else()
@@ -16,23 +18,23 @@ else()
 endif()
 
 if(UNIX)
-    list(APPEND CUNEIFORM_SOURCES processtimeoutkiller.cpp)
+    list(APPEND CF_PUMA_SOURCE processtimeoutkiller.cpp)
 endif()
 
-set(CUNEIFORM_HEADERS
+set(CF_PUMA_HEADERS
     abstractrecognitionserver.h
     puma.h
     process_exit_codes.h
 )
 
-set(CUNEIFORM_LIBS
-    cuneiform-common
-    cuneiform-ced
-    cuneiform-cimage
-    cuneiform-cline
-    cuneiform-cpage
-    cuneiform-export
-    cuneiform-markup
+set(CF_PUMA_LINK
+    ${CF_COMMON}
+    ${CF_CED}
+    ${CF_CIMAGE}
+    ${CF_CLINE}
+    ${CF_CPAGE}
+    ${CF_EXPORT}
+    ${CF_MARKUP}
     cuneiform-rblock
     cuneiform-rcorrkegl
     cuneiform-rfrmt
@@ -42,39 +44,39 @@ set(CUNEIFORM_LIBS
     cuneiform-rselstr
     cuneiform-rsl
     cuneiform-rstuff
-    cuneiform-exc
+    ${CF_EXC}
     cuneiform-rreccom
     cuneiform-rpstr
 )
 
 if(CF_USE_SHMEM)
-    list(APPEND CUNEIFORM_LIBS cuneiform-shmem cuneiform-load)
+    list(APPEND CF_PUMA_LINK cuneiform-shmem ${CF_LOAD})
 endif()
 
 if(CF_LIB_RT_HAS_SHMOPEN)
-    list(APPEND CUNEIFORM_LIBS rt)
+    list(APPEND CF_PUMA_LINK rt)
 endif()
 
 find_package(Threads)
 
 if(CMAKE_USE_PTHREADS_INIT)
     if(NOT WIN32)
-        list(APPEND CUNEIFORM_LIBS pthread)
+        list(APPEND CF_PUMA_LINK pthread)
     endif()
 endif()
 
-add_library(cuneiform ${CF_CUNEIFORM_LIBTYPE}
-    ${CUNEIFORM_SOURCES}
-    ${CUNEIFORM_HEADERS}
+add_library(${CF_PUMA} ${CF_CUNEIFORM_LIBTYPE}
+    ${CF_PUMA_SOURCE}
+    ${CF_PUMA_HEADERS}
     ${SNP_SRC}
 )
 
-target_link_libraries(cuneiform ${CUNEIFORM_LIBS})
-cf_install_library(cuneiform)
+target_link_libraries(${CF_PUMA} ${CF_PUMA_LINK})
+cf_install_library(${CF_PUMA})
 
 if(BUILD_SHMEM_WORKER)
-    add_executable(cuneiform-worker worker.cpp)
-    target_link_libraries(cuneiform-worker cuneiform)
+    add_executable(${CF_WORKER} worker.cpp)
+    target_link_libraries(${CF_WORKER} ${CF_PUMA})
 
     if(WIN32)
         set(WORKER_INSTALL_DIR bin)
@@ -82,7 +84,7 @@ if(BUILD_SHMEM_WORKER)
         set(WORKER_INSTALL_DIR lib/cuneiform)
     endif()
 
-    install(TARGETS cuneiform-worker
+    install(TARGETS ${CF_WORKER}
         RUNTIME DESTINATION ${WORKER_INSTALL_DIR}
         COMPONENT Applications
     )
@@ -93,7 +95,4 @@ cf_install_headers(puma
     localrecognitionserver.h
 )
 
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
-endif()
+cf_cppcheck(${CF_PUMA})

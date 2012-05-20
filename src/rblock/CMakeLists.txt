@@ -49,24 +49,25 @@ set(RBLOCK_SOURCES
     sevbreak.cpp
 )
 
-add_library(cuneiform-rblock ${LIBTYPE}
+add_library(${CF_RBLOCK} ${LIBTYPE}
     ${SNP_SRC}
     ${RBLOCK_HEADERS}
     ${RBLOCK_SOURCES}
 )
 
-cf_hide_visibility(cuneiform-rblock)
+cf_hide_visibility(${CF_RBLOCK})
 
-set_property(TARGET cuneiform-rblock PROPERTY COMPILE_DEFINITIONS __RBLOCK__)
+set_property(TARGET ${CF_RBLOCK} PROPERTY COMPILE_DEFINITIONS __RBLOCK__)
 
-target_link_libraries(cuneiform-rblock 
-    cuneiform-cpage 
-    cuneiform-loc 
-    cuneiform-exc 
-    cuneiform-cstr 
-    cuneiform-cline 
-    cuneiform-rstr 
-    cuneiform-evn
+target_link_libraries(${CF_RBLOCK}
+    ${CF_CPAGE}
+    ${CF_LOC}
+    ${CF_EXC}
+    ${CF_CSTR}
+    ${CF_CLINE}
+    cuneiform-rstr
+    ${CF_EVN}
 )
 
-cf_install_library(cuneiform-rblock)
+cf_install_library(${CF_RBLOCK})
+cf_cppcheck(${CF_RBLOCK})
