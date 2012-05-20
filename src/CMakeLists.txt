@@ -50,6 +50,8 @@ set(CF_RBAL cuneiform-rbal)
 set(CF_RBLOCK cuneiform-rblock)
 set(CF_RCORRKEGL cuneiform-rcorrkegl)
 set(CF_RCUTP cuneiform-rcutp)
+set(CF_RDIB cuneiform-rdib)
+set(CF_RFRMT cuneiform-rfrmt)
 
 add_subdirectory(common)
 add_subdirectory(alphabets)

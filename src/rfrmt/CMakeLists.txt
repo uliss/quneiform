@@ -11,7 +11,7 @@ set(CF_RFRMT_HEADERS_INSTALL
     rfrmtoptions.h
 )
 
-add_library(cuneiform-rfrmt ${LIBTYPE}
+add_library(${CF_RFRMT} ${LIBTYPE}
     crtfchar.cpp
     crtffragment.cpp
     crtffunc.cpp
@@ -32,26 +32,22 @@ add_library(cuneiform-rfrmt ${LIBTYPE}
     util_spl.cpp
 )
 
-cf_hide_visibility(cuneiform-rfrmt)
+cf_hide_visibility(${CF_RFRMT})
   
-set_property(TARGET cuneiform-rfrmt PROPERTY COMPILE_DEFINITIONS __RFRMT__)
+set_property(TARGET ${CF_RFRMT} PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
-target_link_libraries(cuneiform-rfrmt
-    cuneiform-compat
-    cuneiform-common
-    cuneiform-ced
-    cuneiform-cimage
-    cuneiform-cpage
-    cuneiform-rdib
+target_link_libraries(${CF_RFRMT}
+    ${CF_COMPAT}
+    ${CF_COMMON}
+    ${CF_CED}
+    ${CF_CIMAGE}
+    ${CF_CPAGE}
+    ${CF_RDIB}
     cuneiform-rimage
-    cuneiform-cline
-    cuneiform-cstr
+    ${CF_CLINE}
+    ${CF_CSTR}
 )
 
-cf_install_library(cuneiform-rfrmt)
+cf_install_library(${CF_RFRMT})
 cf_install_headers(rfrmt ${CF_RFRMT_HEADERS_INSTALL})
-
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-rfrmt UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
-endif()
+cf_cppcheck(${CF_RFRMT})
