@@ -1,21 +1,17 @@
-add_library(cuneiform-rreccom ${LIBTYPE}
-componentrecognizer.cpp
+add_library(${CF_RRECCOM} ${LIBTYPE}
+    componentrecognizer.cpp
 )
 
 #cf_hide_visibility(cuneiform-rreccom)
 
-set_property(TARGET cuneiform-rreccom PROPERTY COMPILE_DEFINITIONS __RRECCOM__)
+set_property(TARGET ${CF_RRECCOM} PROPERTY COMPILE_DEFINITIONS __RRECCOM__)
 
-target_link_libraries(cuneiform-rreccom 
-    cuneiform-common
-    cuneiform-ccom 
-    cuneiform-evn
-    cuneiform-alphabets
-    cuneiform-compat)
+target_link_libraries(${CF_RRECCOM}
+    ${CF_COMMON}
+    ${CF_CCOM}
+    ${CF_EVN}
+    ${CF_ALPHABETS}
+    ${CF_COMPAT})
 
-cf_install_library(cuneiform-rreccom)
-
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-rreccom UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
-endif()
+cf_install_library(${CF_RRECCOM})
+cf_cppcheck(${CF_RRECCOM})
