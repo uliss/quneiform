@@ -200,8 +200,8 @@ target_link_libraries (${PROJECT_NAME}
     quneiform_spell
     ${LIBRARIES}
     ${QT_LIBRARIES}
-    ${CF_PUMA}
-    ${CF_RSTUFF}
+    cuneiform
+    cuneiform-rstuff
     ${EXTRA_LIBS})
 
 install(

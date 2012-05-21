@@ -5,7 +5,7 @@ include_directories(
     ../src/hhh
 )
 
-set(CLI_LIBS ${CF_PUMA} cuneiform-options)
+set(CLI_LIBS cuneiform cuneiform-options)
 
 set(CLI_SOURCES
     clioptions.cpp
@@ -31,7 +31,7 @@ target_link_libraries(cuneiform-cli ${CLI_LIBS})
 cf_install_exe(cuneiform-cli)
 
 add_executable(cf-binarize cf-binarize.cpp)
-target_link_libraries(cf-binarize ${CF_RIMAGE} ${CF_CIMAGE} ${CF_RDIB})
+target_link_libraries(cf-binarize cuneiform-rimage cuneiform-cimage cuneiform-rdib)
 
 if(CF_USE_SHMEM)
     add_executable(cuneiform-process cuneiform_process_cli.cpp)
