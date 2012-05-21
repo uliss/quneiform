@@ -1,4 +1,4 @@
-set(RIMAGE_SOURCES
+set(CF_RIMAGE_SOURCE
     binarizatorfactory.cpp
     cdezabinarizator.cpp
     ckronrodbinarizator.cpp
@@ -18,15 +18,14 @@ set(RIMAGE_SOURCES
     thresholdbinarizator.cpp
 )
 
-add_library(cuneiform-rimage ${LIBTYPE}
-    ${RIMAGE_SOURCES}
+add_library(${CF_RIMAGE} ${LIBTYPE} ${CF_RIMAGE_SOURCE})
+
+set_property(TARGET ${CF_RIMAGE} PROPERTY COMPILE_DEFINITIONS __RIMAGE__)
+
+target_link_libraries(${CF_RIMAGE}
+    ${CF_CIMAGE}
+    ${CF_RDIB}
 )
 
-set_property(TARGET cuneiform-rimage PROPERTY COMPILE_DEFINITIONS __RIMAGE__)
-
-target_link_libraries(cuneiform-rimage
-    cuneiform-cimage
-    cuneiform-rdib
-)
-
-cf_install_library(cuneiform-rimage)
+cf_install_library(${CF_RIMAGE})
+cf_cppcheck(${CF_RIMAGE})
