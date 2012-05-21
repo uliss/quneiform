@@ -22,29 +22,25 @@ set(RSTUFF_SOURCES
     rstuff.cpp
 )
 
-add_library(cuneiform-rstuff ${LIBTYPE}
+add_library(${CF_RSTUFF} ${LIBTYPE}
     ${SNP_SRC}
     ${RSTUFF_SOURCES}
     ${RSTUFF_HEADERS}
 )
 
-cf_hide_visibility(cuneiform-rstuff)
+cf_hide_visibility(${CF_RSTUFF})
 
-target_link_libraries(cuneiform-rstuff
-    cuneiform-cimage
-    cuneiform-cpage
-    cuneiform-rdib
-    cuneiform-rimage
-    cuneiform-rline
+target_link_libraries(${CF_RSTUFF}
+    ${CF_CIMAGE}
+    ${CF_CPAGE}
+    ${CF_RDIB}
+    ${CF_RIMAGE}
+    ${CF_RLINE}
     cuneiform-smetric
-    cuneiform-rreccom
-    cuneiform-exc
+    ${CF_RRECCOM}
+    ${CF_EXC}
     cuneiform-usage
 )
 
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-rstuff UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
-endif()
-
-cf_install_library(cuneiform-rstuff)
+cf_install_library(${CF_RSTUFF})
+cf_cppcheck(${CF_RSTUFF})
