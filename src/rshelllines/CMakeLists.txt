@@ -7,7 +7,7 @@ set_property(TARGET ${CF_RSL} PROPERTY COMPILE_DEFINITIONS __RSHELLLINES_EXPORTS
 target_link_libraries(${CF_RSL}
     ${CF_CIMAGE}
     ${CF_CPAGE}
-    cuneiform-rverline
+    ${CF_RVERLINE}
 )
 
 cf_install_library(${CF_RSL})

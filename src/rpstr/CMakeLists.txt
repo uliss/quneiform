@@ -15,9 +15,9 @@ set_property(TARGET ${CF_RPSTR} PROPERTY COMPILE_DEFINITIONS __RPSTR__)
 target_link_libraries(${CF_RPSTR}
     ${CF_CCOM}
     ${CF_CSTR}
-    cuneiform-rling
-    cuneiform-rstr
-    cuneiform-std
+    ${CF_RLING}
+    ${CF_RSTR}
+    ${CF_STD}
 )
 
 cf_install_library(${CF_RPSTR})

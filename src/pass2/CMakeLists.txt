@@ -12,7 +12,7 @@ set_property(TARGET ${CF_PASS2} PROPERTY COMPILE_DEFINITIONS __P2__)
 target_link_libraries(${CF_PASS2}
     ${CF_CSTR}
     ${CF_FON}
-    cuneiform-std)
+    ${CF_STD})
 
 cf_install_library(${CF_PASS2})
 cf_cppcheck(${CF_PASS2})

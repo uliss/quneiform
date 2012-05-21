@@ -65,7 +65,7 @@ target_link_libraries(${CF_RBLOCK}
     ${CF_EXC}
     ${CF_CSTR}
     ${CF_CLINE}
-    cuneiform-rstr
+    ${CF_RSTR}
     ${CF_EVN}
 )
 

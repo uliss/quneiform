@@ -7,7 +7,7 @@ set(CF_RNEG_SOURCE
     searchneg.cpp
 )
 
-add_library(cuneiform-rneg ${LIBTYPE}
+add_library(${CF_RNEG} ${LIBTYPE}
     ${SNP_SRC}
     ${CF_RNEG_SOURCE}
 )
@@ -18,9 +18,9 @@ target_link_libraries(${CF_RNEG}
     ${CF_CPAGE}
     ${CF_RDIB}
     ${CF_RIMAGE}
-    cuneiform-rselstr
+    ${CF_RSELSTR}
     ${CF_EXC}
-    cuneiform-rstr
+    ${CF_RSTR}
 )
 
 cf_install_library(${CF_RNEG})

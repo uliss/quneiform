@@ -111,7 +111,7 @@ target_link_libraries(${CF_RSTR}
     ${CF_RCUTP}
     ${CF_RLING}
     ${CF_RSADD}
-    cuneiform-std
+    ${CF_STD}
     ${CF_LEO}
 )
 

@@ -200,8 +200,8 @@ target_link_libraries (${PROJECT_NAME}
     quneiform_spell
     ${LIBRARIES}
     ${QT_LIBRARIES}
-    cuneiform
-    cuneiform-rstuff
+    ${CF_PUMA}
+    ${CF_RSTUFF}
     ${EXTRA_LIBS})
 
 install(
@@ -211,10 +211,7 @@ install(
     COMPONENT Applications
 )
 
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(quneiform_lib UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
-endif()
+cf_cppcheck(quneiform_lib)
 
 install(FILES ${TRANSLATIONS_QM} 
     DESTINATION ${RELATIVE_DATADIR}/locale

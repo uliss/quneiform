@@ -31,7 +31,7 @@ set_property(TARGET ${CF_LNS} PROPERTY COMPILE_DEFINITIONS __LNS__)
 
 target_link_libraries(${CF_LNS}
     ${CF_CLINE}
-    cuneiform-std 
+    ${CF_STD}
     ${CF_COMPAT})
 
 cf_install_library(${CF_LNS})

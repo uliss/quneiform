@@ -36,10 +36,10 @@ target_link_libraries(${CF_RSTUFF}
     ${CF_RDIB}
     ${CF_RIMAGE}
     ${CF_RLINE}
-    cuneiform-smetric
+    ${CF_SMETRIC}
     ${CF_RRECCOM}
     ${CF_EXC}
-    cuneiform-usage
+    ${CF_USAGE}
 )
 
 cf_install_library(${CF_RSTUFF})

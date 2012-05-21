@@ -43,7 +43,7 @@ target_link_libraries(${CF_RFRMT}
     ${CF_CIMAGE}
     ${CF_CPAGE}
     ${CF_RDIB}
-    cuneiform-rimage
+    ${CF_RIMAGE}
     ${CF_CLINE}
     ${CF_CSTR}
 )

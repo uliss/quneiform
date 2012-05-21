@@ -18,7 +18,7 @@ target_link_libraries(${CF_RLINE}
     ${CF_CIMAGE}
     ${CF_CPAGE}
     ${CF_LNS}
-    cuneiform-rsl
+    ${CF_RSL}
 )
 
 cf_install_library(${CF_RLINE})

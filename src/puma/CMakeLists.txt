@@ -35,22 +35,22 @@ set(CF_PUMA_LINK
     ${CF_CPAGE}
     ${CF_EXPORT}
     ${CF_MARKUP}
-    cuneiform-rblock
-    cuneiform-rcorrkegl
-    cuneiform-rfrmt
-    cuneiform-rimage
-    cuneiform-rline
-    cuneiform-rpic
-    cuneiform-rselstr
-    cuneiform-rsl
-    cuneiform-rstuff
+    ${CF_RBLOCK}
+    ${CF_RCORRKEGL}
+    ${CF_RFRMT}
+    ${CF_RIMAGE}
+    ${CF_RLINE}
+    ${CF_RPIC}
+    ${CF_RSELSTR}
+    ${CF_RSL}
+    ${CF_RSTUFF}
     ${CF_EXC}
-    cuneiform-rreccom
-    cuneiform-rpstr
+    ${CF_RRECCOM}
+    ${CF_RPSTR}
 )
 
 if(CF_USE_SHMEM)
-    list(APPEND CF_PUMA_LINK cuneiform-shmem ${CF_LOAD})
+    list(APPEND CF_PUMA_LINK ${CF_SHMEM} ${CF_LOAD})
 endif()
 
 if(CF_LIB_RT_HAS_SHMOPEN)

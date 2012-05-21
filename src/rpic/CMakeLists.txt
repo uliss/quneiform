@@ -22,7 +22,7 @@ set_property(TARGET ${CF_RPIC} PROPERTY COMPILE_DEFINITIONS __RPIC__)
 target_link_libraries(${CF_RPIC}
     ${CF_CPAGE}
     ${CF_CCOM}
-    cuneiform-rstr)
+    ${CF_RSTR})
 
 cf_install_library(${CF_RPIC})
 cf_cppcheck(${CF_RPIC})

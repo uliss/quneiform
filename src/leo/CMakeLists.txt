@@ -11,14 +11,14 @@ set(CF_LEO_SOURCE
 )
 
 set(CF_LEO_LINK
-    cuneiform-cpu
+    ${CF_CPU}
     ${CF_CTB}
     ${CF_DIF}
     ${CF_EVN}
     ${CF_FON}
-    cuneiform-msk
-    cuneiform-r35
-    cuneiform-std
+    ${CF_MSK}
+    ${CF_R35}
+    ${CF_STD}
 )
 
 add_library(${CF_LEO} ${LIBTYPE}

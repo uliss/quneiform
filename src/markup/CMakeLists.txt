@@ -13,12 +13,12 @@ set(CF_MARKUP_HEADER
 set(CF_MARKUP_LINK
     ${CF_CIMAGE}
     ${CF_CPAGE}
-    cuneiform-rblock
-    cuneiform-rline
-    cuneiform-rneg
-    cuneiform-rpic
-    cuneiform-rselstr
-    cuneiform-usage
+    ${CF_RBLOCK}
+    ${CF_RLINE}
+    ${CF_RNEG}
+    ${CF_RPIC}
+    ${CF_RSELSTR}
+    ${CF_USAGE}
 )
 
 add_library(${CF_MARKUP} ${LIBTYPE}
