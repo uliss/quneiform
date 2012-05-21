@@ -15,7 +15,7 @@ cf_hide_visibility(${CF_EXC})
 set_property(TARGET ${CF_EXC} PROPERTY COMPILE_DEFINITIONS __EXC__)
 
 target_link_libraries(${CF_EXC}
-    cuneiform-loc 
+    ${CF_LOC}
     ${CF_CCOM}
     ${CF_EVN})
 

@@ -28,7 +28,7 @@ set(CF_CED_API
     cedpageptr.h
 )
 
-add_library(cuneiform-ced ${CF_CED_LIBTYPE}
+add_library(${CF_CED} ${CF_CED_LIBTYPE}
     ${CF_CED_SOURCES}
     ${CF_CED_HEADERS}
 )

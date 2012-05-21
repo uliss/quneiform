@@ -1,17 +1,18 @@
-add_library(cuneiform-smetric ${LIBTYPE}
+add_library(${CF_SMETRIC} ${LIBTYPE}
     ${SNP_SRC}
     skewmain.cpp
     sm_kern.cpp
     ugol.cpp
 )
 
-cf_hide_visibility(cuneiform-smetric)
+cf_hide_visibility(${CF_SMETRIC})
 
-set_property(TARGET cuneiform-smetric PROPERTY COMPILE_DEFINITIONS __SMETRIC__)
+set_property(TARGET ${CF_SMETRIC} PROPERTY COMPILE_DEFINITIONS __SMETRIC__)
 
-target_link_libraries(cuneiform-smetric
-    cuneiform-compat
-    cuneiform-usage
+target_link_libraries(${CF_SMETRIC}
+    ${CF_COMPAT}
+    ${CF_USAGE}
 )
 
-cf_install_library(cuneiform-smetric)
+cf_install_library(${CF_SMETRIC})
+cf_cppcheck(${CF_SMETRIC})

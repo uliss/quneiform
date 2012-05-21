@@ -1,4 +1,4 @@
-set(USAGE_SOURCES
+set(CF_USAGE_SOURCE
     ${SNP_SRC}
     puma_err.cpp
     un_buff.cpp
@@ -11,21 +11,22 @@ set(USAGE_SOURCES
     line_vp_util.cpp
 )
 
-set(USAGE_HEADERS
+set(CF_USAGE_HEADERS
     puma_err.h
     un_buff.h
     amt_geom.h
 )
 
-add_library(cuneiform-usage ${LIBTYPE}
-    ${USAGE_SOURCES}
+add_library(${CF_USAGE} ${LIBTYPE}
+    ${CF_USAGE_SOURCE}
     ${USAGE_HEADERS}
 )
 
-target_link_libraries(cuneiform-usage
-    cuneiform-ccom
-    cuneiform-cpage
-    cuneiform-cline
+target_link_libraries(${CF_USAGE}
+    ${CF_CCOM}
+    ${CF_CPAGE}
+    ${CF_CLINE}
 )
 
-cf_install_library(cuneiform-usage)
+cf_install_library(${CF_USAGE})
+cf_cppcheck(${CF_USAGE})

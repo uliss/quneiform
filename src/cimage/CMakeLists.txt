@@ -24,7 +24,7 @@ add_library(${CF_CIMAGE} ${LIBTYPE}
 set_property(TARGET ${CF_CIMAGE} PROPERTY COMPILE_DEFINITIONS __CIMAGE__)
 
 target_link_libraries(${CF_CIMAGE}
-    cuneiform-rdib 
+    ${CF_RDIB}
     ${CF_COMMON}
 )
 
