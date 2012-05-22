@@ -89,8 +89,10 @@ KNOT *inc_after_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free)
 {
     KNOT *beg_free_old = *beg_free, *next;
 
-    if (ptr == NULL)
+    if (ptr == NULL) {
         std::cerr << "Error #1: inc_after_lst\n";
+        return NULL;
+    }
 
     if (*beg_free == NULL)
         return NULL; /*в списке свобод. нет памяти */
