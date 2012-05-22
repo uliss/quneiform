@@ -103,7 +103,7 @@ private:
     void exportPageText();
     void handleRecognitionProgress(unsigned char percentsDone);
     void handleRecognitionState(int);
-    QImage loadImage();
+    void loadImage();
     void setConfigOptions();
     void saveResolutionHeightHistogram(const std::vector<int>& hist);
     void saveResolutionWidthHistogram(const std::vector<int>& hist);

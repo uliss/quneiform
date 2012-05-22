@@ -64,7 +64,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 #include "cttypes.h"
 #include "common/point.h"
-
+#include "globus.h"
 
 typedef int (*FN_AM_Console) (const char * lpFormat, ...);
 typedef int (*FN_AM_ConsolN) (const char * lpFormat, ...);
@@ -74,8 +74,8 @@ int AM_OpenRes_rv_fte (int Code, char *pFile);
 int AM_SaveRes_rv_fte (int Code, char *pFile);
 int AM_WriteRes_rv_fte (int Code, const char *pStr);
 void CloseAllRes ();
-Bool   AM_InitComm (uint16_t wRltOwnCode);
-void AM_DoneComm ();
+FUN_EXPO__ Bool   AM_InitComm (uint16_t wRltOwnCode);
+FUN_EXPO__ void AM_DoneComm ();
 uint32_t AM_GetOperCode (uint16_t wLocCode);
 void   AM_RegiVert (Handle owner, char *lpName, Handle parent);
 void   AM_RegiVari (Handle owner, char *lpName, void *lpData, char *lpType);

@@ -230,4 +230,24 @@ void RStuff::setRecognizeOptions(const cf::RecognizeOptions& ropts)
     image_data_->gnTables = ropts.tableMode();
 }
 
+bool RStuff::hasFlag(flag_t f) 
+{ 
+    return flags_ & f; 
+}
+
+void RStuff::setFlag(flag_t f, bool value) 
+{ 
+    value ? setFlag(f) : unsetFlag(f); 
+}
+
+void RStuff::setFlag(flag_t f) 
+{ 
+    flags_ |= f; 
+}
+
+void RStuff::unsetFlag(flag_t f) 
+{ 
+    flags_ &= (~f); 
+}
+
 }

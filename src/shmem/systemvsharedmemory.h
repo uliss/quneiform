@@ -27,12 +27,28 @@ class SystemVSharedMemory : public SharedMemoryHolderPrivate
 {
 public:
     SystemVSharedMemory();
+
+    /**
+      * Closes shared memory segment
+      * sets BAD_ADDRESS on fail
+      */
     void close(void * mem);
+
     void * create(size_t key, size_t size);
+
     void * open(size_t key, size_t size);
+
     bool remove();
+
+    size_t limit() const;
+
+    /**
+      * Returns last error
+      */
+    error_t error() const;
 private:
     int id_;
+    error_t error_;
 };
 
 }

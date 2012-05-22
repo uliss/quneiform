@@ -18,10 +18,30 @@
 
 #include <Magick++.h>
 #include "magickimageexporter.h"
+#include "imageexporterfactory.h"
 #include "common/imagerawdata.h"
 
 namespace cf
 {
+
+namespace
+{
+
+ImageExporterPtr create()
+{
+    return ImageExporterPtr(new MagickImageExporter);
+}
+
+bool registerCreator()
+{
+    ImageExporterFactory::instance().registerCreator(FORMAT_PNG, &create, 1);
+    ImageExporterFactory::instance().registerCreator(FORMAT_JPEG, &create, 1);
+    ImageExporterFactory::instance().registerCreator(FORMAT_GIF, &create, 1);
+}
+
+bool registered = registerCreator();
+
+}
 
 MagickImageExporter::MagickImageExporter(image_format_t format) {
     setFormat(format);

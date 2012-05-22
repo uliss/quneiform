@@ -48,6 +48,12 @@ void TestMagickImageExporter::testSave() {
     MagickImageLoader loader;
     ImagePtr image = loader.load(EXPORTER_TEST_IMAGE_DIR + std::string("test_in.bmp"));
 
-    exp->save(*image, "test_out.png");
+    exp->save(*image, "export_magick.png");
+
+    exp->setFormat(FORMAT_JPEG);
+    exp->save(*image, "export_magick.jpg");
+
+    exp->setFormat(FORMAT_GIF);
+    exp->save(*image, "export_magick.gif");
 }
 

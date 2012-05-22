@@ -71,7 +71,7 @@ typedef void   (*CRPStart)(void);
 typedef void   (*CRPFinish)(void);
 typedef Bool32 (*CRPStep)(uint32_t);
 
-class CRProgressor
+class CLA_EXPO CRProgressor
 {
 
     public:

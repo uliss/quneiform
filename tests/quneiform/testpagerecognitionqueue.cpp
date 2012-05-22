@@ -159,8 +159,8 @@ void TestPageRecognitionQueue::testEmitStep() {
     q.add(&p3);
     q.start();
 
-    QCOMPARE(percents.count(), 6);
-    QCOMPARE(q.pageErrorNum(), 2);
+    QCOMPARE(percents.count(), 8);
+    QVERIFY(q.pageErrorNum() > 2);
 }
 
 void TestPageRecognitionQueue::testIsFailed() {

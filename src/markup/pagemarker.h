@@ -103,10 +103,10 @@ public:
     void setLayoutFilename(const std::string& fname);
     void setOptions(const RecognizeOptions& opts);
 public:
-    bool hasFlag(flag_t f) { return flags_ & f; }
-    void setFlag(flag_t f) { flags_ |= f; }
-    void setFlag(flag_t f, bool value) { value ? setFlag(f) : unsetFlag(f); }
-    void unsetFlag(flag_t f) { flags_ &= (~f); }
+    bool hasFlag(flag_t f);
+    void setFlag(flag_t f);
+    void setFlag(flag_t f, bool value);
+    void unsetFlag(flag_t f);
 private:
     void extractBlocks();
     void linePass3();

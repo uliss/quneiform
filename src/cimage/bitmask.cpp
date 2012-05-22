@@ -57,22 +57,22 @@ BitMask::~BitMask() {
 bool BitMask::apply(CTDIB * dib) const
 {
     if(!dib) {
-        CIMAGE_ERROR << " NULL image given\n";
+        CIMAGE_ERROR_FUNC << " NULL image given\n";
         return false;
     }
 
     if(dib->GetLineWidth() != size_.width()) {
-        CIMAGE_ERROR << " image and mask widths not equal\n";
+        CIMAGE_ERROR_FUNC << " image and mask widths not equal\n";
         return false;
     }
 
     if(dib->GetLinesNumber() != size_.height()) {
-        CIMAGE_ERROR << " image and mask heights not equal\n";
+        CIMAGE_ERROR_FUNC << " image and mask heights not equal\n";
         return false;
     }
 
     if(!size_.isValid()) {
-        CIMAGE_ERROR << " invalid image mask size\n";
+        CIMAGE_ERROR_FUNC << " invalid image mask size\n";
         return false;
     }
 
@@ -90,7 +90,7 @@ bool BitMask::apply(CTDIB * dib) const
         applyTo32Bit(dib);
         break;
     default:
-        CIMAGE_ERROR << " image depth is not supported: " << dib->GetPixelSize() << "\n";
+        CIMAGE_ERROR_FUNC << " image depth is not supported: " << dib->GetPixelSize() << "\n";
         return false;
     }
 

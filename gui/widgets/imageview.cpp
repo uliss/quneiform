@@ -275,6 +275,7 @@ void ImageView::updatePageSelection() {
     selections_->clearSelections();
     selections_->setRect(scene()->sceneRect());
     selections_->setZValue(10);
+    selections_->setTurned(transform().isRotating());
 
     foreach(QRect r, page_->readAreas()) {
         selections_->addSelection(r);
@@ -434,13 +435,14 @@ void ImageView::updatePageArea() {
 
 void ImageView::savePageSelections()
 {
-    HAS_PAGE()
+    HAS_PAGE();
 
     if(!selections_) {
         page_->clearReadAreas();
         return;
     }
 
+    selections_->setTurned(transform().isRotating());
     page_->setReadAreas(selections_->selectionRects());
 }
 

@@ -1,19 +1,16 @@
-add_library(cuneiform-ctb ${LIBTYPE}
-ctb_aln.cpp
-ctb_cnvm.cpp
-ctb_gray.cpp
-ctb_oper.cpp
-ctb_pack.cpp
-ctb_recr.cpp
-ctb_tool.cpp
+set(CF_CTB_SOURCE
+    ctb_aln.cpp
+    ctb_cnvm.cpp
+    ctb_gray.cpp
+    ctb_oper.cpp
+    ctb_pack.cpp
+    ctb_recr.cpp
+    ctb_tool.cpp
 )
-set_property(TARGET cuneiform-ctb PROPERTY COMPILE_DEFINITIONS __CTB__)
 
-target_link_libraries(cuneiform-ctb cuneiform-compat)
+add_library(${CF_CTB} ${LIBTYPE} ${CF_CTB_SOURCE})
+set_property(TARGET ${CF_CTB} PROPERTY COMPILE_DEFINITIONS __CTB__)
 
-library_hook(cuneiform-ctb)
-
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-ctb UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
-endif()
+target_link_libraries(${CF_CTB} ${CF_COMPAT})
+cf_install_library(${CF_CTB})
+cf_cppcheck(${CF_CTB})

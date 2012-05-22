@@ -1,15 +1,16 @@
-add_library(cuneiform-loc ${LIBTYPE}
-compdata.cpp
-compkit.cpp
-loc.cpp
-locompmn.cpp
-v0compgl.cpp
-)        
+set(CF_LOC_SOURCE
+    compdata.cpp
+    compkit.cpp
+    loc.cpp
+    locompmn.cpp
+    v0compgl.cpp
+)
 
-cif_visibility_hidden(cuneiform-loc)
+add_library(${CF_LOC} ${LIBTYPE} ${CF_LOC_SOURCE})
+cf_hide_visibility(${CF_LOC})
   
-set_property(TARGET cuneiform-loc PROPERTY COMPILE_DEFINITIONS __LOC__)
+set_property(TARGET ${CF_LOC} PROPERTY COMPILE_DEFINITIONS __LOC__)
 
-target_link_libraries(cuneiform-loc cuneiform-compat)
-
-library_hook(cuneiform-loc)
+target_link_libraries(${CF_LOC} ${CF_COMPAT})
+cf_install_library(${CF_LOC})
+cf_cppcheck(${CF_LOC})

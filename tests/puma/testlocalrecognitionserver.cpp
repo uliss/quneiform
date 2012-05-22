@@ -28,6 +28,7 @@
 #include "ced/cedpage.h"
 #include "export/textexporter.h"
 #include "export/debugexporter.h"
+#include "../assert_recognize.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestLocalRecognitionServer);
 
@@ -80,4 +81,35 @@ void TestLocalRecognitionServer::testRecognize()
     dexp.exportTo(buf);
     CPPUNIT_ASSERT(!boost::algorithm::trim_copy(buf.str()).empty());
     CPPUNIT_ASSERT_EQUAL(boost::algorithm::trim_copy(buf.str()), std::string("ENGLISH"));
+}
+
+void TestLocalRecognitionServer::testRecognizeRotated()
+{
+    RecognizeOptions ropts;
+    FormatOptions fopts;
+
+    ropts.setTurnAngle(RecognizeOptions::ANGLE_270);
+    ASSERT_LOCAL_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_90.png", ropts, fopts, "ENGLISH");
+
+    ropts.setTurnAngle(RecognizeOptions::ANGLE_180);
+    ASSERT_LOCAL_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_180.png", ropts, fopts, "ENGLISH");
+
+    ropts.setTurnAngle(RecognizeOptions::ANGLE_90);
+    ASSERT_LOCAL_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_270.png", ropts, fopts, "ENGLISH");
+}
+
+void TestLocalRecognitionServer::testRecognizeArea()
+{
+    RecognizeOptions ropts;
+    FormatOptions fopts;
+
+    ASSERT_LOCAL_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", ropts, fopts, "ENGLISH");
+
+    ropts.addReadRect(Rect(0, 0, 90, 80));
+    ASSERT_LOCAL_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", ropts, fopts, "EN");
+
+    ropts.clearReadRects();
+    ropts.addReadRect(Rect(190, -5, 100, 100));
+    ASSERT_LOCAL_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", ropts, fopts, "SH");
+
 }

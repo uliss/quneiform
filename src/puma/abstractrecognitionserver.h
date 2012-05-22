@@ -69,8 +69,25 @@ public:
     void setStateTracker(RecognitionState * state) { state_ = state; }
     void setTextDebug(bool value) { text_debug_ = value; }
 public:
-    struct RecognitionException : std::runtime_error {
-        RecognitionException(const std::string& msg) : std::runtime_error(msg) {}
+    enum reason_t {
+        OK = 0,
+        UNKNOWN = 1,
+        FILE_NOT_FOUND,
+        IMAGE_LOAD_ERROR,
+        RECOGNITION_ERROR,
+        SHMEM_ERROR,
+        WORKER_NOT_FOUND,
+        WORKER_CRASH,
+        WORKER_TIMEOUT
+    };
+
+    struct RecognitionException : public std::runtime_error {
+        RecognitionException(const std::string& msg, reason_t r = UNKNOWN) :
+            std::runtime_error(msg),
+            reason_(r) {}
+        reason_t reason() const { return reason_; }
+    private:
+        reason_t reason_;
     };
 protected:
     PercentCounter * counter_;

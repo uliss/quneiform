@@ -1,7 +1,7 @@
-set(RBAL_HEADERS
+set(CF_RBAL_HEADERS
         bal.h
 )
-set(RBAL_SOURCES
+set(CF_RBAL_SOURCE
     gistogramma.cpp
     lin_ext.cpp
     lin_rec.cpp
@@ -12,14 +12,15 @@ set(RBAL_SOURCES
     statsearchbl.cpp
 )
 
-add_library(cuneiform-rbal ${LIBTYPE}
-    ${RBAL_SOURCES}
-    ${RBAL_HEADERS}
+add_library(${CF_RBAL} ${LIBTYPE}
+    ${CF_RBAL_SOURCE}
+    ${CF_RBAL_HEADERS}
 )
-set_property(TARGET cuneiform-rbal PROPERTY COMPILE_DEFINITIONS __RBAL__)
+set_property(TARGET ${CF_RBAL} PROPERTY COMPILE_DEFINITIONS __RBAL__)
 
-target_link_libraries(cuneiform-rbal 
-    cuneiform-cstr 
-    cuneiform-evn)
+target_link_libraries(${CF_RBAL}
+    ${CF_CSTR}
+    ${CF_EVN})
 
-library_hook(cuneiform-rbal)
+cf_install_library(${CF_RBAL})
+cf_cppcheck(${CF_RBAL})

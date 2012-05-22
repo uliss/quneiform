@@ -2,22 +2,27 @@ include_directories(BEFORE
 ../hhh/tigerh/h
 )
 
-add_library(cuneiform-rpic ${LIBTYPE}
-${SNP_SRC}
-debug.cpp
-dll.cpp
-polypic.cpp
-rectpic.cpp
-rpic.cpp
+set(CF_RPIC_SOURCE
+    debug.cpp
+    dll.cpp
+    polypic.cpp
+    rectpic.cpp
+    rpic.cpp
 )
 
-cif_visibility_hidden(cuneiform-rpic)
+add_library(${CF_RPIC} ${LIBTYPE}
+    ${SNP_SRC}
+    ${CF_RPIC_SOURCE}
+)
 
-set_property(TARGET cuneiform-rpic PROPERTY COMPILE_DEFINITIONS __RPIC__)
+cf_hide_visibility(${CF_RPIC})
 
-target_link_libraries(cuneiform-rpic 
-    cuneiform-cpage 
-    cuneiform-ccom 
-    cuneiform-rstr)
+set_property(TARGET ${CF_RPIC} PROPERTY COMPILE_DEFINITIONS __RPIC__)
 
-library_hook(cuneiform-rpic)
+target_link_libraries(${CF_RPIC}
+    ${CF_CPAGE}
+    ${CF_CCOM}
+    ${CF_RSTR})
+
+cf_install_library(${CF_RPIC})
+cf_cppcheck(${CF_RPIC})

@@ -12,6 +12,7 @@ include(uninstall)
 include(update_samples)
 include(options)
 include(find_shared_memory)
+include(code_check)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 if(WIN32)
@@ -37,7 +38,11 @@ endif()
 
 # Boost
 if(WIN32)
-    set(Boost_USE_STATIC_LIBS On)
+    set(Boost_USE_STATIC_LIBS OFF)
+	
+	if(MSVC)
+        add_definitions(-DBOOST_ALL_NO_LIB)
+	endif()
 endif()
 
 find_package(Boost 1.33)

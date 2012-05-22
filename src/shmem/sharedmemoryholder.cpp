@@ -86,6 +86,13 @@ void SharedMemoryHolder::create(const std::string& key, size_t size)
         size_ = 0;
         std::ostringstream buf;
         buf << "could not create shared memory with key: \"" << key << "\" and size: " << size;
+
+        SharedMemoryHolderPrivate::error_t e = impl_->error();
+
+        if(e == SharedMemoryHolderPrivate::LIMITS)
+            throw LowSharedMemoryException(buf.str(), size, impl_->limit());
+
+        // other errors
         throw Exception(buf.str());
     }
 

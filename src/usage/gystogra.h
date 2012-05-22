@@ -55,6 +55,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "cttypes.h"
+#include "globus.h"
+
 /*---------------------------------------------------------------------------*/
 typedef struct tagUn_GYST {
     int     Shift;
@@ -63,13 +65,13 @@ typedef struct tagUn_GYST {
     int     *Signal;
 } Un_GYST;
 /*---------------------------------------------------------------------------*/
-Bool MakeTopBotGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
+FUN_EXPO__ Bool MakeTopBotGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
                       Un_GYST *pBegGt, Un_GYST *pEndGt);
-Bool MakeLefRigGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
+FUN_EXPO__ Bool MakeLefRigGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
                       Un_GYST *pBegGt, Un_GYST *pEndGt);
-Bool MakeTopMidBotGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
+FUN_EXPO__ Bool MakeTopMidBotGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
                          Un_GYST *pBegGt, Un_GYST *pMidGt, Un_GYST *pEndGt);
-Bool MakeLefMidRigGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
+FUN_EXPO__ Bool MakeLefMidRigGysts (Rect16 *pRc, int nRc, int32_t Skew, int MaxSize,
                          Un_GYST *pBegGt, Un_GYST *pMidGt, Un_GYST *pEndGt);
 int ScoreComp (const Rect16 *pRcReg, const int32_t Skew, const Rect16 *pRc, const int nRc);
 void MakeNormVertGyst (const Rect16 *pRcReg, const int32_t Skew, const Rect16 *pRc, const int nRc, int *Sig);

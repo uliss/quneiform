@@ -30,9 +30,13 @@ namespace cf
 {
 
 class ImageRawData;
+class ImageExporter;
+typedef boost::shared_ptr<ImageExporter> ImageExporterPtr;
 
 class ImageExporter
 {
+    public:
+        typedef ImageExporterPtr (*Creator)();
     public:
         ImageExporter();
         virtual ~ImageExporter();
@@ -94,8 +98,6 @@ class ImageExporter
     private:
         image_format_t format_;
 };
-
-typedef boost::shared_ptr<ImageExporter> ImageExporterPtr;
 
 }
 

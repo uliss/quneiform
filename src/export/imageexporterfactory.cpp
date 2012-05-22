@@ -16,23 +16,59 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "imageexporterfactory.h"
-#include "config-user.h"
-#include "bmpimageexporter.h"
+#include <limits>
 
-#if defined(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK) || defined(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
-#include "magickimageexporter.h"
-#endif
+#include "imageexporterfactory.h"
+#include "bmpimageexporter.h"
+#include "common/debug.h"
 
 namespace cf
 {
 
-ImageExporterPtr ImageExporterFactoryImpl::make() {
-#if defined(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK) || defined(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
-    return ImageExporterPtr(new MagickImageExporter);
-#else
-    return ImageExporterPtr(new BmpImageExporter);
-#endif
+ImageExporterFactoryImpl::~ImageExporterFactoryImpl()
+{}
+
+ImageExporterPtr ImageExporterFactoryImpl::make()
+{
+    image_format_t format = FORMAT_JPEG;
+    Iterator it = findBestCreator(format);
+
+    if(it == map_.end()) {
+        Debug() << "[WARNING] " << BOOST_CURRENT_FUNCTION
+                << " creator not found for format: "
+                << format << "\n";
+
+        return ImageExporterPtr(new BmpImageExporter);
+    }
+
+    ImageExporter::Creator creator = it->second.first;
+    assert(creator);
+    return creator();
+}
+
+void ImageExporterFactoryImpl::registerCreator(image_format_t format, ImageExporter::Creator creator, int gravity)
+{
+    map_.insert(Value(format, Creator(creator, gravity)));
+}
+
+static inline bool creatorCompare(ImageExporterFactoryImpl::Value first, ImageExporterFactoryImpl::Value second)
+{
+    return first.second < second.second;
+}
+
+ImageExporterFactoryImpl::Iterator ImageExporterFactoryImpl::findBestCreator(image_format_t format)
+{
+    Range range = map_.equal_range(format);
+
+    if(range.first == range.second)
+        return map_.end();
+
+    Iterator best = std::max_element(range.first, range.second, creatorCompare);
+
+    if(best == range.second)
+        return map_.end();
+
+    return best;
 }
 
 }

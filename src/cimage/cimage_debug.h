@@ -24,7 +24,13 @@
 #include "common/tostring.h"
 #include "common/debug.h"
 
-#define CIMAGE_ERROR Debug() << "[CIMAGE] ERROR " << BOOST_CURRENT_FUNCTION
-#define CIMAGE_DEBUG Debug() << "[CIMAGE] " << BOOST_CURRENT_FUNCTION
+#define CIMAGE_ERROR Debug() << "[CIMAGE] ERROR "
+#define CIMAGE_ERROR_FUNC Debug() << "[CIMAGE] ERROR " << BOOST_CURRENT_FUNCTION << ' '
+
+#define CIMAGE_DEBUG Debug() << "[CIMAGE] "
+#define CIMAGE_DEBUG_FUNC Debug() << "[CIMAGE] " << BOOST_CURRENT_FUNCTION << ' '
+
+#define CIMAGE_WARNING Debug() << "[CIMAGE] WARNING "
+#define CIMAGE_WARNING_FUNC Debug() << "[CIMAGE] WARNING " << BOOST_CURRENT_FUNCTION << ' '
 
 #endif // CIMAGE_DEBUG_H

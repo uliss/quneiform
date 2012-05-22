@@ -32,8 +32,22 @@ class SharedMemoryHolderPrivate;
 class CLA_EXPO SharedMemoryHolder
 {
 public:
-    struct Exception : std::runtime_error {
+    struct Exception : public std::runtime_error {
         Exception(const std::string& msg) : std::runtime_error(msg) {}
+    };
+
+    class LowSharedMemoryException : public Exception {
+    public:
+        LowSharedMemoryException(const std::string& msg, size_t required, size_t current) :
+            Exception(msg),
+            required_(required),
+            current_(current)
+        {}
+        size_t current() const { return current_; }
+        size_t required() const { return required_; }
+    private:
+        size_t required_;
+        size_t current_;
     };
 public:
     SharedMemoryHolder(bool owner = false);

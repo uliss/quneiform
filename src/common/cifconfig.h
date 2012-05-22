@@ -27,6 +27,7 @@ namespace cf
 class CLA_EXPO Config
 {
         Config();
+        Config(Config&);
     public:
         enum debug_level_t {
             DEBUG_NONE = 0,
@@ -36,6 +37,8 @@ class CLA_EXPO Config
         };
 
         static Config& instance();
+        bool static doDebug();
+        bool static doDump();
 
         bool debugDump() const;
         int debugLevel() const;

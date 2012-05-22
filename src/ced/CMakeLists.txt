@@ -1,6 +1,6 @@
 add_definitions(-D__CED__)
 
-set(CED_SOURCES
+set(CF_CED_SOURCES
     blockelement.cpp
     cedchar.cpp
     cedcolumn.cpp
@@ -14,7 +14,7 @@ set(CED_SOURCES
     element.cpp
 )
 
-set(CED_HEADERS
+set(CF_CED_HEADERS
     ced.h
     cedarchive.h
     cedexporter.h
@@ -22,34 +22,28 @@ set(CED_HEADERS
     cedpageptr.h
 )
 
-add_library(cuneiform-ced ${CF_CED_LIBTYPE}
-    ${CED_SOURCES}
-    ${CED_HEADERS}
+set(CF_CED_API
+    cedexporter.h
+    cedfwd.h
+    cedpageptr.h
 )
 
-set(CED_LIBS
-    cuneiform-common
-    cuneiform-compat
+add_library(${CF_CED} ${CF_CED_LIBTYPE}
+    ${CF_CED_SOURCES}
+    ${CF_CED_HEADERS}
+)
+
+set(CF_CED_LINK
+    ${CF_COMMON}
+    ${CF_COMPAT}
 )
 
 if(CF_SERIALIZE)
-    list(APPEND CED_LIBS ${Boost_SERIALIZATION_LIBRARY})
+    list(APPEND CF_CED_LINK ${Boost_SERIALIZATION_LIBRARY})
 endif()
 
-target_link_libraries(cuneiform-ced ${CED_LIBS})
+target_link_libraries(${CF_CED} ${CF_CED_LINK})
 
-library_hook(cuneiform-ced)
-
-set(CED_HEADER_INSTALL "ced")
-
-install(
-    FILES
-        cedexporter.h cedfwd.h cedpageptr.h
-    DESTINATION
-        include/${CF_HEADER_INSTALL}/${CED_HEADER_INSTALL}
-)
-
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-ced UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
-endif()
+cf_install_library(${CF_CED})
+cf_install_headers(ced ${CF_CED_API})
+cf_cppcheck(${CF_CED})

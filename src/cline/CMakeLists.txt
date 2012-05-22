@@ -1,19 +1,18 @@
-add_library(cuneiform-cline ${LIBTYPE}
-${SNP_SRC}
-clinebase.cpp
-clinefunc.cpp
-clinemain.cpp
-debug.cpp
-lcline.cpp
+set(CF_CLINE_SOURCE
+    clinebase.cpp
+    clinefunc.cpp
+    clinemain.cpp
+    debug.cpp
+    lcline.cpp
 )
 
-set_property(TARGET cuneiform-cline PROPERTY COMPILE_DEFINITIONS __CLINE__)
+add_library(${CF_CLINE} ${LIBTYPE}
+    ${SNP_SRC}
+    ${CF_CLINE_SOURCE}
+)
 
-target_link_libraries(cuneiform-cline cuneiform-compat)
+set_property(TARGET ${CF_CLINE} PROPERTY COMPILE_DEFINITIONS __CLINE__)
 
-library_hook(cuneiform-cline)
-
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-cline UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR FORCE QUIET)
-endif()
+target_link_libraries(${CF_CLINE} ${CF_COMPAT})
+cf_install_library(${CF_CLINE})
+cf_cppcheck(${CF_CLINE})

@@ -111,4 +111,9 @@ bool Win32SharedMemory::remove()
     return true;
 }
 
+size_t Win32SharedMemory::limit() const
+{
+    return 0;
+}
+
 }

@@ -98,6 +98,7 @@ private:
     void resizeBy(const QPointF& delta);
     QRectF sceneRect() const;
     void setResizeCursor(const QPointF& pos);
+    void setFinalCursor(Qt::CursorShape cursor);
 private:
     SelectionList * parent_;
     selection_t type_;

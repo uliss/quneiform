@@ -372,33 +372,33 @@ SMetric_FUNC(Bool32) SMetric_FindMainSkew (void *vB, char *cWork, int SizeWork, 
 	*pSkewLocVerLin = (InvSkew.SkewVerLin-*pSkew);
 	if (TalkMuchSkew)
 	{
-		AM_ConsolN ("Горизонтальный угол :");
-		AM_ConsolN ("  Линии    : Угол = %d ДлинаОбщая = %d"
-				, InvSkew.SkewHorLin, (int)InvSkew.WeigHorLin);
-		sprintf (str, "  Тек.Нач. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
-				, InvSkew.Hor.Beg.Skew, InvSkew.Hor.Beg.LentRow, InvSkew.Hor.Beg.NumbRow);
-		AM_ConsolN (str);
-		sprintf (str, "  Тек.Сер. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
-				, InvSkew.Hor.Mid.Skew, InvSkew.Hor.Mid.LentRow, InvSkew.Hor.Mid.NumbRow);
-		AM_ConsolN (str);
-		sprintf (str, "  Тек.Кон. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
-				, InvSkew.Hor.End.Skew, InvSkew.Hor.End.LentRow, InvSkew.Hor.End.NumbRow);
-		AM_ConsolN (str);
-		AM_ConsolN ("Вертикальный угол :");
-		AM_ConsolN ("  Линии    : Угол = %d ДлинаОбщая = %d"
-				, InvSkew.SkewVerLin, (int)InvSkew.WeigVerLin);
-		sprintf (str, "  Тек.Нач. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
-				, InvSkew.Ver.Beg.Skew, InvSkew.Ver.Beg.LentRow, InvSkew.Ver.Beg.NumbRow);
-		AM_ConsolN (str);
-		sprintf (str, "  Тек.Сер. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
-				, InvSkew.Ver.Mid.Skew, InvSkew.Ver.Mid.LentRow, InvSkew.Ver.Mid.NumbRow);
-		AM_ConsolN (str);
-		sprintf (str, "  Тек.Кон. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
-				, InvSkew.Ver.End.Skew, InvSkew.Ver.End.LentRow, InvSkew.Ver.End.NumbRow);
-		AM_ConsolN (str);
-		if (SkewLine!=10000)
-		AM_ConsolN ("Итог линии : Угол = %d", SkewLine);
-		AM_ConsolN ("Итог       : Угол = %d", *pSkew);
+		// AM_ConsolN ("Горизонтальный угол :");
+		// AM_ConsolN ("  Линии    : Угол = %d ДлинаОбщая = %d"
+				// , InvSkew.SkewHorLin, (int)InvSkew.WeigHorLin);
+		// sprintf (str, "  Тек.Нач. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
+				// , InvSkew.Hor.Beg.Skew, InvSkew.Hor.Beg.LentRow, InvSkew.Hor.Beg.NumbRow);
+		// AM_ConsolN (str);
+		// sprintf (str, "  Тек.Сер. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
+				// , InvSkew.Hor.Mid.Skew, InvSkew.Hor.Mid.LentRow, InvSkew.Hor.Mid.NumbRow);
+		// AM_ConsolN (str);
+		// sprintf (str, "  Тек.Кон. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
+				// , InvSkew.Hor.End.Skew, InvSkew.Hor.End.LentRow, InvSkew.Hor.End.NumbRow);
+		// AM_ConsolN (str);
+		// AM_ConsolN ("Вертикальный угол :");
+		// AM_ConsolN ("  Линии    : Угол = %d ДлинаОбщая = %d"
+				// , InvSkew.SkewVerLin, (int)InvSkew.WeigVerLin);
+		// sprintf (str, "  Тек.Нач. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
+				// , InvSkew.Ver.Beg.Skew, InvSkew.Ver.Beg.LentRow, InvSkew.Ver.Beg.NumbRow);
+		// AM_ConsolN (str);
+		// sprintf (str, "  Тек.Сер. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
+				// , InvSkew.Ver.Mid.Skew, InvSkew.Ver.Mid.LentRow, InvSkew.Ver.Mid.NumbRow);
+		// AM_ConsolN (str);
+		// sprintf (str, "  Тек.Кон. : Угол = %d ДлинаГруппы = %5.1f ЧислоГрупп = %5.1f"
+				// , InvSkew.Ver.End.Skew, InvSkew.Ver.End.LentRow, InvSkew.Ver.End.NumbRow);
+		// AM_ConsolN (str);
+		// if (SkewLine!=10000)
+		// AM_ConsolN ("Итог линии : Угол = %d", SkewLine);
+		// AM_ConsolN ("Итог       : Угол = %d", *pSkew);
 	}
 	return RV_TRUE;
 }

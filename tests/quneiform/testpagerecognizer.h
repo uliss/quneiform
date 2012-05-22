@@ -31,8 +31,6 @@ signals:
 private slots:
     void testConstruct();
     void testRecognize();
-    void testLoadImage();
-    void testAbort();
     void testPercents();
     void testSlotConnections();
     void testRecognizeRotated();

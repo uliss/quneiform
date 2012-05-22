@@ -15,13 +15,15 @@ if(WIN32)
             message(STATUS "Install: ${cf_file} found.")
             install(FILES
                         ${cf_file}
-                        DESTINATION bin)
+                        DESTINATION bin
+                        COMPONENT Applications
+                    )
             
             execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different ${cf_file} ${CMAKE_BINARY_DIR})
         endif()
     endmacro()
 endif()
-
+ 
 if(APPLE)
     add_custom_target(dmg COMMAND "${CMAKE_SOURCE_DIR}/cmake/makeapp.sh"
                                   "${CMAKE_BINARY_DIR}" # dest dir
@@ -74,13 +76,34 @@ elseif(UNIX AND NOT APPLE)
         set(CF_DEB_DEPENDS "${CF_DEB_DEPENDS}, libmagick++2 (>= 7:6.5.1) | libmagick++3 (>= 8:6.6.0.4)")
     endif()
     set(CPACK_DEBIAN_PACKAGE_DEPENDS ${CF_DEB_DEPENDS})
-elseif(WIN32)
+elseif(WIN32)    
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         cf_install_dll(QtCored4 ${QT_BINARY_DIR})
         cf_install_dll(QtGuid4 ${QT_BINARY_DIR})
     else()
         cf_install_dll(QtCore4 ${QT_BINARY_DIR})
         cf_install_dll(QtGui4 ${QT_BINARY_DIR})
+        cf_install_dll(zlib1 ${ZLIB_INCLUDE_DIRS}/../bin)
+    endif()
+    
+    # install FreeImage
+    if(CF_USE_IMAGE_LIBRARY_FREEIMAGE)
+        cf_install_dll(FreeImage ${FREEIMAGE_INCLUDE_PATH})
+    endif()
+    
+    # install boost
+    if(Boost_SERIALIZATION_FOUND AND CF_EXPORT_LIBTYPE STREQUAL "SHARED")
+        set(boost_dll "")
+        
+        if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+            set(boost_lib_path ${Boost_SERIALIZATION_LIBRARY_DEBUG})
+        else()
+            set(boost_lib_path ${Boost_SERIALIZATION_LIBRARY_RELEASE})
+        endif()
+        
+        get_filename_component(boost_dll "${boost_lib_path}" NAME_WE)
+        #message(STATUS ${Boost_LIBRARY_DIRS})
+        cf_install_dll(${boost_dll} ${Boost_LIBRARY_DIRS})
     endif()
 	
 	if(MINGW)
@@ -92,6 +115,7 @@ elseif(WIN32)
         cf_install_dll(libgcc_s_dw2-1 ${CF_MINGW_PATH_BIN})
         cf_install_dll(mingwm10 ${CF_MINGW_PATH_BIN})
         cf_install_dll(libiconv-2 ${ICONV_INCLUDE_DIR}/../bin)
+        cf_install_dll(libiconv2 ${ICONV_INCLUDE_DIR}/../bin)
     endif()
 	
     if(MSVC)
@@ -99,39 +123,42 @@ elseif(WIN32)
     endif()
 
     set(CPACK_GENERATOR "NSIS")
-    set(CPACK_PACKAGE_NAME "Cuneiform")
+    set(CPACK_PACKAGE_NAME "Quneiform")
     set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY
         "${CPACK_PACKAGE_NAME}")
     set(CPACK_PACKAGE_EXECUTABLES quneiform;Quneiform)
+    
+    # components setup
+    set(CPACK_NSIS_COMPONENT_INSTALL ON)
+    #set(CPACK_COMPONENTS_ALL_IN_ONE_PACKAGE 1)
+    set(CPACK_COMPONENTS_ALL Applications Libraries Headers)
+    
+    # app
+    set(CPACK_COMPONENT_APPLICATIONS_DISPLAY_NAME "Quneiform OCR application")
+    set(CPACK_COMPONENT_APPLICATIONS_DEPENDS Libraries)
+    set(CPACK_COMPONENT_APPLICATIONS_REQUIRED ON)
+    # libs
+    set(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
+    set(CPACK_COMPONENT_LIBRARIES_DESCRIPTION "Libraries used to build programs with cuneiform")
+    set(CPACK_COMPONENT_LIBRARIES_REQUIRED ON)
+    # headers
+    set(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "C++ Headers")
+    set(CPACK_COMPONENT_HEADERS_DESCRIPTION "C++ header files for use with cuneiform")
+    set(CPACK_COMPONENT_HEADERS_DEPENDS Libraries)
+    set(CPACK_COMPONENT_HEADERS_DISABLED ON) 
  
     # install icon
     set(CPACK_PACKAGE_ICON  "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform_install.bmp")
     set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
-    set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/gui/resources\\\\cuneiform.ico")
     set(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_NAME} ${CF_VERSION}")
 	
     set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\quneiform.exe")
     set(CPACK_NSIS_CONTACT "serge.poltavski@gmail.com")
-    set(CPACK_NSIS_HELP_LINK "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
-    set(CPACK_NSIS_URL_INFO_ABOUT "https://code.launchpad.net/~serge-uliss/cuneiform-linux/gui")
+    set(CPACK_NSIS_HELP_LINK "https://github.com/uliss/quneiform")
+    set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/uliss/quneiform")
     set(CPACK_NSIS_MODIFY_PATH ON)
 
-    # File types association:
-    set(CPACK_NSIS_DEFINES "!include ${CMAKE_SOURCE_DIR}/cmake\\\\FileAssociation.nsh")
-
-    set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-          Push \\\"ATENDATA\\\"
-          Push \\\"$INSTDIR\\\\share\\\\aten\\\"
-          Call WriteEnvStr
-    ")
-
-    set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-          \\\${registerExtension} \\\"Quneiform Packet\\\" \\\".qfp\\\" \\\"\\\$INSTDIR\\\\bin\\\\quneiform.exe\\\"
-    ")
-
-    set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-          \\\${unregisterExtension} \\\".qfp\\\" \\\"Quneiform Packet\\\"
-    ")
+    set(CPACK_NSIS_INCLUDE "!include ${CMAKE_SOURCE_DIR}/cmake\\\\FileAssociation.nsh")
 endif()
 
 include(CPack)

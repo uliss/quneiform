@@ -106,13 +106,13 @@ function(add_cppcheck _name)
         endforeach()
 
         add_custom_target(
-            ${_name}-cppcheck
+            cppcheck-${_name}
             COMMAND
             "${CPPCHECK_EXECUTABLE}"
             ${CPPCHECK_TEMPLATE_ARG}
             ${_cppcheck_args}
             ${_files})
 
-        message(STATUS "${_name}-cppcheck target added.")
+        message(STATUS "Code check: cppcheck-${_name} target added.")
     endif()
 endfunction()

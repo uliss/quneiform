@@ -1,20 +1,25 @@
-add_library(cuneiform-rline ${LIBTYPE}
-${SNP_SRC}
-dll.cpp
-findlostlines.cpp
-newline.cpp
-rline.cpp
+set(CF_RLINE_SOURCE
+    dll.cpp
+    findlostlines.cpp
+    newline.cpp
+    rline.cpp
 )
 
-cif_visibility_hidden(cuneiform-rline)
-
-set_property(TARGET cuneiform-rline PROPERTY COMPILE_DEFINITIONS __RLINE__)
-
-target_link_libraries(cuneiform-rline
-    cuneiform-cimage
-    cuneiform-cpage
-    cuneiform-lns
-    cuneiform-rsl
+add_library(${CF_RLINE} ${LIBTYPE}
+    ${SNP_SRC}
+    ${CF_RLINE_SOURCE}
 )
 
-library_hook(cuneiform-rline)
+cf_hide_visibility(${CF_RLINE})
+
+set_property(TARGET ${CF_RLINE} PROPERTY COMPILE_DEFINITIONS __RLINE__)
+
+target_link_libraries(${CF_RLINE}
+    ${CF_CIMAGE}
+    ${CF_CPAGE}
+    ${CF_LNS}
+    ${CF_RSL}
+)
+
+cf_install_library(${CF_RLINE})
+cf_cppcheck(${CF_RLINE})

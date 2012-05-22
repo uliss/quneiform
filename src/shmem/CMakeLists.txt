@@ -1,37 +1,38 @@
 add_definitions(-DBOOST_DATE_TIME_NO_LIB)
 
-set(SHMEM_SOURCES
+set(CF_SHMEM_SOURCE
     memorydata.cpp
     sharedmemoryholder.cpp
 )
 
-set(SHMEM_HEADERS
+set(CF_SHMEM_HEADERS
     sharedmemoryholderprivate.h
 )
 
-set(CF_SHMEM_LIBS
-    cuneiform-common
-    cuneiform-export
-    cuneiform-load
+set(CF_SHMEM_LINK
+    ${CF_COMMON}
+    ${CF_EXPORT}
+    ${CF_LOAD}
     ${Boost_SERIALIZATION_LIBRARY}
 )
 
 if(USE_SYSTEMV_SHMEM)
     add_definitions(-DUSE_SYSTEMV_SHMEM)
-    list(APPEND SHMEM_SOURCES systemvsharedmemory.cpp)
+    list(APPEND CF_SHMEM_SOURCE systemvsharedmemory.cpp)
     if(CF_LIB_RT_HAS_SHMOPEN)
-       list(APPEND CF_SHMEM_LIBS rt)
+       list(APPEND CF_SHMEM_LINK rt)
     endif()
 endif()
 
 if(WIN32)
     add_definitions(-DUSE_WIN32_SHMEM)
-    list(APPEND SHMEM_SOURCES win32sharedmemory.cpp)
+    list(APPEND CF_SHMEM_SOURCE win32sharedmemory.cpp)
 endif()
 
-add_library(cuneiform-shmem STATIC 
-    ${SHMEM_SOURCES}
-    ${SHMEM_HEADERS}
+add_library(${CF_SHMEM} STATIC
+    ${CF_SHMEM_SOURCE}
+    ${CF_SHMEM_HEADERS}
 )
 
-target_link_libraries(cuneiform-shmem ${CF_SHMEM_LIBS})
+target_link_libraries(${CF_SHMEM} ${CF_SHMEM_LINK})
+cf_cppcheck(${CF_SHMEM})

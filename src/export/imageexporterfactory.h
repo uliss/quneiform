@@ -19,6 +19,8 @@
 #ifndef IMAGEEXPORTERFACTORY_H_
 #define IMAGEEXPORTERFACTORY_H_
 
+#include <map>
+
 #include "common/singleton.h"
 #include "imageexporter.h"
 
@@ -27,8 +29,20 @@ namespace cf
 
 class ImageExporterFactoryImpl
 {
-    public:
-        ImageExporterPtr make();
+public:
+    ~ImageExporterFactoryImpl();
+    ImageExporterPtr make();
+    void registerCreator(image_format_t format, ImageExporter::Creator creator, int gravity);
+
+    typedef std::pair<ImageExporter::Creator, int> Creator;
+    typedef std::multimap<image_format_t, Creator> CreatorMap;
+    typedef CreatorMap::iterator Iterator;
+    typedef std::pair<Iterator, Iterator> Range;
+    typedef CreatorMap::value_type Value;
+private:
+    Iterator findBestCreator(image_format_t format);
+private:
+    CreatorMap map_;
 };
 
 typedef Singleton<ImageExporterFactoryImpl> ImageExporterFactory;

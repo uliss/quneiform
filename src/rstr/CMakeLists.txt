@@ -1,6 +1,6 @@
 add_definitions(-DDPUMA_SNAP)
 
-set(RSTR_SOURCES
+set(CF_RSTR_SOURCE
     abris.cpp
     abrtools.cpp
     acc_tabs.cpp
@@ -86,55 +86,51 @@ set(RSTR_SOURCES
     ukr.cpp
 )
 
-set(RSTR_HEADERS)
+set(CF_RSTR_HEADERS)
 
-add_library(cuneiform-rstr ${LIBTYPE}
+add_library(${CF_RSTR} ${LIBTYPE}
     ${SNP_SRC}
-    ${RSTR_SOURCES}
+    ${CF_RSTR_SOURCE}
     ${RSTR_HEADERS}
 )
 
-cif_visibility_hidden(cuneiform-rstr)
+cf_hide_visibility(${CF_RSTR})
+set_property(TARGET ${CF_RSTR} PROPERTY COMPILE_DEFINITIONS __RSTR__)
 
-set_property(TARGET cuneiform-rstr PROPERTY COMPILE_DEFINITIONS __RSTR__)
-
-target_link_libraries(cuneiform-rstr
-    cuneiform-ccom
-    cuneiform-cline
-    cuneiform-cstr
-    cuneiform-ctb
-    cuneiform-evn
-    cuneiform-fon
-    cuneiform-mmx
-    cuneiform-msk
-    cuneiform-pass2
-    cuneiform-rbal
-    cuneiform-rcutp
-    cuneiform-rling
-    cuneiform-rsadd
-    cuneiform-std
-    cuneiform-leo
+target_link_libraries(${CF_RSTR}
+    ${CF_CCOM}
+    ${CF_CLINE}
+    ${CF_CSTR}
+    ${CF_CTB}
+    ${CF_EVN}
+    ${CF_FON}
+    ${CF_MMX}
+    ${CF_MSK}
+    ${CF_PASS2}
+    ${CF_RBAL}
+    ${CF_RCUTP}
+    ${CF_RLING}
+    ${CF_RSADD}
+    ${CF_STD}
+    ${CF_LEO}
 )
 
-library_hook(cuneiform-rstr)
+cf_install_library(${CF_RSTR})
 
 if(TESTS)
-    add_library(cuneiform-rstr-static STATIC
-        ${RSTR_SOURCES}
+    add_library(${CF_RSTR}-static STATIC
+        ${CF_RSTR_SOURCE}
     )
 
-    target_link_libraries(cuneiform-rstr-static 
-        cuneiform-rling
-        cuneiform-cline
-        cuneiform-leo
-        cuneiform-rcutp
-        cuneiform-pass2
-        cuneiform-rsadd
-        cuneiform-rbal
+    target_link_libraries(${CF_RSTR}-static
+        ${CF_RLING}
+        ${CF_CLINE}
+        ${CF_LEO}
+        ${CF_RCUTP}
+        ${CF_PASS2}
+        ${CF_RSADD}
+        ${CF_RBAL}
     )
 endif()
 
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-rstr UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
-endif()
+cf_cppcheck(${CF_RSTR})

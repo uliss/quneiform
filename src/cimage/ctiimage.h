@@ -98,6 +98,7 @@ CIMAGE_FUNC bool CIMAGE_AddReadCloseRect(const std::string& name, const cf::Rect
 CIMAGE_FUNC bool CIMAGE_RemoveReadCloseRect(const std::string& name, const cf::Rect& r);
 CIMAGE_FUNC bool CIMAGE_AddWriteCloseRect(const std::string& name, const cf::Rect& r);
 CIMAGE_FUNC bool CIMAGE_RemoveWriteCloseRect(const std::string& name, const cf::Rect& r);
+CIMAGE_FUNC bool CIMAGE_Dump(const std::string& imageName, const std::string& fileName);
 
 Bool16 CIMAGE_Callback_ImageOpen(CIMAGE_ImageInfo* lpImageInfo);
 uint16_t CIMAGE_Callback_ImageRead(pchar lpImage, uint16_t wMaxSize);

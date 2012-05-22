@@ -136,8 +136,20 @@ int main(int argc, char ** argv) {
 
         data.setPage(page);
     }
+    catch(AbstractRecognitionServer::RecognitionException& e) {
+        CF_ERROR(e.what());
+
+        switch(e.reason()) {
+        case AbstractRecognitionServer::FILE_NOT_FOUND:
+            return WORKER_FILE_NOT_FOUND;
+        case AbstractRecognitionServer::IMAGE_LOAD_ERROR:
+            return WORKER_LOAD_ERROR;
+        default:
+            return WORKER_UNKNOWN_ERROR;
+        }
+    }
     catch(SharedMemoryHolder::Exception& e) {
-        std::cerr << WORKER_PREFIX << e.what() << std::endl;
+        CF_ERROR(e.what());
         return WORKER_SHMEM_ERROR;
     }
     catch(std::exception& e) {

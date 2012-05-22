@@ -62,7 +62,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Оптимизация работы с памятью.                               */
 /*----------------------------------------------------------------------------*/
 #include "cttypes.h"
+#include "globus.h"
 /*----------------------------------------------------------------------------*/
-/* !!! */Bool ConvertLinesToAM_rv (int FromType, int ToType, void *vB, int *pForw
+FUN_EXPO__ Bool ConvertLinesToAM_rv (int FromType, int ToType, void *vB, int *pForw
                                    , int sForw, Rect16 *pRcReg, int32_t SkewReg, char *pStr, Bool ContWarn);
 /*----------------------------------------------------------------------------*/

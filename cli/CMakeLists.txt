@@ -28,7 +28,7 @@ if(NOT MSVC)
 endif()
 
 target_link_libraries(cuneiform-cli ${CLI_LIBS})
-install_exe(cuneiform-cli)
+cf_install_exe(cuneiform-cli)
 
 add_executable(cf-binarize cf-binarize.cpp)
 target_link_libraries(cf-binarize cuneiform-rimage cuneiform-cimage cuneiform-rdib)
@@ -38,7 +38,4 @@ if(CF_USE_SHMEM)
     target_link_libraries(cuneiform-process ${CLI_LIBS})
 endif()
 
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-cli UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
-endif()
+cf_cppcheck(cuneiform-cli)

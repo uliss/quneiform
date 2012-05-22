@@ -45,6 +45,14 @@ elseif(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK)
     message(STATUS "Exporters: GraphicsMagick exporter will be build")
 endif()
 
+if(CF_USE_IMAGE_LIBRARY_QT)
+    include_directories(${CF_IMAGE_INCLUDE})
+    include(${QT_USE_FILE})
+    list(APPEND exporters qtimageexporter.cpp)
+    list(APPEND exporter_lims ${QT_LIBRARIES})
+    message(STATUS "Exporters: Qt image exporter will be build")
+endif()
+
 if(CF_SERIALIZE)
     list(APPEND exporters cuneiformexporter.cpp
         cuneiformbinexporter.cpp
@@ -55,7 +63,7 @@ endif()
 
 include_directories(${ICONV_INCLUDE_DIR})
 
-add_library(cuneiform-export ${CF_EXPORT_LIBTYPE}
+add_library(${CF_EXPORT} ${CF_EXPORT_LIBTYPE}
     exporterfactory.cpp
     imageexporterfactory.cpp
     ${headers}
@@ -63,23 +71,17 @@ add_library(cuneiform-export ${CF_EXPORT_LIBTYPE}
     ${image_exporters}
 )
 
-target_link_libraries(cuneiform-export
-    cuneiform-common
-    cuneiform-ced 
-    cuneiform-rfrmt
+target_link_libraries(${CF_EXPORT}
+    ${CF_COMMON}
+    ${CF_CED}
+    ${CF_RFRMT}
     ${CF_IMAGE_LIBRARIES}
     ${exporters_libs})
 
-library_hook(cuneiform-export)
+cf_install_library(${CF_EXPORT})
+cf_install_headers(export
+    exporter.h 
+    imageexporter.h 
+    exporterfactory.h)
 
-set(EXPORT_HEADER_INSTALL "export")
-install(
-    FILES
-        exporter.h imageexporter.h exporterfactory.h
-    DESTINATION
-        include/${CF_HEADER_INSTALL}/${EXPORT_HEADER_INSTALL})
-
-if(TESTS)
-    include(CppcheckTargets)
-    add_cppcheck(cuneiform-export UNUSED_FUNCTIONS STYLE POSSIBLE_ERROR)
-endif()
+cf_cppcheck(${CF_EXPORT})

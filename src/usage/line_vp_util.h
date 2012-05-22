@@ -62,20 +62,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*  Назначение :  Формальности ввода/вывода (с унифицированным буфером и без).*/
 /*----------------------------------------------------------------------------*/
 #include "cline/cline.h"
+#include "globus.h"
 /* !!! Bool LoadLinesVP_rv (Handle hC, int Type, void *vB, char *pStr, uint16_t *pCode); */
-Bool LoadLinesVP_rv (CLINE_handle hC, int Type, void *vB, char *pStr, uint16_t *pCode);
+FUN_EXPO__ Bool LoadLinesVP_rv (CLINE_handle hC, int Type, void *vB, char *pStr, uint16_t *pCode);
 /* !!! только для вызова MyReSetLines */
 void GetKeysPumaVP (void *vLti, uint32_t *pKeyHor, uint32_t *pKeyVer);
-Bool GetSomeKeys_rv (void *vB, uint32_t *pKeyHor, uint32_t *pKeyVer
+FUN_EXPO__ Bool GetSomeKeys_rv (void *vB, Handle *pKeyHor, Handle *pKeyVer
                      , int *pCntHor, int *pCntVer, char *pStr);
-Bool LoadLinesTotalInfo_rv (Handle hC, void *vB, char *pStr);
-Bool LoadLinesSpecInfo (Handle hC, void *vB, Handle Key, int Cnt);
+FUN_EXPO__ Bool LoadLinesTotalInfo_rv (Handle hC, void *vB, char *pStr);
+FUN_EXPO__ Bool LoadLinesSpecInfo (Handle hC, void *vB, Handle Key, int Cnt);
 Bool LoadLinesInfo_rv (CLINE_handle hC, void *vB, char *pStr, Bool Hori);
 /* !!! */
 Bool MyReSetLines (void *vLti, int MaxNumLin, Handle hCPage, Handle HoriType
                    , Handle VertType, char *pStr);
 Bool MyReSetLines(void* vLines, int Count, CLINE_handle hCLINE, char *pStr);
-Bool ReferForLinesVP (void *vLti, void *vB);
+FUN_EXPO__ Bool ReferForLinesVP (void *vLti, void *vB);
 /* !!! */
 Bool PrepareLinesVP_rv (void *vB, void **vvData);
 Bool ReferForAndCountLinesVP (void *vB, void **vvData, int* pcount, Bool Hori);

@@ -277,7 +277,7 @@ QRect Selection::normalRect() const {
     int y = static_cast<int>(pos().y() + rect().top());
     int w = static_cast<int>(rect().width());
     int h = static_cast<int>(rect().height());
-    return QRect(x, y, w, h);
+    return QRect(x, y, w, h).normalized();
 }
 
 void Selection::setSelectionType(Selection::selection_t t)
@@ -355,20 +355,40 @@ void Selection::setResizeCursor(const QPointF& pos) {
     if(isVertical(mode)) {
         if(mode & LEFT) {
             if(mode & TOP)
-                setCursor(Qt::SizeFDiagCursor);
+                setFinalCursor(Qt::SizeFDiagCursor);
             else
-                setCursor(Qt::SizeBDiagCursor);
+                setFinalCursor(Qt::SizeBDiagCursor);
         }
         else if(mode & RIGHT) {
             if(mode & BOTTOM)
-                setCursor(Qt::SizeFDiagCursor);
+                setFinalCursor(Qt::SizeFDiagCursor);
             else
-                setCursor(Qt::SizeBDiagCursor);
+                setFinalCursor(Qt::SizeBDiagCursor);
         }
         else
-            setCursor(Qt::SizeVerCursor);
+            setFinalCursor(Qt::SizeVerCursor);
     }
     else {
-        setCursor(Qt::SizeHorCursor);
+        setFinalCursor(Qt::SizeHorCursor);
     }
+}
+
+void Selection::setFinalCursor(Qt::CursorShape cursor)
+{
+    bool turned = parent_ && parent_->isTurned();
+
+    if(turned) {
+        if(cursor == Qt::SizeVerCursor)
+            setCursor(Qt::SizeHorCursor);
+        else if(cursor == Qt::SizeHorCursor)
+            setCursor(Qt::SizeVerCursor);
+        else if(cursor == Qt::SizeFDiagCursor)
+            setCursor(Qt::SizeBDiagCursor);
+        else if(cursor == Qt::SizeBDiagCursor)
+            setCursor(Qt::SizeFDiagCursor);
+        else
+            setCursor(cursor);
+    }
+    else
+        setCursor(cursor);
 }
