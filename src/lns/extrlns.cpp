@@ -171,8 +171,10 @@ static void FillFragmentsCount(int32_t hnd, Bool hor, int16_t* cnt,
 
     SpacesLength = TotalLength;
 
-    if (TotalLength <= 0)
+    if (TotalLength <= 0) {
+        *cnt = 0;
         return;
+    }
 
     while (h != NULLBHandle) {
         lf = (*lb)[h];
