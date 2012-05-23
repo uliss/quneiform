@@ -1678,14 +1678,16 @@ struct COLH
         SRECT bnd;/*рамка объединения*/
 };
 
-int16_t CalcNumDau(KNOTT *Knot) {
-    int16_t n = 0;
-    KNOTT *ptr;
-
-    if (!Knot)
+int16_t CalcNumDau(KNOTT *Knot)
+{
+    if (!Knot) {
         std::cerr << "Error #1: ED_RTF\n";
+        return 0;
+    }
 
-    for (ptr = Knot->down; ptr; ptr = ptr->next)
+    int16_t n = 0;
+
+    for (KNOTT * ptr = Knot->down; ptr; ptr = ptr->next)
         n++;
 
     return n;
