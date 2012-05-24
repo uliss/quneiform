@@ -151,21 +151,18 @@ static void _squeezeIfTooMany(int32_t & hor_len, int32_t & ver_len,
 }
 
 //******************************* Rom 8-2-99 **************
-static void FillFragmentsCount(int32_t hnd, Bool hor, int16_t* cnt,
-                               uchar* quality)
+static void FillFragmentsCount(int32_t hnd, Bool hor, int16_t* cnt, uchar* quality)
 {
-    int16_t Romii;
+    int16_t Romii = 0;
     int16_t SpacesLength, TotalLength;
     TLinesBambuk* lb = hor ? hLB : vLB;
     TLineInfo & li = lb->linesRoot[hnd];
     BEntry lbe = li.linesBambukEntry;
     BHandle h = lb->firstEntryMember(lbe);
     TLineFragment lf;
-    Romii = 0;
 
     if (hor)
         TotalLength = abs(li.lineAsIs.start.x() - li.lineAsIs.end.x());
-
     else
         TotalLength = abs(li.lineAsIs.start.y() - li.lineAsIs.end.y());
 
@@ -404,9 +401,6 @@ static void LCpy(Point16& dst, Point& src)
 Bool ExtrLinesGetInfo(LinesTotalInfo * lti, int32_t hor_len, int32_t ver_len,
                       int32_t &hor_cnt, int32_t &ver_cnt)
 {
-    int16_t cnt;//******************Rom
-    uchar Quality;//******************Rom
-
     if (hLB == NULL)
         return WRONG();
 
@@ -421,16 +415,17 @@ Bool ExtrLinesGetInfo(LinesTotalInfo * lti, int32_t hor_len, int32_t ver_len,
 
     int32_t max_cnt = 0xFFF0 / sizeof(LineInfo);
     _squeezeIfTooMany(hor_len, ver_len, hor_cnt, ver_cnt);
-    int i(0);
     hor_cnt = 0;
 
-    for (i = 0; i < hLB->linesCount; i++) {
+    for (int i = 0; i < hLB->linesCount; i++) {
         if ((hLB->linesRoot[i].lineAsIs.end.x()
                 - hLB->linesRoot[i].lineAsIs.start.x()) > hor_len) {
             if (hor_cnt >= lti->Hor.Cnt)
                 return WRONG();
 
             LineInfo& li = lti->Hor.Lns[hor_cnt];
+            int16_t cnt = 0;
+            uchar Quality = 0;
             FillFragmentsCount(i, TRUE, &cnt, &Quality);
             LCpy(li.A, hLB->linesRoot[i].lineAsIs.start);
             LCpy(li.B, hLB->linesRoot[i].lineAsIs.end);
@@ -451,13 +446,15 @@ Bool ExtrLinesGetInfo(LinesTotalInfo * lti, int32_t hor_len, int32_t ver_len,
 
     ver_cnt = 0;
 
-    for (i = 0; i < vLB->linesCount; i++) {
+    for (int i = 0; i < vLB->linesCount; i++) {
         if ((vLB->linesRoot[i].lineAsIs.end.y()
                 - vLB->linesRoot[i].lineAsIs.start.y()) > ver_len) {
             if (ver_cnt >= lti->Ver.Cnt)
                 return WRONG();
 
             LineInfo& li = lti->Ver.Lns[ver_cnt];
+            int16_t cnt = 0;
+            uchar Quality = 0;
             FillFragmentsCount(i, FALSE, &cnt, &Quality);
             LCpy(li.A, vLB->linesRoot[i].lineAsIs.start);
             LCpy(li.B, vLB->linesRoot[i].lineAsIs.end);
@@ -499,7 +496,7 @@ Bool ExtrLinesGetInfo(LinesTotalInfo * lti, int32_t hor_len, int32_t ver_len,
 
     int skew = lti->Skew1024;
 
-    for (i = 0; i < hor_cnt; i++) {
+    for (int i = 0; i < hor_cnt; i++) {
         LineInfo& li = lti->Hor.Lns[i];
         li.Ar = li.A;
         li.Ar.deskew(skew);
@@ -507,7 +504,7 @@ Bool ExtrLinesGetInfo(LinesTotalInfo * lti, int32_t hor_len, int32_t ver_len,
         li.Br.deskew(skew);
     };
 
-    for (i = 0; i < ver_cnt; i++) {
+    for (int i = 0; i < ver_cnt; i++) {
         LineInfo& li = lti->Ver.Lns[i];
         li.Ar = li.A;
         li.Ar.deskew(skew);
