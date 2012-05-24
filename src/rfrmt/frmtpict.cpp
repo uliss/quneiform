@@ -311,11 +311,9 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
         }
     }
 
-    BlockElement * hPrevObject;
+    BlockElement * hPrevObject = NULL;
 
     if (rc) {
-        Size pictSize(Wh.x(), Wh.y());
-
         PCTDIB pTmpDIB = new CTDIB;
         pTmpDIB->SetDIBbyPtr(pOutDIB);
         cf::Size pictGoal;
