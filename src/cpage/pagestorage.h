@@ -34,8 +34,10 @@ public:
     static void clear();
     static void clearPage(Handle p);
     static BACKUPPAGE& page(Handle p);
+    static BACKUPPAGE& pageAt(size_t pos);
     static Handle pageHandleAt(size_t pos);
     static Handle pageType(Handle p);
+    static size_t pagePosition(Handle p);
     static size_t size();
     static void remove(Handle p);
     static bool undo(Handle p, Handle num);

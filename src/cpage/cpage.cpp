@@ -65,14 +65,12 @@ extern Handle hCurPage;
 extern PtrList<NAMEDATA> NameData;
 
 #define PAGE_H(p) cf::PageStorage::page(p)
-#define PAGE_N(page) PAGE_H(cf::PageStorage::pages().GetHandle(page))
 
 #define _BLOCK_H(page,block) page.Block.GetItem(block)
 #define _BLOCK_N(page,block) _BLOCK_H(page,page.Block.GetHandle(block))
 
 #define BLOCK_H_H(page,block) _BLOCK_H(PAGE_H(page),block)
 #define BLOCK_H_N(page,block) _BLOCK_N(PAGE_H(page),block)
-#define BLOCK_N_N(page,block) _BLOCK_N(PAGE_N(page),block)
 
 Handle CPAGE_CreatePage(Handle type, void * lpdata, uint32_t size)
 {
@@ -397,10 +395,9 @@ Bool32 CPAGE_SavePage(Handle page, const char * lpName)
 
                 for (i = 0; i < count && rc == TRUE; i++)
 #ifdef SAVE_COMPRESSED
-                    rc = PAGE_N(i).SaveCompress(file);
-
+                    rc = cf::PageStorage::pageAt(i).SaveCompress(file);
 #else
-                    rc = PAGE_N(i).Save(file);
+                    rc = cf::PageStorage::pageAt(i).Save(file);
 #endif
             }
         }
@@ -528,8 +525,9 @@ Handle CPAGE_GetPageFirst(Handle type)
     DefConvertInit();
 
     for (i = 0; i < count; i++) {
-        if (!type || PAGE_N(i).GetType() == type || PAGE_N(i).Convert(type,
-                                                                      NULL, 0))
+        if (!type ||
+                cf::PageStorage::pageAt(i).GetType() == type ||
+                cf::PageStorage::pageAt(i).Convert(type, NULL, 0))
             break;
     }
 
@@ -541,8 +539,8 @@ Handle CPAGE_GetPageFirst(Handle type)
 Handle CPAGE_GetPageNext(Handle page, Handle type)
 {
     PROLOG;
-    int count = cf::PageStorage::size();//Page.GetCount();
-    int pos = cf::PageStorage::pages().GetPos(page) + 1;
+    int count = cf::PageStorage::size();
+    int pos = cf::PageStorage::pagePosition(page) + 1;
     int i;
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(type));
@@ -550,8 +548,9 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
     DefConvertInit();
 
     for (i = pos; i < count && i >= 0; i++) {
-        if (!type || PAGE_N(i).GetType() == type || PAGE_N(i).Convert(type,
-                                                                      NULL, 0))
+        if (!type ||
+                cf::PageStorage::pageAt(i).GetType() == type ||
+                cf::PageStorage::pageAt(i).Convert(type, NULL, 0))
             break;
     }
 

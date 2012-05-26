@@ -60,6 +60,11 @@ BACKUPPAGE& PageStorage::page(Handle p)
     return pages().GetItem(p);
 }
 
+BACKUPPAGE& PageStorage::pageAt(size_t pos)
+{
+    return page(pageHandleAt(pos));
+}
+
 Handle PageStorage::pageHandleAt(size_t pos)
 {
     return pages().GetHandle(pos);
@@ -68,6 +73,11 @@ Handle PageStorage::pageHandleAt(size_t pos)
 Handle PageStorage::pageType(Handle p)
 {
     return page(p).GetType();
+}
+
+size_t PageStorage::pagePosition(Handle p)
+{
+    return pages().GetPos(p);
 }
 
 size_t PageStorage::size()
