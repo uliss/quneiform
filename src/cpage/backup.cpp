@@ -68,7 +68,17 @@ BACKUPPAGE::~BACKUPPAGE()
 {
     BackUpPage.Clear();
 }
-//#################################
+
+size_t BACKUPPAGE::backupCount() const
+{
+    return BackUpPage.GetCount();
+}
+
+Handle BACKUPPAGE::backupAt(size_t pos)
+{
+    return BackUpPage.GetHandle(pos);
+}
+
 void BACKUPPAGE::Clear()
 {
     BackUpPage.Clear();

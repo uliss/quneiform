@@ -201,7 +201,7 @@ lOut:
 uint32_t CPAGE_GetBuckUpCount(Handle page)
 {
     PROLOG;
-    uint32_t rc = PAGE_H(page).BackUpPage.GetCount();
+    size_t rc = cf::PageStorage::page(page).backupCount();
     EPILOG;
     return rc;
 }
@@ -209,7 +209,7 @@ uint32_t CPAGE_GetBuckUpCount(Handle page)
 Handle CPAGE_GetBuckUpHandle(Handle page, uint32_t number)
 {
     PROLOG;
-    Handle rc = PAGE_H(page).BackUpPage.GetHandle(number);
+    Handle rc = cf::PageStorage::page(page).backupAt(number);
     EPILOG;
     return rc;
 }

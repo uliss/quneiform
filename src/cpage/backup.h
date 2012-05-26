@@ -61,12 +61,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class BACKUPPAGE : public PAGE
 {
-    public:
+private:
         PtrList<PAGE> BackUpPage;
         Handle        hCurBackUp;
     public:
         BACKUPPAGE();
         virtual ~BACKUPPAGE();
+
+        size_t backupCount() const;
+        Handle backupAt(size_t pos);
 
         void Clear();
         Handle BackUp(Handle backup = NULL);
