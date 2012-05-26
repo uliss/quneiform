@@ -25,9 +25,13 @@ class TestBackupPage : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestBackupPage);
     CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testSave);
+    CPPUNIT_TEST(testRestore);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
+    void testSave();
+    void testRestore();
 };
 
 #endif // TESTBACKUPPAGE_H

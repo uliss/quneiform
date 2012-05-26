@@ -16,6 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <cstdio>
+
 #include "testbackuppage.h"
 #include "cpage/backup.h"
 
@@ -27,4 +29,29 @@ void TestBackupPage::testInit()
 {
     BackupPage p;
     p.Clear();
+}
+
+void TestBackupPage::testSave()
+{
+    const char * data = "some data";
+    BackupPage p;
+    p.SetType(CPAGE_GetInternalType("page"));
+    p.SetData(CPAGE_GetInternalType("data"), (void*) data, strlen(data));
+    FILE * f = fopen("test.cpage", "w");
+    CPPUNIT_ASSERT(f);
+    p.Save(f);
+    fclose(f);
+}
+
+void TestBackupPage::testRestore()
+{
+    BackupPage p;
+    FILE * f = fopen("test.cpage", "r");
+    CPPUNIT_ASSERT(f);
+    p.Restore(f);
+    fclose(f);
+
+    char data[10];
+    p.GetData(CPAGE_GetInternalType("data"), data, 9);
+    CPPUNIT_ASSERT_EQUAL(std::string("some data"), std::string(data));
 }

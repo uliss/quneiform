@@ -69,7 +69,7 @@ typedef struct tagCompressHeader {
 
 class DATA
 {
-    public:
+    protected:
         Handle Type;
         uint32_t Size;
         char * lpData;
