@@ -56,9 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "backup.h"
 
-PtrList<BACKUPPAGE> Page;
-Handle              hCurPage = NULL;
-
+Handle hCurPage = NULL;
 
 //#################################
 BACKUPPAGE::BACKUPPAGE()

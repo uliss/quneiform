@@ -64,7 +64,6 @@ class BACKUPPAGE : public PAGE
     public:
         PtrList<PAGE> BackUpPage;
         Handle        hCurBackUp;
-
     public:
         BACKUPPAGE();
         virtual ~BACKUPPAGE();
@@ -82,14 +81,12 @@ class BACKUPPAGE : public PAGE
         BACKUPPAGE & operator = (BACKUPPAGE & Page);
         inline uint32_t GetCurPos() {
             return BackUpPage.GetPos(hCurBackUp);
-        };
-
-
+        }
 };
 
-#ifdef _DEBUG
-// for debug functions
-#endif
+namespace cf {
+typedef PtrList<BACKUPPAGE> PageList;
+}
 
 void   SetReturnCode_cpage(uint16_t rc);
 uint16_t GetReturnCode_cpage();

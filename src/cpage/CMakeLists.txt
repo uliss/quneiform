@@ -11,6 +11,7 @@ set(CF_CPAGE_SOURCES
     mymem.cpp
     namedata.cpp
     page.cpp
+    pagestorage.cpp
     picture.cpp
     table.cpp
     tableclass.cpp

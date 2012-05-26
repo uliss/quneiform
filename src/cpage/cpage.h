@@ -193,7 +193,7 @@ CPAGE_FUNC uint32_t CPAGE_GetPageData(Handle page, Handle Type, void * lpData, u
 CPAGE_FUNC void CPAGE_ClearBackUp(Handle page);
 //Paul 19-01-2001
 CPAGE_FUNC Handle CPAGE_BackUp(Handle page);
-CPAGE_FUNC Bool32 CPAGE_Undo(Handle page, Handle backup);
+CPAGE_FUNC bool CPAGE_Undo(Handle page, Handle backup);
 CPAGE_FUNC Bool32 CPAGE_Redo(Handle page, Handle backup);
 CPAGE_FUNC Handle CPAGE_CreateBlock(Handle page, Handle Type, uint32_t UserNum , uint32_t Flags, void * lpData, uint32_t Size);
 CPAGE_FUNC void CPAGE_DeleteBlock(Handle page, Handle block);
