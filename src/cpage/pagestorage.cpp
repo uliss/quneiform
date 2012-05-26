@@ -35,7 +35,7 @@ PageList& PageStorage::pages()
     return instance().pages_;
 }
 
-Handle PageStorage::append(BACKUPPAGE &p)
+Handle PageStorage::append(BackupPage &p)
 {
     return pages().AddTail(p);
 }
@@ -55,12 +55,12 @@ void PageStorage::clearPage(Handle p)
     page(p).Clear();
 }
 
-BACKUPPAGE& PageStorage::page(Handle p)
+BackupPage& PageStorage::page(Handle p)
 {
     return pages().GetItem(p);
 }
 
-BACKUPPAGE& PageStorage::pageAt(size_t pos)
+BackupPage& PageStorage::pageAt(size_t pos)
 {
     return page(pageHandleAt(pos));
 }

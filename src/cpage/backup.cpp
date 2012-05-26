@@ -58,34 +58,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Handle hCurPage = NULL;
 
-//#################################
-BACKUPPAGE::BACKUPPAGE()
+namespace cf {
+
+BackupPage::BackupPage()
 {
     hCurBackUp = NULL;
 }
-//#################################
-BACKUPPAGE::~BACKUPPAGE()
+
+BackupPage::~BackupPage()
 {
-    BackUpPage.Clear();
+    backups_.Clear();
 }
 
-size_t BACKUPPAGE::backupCount() const
+size_t BackupPage::backupCount() const
 {
-    return BackUpPage.GetCount();
+    return backups_.GetCount();
 }
 
-Handle BACKUPPAGE::backupAt(size_t pos)
+Handle BackupPage::backupAt(size_t pos)
 {
-    return BackUpPage.GetHandle(pos);
+    return backups_.GetHandle(pos);
 }
 
-void BACKUPPAGE::Clear()
+void BackupPage::Clear()
 {
-    BackUpPage.Clear();
+    backups_.Clear();
     hCurBackUp = NULL;
 }
 //#################################
-Handle BACKUPPAGE::BackUp(Handle backup)
+Handle BackupPage::BackUp(Handle backup)
 {
     Handle hBackupPage = backup == NULL ? hCurBackUp : backup;
 // Удалить все страницы позднее текущей.
@@ -93,13 +94,13 @@ Handle BACKUPPAGE::BackUp(Handle backup)
 
     while (hBackupPage != prevPage) {
         prevPage = hBackupPage;
-        PAGE & p = BackUpPage.GetNext(hBackupPage);
+        PAGE & p = backups_.GetNext(hBackupPage);
 
         if (hCurBackUp != prevPage)
-            BackUpPage.Del(prevPage);
+            backups_.Del(prevPage);
     }
 
-    Handle hPage = BackUpPage.AddTail(*this);
+    Handle hPage = backups_.AddTail(*this);
 
     if (hPage == NULL)
         return NULL;
@@ -108,16 +109,16 @@ Handle BACKUPPAGE::BackUp(Handle backup)
     return  hCurBackUp;
 }
 //#################################
-Bool32 BACKUPPAGE::Redo(Handle backup)
+Bool32 BackupPage::Redo(Handle backup)
 {
     if (hCurBackUp) {
         if (backup) {
-            *(PAGE*)this = BackUpPage.GetItem(backup);
+            *(PAGE*)this = backups_.GetItem(backup);
             hCurBackUp = backup;
         }
 
         else
-            *(PAGE*)this = BackUpPage.GetNext(hCurBackUp);
+            *(PAGE*)this = backups_.GetNext(hCurBackUp);
 
         return TRUE;
     }
@@ -125,16 +126,16 @@ Bool32 BACKUPPAGE::Redo(Handle backup)
     return FALSE;
 }
 //#################################
-Bool32 BACKUPPAGE::Undo(Handle backup)
+Bool32 BackupPage::Undo(Handle backup)
 {
     if (hCurBackUp) {
         if (backup) {
-            *(PAGE*)this = BackUpPage.GetItem(backup);
+            *(PAGE*)this = backups_.GetItem(backup);
             hCurBackUp = backup;
         }
 
         else
-            *(PAGE*)this = BackUpPage.GetPrev(hCurBackUp);
+            *(PAGE*)this = backups_.GetPrev(hCurBackUp);
 
         return TRUE;
     }
@@ -142,21 +143,21 @@ Bool32 BACKUPPAGE::Undo(Handle backup)
     return FALSE;
 }
 //#################################
-Bool32 BACKUPPAGE::Save(Handle to)
+Bool32 BackupPage::Save(Handle to)
 {
-    int count = BackUpPage.GetCount();
+    int count = backups_.GetCount();
     Bool32 rc = FALSE;
     int i, position;
     rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
     if (count) {
-        position = BackUpPage.GetPos(hCurBackUp);
+        position = backups_.GetPos(hCurBackUp);
 
         if (rc) rc = myWrite(to, &position, sizeof(position)) == sizeof(position);
 
         if (rc == TRUE && count)
             for (i = 0; i < count; i++)
-                BackUpPage.GetItem(BackUpPage.GetHandle(i)).Save(to);
+                backups_.GetItem(backups_.GetHandle(i)).Save(to);
     }
 
     if (rc)
@@ -165,11 +166,11 @@ Bool32 BACKUPPAGE::Save(Handle to)
     return rc;
 }
 //#################################
-Bool32 BACKUPPAGE::Restore(Handle from)
+Bool32 BackupPage::Restore(Handle from)
 {
     Bool32 rc = FALSE;
     int count, i, position;
-    BackUpPage.Clear();
+    backups_.Clear();
     rc = myRead(from, &count, sizeof(count)) == sizeof(count);
 
     if (count) {
@@ -180,11 +181,11 @@ Bool32 BACKUPPAGE::Restore(Handle from)
             rc = page.Restore(from);
 
             if (rc)
-                BackUpPage.AddTail(page);
+                backups_.AddTail(page);
         }
 
         if (rc && position >= 0)
-            hCurBackUp = BackUpPage.GetHandle(position);
+            hCurBackUp = backups_.GetHandle(position);
     }
 
     if (rc)
@@ -193,21 +194,21 @@ Bool32 BACKUPPAGE::Restore(Handle from)
     return rc;
 }
 //#################################
-Bool32 BACKUPPAGE::SaveCompress(Handle to)
+Bool32 BackupPage::SaveCompress(Handle to)
 {
-    int count = BackUpPage.GetCount();
+    int count = backups_.GetCount();
     Bool32 rc = FALSE;
     int i, position;
     rc = myWrite(to, &count, sizeof(count)) == sizeof(count);
 
     if (count) {
-        position = BackUpPage.GetPos(hCurBackUp);
+        position = backups_.GetPos(hCurBackUp);
 
         if (rc) rc = myWrite(to, &position, sizeof(position)) == sizeof(position);
 
         if (rc == TRUE && count)
             for (i = 0; i < count; i++)
-                BackUpPage.GetItem(BackUpPage.GetHandle(i)).SaveCompress(to);
+                backups_.GetItem(backups_.GetHandle(i)).SaveCompress(to);
     }
 
     if (rc)
@@ -216,11 +217,11 @@ Bool32 BACKUPPAGE::SaveCompress(Handle to)
     return rc;
 }
 //#################################
-Bool32 BACKUPPAGE::RestoreCompress(Handle from)
+Bool32 BackupPage::RestoreCompress(Handle from)
 {
     Bool32 rc = FALSE;
     int count, i, position;
-    BackUpPage.Clear();
+    backups_.Clear();
     rc = myRead(from, &count, sizeof(count)) == sizeof(count);
 
     if (count) {
@@ -231,11 +232,11 @@ Bool32 BACKUPPAGE::RestoreCompress(Handle from)
             rc = page.RestoreCompress(from);
 
             if (rc)
-                BackUpPage.AddTail(page);
+                backups_.AddTail(page);
         }
 
         if (rc && position >= 0)
-            hCurBackUp = BackUpPage.GetHandle(position);
+            hCurBackUp = backups_.GetHandle(position);
     }
 
     if (rc)
@@ -243,21 +244,23 @@ Bool32 BACKUPPAGE::RestoreCompress(Handle from)
 
     return rc;
 }
-//#################################
-BACKUPPAGE & BACKUPPAGE::operator = (BACKUPPAGE & Page)
+
+BackupPage & BackupPage::operator = (BackupPage & Page)
 {
-    int count = Page.BackUpPage.GetCount();
-    BackUpPage.Clear();
+    int count = Page.backups_.GetCount();
+    backups_.Clear();
 
     for (int i = 0; i < count; i++)
-        BackUpPage.AddTail(Page.BackUpPage.GetItem(Page.BackUpPage.GetHandle(i)));
+        backups_.AddTail(Page.backups_.GetItem(Page.backups_.GetHandle(i)));
 
     if (count) {
-        int curr = Page.BackUpPage.GetPos(Page.hCurBackUp);
-        hCurBackUp = BackUpPage.GetHandle(curr);
+        int curr = Page.backups_.GetPos(Page.hCurBackUp);
+        hCurBackUp = backups_.GetHandle(curr);
     }
 
     *(PAGE *)this = Page;
     return *this;
+}
+
 }
 

@@ -75,7 +75,7 @@ extern PtrList<NAMEDATA> NameData;
 Handle CPAGE_CreatePage(Handle type, void * lpdata, uint32_t size)
 {
     PROLOG;
-    BACKUPPAGE tail;
+    cf::BackupPage tail;
     SetReturnCode_cpage(IDS_ERR_NO);
     Handle hPage = cf::PageStorage::append(tail);
 
@@ -440,7 +440,7 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
 
                 if (myRead(file, &count, sizeof(count)) == sizeof(count))
                     for (i = 0; i < count; i++) {
-                        BACKUPPAGE page;
+                        cf::BackupPage page;
 
                         if (decompress ? page.RestoreCompress(file)
                                 : page.Restore(file))
