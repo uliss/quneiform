@@ -7,8 +7,7 @@ list(APPEND CF_TEST_SCAN_SRC testsanescanner.cpp)
 
 add_executable(test_scan ${CF_TEST_SCAN_SRC})
 
-set(EXTRA_LIB "")
-
+set(EXTRA_LIB cuneiform-cimage)
 
 target_link_libraries(test_scan
     cuneiform-scan

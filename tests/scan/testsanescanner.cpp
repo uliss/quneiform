@@ -18,8 +18,13 @@
 
 #include "testsanescanner.h"
 #include "scan/sanescanner.h"
+#include "cimage/cticontrol.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestSaneScanner);
+
+static void dumpImage(cf::ImagePtr im, const std::string& name) {
+    cf::CTIControl::writeDIBtoBMP(name, (BitmapHandle) im->data());
+}
 
 void TestSaneScanner::testInit()
 {
@@ -55,4 +60,6 @@ void TestSaneScanner::testStart()
 
     CPPUNIT_ASSERT(im->height() != 0);
     CPPUNIT_ASSERT(im->width() != 0);
+
+    dumpImage(im, "test_sane_scan.bmp");
 }

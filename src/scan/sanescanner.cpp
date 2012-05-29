@@ -161,6 +161,8 @@ bool SaneScanner::open(const std::string& device)
     sane_set_io_mode(h, SANE_TRUE);
 
     scanner_handle_ = h;
+
+    SCANNER_DEBUG << "scanner opened: '" << device << "'\n";
     return true;
 }
 
