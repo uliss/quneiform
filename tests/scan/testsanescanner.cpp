@@ -52,4 +52,7 @@ void TestSaneScanner::testStart()
     CPPUNIT_ASSERT(s.open(lst[0]));
 
     cf::ImagePtr im = s.start();
+
+    CPPUNIT_ASSERT(im->height() != 0);
+    CPPUNIT_ASSERT(im->width() != 0);
 }

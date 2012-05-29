@@ -41,6 +41,7 @@ public:
     ImagePtr start();
 private:
     bool isOpened() const;
+    bool readLine(uchar * buffer, size_t maxSize);
 private:
     void * scanner_handle_;
 };

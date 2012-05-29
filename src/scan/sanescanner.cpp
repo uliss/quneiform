@@ -28,6 +28,40 @@
 
 namespace cf {
 
+static void * scan_alloc(uint32_t sz) {
+    return calloc(1, sz);
+}
+
+static void scan_free(void * mem) {
+    free(mem);
+}
+
+static void * scan_lock(void * mem) { return mem; }
+static void scan_unlock(void*){}
+
+static bool initDIB(CTDIB& image, int width, int height, int depth) {
+    if(!image.SetExternals(scan_alloc, scan_free, scan_lock, scan_unlock))
+        return false;
+
+    if(!image.CreateDIBBegin(width, height, depth))
+        return false;
+
+    if(!image.CreateDIBEnd())
+        return false;
+
+    return true;
+}
+
+static ImagePtr toPointer(const CTDIB& dib)
+{
+    const size_t size = dib.GetImageSizeInBytes();
+    uchar * buf = (uchar*) malloc(size);
+    memcpy(buf, dib.GetPtrToHeader(), size);
+    Image * image = new Image(buf, size, Image::AllocatorMalloc);
+    image->setSize(Size(dib.GetImageWidth(), dib.GetImageHeight()));
+    return ImagePtr(image);
+}
+
 static inline const char * toString(SANE_Frame f)
 {
     switch(f) {
@@ -168,22 +202,48 @@ ImagePtr SaneScanner::start()
     }
 
     CTDIB image;
-    if(!image.CreateDIBBegin(params.pixels_per_line, params.lines, params.depth)) {
-        SCANNER_ERROR << "can't create dib\n";
+    if(!initDIB(image, params.pixels_per_line, params.lines, params.depth)) {
+        SCANNER_ERROR << "can't init dib\n";
         return ImagePtr();
     }
 
-    if(!image.CreateDIBEnd()) {
-        SCANNER_ERROR << "can't finish dib\n";
-        return ImagePtr();
+    const size_t buffer_size = params.bytes_per_line;
+    uchar buffer[buffer_size];
+
+    assert(image.GetLineWidthInBytes() >= buffer_size);
+    int line_counter = 0;
+
+    while(readLine(buffer, buffer_size)) {
+        void * line = image.GetPtrToLine(line_counter++);
+        memcpy(line, buffer, buffer_size);
+        if(!line)
+            break;
     }
 
-    return ImagePtr();
+    return toPointer(image);
 }
 
 bool SaneScanner::isOpened() const
 {
     return scanner_handle_ != NULL;
+}
+
+bool SaneScanner::readLine(uchar * buffer, size_t maxSize)
+{
+    SANE_Status s = SANE_STATUS_GOOD;
+
+    SANE_Int len = 0;
+    s = sane_read((SANE_Handle) scanner_handle_, (SANE_Byte*) buffer, maxSize, &len);
+
+    switch(s) {
+    case SANE_STATUS_GOOD:
+        return true;
+    case SANE_STATUS_EOF:
+        return false;
+    default:
+        SCANNER_ERROR << "read error: " << sane_strstatus(s) << "\n";
+        return false;
+    }
 }
 
 }
