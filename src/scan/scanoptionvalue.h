@@ -16,38 +16,44 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef ISCANNER_H
-#define ISCANNER_H
+#ifndef SCANOPTIONVALUE_H
+#define SCANOPTIONVALUE_H
 
 #include <stdexcept>
-#include <vector>
 #include <string>
 #include <boost/any.hpp>
 
 namespace cf {
 
-class IScanner
+class ScanOptionValue
 {
 public:
-    IScanner();
-    virtual ~IScanner();
-
+    typedef std::runtime_error TypeError;
 public:
-    class Exception : public std::runtime_error {
-    public:
-        Exception(const std::string& msg, int code = 0) :
-            std::runtime_error(msg),
-            code_(code) {}
-        int code() const { return code_; }
-    private:
-        int code_;
-    };
+    ScanOptionValue();
+    ScanOptionValue(bool value);
+    ScanOptionValue(int value);
+    ScanOptionValue(float value);
+    ScanOptionValue(const std::string& value);
 
-//    typedef std::vector<ScanOption> ScanOptions;
-protected:
-//    ScanOptions opts_;
+    bool getBool() const;
+    int getInt() const;
+    float getFloat() const;
+    std::string getString() const;
+
+    bool isBool() const;
+    bool isInt() const;
+    bool isFloat() const;
+    bool isString() const;
+
+    void set(bool value);
+    void set(int value);
+    void set(float value);
+    void set(const std::string& value);
+private:
+    boost::any value_;
 };
 
 }
 
-#endif // ISCANNER_H
+#endif // SCANOPTIONVALUE_H

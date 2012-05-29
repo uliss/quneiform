@@ -16,38 +16,33 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef ISCANNER_H
-#define ISCANNER_H
+#ifndef SCANOPTION_H
+#define SCANOPTION_H
 
-#include <stdexcept>
-#include <vector>
 #include <string>
-#include <boost/any.hpp>
 
 namespace cf {
 
-class IScanner
+class ScanOptionInfo;
+class ScanOptionValue;
+
+class ScanOption
 {
 public:
-    IScanner();
-    virtual ~IScanner();
+    ScanOption(const std::string& name);
+    ~ScanOption();
 
-public:
-    class Exception : public std::runtime_error {
-    public:
-        Exception(const std::string& msg, int code = 0) :
-            std::runtime_error(msg),
-            code_(code) {}
-        int code() const { return code_; }
-    private:
-        int code_;
-    };
+    std::string name() const;
+    void setName(const std::string& name);
 
-//    typedef std::vector<ScanOption> ScanOptions;
-protected:
-//    ScanOptions opts_;
+    ScanOptionInfo * info();
+    ScanOptionValue * value();
+private:
+    ScanOptionInfo * info_;
+    ScanOptionValue * value_;
+    std::string name_;
 };
 
 }
 
-#endif // ISCANNER_H
+#endif // SCANOPTION_H

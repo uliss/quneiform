@@ -1,5 +1,8 @@
 set(CF_SCAN_SOURCE
     iscanner.cpp
+    scanoptionvalue.cpp
+    scanoptioninfo.cpp
+    scanoption.cpp
 )
 
 set(CF_SCAN_LINK)

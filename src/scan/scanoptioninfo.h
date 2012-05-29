@@ -16,38 +16,70 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef ISCANNER_H
-#define ISCANNER_H
+#ifndef SCANOPTIONINFO_H
+#define SCANOPTIONINFO_H
 
-#include <stdexcept>
-#include <vector>
 #include <string>
 #include <boost/any.hpp>
+#include <vector>
 
 namespace cf {
 
-class IScanner
+class ScanOptionInfo
 {
 public:
-    IScanner();
-    virtual ~IScanner();
-
-public:
-    class Exception : public std::runtime_error {
-    public:
-        Exception(const std::string& msg, int code = 0) :
-            std::runtime_error(msg),
-            code_(code) {}
-        int code() const { return code_; }
-    private:
-        int code_;
+    enum Type {
+        UNKNOWN,
+        BOOL,
+        INT,
+        FLOAT,
+        STRING
     };
 
-//    typedef std::vector<ScanOption> ScanOptions;
-protected:
-//    ScanOptions opts_;
+    enum Constraint {
+        NO_CONSTRAINT,
+        RANGE,
+        LIST
+    };
+
+    typedef std::vector<boost::any> ValueList;
+public:
+    ScanOptionInfo(Type t = UNKNOWN, Constraint c = NO_CONSTRAINT);
+
+    bool hasConstraint() const;
+
+    Constraint constraint() const;
+    std::string description() const;
+    std::string title() const;
+    Type type() const;
+
+    void setConstraint(Constraint c);
+    void setDescription(const std::string& descr);
+    void setName(const std::string& name);
+    void setTitle(const std::string& title);
+    void setType(Type t);
+
+    boost::any rangeMinValue() const;
+    boost::any rangeMaxValue() const;
+
+    void setRangeMinValue(const boost::any& value);
+    void setRangeMaxValue(const boost::any& value);
+
+    ValueList allowedValues() const;
+    void appendAllowedValue(const boost::any& value);
+    void setAllowedValues(const ValueList& values);
+private:
+    void resetConstraints();
+private:
+    std::string title_;
+    std::string description_;
+    Type type_;
+    Constraint constraint_;
+    boost::any range_min_;
+    boost::any range_max_;
+    ValueList list_;
 };
 
 }
 
-#endif // ISCANNER_H
+#endif // SCANOPTIONINFO_H
