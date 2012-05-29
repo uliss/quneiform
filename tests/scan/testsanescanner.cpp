@@ -54,10 +54,15 @@ void TestSaneScanner::testStart()
     cf::SaneScanner s;
     cf::SaneScanner::DeviceList lst = s.listDevices();
     CPPUNIT_ASSERT(!lst.empty());
-    CPPUNIT_ASSERT(s.open(lst[0]));
 
+    // not opened
     cf::ImagePtr im = s.start();
+    CPPUNIT_ASSERT(!im.get());
 
+    CPPUNIT_ASSERT(s.open(lst[0]));
+    im = s.start();
+
+    CPPUNIT_ASSERT(im.get());
     CPPUNIT_ASSERT(im->height() != 0);
     CPPUNIT_ASSERT(im->width() != 0);
 

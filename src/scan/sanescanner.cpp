@@ -17,7 +17,9 @@
  ***************************************************************************/
 
 #include <sane/sane.h>
+#include <sstream>
 #include <boost/current_function.hpp>
+#include <boost/scoped_array.hpp>
 
 #include "sanescanner.h"
 #include "common/debug.h"
@@ -88,6 +90,46 @@ static void printSaneParams(const SANE_Parameters& params)
                   << "\t lines: \t" << params.lines << "px\n"
                   << "\t width: \t" << params.pixels_per_line << "px\n"
                   << "\t format: \t" << toString(params.format) << "\n";
+}
+
+static std::string optionTypeToString(const SANE_Option_Descriptor * d)
+{
+    switch(d->type) {
+    case SANE_TYPE_BOOL:
+        return "bool";
+    case SANE_TYPE_INT:
+        return "int";
+    case SANE_TYPE_FIXED:
+        return "fixed";
+    case SANE_TYPE_STRING:
+        return "string";
+    case SANE_TYPE_BUTTON:
+        return "button";
+    case SANE_TYPE_GROUP:
+        return "group";
+    default:
+        return "";
+    }
+}
+
+static std::string optionUnitToString(SANE_Unit u)
+{
+    switch(u) {
+    case SANE_UNIT_DPI:
+        return "dpi";
+    case SANE_UNIT_MM:
+        return "mm";
+    case SANE_UNIT_PERCENT:
+        return "%";
+    case SANE_UNIT_MICROSECOND:
+        return "us";
+    case SANE_UNIT_BIT:
+        return "bit";
+    case SANE_UNIT_PIXEL:
+        return "px";
+    default:
+        return "";
+    }
 }
 
 SaneScanner::SaneScanner() :
@@ -171,6 +213,8 @@ ImagePtr SaneScanner::start()
     if(!isOpened())
         return ImagePtr();
 
+    printOptions();
+
     SANE_Status s = sane_start((SANE_Handle) scanner_handle_);
     switch(s) {
         case SANE_STATUS_GOOD:
@@ -228,6 +272,160 @@ ImagePtr SaneScanner::start()
 bool SaneScanner::isOpened() const
 {
     return scanner_handle_ != NULL;
+}
+
+int SaneScanner::optionCount() const
+{
+    if(!isOpened())
+        return 0;
+
+    SANE_Int total;
+    SANE_Int info;
+    SANE_Status s = sane_control_option((SANE_Handle) scanner_handle_,
+                                        0,
+                                        SANE_ACTION_GET_VALUE,
+                                        (void*) &total,
+                                        &info);
+
+    if(s != SANE_STATUS_GOOD) {
+        SCANNER_ERROR << '\'' << sane_strstatus(s) << "'\n";
+        return 0;
+    }
+
+    return total;
+}
+
+std::string SaneScanner::optionBoolToString(const void * descr, int i) const
+{
+    const SANE_Option_Descriptor * d = (const SANE_Option_Descriptor*) descr;
+
+    if(d->size > sizeof(SANE_Word))
+        return "";
+
+    SANE_Word value;
+    SANE_Status s = sane_control_option((SANE_Handle) scanner_handle_, i, SANE_ACTION_GET_VALUE, &value, 0);
+    if(s != SANE_STATUS_GOOD) {
+        SCANNER_ERROR << "can't get option " << i << ": '" << sane_strstatus(s) << "'\n";
+        return "error";
+    }
+
+    return value == SANE_FALSE ? "no" : "yes";
+}
+
+std::string SaneScanner::optionFixedToString(const void *descr, int i) const
+{
+    const SANE_Option_Descriptor * d = (const SANE_Option_Descriptor*) descr;
+    boost::scoped_array<SANE_Fixed> value(new SANE_Fixed[d->size]);
+    SANE_Status s = sane_control_option((SANE_Handle) scanner_handle_, i, SANE_ACTION_GET_VALUE, value.get(), NULL);
+
+    if(s != SANE_STATUS_GOOD) {
+        SCANNER_ERROR << "can't get option " << i << ": '" << sane_strstatus(s) << "'\n";
+        return "error";
+    }
+
+    std::ostringstream buf;
+    buf << SANE_UNFIX(value[0]) << optionUnitToString(d->unit);
+    return buf.str();
+}
+
+std::string SaneScanner::optionIntToString(const void *descr, int i) const
+{
+    const SANE_Option_Descriptor * d = (const SANE_Option_Descriptor*) descr;
+    boost::scoped_array<SANE_Int> value(new SANE_Int[d->size]);
+    SANE_Status s = sane_control_option((SANE_Handle) scanner_handle_, i, SANE_ACTION_GET_VALUE, value.get(), NULL);
+
+    if(s != SANE_STATUS_GOOD) {
+        SCANNER_ERROR << "can't get option " << i << ": '" << sane_strstatus(s) << "'\n";
+        return "error";
+    }
+
+    std::ostringstream buf;
+    buf << value[0] << optionUnitToString(d->unit);
+    return buf.str();
+}
+
+std::string SaneScanner::optionStringToString(const void *descr, int i) const
+{
+    const SANE_Option_Descriptor * d = (const SANE_Option_Descriptor*) descr;
+
+    if(!d)
+        return "";
+
+    if(d->type != SANE_TYPE_STRING)
+        return "";
+
+    boost::scoped_array<char> value(new char[d->size]);
+
+    SANE_Status rc = sane_control_option((SANE_Handle) scanner_handle_, i, SANE_ACTION_GET_VALUE, value.get(), NULL);
+
+    if(rc != SANE_STATUS_GOOD) {
+        SCANNER_ERROR << "can't get option " << i << ": '" << sane_strstatus(rc) << "'\n";
+        return "error";
+    }
+
+    return value.get();
+}
+
+std::string SaneScanner::optionToString(const void *descr, int i) const
+{
+    const SANE_Option_Descriptor * d = (const SANE_Option_Descriptor*) descr;
+    if(!d)
+        return "";
+
+    switch(d->type) {
+    case SANE_TYPE_BOOL:
+        return optionBoolToString(d, i);
+    case SANE_TYPE_INT:
+        return optionIntToString(d, i);
+    case SANE_TYPE_FIXED:
+        return optionFixedToString(d, i);
+    case SANE_TYPE_STRING:
+        return optionStringToString(d, i);
+    default:
+        return "";
+    }
+}
+
+void SaneScanner::printOptions() const
+{
+    if(!isOpened())
+        return;
+
+    SANE_Int total = 0;
+    SANE_Status rc = sane_control_option((SANE_Handle) scanner_handle_, 0, SANE_ACTION_GET_VALUE, &total, 0);
+
+    if(rc != SANE_STATUS_GOOD) {
+        SCANNER_ERROR << "error: " << sane_strstatus(rc) << "\n";
+        return;
+    }
+
+    for(SANE_Int i = 1; i < total; i++) {
+        const SANE_Option_Descriptor * d = sane_get_option_descriptor((SANE_Handle) scanner_handle_, i);
+        if(!d)
+            continue;
+
+        if(d->type == SANE_TYPE_GROUP || d->type == SANE_TYPE_BUTTON)
+            continue;
+
+        printOption(d, i);
+    }
+}
+
+void SaneScanner::printOption(const void * opt, int i) const
+{
+    if(!opt)
+        return;
+
+    const SANE_Option_Descriptor * d = (const SANE_Option_Descriptor*) opt;
+
+    if(!SANE_OPTION_IS_ACTIVE(d->cap))
+        return;
+
+    Debug() << "\t name:        " << d->name << "\n"
+            << "\t title:       " << d->title << "\n"
+            //<< "\t description: " << d->desc << "\n"
+            //<< "\t type:        " << optionTypeToString(d) << "\n"
+            << "\t value:       " << optionToString(d, i) << "\n\n";
 }
 
 bool SaneScanner::readLine(uchar * buffer, size_t maxSize)

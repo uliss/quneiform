@@ -41,6 +41,14 @@ public:
     ImagePtr start();
 private:
     bool isOpened() const;
+    int optionCount() const;
+    std::string optionBoolToString(const void * descr, int i) const;
+    std::string optionFixedToString(const void * descr, int i) const;
+    std::string optionIntToString(const void * descr, int i) const;
+    std::string optionStringToString(const void * descr, int i) const;
+    std::string optionToString(const void * descr, int i) const;
+    void printOptions() const;
+    void printOption(const void * opt, int i) const;
     bool readLine(uchar * buffer, size_t maxSize);
 private:
     void * scanner_handle_;
