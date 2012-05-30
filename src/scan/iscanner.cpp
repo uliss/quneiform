@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 #include "iscanner.h"
+#include "scanoptionvalue.h"
+#include "scanoptioninfo.h"
+#include "common/debug.h"
 
 namespace cf {
 
@@ -38,6 +41,31 @@ IScanner::ScanOptions& IScanner::options()
     return opts_;
 }
 
+bool IScanner::hasOption(const std::string& name) const
+{
+    return findOption(name) !=  opts_.end();
+}
+
+bool IScanner::setOption(const std::string& name, bool value)
+{
+    OptionIterator it = findOption(name);
+
+    if(it == opts_.end())
+        return false;
+
+    return it->setValue(value);
+}
+
+bool IScanner::setOption(const std::string& name, int value)
+{
+    OptionIterator it = findOption(name);
+
+    if(it == opts_.end())
+        return false;
+
+    return it->setValue(value);
+}
+
 void IScanner::clearOptions()
 {
     opts_.clear();
@@ -50,6 +78,26 @@ std::ostream& IScanner::dumpOptions(std::ostream& os) const
     }
 
     return os;
+}
+
+IScanner::OptionIterator IScanner::findOption(const std::string& name)
+{
+    for(OptionIterator it = opts_.begin(); it != opts_.end(); ++it) {
+        if(it->name() == name)
+            return it;
+    }
+
+    return opts_.end();
+}
+
+IScanner::OptionIteratorConst IScanner::findOption(const std::string &name) const
+{
+    for(OptionIteratorConst it = opts_.begin(); it != opts_.end(); ++it) {
+        if(it->name() == name)
+            return it;
+    }
+
+    return opts_.end();
 }
 
 }

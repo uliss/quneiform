@@ -44,7 +44,18 @@ void TestSaneScanner::testOpen()
     cf::SaneScanner::DeviceList lst = s.listDevices();
     CPPUNIT_ASSERT(!lst.empty());
 
+    CPPUNIT_ASSERT(lst[0] == "test:0");
     CPPUNIT_ASSERT(s.open(lst[0]));
+
+    CPPUNIT_ASSERT(s.hasOption("hand-scanner"));
+    CPPUNIT_ASSERT(s.setOption("hand-scanner", true));
+
+    CPPUNIT_ASSERT(s.hasOption("depth"));
+    CPPUNIT_ASSERT(s.setOption("depth", 16));
+    CPPUNIT_ASSERT(s.setOption("depth", 1));
+    CPPUNIT_ASSERT(s.setOption("depth", 8));
+    CPPUNIT_ASSERT(!s.setOption("depth", 1024));
+
 
     CPPUNIT_ASSERT(!s.open("not exists"));
 }
@@ -68,5 +79,5 @@ void TestSaneScanner::testStart()
 
     dumpImage(im, "test_sane_scan.bmp");
 
-    s.dumpOptions(std::cerr);
+//    s.dumpOptions(std::cerr);
 }

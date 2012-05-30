@@ -21,6 +21,7 @@
 #include "scanoption.h"
 #include "scanoptioninfo.h"
 #include "scanoptionvalue.h"
+#include "scan_debug.h"
 
 namespace cf {
 
@@ -77,6 +78,71 @@ const ScanOptionValue * ScanOption::value() const
         value_.reset(new ScanOptionValue);
 
     return value_.get();
+}
+
+bool ScanOption::setValue(bool v)
+{
+    if(!info()->isBool())
+        return false;
+
+    value()->set(v);
+    return true;
+}
+
+template<class T>
+static bool inList(const T& value, const ScanOptionInfo::ValueList& lst)
+{
+    for(size_t i = 0; i < lst.size(); i++) {
+        boost::any t = lst[i];
+        if(t.empty())
+            continue;
+
+        if(value == boost::any_cast<T>(t))
+            return true;
+    }
+
+    return false;
+}
+
+bool ScanOption::setValue(int v)
+{
+    if(!info()->isInt()) {
+        SCANNER_ERROR << "not int value\n";
+        return false;
+    }
+
+    if(!info()->hasConstraint()) {
+        value()->set(v);
+        return true;
+    }
+
+    if(info()->isConstraintRange()) {
+        int min = boost::any_cast<int>(info()->rangeMinValue());
+        int max = boost::any_cast<int>(info()->rangeMaxValue());
+
+        if(min <= v && v < max) {
+            value()->set(v);
+            return true;
+        }
+        else {
+            SCANNER_WARNING << "given value (" << v << ") not in range ["
+                            << min << "," << max << ")\n";
+            return false;
+        }
+    }
+
+    if(info()->isConstraintList()) {
+        if(inList(v, info()->allowedValues())) {
+            value()->set(v);
+            return true;
+        }
+        else {
+            SCANNER_ERROR << "invalid value (" << v << ") not in list\n";
+            return false;
+        }
+    }
+
+    return false;
 }
 
 }

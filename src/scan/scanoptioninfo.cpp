@@ -54,6 +54,36 @@ ScanOptionInfo::Type ScanOptionInfo::type() const
     return type_;
 }
 
+bool ScanOptionInfo::isBool() const
+{
+    return type_ == BOOL;
+}
+
+bool ScanOptionInfo::isInt() const
+{
+    return type_ == INT;
+}
+
+bool ScanOptionInfo::isFloat() const
+{
+    return type_ == FLOAT;
+}
+
+bool ScanOptionInfo::isString() const
+{
+    return type_ == STRING;
+}
+
+bool ScanOptionInfo::isConstraintList() const
+{
+    return constraint_ == LIST;
+}
+
+bool ScanOptionInfo::isConstraintRange() const
+{
+    return constraint_ == RANGE;
+}
+
 void ScanOptionInfo::setConstraint(ScanOptionInfo::Constraint c)
 {
     constraint_ = c;

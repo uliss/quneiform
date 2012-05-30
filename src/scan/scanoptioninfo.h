@@ -54,6 +54,13 @@ public:
     std::string title() const;
     Type type() const;
 
+    bool isBool() const;
+    bool isInt() const;
+    bool isFloat() const;
+    bool isString() const;
+    bool isConstraintList() const;
+    bool isConstraintRange() const;
+
     void setConstraint(Constraint c);
     void setDescription(const std::string& descr);
     void setTitle(const std::string& title);

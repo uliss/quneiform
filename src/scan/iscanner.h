@@ -53,8 +53,27 @@ public:
     const ScanOptions& options() const;
     ScanOptions& options();
 
+    /**
+     * Returns true if option exists
+     * @param name - option name
+     * @return true on success
+     */
+    bool hasOption(const std::string& name) const;
+
+    /**
+     * Sets option value
+     * @param name - option name
+     * @param value - option value
+     * @return true on success
+     */
+    bool setOption(const std::string& name, bool value);
+    bool setOption(const std::string &name, int value);
+
     void clearOptions();
     std::ostream& dumpOptions(std::ostream& os) const;
+protected:
+    OptionIterator findOption(const std::string& name);
+    OptionIteratorConst findOption(const std::string& name) const;
 protected:
     ScanOptions opts_;
 };

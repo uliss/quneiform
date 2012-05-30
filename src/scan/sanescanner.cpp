@@ -21,14 +21,11 @@
 #include <boost/current_function.hpp>
 #include <boost/scoped_array.hpp>
 
+#include "scan_debug.h"
 #include "sanescanner.h"
 #include "scanoptioninfo.h"
 #include "scanoptionvalue.h"
-#include "common/debug.h"
 #include "rdib/ctdib.h"
-
-#define SCANNER_ERROR Debug() << "[Error] " << BOOST_CURRENT_FUNCTION << " "
-#define SCANNER_DEBUG Debug() << "[Debug] " << BOOST_CURRENT_FUNCTION << " "
 
 #define SCANNER_ERROR_STATUS(status) {\
     if(status != SANE_STATUS_GOOD) \

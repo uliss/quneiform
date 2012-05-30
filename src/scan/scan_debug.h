@@ -16,47 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SCANOPTION_H
-#define SCANOPTION_H
+#ifndef SCAN_DEBUG_H
+#define SCAN_DEBUG_H
 
-#include <string>
-#include <boost/shared_ptr.hpp>
+#include <boost/current_function.hpp>
 
-namespace cf {
+#include "common/debug.h"
 
-class ScanOptionInfo;
-class ScanOptionValue;
+#define SCANNER_ERROR cf::Debug() << "[Error][Scan] " << BOOST_CURRENT_FUNCTION << " "
+#define SCANNER_WARNING cf::Debug() << "[Warning][Scan] " << BOOST_CURRENT_FUNCTION << " "
+#define SCANNER_DEBUG cf::Debug() << "[Debug][Scan] " << BOOST_CURRENT_FUNCTION << " "
 
-class ScanOption
-{
-public:
-    ScanOption(const std::string& name);
-    ~ScanOption();
-
-    void enable() { setEnabled(true); }
-    void disable() { setEnabled(false); }
-    bool isEnabled() const;
-    void setEnabled(bool value = true);
-
-    std::string name() const;
-    void setName(const std::string& name);
-
-    ScanOptionInfo * info();
-    const ScanOptionInfo * info() const;
-    ScanOptionValue * value();
-    const ScanOptionValue * value() const;
-
-    bool setValue(bool v);
-    bool setValue(int v);
-private:
-    mutable boost::shared_ptr<ScanOptionInfo> info_;
-    mutable boost::shared_ptr<ScanOptionValue> value_;
-    std::string name_;
-    bool enabled_;
-};
-
-}
-
-std::ostream& operator<<(std::ostream& os, const cf::ScanOption& opt);
-
-#endif // SCANOPTION_H
+#endif // SCAN_DEBUG_H
