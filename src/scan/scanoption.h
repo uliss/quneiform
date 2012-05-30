@@ -20,6 +20,7 @@
 #define SCANOPTION_H
 
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace cf {
 
@@ -36,13 +37,17 @@ public:
     void setName(const std::string& name);
 
     ScanOptionInfo * info();
+    const ScanOptionInfo * info() const;
     ScanOptionValue * value();
+    const ScanOptionValue * value() const;
 private:
-    ScanOptionInfo * info_;
-    ScanOptionValue * value_;
+    mutable boost::shared_ptr<ScanOptionInfo> info_;
+    mutable boost::shared_ptr<ScanOptionValue> value_;
     std::string name_;
 };
 
 }
+
+std::ostream& operator<<(std::ostream& os, const cf::ScanOption& opt);
 
 #endif // SCANOPTION_H

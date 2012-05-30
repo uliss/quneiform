@@ -28,4 +28,28 @@ IScanner::~IScanner()
 {
 }
 
+const IScanner::ScanOptions& IScanner::options() const
+{
+    return opts_;
+}
+
+IScanner::ScanOptions& IScanner::options()
+{
+    return opts_;
+}
+
+void IScanner::clearOptions()
+{
+    opts_.clear();
+}
+
+std::ostream& IScanner::dumpOptions(std::ostream& os) const
+{
+    for(OptionIteratorConst it = opts_.begin(); it != opts_.end(); ++it) {
+        os << (*it) << "\n";
+    }
+
+    return os;
+}
+
 }

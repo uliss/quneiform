@@ -40,18 +40,14 @@ public:
     bool open(const std::string& device);
     ImagePtr start();
 private:
+    void addOption(const void * d, int idx);
+    void fillDeviceOptions();
     bool isOpened() const;
     int optionCount() const;
-    std::string optionBoolToString(const void * descr, int i) const;
-    std::string optionFixedToString(const void * descr, int i) const;
-    std::string optionIntToString(const void * descr, int i) const;
-    std::string optionStringToString(const void * descr, int i) const;
-    std::string optionToString(const void * descr, int i) const;
-    void printOptions() const;
-    void printOption(const void * opt, int i) const;
     bool readLine(uchar * buffer, size_t maxSize);
+    bool setValueOption(const void * descr, int idx, ScanOptionValue * value);
 private:
-    void * scanner_handle_;
+    void * scanner_;
 };
 
 }

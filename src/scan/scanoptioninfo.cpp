@@ -16,6 +16,9 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <iostream>
+#include <sstream>
+
 #include "scanoptioninfo.h"
 
 namespace cf {
@@ -104,9 +107,24 @@ ScanOptionInfo::ValueList ScanOptionInfo::allowedValues() const
     return list_;
 }
 
-void ScanOptionInfo::appendAllowedValue(const boost::any& value)
+void ScanOptionInfo::appendAllowedValue(const std::string &value)
 {
     list_.push_back(value);
+}
+
+void ScanOptionInfo::appendAllowedValue(int value)
+{
+    list_.push_back(value);
+}
+
+void ScanOptionInfo::appendAllowedValue(float value)
+{
+    list_.push_back(value);
+}
+
+void ScanOptionInfo::clearAllowedValues()
+{
+    list_.clear();
 }
 
 void ScanOptionInfo::setAllowedValues(const ScanOptionInfo::ValueList& values)
@@ -124,4 +142,93 @@ void ScanOptionInfo::resetConstraints()
     list_.clear();
 }
 
+}
+
+static inline std::string toString(cf::ScanOptionInfo::Type t)
+{
+    using namespace cf;
+    switch(t) {
+    case ScanOptionInfo::BOOL:
+        return "bool";
+    case ScanOptionInfo::INT:
+        return "integer";
+    case ScanOptionInfo::FLOAT:
+        return "float";
+    case ScanOptionInfo::STRING:
+        return "string";
+    default:
+        return "";
+    }
+}
+
+static inline std::string valueToString(const boost::any& v, cf::ScanOptionInfo::Type t)
+{
+    if(v.empty())
+        return "";
+
+    std::ostringstream buf;
+
+    switch(t) {
+    case cf::ScanOptionInfo::INT:
+        buf << boost::any_cast<int>(v);
+        break;
+    case cf::ScanOptionInfo::FLOAT:
+        buf << boost::any_cast<float>(v);
+        break;
+    case cf::ScanOptionInfo::STRING:
+        buf << boost::any_cast<std::string>(v);
+        break;
+    case cf::ScanOptionInfo::BOOL:
+        buf << boost::any_cast<bool>(v);
+        break;
+    default:
+        break;
+    }
+
+    return buf.str();
+}
+
+static inline std::string rangeToString(const cf::ScanOptionInfo& info)
+{
+    std::ostringstream buf;
+    buf << "[";
+    buf << valueToString(info.rangeMinValue(), info.type());
+    buf << "...";
+    buf << valueToString(info.rangeMaxValue(), info.type());
+    buf << "]";
+    return buf.str();
+}
+
+static inline std::string listToString(const cf::ScanOptionInfo& info)
+{
+    std::ostringstream buf;
+    buf << '[';
+    cf::ScanOptionInfo::ValueList values = info.allowedValues();
+
+    for(size_t i = 0; i < values.size(); i++) {
+        if(i != 0)
+            buf << '|';
+
+        buf << valueToString(values.at(i), info.type());
+    }
+
+    buf << ']';
+    return buf.str();
+}
+
+std::ostream& operator<<(std::ostream& os, const cf::ScanOptionInfo& info)
+{
+    os << "\t title:       " << info.title() << "\n";
+    os << "\t description: " << info.description() << "\n";
+    os << "\t type:        " << toString(info.type()) << "\n";
+    switch(info.constraint()) {
+    case cf::ScanOptionInfo::RANGE:
+        os << "\t range:       " << rangeToString(info) << "\n";
+        break;
+    case cf::ScanOptionInfo::LIST:
+        os << "\t list:        " << listToString(info) << "\n";
+    default:
+        break;
+    }
+    return os;
 }

@@ -20,6 +20,7 @@
 #define SCANOPTIONINFO_H
 
 #include <string>
+#include <iosfwd>
 #include <boost/any.hpp>
 #include <vector>
 
@@ -55,7 +56,6 @@ public:
 
     void setConstraint(Constraint c);
     void setDescription(const std::string& descr);
-    void setName(const std::string& name);
     void setTitle(const std::string& title);
     void setType(Type t);
 
@@ -66,7 +66,10 @@ public:
     void setRangeMaxValue(const boost::any& value);
 
     ValueList allowedValues() const;
-    void appendAllowedValue(const boost::any& value);
+    void appendAllowedValue(const std::string& value);
+    void appendAllowedValue(int value);
+    void appendAllowedValue(float value);
+    void clearAllowedValues();
     void setAllowedValues(const ValueList& values);
 private:
     void resetConstraints();
@@ -81,5 +84,7 @@ private:
 };
 
 }
+
+std::ostream& operator<<(std::ostream& os, const cf::ScanOptionInfo& info);
 
 #endif // SCANOPTIONINFO_H

@@ -96,6 +96,11 @@ bool ScanOptionValue::isString() const
     return boost::any_cast<std::string>(&value_);
 }
 
+void ScanOptionValue::reset()
+{
+    value_ = boost::any();
+}
+
 void ScanOptionValue::set(bool value)
 {
     value_ = value;

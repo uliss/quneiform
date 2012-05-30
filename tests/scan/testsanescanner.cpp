@@ -67,4 +67,6 @@ void TestSaneScanner::testStart()
     CPPUNIT_ASSERT(im->width() != 0);
 
     dumpImage(im, "test_sane_scan.bmp");
+
+    s.dumpOptions(std::cerr);
 }

@@ -46,6 +46,8 @@ public:
     bool isFloat() const;
     bool isString() const;
 
+    void reset();
+
     void set(bool value);
     void set(int value);
     void set(float value);

@@ -22,17 +22,20 @@
 #include <stdexcept>
 #include <vector>
 #include <string>
+#include <iosfwd>
 #include <boost/any.hpp>
+
+#include "scanoption.h"
 
 namespace cf {
 
 class IScanner
 {
 public:
-    IScanner();
-    virtual ~IScanner();
+    typedef std::vector<ScanOption> ScanOptions;
+    typedef ScanOptions::const_iterator OptionIteratorConst;
+    typedef ScanOptions::iterator OptionIterator;
 
-public:
     class Exception : public std::runtime_error {
     public:
         Exception(const std::string& msg, int code = 0) :
@@ -43,9 +46,17 @@ public:
         int code_;
     };
 
-//    typedef std::vector<ScanOption> ScanOptions;
+public:
+    IScanner();
+    virtual ~IScanner();
+
+    const ScanOptions& options() const;
+    ScanOptions& options();
+
+    void clearOptions();
+    std::ostream& dumpOptions(std::ostream& os) const;
 protected:
-//    ScanOptions opts_;
+    ScanOptions opts_;
 };
 
 }

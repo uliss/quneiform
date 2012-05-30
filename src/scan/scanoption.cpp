@@ -16,6 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <sstream>
+
 #include "scanoption.h"
 #include "scanoptioninfo.h"
 #include "scanoptionvalue.h"
@@ -23,17 +25,12 @@
 namespace cf {
 
 ScanOption::ScanOption(const std::string& name) :
-    info_(0),
-    value_(0),
     name_(name)
 {
 }
 
 ScanOption::~ScanOption()
-{
-    delete info_;
-    delete value_;
-}
+{}
 
 std::string ScanOption::name() const
 {
@@ -47,18 +44,59 @@ void ScanOption::setName(const std::string& name)
 
 ScanOptionInfo * ScanOption::info()
 {
-    if(!info_)
-        info_ = new ScanOptionInfo;
+    return (ScanOptionInfo *) ((const ScanOption*)this)->info();
+}
 
-    return info_;
+const ScanOptionInfo * ScanOption::info() const
+{
+    if(!info_)
+        info_.reset(new ScanOptionInfo);
+
+    return info_.get();
 }
 
 ScanOptionValue * ScanOption::value()
 {
-    if(!value_)
-        value_ = new ScanOptionValue;
-
-    return value_;
+    return (ScanOptionValue *) ((const ScanOption*) this)->value();
 }
 
+const ScanOptionValue * ScanOption::value() const
+{
+    if(!value_)
+        value_.reset(new ScanOptionValue);
+
+    return value_.get();
+}
+
+}
+
+static std::string toString(const cf::ScanOptionValue * v)
+{
+    std::ostringstream buf;
+
+    if(v->isBool()) {
+        if(v->getBool())
+            buf << "true";
+        else
+            buf << "false";
+    }
+
+    if(v->isInt())
+        buf << v->getInt();
+
+    if(v->isFloat())
+        buf << v->getFloat();
+
+    if(v->isString())
+        buf << v->isString();
+
+    return buf.str();
+}
+
+std::ostream& operator<<(std::ostream& os, const cf::ScanOption& opt)
+{
+    os << opt.name() << "\n";
+    os << (*opt.info());
+    os << "\t value:       " << toString(opt.value()) << "\n";
+    return os;
 }
