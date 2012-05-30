@@ -33,6 +33,11 @@ public:
     ScanOption(const std::string& name);
     ~ScanOption();
 
+    void enable() { setEnabled(true); }
+    void disable() { setEnabled(false); }
+    bool isEnabled() const;
+    void setEnabled(bool value = true);
+
     std::string name() const;
     void setName(const std::string& name);
 
@@ -44,6 +49,7 @@ private:
     mutable boost::shared_ptr<ScanOptionInfo> info_;
     mutable boost::shared_ptr<ScanOptionValue> value_;
     std::string name_;
+    bool enabled_;
 };
 
 }

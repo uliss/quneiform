@@ -336,15 +336,19 @@ bool SaneScanner::setValueOption(const void * descr, int idx, ScanOptionValue * 
     switch(d->type) {
     case SANE_TYPE_BOOL: {
         SANE_Bool v = *(SANE_Bool*) buffer;
-        value->set(v);
+        value->set((bool) v);
     }
         break;
     case SANE_TYPE_INT:
-        value->set(*(SANE_Int*) buffer);
+        value->set((int) *(SANE_Int*) buffer);
         break;
-    case SANE_TYPE_STRING:
+    case SANE_TYPE_FIXED:
+        value->set((float) SANE_UNFIX(*(SANE_Word*) buffer));
+        break;
+    case SANE_TYPE_STRING: {
         value->set(std::string(buffer));
         break;
+    }
     default:
         break;
     }
@@ -360,8 +364,13 @@ void SaneScanner::addOption(const void * descr, int idx)
         return;
 
     ScanOption option(d->name);
+    option.setEnabled(SANE_OPTION_IS_ACTIVE(d->cap));
+
     setInfoOption(d, option.info());
-    setValueOption(d, idx, option.value());
+    bool rc = setValueOption(d, idx, option.value());
+
+    if(rc)
+        opts_.push_back(option);
 }
 
 void SaneScanner::fillDeviceOptions()

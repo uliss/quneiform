@@ -25,12 +25,23 @@
 namespace cf {
 
 ScanOption::ScanOption(const std::string& name) :
-    name_(name)
+    name_(name),
+    enabled_(true)
 {
 }
 
 ScanOption::~ScanOption()
 {}
+
+bool ScanOption::isEnabled() const
+{
+    return enabled_;
+}
+
+void ScanOption::setEnabled(bool value)
+{
+    enabled_ = value;
+}
 
 std::string ScanOption::name() const
 {
@@ -88,14 +99,19 @@ static std::string toString(const cf::ScanOptionValue * v)
         buf << v->getFloat();
 
     if(v->isString())
-        buf << v->isString();
+        buf << '"' << v->getString() << '"';
 
     return buf.str();
 }
 
 std::ostream& operator<<(std::ostream& os, const cf::ScanOption& opt)
 {
-    os << opt.name() << "\n";
+    os << opt.name();
+
+    if(opt.isEnabled())
+        os << "***";
+
+    os << "\n";
     os << (*opt.info());
     os << "\t value:       " << toString(opt.value()) << "\n";
     return os;
