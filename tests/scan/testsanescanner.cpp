@@ -79,5 +79,33 @@ void TestSaneScanner::testStart()
 
     dumpImage(im, "test_sane_scan.bmp");
 
-//    s.dumpOptions(std::cerr);
+    //    s.dumpOptions(std::cerr);
+}
+
+void TestSaneScanner::testSetOption()
+{
+    cf::SaneScanner s;
+    CPPUNIT_ASSERT(s.open("test:0"));
+
+    // bool
+    CPPUNIT_ASSERT(s.hasOption("hand-scanner"));
+    CPPUNIT_ASSERT(s.setOption("hand-scanner", true));
+    CPPUNIT_ASSERT(s.setOption("hand-scanner", false));
+
+    // int list
+    CPPUNIT_ASSERT(s.hasOption("depth"));
+    CPPUNIT_ASSERT(s.setOption("depth", 16));
+    CPPUNIT_ASSERT(s.setOption("depth", 1));
+    CPPUNIT_ASSERT(s.setOption("depth", 8));
+    CPPUNIT_ASSERT(!s.setOption("depth", 1024));
+
+    // float range
+    CPPUNIT_ASSERT(s.hasOption("resolution"));
+    CPPUNIT_ASSERT(s.setOption("resolution", 1.0f));
+
+    // string list
+    CPPUNIT_ASSERT(s.hasOption("mode"));
+    CPPUNIT_ASSERT(!s.setOption("mode", std::string("Invalid")));
+    CPPUNIT_ASSERT(s.setOption("mode", std::string("Color")));
+    CPPUNIT_ASSERT(s.setOption("mode", std::string("Gray")));
 }

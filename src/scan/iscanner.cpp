@@ -66,6 +66,26 @@ bool IScanner::setOption(const std::string& name, int value)
     return it->setValue(value);
 }
 
+bool IScanner::setOption(const std::string& name, float value)
+{
+    OptionIterator it = findOption(name);
+
+    if(it == opts_.end())
+        return false;
+
+    return it->setValue(value);
+}
+
+bool IScanner::setOption(const std::string &name, const std::string& value)
+{
+    OptionIterator it = findOption(name);
+
+    if(it == opts_.end())
+        return false;
+
+    return it->setValue(value);
+}
+
 void IScanner::clearOptions()
 {
     opts_.clear();

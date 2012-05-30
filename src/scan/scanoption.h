@@ -48,6 +48,8 @@ public:
 
     bool setValue(bool v);
     bool setValue(int v);
+    bool setValue(float v);
+    bool setValue(const std::string& v);
 private:
     mutable boost::shared_ptr<ScanOptionInfo> info_;
     mutable boost::shared_ptr<ScanOptionValue> value_;

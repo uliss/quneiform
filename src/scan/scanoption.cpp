@@ -104,6 +104,59 @@ static bool inList(const T& value, const ScanOptionInfo::ValueList& lst)
     return false;
 }
 
+template<class T>
+static bool inRange(const T& value, const boost::any& min, const boost::any& max, T * pmin, T * pmax)
+{
+    if(!min.empty()) {
+        T vmin = boost::any_cast<T>(min);
+        if(pmin)
+            *pmin = vmin;
+
+        if(value < vmin)
+            return false;
+    }
+
+    if(!max.empty()) {
+        T vmax = boost::any_cast<T>(max);
+        if(pmax)
+            *pmax = vmax;
+
+        if(vmax <= value)
+            return false;
+    }
+
+    return true;
+}
+
+template<class T>
+static bool setRangeValue(const T& v, ScanOptionInfo * info, ScanOptionValue * value)
+{
+    T min = 0, max = 0;
+
+    if(inRange<T>(v, info->rangeMinValue(), info->rangeMaxValue(), &min, &max)) {
+        value->set(v);
+        return true;
+    }
+    else {
+        SCANNER_WARNING << "given value (" << v << ") not in range ["
+                        << min << "," << max << ")\n";
+        return false;
+    }
+}
+
+template<class T>
+static bool setListValue(const T& v, ScanOptionInfo * info, ScanOptionValue * value)
+{
+    if(inList<T>(v, info->allowedValues())) {
+        value->set(v);
+        return true;
+    }
+    else {
+        SCANNER_ERROR << "invalid value (" << v << ") not in list\n";
+        return false;
+    }
+}
+
 bool ScanOption::setValue(int v)
 {
     if(!info()->isInt()) {
@@ -116,31 +169,50 @@ bool ScanOption::setValue(int v)
         return true;
     }
 
-    if(info()->isConstraintRange()) {
-        int min = boost::any_cast<int>(info()->rangeMinValue());
-        int max = boost::any_cast<int>(info()->rangeMaxValue());
+    if(info()->isConstraintRange())
+        return setRangeValue(v, info(), value());
 
-        if(min <= v && v < max) {
-            value()->set(v);
-            return true;
-        }
-        else {
-            SCANNER_WARNING << "given value (" << v << ") not in range ["
-                            << min << "," << max << ")\n";
-            return false;
-        }
+    if(info()->isConstraintList())
+        return setListValue(v, info(), value());
+
+    return false;
+}
+
+bool ScanOption::setValue(float v)
+{
+    if(!info()->isFloat()){
+        SCANNER_ERROR << "not float value\n";
+        return false;
     }
 
-    if(info()->isConstraintList()) {
-        if(inList(v, info()->allowedValues())) {
-            value()->set(v);
-            return true;
-        }
-        else {
-            SCANNER_ERROR << "invalid value (" << v << ") not in list\n";
-            return false;
-        }
+    if(!info()->hasConstraint()) {
+        value()->set(v);
+        return true;
     }
+
+    if(info()->isConstraintRange())
+        return setRangeValue(v, info(), value());
+
+    if(info()->isConstraintList())
+        return setListValue(v, info(), value());
+
+    return false;
+}
+
+bool ScanOption::setValue(const std::string& v)
+{
+    if(!info()->isString()) {
+        SCANNER_ERROR << "not string value\n";
+        return false;
+    }
+
+    if(!info()->hasConstraint()) {
+        value()->set(v);
+        return true;
+    }
+
+    if(info()->isConstraintList())
+        return setListValue(v, info(), value());
 
     return false;
 }

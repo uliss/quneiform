@@ -68,6 +68,8 @@ public:
      */
     bool setOption(const std::string& name, bool value);
     bool setOption(const std::string &name, int value);
+    bool setOption(const std::string& name, float value);
+    bool setOption(const std::string& name, const std::string& value);
 
     void clearOptions();
     std::ostream& dumpOptions(std::ostream& os) const;
