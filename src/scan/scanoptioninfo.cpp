@@ -25,6 +25,7 @@ namespace cf {
 
 ScanOptionInfo::ScanOptionInfo(Type t, Constraint c) :
     type_(t),
+    unit_(UNIT_NONE),
     constraint_(c)
 {
 }
@@ -163,6 +164,16 @@ void ScanOptionInfo::setAllowedValues(const ScanOptionInfo::ValueList& values)
         return;
 
     list_ = values;
+}
+
+ScanOptionInfo::Unit ScanOptionInfo::unit() const
+{
+    return unit_;
+}
+
+void ScanOptionInfo::setUnit(ScanOptionInfo::Unit u)
+{
+    unit_ = u;
 }
 
 void ScanOptionInfo::resetConstraints()

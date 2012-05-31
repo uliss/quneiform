@@ -43,6 +43,16 @@ public:
         LIST
     };
 
+    enum Unit {
+        UNIT_NONE = 0,
+        UNIT_PIXEL,
+        UNIT_BIT,
+        UNIT_MM,
+        UNIT_DPI,
+        UNIT_PERCENT,
+        UNIT_MICROSECOND
+    };
+
     typedef std::vector<boost::any> ValueList;
 public:
     ScanOptionInfo(Type t = UNKNOWN, Constraint c = NO_CONSTRAINT);
@@ -78,12 +88,16 @@ public:
     void appendAllowedValue(float value);
     void clearAllowedValues();
     void setAllowedValues(const ValueList& values);
+
+    Unit unit() const;
+    void setUnit(Unit u);
 private:
     void resetConstraints();
 private:
     std::string title_;
     std::string description_;
     Type type_;
+    Unit unit_;
     Constraint constraint_;
     boost::any range_min_;
     boost::any range_max_;

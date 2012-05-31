@@ -79,7 +79,7 @@ void TestSaneScanner::testStart()
 
     dumpImage(im, "test_sane_scan.bmp");
 
-    //    s.dumpOptions(std::cerr);
+        s.dumpOptions(std::cerr);
 }
 
 void TestSaneScanner::testSetOption()

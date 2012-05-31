@@ -219,8 +219,10 @@ bool ScanOption::setValue(const std::string& v)
 
 }
 
-static std::string toString(const cf::ScanOptionValue * v)
+static std::string toString(const cf::ScanOptionValue * v, cf::ScanOptionInfo::Unit unit)
 {
+    using namespace cf;
+
     std::ostringstream buf;
 
     if(v->isBool()) {
@@ -239,6 +241,29 @@ static std::string toString(const cf::ScanOptionValue * v)
     if(v->isString())
         buf << '"' << v->getString() << '"';
 
+    switch(unit) {
+    case ScanOptionInfo::UNIT_BIT:
+        buf << " bit";
+        break;
+    case ScanOptionInfo::UNIT_DPI:
+        buf << " dpi";
+        break;
+    case ScanOptionInfo::UNIT_MM:
+        buf << " mm";
+        break;
+    case ScanOptionInfo::UNIT_PERCENT:
+        buf << "%";
+        break;
+    case ScanOptionInfo::UNIT_PIXEL:
+        buf << "px";
+        break;
+    case ScanOptionInfo::UNIT_MICROSECOND:
+        buf << "us";
+        break;
+    default:
+        break;
+    }
+
     return buf.str();
 }
 
@@ -251,6 +276,6 @@ std::ostream& operator<<(std::ostream& os, const cf::ScanOption& opt)
 
     os << "\n";
     os << (*opt.info());
-    os << "\t value:       " << toString(opt.value()) << "\n";
+    os << "\t value:       " << toString(opt.value(), opt.info()->unit()) << "\n";
     return os;
 }

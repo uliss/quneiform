@@ -255,6 +255,27 @@ static inline ScanOptionInfo::Type SaneTypeToCommon(SANE_Value_Type t)
     }
 }
 
+static inline ScanOptionInfo::Unit SaneUnitToCommon(SANE_Unit u)
+{
+    switch(u) {
+    case SANE_UNIT_PIXEL:
+        return ScanOptionInfo::UNIT_PIXEL;
+    case SANE_UNIT_MM:
+        return ScanOptionInfo::UNIT_MM;
+    case SANE_UNIT_DPI:
+        return ScanOptionInfo::UNIT_DPI;
+    case SANE_UNIT_PERCENT:
+        return ScanOptionInfo::UNIT_PERCENT;
+    case SANE_UNIT_BIT:
+        return ScanOptionInfo::UNIT_BIT;
+    case SANE_UNIT_MICROSECOND:
+        return ScanOptionInfo::UNIT_MICROSECOND;
+    case SANE_UNIT_NONE:
+    default:
+        return ScanOptionInfo::UNIT_NONE;
+    }
+}
+
 static void setInfoOptionRange(const SANE_Option_Descriptor * d, ScanOptionInfo * info)
 {
     info->setConstraint(ScanOptionInfo::RANGE);
@@ -278,6 +299,7 @@ static void setInfoOption(const SANE_Option_Descriptor * d, ScanOptionInfo * inf
     info->setTitle(d->title);
     info->setDescription(d->desc);
     info->setType(SaneTypeToCommon(d->type));
+    info->setUnit(SaneUnitToCommon(d->unit));
 
     switch(d->constraint_type) {
     case SANE_CONSTRAINT_RANGE:
