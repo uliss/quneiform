@@ -294,6 +294,11 @@ bool SaneScanner::setBackendOption(const std::string& name, float v)
         return false;
     }
 
+    if(info == SANE_INFO_RELOAD_OPTIONS) {
+        clearOptions();
+        fillDeviceOptions();
+    }
+
     return true;
 }
 

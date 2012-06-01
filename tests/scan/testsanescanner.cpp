@@ -27,6 +27,20 @@ static void dumpImage(cf::ImagePtr im, const std::string& name) {
     cf::CTIControl::writeDIBtoBMP(name, (BitmapHandle) im->data());
 }
 
+#define ASSERT_SET_STR_OPTION(name, value) {\
+    std::string tmp;\
+    CPPUNIT_ASSERT(s.setOption(name, std::string(value)));\
+    CPPUNIT_ASSERT(s.option(name, &tmp));\
+    CPPUNIT_ASSERT_EQUAL(std::string(value), tmp);\
+}
+
+#define ASSERT_SET_STR_OPTION_FAIL(name, value) {\
+    std::string tmp;\
+    CPPUNIT_ASSERT(!s.setOption(name, std::string(value)));\
+    CPPUNIT_ASSERT(s.option(name, &tmp));\
+    CPPUNIT_ASSERT(std::string(value) != tmp);\
+}
+
 void TestSaneScanner::testInit()
 {
     cf::SaneScanner s;
@@ -118,4 +132,14 @@ void TestSaneScanner::testSetOption()
     cf::Rect area(0, 0, 100, 150);
     CPPUNIT_ASSERT(s.setScanArea(area));
     CPPUNIT_ASSERT_EQUAL(area, s.scanArea());
+}
+
+void TestSaneScanner::testScanMode()
+{
+    cf::SaneScanner s;
+    CPPUNIT_ASSERT(s.open("test:0"));
+
+    ASSERT_SET_STR_OPTION("mode", "Gray");
+    ASSERT_SET_STR_OPTION("mode", "Color");
+    ASSERT_SET_STR_OPTION_FAIL("mode", "Invalid mode");
 }

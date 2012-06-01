@@ -135,8 +135,10 @@ bool IScanner::setOption(const std::string &name, const std::string& value)
 {
     OptionIterator it = findOption(name);
 
-    if(it == opts_.end())
+    if(it == opts_.end()) {
+        SCANNER_ERROR << "option not found: '" << name << "'\n";
         return false;
+    }
 
     return it->setValue(value);
 }
