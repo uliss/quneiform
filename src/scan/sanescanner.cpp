@@ -234,6 +234,69 @@ ImagePtr SaneScanner::start()
     return toPointer(image);
 }
 
+Rect SaneScanner::scanArea() const
+{
+    if(!isOpened())
+        return Rect(-1, -1, -1, -1);
+
+    float tl_x = 0;
+    float tl_y = 0;
+    float br_x = 0;
+    float br_y = 0;
+
+    if(option("tl-x", &tl_x) &&
+        option("tl-y", &tl_y) &&
+        option("br-x", &br_x) &&
+        option("br-y", &br_y))
+    {
+        return Rect(Point(tl_x, tl_y), Point(br_x, br_y));
+    }
+
+    return Rect();
+}
+
+bool SaneScanner::setScanArea(const Rect& area)
+{
+    if(!isOpened()) {
+        SCANNER_ERROR << "scanner not opened\n";
+        return false;
+    }
+
+    if(setOption("tl-x", (float) area.leftTop().x()) &&
+        setOption("tl-y", (float) area.leftTop().y()) &&
+        setOption("br-x", (float) area.rightBottom().x()) &&
+        setOption("br-y", (float) area.rightBottom().y()))
+    {
+        return true;
+    }
+    else
+        return false;
+}
+
+bool SaneScanner::setBackendOption(const std::string& name, float v)
+{
+    int option_idx = optionIndex(name);
+
+    if(!option_idx) {
+        SCANNER_ERROR << "invalid option index: " << option_idx << "\n";
+        return false;
+    }
+
+    if(!isOptionSettable(option_idx))
+        return false;
+
+    SANE_Int info;
+    SANE_Word value = SANE_FIX(v);
+    SANE_Status rc = sane_control_option((SANE_Handle) scanner_, option_idx, SANE_ACTION_SET_VALUE, &value, &info);
+
+    if(rc != SANE_STATUS_GOOD) {
+        SCANNER_ERROR_STATUS(rc);
+        return false;
+    }
+
+    return true;
+}
+
 static inline bool isRealValueType(SANE_Value_Type t)
 {
     return t != SANE_TYPE_BUTTON && t != SANE_TYPE_GROUP;
@@ -291,7 +354,7 @@ static void setInfoOptionRange(const SANE_Option_Descriptor * d, ScanOptionInfo 
     }
 }
 
-static void setInfoOption(const SANE_Option_Descriptor * d, ScanOptionInfo * info)
+static void setInfoOption(const SANE_Option_Descriptor * d, ScanOptionInfo * info, int idx)
 {
     if(!d || !info)
         return;
@@ -300,6 +363,7 @@ static void setInfoOption(const SANE_Option_Descriptor * d, ScanOptionInfo * inf
     info->setDescription(d->desc);
     info->setType(SaneTypeToCommon(d->type));
     info->setUnit(SaneUnitToCommon(d->unit));
+    info->setIndex(idx);
 
     switch(d->constraint_type) {
     case SANE_CONSTRAINT_RANGE:
@@ -385,7 +449,7 @@ void SaneScanner::addOption(const void * descr, int idx)
     ScanOption option(d->name);
     option.setEnabled(SANE_OPTION_IS_ACTIVE(d->cap));
 
-    setInfoOption(d, option.info());
+    setInfoOption(d, option.info(), idx);
     bool rc = setValueOption(d, idx, option.value());
 
     if(rc)
@@ -413,6 +477,23 @@ bool SaneScanner::isOpened() const
     return scanner_ != NULL;
 }
 
+bool SaneScanner::isOptionSettable(int idx) const
+{
+    const SANE_Option_Descriptor * d = sane_get_option_descriptor((SANE_Handle) scanner_, idx);
+
+    if(!d) {
+        SCANNER_ERROR << "can't get option descriptor\n";
+        return false;
+    }
+
+    if(!SANE_OPTION_IS_SETTABLE(d->cap)) {
+        SCANNER_ERROR << "option '" << d->name << "' is not settable\n";
+        return false;
+    }
+
+    return true;
+}
+
 int SaneScanner::optionCount() const
 {
     if(!isOpened())
@@ -427,6 +508,18 @@ int SaneScanner::optionCount() const
     }
 
     return total;
+}
+
+int SaneScanner::optionIndex(const std::string &name) const
+{
+    OptionIteratorConst it = findOption(name);
+
+    if(it == opts_.end()) {
+        SCANNER_ERROR << "option not found: " << name << "\n";
+        return -1;
+    }
+
+    return it->info()->index();
 }
 
 bool SaneScanner::readLine(uchar * buffer, size_t maxSize)

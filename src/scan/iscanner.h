@@ -26,6 +26,8 @@
 #include <boost/any.hpp>
 
 #include "scanoption.h"
+#include "common/rect.h"
+#include "common/image.h"
 
 namespace cf {
 
@@ -61,6 +63,17 @@ public:
     bool hasOption(const std::string& name) const;
 
     /**
+     * Returns option value
+     * @param name - option name
+     * @param value - pointer to result
+     * @return true on success
+     */
+    bool option(const std::string& name, bool * value) const;
+    bool option(const std::string& name, int * value) const;
+    bool option(const std::string& name, float * value) const;
+    bool option(const std::string& name, std::string * value) const;
+
+    /**
      * Sets option value
      * @param name - option name
      * @param value - option value
@@ -71,9 +84,26 @@ public:
     bool setOption(const std::string& name, float value);
     bool setOption(const std::string& name, const std::string& value);
 
+    /**
+     * Returns scanning area in mm
+     * @return invalid retangle on error
+     * @see setScanArea()
+     */
+    virtual Rect scanArea() const = 0;
+
+    /**
+     * Sets scanning area in mm
+     * @return true on success, false on error
+     * @see scanArea()
+     */
+    virtual bool setScanArea(const Rect& area) = 0;
+
+    virtual ImagePtr start() = 0;
+
     void clearOptions();
     std::ostream& dumpOptions(std::ostream& os) const;
 protected:
+    virtual bool setBackendOption(const std::string& name, float value) = 0;
     OptionIterator findOption(const std::string& name);
     OptionIteratorConst findOption(const std::string& name) const;
 protected:

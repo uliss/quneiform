@@ -76,6 +76,9 @@ public:
     void setTitle(const std::string& title);
     void setType(Type t);
 
+    int index() const;
+    void setIndex(int idx);
+
     boost::any rangeMinValue() const;
     boost::any rangeMaxValue() const;
 
@@ -97,6 +100,7 @@ private:
     std::string title_;
     std::string description_;
     Type type_;
+    int index_;
     Unit unit_;
     Constraint constraint_;
     boost::any range_min_;

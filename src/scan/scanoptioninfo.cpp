@@ -25,6 +25,7 @@ namespace cf {
 
 ScanOptionInfo::ScanOptionInfo(Type t, Constraint c) :
     type_(t),
+    index_(0),
     unit_(UNIT_NONE),
     constraint_(c)
 {
@@ -105,6 +106,16 @@ void ScanOptionInfo::setType(ScanOptionInfo::Type t)
 {
     type_ = t;
     resetConstraints();
+}
+
+int ScanOptionInfo::index() const
+{
+    return index_;
+}
+
+void ScanOptionInfo::setIndex(int idx)
+{
+    index_ = idx;
 }
 
 boost::any ScanOptionInfo::rangeMinValue() const

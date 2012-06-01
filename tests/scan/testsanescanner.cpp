@@ -19,6 +19,7 @@
 #include "testsanescanner.h"
 #include "scan/sanescanner.h"
 #include "cimage/cticontrol.h"
+#include "common/tostring.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestSaneScanner);
 
@@ -79,7 +80,7 @@ void TestSaneScanner::testStart()
 
     dumpImage(im, "test_sane_scan.bmp");
 
-        s.dumpOptions(std::cerr);
+//    s.dumpOptions(std::cerr);
 }
 
 void TestSaneScanner::testSetOption()
@@ -100,12 +101,21 @@ void TestSaneScanner::testSetOption()
     CPPUNIT_ASSERT(!s.setOption("depth", 1024));
 
     // float range
+    float res = 0;
     CPPUNIT_ASSERT(s.hasOption("resolution"));
+    CPPUNIT_ASSERT(s.option("resolution", &res));
+    CPPUNIT_ASSERT_EQUAL(50.0f, res);
     CPPUNIT_ASSERT(s.setOption("resolution", 1.0f));
+    CPPUNIT_ASSERT(s.option("resolution", &res));
+    CPPUNIT_ASSERT_EQUAL(1.0f, res);
 
     // string list
     CPPUNIT_ASSERT(s.hasOption("mode"));
     CPPUNIT_ASSERT(!s.setOption("mode", std::string("Invalid")));
     CPPUNIT_ASSERT(s.setOption("mode", std::string("Color")));
     CPPUNIT_ASSERT(s.setOption("mode", std::string("Gray")));
+
+    cf::Rect area(0, 0, 100, 150);
+    CPPUNIT_ASSERT(s.setScanArea(area));
+    CPPUNIT_ASSERT_EQUAL(area, s.scanArea());
 }

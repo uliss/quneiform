@@ -19,7 +19,7 @@
 #include "iscanner.h"
 #include "scanoptionvalue.h"
 #include "scanoptioninfo.h"
-#include "common/debug.h"
+#include "scan_debug.h"
 
 namespace cf {
 
@@ -46,6 +46,54 @@ bool IScanner::hasOption(const std::string& name) const
     return findOption(name) !=  opts_.end();
 }
 
+bool IScanner::option(const std::string& name, bool * value) const
+{
+    OptionIteratorConst it = findOption(name);
+    if(it == opts_.end())
+        return false;
+
+    if(value)
+        *value = it->value()->getBool();
+
+    return true;
+}
+
+bool IScanner::option(const std::string& name, int * value) const
+{
+    OptionIteratorConst it = findOption(name);
+    if(it == opts_.end())
+        return false;
+
+    if(value)
+        *value = it->value()->getInt();
+
+    return true;
+}
+
+bool IScanner::option(const std::string& name, float * value) const
+{
+    OptionIteratorConst it = findOption(name);
+    if(it == opts_.end())
+        return false;
+
+    if(value)
+        *value = it->value()->getFloat();
+
+    return true;
+}
+
+bool IScanner::option(const std::string& name, std::string * value) const
+{
+    OptionIteratorConst it = findOption(name);
+    if(it == opts_.end())
+        return false;
+
+    if(value)
+        *value = it->value()->getString();
+
+    return true;
+}
+
 bool IScanner::setOption(const std::string& name, bool value)
 {
     OptionIterator it = findOption(name);
@@ -70,10 +118,17 @@ bool IScanner::setOption(const std::string& name, float value)
 {
     OptionIterator it = findOption(name);
 
-    if(it == opts_.end())
+    if(it == opts_.end()) {
+        SCANNER_ERROR << "option not found: '" << name << "'\n";
+        return false;
+    }
+
+    bool rc = it->setValue(value);
+
+    if(!rc)
         return false;
 
-    return it->setValue(value);
+    return setBackendOption(name, value);
 }
 
 bool IScanner::setOption(const std::string &name, const std::string& value)

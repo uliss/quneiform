@@ -39,11 +39,18 @@ public:
     DeviceList listDevices() const;
     bool open(const std::string& device);
     ImagePtr start();
+
+    Rect scanArea() const;
+    bool setScanArea(const Rect& area);
+protected:
+    bool setBackendOption(const std::string& name, float value);
 private:
     void addOption(const void * d, int idx);
     void fillDeviceOptions();
     bool isOpened() const;
+    bool isOptionSettable(int idx) const;
     int optionCount() const;
+    int optionIndex(const std::string& name) const;
     bool readLine(uchar * buffer, size_t maxSize);
     bool setValueOption(const void * descr, int idx, ScanOptionValue * value);
 private:
