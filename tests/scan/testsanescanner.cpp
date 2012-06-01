@@ -41,6 +41,20 @@ static void dumpImage(cf::ImagePtr im, const std::string& name) {
     CPPUNIT_ASSERT(std::string(value) != tmp);\
 }
 
+#define ASSERT_SET_INT_OPTION(name, value) {\
+    int tmp;\
+    CPPUNIT_ASSERT(s.setOption(name, int(value)));\
+    CPPUNIT_ASSERT(s.option(name, &tmp));\
+    CPPUNIT_ASSERT_EQUAL(int(value), tmp);\
+}
+
+#define ASSERT_SET_INT_OPTION_FAIL(name, value) {\
+    int tmp;\
+    CPPUNIT_ASSERT(!s.setOption(name, int(value)));\
+    CPPUNIT_ASSERT(s.option(name, &tmp));\
+    CPPUNIT_ASSERT(int(value) != tmp);\
+}
+
 void TestSaneScanner::testInit()
 {
     cf::SaneScanner s;
@@ -142,4 +156,15 @@ void TestSaneScanner::testScanMode()
     ASSERT_SET_STR_OPTION("mode", "Gray");
     ASSERT_SET_STR_OPTION("mode", "Color");
     ASSERT_SET_STR_OPTION_FAIL("mode", "Invalid mode");
+}
+
+void TestSaneScanner::testScanDepth()
+{
+    cf::SaneScanner s;
+    CPPUNIT_ASSERT(s.open("test:0"));
+
+    ASSERT_SET_INT_OPTION("depth", 1);
+    ASSERT_SET_INT_OPTION("depth", 8);
+    ASSERT_SET_INT_OPTION("depth", 16);
+    ASSERT_SET_INT_OPTION_FAIL("depth", 2);
 }

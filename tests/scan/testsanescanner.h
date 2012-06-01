@@ -29,6 +29,7 @@ class TestSaneScanner : public CppUnit::TestFixture
     CPPUNIT_TEST(testStart);
     CPPUNIT_TEST(testSetOption);
     CPPUNIT_TEST(testScanMode);
+    CPPUNIT_TEST(testScanDepth);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -36,6 +37,7 @@ public:
     void testStart();
     void testSetOption();
     void testScanMode();
+    void testScanDepth();
 };
 
 #endif // TESTSANESCANNER_H
