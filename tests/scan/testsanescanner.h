@@ -35,6 +35,7 @@ class TestSaneScanner : public CppUnit::TestFixture
     CPPUNIT_TEST(testScanPicture);
     CPPUNIT_TEST(testScanReadLimit);
     CPPUNIT_TEST(testScanReadDelay);
+    CPPUNIT_TEST(testReadReturnValue);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
@@ -48,6 +49,7 @@ public:
     void testScanPicture();
     void testScanReadLimit();
     void testScanReadDelay();
+    void testReadReturnValue();
 };
 
 #endif // TESTSANESCANNER_H

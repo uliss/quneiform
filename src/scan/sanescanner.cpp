@@ -51,11 +51,23 @@ static void scan_free(void * mem) {
 static void * scan_lock(void * mem) { return mem; }
 static void scan_unlock(void*){}
 
+static inline uint saneDepthToBit(uint depth)
+{
+    switch(depth) {
+    case 1:
+        return 1;
+    case 8:
+        return 24;
+    default:
+        return 24;
+    }
+}
+
 static bool initDIB(CTDIB& image, int width, int height, uint depth) {
     if(!image.SetExternals(scan_alloc, scan_free, scan_lock, scan_unlock))
         return false;
 
-    if(!image.CreateDIBBegin(width, height, depth))
+    if(!image.CreateDIBBegin(width, height, saneDepthToBit(depth)))
         return false;
 
     if(!image.CreateDIBEnd())
@@ -604,11 +616,11 @@ ImagePtr SaneScanner::handScannerScan(int format, int width, int lineByteWidth, 
     return toPointer(image);
 }
 
-static void setDibLine(int format, int bitDepth, uchar * dest, uchar * buffer, int buffer_size)
+static void setDibLine(int format, int depth, uchar * dest, uchar * buffer, int buffer_size)
 {
     switch(format) {
     case SANE_FRAME_GRAY:
-        if(bitDepth == 24) {
+        if(saneDepthToBit(depth) == 24 && depth == 8) {
             for(size_t i = 0; i < buffer_size; i++) {
                 dest[i * 3 + 0] = buffer[i];
                 dest[i * 3 + 1] = buffer[i];
@@ -617,7 +629,7 @@ static void setDibLine(int format, int bitDepth, uchar * dest, uchar * buffer, i
         }
         break;
     case SANE_FRAME_RGB:
-        if(bitDepth == 24) {
+        if(saneDepthToBit(depth) == 24) {
             memcpy(dest, buffer, buffer_size);
         }
         break;
@@ -629,18 +641,8 @@ ImagePtr SaneScanner::normalScannerScan(int format, int width, int height, int l
     if(width <= 0 || height <= 0 || lineByteWidth <= 0)
         return ImagePtr();
 
-    uint image_depth = 0;
-    switch(depth) {
-    case 1:
-        image_depth = 1;
-        break;
-    default:
-        image_depth = 24;
-        break;
-    }
-
     CTDIB image;
-    if(!initDIB(image, width, height, image_depth)) {
+    if(!initDIB(image, width, height, depth)) {
         SCANNER_ERROR << "can't init dib\n";
         return ImagePtr();
     }
@@ -650,14 +652,19 @@ ImagePtr SaneScanner::normalScannerScan(int format, int width, int height, int l
 
     uint line_counter = 0;
 
-    while(readLine(buffer, buffer_size)) {
-        void * line = image.GetPtrToLine(line_counter);
-        if(!line)
-            break;
+    try {
+        while(readLine(buffer, buffer_size)) {
+            void * line = image.GetPtrToLine(line_counter);
+            if(!line)
+                break;
 
-        setDibLine(format, image_depth, (uchar*) line, buffer, buffer_size);
-//        memcpy(line, buffer, buffer_size);
-        line_counter++;
+            setDibLine(format, depth, (uchar*) line, buffer, buffer_size);
+            line_counter++;
+        }
+    }
+    catch(Exception& e) {
+        SCANNER_ERROR << e.what() << "\n";
+        return ImagePtr();
     }
 
     return toPointer(image);
@@ -725,9 +732,12 @@ bool SaneScanner::readLine(uchar * buffer, size_t maxSize)
         return true;
     case SANE_STATUS_EOF:
         return false;
-    default:
-        SCANNER_ERROR << "read error: " << sane_strstatus(s) << "\n";
-        return false;
+    default: {
+        std::ostringstream buf;
+        buf << "read error: " << sane_strstatus(s);
+        SCANNER_ERROR << buf.str() << "\n";
+        throw Exception(buf.str());
+    }
     }
 }
 

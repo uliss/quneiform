@@ -323,3 +323,12 @@ void TestSaneScanner::testScanReadDelay()
 
     s.start();
 }
+
+void TestSaneScanner::testReadReturnValue()
+{
+    cf::SaneScanner s;
+    CPPUNIT_ASSERT(s.open("test:0"));
+
+    ASSERT_SET_STR_OPTION("read-return-value", "SANE_STATUS_UNSUPPORTED");
+    CPPUNIT_ASSERT(!s.start());
+}
