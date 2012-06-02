@@ -27,6 +27,7 @@
 #include "scanoptioninfo.h"
 #include "scanoptionvalue.h"
 #include "rdib/ctdib.h"
+#include "cimage/imageinfo.h"
 
 #define SCANNER_ERROR_STATUS(status) {\
     if(status != SANE_STATUS_GOOD) \
@@ -63,14 +64,19 @@ static bool initDIB(CTDIB& image, int width, int height, uint depth) {
     return true;
 }
 
-static ImagePtr toPointer(const CTDIB& dib)
+static ImagePtr toPointer(const CTDIB& ctdib)
 {
-    const size_t size = dib.GetImageSizeInBytes();
+    const size_t size = ctdib.GetDIBSize();
+
+    Handle dib = NULL;
+    ctdib.GetDIBPtr(&dib);
+
     uchar * buf = (uchar*) malloc(size);
-    memcpy(buf, dib.GetPtrToHeader(), size);
-    Image * image = new Image(buf, size, Image::AllocatorMalloc);
-    image->setSize(Size(dib.GetImageWidth(), dib.GetImageHeight()));
-    return ImagePtr(image);
+    memcpy(buf, dib, size);
+
+    Image * i = new Image(buf, size, Image::AllocatorMalloc);
+    i->setSize(Size(ctdib.GetImageWidth(), ctdib.GetImageHeight()));
+    return ImagePtr(i);
 }
 
 static inline const char * toString(SANE_Frame f)
@@ -214,12 +220,14 @@ ImagePtr SaneScanner::start()
         return ImagePtr();
     }
     else if(params.lines == -1) {
-        return handScannerScan(params.pixels_per_line,
+        return handScannerScan(params.format,
+                               params.pixels_per_line,
                                params.bytes_per_line,
                                (uint) params.depth);
     }
 
-    return normalScannerScan(params.pixels_per_line,
+    return normalScannerScan(params.format,
+                             params.pixels_per_line,
                              params.lines,
                              params.bytes_per_line,
                              (uint) params.depth);
@@ -264,17 +272,21 @@ bool SaneScanner::setScanArea(const Rect& area)
         return false;
 }
 
+#define CHECK_OPTION_INDEX(idx) {\
+    if(!idx) {\
+        SCANNER_ERROR << "invalid option index: " << idx << "\n";\
+        return false;\
+    }\
+    if(!isOptionSettable(idx)) {\
+        SCANNER_ERROR << "read-only option: " << idx << "\n";\
+        return false;\
+    }\
+}
+
 bool SaneScanner::setBackendOption(const std::string &name, bool v)
 {
     int option_idx = optionIndex(name);
-
-    if(!option_idx) {
-        SCANNER_ERROR << "invalid option index: " << option_idx << "\n";
-        return false;
-    }
-
-    if(!isOptionSettable(option_idx))
-        return false;
+    CHECK_OPTION_INDEX(option_idx);
 
     SANE_Int info;
     SANE_Word value = v ? SANE_TRUE : SANE_FALSE;
@@ -297,18 +309,44 @@ bool SaneScanner::setBackendOption(const std::string &name, bool v)
 bool SaneScanner::setBackendOption(const std::string& name, float v)
 {
     int option_idx = optionIndex(name);
-
-    if(!option_idx) {
-        SCANNER_ERROR << "invalid option index: " << option_idx << "\n";
-        return false;
-    }
-
-    if(!isOptionSettable(option_idx))
-        return false;
+    CHECK_OPTION_INDEX(option_idx);
 
     SANE_Int info;
     SANE_Word value = SANE_FIX(v);
     SANE_Status rc = sane_control_option((SANE_Handle) scanner_, option_idx, SANE_ACTION_SET_VALUE, &value, &info);
+
+    if(rc != SANE_STATUS_GOOD) {
+        SCANNER_ERROR << "option " << name << " failed: " << sane_strstatus(rc) << "\n";
+        return false;
+    }
+
+    if(info == SANE_INFO_RELOAD_OPTIONS) {
+        clearOptions();
+        fillDeviceOptions();
+    }
+
+    return true;
+}
+
+bool SaneScanner::setBackendOption(const std::string& name, const std::string& v)
+{
+    int option_idx = optionIndex(name);
+    CHECK_OPTION_INDEX(option_idx);
+
+    const SANE_Option_Descriptor * d = sane_get_option_descriptor((SANE_Handle) scanner_,
+                                                                  option_idx);
+    if(!d) {
+        SCANNER_ERROR << "can't get option descriptor\n";
+        return false;
+    }
+
+    SANE_Int info;
+    std::string value = v;
+    SANE_Status rc = sane_control_option((SANE_Handle) scanner_,
+                                         option_idx,
+                                         SANE_ACTION_SET_VALUE,
+                                         (void*) value.c_str(),
+                                         &info);
 
     if(rc != SANE_STATUS_GOOD) {
         SCANNER_ERROR << "option " << name << " failed: " << sane_strstatus(rc) << "\n";
@@ -503,7 +541,7 @@ static inline BufferLinePtr makeBufferLine(uchar * data, size_t size)
     return BufferLinePtr(new BufferLine(data, data + size));
 }
 
-ImagePtr SaneScanner::handScannerScan(int width, int lineByteWidth, uint depth)
+ImagePtr SaneScanner::handScannerScan(int format, int width, int lineByteWidth, uint depth)
 {
     if(width <= 0 || lineByteWidth <= 0)
         return ImagePtr();
@@ -544,7 +582,7 @@ ImagePtr SaneScanner::handScannerScan(int width, int lineByteWidth, uint depth)
     return toPointer(image);
 }
 
-ImagePtr SaneScanner::normalScannerScan(int width, int height, int lineByteWidth, uint depth)
+ImagePtr SaneScanner::normalScannerScan(int format, int width, int height, int lineByteWidth, uint depth)
 {
     if(width <= 0 || height <= 0 || lineByteWidth <= 0)
         return ImagePtr();
@@ -558,15 +596,15 @@ ImagePtr SaneScanner::normalScannerScan(int width, int height, int lineByteWidth
     const size_t buffer_size = (size_t) lineByteWidth;
     uchar buffer[buffer_size];
 
-    assert(image.GetLineWidthInBytes() >= buffer_size);
     uint line_counter = 0;
 
     while(readLine(buffer, buffer_size)) {
-        void * line = image.GetPtrToLine(line_counter++);
+        void * line = image.GetPtrToLine(line_counter);
         if(!line)
             break;
 
         memcpy(line, buffer, buffer_size);
+        line_counter++;
     }
 
     return toPointer(image);

@@ -27,6 +27,12 @@ static void dumpImage(cf::ImagePtr im, const std::string& name) {
     cf::CTIControl::writeDIBtoBMP(name, (BitmapHandle) im->data());
 }
 
+#define ASSERT_STR_OPTION(name, value) {\
+    std::string tmp;\
+    CPPUNIT_ASSERT(s.option(name, &tmp));\
+    CPPUNIT_ASSERT_EQUAL(std::string(value), tmp);\
+}
+
 #define ASSERT_SET_STR_OPTION(name, value) {\
     std::string tmp;\
     CPPUNIT_ASSERT(s.setOption(name, std::string(value)));\
@@ -244,4 +250,16 @@ void TestSaneScanner::testScanResolution()
 
     ASSERT_SET_FLOAT_OPTION_FAIL("resolution", 1201);
     ASSERT_SET_FLOAT_OPTION_FAIL("resolution", -1);
+}
+
+void TestSaneScanner::testScanPicture()
+{
+    cf::SaneScanner s;
+    CPPUNIT_ASSERT(s.open("test:0"));
+    ASSERT_STR_OPTION("test-picture", "Solid black");
+
+    ASSERT_SET_STR_OPTION("test-picture", "Solid white");
+
+    cf::ImagePtr im = s.start();
+    dumpImage(im, "test_sane_picture_white.bmp");
 }

@@ -45,11 +45,12 @@ public:
 protected:
     bool setBackendOption(const std::string& name, bool value);
     bool setBackendOption(const std::string& name, float value);
+    bool setBackendOption(const std::string& name, const std::string& value);
 private:
     void addOption(const void * d, int idx);
     void fillDeviceOptions();
-    ImagePtr handScannerScan(int width, int lineByteWidth, uint depth);
-    ImagePtr normalScannerScan(int width, int height, int lineByteWidth, uint depth);
+    ImagePtr handScannerScan(int format, int width, int lineByteWidth, uint depth);
+    ImagePtr normalScannerScan(int format, int width, int height, int lineByteWidth, uint depth);
     bool isOpened() const;
     bool isOptionSettable(int idx) const;
     int optionCount() const;

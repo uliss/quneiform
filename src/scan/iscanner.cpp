@@ -144,7 +144,12 @@ bool IScanner::setOption(const std::string &name, const std::string& value)
         return false;
     }
 
-    return it->setValue(value);
+    bool rc = it->setValue(value);
+
+    if(!rc)
+        return false;
+
+    return setBackendOption(name, value);
 }
 
 void IScanner::clearOptions()
