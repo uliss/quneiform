@@ -43,10 +43,13 @@ public:
     Rect scanArea() const;
     bool setScanArea(const Rect& area);
 protected:
+    bool setBackendOption(const std::string& name, bool value);
     bool setBackendOption(const std::string& name, float value);
 private:
     void addOption(const void * d, int idx);
     void fillDeviceOptions();
+    ImagePtr handScannerScan(int width, int lineByteWidth, uint depth);
+    ImagePtr normalScannerScan(int width, int height, int lineByteWidth, uint depth);
     bool isOpened() const;
     bool isOptionSettable(int idx) const;
     int optionCount() const;

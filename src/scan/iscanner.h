@@ -103,6 +103,7 @@ public:
     void clearOptions();
     std::ostream& dumpOptions(std::ostream& os) const;
 protected:
+    virtual bool setBackendOption(const std::string& name, bool value) = 0;
     virtual bool setBackendOption(const std::string& name, float value) = 0;
     OptionIterator findOption(const std::string& name);
     OptionIteratorConst findOption(const std::string& name) const;

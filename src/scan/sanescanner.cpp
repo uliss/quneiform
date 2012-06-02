@@ -18,6 +18,7 @@
 
 #include <sane/sane.h>
 #include <sstream>
+#include <list>
 #include <boost/current_function.hpp>
 #include <boost/scoped_array.hpp>
 
@@ -33,6 +34,10 @@
 }
 
 namespace cf {
+
+typedef std::vector<uchar> BufferLine;
+typedef boost::shared_ptr<BufferLine> BufferLinePtr;
+typedef std::vector<BufferLinePtr> Buffer;
 
 static void * scan_alloc(uint32_t sz) {
     return calloc(1, sz);
@@ -90,7 +95,7 @@ static void printSaneParams(const SANE_Parameters& params)
 {
     SCANNER_DEBUG << "boost parameters: \n"
                   << "\t bit depth: \t" << params.depth << "\n"
-                  << "\t stride: \t" << params.bytes_per_line << "\n"
+                  << "\t stride: \t" << params.bytes_per_line << " bytes\n"
                   << "\t lines: \t" << params.lines << "px\n"
                   << "\t width: \t" << params.pixels_per_line << "px\n"
                   << "\t format: \t" << toString(params.format) << "\n";
@@ -105,9 +110,6 @@ SaneScanner::SaneScanner() :
     if(s != SANE_STATUS_GOOD) {
         SCANNER_ERROR << "can't initialize sane library:\n"
                       << "\t" << sane_strstatus(s) << "\n";
-    }
-    else {
-        SCANNER_DEBUG << "version: " << version << "\n";
     }
 }
 
@@ -168,7 +170,7 @@ bool SaneScanner::open(const std::string& device)
 
     scanner_ = h;
 
-    SCANNER_DEBUG << "scanner opened: '" << device << "'\n";
+//    SCANNER_DEBUG << "scanner opened: '" << device << "'\n";
 
     fillDeviceOptions();
 
@@ -207,31 +209,20 @@ ImagePtr SaneScanner::start()
         return ImagePtr();
     }
 
-    if(params.lines <= 0) {
+    if(params.lines < -1) {
         SCANNER_ERROR << "invalid image height: " << params.lines << "\n";
         return ImagePtr();
     }
-
-    CTDIB image;
-    if(!initDIB(image, params.pixels_per_line, params.lines, (uint) params.depth)) {
-        SCANNER_ERROR << "can't init dib\n";
-        return ImagePtr();
+    else if(params.lines == -1) {
+        return handScannerScan(params.pixels_per_line,
+                               params.bytes_per_line,
+                               (uint) params.depth);
     }
 
-    const size_t buffer_size = (size_t) params.bytes_per_line;
-    uchar buffer[buffer_size];
-
-    assert(image.GetLineWidthInBytes() >= buffer_size);
-    uint line_counter = 0;
-
-    while(readLine(buffer, buffer_size)) {
-        void * line = image.GetPtrToLine(line_counter++);
-        memcpy(line, buffer, buffer_size);
-        if(!line)
-            break;
-    }
-
-    return toPointer(image);
+    return normalScannerScan(params.pixels_per_line,
+                             params.lines,
+                             params.bytes_per_line,
+                             (uint) params.depth);
 }
 
 Rect SaneScanner::scanArea() const
@@ -273,6 +264,36 @@ bool SaneScanner::setScanArea(const Rect& area)
         return false;
 }
 
+bool SaneScanner::setBackendOption(const std::string &name, bool v)
+{
+    int option_idx = optionIndex(name);
+
+    if(!option_idx) {
+        SCANNER_ERROR << "invalid option index: " << option_idx << "\n";
+        return false;
+    }
+
+    if(!isOptionSettable(option_idx))
+        return false;
+
+    SANE_Int info;
+    SANE_Word value = v ? SANE_TRUE : SANE_FALSE;
+    SANE_Status rc = sane_control_option((SANE_Handle) scanner_, option_idx, SANE_ACTION_SET_VALUE, &value, &info);
+
+    if(rc != SANE_STATUS_GOOD) {
+        SCANNER_ERROR << "option '" << name << "'' failed: " << sane_strstatus(rc) << "\n";
+        return false;
+    }
+
+    if(info == SANE_INFO_RELOAD_OPTIONS) {
+        SCANNER_DEBUG << "option reload required\n";
+        clearOptions();
+        fillDeviceOptions();
+    }
+
+    return true;
+}
+
 bool SaneScanner::setBackendOption(const std::string& name, float v)
 {
     int option_idx = optionIndex(name);
@@ -290,7 +311,7 @@ bool SaneScanner::setBackendOption(const std::string& name, float v)
     SANE_Status rc = sane_control_option((SANE_Handle) scanner_, option_idx, SANE_ACTION_SET_VALUE, &value, &info);
 
     if(rc != SANE_STATUS_GOOD) {
-        SCANNER_ERROR_STATUS(rc);
+        SCANNER_ERROR << "option " << name << " failed: " << sane_strstatus(rc) << "\n";
         return false;
     }
 
@@ -475,6 +496,80 @@ void SaneScanner::fillDeviceOptions()
 
         addOption(d, i);
     }
+}
+
+static inline BufferLinePtr makeBufferLine(uchar * data, size_t size)
+{
+    return BufferLinePtr(new BufferLine(data, data + size));
+}
+
+ImagePtr SaneScanner::handScannerScan(int width, int lineByteWidth, uint depth)
+{
+    if(width <= 0 || lineByteWidth <= 0)
+        return ImagePtr();
+
+    const size_t buffer_size = (size_t) lineByteWidth;
+    uchar buffer[buffer_size];
+    uint height = 0;
+
+    Buffer raw_data;
+
+    while(readLine(buffer, buffer_size)) {
+        height++;
+        raw_data.push_back(makeBufferLine(buffer, buffer_size));
+    }
+
+    if(height == 0) {
+        SCANNER_ERROR << "scan error\n";
+        return ImagePtr();
+    }
+
+    CTDIB image;
+    if(!initDIB(image, width, height, depth)) {
+        SCANNER_ERROR << "can't init dib\n";
+        return ImagePtr();
+    }
+
+    assert(image.GetLineWidthInBytes() >= buffer_size);
+
+    for(uint i = 0; i < height; i++) {
+        void * line = image.GetPtrToLine(i);
+        if(!line)
+            break;
+
+        uchar * data = &(raw_data.at(i)->front());
+        memcpy(line, data, buffer_size);
+    }
+
+    return toPointer(image);
+}
+
+ImagePtr SaneScanner::normalScannerScan(int width, int height, int lineByteWidth, uint depth)
+{
+    if(width <= 0 || height <= 0 || lineByteWidth <= 0)
+        return ImagePtr();
+
+    CTDIB image;
+    if(!initDIB(image, width, height, depth)) {
+        SCANNER_ERROR << "can't init dib\n";
+        return ImagePtr();
+    }
+
+    const size_t buffer_size = (size_t) lineByteWidth;
+    uchar buffer[buffer_size];
+
+    assert(image.GetLineWidthInBytes() >= buffer_size);
+    uint line_counter = 0;
+
+    while(readLine(buffer, buffer_size)) {
+        void * line = image.GetPtrToLine(line_counter++);
+        if(!line)
+            break;
+
+        memcpy(line, buffer, buffer_size);
+    }
+
+    return toPointer(image);
 }
 
 bool SaneScanner::isOpened() const

@@ -101,7 +101,11 @@ bool IScanner::setOption(const std::string& name, bool value)
     if(it == opts_.end())
         return false;
 
-    return it->setValue(value);
+    bool rc = it->setValue(value);
+    if(!rc)
+        return false;
+
+    return setBackendOption(name, value);
 }
 
 bool IScanner::setOption(const std::string& name, int value)

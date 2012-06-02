@@ -41,6 +41,25 @@ static void dumpImage(cf::ImagePtr im, const std::string& name) {
     CPPUNIT_ASSERT(std::string(value) != tmp);\
 }
 
+#define ASSERT_BOOL_OPTION(name, value) {\
+    bool tmp;\
+    CPPUNIT_ASSERT(s.option(name, &tmp));\
+    CPPUNIT_ASSERT_EQUAL(bool(value), tmp);\
+}
+
+#define ASSERT_SET_BOOL_OPTION(name, value) {\
+    bool tmp;\
+    CPPUNIT_ASSERT(s.setOption(name, bool(value)));\
+    CPPUNIT_ASSERT(s.option(name, &tmp));\
+    CPPUNIT_ASSERT_EQUAL(bool(value), tmp);\
+}
+
+#define ASSERT_INT_OPTION(name, value) {\
+    int tmp;\
+    CPPUNIT_ASSERT(s.option(name, &tmp));\
+    CPPUNIT_ASSERT_EQUAL(int(value), tmp);\
+}
+
 #define ASSERT_SET_INT_OPTION(name, value) {\
     int tmp;\
     CPPUNIT_ASSERT(s.setOption(name, int(value)));\
@@ -108,7 +127,7 @@ void TestSaneScanner::testStart()
 
     dumpImage(im, "test_sane_scan.bmp");
 
-//    s.dumpOptions(std::cerr);
+    s.dumpOptions(std::cerr);
 }
 
 void TestSaneScanner::testSetOption()
@@ -163,8 +182,29 @@ void TestSaneScanner::testScanDepth()
     cf::SaneScanner s;
     CPPUNIT_ASSERT(s.open("test:0"));
 
+    ASSERT_INT_OPTION("depth", 8);
+
     ASSERT_SET_INT_OPTION("depth", 1);
     ASSERT_SET_INT_OPTION("depth", 8);
     ASSERT_SET_INT_OPTION("depth", 16);
     ASSERT_SET_INT_OPTION_FAIL("depth", 2);
+}
+
+void TestSaneScanner::testHandScanner()
+{
+    cf::SaneScanner s;
+    CPPUNIT_ASSERT(s.open("test:0"));
+
+    CPPUNIT_ASSERT_EQUAL(cf::Rect(0, 0, 80, 100), s.scanArea());
+    ASSERT_BOOL_OPTION("hand-scanner", false);
+
+    ASSERT_SET_BOOL_OPTION("hand-scanner", true);
+    cf::ImagePtr im = s.start();
+    CPPUNIT_ASSERT(im);
+    CPPUNIT_ASSERT(im->height() != 0);
+    CPPUNIT_ASSERT(im->width() != 0);
+
+    dumpImage(im, "test_sane_hand_scanner.bmp");
+
+    ASSERT_SET_BOOL_OPTION("hand-scanner", false);
 }
