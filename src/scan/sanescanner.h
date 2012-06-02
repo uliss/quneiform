@@ -44,6 +44,7 @@ public:
     bool setScanArea(const Rect& area);
 protected:
     bool setBackendOption(const std::string& name, bool value);
+    bool setBackendOption(const std::string& name, int value);
     bool setBackendOption(const std::string& name, float value);
     bool setBackendOption(const std::string& name, const std::string& value);
 private:

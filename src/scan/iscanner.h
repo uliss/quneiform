@@ -104,10 +104,13 @@ public:
     std::ostream& dumpOptions(std::ostream& os) const;
 protected:
     virtual bool setBackendOption(const std::string& name, bool value) = 0;
+    virtual bool setBackendOption(const std::string &name, int value) = 0;
     virtual bool setBackendOption(const std::string& name, float value) = 0;
     virtual bool setBackendOption(const std::string& name, const std::string& value) = 0;
     OptionIterator findOption(const std::string& name);
     OptionIteratorConst findOption(const std::string& name) const;
+    template<class T>
+    friend bool setOptionInner(IScanner * scanner, const std::string& name, const T& value);
 protected:
     ScanOptions opts_;
 };

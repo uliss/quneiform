@@ -301,3 +301,25 @@ void TestSaneScanner::testScanPicture()
     dumpImage(im, "test_sane_picture_color_gray.bmp");
 
 }
+
+void TestSaneScanner::testScanReadLimit()
+{
+    cf::SaneScanner s;
+    CPPUNIT_ASSERT(s.open("test:0"));
+
+    ASSERT_SET_BOOL_OPTION("read-limit", true);
+    ASSERT_SET_INT_OPTION("read-limit-size", 1);
+
+    s.start();
+}
+
+void TestSaneScanner::testScanReadDelay()
+{
+    cf::SaneScanner s;
+    CPPUNIT_ASSERT(s.open("test:0"));
+
+    ASSERT_SET_BOOL_OPTION("read-delay", true);
+    ASSERT_SET_INT_OPTION("read-delay-duration", 1000 * 100);
+
+    s.start();
+}

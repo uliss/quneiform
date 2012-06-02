@@ -94,62 +94,39 @@ bool IScanner::option(const std::string& name, std::string * value) const
     return true;
 }
 
-bool IScanner::setOption(const std::string& name, bool value)
+template<class T>
+bool setOptionInner(IScanner * scanner, const std::string& name, const T& value)
 {
-    OptionIterator it = findOption(name);
+    IScanner::OptionIterator it = scanner->findOption(name);
 
-    if(it == opts_.end())
+    if(it == scanner->opts_.end())
         return false;
 
     bool rc = it->setValue(value);
     if(!rc)
         return false;
 
-    return setBackendOption(name, value);
+    return scanner->setBackendOption(name, value);
+}
+
+bool IScanner::setOption(const std::string& name, bool value)
+{
+    return cf::setOptionInner(this, name, value);
 }
 
 bool IScanner::setOption(const std::string& name, int value)
 {
-    OptionIterator it = findOption(name);
-
-    if(it == opts_.end())
-        return false;
-
-    return it->setValue(value);
+    return cf::setOptionInner(this, name, value);
 }
 
 bool IScanner::setOption(const std::string& name, float value)
 {
-    OptionIterator it = findOption(name);
-
-    if(it == opts_.end()) {
-        SCANNER_ERROR << "option not found: '" << name << "'\n";
-        return false;
-    }
-
-    bool rc = it->setValue(value);
-
-    if(!rc)
-        return false;
-
-    return setBackendOption(name, value);
+    return cf::setOptionInner(this, name, value);
 }
 
 bool IScanner::setOption(const std::string &name, const std::string& value)
 {
-    OptionIterator it = findOption(name);
-
-    if(it == opts_.end()) {
-        SCANNER_ERROR << "option not found: '" << name << "'\n";
-        return false;
-    }
-
-    bool rc = it->setValue(value);
-
-    if(!rc)
-        return false;
-
-    return setBackendOption(name, value);
+    return cf::setOptionInner(this, name, value);
 }
 
 void IScanner::clearOptions()

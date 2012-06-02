@@ -306,6 +306,28 @@ bool SaneScanner::setBackendOption(const std::string &name, bool v)
     return true;
 }
 
+bool SaneScanner::setBackendOption(const std::string& name, int v)
+{
+    int option_idx = optionIndex(name);
+    CHECK_OPTION_INDEX(option_idx);
+
+    SANE_Int info;
+    SANE_Word value = v;
+    SANE_Status rc = sane_control_option((SANE_Handle) scanner_, option_idx, SANE_ACTION_SET_VALUE, &value, &info);
+
+    if(rc != SANE_STATUS_GOOD) {
+        SCANNER_ERROR << "option " << name << " failed: " << sane_strstatus(rc) << "\n";
+        return false;
+    }
+
+    if(info == SANE_INFO_RELOAD_OPTIONS) {
+        clearOptions();
+        fillDeviceOptions();
+    }
+
+    return true;
+}
+
 bool SaneScanner::setBackendOption(const std::string& name, float v)
 {
     int option_idx = optionIndex(name);
@@ -563,7 +585,7 @@ ImagePtr SaneScanner::handScannerScan(int format, int width, int lineByteWidth, 
     }
 
     CTDIB image;
-    if(!initDIB(image, width, height, depth)) {
+    if(!initDIB(image, width, height, (uint) depth)) {
         SCANNER_ERROR << "can't init dib\n";
         return ImagePtr();
     }
