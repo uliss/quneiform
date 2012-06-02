@@ -291,7 +291,6 @@ void TestSaneScanner::testScanPicture()
     im = s.start();
     dumpImage(im, "test_sane_picture_white_gray.bmp");
 
-
     ASSERT_SET_STR_OPTION("test-picture", "Grid");
     im = s.start();
     dumpImage(im, "test_sane_picture_grid_gray.bmp");
@@ -300,6 +299,21 @@ void TestSaneScanner::testScanPicture()
     im = s.start();
     dumpImage(im, "test_sane_picture_color_gray.bmp");
 
+// 1 bit
+    ASSERT_SET_INT_OPTION("depth", 1);
+
+    ASSERT_SET_STR_OPTION("test-picture", "Solid black");
+    im = s.start();
+    dumpImage(im, "test_sane_picture_black_1bit.bmp");
+
+    ASSERT_SET_STR_OPTION("test-picture", "Solid white");
+    im = s.start();
+    dumpImage(im, "test_sane_picture_white_1bit.bmp");
+
+
+    ASSERT_SET_STR_OPTION("test-picture", "Grid");
+    im = s.start();
+    dumpImage(im, "test_sane_picture_grid_1bit.bmp");
 }
 
 void TestSaneScanner::testScanReadLimit()

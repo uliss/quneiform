@@ -67,8 +67,24 @@ static bool initDIB(CTDIB& image, int width, int height, uint depth) {
     if(!image.SetExternals(scan_alloc, scan_free, scan_lock, scan_unlock))
         return false;
 
-    if(!image.CreateDIBBegin(width, height, saneDepthToBit(depth)))
+    if(!image.CreateDIBBegin(width,
+                             height,
+                             saneDepthToBit(depth)))
         return false;
+
+    if(depth == 1) {
+        CTDIBRGBQUAD black;
+        black.rgbBlue = 0;
+        black.rgbGreen = 0;
+        black.rgbRed = 0;
+        CTDIBRGBQUAD white;
+        white.rgbBlue = 255;
+        white.rgbGreen = 255;
+        white.rgbRed = 255;
+
+        image.SetRGBQuad(0, white);
+        image.SetRGBQuad(1, black);
+    }
 
     if(!image.CreateDIBEnd())
         return false;
@@ -616,20 +632,27 @@ ImagePtr SaneScanner::handScannerScan(int format, int width, int lineByteWidth, 
     return toPointer(image);
 }
 
-static void setDibLine(int format, int depth, uchar * dest, uchar * buffer, int buffer_size)
+static void setDibLine(int format, int depth, uchar * dest, uchar * buffer, size_t buffer_size)
 {
+    uint bitDepth = saneDepthToBit(depth);
     switch(format) {
     case SANE_FRAME_GRAY:
-        if(saneDepthToBit(depth) == 24 && depth == 8) {
+        if(bitDepth == 24 && depth == 8) {
             for(size_t i = 0; i < buffer_size; i++) {
                 dest[i * 3 + 0] = buffer[i];
                 dest[i * 3 + 1] = buffer[i];
                 dest[i * 3 + 2] = buffer[i];
             }
         }
+        else if(bitDepth == 24 && depth == 16) {
+
+        }
+        else if(bitDepth == 1 && depth == 1) {
+            memcpy(dest, buffer, buffer_size);
+        }
         break;
     case SANE_FRAME_RGB:
-        if(saneDepthToBit(depth) == 24) {
+        if(bitDepth == 24 && depth == 8) {
             memcpy(dest, buffer, buffer_size);
         }
         break;
