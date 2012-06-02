@@ -25,6 +25,7 @@ if(TESTS)
         add_subdirectory(rstr)
         add_subdirectory(exporters)
         add_subdirectory(scan)
+        add_subdirectory(rdib)
         
         if(CF_USE_SHMEM)
             add_subdirectory(shmem)
