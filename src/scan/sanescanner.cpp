@@ -582,13 +582,43 @@ ImagePtr SaneScanner::handScannerScan(int format, int width, int lineByteWidth, 
     return toPointer(image);
 }
 
+static void setDibLine(int format, int bitDepth, uchar * dest, uchar * buffer, int buffer_size)
+{
+    switch(format) {
+    case SANE_FRAME_GRAY:
+        if(bitDepth == 24) {
+            for(size_t i = 0; i < buffer_size; i++) {
+                dest[i * 3 + 0] = buffer[i];
+                dest[i * 3 + 1] = buffer[i];
+                dest[i * 3 + 2] = buffer[i];
+            }
+        }
+        break;
+    case SANE_FRAME_RGB:
+        if(bitDepth == 24) {
+            memcpy(dest, buffer, buffer_size);
+        }
+        break;
+    }
+}
+
 ImagePtr SaneScanner::normalScannerScan(int format, int width, int height, int lineByteWidth, uint depth)
 {
     if(width <= 0 || height <= 0 || lineByteWidth <= 0)
         return ImagePtr();
 
+    uint image_depth = 0;
+    switch(depth) {
+    case 1:
+        image_depth = 1;
+        break;
+    default:
+        image_depth = 24;
+        break;
+    }
+
     CTDIB image;
-    if(!initDIB(image, width, height, depth)) {
+    if(!initDIB(image, width, height, image_depth)) {
         SCANNER_ERROR << "can't init dib\n";
         return ImagePtr();
     }
@@ -603,7 +633,8 @@ ImagePtr SaneScanner::normalScannerScan(int format, int width, int height, int l
         if(!line)
             break;
 
-        memcpy(line, buffer, buffer_size);
+        setDibLine(format, image_depth, (uchar*) line, buffer, buffer_size);
+//        memcpy(line, buffer, buffer_size);
         line_counter++;
     }
 

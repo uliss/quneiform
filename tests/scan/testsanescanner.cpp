@@ -200,6 +200,7 @@ void TestSaneScanner::testScanMode()
 
     ASSERT_SET_STR_OPTION("mode", "Gray");
     ASSERT_SET_STR_OPTION("mode", "Color");
+    ASSERT_SET_STR_OPTION("mode", "Gray");
     ASSERT_SET_STR_OPTION_FAIL("mode", "Invalid mode");
 }
 
@@ -256,10 +257,47 @@ void TestSaneScanner::testScanPicture()
 {
     cf::SaneScanner s;
     CPPUNIT_ASSERT(s.open("test:0"));
+
+    ASSERT_INT_OPTION("depth", 8);
+
+//    COLOR
+    ASSERT_SET_STR_OPTION("mode", "Color");
+
     ASSERT_STR_OPTION("test-picture", "Solid black");
+    cf::ImagePtr im = s.start();
+    dumpImage(im, "test_sane_picture_black.bmp");
 
     ASSERT_SET_STR_OPTION("test-picture", "Solid white");
-
-    cf::ImagePtr im = s.start();
+    im = s.start();
     dumpImage(im, "test_sane_picture_white.bmp");
+
+
+    ASSERT_SET_STR_OPTION("test-picture", "Grid");
+    im = s.start();
+    dumpImage(im, "test_sane_picture_grid.bmp");
+
+    ASSERT_SET_STR_OPTION("test-picture", "Color pattern");
+    im = s.start();
+    dumpImage(im, "test_sane_picture_color.bmp");
+
+//    GRAY
+    ASSERT_SET_STR_OPTION("mode", "Gray");
+
+    ASSERT_SET_STR_OPTION("test-picture", "Solid black");
+    im = s.start();
+    dumpImage(im, "test_sane_picture_black_gray.bmp");
+
+    ASSERT_SET_STR_OPTION("test-picture", "Solid white");
+    im = s.start();
+    dumpImage(im, "test_sane_picture_white_gray.bmp");
+
+
+    ASSERT_SET_STR_OPTION("test-picture", "Grid");
+    im = s.start();
+    dumpImage(im, "test_sane_picture_grid_gray.bmp");
+
+    ASSERT_SET_STR_OPTION("test-picture", "Color pattern");
+    im = s.start();
+    dumpImage(im, "test_sane_picture_color_gray.bmp");
+
 }

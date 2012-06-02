@@ -17,5 +17,32 @@
  ***************************************************************************/
 
 #include "testctdib.h"
+#include "rdib/ctdib.h"
+#include "cimage/cticontrol.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCTDIB);
+
+static void * t_alloc(uint32_t size) { return malloc(size); }
+static void t_free(void * mem) { free(mem); }
+static void * t_lock(void * mem) { return mem; }
+static void t_unlock(void *) {}
+
+void TestCTDIB::testInit()
+{
+    CTDIB image;
+    CPPUNIT_ASSERT(image.SetExternals(t_alloc, t_free, t_lock, t_unlock));
+
+    CPPUNIT_ASSERT(image.CreateDIBBegin(10, 20, 24));
+    CPPUNIT_ASSERT(image.CreateDIBEnd());
+
+    cf::CTIControl::writeDIBtoBMP("test_rdib.bmp", &image);
+
+    for(int i = 0; i < image.GetImageWidth(); i++) {
+        uchar * p = (uchar*) image.GetPtrToPixel(i, 0);
+        p[0] = 0xff;
+        p[1] = 0xff;
+        p[2] = 0x00;
+    }
+
+    cf::CTIControl::writeDIBtoBMP("test_rdib_draw.bmp", &image);
+}

@@ -24,8 +24,10 @@
 class TestCTDIB : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestCTDIB);
+    CPPUNIT_TEST(testInit);
     CPPUNIT_TEST_SUITE_END();
 public:
+    void testInit();
 };
 
 #endif // TESTCTDIB_H
