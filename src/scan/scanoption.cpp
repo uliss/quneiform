@@ -107,13 +107,15 @@ static bool inList(const T& value, const ScanOptionInfo::ValueList& lst)
 template<class T>
 static bool inRange(const T& value, const boost::any& min, const boost::any& max, T * pmin, T * pmax)
 {
+    bool rc = true;
+
     if(!min.empty()) {
         T vmin = boost::any_cast<T>(min);
         if(pmin)
             *pmin = vmin;
 
         if(value < vmin)
-            return false;
+            rc = false;
     }
 
     if(!max.empty()) {
@@ -121,11 +123,11 @@ static bool inRange(const T& value, const boost::any& min, const boost::any& max
         if(pmax)
             *pmax = vmax;
 
-        if(vmax <= value)
-            return false;
+        if(vmax < value)
+            rc = false;
     }
 
-    return true;
+    return rc;
 }
 
 template<class T>
@@ -139,7 +141,7 @@ static bool setRangeValue(const T& v, ScanOptionInfo * info, ScanOptionValue * v
     }
     else {
         SCANNER_WARNING << "given value (" << v << ") not in range ["
-                        << min << "," << max << ")\n";
+                        << min << "..." << max << "]\n";
         return false;
     }
 }

@@ -54,6 +54,26 @@ static void dumpImage(cf::ImagePtr im, const std::string& name) {
     CPPUNIT_ASSERT_EQUAL(bool(value), tmp);\
 }
 
+#define ASSERT_FLOAT_OPTION(name, value) {\
+    float tmp;\
+    CPPUNIT_ASSERT(s.option(name, &tmp));\
+    CPPUNIT_ASSERT_EQUAL(float(value), tmp);\
+}
+
+#define ASSERT_SET_FLOAT_OPTION(name, value) {\
+    float tmp;\
+    CPPUNIT_ASSERT(s.setOption(name, float(value)));\
+    CPPUNIT_ASSERT(s.option(name, &tmp));\
+    CPPUNIT_ASSERT_EQUAL(float(value), tmp);\
+}
+
+#define ASSERT_SET_FLOAT_OPTION_FAIL(name, value) {\
+    float tmp;\
+    CPPUNIT_ASSERT(!s.setOption(name, float(value)));\
+    CPPUNIT_ASSERT(s.option(name, &tmp));\
+    CPPUNIT_ASSERT(float(value) != tmp);\
+}
+
 #define ASSERT_INT_OPTION(name, value) {\
     int tmp;\
     CPPUNIT_ASSERT(s.option(name, &tmp));\
@@ -207,4 +227,21 @@ void TestSaneScanner::testHandScanner()
     dumpImage(im, "test_sane_hand_scanner.bmp");
 
     ASSERT_SET_BOOL_OPTION("hand-scanner", false);
+}
+
+void TestSaneScanner::testScanResolution()
+{
+    cf::SaneScanner s;
+    CPPUNIT_ASSERT(s.open("test:0"));
+
+    ASSERT_FLOAT_OPTION("resolution", 50);
+    ASSERT_SET_FLOAT_OPTION("resolution", 1.1);
+    ASSERT_SET_FLOAT_OPTION_FAIL("resolution", 0.5);
+
+    for(int i = 1; i <= 1200; i++) {
+        ASSERT_SET_FLOAT_OPTION("resolution", i);
+    }
+
+    ASSERT_SET_FLOAT_OPTION_FAIL("resolution", 1201);
+    ASSERT_SET_FLOAT_OPTION_FAIL("resolution", -1);
 }
