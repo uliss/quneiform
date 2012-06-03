@@ -163,7 +163,7 @@ bool SaneScanner::close()
     return true;
 }
 
-SaneScanner::DeviceList SaneScanner::listDevices() const
+IScanner::DeviceList SaneScanner::listDevices() const
 {
     const SANE_Device ** device_list = NULL;
     SANE_Status s = sane_get_devices(&device_list, SANE_TRUE);
@@ -204,7 +204,7 @@ bool SaneScanner::open(const std::string& device)
 
     scanner_ = h;
 
-//    SCANNER_DEBUG << "scanner opened: '" << device << "'\n";
+    SCANNER_DEBUG << "scanner opened: '" << device << "'\n";
 
     fillDeviceOptions();
 
@@ -645,7 +645,7 @@ static void setDibLine(int format, int depth, uchar * dest, uchar * buffer, size
             }
         }
         else if(bitDepth == 24 && depth == 16) {
-
+// TODO:
         }
         else if(bitDepth == 1 && depth == 1) {
             memcpy(dest, buffer, buffer_size);

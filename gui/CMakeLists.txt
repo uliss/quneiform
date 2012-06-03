@@ -176,6 +176,7 @@ elseif(MSVC)
 endif()
 
 add_subdirectory(spell)
+add_subdirectory(scan)
 
 if(APPLE)
     add_subdirectory(macosx)
@@ -198,6 +199,7 @@ endif()
 target_link_libraries (${PROJECT_NAME}
     quneiform_lib
     quneiform_spell
+    quneiform_scan
     ${LIBRARIES}
     ${QT_LIBRARIES}
     cuneiform

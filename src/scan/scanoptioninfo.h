@@ -53,7 +53,8 @@ public:
         UNIT_MICROSECOND
     };
 
-    typedef std::vector<boost::any> ValueList;
+    typedef boost::any Value;
+    typedef std::vector<Value> ValueList;
 public:
     ScanOptionInfo(Type t = UNKNOWN, Constraint c = NO_CONSTRAINT);
 
@@ -79,11 +80,11 @@ public:
     int index() const;
     void setIndex(int idx);
 
-    boost::any rangeMinValue() const;
-    boost::any rangeMaxValue() const;
+    Value rangeMinValue() const;
+    Value rangeMaxValue() const;
 
-    void setRangeMinValue(const boost::any& value);
-    void setRangeMaxValue(const boost::any& value);
+    void setRangeMinValue(const Value& value);
+    void setRangeMaxValue(const Value& value);
 
     ValueList allowedValues() const;
     void appendAllowedValue(const std::string& value);
@@ -94,6 +95,9 @@ public:
 
     Unit unit() const;
     void setUnit(Unit u);
+public:
+    template<class T>
+    static T to(const Value& v) { return boost::any_cast<T>(v); }
 private:
     void resetConstraints();
 private:
@@ -103,8 +107,8 @@ private:
     int index_;
     Unit unit_;
     Constraint constraint_;
-    boost::any range_min_;
-    boost::any range_max_;
+    Value range_min_;
+    Value range_max_;
     ValueList list_;
 };
 

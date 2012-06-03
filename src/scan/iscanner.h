@@ -34,6 +34,7 @@ namespace cf {
 class IScanner
 {
 public:
+    typedef std::vector<std::string> DeviceList;
     typedef std::vector<ScanOption> ScanOptions;
     typedef ScanOptions::const_iterator OptionIteratorConst;
     typedef ScanOptions::iterator OptionIterator;
@@ -51,6 +52,9 @@ public:
 public:
     IScanner();
     virtual ~IScanner();
+
+    virtual bool close() = 0;
+    virtual bool open(const std::string& name) = 0;
 
     const ScanOptions& options() const;
     ScanOptions& options();
@@ -102,6 +106,7 @@ public:
 
     void clearOptions();
     std::ostream& dumpOptions(std::ostream& os) const;
+    virtual DeviceList listDevices() const = 0;
 protected:
     virtual bool setBackendOption(const std::string& name, bool value) = 0;
     virtual bool setBackendOption(const std::string &name, int value) = 0;

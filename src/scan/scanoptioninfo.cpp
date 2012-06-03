@@ -118,17 +118,17 @@ void ScanOptionInfo::setIndex(int idx)
     index_ = idx;
 }
 
-boost::any ScanOptionInfo::rangeMinValue() const
+ScanOptionInfo::Value ScanOptionInfo::rangeMinValue() const
 {
     return range_min_;
 }
 
-boost::any ScanOptionInfo::rangeMaxValue() const
+ScanOptionInfo::Value ScanOptionInfo::rangeMaxValue() const
 {
     return range_max_;
 }
 
-void ScanOptionInfo::setRangeMinValue(const boost::any& value)
+void ScanOptionInfo::setRangeMinValue(const Value &value)
 {
     if(constraint_ != RANGE)
         return;
@@ -136,7 +136,7 @@ void ScanOptionInfo::setRangeMinValue(const boost::any& value)
     range_min_ = value;
 }
 
-void ScanOptionInfo::setRangeMaxValue(const boost::any& value)
+void ScanOptionInfo::setRangeMaxValue(const Value &value)
 {
     if(constraint_ != RANGE)
         return;

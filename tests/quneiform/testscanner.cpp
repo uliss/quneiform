@@ -16,50 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SANESCANNER_H
-#define SANESCANNER_H
+#include <QTest>
 
-#include <vector>
-#include <string>
+#include "testscanner.h"
+#include "gui/scan/scannerdialog.h"
 
-#include "iscanner.h"
-#include "common/image.h"
-
-namespace cf {
-
-class SaneScanner : public IScanner
+void TestScanner::testInit()
 {
-public:
-    SaneScanner();
-    ~SaneScanner();
-
-    bool close();
-    DeviceList listDevices() const;
-    bool open(const std::string& device);
-    ImagePtr start();
-
-    Rect scanArea() const;
-    bool setScanArea(const Rect& area);
-protected:
-    bool setBackendOption(const std::string& name, bool value);
-    bool setBackendOption(const std::string& name, int value);
-    bool setBackendOption(const std::string& name, float value);
-    bool setBackendOption(const std::string& name, const std::string& value);
-private:
-    void addOption(const void * d, int idx);
-    void fillDeviceOptions();
-    ImagePtr handScannerScan(int format, int width, int lineByteWidth, uint depth);
-    ImagePtr normalScannerScan(int format, int width, int height, int lineByteWidth, uint depth);
-    bool isOpened() const;
-    bool isOptionSettable(int idx) const;
-    int optionCount() const;
-    int optionIndex(const std::string& name) const;
-    bool readLine(uchar * buffer, size_t maxSize);
-    bool setValueOption(const void * descr, int idx, ScanOptionValue * value);
-private:
-    void * scanner_;
-};
-
+    ScannerDialog s;
+    s.exec();
 }
 
-#endif // SANESCANNER_H
+QTEST_MAIN(TestScanner)
