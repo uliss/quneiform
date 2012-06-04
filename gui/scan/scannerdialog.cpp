@@ -118,7 +118,7 @@ ScannerDialog::OptionWidgetType ScannerDialog::widgetType(const ScannerOption& o
     static int type_map[5][3] = {
         //  INPUT,        LIST,           RANGE
         { UNKNOWN_WIDGET, UNKNOWN_WIDGET, UNKNOWN_WIDGET }, // UNKNOWN
-        { CHECKBOX,       UNKNOWN_WIDGET, UNKNOWN_WIDGET }, // BOOL
+        { CHECKBOX,       CHECKBOX,       CHECKBOX       }, // BOOL
         { FLOAT_INPUT,    COMBOBOX,       FLOAT_RANGE    }, // FLOAT
         { INT_INPUT,      COMBOBOX,       INT_RANGE      }, // INT
         { STRING_INPUT,   COMBOBOX,       UNKNOWN_WIDGET }  // STRING
@@ -133,6 +133,12 @@ QWidget * ScannerDialog::makeOptionWidget(const ScannerOption& opt)
     case CHECKBOX: {
         QCheckBox * cb = new QCheckBox(this);
         cb->setChecked(opt.value().toBool());
+
+        cb->setProperty(PROPERTY_OPTION_NAME, opt.name());
+        cb->setProperty(PROPERTY_WIDGET_TYPE, (int) CHECKBOX);
+
+        connect(cb, SIGNAL(clicked()), SLOT(handleOptionChange()));
+
         return cb;
     }
     case COMBOBOX: {
@@ -143,6 +149,8 @@ QWidget * ScannerDialog::makeOptionWidget(const ScannerOption& opt)
             if(v == opt.value())
                 cb->setCurrentIndex(cb->count() - 1);
         }
+        cb->setProperty(PROPERTY_OPTION_NAME, opt.name());
+        cb->setProperty(PROPERTY_WIDGET_TYPE, (int) COMBOBOX);
         cb->setProperty(PROPERTY_OPTION_NAME, opt.name());
         cb->setProperty(PROPERTY_WIDGET_TYPE, (int) COMBOBOX);
 
@@ -159,12 +167,36 @@ QWidget * ScannerDialog::makeOptionWidget(const ScannerOption& opt)
         if(opt.hasRangeMax())
             sb->setMaximum(opt.range().max().toFloat());
 
+        if(opt.range().step().isValid())
+            sb->setSingleStep(opt.range().step().toFloat());
+
         sb->setValue(opt.value().toFloat());
 
         sb->setProperty(PROPERTY_OPTION_NAME, opt.name());
         sb->setProperty(PROPERTY_WIDGET_TYPE, (int) FLOAT_RANGE);
 
         connect(sb, SIGNAL(valueChanged(double)), SLOT(handleOptionChange()));
+
+        return sb;
+    }
+    case INT_RANGE: {
+        QSpinBox * sb = new QSpinBox(this);
+
+        if(opt.hasRangeMin())
+            sb->setMinimum(opt.range().min().toInt());
+
+        if(opt.hasRangeMax())
+            sb->setMaximum(opt.range().max().toInt());
+
+        if(opt.range().step().isValid())
+            sb->setSingleStep(opt.range().step().toInt());
+
+        sb->setValue(opt.value().toInt());
+
+        sb->setProperty(PROPERTY_OPTION_NAME, opt.name());
+        sb->setProperty(PROPERTY_WIDGET_TYPE, (int) INT_RANGE);
+
+        connect(sb, SIGNAL(valueChanged(int)), SLOT(handleOptionChange()));
 
         return sb;
     }
