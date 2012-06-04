@@ -16,59 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SCANNERDIALOG_H
-#define SCANNERDIALOG_H
+#ifndef SCANAREA_H
+#define SCANAREA_H
 
-#include <QDialog>
-#include <QMap>
+#include <QLabel>
 
-#include "scanneroption.h"
-
-namespace Ui {
-class ScannerDialog;
-}
-
-class Scanner;
-class QComboBox;
-class ScanArea;
-
-class ScannerDialog : public QDialog
+class ScanArea : public QLabel
 {
     Q_OBJECT
 public:
-    explicit ScannerDialog(QWidget * parent = 0);
-    ~ScannerDialog();    
-
-private:
-    enum OptionWidgetType {
-        UNKNOWN_WIDGET = 0,
-        COMBOBOX,
-        FLOAT_RANGE,
-        FLOAT_INPUT,
-        INT_RANGE,
-        INT_INPUT,
-        STRING_INPUT,
-        CHECKBOX
-    };
-private:
-    void addDialogOptionWidget(const QString& name, QWidget * w);
-    void setupUi();
-    void setupScanMode();
-    void setupScanResolution();
-    void setupScanArea();
-    void setupScanButtons();
-    static OptionWidgetType widgetType(const ScannerOption& opt);
-    QWidget * makeOptionWidget(const ScannerOption& opt);
-private slots:
-    void save();
-    void handleOptionChange();
-    void handleScannerSelect(int idx);
-    void handlePreview();
-private:
-    Ui::ScannerDialog * ui_;
-    Scanner * scanner_;
-    ScanArea * scan_area_;
-    QMap<QString, ScannerOption> changed_options_;
+    explicit ScanArea(QWidget * parent = 0);
+signals:
+    
+public slots:
+    
 };
 
-#endif // SCANNERDIALOG_H
+#endif // SCANAREA_H

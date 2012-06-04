@@ -20,10 +20,13 @@
 #include <QCheckBox>
 #include <QSpinBox>
 #include <QDoubleSpinBox>
+#include <QComboBox>
+#include <QPushButton>
 
 #include "scannerdialog.h"
 #include "ui_scannerdialog.h"
 #include "scanner.h"
+#include "scanarea.h"
 
 static const char * PROPERTY_OPTION_NAME = "OptionName";
 static const char * PROPERTY_WIDGET_TYPE = "WidgetType";
@@ -31,20 +34,17 @@ static const char * PROPERTY_WIDGET_TYPE = "WidgetType";
 ScannerDialog::ScannerDialog(QWidget *parent) :
     QDialog(parent),
     ui_(new Ui::ScannerDialog),
-    scanner_(NULL)
+    scanner_(NULL),
+    scan_area_(NULL)
 {
     ui_->setupUi(this);
     scanner_ = new Scanner(this);
     setupUi();
+    setupScanButtons();
+
     setupScanResolution();
     setupScanMode();
-
-    foreach(ScannerOption opt, scanner_->options()) {
-        if(!opt.isValid())
-            continue;
-
-        addDialogOptionWidget(opt.name(), makeOptionWidget(opt));
-    }
+    setupScanArea();
 }
 
 ScannerDialog::~ScannerDialog()
@@ -111,6 +111,23 @@ void ScannerDialog::setupScanResolution()
         return;
 
     addDialogOptionWidget("Resolution:", makeOptionWidget(option));
+}
+
+void ScannerDialog::setupScanArea()
+{
+    scan_area_ = new ScanArea(this);
+    ui_->formLayout->addRow("", scan_area_);
+}
+
+void ScannerDialog::setupScanButtons()
+{
+    QPushButton * scanButton = ui_->buttonBox->addButton(tr("Scan"),
+                                                         QDialogButtonBox::ActionRole);
+
+    QPushButton * previewButton = ui_->buttonBox->addButton(tr("Preview"),
+                                                            QDialogButtonBox::ActionRole);
+
+    connect(previewButton, SIGNAL(clicked()), SLOT(handlePreview()));
 }
 
 ScannerDialog::OptionWidgetType ScannerDialog::widgetType(const ScannerOption& opt)
@@ -216,6 +233,28 @@ void ScannerDialog::handleScannerSelect(int idx)
 
     if(!rc)
         qDebug() << "can't open scanner: " << scanner_name;
+}
+
+void ScannerDialog::handlePreview()
+{
+    qDebug() << Q_FUNC_INFO;
+
+    if(!scanner_)
+        return;
+
+    QImage img = scanner_->start();
+
+    if(img.isNull()) {
+        qDebug() << Q_FUNC_INFO << "invalid image recieved";
+        return;
+    }
+
+    if(!scan_area_) {
+        qDebug() << Q_FUNC_INFO << "invalid scan area";
+        return;
+    }
+
+    scan_area_->setPixmap(QPixmap::fromImage(img.scaled(scan_area_->size())));
 }
 
 void ScannerDialog::save()
