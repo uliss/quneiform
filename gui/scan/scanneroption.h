@@ -16,34 +16,55 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SCANNERDIALOG_H
-#define SCANNERDIALOG_H
+#ifndef SCANNEROPTION_H
+#define SCANNEROPTION_H
 
-#include <QDialog>
+#include <QList>
+#include <QVariant>
 
-namespace Ui {
-class ScannerDialog;
-}
-
-class Scanner;
-class QComboBox;
-
-class ScannerDialog : public QDialog
+class ScannerOption
 {
 public:
-    explicit ScannerDialog(QWidget * parent = 0);
-    ~ScannerDialog();
+    enum Type {
+        UNKNOWN,
+        BOOL,
+        FLOAT,
+        INT,
+        STRING
+    };
+
+    ScannerOption();
+
+    QList<QVariant> allowedValues() const;
+    void addAllowedValue(const QVariant& value);
+    void clearAllowedValues();
+    bool hadAllowedValues() const;
+    void setAllowedValues(const QList<QVariant>& v);
+
+    bool isValid() const;
+    bool setValid(bool value = true);
+
+    QString name() const;
+    void setName(const QString& name);
+
+    QVariant value() const;
+    void setValue(const QVariant& value);
+
+    bool toBool() const;
+    int toInt() const;
+    float toFloat() const;
+    QString toString() const;
+
+    Type type() const;
+    void setType(Type t);
 private:
-    void setupUi();
-public slots:
-    void handleScannerSelect(int idx);
-private slots:
-    void save();
-private:
-    QComboBox * scanModeWidget();
-private:
-    Ui::ScannerDialog * ui_;
-    Scanner * scanner_;
+    QString name_;
+    QString title_;
+    QString description_;
+    QVariant value_;
+    Type type_;
+    bool valid_;
+    QList<QVariant> allowed_values_;
 };
 
-#endif // SCANNERDIALOG_H
+#endif // SCANNEROPTION_H

@@ -4,6 +4,7 @@ qt4_wrap_cpp(MOC_HEADERS scanner.h)
 set(QF_SCAN_SRC
     scanner.cpp
     scannerdialog.cpp
+    scanneroption.cpp
     ${MOC_HEADERS}
     ${UI_HEADERS})
 

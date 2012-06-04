@@ -40,6 +40,9 @@ ScannerDialog::~ScannerDialog()
 
 void ScannerDialog::setupUi()
 {
+    connect(ui_->buttonBox, SIGNAL(accepted()), SLOT(save()));
+
+
     QStringList l = scanner_->listDevices();
     foreach(QString s, l) {
         ui_->scannerComboBox->addItem(s);
@@ -73,6 +76,11 @@ void ScannerDialog::handleScannerSelect(int idx)
     ui_->scanDialog->layout()->addWidget(scanModeWidget());
 }
 
+void ScannerDialog::save()
+{
+    qDebug() << Q_FUNC_INFO;
+}
+
 QComboBox * ScannerDialog::scanModeWidget()
 {
     QComboBox * res = new QComboBox(this);
@@ -87,6 +95,9 @@ QComboBox * ScannerDialog::scanModeWidget()
     foreach(QVariant mode, modes.allowedValues()) {
         qDebug() << mode.toString();
         res->addItem(mode.toString());
+
+        if(modes.value().toString() == mode.toString())
+            res->setCurrentIndex(res->count() - 1);
     }
 
     return res;
