@@ -22,6 +22,7 @@
 #include "scan/iscanner.h"
 #include "scan/sanescanner.h"
 #include "scan/scanoptioninfo.h"
+#include "scan/scanoptionvalue.h"
 
 using namespace cf;
 
@@ -102,12 +103,31 @@ static void cfInfoToQt(const cf::ScanOptionInfo * info, ScannerOption& opt)
     }
 }
 
+static void cfValueToQt(const cf::ScanOptionValue * value, ScannerOption& opt)
+{
+    if(!value)
+        return;
+
+    if(value->isBool())
+        opt.setValue(value->getBool());
+    else if(value->isFloat())
+        opt.setValue(value->getFloat());
+    else if(value->isInt())
+        opt.setValue(value->getInt());
+    else if(value->isString())
+        opt.setValue(QString::fromStdString(value->getString()));
+    else {
+        qDebug() << Q_FUNC_INFO << "unknown value type";
+    }
+}
+
 static ScannerOption cfScanOptionToQf(const cf::ScanOption& cf_opt)
 {
     ScannerOption res;
     res.setName(cf_opt.name().c_str());
     res.setType(cfToQt(cf_opt.info()->type()));
     cfInfoToQt(cf_opt.info(), res);
+    cfValueToQt(cf_opt.value(), res);
     return res;
 }
 
@@ -144,6 +164,11 @@ ScannerOption Scanner::option(const QString& name) const
         return options_.value(name);
 
     return ScannerOption();
+}
+
+QList<ScannerOption> Scanner::options() const
+{
+    return options_.values();
 }
 
 bool Scanner::setOption(const QString& name, const QVariant& value)

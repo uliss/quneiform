@@ -46,6 +46,11 @@ public:
     ScannerOption option(const QString& name) const;
 
     /**
+     * Return all scanner options
+     */
+    QList<ScannerOption> options() const;
+
+    /**
      * Sets option
      * @param name - option name
      * @param value - option value

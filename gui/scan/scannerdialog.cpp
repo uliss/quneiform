@@ -38,6 +38,13 @@ ScannerDialog::ScannerDialog(QWidget *parent) :
     setupUi();
     setupScanResolution();
     setupScanMode();
+
+    foreach(ScannerOption opt, scanner_->options()) {
+        if(!opt.isValid())
+            continue;
+
+        addDialogOptionWidget(opt.name(), makeOptionWidget(opt));
+    }
 }
 
 ScannerDialog::~ScannerDialog()
@@ -145,11 +152,14 @@ QWidget * ScannerDialog::makeOptionWidget(const ScannerOption& opt)
     }
     case FLOAT_RANGE: {
         QDoubleSpinBox * sb = new QDoubleSpinBox(this);
+
         if(opt.hasRangeMin())
             sb->setMinimum(opt.range().min().toFloat());
 
         if(opt.hasRangeMax())
             sb->setMaximum(opt.range().max().toFloat());
+
+        sb->setValue(opt.value().toFloat());
 
         sb->setProperty(PROPERTY_OPTION_NAME, opt.name());
         sb->setProperty(PROPERTY_WIDGET_TYPE, (int) FLOAT_RANGE);
@@ -207,5 +217,16 @@ void ScannerDialog::handleOptionChange()
     qDebug() << Q_FUNC_INFO << "option changed: "
              << vname.toString() << "in"
              << vtype.toString() << "widget";
+
+    if(!scanner_)
+        return;
+
+    ScannerOption opt = scanner_->option(vname.toString());
+    if(!opt.isValid()) {
+        qDebug() << Q_FUNC_INFO << "unknown option:" << vname.toString();
+        return;
+    }
+
+    changed_options_[opt.name()] = opt;
 }
 
