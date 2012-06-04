@@ -22,6 +22,8 @@
 #include <QList>
 #include <QVariant>
 
+#include "scanneroptionrange.h"
+
 class ScannerOption
 {
 public:
@@ -33,18 +35,75 @@ public:
         STRING
     };
 
+    enum Constraint {
+        CONSTRAINT_NONE,
+        LIST,
+        RANGE
+    };
+
+    /**
+     * Creates empty, invalid option
+     */
     ScannerOption();
 
+    /**
+     * Returns list of allowed values, if option has constraints
+     */
     QList<QVariant> allowedValues() const;
+
+    /**
+     * Adds allowed value
+     */
     void addAllowedValue(const QVariant& value);
+
+    /**
+     * Removes all allowed values
+     */
     void clearAllowedValues();
     bool hadAllowedValues() const;
     void setAllowedValues(const QList<QVariant>& v);
 
-    bool isValid() const;
-    bool setValid(bool value = true);
+    void clearRange();
+    const ScannerOptionRange& range() const;
+    void setRange(const ScannerOptionRange& r);
 
+    /**
+     * Returns true if option has bool type
+     * @see isInt(), isFloat(), isString()
+     */
+    bool isBool() const;
+
+    /**
+     * Returns true if option has int type
+     * @see isBool(), isFloat(), isString()
+     */
+    bool isInt() const;
+
+    /**
+     * Returns true if option has float type
+     * @see isBool(), isInt(), isString()
+     */
+    bool isFloat() const;
+
+    /**
+     * Returns true if option has stirng type
+     * @see isBool(), isInt(), isFloat()
+     */
+    bool isString() const;
+
+    bool isValid() const;
+    void setValid(bool value = true);
+
+    /**
+     * Returns option name
+     * @see setName()
+     */
     QString name() const;
+
+    /**
+     * Sets option name
+     * @see name()
+     */
     void setName(const QString& name);
 
     QVariant value() const;
@@ -57,14 +116,19 @@ public:
 
     Type type() const;
     void setType(Type t);
+
+    Constraint constraint() const;
+    void setConstraint(Constraint c);
 private:
     QString name_;
     QString title_;
     QString description_;
     QVariant value_;
     Type type_;
+    Constraint constraint_;
     bool valid_;
     QList<QVariant> allowed_values_;
+    ScannerOptionRange range_;
 };
 
 #endif // SCANNEROPTION_H

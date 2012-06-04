@@ -1,10 +1,11 @@
 qt4_wrap_ui(UI_HEADERS scannerdialog.ui)
-qt4_wrap_cpp(MOC_HEADERS scanner.h)
+qt4_wrap_cpp(MOC_HEADERS scanner.h scannerdialog.h)
 
 set(QF_SCAN_SRC
     scanner.cpp
     scannerdialog.cpp
     scanneroption.cpp
+    scanneroptionrange.cpp
     ${MOC_HEADERS}
     ${UI_HEADERS})
 

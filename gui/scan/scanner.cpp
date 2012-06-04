@@ -27,15 +27,15 @@ using namespace cf;
 
 Scanner::Scanner(QObject *parent) :
     QObject(parent),
-    scanner_(NULL)
+    backend_(NULL)
 {
-    scanner_ = new cf::SaneScanner;
+    backend_ = new cf::SaneScanner;
 }
 
 Scanner::~Scanner()
 {
     close();
-    delete scanner_;
+    delete backend_;
 }
 
 QImage Scanner::start()
@@ -99,10 +99,10 @@ static ScannerOption cfScanOptionToQf(const cf::ScanOption& cf_opt)
 
 void Scanner::collectOptions()
 {
-    if(!scanner_)
+    if(!backend_)
         return;
 
-    IScanner::ScanOptions opts = scanner_->options();
+    IScanner::ScanOptions opts = backend_->options();
 
     for(size_t i = 0; i < opts.size(); i++) {
         ScannerOption opt = cfScanOptionToQf(opts[i]);
@@ -132,20 +132,79 @@ ScannerOption Scanner::option(const QString& name) const
     return ScannerOption();
 }
 
+bool Scanner::setOption(const QString& name, const QVariant& value)
+{
+    if(backend_)
+        return false;
+
+    if(!options_.contains(name)) {
+        qWarning() << Q_FUNC_INFO << "option '" << name << "' not found";
+        return false;
+    }
+
+    switch(options_[name].type()) {
+    case ScannerOption::BOOL: {
+        bool v = value.toBool();
+
+        if(!backend_->setOption(name.toStdString(), v)) {
+            qDebug() << Q_FUNC_INFO << "can't set option" << name << "to value:" << v;
+            return false;
+
+        }
+        break;
+    }
+    case ScannerOption::INT: {
+        bool ok = false;
+        int v = value.toInt(&ok);
+
+        if(!ok) {
+            qDebug() << Q_FUNC_INFO << "non int value given";
+            return false;
+        }
+
+        if(!backend_->setOption(name.toStdString(), v)) {
+            qDebug() << Q_FUNC_INFO << "can't set option" << name << "to value:" << v;
+            return false;
+        }
+
+        break;
+    }
+    default:
+        qDebug() << Q_FUNC_INFO << "unsupported option type";
+        return false;
+    }
+
+    options_[name].setValue(value);
+
+    return true;
+}
+
+bool Scanner::setOption(const QString& name, bool value)
+{
+    return setOption(name, QVariant(value));
+}
+
+QString Scanner::name() const
+{
+    return name_;
+}
+
 void Scanner::close()
 {
-    if(scanner_)
-        scanner_->close();
+    if(backend_)
+        backend_->close();
 }
 
 bool Scanner::open(const QString& name)
 {
-    bool rc = scanner_->open(name.toStdString());
+    bool rc = backend_->open(name.toStdString());
 
     if(!rc)
         return false;
 
     collectOptions();
+
+    name_ = name;
 
     return true;
 }

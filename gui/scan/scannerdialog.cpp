@@ -30,6 +30,7 @@ ScannerDialog::ScannerDialog(QWidget *parent) :
     ui_->setupUi(this);
     scanner_ = new Scanner(this);
     setupUi();
+    setupScanMode();
 }
 
 ScannerDialog::~ScannerDialog()
@@ -40,7 +41,7 @@ ScannerDialog::~ScannerDialog()
 
 void ScannerDialog::setupUi()
 {
-    connect(ui_->buttonBox, SIGNAL(accepted()), SLOT(save()));
+    connect(this, SIGNAL(accepted()), this, SLOT(save()));
 
 
     QStringList l = scanner_->listDevices();
@@ -60,7 +61,33 @@ void ScannerDialog::setupUi()
 
     connect(ui_->scannerComboBox,
             SIGNAL(currentIndexChanged(int)),
+            this,
             SLOT(handleScannerSelect(int)));
+}
+
+void ScannerDialog::setupScanMode()
+{
+    if(!scanner_)
+        return;
+
+    ScannerOption option = scanner_->option("mode");
+    if(!option.isValid())
+        return;
+
+    QComboBox * w = ui_->scanModeComboBox;
+
+    foreach(QVariant mode, option.allowedValues()) {
+        w->addItem(mode.toString(), mode);
+
+        if(option.value().toString() == mode.toString())
+            w->setCurrentIndex(w->count() - 1);
+    }
+
+    connect(w, SIGNAL(currentIndexChanged(int)), SLOT(handleModeChange(int)));
+}
+
+void ScannerDialog::setupScanResolution()
+{
 }
 
 void ScannerDialog::handleScannerSelect(int idx)
@@ -72,34 +99,27 @@ void ScannerDialog::handleScannerSelect(int idx)
 
     if(!rc)
         qDebug() << "can't open scanner: " << scanner_name;
-
-    ui_->scanDialog->layout()->addWidget(scanModeWidget());
 }
 
 void ScannerDialog::save()
 {
-    qDebug() << Q_FUNC_INFO;
-}
-
-QComboBox * ScannerDialog::scanModeWidget()
-{
-    QComboBox * res = new QComboBox(this);
-
-    if(!scanner_)
-        return res;
-
-    ScannerOption modes = scanner_->option("mode");
-    if(!modes.isValid())
-        return res;
-
-    foreach(QVariant mode, modes.allowedValues()) {
-        qDebug() << mode.toString();
-        res->addItem(mode.toString());
-
-        if(modes.value().toString() == mode.toString())
-            res->setCurrentIndex(res->count() - 1);
+    foreach(ScannerOption opt, changed_options_) {
+        qDebug() << "Option " << opt.name() << "saved";
     }
 
-    return res;
+    changed_options_.clear();
+}
+
+void ScannerDialog::handleModeChange(int idx)
+{
+    if(scanner_)
+        return;
+
+    QVariant mode = ui_->scanModeComboBox->itemData(idx);
+
+    if(!mode.isValid())
+        return;
+
+    scanner_->setOption("mode", mode);
 }
 

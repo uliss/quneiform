@@ -79,10 +79,57 @@ void ScannerOption::setType(ScannerOption::Type t)
     type_ = t;
 }
 
+ScannerOption::Constraint ScannerOption::constraint() const
+{
+    return constraint_;
+}
+
+void ScannerOption::setConstraint(ScannerOption::Constraint c)
+{
+    constraint_ = c;
+
+    if(c == CONSTRAINT_NONE)
+        clearAllowedValues();
+}
 
 void ScannerOption::setAllowedValues(const QList<QVariant>& v)
 {
     allowed_values_ = v;
+}
+
+void ScannerOption::clearRange()
+{
+    range_.clear();
+}
+
+const ScannerOptionRange& ScannerOption::range() const
+{
+    return range_;
+}
+
+void ScannerOption::setRange(const ScannerOptionRange& r)
+{
+    range_ = r;
+}
+
+bool ScannerOption::isBool() const
+{
+    return type_ == BOOL;
+}
+
+bool ScannerOption::isInt() const
+{
+    return type_ == INT;
+}
+
+bool ScannerOption::isFloat() const
+{
+    return type_ == FLOAT;
+}
+
+bool ScannerOption::isString() const
+{
+    return type_ == STRING;
 }
 
 bool ScannerOption::isValid() const
@@ -90,7 +137,7 @@ bool ScannerOption::isValid() const
     return valid_;
 }
 
-bool ScannerOption::setValid(bool value)
+void ScannerOption::setValid(bool value)
 {
     valid_ = value;
 }

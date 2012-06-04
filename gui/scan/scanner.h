@@ -35,9 +35,29 @@ class Scanner : public QObject
 public:
     explicit Scanner(QObject * parent = 0);
     ~Scanner();
+
     QStringList listDevices() const;
 
+    /**
+     * Returns option by name
+     * @param name option name
+     * @return empty option on error
+     */
     ScannerOption option(const QString& name) const;
+
+    /**
+     * Sets option
+     * @param name - option name
+     * @param value - option value
+     * @return true on success
+     */
+    bool setOption(const QString& name, const QVariant& value);
+    bool setOption(const QString& name, bool value);
+
+    /**
+     * Returns scanner name
+     */
+    QString name() const;
 signals:
 
 public slots:
@@ -47,7 +67,8 @@ public slots:
 private:
     void collectOptions();
 private:
-    cf::IScanner * scanner_;
+    cf::IScanner * backend_;
+    QString name_;
     QMap<QString, ScannerOption> options_;
 };
 

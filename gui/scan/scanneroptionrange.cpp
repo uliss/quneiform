@@ -16,40 +16,78 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SCANNERDIALOG_H
-#define SCANNERDIALOG_H
+#include "scanneroptionrange.h"
 
-#include <QDialog>
-#include <QMap>
-
-#include "scanneroption.h"
-
-namespace Ui {
-class ScannerDialog;
+ScannerOptionRange::ScannerOptionRange()
+{
 }
 
-class Scanner;
-class QComboBox;
 
-class ScannerDialog : public QDialog
+ScannerOptionRange::ScannerOptionRange(const QVariant& min,
+                                       const QVariant& max,
+                                       const QVariant& step) :
+    min_(min),
+    max_(max),
+    step_(step)
 {
-    Q_OBJECT
-public:
-    explicit ScannerDialog(QWidget * parent = 0);
-    ~ScannerDialog();
-private:
-    void setupUi();
-    void setupScanMode();
-    void setupScanResolution();
-public slots:
-    void handleScannerSelect(int idx);
-private slots:
-    void save();
-    void handleModeChange(int idx);
-private:
-    Ui::ScannerDialog * ui_;
-    Scanner * scanner_;
-    QMap<QString, ScannerOption> changed_options_;
-};
+}
 
-#endif // SCANNERDIALOG_H
+void ScannerOptionRange::clear()
+{
+    min_.clear();
+    max_.clear();
+    step_.clear();
+}
+
+bool ScannerOptionRange::isNull() const
+{
+    return min_.isNull() && max_.isNull();
+}
+
+QPair<QVariant, QVariant> ScannerOptionRange::range() const
+{
+    return QPair<QVariant, QVariant>(min_, max_);
+}
+
+void ScannerOptionRange::setRange(const QVariant& min, const QVariant& max)
+{
+    min_ = min;
+    max_ = max;
+}
+
+void ScannerOptionRange::setRange(const QPair<QVariant, QVariant>& r)
+{
+    min_ = r.first;
+    max_ = r.second;
+}
+
+QVariant ScannerOptionRange::min() const
+{
+    return min_;
+}
+
+QVariant ScannerOptionRange::max() const
+{
+    return max_;
+}
+
+QVariant ScannerOptionRange::step() const
+{
+    return step_;
+}
+
+void ScannerOptionRange::setMin(const QVariant& v)
+{
+    min_ = v;
+}
+
+void ScannerOptionRange::setMax(const QVariant& v)
+{
+    max_ = v;
+}
+
+void ScannerOptionRange::setStep(const QVariant& v)
+{
+    step_ = v;
+}
+

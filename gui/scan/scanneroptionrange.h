@@ -16,40 +16,37 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SCANNERDIALOG_H
-#define SCANNERDIALOG_H
+#ifndef SCANNEROPTIONRANGE_H
+#define SCANNEROPTIONRANGE_H
 
-#include <QDialog>
-#include <QMap>
+#include <QVariant>
+#include <QPair>
 
-#include "scanneroption.h"
-
-namespace Ui {
-class ScannerDialog;
-}
-
-class Scanner;
-class QComboBox;
-
-class ScannerDialog : public QDialog
+class ScannerOptionRange
 {
-    Q_OBJECT
 public:
-    explicit ScannerDialog(QWidget * parent = 0);
-    ~ScannerDialog();
+    ScannerOptionRange();
+    ScannerOptionRange(const QVariant& min, const QVariant& max, const QVariant& step = QVariant());
+
+    void clear();
+
+    bool isNull() const;
+
+    QPair<QVariant, QVariant> range() const;
+    void setRange(const QVariant& min, const QVariant& max);
+    void setRange(const QPair<QVariant, QVariant>& r);
+
+    QVariant min() const;
+    QVariant max() const;
+    QVariant step() const;
+
+    void setMin(const QVariant& v);
+    void setMax(const QVariant& v);
+    void setStep(const QVariant& v);
 private:
-    void setupUi();
-    void setupScanMode();
-    void setupScanResolution();
-public slots:
-    void handleScannerSelect(int idx);
-private slots:
-    void save();
-    void handleModeChange(int idx);
-private:
-    Ui::ScannerDialog * ui_;
-    Scanner * scanner_;
-    QMap<QString, ScannerOption> changed_options_;
+    QVariant min_;
+    QVariant max_;
+    QVariant step_;
 };
 
-#endif // SCANNERDIALOG_H
+#endif // SCANNEROPTIONRANGE_H
