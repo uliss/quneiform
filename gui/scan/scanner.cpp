@@ -75,6 +75,12 @@ static QVariant cfToQt(const cf::ScanOptionInfo * info, const cf::ScanOptionInfo
     }
 }
 
+static ScannerOptionRange cfInfoToRange(const cf::ScanOptionInfo * info)
+{
+    return ScannerOptionRange(cfToQt(info, info->rangeMinValue()),
+                              cfToQt(info, info->rangeMaxValue()));
+}
+
 static void cfInfoToQt(const cf::ScanOptionInfo * info, ScannerOption& opt)
 {
     if(!info)
@@ -85,6 +91,10 @@ static void cfInfoToQt(const cf::ScanOptionInfo * info, ScannerOption& opt)
         for(size_t i = 0; i < vals.size(); i++) {
             opt.addAllowedValue(cfToQt(info, vals[i]));
         }
+    }
+
+    if(info->isConstraintRange()) {
+        opt.setRange(cfInfoToRange(info));
     }
 }
 
@@ -169,6 +179,32 @@ bool Scanner::setOption(const QString& name, const QVariant& value)
 
         break;
     }
+    case ScannerOption::FLOAT: {
+        bool ok = false;
+        float v = value.toFloat(&ok);
+
+        if(!ok) {
+            qDebug() << Q_FUNC_INFO << "non float value given";
+            return false;
+        }
+
+        if(!backend_->setOption(name.toStdString(), v)) {
+            qDebug() << Q_FUNC_INFO << "can't set option" << name << "to value:" << v;
+            return false;
+        }
+
+        break;
+    }
+    case ScannerOption::STRING: {
+        QString v = value.toString();
+
+        if(!backend_->setOption(name.toStdString(), v.toStdString())) {
+            qDebug() << Q_FUNC_INFO << "can't set option" << name << "to value:" << v;
+            return false;
+        }
+
+        break;
+    }
     default:
         qDebug() << Q_FUNC_INFO << "unsupported option type";
         return false;
@@ -177,11 +213,6 @@ bool Scanner::setOption(const QString& name, const QVariant& value)
     options_[name].setValue(value);
 
     return true;
-}
-
-bool Scanner::setOption(const QString& name, bool value)
-{
-    return setOption(name, QVariant(value));
 }
 
 QString Scanner::name() const

@@ -38,6 +38,15 @@ public:
     explicit ScannerDialog(QWidget * parent = 0);
     ~ScannerDialog();
 private:
+    enum OptionWidget {
+        UNKNOWN_WIDGET,
+        COBMOBOX,
+        FLOATRANGE,
+        INTRANGE,
+        RADIOBUTTON,
+        CHECKBOX
+    };
+private:
     void setupUi();
     void setupScanMode();
     void setupScanResolution();

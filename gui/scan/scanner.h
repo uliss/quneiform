@@ -52,7 +52,6 @@ public:
      * @return true on success
      */
     bool setOption(const QString& name, const QVariant& value);
-    bool setOption(const QString& name, bool value);
 
     /**
      * Returns scanner name
