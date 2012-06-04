@@ -18,6 +18,8 @@
 
 #include <QDebug>
 #include <QCheckBox>
+#include <QSpinBox>
+#include <QDoubleSpinBox>
 
 #include "scannerdialog.h"
 #include "ui_scannerdialog.h"
@@ -34,6 +36,7 @@ ScannerDialog::ScannerDialog(QWidget *parent) :
     ui_->setupUi(this);
     scanner_ = new Scanner(this);
     setupUi();
+    setupScanResolution();
     setupScanMode();
 }
 
@@ -89,12 +92,18 @@ void ScannerDialog::setupScanMode()
         return;
 
     addDialogOptionWidget("Scan mode:", makeOptionWidget(option));
-
-//    connect(w, SIGNAL(currentIndexChanged(int)), SLOT(handleModeChange(int)));
 }
 
 void ScannerDialog::setupScanResolution()
 {
+    if(!scanner_)
+        return;
+
+    ScannerOption option = scanner_->option("resolution");
+    if(!option.isValid())
+        return;
+
+    addDialogOptionWidget("Resolution:", makeOptionWidget(option));
 }
 
 ScannerDialog::OptionWidgetType ScannerDialog::widgetType(const ScannerOption& opt)
@@ -134,6 +143,21 @@ QWidget * ScannerDialog::makeOptionWidget(const ScannerOption& opt)
 
         return cb;
     }
+    case FLOAT_RANGE: {
+        QDoubleSpinBox * sb = new QDoubleSpinBox(this);
+        if(opt.hasRangeMin())
+            sb->setMinimum(opt.range().min().toFloat());
+
+        if(opt.hasRangeMax())
+            sb->setMaximum(opt.range().max().toFloat());
+
+        sb->setProperty(PROPERTY_OPTION_NAME, opt.name());
+        sb->setProperty(PROPERTY_WIDGET_TYPE, (int) FLOAT_RANGE);
+
+        connect(sb, SIGNAL(valueChanged(double)), SLOT(handleOptionChange()));
+
+        return sb;
+    }
     case UNKNOWN_WIDGET:
     default:
         qDebug() << Q_FUNC_INFO << "Unknown widget type:" << opt.type() << opt.constraint();
@@ -159,19 +183,6 @@ void ScannerDialog::save()
     }
 
     changed_options_.clear();
-}
-
-void ScannerDialog::handleModeChange(int idx)
-{
-    if(scanner_)
-        return;
-
-    QVariant mode = ui_->scannerComboBox->itemData(idx);
-
-    if(!mode.isValid())
-        return;
-
-    scanner_->setOption("mode", mode);
 }
 
 void ScannerDialog::handleOptionChange()

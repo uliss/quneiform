@@ -36,7 +36,8 @@ class ScannerDialog : public QDialog
     Q_OBJECT
 public:
     explicit ScannerDialog(QWidget * parent = 0);
-    ~ScannerDialog();
+    ~ScannerDialog();    
+
 private:
     enum OptionWidgetType {
         UNKNOWN_WIDGET = 0,
@@ -55,12 +56,10 @@ private:
     void setupScanResolution();
     static OptionWidgetType widgetType(const ScannerOption& opt);
     QWidget * makeOptionWidget(const ScannerOption& opt);
-public slots:
-    void handleScannerSelect(int idx);
 private slots:
     void save();
-    void handleModeChange(int idx);
     void handleOptionChange();
+    void handleScannerSelect(int idx);
 private:
     Ui::ScannerDialog * ui_;
     Scanner * scanner_;

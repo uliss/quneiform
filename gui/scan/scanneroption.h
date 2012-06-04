@@ -66,6 +66,8 @@ public:
     void setAllowedValues(const QList<QVariant>& v);
 
     void clearRange();
+    bool hasRangeMin() const;
+    bool hasRangeMax() const;
     const ScannerOptionRange& range() const;
     void setRange(const ScannerOptionRange& r);
 

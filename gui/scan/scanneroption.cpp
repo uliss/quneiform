@@ -102,6 +102,16 @@ void ScannerOption::clearRange()
     range_.clear();
 }
 
+bool ScannerOption::hasRangeMin() const
+{
+    return range_.min().isValid();
+}
+
+bool ScannerOption::hasRangeMax() const
+{
+    return range_.max().isValid();
+}
+
 const ScannerOptionRange& ScannerOption::range() const
 {
     return range_;
