@@ -27,14 +27,16 @@
 class ScannerOption
 {
 public:
+    // do not change values!
     enum Type {
-        UNKNOWN,
+        UNKNOWN = 0,
         BOOL,
         FLOAT,
         INT,
         STRING
     };
 
+    // do not change values!
     enum Constraint {
         CONSTRAINT_NONE,
         LIST,

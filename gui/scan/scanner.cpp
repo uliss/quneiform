@@ -87,6 +87,8 @@ static void cfInfoToQt(const cf::ScanOptionInfo * info, ScannerOption& opt)
         return;
 
     if(info->isConstraintList()) {
+        opt.setConstraint(ScannerOption::LIST);
+
         cf::ScanOptionInfo::ValueList vals = info->allowedValues();
         for(size_t i = 0; i < vals.size(); i++) {
             opt.addAllowedValue(cfToQt(info, vals[i]));
@@ -94,6 +96,8 @@ static void cfInfoToQt(const cf::ScanOptionInfo * info, ScannerOption& opt)
     }
 
     if(info->isConstraintRange()) {
+        opt.setConstraint(ScannerOption::RANGE);
+
         opt.setRange(cfInfoToRange(info));
     }
 }

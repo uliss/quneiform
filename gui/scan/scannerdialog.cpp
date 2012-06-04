@@ -17,10 +17,14 @@
  ***************************************************************************/
 
 #include <QDebug>
+#include <QCheckBox>
 
 #include "scannerdialog.h"
 #include "ui_scannerdialog.h"
 #include "scanner.h"
+
+static const char * PROPERTY_OPTION_NAME = "OptionName";
+static const char * PROPERTY_WIDGET_TYPE = "WidgetType";
 
 ScannerDialog::ScannerDialog(QWidget *parent) :
     QDialog(parent),
@@ -37,6 +41,16 @@ ScannerDialog::~ScannerDialog()
 {
     delete ui_;
     delete scanner_;
+}
+
+void ScannerDialog::addDialogOptionWidget(const QString& name, QWidget * w)
+{
+    if(!w) {
+        qDebug() << Q_FUNC_INFO << "invalid widget given";
+        return;
+    }
+
+    ui_->formLayout->addRow(name, w);
 }
 
 void ScannerDialog::setupUi()
@@ -74,20 +88,57 @@ void ScannerDialog::setupScanMode()
     if(!option.isValid())
         return;
 
-    QComboBox * w = ui_->scanModeComboBox;
+    addDialogOptionWidget("Scan mode:", makeOptionWidget(option));
 
-    foreach(QVariant mode, option.allowedValues()) {
-        w->addItem(mode.toString(), mode);
-
-        if(option.value().toString() == mode.toString())
-            w->setCurrentIndex(w->count() - 1);
-    }
-
-    connect(w, SIGNAL(currentIndexChanged(int)), SLOT(handleModeChange(int)));
+//    connect(w, SIGNAL(currentIndexChanged(int)), SLOT(handleModeChange(int)));
 }
 
 void ScannerDialog::setupScanResolution()
 {
+}
+
+ScannerDialog::OptionWidgetType ScannerDialog::widgetType(const ScannerOption& opt)
+{
+    static int type_map[5][3] = {
+        //  INPUT,        LIST,           RANGE
+        { UNKNOWN_WIDGET, UNKNOWN_WIDGET, UNKNOWN_WIDGET }, // UNKNOWN
+        { CHECKBOX,       UNKNOWN_WIDGET, UNKNOWN_WIDGET }, // BOOL
+        { FLOAT_INPUT,    COMBOBOX,       FLOAT_RANGE    }, // FLOAT
+        { INT_INPUT,      COMBOBOX,       INT_RANGE      }, // INT
+        { STRING_INPUT,   COMBOBOX,       UNKNOWN_WIDGET }  // STRING
+    };
+
+    return (OptionWidgetType) type_map[opt.type()][opt.constraint()];
+}
+
+QWidget * ScannerDialog::makeOptionWidget(const ScannerOption& opt)
+{
+    switch(widgetType(opt)) {
+    case CHECKBOX: {
+        QCheckBox * cb = new QCheckBox(this);
+        cb->setChecked(opt.value().toBool());
+        return cb;
+    }
+    case COMBOBOX: {
+        QComboBox * cb = new QComboBox(this);
+        foreach(QVariant v, opt.allowedValues()) {
+            cb->addItem(v.toString(), v);
+
+            if(v == opt.value())
+                cb->setCurrentIndex(cb->count() - 1);
+        }
+        cb->setProperty(PROPERTY_OPTION_NAME, opt.name());
+        cb->setProperty(PROPERTY_WIDGET_TYPE, (int) COMBOBOX);
+
+        connect(cb, SIGNAL(currentIndexChanged(int)), SLOT(handleOptionChange()));
+
+        return cb;
+    }
+    case UNKNOWN_WIDGET:
+    default:
+        qDebug() << Q_FUNC_INFO << "Unknown widget type:" << opt.type() << opt.constraint();
+        return NULL;
+    }
 }
 
 void ScannerDialog::handleScannerSelect(int idx)
@@ -115,11 +166,35 @@ void ScannerDialog::handleModeChange(int idx)
     if(scanner_)
         return;
 
-    QVariant mode = ui_->scanModeComboBox->itemData(idx);
+    QVariant mode = ui_->scannerComboBox->itemData(idx);
 
     if(!mode.isValid())
         return;
 
     scanner_->setOption("mode", mode);
+}
+
+void ScannerDialog::handleOptionChange()
+{
+    QObject * obj = sender();
+
+    if(!obj)
+        return;
+
+    QVariant vname = obj->property(PROPERTY_OPTION_NAME);
+    if(!vname.isValid()) {
+        qDebug() << Q_FUNC_INFO << "invalid sender" << obj;
+        return;
+    }
+
+    QVariant vtype = obj->property(PROPERTY_WIDGET_TYPE);
+    if(!vtype.isValid()) {
+        qDebug() << Q_FUNC_INFO << "invalid widget" << obj;
+        return;
+    }
+
+    qDebug() << Q_FUNC_INFO << "option changed: "
+             << vname.toString() << "in"
+             << vtype.toString() << "widget";
 }
 

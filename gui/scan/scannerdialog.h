@@ -38,23 +38,29 @@ public:
     explicit ScannerDialog(QWidget * parent = 0);
     ~ScannerDialog();
 private:
-    enum OptionWidget {
-        UNKNOWN_WIDGET,
-        COBMOBOX,
-        FLOATRANGE,
-        INTRANGE,
-        RADIOBUTTON,
+    enum OptionWidgetType {
+        UNKNOWN_WIDGET = 0,
+        COMBOBOX,
+        FLOAT_RANGE,
+        FLOAT_INPUT,
+        INT_RANGE,
+        INT_INPUT,
+        STRING_INPUT,
         CHECKBOX
     };
 private:
+    void addDialogOptionWidget(const QString& name, QWidget * w);
     void setupUi();
     void setupScanMode();
     void setupScanResolution();
+    static OptionWidgetType widgetType(const ScannerOption& opt);
+    QWidget * makeOptionWidget(const ScannerOption& opt);
 public slots:
     void handleScannerSelect(int idx);
 private slots:
     void save();
     void handleModeChange(int idx);
+    void handleOptionChange();
 private:
     Ui::ScannerDialog * ui_;
     Scanner * scanner_;
