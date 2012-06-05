@@ -45,6 +45,8 @@ ScannerDialog::ScannerDialog(QWidget *parent) :
     setupScanResolution();
     setupScanMode();
     setupScanArea();
+
+    setupOption("test-picture", "Picture:");
 }
 
 ScannerDialog::~ScannerDialog()
@@ -61,6 +63,18 @@ void ScannerDialog::addDialogOptionWidget(const QString& name, QWidget * w)
     }
 
     ui_->formLayout->addRow(name, w);
+}
+
+void ScannerDialog::setupOption(const QString& optionName, const QString& optionLabel)
+{
+    if(!scanner_)
+        return;
+
+    ScannerOption option = scanner_->option(optionName);
+    if(!option.isValid())
+        return;
+
+    addDialogOptionWidget(optionLabel, makeOptionWidget(option));
 }
 
 void ScannerDialog::setupUi()
@@ -91,26 +105,12 @@ void ScannerDialog::setupUi()
 
 void ScannerDialog::setupScanMode()
 {
-    if(!scanner_)
-        return;
-
-    ScannerOption option = scanner_->option("mode");
-    if(!option.isValid())
-        return;
-
-    addDialogOptionWidget("Scan mode:", makeOptionWidget(option));
+    setupOption("mode", "Scan mode:");
 }
 
 void ScannerDialog::setupScanResolution()
 {
-    if(!scanner_)
-        return;
-
-    ScannerOption option = scanner_->option("resolution");
-    if(!option.isValid())
-        return;
-
-    addDialogOptionWidget("Resolution:", makeOptionWidget(option));
+    setupOption("resolution", "Resolution:");
 }
 
 void ScannerDialog::setupScanArea()
@@ -242,6 +242,8 @@ void ScannerDialog::handlePreview()
     if(!scanner_)
         return;
 
+    save();
+
     QImage img = scanner_->start();
 
     if(img.isNull()) {
@@ -259,8 +261,13 @@ void ScannerDialog::handlePreview()
 
 void ScannerDialog::save()
 {
+    if(!scanner_)
+        return;
+
     foreach(ScannerOption opt, changed_options_) {
-        qDebug() << "Option " << opt.name() << "saved";
+        if(!scanner_->setOption(opt.name(), opt.value())) {
+            qDebug() << Q_FUNC_INFO << "error while saving" << opt.name() << "to" << opt.value();
+        }
     }
 
     changed_options_.clear();
@@ -296,6 +303,25 @@ void ScannerDialog::handleOptionChange()
     if(!opt.isValid()) {
         qDebug() << Q_FUNC_INFO << "unknown option:" << vname.toString();
         return;
+    }
+
+    switch(vtype.toInt()) {
+    case COMBOBOX: {
+        QComboBox * cb = qobject_cast<QComboBox*>(obj);
+        if(!cb)
+            break;
+
+        opt.setValue(cb->itemData(cb->currentIndex()));
+        break;
+    }
+    case FLOAT_RANGE:
+    case INT_RANGE:
+    case FLOAT_INPUT:
+    case INT_INPUT:
+    case STRING_INPUT:
+    case CHECKBOX:
+    default:
+        break;
     }
 
     changed_options_[opt.name()] = opt;

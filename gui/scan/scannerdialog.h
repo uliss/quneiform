@@ -52,6 +52,7 @@ private:
     };
 private:
     void addDialogOptionWidget(const QString& name, QWidget * w);
+    void setupOption(const QString& optionName, const QString& optionLabel);
     void setupUi();
     void setupScanMode();
     void setupScanResolution();

@@ -17,12 +17,14 @@
  ***************************************************************************/
 
 #include <QDebug>
+#include <sstream>
 
 #include "scanner.h"
 #include "scan/iscanner.h"
 #include "scan/sanescanner.h"
 #include "scan/scanoptioninfo.h"
 #include "scan/scanoptionvalue.h"
+#include "export/bmpimageexporter.h"
 
 using namespace cf;
 
@@ -41,7 +43,28 @@ Scanner::~Scanner()
 
 QImage Scanner::start()
 {
-    return QImage();
+    if(!backend_)
+        return QImage();
+
+    ImagePtr img = backend_->start();
+
+    if(!img) {
+        qDebug() << Q_FUNC_INFO << "invalid image recieved";
+        return;
+    }
+
+    std::ostringstream buf;
+    cf::BmpImageExporter exp;
+    exp.save(*img, buf);
+
+    QImage res = QImage::fromData((uchar*) buf.str().c_str(), buf.str().size(), "BMP");
+
+    if(res.isNull()) {
+        qDebug() << Q_FUNC_INFO << "image not loaded";
+        return QImage();
+    }
+
+    return res.copy();
 }
 
 static inline ScannerOption::Type cfToQt(const cf::ScanOptionInfo::Type t)
@@ -173,7 +196,7 @@ QList<ScannerOption> Scanner::options() const
 
 bool Scanner::setOption(const QString& name, const QVariant& value)
 {
-    if(backend_)
+    if(!backend_)
         return false;
 
     if(!options_.contains(name)) {
