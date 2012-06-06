@@ -22,11 +22,37 @@
 
 #include "testdibplugin.h"
 #include "plugins/dibimageioplugin.h"
+#include "cfcompat.h"
 
 void TestDIBPlugin::testSupportedFormats()
 {
-    DIBImageIOPlugin p;
-    qDebug() << QImageReader::supportedImageFormats();
+    QVERIFY(QImageReader::supportedImageFormats().contains("dib"));
+}
+
+void TestDIBPlugin::testRead()
+{
+    QImage img;
+    QByteArray data;
+    data.fill('1', 1024);
+    QVERIFY(!img.loadFromData(data, "dib"));
+
+    QImage bmp(100, 120, QImage::Format_RGB32);
+    bmp.fill(Qt::blue);
+
+    QByteArray bmp_data;
+    QBuffer buffer(&bmp_data);
+    bmp.save(&buffer, "bmp");
+
+    const char * dib_ptr = bmp_data.constData();
+    QVERIFY(dib_ptr);
+
+    dib_ptr += sizeof(BITMAPFILEHEADER);
+
+    BITMAPINFOHEADER * info = (BITMAPINFOHEADER*) dib_ptr;
+
+    img.loadFromData((uchar*) dib_ptr, bmp_data.length() - sizeof(BITMAPFILEHEADER), "DIB");
+
+    img.save("test_dib_plugin.bmp", "bmp");
 }
 
 Q_IMPORT_PLUGIN(dib_imageplugin)

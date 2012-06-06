@@ -18,4 +18,5 @@ add_library(dib_imageplugin STATIC
 
 target_link_libraries(dib_imageplugin
     ${QT_LIBRARIES}
+    cuneiform-rdib
 )

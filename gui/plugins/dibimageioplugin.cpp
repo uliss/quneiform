@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <QtPlugin>
+#include <QDebug>
 
 #include "dibimageioplugin.h"
 #include "dibimageiohandler.h"
@@ -29,7 +30,17 @@ DIBImageIOPlugin::DIBImageIOPlugin(QObject * parent) :
 QImageIOPlugin::Capabilities DIBImageIOPlugin::capabilities(QIODevice * device,
                                                             const QByteArray& format) const
 {
-    return CanRead;
+    if(format.toLower() == "dib")
+        return CanRead;
+
+    if(format.isEmpty()) {
+        DIBImageIOHandler handler;
+        handler.setDevice(device);
+        if (handler.canRead())
+            return CanRead;
+    }
+
+    return 0;
 }
 
 QImageIOHandler * DIBImageIOPlugin::create(QIODevice * device, const QByteArray& format) const

@@ -26,6 +26,7 @@ class TestDIBPlugin : public QObject
     Q_OBJECT
 private slots:
     void testSupportedFormats();
+    void testRead();
 };
 
 #endif // TESTDIBPLUGIN_H
