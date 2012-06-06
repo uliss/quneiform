@@ -30,6 +30,7 @@ set(CF_GUI_TESTS
     texteditor
     qtextdocumentexporter
     scanner
+    dibplugin
 )
 
 if(CF_SERIALIZE)
@@ -55,6 +56,7 @@ set(TEST_LIBS
     quneiform_lib
     quneiform_scan
     cuneiform
+    dib_imageplugin
     ${QT_LIBRARIES}
     ${QT_QTTEST_LIBRARIES})
 
