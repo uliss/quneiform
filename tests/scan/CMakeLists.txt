@@ -2,8 +2,9 @@ set(CF_TEST_SCAN_SRC
     test_scan.cpp
 )
 
-
-list(APPEND CF_TEST_SCAN_SRC testsanescanner.cpp)
+if(CF_SANE_SUPPORT_BUILD)
+    list(APPEND CF_TEST_SCAN_SRC testsanescanner.cpp)
+endif()
 
 add_executable(test_scan ${CF_TEST_SCAN_SRC})
 
