@@ -29,9 +29,12 @@ set(CF_GUI_TESTS
     spellcheckerfactory
     texteditor
     qtextdocumentexporter
-    scanner
     dibplugin
 )
+
+if(CF_SANE_SCANNER_SUPPORT)
+    list(APPEND CF_GUI_TESTS scanner)
+endif()
 
 if(CF_SERIALIZE)
     list(APPEND CF_GUI_TESTS cedserializer)
