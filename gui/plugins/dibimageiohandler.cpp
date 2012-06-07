@@ -18,6 +18,8 @@
 
 #include <QImage>
 #include <QDebug>
+#include <QVariant>
+
 #include <string.h>
 
 #include "dibimageiohandler.h"

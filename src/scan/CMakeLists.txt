@@ -13,7 +13,8 @@ if(SANE_FOUND)
     include_directories(${SANE_INCLUDE_DIR})
     list(APPEND CF_SCAN_SOURCE sanescanner.cpp)
     list(APPEND CF_SCAN_LINK ${SANE_LIBRARY} ${CF_RDIB})
+
+    add_library(${CF_SCAN} ${LIBTYPE} ${CF_SCAN_SOURCE})
+    target_link_libraries(${CF_SCAN} ${CF_SCAN_LINK})
 endif()
 
-add_library(${CF_SCAN} ${LIBTYPE} ${CF_SCAN_SOURCE})
-target_link_libraries(${CF_SCAN} ${CF_SCAN_LINK})

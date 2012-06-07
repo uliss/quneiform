@@ -49,7 +49,7 @@ QImage Scanner::start()
 
     if(!img) {
         qDebug() << Q_FUNC_INFO << "invalid image recieved";
-        return;
+        return QImage();
     }
 
     QImage res;

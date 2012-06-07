@@ -52,11 +52,11 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/test_gui.py"
         "${CMAKE_CURRENT_BINARY_DIR}/test_gui.py")
 
 set(TEST_LIBS
-    quneiform_spell
     quneiform_lib
     quneiform_scan
     cuneiform
     dib_imageplugin
+    quneiform_spell
     ${QT_LIBRARIES}
     ${QT_QTTEST_LIBRARIES})
 
