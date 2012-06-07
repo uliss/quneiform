@@ -18,12 +18,16 @@
 
 #include <QFileOpenEvent>
 #include <QFile>
+#include <QtPlugin>
 
 #include "metatyperegistrator.h"
 #include "translationloader.h"
 #include "quneiformapplication.h"
 #include "config-version.h"
 #include "common/singleton.h"
+#include "plugins/dibimageioplugin.h"
+
+Q_IMPORT_PLUGIN(dib_imageplugin)
 
 class Log {
 public:
