@@ -17,14 +17,13 @@
  ***************************************************************************/
 
 #include <QDebug>
-#include <sstream>
+#include <QImageReader>
 
 #include "scanner.h"
 #include "scan/iscanner.h"
 #include "scan/sanescanner.h"
 #include "scan/scanoptioninfo.h"
 #include "scan/scanoptionvalue.h"
-#include "export/bmpimageexporter.h"
 
 using namespace cf;
 
@@ -53,13 +52,8 @@ QImage Scanner::start()
         return;
     }
 
-    std::ostringstream buf;
-    cf::BmpImageExporter exp;
-    exp.save(*img, buf);
-
-    QImage res = QImage::fromData((uchar*) buf.str().c_str(), buf.str().size(), "BMP");
-
-    if(res.isNull()) {
+    QImage res;
+    if(!res.loadFromData(img->data(), img->dataSize(), "DIB")) {
         qDebug() << Q_FUNC_INFO << "image not loaded";
         return QImage();
     }

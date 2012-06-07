@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <QTest>
+#include <QtPlugin>
 
 #include "testscanner.h"
 #include "gui/scan/scannerdialog.h"
@@ -26,5 +27,7 @@ void TestScanner::testInit()
     ScannerDialog s;
     s.exec();
 }
+
+Q_IMPORT_PLUGIN(dib_imageplugin)
 
 QTEST_MAIN(TestScanner)

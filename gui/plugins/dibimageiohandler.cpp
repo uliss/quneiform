@@ -28,6 +28,18 @@ static const int VERSION_3_HEADER_SIZE = 40;
 static const int VERSION_4_HEADER_SIZE = 108;
 static const int VERSION_5_HEADER_SIZE = 124;
 
+static bool readDIBHeader(QIODevice * device, BITMAPINFOHEADER& info)
+{
+    if(!device)
+        return false;
+
+    qint64 read = device->peek((char*) &info, sizeof(BITMAPINFOHEADER));
+    if(read != sizeof(BITMAPINFOHEADER))
+        return false;
+
+    return true;
+}
+
 static bool isValidDIBHeader(BITMAPINFOHEADER& h)
 {
     if(h.biSize != VERSION_3_HEADER_SIZE &&
@@ -52,6 +64,28 @@ static bool isValidDIBHeader(BITMAPINFOHEADER& h)
     return true;
 }
 
+static void writeBMPHeader(BITMAPFILEHEADER * bmp, BITMAPINFOHEADER * info, char * data)
+{
+    if(!bmp || !info)
+        return;
+
+    CTDIB dib;
+    dib.SetDIBbyPtr(info);
+
+    const size_t bitmap_size = dib.GetDIBSize();
+    const size_t bmp_header_size = sizeof(BITMAPFILEHEADER);
+
+    memset(bmp, 0, bmp_header_size);
+    bmp->bfType = 0x4d42; // 'BM'
+    bmp->bfSize = (uint32_t) (bmp_header_size + bitmap_size);
+    // fileheader + infoheader + palette
+    bmp->bfOffBits = bmp_header_size +
+            dib.GetHeaderSize() +
+            dib.GetRGBPalleteSize();
+
+//    memcpy(d, bmp, bmp_header_size);
+}
+
 DIBImageIOHandler::DIBImageIOHandler()
 {
     qDebug() << Q_FUNC_INFO;
@@ -60,8 +94,7 @@ DIBImageIOHandler::DIBImageIOHandler()
 bool DIBImageIOHandler::canRead() const
 {
     BITMAPINFOHEADER bitmap_info;
-    qint64 read = device()->peek((char*) &bitmap_info, sizeof(BITMAPINFOHEADER));
-    if(read != sizeof(BITMAPINFOHEADER))
+    if(!readDIBHeader(device(), bitmap_info))
         return false;
 
     return isValidDIBHeader(bitmap_info);
@@ -70,11 +103,8 @@ bool DIBImageIOHandler::canRead() const
 bool DIBImageIOHandler::read(QImage * image)
 {
     BITMAPINFOHEADER bitmap_info;
-    qint64 read = device()->peek((char*) &bitmap_info, sizeof(BITMAPINFOHEADER));
-    if(read != sizeof(BITMAPINFOHEADER)) {
-        qDebug() << Q_FUNC_INFO << "can't read header: only" << read << "bytes read";
+    if(!readDIBHeader(device(), bitmap_info))
         return false;
-    }
 
     if(!isValidDIBHeader(bitmap_info)) {
         qDebug() << Q_FUNC_INFO << "invalid header";
@@ -89,32 +119,54 @@ bool DIBImageIOHandler::read(QImage * image)
     BITMAPFILEHEADER bmp_header;
     memset(&bmp_header, 0, bmp_header_size);
     bmp_header.bfType = 0x4d42; // 'BM'
-    bmp_header.bfSize = bmp_header_size + bitmap_size;
+    bmp_header.bfSize = (uint32_t) (bmp_header_size + bitmap_size);
     // fileheader + infoheader + palette
     bmp_header.bfOffBits = bmp_header_size +
             dib.GetHeaderSize() +
             dib.GetRGBPalleteSize();
 
-    uchar * buf = new uchar[bmp_header.bfSize];
-    uchar * buf_ptr = buf;
+    char * buf = new char[bmp_header.bfSize];
+    char * buf_ptr = buf;
     memcpy(buf_ptr, &bmp_header, bmp_header_size);
     buf_ptr += bmp_header_size;
 
-    QByteArray data = device()->read(bitmap_size);
-
-    if(data.isEmpty()) {
+    if(!device()->read(buf_ptr, bitmap_size)) {
         delete[] buf;
+        qDebug() << Q_FUNC_INFO << "read error";
         return false;
     }
 
-    memcpy(buf_ptr, data.constData(), bitmap_size);
-
-    bool rc = image->loadFromData(buf, bmp_header.bfSize, "BMP");
+    bool rc = image->loadFromData((uchar*) buf, (int) bmp_header.bfSize, "BMP");
     delete[] buf;
     return rc;
 }
 
-bool DIBImageIOHandler::write(const QImage& image)
+bool DIBImageIOHandler::write(const QImage&)
 {
     return false;
+}
+
+QVariant DIBImageIOHandler::option(QImageIOHandler::ImageOption option) const
+{
+    switch(option) {
+    case Size: {
+        BITMAPINFOHEADER dib_info;
+        if(!readDIBHeader(device(), dib_info))
+            return QVariant();
+
+        return QSize(qAbs(dib_info.biWidth), qAbs(dib_info.biHeight));
+    }
+    default:
+        return QImageIOHandler::option(option);
+    }
+}
+
+bool DIBImageIOHandler::supportsOption(QImageIOHandler::ImageOption option) const
+{
+    switch(option) {
+    case Size:
+        return true;
+    default:
+        return QImageIOHandler::supportsOption(option);
+    }
 }

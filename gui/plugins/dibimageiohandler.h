@@ -28,6 +28,9 @@ public:
     bool canRead () const;
     bool read(QImage * image);
     bool write (const QImage & image);
+
+    QVariant option(ImageOption option) const;
+    bool supportsOption(ImageOption option) const;
 };
 
 #endif // DIBIMAGEIOHANDLER_H
