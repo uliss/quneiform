@@ -68,6 +68,17 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="scanPreviewDialog">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="previewImage">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>

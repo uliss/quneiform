@@ -61,10 +61,11 @@ private:
     static OptionWidgetType widgetType(const ScannerOption& opt);
     QWidget * makeOptionWidget(const ScannerOption& opt);
 private slots:
-    void save();
+    void saveOptions();
     void handleOptionChange();
     void handleScannerSelect(int idx);
     void handlePreview();
+    void handleScan();
 private:
     Ui::ScannerDialog * ui_;
     Scanner * scanner_;

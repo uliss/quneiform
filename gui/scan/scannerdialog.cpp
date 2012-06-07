@@ -79,7 +79,7 @@ void ScannerDialog::setupOption(const QString& optionName, const QString& option
 
 void ScannerDialog::setupUi()
 {
-    connect(this, SIGNAL(accepted()), this, SLOT(save()));
+    connect(this, SIGNAL(accepted()), this, SLOT(saveOptions()));
 
 
     QStringList l = scanner_->listDevices();
@@ -128,6 +128,7 @@ void ScannerDialog::setupScanButtons()
                                                             QDialogButtonBox::ActionRole);
 
     connect(previewButton, SIGNAL(clicked()), SLOT(handlePreview()));
+    connect(scanButton, SIGNAL(clicked()), SLOT(handleScan()));
 }
 
 ScannerDialog::OptionWidgetType ScannerDialog::widgetType(const ScannerOption& opt)
@@ -242,7 +243,7 @@ void ScannerDialog::handlePreview()
     if(!scanner_)
         return;
 
-    save();
+    saveOptions();
 
     QImage img = scanner_->start();
 
@@ -259,7 +260,25 @@ void ScannerDialog::handlePreview()
     scan_area_->setPixmap(QPixmap::fromImage(img.scaled(scan_area_->size())));
 }
 
-void ScannerDialog::save()
+void ScannerDialog::handleScan()
+{
+    qDebug() << Q_FUNC_INFO;
+
+    if(!scanner_)
+        return;
+
+    QImage img = scanner_->start();
+
+    if(img.isNull()) {
+        qDebug() << Q_FUNC_INFO << "invalid image recieved";
+        return;
+    }
+
+    ui_->stackedWidget->setCurrentWidget(ui_->scanPreviewDialog);
+    ui_->previewImage->setPixmap(QPixmap::fromImage(img));
+}
+
+void ScannerDialog::saveOptions()
 {
     if(!scanner_)
         return;
