@@ -1,5 +1,5 @@
-qt4_wrap_ui(UI_HEADERS scannerdialog.ui)
-qt4_wrap_cpp(MOC_HEADERS
+qt4_wrap_ui(CF_SCAN_UI_HEADERS scannerdialog.ui)
+qt4_wrap_cpp(CF_SCAN_MOC_HEADERS
     scanner.h
     scannerdialog.h
     scanarea.h)
@@ -10,8 +10,8 @@ set(QF_SCAN_SRC
     scanneroption.cpp
     scanneroptionrange.cpp
     scanarea.cpp
-    ${MOC_HEADERS}
-    ${UI_HEADERS})
+    ${CF_SCAN_MOC_HEADERS}
+    ${CF_SCAN_UI_HEADERS})
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 

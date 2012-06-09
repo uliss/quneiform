@@ -45,6 +45,7 @@
 #include "dialogs/recognitionprogressdialog.h"
 #include "dialogs/recognitionsettingsdialog.h"
 #include "dialogs/settings.h"
+#include "dialogs/logviewerdialog.h"
 #include "internal/cimageview.h"
 #include "recentmenu.h"
 #include "exportsettings.h"
@@ -515,6 +516,12 @@ void MainWindow::selectLanguage(const Language& lang) {
     changePacketLanguage(lang);
 }
 
+void MainWindow::showLog()
+{
+    LogViewerDialog d;
+    d.exec();
+}
+
 void MainWindow::setupPacket() {
     Q_CHECK_PTR(packet_);
 
@@ -730,6 +737,7 @@ void MainWindow::addDebugMenu()
 {
     QMenu * debug_menu = menuBar()->addMenu("Debug");
     debug_menu->addAction("Show CImage", this, SLOT(debugShowCImage()));
+    debug_menu->addAction("Log", this, SLOT(showLog()));
 }
 #endif
 

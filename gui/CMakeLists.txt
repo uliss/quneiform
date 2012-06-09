@@ -19,6 +19,7 @@ set(HEADERS
     dialogs/aboutdialog.h
     dialogs/exportdialog.h
     dialogs/formatsettingsdialog.h
+    dialogs/logviewerdialog.h
     dialogs/pagepropertiesdialog.h
     dialogs/packetopenprogressdialog.h
     dialogs/recognitionsettingsdialog.h
@@ -63,6 +64,7 @@ set(SOURCES
     dialogs/aboutdialog.cpp
     dialogs/exportdialog.cpp
     dialogs/formatsettingsdialog.cpp
+    dialogs/logviewerdialog.cpp
     dialogs/pagepropertiesdialog.cpp
     dialogs/packetopenprogressdialog.cpp
     dialogs/recognitionsettingsdialog.cpp
@@ -103,6 +105,7 @@ set(FORMS
     dialogs/aboutdialog.ui
     dialogs/exportdialog.ui
     dialogs/formatsettingsdialog.ui
+    dialogs/logviewerdialog.ui
     dialogs/pagepropertiesdialog.ui
     dialogs/recognitionsettingsdialog.ui
     dialogs/settings.ui
