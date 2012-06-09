@@ -260,6 +260,13 @@
     </message>
 </context>
 <context>
+    <name>LogViewerDialog</name>
+    <message>
+        <source>Log View</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <source>Quneiform OCR</source>

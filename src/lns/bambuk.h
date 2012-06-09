@@ -75,8 +75,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef     int32_t BHandle ;
 typedef     int32_t BEntry  ;
 
-#define NULLBHandle  (BHandle)  0xFFFF
-#define NULLBEntry   (BEntry)   0xFFFF
+#define NULLBHandle  (BHandle)  0xFFFFF
+#define NULLBEntry   (BEntry)   0xFFFFF
 
 struct  EntryInfo {
     BHandle first;
@@ -412,7 +412,7 @@ template <class T> class THugeBambuk //: public TFarHeap
             };
 
             return (nextHandle++);
-        };
+        }
 
         BHandle         firstEntryMember( BEntry entry_point ) {
             return entries[ entry_point ].first;

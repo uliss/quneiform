@@ -58,32 +58,30 @@
 #include "cpage.h"
 #include "backup.h"
 #include "namedata.h"
+#include "pagestorage.h"
 
 #define SAVE_COMPRESSED  // Сохранять данные в блоках в упакованном виде
-extern PtrList<BACKUPPAGE> Page;
 extern Handle hCurPage;
 extern PtrList<NAMEDATA> NameData;
 
-#define PAGE_H(page) Page.GetItem(page)
-#define PAGE_N(page) PAGE_H(Page.GetHandle(page))
+#define PAGE_H(p) cf::PageStorage::page(p)
 
 #define _BLOCK_H(page,block) page.Block.GetItem(block)
 #define _BLOCK_N(page,block) _BLOCK_H(page,page.Block.GetHandle(block))
 
 #define BLOCK_H_H(page,block) _BLOCK_H(PAGE_H(page),block)
 #define BLOCK_H_N(page,block) _BLOCK_N(PAGE_H(page),block)
-#define BLOCK_N_N(page,block) _BLOCK_N(PAGE_N(page),block)
 
 Handle CPAGE_CreatePage(Handle type, void * lpdata, uint32_t size)
 {
     PROLOG;
     BACKUPPAGE tail;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle hPage = Page.AddTail(tail);
+    Handle hPage = cf::PageStorage::append(tail);
 
     if (hPage) {
-        if (!Page.GetItem(hPage).SetData(type, lpdata, size)) {
-            Page.Del(hPage);
+        if (!cf::PageStorage::page(hPage).SetData(type, lpdata, size)) {
+            cf::PageStorage::remove(hPage);
             hPage = NULL;
 
             if (hCurPage == hPage)
@@ -102,7 +100,7 @@ Handle CPAGE_GetPageType(Handle page)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = PAGE_H(page).GetType();
+    Handle rc = cf::PageStorage::pageType(page);
     EPILOG;
     return rc;
 }
@@ -111,7 +109,7 @@ void CPAGE_DeletePage(Handle page)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Page.Del(page);
+    cf::PageStorage::remove(page);
 
     if (hCurPage == page)
         hCurPage = NULL;
@@ -123,7 +121,7 @@ void CPAGE_ClearBackUp(Handle page)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    PAGE_H(page).Clear();
+    cf::PageStorage::clearPage(page);
     EPILOG;
 }
 
@@ -131,15 +129,15 @@ Handle CPAGE_BackUp(Handle page)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    Handle rc = PAGE_H(page).BackUp();
+    Handle rc = cf::PageStorage::backupPage(page);
     EPILOG;
     return rc;
 }
 
-Bool32 CPAGE_Undo(Handle page, Handle num)
+bool CPAGE_Undo(Handle page, Handle num)
 {
     PROLOG;
-    Bool32 rc = FALSE;
+    bool rc = FALSE;
     SetReturnCode_cpage(IDS_ERR_NO);
 
     if (num == NULL) {
@@ -162,7 +160,7 @@ Bool32 CPAGE_Undo(Handle page, Handle num)
         }
     }
 
-    rc = PAGE_H(page).Undo(num);
+    rc = cf::PageStorage::undo(page, num);
 lOut:
     EPILOG;
     return rc;
@@ -337,7 +335,7 @@ uint32_t CPAGE_GetCountPage()
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = Page.GetCount();
+    uint32_t rc = cf::PageStorage::size();
     EPILOG;
     return rc;
 }
@@ -392,15 +390,14 @@ Bool32 CPAGE_SavePage(Handle page, const char * lpName)
 
             else {
                 int i;
-                int count = Page.GetCount();
+                int count = cf::PageStorage::size();
                 rc = myWrite(file, &count, sizeof(count)) == sizeof(count);
 
                 for (i = 0; i < count && rc == TRUE; i++)
 #ifdef SAVE_COMPRESSED
-                    rc = PAGE_N(i).SaveCompress(file);
-
+                    rc = cf::PageStorage::pageAt(i).SaveCompress(file);
 #else
-                    rc = PAGE_N(i).Save(file);
+                    rc = cf::PageStorage::pageAt(i).Save(file);
 #endif
             }
         }
@@ -437,7 +434,7 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
 
             {
                 if (remove) {
-                    Page.Clear();
+                    cf::PageStorage::clear();
                     NameData.Clear();
                 }
 
@@ -447,7 +444,7 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
 
                         if (decompress ? page.RestoreCompress(file)
                                 : page.Restore(file))
-                            rc = Page.AddTail(page);
+                            rc = cf::PageStorage::append(page);//Page.AddTail(page);
 
                         else
                             break;
@@ -462,10 +459,10 @@ Handle CPAGE_RestorePage(Bool32 remove, const char * lpName)
     return rc;
 }
 
-Handle CPAGE_GetHandlePage(uint32_t page)
+Handle CPAGE_GetHandlePage(uint32_t pos)
 {
     PROLOG;
-    Handle rc = Page.GetHandle(page);
+    Handle rc = cf::PageStorage::pageHandleAt(pos);
     EPILOG;
     return rc;
 }
@@ -520,7 +517,7 @@ Handle CPAGE_GetUserBlockType()
 Handle CPAGE_GetPageFirst(Handle type)
 {
     PROLOG;
-    int count = Page.GetCount();
+    int count = cf::PageStorage::size();
     int i;
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(type));
@@ -528,12 +525,13 @@ Handle CPAGE_GetPageFirst(Handle type)
     DefConvertInit();
 
     for (i = 0; i < count; i++) {
-        if (!type || PAGE_N(i).GetType() == type || PAGE_N(i).Convert(type,
-                                                                      NULL, 0))
+        if (!type ||
+                cf::PageStorage::pageAt(i).GetType() == type ||
+                cf::PageStorage::pageAt(i).Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? Page.GetHandle(i) : NULL;
+    Handle rc = i < count ? cf::PageStorage::pageHandleAt(i) : NULL;
     EPILOG;
     return rc;
 }
@@ -541,8 +539,8 @@ Handle CPAGE_GetPageFirst(Handle type)
 Handle CPAGE_GetPageNext(Handle page, Handle type)
 {
     PROLOG;
-    int count = Page.GetCount();
-    int pos = Page.GetPos(page) + 1;
+    int count = cf::PageStorage::size();
+    int pos = cf::PageStorage::pagePosition(page) + 1;
     int i;
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(type));
@@ -550,12 +548,13 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
     DefConvertInit();
 
     for (i = pos; i < count && i >= 0; i++) {
-        if (!type || PAGE_N(i).GetType() == type || PAGE_N(i).Convert(type,
-                                                                      NULL, 0))
+        if (!type ||
+                cf::PageStorage::pageAt(i).GetType() == type ||
+                cf::PageStorage::pageAt(i).Convert(type, NULL, 0))
             break;
     }
 
-    Handle rc = i < count ? Page.GetHandle(i) : NULL;
+    Handle rc = i < count ? cf::PageStorage::pageHandleAt(i) /*Page.GetHandle(i)*/ : NULL;
     EPILOG;
     return rc;
 }
@@ -612,7 +611,7 @@ Bool32 CPAGE_DeleteAll()
     CPAGE_CONVERTOR ConvertorPages = { 0, DefConvertPage }; // Piter
     PROLOG;
     Bool32 rc = TRUE;
-    Page.Clear();
+    cf::PageStorage::clear();//Page.Clear();
     NameData.Clear();
     SetConvertorPages(ConvertorPages); // Piter
     hCurPage = NULL;
@@ -651,7 +650,7 @@ uint32_t CPAGE_GetNumberPage(Handle hPage)
     uint32_t rc = (uint32_t) - 1;
 
     if (hPage)
-        rc = (uint32_t) Page.GetPos(hPage);
+        rc = (uint32_t) cf::PageStorage::pages().GetPos(hPage);
 
     EPILOG;
     return rc;

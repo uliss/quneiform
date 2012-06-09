@@ -255,6 +255,8 @@ Rect CRtfPage::bRect() const {
 
 void CRtfPage::sortByUserNumber() {
     uint32_t mas[500];
+    memset(mas, 0, sizeof(mas));
+
     int CountFragments = Count.RtfFrameTextFragments + Count.RtfTextFragments
             + Count.RtfTableFragments + Count.RtfPictureFragments;
 
@@ -367,7 +369,7 @@ int CRtfPage::maxFragmentWidth() const {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
-//           Вычисления ширены и высоты листа                                           //
+//           Вычисления ширины и высоты листа                                           //
 //////////////////////////////////////////////////////////////////////////////////////////
 void CRtfPage::SetPaperSize(int32_t LeftPos, int32_t RightPos, int32_t TopPos, int32_t BottomPos,
         Size& size, int32_t* MargL, int32_t* MargR, int32_t* MargT, int32_t* MargB) {
@@ -804,8 +806,8 @@ int CRtfPage::freeSpaceBetweenSectors(CRtfSector * first, CRtfSector * second) {
 }
 
 void CRtfPage::writeSectorsHeader(int i) {
-    int CountHTerminalColumns;
-    int EDCountHTerminalColumns;
+    int CountHTerminalColumns = 0;
+    int EDCountHTerminalColumns = 0;
     cf::Rect border;
     EDCOL *pEDColumnFirst, *pEDColumn;
 

@@ -65,6 +65,7 @@ endif()
 include(use_doxygen)
 include(make_config)
 include(make_package)
+include(scanner)
 
 add_subdirectory(datafiles)
 add_subdirectory(contrib)

@@ -89,8 +89,10 @@ KNOT *inc_after_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free)
 {
     KNOT *beg_free_old = *beg_free, *next;
 
-    if (ptr == NULL)
+    if (ptr == NULL) {
         std::cerr << "Error #1: inc_after_lst\n";
+        return NULL;
+    }
 
     if (*beg_free == NULL)
         return NULL; /*в списке свобод. нет памяти */
@@ -145,7 +147,7 @@ void del_lst(KNOT *ptr, KNOT **beg, KNOT **beg_free)
 }
 
 int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free, int size_item) {
-    int i, j, size_bloc[MAX_BLOC], kb = -1, fl, k_item;
+    int size_bloc[MAX_BLOC], kb = -1, fl, k_item;
     KNOT *ptr, *ptr1, *ptr2, *kn[MAX_BLOC];
 
     //char *err="init_lst";
@@ -158,33 +160,40 @@ int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free, int size_
             return -3;
     }
 
-    for (i = 0; i <= kb; ++i)
+    for(int i = 0; i <= kb; ++i)
         (*knot)[i + (*k_bloc + 1)] = kn[i];
 
     /*===собственно инициализация ссылок===*/
     if (*k_bloc == -1) { /*первый  захват памяти для данного списка*/
-        *beg_free = kn[0];
-        kn[0][0].back = NULL;
-    } else { /*подцепляем новый кусок к хвосту существующего списка*/
-        if (*beg_free == NULL) { /*список свобод. памяти исчерпан*/
+        if(kb != -1) {
             *beg_free = kn[0];
             kn[0][0].back = NULL;
+        }
+    } else { /*подцепляем новый кусок к хвосту существующего списка*/
+        if (*beg_free == NULL) { /*список свобод. памяти исчерпан*/
+            if(kb != -1) {
+                *beg_free = kn[0];
+                kn[0][0].back = NULL;
+            }
         } else {
             ptr = *beg_free;
 
             while (ptr->next != NULL)
                 ptr = ptr->next; /*идем до хвоста*/
 
-            kn[0][0].back = ptr;
-            ptr->next = kn[0];
+            if(kb != -1)
+                kn[0][0].back = ptr;
+
+            if(ptr->next)
+                ptr->next = kn[0];
         }
     }
 
     *k_bloc += kb + 1;
     k_item = -1;
-    for (i = 0; i <= kb; ++i) {
+    for (int i = 0; i <= kb; ++i) {
         ptr = kn[i];
-        for (j = 0; j <= size_bloc[i]; ++j) {
+        for (int j = 0; j <= size_bloc[i]; ++j) {
             ptr1 = (KNOT*) ((char*) ptr + j * size_item); /*ptr[j]*/
             ptr2 = (KNOT*) ((char*) ptr1 + size_item); /*ptr[j+1]*/
 
@@ -208,25 +217,24 @@ int init_lst(KNOT ***knot, int *k_bloc, int max_knot, KNOT **beg_free, int size_
     endc: return 0;
 }
 
-int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc) {
-    int i, k_knot;
-    uint size;
+int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc)
+{
     *kb = -1;
     /*===попытка захвата кусочной памяти под max_knot узлов*/
-    k_knot = (int) (SIZE_SEG / size_item); //max_kn=max_knot;
+    int k_knot = (int) (SIZE_SEG / size_item); //max_kn=max_knot;
 
     while (max_kn > -2) {
         uint k = MAX(MIN(k_knot, max_kn + 2), 1);
 
-        if ((kn[++(*kb)] = (KNOT*) malloc(k * size_item)) != NULL) { /*смогли взять*/
+        if ((kn[++(*kb)] = (KNOT*) calloc(k * size_item, 1)) != NULL) { /*смогли взять*/
             max_kn -= k;
             size_bloc[*kb] = k - 1;
         } else {
             --(*kb);
-            size = determine_free_memory(k * size_item);
+            uint size = determine_free_memory(k * size_item);
 
             if (size < (uint) MIN_KNOT * size_item) { /*памяти явно не хватает*/
-                for (i = 0; i <= *kb; ++i)
+                for (int i = 0; i <= *kb; ++i)
                     free(kn[i]);
                 return -3;
             }
@@ -235,7 +243,7 @@ int alloc_seg(KNOT **kn, int *kb, int max_kn, uint size_item, int *size_bloc) {
         }
 
         if ((*kb) > MAX_BLOC - 2) { /*очень много мелких кусочков памяти*/
-            for (i = 0; i <= *kb; ++i)
+            for (int i = 0; i <= *kb; ++i)
                 free((char*) kn[i]);
             return -4;
         }
@@ -289,7 +297,7 @@ typedef FRAME OLD_FRAME;
 //Return: 0 - OK, NOT_ALLOC - нет места для стека
 //==конструктор
 int NewStack(int size, STACK *St) {
-    if ((St->arr = (KNOTT**) malloc(size * sizeof(PTR))) == NULL)
+    if ((St->arr = (KNOTT**) malloc(size * sizeof(KNOTT*))) == NULL)
         return NOT_ALLOC;
 
     St->size = size;
@@ -382,7 +390,7 @@ int InitSubAlloc(long Size, SUB_ALLOC *Sub) {
     if ((long) NumPtr * SIZE_SEGL < Size)
         ++NumPtr;
 
-    Sub->Ptr = (char**) malloc(NumPtr * sizeof(PTR)); //ml
+    Sub->Ptr = (char**) malloc(NumPtr * sizeof(char*)); //ml
     Sub->SizePtr = (long*) malloc(NumPtr * sizeof(long)); //ml
     Sub->NumPtr = NumPtr;
     Sub->CurrPtr = 0;
@@ -419,7 +427,7 @@ char *Submalloc(uint size, SUB_ALLOC *s) {
             ;
 
         if (s->CurrPtr >= s->NumPtr) { //Исчерпаны все сегменты,заводим новый
-            s->Ptr = (char**) realloc(s->Ptr, (s->NumPtr + 1) * sizeof(PTR));
+            s->Ptr = (char**) realloc(s->Ptr, (s->NumPtr + 1) * sizeof(char*));
             s->SizePtr = (long*) realloc(s->SizePtr, (s->NumPtr + 1) * sizeof(long));
 
             if ((s->Ptr[s->NumPtr] = (char*) malloc((uint) SIZE_SEGL)) == NULL)

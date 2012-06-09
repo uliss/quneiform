@@ -18,71 +18,22 @@
 
 #include <QFileOpenEvent>
 #include <QFile>
+#include <QtPlugin>
 
 #include "metatyperegistrator.h"
 #include "translationloader.h"
 #include "quneiformapplication.h"
 #include "config-version.h"
-#include "common/singleton.h"
+#include "plugins/dibimageioplugin.h"
+#include "guilog.h"
 
-class Log {
-public:
-    Log(const QString& path) : f_(path)
-    {
-        f_.open(QFile::WriteOnly | QFile::Truncate);
-    }
-
-    virtual ~Log()
-    {
-        f_.close();
-    }
-
-    void  write(const char * msg)
-    {
-        if(!f_.isOpen())
-            return;
-
-        f_.write("Debug: ");
-        f_.write(msg);
-        f_.write("\n");
-        f_.flush();
-    }
-private:
-    QFile f_;
-};
-
-class DebugLog : public Log {
-public:
-    DebugLog() : Log("/tmp/Quneform.debug.log") {}
-};
-
-typedef cf::Singleton<DebugLog, cf::CreateUsingStatic> DebugLogger;
-
-#ifdef Q_WS_MAC
-static void cfMessageOutput(QtMsgType type, const char * msg)
- {
-     switch (type) {
-     case QtDebugMsg:
-         DebugLogger::instance().write(msg);
-         break;
-     case QtWarningMsg:
-         fprintf(stderr, "Warning: %s\n", msg);
-         break;
-     case QtCriticalMsg:
-         fprintf(stderr, "Critical: %s\n", msg);
-         break;
-     case QtFatalMsg:
-         fprintf(stderr, "Fatal: %s\n", msg);
-         abort();
-     }
- }
-#endif
+Q_IMPORT_PLUGIN(dib_imageplugin)
 
 QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     : QApplication(argc, argv)
 {
-#ifdef Q_WS_MAC
-    qInstallMsgHandler(cfMessageOutput);
+#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
+    qInstallMsgHandler(guiMessageLogger);
 #endif
 
     setOrganizationName("openocr.org");

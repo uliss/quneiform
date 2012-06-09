@@ -209,8 +209,12 @@ int CalcStatTiger() {
 
         if (numL > 0) //ALIK 01.05.99
             Statist(Low, numL, &ave, &sig, &SizeYGlob, &mod, 0);
-        else
+        else {
+            free(Upp);
+            free(Low);
+            free(arrB1);
             return -1;
+        }
     }
 
     // -- расчет колонных размеров --

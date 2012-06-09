@@ -80,6 +80,7 @@ private slots:
     void savePacket(const QString& path);
     void savePage(Page * page);
     void selectLanguage(const Language& lang);
+    void showLog();
     void showPageFault(Page * page);
     void showPageImage(Page * page);
     void showPageText(Page * page);

@@ -344,16 +344,14 @@ Bool TSegBambuk::vUpdate(  int32_t* new_line,
         uchar was_born = (*prev_byte) & ~(*cur_byte);
 
         if (was_born) {
-            col = i << 3; // i*8;
+            col = i * 8;
 
             do {
                 segCount++;
 
-                if (    (seg_handle = addMember( col +
-                                                 (j = FIRST_BIT_IN_BYTE( was_born ))
-                                               )
-                        ) == NULLBHandle
-                   )
+                j = FIRST_BIT_IN_BYTE(was_born);
+                seg_handle = addMember(col + j);
+                if (seg_handle == NULLBHandle)
                     return WRONG();
 
                 THE[ seg_handle ].left = cur_row - 16;

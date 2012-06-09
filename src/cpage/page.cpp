@@ -187,3 +187,4 @@ uint32_t PAGE::Convert(Handle type, void * lpdata, uint32_t size)
                                          type, lpdata, size);
     return rc;
 }
+

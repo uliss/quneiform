@@ -19,6 +19,7 @@ set(HEADERS
     dialogs/aboutdialog.h
     dialogs/exportdialog.h
     dialogs/formatsettingsdialog.h
+    dialogs/logviewerdialog.h
     dialogs/pagepropertiesdialog.h
     dialogs/packetopenprogressdialog.h
     dialogs/recognitionsettingsdialog.h
@@ -63,6 +64,7 @@ set(SOURCES
     dialogs/aboutdialog.cpp
     dialogs/exportdialog.cpp
     dialogs/formatsettingsdialog.cpp
+    dialogs/logviewerdialog.cpp
     dialogs/pagepropertiesdialog.cpp
     dialogs/packetopenprogressdialog.cpp
     dialogs/recognitionsettingsdialog.cpp
@@ -92,6 +94,7 @@ set(SOURCES
     internal/cimagestorage.cpp
     internal/cimageview.cpp
     quneiformapplication.cpp
+    guilog.cpp
 )
 
 if(CF_SERIALIZE)
@@ -102,6 +105,7 @@ set(FORMS
     dialogs/aboutdialog.ui
     dialogs/exportdialog.ui
     dialogs/formatsettingsdialog.ui
+    dialogs/logviewerdialog.ui
     dialogs/pagepropertiesdialog.ui
     dialogs/recognitionsettingsdialog.ui
     dialogs/settings.ui
@@ -121,8 +125,12 @@ set(RESOURCE_PATH resources)
 set(RESOURCES     ${RESOURCE_PATH}/cuneiform.qrc)
 
 set(QT_USE_QTMAIN TRUE)
+SET(QT_USE_QTPLUGIN TRUE)
 find_package(Qt4 4.5 COMPONENTS QtCore QtGui REQUIRED)
 include(${QT_USE_FILE})
+
+add_subdirectory(plugins)
+link_directories(${CMAKE_CURRENT_BINARY_DIR}/plugins)
 
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
 qt4_wrap_cpp(MOC_SOURCES ${HEADERS})
@@ -176,6 +184,7 @@ elseif(MSVC)
 endif()
 
 add_subdirectory(spell)
+add_subdirectory(scan)
 
 if(APPLE)
     add_subdirectory(macosx)
@@ -185,7 +194,8 @@ add_library(quneiform_lib STATIC ${SRCS})
 
 add_executable(${PROJECT_NAME} WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
 
-set(EXTRA_LIBS)
+set(EXTRA_LIBS dib_imageplugin)
+
 if(NOT MSVC)
     list(APPEND EXTRA_LIBS m)
 endif()
@@ -198,6 +208,7 @@ endif()
 target_link_libraries (${PROJECT_NAME}
     quneiform_lib
     quneiform_spell
+    quneiform_scan
     ${LIBRARIES}
     ${QT_LIBRARIES}
     cuneiform
