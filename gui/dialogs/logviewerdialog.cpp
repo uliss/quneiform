@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include <QDebug>
+#include <QFile>
 
 #include "logviewerdialog.h"
 #include "ui_logviewerdialog.h"
