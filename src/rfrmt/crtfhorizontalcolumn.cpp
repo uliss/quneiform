@@ -98,9 +98,7 @@ void addVColumnToHistogram(const CRtfVerticalColumn * vcol, Histogram& hist, int
     const int col_left = vcol->m_rectReal.left - histogram_offset;
     const int col_right = vcol->m_rectReal.right - histogram_offset;
 
-    assert((int) hist.size() < col_right);
-
-    for (int i = col_left; i < col_right; i++)
+    for (int i = col_left; i <= col_right && i < hist.size(); i++)
         hist[i]++;
 }
 
@@ -325,7 +323,7 @@ void CRtfHorizontalColumn::findHeadingAndSetFrameFlag() {
     const int left = columnMinLeftBorder(vcols_.begin(), vcols_.end(), VColumnBigTextAndFrame());
     const int right = columnMaxRightBorder(vcols_.begin(), vcols_.end(), VColumnBigTextAndFrame());
     assert(right - left >= 0);
-    Histogram hist(right - left);
+    Histogram hist(right - left + 1);
 
     accumulateHistogram(vcols_.begin(), vcols_.end(), hist, left, VColumnBigTextAndFrame());
     processColsByHist(hist, left);
@@ -375,7 +373,7 @@ void CRtfHorizontalColumn::defineTerminalProperty() {
     int right = columnMaxRightBorder(vcols_.begin(), vcols_.end(), VColumnText());
 
     assert((right - left) > 0);
-    Histogram hist(right - left);
+    Histogram hist(right - left + 1);
 
     accumulateHistogram(vcols_.begin(), vcols_.end(), hist, left, VColumnText());
     processSpaceByHist(hist);
