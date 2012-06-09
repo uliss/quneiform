@@ -92,6 +92,7 @@ set(SOURCES
     internal/cimagestorage.cpp
     internal/cimageview.cpp
     quneiformapplication.cpp
+    guilog.cpp
 )
 
 if(CF_SERIALIZE)

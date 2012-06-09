@@ -16,57 +16,17 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QFileOpenEvent>
-#include <QFile>
-#include <QtPlugin>
+#ifndef GUILOG_H
+#define GUILOG_H
 
-#include "metatyperegistrator.h"
-#include "translationloader.h"
-#include "quneiformapplication.h"
-#include "config-version.h"
-#include "plugins/dibimageioplugin.h"
-#include "guilog.h"
+#include <QtGlobal>
+#include <QString>
 
-Q_IMPORT_PLUGIN(dib_imageplugin)
+QString guiDebugLogPath();
+QString guiWarningLogPath();
+QString guiCriticalLogPath();
+QString guiFatalLogPath();
 
-QuneiformApplication::QuneiformApplication(int& argc, char** argv)
-    : QApplication(argc, argv)
-{
-#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
-    qInstallMsgHandler(guiMessageLogger);
-#endif
+void guiMessageLogger(QtMsgType type, const char * msg);
 
-    setOrganizationName("openocr.org");
-    setApplicationName("Quneiform OCR");
-    setApplicationVersion(CF_VERSION);
-
-#ifdef Q_WS_MAC
-    setAttribute(Qt::AA_DontShowIconsInMenus);
-#endif
-
-    MetaTypeRegistrator registrator;
-    TranslationLoader loader;
-    loader.load();
-    installTranslator(loader.systemTranslator());
-    installTranslator(loader.applicationTranslator());
-}
-
-bool QuneiformApplication::event(QEvent * ev)
-{
-    bool processed = false;
-    switch (ev->type()) {
-    case QEvent::FileOpen: {
-        QStringList files;
-        files << static_cast<QFileOpenEvent*>(ev)->file();
-        ev->accept();
-        emit openFiles(files);
-        return true;
-    }
-//        case QEvent::Close: {
-//  }
-    default:
-        processed = QApplication::event(ev);
-        break;
-    }
-    return processed;
-}
+#endif // GUILOG_H
