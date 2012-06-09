@@ -5,7 +5,7 @@ set(CF_SCAN_SOURCE
     scanoption.cpp
 )
 
-set(CF_SCAN_LINK)
+set(CF_SCAN_LINK ${CF_COMMON})
 
 if(CF_SANE_SCANNER_SUPPORT)
     if(SANE_FOUND)
