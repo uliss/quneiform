@@ -401,9 +401,6 @@ void PumaImpl::modulesDone() {
 #ifdef _USE_RVERLINE_
     RVERLINE_Done();
 #endif //_USE_RVERLINE_
-#ifdef _USE_RMSEGMENT_
-    RMSEGMENT_Done();
-#endif //_USE_RMSEGMENT_
 }
 
 void PumaImpl::modulesInit() {
@@ -464,12 +461,6 @@ void PumaImpl::modulesInit() {
 
         if (!RVERLINE_Init(PUMA_MODULE_RVERLINE, NULL))
         throw PumaException("RVERLINE_Init failed.");
-
-#endif
-#ifdef _USE_RMSEGMENT_
-
-        if (!RMSEGMENT_Init(PUMA_MODULE_RMSEGMENT, NULL))
-        throw PumaException("RMSEGMENT_Init failed.");
 
 #endif
 
