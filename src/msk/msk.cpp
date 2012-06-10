@@ -55,6 +55,7 @@
  */
 
 #include <cstdlib>
+#include <sstream>
 #include <cctype>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -73,6 +74,7 @@
 #include "mmx/mmx.h"
 #include "msk32fun.h"
 #include "minmax.h"
+#include "common/modules.h"
 
 #include "cfcompat.h"
 
@@ -425,6 +427,13 @@ Bool32 MSKInit(MemFunc* mem, const char *NameFile)
     if (tch_in(NameFile) == -1) {
         initiated--;
         fprintf(stderr, "MSKInit: Error with file \"%s\"\n", NameFile);
+
+        std::ostringstream buf;
+        buf << "Can't load datafile: '" << NameFile << "'. "
+               "Check if your environment variable 'CF_DATADIR' is set correctly.";
+
+        throw cf::ModuleInitException(buf.str(), cf::MODULE_MSK, 0);
+
         return FALSE;
     }
 

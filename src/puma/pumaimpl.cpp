@@ -55,9 +55,11 @@
 #include "rselstr/rselstr.h"
 #include "rshelllines/rsl.h"
 #include "rstr/rstr.h"
+#include "resource.h"
 #include "rstuff/rstuff.h"
 #include "rstuff/rstuff_struct.h"
 #include "rverline/rverline.h"
+#include "common/modules.h"
 
 #define PUMA_ERROR Debug() << "[PUMA] ERROR "
 #define PUMA_ERROR_FUNC PUMA_ERROR << BOOST_CURRENT_FUNCTION << ' '
@@ -442,8 +444,11 @@ void PumaImpl::modulesInit() {
         RSTR_SetImportData(RSTR_OcrPath, modulePath());
         RSTR_SetImportData(RSTR_pchar_temp_dir, moduleTmpPath());
 
-        if (!RSTR_Init(PUMA_MODULE_RSTR, NULL))
-            throw PumaException("RSTR_Init failed.");
+        if (!RSTR_Init(PUMA_MODULE_RSTR, NULL)) {
+            std::ostringstream buf;
+            buf << "RSTR_Init failed: " << RSTR_GetReturnString(RSTR_GetReturnCode()) << "\n";
+            throw PumaException(buf.str());
+        }
 
         if (!RIMAGE_Init(PUMA_MODULE_RIMAGE))
             throw PumaException("RIMAGE_Init failed.");
@@ -474,6 +479,22 @@ void PumaImpl::modulesInit() {
     catch (PumaException& e) {
         modulesDone();
         throw;
+    }
+    catch(ModuleInitException& e) {
+        modulesDone();
+
+        std::string prefix;
+
+        switch(e.module()) {
+            case cf::MODULE_MSK:
+            prefix = "MSK: ";
+            break;
+            default:
+            prefix = "Unknown module: ";
+            break;
+        }
+
+        throw PumaException(prefix + e.what());
     }
 }
 
