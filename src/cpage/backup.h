@@ -59,33 +59,37 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "page.h"
 
-class BACKUPPAGE : public PAGE
+namespace cf {
+
+class BackupPage : public PAGE
 {
-    public:
-        PtrList<PAGE> BackUpPage;
-        Handle        hCurBackUp;
-    public:
-        BACKUPPAGE();
-        virtual ~BACKUPPAGE();
+public:
+    BackupPage();
+    virtual ~BackupPage();
 
-        void Clear();
-        Handle BackUp(Handle backup = NULL);
-        Bool32 Redo(Handle backup);
-        Bool32 Undo(Handle backup);
+    size_t backupCount() const;
+    Handle backupAt(size_t pos);
 
-        Bool32 Save(Handle to);
-        Bool32 SaveCompress(Handle to);
-        Bool32 Restore(Handle from);
-        Bool32 RestoreCompress(Handle from);
+    void Clear();
+    Handle BackUp(Handle backup = NULL);
+    Bool32 Redo(Handle backup);
+    Bool32 Undo(Handle backup);
 
-        BACKUPPAGE & operator = (BACKUPPAGE & Page);
-        inline uint32_t GetCurPos() {
-            return BackUpPage.GetPos(hCurBackUp);
-        }
+    Bool32 Save(Handle to);
+    Bool32 SaveCompress(Handle to);
+    Bool32 Restore(Handle from);
+    Bool32 RestoreCompress(Handle from);
+
+    BackupPage & operator = (BackupPage & Page);
+    inline uint32_t GetCurPos() {
+        return backups_.GetPos(hCurBackUp);
+    }
+private:
+    PtrList<PAGE> backups_;
+    Handle hCurBackUp;
 };
 
-namespace cf {
-typedef PtrList<BACKUPPAGE> PageList;
+typedef PtrList<BackupPage> PageList;
 }
 
 void   SetReturnCode_cpage(uint16_t rc);

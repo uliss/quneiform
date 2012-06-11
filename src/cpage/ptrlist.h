@@ -96,7 +96,7 @@ template<class TYPE> class PtrList
         TYPE & GetNext(Handle & hPos);
         TYPE & GetPrev(Handle & hPos);
 
-        int GetCount();
+        int GetCount() const;
 
         TYPE & GetItem(Handle hPos);
         int    GetPos(Handle hPos);
@@ -116,7 +116,7 @@ template<class TYPE> PtrList<TYPE>::~PtrList()
 {
 }
 //#################################
-template<class TYPE> int PtrList<TYPE>::GetCount()
+template<class TYPE> int PtrList<TYPE>::GetCount() const
 {
     PtrList * tmp;
     int i;

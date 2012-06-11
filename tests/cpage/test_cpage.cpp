@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2012 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,83 +16,13 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "pagestorage.h"
+#include <cppunit/extensions/TestFactoryRegistry.h>
+#include <cppunit/ui/text/TestRunner.h>
 
-namespace cf {
-
-PageStorage::PageStorage()
-{
-}
-
-PageStorage& PageStorage::instance()
-{
-    static PageStorage s;
-    return s;
-}
-
-PageList& PageStorage::pages()
-{
-    return instance().pages_;
-}
-
-Handle PageStorage::append(BackupPage &p)
-{
-    return pages().AddTail(p);
-}
-
-Handle PageStorage::backupPage(Handle p)
-{
-    return page(p).BackUp();
-}
-
-void PageStorage::clear()
-{
-    pages().Clear();
-}
-
-void PageStorage::clearPage(Handle p)
-{
-    page(p).Clear();
-}
-
-BackupPage& PageStorage::page(Handle p)
-{
-    return pages().GetItem(p);
-}
-
-BackupPage& PageStorage::pageAt(size_t pos)
-{
-    return page(pageHandleAt(pos));
-}
-
-Handle PageStorage::pageHandleAt(size_t pos)
-{
-    return pages().GetHandle(pos);
-}
-
-Handle PageStorage::pageType(Handle p)
-{
-    return page(p).GetType();
-}
-
-size_t PageStorage::pagePosition(Handle p)
-{
-    return pages().GetPos(p);
-}
-
-size_t PageStorage::size()
-{
-    return pages().GetCount();
-}
-
-void PageStorage::remove(Handle p)
-{
-    pages().Del(p);
-}
-
-bool PageStorage::undo(Handle p, Handle num)
-{
-    return page(p).Undo(num);
-}
-
+int main() {
+    CppUnit::TextUi::TestRunner runner;
+    CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
+    runner.addTest(registry.makeTest());
+    bool wasSuccessful = runner.run("", false);
+    return wasSuccessful ? 0 : -1;
 }

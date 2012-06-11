@@ -29,12 +29,12 @@ class PageStorage
 public:
     static PageStorage& instance();
     static PageList& pages();
-    static Handle append(BACKUPPAGE& p);
+    static Handle append(BackupPage& p);
     static Handle backupPage(Handle p);
     static void clear();
     static void clearPage(Handle p);
-    static BACKUPPAGE& page(Handle p);
-    static BACKUPPAGE& pageAt(size_t pos);
+    static BackupPage& page(Handle p);
+    static BackupPage& pageAt(size_t pos);
     static Handle pageHandleAt(size_t pos);
     static Handle pageType(Handle p);
     static size_t pagePosition(Handle p);

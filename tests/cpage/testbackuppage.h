@@ -16,83 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "pagestorage.h"
+#ifndef TESTBACKUPPAGE_H
+#define TESTBACKUPPAGE_H
 
-namespace cf {
+#include <cppunit/extensions/HelperMacros.h>
 
-PageStorage::PageStorage()
+class TestBackupPage : public CppUnit::TestFixture
 {
-}
+    CPPUNIT_TEST_SUITE(TestBackupPage);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testSave);
+    CPPUNIT_TEST(testRestore);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testInit();
+    void testSave();
+    void testRestore();
+};
 
-PageStorage& PageStorage::instance()
-{
-    static PageStorage s;
-    return s;
-}
-
-PageList& PageStorage::pages()
-{
-    return instance().pages_;
-}
-
-Handle PageStorage::append(BackupPage &p)
-{
-    return pages().AddTail(p);
-}
-
-Handle PageStorage::backupPage(Handle p)
-{
-    return page(p).BackUp();
-}
-
-void PageStorage::clear()
-{
-    pages().Clear();
-}
-
-void PageStorage::clearPage(Handle p)
-{
-    page(p).Clear();
-}
-
-BackupPage& PageStorage::page(Handle p)
-{
-    return pages().GetItem(p);
-}
-
-BackupPage& PageStorage::pageAt(size_t pos)
-{
-    return page(pageHandleAt(pos));
-}
-
-Handle PageStorage::pageHandleAt(size_t pos)
-{
-    return pages().GetHandle(pos);
-}
-
-Handle PageStorage::pageType(Handle p)
-{
-    return page(p).GetType();
-}
-
-size_t PageStorage::pagePosition(Handle p)
-{
-    return pages().GetPos(p);
-}
-
-size_t PageStorage::size()
-{
-    return pages().GetCount();
-}
-
-void PageStorage::remove(Handle p)
-{
-    pages().Del(p);
-}
-
-bool PageStorage::undo(Handle p, Handle num)
-{
-    return page(p).Undo(num);
-}
-
-}
+#endif // TESTBACKUPPAGE_H

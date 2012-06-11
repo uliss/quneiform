@@ -16,83 +16,42 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "pagestorage.h"
+#include <cstdio>
 
-namespace cf {
+#include "testbackuppage.h"
+#include "cpage/backup.h"
 
-PageStorage::PageStorage()
+CPPUNIT_TEST_SUITE_REGISTRATION(TestBackupPage);
+
+using namespace cf;
+
+void TestBackupPage::testInit()
 {
+    BackupPage p;
+    p.Clear();
 }
 
-PageStorage& PageStorage::instance()
+void TestBackupPage::testSave()
 {
-    static PageStorage s;
-    return s;
+    const char * data = "some data";
+    BackupPage p;
+    p.SetType(CPAGE_GetInternalType("page"));
+    p.SetData(CPAGE_GetInternalType("data"), (void*) data, strlen(data));
+    FILE * f = fopen("test.cpage", "w");
+    CPPUNIT_ASSERT(f);
+    p.Save(f);
+    fclose(f);
 }
 
-PageList& PageStorage::pages()
+void TestBackupPage::testRestore()
 {
-    return instance().pages_;
-}
+    BackupPage p;
+    FILE * f = fopen("test.cpage", "r");
+    CPPUNIT_ASSERT(f);
+    p.Restore(f);
+    fclose(f);
 
-Handle PageStorage::append(BackupPage &p)
-{
-    return pages().AddTail(p);
-}
-
-Handle PageStorage::backupPage(Handle p)
-{
-    return page(p).BackUp();
-}
-
-void PageStorage::clear()
-{
-    pages().Clear();
-}
-
-void PageStorage::clearPage(Handle p)
-{
-    page(p).Clear();
-}
-
-BackupPage& PageStorage::page(Handle p)
-{
-    return pages().GetItem(p);
-}
-
-BackupPage& PageStorage::pageAt(size_t pos)
-{
-    return page(pageHandleAt(pos));
-}
-
-Handle PageStorage::pageHandleAt(size_t pos)
-{
-    return pages().GetHandle(pos);
-}
-
-Handle PageStorage::pageType(Handle p)
-{
-    return page(p).GetType();
-}
-
-size_t PageStorage::pagePosition(Handle p)
-{
-    return pages().GetPos(p);
-}
-
-size_t PageStorage::size()
-{
-    return pages().GetCount();
-}
-
-void PageStorage::remove(Handle p)
-{
-    pages().Del(p);
-}
-
-bool PageStorage::undo(Handle p, Handle num)
-{
-    return page(p).Undo(num);
-}
-
+    char data[10];
+    p.GetData(CPAGE_GetInternalType("data"), data, 9);
+    CPPUNIT_ASSERT_EQUAL(std::string("some data"), std::string(data));
 }
