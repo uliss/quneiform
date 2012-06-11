@@ -245,13 +245,23 @@ public:
     }
 };
 
+typedef RawData<std::string, 512> WorkerReturnMessage;
+typedef RawData<int, sizeof(int)> WorkerReturnCode;
+
 struct MemoryDataPrivate {
     FormatOptionsData fopts;
     RecognizeOptionsData ropts;
     ImagePathData path;
+    WorkerReturnCode rc;
+    WorkerReturnMessage msg;
     PageData page;
     ImageData image;
 };
+
+MemoryData::MemoryData() :
+    memory_(0), size_(0)
+{
+}
 
 MemoryData::MemoryData(void * memory, size_t sz)
     : memory_(memory), size_(sz)
@@ -303,9 +313,19 @@ std::string MemoryData::imagePath() const
     return data()->path.load();
 }
 
+bool MemoryData::isNull() const
+{
+    return memory_ == NULL || size_ == 0;
+}
+
 void * MemoryData::memory()
 {
     return memory_;
+}
+
+std::string MemoryData::message() const
+{
+    return data()->msg.load();
 }
 
 CEDPagePtr MemoryData::page() const
@@ -328,6 +348,16 @@ void MemoryData::setImage(ImagePtr image)
     data()->image.save(image, size_ - minBufferSize());
 }
 
+void MemoryData::setMemory(void * m)
+{
+    memory_ = m;
+}
+
+void MemoryData::setMessage(const std::string& msg)
+{
+    data()->msg.save(msg);
+}
+
 void MemoryData::setImagePath(const std::string& path)
 {
     data()->path.save(path);
@@ -341,6 +371,11 @@ void MemoryData::setPage(cf::CEDPagePtr page)
 void MemoryData::setRecognizeOptions(const RecognizeOptions& ropts)
 {
     data()->ropts.save(ropts);
+}
+
+void MemoryData::setSize(size_t sz)
+{
+    size_ = sz;
 }
 
 size_t MemoryData::size() const

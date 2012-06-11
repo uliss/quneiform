@@ -90,18 +90,26 @@ CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
         data.setRecognizeOptions(ropts);
         data.setImagePath(imagePath);
 
-        startWorker(SHMEM_KEY, 0);
+        try {
+            startWorker(SHMEM_KEY, 0);
 
-        CEDPagePtr res = data.page();
+            CEDPagePtr res = data.page();
 
-        if(!res.get())
-            throw RecognitionException("Recognition error");
+            if(!res.get())
+                throw RecognitionException("Recognition error");
 
-        return res;
-    }
-    catch(RecognitionException& e) {
-        handleOtherErrors(e);
-        throw e;
+            return res;
+        }
+        catch(RecognitionException& e) {
+            if(!data.message().empty()) {
+                setFailedState();
+                CF_ERROR(data.message());
+                throw RecognitionException(data.message());
+            }
+
+            handleOtherErrors(e);
+            throw e;
+        }
     }
     catch(SharedMemoryHolder::LowSharedMemoryException& e) {
         handleMemoryLimits(e);
@@ -133,18 +141,27 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
         data.setFormatOptions(fopts);
         data.setRecognizeOptions(ropts);
         data.setImage(image);
-        startWorker(SHMEM_KEY, memory.size());
 
-        CEDPagePtr res = data.page();
+        try {
+            startWorker(SHMEM_KEY, memory.size());
 
-        if(!res.get())
-            throw RecognitionException("Recognition error");
+            CEDPagePtr res = data.page();
 
-        return res;
-    }
-    catch(RecognitionException& e) {
-        handleOtherErrors(e);
-        throw e;
+            if(!res.get())
+                throw RecognitionException("Recognition error");
+
+            return res;
+        }
+        catch(RecognitionException& e) {
+            if(!data.message().empty()) {
+                setFailedState();
+                CF_ERROR(data.message());
+                throw RecognitionException(data.message());
+            }
+
+            handleOtherErrors(e);
+            throw e;
+        }
     }
     catch(SharedMemoryHolder::LowSharedMemoryException& e) {
         handleMemoryLimits(e);
@@ -250,8 +267,7 @@ int ProcessRecognitionServer::workerTimeout() const {
 
 void ProcessRecognitionServer::handleMemoryLimits(std::exception& e)
 {
-    if(state_)
-        state_->set(RecognitionState::FAILED);
+    setFailedState();
 
     typedef SharedMemoryHolder::LowSharedMemoryException Exception;
     Exception& excpt = dynamic_cast<Exception&>(e);
@@ -269,9 +285,7 @@ void ProcessRecognitionServer::handleMemoryLimits(std::exception& e)
 
 void ProcessRecognitionServer::handleOtherErrors(std::exception &e)
 {
-    if(state_)
-        state_->set(RecognitionState::FAILED);
-
+    setFailedState();
     CF_ERROR(e.what());
     throw RecognitionException(e.what());
 }
@@ -302,6 +316,12 @@ void ProcessRecognitionServer::handleWorkerExitCode(int code)
     default:
         throw RecognitionException("unknown worker return code");
     }
+}
+
+void ProcessRecognitionServer::setFailedState()
+{
+    if(state_)
+        state_->set(RecognitionState::FAILED);
 }
 
 }

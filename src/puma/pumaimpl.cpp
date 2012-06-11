@@ -605,7 +605,7 @@ void PumaImpl::turn(int angle)
     }
 
     if (!RIMAGE_Turn(PUMA_IMAGE_USER, PUMA_IMAGE_TURN, a))
-        throw PumaException("RIMAGE_Turn failed", angle);
+        throw PumaException("RIMAGE_Turn failed");
 
     CImage::instance().enableReadMask(PUMA_IMAGE_USER);
 

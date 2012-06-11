@@ -30,6 +30,7 @@
 #include "common/debug.h"
 #include "shmem/memorydata.h"
 #include "shmem/sharedmemoryholder.h"
+#include "puma/pumaimpl.h"
 
 #define WORKER_PREFIX cf::console::message("[Process worker] ", cf::console::YELLOW)
 #define CF_ERROR(msg) std::cerr << WORKER_PREFIX << msg << std::endl;
@@ -38,16 +39,16 @@
 static const int SHMEM_SIZE_MAX = 100 * 1024 * 1024;
 
 static cf::CEDPagePtr recognize(cf::ImagePtr img,
-                         const cf::RecognizeOptions& ropts,
-                         const cf::FormatOptions& fopts)
+                                const cf::RecognizeOptions& ropts,
+                                const cf::FormatOptions& fopts)
 {
     cf::LocalRecognitionServer r;
     return r.recognize(img, ropts, fopts);
 }
 
 static cf::CEDPagePtr recognize(const std::string& path,
-                         const cf::RecognizeOptions& ropts,
-                         const cf::FormatOptions& fopts)
+                                const cf::RecognizeOptions& ropts,
+                                const cf::FormatOptions& fopts)
 {
     cf::LocalRecognitionServer r;
     return r.recognize(path, ropts, fopts);
@@ -126,26 +127,34 @@ int main(int argc, char ** argv) {
 
         CEDPagePtr page;
 
-        if(use_shared_image)
-            page = recognize(data.image(), ropts, fopts);
-        else
-            page = recognize(data.imagePath(), ropts, fopts);
+        try {
+            if(use_shared_image)
+                page = recognize(data.image(), ropts, fopts);
+            else
+                page = recognize(data.imagePath(), ropts, fopts);
 
-        if(!page)
+            if(!page)
+                return WORKER_RECOGNITION_ERROR;
+
+            data.setPage(page);
+        }
+        catch(PumaException& e) {
+            CF_ERROR(e.what());
+            data.setMessage(e.what());
             return WORKER_RECOGNITION_ERROR;
+        }
+        catch(AbstractRecognitionServer::RecognitionException& e) {
+            CF_ERROR(e.what());
+            data.setMessage(e.what());
 
-        data.setPage(page);
-    }
-    catch(AbstractRecognitionServer::RecognitionException& e) {
-        CF_ERROR(e.what());
-
-        switch(e.reason()) {
-        case AbstractRecognitionServer::FILE_NOT_FOUND:
-            return WORKER_FILE_NOT_FOUND;
-        case AbstractRecognitionServer::IMAGE_LOAD_ERROR:
-            return WORKER_LOAD_ERROR;
-        default:
-            return WORKER_UNKNOWN_ERROR;
+            switch(e.reason()) {
+            case AbstractRecognitionServer::FILE_NOT_FOUND:
+                return WORKER_FILE_NOT_FOUND;
+            case AbstractRecognitionServer::IMAGE_LOAD_ERROR:
+                return WORKER_LOAD_ERROR;
+            default:
+                return WORKER_UNKNOWN_ERROR;
+            }
         }
     }
     catch(SharedMemoryHolder::Exception& e) {

@@ -113,6 +113,10 @@ CEDPagePtr LocalRecognitionServer::recognize(const std::string& imagePath,
         handleExceptionCommon(e, ropts);
         throw RecognitionException(e.what(), IMAGE_LOAD_ERROR);
     }
+    catch(PumaException& e) {
+        handleExceptionCommon(e, ropts);
+        throw RecognitionException(e.what(), RECOGNITION_ERROR);
+    }
     catch(std::exception& e) {
         handleExceptionCommon(e, ropts);
         throw RecognitionException(e.what());

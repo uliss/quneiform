@@ -38,6 +38,7 @@ public:
         Exception(const std::string& msg) : std::runtime_error(msg) {}
     };
 public:
+    MemoryData();
     MemoryData(void * memory, size_t size);
 
     /**
@@ -75,9 +76,20 @@ public:
     std::string imagePath() const;
 
     /**
+     * Returns true if point to NULL memory
+     */
+    bool isNull() const;
+
+    /**
       * Returns pointer to data memory
       */
     void * memory();
+
+    /**
+     * Returns string message
+     * @see setMessage()
+     */
+    std::string message() const;
 
     /**
       * Returns CED page pointer
@@ -103,6 +115,16 @@ public:
     void setImage(ImagePtr image);
 
     /**
+     * Sets memory pointer
+     */
+    void setMemory(void * m);
+
+    /**
+     * Sets string message
+     */
+    void setMessage(const std::string& msg);
+
+    /**
       * Sets image path
       * @see imagePath()
       * @throw Exception on error
@@ -120,6 +142,11 @@ public:
       * @throw Exception on error
       */
     void setRecognizeOptions(const RecognizeOptions& ropts);
+
+    /**
+     * Sets memory size
+     */
+    void setSize(size_t sz);
 
     /**
       * Returns memory size
