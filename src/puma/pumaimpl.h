@@ -38,6 +38,7 @@
 
 class CTIControl;
 struct CCOM_cont;
+class PAGEINFO;
 
 namespace cf {
 
@@ -47,6 +48,7 @@ class CEDPage;
 class Formatter;
 class CRtfPage;
 class RStuff;
+class BackupPage;
 
 class PumaImpl
 {
@@ -99,6 +101,8 @@ class PumaImpl
         void setSpecialProject(special_project_t SpecialProject);
     private:
         void applyReadMask();
+        BackupPage * cpage();
+        PAGEINFO * pageInfo();
         void binarizeImage();
         void clearAll();
         void debugPrintCpage();

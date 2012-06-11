@@ -64,13 +64,11 @@
 extern Handle hCurPage;
 extern PtrList<NAMEDATA> NameData;
 
-#define PAGE_H(p) cf::PageStorage::page(p)
+#define _BLOCK_H(page, block) page.Block.GetItem(block)
+#define _BLOCK_N(page, block) _BLOCK_H(page, page.Block.GetHandle(block))
 
-#define _BLOCK_H(page,block) page.Block.GetItem(block)
-#define _BLOCK_N(page,block) _BLOCK_H(page,page.Block.GetHandle(block))
-
-#define BLOCK_H_H(page,block) _BLOCK_H(PAGE_H(page),block)
-#define BLOCK_H_N(page,block) _BLOCK_N(PAGE_H(page),block)
+#define BLOCK_H_H(p, block) _BLOCK_H(cf::PageStorage::page(p), block)
+#define BLOCK_H_N(p, block) _BLOCK_N(cf::PageStorage::page(p), block)
 
 Handle CPAGE_CreatePage(Handle type, void * lpdata, uint32_t size)
 {
@@ -192,7 +190,7 @@ Bool32 CPAGE_Redo(Handle page, Handle num)
         }
     }
 
-    rc = PAGE_H(page).Redo(num);
+    rc = cf::PageStorage::page(page).Redo(num);
 lOut:
     EPILOG;
     return rc;
@@ -217,7 +215,7 @@ Handle CPAGE_GetBuckUpHandle(Handle page, uint32_t number)
 uint32_t CPAGE_GetBuckUpCurPos(Handle page)
 {
     PROLOG;
-    uint32_t rc = PAGE_H(page).GetCurPos();
+    uint32_t rc = cf::PageStorage::page(page).GetCurPos();
     EPILOG;
     return rc;
 }
@@ -230,7 +228,7 @@ Handle CPAGE_CreateBlock(Handle page, Handle Type, uint32_t UserNum,
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(Type));
 #endif
-    Handle rc = PAGE_H(page).CreateBlock(Type, UserNum, Flags, lpData, Size);
+    Handle rc = cf::PageStorage::page(page).CreateBlock(Type, UserNum, Flags, lpData, Size);
     EPILOG;
     return rc;
 }
@@ -242,7 +240,7 @@ Bool32 CPAGE_SetPageData(Handle page, Handle type, void * lpdata, uint32_t size)
 #ifdef _DEBUG
     assert(CPAGE_GetNameInternalType(type));
 #endif
-    Bool32 rc = PAGE_H(page).SetData(type, lpdata, size);
+    Bool32 rc = cf::PageStorage::page(page).SetData(type, lpdata, size);
     EPILOG;
     return rc;
 }
@@ -256,7 +254,7 @@ uint32_t CPAGE_GetPageData(Handle page, Handle type, void * lpdata,
     assert(CPAGE_GetNameInternalType(type));
 #endif
     DefConvertInit();
-    uint32_t rc = PAGE_H(page).GetData(type, lpdata, size);
+    uint32_t rc = cf::PageStorage::page(page).GetData(type, lpdata, size);
     EPILOG;
     return rc;
 }
@@ -347,7 +345,7 @@ uint32_t CPAGE_GetCountBlock(Handle page)
 
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    uint32_t rc = PAGE_H(page).Block.GetCount();
+    uint32_t rc = cf::PageStorage::page(page).Block.GetCount();
     EPILOG;
     return rc;
 }
@@ -356,7 +354,7 @@ void CPAGE_DeleteBlock(Handle page, Handle block)
 {
     PROLOG;
     SetReturnCode_cpage(IDS_ERR_NO);
-    PAGE_H(page).Block.Del(block);
+    cf::PageStorage::page(page).Block.Del(block);
     EPILOG;
 }
 
@@ -382,9 +380,9 @@ Bool32 CPAGE_SavePage(Handle page, const char * lpName)
                 int count = 1;
                 rc = myWrite(file, &count, sizeof(count)) == sizeof(count);
 #ifdef SAVE_COMPRESSED
-                rc = PAGE_H(page).SaveCompress(file);
+                rc = cf::PageStorage::page(page).SaveCompress(file);
 #else
-                rc = PAGE_H(page).Save(file);
+                rc = cf::PageStorage::page(page).Save(file);
 #endif
             }
 
@@ -470,7 +468,7 @@ Handle CPAGE_GetHandlePage(uint32_t pos)
 Handle CPAGE_GetHandleBlock(Handle page, uint32_t block)
 {
     PROLOG;
-    Handle rc = PAGE_H(page).Block.GetHandle(block);
+    Handle rc = cf::PageStorage::page(page).Block.GetHandle(block);
     EPILOG;
     return rc;
 }
@@ -562,7 +560,7 @@ Handle CPAGE_GetPageNext(Handle page, Handle type)
 Handle CPAGE_GetBlockFirst(Handle page, Handle type)
 {
     PROLOG;
-    int count = PAGE_H(page).Block.GetCount();
+    int count = cf::PageStorage::page(page).Block.GetCount();
     int i;
     /*
      #ifdef _DEBUG
@@ -577,7 +575,7 @@ Handle CPAGE_GetBlockFirst(Handle page, Handle type)
             break;
     }
 
-    Handle rc = i < count ? PAGE_H(page).Block.GetHandle(i) : NULL;
+    Handle rc = i < count ? cf::PageStorage::page(page).Block.GetHandle(i) : NULL;
     EPILOG;
     return rc;
 }
@@ -585,8 +583,8 @@ Handle CPAGE_GetBlockFirst(Handle page, Handle type)
 Handle CPAGE_GetBlockNext(Handle page, Handle block, Handle type)
 {
     PROLOG;
-    int count = PAGE_H(page).Block.GetCount();
-    int pos = PAGE_H(page).Block.GetPos(block) + 1;
+    int count = cf::PageStorage::page(page).Block.GetCount();
+    int pos = cf::PageStorage::page(page).Block.GetPos(block) + 1;
     int i;
     /*
      #ifdef _DEBUG
@@ -601,7 +599,7 @@ Handle CPAGE_GetBlockNext(Handle page, Handle block, Handle type)
             break;
     }
 
-    Handle rc = i < count ? PAGE_H(page).Block.GetHandle(i) : NULL;
+    Handle rc = i < count ? cf::PageStorage::page(page).Block.GetHandle(i) : NULL;
     EPILOG;
     return rc;
 }

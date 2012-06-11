@@ -78,6 +78,10 @@ class PAGEINFO
             szImageName[0] = 0;
         }
 
+        void addFlag(int flag) {
+            Images |= flag;
+        }
+
         /**
           * Sets page turn angle
           * @note allowed values: 0, 90, 180, 270
@@ -119,7 +123,6 @@ class PAGEINFO
 #define PINFO_USERTEMPLATE  1  // темплейт установлен пользователем
 #define PINFO_AUTOTEMPLATE  2  // темплейт установлен автоматически
 };
-typedef PAGEINFO * LPPAGEINFO;
 
 #define CreateEmptyPage() CPAGE_CreatePage(PT_EMPTY,NULL,0)
 #define CreatePageWithPageInfo(a) CPAGE_CreatePage(PT_PAGEINFO,&a,sizeof(a))

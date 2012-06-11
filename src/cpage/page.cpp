@@ -188,3 +188,14 @@ uint32_t PAGE::Convert(Handle type, void * lpdata, uint32_t size)
     return rc;
 }
 
+PAGEINFO * PAGE::pageInfo()
+{
+    if(Type != PT_PAGEINFO)
+        return NULL;
+
+    if(Size != sizeof(PAGEINFO))
+        return NULL;
+
+    return (PAGEINFO*) lpData;
+}
+

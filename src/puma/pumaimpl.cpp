@@ -41,6 +41,7 @@
 #include "cline/cline.h"
 #include "cstr/cstr.h"
 #include "cpage/cpage.h"
+#include "cpage/pagestorage.h"
 #include "dpuma.h"
 #include "exc/exc.h"
 #include "export/exporterfactory.h"
@@ -1064,6 +1065,22 @@ void PumaImpl::applyReadMask()
 
     SetPageInfo(cpage_, page_info);
     setUpdateFlag(FLG_UPDATE);
+}
+
+BackupPage * PumaImpl::cpage()
+{
+    if(!cpage_)
+        return NULL;
+
+    return &PageStorage::page(cpage_);
+}
+
+PAGEINFO * PumaImpl::pageInfo()
+{
+    if(!cpage_)
+        return NULL;
+
+    return cpage()->pageInfo();
 }
 
 }

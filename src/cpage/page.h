@@ -80,6 +80,8 @@ class PAGE: public DATA
         Bool32 SaveCompress(Handle to);
         Bool32 RestoreCompress(Handle from);
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
+
+        PAGEINFO * pageInfo();
 };
 
 CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor);
