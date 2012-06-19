@@ -57,294 +57,356 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _CTDIB_H_
 #define _CTDIB_H_
 
+#include <iosfwd>
+
 #include "globus.h"
-#if defined(WIN32) & defined(CTDIB_USE_WIN32_API)
-#include <wingdi.h>
-typedef BITMAPINFOHEADER CTDIBBITMAPINFOHEADER, *PCTDIBBITMAPINFOHEADER, **PPCTDIBBITMAPINFOHEADER;
-typedef BITMAPV4HEADER CTDIBBITMAPV4HEADER, *PCTDIBBITMAPV4HEADER, **PPCTDIBBITMAPV4HEADER;
-typedef BITMAPV5HEADER CTDIBBITMAPV5HEADER, *PCTDIBBITMAPV5HEADER, **PPCTDIBBITMAPV5HEADER;
-#define CTDIB_BI_JPEG    BI_JPEG
-#else
-// DIB version 3 header (lenght - 40 bytes)
-typedef struct tagCTDIBBITMAPINFOHEADER { // bmih
-    uint32_t        biSize;
-    int32_t         biWidth;
-    int32_t         biHeight;
-    uint16_t        biPlanes;
-    uint16_t        biBitCount;
-    uint32_t        biCompression;
-    uint32_t        biSizeImage;
-    int32_t         biXPelsPerMeter;
-    int32_t         biYPelsPerMeter;
-    uint32_t        biClrUsed;
-    uint32_t        biClrImportant;
-} CTDIBBITMAPINFOHEADER;
+#include "common/dib.h"
 
-typedef int32_t     CTDIBPOINTCOORDINATE;
-
-struct CTDIBCIEXYZ {
-    CTDIBPOINTCOORDINATE ciexyzX;
-    CTDIBPOINTCOORDINATE ciexyzY;
-    CTDIBPOINTCOORDINATE ciexyzZ;
-};
-
-struct CTDIBICEXYZTRIPLE {
-    CTDIBCIEXYZ  ciexyzRed;
-    CTDIBCIEXYZ  ciexyzGreen;
-    CTDIBCIEXYZ  ciexyzBlue;
-};
-
-// DIB version 4 header (lenght - 108 bytes)
-typedef struct tagCTDIBBITMAPV4HEADER {
-    uint32_t             bV4Size;
-    int32_t              bV4Width;
-    int32_t              bV4Height;
-    uint16_t             bV4Planes;
-    uint16_t             bV4BitCount;
-    uint32_t             bV4V4Compression;
-    uint32_t             bV4SizeImage;
-    int32_t              bV4XPelsPerMeter;
-    int32_t              bV4YPelsPerMeter;
-    uint32_t             bV4ClrUsed;
-    uint32_t             bV4ClrImportant;
-    uint32_t             bV4RedMask;
-    uint32_t             bV4GreenMask;
-    uint32_t             bV4BlueMask;
-    uint32_t             bV4AlphaMask;
-    uint32_t             bV4CSType;
-    CTDIBICEXYZTRIPLE  bV4Endpoints;
-    uint32_t             bV4GammaRed;
-    uint32_t             bV4GammaGreen;
-    uint32_t             bV4GammaBlue;
-} CTDIBBITMAPV4HEADER;
-
-// DIB version 5 header (lenght - 124 bytes)
-typedef struct tagCTDIBBITMAPV5HEADER {
-    uint32_t             bV5Size;
-    int32_t              bV5Width;
-    int32_t              bV5Height;
-    uint16_t             bV5Planes;
-    uint16_t             bV5BitCount;
-    uint32_t             bV5Compression;
-    uint32_t             bV5SizeImage;
-    int32_t              bV5XPelsPerMeter;
-    int32_t              bV5YPelsPerMeter;
-    uint32_t             bV5ClrUsed;
-    uint32_t             bV5ClrImportant;
-    uint32_t             bV5RedMask;
-    uint32_t             bV5GreenMask;
-    uint32_t             bV5BlueMask;
-    uint32_t             bV5AlphaMask;
-    uint32_t             bV5CSType;
-    CTDIBICEXYZTRIPLE  bV5Endpoints;
-    uint32_t             bV5GammaRed;
-    uint32_t             bV5GammaGreen;
-    uint32_t             bV5GammaBlue;
-    uint32_t             bV5Intent;
-    uint32_t             bV5ProfileData;
-    uint32_t             bV5ProfileSize;
-    uint32_t             bV5Reserved;
-} CTDIBBITMAPV5HEADER;
-
-#define CTDIB_BI_JPEG  4L
-
-struct CTDIBRGBQUAD { // rgbq
-    CTDIBRGBQUAD() :
-        rgbBlue(0),
-        rgbGreen(0),
-        rgbRed(0),
-        rgbReserved(0) {}
-
-    CTDIBRGBQUAD(uchar r, uchar g, uchar b, uchar a) :
-        rgbBlue(r),
-        rgbGreen(g),
-        rgbRed(b),
-        rgbReserved(a) {}
-public:
-    uchar    rgbBlue;
-    uchar    rgbGreen;
-    uchar    rgbRed;
-    uchar    rgbReserved;
-};
-
-typedef CTDIBRGBQUAD * PCTDIBRGBQUAD;
-#endif //   !defined(WIN32) | !defined(CTDIB_USE_WIN32_API)
-
-typedef Handle (*PCTDIBMemAlloc)(uint32_t);
-typedef void   (*PCTDIBMemFree)(Handle);
-typedef pvoid  (*PCTDIBMemLock)(Handle);
-typedef void   (*PCTDIBMemUnlock)(Handle);
+namespace cf {
 
 class CLA_EXPO CTDIB
 {
-    public:
-        // macros etc.
-        // CTDIBBITMAPINFOHEADER alloced:
-        enum CTDIBALLOC {
-            noAlloc,
-            crtAlloc,
-            heapAlloc
-        };
-        // DIB Version: 3, 4 or 5
-        enum CTDIBVersion {
-            UnknownVersion = 0,
-            WindowsVersion = 3,
-            FourthVersion,
-            FifhtVersion
-        };
-        enum CTDIBDirection {
-            TopDown = -1,
-            UnknownDirection = 0,
-            BottomUp
-        };
-    public:
-        // empty constructor
-        CTDIB();
-        // constructor by Handle
-        CTDIB(Handle hDIB);
-        // destructor   virtual
-        ~CTDIB();
+public:
+    // DIB Version: 3, 4 or 5
+    enum version_t {
+        VERSION_UNKNOWN = 0,
+        VERSION_WINDOWS = 3,
+        VERSION_4,
+        VERSION_5
+    };
+public:
+    // empty constructor
+    CTDIB();
+    ~CTDIB();
 
-        bool pixelColor(uint x, uint y, CTDIBRGBQUAD * dest) const;
-    public:
-        // return black pixel RGBQuad index or 00-00-00
-        uint32_t GetBlackPixel();
-        // return white pixel RGBQuad index or ff-ff-ff
-        uint32_t GetWhitePixel();
-        // copy resolution from another DIB at once4
-        Bool32 CopyDPIFromDIB( CTDIB * pSrcDIB);
-        // copy line from another DIB from X at once
-        Bool32 SetFuelLineFromDIB(const CTDIB * pSrcDIB, uint32_t nSrcLine, uint32_t nDscLine, uint32_t wSrcX);
-        // Copy fuel pallete from another DIB
-        Bool32 CopyPalleteFromDIB(CTDIB *pSrcDIB);
-        // get DIB vrsion by enum versions
-        CTDIB::CTDIBVersion GetVersion(void);
-        ////////////////////////////Creating
-        // get 4 external function for class:
-        // Handle (*PCTDIBMemAlloc)(uint32_t);
-        // void   (*PCTDIBMemFree)(Handle);
-        // pvoid  (*PCTDIBMemLock)(Handle);
-        // void   (*PCTDIBMemUnlock)(Handle);
-        Bool32 SetExternals(PCTDIBMemAlloc pfAlloc, PCTDIBMemFree pfFree, PCTDIBMemLock pfLock, PCTDIBMemUnlock pfUnlock);
-        // start to create new DIB
-        Handle CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount, uint32_t UseColors = 0, CTDIBVersion dVersion = WindowsVersion);
-        // end of creating DIB
-        Bool32 CreateDIBEnd(void);
-        // Free memory if DIB created by this class
-        Bool32 DestroyDIB();
-        ////////////////////////////////////////////////////////Existst DIB
-        // set DIB by global handle
-        Bool32 SetDIBbyHandle(Handle hDIB);
-        // set DIB by memory ptr
-        Bool32 SetDIBbyPtr(pvoid pDIB);
-        // remove DIB and set to ready for new once
-        Bool32 ResetDIB();
-        ///////////////////////////////////////////////////////////////////
-        // return TRUE if image attached to class and FALSE otherwise
-        Bool32 IsDIBAvailable() const;
-        ////////////////////////////////////////////////////////Header Data
-        //Get DIB header memory allocation size
-        uint32_t GetHeaderSize() const;
-        // get pointer to DIB header
-        CTDIBBITMAPINFOHEADER * GetPtrToHeader() const;
-        // get version of DIB
-        CTDIBVersion GetDIBVersion() const;
-        // return image width in pixels
-        int32_t GetImageWidth() const;
-        // return image height in pixels
-        int32_t GetImageHeight() const;
-        // return image width in pixels
-        uint32_t GetLineWidth() const;
-        // return image width in bytes forsed to 4
-        uint32_t GetLineWidthInBytes() const;
-        // return image width in bytes
-        uint32_t GetUsedLineWidthInBytes() const;
-        // return image height in pixels
-        uint32_t GetLinesNumber() const;
-        // return image size in pixels
-        uint32_t GetImageSize() const;
-        // return image size in bytes
-        uint32_t GetImageSizeInBytes() const;
-        // return bits per pixel
-        uint32_t GetPixelSize() const;
-        // Get number of used colors
-        // if 0 - DIB is JPEG format
-        uint32_t GetActualColorNumber() const;
-        // get resolution of DIB: x,[y]
-        Bool32 GetResolutionDPM(uint32_t * pX_Dpm, uint32_t * pY_Dpm = 0x0);
-        // get resolution of DIB: x,[y]
-        Bool32 GetResolutionDPI(uint32_t * pX_Dpi, uint32_t * pY_Dpi = 0x0);
-        // set resolution of DIB: x,[y]. available if DIB constructed by CTDIB
-        Bool32 SetResolutionDPM(uint32_t X_Dpm, uint32_t Y_DPM = 0);
-        // set resolution of DIB: x,[y]. available if DIB constructed by CTDIB
-        Bool32 SetResolutionDPI(uint32_t X_DPI, uint32_t Y_DPI = 0);
-        // Get allocated memory size for DIBHeader, RGBQuads and Image in bytes
-        uint32_t GetDIBSize() const;
-        //Get used by DIB RGB Quads memory allocation size
-        uint32_t GetRGBPalleteSize() const;
-        // get Handle to DIB
-        Bool32 GetDIBHandle(Handle* phDIB);
-        // Set Handle for DIB if it not attached
-        Bool32 SetDIBHandle(Handle hDIB);
-        // get pointer to DIB
-        bool GetDIBPtr(pvoid* ppDIB) const;
-        ////////////////////////////////////////////////////////Pallette Data
-        // get pointer to first RGBQuad of RGB Quads ( or Triads)
-        pvoid  GetPtrToRGB() const;
-        // Get RGBQuad[wQuad]
-        bool GetRGBQuad(uint32_t idx, CTDIBRGBQUAD *dest) const;
-        // set RGBQuad
-        Bool32 SetRGBQuad(uint32_t wQuad, CTDIBRGBQUAD Quad);
-        ////////////////////////////////////////////////////////BitFild Data
-        // Get pointer to BitFild data;
-        pvoid  GetPtrToBitFild(void);
-        // get pointer to Line (from 0 to |biHeight|-1)
-        pvoid  GetPtrToLine(uint32_t wLine) const;
-        // get ptr to BitFild memory on pixel(x,y)
-        // if PixelSize < 8 - ptr to byte where its pixel
-        pvoid  GetPtrToPixel(uint32_t wPixelX, uint32_t wPixelY) const;
-        // Get bit position in byte of image fild for pixel
-        uint32_t GetPixelShiftInByte(uint32_t dwX) const;
-    private:
-        // open DIB properties
-        Bool32 AttachDIB();
-        // close DIB properties
-        void DetachDIB();
-        // Check Externals Memory functions
-        bool isExternalsSets() const;
-        // return number of used RGBQUAD structures
-        static uint UsedColors(uint bitCount, uint colorUsed);
-    private:
-        // Hangle of DIB (Global memory)
-        Handle              hDIB;
-        // pointer to DIB (CRC memory)
-        pvoid               pDIB;
-        // pointer to DIB header
-        CTDIBBITMAPINFOHEADER * pDIBHeader;
-        // pointer to first RGBQUAD 32 bit fild
-        PCTDIBRGBQUAD       pRGBQuads;
-        // pointer to BitFild
-        puchar              pBitFild;
-        // version of DIB - 3,4 or 5
-        CTDIBVersion        wVersion;
-        // DIB Direction
-        CTDIBDirection      wDirect;
-        // TRUE if DIB attached
-        Bool32              IsAvailable;
-        // pointer to external memory alloc function - need to be set for creating DIB by this class
-        PCTDIBMemAlloc      pExternalAlloc;
-        // pointer to external memory free function - need to be set for creating DIB by this class
-        PCTDIBMemFree       pExternalFree;
-        // pointer to external memory lock function - need to be set for creating DIB by this class
-        PCTDIBMemLock       pExternalLock;
-        // pointer to external memory unlock function - need to be set for creating DIB by this class
-        PCTDIBMemUnlock     pExternalUnlock;
-        // TRUE if DIB created by this class
-        Bool32              UnderConstruction;
-        // flag for DIB created by this module
-        Bool32              CreatedByMe;
+    /**
+      * Returns pixel color by given coordinate
+      * @param x - x pixel coordinate
+      * @param y - y pixel coordinate
+      * @param dest - pointer to result
+      * @return true on success
+      * @see blackPixel(), whitePixel()
+      */
+    bool pixelColor(uint x, uint y, RGBQuad * dest) const;
+
+    /**
+     * Returns pixel color index
+     * @return true on success
+     */
+    bool pixelColorIndex(uint x, uint y, uint * dest) const;
+
+    /**
+     * Sets pixel color
+     * @see pixelColor(), fill()
+     */
+    bool setPixelColor(uint x, uint y, const RGBQuad& c);
+
+    /**
+     * Sets pixel color index
+     */
+    bool setPixelColorIndex(uint x, uint y, uint colorIdx);
+
+    /**
+     * Fills all image with given color
+     */
+    bool fill(const RGBQuad& c);
+
+    /**
+      * Returns black pixel RGBQuad index or 00-00-00
+      * @see whitePixel()
+      */
+    uint32_t blackPixel() const;
+
+    /**
+     * Returns bits per pixel
+     */
+    size_t bpp() const;
+
+    /**
+      * Returns white pixel RGBQuad index or ff-ff-ff
+      * @see blackPixel()
+      */
+    uint32_t whitePixel() const;
+
+    /**
+     * Copies resolution from another DIB at once
+     */
+    bool copyDPIFromDIB(const CTDIB * src);
+
+    /**
+     * Copies line from another DIB
+     * @param src - pointer to source dib
+     * @param srcLine - source line number
+     * @param destLine - destination line number
+     * @param srcX - source line pixel from which copy starts
+     */
+    bool copyLineFromDIB(const CTDIB * src, uint srcLine, uint destLine, uint srcX);
+
+    /**
+     * Copies fuel pallete from another DIB
+     */
+    bool copyPalleteFromDIB(const CTDIB * src);
+
+    /**
+     * Creates black and white pallete
+     */
+    bool makeBlackAndWhitePallete();
+
+    /**
+      * Returns DIB version by enum versions
+      */
+    version_t version() const;
+
+    /**
+     * Starts to create new DIB
+     * @param width - image width in pixels
+     * @param height - image height in pixels
+     * @param bitCount - image depth in bits per pixel, valid values: 1, 4, 8, 16, 24, 32
+     * @param version - DIB version
+     * @see createEnd()
+     */
+    BitmapPtr createBegin(int width, int height, uint bitCount, version_t version = VERSION_WINDOWS);
+
+    /**
+     * Ends of DIB creation
+     * @see createBegin()
+     */
+    bool createEnd();
+
+    /**
+     * Removes DIB and set to ready for new once
+     */
+    bool reset();
+
+    /**
+     * Returns true if image not attached to class
+     * @see isValid()
+     */
+    bool isNull() const;
+
+    /**
+     * Returns true if image attached to class and false otherwise
+     * @see isNull()
+     */
+    bool isValid() const;
+
+    /**
+     * Returns true if image in indexed color
+     */
+    bool isIndexed() const;
+
+    /**
+     * Returns allocated memory size for DIBHeader, RGBQuads and Image in bytes
+     * @see headerSize(), palleteSize()
+     */
+    size_t dibSize() const;
+
+    /**
+     * Returns DIB header memory allocation size in bytes
+     * @see header(), dibSize(), palleteSize()
+     */
+    size_t headerSize() const;
+
+    /**
+     * Returns image data size in bytes
+     * To get full dib size use dibSize()
+     * @see dibSize(), headerSize(), palleteSize()
+     */
+    size_t imageSizeInBytes() const;
+
+    /**
+     * Returns used by DIB RGBQuads memory allocation size in bytes
+     * @see headerSize(), dibSize()
+     */
+    size_t palleteSize() const;
+
+    /**
+     * Returns true if pallete has color
+     */
+    bool palleteHasColor(const RGBQuad& c) const;
+
+    /**
+     * Returns color index in pallete or -1, if pallete has no such color
+     */
+    int palleteColorIndex(const RGBQuad& c) const;
+
+    /**
+     * Adds color to pallete
+     * @return color index or -1 if failed
+     */
+    int addPalleteColor(const RGBQuad& c);
+
+    /**
+     * Returns number of used colors in pallete
+     */
+    uint palleteUsedColorsNum() const;
+
+    /**
+     * Returns pointer to DIB header
+     * @see headerSize()
+     */
+    BitmapInfoHeader * header() const;
+
+    /**
+     * Returns image width in pixels
+     * @see height()
+     */
+    int width() const;
+
+    /**
+     * Return image height in pixels
+     * @note can be negative
+     * @see width()
+     */
+    int height() const;
+
+    /**
+     * Return image height in pixels
+     * @see height()
+     */
+    size_t linesNumber() const;
+
+    /**
+     * Returns image width in pixels
+     * @see width(), height()
+     */
+    size_t lineWidth() const;
+
+    /**
+     * Returns image width in bytes forced to 4 (stride)
+     * @see lineWidth(), lineRealWidthInBytes()
+     */
+    size_t lineWidthInBytes() const;
+
+    /**
+     * Returns image real line width in bytes without padding
+     * @see lineWidthInBytes()
+     */
+    size_t lineRealWidthInBytes() const;
+
+    /**
+     * Returns bitmap resolution in dots per meter
+     * @see resolutionDotsPerInch()
+     */
+    bool resolutionDotsPerMeter(uint * x, uint * y = 0) const;
+
+    /**
+     * Returns bitmap resolution in dots per inch
+     * @see resolutionDotsPerMeter()
+     */
+    bool resolutionDotsPerInch(uint * x, uint * y = 0) const;
+
+    /**
+     * Sets resolution of DIB: x,[y].
+     * @seesetResolutionDotsPerInch()
+     * @note available if DIB constructed by CTDIB
+     */
+    bool setResolutionDotsPerMeter(uint x, uint y = 0);
+
+    /**
+     * Sets resolution of DIB: x,[y].
+     * @see setResolutionDotsPerMeter()
+     * @note available if DIB constructed by CTDIB
+     */
+    bool setResolutionDotsPerInch(uint x, uint y = 0);
+
+    /**
+     * Get pointer to bitmap
+     * @see setBitmap()
+     */
+    bool bitmap(BitmapPtr * dib) const;
+
+    /**
+     * Sets DIB by memory ptr
+     * @see bitmap
+     */
+    bool setBitmap(void * dib_);
+
+    /**
+     * Gets pallete color
+     * @return false on error
+     * @see setPalleteColor()
+     */
+    bool palleteColor(size_t idx, RGBQuad * dest) const;
+
+    /**
+     * Sets pallete color
+     * @see palleteColor(), pallete(), palleteSize()
+     */
+    bool setPalleteColor(uint32_t idx, const RGBQuad& color);
+
+    /**
+     * Returns pointer to pallete - first RGBQuad of RGB Quads (or Triads)
+     */
+    void * pallete() const;
+
+    /**
+     * Returns pointer to raw image data
+     * @see lineAt(), pixelAt()
+     */
+    void * imageData();
+
+    /**
+     * Returns pointer to Line (from 0 to height-1)
+     * @see pixelAt(), imageData()
+     * @return valid pointer on success or NULL on error
+     */
+    void * lineAt(uint y) const;
+
+    /**
+     * Returns pointer to BitField memory on pixel(x,y)
+     * if bpp() < 8 - pointer to byte where its pixel
+     * @see bpp(), lineAt()
+     * @return valid pointer on success, NULL pointer on error
+     */
+    void * pixelAt(uint x, uint y) const;
+
+    /**
+     * Get bit position in byte of image field for pixel
+     * @param xPos - x pixel coordinate
+     */
+    uint pixelShiftInByte(uint xPos) const;
+
+    /**
+     * Saves DIB to BMP format
+     */
+    bool saveToBMP(const std::string& fileName) const;
+    bool saveToBMP(std::ostream& os) const;
+public:
+    static bool saveToBMP(const std::string &fileName, BitmapPtr bitmap);
+    static bool saveToBMP(std::ostream& os, BitmapPtr bitmap);
+private:
+    enum direction_t {
+        DIRECTION_TOP_DOWN = -1,
+        DIRECTION_UNKNOWN = 0,
+        DIRECTION_BOTTOM_UP
+    };
+private:
+    // open DIB properties
+    bool attachDIB();
+    // close DIB properties
+    void detachDIB();
+    // free memory if DIB created by this class
+    bool destroyDIB();
+    // return number of used RGBQUAD structures
+    static uint usedColors(uint bitCount, uint colorUsed);
+private:
+    void * dib_;
+    BitmapInfoHeader * info_header_;
+    // pointer to first RGBQUAD 32 bit fild
+    RGBQuad * rgb_quads_;
+    // pointer to BitFild
+    uchar * pBitFild;
+    version_t version_;
+    direction_t direction_;
+    // true if DIB attached
+    bool valid_;
+    // true if DIB created by this class
+    bool under_construction_;
+    // flag for DIB created by this module
+    bool created_by_me_;
 };
 
-typedef CTDIB * PCTDIB;
+}
 
 #endif // _CTDIB_H_

@@ -50,42 +50,26 @@ CTDIB * IBinarizator::createDestination()
 
     CTDIB * dest = new CTDIB;
 
-    if (!dest->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock, RIMAGEUnlock)) {
-        RIMAGE_ERROR << " set external error\n";
-        delete dest;
-        return NULL;
-    }
-
     uint res_x = 0;
     uint res_y = 0;
 
-    uint new_height = src_->GetLinesNumber();
-    uint new_width = src_->GetLineWidth();
-    src_->GetResolutionDPM(&res_x, &res_y);
+    uint new_height = src_->linesNumber();
+    uint new_width = src_->lineWidth();
+    src_->resolutionDotsPerMeter(&res_x, &res_y);
 
-    if (!dest->CreateDIBBegin((int) new_width, (int) new_height, 1)) {
+    if (!dest->createBegin((int) new_width, (int) new_height, 1)) {
         delete dest;
         return NULL;
     }
 
-    dest->SetResolutionDPM(res_x, res_y);
+    dest->setResolutionDotsPerMeter(res_x, res_y);
 
-    CTDIBRGBQUAD BWQuads[2] = {
-        CTDIBRGBQUAD(0, 0, 0, 0),
-        CTDIBRGBQUAD(0xff, 0xff, 0xff, 0)
-    };
-
-    if (!dest->SetRGBQuad(0, BWQuads[0])) {
+    if (!dest->makeBlackAndWhitePallete()) {
         delete dest;
         return NULL;
     }
 
-    if (!dest->SetRGBQuad(1, BWQuads[1])) {
-        delete dest;
-        return NULL;
-    }
-
-    if (!dest->CreateDIBEnd()) {
+    if (!dest->createEnd()) {
         delete dest;
         return NULL;
     }

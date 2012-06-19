@@ -48,7 +48,7 @@ int main(int argc, char ** argv)
             return EXIT_FAILURE;
         }
 
-        if(!cf::CImage::instance().addImage("input", (BitmapHandle) input_img->data())) {
+        if(!cf::CImage::instance().addImage("input", (cf::BitmapPtr) input_img->data())) {
             std::cerr << "Can't add image to storage: " << argv[1] << "\n";
             return EXIT_FAILURE;
         }

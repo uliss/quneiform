@@ -498,11 +498,11 @@ void DrowVerticalLineStripesIntervals(CLINE_handle line, Handle HndMyWindow) {
 void CleaningRaster(DLine* pCLine, char* Buffer) {
 }
 
-void DrowCleanedRaster(DLine* pCLine, char* Buffer, BitmapInfoHeader* image_info,
+void DrowCleanedRaster(DLine* pCLine, char* Buffer, BitmapPtr image_info,
         Handle* HndMyWindow) {
 }
 
-void DrowVerticalLineRaster(DLine* pCLine, char* Buffer, BitmapInfoHeader* image_info,
+void DrowVerticalLineRaster(DLine* pCLine, char* Buffer, BitmapPtr image_info,
         Handle* HndMyWindow) {
 }
 

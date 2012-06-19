@@ -63,6 +63,7 @@
 #include "imageinfo.h"
 #include "common/singleton.h"
 #include "common/rect.h"
+#include "common/dib.h"
 
 #ifdef __CIMAGE__
 #define CIMAGE_FUNC  FUN_EXPO__
@@ -84,15 +85,15 @@ public:
 
 CIMAGE_FUNC bool CIMAGE_WriteCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK);
 CIMAGE_FUNC bool CIMAGE_GetCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK*);
-CIMAGE_FUNC bool CIMAGE_AddImage(const std::string& name, BitmapHandle handle);
-CIMAGE_FUNC bool CIMAGE_AddImageCopy(const std::string& name, BitmapHandle handle);
+CIMAGE_FUNC bool CIMAGE_AddImage(const std::string& name, cf::BitmapPtr handle);
+CIMAGE_FUNC bool CIMAGE_AddImageCopy(const std::string& name, cf::BitmapPtr handle);
 CIMAGE_FUNC bool CIMAGE_RemoveImage(const std::string& name);
-CIMAGE_FUNC bool CIMAGE_ReadDIB(const std::string& name, BitmapHandle * dest);
-CIMAGE_FUNC bool CIMAGE_ReadDIBCopy(const std::string& name, BitmapHandle * dest);
+CIMAGE_FUNC bool CIMAGE_ReadDIB(const std::string& name, cf::BitmapPtr * dest);
+CIMAGE_FUNC bool CIMAGE_ReadDIBCopy(const std::string& name, cf::BitmapPtr * dest);
 CIMAGE_FUNC bool CIMAGE_GetRawData(const std::string& name, CIMAGE_InfoDataInGet * in, CIMAGE_InfoDataOutGet * out);
-CIMAGE_FUNC bool CIMAGE_GetDIBData(const std::string& name, const cf::Rect& r, cf::BitMask * bitMask, BitmapHandle * dest);
-CIMAGE_FUNC bool CIMAGE_GetImageInfo(const std::string& name, BitmapInfoHeader * dest);
-CIMAGE_FUNC bool CIMAGE_FreeCopiedDIB(BitmapHandle dib);
+CIMAGE_FUNC bool CIMAGE_GetDIBData(const std::string& name, const cf::Rect& r, cf::BitMask * bitMask, cf::BitmapPtr * dest);
+CIMAGE_FUNC bool CIMAGE_GetImageInfo(const std::string& name, cf::BitmapInfoHeader * dest);
+CIMAGE_FUNC bool CIMAGE_FreeCopiedDIB(cf::BitmapPtr dib);
 CIMAGE_FUNC void CIMAGE_Reset();
 CIMAGE_FUNC bool CIMAGE_AddReadCloseRect(const std::string& name, const cf::Rect& r);
 CIMAGE_FUNC bool CIMAGE_RemoveReadCloseRect(const std::string& name, const cf::Rect& r);

@@ -62,6 +62,7 @@ All rights reserved.
 #include "rstr/rstr.h"
 #include "puma/pumadef.h"
 #include "cfcompat.h"
+#include "common/dib.h"
 
 extern Bool dpPrintResConsole;
 extern Bool dpNegResD;
@@ -263,16 +264,16 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
 						if (!dpRecOneLetter) {
 							for (turn = 0; turn < 2; turn++) {
 								if (ShowNegByOne) {
-									BITMAPINFOHEADER lpBI; // Pointer to DIB info structure
-									RGBQUAD Palette1;
-									RGBQUAD Palette2;
+                                    cf::BitmapInfoHeader lpBI; // Pointer to DIB info structure
+                                    cf::RGBQuad Palette1;
+                                    cf::RGBQuad Palette2;
 									uint32_t bfSize, dwDIBSize;
 									Handle hDIB;
 									uchar* pDIB;
 									uchar* pTmpDIB;
 									uchar* pTmpBuffer;
 									uint16_t Height, Width, ByteWidth;
-									BitmapInfoHeader image_info;
+                                    cf::BitmapInfoHeader image_info;
 
 									Height = (uint16_t) rec.lnPixHeight;
 									Width = (uint16_t) rec.lnPixWidth;
@@ -280,11 +281,11 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
 									ByteWidth = (Width + 7) / 8;
 									dwDIBSize = 64 * Height;
 									bfSize = dwDIBSize
-											+ sizeof(BITMAPINFOHEADER) + 2
-											* sizeof(RGBQUAD);
+                                            + sizeof(cf::BitmapInfoHeader) + 2
+                                            * sizeof(cf::RGBQuad);
 
 									/////////////////  Bitmap  information header   //////////////////////////////////
-									lpBI.biSize = sizeof(BITMAPINFOHEADER);
+                                    lpBI.biSize = sizeof(cf::BitmapInfoHeader);
 									lpBI.biWidth = 64;
 									lpBI.biHeight = Height;
 									lpBI.biPlanes = 0x1;
@@ -319,16 +320,16 @@ void NegRecog(Handle hCPage, NegList** proot, int& nRC, int skew) {
 										/////////  filling Dib   ///////////////////////////////////////////////////////////
 
 										memcpy(pTmpDIB, &lpBI,
-												sizeof(BITMAPINFOHEADER));
-										pTmpDIB += sizeof(BITMAPINFOHEADER);
+                                                sizeof(cf::BitmapInfoHeader));
+                                        pTmpDIB += sizeof(cf::BitmapInfoHeader);
 
 										memcpy(pTmpDIB, &Palette1,
-												sizeof(RGBQUAD));
-										pTmpDIB += sizeof(RGBQUAD);
+                                                sizeof(cf::RGBQuad));
+                                        pTmpDIB += sizeof(cf::RGBQuad);
 
 										memcpy(pTmpDIB, &Palette2,
-												sizeof(RGBQUAD));
-										pTmpDIB += sizeof(RGBQUAD);
+                                                sizeof(cf::RGBQuad));
+                                        pTmpDIB += sizeof(cf::RGBQuad);
 
 										pTmpBuffer = rec.Raster;
 										uchar* pTempDib = pTmpDIB;
@@ -1232,7 +1233,7 @@ CCOM_handle GetNegCCOM(Handle hCPage, Rect16* pRc, int i) {
 	char Name[CPAGE_MAXNAME];
 	for (j = 0; j < CPAGE_MAXNAME; j++)
 		Name[j] = ImageName[j];
-    BitmapHandle lpDIB;
+    cf::BitmapPtr lpDIB;
     if (!CIMAGE_ReadDIB(Name, &lpDIB))
 		return 0;
 	if (pRc[i].bottom - pRc[i].top > pRc[i].right - pRc[i].left) {

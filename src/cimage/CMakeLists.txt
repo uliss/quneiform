@@ -7,7 +7,6 @@ set(CF_CIMAGE_SOURCE
     ctimask.cpp
     ctimaskline.cpp
     ctimasklinesegment.cpp
-    ctimemory.cpp
     dll.cpp
 )
 

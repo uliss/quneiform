@@ -56,32 +56,42 @@
 
 #include <cassert>
 #include <cstdio>
+#include <cmath>
 #include <memory.h>
 #include <stdlib.h>
+#include <fstream>
+#include <algorithm>
+#include <boost/scoped_array.hpp>
 
 #include "ctdib.h"
 #include "common/debug.h"
+#include "common/bmp.h"
 
 using namespace cf;
 
-static inline size_t DIB_BITS_TO_BYTES(size_t b)
+static inline size_t dibBitsToBytes(size_t b)
 {
-    return ((((((b) + 7) / 8) + 3) / 4) * 4);
+    return ((((b + 7) / 8) + 3) / 4) * 4;
 }
 
-static inline size_t BITS_TO_BYTES(size_t a)
+static inline size_t bitsToBytes(size_t a)
 {
-    return (((a) + 7) / 8);
+    return (a + 7) / 8;
 }
 
-static bool equal(const CTDIBRGBQUAD& q1, const CTDIBRGBQUAD& q2)
+static inline uint dpmToDpi(uint a)
+{
+    return (uint) round((a / 100 ) * 2.54);
+}
+
+static bool equal(const RGBQuad& q1, const RGBQuad& q2)
 {
     return q1.rgbBlue == q2.rgbBlue &&
             q1.rgbGreen == q2.rgbGreen &&
             q1.rgbRed == q2.rgbRed;
 }
 
-bool firstQUADLighterThenSecond(const CTDIBRGBQUAD& q1, const CTDIBRGBQUAD& q2)
+static bool firstQUADLighterThenSecond(const RGBQuad& q1, const RGBQuad& q2)
 {
     return ((q1.rgbBlue * q1.rgbBlue +
              q1.rgbGreen * q1.rgbGreen +
@@ -91,71 +101,51 @@ bool firstQUADLighterThenSecond(const CTDIBRGBQUAD& q1, const CTDIBRGBQUAD& q2)
              q2.rgbRed * q2.rgbRed) ? true : false);
 }
 
-static const int CTDIB_VERSION_3_HEADER_SIZE = sizeof(CTDIBBITMAPINFOHEADER); //40
-static const int CTDIB_VERSION_4_HEADER_SIZE = sizeof(CTDIBBITMAPV4HEADER);   //108
-static const int CTDIB_VERSION_5_HEADER_SIZE = sizeof(CTDIBBITMAPV5HEADER);   //124
 static const int CTDIB_DEFAULT_PLANES = 1;
 static const int CTDIB_DEFAULT_COMPRESSION = 0;
 static const int CTDIB_DEFAULT_COLORSUSED = 0;
 static const int CTDIB_DEFAULT_COLORSIMPORTANT = 0;
 static const int CTDIB_DEFAULT_RESOLUTION = 0;
 
-#define CTDIB_IFNODIB(a)                    if ( !IsDIBAvailable() ) return a;
-#define CTDIB_UNDECONST(a)                  if ( !UnderConstruction ) return a;
-#define CTDIB_READYTOCREAT                  ( pExternalAlloc && pExternalFree && pExternalLock && pExternalUnlock )
 #define CTDIB_DPI_TO_DPM(a)                 (((a) / 2.54) * 100)
-#define CTDIB_DPM_TO_DPI(a)                 ((((a) / 100 ) * 2.54) + 1)
 
-CTDIB::CTDIB() {
-    hDIB = NULL;
-    pDIB = NULL;
-    DetachDIB();
-    IsAvailable = FALSE;
-    UnderConstruction = FALSE;
-    wDirect = UnknownDirection;
-    pExternalAlloc = NULL;
-    pExternalFree = NULL;
-    pExternalLock = NULL;
-    pExternalUnlock = NULL;
-    CreatedByMe = FALSE;
-}
+namespace cf {
 
-CTDIB::~CTDIB() {
-    DestroyDIB();
-}
-
-bool CTDIB::pixelColor(uint x, uint y, CTDIBRGBQUAD * dest) const
+CTDIB::CTDIB() :
+    valid_(false)
 {
-    if(!IsDIBAvailable())
+    dib_ = NULL;
+    detachDIB();
+    under_construction_ = false;
+    direction_ = DIRECTION_UNKNOWN;
+    created_by_me_ = false;
+}
+
+CTDIB::~CTDIB()
+{
+    destroyDIB();
+}
+
+bool CTDIB::pixelColor(uint x, uint y, RGBQuad * dest) const
+{
+    if(!isValid())
         return false;
 
-    void * pixel_data = GetPtrToPixel(x, y);
+    void * pixel_data = pixelAt(x, y);
 
-    switch(GetPixelSize()) {
-    case 1: {
-        uchar pixel_byte = *((uchar*) pixel_data);
-        uint pixel_shift = x % 8;
-        if(pixel_byte & (0x80 >> pixel_shift))
-            GetRGBQuad(1, dest);
-        else
-            GetRGBQuad(0, dest);
+    if(!pixel_data)
+        return false;
 
-        return true;
-    }
-    case 4: {
-        uchar color_pair = *((uchar*) pixel_data);
-        uchar color_idx = (x % 2)
-                ? (color_pair & 0xf)
-                : (color_pair >> 4);
-
-        if(!GetRGBQuad(color_idx, dest))
+    switch(bpp()) {
+    case 1:
+    case 4:
+    case 8:
+    {
+        uint color_idx = 0;
+        if(!pixelColorIndex(x, y, &color_idx))
             return false;
 
-        return true;
-    }
-    case 8: {
-        uchar color_idx = *((uchar*) pixel_data);
-        if(!GetRGBQuad(color_idx, dest))
+        if(!palleteColor(color_idx, dest))
             return false;
 
         return true;
@@ -166,30 +156,30 @@ bool CTDIB::pixelColor(uint x, uint y, CTDIBRGBQUAD * dest) const
             BI_BITFIELDS = 3
         };
 
-        switch(pDIBHeader->biCompression) {
+        switch(info_header_->biCompression) {
         case BI_RGB: {
             // no compression
             // 0RRRRRGGGGGBBBBB - value
             uint32_t pixel = *(uint32_t*) pixel_data;
-            dest->rgbRed = (pixel & 0x7C00) >> 5;
-            dest->rgbGreen = (pixel & 0x3E0) >> 2;
-            dest->rgbBlue = (pixel & 0x1f) << 3;
+            dest->rgbRed = static_cast<uchar>((pixel & 0x7C00) >> 5);
+            dest->rgbGreen = static_cast<uchar>((pixel & 0x3E0) >> 2);
+            dest->rgbBlue = static_cast<uchar>((pixel & 0x1f) << 3);
             dest->rgbReserved = 0;
             return true;
         }
         case BI_BITFIELDS: {
             uint32_t pixel = *(uint32_t*) pixel_data;
 
-            switch(wVersion) {
-            case CTDIB::FourthVersion:
-            case CTDIB::FifhtVersion: {
-                CTDIBBITMAPV4HEADER * v4header = (CTDIBBITMAPV4HEADER*) pDIBHeader;
-                dest->rgbRed = (pixel & v4header->bV4RedMask) >> 5;
-                dest->rgbGreen = (pixel & v4header->bV4GreenMask) >> 2;
-                dest->rgbBlue = (pixel & v4header->bV4BlueMask) << 3;
+            switch(version_) {
+            case CTDIB::VERSION_4:
+            case CTDIB::VERSION_5: {
+                BitmapInfoV4Header * v4header = (BitmapInfoV4Header*) info_header_;
+                dest->rgbRed = static_cast<uchar>((pixel & v4header->bV4RedMask) >> 5);
+                dest->rgbGreen = static_cast<uchar>((pixel & v4header->bV4GreenMask) >> 2);
+                dest->rgbBlue = static_cast<uchar>((pixel & v4header->bV4BlueMask) << 3);
                 return false;
             }
-            case CTDIB::WindowsVersion:
+            case CTDIB::VERSION_WINDOWS:
                 return false;
             default:
                return false;
@@ -201,308 +191,440 @@ bool CTDIB::pixelColor(uint x, uint y, CTDIBRGBQUAD * dest) const
     }
     case 24:
     case 32:
-        *dest = *((CTDIBRGBQUAD*) pixel_data);
+        *dest = *((RGBQuad*) pixel_data);
         return true;
     default:
         return false;
     }
 }
 
-CTDIB::CTDIB(Handle hAtDIB) {
-    hDIB = NULL;
-    pDIB = NULL;
-    IsAvailable = FALSE;
-    UnderConstruction = FALSE;
-    wDirect = UnknownDirection;
-    pExternalAlloc = NULL;
-    pExternalFree = NULL;
-    pExternalLock = NULL;
-    pExternalUnlock = NULL;
-    CreatedByMe = FALSE;
-    DetachDIB();
-    hDIB = hAtDIB;
+bool CTDIB::pixelColorIndex(uint x, uint y, uint * dest) const
+{
+    if(isNull())
+        return false;
+
+    if(!isIndexed())
+        return false;
+
+    if(!dest)
+        return false;
+
+    void * pixel_data = pixelAt(x, y);
+
+    if(!pixel_data)
+        return false;
+
+    switch(bpp()) {
+    case 1: {
+        uchar pixel_byte = *((uchar*) pixel_data);
+        uint pixel_shift = x % 8;
+        if(pixel_byte & (0x80 >> pixel_shift))
+            *dest = 1;
+        else
+            *dest = 0;
+        return true;
+    }
+    case 4: {
+        uchar color_pair = *((uchar*) pixel_data);
+        uchar color_idx = (x % 2)
+                ? (color_pair & 0xf)
+                : (color_pair >> 4);
+
+        *dest = (uint) color_idx;
+        return true;
+    }
+    case 8: {
+        uchar color_idx = *((uchar*) pixel_data);
+        *dest = (uint) color_idx;
+        return true;
+    }
+    default:
+        return false;
+    }
 }
 
-uint32_t CTDIB::GetActualColorNumber() const {
-    CTDIB_IFNODIB(0);
-    return UsedColors(pDIBHeader->biBitCount, pDIBHeader->biClrUsed);
-}
+bool CTDIB::setPixelColor(uint x, uint y, const RGBQuad &c)
+{
+    if(isNull())
+        return false;
 
-Bool32 CTDIB::AttachDIB() {
-    CTDIBBITMAPINFOHEADER * pSimpleHead;
+    switch(bpp()) {
+    case 1:
+    case 4:
+    case 8: {
+        uint color_idx = 0;
+        if(!pixelColorIndex(x, y, &color_idx))
+            return false;
 
-    if (hDIB == NULL && pDIB == NULL) {
-        DetachDIB();
+        int pallete_color_idx = palleteColorIndex(c);
+
+        if(pallete_color_idx == -1) {
+            int new_color_idx = addPalleteColor(c);
+            if(new_color_idx == -1)
+                return false;
+
+            setPixelColorIndex(x, y, (uint) new_color_idx);
+            return true;
+        }
+
+        setPixelColorIndex(x, y, (uint) pallete_color_idx);
+        return true;
+    }
+    case 24:
+    case 32: {
+        RGBQuad * p = (RGBQuad*) pixelAt(x, y);
+        if(!p)
+            return false;
+
+        *p = c;
+        return true;
+    }
+    default:
         return false;
     }
 
-    if (isExternalsSets() && hDIB && !UnderConstruction)
-        pDIB = pExternalLock(hDIB);
+    return false;
+}
 
-    if (pDIB) { // bitmapinfoheader
-        IsAvailable = TRUE;
-        pSimpleHead = (CTDIBBITMAPINFOHEADER*) pDIB;
-        wDirect = (pSimpleHead->biHeight > 0 ? BottomUp : TopDown);
+bool CTDIB::setPixelColorIndex(uint x, uint y, uint colorIdx)
+{
+    if(isNull())
+        return false;
 
-        //#define CERR(var) std::cerr << #var << " = " << (var) << "\n";
+    if(!isIndexed())
+        return false;
 
-        //        CERR(pSimpleHead->biBitCount);
-        //        CERR(pSimpleHead->biWidth);
-        //        CERR(pSimpleHead->biHeight);
-        //        CERR(pSimpleHead->biSize);
-        //        CERR(pSimpleHead->biSizeImage);
+    uchar * pixel_data = (uchar*) pixelAt(x, y);
 
+    if(!pixel_data)
+        return false;
 
-        switch (pSimpleHead->biSize) {
-        case CTDIB_VERSION_3_HEADER_SIZE:
-            wVersion = WindowsVersion;
-            break;
-        case CTDIB_VERSION_4_HEADER_SIZE:
-            wVersion = FourthVersion;
-            break;
-        case CTDIB_VERSION_5_HEADER_SIZE:
-            wVersion = FifhtVersion;
-            break;
-        default: {
-            // uliss
-            // TODO seems that memory corruption occured and field biSize filled with junk
-            pSimpleHead->biSize = CTDIB_VERSION_3_HEADER_SIZE;
-            break;
-            // uliss
-            Debug() << "CTDIB::AttachDIB: Unknown DIB header size: " << pSimpleHead->biSize << "\n";
-            DetachDIB();
+    switch(bpp()) {
+    case 1: {
+        uint pixel_shift = x % 8;
+
+        if(colorIdx == 1) {
+            *pixel_data |= (0x80 >> pixel_shift);
+        }
+        else if(colorIdx == 0) {
+            *pixel_data &= ~(0x80 >> pixel_shift);
+        }
+        else
             return false;
-        }
-        }
 
-        pDIBHeader = (CTDIBBITMAPINFOHEADER*) pDIB;
-        pRGBQuads = (PCTDIBRGBQUAD) ((puchar) pDIB + pSimpleHead->biSize);
-        pBitFild = (puchar) (pRGBQuads + GetActualColorNumber());
-        IsAvailable = TRUE;
-        wDirect = (pSimpleHead->biHeight > 0 ? BottomUp : TopDown);
-        return TRUE;
+        return true;
     }
+    case 4: {
+        uchar p1 = 0x0f & *pixel_data;
+        uchar p2 = 0xf0 & *pixel_data;
 
-    return FALSE;
+        if(x % 2) {
+            p1 = 0x0f & colorIdx;
+        }
+        else
+            p2 = 0xf0 & (colorIdx << 4);
+
+        *pixel_data = p1 | p2;
+        return true;
+    }
+    case 8:
+        *pixel_data = (uchar) colorIdx;
+        return true;
+    default:
+        return false;
+    }
 }
 
-void CTDIB::DetachDIB() {
-    if (hDIB) {
-        hDIB = NULL;
+bool CTDIB::fill(const RGBQuad& c)
+{
+    if(isNull())
+        return false;
+
+    if(isIndexed() && !palleteHasColor(c)) {
+        int idx = addPalleteColor(c);
+        if(idx == -1)
+            return false;
     }
 
-    pDIBHeader = NULL;
-    pRGBQuads = NULL;
+    for(uint y = 0; y < linesNumber(); y++) {
+        for(uint x = 0; x < lineWidth(); x++) {
+            if(!setPixelColor(x, y, c))
+                return false;
+        }
+    }
+
+    return true;
+}
+
+uint CTDIB::palleteUsedColorsNum() const
+{
+    if(isNull())
+        return 0;
+
+    return usedColors(info_header_->biBitCount, info_header_->biClrUsed);
+}
+
+bool CTDIB::attachDIB()
+{
+    if (dib_ == NULL) {
+        detachDIB();
+        return false;
+    }
+
+    valid_ = true;
+    BitmapInfoHeader * pSimpleHead = (BitmapInfoHeader*) dib_;
+
+    switch (pSimpleHead->biSize) {
+    case DIB_VERSION_3_HEADER_SIZE:
+        version_ = VERSION_WINDOWS;
+        break;
+    case DIB_VERSION_4_HEADER_SIZE:
+        version_ = VERSION_4;
+        break;
+    case DIB_VERSION_5_HEADER_SIZE:
+        version_ = VERSION_5;
+        break;
+    default:
+        Debug() << "CTDIB::AttachDIB: Unknown DIB header size: " << pSimpleHead->biSize << "\n";
+        detachDIB();
+        return false;
+    }
+
+    info_header_ = (BitmapInfoHeader*) dib_;
+    rgb_quads_ = (RGBQuad*) ((puchar) dib_ + pSimpleHead->biSize);
+    pBitFild = (puchar) (rgb_quads_ + palleteUsedColorsNum());
+    valid_ = true;
+    direction_ = (pSimpleHead->biHeight > 0) ? DIRECTION_BOTTOM_UP : DIRECTION_TOP_DOWN;
+    return true;
+}
+
+void CTDIB::detachDIB()
+{
+    info_header_ = NULL;
+    rgb_quads_ = NULL;
     pBitFild = NULL;
-    pDIB = NULL;
-    IsAvailable = FALSE;
-    CreatedByMe = FALSE;
-    UnderConstruction = FALSE;
-    wVersion = UnknownVersion;
-    wDirect = UnknownDirection;
+    dib_ = NULL;
+    valid_ = false;
+    created_by_me_ = false;
+    under_construction_ = false;
+    version_ = VERSION_UNKNOWN;
+    direction_ = DIRECTION_UNKNOWN;
 }
 
-CTDIBBITMAPINFOHEADER * CTDIB::GetPtrToHeader() const {
-    CTDIB_IFNODIB(NULL);
-    return pDIBHeader;
-}
-
-pvoid CTDIB::GetPtrToRGB() const {
-    CTDIB_IFNODIB(NULL);
-    return (pvoid) pRGBQuads;
-}
-
-CTDIB::CTDIBVersion CTDIB::GetDIBVersion() const {
-    CTDIB_IFNODIB(UnknownVersion);
-    return wVersion;
-}
-
-Bool32 CTDIB::SetDIBbyPtr(pvoid ptr) {
-    if ((hDIB && pDIB) || !ptr)
-        return FALSE;
-
-    pDIB = ptr;
-    return AttachDIB();
-}
-
-Bool32 CTDIB::SetDIBbyHandle(Handle hnd) {
-    if (hDIB || pDIB || !hnd)
-        return FALSE;
-
-    hDIB = hnd;
-    return AttachDIB();
-}
-
-Bool32 CTDIB::IsDIBAvailable() const {
-    return IsAvailable;
-}
-
-int32_t CTDIB::GetImageHeight() const {
-    CTDIB_IFNODIB(0);
-    return pDIBHeader->biHeight;
-}
-
-uint32_t CTDIB::GetLinesNumber() const {
-    CTDIB_IFNODIB(0);
-    return abs(GetImageHeight());
-}
-
-int32_t CTDIB::GetImageWidth() const {
-    CTDIB_IFNODIB(0);
-    return pDIBHeader->biWidth;
-}
-
-uint32_t CTDIB::GetLineWidth() const {
-    CTDIB_IFNODIB(0);
-    return abs(GetImageWidth());
-}
-
-uint32_t CTDIB::GetLineWidthInBytes() const {
-    CTDIB_IFNODIB(0);
-    return DIB_BITS_TO_BYTES(GetLineWidth() * GetPixelSize());
-}
-
-uint32_t CTDIB::GetUsedLineWidthInBytes() const {
-    CTDIB_IFNODIB(0);
-    return BITS_TO_BYTES(GetLineWidth() * GetPixelSize());
-}
-
-uint32_t CTDIB::GetImageSize() const {
-    CTDIB_IFNODIB(0);
-    return GetLinesNumber() * GetLineWidth();
-}
-
-uint32_t CTDIB::GetImageSizeInBytes() const {
-    CTDIB_IFNODIB(0);
-    return GetLineWidthInBytes() * GetLinesNumber();
-}
-
-uint32_t CTDIB::GetPixelSize() const {
-    CTDIB_IFNODIB(0);
-    return (uint32_t) pDIBHeader->biBitCount;
-}
-
-Handle CTDIB::CreateDIBBegin(int32_t Width, int32_t Height, uint32_t BitCount, uint32_t UseColors,
-        CTDIBVersion dVersion) {
-#define DELETE_PHEADER(a)  delete a;
-    CTDIBBITMAPINFOHEADER * pV3Header = NULL;
-    CTDIBBITMAPV4HEADER * pV4Header = NULL;
-    CTDIBBITMAPV5HEADER * pV5Header = NULL;
-    pvoid pHeader = NULL;
-    uint32_t HeaderSize;
-    uint32_t FuelSize = 0;
-
-    if (!CTDIB_READYTOCREAT)
+BitmapInfoHeader * CTDIB::header() const
+{
+    if(isNull())
         return NULL;
 
-    if (IsDIBAvailable())
+    return info_header_;
+}
+
+void * CTDIB::pallete() const
+{
+    if(isNull())
         return NULL;
 
-    switch (dVersion) {
-    case WindowsVersion:
-        HeaderSize = CTDIB_VERSION_3_HEADER_SIZE;
-        pV3Header = new CTDIBBITMAPINFOHEADER;
-        pV3Header->biSize = CTDIB_VERSION_3_HEADER_SIZE;
-        pV3Header->biWidth = Width;
-        pV3Header->biHeight = Height;
-        pV3Header->biPlanes = CTDIB_DEFAULT_PLANES;
-        pV3Header->biBitCount = (uint16_t) BitCount;
-        pV3Header->biCompression = CTDIB_DEFAULT_COMPRESSION;
-        pV3Header->biSizeImage = DIB_BITS_TO_BYTES(Width * BitCount) * abs(Height);
-        pV3Header->biXPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
-        pV3Header->biYPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
-        pV3Header->biClrUsed = (uint16_t) UseColors;
-        pV3Header->biClrImportant = CTDIB_DEFAULT_COLORSIMPORTANT;
-        pHeader = (pvoid) pV3Header;
+    return (pvoid) rgb_quads_;
+}
+
+bool CTDIB::setBitmap(void * ptr)
+{
+    if (dib_ || !ptr)
+        return false;
+
+    dib_ = ptr;
+    return attachDIB();
+}
+
+bool CTDIB::isValid() const
+{
+    return valid_;
+}
+
+bool CTDIB::isIndexed() const
+{
+    switch(bpp()) {
+    case 1:
+    case 4:
+    case 8:
+        return true;
+    default:
+        return false;
+    }
+}
+
+int CTDIB::height() const
+{
+    if(isNull())
+        return 0;
+
+    return info_header_->biHeight;
+}
+
+size_t CTDIB::linesNumber() const
+{
+    if(isNull())
+        return 0;
+
+    return static_cast<size_t>(abs(height()));
+}
+
+int CTDIB::width() const
+{
+    if(isNull())
+        return 0;
+
+    return info_header_->biWidth;
+}
+
+size_t CTDIB::lineWidth() const
+{
+    if(isNull())
+        return 0;
+
+    return static_cast<size_t>(abs(width()));
+}
+
+size_t CTDIB::lineWidthInBytes() const
+{
+    if(isNull())
+        return 0;
+
+    return dibBitsToBytes(lineWidth() * bpp());
+}
+
+size_t CTDIB::lineRealWidthInBytes() const
+{
+    if(isNull())
+        return 0;
+
+    return bitsToBytes(lineWidth() * bpp());
+}
+
+size_t CTDIB::imageSizeInBytes() const
+{
+    if(isNull())
+        return 0;
+
+    return lineWidthInBytes() * linesNumber();
+}
+
+size_t CTDIB::bpp() const
+{
+    if(isNull())
+        return 0;
+
+    return info_header_->biBitCount;
+}
+
+static BitmapInfoHeader * createHeaderV3(int width, int height, uint bpp)
+{
+    BitmapInfoHeader * res = new BitmapInfoHeader;
+    memset(res, 0, sizeof(BitmapInfoHeader));
+
+    res->biSize = DIB_VERSION_3_HEADER_SIZE;
+    res->biWidth = width;
+    res->biHeight = height;
+    res->biPlanes = CTDIB_DEFAULT_PLANES;
+    res->biBitCount = (uint16_t) bpp;
+    res->biCompression = CTDIB_DEFAULT_COMPRESSION;
+    res->biSizeImage = (uint32_t) (dibBitsToBytes(width * bpp) * abs(height));
+    res->biXPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
+    res->biYPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
+    res->biClrUsed = 0;
+    res->biClrImportant = CTDIB_DEFAULT_COLORSIMPORTANT;
+
+    return res;
+}
+
+static BitmapInfoV4Header * createHeaderV4(int width, int height, uint bpp)
+{
+    BitmapInfoV4Header * res = new BitmapInfoV4Header;
+    memset(res, 0, sizeof(BitmapInfoV4Header));
+
+    res->bV4Size = DIB_VERSION_4_HEADER_SIZE;
+    res->bV4Height = height;
+    res->bV4Width = width;
+    res->bV4Planes = CTDIB_DEFAULT_PLANES;
+    res->bV4BitCount = (uint16_t) bpp;
+    res->bV4V4Compression = CTDIB_DEFAULT_COMPRESSION;
+    res->bV4SizeImage = (uint32_t) dibBitsToBytes(width * bpp) * abs(height);
+    res->bV4XPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
+    res->bV4YPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
+    res->bV4ClrUsed = 0;
+    res->bV4ClrImportant = CTDIB_DEFAULT_COLORSIMPORTANT;
+    return res;
+}
+
+static BitmapInfoV5Header * createHeaderV5(int width, int height, uint bpp)
+{
+    BitmapInfoV5Header * res = new BitmapInfoV5Header;
+    memset(res, 0, sizeof(BitmapInfoV5Header));
+
+    res->bV5Size = DIB_VERSION_5_HEADER_SIZE;
+    res->bV5Height = height;
+    res->bV5Width = width;
+    res->bV5Planes = CTDIB_DEFAULT_PLANES;
+    res->bV5BitCount = (uint16_t) bpp;
+    res->bV5Compression = CTDIB_DEFAULT_COMPRESSION;
+    res->bV5SizeImage = dibBitsToBytes(width * bpp) * abs(height);
+    res->bV5XPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
+    res->bV5YPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
+    res->bV5ClrUsed = 0;
+    res->bV5ClrImportant = CTDIB_DEFAULT_COLORSIMPORTANT;
+
+    return res;
+}
+
+BitmapPtr CTDIB::createBegin(int width, int height, uint bitCount, version_t version)
+{
+    if (isValid())
+        return NULL;
+
+    BitmapInfoHeader * v3_header = NULL;
+    BitmapInfoV4Header * v4_header = NULL;
+    BitmapInfoV5Header * v5_header = NULL;
+
+    pvoid header = NULL;
+    uint header_size = 0;
+
+    switch (version) {
+    case VERSION_WINDOWS:
+        header_size = DIB_VERSION_3_HEADER_SIZE;
+        v3_header = createHeaderV3(width, height, bitCount);
+        header = (pvoid) v3_header;
         break;
-    case FourthVersion:
-        HeaderSize = CTDIB_VERSION_4_HEADER_SIZE;
-        pV4Header = new CTDIBBITMAPV4HEADER;
-        pV4Header->bV4Size = CTDIB_VERSION_4_HEADER_SIZE;
-        pV4Header->bV4Height = Height;
-        pV4Header->bV4Width = Width;
-        pV4Header->bV4Planes = CTDIB_DEFAULT_PLANES;
-        pV4Header->bV4BitCount = (uint16_t) BitCount;
-        pV4Header->bV4V4Compression = CTDIB_DEFAULT_COMPRESSION;
-        pV4Header->bV4SizeImage = DIB_BITS_TO_BYTES(Width * BitCount) * abs(Height);
-        pV4Header->bV4XPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
-        pV4Header->bV4YPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
-        pV4Header->bV4ClrUsed = (uint16_t) UseColors;
-        pV4Header->bV4ClrImportant = CTDIB_DEFAULT_COLORSIMPORTANT;
-        pHeader = (pvoid) pV4Header;
+    case VERSION_4:
+        header_size = DIB_VERSION_4_HEADER_SIZE;
+        v4_header = createHeaderV4(width, height, bitCount);
+        header = (pvoid) v4_header;
         break;
-    case FifhtVersion:
-        HeaderSize = CTDIB_VERSION_5_HEADER_SIZE;
-        pV5Header = new CTDIBBITMAPV5HEADER;
-        pV5Header->bV5Size = CTDIB_VERSION_5_HEADER_SIZE;
-        pV5Header->bV5Height = Height;
-        pV5Header->bV5Width = Width;
-        pV5Header->bV5Planes = CTDIB_DEFAULT_PLANES;
-        pV5Header->bV5BitCount = (uint16_t) BitCount;
-        pV5Header->bV5Compression = CTDIB_DEFAULT_COMPRESSION;
-        pV5Header->bV5SizeImage = DIB_BITS_TO_BYTES(Width * BitCount) * abs(Height);
-        pV5Header->bV5XPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
-        pV5Header->bV5YPelsPerMeter = CTDIB_DEFAULT_RESOLUTION;
-        pV5Header->bV5ClrUsed = (uint16_t) UseColors;
-        pV5Header->bV5ClrImportant = CTDIB_DEFAULT_COLORSIMPORTANT;
-        pHeader = (pvoid) pV5Header;
+    case VERSION_5:
+        header_size = DIB_VERSION_5_HEADER_SIZE;
+        v5_header = createHeaderV5(width, height, bitCount);
+        header = (pvoid) v5_header;
         break;
     default:
         return NULL;
     }
 
-    FuelSize += HeaderSize;
-    FuelSize += UsedColors(BitCount, UseColors) * sizeof(CTDIBRGBQUAD);
-    FuelSize += DIB_BITS_TO_BYTES(Width * BitCount) * abs(Height);
-    hDIB = malloc(FuelSize);
-    assert(hDIB);
-    pDIB = hDIB;
-    //    TODO uliss: check!!!
-    //    if (!(pDIB = pExternalLock(hDIB))) {
-    //        free(hDIB);
-    //        return FALSE;
-    //    }
-    CreatedByMe = TRUE;
-    memset(pDIB, 0x00, FuelSize);
-    memcpy(pDIB, pHeader, HeaderSize);
-    pDIBHeader = (CTDIBBITMAPINFOHEADER*) pDIB;
-    DELETE_PHEADER( pV3Header );
-    DELETE_PHEADER( pV4Header );
-    DELETE_PHEADER( pV5Header );
-    IsAvailable = TRUE;
-    UnderConstruction = TRUE;
-    AttachDIB();
-    return hDIB;
+    uint fuel_size = header_size;
+    fuel_size += usedColors(bitCount, 0) * sizeof(RGBQuad);
+    fuel_size += dibBitsToBytes(width * bitCount) * abs(height);
+    dib_ = calloc(1, fuel_size);
+    created_by_me_ = true;
+    memcpy(dib_, header, header_size);
+    info_header_ = (BitmapInfoHeader*) dib_;
+    delete v3_header;
+    delete v4_header;
+    delete v5_header;
+    valid_ = true;
+    under_construction_ = true;
+    attachDIB();
+    return (BitmapPtr) dib_;
 }
 
-Bool32 CTDIB::SetExternals(PCTDIBMemAlloc pfAlloc, PCTDIBMemFree pfFree, PCTDIBMemLock pfLock,
-        PCTDIBMemUnlock pfUnlock) {
-    if (!pfAlloc && !pfFree && !pfLock && !pfUnlock)
-        return FALSE;
-
-    if ((void *) pfAlloc == (void *) pfFree || (void *) pfAlloc == (void *) pfLock
-            || (void *) pfAlloc == (void *) pfUnlock || (void *) pfFree == (void *) pfLock
-            || (void *) pfFree == (void *) pfUnlock) {
-        return FALSE;
-    }
-
-    if (CTDIB_READYTOCREAT)
-        return FALSE;
-
-    if (isExternalsSets())
-        return false;
-
-    if (IsDIBAvailable())
-        return FALSE;
-
-    pExternalAlloc = pfAlloc;
-    pExternalFree = pfFree;
-    pExternalLock = pfLock;
-    pExternalUnlock = pfUnlock;
-    return TRUE;
-}
-
-uint CTDIB::UsedColors(uint bitCount, uint colorUsed)
+uint CTDIB::usedColors(uint bitCount, uint colorUsed)
 {
     if(colorUsed != 0)
         return colorUsed;
@@ -524,433 +646,551 @@ uint CTDIB::UsedColors(uint bitCount, uint colorUsed)
     }
 }
 
-Bool32 CTDIB::SetResolutionDPI(uint32_t X_Dpi, uint32_t Y_Dpi) {
-    CTDIB_UNDECONST(FALSE);
-    return SetResolutionDPM((uint32_t) CTDIB_DPI_TO_DPM(X_Dpi), (uint32_t) CTDIB_DPI_TO_DPM(Y_Dpi));
+bool CTDIB::setResolutionDotsPerInch(uint x, uint y)
+{
+    if (!under_construction_)
+        return false;
+
+    return setResolutionDotsPerMeter((uint) CTDIB_DPI_TO_DPM(x), (uint) CTDIB_DPI_TO_DPM(y));
 }
 
-Bool32 CTDIB::SetResolutionDPM(uint32_t X_Dpm, uint32_t Y_Dpm) {
-    CTDIBBITMAPINFOHEADER * pH;
-    CTDIB_UNDECONST(FALSE);
-    pH = pDIBHeader;
-    pH->biXPelsPerMeter = X_Dpm;
+bool CTDIB::setResolutionDotsPerMeter(uint x, uint y)
+{
+    if (!under_construction_)
+        return false;
 
-    if (Y_Dpm == 0)
-        pH->biYPelsPerMeter = pH->biXPelsPerMeter;
+    info_header_->biXPelsPerMeter = (int32_t) x;
 
+    if(y == 0)
+        info_header_->biYPelsPerMeter = info_header_->biXPelsPerMeter;
     else
-        pH->biYPelsPerMeter = Y_Dpm;
+        info_header_->biYPelsPerMeter = (int32_t) y;
 
-    return TRUE;
+    return true;
 }
 
-Bool32 CTDIB::GetResolutionDPI(uint32_t * pX_Dpi, uint32_t * pY_Dpi) {
-    uint32_t x_dpi;
-    uint32_t y_dpi;
-    CTDIB_IFNODIB(FALSE);
+bool CTDIB::resolutionDotsPerInch(uint * x, uint * y) const
+{
+    if(isNull())
+        return false;
 
-    if (pX_Dpi == NULL || !GetResolutionDPM(&x_dpi, &y_dpi))
+    uint x_dpi = 0;
+    uint y_dpi = 0;
+
+    if (x == NULL || !resolutionDotsPerMeter(&x_dpi, &y_dpi))
+        return false;
+
+    *x = dpmToDpi(x_dpi);
+
+    if (y != NULL)
+        *y = dpmToDpi(y_dpi);
+
+    return true;
+}
+
+bool CTDIB::resolutionDotsPerMeter(uint * x, uint * y) const
+{
+    if(isNull())
+        return false;
+
+    if(x == NULL)
         return FALSE;
 
-    *pX_Dpi = (uint32_t) CTDIB_DPM_TO_DPI(x_dpi);
+    *x = (uint) info_header_->biXPelsPerMeter;
 
-    if (pY_Dpi != NULL)
-        *pY_Dpi = (uint32_t) CTDIB_DPM_TO_DPI(y_dpi);
+    if(y != NULL)
+        *y = (uint) info_header_->biYPelsPerMeter;
 
-    return TRUE;
+    return true;
 }
 
-Bool32 CTDIB::GetResolutionDPM(uint32_t * pX_Dpm, uint32_t * pY_Dpm) {
-    CTDIBBITMAPINFOHEADER * pH;
-    CTDIB_IFNODIB(FALSE);
-
-    if (pX_Dpm == NULL)
-        return FALSE;
-
-    pH = pDIBHeader;
-    *pX_Dpm = pH->biXPelsPerMeter;
-
-    if (pY_Dpm != NULL)
-        *pY_Dpm = pH->biYPelsPerMeter;
-
-    return TRUE;
+bool CTDIB::createEnd()
+{
+    under_construction_ = false;
+    return true;
 }
 
-Bool32 CTDIB::CreateDIBEnd() {
-    return !(UnderConstruction = FALSE);
-}
-
-pvoid CTDIB::GetPtrToLine(uint32_t wLine) const {
-    puchar pLine = NULL;
-    CTDIB_IFNODIB(NULL);
-
-    if (wLine >= GetLinesNumber())
+void * CTDIB::lineAt(uint y) const
+{
+    if(isNull())
         return NULL;
 
-    pLine = pBitFild;
+    if (y >= linesNumber())
+        return NULL;
 
-    if (wDirect == BottomUp) {
-        pLine += ((GetLinesNumber() - (wLine + 1)) * GetLineWidthInBytes());
-        return (pvoid) pLine;
+    puchar line = pBitFild;
+
+    if (direction_ == DIRECTION_BOTTOM_UP) {
+        line += ((linesNumber() - (y + 1)) * lineWidthInBytes());
+        return (pvoid) line;
     }
 
-    if (wDirect == TopDown) {
-        pLine += (wLine * GetLineWidthInBytes());
-        return (pvoid) pLine;
+    if (direction_ == DIRECTION_TOP_DOWN) {
+        line += (y * lineWidthInBytes());
+        return (pvoid) line;
     }
 
     return NULL;
 }
 
-pvoid CTDIB::GetPtrToPixel(uint32_t wPixelX, uint32_t wPixelY) const {
-    puchar pLine = NULL;
-    CTDIB_IFNODIB(NULL);
-
-    if (wPixelX >= GetLineWidth())
+void * CTDIB::pixelAt(uint x, uint y) const
+{
+    if(isNull())
         return NULL;
 
-    pLine = (puchar) GetPtrToLine(wPixelY);
+    puchar pLine = NULL;
+
+    if (x >= lineWidth())
+        return NULL;
+
+    pLine = (puchar) lineAt(y);
 
     if (!pLine)
         return NULL;
 
-    pLine += ((wPixelX * GetPixelSize()) / 8);
+    pLine += ((x * bpp()) / 8);
     return pLine;
 }
 
-Bool32 CTDIB::ResetDIB() {
-    CTDIB_IFNODIB(FALSE);
-    DetachDIB();
+bool CTDIB::reset()
+{
+    if(isNull())
+        return false;
+
+    detachDIB();
     return true;
 }
 
-Bool32 CTDIB::GetDIBHandle(Handle* phDIB) {
-    CTDIB_IFNODIB(FALSE);
-    *phDIB = hDIB;
-    return TRUE;
+bool CTDIB::isNull() const
+{
+    return !valid_;
 }
 
-bool CTDIB::GetDIBPtr(pvoid* ppDIB) const {
-    CTDIB_IFNODIB(false);
-    *ppDIB = pDIB;
+bool CTDIB::bitmap(BitmapPtr * dib) const
+{
+    if(isNull())
+        return false;
+
+    *dib = (BitmapPtr) dib_;
     return true;
 }
 
-Bool32 CTDIB::SetRGBQuad(uint32_t wQuad, CTDIBRGBQUAD Quad) {
-    PCTDIBRGBQUAD pCurrentQuad;
+bool CTDIB::setPalleteColor(uint32_t idx, const RGBQuad& color)
+{
+    if (rgb_quads_ == NULL)
+        return false;
 
-    if (pRGBQuads == NULL)
-        return FALSE;
+    if (idx > palleteUsedColorsNum())
+        return false;
 
-    //CTDIB_UNDECONST(FALSE);
+    RGBQuad * pCurrentQuad = (RGBQuad*) pallete();
+    pCurrentQuad += idx;
+    *pCurrentQuad = color;
+    return true;
+}
 
-    if (wQuad > GetActualColorNumber()) {
-        return FALSE;
+bool CTDIB::destroyDIB()
+{
+    if(isNull())
+        return false;
+
+    if (created_by_me_)
+        free(dib_);
+
+    detachDIB();
+    return true;
+}
+
+size_t CTDIB::dibSize() const
+{
+    if(isNull())
+        return 0;
+
+    size_t res = 0;
+    res += headerSize();
+    res += palleteSize();
+    res += imageSizeInBytes();
+    return res;
+}
+
+size_t CTDIB::headerSize() const
+{
+    if(isNull())
+        return 0;
+
+    return header()->biSize;
+}
+
+size_t CTDIB::palleteSize() const
+{
+    if(isNull())
+        return 0;
+
+    return (palleteUsedColorsNum() * sizeof(RGBQuad));
+}
+
+bool CTDIB::palleteHasColor(const RGBQuad& c) const
+{
+    return palleteColorIndex(c) != -1;
+}
+
+int CTDIB::palleteColorIndex(const RGBQuad &c) const
+{
+    if(isNull())
+        return -1;
+
+    if(!isIndexed())
+        return -1;
+
+    for(uint i = 0; i < palleteUsedColorsNum(); i++) {
+        RGBQuad tmp;
+        if(!palleteColor(i, &tmp))
+            return -1;
+
+        if(tmp == c)
+            return (int) i;
     }
 
-    pCurrentQuad = (PCTDIBRGBQUAD) GetPtrToRGB();
-    pCurrentQuad += wQuad;
-    *pCurrentQuad = Quad;
-    return TRUE;
+    return -1;
 }
 
-Bool32 CTDIB::DestroyDIB() {
-    Handle hMem;
-    Bool32 FreeMem = FALSE;
-    Bool32 bRet = TRUE;
-    CTDIB_IFNODIB(FALSE);
-    hMem = hDIB;
-    FreeMem = CreatedByMe && isExternalsSets();
+int CTDIB::addPalleteColor(const RGBQuad& c)
+{
+    if(isNull())
+        return -1;
 
-    if (CreatedByMe != isExternalsSets())
-        bRet = FALSE;
+    if(!isIndexed())
+        return -1;
 
-    if (FreeMem) {
-        free(hMem);
+    const uint total = palleteUsedColorsNum();
+    uint * colors_private = new uint[total]();
+    boost::scoped_array<uint> colors_hist(colors_private);
+
+    for(uint y = 0; y < linesNumber(); y++) {
+        for(uint x = 0; x < lineWidth(); x++) {
+            uint color_idx = 0;
+            if(!pixelColorIndex(x, y, &color_idx))
+                return -1;
+
+            if(color_idx >= total)
+                return -1;
+
+            colors_hist[color_idx]++;
+        }
     }
 
-    DetachDIB();
-    return bRet;
+
+    for(uint i = 0; i < total; i++) {
+        if(colors_hist[i] == 0) {
+            // unused color found
+            std::cerr << "color set: " << i << "\n";
+            setPalleteColor(i, c);
+            return (int) i;
+        }
+    }
+
+    return -1;
 }
 
-Bool32 CTDIB::SetDIBHandle(Handle hSetDIB) {
-    if (IsDIBAvailable() || hDIB != NULL)
-        return FALSE;
+uint CTDIB::pixelShiftInByte(uint xPos) const
+{
+    if(isNull())
+        return 0;
 
-    hDIB = hSetDIB;
-    return FALSE;
-}
-
-uint32_t CTDIB::GetDIBSize() const {
-    uint32_t FuelSize = 0;
-    CTDIB_IFNODIB(0);
-    FuelSize += GetHeaderSize();
-    FuelSize += GetRGBPalleteSize();
-    FuelSize += GetImageSizeInBytes();
-    return FuelSize;
-}
-
-uint32_t CTDIB::GetHeaderSize() const {
-    CTDIB_IFNODIB(0);
-    return *((uint32_t *) (GetPtrToHeader()));
-}
-
-uint32_t CTDIB::GetRGBPalleteSize() const {
-    CTDIB_IFNODIB(0);
-    return (GetActualColorNumber() * sizeof(CTDIBRGBQUAD));
-}
-
-uint32_t CTDIB::GetPixelShiftInByte(uint32_t dwX) const {
-    CTDIB_IFNODIB(0);
-
-    switch (GetPixelSize()) {
+    switch (bpp()) {
     case 1:
-        return (dwX % 8);
-        break;
+        return xPos % 8;
     case 4:
-
-        if (dwX % 2 == 0)
+        if (xPos % 2 == 0)
             return 0;
-
         else
             return 4;
-
-        break;
     default:
         return 0;
     }
 }
 
-bool CTDIB::isExternalsSets() const
+bool CTDIB::saveToBMP(const std::string& fileName) const
 {
-    return pExternalAlloc != NULL &&
-            pExternalFree != NULL &&
-            pExternalLock != NULL &&
-            pExternalUnlock != NULL;
+    if(isNull())
+        return false;
+
+    std::ofstream f(fileName.c_str(), std::ios::out | std::ios::binary);
+
+    if(!f)
+        return false;
+
+    bool rc = saveToBMP(f);
+    f.close();
+    return rc;
 }
 
-bool CTDIB::GetRGBQuad(uint32_t idx, CTDIBRGBQUAD * dest) const
+bool CTDIB::saveToBMP(std::ostream& os) const
 {
-    if (pRGBQuads == NULL)
+    if (isNull())
         return false;
 
-    if (idx > GetActualColorNumber())
+    BitmapFileHeader bf; //  bmp fileheader
+
+    // uliss: TODO! check for endianness
+    bf.bfType = 0x4d42; // 'BM'
+    bf.bfSize = static_cast<uint32_t>(sizeof(BitmapFileHeader) + dibSize());
+    // fileheader + infoheader + palette
+    bf.bfOffBits = static_cast<uint32_t>(sizeof(BitmapFileHeader) + headerSize() + palleteSize());
+
+    os.write((char*) &bf, sizeof(bf));
+
+    if (os.fail())
         return false;
 
-    CTDIBRGBQUAD * current = (CTDIBRGBQUAD*) GetPtrToRGB();
+    os.write((char*) header(), (std::streamsize) dibSize());
+
+    if (os.fail())
+        return false;
+
+    os.flush();
+
+    return true;
+}
+
+bool CTDIB::saveToBMP(const std::string& fileName, BitmapPtr bitmap)
+{
+    CTDIB dib;
+    if(!dib.setBitmap(bitmap))
+        return false;
+
+    return dib.saveToBMP(fileName);
+}
+
+bool CTDIB::saveToBMP(std::ostream& os, BitmapPtr bitmap)
+{
+    CTDIB dib;
+    if(!dib.setBitmap(bitmap))
+        return false;
+
+    return dib.saveToBMP(os, bitmap);
+}
+
+bool CTDIB::palleteColor(size_t idx, RGBQuad * dest) const
+{
+    if (rgb_quads_ == NULL)
+        return false;
+
+    if (idx > palleteUsedColorsNum())
+        return false;
+
+    RGBQuad * current = (RGBQuad*) pallete();
     current += idx;
     *dest = *current;
     return true;
 }
 
-void * CTDIB::GetPtrToBitFild() {
-    CTDIB_IFNODIB(NULL);
+void * CTDIB::imageData()
+{
+    if(isNull())
+        return NULL;
+
     return pBitFild;
 }
 
-CTDIB::CTDIBVersion CTDIB::GetVersion(void) {
-    CTDIB_IFNODIB(UnknownVersion);
-    return wVersion;
+CTDIB::version_t CTDIB::version() const
+{
+    if(isNull())
+        return VERSION_UNKNOWN;
+
+    return version_;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////
-//
-Bool32 CTDIB::SetFuelLineFromDIB(const CTDIB * pSrcDIB, uint32_t nSrcLine, uint32_t nDscLine,
-        uint32_t wSrcX) {
-    puchar pSrcStart = (puchar) pSrcDIB->GetPtrToPixel(wSrcX, nSrcLine);
-    puchar pDscStart = (puchar) this->GetPtrToLine(nDscLine);
-    puchar pBuffer;
-    uint32_t wShift;
 
-    if (pSrcDIB == NULL)
-        return FALSE;
+bool CTDIB::copyLineFromDIB(const CTDIB * src, uint srcLine, uint destLine, uint srcX)
+{
+    if (src == NULL)
+        return false;
 
-    if (pSrcStart == NULL || pDscStart == NULL)
-        return FALSE;
+    puchar srcStart = (puchar) src->pixelAt(srcX, srcLine);
+    puchar destStart = (puchar) this->lineAt(destLine);
 
-    if ((pSrcDIB->GetLineWidth() - wSrcX) < this->GetLineWidth() )
-        return FALSE;
+    if (srcStart == NULL || destStart == NULL)
+        return false;
 
-    if (pSrcDIB->GetPixelSize() != this->GetPixelSize())
-        return FALSE;
+    if ((src->lineWidth() - srcX) < this->lineWidth() )
+        return false;
 
-    uint32_t t = (pSrcDIB->GetUsedLineWidthInBytes() > this->GetUsedLineWidthInBytes() + ((wSrcX
-            * GetPixelSize()) / 8)) ? 1 : 0;
+    if (src->bpp() != bpp())
+        return false;
 
-    switch (this->GetPixelSize()) {
+    switch (this->bpp()) {
     case 1:
-    case 4:
-        //      pBuffer = new uchar[pSrcDIB->GetUsedLineWidthInBytes() + 1];
-        pBuffer = new uchar[pSrcDIB->GetUsedLineWidthInBytes()];
+    case 4: {
+        uint t = (src->lineRealWidthInBytes() > this->lineRealWidthInBytes() + ((srcX
+                * bpp()) / 8)) ? 1 : 0;
 
-        if (pBuffer == NULL)
-            return FALSE;
+        uchar * buf = new uchar[src->lineRealWidthInBytes()];
+        memset(buf, 0, src->lineRealWidthInBytes());
+        memcpy(buf, srcStart, this->lineRealWidthInBytes() + t);
 
-        memset(pBuffer, 0, pSrcDIB->GetUsedLineWidthInBytes());
-        //      memcpy ( pBuffer, pSrcStart, this->GetUsedLineWidthInBytes() + 1 );
-        memcpy(pBuffer, pSrcStart, this->GetUsedLineWidthInBytes() + t);
-        wShift = pSrcDIB->GetPixelShiftInByte(wSrcX);
-
-        if (wShift) {
-            //          uint32_t wByte  = this->GetUsedLineWidthInBytes() + 1;
-            uint32_t wByte = this->GetUsedLineWidthInBytes() + t;
-            puchar pwByte = pBuffer;
+        uint pixelShift = src->pixelShiftInByte(srcX);
+        if (pixelShift) {
+            size_t wByte = this->lineRealWidthInBytes() + t;
+            puchar pwByte = buf;
             uchar wShiftic = 0;
 
-            //          while ( wByte-- )
             while (wByte - t > 0) {
-                /*  Commemted by Andrey 11.04.2002
-                 wShiftic = *(pwByte + 1);
-                 *pwByte = *pwByte << wShift;
-                 wShiftic = wShiftic >> (8 - wShift);
-                 *pwByte |= wShiftic;
-                 pwByte++;
-                 */
                 wByte--;
 
                 if (wByte)
                     wShiftic = *(pwByte + 1);
 
-                *pwByte = *pwByte << wShift;
+                *pwByte = (uchar) (*pwByte << pixelShift);
 
                 if (wByte) {
-                    wShiftic = wShiftic >> (8 - wShift);
+                    wShiftic = wShiftic >> (8 - pixelShift);
                     *pwByte |= wShiftic;
                     pwByte++;
                 }
             }
         }
 
-        memcpy(pDscStart, pBuffer, this->GetUsedLineWidthInBytes());
-        delete[] pBuffer;
+        memcpy(destStart, buf, this->lineRealWidthInBytes());
+        delete[] buf;
         break;
+    }
     case 8:
     case 16:
     case 24:
     case 32:
-        memcpy(pDscStart, pSrcStart, this->GetUsedLineWidthInBytes());
+        memcpy(destStart, srcStart, this->lineRealWidthInBytes());
         break;
     default:
-        return FALSE;
+        return false;
     }
 
-    return TRUE;
+    return true;
 }
 
-Bool32 CTDIB::CopyPalleteFromDIB(CTDIB *pSrcDIB) {
-    CTDIBRGBQUAD Quad;
-    uint32_t wQuad;
-    uint32_t nColors = this->GetActualColorNumber();
-    CTDIB_IFNODIB(FALSE);
+bool CTDIB::copyPalleteFromDIB(const CTDIB * src)
+{
+    if(isNull())
+        return false;
 
-    if (pSrcDIB->GetActualColorNumber() != nColors) {
-        return FALSE;
+    uint n_colors = palleteUsedColorsNum();
+
+    if (src->palleteUsedColorsNum() > n_colors)
+        return false;
+
+    for (uint i = 0; i < n_colors; i++) {
+        RGBQuad Quad;
+        if (!src->palleteColor(i, &Quad))
+            return false;
+        if(!setPalleteColor(i, Quad))
+            return false;
     }
 
-    for (wQuad = 0; wQuad < nColors; wQuad++) {
-        if (!(pSrcDIB->GetRGBQuad(wQuad, &Quad)) || !(this->SetRGBQuad(wQuad, Quad)))
-            return FALSE;
-    }
-
-    return TRUE;
+    return true;
 }
 
-Bool32 CTDIB::CopyDPIFromDIB(CTDIB *pSrcDIB) {
-    uint32_t wX, wY;
-    CTDIB_UNDECONST(FALSE);
+bool CTDIB::makeBlackAndWhitePallete()
+{
+    if(isNull())
+        return false;
 
-    if (!pSrcDIB)
-        return FALSE;
+    if(!isIndexed())
+        return false;
 
-    if (pSrcDIB->GetResolutionDPM(&wX, &wY) && this->SetResolutionDPM(wX, wY))
-        return TRUE;
-
-    return FALSE;
+    return setPalleteColor(0, RGBQuad::black()) &&
+        setPalleteColor(1, RGBQuad::white());
 }
 
-uint32_t CTDIB::GetWhitePixel() {
-    CTDIBRGBQUAD fQ;
-    CTDIBRGBQUAD sQ;
-    uint32_t i;
+bool CTDIB::copyDPIFromDIB(const CTDIB * src)
+{
+    if (!under_construction_)
+        return false;
+
+    if (!src)
+        return false;
+
+    uint x = 0;
+    uint y = 0;
+
+    if (src->resolutionDotsPerMeter(&x, &y) && this->setResolutionDotsPerMeter(x, y))
+        return true;
+
+    return false;
+}
+
+uint32_t CTDIB::whitePixel() const
+{
+    if(isNull())
+        return 0;
+
+    RGBQuad fQ;
+    RGBQuad sQ;
     uint32_t Color = 0;
-    CTDIB_IFNODIB(0);
 
-    switch (GetPixelSize()) {
+    switch (bpp()) {
     case 1:
-
-        if (GetRGBQuad(0, &fQ) && GetRGBQuad(1, &sQ)) {
+        if (palleteColor(0, &fQ) && palleteColor(1, &sQ)) {
             if (equal(fQ, sQ))
                 return 1;
 
             return firstQUADLighterThenSecond(sQ, fQ);
         }
-
         return 0;
-        break;
     case 4:
     case 8:
-
-        if (GetRGBQuad(0, &fQ)) {
-            for (i = 1; i < GetActualColorNumber(); i++) {
-                if (GetRGBQuad(i, &sQ))
+        if (palleteColor(0, &fQ)) {
+            for (uint i = 1; i < palleteUsedColorsNum(); i++) {
+                if (palleteColor(i, &sQ))
                     if (firstQUADLighterThenSecond(sQ, fQ)) {
                         Color = i;
-                        GetRGBQuad(i, &fQ);
+                        palleteColor(i, &fQ);
                     }
             }
         }
-
         return Color;
-        break;
     case 16:
         return 0x00007fff;
-        break;
     case 24:
         return 0x00ffffff;
-        break;
     case 32:
         return 0xffffffff;
-        break;
     default:
         return 0;
     }
 }
 
-uint32_t CTDIB::GetBlackPixel() {
-    CTDIBRGBQUAD fQ;
-    CTDIBRGBQUAD sQ;
-    uint32_t i;
-    uint32_t Color = 0;
-    CTDIB_IFNODIB(0);
-
-    switch (GetPixelSize()) {
-    case 1:
-
-        if (GetRGBQuad(0, &fQ) && GetRGBQuad(1, &sQ))
-            return firstQUADLighterThenSecond(fQ, sQ);
-
+uint32_t CTDIB::blackPixel() const
+{
+    if(isNull())
         return 0;
-        break;
+
+    RGBQuad fQ;
+    RGBQuad sQ;
+    uint32_t Color = 0;
+
+    switch (bpp()) {
+    case 1:
+        if (palleteColor(0, &fQ) && palleteColor(1, &sQ))
+            return firstQUADLighterThenSecond(fQ, sQ);
+        return 0;
     case 4:
     case 8:
-
-        if (GetRGBQuad(0, &fQ)) {
-            for (i = 1; i < GetActualColorNumber(); i++) {
-                if (GetRGBQuad(i, &sQ))
+        if (palleteColor(0, &fQ)) {
+            for (uint i = 1; i < palleteUsedColorsNum(); i++) {
+                if (palleteColor(i, &sQ))
                     if (firstQUADLighterThenSecond(fQ, sQ)) {
                         Color = i;
-                        GetRGBQuad(i, &fQ);
+                        palleteColor(i, &fQ);
                     }
             }
         }
-
         return Color;
-        break;
     case 16:
     case 24:
     case 32:
         return 0;
-        break;
     default:
         return 0;
     }
+}
+
 }

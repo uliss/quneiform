@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -15,32 +15,36 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-#include "testpuma.h"
-#define private public
-#include <puma/puma.h>
-#include <common/tostring.h>
-using namespace cf;
-CPPUNIT_TEST_SUITE_REGISTRATION(TestPuma);
 
-void TestPuma::testInit() {
-    Rect rect;
-    //    CPPUNIT_ASSERT_EQUAL(rect, Puma::instance().pageTemplate());
-    CPPUNIT_ASSERT(Puma::instance().input_dib_ == NULL);
-    CPPUNIT_ASSERT(Puma::instance().input_filename_.empty());
-    CPPUNIT_ASSERT(Puma::instance().cpage_ == NULL);
+#ifndef BMP_H
+#define BMP_H
+
+#include <iosfwd>
+
+#include "common/dib.h"
+#include "cttypes.h"
+#include "globus.h"
+
+namespace cf {
+
+PACKED_STRUCT_PROLOGUE
+struct BitmapFileHeader
+{
+public:
+    BitmapFileHeader() :
+        bfType(0x4d42),
+        bfSize(0),
+        bfReserved1(0),
+        bfReserved2(0),
+        bfOffBits(0) {}
+
+    uint16_t bfType;
+    uint32_t bfSize;
+    uint16_t bfReserved1;
+    uint16_t bfReserved2;
+    uint32_t bfOffBits;
+} PACKED_STRUCT_EPILOGUE;
+
 }
 
-void TestPuma::testOpen() {
-    ImagePtr null_ptr;
-    CPPUNIT_ASSERT_THROW(Puma::instance().open(null_ptr), PumaException);
-
-    const int sz = 20;
-    uchar * data = new uchar[sz];
-    ImagePtr ptr(new Image(data, sz, Image::AllocatorNew));
-    ptr->setFileName("test");
-
-    Puma::instance().open(ptr);
-    CPPUNIT_ASSERT(Puma::instance().input_dib_ == (BitmapPtr) ptr->data());
-    CPPUNIT_ASSERT(Puma::instance().input_filename_ == "test");
-    CPPUNIT_ASSERT(Puma::instance().cpage_ != NULL);
-}
+#endif // BMP_H

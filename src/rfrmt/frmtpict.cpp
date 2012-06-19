@@ -209,7 +209,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     }
 
     // end piter
-    BitmapHandle pOutDIB = NULL;
+    BitmapPtr pOutDIB = NULL;
 
     if (!CIMAGE_GetDIBData(PUMA_IMAGE_USER, Rect(in.dwX, in.dwY, in.dwWidth, in.dwHeight), NULL, &pOutDIB)) {
         Debug() << "[WritePict] CIMAGE_GetDIBData failed: " << PUMA_IMAGE_USER << "\n";
@@ -222,7 +222,7 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     const char * szRotateName = "RFRMT:RotatePicture";
     const char * lpName = szPictName;
 
-    if (CIMAGE_AddImage(szPictName, (BitmapHandle) pOutDIB)) {
+    if (CIMAGE_AddImage(szPictName, (BitmapPtr) pOutDIB)) {
         switch (pinfo.Angle) {
         case 90:
             rc = RIMAGE_Turn(szPictName, szTurnName, RIMAGE_TURN_90);
@@ -314,12 +314,12 @@ bool WritePict(uint32_t IndexPict, SectorInfo * SectorInfo, Bool OutPutTypeFrame
     BlockElement * hPrevObject = NULL;
 
     if (rc) {
-        PCTDIB pTmpDIB = new CTDIB;
-        pTmpDIB->SetDIBbyPtr(pOutDIB);
+        CTDIB * pTmpDIB = new CTDIB;
+        pTmpDIB->setBitmap(pOutDIB);
         cf::Size pictGoal;
-        pictGoal.rwidth() = pTmpDIB->GetLineWidth();
-        pictGoal.rheight() = pTmpDIB->GetLinesNumber();
-        int32_t iDIBSize = pTmpDIB->GetDIBSize();
+        pictGoal.rwidth() = pTmpDIB->lineWidth();
+        pictGoal.rheight() = pTmpDIB->linesNumber();
+        int32_t iDIBSize = pTmpDIB->dibSize();
         delete pTmpDIB;
         Rect indent;
         Rect playout;

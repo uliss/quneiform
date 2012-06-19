@@ -26,6 +26,7 @@
 #include "globus.h"
 #include "common/imagerawdata.h"
 #include "common/size.h"
+#include "common/dib.h"
 #include "common/serialize.h"
 
 #ifdef CF_SERIALIZE

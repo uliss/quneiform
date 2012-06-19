@@ -61,9 +61,4 @@
 
 void SetReturnCode_cimage(uint16_t rc);
 
-void * CIMAGEAlloc(uint32_t size);
-void CIMAGEFree(void * mem);
-void * CIMAGELock(void * mem);
-void CIMAGEUnlock(void * mem);
-
 #endif

@@ -83,7 +83,7 @@ void TestFreeImageLoader::testLoadParams()
     const std::string IMG_PATH = LOADER_TEST_IMAGE_DIR;
     ImagePtr img = loader.load(IMG_PATH + "dpi72x72_monochrome.png");
 
-    CTDIBBITMAPINFOHEADER * head = (CTDIBBITMAPINFOHEADER*) img->data();
+    BitmapInfoHeader * head = (BitmapInfoHeader*) img->data();
     static const double INCH = 0.0254;
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biWidth);
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biHeight);
@@ -93,7 +93,7 @@ void TestFreeImageLoader::testLoadParams()
     CPPUNIT_ASSERT_EQUAL(72, int(round(head->biYPelsPerMeter * INCH)));
 
     img = loader.load(IMG_PATH + "dpi72x72_rgb.png");
-    head = (CTDIBBITMAPINFOHEADER*) img->data();
+    head = (BitmapInfoHeader*) img->data();
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biWidth);
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biHeight);
     CPPUNIT_ASSERT_EQUAL(1, (int) head->biPlanes);
@@ -102,7 +102,7 @@ void TestFreeImageLoader::testLoadParams()
     CPPUNIT_ASSERT_EQUAL(72, int(round(head->biYPelsPerMeter * INCH)));
 
     img = loader.load(IMG_PATH + "dpi300x300_monochrome.png");
-    head = (CTDIBBITMAPINFOHEADER*) img->data();
+    head = (BitmapInfoHeader*) img->data();
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biWidth);
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biHeight);
     CPPUNIT_ASSERT_EQUAL(24, (int) head->biBitCount);
@@ -110,7 +110,7 @@ void TestFreeImageLoader::testLoadParams()
     CPPUNIT_ASSERT_EQUAL(300, int(round(head->biYPelsPerMeter * INCH)));
 
     img = loader.load(IMG_PATH + "dpi_unknown.bmp");
-    head = (CTDIBBITMAPINFOHEADER*) img->data();
+    head = (BitmapInfoHeader*) img->data();
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biWidth);
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biHeight);
     CPPUNIT_ASSERT_EQUAL(75, int(round(head->biXPelsPerMeter * INCH)));

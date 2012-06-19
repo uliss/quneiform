@@ -32,7 +32,7 @@
 #include "common/outputformat.h"
 #include "common/image.h"
 #include "common/recognizeoptions.h"
-#include "cimage/imageinfo.h"
+#include "common/dib.h"
 #include "export/exporter.h"
 #include "globus.h"
 
@@ -129,7 +129,7 @@ class PumaImpl
         void recognizePass2();
         void recognizeSetup();
         void recognizeSpecial();
-        void rotate(BitmapHandle * dib, Point * p);
+        void rotate(BitmapPtr * dib, Point * p);
         void saveCSTR(int pass);
         void saveLayoutToFile(const std::string& fname);
         void saveToText(std::ostream& os) const;
@@ -153,7 +153,7 @@ class PumaImpl
         std::string layout_filename_;
         FormatOptions format_options_;
         RecognizeOptions recognize_options_;
-        BitmapHandle input_dib_;
+        BitmapPtr input_dib_;
         void * recog_dib_;
         int tables_num_;
         CCOM_cont * ccom_;

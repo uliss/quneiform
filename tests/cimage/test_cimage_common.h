@@ -28,60 +28,60 @@
 #include "cimage/imageinfo.h"
 
 #define IS_WHITE_DIB32(dib, x, y) {\
-    uint32_t * pixel = (uint32_t*) dib->GetPtrToPixel(x, y);\
+    uint32_t * pixel = (uint32_t*) dib->pixelAt(x, y);\
     CPPUNIT_ASSERT(pixel);\
     CPPUNIT_ASSERT_EQUAL((uint32_t) 0xffffffff, *pixel);\
     }
 
 #define IS_BLACK_DIB32(dib, x, y) {\
-    uint32_t * pixel = (uint32_t*) dib->GetPtrToPixel(x, y);\
+    uint32_t * pixel = (uint32_t*) dib->pixelAt(x, y);\
     CPPUNIT_ASSERT(pixel);\
     CPPUNIT_ASSERT_EQUAL((uint32_t) 0x0, *pixel);\
     }
 
 #define IS_WHITE_DIB1(dib, x, y) {\
-    uchar * pixel = (uchar*) dib->GetPtrToPixel(x, y);\
+    uchar * pixel = (uchar*) dib->pixelAt(x, y);\
     CPPUNIT_ASSERT(pixel);\
     CPPUNIT_ASSERT(*pixel & (0x80 >> (x % 8)));\
     }
 
 #define IS_BLACK_DIB1(dib, x, y) {\
-    uchar * pixel = (uchar*) dib->GetPtrToPixel(x, y);\
+    uchar * pixel = (uchar*) dib->pixelAt(x, y);\
     CPPUNIT_ASSERT(pixel);\
     CPPUNIT_ASSERT(!(*pixel & (0x80 >> (x % 8))));\
     }
 
 #define IS_WHITE_HANDLE_32(handle, x, y) {\
     CTDIB dib;\
-    dib.SetDIBbyPtr(handle);\
+    dib.setBitmap(handle);\
     IS_WHITE_DIB32((&dib), x, y);\
     }
 
 #define IS_WHITE_HANDLE_1(handle, x, y) {\
     CTDIB dib;\
-    dib.SetDIBbyPtr(handle);\
+    dib.setBitmap(handle);\
     IS_WHITE_DIB1((&dib), x, y);\
     }
 
 #define IS_BLACK_HANDLE_1(handle, x, y) {\
     CTDIB dib;\
-    dib.SetDIBbyPtr(handle);\
+    dib.setBitmap(handle);\
     IS_BLACK_DIB1((&dib), x, y);\
     }
 
 
 // note: caller should detele[] result
-static inline BitmapHandle loadDibFromBmp(const std::string& name) {
-    return (BitmapHandle) cf::BmpImageLoader().loadHandle(LOADER_TEST_IMAGE_DIR + name);
+static inline cf::BitmapPtr loadDibFromBmp(const std::string& name) {
+    return (cf::BitmapPtr) cf::BmpImageLoader().loadHandle(LOADER_TEST_IMAGE_DIR + name);
 }
 
 class DibPtr {
 public:
-    DibPtr(CTDIB * dib) : dib_(dib) {}
+    DibPtr(cf::CTDIB * dib) : dib_(dib) {}
     DibPtr(const std::string& name) : dib_(NULL) {
-        dib_ = new CTDIB;
+        dib_ = new cf::CTDIB;
 
-        if(!dib_->SetDIBbyPtr(loadDibFromBmp(name))) {
+        if(!dib_->setBitmap(loadDibFromBmp(name))) {
             delete dib_;
             dib_ = NULL;
         }
@@ -89,28 +89,28 @@ public:
 
     ~DibPtr() {
         if(dib_) {
-            Handle h = NULL;
-            dib_->GetDIBPtr(&h);
-            delete[] (BitmapHandle) h;
+            cf::BitmapPtr h = NULL;
+            dib_->bitmap(&h);
+            delete[] (cf::BitmapPtr) h;
         }
 
         delete dib_;
     }
 
-    BitmapHandle handle() {
+    cf::BitmapPtr handle() {
         if(!dib_)
             return NULL;
 
-        BitmapHandle h = NULL;
-        dib_->GetDIBPtr((void**)&h);
+        cf::BitmapPtr h = NULL;
+        dib_->bitmap(&h);
         return h;
     }
 
-    operator CTDIB* () { return dib_; }
-    CTDIB * operator->() { return dib_; }
+    operator cf::CTDIB* () { return dib_; }
+    cf::CTDIB * operator->() { return dib_; }
     operator bool () const { return dib_ != NULL; }
 private:
-    CTDIB * dib_;
+    cf::CTDIB * dib_;
 };
 
 #endif // TEST_CIMAGE_COMMON_H

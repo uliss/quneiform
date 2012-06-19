@@ -128,7 +128,7 @@ CCOM_handle GetStrCCOM(Handle hCPage, uchar* ImageName, Rect16 Rc, Bool neg,
 		for (j = 0; j < CPAGE_MAXNAME; j++)
 			Name[j] = info.szImageName[j];
 	}
-    BitmapHandle lpDIB;
+    cf::BitmapPtr lpDIB;
     if (!CIMAGE_ReadDIB(Name, &lpDIB))
 		return 0;
 	ExcControl Control;

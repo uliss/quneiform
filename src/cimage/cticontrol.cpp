@@ -72,19 +72,19 @@
 namespace cf
 {
 
-static inline Size dibImageSize(const BitmapHandle dib)
+static inline Size dibImageSize(const BitmapPtr dib)
 {
     return Size(dib->biWidth, dib->biHeight);
 }
 
-static size_t dibSize(const BitmapHandle dib)
+static size_t dibSize(const BitmapPtr dib)
 {
     CTDIB ctdib;
 
-    if (!ctdib.SetDIBbyPtr(dib))
+    if (!ctdib.setBitmap(dib))
         return 0;
 
-    return ctdib.GetDIBSize();
+    return ctdib.dibSize();
 }
 
 static inline bool isBitSet(puchar data, size_t n)
@@ -100,14 +100,13 @@ bool CTIControl::writeDIBtoBMP(const std::string& name, CTDIB * pDIB)
         return false;
     }
 
-    Handle dib = NULL;
-    pDIB->GetDIBPtr(&dib);
+    BitmapPtr dib = NULL;
+    pDIB->bitmap(&dib);
 
-    if(!dib) {
+    if(!dib)
         return false;
-    }
 
-    if(!pDIB->GetDIBSize())
+    if(!pDIB->dibSize())
         return false;
 
     CIMAGE_DEBUG_FUNC << " dump to \"" << name << "\"\n";
@@ -115,21 +114,21 @@ bool CTIControl::writeDIBtoBMP(const std::string& name, CTDIB * pDIB)
     BITMAPFILEHEADER bf;
     memset(&bf, 0, sizeof(BITMAPFILEHEADER));
     bf.bfType = 0x4d42; // 'BM'
-    bf.bfSize = sizeof(BITMAPFILEHEADER) + pDIB->GetDIBSize();
+    bf.bfSize = sizeof(BITMAPFILEHEADER) + pDIB->dibSize();
     // fileheader + infoheader + palette
-    bf.bfOffBits = sizeof(BITMAPFILEHEADER) + pDIB->GetHeaderSize() + pDIB->GetRGBPalleteSize();
+    bf.bfOffBits = sizeof(BITMAPFILEHEADER) + pDIB->headerSize() + pDIB->palleteSize();
 
     std::ofstream of(name.c_str());
     of.write((char*) &bf, sizeof(bf));
-    of.write((char*) dib, pDIB->GetDIBSize());
+    of.write((char*) dib, pDIB->dibSize());
 
     return !of.fail();
 }
 
-bool CTIControl::writeDIBtoBMP(const std::string& name, BitmapHandle h)
+bool CTIControl::writeDIBtoBMP(const std::string& name, BitmapPtr h)
 {
     CTDIB dib;
-    dib.SetDIBbyPtr(h);
+    dib.setBitmap(h);
     return writeDIBtoBMP(name, &dib);
 }
 
@@ -324,89 +323,75 @@ bool CTIControl::writeImageCallbacks(const std::string& name, CIMAGEIMAGECALLBAC
 
     bool bInvert = false;
 
-    // выделение памяти под новый DIB и под буферный
-    if (cb_write_dest_dib_->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)
-            && cb_write_src_dib_->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock))
+    if (cb_write_dest_dib_->createBegin(image_info.wImageWidth, image_info.wImageHeight, 1)
+            && cb_write_dest_dib_->setResolutionDotsPerInch(image_info.wResolutionX, image_info.wResolutionY)
+            && cb_write_dest_dib_->createEnd())
     {
-        if (cb_write_dest_dib_->CreateDIBBegin(image_info.wImageWidth, image_info.wImageHeight, 1)
-                && cb_write_dest_dib_->SetResolutionDPI(image_info.wResolutionX, image_info.wResolutionY)
-                && cb_write_dest_dib_->CreateDIBEnd())
-        {
-            if (cb_write_src_dib_->CreateDIBBegin(image_info.wImageWidth, 1, 1)
-                    && cb_write_src_dib_->CreateDIBEnd()) {
-                CTDIBRGBQUAD cdFQuad;
-                CTDIBRGBQUAD cdSQuad;
-                cdFQuad.rgbBlue = cdFQuad.rgbGreen = cdFQuad.rgbRed = 0x00;
-                cdSQuad.rgbBlue = cdSQuad.rgbGreen = cdSQuad.rgbRed = 0xff;
+        if (cb_write_src_dib_->createBegin(image_info.wImageWidth, 1, 1)
+                && cb_write_src_dib_->createEnd()) {
+            if (image_info.bFotoMetrics == 0)
+                bInvert = true;
 
-                if (image_info.bFotoMetrics == 0)
-                    bInvert = true;
+            cb_write_dest_dib_->makeBlackAndWhitePallete();
+            cb_write_src_dib_->makeBlackAndWhitePallete();
 
-                cb_write_dest_dib_->SetRGBQuad(0, cdFQuad);
-                cb_write_src_dib_->SetRGBQuad(0, cdFQuad);
-                cb_write_dest_dib_->SetRGBQuad(1, cdSQuad);
-                cb_write_src_dib_->SetRGBQuad(1, cdSQuad);
+            // заполняем структурку  для замещения строк
+            CIMAGE_InfoDataInReplace frame_to_replace;
+            frame_to_replace.byBit = (uint16_t) cb_write_src_dib_->bpp();
+            frame_to_replace.dwX = 0;
+            frame_to_replace.dwY = 0;
+            frame_to_replace.dwWidth = cb_write_src_dib_->lineWidth();
+            frame_to_replace.dwHeight = cb_write_src_dib_->linesNumber();
+            frame_to_replace.wByteWidth = (uint16_t) cb_write_src_dib_->lineWidthInBytes();
+            frame_to_replace.lpData = (puchar) cb_write_src_dib_->lineAt(0);
 
-                // заполняем структурку  для замещения строк
-                CIMAGE_InfoDataInReplace frame_to_replace;
-                frame_to_replace.byBit = (uint16_t) cb_write_src_dib_->GetPixelSize();
-                frame_to_replace.dwX = 0;
-                frame_to_replace.dwY = 0;
-                frame_to_replace.dwWidth = cb_write_src_dib_->GetLineWidth();
-                frame_to_replace.dwHeight = cb_write_src_dib_->GetLinesNumber();
-                frame_to_replace.wByteWidth = (uint16_t) cb_write_src_dib_->GetLineWidthInBytes();
-                frame_to_replace.lpData = (puchar) cb_write_src_dib_->GetPtrToLine(0);
+            // Заполняем его
+            for (uint i = 0; i < image_info.wImageHeight; i++) {
+                // вызываем второй калбэк
+                uint Readed = cbk.CIMAGE_ImageRead((pchar) cb_write_src_dib_->lineAt(0),
+                                                   (uint16_t) cb_write_src_dib_->lineWidthInBytes());
 
-                // Заполняем его
-                for (uint i = 0; i < image_info.wImageHeight; i++) {
-                    // вызываем второй калбэк
-                    uint Readed = cbk.CIMAGE_ImageRead((pchar) cb_write_src_dib_->GetPtrToLine(0),
-                            (uint16_t) cb_write_src_dib_->GetLineWidthInBytes());
+                //инвертируем битовое поле, ежели надо
+                if (bInvert) {
+                    pchar bits = (pchar) cb_write_src_dib_->lineAt(0);
 
-                    //инвертируем битовое поле, ежели надо
-                    if (bInvert) {
-                        pchar bits = (pchar) cb_write_src_dib_->GetPtrToLine(0);
-
-                        for (uint j = 0; j < cb_write_src_dib_->GetLineWidthInBytes(); j++) {
-                            *bits = ~(*bits);
-                            bits++;
-                        }
-                    }
-
-                    // номер строчки
-                    frame_to_replace.dwY = i;
-
-                    // записваем строчку в новый из буфера
-                    if (Readed) {
-                        setFrame(cb_write_src_dib_, cb_write_dest_dib_, &frame_to_replace);
+                    for (uint j = 0; j < cb_write_src_dib_->lineWidthInBytes(); j++) {
+                        *bits = ~(*bits);
+                        bits++;
                     }
                 }
 
-                // Закрываем
-                // вызываем третий калбэк
-                ret = cbk.CIMAGE_ImageClose();
-                // отписываем в контейнер
-                BitmapHandle new_dib;
-                cb_write_dest_dib_->GetDIBHandle((Handle*) &new_dib);
-                // Пишем картинку, и не каких масок!!!
-                disableReadMask(name);
-                ret = addImageCopy(name, new_dib);
-                enableReadMask(name);
+                // номер строчки
+                frame_to_replace.dwY = i;
 
-                if (!ret)
-                    return false;
+                // записваем строчку в новый из буфера
+                if (Readed) {
+                    setFrame(cb_write_src_dib_, cb_write_dest_dib_, &frame_to_replace);
+                }
             }
+
+            // Закрываем
+            // вызываем третий калбэк
+            ret = cbk.CIMAGE_ImageClose();
+            // отписываем в контейнер
+            BitmapPtr new_dib;
+            cb_write_dest_dib_->bitmap(&new_dib);
+            // Пишем картинку, и не каких масок!!!
+            disableReadMask(name);
+            ret = addImageCopy(name, new_dib);
+            enableReadMask(name);
+
+            if (!ret)
+                return false;
         }
     }
 
     if (cb_write_src_dib_) {
-        cb_write_src_dib_->DestroyDIB();
         delete cb_write_src_dib_;
         cb_write_src_dib_ = NULL;
     }
 
     if (cb_write_dest_dib_) {
-        cb_write_dest_dib_->DestroyDIB();
         delete cb_write_dest_dib_;
         cb_write_dest_dib_ = NULL;
     }
@@ -421,7 +406,7 @@ bool CTIControl::getImageCallbacks(const std::string& name, CIMAGEIMAGECALLBACK 
         return false;
     }
 
-    BitmapHandle hImage = image(name);
+    BitmapPtr hImage = image(name);
     if (!hImage)
         return false;
 
@@ -435,13 +420,13 @@ bool CTIControl::getImageCallbacks(const std::string& name, CIMAGEIMAGECALLBACK 
     return true;
 }
 
-bool CTIControl::addImage(const std::string& name, BitmapHandle handle)
+bool CTIControl::addImage(const std::string& name, BitmapPtr handle)
 {
     return images_.addImage(name, handle, true);
 }
 
-bool CTIControl::addImageCopy(const std::string& name, BitmapHandle handle) {
-    BitmapHandle image = NULL;
+bool CTIControl::addImageCopy(const std::string& name, BitmapPtr handle) {
+    BitmapPtr image = NULL;
 
     if (!copyDIB(handle, &image)) {
         CIMAGE_ERROR_FUNC << " unable copy DIB: " << name << "\n";
@@ -456,9 +441,9 @@ bool CTIControl::addImageCopy(const std::string& name, const CTDIB * dib)
     if(!dib)
         return false;
 
-    BitmapHandle handle = NULL;
+    BitmapPtr handle = NULL;
 
-    if(!dib->GetDIBPtr((void**) &handle))
+    if(!dib->bitmap(&handle))
         return false;
 
     return addImageCopy(name, handle);
@@ -473,13 +458,13 @@ bool CTIControl::dumpImage(const std::string& name, const std::string& fileName)
     }
 
     CTDIB dib;
-    if(!dib.SetDIBbyPtr(img->imageHandle()))
+    if(!dib.setBitmap(img->imageHandle()))
         return false;
 
     return writeDIBtoBMP(fileName, &dib);
 }
 
-BitmapHandle CTIControl::image(const std::string& name)
+BitmapPtr CTIControl::image(const std::string& name)
 {
     CTIImageHeader * img = images_.image(name);
 
@@ -493,7 +478,7 @@ BitmapHandle CTIControl::image(const std::string& name)
 
 CTDIB * CTIControl::imageDib(const std::string& name)
 {
-    BitmapHandle handle = image(name);
+    BitmapPtr handle = image(name);
 
     if(!handle) {
         CIMAGE_ERROR_FUNC << " image not found: \"" << name << "\"\n";
@@ -502,7 +487,7 @@ CTDIB * CTIControl::imageDib(const std::string& name)
 
     CTDIB * res = new CTDIB;
 
-    if (!res->SetDIBbyPtr(handle)) {
+    if (!res->setBitmap(handle)) {
         CIMAGE_ERROR_FUNC << " invalid image: \"" << name << "\"\n";
         delete res;
         return NULL;
@@ -512,7 +497,7 @@ CTDIB * CTIControl::imageDib(const std::string& name)
 
 }
 
-BitmapHandle CTIControl::imageCopy(const std::string& name)
+BitmapPtr CTIControl::imageCopy(const std::string& name)
 {
     CTIImageHeader * img = images_.image(name);
 
@@ -521,12 +506,12 @@ BitmapHandle CTIControl::imageCopy(const std::string& name)
         return NULL;
     }
 
-    BitmapHandle src_handle = img->imageHandle();
+    BitmapPtr src_handle = img->imageHandle();
 
     if(!src_handle)
         return NULL;
 
-    BitmapHandle dest_handle = NULL;
+    BitmapPtr dest_handle = NULL;
 
     if(!copyDIB(src_handle, &dest_handle)) {
         CIMAGE_ERROR_FUNC << " unable copy dib: " << name << "\n";
@@ -550,7 +535,7 @@ bool CTIControl::getImageRawData(const std::string& name,
                             CIMAGE_InfoDataInGet * in,
                             CIMAGE_InfoDataOutGet * out)
 {
-    BitmapHandle dib;
+    BitmapPtr dib;
 
     if (!getDIBFromImage(name, Rect(in->dwX, in->dwY, in->dwWidth, in->dwHeight), NULL, &dib)) {
         CIMAGE_ERROR_FUNC << " can't get image\n";
@@ -560,28 +545,28 @@ bool CTIControl::getImageRawData(const std::string& name,
 
     CTDIB dest;
 
-    if (!dest.SetDIBbyPtr(dib)) {
+    if (!dest.setBitmap(dib)) {
         CIMAGE_ERROR_FUNC << " invalid image data\n";
         out->lpData = NULL;
         return false;
     }
 
-    if (in->wByteWidth >= dest.GetUsedLineWidthInBytes() &&
-            in->dwWidth == dest.GetLineWidth() &&
-            in->dwHeight == dest.GetLinesNumber()) {
+    if (in->wByteWidth >= dest.lineRealWidthInBytes() &&
+            in->dwWidth == dest.lineWidth() &&
+            in->dwHeight == dest.linesNumber()) {
 
-        out->byBit = (uint16_t) dest.GetPixelSize();
-        out->dwHeight = dest.GetLinesNumber();
-        out->dwWidth = dest.GetLineWidth();
-        out->wByteWidth = (uint16_t) dest.GetUsedLineWidthInBytes();
-        out->wBlackBit = dest.GetBlackPixel();
+        out->byBit = (uint16_t) dest.bpp();
+        out->dwHeight = dest.linesNumber();
+        out->dwWidth = dest.lineWidth();
+        out->wByteWidth = (uint16_t) dest.lineRealWidthInBytes();
+        out->wBlackBit = dest.blackPixel();
 
         last_raw_data_ = new uchar[in->wByteWidth * in->dwHeight];
         out->lpData = last_raw_data_;
         puchar out_line = last_raw_data_;
 
         for (size_t i = 0; i < out->dwHeight; i++) {
-            memcpy(out_line, dest.GetPtrToLine(i), out->wByteWidth);
+            memcpy(out_line, dest.lineAt(i), out->wByteWidth);
             out_line += out->wByteWidth;
         }
 
@@ -598,14 +583,14 @@ bool CTIControl::removeImage(const std::string& name)
     return images_.removeImage(name);
 }
 
-bool CTIControl::copyDIB(const BitmapHandle src, BitmapHandle * dest)
+bool CTIControl::copyDIB(const BitmapPtr src, BitmapPtr * dest)
 {
     const size_t dib_size = dibSize(src);
 
-    BitmapHandle new_image = (BitmapHandle) CIMAGEAlloc(dib_size);
+    BitmapPtr new_image = (BitmapPtr) malloc(dib_size);
 
     if (!new_image) {
-        CIMAGE_ERROR_FUNC << " CIMAGEDAlloc failed.\n";
+        CIMAGE_ERROR_FUNC << "malloc failed.\n";
         return false;
     }
 
@@ -639,8 +624,8 @@ bool CTIControl::getFrame(const CTDIB * src, CTDIB * dest, const Rect& frame)
         return false;
     }
 
-    if ((src->GetLineWidth() < dest->GetLineWidth() + frame.left())
-            || (src->GetLinesNumber() < dest->GetLinesNumber() + frame.top())) {
+    if ((src->lineWidth() < dest->lineWidth() + frame.left())
+            || (src->linesNumber() < dest->linesNumber() + frame.top())) {
         return false;
     }
 
@@ -655,7 +640,7 @@ bool CTIControl::getFrame(const CTDIB * src, CTDIB * dest, const Rect& frame)
 
 bool CTIControl::copyToDestinationFrame(const CTDIB * src, CTDIB * dest, uint xOffset, uint yOffset, uint lineCount)
 {
-    if (src->GetPixelSize() != dest->GetPixelSize()) {
+    if (src->bpp() != dest->bpp()) {
         CIMAGE_ERROR_FUNC << " images depth is not equal.\n";
         return false;
     }
@@ -663,7 +648,7 @@ bool CTIControl::copyToDestinationFrame(const CTDIB * src, CTDIB * dest, uint xO
     uint dest_line = 0;
 
     for (uint i = 0; i < lineCount; i++) {
-        if (!dest->SetFuelLineFromDIB(src, yOffset + i, dest_line++, xOffset)) {
+        if (!dest->copyLineFromDIB(src, yOffset + i, dest_line++, xOffset)) {
             CIMAGE_ERROR_FUNC << " invalid frame size.\n";
             return false;
         }
@@ -674,12 +659,12 @@ bool CTIControl::copyToDestinationFrame(const CTDIB * src, CTDIB * dest, uint xO
 
 bool CTIControl::copyFromSourceFrame(const CTDIB * src, CTDIB * dest, uint destYOffset, uint lineCount)
 {
-    if (src->GetPixelSize() != dest->GetPixelSize()) {
+    if (src->bpp() != dest->bpp()) {
         CIMAGE_ERROR_FUNC << " image depth is not equal\n";
         return false;
     }
 
-    if (dest->GetLineWidth() != src->GetLineWidth()) {
+    if (dest->lineWidth() != src->lineWidth()) {
         CIMAGE_ERROR_FUNC << " line width not equal\n";
         return false;
     }
@@ -689,7 +674,7 @@ bool CTIControl::copyFromSourceFrame(const CTDIB * src, CTDIB * dest, uint destY
     uint src_line = 0;
 
     for (uint dest_line = dest_start_y; dest_line < end_y; dest_line++) {
-        if (!dest->SetFuelLineFromDIB(src, src_line++, dest_line, 0)) {
+        if (!dest->copyLineFromDIB(src, src_line++, dest_line, 0)) {
             CIMAGE_ERROR_FUNC << " invalid frame size\n";
             return false;
         }
@@ -714,8 +699,8 @@ bool CTIControl::setFrame(const CTDIB * src, CTDIB * dest, CIMAGE_InfoDataInRepl
     }
 
     // Проверяем на соответствие размеров
-    if ((dest->GetLineWidth() < src->GetLineWidth() + pIn->dwX)
-            || (dest->GetLinesNumber() < src->GetLinesNumber() + pIn->dwY)) {
+    if ((dest->lineWidth() < src->lineWidth() + pIn->dwX)
+            || (dest->linesNumber() < src->linesNumber() + pIn->dwY)) {
         CIMAGE_ERROR_FUNC << " invalid frame size\n";
         return false;
     }
@@ -730,8 +715,8 @@ bool CTIControl::setFrame(const CTDIB * src, CTDIB * dest, CIMAGE_InfoDataInRepl
 
 Bool32 CTIControl::CBImageOpen(CIMAGE_ImageInfo * info)
 {
-    uint32_t wFrgb;
-    uint32_t wSrgb;
+    uint wFrgb;
+    uint wSrgb;
 #if defined( _TRASING ) & defined ( _DEBUG )
 
     if ( wCBStep != 0 ) {
@@ -752,7 +737,7 @@ Bool32 CTIControl::CBImageOpen(CIMAGE_ImageInfo * info)
         return FALSE;
     }
 
-    pCBImage = CIMAGELock(hCBImage);
+    pCBImage = hCBImage;
 
     if (cb_dest_dib_ != NULL || cb_src_dib_ != NULL) {
         return FALSE;
@@ -761,25 +746,24 @@ Bool32 CTIControl::CBImageOpen(CIMAGE_ImageInfo * info)
     cb_src_dib_ = new CTDIB;
     cb_dest_dib_ = new CTDIB;
 
-    if (cb_src_dib_->SetDIBbyPtr(pCBImage)) {
-        wCBBufferSize = cb_src_dib_->GetUsedLineWidthInBytes();
-        int width = cb_src_dib_->GetLineWidth();
+    if (cb_src_dib_->setBitmap(pCBImage)) {
+        wCBBufferSize = cb_src_dib_->lineRealWidthInBytes();
+        int width = cb_src_dib_->lineWidth();
         wCBStep++;
 
         Handle hDescDIB;
 
-        if (cb_dest_dib_->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)
-                && (hDescDIB = cb_dest_dib_->CreateDIBBegin(width, 1, cb_src_dib_->GetPixelSize()))
-                && cb_dest_dib_->CreateDIBEnd())
+        if ((hDescDIB = cb_dest_dib_->createBegin(width, 1, cb_src_dib_->bpp()))
+                && cb_dest_dib_->createEnd())
         {
-            info->wImageWidth = (uint16_t) cb_src_dib_->GetLineWidth();
-            info->wImageHeight = (uint16_t) cb_src_dib_->GetLinesNumber();
+            info->wImageWidth = (uint16_t) cb_src_dib_->lineWidth();
+            info->wImageHeight = (uint16_t) cb_src_dib_->linesNumber();
             info->wImageByteWidth = (uint16_t) wCBBufferSize;
             info->wImageDisplacement = 0;
-            cb_src_dib_->GetResolutionDPI(&wFrgb, &wSrgb);
+            cb_src_dib_->resolutionDotsPerInch(&wFrgb, &wSrgb);
             info->wResolutionX = (uint16_t) wFrgb;
             info->wResolutionY = (uint16_t) wSrgb;
-            info->bFotoMetrics = (uchar) cb_src_dib_->GetWhitePixel();
+            info->bFotoMetrics = (uchar) cb_src_dib_->whitePixel();
             info->wAddX = 0;
             info->wAddY = 0;
             wCBStep++;
@@ -803,17 +787,17 @@ uint32_t CTIControl::CBImageRead(char * buff, uint32_t maxSize)
         return 0;
 
     if (!(maxSize < wCBBufferSize)) {
-        Rect frame(0, 0, cb_dest_dib_->GetLineWidth(), cb_dest_dib_->GetLinesNumber());
+        Rect frame(0, 0, cb_dest_dib_->lineWidth(), cb_dest_dib_->linesNumber());
         uint CopiedBytes = 0;
 
         for (uint out_line = 0; out_line < lines_at_once; out_line++) {
             frame.moveYTo(wCBLine);
 
-            if (cb_dest_dib_->GetPtrToLine(0) != NULL) {
+            if (cb_dest_dib_->lineAt(0) != NULL) {
                 if (getFrame(cb_src_dib_, cb_dest_dib_, frame)) {
                     wCBLine++;
                     wCBStep += 10;
-                    memcpy(pNextLineInBuffer, cb_dest_dib_->GetPtrToLine(0),
+                    memcpy(pNextLineInBuffer, cb_dest_dib_->lineAt(0),
                            wCBBufferSize);
                     CopiedBytes += wCBBufferSize;
                     pNextLineInBuffer += wCBBufferSize;
@@ -829,9 +813,6 @@ uint32_t CTIControl::CBImageRead(char * buff, uint32_t maxSize)
 
 Bool32 CTIControl::CBImageClose()
 {
-    if (hCBImage)
-        CIMAGEUnlock(hCBImage);
-
     if (pCBBuffer) {
         delete[] pCBBuffer;
         pCBBuffer = NULL;
@@ -843,7 +824,6 @@ Bool32 CTIControl::CBImageClose()
     }
 
     if (cb_dest_dib_) {
-        cb_dest_dib_->DestroyDIB();
         delete cb_dest_dib_;
         cb_dest_dib_ = NULL;
     }
@@ -856,7 +836,7 @@ Bool32 CTIControl::CBImageClose()
     return TRUE;
 }
 
-bool CTIControl::free(BitmapHandle handle)
+bool CTIControl::free(BitmapPtr handle)
 {
     if (!handle) {
         CIMAGE_ERROR_FUNC << " NULL handle\n";
@@ -869,24 +849,24 @@ bool CTIControl::free(BitmapHandle handle)
     }
 
     // if image was stored in last_dib_
-    BitmapHandle saved_handle = NULL;
-    if(last_dib_ && last_dib_->GetDIBPtr((void**)&saved_handle)) {
+    BitmapPtr saved_handle = NULL;
+    if(last_dib_ && last_dib_->bitmap(&saved_handle)) {
         if(saved_handle == handle)
-            last_dib_->ResetDIB();
+            last_dib_->reset();
     }
 
-    CIMAGEFree(handle);
+    ::free(handle);
 
     return true;
 }
 
 bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask * bitMask,
-                                   BitmapHandle * dest)
+                                   BitmapPtr * dest)
 {
     // в случае повторного вызова предыдущий диб стирается
     freeBuffers();
 
-    BitmapHandle dib = image(name);
+    BitmapPtr dib = image(name);
 
     if (!dib) {
         CIMAGE_ERROR_FUNC << " image not found: \"" << name << "\"\n";
@@ -897,10 +877,10 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
     CTDIB src;
     last_dib_ = new CTDIB;
 
-    uint32_t res_x = 0;
-    uint32_t res_y = 0;
+    uint res_x = 0;
+    uint res_y = 0;
 
-    if (!src.SetDIBbyPtr(dib) && src.GetResolutionDPM(&res_x, &res_y)) {
+    if (!src.setBitmap(dib) && src.resolutionDotsPerMeter(&res_x, &res_y)) {
         CIMAGE_ERROR_FUNC << ": invalid image\n";
         delete last_dib_;
         last_dib_ = NULL;
@@ -910,18 +890,10 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
     // проверяем размеры картинки
     Rect frame = checkRect(src, r);
 
-    if (!last_dib_->SetExternals(CIMAGEAlloc, CIMAGEFree, CIMAGELock, CIMAGEUnlock)) {
-        CIMAGE_ERROR_FUNC << ": SetExternals failed\n";
-        delete last_dib_;
-        last_dib_ = NULL;
-        return false;
-    }
-
-    if (last_dib_->CreateDIBBegin(frame.width(), frame.height(),
-                                       src.GetPixelSize(), src.GetActualColorNumber())
-            && last_dib_->CopyPalleteFromDIB(&src)
-            && last_dib_->SetResolutionDPM(res_x, res_y)
-            && last_dib_->CreateDIBEnd())
+    if (last_dib_->createBegin(frame.width(), frame.height(), src.bpp())
+            && last_dib_->copyPalleteFromDIB(&src)
+            && last_dib_->setResolutionDotsPerMeter(res_x, res_y)
+            && last_dib_->createEnd())
     {
         if(!getFrame(&src, last_dib_, frame)) {
             delete last_dib_;
@@ -950,7 +922,7 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
         return false;
     }
 
-    if (last_dib_->GetDIBPtr((void**) dest)) {
+    if (last_dib_->bitmap(dest)) {
         return true;
     }
     else {
@@ -974,7 +946,7 @@ void CTIControl::freeBuffers()
 
 Rect CTIControl::checkRect(const CTDIB& dib, const Rect& r)
 {
-    Rect frame(0, 0, dib.GetLineWidth(), dib.GetLinesNumber());
+    Rect frame(0, 0, dib.lineWidth(), dib.linesNumber());
 
     if(frame.intersects(r))
         return frame.intersected(r);
@@ -996,8 +968,8 @@ bool CTIControl::applyMaskToDIB(CTDIB * dib, CTIMask * mask, int at_x, int at_y)
 
     int x_begin = at_x;
     int y_begin = at_y;
-    int x_end = x_begin + dib->GetLineWidth();
-    int y_end = y_begin + dib->GetLinesNumber();
+    int x_end = x_begin + dib->lineWidth();
+    int y_end = y_begin + dib->linesNumber();
 
     Rect dib_area(Point(x_begin, y_begin), Point(x_end, y_end));
 
@@ -1042,11 +1014,11 @@ bool CTIControl::applyMaskToDIB(CTDIB * dib, CTIMask * mask, int at_x, int at_y)
     return true;
 }
 
-bool CTIControl::applyMaskToHandle(BitmapHandle handle, CTIMask * mask, int at_x, int at_y)
+bool CTIControl::applyMaskToHandle(BitmapPtr handle, CTIMask * mask, int at_x, int at_y)
 {
     CTDIB ctdib;
 
-    if(!ctdib.SetDIBbyPtr(handle))
+    if(!ctdib.setBitmap(handle))
         return false;
 
     return applyMaskToDIB(&ctdib, mask, at_x, at_y);
@@ -1057,16 +1029,16 @@ static bool fillLineWhiteDIB_color(CTDIB * dib, int x_start, int x_end, int y)
     if(!dib)
         return false;
 
-    puchar pixel_begin = static_cast<puchar>(dib->GetPtrToPixel(x_start, y));
-    puchar pixel_end = static_cast<puchar>(dib->GetPtrToPixel(x_end, y));
+    puchar pixel_begin = static_cast<puchar>(dib->pixelAt(x_start, y));
+    puchar pixel_end = static_cast<puchar>(dib->pixelAt(x_end, y));
 
     if(!pixel_begin || !pixel_end) {
         CIMAGE_ERROR_FUNC << " invalid pixels\n";
         return false;
     }
 
-    const size_t segm_length = ((x_end - x_start) * dib->GetPixelSize()) / 8;
-    memset(pixel_begin, dib->GetWhitePixel(), segm_length);
+    const size_t segm_length = ((x_end - x_start) * dib->bpp()) / 8;
+    memset(pixel_begin, dib->whitePixel(), segm_length);
     return true;
 }
 
@@ -1115,17 +1087,17 @@ static bool fillLineWhiteDIB_1bit(CTDIB * dib, int x_start, int x_end, int y)
     if(!dib)
         return false;
 
-    puchar pixel_begin = static_cast<puchar>(dib->GetPtrToPixel(x_start, y));
-    puchar pixel_end = static_cast<puchar>(dib->GetPtrToPixel(x_end, y));
+    puchar pixel_begin = static_cast<puchar>(dib->pixelAt(x_start, y));
+    puchar pixel_end = static_cast<puchar>(dib->pixelAt(x_end, y));
 
     if(!pixel_begin || !pixel_end) {
         CIMAGE_ERROR_FUNC << " invalid pixels\n";
         return false;
     }
 
-    uint pixel_begin_shift = dib->GetPixelShiftInByte(x_start);
-    uint pixel_end_shift = dib->GetPixelShiftInByte(x_end);
-    uchar white_pixel = (uchar) dib->GetWhitePixel();
+    uint pixel_begin_shift = dib->pixelShiftInByte(x_start);
+    uint pixel_end_shift = dib->pixelShiftInByte(x_end);
+    uchar white_pixel = (uchar) dib->whitePixel();
 
     int full_bits = pixel_end - pixel_begin - 1;
 
@@ -1150,7 +1122,7 @@ static bool fillLineWhiteDIB_1bit(CTDIB * dib, int x_start, int x_end, int y)
 
 static bool fillLineWhite(CTDIB * dib, int start, int end, int y)
 {
-    const uint bit_count = dib->GetPixelSize();
+    const uint bit_count = dib->bpp();
 
     switch(bit_count) {
     case 1:
@@ -1170,9 +1142,9 @@ static bool fillLineWhite(CTDIB * dib, int start, int end, int y)
 
 bool CTIControl::applyMaskToDIBLine(CTDIB * dib, CTIMaskLineSegment * segm, int line, int at_x, int at_y)
 {
-    if ((segm->start() > int(dib->GetLineWidth() + at_x)) ||
-            (segm->end() > int(dib->GetLineWidth() + at_x)) ||
-            (line >= int(dib->GetLinesNumber() + at_y)))
+    if ((segm->start() > int(dib->lineWidth() + at_x)) ||
+            (segm->end() > int(dib->lineWidth() + at_x)) ||
+            (line >= int(dib->linesNumber() + at_y)))
         return false;
 
     const int x_begin = segm->start() - at_x;
@@ -1180,11 +1152,11 @@ bool CTIControl::applyMaskToDIBLine(CTDIB * dib, CTIMaskLineSegment * segm, int 
     const int y = line - at_y;
 
     // проверяем на соответствие с картинкой
-    if (x_begin >= (int) dib->GetLineWidth())
+    if (x_begin >= (int) dib->lineWidth())
         return true;
 
-    if (x_end >= (int) dib->GetLineWidth())
-        x_end = dib->GetLineWidth() - 1;
+    if (x_end >= (int) dib->lineWidth())
+        x_end = dib->lineWidth() - 1;
 
     return fillLineWhite(dib, x_begin, x_end, y);
 }

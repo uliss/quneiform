@@ -86,27 +86,4 @@ struct CIMAGE_InfoDataInReplace {
     uint16_t wReserved;
 };
 
-struct BitmapInfoHeader {
-public:
-    BitmapInfoHeader() :
-            biSize(0), biWidth(0), biHeight(0), biPlanes(0), biBitCount(0),
-            biCompression(0), biSizeImage(0), biXPelsPerMeter(0),
-            biYPelsPerMeter(0), biClrUsed(0), biClrImportant(0) {
-    }
-
-    uint32_t biSize;
-    int32_t biWidth;
-    int32_t biHeight;
-    uint16_t biPlanes;
-    uint16_t biBitCount;
-    uint32_t biCompression;
-    uint32_t biSizeImage;
-    int32_t biXPelsPerMeter;
-    int32_t biYPelsPerMeter;
-    uint32_t biClrUsed;
-    uint32_t biClrImportant;
-};
-
-typedef BitmapInfoHeader * BitmapHandle;
-
 #endif

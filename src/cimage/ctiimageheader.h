@@ -59,7 +59,7 @@
 
 #include <string>
 
-#include "imageinfo.h"
+#include "common/dib.h"
 
 namespace cf
 {
@@ -70,7 +70,7 @@ class CTIImageHeader
 {
     public:
         CTIImageHeader();
-        CTIImageHeader(BitmapHandle handle, bool externalImage);
+        CTIImageHeader(BitmapPtr handle, bool externalImage);
         ~CTIImageHeader();
     public:
         void disableReadMask() {
@@ -101,11 +101,11 @@ class CTIImageHeader
             return !is_external_image_;
         }
 
-        BitmapHandle imageHandle() {
+        BitmapPtr imageHandle() {
             return image_;
         }
 
-        BitmapHandle setImageHandle(BitmapHandle NewHandle) {
+        BitmapPtr setImageHandle(BitmapPtr NewHandle) {
             return (image_ = NewHandle);
         }
 
@@ -125,7 +125,7 @@ class CTIImageHeader
             return read_mask_;
         }
     private:
-        BitmapHandle image_;
+        BitmapPtr image_;
         CTIMask * write_mask_;
         CTIMask * read_mask_;
         bool is_external_image_;

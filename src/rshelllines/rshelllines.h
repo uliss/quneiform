@@ -68,6 +68,7 @@
 
 #include "globus.h"
 #include "common/point.h"
+#include "common/dib.h"
 
 #ifdef __RSHELLLINES_EXPORTS__
 #define RSHELLLINES_FUNC  FUN_EXPO
@@ -92,9 +93,9 @@ void DrowPolynomia(DLine* pCLine); //
 void DrowVerticalLineStripesIntervals(CLINE_handle line, Handle HndMyWindow);
 void CleaningRaster(DLine* pCLine, char* Buffer); //
 void DrowCleanedRaster(DLine* pCLine, char* Buffer,
-                       BitmapInfoHeader* image_info, Handle* HndMyWindow); //
+                       cf::BitmapPtr image_info, Handle* HndMyWindow); //
 void DrowVerticalLineRaster(DLine* pCLine, char* Buffer,
-                            BitmapInfoHeader* image_info, Handle* HndMyWindow); //
+                            cf::BitmapPtr image_info, Handle* HndMyWindow); //
 void Transpose_bit_matrixes(pchar buf_in, pchar buf_out, Rect32* rect); //
 Bool GetLineStripesIntervals(CLINE_handle line, DLine* pCLine, pchar pRaster,
                              Bool FlagVerticalLine); //

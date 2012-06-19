@@ -72,7 +72,7 @@ CRInvertor::~CRInvertor()
 {
 }
 
-Bool32 CRInvertor::Invert(PCTDIB Image)
+Bool32 CRInvertor::Invert(cf::CTDIB *Image)
 {
     uint32_t LineLen;
     uint32_t Lines;
@@ -84,11 +84,11 @@ Bool32 CRInvertor::Invert(PCTDIB Image)
         return FALSE;
     }
 
-    LineLen = Image->GetLineWidthInBytes();
-    Lines = Image->GetLinesNumber();
+    LineLen = Image->lineWidthInBytes();
+    Lines = Image->linesNumber();
 
     for (y = 0; y < Lines; y++) {
-        pData = static_cast<uint32_t*> (Image->GetPtrToLine(y));
+        pData = static_cast<uint32_t*> (Image->lineAt(y));
 
         for (x = 0; x < LineLen; x += 4) {
             *pData++ = ~(*pData);
@@ -98,29 +98,29 @@ Bool32 CRInvertor::Invert(PCTDIB Image)
     return ((LineLen != 0) && (Lines != 0));
 }
 
-Bool32 CRInvertor::Inverse(PCTDIB Image)
+Bool32 CRInvertor::Inverse(cf::CTDIB * Image)
 {
     uint32_t Colors;
     uint32_t Color;
-    CTDIBRGBQUAD ctQuad;
+    cf::RGBQuad ctQuad;
 
     if (!Image) {
         return FALSE;
     }
 
-    Colors = Image->GetActualColorNumber();
+    Colors = Image->palleteUsedColorsNum();
 
     if (Colors == 0)
         return Invert(Image);
 
     for (Color = 0; Color < Colors; Color++) {
-        if (!Image->GetRGBQuad(Color, &ctQuad))
+        if (!Image->palleteColor(Color, &ctQuad))
             continue;
 
         ctQuad.rgbBlue = ~(ctQuad.rgbBlue);
         ctQuad.rgbGreen = ~(ctQuad.rgbGreen);
         ctQuad.rgbRed = ~(ctQuad.rgbRed);
-        Image->SetRGBQuad(Color, ctQuad);
+        Image->setPalleteColor(Color, ctQuad);
     }
 
     return (Colors != 0);

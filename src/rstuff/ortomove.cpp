@@ -76,10 +76,6 @@ extern Handle OrtMove;
 void CopyMove(uchar* newpmasp, uchar* oldpmasp, int newbytewide,
 		int oldbytewide, int num_str, int move);
 void MasCopy(uchar* oldpmasp, uchar* pmasp, int oldbytewide, int num_str);
-void* MyMemAlloc(uint32_t size);
-void MyMemDelete(void* mem);
-void * MyMemLock(void* mem);
-void MyMemUnLock(void* mem);
 void CleanImage(uchar* pmasp, int bytewide, int num_str, int wide);
 
 Bool32 OrtoMove(PRSPreProcessImage Image) {
@@ -100,86 +96,75 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 
 	const char* ImageName = PUMA_IMAGE_ORTOMOVE;
 
-    BitmapHandle lpDIB;
+    cf::BitmapPtr lpDIB;
     if (!CIMAGE_ReadDIB(OldImage, &lpDIB))
 		return FALSE;
 
-	CTDIB* olddib = new CTDIB;
-	if (!(olddib->SetDIBbyPtr(lpDIB))) {
+    cf::CTDIB* olddib = new cf::CTDIB;
+	if (!(olddib->setBitmap(lpDIB))) {
 		delete olddib;
 		return FALSE;
 	}
-	int oldbytewide = olddib->GetLineWidthInBytes();
-	int num_str = olddib->GetLinesNumber();
-	uchar* pmasp = (uchar*) (olddib->GetPtrToBitFild());
+	int oldbytewide = olddib->lineWidthInBytes();
+	int num_str = olddib->linesNumber();
+    uchar* pmasp = (uchar*) (olddib->imageData());
 
-	int oldwide = (int) (olddib->GetLineWidth());
+	int oldwide = (int) (olddib->lineWidth());
 
 	int max_move = abs((num_str * move) / 2048);
 	if (!max_move) {
-		olddib->ResetDIB();
+		olddib->reset();
 		delete olddib;
 		return TRUE;
 	}
-	CTDIB* newdib = new CTDIB;
+    cf::CTDIB * newdib = new cf::CTDIB;
 	int newwide = oldwide + max_move;
-	lpDIB = NULL;
-	if (!(newdib->SetExternals(&MyMemAlloc, &MyMemDelete, &MyMemLock,
-			&MyMemUnLock))) {
-		olddib->ResetDIB();
-		delete olddib;
-		delete newdib;
-		return TRUE;
-	}
 
-    lpDIB = (BitmapHandle) newdib->CreateDIBBegin(newwide, num_str, olddib->GetPixelSize());
+    lpDIB = newdib->createBegin(newwide, num_str, olddib->bpp());
 
     if (!lpDIB) {
-		olddib->ResetDIB();
+		olddib->reset();
 		delete olddib;
 		delete newdib;
 		return TRUE;
 	}
-	uint32_t X_DPM = 0;
-	uint32_t Y_DPM = 0;
-	olddib->GetResolutionDPM(&X_DPM, &Y_DPM);
-	newdib->SetResolutionDPI(info.DPIX, info.DPIY);
-	newdib->SetResolutionDPM(X_DPM, Y_DPM);
-	if (!(newdib->CreateDIBEnd())) {
-		olddib->ResetDIB();
+    uint X_DPM = 0;
+    uint Y_DPM = 0;
+	olddib->resolutionDotsPerMeter(&X_DPM, &Y_DPM);
+	newdib->setResolutionDotsPerInch(info.DPIX, info.DPIY);
+	newdib->setResolutionDotsPerMeter(X_DPM, Y_DPM);
+	if (!(newdib->createEnd())) {
+		olddib->reset();
 		delete olddib;
 		delete newdib;
 		return TRUE;
 	}
-	int newbytewide = newdib->GetLineWidthInBytes();
-	uchar* newpmasp = (uchar*) (newdib->GetPtrToBitFild());
-	if (newwide > (int) (newdib->GetLineWidth())) {
-		olddib->ResetDIB();
+	int newbytewide = newdib->lineWidthInBytes();
+    uchar* newpmasp = (uchar*) (newdib->imageData());
+	if (newwide > (int) (newdib->lineWidth())) {
+		olddib->reset();
 		delete olddib;
-		newdib->DestroyDIB();
 		delete newdib;
 		return TRUE;
 	}
-	CleanImage(pmasp, oldbytewide, num_str, (int) (olddib->GetLineWidth()));
+	CleanImage(pmasp, oldbytewide, num_str, (int) (olddib->lineWidth()));
 	CopyMove(newpmasp, pmasp, newbytewide, oldbytewide, num_str, move);
 
-    if (CIMAGE_AddImageCopy(ImageName, (BitmapHandle) lpDIB)) {
-        BitmapHandle lp = NULL;
+    if (CIMAGE_AddImageCopy(ImageName, (cf::BitmapPtr) lpDIB)) {
+        cf::BitmapPtr lp = NULL;
         if (CIMAGE_ReadDIB(ImageName, &lp)) {
 			info.Images |= IMAGE_ORTOMOVE;
 			strcpy((char*) info.szImageName, PUMA_IMAGE_ORTOMOVE);
 			SetPageInfo(hCPage, info);
 		} else {
-			olddib->ResetDIB();
+			olddib->reset();
 			delete olddib;
-			newdib->DestroyDIB();
 			delete newdib;
 			return FALSE;
 		}
 
-		olddib->ResetDIB();
+		olddib->reset();
 		delete olddib;
-		newdib->DestroyDIB();
 		delete newdib;
 
 		//снова выделим компоненты
@@ -193,9 +178,8 @@ Bool32 OrtoMove(PRSPreProcessImage Image) {
 		if (!CalcIncline(Image))
 			return FALSE;
 	} else {
-		olddib->ResetDIB();
+		olddib->reset();
 		delete olddib;
-		newdib->DestroyDIB();
 		delete newdib;
 		return FALSE;
 	}
@@ -346,20 +330,4 @@ void MasCopy(uchar* oldpmasp, uchar* pmasp, int oldbytewide, int num_str) {
 	int j = oldbytewide * num_str;
 	for (int i = 0; i < j; i++)
 		oldpmasp[i] = pmasp[i];
-}
-
-void* MyMemAlloc(uint32_t size) {
-	return malloc(size);
-}
-
-void MyMemDelete(void* mem) {
-	free(mem);
-}
-
-void * MyMemLock(void* mem) {
-	return mem;
-}
-
-void MyMemUnLock(void* mem) {
-	return;
 }

@@ -70,7 +70,7 @@ CTIImageHeader::CTIImageHeader() :
     enable_write_mask_(true)
 {}
 
-CTIImageHeader::CTIImageHeader(BitmapHandle handle, bool externalImage) :
+CTIImageHeader::CTIImageHeader(BitmapPtr handle, bool externalImage) :
     image_(handle),
     write_mask_(NULL),
     read_mask_(NULL),
@@ -82,7 +82,7 @@ CTIImageHeader::CTIImageHeader(BitmapHandle handle, bool externalImage) :
 CTIImageHeader::~CTIImageHeader()
 {
     if (isInternalImage())
-        CIMAGEFree(imageHandle());
+        free(imageHandle());
 
     delete read_mask_;
     delete write_mask_;

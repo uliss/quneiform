@@ -25,29 +25,28 @@
 #include "dibimageiohandler.h"
 #include "cfcompat.h"
 #include "rdib/ctdib.h"
+#include "common/dib.h"
 
-static const int VERSION_3_HEADER_SIZE = 40;
-static const int VERSION_4_HEADER_SIZE = 108;
-static const int VERSION_5_HEADER_SIZE = 124;
+using namespace cf;
 
-static bool readDIBHeader(QIODevice * device, BITMAPINFOHEADER& info)
+static bool readDIBHeader(QIODevice * device, BitmapInfoHeader& info)
 {
     if(!device)
         return false;
 
-    qint64 read = device->peek((char*) &info, sizeof(BITMAPINFOHEADER));
-    if(read != sizeof(BITMAPINFOHEADER))
+    qint64 read = device->peek((char*) &info, sizeof(BitmapInfoHeader));
+    if(read != sizeof(BitmapInfoHeader))
         return false;
 
     return true;
 }
 
-static bool isValidDIBHeader(BITMAPINFOHEADER& h)
+static bool isValidDIBHeader(BitmapInfoHeader& h)
 {
-    if(h.biSize != VERSION_3_HEADER_SIZE &&
-            h.biSize != VERSION_4_HEADER_SIZE &&
-            h.biSize != VERSION_5_HEADER_SIZE) {
-        qDebug() <<Q_FUNC_INFO << "unknown dib header size:" << h.biSize;
+    if(h.biSize != DIB_VERSION_3_HEADER_SIZE &&
+            h.biSize != DIB_VERSION_4_HEADER_SIZE &&
+            h.biSize != DIB_VERSION_5_HEADER_SIZE) {
+        qDebug() << Q_FUNC_INFO << "unknown dib header size:" << h.biSize;
         return false;
     }
 
@@ -66,15 +65,15 @@ static bool isValidDIBHeader(BITMAPINFOHEADER& h)
     return true;
 }
 
-static void writeBMPHeader(BITMAPFILEHEADER * bmp, BITMAPINFOHEADER * info, char * data)
+static void writeBMPHeader(BITMAPFILEHEADER * bmp, BitmapInfoHeader * info, char * data)
 {
     if(!bmp || !info)
         return;
 
-    CTDIB dib;
-    dib.SetDIBbyPtr(info);
+    cf::CTDIB dib;
+    dib.setBitmap(info);
 
-    const size_t bitmap_size = dib.GetDIBSize();
+    const size_t bitmap_size = dib.dibSize();
     const size_t bmp_header_size = sizeof(BITMAPFILEHEADER);
 
     memset(bmp, 0, bmp_header_size);
@@ -82,8 +81,8 @@ static void writeBMPHeader(BITMAPFILEHEADER * bmp, BITMAPINFOHEADER * info, char
     bmp->bfSize = (uint32_t) (bmp_header_size + bitmap_size);
     // fileheader + infoheader + palette
     bmp->bfOffBits = bmp_header_size +
-            dib.GetHeaderSize() +
-            dib.GetRGBPalleteSize();
+            dib.headerSize() +
+            dib.palleteSize();
 
 //    memcpy(d, bmp, bmp_header_size);
 }
@@ -95,7 +94,7 @@ DIBImageIOHandler::DIBImageIOHandler()
 
 bool DIBImageIOHandler::canRead() const
 {
-    BITMAPINFOHEADER bitmap_info;
+    BitmapInfoHeader bitmap_info;
     if(!readDIBHeader(device(), bitmap_info))
         return false;
 
@@ -104,7 +103,7 @@ bool DIBImageIOHandler::canRead() const
 
 bool DIBImageIOHandler::read(QImage * image)
 {
-    BITMAPINFOHEADER bitmap_info;
+    BitmapInfoHeader bitmap_info;
     if(!readDIBHeader(device(), bitmap_info))
         return false;
 
@@ -113,9 +112,9 @@ bool DIBImageIOHandler::read(QImage * image)
         return false;
     }
 
-    CTDIB dib;
-    dib.SetDIBbyPtr(&bitmap_info);
-    const size_t bitmap_size = dib.GetDIBSize();
+    cf::CTDIB dib;
+    dib.setBitmap(&bitmap_info);
+    const size_t bitmap_size = dib.dibSize();
     const size_t bmp_header_size = sizeof(BITMAPFILEHEADER);
 
     BITMAPFILEHEADER bmp_header;
@@ -124,8 +123,8 @@ bool DIBImageIOHandler::read(QImage * image)
     bmp_header.bfSize = (uint32_t) (bmp_header_size + bitmap_size);
     // fileheader + infoheader + palette
     bmp_header.bfOffBits = bmp_header_size +
-            dib.GetHeaderSize() +
-            dib.GetRGBPalleteSize();
+            dib.headerSize() +
+            dib.palleteSize();
 
     char * buf = new char[bmp_header.bfSize];
     char * buf_ptr = buf;
@@ -152,7 +151,7 @@ QVariant DIBImageIOHandler::option(QImageIOHandler::ImageOption option) const
 {
     switch(option) {
     case Size: {
-        BITMAPINFOHEADER dib_info;
+        BitmapInfoHeader dib_info;
         if(!readDIBHeader(device(), dib_info))
             return QVariant();
 

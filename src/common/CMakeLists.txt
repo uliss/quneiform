@@ -27,6 +27,7 @@ set(CF_COMMON_SOURCES
 set(CF_COMMON_HEADERS
     align.h
     consoleprogresscounter.h
+    dib.h
     endianess.h
     language.h
     lang_def.h

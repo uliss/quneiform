@@ -856,7 +856,7 @@ Bool32 RLINE_DeleteLines(void* lpInPage, const char* lpOutDIB) {
 	LnsPageFinish();
 
 	if (!LDPUMA_Skip(RLINE_ShowWithoutLines)) {
-        BitmapHandle lp = NULL;
+        cf::BitmapPtr lp = NULL;
         CIMAGE_ReadDIB(PUMA_IMAGE_DELLINE, &lp);
 		Handle hwnd = LDPUMA_CreateWindow("После снятия линий", lp);
 		LDPUMA_Console("Нажмите любую клавишу...");

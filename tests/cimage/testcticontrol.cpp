@@ -47,7 +47,7 @@ void TestCTIControl::testInit()
 void TestCTIControl::testAddImage()
 {
     CTIControl ctrl;
-    BitmapHandle handle = loadDibFromBmp("black_1.bmp");
+    BitmapPtr handle = loadDibFromBmp("black_1.bmp");
     CPPUNIT_ASSERT(handle);
     CPPUNIT_ASSERT(ctrl.addImage("first", handle));
     CPPUNIT_ASSERT(ctrl.removeImage("first"));
@@ -63,7 +63,7 @@ void TestCTIControl::testDumpImage()
     CTIControl ctrl;
     CPPUNIT_ASSERT(!ctrl.dumpImage("notexists", "notexists.bmp"));
 
-    BitmapHandle handle = loadDibFromBmp("black_1.bmp");
+    BitmapPtr handle = loadDibFromBmp("black_1.bmp");
     CPPUNIT_ASSERT(ctrl.addImage("test", handle));
     CPPUNIT_ASSERT(ctrl.dumpImage("test", "test_dump.bmp"));
 
@@ -77,12 +77,12 @@ void TestCTIControl::testAddRectToReadMask()
     CPPUNIT_ASSERT(!ctrl.addRectToReadMask("test", Rect()));
 
     // no mask
-    BitmapHandle handle = loadDibFromBmp("black_1.bmp");
+    BitmapPtr handle = loadDibFromBmp("black_1.bmp");
     ctrl.addImage("test", handle);
     CPPUNIT_ASSERT(ctrl.enableReadMask("test"));
     CPPUNIT_ASSERT(ctrl.addRectToReadMask("test", Rect(Point(0, 0), Point(50, 50))));
 
-    BitmapHandle h = ctrl.imageCopy("test");
+    BitmapPtr h = ctrl.imageCopy("test");
     CPPUNIT_ASSERT(h);
     CPPUNIT_ASSERT(ctrl.addImage("test_mask", h));
     CPPUNIT_ASSERT(ctrl.dumpImage("test_mask", "cimage_add_rect.bmp"));
@@ -188,10 +188,10 @@ void TestCTIControl::testImageCopy()
 
     CPPUNIT_ASSERT(!ctrl.imageCopy("unknown"));
 
-    BitmapHandle handle = loadDibFromBmp("black_1.bmp");
+    BitmapPtr handle = loadDibFromBmp("black_1.bmp");
     CPPUNIT_ASSERT(ctrl.addImage("test", handle));
 
-    BitmapHandle copy = ctrl.imageCopy("test");
+    BitmapPtr copy = ctrl.imageCopy("test");
     // default mask
     CPPUNIT_ASSERT(copy);
     CPPUNIT_ASSERT(copy != handle);
@@ -276,10 +276,10 @@ void TestCTIControl::testCopyFromFrame()
 void TestCTIControl::testGetDIBFromImage()
 {
     CTIControl ctrl;
-    BitmapHandle dest = NULL;
+    BitmapPtr dest = NULL;
     CPPUNIT_ASSERT(!ctrl.getDIBFromImage("not-found", Rect(0, 0, 50, 50), NULL, &dest));
 
-    BitmapHandle handle = loadDibFromBmp("black_1.bmp");
+    BitmapPtr handle = loadDibFromBmp("black_1.bmp");
     CPPUNIT_ASSERT(handle);
     ctrl.addImage("black_1bit", handle);
 

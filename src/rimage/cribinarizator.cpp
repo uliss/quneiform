@@ -88,18 +88,18 @@ bool CRIBinarizator::setRasters(CTDIB * src, CTDIB * dest)
         mpIncomeDIB = src;
         mpOutcomeDIB = dest;
 
-        if ((mwSrcBitCount = mpIncomeDIB->GetPixelSize()) < 4) {
+        if ((mwSrcBitCount = mpIncomeDIB->bpp()) < 4) {
             RIMAGE_ERROR << " source image already binarized\n";
             return false;
         }
 
-        if (mpOutcomeDIB->GetPixelSize() != 1) {
+        if (mpOutcomeDIB->bpp() != 1) {
             RIMAGE_ERROR << " destination image should be 1-bit depth\n";
             return false;
         }
 
-        if ((mwLineLenght = mpIncomeDIB->GetLineWidth())
-                != mpOutcomeDIB->GetLineWidth()) {
+        if ((mwLineLenght = mpIncomeDIB->lineWidth())
+                != mpOutcomeDIB->lineWidth()) {
             SetReturnCode_rimage(IDS_RIMAGE_OUTCOME_DIB_NOT_LINK_TO_INCOME);
             return false;
         }
@@ -187,15 +187,15 @@ Bool32 CRIBinarizator::OpenBinarizator(uint32_t wFlag)
              mpKronrodBinarizator = new CKronrodBinarizator;
              }
              */
-            mwGreyBufferSize = mpIncomeDIB->GetLineWidth() + 8;
+            mwGreyBufferSize = mpIncomeDIB->lineWidth() + 8;
 
             if (!(mhszGreyBuffer = RIMAGEDAlloc(mwGreyBufferSize,
                                                 "Binarizator - grey buffer")) || !(mpszGreyBuffer
                                                                                    = (puchar) RIMAGELock(mhszGreyBuffer)))
                 return FALSE;
 
-            bRet = KronrodOpenBin(mpIncomeDIB->GetLinesNumber(),
-                                  mpIncomeDIB->GetLineWidth());
+            bRet = KronrodOpenBin(mpIncomeDIB->linesNumber(),
+                                  mpIncomeDIB->lineWidth());
             break;
         default:
             return FALSE;
@@ -269,7 +269,7 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
     puchar pLALine;
     int32_t NumberBWLines = 0;
     int32_t CurGreyLine = 0;
-    uint32_t nLines = mpOutcomeDIB->GetLinesNumber();
+    uint32_t nLines = mpOutcomeDIB->linesNumber();
 
     /////////////////////////////////////////////////////////////////////////
     //   см. G2BW.cpp, дшту 67 - Binarize
@@ -280,13 +280,13 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
             i = 0;
 
             do {
-                pLALine = (puchar) mpOutcomeDIB->GetPtrToLine(i++);
+                pLALine = (puchar) mpOutcomeDIB->lineAt(i++);
 
                 if (!pLALine)
                     break;
             }
             while (mpDezaBinarizator->GetBinarized(pLALine,
-                                                   (uint16_t) (mpOutcomeDIB->GetUsedLineWidthInBytes()))); // was Outcome
+                                                   (uint16_t) (mpOutcomeDIB->lineRealWidthInBytes()))); // was Outcome
 
             bRet = (i == ((int32_t) nLines + 1));
             break;
@@ -299,7 +299,7 @@ Bool32 CRIBinarizator::OnBinarizeLoop()
                 mpProgressor->Start();
 
             while (i < (int32_t) nLines) {
-                pLALine = (puchar) mpOutcomeDIB->GetPtrToLine(i++);
+                pLALine = (puchar) mpOutcomeDIB->lineAt(i++);
 
                 if (!NumberBWLines) {
                     do {
@@ -364,7 +364,7 @@ int32_t CRIBinarizator::KronrodImageRead(puchar lpImage, int32_t fstLine,
     if (!lpImage)
         return 0;
 
-    if ((wFirstLine + wLines) > mpIncomeDIB->GetLinesNumber())
+    if ((wFirstLine + wLines) > mpIncomeDIB->linesNumber())
         return 0;
 
     switch (mwSrcBitCount) {
@@ -375,7 +375,7 @@ int32_t CRIBinarizator::KronrodImageRead(puchar lpImage, int32_t fstLine,
 
                 for (j = 0; j < mwLineLenght; j++) {
                     if (!(pIn
-                            = (puchar) mpIncomeDIB->GetPtrToPixel(j, fstLine + i /*- 1*/)))
+                            = (puchar) mpIncomeDIB->pixelAt(j, fstLine + i /*- 1*/)))
                         break;
 
                     gray = mbIndexColor ? wIndex8ToGray[pIn[0]] : pIn[0];
@@ -393,7 +393,7 @@ int32_t CRIBinarizator::KronrodImageRead(puchar lpImage, int32_t fstLine,
                 ReadedPixelsperLine = 0;
 
                 for (j = 0; j < mwLineLenght; j += 2) {
-                    if (!(pIn = (puchar) mpIncomeDIB->GetPtrToPixel(j, fstLine + i)))
+                    if (!(pIn = (puchar) mpIncomeDIB->pixelAt(j, fstLine + i)))
                         break;
 
                     gray = *pIn;
@@ -416,7 +416,7 @@ int32_t CRIBinarizator::KronrodImageRead(puchar lpImage, int32_t fstLine,
                 ReadedPixelsperLine = 0;
 
                 for (j = 0; j < mwLineLenght; j++) {
-                    if (!(pIn = (puchar) mpIncomeDIB->GetPtrToPixel(j, fstLine + i)))
+                    if (!(pIn = (puchar) mpIncomeDIB->pixelAt(j, fstLine + i)))
                         break;
 
                     gray = ((pIn[0] + pIn[1] + pIn[2]) / 3);
@@ -450,7 +450,7 @@ Bool32 CRIBinarizator::KronrodGreyTo(puchar pGTo)
 
 Bool32 CRIBinarizator::KronrodGreyFrom(puchar pGFrom)
 {
-    uint32_t Size = mpOutcomeDIB->GetLineWidthInBytes();
+    uint32_t Size = mpOutcomeDIB->lineWidthInBytes();
     uint32_t i;
     grey_from(pGFrom);
 
@@ -470,7 +470,7 @@ Bool32 CRIBinarizator::KronrodCloseGray()
 }
 Bool32 CRIBinarizator::DezaOpenBin(uint32_t wDezaFlag)
 {
-    uint32_t wDpiX, wDpiY;
+    uint wDpiX, wDpiY;
     pvoid fGetGreyBlock;
     fGetGreyBlock = (pvoid) this;
 #ifdef DEZA_TIG_IMAGEINFO
@@ -487,12 +487,12 @@ Bool32 CRIBinarizator::DezaOpenBin(uint32_t wDezaFlag)
     DezaImageInfo.wAddY = 0;
     return OpenTrackBin(&DezaImageInfo, fGetGreyBlock, (uint16_t)wDezaFlag);
 #else
-    mDezaImageInfo.wImageHeight = (uint16_t) mpIncomeDIB->GetLinesNumber();
-    mDezaImageInfo.wImageWidth = (uint16_t) mpIncomeDIB->GetLineWidth();
+    mDezaImageInfo.wImageHeight = (uint16_t) mpIncomeDIB->linesNumber();
+    mDezaImageInfo.wImageWidth = (uint16_t) mpIncomeDIB->lineWidth();
     mDezaImageInfo.wImageByteWidth
-    = (uint16_t) mpIncomeDIB->GetUsedLineWidthInBytes();
+    = (uint16_t) mpIncomeDIB->lineRealWidthInBytes();
     mDezaImageInfo.wImageDisplacement = 0;
-    mpIncomeDIB->GetResolutionDPI(&wDpiX, &wDpiY);
+    mpIncomeDIB->resolutionDotsPerInch(&wDpiX, &wDpiY);
     mDezaImageInfo.wResolutionX = (uint16_t) wDpiX;
     mDezaImageInfo.wResolutionY = (uint16_t) wDpiY;
     mDezaImageInfo.bFotoMetrics = 1;
@@ -510,18 +510,18 @@ Bool32 CRIBinarizator::DezaCloseBin()
 
 bool CRIBinarizator::supportedIndexColorImage(CTDIB * dib)
 {
-    uint colors = dib->GetActualColorNumber();
-    uint pallette_size = dib->GetRGBPalleteSize();
+    uint colors = dib->palleteUsedColorsNum();
+    uint pallette_size = dib->palleteSize();
 
     if (pallette_size == 0 || colors == 2 || colors > 256)
         return true;
 
-    CTDIBRGBQUAD Q, prQ;
+    RGBQuad Q, prQ;
     uint i;
     mbIndexColor = false;
 
     for (i = 1; i < colors; i++) {
-        if (!dib->GetRGBQuad(i, &Q) || !dib->GetRGBQuad(i - 1, &prQ))
+        if (!dib->palleteColor(i, &Q) || !dib->palleteColor(i - 1, &prQ))
             return false;
 
         if ((Q.rgbBlue < prQ.rgbBlue) ||
@@ -541,7 +541,7 @@ Bool32 CRIBinarizator::PrepareIndexTable(CTDIB * dib)
 {
     puchar pTable = NULL;
 
-    switch (dib->GetPixelSize()) {
+    switch (dib->bpp()) {
         case 4:
             pTable = wIndex4ToGray;
             break;
@@ -552,11 +552,11 @@ Bool32 CRIBinarizator::PrepareIndexTable(CTDIB * dib)
             return false;
     }
 
-    uint Colors = (dib->GetRGBPalleteSize()) / 4;
-    CTDIBRGBQUAD Quad;
+    uint Colors = (dib->palleteSize()) / 4;
+    RGBQuad Quad;
 
     for (uint i = 0; i < Colors; i++) {
-        if (!dib->GetRGBQuad(i, &Quad))
+        if (!dib->palleteColor(i, &Quad))
             return false;
 
         pTable[i] = IndexPalleteToGray(&Quad);
@@ -566,7 +566,7 @@ Bool32 CRIBinarizator::PrepareIndexTable(CTDIB * dib)
     return true;
 }
 
-uchar CRIBinarizator::IndexPalleteToGray(CTDIBRGBQUAD * pQuad)
+uchar CRIBinarizator::IndexPalleteToGray(RGBQuad * pQuad)
 {
     float b = ((float) (pQuad->rgbBlue) * 70) / 255;
     float g = ((float) (pQuad->rgbGreen) * 220) / 255;

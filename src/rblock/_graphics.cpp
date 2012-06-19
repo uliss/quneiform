@@ -64,6 +64,7 @@
 #include "dpuma.h"
 #include "puma/pumadef.h"
 #include "cfcompat.h"
+#include "common/dib.h"
 
 using namespace cf;
 
@@ -159,29 +160,27 @@ void _moveto(int x, int y)
     sBeg.rx() = x;
     sBeg.ry() = y;
 }
-;
+
 void _lineto(int x, int y)
 {
     Point16 end(x, y);
     LDPUMA_DrawLine(NULL, &sBeg, &end, 0, swColor, -16, PUMA_MODULE_RBLOCK);
     sBeg = end;
 }
-;
+
 void _setlinestyle(int style)
 {
 }
-;
 
 void _gettextsettings(struct textsettings *ts)
 {
-    LPBITMAPINFOHEADER lp = static_cast<LPBITMAPINFOHEADER> (LDPUMA_GetDIBptr(NULL));
+    cf::BitmapPtr lp = static_cast<cf::BitmapPtr> (LDPUMA_GetDIBptr(NULL));
 
     if (lp) {
         ts->height = lp->biHeight;
         ts->width = lp->biWidth;
     }
 }
-;
 
 static uint32_t swAlign = 0;
 void _settextalign(int right, int top)

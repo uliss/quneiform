@@ -27,7 +27,6 @@
 #include "scanoptioninfo.h"
 #include "scanoptionvalue.h"
 #include "rdib/ctdib.h"
-#include "cimage/imageinfo.h"
 
 #define SCANNER_ERROR_STATUS(status) {\
     if(status != SANE_STATUS_GOOD) \
@@ -39,17 +38,6 @@ namespace cf {
 typedef std::vector<uchar> BufferLine;
 typedef boost::shared_ptr<BufferLine> BufferLinePtr;
 typedef std::vector<BufferLinePtr> Buffer;
-
-static void * scan_alloc(uint32_t sz) {
-    return calloc(1, sz);
-}
-
-static void scan_free(void * mem) {
-    free(mem);
-}
-
-static void * scan_lock(void * mem) { return mem; }
-static void scan_unlock(void*){}
 
 static inline uint saneDepthToBit(uint depth)
 {
@@ -63,30 +51,16 @@ static inline uint saneDepthToBit(uint depth)
     }
 }
 
-static bool initDIB(CTDIB& image, int width, int height, uint depth) {
-    if(!image.SetExternals(scan_alloc, scan_free, scan_lock, scan_unlock))
+static bool initDIB(CTDIB& image, int width, int height, uint depth)
+{
+
+    if(!image.createBegin(width, height, saneDepthToBit(depth)))
         return false;
 
-    if(!image.CreateDIBBegin(width,
-                             height,
-                             saneDepthToBit(depth)))
-        return false;
+    if(depth == 1)
+        image.makeBlackAndWhitePallete();
 
-    if(depth == 1) {
-        CTDIBRGBQUAD black;
-        black.rgbBlue = 0;
-        black.rgbGreen = 0;
-        black.rgbRed = 0;
-        CTDIBRGBQUAD white;
-        white.rgbBlue = 255;
-        white.rgbGreen = 255;
-        white.rgbRed = 255;
-
-        image.SetRGBQuad(0, white);
-        image.SetRGBQuad(1, black);
-    }
-
-    if(!image.CreateDIBEnd())
+    if(!image.createEnd())
         return false;
 
     return true;
@@ -94,16 +68,16 @@ static bool initDIB(CTDIB& image, int width, int height, uint depth) {
 
 static ImagePtr toPointer(const CTDIB& ctdib)
 {
-    const size_t size = ctdib.GetDIBSize();
+    const size_t size = ctdib.dibSize();
 
-    Handle dib = NULL;
-    ctdib.GetDIBPtr(&dib);
+    BitmapPtr dib = NULL;
+    ctdib.bitmap(&dib);
 
     uchar * buf = (uchar*) malloc(size);
     memcpy(buf, dib, size);
 
     Image * i = new Image(buf, size, Image::AllocatorMalloc);
-    i->setSize(Size(ctdib.GetImageWidth(), ctdib.GetImageHeight()));
+    i->setSize(Size(ctdib.width(), ctdib.height()));
     return ImagePtr(i);
 }
 
@@ -618,10 +592,10 @@ ImagePtr SaneScanner::handScannerScan(int format, int width, int lineByteWidth, 
         return ImagePtr();
     }
 
-    assert(image.GetLineWidthInBytes() >= buffer_size);
+    assert(image.lineWidthInBytes() >= buffer_size);
 
     for(uint i = 0; i < height; i++) {
-        void * line = image.GetPtrToLine(i);
+        void * line = image.lineAt(i);
         if(!line)
             break;
 
@@ -677,7 +651,7 @@ ImagePtr SaneScanner::normalScannerScan(int format, int width, int height, int l
 
     try {
         while(readLine(buffer, buffer_size)) {
-            void * line = image.GetPtrToLine(line_counter);
+            void * line = image.lineAt(line_counter);
             if(!line)
                 break;
 

@@ -500,7 +500,7 @@ void PumaImpl::open(ImagePtr img) {
     preOpenInitialize();
 
     input_filename_ = img->fileName();
-    input_dib_ = (BitmapHandle) img->data();
+    input_dib_ = (BitmapPtr) img->data();
 
     // write image
     if (!CIMAGE_AddImage(PUMA_IMAGE_USER, input_dib_))
@@ -923,7 +923,7 @@ void PumaImpl::recognizeSpecial() {
     global_buf_len++;
 }
 
-void PumaImpl::rotate(BitmapHandle * dib, Point * p) {
+void PumaImpl::rotate(BitmapPtr * dib, Point * p) {
     // Определим угол поворота страницы
     PAGEINFO page_info;
     assert(p);
@@ -1032,7 +1032,7 @@ void PumaImpl::applyReadMask()
     if(!recognize_options_.hasReadRects())
         return;
 
-    BitmapHandle image = CImage::instance().image(recog_name_);
+    BitmapPtr image = CImage::instance().image(recog_name_);
     if(!image) {
         PUMA_ERROR_FUNC << "image not found: " << recog_name_ << "\n";
         return;

@@ -76,7 +76,7 @@ CTIImageList::~CTIImageList()
     clear();
 }
 
-bool CTIImageList::addImage(const std::string& name, BitmapHandle handle, bool externalImage)
+bool CTIImageList::addImage(const std::string& name, BitmapPtr handle, bool externalImage)
 {
     if (name.empty()) {
         CIMAGE_ERROR_FUNC << "invalid image name: " << name << "\n";
@@ -108,7 +108,7 @@ void CTIImageList::clear()
     headers_.clear();
 }
 
-bool CTIImageList::imageHandle(const std::string& name, BitmapHandle * handle)
+bool CTIImageList::imageHandle(const std::string& name, BitmapPtr * handle)
 {
     CTIImageHeader * im = image(name);
 
@@ -226,7 +226,7 @@ bool CTIImageList::imageReadMask(const std::string& name, CTIMask ** ppMask, boo
     return true;
 }
 
-bool CTIImageList::hasHandle(BitmapHandle handle)
+bool CTIImageList::hasHandle(BitmapPtr handle)
 {
     if(!handle)
         return false;

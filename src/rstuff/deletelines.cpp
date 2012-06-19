@@ -137,22 +137,22 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 		return FALSE;
 	}
 
-    BitmapHandle lpDIB;
+    cf::BitmapPtr lpDIB;
     if (!CIMAGE_ReadDIB(ImageDelLines, &lpDIB)) {
 		CIMAGE_RemoveImage(ImageDelLines);
 		return FALSE;
 	}
 
-	CTDIB* ctdib = new CTDIB;
+    cf::CTDIB* ctdib = new cf::CTDIB;
 	if (!ctdib) {
 		CIMAGE_RemoveImage(ImageDelLines);
 		return FALSE;
 	}
 
-	ctdib->SetDIBbyPtr(lpDIB);
-	const int bytewide = ctdib->GetLineWidthInBytes();
-	int num_str = ctdib->GetLinesNumber();
-	uchar* pmasp = (uchar*) (ctdib->GetPtrToBitFild());
+	ctdib->setBitmap(lpDIB);
+	const int bytewide = ctdib->lineWidthInBytes();
+	int num_str = ctdib->linesNumber();
+	uchar* pmasp = (uchar*) (ctdib->imageData());
 
 	CLINE_handle hline;
 
@@ -176,14 +176,14 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 		len_ver_mas = 50;
 
 		if (!InitLineMas(&pHorLines, len_hor_mas)) {
-			ctdib->ResetDIB();
+			ctdib->reset();
 			delete ctdib;
 			CIMAGE_RemoveImage(ImageDelLines);
 			return FALSE;
 		}
 		if (!InitLineMas(&pVerLines, len_ver_mas)) {
 			DelLineMas(pHorLines);
-			ctdib->ResetDIB();
+			ctdib->reset();
 			delete ctdib;
 			CIMAGE_RemoveImage(ImageDelLines);
 			return FALSE;
@@ -268,7 +268,7 @@ Bool32 DeleteLines(Handle hCPage, void* phCLINE, const char* ImageDelLines) {
 		DelLineMas(pVerLines);
 	}//конец тривиального удаления
 
-	ctdib->ResetDIB();
+	ctdib->reset();
 	delete ctdib;
 
 	info.Images |= IMAGE_DELLINE;
@@ -1441,23 +1441,23 @@ Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines) {
 		return FALSE;
 	}
 
-    BitmapHandle lpDIB;
+    cf::BitmapPtr lpDIB;
     if (!CIMAGE_ReadDIB(ImageDelLines, &lpDIB)) {
 		CIMAGE_RemoveImage(ImageDelLines);
 		return FALSE;
 	}
 
-	CTDIB* ctdib = new CTDIB;
+    cf::CTDIB* ctdib = new cf::CTDIB;
 	if (!ctdib) {
 		CIMAGE_RemoveImage(ImageDelLines);
 		return FALSE;
 	}
 
-	ctdib->SetDIBbyPtr(lpDIB);
-	const int bytewide = ctdib->GetLineWidthInBytes();
-	int num_str = ctdib->GetLinesNumber();
+	ctdib->setBitmap(lpDIB);
+	const int bytewide = ctdib->lineWidthInBytes();
+	int num_str = ctdib->linesNumber();
 
-	uchar* pmasp = (uchar*) (ctdib->GetPtrToBitFild());
+	uchar* pmasp = (uchar*) (ctdib->imageData());
 	CLINE_handle hline;
 
 	for (hline = CLINE_GetFirstLine(*pCLINE); hline; hline = CLINE_GetNextLine(
@@ -1469,7 +1469,7 @@ Bool32 DeleteDotLines(void* phCLINE, const char* ImageDelLines) {
 					data_line->Line.End_Y, data_line->Line.Wid10);
 	}
 
-	ctdib->ResetDIB();
+	ctdib->reset();
 	delete ctdib;
 
 	return TRUE;
