@@ -105,7 +105,7 @@ ImagePtr FreeImageLoader::load(const ImageURL& url)
         dib = FreeImage_Load(format, url.path().c_str(), 0);
     }
     else {
-        multi_image = FreeImage_OpenMultiBitmap(format, url.path().c_str(), FALSE, TRUE);
+        multi_image = FreeImage_OpenMultiBitmap(format, url.path().c_str(), FALSE, TRUE, TRUE);
         if(!multi_image)
             throw Exception("Invalid multipage image");
 
@@ -117,6 +117,10 @@ ImagePtr FreeImageLoader::load(const ImageURL& url)
         Debug() << "[FreeImageLoader] loading page: " << url.imageNumber() << "\n";
 
         dib = FreeImage_LockPage(multi_image, url.imageNumber());
+        if(!dib) {
+            FreeImage_CloseMultiBitmap(multi_image);
+            throw Exception("Can't load image");
+        }
     }
 
     if(!dib)
@@ -147,13 +151,14 @@ ImagePtr FreeImageLoader::load(const ImageURL& url)
     uchar * data = new uchar[dib_size];
     memcpy(data, FreeImage_GetInfo(dib), dib_size);
 
-//    if(multi_image) {
-//        FreeImage_UnlockPage(multi_image, dib, FALSE);
-////        FreeImage_CloseMultiBitmap(multi_image);
-//    }
-//    else {
+    if(multi_image) {
+        FreeImage_UnlockPage(multi_image, dib, FALSE);
+        // uliss: crashes
+//        FreeImage_CloseMultiBitmap(multi_image);
+    }
+    else {
         FreeImage_Unload(dib);
-//    }
+    }
 
     ImagePtr img(new Image(data, dib_size, Image::AllocatorNew));
     img->setFileName(url.path());
