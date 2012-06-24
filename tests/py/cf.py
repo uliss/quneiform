@@ -63,6 +63,7 @@ class Tester:
     _sample_ext = None
     _args = []
     _turn = 0
+    _pagenum = 0
     
     def __init__(self, imagedir=''):
         self._imagedir = os.path.join(IMAGEDIR, imagedir)
@@ -191,6 +192,32 @@ class Tester:
             return 0
         else:
             return 1;
+
+    def diffTestContent(self, img, content):
+        if not self.cuneiformTest(img):
+            return False
+
+        self._format = 'text'
+
+        if not os.path.exists(self._output):
+            self.printFail(img, "\n(output not exists: %s)" % self._output)
+            self._tests_failed += 1
+            return False
+
+        second_file = open(self._output, 'r')
+        second_content = second_file.read().strip()
+        second_file.close()
+
+        os.unlink(self._output)
+
+        if second_content == content:
+            self._tests_passed += 1
+            return True
+        else:
+            print second_content, '!=', content
+            self._tests_failed += 1
+            self.printFail(img, '(not equal)')
+            return False
     
     def diffTest(self, img):
         if not self.cuneiformTest(img):
@@ -279,6 +306,9 @@ class Tester:
         if self._turn:
             args += ['--turn', str(self._turn)]
 
+        if self._pagenum > 0:
+            args += ['--page-number', str(self._pagenum)]
+
         args.append('--no-bom')
         args.append('--no-meta-generator')
         args.append('--test-output')
@@ -351,6 +381,9 @@ class Tester:
 
     def setTurn(self, angle):
         self._turn = angle
+
+    def setPageNumber(self, number):
+        self._pagenum = number
         
     def total(self):
         return self._tests_failed + self._tests_passed

@@ -18,6 +18,10 @@ header("Append test")
 import append
 append.test()
 
+header("Mutipage test")
+import pagenum
+pagenum.test()
+
 header("Turn test")
 import turn
 turn.test()
