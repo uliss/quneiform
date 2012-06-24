@@ -28,9 +28,12 @@
 #include <QColor>
 #include <QMutex>
 #include <QFlags>
+
 #include "recognitionsettings.h"
 #include "formatsettings.h"
+#include "imageurl.h"
 #include "language.h"
+
 #include "ced/cedpageptr.h"
 
 class QDataStream;
@@ -41,7 +44,8 @@ class QPixmap;
 class Page: public QObject {
     Q_OBJECT
 public:
-    Page(const QString& image_path = "");
+    explicit Page(const QString& image_path = "");
+    explicit Page(const ImageURL& imageUrl);
     ~Page();
 
     enum PageFlag {
@@ -166,6 +170,11 @@ public:
       * Returns image path
       */
     QString imagePath() const;
+
+    /**
+     * Returns image url
+     */
+    ImageURL imageURL() const;
 
     /**
       * Returns image size
@@ -365,10 +374,10 @@ private:
     void setRecognized(bool value = true);
     void updateBlocks();
 private:
-    QString image_path_;
+    ImageURL image_url_;
     QSize image_size_;
     PageFlags state_flags_;
-    int angle_;
+    qint32 angle_;
     float view_scale_;
     QPoint view_scroll_;
     bool is_null_;

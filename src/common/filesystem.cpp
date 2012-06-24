@@ -31,6 +31,22 @@ namespace cf {
             return (_access(fname.c_str(), 0) == 0);
         }
 
+        std::string fileExtension(const std::string& filename)
+        {
+            size_t dot_position = filename.rfind('.');
+            return (dot_position == std::string::npos) ? std::string() : filename.substr(dot_position + 1);
+        }
+
+        std::string removeFileExtension(const std::string& filename)
+        {
+            return filename.substr(0, filename.rfind('.'));
+        }
+
+        std::string replaceFileExtension(const std::string& filename, const std::string& new_ext)
+        {
+            return removeFileExtension(filename) + new_ext;
+        }
+
         std::string baseName(const std::string& path)
         {
 

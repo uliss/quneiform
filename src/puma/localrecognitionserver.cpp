@@ -26,6 +26,7 @@
 #include "common/percentcounter.h"
 #include "common/recognitionstate.h"
 #include "common/console_messages.h"
+#include "common/imageurl.h"
 
 #define CF_ERROR std::cerr << cf::console::error
 
@@ -92,17 +93,17 @@ void LocalRecognitionServer::doRecognize() {
         state_->set(RecognitionState::RECOGNIZED);
 }
 
-CEDPagePtr LocalRecognitionServer::recognize(const std::string& imagePath,
+CEDPagePtr LocalRecognitionServer::recognize(const ImageURL &url,
                                              const RecognizeOptions& ropts,
                                              const FormatOptions& fopts)
 {
     try {
-        if(imagePath.empty()) {
-            throw RecognitionException("LocalRecognitionServer::recognize() : empty image path",
+        if(url.empty()) {
+            throw RecognitionException("LocalRecognitionServer::recognize() : empty image url",
                                        FILE_NOT_FOUND);
         }
 
-        ImagePtr img = ImageLoaderFactory::instance().load(imagePath);
+        ImagePtr img = ImageLoaderFactory::instance().load(url);
         return recognize(img, ropts, fopts);
     }
     catch(RecognitionException& e) {

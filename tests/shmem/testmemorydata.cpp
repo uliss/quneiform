@@ -201,16 +201,16 @@ void TestMemoryData::testImagePath()
     {
         // test NULL
         MemoryData data(NULL, 0);
-        CPPUNIT_ASSERT_THROW(data.imagePath(), MemoryData::Exception);
-        CPPUNIT_ASSERT_THROW(data.setImagePath("some path"), MemoryData::Exception);
+        CPPUNIT_ASSERT_THROW(data.imageURL(), MemoryData::Exception);
+        CPPUNIT_ASSERT_THROW(data.setImageURL(ImageURL("some path")), MemoryData::Exception);
     }
 
     {
         // test small size
         char ch;
         MemoryData data(&ch, sizeof(ch));
-        CPPUNIT_ASSERT_THROW(data.imagePath(), MemoryData::Exception);
-        CPPUNIT_ASSERT_THROW(data.setImagePath("some path"), MemoryData::Exception);
+        CPPUNIT_ASSERT_THROW(data.imageURL(), MemoryData::Exception);
+        CPPUNIT_ASSERT_THROW(data.setImageURL(ImageURL("some path")), MemoryData::Exception);
     }
 
     {
@@ -219,11 +219,11 @@ void TestMemoryData::testImagePath()
         char * mem = new char[SZ];
         MemoryData data(mem, SZ);
         data.clear();
-        CPPUNIT_ASSERT_NO_THROW(data.imagePath());
+        CPPUNIT_ASSERT_NO_THROW(data.imageURL());
 
         // garbage data
         memset(mem, 0xFF, SZ);
-        CPPUNIT_ASSERT_THROW(data.imagePath(), MemoryData::Exception);
+        CPPUNIT_ASSERT_THROW(data.imageURL(), MemoryData::Exception);
         delete[] mem;
     }
 
@@ -234,15 +234,15 @@ void TestMemoryData::testImagePath()
         {
             MemoryData data(buf, BUF_SIZE);
             data.clear();
-            data.setImagePath("test path");
-            data.imagePath();
+            data.setImageURL(ImageURL("test path", 2));
+            data.imageURL();
         }
 
         {
             MemoryData data(buf, BUF_SIZE);
-            CPPUNIT_ASSERT_EQUAL(std::string("test path"), data.imagePath());
+            CPPUNIT_ASSERT_EQUAL(ImageURL("test path", 2), data.imageURL());
             // too long path
-            CPPUNIT_ASSERT_THROW(data.setImagePath(std::string(2000, '1')), MemoryData::Exception);
+            CPPUNIT_ASSERT_THROW(data.setImageURL(ImageURL(std::string(2000, '1'))), MemoryData::Exception);
         }
 
         delete[] buf;

@@ -28,6 +28,7 @@
 #include "guilog.h"
 
 Q_IMPORT_PLUGIN(dib_imageplugin)
+Q_IMPORT_PLUGIN(multitiff_imageplugin)
 
 QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     : QApplication(argc, argv)

@@ -17,6 +17,7 @@ set(CF_COMMON_SOURCES
     image.cpp
     imageformats.cpp
     imagerawdata.cpp
+    imageurl.cpp
     language.cpp
     outputformat.cpp
     percentcounter.cpp
@@ -37,6 +38,7 @@ set(CF_COMMON_HEADERS
     image.h
     imagerawdata.h
     imageformats.h
+    imageurl.h
     interval.h
     letter.h
     rect.h

@@ -26,9 +26,33 @@
 namespace cf {
 namespace fs {
 
+/**
+ * Returns filename portion of pathname
+ * @see removeFileExt()
+ */
 FUN_EXPO__ std::string baseName(const std::string& path);
 
+/**
+ * Checks if file exists
+ */
 FUN_EXPO__ bool fileExists(const std::string& fname);
+
+/**
+ * Returns file extension -
+ */
+FUN_EXPO__ std::string fileExtension(const std::string& filename);
+
+/**
+ * Returns filename without extension
+ * @see baseName()
+ */
+FUN_EXPO__ std::string removeFileExtension(const std::string& filename);
+
+/**
+ * Returns filename with new extension
+ * @see removeFileExt()
+ */
+FUN_EXPO__ std::string replaceFileExtension(const std::string& filename, const std::string& new_ext);
 
 }
 }

@@ -26,6 +26,7 @@
 #include "compat_defs.h"
 #include "imageloaderfactory.h"
 #include "common/dib.h"
+#include "common/imageurl.h"
 
 #ifdef WIN32
 #include <windows.h>
@@ -180,8 +181,9 @@ ImagePtr QtImageLoader::load(const QImage& image) {
     return ImagePtr(img);
 }
 
-ImagePtr QtImageLoader::load(const std::string& path) {
-    return load(QString::fromStdString(path));
+ImagePtr QtImageLoader::load(const ImageURL& url)
+{
+    return load(QString::fromStdString(url.path()));
 }
 
 ImagePtr QtImageLoader::load(std::istream& /*is*/) {

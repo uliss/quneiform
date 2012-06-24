@@ -350,7 +350,7 @@ void QTextDocumentExporter::writePicture(cf::CEDPicture& pic) {
 
     QPixmap pixmap;
     QTransform t = QTransform().rotate(page_->angle());
-    ImageCache::load(page_->imagePath(), &pixmap);
+    ImageCache::load(page_->imageURL(), &pixmap);
 
     cf::Rect r = pic.boundingRect();
     pixmap = pixmap.transformed(t);

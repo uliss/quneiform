@@ -24,6 +24,7 @@
 #include "rdib/imageloaderfactory.h"
 #include "cimage/cticontrol.h"
 #include "rimage/cricontrol.h"
+#include "common/imageurl.h"
 
 int main(int argc, char ** argv)
 {
@@ -41,7 +42,7 @@ int main(int argc, char ** argv)
         binType = cf::BINARIZATOR_THRESHOLD;
 
     try {
-        cf::ImagePtr input_img = cf::ImageLoaderFactory::instance().load(argv[1]);
+        cf::ImagePtr input_img = cf::ImageLoaderFactory::instance().load(cf::ImageURL(argv[1]));
 
         if(!input_img) {
             std::cerr << "Can't open image: " << argv[1] << "\n";

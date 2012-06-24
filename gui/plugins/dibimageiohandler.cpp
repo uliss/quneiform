@@ -46,7 +46,7 @@ static bool isValidDIBHeader(BitmapInfoHeader& h)
     if(h.biSize != DIB_VERSION_3_HEADER_SIZE &&
             h.biSize != DIB_VERSION_4_HEADER_SIZE &&
             h.biSize != DIB_VERSION_5_HEADER_SIZE) {
-        qDebug() << Q_FUNC_INFO << "unknown dib header size:" << h.biSize;
+        qWarning() << Q_FUNC_INFO << "invalid dib header size:" << h.biSize;
         return false;
     }
 
@@ -59,8 +59,10 @@ static bool isValidDIBHeader(BitmapInfoHeader& h)
             h.biBitCount != 8 &&
             h.biBitCount != 16 &&
             h.biBitCount != 24 &&
-            h.biBitCount != 32)
+            h.biBitCount != 32) {
+        qWarning() << Q_FUNC_INFO << "invalid dib bit count:" << h.biBitCount;
         return false;
+    }
 
     return true;
 }

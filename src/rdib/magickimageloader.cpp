@@ -24,6 +24,7 @@
 #include "imageloaderfactory.h"
 #include "common/cifconfig.h"
 #include "common/debug.h"
+#include "common/imageurl.h"
 
 namespace
 {
@@ -115,13 +116,14 @@ ImagePtr MagickImageLoader::load(std::istream& stream) {
     }
 }
 
-ImagePtr MagickImageLoader::load(const std::string& fname) {
+ImagePtr MagickImageLoader::load(const ImageURL& url)
+{
     try {
         Magick::Image image;
         image.density(Magick::Geometry(10, 10));
-        image.ping(fname);
+        image.ping(url.path());
         convertImageDpi(image);
-        image.read(fname);
+        image.read(url.path());
         return load(image);
     } catch (Magick::Exception &e) {
         std::cerr << e.what() << "\n";

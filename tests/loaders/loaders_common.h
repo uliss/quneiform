@@ -22,6 +22,7 @@
 #include <string>
 #include <sstream>
 #include <cppunit/extensions/HelperMacros.h>
+
 #include "cuneiform.h"
 
 static std::string trim(const std::string& str) {
@@ -31,11 +32,13 @@ static std::string trim(const std::string& str) {
 
 #define ASSERT_BUFFER(buf, s) CPPUNIT_ASSERT_EQUAL(std::string(s), trim(buf.str()));
 
+#define URL(fname) ImageURL(std::string(LOADER_TEST_IMAGE_DIR) + fname)
+
 #define ASSERT_RECOGNIZE(loader, filename, str) {\
     ImagePtr img;\
     std::ostringstream buf;\
     std::cerr << "recognizing: " << filename << std::endl;\
-    CPPUNIT_ASSERT_NO_THROW(img = loader.load(std::string(LOADER_TEST_IMAGE_DIR) + filename));\
+    CPPUNIT_ASSERT_NO_THROW(img = loader.load(URL(filename)));\
     LocalRecognitionServer server;\
     server.setTextDebug(true);\
     CEDPagePtr page = server.recognize(img, RecognizeOptions(), FormatOptions());\

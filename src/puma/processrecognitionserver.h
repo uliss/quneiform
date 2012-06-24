@@ -31,12 +31,12 @@ public:
 
     /**
       * Recognizes image
-      * @param image - image path
+      * @param url - image url
       * @param ropts - recognition options
       * @param fopts - format options
       * @throw RecognitionException on error
       */
-    CEDPagePtr recognize(const std::string& imagePath,
+    CEDPagePtr recognize(const ImageURL& url,
                          const RecognizeOptions& ropts,
                          const FormatOptions& fopts);
 

@@ -178,7 +178,7 @@ bool RawData<std::string, IMAGE_PATH_SIZE>::save(const std::string& path) {
 
 typedef RawData<FormatOptions, 512> FormatOptionsData;
 typedef RawData<RecognizeOptions, 512> RecognizeOptionsData;
-typedef RawData<std::string, IMAGE_PATH_SIZE> ImagePathData;
+typedef RawData<ImageURL, IMAGE_PATH_SIZE> ImagePathData;
 typedef RawData<CEDPagePtr, PAGE_BUFFER_SIZE> PageData;
 
 class ImageData {
@@ -308,7 +308,7 @@ ImagePtr MemoryData::image() const
     return data()->image.load(size_ - sizeof(MemoryDataPrivate));
 }
 
-std::string MemoryData::imagePath() const
+ImageURL MemoryData::imageURL() const
 {
     return data()->path.load();
 }
@@ -358,9 +358,10 @@ void MemoryData::setMessage(const std::string& msg)
     data()->msg.save(msg);
 }
 
-void MemoryData::setImagePath(const std::string& path)
+void MemoryData::setImageURL(const ImageURL& path)
 {
-    data()->path.save(path);
+    if(!data()->path.save(path))
+        throw Exception("ImageURL is too long");
 }
 
 void MemoryData::setPage(cf::CEDPagePtr page)

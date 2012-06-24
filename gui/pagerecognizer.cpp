@@ -30,6 +30,7 @@
 #include "rdib/qtimageloader.h"
 #include "resolutionhistogramcallbacksetter.h"
 #include "puma/recognitionfactory.h"
+#include "common/imageurl.h"
 #include "common/formatoptions.h"
 #include "common/recognizeoptions.h"
 #include "common/cifconfig.h"
@@ -93,6 +94,9 @@ static cf::RecognizeOptions getRecogOptions(Page * page) {
         qWarning() << Q_FUNC_INFO << "unsupported angle: " << page->angle();
         break;
     }
+
+    if(!page->imageURL().isSimple())
+        res.setImageNumber(page->imageURL().imageNumber());
 
     QSettings settings;
     settings.beginGroup("debug");
@@ -187,6 +191,46 @@ QString PageRecognizer::pagePath() const {
     return page_ ? page_->imagePath() : QString();
 }
 
+static cf::RecognitionPtr makeRecognitionServer(cf::PercentCounter * counter, cf::RecognitionState * state)
+{
+    using namespace cf;
+    QSettings settings;
+
+#ifndef NDEBUG
+    bool process = settings.value("debug/processRecognition", false).toBool();
+#else
+    bool process = settings.value("debug/processRecognition", true).toBool();
+#endif
+
+    RecognitionServerType type;
+
+    if(process) {
+        type = SERVER_PROCESS;
+        qDebug() << Q_FUNC_INFO << "process recognition server created.";
+    }
+    else {
+        type = SERVER_LOCAL;
+        qDebug() << Q_FUNC_INFO << "local recognition server created.";
+    }
+
+    RecognitionPtr server = RecognitionFactory::instance().make(type);
+    if(!server) {
+        qCritical() << Q_FUNC_INFO << "recognition server creation failed.";
+        throw std::runtime_error("[makeRecognitionServer] recognition server creation failed");
+    }
+
+    server->setCounter(counter);
+    server->setStateTracker(state);
+    return server;
+}
+
+static cf::ImageURL makeImageURL(Page * p)
+{
+    cf::ImageURL res(p->imagePath().toUtf8().constData());
+    res.setImageNumber(p->imageURL().imageNumber());
+    return res;
+}
+
 bool PageRecognizer::recognize() {
     using namespace cf;
 
@@ -211,20 +255,8 @@ bool PageRecognizer::recognize() {
         ResolutionHistogramCallbackSetter hist_clbk(boost::bind(&PageRecognizer::saveResolutionHeightHistogram, this, _1),
                                                     boost::bind(&PageRecognizer::saveResolutionWidthHistogram, this, _1));
 
-#ifndef NDEBUG
-        RecognitionPtr server = RecognitionFactory::instance().make(SERVER_LOCAL);
-#else
-        RecognitionPtr server = RecognitionFactory::instance().make(SERVER_PROCESS);
-#endif
-
-        if(!server)
-            throw std::runtime_error("[PageRecognizer::recognize] recognition server creation failed");
-
-        server->setCounter(&recog_counter);
-        server->setStateTracker(recog_state_);
-
-        std::string page_path(page_->imagePath().toUtf8().constData());
-        CEDPagePtr cedptr = server->recognize(page_path, ropts, fopts);
+        RecognitionPtr server = makeRecognitionServer(&recog_counter, recog_state_);
+        CEDPagePtr cedptr = server->recognize(makeImageURL(page_), ropts, fopts);
 
         if(!cedptr)
             return false;

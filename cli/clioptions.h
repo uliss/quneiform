@@ -23,6 +23,7 @@
 #include <string>
 
 #include "common/outputformat.h"
+#include "common/imageurl.h"
 
 namespace cf {
 
@@ -31,12 +32,12 @@ class CliOptions
 public:
     CliOptions();
     bool append() const { return append_; }
-    std::string inputFilename() const { return input_; }
+    ImageURL inputURL() const { return input_; }
     std::string outputFilename() const { return output_; }
     format_t outputFormat() const { return output_format_; }
     std::string outputImageDir() const { return output_image_dir_; }
     void setAppend(bool value) { append_ = value; }
-    void setInputFilename(const std::string& fname) { input_ = fname; }
+    void setInputURL(const ImageURL& url) { input_ = url; }
     void setOutputFilename(const std::string& fname) { output_ = fname; }
     void setOutputFormat(format_t fmt) { output_format_ = fmt; }
     void setOutputImageDir(const std::string& dir) { output_image_dir_ = dir; }
@@ -47,7 +48,7 @@ public:
 public:
     static void printOptions(std::ostream& os);
 private:
-    std::string input_;
+    ImageURL input_;
     std::string output_;
     std::string output_image_dir_;
     format_t output_format_;
@@ -55,6 +56,8 @@ private:
     bool append_;
     bool progress_;
 };
+
+std::ostream& operator<<(std::ostream& os, const CliOptions& opts);
 
 }
 

@@ -47,6 +47,7 @@ set(SOURCES
     formatsettings.cpp
     graphicsitemlayout.cpp
     imagecache.cpp
+    imageurl.cpp
     language.cpp
     metatyperegistrator.cpp
     packet.cpp
@@ -194,7 +195,7 @@ add_library(quneiform_lib STATIC ${SRCS})
 
 add_executable(${PROJECT_NAME} WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
 
-set(EXTRA_LIBS dib_imageplugin)
+set(EXTRA_LIBS dib_imageplugin multitiff_imageplugin)
 
 if(NOT MSVC)
     list(APPEND EXTRA_LIBS m)

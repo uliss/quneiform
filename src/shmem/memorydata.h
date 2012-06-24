@@ -25,6 +25,7 @@
 #include "common/formatoptions.h"
 #include "common/recognizeoptions.h"
 #include "common/image.h"
+#include "common/imageurl.h"
 #include "ced/cedpageptr.h"
 
 namespace cf {
@@ -69,11 +70,11 @@ public:
     ImagePtr image() const;
 
     /**
-      * Returns image path
+      * Returns image url
       * @throw Exception on error
-      * @see setImagePath()
+      * @see setImageURL()
       */
-    std::string imagePath() const;
+    ImageURL imageURL() const;
 
     /**
      * Returns true if point to NULL memory
@@ -125,11 +126,11 @@ public:
     void setMessage(const std::string& msg);
 
     /**
-      * Sets image path
-      * @see imagePath()
+      * Sets image url
+      * @see imageURL()
       * @throw Exception on error
       */
-    void setImagePath(const std::string& path);
+    void setImageURL(const ImageURL& path);
 
     /**
       * Sets page data

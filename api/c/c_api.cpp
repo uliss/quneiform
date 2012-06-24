@@ -24,6 +24,7 @@
 #include "common/formatoptions.h"
 #include "common/language.h"
 #include "common/helper.h"
+#include "common/imageurl.h"
 #include "ced/cedpage.h"
 #include "puma/localrecognitionserver.h"
 #include "puma/processrecognitionserver.h"
@@ -213,7 +214,7 @@ cf_page cf_recognize(const char * fname, cf_recognition_options ropts, cf_format
         format_opts = *fopts;
 
     try {
-        ImagePtr img = ImageLoaderFactory::instance().load(fname);
+        ImagePtr img = ImageLoaderFactory::instance().load(ImageURL(fname));
         if (!img.get())
             return NULL;
 
@@ -244,7 +245,7 @@ cf_page cf_recognize_process(const char * fname, cf_recognition_options ropts, c
         format_opts = *fopts;
 
     try {
-        ImagePtr img = ImageLoaderFactory::instance().load(fname);
+        ImagePtr img = ImageLoaderFactory::instance().load(ImageURL(fname));
         if (!img.get())
             return NULL;
 

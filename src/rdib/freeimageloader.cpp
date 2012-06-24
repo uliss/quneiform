@@ -24,7 +24,7 @@
 #include "freeimageloader.h"
 #include "imageloaderfactory.h"
 #include "common/debug.h"
-#include "common/filesystem.h"
+#include "common/imageurl.h"
 
 namespace cf {
 
@@ -56,7 +56,7 @@ bool registerImageFormats() {
     cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_JPEG, 90, create);
     cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_PNG, 90, create);
     cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_PNM, 90, create);
-    cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_TIFF, 90, create);
+    cf::ImageLoaderFactory::instance().registerCreator(cf::FORMAT_TIFF, 300, create);
     return true;
 }
 
@@ -82,15 +82,15 @@ FreeImageLoader::~FreeImageLoader()
 {
 }
 
-ImagePtr FreeImageLoader::load(const std::string& filename)
+ImagePtr FreeImageLoader::load(const ImageURL& url)
 {
-    if(!fs::fileExists(filename))
+    if(!url.exists())
         throw Exception("File not exists");
 
-    FREE_IMAGE_FORMAT format = FreeImage_GetFileType(filename.c_str(), 0);
+    FREE_IMAGE_FORMAT format = FreeImage_GetFileType(url.path().c_str(), 0);
 
     if(format == FIF_UNKNOWN)
-        format = FreeImage_GetFIFFromFilename(filename.c_str());
+        format = FreeImage_GetFIFFromFilename(url.path().c_str());
 
     if(format == FIF_UNKNOWN)
         throw Exception("Unknown image format");
@@ -98,7 +98,26 @@ ImagePtr FreeImageLoader::load(const std::string& filename)
     if(!FreeImage_FIFSupportsReading(format))
         throw Exception("Unsupported image format");
 
-    FIBITMAP * dib = FreeImage_Load(format, filename.c_str(), 0);
+    FIBITMAP * dib = NULL;
+    FIMULTIBITMAP *  multi_image = NULL;
+
+    if(url.simple()) {
+        dib = FreeImage_Load(format, url.path().c_str(), 0);
+    }
+    else {
+        multi_image = FreeImage_OpenMultiBitmap(format, url.path().c_str(), FALSE, TRUE);
+        if(!multi_image)
+            throw Exception("Invalid multipage image");
+
+        int page_count = FreeImage_GetPageCount(multi_image);
+        if(url.imageNumber() < 0 || page_count <= url.imageNumber())
+            throw Exception("Invalid image number");
+
+        Debug() << "[FreeImageLoader] multi page image: " << page_count << " pages\n";
+        Debug() << "[FreeImageLoader] loading page: " << url.imageNumber() << "\n";
+
+        dib = FreeImage_LockPage(multi_image, url.imageNumber());
+    }
 
     if(!dib)
         throw Exception("Can't load image");
@@ -127,9 +146,17 @@ ImagePtr FreeImageLoader::load(const std::string& filename)
 
     uchar * data = new uchar[dib_size];
     memcpy(data, FreeImage_GetInfo(dib), dib_size);
-    FreeImage_Unload(dib);
+
+//    if(multi_image) {
+//        FreeImage_UnlockPage(multi_image, dib, FALSE);
+////        FreeImage_CloseMultiBitmap(multi_image);
+//    }
+//    else {
+        FreeImage_Unload(dib);
+//    }
+
     ImagePtr img(new Image(data, dib_size, Image::AllocatorNew));
-    img->setFileName(filename);
+    img->setFileName(url.path());
     img->setSize(Size(dib_width, dib_height));
     return img;
 }

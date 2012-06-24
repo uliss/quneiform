@@ -44,9 +44,11 @@ void TestQtImageLoader::testLoad() {
     std::string path = LOADER_TEST_IMAGE_DIR;
     std::auto_ptr<QtImageLoader> loader(new QtImageLoader);
     ImagePtr img;
-    CPPUNIT_ASSERT_NO_THROW(img = loader->load(path + "test.xpm"));
-    CPPUNIT_ASSERT(Size(1, 1) == img->size());
 
+#define ASSERT_LOAD(fname) CPPUNIT_ASSERT_NO_THROW(img = loader->load(ImageURL(path + fname)));
+
+    ASSERT_LOAD("test.xpm");
+    CPPUNIT_ASSERT(Size(1, 1) == img->size());
 
     ImageFormatList formats = loader->supportedFormats();
 
@@ -58,15 +60,15 @@ void TestQtImageLoader::testLoad() {
         image_name += imageFormatToString(formats[i]);
 
         std::cerr << "CHECKING " << image_name << "\n";
-        CPPUNIT_ASSERT_NO_THROW(loader->load(image_name));
+        CPPUNIT_ASSERT_NO_THROW(loader->load(ImageURL(image_name)));
     }
 
-    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.pbm"));
-    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.pgm"));
-    CPPUNIT_ASSERT_NO_THROW(loader->load(path + "test.ppm"));
+    ASSERT_LOAD("test.pbm");
+    ASSERT_LOAD("test.pgm");
+    ASSERT_LOAD("test.ppm");
 
     // throw
-    CPPUNIT_ASSERT_THROW(loader->load("not-exists"), ImageLoader::Exception);
+    CPPUNIT_ASSERT_THROW(loader->load(ImageURL("not-exists")), ImageLoader::Exception);
     std::ifstream is_empty;
     CPPUNIT_ASSERT_THROW(loader->load(is_empty), ImageLoader::Exception);
     std::ifstream is_bad;
@@ -95,7 +97,7 @@ void TestQtImageLoader::testLoadParams()
 {
     QtImageLoader loader;
     std::string path = LOADER_TEST_IMAGE_DIR;
-    ImagePtr img = loader.load(path + "dpi72x72_monochrome.png");
+    ImagePtr img = loader.load(ImageURL(path + "dpi72x72_monochrome.png"));
 
     BitmapInfoHeader * head = (BitmapInfoHeader*) img->data();
     static const double INCH = 0.0254;
@@ -106,7 +108,7 @@ void TestQtImageLoader::testLoadParams()
     CPPUNIT_ASSERT_EQUAL(72, int(round(head->biXPelsPerMeter * INCH)));
     CPPUNIT_ASSERT_EQUAL(72, int(round(head->biYPelsPerMeter * INCH)));
 
-    img = loader.load(path + "dpi72x72_rgb.png");
+    img = loader.load(ImageURL(path + "dpi72x72_rgb.png"));
     head = (BitmapInfoHeader*) img->data();
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biWidth);
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biHeight);
@@ -115,7 +117,7 @@ void TestQtImageLoader::testLoadParams()
     CPPUNIT_ASSERT_EQUAL(72, int(round(head->biXPelsPerMeter * INCH)));
     CPPUNIT_ASSERT_EQUAL(72, int(round(head->biYPelsPerMeter * INCH)));
 
-    img = loader.load(path + "dpi300x300_monochrome.png");
+    img = loader.load(ImageURL(path + "dpi300x300_monochrome.png"));
     head = (BitmapInfoHeader*) img->data();
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biWidth);
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biHeight);
@@ -123,7 +125,7 @@ void TestQtImageLoader::testLoadParams()
     CPPUNIT_ASSERT_EQUAL(300, int(round(head->biXPelsPerMeter * INCH)));
     CPPUNIT_ASSERT_EQUAL(300, int(round(head->biYPelsPerMeter * INCH)));
 
-    img = loader.load(path + "dpi_unknown.bmp");
+    img = loader.load(ImageURL(ImageURL(path + "dpi_unknown.bmp")));
     head = (BitmapInfoHeader*) img->data();
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biWidth);
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biHeight);

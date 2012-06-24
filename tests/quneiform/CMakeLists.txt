@@ -30,6 +30,7 @@ set(CF_GUI_TESTS
     texteditor
     qtextdocumentexporter
     dibplugin
+    multitiffplugin
 )
 
 if(CF_SANE_SCANNER_SUPPORT)
@@ -59,6 +60,7 @@ set(TEST_LIBS
     quneiform_scan
     cuneiform
     dib_imageplugin
+    multitiff_imageplugin
     quneiform_spell
     ${QT_LIBRARIES}
     ${QT_QTTEST_LIBRARIES})

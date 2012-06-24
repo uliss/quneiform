@@ -24,6 +24,7 @@
 #include "imageloaderfactory.h"
 #include "imageloader.h"
 #include "common/debug.h"
+#include "common/imageurl.h"
 #include "imageformatdetector.h"
 #include "cfcompat.h"
 
@@ -34,25 +35,21 @@ ImageLoaderFactory::ImageLoaderFactory()
 {
 }
 
-void ImageLoaderFactory::checkImageExists(const std::string& filename)
-{
-    if (_access(filename.c_str(), 0) != 0)
-        throw ImageLoader::Exception("ImageLoaderFactory: file not exists: " + filename);
-}
-
 ImageLoaderFactory& ImageLoaderFactory::instance()
 {
     static ImageLoaderFactory factory;
     return factory;
 }
 
-ImagePtr ImageLoaderFactory::load(const std::string& filename)
+ImagePtr ImageLoaderFactory::load(const ImageURL& url)
 {
-    checkImageExists(filename);
-    image_format_t format = ImageFormatDetector::instance().detect(filename);
-    ImagePtr ret(loader(format).load(filename));
+    if(!url.exists())
+        throw ImageLoader::Exception("ImageLoaderFactory: file not exists: " + url.path());
+
+    image_format_t format = ImageFormatDetector::instance().detect(url);
+    ImagePtr ret(loader(format).load(url));
     assert(ret.get());
-    ret->setFileName(filename);
+    ret->setFileName(url.path());
     return ret;
 }
 
@@ -88,9 +85,9 @@ ImageLoader& ImageLoaderFactory::loader(image_format_t format)
     return *loaders_list_.back().get();
 }
 
-bool ImageLoaderFactory::registerCreator(image_format_t format, int gravity, loaderCreate creator)
+bool ImageLoaderFactory::registerCreator(image_format_t format, int priority, loaderCreate creator)
 {
-    loader_map_.insert(LoaderMap::value_type(format, std::make_pair(gravity, creator)));
+    loader_map_.insert(LoaderMap::value_type(format, std::make_pair(priority, creator)));
     return true;
 }
 

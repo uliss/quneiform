@@ -263,7 +263,11 @@
     <name>LogViewerDialog</name>
     <message>
         <source>Log View</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал событий</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Очистить</translation>
     </message>
 </context>
 <context>
@@ -555,6 +559,10 @@ Are you shure?</source>
         <source>Images:</source>
         <translation>Изображения:</translation>
     </message>
+    <message>
+        <source>Image number:</source>
+        <translation>Номер изображения:</translation>
+    </message>
 </context>
 <context>
     <name>RecognitionProgressDialog</name>
@@ -679,6 +687,14 @@ Are you shure?</source>
     <message>
         <source>CImage module debugging</source>
         <translation>Отладка модуля CImage</translation>
+    </message>
+    <message>
+        <source>Recognize in separate process, to avoid GUI crash if libcuneiform crashes. But this option makes debuggin more hard.</source>
+        <translation>Распознавать в отдельном процессе, чтобы избежать падения графической оболочки при сбое в ядре cuneiform. В тоже время эта опция затрудняет отладку и поиск причины сбоя.</translation>
+    </message>
+    <message>
+        <source>Recognize in separate process</source>
+        <translation>Распознавать в отдельном процессе</translation>
     </message>
 </context>
 <context>

@@ -38,6 +38,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestLocalRecognitionServer);
 
 using namespace cf;
 
+#define URL(fname) ImageURL(TEST_IMG_PATH fname)
+
 void TestLocalRecognitionServer::testRecognize()
 {
     LocalRecognitionServer server;
@@ -57,7 +59,7 @@ void TestLocalRecognitionServer::testRecognize()
                          AbstractRecognitionServer::RecognitionException);
 
     // normal image
-    img = ImageLoaderFactory::instance().load(TEST_IMG_PATH "/english.png");
+    img = ImageLoaderFactory::instance().load(URL("/english.png"));
 
     CEDPagePtr p = server.recognize(img, ropts, fopts);
     CPPUNIT_ASSERT(p.get());

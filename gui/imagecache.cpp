@@ -19,7 +19,10 @@
 #include <QPixmap>
 #include <QPixmapCache>
 #include <QDebug>
+#include <QImageReader>
+
 #include "imagecache.h"
+#include "imageurl.h"
 
 namespace {
     static const int PIXMAP_CACHE_SIZE_KB = 40 * 1024;
@@ -38,39 +41,91 @@ namespace {
 #define ARG_FIX(arg) arg
 #endif
 
-bool ImageCache::find(const QString& path, QPixmap * pixmap) {
-    return QPixmapCache::find(path, ARG_FIX(pixmap));
+bool ImageCache::find(const ImageURL& path, QPixmap * pixmap) {
+    return QPixmapCache::find(path.id(), ARG_FIX(pixmap));
 }
 
-bool ImageCache::insert(const QString& path, const QPixmap& pixmap) {
-    return QPixmapCache::insert(path, pixmap);
-}
-
-bool ImageCache::load (const QString& path, QPixmap * pixmap)
+bool ImageCache::find(const QString& path, QPixmap * pixmap)
 {
-    if(path.isEmpty())
-        return false;
+    return find(ImageURL(path), pixmap);
+}
 
-    if(!pixmap) {
-        qDebug() << "[ImageCache::find] NULL pointer given";
+bool ImageCache::insert(const ImageURL& path, const QPixmap& pixmap) {
+    return QPixmapCache::insert(path.id(), pixmap);
+}
+
+bool ImageCache::insert(const QString& path, const QPixmap& pixmap)
+{
+    return insert(ImageURL(path), pixmap);
+}
+
+bool ImageCache::load(const ImageURL& path, QPixmap * pixmap)
+{
+    if(path.isEmpty()) {
+        qWarning() << Q_FUNC_INFO << "empty path given";
         return false;
     }
 
-    if (!QPixmapCache::find(path, ARG_FIX(pixmap))) {
-        qDebug() << "[ImageCache::load] from file: " << path;
-        pixmap->load(path);
-        QPixmapCache::insert(path, *pixmap);
+    if(!pixmap) {
+        qWarning() << Q_FUNC_INFO << "NULL image pointer given";
+        return false;
+    }
+
+    if (!QPixmapCache::find(path.id(), ARG_FIX(pixmap))) {
+        if(path.isSimple()) {
+            qDebug() << "[ImageCache::load] from file: " << path.id();
+            pixmap->load(path.path());
+        }
+        else {
+            QByteArray format = QImageReader::imageFormat(path.path()).toUpper();
+            if(format == "TIFF")
+                format = "MTIFF";
+
+            QImageReader r(path.path(), format);
+
+            if(!r.jumpToImage(path.imageNumber())) {
+                qWarning() << Q_FUNC_INFO << "can't jump to page" << path.imageNumber();
+                return false;
+            }
+
+            *pixmap = QPixmap::fromImageReader(&r);
+        }
+
+        QPixmapCache::insert(path.id(), *pixmap);
     }
 
     if(pixmap->isNull()) {
-        pixmap->load(path);
-        if(!pixmap->isNull())
-            return true;
+        if(path.isSimple()) {
+            pixmap->load(path.path());
+            if(!pixmap->isNull())
+                return true;
 
-        qDebug() << "[ImageCache::load] invalid pixmap: " << path;
-        return false;
+            qDebug() << "[ImageCache::load] invalid pixmap: " << path.id();
+            return false;
+        }
+        else {
+            QByteArray format = QImageReader::imageFormat(path.path()).toUpper();
+            if(format == "TIFF")
+                format = "MTIFF";
+
+            QImageReader r(path.path(), format);
+            if(!r.jumpToImage(path.imageNumber()))
+                return false;
+
+            *pixmap = QPixmap::fromImageReader(&r);
+            if(!pixmap->isNull())
+                return true;
+
+            qDebug() << Q_FUNC_INFO << "multipage pixmap load failed" << path.id();
+            return false;
+        }
     }
     else {
         return true;
     }
+}
+
+bool ImageCache::load(const QString& path, QPixmap * pixmap)
+{
+    return load(ImageURL(path), pixmap);
 }

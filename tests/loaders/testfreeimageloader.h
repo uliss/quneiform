@@ -28,12 +28,14 @@ class TestFreeImageLoader : public CppUnit::TestFixture
     CPPUNIT_TEST(testLoad);
     CPPUNIT_TEST(testLoadParams);
     CPPUNIT_TEST(testLoadRecognize);
+    CPPUNIT_TEST(testMultiPage);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testLoad();
     void testLoadParams();
     void testLoadRecognize();
+    void testMultiPage();
 };
 
 #endif // TESTFREEIMAGELOADER_H

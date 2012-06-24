@@ -46,12 +46,12 @@ static cf::CEDPagePtr recognize(cf::ImagePtr img,
     return r.recognize(img, ropts, fopts);
 }
 
-static cf::CEDPagePtr recognize(const std::string& path,
+static cf::CEDPagePtr recognize(const cf::ImageURL& url,
                                 const cf::RecognizeOptions& ropts,
                                 const cf::FormatOptions& fopts)
 {
     cf::LocalRecognitionServer r;
-    return r.recognize(path, ropts, fopts);
+    return r.recognize(url, ropts, fopts);
 }
 
 static void worker_terminate() {
@@ -131,7 +131,7 @@ int main(int argc, char ** argv) {
             if(use_shared_image)
                 page = recognize(data.image(), ropts, fopts);
             else
-                page = recognize(data.imagePath(), ropts, fopts);
+                page = recognize(data.imageURL(), ropts, fopts);
 
             if(!page)
                 return WORKER_RECOGNITION_ERROR;

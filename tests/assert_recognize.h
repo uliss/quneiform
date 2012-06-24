@@ -22,13 +22,14 @@
 #include <boost/algorithm/string/trim.hpp>
 
 #include "common/image.h"
+#include "common/imageurl.h"
 #include "ced/cedpageptr.h"
 #include "export/debugexporter.h"
 
 #define ASSERT_LOCAL_RECOGNIZE_RESULT(filename, ropts, fopts, result) {\
     cf::LocalRecognitionServer server;\
     fopts.writeBom(false);\
-    cf::ImagePtr img = cf::ImageLoaderFactory::instance().load(filename);\
+    cf::ImagePtr img = cf::ImageLoaderFactory::instance().load(cf::ImageURL(filename));\
     cf::CEDPagePtr p = server.recognize(img, ropts, fopts);\
     CPPUNIT_ASSERT(p.get());\
     CPPUNIT_ASSERT(!p->empty());\
@@ -41,7 +42,7 @@
 #define ASSERT_PROCESS_RECOGNIZE_RESULT(filename, ropts, fopts, result) {\
     cf::ProcessRecognitionServer server;\
     fopts.writeBom(false);\
-    cf::ImagePtr img = cf::ImageLoaderFactory::instance().load(filename);\
+    cf::ImagePtr img = cf::ImageLoaderFactory::instance().load(cf::ImageURL(filename));\
     cf::CEDPagePtr p = server.recognize(img, ropts, fopts);\
     CPPUNIT_ASSERT(p.get());\
     CPPUNIT_ASSERT(!p->empty());\

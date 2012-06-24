@@ -39,6 +39,7 @@
 #include "common/percentcounter.h"
 #include "common/recognitionstate.h"
 #include "common/console_messages.h"
+#include "common/imageurl.h"
 #include "config.h"
 
 static const std::string makeKey() {
@@ -70,15 +71,18 @@ ProcessRecognitionServer::ProcessRecognitionServer()
     CF_INFO("constructed");
 }
 
-CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
+CEDPagePtr ProcessRecognitionServer::recognize(const ImageURL& url,
                                                const RecognizeOptions& ropts,
                                                const FormatOptions& fopts)
 {
     const std::string SHMEM_KEY = makeKey();
 
     try {
-        if(imagePath.empty())
+        if(url.empty())
             throw RecognitionException("empty image path given", FILE_NOT_FOUND);
+
+        if(!url.exists())
+            throw RecognitionException("imae not exists", FILE_NOT_FOUND);
 
         const size_t SHMEM_SIZE = MemoryData::minBufferSize();
 
@@ -88,7 +92,7 @@ CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
         MemoryData data(memory.get(), SHMEM_SIZE);
         data.setFormatOptions(fopts);
         data.setRecognizeOptions(ropts);
-        data.setImagePath(imagePath);
+        data.setImageURL(url);
 
         try {
             startWorker(SHMEM_KEY, 0);

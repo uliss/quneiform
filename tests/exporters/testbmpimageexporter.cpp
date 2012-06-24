@@ -16,14 +16,19 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "testbmpimageexporter.h"
 #include <fstream>
-#include <common/imagerawdata.h>
-#include <export/imageexporter.h>
-#include <export/bmpimageexporter.h>
-#include <rdib/bmpimageloader.h>
+
+#include "testbmpimageexporter.h"
+#include "common/imagerawdata.h"
+#include "common/imageurl.h"
+#include "export/imageexporter.h"
+#include "export/bmpimageexporter.h"
+#include "rdib/bmpimageloader.h"
+
 using namespace cf;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpImageExporter);
+
+#define URL(fname) ImageURL(EXPORTER_TEST_IMAGE_DIR + std::string(fname))
 
 void TestBmpImageExporter::testSave() {
     std::fstream os;
@@ -40,7 +45,7 @@ void TestBmpImageExporter::testSave() {
     CPPUNIT_ASSERT_THROW(exp->save(img, os), ImageExporter::Exception);
 
     BmpImageLoader loader;
-    ImagePtr image = loader.load(EXPORTER_TEST_IMAGE_DIR + std::string("test_in.bmp"));
+    ImagePtr image = loader.load(URL("test_in.bmp"));
 
     exp->save(*image, "test_out.bmp");
 }

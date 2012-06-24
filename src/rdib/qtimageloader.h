@@ -35,10 +35,10 @@ class CLA_EXPO QtImageLoader: public ImageLoader
 
         /**
          * Loads image
-         * @param path - image path
+         * @param url - image url
          * @return image pointer
          */
-        ImagePtr load(const std::string& path);
+        ImagePtr load(const ImageURL& url);
         ImagePtr load(const QString& path);
 
         /**

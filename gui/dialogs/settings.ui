@@ -204,25 +204,19 @@
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>13</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
             <widget class="QCheckBox" name="cimage_debug_">
              <property name="text">
               <string>CImage module debugging</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="processRecognition">
+             <property name="toolTip">
+              <string>Recognize in separate process, to avoid GUI crash if libcuneiform crashes. But this option makes debuggin more hard.</string>
+             </property>
+             <property name="text">
+              <string>Recognize in separate process</string>
              </property>
             </widget>
            </item>

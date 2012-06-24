@@ -21,7 +21,7 @@
 
 #include "exporter.h"
 #include "nullimageexporter.h"
-#include "common/helper.h" // for removeFileExt
+#include "common/filesystem.h" // for removeFileExt
 #include "common/language.h"
 
 using namespace std;
@@ -106,7 +106,7 @@ std::string Exporter::makeOutputPictureDir() const {
         if (output_filename_.empty())
             return DEFAULT_PICTURE_DIR;
 
-        return removeFileExt(outputFilename()) + "_files";
+        return fs::removeFileExtension(outputFilename()) + "_files";
     }
 
     return output_picture_dir_;

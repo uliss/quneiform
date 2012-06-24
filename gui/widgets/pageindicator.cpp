@@ -25,6 +25,7 @@
 #include "pageindicator.h"
 #include "imagecache.h"
 #include "graphicsitemlayout.h"
+#include "imageurl.h"
 
 static const QString RECOGNIZED(":/img/oxygen/22x22/dialog_ok.png");
 static const QString SAVED(":/img/oxygen/22x22/document_save.png");
@@ -50,10 +51,10 @@ PageIndicator::~PageIndicator() {
 QPixmap PageIndicator::indicatorIcon(const QString& path) {
     QPixmap pixmap;
 
-    if(!ImageCache::find(path, &pixmap)) {
+    if(!ImageCache::find(ImageURL(path), &pixmap)) {
         pixmap.load(path);
         pixmap = pixmap.scaled(ICON_WIDTH, ICON_WIDTH, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-        ImageCache::insert(path, pixmap);
+        ImageCache::insert(ImageURL(path), pixmap);
     }
 
     return pixmap;

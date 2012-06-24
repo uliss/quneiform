@@ -27,6 +27,7 @@
 #include <QDebug>
 #include <QMenuBar>
 #include <QLabel>
+#include <QImageReader>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -248,6 +249,26 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication) {
         warning.setInformativeText(tr("File not exists"));
         warning.exec();
         return false;
+    }
+
+    QString extension = QFileInfo(path).suffix().toLower();
+    if(extension == "tif" || extension == "tiff") {
+        QImageReader r(path, "MTIFF");
+        qDebug() << Q_FUNC_INFO << "multi page tiff:" << r.imageCount();
+
+        int total = r.imageCount();
+        for(int i = 0 ; i < total; i++) {
+            Page * p = new Page(ImageURL(path, i));
+            p->setLanguage(lang_select_->currentLanguage());
+//            if(p->isNull())
+//                return false;
+
+            packet_->append(p, true);
+            qDebug() << Q_FUNC_INFO << "page added:" << i;
+        }
+
+//        recent_images_->add(path);
+        return true;
     }
 
     Page * p = new Page(path);

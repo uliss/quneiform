@@ -15,9 +15,11 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-#include "testhtmlexporter.h"
+
 #include <fstream>
 #include <sstream>
+
+#include "testhtmlexporter.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #define private public
 #define protected public
@@ -32,6 +34,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestHtmlExporter);
 #include <ced/cedparagraph.h>
 #include <rdib/imageloaderfactory.h>
 #include "common/fontstyle.h"
+#include "common/imageurl.h"
+
 using namespace cf;
 using namespace std;
 
@@ -394,7 +398,9 @@ void TestHtmlExporter::testExportPicture() {
 #define EXPORTER_TEST_IMAGE_DIR "./"
 #endif
 
-    pict.setImage(ImageLoaderFactory::instance().load(EXPORTER_TEST_IMAGE_DIR "test_in.bmp"));
+#define URL(fname) ImageURL(EXPORTER_TEST_IMAGE_DIR fname)
+
+    pict.setImage(ImageLoaderFactory::instance().load(URL("test_in.bmp")));
 
     exp_->setOutputPictureDir("output");
     exp_->exportPicture(pict);

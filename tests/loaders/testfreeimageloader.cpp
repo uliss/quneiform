@@ -43,10 +43,13 @@ void TestFreeImageLoader::testLoad()
     const std::string IMG_PATH = LOADER_TEST_IMAGE_DIR;
 
     FreeImageLoader l;
-    CPPUNIT_ASSERT_THROW(l.load(""), ImageLoader::Exception);
+    CPPUNIT_ASSERT_THROW(l.load(ImageURL()), ImageLoader::Exception);
+
+#define ASSERT_LOAD(fname) \
+    CPPUNIT_ASSERT_NO_THROW(img = l.load(ImageURL(IMG_PATH + fname)));
 
     ImagePtr img;
-    CPPUNIT_ASSERT_NO_THROW(img = l.load(IMG_PATH + "test.xpm"));
+    ASSERT_LOAD("test.xpm");
     CPPUNIT_ASSERT_EQUAL(Size(1, 1), img->size());
 
     ImageFormatList formats = l.supportedFormats();
@@ -55,19 +58,19 @@ void TestFreeImageLoader::testLoad()
         if(formats[i] == cf::FORMAT_BMP)
             continue;
 
-        std::string image_name = IMG_PATH + "test.";
+        std::string image_name = "test.";
         image_name += imageFormatToString(formats[i]);
 
         std::cerr << "CHECKING " << image_name << "\n";
-        CPPUNIT_ASSERT_NO_THROW(l.load(image_name));
+        ASSERT_LOAD(image_name);
     }
 
-    CPPUNIT_ASSERT_NO_THROW(l.load(IMG_PATH + "test.pbm"));
-    CPPUNIT_ASSERT_NO_THROW(l.load(IMG_PATH + "test.pgm"));
-    CPPUNIT_ASSERT_NO_THROW(l.load(IMG_PATH + "test.ppm"));
+    ASSERT_LOAD("test.pbm");
+    ASSERT_LOAD("test.pgm");
+    ASSERT_LOAD("test.ppm");
 
     // throw
-    CPPUNIT_ASSERT_THROW(l.load("not-exists"), ImageLoader::Exception);
+    CPPUNIT_ASSERT_THROW(l.load(ImageURL("not-exists")), ImageLoader::Exception);
     std::ifstream is_empty;
     CPPUNIT_ASSERT_THROW(l.load(is_empty), ImageLoader::Exception);
     std::ifstream is_bad;
@@ -75,13 +78,19 @@ void TestFreeImageLoader::testLoad()
     is_bad >> tmp;
     CPPUNIT_ASSERT_THROW(l.load(is_bad), ImageLoader::Exception);
 
+#undef ASSERT_LOAD
 }
 
 void TestFreeImageLoader::testLoadParams()
 {
-    FreeImageLoader loader;
+    FreeImageLoader l;
     const std::string IMG_PATH = LOADER_TEST_IMAGE_DIR;
-    ImagePtr img = loader.load(IMG_PATH + "dpi72x72_monochrome.png");
+    ImagePtr img;
+
+#define ASSERT_LOAD(fname) \
+    CPPUNIT_ASSERT_NO_THROW(img = l.load(ImageURL(IMG_PATH + fname)));
+
+    ASSERT_LOAD("dpi72x72_monochrome.png");
 
     BitmapInfoHeader * head = (BitmapInfoHeader*) img->data();
     static const double INCH = 0.0254;
@@ -92,7 +101,7 @@ void TestFreeImageLoader::testLoadParams()
     CPPUNIT_ASSERT_EQUAL(72, int(round(head->biXPelsPerMeter * INCH)));
     CPPUNIT_ASSERT_EQUAL(72, int(round(head->biYPelsPerMeter * INCH)));
 
-    img = loader.load(IMG_PATH + "dpi72x72_rgb.png");
+    ASSERT_LOAD("dpi72x72_rgb.png");
     head = (BitmapInfoHeader*) img->data();
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biWidth);
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biHeight);
@@ -101,7 +110,7 @@ void TestFreeImageLoader::testLoadParams()
     CPPUNIT_ASSERT_EQUAL(72, int(round(head->biXPelsPerMeter * INCH)));
     CPPUNIT_ASSERT_EQUAL(72, int(round(head->biYPelsPerMeter * INCH)));
 
-    img = loader.load(IMG_PATH + "dpi300x300_monochrome.png");
+    ASSERT_LOAD("dpi300x300_monochrome.png");
     head = (BitmapInfoHeader*) img->data();
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biWidth);
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biHeight);
@@ -109,12 +118,14 @@ void TestFreeImageLoader::testLoadParams()
     CPPUNIT_ASSERT_EQUAL(300, int(round(head->biXPelsPerMeter * INCH)));
     CPPUNIT_ASSERT_EQUAL(300, int(round(head->biYPelsPerMeter * INCH)));
 
-    img = loader.load(IMG_PATH + "dpi_unknown.bmp");
+    ASSERT_LOAD("dpi_unknown.bmp");
     head = (BitmapInfoHeader*) img->data();
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biWidth);
     CPPUNIT_ASSERT_EQUAL(10, (int) head->biHeight);
     CPPUNIT_ASSERT_EQUAL(75, int(round(head->biXPelsPerMeter * INCH)));
     CPPUNIT_ASSERT_EQUAL(75, int(round(head->biYPelsPerMeter * INCH)));
+
+#undef ASSERT_LOAD
 }
 
 void TestFreeImageLoader::testLoadRecognize() {
@@ -131,4 +142,28 @@ void TestFreeImageLoader::testLoadRecognize() {
     ASSERT_RECOGNIZE(loader, "english_indexed.bmp", "ENGLISH");
     ASSERT_RECOGNIZE(loader, "english_indexed_rle.bmp", "ENGLISH");
     ASSERT_RECOGNIZE(loader, "english_1.bmp", "ENGLISH");
+}
+
+void TestFreeImageLoader::testMultiPage()
+{
+    FreeImageLoader loader;
+    ImagePtr img;
+
+#define LOAD_FAIL(fname, page) \
+    CPPUNIT_ASSERT_THROW(img = loader.load(ImageURL(LOADER_TEST_IMAGE_DIR fname, page)), ImageLoader::Exception)
+#define ASSERT_LOAD(fname, page)\
+    CPPUNIT_ASSERT_NO_THROW(img = loader.load(ImageURL(LOADER_TEST_IMAGE_DIR fname, page)))
+
+    ASSERT_LOAD("test.xpm", 0);
+    LOAD_FAIL("test.xpm", 1);
+
+    ASSERT_LOAD("multipage.tif", 0);
+    CPPUNIT_ASSERT_EQUAL(img->size(), Size(281, 81));
+    ASSERT_LOAD("multipage.tif", 1);
+    LOAD_FAIL("multipage.tif", 2);
+    CPPUNIT_ASSERT_EQUAL(img->size(), Size(81, 281));
+    LOAD_FAIL("multipage.tif", -1);
+
+#undef LOAD_FAIL
+#undef ASSERT_LOAD
 }

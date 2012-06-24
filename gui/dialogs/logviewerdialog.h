@@ -30,15 +30,17 @@ class QListWidgetItem;
 class LogViewerDialog : public QDialog
 {
     Q_OBJECT
-
 public:
-    explicit LogViewerDialog(QWidget *parent = 0);
+    explicit LogViewerDialog(QWidget * parent = 0);
     ~LogViewerDialog();
 private slots:
     void handleLogShow(QListWidgetItem *);
+    void handleLogClear();
 private:
+    bool clearLog(const QString& path);
     void initLogList();
     void addLogItem(const QString& path, const QString& title, const QString& icon);
+    void updateCurrentLog();
 private:
     Ui::LogViewerDialog * ui_;
 };

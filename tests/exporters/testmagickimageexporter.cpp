@@ -16,11 +16,13 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "testmagickimageexporter.h"
 #include <fstream>
-#include <export/magickimageexporter.h>
-#include <rdib/bmpimageloader.h>
-#include <rdib/magickimageloader.h>
+
+#include "testmagickimageexporter.h"
+#include "export/magickimageexporter.h"
+#include "rdib/bmpimageloader.h"
+#include "rdib/magickimageloader.h"
+#include "common/imageurl.h"
 
 using namespace cf;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestMagickImageExporter);
@@ -45,8 +47,10 @@ void TestMagickImageExporter::testSave() {
     data[1] = 'M';
     CPPUNIT_ASSERT_THROW(exp->save(img, os), ImageExporter::Exception);
 
+#define URL(fname) ImageURL(EXPORTER_TEST_IMAGE_DIR + std::string(fname))
+
     MagickImageLoader loader;
-    ImagePtr image = loader.load(EXPORTER_TEST_IMAGE_DIR + std::string("test_in.bmp"));
+    ImagePtr image = loader.load(URL("test_in.bmp"));
 
     exp->save(*image, "export_magick.png");
 

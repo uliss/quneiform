@@ -65,6 +65,7 @@ static int do_dump = FALSE;
 static int do_verbose = FALSE;
 static int print_image_formats = FALSE;
 static int do_progress = FALSE;
+static int page_number = 0;
 
 // in/out options
 static int stdout_output = FALSE;
@@ -79,6 +80,7 @@ const static int SANS_SERIF_FLAG = 1026;
 const static int IMAGE_OUTPUT_DIR_FLAG = 1027;
 const static int PAGE_TEMPLATE_FLAG = 1028;
 const static int PAGE_TURN_FLAG = 1029;
+const static int PAGE_NUMBER_FLAG = 1030;
 
 static const char * const short_options = ":abho:pvVl:f:u:";
 static const struct option long_options[] = {
@@ -100,6 +102,7 @@ static const struct option long_options[] = {
     { "nopictures", no_argument, &do_pictures, 0 },//
     { "output", required_argument, NULL, 'o' },//
     { "output-image-dir", required_argument, NULL, IMAGE_OUTPUT_DIR_FLAG },//
+    { "page-number", required_argument, NULL, PAGE_NUMBER_FLAG },//
     { "page-template", required_argument, NULL, PAGE_TEMPLATE_FLAG }, //
     { "pictures", no_argument, &do_pictures, 1 },//
     { "preserve-line-breaks", no_argument, &preserve_line_breaks, 1 },//
@@ -230,6 +233,9 @@ void OptionsParser::getoptParse(int argc, char **argv)
             if(turn_angle < 0)
                 turn_angle = 360 + turn_angle;
             break;
+        case PAGE_NUMBER_FLAG:
+            page_number = strtol(optarg, NULL, 10);
+            break;
         case 'l':
             langcode = processLangOptions(optarg);
             break;
@@ -319,6 +325,7 @@ void OptionsParser::print(std::ostream& os) {
 
     PRINT_DELIM();
     printConfig(os);
+    os << cli_opts_;
     os << format_opts_;
     os << recognize_opts_;
     PRINT_DELIM();
@@ -394,7 +401,7 @@ RecognizeOptions OptionsParser::recognizeOptions() const {
 }
 
 void OptionsParser::updateCliOptions() {
-    cli_opts_.setInputFilename(infilename);
+    cli_opts_.setInputURL(ImageURL(infilename, page_number));
     if(stdout_output) {
         cli_opts_.setStdOut(stdout_output);
     }
@@ -479,6 +486,8 @@ void OptionsParser::updateRecognizeOptions() {
     default:
         break;
     }
+
+    recognize_opts_.setImageNumber(page_number);
 }
 
 }
