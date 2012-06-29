@@ -47,3 +47,29 @@ if(TIFF_FOUND)
         ${TIFF_LIBRARIES}
     )
 endif()
+
+if(CF_PDF_SUPPORT)
+    include_directories(${POPPLER_INCLUDE_DIR})
+
+    set(CF_PDF_PLUGIN_SOURCES
+        pdfiohandler.cpp
+        pdfioplugin.cpp
+    )
+
+    set(CF_PDF_PLUGIN_HEADERS
+        pdfiohandler.h
+        pdfioplugin.h
+    )
+
+    add_definitions(-DQT_STATICPLUGIN)
+
+    add_library(pdf_imageplugin STATIC
+        ${CF_PDF_PLUGIN_SOURCES}
+        ${CF_PDF_PLUGIN_HEADERS}
+    )
+
+    target_link_libraries(pdf_imageplugin
+        ${QT_LIBRARIES}
+        ${POPPLER_LIBRARY}
+    )
+endif()

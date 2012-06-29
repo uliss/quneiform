@@ -31,6 +31,8 @@ set(CF_GUI_TESTS
     qtextdocumentexporter
     dibplugin
     multitiffplugin
+    pdfplugin
+    imageutils
 )
 
 if(CF_SANE_SCANNER_SUPPORT)
@@ -61,6 +63,7 @@ set(TEST_LIBS
     cuneiform
     dib_imageplugin
     multitiff_imageplugin
+    pdf_imageplugin
     quneiform_spell
     ${QT_LIBRARIES}
     ${QT_QTTEST_LIBRARIES})

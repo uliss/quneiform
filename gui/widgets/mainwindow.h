@@ -29,6 +29,7 @@ class Language;
 class Packet;
 class LanguageMenu;
 class LanguageSelect;
+class OpenProgressDialog;
 class Page;
 class PageRecognitionQueue;
 class RecentMenu;
@@ -104,6 +105,7 @@ private:
     void connectThumbs();
     void enableViewActions(bool value);
     bool openImage(const QString& path, bool allowDuplication = false);
+    bool openMultiPage(const QString& path);
     void readSettings();
     void setupDefaultLanguage();
     void setupPacket();
@@ -111,7 +113,6 @@ private:
     void setupLanguageMenu();
     void setupLanguageSelect();
     void setupLanguageUi();
-    void setupOpenProgress();
     void setupRecent();
     void setupRecentImages();
     void setupRecentPackets();
@@ -127,7 +128,7 @@ private:
     Packet * packet_;
     LanguageSelect * lang_select_;
     LanguageMenu * lang_menu_;
-    QProgressDialog * progress_;
+    OpenProgressDialog * progress_;
     ImageWidget * image_widget_;
     TextEditor * text_view_;
     ThumbnailList * thumbs_;

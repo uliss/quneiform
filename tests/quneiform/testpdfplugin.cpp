@@ -16,61 +16,41 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QFileOpenEvent>
-#include <QFile>
+#include <QTest>
+#include <QDebug>
 #include <QtPlugin>
+#include <QImageReader>
+#include <QLabel>
 
-#include "metatyperegistrator.h"
-#include "translationloader.h"
-#include "quneiformapplication.h"
-#include "config-version.h"
-#include "guilog.h"
+#include "testpdfplugin.h"
 
-Q_IMPORT_PLUGIN(dib_imageplugin)
-Q_IMPORT_PLUGIN(multitiff_imageplugin)
+#ifndef CF_IMAGE_DIR
+#define CF_IMAGE_DIR
+#endif
 
-#ifdef WITH_PDF
+void TestPDFPlugin::testSupportedFormats()
+{
+    QVERIFY(QImageReader::supportedImageFormats().contains("pdf"));
+}
+
+void TestPDFPlugin::testRead()
+{
+    QImageReader r(CF_IMAGE_DIR "/quneiform.pdf", "PDF");
+    QVERIFY(r.canRead());
+
+    QImage page1;
+    QVERIFY(r.read(&page1));
+    QCOMPARE(page1.size(), QSize(281, 81));
+
+    page1.save("test_pdfplugin_page1.png", "PNG");
+    r.jumpToNextImage();
+
+    QImage page2;
+    QVERIFY(r.read(&page2));
+    QCOMPARE(page1.size(), QSize(281, 81));
+    page2.save("test_pdfplugin_page2.png", "PNG");
+}
+
 Q_IMPORT_PLUGIN(pdf_imageplugin)
-#endif
 
-QuneiformApplication::QuneiformApplication(int& argc, char** argv)
-    : QApplication(argc, argv)
-{
-#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
-    qInstallMsgHandler(guiMessageLogger);
-#endif
-
-    setOrganizationName("openocr.org");
-    setApplicationName("Quneiform OCR");
-    setApplicationVersion(CF_VERSION);
-
-#ifdef Q_WS_MAC
-    setAttribute(Qt::AA_DontShowIconsInMenus);
-#endif
-
-    MetaTypeRegistrator registrator;
-    TranslationLoader loader;
-    loader.load();
-    installTranslator(loader.systemTranslator());
-    installTranslator(loader.applicationTranslator());
-}
-
-bool QuneiformApplication::event(QEvent * ev)
-{
-    bool processed = false;
-    switch (ev->type()) {
-    case QEvent::FileOpen: {
-        QStringList files;
-        files << static_cast<QFileOpenEvent*>(ev)->file();
-        ev->accept();
-        emit openFiles(files);
-        return true;
-    }
-//        case QEvent::Close: {
-//  }
-    default:
-        processed = QApplication::event(ev);
-        break;
-    }
-    return processed;
-}
+QTEST_MAIN(TestPDFPlugin)

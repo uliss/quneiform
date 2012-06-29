@@ -8,6 +8,10 @@ endif()
 
 add_subdirectory(resources)
 
+if(CF_PDF_SUPPORT)
+    add_definitions(-DWITH_PDF)
+endif()
+
 set(TRANSLATIONS_TS translations/ru.ts)
 
 set(HEADERS 
@@ -48,6 +52,7 @@ set(SOURCES
     graphicsitemlayout.cpp
     imagecache.cpp
     imageurl.cpp
+    imageutils.cpp
     language.cpp
     metatyperegistrator.cpp
     packet.cpp
@@ -66,6 +71,7 @@ set(SOURCES
     dialogs/exportdialog.cpp
     dialogs/formatsettingsdialog.cpp
     dialogs/logviewerdialog.cpp
+    dialogs/openprogressdialog.cpp
     dialogs/pagepropertiesdialog.cpp
     dialogs/packetopenprogressdialog.cpp
     dialogs/recognitionsettingsdialog.cpp
@@ -195,7 +201,13 @@ add_library(quneiform_lib STATIC ${SRCS})
 
 add_executable(${PROJECT_NAME} WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
 
-set(EXTRA_LIBS dib_imageplugin multitiff_imageplugin)
+set(EXTRA_LIBS
+    dib_imageplugin
+    multitiff_imageplugin)
+
+if(CF_PDF_SUPPORT)
+    list(APPEND EXTRA_LIBS pdf_imageplugin)
+endif()
 
 if(NOT MSVC)
     list(APPEND EXTRA_LIBS m)

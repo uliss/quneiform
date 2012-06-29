@@ -378,11 +378,11 @@
     </message>
     <message>
         <source>Quneiform OCR - opening images</source>
-        <translation>Quneiform OCR - открытие изображений</translation>
+        <translation type="obsolete">Quneiform OCR - открытие изображений</translation>
     </message>
     <message>
         <source>Opening image &quot;%1&quot;</source>
-        <translation>Открытие изображения &quot;%1&quot;</translation>
+        <translation type="obsolete">Открытие изображения &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Open Quneiform packet</source>
@@ -472,7 +472,7 @@ Are you shure?</source>
     </message>
     <message>
         <source>Opening files</source>
-        <translation>Открытие файлов</translation>
+        <translation type="obsolete">Открытие файлов</translation>
     </message>
     <message>
         <source>Recognition settings</source>
@@ -480,7 +480,28 @@ Are you shure?</source>
     </message>
     <message>
         <source>Images (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)</source>
-        <translation>Изображения (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)</translation>
+        <translation type="obsolete">Изображения (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)</translation>
+    </message>
+    <message>
+        <source>Images (%1)</source>
+        <translation>Изображения (%1)</translation>
+    </message>
+</context>
+<context>
+    <name>OpenProgressDialog</name>
+    <message>
+        <source>Quneiform OCR - opening images</source>
+        <translation>Quneiform OCR - открытие изображений</translation>
+    </message>
+    <message>
+        <source>Opening image &quot;%1&quot;</source>
+        <translation>Открытие изображения &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Opening image &quot;%1&quot;
+Page: %2</source>
+        <translation>Открытие изображения &quot;%1&quot;
+Страница: %2</translation>
     </message>
 </context>
 <context>

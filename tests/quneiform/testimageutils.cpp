@@ -16,61 +16,29 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QFileOpenEvent>
-#include <QFile>
+#include <QTest>
+#include <QDebug>
 #include <QtPlugin>
 
-#include "metatyperegistrator.h"
-#include "translationloader.h"
-#include "quneiformapplication.h"
-#include "config-version.h"
-#include "guilog.h"
+#include "testimageutils.h"
+#include "imageutils.h"
 
-Q_IMPORT_PLUGIN(dib_imageplugin)
+#ifndef CF_IMAGE_DIR
+#define CF_IMAGE_DIR
+#endif
+
+void TestImageUtils::testImageCount()
+{
+    QStringList files;
+    files << CF_IMAGE_DIR "/german.png"    // 1
+          << CF_IMAGE_DIR "/quneiform.pdf" // 2
+          << CF_IMAGE_DIR "/multipage.tif" // 2
+          << CF_IMAGE_DIR "/english.png";  // 1
+
+    QCOMPARE(utils::imageCount(files), 6);
+}
+
 Q_IMPORT_PLUGIN(multitiff_imageplugin)
-
-#ifdef WITH_PDF
 Q_IMPORT_PLUGIN(pdf_imageplugin)
-#endif
 
-QuneiformApplication::QuneiformApplication(int& argc, char** argv)
-    : QApplication(argc, argv)
-{
-#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
-    qInstallMsgHandler(guiMessageLogger);
-#endif
-
-    setOrganizationName("openocr.org");
-    setApplicationName("Quneiform OCR");
-    setApplicationVersion(CF_VERSION);
-
-#ifdef Q_WS_MAC
-    setAttribute(Qt::AA_DontShowIconsInMenus);
-#endif
-
-    MetaTypeRegistrator registrator;
-    TranslationLoader loader;
-    loader.load();
-    installTranslator(loader.systemTranslator());
-    installTranslator(loader.applicationTranslator());
-}
-
-bool QuneiformApplication::event(QEvent * ev)
-{
-    bool processed = false;
-    switch (ev->type()) {
-    case QEvent::FileOpen: {
-        QStringList files;
-        files << static_cast<QFileOpenEvent*>(ev)->file();
-        ev->accept();
-        emit openFiles(files);
-        return true;
-    }
-//        case QEvent::Close: {
-//  }
-    default:
-        processed = QApplication::event(ev);
-        break;
-    }
-    return processed;
-}
+QTEST_MAIN(TestImageUtils)
