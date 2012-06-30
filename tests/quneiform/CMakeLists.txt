@@ -30,9 +30,6 @@ set(CF_GUI_TESTS
     texteditor
     qtextdocumentexporter
     dibplugin
-    multitiffplugin
-    pdfplugin
-    imageutils
 )
 
 if(CF_SANE_SCANNER_SUPPORT)
@@ -62,11 +59,19 @@ set(TEST_LIBS
     quneiform_scan
     cuneiform
     dib_imageplugin
-    multitiff_imageplugin
-    pdf_imageplugin
     quneiform_spell
     ${QT_LIBRARIES}
     ${QT_QTTEST_LIBRARIES})
+
+if(CF_TIFF_SUPPORT)
+    list(APPEND TEST_LIBS multitiff_imageplugin)
+    list(APPEND CF_GUI_TESTS multitiffplugin)
+endif()
+
+if(CF_PDF_SUPPORT)
+    list(APPEND TEST_LIBS pdf_imageplugin)
+    list(APPEND CF_GUI_TESTS imageutils pdfplugin)
+endif()
 
 if(APPLE)
     find_library(APPLE_CORE_FOUNDATION CoreFoundation "/")

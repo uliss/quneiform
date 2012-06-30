@@ -88,7 +88,12 @@ bool ImageCache::load(const ImageURL& path, QPixmap * pixmap)
                 return false;
             }
 
-            *pixmap = QPixmap::fromImageReader(&r);
+            QImage img;
+            if(r.read(&img)) {
+                *pixmap = QPixmap::fromImage(img);
+            }
+            else
+                return false;
         }
 
         QPixmapCache::insert(path.id(), *pixmap);
@@ -112,12 +117,14 @@ bool ImageCache::load(const ImageURL& path, QPixmap * pixmap)
             if(!r.jumpToImage(path.imageNumber()))
                 return false;
 
-            *pixmap = QPixmap::fromImageReader(&r);
-            if(!pixmap->isNull())
-                return true;
-
-            qDebug() << Q_FUNC_INFO << "multipage pixmap load failed" << path.id();
-            return false;
+            QImage img;
+            if(!r.read(&img)) {
+                qDebug() << Q_FUNC_INFO << "multipage pixmap load failed" << path.id();
+                return false;
+            }
+        
+            *pixmap = QPixmap::fromImage(img);
+            return true;
         }
     }
     else {
