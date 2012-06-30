@@ -113,13 +113,26 @@ PageRecognizer::PageRecognizer(QObject * parent)
     page_(NULL),
     counter_(NULL),
     recog_state_(NULL),
-    abort_(false)
+    abort_(false),
+    worker_type_(LOCAL)
 {
     counter_ = new cf::PercentCounter;
     counter_->setCallback(this, &PageRecognizer::handleRecognitionProgress);
 
     recog_state_ = new cf::RecognitionState;
     recog_state_->setCallback(this, &PageRecognizer::handleRecognitionState);
+
+    QSettings settings;
+#ifndef NDEBUG
+    bool process = settings.value("debug/processRecognition", false).toBool();
+#else
+    bool process = settings.value("debug/processRecognition", true).toBool();
+#endif
+
+    if(process)
+        worker_type_ = PROCESS;
+    else
+        worker_type_ = LOCAL;
 }
 
 PageRecognizer::~PageRecognizer()
@@ -191,29 +204,29 @@ QString PageRecognizer::pagePath() const {
     return page_ ? page_->imagePath() : QString();
 }
 
-static cf::RecognitionPtr makeRecognitionServer(cf::PercentCounter * counter, cf::RecognitionState * state)
+static cf::RecognitionPtr makeRecognitionServer(PageRecognizer::WorkerType workerType,
+                                                cf::PercentCounter * counter,
+                                                cf::RecognitionState * state)
 {
     using namespace cf;
-    QSettings settings;
-
-#ifndef NDEBUG
-    bool process = settings.value("debug/processRecognition", false).toBool();
-#else
-    bool process = settings.value("debug/processRecognition", true).toBool();
-#endif
-
     RecognitionServerType type;
 
-    if(process) {
-        type = SERVER_PROCESS;
-        qDebug() << Q_FUNC_INFO << "process recognition server created.";
-    }
-    else {
+    switch(workerType) {
+    case PageRecognizer::LOCAL:
         type = SERVER_LOCAL;
         qDebug() << Q_FUNC_INFO << "local recognition server created.";
+        break;
+    case PageRecognizer::PROCESS:
+        type = SERVER_PROCESS;
+        qDebug() << Q_FUNC_INFO << "process recognition server created.";
+        break;
+    default:
+        type = SERVER_DUMMY;
+        break;
     }
 
     RecognitionPtr server = RecognitionFactory::instance().make(type);
+
     if(!server) {
         qCritical() << Q_FUNC_INFO << "recognition server creation failed.";
         throw std::runtime_error("[makeRecognitionServer] recognition server creation failed");
@@ -255,7 +268,7 @@ bool PageRecognizer::recognize() {
         ResolutionHistogramCallbackSetter hist_clbk(boost::bind(&PageRecognizer::saveResolutionHeightHistogram, this, _1),
                                                     boost::bind(&PageRecognizer::saveResolutionWidthHistogram, this, _1));
 
-        RecognitionPtr server = makeRecognitionServer(&recog_counter, recog_state_);
+        RecognitionPtr server = makeRecognitionServer(worker_type_, &recog_counter, recog_state_);
         CEDPagePtr cedptr = server->recognize(makeImageURL(page_), ropts, fopts);
 
         if(!cedptr)
@@ -298,6 +311,16 @@ void PageRecognizer::setConfigOptions() {
 
 void PageRecognizer::setPage(Page * p) {
     page_ = p;
+}
+
+void PageRecognizer::setWorkerType(PageRecognizer::WorkerType t)
+{
+    worker_type_ = t;
+}
+
+PageRecognizer::WorkerType PageRecognizer::workerType() const
+{
+    return worker_type_;
 }
 
 void PageRecognizer::saveResolutionHeightHistogram(const std::vector<int>& hist)

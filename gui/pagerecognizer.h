@@ -35,6 +35,11 @@ class PageRecognizer : public QObject
 {
     Q_OBJECT
 public:
+    enum WorkerType {
+        LOCAL, // worker runs in the same process and thread as calling process
+        PROCESS // worker runs in separate process
+    };
+public:
     PageRecognizer(QObject * parent = NULL);
     ~PageRecognizer();
 
@@ -47,6 +52,18 @@ public:
       * Sets recognized page
       */
     void setPage(Page *p);
+
+    /**
+     * Sets worker type
+     * @see workerType()
+     */
+    void setWorkerType(WorkerType t);
+
+    /**
+     * Returns worker type
+     * @see setWorkerType()
+     */
+    WorkerType workerType() const;
 public slots:
     /**
       * Tries to abort recognition process
@@ -113,6 +130,7 @@ private:
     cf::RecognitionState * recog_state_;
     QMutex lock_;
     volatile bool abort_;
+    WorkerType worker_type_;
 };
 
 #endif // PAGERECOGNIZER_H

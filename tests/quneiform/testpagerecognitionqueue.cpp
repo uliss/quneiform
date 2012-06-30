@@ -135,6 +135,7 @@ void TestPageRecognitionQueue::testSetLanguage() {
 
 void TestPageRecognitionQueue::testEmitStep() {
     PageRecognitionQueue q;
+    q.recognizer()->setWorkerType(PageRecognizer::LOCAL);
     Page p1(CF_IMAGE_DIR "/english.png");
     QSignalSpy percents(&q, SIGNAL(percentDone(int)));
 
