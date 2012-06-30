@@ -20,10 +20,11 @@
 #define PAGESTORAGE_H
 
 #include "backup.h"
+#include "globus.h"
 
 namespace cf {
 
-class PageStorage
+class CLA_EXPO PageStorage 
 {
     PageStorage();
 public:

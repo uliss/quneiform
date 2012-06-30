@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "block.h"
 #include "ptrlist.h"
 
-class PAGE: public DATA
+class CLA_EXPO PAGE: public DATA
 {
     public:
         PtrList<BLOCK>  Block;

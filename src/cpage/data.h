@@ -67,7 +67,7 @@ typedef struct tagCompressHeader {
     uint32_t wCount;
 } CompressHeader;
 
-class DATA
+class CLA_EXPO DATA
 {
     protected:
         Handle Type;
