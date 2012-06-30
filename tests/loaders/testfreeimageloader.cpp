@@ -18,7 +18,7 @@
 
 #include "testfreeimageloader.h"
 #include "rdib/freeimageloader.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 #include "common/tostring.h"
 #include "common/cifconfig.h"
 

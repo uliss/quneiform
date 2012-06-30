@@ -22,7 +22,7 @@
 
 #include "loaders_common.h"
 #include "rdib/magickimageloader.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 #include "common/cifconfig.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestMagickLoader);

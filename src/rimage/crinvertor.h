@@ -58,7 +58,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if !defined(_CRINVERTOR_H__)
 #define _CRINVERTOR_H__
 
-#include "rdib/ctdib.h"
+#include "cttypes.h"
+
+namespace cf
+{
+class CTDIB;
+}
 
 class CRInvertor
 {

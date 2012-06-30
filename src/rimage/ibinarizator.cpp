@@ -19,7 +19,7 @@
 #include "ibinarizator.h"
 #include "rimage_debug.h"
 #include "crimemory.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 
 namespace cf {
 

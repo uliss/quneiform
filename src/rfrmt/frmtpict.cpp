@@ -70,7 +70,7 @@
 #include "frmtpict.h"
 #include "puma/pumadef.h"
 #include "cpage/cpage.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 #include "cimage/ctiimage.h"
 #include "cimage/bitmask.h"
 #include "rimage/criimage.h"

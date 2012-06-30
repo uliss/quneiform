@@ -23,7 +23,7 @@
 #include "cimagestorage.h"
 #include "cimage/ctiimage.h"
 #include "cimage/cticontrol.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 #include "compat_defs.h"
 
 CImageStorage::CImageStorage()

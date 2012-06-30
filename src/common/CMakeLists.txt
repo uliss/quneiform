@@ -8,6 +8,7 @@ set(CF_COMMON_SOURCES
     cifconfig.cpp
     console_messages.cpp
     consoleprogresscounter.cpp
+    ctdib.cpp
     envpaths.cpp
     filesystem.cpp
     formatoptions.cpp

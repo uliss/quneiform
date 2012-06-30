@@ -25,7 +25,6 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCRIControl);
 
 #include "rimage/cricontrol.h"
-#include "rdib/ctdib.h"
 #include "cimage/cticontrol.h"
 #include "../cimage/test_cimage_common.h"
 

@@ -54,20 +54,15 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// CRRotator.cpp: implementation of the CRRotator class.
-//
-//////////////////////////////////////////////////////////////////////
 #include <memory.h>
 #include <math.h>
 #include <stdlib.h>
 
-#include "rdib/ctdib.h"
 #include "crrotator.h"
 #include "crimemory.h"
 #include "resource.h"
 #include "minmax.h"
-
-//////////////////////////////////////////////////////////////////////
+#include "common/ctdib.h"
 
 static uint32_t BitsInHalfByte[16] = {//0x0  0x1  0x2  0x3  0x4  0x5  0x6  0x7  0x8  0x9  0xa  0xb  0xc  x0d  0xe  0xf
     0,   1,   1,   2,   1,   2,   2,   3,   1,   2,   2,   3,   2,   3,   3,   4

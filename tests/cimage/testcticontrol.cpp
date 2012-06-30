@@ -27,7 +27,6 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestCTIControl);
 #include "cimage/cticontrol.h"
 #include "cimage/ctimask.h"
 #include "cimage/bitmask.h"
-#include "rdib/ctdib.h"
 #include "test_cimage_common.h"
 
 #ifndef LOADER_TEST_IMAGE_DIR

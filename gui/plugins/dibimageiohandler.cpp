@@ -24,7 +24,7 @@
 
 #include "dibimageiohandler.h"
 #include "cfcompat.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 #include "common/dib.h"
 
 using namespace cf;

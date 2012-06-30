@@ -28,7 +28,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestQtImageLoader);
 #include "common/debug.h"
 #include "common/cifconfig.h"
 #include "rdib/qtimageloader.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 
 using namespace cf;
 

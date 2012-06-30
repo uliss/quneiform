@@ -22,8 +22,8 @@
 
 #include "thresholdbinarizator.h"
 #include "rimage_debug.h"
-#include "rdib/ctdib.h"
 #include "minmax.h"
+#include "common/ctdib.h"
 
 namespace cf {
 

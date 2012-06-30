@@ -64,7 +64,7 @@
 #include "lns/lns.h"
 #include "rline/rline.h"
 #include "dpuma.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 #include "rsfunc.h"
 #include "puma/pumadef.h"
 #include "cline/cline.h"

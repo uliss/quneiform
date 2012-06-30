@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <iosfwd>
 
 #include "globus.h"
-#include "common/dib.h"
+#include "dib.h"
 
 namespace cf {
 

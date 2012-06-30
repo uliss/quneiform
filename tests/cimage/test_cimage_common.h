@@ -23,7 +23,7 @@
 #include <string>
 
 #include "cttypes.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 #include "rdib/bmpimageloader.h"
 #include "cimage/imageinfo.h"
 

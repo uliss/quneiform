@@ -26,7 +26,7 @@
 #include "sanescanner.h"
 #include "scanoptioninfo.h"
 #include "scanoptionvalue.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 
 #define SCANNER_ERROR_STATUS(status) {\
     if(status != SANE_STATUS_GOOD) \

@@ -64,8 +64,8 @@
 #include <boost/scoped_array.hpp>
 
 #include "ctdib.h"
-#include "common/debug.h"
-#include "common/bmp.h"
+#include "debug.h"
+#include "bmp.h"
 
 using namespace cf;
 

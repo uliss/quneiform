@@ -19,8 +19,8 @@
 #include <string.h> // for memset
 
 #include "bitmask.h"
-#include "rdib/ctdib.h"
 #include "cimage_debug.h"
+#include "common/ctdib.h"
 
 namespace cf
 {

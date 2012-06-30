@@ -64,6 +64,11 @@
 #include "cimage/cticontrol.h"
 #include "rimage_debug.h"
 #include "binarizatorfactory.h"
+#include "crrotator.h"
+#include "criimage.h"
+#include "crturner.h"
+#include "crinvertor.h"
+#include "common/ctdib.h"
 
 namespace cf {
 

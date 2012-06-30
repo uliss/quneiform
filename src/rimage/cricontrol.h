@@ -60,15 +60,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cttypes.h"
 #include "criimage.h"
 #include "cimage/ctiimage.h"
-#include "crinvertor.h" // Added by ClassView
-#include "rdib/ctdib.h"  // Added by ClassView
 #include "rprogressor.h"    // Added by ClassView
-#include "crturner.h"
-#include "crinvertor.h"
-#include "crrotator.h"
 #include "globus.h"
 
+class CRInvertor;
+class CRRotator;
+
 namespace cf {
+
+class CTDIB;
+class CRTurner;
 
 class CLA_EXPO CRIControl
 {

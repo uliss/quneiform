@@ -17,7 +17,7 @@
  ***************************************************************************/
 
 #include "testctdib.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCTDIB);
 

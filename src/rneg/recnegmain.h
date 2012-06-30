@@ -64,7 +64,6 @@
 #include "negdefs.h"
 #include "polyblock.h"
 #include "rimage/criimage.h"
-#include "rdib/ctdib.h"
 
 //Параметры
 

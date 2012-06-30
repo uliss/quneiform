@@ -61,7 +61,7 @@
 #include "crimemory.h"
 #include "resource.h"
 #include "memory.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 
 #define CONTINUEPIXEL(a)         if ( !(a) ) continue;
 

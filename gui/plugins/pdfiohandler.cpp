@@ -47,12 +47,16 @@ bool PdfIOHandler::read(QImage * image)
     if(!loadPDF())
         return false;
 
-    Poppler::Page * pdf_page = doc_->page(currentImageNumber());
-    if(!pdf_page)
+    Poppler::Page * page = doc_->page(currentImageNumber());
+    if(!page)
         return false;
 
-    *image = pdf_page->renderToImage(quality_, quality_);
-    delete pdf_page;
+    double q = quality_;
+    if(quality_ == -1)
+        q = 72;
+
+    *image = page->renderToImage(q, q);
+    delete page;
     return true;
 }
 
@@ -73,13 +77,16 @@ QVariant PdfIOHandler::option(QImageIOHandler::ImageOption option) const
 {
     switch(option) {
     case Size: {
-        Poppler::Page * pdf_page = doc_->page(currentImageNumber());
-        if(!pdf_page)
+        if(!loadPDF())
+            return QSize();
+
+        Poppler::Page * page = doc_->page(currentImageNumber());
+        if(!page)
             return QVariant();
 
-        QSize size = pdf_page->pageSize();
-        size *= quality_ * 1.0/72.0;
-        delete pdf_page;
+        QSize size = page->pageSize();
+        size *= double(quality_) / 72.0;
+        delete page;
         return size;
     } break;
     case BackgroundColor:

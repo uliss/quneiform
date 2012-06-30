@@ -61,11 +61,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if !defined(CRROTATOR_H)
 #define CRROTATOR_H
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+namespace cf
+{
+class CTDIB;
+}
 
-#include "rdib/ctdib.h"
 #include "rprogressor.h"    // Added by ClassView
 #include "cttypes.h"    // Added by ClassView
 

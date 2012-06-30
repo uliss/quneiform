@@ -65,9 +65,9 @@
 #include "ctimemory.h"
 #include "ctiimageheader.h"
 #include "ctimask.h"
-#include "rdib/ctdib.h"
 #include "compat_defs.h"
 #include "cimage_debug.h"
+#include "common/ctdib.h"
 
 namespace cf
 {

@@ -55,9 +55,11 @@
  */
 
 #include <string.h>
+
 #include "rneg.h"
 #include "recnegmain.h"
 #include "cfcompat.h"
+#include "common/ctdib.h"
 
 #define MY_IMAGE_ROTATE "RNEG Image Rotate"
 #define INF_ROTATE_H 1000
