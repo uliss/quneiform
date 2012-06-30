@@ -48,7 +48,7 @@ int main(int argc, char **argv)
             server.setCounter(makeCounter());
 
         server.setTextDebug(cli_opts.outputFormat() == FORMAT_DEBUG);
-        CEDPagePtr page = server.recognize(cli_opts.inputFilename(), parser.recognizeOptions(), fopts);
+        CEDPagePtr page = server.recognize(cli_opts.inputURL(), parser.recognizeOptions(), fopts);
 
         ExporterFactory::instance().setPage(page);
         ExporterFactory::instance().setFormatOptions(fopts);

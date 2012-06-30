@@ -34,6 +34,7 @@ class FormatOptions;
 class RecognizeOptions;
 class PercentCounter;
 class RecognitionState;
+class ImageURL;
 
 class CLA_EXPO AbstractRecognitionServer : private boost::noncopyable
 {
@@ -44,13 +45,13 @@ public:
     bool isTextDebug() const { return text_debug_; }
 
     /**
-      * Recognizes image by path
-      * @param imagePath - path to image file
+      * Recognizes image by url
+      * @param url - image url
       * @param ropts - recognition options
       * @param fopts - format options
       * @return pointer to CEDPage
       */
-    virtual CEDPagePtr recognize(const std::string& imagePath,
+    virtual CEDPagePtr recognize(const ImageURL& url,
                                  const RecognizeOptions& ropts,
                                  const FormatOptions& fopts) = 0;
 

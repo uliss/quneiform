@@ -54,20 +54,15 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-// CRRotator.cpp: implementation of the CRRotator class.
-//
-//////////////////////////////////////////////////////////////////////
 #include <memory.h>
 #include <math.h>
 #include <stdlib.h>
 
-#include "rdib/ctdib.h"
 #include "crrotator.h"
 #include "crimemory.h"
 #include "resource.h"
 #include "minmax.h"
-
-//////////////////////////////////////////////////////////////////////
+#include "common/ctdib.h"
 
 static uint32_t BitsInHalfByte[16] = {//0x0  0x1  0x2  0x3  0x4  0x5  0x6  0x7  0x8  0x9  0xa  0xb  0xc  x0d  0xe  0xf
     0,   1,   1,   2,   1,   2,   2,   3,   1,   2,   2,   3,   2,   3,   3,   4
@@ -169,7 +164,7 @@ CRRotator::~CRRotator()
 ///////////////////////////////////////////////////////////////////////////////////////
 //
 
-Bool32 CRRotator::Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Denum)
+Bool32 CRRotator::Rotate(cf::CTDIB * cDIBIn, cf::CTDIB * cDIBOut, int32_t Num, int32_t Denum)
 {
     Bool32  Ret = FALSE;
     long double   fNum    = (long double)Num;
@@ -226,26 +221,26 @@ Bool32 CRRotator::Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Den
     return Ret;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-Bool32 CRRotator::Descew(PCTDIB cDIBIn, PCTDIB cDIBOut )
+Bool32 CRRotator::Descew(cf::CTDIB * cDIBIn, cf::CTDIB * cDIBOut )
 {
 #ifndef MAX
 #define     MAX(a,b)             ( (a) > (b) ? (a) : (b) )
 #endif
     Bool32 Ret = TRUE;
     uint32_t Line;
-    uint32_t wBitLenght = cDIBIn->GetPixelSize();
+    uint32_t wBitLenght = cDIBIn->bpp();
 //  uint32_t wLines = cDIBIn->GetLinesNumber();
 //  uint32_t wLineW = cDIBIn->GetLineWidth();
-    uint32_t wLineBytesW   = cDIBIn->GetLineWidthInBytes();
-    uint32_t wLineBytesWTo = cDIBOut->GetLineWidthInBytes();
+    uint32_t wLineBytesW   = cDIBIn->lineWidthInBytes();
+    uint32_t wLineBytesWTo = cDIBOut->lineWidthInBytes();
     uint32_t HorisontalShiftInBytes = (((wBitLenght * HorisontalShift) + 7) / 8);
     int32_t  Direction = (mfTang > 0 ? 1 : -1);
     int32_t  ToShift;
     puchar pToCopy;
-    mwOriginalHeight = cDIBIn->GetLinesNumber();
-    mwOriginalWidth  = cDIBIn->GetLineWidth();
-    mwDescewedHeight = cDIBOut->GetLinesNumber();
-    mwDescewedWidth  = cDIBOut->GetLineWidth();
+    mwOriginalHeight = cDIBIn->linesNumber();
+    mwOriginalWidth  = cDIBIn->lineWidth();
+    mwDescewedHeight = cDIBOut->linesNumber();
+    mwDescewedWidth  = cDIBOut->lineWidth();
     mwTablesRange    = MAX (mwDescewedHeight, mwDescewedWidth);
     AllocWorkBuffers(TRUE);
     PrepareTables(mwTablesRange, mwDescewedWidth - 1);
@@ -289,8 +284,8 @@ Bool32 CRRotator::Descew(PCTDIB cDIBIn, PCTDIB cDIBOut )
         }
 
         // копируем строку в конечный диб
-        pToCopy = (puchar)(Direction > 0 ? cDIBOut->GetPtrToLine(Line) :
-                           cDIBOut->GetPtrToLine(mwDescewedHeight - Line - 1));
+        pToCopy = (puchar)(Direction > 0 ? cDIBOut->lineAt(Line) :
+                           cDIBOut->lineAt(mwDescewedHeight - Line - 1));
 
         if (pToCopy ) {
             memcpy(pToCopy, BufferForGray, wLineBytesWTo);
@@ -301,7 +296,7 @@ Bool32 CRRotator::Descew(PCTDIB cDIBIn, PCTDIB cDIBOut )
     return Ret;
 }
 
-void CRRotator::ComposeLineLA(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen)
+void CRRotator::ComposeLineLA(cf::CTDIB * cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen)
 {
     uint32_t j;
     uint32_t StartByte;
@@ -312,7 +307,7 @@ void CRRotator::ComposeLineLA(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, ui
     uint32_t Copy = 0;
     puchar PixFrom;
     uchar  LastByte;
-    uint32_t wLines = cDIBIn->GetLinesNumber();
+    uint32_t wLines = cDIBIn->linesNumber();
 
     for ( j = 0; j < wBuffLen; ) {
         StartByte = j / 8; //откуда начнем
@@ -333,11 +328,11 @@ void CRRotator::ComposeLineLA(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, ui
 
         if ( wLine + VShiftTable[j] >= AtY && wLine + VShiftTable[j] < ToY ) {
             if ( iDirect > 0 ) {
-                PixFrom = (puchar)cDIBIn->GetPtrToPixel(j, wLine + VShiftTable[j] - AtY);
+                PixFrom = (puchar)cDIBIn->pixelAt(j, wLine + VShiftTable[j] - AtY);
             }
 
             else {
-                PixFrom = (puchar)cDIBIn->GetPtrToPixel(j, wLines - (wLine + VShiftTable[j] - AtY));
+                PixFrom = (puchar)cDIBIn->pixelAt(j, wLines - (wLine + VShiftTable[j] - AtY));
             }
         }
 
@@ -349,8 +344,8 @@ void CRRotator::ComposeLineLA(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, ui
 
         if ( PixFrom ) {
             // копируем следующий кусок
-            if (EndByte > cDIBIn->GetUsedLineWidthInBytes() - 1) {
-                EndByte = cDIBIn->GetUsedLineWidthInBytes() - 1;
+            if (EndByte > cDIBIn->lineRealWidthInBytes() - 1) {
+                EndByte = cDIBIn->lineRealWidthInBytes() - 1;
                 FulBytes = EndByte - StartByte + 1;
             }
 
@@ -372,7 +367,7 @@ void CRRotator::ComposeLineLA(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, ui
     }
 }
 
-void CRRotator::ComposeLine4(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen)
+void CRRotator::ComposeLine4(cf::CTDIB *cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen)
 {
     uint32_t j;
     uint32_t StartByte;
@@ -383,7 +378,7 @@ void CRRotator::ComposeLine4(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uin
     uint32_t Copy = 0;
     puchar PixFrom;
     uchar  LastByte;
-    uint32_t wLines = cDIBIn->GetLinesNumber();
+    uint32_t wLines = cDIBIn->linesNumber();
 
     for ( j = 0; j < wBuffLen; ) {
         StartByte = j / 2; //откуда начнем
@@ -402,11 +397,11 @@ void CRRotator::ComposeLine4(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uin
 
         if ( wLine + VShiftTable[j] >= AtY && wLine + VShiftTable[j] < ToY ) {
             if ( iDirect > 0 ) {
-                PixFrom = (puchar)cDIBIn->GetPtrToPixel(j, wLine + VShiftTable[j] - AtY);
+                PixFrom = (puchar)cDIBIn->pixelAt(j, wLine + VShiftTable[j] - AtY);
             }
 
             else {
-                PixFrom = (puchar)cDIBIn->GetPtrToPixel(j, wLines - (wLine + VShiftTable[j] - AtY));
+                PixFrom = (puchar)cDIBIn->pixelAt(j, wLines - (wLine + VShiftTable[j] - AtY));
             }
         }
 
@@ -504,7 +499,7 @@ void CRRotator::ShiftLineLA(uint32_t LocalShift, uint32_t wBytesTo )
 ///////////////////////////////////////////////////////////////////////////////////////
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-Bool32 CRRotator::Roll(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Denum)
+Bool32 CRRotator::Roll(cf::CTDIB * cDIBIn, cf::CTDIB * cDIBOut, int32_t Num, int32_t Denum)
 {
     long double   fNum    = (long double)Num;
     long double   fDenum  = (long double)Denum;
@@ -528,31 +523,31 @@ Bool32 CRRotator::Roll(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Denum
     return TRUE;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-Bool32 CRRotator::ConstructOutDIB(PCTDIB cDIBIn, PCTDIB cDIBOut, Bool32 Gray)
+Bool32 CRRotator::ConstructOutDIB(cf::CTDIB *cDIBIn, cf::CTDIB *cDIBOut, Bool32 Gray)
 {
     uint32_t  NewWidth;
     uint32_t  NewHeigth;
-    uint32_t  dpmX;
-    uint32_t  dpmY;
-    CTDIBRGBQUAD  Quad;
+    uint  dpmX;
+    uint  dpmY;
+    cf::RGBQuad  Quad;
 
     if ( Gray ) {
-        HorisontalShift =  (int32_t)((cDIBIn->GetLinesNumber() * mfSin) + 0.5);
-        HorisontalShift -= (int32_t)((cDIBIn->GetLineWidth() * (1.0 - mfCos))   + 0.5);
-        VerticalShift   =  (int32_t)((cDIBIn->GetLineWidth() * mfSin)   + 0.5);
-        VerticalShift   -= (int32_t)((cDIBIn->GetLinesNumber() * (1.0 - mfCos)) + 0.5);
-        NewHeigth = (uint32_t)((cDIBIn->GetLineWidth() * mfSin)   + 0.5 ) +
-                    (uint32_t)((cDIBIn->GetLinesNumber() * mfCos) + 0.5 );
-        NewWidth  = (uint32_t)((cDIBIn->GetLineWidth() * mfCos)   + 0.5 ) +
-                    (uint32_t)((cDIBIn->GetLinesNumber() * mfSin) + 0.5 );
+        HorisontalShift =  (int32_t)((cDIBIn->linesNumber() * mfSin) + 0.5);
+        HorisontalShift -= (int32_t)((cDIBIn->lineWidth() * (1.0 - mfCos))   + 0.5);
+        VerticalShift   =  (int32_t)((cDIBIn->lineWidth() * mfSin)   + 0.5);
+        VerticalShift   -= (int32_t)((cDIBIn->linesNumber() * (1.0 - mfCos)) + 0.5);
+        NewHeigth = (uint32_t)((cDIBIn->lineWidth() * mfSin)   + 0.5 ) +
+                    (uint32_t)((cDIBIn->linesNumber() * mfCos) + 0.5 );
+        NewWidth  = (uint32_t)((cDIBIn->lineWidth() * mfCos)   + 0.5 ) +
+                    (uint32_t)((cDIBIn->linesNumber() * mfSin) + 0.5 );
 
         if ( mfTang > 0 ) {
             AtX             = 0;
-            AtY             = (int32_t)(cDIBIn->GetLineWidth() * mfSin); //VerticalShift;
+            AtY             = (int32_t)(cDIBIn->lineWidth() * mfSin); //VerticalShift;
         }
 
         else {
-            AtX             = (int32_t)(cDIBIn->GetLinesNumber() * mfSin); //HorisontalShift;
+            AtX             = (int32_t)(cDIBIn->linesNumber() * mfSin); //HorisontalShift;
             AtY             = 0;
         }
 
@@ -561,34 +556,32 @@ Bool32 CRRotator::ConstructOutDIB(PCTDIB cDIBIn, PCTDIB cDIBOut, Bool32 Gray)
     }
 
     else {
-        HorisontalShift = (uint32_t)((cDIBIn->GetLinesNumber() * fabs(mfTang)) + 0.5);
-        VerticalShift   = (uint32_t)((cDIBIn->GetLineWidth() * fabs(mfTang)) + 0.5);
+        HorisontalShift = (uint32_t)((cDIBIn->linesNumber() * fabs(mfTang)) + 0.5);
+        VerticalShift   = (uint32_t)((cDIBIn->lineWidth() * fabs(mfTang)) + 0.5);
         AtX             = 0;
         AtY             = VerticalShift;
-        ToX             = AtX + cDIBIn->GetLineWidth();
-        ToY             = AtY + cDIBIn->GetLinesNumber();
-        NewWidth  = cDIBIn->GetLineWidth() + HorisontalShift;
-        NewHeigth = cDIBIn->GetLinesNumber() + VerticalShift;
+        ToX             = AtX + cDIBIn->lineWidth();
+        ToY             = AtY + cDIBIn->linesNumber();
+        NewWidth  = cDIBIn->lineWidth() + HorisontalShift;
+        NewHeigth = cDIBIn->linesNumber() + VerticalShift;
     }
 
     RIMAGEComment("ConstructOutDIB - out DIB");
 
-    if ( !cDIBOut->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock, RIMAGEUnlock) ||
-            !cDIBOut->CreateDIBBegin(NewWidth,
-                                     NewHeigth,
-                                     Gray ? 8 : cDIBIn->GetPixelSize(),
-                                     0,
-                                     cDIBIn->GetVersion()) )
+    if (!cDIBOut->createBegin(NewWidth,
+                                 NewHeigth,
+                                 Gray ? 8 : cDIBIn->bpp(),
+                                 cDIBIn->version()))
         return FALSE;
 
-    cDIBIn->GetResolutionDPM( &dpmX, &dpmY );
-    cDIBOut->SetResolutionDPM( dpmX, dpmY );
-    cDIBOut->CreateDIBEnd();
-    cDIBOut->CopyPalleteFromDIB(cDIBIn);
-    BitFillforGray   = (uchar)cDIBIn->GetWhitePixel();
+    cDIBIn->resolutionDotsPerMeter( &dpmX, &dpmY );
+    cDIBOut->setResolutionDotsPerMeter( dpmX, dpmY );
+    cDIBOut->createEnd();
+    cDIBOut->copyPalleteFromDIB(cDIBIn);
+    BitFillforGray   = (uchar)cDIBIn->whitePixel();
 
     //для однобитного изображения растягиваем его на весь байт
-    if ( cDIBOut->GetPixelSize() == 1 )
+    if ( cDIBOut->bpp() == 1 )
         BitFillforGray += ( BitFillforGray << 1 ) +
                           ( BitFillforGray << 2 ) +
                           ( BitFillforGray << 3 ) +
@@ -602,21 +595,21 @@ Bool32 CRRotator::ConstructOutDIB(PCTDIB cDIBIn, PCTDIB cDIBOut, Bool32 Gray)
 
         for ( wQuadN = 255; wQuadN >= 0; wQuadN--) {
             Quad.rgbBlue = Quad.rgbGreen = Quad.rgbRed = (uchar)wQuadN;
-            cDIBOut->SetRGBQuad(wQuadN, Quad);
+            cDIBOut->setPalleteColor(wQuadN, Quad);
         }
     }
 
     return TRUE;
 }
 
-Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
+Bool32 CRRotator::DescewGray(cf::CTDIB *cDIBIn, cf::CTDIB *cDIBOut)
 {
     Bool32 bRet = TRUE;
     // размеры
-    uint32_t         OutLineLenght = cDIBOut->GetLineWidth();
-    uint32_t         OunLines      = cDIBOut->GetLinesNumber();
-    uint32_t         InLineLenght  = cDIBIn->GetLineWidth();
-    uint32_t         InLines       = cDIBIn->GetLinesNumber();
+    uint32_t         OutLineLenght = cDIBOut->lineWidth();
+    uint32_t         OunLines      = cDIBOut->linesNumber();
+    uint32_t         InLineLenght  = cDIBIn->lineWidth();
+    uint32_t         InLines       = cDIBIn->linesNumber();
     //координаты
     int32_t          CurrLAX;
     int32_t          CurrLAY;
@@ -641,13 +634,13 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
     hMask = RIMAGEDAlloc(OutLineLenght * OunLines, "Rotator::DescewGray - mask");
     pMask = (puchar)RIMAGELock(hMask);
 
-    if ( cDIBOut->GetPixelSize() != 8 ) {
+    if ( cDIBOut->bpp() != 8 ) {
         return FALSE;
     }
 
     if ( pMask ) {
         for ( CurrGY = OunLines - 1; CurrGY >= 0; CurrGY-- ) {
-            pGrayLine = (puchar)cDIBOut->GetPtrToLine(CurrGY);
+            pGrayLine = (puchar)cDIBOut->lineAt(CurrGY);
             memset(pGrayLine, 127, OutLineLenght);
             memset((pMask + (CurrGY * OutLineLenght)), 1, OutLineLenght);
         }
@@ -655,7 +648,7 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 
     else {
         for ( CurrGY = OunLines - 1; CurrGY >= 0; CurrGY-- ) {
-            pGrayLine = (puchar)cDIBOut->GetPtrToLine(CurrGY);
+            pGrayLine = (puchar)cDIBOut->lineAt(CurrGY);
             memset(pGrayLine, 255, OutLineLenght);
         }
     }
@@ -672,7 +665,7 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
 
             if ( CurrGX < (int32_t)OutLineLenght &&
                     CurrGY < (int32_t)OunLines) {
-                pGrayPix = (puchar)cDIBOut->GetPtrToPixel(CurrGX, CurrGY);
+                pGrayPix = (puchar)cDIBOut->pixelAt(CurrGX, CurrGY);
 
                 if ( !pGrayPix )
                     continue;
@@ -688,7 +681,7 @@ Bool32 CRRotator::DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut)
             //берем черно-белый пиксел
             if ( CurrLAX < (int32_t)InLineLenght &&
                     CurrLAY < (int32_t)InLines) {
-                pLAPix = (puchar)cDIBIn->GetPtrToPixel(CurrLAX, CurrLAY);
+                pLAPix = (puchar)cDIBIn->pixelAt(CurrLAX, CurrLAY);
 
                 if ( !pLAPix )
                     continue;
@@ -834,7 +827,7 @@ Bool32 CRRotator::UnmaskPixels(puchar pMask, puchar pGaryPix, int32_t X, int32_t
 Bool32 CRRotator::AddBlackToGray(int32_t X, int32_t Y, uchar Gray)
 {
     static puchar pGrayPixel;
-    pGrayPixel = (puchar)mdDIBOut->GetPtrToPixel(X, Y);
+    pGrayPixel = (puchar)mdDIBOut->pixelAt(X, Y);
 
     if ( pGrayPixel ) {
         *pGrayPixel = (Gray > *pGrayPixel ? 0 : *pGrayPixel - Gray);
@@ -934,17 +927,17 @@ Bool32 CRRotator::RotatePoint(int32_t iX, int32_t iY, int32_t * prX, int32_t * p
     return FALSE;
 }
 
-void CRRotator::ComposeLineG(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen)
+void CRRotator::ComposeLineG(cf::CTDIB * cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen)
 {
     uint32_t j;
     uint32_t StartByte;
     uint32_t EndByte;
     uint32_t FulBytes;
-    uint32_t PixelSize = cDIBIn->GetPixelSize() / 8;
+    uint32_t PixelSize = cDIBIn->bpp() / 8;
     int32_t  PosInBuff;
     uint32_t Copy = 0;
     puchar PixFrom;
-    uint32_t wLines = cDIBIn->GetLinesNumber();
+    uint32_t wLines = cDIBIn->linesNumber();
 
     for ( j = 0; j < wBuffLen; ) {
         StartByte = j * PixelSize; //откуда начнем
@@ -962,11 +955,11 @@ void CRRotator::ComposeLineG(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uin
 
         if ( wLine + VShiftTable[j] >= AtY && wLine + VShiftTable[j] < ToY ) {
             if ( iDirect > 0 ) {
-                PixFrom = (puchar)cDIBIn->GetPtrToPixel(j, wLine + VShiftTable[j] - AtY);
+                PixFrom = (puchar)cDIBIn->pixelAt(j, wLine + VShiftTable[j] - AtY);
             }
 
             else {
-                PixFrom = (puchar)cDIBIn->GetPtrToPixel(j, wLines - (wLine + VShiftTable[j] - AtY));
+                PixFrom = (puchar)cDIBIn->pixelAt(j, wLines - (wLine + VShiftTable[j] - AtY));
             }
         }
 

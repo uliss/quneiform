@@ -23,9 +23,9 @@
 
 #include "globus.h"
 
-class CTDIB;
-
 namespace cf {
+
+class CTDIB;
 
 class CLA_EXPO IBinarizator
 {

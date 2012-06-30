@@ -64,6 +64,11 @@
 #include "cimage/cticontrol.h"
 #include "rimage_debug.h"
 #include "binarizatorfactory.h"
+#include "crrotator.h"
+#include "criimage.h"
+#include "crturner.h"
+#include "crinvertor.h"
+#include "common/ctdib.h"
 
 namespace cf {
 
@@ -158,11 +163,11 @@ bool CRIControl::rotate(const std::string& src, const std::string& dest, int hig
         // !!! Art Изменил - теперь она заносит не хендлы, а указатели, а то память утекала
         //почему-то...
         //      Handle hDIBtoSet;
-        BitmapHandle handle;
+        BitmapPtr handle = NULL;
 
         if ((wRet == IDS_RIMAGE_ZERO_NUMERATOR_OR_DENUMERATOR ||
              wRet == IDS_RIMAGE_ANGLE_LEAST_MINIMUM) &&
-                src_dib_->GetDIBPtr((void**) &handle))
+                src_dib_->bitmap(&handle))
         {
             saveCopy(dest, handle);
             SetReturnCode_rimage(IDS_RIMAGE_ERR_NO);
@@ -202,10 +207,10 @@ bool CRIControl::turn(const std::string &src, const std::string& dest, rimage_tu
     if (!openSourceDIB(src))
         return false;
 
-    int new_width = (angle == RIMAGE_TURN_180) ? src_dib_->GetImageWidth()
-                                               : src_dib_->GetImageHeight();
-    int new_height = (angle == RIMAGE_TURN_180) ? src_dib_->GetImageHeight()
-                                                : src_dib_->GetImageWidth();
+    int new_width = (angle == RIMAGE_TURN_180) ? src_dib_->width()
+                                               : src_dib_->height();
+    int new_height = (angle == RIMAGE_TURN_180) ? src_dib_->height()
+                                                : src_dib_->width();
 
     //открываем вертелку
     if (!turner_)
@@ -219,14 +224,13 @@ bool CRIControl::turn(const std::string &src, const std::string& dest, rimage_tu
     }
 
     dest_dib_ = new CTDIB;
-    dest_dib_->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock, RIMAGEUnlock);
 
     bool bRet = false;
 
-    if (dest_dib_->CreateDIBBegin(new_width, new_height, src_dib_->GetPixelSize()) &&
-            dest_dib_->CopyPalleteFromDIB(src_dib_) &&
-            dest_dib_->CopyDPIFromDIB(src_dib_) &&
-            dest_dib_->CreateDIBEnd())
+    if (dest_dib_->createBegin(new_width, new_height, src_dib_->bpp()) &&
+            dest_dib_->copyPalleteFromDIB(src_dib_) &&
+            dest_dib_->copyDPIFromDIB(src_dib_) &&
+            dest_dib_->createEnd())
     {
         bRet = turner_->TurnDIB(src_dib_, dest_dib_, angle);
     }
@@ -280,12 +284,12 @@ bool CRIControl::inverse(const std::string& src, const std::string& dest)
     return bErrors;
 }
 
-bool CRIControl::saveCopy(const std::string& name, BitmapHandle handle)
+bool CRIControl::saveCopy(const std::string& name, BitmapPtr handle)
 {
     return CImage::instance().addImageCopy(name, handle);
 }
 
-bool CRIControl::readDIBCopy(const std::string& name, BitmapHandle * dest)
+bool CRIControl::readDIBCopy(const std::string& name, BitmapPtr * dest)
 {
     if (CIMAGE_ReadDIBCopy(name,  dest))
         return true;
@@ -301,8 +305,8 @@ bool CRIControl::closeSourceDIB()
         return false;
     }
 
-    BitmapHandle dib = NULL;
-    if (src_dib_->GetDIBPtr((Handle*) &dib))
+    BitmapPtr dib = NULL;
+    if (src_dib_->bitmap(&dib))
         CImage::instance().free(dib);
 
     delete src_dib_;
@@ -311,7 +315,7 @@ bool CRIControl::closeSourceDIB()
 
 bool CRIControl::openSourceDIB(const std::string& name)
 {
-    BitmapHandle handle = CImage::instance().imageCopy(name);
+    BitmapPtr handle = CImage::instance().imageCopy(name);
 
     if (!handle) {
         RIMAGE_ERROR << " image not found: " << name << "\n";
@@ -320,7 +324,7 @@ bool CRIControl::openSourceDIB(const std::string& name)
 
     src_dib_ = new CTDIB;
 
-    if (!src_dib_->SetDIBbyPtr(handle)) {
+    if (!src_dib_->setBitmap(handle)) {
         delete src_dib_;
         src_dib_ = NULL;
         RIMAGE_ERROR << " invalid image: " << name << "\n";
@@ -339,8 +343,8 @@ bool CRIControl::closeDestinationDIB(const std::string& name)
     if (!dest_dib_)
         return false;
 
-    BitmapHandle dib = NULL;
-    if (!dest_dib_->GetDIBPtr((void**) &dib)) {
+    BitmapPtr dib = NULL;
+    if (!dest_dib_->bitmap(&dib)) {
         delete dest_dib_;
         dest_dib_ = NULL;
         return false;
@@ -365,42 +369,27 @@ bool CRIControl::createDestinatonDIB()
 
     dest_dib_ = new CTDIB;
 
-    if (!dest_dib_->SetExternals(RIMAGEAlloc, RIMAGEFree, RIMAGELock, RIMAGEUnlock)) {
-        RIMAGE_ERROR << " set external error\n";
-        delete dest_dib_;
-        dest_dib_ = NULL;
-        return false;
-    }
-
     uint32_t wNewHeight;
     uint32_t wNewWidth;
-    uint32_t wXResolution;
-    uint32_t wYResolution;
+    uint wXResolution;
+    uint wYResolution;
 
-    wNewHeight = src_dib_->GetLinesNumber();
-    wNewWidth = src_dib_->GetLineWidth();
-    src_dib_->GetResolutionDPM(&wXResolution, &wYResolution);
+    wNewHeight = src_dib_->linesNumber();
+    wNewWidth = src_dib_->lineWidth();
+    src_dib_->resolutionDotsPerMeter(&wXResolution, &wYResolution);
 
     uint32_t BitCount = 1;
-    if (!dest_dib_->CreateDIBBegin(wNewWidth, wNewHeight, BitCount))
+    if (!dest_dib_->createBegin(wNewWidth, wNewHeight, BitCount))
         return false;
 
-    if (!dest_dib_->SetResolutionDPM(wXResolution, wYResolution)) {
+    if (!dest_dib_->setResolutionDotsPerMeter(wXResolution, wYResolution)) {
         //return FALSE;
     }
 
-    CTDIBRGBQUAD BWQuads[2] = {
-        CTDIBRGBQUAD(0, 0, 0, 0),
-        CTDIBRGBQUAD(0xff, 0xff, 0xff, 0)
-    };
-
-    if (!dest_dib_->SetRGBQuad(0, BWQuads[0]))
+    if (!dest_dib_->makeBlackAndWhitePallete())
         return false;
 
-    if (!dest_dib_->SetRGBQuad(1, BWQuads[1]))
-        return false;
-
-    if (!dest_dib_->CreateDIBEnd())
+    if (!dest_dib_->createEnd())
         return false;
 
     return true;
@@ -408,7 +397,7 @@ bool CRIControl::createDestinatonDIB()
 
 bool CRIControl::openDestinationDIBfromSource(const std::string& name)
 {
-    BitmapHandle hDIBIn;
+    BitmapPtr hDIBIn;
     pvoid pDIB;
 
     if (src_dib_ != NULL)
@@ -424,9 +413,9 @@ bool CRIControl::openDestinationDIBfromSource(const std::string& name)
         return false;
     }
 
-    dest_dib_ = new CTDIB(hDIBIn);
+    dest_dib_ = new CTDIB;
 
-    if (!dest_dib_->SetDIBbyPtr(pDIB)) {
+    if (!dest_dib_->setBitmap(pDIB)) {
         delete src_dib_;
         dest_dib_ = NULL;
         SetReturnCode_rimage(IDS_RIMAGE_DIB_NOT_ATTACHED);
@@ -439,7 +428,7 @@ bool CRIControl::openDestinationDIBfromSource(const std::string& name)
 
 Bool32 CRIControl::SetDestinationDIBtoStorage(const std::string& name)
 {
-    BitmapHandle hSDIB;
+    BitmapPtr hSDIB;
     Bool32 bErrors = TRUE;
 
     if (DIBOpeningType == FALSE) {
@@ -450,7 +439,7 @@ Bool32 CRIControl::SetDestinationDIBtoStorage(const std::string& name)
     if (dest_dib_ == NULL)
         return FALSE;
 
-    if (!dest_dib_->GetDIBHandle((void**) &hSDIB))
+    if (!dest_dib_->bitmap(&hSDIB))
         return FALSE;
 
     if (!CIMAGE_AddImage(name, hSDIB)) {
@@ -534,7 +523,7 @@ bool CRIControl::rotatePoint(const std::string& name, int32_t iX, int32_t iY,
     return bRet;
 }
 
-Bool32 CRIControl::WriteDIBtoBMP(const char *cName, PCTDIB pDIB)
+Bool32 CRIControl::WriteDIBtoBMP(const char *cName, CTDIB *pDIB)
 {
 #ifdef RIMAGE_DUMP_ENABLE
     uint32_t wBMPSize = pDIB->GetDIBSize() + 14;

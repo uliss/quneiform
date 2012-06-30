@@ -263,7 +263,11 @@
     <name>LogViewerDialog</name>
     <message>
         <source>Log View</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал событий</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Очистить</translation>
     </message>
 </context>
 <context>
@@ -374,11 +378,11 @@
     </message>
     <message>
         <source>Quneiform OCR - opening images</source>
-        <translation>Quneiform OCR - открытие изображений</translation>
+        <translation type="obsolete">Quneiform OCR - открытие изображений</translation>
     </message>
     <message>
         <source>Opening image &quot;%1&quot;</source>
-        <translation>Открытие изображения &quot;%1&quot;</translation>
+        <translation type="obsolete">Открытие изображения &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Open Quneiform packet</source>
@@ -468,7 +472,7 @@ Are you shure?</source>
     </message>
     <message>
         <source>Opening files</source>
-        <translation>Открытие файлов</translation>
+        <translation type="obsolete">Открытие файлов</translation>
     </message>
     <message>
         <source>Recognition settings</source>
@@ -476,7 +480,28 @@ Are you shure?</source>
     </message>
     <message>
         <source>Images (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)</source>
-        <translation>Изображения (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)</translation>
+        <translation type="obsolete">Изображения (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)</translation>
+    </message>
+    <message>
+        <source>Images (%1)</source>
+        <translation>Изображения (%1)</translation>
+    </message>
+</context>
+<context>
+    <name>OpenProgressDialog</name>
+    <message>
+        <source>Quneiform OCR - opening images</source>
+        <translation>Quneiform OCR - открытие изображений</translation>
+    </message>
+    <message>
+        <source>Opening image &quot;%1&quot;</source>
+        <translation>Открытие изображения &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Opening image &quot;%1&quot;
+Page: %2</source>
+        <translation>Открытие изображения &quot;%1&quot;
+Страница: %2</translation>
     </message>
 </context>
 <context>
@@ -554,6 +579,10 @@ Are you shure?</source>
     <message>
         <source>Images:</source>
         <translation>Изображения:</translation>
+    </message>
+    <message>
+        <source>Image number:</source>
+        <translation>Номер изображения:</translation>
     </message>
 </context>
 <context>
@@ -679,6 +708,14 @@ Are you shure?</source>
     <message>
         <source>CImage module debugging</source>
         <translation>Отладка модуля CImage</translation>
+    </message>
+    <message>
+        <source>Recognize in separate process, to avoid GUI crash if libcuneiform crashes. But this option makes debuggin more hard.</source>
+        <translation>Распознавать в отдельном процессе, чтобы избежать падения графической оболочки при сбое в ядре cuneiform. В тоже время эта опция затрудняет отладку и поиск причины сбоя.</translation>
+    </message>
+    <message>
+        <source>Recognize in separate process</source>
+        <translation>Распознавать в отдельном процессе</translation>
     </message>
 </context>
 <context>

@@ -21,6 +21,7 @@
 
 class QString;
 class QPixmap;
+class ImageURL;
 
 class ImageCache
 {
@@ -29,17 +30,20 @@ public:
     /**
       * Checks is pixmap exists in cache
       */
+    static bool find(const ImageURL& path, QPixmap * pixmap);
     static bool find(const QString& path, QPixmap * pixmap);
 
     /**
       * Inserts pixmap into cache
       */
+    static bool insert(const ImageURL& path, const QPixmap& pixmap);
     static bool insert(const QString& path, const QPixmap& pixmap);
 
     /**
       * Loads pixmap from cache, if not found load from file
       * otherwise returns false
       */
+    static bool load(const ImageURL& path, QPixmap * pixmap);
     static bool load(const QString& path, QPixmap * pixmap);
 };
 

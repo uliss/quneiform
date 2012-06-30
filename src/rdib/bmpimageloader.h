@@ -32,7 +32,7 @@ class CLA_EXPO BmpImageLoader: public ImageLoader
     public:
         BmpImageLoader();
         ~BmpImageLoader();
-        ImagePtr load(const std::string& fname);
+        ImagePtr load(const ImageURL& url);
         ImagePtr load(std::istream& stream);
         Handle loadHandle(const std::string& fname);
         Handle loadHandle(std::istream& stream);

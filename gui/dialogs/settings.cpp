@@ -59,6 +59,12 @@ void Settings::loadDebug() {
     settings.beginGroup("debug");
     ui_->printCuneiformDebug->setChecked(settings.value("printCuneiformDebug", false).toBool());
 
+#ifndef NDEBUG
+    ui_->processRecognition->setChecked(settings.value("processRecognition", false).toBool());
+#else
+    ui_->processRecognition->setChecked(settings.value("processRecognition", true).toBool());
+#endif
+
     settings.beginGroup("modules");
     ui_->cimage_debug_->setChecked(settings.value("cimage", false).toBool());
     settings.endGroup();
@@ -70,6 +76,7 @@ void Settings::loadDebug() {
     ui_->showLinesBBox->setChecked(settings.value("showLinesBBox", false).toBool());
     ui_->showCharactersBBox->setChecked(settings.value("showCharactersBBox", false).toBool());
     ui_->showPicturesBBox->setChecked(settings.value("showPicturesBBox", false).toBool());
+    settings.endGroup();
 }
 
 void Settings::loadDialogState() {
@@ -102,6 +109,7 @@ void Settings::saveDebug() {
     QSettings settings;
     settings.beginGroup("debug");
     settings.setValue("printCuneiformDebug", ui_->printCuneiformDebug->isChecked());
+    settings.setValue("processRecognition", ui_->processRecognition->isChecked());
 
     settings.beginGroup("modules");
     settings.setValue("cimage", ui_->cimage_debug_->isChecked());
@@ -114,6 +122,7 @@ void Settings::saveDebug() {
     settings.setValue("showLinesBBox", ui_->showLinesBBox->isChecked());
     settings.setValue("showCharactersBBox", ui_->showCharactersBBox->isChecked());
     settings.setValue("showPicturesBBox", ui_->showPicturesBBox->isChecked());
+    settings.endGroup();
 }
 
 void Settings::saveDialogState() {

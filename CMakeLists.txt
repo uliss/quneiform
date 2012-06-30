@@ -36,6 +36,18 @@ if(NOT ICONV_FOUND)
     message(FATAL_ERROR "Iconv library required")
 endif()
 
+# PDF poppler
+find_package(Poppler)
+if(POPPLER_FOUND)
+    set(CF_PDF_SUPPORT ON)
+endif()
+
+# TIFF
+find_package(TIFF)
+if(TIFF_FOUND)
+    set(CF_TIFF_SUPPORT ON)
+endif()
+
 # Boost
 if(WIN32)
     set(Boost_USE_STATIC_LIBS OFF)

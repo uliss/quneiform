@@ -34,7 +34,7 @@ void TestCImageList::testAddImage()
     cf::CTIImageList lst;
     CPPUNIT_ASSERT(!lst.addImage("", NULL, false));
     CPPUNIT_ASSERT(!lst.addImage("test", NULL, false));
-    CPPUNIT_ASSERT(lst.addImage("test", (BitmapHandle) 0xFFFF, true));
+    CPPUNIT_ASSERT(lst.addImage("test", (cf::BitmapPtr) 0xFFFF, true));
     CPPUNIT_ASSERT(lst.hasImage("test"));
 }
 
@@ -43,7 +43,7 @@ void TestCImageList::testRemoveImage()
     cf::CTIImageList lst;
     CPPUNIT_ASSERT(!lst.hasImage("test"));
     CPPUNIT_ASSERT(!lst.removeImage("test"));
-    CPPUNIT_ASSERT(lst.addImage("test", (BitmapHandle) 0xFFFF, true));
+    CPPUNIT_ASSERT(lst.addImage("test", (cf::BitmapPtr) 0xFFFF, true));
     CPPUNIT_ASSERT(lst.hasImage("test"));
     CPPUNIT_ASSERT(lst.removeImage("test"));
     CPPUNIT_ASSERT(!lst.hasImage("test"));
@@ -54,6 +54,6 @@ void TestCImageList::testImage()
     cf::CTIImageList lst;
     CPPUNIT_ASSERT(!lst.image("test"));
 
-    lst.addImage("test", (BitmapHandle) 0xFFFF, true);
+    lst.addImage("test", (cf::BitmapPtr) 0xFFFF, true);
     CPPUNIT_ASSERT(lst.image("test"));
 }

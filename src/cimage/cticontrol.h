@@ -57,17 +57,17 @@
 #ifndef __CTI_CONTROL_H_
 #define __CTI_CONTROL_H_
 
-#include "ctiimagelist.h"
-#include "common/rect.h"
-#include "globus.h"
-
 #include <list>
 
-class CTDIB;
+#include "globus.h"
+#include "ctiimagelist.h"
+#include "common/rect.h"
+#include "imageinfo.h"
 
 namespace cf
 {
 
+class CTDIB;
 class CTIMaskLineSegment;
 class BitMask;
 
@@ -122,7 +122,7 @@ class CLA_EXPO CTIControl
           * @return true on success
           * @see addImageCopy()
           */
-        bool addImage(const std::string& name, BitmapHandle handle);
+        bool addImage(const std::string& name, BitmapPtr handle);
 
         /**
           * Adds image copy into container
@@ -131,7 +131,7 @@ class CLA_EXPO CTIControl
           * @return true on success
           * @see addImage()
           */
-        bool addImageCopy(const std::string& name, BitmapHandle handle);
+        bool addImageCopy(const std::string& name, BitmapPtr handle);
         bool addImageCopy(const std::string &name, const CTDIB * dib);
 
         /**
@@ -156,7 +156,7 @@ class CLA_EXPO CTIControl
           * @return image handle on success or NULL on error
           * @see imageCopy()
           */
-        BitmapHandle image(const std::string& name);
+        BitmapPtr image(const std::string& name);
 
         /**
           * Returns CTDIB class
@@ -171,7 +171,7 @@ class CLA_EXPO CTIControl
           * @return image handle on success or NULL on error
           * @see image()
           */
-        BitmapHandle imageCopy(const std::string& name);
+        BitmapPtr imageCopy(const std::string& name);
 
         /**
           * Returns image names in container
@@ -184,7 +184,7 @@ class CLA_EXPO CTIControl
           * @return true on success
           * @see image(), imageCopy(), getDIBFromImage()
           */
-        bool free(BitmapHandle handle);
+        bool free(BitmapPtr handle);
 
         /**
           * Removes image from container
@@ -210,7 +210,7 @@ class CLA_EXPO CTIControl
           * if image have active masks - they applied
           * @see free(), imageCopy()
           */
-        bool getDIBFromImage(const std::string& name, const Rect &r, BitMask * bitMask, BitmapHandle * dest);
+        bool getDIBFromImage(const std::string& name, const Rect &r, BitMask * bitMask, BitmapPtr * dest);
 
         /**
           * Returns copy of raw image data
@@ -226,7 +226,7 @@ class CLA_EXPO CTIControl
     public:
         static bool applyMaskToDIBLine(CTDIB * dib, CTIMaskLineSegment * segm, int line, int at_x, int at_y);
         static bool applyMaskToDIB(CTDIB * dib, CTIMask * mask, int at_x = 0, int at_y = 0);
-        static bool applyMaskToHandle(BitmapHandle handle, CTIMask * mask, int at_x, int at_y);
+        static bool applyMaskToHandle(BitmapPtr handle, CTIMask * mask, int at_x, int at_y);
 
         /**
           * Copies line from source to destination image
@@ -257,9 +257,9 @@ class CLA_EXPO CTIControl
           * @param pDib - given image
           */
         static bool writeDIBtoBMP(const std::string& name, CTDIB * pDIB);
-        static bool writeDIBtoBMP(const std::string& name, BitmapHandle h);
+        static bool writeDIBtoBMP(const std::string& name, BitmapPtr h);
     private:
-        static bool copyDIB(const BitmapHandle src, BitmapHandle * dest);
+        static bool copyDIB(const BitmapPtr src, BitmapPtr * dest);
     private:
         bool applyMask(const std::string& name, int x, int y);
         void clear();

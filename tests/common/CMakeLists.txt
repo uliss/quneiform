@@ -8,6 +8,7 @@ add_executable(test_common
     testlanguage.cpp
     testimage.cpp
     testimagerawdata.cpp
+    testimageurl.cpp
     testpercentcounter.cpp
     testpoint.cpp
     testrect.cpp

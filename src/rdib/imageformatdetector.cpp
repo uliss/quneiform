@@ -17,8 +17,9 @@
  ***************************************************************************/
 
 #include <cassert>
+
 #include "imageformatdetector.h"
-#include "common/helper.h"
+#include "common/imageurl.h"
 #include "common/debug.h"
 
 namespace cf
@@ -60,11 +61,9 @@ ImageFormatDetector& ImageFormatDetector::instance()
     return instance;
 }
 
-image_format_t ImageFormatDetector::detect(const std::string& filename) const
+image_format_t ImageFormatDetector::detect(const ImageURL& url) const
 {
-    std::string ext(getFileExt(filename));
-    toLower(ext);
-    FormatMap::const_iterator it = extension_format_map_.find(ext);
+    FormatMap::const_iterator it = extension_format_map_.find(url.extension());
     return (it == extension_format_map_.end()) ? FORMAT_UNKNOWN : it->second;
 }
 

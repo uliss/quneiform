@@ -33,16 +33,18 @@
 namespace cf
 {
 
+class ImageURL;
+
 class CLA_EXPO ImageLoaderFactory : boost::noncopyable
 {
     public:
         static ImageLoaderFactory& instance();
     public:
         typedef ImageLoader * (*loaderCreate)();
-        ImagePtr load(const std::string& filename);
+        ImagePtr load(const ImageURL& url);
         ImagePtr load(std::istream& stream);
         ImageLoader& loader(image_format_t format);
-        bool registerCreator(image_format_t format, int gravity, loaderCreate creator);
+        bool registerCreator(image_format_t format, int priority, loaderCreate creator);
         ImageFormatList supportedFormats() const;
     private:
         typedef std::pair<int, loaderCreate> LoaderEntry;
@@ -52,7 +54,6 @@ class CLA_EXPO ImageLoaderFactory : boost::noncopyable
     private:
         ImageLoader& unknownLoader();
         ImageLoaderFactory();
-        void checkImageExists(const std::string& filename);
     private:
         LoaderMap loader_map_;
         ImageLoadersList loaders_list_;

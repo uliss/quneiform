@@ -23,6 +23,7 @@
 #include "common/outputformat.h"
 #include "common/recognizeoptions.h"
 #include "common/formatoptions.h"
+#include "common/imageurl.h"
 #include "ced/cedpageptr.h"
 #include "export/exporterfactory.h"
 #include "puma/localrecognitionserver.h"

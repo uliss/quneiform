@@ -23,6 +23,7 @@
 #include "export/qtimageexporter.h"
 #include "rdib/qtimageloader.h"
 #include "common/imagerawdata.h"
+#include "common/imageurl.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestQtImageExporter);
 
@@ -39,8 +40,10 @@ void TestQtImageExporter::testSave()
     // bad image data
     CPPUNIT_ASSERT_THROW(exp->save(img, os), ImageExporter::Exception);
 
+#define URL(fname) ImageURL(EXPORTER_TEST_IMAGE_DIR + std::string(fname))
+
     QtImageLoader loader;
-    ImagePtr image = loader.load(EXPORTER_TEST_IMAGE_DIR + std::string("test_in.bmp"));
+    ImagePtr image = loader.load(URL("test_in.bmp"));
 
     exp->setFormat(FORMAT_PNG);
     exp->save(*image, "export_qt.png");

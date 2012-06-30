@@ -48,7 +48,7 @@ int main(int argc, char ** argv) {
             s.setCounter(makeCounter());
 
         FormatOptions fopts = parser.formatOptions();
-        CEDPagePtr page = s.recognize(copts.inputFilename(), parser.recognizeOptions(), fopts);
+        CEDPagePtr page = s.recognize(copts.inputURL(), parser.recognizeOptions(), fopts);
 
         ExporterFactory::instance().setPage(page);
         ExporterFactory::instance().setFormatOptions(fopts);

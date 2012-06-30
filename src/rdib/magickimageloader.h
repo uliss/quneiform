@@ -42,7 +42,7 @@ class CLA_EXPO MagickImageLoader: public ImageLoader
          * @note caller have to delete return pointer
          * @throw ImageLoader::Exception on errors
          */
-        ImagePtr load(const std::string& filename);
+        ImagePtr load(const ImageURL& url);
 
         /**
          * Loads image from stream

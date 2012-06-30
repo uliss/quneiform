@@ -55,28 +55,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 // CRInvertor.h: interface for the CRInvertor class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #if !defined(_CRINVERTOR_H__)
 #define _CRINVERTOR_H__
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+#include "cttypes.h"
 
-#include "rdib/ctdib.h"
+namespace cf
+{
+class CTDIB;
+}
 
 class CRInvertor
 {
     public:
-        Bool32 Inverse(PCTDIB Image);
-        Bool32 Invert(PCTDIB Image);
+        Bool32 Inverse(cf::CTDIB * Image);
+        Bool32 Invert(cf::CTDIB * Image);
         CRInvertor();
         virtual ~CRInvertor();
 
     private:
-        PCTDIB mpDIB;
+        cf::CTDIB * mpDIB;
 };
 
 typedef  CRInvertor   *PCRInvertor, **PPCRInvertor;

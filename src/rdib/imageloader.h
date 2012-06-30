@@ -32,6 +32,7 @@ namespace cf
 {
 
 class Image;
+class ImageURL;
 typedef std::vector<image_format_t> ImageFormatList;
 
 class CLA_EXPO ImageLoader
@@ -41,8 +42,19 @@ class CLA_EXPO ImageLoader
         virtual ~ImageLoader();
 
         bool isValidImageSize(size_t size) const;
-        virtual ImagePtr load(const std::string& filename) = 0;
+
+        /**
+         * Loads image from given url
+         * @return image pointer
+         */
+        virtual ImagePtr load(const ImageURL& url) = 0;
+
+        /**
+         * Loads image from given data stream
+         * @return image pointer
+         */
         virtual ImagePtr load(std::istream& stream) = 0;
+
         void setMaxImageSize(size_t size);
 
         /**

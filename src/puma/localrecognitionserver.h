@@ -31,10 +31,10 @@ public:
     ~LocalRecognitionServer();
 
     /**
-      * @param imagePath - path to image
+      * @param url - image url
       * @throw RecognitionException on error
       */
-    CEDPagePtr recognize(const std::string& imagePath,
+    CEDPagePtr recognize(const ImageURL& url,
                          const RecognizeOptions& ropts,
                          const FormatOptions& fopts);
 

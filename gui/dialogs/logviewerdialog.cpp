@@ -18,6 +18,8 @@
 
 #include <QDebug>
 #include <QFile>
+#include <QFileInfo>
+#include <QPushButton>
 
 #include "logviewerdialog.h"
 #include "ui_logviewerdialog.h"
@@ -29,6 +31,9 @@ LogViewerDialog::LogViewerDialog(QWidget *parent) :
     ui_(new Ui::LogViewerDialog)
 {
     ui_->setupUi(this);
+    QPushButton * clear_btn = ui_->buttonBox->addButton(tr("Clear"), QDialogButtonBox::ResetRole);
+    connect(clear_btn, SIGNAL(clicked()), SLOT(handleLogClear()));
+
     initLogList();
 
     ui_->logContent->setDisabled(true);
@@ -59,6 +64,29 @@ void LogViewerDialog::handleLogShow(QListWidgetItem * current)
     file.close();
 }
 
+void LogViewerDialog::handleLogClear()
+{
+    clearLog(guiDebugLogPath());
+    clearLog(guiWarningLogPath());
+    clearLog(guiWarningLogPath());
+    clearLog(guiFatalLogPath());
+
+    updateCurrentLog();
+}
+
+bool LogViewerDialog::clearLog(const QString& path)
+{
+    QFile log(path);
+    if(!log.exists())
+        return false;
+
+    if(!log.open(QFile::Truncate | QFile::WriteOnly))
+        return false;
+
+    log.close();
+    return true;
+}
+
 void LogViewerDialog::initLogList()
 {
     addLogItem(guiDebugLogPath(), "Debug", "messagebox_info.png");
@@ -76,7 +104,11 @@ void LogViewerDialog::initLogList()
 
 void LogViewerDialog::addLogItem(const QString& path, const QString& title, const QString& icon)
 {
-    if(!QFile::exists(path))
+    QFileInfo info(path);
+    if(!info.exists())
+        return;
+
+    if(info.size() == 0)
         return;
 
     QListWidgetItem * item = new QListWidgetItem;
@@ -85,4 +117,9 @@ void LogViewerDialog::addLogItem(const QString& path, const QString& title, cons
     item->setToolTip(path);
     item->setData(Qt::UserRole, path);
     ui_->logList->addItem(item);
+}
+
+void LogViewerDialog::updateCurrentLog()
+{
+    handleLogShow(ui_->logList->currentItem());
 }

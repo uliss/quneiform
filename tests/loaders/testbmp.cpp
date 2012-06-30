@@ -22,16 +22,19 @@
 #include "common/tostring.h"
 #include "common/debug.h"
 #include "common/cifconfig.h"
+#include "common/imageurl.h"
 #include "loaders_common.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestBmpLoader);
 using namespace cf;
 
+#define URL(fname) ImageURL(LOADER_TEST_IMAGE_DIR + std::string(fname))
+
 void TestBmpLoader::testInit() {
     std::auto_ptr<ImageLoader> loader(new BmpImageLoader);
-    ImagePtr image = loader->load(LOADER_TEST_IMAGE_DIR + std::string("test.bmp"));
+    ImagePtr image = loader->load(URL("test.bmp"));
     CPPUNIT_ASSERT(Size(1, 1) == image->size());
-    CPPUNIT_ASSERT_THROW(loader->load(LOADER_TEST_IMAGE_DIR + std::string("test_not_exists.bmp")), ImageLoader::Exception);
+    CPPUNIT_ASSERT_THROW(loader->load(URL("test_not_exists.bmp")), ImageLoader::Exception);
     //    test empty stream
     std::stringstream is;
     CPPUNIT_ASSERT_THROW(loader->load(is), cf::ImageLoader::Exception);
@@ -175,26 +178,28 @@ void TestBmpLoader::testValidBitDepth() {
 void TestBmpLoader::testLoad() {
     std::auto_ptr<BmpImageLoader> loader(new BmpImageLoader);
     std::string path = LOADER_TEST_IMAGE_DIR;
+
+
     /*
      * test uncompressed
      */
     // 24bit
     std::string file = path + "bmp_rgb_uncompressed_24bit.bmp";
-    CPPUNIT_ASSERT_NO_THROW(loader->load(file));
+    CPPUNIT_ASSERT_NO_THROW(loader->load(ImageURL(file)));
     CPPUNIT_ASSERT(loader->imageBitCount() == 24);
     CPPUNIT_ASSERT_EQUAL(loader->bmp_type, BMPT_WIN4);
     CPPUNIT_ASSERT(loader->info_header_.iCompression == BMPC_RGB);
 
     // 32-bit
     file = path + "bmp_rgb_uncompressed_32bit.bmp";
-    CPPUNIT_ASSERT_NO_THROW(loader->load(file));
+    CPPUNIT_ASSERT_NO_THROW(loader->load(ImageURL(file)));
     // make sure that image converted to 24-bit RGB
     CPPUNIT_ASSERT(loader->imageBitCount() == 24);
     CPPUNIT_ASSERT(loader->info_header_.iCompression == BMPC_RGB);
 
     // 16-bit
     file = path + "bmp_rgb_uncompressed_16bit.bmp";
-    CPPUNIT_ASSERT_NO_THROW(loader->load(file));
+    CPPUNIT_ASSERT_NO_THROW(loader->load(ImageURL(file)));
     // make sure that image converted to 24-bit RGB
     CPPUNIT_ASSERT(loader->imageBitCount() == 24);
     CPPUNIT_ASSERT(loader->info_header_.iCompression == BMPC_RGB);

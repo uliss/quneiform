@@ -75,19 +75,19 @@ bool CIMAGE_GetCallbackImage(const std::string& name, CIMAGEIMAGECALLBACK * pCbk
     return CImage::instance().getImageCallbacks(name, pCbk);
 }
 
-bool CIMAGE_AddImage(const std::string& name, BitmapHandle handle)
+bool CIMAGE_AddImage(const std::string& name, BitmapPtr handle)
 {
     return CImage::instance().addImage(name, handle);
 }
 
-bool CIMAGE_AddImageCopy(const std::string& name, BitmapHandle handle)
+bool CIMAGE_AddImageCopy(const std::string& name, BitmapPtr handle)
 {
     return CImage::instance().addImageCopy(name, handle);
 }
 
-bool CIMAGE_ReadDIB(const std::string& name, BitmapHandle * dest)
+bool CIMAGE_ReadDIB(const std::string& name, BitmapPtr * dest)
 {
-    BitmapHandle img = CImage::instance().image(name);
+    BitmapPtr img = CImage::instance().image(name);
     if(!img)
         return false;
 
@@ -96,9 +96,9 @@ bool CIMAGE_ReadDIB(const std::string& name, BitmapHandle * dest)
     return true;
 }
 
-bool CIMAGE_ReadDIBCopy(const std::string& name, BitmapHandle * dest)
+bool CIMAGE_ReadDIBCopy(const std::string& name, BitmapPtr * dest)
 {
-    BitmapHandle copy = CImage::instance().imageCopy(name);
+    BitmapPtr copy = CImage::instance().imageCopy(name);
 
     if(!copy)
         return false;
@@ -114,16 +114,16 @@ bool CIMAGE_GetRawData(const std::string& name, CIMAGE_InfoDataInGet * in,
     return CImage::instance().getImageRawData(name, in, out);
 }
 
-bool CIMAGE_GetDIBData(const std::string& name, const Rect& r, cf::BitMask * bitMask, BitmapHandle * dest)
+bool CIMAGE_GetDIBData(const std::string& name, const Rect& r, cf::BitMask * bitMask, BitmapPtr * dest)
 {
     return CImage::instance().getDIBFromImage(name, r, bitMask, dest);
 }
 
-bool CIMAGE_GetImageInfo(const std::string &name, BitmapInfoHeader * dest)
+bool CIMAGE_GetImageInfo(const std::string &name, cf::BitmapInfoHeader * dest)
 {
     assert(dest);
 
-    BitmapHandle handle = CImage::instance().image(name);
+    cf::BitmapInfoHeader * handle = (cf::BitmapInfoHeader*) CImage::instance().image(name);
 
     if(!handle)
         return false;
@@ -137,7 +137,7 @@ bool CIMAGE_RemoveImage(const std::string& name)
     return CImage::instance().removeImage(name);
 }
 
-bool CIMAGE_FreeCopiedDIB(BitmapHandle dib)
+bool CIMAGE_FreeCopiedDIB(BitmapPtr dib)
 {
     return CImage::instance().free(dib);
 }

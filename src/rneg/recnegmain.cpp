@@ -55,9 +55,11 @@
  */
 
 #include <string.h>
+
 #include "rneg.h"
 #include "recnegmain.h"
 #include "cfcompat.h"
+#include "common/ctdib.h"
 
 #define MY_IMAGE_ROTATE "RNEG Image Rotate"
 #define INF_ROTATE_H 1000
@@ -976,40 +978,40 @@ void CheckNega(NegList* root) {
 }
 
 Bool InitMyImage() {
-    BitmapHandle lpDIB;
+    cf::BitmapPtr lpDIB;
     if (!CIMAGE_ReadDIB((char*) ImageName, &lpDIB))
 		return FALSE;
 
-	CTDIB* ctdib = new CTDIB;
+    cf::CTDIB* ctdib = new cf::CTDIB;
 	if (!ctdib)
 		return FALSE;
 
-	if (!ctdib->SetDIBbyPtr(lpDIB)) {
+	if (!ctdib->setBitmap(lpDIB)) {
 		delete ctdib;
 		return FALSE;
 	}
 
-	const int bytewide = ctdib->GetLineWidthInBytes();
-	const int num_str = ctdib->GetLinesNumber();
-	const int w = ctdib->GetImageWidth();
-	uchar* pmasp = (uchar*) (ctdib->GetPtrToBitFild());
+	const int bytewide = ctdib->lineWidthInBytes();
+	const int num_str = ctdib->linesNumber();
+	const int w = ctdib->width();
+	uchar* pmasp = (uchar*) (ctdib->imageData());
 
 	pNegImage = new NegImage;
 	if (!pNegImage) {
-		ctdib->ResetDIB();
+		ctdib->reset();
 		delete ctdib;
 		return FALSE;
 	}
 
 	if (!pNegImage->SetDibPtr(pmasp, w, num_str, bytewide)) {
-		ctdib->ResetDIB();
+		ctdib->reset();
 		delete ctdib;
 		delete pNegImage;
 		pNegImage = NULL;
 		return FALSE;
 	}
 
-	ctdib->ResetDIB();
+	ctdib->reset();
 	delete ctdib;
 
 	Height = num_str;

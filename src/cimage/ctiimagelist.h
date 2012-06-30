@@ -61,7 +61,7 @@
 #include <map>
 #include <list>
 
-#include "imageinfo.h"
+#include "common/dib.h"
 
 namespace cf
 {
@@ -89,7 +89,7 @@ class CTIImageList
           * @param externalImage - if @b true container takes no ownership on image
           * @return true on success
           */
-        bool addImage(const std::string& name, BitmapHandle handle, bool externalImage);
+        bool addImage(const std::string& name, BitmapPtr handle, bool externalImage);
 
         /**
           * Clears image list
@@ -107,7 +107,7 @@ class CTIImageList
           * Checks if given handle exists in containter
           * @return true if exists
           */
-        bool hasHandle(BitmapHandle handle);
+        bool hasHandle(BitmapPtr handle);
 
         /**
           * Checks if image with given name exists in container
@@ -134,7 +134,7 @@ class CTIImageList
           * @param handle - destination handle to write
           * @return true on success
           */
-        bool imageHandle(const std::string& name, BitmapHandle * handle);
+        bool imageHandle(const std::string& name, BitmapPtr * handle);
 
         bool disableReadMask(const std::string& imageName);
         bool disableWriteMask(const std::string& imageName);

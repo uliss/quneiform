@@ -68,6 +68,21 @@ class CLA_EXPO RecognizeOptions
         const std::string& userDict() const;
 
         /**
+         * Returns image number, if input file contains several images inside,
+         * like in PDF or TIFF formats.
+         * If file contains only one image, returns 0
+         * @see setImageNumber()
+         */
+        int imageNumber() const;
+
+        /**
+         * Sets image number, if input file contains several images
+         * @param number - new image number
+         * @see imageNumber()
+         */
+        void setImageNumber(int number);
+
+        /**
          * Sets recognition language
          */
         language_t language() const;
@@ -125,6 +140,7 @@ class CLA_EXPO RecognizeOptions
             ar & make_nvp("flags", flags_);
             ar & make_nvp("turn-angle", turn_angle_);
             ar & make_nvp("read-rects", read_rects_);
+            ar & make_nvp("image-number", image_number_);
         }
 #endif
     private:
@@ -134,6 +150,7 @@ class CLA_EXPO RecognizeOptions
         size_t flags_;
         turn_angle_t turn_angle_;
         std::vector<Rect> read_rects_;
+        int image_number_;
 };
 
 FUN_EXPO__ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts);

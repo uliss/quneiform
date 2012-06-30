@@ -66,6 +66,7 @@
 #include "cstr/cstr.h"
 #include "cpage/cpage.h"
 #include "cfcompat.h"
+#include "common/dib.h"
 
 using namespace cf;
 
@@ -136,7 +137,7 @@ void _setlinestyle(int style) {
 }
 
 void _gettextsettings(struct textsettings *ts) {
-	LPBITMAPINFOHEADER lp = (BITMAPINFOHEADER*) LDPUMA_GetDIBptr(NULL);
+    cf::BitmapPtr lp = (cf::BitmapPtr) LDPUMA_GetDIBptr(NULL);
 	if (lp) {
 		ts->height = lp->biHeight;
 		ts->width = lp->biWidth;

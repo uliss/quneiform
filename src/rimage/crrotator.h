@@ -61,11 +61,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #if !defined(CRROTATOR_H)
 #define CRROTATOR_H
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+namespace cf
+{
+class CTDIB;
+}
 
-#include "rdib/ctdib.h"
 #include "rprogressor.h"    // Added by ClassView
 #include "cttypes.h"    // Added by ClassView
 
@@ -77,13 +77,13 @@ class CRRotator
     public:
         Bool32 RotatePoint(int32_t iX, int32_t iY, int32_t * prX, int32_t * prY);
         CRRotator( PCRProgressor pProgressIndicator);
-        Bool32 Roll(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Denum);
-        Bool32 Rotate(PCTDIB cDIBIn, PCTDIB cDIBOut, int32_t Num, int32_t Denum);
+        Bool32 Roll(cf::CTDIB * cDIBIn, cf::CTDIB * cDIBOut, int32_t Num, int32_t Denum);
+        Bool32 Rotate(cf::CTDIB * cDIBIn, cf::CTDIB * cDIBOut, int32_t Num, int32_t Denum);
         CRRotator();
         virtual ~CRRotator();
 
     private:
-        void ComposeLine4(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen);
+        void ComposeLine4(cf::CTDIB * cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen);
         void      AllocWorkBuffers(uint32_t wStringBufferRange);
         void      ResetItself(void);
         void      FreeWorkBuffers(void);
@@ -92,14 +92,14 @@ class CRRotator
         Bool32    GetGrayCoord(int32_t eX, int32_t eY, int32_t * pX, int32_t * pY, int32_t * psX, int32_t * psY);
         Bool32    RollPoint(int32_t X, int32_t Y, int32_t * pnX, int32_t * pnY);
         Bool32    GetExtCoord(int32_t X, int32_t Y, int32_t * peX, int32_t * peY);
-        Bool32    DescewGray(PCTDIB cDIBIn, PCTDIB cDIBOut);
-        Bool32    ConstructOutDIB(PCTDIB cDIBIn, PCTDIB cDIBOut, Bool32 Gray);
-        void      ComposeLineLA(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen);
-        void      ComposeLineG(PCTDIB cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen);
+        Bool32    DescewGray(cf::CTDIB * cDIBIn, cf::CTDIB * cDIBOut);
+        Bool32    ConstructOutDIB(cf::CTDIB * cDIBIn, cf::CTDIB * cDIBOut, Bool32 Gray);
+        void      ComposeLineLA(cf::CTDIB * cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen);
+        void      ComposeLineG(cf::CTDIB * cDIBIn, int32_t iDirect, uint32_t wLine, uint32_t wBuffLen);
         void      SetEndLineLA(uint32_t Line, uint32_t wLineW, uint32_t wLineBytes);
         void      PrepareTables( uint32_t wMax, uint32_t wCheck);
         void      ShiftLineLA(uint32_t LocalShift, uint32_t wBytesTo);
-        Bool32    Descew(PCTDIB cDIBIn, PCTDIB cDIBOut);
+        Bool32    Descew(cf::CTDIB * cDIBIn, cf::CTDIB * cDIBOut);
 
     protected:
         uint32_t           wWorkGrayBufferLenght;
@@ -113,7 +113,7 @@ class CRRotator
         Handle             hVShiftTable;
         Handle             hHShiftTable;
         PCRProgressor      mpProgressor;
-        PCTDIB             mdDIBOut;
+        cf::CTDIB *             mdDIBOut;
         Bool32             mbEnableVSS;
         Bool32             mbEnableVS;
         Bool32             mbEnableHS;

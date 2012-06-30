@@ -345,7 +345,7 @@ Bool32 RemoveLines(PRSPreProcessImage Image, puchar * lppDIB) {
 	Handle hcpage = Image->hCPAGE;
 	Handle *hLinesCCOM = Image->phLinesCCOM;
 
-    BitmapHandle hDIB = NULL;
+    cf::BitmapPtr hDIB = NULL;
 	Bool32 rc = TRUE;
 	*hLinesCCOM = NULL;
 	CCOM_comp *victim[100];

@@ -15,10 +15,14 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
-#include "testformatdetector.h"
-#include <rdib/imageformatdetector.h>
+
 #include <fstream>
 #include <sstream>
+
+#include "testformatdetector.h"
+#include "rdib/imageformatdetector.h"
+#include "common/imageurl.h"
+
 CPPUNIT_TEST_SUITE_REGISTRATION(TestFormatDetector);
 
 #ifndef LOADER_TEST_IMAGE_DIR
@@ -27,27 +31,29 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestFormatDetector);
 
 using namespace cf;
 
-void TestFormatDetector::testDetectByFilename() {
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_BMP, ImageFormatDetector::instance().detect("test.bmp"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_BMP, ImageFormatDetector::instance().detect("test.BMP"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_BMP, ImageFormatDetector::instance().detect("test.bMp"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_BMP, ImageFormatDetector::instance().detect(".bmp"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("bmp"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("test.bmpbmp"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect("test."));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_UNKNOWN, ImageFormatDetector::instance().detect(""));
+void TestFormatDetector::testDetectByFilename()
+{
+#define ASSERT_EQ(format, fname) \
+    CPPUNIT_ASSERT_EQUAL(FORMAT_##format, ImageFormatDetector::instance().detect(ImageURL(fname)))
 
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_GIF, ImageFormatDetector::instance().detect("test.gif"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_JPEG, ImageFormatDetector::instance().detect("test.jpg"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_JPEG, ImageFormatDetector::instance().detect("test.JPEG"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_PNG, ImageFormatDetector::instance().detect("test.png"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_PNM, ImageFormatDetector::instance().detect("test.ppm"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_PNM, ImageFormatDetector::instance().detect("test.pbm"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_PNM, ImageFormatDetector::instance().detect("test.pgm"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_PNM, ImageFormatDetector::instance().detect("test.pnm"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_XPM, ImageFormatDetector::instance().detect("test.xpm"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_TIFF, ImageFormatDetector::instance().detect("test.tiff"));
-    CPPUNIT_ASSERT_EQUAL(cf::FORMAT_TIFF, ImageFormatDetector::instance().detect("test.tif"));
+    ASSERT_EQ(BMP, "test.bmp");
+    ASSERT_EQ(BMP, "test.bMp");
+    ASSERT_EQ(BMP, ".bmp");
+    ASSERT_EQ(UNKNOWN, "bmp");
+    ASSERT_EQ(UNKNOWN, "test.bmpbmp");
+    ASSERT_EQ(UNKNOWN, "test.");
+    ASSERT_EQ(UNKNOWN, "");
+    ASSERT_EQ(GIF, "test.gif");
+    ASSERT_EQ(JPEG, "test.jpg");
+    ASSERT_EQ(JPEG, "test.JPEG");
+    ASSERT_EQ(PNG, "test.png");
+    ASSERT_EQ(PNM, "test.ppm");
+    ASSERT_EQ(PNM, "test.pgm");
+    ASSERT_EQ(PNM, "test.pbm");
+    ASSERT_EQ(PNM, "test.pnm");
+    ASSERT_EQ(XPM, "test.xpm");
+    ASSERT_EQ(TIFF, "test.tiff");
+    ASSERT_EQ(TIFF, "test.tif");
 }
 
 void TestFormatDetector::testDetectByContent() {

@@ -25,6 +25,8 @@
 #include "qtimageloader.h"
 #include "compat_defs.h"
 #include "imageloaderfactory.h"
+#include "common/dib.h"
+#include "common/imageurl.h"
 
 #ifdef WIN32
 #include <windows.h>
@@ -70,38 +72,38 @@ bool registered = registerImageFormats();
 namespace cf
 {
 
-static void set_dib_header(::BITMAPINFO * dibInfo, const QImage& raster) {
+static void set_dib_header(BitmapInfoHeader * dibInfo, const QImage& raster) {
     memset(dibInfo, 0, sizeof(*dibInfo));
-    dibInfo->bmiHeader.biSize = sizeof(::BITMAPINFOHEADER);
-    dibInfo->bmiHeader.biWidth = raster.width();
-    dibInfo->bmiHeader.biHeight = raster.height();
-    dibInfo->bmiHeader.biPlanes = 1;
-    dibInfo->bmiHeader.biBitCount = static_cast<uint16_t>(raster.depth());
-    dibInfo->bmiHeader.biCompression = 0; // BI_RGB - uncompresed
-    dibInfo->bmiHeader.biSizeImage = 0;
-    dibInfo->bmiHeader.biXPelsPerMeter = raster.dotsPerMeterX();
-    dibInfo->bmiHeader.biYPelsPerMeter = raster.dotsPerMeterY();
+    dibInfo->biSize = sizeof(BitmapInfoHeader);
+    dibInfo->biWidth = raster.width();
+    dibInfo->biHeight = raster.height();
+    dibInfo->biPlanes = 1;
+    dibInfo->biBitCount = static_cast<uint16_t>(raster.depth());
+    dibInfo->biCompression = 0; // BI_RGB - uncompresed
+    dibInfo->biSizeImage = 0;
+    dibInfo->biXPelsPerMeter = raster.dotsPerMeterX();
+    dibInfo->biYPelsPerMeter = raster.dotsPerMeterY();
     // for 32-bit images return numColors() returns 0
-    dibInfo->bmiHeader.biClrUsed = (uint32_t) raster.numColors();
-    dibInfo->bmiHeader.biClrImportant = 0;
+    dibInfo->biClrUsed = (uint32_t) raster.numColors();
+    dibInfo->biClrImportant = 0;
 }
 
 // size of dib header (without palette)
-static size_t get_dib_header_size(const ::BITMAPINFO& dib_info) {
-    return dib_info.bmiHeader.biSize;
+static size_t get_dib_header_size(const BitmapInfoHeader& dib_info) {
+    return dib_info.biSize;
 }
 
 // size of dib palette
-static size_t get_dib_palette_size(const ::BITMAPINFO& dib_info) {
+static size_t get_dib_palette_size(const BitmapInfoHeader& dib_info) {
     // 32-bit image
-    if(dib_info.bmiHeader.biClrUsed == 0)
-        return sizeof(::RGBQUAD);
+    if(dib_info.biClrUsed == 0)
+        return sizeof(RGBQuad);
     else
-        return dib_info.bmiHeader.biClrUsed * sizeof(::RGBQUAD); // TODO
+        return dib_info.biClrUsed * sizeof(RGBQuad); // TODO
 }
 
 // total dib info size
-static size_t get_dib_info_size(const ::BITMAPINFO& dib_info) {
+static size_t get_dib_info_size(const BitmapInfoHeader& dib_info) {
     return get_dib_header_size(dib_info) + get_dib_palette_size(dib_info);
 }
 
@@ -112,23 +114,23 @@ static uchar * make_dib(size_t size) {
 }
 
 // copy only header
-static void copy_dib_header(uchar * dib, const ::BITMAPINFO& dib_info) {
+static void copy_dib_header(uchar * dib, const BitmapInfoHeader& dib_info) {
     memcpy(dib, &dib_info, get_dib_header_size(dib_info));
 }
 
-static void copy_dib_palette(uchar * dib, const ::BITMAPINFO& dib_info, const QImage& image) {
-    if (dib_info.bmiHeader.biClrUsed != 0) {
+static void copy_dib_palette(uchar * dib, const BitmapInfoHeader& dib_info, const QImage& image) {
+    if (dib_info.biClrUsed != 0) {
         QVector<QRgb> color_table(image.colorTable());
         uchar * palette = dib + get_dib_header_size(dib_info);
         memcpy(palette, (const unsigned char*) color_table.data(), get_dib_palette_size(dib_info));
     }
     else {
-        ::RGBQUAD rgbWhite = { 255, 255, 255, 0 };
-        reinterpret_cast<BITMAPINFO*>(dib)->bmiColors[0] = rgbWhite;
+        RGBQuad rgbWhite(255, 255, 255, 0);
+//        reinterpret_cast<BitmapHandle>(dib)->bmiColors[0] = rgbWhite;
     }
 }
 
-static void copy_dib_raster(uchar * dib, const ::BITMAPINFO& dib_info, const QImage& image) {
+static void copy_dib_raster(uchar * dib, const BitmapInfoHeader& dib_info, const QImage& image) {
     uchar * pRaster = dib + get_dib_info_size(dib_info);
     memcpy(pRaster, image.bits(), (size_t) image.numBytes());
 }
@@ -162,7 +164,7 @@ ImagePtr QtImageLoader::load(const QImage& image) {
         throw Exception("[QtImageLoader::load] load failed.");
 
     const QImage raster = convertColorFormat(image);
-    ::BITMAPINFO dibInfo;
+    BitmapInfoHeader dibInfo;
     set_dib_header(&dibInfo, raster);
     const size_t rasterSize = (size_t) raster.numBytes();
 
@@ -179,8 +181,9 @@ ImagePtr QtImageLoader::load(const QImage& image) {
     return ImagePtr(img);
 }
 
-ImagePtr QtImageLoader::load(const std::string& path) {
-    return load(QString::fromStdString(path));
+ImagePtr QtImageLoader::load(const ImageURL& url)
+{
+    return load(QString::fromStdString(url.path()));
 }
 
 ImagePtr QtImageLoader::load(std::istream& /*is*/) {

@@ -31,12 +31,12 @@ public:
 
     /**
       * Recognizes image
-      * @param image - image path
+      * @param url - image url
       * @param ropts - recognition options
       * @param fopts - format options
       * @throw RecognitionException on error
       */
-    CEDPagePtr recognize(const std::string& imagePath,
+    CEDPagePtr recognize(const ImageURL& url,
                          const RecognizeOptions& ropts,
                          const FormatOptions& fopts);
 
@@ -66,6 +66,7 @@ private:
     void handleMemoryLimits(std::exception& e);
     void handleOtherErrors(std::exception& e);
     void handleWorkerExitCode(int code);
+    void setFailedState();
     void startWorker(const std::string& key, size_t size);
     std::string workerPath() const;
 private:

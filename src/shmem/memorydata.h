@@ -25,6 +25,7 @@
 #include "common/formatoptions.h"
 #include "common/recognizeoptions.h"
 #include "common/image.h"
+#include "common/imageurl.h"
 #include "ced/cedpageptr.h"
 
 namespace cf {
@@ -38,6 +39,7 @@ public:
         Exception(const std::string& msg) : std::runtime_error(msg) {}
     };
 public:
+    MemoryData();
     MemoryData(void * memory, size_t size);
 
     /**
@@ -68,16 +70,27 @@ public:
     ImagePtr image() const;
 
     /**
-      * Returns image path
+      * Returns image url
       * @throw Exception on error
-      * @see setImagePath()
+      * @see setImageURL()
       */
-    std::string imagePath() const;
+    ImageURL imageURL() const;
+
+    /**
+     * Returns true if point to NULL memory
+     */
+    bool isNull() const;
 
     /**
       * Returns pointer to data memory
       */
     void * memory();
+
+    /**
+     * Returns string message
+     * @see setMessage()
+     */
+    std::string message() const;
 
     /**
       * Returns CED page pointer
@@ -103,11 +116,21 @@ public:
     void setImage(ImagePtr image);
 
     /**
-      * Sets image path
-      * @see imagePath()
+     * Sets memory pointer
+     */
+    void setMemory(void * m);
+
+    /**
+     * Sets string message
+     */
+    void setMessage(const std::string& msg);
+
+    /**
+      * Sets image url
+      * @see imageURL()
       * @throw Exception on error
       */
-    void setImagePath(const std::string& path);
+    void setImageURL(const ImageURL& path);
 
     /**
       * Sets page data
@@ -120,6 +143,11 @@ public:
       * @throw Exception on error
       */
     void setRecognizeOptions(const RecognizeOptions& ropts);
+
+    /**
+     * Sets memory size
+     */
+    void setSize(size_t sz);
 
     /**
       * Returns memory size

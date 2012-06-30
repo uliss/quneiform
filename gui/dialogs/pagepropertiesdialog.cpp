@@ -29,6 +29,12 @@ PagePropertiesDialog::PagePropertiesDialog(Page * p, QWidget * parent) :
     ui_->setupUi(this);
     ui_->file->setText(p->imagePath());
 
+    if(!p->imageURL().isSimple()) {
+        // image numbers starts from 0, we shows them starting from 1
+        QLabel * image_num = new QLabel(QString("%1").arg(p->imageURL().imageNumber() + 1));
+        ui_->formLayout->insertRow(1, tr("Image number:"), image_num);
+    }
+
     QSize sz = p->imageSize();
     ui_->imageSize->setText(QString("%1x%2").arg(sz.width()).arg(sz.height()));
     ui_->rotation->setNum(p->angle());

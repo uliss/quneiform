@@ -51,7 +51,20 @@ static language_t languageToType(const Language& lang) {
 }
 
 Page::Page(const QString& image_path) :
-    image_path_(image_path),
+    image_url_(image_path, 0),
+    state_flags_(NONE),
+    angle_(0),
+    view_scale_(1.0),
+    doc_(NULL),
+    thumb_(NULL)
+{
+    initThumb();
+    initRects();
+    initDocument();
+}
+
+Page::Page(const ImageURL& imageUrl) :
+    image_url_(imageUrl),
     state_flags_(NONE),
     angle_(0),
     view_scale_(1.0),
@@ -172,7 +185,12 @@ bool Page::hasFlag(PageFlag flag) const {
 }
 
 QString Page::imagePath() const {
-    return image_path_;
+    return image_url_.path();
+}
+
+ImageURL Page::imageURL() const
+{
+    return image_url_;
 }
 
 QSize Page::imageSize() const {
@@ -211,8 +229,9 @@ Language Page::language() const {
     return language_;
 }
 
-QString Page::name() const {
-    return QFileInfo(image_path_).fileName();
+QString Page::name() const
+{
+    return QFileInfo(image_url_.path()).fileName();
 }
 
 QRect Page::mapFromPage(const QRect &r) const
@@ -458,7 +477,7 @@ QPoint Page::viewScroll() const {
 
 QDataStream& operator<<(QDataStream& os, const Page& page) {
     QMutexLocker lock(&page.mutex_);
-    os << page.image_path_
+    os << page.image_url_
             << page.image_size_
             << page.state_flags_
             << page.angle_
@@ -488,7 +507,7 @@ QDataStream& operator<<(QDataStream& os, const Page& page) {
 
 QDataStream& operator>>(QDataStream& is, Page& page) {
     QMutexLocker lock(&page.mutex_);
-    is >> page.image_path_
+    is >> page.image_url_
             >> page.image_size_
             >> page.state_flags_
             >> page.angle_
@@ -547,7 +566,7 @@ void Page::setThumb(const QPixmap& thumb)
 void Page::initThumb()
 {
     QPixmap pixmap;
-    if(ImageCache::load(image_path_, &pixmap)) {
+    if(ImageCache::load(image_url_, &pixmap)) {
         is_null_ = false;
         image_size_ = pixmap.size();
 

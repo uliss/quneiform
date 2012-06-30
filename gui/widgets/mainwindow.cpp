@@ -21,12 +21,12 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QCloseEvent>
-#include <QProgressDialog>
 #include <QSplitter>
 #include <QHBoxLayout>
 #include <QDebug>
 #include <QMenuBar>
 #include <QLabel>
+#include <QImageReader>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -46,9 +46,11 @@
 #include "dialogs/recognitionsettingsdialog.h"
 #include "dialogs/settings.h"
 #include "dialogs/logviewerdialog.h"
+#include "dialogs/openprogressdialog.h"
 #include "internal/cimageview.h"
 #include "recentmenu.h"
 #include "exportsettings.h"
+#include "imageutils.h"
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -59,7 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         ui_(new Ui::MainWindow),
         packet_(new Packet(this)),
-        progress_(NULL),
+        progress_(new OpenProgressDialog(this)),
         image_widget_(NULL) {
     setupUi();
     setupPacket();
@@ -69,7 +71,6 @@ MainWindow::MainWindow(QWidget *parent) :
     readSettings();
     setupRecognitionQueue();
     setupRecent();
-    setupOpenProgress();
 }
 
 MainWindow::~MainWindow() {
@@ -238,7 +239,8 @@ void MainWindow::imageDuplication(const QString& path) {
         openImage(path, true);
 }
 
-bool MainWindow::openImage(const QString& path, bool allowDuplication) {
+bool MainWindow::openImage(const QString& path, bool allowDuplication)
+{
     Q_CHECK_PTR(packet_);
 
     QFileInfo info(path);
@@ -249,6 +251,9 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication) {
         warning.exec();
         return false;
     }
+
+    if(utils::looksLikeMultiPageDocument(path))
+        return openMultiPage(path);
 
     Page * p = new Page(path);
     p->setLanguage(lang_select_->currentLanguage());
@@ -267,22 +272,61 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication) {
     return true;
 }
 
+bool MainWindow::openMultiPage(const QString& path)
+{
+    Q_ASSERT(packet_);
+    Q_ASSERT(lang_select_);
+    Q_ASSERT(recent_images_);
+    Q_ASSERT(progress_);
+
+    QByteArray format = utils::imagePluginFormat(path);
+    if(format.isEmpty()) {
+        qWarning() << Q_FUNC_INFO << "unsupported format:" << path;
+        return false;
+    }
+
+    QImageReader r(path, format);
+    int total = r.imageCount();
+
+    qDebug() << Q_FUNC_INFO << "image count:" << total;
+
+    for(int i = 0 ; i < total; i++) {
+        if(progress_->wasCanceled())
+            break;
+
+        progress_->load(path, i);
+
+        Page * p = new Page(ImageURL(path, i));
+        p->setLanguage(lang_select_->currentLanguage());
+
+        if(p->isNull()) {
+            qWarning() << Q_FUNC_INFO << "can't open page:" << i << "from" << path;
+            return false;
+        }
+
+        packet_->append(p, true);
+        QApplication::processEvents();
+
+        progress_->loadDone();
+    }
+
+    recent_images_->add(path);
+
+    return true;
+}
+
 void MainWindow::open(const QStringList& paths) {
     if(paths.isEmpty())
         return;
 
-    QProgressDialog progress;
-    progress.setLabelText(tr("Opening files"));
-    progress.setMinimum(0);
-    progress.setMaximum(paths.count());
+    progress_->start(paths);
 
     QFileInfo info;
-    int i = 0;
     foreach(QString path, paths) {
-        i++;
-
-        if(progress.wasCanceled())
+        if(progress_->wasCanceled())
             break;
+
+        progress_->load(path);
 
         info.setFile(path);
         if(info.suffix() == "qfp")
@@ -290,37 +334,54 @@ void MainWindow::open(const QStringList& paths) {
         else
             openImage(path);
 
-        progress.setValue(i);
+        progress_->loadDone();
         QCoreApplication::processEvents();
     }
+
+    progress_->stop();
 }
 
 void MainWindow::openImages() {
-    QStringList files = QFileDialog::getOpenFileNames(NULL, tr("Open images"), "",
-                                                      tr("Images (*.gif *.png *.xpm *.jpg *.jpeg *.tif *.tiff *.bmp *.pnm *.pbm *.pgm)"));
+    QStringList file_ext;
+
+    file_ext << "*.png"
+                    << "*.xmp"
+                    << "*.jpg" << "*.jpeg"
+                    << "*.tif" << "*.tiff"
+                    << "*.bmp"
+                    << "*.pnm" << "*.pbm" << "*.pgm" << "*.ppm";
+
+    QList<QByteArray> supported_formats = QImageReader::supportedImageFormats();
+    if(supported_formats.contains("gif"))
+        file_ext << "*.gif";
+    if(supported_formats.contains("pdf"))
+        file_ext << "*.pdf";
+    if(supported_formats.contains("djvu"))
+        file_ext << "*.djvu";
+
+    QStringList files = QFileDialog::getOpenFileNames(NULL,
+                                                      tr("Open images"),
+                                                      "",
+                                                      tr("Images (%1)").arg(file_ext.join(" ")));
     openImages(files);
 }
 
 void MainWindow::openImages(const QStringList& files) {
     Q_CHECK_PTR(progress_);
 
-    progress_->reset();
-    progress_->setRange(0, files.count());
-    progress_->show();
-    progress_->setMinimumDuration(1000);
+    progress_->start(files);
 
     for(int i = 0, total = files.count(); i < total; i++) {
-        progress_->setValue(i);
         QApplication::processEvents();
         if(progress_->wasCanceled())
             break;
 
-        progress_->setLabelText(tr("Opening image \"%1\"").arg(files.at(i)));
+        progress_->load(files.at(i));
         openImage(files.at(i));
+        progress_->loadDone();
     }
 
-    progress_->reset();
-    progress_->hide();
+    progress_->stop();
 }
 
 void MainWindow::openPacket() {
@@ -557,16 +618,6 @@ void MainWindow::setupLanguageUi() {
     setupLanguageMenu();
     setupLanguageSelect();
     setupDefaultLanguage();
-}
-
-void MainWindow::setupOpenProgress() {
-    progress_ = new QProgressDialog(this);
-    progress_->setWindowTitle(tr("Quneiform OCR - opening images"));
-    QLabel * label = new QLabel(progress_);
-    label->setAlignment(Qt::AlignLeft);
-    label->setTextFormat(Qt::PlainText);
-    progress_->setLabel(label);
-    progress_->setFixedWidth(450);
 }
 
 void MainWindow::setupRecent() {

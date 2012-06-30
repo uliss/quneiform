@@ -26,6 +26,7 @@
 #include "imageloaderfactory.h"
 #include "common/debug.h"
 #include "common/helper.h"
+#include "common/imageurl.h"
 #include "common/cifconfig.h"
 
 namespace
@@ -75,10 +76,11 @@ void BmpImageLoader::allocateColorTable() {
      n_clr_elems, clr_tbl_size); */
 }
 
-ImagePtr BmpImageLoader::load(const std::string& fname) {
-    std::ifstream stream(fname.c_str(), std::ios::binary | std::ios::in);
+ImagePtr BmpImageLoader::load(const ImageURL& url)
+{
+    std::ifstream stream(url.path().c_str(), std::ios::binary | std::ios::in);
     if (!stream)
-        throw Exception("Can't open file: " + fname);
+        throw Exception("Can't open file: " + url.path());
     return load(stream);
 }
 

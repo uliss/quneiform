@@ -39,6 +39,7 @@
 #include "common/percentcounter.h"
 #include "common/recognitionstate.h"
 #include "common/console_messages.h"
+#include "common/imageurl.h"
 #include "config.h"
 
 static const std::string makeKey() {
@@ -70,15 +71,18 @@ ProcessRecognitionServer::ProcessRecognitionServer()
     CF_INFO("constructed");
 }
 
-CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
+CEDPagePtr ProcessRecognitionServer::recognize(const ImageURL& url,
                                                const RecognizeOptions& ropts,
                                                const FormatOptions& fopts)
 {
     const std::string SHMEM_KEY = makeKey();
 
     try {
-        if(imagePath.empty())
+        if(url.empty())
             throw RecognitionException("empty image path given", FILE_NOT_FOUND);
+
+        if(!url.exists())
+            throw RecognitionException("imae not exists", FILE_NOT_FOUND);
 
         const size_t SHMEM_SIZE = MemoryData::minBufferSize();
 
@@ -88,20 +92,28 @@ CEDPagePtr ProcessRecognitionServer::recognize(const std::string& imagePath,
         MemoryData data(memory.get(), SHMEM_SIZE);
         data.setFormatOptions(fopts);
         data.setRecognizeOptions(ropts);
-        data.setImagePath(imagePath);
+        data.setImageURL(url);
 
-        startWorker(SHMEM_KEY, 0);
+        try {
+            startWorker(SHMEM_KEY, 0);
 
-        CEDPagePtr res = data.page();
+            CEDPagePtr res = data.page();
 
-        if(!res.get())
-            throw RecognitionException("Recognition error");
+            if(!res.get())
+                throw RecognitionException("Recognition error");
 
-        return res;
-    }
-    catch(RecognitionException& e) {
-        handleOtherErrors(e);
-        throw e;
+            return res;
+        }
+        catch(RecognitionException& e) {
+            if(!data.message().empty()) {
+                setFailedState();
+                CF_ERROR(data.message());
+                throw RecognitionException(data.message());
+            }
+
+            handleOtherErrors(e);
+            throw e;
+        }
     }
     catch(SharedMemoryHolder::LowSharedMemoryException& e) {
         handleMemoryLimits(e);
@@ -133,18 +145,27 @@ CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
         data.setFormatOptions(fopts);
         data.setRecognizeOptions(ropts);
         data.setImage(image);
-        startWorker(SHMEM_KEY, memory.size());
 
-        CEDPagePtr res = data.page();
+        try {
+            startWorker(SHMEM_KEY, memory.size());
 
-        if(!res.get())
-            throw RecognitionException("Recognition error");
+            CEDPagePtr res = data.page();
 
-        return res;
-    }
-    catch(RecognitionException& e) {
-        handleOtherErrors(e);
-        throw e;
+            if(!res.get())
+                throw RecognitionException("Recognition error");
+
+            return res;
+        }
+        catch(RecognitionException& e) {
+            if(!data.message().empty()) {
+                setFailedState();
+                CF_ERROR(data.message());
+                throw RecognitionException(data.message());
+            }
+
+            handleOtherErrors(e);
+            throw e;
+        }
     }
     catch(SharedMemoryHolder::LowSharedMemoryException& e) {
         handleMemoryLimits(e);
@@ -250,8 +271,7 @@ int ProcessRecognitionServer::workerTimeout() const {
 
 void ProcessRecognitionServer::handleMemoryLimits(std::exception& e)
 {
-    if(state_)
-        state_->set(RecognitionState::FAILED);
+    setFailedState();
 
     typedef SharedMemoryHolder::LowSharedMemoryException Exception;
     Exception& excpt = dynamic_cast<Exception&>(e);
@@ -269,9 +289,7 @@ void ProcessRecognitionServer::handleMemoryLimits(std::exception& e)
 
 void ProcessRecognitionServer::handleOtherErrors(std::exception &e)
 {
-    if(state_)
-        state_->set(RecognitionState::FAILED);
-
+    setFailedState();
     CF_ERROR(e.what());
     throw RecognitionException(e.what());
 }
@@ -302,6 +320,12 @@ void ProcessRecognitionServer::handleWorkerExitCode(int code)
     default:
         throw RecognitionException("unknown worker return code");
     }
+}
+
+void ProcessRecognitionServer::setFailedState()
+{
+    if(state_)
+        state_->set(RecognitionState::FAILED);
 }
 
 }

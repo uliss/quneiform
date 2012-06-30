@@ -178,7 +178,7 @@ bool RawData<std::string, IMAGE_PATH_SIZE>::save(const std::string& path) {
 
 typedef RawData<FormatOptions, 512> FormatOptionsData;
 typedef RawData<RecognizeOptions, 512> RecognizeOptionsData;
-typedef RawData<std::string, IMAGE_PATH_SIZE> ImagePathData;
+typedef RawData<ImageURL, IMAGE_PATH_SIZE> ImagePathData;
 typedef RawData<CEDPagePtr, PAGE_BUFFER_SIZE> PageData;
 
 class ImageData {
@@ -245,13 +245,23 @@ public:
     }
 };
 
+typedef RawData<std::string, 512> WorkerReturnMessage;
+typedef RawData<int, sizeof(int)> WorkerReturnCode;
+
 struct MemoryDataPrivate {
     FormatOptionsData fopts;
     RecognizeOptionsData ropts;
     ImagePathData path;
+    WorkerReturnCode rc;
+    WorkerReturnMessage msg;
     PageData page;
     ImageData image;
 };
+
+MemoryData::MemoryData() :
+    memory_(0), size_(0)
+{
+}
 
 MemoryData::MemoryData(void * memory, size_t sz)
     : memory_(memory), size_(sz)
@@ -298,14 +308,24 @@ ImagePtr MemoryData::image() const
     return data()->image.load(size_ - sizeof(MemoryDataPrivate));
 }
 
-std::string MemoryData::imagePath() const
+ImageURL MemoryData::imageURL() const
 {
     return data()->path.load();
+}
+
+bool MemoryData::isNull() const
+{
+    return memory_ == NULL || size_ == 0;
 }
 
 void * MemoryData::memory()
 {
     return memory_;
+}
+
+std::string MemoryData::message() const
+{
+    return data()->msg.load();
 }
 
 CEDPagePtr MemoryData::page() const
@@ -328,9 +348,20 @@ void MemoryData::setImage(ImagePtr image)
     data()->image.save(image, size_ - minBufferSize());
 }
 
-void MemoryData::setImagePath(const std::string& path)
+void MemoryData::setMemory(void * m)
 {
-    data()->path.save(path);
+    memory_ = m;
+}
+
+void MemoryData::setMessage(const std::string& msg)
+{
+    data()->msg.save(msg);
+}
+
+void MemoryData::setImageURL(const ImageURL& path)
+{
+    if(!data()->path.save(path))
+        throw Exception("ImageURL is too long");
 }
 
 void MemoryData::setPage(cf::CEDPagePtr page)
@@ -341,6 +372,11 @@ void MemoryData::setPage(cf::CEDPagePtr page)
 void MemoryData::setRecognizeOptions(const RecognizeOptions& ropts)
 {
     data()->ropts.save(ropts);
+}
+
+void MemoryData::setSize(size_t sz)
+{
+    size_ = sz;
 }
 
 size_t MemoryData::size() const

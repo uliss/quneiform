@@ -41,6 +41,7 @@
 #include "cline/cline.h"
 #include "cstr/cstr.h"
 #include "cpage/cpage.h"
+#include "cpage/pagestorage.h"
 #include "dpuma.h"
 #include "exc/exc.h"
 #include "export/exporterfactory.h"
@@ -55,9 +56,11 @@
 #include "rselstr/rselstr.h"
 #include "rshelllines/rsl.h"
 #include "rstr/rstr.h"
+#include "resource.h"
 #include "rstuff/rstuff.h"
 #include "rstuff/rstuff_struct.h"
 #include "rverline/rverline.h"
+#include "common/modules.h"
 
 #define PUMA_ERROR Debug() << "[PUMA] ERROR "
 #define PUMA_ERROR_FUNC PUMA_ERROR << BOOST_CURRENT_FUNCTION << ' '
@@ -399,9 +402,6 @@ void PumaImpl::modulesDone() {
 #ifdef _USE_RVERLINE_
     RVERLINE_Done();
 #endif //_USE_RVERLINE_
-#ifdef _USE_RMSEGMENT_
-    RMSEGMENT_Done();
-#endif //_USE_RMSEGMENT_
 }
 
 void PumaImpl::modulesInit() {
@@ -442,8 +442,11 @@ void PumaImpl::modulesInit() {
         RSTR_SetImportData(RSTR_OcrPath, modulePath());
         RSTR_SetImportData(RSTR_pchar_temp_dir, moduleTmpPath());
 
-        if (!RSTR_Init(PUMA_MODULE_RSTR, NULL))
-            throw PumaException("RSTR_Init failed.");
+        if (!RSTR_Init(PUMA_MODULE_RSTR, NULL)) {
+            std::ostringstream buf;
+            buf << "RSTR_Init failed: " << RSTR_GetReturnString(RSTR_GetReturnCode()) << "\n";
+            throw PumaException(buf.str());
+        }
 
         if (!RIMAGE_Init(PUMA_MODULE_RIMAGE))
             throw PumaException("RIMAGE_Init failed.");
@@ -461,12 +464,6 @@ void PumaImpl::modulesInit() {
         throw PumaException("RVERLINE_Init failed.");
 
 #endif
-#ifdef _USE_RMSEGMENT_
-
-        if (!RMSEGMENT_Init(PUMA_MODULE_RMSEGMENT, NULL))
-        throw PumaException("RMSEGMENT_Init failed.");
-
-#endif
 
         if (!RCORRKEGL_Init(PUMA_MODULE_RCORRKEGL, NULL))
             throw PumaException("CORRKEGL_Init failed.");
@@ -474,6 +471,22 @@ void PumaImpl::modulesInit() {
     catch (PumaException& e) {
         modulesDone();
         throw;
+    }
+    catch(ModuleInitException& e) {
+        modulesDone();
+
+        std::string prefix;
+
+        switch(e.module()) {
+            case cf::MODULE_MSK:
+            prefix = "MSK: ";
+            break;
+            default:
+            prefix = "Unknown module: ";
+            break;
+        }
+
+        throw PumaException(prefix + e.what());
     }
 }
 
@@ -487,7 +500,7 @@ void PumaImpl::open(ImagePtr img) {
     preOpenInitialize();
 
     input_filename_ = img->fileName();
-    input_dib_ = (BitmapHandle) img->data();
+    input_dib_ = (BitmapPtr) img->data();
 
     // write image
     if (!CIMAGE_AddImage(PUMA_IMAGE_USER, input_dib_))
@@ -593,7 +606,7 @@ void PumaImpl::turn(int angle)
     }
 
     if (!RIMAGE_Turn(PUMA_IMAGE_USER, PUMA_IMAGE_TURN, a))
-        throw PumaException("RIMAGE_Turn failed", angle);
+        throw PumaException("RIMAGE_Turn failed");
 
     CImage::instance().enableReadMask(PUMA_IMAGE_USER);
 
@@ -910,7 +923,7 @@ void PumaImpl::recognizeSpecial() {
     global_buf_len++;
 }
 
-void PumaImpl::rotate(BitmapHandle * dib, Point * p) {
+void PumaImpl::rotate(BitmapPtr * dib, Point * p) {
     // Определим угол поворота страницы
     PAGEINFO page_info;
     assert(p);
@@ -1019,7 +1032,7 @@ void PumaImpl::applyReadMask()
     if(!recognize_options_.hasReadRects())
         return;
 
-    BitmapHandle image = CImage::instance().image(recog_name_);
+    BitmapPtr image = CImage::instance().image(recog_name_);
     if(!image) {
         PUMA_ERROR_FUNC << "image not found: " << recog_name_ << "\n";
         return;
@@ -1052,6 +1065,22 @@ void PumaImpl::applyReadMask()
 
     SetPageInfo(cpage_, page_info);
     setUpdateFlag(FLG_UPDATE);
+}
+
+BackupPage * PumaImpl::cpage()
+{
+    if(!cpage_)
+        return NULL;
+
+    return &PageStorage::page(cpage_);
+}
+
+PAGEINFO * PumaImpl::pageInfo()
+{
+    if(!cpage_)
+        return NULL;
+
+    return cpage()->pageInfo();
 }
 
 }

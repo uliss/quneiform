@@ -42,11 +42,25 @@ void CliOptions::printOptions(std::ostream& os) {
                 "    Type --format help to get list of supported formats.");
     printOption(os, "--help", "-h", "Prints this help message.");
     printOption(os, "--output FILENAME", "-o", "Sets output filename.");
+    printOption(os, "--page-number NUMBER", "", "Specifies page number in multipage documents.");
     printOption(os, "--progress", "-p", "Prints recognition progress.");
     printOption(os, "--stdout", "", "Puts recognition result to standard output.");
     printOption(os, "--supported-image-formats", "", "Prints supported image formats.");
     printOption(os, "--verbose", "-v", "Print verbose debugging messages.");
     printOption(os, "--version", "-V", "Print program version and exit.");
+}
+
+std::ostream& operator<<(std::ostream& os, const CliOptions& opts)
+{
+    os << "Command line options:\n"
+       << "    append:      " << opts.append() << "\n"
+       << "    format:      " << OutputFormat(opts.outputFormat()).name() << "\n"
+       << "    output:      '" << opts.outputFilename() << "'\n"
+       << "    page-number: " << opts.inputURL().imageNumber() << "\n"
+       << "    stdout:      " << opts.stdOut() << "\n"
+       << "    verbose:     " << opts.stdOut() << "\n";
+
+    return os;
 }
 
 }

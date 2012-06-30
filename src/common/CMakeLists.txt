@@ -8,6 +8,7 @@ set(CF_COMMON_SOURCES
     cifconfig.cpp
     console_messages.cpp
     consoleprogresscounter.cpp
+    ctdib.cpp
     envpaths.cpp
     filesystem.cpp
     formatoptions.cpp
@@ -17,6 +18,7 @@ set(CF_COMMON_SOURCES
     image.cpp
     imageformats.cpp
     imagerawdata.cpp
+    imageurl.cpp
     language.cpp
     outputformat.cpp
     percentcounter.cpp
@@ -27,6 +29,7 @@ set(CF_COMMON_SOURCES
 set(CF_COMMON_HEADERS
     align.h
     consoleprogresscounter.h
+    dib.h
     endianess.h
     language.h
     lang_def.h
@@ -36,6 +39,7 @@ set(CF_COMMON_HEADERS
     image.h
     imagerawdata.h
     imageformats.h
+    imageurl.h
     interval.h
     letter.h
     rect.h

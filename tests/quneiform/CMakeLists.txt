@@ -63,6 +63,16 @@ set(TEST_LIBS
     ${QT_LIBRARIES}
     ${QT_QTTEST_LIBRARIES})
 
+if(CF_TIFF_SUPPORT)
+    list(APPEND TEST_LIBS multitiff_imageplugin)
+    list(APPEND CF_GUI_TESTS multitiffplugin)
+endif()
+
+if(CF_PDF_SUPPORT)
+    list(APPEND TEST_LIBS pdf_imageplugin)
+    list(APPEND CF_GUI_TESTS imageutils pdfplugin)
+endif()
+
 if(APPLE)
     find_library(APPLE_CORE_FOUNDATION CoreFoundation "/")
     list(APPEND TEST_LIBS ${APPLE_CORE_FOUNDATION})

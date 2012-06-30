@@ -35,6 +35,8 @@ using namespace cf;
 #define TEST_IMG_PATH ""
 #endif
 
+#define URL(fname) ImageURL(TEST_IMG_PATH fname)
+
 void TestProcessRecognitionServer::testRecognize()
 {
     ProcessRecognitionServer server;
@@ -59,7 +61,7 @@ void TestProcessRecognitionServer::testRecognize()
                          AbstractRecognitionServer::RecognitionException);
 
     // normal image via filename
-    CEDPagePtr page = server.recognize(TEST_IMG_PATH "/english.png", ropts, fopts);
+    CEDPagePtr page = server.recognize(URL("/english.png"), ropts, fopts);
     CPPUNIT_ASSERT(page.get());
     CPPUNIT_ASSERT(!page->empty());
 
@@ -70,7 +72,7 @@ void TestProcessRecognitionServer::testRecognize()
     buf.str("");
 
     // normal image via shared memory
-    img = ImageLoaderFactory::instance().load(TEST_IMG_PATH "/english.png");
+    img = ImageLoaderFactory::instance().load(URL("/english.png"));
 
     page = server.recognize(img, ropts, fopts);
     CPPUNIT_ASSERT(page.get());

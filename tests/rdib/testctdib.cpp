@@ -17,32 +17,116 @@
  ***************************************************************************/
 
 #include "testctdib.h"
-#include "rdib/ctdib.h"
-#include "cimage/cticontrol.h"
+#include "common/ctdib.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCTDIB);
 
-static void * t_alloc(uint32_t size) { return malloc(size); }
-static void t_free(void * mem) { free(mem); }
-static void * t_lock(void * mem) { return mem; }
-static void t_unlock(void *) {}
-
 void TestCTDIB::testInit()
 {
-    CTDIB image;
-    CPPUNIT_ASSERT(image.SetExternals(t_alloc, t_free, t_lock, t_unlock));
+    cf::CTDIB image;
+    CPPUNIT_ASSERT(image.createBegin(10, 20, 24));
+    CPPUNIT_ASSERT(image.createEnd());
+    CPPUNIT_ASSERT(image.version() == cf::CTDIB::VERSION_WINDOWS);
+    CPPUNIT_ASSERT(image.header()->biBitCount == 24);
+    CPPUNIT_ASSERT(image.header()->biSize == 40);
+    CPPUNIT_ASSERT(image.saveToBMP("test_rdib.bmp"));
 
-    CPPUNIT_ASSERT(image.CreateDIBBegin(10, 20, 24));
-    CPPUNIT_ASSERT(image.CreateDIBEnd());
-
-    cf::CTIControl::writeDIBtoBMP("test_rdib.bmp", &image);
-
-    for(int i = 0; i < image.GetImageWidth(); i++) {
-        uchar * p = (uchar*) image.GetPtrToPixel(i, 0);
+    for(int i = 0; i < image.lineWidth(); i++) {
+        uchar * p = (uchar*) image.pixelAt(i, 0);
         p[0] = 0xff;
         p[1] = 0xff;
         p[2] = 0x00;
     }
 
-    cf::CTIControl::writeDIBtoBMP("test_rdib_draw.bmp", &image);
+    CPPUNIT_ASSERT(image.saveToBMP("test_rdib_draw.bmp"));
+}
+
+void TestCTDIB::testSaveToBMP()
+{
+    cf::CTDIB image;
+    CPPUNIT_ASSERT(!image.saveToBMP("test_rdib_save.bmp"));
+
+    CPPUNIT_ASSERT(image.createBegin(10, 20, 24));
+    CPPUNIT_ASSERT(image.createEnd());
+
+    image.fill(cf::RGBQuad::red());
+    CPPUNIT_ASSERT(image.saveToBMP("test_rdib_save.bmp"));
+
+    CPPUNIT_ASSERT(!cf::CTDIB::saveToBMP(std::cerr, NULL));
+}
+
+void TestCTDIB::testFill()
+{
+   cf::CTDIB image;
+   CPPUNIT_ASSERT(!image.fill(cf::RGBQuad::red()));
+
+   // 1 bit
+   CPPUNIT_ASSERT(image.createBegin(10, 10, 1));
+   CPPUNIT_ASSERT(image.createEnd());
+   CPPUNIT_ASSERT(image.fill(cf::RGBQuad::white()));
+
+   for(int x = 0; x < 10; x++) {
+       for(int y = 0; y < 10; y++) {
+           cf::RGBQuad tmpc;
+           CPPUNIT_ASSERT(image.pixelColor(x, y, &tmpc));
+           CPPUNIT_ASSERT(tmpc == cf::RGBQuad::white());
+       }
+   }
+
+   // 4 bit
+   CPPUNIT_ASSERT(image.reset());
+   CPPUNIT_ASSERT(image.createBegin(10, 10, 4));
+   CPPUNIT_ASSERT(image.createEnd());
+   CPPUNIT_ASSERT(image.fill(cf::RGBQuad::red()));
+
+   for(int x = 0; x < 10; x++) {
+       for(int y = 0; y < 10; y++) {
+           cf::RGBQuad tmpc;
+           CPPUNIT_ASSERT(image.pixelColor(x, y, &tmpc));
+           CPPUNIT_ASSERT(tmpc == cf::RGBQuad::red());
+       }
+   }
+
+   // 8 bit
+   CPPUNIT_ASSERT(image.reset());
+   CPPUNIT_ASSERT(image.createBegin(10, 10, 8));
+   CPPUNIT_ASSERT(image.createEnd());
+   CPPUNIT_ASSERT(image.fill(cf::RGBQuad::blue()));
+
+   for(int x = 0; x < 10; x++) {
+       for(int y = 0; y < 10; y++) {
+           cf::RGBQuad tmpc;
+           CPPUNIT_ASSERT(image.pixelColor(x, y, &tmpc));
+           CPPUNIT_ASSERT(tmpc == cf::RGBQuad::blue());
+       }
+   }
+
+   // 24 bit
+   CPPUNIT_ASSERT(image.reset());
+   CPPUNIT_ASSERT(image.createBegin(10, 10, 24));
+   CPPUNIT_ASSERT(image.createEnd());
+   CPPUNIT_ASSERT(image.fill(cf::RGBQuad::green()));
+
+   for(int x = 0; x < 10; x++) {
+       for(int y = 0; y < 10; y++) {
+           cf::RGBQuad tmpc;
+           CPPUNIT_ASSERT(image.pixelColor(x, y, &tmpc));
+           CPPUNIT_ASSERT(tmpc == cf::RGBQuad::green());
+       }
+   }
+
+   // 32 bit
+   CPPUNIT_ASSERT(image.reset());
+   CPPUNIT_ASSERT(image.createBegin(10, 10, 32));
+   CPPUNIT_ASSERT(image.createEnd());
+   CPPUNIT_ASSERT(image.fill(cf::RGBQuad::blue()));
+
+   for(int x = 0; x < 10; x++) {
+       for(int y = 0; y < 10; y++) {
+           cf::RGBQuad tmpc;
+           CPPUNIT_ASSERT(image.pixelColor(x, y, &tmpc));
+           CPPUNIT_ASSERT(tmpc == cf::RGBQuad::blue());
+       }
+   }
+
 }

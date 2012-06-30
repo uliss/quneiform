@@ -30,11 +30,13 @@
 namespace cf
 {
 
+class ImageURL;
+
 class ImageFormatDetector: public boost::noncopyable
 {
     public:
         static ImageFormatDetector& instance();
-        image_format_t detect(const std::string& filename) const;
+        image_format_t detect(const ImageURL& url) const;
         image_format_t detect(std::istream& stream) const;
         std::vector<std::string> knownExtensions() const;
     private:

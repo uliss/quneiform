@@ -1,5 +1,4 @@
 set(CF_RDIB_SOURCE
-    ctdib.cpp
     imageformatdetector.cpp
     imageloader.cpp
     imageloaderfactory.cpp

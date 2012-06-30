@@ -38,7 +38,8 @@ RecognizeOptions::RecognizeOptions() :
     language_(LANGUAGE_ENGLISH),
     table_mode_(TABLE_DEFAULT),
     flags_(0),
-    turn_angle_(ANGLE_0)
+    turn_angle_(ANGLE_0),
+    image_number_(0)
 {
     setAutoRotate(false);
     setDotMatrix(false);
@@ -165,6 +166,16 @@ const std::string& RecognizeOptions::userDict() const {
     return user_dict_name_;
 }
 
+int RecognizeOptions::imageNumber() const
+{
+    return image_number_;
+}
+
+void RecognizeOptions::setImageNumber(int number)
+{
+    image_number_ = number;
+}
+
 template<class T>
 static void OPT(std::ostream& os, const std::string& name, const T& value) {
     static const std::string INDENT(4, ' ');
@@ -196,6 +207,7 @@ std::ostream& operator<<(std::ostream& os, const RecognizeOptions& opts) {
     OPT(os, "Language", Language(opts.language()));
     OPT(os, "User dictionary", opts.userDict());
     OPT(os, "Turn angle", opts.turnAngle());
+    OPT(os, "Image number", opts.imageNumber());
     printRects(os, opts.readRects());
     os << std::noboolalpha;
     return os;

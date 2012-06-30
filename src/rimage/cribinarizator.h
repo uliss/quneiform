@@ -66,11 +66,12 @@ enum CTBinarize {
     CTBIN_KRONROD
 };
 
-class CTDIB;
-struct CTDIBRGBQUAD;
 class CRProgressor;
 
 namespace cf {
+
+class CTDIB;
+struct RGBQuad;
 
 class CRIBinarizator
 {
@@ -96,7 +97,7 @@ private:
     Bool32 OnBinarizator( );
     Bool32 CloseBinarizator();
     Bool32 OpenBinarizator(uint32_t wFlag);
-    uchar IndexPalleteToGray(CTDIBRGBQUAD * pQuad);
+    uchar IndexPalleteToGray(RGBQuad * pQuad);
     Bool32 PrepareIndexTable(CTDIB * dib);
     bool supportedIndexColorImage(CTDIB * dib);
 private:

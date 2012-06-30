@@ -27,7 +27,7 @@ public:
     DIBImageIOHandler();
     bool canRead () const;
     bool read(QImage * image);
-    bool write (const QImage & image);
+    bool write(const QImage & image);
 
     QVariant option(ImageOption option) const;
     bool supportsOption(ImageOption option) const;

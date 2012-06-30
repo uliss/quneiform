@@ -373,11 +373,12 @@ void ImageView::showFormatLayout() {
          area_->showLayout();
 }
 
-void ImageView::showImage() {
+void ImageView::showImage()
+{
     Q_CHECK_PTR(page_);
 
     QPixmap image;
-    if(!ImageCache::load(page_->imagePath(), &image)) {
+    if(!ImageCache::load(page_->imageURL(), &image)) {
         qDebug() << "[Error]" << Q_FUNC_INFO << "can't load image";
         return;
     }

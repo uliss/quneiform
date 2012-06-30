@@ -23,7 +23,7 @@
 #include "cimagestorage.h"
 #include "cimage/ctiimage.h"
 #include "cimage/cticontrol.h"
-#include "rdib/ctdib.h"
+#include "common/ctdib.h"
 #include "compat_defs.h"
 
 CImageStorage::CImageStorage()
@@ -40,26 +40,26 @@ QPixmap CImageStorage::pixmap(const QString& name) const
     QMutexLocker locker(&lock_);
 
     std::string n = name.toStdString();
-    BitmapHandle h = cf::CImage::instance().image(n);
+    cf::BitmapPtr h = cf::CImage::instance().image(n);
 
     if(!h) {
         qDebug() << Q_FUNC_INFO << "image not found: " << name;
         return QPixmap();
     }
 
-    CTDIB dib;
-    dib.SetDIBbyPtr(h);
+    cf::CTDIB dib;
+    dib.setBitmap(h);
 
     BITMAPFILEHEADER bf;
     memset(&bf, 0, sizeof(BITMAPFILEHEADER));
     bf.bfType = 0x4d42; // 'BM'
-    bf.bfSize = sizeof(BITMAPFILEHEADER) + dib.GetDIBSize();
+    bf.bfSize = sizeof(BITMAPFILEHEADER) + dib.dibSize();
     // fileheader + infoheader + palette
-    bf.bfOffBits = sizeof(BITMAPFILEHEADER) + dib.GetHeaderSize() + dib.GetRGBPalleteSize();
+    bf.bfOffBits = sizeof(BITMAPFILEHEADER) + dib.headerSize() + dib.palleteSize();
 
     uchar * buf = new uchar[bf.bfSize];
     memcpy(buf, &bf, sizeof(BITMAPFILEHEADER));
-    memcpy(buf + sizeof(BITMAPFILEHEADER), h, dib.GetDIBSize());
+    memcpy(buf + sizeof(BITMAPFILEHEADER), h, dib.dibSize());
 
     QPixmap res;
     res.loadFromData(buf, bf.bfSize, "BMP");

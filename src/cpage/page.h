@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "block.h"
 #include "ptrlist.h"
 
-class PAGE: public DATA
+class CLA_EXPO PAGE: public DATA
 {
     public:
         PtrList<BLOCK>  Block;
@@ -80,6 +80,8 @@ class PAGE: public DATA
         Bool32 SaveCompress(Handle to);
         Bool32 RestoreCompress(Handle from);
         virtual uint32_t Convert(Handle type, void * lpdata, uint32_t size);
+
+        PAGEINFO * pageInfo();
 };
 
 CPAGE_CONVERTOR SetConvertorPages(CPAGE_CONVERTOR convertor);

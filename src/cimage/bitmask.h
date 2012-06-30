@@ -25,10 +25,10 @@
 #include "common/size.h"
 #include "common/rect.h"
 
-class CTDIB;
-
 namespace cf
 {
+
+class CTDIB;
 
 class CLA_EXPO BitMask
 {

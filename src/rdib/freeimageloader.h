@@ -28,7 +28,7 @@ class CLA_EXPO FreeImageLoader : public ImageLoader
 public:
     FreeImageLoader();
     ~FreeImageLoader();
-    ImagePtr load(const std::string& filename);
+    ImagePtr load(const ImageURL& url);
     ImagePtr load(std::istream& stream);
 
     /**

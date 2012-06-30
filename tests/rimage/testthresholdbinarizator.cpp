@@ -43,7 +43,7 @@ void TestThresholdBinarizator::testBinarize4()
     DibPtr img("color_index.bmp");
     b.setSource(img);
 
-    CTDIB * result = b.binarize(0);
+    cf::CTDIB * result = b.binarize(0);
     CPPUNIT_ASSERT(result);
 
     cf::CTIControl::writeDIBtoBMP("rimage_threshold_binarize_indexed.bmp", result);
@@ -63,7 +63,7 @@ void TestThresholdBinarizator::testBinarize8()
     DibPtr img("gray.bmp");
     b.setSource(img);
 
-    CTDIB * result = b.binarize(0);
+    cf::CTDIB * result = b.binarize(0);
     CPPUNIT_ASSERT(result);
 
     cf::CTIControl::writeDIBtoBMP("rimage_threshold_binarize_gray.bmp", result);
@@ -83,7 +83,7 @@ void TestThresholdBinarizator::testBinarize16()
     DibPtr img("color_16.bmp");
     b.setSource(img);
 
-    CTDIB * result = b.binarize(0);
+    cf::CTDIB * result = b.binarize(0);
     CPPUNIT_ASSERT(result);
 
     cf::CTIControl::writeDIBtoBMP("rimage_threshold_binarize_color_16.bmp", result);
@@ -103,7 +103,7 @@ void TestThresholdBinarizator::testBinarize24()
     DibPtr img("color_24.bmp");
     b.setSource(img);
 
-    CTDIB * result = b.binarize(0);
+    cf::CTDIB * result = b.binarize(0);
     CPPUNIT_ASSERT(result);
 
     cf::CTIControl::writeDIBtoBMP("rimage_threshold_binarize_color_24.bmp", result);

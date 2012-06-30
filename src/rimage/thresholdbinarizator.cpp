@@ -22,58 +22,52 @@
 
 #include "thresholdbinarizator.h"
 #include "rimage_debug.h"
-#include "rdib/ctdib.h"
 #include "minmax.h"
-
-std::string toStr(const RGBQUAD * q) {
-    std::ostringstream buf;
-    buf << (int) q->rgbRed << "," << (int) q->rgbGreen << "," << (int) q->rgbBlue;
-    return buf.str();
-}
+#include "common/ctdib.h"
 
 namespace cf {
 
-inline static int grayAverage(const CTDIBRGBQUAD * q)
+inline static int grayAverage(const RGBQuad * q)
 {
     return (q->rgbRed + q->rgbGreen + q->rgbBlue) / 3;
 }
 
-inline static int grayLuminance(const CTDIBRGBQUAD * q)
+inline static int grayLuminance(const RGBQuad * q)
 {
     return (q->rgbRed * 30 + q->rgbGreen * 59 + q->rgbBlue * 11) / 100;
 }
 
-inline static int grayLuma(const CTDIBRGBQUAD * q)
+inline static int grayLuma(const RGBQuad * q)
 {
     return (q->rgbRed * 21 + q->rgbGreen * 72 + q->rgbBlue * 7) / 100;
 }
 
-inline static int grayRed(const CTDIBRGBQUAD * q)
+inline static int grayRed(const RGBQuad * q)
 {
     return q->rgbRed;
 }
 
-inline static int grayGreen(const CTDIBRGBQUAD * q)
+inline static int grayGreen(const RGBQuad * q)
 {
     return q->rgbGreen;
 }
 
-inline static int grayBlue(const CTDIBRGBQUAD * q)
+inline static int grayBlue(const RGBQuad * q)
 {
     return q->rgbBlue;
 }
 
-inline static int grayDecompositionMax(const CTDIBRGBQUAD * q)
+inline static int grayDecompositionMax(const RGBQuad * q)
 {
     return std::max(q->rgbRed, std::max(q->rgbGreen, q->rgbBlue));
 }
 
-inline static int grayDecompositionMin(const CTDIBRGBQUAD * q)
+inline static int grayDecompositionMin(const RGBQuad * q)
 {
     return std::min(q->rgbRed, std::min(q->rgbGreen, q->rgbBlue));
 }
 
-inline static int grayDesaturation(const CTDIBRGBQUAD * q)
+inline static int grayDesaturation(const RGBQuad * q)
 {
     return (grayDecompositionMax(q) + grayDecompositionMin(q)) / 2;
 }
@@ -88,7 +82,7 @@ inline static void setWhite(uchar * pixel, uint shift)
     (*pixel) |= (0x80 >> shift);
 }
 
-inline static void binarizeRGBPixel(const CTDIBRGBQUAD * q, uchar * pixel, uint pixelShift,
+inline static void binarizeRGBPixel(const RGBQuad * q, uchar * pixel, uint pixelShift,
                                     int threshold,
                                     ThresholdBinarizator::grayscale_method_t m)
 {
@@ -150,14 +144,14 @@ CTDIB * ThresholdBinarizator::binarize(int)
         return NULL;
     }
 
-    const uint height = source()->GetLinesNumber();
-    const uint width = (uint) source()->GetImageWidth();
+    const uint height = source()->linesNumber();
+    const uint width = (uint) source()->width();
 
     for(uint y = 0; y < height; y++) {
         for(uint x = 0; x < width; x++) {
-            CTDIBRGBQUAD color;
+            RGBQuad color;
             source()->pixelColor(x, y, &color);
-            uchar * dest_pixel = (uchar*) dest->GetPtrToPixel(x, y);
+            uchar * dest_pixel = (uchar*) dest->pixelAt(x, y);
             uint pixel_shift = x % 8;
 
             binarizeRGBPixel(&color, dest_pixel, pixel_shift, threshold_, grayscale_method_);
