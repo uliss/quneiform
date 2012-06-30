@@ -20,9 +20,7 @@ target_link_libraries(dib_imageplugin
     cuneiform-rdib
 )
 
-find_package(TIFF)
-
-if(TIFF_FOUND)
+if(CF_TIFF_SUPPORT)
     include_directories(${TIFF_INCLUDE_DIR})
 
     set(CF_MTIFF_PLUGIN_SOURCES
