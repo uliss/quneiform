@@ -24,6 +24,7 @@ set(HEADERS
     dialogs/exportdialog.h
     dialogs/formatsettingsdialog.h
     dialogs/logviewerdialog.h
+    dialogs/openprogressdialog.h
     dialogs/pagepropertiesdialog.h
     dialogs/packetopenprogressdialog.h
     dialogs/recognitionsettingsdialog.h

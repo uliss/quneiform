@@ -23,6 +23,7 @@
 
 class OpenProgressDialog : public QProgressDialog
 {
+    Q_OBJECT
 public:
     OpenProgressDialog(QWidget * parent = 0);
     void load(const QString& path, int page = -1);
