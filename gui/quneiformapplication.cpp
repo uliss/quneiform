@@ -27,7 +27,10 @@
 #include "guilog.h"
 
 Q_IMPORT_PLUGIN(dib_imageplugin)
+
+#ifdef WITH_TIFF
 Q_IMPORT_PLUGIN(multitiff_imageplugin)
+#endif
 
 #ifdef WITH_PDF
 Q_IMPORT_PLUGIN(pdf_imageplugin)
