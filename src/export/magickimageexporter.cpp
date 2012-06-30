@@ -37,6 +37,7 @@ bool registerCreator()
     ImageExporterFactory::instance().registerCreator(FORMAT_PNG, &create, 1);
     ImageExporterFactory::instance().registerCreator(FORMAT_JPEG, &create, 1);
     ImageExporterFactory::instance().registerCreator(FORMAT_GIF, &create, 1);
+    return true;
 }
 
 bool registered = registerCreator();
