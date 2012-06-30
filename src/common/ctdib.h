@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _CTDIB_H_
 
 #include <iosfwd>
+#include <string>
 
 #include "globus.h"
 #include "dib.h"
@@ -373,7 +374,7 @@ public:
     bool saveToBMP(const std::string& fileName) const;
     bool saveToBMP(std::ostream& os) const;
 public:
-    static bool saveToBMP(const std::string &fileName, BitmapPtr bitmap);
+    static bool saveToBMP(const std::string& fileName, BitmapPtr bitmap);
     static bool saveToBMP(std::ostream& os, BitmapPtr bitmap);
 private:
     enum direction_t {
