@@ -1082,11 +1082,5 @@ void LT_GraphicsBreakingOutput (const char *pTitle)
     ScreenOutput (pTitle, BreakingUpdate);
 }
 
-
 # endif
-
-// Pit 11-21-94 04:56pm
-#include "edp.h"
-int16_t maxx,minx,maxy,miny;
-int16_t scale;
 
