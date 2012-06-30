@@ -81,7 +81,7 @@ static inline size_t bitsToBytes(size_t a)
 
 static inline uint dpmToDpi(uint a)
 {
-    return (uint) round((a / 100 ) * 2.54);
+    return (uint) floor((a / 100 ) * 2.54 + 0.5);
 }
 
 static bool equal(const RGBQuad& q1, const RGBQuad& q2)
