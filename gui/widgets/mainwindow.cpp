@@ -899,7 +899,7 @@ void MainWindow::writeSettings()
     window_sz.rheight() += MAC_MAGICK_HEIGHT_FIX;
     s.setValue("size", window_sz);
 #else
-    settings.setValue("size", size());
+    s.setValue("size", size());
 #endif
 
     s.setValue("pos", pos());
