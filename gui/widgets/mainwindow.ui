@@ -44,6 +44,7 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionReportBug"/>
    </widget>
    <widget class="QMenu" name="menuImage">
     <property name="title">
@@ -321,6 +322,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+2</string>
+   </property>
+  </action>
+  <action name="actionReportBug">
+   <property name="text">
+    <string>Report Bug...</string>
    </property>
   </action>
  </widget>

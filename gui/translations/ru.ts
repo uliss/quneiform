@@ -514,6 +514,10 @@ Are you shure?</source>
         <source>Ctrl+2</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Report Bug...</source>
+        <translation>Сообщить об ошибке...</translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>

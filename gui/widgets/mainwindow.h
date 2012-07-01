@@ -63,6 +63,7 @@ private slots:
     void disableZoomOutAction();
     void enableViewActions();
     void enableZoomActions();
+    void handleReportBug();
     void imageDuplication(const QString& path);
     void openImages();
     void openImages(const QStringList& paths);

@@ -27,6 +27,8 @@
 #include <QMenuBar>
 #include <QLabel>
 #include <QImageReader>
+#include <QUrl>
+#include <QDesktopServices>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -174,6 +176,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionScan, SIGNAL(triggered()), SLOT(showScanDialog()));
     connect(ui_->actionViewThumbnails, SIGNAL(triggered()), SLOT(showViewThumbnails()));
     connect(ui_->actionViewContentOnly, SIGNAL(triggered()), SLOT(showViewContentOnly()));
+    connect(ui_->actionReportBug, SIGNAL(triggered()), SLOT(handleReportBug()));
 
     QActionGroup * view_group = new QActionGroup(this);
     view_group->addAction(ui_->actionViewThumbnails);
@@ -235,6 +238,11 @@ void MainWindow::enableZoomActions() {
         ui_->actionZoom_In->setEnabled(true);
     if(!ui_->actionZoom_Out->isEnabled())
         ui_->actionZoom_Out->setEnabled(true);
+}
+
+void MainWindow::handleReportBug()
+{
+    QDesktopServices::openUrl(QUrl("https://github.com/uliss/quneiform/issues", QUrl::TolerantMode));
 }
 
 void MainWindow::enableViewActions() {
