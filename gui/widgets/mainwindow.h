@@ -86,6 +86,7 @@ private slots:
     void showPageImage(Page * page);
     void showPageText(Page * page);
     void showSettings();
+    void showScanDialog();
     void updateCurrentLanguage(Page * p);
     void updateCurrentPage();
     void updatePageDocument(Page*);

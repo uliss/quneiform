@@ -51,6 +51,7 @@
 #include "recentmenu.h"
 #include "exportsettings.h"
 #include "imageutils.h"
+#include "scan/scannerdialog.h"
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -169,6 +170,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionSavePacket, SIGNAL(triggered()), SLOT(savePacket()));
     connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showSettings()));
     connect(ui_->actionRecognitionSettings, SIGNAL(triggered()), SLOT(recognitionSettings()));
+    connect(ui_->actionScan, SIGNAL(triggered()), SLOT(showScanDialog()));
 }
 
 void MainWindow::connectThumbs() {
@@ -733,6 +735,12 @@ void MainWindow::showSettings() {
 
     if(state == QDialog::Accepted)
         image_widget_->updateSettings();
+}
+
+void MainWindow::showScanDialog()
+{
+    ScannerDialog dlg;
+    dlg.exec();
 }
 
 void MainWindow::updateCurrentLanguage(Page * p) {

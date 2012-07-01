@@ -486,6 +486,14 @@ Are you shure?</source>
         <source>Images (%1)</source>
         <translation>Изображения (%1)</translation>
     </message>
+    <message>
+        <source>Scan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>
