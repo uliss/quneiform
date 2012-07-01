@@ -494,6 +494,26 @@ Are you shure?</source>
         <source>Alt+S</source>
         <translation></translation>
     </message>
+    <message>
+        <source>View</source>
+        <translation>Вид</translation>
+    </message>
+    <message>
+        <source>Content only</source>
+        <translation>Только содержание</translation>
+    </message>
+    <message>
+        <source>Ctrl+1</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Thumbnails</source>
+        <translation>Миниатюры</translation>
+    </message>
+    <message>
+        <source>Ctrl+2</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>

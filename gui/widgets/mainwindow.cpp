@@ -156,6 +156,7 @@ void MainWindow::closeEvent(QCloseEvent * event) {
 
 void MainWindow::connectActions() {
     Q_CHECK_PTR(ui_);
+
     connect(ui_->actionAbout, SIGNAL(triggered()), SLOT(about()));
     connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImages()));
     connect(ui_->actionZoom_In, SIGNAL(triggered()), image_widget_, SLOT(zoomIn()));
@@ -171,6 +172,13 @@ void MainWindow::connectActions() {
     connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showSettings()));
     connect(ui_->actionRecognitionSettings, SIGNAL(triggered()), SLOT(recognitionSettings()));
     connect(ui_->actionScan, SIGNAL(triggered()), SLOT(showScanDialog()));
+    connect(ui_->actionViewThumbnails, SIGNAL(triggered()), SLOT(showViewThumbnails()));
+    connect(ui_->actionViewContentOnly, SIGNAL(triggered()), SLOT(showViewContentOnly()));
+
+    QActionGroup * view_group = new QActionGroup(this);
+    view_group->addAction(ui_->actionViewThumbnails);
+    view_group->addAction(ui_->actionViewContentOnly);
+    ui_->actionViewThumbnails->setChecked(true);
 }
 
 void MainWindow::connectThumbs() {
@@ -741,6 +749,16 @@ void MainWindow::showScanDialog()
 {
     ScannerDialog dlg;
     dlg.exec();
+}
+
+void MainWindow::showViewContentOnly()
+{
+    thumbs_->hide();
+}
+
+void MainWindow::showViewThumbnails()
+{
+    thumbs_->show();
 }
 
 void MainWindow::updateCurrentLanguage(Page * p) {
