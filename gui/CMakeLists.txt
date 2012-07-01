@@ -54,6 +54,7 @@ set(HEADERS
 set(SOURCES
     exportsettings.cpp
     formatsettings.cpp
+    fullscreen.cpp
     graphicsitemlayout.cpp
     imagecache.cpp
     imageurl.cpp

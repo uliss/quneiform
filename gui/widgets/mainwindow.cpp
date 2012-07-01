@@ -53,11 +53,8 @@
 #include "recentmenu.h"
 #include "exportsettings.h"
 #include "imageutils.h"
+#include "fullscreen.h"
 #include "scan/scannerdialog.h"
-
-#ifdef Q_WS_MAC
-#include "macosx/macfullscreen.h"
-#endif
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -82,9 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupViewSplit();
     readSettings();
 
-#ifdef Q_WS_MAC
-    macAddFullScreen(this);
-#endif
+    utils::addFullScreenWidget(this);
 }
 
 MainWindow::~MainWindow() {
@@ -261,17 +256,15 @@ void MainWindow::handleReportBug()
 
 void MainWindow::handleShowFullScreen()
 {
-    static QString prev_text;
+    utils::toggleFullScreen(this);
 
-    if(isFullScreen()) {
-        showNormal();
-        ui_->actionFullScreen->setText(prev_text);
-    }
-    else {
-        prev_text = ui_->actionFullScreen->text();
-        ui_->actionFullScreen->setText(tr("Go to normal mode"));
-        showFullScreen();
-    }
+    QString new_text = ui_->actionFullScreen->data().toString();
+    if(new_text.isNull())
+        new_text = tr("Go to normal mode");
+
+    QString old_text = ui_->actionFullScreen->text();
+    ui_->actionFullScreen->setData(old_text);
+    ui_->actionFullScreen->setText(new_text);
 }
 
 void MainWindow::handleViewSplitChange()

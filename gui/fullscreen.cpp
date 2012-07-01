@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,30 +16,28 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QtGlobal>
 #include <QMainWindow>
-#import <AppKit/AppKit.h>
 
-#include "macfullscreen.h"
+#include "fullscreen.h"
 
-void macAddFullScreen(QMainWindow * window)
+#ifdef Q_WS_MAC
+#include "macosx/macfullscreen.h"
+#endif
+
+namespace utils {
+
+void addFullScreenWidget(QMainWindow * window)
 {
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
-    NSView *nsview = (NSView *) window->winId();
-    NSWindow *nswindow = [nsview window];
-    [nswindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
+#ifdef Q_WS_MAC
+    macAddFullScreen(window);
 #endif
 }
 
-
-void macToggleFullScreen(QMainWindow * window)
+void toggleFullScreen(QMainWindow * window)
 {
-    if(!window)
-        return;
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
-    NSView * nsview = (NSView*) window->winId();
-    NSWindow * nswindow = [nsview window];
-    [nswindow toggleFullScreen:nil];
+#ifdef Q_WS_MAC
+    macToggleFullScreen(window);
 #else
     if(window->isFullScreen())
         window->showNormal();
@@ -48,17 +46,13 @@ void macToggleFullScreen(QMainWindow * window)
 #endif
 }
 
-bool macIsFullScreen(QMainWindow * window)
+bool isFullScreen(QMainWindow * window)
 {
-    if(!window)
-        return false;
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
-    NSView * nsview = (NSView*) window->winId();
-    NSWindow * nswindow = [nsview window];
-    NSUInteger masks = [nswindow styleMask];
-    return masks & NSFullScreenWindowMask;
+#ifdef Q_WS_MAC
+    return macIsFullScreen(window);
 #else
     return window->isFullScreen();
 #endif
+}
+
 }
