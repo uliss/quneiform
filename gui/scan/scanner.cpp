@@ -21,9 +21,12 @@
 
 #include "scanner.h"
 #include "scan/iscanner.h"
-#include "scan/sanescanner.h"
 #include "scan/scanoptioninfo.h"
 #include "scan/scanoptionvalue.h"
+
+#ifdef CF_SANE_SCANNER_SUPPORT
+#include "scan/sanescanner.h"
+#endif
 
 using namespace cf;
 
@@ -31,7 +34,9 @@ Scanner::Scanner(QObject *parent) :
     QObject(parent),
     backend_(NULL)
 {
+#ifdef CF_SANE_SCANNER_SUPPORT
     backend_ = new cf::SaneScanner;
+#endif
 }
 
 Scanner::~Scanner()
@@ -165,12 +170,15 @@ void Scanner::collectOptions()
 QStringList Scanner::listDevices() const
 {
     QStringList res;
+
+#ifdef CF_SANE_SCANNER_SUPPORT
     SaneScanner s;
     SaneScanner::DeviceList devices = s.listDevices();
 
     for(size_t i = 0; i < devices.size(); i++) {
         res << QString::fromStdString(devices[i]);
     }
+#endif
 
     return res;
 }

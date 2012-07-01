@@ -81,13 +81,10 @@ void ScannerDialog::setupUi()
 {
     connect(this, SIGNAL(accepted()), this, SLOT(saveOptions()));
 
-
     QStringList l = scanner_->listDevices();
     foreach(QString s, l) {
         ui_->scannerComboBox->addItem(s);
     }
-
-    l.pop_back();
 
     if(l.count() > 1) {
         ui_->stackedWidget->setCurrentWidget(ui_->scannerList);

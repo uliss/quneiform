@@ -13,6 +13,10 @@ set(QF_SCAN_SRC
     ${CF_SCAN_MOC_HEADERS}
     ${CF_SCAN_UI_HEADERS})
 
+if(CF_SANE_SCANNER_SUPPORT)
+    add_definitions(-DWITH_SANE)
+endif()
+
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_library(quneiform_scan STATIC ${QF_SCAN_SRC})
