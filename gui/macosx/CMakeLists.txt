@@ -5,6 +5,7 @@ set(HEADERS
 set(SOURCES
     macstring.cpp
     macpool.mm
+    macfullscreen.mm
 )
 
 source_group("Header Files" FILES ${HEADERS})

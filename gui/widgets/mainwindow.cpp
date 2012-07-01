@@ -55,6 +55,10 @@
 #include "imageutils.h"
 #include "scan/scannerdialog.h"
 
+#ifdef Q_WS_MAC
+#include "macosx/macfullscreen.h"
+#endif
+
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
 static const int VERSION_PATCH = 1;
@@ -77,6 +81,10 @@ MainWindow::MainWindow(QWidget *parent) :
     setupRecent();
     setupViewSplit();
     readSettings();
+
+#ifdef Q_WS_MAC
+    macAddFullScreen(this);
+#endif
 }
 
 MainWindow::~MainWindow() {
