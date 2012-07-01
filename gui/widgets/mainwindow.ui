@@ -73,6 +73,9 @@
     </property>
     <addaction name="actionViewContentOnly"/>
     <addaction name="actionViewThumbnails"/>
+    <addaction name="separator"/>
+    <addaction name="actionSplitHorizontal"/>
+    <addaction name="actionSplitVertical"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuRecognition"/>
@@ -327,6 +330,22 @@
   <action name="actionReportBug">
    <property name="text">
     <string>Report Bug...</string>
+   </property>
+  </action>
+  <action name="actionSplitHorizontal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Split horizontal</string>
+   </property>
+  </action>
+  <action name="actionSplitVertical">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Split vertical</string>
    </property>
   </action>
  </widget>

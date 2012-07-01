@@ -65,15 +65,18 @@ MainWindow::MainWindow(QWidget *parent) :
         ui_(new Ui::MainWindow),
         packet_(new Packet(this)),
         progress_(new OpenProgressDialog(this)),
-        image_widget_(NULL) {
+        image_widget_(NULL),
+        view_splitter_(NULL)
+{
     setupUi();
     setupPacket();
     setupShortcuts();
     connectActions();
     connectThumbs();
-    readSettings();
     setupRecognitionQueue();
     setupRecent();
+    setupViewSplit();
+    readSettings();
 }
 
 MainWindow::~MainWindow() {
@@ -177,6 +180,8 @@ void MainWindow::connectActions() {
     connect(ui_->actionViewThumbnails, SIGNAL(triggered()), SLOT(showViewThumbnails()));
     connect(ui_->actionViewContentOnly, SIGNAL(triggered()), SLOT(showViewContentOnly()));
     connect(ui_->actionReportBug, SIGNAL(triggered()), SLOT(handleReportBug()));
+    connect(ui_->actionSplitHorizontal, SIGNAL(triggered()), SLOT(handleViewSplitChange()));
+    connect(ui_->actionSplitVertical, SIGNAL(triggered()), SLOT(handleViewSplitChange()));
 
     QActionGroup * view_group = new QActionGroup(this);
     view_group->addAction(ui_->actionViewThumbnails);
@@ -243,6 +248,16 @@ void MainWindow::enableZoomActions() {
 void MainWindow::handleReportBug()
 {
     QDesktopServices::openUrl(QUrl("https://github.com/uliss/quneiform/issues", QUrl::TolerantMode));
+}
+
+void MainWindow::handleViewSplitChange()
+{
+    if(sender() == (QObject*) ui_->actionSplitVertical)
+        view_splitter_->setOrientation(Qt::Horizontal);
+    else if(sender() == (QObject*) ui_->actionSplitHorizontal)
+        view_splitter_->setOrientation(Qt::Vertical);
+    else
+        qWarning() << Q_FUNC_INFO << "unknown split type";
 }
 
 void MainWindow::enableViewActions() {
@@ -440,12 +455,33 @@ void MainWindow::openRecentImage(const QString& path) {
     openImage(path, false);
 }
 
-void MainWindow::readSettings() {
-    QSettings settings;
-    settings.beginGroup("MainWindow");
-    resize(settings.value("size", QSize(800, 600)).toSize());
-    move(settings.value("pos", QPoint(200, 200)).toPoint());
-    settings.endGroup();
+void MainWindow::readSettings()
+{
+    QSettings s;
+    s.beginGroup("MainWindow");
+    resize(s.value("size", QSize(800, 600)).toSize());
+    move(s.value("pos", QPoint(200, 200)).toPoint());
+    s.endGroup();
+
+    // view
+    s.beginGroup("view");
+    // splitter
+    QString split_setting = s.value("split", QString("Horizontal")).toString();
+    if(split_setting == "Horizontal")
+        ui_->actionSplitHorizontal->setChecked(true);
+    else if(split_setting == "Vertical")
+        ui_->actionSplitVertical->setChecked(true);
+    else
+        qWarning() << Q_FUNC_INFO << "unknown split type:" << split_setting;
+
+    QByteArray split_state = s.value("split_state", QByteArray()).toByteArray();
+    view_splitter_->restoreState(split_state);
+
+    // thumbs
+    if(s.value("hide_thumbnails", false).toBool())
+        thumbs_->hide();
+
+    s.endGroup();
 }
 
 void MainWindow::recognizeAll() {
@@ -688,6 +724,13 @@ void MainWindow::setupThumbs() {
     thumbs_->setPacket(packet_);
 }
 
+void MainWindow::setupViewSplit()
+{
+    QActionGroup * split_group = new QActionGroup(this);
+    split_group->addAction(ui_->actionSplitHorizontal);
+    split_group->addAction(ui_->actionSplitVertical);
+}
+
 void MainWindow::setupUi() {
     setUnifiedTitleAndToolBarOnMac(true);
     ui_->setupUi(this);
@@ -708,15 +751,13 @@ void MainWindow::setupUiLayout() {
     main_layout_->setSpacing(0);
     main_layout_->setMargin(1);
     main_layout_->setContentsMargins(0, 0, 0, 0);
-
     main_layout_->addWidget(thumbs_);
 
-    QSplitter * spl = new QSplitter(Qt::Vertical);
-    spl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    spl->addWidget(image_widget_);
-    spl->addWidget(text_view_);
-
-    main_layout_->addWidget(spl);
+    view_splitter_ = new QSplitter(Qt::Vertical);
+    view_splitter_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    view_splitter_->addWidget(image_widget_);
+    view_splitter_->addWidget(text_view_);
+    main_layout_->addWidget(view_splitter_);
 
     ui_->centralWidget->setLayout(main_layout_);
 }
@@ -826,9 +867,10 @@ void MainWindow::addDebugMenu()
 }
 #endif
 
-void MainWindow::writeSettings() {
-    QSettings settings;
-    settings.beginGroup("MainWindow");
+void MainWindow::writeSettings()
+{
+    QSettings s;
+    s.beginGroup("MainWindow");
 
 #ifdef Q_WS_MAC
     // qt incorretly calculates window height
@@ -836,16 +878,26 @@ void MainWindow::writeSettings() {
     static const int MAC_MAGICK_HEIGHT_FIX = 76;
     QSize window_sz = size();
     window_sz.rheight() += MAC_MAGICK_HEIGHT_FIX;
-    settings.setValue("size", window_sz);
+    s.setValue("size", window_sz);
 #else
     settings.setValue("size", size());
 #endif
 
-    settings.setValue("pos", pos());
-    settings.endGroup();
+    s.setValue("pos", pos());
+    s.endGroup();
 
-    settings.beginGroup("language");
-    settings.setValue("lastLanguage", lang_select_->currentLanguage().code());
+    s.beginGroup("language");
+    s.setValue("lastLanguage", lang_select_->currentLanguage().code());
+    s.endGroup();
+
+    s.beginGroup("view");
+    s.setValue("split", view_splitter_->orientation() == Qt::Vertical
+               ? QString("Horizontal")
+                 : QString("Vertical"));
+
+    s.setValue("split_state", view_splitter_->saveState());
+    s.setValue("hide_thumbnails", thumbs_->isHidden());
+    s.endGroup();
 }
 
 void MainWindow::recognitionSettings()

@@ -38,6 +38,7 @@ class ThumbnailList;
 class TextEditor;
 class QProgressDialog;
 class QHBoxLayout;
+class QSplitter;
 
 class MainWindow: public QMainWindow {
     Q_OBJECT
@@ -64,6 +65,7 @@ private slots:
     void enableViewActions();
     void enableZoomActions();
     void handleReportBug();
+    void handleViewSplitChange();
     void imageDuplication(const QString& path);
     void openImages();
     void openImages(const QStringList& paths);
@@ -124,6 +126,7 @@ private:
     void setupShortcuts();
     void setupTextView();
     void setupThumbs();
+    void setupViewSplit();
     void setupUi();
     void setupUiLayout();
     void writeSettings();
@@ -140,6 +143,7 @@ private:
     PageRecognitionQueue * recognition_queue_;
     RecentMenu * recent_packets_;
     RecentMenu * recent_images_;
+    QSplitter * view_splitter_;
 };
 
 #endif // MAINWINDOW_H

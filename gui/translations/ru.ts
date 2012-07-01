@@ -518,6 +518,14 @@ Are you shure?</source>
         <source>Report Bug...</source>
         <translation>Сообщить об ошибке...</translation>
     </message>
+    <message>
+        <source>Split horizontal</source>
+        <translation>Разделить по горизонтали</translation>
+    </message>
+    <message>
+        <source>Split vertical</source>
+        <translation>Разделить по вертикали</translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>
