@@ -526,6 +526,14 @@ Are you shure?</source>
         <source>Split vertical</source>
         <translation>Разделить по вертикали</translation>
     </message>
+    <message>
+        <source>Full screen</source>
+        <translation>Полный экран</translation>
+    </message>
+    <message>
+        <source>Go to normal mode</source>
+        <translation>Выйти из полноэкранного режима</translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>

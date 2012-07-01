@@ -182,6 +182,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionReportBug, SIGNAL(triggered()), SLOT(handleReportBug()));
     connect(ui_->actionSplitHorizontal, SIGNAL(triggered()), SLOT(handleViewSplitChange()));
     connect(ui_->actionSplitVertical, SIGNAL(triggered()), SLOT(handleViewSplitChange()));
+    connect(ui_->actionFullScreen, SIGNAL(triggered()), SLOT(handleShowFullScreen()));
 
     QActionGroup * view_group = new QActionGroup(this);
     view_group->addAction(ui_->actionViewThumbnails);
@@ -248,6 +249,21 @@ void MainWindow::enableZoomActions() {
 void MainWindow::handleReportBug()
 {
     QDesktopServices::openUrl(QUrl("https://github.com/uliss/quneiform/issues", QUrl::TolerantMode));
+}
+
+void MainWindow::handleShowFullScreen()
+{
+    static QString prev_text;
+
+    if(isFullScreen()) {
+        showNormal();
+        ui_->actionFullScreen->setText(prev_text);
+    }
+    else {
+        prev_text = ui_->actionFullScreen->text();
+        ui_->actionFullScreen->setText(tr("Go to normal mode"));
+        showFullScreen();
+    }
 }
 
 void MainWindow::handleViewSplitChange()
@@ -712,6 +728,8 @@ void MainWindow::setupShortcuts() {
     ui_->actionZoom_In->setShortcut(QKeySequence::ZoomIn);
     ui_->actionZoom_Out->setShortcut(QKeySequence::ZoomOut);
     ui_->actionSavePacket->setShortcut(QKeySequence::Save);
+
+    ui_->actionFullScreen->setShortcut(QKeySequence("Ctrl+Alt+F"));
 }
 
 void MainWindow::setupTextView() {

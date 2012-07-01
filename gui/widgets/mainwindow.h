@@ -65,6 +65,7 @@ private slots:
     void enableViewActions();
     void enableZoomActions();
     void handleReportBug();
+    void handleShowFullScreen();
     void handleViewSplitChange();
     void imageDuplication(const QString& path);
     void openImages();

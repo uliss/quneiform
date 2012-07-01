@@ -76,6 +76,8 @@
     <addaction name="separator"/>
     <addaction name="actionSplitHorizontal"/>
     <addaction name="actionSplitVertical"/>
+    <addaction name="separator"/>
+    <addaction name="actionFullScreen"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuRecognition"/>
@@ -346,6 +348,11 @@
    </property>
    <property name="text">
     <string>Split vertical</string>
+   </property>
+  </action>
+  <action name="actionFullScreen">
+   <property name="text">
+    <string>Full screen</string>
    </property>
   </action>
  </widget>
