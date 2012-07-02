@@ -79,10 +79,17 @@
     <addaction name="separator"/>
     <addaction name="actionFullScreen"/>
    </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <addaction name="actionMinimize"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuRecognition"/>
    <addaction name="menuImage"/>
    <addaction name="menuView"/>
+   <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -353,6 +360,11 @@
   <action name="actionFullScreen">
    <property name="text">
     <string>Full screen</string>
+   </property>
+  </action>
+  <action name="actionMinimize">
+   <property name="text">
+    <string>Minimize</string>
    </property>
   </action>
  </widget>

@@ -186,6 +186,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionSplitHorizontal, SIGNAL(triggered()), SLOT(handleViewSplitChange()));
     connect(ui_->actionSplitVertical, SIGNAL(triggered()), SLOT(handleViewSplitChange()));
     connect(ui_->actionFullScreen, SIGNAL(triggered()), SLOT(handleShowFullScreen()));
+    connect(ui_->actionMinimize, SIGNAL(triggered()), SLOT(handleShowMinimized()));
 
     QActionGroup * view_group = new QActionGroup(this);
     view_group->addAction(ui_->actionViewThumbnails);
@@ -265,6 +266,12 @@ void MainWindow::handleShowFullScreen()
     QString old_text = ui_->actionFullScreen->text();
     ui_->actionFullScreen->setData(old_text);
     ui_->actionFullScreen->setText(new_text);
+}
+
+void MainWindow::handleShowMinimized()
+{
+    showMinimized();
+    ui_->actionMinimize->setEnabled(false);
 }
 
 void MainWindow::handleViewSplitChange()
@@ -719,7 +726,7 @@ void MainWindow::setupRecognitionQueue() {
 
 void MainWindow::setupShortcuts() {
     // there's no default shortcut for quit action in windows and Qt < 4.6
-#if QT_VERSION < 0x040600 || defined(Q_WS_WIN)
+#ifdef Q_WS_WIN
     ui_->actionExit->setShortcut(QKeySequence("Ctrl+Q"));
 #else
     ui_->actionExit->setShortcut(QKeySequence::Quit);
@@ -731,6 +738,10 @@ void MainWindow::setupShortcuts() {
     ui_->actionSavePacket->setShortcut(QKeySequence::Save);
 
     ui_->actionFullScreen->setShortcut(QKeySequence("Ctrl+Alt+F"));
+
+#ifdef Q_WS_MAC
+    ui_->actionMinimize->setShortcut(QKeySequence("Ctrl+M"));
+#endif
 }
 
 void MainWindow::setupTextView() {
@@ -917,6 +928,12 @@ void MainWindow::writeSettings()
     s.setValue("split_state", view_splitter_->saveState());
     s.setValue("hide_thumbnails", thumbs_->isHidden());
     s.endGroup();
+}
+
+void MainWindow::showEvent(QShowEvent * event)
+{
+    QMainWindow::showEvent(event);
+    ui_->actionMinimize->setEnabled(true);
 }
 
 void MainWindow::recognitionSettings()

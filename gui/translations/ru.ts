@@ -534,6 +534,14 @@ Are you shure?</source>
         <source>Go to normal mode</source>
         <translation>Выйти из полноэкранного режима</translation>
     </message>
+    <message>
+        <source>Window</source>
+        <translation>Окно</translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Свернуть</translation>
+    </message>
 </context>
 <context>
     <name>OpenProgressDialog</name>
