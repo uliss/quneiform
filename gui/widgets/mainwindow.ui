@@ -115,7 +115,6 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="separator"/>
    <addaction name="actionOpen"/>
    <addaction name="actionZoom_In"/>
    <addaction name="actionZoom_Out"/>
@@ -144,17 +143,8 @@
    </property>
   </action>
   <action name="actionOpen">
-   <property name="icon">
-    <iconset resource="../resources/cuneiform.qrc">
-     <normaloff>:/img/oxygen/32x32/fileopen.png</normaloff>:/img/oxygen/32x32/fileopen.png</iconset>
-   </property>
    <property name="text">
     <string>Open images</string>
-   </property>
-  </action>
-  <action name="actionRecognize_all">
-   <property name="text">
-    <string>Recognize all</string>
    </property>
   </action>
   <action name="actionZoom_In">
@@ -164,10 +154,6 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon">
-    <iconset resource="../resources/cuneiform.qrc">
-     <normaloff>:/img/oxygen/32x32/zoom_in.png</normaloff>:/img/oxygen/32x32/zoom_in.png</iconset>
-   </property>
    <property name="text">
     <string>Zoom In</string>
    </property>
@@ -175,10 +161,6 @@
   <action name="actionZoom_Out">
    <property name="enabled">
     <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../resources/cuneiform.qrc">
-     <normaloff>:/img/oxygen/32x32/zoom_out.png</normaloff>:/img/oxygen/32x32/zoom_out.png</iconset>
    </property>
    <property name="text">
     <string>Zoom Out</string>
@@ -192,28 +174,9 @@
     <string>Fit to width</string>
    </property>
   </action>
-  <action name="actionSelectRegion">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../resources/cuneiform.qrc">
-     <normaloff>:/img/oxygen/32x32/select_rectangular.png</normaloff>:/img/oxygen/32x32/select_rectangular.png</iconset>
-   </property>
-   <property name="text">
-    <string>Select Region</string>
-   </property>
-   <property name="toolTip">
-    <string>Selects region for recognition</string>
-   </property>
-  </action>
   <action name="actionFitPage">
    <property name="enabled">
     <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../resources/cuneiform.qrc">
-     <normaloff>:/img/oxygen/32x32/zoom_fit_best.png</normaloff>:/img/oxygen/32x32/zoom_fit_best.png</iconset>
    </property>
    <property name="text">
     <string>Fit to page</string>
@@ -226,10 +189,6 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon">
-    <iconset resource="../resources/cuneiform.qrc">
-     <normaloff>:/img/oxygen/32x32/document_preview.png</normaloff>:/img/oxygen/32x32/document_preview.png</iconset>
-   </property>
    <property name="text">
     <string>Recognize All</string>
    </property>
@@ -240,10 +199,6 @@
   <action name="actionRotateRight">
    <property name="enabled">
     <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../resources/cuneiform.qrc">
-     <normaloff>:/img/oxygen/32x32/object_rotate_right.png</normaloff>:/img/oxygen/32x32/object_rotate_right.png</iconset>
    </property>
    <property name="text">
     <string>Rotate right</string>
@@ -256,19 +211,11 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon">
-    <iconset resource="../resources/cuneiform.qrc">
-     <normaloff>:/img/oxygen/32x32/object_rotate_left.png</normaloff>:/img/oxygen/32x32/object_rotate_left.png</iconset>
-   </property>
    <property name="text">
     <string>Rotate left</string>
    </property>
   </action>
   <action name="actionSavePacket">
-   <property name="icon">
-    <iconset resource="../resources/cuneiform.qrc">
-     <normaloff>:/img/oxygen/32x32/filesave.png</normaloff>:/img/oxygen/32x32/filesave.png</iconset>
-   </property>
    <property name="text">
     <string>Save packet</string>
    </property>
@@ -281,10 +228,6 @@
   <action name="actionOriginalSize">
    <property name="enabled">
     <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../resources/cuneiform.qrc">
-     <normaloff>:/img/oxygen/32x32/zoom_original.png</normaloff>:/img/oxygen/32x32/zoom_original.png</iconset>
    </property>
    <property name="text">
     <string>Original size</string>

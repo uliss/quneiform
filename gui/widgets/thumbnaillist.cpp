@@ -29,12 +29,9 @@
 #include "dialogs/recognitionsettingsdialog.h"
 #include "dialogs/formatsettingsdialog.h"
 #include "quneiform_debug.h"
+#include "iconutils.h"
 
 static const int LIST_WIDTH = 170;
-static const QString ICON_THUMB_DELETE(":/img/oxygen/22x22/list_remove.png");
-static const QString ICON_THUMB_SAVE_AS(":/img/oxygen/22x22/document_save_as.png");
-static const QString ICON_THUMB_RECOGNIZE(":/img/oxygen/22x22/document_preview.png");
-static const QString ICON_THUMB_PROPERTIES(":/img/oxygen/22x22/document_properties.png");
 
 ThumbnailList::ThumbnailList(QWidget * parent) :
     QGraphicsView(parent),
@@ -340,7 +337,8 @@ void ThumbnailList::setupActions() {
 
 void ThumbnailList::setupActionDelete()
 {
-    act_delete_ = new QAction(QIcon(ICON_THUMB_DELETE), tr("Delete"), this);
+    act_delete_ = new QAction(tr("Delete"), this);
+    act_delete_->setIcon(iconFromTheme("list-remove"));
     act_delete_->setShortcut(Qt::CTRL + Qt::Key_Backspace);
     act_delete_->setShortcutContext(Qt::WidgetShortcut);
     connect(act_delete_, SIGNAL(triggered()), SLOT(contextThumbRemove()));
@@ -351,6 +349,7 @@ void ThumbnailList::setupActionDelete()
 void ThumbnailList::setupActionSelectAll()
 {
     act_select_all_ = new QAction(tr("Select all"), this);
+    act_select_all_->setIcon(iconFromTheme("edit-select-all"));
     act_select_all_->setShortcut(QKeySequence::SelectAll);
     connect(act_select_all_, SIGNAL(triggered()), SLOT(selectAll()));
     addAction(act_select_all_);
@@ -358,7 +357,8 @@ void ThumbnailList::setupActionSelectAll()
 
 void ThumbnailList::setupActionSaveAs()
 {
-    act_save_as_ = new QAction(QIcon(ICON_THUMB_SAVE_AS), tr("Save as"), this);
+    act_save_as_ = new QAction(tr("Save as"), this);
+    act_save_as_->setIcon(iconFromTheme("document-save-as"));
     act_save_as_->setShortcut(QKeySequence::SaveAs);
     act_save_as_->setShortcutContext(Qt::WidgetShortcut);
     connect(act_save_as_, SIGNAL(triggered()), SLOT(contextThumbSave()));
@@ -367,7 +367,8 @@ void ThumbnailList::setupActionSaveAs()
 
 void ThumbnailList::setupActionRecognize()
 {
-    act_recognize_ = new QAction(QIcon(ICON_THUMB_RECOGNIZE), tr("Recognize"), this);
+    act_recognize_ = new QAction(tr("Recognize"), this);
+    act_recognize_->setIcon(iconFromTheme("recognize"));
     connect(act_recognize_, SIGNAL(triggered()), SLOT(contextThumbRecognize()));
     act_recognize_->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R));
     addAction(act_recognize_);
@@ -375,7 +376,8 @@ void ThumbnailList::setupActionRecognize()
 
 void ThumbnailList::setupActionProperties()
 {
-    act_properties_ = new QAction(QIcon(ICON_THUMB_PROPERTIES), tr("Properties"), this);
+    act_properties_ = new QAction(tr("Properties"), this);
+    act_properties_->setIcon(iconFromTheme("document-properties"));
     connect(act_properties_, SIGNAL(triggered()), SLOT(contextThumbProperties()));
     addAction(act_properties_);
 }

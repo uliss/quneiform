@@ -117,6 +117,7 @@ private:
     void readSettings();
     void setupDefaultLanguage();
     void setupPacket();
+    void setupIcons();
     void setupImageView();
     void setupLanguageMenu();
     void setupLanguageSelect();

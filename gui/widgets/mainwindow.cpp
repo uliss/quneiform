@@ -53,8 +53,10 @@
 #include "recentmenu.h"
 #include "exportsettings.h"
 #include "imageutils.h"
+#include "iconutils.h"
 #include "fullscreen.h"
 #include "scan/scannerdialog.h"
+
 
 static const int VERSION_MAJOR = 0;
 static const int VERSION_MINOR = 0;
@@ -670,6 +672,30 @@ void MainWindow::setupPacket() {
     connect(packet_, SIGNAL(imageDuplicated(QString)), SLOT(imageDuplication(QString)));
 }
 
+void MainWindow::setupIcons()
+{
+    ui_->actionOpen->setIcon(iconFromTheme("document-open"));
+    ui_->actionSavePacket->setIcon(iconFromTheme("document-save"));
+
+    ui_->actionRotateLeft->setIcon(iconFromTheme("object-rotate-left"));
+    ui_->actionRotateRight->setIcon(iconFromTheme("object-rotate-right"));
+
+    ui_->actionZoom_In->setIcon(iconFromTheme("zoom-in"));
+    ui_->actionZoom_Out->setIcon(iconFromTheme("zoom-out"));
+    ui_->actionOriginalSize->setIcon(iconFromTheme("zoom-original"));
+    ui_->actionFitPage->setIcon(iconFromTheme("zoom-fit-best"));
+    ui_->actionFitWidth->setIcon(iconFromTheme("zoom-fit-width"));
+
+    ui_->actionRecognizeAll->setIcon(iconFromTheme("recognize"));
+    ui_->actionScan->setIcon(iconFromTheme("scanner"));
+
+    ui_->actionExit->setIcon(iconFromTheme("application-exit"));
+    ui_->actionPreferences->setIcon(iconFromTheme("configure"));
+    ui_->actionFullScreen->setIcon(iconFromTheme("view-fullscreen"));
+    ui_->actionSplitHorizontal->setIcon(iconFromTheme("view-split-top-bottom"));
+    ui_->actionSplitVertical->setIcon(iconFromTheme("view-split-left-right"));
+}
+
 void MainWindow::setupImageView() {
     image_widget_ = new ImageWidget(this);
     connect(image_widget_, SIGNAL(pageDeleted()), SLOT(disableViewActions()));
@@ -705,6 +731,7 @@ void MainWindow::setupRecent() {
 
 void MainWindow::setupRecentImages() {
     recent_images_ = new RecentMenu(this, tr("Recent files"), "recent-files");
+    recent_images_->setIcon(iconFromTheme("document-open-recent"));
     addRecentMenu(recent_images_);
     connect(recent_images_, SIGNAL(selected(QString)), SLOT(openRecentImage(QString)));
 }
@@ -764,6 +791,7 @@ void MainWindow::setupViewSplit()
 void MainWindow::setupUi() {
     setUnifiedTitleAndToolBarOnMac(true);
     ui_->setupUi(this);
+    setupIcons();
     enableViewActions(false);
     setupLanguageUi();
     setupThumbs();

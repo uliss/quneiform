@@ -64,7 +64,7 @@ signals:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent * event);
 private:
-    QPixmap indicatorIcon(const QString& path);
+    QPixmap indicatorIcon(const QString& name);
     void initIcons();
     void initLayout();
 private:

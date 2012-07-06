@@ -39,6 +39,7 @@
 #include "pagearea.h"
 #include "selection.h"
 #include "selectionlist.h"
+#include "iconutils.h"
 
 #define HAS_PAGE() {\
     if(!page_) {\
@@ -116,15 +117,35 @@ void ImageView::contextMenuEvent(QContextMenuEvent * event) {
 
 void ImageView::createContextMenu() {
     context_menu_ = new QMenu(this);
-    context_menu_->addAction(tr("Recognize"), this, SLOT(handleRecognizeRequest()),
+    context_menu_->addAction(iconFromTheme("recognize"),
+                             tr("Recognize"),
+                             this,
+                             SLOT(handleRecognizeRequest()),
                              QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R));
+
     context_menu_->addSeparator();
-    context_menu_->addAction(QIcon(":/img/oxygen/32x32/select_rectangular.png"),
-                             tr("Select recognize area"), this, SLOT(startPageSelection()));
+
+    context_menu_->addAction(iconFromTheme("select-rectangular"),
+                             tr("Select recognize area"),
+                             this,
+                             SLOT(startPageSelection()));
+
     context_menu_->addSeparator();
-    context_menu_->addAction(tr("Fit to width"), this, SLOT(fitWidth()));
-    context_menu_->addAction(tr("Fit to page"), this, SLOT(fitPage()));
-    context_menu_->addAction(tr("Original size"), this, SLOT(originalSize()));
+
+    context_menu_->addAction(iconFromTheme("zoom-fit-width"),
+                             tr("Fit to width"),
+                             this,
+                             SLOT(fitWidth()));
+
+    context_menu_->addAction(iconFromTheme("zoom-fit-best"),
+                             tr("Fit to page"),
+                             this,
+                             SLOT(fitPage()));
+
+    context_menu_->addAction(iconFromTheme("zoom-original"),
+                             tr("Original size"),
+                             this,
+                             SLOT(originalSize()));
 }
 
 void ImageView::deletePage() {

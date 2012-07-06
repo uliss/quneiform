@@ -22,6 +22,7 @@
 
 #include "settings.h"
 #include "ui_settings.h"
+#include "iconutils.h"
 
 QString fontName(const QFont& f) {
     QString res = f.family();
@@ -34,6 +35,8 @@ Settings::Settings(QWidget * parent) :
     ui_(new Ui::Settings)
 {
     ui_->setupUi(this);
+    ui_->listWidget->addItem(new QListWidgetItem(iconFromTheme("accessories-text-editor"), tr("Editor")));
+    ui_->listWidget->addItem(new QListWidgetItem(iconFromTheme("tools-report-bug"), tr("Debug")));
     connectSignals();
     load();
 }

@@ -310,7 +310,7 @@
     </message>
     <message>
         <source>Recognize all</source>
-        <translation>Распознать все</translation>
+        <translation type="obsolete">Распознать все</translation>
     </message>
     <message>
         <source>Zoom In</source>
@@ -322,11 +322,11 @@
     </message>
     <message>
         <source>Select Region</source>
-        <translation>Выбрать область изображения</translation>
+        <translation type="obsolete">Выбрать область изображения</translation>
     </message>
     <message>
         <source>Selects region for recognition</source>
-        <translation>Выбрать распознаваемую область изображения</translation>
+        <translation type="obsolete">Выбрать распознаваемую область изображения</translation>
     </message>
     <message>
         <source>Fit to page</source>
@@ -695,15 +695,15 @@ Page: %2</source>
     </message>
     <message>
         <source>Debug settings</source>
-        <translation>Настройки отладки</translation>
+        <translation type="obsolete">Настройки отладки</translation>
     </message>
     <message>
         <source>General</source>
-        <translation>Общие</translation>
+        <translation type="obsolete">Общие</translation>
     </message>
     <message>
         <source>General settings</source>
-        <translation>Общие настройки</translation>
+        <translation type="obsolete">Общие настройки</translation>
     </message>
     <message>
         <source>Print libcuneiform debug information</source>

@@ -1,147 +1,78 @@
 <RCC>
     <qresource prefix="/img">
-        <file>oxygen/32x32/locale.png</file>
-        <file>oxygen/22x22/1downarrow.png</file>
-        <file>oxygen/22x22/1uparrow.png</file>
-        <file>oxygen/22x22/2downarrow.png</file>
-        <file>oxygen/22x22/2uparrow.png</file>
-        <file>oxygen/22x22/application_exit.png</file>
-        <file>oxygen/22x22/apply.png</file>
-        <file>oxygen/22x22/back.png</file>
-        <file>oxygen/22x22/book.png</file>
-        <file>oxygen/22x22/book2.png</file>
-        <file>oxygen/22x22/button_cancel.png</file>
-        <file>oxygen/22x22/button_ok.png</file>
-        <file>oxygen/22x22/dialog_close.png</file>
-        <file>oxygen/22x22/dialog_ok_apply.png</file>
-        <file>oxygen/22x22/dialog_ok.png</file>
-        <file>oxygen/22x22/document_open_folder.png</file>
-        <file>oxygen/22x22/document_open.png</file>
-        <file>oxygen/22x22/document_preview.png</file>
-        <file>oxygen/22x22/document_properties.png</file>
-        <file>oxygen/22x22/document_save_as.png</file>
-        <file>oxygen/22x22/document_save.png</file>
-        <file>oxygen/22x22/edit_add.png</file>
-        <file>oxygen/22x22/edit_redo.png</file>
-        <file>oxygen/22x22/edit_select_all.png</file>
-        <file>oxygen/22x22/edit.png</file>
-        <file>oxygen/22x22/file_export.png</file>
-        <file>oxygen/22x22/fileimport.png</file>
-        <file>oxygen/22x22/filenew.png</file>
-        <file>oxygen/22x22/fileopen.png</file>
-        <file>oxygen/22x22/filesave.png</file>
-        <file>oxygen/22x22/filesaveas.png</file>
-        <file>oxygen/22x22/find.png</file>
-        <file>oxygen/22x22/flag_black.png</file>
-        <file>oxygen/22x22/flag_blue.png</file>
-        <file>oxygen/22x22/flag_green.png</file>
-        <file>oxygen/22x22/flag_red.png</file>
-        <file>oxygen/22x22/flag_yellow.png</file>
-        <file>oxygen/22x22/flag.png</file>
-        <file>oxygen/22x22/folder_open.png</file>
-        <file>oxygen/22x22/format_justify_center.png</file>
-        <file>oxygen/22x22/format_justify_fill.png</file>
-        <file>oxygen/22x22/format_justify_left.png</file>
-        <file>oxygen/22x22/format_justify_right.png</file>
-        <file>oxygen/22x22/format_list_ordered.png</file>
-        <file>oxygen/22x22/format_list_unordered.png</file>
-        <file>oxygen/22x22/format_text_bold.png</file>
-        <file>oxygen/22x22/format_text_italic.png</file>
-        <file>oxygen/22x22/format_text_strikethrough.png</file>
-        <file>oxygen/22x22/format_text_subscript.png</file>
-        <file>oxygen/22x22/format_text_superscript.png</file>
-        <file>oxygen/22x22/format_text_underline.png</file>
-        <file>oxygen/22x22/help_about.png</file>
-        <file>oxygen/22x22/note.png</file>
-        <file>oxygen/22x22/object_rotate_left.png</file>
-        <file>oxygen/22x22/object_rotate_right.png</file>
-        <file>oxygen/22x22/spellcheck.png</file>
-        <file>oxygen/22x22/text_block.png</file>
-        <file>oxygen/22x22/text_bold.png</file>
-        <file>oxygen/22x22/text_center.png</file>
-        <file>oxygen/22x22/text_italic.png</file>
-        <file>oxygen/22x22/text_left.png</file>
-        <file>oxygen/22x22/text_right.png</file>
-        <file>oxygen/22x22/text_strike.png</file>
-        <file>oxygen/22x22/todo.png</file>
-        <file>oxygen/22x22/view_preview.png</file>
-        <file>oxygen/22x22/zoom_fit_best.png</file>
-        <file>oxygen/22x22/zoom_in.png</file>
-        <file>oxygen/22x22/zoom_original.png</file>
-        <file>oxygen/22x22/zoom_out.png</file>
-        <file>oxygen/32x32/1downarrow.png</file>
-        <file>oxygen/32x32/1uparrow.png</file>
-        <file>oxygen/32x32/2downarrow.png</file>
-        <file>oxygen/32x32/2uparrow.png</file>
-        <file>oxygen/32x32/apply.png</file>
-        <file>oxygen/32x32/book.png</file>
-        <file>oxygen/32x32/book2.png</file>
-        <file>oxygen/32x32/bookmark_add.png</file>
-        <file>oxygen/32x32/charset.png</file>
-        <file>oxygen/32x32/configure.png</file>
-        <file>oxygen/32x32/dialog_cancel.png</file>
-        <file>oxygen/32x32/dialog_ok_apply.png</file>
-        <file>oxygen/32x32/dialog_ok.png</file>
-        <file>oxygen/32x32/document_preview.png</file>
-        <file>oxygen/32x32/edit_find.png</file>
-        <file>oxygen/32x32/filenew.png</file>
-        <file>oxygen/32x32/fileopen.png</file>
-        <file>oxygen/32x32/filesave.png</file>
-        <file>oxygen/32x32/filesaveas.png</file>
-        <file>oxygen/32x32/fileview_preview.png</file>
-        <file>oxygen/32x32/flag_black.png</file>
-        <file>oxygen/32x32/flag_blue.png</file>
-        <file>oxygen/32x32/flag_green.png</file>
-        <file>oxygen/32x32/flag_red.png</file>
-        <file>oxygen/32x32/flag_yellow.png</file>
-        <file>oxygen/32x32/flag.png</file>
-        <file>oxygen/32x32/folder_open.png</file>
-        <file>oxygen/32x32/format_list_ordered.png</file>
-        <file>oxygen/32x32/format_list_unordered.png</file>
-        <file>oxygen/32x32/help_about.png</file>
-        <file>oxygen/32x32/indent.png</file>
-        <file>oxygen/32x32/insert_image.png</file>
-        <file>oxygen/32x32/insert_table.png</file>
-        <file>oxygen/32x32/insert_text.png</file>
-        <file>oxygen/32x32/list_add.png</file>
-        <file>oxygen/32x32/list_remove.png</file>
-        <file>oxygen/32x32/messagebox_critical.png</file>
-        <file>oxygen/32x32/messagebox_info.png</file>
-        <file>oxygen/32x32/messagebox_warning.png</file>
-        <file>oxygen/32x32/note.png</file>
-        <file>oxygen/32x32/note2.png</file>
-        <file>oxygen/32x32/object_edit.png</file>
-        <file>oxygen/32x32/object_rotate_left.png</file>
-        <file>oxygen/32x32/object_rotate_right.png</file>
-        <file>oxygen/32x32/ok.png</file>
-        <file>oxygen/32x32/rotate_ccw.png</file>
-        <file>oxygen/32x32/rotate_cw.png</file>
-        <file>oxygen/32x32/rotate.png</file>
-        <file>oxygen/32x32/select_rectangular.png</file>
-        <file>oxygen/32x32/spellcheck.png</file>
-        <file>oxygen/32x32/text_block.png</file>
-        <file>oxygen/32x32/text_bold.png</file>
-        <file>oxygen/32x32/text_center.png</file>
-        <file>oxygen/32x32/text_italic.png</file>
-        <file>oxygen/32x32/text_left.png</file>
-        <file>oxygen/32x32/text_right.png</file>
-        <file>oxygen/32x32/text_strike.png</file>
-        <file>oxygen/32x32/text_sub.png</file>
-        <file>oxygen/32x32/text_super.png</file>
-        <file>oxygen/32x32/text_under.png</file>
-        <file>oxygen/32x32/text.png</file>
-        <file>oxygen/32x32/tool.png</file>
-        <file>oxygen/32x32/tool2.png</file>
-        <file>oxygen/32x32/undo.png</file>
-        <file>oxygen/32x32/view_refresh.png</file>
-        <file>oxygen/32x32/zoom_fit_best.png</file>
-        <file>oxygen/32x32/zoom_in.png</file>
-        <file>oxygen/32x32/zoom_original.png</file>
-        <file>oxygen/32x32/zoom_out.png</file>
         <file>cuneiform_logo_32.png</file>
         <file>cuneiform_logo_64.png</file>
         <file>cuneiform_logo_16.png</file>
         <file>cuneiform_logo_22.png</file>
-        <file>oxygen/22x22/list_remove.png</file>
+    </qresource>
+    <qresource prefix="/icons/mac">
+        <file alias="index.theme">icons/mac/index.theme</file>
+        <file alias="28x28/object-rotate-left.png">icons/mac/object-rotate-left.png</file>
+        <file alias="28x28/object-rotate-right.png">icons/mac/object-rotate-right.png</file>
+        <file alias="28x28/zoom-in.png">icons/mac/zoom-in.png</file>
+        <file alias="28x28/zoom-out.png">icons/mac/zoom-out.png</file>
+        <file alias="28x28/zoom-original.png">icons/mac/zoom-original.png</file>
+        <file alias="28x28/recognize.png">icons/mac/recognize.png</file>
+        <file alias="28x28/document-open.png">icons/mac/document-open.png</file>
+        <file alias="28x28/document-save.png">icons/mac/document-save.png</file>
+        <file alias="28x28/zoom-fit-best.png">icons/mac/zoom-fit-best.png</file>
+        <file alias="28x28/document-save-as.png">icons/mac/document-save-as.png</file>
+        <file alias="28x28/document-properties.png">icons/mac/document-properties.png</file>
+        <file alias="28x28/view-fullscreen.png">icons/mac/view-fullscreen.png</file>
+        <file alias="28x28/list-remove.png">icons/mac/list-remove.png</file>
+        <file alias="28x28/tools-check-spelling.png">icons/mac/tools-check-spelling.png</file>
+        <file alias="28x28/edit-redo.png">icons/mac/edit-redo.png</file>
+        <file alias="28x28/edit-undo.png">icons/mac/edit-undo.png</file>
+        <file alias="28x28/format-text-bold.png">icons/mac/format-text-bold.png</file>
+        <file alias="28x28/format-text-italic.png">icons/mac/format-text-italic.png</file>
+        <file alias="28x28/format-text-underline.png">icons/mac/format-text-underline.png</file>
+        <file alias="28x28/format-justify-center.png">icons/mac/format-justify-center.png</file>
+        <file alias="28x28/format-justify-fill.png">icons/mac/format-justify-fill.png</file>
+        <file alias="28x28/format-justify-left.png">icons/mac/format-justify-left.png</file>
+        <file alias="28x28/format-justify-right.png">icons/mac/format-justify-right.png</file>
+        <file alias="28x28/configure.png">icons/mac/configure.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>icons/document-open.png</file>
+        <file>icons/object-rotate-left.png</file>
+        <file>icons/object-rotate-right.png</file>
+        <file>icons/zoom-in.png</file>
+        <file>icons/zoom-original.png</file>
+        <file>icons/zoom-out.png</file>
+        <file>icons/document-save.png</file>
+        <file>icons/recognize.png</file>
+        <file>icons/zoom-fit-best.png</file>
+        <file>icons/document-save-as.png</file>
+        <file>icons/document-properties.png</file>
+        <file>icons/zoom-fit-width.png</file>
+        <file>icons/view-fullscreen.png</file>
+        <file>icons/application-exit.png</file>
+        <file>icons/view-split-left-right.png</file>
+        <file>icons/view-split-top-bottom.png</file>
+        <file>icons/list-remove.png</file>
+        <file>icons/scanner.png</file>
+        <file>icons/edit-select-all.png</file>
+        <file>icons/document-open-recent.png</file>
+        <file>icons/select-rectangular.png</file>
+        <file>icons/tools-check-spelling.png</file>
+        <file>icons/format-text-bold.png</file>
+        <file>icons/format-text-italic.png</file>
+        <file>icons/format-text-underline.png</file>
+        <file>icons/edit-redo.png</file>
+        <file>icons/edit-undo.png</file>
+        <file>icons/format-justify-center.png</file>
+        <file>icons/format-justify-fill.png</file>
+        <file>icons/format-justify-left.png</file>
+        <file>icons/format-justify-right.png</file>
+        <file>icons/task-warning.png</file>
+        <file>icons/task-saved.png</file>
+        <file>icons/task-recognized.png</file>
+        <file>icons/dialog-error.png</file>
+        <file>icons/dialog-information.png</file>
+        <file>icons/dialog-warning.png</file>
+        <file>icons/dialog-fatal.png</file>
+        <file>icons/configure.png</file>
+        <file>icons/accessories-text-editor.png</file>
+        <file>icons/tools-report-bug.png</file>
     </qresource>
 </RCC>
