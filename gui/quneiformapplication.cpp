@@ -51,7 +51,7 @@ QuneiformApplication::QuneiformApplication(int& argc, char** argv)
 
 #ifdef Q_WS_MAC
     setAttribute(Qt::AA_DontShowIconsInMenus);
-    QIcon::setThemeName("mac");
+    QIcon::setThemeName("faenza");
 #endif
 
     MetaTypeRegistrator registrator;
