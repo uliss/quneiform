@@ -43,8 +43,10 @@ private:
     void loadDebug();
     void loadDialogState();
     void loadFormat();
+    void loadGeneral();
     void saveDebug();
     void saveFormat();
+    void saveGeneral();
 private:
     Ui::Settings * ui_;
 };

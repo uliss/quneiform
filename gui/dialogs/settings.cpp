@@ -35,6 +35,7 @@ Settings::Settings(QWidget * parent) :
     ui_(new Ui::Settings)
 {
     ui_->setupUi(this);
+    ui_->listWidget->addItem(new QListWidgetItem(iconFromTheme("configure"), tr("General")));
     ui_->listWidget->addItem(new QListWidgetItem(iconFromTheme("accessories-text-editor"), tr("Editor")));
     ui_->listWidget->addItem(new QListWidgetItem(iconFromTheme("tools-report-bug"), tr("Debug")));
     connectSignals();
@@ -51,7 +52,9 @@ void Settings::connectSignals() {
     connect(this->ui_->fontChoose, SIGNAL(clicked()), SLOT(showFontDialog()));
 }
 
-void Settings::load() {
+void Settings::load()
+{
+    loadGeneral();
     loadDebug();
     loadFormat();
     loadDialogState();
@@ -103,7 +106,19 @@ void Settings::loadFormat() {
     ui_->fontChoose->setText(fontName(editorFont));
 }
 
-void Settings::save() {
+void Settings::loadGeneral()
+{
+    QStringList themes = availableIconThemes();
+    foreach(QString s, themes) {
+        ui_->themesList->addItem(s);
+    }
+
+    ui_->themesList->setCurrentIndex(themes.indexOf(QIcon::themeName()));
+}
+
+void Settings::save()
+{
+    saveGeneral();
     saveDebug();
     saveFormat();
 }
@@ -141,6 +156,19 @@ void Settings::saveFormat() {
     settings.setValue("currentCharColor", ui_->currentCharacterColorButton->color());
     settings.setValue("alternativeColor", ui_->alternativeColorButton->color());
     settings.setValue("showCurrentCharacter", ui_->showCurrentCharacterCheckBox->isChecked());
+}
+
+void Settings::saveGeneral()
+{
+    QSettings settings;
+    int current_idx = ui_->themesList->currentIndex();
+    QString theme = ui_->themesList->itemText(current_idx);
+
+    if(QIcon::themeName() == theme)
+        return;
+
+    settings.setValue("gui/theme", theme);
+    QIcon::setThemeName(theme);
 }
 
 void Settings::showFontDialog()

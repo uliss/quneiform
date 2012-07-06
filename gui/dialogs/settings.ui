@@ -70,6 +70,27 @@
          <property name="currentIndex">
           <number>0</number>
          </property>
+         <widget class="QWidget" name="lookSettings">
+          <layout class="QVBoxLayout" name="verticalLayout_1">
+           <item>
+            <layout class="QFormLayout" name="formLayout">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="themesLabel">
+               <property name="text">
+                <string>Icon theme:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="themesList"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
          <widget class="QWidget" name="editorSettings">
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
