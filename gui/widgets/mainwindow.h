@@ -66,6 +66,7 @@ private slots:
     void enableZoomActions();
     void handleReportBug();
     void handleShowFullScreen();
+    void handleShowMinimized();
     void handleViewSplitChange();
     void imageDuplication(const QString& path);
     void openImages();
@@ -116,6 +117,7 @@ private:
     void readSettings();
     void setupDefaultLanguage();
     void setupPacket();
+    void setupIcons();
     void setupImageView();
     void setupLanguageMenu();
     void setupLanguageSelect();
@@ -131,6 +133,8 @@ private:
     void setupUi();
     void setupUiLayout();
     void writeSettings();
+protected:
+    void showEvent(QShowEvent * event);
 private:
     Ui::MainWindow * ui_;
     Packet * packet_;

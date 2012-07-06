@@ -1,0 +1,10 @@
+[Icon Theme]
+Name=mac
+Comment=MacOSX Theme
+Inherits=default
+Directories=28x28
+
+[28x28]
+Size=28
+Type=Fixed
+

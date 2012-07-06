@@ -25,6 +25,7 @@
 #include "ui_logviewerdialog.h"
 
 #include "guilog.h"
+#include "iconutils.h"
 
 LogViewerDialog::LogViewerDialog(QWidget *parent) :
     QDialog(parent),
@@ -89,10 +90,10 @@ bool LogViewerDialog::clearLog(const QString& path)
 
 void LogViewerDialog::initLogList()
 {
-    addLogItem(guiDebugLogPath(), "Debug", "messagebox_info.png");
-    addLogItem(guiWarningLogPath(), "Warning", "messagebox_warning.png");
-    addLogItem(guiCriticalLogPath(), "Critical", "messagebox_critical.png");
-    addLogItem(guiFatalLogPath(), "Fatal", "messagebox_critical.png");
+    addLogItem(guiDebugLogPath(), "Debug", "dialog-information");
+    addLogItem(guiWarningLogPath(), "Warning", "dialog-warning");
+    addLogItem(guiCriticalLogPath(), "Critical", "dialog-error");
+    addLogItem(guiFatalLogPath(), "Fatal", "dialog-fatal");
 
     connect(ui_->logList,
             SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
@@ -102,7 +103,7 @@ void LogViewerDialog::initLogList()
     ui_->logList->setFixedWidth(100);
 }
 
-void LogViewerDialog::addLogItem(const QString& path, const QString& title, const QString& icon)
+void LogViewerDialog::addLogItem(const QString& path, const QString& title, const QString& iconName)
 {
     QFileInfo info(path);
     if(!info.exists())
@@ -113,7 +114,7 @@ void LogViewerDialog::addLogItem(const QString& path, const QString& title, cons
 
     QListWidgetItem * item = new QListWidgetItem;
     item->setText(title);
-    item->setIcon(QIcon(":/img/oxygen/32x32/" + icon));
+    item->setIcon(iconFromTheme(iconName));
     item->setToolTip(path);
     item->setData(Qt::UserRole, path);
     ui_->logList->addItem(item);

@@ -56,6 +56,7 @@ set(SOURCES
     formatsettings.cpp
     fullscreen.cpp
     graphicsitemlayout.cpp
+    iconutils.cpp
     imagecache.cpp
     imageurl.cpp
     imageutils.cpp

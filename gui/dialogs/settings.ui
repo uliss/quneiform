@@ -57,36 +57,6 @@
          <property name="uniformItemSizes">
           <bool>true</bool>
          </property>
-         <item>
-          <property name="text">
-           <string>General</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources/cuneiform.qrc">
-            <normaloff>:/img/oxygen/32x32/select_rectangular.png</normaloff>:/img/oxygen/32x32/select_rectangular.png</iconset>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Editor</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources/cuneiform.qrc">
-            <normaloff>:/img/oxygen/32x32/object_edit.png</normaloff>:/img/oxygen/32x32/object_edit.png</iconset>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Debug</string>
-          </property>
-          <property name="toolTip">
-           <string>Debug settings</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources/cuneiform.qrc">
-            <normaloff>:/img/oxygen/32x32/configure.png</normaloff>:/img/oxygen/32x32/configure.png</iconset>
-          </property>
-         </item>
         </widget>
        </item>
        <item>
@@ -98,23 +68,8 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
-         <widget class="QWidget" name="generalSettings">
-          <widget class="QLabel" name="label">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>10</y>
-             <width>241</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>General settings</string>
-           </property>
-          </widget>
-         </widget>
          <widget class="QWidget" name="editorSettings">
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
@@ -318,9 +273,7 @@
    <header>colorbutton.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../resources/cuneiform.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>

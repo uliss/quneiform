@@ -29,20 +29,9 @@
 #include "page.h"
 #include "spell/spellcheckhighlighter.h"
 #include "export/qtextdocumentexporter.h"
+#include "iconutils.h"
 
 static const int TEXTEDITOR_MARGIN = 10;
-static const QString ALIGN_LEFT(":/img/oxygen/32x32/text_left.png");
-static const QString ALIGN_RIGHT(":/img/oxygen/32x32/text_right.png");
-static const QString ALIGN_CENTER(":/img/oxygen/32x32/text_center.png");
-static const QString ALIGN_JUSTIFY(":/img/oxygen/32x32/text_block.png");
-static const QString TEXT_BOLD(":/img/oxygen/32x32/text_bold.png");
-static const QString TEXT_ITALIC(":/img/oxygen/32x32/text_italic.png");
-static const QString TEXT_UNDERLINE(":/img/oxygen/32x32/text_under.png");
-static const QString ACTION_REDO("");
-static const QString ACTION_SPELL(":/img/oxygen/32x32/spellcheck.png");
-static const QString ACTION_UNDO(":/img/oxygen/32x32/undo.png");
-static const QString ZOOM_IN(":/img/oxygen/32x32/zoom_in.png");
-static const QString ZOOM_OUT(":/img/oxygen/32x32/zoom_out.png");
 static const QString TEXTEDIT_CSS("QFrame { background-color: palette(base);}");
 
 TextEditor::TextEditor(QWidget * parent) :
@@ -74,16 +63,17 @@ TextEditor::~TextEditor() {
     delete doc_;
 }
 
-void TextEditor::addAlignmentActions(QMenu * menu) {
+void TextEditor::addAlignmentActions(QMenu * menu)
+{
     if(document()->isEmpty())
         return;
 
     QMenu * align_menu = menu->addMenu(tr("Alignment"));
 
-    QAction * align_left = align_menu->addAction(QIcon(ALIGN_LEFT), tr("Left"), this, SLOT(alignLeft()));
-    QAction * align_right = align_menu->addAction(QIcon(ALIGN_RIGHT), tr("Right"), this, SLOT(alignRight()));
-    QAction * align_center = align_menu->addAction(QIcon(ALIGN_CENTER), tr("Center"), this, SLOT(alignCenter()));
-    QAction * align_justify = align_menu->addAction(QIcon(ALIGN_JUSTIFY), tr("Justify"), this, SLOT(alignJustify()));
+    QAction * align_left = align_menu->addAction(iconFromTheme("format-justify-left"), tr("Left"), this, SLOT(alignLeft()));
+    QAction * align_right = align_menu->addAction(iconFromTheme("format-justify-right"), tr("Right"), this, SLOT(alignRight()));
+    QAction * align_center = align_menu->addAction(iconFromTheme("format-justify-center"), tr("Center"), this, SLOT(alignCenter()));
+    QAction * align_justify = align_menu->addAction(iconFromTheme("format-justify-fill"), tr("Justify"), this, SLOT(alignJustify()));
 
     switch(textCursor().blockFormat().alignment()) {
     case Qt::AlignLeft:
@@ -354,55 +344,68 @@ void TextEditor::setupActions() {
     setupSpellActions();
 }
 
-void TextEditor::setupFontActions() {
-    bold_ = new QAction(QIcon(TEXT_BOLD), tr("bold"), this);
+void TextEditor::setupFontActions()
+{
+    bold_ = new QAction(tr("bold"), this);
+    bold_->setIcon(iconFromTheme("format-text-bold"));
     bold_->setCheckable(true);
     bold_->setShortcut(QKeySequence::Bold);
     connect(bold_, SIGNAL(triggered()), this, SLOT(toggleBold()));
     addAction(bold_);
 
-    italic_ = new QAction(QIcon(TEXT_ITALIC), tr("italic"), this);
+    italic_ = new QAction(tr("italic"), this);
+    italic_->setIcon(iconFromTheme("format-text-italic"));
     italic_->setCheckable(true);
     italic_->setShortcut(QKeySequence::Italic);
     connect(italic_, SIGNAL(triggered()), this, SLOT(toggleItalic()));
     addAction(italic_);
 
-    underlined_ = new QAction(QIcon(TEXT_UNDERLINE), tr("underlined"), this);
+    underlined_ = new QAction(tr("underlined"), this);
+    underlined_->setIcon(iconFromTheme("format-text-underline"));
     underlined_->setCheckable(true);
     underlined_->setShortcut(QKeySequence::Underline);
     connect(underlined_, SIGNAL(triggered()), this, SLOT(toggleUnderlined()));
     addAction(underlined_);
 }
 
-void TextEditor::setupRedoAction() {
-    redo_ = new QAction(QIcon(ACTION_REDO), tr("Redo"), this);
+void TextEditor::setupRedoAction()
+{
+    redo_ = new QAction(tr("Redo"), this);
+    redo_->setIcon(iconFromTheme("edit-redo"));
     redo_->setShortcut(QKeySequence::Redo);
     connect(redo_, SIGNAL(triggered()), this, SLOT(redo()));
     connect(this, SIGNAL(redoAvailable(bool)), redo_, SLOT(setEnabled(bool)));
     addAction(redo_);
 }
 
-void TextEditor::setupSpellActions() {
-    spell_check_ = new QAction(QIcon(ACTION_SPELL), tr("Spell"), this);
+void TextEditor::setupSpellActions()
+{
+    spell_check_ = new QAction(tr("Spell"), this);
+    spell_check_->setIcon(iconFromTheme("tools-check-spelling"));
     connect(spell_check_, SIGNAL(triggered()), this, SLOT(checkSpelling()));
     addAction(spell_check_);
 }
 
-void TextEditor::setupUndoAction() {
-    undo_ = new QAction(QIcon(ACTION_UNDO), tr("Undo"), this);
+void TextEditor::setupUndoAction()
+{
+    undo_ = new QAction(tr("Undo"), this);
+    undo_->setIcon(iconFromTheme("edit-undo"));
     undo_->setShortcut(QKeySequence::Undo);
     connect(undo_, SIGNAL(triggered()), this, SLOT(undo()));
     connect(this, SIGNAL(undoAvailable(bool)), undo_, SLOT(setEnabled(bool)));
     addAction(undo_);
 }
 
-void TextEditor::setupZoomActions() {
-    zoom_in_ = new QAction(QIcon(ZOOM_IN), tr("Zoom In"), this);
+void TextEditor::setupZoomActions()
+{
+    zoom_in_ = new QAction(tr("Zoom In"), this);
+    zoom_in_->setIcon(iconFromTheme("zoom-in"));
     zoom_in_->setShortcut(QKeySequence::ZoomIn);
     connect(zoom_in_, SIGNAL(triggered()), this, SLOT(zoomIn()));
     addAction(zoom_in_);
 
-    zoom_out_ = new QAction(QIcon(ZOOM_OUT), tr("Zoom Out"), this);
+    zoom_out_ = new QAction(tr("Zoom Out"), this);
+    zoom_out_->setIcon(iconFromTheme("zoom-out"));
     zoom_out_->setShortcut(QKeySequence::ZoomOut);
     connect(zoom_out_, SIGNAL(triggered()), this, SLOT(zoomOut()));
     addAction(zoom_out_);

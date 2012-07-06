@@ -18,7 +18,9 @@
 
 #include <QFileOpenEvent>
 #include <QFile>
+#include <QDebug>
 #include <QtPlugin>
+#include <QIcon>
 
 #include "metatyperegistrator.h"
 #include "translationloader.h"
@@ -49,6 +51,7 @@ QuneiformApplication::QuneiformApplication(int& argc, char** argv)
 
 #ifdef Q_WS_MAC
     setAttribute(Qt::AA_DontShowIconsInMenus);
+    QIcon::setThemeName("faenza");
 #endif
 
     MetaTypeRegistrator registrator;

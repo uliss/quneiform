@@ -18,4 +18,4 @@ endif()
 
 add_library(${CF_SCAN} ${LIBTYPE} ${CF_SCAN_SOURCE})
 target_link_libraries(${CF_SCAN} ${CF_SCAN_LINK})
-
+cf_install_library(${CF_SCAN})

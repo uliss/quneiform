@@ -26,12 +26,13 @@
 #include "imagecache.h"
 #include "graphicsitemlayout.h"
 #include "imageurl.h"
+#include "iconutils.h"
 
-static const QString RECOGNIZED(":/img/oxygen/22x22/dialog_ok.png");
-static const QString SAVED(":/img/oxygen/22x22/document_save.png");
-static const QString WARNING(":/img/oxygen/32x32/messagebox_warning.png");
-static const int ICON_WIDTH = 12;
-static const int ICON_HEIGHT = 12;
+static const QString RECOGNIZED("task-recognized");
+static const QString SAVED("task-saved");
+static const QString WARNING("task-warning");
+static const int ICON_WIDTH = 16;
+static const int ICON_HEIGHT = 16;
 
 PageIndicator::PageIndicator(QGraphicsItem * parent) :
     QGraphicsObject(parent),
@@ -48,13 +49,14 @@ PageIndicator::~PageIndicator() {
     delete layout_;
 }
 
-QPixmap PageIndicator::indicatorIcon(const QString& path) {
+QPixmap PageIndicator::indicatorIcon(const QString& name)
+{
     QPixmap pixmap;
+    QString icon_key = QString(":/icons/%1").arg(name);
 
-    if(!ImageCache::find(ImageURL(path), &pixmap)) {
-        pixmap.load(path);
-        pixmap = pixmap.scaled(ICON_WIDTH, ICON_WIDTH, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-        ImageCache::insert(ImageURL(path), pixmap);
+    if(!ImageCache::find(ImageURL(icon_key), &pixmap)) {
+        pixmap = iconFromTheme(name).pixmap(QSize(ICON_WIDTH, ICON_HEIGHT));
+        ImageCache::insert(ImageURL(icon_key), pixmap);
     }
 
     return pixmap;
