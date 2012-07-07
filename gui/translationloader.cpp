@@ -23,13 +23,12 @@
 #include <QDebug>
 #include <QApplication>
 
-#ifdef Q_WS_MAC
-#include <CoreFoundation/CFURL.h>
-#include <CoreFoundation/CFBundle.h>
-#endif
-
 #include "config.h" // for INSTALL_DATADIR
 #include "translationloader.h"
+
+#ifdef Q_WS_MAC
+#include "macosx/macbundle.h"
+#endif
 
 // static members init
 QTranslator TranslationLoader::app_;
@@ -67,15 +66,7 @@ void TranslationLoader::loadApplicationTranslation() {
 	//   ---/lib
 	paths << QApplication::applicationDirPath() + "/../share/cuneiform/locale";
 #if defined(Q_WS_MAC)
-    CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
-    CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef,
-                                                kCFURLPOSIXPathStyle);
-    const char * pathPtr = CFStringGetCStringPtr(macPath,
-                                                CFStringGetSystemEncoding());
-    CFRelease(appUrlRef);
-    CFRelease(macPath);
-
-    paths << QString(pathPtr) + QString("/Contents/Resources");  
+    paths << utils::applicationBundle() + QString("/Contents/Resources");
 #elif defined(Q_WS_X11)
     paths << INSTALL_DATADIR "/locale";
     paths << "/usr/share/cuneiform/locale";

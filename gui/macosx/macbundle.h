@@ -16,30 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IMAGECAPTURE_H
-#define IMAGECAPTURE_H
+#ifndef MACBUNDLE_H
+#define MACBUNDLE_H
 
-namespace utils
-{
+#include <QString>
 
-/**
- * This function does many things,
- * first, it checks if Image Capture plugin is installed
- * in user home directory (~/Library/Workflow/Applications/Image Capture).
- * If no plugin found, it creates it.
- *
- * Then, it checks if plugin application is same as current application.
- * Doing this allowes application bundle to be moved easily, while Image Capture
- * will scan images directly in right application.
- * If current application path differs from plugin - it updated.
- *
- * After that, it runs Image Capture in separate process
- *
- * @brief open Image Capture program
- * @return false if some stages failed
- */
-bool openImageCapture();
+namespace utils {
+
+QString applicationBundle();
 
 }
 
-#endif // IMAGECAPTURE_H
+#endif // MACBUNDLE_H

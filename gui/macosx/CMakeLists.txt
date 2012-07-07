@@ -4,6 +4,7 @@ set(HEADERS
 
 set(SOURCES
     imagecapture.cpp
+    macbundle.cpp
     macstring.cpp
     macpool.mm
     macfullscreen.mm
