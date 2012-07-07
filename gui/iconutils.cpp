@@ -19,6 +19,7 @@
 #include <QtGlobal>
 #include <QSettings>
 #include <QDir>
+#include <QDebug>
 
 #include "iconutils.h"
 

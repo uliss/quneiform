@@ -3,15 +3,18 @@ set(HEADERS
 )
 
 set(SOURCES
+    imagecapture.cpp
     macstring.cpp
     macpool.mm
     macfullscreen.mm
 )
 
+qt4_add_resources(CF_MAC_RESOURCES macosx_resources.qrc)
+
 source_group("Header Files" FILES ${HEADERS})
 source_group("Source Files" FILES ${SOURCES})
 
-add_library(quneiform_mac STATIC ${HEADERS} ${SOURCES})
+add_library(quneiform_mac STATIC ${HEADERS} ${SOURCES} ${CF_MAC_RESOURCES})
 
 set(APPLE_LIBS)
 find_library(APPLE_CORE_FOUNDATION CoreFoundation "/")

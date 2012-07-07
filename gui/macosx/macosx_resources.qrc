@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/macosx">
+        <file>document.wflow</file>
+    </qresource>
+</RCC>

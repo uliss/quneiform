@@ -32,6 +32,10 @@ class Scanner;
 class QComboBox;
 class ScanArea;
 
+namespace utils {
+void openScannerDialog(QWidget * parent = 0);
+}
+
 class ScannerDialog : public QDialog
 {
     Q_OBJECT
