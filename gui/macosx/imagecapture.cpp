@@ -18,6 +18,7 @@
 
 #include <QProcess>
 #include <QDebug>
+#include <QDir>
 
 #include "imagecapture.h"
 
@@ -25,9 +26,52 @@ namespace utils
 {
 
 static const char * IMAGE_CAPTURE_APP = "/Applications/Image Capture.app";
+static const char * PLUGIN_DEST_DIR =
+        "Library/Workflows/Applications/Image Capture/Quneiform.workflow/Contents";
+static const char * PLUGIN_SRC = ":/macosx/ImageCapturePlugin.wflow";
+
+static QString pluginDestDir()
+{
+    return QString("%1/%2").arg(QDir::homePath()).arg(QString::fromUtf8(PLUGIN_DEST_DIR));
+}
+
+static QString pluginDestFile()
+{
+    return QString("%1/%2").arg(pluginDestDir()).arg("document.wflow");
+}
+
+static bool copyImageCapturePlugin()
+{
+    if(QFile::exists(pluginDestFile()))
+        return true;
+
+    if(!QFile::exists(PLUGIN_SRC)) {
+        qWarning() << Q_FUNC_INFO << "Image Capture plugin not found in resources";
+        return false;
+    }
+
+    if(!QFile::exists(pluginDestDir())) {
+        if(!QDir().mkpath(pluginDestDir())) {
+            qWarning() << Q_FUNC_INFO << "Can't create Image Capture plugin directory:" << pluginDestDir();
+            return false;
+        }
+
+        qDebug() << Q_FUNC_INFO << "plugin folder created:" << pluginDestDir();
+    }
+
+    if(!QFile::copy(PLUGIN_SRC, pluginDestFile())) {
+        qWarning() << Q_FUNC_INFO << "plugin copy failed";
+        return false;
+    }
+
+    return true;
+}
 
 bool openImageCapture()
 {
+    if(!QFile::exists(pluginDestFile()))
+        copyImageCapturePlugin();
+
     bool rc = QProcess::startDetached("open", QStringList(IMAGE_CAPTURE_APP));
 
     if(!rc)

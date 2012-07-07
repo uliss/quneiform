@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/macosx">
-        <file>document.wflow</file>
+        <file>ImageCapturePlugin.wflow</file>
     </qresource>
 </RCC>

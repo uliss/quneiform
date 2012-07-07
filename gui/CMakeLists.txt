@@ -136,7 +136,11 @@ include_directories(
 )
 
 set(RESOURCE_PATH resources)
-set(RESOURCES     ${RESOURCE_PATH}/cuneiform.qrc)
+set(RESOURCES ${RESOURCE_PATH}/cuneiform.qrc)
+
+if(APPLE)
+    list(APPEND RESOURCES ${RESOURCE_PATH}/macosx_resources.qrc)
+endif()
 
 set(QT_USE_QTMAIN TRUE)
 SET(QT_USE_QTPLUGIN TRUE)
