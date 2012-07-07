@@ -40,6 +40,8 @@ class ImageFormatDetector: public boost::noncopyable
         image_format_t detect(std::istream& stream) const;
         std::vector<std::string> knownExtensions() const;
     private:
+        void addExt(const char * ext, image_format_t format);
+        void addMagick(const char * magick, image_format_t format);
         ImageFormatDetector();
     private:
         typedef std::map<std::string, image_format_t> FormatMap;

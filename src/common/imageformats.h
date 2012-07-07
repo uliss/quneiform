@@ -33,7 +33,8 @@ enum image_format_t
     FORMAT_PNM,
     FORMAT_TIFF,
     FORMAT_UNKNOWN,
-    FORMAT_XPM
+    FORMAT_XPM,
+    FORMAT_PDF
 };
 
 FUN_EXPO__ const char * imageFormatToString(image_format_t f);
