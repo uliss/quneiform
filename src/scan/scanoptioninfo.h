@@ -24,9 +24,11 @@
 #include <boost/any.hpp>
 #include <vector>
 
+#include "globus.h"
+
 namespace cf {
 
-class ScanOptionInfo
+class CLA_EXPO ScanOptionInfo
 {
 public:
     enum Type {

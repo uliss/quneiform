@@ -22,12 +22,14 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
+#include "globus.h"
+
 namespace cf {
 
 class ScanOptionInfo;
 class ScanOptionValue;
 
-class ScanOption
+class CLA_EXPO ScanOption
 {
 public:
     ScanOption(const std::string& name);
