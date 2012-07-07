@@ -51,6 +51,9 @@ void initFormatMap(FormatMap& m) {
     m["pnm"] = cf::FORMAT_PNM;
     m["tiff"] = cf::FORMAT_TIFF;
     m["xpm"] = cf::FORMAT_XPM;
+#ifdef WITH_PDF
+    m["pdf"] = cf::FORMAT_PDF;
+#endif
 }
 
 void registerFormat(cf::image_format_t f) {

@@ -87,6 +87,10 @@ ImageLoader& ImageLoaderFactory::loader(image_format_t format)
 
 bool ImageLoaderFactory::registerCreator(image_format_t format, int priority, loaderCreate creator)
 {
+    Debug() << "[RDIB][Debug] creator registered: "
+            << imageFormatToString(format)
+            << " with priority: " << priority << "\n";
+
     loader_map_.insert(LoaderMap::value_type(format, std::make_pair(priority, creator)));
     return true;
 }
