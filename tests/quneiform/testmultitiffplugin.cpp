@@ -20,6 +20,7 @@
 #include <QTest>
 #include <QBuffer>
 #include <QDebug>
+#include <QFile>
 
 #ifndef CF_IMAGE_DIR
 #define CF_IMAGE_DIR
@@ -42,10 +43,9 @@ void TestMultiTIFFPlugin::testRead()
     QImage tiff(100, 120, QImage::Format_RGB32);
     tiff.fill(Qt::blue);
 
-    QByteArray tiff_data;
-    QBuffer buffer(&tiff_data);
-    tiff.save(&buffer, "tiff");
-
+    QFile tiff_file(CF_IMAGE_DIR "/multipage.tif");
+    QVERIFY(tiff_file.open(QIODevice::ReadOnly));
+    QByteArray tiff_data = tiff_file.readAll();
     const char * tiff_ptr = tiff_data.constData();
     QVERIFY(tiff_ptr);
 
