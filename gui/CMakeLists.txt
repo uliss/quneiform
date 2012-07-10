@@ -143,7 +143,7 @@ if(APPLE)
 endif()
 
 set(QT_USE_QTMAIN TRUE)
-SET(QT_USE_QTPLUGIN TRUE)
+set(QT_USE_QTPLUGIN TRUE)
 find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtXml QtXmlPatterns REQUIRED)
 include(${QT_USE_FILE})
 

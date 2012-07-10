@@ -52,7 +52,8 @@ if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK)
 endif()
 
 if(CF_USE_IMAGE_LIBRARY_QT)
-    # try to find Qt        
+    # try to find Qt
+    set(QT_USE_QTPLUGIN TRUE)
     find_package(Qt4 4.4.1 COMPONENTS QtCore QtGui)
     if (QT_FOUND)
         message(STATUS "Image library: Qt found.")

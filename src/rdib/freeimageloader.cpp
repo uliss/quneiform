@@ -25,6 +25,7 @@
 #include "imageloaderfactory.h"
 #include "common/debug.h"
 #include "common/imageurl.h"
+#include "common/helper.h"
 
 namespace cf {
 
@@ -68,7 +69,7 @@ FIBITMAP * convertTo24bpp(FIBITMAP * dib)
 {
     FIBITMAP * new_dib = FreeImage_ConvertTo24Bits(dib);
     if(!new_dib)
-        throw ImageLoader::Exception("Can't convert image to 24bpp");
+        throw ImageLoader::Exception() << METHOD_SIGNATURE() << "Can't convert image to 24bpp";
 
     FreeImage_Unload(dib);
     return new_dib;
@@ -78,14 +79,10 @@ FreeImageLoader::FreeImageLoader()
 {
 }
 
-FreeImageLoader::~FreeImageLoader()
-{
-}
-
 ImagePtr FreeImageLoader::load(const ImageURL& url)
 {
     if(!url.exists())
-        throw Exception("File not exists");
+        throw Exception() << METHOD_SIGNATURE() << "File not exists:" << url;
 
     FREE_IMAGE_FORMAT format = FreeImage_GetFileType(url.path().c_str(), 0);
 
@@ -93,10 +90,10 @@ ImagePtr FreeImageLoader::load(const ImageURL& url)
         format = FreeImage_GetFIFFromFilename(url.path().c_str());
 
     if(format == FIF_UNKNOWN)
-        throw Exception("Unknown image format");
+        throw Exception() << METHOD_SIGNATURE() << "Unknown image format";
 
     if(!FreeImage_FIFSupportsReading(format))
-        throw Exception("Unsupported image format");
+        throw Exception() << METHOD_SIGNATURE() << "Unsupported image format:" << FreeImage_GetFormatFromFIF(format);
 
     FIBITMAP * dib = NULL;
     FIMULTIBITMAP *  multi_image = NULL;
@@ -107,24 +104,24 @@ ImagePtr FreeImageLoader::load(const ImageURL& url)
     else {
         multi_image = FreeImage_OpenMultiBitmap(format, url.path().c_str(), FALSE, TRUE, TRUE);
         if(!multi_image)
-            throw Exception("Invalid multipage image");
+            throw Exception() << METHOD_SIGNATURE() << "Invalid multipage image";
 
         int page_count = FreeImage_GetPageCount(multi_image);
         if(url.imageNumber() < 0 || page_count <= url.imageNumber())
-            throw Exception("Invalid image number");
+            throw Exception() << METHOD_SIGNATURE() << "Invalid image number";
 
-        Debug() << "[FreeImageLoader] multi page image: " << page_count << " pages\n";
-        Debug() << "[FreeImageLoader] loading page: " << url.imageNumber() << "\n";
+        Debug() << METHOD_SIGNATURE() << " multi page image: " << page_count << " pages\n";
+        Debug() << METHOD_SIGNATURE() << " loading page: " << url.imageNumber() << "\n";
 
         dib = FreeImage_LockPage(multi_image, url.imageNumber());
         if(!dib) {
             FreeImage_CloseMultiBitmap(multi_image);
-            throw Exception("Can't load image");
+            throw Exception() << METHOD_SIGNATURE() << "Can't load image:" << url;
         }
     }
 
     if(!dib)
-        throw Exception("Can't load image");
+        throw Exception() << METHOD_SIGNATURE() << "Can't load image:" << url;
 
     uint res_x = FreeImage_GetDotsPerMeterX(dib);
     uint res_y = FreeImage_GetDotsPerMeterY(dib);
@@ -168,7 +165,7 @@ ImagePtr FreeImageLoader::load(const ImageURL& url)
 
 ImagePtr FreeImageLoader::load(std::istream&/* stream*/)
 {
-    throw Exception("[FreeImageLoader::load] loading from stream is not supported yet");
+    throw Exception() << METHOD_SIGNATURE() << "loading from stream is not supported yet";
 }
 
 ImageFormatList FreeImageLoader::supportedFormats() const
@@ -189,6 +186,8 @@ ImageFormatList FreeImageLoader::supportedFormats() const
     CHECK_FORMAT(FIF_PBM, FORMAT_PNM);
     CHECK_FORMAT(FIF_TIFF, FORMAT_TIFF);
     CHECK_FORMAT(FIF_XPM, FORMAT_XPM);
+
+#undef CHECK_FORMAT
 
     return res;
 }

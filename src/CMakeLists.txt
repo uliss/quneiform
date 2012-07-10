@@ -122,6 +122,7 @@ add_subdirectory(rcorrkegl)
 add_subdirectory(scan)
 add_subdirectory(smetric)
 add_subdirectory(std)
+add_subdirectory(qtplugins)
 
 if(CF_USE_SHMEM)
     add_subdirectory(shmem)

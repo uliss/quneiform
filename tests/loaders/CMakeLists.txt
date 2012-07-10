@@ -1,4 +1,13 @@
 add_definitions(-DLOADER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/")
+include(${QT_USE_FILE})
+
+if(CF_PDF_SUPPORT)
+    add_definitions(-DWITH_PDF)
+endif()
+
+if(CF_TIFF_SUPPORT)
+    add_definitions(-DWITH_TIFF)
+endif()
 
 set(testloaders)
 
@@ -25,6 +34,7 @@ target_link_libraries(test_loaders
     cuneiform-rdib 
     cuneiform
     ${CPPUNIT_LIBRARIES} 
+    ${QT_LIBRARIES}
 )
 
 add_test(Loaders ${EXECUTABLE_OUTPUT_PATH}/test_loaders)

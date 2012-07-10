@@ -16,6 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <algorithm>
+
 #include "imageloader.h"
 
 namespace cf
@@ -62,6 +64,12 @@ std::streampos ImageLoader::streamSize(std::istream& is)
 ImageFormatList ImageLoader::supportedFormats() const
 {
     return ImageFormatList();
+}
+
+bool ImageLoader::supportsFormat(image_format_t format) const
+{
+    ImageFormatList format_lst = supportedFormats();
+    return std::find(format_lst.begin(), format_lst.end(),format) != format_lst.end();
 }
 
 }

@@ -16,40 +16,42 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef PDFIOHANDLER_H
-#define PDFIOHANDLER_H
+#include "pdfioplugin.h"
+#include "pdfiohandler.h"
 
-#include <QImageIOHandler>
-#include <QRect>
-#include <QSize>
-
-namespace Poppler {
-class Document;
+PdfIOPlugin::PdfIOPlugin(QObject * parent) :
+    QImageIOPlugin(parent)
+{
 }
 
-class PdfIOHandler : public QImageIOHandler
+QImageIOPlugin::Capabilities PdfIOPlugin::capabilities(QIODevice * device, const QByteArray& format) const
 {
-public:
-    PdfIOHandler();
-    ~PdfIOHandler();
-    bool canRead () const;
-    bool read(QImage * image);
-    bool write(const QImage & image);
+    if(format.toLower() == "pdf")
+        return CanRead;
 
-    int imageCount() const;
-    int currentImageNumber() const;
-    bool jumpToImage(int imageNumber);
-    bool jumpToNextImage();
+    if(!format.isEmpty())
+        return 0;
 
-    QVariant option(ImageOption option) const;
-    bool supportsOption(ImageOption option) const;
-    void setOption(ImageOption option, const QVariant& value);
-private:
-    bool loadPDF() const;
-private:
-    mutable Poppler::Document * doc_;
-    int current_page_;
-    int quality_;
-};
+    if(device->isOpen() &&
+            device->isReadable() &&
+            device->peek(4) == "%PDF")
+        return CanRead;
 
-#endif // PDFIOHANDLER_H
+    return 0;
+}
+
+QImageIOHandler * PdfIOPlugin::create(QIODevice * device, const QByteArray& format) const
+{
+    QImageIOHandler * res = new PdfIOHandler;
+    res->setDevice(device);
+    res->setFormat(format);
+    return res;
+}
+
+QStringList PdfIOPlugin::keys() const
+{
+    return QStringList("pdf");
+}
+
+Q_EXPORT_PLUGIN2(pdf_imageplugin, PdfIOPlugin)
+

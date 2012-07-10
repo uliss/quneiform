@@ -21,6 +21,8 @@
 
 #include <string>
 #include <stdexcept>
+#include <sstream>
+
 #include "globus.h"
 
 namespace cf
@@ -29,23 +31,42 @@ namespace cf
 template<class T>
 class CLA_EXPO RuntimeExceptionImpl: public std::runtime_error
 {
-    public:
-        RuntimeExceptionImpl(const std::string& msg, int code = 0);
-        int code() const;
-    private:
-        int code_;
+public:
+    RuntimeExceptionImpl(const std::string& msg = "", int code = 0);
+    virtual ~RuntimeExceptionImpl() throw() {}
+
+    int code() const
+    {
+        return code_;
+    }
+
+    template<typename Value>
+    RuntimeExceptionImpl& operator<<(const Value& v)
+    {
+        std::ostringstream buf;
+        buf << v;
+        if(!msg_.empty())
+            msg_ += ' ';
+
+        msg_ += buf.str();
+        return *this;
+    }
+
+    virtual const char * what() const throw()
+    {
+        return msg_.c_str();
+    }
+private:
+    std::string msg_;
+    int code_;
 };
 
 template<class T>
 RuntimeExceptionImpl<T>::RuntimeExceptionImpl(const std::string& msg, int code) :
-        std::runtime_error(msg), code_(code)
+    std::runtime_error(""),
+    code_(code)
 {
-}
-
-template<class T>
-int RuntimeExceptionImpl<T>::code() const
-{
-    return code_;
+    msg_ = msg;
 }
 
 }

@@ -16,86 +16,41 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <iostream>
+#ifndef STRINGBUFFER_H
+#define STRINGBUFFER_H
 
-#include "imageurl.h"
-#include "filesystem.h"
-#include "helper.h"
+#include <iosfwd>
+#include <sstream>
+#include <string>
 
-namespace cf
+#include "globus.h"
+
+namespace cf {
+
+class CLA_EXPO StringBuffer
 {
+    StringBuffer(StringBuffer&);
+    void operator=(const StringBuffer&);
+public:
+    StringBuffer();
 
-ImageURL::ImageURL() :
-    image_number_(0)
-{
-}
+    template<class T>
+    StringBuffer& operator<<(const T& v)
+    {
+        if(buf_.tellp() != 0)
+            buf_ << ' ';
 
-ImageURL::ImageURL(const std::string& path, int imageNumber) :
-    path_(path),
-    image_number_(imageNumber)
-{
-}
+        buf_ << v;
+        return *this;
+    }
 
-bool ImageURL::empty() const
-{
-    return path_.empty();
-}
+    operator std::string();
+private:
+    std::ostringstream buf_;
+};
 
-bool ImageURL::exists() const
-{
-    if(empty())
-        return false;
-
-    return fs::fileExists(path_);
-}
-
-std::string ImageURL::extension() const
-{
-    std::string res = fs::fileExtension(path_);
-    toLower(res);
-    return res;
-}
-
-int ImageURL::imageNumber() const
-{
-    return image_number_;
-}
-
-bool ImageURL::operator==(const ImageURL& url) const
-{
-    return path_ == url.path_ && image_number_ == url.image_number_;
-}
-
-std::string ImageURL::path() const
-{
-    return path_;
-}
-
-void ImageURL::setImageNumber(int number)
-{
-    image_number_ = number;
-}
-
-void ImageURL::setPath(const std::string& path)
-{
-    path_ = path;
-}
-
-bool ImageURL::simple() const
-{
-    return image_number_ == 0;
-}
-
-std::ostream& operator<<(std::ostream& os, const cf::ImageURL& url)
-{
-    os << url.path();
-    if(!url.simple())
-        os << "; image: " << url.imageNumber();
-
-    return os;
-}
+typedef StringBuffer StrBuf;
 
 }
 
-
-
+#endif // STRINGBUFFER_H

@@ -1,0 +1,43 @@
+MacOSX
+===================
+
+1. Install XCode.
+2. Install Qt4 libs.
+3. Install macports.
+4. port install cmake boost aspell libiconv tiff ImageMagick.
+
+Configure
+===================
+You can use non standart install directories by setting PKG_CONFIG_PATH 
+environment variable.
+
+cmake [CONFIGURE OPTIONS] PATH_TO_SOURCE
+
+Options:
+  -DCMAKE_BUILD_TYPE=Release|Debug - build release or debug version.
+  -DTESTS=On|Off                   - build tests.
+      If tests are build you can run them by `make test` or `make test_all`
+      commands.
+  
+*PDF multipage support*
+
+PDF loading supported by using Poppler-Qt4 library.
+MacPorts poppler comes without poppler-qt4 library. For using poppler-qt4
+configure, build and install it, after that set PKG_CONFIG_PATH="/Your/poppler/install/path" 
+and run cmake.
+
+*TIFF multipage support*
+
+TIFF multipage load supported by qt image plugin. Install tiff library via macports.
+
+Buildinig
+===================
+
+make
+
+Install
+===================
+make dmg
+open dmg
+
+

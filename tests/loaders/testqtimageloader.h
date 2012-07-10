@@ -28,12 +28,20 @@ class TestQtImageLoader: public CppUnit::TestFixture
     CPPUNIT_TEST(testLoad);
     CPPUNIT_TEST(testLoadRecognize);
     CPPUNIT_TEST(testLoadParams);
+    CPPUNIT_TEST(testMultiPage);
+    CPPUNIT_TEST(testSupportedFormats);
+    CPPUNIT_TEST(testLoadStream);
+    CPPUNIT_TEST(testImageTypes);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testLoad();
     void testLoadRecognize();
     void testLoadParams();
+    void testMultiPage();
+    void testSupportedFormats();
+    void testLoadStream();
+    void testImageTypes();
 };
 
 #endif /* TESTQTIMAGELOADER_H_ */
