@@ -101,11 +101,11 @@ void QtImageExporter::saveToStream(const ImageRawData& image, std::ostream& os)
         if(format() == FORMAT_BMP) {
             bmp_exporter.save(image, os);
             return;
-        } else {
-            if(!tmp.loadFromData(image.data(), image.dataSize(), "DIB")) {
-                Debug() << METHOD_SIGNATURE() << "image load error\n";
-                throw Exception() << "can't load image";
-            }
+        }
+
+        if(!tmp.loadFromData(image.data(), image.dataSize(), "DIB")) {
+            Debug() << METHOD_SIGNATURE() << "image load error\n";
+            throw Exception() << "can't load image";
         }
 
         QImageWriter writer;

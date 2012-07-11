@@ -67,28 +67,6 @@ static bool isValidDIBHeader(BitmapInfoHeader& h)
     return true;
 }
 
-static void writeBMPHeader(BITMAPFILEHEADER * bmp, BitmapInfoHeader * info, char * data)
-{
-    if(!bmp || !info)
-        return;
-
-    cf::CTDIB dib;
-    dib.setBitmap(info);
-
-    const size_t bitmap_size = dib.dibSize();
-    const size_t bmp_header_size = sizeof(BITMAPFILEHEADER);
-
-    memset(bmp, 0, bmp_header_size);
-    bmp->bfType = 0x4d42; // 'BM'
-    bmp->bfSize = (uint32_t) (bmp_header_size + bitmap_size);
-    // fileheader + infoheader + palette
-    bmp->bfOffBits = bmp_header_size +
-            dib.headerSize() +
-            dib.palleteSize();
-
-//    memcpy(d, bmp, bmp_header_size);
-}
-
 DIBImageIOHandler::DIBImageIOHandler()
 {}
 

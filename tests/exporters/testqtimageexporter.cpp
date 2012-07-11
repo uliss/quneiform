@@ -45,6 +45,9 @@ void TestQtImageExporter::testSave()
     QtImageLoader loader;
     ImagePtr image = loader.load(URL("test_in.bmp"));
 
+    CPPUNIT_ASSERT(image);
+    CPPUNIT_ASSERT(!image->isNull());
+
     exp->setFormat(FORMAT_PNG);
     exp->save(*image, "export_qt.png");
 
