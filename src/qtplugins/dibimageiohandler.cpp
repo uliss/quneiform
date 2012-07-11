@@ -26,6 +26,7 @@
 #include "cfcompat.h"
 #include "common/ctdib.h"
 #include "common/dib.h"
+#include "common/bmp.h"
 
 using namespace cf;
 
@@ -107,21 +108,18 @@ bool DIBImageIOHandler::read(QImage * image)
     cf::CTDIB dib;
     dib.setBitmap(&bitmap_info);
     const size_t bitmap_size = dib.dibSize();
-    const size_t bmp_header_size = sizeof(BITMAPFILEHEADER);
 
-    BITMAPFILEHEADER bmp_header;
-    memset(&bmp_header, 0, bmp_header_size);
-    bmp_header.bfType = 0x4d42; // 'BM'
-    bmp_header.bfSize = (uint32_t) (bmp_header_size + bitmap_size);
+    BitmapFileHeader bmp_header;
+    bmp_header.bfSize = (uint32_t) (BMP_FILE_HEADER_SIZE + bitmap_size);
     // fileheader + infoheader + palette
-    bmp_header.bfOffBits = bmp_header_size +
+    bmp_header.bfOffBits = BMP_FILE_HEADER_SIZE +
             dib.headerSize() +
             dib.palleteSize();
 
     char * buf = new char[bmp_header.bfSize];
     char * buf_ptr = buf;
-    memcpy(buf_ptr, &bmp_header, bmp_header_size);
-    buf_ptr += bmp_header_size;
+    memcpy(buf_ptr, &bmp_header, BMP_FILE_HEADER_SIZE);
+    buf_ptr += BMP_FILE_HEADER_SIZE;
 
     if(!device()->read(buf_ptr, bitmap_size)) {
         delete[] buf;

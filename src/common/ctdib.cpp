@@ -931,9 +931,7 @@ bool CTDIB::saveToBMP(std::ostream& os) const
         return false;
 
     BitmapFileHeader bf; //  bmp fileheader
-
     // uliss: TODO! check for endianness
-    bf.bfType = 0x4d42; // 'BM'
     bf.bfSize = static_cast<uint32_t>(sizeof(BitmapFileHeader) + dibSize());
     // fileheader + infoheader + palette
     bf.bfOffBits = static_cast<uint32_t>(sizeof(BitmapFileHeader) + headerSize() + palleteSize());

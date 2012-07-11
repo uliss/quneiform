@@ -23,7 +23,7 @@
 #include "testdibplugin.h"
 #include "qtplugins/dibimageioplugin.h"
 #include "cfcompat.h"
-#include "common/dib.h"
+#include "common/bmp.h"
 
 void TestDIBPlugin::testSupportedFormats()
 {
@@ -47,9 +47,9 @@ void TestDIBPlugin::testRead()
     const char * dib_ptr = bmp_data.constData();
     QVERIFY(dib_ptr);
 
-    dib_ptr += sizeof(BITMAPFILEHEADER);
+    dib_ptr += cf::BMP_FILE_HEADER_SIZE;
 
-    img.loadFromData((uchar*) dib_ptr, bmp_data.length() - sizeof(BITMAPFILEHEADER), "DIB");
+    QVERIFY(img.loadFromData((uchar*) dib_ptr, bmp_data.length() - sizeof(cf::BMP_FILE_HEADER_SIZE), "DIB"));
 
     img.save("test_dib_plugin.bmp", "bmp");
 }
