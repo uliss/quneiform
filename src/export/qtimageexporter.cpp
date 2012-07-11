@@ -20,6 +20,7 @@
 #include <QBuffer>
 #include <QImage>
 #include <QImageReader>
+#include <QDebug>
 #include <QtPlugin>
 
 #include "qtimageexporter.h"
@@ -96,15 +97,21 @@ void QtImageExporter::saveToStream(const ImageRawData& image, std::ostream& os)
 
     try {
         BmpImageExporter bmp_exporter;
-        QImage tmp;
 
         if(format() == FORMAT_BMP) {
             bmp_exporter.save(image, os);
             return;
         }
 
-        if(!tmp.loadFromData(image.data(), image.dataSize(), "DIB")) {
-            Debug() << METHOD_SIGNATURE() << "image load error\n";
+        QBuffer buf;
+        buf.setData((char*)image.data(), image.dataSize());
+        buf.open(QIODevice::ReadOnly);
+
+        QImageReader loader(&buf, "DIB");
+
+        QImage tmp;
+        if(!loader.read(&tmp)) {
+            Debug() << METHOD_SIGNATURE() << " image load error\n";
             throw Exception() << METHOD_SIGNATURE() << "can't load image";
         }
 

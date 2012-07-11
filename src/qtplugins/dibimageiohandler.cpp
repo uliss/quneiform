@@ -34,6 +34,8 @@ static bool readDIBHeader(QIODevice * device, BitmapInfoHeader& info)
     if(!device)
         return false;
 
+    device->reset();
+
     qint64 read = device->peek((char*) &info, sizeof(BitmapInfoHeader));
     if(read != sizeof(BitmapInfoHeader))
         return false;
@@ -81,12 +83,24 @@ bool DIBImageIOHandler::canRead() const
 
 bool DIBImageIOHandler::read(QImage * image)
 {
-    BitmapInfoHeader bitmap_info;
-    if(!readDIBHeader(device(), bitmap_info))
+    if(!device()->isOpen()) {
+        qDebug() << Q_FUNC_INFO << "device not opened";
         return false;
+    }
+
+    if(!device()->isReadable()) {
+        qDebug() << Q_FUNC_INFO << "device is not readable";
+        return false;
+    }
+
+    BitmapInfoHeader bitmap_info;
+    if(!readDIBHeader(device(), bitmap_info)) {
+        qDebug() << Q_FUNC_INFO << "can't read DIB header";
+        return false;
+    }
 
     if(!isValidDIBHeader(bitmap_info)) {
-        qDebug() << Q_FUNC_INFO << "invalid header";
+        qDebug() << Q_FUNC_INFO << "invalid DIB header";
         return false;
     }
 
