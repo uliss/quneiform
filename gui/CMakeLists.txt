@@ -147,9 +147,6 @@ set(QT_USE_QTPLUGIN TRUE)
 find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtXml QtXmlPatterns REQUIRED)
 include(${QT_USE_FILE})
 
-add_subdirectory(plugins)
-link_directories(${CMAKE_CURRENT_BINARY_DIR}/plugins)
-
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
 qt4_wrap_cpp(MOC_SOURCES ${HEADERS})
 qt4_wrap_ui(UI_HEADERS ${FORMS})

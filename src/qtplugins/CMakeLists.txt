@@ -1,5 +1,28 @@
+include(${QT_USE_FILE})
+
+set(CF_DIB_PLUGIN_SOURCES
+    dibimageioplugin.cpp
+    dibimageiohandler.cpp
+)
+
+set(CF_DIB_PLUGIN_HEADERS
+    dibimageioplugin.h
+    dibimageiohandler.h
+)
+
+add_definitions(-DQT_STATICPLUGIN)
+
+add_library(dib_imageplugin STATIC
+    ${CF_DIB_PLUGIN_SOURCES}
+    ${CF_DIB_PLUGIN_HEADERS}
+)
+
+target_link_libraries(dib_imageplugin
+    ${QT_LIBRARIES}
+    cuneiform-rdib
+)
+
 if(CF_PDF_SUPPORT)
-    include(${QT_USE_FILE})
     include_directories(${POPPLER_INCLUDE_DIR})
 
     set(CF_PDF_PLUGIN_SOURCES
@@ -26,7 +49,6 @@ if(CF_PDF_SUPPORT)
 endif()
 
 if(CF_TIFF_SUPPORT)
-    include(${QT_USE_FILE})
     include_directories(${TIFF_INCLUDE_DIR})
 
     set(CF_MTIFF_PLUGIN_SOURCES

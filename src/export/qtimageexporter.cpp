@@ -19,7 +19,8 @@
 #include <QImageWriter>
 #include <QBuffer>
 #include <QImage>
-#include <sstream>
+#include <QImageReader>
+#include <QtPlugin>
 
 #include "qtimageexporter.h"
 #include "bmpimageexporter.h"
@@ -27,6 +28,8 @@
 #include "common/debug.h"
 #include "common/imagerawdata.h"
 #include "common/helper.h"
+
+Q_IMPORT_PLUGIN(dib_imageplugin)
 
 namespace {
 
@@ -99,19 +102,10 @@ void QtImageExporter::saveToStream(const ImageRawData& image, std::ostream& os)
             bmp_exporter.save(image, os);
             return;
         } else {
-            std::stringstream buf;
-            bmp_exporter.save(image, buf);
-
-            const int buf_size = (int) streamSize(buf);
-            char * chbuf = new char[buf_size];
-            buf.read(chbuf, buf_size);
-
-            if(!tmp.loadFromData((uchar*) chbuf, buf_size)) {
+            if(!tmp.loadFromData(image.data(), image.dataSize(), "DIB")) {
                 Debug() << METHOD_SIGNATURE() << "image load error\n";
                 throw Exception() << "can't load image";
             }
-
-            delete [] chbuf;
         }
 
         QImageWriter writer;

@@ -21,7 +21,7 @@
 #include <QImageReader>
 
 #include "testdibplugin.h"
-#include "plugins/dibimageioplugin.h"
+#include "qtplugins/dibimageioplugin.h"
 #include "cfcompat.h"
 #include "common/dib.h"
 

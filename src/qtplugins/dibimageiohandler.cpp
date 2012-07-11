@@ -90,9 +90,7 @@ static void writeBMPHeader(BITMAPFILEHEADER * bmp, BitmapInfoHeader * info, char
 }
 
 DIBImageIOHandler::DIBImageIOHandler()
-{
-    qDebug() << Q_FUNC_INFO;
-}
+{}
 
 bool DIBImageIOHandler::canRead() const
 {
