@@ -32,9 +32,9 @@ QImageIOPlugin::Capabilities MultiTIFFIOPlugin::capabilities(QIODevice * device,
         return CanRead;
 
     if(format.isEmpty()) {
-        MultiTIFFIOHandler handler;
-        handler.setDevice(device);
-        if(handler.canRead())
+        if(device->isOpen() &&
+                device->isReadable() &&
+                device->peek(2) == "II*")
             return CanRead;
     }
 

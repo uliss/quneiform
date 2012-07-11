@@ -51,3 +51,11 @@ void TestQtImageExporter::testSave()
     exp->setFormat(FORMAT_JPEG);
     exp->save(*image, "export_qt.jpg");
 }
+
+void TestQtImageExporter::testSupportedFormats()
+{
+    QtImageExporter exp;
+
+    CPPUNIT_ASSERT(exp.isSupportedFormat(FORMAT_PNG));
+    CPPUNIT_ASSERT(exp.isSupportedFormat(FORMAT_JPEG));
+}

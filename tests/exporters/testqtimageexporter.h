@@ -29,9 +29,11 @@ class TestQtImageExporter: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestQtImageExporter);
     CPPUNIT_TEST(testSave);
+    CPPUNIT_TEST(testSupportedFormats);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testSave();
+    void testSupportedFormats();
 };
 
 #endif // TESTQTIMAGEEXPORTER_H

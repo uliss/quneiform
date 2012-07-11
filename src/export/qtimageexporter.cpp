@@ -86,10 +86,10 @@ ImageExporter::FormatList QtImageExporter::supportedFormats() const
 void QtImageExporter::saveToStream(const ImageRawData& image, std::ostream& os)
 {
     if (image.isNull())
-        throw Exception("[QtImageExporter::save] null image given");
+        throw Exception() << METHOD_SIGNATURE() << "null image given";
 
     if (os.fail())
-        throw Exception("[QtImageExporter::save] invalid stream");
+        throw Exception() << METHOD_SIGNATURE() << "invalid stream";
 
     try {
         BmpImageExporter bmp_exporter;
@@ -107,8 +107,8 @@ void QtImageExporter::saveToStream(const ImageRawData& image, std::ostream& os)
             buf.read(chbuf, buf_size);
 
             if(!tmp.loadFromData((uchar*) chbuf, buf_size)) {
-                Debug() << "[QtImageExporter::save] image load error\n";
-                throw Exception("[QtImageExporter::save] can't load image");
+                Debug() << METHOD_SIGNATURE() << "image load error\n";
+                throw Exception() << "can't load image";
             }
 
             delete [] chbuf;
@@ -125,18 +125,18 @@ void QtImageExporter::saveToStream(const ImageRawData& image, std::ostream& os)
             break;
         default:
             Debug() << format() << "\n";
-            throw Exception("Unsupported format");
+            throw Exception() << METHOD_SIGNATURE() << "Unsupported format:" << imageFormatToString(format());
         }
 
         QBuffer buffer;
         if(!buffer.open(QBuffer::ReadWrite))
-            throw Exception("[QtImageExporter::save] can't open buffer");
+            throw Exception() << METHOD_SIGNATURE() << "can't open buffer";
 
         writer.setDevice(&buffer);
         writer.setText("", "Generator: cuneiform");
 
         if(!writer.write(tmp))
-            throw Exception("[QtImageExporter::save] write error");
+            throw Exception() << METHOD_SIGNATURE() << "write error";
 
         os.write(buffer.data(), buffer.size());
     }
