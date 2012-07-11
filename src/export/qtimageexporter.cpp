@@ -105,7 +105,7 @@ void QtImageExporter::saveToStream(const ImageRawData& image, std::ostream& os)
 
         if(!tmp.loadFromData(image.data(), image.dataSize(), "DIB")) {
             Debug() << METHOD_SIGNATURE() << "image load error\n";
-            throw Exception() << "can't load image";
+            throw Exception() << METHOD_SIGNATURE() << "can't load image";
         }
 
         QImageWriter writer;
