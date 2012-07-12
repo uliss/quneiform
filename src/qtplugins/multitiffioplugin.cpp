@@ -16,44 +16,45 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtTest>
-#include <QDebug>
-#include <QImageReader>
+#include <QtPlugin>
 
-#include "testdibplugin.h"
-#include "qtplugins/dibimageioplugin.h"
-#include "cfcompat.h"
-#include "common/bmp.h"
+#include "multitiffioplugin.h"
+#include "multitiffiohandler.h"
 
-void TestDIBPlugin::testSupportedFormats()
+MultiTIFFIOPlugin::MultiTIFFIOPlugin(QObject * parent) :
+    QImageIOPlugin(parent)
 {
-    QVERIFY(QImageReader::supportedImageFormats().contains("dib"));
 }
 
-void TestDIBPlugin::testRead()
+QImageIOPlugin::Capabilities MultiTIFFIOPlugin::capabilities(QIODevice * device, const QByteArray& format) const
 {
-    QImage img;
-    QByteArray data;
-    data.fill('1', 1024);
-    QVERIFY(!img.loadFromData(data, "dib"));
+    if(format.toLower() == "mtiff")
+        return CanRead;
 
-    QImage bmp(100, 120, QImage::Format_RGB32);
-    bmp.fill(Qt::blue);
+    if(format.isEmpty()) {
+        if(device->isOpen() &&
+                device->isReadable() &&
+                device->peek(2) == "II*")
+            return CanRead;
+    }
 
-    QByteArray bmp_data;
-    QBuffer buffer(&bmp_data);
-    bmp.save(&buffer, "bmp");
-
-    const char * dib_ptr = bmp_data.constData();
-    QVERIFY(dib_ptr);
-
-    dib_ptr += cf::BMP_FILE_HEADER_SIZE;
-
-    QVERIFY(img.loadFromData((uchar*) dib_ptr, bmp_data.length() - sizeof(cf::BMP_FILE_HEADER_SIZE), "DIB"));
-
-    img.save("test_dib_plugin.bmp", "bmp");
+    return 0;
 }
 
-Q_IMPORT_PLUGIN(dib_imageplugin)
+QImageIOHandler * MultiTIFFIOPlugin::create(QIODevice * device, const QByteArray& format) const
+{
+    if(capabilities(device, format) != CanRead)
+        return NULL;
 
-QTEST_MAIN(TestDIBPlugin)
+    MultiTIFFIOHandler * res = new MultiTIFFIOHandler;
+    res->setDevice(device);
+    return res;
+}
+
+QStringList MultiTIFFIOPlugin::keys() const
+{
+    return QStringList("mtiff");
+}
+
+Q_EXPORT_PLUGIN2(multitiff_imageplugin, MultiTIFFIOPlugin)
+

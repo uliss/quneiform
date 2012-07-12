@@ -16,10 +16,12 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtCore/QString>
-#include <QtGui/QImage>
-#include <QtGui/QImageReader>
+#include <QString>
+#include <QImage>
+#include <QImageReader>
 #include <QMap>
+#include <QtPlugin>
+#include <QFile>
 #include <QDebug>
 
 #include "qtimageloader.h"
@@ -27,14 +29,27 @@
 #include "imageloaderfactory.h"
 #include "common/dib.h"
 #include "common/imageurl.h"
+#include "common/debug.h"
+#include "common/helper.h"
+#include "common/stringbuffer.h"
 
 #ifdef WIN32
 #include <windows.h>
 #include <wingdi.h>
 #endif
 
+#ifdef WITH_PDF
+Q_IMPORT_PLUGIN(pdf_imageplugin)
+#endif
+
+#ifdef WITH_TIFF
+Q_IMPORT_PLUGIN(multitiff_imageplugin)
+#endif
+
 namespace
 {
+
+static const int PDF_RENDER_DPI = 300;
 
 cf::ImageLoader * create() {
     return new cf::QtImageLoader;
@@ -50,7 +65,11 @@ void initFormatMap(FormatMap& m) {
     m["png"] = cf::FORMAT_PNG;
     m["pnm"] = cf::FORMAT_PNM;
     m["tiff"] = cf::FORMAT_TIFF;
+    m["mtiff"] = cf::FORMAT_TIFF;
     m["xpm"] = cf::FORMAT_XPM;
+#ifdef WITH_PDF
+    m["pdf"] = cf::FORMAT_PDF;
+#endif
 }
 
 void registerFormat(cf::image_format_t f) {
@@ -71,6 +90,21 @@ bool registered = registerImageFormats();
 
 namespace cf
 {
+
+static bool is_pdf_url(const ImageURL& url)
+{
+    return url.extension() == "pdf";
+}
+
+static bool is_tiff_url(const ImageURL& url)
+{
+    return url.extension() == "tif" || url.extension() == "tiff";
+}
+
+static inline QString urlToQt(const ImageURL& url)
+{
+    return QString::fromUtf8(url.path().c_str());
+}
 
 static void set_dib_header(BitmapInfoHeader * dibInfo, const QImage& raster) {
     memset(dibInfo, 0, sizeof(*dibInfo));
@@ -138,12 +172,6 @@ static void copy_dib_raster(uchar * dib, const BitmapInfoHeader& dib_info, const
 QtImageLoader::QtImageLoader() {
 }
 
-ImagePtr QtImageLoader::load(const QString& path) {
-    QImage img(path);
-    ImagePtr res = load(img);
-    return res;
-}
-
 static QImage convertColorFormat(const QImage& image)
 {
     QImage res;
@@ -159,9 +187,10 @@ static QImage convertColorFormat(const QImage& image)
     return res;
 }
 
-ImagePtr QtImageLoader::load(const QImage& image) {
+ImagePtr QtImageLoader::fromQImage(const QImage& image)
+{
     if (image.isNull())
-        throw Exception("[QtImageLoader::load] load failed.");
+        throw Exception() << METHOD_SIGNATURE() << "Null image given";
 
     const QImage raster = convertColorFormat(image);
     BitmapInfoHeader dibInfo;
@@ -183,11 +212,21 @@ ImagePtr QtImageLoader::load(const QImage& image) {
 
 ImagePtr QtImageLoader::load(const ImageURL& url)
 {
-    return load(QString::fromStdString(url.path()));
+    QImage img;
+
+    if(is_pdf_url(url))
+        return loadPdf(url);
+    else if(is_tiff_url(url))
+        return loadTiff(url);
+    else
+        img.load(QString::fromUtf8(url.path().c_str()));
+
+    return fromQImage(img);
 }
 
-ImagePtr QtImageLoader::load(std::istream& /*is*/) {
-    throw Exception("[QtImageLoader::load] loading from stream is not supported yet");
+ImagePtr QtImageLoader::load(std::istream& /*is*/)
+{
+    throw Exception() << "loading from stream is not supported yet";
 }
 
 ImageFormatList QtImageLoader::supportedFormats() const
@@ -206,6 +245,56 @@ ImageFormatList QtImageLoader::supportedFormats() const
     }
 
     return res;
+}
+
+ImagePtr QtImageLoader::loadPdf(const ImageURL &url)
+{
+    if(!QFile::exists(urlToQt(url)))
+        throw Exception() << METHOD_SIGNATURE() << "file not exists:" << url;
+
+    QImageReader r(urlToQt(url), "PDF");
+
+    if(!r.canRead())
+        throw Exception() << METHOD_SIGNATURE() << "can't read PDF";
+
+    r.setQuality(PDF_RENDER_DPI);
+
+    if(url.imageNumber()) {
+        if(url.imageNumber() >= r.imageCount())
+            throw Exception() << METHOD_SIGNATURE() << "invalid page number:" << url.imageNumber();
+
+        r.jumpToImage(url.imageNumber());
+    }
+
+    QImage img;
+    if(!r.read(&img))
+        throw Exception() << METHOD_SIGNATURE() << "can't read image:"<< url;
+
+    return fromQImage(img);
+}
+
+ImagePtr QtImageLoader::loadTiff(const ImageURL& url)
+{
+    if(!QFile::exists(urlToQt(url)))
+        throw Exception() << METHOD_SIGNATURE() << "file not exists:" << url;
+
+    QImageReader r(urlToQt(url), "MTIFF");
+
+    if(!r.canRead())
+        throw Exception() << METHOD_SIGNATURE() << "can't load image:" << url;
+
+    if(url.imageNumber()) {
+        if(url.imageNumber() >= r.imageCount())
+            throw Exception() << METHOD_SIGNATURE() << "invalid image number:" << url.imageNumber();
+
+        r.jumpToImage(url.imageNumber());
+    }
+
+    QImage img;
+    if(!r.read(&img))
+        throw Exception() << METHOD_SIGNATURE() << "can't read image:"<< url;
+
+    return fromQImage(img);
 }
 
 }

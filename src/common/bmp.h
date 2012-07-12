@@ -45,6 +45,12 @@ public:
     uint32_t bfOffBits;
 } PACKED_STRUCT_EPILOGUE;
 
+enum {
+    BMP_FILE_HEADER_SIZE = sizeof(BitmapFileHeader)
+};
+
+BOOST_STATIC_ASSERT(sizeof(BitmapFileHeader) == 14);
+
 }
 
 #endif // BMP_H

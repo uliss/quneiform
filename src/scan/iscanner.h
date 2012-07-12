@@ -25,13 +25,14 @@
 #include <iosfwd>
 #include <boost/any.hpp>
 
+#include "globus.h"
 #include "scanoption.h"
 #include "common/rect.h"
 #include "common/image.h"
 
 namespace cf {
 
-class IScanner
+class CLA_EXPO IScanner
 {
 public:
     typedef std::vector<std::string> DeviceList;

@@ -28,6 +28,7 @@
 
 namespace cf
 {
+
 FUN_EXPO__ std::string escapeHtmlSpecialChars(const std::string& path);
 
 template<class T>
@@ -74,6 +75,11 @@ inline void replaceAll(std::string& str, const std::string& what, const std::str
     }
 }
 
+#define METHOD_NAME() extractClassMethodNameFromSignature(BOOST_CURRENT_FUNCTION)
+#define METHOD_SIGNATURE() makeClassMethodSignature(BOOST_CURRENT_FUNCTION)
+
+FUN_EXPO__ std::string extractClassMethodNameFromSignature(const std::string& signature);
+FUN_EXPO__ std::string makeClassMethodSignature(const std::string& signature);
 FUN_EXPO__ size_t streamSize(std::istream& is);
 FUN_EXPO__ size_t streamSize(std::ostream& is);
 FUN_EXPO__ size_t streamSize(std::stringstream& s);

@@ -20,6 +20,7 @@
 #include <sstream>
 #include <fstream>
 #include <math.h>
+#include <QImage>
 
 #include "testqtimageloader.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(TestQtImageLoader);
@@ -36,45 +37,64 @@ using namespace cf;
 #define LOADER_TEST_IMAGE_DIR ""
 #endif
 
-void TestQtImageLoader::testInit() {
-    std::auto_ptr<QtImageLoader> loader(new QtImageLoader);
+#define ASSERT_LOAD(loader, name) \
+    Debug() << "LOADING " LOADER_TEST_IMAGE_DIR name "\n";\
+    CPPUNIT_ASSERT_NO_THROW(loader.load(ImageURL(LOADER_TEST_IMAGE_DIR name)))
+
+#define ASSERT_LOAD_PAGE(loader, name, page) \
+    Debug() << "LOADING "LOADER_TEST_IMAGE_DIR name "; page: " << page << "\n";\
+    CPPUNIT_ASSERT_NO_THROW(loader.load(ImageURL(LOADER_TEST_IMAGE_DIR name, page)))
+
+#define FORMAT_SUPPORTED(loader, fmt) \
+    CPPUNIT_ASSERT(loader.supportsFormat(fmt))
+
+#define ASSERT_LOAD_SIZE(loader, fname, sz)\
+    CPPUNIT_ASSERT_NO_THROW(loader.load(ImageURL(LOADER_TEST_IMAGE_DIR fname))->size() == sz)
+
+void TestQtImageLoader::testInit()
+{
+    QtImageLoader loader;
+    CPPUNIT_ASSERT(!loader.supportedFormats().empty());
 }
 
-void TestQtImageLoader::testLoad() {
-    std::string path = LOADER_TEST_IMAGE_DIR;
-    std::auto_ptr<QtImageLoader> loader(new QtImageLoader);
+void TestQtImageLoader::testLoad()
+{
+    QtImageLoader loader;
     ImagePtr img;
 
-#define ASSERT_LOAD(fname) CPPUNIT_ASSERT_NO_THROW(img = loader->load(ImageURL(path + fname)));
+    ASSERT_LOAD_SIZE(loader, "test.xpm", Size(1, 1));
 
-    ASSERT_LOAD("test.xpm");
-    CPPUNIT_ASSERT(Size(1, 1) == img->size());
+    ASSERT_LOAD(loader, "test.bmp");
+    ASSERT_LOAD(loader, "test.jpg");
+    ASSERT_LOAD(loader, "test.png");
+    ASSERT_LOAD(loader, "test.pnm");
+    ASSERT_LOAD(loader, "test.xpm");
+    ASSERT_LOAD(loader, "test.pbm");
+    ASSERT_LOAD(loader, "test.pgm");
+    ASSERT_LOAD(loader, "test.ppm");
 
-    ImageFormatList formats = loader->supportedFormats();
-
-    for(size_t i = 0; i < formats.size(); i++) {
-        if(formats[i] == cf::FORMAT_BMP)
-            continue;
-
-        std::string image_name = path + "test.";
-        image_name += imageFormatToString(formats[i]);
-
-        std::cerr << "CHECKING " << image_name << "\n";
-        CPPUNIT_ASSERT_NO_THROW(loader->load(ImageURL(image_name)));
+ 
+    if(loader.supportsFormat(FORMAT_TIFF)){
+        ASSERT_LOAD(loader, "test.tif");
+        // multi page tiff load
+        ASSERT_LOAD_PAGE(loader, "multipage.tif", 0);
+        ASSERT_LOAD_PAGE(loader, "multipage.tif", 1);
     }
 
-    ASSERT_LOAD("test.pbm");
-    ASSERT_LOAD("test.pgm");
-    ASSERT_LOAD("test.ppm");
+    if(loader.supportsFormat(FORMAT_PDF)) {
+        // multi page pdf load
+        ASSERT_LOAD_PAGE(loader, "test.pdf", 0);
+        ASSERT_LOAD_PAGE(loader, "test.pdf", 1);
+    }
 
     // throw
-    CPPUNIT_ASSERT_THROW(loader->load(ImageURL("not-exists")), ImageLoader::Exception);
+    CPPUNIT_ASSERT_THROW(loader.load(ImageURL("not-exists")), ImageLoader::Exception);
     std::ifstream is_empty;
-    CPPUNIT_ASSERT_THROW(loader->load(is_empty), ImageLoader::Exception);
+    CPPUNIT_ASSERT_THROW(loader.load(is_empty), ImageLoader::Exception);
     std::ifstream is_bad;
     int tmp;
     is_bad >> tmp;
-    CPPUNIT_ASSERT_THROW(loader->load(is_bad), ImageLoader::Exception);
+    CPPUNIT_ASSERT_THROW(loader.load(is_bad), ImageLoader::Exception);
 }
 
 void TestQtImageLoader::testLoadRecognize() {
@@ -132,3 +152,74 @@ void TestQtImageLoader::testLoadParams()
     CPPUNIT_ASSERT_EQUAL(75, int(round(head->biXPelsPerMeter * INCH)));
     CPPUNIT_ASSERT_EQUAL(75, int(round(head->biYPelsPerMeter * INCH)));
 }
+
+void TestQtImageLoader::testMultiPage()
+{
+    QtImageLoader loader;
+
+    if(loader.supportsFormat(FORMAT_PDF)) {
+        ASSERT_LOAD_PAGE(loader, "test.pdf", 0);
+        ASSERT_LOAD_PAGE(loader, "test.pdf", 1);
+    }
+
+    if(loader.supportsFormat(FORMAT_TIFF)) {
+        ASSERT_LOAD_PAGE(loader, "multipage.tif", 0);
+        ASSERT_LOAD_PAGE(loader, "multipage.tif", 1);
+    }
+}
+
+void TestQtImageLoader::testSupportedFormats()
+{
+    QtImageLoader loader;
+
+    FORMAT_SUPPORTED(loader, FORMAT_BMP);
+    FORMAT_SUPPORTED(loader, FORMAT_GIF);
+    FORMAT_SUPPORTED(loader, FORMAT_JPEG);
+    FORMAT_SUPPORTED(loader, FORMAT_PNG);
+
+#ifdef WITH_TIFF
+    FORMAT_SUPPORTED(loader, FORMAT_TIFF);
+#endif
+
+#ifdef WITH_PDF
+    FORMAT_SUPPORTED(loader, FORMAT_PDF);
+#endif
+}
+
+void TestQtImageLoader::testLoadStream()
+{
+    std::ifstream fs;
+    CPPUNIT_ASSERT_THROW(QtImageLoader().load(fs), QtImageLoader::Exception);
+}
+
+void TestQtImageLoader::testImageTypes()
+{
+    QImage img(QSize(10, 10), QImage::Format_RGB32);
+    img.fill(Qt::green);
+
+    QtImageLoader loader;
+
+#define ASSERT_LOAD_QIMAGE(loader, image) CPPUNIT_ASSERT_NO_THROW(loader.fromQImage(image));
+
+    ASSERT_LOAD_QIMAGE(loader, img);
+
+    img.convertToFormat(QImage::Format_RGB16);
+    ASSERT_LOAD_QIMAGE(loader, img);
+    img.convertToFormat(QImage::Format_RGB888);
+    ASSERT_LOAD_QIMAGE(loader, img);
+    img.convertToFormat(QImage::Format_RGB666);
+    ASSERT_LOAD_QIMAGE(loader, img);
+    img.convertToFormat(QImage::Format_RGB555);
+    ASSERT_LOAD_QIMAGE(loader, img);
+    img.convertToFormat(QImage::Format_RGB444);
+    ASSERT_LOAD_QIMAGE(loader, img);
+    img.convertToFormat(QImage::Format_Indexed8);
+    ASSERT_LOAD_QIMAGE(loader, img);
+    img.convertToFormat(QImage::Format_MonoLSB);
+    ASSERT_LOAD_QIMAGE(loader, img);
+    img.convertToFormat(QImage::Format_Mono);
+    ASSERT_LOAD_QIMAGE(loader, img);
+
+#undef ASSERT_LOAD_QIMAGE;
+}
+

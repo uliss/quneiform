@@ -90,7 +90,7 @@ std::ostream& operator<<(std::ostream& os, const cf::ImageURL& url)
 {
     os << url.path();
     if(!url.simple())
-        os << "; image:" << url.imageNumber();
+        os << "; image: " << url.imageNumber();
 
     return os;
 }

@@ -19,6 +19,8 @@
 #include <QSettings>
 #include <QColorDialog>
 #include <QFontDialog>
+#include <QDebug>
+#include <QApplication>
 
 #include "settings.h"
 #include "ui_settings.h"
@@ -35,8 +37,7 @@ Settings::Settings(QWidget * parent) :
     ui_(new Ui::Settings)
 {
     ui_->setupUi(this);
-    ui_->listWidget->addItem(new QListWidgetItem(iconFromTheme("accessories-text-editor"), tr("Editor")));
-    ui_->listWidget->addItem(new QListWidgetItem(iconFromTheme("tools-report-bug"), tr("Debug")));
+    setupListWidget();
     connectSignals();
     load();
 }
@@ -51,7 +52,9 @@ void Settings::connectSignals() {
     connect(this->ui_->fontChoose, SIGNAL(clicked()), SLOT(showFontDialog()));
 }
 
-void Settings::load() {
+void Settings::load()
+{
+    loadGeneral();
     loadDebug();
     loadFormat();
     loadDialogState();
@@ -103,7 +106,23 @@ void Settings::loadFormat() {
     ui_->fontChoose->setText(fontName(editorFont));
 }
 
-void Settings::save() {
+void Settings::loadGeneral()
+{
+    QStringList themes = availableIconThemes();
+    foreach(QString s, themes) {
+        ui_->themesList->addItem(s);
+    }
+
+    int item_idx = ui_->themesList->findText(QIcon::themeName());
+    if(item_idx == -1)
+        return;
+
+    ui_->themesList->setCurrentIndex(item_idx);
+}
+
+void Settings::save()
+{
+    saveGeneral();
     saveDebug();
     saveFormat();
 }
@@ -141,6 +160,33 @@ void Settings::saveFormat() {
     settings.setValue("currentCharColor", ui_->currentCharacterColorButton->color());
     settings.setValue("alternativeColor", ui_->alternativeColorButton->color());
     settings.setValue("showCurrentCharacter", ui_->showCurrentCharacterCheckBox->isChecked());
+}
+
+void Settings::saveGeneral()
+{
+    QSettings settings;
+    int current_idx = ui_->themesList->currentIndex();
+    QString theme = ui_->themesList->itemText(current_idx);
+
+    if(QIcon::themeName() == theme)
+        return;
+
+    qDebug() << Q_FUNC_INFO << theme;
+
+    settings.setValue("gui/theme", theme);
+    QIcon::setThemeName(theme);
+
+    foreach (QWidget * widget, QApplication::allWidgets())
+        widget->repaint();
+}
+
+void Settings::setupListWidget()
+{
+    ui_->listWidget->addItem(new QListWidgetItem(iconFromTheme("configure"), tr("General")));
+    ui_->listWidget->addItem(new QListWidgetItem(iconFromTheme("accessories-text-editor"), tr("Editor")));
+    ui_->listWidget->addItem(new QListWidgetItem(iconFromTheme("tools-report-bug"), tr("Debug")));
+
+    ui_->themesList->addItem("");
 }
 
 void Settings::showFontDialog()

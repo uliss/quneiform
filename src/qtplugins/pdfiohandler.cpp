@@ -60,7 +60,7 @@ bool PdfIOHandler::read(QImage * image)
     return true;
 }
 
-bool PdfIOHandler::write(const QImage& image)
+bool PdfIOHandler::write(const QImage&)
 {
     return false;
 }

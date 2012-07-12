@@ -27,32 +27,34 @@ namespace cf
 
 ImageFormatDetector::ImageFormatDetector()
 {
-    extension_format_map_.insert(FormatMap::value_type("bmp", FORMAT_BMP));
-    extension_format_map_.insert(FormatMap::value_type("gif", FORMAT_GIF));
-    extension_format_map_.insert(FormatMap::value_type("jpg", FORMAT_JPEG));
-    extension_format_map_.insert(FormatMap::value_type("jpeg", FORMAT_JPEG));
-    extension_format_map_.insert(FormatMap::value_type("png", FORMAT_PNG));
-    extension_format_map_.insert(FormatMap::value_type("pnm", FORMAT_PNM));
-    extension_format_map_.insert(FormatMap::value_type("pbm", FORMAT_PNM));
-    extension_format_map_.insert(FormatMap::value_type("pgm", FORMAT_PNM));
-    extension_format_map_.insert(FormatMap::value_type("ppm", FORMAT_PNM));
-    extension_format_map_.insert(FormatMap::value_type("tiff", FORMAT_TIFF));
-    extension_format_map_.insert(FormatMap::value_type("tif", FORMAT_TIFF));
-    extension_format_map_.insert(FormatMap::value_type("xpm", FORMAT_XPM));
+    addExt("bmp", FORMAT_BMP);
+    addExt("gif", FORMAT_GIF);
+    addExt("jpg", FORMAT_JPEG);
+    addExt("jpeg", FORMAT_JPEG);
+    addExt("png", FORMAT_PNG);
+    addExt("pnm", FORMAT_PNM);
+    addExt("pbm", FORMAT_PNM);
+    addExt("pgm", FORMAT_PNM);
+    addExt("ppm", FORMAT_PNM);
+    addExt("tiff", FORMAT_TIFF);
+    addExt("tif", FORMAT_TIFF);
+    addExt("xpm", FORMAT_XPM);
+    addExt("pdf", FORMAT_PDF);
 
-    magick_format_map_.insert(MagickMap::value_type("BM", FORMAT_BMP));
-    magick_format_map_.insert(MagickMap::value_type("GIF", FORMAT_GIF));
-    magick_format_map_.insert(MagickMap::value_type("\xFF\xD8", FORMAT_JPEG));
-    magick_format_map_.insert(FormatMap::value_type("\x89PNG", FORMAT_PNG));
-    magick_format_map_.insert(FormatMap::value_type("II", FORMAT_TIFF));
-    magick_format_map_.insert(FormatMap::value_type("MM", FORMAT_TIFF));
-    magick_format_map_.insert(FormatMap::value_type("P1", FORMAT_PNM));
-    magick_format_map_.insert(FormatMap::value_type("P2", FORMAT_PNM));
-    magick_format_map_.insert(FormatMap::value_type("P3", FORMAT_PNM));
-    magick_format_map_.insert(FormatMap::value_type("P4", FORMAT_PNM));
-    magick_format_map_.insert(FormatMap::value_type("P5", FORMAT_PNM));
-    magick_format_map_.insert(FormatMap::value_type("P6", FORMAT_PNM));
-    magick_format_map_.insert(FormatMap::value_type("/* XPM */", FORMAT_XPM));
+    addMagick("BM", FORMAT_BMP);
+    addMagick("GIF", FORMAT_GIF);
+    addMagick("\xFF\xD8", FORMAT_JPEG);
+    addMagick("\x89PNG", FORMAT_PNG);
+    addMagick("II", FORMAT_TIFF);
+    addMagick("MM", FORMAT_TIFF);
+    addMagick("P1", FORMAT_PNM);
+    addMagick("P2", FORMAT_PNM);
+    addMagick("P3", FORMAT_PNM);
+    addMagick("P4", FORMAT_PNM);
+    addMagick("P5", FORMAT_PNM);
+    addMagick("P6", FORMAT_PNM);
+    addMagick("/* XPM */", FORMAT_XPM);
+    addMagick("%PDF", FORMAT_PDF);
 }
 
 ImageFormatDetector& ImageFormatDetector::instance()
@@ -95,6 +97,16 @@ std::vector<std::string> ImageFormatDetector::knownExtensions() const
     for(; it != end; ++it)
         ret.push_back(it->first);
     return ret;
+}
+
+void ImageFormatDetector::addExt(const char * ext, image_format_t format)
+{
+    extension_format_map_.insert(FormatMap::value_type(ext, format));
+}
+
+void ImageFormatDetector::addMagick(const char * magick, image_format_t format)
+{
+    magick_format_map_.insert(MagickMap::value_type(magick, format));
 }
 
 }

@@ -29,7 +29,8 @@ static const char * image_formats[] = {
     "pnm",
     "tiff",
     "unknown",
-    "xpm"
+    "xpm",
+    "pdf"
 };
 
 namespace cf {
@@ -37,7 +38,7 @@ namespace cf {
 const char *  imageFormatToString(image_format_t f) {
     int idx = f - 1;
     assert(idx >= 0);
-    assert(idx < FORMAT_XPM);
+    assert(idx < FORMAT_PDF);
     return image_formats[idx];
 }
 

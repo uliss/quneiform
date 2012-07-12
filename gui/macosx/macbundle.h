@@ -16,42 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "pdfioplugin.h"
-#include "pdfiohandler.h"
+#ifndef MACBUNDLE_H
+#define MACBUNDLE_H
 
-PdfIOPlugin::PdfIOPlugin(QObject * parent) :
-    QImageIOPlugin(parent)
-{
+#include <QString>
+
+namespace utils {
+
+QString applicationBundle();
+
 }
 
-QImageIOPlugin::Capabilities PdfIOPlugin::capabilities(QIODevice * device, const QByteArray& format) const
-{
-    if(format.toLower() == "pdf")
-        return CanRead;
-
-    if(!format.isEmpty())
-        return 0;
-
-    if(device->isOpen() &&
-            device->isReadable() &&
-            device->peek(4) == "PDF")
-        return CanRead;
-
-    return 0;
-}
-
-QImageIOHandler * PdfIOPlugin::create(QIODevice * device, const QByteArray& format) const
-{
-    QImageIOHandler * res = new PdfIOHandler;
-    res->setDevice(device);
-    res->setFormat(format);
-    return res;
-}
-
-QStringList PdfIOPlugin::keys() const
-{
-    return QStringList("pdf");
-}
-
-Q_EXPORT_PLUGIN2(pdf_imageplugin, PdfIOPlugin)
-
+#endif // MACBUNDLE_H

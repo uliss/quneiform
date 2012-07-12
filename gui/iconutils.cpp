@@ -16,7 +16,42 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <QtGlobal>
+#include <QSettings>
+#include <QDir>
+#include <QDebug>
+
 #include "iconutils.h"
+
+QStringList availableIconThemes()
+{
+    QDir icon_dir(":/icons");
+    return icon_dir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot, QDir::Name);
+}
+
+static void setDefaultIconTheme()
+{
+#ifdef Q_WS_MAC
+    QIcon::setThemeName("faenza");
+#else
+    QIcon::setThemeName("");
+#endif
+}
+
+void iconThemeSetup()
+{
+    QSettings settings;
+
+    QVariant theme = settings.value("gui/theme");
+    if(theme.isValid()) {
+        QIcon::setThemeName(theme.toString());
+        if(!QIcon::hasThemeIcon("zoom-in"))
+            setDefaultIconTheme();
+    }
+    else {
+        setDefaultIconTheme();
+    }
+}
 
 QIcon iconFromTheme(const QString& name)
 {

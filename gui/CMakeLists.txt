@@ -136,15 +136,16 @@ include_directories(
 )
 
 set(RESOURCE_PATH resources)
-set(RESOURCES     ${RESOURCE_PATH}/cuneiform.qrc)
+set(RESOURCES ${RESOURCE_PATH}/cuneiform.qrc)
+
+if(APPLE)
+    list(APPEND RESOURCES ${RESOURCE_PATH}/macosx_resources.qrc)
+endif()
 
 set(QT_USE_QTMAIN TRUE)
-SET(QT_USE_QTPLUGIN TRUE)
-find_package(Qt4 4.5 COMPONENTS QtCore QtGui REQUIRED)
+set(QT_USE_QTPLUGIN TRUE)
+find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtXml QtXmlPatterns REQUIRED)
 include(${QT_USE_FILE})
-
-add_subdirectory(plugins)
-link_directories(${CMAKE_CURRENT_BINARY_DIR}/plugins)
 
 qt4_add_resources(QRC_SOURCES ${RESOURCES})
 qt4_wrap_cpp(MOC_SOURCES ${HEADERS})

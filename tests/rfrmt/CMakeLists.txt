@@ -9,9 +9,8 @@ add_executable(test_rfrmt
 )
 
 target_link_libraries(test_rfrmt
-    ${CPPUNIT_LIBRARIES} 
-    cuneiform
     cuneiform-rfrmt
+    ${CPPUNIT_LIBRARIES} 
 )
 
 add_test(Rfrmt ${EXECUTABLE_OUTPUT_PATH}/test_rfrmt)

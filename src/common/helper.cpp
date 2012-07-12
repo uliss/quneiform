@@ -99,5 +99,42 @@ size_t streamSize(std::ostream& os) {
     return ret;
 }
 
+std::string extractClassMethodNameFromSignature(const std::string& signature)
+{
+    size_t end = signature.find('(');
+
+    if(end == std::string::npos)
+        return std::string();
+
+    size_t start = signature.rfind("::", end);
+    if(start == std::string::npos)
+        return std::string();
+
+    start += 2; // '::' compensation
+
+    return signature.substr(start, end - start);
+}
+
+std::string makeClassMethodSignature(const std::string& signature)
+{
+    size_t method_end = signature.find('(');
+
+    if(method_end == std::string::npos)
+        return std::string();
+
+    size_t class_start = signature.rfind(' ', method_end);
+    if(!class_start)
+        return std::string();
+
+    class_start++; // ' ' compensation
+
+    std::string res = signature.substr(class_start, method_end - class_start);
+
+    if(res.substr(0, 4) == "cf::")
+        res = res.substr(4);
+
+    return "[" +  res + "]";
+}
+
 }
 

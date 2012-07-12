@@ -19,7 +19,7 @@
 #include "bmpimageexporter.h"
 #include "cfcompat.h"
 #include "common/imagerawdata.h"
-#include "common/dib.h"
+#include "common/bmp.h"
 
 namespace cf
 {
@@ -32,18 +32,19 @@ std::string BmpImageExporter::mime() const {
     return "image/x-ms-bmp";
 }
 
-void BmpImageExporter::saveToStream(const ImageRawData& image, std::ostream& os) {
+void BmpImageExporter::saveToStream(const ImageRawData& image, std::ostream& os)
+{
     if (image.isNull())
         throw Exception("[BmpImageExporter::save] null image given");
 
-    BITMAPFILEHEADER bf; //  bmp fileheader
+    BitmapFileHeader bf; //  bmp fileheader
     BitmapInfoHeader * bfinfo = (BitmapInfoHeader *) image.data();
 
     // uliss: TODO! check for endianness
     bf.bfType = 0x4d42; // 'BM'
-    bf.bfSize = sizeof(BITMAPFILEHEADER) + image.dataSize();
+    bf.bfSize = BMP_FILE_HEADER_SIZE + image.dataSize();
     // fileheader + infoheader + palette
-    bf.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BitmapInfoHeader) + bfinfo->biClrUsed
+    bf.bfOffBits = BMP_FILE_HEADER_SIZE + sizeof(BitmapInfoHeader) + bfinfo->biClrUsed
             * sizeof(RGBQuad);
 
     os.write((char*) &bf, sizeof(bf));

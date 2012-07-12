@@ -773,6 +773,14 @@ Page: %2</source>
         <source>Recognize in separate process</source>
         <translation>Распознавать в отдельном процессе</translation>
     </message>
+    <message>
+        <source>Theme:</source>
+        <translation type="obsolete">Тема:</translation>
+    </message>
+    <message>
+        <source>Icon theme:</source>
+        <translation>Тема значков:</translation>
+    </message>
 </context>
 <context>
     <name>TextEditor</name>

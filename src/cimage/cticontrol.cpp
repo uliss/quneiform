@@ -68,6 +68,7 @@
 #include "compat_defs.h"
 #include "cimage_debug.h"
 #include "common/ctdib.h"
+#include "common/bmp.h"
 
 namespace cf
 {
@@ -111,12 +112,10 @@ bool CTIControl::writeDIBtoBMP(const std::string& name, CTDIB * pDIB)
 
     CIMAGE_DEBUG_FUNC << " dump to \"" << name << "\"\n";
 
-    BITMAPFILEHEADER bf;
-    memset(&bf, 0, sizeof(BITMAPFILEHEADER));
-    bf.bfType = 0x4d42; // 'BM'
-    bf.bfSize = sizeof(BITMAPFILEHEADER) + pDIB->dibSize();
+    BitmapFileHeader bf;
+    bf.bfSize = BMP_FILE_HEADER_SIZE + pDIB->dibSize();
     // fileheader + infoheader + palette
-    bf.bfOffBits = sizeof(BITMAPFILEHEADER) + pDIB->headerSize() + pDIB->palleteSize();
+    bf.bfOffBits = BMP_FILE_HEADER_SIZE + pDIB->headerSize() + pDIB->palleteSize();
 
     std::ofstream of(name.c_str());
     of.write((char*) &bf, sizeof(bf));

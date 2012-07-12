@@ -16,44 +16,42 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtTest>
-#include <QDebug>
-#include <QImageReader>
+#include "pdfioplugin.h"
+#include "pdfiohandler.h"
 
-#include "testdibplugin.h"
-#include "qtplugins/dibimageioplugin.h"
-#include "cfcompat.h"
-#include "common/bmp.h"
-
-void TestDIBPlugin::testSupportedFormats()
+PdfIOPlugin::PdfIOPlugin(QObject * parent) :
+    QImageIOPlugin(parent)
 {
-    QVERIFY(QImageReader::supportedImageFormats().contains("dib"));
 }
 
-void TestDIBPlugin::testRead()
+QImageIOPlugin::Capabilities PdfIOPlugin::capabilities(QIODevice * device, const QByteArray& format) const
 {
-    QImage img;
-    QByteArray data;
-    data.fill('1', 1024);
-    QVERIFY(!img.loadFromData(data, "dib"));
+    if(format.toLower() == "pdf")
+        return CanRead;
 
-    QImage bmp(100, 120, QImage::Format_RGB32);
-    bmp.fill(Qt::blue);
+    if(!format.isEmpty())
+        return 0;
 
-    QByteArray bmp_data;
-    QBuffer buffer(&bmp_data);
-    bmp.save(&buffer, "bmp");
+    if(device->isOpen() &&
+            device->isReadable() &&
+            device->peek(4) == "%PDF")
+        return CanRead;
 
-    const char * dib_ptr = bmp_data.constData();
-    QVERIFY(dib_ptr);
-
-    dib_ptr += cf::BMP_FILE_HEADER_SIZE;
-
-    QVERIFY(img.loadFromData((uchar*) dib_ptr, bmp_data.length() - sizeof(cf::BMP_FILE_HEADER_SIZE), "DIB"));
-
-    img.save("test_dib_plugin.bmp", "bmp");
+    return 0;
 }
 
-Q_IMPORT_PLUGIN(dib_imageplugin)
+QImageIOHandler * PdfIOPlugin::create(QIODevice * device, const QByteArray& format) const
+{
+    QImageIOHandler * res = new PdfIOHandler;
+    res->setDevice(device);
+    res->setFormat(format);
+    return res;
+}
 
-QTEST_MAIN(TestDIBPlugin)
+QStringList PdfIOPlugin::keys() const
+{
+    return QStringList("pdf");
+}
+
+Q_EXPORT_PLUGIN2(pdf_imageplugin, PdfIOPlugin)
+

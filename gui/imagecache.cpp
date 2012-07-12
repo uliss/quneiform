@@ -82,6 +82,8 @@ bool ImageCache::load(const ImageURL& path, QPixmap * pixmap)
                 format = "MTIFF";
 
             QImageReader r(path.path(), format);
+            if(format == "PDF")
+                r.setQuality(300);
 
             if(!r.jumpToImage(path.imageNumber())) {
                 qWarning() << Q_FUNC_INFO << "can't jump to page" << path.imageNumber();
@@ -114,6 +116,9 @@ bool ImageCache::load(const ImageURL& path, QPixmap * pixmap)
                 format = "MTIFF";
 
             QImageReader r(path.path(), format);
+            if(format == "PDF")
+                r.setQuality(300);
+
             if(!r.jumpToImage(path.imageNumber()))
                 return false;
 

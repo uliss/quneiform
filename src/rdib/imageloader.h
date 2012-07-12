@@ -37,39 +37,46 @@ typedef std::vector<image_format_t> ImageFormatList;
 
 class CLA_EXPO ImageLoader
 {
-    public:
-        ImageLoader();
-        virtual ~ImageLoader();
+public:
+    ImageLoader();
+    virtual ~ImageLoader();
 
-        bool isValidImageSize(size_t size) const;
+    bool isValidImageSize(size_t size) const;
 
-        /**
-         * Loads image from given url
-         * @return image pointer
-         */
-        virtual ImagePtr load(const ImageURL& url) = 0;
+    /**
+      * Loads image from given url
+      * @return image pointer
+      */
+    virtual ImagePtr load(const ImageURL& url) = 0;
 
-        /**
-         * Loads image from given data stream
-         * @return image pointer
-         */
-        virtual ImagePtr load(std::istream& stream) = 0;
+    /**
+      * Loads image from given data stream
+      * @return image pointer
+      */
+    virtual ImagePtr load(std::istream& stream) = 0;
 
-        void setMaxImageSize(size_t size);
+    void setMaxImageSize(size_t size);
 
-        /**
-         * Returns size of stream or 0 if stream error occurs
-         */
-        static std::streampos streamSize(std::istream& stream);
+    /**
+      * Returns list of supported formats
+      * @see supportsFormat()
+      */
+    virtual ImageFormatList supportedFormats() const;
 
-        /**
-          * Returns list of supported formats
-          */
-        virtual ImageFormatList supportedFormats() const;
-
-        typedef RuntimeExceptionImpl<ImageLoader> Exception;
-    private:
-        size_t max_image_size_;
+    /**
+     * Returns true if format supported
+     * @see supportedFormats()
+     */
+    bool supportsFormat(image_format_t format) const;
+public:
+    /**
+      * Returns size of stream or 0 if stream error occurs
+      */
+    static std::streampos streamSize(std::istream& stream);
+public:
+    typedef RuntimeExceptionImpl<ImageLoader> Exception;
+private:
+    size_t max_image_size_;
 };
 
 }

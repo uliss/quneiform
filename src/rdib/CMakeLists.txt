@@ -21,7 +21,17 @@ if(CF_USE_IMAGE_LIBRARY_QT)
     include_directories(${CF_IMAGE_INCLUDE})  
     include(${QT_USE_FILE})
     list(APPEND CF_IMAGE_LIBRARIES ${QT_LIBRARIES})
+
     list(APPEND CF_RDIB_SOURCE qtimageloader.cpp)
+    if(CF_PDF_SUPPORT)
+        list(APPEND CF_IMAGE_LIBRARIES pdf_imageplugin)
+        add_definitions(-DWITH_PDF)
+    endif()
+
+    if(CF_TIFF_SUPPORT)
+        list(APPEND CF_IMAGE_LIBRARIES multitiff_imageplugin)
+        add_definitions(-DWITH_TIFF)
+    endif()
     message(STATUS "Loaders: Qt loader will be build")
 endif()
 

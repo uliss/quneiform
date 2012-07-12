@@ -16,45 +16,40 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtPlugin>
+#ifndef PDFIOHANDLER_H
+#define PDFIOHANDLER_H
 
-#include "multitiffioplugin.h"
-#include "multitiffiohandler.h"
+#include <QImageIOHandler>
+#include <QRect>
+#include <QSize>
 
-MultiTIFFIOPlugin::MultiTIFFIOPlugin(QObject * parent) :
-    QImageIOPlugin(parent)
-{
+namespace Poppler {
+class Document;
 }
 
-QImageIOPlugin::Capabilities MultiTIFFIOPlugin::capabilities(QIODevice * device, const QByteArray& format) const
+class PdfIOHandler : public QImageIOHandler
 {
-    if(format.toLower() == "mtiff")
-        return CanRead;
+public:
+    PdfIOHandler();
+    ~PdfIOHandler();
+    bool canRead () const;
+    bool read(QImage * image);
+    bool write(const QImage&);
 
-    if(format.isEmpty()) {
-        MultiTIFFIOHandler handler;
-        handler.setDevice(device);
-        if(handler.canRead())
-            return CanRead;
-    }
+    int imageCount() const;
+    int currentImageNumber() const;
+    bool jumpToImage(int imageNumber);
+    bool jumpToNextImage();
 
-    return 0;
-}
+    QVariant option(ImageOption option) const;
+    bool supportsOption(ImageOption option) const;
+    void setOption(ImageOption option, const QVariant& value);
+private:
+    bool loadPDF() const;
+private:
+    mutable Poppler::Document * doc_;
+    int current_page_;
+    int quality_;
+};
 
-QImageIOHandler * MultiTIFFIOPlugin::create(QIODevice * device, const QByteArray& format) const
-{
-    if(capabilities(device, format) != CanRead)
-        return NULL;
-
-    MultiTIFFIOHandler * res = new MultiTIFFIOHandler;
-    res->setDevice(device);
-    return res;
-}
-
-QStringList MultiTIFFIOPlugin::keys() const
-{
-    return QStringList("mtiff");
-}
-
-Q_EXPORT_PLUGIN2(multitiff_imageplugin, MultiTIFFIOPlugin)
-
+#endif // PDFIOHANDLER_H

@@ -32,8 +32,10 @@ add_library(${CF_RFRMT} ${LIBTYPE}
     util_spl.cpp
 )
 
-cf_hide_visibility(${CF_RFRMT})
-  
+if(NOT CMAKE_SYSTEM_NAME STREQUAL "NetBSD")
+    cf_hide_visibility(${CF_RFRMT})
+endif()
+
 set_property(TARGET ${CF_RFRMT} PROPERTY COMPILE_DEFINITIONS __RFRMT__)
 
 target_link_libraries(${CF_RFRMT}

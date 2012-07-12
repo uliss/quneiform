@@ -12,47 +12,48 @@
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
 if(POPPLER_INCLUDE_DIR AND POPPLER_LIBRARY)
-  # in cache already
-  set(POPPLER_FOUND TRUE)
-else(POPPLER_INCLUDE_DIR AND POPPLER_LIBRARY)
+    # in cache already
+    set(POPPLER_FOUND TRUE)
+else()
 
 if(NOT WIN32)
 # use pkg-config to get the directories and then use these values
 # in the FIND_PATH() and FIND_LIBRARY() calls
-  include(FindPkgConfig)
-  pkg_check_modules(_pc_poppler poppler-qt4)
-  if(_pc_poppler_FOUND AND _pc_poppler_VERSION VERSION_GREATER 0.5.3)
+    include(FindPkgConfig)
+    pkg_check_modules(_pc_poppler poppler-qt4)
+    if(_pc_poppler_FOUND AND _pc_poppler_VERSION VERSION_GREATER 0.5.3)
+        set(POPPLER_FOUND TRUE)
+    endif()
+else()
+    # assume so, for now
     set(POPPLER_FOUND TRUE)
-  endif(_pc_poppler_FOUND AND _pc_poppler_VERSION VERSION_GREATER 0.5.3)
-else(NOT WIN32)
-  # assume so, for now
-  set(POPPLER_FOUND TRUE)
-endif(NOT WIN32)
+endif()
 
 if(POPPLER_FOUND)
-  # set it back as false
-  set(POPPLER_FOUND FALSE)
+    # set it back as false
+    set(POPPLER_FOUND FALSE)
 
-  find_library(POPPLER_LIBRARY poppler-qt4
-               HINTS ${_pc_poppler_LIBRARY_DIRS}
-  )
+    find_library(POPPLER_LIBRARY poppler-qt4
+                 HINTS ${_pc_poppler_LIBRARY_DIRS}
+    )
 
-  find_path(POPPLER_INCLUDE_DIR poppler-qt4.h
+    find_path(POPPLER_INCLUDE_DIR poppler-qt4.h
             HINTS ${_pc_poppler_INCLUDE_DIRS}
             PATH_SUFFIXES poppler/qt4
-  )
-  find_path(POPPLER_INCLUDE_DIR_core qt4/poppler-qt4.h
+    )
+
+    find_path(POPPLER_INCLUDE_DIR_core qt4/poppler-qt4.h
             HINTS ${_pc_poppler_INCLUDE_DIRS}
             PATH_SUFFIXES poppler
-  )
+    )
 
-  if(POPPLER_LIBRARY AND POPPLER_INCLUDE_DIR AND POPPLER_INCLUDE_DIR_core)
-    list(APPEND POPPLER_INCLUDE_DIR "${POPPLER_INCLUDE_DIR_core}")
-    set(POPPLER_FOUND TRUE)
-  endif(POPPLER_LIBRARY AND POPPLER_INCLUDE_DIR AND POPPLER_INCLUDE_DIR_core)
+    if(POPPLER_LIBRARY AND POPPLER_INCLUDE_DIR AND POPPLER_INCLUDE_DIR_core)
+        list(APPEND POPPLER_INCLUDE_DIR "${POPPLER_INCLUDE_DIR_core}")
+        set(POPPLER_FOUND TRUE)
+    endif()
 endif(POPPLER_FOUND)
 
-if (POPPLER_FOUND)
+if(POPPLER_FOUND)
   INCLUDE(CheckCXXSourceCompiles)
 
   # check whether we're using poppler 0.6

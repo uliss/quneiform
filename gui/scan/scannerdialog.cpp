@@ -28,8 +28,23 @@
 #include "scanner.h"
 #include "scanarea.h"
 
+#ifdef Q_WS_MAC
+#include "macosx/imagecapture.h"
+#endif
+
 static const char * PROPERTY_OPTION_NAME = "OptionName";
 static const char * PROPERTY_WIDGET_TYPE = "WidgetType";
+
+namespace utils {
+
+void openScannerDialog(QWidget * parent)
+{
+#ifdef Q_WS_MAC
+    openImageCapture();
+#endif
+}
+
+}
 
 ScannerDialog::ScannerDialog(QWidget *parent) :
     QDialog(parent),

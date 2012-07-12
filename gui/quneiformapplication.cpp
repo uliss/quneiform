@@ -27,6 +27,7 @@
 #include "quneiformapplication.h"
 #include "config-version.h"
 #include "guilog.h"
+#include "iconutils.h"
 
 Q_IMPORT_PLUGIN(dib_imageplugin)
 
@@ -48,6 +49,7 @@ QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     setOrganizationName("openocr.org");
     setApplicationName("Quneiform OCR");
     setApplicationVersion(CF_VERSION);
+    iconThemeSetup();
 
 #ifdef Q_WS_MAC
     setAttribute(Qt::AA_DontShowIconsInMenus);

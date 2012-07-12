@@ -16,44 +16,16 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QtTest>
-#include <QDebug>
-#include <QImageReader>
+#include "stringbuffer.h"
 
-#include "testdibplugin.h"
-#include "qtplugins/dibimageioplugin.h"
-#include "cfcompat.h"
-#include "common/bmp.h"
+namespace cf {
 
-void TestDIBPlugin::testSupportedFormats()
+StringBuffer::StringBuffer()
+{}
+
+StringBuffer::operator std::string()
 {
-    QVERIFY(QImageReader::supportedImageFormats().contains("dib"));
+    return buf_.str();
 }
 
-void TestDIBPlugin::testRead()
-{
-    QImage img;
-    QByteArray data;
-    data.fill('1', 1024);
-    QVERIFY(!img.loadFromData(data, "dib"));
-
-    QImage bmp(100, 120, QImage::Format_RGB32);
-    bmp.fill(Qt::blue);
-
-    QByteArray bmp_data;
-    QBuffer buffer(&bmp_data);
-    bmp.save(&buffer, "bmp");
-
-    const char * dib_ptr = bmp_data.constData();
-    QVERIFY(dib_ptr);
-
-    dib_ptr += cf::BMP_FILE_HEADER_SIZE;
-
-    QVERIFY(img.loadFromData((uchar*) dib_ptr, bmp_data.length() - sizeof(cf::BMP_FILE_HEADER_SIZE), "DIB"));
-
-    img.save("test_dib_plugin.bmp", "bmp");
 }
-
-Q_IMPORT_PLUGIN(dib_imageplugin)
-
-QTEST_MAIN(TestDIBPlugin)

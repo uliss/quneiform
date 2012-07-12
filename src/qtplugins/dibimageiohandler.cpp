@@ -26,6 +26,7 @@
 #include "cfcompat.h"
 #include "common/ctdib.h"
 #include "common/dib.h"
+#include "common/bmp.h"
 
 using namespace cf;
 
@@ -33,6 +34,8 @@ static bool readDIBHeader(QIODevice * device, BitmapInfoHeader& info)
 {
     if(!device)
         return false;
+
+    device->reset();
 
     qint64 read = device->peek((char*) &info, sizeof(BitmapInfoHeader));
     if(read != sizeof(BitmapInfoHeader))
@@ -67,32 +70,8 @@ static bool isValidDIBHeader(BitmapInfoHeader& h)
     return true;
 }
 
-static void writeBMPHeader(BITMAPFILEHEADER * bmp, BitmapInfoHeader * info, char * data)
-{
-    if(!bmp || !info)
-        return;
-
-    cf::CTDIB dib;
-    dib.setBitmap(info);
-
-    const size_t bitmap_size = dib.dibSize();
-    const size_t bmp_header_size = sizeof(BITMAPFILEHEADER);
-
-    memset(bmp, 0, bmp_header_size);
-    bmp->bfType = 0x4d42; // 'BM'
-    bmp->bfSize = (uint32_t) (bmp_header_size + bitmap_size);
-    // fileheader + infoheader + palette
-    bmp->bfOffBits = bmp_header_size +
-            dib.headerSize() +
-            dib.palleteSize();
-
-//    memcpy(d, bmp, bmp_header_size);
-}
-
 DIBImageIOHandler::DIBImageIOHandler()
-{
-    qDebug() << Q_FUNC_INFO;
-}
+{}
 
 bool DIBImageIOHandler::canRead() const
 {
@@ -105,33 +84,42 @@ bool DIBImageIOHandler::canRead() const
 
 bool DIBImageIOHandler::read(QImage * image)
 {
-    BitmapInfoHeader bitmap_info;
-    if(!readDIBHeader(device(), bitmap_info))
+    if(!device()->isOpen()) {
+        qDebug() << Q_FUNC_INFO << "device not opened";
         return false;
+    }
+
+    if(!device()->isReadable()) {
+        qDebug() << Q_FUNC_INFO << "device is not readable";
+        return false;
+    }
+
+    BitmapInfoHeader bitmap_info;
+    if(!readDIBHeader(device(), bitmap_info)) {
+        qDebug() << Q_FUNC_INFO << "can't read DIB header";
+        return false;
+    }
 
     if(!isValidDIBHeader(bitmap_info)) {
-        qDebug() << Q_FUNC_INFO << "invalid header";
+        qDebug() << Q_FUNC_INFO << "invalid DIB header";
         return false;
     }
 
     cf::CTDIB dib;
     dib.setBitmap(&bitmap_info);
     const size_t bitmap_size = dib.dibSize();
-    const size_t bmp_header_size = sizeof(BITMAPFILEHEADER);
 
-    BITMAPFILEHEADER bmp_header;
-    memset(&bmp_header, 0, bmp_header_size);
-    bmp_header.bfType = 0x4d42; // 'BM'
-    bmp_header.bfSize = (uint32_t) (bmp_header_size + bitmap_size);
+    BitmapFileHeader bmp_header;
+    bmp_header.bfSize = (uint32_t) (BMP_FILE_HEADER_SIZE + bitmap_size);
     // fileheader + infoheader + palette
-    bmp_header.bfOffBits = bmp_header_size +
+    bmp_header.bfOffBits = BMP_FILE_HEADER_SIZE +
             dib.headerSize() +
             dib.palleteSize();
 
     char * buf = new char[bmp_header.bfSize];
     char * buf_ptr = buf;
-    memcpy(buf_ptr, &bmp_header, bmp_header_size);
-    buf_ptr += bmp_header_size;
+    memcpy(buf_ptr, &bmp_header, BMP_FILE_HEADER_SIZE);
+    buf_ptr += BMP_FILE_HEADER_SIZE;
 
     if(!device()->read(buf_ptr, bitmap_size)) {
         delete[] buf;

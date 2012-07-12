@@ -24,11 +24,14 @@ set(CF_COMMON_SOURCES
     percentcounter.cpp
     recognizeoptions.cpp
     recognitionstate.cpp
+    stringbuffer.cpp
 )
 
 set(CF_COMMON_HEADERS
     align.h
+    bmp.h
     consoleprogresscounter.h
+    debug.h
     dib.h
     endianess.h
     language.h

@@ -22,12 +22,13 @@
 #include <vector>
 #include <string>
 
+#include "globus.h"
 #include "iscanner.h"
 #include "common/image.h"
 
 namespace cf {
 
-class SaneScanner : public IScanner
+class CLA_EXPO SaneScanner : public IScanner
 {
 public:
     SaneScanner();

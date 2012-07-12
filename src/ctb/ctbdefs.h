@@ -235,13 +235,6 @@ typedef FILE*          FFILE;
 #define RENAME(a,b)     rename(a,b)
 #define STAT(a,b)       stat(a,b)
 
-//****************** MEMORY **********************
-
-#ifndef MEMSET
-#define MEMCPY(a,b,c)   memcpy(a,b,c)
-#define MEMSET(a,b,c)   memset(a,b,c)
-#endif
-
 //***************** STRINGS ********************
 #define SPRINTF         sprintf
 #define STRCHR          strchr
@@ -262,29 +255,9 @@ typedef struct  {
     uchar  is_sort;       // base is sorted
     uchar  attr_size;     // number of attributes
 } CTB_handle;
-#define CTB_ANSI_CHARSET            0
-#define CTB_DEFAULT_CHARSET         1
-#define CTB_SYMBOL_CHARSET          2
-#define CTB_SHIFTJIS_CHARSET        128
-#define CTB_HANGEUL_CHARSET         129
-#define CTB_HANGUL_CHARSET          129
-#define CTB_GB2312_CHARSET          134
-#define CTB_CHINESEBIG5_CHARSET     136
-#define CTB_OEM_CHARSET             255
-#define CTB_JOHAB_CHARSET           130
-#define CTB_HEBREW_CHARSET          177
-#define CTB_ARABIC_CHARSET          178
-#define CTB_GREEK_CHARSET           161
-#define CTB_TURKISH_CHARSET         162
-#define CTB_VIETNAMESE_CHARSET      163
-#define CTB_THAI_CHARSET            222
-#define CTB_EASTEUROPE_CHARSET      238
-#define CTB_RUSSIAN_CHARSET         204
 
-#define CTB_MAC_CHARSET             77
-#define CTB_BALTIC_CHARSET          186
-
-#define CTB_UZBEK_CHARSET           254
-#define CTB_KAZAH_CHARSET           253
+enum {
+    CTB_OEM_CHARSET = 255
+};
 
 #endif

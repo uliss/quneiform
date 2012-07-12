@@ -854,8 +854,7 @@ void MainWindow::showSettings() {
 
 void MainWindow::showScanDialog()
 {
-    ScannerDialog dlg;
-    dlg.exec();
+    utils::openScannerDialog(this);
 }
 
 void MainWindow::showViewContentOnly()

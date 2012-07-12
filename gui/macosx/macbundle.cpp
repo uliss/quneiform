@@ -16,40 +16,33 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef PDFIOHANDLER_H
-#define PDFIOHANDLER_H
+#include <QtGlobal>
 
-#include <QImageIOHandler>
-#include <QRect>
-#include <QSize>
+#ifdef Q_WS_MAC
+#include <CoreFoundation/CFURL.h>
+#include <CoreFoundation/CFBundle.h>
+#endif
 
-namespace Poppler {
-class Document;
+#include "macbundle.h"
+
+namespace utils {
+
+QString applicationBundle()
+{
+#ifdef Q_WS_MAC
+    QString res;
+    CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
+    CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef,
+                                                kCFURLPOSIXPathStyle);
+    const char * pathPtr = CFStringGetCStringPtr(macPath,
+                                                CFStringGetSystemEncoding());
+    res = QString::fromUtf8(pathPtr);
+    CFRelease(appUrlRef);
+    CFRelease(macPath);
+    return res;
+#else
+    return QString();
+#endif
 }
 
-class PdfIOHandler : public QImageIOHandler
-{
-public:
-    PdfIOHandler();
-    ~PdfIOHandler();
-    bool canRead () const;
-    bool read(QImage * image);
-    bool write(const QImage & image);
-
-    int imageCount() const;
-    int currentImageNumber() const;
-    bool jumpToImage(int imageNumber);
-    bool jumpToNextImage();
-
-    QVariant option(ImageOption option) const;
-    bool supportsOption(ImageOption option) const;
-    void setOption(ImageOption option, const QVariant& value);
-private:
-    bool loadPDF() const;
-private:
-    mutable Poppler::Document * doc_;
-    int current_page_;
-    int quality_;
-};
-
-#endif // PDFIOHANDLER_H
+}

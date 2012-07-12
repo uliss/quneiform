@@ -30,28 +30,30 @@ namespace cf
 
 class CLA_EXPO QtImageLoader: public ImageLoader
 {
-    public:
-        QtImageLoader();
+public:
+    QtImageLoader();
 
-        /**
-         * Loads image
-         * @param url - image url
-         * @return image pointer
-         */
-        ImagePtr load(const ImageURL& url);
-        ImagePtr load(const QString& path);
+    /**
+      * Loads image
+      * @param url - image url
+      * @return image pointer
+      */
+    ImagePtr load(const ImageURL& url);
+    ImagePtr load(std::istream& is);
 
-        /**
-          * Loads image from QImage
-          * @note caller should free pointer
-          */
-        ImagePtr load(const QImage& image);
-        ImagePtr load(std::istream& is);
+    /**
+      * Loads image from QImage
+      * @note caller should free pointer
+      */
+    ImagePtr fromQImage(const QImage& image);
 
-        /**
-          * Returns list of supported formats
-          */
-        ImageFormatList supportedFormats() const;
+    /**
+      * Returns list of supported formats
+      */
+    ImageFormatList supportedFormats() const;
+private:
+    ImagePtr loadPdf(const ImageURL& url);
+    ImagePtr loadTiff(const ImageURL& url);
 };
 
 }

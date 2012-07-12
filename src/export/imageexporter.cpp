@@ -18,8 +18,10 @@
 
 #include <fstream>
 #include <algorithm>
+
 #include "imageexporter.h"
 #include "common/debug.h"
+#include "common/helper.h"
 
 using namespace std;
 
@@ -88,11 +90,14 @@ void ImageExporter::setFormat(image_format_t format) {
         format_ = format;
 }
 
-void ImageExporter::save(const ImageRawData& image, const string& path) {
+void ImageExporter::save(const ImageRawData& image, const string& path)
+{
     ofstream file;
     file.open(path.c_str(), ios::out | ios::binary | ios::trunc);
     if (!file)
-        throw Exception("[ImageExporter::save] failed to: " + path);
+        throw Exception() << METHOD_SIGNATURE() << "save failed to:" + path;
+
+    Debug() << METHOD_SIGNATURE() << path << "\n";
 
     saveToStream(image, file);
 }

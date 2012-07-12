@@ -23,9 +23,11 @@
 #include <string>
 #include <boost/any.hpp>
 
+#include "globus.h"
+
 namespace cf {
 
-class ScanOptionValue
+class CLA_EXPO ScanOptionValue
 {
 public:
     typedef std::runtime_error TypeError;

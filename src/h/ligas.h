@@ -60,24 +60,114 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "cttypes.h"    // uchar 01.09.2000 E.P.
 #include "common/lang_def.h"   // 12.09.2000 E.P.
 
-#define ligas_beg       0xb1
-#define liga_fi         0xb1
-#define liga_fl         0xb2
-#define liga_ff         0xb3
-#define liga_ffi        0xb4
-#define liga_rt         0xb5
-#define liga_ri         0xb6
-#define liga_uperc      0xb7  // upper half percent
-#define liga_lperc      0xb8  // lower half percent
-#define liga_ffl        0xb9
-#define liga_i_usual    0xba  // i with dot
-#define liga_j          0xbb  // j with dot
-#define liga_exm_usual  0xbc  // ! with dot
-#define liga_qm         0xbd  // ? with dot
-#define liga_end_lat    0xbd
-#define liga_inv_exm_usual    0xbe    // ­ with dot
-#define liga_inv_qm     0xbf    // Ё with dot
-#define ligas_end       0xbf
+enum liga_t {
+    ligas_beg          = 0xb1,
+    liga_fi            = 0xb1,
+    liga_fl            = 0xb2,
+    liga_ff            = 0xb3,
+    liga_ffi           = 0xb4,
+    liga_rt            = 0xb5,
+    liga_ri            = 0xb6,
+    liga_uperc         = 0xb7, // upper half percent
+    liga_lperc         = 0xb8, // lower half percent
+    liga_ffl           = 0xb9,
+    liga_i_usual       = 0xba, // i with dot
+    liga_j             = 0xbb, // j with dot
+    liga_exm_usual     = 0xbc, // ! with dot
+    liga_qm            = 0xbd, // ? with dot
+    liga_end_lat       = 0xbd,
+    liga_inv_exm_usual = 0xbe, // ­ with dot
+    liga_inv_qm        = 0xbf, // Ё with dot
+    ligas_end          = 0xbf,
+    // Лиги для cp1250 30.08.2000 E.P.
+    liga_i_latin         = 0xa0, // 0xba
+    liga_exm_latin       = 0x90, // 0xbc  // ! with dot
+    liga_inv_exm_latin   = 0,    // 0xbe выкинуть
+    right_quocket_latin  = 0xa2, // 0xd8  // >>
+    liga_CC_latin        = 0xa9, // 0xdd  // Copyright in Circle
+    liga_CR_latin        = 0xae, // 0xde  // ® (R) in Circle
+    liga_bull_latin      = 0xff, // 0xfe bullet
+    liga_TM_latin        = 0xa8, // 0xd0
+    // Following codes should agree with
+    // leftlig_cen[] and rightlig_cen[] in SPACES.C
+    ligas_beg_latin      = 0x80,
+    liga_ff_latin        = 0x80,
+    liga_ffl_latin       = 0x81,
+    ligas_end_latin      = 0x81
+
+};
+
+enum { bad_char = 0xb0 };
+
+enum quocket_t {
+    left_quocket          = 0xd7,    // 0xab  <<
+    right_quocket_usual   = 0xd8,    // 0xad  >>
+    low_quotes_usual      = 0x84,    // 31.05.2001 E.P.
+    low_quotes_rus        = 0xd5    //  Pit  0xaf    // ,,
+};
+
+/***** foreign languages symbols ******************/
+enum accent_t {
+    AA_left_accent      = 0xC0,
+    a_left_accent       = 0xE0,
+    AA_right_accent     = 0xC1,
+    a_right_accent      = 0xE1,
+    AA_roof_accent      = 0xC2,
+    a_roof_accent       = 0xE2,
+    AA_tild_accent      = 0xC3,
+    a_tild_accent       = 0xE3,
+    AA_2dot_accent      = 0xC4,
+    a_2dot_accent       = 0xE4,
+    AA_circle_accent    = 0xC5,
+    a_circle_accent     = 0xE5,
+    EE_left_accent      = 0xC8,
+    e_left_accent       = 0xE8,
+    EE_right_accent     = 0xC9,
+    e_right_accent      = 0xE9,
+    EE_roof_accent      = 0xCA,
+    e_roof_accent       = 0xEA,
+    EE_2dot_accent      = 0xCB,
+    e_2dot_accent       = 0xEB,
+    II_left_accent      = 0xCC,
+    i_left_accent       = 0xEC,
+    II_right_accent     = 0xCD,
+    i_right_accent      = 0xED,
+    II_roof_accent      = 0xCE,
+    i_roof_accent       = 0xEE,
+    II_2dot_accent      = 0xCF,
+    i_2dot_accent       = 0xEF,
+    NN_tild_accent      = 0xD1,
+    n_tild_accent       = 0xF1,
+    OO_left_accent      = 0xD2,
+    o_left_accent       = 0xF2,
+    OO_right_accent     = 0xD3,
+    o_right_accent      = 0xF3,
+    OO_roof_accent      = 0xD4,
+    o_roof_accent       = 0xF4,
+    OO_tild_accent      = 0xD5,
+    o_tild_accent       = 0xF5,
+    OO_2dot_accent      = 0xD6,
+    o_2dot_accent       = 0xF6,
+    UU_left_accent      = 0xD9,
+    u_left_accent       = 0xF9,
+    UU_right_accent     = 0xDA,
+    u_right_accent      = 0xFA,
+    UU_roof_accent      = 0xDB,
+    u_roof_accent       = 0xFB,
+    UU_2dot_accent      = 0xDC,
+    u_2dot_accent       = 0xFC,
+    AE_cap_deaf_sound   = 0xC6,
+    ae_deaf_sound       = 0xE6,
+    OE_cap_deaf_sound   = 0xAA,
+    oe_deaf_sound       = 0xAC,
+    ss_deaf_sound       = 0xDF,
+    CC_bottom_accent    = 0xC7,
+    c_bottom_accent     = 0xE7,
+    invers_exm          = 0xA1,
+    invers_qm           = 0xA0,
+    OO_crossed          = 0xD8,
+    o_crossed           = 0xF8
+};
 
 // Макры для кодов лигатур 31.08.2000 E.P.
 // При добавлении новой макры нужно добавить в
@@ -121,24 +211,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define ZZ_inv_roof      ((uchar)(is_baltic_language(language)?ZZ_inv_roof_baltic:ZZ_inv_roof_latin))
 #define z_inv_roof       ((uchar)(is_baltic_language(language)?z_inv_roof_baltic:z_inv_roof_latin))
-
-
-// Лиги для cp1250 30.08.2000 E.P.
-#define liga_i_latin          0xa0 // 0xba
-#define liga_exm_latin        0x90 // 0xbc  // ! with dot
-#define liga_inv_exm_latin    0    // 0xbe выкинуть
-#define right_quocket_latin   0xa2 // 0xd8  // >>
-#define liga_CC_latin         0xa9 // 0xdd  // Copyright in Circle
-#define liga_CR_latin         0xae // 0xde  // ® (R) in Circle
-#define liga_bull_latin       0xff // 0xfe bullet
-#define liga_TM_latin         0xa8 // 0xd0
-
-// Following codes should agree with
-// leftlig_cen[] and rightlig_cen[] in SPACES.C
-#define ligas_beg_latin 0x80
-#define liga_ff_latin   0x80
-#define liga_ffl_latin  0x81
-#define ligas_end_latin 0x81
 
 // Новые языки 30.08.2000 E.P.
 #define is_cen_language(language) (\
@@ -188,22 +260,9 @@ is_cen_language(language)?is_ligas_latin(let):\
 (is_turkish_language(language)?is_ligas_turkish(let):\
 is_ligas_lat(let))))
 
-#define bad_char        0xb0
-
 #define ED_ASCII        0
 #define ED_WIN          1
 #define ED_MAC          2
-#define ED_WIN_FRENCH   3
-
-#ifdef __MAC__
-#define ED_VALUE ED_MAC
-#else
-#ifdef WIN_FRENCH
-#define ED_VALUE ED_WIN_FRENCH
-#else
-#define ED_VALUE ED_WIN
-#endif
-#endif
 
 #ifndef __KERNEL__
 extern  uchar     fEdCode; // Change code letter in module LINUTIL.C
@@ -217,73 +276,6 @@ uchar   bEdCode[4] = {//  ASCII, WIN, MAC, FRN
 
 #define liga_bull_usual       bEdCode[fEdCode]  // ю BULLET
 #define liga_bull_usual       bEdCode[fEdCode]  // ю BULLET
-
-#define left_quocket          0xd7    // 0xab  <<
-#define right_quocket_usual   0xd8    // 0xad  >>
-#define low_quotes_usual      0x84    // 31.05.2001 E.P.
-#define low_quotes_rus        0xd5    //  Pit  0xaf    // ,,
-
-/***** foreign languages symbols ******************/
-
-#define AA_left_accent      0xC0
-#define a_left_accent       0xE0
-#define AA_right_accent     0xC1
-#define a_right_accent      0xE1
-#define AA_roof_accent      0xC2
-#define a_roof_accent       0xE2
-#define AA_tild_accent      0xC3
-#define a_tild_accent       0xE3
-#define AA_2dot_accent      0xC4
-#define a_2dot_accent       0xE4
-#define AA_circle_accent    0xC5
-#define a_circle_accent     0xE5
-#define EE_left_accent      0xC8
-#define e_left_accent       0xE8
-#define EE_right_accent     0xC9
-#define e_right_accent      0xE9
-#define EE_roof_accent      0xCA
-#define e_roof_accent       0xEA
-#define EE_2dot_accent      0xCB
-#define e_2dot_accent       0xEB
-#define II_left_accent      0xCC
-#define i_left_accent       0xEC
-#define II_right_accent     0xCD
-#define i_right_accent      0xED
-#define II_roof_accent      0xCE
-#define i_roof_accent       0xEE
-#define II_2dot_accent      0xCF
-#define i_2dot_accent       0xEF
-#define NN_tild_accent      0xD1
-#define n_tild_accent       0xF1
-#define OO_left_accent      0xD2
-#define o_left_accent       0xF2
-#define OO_right_accent     0xD3
-#define o_right_accent      0xF3
-#define OO_roof_accent      0xD4
-#define o_roof_accent       0xF4
-#define OO_tild_accent      0xD5
-#define o_tild_accent       0xF5
-#define OO_2dot_accent      0xD6
-#define o_2dot_accent       0xF6
-#define UU_left_accent      0xD9
-#define u_left_accent       0xF9
-#define UU_right_accent     0xDA
-#define u_right_accent      0xFA
-#define UU_roof_accent      0xDB
-#define u_roof_accent       0xFB
-#define UU_2dot_accent      0xDC
-#define u_2dot_accent       0xFC
-#define AE_cap_deaf_sound   0xC6
-#define ae_deaf_sound       0xE6
-#define OE_cap_deaf_sound   0xAA
-#define oe_deaf_sound       0xAC
-#define ss_deaf_sound       0xDF
-#define CC_bottom_accent    0xC7
-#define c_bottom_accent     0xE7
-#define invers_exm          0xA1
-#define invers_qm           0xA0
-#define OO_crossed          0xD8
-#define o_crossed           0xF8
 
 /****** accents ************/
 /*
@@ -317,14 +309,6 @@ uchar   bEdCode[4] = {//  ASCII, WIN, MAC, FRN
 
 #define r_EE_2dot  0xC8    // russian E ..  = 200
 #define r_e_2dot   0xC0    // russian e ..  = 192
-
-#ifdef WIN_FRENCH
-// ЇҐаҐЄалў ойЁҐбп бЁ¬ў®«л ­ ЎЁа Ґ¬лҐ ­  Є« ўЁ вгаҐ
-// ў аҐ¦Ё¬Ґ а бЇ®§­ ў ­Ёп да ­жг§бЄ®Ј® п§лЄ 
-#define KEY_D5   0x91
-#define KEY_D7   0x92
-#define KEY_D8   0x93
-#endif
 
 #define liga_TM_usual  0xd0    // TM конфликт с Croatian DD_stroked 31.05.2001
 #define liga_CC_usual  0xdd    // Copyright in Circle

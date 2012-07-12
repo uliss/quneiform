@@ -21,6 +21,8 @@
 #include "common/ctdib.h"
 #include "common/tostring.h"
 #include "common/cifconfig.h"
+#include "common/helper.h"
+#include "common/debug.h"
 
 #include "loaders_common.h"
 
@@ -36,6 +38,16 @@ void TestFreeImageLoader::testInit()
 {
     FreeImageLoader l;
     CPPUNIT_ASSERT(!l.supportedFormats().empty());
+
+#define CHECK_FORMAT(loader, format) CPPUNIT_ASSERT(loader.supportsFormat(format));
+
+    CHECK_FORMAT(l, FORMAT_BMP);
+    CHECK_FORMAT(l, FORMAT_PNG);
+    CHECK_FORMAT(l, FORMAT_JPEG);
+
+#undef CHECK_FORMAT
+
+    CPPUNIT_ASSERT(!l.supportsFormat(FORMAT_PDF));
 }
 
 void TestFreeImageLoader::testLoad()
@@ -61,7 +73,7 @@ void TestFreeImageLoader::testLoad()
         std::string image_name = "test.";
         image_name += imageFormatToString(formats[i]);
 
-        std::cerr << "CHECKING " << image_name << "\n";
+        Debug() << METHOD_SIGNATURE() << ": " << image_name << "\n";
         ASSERT_LOAD(image_name);
     }
 

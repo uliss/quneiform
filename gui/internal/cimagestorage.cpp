@@ -18,7 +18,6 @@
 
 #include <QDebug>
 #include <QMutexLocker>
-#include <sstream>
 
 #include "cimagestorage.h"
 #include "cimage/ctiimage.h"
@@ -50,21 +49,10 @@ QPixmap CImageStorage::pixmap(const QString& name) const
     cf::CTDIB dib;
     dib.setBitmap(h);
 
-    BITMAPFILEHEADER bf;
-    memset(&bf, 0, sizeof(BITMAPFILEHEADER));
-    bf.bfType = 0x4d42; // 'BM'
-    bf.bfSize = sizeof(BITMAPFILEHEADER) + dib.dibSize();
-    // fileheader + infoheader + palette
-    bf.bfOffBits = sizeof(BITMAPFILEHEADER) + dib.headerSize() + dib.palleteSize();
-
-    uchar * buf = new uchar[bf.bfSize];
-    memcpy(buf, &bf, sizeof(BITMAPFILEHEADER));
-    memcpy(buf + sizeof(BITMAPFILEHEADER), h, dib.dibSize());
-
     QPixmap res;
-    res.loadFromData(buf, bf.bfSize, "BMP");
+    if(!res.loadFromData((uchar*) h, dib.dibSize(), "DIB"))
+        qWarning() << Q_FUNC_INFO << "can't load DIB:"  << name;
 
-    delete[] buf;
     return res;
 }
 

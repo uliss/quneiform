@@ -21,6 +21,8 @@
 
 #include <QIcon>
 
+QStringList availableIconThemes();
+void iconThemeSetup();
 QIcon iconFromTheme(const QString& name);
 
 #endif // ICONUTILS_H

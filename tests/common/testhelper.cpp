@@ -16,6 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <boost/current_function.hpp>
+
 #include "testhelper.h"
 #include "common/helper.h"
 #include "common/filesystem.h"
@@ -61,6 +63,35 @@ void TestHelper::testStreamSize() {
     CPPUNIT_ASSERT_EQUAL(streamSize(s), (size_t) 0);
     s << "stream";
     CPPUNIT_ASSERT_EQUAL(streamSize(s), (size_t) 6);
+}
+
+void TestHelper::testMethodName()
+{
+#define ASSERT_METHOD(signature, method) CPPUNIT_ASSERT_EQUAL(std::string(method), cf::extractClassMethodNameFromSignature(signature))
+
+    ASSERT_METHOD("void foo()", "");
+    ASSERT_METHOD("void Foo::bar()", "bar");
+    ASSERT_METHOD("std::string cf::Foo::bar()", "bar");
+    ASSERT_METHOD("void cf::Foo::bar(const std::string&)", "bar");
+    ASSERT_METHOD("::(", "");
+    ASSERT_METHOD(BOOST_CURRENT_FUNCTION, METHOD_NAME());
+
+#undef ASSERT_METHOD
+}
+
+void TestHelper::testMethodSignature()
+{
+#define ASSERT_SIGNATURE(signature, method) CPPUNIT_ASSERT_EQUAL(std::string(method), cf::makeClassMethodSignature(signature))
+
+    ASSERT_SIGNATURE("void foo()", "[foo]");
+    ASSERT_SIGNATURE("void Foo::bar()", "[Foo::bar]");
+    ASSERT_SIGNATURE("std::string cf::Foo::bar()", "[Foo::bar]");
+    ASSERT_SIGNATURE("void cf::Foo::bar(const std::string&)", "[Foo::bar]");
+    ASSERT_SIGNATURE("void CppUnit::Foo::bar(const std::string&)", "[CppUnit::Foo::bar]");
+    ASSERT_SIGNATURE(" ::(", "");
+    ASSERT_SIGNATURE(BOOST_CURRENT_FUNCTION, METHOD_SIGNATURE());
+
+#undef ASSERT_METHOD
 }
 
 void TestHelper::testFileExists() {
