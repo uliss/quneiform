@@ -29,6 +29,7 @@
 #include "imagecache.h"
 #include "page.h"
 #include "pageindicator.h"
+#include "graphicsroundedrectitem.h"
 #include "dialogs/pagepropertiesdialog.h"
 
 static const int THUMB_IMAGE_HEIGHT = 100;
@@ -36,7 +37,7 @@ static const int THUMB_IMAGE_WIDTH = 100;
 static const int THUMB_IMAGE_MARGIN = 4;
 static const int THUMB_WIDTH = 150;
 static const int THUMB_HEIGHT = 150;
-static const int SELECT_FRAME_WIDTH = 2;
+static const int SELECT_FRAME_WIDTH = 3;
 
 class ThumbnailWidget::Pixmap : public QGraphicsPixmapItem {
 public:
@@ -45,7 +46,12 @@ public:
         frame_(NULL)
     {
         setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
-        frame_ = new QGraphicsRectItem(this);
+        frame_ = new GraphicsRoundedRectItem(this);
+
+#ifdef Q_WS_MAC
+        frame_->setBorderRadius(5.0);
+#endif
+
         highlight(false);
         updateFrame();
     }
@@ -67,26 +73,40 @@ public:
     }
 private:
     void updateFrame() {
-        frame_->setRect(boundingRect().adjusted(-1,-1,1,1));
+        frame_->setRect(boundingRect().adjusted(-1, -1, 1, 1));
     }
 private:
-    QGraphicsRectItem * frame_;
+    GraphicsRoundedRectItem * frame_;
 };
 
-class ThumbnailWidget::Label : public QGraphicsSimpleTextItem {
+class ThumbnailWidget::Label : public QGraphicsSimpleTextItem
+{
 public:
     Label(QGraphicsItem * parent) : QGraphicsSimpleTextItem(parent), highlighted_(false) {}
+
+    QRectF boundingRect() const
+    {
+        QRectF res = QGraphicsSimpleTextItem::boundingRect();
+        return res;
+        return res.adjusted(-5, 0, 5, 0);
+    }
 
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
     {
         if(highlighted_) {
+            painter->save();
             QBrush brush(QPalette().highlight());
             painter->setBrush(brush);
-            QPen old_pen = painter->pen();
             QPen p(QBrush(), 0);
             painter->setPen(p);
+#ifdef Q_WS_MAC
+            painter->setRenderHint(QPainter::Antialiasing);
+            QRectF brect = boundingRect().adjusted(-2, -2, 2, 2);
+            painter->drawRoundedRect(brect, 8, 8);
+#else
             painter->drawRect(boundingRect().adjusted(-1, -1, 1, 1));
-            painter->setPen(old_pen);
+#endif
+            painter->restore();
         }
 
         QGraphicsSimpleTextItem::paint(painter, option, widget);
@@ -161,15 +181,16 @@ void ThumbnailWidget::mousePressEvent(QGraphicsSceneMouseEvent * event) {
     }
 }
 
-void ThumbnailWidget::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *) {
+void ThumbnailWidget::paint(QPainter * painter, const QStyleOptionGraphicsItem *, QWidget *)
+{
     if(hightlighted_) {
+        painter->save();
         QBrush brush(QPalette().highlight());
         painter->setBrush(brush);
-        QPen old_pen = painter->pen();
         QPen p(QBrush(), 0);
         painter->setPen(p);
         painter->drawRect(boundingRect());
-        painter->setPen(old_pen);
+        painter->restore();
     }
 }
 
@@ -193,10 +214,12 @@ void ThumbnailWidget::handlePageRotate() {
     updatePixmapPos();
 }
 
-void ThumbnailWidget::setName(const QString& name) {
+void ThumbnailWidget::setName(const QString& name)
+{
     Q_CHECK_PTR(label_);
+
     label_->setText(name);
-    qreal x = (THUMB_WIDTH - label_->boundingRect().width()) / 2;
+    qreal x = (boundingRect().width() - label_->boundingRect().width()) / 2;
     qreal y = label_->pos().y();
     label_->setPos(x, y);
 }
@@ -212,9 +235,11 @@ void ThumbnailWidget::setupIndicator() {
     indicator_->setPos(x_off, y_off);
 }
 
-void ThumbnailWidget::setupLabel() {
+void ThumbnailWidget::setupLabel()
+{
     label_ = new Label(this);
-    label_->setPos(THUMB_WIDTH / 2, THUMB_HEIGHT - 30);
+    qreal xpos = (boundingRect().width() - label_->boundingRect().width()) / 2;
+    label_->setPos(xpos, THUMB_HEIGHT - 30);
 }
 
 void ThumbnailWidget::setupPixmap() {
@@ -263,7 +288,9 @@ bool ThumbnailWidget::isThumbSelected() const
 void ThumbnailWidget::updatePixmapPos()
 {
     Q_CHECK_PTR(pixmap_);
-    pixmap_->setPos((THUMB_WIDTH - pixmap_->boundingRect().width())/2, THUMB_IMAGE_MARGIN);
+    qreal x = (THUMB_WIDTH - pixmap_->boundingRect().width()) / 2;
+    qreal y = (THUMB_IMAGE_HEIGHT - pixmap_->boundingRect().height()) / 2 + THUMB_IMAGE_MARGIN;
+    pixmap_->setPos(x, y);
 }
 
 void ThumbnailWidget::mouseMoveEvent(QGraphicsSceneMouseEvent * event)

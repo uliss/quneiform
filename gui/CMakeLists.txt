@@ -92,6 +92,7 @@ set(SOURCES
     export/qtextdocumentexporter.cpp
     export/rectexporter.cpp
     widgets/colorbutton.cpp
+    widgets/graphicsroundedrectitem.cpp
     widgets/histogramwidget.cpp
     widgets/imageview.cpp
     widgets/imagewidget.cpp
