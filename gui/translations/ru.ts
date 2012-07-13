@@ -783,15 +783,15 @@ Page: %2</source>
     </message>
     <message>
         <source>External Editor:</source>
-        <translation type="unfinished"></translation>
+        <translation>Внешний редактор:</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать</translation>
     </message>
     <message>
         <source>Select application</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбор программы</translation>
     </message>
 </context>
 <context>
@@ -885,7 +885,7 @@ Page: %2</source>
     </message>
     <message>
         <source>Open in external editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть во внешнем редакторе</translation>
     </message>
 </context>
 </TS>
