@@ -8,6 +8,7 @@ set(SOURCES
     macstring.cpp
     macpool.mm
     macfullscreen.mm
+    macopenfile.mm
 )
 
 source_group("Header Files" FILES ${HEADERS})

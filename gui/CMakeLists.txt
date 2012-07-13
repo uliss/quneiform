@@ -110,6 +110,7 @@ set(SOURCES
     internal/cimageview.cpp
     quneiformapplication.cpp
     guilog.cpp
+    workspace.cpp
 )
 
 if(CF_SERIALIZE)

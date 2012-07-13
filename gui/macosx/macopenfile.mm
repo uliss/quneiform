@@ -16,36 +16,39 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IMAGEUTILS_H
-#define IMAGEUTILS_H
+#import <AppKit/NSWorkspace.h>
 
-class QStringList;
-class QString;
+#include "macopenfile.h"
+#include "macstring.h"
+#include "macpool.h"
 
-namespace utils
+namespace utils {
+
+bool macOpenFile(const QString& fullPath)
 {
+    const MacPool pool;
+    const MacString file(fullPath);
 
-/**
- * Returns number of images in file list.
- * @note for multipage formats, like PDF or TIFF, returned value
- * can be more than file list size.
- * @param files - list of full paths to images
- * @return image count
- */
-int imageCount(const QStringList& files);
+    BOOL rc = [[NSWorkspace sharedWorkspace]
+            openFile: (NSString *)(CFStringRef) file
+    ];
 
-/**
- * Returns true if given file looks like multi page image
- * @param path - full path to image
- * @return true on success
- */
-bool looksLikeMultiPageDocument(const QString& path);
-
-/**
- * Returns QImageReader format for given file
- */
-const char * imagePluginFormat(const QString& fullPath);
-
+    return rc;
 }
 
-#endif // IMAGEUTILS_H
+bool macOpenFileWithApplication(const QString& fullPath, const QString& appName)
+{
+    const MacPool pool;
+    const MacString app(appName);
+    const MacString file(fullPath);
+
+    BOOL rc = [[NSWorkspace sharedWorkspace]
+            openFile: (NSString *)(CFStringRef) file
+            withApplication:(NSString *)(CFStringRef) app
+     ];
+
+    return rc;
+}
+
+
+}

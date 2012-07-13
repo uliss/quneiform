@@ -16,36 +16,48 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IMAGEUTILS_H
-#define IMAGEUTILS_H
+#include <QFileInfo>
+#include <QFile>
+#include <QDebug>
+#include <QDesktopServices>
+#include <QFileDialog>
+#include <QProcess>
 
-class QStringList;
-class QString;
+#include "workspace.h"
 
-namespace utils
+#ifdef Q_WS_MAC
+#include "macosx/macopenfile.h"
+#endif
+
+bool Workspace::openFileWithApplication(const QString& filePath, const QString& applicationPath)
 {
+    if(!QFile::exists(filePath)) {
+        qDebug() << Q_FUNC_INFO << "file not exits:" << filePath;
+        return false;
+    }
 
-/**
- * Returns number of images in file list.
- * @note for multipage formats, like PDF or TIFF, returned value
- * can be more than file list size.
- * @param files - list of full paths to images
- * @return image count
- */
-int imageCount(const QStringList& files);
+#ifdef Q_WS_MAC
+    QFileInfo fi(applicationPath);
+    if(!fi.exists()) {
+        qDebug() << Q_FUNC_INFO << "application not exists:" << applicationPath;
+        return false;
+    }
 
-/**
- * Returns true if given file looks like multi page image
- * @param path - full path to image
- * @return true on success
- */
-bool looksLikeMultiPageDocument(const QString& path);
+    if(fi.isBundle())
+        return utils::macOpenFileWithApplication(filePath, fi.bundleName());
+    else
+        return QProcess::startDetached(applicationPath, QStringList(filePath));
 
-/**
- * Returns QImageReader format for given file
- */
-const char * imagePluginFormat(const QString& fullPath);
-
+#else
+    return QProcess::startDetached(applicationPath, QStringList(filePath));
+#endif
 }
 
-#endif // IMAGEUTILS_H
+QString Workspace::showChooseApplicationDialog()
+{
+    return QFileDialog::getOpenFileName(0,
+                                       "Select application",
+                                       QDesktopServices::storageLocation(QDesktopServices::ApplicationsLocation),
+                                       "");
+
+}

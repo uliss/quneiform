@@ -21,6 +21,8 @@
 #include <QFontDialog>
 #include <QDebug>
 #include <QApplication>
+#include <QFileDialog>
+#include <QDesktopServices>
 
 #include "settings.h"
 #include "ui_settings.h"
@@ -50,6 +52,7 @@ void Settings::connectSignals() {
     connect(this, SIGNAL(accepted()), SLOT(save()));
     connect(this, SIGNAL(destroyed()), SLOT(saveDialogState()));
     connect(this->ui_->fontChoose, SIGNAL(clicked()), SLOT(showFontDialog()));
+    connect(ui_->selectExternalEditor, SIGNAL(clicked()), SLOT(showSelectApplicationDialog()));
 }
 
 void Settings::load()
@@ -108,6 +111,10 @@ void Settings::loadFormat() {
 
 void Settings::loadGeneral()
 {
+    QSettings s;
+    s.beginGroup("general");
+    ui_->externalEditorLineEdit->setText(s.value("externalEditor").toString());
+
     QStringList themes = availableIconThemes();
     foreach(QString s, themes) {
         ui_->themesList->addItem(s);
@@ -168,16 +175,19 @@ void Settings::saveGeneral()
     int current_idx = ui_->themesList->currentIndex();
     QString theme = ui_->themesList->itemText(current_idx);
 
-    if(QIcon::themeName() == theme)
-        return;
+    if(QIcon::themeName() != theme) {
+        settings.beginGroup("gui");
+        settings.setValue("theme", theme);
+        settings.endGroup();
 
-    qDebug() << Q_FUNC_INFO << theme;
+        QIcon::setThemeName(theme);
+        foreach (QWidget * widget, QApplication::allWidgets())
+            widget->repaint();
+    }
 
-    settings.setValue("gui/theme", theme);
-    QIcon::setThemeName(theme);
-
-    foreach (QWidget * widget, QApplication::allWidgets())
-        widget->repaint();
+    settings.beginGroup("general");
+    settings.setValue("externalEditor", ui_->externalEditorLineEdit->text());
+    settings.endGroup();
 }
 
 void Settings::setupListWidget()
@@ -201,4 +211,16 @@ void Settings::showFontDialog()
         ui_->fontChoose->setText(fontName(font));
         settings.setValue("editorFont", font);
     }
+}
+
+void Settings::showSelectApplicationDialog()
+{
+    QString path = QFileDialog::getOpenFileName(this,
+                                           tr("Select application"),
+                                           QDesktopServices::storageLocation(QDesktopServices::ApplicationsLocation));
+
+    if(path.isNull())
+        return;
+
+    ui_->externalEditorLineEdit->setText(path);
 }

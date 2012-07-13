@@ -16,36 +16,16 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef IMAGEUTILS_H
-#define IMAGEUTILS_H
+#ifndef MACOPENFILE_H
+#define MACOPENFILE_H
 
-class QStringList;
-class QString;
+#include <QString>
 
-namespace utils
-{
+namespace utils {
 
-/**
- * Returns number of images in file list.
- * @note for multipage formats, like PDF or TIFF, returned value
- * can be more than file list size.
- * @param files - list of full paths to images
- * @return image count
- */
-int imageCount(const QStringList& files);
-
-/**
- * Returns true if given file looks like multi page image
- * @param path - full path to image
- * @return true on success
- */
-bool looksLikeMultiPageDocument(const QString& path);
-
-/**
- * Returns QImageReader format for given file
- */
-const char * imagePluginFormat(const QString& fullPath);
+bool macOpenFile(const QString& fullPath);
+bool macOpenFileWithApplication(const QString& fullPath, const QString& appName);
 
 }
 
-#endif // IMAGEUTILS_H
+#endif // MACOPENFILE_H

@@ -19,6 +19,7 @@
 #include <QScrollBar>
 #include <QMenu>
 #include <QDebug>
+#include <QSettings>
 
 #include "packet.h"
 #include "page.h"
@@ -30,6 +31,7 @@
 #include "dialogs/formatsettingsdialog.h"
 #include "quneiform_debug.h"
 #include "iconutils.h"
+#include "workspace.h"
 
 static const int LIST_WIDTH = 170;
 
@@ -44,7 +46,8 @@ ThumbnailList::ThumbnailList(QWidget * parent) :
     act_recognize_(NULL),
     act_save_as_(NULL),
     act_properties_(NULL),
-    act_delete_(NULL)
+    act_delete_(NULL),
+    act_open_external_(NULL)
 {
     setAcceptDrops(true);
     setupLayout();
@@ -78,6 +81,39 @@ void ThumbnailList::contextThumbFormatSettings()
 
     dialog.setup(pages);
     dialog.exec();
+}
+
+void ThumbnailList::contextThumbOpenExternal()
+{
+    if(!context_thumb_) {
+        qWarning() << Q_FUNC_INFO << "no context thumb";
+        return;
+    }
+
+    Page * p = context_thumb_->page();
+    if(!p) {
+        qWarning() << Q_FUNC_INFO << "NULL page pointer";
+        return;
+    }
+
+    static const char * EXTERNAL_EDITOR_KEY = "general/externalEditor";
+    QString app = QSettings().value(EXTERNAL_EDITOR_KEY).toString();
+
+    if(app.isEmpty()) {
+        app = Workspace::showChooseApplicationDialog();
+        QSettings().setValue(EXTERNAL_EDITOR_KEY, app);
+    }
+
+    if(app.isEmpty()) {
+        qWarning() << Q_FUNC_INFO << "external application not specified";
+        return;
+    }
+
+    bool rc = Workspace::openFileWithApplication(p->imagePath(), app);
+
+    if(!rc) {
+        qDebug() << Q_FUNC_INFO << "external application open failed";
+    }
 }
 
 void ThumbnailList::contextThumbProperties()
@@ -225,6 +261,7 @@ void ThumbnailList::handleThumbContextMenu(ThumbnailWidget * sender, const QPoin
     menu->addAction(tr("Format settings"), this, SLOT(contextThumbFormatSettings()));
     menu->addSeparator();
     menu->addAction(act_save_as_);
+    menu->addAction(act_open_external_);
     menu->exec(pos);
     delete menu;
 
@@ -333,6 +370,7 @@ void ThumbnailList::setupActions() {
     setupActionSaveAs();
     setupActionProperties();
     setupActionDelete();
+    setupActionOpenExternal();
 }
 
 void ThumbnailList::setupActionDelete()
@@ -344,6 +382,13 @@ void ThumbnailList::setupActionDelete()
     connect(act_delete_, SIGNAL(triggered()), SLOT(contextThumbRemove()));
 
     addAction(act_delete_);
+}
+
+void ThumbnailList::setupActionOpenExternal()
+{
+    act_open_external_ = new QAction(tr("Open in external editor"), this);
+    connect(act_open_external_, SIGNAL(triggered()), SLOT(contextThumbOpenExternal()));
+    addAction(act_open_external_);
 }
 
 void ThumbnailList::setupActionSelectAll()

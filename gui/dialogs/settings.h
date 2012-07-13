@@ -38,6 +38,7 @@ public slots:
 private slots:
     void saveDialogState();
     void showFontDialog();
+    void showSelectApplicationDialog();
 private:
     void connectSignals();
     void loadDebug();

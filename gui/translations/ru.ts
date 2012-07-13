@@ -781,6 +781,18 @@ Page: %2</source>
         <source>Icon theme:</source>
         <translation>Тема значков:</translation>
     </message>
+    <message>
+        <source>External Editor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select application</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TextEditor</name>
@@ -870,6 +882,10 @@ Page: %2</source>
     <message>
         <source>Format settings</source>
         <translation>Настройки форматирования</translation>
+    </message>
+    <message>
+        <source>Open in external editor</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
