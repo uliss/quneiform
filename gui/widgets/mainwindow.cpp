@@ -49,6 +49,8 @@
 #include "dialogs/settings.h"
 #include "dialogs/logviewerdialog.h"
 #include "dialogs/openprogressdialog.h"
+#include "dialogs/preferencesdialogfactory.h"
+#include "dialogs/abstractpreferencesdialog.h"
 #include "internal/cimageview.h"
 #include "recentmenu.h"
 #include "exportsettings.h"
@@ -842,8 +844,11 @@ void MainWindow::showPageFault(Page * page) {
     QMessageBox::critical(this, tr("Recognition error"), msg);
 }
 
-void MainWindow::showSettings() {
+void MainWindow::showSettings()
+{
     Q_CHECK_PTR(image_widget_);
+
+//    PreferencesDialogFactory::make(this)->exec();
 
     Settings s;
     int state = s.exec();

@@ -25,6 +25,7 @@ set(HEADERS
     pagerecognitionqueue.h
     selectionlist.h
     dialogs/aboutdialog.h
+    dialogs/abstractpreferencesdialog.h
     dialogs/exportdialog.h
     dialogs/formatsettingsdialog.h
     dialogs/logviewerdialog.h
@@ -34,6 +35,7 @@ set(HEADERS
     dialogs/recognitionsettingsdialog.h
     dialogs/recognitionprogressdialog.h
     dialogs/settings.h
+    dialogs/tabpreferencesdialog.h
     widgets/colorbutton.h
     widgets/histogramwidget.h
     widgets/imageview.h
@@ -75,15 +77,18 @@ set(SOURCES
     selectionlist.cpp
     translationloader.cpp
     dialogs/aboutdialog.cpp
+    dialogs/abstractpreferencesdialog.cpp
     dialogs/exportdialog.cpp
     dialogs/formatsettingsdialog.cpp
     dialogs/logviewerdialog.cpp
     dialogs/openprogressdialog.cpp
     dialogs/pagepropertiesdialog.cpp
     dialogs/packetopenprogressdialog.cpp
+    dialogs/preferencesdialogfactory.cpp
     dialogs/recognitionsettingsdialog.cpp
     dialogs/recognitionprogressdialog.cpp
     dialogs/settings.cpp
+    dialogs/tabpreferencesdialog.cpp
     export/cedpageexporter.cpp
     export/cedserializer.cpp
     export/cfexporter.cpp
