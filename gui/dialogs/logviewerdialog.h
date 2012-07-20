@@ -40,6 +40,7 @@ private:
     bool clearLog(const QString& path);
     void initLogList();
     void addLogItem(const QString& path, const QString& title, const QString& icon);
+    void setupCloseAction();
     void updateCurrentLog();
 private:
     Ui::LogViewerDialog * ui_;

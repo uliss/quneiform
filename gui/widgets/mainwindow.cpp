@@ -663,6 +663,7 @@ void MainWindow::showLog()
 {
     LogViewerDialog d;
     d.exec();
+    activateWindow();
 }
 
 void MainWindow::setupPacket() {
@@ -724,6 +725,14 @@ void MainWindow::setupLanguageUi() {
     setupLanguageMenu();
     setupLanguageSelect();
     setupDefaultLanguage();
+}
+
+void MainWindow::setupLogAction()
+{
+    QAction * show_log = new QAction(this);
+    show_log->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_L);
+    connect(show_log, SIGNAL(triggered()), this, SLOT(showLog()));
+    addAction(show_log);
 }
 
 void MainWindow::setupRecent() {
@@ -790,7 +799,9 @@ void MainWindow::setupViewSplit()
     split_group->addAction(ui_->actionSplitVertical);
 }
 
-void MainWindow::setupUi() {
+void MainWindow::setupUi()
+{
+    setupLogAction();
     setUnifiedTitleAndToolBarOnMac(true);
     ui_->setupUi(this);
     setupIcons();

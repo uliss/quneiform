@@ -20,6 +20,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QPushButton>
+#include <QAction>
 
 #include "logviewerdialog.h"
 #include "ui_logviewerdialog.h"
@@ -35,6 +36,7 @@ LogViewerDialog::LogViewerDialog(QWidget *parent) :
     QPushButton * clear_btn = ui_->buttonBox->addButton(tr("Clear"), QDialogButtonBox::ResetRole);
     connect(clear_btn, SIGNAL(clicked()), SLOT(handleLogClear()));
 
+    setupCloseAction();
     initLogList();
 
     ui_->logContent->setDisabled(true);
@@ -118,6 +120,14 @@ void LogViewerDialog::addLogItem(const QString& path, const QString& title, cons
     item->setToolTip(path);
     item->setData(Qt::UserRole, path);
     ui_->logList->addItem(item);
+}
+
+void LogViewerDialog::setupCloseAction()
+{
+    QAction * close = new QAction(this);
+    close->setShortcut(QKeySequence::Close);
+    connect(close, SIGNAL(triggered()), this, SLOT(close()));
+    addAction(close);
 }
 
 void LogViewerDialog::updateCurrentLog()

@@ -122,6 +122,7 @@ private:
     void setupLanguageMenu();
     void setupLanguageSelect();
     void setupLanguageUi();
+    void setupLogAction();
     void setupRecent();
     void setupRecentImages();
     void setupRecentPackets();
