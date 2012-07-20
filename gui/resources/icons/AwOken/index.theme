@@ -1,0 +1,11 @@
+[Icon Theme]
+Name=AwOken
+Comment=Awesome Token
+Inherits=default
+
+Directories=32x32
+
+[32x32]
+Size=32
+Type=scalable
+
