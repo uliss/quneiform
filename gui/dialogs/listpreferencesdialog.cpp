@@ -16,37 +16,40 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QDebug>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QPushButton>
 #include <QDialogButtonBox>
 #include <QStackedWidget>
-#include <QPushButton>
-#include <QTabWidget>
-#include <QAction>
-#include <QSettings>
+#include <QDebug>
 
-#include "tabpreferencesdialog.h"
+#include "listpreferencesdialog.h"
 #include "preferenceswidget.h"
-#include "settingskeys.h"
 
-static const QString KEY_CURRENT_TAB_PAGE = QString("%1_tab").arg(KEY_SHOW_CURRENT_CHAR);
-
-TabPreferencesDialog::TabPreferencesDialog(QWidget * parent) :
+ListPreferencesDialog::ListPreferencesDialog(QWidget * parent) :
     AbstractPreferencesDialog(parent),
     btn_save_(NULL),
     btn_cancel_(NULL),
-    tab_widget_(NULL)
+    list_(NULL)
 {
     initDialogButtons();
+    setupList();
     setupLayout();
 }
 
-void TabPreferencesDialog::savePreferences()
+void ListPreferencesDialog::setCurrentIndex(int idx)
 {
-    foreach(PreferencesWidget * w, prefs_) {
-        if(!w)
-            continue;
+    AbstractPreferencesDialog::setCurrentIndex(idx);
+    list_->blockSignals(true);
+    list_->setCurrentRow(idx);
+    list_->blockSignals(false);
+}
 
+void ListPreferencesDialog::savePreferences()
+{
+    foreach(PreferencesWidget * w, pages()) {
         w->saveAll();
     }
 
@@ -54,20 +57,22 @@ void TabPreferencesDialog::savePreferences()
     close();
 }
 
-void TabPreferencesDialog::setPreferenceActions(const PreferencesList& pages)
+void ListPreferencesDialog::showCategory(int idx)
 {
-    Q_CHECK_PTR(tab_widget_);
-
-    int idx = QSettings().value(KEY_CURRENT_TAB_PAGE, 0).toInt();
-    foreach(PreferencesWidget * w, pages) {
-        tab_widget_->addTab(w, w->icon(), w->title());
-    }
-
-    prefs_ = pages;
-    tab_widget_->setCurrentIndex(idx);
+    setCurrentIndex(idx);
 }
 
-void TabPreferencesDialog::initDialogButtons()
+void ListPreferencesDialog::setPreferenceActions(const PreferencesList& prefs)
+{
+    foreach(PreferencesWidget * w, prefs) {
+        if(!w)
+            continue;
+
+        list_->addItem(new QListWidgetItem(w->icon(), w->title()));
+    }
+}
+
+void ListPreferencesDialog::initDialogButtons()
 {
     setDialogButtons(new QDialogButtonBox);
     btn_save_ = dialogButtons()->addButton(QDialogButtonBox::Save);
@@ -76,19 +81,23 @@ void TabPreferencesDialog::initDialogButtons()
     connect(btn_save_, SIGNAL(clicked()), this, SLOT(savePreferences()));
 }
 
-void TabPreferencesDialog::setupLayout()
+void ListPreferencesDialog::setupLayout()
 {
-    tab_widget_ = new QTabWidget(this);
-    connect(tab_widget_, SIGNAL(currentChanged(int)), SLOT(saveCurrentPage()));
-    stack_widget_->hide();
-
     setLayout(new QVBoxLayout);
-    layout()->addWidget(tab_widget_);
+
+    QLayout * l = new QHBoxLayout;
+    l->setSpacing(10);
+    l->addWidget(list_);
+    l->addWidget(stack_widget_);
+
+    layout()->addItem(l);
     layout()->addWidget(dialogButtons());
 }
 
-void TabPreferencesDialog::saveCurrentPage()
+void ListPreferencesDialog::setupList()
 {
-    Q_CHECK_PTR(tab_widget_);
-    QSettings().setValue(KEY_CURRENT_TAB_PAGE, tab_widget_->currentIndex());
+    const int LIST_WIDTH = 150;
+    list_ = new QListWidget(this);
+    list_->setFixedWidth(LIST_WIDTH);
+    connect(list_, SIGNAL(currentRowChanged(int)), this, SLOT(showCategory(int)));
 }

@@ -41,7 +41,6 @@ if(CF_SERIALIZE)
 endif()
 
 if(APPLE)
-    list(APPEND CF_GUI_TESTS macstring)
     list(APPEND CF_GUI_TESTS macspellchecker)
 endif()
 
@@ -93,6 +92,14 @@ function(add_gui_tests)
         add_test("GUI:test_${t}" "${EXECUTABLE_OUTPUT_PATH}/test_${t}")
     endforeach()
 endfunction()
+
+if(APPLE)
+    qt4_wrap_cpp(cf_test_moc "testmacstring.h")
+    add_executable("test_macstring" "testmacstring.h" "testmacstring.mm" ${cf_test_moc})
+    target_link_libraries("test_macstring" ${TEST_LIBS})
+    add_test("GUI:test_macstring" "${EXECUTABLE_OUTPUT_PATH}/test_macstring")
+    unset(cf_test_moc)
+endif()
 
 add_gui_tests()
 add_custom_target(test_gui "${CMAKE_CURRENT_BINARY_DIR}/test_gui.py")

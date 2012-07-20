@@ -28,15 +28,20 @@ set(HEADERS
     dialogs/abstractpreferencesdialog.h
     dialogs/exportdialog.h
     dialogs/formatsettingsdialog.h
+    dialogs/listpreferencesdialog.h
     dialogs/logviewerdialog.h
     dialogs/openprogressdialog.h
     dialogs/pagepropertiesdialog.h
     dialogs/packetopenprogressdialog.h
+    dialogs/preferencesdialogfactory.h
     dialogs/recognitionsettingsdialog.h
     dialogs/recognitionprogressdialog.h
-    dialogs/settings.h
     dialogs/tabpreferencesdialog.h
     widgets/colorbutton.h
+    widgets/debugpreferences.h
+    widgets/editorpreferences.h
+    widgets/fontbutton.h
+    widgets/generalpreferences.h
     widgets/histogramwidget.h
     widgets/imageview.h
     widgets/imagewidget.h
@@ -44,6 +49,7 @@ set(HEADERS
     widgets/languageselect.h
     widgets/mainwindow.h
     widgets/pageindicator.h
+    widgets/preferenceswidget.h
     widgets/recentmenu.h
     widgets/texteditor.h
     widgets/thumbnaillist.h
@@ -80,6 +86,7 @@ set(SOURCES
     dialogs/abstractpreferencesdialog.cpp
     dialogs/exportdialog.cpp
     dialogs/formatsettingsdialog.cpp
+    dialogs/listpreferencesdialog.cpp
     dialogs/logviewerdialog.cpp
     dialogs/openprogressdialog.cpp
     dialogs/pagepropertiesdialog.cpp
@@ -87,7 +94,6 @@ set(SOURCES
     dialogs/preferencesdialogfactory.cpp
     dialogs/recognitionsettingsdialog.cpp
     dialogs/recognitionprogressdialog.cpp
-    dialogs/settings.cpp
     dialogs/tabpreferencesdialog.cpp
     export/cedpageexporter.cpp
     export/cedserializer.cpp
@@ -97,6 +103,10 @@ set(SOURCES
     export/qtextdocumentexporter.cpp
     export/rectexporter.cpp
     widgets/colorbutton.cpp
+    widgets/debugpreferences.cpp
+    widgets/editorpreferences.cpp
+    widgets/fontbutton.cpp
+    widgets/generalpreferences.cpp
     widgets/graphicsroundedrectitem.cpp
     widgets/histogramwidget.cpp
     widgets/imageview.cpp
@@ -105,6 +115,7 @@ set(SOURCES
     widgets/languageselect.cpp
     widgets/mainwindow.cpp
     widgets/pageindicator.cpp
+    widgets/preferenceswidget.cpp
     widgets/recentmenu.cpp
     widgets/texteditor.cpp
     widgets/thumblayout.cpp
@@ -116,7 +127,13 @@ set(SOURCES
     quneiformapplication.cpp
     guilog.cpp
     workspace.cpp
+    settingskeys.cpp
 )
+
+if(APPLE)
+    list(APPEND HEADERS dialogs/macpreferencesdialog.h)
+    list(APPEND SOURCES dialogs/macpreferencesdialog.cpp)
+endif()
 
 if(CF_SERIALIZE)
     set_property(SOURCE export/cedserializer.cpp PROPERTY COMPILE_DEFINITIONS USE_SERIALIZE)
@@ -129,7 +146,6 @@ set(FORMS
     dialogs/logviewerdialog.ui
     dialogs/pagepropertiesdialog.ui
     dialogs/recognitionsettingsdialog.ui
-    dialogs/settings.ui
     widgets/mainwindow.ui
 )
 

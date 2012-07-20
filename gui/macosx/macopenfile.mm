@@ -39,12 +39,10 @@ bool macOpenFile(const QString& fullPath)
 bool macOpenFileWithApplication(const QString& fullPath, const QString& appName)
 {
     const MacPool pool;
-    const MacString app(appName);
-    const MacString file(fullPath);
 
     BOOL rc = [[NSWorkspace sharedWorkspace]
-            openFile: (NSString *)(CFStringRef) file
-            withApplication:(NSString *)(CFStringRef) app
+            openFile: MacString::toNSString(fullPath)
+            withApplication: MacString::toNSString(appName)
      ];
 
     return rc;

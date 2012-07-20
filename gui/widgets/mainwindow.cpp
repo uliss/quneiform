@@ -46,7 +46,6 @@
 #include "dialogs/packetopenprogressdialog.h"
 #include "dialogs/recognitionprogressdialog.h"
 #include "dialogs/recognitionsettingsdialog.h"
-#include "dialogs/settings.h"
 #include "dialogs/logviewerdialog.h"
 #include "dialogs/openprogressdialog.h"
 #include "dialogs/preferencesdialogfactory.h"
@@ -57,6 +56,7 @@
 #include "imageutils.h"
 #include "iconutils.h"
 #include "fullscreen.h"
+#include "settingskeys.h"
 #include "scan/scannerdialog.h"
 
 
@@ -846,15 +846,9 @@ void MainWindow::showPageFault(Page * page) {
 
 void MainWindow::showSettings()
 {
-    Q_CHECK_PTR(image_widget_);
-
-//    PreferencesDialogFactory::make(this)->exec();
-
-    Settings s;
-    int state = s.exec();
-
-    if(state == QDialog::Accepted)
-        image_widget_->updateSettings();
+    AbstractPreferencesDialog * prefs = PreferencesDialogFactory::make();
+    prefs->exec();
+    delete prefs;
 }
 
 void MainWindow::showScanDialog()

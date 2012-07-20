@@ -16,23 +16,44 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef MACOPENFILE_H
-#define MACOPENFILE_H
+#include <QFontDialog>
 
-#include <QString>
+#include "fontbutton.h"
 
-namespace utils {
-
-/**
- * Opens file in default external application on MacOSX
- */
-bool macOpenFile(const QString& fullPath);
-
-/**
- * Opens file in specified application
- */
-bool macOpenFileWithApplication(const QString& fullPath, const QString& appName);
-
+static QString fontName(const QFont& f)
+{
+    return QString("%1, %2pt").arg(f.family()).arg(f.pointSize());
 }
 
-#endif // MACOPENFILE_H
+FontButton::FontButton(const QFont& font, QWidget * parent) :
+    QPushButton(parent),
+    font_(font)
+{
+    connect(this, SIGNAL(clicked()), SLOT(showFontDialog()));
+}
+
+QFont FontButton::currentFont() const
+{
+    return font_;
+}
+
+void FontButton::setCurrentFont(const QFont& font)
+{
+    if(font != font_) {
+        font_ = font;
+        setText(fontName(font_));
+    }
+}
+
+void FontButton::showFontDialog()
+{
+    bool ok = false;
+    QFont font = QFontDialog::getFont(&ok, font_, this);
+    if(ok) {
+        setText(fontName(font));
+        setCurrentFont(font);
+        emit changed(font);
+    }
+
+    activateWindow();
+}

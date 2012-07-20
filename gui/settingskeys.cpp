@@ -16,23 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef MACOPENFILE_H
-#define MACOPENFILE_H
+#include "settingskeys.h"
 
-#include <QString>
-
-namespace utils {
-
-/**
- * Opens file in default external application on MacOSX
- */
-bool macOpenFile(const QString& fullPath);
-
-/**
- * Opens file in specified application
- */
-bool macOpenFileWithApplication(const QString& fullPath, const QString& appName);
-
-}
-
-#endif // MACOPENFILE_H
+const char * KEY_EXTERNAL_EDITOR = "general/externalEditor";
+const char * KEY_ICON_THEME = "gui/iconTheme";
+const char * KEY_SHOW_CURRENT_CHAR = "format/showCurrentCharacter";
+const char * KEY_EDITOR_FONT = "format/editorFont";
+const char * KEY_CURRENT_CHAR_COLOR = "format/currentCharColor";
+const char * KEY_ALTERNATIVE_CHAR_COLOR = "format/alternativeColor";
+const char * KEY_SETTINGS_LAST_PAGE = "settings/currentPage";
+const char * KEY_PROCESS_RECOGNITION = "debug/processRecognition";
+const char * KEY_PRINT_CUNEIFORM_DEBUG = "debug/printCuneiformDebug";
+const char * KEY_MODULE_CIMAGE_DEBUG = "debug/modules/cimage";
+const char * KEY_DEBUG_SECTIONS_BBOX = "debug/format/showSectionsBBox";
+const char * KEY_DEBUG_COLUMNS_BBOX = "debug/format/showColumnsBBox";
+const char * KEY_DEBUG_PARAGRAPHS_BBOX = "debug/format/showParagraphsBBox";
+const char * KEY_DEBUG_LINES_BBOX = "debug/format/showLinesBBox";
+const char * KEY_DEBUG_CHARACTERS_BBOX = "debug/format/showCharactersBBox";
+const char * KEY_DEBUG_PICTURES_BBOX = "debug/format/showPicturesBBox";

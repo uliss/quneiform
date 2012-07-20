@@ -16,25 +16,49 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <QIcon>
-#include <QLabel>
+#include <QSettings>
 
 #include "preferencesdialogfactory.h"
 #include "tabpreferencesdialog.h"
+#include "listpreferencesdialog.h"
+#include "preferenceswidget.h"
+#include "generalpreferences.h"
+#include "editorpreferences.h"
+#include "debugpreferences.h"
 #include "iconutils.h"
+#include "settingskeys.h"
 
-static void initPreferences(AbstractPreferencesDialog * dlg)
+#ifdef Q_WS_MAC
+#include "macpreferencesdialog.h"
+#endif
+
+void PreferencesDialogFactory::initPreferences(AbstractPreferencesDialog * dlg)
 {
     if(!dlg)
         return;
 
-    dlg->addCategoryWidget(iconFromTheme("settings"), "General", new QLabel("QLabel"));
-    dlg->addCategoryWidget(iconFromTheme("debug"), "Debug", new QLabel("Debug"));
+    PreferencesWidget * general = new GeneralPreferences;
+    PreferencesWidget * debug = new DebugPreferences;
+    PreferencesWidget * editor = new EditorPreferences;
+
+    PreferencesList prefs;
+    prefs.append(general);
+    prefs.append(editor);
+    prefs.append(debug);
+
+    dlg->setPages(prefs);
 }
 
-AbstractPreferencesDialog * PreferencesDialogFactory::make(QWidget * parent)
+AbstractPreferencesDialog * PreferencesDialogFactory::make()
 {
-    AbstractPreferencesDialog * res = new TabPreferencesDialog(parent);
+    AbstractPreferencesDialog * res = NULL;
+
+#ifdef Q_WS_MAC
+    res = new MacPreferencesDialog(NULL);
+#else
+    res = new ListPreferencesDialog(NULL);
+#endif
+
     initPreferences(res);
     return res;
 }

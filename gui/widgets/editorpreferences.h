@@ -16,23 +16,35 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef MACOPENFILE_H
-#define MACOPENFILE_H
+#ifndef EDITORPREFERENCES_H
+#define EDITORPREFERENCES_H
 
-#include <QString>
+#include "preferenceswidget.h"
 
-namespace utils {
+class QFormLayout;
+class FontButton;
+class ColorButton;
 
-/**
- * Opens file in default external application on MacOSX
- */
-bool macOpenFile(const QString& fullPath);
+class EditorPreferences : public PreferencesWidget
+{
+    Q_OBJECT
+public:
+    EditorPreferences(QWidget * parent = 0);
+private:
+    void setupLayout();
+    void setupUI();
+private:
+    static bool loadFont(QWidget * w, const QVariant& data);
+    static bool saveFont(QWidget * w, const QVariant& data);
+    static bool loadAlternativeCharColor(QWidget * w, const QVariant& data);
+    static bool saveAlternativeCharColor(QWidget * w, const QVariant& data);
+    static bool loadCurrentCharColor(QWidget * w, const QVariant& data);
+    static bool saveCurrentCharColor(QWidget * w, const QVariant& data);
+private:
+    QFormLayout * layout_;
+    FontButton * editor_font_;
+    ColorButton * current_char_color_;
+    ColorButton * alt_char_color_;
+};
 
-/**
- * Opens file in specified application
- */
-bool macOpenFileWithApplication(const QString& fullPath, const QString& appName);
-
-}
-
-#endif // MACOPENFILE_H
+#endif // EDITORPREFERENCES_H

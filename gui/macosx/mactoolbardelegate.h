@@ -16,23 +16,36 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef MACOPENFILE_H
-#define MACOPENFILE_H
+#ifndef MACTOOLBARDELEGATE_H
+#define MACTOOLBARDELEGATE_H
 
-#include <QString>
+#import <AppKit/NSToolbar.h>
+#import <AppKit/NSToolbarItem.h>
 
-namespace utils {
+#include <QList>
 
-/**
- * Opens file in default external application on MacOSX
- */
-bool macOpenFile(const QString& fullPath);
+class QObject;
+class QIcon;
+class QAction;
 
-/**
- * Opens file in specified application
- */
-bool macOpenFileWithApplication(const QString& fullPath, const QString& appName);
-
+@interface MacToolbarDelegate : NSObject<NSToolbarDelegate>
+{
+@public
+    NSToolbar * toolbar;
+    NSMutableArray * items;
+    QList<QAction*> actions;
 }
 
-#endif // MACOPENFILE_H
+-(id) init;
+-(NSToolbarItem*) toolbar: (NSToolbar*) toolbar
+    itemForItemIdentifier: (NSString*) itemId
+    willBeInsertedIntoToolbar:(BOOL) flag;
+
+-(NSArray*) toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar;
+-(NSArray*) toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar;
+-(BOOL) addAction:(QAction*)action;
+-(IBAction) itemClicked:(id)sender;
+@end
+
+
+#endif // MACTOOLBARDELEGATE_H

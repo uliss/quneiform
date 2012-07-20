@@ -22,8 +22,10 @@
 #include <QPen>
 #include <QColor>
 #include <QSettings>
+
 #include "pagelayout.h"
 #include "page.h"
+#include "settingskeys.h"
 
 PageLayout::PageLayout()
     : page_(NULL)
@@ -119,27 +121,25 @@ void PageLayout::populate(const Page& page) {
     clear();
 
     QSettings settings;
-    settings.beginGroup("debug");
-    settings.beginGroup("format");
 
     page_ = &page;
 
-    if(settings.value("showCharactersBBox", false).toBool())
+    if(settings.value(KEY_DEBUG_CHARACTERS_BBOX, false).toBool())
         populateGroup(chars_, Page::CHAR);
 
-    if(settings.value("showColumnsBBox", false).toBool())
+    if(settings.value(KEY_DEBUG_COLUMNS_BBOX, false).toBool())
         populateGroup(columns_, Page::COLUMN);
 
-    if(settings.value("showLinesBBox", false).toBool())
+    if(settings.value(KEY_DEBUG_LINES_BBOX, false).toBool())
         populateGroup(lines_, Page::LINE);
 
-    if(settings.value("showParagraphsBBox", false).toBool())
+    if(settings.value(KEY_DEBUG_PARAGRAPHS_BBOX, false).toBool())
         populateGroup(paragraphs_, Page::PARAGRAPH);
 
-    if(settings.value("showPicturesBBox", false).toBool())
+    if(settings.value(KEY_DEBUG_PICTURES_BBOX, false).toBool())
         populateGroup(pictures_, Page::PICTURE);
 
-    if(settings.value("showSectionsBBox", false).toBool())
+    if(settings.value(KEY_DEBUG_SECTIONS_BBOX, false).toBool())
         populateGroup(sections_, Page::SECTION);
 }
 

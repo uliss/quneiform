@@ -20,29 +20,41 @@
 #define ABSTRACTPREFERENCESDIALOG_H
 
 #include <QDialog>
+#include <QList>
 
 class QStackedWidget;
 class QDialogButtonBox;
+class PreferencesWidget;
+
+typedef QList<PreferencesWidget*> PreferencesList;
 
 class AbstractPreferencesDialog : public QDialog
 {
     Q_OBJECT
 public:
     explicit AbstractPreferencesDialog(QWidget * parent = 0);
-    void addCategoryWidget(const QIcon& icon, const QString& text, QWidget * widget);
+    ~AbstractPreferencesDialog();
 
-    QStackedWidget * categories();
+    virtual PreferencesList pages() const;
+    virtual void setPages(const PreferencesList& pages);
 
     QDialogButtonBox * dialogButtons();
     void setDialogButtons(QDialogButtonBox * buttons);
 
-    virtual void loadPreferences() = 0;
-    virtual void savePreferences() = 0;
+    virtual void setCurrentIndex(int idx);
+    virtual void setCurrentPage(PreferencesWidget * pref);
 protected:
-    virtual void addCategoryAction(const QIcon& icon, const QString& text, QWidget * widget) = 0;
+    virtual void setPreferenceActions(const PreferencesList& pages) = 0;
+private slots:
+    void loadCurrentPage();
+    void saveCurrentPage();
 private:
-    QStackedWidget * categories_;
+    void setupActions();
+protected:
+    QStackedWidget * stack_widget_;
+private:
     QDialogButtonBox * buttons_;
+    QAction * act_close_;
 };
 
 #endif // ABSTRACTPREFERENCESDIALOG_H

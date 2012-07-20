@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,41 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#ifndef MACTOOLBAR_H
+#define MACTOOLBAR_H
 
-#include <QDialog>
+#include <QList>
 
-namespace Ui {
-    class Settings;
-}
+class QWidget;
+class QAction;
 
-class Settings : public QDialog
-{
-    Q_OBJECT
+bool macAddToolBar(QWidget* widget, const QList<QAction*> actions = QList<QAction*>());
+bool macRemoveToolBar(QWidget * widget);
 
-public:
-    explicit Settings(QWidget * parent = 0);
-    ~Settings();
-public slots:
-    void load();
-    void save();
-private slots:
-    void saveDialogState();
-    void showFontDialog();
-    void showSelectApplicationDialog();
-private:
-    void connectSignals();
-    void loadDebug();
-    void loadDialogState();
-    void loadFormat();
-    void loadGeneral();
-    void saveDebug();
-    void saveFormat();
-    void saveGeneral();
-    void setupListWidget();
-private:
-    Ui::Settings * ui_;
-};
-
-#endif // SETTINGS_H
+#endif // MACTOOLBAR_H

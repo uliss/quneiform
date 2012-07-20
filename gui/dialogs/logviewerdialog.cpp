@@ -59,7 +59,7 @@ void LogViewerDialog::handleLogShow(QListWidgetItem * current)
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
 
-    ui_->logContent->setPlainText(QString(file.readAll()));
+    ui_->logContent->setPlainText(QString::fromUtf8(file.readAll()));
     ui_->logContent->setEnabled(true);
 
     file.close();
@@ -122,5 +122,8 @@ void LogViewerDialog::addLogItem(const QString& path, const QString& title, cons
 
 void LogViewerDialog::updateCurrentLog()
 {
+    if(ui_->logList->count() == 0)
+        return;
+
     handleLogShow(ui_->logList->currentItem());
 }

@@ -32,6 +32,7 @@
 #include "quneiform_debug.h"
 #include "iconutils.h"
 #include "workspace.h"
+#include "settingskeys.h"
 
 static const int LIST_WIDTH = 170;
 
@@ -96,12 +97,11 @@ void ThumbnailList::contextThumbOpenExternal()
         return;
     }
 
-    static const char * EXTERNAL_EDITOR_KEY = "general/externalEditor";
-    QString app = QSettings().value(EXTERNAL_EDITOR_KEY).toString();
+    QString app = QSettings().value(KEY_EXTERNAL_EDITOR).toString();
 
     if(app.isEmpty()) {
         app = Workspace::showChooseApplicationDialog();
-        QSettings().setValue(EXTERNAL_EDITOR_KEY, app);
+        QSettings().setValue(KEY_EXTERNAL_EDITOR, app);
     }
 
     if(app.isEmpty()) {

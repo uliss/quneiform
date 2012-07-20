@@ -16,23 +16,24 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef MACOPENFILE_H
-#define MACOPENFILE_H
+#ifndef DEBUGPREFERENCES_H
+#define DEBUGPREFERENCES_H
 
-#include <QString>
+#include "preferenceswidget.h"
 
-namespace utils {
+class QVBoxLayout;
 
-/**
- * Opens file in default external application on MacOSX
- */
-bool macOpenFile(const QString& fullPath);
+class DebugPreferences : public PreferencesWidget
+{
+    Q_OBJECT
+public:
+    explicit DebugPreferences(QWidget * parent = 0);
+private:
+    void setupLayout();
+    void setupUI();
+    void setupUIFormatBBoxes();
+private:
+    QVBoxLayout * layout_;
+};
 
-/**
- * Opens file in specified application
- */
-bool macOpenFileWithApplication(const QString& fullPath, const QString& appName);
-
-}
-
-#endif // MACOPENFILE_H
+#endif // DEBUGPREFERENCES_H

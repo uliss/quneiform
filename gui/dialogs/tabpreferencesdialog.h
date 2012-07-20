@@ -24,26 +24,26 @@
 class QPushButton;
 class QTabWidget;
 class QFrame;
+class QAction;
 
 class TabPreferencesDialog : public AbstractPreferencesDialog
 {
     Q_OBJECT
 public:
     TabPreferencesDialog(QWidget * parent = 0);
-
-    void loadPreferences();
-    void savePreferences();
-public slots:
-    void showCategory(int idx);
 protected:
-    void addCategoryAction(const QIcon& icon, const QString& text, QWidget * widget);
+    void setPreferenceActions(const PreferencesList& pages);
 private:
     void initDialogButtons();
-    void setDialogLayout();
+    void setupLayout();
+private slots:
+    void savePreferences();
+    void saveCurrentPage();
 private:
     QPushButton * btn_save_;
     QPushButton * btn_cancel_;
     QTabWidget * tab_widget_;
+    PreferencesList prefs_;
 };
 
 #endif // TABPREFERENCESDIALOG_H

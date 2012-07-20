@@ -16,23 +16,25 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef MACOPENFILE_H
-#define MACOPENFILE_H
+#ifndef FONTBUTTON_H
+#define FONTBUTTON_H
 
-#include <QString>
+#include <QPushButton>
+#include <QFont>
 
-namespace utils {
+class FontButton : public QPushButton
+{
+    Q_OBJECT
+public:
+    FontButton(const QFont& font = QFont(), QWidget * parent = 0);
+    QFont currentFont() const;
+    void setCurrentFont(const QFont&);
+signals:
+    void changed(const QFont&);
+private slots:
+    void showFontDialog();
+private:
+    QFont font_;
+};
 
-/**
- * Opens file in default external application on MacOSX
- */
-bool macOpenFile(const QString& fullPath);
-
-/**
- * Opens file in specified application
- */
-bool macOpenFileWithApplication(const QString& fullPath, const QString& appName);
-
-}
-
-#endif // MACOPENFILE_H
+#endif // FONTBUTTON_H

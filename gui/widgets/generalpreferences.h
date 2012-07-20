@@ -16,23 +16,33 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef MACOPENFILE_H
-#define MACOPENFILE_H
+#ifndef GENERALPREFERENCES_H
+#define GENERALPREFERENCES_H
 
-#include <QString>
+#include "preferenceswidget.h"
 
-namespace utils {
+class QFormLayout;
+class QLineEdit;
 
-/**
- * Opens file in default external application on MacOSX
- */
-bool macOpenFile(const QString& fullPath);
+class GeneralPreferences : public PreferencesWidget
+{
+    Q_OBJECT
+public:
+    GeneralPreferences(QWidget * parent = NULL);
+private:
+    void setupExternalEditor();
+    void setupIconTheme();
+    void setupLayout();
+private slots:
+    void showSelectApplicationDialog();
+private:
+    static bool loadExternalEditor(QWidget * w, const QVariant& data);
+    static bool saveExternalEditor(QWidget * w, const QVariant& data);
+    static bool loadIconTheme(QWidget * w, const QVariant& data);
+    static bool saveIconTheme(QWidget * w, const QVariant& data);
+private:
+    QFormLayout * layout_;
+    QLineEdit * ext_editor_;
+};
 
-/**
- * Opens file in specified application
- */
-bool macOpenFileWithApplication(const QString& fullPath, const QString& appName);
-
-}
-
-#endif // MACOPENFILE_H
+#endif // GENERALPREFERENCES_H

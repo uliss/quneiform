@@ -49,9 +49,28 @@ MacString::operator QString() const {
 }
 
 MacString::operator CFStringRef() const {
-    if (!t_)
+    if(!t_)
         const_cast<MacString*>(this)->t_ = toCFStringRef(str_);
     return t_;
+}
+
+NSString * MacString::toNSString(const QString& str)
+{
+    return [NSString
+            stringWithCharacters: reinterpret_cast<const UniChar *>(str.unicode())
+            length: str.length()];
+}
+
+QString MacString::toQString(NSString * str)
+{
+    if(!str)
+        return QString();
+
+    QString res;
+    res.resize([str length]);
+    [str getCharacters: reinterpret_cast<unichar*>(res.data())
+        range: NSMakeRange(0, [str length])];
+    return res;
 }
 
 QString MacString::toQString(CFStringRef str) {

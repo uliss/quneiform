@@ -50,8 +50,12 @@ void ColorButton::setColor(const QColor& color) {
 
 void ColorButton::showColorDialog() {
     QColorDialog * dialog = new QColorDialog(color_, this);
-    if(QDialog::Accepted == dialog->exec())
+    if(QDialog::Accepted == dialog->exec()) {
         setColor(dialog->selectedColor());
+        emit changed(color_);
+    }
 
     delete dialog;
+
+    activateWindow();
 }

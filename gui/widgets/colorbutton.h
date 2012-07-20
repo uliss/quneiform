@@ -42,6 +42,8 @@ public:
       * @see color()
       */
     void setColor(const QColor& color);
+signals:
+    void changed(const QColor&);
 private slots:
     void showColorDialog();
 private:

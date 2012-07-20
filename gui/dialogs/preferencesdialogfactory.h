@@ -19,14 +19,19 @@
 #ifndef PREFERENCESDIALOGFACTORY_H
 #define PREFERENCESDIALOGFACTORY_H
 
+#include <QObject>
+
 class AbstractPreferencesDialog;
 class QWidget;
 
-class PreferencesDialogFactory
+class PreferencesDialogFactory : public QObject
 {
+    Q_OBJECT
     PreferencesDialogFactory();
 public:
-    static AbstractPreferencesDialog *make(QWidget * parent);
+    static AbstractPreferencesDialog * make();
+private:
+    static void initPreferences(AbstractPreferencesDialog * dlg);
 };
 
 #endif // PREFERENCESDIALOGFACTORY_H

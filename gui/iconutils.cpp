@@ -22,6 +22,7 @@
 #include <QDebug>
 
 #include "iconutils.h"
+#include "settingskeys.h"
 
 QStringList availableIconThemes()
 {
@@ -42,7 +43,7 @@ void iconThemeSetup()
 {
     QSettings settings;
 
-    QVariant theme = settings.value("gui/theme");
+    QVariant theme = settings.value(KEY_ICON_THEME);
     if(theme.isValid()) {
         QIcon::setThemeName(theme.toString());
         if(!QIcon::hasThemeIcon("zoom-in"))

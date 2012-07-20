@@ -30,6 +30,7 @@
 #include "spell/spellcheckhighlighter.h"
 #include "export/qtextdocumentexporter.h"
 #include "iconutils.h"
+#include "settingskeys.h"
 
 static const int TEXTEDITOR_MARGIN = 10;
 static const QString TEXTEDIT_CSS("QFrame { background-color: palette(base);}");
@@ -305,7 +306,7 @@ void TextEditor::toggleUnderlined() {
 }
 
 void TextEditor::showCurrentChar() {
-    if(!settings_.value("showCurrentCharacter").toBool())
+    if(!settings_.value(KEY_SHOW_CURRENT_CHAR).toBool())
         return;
 
     QTextCursor cursor = textCursor();

@@ -16,8 +16,9 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "macpool.h"
 #import <AppKit/AppKit.h>
+
+#include "macpool.h"
 
 MacPool::MacPool()
 {

@@ -16,23 +16,25 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef MACOPENFILE_H
-#define MACOPENFILE_H
+#ifndef MACPREFERENCESDIALOG_H
+#define MACPREFERENCESDIALOG_H
 
-#include <QString>
+#include "abstractpreferencesdialog.h"
 
-namespace utils {
+class QAction;
 
-/**
- * Opens file in default external application on MacOSX
- */
-bool macOpenFile(const QString& fullPath);
+class MacPreferencesDialog : public AbstractPreferencesDialog
+{
+    Q_OBJECT
+public:
+    MacPreferencesDialog(QWidget * parent = 0);
+protected:
+    void setPreferenceActions(const PreferencesList& pages);
+private slots:
+    void showCategory();
+private:
+    void connectPreferences();
+    void setupLayout();
+};
 
-/**
- * Opens file in specified application
- */
-bool macOpenFileWithApplication(const QString& fullPath, const QString& appName);
-
-}
-
-#endif // MACOPENFILE_H
+#endif // MACPREFERENCESDIALOG_H
