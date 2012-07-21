@@ -96,7 +96,8 @@ static NSImage * toNSImage(const QPixmap& pixmap)
 
             if(!a->icon().isNull()) {
                 QPixmap pixmap = a->icon().pixmap(64, 64);
-                [toolbarItem setImage: toNSImage(pixmap)];
+                if(!pixmap.isNull())
+                    [toolbarItem setImage: toNSImage(pixmap)];
             }
 
             if(!a->toolTip().isEmpty()) {

@@ -46,13 +46,18 @@ QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     qInstallMsgHandler(guiMessageLogger);
 #endif
 
+
+    Q_INIT_RESOURCE(theme_faenza);
+    Q_INIT_RESOURCE(theme_mac);
+    Q_INIT_RESOURCE(theme_gnome);
+
     setOrganizationName("openocr.org");
     setApplicationName("Quneiform OCR");
     setApplicationVersion(CF_VERSION);
     iconThemeSetup();
 
 #ifdef Q_WS_MAC
-    setAttribute(Qt::AA_DontShowIconsInMenus);
+//    setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
 
     MetaTypeRegistrator registrator;

@@ -230,7 +230,7 @@ endif()
 
 add_library(quneiform_lib STATIC ${SRCS})
 
-add_executable(${PROJECT_NAME} WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
+add_executable(${PROJECT_NAME} WIN32 main.cpp ${EXTRA_RES})
 
 set(EXTRA_LIBS dib_imageplugin)
     
@@ -259,6 +259,9 @@ target_link_libraries (${PROJECT_NAME}
     ${QT_LIBRARIES}
     cuneiform
     cuneiform-rstuff
+    resource_theme_mac
+    resource_theme_faenza
+    resource_theme_gnome
     ${EXTRA_LIBS})
 
 install(
