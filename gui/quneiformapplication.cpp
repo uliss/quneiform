@@ -50,6 +50,7 @@ QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     Q_INIT_RESOURCE(theme_faenza);
     Q_INIT_RESOURCE(theme_mac);
     Q_INIT_RESOURCE(theme_gnome);
+    Q_INIT_RESOURCE(theme_oxygen);
 
     setOrganizationName("openocr.org");
     setApplicationName("Quneiform OCR");
