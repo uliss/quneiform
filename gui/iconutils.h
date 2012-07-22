@@ -23,6 +23,6 @@
 
 QStringList availableIconThemes();
 void iconThemeSetup();
-QIcon iconFromTheme(const QString& name);
+QIcon iconFromTheme(const QString& name, bool fallback = true);
 
 #endif // ICONUTILS_H

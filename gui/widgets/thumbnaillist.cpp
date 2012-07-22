@@ -394,7 +394,7 @@ void ThumbnailList::setupActionOpenExternal()
 void ThumbnailList::setupActionSelectAll()
 {
     act_select_all_ = new QAction(tr("Select all"), this);
-    act_select_all_->setIcon(iconFromTheme("edit-select-all"));
+    act_select_all_->setIcon(iconFromTheme("edit-select-all", false));
     act_select_all_->setShortcut(QKeySequence::SelectAll);
     connect(act_select_all_, SIGNAL(triggered()), SLOT(selectAll()));
     addAction(act_select_all_);

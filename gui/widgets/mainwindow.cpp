@@ -687,16 +687,16 @@ void MainWindow::setupIcons()
     ui_->actionZoom_Out->setIcon(iconFromTheme("zoom-out"));
     ui_->actionOriginalSize->setIcon(iconFromTheme("zoom-original"));
     ui_->actionFitPage->setIcon(iconFromTheme("zoom-fit-best"));
-    ui_->actionFitWidth->setIcon(iconFromTheme("zoom-fit-width"));
+    ui_->actionFitWidth->setIcon(iconFromTheme("zoom-fit-width", false));
 
     ui_->actionRecognizeAll->setIcon(iconFromTheme("recognize"));
     ui_->actionScan->setIcon(iconFromTheme("scanner"));
 
-    ui_->actionExit->setIcon(iconFromTheme("application-exit"));
+    ui_->actionExit->setIcon(iconFromTheme("application-exit", false));
     ui_->actionPreferences->setIcon(iconFromTheme("configure"));
     ui_->actionFullScreen->setIcon(iconFromTheme("view-fullscreen"));
-    ui_->actionSplitHorizontal->setIcon(iconFromTheme("view-split-top-bottom"));
-    ui_->actionSplitVertical->setIcon(iconFromTheme("view-split-left-right"));
+    ui_->actionSplitHorizontal->setIcon(iconFromTheme("view-split-top-bottom", false));
+    ui_->actionSplitVertical->setIcon(iconFromTheme("view-split-left-right", false));
 }
 
 void MainWindow::setupImageView() {
@@ -742,7 +742,7 @@ void MainWindow::setupRecent() {
 
 void MainWindow::setupRecentImages() {
     recent_images_ = new RecentMenu(this, tr("Recent files"), "recent-files");
-    recent_images_->setIcon(iconFromTheme("document-open-recent"));
+    recent_images_->setIcon(iconFromTheme("document-open-recent", false));
     addRecentMenu(recent_images_);
     connect(recent_images_, SIGNAL(selected(QString)), SLOT(openRecentImage(QString)));
 }

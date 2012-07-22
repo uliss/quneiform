@@ -52,8 +52,11 @@ void iconThemeSetup()
     }
 }
 
-QIcon iconFromTheme(const QString& name)
+QIcon iconFromTheme(const QString& name, bool fallback)
 {
-    return QIcon::fromTheme(name, QIcon(QString(":/icons/oxygen/32x32/%1.png").arg(name)));
+    if(fallback)
+        return QIcon::fromTheme(name, QIcon(QString(":/icons/oxygen/32x32/%1.png").arg(name)));
+    else
+        return QIcon::fromTheme(name);
 }
 
