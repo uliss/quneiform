@@ -2,7 +2,6 @@
 <RCC version="1.0">
 <qresource>
 <file>index.theme</file>
-<file>28x28/configure.png</file>
 <file>28x28/document-open.png</file>
 <file>28x28/document-properties.png</file>
 <file>28x28/document-save-as.png</file>
