@@ -33,6 +33,9 @@
 <file>16x16/recognize.png</file>
 <file>16x16/scanner.png</file>
 <file>16x16/select-rectangular.png</file>
+<file>16x16/task-recognized.png</file>
+<file>16x16/task-saved.png</file>
+<file>16x16/task-warning.png</file>
 <file>16x16/tools-check-spelling.png</file>
 <file>16x16/tools-report-bug.png</file>
 <file>16x16/view-fullscreen.png</file>
@@ -74,6 +77,9 @@
 <file>22x22/recognize.png</file>
 <file>22x22/scanner.png</file>
 <file>22x22/select-rectangular.png</file>
+<file>22x22/task-recognized.png</file>
+<file>22x22/task-saved.png</file>
+<file>22x22/task-warning.png</file>
 <file>22x22/tools-check-spelling.png</file>
 <file>22x22/tools-report-bug.png</file>
 <file>22x22/view-fullscreen.png</file>
