@@ -28,6 +28,7 @@
 #include "config-version.h"
 #include "guilog.h"
 #include "iconutils.h"
+#include "theme-config.h"
 
 Q_IMPORT_PLUGIN(dib_imageplugin)
 
@@ -42,26 +43,12 @@ Q_IMPORT_PLUGIN(pdf_imageplugin)
 QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     : QApplication(argc, argv)
 {
-#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
-    qInstallMsgHandler(guiMessageLogger);
-#endif
-
-
-    Q_INIT_RESOURCE(theme_faenza);
-    Q_INIT_RESOURCE(theme_mac);
-    Q_INIT_RESOURCE(theme_gnome);
-    Q_INIT_RESOURCE(theme_oxygen);
-    Q_INIT_RESOURCE(theme_human);
-    Q_INIT_RESOURCE(theme_snowish);
+    platformInit();
 
     setOrganizationName("openocr.org");
     setApplicationName("Quneiform OCR");
     setApplicationVersion(CF_VERSION);
     iconThemeSetup();
-
-#ifdef Q_WS_MAC
-//    setAttribute(Qt::AA_DontShowIconsInMenus);
-#endif
 
     MetaTypeRegistrator registrator;
     TranslationLoader loader;
@@ -88,4 +75,37 @@ bool QuneiformApplication::event(QEvent * ev)
         break;
     }
     return processed;
+}
+
+void QuneiformApplication::platformInit()
+{
+#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
+    qInstallMsgHandler(guiMessageLogger);
+#endif
+
+#ifdef Q_WS_MAC
+    setAttribute(Qt::AA_DontShowIconsInMenus);
+#endif
+
+#ifdef WITH_THEME_FAENZA
+    Q_INIT_RESOURCE(theme_faenza);
+#endif
+
+#ifdef WITH_THEME_MAC
+    Q_INIT_RESOURCE(theme_mac);
+#endif
+
+#ifdef WITH_THEME_GNOME
+    Q_INIT_RESOURCE(theme_gnome);
+#endif
+
+#ifdef WITH_THEME_HUMAN
+    Q_INIT_RESOURCE(theme_human);
+#endif
+
+#ifdef WITH_THEME_SNOWISH
+    Q_INIT_RESOURCE(theme_snowish);
+#endif
+
+    Q_INIT_RESOURCE(theme_oxygen);
 }

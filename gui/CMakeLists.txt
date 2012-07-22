@@ -8,6 +8,28 @@ endif()
 
 add_subdirectory(resources)
 
+set(QF_THEMES resource_theme_oxygen)
+
+if(WITH_THEME_MAC)
+    list(APPEND QF_THEMES resource_theme_mac)
+endif()
+
+if(WITH_THEME_FAENZA)
+     list(APPEND QF_THEMES resource_theme_faenza)
+endif()
+
+if(WITH_THEME_GNOME)
+     list(APPEND QF_THEMES resource_theme_gnome)
+endif()
+
+if(WITH_THEME_HUMAN)
+     list(APPEND QF_THEMES resource_theme_human)
+endif()
+
+if(WITH_THEME_SNOWISH)
+     list(APPEND QF_THEMES resource_theme_snowish)
+endif()
+
 if(CF_PDF_SUPPORT)
     add_definitions(-DWITH_PDF)
 endif()
@@ -259,12 +281,7 @@ target_link_libraries (${PROJECT_NAME}
     ${QT_LIBRARIES}
     cuneiform
     cuneiform-rstuff
-    resource_theme_mac
-    resource_theme_faenza
-    resource_theme_gnome
-    resource_theme_oxygen
-    resource_theme_human
-    resource_theme_snowish
+    ${QF_THEMES}
     ${EXTRA_LIBS})
 
 install(

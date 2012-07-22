@@ -31,6 +31,8 @@ signals:
     void openFiles(QStringList);
 protected:
     bool event(QEvent * e);
+private:
+    void platformInit();
 };
 
 #endif // QUNEIFORMAPPLICATION_H
