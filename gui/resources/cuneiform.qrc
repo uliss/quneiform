@@ -5,47 +5,4 @@
         <file>cuneiform_logo_32.png</file>
         <file>cuneiform_logo_64.png</file>
     </qresource>
-    <qresource prefix="/">
-        <file>icons/accessories-text-editor.png</file>
-        <file>icons/application-exit.png</file>
-        <file>icons/configure.png</file>
-        <file>icons/dialog-error.png</file>
-        <file>icons/dialog-information.png</file>
-        <file>icons/dialog-warning.png</file>
-        <file>icons/dialog-fatal.png</file>
-        <file>icons/document-open.png</file>
-        <file>icons/document-open-recent.png</file>
-        <file>icons/document-save.png</file>
-        <file>icons/document-save-as.png</file>
-        <file>icons/document-properties.png</file>
-        <file>icons/object-rotate-left.png</file>
-        <file>icons/object-rotate-right.png</file>
-        <file>icons/edit-select-all.png</file>
-        <file>icons/edit-redo.png</file>
-        <file>icons/edit-undo.png</file>
-        <file>icons/format-text-bold.png</file>
-        <file>icons/format-text-italic.png</file>
-        <file>icons/format-text-underline.png</file>
-        <file>icons/format-justify-center.png</file>
-        <file>icons/format-justify-fill.png</file>
-        <file>icons/format-justify-left.png</file>
-        <file>icons/format-justify-right.png</file>
-        <file>icons/list-remove.png</file>
-        <file>icons/recognize.png</file>
-        <file>icons/scanner.png</file>
-        <file>icons/select-rectangular.png</file>
-        <file>icons/task-warning.png</file>
-        <file>icons/task-saved.png</file>
-        <file>icons/task-recognized.png</file>
-        <file>icons/tools-check-spelling.png</file>
-        <file>icons/tools-report-bug.png</file>
-        <file>icons/view-fullscreen.png</file>
-        <file>icons/view-split-left-right.png</file>
-        <file>icons/view-split-top-bottom.png</file>
-        <file>icons/zoom-in.png</file>
-        <file>icons/zoom-original.png</file>
-        <file>icons/zoom-out.png</file>
-        <file>icons/zoom-fit-best.png</file>
-        <file>icons/zoom-fit-width.png</file>
-    </qresource>
 </RCC>

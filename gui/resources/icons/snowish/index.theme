@@ -1,0 +1,19 @@
+[Icon Theme]
+Name=SnowIsh-1.0_PNG
+Comment=SnowIsh Icon Theme (Mac-Inspired)
+#Inherits=gnome
+
+Directories=16x16,22x22,32x32
+
+[16x16]
+Size=16
+Type=Fixed
+
+[22x22]
+Size=22
+Type=Fixed
+
+[32x32]
+Size=32
+Type=Fixed
+

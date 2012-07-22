@@ -1,6 +1,6 @@
 [Icon Theme]
 Name=Faenza
-Inherits=gnome,hicolor
+Inherits=gnome
 Comment=Icon theme project with tilish style, by Tiheum
 Directories=16,22,32,48
 

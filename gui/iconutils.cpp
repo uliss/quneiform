@@ -34,8 +34,6 @@ static void setDefaultIconTheme()
 {
 #ifdef Q_WS_MAC
     QIcon::setThemeName("faenza");
-#else
-    QIcon::setThemeName("");
 #endif
 }
 
@@ -56,6 +54,6 @@ void iconThemeSetup()
 
 QIcon iconFromTheme(const QString& name)
 {
-    return QIcon::fromTheme(name, QIcon(QString(":/icons/%1.png").arg(name)));
+    return QIcon::fromTheme(name, QIcon(QString(":/icons/oxygen/32x32/%1.png").arg(name)));
 }
 

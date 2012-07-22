@@ -264,6 +264,7 @@ target_link_libraries (${PROJECT_NAME}
     resource_theme_gnome
     resource_theme_oxygen
     resource_theme_human
+    resource_theme_snowish
     ${EXTRA_LIBS})
 
 install(

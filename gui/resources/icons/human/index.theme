@@ -1,8 +1,8 @@
 [Icon Theme]
 Name=Human
-Inherits=default
+Inherits=gnome
 Comment=Icon theme project with tilish style, by Tiheum
-Directories=16,22,32,48
+Directories=16x16,22x22,32x32
 
 [16x16]
 Size=16

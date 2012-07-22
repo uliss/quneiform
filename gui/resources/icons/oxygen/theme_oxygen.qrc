@@ -115,6 +115,9 @@
 <file>32x32/recognize.png</file>
 <file>32x32/scanner.png</file>
 <file>32x32/select-rectangular.png</file>
+<file>32x32/task-recognized.png</file>
+<file>32x32/task-saved.png</file>
+<file>32x32/task-warning.png</file>
 <file>32x32/tools-check-spelling.png</file>
 <file>32x32/tools-report-bug.png</file>
 <file>32x32/view-fullscreen.png</file>
