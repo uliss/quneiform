@@ -263,6 +263,7 @@ target_link_libraries (${PROJECT_NAME}
     resource_theme_faenza
     resource_theme_gnome
     resource_theme_oxygen
+    resource_theme_human
     ${EXTRA_LIBS})
 
 install(
