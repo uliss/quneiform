@@ -225,6 +225,14 @@
         <source>General</source>
         <translation>Общие</translation>
     </message>
+    <message>
+        <source>Restart application to apply icon theme settings.</source>
+        <translation>Перезапустите программу для применения настроек темы.</translation>
+    </message>
+    <message>
+        <source>Theme changed</source>
+        <translation>Тема изменена</translation>
+    </message>
 </context>
 <context>
     <name>ImageView</name>

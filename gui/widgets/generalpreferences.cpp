@@ -26,6 +26,7 @@
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QIcon>
+#include <QMessageBox>
 
 #include "generalpreferences.h"
 #include "iconutils.h"
@@ -158,8 +159,8 @@ bool GeneralPreferences::saveIconTheme(QWidget * w, const QVariant &data)
     if(QIcon::themeName() != theme) {
         settings.setValue(KEY_ICON_THEME, theme);
         QIcon::setThemeName(theme);
-        foreach (QWidget * widget, QApplication::allWidgets())
-            widget->repaint();
+
+        QMessageBox::information(NULL, tr("Theme changed"), tr("Restart application to apply icon theme settings."));
     }
 
     return  true;
