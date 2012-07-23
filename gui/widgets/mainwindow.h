@@ -70,7 +70,6 @@ private slots:
     void handleViewSplitChange();
     void imageDuplication(const QString& path);
     void openImages();
-    void openImages(const QStringList& paths);
     void openPacket();
     void openPacket(const QString& path);
     void openRecentImage(const QString& path);

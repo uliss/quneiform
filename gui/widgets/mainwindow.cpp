@@ -207,7 +207,7 @@ void MainWindow::connectThumbs() {
     connect(thumbs_, SIGNAL(recognizePage(Page*)), SLOT(recognizePage(Page*)));
     connect(thumbs_, SIGNAL(recognizePages(QList<Page*>)), SLOT(recognizePages(QList<Page*>)));
     connect(thumbs_, SIGNAL(savePage(Page*)), SLOT(savePage(Page*)));
-    connect(thumbs_, SIGNAL(openDraggedImages(QStringList)), SLOT(openImages(QStringList)));
+    connect(thumbs_, SIGNAL(openDraggedImages(QStringList)), SLOT(open(QStringList)));
     connect(thumbs_, SIGNAL(showPageFault(Page*)), SLOT(showPageFault(Page*)));
 }
 
@@ -424,25 +424,7 @@ void MainWindow::openImages() {
                                                       tr("Open images"),
                                                       "",
                                                       tr("Images (%1)").arg(file_ext.join(" ")));
-    openImages(files);
-}
-
-void MainWindow::openImages(const QStringList& files) {
-    Q_CHECK_PTR(progress_);
-
-    progress_->start(files);
-
-    for(int i = 0, total = files.count(); i < total; i++) {
-        QApplication::processEvents();
-        if(progress_->wasCanceled())
-            break;
-
-        progress_->load(files.at(i));
-        openImage(files.at(i));
-        progress_->loadDone();
-    }
-
-    progress_->stop();
+    open(files);
 }
 
 void MainWindow::openPacket() {
@@ -480,7 +462,7 @@ void MainWindow::openRecentImage(const QString& path) {
     if(packet_->hasPage(path))
         return;
 
-    openImage(path, false);
+    open(QStringList(path));
 }
 
 void MainWindow::readSettings()
