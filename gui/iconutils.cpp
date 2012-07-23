@@ -33,7 +33,7 @@ QStringList availableIconThemes()
 static void setDefaultIconTheme()
 {
 #ifdef Q_WS_MAC
-    QIcon::setThemeName("faenza");
+    QIcon::setThemeName("oxygen");
 #endif
 }
 
