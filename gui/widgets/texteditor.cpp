@@ -54,7 +54,6 @@ TextEditor::TextEditor(QWidget * parent) :
     setStyleSheet(TEXTEDIT_CSS);
     setReadOnly(true);
     setTextInteractionFlags(Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
-    settings_.beginGroup("format");
     setupActions();
 
     highlighter_ = new SpellCheckHighlighter(this);
