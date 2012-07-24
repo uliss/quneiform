@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavski                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,26 +16,27 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef TESTSTARTPROCESS_H
-#define TESTSTARTPROCESS_H
+#include <string>
+#include <signal.h>
+#include <sys/wait.h>
 
-#include <cppunit/extensions/HelperMacros.h>
+#include "puma/process_exit_codes.h"
 
-class TestStartProcess : public CppUnit::TestFixture
+using namespace cf;
+
+int main(int argc, char * argv[])
 {
-    CPPUNIT_TEST_SUITE(TestStartProcess);
-    CPPUNIT_TEST(test);
-    CPPUNIT_TEST(testProcessWrongArgs);
-    CPPUNIT_TEST(testProcessSegfault);
-    CPPUNIT_TEST(testProcessTerminate);
-    CPPUNIT_TEST(testProcessOk);
-    CPPUNIT_TEST_SUITE_END();
-public:
-    void test();
-    void testProcessWrongArgs();
-    void testProcessSegfault();
-    void testProcessTerminate();
-    void testProcessOk();
-};
+    if(argc != 2)
+        return WORKER_WRONG_ARGUMENT;
 
-#endif // TESTSTARTPROCESS_H
+    const std::string signal(argv[1]);
+    if(signal == "segv")
+        raise(SIGSEGV);
+    else if(signal == "term")
+        raise(SIGTERM);
+    else if(signal == "ok")
+        return 0;
+    else
+        return WORKER_UNKNOWN_ERROR;
+}
+

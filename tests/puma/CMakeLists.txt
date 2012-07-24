@@ -13,6 +13,9 @@ if(CF_USE_SHMEM)
 endif()
 
 add_executable(test_puma ${TEST_PUMA_SRC})
+add_executable(test_puma_crash crash_process.cpp)
+
+add_dependencies(test_puma test_puma_crash)
 
 target_link_libraries(test_puma cuneiform ${CPPUNIT_LIBRARIES})
 
