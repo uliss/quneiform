@@ -1,3 +1,5 @@
+include(${QT_USE_FILE})
+
 add_custom_target(generate_theme_oxygen
                    COMMAND ${CMAKE_COMMAND} -DTHEME=oxygen -P ${CMAKE_SOURCE_DIR}/cmake/generate_icontheme.cmake
                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
