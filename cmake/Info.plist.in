@@ -78,6 +78,8 @@
     <string>${MACOSX_BUNDLE_BUNDLE_VERSION}</string>
     <key>CSResourcesFileMapped</key>
     <true/>
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.business</string>
     <key>LSRequiresCarbon</key>
     <false/>
     <key>NSHumanReadableCopyright</key>
