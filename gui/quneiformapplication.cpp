@@ -21,6 +21,7 @@
 #include <QDebug>
 #include <QtPlugin>
 #include <QIcon>
+#include <QDir>
 
 #include "metatyperegistrator.h"
 #include "translationloader.h"
@@ -44,6 +45,7 @@ QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     : QApplication(argc, argv)
 {
     platformInit();
+    resourcesInit();
 
     setOrganizationName("openocr.org");
     setApplicationName("Quneiform OCR");
@@ -68,13 +70,19 @@ bool QuneiformApplication::event(QEvent * ev)
         emit openFiles(files);
         return true;
     }
-//        case QEvent::Close: {
-//  }
     default:
         processed = QApplication::event(ev);
         break;
     }
     return processed;
+}
+
+void QuneiformApplication::addBundlePluginPath()
+{
+    QDir dir(applicationDirPath());
+    dir.cdUp();
+    dir.cd("PlugIns");
+    addLibraryPath(dir.absolutePath());
 }
 
 void QuneiformApplication::platformInit()
@@ -85,7 +93,13 @@ void QuneiformApplication::platformInit()
 
 #ifdef Q_WS_MAC
     setAttribute(Qt::AA_DontShowIconsInMenus);
+    addBundlePluginPath();
 #endif
+}
+
+void QuneiformApplication::resourcesInit()
+{
+    Q_INIT_RESOURCE(theme_oxygen);
 
 #ifdef WITH_THEME_FAENZA
     Q_INIT_RESOURCE(theme_faenza);
@@ -106,6 +120,4 @@ void QuneiformApplication::platformInit()
 #ifdef WITH_THEME_SNOWISH
     Q_INIT_RESOURCE(theme_snowish);
 #endif
-
-    Q_INIT_RESOURCE(theme_oxygen);
 }

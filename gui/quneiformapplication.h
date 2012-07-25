@@ -32,7 +32,9 @@ signals:
 protected:
     bool event(QEvent * e);
 private:
+    void addBundlePluginPath();
     void platformInit();
+    void resourcesInit();
 };
 
 #endif // QUNEIFORMAPPLICATION_H
