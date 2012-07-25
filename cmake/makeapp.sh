@@ -106,7 +106,7 @@ cd $DESTDIR
 rm -rf tmp.dmg
 
 echo "Creating Quneiform.app bundle..."
-macdeployqt Quneiform.app -no-plugins -verbose=1
+macdeployqt Quneiform.app -verbose=1
 
 echo "Creating DMG..."
 VOLNAME="Quneiform OCR"
