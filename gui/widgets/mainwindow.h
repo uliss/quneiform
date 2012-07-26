@@ -69,7 +69,7 @@ private slots:
     void handleShowMinimized();
     void handleViewSplitChange();
     void imageDuplication(const QString& path);
-    void openImages();
+    void openImagesDialog();
     void openPacket();
     void openPacket(const QString& path);
     void openRecentImage(const QString& path);
@@ -112,6 +112,7 @@ private:
     void connectThumbs();
     void enableViewActions(bool value);
     bool openImage(const QString& path, bool allowDuplication = false);
+    QString openImageDefaultDir() const;
     bool openMultiPage(const QString& path);
     void readSettings();
     void setupDefaultLanguage();

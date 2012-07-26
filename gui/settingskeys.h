@@ -35,5 +35,6 @@ extern const char * KEY_DEBUG_PARAGRAPHS_BBOX;
 extern const char * KEY_DEBUG_LINES_BBOX;
 extern const char * KEY_DEBUG_CHARACTERS_BBOX;
 extern const char * KEY_DEBUG_PICTURES_BBOX;
+extern const char * KEY_LAST_OPEN_DIRECTORY;
 
 #endif // SETTINGSKEYS_H

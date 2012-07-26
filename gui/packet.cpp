@@ -100,6 +100,13 @@ bool Packet::isNew() const {
     return is_new_;
 }
 
+Page * Packet::lastPage()
+{
+    if(isEmpty())
+        return NULL;
+    return pages_.last();
+}
+
 bool Packet::open(const QString& filename) {
     qDebug() << "[Packet::open]" << filename;
 

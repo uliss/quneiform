@@ -170,7 +170,7 @@ void MainWindow::connectActions() {
     Q_CHECK_PTR(ui_);
 
     connect(ui_->actionAbout, SIGNAL(triggered()), SLOT(about()));
-    connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImages()));
+    connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImagesDialog()));
     connect(ui_->actionZoom_In, SIGNAL(triggered()), image_widget_, SLOT(zoomIn()));
     connect(ui_->actionZoom_Out, SIGNAL(triggered()), image_widget_, SLOT(zoomOut()));
     connect(ui_->actionFitWidth, SIGNAL(triggered()), image_widget_, SLOT(fitWidth()));
@@ -333,6 +333,25 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication)
     return true;
 }
 
+QString MainWindow::openImageDefaultDir() const
+{
+    if(packet_) {
+        if(!packet_->isEmpty()) {
+            QFileInfo fi(packet_->lastPage()->imagePath());
+            return fi.absoluteDir().path();
+        }
+
+        QString last_dir = QSettings().value(KEY_LAST_OPEN_DIRECTORY, QString()).toString();
+        if(last_dir.isEmpty())
+            return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+
+
+        return last_dir;
+    }
+
+    return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+}
+
 bool MainWindow::openMultiPage(const QString& path)
 {
     Q_ASSERT(packet_);
@@ -402,7 +421,7 @@ void MainWindow::open(const QStringList& paths) {
     progress_->stop();
 }
 
-void MainWindow::openImages() {
+void MainWindow::openImagesDialog() {
     QStringList file_ext;
 
     file_ext << "*.png"
@@ -422,9 +441,12 @@ void MainWindow::openImages() {
 
     QStringList files = QFileDialog::getOpenFileNames(NULL,
                                                       tr("Open images"),
-                                                      "",
+                                                      openImageDefaultDir(),
                                                       tr("Images (%1)").arg(file_ext.join(" ")));
     open(files);
+
+    if(!files.isEmpty())
+        QSettings().setValue(KEY_LAST_OPEN_DIRECTORY, QFileInfo(files.last()).absoluteDir().path());
 }
 
 void MainWindow::openPacket() {

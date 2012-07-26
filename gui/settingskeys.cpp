@@ -34,3 +34,5 @@ const char * KEY_DEBUG_PARAGRAPHS_BBOX = "debug/format/showParagraphsBBox";
 const char * KEY_DEBUG_LINES_BBOX = "debug/format/showLinesBBox";
 const char * KEY_DEBUG_CHARACTERS_BBOX = "debug/format/showCharactersBBox";
 const char * KEY_DEBUG_PICTURES_BBOX = "debug/format/showPicturesBBox";
+const char * KEY_LAST_OPEN_DIRECTORY = "lastOpenDirectory";
+
