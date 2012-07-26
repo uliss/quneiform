@@ -75,6 +75,7 @@
 # include "status.h"
 
 # include "dpuma.h"
+#include "rselstr_internal.h"
 
 extern uint16_t run_options;
 
@@ -152,13 +153,11 @@ FILE *pfListing;
 # endif
 
 void PageStrings1(void) {
-	uint32_t i;
-
 # ifdef MA_DEBUG
 	AllocationsAccountingOpen ();
 # endif
 
-	if (nRoots == 0)
+    if (rootIsEmpty())
 		ErrorEmptyPage();
 
 	nNextBlockNumber = FIRST_REGULAR_BLOCK_NUMBER;
@@ -184,8 +183,8 @@ void PageStrings1(void) {
 	//    InclinesFreeData ();
 	RootStripsCalculate();
 
-	for (i = 0; i < nRoots; i++)
-		pRoots[i].nBlock = FIRST_REGULAR_BLOCK_NUMBER;
+    for (int i = 0; i < rootCount(); i++)
+        rootAt(i)->nBlock = FIRST_REGULAR_BLOCK_NUMBER;
 
 # ifdef LT_DEBUG
 	if (LT_DebugGraphicsLevel >= 2)
@@ -291,7 +290,7 @@ void LayoutPart1(void) {
 	bOptionWhiteStripsBreaking = TRUE;
 
 	PageStrings1();
-	// ¬ аЄЁаговбп ROOTл Ї®Ї ¤ ойЁҐ ў пзҐ©ЄЁ в Ў«Ёж
+	// ¬ аЄЁаговбп ROOTл Ї®Ї ¤ ойЁҐ ў пзҐ©ЄЁ в Ў«Ёж
 	BlocksExtract();
 }
 

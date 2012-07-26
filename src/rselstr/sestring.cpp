@@ -70,6 +70,7 @@
 #include "tech.h"
 #include "extract.h"
 #include "my_mem.h"
+#include "rselstr_internal.h"
 
 # define DUST_LIST_MEMORY_ALLOCATION_QUANTUM 128
 # define DUST_LIST_MEMORY_ALLOCATION_MASK    127
@@ -85,11 +86,11 @@ STRING *pStringsDownList = NULL;
 void StringPrepare(void) {
 	StringFree();
 
-	String.pLettersList = (int*) malloc(nRoots * sizeof(int));
+    String.pLettersList = (int*) malloc(rootCount() * sizeof(int));
 	if (String.pLettersList == NULL)
 		ErrorNoEnoughMemory("in SESTRING.C,StringPrepare,part 1");
 
-	String.pDustList = (int*) malloc(nRoots * sizeof(int));
+    String.pDustList = (int*) malloc(rootCount() * sizeof(int));
 	if (String.pDustList == NULL)
 		ErrorNoEnoughMemory("in SESTRING.C,StringPrepare,part 2");
 
@@ -129,7 +130,7 @@ Bool StringIncludes(STRING *p, STRING *q) {
 	nLettersSquare = 0;
 
 	for (i = 0; i < q -> nLetters; i++) {
-		pRoot = &pRoots[q -> pLettersList[i]];
+        pRoot = rootAt(q -> pLettersList[i]);
 		nLettersSquare += pRoot -> nWidth * pRoot -> nHeight;
 	}
 
@@ -176,7 +177,7 @@ void StringRemove(STRING *p) {
 	int i;
 
 	for (i = 0; i < p -> nLetters; i++)
-		pRoots[p -> pLettersList[i]].bType &= ~ROOT_USED;
+        rootAt(p -> pLettersList[i])->bType &= ~ROOT_USED;
 
 	if (p == pStringsList)
 		pStringsList = pStringsList -> pNext;
@@ -210,7 +211,7 @@ void StringRemove(STRING *p) {
 }
 
 void StringAccountRectangle1(int iRoot) {
-	ROOT *pRoot = &pRoots[iRoot];
+    ROOT *pRoot = rootAt(iRoot);
 
 	if (!(String.uFlags & SF_RECT_ACCOUNTED)) {
 		String.xLeft = pRoot -> xColumn;
@@ -234,7 +235,7 @@ void StringAccountRectangle1(int iRoot) {
 }
 
 void StringAccountRectangle2(STRING *pString, int iRoot) {
-	ROOT *pRoot = &pRoots[iRoot];
+    ROOT *pRoot = rootAt(iRoot);
 
 	if (!(pString -> uFlags & SF_RECT_ACCOUNTED)) {
 		pString -> xLeft = pRoot -> xColumn;
@@ -262,7 +263,7 @@ void StringCountRecog(STRING *q) {
 	q->nRecognized = 0;
 	for (i = 0; i < q -> nLetters; i++) {
 		j = q -> pLettersList[i];
-		if (pRoots[j].bType & ROOT_LETTER)
+        if (rootAt(j)->bType & ROOT_LETTER)
 			q->nRecognized++;
 	}
 }
@@ -270,7 +271,7 @@ void StringCountRecog(STRING *q) {
 void StringAddLetter1(int iRoot) {
 	String.pLettersList[String.nLetters++] = iRoot;
 
-	if (pRoots[iRoot].bType & ROOT_LETTER)
+    if (rootAt(iRoot)->bType & ROOT_LETTER)
 		String.nRecognized++;
 
 	StringAccountRectangle1(iRoot);
@@ -376,7 +377,7 @@ STRING *StringAddToList(void) {
 }
 
 static int StringListCompProc(const void *p1, const void *p2) {
-	return (pRoots[*((int*) (p1))].xColumn - pRoots[*((int*) (p2))].xColumn);
+    return rootAt(*((int*)p1))->xColumn - rootAt(*((int*)p2))->xColumn;
 }
 
 void StringSortLetters(STRING *pString) {
@@ -432,8 +433,8 @@ void StringUpdate(STRING *pString) {
 	pString -> uFlags &= ~(SF_RECT_ACCOUNTED | SF_REPRESENTATION_ACCOUNTED);
 
 	for (i = 0; i < pString -> nLetters; i++) {
-		pRoots[pString -> pLettersList[i]].bType &= ~ROOT_SPECIAL_LETTER;
-		pRoots[pString -> pLettersList[i]].bType |= ROOT_USED;
+        rootAt(pString -> pLettersList[i])->bType &= ~ROOT_SPECIAL_LETTER;
+        rootAt(pString -> pLettersList[i])->bType |= ROOT_USED;
 		StringAccountRectangle2(pString, pString -> pLettersList[i]);
 	}
 

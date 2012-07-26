@@ -16,32 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CIMAGEVIEW_H
-#define CIMAGEVIEW_H
+#ifndef RSELSTR_INTERNAL_H
+#define RSELSTR_INTERNAL_H
 
-#include <QDialog>
+#include "roots_struct.h"
 
-class QListWidget;
-class QLabel;
-class QListWidgetItem;
-class CImageStorage;
-class QScrollArea;
+bool rootIsNull();
+bool rootIsEmpty();
+ROOT * rootAt(int idx);
+ROOT * rootLast();
+ROOT * rootFirst();
+int rootCount();
+void rootFree();
+void rootAdd(const ROOT& r);
 
-class CImageView : public QDialog
-{
-    Q_OBJECT
-public:
-    explicit CImageView(QWidget * parent = 0);
-    ~CImageView();
-private:
-    void init();
-private slots:
-    void showImage(QListWidgetItem* item);
-private:
-    QListWidget * image_list_;
-    QLabel * image_;
-    CImageStorage * storage_;
-    QScrollArea * scroll_;
-};
+ROOT * rootReserve(int size);
 
-#endif // CIMAGEVIEW_H
+#endif // RSELSTR_INTERNAL_H

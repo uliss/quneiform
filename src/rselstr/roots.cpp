@@ -16,32 +16,71 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CIMAGEVIEW_H
-#define CIMAGEVIEW_H
+#include <cstdlib>
+#include <cassert>
 
-#include <QDialog>
+#include "rselstr_internal.h"
 
-class QListWidget;
-class QLabel;
-class QListWidgetItem;
-class CImageStorage;
-class QScrollArea;
+ROOT * root_file = 0;
+int nRoots = 0;
+size_t root_capacity = 0;
 
-class CImageView : public QDialog
+bool rootIsNull()
 {
-    Q_OBJECT
-public:
-    explicit CImageView(QWidget * parent = 0);
-    ~CImageView();
-private:
-    void init();
-private slots:
-    void showImage(QListWidgetItem* item);
-private:
-    QListWidget * image_list_;
-    QLabel * image_;
-    CImageStorage * storage_;
-    QScrollArea * scroll_;
-};
+    return root_file == 0;
+}
 
-#endif // CIMAGEVIEW_H
+bool rootIsEmpty()
+{
+    return nRoots == 0;
+}
+
+ROOT * rootAt(int idx)
+{
+    return &root_file[idx];
+}
+
+ROOT * rootLast()
+{
+    if(rootCount() < 1)
+        return 0;
+
+    return rootAt(rootCount() - 1);
+}
+
+ROOT * rootFirst()
+{
+    return root_file;
+}
+
+int rootCount()
+{
+    return nRoots;
+}
+
+void rootFree()
+{
+    free(root_file);
+    root_file = 0;
+    nRoots = 0;
+}
+
+void rootAdd(const ROOT& r)
+{
+    assert(nRoots >= 0);
+
+    if(nRoots >= root_capacity)
+        rootReserve(10);
+
+    nRoots++;
+    root_file[nRoots - 1] = r;
+}
+
+ROOT * rootReserve(int number)
+{
+    root_capacity = number * sizeof(ROOT);
+
+    root_file = (ROOT*) realloc(root_file, root_capacity);
+    return root_file;
+
+}

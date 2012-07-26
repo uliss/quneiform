@@ -71,6 +71,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "extract.h"
 #include "tech.h"
 #include "my_mem.h"
+#include "rselstr_internal.h"
 
 
 BLOCK **pBlockPointer = NULL;
@@ -82,7 +83,6 @@ BLOCK *pCurrentBlock = NULL;
 
 void BlocksAccessTableBuild (void)
 {
-uint32_t i(0);
 	int16_t w(0);
     BLOCK *p;
 
@@ -93,9 +93,9 @@ uint32_t i(0);
     nMinBlock = 0;
     nMaxBlock = 0;
 
-    for (i = 0; i < nRoots; i++)
+    for (int i = 0; i < rootCount(); i++)
     {
-        w = pRoots[i].nBlock;
+        w = rootAt(i)->nBlock;
         if ((w != DUST_BLOCK_NUMBER) && (w != REMOVED_BLOCK_NUMBER ))
         {
             if (w < nMinBlock || nMinBlock == 0)

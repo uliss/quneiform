@@ -73,6 +73,7 @@
 #include "extract.h"
 #include "my_mem.h"
 #include "newfunc.h"
+#include "rselstr_internal.h"
 
 void BlocksHystogramsAllocate(void) {
 	BLOCK *p;
@@ -97,7 +98,7 @@ void BlocksHystogramsBuild(void) {
 
 	BlocksHystogramsAllocate();
 
-	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
+    for (pRoot = rootFirst(); pRoot < pAfterRoots; pRoot++) {
 		if (pRoot -> nBlock == REMOVED_BLOCK_NUMBER)
 			continue;
 

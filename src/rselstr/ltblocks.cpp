@@ -73,6 +73,7 @@
 #include "my_mem.h"
 
 #include "minmax.h"
+#include "rselstr_internal.h"
 
 BLOCK *pBlocksList = NULL;
 BLOCK *pHighEmbeddingBlocksList = NULL;
@@ -169,13 +170,13 @@ void BlockAccountRoot(BLOCK *p, ROOT *pRoot) {
 		p -> nDust++;
 	}
 	// end Piter
-	if (p -> nRoots == 0) {
-		p -> nRoots = 0;
+    if (p->nRoots == 0) {
+        p->nRoots = 0;
 		p -> nLetters = 0;
 		p -> nDust = 0;
 		p -> nHeightesSum = pRoot -> nHeight;
 
-		p -> pRoots = pRoot;
+        p->pRoots = pRoot;
 		p -> pEndRoots = pRoot;
 		pRoot -> u1.pNext = NULL;
 
@@ -187,9 +188,9 @@ void BlockAccountRoot(BLOCK *p, ROOT *pRoot) {
 		if (pRoot == p -> pRoots)// Piter
 			return;
 
-		pRoot -> u1.pNext = p -> pRoots;
+        pRoot -> u1.pNext = p->pRoots;
 
-		p -> pRoots = pRoot;
+        p->pRoots = pRoot;
 		p -> nHeightesSum += pRoot -> nHeight;// Piter
 
 		if (pRoot -> xColumn < p -> Rect.xLeft)
@@ -229,7 +230,7 @@ void BlocksExtract() {
 
 	BlocksFreeData();
 
-	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
+    for (pRoot = rootFirst(); pRoot < pAfterRoots; pRoot++) {
 		if (pRoot -> nBlock == DUST_BLOCK_NUMBER || pRoot -> nBlock
 				== REMOVED_BLOCK_NUMBER) {
 			continue;

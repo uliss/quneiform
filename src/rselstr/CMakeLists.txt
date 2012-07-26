@@ -23,6 +23,7 @@ set(CF_RSELSTR_SOURCE
     puttocont.cpp
     puttocstr.cpp
     rotate.cpp
+    roots.cpp
     rselstrbase.cpp
     rselstrmain.cpp
     scalar.cpp
