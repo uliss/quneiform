@@ -23,5 +23,5 @@ Range::Range(long int location, long int length) : loc_(location), len_(length) 
 
 bool Range::operator==(const Range& range) const
 {
-    return range.loc_ == loc_ && range.len_ == range.len_;
+    return range.loc_ == loc_ && range.len_ == len_;
 }
