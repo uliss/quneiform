@@ -254,6 +254,9 @@ add_library(quneiform_lib STATIC ${SRCS})
 
 add_executable(${PROJECT_NAME} WIN32 main.cpp ${QRC_SOURCES} ${EXTRA_RES})
 
+set_source_files_properties(main.cpp PROPERTIES OBJECT_DEPENDS ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}.entitlements)
+set_source_files_properties(${CMAKE_SOURCE_DIR}/${PROJECT_NAME}.entitlements PROPERTIES GENERATED TRUE)
+
 set(EXTRA_LIBS dib_imageplugin)
     
 if(CF_TIFF_SUPPORT)

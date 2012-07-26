@@ -10,3 +10,8 @@ else()
     set(CF_EXPORT_LIBTYPE      SHARED)
     set(CF_CUNEIFORM_LIBTYPE   SHARED)
 endif()
+
+
+if(APPLE)
+    set(CMAKE_EXE_LINKER_FLAGS "-framework Carbon")
+endif()
