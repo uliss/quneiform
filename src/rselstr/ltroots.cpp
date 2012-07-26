@@ -291,7 +291,7 @@ void RootsSaveNonLayoutData(void) {
 
 	nRootExts = nRoots;
 
-	pRootExts = (PROOT_EXT) malloc(nRootExts * sizeof(ROOT_EXT));
+    pRootExts = (ROOT_EXT*) malloc(nRootExts * sizeof(ROOT_EXT));
 
 	if (pRootExts == NULL)
 		ErrorNoEnoughMemory("in LTROOTS.C,RootStripsCalculate,part 2");

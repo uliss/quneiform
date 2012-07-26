@@ -76,7 +76,7 @@
 
 extern int nIncline;
 
-PROOT root_file = NULL;
+ROOT * root_file = NULL;
 uint16_t run_options = 0;
 
 uint32_t progress_set_percent(uint32_t volume) {
@@ -148,8 +148,8 @@ puchar make_extended_raster_CCOM(CCOM_comp *cmp) {
 	return work_raster;
 }
 
-CCOM_comp *get_CCOM_comp(PROOT r) {
-	return (CCOM_comp *) r->pComp;
+CCOM_comp * get_CCOM_comp(ROOT * r) {
+    return r->pComp;
 }
 
 Bool save_MN(MN *mn) {
@@ -160,6 +160,9 @@ Bool save_MN(MN *mn) {
 	if (!AddRoot(p, FALSE))
 		return FALSE;
 
-	BlockAccountRoot(pCurrentBlock, &pRoots[nRoots - 1]);
+    if(nRoots < 1)
+        return FALSE;
+
+    BlockAccountRoot(pCurrentBlock, &(pRoots[nRoots - 1]));
 	return TRUE;
 }

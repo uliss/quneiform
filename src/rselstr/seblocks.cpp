@@ -78,7 +78,7 @@ int nBlocks;
 int nMinBlock;
 int nMaxBlock;
 int nCurrentBlock;
-BLOCK *pCurrentBlock;
+BLOCK *pCurrentBlock = NULL;
 
 void BlocksAccessTableBuild (void)
 {

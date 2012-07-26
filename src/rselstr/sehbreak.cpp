@@ -94,7 +94,7 @@ int   yRasterBreakLine;
 int   nOldRoots;
 ROOT  *pOldAfterRoots;
 
-extern  CCOM_comp *get_CCOM_comp(PROOT r);
+extern  CCOM_comp *get_CCOM_comp(ROOT * r);
 extern  puchar make_raster_CCOM(CCOM_comp *cmp);
 extern  puchar make_extended_raster_CCOM(CCOM_comp *cmp);
 
