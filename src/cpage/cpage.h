@@ -190,6 +190,8 @@ CPAGE_FUNC Handle CPAGE_RestorePage(Bool32 remove, const char * lpName);
 CPAGE_FUNC Handle CPAGE_GetPageType(Handle hPage);
 CPAGE_FUNC Bool32 CPAGE_SetPageData(Handle page, Handle Type, void * lpData, uint32_t Size);
 CPAGE_FUNC uint32_t CPAGE_GetPageData(Handle page, Handle Type, void * lpData, uint32_t Size);
+CPAGE_FUNC bool CPAGE_GetPageInfo(Handle page, PAGEINFO * info);
+CPAGE_FUNC bool CPAGE_SetPageInfo(Handle page, const PAGEINFO& info);
 CPAGE_FUNC void CPAGE_ClearBackUp(Handle page);
 //Paul 19-01-2001
 CPAGE_FUNC Handle CPAGE_BackUp(Handle page);

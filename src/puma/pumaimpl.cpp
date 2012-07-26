@@ -175,9 +175,9 @@ void PumaImpl::binarizeImage() {
             throw PumaException("CIMAGE_ReadDIB failed");
 
         PAGEINFO info;
-        GetPageInfo(cpage_, &info);
-        info.Images |= IMAGE_BINARIZE;
-        SetPageInfo(cpage_, info);
+        CPAGE_GetPageInfo(cpage_, &info);
+        info.addFlag(IMAGE_BINARIZE);
+        CPAGE_SetPageInfo(cpage_, info);
         recog_name_ = PUMA_IMAGE_BINARIZE;
 
         CImage::instance().enableReadMask(PUMA_IMAGE_BINARIZE);
@@ -602,10 +602,10 @@ void PumaImpl::turn(int angle)
         a = RIMAGE_TURN_270;
         break;
     default:
-        break;
+        return;
     }
 
-    if (!RIMAGE_Turn(PUMA_IMAGE_USER, PUMA_IMAGE_TURN, a))
+    if (!RIMAGE_Turn(recog_name_, PUMA_IMAGE_TURN, a))
         throw PumaException("RIMAGE_Turn failed");
 
     CImage::instance().enableReadMask(PUMA_IMAGE_USER);
@@ -614,12 +614,15 @@ void PumaImpl::turn(int angle)
         throw PumaException("CIMAGE_ReadDIB failed");
 
     PAGEINFO page_info;
-    if (!CPAGE_GetPageData(cpage_, PT_PAGEINFO, &page_info, sizeof(page_info)))
+    if (!CPAGE_GetPageInfo(cpage_, &page_info))
         throw PumaException("CPAGE_GetPageData failed");
-    page_info.Images |= IMAGE_TURN;
+    page_info.addFlag(IMAGE_TURN);
     page_info.setTurnAngle(angle);
-    CPAGE_SetPageData(cpage_, PT_PAGEINFO, &page_info, sizeof(page_info));
+    CPAGE_SetPageInfo(cpage_, page_info);
     recog_name_ = PUMA_IMAGE_TURN;
+
+    if(Config::doDump())
+        CIMAGE_Dump(PUMA_IMAGE_TURN, PUMA_IMAGE_TURN ".bmp");
 }
 
 void PumaImpl::preOpenInitialize() {
