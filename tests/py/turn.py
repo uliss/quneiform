@@ -10,7 +10,15 @@ INPUT_FILES = (
     'english_rotated_90.png',
     'english_rotated_180.png',
     'english_rotated_270.png',
-    'english.png'
+    'english.png',
+    'english_gray.png',
+    'english_gray_rotated_90.png',
+    'english_gray_rotated_180.png',
+    'english_gray_rotated_270.png',
+    'english_rgb.png',
+    'english_rgb_rotated_90.png',
+    'english_rgb_rotated_180.png',
+    'english_rgb_rotated_270.png'
 )
 
 FORMATS = (
@@ -44,6 +52,30 @@ def test():
     fmtTest.diffTest(fmtTest.makeFullImageName('english_rotated_270.png'))
     fmtTest.setTurn(90)
     fmtTest.diffTest(fmtTest.makeFullImageName('english_rotated_270.png'))
+
+    fmtTest.setTurn(0)
+    fmtTest.diffTest(fmtTest.makeFullImageName('english_gray.png'))
+
+    fmtTest.setTurn(-90)
+    fmtTest.diffTest(fmtTest.makeFullImageName('english_gray_rotated_90.png'))
+
+    fmtTest.setTurn(-180)
+    fmtTest.diffTest(fmtTest.makeFullImageName('english_gray_rotated_180.png'))
+
+    fmtTest.setTurn(-270)
+    fmtTest.diffTest(fmtTest.makeFullImageName('english_gray_rotated_270.png'))
+
+    fmtTest.setTurn(0)
+    fmtTest.diffTest(fmtTest.makeFullImageName('english_rgb.png'))
+
+    fmtTest.setTurn(-90)
+    fmtTest.diffTest(fmtTest.makeFullImageName('english_rgb_rotated_90.png'))
+
+    fmtTest.setTurn(-180)
+    fmtTest.diffTest(fmtTest.makeFullImageName('english_rgb_rotated_180.png'))
+
+    fmtTest.setTurn(-270)
+    fmtTest.diffTest(fmtTest.makeFullImageName('english_rgb_rotated_270.png'))
 
     if fmtTest.passed():
         return True
