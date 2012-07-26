@@ -38,7 +38,7 @@ if(CF_TIFF_SUPPORT)
     add_definitions(-DWITH_TIFF)
 endif()
 
-set(TRANSLATIONS_TS translations/ru.ts)
+set(TRANSLATIONS_TS translations/ru.ts translations/ua.ts)
 
 set(HEADERS 
     packet.h
