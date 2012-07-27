@@ -38,6 +38,7 @@
 #include "common/fontstyle.h"
 #include "common/tostring.h"
 #include "quneiform_debug.h"
+#include "settingskeys.h"
 
 using namespace cf;
 
@@ -109,9 +110,8 @@ void QTextDocumentExporter::exportCharAlternatives(QTextCharFormat& format, cons
 
         format.setToolTip(tooltip);
         format.setUnderlineStyle(QTextCharFormat::DashUnderline);
-        QSettings settings;
-        settings.beginGroup("format");
-        format.setUnderlineColor(settings.value("alternativeColor", Qt::red).value<QColor>());
+        QSettings s;
+        format.setUnderlineColor(s.value(KEY_ALTERNATIVE_CHAR_COLOR, Qt::red).value<QColor>());
         format.setProperty(ALTERNATIVES, alternatives.toVariant());
     }
 }

@@ -25,9 +25,26 @@ class QString;
 namespace utils
 {
 
+/**
+ * Returns number of images in file list.
+ * @note for multipage formats, like PDF or TIFF, returned value
+ * can be more than file list size.
+ * @param files - list of full paths to images
+ * @return image count
+ */
 int imageCount(const QStringList& files);
+
+/**
+ * Returns true if given file looks like multi page image
+ * @param path - full path to image
+ * @return true on success
+ */
 bool looksLikeMultiPageDocument(const QString& path);
-const char * imagePluginFormat(const QString& path);
+
+/**
+ * Returns QImageReader format for given file
+ */
+const char * imagePluginFormat(const QString& fullPath);
 
 }
 

@@ -86,6 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "graphics.h"
 #include "minmax.h"
+#include "rselstr_internal.h"
 
 # if defined (LT_DEBUG) || defined (SE_DEBUG)
 
@@ -261,7 +262,7 @@ static void RootsUpdate (int xLeft, int yTop, int nScaling)
 
     LT_GraphicsClearScreen ();
 
-    for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++)
+    for (pRoot = rootFirst(); pRoot < pAfterRoots; pRoot++)
     {
         int nColor = 8;
 
@@ -305,7 +306,7 @@ static void BlocksUpdate (int xLeft, int yTop, int nScaling)
         SeparatorOutput (p -> pRightSep, nColor, SEPOUT_DASH_2, xLeft, yTop, nScaling);
     }
 
-    for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++)
+    for (pRoot = rootFirst(); pRoot < pAfterRoots; pRoot++)
     {
         if (pRoot -> nBlock == REMOVED_BLOCK_NUMBER)
         {
@@ -345,7 +346,7 @@ static void HystogramUpdate (int xLeft, int yTop, int nScaling)
     iMaxColumn = 0;
 
 	/**/
-	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++)
+    for (pRoot = rootFirst(); pRoot < pAfterRoots; pRoot++)
     {
 		if(pRoot->nBlock == pDebugBlock->nNumber)
 		{
@@ -462,7 +463,7 @@ static void CurrentStringUpdate (int xLeft, int yTop, int nScaling)
 
     for (i = 0; i < String.nLetters; i++)
     {
-        pRoot = pRoots + String.pLettersList [i];
+        pRoot = rootAt(String.pLettersList[i]);
 
         _setcolor ((pRoot -> bType & ROOT_SPECIAL_LETTER) ? 15 : 10);
         _rectangle (_GFILLINTERIOR,
@@ -476,7 +477,7 @@ static void CurrentStringUpdate (int xLeft, int yTop, int nScaling)
 
     for (i = 0; i < String.nDust; i++)
     {
-        pRoot = pRoots + String.pDustList [i];
+        pRoot = rootAt(String.pDustList[i]);
 
         _rectangle (_GBORDER,
             (pRoot -> xColumn                        - xLeft) / nScaling - 1,
@@ -546,7 +547,7 @@ static void StringsUpdate (int xLeft, int yTop, int nScaling)
 
         for (i = 0; i < pString -> nLetters; i++)
         {
-            pRoot = pRoots + pString -> pLettersList [i];
+            pRoot = rootAt(pString -> pLettersList [i]);
             _setcolor ((pRoot -> bType & ROOT_SPECIAL_LETTER) ? 15 : nColor);
             _rectangle (_GFILLINTERIOR,
                 (pRoot -> xColumn - xLeft) / nScaling + nDustShift,
@@ -561,7 +562,7 @@ static void StringsUpdate (int xLeft, int yTop, int nScaling)
 
         for (i = 0; i < pString -> nDust; i++)
         {
-            pRoot = pRoots + pString -> pDustList [i];
+            pRoot = rootAt(pString -> pDustList [i]);
 
             if (pRoot -> bType & ROOT_USED)
                 continue;
@@ -579,7 +580,7 @@ static void StringsUpdate (int xLeft, int yTop, int nScaling)
 
         for (i = 0; i < pString -> nDust; i++)
         {
-            pRoot = pRoots + pString -> pDustList [i];
+            pRoot = rootAt(pString -> pDustList [i]);
 
             if (pRoot -> bType & ROOT_USED)
                 continue;

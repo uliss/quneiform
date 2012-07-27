@@ -73,7 +73,7 @@ extern int nIncline;
 
 Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime);
 
-PROOT root_file = NULL;
+ROOT * root_file = NULL;
 uint16_t run_options = 0;
 
 uint32_t progress_set_percent(uint32_t volume)
@@ -85,7 +85,7 @@ uint32_t progress_set_percent(uint32_t volume)
 
     return rc;
 }
-;
+
 void progress_finish(void)
 {
     if (fnProgressFinish_rblock)
@@ -138,9 +138,9 @@ void online_comp(c_comp *w)
     return;
 }
 
-CCOM_comp *get_CCOM_comp(PROOT r)
+CCOM_comp * get_CCOM_comp(ROOT * r)
 {
-    return (CCOM_comp *) r->pComp;
+    return r->pComp;
 }
 
 Bool save_MN(MN *mn)
@@ -152,6 +152,9 @@ Bool save_MN(MN *mn)
         return FALSE;
 
     if (!AddRoot(p, FALSE))
+        return FALSE;
+
+    if(nRoots < 1)
         return FALSE;
 
     BlockAccountRoot(pCurrentBlock, &pRoots[nRoots - 1]);

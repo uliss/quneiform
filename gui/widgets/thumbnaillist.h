@@ -92,6 +92,7 @@ private:
     void setDragCursor(bool value);
     void setupActions();
     void setupActionDelete();
+    void setupActionOpenExternal();
     void setupActionProperties();
     void setupActionRecognize();
     void setupActionSaveAs();
@@ -103,6 +104,7 @@ private:
     void thumbRemove(ThumbnailWidget * thumb);
 private slots:
     void contextThumbFormatSettings();
+    void contextThumbOpenExternal();
     void contextThumbProperties();
     void contextThumbRecognize();
     void contextThumbRecognizeSettings();
@@ -127,7 +129,8 @@ private:
     QAction * act_recognize_;
     QAction * act_save_as_;
     QAction * act_properties_;
-    QAction * act_delete_;    
+    QAction * act_delete_;
+    QAction * act_open_external_;
 };
 
 #endif /* THUMBNAILLIST_H_ */

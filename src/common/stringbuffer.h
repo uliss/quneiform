@@ -37,7 +37,7 @@ public:
     template<class T>
     StringBuffer& operator<<(const T& v)
     {
-        if(ssize_t(buf_.tellp()) != 0)
+        if(long(buf_.tellp()) != 0)
             buf_ << ' ';
 
         buf_ << v;

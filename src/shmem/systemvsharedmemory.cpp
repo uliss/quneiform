@@ -16,6 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
+#include <iostream>
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
@@ -24,12 +25,112 @@
 #include <stdlib.h>
 #include <sys/param.h>
 #include <sys/sysctl.h>
+#include <signal.h>
+#include <string.h>
 
 #include "systemvsharedmemory.h"
 
 namespace cf {
 
-SystemVSharedMemory::SystemVSharedMemory() : id_(0) {}
+namespace {
+
+struct sigaction old_segv_act;
+struct sigaction old_term_act;
+int shmem_key = 0;
+
+void unset_crash_handler();
+
+void init_old_action()
+{
+    memset(&old_segv_act, 0, sizeof(old_segv_act));
+    memset(&old_term_act, 0, sizeof(old_term_act));
+}
+
+void shmem_segfault_handler(int sig)
+{
+    switch(sig) {
+    case SIGILL:
+    case SIGSEGV:
+    case SIGTERM: {
+        if(shmem_key <= 0) {
+            std::cerr << "[SystemVSharedMemory] invalid shmem key:" << shmem_key << "\n";
+            std::cerr.flush();
+            unset_crash_handler();
+            raise(sig);
+        }
+
+        errno = 0;
+        int rc = shmctl(shmem_key, IPC_RMID, NULL);
+        if(rc != 0) {
+            std::cerr << "[SystemVSharedMemory] can't remove shmem: "
+                      << strerror(errno) << "\n";
+        }
+
+        shmem_key = 0;
+        unset_crash_handler();
+    }
+        break;
+    default:
+        break;
+    }
+}
+
+struct sigaction make_crash_action()
+{
+    struct sigaction res;
+    memset(&res, 0, sizeof(res));
+    res.sa_handler = shmem_segfault_handler;
+    sigset_t set;
+    sigemptyset(&set);
+    sigaddset(&set, SIGSEGV);
+    sigaddset(&set, SIGTERM);
+    sigaddset(&set, SIGILL);
+    res.sa_mask = set;
+    return res;
+}
+
+void set_crash_handler(int key)
+{
+    struct sigaction act_segv = make_crash_action();
+    if(sigaction(SIGSEGV, &act_segv, &old_segv_act) != 0)
+        std::cerr << "[SystemVSharedMemory] can't set sigaction for SIGSEGV\n";
+
+    struct sigaction act_term = make_crash_action();
+    if(sigaction(SIGTERM, &act_term, &old_term_act) != 0)
+        std::cerr << "[SystemVSharedMemory] can't set sigaction for SIGTERM\n";
+
+    struct sigaction act_ill = make_crash_action();
+    if(sigaction(SIGILL, &act_ill, NULL) != 0)
+        std::cerr << "[SystemVSharedMemory] can't set sigaction for SIGILL\n";
+
+    std::cerr << "shmem id:" << key << "\n";
+
+    shmem_key = key;
+}
+
+void unset_crash_handler()
+{
+    if(sigaction(SIGSEGV, &old_segv_act, NULL) != 0)
+        std::cerr << "[SystemVSharedMemory] can't restore sigaction for SIGSEGV\n";
+    if(sigaction(SIGTERM, &old_term_act, NULL) != 0)
+        std::cerr << "[SystemVSharedMemory] can't restore sigaction for SIGTERM\n";
+
+
+    struct sigaction act_ill;
+    memset(&act_ill, 0, sizeof(act_ill));
+    act_ill.sa_handler = SIG_DFL;
+
+    if(sigaction(SIGILL, &act_ill, NULL) != 0)
+        std::cerr << "[SystemVSharedMemory] can't restore sigaction for SIGILL\n";
+
+    shmem_key = 0;
+}
+
+}
+
+SystemVSharedMemory::SystemVSharedMemory() : id_(0)
+{
+}
 
 void SystemVSharedMemory::close(void * mem)
 {
@@ -64,6 +165,8 @@ void * SystemVSharedMemory::create(size_t key, size_t size)
         return NULL;
     }
 
+    set_crash_handler(id_);
+
     return memory;
 }
 
@@ -84,7 +187,9 @@ void * SystemVSharedMemory::open(size_t key, size_t)
 
 bool SystemVSharedMemory::remove()
 {
-    return shmctl(id_, IPC_RMID, NULL) == 0;
+    unset_crash_handler();
+    int rc = shmctl(id_, IPC_RMID, NULL);
+    return rc == 0;
 }
 
 size_t SystemVSharedMemory::limit() const

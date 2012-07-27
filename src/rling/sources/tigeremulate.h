@@ -109,13 +109,13 @@ typedef struct {
     int32_t tr1;
     int32_t tr2;
 } StructTree;
-////////////////////////////////////////////////////////////////////////////////////
+
 typedef struct elidx {
     uchar ltr; // the letter
     uchar vnum; // the number of the classes
     uint16_t numel; // the number of the first class
 } indBOX;
-////////////////////////////////////////////////////////////////////////////////////
+
 typedef struct eltab {
     uchar ltr; // the letter
     uchar fnt; // the font number
@@ -123,31 +123,5 @@ typedef struct eltab {
     uint16_t bnd; // the bound of the typeface
     uint16_t vect[15]; // the vector of the letter
 } elmBOX;
-
-struct _Root;
-struct CCOM_comp;
-typedef struct _Root ROOT;
-typedef struct _Root *PROOT;
-struct _Root {
-    int16_t yRow;
-    int16_t xColumn;
-
-    union {
-        struct {
-            uint16_t wSegmentPtr;
-            uint16_t wLength;
-        } u2;
-
-        ROOT *pNext;
-    } u1;
-
-    int16_t nHeight;
-    int16_t nWidth;
-    uchar bType;
-    uchar bReached;
-    int16_t nBlock;
-    int16_t nUserNum;
-    CCOM_comp *pComp;
-};
 
 #endif  //#ifndef __TIGER_EMULATION_H__

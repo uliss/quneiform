@@ -8,6 +8,28 @@ endif()
 
 add_subdirectory(resources)
 
+set(QF_THEMES resource_theme_oxygen)
+
+if(WITH_THEME_MAC)
+    list(APPEND QF_THEMES resource_theme_mac)
+endif()
+
+if(WITH_THEME_FAENZA)
+     list(APPEND QF_THEMES resource_theme_faenza)
+endif()
+
+if(WITH_THEME_GNOME)
+     list(APPEND QF_THEMES resource_theme_gnome)
+endif()
+
+if(WITH_THEME_HUMAN)
+     list(APPEND QF_THEMES resource_theme_human)
+endif()
+
+if(WITH_THEME_SNOWISH)
+     list(APPEND QF_THEMES resource_theme_snowish)
+endif()
+
 if(CF_PDF_SUPPORT)
     add_definitions(-DWITH_PDF)
 endif()
@@ -16,7 +38,7 @@ if(CF_TIFF_SUPPORT)
     add_definitions(-DWITH_TIFF)
 endif()
 
-set(TRANSLATIONS_TS translations/ru.ts)
+set(TRANSLATIONS_TS translations/ru.ts translations/ua.ts)
 
 set(HEADERS 
     packet.h
@@ -25,16 +47,23 @@ set(HEADERS
     pagerecognitionqueue.h
     selectionlist.h
     dialogs/aboutdialog.h
+    dialogs/abstractpreferencesdialog.h
     dialogs/exportdialog.h
     dialogs/formatsettingsdialog.h
+    dialogs/listpreferencesdialog.h
     dialogs/logviewerdialog.h
     dialogs/openprogressdialog.h
     dialogs/pagepropertiesdialog.h
     dialogs/packetopenprogressdialog.h
+    dialogs/preferencesdialogfactory.h
     dialogs/recognitionsettingsdialog.h
     dialogs/recognitionprogressdialog.h
-    dialogs/settings.h
+    dialogs/tabpreferencesdialog.h
     widgets/colorbutton.h
+    widgets/debugpreferences.h
+    widgets/editorpreferences.h
+    widgets/fontbutton.h
+    widgets/generalpreferences.h
     widgets/histogramwidget.h
     widgets/imageview.h
     widgets/imagewidget.h
@@ -42,6 +71,7 @@ set(HEADERS
     widgets/languageselect.h
     widgets/mainwindow.h
     widgets/pageindicator.h
+    widgets/preferenceswidget.h
     widgets/recentmenu.h
     widgets/texteditor.h
     widgets/thumbnaillist.h
@@ -75,15 +105,18 @@ set(SOURCES
     selectionlist.cpp
     translationloader.cpp
     dialogs/aboutdialog.cpp
+    dialogs/abstractpreferencesdialog.cpp
     dialogs/exportdialog.cpp
     dialogs/formatsettingsdialog.cpp
+    dialogs/listpreferencesdialog.cpp
     dialogs/logviewerdialog.cpp
     dialogs/openprogressdialog.cpp
     dialogs/pagepropertiesdialog.cpp
     dialogs/packetopenprogressdialog.cpp
+    dialogs/preferencesdialogfactory.cpp
     dialogs/recognitionsettingsdialog.cpp
     dialogs/recognitionprogressdialog.cpp
-    dialogs/settings.cpp
+    dialogs/tabpreferencesdialog.cpp
     export/cedpageexporter.cpp
     export/cedserializer.cpp
     export/cfexporter.cpp
@@ -92,6 +125,10 @@ set(SOURCES
     export/qtextdocumentexporter.cpp
     export/rectexporter.cpp
     widgets/colorbutton.cpp
+    widgets/debugpreferences.cpp
+    widgets/editorpreferences.cpp
+    widgets/fontbutton.cpp
+    widgets/generalpreferences.cpp
     widgets/graphicsroundedrectitem.cpp
     widgets/histogramwidget.cpp
     widgets/imageview.cpp
@@ -100,6 +137,7 @@ set(SOURCES
     widgets/languageselect.cpp
     widgets/mainwindow.cpp
     widgets/pageindicator.cpp
+    widgets/preferenceswidget.cpp
     widgets/recentmenu.cpp
     widgets/texteditor.cpp
     widgets/thumblayout.cpp
@@ -110,7 +148,14 @@ set(SOURCES
     internal/cimageview.cpp
     quneiformapplication.cpp
     guilog.cpp
+    workspace.cpp
+    settingskeys.cpp
 )
+
+if(APPLE)
+    list(APPEND HEADERS dialogs/macpreferencesdialog.h)
+    list(APPEND SOURCES dialogs/macpreferencesdialog.cpp)
+endif()
 
 if(CF_SERIALIZE)
     set_property(SOURCE export/cedserializer.cpp PROPERTY COMPILE_DEFINITIONS USE_SERIALIZE)
@@ -123,7 +168,6 @@ set(FORMS
     dialogs/logviewerdialog.ui
     dialogs/pagepropertiesdialog.ui
     dialogs/recognitionsettingsdialog.ui
-    dialogs/settings.ui
     widgets/mainwindow.ui
 )
 
@@ -204,6 +248,8 @@ add_subdirectory(scan)
 
 if(APPLE)
     add_subdirectory(macosx)
+    set_source_files_properties(main.cpp PROPERTIES OBJECT_DEPENDS ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}.entitlements)
+    set_source_files_properties(${CMAKE_SOURCE_DIR}/${PROJECT_NAME}.entitlements PROPERTIES GENERATED TRUE)
 endif()
 
 add_library(quneiform_lib STATIC ${SRCS})
@@ -237,6 +283,7 @@ target_link_libraries (${PROJECT_NAME}
     ${QT_LIBRARIES}
     cuneiform
     cuneiform-rstuff
+    ${QF_THEMES}
     ${EXTRA_LIBS})
 
 install(

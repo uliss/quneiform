@@ -46,15 +46,17 @@
 #include "dialogs/packetopenprogressdialog.h"
 #include "dialogs/recognitionprogressdialog.h"
 #include "dialogs/recognitionsettingsdialog.h"
-#include "dialogs/settings.h"
 #include "dialogs/logviewerdialog.h"
 #include "dialogs/openprogressdialog.h"
+#include "dialogs/preferencesdialogfactory.h"
+#include "dialogs/abstractpreferencesdialog.h"
 #include "internal/cimageview.h"
 #include "recentmenu.h"
 #include "exportsettings.h"
 #include "imageutils.h"
 #include "iconutils.h"
 #include "fullscreen.h"
+#include "settingskeys.h"
 #include "scan/scannerdialog.h"
 
 
@@ -168,7 +170,7 @@ void MainWindow::connectActions() {
     Q_CHECK_PTR(ui_);
 
     connect(ui_->actionAbout, SIGNAL(triggered()), SLOT(about()));
-    connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImages()));
+    connect(ui_->actionOpen, SIGNAL(triggered()), SLOT(openImagesDialog()));
     connect(ui_->actionZoom_In, SIGNAL(triggered()), image_widget_, SLOT(zoomIn()));
     connect(ui_->actionZoom_Out, SIGNAL(triggered()), image_widget_, SLOT(zoomOut()));
     connect(ui_->actionFitWidth, SIGNAL(triggered()), image_widget_, SLOT(fitWidth()));
@@ -177,7 +179,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionRecognizeAll, SIGNAL(triggered()), SLOT(recognizeAll()));
     connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
     connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
-    connect(ui_->actionOpenPacket, SIGNAL(triggered()), SLOT(openPacket()));
+    connect(ui_->actionOpenPacket, SIGNAL(triggered()), SLOT(openPacketDialog()));
     connect(ui_->actionSavePacket, SIGNAL(triggered()), SLOT(savePacket()));
     connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showSettings()));
     connect(ui_->actionRecognitionSettings, SIGNAL(triggered()), SLOT(recognitionSettings()));
@@ -205,7 +207,7 @@ void MainWindow::connectThumbs() {
     connect(thumbs_, SIGNAL(recognizePage(Page*)), SLOT(recognizePage(Page*)));
     connect(thumbs_, SIGNAL(recognizePages(QList<Page*>)), SLOT(recognizePages(QList<Page*>)));
     connect(thumbs_, SIGNAL(savePage(Page*)), SLOT(savePage(Page*)));
-    connect(thumbs_, SIGNAL(openDraggedImages(QStringList)), SLOT(openImages(QStringList)));
+    connect(thumbs_, SIGNAL(openDraggedImages(QStringList)), SLOT(open(QStringList)));
     connect(thumbs_, SIGNAL(showPageFault(Page*)), SLOT(showPageFault(Page*)));
 }
 
@@ -331,6 +333,43 @@ bool MainWindow::openImage(const QString& path, bool allowDuplication)
     return true;
 }
 
+QString MainWindow::openImageDefaultDir() const
+{
+    if(packet_) {
+        if(!packet_->isEmpty()) {
+            QFileInfo fi(packet_->lastPage()->imagePath());
+            return fi.absoluteDir().path();
+        }
+
+        QString last_dir = QSettings().value(KEY_LAST_OPEN_DIRECTORY, QString()).toString();
+        if(last_dir.isEmpty())
+            return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+
+
+        return last_dir;
+    }
+
+    return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+}
+
+QString MainWindow::openPacketDefaultDir() const
+{
+    if(packet_) {
+        if(!packet_->fileName().isEmpty()) {
+            QFileInfo fi(packet_->fileName());
+            return fi.absoluteDir().path();
+        }
+
+        QString last_dir = QSettings().value(KEY_LAST_OPEN_DIRECTORY, QString()).toString();
+        if(last_dir.isEmpty())
+            return QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+
+        return last_dir;
+    }
+
+    return QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+}
+
 bool MainWindow::openMultiPage(const QString& path)
 {
     Q_ASSERT(packet_);
@@ -400,52 +439,25 @@ void MainWindow::open(const QStringList& paths) {
     progress_->stop();
 }
 
-void MainWindow::openImages() {
-    QStringList file_ext;
-
-    file_ext << "*.png"
-                    << "*.xmp"
-                    << "*.jpg" << "*.jpeg"
-                    << "*.tif" << "*.tiff"
-                    << "*.bmp"
-                    << "*.pnm" << "*.pbm" << "*.pgm" << "*.ppm";
-
-    QList<QByteArray> supported_formats = QImageReader::supportedImageFormats();
-    if(supported_formats.contains("gif"))
-        file_ext << "*.gif";
-    if(supported_formats.contains("pdf"))
-        file_ext << "*.pdf";
-    if(supported_formats.contains("djvu"))
-        file_ext << "*.djvu";
+void MainWindow::openImagesDialog()
+{
+    QStringList file_ext = supportedImagesFilter();
 
     QStringList files = QFileDialog::getOpenFileNames(NULL,
                                                       tr("Open images"),
-                                                      "",
+                                                      openImageDefaultDir(),
                                                       tr("Images (%1)").arg(file_ext.join(" ")));
-    openImages(files);
+    open(files);
+
+    if(!files.isEmpty())
+        QSettings().setValue(KEY_LAST_OPEN_DIRECTORY, QFileInfo(files.last()).absoluteDir().path());
 }
 
-void MainWindow::openImages(const QStringList& files) {
-    Q_CHECK_PTR(progress_);
-
-    progress_->start(files);
-
-    for(int i = 0, total = files.count(); i < total; i++) {
-        QApplication::processEvents();
-        if(progress_->wasCanceled())
-            break;
-
-        progress_->load(files.at(i));
-        openImage(files.at(i));
-        progress_->loadDone();
-    }
-
-    progress_->stop();
-}
-
-void MainWindow::openPacket() {
-    QString packet = QFileDialog::getOpenFileName(this, tr("Open Quneiform packet"), "",
-                                                      tr("Quneiform packets (*.qfp)"));
+void MainWindow::openPacketDialog() {
+    QString packet = QFileDialog::getOpenFileName(this,
+                                                  tr("Open Quneiform packet"),
+                                                  openPacketDefaultDir(),
+                                                  tr("Quneiform packets (*.qfp)"));
     openPacket(packet);
 }
 
@@ -478,7 +490,7 @@ void MainWindow::openRecentImage(const QString& path) {
     if(packet_->hasPage(path))
         return;
 
-    openImage(path, false);
+    open(QStringList(path));
 }
 
 void MainWindow::readSettings()
@@ -661,6 +673,7 @@ void MainWindow::showLog()
 {
     LogViewerDialog d;
     d.exec();
+    activateWindow();
 }
 
 void MainWindow::setupPacket() {
@@ -684,16 +697,16 @@ void MainWindow::setupIcons()
     ui_->actionZoom_Out->setIcon(iconFromTheme("zoom-out"));
     ui_->actionOriginalSize->setIcon(iconFromTheme("zoom-original"));
     ui_->actionFitPage->setIcon(iconFromTheme("zoom-fit-best"));
-    ui_->actionFitWidth->setIcon(iconFromTheme("zoom-fit-width"));
+    ui_->actionFitWidth->setIcon(iconFromTheme("zoom-fit-width", false));
 
     ui_->actionRecognizeAll->setIcon(iconFromTheme("recognize"));
     ui_->actionScan->setIcon(iconFromTheme("scanner"));
 
-    ui_->actionExit->setIcon(iconFromTheme("application-exit"));
+    ui_->actionExit->setIcon(iconFromTheme("application-exit", false));
     ui_->actionPreferences->setIcon(iconFromTheme("configure"));
     ui_->actionFullScreen->setIcon(iconFromTheme("view-fullscreen"));
-    ui_->actionSplitHorizontal->setIcon(iconFromTheme("view-split-top-bottom"));
-    ui_->actionSplitVertical->setIcon(iconFromTheme("view-split-left-right"));
+    ui_->actionSplitHorizontal->setIcon(iconFromTheme("view-split-top-bottom", false));
+    ui_->actionSplitVertical->setIcon(iconFromTheme("view-split-left-right", false));
 }
 
 void MainWindow::setupImageView() {
@@ -724,20 +737,28 @@ void MainWindow::setupLanguageUi() {
     setupDefaultLanguage();
 }
 
+void MainWindow::setupLogAction()
+{
+    QAction * show_log = new QAction(this);
+    show_log->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_L);
+    connect(show_log, SIGNAL(triggered()), this, SLOT(showLog()));
+    addAction(show_log);
+}
+
 void MainWindow::setupRecent() {
     setupRecentImages();
     setupRecentPackets();
 }
 
 void MainWindow::setupRecentImages() {
-    recent_images_ = new RecentMenu(this, tr("Recent files"), "recent-files");
-    recent_images_->setIcon(iconFromTheme("document-open-recent"));
+    recent_images_ = new RecentMenu(this, tr("Recent files"), KEY_RECENT_FILES);
+    recent_images_->setIcon(iconFromTheme("document-open-recent", false));
     addRecentMenu(recent_images_);
     connect(recent_images_, SIGNAL(selected(QString)), SLOT(openRecentImage(QString)));
 }
 
 void MainWindow::setupRecentPackets() {
-    recent_packets_ = new RecentMenu(this, tr("Recent packets"), "recent-packets");
+    recent_packets_ = new RecentMenu(this, tr("Recent packets"), KEY_RECENT_PACKETS);
     addRecentMenu(recent_packets_);
     connect(recent_packets_, SIGNAL(selected(QString)), SLOT(openPacket(QString)));
 }
@@ -788,7 +809,9 @@ void MainWindow::setupViewSplit()
     split_group->addAction(ui_->actionSplitVertical);
 }
 
-void MainWindow::setupUi() {
+void MainWindow::setupUi()
+{
+    setupLogAction();
     setUnifiedTitleAndToolBarOnMac(true);
     ui_->setupUi(this);
     setupIcons();
@@ -820,6 +843,28 @@ void MainWindow::setupUiLayout() {
     ui_->centralWidget->setLayout(main_layout_);
 }
 
+QStringList MainWindow::supportedImagesFilter() const
+{
+    QStringList res;
+    res << "*.png" << "*.xmp" << "*.bmp"
+        << "*.pnm" << "*.pbm" << "*.pgm" << "*.ppm";
+
+    QList<QByteArray> supported_formats = QImageReader::supportedImageFormats();
+
+    if(supported_formats.contains("jpg"))
+        res << "*.jpg" << "*.jpeg";
+    if(supported_formats.contains("tiff") || supported_formats.contains("mtiff"))
+        res << "*.tif" << "*.tiff";
+    if(supported_formats.contains("gif"))
+        res << "*.gif";
+    if(supported_formats.contains("pdf"))
+        res << "*.pdf";
+    if(supported_formats.contains("djvu"))
+        res << "*.djvu";
+
+    return res;
+}
+
 void MainWindow::showPageImage(Page * page) {
     Q_CHECK_PTR(page);
 
@@ -842,14 +887,11 @@ void MainWindow::showPageFault(Page * page) {
     QMessageBox::critical(this, tr("Recognition error"), msg);
 }
 
-void MainWindow::showSettings() {
-    Q_CHECK_PTR(image_widget_);
-
-    Settings s;
-    int state = s.exec();
-
-    if(state == QDialog::Accepted)
-        image_widget_->updateSettings();
+void MainWindow::showSettings()
+{
+    AbstractPreferencesDialog * prefs = PreferencesDialogFactory::make();
+    prefs->exec();
+    delete prefs;
 }
 
 void MainWindow::showScanDialog()

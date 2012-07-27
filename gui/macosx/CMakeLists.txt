@@ -5,9 +5,12 @@ set(HEADERS
 set(SOURCES
     imagecapture.cpp
     macbundle.cpp
-    macstring.cpp
+    macstring.mm
     macpool.mm
     macfullscreen.mm
+    macopenfile.mm
+    mactoolbar.mm
+    mactoolbardelegate.mm
 )
 
 source_group("Header Files" FILES ${HEADERS})

@@ -83,9 +83,9 @@ bool looksLikeMultiPageDocument(const QString& path)
     return false;
 }
 
-const char * imagePluginFormat(const QString& path)
+const char * imagePluginFormat(const QString& fullPath)
 {
-    QString ext = fileExt(path);
+    QString ext = fileExt(fullPath);
 
     if(isTiffExt(ext))
         return "MTIFF";

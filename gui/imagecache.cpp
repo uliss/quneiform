@@ -72,31 +72,27 @@ bool ImageCache::load(const ImageURL& path, QPixmap * pixmap)
     }
 
     if (!QPixmapCache::find(path.id(), ARG_FIX(pixmap))) {
-        if(path.isSimple()) {
-            qDebug() << "[ImageCache::load] from file: " << path.id();
-            pixmap->load(path.path());
-        }
-        else {
-            QByteArray format = QImageReader::imageFormat(path.path()).toUpper();
-            if(format == "TIFF")
-                format = "MTIFF";
+        QByteArray format = QImageReader::imageFormat(path.path()).toUpper();
+        if(format == "TIFF")
+            format = "MTIFF";
 
-            QImageReader r(path.path(), format);
-            if(format == "PDF")
-                r.setQuality(300);
+        QImageReader r(path.path(), format);
+        if(format == "PDF")
+            r.setQuality(300);
 
+        if(!path.isSimple()) {
             if(!r.jumpToImage(path.imageNumber())) {
                 qWarning() << Q_FUNC_INFO << "can't jump to page" << path.imageNumber();
                 return false;
             }
-
-            QImage img;
-            if(r.read(&img)) {
-                *pixmap = QPixmap::fromImage(img);
-            }
-            else
-                return false;
         }
+
+        QImage img;
+        if(r.read(&img)) {
+            *pixmap = QPixmap::fromImage(img);
+        }
+        else
+            return false;
 
         QPixmapCache::insert(path.id(), *pixmap);
     }

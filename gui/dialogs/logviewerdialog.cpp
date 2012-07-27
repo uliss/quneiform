@@ -20,6 +20,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QPushButton>
+#include <QAction>
 
 #include "logviewerdialog.h"
 #include "ui_logviewerdialog.h"
@@ -35,6 +36,7 @@ LogViewerDialog::LogViewerDialog(QWidget *parent) :
     QPushButton * clear_btn = ui_->buttonBox->addButton(tr("Clear"), QDialogButtonBox::ResetRole);
     connect(clear_btn, SIGNAL(clicked()), SLOT(handleLogClear()));
 
+    setupCloseAction();
     initLogList();
 
     ui_->logContent->setDisabled(true);
@@ -59,7 +61,7 @@ void LogViewerDialog::handleLogShow(QListWidgetItem * current)
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
 
-    ui_->logContent->setPlainText(QString(file.readAll()));
+    ui_->logContent->setPlainText(QString::fromUtf8(file.readAll()));
     ui_->logContent->setEnabled(true);
 
     file.close();
@@ -120,7 +122,18 @@ void LogViewerDialog::addLogItem(const QString& path, const QString& title, cons
     ui_->logList->addItem(item);
 }
 
+void LogViewerDialog::setupCloseAction()
+{
+    QAction * close = new QAction(this);
+    close->setShortcut(QKeySequence::Close);
+    connect(close, SIGNAL(triggered()), this, SLOT(close()));
+    addAction(close);
+}
+
 void LogViewerDialog::updateCurrentLog()
 {
+    if(ui_->logList->count() == 0)
+        return;
+
     handleLogShow(ui_->logList->currentItem());
 }

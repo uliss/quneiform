@@ -71,94 +71,24 @@
 
 #include "ltconfig.h"
 #include "cttypes.h"
-
-#define ROOT_NULL           0x00
-#define ROOT_LETTER         0x01
-#define ROOT_USED           0x02
-#define ROOT_RECOGNIZED     0x04
-#define ROOT_DUST           0x08
-#define ROOT_SPECIAL_LETTER 0x10
-#define ROOT_SPECIAL_DUST   0x20
-#define ROOT_HORZ_BREAKED   0x40
+#include "roots_struct.h"
 
 #if defined (LT_DEBUG) || defined (SE_DEBUG)
 #define ROOT_DEBUG          0x80
 #endif
 
-#ifdef SE_DEBUG
-#define ROOT_FIRST  0x10
-#endif
-
-#define DUST_BLOCK_NUMBER           0
-#define REMAINDER_BLOCK_NUMBER      1
-#define FIRST_REGULAR_BLOCK_NUMBER  2
-
-#define REMOVED_BLOCK_NUMBER   ((int16_t)-1)
-
-struct _Root;
-struct CCOM_comp;
-typedef struct _Root ROOT;
-typedef struct _Root *PROOT;
-
-enum {
-    MAX_DUST_WIDTH  = 8,
-    MAX_DUST_HEIGHT = 8
-};
-
-struct _Root {
-    int16_t yRow;
-    int16_t xColumn;
-
-    union {
-        struct {
-            uint16_t wSegmentPtr;
-            uint16_t wLength;
-        } u2;
-
-        ROOT *pNext;
-    } u1;
-
-    int16_t nHeight;
-    int16_t nWidth;
-    uchar bType;
-    uchar bReached;
-    int16_t nBlock;  // тип блока: "дустовый" али какой
-    int16_t nUserNum;
-    CCOM_comp * pComp;
-public:
-    bool isLayoutDust() const {
-        return nWidth <= MAX_DUST_WIDTH && nHeight <= MAX_DUST_HEIGHT;
-    }
-};
-
-struct _RootExt;
-typedef struct _RootExt ROOT_EXT;
-typedef struct _RootExt *PROOT_EXT;
-
-struct _RootExt {
-    uint16_t wSegmentPtr;
-    uint16_t wLength;
-};
-
-typedef struct {
-    int xLeft;
-    int yTop;
-    int xRight;
-    int yBottom;
-} ROOT_RECT;
-
 #ifndef LT_STAND_ALONE
 #define pRoots root_file
 #endif
 
-extern ROOT *pRoots;
+extern ROOT * pRoots;
 extern int nRoots;
 extern int16_t nOriginalRoots;
-extern ROOT *pAfterRoots;
-extern ROOT *pAfterOriginalRoots;
+extern ROOT * pAfterRoots;
+extern ROOT * pAfterOriginalRoots;
 
-extern ROOT_EXT *pRootExts;
-extern ROOT_EXT *pAfterRootExts;
+extern ROOT_EXT * pRootExts;
+extern ROOT_EXT * pAfterRootExts;
 
 extern int nPageHeight;
 extern int nSuitablePageHeight;

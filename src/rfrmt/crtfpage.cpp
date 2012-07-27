@@ -758,6 +758,9 @@ void CRtfPage::writeUsingFramesAndColumns() {
 
     AddLines();
 
+    if(m_arSectors.empty())
+        return;
+
     //Считаем расстояния между секциями (кроме последней)
     for (size_t i = 0; i < m_arSectors.size() - 1; i++) {
         CRtfSector * sector = m_arSectors[i];

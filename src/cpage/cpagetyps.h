@@ -82,6 +82,10 @@ class PAGEINFO
             Images |= flag;
         }
 
+        bool hasFlag(int flag) const {
+            return Images & flag;
+        }
+
         /**
           * Sets page turn angle
           * @note allowed values: 0, 90, 180, 270

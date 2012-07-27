@@ -38,6 +38,7 @@
 #include "common/recognitionstate.h"
 #include "export/rectexporter.h"
 #include "export/qtextdocumentexporter.h"
+#include "settingskeys.h"
 
 static language_t languageToType(const Language& lang) {
     if(lang.isValid()) {
@@ -99,11 +100,9 @@ static cf::RecognizeOptions getRecogOptions(Page * page) {
         res.setImageNumber(page->imageURL().imageNumber());
 
     QSettings settings;
-    settings.beginGroup("debug");
-    cf::Config::instance().setDebug(settings.value("printCuneiformDebug", false).toBool());
+    cf::Config::instance().setDebug(settings.value(KEY_PRINT_CUNEIFORM_DEBUG, false).toBool());
     cf::Config::instance().setDebugLevel(100);
-    settings.beginGroup("modules");
-    res.setDebugCleanupDelayed(settings.value("cimage", false).toBool());
+    res.setDebugCleanupDelayed(settings.value(KEY_MODULE_CIMAGE_DEBUG, false).toBool());
 
     return res;
 }
@@ -124,9 +123,9 @@ PageRecognizer::PageRecognizer(QObject * parent)
 
     QSettings settings;
 #ifndef NDEBUG
-    bool process = settings.value("debug/processRecognition", false).toBool();
+    bool process = settings.value(KEY_PROCESS_RECOGNITION, false).toBool();
 #else
-    bool process = settings.value("debug/processRecognition", true).toBool();
+    bool process = settings.value(KEY_PROCESS_RECOGNITION, true).toBool();
 #endif
 
     if(process)
@@ -302,9 +301,8 @@ bool PageRecognizer::recognize() {
 void PageRecognizer::setConfigOptions() {
     Q_CHECK_PTR(counter_);
 
-    QSettings global_settings;
-    cf::Config::instance().setDebug(
-            global_settings.value("debug/printCuneiformDebug", false).toBool());
+    QSettings s;
+    cf::Config::instance().setDebug(s.value(KEY_PRINT_CUNEIFORM_DEBUG, false).toBool());
 
     counter_->add(1);
 }

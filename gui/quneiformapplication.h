@@ -31,6 +31,10 @@ signals:
     void openFiles(QStringList);
 protected:
     bool event(QEvent * e);
+private:
+    void addBundlePluginPath();
+    void platformInit();
+    void resourcesInit();
 };
 
 #endif // QUNEIFORMAPPLICATION_H

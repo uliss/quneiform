@@ -1,0 +1,10 @@
+#ifndef THEME_CONFIG_H
+#define THEME_CONFIG_H
+
+#cmakedefine WITH_THEME_MAC
+#cmakedefine WITH_THEME_HUMAN
+#cmakedefine WITH_THEME_GNOME
+#cmakedefine WITH_THEME_FAENZA
+#cmakedefine WITH_THEME_SNOWISH
+
+#endif

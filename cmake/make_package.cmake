@@ -39,11 +39,11 @@ if(APPLE)
 
     set(MACOSX_BUNDLE_BUNDLE_NAME ${CPACK_BUNDLE_NAME})
     set(MACOSX_BUNDLE_BUNDLE_VERSION ${CF_VERSION})
-    set(MACOSX_BUNDLE_COPYRIGHT "(c) 2010-2011 Serge Poltavski")
+    set(MACOSX_BUNDLE_COPYRIGHT "(c) 2010-2012 Serge Poltavski")
     set(MACOSX_BUNDLE_EXECUTABLE_NAME "Quneiform")
     set(MACOSX_BUNDLE_ICON_FILE "Quneiform.icns")
     set(MACOSX_BUNDLE_INFO_STRING "Optical recognition software")
-    set(MACOSX_BUNDLE_GUI_IDENTIFIER "https://github.com/uliss/quneiform")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.github.uliss.quneiform")
     set(MACOSX_BUNDLE_LONG_VERSION_STRING "${CPACK_BUNDLE_NAME} ${CF_BUILD_NUMBER}")
     set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${CF_VERSION})
 

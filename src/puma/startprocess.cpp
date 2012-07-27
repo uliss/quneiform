@@ -34,6 +34,7 @@
 #else
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <signal.h>
 #include "processtimeoutkiller.h"
 #endif
 
@@ -141,7 +142,25 @@ int startProcess(const std::string& program, const StringList& params, int timeo
 
         watchdog.cancel();
 
-        return WEXITSTATUS(status);
+        if(WIFEXITED(status))
+            return WEXITSTATUS(status);
+
+        if(WIFSIGNALED(status)) {
+            int sig = WTERMSIG(status);
+            switch(sig) {
+            case SIGSEGV:
+                return WORKER_SEGFAULT_ERROR;
+            case SIGTERM:
+                return WORKER_TERMINATE_ERROR;
+            case SIGABRT:
+                return WORKER_ABORT_ERROR;
+            default:
+                Debug() << "[startProcess] unhandled signal:" << sig << "\n";
+                return WORKER_UNKNOWN_ERROR;
+            }
+        }
+
+        return WORKER_UNKNOWN_ERROR;
     }
     else {
         // child

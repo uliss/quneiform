@@ -23,22 +23,26 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QDebug>
+#include <QScrollArea>
 
 #include "cimageview.h"
 #include "cimagestorage.h"
 
 CImageView::CImageView(QWidget *parent) :
     QDialog(parent),
-    storage_(new CImageStorage)
+    image_list_(NULL),
+    image_(NULL),
+    storage_(new CImageStorage),
+    scroll_(NULL)
 {
     setWindowTitle("CImage view");
     init();
 
     QVBoxLayout * lv = new QVBoxLayout;
     QHBoxLayout * lh = new QHBoxLayout;
-    lv->addLayout(lh);
     lh->addWidget(image_list_);
-    lh->addWidget(image_);
+    lh->addWidget(scroll_);
+    lv->addLayout(lh);
 
     QDialogButtonBox * buttons = new QDialogButtonBox;
     QPushButton * ok = buttons->addButton(QDialogButtonBox::Ok);
@@ -59,9 +63,19 @@ void CImageView::init()
         image_list_->addItem(s);
     }
 
+    image_list_->setFixedWidth(150);
+
     connect(image_list_, SIGNAL(itemClicked(QListWidgetItem*)), SLOT(showImage(QListWidgetItem*)));
 
-    image_ = new QLabel;
+    image_ = new QLabel(this);
+    scroll_ = new QScrollArea(this);
+    scroll_->setBackgroundRole(QPalette::Dark);
+    scroll_->setWidget(image_);
+    scroll_->setWidgetResizable(true);
+    scroll_->setAlignment(Qt::AlignCenter);
+
+    setMinimumWidth(700);
+    setMinimumHeight(500);
 }
 
 void CImageView::showImage(QListWidgetItem * item)

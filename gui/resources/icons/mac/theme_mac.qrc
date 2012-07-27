@@ -1,0 +1,29 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+<file>index.theme</file>
+<file>28x28/document-open.png</file>
+<file>28x28/document-properties.png</file>
+<file>28x28/document-save-as.png</file>
+<file>28x28/document-save.png</file>
+<file>28x28/edit-redo.png</file>
+<file>28x28/edit-undo.png</file>
+<file>28x28/format-justify-center.png</file>
+<file>28x28/format-justify-fill.png</file>
+<file>28x28/format-justify-left.png</file>
+<file>28x28/format-justify-right.png</file>
+<file>28x28/format-text-bold.png</file>
+<file>28x28/format-text-italic.png</file>
+<file>28x28/format-text-underline.png</file>
+<file>28x28/list-remove.png</file>
+<file>28x28/object-rotate-left.png</file>
+<file>28x28/object-rotate-right.png</file>
+<file>28x28/recognize.png</file>
+<file>28x28/tools-check-spelling.png</file>
+<file>28x28/view-fullscreen.png</file>
+<file>28x28/zoom-fit-best.png</file>
+<file>28x28/zoom-in.png</file>
+<file>28x28/zoom-original.png</file>
+<file>28x28/zoom-out.png</file>
+</qresource>
+</RCC>

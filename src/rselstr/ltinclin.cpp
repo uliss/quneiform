@@ -76,6 +76,7 @@
 #include "sheet.h"
 #include "cpage/cpage.h" // Rom
 #include "cttypes.h" // Piter
+#include "rselstr_internal.h"
 
 int nIncline;
 
@@ -106,13 +107,13 @@ static int nMaxSkippedRecords;
 static int nLetterRepresentativeHeight;
 
 void RotatePageToIdeal(void) {
-	for (uint32_t i = 0; i < nRoots; i++) {
-		IDEAL_XY(pRoots[i].xColumn, pRoots[i].yRow);
+    for (int i = 0; i < rootCount(); i++) {
+        IDEAL_XY(rootAt(i)->xColumn, rootAt(i)->yRow);
 	}
 }
 
 void RotatePageToReal(void) {
-	for (uint32_t i = 0; i < nRoots; i++) {
-		REAL_XY(pRoots[i].xColumn, pRoots[i].yRow);
+    for (int i = 0; i < rootCount(); i++) {
+        REAL_XY(rootAt(i)->xColumn, rootAt(i)->yRow);
 	}
 }

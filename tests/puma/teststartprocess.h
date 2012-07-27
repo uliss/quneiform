@@ -25,9 +25,17 @@ class TestStartProcess : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestStartProcess);
     CPPUNIT_TEST(test);
+    CPPUNIT_TEST(testProcessWrongArgs);
+    CPPUNIT_TEST(testProcessSegfault);
+    CPPUNIT_TEST(testProcessTerminate);
+    CPPUNIT_TEST(testProcessOk);
     CPPUNIT_TEST_SUITE_END();
 public:
     void test();
+    void testProcessWrongArgs();
+    void testProcessSegfault();
+    void testProcessTerminate();
+    void testProcessOk();
 };
 
 #endif // TESTSTARTPROCESS_H

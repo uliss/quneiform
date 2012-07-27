@@ -87,6 +87,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "cstr/cstr.h"
 
 #include "minmax.h"
+#include "rselstr_internal.h"
+
 
 int nCurrentFillingRoots;
 
@@ -100,7 +102,7 @@ Bool32 StringsUpdatedByBukvica()
 
 	for (nString = 0, p = pStringsUpList; p != NULL; p = p -> pDown, nString++)
     {
-		if((p->nLetters == 1)&&((&pRoots [p -> pLettersList [0]])->nHeight >64))
+        if((p->nLetters == 1) && (rootAt(p -> pLettersList [0])->nHeight > 64))
 		{
 			int data = 0;
 			CCOM_USER_BLOCK uBlock;
@@ -136,7 +138,7 @@ Bool32 StringsUpdatedByBukvica()
 			}
 
 			uBlock.size = sizeof(data);
-			CCOM_SetUserBlock((CCOM_comp*)(pRoots [p -> pLettersList [0]]).pComp, &uBlock);
+            CCOM_SetUserBlock(rootAt(p -> pLettersList [0])->pComp, &uBlock);
 
 		}
 	}
@@ -176,7 +178,7 @@ void StringCalculateParameters (STRING *pString)
 
     for (i = 0; i < pString -> nLetters; i++)
     {
-        pRoot = pRoots + pString -> pLettersList [i];
+        pRoot = rootAt(pString -> pLettersList [i]);
 
         if (pRoot -> bType & (ROOT_SPECIAL_LETTER | ROOT_SPECIAL_DUST))
             continue;
@@ -199,7 +201,7 @@ void StringCalculateParameters (STRING *pString)
 
     for (i = 0; i < pString -> nLetters; i++)
     {
-        pRoot = pRoots + pString -> pLettersList [i];
+        pRoot = rootAt(pString -> pLettersList [i]);
 
         if (pRoot -> bType & (ROOT_SPECIAL_LETTER | ROOT_SPECIAL_DUST))
             continue;
@@ -233,7 +235,7 @@ void StringCalculateParameters (STRING *pString)
 
     for (i = 0; i < pString -> nLetters; i++)
     {
-        pRoot = pRoots + pString -> pLettersList [i];
+        pRoot = rootAt(pString -> pLettersList [i]);
 
         if (pRoot -> bType & (ROOT_SPECIAL_LETTER | ROOT_SPECIAL_DUST))
             continue;
@@ -262,7 +264,7 @@ void StringCalculateParameters (STRING *pString)
     {
         for (i = 0; i < pString -> nLetters; i++)
         {
-            pRoot = pRoots + pString -> pLettersList [i];
+            pRoot = rootAt(pString -> pLettersList [i]);
 
             if (pRoot -> bType & ROOT_SPECIAL_LETTER)
             {
@@ -311,7 +313,7 @@ void StringsFill (void)
 
         StringNewDescriptor ();
 
-        for (CorrectHist=FALSE,pRoot = pCurrentBlock -> pRoots;
+        for (CorrectHist=FALSE, pRoot = pCurrentBlock -> pRoots;
                  pRoot != NULL;
                      pRoot = pRoot -> u1.pNext)
         {
@@ -325,7 +327,7 @@ void StringsFill (void)
                 pRoot -> yRow + pRoot -> nHeight > y)
             {
 
-                StringAddLetter1 (pRoot - pRoots);
+                StringAddLetter1 (pRoot - rootFirst());
                 pRoot -> bType |= ROOT_USED;
 
                 BlockHystogramDiscountRoot (pCurrentBlock, pRoot);
@@ -344,7 +346,7 @@ void StringsFill (void)
         StringAddToList ();
 
         nCurrentFillingRoots += String.nLetters;
-        progress_set_percent (nCurrentFillingRoots * 100 / nRoots);
+        progress_set_percent (nCurrentFillingRoots * 100 / rootCount());
     }
 }
 
@@ -445,7 +447,7 @@ static Bool PassForDust (STRING *pString, ROOT *pRootsBegin, ROOT *pRootsAfter)
         }
 
         pRoot -> bType |= ROOT_USED;
-        StringAddDust2 (pString, pRoot - pRoots);
+        StringAddDust2 (pString, pRoot - rootFirst());
     }
 
     return (bStripWasExpanded);
@@ -483,7 +485,7 @@ void StringDustAccount (STRING *pString)
     while (bExpanded1 || bExpanded2);
 
     for (i = 0; i < pString -> nDust; i++)
-        pRoots [pString -> pDustList [i]].bType &= ~ROOT_USED;
+        rootAt(pString -> pDustList [i])->bType &= ~ROOT_USED;
 
     StringSortDust (pString);
 }
@@ -517,7 +519,7 @@ Bool StringIsTrash (STRING *pString)
 
     for (i = 0; i < pString -> nDust; i++)
     {
-        pRoot = & pRoots [pString -> pDustList [i]];
+        pRoot = rootAt(pString -> pDustList [i]);
 
         if (pRoot -> nHeight >= nBigDustHeight                          &&
             pRoot -> xColumn                       <= pString -> xRight &&

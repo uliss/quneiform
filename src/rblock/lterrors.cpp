@@ -72,6 +72,7 @@
 # include <setjmp.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 
 # include "resource.h"
 # include "newfunc.h"
@@ -188,9 +189,9 @@ int SetupMemoryLayout() {
     Memory * Block;
 
     if (lout_memory == NULL) {
-        if ((lout_memory = malloc(SizeBuffer)) == NULL)
+        lout_memory = (char*) malloc(SizeBuffer);
+        if (lout_memory == NULL)
             return 1;
-
     }
 
     Block = (Memory *) lout_memory;

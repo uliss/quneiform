@@ -25,6 +25,7 @@ class QListWidget;
 class QLabel;
 class QListWidgetItem;
 class CImageStorage;
+class QScrollArea;
 
 class CImageView : public QDialog
 {
@@ -40,6 +41,7 @@ private:
     QListWidget * image_list_;
     QLabel * image_;
     CImageStorage * storage_;
+    QScrollArea * scroll_;
 };
 
 #endif // CIMAGEVIEW_H

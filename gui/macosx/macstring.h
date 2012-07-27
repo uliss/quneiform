@@ -21,6 +21,8 @@
 
 #include <QString>
 #include <string>
+#import <Foundation/NSString.h>
+
 #include "maccftype.h"
 
 class MacString : public MacCFType<CFStringRef>
@@ -35,6 +37,8 @@ public:
     operator QString() const;
     operator CFStringRef() const;
     static QString toQString(CFStringRef cfstr);
+    static QString toQString(NSString * str);
+    static NSString * toNSString(const QString& str);
     static CFStringRef toCFStringRef(const QString& str);
     static CFStringRef toCFStringRef(const std::string& str);
     static CFStringRef toCFStringRef(const char * str);

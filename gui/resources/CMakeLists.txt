@@ -5,3 +5,5 @@ if(UNIX AND NOT APPLE)
     INSTALL(FILES cuneiform_logo.png DESTINATION share/pixmaps )
     INSTALL(FILES quneiform.xml DESTINATION share/mime/packages )
 endif()
+
+add_subdirectory(icons)

@@ -24,7 +24,7 @@ endif()
 
 # user can define variable CF_NO_GRAPHICS_MAGICK to prevent using graphicsmagick image library
 if(CF_NO_GRAPHICS_MAGICK)
-    set(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK False)
+    set(CF_USE_IMAGE_LIBRARY_GRAPHICS_MAGICK False)
 endif()
 
 # user can define variable CF_NO_IMAGE_MAGICK to prevent using imagemagick image library

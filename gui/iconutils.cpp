@@ -22,6 +22,7 @@
 #include <QDebug>
 
 #include "iconutils.h"
+#include "settingskeys.h"
 
 QStringList availableIconThemes()
 {
@@ -32,9 +33,7 @@ QStringList availableIconThemes()
 static void setDefaultIconTheme()
 {
 #ifdef Q_WS_MAC
-    QIcon::setThemeName("faenza");
-#else
-    QIcon::setThemeName("");
+    QIcon::setThemeName("oxygen");
 #endif
 }
 
@@ -42,7 +41,7 @@ void iconThemeSetup()
 {
     QSettings settings;
 
-    QVariant theme = settings.value("gui/theme");
+    QVariant theme = settings.value(KEY_ICON_THEME);
     if(theme.isValid()) {
         QIcon::setThemeName(theme.toString());
         if(!QIcon::hasThemeIcon("zoom-in"))
@@ -53,8 +52,11 @@ void iconThemeSetup()
     }
 }
 
-QIcon iconFromTheme(const QString& name)
+QIcon iconFromTheme(const QString& name, bool fallback)
 {
-    return QIcon::fromTheme(name, QIcon(QString(":/icons/%1.png").arg(name)));
+    if(fallback)
+        return QIcon::fromTheme(name, QIcon(QString(":/icons/oxygen/32x32/%1.png").arg(name)));
+    else
+        return QIcon::fromTheme(name);
 }
 

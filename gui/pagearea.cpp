@@ -18,12 +18,12 @@
 
 #include <QSettings>
 #include <QDebug>
-
 #include <QPen>
 #include <QGraphicsScene>
 
 #include "pagearea.h"
 #include "pagelayout.h"
+#include "settingskeys.h"
 
 PageArea::PageArea() :
         layout_(NULL),
@@ -56,8 +56,7 @@ void PageArea::show(Page * page) {
 
 QRect PageArea::showChar(const QRect& bbox) {
     QSettings settings;
-    settings.beginGroup("format");
-    QPen p(settings.value("currentCharColor", Qt::red).value<QColor>());
+    QPen p(settings.value(KEY_CURRENT_CHAR_COLOR, Qt::red).value<QColor>());
 
     QRect r;
 

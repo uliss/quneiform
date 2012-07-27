@@ -81,6 +81,13 @@ public:
       */
     bool isNew() const;
 
+    /**
+      * Returns pointer to last page in packet
+      * if empty returns NULL
+      * @see pageAt(), firstPage()
+      */
+    Page * lastPage();
+
     void move(int pos, Page * page);
     void moveBefore(Page * page, Page * target);
 

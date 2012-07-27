@@ -24,6 +24,13 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestStartProcess);
 
 using namespace cf;
 
+
+#ifndef TEST_EXE_PATH
+#define TEST_EXE_PATH ""
+#endif
+
+#define CRASH_EXE TEST_EXE_PATH "/test_puma_crash"
+
 void TestStartProcess::test()
 {
     int status = 0;
@@ -41,5 +48,29 @@ void TestStartProcess::test()
     status = startProcess("/bin/ls", params);
     CPPUNIT_ASSERT(status != 0);
 #endif
+}
+
+void TestStartProcess::testProcessWrongArgs()
+{
+    int status = startProcess(CRASH_EXE, StringList());
+    CPPUNIT_ASSERT_EQUAL((int) WORKER_WRONG_ARGUMENT, status);
+}
+
+void TestStartProcess::testProcessSegfault()
+{
+    int status = startProcess(CRASH_EXE, StringList(1, "segv"));
+    CPPUNIT_ASSERT_EQUAL((int) WORKER_SEGFAULT_ERROR, status);
+}
+
+void TestStartProcess::testProcessTerminate()
+{
+    int status = startProcess(CRASH_EXE, StringList(1, "term"));
+    CPPUNIT_ASSERT_EQUAL((int) WORKER_TERMINATE_ERROR, status);
+}
+
+void TestStartProcess::testProcessOk()
+{
+    int status = startProcess(CRASH_EXE, StringList(1, "ok"));
+    CPPUNIT_ASSERT_EQUAL(0, status);
 }
 

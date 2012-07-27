@@ -259,6 +259,16 @@ uint32_t CPAGE_GetPageData(Handle page, Handle type, void * lpdata,
     return rc;
 }
 
+bool CPAGE_GetPageInfo(Handle page, PAGEINFO * info)
+{
+    return CPAGE_GetPageData(page, PT_PAGEINFO, info, sizeof(PAGEINFO));
+}
+
+bool CPAGE_SetPageInfo(Handle page, const PAGEINFO& info)
+{
+    return CPAGE_SetPageData(page, PT_PAGEINFO, (void*) &info, sizeof(PAGEINFO));
+}
+
 Handle CPAGE_GetBlockType(Handle page, Handle block)
 {
     PROLOG;

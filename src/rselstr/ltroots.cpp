@@ -77,11 +77,7 @@
 #include "my_mem.h"
 
 #include "compat_defs.h"
-
-# ifdef LT_STAND_ALONE
-ROOT *pRoots = NULL;
-int nRoots = 0;
-# endif
+#include "rselstr_internal.h"
 
 ROOT *pAfterRoots;
 
@@ -112,39 +108,39 @@ int nRootStripsOffset;
 # endif
 
 void CalculatePageParameters(void) {
-	ROOT *pRoot;
+    ROOT * proot;
 
-	pAfterRoots = pRoots + nRoots;
+    pAfterRoots = rootFirst() + rootCount();
 
-	nOriginalRoots = nRoots;
+    nOriginalRoots = rootCount();
 	pAfterOriginalRoots = pAfterRoots;
 
-	if (nRoots == 0) {
+    if (rootIsEmpty()) {
 		rRootSpace.xLeft = 0;
 		rRootSpace.yTop = 0;
 		rRootSpace.xRight = -1;
 		rRootSpace.yBottom = -1;
 	} else {
-		rRootSpace.xLeft = pRoots[0].xColumn;
-		rRootSpace.yTop = pRoots[0].yRow;
-		rRootSpace.xRight = pRoots[0].xColumn + pRoots[0].nWidth - 1;
-		rRootSpace.yBottom = pRoots[0].yRow + pRoots[0].nHeight - 1;
+        rRootSpace.xLeft = rootFirst()->xColumn;
+        rRootSpace.yTop = rootFirst()->yRow;
+        rRootSpace.xRight = rootFirst()->xColumn + rootFirst()->nWidth - 1;
+        rRootSpace.yBottom = rootFirst()->yRow + rootFirst()->nHeight - 1;
 	}
 
-	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-		pRoot -> bReached = FALSE;
+    for (proot = rootFirst(); proot < pAfterRoots; proot++) {
+        proot -> bReached = FALSE;
 
-		if (rRootSpace.xLeft > pRoot -> xColumn)
-			rRootSpace.xLeft = pRoot -> xColumn;
+        if (rRootSpace.xLeft > proot -> xColumn)
+            rRootSpace.xLeft = proot -> xColumn;
 
-		if (rRootSpace.yTop > pRoot -> yRow)
-			rRootSpace.yTop = pRoot -> yRow;
+        if (rRootSpace.yTop > proot -> yRow)
+            rRootSpace.yTop = proot -> yRow;
 
-		if (rRootSpace.xRight < pRoot -> xColumn + pRoots -> nWidth - 1)
-			rRootSpace.xRight = pRoot -> xColumn + pRoots -> nWidth - 1;
+        if (rRootSpace.xRight < proot -> xColumn + rootFirst()->nWidth - 1)
+            rRootSpace.xRight = proot -> xColumn + rootFirst()->nWidth - 1;
 
-		if (rRootSpace.yBottom < pRoot -> yRow + pRoots -> nHeight - 1)
-			rRootSpace.yBottom = pRoot -> yRow + pRoots -> nHeight - 1;
+        if (rRootSpace.yBottom < proot -> yRow + rootFirst()->nHeight - 1)
+            rRootSpace.yBottom = proot -> yRow + rootFirst()->nHeight - 1;
 	}
 
 	nRootSpaceWidth = rRootSpace.xRight - rRootSpace.xLeft + 1;
@@ -156,24 +152,24 @@ void CalculatePageParameters(void) {
 }
 
 void RootStripsCalculate(void) {
-	ROOT *pRoot;
+    ROOT * root;
 	int yMin, yMax;
 	int iStrip;
 	int iStripBegin;
 	int iStripEnd;
 
-	if (nRoots == 0)
+    if (rootIsEmpty())
 		ErrorInternal("nRoots == 0");
 
-	yMin = pRoots[0].yRow;
-	yMax = pRoots[0].yRow + pRoots[0].nHeight - 1;
+    yMin = rootFirst()->yRow;
+    yMax = rootFirst()->yRow + rootFirst()->nHeight - 1;
 
-	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-		if (pRoot -> yRow < yMin)
-			yMin = pRoot -> yRow;
+    for (root = rootFirst();  root < pAfterRoots;  root++) {
+        if ( root -> yRow < yMin)
+            yMin =  root -> yRow;
 
-		if (pRoot -> yRow + pRoot -> nHeight - 1 > yMax)
-			yMax = pRoot -> yRow + pRoot -> nHeight - 1;
+        if ( root -> yRow +  root -> nHeight - 1 > yMax)
+            yMax =  root -> yRow +  root -> nHeight - 1;
 	}
 
 	nRootStripsOffset = yMin;
@@ -189,22 +185,22 @@ void RootStripsCalculate(void) {
 		ErrorNoEnoughMemory("in LTROOTS.C,RootStripsCalculate,part 1");
 	memset(pRootStrips, 0, nRootStrips * sizeof(ROOT_STRIP));
 
-	for (pRoot = pRoots; pRoot < pAfterRoots; pRoot++) {
-		iStripBegin = (pRoot -> yRow - nRootStripsOffset) / nRootStripsStep;
+    for ( root = rootFirst();  root < pAfterRoots;  root++) {
+        iStripBegin = ( root -> yRow - nRootStripsOffset) / nRootStripsStep;
 
-		iStripEnd = (pRoot -> yRow + pRoot -> nHeight - 1 - nRootStripsOffset)
+        iStripEnd = ( root -> yRow +  root -> nHeight - 1 - nRootStripsOffset)
 				/ nRootStripsStep;
 		assert(nRootStrips>iStripEnd); // Piter
 		assert(nRootStrips>iStripBegin);// Piter
 		for (iStrip = iStripBegin; iStrip <= iStripEnd; iStrip++) {
-			if (pRootStrips[iStrip].pBegin == NULL || pRoot
+            if (pRootStrips[iStrip].pBegin == NULL ||  root
 					< pRootStrips[iStrip].pBegin) {
-				pRootStrips[iStrip].pBegin = pRoot;
+                pRootStrips[iStrip].pBegin =  root;
 			}
 
-			if (pRootStrips[iStrip].pEnd == NULL || pRoot
+            if (pRootStrips[iStrip].pEnd == NULL ||  root
 					> pRootStrips[iStrip].pEnd) {
-				pRootStrips[iStrip].pEnd = pRoot;
+                pRootStrips[iStrip].pEnd =  root;
 			}
 		}
 	}
@@ -269,65 +265,55 @@ void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin,
 }
 
 void RootsRemoveFromRulers(void) {
-	ROOT *p;
 	int x, y;
-	extern void del_root(int16_t row, int16_t col, int16_t h, int16_t w);
-
-	for (p = pRoots; p < pAfterRoots; p++) {
-		if (p -> nBlock == REMOVED_BLOCK_NUMBER) {
-			x = p -> xColumn;
-			y = p -> yRow;
-
+    for (ROOT * p = rootFirst(); p < pAfterRoots; p++) {
+        if (p->nBlock == REMOVED_BLOCK_NUMBER) {
+            x = p->xColumn;
+            y = p->yRow;
 			REAL_XY(x, y);
 		}
 	}
 }
 
 void RootsSaveNonLayoutData(void) {
-	int i;
-
 	if (pRootExts != NULL)
 		ErrorInternal((char *) "RootsSaveNonLayoutData: pRootExts != NULL");
 
-	nRootExts = nRoots;
+    nRootExts = rootCount();
 
-	pRootExts = (PROOT_EXT) malloc(nRootExts * sizeof(ROOT_EXT));
+    pRootExts = (ROOT_EXT*) malloc(nRootExts * sizeof(ROOT_EXT));
 
 	if (pRootExts == NULL)
 		ErrorNoEnoughMemory("in LTROOTS.C,RootStripsCalculate,part 2");
 
 	pAfterRootExts = pRootExts + nRootExts;
 
-	for (i = 0; i < nRootExts; i++) {
-		pRootExts[i].wSegmentPtr = pRoots[i].u1.u2.wSegmentPtr;
-		pRootExts[i].wLength = pRoots[i].u1.u2.wLength;
+    for (int i = 0; i < nRootExts; i++) {
+        pRootExts[i].wSegmentPtr = rootAt(i)->u1.u2.wSegmentPtr;
+        pRootExts[i].wLength = rootAt(i)->u1.u2.wLength;
 	}
 }
 
 void RootsRestoreNonLayoutData_ForDustAndRemoved(void) {
-	int i;
-
 	if (pRootExts == NULL)
 		ErrorInternal((char *) "RootsRestoreNonLayoutData: pRootExts == NULL");
 
-	for (i = 0; i < nRootExts; i++) {
-		if (pRoots[i].nBlock == DUST_BLOCK_NUMBER || pRoots[i].nBlock
-				== REMOVED_BLOCK_NUMBER) {
-			pRoots[i].u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
-			pRoots[i].u1.u2.wLength = pRootExts[i].wLength;
+    for (int i = 0; i < nRootExts; i++) {
+        if (rootAt(i)->nBlock == DUST_BLOCK_NUMBER ||
+                rootAt(i)->nBlock == REMOVED_BLOCK_NUMBER) {
+            rootAt(i)->u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
+            rootAt(i)->u1.u2.wLength = pRootExts[i].wLength;
 		}
 	}
 }
 
 void RootsRestoreNonLayoutData(void) {
-	int i;
-
 	if (pRootExts == NULL)
 		ErrorInternal((char *) "RootsRestoreNonLayoutData: pRootExts == NULL");
 
-	for (i = 0; i < nRootExts; i++) {
-		pRoots[i].u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
-		pRoots[i].u1.u2.wLength = pRootExts[i].wLength;
+    for (int i = 0; i < nRootExts; i++) {
+        rootAt(i)->u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
+        rootAt(i)->u1.u2.wLength = pRootExts[i].wLength;
 	}
 
 	free(pRootExts);
@@ -338,15 +324,10 @@ void RootsRestoreNonLayoutData(void) {
 }
 
 void RootsFreeData(void) {
-# ifdef LT_STAND_ALONE
-	if (pRoots != NULL)
-	{
-		free (pRoots);
-		pRoots = NULL;
+    if (!rootIsNull()) {
+        rootFree();
 		pAfterRoots = NULL;
-		nRoots = 0;
 	}
-# endif
 
 	if (pRootExts != NULL) {
 		free(pRootExts);

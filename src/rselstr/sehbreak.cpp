@@ -75,6 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include	"evn/evn.h"
 #include	"newfunc.h"
 #include	"new_c.h" /* FIXME: to compile in MS VC++, Handle exthCCOM */
+#include "rselstr_internal.h"
 # define EXTENDED_RASTER_MAX_WIDTH  RASTER_MAX_WIDTH
 # define EXTENDED_RASTER_MAX_HEIGHT (RASTER_MAX_HEIGHT * 2)
 
@@ -94,7 +95,7 @@ int   yRasterBreakLine;
 int   nOldRoots;
 ROOT  *pOldAfterRoots;
 
-extern  CCOM_comp *get_CCOM_comp(PROOT r);
+extern  CCOM_comp *get_CCOM_comp(ROOT * r);
 extern  puchar make_raster_CCOM(CCOM_comp *cmp);
 extern  puchar make_extended_raster_CCOM(CCOM_comp *cmp);
 
@@ -124,7 +125,7 @@ void FormOneRootString (int iRoot)
 {
     StringNewDescriptor ();
     StringAddLetter1 (iRoot);
-    pRoots [iRoot].bType |= ROOT_USED;
+    rootAt(iRoot)->bType |= ROOT_USED;
 
     StringCalculateParameters (&String);
     String.uFlags  |= SF_SPECIAL;
@@ -147,7 +148,7 @@ Bool IsInterStringsComponent (ROOT *pRoot)
 
     for (pString = pStringsList; pString != NULL; pString = pString -> pNext)
     {
-        ROOT *pFirstRoot = & pRoots [pString -> pLettersList [0]];
+        ROOT *pFirstRoot = rootAt(pString -> pLettersList [0]);
 
         if (! (yBottom < pString -> yTop || yTop > pString -> yBottom) &&
                (pRoot == pFirstRoot ||
@@ -410,7 +411,7 @@ void StringsProcessSpecials (void)
     int         nDeleted;
     Bool        bSpecialsFounded = FALSE;
 
-    nOldRoots      = nRoots;
+    nOldRoots      = rootCount();
     pOldAfterRoots = pAfterRoots;
 
     for (pString = pStringsUpList; pString != NULL; pString = pString -> pDown)
@@ -432,7 +433,7 @@ void StringsProcessSpecials (void)
         j = 0;
         nDeleted = 0;
 
-        pRoot = &pRoots [pString -> pLettersList [i]];
+        pRoot = rootAt(pString -> pLettersList [i]);
 
         if (  (pRoot -> bType & ROOT_SPECIAL_LETTER) &&
             ! (pRoot -> bType & ROOT_SPECIAL_DUST)   &&
@@ -446,7 +447,7 @@ void StringsProcessSpecials (void)
 
         for (; i < pString -> nLetters; i++)
         {
-            pRoot = &pRoots [pString -> pLettersList [i]];
+            pRoot = rootAt(pString -> pLettersList [i]);
 
             if (pRoot -> bType & ROOT_SPECIAL_DUST)
             {

@@ -13,6 +13,83 @@
     </message>
 </context>
 <context>
+    <name>AbstractPreferencesDialog</name>
+    <message>
+        <source>Settings</source>
+        <translation>Настройки</translation>
+    </message>
+</context>
+<context>
+    <name>DebugPreferences</name>
+    <message>
+        <source>Debug</source>
+        <translation>Отладка</translation>
+    </message>
+    <message>
+        <source>Print libcuneiform debug information</source>
+        <translation>Выводить отладочную информацию библиотеки libcuneiform</translation>
+    </message>
+    <message>
+        <source>CImage module debugging</source>
+        <translation>Отладка модуля CImage</translation>
+    </message>
+    <message>
+        <source>Show formatter bounding boxes for:</source>
+        <translation>Показывать границы форматирования для следующих блоков:</translation>
+    </message>
+    <message>
+        <source>sections</source>
+        <translation>секций</translation>
+    </message>
+    <message>
+        <source>columns</source>
+        <translation>столбцов</translation>
+    </message>
+    <message>
+        <source>paragraphs</source>
+        <translation>параграфов</translation>
+    </message>
+    <message>
+        <source>lines</source>
+        <translation>строк</translation>
+    </message>
+    <message>
+        <source>characters</source>
+        <translation>символов</translation>
+    </message>
+    <message>
+        <source>pictures</source>
+        <translation>изображений</translation>
+    </message>
+    <message>
+        <source>Recognize in separate process</source>
+        <translation>Распознавать в отдельном процессе</translation>
+    </message>
+</context>
+<context>
+    <name>EditorPreferences</name>
+    <message>
+        <source>Editor</source>
+        <translation>Редактор</translation>
+    </message>
+    <message>
+        <source>Show current character:</source>
+        <translation>Показывать выделенный символ:</translation>
+    </message>
+    <message>
+        <source>Default font:</source>
+        <translation>Шрифт:</translation>
+    </message>
+    <message>
+        <source>Current character color:</source>
+        <translation>Цвет текущего символа:</translation>
+    </message>
+    <message>
+        <source>Alternatives color:</source>
+        <translation>Цвет вариантов распознавания:</translation>
+    </message>
+</context>
+<context>
     <name>ExportDialog</name>
     <message>
         <source>Format:</source>
@@ -124,6 +201,37 @@
     <message>
         <source>@</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>GeneralPreferences</name>
+    <message>
+        <source>Select</source>
+        <translation>Выбрать</translation>
+    </message>
+    <message>
+        <source>External editor:</source>
+        <translation>Внешний редактор:</translation>
+    </message>
+    <message>
+        <source>Icon theme:</source>
+        <translation>Тема значков:</translation>
+    </message>
+    <message>
+        <source>Select application</source>
+        <translation>Выбор программы</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Общие</translation>
+    </message>
+    <message>
+        <source>Restart application to apply icon theme settings.</source>
+        <translation>Перезапустите программу для применения настроек темы.</translation>
+    </message>
+    <message>
+        <source>Theme changed</source>
+        <translation>Тема изменена</translation>
     </message>
 </context>
 <context>
@@ -268,6 +376,17 @@
     <message>
         <source>Clear</source>
         <translation>Очистить</translation>
+    </message>
+</context>
+<context>
+    <name>MacPreferencesDialog</name>
+    <message>
+        <source>General</source>
+        <translation type="obsolete">Общие</translation>
+    </message>
+    <message>
+        <source>Debug</source>
+        <translation type="obsolete">Отладка</translation>
     </message>
 </context>
 <context>
@@ -642,6 +761,17 @@ Page: %2</source>
     </message>
 </context>
 <context>
+    <name>PreferencesDialogFactory</name>
+    <message>
+        <source>General</source>
+        <translation type="obsolete">Общие</translation>
+    </message>
+    <message>
+        <source>Debug</source>
+        <translation type="obsolete">Отладка</translation>
+    </message>
+</context>
+<context>
     <name>RecognitionProgressDialog</name>
     <message>
         <source>Page recognition: &quot;%1&quot;</source>
@@ -691,7 +821,7 @@ Page: %2</source>
     <name>Settings</name>
     <message>
         <source>Debug</source>
-        <translation>Отладка</translation>
+        <translation type="obsolete">Отладка</translation>
     </message>
     <message>
         <source>Debug settings</source>
@@ -707,71 +837,71 @@ Page: %2</source>
     </message>
     <message>
         <source>Print libcuneiform debug information</source>
-        <translation>Выводить отладочную информацию библиотеки libcuneiform</translation>
+        <translation type="obsolete">Выводить отладочную информацию библиотеки libcuneiform</translation>
     </message>
     <message>
         <source>Show formatter bounding boxes for:</source>
-        <translation>Показывать границы форматирования для следующих блоков:</translation>
+        <translation type="obsolete">Показывать границы форматирования для следующих блоков:</translation>
     </message>
     <message>
         <source>sections</source>
-        <translation>секций</translation>
+        <translation type="obsolete">секций</translation>
     </message>
     <message>
         <source>paragraphs</source>
-        <translation>параграфов</translation>
+        <translation type="obsolete">параграфов</translation>
     </message>
     <message>
         <source>lines</source>
-        <translation>строк</translation>
+        <translation type="obsolete">строк</translation>
     </message>
     <message>
         <source>characters</source>
-        <translation>символов</translation>
+        <translation type="obsolete">символов</translation>
     </message>
     <message>
         <source>pictures</source>
-        <translation>изображений</translation>
+        <translation type="obsolete">изображений</translation>
     </message>
     <message>
         <source>columns</source>
-        <translation>столбцов</translation>
+        <translation type="obsolete">столбцов</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Настройки</translation>
+        <translation type="obsolete">Настройки</translation>
     </message>
     <message>
         <source>Editor</source>
-        <translation>Редактор</translation>
+        <translation type="obsolete">Редактор</translation>
     </message>
     <message>
         <source>Show current character:</source>
-        <translation>Показывать выделенный символ:</translation>
+        <translation type="obsolete">Показывать выделенный символ:</translation>
     </message>
     <message>
         <source>Current character color:</source>
-        <translation>Цвет текущего символа:</translation>
+        <translation type="obsolete">Цвет текущего символа:</translation>
     </message>
     <message>
         <source>Alternatives color:</source>
-        <translation>Цвет вариантов распознавания:</translation>
+        <translation type="obsolete">Цвет вариантов распознавания:</translation>
     </message>
     <message>
         <source>Default font:</source>
-        <translation>Шрифт:</translation>
+        <translation type="obsolete">Шрифт:</translation>
     </message>
     <message>
         <source>CImage module debugging</source>
-        <translation>Отладка модуля CImage</translation>
+        <translation type="obsolete">Отладка модуля CImage</translation>
     </message>
     <message>
         <source>Recognize in separate process, to avoid GUI crash if libcuneiform crashes. But this option makes debuggin more hard.</source>
-        <translation>Распознавать в отдельном процессе, чтобы избежать падения графической оболочки при сбое в ядре cuneiform. В тоже время эта опция затрудняет отладку и поиск причины сбоя.</translation>
+        <translation type="obsolete">Распознавать в отдельном процессе, чтобы избежать падения графической оболочки при сбое в ядре cuneiform. В тоже время эта опция затрудняет отладку и поиск причины сбоя.</translation>
     </message>
     <message>
         <source>Recognize in separate process</source>
-        <translation>Распознавать в отдельном процессе</translation>
+        <translation type="obsolete">Распознавать в отдельном процессе</translation>
     </message>
     <message>
         <source>Theme:</source>
@@ -779,7 +909,19 @@ Page: %2</source>
     </message>
     <message>
         <source>Icon theme:</source>
-        <translation>Тема значков:</translation>
+        <translation type="obsolete">Тема значков:</translation>
+    </message>
+    <message>
+        <source>External Editor:</source>
+        <translation type="obsolete">Внешний редактор:</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="obsolete">Выбрать</translation>
+    </message>
+    <message>
+        <source>Select application</source>
+        <translation type="obsolete">Выбор программы</translation>
     </message>
 </context>
 <context>
@@ -870,6 +1012,10 @@ Page: %2</source>
     <message>
         <source>Format settings</source>
         <translation>Настройки форматирования</translation>
+    </message>
+    <message>
+        <source>Open in external editor</source>
+        <translation>Открыть во внешнем редакторе</translation>
     </message>
 </context>
 </TS>

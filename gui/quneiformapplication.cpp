@@ -21,6 +21,7 @@
 #include <QDebug>
 #include <QtPlugin>
 #include <QIcon>
+#include <QDir>
 
 #include "metatyperegistrator.h"
 #include "translationloader.h"
@@ -28,6 +29,7 @@
 #include "config-version.h"
 #include "guilog.h"
 #include "iconutils.h"
+#include "theme-config.h"
 
 Q_IMPORT_PLUGIN(dib_imageplugin)
 
@@ -42,20 +44,15 @@ Q_IMPORT_PLUGIN(pdf_imageplugin)
 QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     : QApplication(argc, argv)
 {
-#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
-    qInstallMsgHandler(guiMessageLogger);
-#endif
+    platformInit();
+    resourcesInit();
 
     setOrganizationName("openocr.org");
     setApplicationName("Quneiform OCR");
     setApplicationVersion(CF_VERSION);
     iconThemeSetup();
 
-#ifdef Q_WS_MAC
-    setAttribute(Qt::AA_DontShowIconsInMenus);
     QIcon::setThemeName("faenza");
-#endif
-
     MetaTypeRegistrator registrator;
     TranslationLoader loader;
     loader.load();
@@ -74,11 +71,54 @@ bool QuneiformApplication::event(QEvent * ev)
         emit openFiles(files);
         return true;
     }
-//        case QEvent::Close: {
-//  }
     default:
         processed = QApplication::event(ev);
         break;
     }
     return processed;
+}
+
+void QuneiformApplication::addBundlePluginPath()
+{
+    QDir dir(applicationDirPath());
+    dir.cdUp();
+    dir.cd("PlugIns");
+    addLibraryPath(dir.absolutePath());
+}
+
+void QuneiformApplication::platformInit()
+{
+#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
+    qInstallMsgHandler(guiMessageLogger);
+#endif
+
+#ifdef Q_WS_MAC
+    setAttribute(Qt::AA_DontShowIconsInMenus);
+    addBundlePluginPath();
+#endif
+}
+
+void QuneiformApplication::resourcesInit()
+{
+    Q_INIT_RESOURCE(theme_oxygen);
+
+#ifdef WITH_THEME_FAENZA
+    Q_INIT_RESOURCE(theme_faenza);
+#endif
+
+#ifdef WITH_THEME_MAC
+    Q_INIT_RESOURCE(theme_mac);
+#endif
+
+#ifdef WITH_THEME_GNOME
+    Q_INIT_RESOURCE(theme_gnome);
+#endif
+
+#ifdef WITH_THEME_HUMAN
+    Q_INIT_RESOURCE(theme_human);
+#endif
+
+#ifdef WITH_THEME_SNOWISH
+    Q_INIT_RESOURCE(theme_snowish);
+#endif
 }
