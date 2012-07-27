@@ -70,7 +70,7 @@ private slots:
     void handleViewSplitChange();
     void imageDuplication(const QString& path);
     void openImagesDialog();
-    void openPacket();
+    void openPacketDialog();
     void openPacket(const QString& path);
     void openRecentImage(const QString& path);
     void packetChange();
@@ -113,6 +113,7 @@ private:
     void enableViewActions(bool value);
     bool openImage(const QString& path, bool allowDuplication = false);
     QString openImageDefaultDir() const;
+    QString openPacketDefaultDir() const;
     bool openMultiPage(const QString& path);
     void readSettings();
     void setupDefaultLanguage();
@@ -133,6 +134,7 @@ private:
     void setupViewSplit();
     void setupUi();
     void setupUiLayout();
+    QStringList supportedImagesFilter() const;
     void writeSettings();
 protected:
     void showEvent(QShowEvent * event);

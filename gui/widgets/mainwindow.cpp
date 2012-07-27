@@ -179,7 +179,7 @@ void MainWindow::connectActions() {
     connect(ui_->actionRecognizeAll, SIGNAL(triggered()), SLOT(recognizeAll()));
     connect(ui_->actionRotateLeft, SIGNAL(triggered()), SLOT(rotateLeft()));
     connect(ui_->actionRotateRight, SIGNAL(triggered()), SLOT(rotateRight()));
-    connect(ui_->actionOpenPacket, SIGNAL(triggered()), SLOT(openPacket()));
+    connect(ui_->actionOpenPacket, SIGNAL(triggered()), SLOT(openPacketDialog()));
     connect(ui_->actionSavePacket, SIGNAL(triggered()), SLOT(savePacket()));
     connect(ui_->actionPreferences, SIGNAL(triggered()), SLOT(showSettings()));
     connect(ui_->actionRecognitionSettings, SIGNAL(triggered()), SLOT(recognitionSettings()));
@@ -352,6 +352,24 @@ QString MainWindow::openImageDefaultDir() const
     return QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 }
 
+QString MainWindow::openPacketDefaultDir() const
+{
+    if(packet_) {
+        if(!packet_->fileName().isEmpty()) {
+            QFileInfo fi(packet_->fileName());
+            return fi.absoluteDir().path();
+        }
+
+        QString last_dir = QSettings().value(KEY_LAST_OPEN_DIRECTORY, QString()).toString();
+        if(last_dir.isEmpty())
+            return QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+
+        return last_dir;
+    }
+
+    return QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+}
+
 bool MainWindow::openMultiPage(const QString& path)
 {
     Q_ASSERT(packet_);
@@ -421,23 +439,9 @@ void MainWindow::open(const QStringList& paths) {
     progress_->stop();
 }
 
-void MainWindow::openImagesDialog() {
-    QStringList file_ext;
-
-    file_ext << "*.png"
-                    << "*.xmp"
-                    << "*.jpg" << "*.jpeg"
-                    << "*.tif" << "*.tiff"
-                    << "*.bmp"
-                    << "*.pnm" << "*.pbm" << "*.pgm" << "*.ppm";
-
-    QList<QByteArray> supported_formats = QImageReader::supportedImageFormats();
-    if(supported_formats.contains("gif"))
-        file_ext << "*.gif";
-    if(supported_formats.contains("pdf"))
-        file_ext << "*.pdf";
-    if(supported_formats.contains("djvu"))
-        file_ext << "*.djvu";
+void MainWindow::openImagesDialog()
+{
+    QStringList file_ext = supportedImagesFilter();
 
     QStringList files = QFileDialog::getOpenFileNames(NULL,
                                                       tr("Open images"),
@@ -449,9 +453,11 @@ void MainWindow::openImagesDialog() {
         QSettings().setValue(KEY_LAST_OPEN_DIRECTORY, QFileInfo(files.last()).absoluteDir().path());
 }
 
-void MainWindow::openPacket() {
-    QString packet = QFileDialog::getOpenFileName(this, tr("Open Quneiform packet"), "",
-                                                      tr("Quneiform packets (*.qfp)"));
+void MainWindow::openPacketDialog() {
+    QString packet = QFileDialog::getOpenFileName(this,
+                                                  tr("Open Quneiform packet"),
+                                                  openPacketDefaultDir(),
+                                                  tr("Quneiform packets (*.qfp)"));
     openPacket(packet);
 }
 
@@ -745,14 +751,14 @@ void MainWindow::setupRecent() {
 }
 
 void MainWindow::setupRecentImages() {
-    recent_images_ = new RecentMenu(this, tr("Recent files"), "recent-files");
+    recent_images_ = new RecentMenu(this, tr("Recent files"), KEY_RECENT_FILES);
     recent_images_->setIcon(iconFromTheme("document-open-recent", false));
     addRecentMenu(recent_images_);
     connect(recent_images_, SIGNAL(selected(QString)), SLOT(openRecentImage(QString)));
 }
 
 void MainWindow::setupRecentPackets() {
-    recent_packets_ = new RecentMenu(this, tr("Recent packets"), "recent-packets");
+    recent_packets_ = new RecentMenu(this, tr("Recent packets"), KEY_RECENT_PACKETS);
     addRecentMenu(recent_packets_);
     connect(recent_packets_, SIGNAL(selected(QString)), SLOT(openPacket(QString)));
 }
@@ -835,6 +841,28 @@ void MainWindow::setupUiLayout() {
     main_layout_->addWidget(view_splitter_);
 
     ui_->centralWidget->setLayout(main_layout_);
+}
+
+QStringList MainWindow::supportedImagesFilter() const
+{
+    QStringList res;
+    res << "*.png" << "*.xmp" << "*.bmp"
+        << "*.pnm" << "*.pbm" << "*.pgm" << "*.ppm";
+
+    QList<QByteArray> supported_formats = QImageReader::supportedImageFormats();
+
+    if(supported_formats.contains("jpg"))
+        res << "*.jpg" << "*.jpeg";
+    if(supported_formats.contains("tiff") || supported_formats.contains("mtiff"))
+        res << "*.tif" << "*.tiff";
+    if(supported_formats.contains("gif"))
+        res << "*.gif";
+    if(supported_formats.contains("pdf"))
+        res << "*.pdf";
+    if(supported_formats.contains("djvu"))
+        res << "*.djvu";
+
+    return res;
 }
 
 void MainWindow::showPageImage(Page * page) {
