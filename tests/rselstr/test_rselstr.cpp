@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2012 by Serge Poltavski                                 *
+ *   Copyright (C) 2012 by Serge Poltavsky                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,6 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <cstdlib>
-#include <cassert>
+#include <cppunit/extensions/TestFactoryRegistry.h>
+#include <cppunit/ui/text/TestRunner.h>
 
+int main()
+{
+    CppUnit::TextUi::TestRunner runner;
+    CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
+    runner.addTest(registry.makeTest());
+    bool wasSuccessful = runner.run("", false);
+    return wasSuccessful ? 0 : -1;
+}

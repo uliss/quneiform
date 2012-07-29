@@ -16,6 +16,41 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <cstdlib>
-#include <cassert>
+#include "testrootlist.h"
+#include "rselstr/rootlist.h"
+#include "roots_struct.h"
 
+CPPUNIT_TEST_SUITE_REGISTRATION(TestRootList);
+
+using namespace cf;
+
+void TestRootList::testInit()
+{
+    RootList lst;
+    CPPUNIT_ASSERT(lst.isNull());
+    CPPUNIT_ASSERT(lst.isEmpty());
+    CPPUNIT_ASSERT_EQUAL(size_t(0), lst.count());
+    lst.free();
+}
+
+void TestRootList::testAdd()
+{
+    RootList l;
+    CPPUNIT_ASSERT(l.add(ROOT()));
+    CPPUNIT_ASSERT_EQUAL(size_t(1), l.count());
+    CPPUNIT_ASSERT(!l.isNull());
+    CPPUNIT_ASSERT(!l.isEmpty());
+
+    CPPUNIT_ASSERT_EQUAL(size_t(10), l.capacity());
+    for(int i = 0; i < 10; i++)
+        CPPUNIT_ASSERT(l.add(ROOT()));
+
+    CPPUNIT_ASSERT_EQUAL(size_t(11), l.count());
+    CPPUNIT_ASSERT_EQUAL(size_t(110), l.capacity());
+
+    l.free();
+    CPPUNIT_ASSERT(l.isNull());
+    CPPUNIT_ASSERT(l.isEmpty());
+    CPPUNIT_ASSERT_EQUAL(size_t(0), l.count());
+    CPPUNIT_ASSERT(l.add(ROOT()));
+}

@@ -68,11 +68,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <cstring>
 #include <cstdlib>
+
 #include "extract.h"
 #include "tech.h"
 #include "my_mem.h"
 #include "rselstr_internal.h"
-
+#include "rootlist.h"
 
 BLOCK **pBlockPointer = NULL;
 int nBlocks;
@@ -93,9 +94,9 @@ void BlocksAccessTableBuild (void)
     nMinBlock = 0;
     nMaxBlock = 0;
 
-    for (int i = 0; i < rootCount(); i++)
+    for (int i = 0; i < cf::Roots::count(); i++)
     {
-        w = rootAt(i)->nBlock;
+        w = cf::Roots::at(i)->nBlock;
         if ((w != DUST_BLOCK_NUMBER) && (w != REMOVED_BLOCK_NUMBER ))
         {
             if (w < nMinBlock || nMinBlock == 0)

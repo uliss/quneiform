@@ -24,6 +24,7 @@ set(CF_RSELSTR_SOURCE
     puttocstr.cpp
     rotate.cpp
     roots.cpp
+    rootlist.cpp
     rselstrbase.cpp
     rselstrmain.cpp
     scalar.cpp

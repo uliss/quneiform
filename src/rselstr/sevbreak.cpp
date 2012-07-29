@@ -66,9 +66,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ***************************************************************************/
 
 # include <stdlib.h>
+
 # include "extract.h"
 #include "minmax.h"
 #include "rselstr_internal.h"
+#include "rootlist.h"
 
 void StringCountRecog (STRING *);   // 940223  AL
 Bool StringBreakOnVertical (STRING *p,  int x,
@@ -81,7 +83,7 @@ Bool StringBreakOnVertical (STRING *p,  int x,
     ROOT *pRootFirstInR;
 
     for (i = 0; i < p -> nLetters; i++)
-        if (rootAt(p -> pLettersList [i])->xColumn > x)
+        if (cf::Roots::at(p -> pLettersList [i])->xColumn > x)
             break;
 
     iLettersLimit = i;
@@ -92,13 +94,13 @@ Bool StringBreakOnVertical (STRING *p,  int x,
     }
 
     for (i = 0; i < p -> nDust; i++)
-        if (rootAt(p -> pDustList [i])->xColumn > x)
+        if (cf::Roots::at(p -> pDustList [i])->xColumn > x)
             break;
 
     iDustLimit = i;
 
-    pRootLastInQ  = rootAt(p -> pLettersList [iLettersLimit - 1]);
-    pRootFirstInR = rootAt(p -> pLettersList [iLettersLimit]);
+    pRootLastInQ  = cf::Roots::at(p -> pLettersList [iLettersLimit - 1]);
+    pRootFirstInR = cf::Roots::at(p -> pLettersList [iLettersLimit]);
 
     String = *p;
     String.nLetters    = iLettersLimit;
@@ -204,12 +206,12 @@ static Bool StringProcessVerticalBreaking (STRING *p)
         return (FALSE);
     }
 
-    pLet2 = rootAt(p -> pLettersList [0]);
+    pLet2 = cf::Roots::at(p -> pLettersList [0]);
 
     for (i = 1; i < p -> nLetters; i++)
     {
         pLet1 = pLet2;
-        pLet2 = rootAt(p -> pLettersList [i]);
+        pLet2 = cf::Roots::at(p -> pLettersList [i]);
 
         xLetEnd   = pLet1 -> xColumn + pLet1 -> nWidth - 1;
         xLetBegin = pLet2 -> xColumn;
@@ -233,7 +235,7 @@ static Bool StringProcessVerticalBreaking (STRING *p)
 
         // Case : no dust at the beginning of string
 
-        pDust2 = rootAt(p -> pDustList [0]);
+        pDust2 = cf::Roots::at(p -> pDustList [0]);
 
         if (CheckIntervalsAndProcessString (p,
                 nBigDistance,
@@ -247,7 +249,7 @@ static Bool StringProcessVerticalBreaking (STRING *p)
 
         // Case : no dust at the end of string
 
-        pDust1 = rootAt(p -> pDustList [p -> nDust - 1]);
+        pDust1 = cf::Roots::at(p -> pDustList [p -> nDust - 1]);
 
         if (CheckIntervalsAndProcessString (p,
                 nBigDistance,
@@ -261,12 +263,12 @@ static Bool StringProcessVerticalBreaking (STRING *p)
 
         // Case : regular
 
-        pDust2 = rootAt(p -> pDustList [0]);
+        pDust2 = cf::Roots::at(p -> pDustList [0]);
 
         for (j = 1; j < p -> nDust; j++)
         {
             pDust1 = pDust2;
-            pDust2 = rootAt(p -> pDustList [j]);
+            pDust2 = cf::Roots::at(p -> pDustList [j]);
 
             if (CheckIntervalsAndProcessString (p,
                     nBigDistance,

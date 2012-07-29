@@ -16,6 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <cstdlib>
-#include <cassert>
+#ifndef TESTROOTLIST_H
+#define TESTROOTLIST_H
 
+#include <cppunit/extensions/HelperMacros.h>
+
+class TestRootList : public CppUnit::TestFixture
+{
+    CPPUNIT_TEST_SUITE(TestRootList);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testAdd);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testInit();
+    void testAdd();
+};
+
+#endif // TESTROOTLIST_H

@@ -69,6 +69,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <cstdlib>
+
 #include "tech.h"
 #include "layout.h"
 #include "my_mem.h"
@@ -77,6 +78,7 @@
 #include "cpage/cpage.h" // Rom
 #include "cttypes.h" // Piter
 #include "rselstr_internal.h"
+#include "rootlist.h"
 
 int nIncline;
 
@@ -107,13 +109,13 @@ static int nMaxSkippedRecords;
 static int nLetterRepresentativeHeight;
 
 void RotatePageToIdeal(void) {
-    for (int i = 0; i < rootCount(); i++) {
-        IDEAL_XY(rootAt(i)->xColumn, rootAt(i)->yRow);
+    for (int i = 0; i < cf::Roots::count(); i++) {
+        IDEAL_XY(cf::Roots::at(i)->xColumn, cf::Roots::at(i)->yRow);
 	}
 }
 
 void RotatePageToReal(void) {
-    for (int i = 0; i < rootCount(); i++) {
-        REAL_XY(rootAt(i)->xColumn, rootAt(i)->yRow);
+    for (int i = 0; i < cf::Roots::count(); i++) {
+        REAL_XY(cf::Roots::at(i)->xColumn, cf::Roots::at(i)->yRow);
 	}
 }

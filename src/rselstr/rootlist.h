@@ -16,6 +16,56 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <cstdlib>
-#include <cassert>
+#ifndef ROOTLIST_H
+#define ROOTLIST_H
 
+#include <stddef.h>
+
+#include "globus.h"
+
+struct ROOT;
+
+namespace cf {
+
+class CLA_EXPO RootList
+{
+public:
+    RootList();
+    ~RootList();
+
+    bool add(const ROOT& r);
+    ROOT * at(size_t pos);
+    ROOT * first();
+    ROOT * last();
+    ROOT * reserve(size_t num);
+
+    size_t capacity() const;
+    void clear();
+    void free();
+    size_t count() const;
+    bool isEmpty() const;
+    bool isNull() const;
+private:
+    ROOT * roots_;
+    size_t count_;
+    size_t capacity_;
+};
+
+class Roots
+{
+    Roots();
+    Roots(const Roots&);
+public:
+    static bool add(const ROOT& r);
+    static ROOT * at(size_t pos);
+    static size_t count();
+    static ROOT * first();
+    static ROOT * last();
+    static void free();
+    static bool isEmpty();
+    static bool reserve(size_t num);
+};
+
+}
+
+#endif // ROOTLIST_H

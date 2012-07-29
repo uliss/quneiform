@@ -74,6 +74,7 @@
 
 #include "new_c.h" /* FIXME: to compile in MS VC++, Handle exthCCOM */
 #include "rselstr_internal.h"
+#include "rootlist.h"
 
 extern int nIncline;
 
@@ -160,9 +161,9 @@ Bool save_MN(MN *mn) {
 	if (!AddRoot(p, FALSE))
 		return FALSE;
 
-    if(rootCount() < 1)
+    if(cf::Roots::count() < 1)
         return FALSE;
 
-    BlockAccountRoot(pCurrentBlock, rootLast());
+    BlockAccountRoot(pCurrentBlock, cf::Roots::last());
 	return TRUE;
 }

@@ -21,15 +21,5 @@
 
 #include "roots_struct.h"
 
-bool rootIsNull();
-bool rootIsEmpty();
-ROOT * rootAt(int idx);
-ROOT * rootLast();
-ROOT * rootFirst();
-int rootCount();
-void rootFree();
-void rootAdd(const ROOT& r);
-
-ROOT * rootReserve(int size);
 
 #endif // RSELSTR_INTERNAL_H
