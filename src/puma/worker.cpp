@@ -31,8 +31,14 @@
 #include "shmem/memorydata.h"
 #include "shmem/sharedmemoryholder.h"
 #include "puma/pumaimpl.h"
+#include "build_number.h"
 
+#ifndef NDEBUG
+#define WORKER_PREFIX cf::console::message("[Process worker:" CF_BUILD_NUMBER "] ", cf::console::YELLOW)
+#else
 #define WORKER_PREFIX cf::console::message("[Process worker] ", cf::console::YELLOW)
+#endif
+
 #define CF_ERROR(msg) std::cerr << WORKER_PREFIX << msg << std::endl;
 #define CF_INFO(msg) std::cerr << WORKER_PREFIX << msg << std::endl;
 
