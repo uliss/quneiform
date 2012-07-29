@@ -71,7 +71,6 @@
 #include "tech.h"
 #include "extract.h"
 #include "my_mem.h"
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 # define DUST_LIST_MEMORY_ALLOCATION_QUANTUM 128

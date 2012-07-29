@@ -74,7 +74,6 @@
 #include "extract.h"
 #include "my_mem.h"
 #include "newfunc.h"
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 void BlocksHystogramsAllocate(void) {

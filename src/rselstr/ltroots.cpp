@@ -77,7 +77,6 @@
 #include "my_mem.h"
 
 #include "compat_defs.h"
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 ROOT *pAfterRoots;

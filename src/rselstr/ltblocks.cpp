@@ -73,7 +73,6 @@
 #include "my_mem.h"
 
 #include "minmax.h"
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 BLOCK *pBlocksList = NULL;

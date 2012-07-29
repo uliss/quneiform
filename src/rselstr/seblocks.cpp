@@ -72,7 +72,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "extract.h"
 #include "tech.h"
 #include "my_mem.h"
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 BLOCK **pBlockPointer = NULL;

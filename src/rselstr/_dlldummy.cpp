@@ -84,7 +84,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "graphics.h"
 #include "minmax.h"
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 # if defined (LT_DEBUG) || defined (SE_DEBUG)

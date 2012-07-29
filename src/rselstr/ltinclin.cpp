@@ -77,7 +77,6 @@
 #include "sheet.h"
 #include "cpage/cpage.h" // Rom
 #include "cttypes.h" // Piter
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 int nIncline;

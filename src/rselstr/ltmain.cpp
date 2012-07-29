@@ -75,7 +75,6 @@
 # include "status.h"
 
 # include "dpuma.h"
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 extern uint16_t run_options;

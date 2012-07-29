@@ -69,7 +69,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # include "extract.h"
 #include "minmax.h"
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 void StringCountRecog (STRING *);   // 940223  AL

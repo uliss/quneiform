@@ -67,7 +67,6 @@
 #include "rline/rline.h"
 
 #include "minmax.h"
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 using namespace cf;

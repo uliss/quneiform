@@ -87,7 +87,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # include "cstr/cstr.h"
 
 #include "minmax.h"
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 

@@ -73,7 +73,6 @@
 #include "layout.h"
 
 #include "new_c.h" /* FIXME: to compile in MS VC++, Handle exthCCOM */
-#include "rselstr_internal.h"
 #include "rootlist.h"
 
 extern int nIncline;
