@@ -1,3 +1,5 @@
+add_definitions(-DTEST_DATADIR="${CMAKE_CURRENT_SOURCE_DIR}")
+
 add_executable(test_common
     test_common.cpp
     testcolor.cpp
@@ -5,6 +7,7 @@ add_executable(test_common
     testhelper.cpp
     testhistogram.cpp
     testiconv.cpp
+    testconfigparser.cpp
     testlanguage.cpp
     testlog.cpp
     testmodules.cpp

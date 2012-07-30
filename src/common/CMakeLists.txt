@@ -6,6 +6,7 @@ endif()
 
 set(CF_COMMON_SOURCES
     cifconfig.cpp
+    configparser.cpp
     console_messages.cpp
     consoleprogresscounter.cpp
     ctdib.cpp
