@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavski                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,59 +16,22 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include "console_messages.h"
+#include "testlog.h"
+#include "common/log.h"
+#include "common/rect.h"
+#include "common/tostring.h"
 
-namespace cf {
+CPPUNIT_TEST_SUITE_REGISTRATION(TestLog);
 
-namespace console {
+void TestLog::testLog()
+{
+    cfTrace() << "trace" << "output";
+    cfDebug() << "debug";
+    cfInfo() << "info";
+    cfWarning() << "warning";
+    cfError() << "error";
+    cfFatal() << "fatal";
 
-static const char * color(color_t c) {
-#ifndef _WIN32
-    switch(c) {
-    case NORMAL:
-        return "\033[0m";
-    case RED:
-        return "\033[91m";
-    case GREEN:
-        return "\033[92m";
-    case YELLOW:
-        return "\033[93m";
-    case BLUE:
-        return "\033[94m";
-    case PURPLE:
-        return "\033[95m";
-    case GRAY:
-        return "\033[90m";
-    case WHITE:
-        return "\033[97m";
-    default:
-        return "\033[0m";
-    }
-#else
-    return "";
-#endif
-}
-
-std::ostream& error(std::ostream& os) {
-    os << message("[Error]", RED) << " ";
-    return os;
-}
-
-std::ostream& warning(std::ostream& os) {
-    os << message("[Warning]", BLUE) << " ";
-    return os;
-}
-
-std::ostream& info(std::ostream& os) {
-    os << message("[Info]", GREEN) << " ";
-    return os;
-}
-
-}
-
-}
-
-std::ostream& operator<<(std::ostream& os, const cf::console::ColorMessage& msg) {
-    os << cf::console::color(msg.color) << msg.message << cf::console::color(cf::console::NORMAL);
-    return os;
+    cfTrace(cf::MODULE_CCOM) << cf::Rect();
+    cfDebug(cf::MODULE_CIMAGE) << cf::Point();
 }

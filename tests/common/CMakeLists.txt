@@ -6,6 +6,8 @@ add_executable(test_common
     testhistogram.cpp
     testiconv.cpp
     testlanguage.cpp
+    testlog.cpp
+    testmodules.cpp
     testimage.cpp
     testimagerawdata.cpp
     testimageurl.cpp

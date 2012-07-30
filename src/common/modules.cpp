@@ -16,47 +16,102 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef STRINGBUFFER_H
-#define STRINGBUFFER_H
+#include <cassert>
 
-#include <iosfwd>
-#include <sstream>
-#include <string>
+#include "modules.h"
 
-#include "globus.h"
-
-namespace cf {
-
-class CLA_EXPO StringBuffer
+namespace cf
 {
-    StringBuffer(StringBuffer&);
-    void operator=(const StringBuffer&);
-public:
-    StringBuffer();
 
-    template<class T>
-    StringBuffer& operator<<(const T& v)
-    {
-        if(long(buf_.tellp()) != 0)
-            buf_ << ' ';
+namespace
+{
 
-        return write(v);
-    }
-
-    template<class T>
-    StringBuffer& write(const T& v)
-    {
-        buf_ << v;
-        return *this;
-    }
-
-    operator std::string();
-private:
-    std::ostringstream buf_;
+const char * module_names[] = {
+    "NONE",
+    "APLHABETS",
+    "CCOM",
+    "CED",
+    "CIMAGE",
+    "CLINE",
+    "COMMON",
+    "COMPAT",
+    "CPAGE",
+    "CPU",
+    "CSTR",
+    "CTB",
+    "DIF",
+    "EVN",
+    "EXC",
+    "EXPORT",
+    "FON",
+    "LEO",
+    "LNS",
+    "LOAD",
+    "LOC",
+    "MARKUP",
+    "MMX",
+    "MSK",
+    "PASS2",
+    "PUMA",
+    "R35",
+    "RBAL",
+    "RBLOCK",
+    "RCORKEGL",
+    "RCUTP",
+    "RDIB",
+    "RFRMT",
+    "RIMAGE",
+    "RLINE",
+    "RLING",
+    "RNEG",
+    "RPIC",
+    "RPSTR",
+    "RRECCOM",
+    "RSADD",
+    "RSELSTR",
+    "RSHELLLINES",
+    "RSTR",
+    "RSTUFF",
+    "RVERLINE",
+    "RSCAN",
+    "SHMEM",
+    "SMETRIC",
+    "STD",
+    "USAGE",
+    "ALL"
 };
 
-typedef StringBuffer StrBuf;
+inline int module_names_size()
+{
+    return sizeof(module_names)/sizeof(const char*);
+}
+
+typedef unsigned long long ullong;
+
+int bitPos(module_t m)
+{
+    for(uint i = 0; i <= 64; i++) {
+        if(m & static_cast<ullong>(static_cast<ullong>(1L) << i))
+            return (int) i;
+    }
+
+    return -1;
+}
 
 }
 
-#endif // STRINGBUFFER_H
+std::string moduleToString(module_t m)
+{
+    if(m == MODULES_ALL)
+        return "ALL";
+
+    int bit_pos = bitPos(m) + 1;
+    if(bit_pos >= module_names_size())
+        return std::string("INVALID");
+
+    assert(bit_pos >= 0);
+
+    return module_names[bit_pos];
+}
+
+}

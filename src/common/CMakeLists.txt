@@ -20,6 +20,8 @@ set(CF_COMMON_SOURCES
     imagerawdata.cpp
     imageurl.cpp
     language.cpp
+    log.cpp
+    modules.cpp
     outputformat.cpp
     percentcounter.cpp
     recognizeoptions.cpp
@@ -45,6 +47,7 @@ set(CF_COMMON_HEADERS
     imageurl.h
     interval.h
     letter.h
+    modules.h
     rect.h
     percentcounter.h
     point.h
