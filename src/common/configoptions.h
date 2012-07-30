@@ -16,40 +16,38 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef CONFIGPARSER_H
-#define CONFIGPARSER_H
+#ifndef CONFIGOPTIONS_H
+#define CONFIGOPTIONS_H
 
-#include <iosfwd>
 #include <string>
-#include <stdexcept>
 
-#include "globus.h"
+#include "configparser.h"
 
-namespace cf
+namespace cf {
+
+class ConfigOptions
 {
-
-class ConfigParserPrivate;
-
-class CLA_EXPO ConfigParser
-{
+    ConfigOptions();
+    ConfigOptions(const ConfigOptions&);
 public:
-    typedef std::runtime_error Exception;
-public:
-    ConfigParser();
-    ~ConfigParser();
+    static bool getBool(const std::string& value);
+    static bool getBool(const std::string& value, bool fallback);
+    static int getInt(const std::string& value);
+    static int getInt(const std::string& value, int fallback);
+    static float getFloat(const std::string& value);
+    static float getFloat(const std::string& value, float fallback);
+    static std::string getString(const std::string& value);
+    static std::string getString(const std::string&value, const std::string& fallback);
 
-    bool getBool(const std::string& path);
-    float getFloat(const std::string& path);
-    int getInt(const std::string& path);
-    std::string getString(const std::string& path);
-
-    bool hasValue(const std::string& path) const;
-
-    void load(const std::string& fname);
+    static bool hasOption(const std::string& value);
 private:
-    ConfigParserPrivate * impl_;
+    static void checkOpened();
+    static void open();
+private:
+    static ConfigParser parser_;
+    static bool is_opened_;
 };
 
 }
 
-#endif // CONFIGPARSER_H
+#endif // CONFIGOPTIONS_H

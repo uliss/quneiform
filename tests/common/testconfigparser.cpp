@@ -32,7 +32,7 @@ void TestConfigParser::testInit()
 
     p.load(TEST_DATADIR "/test.json");
 
-    CPPUNIT_ASSERT(p.getBool("debug.color", true));
+    CPPUNIT_ASSERT(p.getBool("debug.color"));
 
     // check types
     CPPUNIT_ASSERT(p.getBool("bool"));

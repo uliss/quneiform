@@ -22,6 +22,7 @@
 #include "log.h"
 #include "console_messages.h"
 #include "singleton.h"
+#include "configoptions.h"
 
 namespace cf
 {
@@ -91,7 +92,10 @@ static void outputToStream(std::ostream& os, module_t module, message_t msgType,
 static void defaultMessageHandler(module_t module, message_t msgType, const char * message)
 {
     if(Logger::config().isRuntimeConfigEnabled(module)) {
-
+        std::string module_name = moduleToString(module);
+        bool module_enabled = ConfigOptions::getBool("debug.module." + module_name, false);
+        if(!module_enabled)
+            return;
     }
 
     outputToStream(std::cerr, module, msgType, message);
@@ -103,15 +107,12 @@ LoggerConfig Logger::config_;
 Logger::Logger(module_t module, message_t msgType) :
     module_(module),
     msg_type_(msgType)
-{
-
-}
+{}
 
 Logger::Logger(const Logger& l) :
     module_(l.module_),
     msg_type_(l.msg_type_)
-{
-}
+{}
 
 Logger::~Logger()
 {

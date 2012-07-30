@@ -47,22 +47,12 @@ bool ConfigParser::getBool(const std::string& path)
     return impl_->tree.get<bool>(path);
 }
 
-bool ConfigParser::getBool(const std::string &path, bool fallback)
-{
-    return impl_->tree.get(path, fallback);
-}
-
 float ConfigParser::getFloat(const std::string& path)
 {
     if(!hasValue(path))
         throw Exception("key not found");
 
     return impl_->tree.get<float>(path);
-}
-
-float ConfigParser::getFloat(const std::string& path, float fallback)
-{
-    return impl_->tree.get<float>(path, fallback);
 }
 
 int ConfigParser::getInt(const std::string& path)
@@ -73,22 +63,12 @@ int ConfigParser::getInt(const std::string& path)
     return impl_->tree.get<int>(path);
 }
 
-int ConfigParser::getInt(const std::string& path, int fallback)
-{
-    return impl_->tree.get<int>(path, fallback);
-}
-
 std::string ConfigParser::getString(const std::string& path)
 {
     if(!hasValue(path))
         throw Exception("key not found");
 
     return impl_->tree.get<std::string>(path);
-}
-
-std::string ConfigParser::getString(const std::string& path, const std::string& fallback)
-{
-    return impl_->tree.get<std::string>(path, fallback);
 }
 
 void ConfigParser::load(const std::string& fname)
