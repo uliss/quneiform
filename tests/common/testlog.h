@@ -25,9 +25,11 @@ class TestLog : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestLog);
     CPPUNIT_TEST(testLog);
+    CPPUNIT_TEST(testLogConfig);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testLog();
+    void testLogConfig();
 };
 
 #endif // TESTLOG_H

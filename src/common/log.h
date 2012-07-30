@@ -20,6 +20,7 @@
 #define LOG_H
 
 #include <iostream>
+#include <fstream>
 
 #include "stringbuffer.h"
 #include "modules.h"
@@ -35,6 +36,38 @@ enum message_t {
     MSG_WARNING = 0x8,
     MSG_ERROR   = 0x10,
     MSG_FATAL   = 0x20
+};
+
+class CLA_EXPO LoggerConfig
+{
+public:
+    LoggerConfig();
+    bool isColorizeEnabled(module_t m) const;
+    bool isEnabled(module_t m, message_t t) const;
+    bool isSplitEnabled(module_t m) const;
+    bool isRuntimeConfigEnabled(module_t m) const;
+
+    void enableLog(module_t m, message_t t);
+    void disableLog(module_t m, message_t t);
+
+    void enableColorize(module_t m);
+    void disableColorize(module_t m);
+
+    void enableSplit(module_t m);
+    void disableSplit(module_t m);
+
+    void enableRuntimeConfig(module_t m);
+    void disableRuntimeConfig(module_t m);
+private:
+    module_t trace_;
+    module_t debug_;
+    module_t info_;
+    module_t warning_;
+    module_t error_;
+    module_t fatal_;
+    module_t colorize_;
+    module_t split_;
+    module_t runtime_config_;
 };
 
 class CLA_EXPO Logger
@@ -54,6 +87,9 @@ public:
         if(msg_type_ & (MSG_TRACE | MSG_DEBUG))
             return *this;
 #endif
+        if(!config_.isEnabled(module_, msg_type_))
+            return *this;
+
         buffer_ << v;
         return *this;
     }
@@ -65,18 +101,25 @@ public:
         if(msg_type_ & (MSG_TRACE | MSG_DEBUG))
             return *this;
 #endif
+        if(!config_.isEnabled(module_, msg_type_))
+            return *this;
+
         buffer_.write(v);
         return *this;
     }
 public:
     static void setMessageHandler(MessageHandlerFuncPtr func);
+    static LoggerConfig& config();
 private:
     module_t module_;
     message_t msg_type_;
     StringBuffer buffer_;
 private:
     static MessageHandlerFuncPtr handler_;
+    static LoggerConfig config_;
 };
+
+FUN_EXPO__ void fileMessageHandler(module_t m, message_t t, const char * message);
 
 }
 

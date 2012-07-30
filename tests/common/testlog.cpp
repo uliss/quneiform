@@ -34,4 +34,40 @@ void TestLog::testLog()
 
     cfTrace(cf::MODULE_CCOM) << cf::Rect();
     cfDebug(cf::MODULE_CIMAGE) << cf::Point();
+
+    cf::Logger::setMessageHandler(&cf::fileMessageHandler);
+    cfInfo() << "test log info message";
+    cfInfo() << "test log info message";
+    cf::Logger::setMessageHandler(0);
+}
+
+void TestLog::testLogConfig()
+{
+    using namespace cf;
+    LoggerConfig conf;
+    conf.enableLog(MODULES_ALL, MSG_INFO);
+    CPPUNIT_ASSERT(conf.isEnabled(MODULES_ALL, MSG_INFO));
+    CPPUNIT_ASSERT(conf.isEnabled(MODULE_RSTR, MSG_INFO));
+
+    conf.disableLog(MODULES_ALL, MSG_DEBUG);
+    CPPUNIT_ASSERT(!conf.isEnabled(MODULE_RSTR, MSG_DEBUG));
+
+    cfInfo() << "only ERROR log enabled for RSTR";
+    Logger::config().disableLog(MODULE_RSTR, MSG_TRACE);
+    Logger::config().disableLog(MODULE_RSTR, MSG_DEBUG);
+    Logger::config().disableLog(MODULE_RSTR, MSG_INFO);
+    Logger::config().disableLog(MODULE_RSTR, MSG_WARNING);
+    Logger::config().disableLog(MODULE_RSTR, MSG_FATAL);
+    Logger::config().enableLog(MODULE_RSTR, MSG_ERROR);
+    cfTrace(MODULE_RSTR) << "SHOULD NOT SEE THIS MESSAGE!";
+    cfDebug(MODULE_RSTR) << "SHOULD NOT SEE THIS MESSAGE!";
+    cfInfo(MODULE_RSTR)  << "SHOULD NOT SEE THIS MESSAGE!";
+    cfWarning(MODULE_RSTR) << "SHOULD NOT SEE THIS MESSAGE!";
+    cfFatal(MODULE_RSTR) << "SHOULD NOT SEE THIS MESSAGE!";
+    cfError(MODULE_RSTR) << "Test error message. No other messages shoud be above!";
+
+    Logger::config().disableColorize(MODULES_ALL);
+    cfInfo() << "Colorize disabled";
+    Logger::config().enableColorize(MODULES_ALL);
+    cfInfo() << "Colorize enabled";
 }

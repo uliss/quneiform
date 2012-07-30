@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
     QApplication::setGraphicsSystem("raster");
 #endif
 
+    QuneiformApplication::setDesktopSettingsAware(true);
     QuneiformApplication app(argc, argv);
     app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
 
