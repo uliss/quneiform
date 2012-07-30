@@ -27,7 +27,7 @@
 
 #include "envpaths.h"
 #include "filesystem.h"
-#include "common/debug.h"
+#include "common/log.h"
 
 namespace cf {
 
@@ -68,7 +68,7 @@ static bool findExeInPath(const std::string& file, const std::string& path)
 #ifndef _WIN32
     struct stat st;
     if (lstat(p.c_str(), &st)) {
-        Debug() << BOOST_CURRENT_FUNCTION << ": can't get stat info for " << p << "\n";
+        cfDebug(MODULE_COMMON) << BOOST_CURRENT_FUNCTION << ": can't get stat info for " << p << "\n";
         return false;
     }
 
