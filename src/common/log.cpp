@@ -91,12 +91,35 @@ static void outputToStream(std::ostream& os, module_t module, message_t msgType,
     os << message << std::flush;
 }
 
+static bool runtimeMessageEnabled(module_t module, message_t msgType)
+{
+    const std::string config_entry = "debug.module." + moduleToString(module);
+    // enable all message types if config contains debug.module.%NAME%.all value set to true
+    if(ConfigOptions::getBool(config_entry + ".all", false))
+        return true;
+
+    switch(msgType) {
+    case MSG_TRACE:
+        return ConfigOptions::getBool(config_entry + ".trace", false);
+    case MSG_DEBUG:
+        return ConfigOptions::getBool(config_entry + ".debug", false);
+    case MSG_INFO:
+        return ConfigOptions::getBool(config_entry + ".info", false);
+    case MSG_WARNING:
+        return ConfigOptions::getBool(config_entry + ".warning", false);
+    case MSG_ERROR:
+        return ConfigOptions::getBool(config_entry + ".error", true);
+    case MSG_FATAL:
+        return ConfigOptions::getBool(config_entry + ".debug", true);
+    default:
+        return false;
+    }
+}
+
 static void defaultMessageHandler(module_t module, message_t msgType, const char * message)
 {
     if(Logger::config().isRuntimeConfigEnabled(module)) {
-        std::string module_name = moduleToString(module);
-        bool module_enabled = ConfigOptions::getBool("debug.module." + module_name, true);
-        if(!module_enabled)
+        if(!runtimeMessageEnabled(module, msgType))
             return;
     }
 
@@ -159,7 +182,11 @@ LoggerConfig::LoggerConfig() :
     fatal_(MODULES_ALL),
     colorize_(MODULES_ALL),
     split_(MODULES_ALL),
+#ifndef NDEBUG
+    runtime_config_(MODULES_ALL),
+#else
     runtime_config_(0),
+#endif
     prefix_(MODULES_ALL)
 {
 }
@@ -319,17 +346,20 @@ private:
 
 void FileLog::messageHandler(module_t module, message_t msgType, const char * message)
 {
-    if(Logger::config().isRuntimeConfigEnabled(module)) {
-        const std::string mod_name = moduleToString(module);
-        if(!ConfigOptions::getBool("debug.module." + mod_name, true))
-            return;
-    }
-
+    // logging all messages os all modules to file
     if(file_) {
         std::string prefix = modulePrefix(module, msgType);
         file_ << prefix <<  message << std::flush;
     }
 
+    // if runtime config enabled
+    if(Logger::config().isRuntimeConfigEnabled(module)) {
+        // so we can filter messages to std::cerr below
+        if(!runtimeMessageEnabled(module, msgType))
+            return;
+    }
+
+    // duplicate output to std::cerr
     if(Logger::config().isSplitEnabled(module))
         outputToStream(std::cerr, module, msgType, message);
 }

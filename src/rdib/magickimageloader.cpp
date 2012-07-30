@@ -22,9 +22,8 @@
 
 #include "magickimageloader.h"
 #include "imageloaderfactory.h"
-#include "common/cifconfig.h"
-#include "common/debug.h"
 #include "common/imageurl.h"
+#include "common/log.h"
 
 namespace
 {
@@ -111,7 +110,7 @@ ImagePtr MagickImageLoader::load(std::istream& stream) {
 
         return load(image);
     } catch (Magick::Exception &e) {
-        std::cerr << e.what() << "\n";
+        cfError(MODULE_RDIB) << e.what();
         throw Exception("[MagickImageLoader::load] failed");
     }
 }
@@ -126,7 +125,7 @@ ImagePtr MagickImageLoader::load(const ImageURL& url)
         image.read(url.path());
         return load(image);
     } catch (Magick::Exception &e) {
-        std::cerr << e.what() << "\n";
+        cfError() << e.what();
         throw Exception("[MagickImageLoader::load] failed");
     }
 }

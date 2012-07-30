@@ -28,6 +28,14 @@
 
 using namespace cf;
 
+static bool setupLogger()
+{
+    Logger::config().enableRuntimeConfig(MODULES_ALL);
+    return true;
+}
+
+static bool lsetup = setupLogger();
+
 ConsoleProgressCounter * makeCounter() {
     static ConsoleProgressCounter counter;
     return &counter;
@@ -35,8 +43,6 @@ ConsoleProgressCounter * makeCounter() {
 
 int main(int argc, char **argv)
 {
-    Logger::config().enableRuntimeConfig(MODULES_ALL);
-
     try {
         OptionsParser parser;
         parser.parse(argc, argv);

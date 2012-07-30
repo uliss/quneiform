@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,19 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <cppunit/extensions/TestFactoryRegistry.h>
-#include <cppunit/ui/text/TestRunner.h>
+#ifndef RDIB_DEBUG_H
+#define RDIB_DEBUG_H
 
+#include <boost/current_function.hpp>
+
+#include "common/helper.h"
+#include "common/tostring.h"
 #include "common/log.h"
 
-int main()
-{
-    cf::Logger::config().enableRuntimeConfig(cf::MODULE_CIMAGE);
+#define RDIB_ERROR_FUNC cfError(cf::MODULE_RDIB) << METHOD_SIGNATURE()
+#define RDIB_DEBUG_FUNC cfDebug(cf::MODULE_RDIB) << METHOD_SIGNATURE()
+#define RDIB_TRACE_FUNC cfTrace(cf::MODULE_RDIB) << METHOD_SIGNATURE()
+#define RDIB_WARNING_FUNC cfWarning(cf::MODULE_RDIB) << METHOD_SIGNATURE()
 
-    CppUnit::TextUi::TestRunner runner;
-    CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
-    runner.addTest(registry.makeTest());
-    bool wasSuccessful = runner.run("", false);
-    return wasSuccessful ? 0 : -1;
-}
-
+#endif // RDIB_DEBUG_H
