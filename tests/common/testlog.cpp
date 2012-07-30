@@ -70,4 +70,8 @@ void TestLog::testLogConfig()
     cfInfo() << "Colorize disabled";
     Logger::config().enableColorize(MODULES_ALL);
     cfInfo() << "Colorize enabled";
+
+    Logger::config().enableRuntimeConfig(MODULES_ALL);
+    CPPUNIT_ASSERT(Logger::config().isRuntimeConfigEnabled(MODULES_ALL));
+    CPPUNIT_ASSERT(Logger::config().isRuntimeConfigEnabled(MODULE_SHMEM));
 }

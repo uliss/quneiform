@@ -45,6 +45,7 @@ public:
     bool isColorizeEnabled(module_t m) const;
     bool isEnabled(module_t m, message_t t) const;
     bool isSplitEnabled(module_t m) const;
+    bool isPrefixEnabled(module_t m) const;
     bool isRuntimeConfigEnabled(module_t m) const;
 
     void enableLog(module_t m, message_t t);
@@ -55,6 +56,9 @@ public:
 
     void enableSplit(module_t m);
     void disableSplit(module_t m);
+
+    void enablePrefix(module_t m);
+    void disablePrefix(module_t m);
 
     void enableRuntimeConfig(module_t m);
     void disableRuntimeConfig(module_t m);
@@ -68,6 +72,7 @@ private:
     module_t colorize_;
     module_t split_;
     module_t runtime_config_;
+    module_t prefix_;
 };
 
 class CLA_EXPO Logger

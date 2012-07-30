@@ -24,6 +24,7 @@
 #include "common/percentcounter.h"
 #include "common/consoleprogresscounter.h"
 #include "export/exporterfactory.h"
+#include "common/log.h"
 
 using namespace cf;
 
@@ -34,6 +35,8 @@ ConsoleProgressCounter * makeCounter() {
 
 int main(int argc, char **argv)
 {
+    Logger::config().enableRuntimeConfig(MODULES_ALL);
+
     try {
         OptionsParser parser;
         parser.parse(argc, argv);
@@ -70,7 +73,7 @@ int main(int argc, char **argv)
         return e.exitCode();
     }
     catch (std::runtime_error& e) {
-        std::cerr << e.what() << std::endl;
+        cfError() << e.what();
         return EXIT_FAILURE;
     }
 }

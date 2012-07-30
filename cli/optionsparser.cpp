@@ -28,6 +28,7 @@
 #include "common/cifconfig.h"
 #include "common/language.h"
 #include "common/outputformat.h"
+#include "common/log.h"
 
 namespace cf
 {
@@ -148,7 +149,7 @@ static language_t processLangOptions(const char *optarg) {
 
     // nothing found - error message
     if (!lang.isValid()) {
-        std::cerr << "[Error] Unknown language: " << optarg << "\n";
+        cfError() << "Unknown language: " << optarg;
         printLanguages(std::cerr);
         throw OptionsParser::ExitException(EXIT_FAILURE);
     }
@@ -167,7 +168,7 @@ static format_t processFormatOptions(const char * optarg) {
     if (format.isValid()) {
         return format.get();
     } else {
-        std::cerr << "[Error] Unknown output format: " << optarg << "\n";
+        cfError() << "Unknown output format: " << optarg;
         printSupportedFormats(std::cerr);
         throw OptionsParser::ExitException(EXIT_FAILURE);
     }
@@ -268,8 +269,8 @@ void OptionsParser::getoptParse(int argc, char **argv)
             /*getopt_long() set option, just continue*/
             break;
         case ':':
-            std::cerr << "[Error] option '" << argv[optind - 1]
-                      << "' requires an argument\n";
+            cfError() << "option '" << argv[optind - 1]
+                      << "' requires an argument";
             if(isLangOption(argv[optind - 1])) {
                 printLanguages(std::cerr);
                 throw OptionsParser::ExitException(EXIT_FAILURE);
@@ -281,8 +282,7 @@ void OptionsParser::getoptParse(int argc, char **argv)
             break;
         case '?':
         default:
-            std::cerr << "[Error] option '" << argv[optind - 1]
-                      << "' is invalid: ignored\n";
+            cfError() << "option " << argv[optind - 1] << " is invalid: ignored";
             break;
         }
 
@@ -296,7 +296,7 @@ void OptionsParser::getoptParse(int argc, char **argv)
     }
 
     if (optind == argc) {
-        std::cerr << "[Error] Input file not specified\n";
+        cfError() << "Input file not specified";
         printUsage(argv[0]);
         throw OptionsParser::ExitException(EXIT_FAILURE);
     } else

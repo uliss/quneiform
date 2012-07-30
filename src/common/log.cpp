@@ -81,10 +81,12 @@ console::color_t inline messageColor(message_t t)
 
 static void outputToStream(std::ostream& os, module_t module, message_t msgType, const char * message)
 {
-    if(Logger::config().isColorizeEnabled(module))
-        os << console::message(modulePrefix(module, msgType), messageColor(msgType));
-    else
-        os << modulePrefix(module, msgType);
+    if(Logger::config().isPrefixEnabled(module)) {
+        if(Logger::config().isColorizeEnabled(module))
+            os << console::message(modulePrefix(module, msgType), messageColor(msgType));
+        else
+            os << modulePrefix(module, msgType);
+    }
 
     os << message << std::flush;
 }
@@ -93,7 +95,7 @@ static void defaultMessageHandler(module_t module, message_t msgType, const char
 {
     if(Logger::config().isRuntimeConfigEnabled(module)) {
         std::string module_name = moduleToString(module);
-        bool module_enabled = ConfigOptions::getBool("debug.module." + module_name, false);
+        bool module_enabled = ConfigOptions::getBool("debug.module." + module_name, true);
         if(!module_enabled)
             return;
     }
@@ -157,7 +159,8 @@ LoggerConfig::LoggerConfig() :
     fatal_(MODULES_ALL),
     colorize_(MODULES_ALL),
     split_(MODULES_ALL),
-    runtime_config_(0)
+    runtime_config_(0),
+    prefix_(MODULES_ALL)
 {
 }
 
@@ -189,6 +192,11 @@ bool LoggerConfig::isEnabled(module_t m, message_t t) const
 bool LoggerConfig::isSplitEnabled(module_t m) const
 {
     return split_ & m;
+}
+
+bool LoggerConfig::isPrefixEnabled(module_t m) const
+{
+    return prefix_ & m;
 }
 
 bool LoggerConfig::isRuntimeConfigEnabled(module_t m) const
@@ -264,6 +272,16 @@ void LoggerConfig::disableSplit(module_t m)
     split_ &= (~m);
 }
 
+void LoggerConfig::enablePrefix(module_t m)
+{
+    prefix_ |= m;
+}
+
+void LoggerConfig::disablePrefix(module_t m)
+{
+    prefix_ &= (~m);
+}
+
 void LoggerConfig::enableRuntimeConfig(module_t m)
 {
     runtime_config_ |= m;
@@ -301,13 +319,19 @@ private:
 
 void FileLog::messageHandler(module_t module, message_t msgType, const char * message)
 {
-    std::string prefix = modulePrefix(module, msgType);
+    if(Logger::config().isRuntimeConfigEnabled(module)) {
+        const std::string mod_name = moduleToString(module);
+        if(!ConfigOptions::getBool("debug.module." + mod_name, true))
+            return;
+    }
 
     if(file_) {
+        std::string prefix = modulePrefix(module, msgType);
         file_ << prefix <<  message << std::flush;
     }
 
-    outputToStream(std::cerr, module, msgType, message);
+    if(Logger::config().isSplitEnabled(module))
+        outputToStream(std::cerr, module, msgType, message);
 }
 
 typedef Singleton<FileLog, CreateUsingStatic> PersistantLog;

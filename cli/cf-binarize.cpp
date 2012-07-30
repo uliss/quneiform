@@ -25,11 +25,15 @@
 #include "cimage/cticontrol.h"
 #include "rimage/cricontrol.h"
 #include "common/imageurl.h"
+#include "common/log.h"
 
 int main(int argc, char ** argv)
 {
+    cf::Logger::config().disableColorize(cf::MODULES_ALL);
+    cf::Logger::config().disablePrefix(cf::MODULES_ALL);
+
     if(argc < 3) {
-        std::cerr << "Usage: " << argv[0] << " INPUT_IMAGE OUTPUT_IMAGE [-b BINARIZATOR]\n";
+        cfError() << "Usage: " << argv[0] << " INPUT_IMAGE OUTPUT_IMAGE [-b BINARIZATOR]";
         return EXIT_FAILURE;
     }
 
@@ -45,27 +49,27 @@ int main(int argc, char ** argv)
         cf::ImagePtr input_img = cf::ImageLoaderFactory::instance().load(cf::ImageURL(argv[1]));
 
         if(!input_img) {
-            std::cerr << "Can't open image: " << argv[1] << "\n";
+            cfError() << "Can't open image: " << argv[1];
             return EXIT_FAILURE;
         }
 
         if(!cf::CImage::instance().addImage("input", (cf::BitmapPtr) input_img->data())) {
-            std::cerr << "Can't add image to storage: " << argv[1] << "\n";
+            cfError() << "Can't add image to storage: " << argv[1];
             return EXIT_FAILURE;
         }
 
         if(!cf::RImage::instance().binarise("input", "bin", binType, 127)) {
-            std::cerr << "Can't binarize image\n";
+            cfError() << "Can't binarize image";
             return EXIT_FAILURE;
         }
 
         if(!cf::CImage::instance().dumpImage("bin", argv[2])) {
-            std::cerr << "Can't save binarized image: \"" << argv[2] << "\"\n";
+            cfError() << "Can't save binarized image: \"" << argv[2] << "\"";
             return EXIT_FAILURE;
         }
     }
     catch(std::exception& e) {
-        std::cerr << e.what() << "\n";
+        cfError() << e.what();
         return EXIT_FAILURE;
     }
 
