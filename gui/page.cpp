@@ -26,6 +26,7 @@
 
 #include <string>
 #include <sstream>
+#include <limits>
 
 #include "puma/puma.h"
 #include "ced/cedpage.h"
@@ -39,6 +40,8 @@
 
 static const int THUMB_IMAGE_HEIGHT = 100;
 static const int THUMB_IMAGE_WIDTH = 100;
+
+static const QPoint INVALID_POINT(std::numeric_limits<int>::max(), std::numeric_limits<int>::min());
 
 static language_t languageToType(const Language& lang) {
     if(lang.isValid()) {
@@ -55,6 +58,7 @@ Page::Page(const QString& image_path) :
     state_flags_(NONE),
     angle_(0),
     view_scale_(1.0),
+    view_scroll_(INVALID_POINT),
     doc_(NULL),
     thumb_(NULL)
 {
@@ -68,6 +72,7 @@ Page::Page(const ImageURL& imageUrl) :
     state_flags_(NONE),
     angle_(0),
     view_scale_(1.0),
+    view_scroll_(INVALID_POINT),
     doc_(NULL),
     thumb_(NULL)
 {
@@ -473,6 +478,11 @@ float Page::viewScale() const {
 
 QPoint Page::viewScroll() const {
     return view_scroll_;
+}
+
+bool Page::isFirstViewScroll() const
+{
+    return view_scroll_ == INVALID_POINT;
 }
 
 QDataStream& operator<<(QDataStream& os, const Page& page) {
