@@ -215,7 +215,7 @@ void TestImageView::testShowPage() {
 
 void TestImageView::testSelection() {
     ImageView iv;
-    iv.resize(281, 81);
+    iv.resize(300, 100);
     iv.show();
     Page p(CF_IMAGE_DIR "/english.png");
     // 281x81
@@ -233,21 +233,21 @@ void TestImageView::testSelection() {
 
 #define CHECK_CURSOR(c) QCOMPARE(iv.selections_->selectionAt(0)->cursor().shape(), c);
 
-    mouseMove(&iv, QPoint(12, 20));
+    mouseMove(&iv, QPoint(20, 30));
     CHECK_CURSOR(Qt::SizeFDiagCursor);
-    mouseMove(&iv, QPoint(60, 20));
+    mouseMove(&iv, QPoint(68, 30));
     CHECK_CURSOR(Qt::SizeBDiagCursor);
-    mouseMove(&iv, QPoint(60, 80));
+    mouseMove(&iv, QPoint(68, 88));
     CHECK_CURSOR(Qt::SizeFDiagCursor);
-    mouseMove(&iv, QPoint(10, 80));
+    mouseMove(&iv, QPoint(20, 88));
     CHECK_CURSOR(Qt::SizeBDiagCursor);
-    mouseMove(&iv, QPoint(30, 20));
+    mouseMove(&iv, QPoint(40, 30));
     CHECK_CURSOR(Qt::SizeVerCursor);
-    mouseMove(&iv, QPoint(60, 40));
+    mouseMove(&iv, QPoint(68, 50));
     CHECK_CURSOR(Qt::SizeHorCursor);
-    mouseMove(&iv, QPoint(30, 80));
+    mouseMove(&iv, QPoint(40, 88));
     CHECK_CURSOR(Qt::SizeVerCursor);
-    mouseMove(&iv, QPoint(10, 40));
+    mouseMove(&iv, QPoint(20, 50));
     CHECK_CURSOR(Qt::SizeHorCursor);
 }
 
