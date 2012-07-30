@@ -74,4 +74,7 @@ void TestLog::testLogConfig()
     Logger::config().enableRuntimeConfig(MODULES_ALL);
     CPPUNIT_ASSERT(Logger::config().isRuntimeConfigEnabled(MODULES_ALL));
     CPPUNIT_ASSERT(Logger::config().isRuntimeConfigEnabled(MODULE_SHMEM));
+
+    Logger::config().disableRuntimeConfig(MODULES_ALL);
+    CPPUNIT_ASSERT(!Logger::config().isRuntimeConfigEnabled(MODULE_COMMON));
 }
