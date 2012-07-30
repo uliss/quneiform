@@ -17,6 +17,8 @@
  ***************************************************************************/
 
 #include <cstdlib>
+#include <iostream>
+#include <boost/current_function.hpp>
 
 #include "configoptions.h"
 
@@ -54,7 +56,12 @@ void ConfigOptions::open()
     if(is_opened_)
         return;
 
-    parser_.load(getConfigPath());
+    try {
+        parser_.load(getConfigPath());
+    }
+    catch(std::exception& e) {
+    }
+
     is_opened_ = true;
 }
 
