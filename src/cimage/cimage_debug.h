@@ -22,15 +22,10 @@
 #include <boost/current_function.hpp>
 
 #include "common/tostring.h"
-#include "common/debug.h"
+#include "common/log.h"
+#include "common/helper.h"
 
-#define CIMAGE_ERROR Debug() << "[CIMAGE] ERROR "
-#define CIMAGE_ERROR_FUNC Debug() << "[CIMAGE] ERROR " << BOOST_CURRENT_FUNCTION << ' '
-
-#define CIMAGE_DEBUG Debug() << "[CIMAGE] "
-#define CIMAGE_DEBUG_FUNC Debug() << "[CIMAGE] " << BOOST_CURRENT_FUNCTION << ' '
-
-#define CIMAGE_WARNING Debug() << "[CIMAGE] WARNING "
-#define CIMAGE_WARNING_FUNC Debug() << "[CIMAGE] WARNING " << BOOST_CURRENT_FUNCTION << ' '
+#define CIMAGE_ERROR_FUNC cfError(MODULE_CIMAGE) << METHOD_SIGNATURE()
+#define CIMAGE_DEBUG_FUNC cfDebug(MODULE_CIMAGE) << METHOD_SIGNATURE()
 
 #endif // CIMAGE_DEBUG_H

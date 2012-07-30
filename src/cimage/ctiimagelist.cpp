@@ -58,12 +58,10 @@
 #include "ctiimageheader.h"
 #include "ctimask.h"
 #include "ctiimagelist.h"
-#include "common/cifconfig.h"
 #include "cimage_debug.h"
 
-#define IMAGE_NOT_FOUND(imageName) if(Config::doDebug()) {\
-    CIMAGE_ERROR_FUNC << "image not found: \"" << imageName << "\"\n";\
-    }
+#define IMAGE_NOT_FOUND(name) \
+    CIMAGE_ERROR_FUNC << "image not found:" << name;
 
 namespace cf
 {
@@ -79,12 +77,12 @@ CTIImageList::~CTIImageList()
 bool CTIImageList::addImage(const std::string& name, BitmapPtr handle, bool externalImage)
 {
     if (name.empty()) {
-        CIMAGE_ERROR_FUNC << "invalid image name: " << name << "\n";
+        CIMAGE_ERROR_FUNC << "invalid image name:" << name;
         return false;
     }
 
     if (handle == NULL) {
-        CIMAGE_ERROR_FUNC << "invalid image handle: " << name << "\n";
+        CIMAGE_ERROR_FUNC << "invalid image handle:" << name;
         return false;
     }
 
@@ -94,14 +92,15 @@ bool CTIImageList::addImage(const std::string& name, BitmapPtr handle, bool exte
     CTIImageHeader * new_image = new CTIImageHeader(handle, externalImage);
     headers_[name] = new_image;
 
-    if (Config::doDebug())
-        CIMAGE_DEBUG_FUNC << "image added: " << name << "\n";
+    CIMAGE_DEBUG_FUNC << "image added:" << name;
 
     return true;
 }
 
 void CTIImageList::clear()
 {
+    CIMAGE_DEBUG_FUNC;
+
     for(HeaderMap::iterator it = headers_.begin(); it != headers_.end(); ++it)
         delete it->second;
 
@@ -138,8 +137,7 @@ bool CTIImageList::removeImage(const std::string &name)
     delete header;
     headers_.erase(name);
 
-    if (Config::doDebug())
-        CIMAGE_DEBUG_FUNC << "image deleted: " << name << "\n";
+    CIMAGE_DEBUG_FUNC << "image deleted:" << name;
 
     return true;
 }
