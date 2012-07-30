@@ -21,6 +21,7 @@
 
 #include <iosfwd>
 #include <string>
+#include <stdexcept>
 
 #include "globus.h"
 
@@ -32,13 +33,22 @@ class ConfigParserPrivate;
 class CLA_EXPO ConfigParser
 {
 public:
+    typedef std::runtime_error Exception;
+public:
     ConfigParser();
     ~ConfigParser();
 
-    bool getBool(const std::string& path, bool defaultValue);
+    bool getBool(const std::string& path);
+    bool getBool(const std::string& path, bool fallback);
+
     float getFloat(const std::string& path);
+    float getFloat(const std::string& path, float fallback);
+
     int getInt(const std::string& path);
+    int getInt(const std::string& path, int fallback);
+
     std::string getString(const std::string& path);
+    std::string getString(const std::string& path, const std::string& fallback);
 
     bool hasValue(const std::string& path) const;
 

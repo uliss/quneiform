@@ -33,7 +33,10 @@ void TestConfigParser::testInit()
     p.load(TEST_DATADIR "/test.json");
 
     CPPUNIT_ASSERT(p.getBool("debug.color", true));
-    CPPUNIT_ASSERT(!p.getBool("debug.module", false));
-    CPPUNIT_ASSERT(!p.hasValue("unknown.path"));
-    CPPUNIT_ASSERT(p.hasValue("debug"));
+
+    // check types
+    CPPUNIT_ASSERT(p.getBool("bool"));
+    CPPUNIT_ASSERT_EQUAL(p.getFloat("float"), 1.234f);
+    CPPUNIT_ASSERT_EQUAL(p.getInt("int"), int(-100));
+    CPPUNIT_ASSERT_EQUAL(p.getString("string"), std::string("test string"));
 }
