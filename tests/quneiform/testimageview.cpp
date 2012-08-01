@@ -226,10 +226,6 @@ void TestImageView::testSelection() {
     iv.showPage(&p);
     wait_events();
 
-#ifdef Q_OS_WIN32
-    QEXPECT_FAIL("", "Win32 fail why???", Abort);
-#endif
-
 #define CHECK_CURSOR(c) QCOMPARE(iv.selections_->selectionAt(0)->cursor().shape(), c);
 
     mouseMove(&iv, QPoint(20, 30));
