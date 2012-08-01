@@ -21,8 +21,10 @@
 #include "testprocessrecognitionserver.h"
 #include "ced/cedpage.h"
 #include "puma/processrecognitionserver.h"
-#include "common/recognizeoptions.h"
-#include "common/formatoptions.h"
+#include "common/helper.h"
+#include "common/log.h"
+#include "common/recognitionstate.h"
+#include "common/percentcounter.h"
 #include "rdib/imageloaderfactory.h"
 #include "export/textexporter.h"
 #include "../assert_recognize.h"
@@ -36,32 +38,34 @@ using namespace cf;
 #endif
 
 #define URL(fname) ImageURL(TEST_IMG_PATH fname)
+#define TRACE() cfInfo() << METHOD_SIGNATURE()
 
 void TestProcessRecognitionServer::testRecognize()
 {
     ProcessRecognitionServer server;
     ImagePtr img;
+    BinarizeOptions bopts;
     RecognizeOptions ropts;
     FormatOptions fopts;
     fopts.writeBom(false);
 
     // null image
-    CPPUNIT_ASSERT_THROW(server.recognize(img, ropts, fopts),
+    CPPUNIT_ASSERT_THROW(server.recognizeImage(img, bopts, ropts, fopts),
                          AbstractRecognitionServer::RecognitionException);
 
     img.reset(new Image());
 
     // empty image
-    CPPUNIT_ASSERT_THROW(server.recognize(img, ropts, fopts),
+    CPPUNIT_ASSERT_THROW(server.recognizeImage(img, bopts, ropts, fopts),
                          AbstractRecognitionServer::RecognitionException);
 
     // non-existant image via filename
     img->setFileName("/non-exists.png");
-    CPPUNIT_ASSERT_THROW(server.recognize(img, ropts, fopts),
+    CPPUNIT_ASSERT_THROW(server.recognizeImage(img, bopts, ropts, fopts),
                          AbstractRecognitionServer::RecognitionException);
 
     // normal image via filename
-    CEDPagePtr page = server.recognize(URL("/english.png"), ropts, fopts);
+    CEDPagePtr page = server.recognizeImage(URL("/english.png"), bopts, ropts, fopts);
     CPPUNIT_ASSERT(page.get());
     CPPUNIT_ASSERT(!page->empty());
 
@@ -74,7 +78,7 @@ void TestProcessRecognitionServer::testRecognize()
     // normal image via shared memory
     img = ImageLoaderFactory::instance().load(URL("/english.png"));
 
-    page = server.recognize(img, ropts, fopts);
+    page = server.recognizeImage(img, bopts, ropts, fopts);
     CPPUNIT_ASSERT(page.get());
     CPPUNIT_ASSERT(!page->empty());
     exp.exportTo(buf);
@@ -84,30 +88,59 @@ void TestProcessRecognitionServer::testRecognize()
 
 void TestProcessRecognitionServer::testRecognizeRotated()
 {
+    BinarizeOptions bopts;
     RecognizeOptions ropts;
     FormatOptions fopts;
 
     ropts.setTurnAngle(RecognizeOptions::ANGLE_270);
-    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_90.png", ropts, fopts, "ENGLISH");
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_90.png", bopts, ropts, fopts, "ENGLISH");
 
     ropts.setTurnAngle(RecognizeOptions::ANGLE_180);
-    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_180.png", ropts, fopts, "ENGLISH");
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_180.png", bopts, ropts, fopts, "ENGLISH");
 
     ropts.setTurnAngle(RecognizeOptions::ANGLE_90);
-    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_270.png", ropts, fopts, "ENGLISH");
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english_rotated_270.png", bopts, ropts, fopts, "ENGLISH");
 }
 
 void TestProcessRecognitionServer::testRecognizeArea()
 {
+    BinarizeOptions bopts;
     RecognizeOptions ropts;
     FormatOptions fopts;
 
-    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", ropts, fopts, "ENGLISH");
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", bopts, ropts, fopts, "ENGLISH");
 
     ropts.addReadRect(Rect(0, 0, 90, 80));
-    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", ropts, fopts, "EN");
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", bopts, ropts, fopts, "EN");
 
     ropts.clearReadRects();
     ropts.addReadRect(Rect(190, -5, 100, 100));
-    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", ropts, fopts, "SH");
+    ASSERT_PROCESS_RECOGNIZE_RESULT(TEST_IMG_PATH "/english.png", bopts, ropts, fopts, "SH");
+}
+
+void TestProcessRecognitionServer::testOpen()
+{
+    TRACE();
+
+    PercentCounter counter;
+    RecognitionState state;
+    ProcessRecognitionServer s;
+    s.setCounter(&counter);
+    s.setStateTracker(&state);
+
+    CPPUNIT_ASSERT(!s.open(ImageURL()));
+    CPPUNIT_ASSERT(counter.get() == 0);
+    CPPUNIT_ASSERT_EQUAL(RecognitionState::FAILED, state.get());
+
+    CPPUNIT_ASSERT(!s.open(ImageURL("sdfds", 2)));
+    CPPUNIT_ASSERT(counter.get() == 0);
+    CPPUNIT_ASSERT_EQUAL(RecognitionState::FAILED, state.get());
+
+    CPPUNIT_ASSERT(!s.open(ImagePtr()));
+    CPPUNIT_ASSERT(counter.get() == 0);
+    CPPUNIT_ASSERT_EQUAL(RecognitionState::FAILED, state.get());
+
+    CPPUNIT_ASSERT(s.open(ImageURL(TEST_IMG_PATH "/english.png")));
+    CPPUNIT_ASSERT_EQUAL(10, (int) counter.get());
+//    CPPUNIT_ASSERT_EQUAL(RecognitionState::OPENED, state.get());
 }

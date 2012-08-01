@@ -185,7 +185,7 @@ void * SystemVSharedMemory::open(size_t key, size_t)
     return memory;
 }
 
-bool SystemVSharedMemory::remove()
+bool SystemVSharedMemory::remove(size_t /*key*/)
 {
     unset_crash_handler();
     int rc = shmctl(id_, IPC_RMID, NULL);

@@ -24,10 +24,7 @@
 
 #include "processtimeoutkiller.h"
 #include "common/singleton.h"
-#include "common/debug.h"
-#include "common/console_messages.h"
-
-#define CF_INFO cf::Debug() << cf::console::info << BOOST_CURRENT_FUNCTION
+#include "puma_debug.h"
 
 namespace cf {
 
@@ -70,15 +67,17 @@ void ProcessTimeoutKiller::setupTimer() {
     t.it_value.tv_sec = timeout_;
     t.it_value.tv_usec = 0;
     setitimer(ITIMER_REAL, &t, 0);
-    CF_INFO << " timeout set to " << timeout_ << " seconds for pid: " << pid_ << std::endl;
+    PUMA_INFO_FUNC() << "timeout set to" << timeout_
+                     << "seconds for pid:" << pid_;
 }
 
 void ProcessTimeoutKiller::signalHandler(int signum) {
     if(pid_ <= 0)
         return;
 
-    CF_INFO << " signal received: " << signum << "\n";
-    Debug() << "    Killing pid: " << pid_ << "\n";
+    PUMA_INFO_FUNC() << "signal received:" << signum;
+    PUMA_TRACE_FUNC() << "    Killing pid:" << pid_;
+
     int status = kill(pid_, signal_);
     if(status != 0)
         perror(BOOST_CURRENT_FUNCTION);

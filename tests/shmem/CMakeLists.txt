@@ -1,9 +1,16 @@
 add_definitions(-DBOOST_DATE_TIME_NO_LIB)
 
-add_executable(test_shmem
-    test_shmem.cpp
+set(TEST_SHMEM_SRC test_shmem.cpp
     testsharedmemoryholder.cpp
     testmemorydata.cpp
+)
+
+if(USE_MMAP_SHMEM)
+    list(APPEND TEST_SHMEM_SRC testmmapsharedmemory.cpp)
+endif()
+
+add_executable(test_shmem
+    ${TEST_SHMEM_SRC}
 )
 
 set(TEST_SHMEM_LIBS

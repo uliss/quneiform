@@ -98,11 +98,6 @@ signals:
     void formatted();
 
     /**
-      * Emitted after image is loaded into memory
-      */
-    void loaded();
-
-    /**
       * Emmitted after page image is opened and loaded
       */
     void opened();

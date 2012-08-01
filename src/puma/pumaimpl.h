@@ -56,6 +56,8 @@ class PumaImpl
         PumaImpl();
         ~PumaImpl();
 
+        void binarizeImage();
+
         /**
           * Returns pointer to CEDPage
           */
@@ -75,6 +77,8 @@ class PumaImpl
          * Formats results of recognition to CEDPage * tree
          */
         void formatResult();
+
+        void layout();
 
         /**
          * Opens image for recognition
@@ -103,13 +107,11 @@ class PumaImpl
         void applyReadMask();
         BackupPage * cpage();
         PAGEINFO * pageInfo();
-        void binarizeImage();
         void clearAll();
         void debugPrintCpage();
         void extractComponents();
         void extractStrings();
         void getImageInfo(const std::string& image_name);
-        void layout();
         void loadLayoutFromFile(const std::string& fname);
         void markup();
         void modulesDone();

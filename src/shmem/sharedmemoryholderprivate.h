@@ -47,7 +47,7 @@ public:
     virtual void close(void * mem) = 0;
     virtual void * create(size_t key, size_t size) = 0;
     virtual void * open(size_t key, size_t size) = 0;
-    virtual bool remove() = 0;
+    virtual bool remove(size_t key) = 0;
     virtual error_t error() const { return OK; }
     virtual size_t limit() const = 0;
 };

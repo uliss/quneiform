@@ -60,6 +60,7 @@ void ConfigOptions::open()
         parser_.load(getConfigPath());
     }
     catch(std::exception& e) {
+        std::cerr << e.what() << std::endl;
     }
 
     is_opened_ = true;

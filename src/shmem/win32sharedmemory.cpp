@@ -97,7 +97,7 @@ void * Win32SharedMemory::open(size_t key, size_t size)
     return mem;
 }
 
-bool Win32SharedMemory::remove()
+bool Win32SharedMemory::remove(size_t)
 {
     BOOL ret = CloseHandle(handle_);
 

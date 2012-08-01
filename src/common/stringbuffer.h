@@ -22,6 +22,9 @@
 #include <iosfwd>
 #include <sstream>
 #include <string>
+#include <vector>
+#include <iterator>
+#include <algorithm>
 
 #include "globus.h"
 
@@ -47,6 +50,13 @@ public:
     StringBuffer& write(const T& v)
     {
         buf_ << v;
+        return *this;
+    }
+
+    template<class T>
+    StringBuffer& write(const std::vector<T>& v)
+    {
+        std::copy(v.begin(), v.end(), std::ostream_iterator<T>(buf_, " "));
         return *this;
     }
 

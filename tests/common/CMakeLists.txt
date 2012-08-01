@@ -18,6 +18,7 @@ add_executable(test_common
     testpoint.cpp
     testrect.cpp
     testsize.cpp
+    testtostring.cpp
     testoutputformat.cpp
 )
 

@@ -16,16 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <string.h>
-#include <sstream>
+#include <cstring>
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/current_function.hpp>
 
-#include "common/debug.h"
-#include "common/helper.h"
-#include "common/console_messages.h"
 #include "memorydata.h"
+#include "common/log.h"
+#include "common/helper.h"
 #include "export/cuneiformbinexporter.h"
 #include "load/cuneiformbinloader.h"
 
@@ -34,9 +32,9 @@ namespace cf {
 static const size_t PAGE_BUFFER_SIZE = 2 * 1024 * 1024;
 static const size_t IMAGE_PATH_SIZE = 1024;
 
-#define CF_ERROR std::cerr << cf::console::error << BOOST_CURRENT_FUNCTION << ": "
-#define CF_WARNING std::cerr << cf::console::warning << BOOST_CURRENT_FUNCTION << ": "
-#define CF_INFO cf::Debug() << cf::console::info << BOOST_CURRENT_FUNCTION << ": "
+#define SHMEM_ERROR_FUNC() cfError(MODULE_SHMEM) << BOOST_CURRENT_FUNCTION
+#define SHMEM_WARNING_FUNC() cfWarning(MODULE_SHMEM) << BOOST_CURRENT_FUNCTION
+#define SHMEM_TRACE_FUNC() cfTrace(MODULE_SHMEM) << BOOST_CURRENT_FUNCTION
 
 typedef boost::archive::binary_oarchive BinOutputArchive;
 typedef boost::archive::binary_iarchive BinInputArchive;
@@ -66,7 +64,7 @@ public:
             return data;
         }
         catch(std::exception& e) {
-            CF_ERROR << " load error: " << e.what() << std::endl;
+            SHMEM_ERROR_FUNC() << "load error:" << e.what();
             throw MemoryData::Exception(e.what());
         }
     }
@@ -79,7 +77,7 @@ public:
 
             size_ = streamSize(buf);
             if(size_ >= MAXSIZE) {
-                CF_ERROR << " data is too big!" << std::endl;
+                SHMEM_ERROR_FUNC() << "data is too big!";
                 return false;
             }
 
@@ -87,7 +85,7 @@ public:
             return true;
         }
         catch(std::exception& e) {
-            CF_ERROR << " save error: " << e.what() << std::endl;
+            SHMEM_ERROR_FUNC() << "save error:" << e.what();
             return false;
         }
     }
@@ -110,10 +108,10 @@ CEDPagePtr RawData<CEDPagePtr, PAGE_BUFFER_SIZE>::load() const {
         buf.write(buffer_, (std::streamsize)size_);
         CuneiformBinLoader l;
         res = l.load(buf);
-        CF_INFO << size_ << " bytes read\n";
+        SHMEM_TRACE_FUNC() << size_ << "bytes read";
     }
     catch(std::exception& e) {
-        CF_ERROR << e.what() << std::endl;
+        SHMEM_ERROR_FUNC() << e.what();
         throw MemoryData::Exception(e.what());
     }
 
@@ -129,15 +127,15 @@ bool RawData<CEDPagePtr, PAGE_BUFFER_SIZE>::save(const CEDPagePtr& page) {
         e.exportTo(buf);
     }
     catch(std::exception& e) {
-        CF_ERROR << "serialization error: " << e.what() << std::endl;
+        SHMEM_ERROR_FUNC() << "serialization error:" << e.what();
         return false;
     }
 
     size_ = streamSize(buf);
 
     if(size_ >= PAGE_BUFFER_SIZE) {
-        CF_ERROR << "the page is too big (" << size_ << " bytes).\n"
-                 << "It exceeds available memory size: " << PAGE_BUFFER_SIZE << " bytes." << std::endl;
+        SHMEM_ERROR_FUNC() << "the page is too big (" << size_ << " bytes).\n"
+                 << "It exceeds available memory size:" << PAGE_BUFFER_SIZE << "bytes.";
         clear();
         return false;
     }
@@ -145,12 +143,12 @@ bool RawData<CEDPagePtr, PAGE_BUFFER_SIZE>::save(const CEDPagePtr& page) {
     buf.readsome(buffer_, PAGE_BUFFER_SIZE);
 
     if(buf.fail()) {
-        CF_ERROR << "buffer read failed." << std::endl;
+        SHMEM_ERROR_FUNC() << "buffer read failed.";
         clear();
         return false;
     }
 
-    CF_INFO << size_ << " bytes stored\n";
+    SHMEM_TRACE_FUNC() << size_ << "bytes stored";
 
     return true;
 }
@@ -202,7 +200,8 @@ public:
         if(size > maxSize)
             throw MemoryData::Exception("currupted image data");
 
-        CF_INFO << "read image data: " << size << " bytes from " << &memory << "\n";
+        SHMEM_TRACE_FUNC() << "read image data:" << size
+                           << "bytes from " << &memory;
 
         Image * img = new Image((uchar*)&memory, size, Image::AllocatorNone);
         img->setSize(Size(width, height));
@@ -228,7 +227,7 @@ public:
         std::string fileName = image->fileName();
 
         if(fileName.size() > IMAGE_NAME_SIZE) {
-            CF_ERROR << "file name is to long, it will be truncated\n";
+            SHMEM_ERROR_FUNC() << "file name is to long, it will be truncated";
             strncpy(name, fileName.c_str(), IMAGE_NAME_SIZE);
             name_size = IMAGE_NAME_SIZE;
         }
@@ -239,7 +238,8 @@ public:
 
         memcpy(&memory, image->data(), image->dataSize());
 
-        CF_INFO << "write image data: " << image->dataSize() << " bytes to " << &memory << "\n";
+        SHMEM_TRACE_FUNC() << "write image data:" << image->dataSize()
+                           << "bytes to" << &memory;
 
         return true;
     }
@@ -274,10 +274,9 @@ MemoryDataPrivate * MemoryData::data() const
         throw Exception("NULL memory");
 
     if(size_ < sizeof(MemoryDataPrivate)) {
-        std::ostringstream os;
-        os << "shared memory size (" << size_ << " bytes) is too small to place "
-           << sizeof(MemoryDataPrivate) << " byte block\n";
-        throw Exception(os.str());
+        throw Exception() << "shared memory size (" << size_
+                          << " bytes) is too small to place "
+                          << sizeof(MemoryDataPrivate) << " byte block";
     }
 
     return static_cast<MemoryDataPrivate*>(memory_);
@@ -336,6 +335,12 @@ CEDPagePtr MemoryData::page() const
 RecognizeOptions MemoryData::recognizeOptions() const
 {
     return data()->ropts.load();
+}
+
+void MemoryData::reset()
+{
+    setMemory(0);
+    setSize(0);
 }
 
 void MemoryData::setFormatOptions(const cf::FormatOptions& fopts)

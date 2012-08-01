@@ -122,7 +122,7 @@ std::string makeClassMethodSignature(const std::string& signature)
     if(method_end == std::string::npos)
         return std::string();
 
-    size_t class_start = signature.rfind(' ', method_end);
+    size_t class_start = signature.find_last_of(" *&", method_end);
     if(!class_start)
         return std::string();
 

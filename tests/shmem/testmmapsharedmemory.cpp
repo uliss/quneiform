@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,34 +16,36 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LOADERS_COMMON_H
-#define LOADERS_COMMON_H
+#include "testmmapsharedmemory.h"
+#include "shmem/mmapsharedmemory.h"
 
-#include <string>
-#include <sstream>
-#include <cppunit/extensions/HelperMacros.h>
+CPPUNIT_TEST_SUITE_REGISTRATION(TestMMapSharedMemory);
 
-#include "cuneiform.h"
+using namespace cf;
 
-static std::string trim(const std::string& str) {
-    size_t pos = str.find_last_not_of(" \n");
-    return pos == str.size() ? str : str.substr(0, pos + 1);
+void TestMMapSharedMemory::testCreate()
+{
+    MMapSharedMemory mmap;
+    void * mem = mmap.create(0xBEEF, 1024);
+    CPPUNIT_ASSERT(mem);
+
+    char * dest = (char*) mem;
+    sprintf(dest, "%s", "test message");
+
+    mmap.close(mem);
 }
 
-#define ASSERT_BUFFER(buf, s) CPPUNIT_ASSERT_EQUAL(std::string(s), trim(buf.str()));
-
-#define URL(fname) ImageURL(std::string(LOADER_TEST_IMAGE_DIR) + fname)
-
-#define ASSERT_RECOGNIZE(loader, filename, str) {\
-    ImagePtr img;\
-    std::ostringstream buf;\
-    std::cerr << "recognizing: " << filename << std::endl;\
-    CPPUNIT_ASSERT_NO_THROW(img = loader.load(URL(filename)));\
-    LocalRecognitionServer server;\
-    server.setTextDebug(true);\
-    CEDPagePtr page = server.recognizeImage(img, BinarizeOptions(), RecognizeOptions(), FormatOptions());\
-    ExporterFactory::instance().make(cf::FORMAT_DEBUG)->exportTo(buf);\
-    ASSERT_BUFFER(buf, str);\
+void TestMMapSharedMemory::testOpen()
+{
+    MMapSharedMemory mmap;
+    void * mem = mmap.open(0xBEEF, 1024);
+    CPPUNIT_ASSERT(mem);
+    CPPUNIT_ASSERT_EQUAL(std::string("test message"), std::string((char*) mem));
+    mmap.close(mem);
 }
 
-#endif // LOADERS_COMMON_H
+void TestMMapSharedMemory::testRemove()
+{
+    MMapSharedMemory mmap;
+    CPPUNIT_ASSERT(mmap.remove(0xBEEF));
+}

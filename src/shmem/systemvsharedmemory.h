@@ -38,7 +38,7 @@ public:
 
     void * open(size_t key, size_t size);
 
-    bool remove();
+    bool remove(size_t);
 
     size_t limit() const;
 

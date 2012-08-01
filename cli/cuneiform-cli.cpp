@@ -57,7 +57,10 @@ int main(int argc, char **argv)
             server.setCounter(makeCounter());
 
         server.setTextDebug(cli_opts.outputFormat() == FORMAT_DEBUG);
-        CEDPagePtr page = server.recognize(cli_opts.inputURL(), parser.recognizeOptions(), fopts);
+        CEDPagePtr page = server.recognizeImage(cli_opts.inputURL(),
+                                                BinarizeOptions(),
+                                                parser.recognizeOptions(),
+                                                fopts);
 
         ExporterFactory::instance().setPage(page);
         ExporterFactory::instance().setFormatOptions(fopts);

@@ -41,17 +41,17 @@ static inline std::string modulePrefix(module_t m, message_t msgType)
     if(m == MODULES_ALL) {
         switch(msgType) {
         case MSG_TRACE:
-            return "[Trace]   ";
+            return "[trace]   ";
         case MSG_DEBUG:
-            return "[Debug]   ";
+            return "[debug]   ";
         case MSG_INFO:
-            return "[Info]    ";
+            return "[info]    ";
         case MSG_WARNING:
-            return "[Warning] ";
+            return "[warning] ";
         case MSG_ERROR:
-            return "[Error]   ";
+            return "[error]   ";
         case MSG_FATAL:
-            return "[Fatal]   ";
+            return "[fatal]   ";
         default:
             return "[...]     ";
         }
@@ -79,10 +79,22 @@ console::color_t inline messageColor(message_t t)
     }
 }
 
+static bool isColorizeEnabled(module_t module)
+{
+    if(!Logger::config().isColorizeEnabled(module))
+        return false;
+
+    const std::string config_entry = "debug.module." + moduleToString(module);
+    if(ConfigOptions::getBool(config_entry + ".color", true))
+        return true;
+
+    return false;
+}
+
 static void outputToStream(std::ostream& os, module_t module, message_t msgType, const char * message)
 {
     if(Logger::config().isPrefixEnabled(module)) {
-        if(Logger::config().isColorizeEnabled(module))
+        if(isColorizeEnabled(module))
             os << console::message(modulePrefix(module, msgType), messageColor(msgType));
         else
             os << modulePrefix(module, msgType);

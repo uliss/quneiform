@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Serge Poltavsky                                 *
+ *   Copyright (C) 2012 by Serge Poltavski                                 *
  *   serge.poltavski@gmail.com                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,34 +16,30 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef LOADERS_COMMON_H
-#define LOADERS_COMMON_H
+#ifndef MMAPSHAREDMEMORY_H
+#define MMAPSHAREDMEMORY_H
 
-#include <string>
-#include <sstream>
-#include <cppunit/extensions/HelperMacros.h>
+#include "sharedmemoryholderprivate.h"
 
-#include "cuneiform.h"
+namespace cf {
 
-static std::string trim(const std::string& str) {
-    size_t pos = str.find_last_not_of(" \n");
-    return pos == str.size() ? str : str.substr(0, pos + 1);
+class MMapSharedMemory : public SharedMemoryHolderPrivate
+{
+public:
+    MMapSharedMemory();
+
+    void close(void * mem);
+    void * create(size_t key, size_t size);
+    void * open(size_t key, size_t size);
+    bool remove(size_t key);
+    size_t limit() const;
+    error_t error() const;
+private:
+    void * mmap_mem_;
+    size_t mmap_size_;
+    error_t error_;
+};
+
 }
 
-#define ASSERT_BUFFER(buf, s) CPPUNIT_ASSERT_EQUAL(std::string(s), trim(buf.str()));
-
-#define URL(fname) ImageURL(std::string(LOADER_TEST_IMAGE_DIR) + fname)
-
-#define ASSERT_RECOGNIZE(loader, filename, str) {\
-    ImagePtr img;\
-    std::ostringstream buf;\
-    std::cerr << "recognizing: " << filename << std::endl;\
-    CPPUNIT_ASSERT_NO_THROW(img = loader.load(URL(filename)));\
-    LocalRecognitionServer server;\
-    server.setTextDebug(true);\
-    CEDPagePtr page = server.recognizeImage(img, BinarizeOptions(), RecognizeOptions(), FormatOptions());\
-    ExporterFactory::instance().make(cf::FORMAT_DEBUG)->exportTo(buf);\
-    ASSERT_BUFFER(buf, str);\
-}
-
-#endif // LOADERS_COMMON_H
+#endif // MMAPSHAREDMEMORY_H

@@ -5,6 +5,7 @@ if(ICONV_SECOND_ARGUMENT_IS_CONST)
 endif()
 
 set(CF_COMMON_SOURCES
+    binarizeoptions.cpp
     cifconfig.cpp
     configoptions.cpp
     configparser.cpp

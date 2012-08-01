@@ -25,13 +25,14 @@
 
 #include "globus.h"
 #include "common/image.h"
+#include "common/binarizeoptions.h"
+#include "common/formatoptions.h"
+#include "common/recognizeoptions.h"
 #include "ced/cedpageptr.h"
 
 namespace cf
 {
 
-class FormatOptions;
-class RecognizeOptions;
 class PercentCounter;
 class RecognitionState;
 class ImageURL;
@@ -39,42 +40,132 @@ class ImageURL;
 class CLA_EXPO AbstractRecognitionServer : private boost::noncopyable
 {
 public:
-    AbstractRecognitionServer() : counter_(NULL), state_(NULL), text_debug_(false) {}
-    virtual ~AbstractRecognitionServer() {}
-    PercentCounter * counter() { return counter_; }
-    bool isTextDebug() const { return text_debug_; }
+    AbstractRecognitionServer();
+    virtual ~AbstractRecognitionServer();
+
+    PercentCounter * counter();
+    void setCounter(PercentCounter * counter);
+
+    /**
+     * Returns true if using textdebug output format
+     * it not require formatting tree im memory
+     */
+    bool isTextDebug() const;
+    void setTextDebug(bool value);
+
+    /**
+     * Returns binarization options
+     * @see setBinarizeOptions()
+     */
+    BinarizeOptions binarizeOptions() const;
+
+    /**
+     * Sets binarize options
+     * @param bopt - binarization options
+     * @see binarizeOptions()
+     */
+    void setBinarizeOptions(const BinarizeOptions& bopts);
+
+    /**
+     * Returns format options
+     * @see setFormatOptions()
+     */
+    FormatOptions formatOptions() const;
+
+    /**
+     * Sets format options
+     * @param fopts - formatting options
+     * @see formatOptions()
+     */
+    void setFormatOptions(const FormatOptions& fopts);
+
+    /**
+     * Returns recognition options
+     * @see setRecognizeOptions()
+     */
+    RecognizeOptions recognizeOptions() const;
+
+    /**
+     * Sets recognize options
+     * @param ropts - recognition options
+     * @see recognizeOptions()
+     */
+    void setRecognizeOptions(const RecognizeOptions& ropts);
+
+    /**
+     * Analyzes document layout
+     * @return true on success
+     */
+    virtual bool analyze() = 0;
+
+    /**
+     * Binarizes image
+     * @param bopts - binarization options
+     * @return true on success
+     */
+    virtual bool binarize() = 0;
+
+    /**
+     * Formats recognition result
+     * @return pointer to CEDPage
+     */
+    virtual CEDPagePtr format() = 0;
+
+    /**
+     * Opens image
+     * @param url - image url
+     * @return true on success
+     */
+    virtual bool open(const ImageURL& url) = 0;
+
+    /**
+     * Opens image from memory
+     * @param img - pointer to image
+     * @return true onsuccess
+     */
+    virtual bool open(ImagePtr img) = 0;
+
+    /**
+     * Recognizes image
+     * @returns true on success
+     */
+    virtual bool recognize() = 0;
 
     /**
       * Recognizes image by url
       * @param url - image url
+      * @param bopts - binarization options
       * @param ropts - recognition options
       * @param fopts - format options
       * @return pointer to CEDPage
       */
-    virtual CEDPagePtr recognize(const ImageURL& url,
+    virtual CEDPagePtr recognizeImage(const ImageURL& url,
+                                 const BinarizeOptions& bopts,
                                  const RecognizeOptions& ropts,
-                                 const FormatOptions& fopts) = 0;
+                                 const FormatOptions& fopts);
 
     /**
       * Recognizes given image
       * @param image - source image
+      * @param bopts - binarization options
       * @param ropts - recognition options
       * @param fopts - format options
       * @return pointer to CEDPage
       */
-    virtual CEDPagePtr recognize(ImagePtr image,
+    virtual CEDPagePtr recognizeImage(ImagePtr image,
+                                 const BinarizeOptions& bopts,
                                  const RecognizeOptions& ropts,
-                                 const FormatOptions& fopts) = 0;
+                                 const FormatOptions& fopts);
 
-    void setCounter(PercentCounter * counter) { counter_ = counter; }
-    void setStateTracker(RecognitionState * state) { state_ = state; }
-    void setTextDebug(bool value) { text_debug_ = value; }
+    void setStateTracker(RecognitionState * state);
 public:
     enum reason_t {
         OK = 0,
         UNKNOWN = 1,
         FILE_NOT_FOUND,
-        IMAGE_LOAD_ERROR,
+        IMAGE_OPEN_ERROR,
+        BINARIZATION_ERROR,
+        LAYOUT_ERROR,
         RECOGNITION_ERROR,
         SHMEM_ERROR,
         WORKER_NOT_FOUND,
@@ -91,9 +182,18 @@ public:
         reason_t reason_;
     };
 protected:
+    void counterAdd(int value);
+    void counterReset();
+    void stateSet(int value);
+    void stateReset();
+private:
+    CEDPagePtr recognizeImagePrivate();
+private:
+    BinarizeOptions bin_options_;
+    FormatOptions fmt_options_;
+    RecognizeOptions rec_options_;
     PercentCounter * counter_;
     RecognitionState * state_;
-private:
     bool text_debug_;
 };
 

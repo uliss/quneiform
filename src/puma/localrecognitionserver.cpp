@@ -22,153 +22,219 @@
 #include "rdib/imageloaderfactory.h"
 #include "localrecognitionserver.h"
 #include "puma.h"
-#include "common/cifconfig.h"
 #include "common/percentcounter.h"
 #include "common/recognitionstate.h"
-#include "common/console_messages.h"
 #include "common/imageurl.h"
-
-#define CF_ERROR std::cerr << cf::console::error
+#include "puma_debug.h"
 
 namespace cf {
 
-LocalRecognitionServer::LocalRecognitionServer() {
+// counter values sum should be 100
+enum {
+    COUNTER_OPEN_VALUE = 10,
+    COUNTER_BINARIZE_VALUE = 10,
+    COUNTER_ANALYZE_VALUE = 10,
+    COUNTER_RECOGNIZE_VALUE = 60,
+    COUNTER_FORMAT_VALUE = 10
+};
+
+LocalRecognitionServer::LocalRecognitionServer() :
+    local_state_(RecognitionState::NONE)
+{
 }
 
-LocalRecognitionServer::~LocalRecognitionServer() {
+LocalRecognitionServer::~LocalRecognitionServer()
+{
     if(isTextDebug())
         Puma::instance().close();
 }
 
-void LocalRecognitionServer::close(const RecognizeOptions& ropts)
+bool LocalRecognitionServer::binarize()
 {
+    PUMA_TRACE_FUNC();
+
+    if(!isOpened()) {
+        PUMA_ERROR_FUNC() << "image not opened";
+        return false;
+    }
+
+    Puma::instance().binarizeImage();
+    setTotalState(RecognitionState::BINARIZED);
+    counterAdd(COUNTER_BINARIZE_VALUE);
+    return true;
+}
+
+bool LocalRecognitionServer::analyze()
+{
+    PUMA_TRACE_FUNC();
+
+    if(!isBinarized()) {
+        PUMA_ERROR_FUNC() << "image not binarized";
+        return false;
+    }
+
+    Puma::instance().layout();
+    setTotalState(RecognitionState::ANALYZED);
+    counterAdd(COUNTER_ANALYZE_VALUE);
+    return true;
+}
+
+bool LocalRecognitionServer::open(const ImageURL& url)
+{
+    if(url.empty()) {
+        PUMA_ERROR_FUNC() << "empty url";
+        setFailed();
+        return false;
+    }
+
+    PUMA_TRACE_FUNC() << "url open:" << url;
+    return open(ImageLoaderFactory::instance().load(url));
+}
+
+void LocalRecognitionServer::close()
+{
+    PUMA_TRACE_FUNC();
+
     // for normal formatting - we have to close puma library,
     // except textdebug
-    if(!isTextDebug() && !ropts.debugCleanupDelayed())
+    if(!isTextDebug() && !recognizeOptions().debugCleanupDelayed())
         Puma::instance().close();
 }
 
-CEDPagePtr LocalRecognitionServer::format() {
+CEDPagePtr LocalRecognitionServer::format()
+{
+    PUMA_TRACE_FUNC();
+
+    if(!isRecognized()) {
+        PUMA_ERROR_FUNC() << "image not recognized";
+        return CEDPagePtr();
+    }
+
     if(!isTextDebug())
         Puma::instance().formatResult();
 
-    if(counter_)
-        counter_->add(10);
+    counterAdd(COUNTER_FORMAT_VALUE);
+    setTotalState(RecognitionState::FORMATTED);
 
-    if(state_)
-        state_->set(RecognitionState::FORMATTED);
+    CEDPagePtr res =  Puma::instance().cedPage();
+    if(res)
+        res->setImageName(image_->fileName());
 
-    return Puma::instance().cedPage();
+    close();
+
+    return res;
 }
 
-void LocalRecognitionServer::handleExceptionCommon(std::exception& e,
-                                                   const RecognizeOptions& ropts)
+void LocalRecognitionServer::handleExceptionCommon(std::exception& e)
 {
-    CF_ERROR << e.what() << std::endl;
+    PUMA_ERROR_FUNC() << e.what();
 
-    if(!ropts.debugCleanupDelayed())
+    if(!recognizeOptions().debugCleanupDelayed())
         Puma::instance().close();
 
-    if(state_)
-        state_->set(RecognitionState::FAILED);
+    setFailed();
 }
 
-void LocalRecognitionServer::open(ImagePtr image) {
-    Puma::instance().open(image);
-
-    if(counter_)
-        counter_->add(20);
-
-    if(state_)
-        state_->set(RecognitionState::OPENED);
-}
-
-void LocalRecognitionServer::doRecognize() {
-    Puma::instance().recognize();
-
-    if(counter_)
-        counter_->add(70);
-
-    if(state_)
-        state_->set(RecognitionState::RECOGNIZED);
-}
-
-CEDPagePtr LocalRecognitionServer::recognize(const ImageURL &url,
-                                             const RecognizeOptions& ropts,
-                                             const FormatOptions& fopts)
+bool LocalRecognitionServer::open(ImagePtr image)
 {
-    try {
-        if(url.empty()) {
-            throw RecognitionException("LocalRecognitionServer::recognize() : empty image url",
-                                       FILE_NOT_FOUND);
-        }
+    PUMA_TRACE_FUNC();
 
-        ImagePtr img = ImageLoaderFactory::instance().load(url);
-        return recognize(img, ropts, fopts);
+    if(!image) {
+        PUMA_ERROR_FUNC() << "null image pointer given";
+        setFailed();
+        return false;
     }
-    catch(RecognitionException& e) {
-        handleExceptionCommon(e, ropts);
-        throw e;
-    }
-    catch(ImageLoader::Exception& e) {
-        handleExceptionCommon(e, ropts);
-        throw RecognitionException(e.what(), IMAGE_LOAD_ERROR);
+
+    stateReset();
+    counterReset();
+    setOptions();
+
+    try {
+        Puma::instance().open(image);
+        image_ = image;
+
+        counterAdd(COUNTER_OPEN_VALUE);
+        setTotalState(RecognitionState::OPENED);
     }
     catch(PumaException& e) {
-        handleExceptionCommon(e, ropts);
-        throw RecognitionException(e.what(), RECOGNITION_ERROR);
+        PUMA_ERROR_FUNC() << e.what();
+        setFailed();
+        return false;
     }
-    catch(std::exception& e) {
-        handleExceptionCommon(e, ropts);
-        throw RecognitionException(e.what());
-    }
+
+    return true;
 }
 
-CEDPagePtr LocalRecognitionServer::recognize(ImagePtr image,
-                                             const RecognizeOptions& ropts,
-                                             const FormatOptions& fopts)
+bool LocalRecognitionServer::recognize()
 {
+    PUMA_TRACE_FUNC();
+
+    if(!isAnalyzed()) {
+        PUMA_ERROR_FUNC() << "image not analyzed";
+        return CEDPagePtr();
+    }
+
     try {
-        if (!image.get()) {
-            throw RecognitionException("LocalRecognitionServer::recognize() : NULL image given",
-                                       IMAGE_LOAD_ERROR);
-        }
+        Puma::instance().recognize();
 
-        if(counter_)
-            counter_->reset();
-        if(state_)
-            state_->reset();
-
-        setOptions(ropts, fopts);
-        open(image);
-        doRecognize();
-        CEDPagePtr page = format();
-        close(ropts);
-
-        // set filename
-        if(page)
-            page->setImageName(image->fileName());
-
-        return page;
+        counterAdd(COUNTER_RECOGNIZE_VALUE);
+        setTotalState(RecognitionState::RECOGNIZED);
+        return true;
     }
     catch(RecognitionException& e) {
-        handleExceptionCommon(e, ropts);
+        handleExceptionCommon(e);
         throw e;
     }
     catch(PumaException& e) {
-        handleExceptionCommon(e, ropts);
+        handleExceptionCommon(e);
         throw RecognitionException(e.what(), RECOGNITION_ERROR);
     }
     catch (std::exception& e) {
-        handleExceptionCommon(e, ropts);
+        handleExceptionCommon(e);
         throw RecognitionException(e.what(), UNKNOWN);
     }
 }
 
-void LocalRecognitionServer::setOptions(const RecognizeOptions& ropts, const FormatOptions& fopts)
+void LocalRecognitionServer::setOptions()
 {
-    Puma::instance().setRecognizeOptions(ropts);
-    Puma::instance().setFormatOptions(fopts);
+    Puma::instance().setRecognizeOptions(recognizeOptions());
+    Puma::instance().setFormatOptions(formatOptions());
+
+    PUMA_TRACE_FUNC() << "\n"
+                      << recognizeOptions() << "\n"
+                      << formatOptions();
+}
+
+void LocalRecognitionServer::setTotalState(int state)
+{
+    local_state_ = state;
+    stateSet(state);
+}
+
+void LocalRecognitionServer::setFailed()
+{
+    setTotalState(RecognitionState::FAILED);
+    counterReset();
+}
+
+bool LocalRecognitionServer::isOpened() const
+{
+    return local_state_ == RecognitionState::OPENED;
+}
+
+bool LocalRecognitionServer::isBinarized() const
+{
+    return local_state_ == RecognitionState::BINARIZED;
+}
+
+bool LocalRecognitionServer::isAnalyzed() const
+{
+    return local_state_ == RecognitionState::ANALYZED;
+}
+
+bool LocalRecognitionServer::isRecognized() const
+{
+    return local_state_ == RecognitionState::RECOGNIZED;
 }
 
 }

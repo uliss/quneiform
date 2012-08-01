@@ -49,6 +49,11 @@ void TestPageRecognizer::testRecognize() {
     QSignalSpy formatted(&r, SIGNAL(formatted()));
     QSignalSpy recognized(&r, SIGNAL(recognized()));
 
+    QCOMPARE(failed.count(), 0);
+    QCOMPARE(opened.count(), 0);
+    QCOMPARE(formatted.count(), 0);
+    QCOMPARE(recognized.count(), 0);
+
     // NULL page
     r.setPage(NULL);
     r.recognize();
@@ -76,12 +81,14 @@ void TestPageRecognizer::testRecognize() {
     r.setPage(invalid);
     r.recognize();
     QVERIFY(failed.count() > 0);
-    QCOMPARE(opened.count(), 0);
+    // we can't garantee that file opened until it recevies worker
+    QCOMPARE(opened.count(), 1);
     QCOMPARE(formatted.count(), 0);
     QCOMPARE(recognized.count(), 0);
     QVERIFY(invalid->hasFlag(Page::RECOGNITION_FAILED));
 
     failed.clear();
+    opened.clear();
 
     // valid english
     Page * eng = new Page(CF_IMAGE_DIR "/english.png");
@@ -192,7 +199,8 @@ void TestPageRecognizer::testRecognizeArea() {
     QCOMPARE(eng270.document()->toPlainText().trimmed(), QString("LISH"));
 }
 
-void TestPageRecognizer::testPercents() {
+void TestPageRecognizer::testPercents()
+{
     PageRecognizer r;
     QSignalSpy percents(&r, SIGNAL(percentsDone(int)));
     QSignalSpy done(&r, SIGNAL(done()));
@@ -202,13 +210,16 @@ void TestPageRecognizer::testPercents() {
     r.recognize();
 
     QCOMPARE(1, done.count());
-    QCOMPARE(percents.count(), 6);
+    QCOMPARE(percents.count(), 8);
+
     QCOMPARE(percents.at(0).at(0).toInt(), 1);
     QCOMPARE(percents.at(1).at(0).toInt(), 10);
-    QCOMPARE(percents.at(2).at(0).toInt(), 26);
-    QCOMPARE(percents.at(3).at(0).toInt(), 82);
-    QCOMPARE(percents.at(4).at(0).toInt(), 90);
-    QCOMPARE(percents.at(5).at(0).toInt(), 100);
+    QCOMPARE(percents.at(2).at(0).toInt(), 18);
+    QCOMPARE(percents.at(3).at(0).toInt(), 26);
+    QCOMPARE(percents.at(4).at(0).toInt(), 34);
+    QCOMPARE(percents.at(5).at(0).toInt(), 82);
+    QCOMPARE(percents.at(6).at(0).toInt(), 90);
+    QCOMPARE(percents.at(7).at(0).toInt(), 100);
 }
 
 void TestPageRecognizer::testSlotConnections() {
@@ -228,4 +239,4 @@ void TestPageRecognizer::testSlotConnections() {
     QCOMPARE(aborted.count(), 1);
 }
 
-QTEST_MAIN(TestPageRecognizer);
+QTEST_MAIN(TestPageRecognizer)

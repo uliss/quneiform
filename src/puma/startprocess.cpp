@@ -24,10 +24,9 @@
 #include <cstring>
 #include <errno.h>
 
-#include "common/console_messages.h"
-#include "common/debug.h"
 #include "common/filesystem.h"
 #include "process_exit_codes.h"
+#include "puma_debug.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -40,9 +39,6 @@
 
 #include "startprocess.h"
 
-#define CF_INFO cf::Debug() << cf::console::info << BOOST_CURRENT_FUNCTION
-#define CF_ERROR std::cerr << cf::console::error << BOOST_CURRENT_FUNCTION
-
 namespace cf {
 
 #ifdef _WIN32
@@ -51,7 +47,7 @@ int startProcess(const std::string& program, const StringList& params, int timeo
     for(size_t i = 0; i < params.size(); i++)
         cmd += " " + params[i];
 
-    Debug() << "Command: " << cmd << std::endl;
+    PUMA_DEBUG_FUNC() << "Command: " << cmd;
 
     // Set up members of the PROCESS_INFORMATION structure.
     PROCESS_INFORMATION piProcInfo;
@@ -80,7 +76,7 @@ int startProcess(const std::string& program, const StringList& params, int timeo
 
     // If an error occurs, exit the application.
     if (!bSuccess) {
-        Debug() << BOOST_CURRENT_FUNCTION << ": can't start worker\n";
+        PUMA_DEBUG_FUNC() << "can't start worker";
         return WORKER_UNKNOWN_ERROR;
     }
     else {
@@ -104,7 +100,7 @@ int startProcess(const std::string& program, const StringList& params, int timeo
 int startProcess(const std::string& program, const StringList& params, int timeout)
 {
     if(!fs::fileExists(program)) {
-        CF_ERROR << " program not exists: " << program << "\n";
+        PUMA_ERROR_FUNC() << "program not exists:" << program;
         return WORKER_UNKNOWN_ERROR;
     }
 
@@ -116,13 +112,9 @@ int startProcess(const std::string& program, const StringList& params, int timeo
     }
 
     if(child_pid != 0) {
-        CF_INFO << " child process started: '"
-                << program << "' with pid = " << child_pid << " and params: ";
-
-        for(size_t i = 0; i < params.size(); i++)
-            Debug() << params[i] << ' ';
-
-        Debug() << "\n";
+        PUMA_INFO_FUNC() << "child process started:'" << program
+                         << "' with pid =" << child_pid
+                         << "and params:" << params;
 
         // parent
         ProcessTimeoutKiller watchdog(child_pid, timeout);
@@ -155,7 +147,7 @@ int startProcess(const std::string& program, const StringList& params, int timeo
             case SIGABRT:
                 return WORKER_ABORT_ERROR;
             default:
-                Debug() << "[startProcess] unhandled signal:" << sig << "\n";
+                PUMA_WARNING_FUNC() << "unhandled signal:" << sig;
                 return WORKER_UNKNOWN_ERROR;
             }
         }

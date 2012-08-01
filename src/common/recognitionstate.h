@@ -31,13 +31,13 @@ public:
     typedef boost::function<void(int)> Callback;
 public:
     enum state_t {
-        NONE = 0,
-        LOADED,
-        OPENED,
-        ANALYZED,
-        RECOGNIZED,
-        FORMATTED,
-        FAILED
+        NONE       = 0,
+        OPENED     = 0x1,
+        BINARIZED  = 0x2,
+        ANALYZED   = 0x4,
+        RECOGNIZED = 0x8,
+        FORMATTED  = 0x10,
+        FAILED     = 0x1000
     };
 public:
     RecognitionState();

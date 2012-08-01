@@ -24,14 +24,24 @@
 class TestLocalRecognitionServer : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestLocalRecognitionServer);
-    CPPUNIT_TEST(testRecognize);
+    CPPUNIT_TEST(testRecognizeImage);
     CPPUNIT_TEST(testRecognizeRotated);
     CPPUNIT_TEST(testRecognizeArea);
+    CPPUNIT_TEST(testOpen);
+    CPPUNIT_TEST(testBinarize);
+    CPPUNIT_TEST(testAnalyze);
+    CPPUNIT_TEST(testRecognize);
+    CPPUNIT_TEST(testFormat);
     CPPUNIT_TEST_SUITE_END();
 public:
-    void testRecognize();
+    void testRecognizeImage();
     void testRecognizeRotated();
     void testRecognizeArea();
+    void testOpen();
+    void testBinarize();
+    void testAnalyze();
+    void testRecognize();
+    void testFormat();
 };
 
 #endif // TESTLOCALRECOGNITIONSERVER_H
