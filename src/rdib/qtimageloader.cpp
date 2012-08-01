@@ -245,8 +245,13 @@ ImagePtr QtImageLoader::load(const ImageURL& url)
         return loadPdf(url);
     else if(is_tiff_url(url))
         return loadTiff(url);
-    else
-        img.load(QString::fromUtf8(url.path().c_str()));
+    else {
+        QImageReader r(urlToQt(url)); 
+        if(!r.read(&img)) {
+            cfError(MODULE_RDIB) << METHOD_SIGNATURE() << "can't read image" << url;
+            throw Exception() << "can't read image:" << url;
+        }
+    }
 
     return fromQImage(img);
 }

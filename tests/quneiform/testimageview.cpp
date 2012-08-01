@@ -35,6 +35,9 @@
 static void wait_events() {
     QCoreApplication::processEvents();
     QCoreApplication::flush();
+#ifndef Q_WS_MAC
+    QTest::qWait(100);
+#endif
 }
 
 static void mouseMove(QWidget * w, const QPoint& pos) {
