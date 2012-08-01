@@ -41,5 +41,7 @@ if(PYTHONINTERP_FOUND)
     install_test_py(pagenum.py)
     
     add_custom_target(test_all ${CMAKE_BINARY_DIR}/py/all.py)
-    add_custom_target(test_clear ${CMAKE_BINARY_DIR}/py/remove_test_output.py)
+    add_custom_target(test_clean ${CMAKE_BINARY_DIR}/py/remove_test_output.py
+                             COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/cmake/test_output_cleanup.cmake
+                             WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
