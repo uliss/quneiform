@@ -25,8 +25,9 @@
 namespace cf
 {
 
-struct ConfigParserPrivate
+class ConfigParserPrivate
 {
+public:
     boost::property_tree::ptree tree;
 };
 
