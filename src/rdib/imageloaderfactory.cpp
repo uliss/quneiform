@@ -70,6 +70,10 @@ ImageLoader& ImageLoaderFactory::loader(image_format_t format)
 
         return unknownLoader();
     }
+    
+#ifdef _WIN32
+#undef min
+#endif
 
     std::pair<LoaderMap::iterator, LoaderMap::iterator> loaders = loader_map_.equal_range(format);
     int priority = std::numeric_limits<int>::min();

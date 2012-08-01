@@ -92,7 +92,7 @@ public:
         if(msg_type_ & (MSG_TRACE | MSG_DEBUG))
             return *this;
 #endif
-        if(!config_.isEnabled(module_, msg_type_))
+        if(!config().isEnabled(module_, msg_type_))
             return *this;
 
         buffer_ << v;
@@ -106,7 +106,7 @@ public:
         if(msg_type_ & (MSG_TRACE | MSG_DEBUG))
             return *this;
 #endif
-        if(!config_.isEnabled(module_, msg_type_))
+        if(!config().isEnabled(module_, msg_type_))
             return *this;
 
         buffer_.write(v);
@@ -121,7 +121,6 @@ private:
     StringBuffer buffer_;
 private:
     static MessageHandlerFuncPtr handler_;
-    static LoggerConfig config_;
 };
 
 FUN_EXPO__ void fileMessageHandler(module_t m, message_t t, const char * message);

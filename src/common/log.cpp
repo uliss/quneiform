@@ -139,7 +139,6 @@ static void defaultMessageHandler(module_t module, message_t msgType, const char
 }
 
 Logger::MessageHandlerFuncPtr Logger::handler_ = &defaultMessageHandler;
-LoggerConfig Logger::config_;
 
 Logger::Logger(module_t module, message_t msgType) :
     module_(module),
@@ -153,7 +152,7 @@ Logger::Logger(const Logger& l) :
 
 Logger::~Logger()
 {
-    if(!config_.isEnabled(module_, msg_type_))
+    if(!config().isEnabled(module_, msg_type_))
         return;
 
     std::string msg = buffer_;
@@ -177,7 +176,8 @@ void Logger::setMessageHandler(Logger::MessageHandlerFuncPtr func)
 
 LoggerConfig& Logger::config()
 {
-    return config_;
+    static LoggerConfig conf;
+    return conf;
 }
 
 LoggerConfig::LoggerConfig() :
