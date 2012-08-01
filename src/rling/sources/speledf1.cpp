@@ -473,6 +473,9 @@ int16_t do_fragm(void)
  This procedure gives address of first segment in current line.
  */
 struct segm *cur_line(char tt, struct segm * cur_segm) {
+    if(!cur_segm)
+        return NULL;
+
     if (tt == FRAGM) { /* fragm */
         if (cur_segm->prev_in_fragm == NULL)
             return (cur_segm);
@@ -507,6 +510,9 @@ void skip_letter_in_line(struct segm *segm_ptr, int16_t x)
  SPQ.skip_line_x - actual x-coordinate.
  */
 {
+    if(!segm_ptr)
+        return;
+
     int16_t i;
     int16_t max;
     uchar *symb, *c;
