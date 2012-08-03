@@ -20,8 +20,100 @@
 
 namespace cf {
 
-BinarizeOptions::BinarizeOptions()
+BinarizeOptions::BinarizeOptions() :
+    binarizator_(KRONROD)
 {
+}
+
+bool BinarizeOptions::hasOption(const std::string& key) const
+{
+    return options_.find(key) != options_.end();
+}
+
+bool BinarizeOptions::optionBool(const std::string& key, bool fallback) const
+{
+    if(!hasOption(key))
+        return fallback;
+
+    try {
+        return boost::get<bool>(options_.at(key));
+    }
+    catch(const boost::bad_get&) {
+        throw Exception() << "not bool value for key:" << key;
+    }
+}
+
+float BinarizeOptions::optionFloat(const std::string& key, float fallback) const
+{
+    if(!hasOption(key))
+        return fallback;
+
+    try {
+        return boost::get<float>(options_.at(key));
+    }
+    catch(const boost::bad_get&) {
+        throw Exception() << "not float value for key:" << key;
+    }
+}
+
+int BinarizeOptions::optionInt(const std::string& key, int fallback) const
+{
+    if(!hasOption(key))
+        return fallback;
+    try {
+        return boost::get<int>(options_.at(key));
+    }
+    catch(const boost::bad_get&) {
+        throw Exception() << "not int value for key:" << key;
+    }
+}
+
+std::string BinarizeOptions::optionString(const std::string& key, const std::string& fallback) const
+{
+    if(!hasOption(key))
+        return fallback;
+
+    try {
+        return boost::get<std::string>(options_.at(key));
+    }
+    catch(const boost::bad_get&) {
+        throw Exception() << "not string value for key:" << key << options_.at(key);
+    }
+}
+
+BinarizeOptions::bin_t BinarizeOptions::binarizator() const
+{
+    return binarizator_;
+}
+
+void BinarizeOptions::setBinarizator(BinarizeOptions::bin_t t)
+{
+    binarizator_ = t;
+}
+
+void BinarizeOptions::setOption(const std::string& key, bool value)
+{
+    options_[key] = value;
+}
+
+void BinarizeOptions::setOption(const std::string& key, float value)
+{
+    options_[key] = value;
+}
+
+void BinarizeOptions::setOption(const std::string& key, int value)
+{
+    options_[key] = value;
+}
+
+void BinarizeOptions::setOption(const std::string& key, const char * value)
+{
+    options_[key] = std::string(value);
+}
+
+void BinarizeOptions::setOption(const std::string& key, const std::string& value)
+{
+    options_[key] = value;
 }
 
 }

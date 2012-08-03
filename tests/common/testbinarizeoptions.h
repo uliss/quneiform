@@ -16,54 +16,27 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef BINARIZEOPTIONS_H
-#define BINARIZEOPTIONS_H
+#ifndef TESTBINARIZEOPTIONS_H
+#define TESTBINARIZEOPTIONS_H
 
-#include <map>
-#include <string>
-#include <boost/variant.hpp>
+#include <cppunit/extensions/HelperMacros.h>
 
-#include "globus.h"
-#include "common/exception.h"
-
-namespace cf {
-
-class CLA_EXPO BinarizeOptions
+class TestBinarizeOptions : public CppUnit::TestFixture
 {
+    CPPUNIT_TEST_SUITE(TestBinarizeOptions);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testBoolOptions);
+    CPPUNIT_TEST(testFloatOptions);
+    CPPUNIT_TEST(testIntOptions);
+    CPPUNIT_TEST(testStringOptions);
+    CPPUNIT_TEST_SUITE_END();
 public:
-    enum bin_t {
-        DEZA    = 0,
-        KRONROD,
-        THRESHOLD
-    };
-
-    typedef RuntimeExceptionImpl<BinarizeOptions> Exception;
-public:
-    BinarizeOptions();
-
-    bool hasOption(const std::string& key) const;
-
-    bool optionBool(const std::string& key, bool fallback) const;
-    float optionFloat(const std::string& key, float fallback) const;
-    int optionInt(const std::string& key, int fallback) const;
-    std::string optionString(const std::string& key, const std::string& fallback) const;
-
-    void setOption(const std::string& key, bool value);
-    void setOption(const std::string& key, float value);
-    void setOption(const std::string& key, int value);
-    void setOption(const std::string&key, const char * value);
-    void setOption(const std::string&key, const std::string& value);
-
-    bin_t binarizator() const;
-    void setBinarizator(bin_t t);
-private:
-    typedef boost::variant<bool, int, float, std::string> Value;
-    typedef std::map<std::string, Value> OptionMap;
-private:
-    bin_t binarizator_;
-    OptionMap options_;
+    void testInit();
+    void testBoolOptions();
+    void testFloatOptions();
+    void testIntOptions();
+    void testStringOptions();
 };
 
-}
 
-#endif // BINARIZEOPTIONS_H
+#endif // TESTBINARIZEOPTIONS_H
