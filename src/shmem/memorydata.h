@@ -22,10 +22,12 @@
 #include <cstddef>
 #include <stdexcept>
 
+#include "common/binarizeoptions.h"
 #include "common/formatoptions.h"
 #include "common/recognizeoptions.h"
 #include "common/image.h"
 #include "common/imageurl.h"
+#include "common/exception.h"
 #include "ced/cedpageptr.h"
 
 namespace cf {
@@ -35,9 +37,7 @@ struct MemoryDataPrivate;
 class CLA_EXPO MemoryData
 {
 public:
-    struct Exception : std::runtime_error {
-        Exception(const std::string& msg) : std::runtime_error(msg) {}
-    };
+    typedef RuntimeExceptionImpl<MemoryData> Exception;
 public:
     MemoryData();
     MemoryData(void * memory, size_t size);
@@ -103,6 +103,11 @@ public:
       * @throw Exception on error
       */
     RecognizeOptions recognizeOptions() const;
+
+    /**
+     * Sets memory pointer and size to 0
+     */
+    void reset();
 
     /**
       * Sets format options for data

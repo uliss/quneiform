@@ -199,7 +199,7 @@ void TestQtImageLoader::testImageTypes()
 
     QtImageLoader loader;
 
-#define ASSERT_LOAD_QIMAGE(loader, image) CPPUNIT_ASSERT_NO_THROW(loader.fromQImage(image));
+#define ASSERT_LOAD_QIMAGE(loader, image) CPPUNIT_ASSERT_NO_THROW(loader.fromQImage(image))
 
     ASSERT_LOAD_QIMAGE(loader, img);
 
@@ -220,6 +220,6 @@ void TestQtImageLoader::testImageTypes()
     img.convertToFormat(QImage::Format_Mono);
     ASSERT_LOAD_QIMAGE(loader, img);
 
-#undef ASSERT_LOAD_QIMAGE;
+#undef ASSERT_LOAD_QIMAGE
 }
 

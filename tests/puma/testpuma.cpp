@@ -16,15 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 #include "testpuma.h"
+
+#include "common/tostring.h"
 #define private public
-#include <puma/puma.h>
-#include <common/tostring.h>
+#include "puma/puma.h"
+
 using namespace cf;
 CPPUNIT_TEST_SUITE_REGISTRATION(TestPuma);
 
 void TestPuma::testInit() {
     Rect rect;
-    //    CPPUNIT_ASSERT_EQUAL(rect, Puma::instance().pageTemplate());
+
+    Puma::instance().close();
     CPPUNIT_ASSERT(Puma::instance().input_dib_ == NULL);
     CPPUNIT_ASSERT(Puma::instance().input_filename_.empty());
     CPPUNIT_ASSERT(Puma::instance().cpage_ == NULL);

@@ -67,7 +67,7 @@
 #include "rline/rline.h"
 
 #include "minmax.h"
-#include "rselstr_internal.h"
+#include "rootlist.h"
 
 using namespace cf;
 
@@ -229,7 +229,7 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
     RotatePageToIdeal();
     // piter
     // remove ALL
-    for (pRoot = rootFirst(); pRoot < pAfterRoots; pRoot++) {
+    for (pRoot = cf::Roots::first(); pRoot < pAfterRoots; pRoot++) {
         pRoot -> nBlock = REMOVED_BLOCK_NUMBER;
     }
 
@@ -247,9 +247,9 @@ void LayoutFromCPAGE(Handle hCPAGE, CCOM_handle hCCOM)
                 block.orient == TYPE_UPDOWN)
             continue;
 
-        rootAdd(ROOT());
+        cf::Roots::add(ROOT());
 
-        for (pRoot = rootFirst(); pRoot < pAfterRoots; pRoot++) {
+        for (pRoot = cf::Roots::first(); pRoot < pAfterRoots; pRoot++) {
             pLeftTop.rx() = pRoot->xColumn + 1;
             pLeftTop.ry() = pRoot->yRow + 1;
             pRightTop.rx() = pRoot->xColumn + pRoot->nWidth - 1;
@@ -422,7 +422,7 @@ void file_string(STRING * s)
         if (s->nDust > s->nLetters * 1) {
             int32_t le, ri, nri, nle;
             for (le = 32000, ri = -16000, i = 0; i < s->nLetters; i++) {
-                com = rootAt(s->pLettersList[i])->pComp;
+                com = cf::Roots::at(s->pLettersList[i])->pComp;
                 if (le > com->left)
                     le = com->left;
                 if (ri < com->left + com->w)
@@ -434,7 +434,7 @@ void file_string(STRING * s)
             left.right = right.right = -16000;
             left.bottom = right.bottom = -16000;
             for (nri = nle = i = 0; i < s->nDust; i++) {
-                com = rootAt(s->pDustList[i])->pComp;
+                com = cf::Roots::at(s->pDustList[i])->pComp;
                 if (com->w * com->h < 15) {
                     CCOM_comp com1 = *com;
                     com1.upper = com1.upper - (int16_t) (nIncline * com1.left / 2048);
@@ -469,7 +469,7 @@ void file_string(STRING * s)
         } // end of if num dust > num let * ...
         // dust
         for (i = 0; i < s->nDust; i++) {
-            pRoot = rootAt(s->pDustList[i]);
+            pRoot = cf::Roots::at(s->pDustList[i]);
             com = pRoot->pComp;
             if (filtr && com->w * com->h < 15) {
                 CCOM_comp com1 = *com;
@@ -499,7 +499,7 @@ void file_string(STRING * s)
         }
         // letters
         for (i = 0; i < s->nLetters; i++) {
-            pRoot = rootAt(s->pLettersList[i]);
+            pRoot = cf::Roots::at(s->pLettersList[i]);
             com = pRoot->pComp;
 
             // begin Oleg 2003.08.29

@@ -23,6 +23,10 @@
 #include "sharedmemoryholder.h"
 #include "sharedmemoryholderprivate.h"
 
+#ifdef USE_MMAP_SHMEM
+#include "mmapsharedmemory.h"
+#endif
+
 #ifdef USE_SYSTEMV_SHMEM
 #include "systemvsharedmemory.h"
 #endif
@@ -46,6 +50,10 @@ SharedMemoryHolder::SharedMemoryHolder(bool owner)
 
 #ifdef USE_WIN32_SHMEM
     impl_ = new Win32SharedMemory;
+#endif
+
+#ifdef USE_MMAP_SHMEM
+    impl_ = new MMapSharedMemory;
 #endif
 }
 
@@ -137,7 +145,7 @@ void SharedMemoryHolder::remove()
     if(isAttached())
         detach();
 
-    if(!impl_->remove()) {
+    if(!impl_->remove(makeKey(key_))) {
         std::ostringstream buf;
         buf << "could not remove shared memory with key: \"" << key_ << "\" and size: " << size_;
         throw Exception(buf.str());

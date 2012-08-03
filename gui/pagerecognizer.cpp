@@ -165,9 +165,6 @@ void PageRecognizer::handleRecognitionState(int state) {
     using namespace cf;
 
     switch(state) {
-    case RecognitionState::LOADED:
-        emit loaded();
-        break;
     case RecognitionState::OPENED:
         emit opened();
         break;
@@ -196,7 +193,6 @@ void PageRecognizer::loadImage()
     Q_CHECK_PTR(recog_state_);
     // update counter and state
     counter_->add(9);
-    recog_state_->set(cf::RecognitionState::LOADED);
 }
 
 QString PageRecognizer::pagePath() const {
@@ -268,7 +264,7 @@ bool PageRecognizer::recognize() {
                                                     boost::bind(&PageRecognizer::saveResolutionWidthHistogram, this, _1));
 
         RecognitionPtr server = makeRecognitionServer(worker_type_, &recog_counter, recog_state_);
-        CEDPagePtr cedptr = server->recognize(makeImageURL(page_), ropts, fopts);
+        CEDPagePtr cedptr = server->recognizeImage(makeImageURL(page_), BinarizeOptions(), ropts, fopts);
 
         if(!cedptr)
             return false;

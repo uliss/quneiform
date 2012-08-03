@@ -73,7 +73,7 @@
 #include "my_mem.h"
 
 #include "minmax.h"
-#include "rselstr_internal.h"
+#include "rootlist.h"
 
 BLOCK *pBlocksList = NULL;
 BLOCK *pHighEmbeddingBlocksList = NULL;
@@ -230,7 +230,7 @@ void BlocksExtract() {
 
 	BlocksFreeData();
 
-    for (pRoot = rootFirst(); pRoot < pAfterRoots; pRoot++) {
+    for (pRoot = cf::Roots::first(); pRoot < pAfterRoots; pRoot++) {
 		if (pRoot -> nBlock == DUST_BLOCK_NUMBER || pRoot -> nBlock
 				== REMOVED_BLOCK_NUMBER) {
 			continue;

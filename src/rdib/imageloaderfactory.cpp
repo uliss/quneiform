@@ -23,7 +23,7 @@
 
 #include "imageloaderfactory.h"
 #include "imageloader.h"
-#include "common/debug.h"
+#include "rdib_debug.h"
 #include "common/imageurl.h"
 #include "imageformatdetector.h"
 #include "cfcompat.h"
@@ -44,7 +44,7 @@ ImageLoaderFactory& ImageLoaderFactory::instance()
 ImagePtr ImageLoaderFactory::load(const ImageURL& url)
 {
     if(!url.exists())
-        throw ImageLoader::Exception("ImageLoaderFactory: file not exists: " + url.path());
+        throw ImageLoader::Exception("ImageLoaderFactory: file not exists:") << url;
 
     image_format_t format = ImageFormatDetector::instance().detect(url);
     ImagePtr ret(loader(format).load(url));
@@ -65,11 +65,15 @@ ImageLoader& ImageLoaderFactory::loader(image_format_t format)
         if (format == FORMAT_UNKNOWN)
             throw std::runtime_error("ImageLoaderFactory:: no default loader registered");
 
-        Debug() << "ImageLoaderFactory: loader not registered for format: " << format
-                << ", trying default...\n";
+        RDIB_WARNING_FUNC << "ImageLoaderFactory: loader not registered for format:" << format
+                          << "trying default...";
 
         return unknownLoader();
     }
+    
+#ifdef _WIN32
+#undef min
+#endif
 
     std::pair<LoaderMap::iterator, LoaderMap::iterator> loaders = loader_map_.equal_range(format);
     int priority = std::numeric_limits<int>::min();
@@ -88,6 +92,10 @@ ImageLoader& ImageLoaderFactory::loader(image_format_t format)
 bool ImageLoaderFactory::registerCreator(image_format_t format, int priority, loaderCreate creator)
 {
     loader_map_.insert(LoaderMap::value_type(format, std::make_pair(priority, creator)));
+
+    RDIB_TRACE_FUNC << "format:" << imageFormatToString(format)
+                    << "with priority:" << priority << creator;
+
     return true;
 }
 

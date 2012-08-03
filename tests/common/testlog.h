@@ -16,71 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#include <cstdlib>
-#include <cassert>
+#ifndef TESTLOG_H
+#define TESTLOG_H
 
-#include "rselstr_internal.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-ROOT * root_file = 0;
-int nRoots = 0;
-size_t root_capacity = 0;
-
-bool rootIsNull()
+class TestLog : public CppUnit::TestFixture
 {
-    return root_file == 0;
-}
+    CPPUNIT_TEST_SUITE(TestLog);
+    CPPUNIT_TEST(testLog);
+    CPPUNIT_TEST(testLogConfig);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testLog();
+    void testLogConfig();
+};
 
-bool rootIsEmpty()
-{
-    return nRoots == 0;
-}
-
-ROOT * rootAt(int idx)
-{
-    return &root_file[idx];
-}
-
-ROOT * rootLast()
-{
-    if(rootCount() < 1)
-        return 0;
-
-    return rootAt(rootCount() - 1);
-}
-
-ROOT * rootFirst()
-{
-    return root_file;
-}
-
-int rootCount()
-{
-    return nRoots;
-}
-
-void rootFree()
-{
-    free(root_file);
-    root_file = 0;
-    nRoots = 0;
-}
-
-void rootAdd(const ROOT& r)
-{
-    assert(nRoots >= 0);
-
-    if(nRoots >= root_capacity)
-        rootReserve(10);
-
-    nRoots++;
-    root_file[nRoots - 1] = r;
-}
-
-ROOT * rootReserve(int number)
-{
-    root_capacity = number * sizeof(ROOT);
-
-    root_file = (ROOT*) realloc(root_file, root_capacity);
-    return root_file;
-
-}
+#endif // TESTLOG_H

@@ -77,7 +77,7 @@
 #include "my_mem.h"
 
 #include "compat_defs.h"
-#include "rselstr_internal.h"
+#include "rootlist.h"
 
 ROOT *pAfterRoots;
 
@@ -110,24 +110,24 @@ int nRootStripsOffset;
 void CalculatePageParameters(void) {
     ROOT * proot;
 
-    pAfterRoots = rootFirst() + rootCount();
+    pAfterRoots = cf::Roots::first() + cf::Roots::count();
 
-    nOriginalRoots = rootCount();
+    nOriginalRoots = cf::Roots::count();
 	pAfterOriginalRoots = pAfterRoots;
 
-    if (rootIsEmpty()) {
+    if (cf::Roots::isEmpty()) {
 		rRootSpace.xLeft = 0;
 		rRootSpace.yTop = 0;
 		rRootSpace.xRight = -1;
 		rRootSpace.yBottom = -1;
 	} else {
-        rRootSpace.xLeft = rootFirst()->xColumn;
-        rRootSpace.yTop = rootFirst()->yRow;
-        rRootSpace.xRight = rootFirst()->xColumn + rootFirst()->nWidth - 1;
-        rRootSpace.yBottom = rootFirst()->yRow + rootFirst()->nHeight - 1;
+        rRootSpace.xLeft = cf::Roots::first()->xColumn;
+        rRootSpace.yTop = cf::Roots::first()->yRow;
+        rRootSpace.xRight = cf::Roots::first()->xColumn + cf::Roots::first()->nWidth - 1;
+        rRootSpace.yBottom = cf::Roots::first()->yRow + cf::Roots::first()->nHeight - 1;
 	}
 
-    for (proot = rootFirst(); proot < pAfterRoots; proot++) {
+    for (proot = cf::Roots::first(); proot < pAfterRoots; proot++) {
         proot -> bReached = FALSE;
 
         if (rRootSpace.xLeft > proot -> xColumn)
@@ -136,11 +136,11 @@ void CalculatePageParameters(void) {
         if (rRootSpace.yTop > proot -> yRow)
             rRootSpace.yTop = proot -> yRow;
 
-        if (rRootSpace.xRight < proot -> xColumn + rootFirst()->nWidth - 1)
-            rRootSpace.xRight = proot -> xColumn + rootFirst()->nWidth - 1;
+        if (rRootSpace.xRight < proot -> xColumn + cf::Roots::first()->nWidth - 1)
+            rRootSpace.xRight = proot -> xColumn + cf::Roots::first()->nWidth - 1;
 
-        if (rRootSpace.yBottom < proot -> yRow + rootFirst()->nHeight - 1)
-            rRootSpace.yBottom = proot -> yRow + rootFirst()->nHeight - 1;
+        if (rRootSpace.yBottom < proot -> yRow + cf::Roots::first()->nHeight - 1)
+            rRootSpace.yBottom = proot -> yRow + cf::Roots::first()->nHeight - 1;
 	}
 
 	nRootSpaceWidth = rRootSpace.xRight - rRootSpace.xLeft + 1;
@@ -158,13 +158,13 @@ void RootStripsCalculate(void) {
 	int iStripBegin;
 	int iStripEnd;
 
-    if (rootIsEmpty())
+    if (cf::Roots::isEmpty())
 		ErrorInternal("nRoots == 0");
 
-    yMin = rootFirst()->yRow;
-    yMax = rootFirst()->yRow + rootFirst()->nHeight - 1;
+    yMin = cf::Roots::first()->yRow;
+    yMax = cf::Roots::first()->yRow + cf::Roots::first()->nHeight - 1;
 
-    for (root = rootFirst();  root < pAfterRoots;  root++) {
+    for (root = cf::Roots::first();  root < pAfterRoots;  root++) {
         if ( root -> yRow < yMin)
             yMin =  root -> yRow;
 
@@ -185,7 +185,7 @@ void RootStripsCalculate(void) {
 		ErrorNoEnoughMemory("in LTROOTS.C,RootStripsCalculate,part 1");
 	memset(pRootStrips, 0, nRootStrips * sizeof(ROOT_STRIP));
 
-    for ( root = rootFirst();  root < pAfterRoots;  root++) {
+    for ( root = cf::Roots::first();  root < pAfterRoots;  root++) {
         iStripBegin = ( root -> yRow - nRootStripsOffset) / nRootStripsStep;
 
         iStripEnd = ( root -> yRow +  root -> nHeight - 1 - nRootStripsOffset)
@@ -266,7 +266,7 @@ void RootStripsGetLoopParameters(int yTop, int yBottom, ROOT **ppBegin,
 
 void RootsRemoveFromRulers(void) {
 	int x, y;
-    for (ROOT * p = rootFirst(); p < pAfterRoots; p++) {
+    for (ROOT * p = cf::Roots::first(); p < pAfterRoots; p++) {
         if (p->nBlock == REMOVED_BLOCK_NUMBER) {
             x = p->xColumn;
             y = p->yRow;
@@ -279,7 +279,7 @@ void RootsSaveNonLayoutData(void) {
 	if (pRootExts != NULL)
 		ErrorInternal((char *) "RootsSaveNonLayoutData: pRootExts != NULL");
 
-    nRootExts = rootCount();
+    nRootExts = cf::Roots::count();
 
     pRootExts = (ROOT_EXT*) malloc(nRootExts * sizeof(ROOT_EXT));
 
@@ -289,8 +289,8 @@ void RootsSaveNonLayoutData(void) {
 	pAfterRootExts = pRootExts + nRootExts;
 
     for (int i = 0; i < nRootExts; i++) {
-        pRootExts[i].wSegmentPtr = rootAt(i)->u1.u2.wSegmentPtr;
-        pRootExts[i].wLength = rootAt(i)->u1.u2.wLength;
+        pRootExts[i].wSegmentPtr = cf::Roots::at(i)->u1.u2.wSegmentPtr;
+        pRootExts[i].wLength = cf::Roots::at(i)->u1.u2.wLength;
 	}
 }
 
@@ -299,10 +299,10 @@ void RootsRestoreNonLayoutData_ForDustAndRemoved(void) {
 		ErrorInternal((char *) "RootsRestoreNonLayoutData: pRootExts == NULL");
 
     for (int i = 0; i < nRootExts; i++) {
-        if (rootAt(i)->nBlock == DUST_BLOCK_NUMBER ||
-                rootAt(i)->nBlock == REMOVED_BLOCK_NUMBER) {
-            rootAt(i)->u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
-            rootAt(i)->u1.u2.wLength = pRootExts[i].wLength;
+        if (cf::Roots::at(i)->nBlock == DUST_BLOCK_NUMBER ||
+                cf::Roots::at(i)->nBlock == REMOVED_BLOCK_NUMBER) {
+            cf::Roots::at(i)->u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
+            cf::Roots::at(i)->u1.u2.wLength = pRootExts[i].wLength;
 		}
 	}
 }
@@ -312,8 +312,8 @@ void RootsRestoreNonLayoutData(void) {
 		ErrorInternal((char *) "RootsRestoreNonLayoutData: pRootExts == NULL");
 
     for (int i = 0; i < nRootExts; i++) {
-        rootAt(i)->u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
-        rootAt(i)->u1.u2.wLength = pRootExts[i].wLength;
+        cf::Roots::at(i)->u1.u2.wSegmentPtr = pRootExts[i].wSegmentPtr;
+        cf::Roots::at(i)->u1.u2.wLength = pRootExts[i].wLength;
 	}
 
 	free(pRootExts);
@@ -324,10 +324,8 @@ void RootsRestoreNonLayoutData(void) {
 }
 
 void RootsFreeData(void) {
-    if (!rootIsNull()) {
-        rootFree();
-		pAfterRoots = NULL;
-	}
+    cf::Roots::free();
+    pAfterRoots = NULL;
 
 	if (pRootExts != NULL) {
 		free(pRootExts);

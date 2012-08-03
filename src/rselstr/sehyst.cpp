@@ -69,11 +69,12 @@
 #include <time.h>
 #include <cstdio>
 #include <cstdlib>
+
 #include "tech.h"
 #include "extract.h"
 #include "my_mem.h"
 #include "newfunc.h"
-#include "rselstr_internal.h"
+#include "rootlist.h"
 
 void BlocksHystogramsAllocate(void) {
 	BLOCK *p;
@@ -98,7 +99,7 @@ void BlocksHystogramsBuild(void) {
 
 	BlocksHystogramsAllocate();
 
-    for (pRoot = rootFirst(); pRoot < pAfterRoots; pRoot++) {
+    for (pRoot = cf::Roots::first(); pRoot < pAfterRoots; pRoot++) {
 		if (pRoot -> nBlock == REMOVED_BLOCK_NUMBER)
 			continue;
 

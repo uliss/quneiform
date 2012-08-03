@@ -19,7 +19,12 @@
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TestRunner.h>
 
-int main() {
+#include "common/log.h"
+
+int main()
+{
+    cf::Logger::config().enableRuntimeConfig(cf::MODULES_ALL);
+
     CppUnit::TextUi::TestRunner runner;
     CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
     runner.addTest(registry.makeTest());

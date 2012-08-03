@@ -41,7 +41,7 @@ static std::string trim(const std::string& str) {
     CPPUNIT_ASSERT_NO_THROW(img = loader.load(URL(filename)));\
     LocalRecognitionServer server;\
     server.setTextDebug(true);\
-    CEDPagePtr page = server.recognize(img, RecognizeOptions(), FormatOptions());\
+    CEDPagePtr page = server.recognizeImage(img, BinarizeOptions(), RecognizeOptions(), FormatOptions());\
     ExporterFactory::instance().make(cf::FORMAT_DEBUG)->exportTo(buf);\
     ASSERT_BUFFER(buf, str);\
 }

@@ -31,7 +31,7 @@ public:
     void close(void * mem);
     void * create(size_t key, size_t size);
     void * open(size_t key, size_t size);
-    bool remove();
+    bool remove(size_t key);
     size_t limit() const;
 private:
     Handle handle_;

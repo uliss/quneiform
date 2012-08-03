@@ -326,6 +326,7 @@ public:
       * @see setViewScroll()
       */
     QPoint viewScroll() const;
+    bool isFirstViewScroll() const;
 signals:
     /**
       * Emmitted when some page data changed, such as

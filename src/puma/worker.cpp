@@ -27,14 +27,19 @@
 #include "localrecognitionserver.h"
 #include "process_exit_codes.h"
 #include "common/console_messages.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "shmem/memorydata.h"
 #include "shmem/sharedmemoryholder.h"
 #include "puma/pumaimpl.h"
+#include "build_number.h"
 
+#ifndef NDEBUG
+#define WORKER_PREFIX cf::console::message("[Process worker:" CF_BUILD_NUMBER "] ", cf::console::YELLOW)
+#else
 #define WORKER_PREFIX cf::console::message("[Process worker] ", cf::console::YELLOW)
+#endif
+
 #define CF_ERROR(msg) std::cerr << WORKER_PREFIX << msg << std::endl;
-#define CF_INFO(msg) std::cerr << WORKER_PREFIX << msg << std::endl;
 
 static const int SHMEM_SIZE_MAX = 100 * 1024 * 1024;
 
@@ -43,7 +48,7 @@ static cf::CEDPagePtr recognize(cf::ImagePtr img,
                                 const cf::FormatOptions& fopts)
 {
     cf::LocalRecognitionServer r;
-    return r.recognize(img, ropts, fopts);
+    return r.recognizeImage(img, cf::BinarizeOptions(), ropts, fopts);
 }
 
 static cf::CEDPagePtr recognize(const cf::ImageURL& url,
@@ -51,7 +56,7 @@ static cf::CEDPagePtr recognize(const cf::ImageURL& url,
                                 const cf::FormatOptions& fopts)
 {
     cf::LocalRecognitionServer r;
-    return r.recognize(url, ropts, fopts);
+    return r.recognizeImage(url, cf::BinarizeOptions(), ropts, fopts);
 }
 
 static void worker_terminate() {
@@ -62,15 +67,15 @@ static void worker_terminate() {
 static void signal_callback_handler(int signum) {
     switch(signum) {
     case SIGSEGV:
-        CF_ERROR("recognition process segmentation fault");
+        cfFatal(cf::MODULE_PUMA) << "recognition process segmentation fault";
         exit(cf::WORKER_SEGFAULT_ERROR);
         break;
     case SIGABRT:
-        CF_ERROR("recognition process aborted");
+        cfFatal(cf::MODULE_PUMA) << "recognition process aborted";
         exit(cf::WORKER_ABORT_ERROR);
         break;
     case SIGTERM:
-        CF_ERROR("recognition process killed by timeout");
+        cfFatal(cf::MODULE_PUMA) << "recognition process killed by timeout";
         exit(cf::WORKER_TIMEOUT_ERROR);
         break;
     default:
@@ -78,7 +83,10 @@ static void signal_callback_handler(int signum) {
     }
 }
 
-int main(int argc, char ** argv) {
+int main(int argc, char ** argv)
+{
+    cf::Logger::config().enableRuntimeConfig(cf::MODULES_ALL);
+
     if(argc != 2 && argc != 3) {
         CF_ERROR("Usage: " << argv[0] << " KEY [SIZE]");
         return cf::WORKER_WRONG_ARGUMENT;
@@ -91,7 +99,7 @@ int main(int argc, char ** argv) {
 
     // if have size argument
     if(use_shared_image) {
-        CF_INFO("using shared image");
+        cfDebug(cf::MODULE_PUMA) << "using shared image";
 
         arg_sz = atoi(argv[2]);
         // case negative or too big
@@ -108,7 +116,7 @@ int main(int argc, char ** argv) {
 
     const size_t shmem_size = (arg_sz == 0) ? cf::MemoryData::minBufferSize() : (size_t) arg_sz;
 
-    CF_INFO("using memory size: " << shmem_size);
+    cfDebug(cf::MODULE_PUMA) << "using memory size:" << shmem_size;
 
     std::set_terminate(worker_terminate);
     signal(SIGABRT, signal_callback_handler);
@@ -150,7 +158,7 @@ int main(int argc, char ** argv) {
             switch(e.reason()) {
             case AbstractRecognitionServer::FILE_NOT_FOUND:
                 return WORKER_FILE_NOT_FOUND;
-            case AbstractRecognitionServer::IMAGE_LOAD_ERROR:
+            case AbstractRecognitionServer::IMAGE_OPEN_ERROR:
                 return WORKER_LOAD_ERROR;
             default:
                 return WORKER_UNKNOWN_ERROR;

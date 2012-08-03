@@ -20,7 +20,7 @@
 #include "puma/startprocess.h"
 #include "puma/process_exit_codes.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION(TestStartProcess);
+//CPPUNIT_TEST_SUITE_REGISTRATION(TestStartProcess);
 
 using namespace cf;
 

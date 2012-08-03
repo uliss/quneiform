@@ -31,27 +31,53 @@ public:
     ~LocalRecognitionServer();
 
     /**
-      * @param url - image url
-      * @throw RecognitionException on error
-      */
-    CEDPagePtr recognize(const ImageURL& url,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
+     * Makes document layout
+     * @return true on success
+     */
+    bool analyze();
 
     /**
-      * @param image - pointer to image data
-      * @throw RecognitionException on error
-      */
-    CEDPagePtr recognize(ImagePtr image,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
-private:
-    void close(const RecognizeOptions& ropts);
-    void doRecognize();
+     * Binarizes image
+     * @param bopts - binarization options
+     * @return true on success
+     */
+    bool binarize();
+
+    /**
+     * Formats recognition result
+     * @return pointer to CEDPage
+     */
     CEDPagePtr format();
-    void handleExceptionCommon(std::exception& e, const RecognizeOptions& ropts);
-    void open(ImagePtr image);
-    void setOptions(const RecognizeOptions& ropts, const FormatOptions& fopts);
+
+    /**
+     * Opens image
+     * @param url - image url
+     * @return true on success
+     */
+    bool open(const ImageURL& url);
+    bool open(ImagePtr image);
+
+    /**
+     * Recognizes image
+     * @returns true on success
+     */
+    bool recognize();
+private:
+    void close();
+    void handleExceptionCommon(std::exception& e);
+    void setOptions();
+
+    // sets local and callback state
+    void setTotalState(int state);
+    void setFailed();
+
+    bool isOpened() const;
+    bool isBinarized() const;
+    bool isAnalyzed() const;
+    bool isRecognized() const;
+private:
+    ImagePtr image_;
+    int local_state_;
 };
 
 }

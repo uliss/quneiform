@@ -29,11 +29,14 @@ namespace cf {
 namespace console {
 
 enum color_t {
-    NORMAL = 0,
-    RED = 91,
-    GREEN = 92,
-    BLUE = 94,
-    YELLOW = 93
+    NORMAL  = 0,
+    RED     = 91,
+    GREEN   = 92,
+    BLUE    = 94,
+    YELLOW  = 93,
+    PURPLE  = 95,
+    GRAY    = 90,
+    WHITE   = 97
 };
 
 struct ColorMessage {

@@ -162,12 +162,14 @@ PumaImpl::~PumaImpl() {
     modulesDone();
 }
 
-void PumaImpl::binarizeImage() {
+void PumaImpl::binarizeImage()
+{
+    clearAll();
     recog_name_ = PUMA_IMAGE_USER;
 
-    getImageInfo(PUMA_IMAGE_USER);
+    uint bit_count = CImage::instance().image(PUMA_IMAGE_USER)->biBitCount;
 
-    if (info_.biBitCount > 1) {
+    if (bit_count > 1) {
         if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, BINARIZATOR_KRONROD, 0))
             throw PumaException("RIMAGE_Binarise failed");
 
@@ -186,6 +188,11 @@ void PumaImpl::binarizeImage() {
         if(Config::doDump())
             CIMAGE_Dump(PUMA_IMAGE_BINARIZE, PUMA_IMAGE_BINARIZE ".bmp");
     }
+
+    if(recognize_options_.hasTurn())
+        turn(recognize_options_.turnAngle());
+
+    applyReadMask();
 }
 
 void PumaImpl::clearAll() {
@@ -315,15 +322,8 @@ void PumaImpl::getImageInfo(const std::string& image_name) {
         throw PumaException("CIMAGE_GetImageInfo failed");
 }
 
-void PumaImpl::layout() {
-    clearAll();
-    binarizeImage();
-
-    if(recognize_options_.hasTurn())
-        turn(recognize_options_.turnAngle());
-
-    applyReadMask();
-
+void PumaImpl::layout()
+{
     RSPreProcessImage DataforRS;
 
     DataforRS.pgpRecogDIB = (uchar**) &input_dib_;

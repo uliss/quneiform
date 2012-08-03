@@ -34,7 +34,10 @@
 
 static void wait_events() {
     QCoreApplication::processEvents();
-    QTest::qWait(50);
+    QCoreApplication::flush();
+#ifndef Q_WS_MAC
+    QTest::qWait(100);
+#endif
 }
 
 static void mouseMove(QWidget * w, const QPoint& pos) {
@@ -215,7 +218,7 @@ void TestImageView::testShowPage() {
 
 void TestImageView::testSelection() {
     ImageView iv;
-    iv.resize(281, 81);
+    iv.resize(300, 100);
     iv.show();
     Page p(CF_IMAGE_DIR "/english.png");
     // 281x81
@@ -223,31 +226,23 @@ void TestImageView::testSelection() {
     iv.showPage(&p);
     wait_events();
 
-#ifdef Q_WS_X11
-    QEXPECT_FAIL("", "X11 fail why???", Abort);
-#endif
-
-#ifdef Q_OS_WIN32
-    QEXPECT_FAIL("", "Win32 fail why???", Abort);
-#endif
-
 #define CHECK_CURSOR(c) QCOMPARE(iv.selections_->selectionAt(0)->cursor().shape(), c);
 
-    mouseMove(&iv, QPoint(12, 20));
+    mouseMove(&iv, QPoint(20, 30));
     CHECK_CURSOR(Qt::SizeFDiagCursor);
-    mouseMove(&iv, QPoint(60, 20));
+    mouseMove(&iv, QPoint(68, 30));
     CHECK_CURSOR(Qt::SizeBDiagCursor);
-    mouseMove(&iv, QPoint(60, 80));
+    mouseMove(&iv, QPoint(68, 88));
     CHECK_CURSOR(Qt::SizeFDiagCursor);
-    mouseMove(&iv, QPoint(10, 80));
+    mouseMove(&iv, QPoint(20, 88));
     CHECK_CURSOR(Qt::SizeBDiagCursor);
-    mouseMove(&iv, QPoint(30, 20));
+    mouseMove(&iv, QPoint(40, 30));
     CHECK_CURSOR(Qt::SizeVerCursor);
-    mouseMove(&iv, QPoint(60, 40));
+    mouseMove(&iv, QPoint(68, 50));
     CHECK_CURSOR(Qt::SizeHorCursor);
-    mouseMove(&iv, QPoint(30, 80));
+    mouseMove(&iv, QPoint(40, 88));
     CHECK_CURSOR(Qt::SizeVerCursor);
-    mouseMove(&iv, QPoint(10, 40));
+    mouseMove(&iv, QPoint(20, 50));
     CHECK_CURSOR(Qt::SizeHorCursor);
 }
 

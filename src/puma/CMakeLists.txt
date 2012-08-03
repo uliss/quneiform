@@ -3,6 +3,7 @@ add_definitions(-DBOOST_DATE_TIME_NO_LIB)
 set(CF_WORKER cuneiform-worker)
 
 set(CF_PUMA_SOURCE
+    abstractrecognitionserver.cpp
     localrecognitionserver.cpp
     pumaimpl.cpp
     recognitionfactory.cpp

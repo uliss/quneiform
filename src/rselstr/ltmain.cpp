@@ -75,7 +75,7 @@
 # include "status.h"
 
 # include "dpuma.h"
-#include "rselstr_internal.h"
+#include "rootlist.h"
 
 extern uint16_t run_options;
 
@@ -157,7 +157,7 @@ void PageStrings1(void) {
 	AllocationsAccountingOpen ();
 # endif
 
-    if (rootIsEmpty())
+    if (cf::Roots::isEmpty())
 		ErrorEmptyPage();
 
 	nNextBlockNumber = FIRST_REGULAR_BLOCK_NUMBER;
@@ -183,8 +183,8 @@ void PageStrings1(void) {
 	//    InclinesFreeData ();
 	RootStripsCalculate();
 
-    for (int i = 0; i < rootCount(); i++)
-        rootAt(i)->nBlock = FIRST_REGULAR_BLOCK_NUMBER;
+    for (int i = 0; i < cf::Roots::count(); i++)
+        cf::Roots::at(i)->nBlock = FIRST_REGULAR_BLOCK_NUMBER;
 
 # ifdef LT_DEBUG
 	if (LT_DebugGraphicsLevel >= 2)

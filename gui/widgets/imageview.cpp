@@ -308,6 +308,11 @@ void ImageView::updatePageSelection() {
 void ImageView::updatePageScroll() {
     HAS_PAGE()
 
+    if(page_->isFirstViewScroll()) {
+        fitWidth();
+        return;
+    }
+
     QPoint scroll = page_->viewScroll();
     horizontalScrollBar()->setValue(scroll.x());
     verticalScrollBar()->setValue(scroll.y());

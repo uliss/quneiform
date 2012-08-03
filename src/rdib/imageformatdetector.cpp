@@ -19,8 +19,8 @@
 #include <cassert>
 
 #include "imageformatdetector.h"
+#include "rdib_debug.h"
 #include "common/imageurl.h"
-#include "common/debug.h"
 
 namespace cf
 {
@@ -72,7 +72,7 @@ image_format_t ImageFormatDetector::detect(const ImageURL& url) const
 image_format_t ImageFormatDetector::detect(std::istream& stream) const
 {
     if (!stream.good()) {
-        Debug() << "Bad stream given\n";
+        RDIB_ERROR_FUNC << "Bad stream given";
         return FORMAT_UNKNOWN;
     }
 

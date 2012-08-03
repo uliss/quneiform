@@ -150,9 +150,6 @@ static Handle hWriteFile = NULL;
 Bool32 LDPUMA_Init(uint16_t wHightCode, Handle hStorage)
 {
     Bool32 rc = FALSE;
-#ifdef _DEBUG
-    Debug() << "LDPUMA_Init(" <<  wHightCode << "," << hStorage << ")\n";
-#endif
 
     if (Init && GetExportData) {
         if (GetExportData(DPUMA_FNDPUMA_Console, &Console) && GetExportData(

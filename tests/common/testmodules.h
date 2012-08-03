@@ -16,20 +16,18 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RSELSTR_INTERNAL_H
-#define RSELSTR_INTERNAL_H
+#ifndef TESTMODULES_H
+#define TESTMODULES_H
 
-#include "roots_struct.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-bool rootIsNull();
-bool rootIsEmpty();
-ROOT * rootAt(int idx);
-ROOT * rootLast();
-ROOT * rootFirst();
-int rootCount();
-void rootFree();
-void rootAdd(const ROOT& r);
+class TestModules : public CppUnit::TestFixture
+{
+    CPPUNIT_TEST_SUITE(TestModules);
+    CPPUNIT_TEST(testModuleToString);
+    CPPUNIT_TEST_SUITE_END();
+public:
+    void testModuleToString();
+};
 
-ROOT * rootReserve(int size);
-
-#endif // RSELSTR_INTERNAL_H
+#endif // TESTMODULES_H

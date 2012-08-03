@@ -69,7 +69,7 @@
 
 #undef __LOAD_ROOTS_C__
 
-#include "rselstr_internal.h"
+#include "rootlist.h"
 
 extern Handle hDebugCancelGreatComp;
 extern Handle hDebugCancelPicturesAndTables;
@@ -279,7 +279,6 @@ Bool32 ReadRoots(CCOM_handle hCCOM)
 
     exthCCOM = hCCOM;
     RootsFreeData();
-    rootFree();
 
     pPage = CPAGE_GetHandlePage(CPAGE_GetCurrentPage());
     CPAGE_GetPageData(pPage, PT_PAGEINFO, (void*) &pInfo, sizeof(pInfo));
@@ -333,6 +332,8 @@ Bool32 ReadRoots(CCOM_handle hCCOM)
 
 Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime)
 {
+    using namespace cf;
+
     ROOT RootRecord = { 0 };
     int h = comp->h;
     int w = comp->w;
@@ -373,20 +374,14 @@ Bool AddRoot(CCOM_comp * comp, Bool32 FirstTime)
     if (comp->type & CCOM_CH_GREAT)
         RootRecord.bType = 0;
 
-    if (rootCount() % ROOTS_QUANTUM == 0 && FirstTime) {
-        rootReserve((rootCount() / ROOTS_QUANTUM + 10) * ROOTS_QUANTUM);
+    if (Roots::count() % ROOTS_QUANTUM == 0 && FirstTime) {
+        Roots::reserve((Roots::count() / ROOTS_QUANTUM + 10) * ROOTS_QUANTUM);
     }
 
-    if (rootIsNull()) {
-        ErrorNoEnoughMemory("in LTROOTS.C, AddRoot");
-        rootFree();
-        return FALSE;
-    }
+    Roots::add(RootRecord);
 
-    rootAdd(RootRecord);
-
-    if (rootCount() > 1 && FirstTime)
-        rootAt(rootCount() - 2)->u1.pNext = rootLast();
+    if (Roots::count() > 1 && FirstTime)
+        Roots::at(Roots::count() - 2)->u1.pNext = Roots::last();
 
     return TRUE;
 }

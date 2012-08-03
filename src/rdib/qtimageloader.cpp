@@ -27,9 +27,9 @@
 #include "qtimageloader.h"
 #include "compat_defs.h"
 #include "imageloaderfactory.h"
+#include "rdib_debug.h"
 #include "common/dib.h"
 #include "common/imageurl.h"
-#include "common/debug.h"
 #include "common/helper.h"
 #include "common/stringbuffer.h"
 
@@ -67,24 +67,51 @@ void initFormatMap(FormatMap& m) {
     m["tiff"] = cf::FORMAT_TIFF;
     m["mtiff"] = cf::FORMAT_TIFF;
     m["xpm"] = cf::FORMAT_XPM;
-#ifdef WITH_PDF
     m["pdf"] = cf::FORMAT_PDF;
-#endif
 }
 
-void registerFormat(cf::image_format_t f) {
-    cf::ImageLoaderFactory::instance().registerCreator(f, 50, create);
+void registerQt4Format(cf::image_format_t f, int priority = 50)
+{
+    using namespace cf;
+    RDIB_TRACE_FUNC << imageFormatToString(f) << "priority:" << priority;
+    ImageLoaderFactory::instance().registerCreator(f, priority, create);
 }
 
-bool registerImageFormats() {
-    cf::ImageFormatList formats = cf::QtImageLoader().supportedFormats();
-    for(size_t i = 0; i < formats.size(); i++)
-        registerFormat(formats[i]);
+bool registerQt4ImageFormats()
+{
+    using namespace cf;
+
+    QList<QByteArray> formats = QImageReader::supportedImageFormats();
+
+    for(int i = 0; i < formats.count(); i++) {
+        QByteArray fmt = formats[i].toUpper();
+        if(fmt == "BMP")
+            registerQt4Format(cf::FORMAT_BMP);
+        else if(fmt == "GIF")
+            registerQt4Format(cf::FORMAT_GIF);
+        else if(fmt == "JPEG" || fmt == "JPG")
+            registerQt4Format(cf::FORMAT_JPEG);
+        else if(fmt == "PNG")
+            registerQt4Format(cf::FORMAT_PNG);
+        else if(fmt == "XPM" || fmt == "XBM")
+            registerQt4Format(cf::FORMAT_XPM);
+        else if(fmt == "PDF")
+            registerQt4Format(cf::FORMAT_PDF, 1000);
+        else if(fmt == "MTIFF")
+            registerQt4Format(cf::FORMAT_TIFF, 1000);
+        else if(fmt == "TIFF" || fmt == "TIF")
+            registerQt4Format(cf::FORMAT_TIFF);
+        else if(fmt == "PPM" || fmt == "PGM" || fmt == "PBM")
+            registerQt4Format(cf::FORMAT_PNM);
+        else {
+            RDIB_WARNING_FUNC << "unknown image format:" << fmt.data();
+        }
+    }
 
     return true;
 }
 
-bool registered = registerImageFormats();
+bool registered = registerQt4ImageFormats();
 
 }
 
@@ -218,8 +245,13 @@ ImagePtr QtImageLoader::load(const ImageURL& url)
         return loadPdf(url);
     else if(is_tiff_url(url))
         return loadTiff(url);
-    else
-        img.load(QString::fromUtf8(url.path().c_str()));
+    else {
+        QImageReader r(urlToQt(url)); 
+        if(!r.read(&img)) {
+            cfError(MODULE_RDIB) << METHOD_SIGNATURE() << "can't read image" << url;
+            throw Exception() << "can't read image:" << url;
+        }
+    }
 
     return fromQImage(img);
 }

@@ -1,0 +1,11 @@
+{
+    "debug" : {
+        "color" : true
+    },
+
+    "float" : 1.234,
+    "bool"  : true,
+    "int"   : -100,
+    "string" : "test string"
+}
+

@@ -97,3 +97,4 @@ endif()
 add_subdirectory(utils)
 add_subdirectory(tests)
 
+include(summary)

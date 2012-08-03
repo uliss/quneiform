@@ -24,10 +24,9 @@
 
 #include "bmpimageloader.h"
 #include "imageloaderfactory.h"
-#include "common/debug.h"
+#include "common/log.h"
 #include "common/helper.h"
 #include "common/imageurl.h"
-#include "common/cifconfig.h"
 
 namespace
 {
@@ -80,7 +79,7 @@ ImagePtr BmpImageLoader::load(const ImageURL& url)
 {
     std::ifstream stream(url.path().c_str(), std::ios::binary | std::ios::in);
     if (!stream)
-        throw Exception("Can't open file: " + url.path());
+        throw Exception("Can't open file:") << url;
     return load(stream);
 }
 
@@ -93,7 +92,7 @@ Handle BmpImageLoader::loadHandle(const std::string& fname)
 {
     std::ifstream stream(fname.c_str(), std::ios::binary | std::ios::in);
     if (!stream)
-        throw Exception("Can't open file: " + fname);
+        throw Exception("Can't open file") << fname;
     return loadHandle(stream);
 }
 
@@ -104,18 +103,17 @@ ImagePtr BmpImageLoader::load_(std::istream& stream, ImageRawData::allocator_t a
     readBmpFileHeader(stream);
     readBmpInfoHeader(stream);
     if (!isValidBmpBitCount())
-        throw ImageLoader::Exception("Unsupported image bit-depth.");
+        throw ImageLoader::Exception("Unsupported image bit-depth");
 
-    if (Config::instance().debugHigh()) {
-        Debug() << "BmpImageLoader: \n" << "\twidth: " << imageWidth() << "; height:  "
-                << imageHeight() << std::endl;
-        Debug() << "\tbitcount: " << imageBitCount() << ", stride: " << stride()
-                << ", row stride: " << imageRowStride() << std::endl;
-
-        Debug() << "\tred mask: " << std::hex << info_header_.iRedMask << ", green mask: "
-                << info_header_.iGreenMask << ", blue mask: " << info_header_.iBlueMask << std::dec
-                << std::endl;
-    }
+    cfTrace(MODULE_RDIB) << "BmpImageLoader: \n" << "\twidth: " << imageWidth()
+                         << "; height:  " << imageHeight()
+                         << "\tbitcount: " << imageBitCount()
+                         << ", stride: " << stride()
+                         << ", row stride: " << imageRowStride()
+                         << "\tred mask: " << std::hex << info_header_.iRedMask
+                         << ", green mask: " << info_header_.iGreenMask
+                         << ", blue mask: " << info_header_.iBlueMask
+                         << std::dec;
 
     readData(stream);
 
@@ -170,7 +168,8 @@ bool BmpImageLoader::isValidBmpBitCount() {
     case 32:
         return true;
     default:
-        Debug() << "BmpImageLoader: Cannot read " << info_header_.iBitCount << " bit files.\n";
+        cfError(MODULE_RDIB) << "BmpImageLoader: Cannot read"
+                             << info_header_.iBitCount << "bit files";
         return false;
     }
 }
@@ -194,12 +193,12 @@ void BmpImageLoader::readBitFieldData(std::istream& stream) {
         stream.seekg(offset);
 
         if (stream.tellg() != offset) {
-            Debug() << "scanline " << row << " Seek error: " << stream.tellg() << " vs " << offset
-                    << std::endl;
+            cfError(MODULE_RDIB) << "scanline" << row << "Seek error: "
+                                 << stream.tellg() << "vs" << offset;
         }
 
         if (stream.read((char*) row_data, row_stride) < 0) {
-            Debug() << "scanline " << row << ": Read error\n";
+            cfError(MODULE_RDIB) << "scanline" << row << ": Read error";
         }
 
         // convert to RGB
@@ -274,9 +273,7 @@ void BmpImageLoader::readBmpInfoHeader(std::istream& stream) {
     }
 
     if (info_header_.iPlanes != 1)
-        throw Exception("BmpImageLoader::readBmpInfoHeader: wrong number of planes: " + toString(
-                info_header_.iPlanes));
-
+        throw Exception("BmpImageLoader::readBmpInfoHeader: wrong number of planes:") << info_header_.iPlanes;
 }
 
 void BmpImageLoader::readBmpInfoHeaderVersion(std::istream& stream) {
@@ -305,7 +302,7 @@ void BmpImageLoader::readBmpInfoHeaderVersion(std::istream& stream) {
         n_clr_elems = 4;
         break;
     default:
-        throw Exception("Unknown BMP version. Invalid header size: " + toString(info_header_.iSize));
+        throw Exception("Unknown BMP version. Invalid header size:") << info_header_.iSize;
     }
 }
 
@@ -322,22 +319,19 @@ void BmpImageLoader::readCompressedData(std::istream& stream) {
     uint8_t *comprbuf;
     uint8_t *uncomprbuf;
 
-    //std::cerr << "RLE" << (info_header_.iCompression == BMPC_RLE4 ? "4" : "8")
-    //    << " compressed\n";
-
     compr_size = file_header_.iSize - file_header_.iOffBits;
     uncompr_size = imageWidth() * imageHeight();
 
     comprbuf = (uint8_t *) malloc(compr_size);
     if (!comprbuf) {
-        std::cerr << "Can't allocate space for compressed scanline buffer\n";
+        cfError(MODULE_RDIB) << "Can't allocate space for compressed scanline buffer";
         if (clr_tbl)
             delete[] clr_tbl;
         clr_tbl = NULL;
     }
     uncomprbuf = (uint8_t *) malloc(uncompr_size);
     if (!uncomprbuf) {
-        std::cerr << "Can't allocate space for uncompressed scanline buffer\n";
+        cfError(MODULE_RDIB) << "Can't allocate space for uncompressed scanline buffer";
         if (clr_tbl)
             delete[] clr_tbl;
         clr_tbl = NULL;
@@ -403,7 +397,7 @@ void BmpImageLoader::readCompressedData(std::istream& stream) {
     data_ = (unsigned char *) malloc(data_size_);
     unsigned char * data = data_ + info_header_.iSize;
     if (!data_) {
-        std::cerr << "Can't allocate space for final uncompressed scanline buffer\n";
+        cfError(MODULE_RDIB) << "Can't allocate space for final uncompressed scanline buffer";
         if (clr_tbl)
             delete[] clr_tbl;
         clr_tbl = NULL;
@@ -438,7 +432,7 @@ void BmpImageLoader::readData(std::istream& stream) {
     case BMPC_PNG:
         throw Exception("BmpImageLoader: PNG compression is not supported");
     default:
-        throw Exception("Unknown compression method: " + toString(info_header_.iCompression));
+        throw Exception("Unknown compression method:") << info_header_.iCompression;
     }
 }
 
@@ -485,7 +479,7 @@ void BmpImageLoader::readUncompressedData(std::istream& stream) {
     stream.seekg(sizeof(BMPFileHeader));
     stream.read((char*) data_, data_size_);
     if (stream.fail())
-        throw Exception("BmpImageLoader:: error while read image data");
+        throw Exception("BmpImageLoader: error while read image data");
 }
 
 bool BmpImageLoader::read(std::istream& stream) {

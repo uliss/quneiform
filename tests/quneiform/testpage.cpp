@@ -160,13 +160,17 @@ void TestPage::testConstruct() {
     QVERIFY(!p.isExported());
     QCOMPARE(p.pageArea(), QRect());
     QCOMPARE(p.viewScale(), float(1.0));
-    QCOMPARE(p.viewScroll(), QPoint());
+    QVERIFY(p.viewScroll() != QPoint());
+    QVERIFY(p.isFirstViewScroll());
     QVERIFY(p.blocks(Page::CHAR).empty());
     QVERIFY(p.blocks(Page::COLUMN).empty());
     QVERIFY(p.blocks(Page::LINE).empty());
     QVERIFY(p.blocks(Page::SECTION).empty());
     QVERIFY(p.blocks(Page::PARAGRAPH).empty());
     QVERIFY(p.blocks(Page::PICTURE).empty());
+
+    p.setViewScroll(QPoint());
+    QVERIFY(!p.isFirstViewScroll());
 
     Page p2("none");
     QCOMPARE(p2.name(), QString("none"));
@@ -375,7 +379,7 @@ void TestPage::testSetBlocks() {
 
 void TestPage::testSetViewScroll() {
     Page p("");
-    QCOMPARE(p.viewScroll(), QPoint());
+    QVERIFY(p.viewScroll() != QPoint());
     QSignalSpy changed(&p, SIGNAL(changed()));
 
     p.setViewScroll(QPoint(10, 20));

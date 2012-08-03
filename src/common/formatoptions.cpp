@@ -230,7 +230,7 @@ std::ostream& operator <<(std::ostream& os, const FormatOptions& fmt) {
     OPT(os, "Line breaks",    fmt.preserveLineBreaks());
     OPT(os, "Show alternatives", fmt.showAlternatives());
     OPT(os, "Language",       Language::isoName(fmt.language()));
-    OPT(os, "Image export format", fmt.imageExportFormat());
+    OPT(os, "Image export format", imageFormatToString(fmt.imageExportFormat()));
     OPT(os, "Write BOM",      fmt.writeBom());
     OPT(os, "Write meta generator", fmt.writeMetaGenerator());
     OPT(os, "Test output",    fmt.isTestOutput());

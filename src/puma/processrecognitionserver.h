@@ -19,8 +19,13 @@
 #ifndef PROCESSRECOGNITIONSERVER_H
 #define PROCESSRECOGNITIONSERVER_H
 
+#include <string>
+
 #include "globus.h"
 #include "abstractrecognitionserver.h"
+#include "common/imageurl.h"
+#include "common/image.h"
+#include "shmem/memorydata.h"
 
 namespace cf {
 
@@ -28,48 +33,49 @@ class CLA_EXPO ProcessRecognitionServer : public AbstractRecognitionServer
 {
 public:
     ProcessRecognitionServer();
+    ~ProcessRecognitionServer();
 
-    /**
-      * Recognizes image
-      * @param url - image url
-      * @param ropts - recognition options
-      * @param fopts - format options
-      * @throw RecognitionException on error
-      */
-    CEDPagePtr recognize(const ImageURL& url,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
-
-    /**
-      * Recognizes given image
-      * @param image - image pointer
-      * @param ropts - recognition options
-      * @param fopts - format options
-      * @throw RecognitionException on error
-      */
-    CEDPagePtr recognize(ImagePtr image,
-                         const RecognizeOptions& ropts,
-                         const FormatOptions& fopts);
+    bool analyze();
+    bool binarize();
+    CEDPagePtr format();
+    bool open(const ImageURL& url);
+    bool open(ImagePtr img);
+    bool recognize();
 
     /**
       * Sets worker timeout in seconds. After timeout expire, worker
       * process will be killed
       * @param sec <= 0 means no timeout
+      * @see workerTimeout()
       */
     void setWorkerTimeout(int sec);
 
     /**
       * Returns worker process timeout
+      * @see setWorkerTimeout()
       */
     int workerTimeout() const;
 private:
     void handleMemoryLimits(std::exception& e);
     void handleOtherErrors(std::exception& e);
     void handleWorkerExitCode(int code);
+    bool recognizeImagePtr();
+    bool recognizeUrl();
     void setFailedState();
     void startWorker(const std::string& key, size_t size);
     std::string workerPath() const;
+
+    enum source_t {
+        SOURCE_URL,
+        SOURCE_IMAGE
+    };
 private:
+    MemoryData data_;
+    std::string key_;
+    ImageURL url_;
+    ImagePtr image_;
+    source_t src_;
+    CEDPagePtr page_;
     int worker_timeout_;
 };
 

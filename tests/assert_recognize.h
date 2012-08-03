@@ -26,11 +26,11 @@
 #include "ced/cedpageptr.h"
 #include "export/debugexporter.h"
 
-#define ASSERT_LOCAL_RECOGNIZE_RESULT(filename, ropts, fopts, result) {\
+#define ASSERT_LOCAL_RECOGNIZE_RESULT(filename, bopts, ropts, fopts, result) {\
     cf::LocalRecognitionServer server;\
     fopts.writeBom(false);\
     cf::ImagePtr img = cf::ImageLoaderFactory::instance().load(cf::ImageURL(filename));\
-    cf::CEDPagePtr p = server.recognize(img, ropts, fopts);\
+    cf::CEDPagePtr p = server.recognizeImage(img, bopts, ropts, fopts);\
     CPPUNIT_ASSERT(p.get());\
     CPPUNIT_ASSERT(!p->empty());\
     cf::TextExporter exp(p, fopts);\
@@ -39,11 +39,11 @@
     CPPUNIT_ASSERT_EQUAL(std::string(result), boost::algorithm::trim_copy(buf.str()));\
     }
 
-#define ASSERT_PROCESS_RECOGNIZE_RESULT(filename, ropts, fopts, result) {\
+#define ASSERT_PROCESS_RECOGNIZE_RESULT(filename, bopts, ropts, fopts, result) {\
     cf::ProcessRecognitionServer server;\
     fopts.writeBom(false);\
     cf::ImagePtr img = cf::ImageLoaderFactory::instance().load(cf::ImageURL(filename));\
-    cf::CEDPagePtr p = server.recognize(img, ropts, fopts);\
+    cf::CEDPagePtr p = server.recognizeImage(img, bopts, ropts, fopts);\
     CPPUNIT_ASSERT(p.get());\
     CPPUNIT_ASSERT(!p->empty());\
     cf::TextExporter exp(p, fopts);\

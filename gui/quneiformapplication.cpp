@@ -52,7 +52,6 @@ QuneiformApplication::QuneiformApplication(int& argc, char** argv)
     setApplicationVersion(CF_VERSION);
     iconThemeSetup();
 
-    QIcon::setThemeName("faenza");
     MetaTypeRegistrator registrator;
     TranslationLoader loader;
     loader.load();

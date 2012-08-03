@@ -17,7 +17,7 @@
  ***************************************************************************/
 
 #include "percentcounter.h"
-#include "common/debug.h"
+#include "common/log.h"
 
 namespace cf {
 
@@ -30,7 +30,7 @@ PercentCounter::PercentCounter(PercentCounter * parent) :
 
 void PercentCounter::add(unsigned char perc) {
     if(perc_ >= 100 || ((perc_ + perc) > 100))
-        Debug() << "[Warning] percent counter more than 100" << std::endl;
+        cfWarning(MODULE_COMMON) << "percent counter more than 100:" << (uint) perc;
 
     if(perc == 0)
         return;
@@ -61,7 +61,7 @@ void PercentCounter::reset() {
 
 void PercentCounter::setContribution(unsigned char contrib) {
     if(contrib > 100)
-        Debug() << "[Warning] percent contribution more than 100" << std::endl;
+        cfWarning(MODULE_COMMON) << "percent contribution more than 100:" << (uint) contrib;
 
    contrib_ = contrib;
 }

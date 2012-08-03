@@ -97,7 +97,7 @@ static inline bool isBitSet(puchar data, size_t n)
 bool CTIControl::writeDIBtoBMP(const std::string& name, CTDIB * pDIB)
 {
     if(!pDIB) {
-        CIMAGE_ERROR_FUNC << " NULL ctdib\n";
+        CIMAGE_ERROR_FUNC << "NULL ctdib";
         return false;
     }
 
@@ -110,7 +110,7 @@ bool CTIControl::writeDIBtoBMP(const std::string& name, CTDIB * pDIB)
     if(!pDIB->dibSize())
         return false;
 
-    CIMAGE_DEBUG_FUNC << " dump to \"" << name << "\"\n";
+    CIMAGE_DEBUG_FUNC << "dump to \"" << name << "\"";
 
     BitmapFileHeader bf;
     bf.bfSize = BMP_FILE_HEADER_SIZE + pDIB->dibSize();
@@ -160,7 +160,7 @@ bool CTIControl::addRectToReadMask(const std::string& name, const Rect &r)
     CTIImageHeader * img = images_.image(name);
 
     if(!img) {
-        CIMAGE_ERROR_FUNC << " image not found: " << name << "\n";
+        CIMAGE_ERROR_FUNC << "image not found:" << name;
         return false;
     }
 
@@ -181,7 +181,7 @@ bool CTIControl::addRectToWriteMask(const std::string& name, const Rect &r)
     CTIImageHeader * img = images_.image(name);
 
     if(!img) {
-        CIMAGE_ERROR_FUNC << " image not found: " << name << "\n";
+        CIMAGE_ERROR_FUNC << "image not found:" << name;
         return false;
     }
 
@@ -202,7 +202,7 @@ bool CTIControl::removeRectFromReadMask(const std::string& name, const Rect& r)
     CTIImageHeader * img = images_.image(name);
 
     if(!img) {
-        CIMAGE_ERROR_FUNC << " image not found: " << name << "\n";
+        CIMAGE_ERROR_FUNC << "image not found:" << name;
         return false;
     }
 
@@ -223,7 +223,7 @@ bool CTIControl::removeRectFromWriteMask(const std::string& name, const Rect& r)
     CTIImageHeader * img = images_.image(name);
 
     if(!img) {
-        CIMAGE_ERROR_FUNC << " image not found: " << name << "\n";
+        CIMAGE_ERROR_FUNC << "image not found:" << name;
         return false;
     }
 
@@ -244,17 +244,17 @@ bool CTIControl::applyReadMask(const std::string& name)
     CTIImageHeader * img = images_.image(name);
 
     if(!img) {
-        CIMAGE_ERROR_FUNC << " image not found: " << name << "\n";
+        CIMAGE_ERROR_FUNC << "image not found:" << name;
         return false;
     }
 
     if(!img->imageHandle()) {
-        CIMAGE_ERROR_FUNC << " invalid image hande: " << name << "\n";
+        CIMAGE_ERROR_FUNC << "invalid image handle:" << name;
         return false;
     }
 
     if(img->isReadMaskEnabled() && img->readMask()) {
-        CIMAGE_DEBUG_FUNC << " mask applied: " << name << "\n";
+        CIMAGE_DEBUG_FUNC << "mask applied:" << name;
         applyMaskToHandle(img->imageHandle(), img->readMask(), 0, 0);
     }
 
@@ -311,12 +311,12 @@ bool CTIControl::writeImageCallbacks(const std::string& name, CIMAGEIMAGECALLBAC
     bool ret = cbk.CIMAGE_ImageOpen(&image_info);
 
     if (!ret) {
-        CIMAGE_ERROR_FUNC << " unable to use import callback\n";
+        CIMAGE_ERROR_FUNC << "unable to use import callback";
         return false;
     }
 
     if (image_info.wImageByteWidth == 0 || image_info.wImageHeight == 0) {
-        CIMAGE_ERROR_FUNC << " unable to use import callback\n";
+        CIMAGE_ERROR_FUNC << "unable to use import callback";
         return false;
     }
 
@@ -401,7 +401,7 @@ bool CTIControl::writeImageCallbacks(const std::string& name, CIMAGEIMAGECALLBAC
 bool CTIControl::getImageCallbacks(const std::string& name, CIMAGEIMAGECALLBACK * cbk)
 {
     if (!cbk) {
-        CIMAGE_ERROR_FUNC << " NULL callback given\n";
+        CIMAGE_ERROR_FUNC << "NULL callback given";
         return false;
     }
 
@@ -428,7 +428,7 @@ bool CTIControl::addImageCopy(const std::string& name, BitmapPtr handle) {
     BitmapPtr image = NULL;
 
     if (!copyDIB(handle, &image)) {
-        CIMAGE_ERROR_FUNC << " unable copy DIB: " << name << "\n";
+        CIMAGE_ERROR_FUNC << "unable copy DIB:" << name;
         return false;
     }
 
@@ -452,7 +452,7 @@ bool CTIControl::dumpImage(const std::string& name, const std::string& fileName)
 {
     CTIImageHeader * img = images_.image(name);
     if(!img) {
-        CIMAGE_ERROR_FUNC << " image not found: " << name << "\n";
+        CIMAGE_ERROR_FUNC << "image not found:" << name;
         return false;
     }
 
@@ -468,7 +468,7 @@ BitmapPtr CTIControl::image(const std::string& name)
     CTIImageHeader * img = images_.image(name);
 
     if(!img) {
-        CIMAGE_ERROR_FUNC << " image not found: \"" << name << "\"\n";
+        CIMAGE_ERROR_FUNC << "image not found:" << name;
         return NULL;
     }
 
@@ -480,14 +480,14 @@ CTDIB * CTIControl::imageDib(const std::string& name)
     BitmapPtr handle = image(name);
 
     if(!handle) {
-        CIMAGE_ERROR_FUNC << " image not found: \"" << name << "\"\n";
+        CIMAGE_ERROR_FUNC << "image not found:" << name;
         return NULL;
     }
 
     CTDIB * res = new CTDIB;
 
     if (!res->setBitmap(handle)) {
-        CIMAGE_ERROR_FUNC << " invalid image: \"" << name << "\"\n";
+        CIMAGE_ERROR_FUNC << "invalid image:" << name;
         delete res;
         return NULL;
     }
@@ -501,7 +501,7 @@ BitmapPtr CTIControl::imageCopy(const std::string& name)
     CTIImageHeader * img = images_.image(name);
 
     if(!img) {
-        CIMAGE_ERROR_FUNC << " image not found: \"" << name << "\"\n";
+        CIMAGE_ERROR_FUNC << "image not found:" << name;
         return NULL;
     }
 
@@ -513,7 +513,7 @@ BitmapPtr CTIControl::imageCopy(const std::string& name)
     BitmapPtr dest_handle = NULL;
 
     if(!copyDIB(src_handle, &dest_handle)) {
-        CIMAGE_ERROR_FUNC << " unable copy dib: " << name << "\n";
+        CIMAGE_ERROR_FUNC << "unable copy dib:" << name;
         return NULL;
     }
 
@@ -537,7 +537,7 @@ bool CTIControl::getImageRawData(const std::string& name,
     BitmapPtr dib;
 
     if (!getDIBFromImage(name, Rect(in->dwX, in->dwY, in->dwWidth, in->dwHeight), NULL, &dib)) {
-        CIMAGE_ERROR_FUNC << " can't get image\n";
+        CIMAGE_ERROR_FUNC << "can't get image";
         out->lpData = NULL;
         return false;
     }
@@ -545,7 +545,7 @@ bool CTIControl::getImageRawData(const std::string& name,
     CTDIB dest;
 
     if (!dest.setBitmap(dib)) {
-        CIMAGE_ERROR_FUNC << " invalid image data\n";
+        CIMAGE_ERROR_FUNC << "invalid image data";
         out->lpData = NULL;
         return false;
     }
@@ -572,7 +572,7 @@ bool CTIControl::getImageRawData(const std::string& name,
         return true;
     }
 
-    CIMAGE_ERROR_FUNC << " invalid input params\n";
+    CIMAGE_ERROR_FUNC << "invalid input params";
     out->lpData = NULL;
     return false;
 }
@@ -589,7 +589,7 @@ bool CTIControl::copyDIB(const BitmapPtr src, BitmapPtr * dest)
     BitmapPtr new_image = (BitmapPtr) malloc(dib_size);
 
     if (!new_image) {
-        CIMAGE_ERROR_FUNC << "malloc failed.\n";
+        CIMAGE_ERROR_FUNC << "malloc failed";
         return false;
     }
 
@@ -599,12 +599,12 @@ bool CTIControl::copyDIB(const BitmapPtr src, BitmapPtr * dest)
     return true;
 }
 
-bool CTIControl::applyMask(const std::string &name, int x, int y)
+bool CTIControl::applyMask(const std::string& name, int x, int y)
 {
     CTIImageHeader * img = images_.image(name);
 
     if(!img) {
-        CIMAGE_ERROR_FUNC << " image not found\n";
+        CIMAGE_ERROR_FUNC << "image not found" << name;
         return false;
     }
 
@@ -619,7 +619,7 @@ bool CTIControl::applyMask(const std::string &name, int x, int y)
 bool CTIControl::getFrame(const CTDIB * src, CTDIB * dest, const Rect& frame)
 {
     if (src == NULL || dest == NULL) {
-        CIMAGE_ERROR_FUNC << ": empty image containers\n";
+        CIMAGE_ERROR_FUNC << "empty image containers";
         return false;
     }
 
@@ -630,7 +630,7 @@ bool CTIControl::getFrame(const CTDIB * src, CTDIB * dest, const Rect& frame)
 
     //копируем из одного диба в другой
     if (!copyToDestinationFrame(src, dest, frame.left(), frame.top(), frame.height())) {
-        CIMAGE_ERROR_FUNC << ": copy failed\n";
+        CIMAGE_ERROR_FUNC << "copy failed";
         return false;
     }
 
@@ -640,7 +640,7 @@ bool CTIControl::getFrame(const CTDIB * src, CTDIB * dest, const Rect& frame)
 bool CTIControl::copyToDestinationFrame(const CTDIB * src, CTDIB * dest, uint xOffset, uint yOffset, uint lineCount)
 {
     if (src->bpp() != dest->bpp()) {
-        CIMAGE_ERROR_FUNC << " images depth is not equal.\n";
+        CIMAGE_ERROR_FUNC << "images depth is not equal";
         return false;
     }
 
@@ -648,7 +648,7 @@ bool CTIControl::copyToDestinationFrame(const CTDIB * src, CTDIB * dest, uint xO
 
     for (uint i = 0; i < lineCount; i++) {
         if (!dest->copyLineFromDIB(src, yOffset + i, dest_line++, xOffset)) {
-            CIMAGE_ERROR_FUNC << " invalid frame size.\n";
+            CIMAGE_ERROR_FUNC << "invalid frame size";
             return false;
         }
     }
@@ -659,12 +659,12 @@ bool CTIControl::copyToDestinationFrame(const CTDIB * src, CTDIB * dest, uint xO
 bool CTIControl::copyFromSourceFrame(const CTDIB * src, CTDIB * dest, uint destYOffset, uint lineCount)
 {
     if (src->bpp() != dest->bpp()) {
-        CIMAGE_ERROR_FUNC << " image depth is not equal\n";
+        CIMAGE_ERROR_FUNC << "image depth is not equal";
         return false;
     }
 
     if (dest->lineWidth() != src->lineWidth()) {
-        CIMAGE_ERROR_FUNC << " line width not equal\n";
+        CIMAGE_ERROR_FUNC << "line width not equal";
         return false;
     }
 
@@ -674,7 +674,7 @@ bool CTIControl::copyFromSourceFrame(const CTDIB * src, CTDIB * dest, uint destY
 
     for (uint dest_line = dest_start_y; dest_line < end_y; dest_line++) {
         if (!dest->copyLineFromDIB(src, src_line++, dest_line, 0)) {
-            CIMAGE_ERROR_FUNC << " invalid frame size\n";
+            CIMAGE_ERROR_FUNC << "invalid frame size";
             return false;
         }
     }
@@ -685,7 +685,7 @@ bool CTIControl::copyFromSourceFrame(const CTDIB * src, CTDIB * dest, uint destY
 bool CTIControl::setFrame(const CTDIB * src, CTDIB * dest, CIMAGE_InfoDataInReplace * pIn)
 {
     if (src == NULL || dest == NULL || !pIn) {
-        CIMAGE_ERROR_FUNC << " invalid image containers\n";
+        CIMAGE_ERROR_FUNC << "invalid image containers";
         return false;
     }
 
@@ -693,19 +693,19 @@ bool CTIControl::setFrame(const CTDIB * src, CTDIB * dest, CIMAGE_InfoDataInRepl
     uint frame_size = pIn->dwHeight * pIn->dwWidth;
 
     if (frame_size == 0) {
-        CIMAGE_ERROR_FUNC << " invalid frame size\n";
+        CIMAGE_ERROR_FUNC << "invalid frame size";
         return false;
     }
 
     // Проверяем на соответствие размеров
     if ((dest->lineWidth() < src->lineWidth() + pIn->dwX)
             || (dest->linesNumber() < src->linesNumber() + pIn->dwY)) {
-        CIMAGE_ERROR_FUNC << " invalid frame size\n";
+        CIMAGE_ERROR_FUNC << "invalid frame size";
         return false;
     }
 
     if (!copyFromSourceFrame(src, dest, pIn->dwY, pIn->dwHeight)) {
-        CIMAGE_ERROR_FUNC << " invalid images container\n";
+        CIMAGE_ERROR_FUNC << "invalid images container";
         return false;
     }
 
@@ -838,12 +838,12 @@ Bool32 CTIControl::CBImageClose()
 bool CTIControl::free(BitmapPtr handle)
 {
     if (!handle) {
-        CIMAGE_ERROR_FUNC << " NULL handle\n";
+        CIMAGE_ERROR_FUNC << "NULL handle";
         return false;
     }
 
     if (images_.hasHandle(handle)) {
-        CIMAGE_ERROR_FUNC << " invalid handle\n";
+        CIMAGE_ERROR_FUNC << "invalid handle";
         return false;
     }
 
@@ -868,7 +868,7 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
     BitmapPtr dib = image(name);
 
     if (!dib) {
-        CIMAGE_ERROR_FUNC << " image not found: \"" << name << "\"\n";
+        CIMAGE_ERROR_FUNC << "image not found:" << name;
         return false;
     }
 
@@ -880,7 +880,7 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
     uint res_y = 0;
 
     if (!src.setBitmap(dib) && src.resolutionDotsPerMeter(&res_x, &res_y)) {
-        CIMAGE_ERROR_FUNC << ": invalid image\n";
+        CIMAGE_ERROR_FUNC << "invalid image:" << name;
         delete last_dib_;
         last_dib_ = NULL;
         return false;
@@ -897,13 +897,13 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
         if(!getFrame(&src, last_dib_, frame)) {
             delete last_dib_;
             last_dib_ = NULL;
-            CIMAGE_ERROR_FUNC << ": getFrame failed\n";
+            CIMAGE_ERROR_FUNC << "getFrame failed";
             return false;
         }
 
         if(bitMask) {
             if(!bitMask->apply(last_dib_)) {
-                CIMAGE_ERROR_FUNC << " bit mask apply failed\n";
+                CIMAGE_ERROR_FUNC << "bit mask apply failed";
 //                return false;
             }
         }
@@ -911,11 +911,11 @@ bool CTIControl::getDIBFromImage(const std::string& name, const Rect& r, BitMask
         if(!applyMask(name, frame.left(), frame.top())) {
             delete last_dib_;
             last_dib_ = NULL;
-            CIMAGE_ERROR_FUNC << ": read mask apply failed\n";
+            CIMAGE_ERROR_FUNC << "read mask apply failed";
             return false;
         }
     } else {
-        CIMAGE_ERROR_FUNC << " unable create image\n";
+        CIMAGE_ERROR_FUNC << "unable create image";
         delete last_dib_;
         last_dib_ = NULL;
         return false;
@@ -956,12 +956,12 @@ Rect CTIControl::checkRect(const CTDIB& dib, const Rect& r)
 bool CTIControl::applyMaskToDIB(CTDIB * dib, CTIMask * mask, int at_x, int at_y)
 {
     if (!dib) {
-        CIMAGE_ERROR_FUNC << " NULL dib\n";
+        CIMAGE_ERROR_FUNC << "NULL dib";
         return false;
     }
 
     if(!mask) {
-        CIMAGE_ERROR_FUNC << " NULL mask\n";
+        CIMAGE_ERROR_FUNC << "NULL mask";
         return false;
     }
 
@@ -973,7 +973,7 @@ bool CTIControl::applyMaskToDIB(CTDIB * dib, CTIMask * mask, int at_x, int at_y)
     Rect dib_area(Point(x_begin, y_begin), Point(x_end, y_end));
 
     if (!mask->isRectOnMask(dib_area)) {
-        CIMAGE_ERROR_FUNC << "mask not on dib: " << dib_area << "\n";
+        CIMAGE_ERROR_FUNC << "mask not on dib:" << dib_area;
         return false;
     }
 
@@ -1001,7 +1001,7 @@ bool CTIControl::applyMaskToDIB(CTDIB * dib, CTIMask * mask, int at_x, int at_y)
                 x = segm.end() + 1;
 
                 if (!applyMaskToDIBLine(dib, &segm, y, at_x, at_y)) {
-                    CIMAGE_ERROR_FUNC << " unable apply mask\n";
+                    CIMAGE_ERROR_FUNC << "unable apply mask";
                     return false;
                 }
             }
@@ -1032,7 +1032,7 @@ static bool fillLineWhiteDIB_color(CTDIB * dib, int x_start, int x_end, int y)
     puchar pixel_end = static_cast<puchar>(dib->pixelAt(x_end, y));
 
     if(!pixel_begin || !pixel_end) {
-        CIMAGE_ERROR_FUNC << " invalid pixels\n";
+        CIMAGE_ERROR_FUNC << "invalid pixels";
         return false;
     }
 
@@ -1090,7 +1090,7 @@ static bool fillLineWhiteDIB_1bit(CTDIB * dib, int x_start, int x_end, int y)
     puchar pixel_end = static_cast<puchar>(dib->pixelAt(x_end, y));
 
     if(!pixel_begin || !pixel_end) {
-        CIMAGE_ERROR_FUNC << " invalid pixels\n";
+        CIMAGE_ERROR_FUNC << "invalid pixels";
         return false;
     }
 
@@ -1134,7 +1134,7 @@ static bool fillLineWhite(CTDIB * dib, int start, int end, int y)
     case 32:
         return fillLineWhiteDIB_color(dib, start, end, y);
     default:
-        CIMAGE_ERROR_FUNC << " unsupported bit count: " << bit_count << "\n";
+        CIMAGE_ERROR_FUNC << "unsupported bit count" << bit_count;
         return false;
     }
 }

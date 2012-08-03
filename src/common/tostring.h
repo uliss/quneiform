@@ -22,6 +22,9 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <vector>
+#include <string>
+
 #include "point.h"
 #include "rect.h"
 #include "size.h"
@@ -66,6 +69,16 @@ std::ostream& operator<<(std::ostream& os, const ColorImpl<T>& color) {
     return os;
 }
 
+template<class T>
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
+{
+    for(typename std::vector<T>::const_iterator it = vec.begin(); it != vec.end(); ++it)
+        os << *it;
+
+    return os;
 }
+
+}
+
 
 #endif /* TOSTRING_H_ */

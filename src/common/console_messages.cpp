@@ -35,6 +35,12 @@ static const char * color(color_t c) {
         return "\033[93m";
     case BLUE:
         return "\033[94m";
+    case PURPLE:
+        return "\033[95m";
+    case GRAY:
+        return "\033[90m";
+    case WHITE:
+        return "\033[97m";
     default:
         return "\033[0m";
     }

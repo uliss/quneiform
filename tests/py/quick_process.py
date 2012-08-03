@@ -2,12 +2,16 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import os
 import cf
 
 FORMATS = ('text', 'html')
 
 def test():
     fmtTest = cf.Tester('lang.diftest')
+    # fix for search cuneiform-worker in compiled tree, not in  installed directory
+    # to avoid worker version mismatch
+    os.chdir("..")
 
     for key in FORMATS:
         fmtTest.setFormat(key)

@@ -221,7 +221,7 @@ cf_page cf_recognize(const char * fname, cf_recognition_options ropts, cf_format
         LocalRecognitionServer server;
 
         cf_page page = new cf_page_;
-        page->ptr = server.recognize(img, recognition_opts, format_opts);
+        page->ptr = server.recognizeImage(img, BinarizeOptions(), recognition_opts, format_opts);
         return page;
     }
     catch(std::exception& e) {
@@ -252,7 +252,7 @@ cf_page cf_recognize_process(const char * fname, cf_recognition_options ropts, c
         ProcessRecognitionServer server;
 
         cf_page page = new cf_page_;
-        page->ptr = server.recognize(img, recognition_opts, format_opts);
+        page->ptr = server.recognizeImage(img, BinarizeOptions(), recognition_opts, format_opts);
         return page;
     }
     catch(std::exception& e) {

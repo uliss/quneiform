@@ -73,6 +73,7 @@
 #include "linedefs.h"
 #include "cline/cline.h"
 #include "ccom/ccom.h"
+#include "common/log.h"
 
 static bool bShowDebug = false;
 static bool bShowStepDebug = false;
@@ -97,9 +98,10 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
     size_t LinesTotalA = LtiA->Ver.Cnt;
     size_t LinesTotalB = LtiB->Ver.Cnt;
 
+
     if ((bShowDebug || bShowStepDebug) && bShowDebugData) {
-        sprintf(str, "VSL: before table search - %i, after - %i\n", LinesTotalA, LinesTotalB);
-        LDPUMA_Console(str);
+        sprintf(str, "VSL: before table search - %li, after - %li", LinesTotalA, LinesTotalB);
+        cfDebug(cf::MODULE_MARKUP) << str;
     }
 
     for (size_t i = 0; i < LinesTotalB; i++) {
@@ -162,8 +164,7 @@ Bool32 SVLFilter(LinesTotalInfo *LtiA, LinesTotalInfo *LtiB, PRMPreProcessImage 
 
     if (bShowDebug || bShowStepDebug) {
         if (j == 0) {
-            if(bShowDebugData)
-                LDPUMA_Console("VSL: Нужных изменений не найдено\n");
+            cfDebug(cf::MODULE_MARKUP) << "VSL: Нужных изменений не найдено";
         }
         else {
             LDPUMA_Console("VSL: Найдено %i линий. Нажми на что нибудь и пойдем дальше...\n",

@@ -16,15 +16,16 @@ set(CF_SHMEM_LINK
     ${Boost_SERIALIZATION_LIBRARY}
 )
 
-if(USE_SYSTEMV_SHMEM)
+if(USE_MMAP_SHMEM)
+    add_definitions(-DUSE_MMAP_SHMEM)
+    list(APPEND CF_SHMEM_SOURCE mmapsharedmemory.cpp)
+elseif(USE_SYSTEMV_SHMEM)
     add_definitions(-DUSE_SYSTEMV_SHMEM)
     list(APPEND CF_SHMEM_SOURCE systemvsharedmemory.cpp)
     if(CF_LIB_RT_HAS_SHMOPEN)
-       list(APPEND CF_SHMEM_LINK rt)
+        list(APPEND CF_SHMEM_LINK rt)
     endif()
-endif()
-
-if(WIN32)
+elseif(USE_WIN32_SHMEM)
     add_definitions(-DUSE_WIN32_SHMEM)
     list(APPEND CF_SHMEM_SOURCE win32sharedmemory.cpp)
 endif()

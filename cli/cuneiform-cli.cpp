@@ -24,8 +24,17 @@
 #include "common/percentcounter.h"
 #include "common/consoleprogresscounter.h"
 #include "export/exporterfactory.h"
+#include "common/log.h"
 
 using namespace cf;
+
+static bool setupLogger()
+{
+    Logger::config().enableRuntimeConfig(MODULES_ALL);
+    return true;
+}
+
+static bool lsetup = setupLogger();
 
 ConsoleProgressCounter * makeCounter() {
     static ConsoleProgressCounter counter;
@@ -48,7 +57,10 @@ int main(int argc, char **argv)
             server.setCounter(makeCounter());
 
         server.setTextDebug(cli_opts.outputFormat() == FORMAT_DEBUG);
-        CEDPagePtr page = server.recognize(cli_opts.inputURL(), parser.recognizeOptions(), fopts);
+        CEDPagePtr page = server.recognizeImage(cli_opts.inputURL(),
+                                                BinarizeOptions(),
+                                                parser.recognizeOptions(),
+                                                fopts);
 
         ExporterFactory::instance().setPage(page);
         ExporterFactory::instance().setFormatOptions(fopts);
@@ -70,7 +82,7 @@ int main(int argc, char **argv)
         return e.exitCode();
     }
     catch (std::runtime_error& e) {
-        std::cerr << e.what() << std::endl;
+        cfError() << e.what();
         return EXIT_FAILURE;
     }
 }

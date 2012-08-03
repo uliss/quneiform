@@ -16,7 +16,6 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-
 #include <cstring>
 #include <cstdlib>
 #include <cassert>
@@ -33,13 +32,13 @@
 #include "process_exit_codes.h"
 #include "shmem/sharedmemoryholder.h"
 #include "shmem/memorydata.h"
-#include "common/debug.h"
 #include "common/envpaths.h"
 #include "common/helper.h"
 #include "common/percentcounter.h"
 #include "common/recognitionstate.h"
 #include "common/console_messages.h"
 #include "common/imageurl.h"
+#include "puma_debug.h"
 #include "config.h"
 
 static const std::string makeKey() {
@@ -57,115 +56,134 @@ static const std::string makeKey() {
     return buf.str();
 }
 
-#define PROCESS_ERROR std::cerr << cf::console::error << BOOST_CURRENT_FUNCTION << ": "
-#define CF_ERROR(msg) PROCESS_ERROR << msg << std::endl;
-
-#define CF_INFO(msg) std::cerr << cf::console::info << \
-    BOOST_CURRENT_FUNCTION << ": " << msg << std::endl;
-
 namespace cf {
 
 ProcessRecognitionServer::ProcessRecognitionServer()
     : worker_timeout_(20)
 {
-    CF_INFO("constructed");
+    PUMA_TRACE_FUNC();
 }
 
-CEDPagePtr ProcessRecognitionServer::recognize(const ImageURL& url,
-                                               const RecognizeOptions& ropts,
-                                               const FormatOptions& fopts)
+ProcessRecognitionServer::~ProcessRecognitionServer()
 {
-    const std::string SHMEM_KEY = makeKey();
-
-    try {
-        if(url.empty())
-            throw RecognitionException("empty image path given", FILE_NOT_FOUND);
-
-        if(!url.exists())
-            throw RecognitionException("imae not exists", FILE_NOT_FOUND);
-
-        const size_t SHMEM_SIZE = MemoryData::minBufferSize();
-
-        SharedMemoryHolder memory(true);
-        memory.create(SHMEM_KEY, SHMEM_SIZE);
-
-        MemoryData data(memory.get(), SHMEM_SIZE);
-        data.setFormatOptions(fopts);
-        data.setRecognizeOptions(ropts);
-        data.setImageURL(url);
-
-        try {
-            startWorker(SHMEM_KEY, 0);
-
-            CEDPagePtr res = data.page();
-
-            if(!res.get())
-                throw RecognitionException("Recognition error");
-
-            return res;
-        }
-        catch(RecognitionException& e) {
-            if(!data.message().empty()) {
-                setFailedState();
-                CF_ERROR(data.message());
-                throw RecognitionException(data.message());
-            }
-
-            handleOtherErrors(e);
-            throw e;
-        }
-    }
-    catch(SharedMemoryHolder::LowSharedMemoryException& e) {
-        handleMemoryLimits(e);
-        throw e;
-    }
-    catch(std::exception& e) {
-        handleOtherErrors(e);
-        throw e;
-    }
+    PUMA_TRACE_FUNC();
 }
 
-CEDPagePtr ProcessRecognitionServer::recognize(ImagePtr image,
-                                               const RecognizeOptions& ropts,
-                                               const FormatOptions& fopts)
+bool ProcessRecognitionServer::binarize()
 {
-    const std::string SHMEM_KEY = makeKey();
+    stateSet(RecognitionState::BINARIZED);
+    counterAdd(10);
+    return true;
+}
+
+CEDPagePtr ProcessRecognitionServer::format()
+{
+    stateSet(RecognitionState::FORMATTED);
+    counterAdd(10);
+    return page_;
+}
+
+bool ProcessRecognitionServer::analyze()
+{
+    stateSet(RecognitionState::ANALYZED);
+    counterAdd(10);
+    return true;
+}
+
+bool ProcessRecognitionServer::open(const ImageURL& url)
+{
+    counterReset();
+
+    if(url.empty()) {
+        PUMA_ERROR_FUNC() << "empty image url";
+        setFailedState();
+        return false;
+    }
+
+    if(!url.exists()) {
+        PUMA_ERROR_FUNC() << "can't open file" << url;
+        setFailedState();
+        return false;
+    }
+
+    url_ = url;
+    src_ = SOURCE_URL;
+    stateSet(RecognitionState::OPENED);
+    counterAdd(10);
+    return true;
+}
+
+bool ProcessRecognitionServer::open(ImagePtr img)
+{
+    counterReset();
+
+    if(!img) {
+        PUMA_ERROR_FUNC() << "null image pointer";
+        setFailedState();
+        return false;
+    }
+
+    if(img->dataSize() == 0) {
+        PUMA_ERROR_FUNC() << "empty image pointer";
+        setFailedState();
+        return false;
+    }
+
+    image_ = img;
+    src_ = SOURCE_IMAGE;
+    stateSet(RecognitionState::OPENED);
+    counterAdd(10);
+    return true;
+}
+
+bool ProcessRecognitionServer::recognize()
+{
+    key_ = makeKey();
 
     try {
-        if(!image.get())
-            throw RecognitionException("NULL image given");
+        size_t SHMEM_SIZE = MemoryData::minBufferSize();
+        if(src_ == SOURCE_IMAGE)
+            SHMEM_SIZE += image_->dataSize();
 
-        if(image->dataSize() == 0)
-            throw RecognitionException("empty image given");
-
-        const size_t SHMEM_SIZE = MemoryData::minBufferSize() + image->dataSize();
         SharedMemoryHolder memory(true);
-        memory.create(SHMEM_KEY, SHMEM_SIZE);
-        MemoryData data(memory.get(), SHMEM_SIZE);
-        data.setFormatOptions(fopts);
-        data.setRecognizeOptions(ropts);
-        data.setImage(image);
+        memory.create(key_, SHMEM_SIZE);
 
-        try {
-            startWorker(SHMEM_KEY, memory.size());
+        data_.setMemory(memory.get());
+        data_.setSize(SHMEM_SIZE);
+        data_.setFormatOptions(formatOptions());
+        data_.setRecognizeOptions(recognizeOptions());
 
-            CEDPagePtr res = data.page();
-
-            if(!res.get())
-                throw RecognitionException("Recognition error");
-
-            return res;
+        bool rc = true;
+        switch(src_) {
+        case SOURCE_IMAGE:
+            rc = recognizeImagePtr();
+            break;
+        case SOURCE_URL:
+            rc = recognizeUrl();
+            break;
+        default:
+            PUMA_ERROR_FUNC() << "unknown source type:" << src_;
+            return false;
         }
-        catch(RecognitionException& e) {
-            if(!data.message().empty()) {
-                setFailedState();
-                CF_ERROR(data.message());
-                throw RecognitionException(data.message());
-            }
 
-            handleOtherErrors(e);
-            throw e;
+        if(!rc) {
+            PUMA_ERROR_FUNC() << "failed";
+            setFailedState();
+            return false;
         }
+
+        stateSet(RecognitionState::RECOGNIZED);
+        counterAdd(60);
+
+        page_ = data_.page();
+        if(!page_) {
+            PUMA_ERROR_FUNC() << "format failed";
+            return false;
+        }
+
+        data_.reset();
+
+        return true;
     }
     catch(SharedMemoryHolder::LowSharedMemoryException& e) {
         handleMemoryLimits(e);
@@ -182,10 +200,8 @@ void ProcessRecognitionServer::setWorkerTimeout(int sec)
     worker_timeout_ = sec;
 }
 
-void ProcessRecognitionServer::startWorker(const std::string& key, size_t size) {
-    if(counter_)
-        counter_->reset();
-
+void ProcessRecognitionServer::startWorker(const std::string& key, size_t size)
+{
     StringList params;
     params.push_back(key);
 
@@ -200,20 +216,6 @@ void ProcessRecognitionServer::startWorker(const std::string& key, size_t size) 
     int code = startProcess(exe_path, params, worker_timeout_);
 
     handleWorkerExitCode(code);
-
-    if(counter_) {
-        counter_->add(20); // open
-        counter_->add(70); // recognize
-        counter_->add(10); // format
-    }
-
-    if(state_) {
-        state_->set(RecognitionState::LOADED);
-        state_->set(RecognitionState::OPENED);
-        state_->set(RecognitionState::ANALYZED);
-        state_->set(RecognitionState::RECOGNIZED);
-        state_->set(RecognitionState::FORMATTED);
-    }
 }
 
 std::string ProcessRecognitionServer::workerPath() const {
@@ -282,7 +284,7 @@ void ProcessRecognitionServer::handleMemoryLimits(std::exception& e)
     buf << "Current system shared limit is: " << excpt.current() / 1024 << " kbytes.\n";
     buf << "But requested memory size was: " << excpt.required() / 1024 << " kbytes.\n";
 
-    PROCESS_ERROR << buf.str();
+    PUMA_ERROR_FUNC() << buf.str();
 
     throw RecognitionException(buf.str());
 }
@@ -290,7 +292,7 @@ void ProcessRecognitionServer::handleMemoryLimits(std::exception& e)
 void ProcessRecognitionServer::handleOtherErrors(std::exception &e)
 {
     setFailedState();
-    CF_ERROR(e.what());
+    PUMA_ERROR_FUNC() << e.what();
     throw RecognitionException(e.what());
 }
 
@@ -322,10 +324,51 @@ void ProcessRecognitionServer::handleWorkerExitCode(int code)
     }
 }
 
+bool ProcessRecognitionServer::recognizeImagePtr()
+{
+    data_.setImage(image_);
+
+    try {
+        startWorker(key_, data_.size());
+    }
+    catch(RecognitionException& e) {
+        if(!data_.message().empty()) {
+            setFailedState();
+            PUMA_ERROR_FUNC() << data_.message();
+            throw RecognitionException(data_.message());
+        }
+
+        handleOtherErrors(e);
+        throw e;
+    }
+
+    return true;
+}
+
 void ProcessRecognitionServer::setFailedState()
 {
-    if(state_)
-        state_->set(RecognitionState::FAILED);
+    stateSet(RecognitionState::FAILED);
+}
+
+bool ProcessRecognitionServer::recognizeUrl()
+{
+    data_.setImageURL(url_);
+
+    try {
+        startWorker(key_, 0);
+    }
+    catch(RecognitionException& e) {
+        if(!data_.message().empty()) {
+            setFailedState();
+            PUMA_ERROR_FUNC() << data_.message();
+            throw RecognitionException(data_.message());
+        }
+
+        handleOtherErrors(e);
+        throw e;
+    }
+
+    return true;
 }
 
 }
