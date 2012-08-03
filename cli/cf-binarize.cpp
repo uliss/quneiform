@@ -26,6 +26,7 @@
 #include "rimage/cricontrol.h"
 #include "common/imageurl.h"
 #include "common/log.h"
+#include "common/binarizeoptions.h"
 
 int main(int argc, char ** argv)
 {
@@ -41,9 +42,19 @@ int main(int argc, char ** argv)
     if(argc == 5 && strcmp(argv[3], "-b") == 0)
         binarizator = argv[4];
 
-    cf::binarizator_t binType = cf::BINARIZATOR_KRONROD;
+    cf::BinarizeOptions bopts;
+    bopts.setBinarizator(cf::BINARIZATOR_KRONROD);
     if(binarizator == "threshold")
-        binType = cf::BINARIZATOR_THRESHOLD;
+        bopts.setBinarizator(cf::BINARIZATOR_THRESHOLD);
+    else if(binarizator == "kronrod")
+        bopts.setBinarizator(cf::BINARIZATOR_KRONROD);
+    else if(binarizator == "deza")
+        bopts.setBinarizator(cf::BINARIZATOR_DEZA);
+    else
+        cfWarning() << "unknown binarizator:" << binarizator;
+
+    if(!binarizator.empty())
+        cfInfo() << "using binarizator:" << binarizator;
 
     try {
         cf::ImagePtr input_img = cf::ImageLoaderFactory::instance().load(cf::ImageURL(argv[1]));
@@ -58,7 +69,7 @@ int main(int argc, char ** argv)
             return EXIT_FAILURE;
         }
 
-        if(!cf::RImage::instance().binarise("input", "bin", binType, 127)) {
+        if(!cf::RImage::instance().binarise("input", "bin", bopts)) {
             cfError() << "Can't binarize image";
             return EXIT_FAILURE;
         }

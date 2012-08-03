@@ -197,10 +197,12 @@ bool LocalRecognitionServer::recognize()
 
 void LocalRecognitionServer::setOptions()
 {
+    Puma::instance().setBinarizeOptions(binarizeOptions());
     Puma::instance().setRecognizeOptions(recognizeOptions());
     Puma::instance().setFormatOptions(formatOptions());
 
     PUMA_TRACE_FUNC() << "\n"
+//                      << binarizeOptions() << "\n"
                       << recognizeOptions() << "\n"
                       << formatOptions();
 }

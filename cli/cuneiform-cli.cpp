@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 
         server.setTextDebug(cli_opts.outputFormat() == FORMAT_DEBUG);
         CEDPagePtr page = server.recognizeImage(cli_opts.inputURL(),
-                                                BinarizeOptions(),
+                                                parser.binarizeOptions(),
                                                 parser.recognizeOptions(),
                                                 fopts);
 

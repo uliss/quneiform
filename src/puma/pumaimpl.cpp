@@ -32,6 +32,7 @@
 #include "common/tostring.h"
 #include "common/memorybuffer.h"
 #include "common/language.h"
+#include "common/log.h"
 #include "ligas.h"      // 12.06.2002 E.P.
 #include "ccom/ccom.h"
 #include "ced/ced.h"
@@ -170,7 +171,7 @@ void PumaImpl::binarizeImage()
     uint bit_count = CImage::instance().image(PUMA_IMAGE_USER)->biBitCount;
 
     if (bit_count > 1) {
-        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, BINARIZATOR_KRONROD, 0))
+        if (!RIMAGE_Binarise(PUMA_IMAGE_USER, PUMA_IMAGE_BINARIZE, binarize_options_))
             throw PumaException("RIMAGE_Binarise failed");
 
         if (!CIMAGE_ReadDIB(PUMA_IMAGE_BINARIZE, &input_dib_))
@@ -776,6 +777,11 @@ void PumaImpl::recognize() {
         recognizeSpecial();
 
     normalize();
+}
+
+void PumaImpl::setBinarizeOptions(const BinarizeOptions& opt)
+{
+    binarize_options_ = opt;
 }
 
 void PumaImpl::recognizeCorrection() {

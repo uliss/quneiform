@@ -26,7 +26,7 @@ using namespace cf;
 void TestBinarizeOptions::testInit()
 {
     BinarizeOptions bopts;
-    CPPUNIT_ASSERT_EQUAL(BinarizeOptions::KRONROD, bopts.binarizator());
+    CPPUNIT_ASSERT_EQUAL(BINARIZATOR_DEFAULT, bopts.binarizator());
 }
 
 void TestBinarizeOptions::testBoolOptions()

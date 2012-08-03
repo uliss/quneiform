@@ -33,7 +33,7 @@ OldBinarizator::~OldBinarizator()
     delete bin_;
 }
 
-CTDIB * OldBinarizator::binarize(int flags)
+CTDIB * OldBinarizator::binarize()
 {
     if(!source()) {
         RIMAGE_ERROR << " source image not set\n";
@@ -49,20 +49,8 @@ CTDIB * OldBinarizator::binarize(int flags)
         return NULL;
     }
 
-    CTBinarize bType = CTBIN_UNKNOWN;
-    switch(flags) {
-    case BINARIZATOR_DEZA:
-        bType = CTBIN_DEZA;
-        break;
-    case BINARIZATOR_KRONROD:
-        bType = CTBIN_KRONROD;
-        break;
-    default:
-        break;
-    }
-
     // бинаризуем
-    if (!bin_->Binarize(bType, flags)) {
+    if (!bin_->Binarize(CTBIN_KRONROD, CTBIN_KRONROD)) {
         RIMAGE_ERROR << " binarization error\n";
         delete dest;
         return NULL;

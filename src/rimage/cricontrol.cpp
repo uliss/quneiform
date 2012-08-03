@@ -103,9 +103,9 @@ void CRIControl::reset()
     init();
 }
 
-bool CRIControl::binarise(const std::string& src, const std::string& dest,
-                          binarizator_t binType,
-                          int param)
+bool CRIControl::binarise(const std::string& src,
+                          const std::string& dest,
+                          const BinarizeOptions& opts)
 {
     CTDIB * src_dib = CImage::instance().imageDib(src);
 
@@ -114,10 +114,10 @@ bool CRIControl::binarise(const std::string& src, const std::string& dest,
         return false;
     }
 
-    BinarizatorPtr bin = BinarizatorFactory::instance().make(binType, param);
+    BinarizatorPtr bin = BinarizatorFactory::instance().make(opts);
     bin->setSource(src_dib);
 
-    CTDIB * dest_dib = bin->binarize(binType);
+    CTDIB * dest_dib = bin->binarize();
 
     // бинаризуем
     if (!dest_dib) {

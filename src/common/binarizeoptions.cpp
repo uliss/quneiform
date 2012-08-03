@@ -21,7 +21,12 @@
 namespace cf {
 
 BinarizeOptions::BinarizeOptions() :
-    binarizator_(KRONROD)
+    binarizator_(BINARIZATOR_DEFAULT)
+{
+}
+
+BinarizeOptions::BinarizeOptions(binarizator_t t) :
+    binarizator_(t)
 {
 }
 
@@ -81,12 +86,12 @@ std::string BinarizeOptions::optionString(const std::string& key, const std::str
     }
 }
 
-BinarizeOptions::bin_t BinarizeOptions::binarizator() const
+binarizator_t BinarizeOptions::binarizator() const
 {
     return binarizator_;
 }
 
-void BinarizeOptions::setBinarizator(BinarizeOptions::bin_t t)
+void BinarizeOptions::setBinarizator(binarizator_t t)
 {
     binarizator_ = t;
 }

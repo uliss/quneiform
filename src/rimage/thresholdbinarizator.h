@@ -24,6 +24,8 @@
 
 namespace cf {
 
+class BinarizeOptions;
+
 class CLA_EXPO ThresholdBinarizator : public IBinarizator
 {
 public:
@@ -40,9 +42,10 @@ public:
     };
 
 public:
-    ThresholdBinarizator(int threshold = 0);
+    ThresholdBinarizator();
+    ThresholdBinarizator(const BinarizeOptions& opts);
 
-    CTDIB * binarize(int flags);
+    CTDIB * binarize();
 
     grayscale_method_t grayscaleMethod() const;
     void setGrayscaleMethod(grayscale_method_t m);

@@ -19,6 +19,7 @@
 #include "testthresholdbinarizator.h"
 #include "rimage/thresholdbinarizator.h"
 #include "cimage/cticontrol.h"
+#include "common/binarizeoptions.h"
 #include "../cimage/test_cimage_common.h"
 
 #ifndef LOADER_TEST_IMAGE_DIR
@@ -39,11 +40,12 @@ void TestThresholdBinarizator::testInit()
 
 void TestThresholdBinarizator::testBinarize4()
 {
-    cf::ThresholdBinarizator b(200);
+    cf::ThresholdBinarizator b;
+    b.setThreshold(200);
     DibPtr img("color_index.bmp");
     b.setSource(img);
 
-    cf::CTDIB * result = b.binarize(0);
+    cf::CTDIB * result = b.binarize();
     CPPUNIT_ASSERT(result);
 
     cf::CTIControl::writeDIBtoBMP("rimage_threshold_binarize_indexed.bmp", result);
@@ -59,11 +61,12 @@ void TestThresholdBinarizator::testBinarize4()
 
 void TestThresholdBinarizator::testBinarize8()
 {
-    cf::ThresholdBinarizator b(200);
+    cf::ThresholdBinarizator b;
+    b.setThreshold(200);
     DibPtr img("gray.bmp");
     b.setSource(img);
 
-    cf::CTDIB * result = b.binarize(0);
+    cf::CTDIB * result = b.binarize();
     CPPUNIT_ASSERT(result);
 
     cf::CTIControl::writeDIBtoBMP("rimage_threshold_binarize_gray.bmp", result);
@@ -79,11 +82,12 @@ void TestThresholdBinarizator::testBinarize8()
 
 void TestThresholdBinarizator::testBinarize16()
 {
-    cf::ThresholdBinarizator b(200);
+    cf::ThresholdBinarizator b;
+    b.setThreshold(200);
     DibPtr img("color_16.bmp");
     b.setSource(img);
 
-    cf::CTDIB * result = b.binarize(0);
+    cf::CTDIB * result = b.binarize();
     CPPUNIT_ASSERT(result);
 
     cf::CTIControl::writeDIBtoBMP("rimage_threshold_binarize_color_16.bmp", result);
@@ -99,11 +103,12 @@ void TestThresholdBinarizator::testBinarize16()
 
 void TestThresholdBinarizator::testBinarize24()
 {
-    cf::ThresholdBinarizator b(200);
+    cf::ThresholdBinarizator b;
+    b.setThreshold(200);
     DibPtr img("color_24.bmp");
     b.setSource(img);
 
-    cf::CTDIB * result = b.binarize(0);
+    cf::CTDIB * result = b.binarize();
     CPPUNIT_ASSERT(result);
 
     cf::CTIControl::writeDIBtoBMP("rimage_threshold_binarize_color_24.bmp", result);

@@ -21,14 +21,15 @@
 
 #include "common/singleton.h"
 #include "ibinarizator.h"
-#include "criimage.h"
 
 namespace cf {
+
+class BinarizeOptions;
 
 class BinarizatorFactoryImpl
 {
 public:
-    BinarizatorPtr make(binarizator_t t, int param);
+    BinarizatorPtr make(const BinarizeOptions &opts);
 };
 
 typedef Singleton<BinarizatorFactoryImpl, CreateUsingStatic> BinarizatorFactory;

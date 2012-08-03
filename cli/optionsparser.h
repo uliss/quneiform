@@ -25,6 +25,7 @@
 #include "clioptions.h"
 #include "common/formatoptions.h"
 #include "common/recognizeoptions.h"
+#include "common/binarizeoptions.h"
 
 namespace cf
 {
@@ -48,6 +49,11 @@ public:
       * @throw ExitException on parse error
       */
     void parse(int argc, char **argv);
+
+    /**
+     * Returns binarization options
+     */
+    BinarizeOptions binarizeOptions() const;
 
     /**
       * Returns command line options
@@ -75,10 +81,12 @@ private:
     void updateRecognizeOptions();
     void updateCliOptions();
     void updateDebugOptions();
+    void updateBinarizeOptions();
 private:
     FormatOptions format_opts_;
     RecognizeOptions recognize_opts_;
     CliOptions cli_opts_;
+    BinarizeOptions bin_opts_;
 };
 
 }

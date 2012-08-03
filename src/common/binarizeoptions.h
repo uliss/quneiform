@@ -25,21 +25,17 @@
 
 #include "globus.h"
 #include "common/exception.h"
+#include "common/binarizatordef.h"
 
 namespace cf {
 
 class CLA_EXPO BinarizeOptions
 {
 public:
-    enum bin_t {
-        DEZA    = 0,
-        KRONROD,
-        THRESHOLD
-    };
-
     typedef RuntimeExceptionImpl<BinarizeOptions> Exception;
 public:
     BinarizeOptions();
+    BinarizeOptions(binarizator_t t);
 
     bool hasOption(const std::string& key) const;
 
@@ -54,13 +50,13 @@ public:
     void setOption(const std::string&key, const char * value);
     void setOption(const std::string&key, const std::string& value);
 
-    bin_t binarizator() const;
-    void setBinarizator(bin_t t);
+    binarizator_t binarizator() const;
+    void setBinarizator(binarizator_t t);
 private:
     typedef boost::variant<bool, int, float, std::string> Value;
     typedef std::map<std::string, Value> OptionMap;
 private:
-    bin_t binarizator_;
+    binarizator_t binarizator_;
     OptionMap options_;
 };
 

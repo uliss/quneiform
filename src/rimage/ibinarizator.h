@@ -33,7 +33,7 @@ public:
     IBinarizator();
     virtual ~IBinarizator();
 
-    virtual CTDIB * binarize(int flags) = 0;
+    virtual CTDIB * binarize() = 0;
 
     /**
       * Sets source image for binarization

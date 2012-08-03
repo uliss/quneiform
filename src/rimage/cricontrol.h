@@ -70,6 +70,7 @@ namespace cf {
 
 class CTDIB;
 class CRTurner;
+class BinarizeOptions;
 
 class CLA_EXPO CRIControl
 {
@@ -89,11 +90,9 @@ public:
       * Binarises source imgage and stores result into CImage container
       * @param src - source image name in CImage storage
       * @param dest - destination image name in CImage container
-      * @param binType - type of binarizator
-      * @param param - extra binarizator params
       * @return true on success
       */
-    bool binarise(const std::string& src, const std::string& dest, binarizator_t binType, int param = 0);
+    bool binarise(const std::string& src, const std::string& dest, const BinarizeOptions& opts);
 
     /**
       * Inverts image colors and stores result in CImage container
