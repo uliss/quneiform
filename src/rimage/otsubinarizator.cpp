@@ -34,7 +34,6 @@ CTDIB * OtsuBinarizator::binarize()
 {
     hist_.clear();
     HistogramCreator::grayBrighness(hist_, *source());
-    HistogramCreator::save(hist_, "2.bmp");
     calculateThreshold();
     return ThresholdBinarizator::binarize();
 }
