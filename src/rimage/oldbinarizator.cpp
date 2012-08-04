@@ -36,7 +36,7 @@ OldBinarizator::~OldBinarizator()
 CTDIB * OldBinarizator::binarize()
 {
     if(!source()) {
-        RIMAGE_ERROR << " source image not set\n";
+        RIMAGE_ERROR << "source image not set";
         return NULL;
     }
 
@@ -44,14 +44,14 @@ CTDIB * OldBinarizator::binarize()
 
     // закидываем туда картинки
     if (!bin_->setRasters(source(), dest)) {
-        RIMAGE_ERROR << " can't set dib rasters\n";
+        RIMAGE_ERROR << "can't set dib rasters";
         delete dest;
         return NULL;
     }
 
     // бинаризуем
     if (!bin_->Binarize(CTBIN_KRONROD, CTBIN_KRONROD)) {
-        RIMAGE_ERROR << " binarization error\n";
+        RIMAGE_ERROR << "binarization error";
         delete dest;
         return NULL;
     }

@@ -16,19 +16,28 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RIMAGE_DEBUG_H
-#define RIMAGE_DEBUG_H
+#include "testhistogramcreator.h"
+#include "rimage/histogramcreator.h"
+#include "rdib/imageloaderfactory.h"
+#include "common/imageurl.h"
 
-#include <boost/current_function.hpp>
+#ifndef LOADER_TEST_IMAGE_DIR
+#define LOADER_TEST_IMAGE_DIR ""
+#endif
 
-#include "common/log.h"
-#include "common/helper.h"
+CPPUNIT_TEST_SUITE_REGISTRATION(TestHistogramCreator);
 
-#define RIMAGE_ERROR cfError(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_ERROR_FUNC() cfError(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_TRACE_FUNC() cfTrace(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_DEBUG_FUNC() cfDebug(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_WARNING_FUNC() cfWarning(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
+#define IMAGE(name) cf::ImageURL(LOADER_TEST_IMAGE_DIR "/" name)
 
+using namespace cf;
 
-#endif // RIMAGE_DEBUG_H
+void TestHistogramCreator::brightnessHistogram()
+{
+    ImagePtr img = ImageLoaderFactory::instance().load(IMAGE("color_24.bmp"));
+    CTDIB image;
+    image.setBitmap(img->data());
+    Histogram res(0);
+    CPPUNIT_ASSERT(HistogramCreator::grayBrighness(res, image));
+    CPPUNIT_ASSERT_EQUAL(size_t(784), res.sum());
+    CPPUNIT_ASSERT_EQUAL(size_t(256), res.size());
+}

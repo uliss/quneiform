@@ -16,19 +16,23 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RIMAGE_DEBUG_H
-#define RIMAGE_DEBUG_H
+#ifndef HISTOGRAMCREATOR_H
+#define HISTOGRAMCREATOR_H
 
-#include <boost/current_function.hpp>
+#include "common/histogram.h"
+#include "common/ctdib.h"
 
-#include "common/log.h"
-#include "common/helper.h"
+namespace cf
+{
 
-#define RIMAGE_ERROR cfError(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_ERROR_FUNC() cfError(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_TRACE_FUNC() cfTrace(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_DEBUG_FUNC() cfDebug(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_WARNING_FUNC() cfWarning(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
+class HistogramCreator
+{
+public:
+    static bool grayBrighnessFromRGB(Histogram& hist, const void * data, size_t pixelNum);
+    static bool grayBrighness(Histogram& hist, const CTDIB& dib);
+    static bool save(const Histogram& hist, const std::string& fileName);
+};
 
+}
 
-#endif // RIMAGE_DEBUG_H
+#endif // HISTOGRAMCREATOR_H

@@ -50,6 +50,8 @@ int main(int argc, char ** argv)
         bopts.setBinarizator(cf::BINARIZATOR_KRONROD);
     else if(binarizator == "deza")
         bopts.setBinarizator(cf::BINARIZATOR_DEZA);
+    else if(binarizator == "otsu")
+        bopts.setBinarizator(cf::BINARIZATOR_OTSU);
     else
         cfWarning() << "unknown binarizator:" << binarizator;
 

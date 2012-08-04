@@ -21,6 +21,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <numeric>
 
 namespace cf
 {
@@ -53,6 +54,11 @@ class HistogramImpl
         HistogramImpl(IteratorBegin first, IteratorEnd last) {
             hist_.reserve(std::distance(first, last));
             std::copy(first, last, std::back_inserter(hist_));
+        }
+
+        void add(unsigned int value) {
+            if(value < size())
+                hist_[value]++;
         }
 
         iterator begin() {
@@ -123,7 +129,7 @@ class HistogramImpl
         }
 
         T min_element() const {
-            return *min();
+            return * min();
         }
 
         void minimize();
@@ -151,6 +157,11 @@ class HistogramImpl
         void raise(T value);
 
         /**
+         * Resizes histogram
+         */
+        void resize(size_t new_sz);
+
+        /**
          * Returns histogram size
          */
         size_t size() const;
@@ -167,6 +178,16 @@ class HistogramImpl
          */
         template<class IteratorBegin>
         void spacePosition(IteratorBegin it) const;
+
+        /**
+         * Returns sum of all values in histogram
+         */
+        size_t sum() const;
+
+        /**
+         * Returns histogram weighted sum
+         */
+        size_t weightedSum() const;
     private:
         HistogramVector hist_;
 };
@@ -231,6 +252,12 @@ void HistogramImpl<T>::raise(T value) {
 }
 
 template<class T>
+void HistogramImpl<T>::resize(size_t new_sz)
+{
+    hist_.resize(new_sz);
+}
+
+template<class T>
 size_t HistogramImpl<T>::size() const {
     return hist_.size();
 }
@@ -248,6 +275,22 @@ size_t HistogramImpl<T>::spaceCount() const {
         }
     }
     return space_count;
+}
+
+template<class T>
+size_t HistogramImpl<T>::sum() const
+{
+    return std::accumulate(hist_.begin(), hist_.end(), 0);
+}
+
+template<class T>
+size_t HistogramImpl<T>::weightedSum() const
+{
+    size_t res = 0;
+    for(size_t i = 0, total = hist_.size(); i < total; i++)
+        res += i * hist_[i];
+
+    return res;
 }
 
 template<class T>

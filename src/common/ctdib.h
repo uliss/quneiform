@@ -346,6 +346,7 @@ public:
      * @see lineAt(), pixelAt()
      */
     void * imageData();
+    const void * imageData() const;
 
     /**
      * Returns pointer to Line (from 0 to height-1)
@@ -373,6 +374,12 @@ public:
      */
     bool saveToBMP(const std::string& fileName) const;
     bool saveToBMP(std::ostream& os) const;
+
+    /**
+     * Returns pixel count for image
+     * @return 0 on NULL dib
+     */
+    size_t pixelCount() const;
 public:
     static bool saveToBMP(const std::string& fileName, BitmapPtr bitmap);
     static bool saveToBMP(std::ostream& os, BitmapPtr bitmap);

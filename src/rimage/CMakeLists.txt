@@ -2,6 +2,7 @@ set(CF_RIMAGE_SOURCE
     binarizatorfactory.cpp
     cdezabinarizator.cpp
     ckronrodbinarizator.cpp
+    histogramcreator.cpp
     gdata.cpp
     grey-wnd.cpp
     cribinarizator.cpp
@@ -14,6 +15,7 @@ set(CF_RIMAGE_SOURCE
     dll.cpp
     ibinarizator.cpp
     oldbinarizator.cpp
+    otsubinarizator.cpp
     rprogressor.cpp
     thresholdbinarizator.cpp
 )

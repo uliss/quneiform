@@ -4,6 +4,7 @@ add_executable(test_rimage
     test_rimage.cpp
     testcricontrol.cpp
     testthresholdbinarizator.cpp
+    testhistogramcreator.cpp
 )
 
 set(EXTRA_LIB "")

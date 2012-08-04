@@ -951,6 +951,14 @@ bool CTDIB::saveToBMP(std::ostream& os) const
     return true;
 }
 
+size_t CTDIB::pixelCount() const
+{
+    if(isNull())
+        return 0;
+
+    return width() * linesNumber();
+}
+
 bool CTDIB::saveToBMP(const std::string& fileName, BitmapPtr bitmap)
 {
     CTDIB dib;
@@ -984,6 +992,14 @@ bool CTDIB::palleteColor(size_t idx, RGBQuad * dest) const
 }
 
 void * CTDIB::imageData()
+{
+    if(isNull())
+        return NULL;
+
+    return pBitFild;
+}
+
+const void * CTDIB::imageData() const
 {
     if(isNull())
         return NULL;

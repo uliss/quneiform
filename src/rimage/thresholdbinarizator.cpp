@@ -26,17 +26,8 @@
 #include "common/ctdib.h"
 #include "common/binarizeoptions.h"
 
-namespace cf {
-
-inline static int grayAverage(const RGBQuad * q)
+namespace cf
 {
-    return (q->rgbRed + q->rgbGreen + q->rgbBlue) / 3;
-}
-
-inline static int grayLuminance(const RGBQuad * q)
-{
-    return (q->rgbRed * 30 + q->rgbGreen * 59 + q->rgbBlue * 11) / 100;
-}
 
 inline static int grayLuma(const RGBQuad * q)
 {
@@ -97,10 +88,10 @@ inline static void binarizeRGBPixel(const RGBQuad * q, uchar * pixel, uint pixel
 
     switch(m) {
     case ThresholdBinarizator::AVERAGE:
-        gray = grayAverage(q);
+        gray = q->grayAverage();
         break;
     case ThresholdBinarizator::LUMINANCE:
-        gray = grayLuminance(q);
+        gray = q->grayLuminance();
         break;
     case ThresholdBinarizator::LUMA:
         gray = grayLuma(q);

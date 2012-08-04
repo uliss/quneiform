@@ -199,6 +199,8 @@ static binarizator_t parseBinarizator(const std::string& arg)
         return BINARIZATOR_DEZA;
     else if(arg == "threshold")
         return BINARIZATOR_THRESHOLD;
+    else if(arg == "otsu")
+        return BINARIZATOR_OTSU;
     else {
         cfWarning() << "unknown binarizator:" << arg << ". Using default.";
         return BINARIZATOR_DEFAULT;

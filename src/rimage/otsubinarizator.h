@@ -16,19 +16,26 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef RIMAGE_DEBUG_H
-#define RIMAGE_DEBUG_H
+#ifndef OTSUBINARIZATOR_H
+#define OTSUBINARIZATOR_H
 
-#include <boost/current_function.hpp>
+#include "thresholdbinarizator.h"
+#include "common/histogram.h"
 
-#include "common/log.h"
-#include "common/helper.h"
+namespace cf
+{
 
-#define RIMAGE_ERROR cfError(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_ERROR_FUNC() cfError(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_TRACE_FUNC() cfTrace(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_DEBUG_FUNC() cfDebug(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
-#define RIMAGE_WARNING_FUNC() cfWarning(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
+class OtsuBinarizator : public ThresholdBinarizator
+{
+public:
+    OtsuBinarizator();
+    CTDIB * binarize();
+private:
+    void calculateThreshold();
+private:
+    Histogram hist_;
+};
 
+}
 
-#endif // RIMAGE_DEBUG_H
+#endif // OTSUBINARIZATOR_H

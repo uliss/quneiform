@@ -19,6 +19,7 @@
 #include "binarizatorfactory.h"
 #include "oldbinarizator.h"
 #include "thresholdbinarizator.h"
+#include "otsubinarizator.h"
 #include "rimage_debug.h"
 
 #include "common/binarizeoptions.h"
@@ -36,6 +37,10 @@ BinarizatorPtr BinarizatorFactoryImpl::make(const BinarizeOptions& opts)
     case BINARIZATOR_THRESHOLD:
         p.reset(new ThresholdBinarizator(opts));
         RIMAGE_DEBUG_FUNC() << "using threshold binarizator";
+        return p;
+    case BINARIZATOR_OTSU:
+        p.reset(new OtsuBinarizator);
+        RIMAGE_DEBUG_FUNC() << "using Otsu binarizator";
         return p;
     default:
         RIMAGE_ERROR << " unsupported binarizator type: " << opts.binarizator() << "\n";
