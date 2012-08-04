@@ -195,8 +195,8 @@ static binarizator_t parseBinarizator(const std::string& arg)
 
     if(arg == "kronrod")
         return BINARIZATOR_KRONROD;
-    else if(arg == "deza")
-        return BINARIZATOR_DEZA;
+    else if(arg == "default")
+        return BINARIZATOR_DEFAULT;
     else if(arg == "threshold")
         return BINARIZATOR_THRESHOLD;
     else if(arg == "otsu")
@@ -406,6 +406,7 @@ void OptionsParser::printFormatOptions(std::ostream& os) {
 
 void OptionsParser::printRecognizeOptions(std::ostream& os) {
     os << "Recognition options:\n";
+    printOption(os, "--binarizator", "", "Choose binarizator: kronrod or otsu");
     printOption(os, "--onecolumn", "", "Use one column layout.");
     printOption(os, "--dotmatrix", "",
                 "Use recognition mode optimized for text printed with a dot matrix printer.");
