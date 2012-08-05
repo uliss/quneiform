@@ -126,6 +126,88 @@ CTDIB::~CTDIB()
     destroyDIB();
 }
 
+void CTDIB::mapToPixels32(ConstFunction32 func) const
+{
+    if(isNull())
+        return;
+
+    mapToPixels32(func, pBitFild, width(), linesNumber());
+}
+
+void CTDIB::mapToPixels32(Function32 func)
+{
+    if(isNull())
+        return;
+
+    mapToPixels32(func, pBitFild, width(), linesNumber());
+}
+
+void CTDIB::mapToPixels32(CTDIB::Function32 func, void * data, size_t width, size_t height)
+{
+    if(!data)
+        return;
+
+    uchar * begin =  (uchar*) data;
+    uchar * end = begin + (width * height * 4); // 32/8
+    for(uchar * it = begin; it != end; it += 4)
+        func((RGBQuad*) it);
+}
+
+void CTDIB::mapToPixels32(ConstFunction32 func, const void *data, size_t width, size_t height)
+{
+    if(!data)
+        return;
+
+    const uchar * begin =  (uchar*) data;
+    const uchar * end = begin + (width * height * 4); // 32/8
+    for(const uchar * it = begin; it != end; it += 4)
+        func((const RGBQuad*) it);
+}
+
+void CTDIB::mapToPixels24(CTDIB::ConstFunction24 func) const
+{
+    if(isNull())
+        return;
+
+    mapToPixels24(func, pBitFild, width(), linesNumber());
+}
+
+void CTDIB::mapToPixels24(CTDIB::Function24 func)
+{
+    if(isNull())
+        return;
+
+    mapToPixels24(func, pBitFild, width(), linesNumber());
+}
+
+void CTDIB::mapToPixels24(Function24 func, void * data, size_t width, size_t height)
+{
+    if(!data)
+        return;
+
+    uchar * line = (uchar*) data;
+    const size_t line_stride = stride(width, 24);
+
+    for(size_t y = 0; y < height; y++, line += line_stride) {
+        for(size_t x = 0; x < width; x++)
+            func(line + x*3); // 24/8
+    }
+}
+
+void CTDIB::mapToPixels24(ConstFunction24 func, const void * data, size_t width, size_t height)
+{
+    if(!data)
+        return;
+
+    const uchar * line = (const uchar*) data;
+    const size_t line_stride = stride(width, 24);
+
+    for(size_t y = 0; y < height; y++, line += line_stride) {
+        for(size_t x = 0; x < width; x++)
+            func(line + x*3); // 24/8
+    }
+}
+
 bool CTDIB::pixelColor(uint x, uint y, RGBQuad * dest) const
 {
     if(!isValid())
@@ -189,7 +271,13 @@ bool CTDIB::pixelColor(uint x, uint y, RGBQuad * dest) const
             return false;
         }
     }
-    case 24:
+    case 24: {
+        uchar * rgb = (uchar*) pixel_data;
+        dest->rgbBlue = rgb[0];
+        dest->rgbGreen = rgb[1];
+        dest->rgbRed = rgb[2];
+        return true;
+    }
     case 32:
         *dest = *((RGBQuad*) pixel_data);
         return true;
@@ -270,7 +358,13 @@ bool CTDIB::setPixelColor(uint x, uint y, const RGBQuad &c)
         setPixelColorIndex(x, y, (uint) pallete_color_idx);
         return true;
     }
-    case 24:
+    case 24: {
+        uchar * rgb = (uchar*) pixelAt(x, y);
+        rgb[0] = c.rgbBlue;
+        rgb[1] = c.rgbGreen;
+        rgb[2] = c.rgbRed;
+        return true;
+    }
     case 32: {
         RGBQuad * p = (RGBQuad*) pixelAt(x, y);
         if(!p)

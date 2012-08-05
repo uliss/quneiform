@@ -80,6 +80,16 @@ public:
     CTDIB();
     ~CTDIB();
 
+    typedef void (*ConstFunction32)(const RGBQuad*);
+    void mapToPixels32(ConstFunction32 func) const;
+    typedef void (*Function32)(RGBQuad*);
+    void mapToPixels32(Function32 func);
+
+    typedef void (*ConstFunction24)(const uchar*);
+    void mapToPixels24(ConstFunction24 func) const;
+    typedef void (*Function24)(uchar*);
+    void mapToPixels24(Function24 func);
+
     /**
       * Returns pixel color by given coordinate
       * @param x - x pixel coordinate
@@ -381,8 +391,14 @@ public:
      */
     size_t pixelCount() const;
 public:
+    static void mapToPixels32(Function32 func, void * data, size_t width, size_t height);
+    static void mapToPixels32(ConstFunction32 func, const void * data, size_t width, size_t height);
+    static void mapToPixels24(Function24 func, void * data, size_t width, size_t height);
+    static void mapToPixels24(ConstFunction24 func, const void * data, size_t width, size_t height);
+
     static bool saveToBMP(const std::string& fileName, BitmapPtr bitmap);
     static bool saveToBMP(std::ostream& os, BitmapPtr bitmap);
+    static size_t stride(size_t width, uchar depth);
 private:
     enum direction_t {
         DIRECTION_TOP_DOWN = -1,
@@ -414,6 +430,11 @@ private:
     // flag for DIB created by this module
     bool created_by_me_;
 };
+
+inline size_t CTDIB::stride(size_t width, uchar bpp)
+{
+    return ((bpp * width + 31) / 32) * 4;
+}
 
 }
 

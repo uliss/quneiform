@@ -18,7 +18,7 @@
 
 #include "testhistogramcreator.h"
 #include "rimage/histogramcreator.h"
-#include "rdib/imageloaderfactory.h"
+#include "rdib/magickimageloader.h"
 #include "common/imageurl.h"
 
 #ifndef LOADER_TEST_IMAGE_DIR
@@ -33,11 +33,13 @@ using namespace cf;
 
 void TestHistogramCreator::brightnessHistogram()
 {
-    ImagePtr img = ImageLoaderFactory::instance().load(IMAGE("color_24.bmp"));
+    MagickImageLoader l;
+    ImagePtr img = l.load(IMAGE("color_24.bmp"));
     CTDIB image;
     image.setBitmap(img->data());
     Histogram res(0);
     CPPUNIT_ASSERT(HistogramCreator::grayBrighness(res, image));
-    CPPUNIT_ASSERT_EQUAL(size_t(784), res.sum());
+    CPPUNIT_ASSERT_EQUAL(size_t(272), res.sum());
+    CPPUNIT_ASSERT_EQUAL(size_t(49045), res.weightedSum());
     CPPUNIT_ASSERT_EQUAL(size_t(256), res.size());
 }

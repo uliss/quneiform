@@ -24,6 +24,26 @@
 namespace cf
 {
 
+class HistAccumulator
+{
+    static Histogram * hist;
+public:
+    static void set(Histogram * h)
+    {
+        hist = h;
+    }
+
+    static void map32(const RGBQuad * c)
+    {
+        hist->add(c->grayAverage());
+    }
+
+    static void map24(const uchar * pixel)
+    {
+        hist->add((pixel[0] + pixel[1] + pixel[2]) / 3);
+    }
+};
+
 bool HistogramCreator::grayBrighness(Histogram& hist, const CTDIB& dib)
 {
     if(dib.isNull()) {
@@ -42,7 +62,10 @@ bool HistogramCreator::grayBrighness(Histogram& hist, const CTDIB& dib)
     }
 
     if(dib.bpp() == 24)
-        return grayBrighnessFromRGB(hist, dib.imageData(), dib.pixelCount());
+        return grayBrighnessFromRGB24(hist, dib.imageData(), dib.width(), dib.linesNumber());
+
+    if(dib.bpp() == 32)
+        return grayBrighnessFromRGB32(hist, dib.imageData(), dib.width(), dib.linesNumber());
 
     uint h = dib.linesNumber();
     uint w = dib.width();
@@ -88,13 +111,19 @@ bool HistogramCreator::save(const Histogram& hist, const std::string& fileName)
     return image.saveToBMP(fileName);
 }
 
-bool HistogramCreator::grayBrighnessFromRGB(Histogram& hist, const void * data, size_t pixelNum)
+bool HistogramCreator::grayBrighnessFromRGB24(Histogram& hist, const void * data, size_t w, size_t h)
 {
-    const RGBQuad * begin = reinterpret_cast<const RGBQuad*>(data);
-    const RGBQuad * end = begin + pixelNum;
-    for(const RGBQuad * c = begin; c != end; c++)
-        hist.add(c->grayAverage());
+    HistAccumulator::set(&hist);
+    CTDIB::mapToPixels24(HistAccumulator::map24, data, w, h);
+    return true;
+}
 
+Histogram * HistAccumulator::hist = 0;
+
+bool HistogramCreator::grayBrighnessFromRGB32(Histogram& hist, const void * data, size_t w, size_t h)
+{
+    HistAccumulator::set(&hist);
+    CTDIB::mapToPixels32(HistAccumulator::map32, data, w, h);
     return true;
 }
 

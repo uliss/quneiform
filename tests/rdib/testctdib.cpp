@@ -21,6 +21,8 @@
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestCTDIB);
 
+using namespace cf;
+
 void TestCTDIB::testInit()
 {
     cf::CTDIB image;
@@ -129,4 +131,95 @@ void TestCTDIB::testFill()
        }
    }
 
+}
+
+static std::vector<cf::RGBQuad> test_map_32_vector;
+void testMap32Function(cf::RGBQuad * pixel)
+{
+    test_map_32_vector.push_back(*pixel);
+}
+
+void TestCTDIB::testMapTo32()
+{
+    const RGBQuad gray(127, 127, 127);
+    CTDIB image;
+    image.createBegin(4, 4, 32);
+    image.createEnd();
+    image.fill(gray);
+    image.setPixelColor(0, 0, RGBQuad::white());
+    RGBQuad c;
+    image.pixelColor(0, 0, &c);
+    CPPUNIT_ASSERT(c == RGBQuad::white());
+
+    CPPUNIT_ASSERT_EQUAL(size_t(16), image.pixelCount());
+
+    CPPUNIT_ASSERT(test_map_32_vector.empty());
+    image.mapToPixels32(testMap32Function);
+    CPPUNIT_ASSERT_EQUAL(size_t(16), test_map_32_vector.size());
+
+    // NOTE: line order is bottom to top
+    CPPUNIT_ASSERT(test_map_32_vector[11] == gray);
+    CPPUNIT_ASSERT(test_map_32_vector[12] == RGBQuad::white());
+    CPPUNIT_ASSERT(test_map_32_vector[13] == gray);
+}
+
+struct Map24Tester
+{
+    static void f(uchar * pixel)
+    {
+        RGBQuad c;
+        c.rgbBlue = pixel[0];
+        c.rgbGreen = pixel[1];
+        c.rgbRed = pixel[2];
+        data.push_back(c);
+    }
+
+    static size_t size() { return data.size(); }
+    static std::vector<RGBQuad> data;
+};
+
+std::vector<RGBQuad> Map24Tester::data;
+
+void TestCTDIB::testMapTo24()
+{
+    const RGBQuad gray(127, 127, 127);
+    CTDIB image;
+    image.createBegin(4, 4, 24);
+    image.createEnd();
+    image.fill(gray);
+    image.setPixelColor(0, 0, RGBQuad::white());
+    RGBQuad c;
+    image.pixelColor(0, 0, &c);
+    CPPUNIT_ASSERT(c == RGBQuad::white());
+
+    CPPUNIT_ASSERT_EQUAL(size_t(16), image.pixelCount());
+
+    CPPUNIT_ASSERT(Map24Tester::size() == 0);
+    image.mapToPixels24(&Map24Tester::f);
+    CPPUNIT_ASSERT(Map24Tester::size() == 16);
+
+    // NOTE: line order is bottom to top
+    CPPUNIT_ASSERT(Map24Tester::data[11] == gray);
+    CPPUNIT_ASSERT(Map24Tester::data[12] == RGBQuad::white());
+    CPPUNIT_ASSERT(Map24Tester::data[13] == gray);
+}
+
+void TestCTDIB::testSetPixelColor()
+{
+    const RGBQuad gray(127, 127, 127);
+    CTDIB image;
+    image.createBegin(4, 4, 24);
+    image.createEnd();
+    image.fill(gray);
+
+    RGBQuad c;
+    image.pixelColor(0, 0, &c);
+    CPPUNIT_ASSERT(c == gray);
+
+    image.setPixelColor(0, 0, RGBQuad::white());
+    image.pixelColor(0, 0, &c);
+    CPPUNIT_ASSERT(c == RGBQuad::white());
+
+    image.pixelColor(1, 0, &c);
+    CPPUNIT_ASSERT(c == gray);
 }
