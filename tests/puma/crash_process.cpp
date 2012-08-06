@@ -17,8 +17,12 @@
  ***************************************************************************/
 
 #include <string>
+#include <cstdlib>
+
+#ifndef _WIN32
 #include <signal.h>
 #include <sys/wait.h>
+#endif
 
 #include "puma/process_exit_codes.h"
 
@@ -30,6 +34,8 @@ int main(int argc, char * argv[])
         return WORKER_WRONG_ARGUMENT;
 
     const std::string signal(argv[1]);
+    
+#ifndef _WIN32
     if(signal == "segv")
         raise(SIGSEGV);
     else if(signal == "term")
@@ -38,5 +44,17 @@ int main(int argc, char * argv[])
         return 0;
     else
         return WORKER_UNKNOWN_ERROR;
+#else
+    if(signal == "segv") {
+        int * ptr = NULL;
+        *ptr = 0x123;
+    }
+    else if(signal == "term")
+        abort();
+    else if(signal == "ok")
+        return 0;
+    else
+        return WORKER_UNKNOWN_ERROR;
+#endif
 }
 
