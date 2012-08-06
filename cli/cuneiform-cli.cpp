@@ -81,8 +81,14 @@ int main(int argc, char **argv)
     catch(OptionsParser::ExitException& e) {
         return e.exitCode();
     }
-    catch (std::runtime_error& e) {
+    catch (std::exception& e) {
         cfError() << e.what();
         return EXIT_FAILURE;
     }
+    catch(...) {
+        cfError() << "Unknown exception.";
+        return EXIT_FAILURE;
+    }
+    
+    return EXIT_SUCCESS;
 }

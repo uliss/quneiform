@@ -24,11 +24,20 @@
 #include "common/recognizeoptions.h"
 #include "common/formatoptions.h"
 #include "common/consoleprogresscounter.h"
+#include "common/log.h"
 #include "ced/cedpage.h"
 #include "export/exporterfactory.h"
 #include "optionsparser.h"
 
 using namespace cf;
+
+static bool setupLogger()
+{
+    Logger::config().enableRuntimeConfig(MODULES_ALL);
+    return true;
+}
+
+static bool lsetup = setupLogger();
 
 ConsoleProgressCounter * makeCounter() {
     static ConsoleProgressCounter counter;
@@ -72,7 +81,7 @@ int main(int argc, char ** argv) {
         return e.exitCode();
     }
     catch(std::exception& e) {
-        std::cerr << e.what() << std::endl;
+        cfError() << e.what();
         return EXIT_FAILURE;
     }
 
