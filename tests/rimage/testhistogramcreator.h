@@ -25,9 +25,11 @@ class TestHistogramCreator : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestHistogramCreator);
     CPPUNIT_TEST(brightnessHistogram);
+    CPPUNIT_TEST(testSave);
     CPPUNIT_TEST_SUITE_END();
 public:
     void brightnessHistogram();
+    void testSave();
 };
 
 

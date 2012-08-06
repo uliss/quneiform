@@ -28,10 +28,10 @@ namespace cf
 class HistogramCreator
 {
 public:
-    static bool grayBrighnessFromRGB24(Histogram& hist, const void * data, size_t w, size_t h);
-    static bool grayBrighnessFromRGB32(Histogram& hist, const void * data, size_t w, size_t h);
-    static bool grayBrighness(Histogram& hist, const CTDIB& dib);
-    static bool save(const Histogram& hist, const std::string& fileName);
+    static bool grayBrighnessFromRGB24(HistogramInt& hist, const void * data, size_t w, size_t h);
+    static bool grayBrighnessFromRGB32(HistogramInt& hist, const void * data, size_t w, size_t h);
+    static bool grayBrighness(HistogramInt& hist, const CTDIB& dib);
+    static bool save(const HistogramInt& hist, const std::string& fileName, int threshold = -1);
 };
 
 }

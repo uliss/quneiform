@@ -33,7 +33,7 @@ public:
 private:
     void calculateThreshold();
 private:
-    Histogram hist_;
+    HistogramInt hist_;
 };
 
 }

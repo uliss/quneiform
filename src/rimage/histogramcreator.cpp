@@ -26,9 +26,9 @@ namespace cf
 
 class HistAccumulator
 {
-    static Histogram * hist;
+    static HistogramInt * hist;
 public:
-    static void set(Histogram * h)
+    static void set(HistogramInt * h)
     {
         hist = h;
     }
@@ -44,7 +44,7 @@ public:
     }
 };
 
-bool HistogramCreator::grayBrighness(Histogram& hist, const CTDIB& dib)
+bool HistogramCreator::grayBrighness(HistogramInt& hist, const CTDIB& dib)
 {
     if(dib.isNull()) {
         RIMAGE_WARNING_FUNC() << "null DIB";
@@ -85,42 +85,56 @@ bool HistogramCreator::grayBrighness(Histogram& hist, const CTDIB& dib)
     return true;
 }
 
-bool HistogramCreator::save(const Histogram& hist, const std::string& fileName)
+bool HistogramCreator::save(const HistogramInt& hist, const std::string& fileName, int threshold)
 {
-    Histogram tmp = hist;
-    tmp.minimize();
-    const uint w = tmp.size();
-    const uint h = 256;
-
-    CTDIB image;
-    if(!image.createBegin(w, h, 1)) {
-        RIMAGE_ERROR_FUNC() << "can't create dib with width:" << w << "and height:" << h;
+    const uint hist_width = hist.size();
+    if(!hist_width) {
+        RIMAGE_WARNING_FUNC() << "histogram with null width given";
         return false;
     }
-    image.makeBlackAndWhitePallete();
+
+    const uint hist_height = hist.max_element();
+    const uint plot_height = 120;
+
+    CTDIB image;
+    if(!image.createBegin(hist_width, plot_height, 4)) {
+        RIMAGE_ERROR_FUNC() << "can't create dib with width:" << hist_width << "and height:" << plot_height;
+        return false;
+    }
+
+    static const int COLOR_BLACK = 0;
+    static const int COLOR_WHITE = 1;
+    static const int COLOR_GRAY = 2;
+    image.setPalleteColor(COLOR_BLACK, RGBQuad::black());
+    image.setPalleteColor(COLOR_WHITE, RGBQuad::white());
+    image.setPalleteColor(COLOR_GRAY, RGBQuad(127, 127, 127));
+
     if(!image.createEnd())
         return false;
 
-    for(uint y = 0; y < h; y++) {
-        for(uint x = 0; x < w; x++) {
-            uint colorIdx = (tmp[x] > y) ? 0 : 1;
-            image.setPixelColorIndex(x, h - y, colorIdx);
+    for(uint y = 0; y < plot_height; y++) {
+        for(uint x = 0; x < hist_width; x++) {
+            uint colorIdx = (hist[x] > y * (hist_height / (float) plot_height)) ? COLOR_BLACK : COLOR_WHITE;
+            image.setPixelColorIndex(x, (plot_height - 1) - y, colorIdx);
         }
+
+        if(threshold >= 0 && threshold < hist_width)
+            image.setPixelColorIndex(threshold, (plot_height - 1) - y, COLOR_GRAY);
     }
 
     return image.saveToBMP(fileName);
 }
 
-bool HistogramCreator::grayBrighnessFromRGB24(Histogram& hist, const void * data, size_t w, size_t h)
+bool HistogramCreator::grayBrighnessFromRGB24(HistogramInt& hist, const void * data, size_t w, size_t h)
 {
     HistAccumulator::set(&hist);
     CTDIB::mapToPixels24(HistAccumulator::map24, data, w, h);
     return true;
 }
 
-Histogram * HistAccumulator::hist = 0;
+HistogramInt * HistAccumulator::hist = 0;
 
-bool HistogramCreator::grayBrighnessFromRGB32(Histogram& hist, const void * data, size_t w, size_t h)
+bool HistogramCreator::grayBrighnessFromRGB32(HistogramInt& hist, const void * data, size_t w, size_t h)
 {
     HistAccumulator::set(&hist);
     CTDIB::mapToPixels32(HistAccumulator::map32, data, w, h);

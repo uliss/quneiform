@@ -21,6 +21,7 @@
 #include "otsubinarizator.h"
 #include "histogramcreator.h"
 #include "rimage_debug.h"
+#include "common/configoptions.h"
 
 namespace cf
 {
@@ -35,6 +36,13 @@ CTDIB * OtsuBinarizator::binarize()
     hist_.clear();
     HistogramCreator::grayBrighness(hist_, *source());
     calculateThreshold();
+
+    if(ConfigOptions::getBool("debug.RIMAGE.dump", false)) {
+        const char * hist_name = "otsu_histogram.bmp";
+        RIMAGE_WARNING_FUNC() << "dump histogram to:" << hist_name;
+        HistogramCreator::save(hist_, hist_name, threshold());
+    }
+
     return ThresholdBinarizator::binarize();
 }
 

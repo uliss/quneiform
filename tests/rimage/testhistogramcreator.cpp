@@ -37,9 +37,22 @@ void TestHistogramCreator::brightnessHistogram()
     ImagePtr img = l.load(IMAGE("color_24.bmp"));
     CTDIB image;
     image.setBitmap(img->data());
-    Histogram res(0);
+    HistogramInt res(0);
     CPPUNIT_ASSERT(HistogramCreator::grayBrighness(res, image));
-    CPPUNIT_ASSERT_EQUAL(size_t(272), res.sum());
-    CPPUNIT_ASSERT_EQUAL(size_t(49045), res.weightedSum());
+    CPPUNIT_ASSERT_EQUAL(size_t(100 * 100), res.sum());
+    CPPUNIT_ASSERT_EQUAL(size_t(2029205), res.weightedSum());
     CPPUNIT_ASSERT_EQUAL(size_t(256), res.size());
+}
+
+void TestHistogramCreator::testSave()
+{
+    HistogramInt res(0);
+    CPPUNIT_ASSERT(!HistogramCreator::save(res, "test_histogram_creator.bmp", 100));
+    res.push_back(0);
+    res.push_back(0);
+    res.push_back(0);
+    res.push_back(0);
+
+    CPPUNIT_ASSERT(res.max_element() == 0);
+    CPPUNIT_ASSERT(HistogramCreator::save(res, "test_histogram_creator.bmp", 100));
 }

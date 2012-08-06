@@ -309,6 +309,7 @@ void HistogramImpl<T>::spacePosition(IteratorBegin it) const {
 }
 
 typedef HistogramImpl<unsigned char> Histogram;
+typedef HistogramImpl<unsigned int> HistogramInt;
 
 }
 
