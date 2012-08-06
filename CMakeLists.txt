@@ -57,10 +57,10 @@ if(WIN32)
 	endif()
 endif()
 
-find_package(Boost 1.33)
+find_package(Boost 1.41)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
-    find_package(Boost 1.33 COMPONENTS serialization)
+    find_package(Boost 1.41 COMPONENTS serialization)
 
     if(Boost_SERIALIZATION_FOUND)
         set(CF_SERIALIZE True)
