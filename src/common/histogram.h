@@ -26,6 +26,14 @@
 namespace cf
 {
 
+#ifdef max
+#undef max
+#endif
+
+#ifdef min
+#undef min
+#endif
+
 template<class T>
 class HistogramImpl
 {

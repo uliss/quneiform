@@ -71,7 +71,10 @@
 #include "minmax.h"
 #include "filestuff.h"
 #else
-#include "windows.h"
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <windows.h>
 #endif
 
 #include "cttypes.h" /* Most type definitions are here. */
