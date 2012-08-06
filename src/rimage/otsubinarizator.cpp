@@ -37,7 +37,7 @@ CTDIB * OtsuBinarizator::binarize()
     HistogramCreator::grayBrighness(hist_, *source());
     calculateThreshold();
 
-    if(ConfigOptions::getBool("debug.RIMAGE.dump", false)) {
+    if(ConfigOptions::getBool("debug.module.RIMAGE.dump", false)) {
         const char * hist_name = "otsu_histogram.bmp";
         RIMAGE_WARNING_FUNC() << "dump histogram to:" << hist_name;
         HistogramCreator::save(hist_, hist_name, threshold());
