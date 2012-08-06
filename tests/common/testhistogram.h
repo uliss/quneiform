@@ -28,12 +28,14 @@ class TestHistogram: public CppUnit::TestFixture
     CPPUNIT_TEST(testClear);
     CPPUNIT_TEST(testSpaceCount);
     CPPUNIT_TEST(testFindU);
+    CPPUNIT_TEST(testSum);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testClear();
     void testSpaceCount();
     void testFindU();
+    void testSum();
 };
 
 #endif /* TESTHISTOGRAM_H_ */

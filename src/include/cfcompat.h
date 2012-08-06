@@ -34,6 +34,9 @@
 #include <wchar.h>
 
 #ifdef WIN32
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
 #include <windows.h>
 #include <io.h>
 #endif

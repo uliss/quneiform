@@ -103,9 +103,9 @@ void CRIControl::reset()
     init();
 }
 
-bool CRIControl::binarise(const std::string& src, const std::string& dest,
-                          binarizator_t binType,
-                          int param)
+bool CRIControl::binarise(const std::string& src,
+                          const std::string& dest,
+                          const BinarizeOptions& opts)
 {
     CTDIB * src_dib = CImage::instance().imageDib(src);
 
@@ -114,14 +114,14 @@ bool CRIControl::binarise(const std::string& src, const std::string& dest,
         return false;
     }
 
-    BinarizatorPtr bin = BinarizatorFactory::instance().make(binType, param);
+    BinarizatorPtr bin = BinarizatorFactory::instance().make(opts);
     bin->setSource(src_dib);
 
-    CTDIB * dest_dib = bin->binarize(binType);
+    CTDIB * dest_dib = bin->binarize();
 
     // бинаризуем
     if (!dest_dib) {
-        RIMAGE_ERROR << " binarization error: " << src << "\n";
+        RIMAGE_ERROR << " binarization error: " << src;
         delete src_dib;
         return false;
     }
@@ -140,7 +140,7 @@ bool CRIControl::rotate(const std::string& src, const std::string& dest, int hig
 
     // открываем исходный
     if (!openSourceDIB(src)) {
-        RIMAGE_ERROR << "OpenSourceDIB failed\n";
+        RIMAGE_ERROR << "OpenSourceDIB failed";
         return false;
     }
 
@@ -219,7 +219,7 @@ bool CRIControl::turn(const std::string &src, const std::string& dest, rimage_tu
     // генерим новенький
     if (dest_dib_) {
         closeSourceDIB();
-        RIMAGE_ERROR << " previous dest dib not removed\n";
+        RIMAGE_ERROR << " previous dest dib not removed";
         return false;
     }
 
@@ -235,7 +235,7 @@ bool CRIControl::turn(const std::string &src, const std::string& dest, rimage_tu
         bRet = turner_->TurnDIB(src_dib_, dest_dib_, angle);
     }
     else {
-        RIMAGE_ERROR << " can't create destination dib\n";
+        RIMAGE_ERROR << " can't create destination dib";
         closeSourceDIB();
         delete dest_dib_;
         return false;
@@ -271,7 +271,7 @@ bool CRIControl::inverse(const std::string& src, const std::string& dest)
 
     // Инвертируем
     if (!invertor_->Inverse(dest_dib_)) {
-        RIMAGE_ERROR << " image inverse error: " << src << "\n";
+        RIMAGE_ERROR << " image inverse error: " << src;
         bErrors = false;
     }
 
@@ -294,14 +294,14 @@ bool CRIControl::readDIBCopy(const std::string& name, BitmapPtr * dest)
     if (CIMAGE_ReadDIBCopy(name,  dest))
         return true;
 
-    RIMAGE_ERROR << " copy error: " << name << "\n";
+    RIMAGE_ERROR << "copy error: " << name;
     return false;
 }
 
 bool CRIControl::closeSourceDIB()
 {
     if (src_dib_ == NULL) {
-        RIMAGE_ERROR << " source not opened\n";
+        RIMAGE_ERROR << "source not opened";
         return false;
     }
 
@@ -318,7 +318,7 @@ bool CRIControl::openSourceDIB(const std::string& name)
     BitmapPtr handle = CImage::instance().imageCopy(name);
 
     if (!handle) {
-        RIMAGE_ERROR << " image not found: " << name << "\n";
+        RIMAGE_ERROR << "image not found:" << name;
         return false;
     }
 
@@ -327,7 +327,7 @@ bool CRIControl::openSourceDIB(const std::string& name)
     if (!src_dib_->setBitmap(handle)) {
         delete src_dib_;
         src_dib_ = NULL;
-        RIMAGE_ERROR << " invalid image: " << name << "\n";
+        RIMAGE_ERROR << "invalid image:" << name;
         return false;
     }
 
@@ -351,7 +351,7 @@ bool CRIControl::closeDestinationDIB(const std::string& name)
     }
 
     if (!saveCopy(name, dib)) {
-        RIMAGE_ERROR << " image saving failed: " << name << "\n";
+        RIMAGE_ERROR << "image saving failed:" << name;
         return false;
     }
 
@@ -363,7 +363,7 @@ bool CRIControl::closeDestinationDIB(const std::string& name)
 bool CRIControl::createDestinatonDIB()
 {
     if (src_dib_ == NULL) {
-        RIMAGE_ERROR << " source image is not opened\n";
+        RIMAGE_ERROR << "source image is not opened";
         return false;
     }
 

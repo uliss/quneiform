@@ -27,11 +27,17 @@ class TestCTDIB : public CppUnit::TestFixture
     CPPUNIT_TEST(testInit);
     CPPUNIT_TEST(testSaveToBMP);
     CPPUNIT_TEST(testFill);
+    CPPUNIT_TEST(testMapTo24);
+    CPPUNIT_TEST(testMapTo32);
+    CPPUNIT_TEST(testSetPixelColor);
     CPPUNIT_TEST_SUITE_END();
 public:
     void testInit();
     void testSaveToBMP();
     void testFill();
+    void testMapTo32();
+    void testMapTo24();
+    void testSetPixelColor();
 };
 
 #endif // TESTCTDIB_H

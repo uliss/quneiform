@@ -16,25 +16,24 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef OLDBINARIZATOR_H
-#define OLDBINARIZATOR_H
+#ifndef HISTOGRAMCREATOR_H
+#define HISTOGRAMCREATOR_H
 
-#include "ibinarizator.h"
+#include "common/histogram.h"
+#include "common/ctdib.h"
 
-namespace cf {
+namespace cf
+{
 
-class CRIBinarizator;
-
-class OldBinarizator : public IBinarizator
+class HistogramCreator
 {
 public:
-    OldBinarizator();
-    ~OldBinarizator();
-    CTDIB * binarize();
-private:
-    CRIBinarizator * bin_;
+    static bool grayBrighnessFromRGB24(HistogramInt& hist, const void * data, size_t w, size_t h);
+    static bool grayBrighnessFromRGB32(HistogramInt& hist, const void * data, size_t w, size_t h);
+    static bool grayBrighness(HistogramInt& hist, const CTDIB& dib);
+    static bool save(const HistogramInt& hist, const std::string& fileName, int threshold = -1);
 };
 
 }
 
-#endif // OLDBINARIZATOR_H
+#endif // HISTOGRAMCREATOR_H

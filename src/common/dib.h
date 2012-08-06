@@ -128,7 +128,8 @@ enum {
 };
 
 PACKED_STRUCT_PROLOGUE
-struct RGBQuad { // rgbq
+struct RGBQuad
+{  // rgbq
     RGBQuad() :
         rgbBlue(0),
         rgbGreen(0),
@@ -146,6 +147,9 @@ struct RGBQuad { // rgbq
                 rgbGreen == r.rgbGreen &&
                 rgbRed == r.rgbRed;
     }
+public:
+    uint grayAverage() const { return (rgbRed + rgbGreen + rgbBlue) / 3; }
+    uint grayLuminance() const { return (rgbRed * 30 + rgbGreen * 59 + rgbBlue * 11) / 100; }
 public:
     static RGBQuad black() { return RGBQuad(0, 0, 0, 0); }
     static RGBQuad white() { return RGBQuad(255, 255, 255, 0); }

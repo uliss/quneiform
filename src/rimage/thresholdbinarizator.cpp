@@ -24,18 +24,10 @@
 #include "rimage_debug.h"
 #include "minmax.h"
 #include "common/ctdib.h"
+#include "common/binarizeoptions.h"
 
-namespace cf {
-
-inline static int grayAverage(const RGBQuad * q)
+namespace cf
 {
-    return (q->rgbRed + q->rgbGreen + q->rgbBlue) / 3;
-}
-
-inline static int grayLuminance(const RGBQuad * q)
-{
-    return (q->rgbRed * 30 + q->rgbGreen * 59 + q->rgbBlue * 11) / 100;
-}
 
 inline static int grayLuma(const RGBQuad * q)
 {
@@ -86,14 +78,20 @@ inline static void binarizeRGBPixel(const RGBQuad * q, uchar * pixel, uint pixel
                                     int threshold,
                                     ThresholdBinarizator::grayscale_method_t m)
 {
+    if(!q)
+        RIMAGE_ERROR << "NULL RGBQuad pointer given";
+
+    if(!pixel)
+        RIMAGE_ERROR << "Null pixel pointer given";
+
     int gray = 0;
 
     switch(m) {
     case ThresholdBinarizator::AVERAGE:
-        gray = grayAverage(q);
+        gray = q->grayAverage();
         break;
     case ThresholdBinarizator::LUMINANCE:
-        gray = grayLuminance(q);
+        gray = q->grayLuminance();
         break;
     case ThresholdBinarizator::LUMA:
         gray = grayLuma(q);
@@ -124,23 +122,30 @@ inline static void binarizeRGBPixel(const RGBQuad * q, uchar * pixel, uint pixel
         setWhite(pixel, pixelShift);
 }
 
-ThresholdBinarizator::ThresholdBinarizator(int threshold) :
-    threshold_(threshold),
+ThresholdBinarizator::ThresholdBinarizator() :
+    threshold_(0),
     grayscale_method_(LUMINANCE)
 {
 }
 
-CTDIB * ThresholdBinarizator::binarize(int)
+ThresholdBinarizator::ThresholdBinarizator(const BinarizeOptions& opts) :
+    threshold_(0),
+    grayscale_method_(LUMINANCE)
+{
+    threshold_ = opts.optionInt("threshold", 127);
+}
+
+CTDIB * ThresholdBinarizator::binarize()
 {
     if(!source()) {
-        RIMAGE_ERROR << "source image not set\n";
+        RIMAGE_ERROR << "source image not set";
         return NULL;
     }
 
     CTDIB * dest = createDestination();
 
     if(!dest) {
-        RIMAGE_ERROR << " can't create destination dib\n";
+        RIMAGE_ERROR << "can't create destination dib";
         return NULL;
     }
 
@@ -150,13 +155,20 @@ CTDIB * ThresholdBinarizator::binarize(int)
     for(uint y = 0; y < height; y++) {
         for(uint x = 0; x < width; x++) {
             RGBQuad color;
-            source()->pixelColor(x, y, &color);
+            if(!source()->pixelColor(x, y, &color))
+                RIMAGE_ERROR << "can't get pixel color at:" << x << 'x' << y;
+
             uchar * dest_pixel = (uchar*) dest->pixelAt(x, y);
+            if(!dest_pixel)
+                RIMAGE_ERROR << "can't get pointer to pixel at:" << x << 'x' << y;
+
             uint pixel_shift = x % 8;
 
             binarizeRGBPixel(&color, dest_pixel, pixel_shift, threshold_, grayscale_method_);
         }
     }
+
+    RIMAGE_TRACE_FUNC() << "image width:" << width << "height:" << height;
 
     return dest;
 }

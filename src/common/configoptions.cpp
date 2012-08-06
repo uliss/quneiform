@@ -21,6 +21,7 @@
 #include <boost/current_function.hpp>
 
 #include "configoptions.h"
+#include "filesystem.h"
 
 namespace cf
 {
@@ -57,7 +58,9 @@ void ConfigOptions::open()
         return;
 
     try {
-        parser_.load(getConfigPath());
+        std::string path = getConfigPath();
+        if(fs::fileExists(path))
+            parser_.load(path);
     }
     catch(std::exception& e) {
         std::cerr << e.what() << std::endl;

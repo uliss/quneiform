@@ -25,7 +25,7 @@
 
 namespace cf {
 
-class ConfigOptions
+class CLA_EXPO ConfigOptions
 {
     ConfigOptions();
     ConfigOptions(const ConfigOptions&);

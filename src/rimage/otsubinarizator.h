@@ -16,25 +16,26 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef OLDBINARIZATOR_H
-#define OLDBINARIZATOR_H
+#ifndef OTSUBINARIZATOR_H
+#define OTSUBINARIZATOR_H
 
-#include "ibinarizator.h"
+#include "thresholdbinarizator.h"
+#include "common/histogram.h"
 
-namespace cf {
+namespace cf
+{
 
-class CRIBinarizator;
-
-class OldBinarizator : public IBinarizator
+class OtsuBinarizator : public ThresholdBinarizator
 {
 public:
-    OldBinarizator();
-    ~OldBinarizator();
+    OtsuBinarizator();
     CTDIB * binarize();
 private:
-    CRIBinarizator * bin_;
+    void calculateThreshold();
+private:
+    HistogramInt hist_;
 };
 
 }
 
-#endif // OLDBINARIZATOR_H
+#endif // OTSUBINARIZATOR_H

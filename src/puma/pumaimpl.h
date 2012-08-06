@@ -26,6 +26,7 @@
 
 #include "cfcompat.h"
 #include "specprj.h"
+#include "common/binarizeoptions.h"
 #include "common/formatoptions.h"
 #include "common/rect.h"
 #include "common/exception.h"
@@ -89,6 +90,12 @@ class PumaImpl
          * Recognizes image
          */
         void recognize();
+
+        /**
+         * Sets binarize options
+         * @see setFormatOptions(), setRecognizeOptions()
+         */
+        void setBinarizeOptions(const BinarizeOptions& opt);
 
         /**
          * Sets format options
@@ -167,6 +174,7 @@ class PumaImpl
         Bool32 need_clean_line_;
         const char * recog_name_;
         special_project_t special_project_;
+        BinarizeOptions binarize_options_;
 };
 
 typedef RuntimeExceptionImpl<PumaImpl> PumaException;

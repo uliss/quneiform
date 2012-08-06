@@ -21,8 +21,14 @@
 
 #include <boost/current_function.hpp>
 
-#include "common/debug.h"
+#include "common/log.h"
+#include "common/helper.h"
 
-#define RIMAGE_ERROR cf::Debug() << "[RIMAGE] ERROR " << BOOST_CURRENT_FUNCTION
+#define RIMAGE_ERROR cfError(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
+#define RIMAGE_ERROR_FUNC() cfError(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
+#define RIMAGE_TRACE_FUNC() cfTrace(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
+#define RIMAGE_DEBUG_FUNC() cfDebug(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
+#define RIMAGE_WARNING_FUNC() cfWarning(cf::MODULE_RIMAGE) << METHOD_SIGNATURE()
+
 
 #endif // RIMAGE_DEBUG_H

@@ -1,5 +1,11 @@
+2012-08-04
+--binarizator command option added. You can choose from kronrod (default) and
+otsu binatizators.
+
+
 2012-06-24
 --page-number option added to use with multi page images.
+
 
 2012-04-17
 --turn cli option added. Now it's possible to turn images before recognition

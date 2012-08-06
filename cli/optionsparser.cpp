@@ -29,9 +29,13 @@
 #include "common/language.h"
 #include "common/outputformat.h"
 #include "common/log.h"
+#include "common/binarizatordef.h"
 
 namespace cf
 {
+
+// binarize options
+static binarizator_t binarizator = BINARIZATOR_DEFAULT;
 
 // recognition options
 static int do_dotmatrix = FALSE;
@@ -82,11 +86,13 @@ const static int IMAGE_OUTPUT_DIR_FLAG = 1027;
 const static int PAGE_TEMPLATE_FLAG = 1028;
 const static int PAGE_TURN_FLAG = 1029;
 const static int PAGE_NUMBER_FLAG = 1030;
+const static int BINARIZATOR_FLAG = 1031;
 
 static const char * const short_options = ":abho:pvVl:f:u:";
 static const struct option long_options[] = {
     //
     { "append", no_argument, &do_append, 'a' },//
+    { "binarizator", required_argument, NULL, BINARIZATOR_FLAG },//
     { "bom", no_argument, &write_bom, 1 }, //
     { "debug-dump", no_argument, &do_dump, 1 },//
     { "dotmatrix", no_argument, &do_dotmatrix, 1 },//
@@ -182,6 +188,25 @@ static bool isFormatOption(const char * opt) {
     return (strcmp(opt, "-f") == 0) || (strcmp(opt, "--format") == 0);
 }
 
+static binarizator_t parseBinarizator(const std::string& arg)
+{
+    if(arg.empty())
+        return BINARIZATOR_DEFAULT;
+
+    if(arg == "kronrod")
+        return BINARIZATOR_KRONROD;
+    else if(arg == "default")
+        return BINARIZATOR_DEFAULT;
+    else if(arg == "threshold")
+        return BINARIZATOR_THRESHOLD;
+    else if(arg == "otsu")
+        return BINARIZATOR_OTSU;
+    else {
+        cfWarning() << "unknown binarizator:" << arg << ". Using default.";
+        return BINARIZATOR_DEFAULT;
+    }
+}
+
 static Rect parsePageTemplate(const std::string& str)
 {
     int x = 0;
@@ -222,6 +247,9 @@ void OptionsParser::getoptParse(int argc, char **argv)
         case 'h':
             printUsage(argv[0]);
             throw OptionsParser::ExitException(EXIT_SUCCESS);
+            break;
+        case BINARIZATOR_FLAG:
+            binarizator = parseBinarizator(optarg);
             break;
         case IMAGE_OUTPUT_DIR_FLAG:
             output_image_dir = optarg;
@@ -312,12 +340,19 @@ void OptionsParser::getoptParse(int argc, char **argv)
     }
 }
 
-void OptionsParser::parse(int argc, char **argv) {
+void OptionsParser::parse(int argc, char **argv)
+{
     getoptParse(argc, argv);
     updateFormatOptions();
     updateRecognizeOptions();
     updateCliOptions();
     updateDebugOptions();
+    updateBinarizeOptions();
+}
+
+BinarizeOptions OptionsParser::binarizeOptions() const
+{
+    return bin_opts_;
 }
 
 void OptionsParser::print(std::ostream& os) {
@@ -371,6 +406,7 @@ void OptionsParser::printFormatOptions(std::ostream& os) {
 
 void OptionsParser::printRecognizeOptions(std::ostream& os) {
     os << "Recognition options:\n";
+    printOption(os, "--binarizator", "", "Choose binarizator: kronrod or otsu");
     printOption(os, "--onecolumn", "", "Use one column layout.");
     printOption(os, "--dotmatrix", "",
                 "Use recognition mode optimized for text printed with a dot matrix printer.");
@@ -432,6 +468,11 @@ void OptionsParser::updateDebugOptions() {
 
     if(do_verbose)
         print(std::cerr);
+}
+
+void OptionsParser::updateBinarizeOptions()
+{
+    bin_opts_.setBinarizator(binarizator);
 }
 
 void OptionsParser::updateFormatOptions() {

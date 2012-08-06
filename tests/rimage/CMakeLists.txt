@@ -1,9 +1,17 @@
 add_definitions(-DLOADER_TEST_IMAGE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/")
 
-add_executable(test_rimage
+set(TEST_RIMAGE_SRC
     test_rimage.cpp
     testcricontrol.cpp
     testthresholdbinarizator.cpp
+)
+
+if(CF_USE_IMAGE_LIBRARY_IMAGE_MAGICK)
+    list(APPEND TEST_RIMAGE_SRC testhistogramcreator.cpp)
+endif()
+
+add_executable(test_rimage
+    ${TEST_RIMAGE_SRC}
 )
 
 set(EXTRA_LIB "")

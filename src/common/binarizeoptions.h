@@ -19,14 +19,45 @@
 #ifndef BINARIZEOPTIONS_H
 #define BINARIZEOPTIONS_H
 
+#include <map>
+#include <string>
+#include <boost/variant.hpp>
+
 #include "globus.h"
+#include "common/exception.h"
+#include "common/binarizatordef.h"
 
 namespace cf {
 
 class CLA_EXPO BinarizeOptions
 {
 public:
+    typedef RuntimeExceptionImpl<BinarizeOptions> Exception;
+public:
     BinarizeOptions();
+    BinarizeOptions(binarizator_t t);
+
+    bool hasOption(const std::string& key) const;
+
+    bool optionBool(const std::string& key, bool fallback) const;
+    float optionFloat(const std::string& key, float fallback) const;
+    int optionInt(const std::string& key, int fallback) const;
+    std::string optionString(const std::string& key, const std::string& fallback) const;
+
+    void setOption(const std::string& key, bool value);
+    void setOption(const std::string& key, float value);
+    void setOption(const std::string& key, int value);
+    void setOption(const std::string&key, const char * value);
+    void setOption(const std::string&key, const std::string& value);
+
+    binarizator_t binarizator() const;
+    void setBinarizator(binarizator_t t);
+private:
+    typedef boost::variant<bool, int, float, std::string> Value;
+    typedef std::map<std::string, Value> OptionMap;
+private:
+    binarizator_t binarizator_;
+    OptionMap options_;
 };
 
 }

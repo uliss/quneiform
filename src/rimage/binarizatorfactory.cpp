@@ -19,22 +19,31 @@
 #include "binarizatorfactory.h"
 #include "oldbinarizator.h"
 #include "thresholdbinarizator.h"
+#include "otsubinarizator.h"
 #include "rimage_debug.h"
+
+#include "common/binarizeoptions.h"
 
 namespace cf {
 
-BinarizatorPtr BinarizatorFactoryImpl::make(binarizator_t t, int param)
+BinarizatorPtr BinarizatorFactoryImpl::make(const BinarizeOptions& opts)
 {
     BinarizatorPtr p;
-    switch(t) {
+    switch(opts.binarizator()) {
     case BINARIZATOR_KRONROD:
         p.reset(new OldBinarizator);
+        RIMAGE_DEBUG_FUNC() << "using KRONROD binarizator";
         return p;
     case BINARIZATOR_THRESHOLD:
-        p.reset(new ThresholdBinarizator(param));
+        p.reset(new ThresholdBinarizator(opts));
+        RIMAGE_DEBUG_FUNC() << "using threshold binarizator";
+        return p;
+    case BINARIZATOR_OTSU:
+        p.reset(new OtsuBinarizator);
+        RIMAGE_DEBUG_FUNC() << "using Otsu binarizator";
         return p;
     default:
-        RIMAGE_ERROR << " unknown binarizator type: " << t << "\n";
+        RIMAGE_ERROR << " unsupported binarizator type: " << opts.binarizator() << "\n";
         return p;
     }
 }

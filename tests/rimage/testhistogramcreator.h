@@ -16,25 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef OLDBINARIZATOR_H
-#define OLDBINARIZATOR_H
+#ifndef TESTHISTOGRAMCREATOR_H
+#define TESTHISTOGRAMCREATOR_H
 
-#include "ibinarizator.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-namespace cf {
-
-class CRIBinarizator;
-
-class OldBinarizator : public IBinarizator
+class TestHistogramCreator : public CppUnit::TestFixture
 {
+    CPPUNIT_TEST_SUITE(TestHistogramCreator);
+    CPPUNIT_TEST(brightnessHistogram);
+    CPPUNIT_TEST(testSave);
+    CPPUNIT_TEST_SUITE_END();
 public:
-    OldBinarizator();
-    ~OldBinarizator();
-    CTDIB * binarize();
-private:
-    CRIBinarizator * bin_;
+    void brightnessHistogram();
+    void testSave();
 };
 
-}
 
-#endif // OLDBINARIZATOR_H
+#endif // TESTHISTOGRAMCREATOR_H

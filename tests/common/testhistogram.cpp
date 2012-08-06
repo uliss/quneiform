@@ -128,3 +128,15 @@ void TestHistogram::testFindU() {
     h.init(h6, h6 + 5);
     CPPUNIT_ASSERT(!h.findU());
 }
+
+void TestHistogram::testSum()
+{
+    Histogram h(0);
+    CPPUNIT_ASSERT_EQUAL(size_t(0), h.sum());
+    h.resize(100);
+    CPPUNIT_ASSERT_EQUAL(size_t(0), h.sum());
+    h.add(1);
+    h.add(2);
+    h.add(2);
+    CPPUNIT_ASSERT_EQUAL(size_t(3), h.sum());
+}

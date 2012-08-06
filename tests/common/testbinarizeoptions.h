@@ -16,25 +16,27 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef OLDBINARIZATOR_H
-#define OLDBINARIZATOR_H
+#ifndef TESTBINARIZEOPTIONS_H
+#define TESTBINARIZEOPTIONS_H
 
-#include "ibinarizator.h"
+#include <cppunit/extensions/HelperMacros.h>
 
-namespace cf {
-
-class CRIBinarizator;
-
-class OldBinarizator : public IBinarizator
+class TestBinarizeOptions : public CppUnit::TestFixture
 {
+    CPPUNIT_TEST_SUITE(TestBinarizeOptions);
+    CPPUNIT_TEST(testInit);
+    CPPUNIT_TEST(testBoolOptions);
+    CPPUNIT_TEST(testFloatOptions);
+    CPPUNIT_TEST(testIntOptions);
+    CPPUNIT_TEST(testStringOptions);
+    CPPUNIT_TEST_SUITE_END();
 public:
-    OldBinarizator();
-    ~OldBinarizator();
-    CTDIB * binarize();
-private:
-    CRIBinarizator * bin_;
+    void testInit();
+    void testBoolOptions();
+    void testFloatOptions();
+    void testIntOptions();
+    void testStringOptions();
 };
 
-}
 
-#endif // OLDBINARIZATOR_H
+#endif // TESTBINARIZEOPTIONS_H

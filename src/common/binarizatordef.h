@@ -16,25 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef OLDBINARIZATOR_H
-#define OLDBINARIZATOR_H
+#ifndef BINARIZATORDEF_H
+#define BINARIZATORDEF_H
 
-#include "ibinarizator.h"
-
-namespace cf {
-
-class CRIBinarizator;
-
-class OldBinarizator : public IBinarizator
+namespace cf
 {
-public:
-    OldBinarizator();
-    ~OldBinarizator();
-    CTDIB * binarize();
-private:
-    CRIBinarizator * bin_;
+
+enum binarizator_t {
+    BINARIZATOR_DEZA = 0,
+    BINARIZATOR_KRONROD,
+    BINARIZATOR_THRESHOLD,
+    BINARIZATOR_OTSU,
+    BINARIZATOR_DEFAULT = BINARIZATOR_KRONROD
 };
 
 }
 
-#endif // OLDBINARIZATOR_H
+#endif // BINARIZATORDEF_H

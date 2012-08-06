@@ -76,13 +76,8 @@ enum rimage_turn_angle_t {
     RIMAGE_TURN_180 = 3
 };
 
-enum binarizator_t {
-    BINARIZATOR_DEZA = 0,
-    BINARIZATOR_KRONROD,
-    BINARIZATOR_THRESHOLD
-};
-
 class CRIControl;
+class BinarizeOptions;
 typedef Singleton<CRIControl, CreateUsingStatic> RImage;
 }
 
@@ -96,8 +91,7 @@ typedef void   (*PRIMAGECBPRogressFinish)(void);
 
 RIMAGE_FUNC bool RIMAGE_Binarise(const std::string& srcImageName,
                                  const std::string& destImageName,
-                                 cf::binarizator_t binType,
-                                 int param = 0);
+                                 const cf::BinarizeOptions& opts);
 RIMAGE_FUNC bool RIMAGE_Rotate(const std::string& src, const std::string& dest, int32_t, int32_t);
 RIMAGE_FUNC Bool32 RIMAGE_Roll(puchar , puchar , int32_t, int32_t, uint32_t);
 RIMAGE_FUNC bool RIMAGE_Turn(const std::string &src,

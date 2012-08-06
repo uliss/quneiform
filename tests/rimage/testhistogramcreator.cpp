@@ -16,25 +16,43 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>   *
  ***************************************************************************/
 
-#ifndef OLDBINARIZATOR_H
-#define OLDBINARIZATOR_H
+#include "testhistogramcreator.h"
+#include "rimage/histogramcreator.h"
+#include "rdib/magickimageloader.h"
+#include "common/imageurl.h"
 
-#include "ibinarizator.h"
+#ifndef LOADER_TEST_IMAGE_DIR
+#define LOADER_TEST_IMAGE_DIR ""
+#endif
 
-namespace cf {
+CPPUNIT_TEST_SUITE_REGISTRATION(TestHistogramCreator);
 
-class CRIBinarizator;
+#define IMAGE(name) cf::ImageURL(LOADER_TEST_IMAGE_DIR "/" name)
 
-class OldBinarizator : public IBinarizator
+using namespace cf;
+
+void TestHistogramCreator::brightnessHistogram()
 {
-public:
-    OldBinarizator();
-    ~OldBinarizator();
-    CTDIB * binarize();
-private:
-    CRIBinarizator * bin_;
-};
-
+    MagickImageLoader l;
+    ImagePtr img = l.load(IMAGE("color_24.bmp"));
+    CTDIB image;
+    image.setBitmap(img->data());
+    HistogramInt res(0);
+    CPPUNIT_ASSERT(HistogramCreator::grayBrighness(res, image));
+    CPPUNIT_ASSERT_EQUAL(size_t(100 * 100), res.sum());
+    CPPUNIT_ASSERT_EQUAL(size_t(2029205), res.weightedSum());
+    CPPUNIT_ASSERT_EQUAL(size_t(256), res.size());
 }
 
-#endif // OLDBINARIZATOR_H
+void TestHistogramCreator::testSave()
+{
+    HistogramInt res(0);
+    CPPUNIT_ASSERT(!HistogramCreator::save(res, "test_histogram_creator.bmp", 100));
+    res.push_back(0);
+    res.push_back(0);
+    res.push_back(0);
+    res.push_back(0);
+
+    CPPUNIT_ASSERT(res.max_element() == 0);
+    CPPUNIT_ASSERT(HistogramCreator::save(res, "test_histogram_creator.bmp", 100));
+}
