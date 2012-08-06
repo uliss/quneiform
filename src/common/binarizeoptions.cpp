@@ -41,7 +41,7 @@ bool BinarizeOptions::optionBool(const std::string& key, bool fallback) const
         return fallback;
 
     try {
-        return boost::get<bool>(options_.at(key));
+        return boost::get<bool>(options_.find(key)->second);
     }
     catch(const boost::bad_get&) {
         throw Exception() << "not bool value for key:" << key;
@@ -54,7 +54,7 @@ float BinarizeOptions::optionFloat(const std::string& key, float fallback) const
         return fallback;
 
     try {
-        return boost::get<float>(options_.at(key));
+        return boost::get<float>(options_.find(key)->second);
     }
     catch(const boost::bad_get&) {
         throw Exception() << "not float value for key:" << key;
@@ -66,7 +66,7 @@ int BinarizeOptions::optionInt(const std::string& key, int fallback) const
     if(!hasOption(key))
         return fallback;
     try {
-        return boost::get<int>(options_.at(key));
+        return boost::get<int>(options_.find(key)->second);
     }
     catch(const boost::bad_get&) {
         throw Exception() << "not int value for key:" << key;
@@ -79,10 +79,10 @@ std::string BinarizeOptions::optionString(const std::string& key, const std::str
         return fallback;
 
     try {
-        return boost::get<std::string>(options_.at(key));
+        return boost::get<std::string>(options_.find(key)->second);
     }
     catch(const boost::bad_get&) {
-        throw Exception() << "not string value for key:" << key << options_.at(key);
+        throw Exception() << "not string value for key:" << key << options_.find(key)->second;
     }
 }
 
