@@ -18,6 +18,10 @@
 
 #include "console_messages.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 namespace cf {
 
 namespace console {
@@ -45,6 +49,38 @@ static const char * color(color_t c) {
         return "\033[0m";
     }
 #else
+    HANDLE hout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    switch(c) {
+    case NORMAL:
+        SetConsoleTextAttribute(hout, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+        break;
+    case RED:
+        SetConsoleTextAttribute(hout, FOREGROUND_RED | FOREGROUND_INTENSITY);
+        break;
+    case GREEN:
+        SetConsoleTextAttribute(hout, FOREGROUND_GREEN);
+        break;
+    case YELLOW:
+        SetConsoleTextAttribute(hout, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+        break;
+    case BLUE:
+        SetConsoleTextAttribute(hout, FOREGROUND_BLUE);
+        break;
+    case PURPLE:
+        SetConsoleTextAttribute(hout, FOREGROUND_RED | FOREGROUND_BLUE);
+        break;
+    case GRAY:
+        SetConsoleTextAttribute(hout, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+        break;
+    case WHITE:
+        SetConsoleTextAttribute(hout, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+        break;
+    default:
+        SetConsoleTextAttribute(hout, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+        break;
+    }
+    
     return "";
 #endif
 }
@@ -68,7 +104,11 @@ std::ostream& info(std::ostream& os) {
 
 }
 
-std::ostream& operator<<(std::ostream& os, const cf::console::ColorMessage& msg) {
-    os << cf::console::color(msg.color) << msg.message << cf::console::color(cf::console::NORMAL);
+std::ostream& operator<<(std::ostream& os, const cf::console::ColorMessage& msg) 
+{
+    // do not chain! this order required to WIN32 colors to work
+    os << cf::console::color(msg.color); 
+    os << msg.message;
+    os << cf::console::color(cf::console::NORMAL);
     return os;
 }
