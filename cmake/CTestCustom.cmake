@@ -1,0 +1,2 @@
+set(CTEST_CUSTOM_WARNING_EXCEPTION ${CTEST_CUSTOM_WARNING_EXCEPTION}
+    "circular inclusion of") 
