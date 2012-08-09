@@ -90,6 +90,7 @@ Page::Page(const ImageURL& imageUrl, bool load) :
 
 Page::~Page() {
     delete thumb_;
+    delete binarized_;
 }
 
 void Page::addReadArea(const QRect& r)

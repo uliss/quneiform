@@ -70,7 +70,7 @@ QImage PageBinarizator::binarize(const ImageURL& path)
     dib.setBitmap(raw_data->data());
 
     BinarizeOptions opts;
-    opts.setBinarizator(BINARIZATOR_OTSU);
+    opts.setBinarizator(BINARIZATOR_DEFAULT);
     BinarizatorPtr bptr = BinarizatorFactory::instance().make(opts);
     bptr->setSource(&dib);
     CTDIB * bin_dib = bptr->binarize();

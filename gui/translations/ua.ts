@@ -308,28 +308,36 @@
 <context>
     <name>ImageView</name>
     <message>
-        <location filename="../widgets/imageview.cpp" line="121"/>
+        <location filename="../widgets/imageview.cpp" line="132"/>
         <source>Recognize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/imageview.cpp" line="129"/>
+        <location filename="../widgets/imageview.cpp" line="140"/>
         <source>Select recognize area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/imageview.cpp" line="136"/>
+        <location filename="../widgets/imageview.cpp" line="147"/>
         <source>Fit to width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/imageview.cpp" line="141"/>
+        <location filename="../widgets/imageview.cpp" line="152"/>
         <source>Fit to page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/imageview.cpp" line="146"/>
+        <location filename="../widgets/imageview.cpp" line="157"/>
         <source>Original size</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImageWidget</name>
+    <message>
+        <location filename="../widgets/imagewidget.cpp" line="82"/>
+        <source>Binarize</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -542,7 +550,7 @@
     <message>
         <location filename="../widgets/mainwindow.ui" line="147"/>
         <location filename="../../../build/clang-debug/gui/ui_mainwindow.h" line="221"/>
-        <location filename="../widgets/mainwindow.cpp" line="447"/>
+        <location filename="../widgets/mainwindow.cpp" line="451"/>
         <source>Open images</source>
         <translation type="unfinished"></translation>
     </message>
@@ -740,7 +748,7 @@ Do you want to save it?</source>
     </message>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="297"/>
-        <location filename="../widgets/mainwindow.cpp" line="545"/>
+        <location filename="../widgets/mainwindow.cpp" line="549"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
@@ -752,10 +760,10 @@ Do you want to save it?</source>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="309"/>
         <location filename="../widgets/mainwindow.cpp" line="323"/>
-        <location filename="../widgets/mainwindow.cpp" line="474"/>
-        <location filename="../widgets/mainwindow.cpp" line="618"/>
-        <location filename="../widgets/mainwindow.cpp" line="630"/>
-        <location filename="../widgets/mainwindow.cpp" line="654"/>
+        <location filename="../widgets/mainwindow.cpp" line="478"/>
+        <location filename="../widgets/mainwindow.cpp" line="622"/>
+        <location filename="../widgets/mainwindow.cpp" line="634"/>
+        <location filename="../widgets/mainwindow.cpp" line="658"/>
         <source>Quneiform OCR</source>
         <translation type="unfinished"></translation>
     </message>
@@ -776,58 +784,58 @@ Do you want to save it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="449"/>
+        <location filename="../widgets/mainwindow.cpp" line="453"/>
         <source>Images (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="458"/>
+        <location filename="../widgets/mainwindow.cpp" line="462"/>
         <source>Open Quneiform packet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="460"/>
-        <location filename="../widgets/mainwindow.cpp" line="599"/>
+        <location filename="../widgets/mainwindow.cpp" line="464"/>
+        <location filename="../widgets/mainwindow.cpp" line="603"/>
         <source>Quneiform packets (*.qfp)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="475"/>
+        <location filename="../widgets/mainwindow.cpp" line="479"/>
         <source>Can&apos;t read packet &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="546"/>
+        <location filename="../widgets/mainwindow.cpp" line="550"/>
         <source>Page already recognized. Do you want to recognize it again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="597"/>
+        <location filename="../widgets/mainwindow.cpp" line="601"/>
         <source>Save Quneiform packet to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="619"/>
+        <location filename="../widgets/mainwindow.cpp" line="623"/>
         <source>Can&apos;t open file &quot;%1&quot; for writing. Check file permissions!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="631"/>
+        <location filename="../widgets/mainwindow.cpp" line="635"/>
         <source>Page is not recognized yet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="754"/>
+        <location filename="../widgets/mainwindow.cpp" line="758"/>
         <source>Recent files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="761"/>
+        <location filename="../widgets/mainwindow.cpp" line="765"/>
         <source>Recent packets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/mainwindow.cpp" line="887"/>
+        <location filename="../widgets/mainwindow.cpp" line="891"/>
         <source>Recognition error</source>
         <translation type="unfinished"></translation>
     </message>

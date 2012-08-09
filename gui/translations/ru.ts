@@ -258,6 +258,13 @@
     </message>
 </context>
 <context>
+    <name>ImageWidget</name>
+    <message>
+        <source>Binarize</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Lang</name>
     <message>
         <source>Bulgarian</source>
