@@ -261,7 +261,7 @@
     <name>ImageWidget</name>
     <message>
         <source>Binarize</source>
-        <translation type="unfinished"></translation>
+        <translation>Бинаризация</translation>
     </message>
 </context>
 <context>
